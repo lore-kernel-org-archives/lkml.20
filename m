@@ -1,65 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218995;
-	b=gsLisVcpF3jegK+baTtCNNt+wns3GHxwpkOjdxDm3x7gR0lwBXi3QGOWX9nPBvUMnRi3
-	 YZV2XWNfgZsib0WaNDjPq1E96IXqp+z0vMgxC510dLidmbLWwUH8erXBlbdbXBgW3Y5XJ
-	 vNmmDD09BhMIxHGWTuhUXxe1cwb05MHPmX5rqgDkrF7iqgvckln+aRdzIgkk3xg9F992B
-	 m72mRBBQmQCL+hYA39iHkjcOrsqyWi3ckHJPE1RnDEI0J772JWh8A3wPH1qZGoVvd03pW
-	 vek0xGev+cUyvl9BzD3EmdhqK0fTt5awLGZ0XtQxAxutXqDRg2+PxdvCLngoGJBgnQg==
+	t=1793219045;
+	b=Uh5440HzQEuDpInhZH+00H0DCGYFURtL5A6LpXeXoIZJgwXRfEjZbQN8evb8xisu42rh
+	 xFO15ed7mIMB4evmnglrcaHb5IuLNr6z7PuB9p3pgE4YGN5WEiFNh92CtBgHaH6RVAzx/
+	 oiZrMbXGqHlC8SBSzXmQVbqis89Yy6jFpMuoM29IjiHjTO20ZljO0Nt1V3Ly+4OdCDtUE
+	 pvpG+iAoTMelN2GVb8t65TF/DOtew3AuH5jDD+tY/M43SHfwOGGTPTRT4k8HBh2u27M74
+	 1FIE8HS7OwcX6rvkIPtKEU6xo2JIWyX/unAYy1/JMj2jnRq6xKQX7m59/QGaUg2pczg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218995;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=Ipgv8rmvtp6GT7cHXnZSnikAq5xmVO9Okns04bQSCyo=;
-	b=TRp8l0fed6D0X7EsxHdSkhsMQ/eBU5AIp1ehmDUDxivQeFdA0Bftb2LlfHIi913Hh/tt
-	 GLRbB/xFeUM29OpYcuCWXlpQOanR5A/ID5hEC7pf65AyzSfxRWkn8R2tfhSSjDQikYGb6
-	 UG9AYcFYj1EOLqN2JhzmthKfyyFFV+dYQeeIIgdrJ1k85iAWOVriShHWgcVvntOG0rVTx
-	 J4qrftq07Wfj9+Lm1kvK81tfEBmvHGdu98+VG345wXwHiojsKRFPdus68uxlNMfP1UX2T
-	 vsgG8EeVwl99SMndfSAga3AfnWYP5n2bRcRRiIyVYR2VyTCjy5IYtRMhm9xmqc/K1Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219045;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yau+cqWHppsEyJegcQgqY8UAEBWteAU0el19tRPccxs=;
+	b=zuh85aeVZ5VqqjgWlHyv91wKZpZLxPepIhnxMvRGn/sYtSkmQ+uSSvF0N4/yclhICmx7
+	 IWwz8oN7eeYrCSfrK/5zLkYHGNS6HUZbdbDc7XNIOlhIoanrIeCW1YKL3HUWXVdwmKMYx
+	 JtG3zW4RFUlZTLXDGxlrcdHz96QILpGRSN+PIBiPhWFBYPXW0fP5QQJWWZ12qMutQlPLj
+	 /GnWnCWeOIdhsmC2pufr+A8oVphgzUOTLvE066DRaEJIRhcDFQDzJ2/KOlBrL+EiMuinc
+	 +wj5e6I85l1ypR2SMyHZYBC2QjZSyQQFGybSs6YoZ577UlV1j0D6nDLkwbJT2Zs+swg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCQmoYvd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nq/PeQua";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04667606A31D;
-	Wed, 28 Oct 2026 20:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3021606A31A;
+	Wed, 28 Oct 2026 20:24:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCQmoYvd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F031F01825;
-	Wed, 28 Oct 2026 20:23:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nq/PeQua
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80431F01825;
+	Wed, 28 Oct 2026 20:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218994;
-	bh=Ipgv8rmvtp6GT7cHXnZSnikAq5xmVO9Okns04bQSCyo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=BCQmoYvdPFuxDGcgYVXcoGOhBadVV29fjFGZ75cGAPdbuv881H+JoZIsjWI98RBdy
-	 EZpO5Bg7CzuM6KjGwPdiIQrP+aggCqbZCiBaDIN+xTeLl1z3CSg2kZeSpok4dh/W55
-	 mupIwGez6i0qGTQ86grpe47HS+EVB40GztDnXWZTjIcfOvm62QHxiJHIFlFs4wGTyM
-	 zOQDsvxFcz6zu9vooMLNgQGRbHlAzn3MnuzRvpQeDN0UnowD2n4k1eHEr8FmrpnGki
-	 nM0MJbuo8CjCa8jERdbOL1/dLoGelhl1NubL3PJ2YgCZyYVf+906HW/o6+mIrMvo3E
-	 Kx9l9WmQ64eYw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf
- Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
- Tudor Ambarus <tudor.ambarus@linaro.org>, =?utf-8?Q?Andr=C3=A9?= Draszik
- <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Radu Rendec
- <radu@rendec.net>, linux-arm-kernel@lists.infradead.org, Mariano Marciello
- <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>,
- linux-clk@vger.kernel.org, Jakub =?utf-8?Q?G=C5=82owacki?=
- <jglow@google.com>, Brian Norris
- <briannorris@chromium.org>
-Subject: Re: [PATCH 7/9] irqchip/google-cpm: Add CPM IRQ driver
-In-Reply-To: <20261026144346.7.I41e14e9460b3add41e69dac97abf57a741e9c4c5@changeid>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.7.I41e14e9460b3add41e69dac97abf57a741e9c4c5@changeid>
-Date: Wed, 28 Oct 2026 21:23:11 +0100
-Message-ID: <87se1py3ps.ffs@fw13>
+	s=k20260515; t=1793219044;
+	bh=Yau+cqWHppsEyJegcQgqY8UAEBWteAU0el19tRPccxs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nq/PeQuakKtfuNJ2QuBKQEP2sN6Eee1W4DcK47HblxoeLWHqcjxzkRw/x6fCdJgVh
+	 gpQ0EwuwR6Mikl/ZclzpqvirJnPWo3fLFkb+8/bx2o4gPMfTALAfGq+UPq2ElBpWBi
+	 doGAQYMwMznYYHXQKlXUzMhXRwPMpEg0FHWxJ9L4sV+N0iW8lfKC2KkS8MLzJXv4+l
+	 zSxwL+ki31gF78XSZ+iU8CnE2ude9mnrGv4pnRIdGj9H8fsZTXa9U76E6UlM/YWPjg
+	 GxnGBv3GbkqvbJkEvAHdQWjAU2PZc8v54jj/pRxf/XnvwAdxRuP79nsTOqC8ZzMOeV
+	 pRGrPIjSjyzRA==
+Date: Wed, 28 Oct 2026 13:24:00 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
+	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi
+ indirect call!
+Message-ID: <20261028202400.GA835963@ax162>
+References: <202610290223.iOEGeDs2-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,88 +58,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202610290223.iOEGeDs2-lkp@intel.com>
 
-On Mon, Oct 26 2026 at 14:43, Brian Norris wrote:
-> +
-> +static void cpm_irq_process_irq_status(struct cpm_irq_info *info, u32 irq_number)
-> +{
-> +	int ret;
-> +
-> +	ret = generic_handle_domain_irq_safe(info->domain, irq_number);
+On Thu, Oct 29, 2026 at 03:10:30AM +0800, kernel test robot wrote:
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> commit: 7a097aba725501c399b5e93d0199aa3a2f6e9c88 clocksource/drivers/timer-mediatek: Convert to OF probing
+> date:   2 weeks ago
+> config: x86_64-buildonly-randconfig-1001-20261028 (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/config)
+> compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
+> 
+> All warnings (new ones prefixed by >>):
+> 
+> >> vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
 
-  int ret = generic...();
+This warning occurs as a result of the above change because
+of_device_get_match_data() returns NULL when CONFIG_OF is disabled,
+which results in LLVM dropping the kCFI setup since it knows that there
+is no valid target for this call. Adding a check for a NULL timer_init
+avoids the warning, which would probably be more robust anyways since
+of_device_get_match_data() could return NULL even with CONFIG_OF=y?
 
-> +	if (ret)
-> +		dev_err(info->dev, "Error handling IRQ %u, error code %d\n", irq_number, ret);
-> +}
-> +
-
-> +static const struct irq_domain_ops cpm_irq_domain_ops = {
-> +	.map = cpm_irq_domain_map,
-> +	.xlate = irq_domain_xlate_onecell,
-
-Tabular layout please
-
-> +};
-> +
-> +static int cpm_irq_probe(struct auxiliary_device *adev, const struct auxiliary_device_id *id)
-> +{
-> +	struct device *dev = &adev->dev;
-> +	struct cpm_client *client;
-> +	struct cpm_irq_info *info;
-> +	int ret;
-> +
-> +	info = devm_kzalloc(dev, sizeof(*info), GFP_KERNEL);
-> +	if (!info)
-> +		return -ENOMEM;
-> +
-> +	info->dev = dev;
-> +	auxiliary_set_drvdata(adev, info);
-> +
-> +	info->domain = irq_domain_create_tree(dev_fwnode(dev), &cpm_irq_domain_ops, info);
-> +	if (!info->domain) {
-> +		dev_err(dev, "Unable to add irq domain\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, cpm_irq_domain_remove_action, info->domain);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to add irq domain removal action\n");
-> +		return ret;
-> +	}
-> +
-> +	client = devm_cpm_request_client(dev, CPM_AP_NS_IRQ_SERVICE,
-> +					 cpm_irq_rx_callback, info);
-> +	if (IS_ERR(client))
-> +		return dev_err_probe(dev, PTR_ERR(client),
-> +				     "Failed to request cpm client\n");
-
-No line break required. You have 100 characters.
-
-> +static struct auxiliary_driver cpm_irq_driver = {
-> +	.probe = cpm_irq_probe,
-> +	.name = "cpm-irq-chip",
-> +	.id_table = cpm_irq_id_table,
-
-Tabular layout
-
-> +};
-> +
-
-Pointless new line.
-
-> +module_auxiliary_driver(cpm_irq_driver);
-
-Other than those nitpicks this looks reasonable.
-
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("Google CPM IRQ chip driver");
-> +MODULE_AUTHOR("Jim Wylder <jwylder@google.com>");
-
-This does not add up: I can't find Jim in the From/SOB tags of the mail.
-
-Thanks,
-
-        tglx
+diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
+index 842d6ee4259e..33bf4c97bb77 100644
+--- a/drivers/clocksource/timer-mediatek.c
++++ b/drivers/clocksource/timer-mediatek.c
+@@ -353,6 +353,8 @@ static int mtk_timer_probe(struct platform_device *pdev)
+ 	int (*timer_init)(struct platform_device *pdev);
+ 
+ 	timer_init = of_device_get_match_data(&pdev->dev);
++	if (!timer_init)
++		return -ENODEV;
+ 	return timer_init(pdev);
+ }
+ 
+-- 
+Cheers,
+Nathan
