@@ -1,63 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205547;
-	b=Unlw910OsQ2w1rcRn3y51JylBp+3I7YaIz5z3yNTeQPN9XQHcJcxy2NfW1cPKuthDP5D
-	 WJ2Wib3W1KUiDeIie+hW06CDfrURF1krdugV0LIfKPq0IsoIwJv5iOeKiq01MyuCUkGI7
-	 DauOcB2GGCGPZOHI8PiPs/aEIEOexTmdo6Ne2Q2f4vL5irOnmDZSucuARe/dAmiRnPPlL
-	 /BXe4TFW6dmjzBShAN9RuUUMbrz0/BUZefAMDlaf0PHhyr8+Cft3yhuqiffTS6oI63dcl
-	 hHXhegAxRZRUzhOcGCADXciqfPy0oSU4Z8zG0H6hj4SetKC6N/K1rzrYYKE2iWJsCMw==
+	t=1793205588;
+	b=Thh1w/1jd+E6dzAgyHk5HD5Rf4cDja04Vw5ipaRYxGJrhf9L+1St8RV+AXN7LVOZJGcj
+	 wTvu5cP8aKJY1SpwAuRsN4l3akLjE7KetrspX7NkbhSZl6iybnlhlJ4u2Nv7J9LM39VRD
+	 htzvTVE5hGBnpiCPtUtEa3W4eu8zGWvC5f00oUV51HqZ+602qNaOgWOLD8uJxTzHj6+uS
+	 ziEuTp4FEV5D7xT6xWanvm6YCQGba6ED3Pk3q7oN68/6kxTbpInFa+FNKoXzRXqxuMXiG
+	 UtAr1WEeiWWWtrjFMxKTH4ANNuo8PyOBZCpT053wosIMzumT9F2EdhInLeKTw1dsJkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205547;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FJEE2c6fP9+vbVlsO1bTu5Zo4jN7YBVTgORfgVG+93g=;
-	b=kusDFoL641LHMsVDrIAXMz1hIKiOajtiNOY3vBsEylXM9byBXDHWT9BaFXEgCUWxaMlj
-	 +6AhTV9PEFvnpsYyNIFGbdFWNxI1rMo1sGie00BnIE80uPEE+memDfvtJvu76XIWxNK4B
-	 eXBsfyZzHy/WGyhlR2VrMHIaZkrQb13hxzJQ66C5ZNa3Zb+g/TQw/k8zCHPDkDKe8eZ24
-	 CKUY7aiTGCpWuiCC3A7BR98qG75jVE2gPRV5aQAGqF/KJq/tJ5oc2da5Qy82b3D6Of7b/
-	 owPFzu0GzsWLbzdOoNVLzjApCSvyhHcq/WxvXWf9baARCW3tNsOKJ1JVDlYcvaxnVrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205588;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
+	bh=d047tn7ZyUAE4CZJF6OwqmbdpCg4ZRFaWnDJv2Xlu+8=;
+	b=YfqywLhHykKF/P7cUqAG5QJQPKQBmcXTVpWFT/jnu1uENaSYGxCrYlTbaYgasmW2C9rf
+	 mjhLgaAgC6zyA0gKoT79b9On8ch3a78y2YXJS5pD957m46bGSk8j7y6m+446K5ktGkKAy
+	 oua6O5deYqAewN6UqIb1c0hAJ9tSC0irDTY6gvwKX2UmmHwJ0k216GArfZanDmKKqV9L9
+	 QedjoZe1qR2CiAKQKPaYJCbPr0EXOFDb9mAstzAc5JSFkKmmBPSdjowDr+agzG0wdf3GT
+	 DaqcPgIVZIQsYz8bN4WTWZ0GufRyfqr6CDvKJG8xvANtpetROZLGcZe1yHPI+kqt8mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Ofi8Y/gZ";
-	arc=none smtp.remote-ip=95.215.58.140
-Received: from mta1.migadu.com (out-140.mta1.migadu.com [95.215.58.140])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qCMpHgry;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DEB606A32C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:39:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4DEB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF80606A5F9
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CF80606A5F9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ofi8Y/gZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9nz2xhM4HVaiKvtJZUjKlU0KmR1aLdEGIfS80MTL+oU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205545; v=1; x=1793810345;
- b=Ofi8Y/gZVDgBRPjmaAtBt98Kwh4e32GseE3p0zu29UpaGeJ8OqQpgUkKvcC4VLFOjGPnfwbF
- DPmjCVrj7kwt9o4cuk3Y0Vt/nxjRvARposZHbhtniKTPwucJ+4LvgVSOffnUtytCJYyiQ0pId9e
- dAlZX0SRXGCxGmpJMp74E24I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 3e398e7a4f6b45ca;
-	Wed, 28 Oct 2026 16:39:05 +0000
-X-Mizu-Trace-ID: 3e398e7a4f6b45ca
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Wen Yang <wen.yang@linux.dev>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 39/39] sysctl: remove the extra pointers and the compatibility bounds read
-Date: Thu, 29 Oct 2026 00:35:18 +0800
-Message-Id: <b6e4cbd509687301a8ee2106f19a3ac01e7671a6.1793204511.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
-References: <cover.1793204511.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qCMpHgry
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 88C031A137B;
+	Wed, 28 Oct 2026 16:39:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 54A7E60769;
+	Wed, 28 Oct 2026 16:39:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C4ABD103290D5;
+	Wed, 28 Oct 2026 17:39:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793205580; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=d047tn7ZyUAE4CZJF6OwqmbdpCg4ZRFaWnDJv2Xlu+8=;
+	b=qCMpHgryog1vBCpYw2HnRskue6gsLgB9uoaHyNvM0YNItQkxRCo1T8oI+12cGb5oxg6MgS
+	EKhcVHkSpJmnXgfq03mwJGrHU6ylLbZNOshuzLyT1eTX31bfoylyj6RjFTeTa91PVNX3uA
+	CFDxOIL63kdYVpkQfQtYyg/55KilXBl/VU1++SiVbKEjHIqY3qphAdZqMYGB+2bC8GGbl/
+	4MOIDH9pwJEfT7Vdg+fVsuEpQIAxgZ3O10KHXWyo4M32AwlQ2xslc/Y1AAmDKDqMFHMV4q
+	LTGC39X7sUZYIBe9gi1HS29LySxXbrl1x144YQZPz+lqRxwlrLlStqOmUUvgtQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Mark Brown <broonie@kernel.org>,  Richard Weinberger <richard@nod.at>,
+  Vignesh Raghavendra <vigneshr@ti.com>,  linux-spi@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org
+Subject: Re: [PATCH v2 2/5] spi: dw: Add DDR (Dual Data-Rate) support for
+ enhanced SPI mode
+In-Reply-To: <20261028121100.79667-3-changhuang.liang@starfivetech.com>
+	(Changhuang Liang's message of "Wed, 28 Oct 2026 05:10:57 -0700")
+References: <20261028121100.79667-1-changhuang.liang@starfivetech.com>
+	<20261028121100.79667-3-changhuang.liang@starfivetech.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 28 Oct 2026 17:39:32 +0100
+Message-ID: <87a4nxg4or.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,367 +74,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Wen Yang <wen.yang@linux.dev>
+On 28/10/2026 at 05:10:57 -07, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
 
-Every entry now carries numeric min/max, so the pointer bounds have no
-remaining users. Drop extra1 and extra2 from struct ctl_table, remove the
-pointer branch from the range converters, and delete the shared pointer
-constants that only existed to initialise those fields.
+> Add support for 1S-xD-xD DDR transfers in the enhanced SPI mode of the
+> DW SPI controller, on controllers that have DW_SPI_CAP_DDR.
+>
+> SPI_CTRLR0.SPI_DDR_EN switches the address, dummy and data phases to
+> DDR all together, and it only applies to the Dual/Quad/Octal frame
+> formats. So in supports_op() only accept DTR operations where the
+> command is sent in STR on one line, the data phase uses two lines or
+> more, and the address and dummy phases are DTR on the data lines.
+> DDR instruction phase (8D-8D-8D) is not supported for now.
+>
+> For DDR transfers the dummy phase takes two bits per clock on each
+> line, so the wait cycles must be halved. Factor the wait cycle
+> calculation into dw_spi_enh_wait_cycles(), so that supports_op() and
+> exec_op() use the same value, and refuse dummy phases that are not a
+> whole number of clock cycles.
+>
+> When DDR is enabled, program the DDR_DRIVE_EDGE register. The
+> recommended TDE value is SCKDV / 4, clamped to SCKDV / 2 - 1 and to
+> the field width. The register is only written when the controller
+> supports DDR.
+>
+> Finally, advertise DTR to the spi-mem layer through a dedicated
+> dw_spi_ddr_mem_caps when the controller has DW_SPI_CAP_DDR.
+>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
-Suggested-by: Joel Granados <joel.granados@kernel.org>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- fs/proc/proc_sysctl.c  | 26 ++++-------------
- include/linux/sysctl.h | 65 +++++++++++++++++++-----------------------
- kernel/sysctl.c        | 47 ++++++++----------------------
- kernel/time/jiffies.c  |  2 +-
- lib/test_sysctl.c      | 24 ++++++++--------
- 5 files changed, 59 insertions(+), 105 deletions(-)
+Looks correct to me.
 
-diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index 3e65d75710df..dbbc94b61b71 100644
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -1105,7 +1105,6 @@ static int sysctl_err(const char *path, const struct ctl_table *table, char *fmt
- 
- static int sysctl_check_table_array(const char *path, const struct ctl_table *table)
- {
--	unsigned int extra;
- 	int err = 0;
- 
- 	if ((table->proc_handler == proc_douintvec) ||
-@@ -1117,23 +1116,6 @@ static int sysctl_check_table_array(const char *path, const struct ctl_table *ta
- 	if (table->proc_handler == proc_dou8vec_minmax) {
- 		if (table->maxlen != sizeof(u8))
- 			err |= sysctl_err(path, table, "array not allowed");
--
--		if (table->extra1) {
--			extra = *(unsigned int *) table->extra1;
--			if (extra > 255U)
--				err |= sysctl_err(path, table,
--						"range value too large for proc_dou8vec_minmax");
--		}
--		if (table->extra2) {
--			extra = *(unsigned int *) table->extra2;
--			if (extra > 255U)
--				err |= sysctl_err(path, table,
--						"range value too large for proc_dou8vec_minmax");
--		}
--	}
--
--	/* Numeric bounds are validated alongside the legacy pointer form. */
--	if (table->proc_handler == proc_dou8vec_minmax) {
- 		if (table->min > 255U || table->max > 255U)
- 			err |= sysctl_err(path, table,
- 					 "range value too large for proc_dou8vec_minmax");
-@@ -1366,9 +1348,11 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
-  * type     - Defines the target type (described in struct definition)
-  * proc_handler - the text handler routine (described below)
-  *
-- * extra1, extra2 - extra pointers usable by the proc handler routines
-- * XXX: we should eventually modify these to use long min / max [0]
-- * [0] https://lkml.kernel.org/87zgpte9o4.fsf@email.froward.int.ebiederm.org
-+ * min, max - numeric bounds used by range-checking handlers. Signed handlers
-+ *            interpret these values as signed longs. Unrestricted ranges must
-+ *            explicitly use the corresponding type limits. Custom handlers
-+ *            keep their context in data and can substitute backing storage
-+ *            on an invocation-local copy without changing these bounds.
-  *
-  * Leaf nodes in the sysctl tree will be represented by a single file
-  * under /proc; non-leaf nodes are not allowed.
-diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
-index 225c07faf2c9..9cda53941e22 100644
---- a/include/linux/sysctl.h
-+++ b/include/linux/sysctl.h
-@@ -37,27 +37,22 @@ struct ctl_table_root;
- struct ctl_table_header;
- struct ctl_dir;
- 
--/* Keep the same order as in fs/proc/proc_sysctl.c */
--#define SYSCTL_ZERO			((void *)&sysctl_vals[0])
--#define SYSCTL_ONE			((void *)&sysctl_vals[1])
--#define SYSCTL_TWO			((void *)&sysctl_vals[2])
--#define SYSCTL_THREE			((void *)&sysctl_vals[3])
--#define SYSCTL_FOUR			((void *)&sysctl_vals[4])
--#define SYSCTL_ONE_HUNDRED		((void *)&sysctl_vals[5])
--#define SYSCTL_TWO_HUNDRED		((void *)&sysctl_vals[6])
--#define SYSCTL_ONE_THOUSAND		((void *)&sysctl_vals[7])
--#define SYSCTL_THREE_THOUSAND		((void *)&sysctl_vals[8])
--#define SYSCTL_INT_MAX			((void *)&sysctl_vals[9])
--
--/* this is needed for the proc_dointvec_minmax for [fs_]overflow UID and GID */
--#define SYSCTL_MAXOLDUID		((void *)&sysctl_vals[10])
--#define SYSCTL_NEG_ONE			((void *)&sysctl_vals[11])
--
--extern const int sysctl_vals[];
--
--#define SYSCTL_LONG_ZERO	((void *)&sysctl_long_vals[0])
--#define SYSCTL_LONG_ONE		((void *)&sysctl_long_vals[1])
--#define SYSCTL_LONG_MAX		((void *)&sysctl_long_vals[2])
-+/* Numeric constants for sysctl ranges. */
-+#define SYSCTL_ZERO			0
-+#define SYSCTL_ONE			1
-+#define SYSCTL_TWO			2
-+#define SYSCTL_THREE			3
-+#define SYSCTL_FOUR			4
-+#define SYSCTL_ONE_HUNDRED		100
-+#define SYSCTL_TWO_HUNDRED		200
-+#define SYSCTL_ONE_THOUSAND		1000
-+#define SYSCTL_THREE_THOUSAND		3000
-+#define SYSCTL_INT_MAX			INT_MAX
-+#define SYSCTL_MAXOLDUID		65535
-+#define SYSCTL_NEG_ONE			(-1)
-+#define SYSCTL_LONG_ZERO		0UL
-+#define SYSCTL_LONG_ONE			1UL
-+#define SYSCTL_LONG_MAX			LONG_MAX
- 
- /*
-  *
-@@ -72,8 +67,6 @@ extern const int sysctl_vals[];
- #define SYSCTL_USER_TO_KERN(dir) (!!(dir))
- #define SYSCTL_KERN_TO_USER(dir) (!dir)
- 
--extern const unsigned long sysctl_long_vals[];
--
- typedef int proc_handler(const struct ctl_table *ctl, int dir, void *buf,
- 			 size_t *lenp, loff_t *ppos);
- 
-@@ -84,16 +77,17 @@ int proc_dobool(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
- 		loff_t *ppos);
- int proc_dointvec(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
- 		  loff_t *ppos);
--int proc_dointvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
--			 size_t *lenp, loff_t *ppos);
- int proc_douintvec(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
- 		   loff_t *ppos);
--int proc_douintvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
--			  size_t *lenp, loff_t *ppos);
--int proc_dou8vec_minmax(const struct ctl_table *ctl, int dir, void *buf,
--			size_t *lenp, loff_t *ppos);
--int proc_doulongvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
--			   size_t *lenp, loff_t *ppos);
-+/* Range handlers consume numeric table bounds. */
-+int proc_dointvec_minmax(const struct ctl_table *table, int dir,
-+			 void *buffer, size_t *lenp, loff_t *ppos);
-+int proc_douintvec_minmax(const struct ctl_table *table, int dir,
-+			  void *buffer, size_t *lenp, loff_t *ppos);
-+int proc_doulongvec_minmax(const struct ctl_table *table, int dir,
-+			   void *buffer, size_t *lenp, loff_t *ppos);
-+int proc_dou8vec_minmax(const struct ctl_table *table, int dir,
-+			void *buffer, size_t *lenp, loff_t *ppos);
- int proc_do_large_bitmap(const struct ctl_table *ctl, int dir, void *buf,
- 			 size_t *lenp, loff_t *ppos);
- int proc_do_static_key(const struct ctl_table *ctl, int dir, void *buf,
-@@ -116,15 +110,15 @@ int proc_do_static_key(const struct ctl_table *ctl, int dir, void *buf,
- int proc_dointvec_conv(const struct ctl_table *ctl, int dir, void *buf,
- 		       size_t *lenp, loff_t *ppos,
- 		       int (*conv)(bool *negp, unsigned long *u_ptr, int *k_ptr,
--				   int dir, const struct ctl_table *ctl));
-+		       int dir, const struct ctl_table *ctl));
- int proc_douintvec_conv(const struct ctl_table *ctl, int dir, void *buf,
- 			size_t *lenp, loff_t *ppos,
- 			int (*conv)(bool *negp, ulong *u_ptr, uint *k_ptr,
--				    int dir, const struct ctl_table *ctl));
-+			int dir, const struct ctl_table *ctl));
- int proc_doulongvec_conv(const struct ctl_table *ctl, int dir, void *buf,
- 			 size_t *lenp, loff_t *ppos,
- 			 int (*conv)(bool *negp, ulong *u_ptr, ulong *k_ptr,
--				     int dir, const struct ctl_table *ctl));
-+			 int dir, const struct ctl_table *ctl));
- 
- /*
-  * bi-directional converter functions
-@@ -140,6 +134,7 @@ int proc_doulongvec_conv(const struct ctl_table *ctl, int dir, void *buf,
-  * { return proc_uint_conv(u_ptr, k_ptr, dir, ctl, true,
-  *                         custom_u2k, proc_uint_k2u_conv}
-  */
-+
- int proc_int_conv(bool *negp, ulong *u_ptr, int *k_ptr, int dir,
- 		  const struct ctl_table *tbl, bool k_ptr_range_check,
- 		  int (*user_to_kern)(const bool *negp, const ulong *u_ptr, int *k_ptr),
-@@ -226,8 +221,6 @@ struct ctl_table {
- 	umode_t mode;
- 	proc_handler *proc_handler;	/* Callback for text formatting */
- 	struct ctl_table_poll *poll;
--	void *extra1;			/* Deprecated; being removed */
--	void *extra2;			/* Deprecated; being removed */
- 	unsigned long min;
- 	unsigned long max;
- 	void *priv;			/* Handler context, never used by the core */
-diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index ab25c75cb3ac..63a8a6b08090 100644
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
-@@ -22,13 +22,6 @@
- #include <linux/uaccess.h>
- #include <asm/processor.h>
- 
--/* shared constants to be used in various sysctls */
--const int sysctl_vals[] = { 0, 1, 2, 3, 4, 100, 200, 1000, 3000, INT_MAX, 65535, -1 };
--EXPORT_SYMBOL(sysctl_vals);
--
--const unsigned long sysctl_long_vals[] = { 0, 1, LONG_MAX };
--EXPORT_SYMBOL_GPL(sysctl_long_vals);
--
- #ifdef CONFIG_SYSCTL
- 
- /* Constants used for minimum and maximum */
-@@ -423,15 +416,8 @@ int proc_uint_conv(ulong *u_ptr, uint *k_ptr, int dir,
- 		ret = user_to_kern(u_ptr, &tmp_k);
- 		if (ret)
- 			return ret;
--		if (tbl->extra1 || tbl->extra2) {
--			if ((tbl->extra1 &&
--			     *(uint *)tbl->extra1 > tmp_k) ||
--			    (tbl->extra2 &&
--			     *(uint *)tbl->extra2 < tmp_k))
--				return -ERANGE;
--		} else if (tbl->min > tmp_k || tbl->max < tmp_k) {
-+		if (tbl->min > tmp_k || tbl->max < tmp_k)
- 			return -ERANGE;
--		}
- 		WRITE_ONCE(*k_ptr, tmp_k);
- 	} else
- 		return user_to_kern(u_ptr, k_ptr);
-@@ -547,19 +533,16 @@ int proc_int_conv(bool *negp, ulong *u_ptr, int *k_ptr, int dir,
- 		ret = user_to_kern(negp, u_ptr, &tmp_k);
- 		if (ret)
- 			return ret;
--		if (tbl->extra1 || tbl->extra2) {
--			if ((tbl->extra1 && *(int *)tbl->extra1 > tmp_k) ||
--			    (tbl->extra2 && *(int *)tbl->extra2 < tmp_k))
--				return -EINVAL;
--		} else if ((long)tbl->min > tmp_k || (long)tbl->max < tmp_k) {
-+		if ((long)tbl->min > tmp_k || (long)tbl->max < tmp_k)
- 			return -EINVAL;
--		}
- 		WRITE_ONCE(*k_ptr, tmp_k);
- 	} else
- 		return user_to_kern(negp, u_ptr, k_ptr);
- 	return 0;
- }
- 
-+
-+
- static int sysctl_user_to_kern_int_conv(const bool *negp, const ulong *u_ptr,
- 					int *k_ptr)
- {
-@@ -930,7 +913,7 @@ int proc_douintvec(const struct ctl_table *table, int dir, void *buffer,
-  * values from/to the user buffer, treated as an ASCII string.
-  *
-  * This routine will ensure the values are within the range specified by
-- * table->extra1 (min) and table->extra2 (max).
-+ * table->min and table->max.
-  *
-  * Returns: %0 on success or -EINVAL when the range check fails and
-  * SYSCTL_USER_TO_KERN(dir) == true
-@@ -955,9 +938,8 @@ int proc_dointvec_minmax(const struct ctl_table *table, int dir,
-  * strings are not allowed.
-  *
-  * When changing the kernel variable, this routine will ensure the values
-- * are within the range specified by table->extra1 (min) and table->extra2
-- * (max). And Check that the values are less than UINT_MAX to avoid having to
-- * support wrap around uses from userspace.
-+ * are within the range specified by table->min and table->max. Values larger
-+ * than UINT_MAX are rejected to avoid wraparound from userspace.
-  *
-  * Returns: %0 on success or -ERANGE when range check failes and
-  * SYSCTL_USER_TO_KERN(dir) == true
-@@ -982,7 +964,7 @@ int proc_douintvec_minmax(const struct ctl_table *table, int dir,
-  * strings are not allowed.
-  *
-  * This routine will ensure the values are within the range specified by
-- * table->extra1 (min) and table->extra2 (max).
-+ * table->min and table->max.
-  *
-  * Returns: %0 on success or an error on SYSCTL_USER_TO_KERN(dir) == true
-  * and the range check fails.
-@@ -1047,13 +1029,8 @@ int proc_ulong_conv(ulong *u_ptr, ulong *k_ptr, int dir,
- 		ret = user_to_kern(u_ptr, &tmp_k);
- 		if (ret)
- 			return ret;
--		if (tbl->extra1 || tbl->extra2) {
--			if ((tbl->extra1 && *(ulong *)tbl->extra1 > tmp_k) ||
--			    (tbl->extra2 && *(ulong *)tbl->extra2 < tmp_k))
--				return -ERANGE;
--		} else if (tbl->min > tmp_k || tbl->max < tmp_k) {
-+		if (tbl->min > tmp_k || tbl->max < tmp_k)
- 			return -ERANGE;
--		}
- 		WRITE_ONCE(*k_ptr, tmp_k);
- 	} else
- 		return user_to_kern(u_ptr, k_ptr);
-@@ -1155,7 +1132,7 @@ int proc_doulongvec_conv(const struct ctl_table *table, int dir,
-  * values from/to the user buffer, treated as an ASCII string.
-  *
-  * This routine will ensure the values are within the range specified by
-- * table->extra1 (min) and table->extra2 (max).
-+ * table->min and table->max.
-  *
-  * Returns: %0 on success.
-  */
-@@ -1348,8 +1325,8 @@ int proc_do_static_key(const struct ctl_table *table, int dir,
- 		.data   = &val,
- 		.maxlen = sizeof(val),
- 		.mode   = table->mode,
--		.min    = 0,
--		.max    = 1,
-+		.min = 0,
-+		.max = 1,
- 	};
- 
- 	if (SYSCTL_USER_TO_KERN(dir) && !capable(CAP_SYS_ADMIN))
-diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
-index 8dde5a2cc532..184d4c5a7917 100644
---- a/kernel/time/jiffies.c
-+++ b/kernel/time/jiffies.c
-@@ -331,7 +331,7 @@ EXPORT_SYMBOL(proc_dointvec_ms_jiffies_minmax);
-  * are treated as milliseconds, and converted to jiffies when they are stored.
-  *
-  * This routine will ensure the values are within the range specified by
-- * table->extra1 (min) and table->extra2 (max).
-+ * table->min and table->max.
-  *
-  * Returns 0 on success.
-  */
-diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
-index 64c82fd53975..ed3547401f41 100644
---- a/lib/test_sysctl.c
-+++ b/lib/test_sysctl.c
-@@ -258,18 +258,18 @@ static void test_sysctl_calc_match_int_ok(void)
- 		int defined;
- 		int wanted;
- 	} match_int[] = {
--		{ .defined = 0, .wanted = 0 },
--		{ .defined = 1, .wanted = 1 },
--		{ .defined = 2, .wanted = 2 },
--		{ .defined = 3, .wanted = 3 },
--		{ .defined = 4, .wanted = 4 },
--		{ .defined = 100, .wanted = 100 },
--		{ .defined = 200, .wanted = 200 },
--		{ .defined = 1000, .wanted = 1000 },
--		{ .defined = 3000, .wanted = 3000 },
--		{ .defined = INT_MAX, .wanted = INT_MAX },
--		{ .defined = 65535, .wanted = 65535 },
--		{ .defined = -1, .wanted = -1 },
-+		{ .defined = SYSCTL_ZERO, .wanted = 0 },
-+		{ .defined = SYSCTL_ONE, .wanted = 1 },
-+		{ .defined = SYSCTL_TWO, .wanted = 2 },
-+		{ .defined = SYSCTL_THREE, .wanted = 3 },
-+		{ .defined = SYSCTL_FOUR, .wanted = 4 },
-+		{ .defined = SYSCTL_ONE_HUNDRED, .wanted = 100 },
-+		{ .defined = SYSCTL_TWO_HUNDRED, .wanted = 200 },
-+		{ .defined = SYSCTL_ONE_THOUSAND, .wanted = 1000 },
-+		{ .defined = SYSCTL_THREE_THOUSAND, .wanted = 3000 },
-+		{ .defined = SYSCTL_INT_MAX, .wanted = INT_MAX },
-+		{ .defined = SYSCTL_MAXOLDUID, .wanted = 65535 },
-+		{ .defined = SYSCTL_NEG_ONE, .wanted = -1 },
- 	};
- 
- 	for (i = 0; i < ARRAY_SIZE(match_int); i++)
--- 
-2.25.1
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
