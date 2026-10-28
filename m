@@ -1,66 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793230495;
-	b=MjAUBva4Roo2IqCbHpc8rhe87AvIAYUOKrGypOdLmg2XrpR1rRWwOlKaiz5chgOQ7kIf
-	 TNs3m6C+rTLTsA0AzczBxnIg400CCAXfeVASscFSYAaKHJ7eQKoVLWhYFttExhJa0sq+G
-	 RT9sfHRFiXajmtjhONv/CggcnLS82VVqKQ0E/vDuIIYiMGIw575+beYAeGpHg+ITPTrmV
-	 LOSTRSr/7I8jI2Vd4m84r/zXKJAkAwk95TPhtgqgGndYpSXt7qoo59dy4GpTqBTvWhPZj
-	 TEOW5AKKyz7JlfMEk8xIcaeBRlVn73o0Hf4M03JGjRmIPY0EB4fIBK1NMlZVoZgnZVg==
+	t=1793230620;
+	b=0VziXzaORnLJNree0HRGgScO+Ysm10U0RHjagNsq2kfB1zC7xo1UMSasuIn7CKF7dzWD
+	 xcJ9tW92FoG8JfLeTca3NpC8iVcuABSlSWqJ4JDDwQp+A5gerKw/5kWJC5JMx0Z6gnAIr
+	 slm3qrWFwSxXv5c9sbSkaObBc4C0JpF2CORSsQXPZUD5f+SD0JIoIvixZs4jlcyTZLdmE
+	 x4Sh6ma7cAQhyktU+/iIifDC2NArLahOY+mIIdlnCDN3ZAAl5nEdIughSbzu6aDbBo8uU
+	 0n4tJ1cEiSMOI9gOgAv5jYBE+HotS41zs6n3Ie1k2nr2pys2nQ7V6IMQUkdafUHLmKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793230495;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iP41gDW1dDLb62a6TOWXDfDFJDMH1BCLfRYXQKf/pYo=;
-	b=vQlxMZ4lRmFIs/PgXsqZkVOVPDc/VrWW40yAQ86V0b648LfF/dAK3KudQx5TyFPG0Fk8
-	 9LKAD6Us11Z8vS2/Kv+cz4v35KTKGUM7j8FwHBtxdXrFXgiuzIlfSs/wxnJoyw8Pw8N6j
-	 h+MDUQHbBt2dfkctkKY+BJD/VW7n8fMyc1GUNQKu6CBBFDX/Ch09jwMpa/7JQFIBXhI6r
-	 L6p4aaUFOs4RiaNzwVDGKA013qPtd2wBs02+oUxtUVXwaRqGNAdWs0BhNQJHBJ2yZEQDw
-	 mezWpGEhulJcfH2JX8VH4WSQnFsei8W0qcykCkgVRrteOgOrX7v8qGaGKYhz7eYvi6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793230620;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=P5uccmtD7uHPZQe6RVP+drkPGR4BqjMdb1TsK1mrYKs=;
+	b=a7zNdIaP6tash6KbIgSiwZZotFKQpVqfN2YeC9UHC7PUDK1ERBnDFv/YKVm/SfKvtwOs
+	 MZam82GzuiocCo60zNDNkQ9BULicaI3D6iY5fKfVPvH9sfcKCaKq/K6UtxTzs2KBNhlR5
+	 H0h0BEUBFDRnG3yamGfpRW8V3Mb95nCLhGUvRmBUipfgJAxYzD5UKGL+c/dZ87B6FW05s
+	 DdImcVnrn3Pj4BUw1S7uRXwadRTs1iCCj9vP9+YDQeBGlkUa6F3cDnGxajyk/GsCe/pma
+	 eCZG6pRFB72Ld0435fFTCYHoawoOjTS1ioN36DRIcHSVAYue2tP/jx93skwAd+G0lMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdtMsEtH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DqTpdMrh;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48220606A31A;
-	Wed, 28 Oct 2026 23:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DF2606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:36:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28DF2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--digonzal.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdtMsEtH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347B41F01825;
-	Wed, 28 Oct 2026 23:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793230494;
-	bh=iP41gDW1dDLb62a6TOWXDfDFJDMH1BCLfRYXQKf/pYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kdtMsEtHmDNzVF4YPu+ZcICl/ZXdKh2G0CtWnlPvKGDdE3v8xuBbC6zXrMLdclWYo
-	 afqbXoVI2Aq17HAOhQ12dH1IgTkxmkhb6F9zPZcQgJpr7DY7tXfrOiqUB/Phl+GZYc
-	 0DbkzFSurp4VOwEo2NLtp+XqNw2P4ttys0hVHicRAMPRsBDtj0f9UTckbATHEBhul6
-	 MSwGskoKkUmFOldVwE9w4g7SFUZhJ/P64vqTjyibrLfSUH5WMOF3pzlbs3a+e6QJUb
-	 UxpD7/mrdg4kITQFE012/68d5CU95sxWJPz6ULdbl7jLxopDYN2T3iMGZJ2iN+Qpb8
-	 RgQCFRZe6bAfA==
-Date: Thu, 29 Oct 2026 10:34:44 +1100
-From: Dave Chinner <dgc@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Henry Martin <bsdhenrymartin@gmail.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Hildenbrand <david@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
-	Rafal Ostrowski <rafal.ostrowski@amd.com>,
-	Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
- numrecs during log recovery
-Message-ID: <auKGlGJwOSZpioMd@dread>
-References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
- <auJ2jgIIh8e_JJwn@dread>
- <87cxsto38m.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DqTpdMrh
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3692c5b061bso4208748eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:36:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793230618; x=1793835418; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P5uccmtD7uHPZQe6RVP+drkPGR4BqjMdb1TsK1mrYKs=;
+        b=DqTpdMrhb0gEPsgQr3kzA70KsY5CM5R4tu7PrqohQzszSTeM3bkQ/YFraJl0UiZi9T
+         qcGIBxV8DUMeyw9zh+Pm9fAIEV0e3tO6beBRPBwiqv2cekESp9sheTY+a27bEhbEb+rd
+         W7SEJ+jFRjRMjJow8yQ/mZa7fka+pyW24D8gpn+TlPmE8+nTIrtf3mSVtLnyyr/lR6R1
+         vP0+QJaG4Vby/ZMWeNaldKqfMJcNrrnWVQhj3t/ZzFCMf2vLmVYyQb3c0ihP7Gk+KQuj
+         Wxe8RRBlPbk7zx7GB0+4bN2vuebAZZbFZU4exzNhilpa5kZ5invRJ8mEBrIffYgkMj1P
+         rMCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793230618; x=1793835418;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P5uccmtD7uHPZQe6RVP+drkPGR4BqjMdb1TsK1mrYKs=;
+        b=RE2SNmn7OyzUU/00LFzLbm6ptGr6T7wWdEM9p6BDBUkpO2qUdqmv3ZQWS71c/zB+c6
+         uG8jbtKnY8s/XJ/CDt3/q7spxqdy/dvpA++3SCG9OzIcrjjsretzxuwUHLJS7QYocbWp
+         EwbI5yVwu7PMurwK6Xb3YzeUAnBWl6qQpQ7UjWNwkMVRotSHOws+Uo2gkN07ESBuRsbY
+         OX87Kmvl6NzrpXp6gV0AdGQ6uc6LaaoBu+YDuWWbnSklWXudf1j0sINBoJ6hP/DjVoM5
+         J5koizs06PBVVhlemyRhpwegLCjTuc4BXTFKDiR0qvBksRrJ4sy+6oipLJY3nDrt0Y0S
+         NHuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbWVbiou6F6hMOspBZ0vJa8f+ew7FA+Yh2C2c1GKnDx1sWSXFL6piHPQ3i3/5qzSGvhAifjSFgVGEywVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSGbnwuiGo+kcpsQLQgTU9u45vM81Z8+n8xKHVTXwgohqGd84a
+	lm0ZuZ6oJmC1X2KaFIHNE2tVsakzmV57H60geC6mMemY5+isM06aEzfa2XLJzB5Np09sMF60K2M
+	0S8yvBFCpOECUJA==
+X-Received: from dycui21.prod.google.com ([2002:a05:693c:6015:b0:353:7f27:8a45])
+ (user=digonzal job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:60c6:b0:369:fd32:79fe with SMTP id 5a478bee46e88-36a203cd26cmr5864269eec.17.1793230617856;
+ Wed, 28 Oct 2026 16:36:57 -0700 (PDT)
+Date: Wed, 28 Oct 2026 23:36:51 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,48 +75,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87cxsto38m.fsf@trenco.lwn.net>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028233651.960835-1-digonzal@google.com>
+Subject: [PATCH v2] PCI/ATS: Disable ATS when ACS TB is set upstream
+From: Danny Gonzalez <digonzal@google.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: David Decotigny <decot@google.com>, Sheena Mohan <sheenamo@google.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Danny Gonzalez <digonzal@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 04:43:37PM -0600, Jonathan Corbet wrote:
-> Dave Chinner <dgc@kernel.org> writes:
-> 
-> > Unless you know how to fix the discovered problem correctly, don't
-> > send what your LLM proposed for review. It will be garbage, and all
-> > that will do is annoy whoever has to review it. Just report the bug,
-> > let the subsystem developers fix it.
-> 
-> Just to be obnoxious...this runs counter to the advice we have in
-> Documentation/process/security-bugs.rst, where reporters are requested
-> to include a proposed fix as well.  It seems we're sending a bit of a
-> mixed message...
+Enabling ATS allows an endpoint to cache translations and initiate DMA
+requests with Translated addresses, which an upstream bridge with ACS
+Translation Blocking (PCI_ACS_TB) set will block as ACS Violations.
+Because pci_enable_acs() preserves existing PCI_ACS_CTRL bits (e.g., from
+firmware, a kexec kernel, or "pci=config_acs=") without relaxing them,
+PCI_ACS_TB may remain set on upstream bridges.
 
-These aren't security bugs. Bugs that result from maliciously
-corrupted filesystem images (i.e. fuzzed) are explicitly stated as
-not covered by the kernel security threat models. IOWs, they are
-just -bugs-, and bugs that just don't ever happen in the real world.
+Add pci_ats_check_acs() and call it from pci_dma_configure() after
+pci_enable_acs() to walk upstream bridges and clear dev->ats_cap if any
+bridge has PCI_ACS_TB enabled, leaving the endpoint to use Untranslated
+addresses.
 
-The journal records are CRC'd and location stamped, so any sort of
-real world storage error (e.g.  media corruption, misdirected write,
-etc) will already be caught and rejected. Hence to get to these
-issues, someone has to corrupt the journal stuctures and manually
-rewrite the CRCs to get them to pass verification before we are
-exposed to any of these issues.
+Tested by booting a machine with an endpoint advertising the ATS Capability
+behind a Root Port with PCI_ACS_TB set; verified ATS is disabled and the
+system boots cleanly.
 
-Really, though, as someone who has learnt how to make LLMs generate
-decent code, I'm disappointed in how frequently I'm to tell random
-people using LLMs that their code is complete shite. LLMs don't
-generate bad code when they are well directed by a human.  Bad code
-is a sign of a poor coder (i.e. a human failing), regardless of
-whether an LLM generated the code or not.
+Signed-off-by: Danny Gonzalez <digonzal@google.com>
+---
 
-However, regardless of the skill and capability of the human driving
-the LLM, LLMs will still generate decent bug reports. I'll take a
-good bug report over bad code every day of the week.
+v2 (based on sashiko review):
+ - Move the upstream ACS TB check from pci_ats_supported() into
+   pci_ats_check_acs() called after pci_enable_acs()
+ - Use pci_acs_enabled() instead of reading PCI_ACS_CTRL directly
 
--Dave.
+ drivers/pci/ats.c        | 20 ++++++++++++++++++++
+ drivers/pci/pci-driver.c |  1 +
+ drivers/pci/pci.h        |  2 ++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+index 9cb23780093d..0395612f3987 100644
+--- a/drivers/pci/ats.c
++++ b/drivers/pci/ats.c
+@@ -31,6 +31,26 @@ void pci_ats_init(struct pci_dev *dev)
+ 	dev->ats_cap = pos;
+ }
+ 
++void pci_ats_check_acs(struct pci_dev *dev)
++{
++	struct pci_dev *bridge;
++
++	if (!dev->ats_cap || dev->is_virtfn || dev->ats_stu)
++		return;
++
++	/* Do not allow ATS if any upstream bridge blocks translation */
++	for (bridge = pci_upstream_bridge(dev); bridge;
++	     bridge = pci_upstream_bridge(bridge)) {
++		if ((bridge->acs_capabilities & PCI_ACS_TB) &&
++		    pci_acs_enabled(bridge, PCI_ACS_TB)) {
++			pci_warn_once(dev, "ATS disabled: upstream bridge %s has ACS Translation Blocking enabled\n",
++				 pci_name(bridge));
++			dev->ats_cap = 0;
++			return;
++		}
++	}
++}
++
+ /**
+  * pci_ats_supported - check if the device can use ATS
+  * @dev: the PCI device
+diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
+index e16aa59dd7ac..9a1856def5bd 100644
+--- a/drivers/pci/pci-driver.c
++++ b/drivers/pci/pci-driver.c
+@@ -1713,6 +1713,7 @@ static int pci_dma_configure(struct device *dev)
+ 	 * quirks.
+ 	 */
+ 	pci_enable_acs(to_pci_dev(dev));
++	pci_ats_check_acs(to_pci_dev(dev));
+ 
+ 	pci_put_host_bridge_device(bridge);
+ 
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index ba3c3fddddc2..cf2c93761d81 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -961,9 +961,11 @@ static inline void pcie_walk_rcec(struct pci_dev *rcec,
+ #ifdef CONFIG_PCI_ATS
+ /* Address Translation Service */
+ void pci_ats_init(struct pci_dev *dev);
++void pci_ats_check_acs(struct pci_dev *dev);
+ void pci_restore_ats_state(struct pci_dev *dev);
+ #else
+ static inline void pci_ats_init(struct pci_dev *d) { }
++static inline void pci_ats_check_acs(struct pci_dev *d) { }
+ static inline void pci_restore_ats_state(struct pci_dev *dev) { }
+ #endif /* CONFIG_PCI_ATS */
+ 
 -- 
-Dave Chinner
-dgc@kernel.org
+2.56.0.313.g2479322e68-goog
+
