@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187392;
-	b=agEmeIFDxP8weM7IudnK2PKJZ4y+e5PNu0FLw/uuPACama2DrBl+jCPiYi3LD+KN+q19
-	 53tSMX1lxXsUex9RdNij8UTb+PdG7wo6GFGfS5BuhhA/YQcxr89UuLZfTVN/yJzk+YXzd
-	 ndId0Cq/wMBTdeGmz8WyvMEwblwVgRFdExeKpaghLvzZSS7tRVvIYftlCq7fmVe1lTrH3
-	 KfL49JN5xi7NzB2pR4i57i33J7d6H4dcLG7VsEnGI5ivqhlynCNHmkJisMEERD08j/PD/
-	 op9c2TZEaAtsr/HMgenKbpQQq8fOam8OAuAWp7t6+d5W59C7ztpg8x76ilPK3HeypCw==
+	t=1793187419;
+	b=uSAcS3s356uxGhPmmW+i7SOXKsTOPLI2f4h3ni9zjjfA9jHNFqXJ8uqRA6roLyeE5SOw
+	 ZfSOjhBeWo2oHbOzMXRCbCTdLK/89kqyp+mp8Y9GbrTWD6b8y5nfIr4re0J4MRNh6a/Gx
+	 /c5+vUraSDx6wqFkicIJiLpxK16US8DyCJ4RabBIZaCkdRqX67tO41JZqXmdE1GIbXFQi
+	 oJoD4yteoC/rJc0zxw8SfEaUz3FaJYEvRL8jk8EaFcbo17pVwhvmJw7HHVsSf8zzqxKB0
+	 kHEr4CSZvdYFqM/9x59vgL+ZAUEIqCLi7KOwghr52AeTl2UnbYTAKt+12NJseAI8ebw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187392;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=KJQ5MFQyAoYK4/IEHk3nRAEzowJdeSnGgVSxIBuPHzk=;
-	b=SxAzqm0U8ewf7BEarykS5u0HtFEa7ZdkoOZKa7mtDATtPJvOcN+lcMJOLXHCFc3zv5WE
-	 zosZswSpjBNfBZ673pnelSqy/Ywd/IZMyzBX0+RXeh0lbs3T0kIcNz6RmEsLIIuLrkOsj
-	 Rl1JetMaVvUyoMOoEN+Jp9APJbb4H7tcMVJblzTJqAMUH5MZdgPjiPQIjr3KuYCD+3Pzx
-	 gSPAINYOLUP5c5YGbj6fCF0d+vdAAy6VRxl1Vf2TJ62Qmga4ehF49jK+jpacsIYg4VzdD
-	 IanekYUZW9YUpu83qQYv1dz4T/DTYPCyvgslN6Udj5ciAPMc2q3TSRVSp/cHE9s5AjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187419;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kfHM+Ph/Km0Aq79HeXUuCHDrcDepQgLg0imUjp9EssQ=;
+	b=Ot05S9y2P2rD8Y8NnWmHP3ozOHnp4f3+FL0M+BqdyrJ5zzm17nvnpQXsAj0dojWTKvxX
+	 1JjOk0yE3gx7RhXb/ZSIYWZi+2t2U13GT2IlzVEXTvvVfv7VPb2tjGu1/29UEavwunXaN
+	 QhhvKv3/OGuYjZ6OC9Yc+U7U0wRIVGYBtoYzdWXihKd8EZXALnzbHJtPsHQqUBcA1SWY6
+	 wKGFShQFL3Ox7QLmkkVEKBuD4RD1a2jxqUQ1ckD63NyvzfcPd900wWNUwDLNjethGrrir
+	 9PAaAxlPSCqkVwnUm6m9nJTpvBE43XlVVDEURnAgYkePZoDOWd+sSbgIb1sKvStgRCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQEJ1Oz9;
-	arc=none smtp.remote-ip=91.218.175.89
-Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCuM+a8Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA671606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA671606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B700606A31E;
+	Wed, 28 Oct 2026 11:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQEJ1Oz9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kMCNGJJYpGz5x7c10ToMLdnciTX84LaiipX1h2aokB0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793187389; v=1; x=1793792189;
- b=AQEJ1Oz9qonlO9wnD+shAr0CZf+DRW2FBdnkeZQ/L6EDrrClmEze0FZ/gxAIb9L8FmrWN6mL
- +0fF1JPkhKLSYWtq2Nbpmjw+mP+wG3RQ1obOsne+2356nFX6wJTXaNF59siH1W1JuCKzjzkFUwn
- qle2y5Ay+dE2nlebMb82tqu0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0fbe3d682f9be5a6;
-	Wed, 28 Oct 2026 11:36:29 +0000
-X-Mizu-Trace-ID: 0fbe3d682f9be5a6
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH] mm/zswap: fix double decrement of the LRU node count on writeback
-Date: Wed, 28 Oct 2026 19:36:19 +0800
-Message-ID: <20261028113619.38752-1-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCuM+a8Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09DC1F01825;
+	Wed, 28 Oct 2026 11:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187418;
+	bh=kfHM+Ph/Km0Aq79HeXUuCHDrcDepQgLg0imUjp9EssQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XCuM+a8QFkySvyLuwDpXsfZSze5DWtYlnIu/VwcyYFveUJVJhx09AoEsqgaX9lDhJ
+	 bZCvP037+kc6GHS9JqNJ3+t5zU94D2w8BeAfwvje48RoUGHgB51Obh0SQDsITbRrev
+	 3BEI+k+JmFNfq4l8vgmcbx7Ql+srhbftkN4uADT/7/d/gS/GYIj69uUtWyige5l3+T
+	 4TD6Uc6vpoOxbp/WpAY/RreyXTNxYWIFjseRCEJxEw9aTa2brX5G5S1u2QCEdVo5Ao
+	 4Gi8//cKVZQ1pocuKfe3clRcROfoX1e8E8iOp51oT9CQyjtNy41MtCAFYXXBvuUP76
+	 UO0cOEsYWkzpw==
+Date: Wed, 28 Oct 2026 12:36:55 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jeff Roach <jeff.roach0@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
+Message-ID: <20261028-beagle-of-perfect-tranquility-1305ef@quoll>
+References: <20261026154001.9323-1-jeff.roach0@gmail.com>
+ <20261026154001.9323-2-jeff.roach0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,103 +60,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026154001.9323-2-jeff.roach0@gmail.com>
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On Mon, Oct 26, 2026 at 10:40:00AM -0500, Jeff Roach wrote:
+> Document the HP OmniBook X 16-cp1 laptop, based on the Qualcomm Mahua
+> (Snapdragon X2 Elite, 12 cores) SoC.
+> 
+> Signed-off-by: Jeff Roach <jeff.roach0@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Successful writeback calls zswap_entry_free(), which removes the entry
-from the LRU and decrements both the sublist and node item counts.
-shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
-to decrement the node count again.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The affected call path before this change is:
-
-  __list_lru_walk_one()
-    shrink_memcg_cb()
-      zswap_writeback_entry()
-        zswap_entry_free()
-          zswap_lru_del()
-            list_lru_del()
-              __list_lru_del()
-                atomic_long_dec()  /* first node count decrement */
-      return LRU_REMOVED_RETRY
-    atomic_long_dec()              /* second node count decrement */
-
-Add zswap_lru_del_nocnt() to remove the entry and update only the sublist
-count, leaving node accounting to the walker. Split data cleanup into
-__zswap_entry_free() so writeback can free the entry without performing
-another LRU deletion. Other free paths retain their existing accounting.
-
-Fixes: 5878303c5353 ("mm/zswap: fix race between lru writeback and swapoff")
-Link: https://sashiko.dev/#/bug/linux-68d2ca49-23be-4504-9a75-b8526ec92388
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- mm/zswap.c | 28 +++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ad01c691a263..d0c98daddf2e 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -719,6 +719,22 @@ static void zswap_lru_del(struct zswap_entry *entry)
- 	rcu_read_unlock();
- }
- 
-+/* Like zswap_lru_del(), but does not decrement the node item count. */
-+static void zswap_lru_del_nocnt(struct zswap_entry *entry)
-+{
-+	int nid = entry_to_nid(entry);
-+	struct mem_cgroup *memcg;
-+	struct list_lru_one *l;
-+
-+	rcu_read_lock();
-+	memcg = obj_cgroup_memcg(entry->objcg);
-+	l = list_lru_lock(&zswap_list_lru, nid, &memcg);
-+	if (!list_empty(&entry->lru))
-+		list_lru_isolate(l, &entry->lru);
-+	list_lru_unlock(l);
-+	rcu_read_unlock();
-+}
-+
- void zswap_lruvec_state_init(struct lruvec *lruvec)
- {
- 	atomic_long_set(&lruvec->zswap_lruvec_state.nr_disk_swapins, 0);
-@@ -781,11 +797,10 @@ static void zswap_entry_cache_free(struct zswap_entry *entry)
-  * Carries out the common pattern of freeing an entry's zsmalloc allocation,
-  * freeing the entry itself, and decrementing the number of stored pages.
-  */
--static void zswap_entry_free(struct zswap_entry *entry)
-+static void __zswap_entry_free(struct zswap_entry *entry)
- {
- 	struct zswap_pool *pool = zswap_entry_pool(entry);
- 
--	zswap_lru_del(entry);
- 	if (!WARN_ON_ONCE(!pool)) {
- 		zs_free(pool->zs_pool, entry->handle);
- 		zswap_pool_put(pool);
-@@ -800,6 +815,12 @@ static void zswap_entry_free(struct zswap_entry *entry)
- 	atomic_long_dec(&zswap_stored_pages);
- }
- 
-+static void zswap_entry_free(struct zswap_entry *entry)
-+{
-+	zswap_lru_del(entry);
-+	__zswap_entry_free(entry);
-+}
-+
- /*********************************
- * compressed storage functions
- **********************************/
-@@ -1119,7 +1140,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	if (entry->objcg)
- 		count_objcg_events(entry->objcg, ZSWPWB, 1);
- 
--	zswap_entry_free(entry);
-+	zswap_lru_del_nocnt(entry);
-+	__zswap_entry_free(entry);
- 
- 	/* folio is up to date */
- 	folio_mark_uptodate(folio);
--- 
-2.53.0
+Best regards,
+Krzysztof
 
