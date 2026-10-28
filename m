@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210855;
-	b=nO2mmpsvpHbJ9zO1s2lcOTLzbQveIiG2kg9IF+/1hlWmz7g0r1kxVOIX93hTe+qbPSwS
-	 +TruoNW2pkqVwA04I1BHf4JACzdQnZlOhFaROfNVJ63YDcmyuAhrrprEukI2VfMd23aM+
-	 OssSuNDJGASwkgSKFsEWSQlc4e1/DA0LIZSA4qaCLg5uvPliNjl1+4iRDsoEWQpMuBwR3
-	 ZzMQDR3NezmYt2dpzA7RVfJbbyeJIrNpjvqnDZbKcMPHFiGyv/Q9qaNm4JqcBHXLc9dtC
-	 aNY1sHjFPAuUuYU5zjudXwsil2/GQ2Nde599qiZJ5ImzOK7FzxdFB0r+3lSO70QVh3Q==
+	t=1793210923;
+	b=zKqUUWBk0QiMJCLmWHnpWpHC5QLjzADUyMR+wfxQ4xW5V5Fa6B6Pvpppr/GCslNJnYwK
+	 nzJEeOjyTCBGDfI10KEw8RDYDb4cSpOrtE/03TMiSZKIamEF9MisSj0kXOUVVvFAXYSVQ
+	 kVnFr0xVfSkY3WM/qv/5TpOmFkx+gAOv6UjR5BFWKxycmYI/BLRgCNZU8CrCKKmTy4sZo
+	 WIumfiYLgkpyfNd1POkWSu16Z8rIcqNtnQbEfBBYOKQKX04Jqkyw1YG++MaVlSjkqe20Z
+	 EoMxI8otaD1NvBy+/7QNVAcVmirP+Qiw4sN3RUd9hbM8oBiMVh0bHDr8Q0/CyomqDTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2OL11FRKL8kHfKZ5ZhNZS3nh+yPIRxt+OMgWHODiXUA=;
-	b=qBJ6w/Nf1OhbvBLFXRSvzQ7lwfN6VFYg5MshjX60zdfCXDVy38cOR3cusbhUyIPNpXyd
-	 sfNyENNLM0c/vVwllJ2VemLLKPKcUT7A6RAj/mFnk5bwgYARkGYXmGBhYZdk7TmG+/MYJ
-	 TWY035U3e1dFvaVclp03S+NRPUyaSw3gX2WUdyOvabVk5vDTmg55jb/LLM5BdaTNP0cCc
-	 nRg/GBV2vPXUL0HB6xsFYvBhWuw07RHdOG4RNeNmxONTFq7vG+zUB4BXk9ZgzMW34fWxh
-	 he4TNTMdSnfqQzikLeR2oP8JC2l3EwejroEtdNQ8OJhMaVhE684gSEc14D79IDZlm5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210923;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	b=YXr2pcjiREm2cSXdEFUIR9JxLTxlTJoK6yliif21cyGQ6fopaz2VSX3KhM3tt8ZZornI
+	 sKCHH7WJL96PijerOjOWhtejScmVZp2rCVWDh+6nXVvmT1ODNs96MmXOV1mzef1jFNRLk
+	 VZ8Zfctd0R79zlHaGMvOfvOvZiLjvgtgG2aqyVd4riXGG8GoDuGq/+KbeT1yIgG0AJwFc
+	 KPFXwgeehjdfW6WLq0BZFr61ohkvxeQMjz2ZFihsRRofMZExVvlC3p9m3Pe+a2hjlADqo
+	 wYKSGfHGGTJLe3ILOABry86HYr3GoPQ8owGjyG5BiaoH2vdDhCiRFZ1fRzcFhhdrx4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=dV4VSp1S;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=omQyp3xw;
+	arc=none smtp.remote-ip=212.227.17.22
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C896606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C896606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81E6606A31C;
+	Wed, 28 Oct 2026 18:08:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D81E6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=dV4VSp1S
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c49b431f022so198080566b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:07:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793210853; x=1793815653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2OL11FRKL8kHfKZ5ZhNZS3nh+yPIRxt+OMgWHODiXUA=;
-        b=dV4VSp1SPDVPe0ga/si07+VoR33MajaUOVkEvYA6dEpx7jlrDMriVDFIVcYynrUHMH
-         sHKbf3zT9awIOicfd+9ZFSRyBTPNaohJ2L1oMjIDnLyNEdi2gzJ1x5AHtlQdkd3tXDp8
-         gGKBHpj9dDeaGrA2SKbAYpassyZRVQtsLQa+c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793210853; x=1793815653;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2OL11FRKL8kHfKZ5ZhNZS3nh+yPIRxt+OMgWHODiXUA=;
-        b=gd3DdTyTWGBCXbefg8x7DmN681J6dTNDriAYasO8nZVexmuSIdUb7xyeZiKm7nhHZq
-         Qkdzf++k7KwIlhTedLeI4TLv8Rv0Zzs9k9LxQhvDTaXYM2U4PREEVygoBRZhTccKrZss
-         Rr1+JiGxpN85HDw3GzGznicOzQkr94a4WEhL7xogr7v4nLPrxJPmG+VWTyjlXDVWAYmf
-         ugPt8DfpLRn2EnQr5f/q6SeyY4sy+z0i2NJKL4TbmNcSrYcaPqz7UJfBFQM5eYips/nj
-         XkkUsvcDPbyegJ8jecK7TWMTk/ndjxryrtIoRNgTgSURcCsbmEkkpPL35ttsnaG/czcH
-         4bIA==
-X-Gm-Message-State: AFq9FYLtZe5/fARAXco7yNwsbJ+rcLFtxVX/6kiA2IxWnOr1Guho8WpZ
-	sG+ky3IeaceyCtLZ+VsWpoAyxj4wuDZcxonUE/PNm/TTnN1BkB72G8kMfcUAu0yl3oJ6lS8TLsF
-	qnEgk+n8=
-X-Gm-Gg: AYBFou27nBV+tmBFYWcco+nDdsulCjS+pDZnrRpu0VZTVAJLUkvZ2zYD0ajPTMeHRvJ
-	Pn2K34wps8kbEx8XInN1qEJ1d7aD4+TegT4swCbv65V66VDlWdHX3k0CB8subWGqjgwK8kwPJxc
-	Fe30odMp3aNJqdTf+bw7QYojRlwp8PD8UObNrvTHSeuLyipANQK1aVahVgLkeXJqdWVleowgI+M
-	ZUrT6YNDAM3X078FXCwh0XtZlVCE1qmCp3LHRqEpxPHHP/RYlOHRnEces0BGJO/BicYpUMZDm27
-	VIW93xJScHcBZpfF3jH/NJXOuNuePggy+nQtBBE72LbDVRS9stLbbfZNw1kdGqlUbnzTk1mYwxQ
-	zMI9zBydIKKn72LkIIYcswX5fiJ/yFOUoNXjBgkNNtZFqWv9PH5Ceu4dUmy+0UvkR6p9D72xYmL
-	avTKtErrgbcIcqCIx6VOs0ZuBAfFn4gTTOsQGWjSP4uVw3aBVDwFogTINUFlExNCpbO8ur38bdl
-	3+VQ/pNkycerW9SZGZ3/qryc6Lfzzm0vfQ03OHtw6QxGYsdMTRS9pukmx87wY5kLM7rlvk0kjYU
-	iIO/OgJLsmW7dI6dTPpNmB8E9RiSw92OHeM9f8BoBNUv6LySJBQfrWLeAenfh1tf89iDe/xAmBJ
-	2io44KlzVRYy5IDfbP/MyRpY8
-X-Received: by 2002:a17:906:4fcb:b0:c3f:98d4:dfe2 with SMTP id a640c23a62f3a-c49bdf00daamr297150966b.18.1793210852637;
-        Wed, 28 Oct 2026 11:07:32 -0700 (PDT)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89dbsm627173866b.18.2026.10.28.11.07.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 11:07:32 -0700 (PDT)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c34bff61551so193910666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:07:32 -0700 (PDT)
-X-Received: by 2002:a17:907:9489:b0:c3e:e677:563a with SMTP id
- a640c23a62f3a-c49bdf8c4e2mr280067566b.47.1793210851782; Wed, 28 Oct 2026
- 11:07:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=omQyp3xw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1793210913; x=1793815713; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=omQyp3xwAnnTF47hhoZfekEF8mdT+ZHmaMUz756gR8nK80QNl5SswWlz62BS9mDX
+	 nguETB/gqFmTwJTDpVbSLyG2kPh8jmY9lO/oHsEo3k23MltWUwipqaz5lDrHfjVQd
+	 eKso4L2bg56UP3kCPp4w80qvhYzeyB8yjR/23xttEQBnsdwgID3xdSCpZguXV2B/B
+	 F4PfdX+B1+FH3WU1LmMcZUHExk7xznDZ4XJxsXycVrZ3vMfH6GzQA5339cxBqg5Wq
+	 SxHpI+URnm7BnBSg9LbzGXwX2rEkXyQ+wKuzYvtF0j+WVE2pFoaZo114qBlnNU6IB
+	 PvZzS6Iz7sl02JIbYw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N4z6q-1wNoHM3Wxo-017BO4; Wed, 28
+ Oct 2026 19:08:33 +0100
+Message-ID: <ff451068-e65e-4c24-98bd-c93f315c2def@gmx.de>
+Date: Wed, 28 Oct 2026 19:08:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,64 +63,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <pdx86-pr-20261028113441-148823082@linux.intel.com>
-In-Reply-To: <pdx86-pr-20261028113441-148823082@linux.intel.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 28 Oct 2026 08:07:14 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wjk2f+Vu656fEa7FOyHHaFe+-M-GEwUQPXykaYoor6A7g@mail.gmail.com>
-X-Gm-Features: AclHuK9F2Tw59uoogHDfU2jp4E90qH2bThLgxFDfqQXF6CsV40i-lIh8iIXt2xY
-Message-ID: <CAHk-=wjk2f+Vu656fEa7FOyHHaFe+-M-GEwUQPXykaYoor6A7g@mail.gmail.com>
-Subject: Re: [GIT PULL] platform-drivers-x86 for v7.4-1
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, 
-	PDx86 <platform-driver-x86@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Armin Wolf <W_Armin@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 00/38] 7.3.1-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261028165940.394092994@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:ZEqa2MmXO++sXxX/yvnQQO2t9u7z17g3bmlvNwrIPhdUr75W4jJ
+ Mm6mGN+XX4BM4xEXlADd0PFSIjMmqHAwDC+wEEvMJH74FlzXbmteXVao9nGk9rN/ExqN3z4
+ o9R2Jchk9S4fEKL0BYMMWDE8JtNrO+rzFHW5DRdDVDDQfJtF2xgPn5CAEF8+kJeASaRvsTi
+ EQQZIm87C5VWiOG0O65EA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:d0XVcpzoSR8=;eqnV+9DP3LJ7pBxxOUoMv+yqcsd
+ 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
+ 1j06ke
 
-On Tue, 27 Oct 2026 at 23:59, Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> Highlights:
+Hi
 
-Please, people - give a *summary*.
+kernel build / boot test on x86_64 (Intel).
 
-Not 150 lines that just re-organizes the shortlog with some editing.
+No regressions here.
 
-It's not a "Highlight" if it just repeats every small detail. That's
-just a "list". And it certainly isn't informative.
+Thanks
 
-I - and others who read merge commits - want to know the big picture.
-Not every driver detail. If I wanted to know the exact details of what
-happened in some particular driver, I would be reading the commits for
-that driver. That's not what the merge is about. The merge is about
-bigger issues than to see things like this:
-
-    - intel/pmt:
-       - Block mmap when read_telem() callback is present
-
-and that's just one example of a *lot* of "this is not a big picture
-issue, it's a small detail in one particular driver".
-
-I suspect one thing that is actually a "bigger picture" issue is that
-
- - ACPI: video: Remove CONFIG_X86 dependency as WMI now supports non-X86
-               archs
-
-which is something that people might find interesting in general.
-
-On the whole, I think 90% of that list should have been written along
-the lines of
-
- "Usual updates for laptop quirks from HP, ASUS, Acer and Dell:
-    - new model names and recent CPU support
-    - more special button / function key handling
-    - battery and hardware monitoring quirks"
-
-or something.
-
-Please *help* me write usable merge messages that are actually
-informative and not just a "data dump". For the data dump, we have the
-details in the git history.
-
-                Linus
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
