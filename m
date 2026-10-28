@@ -1,99 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187110;
-	b=nJ0DQ9jEpz4MXkCtEesjcwh7lgSKZTWEAKFIWt1dZO2KsVNBrpGkuifZHZBkHSoWHCAh
-	 0V4H0VsCv7VXSE370MUGTWgbYrbT8L92BxsKtIb+aqzjMYqkX8/sNLGtohAU/6Znq5mBz
-	 M+qvaESz8GsktJ7vnGfveq9OeTsAnQwNBcaWrYJdBEkfvdpaNK3WhQgCi7Vrl7HKH02iI
-	 jyF9jZriSWw7spbFPKFN2wyEjm/c5OC71SoiBSlxqUJzk4SxB9HbgF+Tg5qjWmO2CCLj+
-	 Fd4jwpWcNssiY8dBmWn9676L/kAu7dtNxFFIUIH7odq2JwWV2yekZ7DbY6so/whC9AA==
+	t=1793187116;
+	b=ZQZ+ErhBNkw5lBqV1LtVo3ORbEPtY417bHs7snIoC2YTEM+rM2y2BKPmoqmLxqZC0Hac
+	 jC9Xbadrsd9JuA4UlwV4GPcTH/Kkn3eje4tvIXP4Y63X4qXamyGgQqdsxF+CPLMsx6qZX
+	 i3SHEneHqOAJjScePCJPmwcnPQ+/X+DczeyuXVt6ppzXLRNs5kLmDtz+qgqOgO0OucT5g
+	 oUxOe438JR9iTCF8RY8mHiJzNG6rf3F7JNHB1T67TEi1fFVUpTzE8y6KANsR+G8GKvcM8
+	 qZznWiXArTysA8L+I1zj/INJ49Wb23qEqbNDEhfaaj5xbA6bkSOZ1RkTWjMaVw9+5+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187110;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W2giDCY2xuWpTcZAEXRUmytbytl04hUv3N8ovPS9868=;
-	b=XboCMCG5zr7U9gBAezE68Yph1ldAvQdBEN9J3eihi0cA76yOeq4AX7Bv3UALkx0T5USI
-	 aljHFVOrmbhytDnTLbgND4mZOVX2CXl5w1fEmIyyXBgsZcPuJ4F1TyAzVsf3aUTKhKyCk
-	 M0pu8U5rjdMutIO6iMriN1cC/kiwmdWLLAEdhum59x+V5zf5hKrwlP0RsokRKEEPqhgFf
-	 mCvWc7Lpwkpge62BHv4MUM5TGZ6EdP7ZkBLq1JsTxtQG+9I0SlmONxTAxT8D8naY72VDd
-	 a+YXdzsSARvWBxISk0PRMq/f+g6c6sjQcBoU/96WHWtpQPaLwNy1OYcrm8nfQvGVyog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187116;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KvuBuwOhhaYmamcTSDk3hPj1rRzQq1G67qxMNZQ6S5g=;
+	b=wXkZQ4HyPoF8rZQDiEcmuakXtdUmI+o2/j/KCdGP3ojHmFUNhLyAUNTzGq66aE4PmyCj
+	 zqiZdzouT9ZSSsKMaXh4YNAT+p7xzbRgV0xiCP4A8B2qYktl1C781CGOyteh00Im9faXH
+	 XBdpIhwDq9N8rjld7foH5B0pzUAxQTWjt+Ft5zVR80TPeuc3AOKnbscfN1qJFH8LWelSx
+	 QpXFkk+VPM7tVEkSdvrgR2CF87abpccilMoiBjc+AnFdsIggYWH9NrYgcntoR87kH5Udq
+	 DGloXbF2Z+8pfdlnu3LOFRASjk2sEF/yYQwqju3r7tWsJGqasqZU4AkhCp5dDA9AZvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOugLRcM;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C77606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:31:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C77606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9180D606A321;
+	Wed, 28 Oct 2026 11:31:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9180D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DOugLRcM
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-313bab9cfe7so165057eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:31:50 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793187110; x=1793791910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W2giDCY2xuWpTcZAEXRUmytbytl04hUv3N8ovPS9868=;
-        b=DOugLRcM0EyM7nC4PyJDIYRXIiT3pKHDFKlTsfjqo1BYSjhs5Xc0GMR7XvUvKFllww
-         ZUGzy9NESCcXZQ2FdpXdRJIVRD3rl+SzTyVY5uDSe4B6N54KZoQ0Rh0KSuEDvEUoQx20
-         sNRuepdAiUASIgvRJyZQLz3euL6Z5FVfqbV+NXNbk/oTK39temn0NG0MqN/oFec4+Wju
-         0NpqBMGJy4IyfG1mZLQD9F/zqBxPaMctbvmTbZWrHrb+thcpWxzx2PA05D3WOicrQM+S
-         aoyKPcRvqIiwjzCnvoyWbv02wqGN7XqpcFwxwZNEBXVnAMBOTFtMdJ+8rxMJwIaFfGor
-         qywg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793187110; x=1793791910;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W2giDCY2xuWpTcZAEXRUmytbytl04hUv3N8ovPS9868=;
-        b=Z6tLz72XOWOC7wFXPsoNf8nD0hhy+OZjeMhJVm3/8A0Oyz8x+R0BjKXTCFTMY9jXeF
-         LCWVWt9Jv6G4X/OmyHrUnjmnbM0rDUuiHpZhJ4gDnML2bcSJOtPL6YeyGSfXSOxCk5HN
-         CoSROTARrsrZ2L3RqZj4aX+Hw/KejUVPqo399DSYUEMZAnK5hN094xRfx8jzYsDRSeS4
-         l4aZnpldgJzehMGeN3fG0sDTRlJKrc3KzIod7X+/HtuO7gaCs+wbySKxZ/kc+nPT2eip
-         TQtpwCuhfACpmY4LyTU3TcCH+aU6TMrWSPm0uVimXd3lK6ESmD7IxGNdjvxrp4iYcXsH
-         TPjw==
-X-Forwarded-Encrypted: i=1; AKwUvBzX241tFf7tJ0aPyhjOLJXEyDxeCxNpnlAvsb0nOi+nA3H6w+BfGaYoJqhraXgrHQVnK1ZZuKUV2BpAWkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwc0LLxRvVwEMCMoMxos8bKBES3livYspswvAiuw3r97vGInUv
-	GSvZzr0j0ksbYC3wzQeIlEui2wgtIiGuYgNMR7X5lc5Hyc0rlayranda
-X-Gm-Gg: AYBFou0t6KwjutrHzcvp1ANOtvgd3/4OV9KocNBrmOAOhUfzwP5eAjhcQvp8hHmBIf/
-	kuVjc9L0jfx/ZxTP0CPlOeecEByv+3zjLdMc/ucy3Svm0wz1u3rhjsEjMTT6TLee26xjkL87ajY
-	GMBIKzSp4SbLocgH6g4SR8tZwiziVTrPeoOBnTw0bejLCqxxMGdCGK9haIF6kXtEK8tyemBb6I2
-	fiskhv0vS4vpH+H6tQJuW3eNFM1oJ9iwnuv4IdOAZBgg0LFupi4o57RmTh+BBByiEYdEzrOlvdT
-	Y58JRw4/vHfap0QuC2JXYEPC2PZdgDSVVcq9L032KWBMXXXELdHjNAW4szYf0v2qxQuRAFV3qVq
-	Q+HYbjBUCGtGenqmj6OYNrWQKILvaVWybkDCQUpGR8ugv9/z3iQs8QbV2b1WkIcEHKeJBm+gNQ5
-	E6de0J8f+ZzASclWOrrF4JMBmKsJpQ8ng0Zp+Q23SW067u+qO2D5niOQ1RcyJCqpUV3Doft1X/u
-	EvJ7QvBDm8wpq/KQLRXZC3VYaD2cirpQREdJFNkZb6u+Tkbkx6+yNHrSb8mknW9CI2k06MYCTVD
-	kmpaz1U8DxkzCnTtekD/ipJ9Jq+BhQzOZKoa8Z6QqR0UA1/OgmZW7WSUurF8HNJ/SynESAnvS5H
-	ROQ==
-X-Received: by 2002:a05:7300:4306:b0:35e:d21c:f33e with SMTP id 5a478bee46e88-36a1ff99b86mr6523145eec.1.1793187109429;
-        Wed, 28 Oct 2026 04:31:49 -0700 (PDT)
-Received: from tacolabs ([72.251.220.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2390929asm7462425eec.12.2026.10.28.04.31.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:31:48 -0700 (PDT)
-From: Reid Downing <skibletz@gmail.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=BP8JXNnKuF2arqCOCI2pY7Sd5FwvWISknjYYz1omPpVcQygqnEkgB7FTwFVLNGc1aFUgncOedNbjG
+	 aUlXdbgieeaO6k70+bGN9X1l3h8WHAQ1KjtHXtRMb3+17kAJR1onT+r9oxyAK4CFdqIOXmjZ0xLE+E
+	 9iuuRTItbXLuBPA8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae1dd1dd76-2e04b;
+	Wed, 28 Oct 2026 19:31:45 +0800 (CST)
+X-RM-TRANSID:2ee66ae1dd1dd76-2e04b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae1dd1c768-052d5;
+	Wed, 28 Oct 2026 19:31:44 +0800 (CST)
+X-RM-TRANSID:2ee66ae1dd1c768-052d5
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: andrea.mayer@uniroma2.it,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Eric Sandeen <sandeen@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Reid Downing <skibletz@gmail.com>
-Subject: Re: [PATCH v2] xfs: fix wrong compat fields in xfs_ioctl32_bstat_copyin()
-Date: Wed, 28 Oct 2026 07:31:27 -0400
-Message-ID: <20261028113127.3374246-1-skibletz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027161748.2760321-1-skibletz@gmail.com>
-References: <20261027161748.2760321-1-skibletz@gmail.com>
+	tangbin@cmss.chinamobile.com,
+	stable@vger.kernel.org
+Subject: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
+Date: Wed, 28 Oct 2026 19:31:41 +0800
+Message-ID: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,15 +76,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi David, Eric, Carlos,
+advance_nextseg() decrements srh->segments_left and uses it to index
+srh->segments without checking it is non-zero. seg6_validate_srh() permits
+segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
+action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
+bounds); the read bytes are then used as the new IPv6 destination address
+(info leak) or crash on unmapped memory. The decap path
+(decap_and_validate) already checks segments_left > 0, but the standard
+End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
+0 before decrementing.
 
-Thank you all for the careful review, and Eric, thanks for catching
-the second line.
+Fixes: d7a669dd2f8b ("ipv6: sr: add helper functions for seg6local")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ net/ipv6/seg6_local.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I looked at the refactor David suggested and Eric sketched, and I
-agree it is the better way to write this function. I'm not confident
-enough in the 32-bit compat code to send it myself, and I only want to
-send changes I can fully vouch for. If the refactor should go in, I'd
-be glad to see it done.
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 53f7b2452..1d8312467 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
+ 	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
+ 	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
+ 
++	if (srh->segments_left == 0) {
++		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
++		return NULL;
++	}
+ 	srh->segments_left--;
+ 	addr = srh->segments + srh->segments_left;
+ 	ipv6_hdr(skb)->daddr = *addr;
+-- 
+2.52.0.windows.1
 
-Reid
+
+
