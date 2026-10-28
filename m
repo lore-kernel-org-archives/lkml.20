@@ -1,80 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184152;
-	b=Ubxq5pbzjaSssb6MzLG5bxW3z9Q4tcx+HqcLcWxYlNBf/+Z28VWlh8Zj9wdjkOl5g5qa
-	 AAmVRNOYXEQ31lTR/gonPcVZXjcnnS5LeKHI17BoA56Vvsa1YUAhsmBtPwnDxwAj3nE6S
-	 SPtCPeS9IHkClA4qIyHZ79vpMrIi4OrnFB8c/wzLPqhDUERNwwvcCdt6ztvERJeXr0tg/
-	 frkwvVmXpaZVfdf0UWKqJ1iq2xj1ugBK9dsedB5IKVeFKbmTgibJKXB9csIQz3lg5dEPR
-	 M5yxOv7/bx1u8efbLUgTW5uvCuUDc8Jm7e+icEDiE5LdbGHnNPOnXLBEBUcfBssMFyw==
+	t=1793184164;
+	b=ZIs2j6sOIz0hddgu8oca/6mQhhVemGndwLs+M2scNkrbyVvQlX8FGyUmqL60rp7i7wJJ
+	 Hp65MjyY4sYFBQ/Vaa/RbgWy9/WcfVYIy8Hgsip5YgebOsHjtB3b3NG0O4FB1FVMAk3gT
+	 isF3GCi/6/PYQ9UO5wSX+My8PaHhg72ihfVVgHAL/d97cK9eGiCMzBr+t2/LHtjIHYjWD
+	 PoURBkG4TuQzJlvwEWzaexF+yCdxUZFBwyDgZM/Nsl/jYr7SIOXtUxIvmnpVwuNUm5C7D
+	 lbsmE0MDYHBvoZd2ER5WT+r8GXuHcPZOUip58Lefl6Op5AFAOxKB0NYoDZ+lXWjy7kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184152;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Wr5H6194Ck7Knoj7DEU9DgmJ1Wo5pcWbmFkeajBfofU=;
-	b=j+b8ktbQ2EUPajQZVgJAF3WbpnndFCEXAi9SCw9DRUAgfPehOseOabPyqaXOuEMS5QhL
-	 L1kBAvM9Ln0zyse9vWE1qiAeecblPHXJCpQt1BMKwSuEmnLHJYD6d0LXiMsGGU2OTEEwa
-	 Z6F72XBQZL9RiJ57fEzWnRpppAgzFVYrTJ3olE2e2i5yllCGqrFGGo0KzskcvCkl0jW+0
-	 zYKQ2JVDYvVYdd1zafDk+5jlpEuQDUzdXFHDRl1yZtr4Ra50yfnZDd4lJnurnsDHrGh22
-	 HChwHV5s5eWmbGDronA9vsHUhg+02gUTx12JXPTJqCcg0vvvLkckbIwPpeRwjfl3g/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184164;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6tLbfq+cZnF/5nhM51bRIh+T/6W7SJLuUTl2FfRow+4=;
+	b=TLx9zjUdhiCKxB6EjdlQX5Agk9BnnKY4witlwsrjJ5Nt1pla6kkm9G/08G9U+PIyfci3
+	 x+o4bDzvuz7jJ1xvwwCFWgqSUJwWgi/X0vxIx0JrQhdAjDc8rt/FejePOH2rI2AQMFqjm
+	 TPPLbl8ZU1eaR3ib8Hx8t23i/mQKeInvsM4CaZmvzHKvKZIJyl2U1hD8n0xv5IysAyvn7
+	 LrF2dBh6BROQrzyYb9BN0g5LlQ7KREs6ZUXGDg6NqrmR3l3BLKPVKPAml4PAhLo6pDNtW
+	 50OaqT93UoELQ/oOeQeG9ke16YN5ygY2HMr8+PqsP8Lf+QzrVtCcwxN4bC5b5pVOFyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgEV0PF7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cvmYRTsO;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8193606A325;
-	Wed, 28 Oct 2026 10:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8193606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF69606A32F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF69606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgEV0PF7
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KTWd3265161;
-	Wed, 28 Oct 2026 10:42:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Wr5H6194Ck7
-	Knoj7DEU9DgmJ1Wo5pcWbmFkeajBfofU=; b=mgEV0PF7YLHYrrSFJUzwQNWUXWy
-	5o4BIY7BwWtgjKnXWO8Ay2bzrwCZFmkNm81rZ/b/6zoNXfaQk1OT0uCuyXfFSw2n
-	JhBTPtR/LAH75easrUIY67Xa7AjRKqAjb5jDxWa3mz/jAXsGL40ptxrS1QFBcNFY
-	qNZATvNmyyrYnzKnM4EiWY1FXraeDJEOQ2LdxIvc8s5v1r9XjQRHgV873I6YmeJO
-	Onm9a5Qo6x6rvcJmLImHCmS9zMGd7qJ0bkioEQV6FTw+Urd7DiJNxq/8oYmhE/TR
-	LY1ogIG9R24L6m3MNt3jRHHDXthrHp8XE/U61WomkiEQehzucWB7kTM6+WA==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy713rxq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 10:42:29 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SAgRKd3208767;
-	Wed, 28 Oct 2026 10:42:27 GMT
-Received: from sdciot-sh07-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTP id 69SAgQXA3208758;
-	Wed, 28 Oct 2026 10:42:27 +0000 (GMT)
-From: Linghui Wu <linghui.wu@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Linghui Wu <linghui.wu@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: shikra: map WCSS firmware stream in EL2
-Date: Wed, 28 Oct 2026 18:42:26 +0800
-Message-ID: <20261028104226.1075335-1-linghui.wu@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cvmYRTsO
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so1166584eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793184163; x=1793788963; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6tLbfq+cZnF/5nhM51bRIh+T/6W7SJLuUTl2FfRow+4=;
+        b=cvmYRTsO6ZCeiu7WOEjMntIFpn/wevrWu1dNqSQtOjB1tbyGo9TWg7SsTHAD9v9310
+         w2giSBPR/A/sTN8ddsvj7A9GEBLzSiBdhCajKcSj9XAb5tW5Qj6WXKUcSwhBZ1WNzeqm
+         QpHOM9/p8wqQ1tRZ0wGkUx5u5lDfD8Vm944+j1ygWINLvj2NgBY0Oshx0n/ftWw1g2DE
+         fhl47EjH2TsRJj6lw1U2oNqqNIihhoVc3rZ1lfgn4FV4ikAKGq6dsruF6jzalUILjTGq
+         z1EsD+ZMxWcbmTKRIe/XNaDAGNtSBGgexu/tkWs/v0LQZw6/Qk1Lazrzi7Twfwmczviq
+         glSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793184163; x=1793788963;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6tLbfq+cZnF/5nhM51bRIh+T/6W7SJLuUTl2FfRow+4=;
+        b=HlliGNkFdF4pcIXM6FanVjCYQEn6LsyjcNQvIWNOSuPnWS6GEeMMlUHPf0xZSampbh
+         OQOzUuDh42FkTDUkYb3CDJfypov7ufJqiRE9Ds7Jl1FDn1phVJRiQpIdg24Un1xrp1k9
+         Bhz5hZy/FvyGyjmtVQxf2xHoxxYgPrn+xYXRQoWYmX0wbypZ6iEtMCy6F7fJ906fz69c
+         tSiS9AP6bearsXO2bRyQFnPMgkiSgq9thqOFBaHd/wKvOxvjHULR4n1icxPjHDY7LmWJ
+         z+PUo4w/kef82SKXmuwYdpjrfVW1AO6JsvMYgRIbf31kuSJnxFrX5vOwkwYR1Y5cyGFW
+         n5jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwPzU6lnTF8Nyd7ppR+m1s2g2brrb/JOLdBvlC2f1uAF/8sbzXEkgt25ekU+b2iOkTHwCl9DCdPBx26NOQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLL8iQR114eGBN6wDLvT6Bap6g/pUOAKUcCGASMqgKwVJ07zwk
+	mjxlfvmq4o1F19ppMsnDJLKkxh7fSoskw2OGDORtjC9JZOotL/C7f4m/
+X-Gm-Gg: AYBFou0OPBpflfZgfZM3Aa4PV7BtGCYVuz4zdoo4remaBNVnGodemX7Kz0eL68zPZQ7
+	zEkFwy4/4olBcxoqXK8xEpLSG/0+XtpiA/DMQS2z/li6Y4+YqlLHicrBrXbY2+k5kswpZiSG3iZ
+	wlk8BmllrKAa7Rn28EDCRpPQ+FXwtgNtHH7otqFwmTPk6ctGV3cthyJdayjRp+pBXXvcrD8LQHo
+	d2HX0KAtUh7tNiesHVM8Ja64I5N5zqH9ZD3hX8SAxRWhHLzCM+WcW4KFchhS7lDACw6ulRk4Cr0
+	ftNPHjGdLHt/sraKObUtLY5NJjMsBpVF1+F4UkHUHp87b8x4ViDPgJWEmY/KJ8CCUu4vxOXuACS
+	/AG4jvj6GnnQWk3HR2OWZz9pqIMmfYIb/H4vz8K4XR0AJOR5YPbKUfZYVNglZPmJcWIztzpHcU6
+	o7xLPkTmFdrW3lUtTE8eMTufnc6o8y6V9Vg/V/IeT6ZB3c3LVhXHWZsTCWCX580amiSR3Qpq9s4
+	pg48s/K5bApzKSEwfGlKs/8pUufZE13QenHK+WwgDarhf5wC/k5HI/MVOEOOqKB/r0eNqO+gpMR
+	rJO+UvNSmXN7p4BadBXpvDkH+431z77QLra2yZgQ0QiIW0UZ6gWwgqprxMjEfs50VVhOesoHLqt
+	ITknsMooBmtL/PQhLZ1oj9zPcdKQ5E7sXoDFSXh6SUh6g
+X-Received: by 2002:a05:693c:41d7:20b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a20115c41mr2784532eec.0.1793184163100;
+        Wed, 28 Oct 2026 03:42:43 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238da3e1sm7531469eec.8.2026.10.28.03.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:42:42 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] ASoC: img: img-i2s-in: Fix clock leak on probe failure
+Date: Wed, 28 Oct 2026 17:42:22 +0700
+Message-ID: <20261028104223.27007-2-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
-References: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
+In-Reply-To: <20261028104223.27007-1-phucduc.bui@gmail.com>
+References: <20261028104223.27007-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,70 +104,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXwEpz8o9u3J+L
- ZKOlePpQHHFE/WOqKHH/366UuN6cYXorMe1db2pSjR5SUHiQZjS5BStAuwHG5VJHE9V+zLYXDvs
- UbCjGGpP7F1F809FT13DhTMpiKB+n9i+66XW5Q83ALdOZLqOwG/bRHM5iQFKF8cLShEJ+zj/0FE
- uPZSQLRJkb/OelEac0k6yQtrzzjnkd+dBw0ilJxpxwgQwHaHyrq9Tbtyd4ifaPFKsD6jahQAVJ0
- Pv3MvLaaGHPy887wR+AtkUOepcSUjTiYFeM1yQTIFTvkhh982cxgCIeyMo08DPS62pIKvXSpCIC
- AAolpOUqb7dcl3YT7B9Rks4Df88nIdJ2fbQGc74PsHMn2xD8Sv9Dz2oqrgLbw89MhgevW/8fbk7
- 2Yt0Bacy3FdDYf7zaxH7WCmuC4OFuPKpgW/rCRr4fiiKcRWHmUUcuFMxKrM1Jf7UNeBlmQpTFW9
- 3AJAo3LCxLChV8ojAFg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX1OuKggLBIPTd
- qKlwG2LA/g/sSL032196/LpYvVRX/7IcOW574n/14QNmZ5HMaI4thmAGbs+dDmh3UhKFwFj6u+s
- Pf12zDLmliJ2G9c/O0yVcF53GOdQgWc=
-X-Authority-Analysis: v=2.4 cv=JspkP84C c=1 sm=1 tr=0 ts=6ae1d195 cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=_6-XGTQBvWoJhf-V3jsA:9
-X-Proofpoint-GUID: i3txTG8uyg-yl-_tiIFi1HPi-wLB1Fy8
-X-Proofpoint-ORIG-GUID: i3txTG8uyg-yl-_tiIFi1HPi-wLB1Fy8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280042
 
-When Shikra runs Linux directly at EL2, the hypervisor does not
-configure the IOMMU stream used by the WCSS firmware. Without a
-wifi-firmware child node, ath10k assumes that TrustZone manages this
-stream and skips creating the firmware IOMMU domain and identity
-mapping the WLAN MSA region.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-The resulting WCSS access to the WLAN MSA causes a non-secure SMMU
-global fault for stream ID 0x1a2, followed by a system NoC error and
-secure watchdog reset.
+The error path of img_i2s_in_probe() only suspends the device by hand
+when runtime PM is not enabled, and otherwise relies on the
+asynchronous suspend request queued by pm_runtime_put(). The
+pm_runtime_disable() call that follows cancels that request if it is
+still pending, leaving the sys clock enabled. This happens in particular
+when the reset control lookup returns -EPROBE_DEFER.
 
-Describe the WCSS firmware stream so ath10k can attach it to a firmware
-IOMMU domain and map the WLAN MSA for firmware access.
+Disable runtime PM first and then suspend the device by hand if it is
+not suspended, as img_i2s_in_dev_remove() does. On the -EPROBE_DEFER
+path, use pm_runtime_put_noidle() instead of pm_runtime_put(), as there
+is no point in queuing a suspend request that gets cancelled right away.
 
-Tested on Shikra KVM/EL2. Wi-Fi initializes normally and the SMMU/NoC
-fault and secure watchdog reset are no longer observed.
-
-Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/shikra-el2.dtso | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/img/img-i2s-in.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-el2.dtso b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-index d2f3186bd47d..a0f7c4a635ad 100644
---- a/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-+++ b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-@@ -21,3 +21,9 @@ &remoteproc_lpaicp {
- 		 <&apps_smmu 0x0366 0x0000>,
- 		 <&apps_smmu 0x00e7 0x0000>;
- };
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index a0c87e2a9b30..0c136dca186c 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -490,7 +490,7 @@ static int img_i2s_in_probe(struct platform_device *pdev)
+ 	if (IS_ERR(rst)) {
+ 		if (PTR_ERR(rst) == -EPROBE_DEFER) {
+ 			ret = -EPROBE_DEFER;
+-			pm_runtime_put(&pdev->dev);
++			pm_runtime_put_noidle(&pdev->dev);
+ 			goto err_suspend;
+ 		}
+ 
+@@ -534,8 +534,12 @@ static int img_i2s_in_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_suspend:
+-	if (!pm_runtime_enabled(&pdev->dev))
++	pm_runtime_disable(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		img_i2s_in_runtime_suspend(&pdev->dev);
 +
-+&wifi {
-+	wifi-firmware {
-+		iommus = <&apps_smmu 0x01a2 0x0001>;
-+	};
-+};
++	return ret;
++
+ err_pm_disable:
+ 	pm_runtime_disable(&pdev->dev);
+ 
 -- 
 2.43.0
 
