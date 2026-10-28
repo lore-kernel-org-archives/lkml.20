@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201991;
-	b=0l0jmp8w+OgU2iyKBYjV5fM36FxKwsjladirfasXfmm/kkSrwUppm63xcXpKKjNDh3K3
-	 9zueoeJRiTs4EbUK17q896+B65joL6eEtc9+HPio8P6r8YLZgJMtMouxesGaySKy9P0Pb
-	 DcpNh/Fo7HwJKDcIJnnhDfBnag0H0JQ6lFbjat7iPTq9LZ8pnKYnXEvBeyxpZGricnd7A
-	 mz/fooxwQm1Qd8w1kdJ97rrTNuGg+cwxIFXU/1v1p+to1I2Ghr4uZEuiHJkzPNiMFv1K0
-	 KbhwqRL9i6JSuB8z9KvyvzS+kk9WtPMmG7nszKPkTgb2qJLXgPYaAcuZ/ljQ4YS5mCw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201991;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v/GrfVBE9REqGlviMjMV9KYA8baC9D3Z4PFL9rDyJNI=;
-	b=NOBTyYnloIqs5H7tin2wOCweucNQvPjQ/xD++wnfWYO4xdn4PAVr9AKfALHr8THFc6VJ
-	 ZO/WwZV1P/iEZu3edoJq4E5jYNxVc6WV+4/O90QHP/tYEdivnh+8RKV/cD5cHB1G3OlZQ
-	 8gvIYlWLOZC0RQdViaZWScpfYCdUmHefStjeEavsSOIZoVxp0up0cWExNnLeXR2kZgcHq
-	 ULBOnYP87601gvauq+zUZ/auXfs8KpQmfJriS27QV2MBHU5LMCLzGoZZVLJIQeAZ/0N6X
-	 ognq0H8IaZFr6sxOFA51zgeNLONmKhpHNRmIcqlTQb3v13++T6pFrfyqVdAbQwfHZlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VHtM/wzi";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793202008;
+	b=LxbQr/VbDliLsk8qxazayQO5j7efvrECvvE0+ZP3FzD7/Q4IEW9oENevVSofucigzrmL
+	 FBODO5Xvemdrx/b0DpEgloQFmO+UQGjuFjuHcebXDVdyagaHIMJ30fgOw9dPS6FrOEMfp
+	 tdSHuEo3B2Wo0U71ZFRwQdvAcXIGJ+eH3ovjBWv+/fSR3ycjdVON+ZmxztE3IlMpCAlyd
+	 FBAsg7yWRh8x2SHrBKUiz13ntEroNQ+3xeqfXjk1OHLErbjw9cWCWIKhF9gC22I0qOdcY
+	 3Aok3TYAdFenoczaklz/0SQOX2xeoQIDbNlDkmIQcvS522rKuOD11rn840jePVh+Pwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202008;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0L3UJe+6XjER+KzlgRD/7xotzxSyGvuQzLO/yjOCn+Q=;
+	b=nQr7JgvGN6a8JNTWBMvFpwl5qTrXUj/sWB9M9BYmKJ65vIXHezV48sNeWj4VVEwPnhCF
+	 KCoWm36A3dPzeXa9V25GDxV6BrEuJrjKrsfKXXVeq/tCqtrboxrSQseyFTAsMnzLK59HY
+	 V4M3SggyHBXYTnuyholprCqPqtVadnfkqAHu+ksugV4/hqpV205tBaGftNku4S8BnireD
+	 GOTl8Xgue3SrLfJcks4dyL/v8u8NuQIsQxrhDQW5io1cDR9z17wl5pcf3HFtZgDVllC6C
+	 /Eqy42A8Z4By2yMokYt6Q16jv4eTCg3F3IeH45igtFmEXTOsW2BgH4Ku0PI1ErSs7Mw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lzrv5baS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CFD606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1909606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1909606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHtM/wzi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8552B1F031EA
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793201990;
-	bh=v/GrfVBE9REqGlviMjMV9KYA8baC9D3Z4PFL9rDyJNI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VHtM/wzid4Vjpi1ahtkrCTunBXdpMk588+yxAl/Zt7jPzQ9CgDIh+PYPt+lW+RHtD
-	 XBF1ITpY/oCCREN/r3GxTTiasnxkbYCm2mrSb3zmMn23c5zknBvNx/dV5SfeyYM827
-	 m45G9IzvrUp2GsXITO1BPz91FS4SrBTRct5fIYPvHF7/uja6GCRbMQHJlEDtcLZFBR
-	 bBqsTOILPojBkbqP9c5uFYFLXwvDa2XYT2SFUMxRTuB6ZQzLNkssif/6urHzHO00fk
-	 Skgn+ptvjMSTS3VMBezq8yREZJPVwbZdc9I441ADP3crdeclpWj7HnR60MZ9kaBb89
-	 e8j26jTotaK2A==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso1243736e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:39:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwx0ZCIg9VNmzz/Jz0iF9lsevBg+RBGik1FIIN6XbUpCax9cSEVLMLQohyn+4yGfd+ZE6/fpv3OK0csdJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNdTkAMbe7q8JkfysA9ovZK3KruNfXWqk+44Z6HFsGxVeZUb0c
-	8aUO8OLD8RM75rf5l4b07hDzLIoRy7A7NND3N8kCB4Q1ooqcRFFyd42/WJydp1JqT3OlRYQFTvN
-	kiiKSnDGqu6Bb2KHKplDN6/RnkdbASdc=
-X-Received: by 2002:a05:6512:33cb:b0:5bf:ba43:f2f1 with SMTP id
- 2adb3069b0e04-5bfcad8c081mr1232361e87.34.1793201988873; Wed, 28 Oct 2026
- 08:39:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Lzrv5baS
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c46d41f6af3so165820066b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:40:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793202006; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LITVjBNhMdz5feVnbZaW0Z7UXE4HMmTlkBV4VoWPDHtSgMtzQJhjugENrtWyDnfejb
+         bLA0bvSP5ctYOKhzEAG8UqNO5/WwySxagHMjinIIgoC85h41G2TB5EIFsYdUu83dCGum
+         crNDvpc9kzhkz3srJkBda92rb4BaTtg47SNTj5x20Z/85/Euc4Op4BK0ZpY8NZA7REkQ
+         TPUCbH6BmD4UfwzGHguu3oOWLjfn8z3zWlV0uXDgeze7S4pN4i3aa7UZUevNYxb+DAkz
+         D+I0n7N8JkCVlAJVL6USjVxql01sPGm2W/yY+kVn1JX2fPWzp3o/CtnTrKe5vcT7hcUb
+         GTQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0L3UJe+6XjER+KzlgRD/7xotzxSyGvuQzLO/yjOCn+Q=;
+        fh=2HP/g1MaCElmqO9viokoXTkqOLkSBRnjM/ByUvTgF7g=;
+        b=svSrhcVsYqVRDtaiL+wkUrQ2bSWuHUMcHLTiqQifqiehslsl6NkWot/HaZAH9j0YDV
+         bUQzg0NZ0dapGNX6SXoYpvAwYHMpqKQ/HVOfmSDFCty0GySPS2fDuvtODuLevIZ7ldog
+         Y6sUuHNdq5Aq/+0PeOSMDR/3GZoGm4x9nfzz2NWSms6YGnGqFsEdyjDjquesADpMsNCk
+         YAkBnsbkXKUECD4eZpTqPrku80kCKmqefORmxSp+NhAp8izev3MQdDnJUtav8c5mCqzt
+         g99mGp3eS47pGAj/X4r8ZBmjbWodsEOINorgv5+9vgP5xQVvMSbJqbk/U+nGuNYjCVdx
+         ZAhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793202006; x=1793806806; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0L3UJe+6XjER+KzlgRD/7xotzxSyGvuQzLO/yjOCn+Q=;
+        b=Lzrv5baS7hZO56ak+j11CZOpo9nSwSzqR++f9YLzcEmSTxWwZQFwBFUDMJCR2ak458
+         4zMWtmZpd7fl6+iHDAzFDsltCruFoM9m3rKAF1nbPQ38QQ97sY2Oupi3jTQRUS0z07kY
+         /4Z189+g74DrIJpLSPIaqW0Bv5NK/A9ybyIm4LoLz8S2Dg6JPDCBW/twsdfd/BstNY1X
+         F0WE1g9ZDMJ4pA1yfDaNgvWXRaX4rRhgbH2DVsxdAtmw362z1jqaE4q9w2rVRSV1bYNz
+         pdw0GNIfu1bkawf3pNYOq8fyug2JYA/oXfjTKXh6bb7aKySduRXo4Bb5IJ2R/4FiPFli
+         vAyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793202006; x=1793806806;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0L3UJe+6XjER+KzlgRD/7xotzxSyGvuQzLO/yjOCn+Q=;
+        b=zpONu4XV8g78v/IrqqtDnmAuRfTCu4F5welF73oAH+tQshxwXZac8xmFKK/d7EVb0G
+         mpQ3MpohxL57RptoAhVOwMw3XzUFbRn9Dnp+icp5X7huUMMHCEbxRFhyVJIekAI+M/p8
+         xSRCQZZY48+NWo40zsmY3d1frr4KTXynzP8ldtvaVR65ZwVqFzcOjqc7zgFtnIQLUG7z
+         Laxo6YHtrUCiqm0ys9Nw272CMu4OlsbjjN7iQtnukbZddlN5eCGi8pizshJ8nNYO8Fnq
+         Vh38MUJ0qdfezLgvDBWzpAdh0IX8VCyePQ6FvVYj9etoQlodEHBafQZmeAdVOEAIDCGP
+         Y/iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnVw9m34BhubAcaw5boDZSeXxjkOYf5tFV+3fFV+HDkdYtb1qGF0MeuSv210J7h412iRg3bQz0822EDoo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQPWtNnvq3ndbWpXVL/PSdiGwF8iyA9nq3N3wV/Uv1NBVLYpMZ
+	R6kGQyJXPp/jM+4+gZPH8Vit/D9IxvmLb5DmUB+bAe9FHIGsaeGqzTnsawML7NhZYVsc7mR7oiY
+	HExjRmAfs8a4aeBKcOpzD5GLf5ie31Jb5M20hYIxg
+X-Gm-Gg: AYBFou0Gjk0DF4QvC7xjFtNV5bU2QmBnLVDC7Ih/RCf1VkZdL0lBEvoHxbAnG5hJrE9
+	ufGHv2un9tIdCKVA1YGqbrSO0EKWgJd2b8a2VC0m/5phIHMSbkMNLWCbHkmBhuRd5taUFhp59kY
+	UJ9ANQ4Bv3c3HzblxMZAdgwznG3mZdmhs+qPiCxrBrC5APYvNBdZiZMyjqnuBSzKpxxb25JEJwa
+	XIdH6tNGpI4Zz2gJW40XMeBhYt9lU9WkvQQjCFrlELIQHqp37mLBQwmS2bsBlqNiN3nznsGUIWF
+	d7DGbGCjI+xivtad45dKCvBFlSXMe7ljlP2l8XA/hKuEujUpAQMeI5bn2ELzIyOjOVFPczT4c+H
+	S93SX7qqxj1Z+SiunZrpbVdaZrRn0utaJxFi2FswKDU1SR8i41NiYsRzVPgLFsn41/Q==
+X-Received: by 2002:a17:906:9f86:b0:c41:960c:8c62 with SMTP id
+ a640c23a62f3a-c49bdfecbf3mr243566066b.30.1793202005586; Wed, 28 Oct 2026
+ 08:40:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,175 +104,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com> <20261027223847.652884-5-irogers@google.com>
- <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com> <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
-In-Reply-To: <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 28 Oct 2026 16:39:37 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
-X-Gm-Features: AclHuK-jtq7opXKWd_89haXf76RntnjsmSewB7PcsqPK44QRbhInXeBo-GT0LQw
-Message-ID: <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/9] cpufreq: governor: Initialize kobj_type release
- callback statically
-To: Ian Rogers <irogers@google.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Zhihao Cheng <chengzhihao1@huawei.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, 
-	Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, llvm@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>
+References: <20261027025616.1632690-1-kevinloughlin@google.com>
+ <20261027025616.1632690-11-kevinloughlin@google.com> <20261027052057-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261027052057-mutt-send-email-mst@kernel.org>
+From: Kevin Loughlin <kevinloughlin@google.com>
+Date: Wed, 28 Oct 2026 08:39:50 -0700
+X-Gm-Features: AclHuK_MLzRdQo76ylDi6PC5wwAQyJcXzBectQ_iPw892kOlvxApU7OSZmy7jAE
+Message-ID: <CAGdbjmJjBp4WPqkWs0KNLpH2ve+Q+y26yOg1PO4TJHwKfu1uZw@mail.gmail.com>
+Subject: Re: [PATCH 10/13] virtio_balloon: add higher-order page inflation
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Michael Roth <michael.roth@amd.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Alexander Duyck <alexanderduyck@fb.com>, virtualization@lists.linux.dev, 
+	linux-coco@lists.linux.dev, linux-efi@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Sidharth Telang <sidtelang@google.com>, 
+	Punit Salian <psalian@google.com>, Peter Gonda <pgonda@google.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Jacky Li <jackyli@google.com>, 
+	Steve Rutherford <srutherford@google.com>, David Skidmore <davidskidmore@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 4:36=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
-te:
+On Tue, Oct 27, 2026 at 2:35=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
+ wrote:
 >
-> On Wed, Oct 28, 2026 at 4:39=E2=80=AFAM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
+> On Tue, Oct 27, 2026 at 02:56:13AM +0000, Kevin Loughlin wrote:
+> > In confidential computing guests requiring page state transitions,
+> > unaccepted memory tracking operates at the EFI unaccepted memory unit
+> > granularity (typically 2MB / order 9 on x86). Inflating the balloon
+> > with 4KB pages would prevent unaccepting the backing 2MB unit.
 > >
-> > On Tue, Oct 27, 2026 at 11:39=E2=80=AFPM Ian Rogers <irogers@google.com=
-> wrote:
-> > >
-> > > Export cpufreq_dbs_data_release() and set .kobj_type.release statical=
-ly
-> > > in the ondemand and conservative governors so their gov_attr_set
-> > > kobjects have a valid release callback statically initialized, matchi=
-ng
-> > > cpufreq_governor_dbs. Remove the redundant runtime assignment in
-> > > cpufreq_dbs_governor_init().
-> > >
-> > > This prepares for annotating struct kobj_type::release with
-> > > __must_init.
-> > >
-> > > Signed-off-by: Ian Rogers <irogers@google.com>
+> > Inflate balloon pages at unaccepted_memory_order() when
+> > virtballoon_cc_needs_state_transition() is true, while retaining
+> > order-0 allocations for non-CoCo guests and CoCo guests that do not
+> > use unaccepted memory transitions. When a higher-order balloon page
+> > spans more 4KB balloon PFNs than VIRTIO_BALLOON_ARRAY_PFNS_MAX (256),
+> > transmit its PFNs to the host in VIRTIO_BALLOON_ARRAY_PFNS_MAX chunks.
 > >
-> > Do you want stuff to be picked up by maintainers, or do you want to
-> > route it yourself?
+> > Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
 >
-> Hi Rafael,
+> I'm not too happy that this rides on the legacy PFN thing
+> which is after all limited to 44 bit addresses.
 >
-> Just a quick note: I agree with Zhongqiu's feedback and the commit
-> message needs a fix.
+> And given it is passing around 2MB chunks, then one 16 byte descriptor
+> covering all of 2MB would actually be more efficient than 512 4-byte
+> PFNs.
+
+Agreed. I debated initially doing this in a single descriptor but was
+trying to avoid also needing VMM changes.
+
+Regardless, after reading yours and David's comments, I honestly think
+it's better to just drop the legacy inflate/deflate and only include
+the free page reporting functionality if we end up adding some form of
+CoCo ballooning support. Beyond being inefficient-at-best here and
+potentially making fragmentation worse as you noted in another
+comment, the legacy inflate/deflate path is the biggest source of
+bloat in the mm/ side of changes for this series.
+
+> > ---
+> >  drivers/virtio/virtio_balloon.c | 87 ++++++++++++++++++++++++++-------
+> >  include/linux/balloon.h         |  1 +
+> >  mm/balloon.c                    | 67 +++++++++++++++++++------
+> >  3 files changed, 121 insertions(+), 34 deletions(-)
+> >
+> > diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_ba=
+lloon.c
+> > index 11f74848fdc4..d162c162b496 100644
+> > --- a/drivers/virtio/virtio_balloon.c
+> > +++ b/drivers/virtio/virtio_balloon.c
+> > @@ -182,6 +182,13 @@ static void balloon_ack(struct virtqueue *vq)
+> >       wake_up(&vb->acked);
+> >  }
+> >
+> > +static inline bool virtballoon_cc_needs_state_transition(void)
+> > +{
+> > +     return IS_ENABLED(CONFIG_UNACCEPTED_MEMORY) &&
+> > +            cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+> > +            has_unaccepted_memory();
+> > +}
+> > +
+> >  static void tell_host(struct virtio_balloon *vb, struct virtqueue *vq)
+> >  {
+> >       struct scatterlist sg;
 >
-> Regarding merging the patches, the issue with maintainers picking up
-> fixes is that the series will break the clang/llvm build without them.
-> So the maintainers need to either merge the patches (and the series be
-> rebased on top of them) or merge the series as a unit. Perhaps since
-> the patches align, merge conflicts won't happen, so maintainers
-> merging and landing the series is okay. I don't have the experience to
-> know.
-
-I'd expect the driver core to pick up the series as a whole then, so
-please feel free to add
-
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # cpufreq
-
-to the next version of this patch.
-
-Thanks!
-
-> > > ---
-> > >  drivers/cpufreq/cpufreq_conservative.c | 5 ++++-
-> > >  drivers/cpufreq/cpufreq_governor.c     | 4 ++--
-> > >  drivers/cpufreq/cpufreq_governor.h     | 1 +
-> > >  drivers/cpufreq/cpufreq_ondemand.c     | 5 ++++-
-> > >  4 files changed, 11 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq=
-/cpufreq_conservative.c
-> > > index 02bfd46543e9..146a2353b1a2 100644
-> > > --- a/drivers/cpufreq/cpufreq_conservative.c
-> > > +++ b/drivers/cpufreq/cpufreq_conservative.c
-> > > @@ -318,7 +318,10 @@ static void cs_limits(struct cpufreq_policy *pol=
-icy)
-> > >
-> > >  static struct dbs_governor cs_governor =3D {
-> > >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("conservative"),
-> > > -       .kobj_type =3D { .default_groups =3D cs_groups },
-> > > +       .kobj_type =3D {
-> > > +               .release =3D cpufreq_dbs_data_release,
-> > > +               .default_groups =3D cs_groups,
-> > > +       },
-> > >         .gov_dbs_update =3D cs_dbs_update,
-> > >         .alloc =3D cs_alloc,
-> > >         .free =3D cs_free,
-> > > diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpu=
-freq_governor.c
-> > > index f3bd3dbe7c41..f8b5aca09b6b 100644
-> > > --- a/drivers/cpufreq/cpufreq_governor.c
-> > > +++ b/drivers/cpufreq/cpufreq_governor.c
-> > > @@ -419,7 +419,7 @@ static void free_policy_dbs_info(struct policy_db=
-s_info *policy_dbs,
-> > >         gov->free(policy_dbs);
-> > >  }
-> > >
-> > > -static void cpufreq_dbs_data_release(struct kobject *kobj)
-> > > +void cpufreq_dbs_data_release(struct kobject *kobj)
-> > >  {
-> > >         struct dbs_data *dbs_data =3D to_dbs_data(to_gov_attr_set(kob=
-j));
-> > >         struct dbs_governor *gov =3D dbs_data->gov;
-> > > @@ -427,6 +427,7 @@ static void cpufreq_dbs_data_release(struct kobje=
-ct *kobj)
-> > >         gov->exit(dbs_data);
-> > >         kfree(dbs_data);
-> > >  }
-> > > +EXPORT_SYMBOL_GPL(cpufreq_dbs_data_release);
-> > >
-> > >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy)
-> > >  {
-> > > @@ -488,7 +489,6 @@ int cpufreq_dbs_governor_init(struct cpufreq_poli=
-cy *policy)
-> > >         policy->governor_data =3D policy_dbs;
-> > >
-> > >         gov->kobj_type.sysfs_ops =3D &governor_sysfs_ops;
-> > > -       gov->kobj_type.release =3D cpufreq_dbs_data_release;
-> > >         ret =3D kobject_init_and_add(&dbs_data->attr_set.kobj, &gov->=
-kobj_type,
-> > >                                    get_governor_parent_kobj(policy),
-> > >                                    "%s", gov->gov.name);
-> > > diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpu=
-freq_governor.h
-> > > index 806d8fb4dff1..1026712bb79b 100644
-> > > --- a/drivers/cpufreq/cpufreq_governor.h
-> > > +++ b/drivers/cpufreq/cpufreq_governor.h
-> > > @@ -150,6 +150,7 @@ static inline struct dbs_governor *dbs_governor_o=
-f(struct cpufreq_policy *policy
-> > >  }
-> > >
-> > >  /* Governor callback routines */
-> > > +void cpufreq_dbs_data_release(struct kobject *kobj);
-> > >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy);
-> > >  void cpufreq_dbs_governor_exit(struct cpufreq_policy *policy);
-> > >  int cpufreq_dbs_governor_start(struct cpufreq_policy *policy);
-> > > diff --git a/drivers/cpufreq/cpufreq_ondemand.c b/drivers/cpufreq/cpu=
-freq_ondemand.c
-> > > index 9942dbb38dae..7386d043c665 100644
-> > > --- a/drivers/cpufreq/cpufreq_ondemand.c
-> > > +++ b/drivers/cpufreq/cpufreq_ondemand.c
-> > > @@ -374,7 +374,10 @@ static struct od_ops od_ops =3D {
-> > >
-> > >  static struct dbs_governor od_dbs_gov =3D {
-> > >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("ondemand"),
-> > > -       .kobj_type =3D { .default_groups =3D od_groups },
-> > > +       .kobj_type =3D {
-> > > +               .release =3D cpufreq_dbs_data_release,
-> > > +               .default_groups =3D od_groups,
-> > > +       },
-> > >         .gov_dbs_update =3D od_dbs_update,
-> > >         .alloc =3D od_alloc,
-> > >         .free =3D od_free,
-> > > --
-> > > 2.56.0.313.g2479322e68-goog
-> > >
-> > >
 >
+> Put all this, and preferred order, etc etc in kernel core somewhere,
+> and expose some sensible APIs that devices can use.
+
+Good call, will do.
