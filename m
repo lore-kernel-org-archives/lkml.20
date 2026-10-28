@@ -1,113 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793191283;
-	b=TpNl7U07KFz8lO6HhVsy+2J6JpvCrI81sp1xlF1tUd4qtL0hjekbDzjKG3OnpTOODvzJ
-	 d7UCgrBd+hKw5TnYMg4cIag/joqLYgDDiWy0ncmrDMvVsJDn2n5D4yetl4mNYNrDx4ZR1
-	 t+etxTh2xYIzE9Pv73JjMV1s2dxIJTS4OCSXm3S2cMwcWahdsmpjPeBFZ/6EC7mr+cv5S
-	 UxU5fN2kVH7NPolifWtDRTXYICly4XixQtrXRfdlU5d/vnomFL96Wg7U242k+ymoBUIZ2
-	 j2LFbedbWoSHXSfudaX1yh4IAs3EKD9i9WyGkadNm+tFY0ExWdCqIx3lTU8apP/E3Bg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191283;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=v5RFrvvSCrN04nPxcIDxppM3ANN4iKlluHenIDXmtIk=;
-	b=c+KWvGFvs8DBhe8LgHy/1KaPUSHEvfeC6BovMNaCZz3LzX8iEJlrDvBN4mOow7p8F3Dy
-	 W5CYh8mjl8TLoYuFcLN24Vu62wnfym19R21KZ1NeL4cd+UY+ljCV8zBn/LZPJPA8ZHRY9
-	 j5GiQbCX3UZdGz6Wv+qfUAZmRrwvA4z7Fa8fz/nIuWGSEQ7NuATB2gN0CJDoDhAuMeaDE
-	 +BUchKYfaltYCdcY6xVQWMhIzV47JmfzcXFTZafNiQkHhrjKpID3bc4uGp5kZundXJn1f
-	 u2KgFij5i1YnavaPqSyaXds6kKtaSQu0JA52YUD5bYmk/1Rmx737nqnF7MCng/UrjWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VzVjCYXa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.55
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012055.outbound.protection.outlook.com [40.93.195.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.37.111.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793191380;
+	b=R7XaodXmRfvWZvJUkCWQxp3tNtx4zKO8JXhGtjdUou3bLsVvtUc0hg4HVvzFbKu9VDJv
+	 zjQU3eliPMQfJgF1v1NRj38zxG0Gq1tE/eJrtGSegR0uO4m/T03jjf52DSffnT/ktUrgF
+	 LbARbcodev5hi1tor6zU44jobZesIyYsqojJFe/x/p5YcAfxEIckjC2tZx5rqvMpURogw
+	 aPeBgqHWGNZVJlbIjvolGWunRGhkydaaw3LUkdEJRXurO65cFj/dpncAeyqD4XHa9sDgk
+	 N8hSTjYhvdng1FY8jnRzTFSX0g2ql2eO1oL9GJ8YEbnnaIKu1cSqIytQ5KLGuDyCxtg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191380;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=bMwDHB+3ddcFQ1aKjPTDttqfXggRKYnNB2Il1VmUkbE=;
+	b=xWsXEbQrDG8F52t12aLYWZoMlWb/6bwGfYUEQOk3oTDxDCasoKYPojecxETg2GhgcdS8
+	 DZDmodNLEgpb9MoSRjLZYnI251/ia4tdrGq832NrhEBqA7eAf/iDDXbM6DjvgW3J94vw5
+	 4083Tz/N/VjvNghwknkoJqa2IOHmOyym/ACpWdleN77RjBPKUtjgPc658CgsL+IdXKmNZ
+	 6u5mj37wEvAD0f2EoHhC2qfQnQT6o4s0xjlme6FT5K0BTew7Xl3eFZnyvULE2rOOz4Qdx
+	 gD9VRxt78xsSqbd7KZ91Psvw/kNmB+Y2L+X99IAHbgEi3KniCoPgNxAIb7uRuqFrJzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=HansenPartnership.com;
+	spf=pass smtp.mailfrom=HansenPartnership.com;
+	dkim=pass header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=OZtKrVBj;
+	arc=none smtp.remote-ip=198.37.111.173
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A8E606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91A8E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439AC606A31A;
+	Wed, 28 Oct 2026 12:42:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 439AC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VzVjCYXa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=buTBnP1Wkk05JxtCgM8ucR5KL5CBOxYCLbSBAb+n1WHdn1ln5SLwVy9GLvnIb0vejCI7jCj5Hjm9d/kxkHUjtcBYg91kU5eOv//r903dOKqx06b4jM4RuSJr8HpjX1NrEPRzx2V6w18gPnrjvddIwEEMNH00a7c09LJCJTstuKrTOU4nWh2Cibt7iutQ3Tpiv5jj8ChjpfYX3fxmxMjlyMQ1iIgIFkIKpVLV9zcLjGs+xAn39tyRPvEcVowy/Jv3gct3ChvkYnstJ+NCupZuxvxrzdIzvgtzrOxO8uWeZXCoYUr9Oae8wRR5BhjhP6MDEcMKSg2qYAT1AfLCFGlyOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v5RFrvvSCrN04nPxcIDxppM3ANN4iKlluHenIDXmtIk=;
- b=GXH7kvMOsRjH0scSzYGhd4nODZQnYP2HKQnCM/q5qfN1E+cacd+eT8FUcdYDEwIpk+VtEqFrWFd4NbkOXB5/MT31TrvjBk7+MT/C/fG98f6IMJnE8WXQdEujWPnHw1h7ORUpOqz1UrOMB35VVheP5DdI02k0WjtZY/1a+/aeyh2NrHUW5JtcDtV6nzuRG9gLaVC+ViMJ+++h3uraUD0wjR9kQQZ7ETs9p2+0XmhW6jn6aYDH3nZgF7FQkvuth5gdyzkgM/8kjZzRno3ZbhVRM1nLFB4ZGM58NwTBp1EDdgvYVnXpx2FPRiOwzizwwRXmHhVE94SelcKiJ7WKtowJTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v5RFrvvSCrN04nPxcIDxppM3ANN4iKlluHenIDXmtIk=;
- b=VzVjCYXaBuJRXpnTjl3hNZdskQuNqJSJ6MsWK70EhXHoO/k7qNnGDjbmlAP/rRVBzluoG6+h6AYp8uc8Hf3R0/aQjNupk1dpd5LsjXS86fgX58exEDUJF00FWe9Y7O4dof+XfhgpvuFpS6gIbIk/zvDCeVR+HPSHKtR82R4saM3m3q4L1zLXqQbzAWKkPlra8PPtbf10zTT1QLsVRAfrNdduvuE0W7Z7jQJVP9P0mg0QxEsuJTc7vnIqhh/3LaPhxGvN0zEhVlZC/fAGQxYVREXoRoFttpWjCh2C4A1ibKK+H1poSeIn1PoRU0luOdWxalcqC+zW0/2c1OXGSfJmwg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by DM6PR12MB4154.namprd12.prod.outlook.com
- (2603:10b6:5:21d::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 12:41:16 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
- 12:41:16 +0000
-Date: Wed, 28 Oct 2026 09:41:15 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-Cc: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
-	"aik@amd.com" <aik@amd.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
-	"Gao, Chao" <chao.gao@intel.com>,
-	"Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"Tian, Kevin" <kevin.tian@intel.com>,
-	"Peng, Chao P" <chao.p.peng@intel.com>
-Subject: Re: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device
- Interface (TDI) activation
-Message-ID: <20261028124115.GC2541714@nvidia.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-13-zhenzhong.duan@intel.com>
- <c81b4b51-4412-4d5d-a073-55fb346a766a@intel.com>
- <IA3PR11MB9136FCB9ABE0B3171BC3A6E2926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <IA3PR11MB9136FCB9ABE0B3171BC3A6E2926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
-X-ClientProxiedBy: BN9PR03CA0867.namprd03.prod.outlook.com
- (2603:10b6:408:13d::32) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key, unprotected) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=OZtKrVBj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1793191377;
+	bh=fOpHXwlwUlS4qieCt/lH6UJKlWGZ1ep1hs8jgE78xrU=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=OZtKrVBjbSBB+nGPoP2tKR9rJfuuXNoMVW3RQajFz2ChnghhL0uV/rbRJdFPw3qkn
+	 PGNDiiuCTfTIjxnFi30x3KUnY1Gnn6jxABeXB9vpDN8WiVkX7yiKWpM0mGefImF3X9
+	 +R6vg2QuZz2/37NEHLX3GY44U40Dyz8zICyMuQVk=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 2E90E1C012B;
+	Wed, 28 Oct 2026 08:42:57 -0400 (EDT)
+Message-ID: <37b653494cf282c6e428e2ae8fd781a0ea69bf3f.camel@HansenPartnership.com>
+Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Luca Boccassi <luca.boccassi@gmail.com>, Paul Moore
+ <paul@paul-moore.com>,  Christian Brauner	 <brauner@kernel.org>
+Cc: Fan Wu <wufan@kernel.org>, Manuel Huber <manuelh@nvidia.com>, David
+ Howells	 <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, Andrew
+ Halaney	 <andrew@amutable.com>, James Morris <jmorris@namei.org>, "Serge E.
+ Hallyn"	 <serge@hallyn.com>, linux-security-module@vger.kernel.org, 
+	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, Mike Rapoport <rppt@kernel.org>, Pasha Tatashin	
+ <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>,
+ Alexander Graf <graf@amazon.com>
+Date: Wed, 28 Oct 2026 08:42:56 -0400
+In-Reply-To: <CAMw=ZnR54hMBwGTps23t9Mm_VO1bAvmeX8uTf_VJ0rJsFNMLuw@mail.gmail.com>
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+		 <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
+		 <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org>
+		 <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
+		 <CAHC9VhTHUU0h9k74CMT6wYhMwyY3YhbSSFwJoDTvoFRyTFVZwg@mail.gmail.com>
+		 <20261022-hausbank-dozent-hurtig-9443f3777475@brauner>
+		 <CAHC9VhQ4sdCRvJ+YPZoiQzR_hgQN6-=84qvnTDDGPf=7=L9-jA@mail.gmail.com>
+		 <5143896100674c9fd744c4d7d6ce12232910e789.camel@gmail.com>
+		 <CAMw=ZnR54hMBwGTps23t9Mm_VO1bAvmeX8uTf_VJ0rJsFNMLuw@mail.gmail.com>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,71 +109,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DM6PR12MB4154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8275c00c-a869-4e85-2e7a-08df34f0c20c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|18002099003|22082099003|261026140227099003|10067099003|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	FQrLQLGIzOPe2LuKHhZnTDtaL6WhpoSsk6ZdPlHo/f73WLe09JHF9ZonJ9z6XCgwt6GSSUri38bVFBLvtmsISOsCD/Z/q+gWUe+h7c4Dty6SzgmHShzMG1gXIRrvLg2ZOoDRlqxqAmghEwO3OIeroXMsQ+MVHEoxy6Fziiqj3PT9WN5bNGLkalCOTWpmpawXctpk64SxW+taxZXuQqVtMNnKrWupNsu1V0lFKQ2EBJ5DNLfdXKM+gDXzqWl55MqfDQ9bp1QwmOG9kTMihnSJgtEQniI6JS0AFWQXy6UJ46xsln+Isy6MeGDI0qh0dnb16hL+jcs+dsfU4E6mXttLp7iR4E7eKvwrufQrDjtmIUUNQktodiK7a8t5kiyUXZm9+L9fxp+c97Mh9QvCcLswWfV3ZUUx4nr4YeBJIyjA2+cZOcf/5ePQ+HAR+ZRyz1KgcmL1yRW/wwWHhofOzMDin+ZGA6UztptxMeTJ8ODnOASAVDx9inWpRmt16Y85WQwJEXH9kDOe98inbcAORbuwkb5Mx11EQnImsv28ySip0NZRxFk7Goq1J6iJ3I4lOxhhT0Z12tDjj22GEiuBa9Fn26rctDCC9r6kWrRo+Qowk9GOR39oarVneQdD/XDdhTCbE8PaxWm5BGkXQXNH0/yqi3rpMzjVjJPdis1pmzn4YJ0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(18002099003)(22082099003)(261026140227099003)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?lAYylXkYiSoDdwOqNIXbWAoLhcKDd7LIknftIUGEk7pedPuosb71bb9wNLZE?=
- =?us-ascii?Q?velI4yKf2TnTtEhm9QSQqIPwtFrQA76CL+JHGmKtfJ1cEtN13YS/n/RwuzIX?=
- =?us-ascii?Q?Qj6Tt3Iw4Sm/fQpoHRK6ioWYR2DZaUCucZUD68vS3vpHNUdr3IflqHF7hN0t?=
- =?us-ascii?Q?vyHDRfk7xFfdPjKT+6mtyh7gjVYloAlCPVue0rshMmH9jFSDApiq6y+Ps8Ca?=
- =?us-ascii?Q?odhBYA9q5kef4cdUNfrDYR/V2w8IY4kLkqRi/m+fptMGnn/M2gMDEzcBCz0k?=
- =?us-ascii?Q?Xtejhq9yY70aikQFQUOwLzf4Bpm5F8xm0idPAGUwThXBehxaRv1jcy1Qpm6f?=
- =?us-ascii?Q?vJVMP8yku/864llgAIW8flZKFle8CGAhV8J4gNySF77AJRcE9jY+Y9d85yCj?=
- =?us-ascii?Q?Vzf5X/9LXikok3yXuY9Rz9BHI1+ZXD1Lh9Bmkh++uOChqPVtk9SQeMde6HSI?=
- =?us-ascii?Q?8P8KwSft07cYAkijsGjWVjOKGAw0q1aXTLQSTXPJzV8t1La91Dd9c6OvB4lj?=
- =?us-ascii?Q?aDifCXrvyfvq5Cnwq3TPiJquBFkNa2FnQVV5IM+/UX9K5tvkEpwW2oOW1RRP?=
- =?us-ascii?Q?Cw1bXIWMZRSfSB3Jfl2OECZWhL72GfnzTq/mg6vW1MpWwt7OMqP9O8VdyfO4?=
- =?us-ascii?Q?OtmRLwd80Uhkgu+rf13BQ9FN8DeewMb5bYA+miHoqGgJoY2bZEUyvCRvSEKe?=
- =?us-ascii?Q?Kf4mO7iCoo4TfzaRM9xhvRC2Ae4LeUn94PYfTmJP9j4z+03oprA2l1jJj2tR?=
- =?us-ascii?Q?FGKFeHHBVA7MaNNMAipfrHaB1Joc6yAMjmy10S2O9EbP89SFBf5PKof+hw3N?=
- =?us-ascii?Q?uNZU8Ic/OJiPzlD6X4IURAW4E6j3f5vI4qQSaBZfUFb8gwQLZaLdaarCmidd?=
- =?us-ascii?Q?TecIxbklkMNbO3mFJPctQ04bzbq218/PY2z2B/MBJIx9Fu6DPTVuuwRlTySF?=
- =?us-ascii?Q?++DgBlfrNicblrP6WuXPCZRCi4RiOJVQFhdEg6hWiv/gQ4Z35+4Q/YZQjZEG?=
- =?us-ascii?Q?6LdI84XWQy/YPLrMqn4Ana5iEfMB674v4NIGKIBWyPxuxpAdpBeexojRW8BD?=
- =?us-ascii?Q?eBMz1QQoT2vHaZVcJICTRbPF0KvdyOVYNldZfima+7bsDJ5vBe6HRw0uj+cA?=
- =?us-ascii?Q?RtIIkwIQfViio6foMU5N0LeRaN7a6ZoLPYcUZqPrUMZ6vHJZ1tP+KVUTougI?=
- =?us-ascii?Q?r6eVgQVFXTJ4GZAvsvfyRiCCWhBA7Vl7VNljJUq6yrdIegafMh2pAH9w0X53?=
- =?us-ascii?Q?xaPo8rQv9gtDk8a4+oRexdrVU5rRn6um4kuNqF0IO34ujJwXosIE5N8Iz8Qw?=
- =?us-ascii?Q?fJ3pCYCpPCRLh+b2uU3EWLJ+8f4aAWou5n5UeZ2yxJs2k5o7sCOz564r5PuP?=
- =?us-ascii?Q?BrrGkGmXFNiN8ZsQKzyEajk8OKDXm2YxHOSILTyRXk7YHfx3TMdGbv/GFinQ?=
- =?us-ascii?Q?8Xavff78dNjqzIE/7FJt/17yN1hPpcd2N0IlX+XM8GbtT1Xfwyk++d/e6KBO?=
- =?us-ascii?Q?xC/wbz/bLAPBdRG//NzsFc+LZ2Sk3qgajbyf/gLeZocwlQrIFtypuGW0mZeH?=
- =?us-ascii?Q?khmag1uj4PAsKn1IOB4XKt6p1SAPcubL8RcfTOoVEIiEWPz+HgML1gPl+Ses?=
- =?us-ascii?Q?oRvtWRp3zVueUVCKmm0rz5E/V4g2KBHFqCnCguES4c3Z0mSlXur4EHtLvL90?=
- =?us-ascii?Q?SYogQrMaSqwK7tzxZpJRTZ9BZP8Gdb6xpMIOO1PY3T0twKSu?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8275c00c-a869-4e85-2e7a-08df34f0c20c
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 12:41:16.3009
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: te2vyk5TdhPSdrjyDgcrwze29h19PNcqwhucc25gYyPeysaPAorDW5fp9jMM7shA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4154
 
-On Wed, Oct 28, 2026 at 06:44:57AM +0000, Duan, Zhenzhong wrote:
-> >But this patch already calls dma_set_cc_private(). Will it cause problem
-> >without
-> >the following patch? If so, it has bisect issue.
-> 
-> Agreed, it make more sense to move dma_set_cc_private() call into enable_dma() callback.
+On Tue, 2026-10-27 at 11:07 +0000, Luca Boccassi wrote:
+> On Mon, 26 Oct 2026 at 12:57, <luca.boccassi@gmail.com> wrote:
+> > I think there is one issue with the design pattern where keyrings
+> > are set up in userspace, that I have mentioned a few times already
+> > and I got documented in
+> > https://www.freedesktop.org/software/systemd/man/latest/systemd-system.=
+conf.html#RestrictFileSystemAccess=3D
+> > as well: they are trivially bypassable if the kernel has kexec
+> > enabled and it is signed. The security model relies on the "good"
+> > userspace running first, but if kexec is enabled, there's no
+> > guarantee that will be the case, and as far as I can tell it gives
+> > root trivial capability of overriding it and extending the trust
+> > chain as the attacker wishes.
 
-I would be happier if the tsm drivers don't try to do anything with
-DMA API. Let the core code do it.
+The attack sounds doable, but it also seems to be exploiting a gap in
+kexec policy: kexec is supposed to behave like a warm reboot so if boot
+policy requires UKI only then so should kexec and that sounds like the
+thing that should be fixed.
 
-The drivers should just implement the PCIe side of things, lock,
-unlock, run.
+What's the mechanism boot uses to ensure UKI only? So we can see if it
+can be adopted to kexec.
 
-Jason
+> > IPE specifically was designed to avoid exactly that, and ensure
+> > userspace could not execute untrusted code, even with root
+> > privileges. With this enabled by default, userspace can just load
+> > the same signedkernel image, passing in compromised initrd and
+> > command line, and gain arbitrary code execution on the host, since
+> > only the kernel binary itself is verified, and anything goes for
+> > the rest of the kexec parameters.
+
+Yes, but, it the above kexec policy problem were solved, IPE would just
+work as expected, wouldn't it?  So this seems like a work around for a
+kexec issue rather than a fundamental IPE need.
+
+> > This is of course not to say this new IPE keyring shouldn't be
+> > added. But perhaps it would be nicer if the default build flag was
+> > mutually exclusive with kexec being enabled? Not sure if that can
+> > be expressed in Kconfig though? default: yes-if-kexec-off, no-if-
+> > kexec-on
+
+I wouldn't do this because a) I don't think it's an IPE problem, I
+think it's a kexec one and b) distros get very tetchy about hard to
+solve feature anti dependencies.
+
+> > At the very least IMHO this relationship should be documented
+> > explicitly in the kconfig blurb, as it seems to me it's a major
+> > footgun to leave laying around, and users might not necessarily be
+> > aware of it.
+
+I'd document the need for trusted userspace on kexec if it was a boot
+requirement, yes.
+
+> KHO/keyring folks, what would you think about preserving sealed
+> keyrings across kexec via KHO so that the chain of trust can't be
+> reset by userspace? Good idea/bad idea/yes send patches/no go
+> away/etc?
+
+Well, yes, we do have a similar problem with the trusted keyrings.=20
+They're actually initialized from the shim created ..RT variables
+(which are volatile, but don't die on kexec).  On first boot they're
+initialized before user space, so we know they came from shim (or
+another trusted component in the boot chain) but if root uses UEFI RT
+services to add to a ..RT keyring, the added key will appear trusted
+after kexec.
+
+Regards,
+
+James
