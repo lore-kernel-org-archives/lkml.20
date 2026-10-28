@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793167380;
-	b=oA3XWMEmBn5S60vGsCRi/2a3nQakxXub6MDdKwOUP8b8sli7ovE4Q2rB0xe5K7bhtBX9
-	 xS4v8x+JM5KP5bRvfh9ZhzjkwLcs/n2yDph3QWNtybkL3M3CkRfFdZLiE7Wt8rq+GyjAW
-	 bUHbKC2qohVsU8szZmQG/0DR27TRclJkU53e4wR3Q9i2oXN8RnpcO7UnSBNgRBNPxOtvZ
-	 Py4OVor3QqyZVbBX0hmidLxZ+GrGq9sqQ/mK4SwTBzLhbfI/59D4S557NzcUMp5pF0E0T
-	 VqKq48uYRVDn5dOotK4v55hfW1CwY6PDcMpY5kvm/silDCdwYUr4Eu1x1Ulzxgh1tAg==
+	t=1793167688;
+	b=07eUrJCQESzpvNTSpMMJ1674IBJsaDMAe3QCIzYxELg6WXz74OuYKujyON1jTnbxONkT
+	 lukSzDTuirPN9g90dxNc+sxh/n4wXPHlJij5SYwtTOMMKcP6e5QbPp0pyOG0W20/Wrhqn
+	 gbnOg5gDiPpJ2rA79wC6JAy08b8jovJ5sGMDL4Ane5oPbtFpqck9S+kxmuAUPMKmCNLXz
+	 S9DlcpcWsiQRAh9Ne8TFpbo1a9QUelyptmFmvQnJ1ND65Cz28UKsdwFTriVl/Dtwb3FiF
+	 osjJDR3f0edlZBel4xr+Pt+6VxwkMyHtULWsUJOI6x0/p+AqndDzzcipbB5wwZXL4qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793167380;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=grngWBuiji8lwqsdeZEwLlbBmKPklRKaERiWSs5Ihh0=;
-	b=AnaSbKwgbPVrkN13sKGSipaVfMiUYV6kNfJbtQ3pFvVzkB+DzxhMdCeC0V2EOgvIy0QH
-	 y9gjVaGpzQwfLoo8rNPSxUg3LkhvioZ2ejQzoEPIVVca7CClS+UYOCcsu+ljilAgqnGXm
-	 vVCswe/52bTe+44sXVTCkYH0tmYlu6/cvycF1CkA149lvbHV50TLD4XE6+NOEw+569fUz
-	 7q8nFzVszq1mugvzqCvDVm4oO4A6/eKimgfzNgzh1S3fjjOcmQSiutpU8vYLRnd1T6eVl
-	 XOnU6ghvc/+BcTGp67+M1aehmrVPsu4ovVpRvHGuTiOclKuV277sRfbPCzofzhbf+JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793167688;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=50rR1o2uRfiDytA7jWa26ytIk1PS+FI97x5Q7QKXoVc=;
+	b=O8aeRmu4SS/KP+N4Y/RrQPueHV8Q/SwEcpLmw6LgqQcbWHuRIZxnrwBiggKsl6X9KSKb
+	 1YO87p6WNjxJ+xiSAAoCstmPyRV2Gc9qWIgbjDCZ2YNBMt4ir13N//sBNfN/zNUeb3JEQ
+	 NZaybz78o0JyzCW8ZRQ9/YZ8X72GMpyI1GMp6mofzhbAwoMOhvBmA2qIhIL0tat9oga8d
+	 19LepAOWnTTh04mPVOVYZkpjMM4Hd0ZidnVv7U69L0FNWFEiE88zg6pHw5+ogA67o7vp5
+	 5h3bmnhcuplvasN1WSQsytUvCqr7++RWJE7DcmgrqCUDNcaFju8GKHm7fs1ebg46m+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=fAiBo8UL;
-	arc=none smtp.remote-ip=188.68.63.174
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5D8606A320;
-	Wed, 28 Oct 2026 06:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE5D8606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=fAiBo8UL
-Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
-	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDxbz4T3fz8sd2;
-	Wed, 28 Oct 2026 06:02:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793167375;
-	bh=1okY4/WQi99J7SX0kElMLxT+6AgqYCI7lGDlpsDqa+A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fAiBo8ULWstc9LQnFor1eWiy9y2h1iQVBO8Ml0nYw6NgYJnJqC6CGNvDeInwQN8DQ
-	 K/YrYmEpEvGvaNzav6FPa5YpGSFFWenbu3xepK1f1bkfTIHzW+20rTMxeI73biav6y
-	 M+44CEY5xcXqaV3moEIwbgQqnWRW57EaprPF4gik9Hsu6a3kBzvsapzk3HDaSqdpZF
-	 AQb/kspy+U6e4/LRz0TkqBt/D4nMPaIUZXTbfrLqwnzMGzzIvzLXJ4UNsyevgyZMpZ
-	 e3gmqrJU9K2NoYF4ALm1/AVhyF8s3SNEbDSyyQjpREHg3AjcNaNtInSzeLWpKo0e/v
-	 iqOx/Fgzi/Z7A==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDxbz3mJ9z8sbb;
-	Wed, 28 Oct 2026 06:02:55 +0000 (UTC)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDxbv1pfpz8sgW;
-	Wed, 28 Oct 2026 07:02:51 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id F2C265F9FD;
-	Wed, 28 Oct 2026 07:02:43 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <18f0bae1-5cdb-460c-a147-33cd1fa2acdf@leemhuis.info>
-Date: Wed, 28 Oct 2026 07:02:42 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EEC606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32EEC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab260600easo2515181b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:08:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793167687; x=1793772487;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=50rR1o2uRfiDytA7jWa26ytIk1PS+FI97x5Q7QKXoVc=;
+        b=t7CkOJ40Dy30HPJDE51qhn980v7QN+moKRmF3d0wltNR72vA3KM4kXEB7nNpDQ0RBO
+         h94W6d/ofXeM7V0l8lWRaOKnEB7ejmoJy4YXC1TybnyqvPqrjFND2AJs9NxyYiqHQKWD
+         jofKKqOINkcQjR9vqyeGaFW6RiGiiDOqGxGgEo4ml+SJSDRznlfOc66BW9aQX0W2QZxM
+         EPa9s7c7YDFNatb2Znc0IgkiGtySJZl/9Ll7f2N10oV8XRI7RMh4WE0x7X8KU5lmtKrn
+         MyMUZpp8lARCDIeu/6Xr5divB1uBfclppXrNmWOCt+VlgRlMf3dF/JvDywYhiAaAwYZd
+         i9zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ60mVKQ1iBicPCrs3joQbPPcZ+ehVCW46kyipW38sRY2ZbWRaOssTH5AS3FAlgFgAp6h8bmsDtbFGqlw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDFgYHXsTFuSbFwTsWDCMobxJtGt9M+cJxrpEbkPEFDpFuU/Ac
+	2oOaU+stmVvLuf3wgGH6M8kE7++Kvh+63iye1aR+M8TpQL2B/JmDcthVxKZAGVUbd0HMAqTALeb
+	RlsJ9sEt3iw9T7JF+c4SKCkJAugP2j3miRzEMZs0n88+nE1tniEqvl3PH/gU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,69 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-To: Konstantin Fastov <kfastov@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, stable@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>, Sergio Lopez <slp@redhat.com>
-References: <20260804140403.16337-1-kfastov@gmail.com>
- <20260804162924.0268f80a@fedora-21.home>
- <CABWhNekebS6dt=Ft+74iG4YpCq-5ZcV1EvvERNxT612VUOC9Ww@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: 
- <CABWhNekebS6dt=Ft+74iG4YpCq-5ZcV1EvvERNxT612VUOC9Ww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179316736461.617485.9239835948581871887@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: F2C265F9FD
-X-NC-CID: zzZh23SNCmq0eCiirHBvMPb1mMm7zOOn/wv4ZUvO7omB48g47ew=
+X-Received: by 2002:a05:6808:1807:b0:55b:f88d:6e84 with SMTP id
+ 5614622812f47-55f8058152amr2478840b6e.37.1793167687265; Tue, 27 Oct 2026
+ 23:08:07 -0700 (PDT)
+Date: Tue, 27 Oct 2026 23:08:07 -0700
+In-Reply-To: <20261028032756.265251-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae19147.985912ea.1e5798.0126.GAE@google.com>
+Subject: Re: [syzbot] kernel BUG in remove_inode_hugepages (2)
+From: syzbot <syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-[CCing Paolo and Sergio]
+Hello,
 
-On 8/4/26 16:57, Konstantin Fastov wrote:
-> вт, 4 авг. 2026 г. в 17:29, Boris Brezillon <boris.brezillon@collabora.com>:
->> On Tue,  4 Aug 2026 17:04:03 +0300
->> Konstantin Fastov <kfastov@gmail.com> wrote:
->>
->>> Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
->>> .pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true,
->>> so vma_set_page_prot() removes the write bit from vm_page_prot of
->>> shared mappings, and the vmf_insert_pfn() call in the fault handler now
->>> installs read-only PTEs even when serving a write fault.
->>>
->>> For regular CPU accesses this is transparent: the retried access faults
->>> again on the present read-only PTE, goes through wp_pfn_shared() into
->>> .pfn_mkwrite() and the PTE is upgraded to writable.  But consumers that
->>> resolve faults through fixup_user_fault() + follow_pfnmap_start()
->>> perform no such retry.  In particular KVM's hva_to_pfn_remapped(),
->>> after "successfully" handling a write fault, finds a present read-only
->>> PTE, treats it as KVM_PFN_ERR_RO_FAULT and fails the vcpu run with
->>> EFAULT.  Observed as AsahiLinux/linux#560: muvm/libkrun microVMs
->>> mapping virtio-gpu blob resources die with EFAULT on first GPU access.
->>> The traced failing sequence: [...]
->>
->> The same issue is being discussed here [1].
->> [...]
->> [1]https://lore.kernel.org/dri-devel/20260804120529.1730187-1-pbonzini@redhat.com/
-> 
-> Thanks, I missed that series, I searched dri-devel but not the kvm list.
-> Paolo's patches 1-2 are indeed the same fix (down to the same function
-> name), so please consider my patch superseded by his series. [...]
-FWIW, it seems that series takes a while to get polished and mainlined:
-https://lore.kernel.org/all/CABgObfYgZ87%3DW%2B6E%3DN%3DWwTuyYkaoKU3hqd84JDTSAvT3_9dh6w@mail.gmail.com/
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-To quote: "It ballooned a bit and getting acks from everyone involved is
-hard... Either I or Sergio will get back to it."
+Reported-by: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
+Tested-by: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
 
-Is that something you/AsahiLinux/the world can live with?
+Tested on:
 
-Ciao, Thorsten
+commit:         9ba46df3 Merge tag 'bitmap-for-v7.4-rc1' of https://gi..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1618a08d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=968c4ca981edd5f
+dashboard link: https://syzkaller.appspot.com/bug?extid=2fcec0eca7f4cade53b2
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=14323ee1580000
+
+Note: testing is done by a robot and is best-effort only.
