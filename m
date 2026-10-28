@@ -1,85 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221605;
-	b=DVs5U5UHVdufne4vh2gKSOZGycMYDp09jbjAx3lLrxvbJ7lF6TmoYxT6rnUVloKj+d23
-	 uVgS+Gbqu4Y9xvIBhcLr70FqQpwoR/f6zBlppF5Njeh2uVz5i0EWJ27Erm4WKHLPW9tuT
-	 4oNUR89kQfTYU1niTNwpf6tNi9epmwwLm3tp7f9EApfvY8m0lwkLfYHa6LoJ8lxtq+XJu
-	 PaSPA0g1+WoHdySoon70TS4Xrq3FhFT+7dup4XnNN/35WpwPCNOQWbpgR1zRAMYnzjHLy
-	 MaOqNL4F7IysOwOWbBVpbiezno7hTFU9eKG09JxdoPzc32sUghgxWB2suZTNPopigWA==
+	t=1793221630;
+	b=yvi9H8BuSFMA1tYjhx2OJ/CY6tSBv+KIA83mHUurGOrONpMGkNSjmRtE0qWeLouG3lnX
+	 aLYPj/cTYkFNjRmwwPgHZgfAPHEyKkASOdH255IeUzXJ+im7AdJz5YkZgaah2wdQI6DyO
+	 fKLJJfp6x97n1GArefUmls/H5O0fm7vynz4Abkcpo1c0uWAaqtqwKfKBY2R0gzRO5jLS0
+	 yRoH10VYAqNboHh8PCW2yPGYB3G93J4e4T95gerjPpu9C9f5X/FQSeANd+iOsVNnW0l7K
+	 BFt9+NK2L/jgzLhI/luHnP8NsLT2r+b8zFvnolO6WSHKBEmPxtlcpT9A4HMwtygFYWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dYdUZQkYdLc0vauWbIqi3zABPNcb2nwtA8yBjqhaLho=;
-	b=a7kI8L6/CDUDcZddZW/GwFHvx14ZVuCIgX8ByYfcLZI30y71PsvzfLt4Kmn9MttebSfw
-	 XxSNcQaDpDmMwCEHIlXIvcsKceBQSrQgiFx2YUWve4MnT02QrE3YrdP0RVkSKHdtV59Rq
-	 ZOSLM2LCQa/hS7soGkMmfRBZp8cRJYvvBiSM7AkEYkuTq4uEGjD1xIPpXRnWBPCJxGXeR
-	 OedofuMUlzUmJ2GtSHpqJvMiXiD3mNJei2c7Nc82sw/KElX9QN6yxIQpkFAm8fyp4rBA6
-	 EJERZSrob7NaygnsVMvCNyxYzoQn+quKkGoLozvxVidhFgfasKZgwm13MsH9IvNIbmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221630;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2/lPgg8fKxGL3uLAdVbmY1R/+7ya4E8tGVT7ByIFRjg=;
+	b=DqBBtKbSQz7Xa1dqHvGBjuuzFO81IPAoOzylb2v4kL8wSgtlMIEv6u7aAOULLAL58zs8
+	 XTasWb1sL6IoolLGpasT0A3chRvfg+kpR3K3xeQbt6qZ7A/M1iL3J2WbxhEjgJJ4NcfGS
+	 u5VkWpoMkY5vEYYTUo1Su+lzcwB5e5MabFFUXaeB17auhpXpy+w7JIQlZlp1XnoeD5s66
+	 NVJVmK2bKszH6qrsyQrdflWrr9srSUyw6PjXjy8WUQnVGp7+ddaU7L1Spm9t1yO6vaVkf
+	 Bae/2flqBRM/IGlgqTgZmjFz2RYit5MTkXQlGLUFDEdVvhEgxdMF0pYKG9DiFCmVSZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=RZKnL3TU;
-	arc=none smtp.remote-ip=209.85.160.53
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=m4mtgKA8;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915D6606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:06:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 915D6606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3DA606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:07:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD3DA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=RZKnL3TU
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-486f013db83so548538fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:06:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793221602; x=1793826402; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dYdUZQkYdLc0vauWbIqi3zABPNcb2nwtA8yBjqhaLho=;
-        b=RZKnL3TU91MknhH0PBI6QZVMUcwt1SUpPSrfgEKjkIikcI2UgLeVieNt6W/vKdD+ni
-         ZlzEvAK8j+4uYNKqrUDlDHihQtPPOUoBEy0s0xfMsaOvZ8lBWNpEMl2uWLzPY6g38BiG
-         HkEslqoetMhPitOO7lA3e/fOsmOLctT24KIE4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793221602; x=1793826402;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dYdUZQkYdLc0vauWbIqi3zABPNcb2nwtA8yBjqhaLho=;
-        b=bSNTSyRAlxhTsZ5wZRCq0g22l5hRZIYFzZTlzx+ahoFO2r4nG8Q/jdYSjPpOBlHqJV
-         ioKzrzUu05aeL/T3i/t6869qll5XXtMptHX+wIDEMO7H+mP19FOj3mn5DmlvHhaJIJT2
-         SJGVUTzNh2YyvQu8nCJYi5EIcKPTZjN7HO+j3oSKnur4k2DOzS/OihuanFv2AupM3ua2
-         ftpE8HWOBVAg0W4jH5mO+X8jC4RWnyl/osvAmYMg7CZQWN/P2wYNjQLz9ye4Ew1Av3mb
-         9d7DE88Nhz4rR2uJDnHLiKT2nT5FRsTxuZyBEgbAxK6qCBLrSY+qCF9MZ7Lo0uCt5K6J
-         OC0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxNQdJh1WuBkOTrht8BYiPdbZI8mo5GoKxNmK5EGoLiV3V2FDWt1JIR285ZgjJuM4YRVnouEDe9UlfPgfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpc4ANmsez2F1p6ImZ7Ypg0NyR1gOsyxmfPiYI7SBoCX/rrRZ/
-	RSbnvMeGet3dll8g3UFDrBBk5vp7sI8M1OytfQ8AacoGwDJp1XY7i4u6UTqEOfZH1qk=
-X-Gm-Gg: AYBFou2+g0ZmE8Gx77UwX8mk1fM4H38dt2lu4T8Boi2KCX/w85D0hxqwVGop8dPJrko
-	LI6jCtd2QV8YvgHQc2NdJjtQCL2/y74B80NBk9DxoZxqJaAQgnWUBnOoi94XpJUX17vXpNlYzOz
-	R5gCr5UE6/Cq5nQ3TjPe7uGS7zdkOhxj1fHpESFzvgEjCp67n9KWD2kr6rbU0Fjr1qyrrsLJ1T8
-	bDNhgSMwa5DCAvFR2lXwtPIH7KbngPWi3j02IHeVUcYBciLoj1OFt5eZFTpNUvF9C32w9eSgKAP
-	FY6Tzi4mnQaqeXLddydrowULlI1cTS0h0nZVpZ4f/SfONIEl/BywZjc8ukB07WKq5mZYy/ApzMJ
-	lIq2VocSVseAukzlg7TKrxQD83pjpjjbEkOxoFgsbQdNksIG7UO68VOk0CGe72KGA1c/D0nt/pt
-	ZkRfbRiGnu6LqLxshkYDV2Ltbi2Tl0in73HgrIKgPCS14Vvyd5v+PEA36ESteBalqYh7gnBDP0p
-	AWKIScWcmE9tgffuAnrDKxMlnCxKuIDJ5o6gdvwooBV2+POjGhRfqs9piupzZvICF0b6z1X7DvG
-	1DIQ9o56hvUEYl9+SWZqiacrBJ1lihhT7RtGtBU=
-X-Received: by 2002:a05:6870:d184:b0:49e:4ed0:11d4 with SMTP id 586e51a60fabf-4a8bb701e65mr2458445fac.50.1793221602376;
-        Wed, 28 Oct 2026 14:06:42 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b77ac4e4sm3068523fac.3.2026.10.28.14.06.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:06:29 -0700 (PDT)
-Message-ID: <9c65a285-9144-494b-b4d8-e3d0deb671c7@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 15:06:26 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=m4mtgKA8
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 701CE14C2D6;
+	Wed, 28 Oct 2026 22:07:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793221627;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2/lPgg8fKxGL3uLAdVbmY1R/+7ya4E8tGVT7ByIFRjg=;
+	b=m4mtgKA8vzB48AHooh9KfUJFZwgaPwddicOLjyxi/t6FlBpahaXnIXUf30lFPqTrFsxY+S
+	3gR2+bU0BiaB9tLG4jnegOQuPvDeU5UsIi5V+1xq5OqDw8Vui+fyd/6SjMylTt/QMV4EYc
+	kyu1EN17ZRbhuXmN4eFNqrLmmXVc1U+RpeEQyhmDqLUBIQxxAQu6qey1Ry2LzuPOznHaKZ
+	Wg4KGllH5USVGlclz6b06inudgr1FsDdIjvXhkCK+St84F5unF+TiP33jhtcC+TXgapm6G
+	/8bwZJnRU4dboykDCHzWvXIRH+acKUDtvNGmmFaYdG5PU4r83/9t6pfcaUyNyA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 223e1ccd;
+	Wed, 28 Oct 2026 21:07:03 +0000 (UTC)
+Date: Thu, 29 Oct 2026 06:06:48 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: skvarlamatus@gmail.com
+Cc: ericvh@kernel.org, linux-kernel@vger.kernel.org,
+	linux_oss@crudebyte.com, lucho@ionkov.net, sgarzare@redhat.com,
+	stefanha@redhat.com, v9fs@lists.linux.dev
+Subject: Re: [PATCH v3] net/9p: add vsock transport
+Message-ID: <auJj6EKveraM5woC@codewreck.org>
+References: <arI7p2EinDektW0n@codewreck.org>
+ <20261027200522.94192-1-skvarlamatus@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,40 +69,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] selftests/ftrace: Add missing spaces after ! in probe
- syntax tests
-To: Jaewon Jung <jaewon8868@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261025075044.1750113-1-jaewon8868@gmail.com>
- <20261028011923.2050009-1-jaewon8868@gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028011923.2050009-1-jaewon8868@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027200522.94192-1-skvarlamatus@gmail.com>
 
-On 10/27/26 19:18, Jaewon Jung wrote:
-> Add the missing space between ! and grep. Otherwise, the shell tries
-> to run !grep and reports "!grep: not found". This always skips the
-> conditional checks without checking for kernel return probe argument
-> support.
-> 
-> Fixes: 25f00e40ce79 ("tracing/probes: Support $argN in return probe (kprobe and fprobe)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
-> Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v2:
-> - Add Fixes, Cc stable and Acked-by tags as suggested by Masami.
-> 
+skvarlamatus@gmail.com wrote on Tue, Oct 27, 2026 at 09:05:22PM +0100:
+> I noticed the batch you applied to 9p-test on Sep 22 (including
+> the vsock transport) hasn't made it to 9p-next yet, so I just wanted to
+> check whether it's still planned for the 7.4 merge window or if
+> it's waiting on something.
 
-Thank you. I will take this for 7.4-rc2.
+Sorry it's just waiting on me to have time to do something.. There's
+still a bit over 1 week this merge window (it's exceptionally 3 weeks)
+so I think I'll make it, I've just pushed to next
 
-thanks,
--- Shuah
+Thanks for the ping
+-- 
+Dominique Martinet | Asmadeus
