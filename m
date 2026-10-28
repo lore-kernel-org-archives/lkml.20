@@ -1,103 +1,141 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183677;
-	b=HG2mgW0towM2zJDr3oPaUGBSECEs5jgWLwUkvbBbr6TmNIZiE1KrjniCDkh6+YMQ8o3y
-	 ckFOeA2O5QRCKT2/E3QjXeRmT87MSD9wItEj0WjbYJtTWfiSR3woiwEJ0PcCRKbM8FvER
-	 8bXZtVFyKKC9MAumpJ+y/EY00DujjAbVIHZS97hOtGXgrFlnuOfxGCI9UcNlas7+mzH6c
-	 8fPpC/y5X63pe6UHh++/mrpoxwBGy91VG8oeCfg9l8NH61h9/vKTspeKQWzkXFtIwenYs
-	 nv1SjW0f+zun+i6IhhAbdpG6c1zyDgZayMSGm6XRfHnHVWgXUQ5YaasYSUmJ0G6uTaA==
+	t=1793183791;
+	b=JT26OxBKhDYA7RgPG8ZvDQWG4zylCQwBdKt5lf7CQCPSI/wv23qn/k6ACvCj01M9o4cM
+	 KDtEDUpsb6PgBYVdGlt0QlaQdQYLsX3tf2IKKEeDaZqoxirpa2bOvU4y+TY4d9dUWMWYH
+	 7m/SmNJMpRepphI+0URfgZ/ARtvtmWHGhWzgSr6BZO2w1ZLadSCK1tI3e3Ste7Z3Gj9S5
+	 Y2Ns5VpMfpKz3dqMmIzlSNauDlovxWCR6umbH3GOaW5bzUHz209lUiVqyvgtlj4auwsV9
+	 A7vWNMIsjbysiJOO57KDJnPJkkvqp5gk7tg7xwMFLXJJ1poeh4tqoxM6aBS3gYFa4XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183677;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=fJvqHOk07FUa6s5/fD4Hq7cD2mBklo9gU81ggaCJZwE=;
-	b=HtN1RLwhPmCyP+lmz8mHA+Z/+zEWdpxAWwh5PGeic5yMd4BxkRdLpfH/x5JEKkM16+hX
-	 MoM5gg6hz8Gr6jicHEo2WdT4PesmA8oHC1bFRPiMB/R2KacLkOcHXSIpzfIDRZ1p1X1ef
-	 bGdMhTe0GKBkmSFrbW5ZovOeHGHmlSwTvUStMvzxI/AZHJVHq5KbmlBy2mSw0lBGXcsRQ
-	 +cdrOmGFfF22OGbhpsRd/c+asoOXOLQdoLPzonYWEzTBCiuGjzYPZqzkWV62tCOPzP8nD
-	 IfcCUwHo7ePvBmD8qvZ8lHm+wq5MVPG4x4gxCMSCUOfEk3o+SLpxjhI5+KFHl1yWhew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183791;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
+	b=ga+DR4RzPriBbZvSb0YAM/09plBSk/zdpdyC39r/yrJpmnfXn0QWvT403k6e+cmfSdWM
+	 fIFOI5WiWkhfl9MEue5j87FRjDQiGjHKYHiHqlAJ0MXIHUPCKbxHT07cpqRLRy5DQQAOG
+	 mAYCOzmXW1W1WvKr+pY9N/ow43uZSZ9dGZLb/1wQOYUK2rw5pdW1sXATYCGW/pBR6qTky
+	 ItvAQhby1C99y89Xp0qKJGJP9GsP7fIR703fTqzTMZnWy5JaubPMI22EIM17pGddGa86M
+	 lNWuGm/EeqUrAk1c007GqHSA2bGG63Zxi+x1va1yQhICn9gQOYyEmkrPOkfPQHPsaaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w6jgn5KW;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cmTbcXAQ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mTiM0StS;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD60606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD60606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D7D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D7D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w6jgn5KW
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535a54bed9so1158058eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:34:37 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cmTbcXAQ;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mTiM0StS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793183789;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
+	b=cmTbcXAQ4oMsGr8C72tqPbEQcNUDZYjXqYUcZj44lfq/t/55FVF5zK8yIuGGzmB9HOv76h
+	nq2wGxoMmtyoCbGoee3DA7MwLSJfxpqDXfewtkhCbXIPtPwfOBmZIMHc11lLA+DD3WWBBt
+	QCOIJLMth8NroyIE8hwxVkU3euYMSBw=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-329-_XqJCKKqN62PTxIq-xyD3Q-1; Wed, 28 Oct 2026 06:36:28 -0400
+X-MC-Unique: _XqJCKKqN62PTxIq-xyD3Q-1
+X-Mimecast-MFC-AGG-ID: _XqJCKKqN62PTxIq-xyD3Q_1793183787
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2065a2ef9so7287735e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793183676; x=1793788476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fJvqHOk07FUa6s5/fD4Hq7cD2mBklo9gU81ggaCJZwE=;
-        b=w6jgn5KWCIwipZN2DshlTNs0liLS/ACzw5DyHXPoxLQ4oTK1oEx7VkDiOvx6IILqnd
-         f7nk/OB1aod2dHo2Yt0MX4QxqAYaMrQVq2/c/iRHFrbqBnQX7h7iHvYjiq+7WePyBtjS
-         0Yrr5pCBq+/xEweDG/fAAK5VmgQu26vpjDup3pVI1+FiUFv83HSOKfv2+vdQ0ZryyfQg
-         DHkLJWXYBp4QbA0kCOm5N/O/Kso10becOMPmaNqdHqENg4r4WhSFBo1BuRBRxJ4EfELN
-         KcpqG0saxptR0HHs7zQiFmdKKB791rJ4/l8P3mnR8QpvXXumMayWED1Ha0NhdzeNavfr
-         kX8A==
+        d=redhat.com; s=google; t=1793183787; x=1793788587; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
+        b=mTiM0StSbXHzjf7a1nV/eW3maV1d4ovb1SJxYuXMnR78v4BEoELm5jD8TrdTujpNAs
+         2Jkn0HEDEcSfLagPqTQwYCdPzxobT9edLdpm9x7fN2jpC7z+FZaCbJlOJLts6TY+iw11
+         VGtuGyExrJixbaQDsnTs3Xy5ZayA0ciHcISm+Xo4SAUo1tEPix8594a97nEbq/apxt7j
+         9JghsxkvGa/udpNLLq15PKhOvTGkEh5N+chszdNJ5yAZ09q9mNTsW+2HxQk+by+ymPr7
+         wVjLMqCKWbOPXRgj8JZLUjAQEnQcAE+bKEWtlh9aep1B3DBFaIS+8OCQIb9og7nfsASC
+         D9tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183676; x=1793788476;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fJvqHOk07FUa6s5/fD4Hq7cD2mBklo9gU81ggaCJZwE=;
-        b=ZCUqrdg3Al4zh/RCvIG72K0Bk7nr0PTdPoJOPa2sZuMewc4jAK59PJacYIrU6J90kY
-         RAKatr8u5x6vfkAy5KiRWqqhQ4d+FNRJJWGoMXv5r1jT8me+YuL5PfwStljGEgh3JR68
-         zTmgrq/zd90KZKPMeEtg7UkLin4PTYjc/VEKB77VcadhiVipn17JfBnEWojNfrswxL7u
-         qnkbTZ3nItXN6e55TXcs4WGCOPYbRVtW28SkRYFZAUwHA8sOAnlPb6/s8UOQ86sgx5U4
-         9VoZt/pbc4dJI0cqOw0N0mMbAwMGF1natzbAcQhW2RoSrGVqa5Ex4lvf4MzXvoBpW25F
-         UsIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOZAsPnlmmL/BtJfPorEdMqVBwJ1tX5hNHvpe2wJLkYJ7nTBt6OwovcDb3JzUOhFnKeOFvu3f5n4FccKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz3oN6iLpIeBUmhpaRA1e2Lq3wAuugzr1Mh9h9e2u4Jea2r26H
-	6gr+ITsHSifQyQVrHx81tNGAqEz3OMD99PGjCUbMqLPTm7amSJM9dGyQ
-X-Gm-Gg: AYBFou1IRlsWGhGhZU9mm7D4DuiL+12rnZ+x8qaRqnWV97jDAThzQMzPgOFoh7KSf/j
-	kQrMuUCUEDqN6ChP5c3EzPhFQlYxVlIueKVb+/LONOaxZHTkSTFb1kN5PHz8okvKuu0WWkw99hn
-	x7SVjKqWD2xpxAMtAtqN4nzLBMNXWbfILGIiYSU+ng1rTHS+Tvcmlqi4YVMQt2bq5ZtvHktOkep
-	OEFTalYxU7iHAAypRiAALsjB+hP0FCZZkg41KuNBkLV/V4+UUGkIGtPn4nkqUHCgSbOjHKZwAgP
-	mWcPzsKofDYw2GAgwJZCyCwW0WmTB4qc5PEFkesSoJXP4LnUC9Hnj8lzaB5dluKy0HImFd2Mpyk
-	fcTa3yqr/ZcFoqXP917IHFSNQuGaEZmeSMJTNwuwf12vu55s0a8vKW8FcbfNUjvcuEpn4372F/h
-	WU38AQVqSLIcXgp2sZpxa7m+n5CkTr5yxN51AtZ5GnyBkx3LCa2m3+Bbu8Q+vo2B2O2LkJGvu28
-	KQMu7h4xo/8xdcT1zjjZrW87WA1IVoUzBTI+V1NGbLgK8ZhIIRsswQ36g+8ZcnpMdYcxRUAJ95O
-	pcX7CHQ/ZySsF5Bi52eo+6XPSNqr3UnL2YU9jmKigXj6/LQeDf8=
-X-Received: by 2002:a05:7300:2406:b0:35c:8b96:94d9 with SMTP id 5a478bee46e88-36a203bd31bmr2926356eec.19.1793183675982;
-        Wed, 28 Oct 2026 03:34:35 -0700 (PDT)
-Received: from localhost.localdomain ([103.177.252.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2399b05dsm5723047eec.25.2026.10.28.03.34.31
+        d=1e100.net; s=20260707; t=1793183787; x=1793788587;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
+        b=JLZVNnrumnyw8NKL3ThyjaGm7W6sV3BbI5XBtoiP+UdKFxFaTMHo87XHX8IH9SHAJu
+         FD+O/Fk/pN1c4n4PYxllcK+fgWnQSD0ucJe8DK57mFcWYAIMseCW6SKeBaPhZBawADmZ
+         Z14WH5kNNOGfIShoGgkl4ZSZcbznd+Ku5YWPQ0qh0kUyaF3jCKJziqqQron2ygF9fTn9
+         95UpzSLM+0z5DqUfx1w/f4edotM1dOly+9sYPE8lzofZhZK/Hxt3Mmg3S+ebjl52h3Ru
+         tA5ZcpQ17Hbnfy9twOtxfiuoOx0om0svg7L0RCWhc9fjMOEHqc60wwMFjbmENqYGXN1l
+         PDww==
+X-Forwarded-Encrypted: i=1; AKwUvBzo3CsG+4+5JeWf7Mtgvgr3F/uwoLC56CTSR7B+z6AoPFxbWSt7JJ8+gmM7+9CQ0G9cfx9XsqRMhNl7K1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv5nQHRwNH29RisH0rNLqbEl0QKYiLFPcQoHaYfUuwz34Ud+1c
+	nWf+Vc3WyyTnL6R1/Yauph+lkgLrEfDrJ6RxU9qIsqh0wfW+eaRkNooH4OVjaZ0WpDmcyuaFyGE
+	jium5mlxXcB8sc27X67hNUp5T9EZoG20BbUc05beXSUwrrHeUWegUCFR2pdN/jAmGjQ==
+X-Gm-Gg: AYBFou0eqthRFCHLRGS94psUjbSNrPXDC6T+zDIgoYets4Lc2yYSXyKHoRg7NTlZbqf
+	/sX95eMPHhGvezKJSkNwtlZLiKwHLF6LzARuQT4B+PNfMTuUHODu1jYKgGw4iLH9v72HIOBc/2R
+	v/DcSsxRYWr/qsOxK5or+DKcHOaameRYvMnYjGWW8SUJJLcrPvbjO3pZNZ0McPRkNO73XVk3uY9
+	94b3R9a+IUK8EZJhi2IhtrEhYKmOEcPS3hKsnMo6kCZVb+dENrXtqavGBpWNxhmQEj4z0KcWTn2
+	1S+EbwFtLre36TF2ThyeLADzsRAm0yzOdQxrKuKwK+F/OEPdl4yH109+jY/J9kV/4/3xFlIXQ8y
+	FkCx1b71QBwAYM1dXhjxg+4JkZ3SKJe6SXgJQz66yUMXu2KkHw9lxpwS2Yj+UcErST2KtgWxSZK
+	zlVr4=
+X-Received: by 2002:a05:600c:4e8c:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4a9647ab576mr36471575e9.3.1793183787250;
+        Wed, 28 Oct 2026 03:36:27 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8c:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4a9647ab576mr36470935e9.3.1793183786797;
+        Wed, 28 Oct 2026 03:36:26 -0700 (PDT)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.0.132])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm27370730f8f.42.2026.10.28.03.36.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:34:35 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: mani@kernel.org
-Cc: angelogioacchino.delregno@collabora.com,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	lpieralisi@kernel.org,
-	matthias.bgg@gmail.com,
-	robh@kernel.org,
-	ryder.lee@mediatek.com,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH v4] PCI: mediatek: Fix integer truncation and handle oversized resources
-Date: Wed, 28 Oct 2026 10:34:00 +0000
-Message-ID: <20261028103400.2532-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
-References: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
+        Wed, 28 Oct 2026 03:36:26 -0700 (PDT)
+Date: Wed, 28 Oct 2026 11:36:23 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Andrea Righi <arighi@nvidia.com>, John Stultz <jstultz@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Valentin Schneider <valentin.schneider@arm.com>,
+	Connor O'Brien <connoro@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Suleiman Souhlal <suleiman@google.com>,
+	Metin Kaya <Metin.Kaya@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Zimuzo Ezeozue <zezeozue@google.com>,
+	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Xuewen Yan <xuewen.yan94@gmail.com>,
+	kuyo chang <kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	"zhidao su (Xiaomi)" <soolaugust@gmail.com>,
+	Hui Su <sh_def@163.com>,
+	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+	kernel-team@android.com
+Subject: Re: [PATCH v33 7/7] sched/proxy: Add deactivated (sleeping) owner
+ handling to find_proxy_task()
+Message-ID: <auHQJ8vq6VtL2Uf0@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261023220431.1106611-1-jstultz@google.com>
+ <20261023220431.1106611-8-jstultz@google.com>
+ <atx1U_0FC-fazkV7@gpd4>
+ <267d3f71-7f60-48d2-b8dc-bf87f403b94f@amd.com>
+ <auDPxCTyGbStTWJD@jlelli-thinkpadt14gen4.remote.csb>
+ <a3bb6028-52f9-4545-a5f1-08f56fa6ac2a@amd.com>
+ <auHH9ixQvWQ7RYA3@jlelli-thinkpadt14gen4.remote.csb>
+ <1bfd6376-cc69-4c55-ac3b-6ea12b8c6c75@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,20 +145,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1bfd6376-cc69-4c55-ac3b-6ea12b8c6c75@amd.com>
 
-Hi Mani,
- 
-Thanks for the review.
- 
-I've addressed your comments in v5:
- 
-- Removed the redundant zero-size check.
-- Changed `fls64(size - 1)` to `fls64(size)`.
-- Kept the full resource size calculation and added validation to reject oversized windows rather than silently clamping the size order.
+On 28/10/26 15:41, K Prateek Nayak wrote:
+> 
+> 
+> On 10/28/2026 3:31 PM, Juri Lelli wrote:
+> > On 28/10/26 09:06, K Prateek Nayak wrote:
 
- 
-I'll send the updated patch shortly.
- 
-Best regards,
-Sreeraj
+...
+
+> >> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> >> index c0ebdcde5fe5..6a081c2b7191 100644
+> >> --- a/kernel/sched/deadline.c
+> >> +++ b/kernel/sched/deadline.c
+> >> @@ -2654,19 +2654,23 @@ select_task_rq_dl(struct task_struct *p, int cpu, int flags)
+> >>  
+> >>  static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused)
+> >>  {
+> >> -	struct rq_flags rf;
+> >>  	struct rq *rq;
+> >>  
+> >> -	if (READ_ONCE(p->__state) != TASK_WAKING)
+> >> +	/* Inactive timer is not armed. Nothing to migrate! */
+> >> +	if (task_on_rq_migrating(p) || !p->dl.dl_non_contending)
+> >>  		return;
+> > 
+> > But a task can be blocked/sleeping and non_contending if
+> > task_non_contending() was called after 0-lag; in that case running_bw
+> > was subtracted already (see zerolag_time < 0 -> dl_task case) but ..
+> 
+> I see what you mean and I didn't see that the sub_rq_bw() is outside
+> the p->dl.dl_non_contending block but simply checking
+> task_on_rq_migrating() for bail out should be enough to cover off
+> !ENQUEUE_WAKEUP cases right?
+> 
+> > 
+> >> -	rq = task_rq(p);
+> >> +	/* Task must be fully blocked if we reach here. */
+> >> +	WARN_ON_ONCE(!p->is_blocked);
+> >> +
+> >>  	/*
+> >> -	 * Since p->state == TASK_WAKING, set_task_cpu() has been called
+> >> -	 * from try_to_wake_up(). Hence, p->pi_lock is locked, but
+> >> -	 * rq->lock is not... So, lock it
+> >> +	 * set_task_cpu() has been called from try_to_wake_up().
+> >> +	 * Hence, p->pi_lock is locked, but rq->lock is not...
+> >> +	 * So, lock it
+> >>  	 */
+> >> -	rq_lock(rq, &rf);
+> >> +	rq = task_rq(p);
+> >> +	guard(rq_lock)(rq);
+> >> +
+> >>  	if (p->dl.dl_non_contending) {
+> >>  		update_rq_clock(rq);
+> >>  		sub_running_bw(&p->dl, &rq->dl);
+> >> @@ -2681,7 +2685,6 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
+> >>  		cancel_inactive_timer(&p->dl);
+> >>  	}
+> >>  	sub_rq_bw(&p->dl, &rq->dl);
+> > 
+> > .. we still need to sub_rq_bw for a migrated task, and I believe what
+> > you are proposing would skip that?
+> 
+> Ack! But this is only needed for wakeup so just:
+> 
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index c0ebdcde5fe5..20c388b55c50 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -2657,7 +2657,7 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
+>  	struct rq_flags rf;
+>  	struct rq *rq;
+>  
+> -	if (READ_ONCE(p->__state) != TASK_WAKING)
+> +	if (task_on_rq_migrating(rq))
+>  		return;
+>  
+>  	rq = task_rq(p);
+> ---
+> 
+> should be enough then?
+
+It is enough, but I now fear too 'broad'? :)
+
+Looks like dl_task_offline_migration() ends up here via set_task_cpu();
+in that case the task was throttled and found the cpu was running on has
+been hotplugged so it needs a new cpu at replenishment. All bandwidth
+accouting is done by dl_task_offline_migration() itself, the task is not
+WAKING so migrate_task_rq_dl() has nothing to do and bails early
+correctly. If we use task_on_rq_migrating() it won't bail early anymore
+and double subtracting? Adding !p->is_blocked seems to cover this case
+as well?
+
