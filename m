@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793218264;
-	b=ZJORErrIiczvl7070U8MCPbmvnbVke/9GHcWYxzltlSx4f8cIizhYfNmu4rKK5iL21fP
-	 NfGutxYdX6ZEWBC0wtpsr+sMyoG8z7pD0Z0HQA1OXSTIWG9v46s99PrLZ/TXUAsowGwxJ
-	 zoTP1r9nO03IBtpZw/bD6YOM8cG3vKWxfu8XYDWUhI5QKh1NtpIwaN0BrKC9rmRdu813x
-	 XvRuFX+09IlVJUqMdeOxOSp4GoH52Uw/B9bnHfqVO0asTdV1+MZhr8B9V3GIjr2tG9cfq
-	 Kn0Xjlnv0takcZ/A6X8QQ2nDDEBZjK6sifhnMjCWjy2tFGYgibi0Np7lmnLXqgUiNRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218264;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ieVwSKOmF05EqHDhXoM6Ev5vmdo6Ln+FEC5KQGbFME0=;
-	b=gbaFv5e6fKAsWz0sOFdMvXuDK0FwS4ojz+2BeZsT5yRG1SDAGhNr+x+s5EkgnfYdQn66
-	 NOvGvMp+MESxlsFb2hG924ykqlUoVxSTVqd46IvtK02Q7efWUqHJoZppYj7QQ40EugEdt
-	 vic5xVfpVuLVCV4YcaEioUi96EVdl9wtx7JXi2hIoy/hlDNB+f3R4S5fXY/kEhPcU5vkV
-	 2oGXPHtvJpTcRKPemaKTduD3GopU832YgZodicYoddgx5mW6in8PIFJOnFbSDYqv2/URW
-	 wvhim6DWd8FNOqyhqGOJcPLwirKi2gfql/HGP3na6RBHbFYBqRrCZY0UApSP7zcIFJg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fDIrzBye;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793218423;
+	b=IsKlYTJFgOuChXCpY+36zadTvgGs4T/BTMSEMUlcSRhN+F6eEdbjREqVexNso6xOrs91
+	 u8JoC+UI187PFRPxXVtXEJCqi/p5I9HABL+TiPBBIvF6nd6p2QziAP60mmacU9EUAIDEB
+	 fQSGk7LSXHtI1mGQpqrdDHP4um8EjvsEb3mB8btcNiDY8C9BnQqZUNimfYPi1NwJOfs5x
+	 SHckZFNtsQn87quFnxZeR+PvbD6vOxoePVmG3/oHppUxz2gg+EfIBvGuGoTUiBxM9dmSm
+	 qZDWBW4meo6PqQmrO9QvgsBVOrrnR7JJjEGtbwM6azCebTZr9YHDYdKQj31tfCbIx7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218423;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=OMK++d/FLsGADB143FIELLc0iCFGZByNdKn1x6Cr6OI=;
+	b=kFLTofiS28G0h3Pv6HF6DGUhUiBY4JlxFWhHhP4KbHGLNmxie99CFnLOlfWFw5e3/HoU
+	 1ThfmKBlHfrUIMhIunpVrcTpyHVVXdMbdnpsDR9bIzWsSlAsQirOZlVN7DAKAjDIUglHo
+	 rsTZMb6tG3xy6P9Gb1vfYMdRqqKOyyvIvR7utQgIqqfu1PV+ry888PgKstpAkSAjS533w
+	 2mgsXZSU7xoock5OMntKuD0IMpGodIQs9ZuicEWcqPK4Pz0CvhVAdu44vH21yn9Mzp0pm
+	 QXmpmv7BpGV4kMZQ7ULhfYfNIqVgvXe+zLRfFOVSfkmE9OAU9l9bWSarWeXu3NWquug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zliang.me;
+	spf=pass smtp.mailfrom=zliang.me;
+	dkim=pass header.d=zliang.me header.i=@zliang.me header.a=rsa-sha256 header.s=protonmail2 header.b=pqwSE8lk;
+	arc=none smtp.remote-ip=109.224.244.22
+Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266D5606A337
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266D5606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C9F606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:13:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C9F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zliang.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zliang.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fDIrzBye
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a54bba0442so1925e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:11:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793218262; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FfVtxqzVMPri8cmQhp+IFep6MZo51JHPej+nWRBfzQejWP1ikI5FUDkEjPhpZ2G5qS
-         iEgo82h5+EY1ft8EQQ1XjTSH/qdt7+iIMdHFJSFczjBi1p7FKSmikhDc07sDC9UAUVeR
-         lTCAQYw+gGd34svNz5cgi9MGrXc7JAiSAxFISc0uiaJ39mG9IVetRdbjS3am+t0GncEW
-         6JOJJyZZhc6CE2bA3WPukvD7wt3U/9dLyKNqGIt+Ar4JDqsSzMoVE1WbbnSXHc0fifAF
-         q3PudwzoYdct/HdiNhqVV2kXVdmwESamIbqUo8U93TEJgHwyttEnNv7crYxewtL8swac
-         07Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ieVwSKOmF05EqHDhXoM6Ev5vmdo6Ln+FEC5KQGbFME0=;
-        fh=NC3SlYe4UHuJJ7riwA2U0D7yU2ScNit6yoGtCIyedL0=;
-        b=iZfUYQfXK3FeFeUGuyz3wgG7CRG1hwJzVd9WHiNlMdtGDl4nYKpHQvQtsvYYiyj6GS
-         33QXlzOEbdrl2shjmsWi9kMXEbeSE4rf+1kSKNAvxoz2X2pnWtw4vKIU9jvKRgrek5hi
-         GWF0pH8gRmJp9OocAeuOWsVOmYQ5vYQs50iNWZhXpqtWkX+RZ183n+Rpxz2ffRkJxkFF
-         0TTHIRO5a2dJzMDlUwah34CY+YC92PwLNcyGVZr//hb7KFpP+NKe8XMcqbhFouy0Ug/f
-         W8/7U7rwQz7SHKLfP4fassB7MNfDzalAFM0gI0zJPKBO5rvaSDZNrEkg7e//5kyHe94k
-         ijFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793218262; x=1793823062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ieVwSKOmF05EqHDhXoM6Ev5vmdo6Ln+FEC5KQGbFME0=;
-        b=fDIrzByeu5uJ91oTcxVQQoPpdjVfkc9ERgGteMiZPOeYYmXn2ISzvGVlAZlnhkMN7t
-         uZRy1XEszlfgxAT91QuEpidct9ZCgaVU1VDeuiFcgDTvvvg+E4hKyk650JrTH65vXFCI
-         qWJc9PpOfrIpIr3id65+AcaVMdsPEYw+6BDZbOXFWYraKKrsOSqqiHjozgSE7clEH5Le
-         IN1opDxayZo+81LcguNWUFvP3ya+9+zlbiIcmcnKokUQ9CA11vu5k40/6kUHSTjzOcmC
-         ENrDRTRomsTP//AjMoaCTtI+XlV/+mGgvvwqYTI5lUCIbrleQOHrAhd7nOyiUqNwTeNJ
-         YnFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793218262; x=1793823062;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ieVwSKOmF05EqHDhXoM6Ev5vmdo6Ln+FEC5KQGbFME0=;
-        b=elHVu/DBlYX9WQm6zwieFeyENyhpYFkcOlzCt57bebyJdnf0Cpw7XtIdD3aKL01GoV
-         sWUwBasN4KWGTE0HnJ2PbDoQfP/M1gbEMz58muZtQ5sLiefhRUP02030vEttiPPQLjl/
-         IyB6KBOe9PuL8LgYoxCgYJytqYgKowmW1GzNGDFf/wgR9tikKh3Z82v1Kwu9bKMYbdwy
-         sbmCYXqUd0X4kTxtpkaloq5WYei34YeevmF6riWqm/5MmfX9f2CtJkfR47kSO6tbFUoK
-         H9FjXa5fJktwA8Q0BCyZior1fpXeCInSdPpdgRwIFZNFIXciz8rpyy1ZgpJ9SoYcioQW
-         pA3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwoh1KprbnOmU1LJ7pYi9m6wrEx70hIGWNSeAbBV/7u5vSAfUsYCQmXw3Iqzw5MB/bqlswdRezmKmtuVXw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpnvwKnRfG9fi6AHR9aFZLHq269IBrlcntrOtLRwPGColzIgkS
-	1MEwJ5x9TImLVOB4l5QqkMVEdbq+VHS6GklpUKWS9PO6kx+OkkOCYWuYO5aGQZtWrlNBdOXTedE
-	QFY4zGazRiTQWwGtsyKVq/8ivE8VGdOqIpg0Y7/3b
-X-Gm-Gg: AYBFou3RllJvu9mU4ICQt3lqx5NdIoX5UL3fotJRbT4x1GdUY//X0YEP8LI1X7rmjXs
-	kaC0yw8yoPU4Jk3KcrFlMpZ0BIX16+/7ogBRDG+1tPiVcDYH+9ksrRb1k2M4+J9Mw2uYY0/3I6s
-	8P54oNML5lSRs0qfsy5m+4j0M7XZfw/PqSi824EVoFE8rLi5+UejJ0ImM6XVXal3WTH1qCcvikV
-	sOFdysGynyYpebuR5rjwHFcjwhTQaowZ8Yxh201QwP7Lrly9gTg1oKapKhjjZqIczrqT8Lz7unB
-	08SzWmvQ+tsCEbJIZyeI+cWs36N8zOfielrqvFDJMgna5TsnPTleTEO9C3eBmaRqaehqIFeZuob
-	b198s+Fj6x43DCR3ZWW/akUYiuyrrW+MoM1oU2yzUP2B1XwOxSQpRNP2XkwkyxIaPlqR4ktQuG/
-	EuAA+gM851nQ/qo936aWgQ8uE=
-X-Received: by 2002:a05:600c:5903:b0:4a2:a8c:22ae with SMTP id
- 5b1f17b1804b1-4aa9617c228mr122895e9.12.1793218262038; Wed, 28 Oct 2026
- 13:11:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=zliang.me header.i=@zliang.me header.a=rsa-sha256 header.s=protonmail2 header.b=pqwSE8lk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zliang.me;
+	s=protonmail2; t=1793218420; x=1793477620;
+	bh=OMK++d/FLsGADB143FIELLc0iCFGZByNdKn1x6Cr6OI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pqwSE8lkbqu2ZpAnsExOqZkWXRZ0Faqz77m8cnNY1R2KTBN4F2kthCID6iKZMc/bZ
+	 MT7vuqtxWID+ARqjVMhnFpCjNR2KphVOUO4vsKxBl9KSLA2GGGR0mc3lXl+u+J3zog
+	 hl6iVdAfdyT7vNZeBXoG5m2T9k1Kpv7YCJ/kTbY/ZkA/WKnJ/XR264PAm7mZYYAXey
+	 RTwlbgdk7GiSUWwMWik2N1Mane8TeVPDQNiNyFJwVPqeGj3t4FKgjiIt56UekGhn1T
+	 9PPV8YzlVlEtYLPRtp7VcZaH4lRMPHXEBugqUIYPTVD8SSna7PW9uutartw0GZUh8l
+	 D7BpvZSX8SEzQ==
+Date: Wed, 28 Oct 2026 20:13:36 +0000
+To: luca.stefani.ge1@gmail.com
+From: zhiwei.liang@zliang.me
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, Qu Wenruo <wqu@suse.com>
+Subject: Re: [PATCH 0/2] btrfs: don't expose ERESTARTSYS to userspace
+Message-ID: <GVPY1g44XSPvMOBj-XoNvfOoc11_Rs6iaF8UWUeCLNPb1KRz6Yh4Ff1F8I_ElHRyyioSE4SOgPP_Dqs2f3AvGMXcijcqtPL2BeipvYeLkeM=@zliang.me>
+In-Reply-To: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+References: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+Feedback-ID: 165418692:user:proton
+X-Pm-Message-ID: de0bc53b9276dad72f544a688701fc6ae69247da
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,178 +64,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-2-tjmercier@google.com> <auHLzLazLr4iA_Pn@KASONG-MC4>
-In-Reply-To: <auHLzLazLr4iA_Pn@KASONG-MC4>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 28 Oct 2026 13:10:48 -0700
-X-Gm-Features: AclHuK8Bs1IRBhRVIWz--v-y6aB5LNo_Pu_T9E7KUcmFBJKynmoafpKWfnr2kyE
-Message-ID: <CABdmKX2xEPL3tTWS22rDeVeCKuT9QhW9QAQdXGLSjUJEvSnWiQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online() checks
-To: Kairui Song <ryncsn@gmail.com>
-Cc: roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------bc954cd9b26f5b17fecc0cdf04f4dc2ec2c5841cceed8eccf673641f4a3c5400"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------bc954cd9b26f5b17fecc0cdf04f4dc2ec2c5841cceed8eccf673641f4a3c5400
+Content-Type: multipart/mixed;boundary=---------------------5c57f3042c1d397c32e50393fc41d44c
+
+-----------------------5c57f3042c1d397c32e50393fc41d44c
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-On Wed, Oct 28, 2026 at 3:20=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-> On Tue, Oct 27, 2026 at 06:06:05PM +0800, T.J. Mercier wrote:
-> > Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-> > dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
-> > move LRU size accounting on reparenting instead of copying it"),
-> > mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
-> > and zeroes the child's lrugen->nr_pages and lru_zone_size before the
-> > memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
-> > afterwards. A folio that is off the LRU during reparenting looks up its
-> > lruvec through its objcg, which now points to the parent so it is put
-> > back on the parent's LRU.
-> >
-> > As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
-> > when !mem_cgroup_online(memcg) is true, making the offlined memcg speci=
-al
-> > cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
-> > code. Remove them.
-> >
-> > With the get_nr_to_scan() special case removed, an offlined memcg that
-> > still has stale effective protection now has
-> > apply_proportional_protection() applied like get_scan_count() does, so
-> > the MGLRU and traditional LRU behavior is now the same.
-> >
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> > ---
-> >  include/linux/mmzone.h |  8 ++++----
-> >  mm/vmscan.c            | 28 +++++-----------------------
-> >  2 files changed, 9 insertions(+), 27 deletions(-)
->
-> Nice!
->
-> >
-> > diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> > index 3b96d6c7123b..7f078ff0dd76 100644
-> > --- a/include/linux/mmzone.h
-> > +++ b/include/linux/mmzone.h
-> > @@ -638,10 +638,10 @@ struct lru_gen_mm_walk {
-> >   * The events that trigger the above operations are:
-> >   * 1. The first attempt to reclaim a memcg below low, which triggers
-> >   *    MEMCG_LRU_TAIL;
-> > - * 2. The first attempt to reclaim a memcg offlined or below reclaimab=
-le size
-> > - *    threshold, which triggers MEMCG_LRU_TAIL;
-> > - * 3. The second attempt to reclaim a memcg offlined or below reclaima=
-ble size
-> > - *    threshold, which triggers MEMCG_LRU_YOUNG;
-> > + * 2. The first attempt to reclaim a memcg below reclaimable size thre=
-shold,
-> > + *    which triggers MEMCG_LRU_TAIL;
-> > + * 3. The second attempt to reclaim a memcg below reclaimable size thr=
-eshold,
-> > + *    which triggers MEMCG_LRU_YOUNG;
-> >   * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LR=
-U_YOUNG;
-> >   * 5. Finishing the aging on the eviction path, which triggers MEMCG_L=
-RU_YOUNG;
-> >   * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index 9959ca158ce8..636152d8c94d 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -2754,13 +2754,6 @@ static void get_scan_count(struct lruvec *lruvec=
-, struct scan_control *sc,
-> >               scan =3D apply_proportional_protection(memcg, sc, lruvec_=
-size);
-> >               scan >>=3D sc->priority;
-> >
-> > -             /*
-> > -              * If the cgroup's already been deleted, make sure to
-> > -              * scrape out the remaining cache.
-> > -              */
-> > -             if (!scan && !mem_cgroup_online(memcg))
-> > -                     scan =3D min(lruvec_size, SWAP_CLUSTER_MAX);
-> > -
-> >               switch (scan_balance) {
-> >               case SCAN_EQUAL:
-> >                       /* Scan lists relative to size */
-> > @@ -2769,14 +2762,8 @@ static void get_scan_count(struct lruvec *lruvec=
-, struct scan_control *sc,
-> >                       /*
-> >                        * Scan types proportional to swappiness and
-> >                        * their relative recent reclaim efficiency.
-> > -                      * Make sure we don't miss the last page on
-> > -                      * the offlined memory cgroups because of a
-> > -                      * round-off error.
-> >                        */
-> > -                     scan =3D mem_cgroup_online(memcg) ?
-> > -                            div64_u64(scan * fraction[file], denominat=
-or) :
-> > -                            DIV64_U64_ROUND_UP(scan * fraction[file],
-> > -                                               denominator);
-> > +                     scan =3D div64_u64(scan * fraction[file], denomin=
-ator);
-> >                       break;
-> >               case SCAN_FILE:
-> >               case SCAN_ANON:
-> > @@ -4355,12 +4342,11 @@ static bool lruvec_is_sizable(struct lruvec *lr=
-uvec, struct scan_control *sc)
-> >  {
-> >       unsigned long total;
-> >       int swappiness =3D get_swappiness(lruvec, sc);
-> > -     struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
-> >
-> >       total =3D lruvec_evictable_size(lruvec, swappiness);
-> >
-> >       /* whether the size is big enough to be helpful */
-> > -     return mem_cgroup_online(memcg) ? (total >> sc->priority) : total=
-;
-> > +     return total >> sc->priority;
-> >  }
-> >
-> >  static bool lruvec_is_reclaimable(struct lruvec *lruvec, struct scan_c=
-ontrol *sc,
-> > @@ -5199,10 +5185,6 @@ static long get_nr_to_scan(struct lruvec *lruvec=
-, struct scan_control *sc,
-> >
-> >       evictable =3D lruvec_evictable_size(lruvec, swappiness);
-> >
-> > -     /* try to scrape all its memory if this memcg was deleted */
-> > -     if (!mem_cgroup_online(memcg))
-> > -             return evictable;
-> > -
-> >       nr_to_scan =3D apply_proportional_protection(memcg, sc, evictable=
-);
-> >       nr_to_scan >>=3D sc->priority;
-> >
-> > @@ -5325,13 +5307,13 @@ static int shrink_one(struct lruvec *lruvec, st=
-ruct scan_control *sc)
-> >
-> >       flush_reclaim_state(sc);
-> >
-> > -     if (need_rotate && mem_cgroup_online(memcg))
-> > +     if (need_rotate)
-> >               return MEMCG_LRU_YOUNG;
-> >
-> > -     if (!need_rotate && lruvec_is_sizable(lruvec, sc))
-> > +     if (lruvec_is_sizable(lruvec, sc))
-> >               return 0;
-> >
-> > -     /* one retry if offlined or too small */
-> > +     /* one retry if too small */
-> >       return READ_ONCE(lruvec->lrugen.seg) !=3D MEMCG_LRU_TAIL ?
-> >              MEMCG_LRU_TAIL : MEMCG_LRU_YOUNG;
-> >  }
->
-> This part looks much cleaner, thanks!
->
-> Reviewed-by: Kairui Song <kasong@tencent.com>
+> trim can expose -ERESTARTSYS when the trim loops gets interrupted by
+> a freezer request.
 
-Thanks Kairui
+Tested on top of misc-next with the pm_test=3Dfreezer reproducer from my
+patch, 30 freezes during a trim: no -ERESTARTSYS reached userspace,
+fstrim returned 0 with the partial count every time, and freezing stayed
+under 30 ms.
+
+Tested-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+
+For 2/2, I think it wants Fixes: 69313850dce3 and
+CC: stable@vger.kernel.org # 6.6+, and the changelog could mention the
+"Unknown error 512" symptom for people searching the log.
+-----------------------5c57f3042c1d397c32e50393fc41d44c--
+
+--------bc954cd9b26f5b17fecc0cdf04f4dc2ec2c5841cceed8eccf673641f4a3c5400
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmriV2EJEDHcSF0sTuj3RRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmeEd6Wc9GVaJ2UtEEYDzt+f6Jh6+h6ZgiqoUy9k
+DJOQERYhBB7SH24V93YjvuO90THcSF0sTuj3AAC+IQD8D/8FEBFrLNmrgGmQ
+dWXRGsrC+6mlizZE/FbGyZXDjrQA/3EC+CtRT/P4f+/DDqCJOZa3yq2PHH6V
+1MKvh6yUb7MG
+=71vU
+-----END PGP SIGNATURE-----
+
+
+--------bc954cd9b26f5b17fecc0cdf04f4dc2ec2c5841cceed8eccf673641f4a3c5400--
+
