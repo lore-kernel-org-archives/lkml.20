@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214647;
-	b=CxDRmaTLOUlmJqwdfBZHvqHHubcXYBG5Srm6pJYWCE+qfQJgS60qwj+bYVamWPYxjo1j
-	 CR8crqec69P2ErB3Vanf81o4HbMLnzJb757zPtRmpbFBxnWjPaq/Y4pcgFLI+h+9CbTzx
-	 X99rpufDo3eUZQIfuAjjBOdL1hIFLNRrnLpWuACzAzawkBDrLCWvdFdsHkDJ9YSvjVMDS
-	 Rq3M2x+fSvb5rVA8RLW8JBKGFyVGl/eHYZYwk9XJW8qBdF13tpevu80rUuqG4k2Ou63e7
-	 fRnh1Upu7J3mCln8IPnW7W+Wo1FMb9WtwqtnEDMHFyWk9C7o7wtHxAsSPY6rhEeDMzQ==
+	t=1793214688;
+	b=i2lVU20AmBt/kjA9JVhhXcN8FrHGDSq99xguefrtb8aGdBZn5nulYUpROUOZgzVneBUl
+	 18ZxTZ+9TFwzsIjblL97LwuUtM06Wq2s4D2ijRnh2KvJ5YoB6uBcf78Hy+OKvgI1PmZyh
+	 7a7ciyIK4Y8E7PNGxZSj00zHsIvXcfi4BKOS8MYYC8XxilmNm/JmKp1y778E6lZGigf0Z
+	 85yDMMiTi5xxS7MZVLjDsthpIQ38iIf2N0wp15gItzATsUuHr3gZqR1IRw4Qp6b8tAU63
+	 obaXfCGjwMz1WtNtzmAQ3pF+KOxPjY1iFhzIOPu5THoNzVcgHBwSZwtEoZ0fy5CY5xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214647;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=0Sk1y8mnCQ7/wBJzu1WuZEta74bHDesvUVbnwAKRUs0=;
-	b=qbvL4b60M6Nd0Nf6dB/0NgPAiYTb/2NxKZZuzkS9h+hnn2in6I/BnMEi5ioU96pKObd3
-	 OHS6OKIrpwZY/Dt8oOyE+DNEiLA95GrMFW+Gf9k18PaJtxazkDwOYgdLP9xq4dWwC9JaU
-	 a0bAZJMm6GjFwCdwdyMsSvEur6ZKEixXCitJEtmZ0UAJXlqA17m7bt3Kus3QRrIO1tVI8
-	 V0JUm6rLufC569JL7fozcpbKAhNk/5yuidf0OH6y/2a/UqmpF7vjUJ1LASYutnpId2PFP
-	 uc98xwv1mpREY/p+OAA+AvgaU/SZNAQs/08K6WmByTvvCYnL8yxhEiBy/zTjzcHOmTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214688;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1ZCiiEwQ5cdvAEferIPSF0WM9T5tFjDIqRGawKcIWjE=;
+	b=Y2G9+PB4HZKcDfBCRd7wzld1OFvz309HY4KVurkVFuDJVC7RmHyPbw5xqC/2GAQTnwfn
+	 Cs/CoTv5Nhxhze5t/PhVZf4PRKXbUcvCLGzAM/ySGKoR9YCn2U5FY4qKTun70dJoxHFJi
+	 owbzpoy6CJ+Y5AWJejYadeR4A823b9X4Ln0NVQhy8oqpiCSKrNk9bgkwkFD2Iyw2csO8u
+	 Wwo4wgA76T8CP4mnF7Z4d1KKu86a9RYgnYtgkOz333e4ab1jGvBTt9IBHXCEbEbR6vhn+
+	 B1mn2oLNWOmweEehzYuu60OJ8u9AmZH9r8rcttpM1rlG0bBu7KMkPk5TnKndudurJbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EPyjBoM1;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmOud5m1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B234606A32C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B234606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E8E606B7FC;
+	Wed, 28 Oct 2026 19:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EPyjBoM1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793214647; x=1824750647;
-  h=date:from:to:cc:subject:message-id;
-  bh=aKLR/f190e8+2IMZITKKO4iudwp7EDYKEGW5uLDdX9c=;
-  b=EPyjBoM1aRMeB6Y753lB8ok4Ki+bj6/USYjaQJBxi/FhXapobjrkfRUT
-   DEguo11RpwRw8am1cSK2qg77dDmhOoXDNmji7w7WkMPe9UwqlQtaHWHmg
-   I95gGyOxFD3tvzIaTD+BxZWvY5Gn0aUyZcTWeDMvX6TanNjLlRJdx+w7G
-   gSDzQbLXD84sTooCGLiBoxcX/WnuXLTFsQukJCjW9J2bu/ZCIK98NCdPK
-   xibKiTJmulcl/Mph6fmkfyAzfy3fbqywbRHnNXKlIreVjvvNySlJ5u2qd
-   zVWzGDk3AW+gRJcgtlUjk00HyHKLf4KWmaW6ax2tSITp6r9tXd+88NJQW
-   w==;
-X-CSE-ConnectionGUID: TUJKadSJTTWI2WceWWW1mw==
-X-CSE-MsgGUID: SHZEuHM5R3qhrM+JZo/thQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1960773"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1960773"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 12:10:46 -0700
-X-CSE-ConnectionGUID: qPpn16mcQ/yOed7vFcPbiQ==
-X-CSE-MsgGUID: hYfqyVPASJSipPh6smiG9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5292106"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 28 Oct 2026 12:10:44 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xM92n-00000000Z8w-3gcF;
-	Wed, 28 Oct 2026 19:10:41 +0000
-Date: Thu, 29 Oct 2026 03:10:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Subject: vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi
- indirect call!
-Message-ID: <202610290223.iOEGeDs2-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmOud5m1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CAD1F01828;
+	Wed, 28 Oct 2026 19:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793214687;
+	bh=1ZCiiEwQ5cdvAEferIPSF0WM9T5tFjDIqRGawKcIWjE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hmOud5m1Sys3ZbTVWvDLH3V3m0RYDac/VMmvlzuKOpUFVThxM9d66icG4REDhsESI
+	 VkbmzLvsCDD4IkwZyColJ4DMXhsDF/wQCixhdKvmY3cSyt3UhjBF/u2VaT/I3PeGZF
+	 N7E+Oo5g53zikjg8t6V6ZXsvopctc4u79C51eB/ZuqqChDZ41cphS5bcgW3G9T3OZd
+	 v2srl5wPazMKelBV/jMiqY9X1jjFk0iho1+sUukEBFmpNXl1eKbDlSvCPaW6KpETE9
+	 p5QqvR65F9sbstCc5R7yBPIvZZQs+EolG8UszOEiTDpRu9tLd8NSeXiCtxMW004ZhA
+	 pMdmD5HqKfAJg==
+Date: Wed, 28 Oct 2026 21:11:21 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] sh: mm: replace the page size bits in pte_mkhuge()
+Message-ID: <auJI2blzfpFD9yLe@kernel.org>
+References: <20260926183904.76186-1-kmehltretter@gmail.com>
+ <20260926183904.76186-2-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,31 +62,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926183904.76186-2-kmehltretter@gmail.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-commit: 7a097aba725501c399b5e93d0199aa3a2f6e9c88 clocksource/drivers/timer-mediatek: Convert to OF probing
-date:   2 weeks ago
-config: x86_64-buildonly-randconfig-1001-20261028 (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/reproduce)
+On Sat, Sep 26, 2026 at 08:39:03PM +0200, Karl Mehltretter wrote:
+> pte_mkhuge() ORs _PAGE_SZHUGE into a PTE that already carries the base
+> page size from _PAGE_FLAGS_HARD, which every PAGE_* protection
+> includes. The PTEL size field is an encoding, not a set of flags: on
+> SH-4 with 4 KiB pages and 64 KiB huge pages, _PAGE_SZ0 | _PAGE_SZ1
+> selects a 1 MiB page. Every hugetlb mapping is therefore loaded into
+> the UTLB as a 1 MiB page whose physical base is the huge page's address
+> rounded down to 1 MiB, so user accesses land in unrelated kernel
+> memory.
+> 
+> In a QEMU r2d guest, after touching a MAP_HUGETLB mapping at
+> 0x30000000, QEMU's "info tlb" shows
+> 
+>   vpn=c0000 ppn=32e00 sz=3 size=1048576
+> 
+> and writing the two huge pages overwrites kernel data, for example
+> page tables ("bad pgd 5a5a5a5a" on munmap) or a struct file:
+> 
+>   Fault in unaligned fixup: 0000 [#1]
+>   PC is at file_tty_write.isra.0+0x24/0x220
+>   R1  : 5a5a5a5a
+> 
+> The SH-X2 extended size field has the same problem: a 4 KiB base page
+> (ESZ0) combined with 64 KiB huge pages (ESZ2) encodes 256 KiB. Only the
+> configurations whose huge size encoding happens to contain the base
+> encoding, such as 1 MiB over 4 KiB on SH-4, have worked.
+> 
+> Clear the size field before setting the huge page size. All hugetlb
+> PTE constructors, including huge_pte_modify() on mprotect() and the
+> fork/COW paths, go through arch_make_huge_pte() and so pte_mkhuge().
+> With this change the same entry is loaded as
+> 
+>   vpn=c0000 ppn=32e00 sz=2 size=65536
+> 
+> and the mappings read back correctly after mprotect() and fork()/COW.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
+This implies nobody ever used hugetlb on sh-4, doesn't it?
 
-All warnings (new ones prefixed by >>):
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  arch/sh/include/asm/pgtable_32.h | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 
->> vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
-   Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
-   Selected by [m]:
-   - COMMON_CLK_MT8173_MFGTOP [=m] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=m] && PM [=y]
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Sincerely yours,
+Mike.
