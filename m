@@ -1,52 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198383;
-	b=VEtiUuXN2nD7CtHjA2GmHuGB0xIvautATQvxbKR/Y/LoMmtisSxtEZJRkTdmi22umNDH
-	 Yu8b/AQyTjogq9PVL7x8xrAQYjkFRe1CIWAQ+XNcfaDbvAGKhmtfF9L1cUt0/lP4najqW
-	 WvUhyesnEzI3vH8+ri+1dGjpHnvAhVrZU8pnmWRfBrO2k0XLQMm5/e+XdjS/lhtpjOH1F
-	 hds4UMjQW5EIvRKIhk8c0obA7G5zh5Q1WI+YnF5izZ1M87cIqkt4UICvfc/gFP3nZMSLk
-	 jE1jjPK8fGKuL6OSlK46fLLrnjzIo8r27EJID7E98ZOSkRnzvj68sYZOMO5Gh69k2HA==
+	t=1793198463;
+	b=Vvatqms/7AkcGIwhAChQB7xdsovRvOptK4/kzTonqQBzElAO8/pSbpTpR3AhQu0quwc4
+	 dan/9VSY+Shix3P3dUu633prGev9HilFG1j4nkLbixFzQp6HprCw5YIM8tOvyr082yYhi
+	 VuBIs1oTgwMvUbg0WhP6pcfgElEGWQkUFGzbATFZEvgGdLvQ/P4ELvQf6C+ZAkCWq20XI
+	 LvxDf2TXSfZBOANhr1nj71NxeOEfY+h5urajCgkxaEv6ojXBQvKBefXb4lSYd015m/m/H
+	 IWdOXbnzefDJgx4ob9zXZ0dz06hZHWTk7gej+hxm3EmIylWR1vXtcLHtXEeOV9xhNEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198463;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gABsC7BZjlS5MCYNYA+2CghRrf1sHAMFxNXq81jKOrw=;
-	b=tRaIbquR66QAQL4L2uXGHVYbKGywwG78PsVrJ9QstL+lwXnhlLNrURnr+8WDUTYCJsie
-	 157piDjk2uAKXOsUhOSMLzM9zLaWQLD8308YNCJ8jSFzpiiJWqrQyBPKNIICGwkJrgBvQ
-	 O7CSmkKp5mWeQKpWDlyKrTO09RFeIPe2zWqmt0e9laCA3P9vkSu5M/g9S1tFgQ1JUjBLp
-	 6XyD/bgML5F6LUymw99dLGEsCPu/4ZjwH23t/SpJ9J7boO+8kI/jttNG4AuYRKrupMdT/
-	 l5IrzoGclZwrv4gMLzqf7/xLUoVGUcNehKJOytPjp21EoTdyLRdGqz92R+rea0SGMZQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=SJDODn+Daxete0vXNEeSBNeEHTwbpeBhwXO3acT8Jjc=;
+	b=CjAjRGHwt6+oJlHhKDvEWSDCIKqS9CP0IBP/AZ/DeFYdUJ3bWmmbKY4fm9KTKJEgxbVR
+	 xofGE+4qfnDUOvffk5+OBYO4UG+HlclKxhrVn52r/+5XYNxZfhhs+smNcrK8tVpN1qAuK
+	 yNIa9pnj0enzWJ+UcFDQbuu6lC+HWl78OjY5+B3qMCwNnfvdii8RLQHBGOVR58VR4K/Hj
+	 pDT08gjHT+XvMpXhfFCw/jqjZmrmfwVV38TH3lmZ2d5HjMW/PaR7Q5ANDUoA1b/tfGjzd
+	 AQzK/rlVs67eMCgOgOEA0brwPQsd2oUpn8JDDqY3wVkgTLqqsasCSRKSKL9toTUDVlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjEYGMER;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YirwpN8N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2E6606A31A;
-	Wed, 28 Oct 2026 14:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D986606A31A;
+	Wed, 28 Oct 2026 14:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjEYGMER
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63C41F01825;
-	Wed, 28 Oct 2026 14:39:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YirwpN8N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB3E1F01829;
+	Wed, 28 Oct 2026 14:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793198382;
-	bh=gABsC7BZjlS5MCYNYA+2CghRrf1sHAMFxNXq81jKOrw=;
+	s=k20260515; t=1793198463;
+	bh=SJDODn+Daxete0vXNEeSBNeEHTwbpeBhwXO3acT8Jjc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YjEYGMER/jp3keJVKFcS3B2DwmuLsLxjj9HHqmvUj1+VQMMrAO6u67TafN+Sjfs1G
-	 ll8uddecuLECDskjKBXWv+bQ1dm3pF9Hu+NbWNguwFOjTx1FPQGLoOakBWbDIPBg0C
-	 8/sL/uNxmDncyl6SW7pPv2p6ICciqjQiiOZwXj3fpquJ49B/Jvvtxiv8d/O8482Oer
-	 AgW80c4a6KvzDCJx/gCfPXdh/ZX89DynHlSAeshze/D17fx+7o/3QZWZHKodRbCbSc
-	 EmnW7jfRjt/Ja5C7DnDPYGUwF7qvLHtZ8wZQqlYVMmnre9IlTMYuiVZvdXepG8i04I
-	 j0afpPnlGNlHg==
-Date: Wed, 28 Oct 2026 14:39:39 +0000
-From: Lee Jones <lee@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mfd: tps65010: queue I/O work on freezable workqueue
-Message-ID: <20261028143939.GC3605912@google.com>
-References: <20261016100503.2581955-1-yaojiale02@163.com>
- <20261016100503.2581955-3-yaojiale02@163.com>
+	b=YirwpN8NTIcpR91bbQZOawatQgF7WOZribCgtbQv3D9/IEwAE5fo0kroa8564+nYm
+	 6mlIYEBpfTW8Hqn/astGPJWT6TccQlGtF8K2Obc9yA7PSFBQ5ZI4xyquuc/F+pHVtR
+	 6mfQBL/ylb+NNAYpULUdWpufa1il/FmWMeO/5fdDmtuolhmVdvOYx+ccHFXLe62LO5
+	 N2u3xI5LUJgVwLhHVABfH8nV9r726sROrQ1qjsm6R9Ky251dULE/J4o5RQ/SajqFaa
+	 jY4c95rf9MSoJ+RZnUy0WvNnTVDAJMXFPA3JdsdcWtIEamSQ3buF1Xsw0gfKRvBcD3
+	 P3On2k6G6xutA==
+Date: Wed, 28 Oct 2026 14:40:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] arm64/gcs: release GCS on failed fork
+Message-ID: <fc71b59b-aeee-4d68-9d48-9eb9ba707321@sirena.org.uk>
+References: <cover.1792519121.git.ivanrwcm25@gmail.com>
+ <8522b8d3d3ecda7474d0af8b8517c1f5d708ecc2.1792519121.git.ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,78 +76,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JK4egr7oBGvhaW3C"
 Content-Disposition: inline
-In-Reply-To: <20261016100503.2581955-3-yaojiale02@163.com>
+In-Reply-To: <8522b8d3d3ecda7474d0af8b8517c1f5d708ecc2.1792519121.git.ivanrwcm25@gmail.com>
+X-Cookie: Pushing 30 is exercise enough.
 
-On Fri, 16 Oct 2026, Jiale Yao wrote:
 
-> The TPS65010 event worker performs SMBus transfers and can reschedule
-> itself to poll the charging state. The power-efficient system workqueue
-> is not freezable, so pending work can access an I2C adapter after it has
-> been suspended.
-> 
-> Use the freezable power-efficient workqueue for every scheduling path.
-> This preserves the power-efficient behavior while freezing I/O across
-> system suspend.
-> 
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/mfd/tps65010.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/mfd/tps65010.c b/drivers/mfd/tps65010.c
-> index 8a144ec52201..b038d67ff715 100644
-> --- a/drivers/mfd/tps65010.c
-> +++ b/drivers/mfd/tps65010.c
-> @@ -230,7 +230,7 @@ static int dbg_show(struct seq_file *s, void *_)
->  	seq_printf(s, "mask2     %s\n", buf);
->  	/* ignore ackint2 */
->  
-> -	queue_delayed_work(system_power_efficient_wq, &tps->work,
-> +	queue_delayed_work(system_freezable_power_efficient_wq, &tps->work,
->  			   POWER_POLL_DELAY);
->  
->  	/* VMAIN voltage, enable lowpower, etc */
-> @@ -388,7 +388,7 @@ static void tps65010_interrupt(struct tps65010 *tps)
->  			&& (tps->chgstatus & (TPS_CHG_USB|TPS_CHG_AC)))
->  		poll = 1;
->  	if (poll)
-> -		queue_delayed_work(system_power_efficient_wq, &tps->work,
-> +		queue_delayed_work(system_freezable_power_efficient_wq, &tps->work,
->  				   POWER_POLL_DELAY);
->  
->  	/* also potentially gpio-in rise or fall */
-> @@ -436,7 +436,7 @@ static irqreturn_t tps65010_irq(int irq, void *_tps)
->  
->  	disable_irq_nosync(irq);
->  	set_bit(FLAG_IRQ_ENABLE, &tps->flags);
-> -	queue_delayed_work(system_power_efficient_wq, &tps->work, 0);
-> +	queue_delayed_work(system_freezable_power_efficient_wq, &tps->work, 0);
->  	return IRQ_HANDLED;
->  }
->  
-> @@ -694,7 +694,8 @@ int tps65010_set_vbus_draw(unsigned mA)
->  			&& test_and_set_bit(
->  				FLAG_VBUS_CHANGED, &the_tps->flags)) {
->  		/* gadget drivers call this in_irq() */
-> -		queue_delayed_work(system_power_efficient_wq, &the_tps->work,
-> +		queue_delayed_work(system_freezable_power_efficient_wq,
-> +				   &the_tps->work,
->  				   0);
+--JK4egr7oBGvhaW3C
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Use 100-chars to prevent this crazy line-wrapping.
+On Tue, Oct 20, 2026 at 03:19:30PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
 
->  	}
->  	local_irq_restore(flags);
-> @@ -1052,4 +1053,3 @@ static void __exit tps_exit(void)
->  	i2c_del_driver(&tps65010_driver);
->  }
->  module_exit(tps_exit);
-> -
-> -- 
-> 2.34.1
-> 
+> +++ b/arch/arm64/include/asm/gcs.h
+> @@ -67,6 +67,13 @@ void gcs_preserve_current_state(void);
+>  unsigned long gcs_alloc_thread_stack(struct task_struct *tsk,
+>  				     const struct kernel_clone_args *args);
+> =20
+> +static inline void gcs_reset_thread(struct task_struct *task)
+> +{
+> +	task->thread.gcs_base =3D 0;
+> +	task->thread.gcs_size =3D 0;
+> +	task->thread.gcspr_el0 =3D 0;
+> +}
+> +
 
--- 
-Lee Jones
+The other process.c specific helpers are all in process.c.  Otherwise
+this looks OK, though I'm still not clear about the analysis for why
+x86 is not also affected.
+
+Note that since you sent this in reply to the old thread is was buried
+in my inbox.
+
+--JK4egr7oBGvhaW3C
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriCXcACgkQJNaLcl1U
+h9DyKwf/f0wQRzWGs4z7w3rL3l/aDet1CHGvYQeENmeNCwRcMkxKv7+aoLzrNWJX
+ZlLAXfNLCaK0SG3xcaLnerecwFSW/K+zwNIqFQf7E3czUrYNyZ6QyuUeY1sWKkni
+fD8xwhMCQeDCKMrIJvAYMYNgT6sFI5r0TrowwJjKsFgitHpQ9+QU05extDSJ6JoH
+Mqn0oOauMbIXl7F25YhJ63+d1nlTajtFiq5VoI5tIjcWosAdpaEmySSpBX1pqBF3
+90lzfVTXtNPpv1qJHoHhFhfttnlVCvwGp/lgwQK1kw+fw2wlfHdR/PXLR5hnkqA5
+fhLzMJjBO1oi0mpX+FfxV5lWZTHuaA==
+=qGVS
+-----END PGP SIGNATURE-----
+
+--JK4egr7oBGvhaW3C--
