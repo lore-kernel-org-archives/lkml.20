@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205450;
-	b=BxayibV3w7VXxivXRFp9nT8LsjuIcj2g35Xxt0tf7ooCVaYl4fU8D1C3G7H31vMU8kdY
-	 FPyg4y32SJ6wt7SwUHAZHfy1ESnZVqfmicDPNqeN5BVdCNNivyE7i3wJX4i8zo99dDE05
-	 hj6nw1zkKWsPVRi/oaSxFy4t7LQOKq6gws7mUlHmhjPXQW9hXop+8GWiVsknsXRSaLcES
-	 XlfCs8JWz6v/6/2XdZP/SJw/xgQN35riwU9sayJ3XnPwiTzq6vYcHYDZ5ggeuefcu8LEc
-	 P0DKgog5AVSmCGl6K52vSFOA6H9X9WUn/rxowQD7TxVvOIveXkm2jWuZXGdn81H303A==
+	t=1793205445;
+	b=rc72iH4/drBejTKU0N4yOUSQvlpuFRhjQTgnmBpnweP1C9FlKWI38JUa+uePQ8Y4y/2M
+	 x+tus2nHtpK0jubjtPEW7FAxiTHQ72NNQTO8X6NyyZH5+oOb0ffqlHgGYeG9OdlZ4U1k2
+	 RO9o9lT2VoYc36+im35SX/2q5JQoyaPoAD666mMvYq1V8Vye5JjVMxP/4+K8v1sHiZ7jL
+	 g+FfpZECKBXnKFBE4a1inyF1A4iEAVwDiMGCq+lu/4tqKQQvSQbnr++jluGMyTQZ9Gmmf
+	 LXyxB1N42E8p2MF92sQaP5iSKeczL6iMlnKr6OLCuynZl8Uh9B6vrfF6ZksYy/ttHWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205450;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=c0QuGi9vebWt/TMI1t8TdElZu+dctmkfByTpUVeybjc=;
-	b=fE7TmnENX2sq9qK8DjogGjdPU0jXH8k+O3U75gULfCc6jldqJ42qlMbuzz3lG2A+rGxc
-	 lq1CWc3yyqYFrjxi4rrA0oc+3YWFdlWRuP9fKQa7r8d2md9FJFbm0YGNzeHxLbE5oALUZ
-	 17SDYSp9DXXEN37whS8PSw5KQBZHX6Ge5JfdrVB3LeBkqhK5KtSJj/ZpPKlRcA+qF+3+E
-	 tT4HG6ijyXb8FTtoipr2/JJzksu19jplVmmlwlMs5A5uHW/rcVh1uYYn0fePKLAAnf038
-	 s38IowVr/Rn/MTwOTr4IdSBbEeDERoXvpfs67fudFeTaQ3q6aQEy08hTolhzXjEzZRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=l+8ehmPAo6inV+YH732cihXHH/Y9Bk9COvdt/G9UfJY=;
+	b=D3brWhsfvJRlXj+f3MdQxj7Y1dGOUpnyr3xwncGo7NkqKH48hCE866eAS17bS4uzy7hM
+	 /bVZle0TCl7ufFArV9NKaVK8QIhEbQBq6JOJpjM6z5JhZgIbKirWB38TaiZklxpMzZe9X
+	 e/tiuTseHg33pfESINtiSfqMf9WF9Xq8db+zR1zpi8exoBIbmMjkdTgaWW5CFsSQNYr7R
+	 5GIpL+OuTM+yM8QA/GOP44vIAW2/CwPqz6iQPRUsnvtG5xw2fOvHgSq95cqEZx7bydePe
+	 Z6mh3Sstv2x93BKwMfqOZhbjD8H6wGi4IZE0BD+eZACznvhKThJx5KnbgYDNDhDb4ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gxofaJx9;
-	arc=none smtp.remote-ip=91.218.175.46
-Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yjieG5eT;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11B060A3829
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:37:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11B060A3829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73CD60A3802
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:37:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B73CD60A3802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gxofaJx9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UV9Dwqu1DdDd296qahuFF7A+j1SKw/YhONwnecnFrcA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205447; v=1; x=1793810247;
- b=gxofaJx9tQaIlEqxXQb1Dxri0iTEW0tagi8mrUUOPz67a8f9ed9TpSOVAeWrygkFYGAMZAxQ
- d1G2TvxrUJ4PUaxdZQ061VVm3+j8cmlDUAdEHs8tvspLBiynDVhYjmHmMHrXsTThVUccbo265ju
- H2SXBEFS+6PaUqdcH6vFz2so=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 4c812e0bccd7e663;
-	Wed, 28 Oct 2026 16:37:27 +0000
-X-Mizu-Trace-ID: 4c812e0bccd7e663
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Wen Yang <wen.yang@linux.dev>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 20/39] sysctl: refresh dynamic scheduler and PID bounds per call
-Date: Thu, 29 Oct 2026 00:34:59 +0800
-Message-Id: <380ffe2d74c23b66e419511af4f25d5268a46ed4.1793204511.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
-References: <cover.1793204511.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yjieG5eT
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a24f47293so479740eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793205444; x=1793810244; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l+8ehmPAo6inV+YH732cihXHH/Y9Bk9COvdt/G9UfJY=;
+        b=yjieG5eTsxf2hNickEyx4oaFBkQeyXAr7t4GUk0Bq82KubByGt9kiMmNFKBzZRPnNA
+         Oac51001wrooxkjqnfUmFoxmXb7gISVTvCnIoAgJkqixiqChuXzIWN6I//CsSEHkfn+G
+         31MhqGnd4YivrCKyPeP8gdDF2KOz4sU4uMbqRVT7nja94oTEij+1Lu08slxLLAbv63AT
+         WhVn1YDBR2MaCr46SnsB5DuKIegKMmrWlHT0WkFq1Nchnn8seRO6pn5+Q8wIu38knrp1
+         ZvQ9sZqBhmD3WdB7452IkMLC4N1Lf++dPL6Fe9hoQVxGCekD0iijf6y5Xc59I8wzB1kM
+         1KXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793205444; x=1793810244;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l+8ehmPAo6inV+YH732cihXHH/Y9Bk9COvdt/G9UfJY=;
+        b=KNYRxJ7NXgCwLHkiiaKLtfR0ifFa49niVimb010OsC5M20NMbhxsfV7RPed55ZuVWK
+         V7i0xKPFHhrczn4uCmaGBYsbbhWGwhAo4T/QGYZSx6xrOUk59S1GPvpUm5xM6ugUiJE4
+         pudJP0j583upSPit3P/fsyROef9ncRN43cUWOpWb+/5u6O2n95iR8ebQbyIfasvNKvOS
+         3gmU2UxHnPLJTYEsboQUc2PsLiKkDNol3zp0/Q+blBdzyaG2J6mA00eKH9I4CDRsE+x9
+         DKm4Ipoyr+NWQPBVIN6z3Dr1K28EvhrcEkgDXMTgJQTUTZOmRKWObBb0LD2LcboXt9Xb
+         ospA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYby++CLg8RB/BcAVpX3YYKBa31aXVbI2FbSdma1kRLqdpaRoUfqTrZXrEBBeFUeLYYGdvZwJY/AH88+8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/57grzqjRnlQGEkzFDQy3ZDy/UM4M7dYOVCAKwGQP+z2g13zm
+	5HWqolV/06qxdCc3IfrpeeCnlF/h2BBLx6CKshMAVKVB2RTXEKym9DqI
+X-Gm-Gg: AYBFou0Tu6pdeP25m72WCeqwm5u4NE4rEReJYx5/oH3Z/DyQmI3V1LrEdsSFOE1bjRj
+	9V7r9NyNyg0vfmwQfM+HMXQK4jY0hzmIisJAzYfbbzb4Mq/OK82OjbrG4PKWf4At3q6k+6aTKw4
+	ahYr8G2ILJB1KjMHu/XDocnitk0iqSGZGmqStSNGztJvveJ38iNSToBP8Adls083JpqucaKWIUd
+	CiIlX2AOYkFvhQImjCTBMoj7VFS4zuCPKoN33NWUUfGLXt6rPi1WFuIE92B8ymcuEO6YRM0KTfz
+	kyOGjBO84yTKy/TR0wwP4PND5GBYC7p0q2HDuGuttcLvObmQ8YjUd4ivZwg3EZsnf3nAk2c1ltD
+	dMe0YbKN/rCGTjozlEabD9f2kBU3OezXIs1KHFC4UM7dyvoOPgZxsSflw/TVShUShAwyBv3Y6aQ
+	LcJW/MpOEokOJiuP4/bVYrXPdfQSiccn4ac01HIkKISDXdAdlAG8OPnbUaumge3emYMof3RNcvE
+	DDuAfJPNh7WPASQX0gSAfFg4cpK00bZqftFaeN0Tp3VvJH04dQ9T27W0/PsIudblnRg97sXhC0Q
+	yqkptV5N62ihXCBBpXRiiJw=
+X-Received: by 2002:a05:693c:88c7:20b0:35a:22a4:12a with SMTP id 5a478bee46e88-36a203af6e9mr4489164eec.18.1793205443455;
+        Wed, 28 Oct 2026 09:37:23 -0700 (PDT)
+Received: from localhost ([2a03:2880:9ff:61::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2390929asm9638344eec.12.2026.10.28.09.37.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:37:22 -0700 (PDT)
+Date: Wed, 28 Oct 2026 09:37:17 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Naman Gulati <namangulati@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
+Subject: Re: [PATCH net] netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
+Message-ID: <auIiFnAf-mlGkfDc@devvm16445.scu0.facebook.com>
+References: <20261026221306.3151025-1-namangulati@google.com>
+ <at_TlVBS-5KVZAkg@devvm16445.scu0.facebook.com>
+ <auABpyzeuUl2S3_W@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,237 +101,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <auABpyzeuUl2S3_W@google.com>
 
-From: Wen Yang <wen.yang@linux.dev>
+On 10/27, Kuniyuki Iwashima wrote:
+> On Mon, 26 Oct 2026 15:28:44 -0700, Stanislav Fomichev wrote:
+> > On 10/26, Naman Gulati wrote:
+> > > netdev_wait_allrefs_any() re-sends NETDEV_UNREGISTER every second while
+> > > it waits for the last references on a device to be dropped. By then
+> > > netdev_run_todo() has already marked the device NETREG_UNREGISTERED and
+> > > RTNL has been dropped at least once since the initial notification sent
+> > > by unregister_netdevice_many_notify().
+> > > 
+> > > netdev_genl_netdevice_event() does not tell these rebroadcasts apart
+> > > from the initial notification and sends a NETDEV_CMD_DEV_DEL_NTF
+> > > multicast for each of them. At best this spams NETDEV_NLGRP_MGMT
+> > > listeners with duplicate notifications; at worst the pernet state of
+> > > the netns the device belongs to is already gone and the handler
+> > > dereferences a NULL pointer.
+> > > 
+> > > default_device_exit_batch() only unregisters the devices still listed
+> > > in the exiting netns; it does not wait for in-flight unregistrations of
+> > > devices that were already unlisted (the barrier doing that was removed
+> > > by commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")).
+> > > So when a device is unregistered by something other than the
+> > > cleanup_net() of its own netns while references on it are still held,
+> > > e.g. a veth whose peer in another netns gets deleted, and that netns
+> > > exits while the device is stuck in netdev_wait_allrefs_any(), the
+> > > remaining pernet exit handlers run and genl_pernet_exit() sets
+> > > net->genl_sock to NULL. The next rebroadcast then crashes in
+> > > genl_has_listeners():
+> > > 
+> > >   BUG: KASAN: null-ptr-deref in netlink_has_listeners+0x3d/0x3f0 net/netlink/af_netlink.c:1388
+> > >   Read of size 8 at addr 0000000000000578 by task syz.0.0/5325
+> > >   Call Trace:
+> > >    <TASK>
+> > >    netlink_has_listeners+0x3d/0x3f0 net/netlink/af_netlink.c:1388
+> > >    genl_has_listeners include/net/genetlink.h:644 [inline]
+> > >    netdev_genl_dev_notify+0x161/0x450 net/core/netdev-genl.c:93
+> > >    netdev_genl_netdevice_event+0x98/0x3c0 net/core/netdev-genl.c:1491
+> > >    notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
+> > >    netdev_wait_allrefs_any net/core/dev.c:11690 [inline]
+> > >    netdev_run_todo+0x731/0x1060 net/core/dev.c:11808
+> > >    rtnl_unlock net/core/rtnetlink.c:157 [inline]
+> > >    rtnl_dellink+0x68f/0x810 net/core/rtnetlink.c:3707
+> > > 
+> > > syzbot hit this by moving one end of a veth pair into a short-lived
+> > > netns while netdevsim's deferred FIB event processing still held a
+> > > reference on it, and then deleting the other end (repro [1]). While the
+> > > source of this bug is netdevsim deferring FIB processing for and holding
+> > > onto the device reference for O(seconds) which is being fixed
+> > > separately [2], any driver may introduce such a delay and trigger the
+> > > null-ptr-deref.
+> > > 
+> > > Skip the rebroadcasts, which are the only NETDEV_UNREGISTER events
+> > > delivered with reg_state == NETREG_UNREGISTERED. The notifications sent
+> > > by unregister_netdevice_many_notify() and, for a device leaving a netns,
+> > > by __dev_change_net_namespace() are issued under RTNL in the same
+> > > critical section that unlists the device, before its netns can be torn
+> > > down, and keep being handled. This mirrors what ip6_route_dev_notify()
+> > > already does to cope with the rebroadcasts.
+> > > 
+> > > This change should not break the UAPI spec as it defines dev-del-ntf as
+> > > a "Notification about device disappearing." which is a single event. The
+> > > rebroadcast in netdev_wait_allrefs_any() exists to re-kick in-kernel
+> > > subsystems holding references; netdev-genl happens to be on the notifier
+> > > chain and forwards it.
+> > > 
+> > > [1] https://gist.github.com/NamanGulati/2d1b49b8757f9a88b0bd6e55018c02ae
+> > > [2] https://lore.kernel.org/r/20261023191517.607834-1-kuniyu@google.com
+> > > 
+> > > Fixes: d3d854fd6a1d ("netdev-genl: create a simple family for netdev stuff")
+> > > Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
+> > > Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
+> > > Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> > > Signed-off-by: Naman Gulati <namangulati@google.com>
+> > > ---
+> > > Note that the reproducer attached to the syzbot bug targets a different
+> > > bug (via devlink_port_notify() on netns teardown) that happens to share
+> > > the same crash title, not the one in the original reported crash report.
+> > > ---
+> > >  net/core/netdev-genl.c | 6 ++++++
+> > >  1 file changed, 6 insertions(+)
+> > > 
+> > > diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
+> > > index 33b9f4eb9565a..2032ab9a864c2 100644
+> > > --- a/net/core/netdev-genl.c
+> > > +++ b/net/core/netdev-genl.c
+> > > @@ -1487,6 +1487,12 @@ static int netdev_genl_netdevice_event(struct notifier_block *nb,
+> > >  		netdev_unlock_full_to_ops(netdev);
+> > >  		break;
+> > >  	case NETDEV_UNREGISTER:
+> > > +		/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
+> > > +		 * while waiting for the last references to be dropped; the
+> > > +		 * netns may already be torn down by then. Notify only once.
+> > > +		 */
+> > 
+> > [..]
+> > 
+> > > +		if (READ_ONCE(netdev->reg_state) == NETREG_UNREGISTERED)
+> > > +			break;
+> > 
+> > Same as
+> > https://lore.kernel.org/netdev/20261026063743.1797-1-lege.wang@jaguarmicro.com/
+> > ?
+> > 
+> > reg_state is protected by netdev, why not do this under netdev_lock?
+> > Also seems like we are fixing a symptom, not the problem?
+> 
+> fwiw, I suggested not to take the lock since we are only interested
+> in NETREG_UNREGISTERED here and there is a clear ordering in the case.
+>
+> The root cause is netdevsim this time, and I have a fix,
+> 
+> https://syzkaller.appspot.com/text?tag=Patch&x=15923c21580000
+> 
+> but rebroadcast itself is not-ideal-but-valid behaviour, so each
+> NETDEV_UNREGISTER must be idempotent unless we can completley remove
+> the rebroadcast mechanism itself in the future.
 
-Read current scheduler and PID limits into local tables before validation.
+(to both you and Naman)
 
-Suggested-by: Joel Granados <joel.granados@kernel.org>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- kernel/fork.c           |  8 ++++----
- kernel/pid.c            | 16 +++++++++++++---
- kernel/pid_namespace.c  |  6 +++---
- kernel/pid_sysctl.h     |  6 +++---
- kernel/sched/deadline.c | 29 +++++++++++++++++++++++++----
- kernel/sched/rt.c       | 13 ++++++++-----
- 6 files changed, 56 insertions(+), 22 deletions(-)
-
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 18b6dd851642..44947ef38cb4 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -3364,13 +3364,11 @@ static int sysctl_max_threads(const struct ctl_table *table, int write,
- 	struct ctl_table t;
- 	int ret;
- 	int threads = max_threads;
--	int min = 1;
--	int max = MAX_THREADS;
- 
- 	t = *table;
- 	t.data = &threads;
--	t.extra1 = &min;
--	t.extra2 = &max;
-+	t.min = 1;
-+	t.max = MAX_THREADS;
- 
- 	ret = proc_dointvec_minmax(&t, write, buffer, lenp, ppos);
- 	if (ret || !write)
-@@ -3388,6 +3386,8 @@ static const struct ctl_table fork_sysctl_table[] = {
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
- 		.proc_handler	= sysctl_max_threads,
-+		.min		= 1,
-+		.max		= MAX_THREADS,
- 	},
- };
- 
-diff --git a/kernel/pid.c b/kernel/pid.c
-index adf721606768..21ffdc3d4ea7 100644
---- a/kernel/pid.c
-+++ b/kernel/pid.c
-@@ -766,15 +766,25 @@ static struct ctl_table_root pid_table_root = {
- 	.set_ownership	= pid_table_root_set_ownership,
- };
- 
-+static int pid_max_handler(const struct ctl_table *table, int write,
-+			   void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = (unsigned long)READ_ONCE(pid_max_min);
-+	tmp.max = (unsigned long)READ_ONCE(pid_max_max);
-+	return proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
- static const struct ctl_table pid_table[] = {
- 	{
- 		.procname	= "pid_max",
- 		.data		= &init_pid_ns.pid_max,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &pid_max_min,
--		.extra2		= &pid_max_max,
-+		.proc_handler	= pid_max_handler,
-+		.min		= (unsigned long)INT_MIN,
-+		.max		= INT_MAX,
- 	},
- };
- #endif
-diff --git a/kernel/pid_namespace.c b/kernel/pid_namespace.c
-index 127a5fd23e70..fe173ec63cb2 100644
---- a/kernel/pid_namespace.c
-+++ b/kernel/pid_namespace.c
-@@ -297,7 +297,7 @@ static int pid_ns_ctl_handler(const struct ctl_table *table, int write,
- 	next = idr_get_cursor(&pid_ns->idr) - 1;
- 
- 	tmp.data = &next;
--	tmp.extra2 = &pid_ns->pid_max;
-+	tmp.max = READ_ONCE(pid_ns->pid_max);
- 	ret = proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
- 	if (!ret && write)
- 		idr_set_cursor(&pid_ns->idr, next + 1);
-@@ -311,8 +311,8 @@ static const struct ctl_table pid_ns_ctl_table[] = {
- 		.maxlen = sizeof(int),
- 		.mode = 0666, /* permissions are checked in the handler */
- 		.proc_handler = pid_ns_ctl_handler,
--		.extra1 = SYSCTL_ZERO,
--		.extra2 = &init_pid_ns.pid_max,
-+		.min = 0,
-+		.max = INT_MAX,
- 	},
- };
- #endif	/* CONFIG_CHECKPOINT_RESTORE */
-diff --git a/kernel/pid_sysctl.h b/kernel/pid_sysctl.h
-index 5d8f981de7c5..a7b90380285d 100644
---- a/kernel/pid_sysctl.h
-+++ b/kernel/pid_sysctl.h
-@@ -23,7 +23,7 @@ static int pid_mfd_noexec_dointvec_minmax(const struct ctl_table *table,
- 	scope = max(READ_ONCE(ns->memfd_noexec_scope), parent_scope);
- 
- 	table_copy.data = &scope;
--	table_copy.extra1 = &parent_scope;
-+	table_copy.min = (unsigned long)parent_scope;
- 
- 	err = proc_dointvec_minmax(&table_copy, write, buf, lenp, ppos);
- 	if (!err && write)
-@@ -38,8 +38,8 @@ static const struct ctl_table pid_ns_ctl_table_vm[] = {
- 		.maxlen		= sizeof(init_pid_ns.memfd_noexec_scope),
- 		.mode		= 0644,
- 		.proc_handler	= pid_mfd_noexec_dointvec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_TWO,
-+		.min		= 0,
-+		.max		= 2,
- 	},
- };
- static inline void register_pid_ns_sysctl_table_vm(void)
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5..bf27abdd5c33 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -19,6 +19,7 @@
- #include <linux/cpuset.h>
- #include <linux/sched/clock.h>
- #include <linux/sched/deadline.h>
-+#include <linux/sched/isolation.h>
- #include <uapi/linux/sched/types.h>
- #include "sched.h"
- #include "pelt.h"
-@@ -31,22 +32,42 @@
- static unsigned int sysctl_sched_dl_period_max = 1 << 22; /* ~4 seconds */
- static unsigned int sysctl_sched_dl_period_min = 100;     /* 100 us */
- #ifdef CONFIG_SYSCTL
-+static int sched_dl_period_max_handler(const struct ctl_table *table, int write,
-+				       void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = READ_ONCE(sysctl_sched_dl_period_min);
-+	return proc_douintvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
-+static int sched_dl_period_min_handler(const struct ctl_table *table, int write,
-+				       void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table tmp = *table;
-+
-+	tmp.max = READ_ONCE(sysctl_sched_dl_period_max);
-+	return proc_douintvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
- static const struct ctl_table sched_dl_sysctls[] = {
- 	{
- 		.procname       = "sched_deadline_period_max_us",
- 		.data           = &sysctl_sched_dl_period_max,
- 		.maxlen         = sizeof(unsigned int),
- 		.mode           = 0644,
--		.proc_handler   = proc_douintvec_minmax,
--		.extra1         = (void *)&sysctl_sched_dl_period_min,
-+		.proc_handler   = sched_dl_period_max_handler,
-+		.min		= 0,
-+		.max		= UINT_MAX,
- 	},
- 	{
- 		.procname       = "sched_deadline_period_min_us",
- 		.data           = &sysctl_sched_dl_period_min,
- 		.maxlen         = sizeof(unsigned int),
- 		.mode           = 0644,
--		.proc_handler   = proc_douintvec_minmax,
--		.extra2         = (void *)&sysctl_sched_dl_period_max,
-+		.proc_handler   = sched_dl_period_min_handler,
-+		.min		= 0,
-+		.max		= UINT_MAX,
- 	},
- };
- 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 1535046a23ff..26e9b2ac8838 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -36,8 +36,8 @@ static const struct ctl_table sched_rt_sysctls[] = {
- 		.maxlen         = sizeof(int),
- 		.mode           = 0644,
- 		.proc_handler   = sched_rt_handler,
--		.extra1         = SYSCTL_ONE,
--		.extra2         = SYSCTL_INT_MAX,
-+		.min		= 1,
-+		.max		= INT_MAX,
- 	},
- 	{
- 		.procname       = "sched_rt_runtime_us",
-@@ -45,8 +45,8 @@ static const struct ctl_table sched_rt_sysctls[] = {
- 		.maxlen         = sizeof(int),
- 		.mode           = 0644,
- 		.proc_handler   = sched_rt_handler,
--		.extra1         = SYSCTL_NEG_ONE,
--		.extra2         = (void *)&sysctl_sched_rt_period,
-+		.min		= (unsigned long)-1,
-+		.max		= INT_MAX,
- 	},
- 	{
- 		.procname       = "sched_rr_timeslice_ms",
-@@ -2872,6 +2872,7 @@ static int sched_rt_global_validate(void)
- static int sched_rt_handler(const struct ctl_table *table, int write, void *buffer,
- 		size_t *lenp, loff_t *ppos)
- {
-+	struct ctl_table tmp = *table;
- 	int old_period, old_runtime;
- 	static DEFINE_MUTEX(mutex);
- 	int ret;
-@@ -2881,7 +2882,9 @@ static int sched_rt_handler(const struct ctl_table *table, int write, void *buff
- 	old_period = sysctl_sched_rt_period;
- 	old_runtime = sysctl_sched_rt_runtime;
- 
--	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
-+	if (table->data == &sysctl_sched_rt_runtime)
-+		tmp.max = READ_ONCE(sysctl_sched_rt_period);
-+	ret = proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
- 
- 	if (!ret && write) {
- 		ret = sched_rt_global_validate();
--- 
-2.25.1
-
+Idk, I haven't looked deep into that, it just reads a bit weird that we
+call the notifiers only then to filter (some of?) them out later. While
+this patch might fix a narrow race I wonder if we are missing a bigger
+picture (for example, why not get back to pre commit 8a4fc54b07d7
+state?).
