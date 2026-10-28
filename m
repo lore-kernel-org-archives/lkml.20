@@ -1,58 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195443;
-	b=ssr8H7E4zXpr7vj+s6yJQVKRdyV2HBpzeymQrrOXgA965osR3lIvzu/dyi+hW0+J+rZB
-	 x4HwKp4zmDbCEROdLrRKMrkHbbgBqe9EnuEIe2ramH3u7VabhOq/2iYaUUPhTITjkyAd9
-	 IioX4GKAWnHHi+VqtK4+re3pVXclos1oM950Y3zvSQ/onF9CLiY3RiaUhVbHdbf9CqnAP
-	 g8SSt/tj8h2KxEQsL47hZYu1WEOn/yxGUE3oLaVUYCtcBIM3G043HP+fNMFYxO1OPjIm5
-	 Lkf7cILlGsecV4KRFpiQEH2QviK0IAfBh85D682znnHP6YxvR1SE+YNVNz98AIXpMqg==
+	t=1793195455;
+	b=jA9+mWSnYP3eB4W+zI6Uo60Ao31SqSHywkhkHBvHT4rt/2kaw7+RttbUPnN4BXs31QUS
+	 57xOmyR3TybbhC4652bFIdejZE9el82wYWmWiyFQnjoU8woNeOt4tht9pUly4wY+Xl+jl
+	 Tn8QMiJXdBDcOY9GIb5QtgeDxH4EXIrLMxIgQ7iwMeqvn7kMHlCkHzk5s4WjKBu66cwNO
+	 JW3IzcPVLrQgxieJEworhZbmTTm6C87NDS6fS6iNgE4lubwtCph/VJMEjMFoemD695Ngq
+	 z36gxBRsV4ZQea8NLCJCcCwbG58gPIJwdrb0KoKufC1DNQGvrdQCYBA6vD4ecuaYiUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195443;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=kQovNqOnu/lDqzmDc2nmur9m8xiHHfYg6zgT6o8CmZc=;
-	b=xDyeza449PxChqkjLhiyQz4IMjIfbt5pPHDuwYWw2S0NSEWq07bltZoEev46XIrVFY/x
-	 AwqztVlIQGi3c/W+uhzL7QvN1Sq7fO/7uUFSSBoRJToeGXHo7kptRGN/Z7q2JKheij+bU
-	 bVRCKjnPiowF+4HD36Ato3KJ1NCESCJTJqXgBFiEalQLGpUKtoq1geaI4ULLuIH29rr2C
-	 GF6ENji5oAzFDP7oKlhYEqPPuhfs9FvCdS65ZDDZ49WVei2KBCrUG1oIFnwXCePjw54co
-	 pICPCbbUJanFSAP3SpU/oEsNZymRj/AF1DYe++RXYwFHyRcbFq74HNCofhFYIDv7vng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195455;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ytmfdLrrLUjit5910My8j6VwU6axce6cK5JuYHw9yuo=;
+	b=eWAhaQZi2DjmbalGyMvTs+ugO8XYgFH7FJT2FvhldS6qcjMX+LvCGYTOKPKSyq/maPzn
+	 sQrxi7ec4zl52bH4DiXmCiD0bub9wo6P3WiDI2TvG7KvSxT6FNXJJY18bqCFMJ6C8Tyvz
+	 uFRPjLChsLjdM7jiozVF37MxkgRSGGZjPLUYHQp9dYBqxGFNKzs2OkfU26SxiRq+e3s8p
+	 TJfO7hAMRbKVFRcwaagZ+fIxMXzRJKTl3Ne2GwTGjv6udaJ71x9sr17TRktR8UHoN7JmE
+	 Jh5TsCoZgYJKqFqUeHnn4hUAWgcXWEmsL9ASIAIjSBjpjTEKV1cNCg7dU/ostQLfQSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=dLcsRIce;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FfVC9OvX;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39B2606A31C;
-	Wed, 28 Oct 2026 13:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F39B2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A961E606A320;
+	Wed, 28 Oct 2026 13:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A961E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=dLcsRIce
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 68BDF1A0C85;
-	Wed, 28 Oct 2026 13:50:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 74D398000F;
-	Wed, 28 Oct 2026 13:50:38 +0000 (UTC)
-Date: Wed, 28 Oct 2026 09:50:37 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v3 09/16] tracing/filters: Reject stray quotes and
- parentheses in unquoted function event operand
-Message-ID: <20261028095037.39c9109a@gandalf.local.home>
-In-Reply-To: <179314828848.684037.8273600995293830928.stgit@devnote2>
-References: <179314820431.684037.4147763044424284198.stgit@devnote2>
-	<179314828848.684037.8273600995293830928.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FfVC9OvX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793195454; x=1824731454;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=p1JkUACHdNx5IY27R/TUmcxdST8xoLNNfo7001KKm5k=;
+  b=FfVC9OvX8rMNTzBSP0m6DvsZCM3O57JyRTjc+CA+GZTjsqO9pgksm5Nx
+   TICBZnySAw2b5mS3XDlK5mUxNRDLpq2fIY6MHXx/l5hYcOYh5HvTV4g5l
+   5Gl3FbhMig2PcRlnEtDNeWWPmpR3c/tGOCg31EINn4sGm/qvzG4LhYeLQ
+   rpr0G4jtx19btq4Q+ijMmM7GHKsGwMfZ+6ashN50GERZ165da22cKB2xq
+   w+BGC+46LzkJ6gERY04cWA0m8x0cNd0bTHXaVhDO9wGyIRmfkWmV56msr
+   ijEw8teVAH6A2fWhiK0tmzUxRPxmQw0OYbhupx6hRZRb7WOZujO1KBBuw
+   g==;
+X-CSE-ConnectionGUID: xMokgqnQTGy7nurv77DGbw==
+X-CSE-MsgGUID: 2xVnBl9bTQuPrEbSckippg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1930324"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1930324"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:50:53 -0700
+X-CSE-ConnectionGUID: tbj/Sw60SuyXyV/lo3NuvQ==
+X-CSE-MsgGUID: W/Jsa/uqStW2efrFVJE6sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4783179"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:50:50 -0700
+Date: Wed, 28 Oct 2026 15:50:48 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux@analog.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: addac: adt7316: clean up and sort headers
+Message-ID: <auH9uAxgDIE3AByn@ashevche-desk.local>
+References: <20261028094308.27811-1-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,80 +84,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 74D398000F
-X-Stat-Signature: 8i1w7ab9n58q41tpqzdh1u3htskrbhs5
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX195paMB6BqNfe7MT1rNQtQVS+Ffdp0Jqmg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kQovNqOnu/lDqzmDc2nmur9m8xiHHfYg6zgT6o8CmZc=; b=dLcsRIceUIsmwYxxJI/TPiEVDsd0QqacHgQxYZHuFD8ESFbj6rvGTpO/0CDwnoLF1SRRDzfPJJrG9msGP5s6decjXrC5wWnMAhsQziy2r2FmmBeAhJv6U2SysTbULkM3iIqCq1l8rVHLCNtFunJje/XVhgByMoIbEUZI3XSxBpY=
-X-HE-Tag: 1793195438-634045
-X-HE-Meta: U2FsdGVkX19skSxYU4ojqKihr13ef/QFf7dXJEFZyGynjhbNkVcJUZ28CA7foZdltKZGvCICP0D5fKodnnXS+laz+wX+h33JshqsA3jUjozxo5NhXG5F7xAfn2AZ+DhY2rRP4ERyBbm3k5/Z+I4/m11ea/yjeNucg4H94KvHZfyQDp6RHo1u2dwaFlMXlr10dEcbyHdrEykYx8Yf8QU/wBFS/cNFW3RQSsO6/yc6zR6SEH2Ckrg5JQnKYcqEd7I9mVUO248gYz2hai4Jmx8higkdbhpkfX1vHP3NTjKFuNiiaGNAOTf6C4EWXANh98uZJ3BJjUizeUmst+lix+Ha5F+5ENWDt6OF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028094308.27811-1-abdelnasserhussein11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 28 Oct 2026 09:44:48 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+On Wed, Oct 28, 2026 at 12:43:07PM +0300, Abdelnasser Hussein wrote:
+> Remove unused header files and
+> add linux/pm.h and linux/string.h and
 
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> In parse_pred(), when parsing an unquoted operand for function events,
-> the loop only stops at ')', '&', '|', or the NUL terminator.
-> 
-> However, calc_stack() parses '(', '\'', and '"' independently to
-> determine stack depth and string boundaries. If an unquoted function
-> operand contains stray quotes or an open parenthesis (e.g. "ip == foo'bar"
-> or "ip == foo(bar)"), parse_pred() consumes them as part of the function
-> name operand, causing parse_pred() and calc_stack() to desynchronize.
-> 
-> Reject unquoted function event operands containing '(', '\'', or '"'
-> by reporting FILT_ERR_INVALID_VALUE.
-> 
-> Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-> Cc: stable@vger.kernel.org
+This should be a separate patch, it also needs to get rid of "proxy" headers,
+such as kernel.h. (The use of device.h needs to be revisited,)
 
-I wouldn't really call this a fix, as I can't see this breaking anything.
-Yes, the calc_stack may say there's more elements than what parse_pred()
-sees, but the parsing still fails.
+> sort the remaining include directives alphabetically.
 
-This looks more of a clean up than a fix.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Unless, the current code allows something to actually be broken. Does it?
-
--- Steve
-
-
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v3:
->  - Split from the monolithic function event parsing patch into a
->    standalone patch rejecting stray quotes and '(' in unquoted operands.
-> ---
->  kernel/trace/trace_events_filter.c |   14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index 96977eb9af85..48e16d75be74 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -1863,9 +1863,17 @@ static int parse_pred(const char *str, void *data,
->  		for (; str[i]; i++) {
->  			if (q && str[i] == q)
->  				break;
-> -			if (!q && (str[i] == ')' || str[i] == '&' ||
-> -				   str[i] == '|'))
-> -				break;
-> +			if (!q) {
-> +				if (str[i] == ')' || str[i] == '&' ||
-> +				    str[i] == '|')
-> +					break;
-> +				if (str[i] == '(' || str[i] == '\'' ||
-> +				    str[i] == '"') {
-> +					parse_error(pe, FILT_ERR_INVALID_VALUE,
-> +						    pos + i);
-> +					goto err_free;
-> +				}
-> +			}
->  		}
->  		if (q && !str[i]) {
->  			parse_error(pe, FILT_ERR_MISSING_QUOTE, pos + i);
 
