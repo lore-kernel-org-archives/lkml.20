@@ -1,48 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218553;
-	b=4Cp0BiSC7EHxQ7R6Jz+e6u2NBSsAAVGas3VjAzZV1GFExoR3U545bmu3GsYknVBjvwzD
-	 ZVNinDKDiK/mfIkTRccUFS9QzFFTtjiCFS89OCeaI3fnTrRL1TgPfAZhXm2lt1AMfRTh7
-	 MCM0PORcJae0Qu7xJH/nOYaiELcDycS+or8r/6blw3QXZvaWM26CQZMTNEjguauKwtTEl
-	 Ty0he7goKMOvBAY+Xuplmd2X5eb81n3zC7a6Eg8hs1gGvSRCYfznrAnw+KlfGVu9NdLWv
-	 trv0lCydvjIMboVzMr0rblo1YNRmnbtj0hXi6s8X9eqAhZFWr0oYWBjDwFDBy2byO3A==
+	t=1793218567;
+	b=DUfhLeZ0NC+H/xXLi6r3b/HMxReho4rDDawLtPMDU22QL1/exG1fwf4yhZgNPQUuP9fn
+	 wV5nRNeUF8zFYpHmfVy246qacxEywExV11sv/0JIFdrmzUGnB5sV2rAyZYkCxVcrMGN4P
+	 WUtPr1k2bYUN2EAmDWVXUmEnsm1OrFqYUHOVUeJxy3ICCeS6qx5V7fZ5gepcxVFAXYRZy
+	 0nDJ4yR63aD3PD0Jd20ikFGMhYhuqLREWQ8zj1QvIXoURHcUwiWVWJTNu/9G51fH1YHUG
+	 wGnAf7czkFXslVkB/XtCwKIulIfdjx3UiRioIkX3B8PI9DYSLwrTzk3icPQfk/uoBqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218553;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PD4hDhqXAiKFSflF7fULM3AAKFj+yDTHa7fJ5vGqNRQ=;
-	b=th4jxfJ43WCGiNBrmgW8mrG1svuI2/pIzSrh6n+MZ7emxqGbU94QTo53n0pPzq47k+zL
-	 u9jVFeqW4YQOAE55y/JIV5risVbZwesbcne3XUKTE/UESVCLpdoYXNULJDF6pqY1NF0oq
-	 FkHsj41XJgNVs9OKQYKZmTIeA4MeyzUYzNrEbwX1epUH3hxvgT71veweE7Rx1qkJAF/fz
-	 HxOGRzUjufiv9sEZBXD8QVpSVGw1kxNyJrCNntrCtwEHA+fFgZo0g4YhEPn3yQbRMmEdB
-	 D3cLEl9fs0g+waNxK8NTVXBf6Nbcty+2IaFBFCBoTq2ReFVgMIsokeUAPc9KfbqT2Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218567;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZHO8zY3zGR66Z83umM/amjj6Zf6URUWKg1d+imcElEc=;
+	b=1hJuCm3Ia2pYYDYGZ2X0ZBwQN22w3nzh8PESlhj4tu+/G47jPMpDvzt/QPPkY3lEz2NI
+	 N5BNcdnEE6vUzFLA4nY6fQou0bNkU/xiPviKAVVZbcl98hXn3/J7YTMDmthLknsznuHSK
+	 kQUvEp4uYzGaMPmX/5IMAkTYwxx/Hlt7+fbmS1rEHrPe6KagBmDuA4CzvVp071otmW2RY
+	 H/Uq4m7iBwVEmZOpc5Qj8Ap0geeyS28fO8o8zl9PKQLzWNpcPq3XpyBjDglhJUD6oGLdX
+	 D2+e19C6q4Op8pHI3h2eHnjNTPJGmcEaPHuEpZWQgOyOPLrTHFZ000XOYZGWlJagWRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFqeG8xC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m85aBDwY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62E8606A337;
-	Wed, 28 Oct 2026 20:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FA5606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFqeG8xC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA231F01829;
-	Wed, 28 Oct 2026 20:15:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m85aBDwY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D6B1F01825
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218552;
-	bh=PD4hDhqXAiKFSflF7fULM3AAKFj+yDTHa7fJ5vGqNRQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=EFqeG8xC5Mwi0UZUzqPwuieIuWaq9ZyZgwDIxWXkII2L/P/PHr0qV8jMBbtSdKAC9
-	 AOZ6HfEN3h2XaPhzF6ibD4Cu2x0rs1DsAzHggynmtm9pKTYt/OE8H5thdZcMDOQKVR
-	 XDEEEaqhW72tk4o43Nm/R7jfSWsfWM1j4b7tvIQxXpSl+OU48MXWcRojnn0oLlmppe
-	 2PSNAsXd3xDKkrXuc8C7qKr8GkN2MoIINkXDc0ShqvKBandfQWmoJaojETBvk56xfx
-	 UupoRquhv8uXkKegpdvG7yPBDhXgpUwUK1z9sLkIVrJ71zFbmHPjieAjhmEvZG6YAB
-	 CTKdWmE2ePXvw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 21:13:40 +0100
-Subject: [PATCH 12/15] mm/hugetlb: keep surplus folios that are reserved
+	s=k20260515; t=1793218566;
+	bh=ZHO8zY3zGR66Z83umM/amjj6Zf6URUWKg1d+imcElEc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=m85aBDwYVoTxHlA93Rs9c4CNVI+77+sHYacMo772vyIG+3aqIh/wpc/3W6uzPKh2O
+	 sR7MGVq3Uxd9ft3P8SHjP0vWLAI4k2Cj3F2Uq5sptikozV2OLqcPwE+jtO6hAQdaRp
+	 KaZA3R7apv5yEaU2yNW4WqVqCOyvv1tUmc7P9yRj8Uyiuo8aMS+JlSOqoULQv5ggwf
+	 Ty2R9l36BbhZUGrmAqcwuzIyrUO+iZ+pZNQeooswoXOM7VDYrDLUSVCvA0U/4aFUgt
+	 cHabCvl1r3YUBdNQheE3nqpnyOnyML7tUPEnv3zvbiepGrQcXudh6qCO3rjEY0nbz+
+	 UuPI/6n+0MGfA==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c46bd7a7345so12968766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:16:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwjoW82QasGF2821RHiNpGNLP6J61oCcQjzDUHOiSmTJ+1TXl4aai/+qE0cCXBmVXgjPdU/xDLmphO21LI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWcNcwl0Qadz96l8JLiLmPLtY08D0J4gmgCRDaLkUvqe9tjfZW
+	9exCJN2HsvP5ysLQYs3Qix8b3rzxmSqRoSw76DjbKi5ddm591qzBxxvhjFujh9GAs3/bKCFyXEY
+	zSUsMM9GKazXKnCBtjJBGFok9fnNxRdY=
+X-Received: by 2002:a17:907:7294:b0:c49:8bf8:a7a7 with SMTP id
+ a640c23a62f3a-c49d1123fb8mr54251666b.7.1793218565180; Wed, 28 Oct 2026
+ 13:16:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,96 +59,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_hugetlb-v1-12-a0a033db180f@kernel.org>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2040; i=david@kernel.org;
- h=from:subject:message-id; bh=/mlxy/iaq1GeHcDtTEJ64LQetJjrHzqcoYxh6NLur8s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZdN+Xi05eUjzYILfC+fuJ1Y2aXUbPSp52qkL6919
- ONM3gm3OkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhIUzTDP2Wea2ev6vxQPPag
- xdXkcdHF6UWLH7ap3bx8PKUi4OF7m3KG/wEXcix2KZzf+/nGKpbonqSCqwu5q7ZtNnG4GZa+KPn
- jdWYA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <CAHCio2jc9++n2Qoa0-sNkObZsWOybSwK1X2aBjFirchjRTBZsQ@mail.gmail.com>
+ <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com>
+In-Reply-To: <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 28 Oct 2026 13:15:53 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
+X-Gm-Features: AclHuK8qYQ4fqzpFfJa07mPN-tFBit3XuauYAYoKnvWdLnpbGGbkMARbTUkZ00c
+Message-ID: <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
+Subject: Re: Some options abort RFC: KVM: SVM: Rework ASID management
+To: Jackie Yu <ufo19890607@gmail.com>
+Cc: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mlevitsk@redhat.com, pbonzini@redhat.com, seanjc@google.com, 
+	thomas.lendacky@amd.com, vkuznets@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Chris Mason <mason@kernel.org>
+On Wed, Oct 28, 2026 at 6:37=E2=80=AFAM Jackie Yu <ufo19890607@gmail.com> w=
+rote:
+>
+> Hi, guys!
+>
+> Jackie Yu <ufo19890607@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8828=E6=
+=97=A5=E5=91=A8=E4=B8=89 21:36=E5=86=99=E9=81=93=EF=BC=9A
+>>
+>> Hi Yosry and KVM folks,
+>>
+>> We would appreciate your guidance on supporting INVLPGB in ordinary (non=
+-SEV)
+>> L1 guests alongside the proposed static per-vCPU ASIDs.
+>>
+>> The 2025 ASID rework RFC proposed one static ASID per L1 VM and listed
+>> "enabling INVLPGB virtualization" among its motivations [1]. The June
+>> 2026 RFC v2 changed the design from per-VM to per-vCPU ASIDs [2]. In
+>> the October v2 series, patches 2-11 establish static per-vCPU ASIDs,
+>> while the remaining patches primarily address nested TLB flushes [3].
+>> Our question is how guest INVLPGB should be supported under the
+>> per-vCPU design.
+>>
+>> Some of our workloads frequently discard and repopulate memory using
+>> patterns involving madvise() and memset(). Broadcast IPI-based TLB
+>> shootdowns are expensive for these workloads, so we are interested in
+>> making AMD INVLPGB available to guests. We use a small benchmark to
+>> approximate the resulting shared-address-space pressure:
+>>
+>>     region =3D mmap(256 MiB, MAP_SHARED | MAP_ANONYMOUS);
+>>     memset(region, 0xab, 256 MiB);       // Initial population
+>>     start N workers, pinned across 64 allowed CPUs;
+>>     each worker repeatedly reads pages in its own slice of region;
+>>
+>>     repeat 500 warmup + 2,000 measured iterations:
+>>         start =3D clock_gettime(CLOCK_MONOTONIC);
+>>         madvise(region, 256 MiB, MADV_DONTNEED);
+>>         record elapsed madvise() time;
+>>         write one page in every 64 pages to repopulate part of region;
+>>
+>>     stop and join the workers;
+>>
+>> The benchmark uses memset() for initial population; subsequent
+>> iterations re-touch pages rather than repeatedly calling memset().
+>> The numbers below measure the advisor thread's madvise() syscall
+>> latency, not worker throughput.
+>>
+>> In our experimental KVM4 configuration with a VM-shared ASID and our
+>> separate guest INVLPGB passthrough changes, we observed:
+>>
+>>                          INVLPGB off     INVLPGB on    Difference
+>>     64 workers  mean       21.624 ms       12.505 ms     -42.17%
+>>                 P99        32.760 ms       21.518 ms     -34.32%
+>>     128 workers mean       29.553 ms       20.459 ms     -30.77%
+>>                 P99        39.628 ms       28.160 ms     -28.94%
+>>
+>> These are single, sequential A/B runs for each worker count, with
+>> 500 warmup and 2,000 measured calls per run. The process had 64
+>> allowed CPUs, so the 128-worker case was oversubscribed. The
+>> measurements show a useful latency difference, but do not by
+>> themselves establish INVLPGB instruction counts or IPI reductions.
+>>
+>> We then experimentally combined the October per-vCPU ASID changes for
+>> ordinary guests with our existing, out-of-tree L1 INVLPGB/TLBSYNC
+>> passthrough. With guest INVLPGB enabled, a one-vCPU guest boots, but
+>> otherwise comparable two-vCPU and 64-vCPU guests fail early during
+>> boot. Keeping QEMU's +invlpgb setting while adding clearcpuid=3D419
+>> to the same guest kernel allows the multi-vCPU guest to boot; the
+>> guest logs "Clearing CPUID bits: invlpgb".
 
-free_huge_folio() may restore a reservation, but still returns the folio
-to the page allocator if its node has surplus huge pages.
+I imagine for INVLPGB to work correctly with per-vCPU ASIDs, you need
+to intercept INVLPGB and basically issue an INVLPGB for each ASID used
+by this VM (nr_vcpus or 2 * nr_vcpus with nested). I can't imagine
+this would perform well on large VMs, not sure if virtualizing INVLPGB
+would still make sense.
 
-For example, start with no hugetlb folios and allow one surplus 2 MiB
-folio:
+Regarding the boot failure, I would guess there are some missing cases
+due to the complexity of emulating INVLPGB without a shared per-VM
+ASID.
 
-  1. Mount hugetlbfs with pagesize=2M,min_size=2M. This allocates and
-     reserves one surplus folio: free=1, reserved=1.
-  2. Create a 2 MiB file and write to a shared mapping of it. The fault
-     consumes the folio and its reservation: free=0, reserved=0.
-  3. Unmap the file and truncate it to zero. The mount's reservation is
-     restored, but the surplus folio is freed: free=0, reserved=1.
+>> These controlled boot comparisons identify a problem with combining
+>> static per-vCPU ASIDs and direct guest INVLPGB/TLBSYNC passthrough:
+>> the multi-vCPU guest fails to boot when it uses INVLPGB, but boots
+>> when its INVLPGB CPUID bit is cleared. A one-vCPU guest also boots
+>> with INVLPGB enabled.
+>>
+>> In this configuration, an unintercepted guest INVLPGB targets the
+>> invoking vCPU's hardware ASID, while sibling vCPUs have distinct
+>> ASIDs.
 
-Besides losing a hugetlb folio that is required for a reservation, this
-can also make available_huge_pages() underflow and cause other issues.
+It's neat that INVLPGB will automatically use the current ASID and not
+ASID=3D0 for guest usage.
 
-Keep the folio in the pool if it is needed to cover reservations,
-including any reservation we just restored.
+>> The October ASID rework does not add handling to extend that
+>> guest broadcast invalidation to sibling ASIDs. Consequently, direct
+>> passthrough does not preserve the required multi-vCPU guest
+>> invalidation semantics. This problem arises when our out-of-tree
+>> passthrough is combined with the per-vCPU ASID scheme; it is not a
+>> claim that the upstream ASID series alone causes a boot failure.
+>> The earlier discussion of guest INVLPGB and global ASIDs is relevant
+>> here [4].
+>>
+>> Could you advise on the preferred upstream direction?
 
-Fix generated by an LLM and sent by Chris Mason in private.
+This is a question for Sean and Paolo.
 
-Fixes: 07443a85ad90 ("mm, hugetlb: return a reserved page to a reserved pool if failed")
-Cc: stable@kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify comment and description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/hugetlb.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+It is possible to use one ASID per-VM, however:
+1. It adds complexity as we need to track what vCPU in a VM ran last
+on a CPU, so that we can flush the shared ASID in between different
+vCPUs running on the same CPU.
+2. It adds some TLB flushes due to scenario (1), not sure how much
+this matters in practice.
+3. It will re-establish a divergence in ASID/VPID management between
+AMD and Intel, unless we also switch VMX to per-VM ASIDs, but I am not
+sure if there's any benefit to this for now.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 06d2a78c7170..32ecac4e0d3e 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1774,8 +1774,9 @@ void free_huge_folio(struct folio *folio)
- 		remove_hugetlb_folio(h, folio, false);
- 		spin_unlock_irqrestore(&hugetlb_lock, flags);
- 		update_and_free_hugetlb_folio(h, folio, true);
--	} else if (h->surplus_huge_pages_node[nid]) {
--		/* remove the page from active list */
-+	} else if (h->surplus_huge_pages_node[nid] &&
-+		   h->free_huge_pages >= h->resv_huge_pages) {
-+		/* Free this surplus folio that is not required globally. */
- 		remove_hugetlb_folio(h, folio, true);
- 		spin_unlock_irqrestore(&hugetlb_lock, flags);
- 		update_and_free_hugetlb_folio(h, folio, true);
-
--- 
-2.43.0
-
+>>
+>>   1. Would an opt-in, VM-scoped ASID mode for ordinary VMs that expose
+>>      guest INVLPGB be acceptable, while other VMs retain per-vCPU
+>>      ASIDs? This would require a properly managed shared-ASID lifetime
+>>      and flush/reuse semantics, rather than simply giving vCPUs the
+>>      same VMCB ASID value.
+>>
+>>   2. Alternatively, is the intended direction to retain per-vCPU
+>>      ASIDs and intercept/virtualize guest INVLPGB and TLBSYNC, so that
+>>      a guest broadcast invalidation correctly covers the relevant
+>>      sibling vCPU ASIDs and preserves the required ordering?
+>>
+>>   3. If neither approach is currently planned, should ordinary
+>>      multi-vCPU guests be prevented from enabling INVLPGB until the
+>>      required semantics exist?
+>>
+>> We can share the madvise benchmark and its measurement methodology,
+>> and would be happy to compare the same benchmark under both proposed
+>> designs. We would appreciate feedback on the preferred upstream
+>> architecture before pursuing a downstream implementation.
+>>
+>> References:
+>> [1] 2025 ASID rework RFC (per-VM):
+>>     https://patchew.org/linux/20250326193619.3714986-1-yosry.ahmed@linux=
+.dev
+>> [2] June 2026 RFC v2 (per-VM to per-vCPU):
+>>     https://lore.kernel.org/kvm/20260616004155.1435766-1-yosry@kernel.or=
+g/
+>> [3] October 2026 v2 series:
+>>     https://lore.kernel.org/kvm/20261008001425.2458927-1-yosry@kernel.or=
+g/
+>> [4] Discussion of non-SEV guest INVLPGB and global ASIDs:
+>>     https://patchew.org/linux/20250223194943.3518952-1-riel@surriel.com/=
+20250223194943.3518952-7-riel@surriel.com
+>>
+>> Best regards,
+>> Wind Yu
