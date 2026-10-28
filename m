@@ -1,111 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193636;
-	b=3N/cqgaef2Mph3mRCnUcJt4zEWnjo3zJVhOll7rYbcuVFhWPvzpyOHYM1osqKmQqxcyM
-	 B+lpGVbsTjzk1LgE4GzZerjPROtqL+BXcQ/767VaFWhASN3X8wYdHtAxIVjIfPuvvhcbv
-	 q5wByoRL0n5XNM1QD/fmqUTb6XRrdDprRHUZIM6T2e/Amw5M+X5E4a+s76RfwQDzXODkp
-	 oeiiedhWIqsBmwe17dXF4GrNihmSCcKHHJd5feb2ql8OlQo3GHkJZRXwMg3rbV6IaibuL
-	 V417/zwpv/QoppKj8h2EpAeQn19/rTN3erlCQoAofWvKK8JYzRDcWg5aViUhQ/JH+vQ==
+	t=1793193633;
+	b=g7K8k/hLy4e/J4/Kopf+aUYXm21LTBq5d57IEAVkO35KVS/mdbYzzI0aGoWZ+9ZIZLp2
+	 ZhmAif3VxwwkHadORwcMjgYTwAuI+n0uvROgjXt4gT/PP8XMd5ejzi5rzcYyQ8bR730Rg
+	 4NRBPFtxYiSCyiGbrWrOzvDmlA7CDA8/8vjWtuEd0X66sGm5iftv3HkDxiL6Wmnvs6YGI
+	 T586D8JrwkR5Pk2eo/cbYOhbsgYa+8NDpSYKCEs62l54+AR8UZua3fuBsRMZf+B1AKnp1
+	 1VZQGBOmOOUgRctA4xDORgSLovMBkTfdCpF4of3CdlGgJE0fxdZ4vhLESzpjW4PXTIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193636;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pLmvna2p5qvHzaxj6u1fu1rYL1SKPSQFsc6X57fBsoA=;
-	b=ZHKxWZH+c6LHMP281L5yK2eIybVpGexx825gJEPmg7SY8c+TBQ2atn9tEo2GkWXLkTrt
-	 nKYtF/2iBz6b1rnLXQg+/bZQnnFzJiWFIDkZhq6Q7sZAZVJcPKWawxmu8IVBBNbhupmEh
-	 9Ju7O1s9fU50oYGdT4p8OYUpAMZLEecYP7muYLSc9h6iR/pylDqP3uAQE9HRfjGFuqJB4
-	 XWkcJI8fe8wP9UZLP1p1OLnfwhC9+ThSbFqvyz9jJX7/wrrGSa6TGZN3SDLDbXJYlMZfq
-	 CEU9t5rdpsOksYy5spB8cQ4Ucmgbd59HJmQMOnF67KwU1jOeR2tji6coMUTzwVyhUDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193633;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
+	b=t6pw+ZWUbKgMBhbaIO+VXVm8QiKBDK44Drt71VYElaPxVb5w0tba8SDKXwv5qREDoXF0
+	 g4IlGJ3xlZeTP1H27bo3MxqPwdAzhwBTMKf0wk+JHesUOmDnxYZEnrvdoYNcGb0POYC83
+	 CWSSLLZayr3zW9td0d1wA8V7d8c6cgFua/512+GsD+jrS5c5lN7gf0hVSViAiBRwgtTjk
+	 GToNzctKRB0gcYwSdDjLYGaRQnrlH6CEK8MQUwHPPM+JtWejLfu9I4ENN13QO8iGUa4EB
+	 OL1CYCVn3NoW2xnB96pHU5pq4Z9dl3fXi15TTPWdv112j1/TfwXhigl/YvG2uiiRsbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N5BE0rI4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FngDofrG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4635606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4635606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A67606A31C;
+	Wed, 28 Oct 2026 13:20:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83A67606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N5BE0rI4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FngDofrG
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SDI5bh718077
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:20:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pLmvna2p5qvHzaxj6u1fu1rYL1SKPSQFsc6X57fBsoA=; b=N5BE0rI44UcfV1FE
-	Y1CPquxLO/iZMblydFhDbdqy6Wm+RDCjygga63UP6OZCRgXRklyhQfR+Jl0rpG1v
-	veDMj0CRboY6Y88yCki3DoVpPBuskoL+s/jd/iJVokIBUvZ++DVzx3orDntZXFtJ
-	MbpKmEsM+x+WuGzPRxMM2rx7irkpaAdqhJbv4Z6TWZaeUtFfZEWXALkuoXDZRtxV
-	xUR5nHlMeJHpOVYO/Mxh+AP3lwkM/KHTbnNgGdE90Blu7IpDcjgiX+um9GpC/l+h
-	BqEBo1PefKhrc0lpN5aMI4Bo/VrrWDfkrn2w2OLZYfUpg2f90DS5vIxGT9lKNHCt
-	N0i6CA==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtjg0cx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:20:35 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eaab6f56c7so72171e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:20:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793193634; x=1793798434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pLmvna2p5qvHzaxj6u1fu1rYL1SKPSQFsc6X57fBsoA=;
-        b=FngDofrGM/Qt6TwFYzOFjkmc7Io4MWHX5NG55K7POqrcyzCaAupEt3IrlIzg0N3y2B
-         K7b2oMB1AXYYsdZywg0uqcuNFFMSqmfs0J3R7/82H/eoeY7oRb9eNvRbMp3NgfCRRzVC
-         6iEy1o4d95ITwj+OW99C9NJt2viL7+VKw9puyBvS9LcH9kaJBUzjiQuMU3/ozCaJQwUs
-         QXSAXZgCFi6nvnQSLZHk8XmxBEYlElGa5K0RYouuVKhDC+m3UCn4oJ8dNJQXa2L/FIh7
-         kwbLRk2L8fSVw2NZWgCokEmGjDW4R6KASKZF40UWyyXz3TEtZ25HN8jyNNsAELEZcPBW
-         Ewow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793193634; x=1793798434;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pLmvna2p5qvHzaxj6u1fu1rYL1SKPSQFsc6X57fBsoA=;
-        b=PNubXclls9xssRPNguLGqI96HhUcST1aXPcSJ4oOziK+MFeAXy3k4rN3kdKt2g0mmh
-         rTS0t477xYziiVIinJxZ2hKK/jKdjd1alplKeNTKPT8QV8DaOxPjES6tLrIkhRS9TTfh
-         6/bIgoHjpHKyJaul348a8NBL8r3lCILhG0Odpzzf4KLxJjmQ+zh2V/UieqN1h8tc8qLl
-         NENgCw7nPP6KWNI+XH9Q1ErrKSfUL4rB3R1PavcEVA7qiDC7LOCRxyCUJWzxVxtBWnNJ
-         FTsXQVywXNAJmGT7CbXPeoefpH1eBYzwdVmK8aK46L91BSrx6HnimbOgtNnvMaDK7StY
-         X1jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjjFUjOxDV3e4p4vIOh+xkO5JYN5xRwCYwJKvlxtxxc204TwWalweYmQ7GgKpekqYinRn7fgasuMmOwto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICEjfE64zK1YyAtUgJFodT8yRoXMGRlQlOq1CfJZq40CXW5XWj
-	DnPMiiHK7FmB2mGBS+m4CsVO5K8IXw19SwUcsTVeb2Ee7I+myqgNuVEAdux8oJ3RV9NtKhPjeaW
-	IHAOtk1l4WX5HkAnHvnpWsU2ecR5yzE5yO2OUZ3upUrIZHJKGPFornmIAzkmBaGOBEbk=
-X-Gm-Gg: AYBFou2z2fcoJgNsQHLgqJGczbi8bUtd9A0QLUj/wJ9wbdwgaNSe+5l/BWN3GT2XU70
-	PdHkymS+Gm07Iic/6j9+k86SNQm28CDWyq0YVqDd665GYCE1DxwJe2S0+GbjI9WKwULpeEI/SbJ
-	o3MhzCaB3EMR4g6esTwu3WMPjoErdF4qlpLRWQROkBApDN9A+vP5jgKgG9q87ze7+9MvJ4uXESR
-	3orA299/zZTrX3xvIpPX3kYXjgxYHH3m18Cnbi6ZDO0Tk1PqIlDwcqJae4DjBtQ/qtd+PG+Ws/l
-	VxTHA9XHpT+bYvWNsqfiajx3Sy0/ixNBoAkxTT0tvKLTkgY6EVxhQgZCHNbu2PV8RZ27+Uy+QvT
-	YGAyxsalzzalZe8htCMprBSxqequvEpDCdGkogbcRxa6nSkcUD4s1hflk/G9UVZPbIb2Efds=
-X-Received: by 2002:a05:6122:1a8a:b0:5ea:c3bc:c584 with SMTP id 71dfb90a1353d-5ec4caa71bdmr805400e0c.1.1793193634013;
-        Wed, 28 Oct 2026 06:20:34 -0700 (PDT)
-X-Received: by 2002:a05:6122:1a8a:b0:5ea:c3bc:c584 with SMTP id 71dfb90a1353d-5ec4caa71bdmr805377e0c.1.1793193633498;
-        Wed, 28 Oct 2026 06:20:33 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca57dc11sm590055e87.33.2026.10.28.06.20.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 06:20:32 -0700 (PDT)
-Message-ID: <fc444b2d-9bc6-43b0-9054-ba04c7820352@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 14:20:29 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7E5B61F7B8;
+	Wed, 28 Oct 2026 13:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793193630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
+	b=ikc01+YwkeOjP5cK4KAg7kIoSfmaM/gDbSvjS1fyX9g7tvuFqqvq/YRInE2SmYquyKuV4D
+	aHYXced9O69IJ7RGfVG5LE7kLChiFHEqnyrGiFwspHb5MLam260d4LDSYXFyhX2+5Sy8BS
+	5hXUItxzlNghQKEUiaIz3NO+Xfi6ZEM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793193630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
+	b=H67vUejcCsq2/G2lrDpyvijucebSJxY4S+sD6pv2UhwuYbNF8k8aRG0jrgVpf3dy0w6evT
+	+N2yNvzlHwnULBDw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ikc01+Yw;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=H67vUejc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793193630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
+	b=ikc01+YwkeOjP5cK4KAg7kIoSfmaM/gDbSvjS1fyX9g7tvuFqqvq/YRInE2SmYquyKuV4D
+	aHYXced9O69IJ7RGfVG5LE7kLChiFHEqnyrGiFwspHb5MLam260d4LDSYXFyhX2+5Sy8BS
+	5hXUItxzlNghQKEUiaIz3NO+Xfi6ZEM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793193630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
+	b=H67vUejcCsq2/G2lrDpyvijucebSJxY4S+sD6pv2UhwuYbNF8k8aRG0jrgVpf3dy0w6evT
+	+N2yNvzlHwnULBDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5339213419;
+	Wed, 28 Oct 2026 13:20:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UXF+CJr24Wr9MAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:20:26 +0000
+Date: Wed, 28 Oct 2026 13:20:24 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 31/46] mm/mremap: fix moving PUD leaves
+Message-ID: <auH0bgdchd6DyCbU@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-31-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,66 +136,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Add pull-up for SD card
- detect
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, pradeep.pragallapati@oss.qualcomm.com,
-        nitin.rawat@oss.qualcomm.com, mani@kernel.org
-References: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MiBTYWx0ZWRfX0SSJ4n/6SDN5
- YZoo4FL56ebg8sic71TEx3zL1i+HsaAM6nqwXaftj/gJfoctyf99gX7Pl8Rql3z4nEFmgv1iM7T
- lyxKTigk0nsX4W9N5DNreI9h+tK1Rgw+2G11tMT95rXWG7n2iIE5mYD5I0cWXzauWSYBacsqCy/
- FgEZUchxz89w9KkaY3uCR9bFraSHKI3nade98d6OWqQN8JL+0ySEuU/brJmX5NbtaTm6Z6BaGR1
- V9PsG9pHIivMtyw7++r7wJwz1LZbuY2miqgkxJBNvNWTDHALymP1hjp0V/N/58iMGuyHFNd5uSi
- 0BB5IcUieqJTKnoY+TGiZYP2Ca/uDXdVwwV3dgtpXoKnzN9mOevd5FU+NISmv+Lpcy0wHj5rtYe
- ZtejvtKACHjp6Xr7KTMD1vC/ELQfwvIOhAPAIqYPiEp7OsQpV/yogdubiF1VOG6YSiVqE7SXKUx
- 1pq2RGvL7qDdV6VuFZA==
-X-Proofpoint-GUID: JH5I3efBX2568n145UKOziUlc2iHZ8zT
-X-Proofpoint-ORIG-GUID: JH5I3efBX2568n145UKOziUlc2iHZ8zT
-X-Authority-Analysis: v=2.4 cv=LdipeTfi c=1 sm=1 tr=0 ts=6ae1f6a3 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=WKNOtjYE1B8OkmgEoC0A:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=zZCYzV9kfG8A:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MiBTYWx0ZWRfX/Dr3dR9+sQjf
- Siez2Q11JpN+gbP34uEKg0TLLK1yp1JSLiV4gX6xkC7U0yjmaQfWPWOjBzAX6ME/W4tIN7Lgb3N
- W3C/XRyZLVL1ksQt8n/pJUD+i5BVKdA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280052
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-31-6f74bec9a5bb@kernel.org>
+X-Rspamd-Queue-Id: 7E5B61F7B8
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.de:dkim,suse.de:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.01
 
-On 10/28/26 2:14 PM, Monish Chunara wrote:
-> The SD card detect signal is active low and requires a defined high
-> level when no card is inserted. With the GPIO bias disabled, the
-> card-detect input can be left floating and result in spurious
-> interrupts.
+On Tue, Oct 27, 2026 at 12:17:51AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> Enable the internal pull-up on the SD card detect GPIO to keep the
-> signal at a defined level when the card is absent and avoid spurious
-> card-detect interrupts.
+> pud_none_or_clear_bad() only really works on page tables. PUD leaves
+> confuse the check and make us clear the page table entry and print a
+> warning.
 > 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+> Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
+> when mapping"), this also leaks device-DAX folio references, mapcounts
+> and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
+> 
+> Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
+> whole or the move fails, split it. This unmaps it with proper accounting
+> instead of treating the leaf entry as a PMD table.
+> 
+> Keep using pud_trans_huge() for now, in the future this code should be
+> cleaned up to just check for PUD leaves.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: fallthrough after splitting ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+
 > ---
+>  mm/mremap.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/mremap.c b/mm/mremap.c
+> index 91f0865f6aeea..1237718848f5c 100644
+> --- a/mm/mremap.c
+> +++ b/mm/mremap.c
+> @@ -87,7 +87,7 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
+>  		return NULL;
+>  
+>  	pud = pud_offset(p4d, addr);
+> -	if (pud_none_or_clear_bad(pud))
+> +	if (!pud_trans_huge(*pud) && pud_none_or_clear_bad(pud))
+>  		return NULL;
+>  
+>  	return pud;
+> @@ -847,11 +847,10 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
+>  		if (!new_pud)
+>  			break;
+>  		if (pud_trans_huge(*old_pud)) {
+> -			if (extent == HPAGE_PUD_SIZE) {
+> -				move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud);
+> -				/* We ignore and continue on error? */
+> +			if (extent == HPAGE_PUD_SIZE &&
+> +			    move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud))
+>  				continue;
+> -			}
+> +			split_huge_pud(pmc->old, old_pud, pmc->old_addr);
 
-Fixes: 51fe74e44c69 ("arm64: dts: qcom: glymur-crd: Enable SD card")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Note that, if the HPAGE_PUD move fails, we split but miss the opportunity to
+move at the PUD level (right below). Is this on purpose? Am I missing
+something?
 
-Konrad
+... I say, realizing I am missing something, because split_huge_pmd (and
+consequently split_huge_pud) just decide to zap if the VMA isn't anonymous,
+and split_huge_pud() just hardcoded it to "of course it's not anonymous, lol",
+and just zaps. So there's no point in moving what isn't there.
+
+Lord help us.
+
+-- 
+Pedro
