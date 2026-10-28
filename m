@@ -1,98 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793155271;
-	b=eRbsF62BeC/YkLmrHxHQdYnuLtUithl+w2HTzD3chBUxxaC9BLcGhZJ0eQ6coDpvipla
-	 EDMq54zuQUcYsIQUmAH3fumRcl/G1+ql2O9I5bgMCrv+JFrKhqxzWFSSs58hh0yZhBhU9
-	 fR+DyA67KSfG+UMaft7SEQt9AkM0MDEhT7TEF9OovnLDv5C7bidm52Csc9vaY153ZXh0H
-	 CVe2mPLlLX0TNvdK4l//hys+ixFarzxlS/yYthMJ9I3byD5lYhwAQ9NfXl+33SCu3Jaop
-	 I4/Ry78euVjxbzUr6m+woch7qIx2xE2PaTaywY4EmwwEIZ2ly51N1rHKTk7rrwm2DlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155271;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xUavhKmLPQPLbg94dxPACI6ZZG5fBqK8xXKoyjcc1tM=;
-	b=DCT6b40e/8/WbjQmflQ12f1EgoHm/bVK4cTcK2/xj4bd15GY2Ss353MQVBPJXWJsoU7W
-	 pDXFAEF5VfjZdtZzY7+AJVarW4TjUQt+WkfhOvBq4kUv12VMhWg87ylpIsr4bnjogC5NZ
-	 VNvvrK1/dKVtIm2Q3/hQ0RhvCGMj1fuYjYq5CMSpwTCKQ1SdJ3Q0sCNLmUq2659fAVnwl
-	 ir4VIWmibf8F86yJUBWG/yrD0fOmUFhDgkty115nGu6kP+TAEAh+z4v/4dDFQ+zelauHn
-	 h/5EczjtRYPxOLdTwrWBuZg5NBcs+80Vc7mfP+MILIcrzslKxCmAASYhNA4KYjwjMxQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BCaDSU+Y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793155285;
+	b=BORNqSuYuSB503pRNCbDTjjIz0mXdyTD73U+wydGlHRUJqe0eeVWDkEcEAIpGCM4Arxg
+	 HBe2wPXHvH8yTscG0Dh1n9rxJ86hJpXlyrbOMlYjMY+Ja1psyUqVYnAIDX2wU031QK4vz
+	 6jUXWMfcpwcRtaZdaGInNY5bIX3NY9BGRyCDxwFluwiQJLKJE1EIOFpioBmHMOKraCOEM
+	 zqk1jIXy3Yp2q1Bl594MRH90I0GWoa/9HAvwD0lgEVnqQhj1JZ7Ia4tvOT7Fkkt1IOWme
+	 m/3R1CICxlJ7RUW/ATjycV3jCc3zU/+wWPvPGr+25Ezsizau/GNsWyu9jX7FgYspgvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155285;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=QX2W0lQnijfwrGlTgWM1dFah9f2G2nTUmcOGxD8rgv0=;
+	b=tK8CwLvP5LGU+WazWRrhxbN3ZF41RusvxJq1n3CqkafcwM3wx/fKgi4D1mO0KrDyxJyg
+	 NNar2uKFD/VwbKozNljHeOHICWr/r3+HYsqa0z6yd6jawaHJRF63+TT47N66EEeGjLHPa
+	 VvqYn2eNcEGbhum+bnDNC+Ug+jOpNR4aA4/Loj7kmw4/AhTnkAPk9Z1+XxHai9F5dnUy9
+	 hg3ZIdxk8KOcgmdto123id/QLDjhSMJaWd7Tbqkv3ipQfD6O+SwsdZ40VjF1F6q3gV6Ky
+	 6+6h0YDBxB/NR5XhP/bswfl1jf8q0K1b1sGbCp3UeGkF5uLZFO/fmPPLyq8cBIrcxgw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=UNgMn3Om;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45423606A31A;
-	Wed, 28 Oct 2026 02:41:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45423606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC2F606A32A;
+	Wed, 28 Oct 2026 02:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC2F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BCaDSU+Y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XrLXxdsO7ULwW/nEf5WCPQ60xMwiT4BEEnXMCbIa6jqmbzSMYEwm2raLQAPBE8oKGaNOHCdBhqrf8/B6PhDnhgawWUHK3yNR8wyt8Ir/LC10OhuuHE/tzdosp8p7p49RfKVqGTZ2nYVLK4n5Msw9vPTf3lAQajMqcuRuLEh9R/pBQTeDXxgJbNaVXeLUXGhpX/Y4+Py0NJ+m8dti389ZQmpJcP4FNg9y8hSMKlO4dgkbxpuPzDPBHnzagpsf0oW2H6hdOLB2RMTZMXXsmcXdwNxVyG/aMNv/D0IrJs1cbiRiofCjIMZjZgQo9fTwLimABS/UFZzNJSqNTk7Do1ZkHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xUavhKmLPQPLbg94dxPACI6ZZG5fBqK8xXKoyjcc1tM=;
- b=khkF3owxswNaB3j30nhD9GdcJ2hHZIixj0VupyAabAlpYbVwWElUJhoP2WYvouhXaebECeONoZ9HQk+uLFsOOh48odDvEFCbVQuBB8yg/goDBK3R2tqVcZlQAIO/LTV333aSNy8cbP6syQKzYRKSVYVjfjltAP25gxLVt997Nm0QmOKlipRzbFtg7lzN6VIg4uPk8zOGA4aeR2PvSMl/Ts4jwWNfGv5tWLj3yXpmhOavKxkajGKDXnbO1gxU8nlrq4VLDvkLkiZerIIq+f3ryxCDJIF/r37F+f3MP9JrZBSOeos2YEm95FTRFxA7+3YedR3wd9meBl4Sw73ni/4Xiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xUavhKmLPQPLbg94dxPACI6ZZG5fBqK8xXKoyjcc1tM=;
- b=BCaDSU+YZ0Kfvu6fBA7k06/IHe6BFnzuwh9orMBZLsze3tmmQ5STzfChPM3ojueSFU1u+seVn67HlNBAqFKoqFdHcI3oB2xd7bjW3OztPMZHeUkwy3NZdbQTI+KxzsZ7OoFzkz4beslsV3i1hwCgdju9+heYQ5xYGqzuBFR4O85yOqTcVjnSk405TLdJ6gRHpSrFpFj3uvwPkLvJPig9RZswvs+777JtDqNzZi5b/ips5f274K26Gq+XNf14E4h4ejKbSpKl2XvlMifgeNIe4h3datrICRiNAIFzliQMFQTBGSrrn0oFVopTpAX1yopQ+u8nPTWpbThMfpRntEXJVg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by SJ5PPF3487F9737.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::990) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 02:41:05 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 02:41:04 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, webgeek1234@gmail.com
-Cc: linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Srikar Srimath Tirumala <srikars@nvidia.com>,
- Eugene Vernik <crimsonslayer76@gmail.com>,
- Aaron Kling <webgeek1234@gmail.com>
-Subject: Re: [PATCH] thermal: tegra: Add Tegra210B01 Support
-Date: Wed, 28 Oct 2026 11:41:00 +0900
-Message-ID: <xWFJZZETTW-FWLmRyyuBKA@nvidia.com>
-In-Reply-To: <20261018-t210b01-thermal-v1-1-af15746d86a3@gmail.com>
-References: <20261018-t210b01-thermal-v1-1-af15746d86a3@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: OS3PR01CA0076.jpnprd01.prod.outlook.com
- (2603:1096:604:da::9) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=UNgMn3Om
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793155280;
+	bh=QX2W0lQnijfwrGlTgWM1dFah9f2G2nTUmcOGxD8rgv0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UNgMn3OmnMkYrjdQPiws9YH9jbOG+rNbqRqZCrjzrat3wJ4fheGgBDcO/Xcfpi4At
+	 PpPfMUsIc7pYHDy3ASRuE24PBlDyXMC56COPlDpVGofS9K05qrjJiUIhEkV2lwJSlc
+	 XKYtDEUVYTW/Z+QBRNSk7jglD5RxUDORnuNUZdFe4W8uI6tN3Yg9YA4KYP5l6v+XfJ
+	 1dqD2gFKnGbDw7rkI6p2gBEpretwbnqdGtslWpYrj0sqfcM++svO0cIXMY8x9KAFG1
+	 yvWPBPOQmCwzmlP54f7eOcUhtyHHd0K9UlecDQh69wS99VS8j0R3UAEnFYw+A6EbC4
+	 47UwooYXA+//Q==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jDs7N5XWTz4wTN; Wed, 28 Oct 2026 13:41:20 +1100 (AEDT)
+Date: Wed, 28 Oct 2026 13:41:14 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
+Message-ID: <auFgv_f0av-JxMjg@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-9-herve.codina@bootlin.com>
+ <atrTn_I_8O6q9QUW@gractus.seuss>
+ <20261023181533.0c44a57f@bootlin.com>
+ <at6t-l9XYYFfS48T@gractus.seuss>
+ <20261026125615.055e7214@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,358 +77,409 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SJ5PPF3487F9737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6088e925-89fe-4563-1b73-08df349ce96f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|10070799003|376014|366016|23010399003|1800799024|261009223027099003|261021121427099003|261022105027099003|261022075727099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	9uH4Hii3LoxDACqTjbzseEKMtuelPeAJi4Mwx49CYIQkR5X7/faLkFqqgLKFz5khzyv55wAng+izCt39yhrG6PGsezYJQfF+cuzZoKc3KhahM1Xo9fmpXT5LGCNgg7c9WyAtu7ZiuF+iZY4DON1DcAfzEOUuSNtRQgbZrJrOKEgcZyE2iCGrcr4Hrhs5/w5Ik669mJWlLkLjufblbrRviAcBxpQhxcPqBCb+I7VNPozB2t+nCScyEW0v16u/xtpDp2s6nzu+b/O+Ky0mXDcu+95+tQJmSv7nU6bE1TimcW3wGSU1n+nS0LM6BVJ+z6wXvwUKLU/nSySv7cUowdbSs7Mq+0dsoh0Nsp1eK9RaWAlhEuTNM9nBPw1+GUvxvRMkMXkSVKgqJiZ5847ltCwaPtGnxGCcEejeVXwmHtfnC7FLXJvEPhrjUIWup9FT9wy1YFJkm0vApSKzTEJ3YfyKliIIAtKNqntYSRlgO/r/tD0096zMQ1prnMbhyKU0/1mDwtORShsv1Kz50rgSk8xkIJiQEjFWh9IMAflk36yfKUQM9XVTj209gg92d3mAZx171Vc3DhwuhDExkUCsGc9sHgBWgYXHD4Kqohs2k/IniChaAn/YpYnDptnbu+/miXlnplln1C0058Xm+JyXTMu2aPu+wb40uVRi0zTKZWwB9is=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(376014)(366016)(23010399003)(1800799024)(261009223027099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZFd2eG1lNFlwNU5RcUFrMnBxVFNhaUxLcUI5S3hlREl5ZXNYS2ZaSFY2a014?=
- =?utf-8?B?a29VaVk4Yk9rSnVYMXRsY3U0azdVckJCWVlzTzNIZnhIK1JTK1VkRjFydXJP?=
- =?utf-8?B?Y3BBWmk0SFErTlJ3Q0dOU0t1aEk0UE96ZU9OR0RxY29FbytPTzMwRkhNNVVs?=
- =?utf-8?B?MzRhY2M4UUxIZFNpdnZxaWlIVExmZlpUWG5SdkQvKytPeVpENWU0b3pmcE9P?=
- =?utf-8?B?WDIzK0Z0WHhicTFTWEY4L0J4cjI3QS9MRFc1VTdzSzdjM1B3NWhwbnlDN1VM?=
- =?utf-8?B?eTZ6ZnN0MTFORUp4aWNTbHJNUnFNU1B6UGRhOTVMU0lLUG1FclZZd2JUTDU4?=
- =?utf-8?B?bFhRNGtWNnJORE9wZXZ3ZXZ0RWc4YkVaSXppY2hKcVVJcWxFWmJGaWIzTkFT?=
- =?utf-8?B?cEF3MVRzOHhkODY1Tk1mMlJMOGVRamM5Q0EvQ1p5dHpxd050SzBUbUdYQUVH?=
- =?utf-8?B?TVpjTUNwMVNoRjgxT3hYUjNGakVpU2RtQXNwMEtqK2t5R1NPRjl4SDJ2Njg0?=
- =?utf-8?B?R01mZmNST3kxTHJuU0lvN0o0eEV4WGE0VXJhNDJqbkk5VXdxRC9mWVRlVjNB?=
- =?utf-8?B?ODhubDBQTER6cTV3Nkc2T2laa25uOVVndXBxVTlsck9BYzVSdHVNUGZ3a0s0?=
- =?utf-8?B?TER4TWZhbUZJbHVaQWk0ZGhKWHhIeE41cm1MYkJrYmJFRHdhczJ5R2NPcDI5?=
- =?utf-8?B?c1JKV29XNkRzZzNCQy81ZVNRVlhhMnNyU1FOVWtVOEY4TmtiaGlPYjd6QnRX?=
- =?utf-8?B?dWZnWnVnS3B6a29IS0pRdC90ZHd5YVhGeUVjRWszcEpaWlFIWkZIeDJDU1Zn?=
- =?utf-8?B?N2JoNzBtQzFQZzhja3lPMVo3TnlzYWtSeGtyR2Eyb0hZczdzM2RTVW1jVVVl?=
- =?utf-8?B?Z2hiM01US0UxcmFxcW9MK2RaZ3ZiT3pnc2pVbHh2TW11bDM3WkQxdVZsV2Ey?=
- =?utf-8?B?NmFGSGpKV3VQZ0E2NU80TG1KUVpHU3V0QzBTbWZCYUVEbzg5MGp5ZmVaajY5?=
- =?utf-8?B?akRJTnZmK3BUNWJzMjdCUitSSVdlMzUzVXZRV2ExNzRxcUNHVzg1Y3pHbFhW?=
- =?utf-8?B?UW8rcFBlM0J4NzU4MjRQRHlzUTFPUytDRExRQ3d4OGtzOC9wQmQ4NmpzVnhw?=
- =?utf-8?B?SmthNGFVOHZqTDhkVERKZmZNTGxsQTdFc09FZjBId1NmVkViTkFMdFh3YlZo?=
- =?utf-8?B?QXBZK0pZMVhTVHhFdk1WRGRvTGtKOWtvaXJuNEI4dXBRbWtRNW5HSkt2UlJi?=
- =?utf-8?B?RWR6Q0p1dThuUTJGYUFzemgzR05uVlI1aHFTQ3Ywc2NGYjd1UVhMQzRMc05F?=
- =?utf-8?B?MDZ4SVhPSzRTYlRDRUR2b2kyZnEvUGF4YVlacDMyS2s0VTVBNXMxa2JMTkJM?=
- =?utf-8?B?NC9oc3JzWUh1SDhXZXZLd1FLcnNCZDNIRExoNCtYajZyQmlQT0NGZ2tVdXdP?=
- =?utf-8?B?TUNROFZ6R0tpd0xWT1gvYXJFVmMwMEp3OEJxSCtPeTF5Nmt1QWUrYU9QcEFC?=
- =?utf-8?B?N1ByNDdDbmdzYkwyL2crS2pKWnVmWlU2ZkJTTzM5QWxmdy9XNmUrM3hETG5x?=
- =?utf-8?B?Syt1UUdJUlJ3MzUzdFc1L1paUUlwOG43UkxNTlVQM1RIcE9DWmI1cVcwN0ls?=
- =?utf-8?B?amtlREw4NjNzcEVxVzlVdS9md1lvZG1HV0tMS1AxMWJWa2xPSHR6SmFldi9r?=
- =?utf-8?B?NCtIVEZ6NEtlUnNLbHVaOGVDSFBJdlhTTSthSm4xcWpld3BoY2ZhaEZGbzVP?=
- =?utf-8?B?T0RIU0ppbUg5Q3BlVnByTENhRDZkUXEyQ2pFbHNSRnNsNFd5SHU4WGxtMHQv?=
- =?utf-8?B?aG1hZTNBNFlWWTloRTYvYk5rZkROekZIOEgrU2ROSlhaZzRKVTY5OWFKY1A5?=
- =?utf-8?B?VE1WTWNmM1VVdjBpVnlBWWxDbXdRWitRd2IrOWFHbEhLa2EybXJ2OG9EbVZE?=
- =?utf-8?B?KzV4MTFqVVFaR1dPcmM1OUorbzloT0E1azdVTHF3QUszWmtNbXNCVVY5Smxx?=
- =?utf-8?B?eWxKaUtobWtZNEx6My92TVJUTXZaT2RYTFllVW5Qd0lIcVFQUG9RbTBZV2hH?=
- =?utf-8?B?TTYxa0NnbVN0aThWbVBrdEN4WjVKQWI2a2dKMzhiTHJKc2UyUXNpd2JFbmhW?=
- =?utf-8?B?L2FBa2QwUFBpeHFHdStDNENkOVJvWVpGYlp5QUxoYkhqN1FGMkdRdWx2TTVs?=
- =?utf-8?B?VWRaWENKTXlMMmNaZnhIcTRuUE9KZmN6TGxnTEJSeExLWmhTZHpoTnM5Yjds?=
- =?utf-8?B?WW9KUEt2NzAzMFRoYlJqeHRVa2NCUEZLTW8rT1JPY1VHMUVXSHZQQlU2OGhE?=
- =?utf-8?B?QWVJaS9zSjNieDVPWTh6S0lQQkZjcUhITWMvM2I2MUhrZlBwbXBDV3B5UVRI?=
- =?utf-8?Q?Xkkb1J+zmXxzRB+IZgz0HLon7/KGGVH4PI/DDu70frKGu?=
-X-MS-Exchange-AntiSpam-MessageData-1: nWCTSaU1I6xgiQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6088e925-89fe-4563-1b73-08df349ce96f
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:41:04.8174
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: myW3yV8w6gWip6XKVx9Jh8NzEnOiraCpUtidghQH5qsadiWCZZTLWfcDZCGIskukjROf5Fr52cT++hCtzoT/gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF3487F9737
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lpYmQE31+ktOK+HY"
+Content-Disposition: inline
+In-Reply-To: <20261026125615.055e7214@bootlin.com>
 
-On Monday, October 19, 2026 7:20=E2=80=AFAM Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
+--lpYmQE31+ktOK+HY
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Oct 26, 2026 at 12:56:15PM +0100, Herve Codina wrote:
+> Hi David,
 >=20
-> Add Tegra210B01 SOC_THERM configuration. There are two main differences
-> from the original Tegra210:
+> On Mon, 26 Oct 2026 12:33:51 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
 >=20
-> * There is no mem thermal sensor
-> * Pdiv and pdiv_ate differ
-
-tsample is also changed
-
+> > On Fri, Oct 23, 2026 at 06:15:33PM +0200, Herve Codina wrote:
+> > > Hi David,
+> > >=20
+> > > On Fri, 23 Oct 2026 14:25:29 +1100
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote: =20
+> > > > > get_node_by_phandle() allows to get a node based on its phandle v=
+alue.
+> > > > > It checks the phandle value against value available in internal n=
+ode
+> > > > > structure.
+> > > > >=20
+> > > > > This internal phandle value is updated during process_check() and=
+ so,
+> > > > > get_node_by_phandle() cannot give correct results before the
+> > > > > process_check() call.
+> > > > >=20
+> > > > > Improve get_node_by_phandle() to look at node phandle properties =
+when
+> > > > > the internal phandle value is not valid.
+> > > > >=20
+> > > > > This allows to return a correct matching node even if process_che=
+ck()
+> > > > > was not called yet.   =20
+> > > >=20
+> > > > The idea is sound - it's always been kind of clunky that we need the
+> > > > process_checks() pass to fill the phandles before we can use them.
+> > > > But, there's at least one significant catch:
+> > > >=20
+> > > > [Aside: you might notice the way it's done violates the principle I
+> > > >  stated elsewhere of avoiding structures where you must know where =
+you
+> > > >  are in the flow to know which parts are populated.  My type
+> > > >  discipline has improved since I first wrote this code :)]
+> > > >=20
+> > > > We need to gracefully handle the case of malformed phandle /
+> > > > linux,phandle properties; that's actually the reason for the weird
+> > > > placement of this in checks.c.  By treating it as a "check" we hand=
+le
+> > > > this case by failing the check.  Other checks that rely on phandles
+> > > > then have the 'explicit_phandles' check as a prereq so they don't n=
+eed
+> > > > to verify this again.  We can still report errors for other checks
+> > > > that don't rely on that (which is the whole point of the checks
+> > > > mechanism).
+> > > >=20
+> > > > That's not the only way to do it, of course, but we need something =
+to
+> > > > check for that error case.  Further notes on the code.
+> > > >  =20
+> > > > > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this wi=
+ll be
+> > > > > needed to update internal phandle references before the call to
+> > > > > process_check(). Indeed, this tag allows to identify phandles and
+> > > > > internal references need to be updated based on the phandle value=
+ before
+> > > > > the process_check() call.
+> > > > >=20
+> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > > ---
+> > > > >  livetree.c | 21 ++++++++++++++++++++-
+> > > > >  1 file changed, 20 insertions(+), 1 deletion(-)
+> > > > >=20
+> > > > > diff --git a/livetree.c b/livetree.c
+> > > > > index abe73de1..a9f8c5d2 100644
+> > > > > --- a/livetree.c
+> > > > > +++ b/livetree.c
+> > > > > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node =
+*tree, const char *label)
+> > > > >  	return NULL;
+> > > > >  }
+> > > > > =20
+> > > > > +static cell_t get_node_phandle_existing(struct node *node)
+> > > > > +{
+> > > > > +	struct property *prop;
+> > > > > +
+> > > > > +	if (phandle_is_valid(node->phandle))
+> > > > > +		return node->phandle;
+> > > > > +
+> > > > > +	prop =3D get_property(node, "phandle");
+> > > > > +	if (!prop) {
+> > > > > +		prop =3D get_property(node, "linux,phandle");
+> > > > > +		if (!prop)
+> > > > > +			return 0;
+> > > > > +	}
+> > > > > +
+> > > > > +	return propval_cell(prop);   =20
+> > > >=20
+> > > > In the case of a malformed property, this could SEGV. =20
+> > >=20
+> > > Ok, will update to
+> > > --- 8< ---
+> > > 	if (prop->val.len !=3D sizeof(cell_t))
+> > > 		return 0;
+> > >=20
+> > > 	return propval_cell(prop)
+> > > --- 8< ---
+> > >  =20
+> > > >  =20
+> > > > > +}
+> > > > > +
+> > > > >  struct node *get_node_by_phandle(struct node *tree, cell_t phand=
+le)
+> > > > >  {
+> > > > >  	struct node *child, *node;
+> > > > > +	cell_t tree_phandle;
+> > > > > =20
+> > > > >  	if (!phandle_is_valid(phandle)) {
+> > > > >  		assert(generate_fixups);
+> > > > >  		return NULL;
+> > > > >  	}
+> > > > > =20
+> > > > > -	if (tree->phandle =3D=3D phandle) {
+> > > > > +	tree_phandle =3D get_node_phandle_existing(tree);   =20
+> > > >=20
+> > > > This means that every time we search for a phandle, for every node
+> > > > scanned before the destination with no phandle, we do a full proper=
+ty
+> > > > scan to check that no, it still doesn't have a phandle.
+> > > >=20
+> > > > I don't care that much about dtc performance, but that's still a bit
+> > > > much to swallow.  I think we need to cache negative lookups to avoid
+> > > > that.  Happily, since there are two invalid phandle values this
+> > > > shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 t=
+o mean
+> > > > we don't know if there's a phandle, and tree->phandle =3D=3D -1 to =
+mean
+> > > > we've scanned the properties and we know there isn't one.
+> > > >=20
+> > > > In fact, caching property lookups might be the better way to do thi=
+s.
+> > > > Rather than having an explicit pass where tree->phandle is populate=
+d,
+> > > > we could have get_node_by_phandle() cache its property scan (success
+> > > > or failure) in tree->phandle.
+> > > >=20
+> > > > I think that's a more elegant approach than the current one, but we=
+ do
+> > > > still need to handle the malformed property case. =20
+> > >=20
+> > > Well, get_node_phandle_existing() can be improved:
+> > > ---- 8< ----
+> > > static cell_t get_node_phandle_existing(struct node *node)
+> > > {
+> > > 	cell_t phandle1, phandle2;
+> > > 	struct property *prop1, *prop2;
+> > >=20
+> > > 	if (phandle_is_valid(node->phandle))
+> > > 		return node->phandle;
+> > > 	if (node->phandle =3D=3D ~0UL) {
+> > > 		/*
+> > > 		 * We've already looked at existing properties and no valid
+> > > 		 * phandle value were present. Avoid looking at them again
+> > > 		 * and just return the invalid phandle value.
+> > > 		 */
+> > > 		return 0;
+> > > 	}
+> > >=20
+> > > 	/* Try to get it from the 'phandle' property */
+> > > 	phandle1 =3D 0; /* Assume invalid */
+> > > 	prop1 =3D get_property(node, "phandle");
+> > > 	if (prop1) {
+> > > 		if (prop1->val.len =3D=3D sizeof(cell_t))
+> > > 			phandle1 =3D propval_cell(prop1); /* Well formed -> Get it */
+> > > 	}
+> > >=20
+> > > 	/* Try to get it from the 'linux,phandle' property */
+> > > 	phandle2 =3D 0; /* Assume invalid */
+> > > 	prop2 =3D get_property(node, "linux,phandle");
+> > > 	if (prop2) {
+> > > 		if (prop2->val.len =3D=3D sizeof(cell_t))
+> > > 			phandle2 =3D propval_cell(prop2); /* Well formed -> Get it */
+> > > 	}
+> > >=20
+> > > 	if (prop1 && prop2) {
+> > > 		/*
+> > > 		 * Both property are present. They values must be the same
+> > > 		 * and valid.
+> > > 		 */
+> > > 		if (phandle1 =3D=3D phandle2) && phandle_is_valid(phandle1)) {
+> > > 			/* Ok, Cache this correct phandle value and return it */
+> > > 			node->phandle =3D phandle1;
+> > > 			return phandle1;
+> > > 		}
+> > > 	} else if (prop1) {
+> > > 		/*
+> > > 		 * Only the 'phandle' property is present.
+> > > 		 * Check its value validity
+> > > 		 */
+> > > 		if (phandle_is_valid(phandle1)) {
+> > > 			/* Ok, Cache this correct phandle value and return it */
+> > > 			node->phandle =3D phandle1;
+> > > 			return phandle1;
+> > > 		}
+> > > 	} else if (prop2) {
+> > > 		/*
+> > > 		 * Only the 'linux,phandle' property is present.
+> > > 		 * Check its value validity
+> > > 		 */
+> > > 		if (phandle_is_valid(phandle2)) {
+> > > 			/* Ok, Cache this correct phandle value and return it */
+> > > 			node->phandle =3D phandle2;
+> > > 			return phandle2;
+> > > 		}
+> > > 	}
+> > >=20
+> > > 	/*
+> > > 	 * No valid phandle value were found. Cache this information and ret=
+urn
+> > > 	 * the invalid phandle value.
+> > > 	 */
+> > > 	node->phandle =3D=3D ~0UL;
+> > > 	return 0;
+> > > }
+> > > --- 8< ---
+> >=20
+> > That looks good to me.  But the "existing" in the name no longer says
+> > anything useful - this can be the standard way to get a node's
+> > phandle.  In fact it might be worth changing the name of the
+> > node->phandle field to make sure we don't have any stale users rather
+> > than going through the get_phandle() function.
 >=20
-> Based-on: https://gitlab.com/nvidia/nv-tegra/linux-5.10/-/commit/b15149a1=
-5154e6b2fc827f4f169e37c9e5b389d9
-> Based-on-patch-by: Srikar Srimath Tirumala <srikars@nvidia.com>
-> Co-developed-by: Eugene Vernik <crimsonslayer76@gmail.com>
-> Signed-off-by: Eugene Vernik <crimsonslayer76@gmail.com>
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
-> thermal: tegra: Add Tegra210B01 Support
-> ---
->  drivers/thermal/tegra/soctherm.c          |   4 +
->  drivers/thermal/tegra/soctherm.h          |   1 +
->  drivers/thermal/tegra/tegra210-soctherm.c | 133 ++++++++++++++++++++++++=
-++++++
->  3 files changed, 138 insertions(+)
+> Ok, I will rename node->phandle to node->phandle_ and add a comment saying
+> that phandle_ field must not be accessed directly.
+
+You can even switch it back after you've checked there are no stray
+accesses to it.
+
+> Related to existing users, I can see check_explicit_phandles() available
+> in the checks.c file.
 >=20
-> diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soc=
-therm.c
-> index d8e988a0d43e9..95451d1bd4e62 100644
-> --- a/drivers/thermal/tegra/soctherm.c
-> +++ b/drivers/thermal/tegra/soctherm.c
-> @@ -2082,6 +2082,10 @@ static const struct of_device_id tegra_soctherm_of=
-_match[] =3D {
->  		.compatible =3D "nvidia,tegra210-soctherm",
->  		.data =3D &tegra210_soctherm,
->  	},
-> +	{
-> +		.compatible =3D "nvidia,tegra210b01-soctherm",
-> +		.data =3D &tegra210b01_soctherm,
-> +	},
->  #endif
->  	{ },
->  };
-> diff --git a/drivers/thermal/tegra/soctherm.h b/drivers/thermal/tegra/soc=
-therm.h
-> index aa4af9268b05d..4bc1e44e28827 100644
-> --- a/drivers/thermal/tegra/soctherm.h
-> +++ b/drivers/thermal/tegra/soctherm.h
-> @@ -156,6 +156,7 @@ extern const struct tegra_soctherm_soc tegra132_socth=
-erm;
-> =20
->  #ifdef CONFIG_ARCH_TEGRA_210_SOC
->  extern const struct tegra_soctherm_soc tegra210_soctherm;
-> +extern const struct tegra_soctherm_soc tegra210b01_soctherm;
->  #endif
-> =20
->  #endif
-> diff --git a/drivers/thermal/tegra/tegra210-soctherm.c b/drivers/thermal/=
-tegra/tegra210-soctherm.c
-> index f6e1493f0202f..b4f2c7837fd69 100644
-> --- a/drivers/thermal/tegra/tegra210-soctherm.c
-> +++ b/drivers/thermal/tegra/tegra210-soctherm.c
-> @@ -44,6 +44,14 @@ static const struct tegra_tsensor_configuration tegra2=
-10_tsensor_config =3D {
->  	.tsample_ate =3D 480,
->  };
-> =20
-> +static const struct tegra_tsensor_configuration tegra210b01_tsensor_conf=
-ig =3D {
-> +	.tall =3D 16300,
-> +	.tiddq_en =3D 1,
-> +	.ten_count =3D 1,
-> +	.tsample =3D 240,
-> +	.tsample_ate =3D 480,
-> +};
-> +
->  static const struct tegra_tsensor_group tegra210_tsensor_group_cpu =3D {
->  	.id =3D TEGRA124_SOCTHERM_SENSOR_CPU,
->  	.name =3D "cpu",
-> @@ -63,6 +71,25 @@ static const struct tegra_tsensor_group tegra210_tsens=
-or_group_cpu =3D {
->  	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
->  };
-> =20
-> +static const struct tegra_tsensor_group tegra210b01_tsensor_group_cpu =
-=3D {
-> +	.id =3D TEGRA124_SOCTHERM_SENSOR_CPU,
-> +	.name =3D "cpu",
-> +	.sensor_temp_offset =3D SENSOR_TEMP1,
-> +	.sensor_temp_mask =3D SENSOR_TEMP1_CPU_TEMP_MASK,
-> +	.pdiv =3D 12,
-> +	.pdiv_ate =3D 6,
-> +	.pdiv_mask =3D SENSOR_PDIV_CPU_MASK,
-> +	.pllx_hotspot_diff =3D 10,
-> +	.pllx_hotspot_mask =3D SENSOR_HOTSPOT_CPU_MASK,
-> +	.thermtrip_any_en_mask =3D TEGRA210_THERMTRIP_ANY_EN_MASK,
-> +	.thermtrip_enable_mask =3D TEGRA210_THERMTRIP_CPU_EN_MASK,
-> +	.thermtrip_threshold_mask =3D TEGRA210_THERMTRIP_CPU_THRESH_MASK,
-> +	.thermctl_isr_mask =3D THERM_IRQ_CPU_MASK,
-> +	.thermctl_lvl0_offset =3D THERMCTL_LEVEL0_GROUP_CPU,
-> +	.thermctl_lvl0_up_thresh_mask =3D TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK=
-,
-> +	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
-> +};
-> +
->  static const struct tegra_tsensor_group tegra210_tsensor_group_gpu =3D {
->  	.id =3D TEGRA124_SOCTHERM_SENSOR_GPU,
->  	.name =3D "gpu",
-> @@ -82,6 +109,25 @@ static const struct tegra_tsensor_group tegra210_tsen=
-sor_group_gpu =3D {
->  	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
->  };
-> =20
-> +static const struct tegra_tsensor_group tegra210b01_tsensor_group_gpu =
-=3D {
-> +	.id =3D TEGRA124_SOCTHERM_SENSOR_GPU,
-> +	.name =3D "gpu",
-> +	.sensor_temp_offset =3D SENSOR_TEMP1,
-> +	.sensor_temp_mask =3D SENSOR_TEMP1_GPU_TEMP_MASK,
-> +	.pdiv =3D 12,
-> +	.pdiv_ate =3D 6,
-> +	.pdiv_mask =3D SENSOR_PDIV_GPU_MASK,
-> +	.pllx_hotspot_diff =3D 5,
-> +	.pllx_hotspot_mask =3D SENSOR_HOTSPOT_GPU_MASK,
-> +	.thermtrip_any_en_mask =3D TEGRA210_THERMTRIP_ANY_EN_MASK,
-> +	.thermtrip_enable_mask =3D TEGRA210_THERMTRIP_GPU_EN_MASK,
-> +	.thermtrip_threshold_mask =3D TEGRA210_THERMTRIP_GPUMEM_THRESH_MASK,
-> +	.thermctl_isr_mask =3D THERM_IRQ_GPU_MASK,
-> +	.thermctl_lvl0_offset =3D THERMCTL_LEVEL0_GROUP_GPU,
-> +	.thermctl_lvl0_up_thresh_mask =3D TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK=
-,
-> +	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
-> +};
-> +
->  static const struct tegra_tsensor_group tegra210_tsensor_group_pll =3D {
->  	.id =3D TEGRA124_SOCTHERM_SENSOR_PLLX,
->  	.name =3D "pll",
-> @@ -99,6 +145,23 @@ static const struct tegra_tsensor_group tegra210_tsen=
-sor_group_pll =3D {
->  	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
->  };
-> =20
-> +static const struct tegra_tsensor_group tegra210b01_tsensor_group_pll =
-=3D {
-> +	.id =3D TEGRA124_SOCTHERM_SENSOR_PLLX,
-> +	.name =3D "pll",
-> +	.sensor_temp_offset =3D SENSOR_TEMP2,
-> +	.sensor_temp_mask =3D SENSOR_TEMP2_PLLX_TEMP_MASK,
-> +	.pdiv =3D 12,
-> +	.pdiv_ate =3D 6,
-> +	.pdiv_mask =3D SENSOR_PDIV_PLLX_MASK,
-> +	.thermtrip_any_en_mask =3D TEGRA210_THERMTRIP_ANY_EN_MASK,
-> +	.thermtrip_enable_mask =3D TEGRA210_THERMTRIP_TSENSE_EN_MASK,
-> +	.thermtrip_threshold_mask =3D TEGRA210_THERMTRIP_TSENSE_THRESH_MASK,
-> +	.thermctl_isr_mask =3D THERM_IRQ_TSENSE_MASK,
-> +	.thermctl_lvl0_offset =3D THERMCTL_LEVEL0_GROUP_TSENSE,
-> +	.thermctl_lvl0_up_thresh_mask =3D TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK=
-,
-> +	.thermctl_lvl0_dn_thresh_mask =3D TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK=
-,
-> +};
-> +
->  static const struct tegra_tsensor_group tegra210_tsensor_group_mem =3D {
->  	.id =3D TEGRA124_SOCTHERM_SENSOR_MEM,
->  	.name =3D "mem",
-> @@ -125,6 +188,12 @@ static const struct tegra_tsensor_group *tegra210_ts=
-ensor_groups[] =3D {
->  	&tegra210_tsensor_group_mem,
->  };
-> =20
-> +static const struct tegra_tsensor_group *tegra210b01_tsensor_groups[] =
-=3D {
-> +	&tegra210b01_tsensor_group_cpu,
-> +	&tegra210b01_tsensor_group_gpu,
-> +	&tegra210b01_tsensor_group_pll,
-> +};
-> +
->  static const struct tegra_tsensor tegra210_tsensors[] =3D {
->  	{
->  		.name =3D "cpu0",
-> @@ -193,6 +262,58 @@ static const struct tegra_tsensor tegra210_tsensors[=
-] =3D {
->  	},
->  };
-> =20
-> +static const struct tegra_tsensor tegra210b01_tsensors[] =3D {
-> +	{
-> +		.name =3D "cpu0",
-> +		.base =3D 0xc0,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x098,
-> +		.fuse_corr_alpha =3D 1085000,
-> +		.fuse_corr_beta =3D 3244200,
-> +		.group =3D &tegra210b01_tsensor_group_cpu,
-> +	}, {
-> +		.name =3D "cpu1",
-> +		.base =3D 0xe0,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x084,
-> +		.fuse_corr_alpha =3D 1126200,
-> +		.fuse_corr_beta =3D -67500,
-> +		.group =3D &tegra210b01_tsensor_group_cpu,
-> +	}, {
-> +		.name =3D "cpu2",
-> +		.base =3D 0x100,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x088,
-> +		.fuse_corr_alpha =3D 1098400,
-> +		.fuse_corr_beta =3D 2251100,
-> +		.group =3D &tegra210b01_tsensor_group_cpu,
-> +	}, {
-> +		.name =3D "cpu3",
-> +		.base =3D 0x120,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x12c,
-> +		.fuse_corr_alpha =3D 1108000,
-> +		.fuse_corr_beta =3D 602700,
-> +		.group =3D &tegra210b01_tsensor_group_cpu,
-> +	}, {
-> +		.name =3D "gpu",
-> +		.base =3D 0x180,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x154,
-> +		.fuse_corr_alpha =3D 1074300,
-> +		.fuse_corr_beta =3D 2734900,
-> +		.group =3D &tegra210b01_tsensor_group_gpu,
-> +	}, {
-> +		.name =3D "pllx",
-> +		.base =3D 0x1a0,
-> +		.config =3D &tegra210b01_tsensor_config,
-> +		.calib_fuse_offset =3D 0x160,
-> +		.fuse_corr_alpha =3D 1039700,
-> +		.fuse_corr_beta =3D 6829100,
-> +		.group =3D &tegra210b01_tsensor_group_pll,
-> +	},
-> +};
-> +
->  /*
->   * Mask/shift bits in FUSE_TSENSOR_COMMON and
->   * FUSE_TSENSOR_COMMON, which are described in
-> @@ -230,3 +351,15 @@ const struct tegra_soctherm_soc tegra210_soctherm =
-=3D {
->  	.use_ccroc =3D false,
->  	.thermtrips =3D tegra210_tsensor_thermtrips,
->  };
-> +
-> +const struct tegra_soctherm_soc tegra210b01_soctherm =3D {
-> +	.tsensors =3D tegra210b01_tsensors,
-> +	.num_tsensors =3D ARRAY_SIZE(tegra210b01_tsensors),
-> +	.ttgs =3D tegra210b01_tsensor_groups,
-> +	.num_ttgs =3D ARRAY_SIZE(tegra210b01_tsensor_groups),
-
-One issue in soctherm.c appears with this since the ttg ID space isn't=20
-compact anymore.
-
-The array thermctl_tzs[ID] is only allocated to size soc->num_ttgs,=20
-which isn't enough when there are gaps. The array should really be of=20
-length TEGRA124_SOCTHERM_SENSOR_NUM. Can you add a patch to change that?
-
-Thanks
-Mikko
-
-> +	.tfuse =3D &tegra210_soctherm_fuse,
-> +	.thresh_grain =3D TEGRA210_THRESH_GRAIN,
-> +	.bptt =3D TEGRA210_BPTT,
-> +	.use_ccroc =3D false,
-> +	.thermtrips =3D tegra210_tsensor_thermtrips,
-> +};
+> check_explicit_phandles() could use the new get_node_phandle_exising() wi=
+th
+> the caching feature. The only problematic part will be
+> --- 8< ---
+> 	if (linux_phandle && phandle && (phandle !=3D linux_phandle))
+> 		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
+> 		     " properties");
+> --- 8< ---
+>
+> Indeed, this check is done in get_node_phandle_existing() and the function
+> returns 0 (invalid phandle) when both properties are set with a different
+> value. A value other than 0 should be returned by get_node_phandle_existi=
+ng()
+> to identify that mismatching properties values.
 >=20
-> ---
-> base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
-> change-id: 20260714-t210b01-thermal-227e6cfd2574
+> This should not be a big deal if we introduced a new invalid phandle valu=
+e:
+>   - 0:
+>     Invalid value. Can be returned by get_node_phandle_existing().
+>=20
+>   - ~0:
+>     Unresolved value (phandle value in properties) or value cached in=20
+>     phandle->node_ for "mismatch 'phandle' and 'linux,phandle' properties
+>     values". Can be returned by get_node_phandle_existing().
+>=20
+>   - (~0)-1:
+>     Invalid value in properties and or value cached in phandle->node_ for=
+ Invalid value.
+>     Will not be returned by get_node_phandle_existing().
+>     When this cached value is found, 0 will be returned.
+>
+> In phandle_is_valid(), those 3 values will be checked to determine if the=
+ phandle
+> value is valid or not.
+
+Alas, we can't do that.  Which phandle values are valid is long
+established from the IEEE1275 days, and we can't really change it.  I
+don't _know_ if there are existing trees out there using 0xfffffffe as
+a valid phandle, but there could be.
+
+*thinks*
+
+In some ways it would be elegant for get_node_phandle_existing() to
+report the various different error conditions separately, but I think
+the awkwardness of passing that information back to the checks is
+going to outweigh it.
+
+So, I think we're actually better off separating lookup of phandles
+=66rom validation.  So get_node_phandle_existing() (or whatever we call
+it) will return 0 if there's no valid phandle, whether that's simply
+because it's missing, or there's something malformed.  Separately
+check_explicit_phandles() will report specific types of malformed
+phandle properties.
+
+It does result in a little redudant logic, but I think it's the best
+overall approach for now.
+
+> Now last point, renaming get_node_phandle_existing().
+>=20
+> get_node_phandle() already exist. It get a phandle but also if the node d=
+oesn't
+> have a phandle, it allocate a new phandle value and set node "phandle" or
+> "linux, phandle" property to this allocated value.
+
+Ah, sorry, I misunderstood what the "existing" was referring to.
+
+> IHMO, get_node_phandle() should be renamed to set_node_phandle() and
+> get_node_phandle_existing() should be renamed to get_node_phandle().
+
+Right, the existing name is bad.  But let's go with
+get_or_assign_phandle() for the existing one and get_phandle() for the
+new one.  (The "node" added no useful information and this way they're
+two new names to reduce confusion).
+
+> Does all of these make sense?
+>=20
+> I so, I will try to implement that and maybe I will see other issue I mig=
+ht
+> have missed.
+>=20
+> Worth noting that if you're ok to rename get_node_phandle() to
+> set_node_phandle(), I will do it in a dedicated patch. Indeed, this will
+> ensure that get_node_phandle() has been renamed everywhere (compilation
+> without failure) and so I can safely rename get_node_phandle_existing() to
+> get_node_phandle() in a next patch.
+>=20
+> >=20
+> > > In get_node_by_phandle(), no change compared to my proposition and so=
+ the
+> > > full function is:
+> > > --- 8< ---
+> > > struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+> > > {
+> > >         struct node *child, *node;
+> > >         cell_t tree_phandle;
+> > >=20
+> > >         if (!phandle_is_valid(phandle)) {
+> > >                 assert(generate_fixups);
+> > >                 return NULL;
+> > >         }
+> > >=20
+> > >         tree_phandle =3D get_node_phandle_existing(tree);
+> > >         if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D pha=
+ndle) {
+> > >                 if (tree->deleted)
+> > >                         return NULL;
+> > >                 return tree;
+> > >         }
+> > >=20
+> > >         for_each_child(tree, child) {
+> > >                 node =3D get_node_by_phandle(child, phandle);
+> > >                 if (node)
+> > >                         return node;
+> > >         }
+> > >=20
+> > >         return NULL;
+> > > }
+> > > --- 8< ---
+> > >=20
+> > > Caching should work correctly without any other modification.
+> > >=20
+> > > I let you double-check on your side. Let me know about your opinion. =
+=20
+> >=20
+> > Yes, I think that should work.
+> >=20
 >=20
 > Best regards,
-> --=20
-> Aaron Kling <webgeek1234@gmail.com>
->=20
->=20
+> Herv=E9
 >=20
 
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
+--lpYmQE31+ktOK+HY
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrhYL8ACgkQzQJF27ox
+2Gc8xxAAm0qhmdEl/r4H+AvrqxTUYfa97hm7LpvCEusXFEcbb+KfKSxLCSb86ach
+wZIZXqPZ7aaOCqbbuJBs0LP7X3gjebYg73/p9c1OjCpNb+266VW5C+514bc1Hygz
+kW8o4X4dsrEnoIa35DJCu5c1JZ4tBrpRx8nyuL+D5+FtlMEiBgG5i1YZRwdcz4Lv
+bhfZdLg+FNNIoZ8ABdxjJ7TStPR6FMKtflPQPksZtg+btJxuXS4OccpdKlELtACl
+fECpqjQtlZu9IeW/bFAcreCTyMGNuqB/jhfMiDiIbDQSYOjrNRHUtz540aemulJ/
+j3pmz3DIKvNjiZ6MN2O1akxA5r0jKtaUGT7Xb1JEUTe/ekXbkH1FP4/4TdZnpMsw
+Rzniw0t0F8j5CS4MOC8g3u1NnHYzVUBG/qfm+BhJqXji42blouWaYuY/dCv28dR7
+Pn+HTc25lqa3ks2chBdgwG92NK8X1n4j1RXjwJ+leV68suF0tz7x27DcB6Z0YoFS
+6lkxOfaTTpP4z306AUo33l8buqNdmH7DY9jywMRNFJbITmPD7XFZxBsyI8hi1Ett
+EFPyKXOfw+p77UMFUUvHCK+WfCE8iz1wNnnb23VvTQYWczP5uQwCOfyYDt57Xuk5
+Ft29GU/GgbyDPNzGJDslgNKa6vFvMJKqIIC9plARkXiCpIDZtTI=
+=L/7v
+-----END PGP SIGNATURE-----
+
+--lpYmQE31+ktOK+HY--
