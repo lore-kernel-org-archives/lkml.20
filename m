@@ -1,128 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211052;
-	b=egbRo6AwrTJPWHJsJ45SX82llsyaLrbyT/2s5dJZxtTs5M4nUEFoe6p451dry30UZjrt
-	 ELTgsocXf9wFLBp48eohCOLkECuitiHlhCsa3BfG55LYic9zBNVtGq2Xg8iEpdnn3WXUD
-	 UnMAG1AMOr/bpBvtMMdBovnvZz/+bjwJquWHqydolHDKl4nWcSjUqt1ldJsI4BI8Mh1E4
-	 B6jImeaY+jMucJi2M2GXRDrl75YN13TMfEIOK/R/6jzyhh5hK5p94PxqyIgUcaJi5e6T8
-	 siwsW2CxPcysMzEOeC5RHhp+MXK53yJ+mktUzkEj0skpW+DRq/uTP4FdzFjPdeZltmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211052;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-	b=B7WPfVt8IjaMQctZZdy1iMuu+0FwErDSQdiLxZAFQr6V493tFnbRZ5qsCwetWna2mVN6
-	 gQnrVdUfjjhSeuxaFICf2+N8ZmunEs3NNaJmMamWqCBJBvq819cNaG2Ftq9dpuZm2huc4
-	 JUfcAsVCYsIO1ujzlO/Y2I0RsvFHbotcb04G77Q6CHlPLlhjZlnSpSYxCDFxv07UYQ7ad
-	 PD1/i0Cng3DmjvmrJL0YaJDlgzpgey7CGxAVgH3LWFpzqUQvUbCiknJd0aeyrQcaNClS1
-	 f5c/zJKJMbh2VfA78NlXN0ezCDNKE+I7uJc1od2bg4YP1a1CphU4xai0exDm5BI4QKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ArxIu4Pw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NyILZ4yb;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793211123;
+	b=Wbe5Y3T0rCc/+cvOrh1Fs7HsYI/mnDFwh9dttnkfSjn8j0CIkkfLbWOOiBNzFPW1eOLu
+	 ThIKhnp6yn43BO2oS0lQMgrul66snO5J0KsFsKbSCPujUNMX4MnSmuGO6pIOOLvPoD8aG
+	 mqYSu7tBXSxYQ7fxcMZxCLxQ23ps4OYfL/s70daMmIFTSMo2sf8KbtgFjodeyISjnC3AF
+	 0xz3NcOghdeImC47bsCaDP4ARobPb2nR8BCyHKrvIWwUWWsyKi6tU084LvF9cA7vgxoiw
+	 txS4MNohCBDXtoFUc45s5RWgxaEk/6yeUIagJl5rRe8DTKzcPqCdZr1XCDyPOVD+oTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211123;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	b=O53iAyP9Q6QmwgHynlbiOyGlZTCP/S3n80u2lN3UhIXngLmA/c8rFcf2uxKkNQZGXMuj
+	 YA5Ap7z+cct39xWHileny2dqkumM/A4cIjzpw8mQR6hwmpdBhSsyfwjnwNSsvUn5Pa+SJ
+	 90sqhXquCfvQ4QgaoBUHA7Dlcs5NWLYf5ZxkxhGMJn1I6qoARWt5fY/QzxINOhajZtiE9
+	 bhbec4CU+f9Tx/khWVUHqJKZWrZISZa98CkzL1nnJemLlRfrgfm8x77q4+TWwAfv9SckY
+	 VFepPTsuPpiBoAh0PZ7YEVxlTvZqNQUP6liItR2C5+NMJFkMFybsh/m/C3VSq2GY8XA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=nMYwWowe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.172
+Received: from mail-200172.simplelogin.co (mail-200172.simplelogin.co [176.119.200.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D524060A6F4F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D524060A6F4F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1589460A6F59
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1589460A6F59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ArxIu4Pw;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NyILZ4yb
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SHaSYA1474528
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:10:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=6u3zqcJQ01s
-	SMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=; b=ArxIu4PwtAhxXYrlBnwxbsMSKn9
-	Sa9Yu3eWK/NuQ/ZMmyh2bEcFsDg5zgE14xK3YIx/VdViTFPR3PupnD7+J0OoH33e
-	piHVmnpn/wgAh27ZLAZOHD2qz3bymru9azMuhO7PU4r9+DZUoxeiMsSlk694qaUC
-	QSDaY7qi4Gi7w5Xr24b0cZNDdJOSINYnZTEaLUgSv0aSS229Q7K2rCwC4TzP+btd
-	46fuPGkeqY2H+Sw+r/pD55YlUR7rReFFEdb0XldyUsZkAJUGxWzpY0jDP3yphaP7
-	TkI3fsZxELPFB05xHviqgvdAVD2dK6kwOYnb/Bd0TJtI8ay8Jv1RJVshkkg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkp84ea-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:10:45 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c71966998so17963576d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:10:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793211045; x=1793815845; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-        b=NyILZ4ybfIWMNXTIxPdmD98k45qlob8L3xmgmoH/y8/bsrzCr4DKiuBKHr0yjtlRYy
-         N5UzUTuJeyDhEaP64mTsOyDy3pozCrcFvU15WqH48tOK+3rc8zatPzOqHULHCqVP25JO
-         h6PKnNMEnBHUsAlJutFu1k+7chgkPb53HOwNsQl18v6Gdp5DDD73Aswgg5nE4+dCZs65
-         0gXopaUm27EGIiwNNFerGiJPn9ZT+C0HXBETmPxewupaNCUut8q4ohOeG7awLpyi8TjZ
-         4UQf/v3j0bSeX+tTIMilHex2Zyud4cZLYUAi8TYq/13G4rT8d2lRPGE5WlxaPAYzysXA
-         5eIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793211045; x=1793815845;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-        b=nn0UTZ+rlJ7SxB060WD2rIzts9+n1+pBhyM+BsWDBkBwNqmviHJxhY525KQXCKEOA/
-         NivKCghqPvUJFEiuyrGTi3wvMeACNKNpYQL7gIV7R130XDjTg9n4evGwxKwPuOoWf8P2
-         6C+cD7uH9MukFNFaHddT8W++1Soe5dChPeLhrN00M/ec7Z/KbDVgC2m6QVMWNFatkWI/
-         miyLZS+kH37BbBPRGTunFJV57CihVhddWgz0ZR8kDvKpJOYUVHDh9cI9mCP6+VOWvMCS
-         sq9Oe2jkRyDADM39Ripu9Oy1Kv52IPQ4oTPJhonR3qggkhuRGbiBmO0GaoPcSshc5szB
-         x8Qg==
-X-Forwarded-Encrypted: i=1; AKwUvByKf1mB/BWaxGZQfbcZEWQlYFxvqqx73cRvFdfHHtF6fsr9KY4ws9NSQPnsdDBW6wnmkak/5f71W2n556o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFBOwDzHr8UsaeQpiibj5ldHcxplZ641Ce9XkYuAZsF4w+/c7i
-	Sx9NkopO1AyBYbfgImoxVjxWOIQpwZICwjJ2jCw/QKlkbSl87Cy1RqXFRO1v9diBf9leBJDKmEW
-	r1MVqzSYSJSmTi7W/pg74j3j5xHX/Z55RrnJkRjvh18PmRhtcjiJVp3g3DgQ+v/0QpDM=
-X-Gm-Gg: AYBFou0/I6WcyLOO84rCwjC2c9OT/zFRuHU4EB8lFuy2dJxqz8s7KO96XYrT2QalFY5
-	GhW9aRBqo+e+3xhcu9q1z5LMwmDnzoE9FdaiCGHtUMOeQLHXV6/fcormUbn1R9Lwi4LHa+NHRqM
-	fF73C8t9/WgVx5cbAugFrn4qnXOriX8gdr7WoNYVUz3ouVwGJmpq142d/KCDwEDbIc9cSo6Lqd7
-	kU6abn2R2IRmdetGigaPzt1G879H4vRW8TpniQYkXMozmRsWM+Bnv/jX+NJvMMotXhTjxTTZt7H
-	4+GhYJBbN0izRa0ZYEjbEjiaYraW00AHCRu6JX1IyRbOQlL/u+QYtTw4p0ZsEwVx1tnx+LDcQRp
-	5jefLqMiVH2+yfqtVtLzL4AETo/2ACJmqzcVTgQ5T+VDQWwNFuZdj6Ibxy4TmBi/14xxS4ifhIg
-	==
-X-Received: by 2002:a05:620a:6493:b0:93f:2ff0:87ef with SMTP id af79cd13be357-94408a728bamr431339485a.15.1793211044835;
-        Wed, 28 Oct 2026 11:10:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:6493:b0:93f:2ff0:87ef with SMTP id af79cd13be357-94408a728bamr431333885a.15.1793211044276;
-        Wed, 28 Oct 2026 11:10:44 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa82516a45sm9801595e9.15.2026.10.28.11.10.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:10:42 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: atanas.filipov@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: clock: qcom,camcc-sm8250: add interconnect provider
-Date: Wed, 28 Oct 2026 20:10:40 +0200
-Message-Id: <20261028181040.3515955-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <7ca815b3-4712-42e4-996d-4a1e53cad492@oss.qualcomm.com>
-References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com> <20261016170701.1504338-2-atanas.filipov@oss.qualcomm.com> <20261020-bloodhound-of-remarkable-debate-11afe3@quoll> <7ca815b3-4712-42e4-996d-4a1e53cad492@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=nMYwWowe
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793211121;
+	cv=none; b=BzG0lB8P4zva5dAFDcBP+oC74Bj5FI4S0vz8Exbm9fognNCIp0i44ovzsAMrbyegfCjprDKnWYcG2OgEYb+ipD8ITje4d+lktTWXMZJGozgnXfIV6HBtBg2/DA35FDyz5c8ZQDpgirojpgtGlvWtZzG15JD6fYO6cpYILhsL+96CpfaJUpSyQhM10ZNx+Fg4paMchKrTh2c5GVuH14Y4xpWZHI5p/vww7xuG0l9Pw8DSPeMkFpZLwCOnucTM3S+EPlFsbuO0vxVMWCUc3lXgJCH7zWe46539gN0ym8BWgqBgxm9isE6i/OqWbOaWaC0VgQImbSqIzFHnqsbwY2AnDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793211121; c=relaxed/simple;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=2EiSOJHJF7wPWN19/b2/NO73fwlhIlaarJDH7BZKyCThGF92u+rV6qjDWW69mgiU8FMMUy7xR4QpMDBe0rI66getPwTvVHhe5MBO0qGrSUgWlQCrX5ci9u18mDBPM3p5ejBqMDsbT9uIwNvChoCtIdeIK/Tw1B+sEHQqY+Zgd1Pf6LV2af9A7UQW/aFub2HfoNpdwmc/McDm7YoRnErHm6vzVZucvRCl9ArqPkBpa7LQTuvycQgNtrTonghocu0FJJAvyCAXi5fzamvvDB80+8f2XNxUp1KD2YCMBIB+1agnTcBdE0FQs5VCkkbhopUNNRLiIvAR18/VYicvsJ/RaA==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793211121;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	b=nMYwWoweV5C8iF5Ujdap//+3tlKAtTL3Ld/Aor3RClh5/JuBn9vLAlyJvlRwRakfL8F7lu
+	Gjal9LiExFhPSVT3KwMngG5iyA1JXh9tt+5OuQq10b+0wzV9sVMcJuzWdpw7f62Jsw6sgl
+	goPdLFeotMzo+1OkshnM8VriX+aYAxw=
+Date: Wed, 28 Oct 2026 18:11:53 +0000
+Subject: Re: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
+ PM restore
+In-Reply-To: <179122121054.434549.15763347362425052652@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,76 +64,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae23aa5 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=SLSU3p2cmSaEdqdVgzYA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: T_1ODNPReedEBF6KMN1wUf5fi3c-8xK_
-X-Proofpoint-GUID: T_1ODNPReedEBF6KMN1wUf5fi3c-8xK_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA3MiBTYWx0ZWRfX27NmMZJ7qb0N
- 0NC/DUjYwh6jbMu7juTMT5S8f1K1wpbtnQMDFhFUIwtOAlfPHofbjOyOikSZA8PWUleMFn9n012
- rGiWRqQjDQGHbZmXZyTTOuRophLnIac=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA3MiBTYWx0ZWRfX9b/jWuOgk66t
- 8tquRrWUlH5HbZS0/Y/dmwcoP/4qbYsY7mLjKXpTXwAKYMNXpvk8XL7vJb3XrQfDDZISHFmi6Xy
- 9CwnuaiaL+cmdOFIiLd1FSa2bKTo2nnq1P7BiFRj819/VCwfP+GcqFUgRlQ0j5EbXtA7E4KJqqr
- xTLTICa/5lizuvChN4zQuDWO4r2ysVDKh4mIambC66Yrvo9ZAgC9WIzoF0i7VKtfLRE21h/RXvw
- +zmhakhO79BWufAMBiUhdrNv1zcwN6EcUGHgT1nNh2K5fj1lczqmk+XOPxl+Cnm5oL4f3qRJpuc
- Cb+lilrtizsA1GjrBTVgRMH79OXTZfxwHCN8CuNxdLtqXEtACw8+ZyO3RTosAPAVOiPHRMAp/Fc
- lMWO5l/sYdTuPuhS8VQl367qtCic60h/Nxasv4gA2+k+0SZxTdAVJZM5eHqhvm7Jq8/HS3O/MlV
- LUGnK0eBccLO2k3DGyQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280072
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: netdev-bot+sashiko@kernel.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,Jason Wang
+ <jasowangio@gmail.com>,=?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>,Xuan Zhuo <xuanzhuo@linux.alibaba.com>,Stefan Hajnoczi
+ <stefanha@redhat.com>,Stefano Garzarella <sgarzare@redhat.com>,"David S.
+ Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub
+ Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,kvm@vger.kernel.org,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179321112009.7.11441275993569600318.1728181970@eldare.de>
+References: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+ <179122121054.434549.15763347362425052652@kernel.org>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1728182017
+X-SimpleLogin-Want-Signing: yes
 
-On 10/20/2026 3:44 PM, Atanas Filipov wrote:
-> On Tue, Oct 20, 2026 at 09:12:03AM +0200, Krzysztof Kozlowski wrote:
->> If you only need to solve "last writer" problem, why not fixing the
->> clock framework to accept the votes? Otherwise this should have
->> description why it is an interconnect.
+On Mon, 05 Oct 2026 17:26:50 +0000, netdev-bot+sashiko@kernel.org wrote:
+> The detach loops now handle NULL vqs, but del_vqs() still runs
+> unconditionally. Is a second del_vqs() safe on every transport?
+[...]
+> Won't __free_irq() hit WARN(1, "Trying to free already-free IRQ %d") here=
+?
 
-A follow-up on the second part, since the problem turned out to be
-more than the last writer.
+Yes. I reproduced it with a virtio-mmio vsock device (QEMU microvm): after
+the failed restore, both an unbind and a second freeze warn "Trying to free
+already-free IRQ" from vm_del_vqs(). v2 treats an empty vqs[] as "no
+virtqueues are live" and then skips the detach loops and del_vqs(), while
+still resetting the device.
 
-The last-writer problem between the CAMSS VFEs is now handled in CAMSS
-itself, in the direction you and Bryan suggested: each VFE sets a
-clk_set_rate_range() floor, and on power off drops it and sets the
-lowest rate explicitly, so the clock no longer stays high:
+> Are the virtio_rtc and virtio_console references accurate?
 
-https://lore.kernel.org/all/20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com/
+They are not, thanks. v2 cites only the virtio_blk commit and keeps the
+commit ID out of the code comment.
 
-What clock votes cannot express is why I think the camera NoC is an
-interconnect:
+I'll send v2 as a new thread.
 
- - The camera NoC is a bus with several independent masters: the VFE
-   write ports, JPEG and OPE. They share it on the way to the MMSS NoC,
-   and the camnoc AXI clock sets its throughput.
- - The consumers know their bandwidth, not the NoC rate that serves it.
-   Converting one to the other depends on the NoC width, which is a
-   property of the bus, not of each consumer.
- - Masters running at the same time load the NoC by the sum of their
-   traffic. Clock rate requests can only be aggregated by maximum; a
-   sum of rates has no meaning, a sum of bandwidth does.
- - The rest of the camera DMA path, from the MMSS NoC to DDR, is
-   already described with interconnects, and CAMSS votes bandwidth on
-   it. The camera NoC is its first hop.
+pw-bot: cr
 
-The interconnect core already sums the average bandwidth of all
-requests. icc-clk currently derives the rate from the aggregated peak
-only, so it does not use that sum yet; that is a limitation of the
-icc-clk translation, not of describing the camera NoC as an
-interconnect. It can be addressed in icc-clk by taking the average
-into account together with the bus width.
-
-Is this a valid reason to describe the camera NoC as an interconnect?
-
---
-Best regards,
-Atanas
