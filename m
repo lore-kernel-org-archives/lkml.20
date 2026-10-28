@@ -1,113 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793231471;
-	b=l81QmyYEqGubB9qEU1E5dBBgESU+bpSh+1J7phiB2X9tR9x/7BXOaiCZMvZe7pb4XlmI
-	 BUKOS80xnu0d1yWGd3XYclmlgwaP6HV90Y4nE2nFFtdt6vYPDb8N7QJMmLfU7iR5nsPWv
-	 DR0ct/0hJiJtUPcQN7z/q/BCBGA/C+iRMLoeSwIUsylucIKdI0TL/czfFdvHZi1ZgnOvO
-	 kso61EmfK2uXizm5XxbigD+TjSjJ6lTbEEqF4TnL+mRYcqZBWcLnOmj1MzrKnGeFgNj3w
-	 AAZPmcGWRlhTjtGHqUWCPSo+Ux8ZyKAU1fQwQ6/dvwbnLKEbeYE7nJLoackutPyxfFQ==
+	t=1793231473;
+	b=UqJ3lrd7TpS4Oy0iJes/VmxGSTHF6dPKlCBONeilGGhDKhpzdwJxpNF8wqNSLIeK7Cp4
+	 WhiJjVgrj4jKATEBCFZ3x3hy0EVk7/8Xtk1tXJiUIkQt38iG7hmfe+BrnjgBGCy1JbnzK
+	 M/lv0LaIzNpr362OgDVVfxb4h12h3AMVMBUknTEER/4HKTGy27zAm9h+bmS3jJX6p4lQC
+	 T77MzNdZxfc7r59h+zxvGetJa7ZuyUxJxWfREB9/L/iXu91tNZ2jllujpEfb7WBItaqAN
+	 P0hMnkZbyKIStxeuuA8Cc9Cgr/EWOndZoW/EY6l60rOGowRaFire7Jkt91P32L3hz2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793231471;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=lgFFymOVFSBRHf7/adfIU8nmoW/OAqhrDRgNC52A1Jw=;
-	b=bcom7A+QaDzxJy2wX64BjANAhmRxVyQpSfLcb/fQDVU6gkGm+QnDygz1tm0HUmtrDMmS
-	 FOnmcSWqlboWriFK+prVeWyvl2PLNH9ZdLcY94qDIHbBKhc0Fsffg6KUVSIrqK9x7nmoq
-	 CQBOc72BCQJlRaBT0/SOli279//KMbmtEWN4Cd4O6n0k61W1jmZgfJsibti4IXNAYimom
-	 GvW5UKdEERhf80eBpXmQLge866NPd8X4wxhcOnRhlZrdmNZ0+C2ekFBLBPbeEC2UZNEcK
-	 u5Tou+ddEQSCrPKf9GKnQFb7JGXBHfI/gRQf3ABPIAL7uBw3C4Ff4x6xHq3vmMs4edA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793231473;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=eaHKPT6qRV2wuk9CfENkHM93/w++4ngsV3pQzk7/mYk=;
+	b=rKEUEiTyGnYYS1YIO1fjcMZ56qfgM9ydI4FRIIjrEj5irtOk480S4RNSFNnHRIYsqgf/
+	 /HgOYsWK6l6ZM1ibG3VSAxQ7BcwCUXdiTbuBxnG7j+ZEJ7s/V9RvW5iavP3f+1iGI0GZr
+	 GCry/cZo9yvTZovmFG61wtYVaskvg8aBWoAk0brQrAhQxKq/QdV7hlC+Ahl1UPM6oHsy5
+	 ByAjwTss/Vcg5e6IKcj7bHbdWHyj/RxVt8vEyEdQMzQyn6F0Od02sqkO+w8FrWW+WcIEY
+	 HrAa0XycESH/L1CRYSsmoPiPNYDVv1t/hzwEIdo3/2Jbl0Rn7ILG0ico7R6Ot8Do3iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="cDC2P/qJ";
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYgxT6Jv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D8D606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5D8D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D59C606A336;
+	Wed, 28 Oct 2026 23:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=cDC2P/qJ
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so1219961a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:51:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793231470; x=1793836270;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lgFFymOVFSBRHf7/adfIU8nmoW/OAqhrDRgNC52A1Jw=;
-        b=yQ8L2z9rYXgQDxjtjdhHb8pzd5i+b2AFZx4A6R3EjNsOEqlGX7WWQqM6vl12PJGss1
-         G8VE91EkBtkbNlV9cgf+kyqQSqj8VBM3daLE25gX6qwoHbYOgyclXj5lJoRHcOtl6akA
-         LlZF1iJeTpDc6+4WEOiOBac9dhFByrAQ4MaeTk8622MgN6Y2739pN/yI2bJYxuhp2KJs
-         tKVlVK5gBnTC+IA1plZaLjASSpmNZ0Q4UumDtCmGNxAbzEw0uRjhc3C+puPXCeUUSP9l
-         ojZu4kQCvVpI3Bxp3YsrirmSiq/QHDLtW3C5qOuvsKxzYKtXxBBzff9T+cUC+V0njMJm
-         NQGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMOHKMt0qGqM8nFqoISOTUzWs/4SLKHCpqOw28hHQn+LNAY30Fz1RMm2oVxin91V+T9wZvLd2iLhxohog=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXUnU65M0s33p5pL0XKR6mXMXeXYarzaXbyy3z4LDMY56IrlTT
-	vwHLGrcxY6ePqwVEAJXgtHDpzre39ySVY3U7gd8RPbLTKIeSmftfaz8Z4yh92IhDwdAy9KLzjHu
-	SLYvJYGPK8ejGDgFDkoUJCD8+cRyE+Wn+49Fd/f8DFXoqwQYt3yZ/tcQqK2dCo7/udTQSped/wF
-	Zj2XRBsUtSpIeRMvW8/HdnSA1zka/l3geOn9z41s99fyifsuiy1irEayqP9cn1tW/+fIQt9x5lW
-	TFd8mmAkWeI2JwZ2EB0rfKN
-X-Gm-Gg: AYBFou19fmuwmUifN5/vyDrGVe6lQQlr2dTPQ7jBbmFDmHOZHan7TIUi+8R4UyChcMq
-	yLjnlUNsq5RQAop/CnARojYPGZVV6DH8l+Hnch/rKvlJ5yFcICK6s9ksCK5zmNrWe8X/qRecbeC
-	fskl9DFzXQo78wvYw7AJZNpoa5Wy519s72rVdPJcRJHv2uhFmtY/woRl5MnNsHD2vDCpLdUsQLM
-	MJ4jTUUS2gPaM+eULmDXEF2f/jufrpE5pB/NS2ZoVIdEwVauPKxtTRw+Ezg1H58GpYlFM878KX3
-	y2/4ozxuCIebF2sB23T+azKMUjoNdvWq2MtU3Qe/iRehk/GPw3wDtK4fobMTvMSf2eVONOSfVtv
-	yjK42aoO1Xqfl8RRhL7FdM6MN8lMYC3uohK4cL7MCILboRdjpQCzJFiAOhw/2YdpRVh27zBc/SI
-	4Nutl2RbZAkemAqoKxB+4Qk3F5bg6PdGCjt64OXQAY
-X-Received: by 2002:a17:90b:5404:b0:3ad:870d:1bfa with SMTP id 98e67ed59e1d1-3ae5819bbe8mr2788604a91.23.1793231470035;
-        Wed, 28 Oct 2026 16:51:10 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae57a0bb3esm1146720a91.3.2026.10.28.16.51.09
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 28 Oct 2026 16:51:10 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9308eafb465so308908885a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:51:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793231468; x=1793836268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lgFFymOVFSBRHf7/adfIU8nmoW/OAqhrDRgNC52A1Jw=;
-        b=cDC2P/qJzFUmJCNr4DCFyqHlpVSSWiHOdXPDUtxf0eWtfNiuvGFV6uE69bwN62DQHU
-         vDb7Jk11KLcCCJdDynGbfig0cCl6nZDCT0UxW7pJASVuJV3t4cIRU5FJa0PF8hfn3MRb
-         /h1HvaP7uh6B46pNHGzU8o8Q50KntatRRYu4E=
-X-Forwarded-Encrypted: i=1; AKwUvByGkC8SPCo10FHX16FL1hqXW7NwLlXeGad+V+6T2CGpY81CERPDeEJW2/dphOXyvAyfH3wQyxWMf2uaK6I=@vger.kernel.org
-X-Received: by 2002:a05:620a:4008:b0:939:de48:e41f with SMTP id af79cd13be357-94408c97559mr630502885a.31.1793231468611;
-        Wed, 28 Oct 2026 16:51:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:4008:b0:939:de48:e41f with SMTP id af79cd13be357-94408c97559mr630500385a.31.1793231468280;
-        Wed, 28 Oct 2026 16:51:08 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c84ca44e3sm23074216d6.10.2026.10.28.16.51.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 16:51:07 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v3 0/2] net: dsa: b53: Fix IGMP/MLD snooping
-Date: Wed, 28 Oct 2026 16:50:58 -0700
-Message-ID: <20261028235100.3892374-1-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYgxT6Jv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFEB71F031E2;
+	Wed, 28 Oct 2026 23:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793231472;
+	bh=eaHKPT6qRV2wuk9CfENkHM93/w++4ngsV3pQzk7/mYk=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=EYgxT6JvP8qlq+ftc68dYvEBITgR6J1V4/hTa+zJYIAImgZIPkxOyma3MUtkf52gy
+	 XGRdjSPshb14Nx0o3equXNzXK3ns2WQfQpffzyYOeWs3EXGr04GbU1qh46+J4Ds+zI
+	 C+s3d5xY7JCRDCclrg760xHkgNzTVseFCQ79w5qeLAFP40YSDZzktTW/2CIkXUhJZu
+	 Inv0XXxE6jzLdVZIJkZTeZtc6bbVs/ko7bR7EKrQn/SBzv8DtpZesZ3vLc/kK5y/ep
+	 mecVcebq39VCTkbJsIKc15K0ftFusaeHNIge2DBlesH6kZC/gtCqH7IpvU2xohMeBf
+	 2ZfurTdp7oCfg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 79C97CE0AD8; Wed, 28 Oct 2026 16:51:12 -0700 (PDT)
+Date: Wed, 28 Oct 2026 16:51:12 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Gary Guo <gary@garyguo.net>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
+	lkmm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard
+ pointers before stopping
+Message-ID: <9da03ed6-fea2-44df-8aee-f7a61a1d35ce@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261027163811.2470569-1-parri.andrea@gmail.com>
+ <20261027163811.2470569-2-parri.andrea@gmail.com>
+ <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,33 +73,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop>
 
-This patch series fixes IGMP and MLD snooping for b53, these were found
-by running multicast membership/learning tests.
+On Wed, Oct 28, 2026 at 10:26:18AM -0700, Paul E. McKenney wrote:
+> On Tue, Oct 27, 2026 at 05:38:03PM +0100, Andrea Parri wrote:
+> > hazptrtorture can hang at shutdown when deferral is enabled, as in the
+> > PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
+> > never returns, until kvm.sh kills QEMU:
+> > 
+> >     [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
+> >     [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
+> >     [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
+> >     [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
+> > 
+> >     Summary: Potential hang (QEMU killed)
+> >     !!! PID 1393523 hung at 1980 vs. 1800 seconds
+> > 
+> > hazptr_torture_cleanup() stops the do_pending kthread first, then the
+> > writer, then the readers.  Once torture_must_stop(), do_pending makes
+> > one last pass and leaves its loop, but unless stutter_will_wait(), that
+> > pass releases the deferred hazard pointers of a single CPU.
+> > 
+> > Readers can also still defer after that pass, from the iteration they
+> > are in when torture_must_stop() becomes true.  Readers that have left
+> > their loop hold no hazard pointer, so the writer waits on one of the 25
+> > deferred hazard pointers above (reldefer - relundefer) that nothing
+> > releases.
+> > 
+> > Stop the readers before do_pending, and do_pending before the writer.
+> > do_pending still leaves its loop at torture_must_stop(), and now
+> > releases the deferred hazard pointers of all CPUs once
+> > torture_kthread_stopping() returns, that is, once
+> > hazptr_torture_cleanup() stops it, after the readers.  The writer can
+> > still wait in ->sync(), but only until then.
+> > 
+> > This should be safe because readers defer only from their own loop,
+> > which they have left once torture_stop_kthread() returns for them, and
+> > the hazptr_torture_acquire() IPI runs synchronously within that loop.
+> > The readers do not need the writer to stop: they leave their loop at
+> > torture_must_stop(), after at most one stutter_wait().
+> > 
+> > do_pending keeps the torture_must_stop() check before its sleep.  A
+> > kthread_stop() that comes after that check and before the sleep starts
+> > still delays do_pending's exit by a full kthread_do_pending_ms sleep,
+> > however long that is.  With the readers stopped first, this happens
+> > only if do_pending passed the check before the test began stopping and
+> > had not yet gone to sleep when kthread_stop() came, after all the
+> > readers had stopped.
+> > 
+> > With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
+> > with "End of test: SUCCESS" and with as many hazard pointers released
+> > from the pending lists as were deferred (reldefer: 983727 relundefer
+> > 983727).
+> > 
+> > The hang was found with the help of an LLM.
+> > 
+> > Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
+> > Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> 
+> Again, thank you!
+> 
+> Please see the question below.
+> 
+> 							Thanx, Paul
+> 
+> > ---
+> >  kernel/rcu/hazptrtorture.c | 13 +++++++++++--
+> >  1 file changed, 11 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> > index 7c8b5899fb011..c46083a8af093 100644
+> > --- a/kernel/rcu/hazptrtorture.c
+> > +++ b/kernel/rcu/hazptrtorture.c
+> > @@ -560,6 +560,9 @@ static int hazptr_torture_do_pending(void *arg)
+> >  		// Omit stutter_wait() because this function needs to do cleanup.
+> >  	} while (!torture_must_stop());
+> 
+> The torture_must_stop() function expands to this condition:
+> 
+> 	torture_must_stop_irq() || kthread_should_stop()
+> 
+> The torture_must_stop_irq() function expands to this condition:
+> 
+> 	READ_ONCE(fullstop) != FULLSTOP_DONTSTOP
+> 
+> And the fullstop variable is set to FULLSTOP_RMMOD by
+> torture_cleanup_begin() (unless it has already been set to
+> FULLSTOP_SHUTDOWN).
+> 
+> And torture_cleanup_begin() is invoked by hazptr_torture_cleanup()
+> right at the beginning, before reaching any of the calls to
+> torture_stop_kthread().
+> 
+> So doesn't the above torture_must_stop() instead need to be
+> kthread_should_stop()?
+> 
+> As it is, hazptr_torture_do_pending() will still stop before the
+> hazptr_torture_reader() instances do, correct?
+> 
+> Or am I missing something subtle here?
 
-Changes in v3:
+Well, one thing that I am missing is that changing from
+torture_must_stop() to kthread_should_stop() might cause trouble
+if rcutorture execution is terminated by system shutdown.
 
-- move general IGMP/MLD snooping comment to be applicable to all
-  switches, move comments about zero controls where they belong
-- added IGMP snooping programming for older switches, too
+So my next suggestion is that this be added just after
+hazptr_torture_reader() exits its do-while loop:
 
-Changes in v2:
+	for_each_possible_cpu(cpu)
+		hazptr_torture_do_one_pending(cpu, &rand);
 
-- export the helper and call it from bcm_sf2.c as well as spotted by
-  Sashiko
+Thoughts?
 
-Florian Fainelli (2):
-  net: dsa: b53: Enable IGMP and MLD control packet CPU copies
-  net: dsa: b53: Enable legacy IGMP snooping controls
+						Thanx, Paul
 
- drivers/net/dsa/b53/b53_common.c | 74 ++++++++++++++++++++++++++++++++
- drivers/net/dsa/b53/b53_priv.h   |  1 +
- drivers/net/dsa/b53/b53_regs.h   | 19 ++++++++
- drivers/net/dsa/bcm_sf2.c        |  5 +++
- 4 files changed, 99 insertions(+)
-
--- 
-2.53.0
-
+> >  	torture_kthread_stopping("hazptr_torture_do_pending");
+> > +	/* The readers have stopped, so nothing new can be deferred. */
+> > +	for_each_possible_cpu(cpu)
+> > +		hazptr_torture_do_one_pending(cpu, &rand);
+> >  	return 0;
+> >  }
+> >  
+> > @@ -773,9 +776,7 @@ hazptr_torture_cleanup(void)
+> >  		return;
+> >  	}
+> >  
+> > -	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> >  	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
+> > -	torture_stop_kthread(hazptr_torture_writer, writer_task);
+> >  
+> >  	if (reader_tasks) {
+> >  		for (i = 0; i < nrealreaders; i++)
+> > @@ -785,6 +786,14 @@ hazptr_torture_cleanup(void)
+> >  		reader_tasks = NULL;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Stop the writer only after do_pending, and do_pending only after
+> > +	 * the readers: the writer may be waiting on hazard pointers that
+> > +	 * readers deferred, which do_pending releases once they stopped.
+> > +	 */
+> > +	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> > +	torture_stop_kthread(hazptr_torture_writer, writer_task);
+> > +
+> >  	torture_stop_kthread(hazptr_torture_stats, stats_task);
+> >  
+> >  	/* Do torture-type-specific cleanup operations.  */
+> > -- 
+> > 2.53.0
+> > 
