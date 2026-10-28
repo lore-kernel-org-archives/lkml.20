@@ -1,69 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163851;
-	b=BOlESuGmRgb3dSFQZ5cGrkNyntcrxVbO+LgmiOc9p1xKNo2jUJQhbAHueOulDKiIKQjg
-	 BPgzy6X1zs+ffTyFjsMZCsfnMpmn/RK5y8JxeQy6Mxq2Rktx2a20nL09SqWQwgUeTkB9l
-	 6UqwsVDLWPVYtgZl9/1mnz/aQVJ8wjUpvFstqS8yOUmyg5NeqL8LIlXbB5Vq+6tSWrtMJ
-	 bKZf4IsOfjti0rTHWSZ9LcCpLwbQnR6BtYiOloR/W+XRL4CQ6F1PTDHleAWq0LXmT0/kB
-	 w77bt3hIbgD/uo/o1hfTGAgVUzazFUaZa135taw9sEBgUu4yI1ituSxQ4VTQJHxMBjQ==
+	t=1793163979;
+	b=NLVMqXpWseST4obydyE1tKr0Vuf6USqrdRzXaOHrlq1cir0vuY9BZ7FKcUpgPcCyn+Xr
+	 ZSY00r03BT/s4sgqz0qEVJHbjaihBD2PlAsgx2Q5pp8D/gw4Y8EAcaLbYiFJtiUYQtLmt
+	 J6Bs2oWbiegvJPru49HtN9eKnlKul4eTcnoCrGQ3EIqb/OMSqj+mJ8PzrWWdLwXhGeIHg
+	 eH7ReBb33Wsg4JAptrJCKHyf8l4kgngnhZkn3UrY7Jp22JWSZFYXZ4F1p8VlInZ0etLUS
+	 BJQYbrrj47j1M55ZlpVrqEqo4nI3/ZT9Chxy8DjhpKtDcuPnP3Gfb8/8KBgIn2uqIFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163851;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=dbh6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=;
-	b=HVeV9wQz1XI/kx3bX+nHVKfqUwNK5MoCXUMqNOwC9VeJ6tw2TKVqarMg2H0KhIPiyy7/
-	 XtwUfsjz/81E9cr3JYfhLvfjT3ds9aXnPOciYJVU3tBkSyBWnoNlJIU0BoZ7xVOVk4pJc
-	 gWFbOemmEdWLfqXdqnqrQkLnmYdLc+fylKhBhtkMn29Otz8W7fnENUnYIfeBAZvuAZ4VB
-	 5fEMe+7xwbZQJgS4Rmw/wfEi3oq6c/jjco6KwNAjVdaFzQOcDKkunf0DYguTHpsNA4o9p
-	 QlOM18lpY1H1xoyLU0I09F6mryIGQJ/VQ89tb3q52tmCCa47EXlziDYE3MN365o/o4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163979;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yUD5YLynuGYaqf6Oqfvw56LrdLQlN9UTWI1HrgotyIY=;
+	b=q0JNU69rOu7VEy2VZW/vqjnl/5ZLaBlmwo4DKKo0uBRmoiIUjNS/Xn/BmhTD49yuLHan
+	 Xoz6xcUrKAiKeMP9j4EiOJFml+MlvLdx3FK2MP7pGAcVP/QmEZ0UmDUH6BRL+oD+YZr2m
+	 n+HRmjG0HJytLCqAQg84amdlJqYhG+DvtIJm5ZAsNXg24nulg3L9EQ1ZhmpABEzjKsknS
+	 mZNPQ7m0j82EYZgN0pqP+hyXC/Gp2AJXstbcOT17JGuhmaONv5zNTKQFieyX3wmTZ6u+6
+	 1pudgYv6sPES0E8TyVQxHgxrFMgLlyTGZkR7kioqyt9O0/n/E74c1/wSreE0c8eggKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGf6VaI9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D19B606A337;
-	Wed, 28 Oct 2026 05:04:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D19B606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AEB606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:06:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=db
-	h6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=; b=VVcrQEw9lZffUHl8W9
-	sVWxUz66zEK4SYKm0Ac0ge+8zlHe4qLYQ9iRZhSUUgRtRVKD5qCGFEzE5sGHNrY3
-	7p1pmFE5JB3g1dsLQe0KfBUAWfAWBJ+7Ji7o5xoPoiNodhr2Zh2zO8z0SqlAWaxB
-	Gzg7B7+55Tm1P/88Qb6VRWBjA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S6;
-	Wed, 28 Oct 2026 13:03:44 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
-	Deren Wu <deren.wu@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 4/4] wifi: mt76: mt7925: unwind link restore failures
-Date: Wed, 28 Oct 2026 13:03:37 +0800
-Message-Id: <20261028050337.127464-5-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
-References: <20261028050337.127464-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGf6VaI9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B46C1F01825;
+	Wed, 28 Oct 2026 05:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793163978;
+	bh=yUD5YLynuGYaqf6Oqfvw56LrdLQlN9UTWI1HrgotyIY=;
+	h=From:To:Cc:Subject:Date;
+	b=DGf6VaI9HWZBDnKA7ThUJVLSYVDRALZFi2xNTtp21abzgugYZLGqVxKCrNuyTipT3
+	 u4b/FM4ALSP+LOiU1/7xVBcGJCdTJzJz6RswfHVX1O1y3RoV7DuMMm+NKifAPtfMZJ
+	 V+e0ABCE3p4EqHmumtOAPja7hkEaPjtcIa0Kp/f1nSavBzAmH//ZYyYlfECpMZcvCQ
+	 DGbydqsfJSBqg92OxgoRvg+WmJGX0y1DCYfl4gdjK8JmrTy1hpT7EW4r3Ixrrkul3X
+	 PEYsZV0+Vv05O5UPv8016hBkPhyMo/R6OrQocqPBbLmwflYsOrHA/ltiTL59IjEB+6
+	 2jeMspYGIA6Fg==
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
+	stable@kernel.org
+Subject: [PATCH] f2fs: do f2fs_zero_post_eof_page for all the time
+Date: Wed, 28 Oct 2026 05:06:15 +0000
+Message-ID: <20261028050615.259268-1-jaegeuk@kernel.org>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,84 +58,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S6
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAw43CrWUJw47KFWkWr15Arb_yoW5Gw1rpa
-	1DKa9IkrykJw43Ja18Ga48uFnYvan5G3WUCr13Cw1rZw1kZrn5AF4qkFy3tFyUAFWku3W8
-	WFWqqrn8uwn5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joOJ5UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRC-+WrhgjCqOAAA3w
 
-The reset recovery callback ignores failures while restoring each link in
-firmware and continues configuring the link and remaining interface. A
-failed two-command device addition can leave partial firmware state, while
-links restored earlier in the loop remain active on a partially restored
-interface.
+This fixes xfstests/generic/794, since the issue is not related to the
+posix=strict mode only.
 
-Track every attempted link and remove their firmware state if any restore
-operation fails. Stop configuring that interface after the failure.
-
-Fixes: 14061994184d ("wifi: mt76: mt7925: add link handling in mt7925_vif_connect_iter")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Cc: stable@kernel.org
+Fixes: 5eced87b7d19 ("f2fs: fix to zero post-EOF data when extending file size")
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- .../net/wireless/mediatek/mt76/mt7925/mac.c   | 26 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ fs/f2fs/file.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-index 7af996abe294..7b29e147b19e 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
-@@ -1477,11 +1477,12 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
- 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
- 	unsigned long valid = ieee80211_vif_is_mld(vif) ?
- 			      mvif->valid_links : BIT(0);
-+	unsigned long restored = 0;
- 	struct mt792x_dev *dev = mvif->phy->dev;
- 	struct ieee80211_hw *hw = mt76_hw(dev);
- 	struct ieee80211_bss_conf *bss_conf;
- 	struct mt792x_bss_conf *mconf;
--	int i;
-+	int i, ret;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 8b4a7a9d7dbe..823df06ae0f2 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -74,15 +74,10 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
+ 					loff_t new_size, bool lock, bool writeback)
+ {
+ 	loff_t old_size = i_size_read(inode);
+-	bool strict =
+-		F2FS_OPTION(F2FS_I_SB(inode)).fsync_mode == FSYNC_MODE_STRICT;
  
- 	if (vif->type == NL80211_IFTYPE_STATION)
- 		ieee80211_disconnect(vif, true);
-@@ -1493,8 +1494,13 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 	if (old_size >= new_size)
+ 		return 0;
  
- 		mconf = mt792x_vif_to_link(mvif, i);
+-	if (!strict && mapping_empty(inode->i_mapping))
+-		return 0;
+-
+ 	if (lock)
+ 		filemap_invalidate_lock(inode->i_mapping);
+ 	/* zero or drop pages only in range of [old_size, new_size] */
+@@ -90,14 +85,9 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
+ 	if (lock)
+ 		filemap_invalidate_unlock(inode->i_mapping);
  
--		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
--					    &mvif->sta.deflink.wcid, true);
-+		restored |= BIT(i);
-+		ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf,
-+						  &mconf->mt76,
-+						 &mvif->sta.deflink.wcid, true);
-+		if (ret)
-+			goto rollback;
+-	if (!writeback || !strict)
++	if (!writeback)
+ 		return 0;
+-	/*
+-	 * In fsync_mode=strict, when we expand an unaligned EOF size, we
+-	 * should zero post EOF data and writeback the data immediately,
+-	 * so that it can avoid exposing stale data after metadata flush
+-	 * and POR.
+-	 */
 +
- 		mt7925_mcu_set_tx(dev, bss_conf);
- 	}
- 
-@@ -1506,6 +1512,20 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
- 				      MT76_STA_INFO_STATE_NONE, NULL);
- 		mt7925_mcu_uni_add_beacon_offload(dev, hw, vif, true);
- 	}
-+
-+	return;
-+
-+rollback:
-+	dev_err(dev->mt76.dev, "failed to restore link after reset: %d\n", ret);
-+	for_each_set_bit(i, &restored, IEEE80211_MLD_MAX_NUM_LINKS) {
-+		bss_conf = mt792x_vif_to_bss_conf(vif, i);
-+		if (!bss_conf)
-+			continue;
-+
-+		mconf = mt792x_vif_to_link(mvif, i);
-+		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
-+					    &mvif->sta.deflink.wcid, false);
-+	}
+ 	return do_zero_post_eof_page(inode, new_size);
  }
  
- /* system error recovery */
 -- 
-2.34.1
+2.56.0.307.g5fe7bd680c-goog
 
