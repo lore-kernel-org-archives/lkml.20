@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179068;
-	b=Um+do8IBGVe4vyFg3xpxQQAK4/X/OX8impadIsjNbYxYtGgcrlOUMFnuso3whrfvidyN
-	 hbOsncMLUkMDT61CaMJhgswYreBlS/GM84sm0WCiwBFrVakimMEeix0QgAikEbQpJ6gS5
-	 Ke7c6Dv5JZA2OtDzuwbv1U09o4iHHAOUbaq0xzaXss4wcCgiyTdgsJOlEFMhk6SEJJ2/4
-	 7ROKBWinnpVvvNv+rd0srOuz1zdyDp3ed4aRrcHV3pNExB2IwA/ROCKqFlU+S0PYmnvSS
-	 mWfoAMAbHMaVm9eOEdXNlSTRjsd6dKOU/ZSoY3VNfovQ59BcB3/iOSaefjofshKMbng==
+	t=1793179113;
+	b=embSjPC6VrACyBWN+UnLkYvmlXcCjkjy6a8/Y1z04YySQDvy5rUPFHZhl3O0A+6a/smr
+	 7ZJhDhf9P+tekmKTzoQpsWl7tSlLLcirpRExlUeW9eUO8vJ3VXrvIDrfBgnlH1JpAZPGt
+	 XqVBFoYkiAxn2Dcm9y9SEZ5YinRWk+22BRlkI78QNDijVEpomu4yhRDt1iDp0Ek+yZqKm
+	 9LlRxIxxB/XhfPlRItuvudyDRmqnsRyRTWH/W1fFb60RHup+tLdiQykyYck9nSOMCSi1v
+	 QwsQY0IsG7i+EZuws5OHdk5ajT4P6ObA9afXbxaJjhr4GOFAgTX+WQroazcx3GbMzwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179068;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qJ1TYXbCKeNxi9hHVyccJEj3JOzfrMe3j2ahHPKeTPk=;
-	b=xNH9/9t5GZtkD2CLAq0RL2knt2Ci06uwefJWG4fDCGgzla/5rW5tIWKjF9Tx1Chcy59V
-	 KFP3qq1TfU4lx7u0Bf9i3xi03/1izISu6lN0VO1waq9YenTc/A7sZ4PNYzo5/SLcqmBO9
-	 2c1w4PlNgBjH9Lg0zneNsTyikXT7/IoVBA3aYNc/zTozGRlgX4RiSsXeDvH6SofWZxoiJ
-	 TSJsqEeT+b0Zk0Atq5Enq57MTVo/cvkpSAzm3wTQwIldS/OyPq2EBRZesQHIsb7nJUifT
-	 EsujjJdP5DYY4etwRPrBlVfLm3k83x9nA51zc6CKLs1lNK7DaG8v422ufbQjaMqBsQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179113;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=l7lrYcEGz7yh1S6DURIldpkH4Iej6k+y8xqTeXsmih8=;
+	b=kzY6BWlI3wFPxnCCQwVhD06hYX+c92PlthzbTTLh2z+igCKRgEiMWViBd3CY/06opLyX
+	 5o3wRwZ1bG0i3kL0nTmmwudSlSZ+/KMdEJrw2WHiRyWUtJwzWMhbyfCH5EfFmpapaK7BU
+	 usl41dTPeHrUGPiCV9xP1pFvasU/wjrGzR9gfH1+uzXcgzOxbcpm4CcFCwOY8PkXPzTlj
+	 rFlpvLBGJeSpOP3MkPUUPVR5j0jLdRWYmxG7DE2doonJjRhfoM+GXj24wI0TaqH9rPITF
+	 T34+/1cilMN/+ZfdSweGiImacVDZEpyAQkHtwSt9FYIssWbbHitFjIZiyLMn2UO5wKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO5uMrtc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72DA606A31A;
-	Wed, 28 Oct 2026 09:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO5uMrtc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FF21F01825;
-	Wed, 28 Oct 2026 09:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793179067;
-	bh=qJ1TYXbCKeNxi9hHVyccJEj3JOzfrMe3j2ahHPKeTPk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fO5uMrtcIj11vj8Q7CN5JjGyl81WdLw89ZqifB+ey7GTJIaybnJK6Jtk5f5yPBg2G
-	 PEXN0HY9CepPiXflll1WDK1nFxakKm+83x15zeJGIsiQT6iPKvZBYFbb0st8qqaHbx
-	 tuUv4fupzJLUhk8azNAxFe9X6uFWZtc/lyWkR7S0wl+Kv/tvi73USzhGlmaxzML0Gp
-	 mR4LkTqnUzhBOluy7VYLsiLyOLb5bXAd1nBwGIeFKpNZ47xMG/gUiUig46JsqIrDMb
-	 AQ0kSmOO45bX0HKcS6V7C9e2bRA2iCParDCxl3s3QcfgEIuc0z0IPPKNOQZrZ++Mji
-	 09h88neWQkXFg==
-From: Imre Kaloz <kaloz@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Magnus Lindholm <linmag7@gmail.com>
-Subject: Re: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
-Date: Wed, 28 Oct 2026 10:16:29 +0100
-Message-ID: <20261028091631.8072-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <dfe06aef-540a-4450-88ba-300a460007b7@kernel.org>
-References: <cover.1792609488.git.kaloz@kernel.org> <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org> <409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org> <20261027212610.6798-1-kaloz@kernel.org> <dfe06aef-540a-4450-88ba-300a460007b7@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EE3606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14EE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so1389344b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:18:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793179112; x=1793783912;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l7lrYcEGz7yh1S6DURIldpkH4Iej6k+y8xqTeXsmih8=;
+        b=fOMYYtDfjUKoWCxwoo/lDi3iDm+ybhHKd7EeRws947UPyZVua/EIuPT4xKOsiQwE64
+         e2zVp7gIzDH86YsCZax/BnAJnj5sB3nCL+QDruyzO4TpYa6hyN5fTbNF3vTrksuR0DVT
+         oTMRuX7nvN/3+zaq9obh6iEv3ViCjQywoG4fL92PHcqPopHb9BHZrnBJz3N2rLo4Xr1o
+         ZWPtyGHQPh9JGleRIIgP/uApoIOMCg5zkqW8qGuMiIJKLRvJQgeR9ZKMMkqHRNS+tzv1
+         OV9YAJQVuY/oYoaHtsQaVcjF+gY6rRnSMWwRiifzhKkPEpimb1W2+aFO0xCnhTquKqEQ
+         UqWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxxbRI+whYHwyGtblM5mDYzC8HWzpywEvhQcateSjrnuIZsN9mB4PCBsXJhuBTvEOdMd6ubC5eOnyGXc0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL01SP7I6TYvHucUGwAIe4WfLPzrNB2Fsn2j0w+h+LL5FmLbSRt
+	cbqW+bzx2QNbQW2KwO2O42Cfga+E+CVXhKd+I3kOVThIYFRbrAEh0eXVAVQHyojjub9Zw0nENpc
+	6Zn9RNgpZ+XtCfCGPbyRXq1bhJHh7VWzbbOltkviDYUNEN5mKiHUT2hsAV2w=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,36 +58,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:c133:b0:55b:fcf7:61f8 with SMTP id
+ 5614622812f47-56383598cfamr956832b6e.40.1793179112073; Wed, 28 Oct 2026
+ 02:18:32 -0700 (PDT)
+Date: Wed, 28 Oct 2026 02:18:32 -0700
+In-Reply-To: <20261027221209.1560865-1-seanjc@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae1bde8.f0fe5aea.79aa1.00a0.GAE@google.com>
+Subject: [syzbot ci] Re: KVM: Fix+harden against bad uaccess using dying VM
+From: syzbot ci <syzbot+ci372bc25d95b65291@syzkaller.appspotmail.com>
+To: jmattson@google.com, jthoughton@google.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	maddy@linux.ibm.com, mason@kernel.org, npiggin@gmail.com, pbonzini@redhat.com, 
+	seanjc@google.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi David,
+syzbot ci has tested the following series
 
-On 10/28/26 09:49, David Hildenbrand (Arm) wrote:
-> But that's too complicated, requiring page table walks ....
-> People running museum piece hardware and complaining about performance of mremap
-> or memory reclaim should reconsider life choices.
+[v3] KVM: Fix+harden against bad uaccess using dying VM
+https://lore.kernel.org/all/20261027221209.1560865-1-seanjc@google.com
+* [PATCH v3 01/15] KVM: Reject user accesses to guest memory if current->mm != kvm->mm
+* [PATCH v3 02/15] KVM: nVMX: Don't force a full nested VM-Exit when destroying a vCPU
+* [PATCH v3 03/15] KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
+* [PATCH v3 04/15] KVM: x86: Unmap VMAs for KVM-internal memslots when the memslot is freed
+* [PATCH v3 05/15] KVM: Disallow setting memslots when the VM is being destroyed
+* [PATCH v3 06/15] KVM: Destroy memslots immediately after mmu_notifiers are unregistered
+* [PATCH v3 07/15] KVM: WARN if KVM attempts to do guest-related uaccess with "wrong" process
+* [PATCH v3 08/15] KVM: WARN and reject guest-based uaccess if VM is dying
+* [PATCH v3 09/15] KVM: Pre-check uaccesses in KVM's APIs to read/write guest memory
+* [PATCH v3 10/15] KVM: VMX: Explicility free vmcs01, not the current VMCS, in vCPU free paths
+* [PATCH v3 11/15] KVM: nVMX: Don't explicitly VMCLEAR+free() vmcs01's shadow VMCS when freeing vCPU
+* [PATCH v3 12/15] KVM: nVMX: Cancel the nested VMX Preemption Timer's hrtimer in free_nested()
+* [PATCH v3 13/15] KVM: VMX: Explicitly remove dying vCPUs from the PI wakeup list
+* [PATCH v3 14/15] KVM: nVMX: Don't switch to vmcs01 when freeing a vCPU
+* [PATCH v3 15/15] KVM: nVMX: Don't load+put the vCPU when freeing nested state for a dying vCPU
 
-I'm one of the museum folks myself, though more the kind who loves
-running a modern kernel on old hardware than the kind who complains
-about it :) A lot of these machines are still doing real work, and
-these days not everyone can, or wants to, just buy a new computer.
+and found the following issue:
+WARNING in vt_vcpu_pi_remove_from_wakeup_list
 
-Some of us spend our time keeping these platforms working, and I'm
-not asking anyone else to carry that, which is why I tried to keep
-all of it in sparc.
+Full report is available here:
+https://ci.syzbot.org/series/c648fc23-f4c2-4346-93cd-b717ef38b27c
 
-> So I'd say, make it as slow as you want while reducing core-MM complexity and
-> not adding more arch complexity.
+***
 
-With C, move_pte() and __HAVE_ARCH_MOVE_PTE go away from
-include/linux/pgtable.h and mm/mremap.c just like with A and B. The
-walk lives in sparc's own flush_cache_range() and only runs on the
-CPUs that need it.
+WARNING in vt_vcpu_pi_remove_from_wakeup_list
 
-B would be less sparc code, but every UltraSPARC I-IV machine would
-pay 13-18% on reclaim for it, so I'd still lean towards C. If you feel
-strongly about B, though, I'm happy to send that instead.
+tree:      kvm-next
+URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
+base:      7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/e4ed6c4f-9b58-4549-9ac6-525add47e472/config
+syz repro: https://ci.syzbot.org/findings/320f356a-c5e9-41ff-b8f5-3f0866e300b7/syz_repro
+
+------------[ cut here ]------------
+refcount_read(&vcpu->kvm->users_count)
+WARNING: arch/x86/kvm/vmx/posted_intr.c:154 at vt_vcpu_pi_remove_from_wakeup_list+0x142/0x1f0 arch/x86/kvm/vmx/posted_intr.c:154, CPU#1: syz.2.19/5870
+Modules linked in:
+CPU: 1 UID: 0 PID: 5870 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:vt_vcpu_pi_remove_from_wakeup_list+0x142/0x1f0 arch/x86/kvm/vmx/posted_intr.c:154
+Code: 48 85 db 74 2d e8 ee 1b 64 00 eb 0c e8 e7 1b 64 00 eb 05 e8 e0 1b 64 00 5b 41 5e 41 5f 5d e9 c5 b5 87 0a cc e8 cf 1b 64 00 90 <0f> 0b 90 e9 2b ff ff ff e8 c1 1b 64 00 e8 ac 60 cf ff eb da 44 89
+RSP: 0018:ffffc900037cf8c8 EFLAGS: 00010293
+RAX: ffffffff816404a1 RBX: ffff88816ada8000 RCX: ffff888110eb0000
+RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000000
+RBP: 0000000000000003 R08: ffff88810fb01f83 R09: 1ffff11021f603f0
+R10: dffffc0000000000 R11: ffffed1021f603f1 R12: dffffc0000000000
+R13: 00000000fffffff8 R14: ffff88810fb01f80 R15: dffffc0000000000
+FS:  00007f9e487ab6c0(0000) GS:ffff8882a7cbf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f07a7ed4870 CR3: 000000010eea9000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ vmx_vcpu_free+0x28/0x400 arch/x86/kvm/vmx/vmx.c:7517
+ kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9556
+ kvm_vm_ioctl_create_vcpu+0x76f/0x9f0 virt/kvm/kvm_main.c:4384
+ kvm_vm_ioctl+0x442/0xcb0 virt/kvm/kvm_main.c:5294
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9e4799f1eb
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007f9e487aaed0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f9e4799f1eb
+RDX: 0000000000000003 RSI: 000000000000ae41 RDI: 0000000000000085
+RBP: 00007f9e47a36b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000200000c00000 R11: 0000000000000246 R12: 00000000000004ce
+R13: 0000200000c00000 R14: 0000200000001040 R15: 00007ffeb7342be8
+ </TASK>
 
 
-Best,
-Imre
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
