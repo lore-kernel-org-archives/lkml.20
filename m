@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171964;
-	b=PlALL0rreAvPFgqTJWpMnKd1WOPAR/6FBUekZnpbrbPl493MxXY18iTtWdptEEusBX2Z
-	 Z5Baf+7EFwwhgdjOXOO89YNLfPva22DjxmrNIx1FywOhpV5qNsfBxD3/3fbc4c90tuTxv
-	 iPe5pkZot4SpXJRL1XS6lelBFGMITGGX3KLusEIV6sLZYrC+I6f2nnY7mtoCu7STFwiCa
-	 sberkJ95dqnIRUkM2SWLvIr35+2/+XjFDHcbC1B1nDilJnVKmiZeU3nm3v27D4d+k5Drr
-	 NhcneQlATucFr1wqGQcp8zWhfzxdKJEY+aV1SkrOxHSEBaMktjJqaN1TR/OEFhrZSKQ==
+	t=1793172004;
+	b=uZkwmRxFqBABCrGT713ZnBtErN+SK2+l5NTz4Cqan1Z9UA9KwTFJZBTk46kEoIyYsdKf
+	 GHZNt4qK/saQbOKBTV2XTvsIkfSCkpNzzsXJeAeXANZu1KLfeGBtqCmqY5D/Fprxb5tYY
+	 0iqX9kQGzCktEQTdflb3cHkH+DamLrOHWEVd2/0K8BHz6QcOwm5XfeV0moch/4WioF2v5
+	 9SNvl/df3NdmGDxrlfgE1vyVKo8LlgPjpOGyEuvU1Tl9E1umfz1dZpIA8RigAvMY7r181
+	 DEx9z04ZxEqXulTbARlInnxtJqfZTUfct4pSiLNgCPOaXpf8wHH+WTggS59h1A1sWlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171964;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3aHPVVIPnG9pMc4aDDsCeUp5qbD59uz8wrHrN0OpuoI=;
-	b=FRKNaXqrBLFtpLD8JoVFTUZMa4sKY/ZOl3c33K63S6k39IpTHSDX6AkkOAYCgc/WmRlL
-	 KghcidSc19Npnj23RUUdnZp2e40RGs4dxt/Gjp6SAXg7WU9h43IC1eXjNNe+XRI9/J+qx
-	 CkUZccXZw8MkK48wFv7DmzM04lXtKQGOHcMTbLKo2z8jbDrhrD+FQrizRjdioBGOgk/3t
-	 oKRupfODfjcCcenjzcx3giJ2O4jaXFWG3A5wBKjUz6qFj6pqp/vHZ+Bkg3czWJvUF9QcJ
-	 d+pUNhPPyamLSj6Ys5UVj5Sg0qeL1KvMrsiskXmci7K8y4Zgem12hQ+pH5l2BVTF0Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793172004;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=FfpjIJUEphlcNWG/BGCKVitAlfUvGdxIY2/K6Ri9l9M=;
+	b=xLFKWEwq/e3vEJsid+YmrxOgRbJ2WvTujHQipEH41or+GrfkTyFQaMI1Fbh7AHeBUX7X
+	 tZ5y4yCDXsuP3wVo2brk6eG6vOKKkuRBzF5GgYCQIkUVTagqesc8HTH8yzLbZ3uflq+rL
+	 wSnni56EQOqtlEVL3fTSrcrje4pTF/wBTyYXXfIbDHURm+wsBj+g+0LwzgrG0TxkiL2l9
+	 xEYujyE1KY0vBn6+G7d/hczP1WBOjXFbt47hllMG+QwdLXlL0xD9ynq7SxaIiIy2lVb9H
+	 RQN4Pf8QHE48woB2Dqvx9qZizk6Fhg6n4YX0jLXRnxnYpKht8h883XpjJ3jBJuZaOiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PkGNY52B;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3A2606A31A;
-	Wed, 28 Oct 2026 07:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF3A2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PkGNY52B
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793171960; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=3aHPVVIPnG9pMc4aDDsCeUp5qbD59uz8wrHrN0OpuoI=;
-	b=PkGNY52BGukqTvBIrNUcQqHdxoniKl2Nwc25fTEIxLsEP6/Y0ui9n1hjoS4hPw7Ddv6MD4KtWwCP+LdtX7jQseo1De1PKXMO7471qKwIOOmTxT8WeneX3QR26W1mtBYmikvDR2qCuzxEWV0sHZyaCsjLCj+LUe9XdC0LCkcQkvo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDg7jeH_1793171946;
-Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XDg7jeH_1793171946 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 15:19:19 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	iommu@lists.linux.dev,
-	joro@8bytes.org,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com,
-	will@kernel.org
-Subject: [PATCH v5 0/3] iommufd: Recommended reservations query and opt-in IOAS reservation
-Date: Wed, 28 Oct 2026 15:19:03 +0800
-Message-ID: <20261028071906.2325378-1-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261027183418.GJ1685504@ziepe.ca>
-References: <20261027183418.GJ1685504@ziepe.ca>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050BD606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 050BD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b37620eb73so1281286b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:20:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793172003; x=1793776803;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FfpjIJUEphlcNWG/BGCKVitAlfUvGdxIY2/K6Ri9l9M=;
+        b=ohgcVrvQGgHqKiOPospMq1NYWUpUza64FBHpgrg6/72iG+AWFiXYLZcqKUAfjg2MLK
+         QM7sj/I4mF6EeTBNEhYkzXat0SlZTW5kf7bKTQCx9lMxkTdf5zpXe0XPSo4LZlU2V3B3
+         V2Fg+NjfvcjgZ6/OplIsfK9IQKdIdmC5JpH34Ai179+IrMNcPF6sZc0g82LUmrTGAhCM
+         4z3ZpAWzjDdYTNrnToNFDAvPAF0UCL84DBbigdQwL5f34gk/qWCmH2nEjx/fx+rZzbi5
+         bcP7+TEsqPnwxcfvU+w3h6X31uDnzri+zvlY7WivM5P8AP4mZLyqYHwlEyK4BkVFwAc/
+         D/Yw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXe38OWJ2aCHkQ4M3gDtjiMWlcuQ+qx8w4DbVykktq/xNbQSoFa/QESjXwARNuDzh2dOOZYNX5WUJUgUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5hE/blQ6fEqpJ5gHxwzfcRSdIZwtoU3XsPNKEW1aI06M4gOKa
+	ds5F30Zl5t2b6GF+VW6q4sK7dBYCZ2OqPED4KyQ9wU5n6zKHiWispKD4qpFStaOPBUfhpyJbbWi
+	dRvFMciw8mnEMKuSL20D+bEsAsYLQGx+cCZFgiumBuod9TsIaYU3PFbCcwX0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,89 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1985:b0:4d6:92b3:c1b7 with SMTP id
+ 5614622812f47-56384398ba3mr884250b6e.58.1793172002931; Wed, 28 Oct 2026
+ 00:20:02 -0700 (PDT)
+Date: Wed, 28 Oct 2026 00:20:02 -0700
+In-Reply-To: <20261028034820.267112-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae1a222.403b7334.342f87.001c.GAE@google.com>
+Subject: Re: [syzbot] kernel BUG in remove_inode_hugepages (2)
+From: syzbot <syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-This series lets userspace learn which IOVA ranges the kernel
-recommends avoiding for a device, and optionally feed them back so
-the IOAS allocator enforces them.
+Hello,
 
-The motivating case is a PCI device behind a PCIe switch: DMA using
-IOVAs that fall inside the host bridge MMIO windows may be misrouted
-as peer-to-peer traffic instead of reaching the root complex for IOMMU
-translation.  The DMA IOVA layer already avoids these windows
-internally, but passthrough userspace had no way to learn about them.
-Per commit cd2c9fcf5c66 ("iommu/dma: Move PCI window region reservation back into dma specific path.")
-this information must not be forced through the IOMMU reserved-region
-API, so the series is fully opt-in:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-  Patch 1 adds iommu_for_each_pci_mmio_window(), a callback-based
-  iterator in the IOMMU core, and refactors dma-iommu.c to share it.
+Reported-by: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
+Tested-by: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
 
-  Patch 2 adds IOMMU_GET_RECOMMENDED_RESERVATIONS, a per-device query
-  returning recommended ranges (currently PCI host bridge MMIO
-  windows) as struct iommu_iova_range entries.  Advisory only.
+Tested on:
 
-  Patch 3 adds IOMMU_IOAS_RESERVE_IOVAS, letting userspace send
-  chosen ranges back in to restrict the IOAS allocator: reserved
-  ranges disappear from IOMMU_IOAS_IOVA_RANGES and are rejected by
-  mapping.  Overlapping reservations are permitted, so the same
-  ranges recommended for several devices behind one host bridge can
-  each be reserved independently.
+commit:         9ba46df3 Merge tag 'bitmap-for-v7.4-rc1' of https://gi..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=156e070d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=968c4ca981edd5f
+dashboard link: https://syzkaller.appspot.com/bug?extid=2fcec0eca7f4cade53b2
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=170e9629580000
 
-Typical flow: bind device -> query recommendations -> reserve chosen
-ranges -> map.  Userspace that ignores the new ioctls sees no
-behaviour change.
-
-[1] https://lore.kernel.org/all/20260921115513.GK11599@ziepe.ca/
-[2] https://lore.kernel.org/all/20261027182947.GI1685504@ziepe.ca/
-[3] https://lore.kernel.org/all/20261027183418.GJ1685504@ziepe.ca/
-
-v4: https://lore.kernel.org/all/20261025133000.205508-1-guanghuifeng@linux.alibaba.com/
-v3: https://lore.kernel.org/all/20261004162213.3787623-1-guanghuifeng@linux.alibaba.com/
-v2: https://lore.kernel.org/all/20260921103922.1113752-1-guanghuifeng@linux.alibaba.com/
-v1: https://lore.kernel.org/all/20260921070234.897736-1-guanghuifeng@linux.alibaba.com/
-
-Changes since v4 (all per Jason's review [2][3]):
-- Patch 1: drop the single-pointer wrapper struct in dma-iommu.c and
-  pass the iova_domain directly as callback data.
-- Patch 1: drop the typedef kdoc and trim the iterator kdoc to the
-  essential description.
-- Patch 1: WARN_ON(!bridge) instead of a silent check; inline the
-  start/end temporaries.
-- Patch 2: reuse struct iommu_iova_range instead of adding a new
-  per-window struct.
-- Patch 2: rename away from PCI-specific naming: the interface is now
-  IOMMU_GET_RECOMMENDED_RESERVATIONS reporting recommended reserved
-  regions, with PCI host bridge MMIO windows as the first source.
-- Patch 3 (new): add IOMMU_IOAS_RESERVE_IOVAS so userspace can send
-  the ranges back in to create a restriction for the allocator, as
-  requested in [3].  The NULL-owner cleanup in iopt_destroy_table()
-  is no longer conditional on CONFIG_IOMMUFD_TEST since production
-  userspace can now create such reservations.
-
-Changes since v3:
-- Helper redesigned as a callback iterator shared with dma-iommu.c
-  (v4 changes).
-
-Changes since v2:
-- Redesign from forced reservation to opt-in query (v3 changes).
-
-Guanghui Feng (3):
-  iommu: Add iommu_for_each_pci_mmio_window() iterator
-  iommufd: Add IOMMU_GET_RECOMMENDED_RESERVATIONS ioctl
-  iommufd: Add IOMMU_IOAS_RESERVE_IOVAS ioctl
-
- drivers/iommu/dma-iommu.c               | 22 +++++---
- drivers/iommu/iommu-priv.h              | 17 ++++++
- drivers/iommu/iommu.c                   | 37 +++++++++++++
- drivers/iommu/iommufd/device.c          | 65 ++++++++++++++++++++++
- drivers/iommu/iommufd/io_pagetable.c    |  7 ++-
- drivers/iommu/iommufd/ioas.c            | 49 +++++++++++++++++
- drivers/iommu/iommufd/iommufd_private.h |  2 +
- drivers/iommu/iommufd/main.c            |  7 +++
- include/uapi/linux/iommufd.h            | 71 +++++++++++++++++++++++++
- 9 files changed, 267 insertions(+), 10 deletions(-)
-
--- 
-2.43.7
-
+Note: testing is done by a robot and is best-effort only.
