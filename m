@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793163675;
-	b=kjsAmxIOa8c2640t1xhVK+72Pk9FVvtd5Llhzelxq13TXImJQP3y3HPA8IGNQRyRpUqs
-	 WTlZjLJnUhZfmp+G6Kuh+hnesYm6Wn52q1nr8MAYAAOxrvVZ7/Au6bkxje+T2iBk4HPzn
-	 UOxnsMhDYPfILi+p5z2TKKHdg8P1GAF1h62Q4/TlIB/+n5vL44y94L9VgYsw2S/XVSU4u
-	 QcvGxd8Zbe8ZMMiZpjtfhy0xv2Xxm1b+QEPptPZWCogYUYqBslxWFBLzhSAAFkGlZMfj3
-	 0uWwcvOHg65jPY58QzXskIEhZTekMDXD80Ak/p0UC672OnZrgp3u5vGxOg1rkHzPpDQ==
+	b=E+5QFky47HiZLawdT3mXp0U9tjbMTV5Pkj1nWLMWwYkU6l6yoIXjF9twOltcGnWZtRh/
+	 DsDChBOSFDZhD0nYMbgd6ik5WdAR/nDl6uEQIAY5dMOPv1rCi4gPDeUSSMDpWjEabQQFj
+	 PSq6dh5irYAvfGWhwm5dS7H2IdaFm6u8AWQKjg9HR1y91AAZ20p47GEZc5EFLECJkK5pQ
+	 0R8UzbW1g8u5CBP2Q6c1ABQQP6G6qYrBSzlw2cUkw1GVIMmUzKm0hAT92zAjDEteA5/S3
+	 xfeYHdgxdiAuW0j+2CYsbO4PJd/atU+bOzQYSs/ES4BvTMTchQkcdLMMizZhpr9xBeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793163675;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=GRoKOdBuy8yrogjEG1E1/pNl5KdS5hR+N9bAYyEDzRk=;
-	b=mWdr55KqaGh6k1ZIfl1moq3pFZ1vHO6u6mBWpj9rMtmIv4xKQSGqL9nY4e8yZ1BkQQck
-	 9ECSUgkmhuu05PVsJT3CysiRCcrf+3ury+rMdLY6pmKBEnDQuE9DGZt3a+3TJFReNjkrW
-	 S5O7i+BI4cZ/8iR6Y/raeSLOS2V0GWjL13W2b7S7LBK2lA3Tna1O4YkaFrUlCjnJet+w/
-	 BO3ZapdeSVEV+0veOrijZbeKxnu/1Oe6yiLoJMKyxVq7Wf4YSMIkfxcLO1rzdcJVeEfY0
-	 TKiovqYwBWRhz9bqPIsEAOX1r4iqptdPvRNMhRbasStc54NBFFNy9QxqKWRHyHtiizQ==
+	bh=82gVcSSXM3hsqhEYpcnfhId+zvDl8pHYrLa0s7kwebQ=;
+	b=EFmOv+cDu+L+e1yWLw9DonhNtZNkhqPKI8str6rwjTxZd4vDapokKs++FQUUF4Hpt1O7
+	 UL4aJNBObTM3xywey+75YgmsVnnFt+w+z6wtoeIbdluTpGXs5N8TMYwNr81ngabDpyp1T
+	 3lgmY5NYS3de2N6bNtHAGB+1taynBeM4rnVKYW4NPyvqwV6iQBYgzq9x19cffy1WSbTSr
+	 N7S/eg05uEzs80uot+ZvqT4KQP4hDSoa92P1AfdFTKDTAgzdyhvqeglWzSZvm/nLdUEN2
+	 ezEk4rixuMcabH6H906pVyzl3Pzlvn7k9LTyAC3hznSHKH+0LLPRBVnkTkQzwr4pzbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oZYxiNy7;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=X3iXyfEi;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CF0606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514DE606A31D;
 	Wed, 28 Oct 2026 05:01:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CF0606A31F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514DE606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oZYxiNy7
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=X3iXyfEi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GR
-	oKOdBuy8yrogjEG1E1/pNl5KdS5hR+N9bAYyEDzRk=; b=oZYxiNy7rcduNPUpwE
-	o6pDmJbU7MgxvAwkh1w1W5xdQf/kxDPGhfVXiBuNhC2u/SXKPwsKERPCt+DTnyGB
-	72ExVuJN1d2OgcgYsg14dccOmWyqUegsGSRneQNpBowxuHBC5qMJZT3tpkAmaq9/
-	njeBWfKHcN81EkPa6pjo1XRYA=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=82
+	gVcSSXM3hsqhEYpcnfhId+zvDl8pHYrLa0s7kwebQ=; b=X3iXyfEiZQpyYhsbCg
+	gSWkbgbV1f5mV5D0DwCDiBV21g+t/kcm/w0Byj0pwPQo6PqU039gQ/7HSCqCxEeW
+	cgSAJOQBX5UB6xrnKPLy2s1aHOZ9di5C7dgXnBxFfSWkm5r8Uye6UrsPakDyTb0e
+	D2kuaRuA2mtDAl5lN97EaYnwk=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_V5geFquXTKDA--.16748S12;
-	Wed, 28 Oct 2026 13:00:51 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_V5geFquXTKDA--.16748S5;
+	Wed, 28 Oct 2026 13:00:45 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+To: Marc Zyngier <maz@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Radu Rendec <radu@rendec.net>,
-	Marc Zyngier <maz@kernel.org>,
-	Jianmin Lv <lvjianmin@loongson.cn>,
-	linux-mips@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 10/12] irqchip/loongson-liointc: validate MADT HT-PIC entries
-Date: Wed, 28 Oct 2026 13:00:37 +0800
-Message-Id: <20261028050039.121080-11-yaojiale02@163.com>
+Subject: [PATCH 03/12] irqchip/gic-v5-irs: validate MADT IRS entries
+Date: Wed, 28 Oct 2026 13:00:30 +0800
+Message-Id: <20261028050039.121080-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028050039.121080-1-yaojiale02@163.com>
 References: <20261028050039.121080-1-yaojiale02@163.com>
@@ -69,38 +69,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD31_V5geFquXTKDA--.16748S12
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWkCFy7Jw13WFy7JFyftFb_yoWkGrXEkw
-	n2vrs3JryUGF1rtF92yr15XFyavrW8u3WY9F4IvFWrCw4rJw15ArZrAws3Ja1UKrW0vFn3
-	Grs8urySyw17KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbyCJPUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AOTzWrhgYNWkQAA3j
+X-CM-TRANSID:_____wD31_V5geFquXTKDA--.16748S5
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Wr45CrWUKr4UXrWrAFy3twb_yoWfCrg_ur
+	W0vFs7JFW0kr1rKw4xtw13ZrWjq3ykWFn5ur4UtFn3JrWIvwsxAF1avrWfAa1kAFs2yan3
+	GrZ8Ar4Sqr12kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8MrW7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzh6SzGrhgX7RmAAA3z
 
-The LIOINTC cascade callback passes a typed HT-PIC record to
-initialization code without checking that the complete structure is
-present. Reject truncated entries before dispatching them.
+The IRS parser uses configuration addresses and flags from a typed MADT
+record without checking its size. Reject incomplete IRS records before
+accessing those fields.
 
-Fixes: 70f7b6c008b3 ("irqchip/loongson-htvec: Add ACPI init support")
+Fixes: 35866efa52fe ("irqchip/gic-v5: Add ACPI IRS probing")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/irqchip/irq-loongson-liointc.c | 3 +++
+ drivers/irqchip/irq-gic-v5-irs.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/irqchip/irq-loongson-liointc.c b/drivers/irqchip/irq-loongson-liointc.c
-index cf44a333b9c8..2b6fdf9eff42 100644
---- a/drivers/irqchip/irq-loongson-liointc.c
-+++ b/drivers/irqchip/irq-loongson-liointc.c
-@@ -378,6 +378,9 @@ static int __init htintc_parse_madt(union acpi_subtable_headers *header,
- 	struct acpi_madt_ht_pic *htintc_entry = (struct acpi_madt_ht_pic *)header;
- 	struct irq_domain *parent = irq_find_matching_fwnode(liointc_handle, DOMAIN_BUS_ANY);
+diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+index 4e60a1caaba5..0139f80934d7 100644
+--- a/drivers/irqchip/irq-gic-v5-irs.c
++++ b/drivers/irqchip/irq-gic-v5-irs.c
+@@ -955,6 +955,9 @@ static int __init gic_acpi_parse_madt_irs(union acpi_subtable_headers *header,
+ 	struct resource *r;
+ 	int ret;
  
-+	if (BAD_MADT_ENTRY(htintc_entry, end))
++	if (BAD_MADT_ENTRY(irs, end))
 +		return -EINVAL;
 +
- 	return htvec_acpi_init(parent, htintc_entry);
- }
- 
+ 	/* Per-IRS data structure */
+ 	irs_data = kzalloc_obj(*irs_data);
+ 	if (!irs_data)
 -- 
 2.34.1
 
