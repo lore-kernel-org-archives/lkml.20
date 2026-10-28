@@ -1,92 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222533;
-	b=y5uk+f2iXB0ecfDKZ4HRTzWvOIF1XxOxGIPFYfAj1hInRRl0/deaBGMRov04AuNzevfy
-	 qg7MPkbdfygMf5pLuv7o0OHjvA0tgcXQDvQp78ATV0u+B0RRpwfm6q+R+m1kwWo3JnDRi
-	 5mjnroD1ddGqjMyh1BbUF6+cYFYuoaj8G5VwC5xatvt3wNSRcsoWlZTAFWJIvhcWhJCdZ
-	 LDc5QyKLCEL88suGDZozR80wkFJEUoxfCEmDKtVppW+mEScUiivyvxYA6/auZJZIoN+RS
-	 cejE6OjVMuRY9qE0Pz2/hbJdOGleARfa1RT3qTVfTPILerfcnykd7smmf0Z0SJE/lxQ==
+	t=1793222557;
+	b=fGo6JFS7vb0wDuSekwut97NEr9a+MAoc1OpOlnpt7Mc9/RyEBlqq9EawUhpUPZXXxK+X
+	 +eX3D/IQg9Nb0q58U1kP5KIFsPpNN5x0xvB4wlEIYUYY3jhLf3Gr+bqSrcEhbEts3fRC1
+	 +uKUBUUvSioHxXjhnnwBkcPuonThA/MqF0HopbKV7ZIkci2YGrqZcEkqEaotCiRPGG0il
+	 bPkdtxb+GNcfqoMi+52YzUJTyf9VYBH7eHZ2xR451YIRNljWxz+cNDP5d1WSV4PP9VxUq
+	 orykA5IdjWKYecui39aJcI8qBfVtX2qRNli9dv2w8a1L0OyFN9cTBBAQdoU6LfJ0BKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222533;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
-	b=0iEEyOBwAFGOe7vx25uB1FZJYBKmekOXi8+Ucf23QwSmahtOEC22HPF+L7kFOA2AN3gm
-	 816HCLEw8p1EVYHsBnhxTaMc+fonYjdBGsHcvHuo4CadrmOlrLGU2BW3j0R1prGK9lHDG
-	 biTHNPnJz+LWtwu3bo9hlkS/UT+IQ1YG9QEEVcTtNBO1uV8PHEIUrbgNz1c+PZvk0HBtW
-	 skI60w4JevCnB0ylbiaGkfhsCpxthkzHuuPQTmviW5JhP4zwJHXt8G/SCTb+vjWYOfGbC
-	 K8dpu+qDcyLsrjvRS2VERSXFLDlmO/c4rSNRoGzac7CGrJgxXSEdQlhjnq8Ygs8qt3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222557;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=zw5Rd3tHLsBi/Wx1LPdx2NJDSF078cu37LQJA05ujQk=;
+	b=qr+hnGntxYcaVWRx9fOikn4nKEWUEzRvbaCX8Sd2IQ5gtxd4euAI+MOB6jSlIwNNXyLA
+	 nDHJJ/fLSOb3S8J2VrrEhvL1NsFpzVdHjuVkSEXg8L/38DeoVZccUGKT2qTPs+lqRE+LF
+	 whyzU5GVY8H16eVHYstffejWtq+wcYM+J10S5nM0zEZguy3JLwxEC08hTzCEnk0ekco+C
+	 nmsqM8va1/SCOA1eF9LizBl7VDk8dQmoFPkDyoNmfHlQEve84MFCLyQHm4Lekr3rtTTtE
+	 VdH0mGDe2VYZjBjWpbB7RWam/ho0uzux1aebfxJ0MTqWjKIJQg2eOLkqDiiVJn9COuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hr0QV9XD;
-	arc=none smtp.remote-ip=74.125.229.132
-Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVwhf+Fg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06C1606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A06C1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB0C606A31D;
+	Wed, 28 Oct 2026 21:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hr0QV9XD
-Received: by mail-dl2-f4.google.com with SMTP id a92af1059eb24-1922a6f0d23so303595c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793222532; x=1793827332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
-        b=hr0QV9XD1SS73k8nOo/XPZODLSu9M1wD+obtp/bS8eiJLGS3MqmodtWAxb3X8eVpzX
-         CoEcuZI4AZm4vfAUxoro2OPAVScaXOEE9gmNSIYjTAsAuxydgW8yYvT9x66r0Zni+eCL
-         8xwBV2nTyItvK7oJCwZzgpuvjsE1ntUxa5So1LzhbEchVj0SKzdouo2Khycp3HLwTgBK
-         0dafDTQFWwqgPBwBIHCdZCoRDk/TNYYjdZy1Tuj1CTgIwAQfANz67wIzuL8ErsFhPVgk
-         xnzjqk/vbOaFiGtCYlNaYA5H0le1eoFd+lFw2vKGhQJ3GZWsEp8sMKLMXU0VWP1xVfPP
-         odRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222532; x=1793827332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
-        b=dmnHngHGW/RWwtzNDVFCyMsztp9POAJ/oqOBmUOKm5zYTuk7sNEeR9jsBPca/N6b21
-         qwCiFofR7giLxrLMDVkGzJynU3HHJBUBAoSkmMBhyxbL23qNNzt7dvoKgmuYOvxsplkb
-         HtMMDuoIQvuh7uzYgA322AunVuaWM8FtpYLa8eKAjYUk4mcYx5fbhl6+OiB2hp/1hdrx
-         8H8XTMs4dRz/AV2J0B4cHDRNbSG4d0v3Rw5LCfVEaWwtf5mWu9upEtsoUoIp2LMSHull
-         IR3TivW3qbtfuL7W52Yr2FlsGfFVv1R3sx5U65qnguqE6ZMPaxIliJuWYlAJqWah6yKl
-         BTGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlBSZGjY6IvI+HqVgsdMfZf7Bxqkle2yllItBkINzbu1cm4EqhMNJz9bk+qan3LQcvWbc1HpsHysORm9I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwNjGRv5aTFLUtM9/jBqNetLY2ew6hNijJ/+WC8Sv5/Vv1EYHn
-	N93nz3J609AzvEIpoYFbLZskYd8D6oIjLXL7pAt8bufujY0emsF6CKvJIDqG8Ipe
-X-Gm-Gg: AYBFou3KwTi3y8xnFGXezRUcIipbNeE3GczUyP/W49R5Sr1OcGxhTjplpaS8W2Q8Ni7
-	t/9rX+EqQQYXVAp90x4RarC5EBLZ0yey5NVC6UwCD/uh9UAZWE6gw+UQi4UOP/xQYUzNKxQjO5J
-	rbEj8tkTUFddAA1uqFQSQfYMrngyKUTRM4N8jms014iCr2+6vfisBje5VkWcZeaZY6AaMfnwK97
-	Hps64O9U3bV9l6xhKkPYkdNV7V0AV9LJqvWxp06V5lABDaCnBulYSwP0DrmYBY8oKezhOyDDWkS
-	02RM3RSbUklL4eaUmLqePow+xpsA6h79e8lpnMz8uQIAjUEqgmjs8b7GWA9H2VznBUEK14dM91i
-	NcMtOGa4RK6YK0FYlwydmGJKENuNp31Otdi00/ub2ZNA3TpNV1xG1kVMYr4+Ab7oTWhIeu2PctS
-	/AADp6qBAL+N+aw0LAoiX6IWlhED4kptzv4mPDc0wpwsxkxp3HuLGTjQLOf2D78bRKeNVdft1Vj
-	4Ga4+TOCD9wBihKoUYj2wqjVo85wLDkY/dSCFul89iOZSN6X3LLRCJzY3oy496TlftUqBMEUEZo
-	YyOhC0gcelLSy0MTzvuPpGuLB9WCoWRjX018LcIIdgt2TxzDFNp4vod1
-X-Received: by 2002:a05:7022:5f0b:b0:14a:a6dc:9ca6 with SMTP id a92af1059eb24-1a6c7c35fdamr4297952c88.3.1793222531698;
-        Wed, 28 Oct 2026 14:22:11 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm7147776c88.3.2026.10.28.14.22.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:22:09 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: hirofumi@mail.parknet.co.jp
-Cc: brauner@kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] fat: fix parent link count when replacing a sibling directory
-Date: Wed, 28 Oct 2026 21:16:25 +0000
-Message-ID: <20261028211626.26103-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVwhf+Fg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2946F1F01825;
+	Wed, 28 Oct 2026 21:22:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793222556;
+	bh=zw5Rd3tHLsBi/Wx1LPdx2NJDSF078cu37LQJA05ujQk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=lVwhf+Fg4q2oYSltVlYMxotSqsNpExaiP4XmNrPCKdKKbUs5LVGjUxVbdVfCfHNfs
+	 ufHJMab4k8e/KivbcqqqFpFz3mMvCi+IisNAEmyHGdzSp3D2KeUUBsjO9IFNqupvaU
+	 6qzaxExxI29wEuC3smf/d6a6gMJ99fkD1othlCEqJfRbbI7Ab90T6KdiS8/N1YGUu3
+	 ptlK0DqaBUAq7zr0GdRdCHllojy8QVPzccBgwA+HTPthf0DkwkzJ6dvUfoGTEfl8no
+	 +FvP3wEOr7PK/YCkNhND1JdubnZ+4J/e9AJyt+/qvk9KTPwfXzb5qCTfSXBkZmYjN2
+	 txoV7at/H2PfQ==
+Content-Type: multipart/mixed; boundary="===============1452548001571172891=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,53 +49,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <e08eb87415801027d75170c930dc709beaea5f20f4afc92ff0affd434faaa9a0@mail.kernel.org>
+In-Reply-To: <20261028204158.1021284-8-vineet.gupta@linux.dev>
+References: <20261028204158.1021284-8-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 7/8] selftests/bpf: write the mixed arena/scalar ALU tests in asm
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,jose.marchesi@oracle.com,david.faust@oss.qualcomm.com,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 28 Oct 2026 21:22:36 +0000 (UTC)
 
-vfat_rename() and do_msdos_rename() adjust parent link counts only when
-updating the dotdot entry for a move between different parents. Replacing
-an existing empty directory in the same parent also removes a
-subdirectory, but leaves the parent's link count unchanged.
+--===============1452548001571172891==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-For example, renaming one of two sibling directories over the other
-leaves the parent with four links instead of three. stat and ls report
-the stale count, and find -links 3 does not match the parent.
+> selftests/bpf: write the mixed arena/scalar ALU tests in asm
 
-Drop the parent's link count for this case after the source entry has
-been removed successfully. Leave cross-parent renames, regular files
-and the existing error paths unchanged.
+TL;DR: Test comment only: the new verifier_arena.c comment claiming the r9
+arena load is needed for addr_space_cast looks stale, since libbpf now binds
+the arena via fd_array. Suggest dropping or rewording it.
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
+> index 21b66d51c61e..b84d8f1e0b39 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_arena.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
+> @@ -539,53 +539,58 @@ int arena_ptr_add_arena_ptr(void *ctx)
+>  	return 0;
+>  }
+>
+> +/*
+> + * The r9 load is never read; it is there so libbpf records the arena map
+> + * as used, which is what lets the verifier accept addr_space_cast at all.
+> + */
+>  SEC("syscall")
+>  __failure __msg("same insn cannot be used with and without arena pointer")
+
+Is this comment still accurate?  Commit cd7a395838cb ("libbpf: Bind the arena
+of an object to every program in it") is already in the base of this series.
+With it, bpf_object_load_prog() calls bpf_object__bind_arena(), which puts
+the object's arena into a continuous fd_array when the kernel supports
+fd_array_cnt:
+
+    obj->fd_array[0] = map->fd;
+    load_attr->fd_array = obj->fd_array;
+    load_attr->fd_array_cnt = obj->fd_array_used;
+
+The kernel binds that array before it looks at any insn:
+
+    process_fd_array_continuous()
+      add_fd_from_fd_array()
+        __add_used_map()
+          check_map_prog_compatibility()
+            env->prog->aux->arena = (void *)map;
+
+This happens for every program in verifier_arena.o, including these two,
+whether or not an insn refers to the map.  The addr_space_cast check in
+check_alu_op() (if (!env->prog->aux->arena)) and the prevent_zext/needs_zext
+logic in adjust_reg_min_max_vals() only look at prog->aux->arena, so
+removing the r9 load would not change what either test does with a kernel and
+libbpf from this tree.
+
+The comment also describes the mechanism differently from what happens.
+libbpf only relocates the ld_imm64 to the map fd, and the verifier records
+the map as used in add_used_map() during resolve_pseudo_ldimm64().
+
+The log of the libbpf commit describes referring to the arena artificially,
+as in asm volatile("" :: "r"(&arena)), as something that change makes
+unnecessary.  The r9 load would only matter on a kernel that rejects
+fd_array_cnt, or with the light skeleton loader, which test_loader does not
+use.
+
+The same four comment lines are repeated word for word above
+mixed_arena_scalar_alu64_arena_first().  Could the comment be dropped
+together with the r9 load, or be reworded to say the load is a fallback for
+kernels where libbpf cannot bind the arena through fd_array_cnt?
+
+
 ---
- fs/fat/namei_msdos.c | 2 ++
- fs/fat/namei_vfat.c  | 2 ++
- 2 files changed, 4 insertions(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
-index c7500c2859e0..570dd75dd275 100644
---- a/fs/fat/namei_msdos.c
-+++ b/fs/fat/namei_msdos.c
-@@ -565,6 +565,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
- 		(void)sync_inode_metadata(old_dir, 1);
- 
- 	if (new_inode) {
-+		if (is_dir && old_dir == new_dir)
-+			drop_nlink(old_dir);
- 		drop_nlink(new_inode);
- 		if (is_dir)
- 			drop_nlink(new_inode);
-diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
-index ff7652bf0410..d7e2df5bf7e5 100644
---- a/fs/fat/namei_vfat.c
-+++ b/fs/fat/namei_vfat.c
-@@ -1011,6 +1011,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
- 	vfat_update_dir_metadata(old_dir, &ts);
- 
- 	if (new_inode) {
-+		if (is_dir && old_dir == new_dir)
-+			drop_nlink(old_dir);
- 		drop_nlink(new_inode);
- 		if (is_dir)
- 			drop_nlink(new_inode);
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40768193895
+--===============1452548001571172891==--
