@@ -1,59 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150208;
-	b=X1MNjKAZKAIfVeVAxaQlAPszSw9jD0y/JLV5Z+FqZ4NJiHRHLu7K366fzDv1GIst7j6z
-	 hhknwtpWSUsYGKooJuz777acS8LVYq3c4mePV1gdYIvTbl36gSFKfjfZ9sbm/0MUoHwbO
-	 nS7iQVG591mlhSEM/kTjgUYEe16oaEbNqbZVmf0fv6VPdgToLy8c+ion+wn788RzA/X01
-	 AjoBkAJPqRN0Lxw3UvkheYNC4v1zMlRnjc1qT5Y9D5RFTmE/aJFUYoc3Tk8oOUTmQCuaV
-	 kMFJgsINt2FbsX3dl28Xw674yAviI/Hv+greyBYScyP+zR7ODN/8Ls6eYXSy1q+gsNw==
+	t=1793150369;
+	b=PPzndKxUmVKs7MUDTluPQEGhhZPxhAT4Dx4X6Eo8EXiE/9XXq6dBmPC7/afYTv9mSXur
+	 Zi+cR3F2r4al47UArimyQC5xyQfY/ekSfHCJUAEPfMluDk1VVhOh+oCx4IZDInnl9/7Bp
+	 roqBqnakWa1oTjA/AqiAWRxuTS90QlEQgpKInKQcnbmIdEmVSkWakHkcng84J8KjTaFoD
+	 758k9MCwd0NSUDwxFfvgF4bhxqW50KMty4HkQqCNKOKwH9GJe10b3bxpEaNmZoqOwVcUG
+	 623SsNgGEhq3CE0uSTnNH/1ElvLdFs9t9/7bHnCohnycUj45Z76k+/Cp9ElMLdTZNZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150208;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kMEo2RSytTCZSIpG+BN2tidH0RHDjiwX/b6dhBWxyI8=;
-	b=MHlQebvJKiQkvBR/+vTk4tvDkezHRW0LJpJf73JQ10Ye0P1VCQ1+rqC2sZ6pd8MYMaEf
-	 8tgFJyMPBpCv2i5CCO5m+qxJYKrv6sHYR15COqozUaSlRZ3ULcZgk+wGD7EWqBFAn77p1
-	 mVMpysjBLtinoLJTfkvD9uXhynaI3d3NqkKihwoOLZo4g7OefTGxc50IT5V3k53QeDo4S
-	 PACv7uxO/YpDBnJUn5JtFPzdulDHgfEbrfDz9l5Ub9BoTRVDGo7ojXOZ0vPzdYK/7C43o
-	 GzyGgvk+ieaFCoVSn/LyAdw2PjqsmSeJ09hSMMXEXdUhOIwCl4Eo9SB1GAknEEn8/WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150369;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QGQE3LAYpEwlaN5IMebgHt/LGKiGCVPD/r8B3CD/Y/o=;
+	b=p3ikZwToqYO1SjfjYjURTPMN7PQzrr09oSZkfjRQaXiyVakz/VEHA3tviqNF8q9ZHopJ
+	 S8oWcBwwVrxwgalPIHVY25QwGpD/0zCSc+OJAV4OkyYZ1Oi73j0RiAV9JE97lpDkvHpwZ
+	 LAZjG6Yp64e5a49mVgcwI2+tvXv5BbDjg/RMZZd+lqAcg1I1hJnxi5pmufjaeyHLN3Rj/
+	 ymzbCDt4rm9spztqWvf7gGolkSpHxz3wwXS+ZPzeUMzadOdY4pb+RGmS5ClirQ9R4+kzq
+	 DTiyeHwq3aly7Y0FBYshZHfit5x3M8ybl30jziIqcvJU3wDDs7OFgN6v6WPFEYVkYiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtP9m2Yj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1TpY2Bs;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD16606A31D;
-	Wed, 28 Oct 2026 01:16:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AAD606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:19:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46AAD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtP9m2Yj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CF31F01828;
-	Wed, 28 Oct 2026 01:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793150207;
-	bh=kMEo2RSytTCZSIpG+BN2tidH0RHDjiwX/b6dhBWxyI8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JtP9m2Yj4WTMc8uRQ+TyhzZj9h2KEI4J91Z1BBewHXMT3TrSWLu0rr0s/N+LDcLRY
-	 +BLP3lkek+K7Frmo0ToU0RtSlbDvfDDxzw0Fmh3y9vltwJu5e1CinUj60/OQZW8rRQ
-	 LJiLlmPwFrP1esJAkpJbYDphnKvfUxmk55M3qi3ZK+De4uXJVF+sgDRbuqTdW6TdM0
-	 eGuXawlePI7EwVwomhs7f70GXdmy69Ei9x0sdhAQy2trqd8TvLmS0UfaeV0Dl+nsjU
-	 sqz9Uh9+HVy/3u6Y+dGiefii+uQEH1lCPGj5Rqj/bUb5WeorYlHbtSYz2/4CgP2F5K
-	 sxcD5uVNnx+/Q==
-Date: Wed, 28 Oct 2026 01:16:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
-Cc: Yili Zhang <zhangyili01@baidu.com>, <alison.schofield@intel.com>,
- <dave.jiang@intel.com>, <dave@stgolabs.net>, <djbw@kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <shijujose2008@gmail.com>, <vishal.l.verma@intel.com>
-Subject: Re: [PATCH v3] cxl/edac: Fail ECS threshold read for reserved
- encodings
-Message-ID: <20261028011640.6f2b204d@jic23-hlaptop>
-In-Reply-To: <099f0eea-1ff6-4e1a-91cf-682fd7609808@amd.com>
-References: <20261021152053.85322-1-zhangyili01@baidu.com>
-	<099f0eea-1ff6-4e1a-91cf-682fd7609808@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1TpY2Bs
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35c76e9614aso699962eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793150368; x=1793755168; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QGQE3LAYpEwlaN5IMebgHt/LGKiGCVPD/r8B3CD/Y/o=;
+        b=h1TpY2BsShnknbHatxj/gkM/Q/3/CKzKz9pjSzaP3JN3Y1TA9yMEzkHEavgQ67JW4/
+         7LLgSzyonsaWbGqdcnfcmRG0M9ffhLCRiyY3tchJ/wF9CBKKhLpNImF3K4uPUkuGCGIi
+         GCnGGdOicWsqzQiNokqoYkglKfShaQyctGxrpBNIwAbQqMB79X7rI+miRj/m+RAJZLcZ
+         Hq1tFtkbVIYR9dVRj/JUE/VyF4Vt49WaHsnGLoERz9//rfjinmkFBga5zTY5dNkf4CBj
+         xxqhXoDA3AuAiNi1Wss+Xa84OHvM1p0h24CezQWiqaU21d78gh1Ka2S6lTcGBzqwLSoW
+         fDrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793150368; x=1793755168;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QGQE3LAYpEwlaN5IMebgHt/LGKiGCVPD/r8B3CD/Y/o=;
+        b=bKfjC3hnHWSgQdtY1sInxKVQKccJJaUGTwTgSDFoImVcTqT0+i+G4rUTbpFrkigj3X
+         3iwvYLvxaJ4TvS3EWyzeyXaw23U3JQMWTKhbkw+ZlvoyYaJK0yQ9z5kJQPpidDk0PkVJ
+         Km5djtPsOuNoceUyMQZv5NgHX4ZxmcWd3zq6Krs43vsrLJztS8PMvWv39lrO+ZxM5M4G
+         q480FyvWi4Sg93B+2iVJiZEs7H7aZx60DCmpS25P4Xd5L9fJnZduBD4iwCLQ+DWakRij
+         h65HLC++jtmA8dgn68Ja2GdMmKxFWYJXDPh7ibnuALB/sObmcYaKhZMHeMneVQb8MU01
+         +SLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwH9J9WwWkc0tYx8tsvOICh50Lq+6V0t2O398hmnSKg6UE0nFmotiYQQ/fCyA5uFTk0Bs2W7evGJz4nYys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrC0FGsGxG42fHuG5Wd26l3QNf9DdAkX+m6l3M1x1S2Srtj8NV
+	AcwWneSOwx45+tFpAI1L4n7cmSkQipOu6OgQThhHa0129a3DyWFPU50=
+X-Gm-Gg: AYBFou3dsj4GIMs1VCmEHfK0a8pD4fYBVC0WjiwgUQDWl/c+u7LdkU7gA6r3CcHrbs7
+	IT5ZcBvSaFIBCzeslX8hXqddDBupOU/sNJTr2ATfcAH5UPoArKDfxNrTnwyY0xTCP35HlWNAutL
+	YITJdIGMFi2EwRfYBjSlbXcxLRZAYEps3eB3bTEGdQSQQQlzw2k7kDfxTE4UGQsF3Vix1v+xUys
+	z7EXP/5B7IzQk3U0tAVrNpsoplH7VHbvw+SavZT4DeSyfnrQFBF0NM/LMIdRQ2/+k9bIpghErrW
+	pFUtRNnubIrfsxUheP7ky8u9IRSaug/KYt7kjHpKvLXGumImVuRbBuQifo5FQN3SBaW42Q5iLY2
+	gPVdJ3BzHGDzxYAZOu9jQlU/X9G0JygRn7NraAEuS5dzCYct4I6duWyHKAi2e2u23wHW4P1sEqu
+	VDGwg2U1zi/vBaY8+0mqNxtHNG0qRV2MbYiIH+1ItXB4Ao3uCGUS53vDELBBa6jUXAdm+u9B41q
+	Fh2jC/ZZinRw6yg5RzkY74l/ENrS6H9oL2PZlM1C78O8eqAodDHUEgiKPp8yHJ4h+o8PUiuRgy9
+	MxxMp/dXmgx7y4if09D8jnsqQNtu0md6TuCJ8t/EKoBXLemo+YFkkZMxtv1HlGPaoa06WGtlES1
+	cfpz3x4gNzlnI
+X-Received: by 2002:a05:7300:fd0f:b0:367:363f:6fe4 with SMTP id 5a478bee46e88-36a20440ad5mr1939920eec.32.1793150368183;
+        Tue, 27 Oct 2026 18:19:28 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.115.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2392ecfdsm821863eec.17.2026.10.27.18.19.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 18:19:27 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: atharvatiwarilinuxdev@gmail.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	bhelgaas@google.com,
+	bp@alien8.de,
+	christian.koenig@amd.com,
+	dave.hansen@linux.intel.com,
+	dev@deq.rocks,
+	dri-devel@lists.freedesktop.org,
+	hansg@kernel.org,
+	harry.wentland@amd.com,
+	helgaas@kernel.org,
+	hpa@zytor.com,
+	ilpo.jarvinen@linux.intel.com,
+	kenneth.feng@amd.com,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	mingo@redhat.com,
+	platform-driver-x86@vger.kernel.org,
+	simona@ffwll.ch,
+	siqueira@igalia.com,
+	sunpeng.li@amd.com,
+	tglx@kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH 02/13] PCI: Disable pcie port and access on D3 on specific amd devices
+Date: Tue, 27 Oct 2026 21:19:14 -0400
+Message-ID: <20261028011915.8217-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261028000841.6816-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261028000841.6816-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,85 +120,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 23 Oct 2026 16:05:27 -0500
-"Cheatham, Benjamin" <benjamin.cheatham@amd.com> wrote:
+> I did not know about, i will try to remove the ignore_access code, and
+> will tell you the results, i added it as a failsafe
 
-> On 10/21/2026 10:20 AM, Yili Zhang wrote:
-> > cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
-> > device-supplied ECS config word and uses it to index  
-> 
-> Nit: Should probably spell out ECS here for people (like myself) who don't
-> know what it means.
-> > ecs_supp_threshold[], which only has 6 elements. A device reporting
-> > index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
-> > value is then returned to userspace via the EDAC 'threshold' sysfs
-> > attribute (small info leak and wrong reported threshold).
-> > 
-> > The threshold count field also has reserved encodings 0-2, which
-> > currently read as 0 from the sparse lookup table. That behavior is
-> > not intentional; it is just an artifact of the array's implicit
-> > zero-fill. The ABI documentation only lists 256, 1024 and 4096 as
-> > supported values, and the write side (cxl_set_ecs_threshold())
-> > rejects everything else, so a reserved encoding can only come from
-> > the device reporting it. Rather than documenting 0 as well, make the
-> > read fail for all reserved encodings and only ever report the
-> > documented values.
-> > 
-> > None of these encodings can be written through the sysfs write path,
-> > and no device is known to report them, so this is hardening against
-> > a device returning values not covered by the spec rather than a fix
-> > for known hardware.
-> > 
-> > Convert the cxl_get_ecs_*() helpers to return an int and write the
-> > attribute value through an output parameter (u32 * to match the
-> > macro), so that errors propagate through the shared
-> > CXL_ECS_GET_ATTR() macro to the sysfs read.
-> > 
-> > Suggested-by: Alison Schofield <alison.schofield@intel.com>
-> > Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
-> > ---  
-> 
-> I was going to make a suggestion about updating the documentation to mention
-> this new behavior, but noticed the other attributes in the ABI docs don't mention
-> reads of reserved values resulting in an error. The doc mentions that these attributes
-> are implemented by the device's driver (duh), so updating the general docs doesn't make
-> much sense.
-
-It would be unusual to document what happens in a hardware bug situation
-in an ABI doc.  Tends to be noisy and hopefully never applies.
-I don't mind it being added if people really think it adds value.
-
-> 
-> So I'm going to take it a step further and ask if we should be failing the write at all?
-
-This is only the read path I think? I guess documenting that
-writes can only be of allowed values and otherwise you get an
-error return would be fine but to me that would normally be
-assumed for a sysfs parameter.  It is nicer for userspace than
-alternative of just ignoring such a write.
-
-
-> It seems like other driver implementations probably don't, so it would be weird if just the
-> CXL driver did. I haven't looked for any other callers, so if CXL is the only user then
-> the docs should probably be updated so other implementers can follow the same convention.
-> If not, then it may be worth looking at the other call sites to update their behavior.
-
-Far as I know, today this is the only ECS control driver.
-Maybe someone surfaced another whilst I wasn't paying attention though
-or someone has one in the works.
-
-Jonathan
-
-
-
-> 
-> That may suck to do if multiple subsystems are involved, so if everyone else is fine with CXL being
-> different then I guess I am too :)
-> 
-> Thanks,
-> Ben
-> 
+I tested, and yes it works without ignore_access code, but we still need no_pcie_port.
 
