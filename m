@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184226;
-	b=KpMKEX1RMYxuvyUKrj4U+2G/5rMj3ZGU/HG+zdORQEnc1L2/S1Mt4xHr8lp0KE2Tk1jt
-	 y+WvsHmZ49xea8V/TOxv8aYPSma5zbnmGTHhd/JvV+Ymu2yKeV9OxVpSm50xKeuq3l/KB
-	 5lLgYdgwc8xDFl70Y7khjb3WuuxFfNILOpvsgqzeqA8sMV2UrkeApNkHIgHv2LbiaMltn
-	 zhLPKhK/NNNt4aGC+I1pT1QuhUXlPhMqA7OFbCqWngiyH0ITTn8ZoAtfuL03CXeg0XAVT
-	 /qJFwRcaYmroxTQPkNkfz81WZtx1lBbVTH8U1l1YMx2YDvorePrmmF6OkGqYrahQklw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184226;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793184267;
+	b=yO1xCI3UN7TCFhxh9n2Hzpliscwmcv5QYEAKhq1I4kzChDbXJtPVnPsh99DS/D4P2gr6
+	 0R+TjMRJ79h4cgmue5cogLTf69MLJ4ZxIqmFY8mfsVMu1mv5mdwDfdjYdfrWyI5SsdF22
+	 2dqjVDZwS7KJxhZAMkNHRaRV/7BEt2zZtl+xWAZvFE0Hv5FwiBM+9JJCD2QUkoXR4vSNr
+	 b7ApxT22brNd2S9C6qRqH4zL2uJHl+1TCmDTe0DhNR3/CdqRghU6Ojk4scnu4/bNYFsV3
+	 QZSCrZSVAl4XyAnj8tCEWjjy9CQv70ehdlDDgzDRJg1wfuSi/KtNyKH9trYDR7fXZqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9PEXPx1f1v6I2CjAMNLRcdHwCcztH0pJkRVk37TqP40=;
-	b=DhJYZK9/5fA5TSiG88hLJArAC+T+g/pOEaotPoTsFXeTaL6VlbE9Q9Vd61534DgwnH3w
-	 7fAVMWCmsiX2Of5WBDZns2YsNfDwLAWXVoX9EpCXyWVqGLR+nUPnP/fmVDaXxKikIPKIX
-	 9a3ckb3trYcLP3jRDapTMzjvWfF9lykfJjiWWIul0Dl2L13+U5bJa06FhaN3zcX0VVrWG
-	 rA0pc06LlhMMAtD9Y1V2FB6vtbaeDTECrxgwdRqFXMtpSkuJYKRnsxeLAYq8eNorO+7VD
-	 eQyF+1HziDk1xaNRAqMrPcviA4hT+w4gzNJ+595IkBrLq3fLecR+apcKKz7uqn+d8ew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=l6LDirZd+A77bKsj1zHIaaLsIvX+GdJ08ZjKCtIylZI=;
+	b=FjZeCMG8K24FPJcuHSbL5jJ7PNJ3I4UO14U4OYcauyN2vNdIs6MiZm/fUcJDXTF2GAqF
+	 xh5qeS9rSIQ58bTVbezIuStZc1TsY2V0wKxpBs229fVX0U69CnkklCaoThSyKEYBGta5b
+	 BlIsnEg8UJ6yEld/6PQ6R0JrKCE1sbB1hPjSbr7i/X/t7zVZ88/0eSqlaOyixrupZP6e/
+	 asrz/r/6aJGwhAECCQITO5jVjaYQfjeFXYEf4RLHJyEqzjFJZGhW2RVI0+2IQYdM2Gsz8
+	 fs9OmvtngAN0c+Wm11io9lRgNsovmEJNKsYknJZ4RpHHQuQ6xQXHdCFNrvZQ8jSVSpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tgz+LzV+;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A8CylCRB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79794606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:43:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79794606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF62606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AF62606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tgz+LzV+
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso358928a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:43:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A8CylCRB
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5378b281aso3941115ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:44:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793184267; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hiWemwSI7RilKgEGTP8/81I/qa2cOmPG15kFypUs277OMM1YREZCUEiaZrnkbmfQlE
+         9VIr1wPGNGb7JRDx/VtfnutpPp22tPikbJo2HOkdUsDdd92Tk6342CGipzdkv7i6psHi
+         3WztVi4px/3lns+yuC88HGqQlcYMn3Z14WJpfPoKefQp9YLYa4Z6/GR3rpfhm8qfL00t
+         JlVKq+lTxNJni1JN4cO3m5UOlLf/oE1Pj4YIcTQLOIY+QbT+aOU4x+2ITsT/OpzDHj8n
+         VigBK84aGCE8M4VTu5zaDpDHqRPDykY+FSus9mJ6nbdR/cOAK+USdvBx9lo5t3HFFH0v
+         YI5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=l6LDirZd+A77bKsj1zHIaaLsIvX+GdJ08ZjKCtIylZI=;
+        fh=XADUQty5a9WY4wk4mgG+6LRtW9rjdDKibUGYw2+Mi3I=;
+        b=Fg8SG9gibBSO8sy+5W/57KRc+kMokOgLkc+EgEj3VB5a1khRSB2I9hexu7AwiaDHnD
+         vtpYhir5lyj6J3Dju/h67my8K6EIZMIWrcwozRBji5ot4c4igbtc6gWmj0Qx9C2+8oi1
+         BDaXPjvGaqGPxYiJ34uwBXyRIgueH0DViWZFrkiKLP8aNBpG1Ckcl9dHSFze7NDggFL8
+         bpxDQ1TsExhnna9TwoggJ9zl/DU+CtDjdKg9VwrExLeNbYGNSBQ0ufEXY4lC5t7Iy/DO
+         JQoO63mdbTVMt2RxxqgGjmBDB0cyrt7uMR/9Y4ICpvMzoWelfZyIgLnr+z9g5NpihKHP
+         qZTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793184225; x=1793789025; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9PEXPx1f1v6I2CjAMNLRcdHwCcztH0pJkRVk37TqP40=;
-        b=tgz+LzV+dwEKJDmG74Pr1aGCyv4LebV50v6CwuWqxRNOW1XFP43YJgPlVeyyQEpAbL
-         tIIYI7wazhn0HNcl0IUX4DJq9T6YHUoFt6RRDHwg53aoTtO0IJ1FYfEJhU/PNP86qd0R
-         WYW49tX9/ZiemyGoOxBVfnXeYMlgVxABNxm+Kk3mvVAacSLf00/NyUglTB6/XGZuXYzN
-         aFfS0AHdEtecypjIRHhZXOhJ6S2IXn/YPNmnjKWriJyGuQetBs2f6QRt2VqMC1EPCq2d
-         i1YKLh8ssu/KZV+bsxOysgUfq0eiOMkfNCn7AuCzPtEdA4blRTX00rwMC1PuZubvmtQw
-         Cy5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793184225; x=1793789025;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793184267; x=1793789067; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9PEXPx1f1v6I2CjAMNLRcdHwCcztH0pJkRVk37TqP40=;
-        b=cLx0s0FT+ocbV5KhccoBEDr8SeKPbxAIzw+ALWsDhQvN8V5NonSGhuXmmauBST5VaY
-         LXCHqQT4UBR9tG90CymKMZxOlMMQkGrT1ti9RfKxSVJo0GCnwBRUH4a7DFlVI0Ai5WyX
-         JGetWKfglGNRz/sTeSr3Hzi5EKk4LxexzL5W1N0WL6w5395Hjft1+iLUvGpUXGsHA2xf
-         S27w9fRz/TJle7JSDlFmCBBGy2HsszFRl00EaOf2yhz8SwLGBxY51HX378hJxS5QOClP
-         ntT5WJdnsyyU+QlJethEA8K/IyNo2j+0KWzQ7CND0OTFJdGnrRFjzJWyRtIdtiJizhqG
-         TOaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmAZo4sqgO/RhqY28URLFR+19oRvmSDqpEuDzPoTEK/VOSyOqK34meKcKuio47mf+7Be6hWeSOkSsNxwg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC5+Fj4UMCjUYxixuiAWUz+VyyWfJLkc5E6fK1G9VyEL83X0c8
-	F0YBgfLcfOEmVPYy7WYKdtGGaiI8Msk2Bp/qi98u3Z7Br7pmi2JAmT6w
-X-Gm-Gg: AYBFou3kri43FoR5qNNBjCdBYh+yiiJMAnUPXchHmb7GXy546ZFoLa1ixP8hhOleNQd
-	GL0zV6rd+u5ocUjCEIJyAE3Io0D8xj1OR4KEytdvOdUrThyyEf3JglMliTeL6gA50i3TKNS08sH
-	j7i3eyzjY7QD5O8gDwRJrVkeOXtTWWXOqAPZrbmXu/3oeSEZzGbmDjNKdPc4SSaXy1kmo1u+kHn
-	sOw2mhlSU50u3LYj9sHJuRuBqYQuQzbCcwIGwqSVZkcpHglfEoRIVBNvHq4hjvSUbifvENOPI7D
-	kmfy79ONYKZA2QSf/AefA9B6ZX4xs2oG00QF/sMFOrLn6t4nlxs3r2WzEE/wyRrRhlAMArf3nzW
-	YH1+O2dKAWbXGsJfEEGNPvD6FxbwcsolRbZDR8hd7jDqUeJ5ZpmFtAulTfjo/RoUkV4kWRfftZI
-	KLC9W8pmnc3HykAOSxZnILPuiYUtUyKCFN5PLUi+WrtqtXhiWG91PIXRx6zs5u4ZzJbwsKxDcFw
-	QBLpA8ZMq7a94qmiIHK1VXJNfDJav7Kjb05GjyaXsur14GEHf/tCnXvHWEcPHvdqe5iOo2LWMSd
-	QYp4B+T7WILg1j4JIKvKAdckaMKQEC6VU67L/D56yG/7mGU5Yr0QOPxiQRDyDuifDTHtSfxw
-X-Received: by 2002:a17:902:ec8f:b0:2dd:c100:4b76 with SMTP id d9443c01a7336-2eb003e9b1bmr20590075ad.45.1793184224783;
-        Wed, 28 Oct 2026 03:43:44 -0700 (PDT)
-Received: from KASONG-MC4 ([114.246.239.200])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c34c27sm19889165ad.50.2026.10.28.03.43.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:43:44 -0700 (PDT)
-Date: Wed, 28 Oct 2026 18:43:34 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old
- generation
-Message-ID: <auHMXBwnwuRwHLmo@KASONG-MC4>
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-3-tjmercier@google.com>
+        bh=l6LDirZd+A77bKsj1zHIaaLsIvX+GdJ08ZjKCtIylZI=;
+        b=A8CylCRBWERk0XBVId5jt/uthzbZWRrSVvi2OVVVqVKWi5Uuj1XCy9EvM4bZAVSLt/
+         VK7Jlp9XVCt7AcYKAYRxs17Gi4jHsWMhkoMORklHjaT2/UAdor5OBMHwy9wNFBnMzWpb
+         +6JaRH9e4tnZuKWRmAf5gv1HwzY+5f/y5RKMrVJa5H7ZFsv+ZRgFA2pfAqBCtE1ixrtn
+         bUBjzq7pQZq+439VWPc17uH9cnnxVD0CfnzPhVvmfSn/iGwKkJATAJ6YCLlIVIrXNPUP
+         84jUzkSNpU1tMIxn3v1Y45Mc2KWvakcxuA9kvHkDOWB//LlwIDy6N0ZxjVZbDD3WVoD4
+         od7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793184267; x=1793789067;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l6LDirZd+A77bKsj1zHIaaLsIvX+GdJ08ZjKCtIylZI=;
+        b=Y+pX+20iE7E0tznJno+k3r7JuIj7P5W/rbd0nfh+AMLzWnbbqA9R5ZwBaP5mCAG6J7
+         cGa/4Ccj1q3wBoCyfzjz9akafpFey/OGFHenZoQAkZE4+L2EiLKN95itt8B9YgQVA/6m
+         CzWvQBzrU12rTDJjepU13Icm+HtQ8OgP+3YP6pIUjJuMPgKMtCAYPW89MZJeXwo9ZDaU
+         MHTTah243tTtUs6pLeavVvADn4f9Xngo3OFKkQAmH/LTZE6eRDoGkX+VRdZ2V7qiIbRR
+         HMB9L56B4TpjtBQOUitDGFp9NBYKOCT5NkhLJjHPVklKYyOSODfQy/iIcJiuYxT5Dq/p
+         gWhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByR6C0VOLPVu8B3d7zzliN3TiUngymMLF7541ZiqskIsbME5VIJ755kekZL7fp/oEiV+NqbtT/qW0leXJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiwyZ9AKWez1khnUZdl03ggNKsADDTF6+f0GhxjewteZ0xnU0d
+	RYrr4tu3ZujEltuaQ9QoW2rp5edA1YDM2JCkptzSuM7XHLfsCVFDppIFLqHC04bdjNpZ+njznsE
+	uTPpP6ZuTFEXaBTtIaj60U7xwExBIlG4z8OsW
+X-Gm-Gg: AYBFou0TPWo4sums+PxN0u0FYXMN/2STTY0Kc34PGkOS5L069xxoyJ+ecTdg9oF0jbY
+	QCY7+cXjBGEXtJDeX+RogXOxvDnC7k743pTBaFXkK3joV/DsooJ24GJzqrMyjnLW3/oi+VEdPon
+	h3pH5aO/QsHuYoGCXlU/JVpCgQyfecc+tkxj8hxYXTj+MmY/sCEecMbYwRY0qJtoittls/97N++
+	cneIwfKouBwr7sFeURWQO5U1YM94wEZUUIcagRIAKHJw1SNrNU6ifKZoTYZh/QgR4oolN7XFcA3
+	gVSGstNpJoxGNSdizDQbUetLKnS+QJ8+uebOdw69oUNN7EA1xIuoCAGqoo+R9hSELbBxqlI7z93
+	/F6GL8w7r0LuLUNDHXjci8LdxNy1SX/nSFDyuN48LgvyyQo61/YC6d8lv6u9yhAnYytzngjOlA9
+	+guLU5L1L+84Pdi+WTtb+L7jPlgu3w8XyHuwIZDP5zLCJBAA+L
+X-Received: by 2002:a17:903:1b05:b0:2e8:3e5d:b2b7 with SMTP id
+ d9443c01a7336-2eb003e9deemr18278615ad.40.1793184266731; Wed, 28 Oct 2026
+ 03:44:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,54 +104,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028010611.3929937-3-tjmercier@google.com>
+References: <20261023102818.523331-1-phucduc.bui@gmail.com> <57b8aa49-2b7b-4b2c-833d-893eff95134a@amd.com>
+In-Reply-To: <57b8aa49-2b7b-4b2c-833d-893eff95134a@amd.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Wed, 28 Oct 2026 17:44:14 +0700
+X-Gm-Features: AclHuK_exAGUSFD09jwFsm5vTmTuUEGazo2C26fC_zaBNTIkZVwUtRamyW3Gft0
+Message-ID: <CAABR9nHDSHmDwGSS8gdBp5mAwuVJnCLjK=_+9VrHjH4zqj7p8A@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: xilinx: formatter_pcm: Fix read-modify-write of
+ AUD_CTRL in hw_params
+To: "Gaddipati, Naveen Kumar" <naveenga@amd.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>, Mark Brown <broonie@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Maruthi Srinivas Bayyavarapu <maruthi.srinivas.bayyavarapu@xilinx.com>, linux-sound@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 06:06:06PM +0800, T.J. Mercier wrote:
-> lru_gen_offline_memcg() moves an offlining memcg to the head of the old
-> generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
-> visits it first and evicts the folios it left behind.
-> 
-> Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-> dying memory cgroup for LRU folios"), those folios are reparented to the
-> parent before lru_gen_offline_memcg() runs, and nothing can be added
-> back to the offlined memcg's lruvec afterwards. Putting an empty
-> offlined memcg at the head of the old generation no longer serves any
-> purpose and only delays reclaim from the memcgs that still have memory
-> due to additional shrink_many() iteration.
-> 
-> Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
-> like any other memcg below the reclaimable size threshold until
-> lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has no
-> other user, so remove the op and update the memcg LRU comment as well.
-> 
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> ---
->  Documentation/mm/multigen_lru.rst |  4 +---
->  include/linux/mmzone.h            | 14 +++-----------
->  mm/memcontrol.c                   |  1 -
->  mm/vmscan.c                       | 20 +-------------------
->  4 files changed, 5 insertions(+), 34 deletions(-)
-> 
+Hi Naveen,
 
-...
+>
+> Reviewed-by: Gaddipati, Naveen <naveen.gaddipati@amd.com>
+>
 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 636152d8c94d..45a2c1021f4f 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
->  enum {
->  	MEMCG_LRU_NOP,
->  	MEMCG_LRU_TAIL,
-> -	MEMCG_LRU_OLD,
->  	MEMCG_LRU_YOUNG,
->  };
+Thanks for reviewing!
 
-I think there could be other usage of this LRU_OLD macro, but indeed
-offline is the only user currently, removing it is cleaner.
-
-And everything looks good to me, thanks!
-
-Reviewed-by: Kairui Song <kasong@tencent.com>
+Best regards,
+Phuc
