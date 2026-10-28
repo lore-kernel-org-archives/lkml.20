@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.91
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205538;
-	b=5PY4rKD6bVyoKxHAW0vpGP9unFiWFlQ1z8yEZEzWrFIv/elRyyAYLHqyjxqHJoEwcfo7
-	 gE8AkuF2/TscjhhJu5ZwbVFT0fNxXrVhp9cLenUQVr9nzZvrLyFtxk8Rwx65RUhbIIXf3
-	 MMH/m4zfNr0LdBLLaHS7tZHi9cycG2CqzF10pMnu/fNqIP07meqVqhIC0Auygv6XMOLcG
-	 lc0EOGpT2RCyiak+qumSa9qbMJfcpoMgAHOi/YL8nkTE4V2PTHl7UF/76BGBdtZI36kKf
-	 b4sLV4DQ5zf3osDclTNHvT3ZbaWn+EoU5oRRs0C9+tgY/krdG8mcZzeQrcm2KcD+kWg==
+	t=1793205547;
+	b=Unlw910OsQ2w1rcRn3y51JylBp+3I7YaIz5z3yNTeQPN9XQHcJcxy2NfW1cPKuthDP5D
+	 WJ2Wib3W1KUiDeIie+hW06CDfrURF1krdugV0LIfKPq0IsoIwJv5iOeKiq01MyuCUkGI7
+	 DauOcB2GGCGPZOHI8PiPs/aEIEOexTmdo6Ne2Q2f4vL5irOnmDZSucuARe/dAmiRnPPlL
+	 /BXe4TFW6dmjzBShAN9RuUUMbrz0/BUZefAMDlaf0PHhyr8+Cft3yhuqiffTS6oI63dcl
+	 hHXhegAxRZRUzhOcGCADXciqfPy0oSU4Z8zG0H6hj4SetKC6N/K1rzrYYKE2iWJsCMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205547;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QSKBaiGXHt+4qQH7pG2VnJvANmW2EAlk7ob12Ez8kFM=;
-	b=EPFRE51Oq+MRmU/CK3ekxdIfqn1Pk0fw1B5hur80hGPgjYMspPfr2aX1zi/iixQXMNOb
-	 H7DAxJ2zFHIzeBcYdyIdkS8D0FFZmCdQb8smDiwJZzte9iY2xZMnj8/t3RGze3U2guciJ
-	 kAKEYkZergDwNkpr9UvwsilLs8Dw15eCJ9M9Lu1lzZ+G0EQ1kdbP6lgABBFMHRYOkyYhK
-	 RnH92eti8b3Unry+9BgdHwFbF0sbiN1MSdCIe/RrLURhCc58DkY//x6N/pyMmJKWRnOGA
-	 qXixVY9nJZf+ZU0P1eaFXQvbed6qGO98LrjZAvn6p7lJthTCSHSiTDyM4Y9RLyv2G3A==
+	bh=FJEE2c6fP9+vbVlsO1bTu5Zo4jN7YBVTgORfgVG+93g=;
+	b=kusDFoL641LHMsVDrIAXMz1hIKiOajtiNOY3vBsEylXM9byBXDHWT9BaFXEgCUWxaMlj
+	 +6AhTV9PEFvnpsYyNIFGbdFWNxI1rMo1sGie00BnIE80uPEE+memDfvtJvu76XIWxNK4B
+	 eXBsfyZzHy/WGyhlR2VrMHIaZkrQb13hxzJQ66C5ZNa3Zb+g/TQw/k8zCHPDkDKe8eZ24
+	 CKUY7aiTGCpWuiCC3A7BR98qG75jVE2gPRV5aQAGqF/KJq/tJ5oc2da5Qy82b3D6Of7b/
+	 owPFzu0GzsWLbzdOoNVLzjApCSvyhHcq/WxvXWf9baARCW3tNsOKJ1JVDlYcvaxnVrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ulkiOU7o;
-	arc=none smtp.remote-ip=91.218.175.91
-Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Ofi8Y/gZ";
+	arc=none smtp.remote-ip=95.215.58.140
+Received: from mta1.migadu.com (out-140.mta1.migadu.com [95.215.58.140])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE01160A382D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE01160A382D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DEB606A32C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4DEB606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ulkiOU7o
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ofi8Y/gZ
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6ROvPKTlne3UOVvR3mOynIgw9XxCJw9ISos9bJc+n6k=;
+DKIM-Signature: a=rsa-sha256; bh=9nz2xhM4HVaiKvtJZUjKlU0KmR1aLdEGIfS80MTL+oU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205536; v=1; x=1793810336;
- b=ulkiOU7oVorwsy+kIzuGDYmaaiPdxYqslrphFFZmHJeUurS0iPOknzaq5FmXsFjcsYS7BZla
- 26LV8X4EjRlFB9aEmfa10Z7semI9S1F/1MY4OIbjBAZrGFlCYf+TlNKNTl0l10OHiww2wjRQNtL
- oBnZuDHquP7C4Sg9ghaqSHlA=
+ t=1793205545; v=1; x=1793810345;
+ b=Ofi8Y/gZVDgBRPjmaAtBt98Kwh4e32GseE3p0zu29UpaGeJ8OqQpgUkKvcC4VLFOjGPnfwbF
+ DPmjCVrj7kwt9o4cuk3Y0Vt/nxjRvARposZHbhtniKTPwucJ+4LvgVSOffnUtytCJYyiQ0pId9e
+ dAlZX0SRXGCxGmpJMp74E24I=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id f7cad60e308d7741;
-	Wed, 28 Oct 2026 16:38:55 +0000
-X-Mizu-Trace-ID: f7cad60e308d7741
+Received: by mta11.migadu.com with ESMTPS id 3e398e7a4f6b45ca;
+	Wed, 28 Oct 2026 16:39:05 +0000
+X-Mizu-Trace-ID: 3e398e7a4f6b45ca
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Joel Granados <joel.granados@kernel.org>
 Cc: Wen Yang <wen.yang@linux.dev>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 37/39] net: move namespace sysctl context to priv
-Date: Thu, 29 Oct 2026 00:35:16 +0800
-Message-Id: <b0e2052fd4025708478a800ccc4356b1786ac075.1793204511.git.wen.yang@linux.dev>
+Subject: [RFC PATCH 39/39] sysctl: remove the extra pointers and the compatibility bounds read
+Date: Thu, 29 Oct 2026 00:35:18 +0800
+Message-Id: <b6e4cbd509687301a8ee2106f19a3ac01e7671a6.1793204511.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
 References: <cover.1793204511.git.wen.yang@linux.dev>
@@ -71,185 +71,363 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Several per-net handlers store the owning struct net in data and resolve
-their real storage elsewhere: the route flush entry, MPLS platform
-labels, the VRF strict-mode switch, the RPS default mask and the IPv4
-local port range and multipath hash seed.
+Every entry now carries numeric min/max, so the pointer bounds have no
+remaining users. Drop extra1 and extra2 from struct ctl_table, remove the
+pointer branch from the range converters, and delete the shared pointer
+constants that only existed to initialise those fields.
 
-Point data at backed storage where one exists, otherwise leave it NULL,
-and carry the namespace in priv. The duplication paths copy the
-namespace into priv instead of offsetting data, so a handler can no
-longer mistake an offset for its owner.
-
+Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
+Suggested-by: Joel Granados <joel.granados@kernel.org>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- drivers/net/vrf.c          |  4 ++--
- net/core/sysctl_net_core.c | 11 +++++++++--
- net/ipv4/route.c           |  4 ++--
- net/ipv4/sysctl_net_ipv4.c | 13 ++++++++-----
- net/mpls/af_mpls.c         |  9 ++++++---
- 5 files changed, 27 insertions(+), 14 deletions(-)
+ fs/proc/proc_sysctl.c  | 26 ++++-------------
+ include/linux/sysctl.h | 65 +++++++++++++++++++-----------------------
+ kernel/sysctl.c        | 47 ++++++++----------------------
+ kernel/time/jiffies.c  |  2 +-
+ lib/test_sysctl.c      | 24 ++++++++--------
+ 5 files changed, 59 insertions(+), 105 deletions(-)
 
-diff --git a/drivers/net/vrf.c b/drivers/net/vrf.c
-index 993cc2d120fd..fcbb43c72ff7 100644
---- a/drivers/net/vrf.c
-+++ b/drivers/net/vrf.c
-@@ -1826,7 +1826,7 @@ static int vrf_strict_mode_change(struct vrf_map *vmap, bool new_mode)
- static int vrf_shared_table_handler(const struct ctl_table *table, int write,
- 				    void *buffer, size_t *lenp, loff_t *ppos)
- {
--	struct net *net = table->data;
-+	struct net *net = table->priv;
- 	struct vrf_map *vmap = netns_vrf_map(net);
- 	int proc_strict_mode = 0;
- 	struct ctl_table tmp = *table;
-@@ -1865,7 +1865,7 @@ static int vrf_netns_init_sysctl(struct net *net, struct netns_vrf *nn_vrf)
- 	if (!table)
- 		return -ENOMEM;
+diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+index 3e65d75710df..dbbc94b61b71 100644
+--- a/fs/proc/proc_sysctl.c
++++ b/fs/proc/proc_sysctl.c
+@@ -1105,7 +1105,6 @@ static int sysctl_err(const char *path, const struct ctl_table *table, char *fmt
  
--	table[0].data = net;
-+	table[0].priv = net;
- 
- 	nn_vrf->ctl_hdr = register_net_sysctl_sz(net, "net/vrf", table,
- 						 ARRAY_SIZE(vrf_table));
-diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-index 1721e63240c9..16441c83abf9 100644
---- a/net/core/sysctl_net_core.c
-+++ b/net/core/sysctl_net_core.c
-@@ -98,7 +98,7 @@ DEFINE_MUTEX(rps_default_mask_mutex);
- static int rps_default_mask_sysctl(const struct ctl_table *table, int write,
- 				   void *buffer, size_t *lenp, loff_t *ppos)
+ static int sysctl_check_table_array(const char *path, const struct ctl_table *table)
  {
--	struct net *net = (struct net *)table->data;
-+	struct net *net = table->priv;
- 	struct cpumask *mask;
+-	unsigned int extra;
  	int err = 0;
  
-@@ -703,7 +703,8 @@ static const struct ctl_table netns_core_table[] = {
- #if IS_ENABLED(CONFIG_RPS)
- 	{
- 		.procname	= "rps_default_mask",
--		.data		= &init_net,
-+		.data		= NULL,
-+		.priv		= &init_net,
- 		.mode		= 0644,
- 		.proc_handler	= rps_default_mask_sysctl
- 	},
-@@ -828,6 +829,12 @@ static const struct ctl_table *netns_core_table_dup(struct net *net)
- 		if (tbl[i].data == &sysctl_wmem_max)
- 			break;
+ 	if ((table->proc_handler == proc_douintvec) ||
+@@ -1117,23 +1116,6 @@ static int sysctl_check_table_array(const char *path, const struct ctl_table *ta
+ 	if (table->proc_handler == proc_dou8vec_minmax) {
+ 		if (table->maxlen != sizeof(u8))
+ 			err |= sysctl_err(path, table, "array not allowed");
+-
+-		if (table->extra1) {
+-			extra = *(unsigned int *) table->extra1;
+-			if (extra > 255U)
+-				err |= sysctl_err(path, table,
+-						"range value too large for proc_dou8vec_minmax");
+-		}
+-		if (table->extra2) {
+-			extra = *(unsigned int *) table->extra2;
+-			if (extra > 255U)
+-				err |= sysctl_err(path, table,
+-						"range value too large for proc_dou8vec_minmax");
+-		}
+-	}
+-
+-	/* Numeric bounds are validated alongside the legacy pointer form. */
+-	if (table->proc_handler == proc_dou8vec_minmax) {
+ 		if (table->min > 255U || table->max > 255U)
+ 			err |= sysctl_err(path, table,
+ 					 "range value too large for proc_dou8vec_minmax");
+@@ -1366,9 +1348,11 @@ static struct ctl_dir *sysctl_mkdir_p(struct ctl_dir *dir, const char *path)
+  * type     - Defines the target type (described in struct definition)
+  * proc_handler - the text handler routine (described below)
+  *
+- * extra1, extra2 - extra pointers usable by the proc handler routines
+- * XXX: we should eventually modify these to use long min / max [0]
+- * [0] https://lkml.kernel.org/87zgpte9o4.fsf@email.froward.int.ebiederm.org
++ * min, max - numeric bounds used by range-checking handlers. Signed handlers
++ *            interpret these values as signed longs. Unrestricted ranges must
++ *            explicitly use the corresponding type limits. Custom handlers
++ *            keep their context in data and can substitute backing storage
++ *            on an invocation-local copy without changing these bounds.
+  *
+  * Leaf nodes in the sysctl tree will be represented by a single file
+  * under /proc; non-leaf nodes are not allowed.
+diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
+index 225c07faf2c9..9cda53941e22 100644
+--- a/include/linux/sysctl.h
++++ b/include/linux/sysctl.h
+@@ -37,27 +37,22 @@ struct ctl_table_root;
+ struct ctl_table_header;
+ struct ctl_dir;
  
-+		/* Entries without backing storage carry the namespace in priv. */
-+		if (tbl[i].priv) {
-+			tbl[i].priv = net;
-+			continue;
-+		}
+-/* Keep the same order as in fs/proc/proc_sysctl.c */
+-#define SYSCTL_ZERO			((void *)&sysctl_vals[0])
+-#define SYSCTL_ONE			((void *)&sysctl_vals[1])
+-#define SYSCTL_TWO			((void *)&sysctl_vals[2])
+-#define SYSCTL_THREE			((void *)&sysctl_vals[3])
+-#define SYSCTL_FOUR			((void *)&sysctl_vals[4])
+-#define SYSCTL_ONE_HUNDRED		((void *)&sysctl_vals[5])
+-#define SYSCTL_TWO_HUNDRED		((void *)&sysctl_vals[6])
+-#define SYSCTL_ONE_THOUSAND		((void *)&sysctl_vals[7])
+-#define SYSCTL_THREE_THOUSAND		((void *)&sysctl_vals[8])
+-#define SYSCTL_INT_MAX			((void *)&sysctl_vals[9])
+-
+-/* this is needed for the proc_dointvec_minmax for [fs_]overflow UID and GID */
+-#define SYSCTL_MAXOLDUID		((void *)&sysctl_vals[10])
+-#define SYSCTL_NEG_ONE			((void *)&sysctl_vals[11])
+-
+-extern const int sysctl_vals[];
+-
+-#define SYSCTL_LONG_ZERO	((void *)&sysctl_long_vals[0])
+-#define SYSCTL_LONG_ONE		((void *)&sysctl_long_vals[1])
+-#define SYSCTL_LONG_MAX		((void *)&sysctl_long_vals[2])
++/* Numeric constants for sysctl ranges. */
++#define SYSCTL_ZERO			0
++#define SYSCTL_ONE			1
++#define SYSCTL_TWO			2
++#define SYSCTL_THREE			3
++#define SYSCTL_FOUR			4
++#define SYSCTL_ONE_HUNDRED		100
++#define SYSCTL_TWO_HUNDRED		200
++#define SYSCTL_ONE_THOUSAND		1000
++#define SYSCTL_THREE_THOUSAND		3000
++#define SYSCTL_INT_MAX			INT_MAX
++#define SYSCTL_MAXOLDUID		65535
++#define SYSCTL_NEG_ONE			(-1)
++#define SYSCTL_LONG_ZERO		0UL
++#define SYSCTL_LONG_ONE			1UL
++#define SYSCTL_LONG_MAX			LONG_MAX
+ 
+ /*
+  *
+@@ -72,8 +67,6 @@ extern const int sysctl_vals[];
+ #define SYSCTL_USER_TO_KERN(dir) (!!(dir))
+ #define SYSCTL_KERN_TO_USER(dir) (!dir)
+ 
+-extern const unsigned long sysctl_long_vals[];
+-
+ typedef int proc_handler(const struct ctl_table *ctl, int dir, void *buf,
+ 			 size_t *lenp, loff_t *ppos);
+ 
+@@ -84,16 +77,17 @@ int proc_dobool(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
+ 		loff_t *ppos);
+ int proc_dointvec(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
+ 		  loff_t *ppos);
+-int proc_dointvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
+-			 size_t *lenp, loff_t *ppos);
+ int proc_douintvec(const struct ctl_table *ctl, int dir, void *buf, size_t *lenp,
+ 		   loff_t *ppos);
+-int proc_douintvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
+-			  size_t *lenp, loff_t *ppos);
+-int proc_dou8vec_minmax(const struct ctl_table *ctl, int dir, void *buf,
+-			size_t *lenp, loff_t *ppos);
+-int proc_doulongvec_minmax(const struct ctl_table *ctl, int dir, void *buf,
+-			   size_t *lenp, loff_t *ppos);
++/* Range handlers consume numeric table bounds. */
++int proc_dointvec_minmax(const struct ctl_table *table, int dir,
++			 void *buffer, size_t *lenp, loff_t *ppos);
++int proc_douintvec_minmax(const struct ctl_table *table, int dir,
++			  void *buffer, size_t *lenp, loff_t *ppos);
++int proc_doulongvec_minmax(const struct ctl_table *table, int dir,
++			   void *buffer, size_t *lenp, loff_t *ppos);
++int proc_dou8vec_minmax(const struct ctl_table *table, int dir,
++			void *buffer, size_t *lenp, loff_t *ppos);
+ int proc_do_large_bitmap(const struct ctl_table *ctl, int dir, void *buf,
+ 			 size_t *lenp, loff_t *ppos);
+ int proc_do_static_key(const struct ctl_table *ctl, int dir, void *buf,
+@@ -116,15 +110,15 @@ int proc_do_static_key(const struct ctl_table *ctl, int dir, void *buf,
+ int proc_dointvec_conv(const struct ctl_table *ctl, int dir, void *buf,
+ 		       size_t *lenp, loff_t *ppos,
+ 		       int (*conv)(bool *negp, unsigned long *u_ptr, int *k_ptr,
+-				   int dir, const struct ctl_table *ctl));
++		       int dir, const struct ctl_table *ctl));
+ int proc_douintvec_conv(const struct ctl_table *ctl, int dir, void *buf,
+ 			size_t *lenp, loff_t *ppos,
+ 			int (*conv)(bool *negp, ulong *u_ptr, uint *k_ptr,
+-				    int dir, const struct ctl_table *ctl));
++			int dir, const struct ctl_table *ctl));
+ int proc_doulongvec_conv(const struct ctl_table *ctl, int dir, void *buf,
+ 			 size_t *lenp, loff_t *ppos,
+ 			 int (*conv)(bool *negp, ulong *u_ptr, ulong *k_ptr,
+-				     int dir, const struct ctl_table *ctl));
++			 int dir, const struct ctl_table *ctl));
+ 
+ /*
+  * bi-directional converter functions
+@@ -140,6 +134,7 @@ int proc_doulongvec_conv(const struct ctl_table *ctl, int dir, void *buf,
+  * { return proc_uint_conv(u_ptr, k_ptr, dir, ctl, true,
+  *                         custom_u2k, proc_uint_k2u_conv}
+  */
 +
- 		tbl[i].data += (char *)net - (char *)&init_net;
- 	}
- 	for (; i < table_size; ++i)
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index b4c415f720b2..5a8d0fcf75e3 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -3511,7 +3511,7 @@ static int ip_rt_gc_elasticity __read_mostly	= 8;
- static int ipv4_sysctl_rtcache_flush(const struct ctl_table *__ctl, int write,
- 		void *buffer, size_t *lenp, loff_t *ppos)
+ int proc_int_conv(bool *negp, ulong *u_ptr, int *k_ptr, int dir,
+ 		  const struct ctl_table *tbl, bool k_ptr_range_check,
+ 		  int (*user_to_kern)(const bool *negp, const ulong *u_ptr, int *k_ptr),
+@@ -226,8 +221,6 @@ struct ctl_table {
+ 	umode_t mode;
+ 	proc_handler *proc_handler;	/* Callback for text formatting */
+ 	struct ctl_table_poll *poll;
+-	void *extra1;			/* Deprecated; being removed */
+-	void *extra2;			/* Deprecated; being removed */
+ 	unsigned long min;
+ 	unsigned long max;
+ 	void *priv;			/* Handler context, never used by the core */
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index ab25c75cb3ac..63a8a6b08090 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -22,13 +22,6 @@
+ #include <linux/uaccess.h>
+ #include <asm/processor.h>
+ 
+-/* shared constants to be used in various sysctls */
+-const int sysctl_vals[] = { 0, 1, 2, 3, 4, 100, 200, 1000, 3000, INT_MAX, 65535, -1 };
+-EXPORT_SYMBOL(sysctl_vals);
+-
+-const unsigned long sysctl_long_vals[] = { 0, 1, LONG_MAX };
+-EXPORT_SYMBOL_GPL(sysctl_long_vals);
+-
+ #ifdef CONFIG_SYSCTL
+ 
+ /* Constants used for minimum and maximum */
+@@ -423,15 +416,8 @@ int proc_uint_conv(ulong *u_ptr, uint *k_ptr, int dir,
+ 		ret = user_to_kern(u_ptr, &tmp_k);
+ 		if (ret)
+ 			return ret;
+-		if (tbl->extra1 || tbl->extra2) {
+-			if ((tbl->extra1 &&
+-			     *(uint *)tbl->extra1 > tmp_k) ||
+-			    (tbl->extra2 &&
+-			     *(uint *)tbl->extra2 < tmp_k))
+-				return -ERANGE;
+-		} else if (tbl->min > tmp_k || tbl->max < tmp_k) {
++		if (tbl->min > tmp_k || tbl->max < tmp_k)
+ 			return -ERANGE;
+-		}
+ 		WRITE_ONCE(*k_ptr, tmp_k);
+ 	} else
+ 		return user_to_kern(u_ptr, k_ptr);
+@@ -547,19 +533,16 @@ int proc_int_conv(bool *negp, ulong *u_ptr, int *k_ptr, int dir,
+ 		ret = user_to_kern(negp, u_ptr, &tmp_k);
+ 		if (ret)
+ 			return ret;
+-		if (tbl->extra1 || tbl->extra2) {
+-			if ((tbl->extra1 && *(int *)tbl->extra1 > tmp_k) ||
+-			    (tbl->extra2 && *(int *)tbl->extra2 < tmp_k))
+-				return -EINVAL;
+-		} else if ((long)tbl->min > tmp_k || (long)tbl->max < tmp_k) {
++		if ((long)tbl->min > tmp_k || (long)tbl->max < tmp_k)
+ 			return -EINVAL;
+-		}
+ 		WRITE_ONCE(*k_ptr, tmp_k);
+ 	} else
+ 		return user_to_kern(negp, u_ptr, k_ptr);
+ 	return 0;
+ }
+ 
++
++
+ static int sysctl_user_to_kern_int_conv(const bool *negp, const ulong *u_ptr,
+ 					int *k_ptr)
  {
--	struct net *net = __ctl->data;
-+	struct net *net = __ctl->priv;
+@@ -930,7 +913,7 @@ int proc_douintvec(const struct ctl_table *table, int dir, void *buffer,
+  * values from/to the user buffer, treated as an ASCII string.
+  *
+  * This routine will ensure the values are within the range specified by
+- * table->extra1 (min) and table->extra2 (max).
++ * table->min and table->max.
+  *
+  * Returns: %0 on success or -EINVAL when the range check fails and
+  * SYSCTL_USER_TO_KERN(dir) == true
+@@ -955,9 +938,8 @@ int proc_dointvec_minmax(const struct ctl_table *table, int dir,
+  * strings are not allowed.
+  *
+  * When changing the kernel variable, this routine will ensure the values
+- * are within the range specified by table->extra1 (min) and table->extra2
+- * (max). And Check that the values are less than UINT_MAX to avoid having to
+- * support wrap around uses from userspace.
++ * are within the range specified by table->min and table->max. Values larger
++ * than UINT_MAX are rejected to avoid wraparound from userspace.
+  *
+  * Returns: %0 on success or -ERANGE when range check failes and
+  * SYSCTL_USER_TO_KERN(dir) == true
+@@ -982,7 +964,7 @@ int proc_douintvec_minmax(const struct ctl_table *table, int dir,
+  * strings are not allowed.
+  *
+  * This routine will ensure the values are within the range specified by
+- * table->extra1 (min) and table->extra2 (max).
++ * table->min and table->max.
+  *
+  * Returns: %0 on success or an error on SYSCTL_USER_TO_KERN(dir) == true
+  * and the range check fails.
+@@ -1047,13 +1029,8 @@ int proc_ulong_conv(ulong *u_ptr, ulong *k_ptr, int dir,
+ 		ret = user_to_kern(u_ptr, &tmp_k);
+ 		if (ret)
+ 			return ret;
+-		if (tbl->extra1 || tbl->extra2) {
+-			if ((tbl->extra1 && *(ulong *)tbl->extra1 > tmp_k) ||
+-			    (tbl->extra2 && *(ulong *)tbl->extra2 < tmp_k))
+-				return -ERANGE;
+-		} else if (tbl->min > tmp_k || tbl->max < tmp_k) {
++		if (tbl->min > tmp_k || tbl->max < tmp_k)
+ 			return -ERANGE;
+-		}
+ 		WRITE_ONCE(*k_ptr, tmp_k);
+ 	} else
+ 		return user_to_kern(u_ptr, k_ptr);
+@@ -1155,7 +1132,7 @@ int proc_doulongvec_conv(const struct ctl_table *table, int dir,
+  * values from/to the user buffer, treated as an ASCII string.
+  *
+  * This routine will ensure the values are within the range specified by
+- * table->extra1 (min) and table->extra2 (max).
++ * table->min and table->max.
+  *
+  * Returns: %0 on success.
+  */
+@@ -1348,8 +1325,8 @@ int proc_do_static_key(const struct ctl_table *table, int dir,
+ 		.data   = &val,
+ 		.maxlen = sizeof(val),
+ 		.mode   = table->mode,
+-		.min    = 0,
+-		.max    = 1,
++		.min = 0,
++		.max = 1,
+ 	};
  
- 	if (write) {
- 		rt_cache_flush(net);
-@@ -3670,7 +3670,7 @@ static __net_init int sysctl_route_net_init(struct net *net)
- 		for (i = 1; i < table_size; i++)
- 			tbl[i].data += (void *)net - (void *)&init_net;
- 	}
--	tbl[0].data = net;
-+	tbl[0].priv = net;
+ 	if (SYSCTL_USER_TO_KERN(dir) && !capable(CAP_SYS_ADMIN))
+diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
+index 8dde5a2cc532..184d4c5a7917 100644
+--- a/kernel/time/jiffies.c
++++ b/kernel/time/jiffies.c
+@@ -331,7 +331,7 @@ EXPORT_SYMBOL(proc_dointvec_ms_jiffies_minmax);
+  * are treated as milliseconds, and converted to jiffies when they are stored.
+  *
+  * This routine will ensure the values are within the range specified by
+- * table->extra1 (min) and table->extra2 (max).
++ * table->min and table->max.
+  *
+  * Returns 0 on success.
+  */
+diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
+index 64c82fd53975..ed3547401f41 100644
+--- a/lib/test_sysctl.c
++++ b/lib/test_sysctl.c
+@@ -258,18 +258,18 @@ static void test_sysctl_calc_match_int_ok(void)
+ 		int defined;
+ 		int wanted;
+ 	} match_int[] = {
+-		{ .defined = 0, .wanted = 0 },
+-		{ .defined = 1, .wanted = 1 },
+-		{ .defined = 2, .wanted = 2 },
+-		{ .defined = 3, .wanted = 3 },
+-		{ .defined = 4, .wanted = 4 },
+-		{ .defined = 100, .wanted = 100 },
+-		{ .defined = 200, .wanted = 200 },
+-		{ .defined = 1000, .wanted = 1000 },
+-		{ .defined = 3000, .wanted = 3000 },
+-		{ .defined = INT_MAX, .wanted = INT_MAX },
+-		{ .defined = 65535, .wanted = 65535 },
+-		{ .defined = -1, .wanted = -1 },
++		{ .defined = SYSCTL_ZERO, .wanted = 0 },
++		{ .defined = SYSCTL_ONE, .wanted = 1 },
++		{ .defined = SYSCTL_TWO, .wanted = 2 },
++		{ .defined = SYSCTL_THREE, .wanted = 3 },
++		{ .defined = SYSCTL_FOUR, .wanted = 4 },
++		{ .defined = SYSCTL_ONE_HUNDRED, .wanted = 100 },
++		{ .defined = SYSCTL_TWO_HUNDRED, .wanted = 200 },
++		{ .defined = SYSCTL_ONE_THOUSAND, .wanted = 1000 },
++		{ .defined = SYSCTL_THREE_THOUSAND, .wanted = 3000 },
++		{ .defined = SYSCTL_INT_MAX, .wanted = INT_MAX },
++		{ .defined = SYSCTL_MAXOLDUID, .wanted = 65535 },
++		{ .defined = SYSCTL_NEG_ONE, .wanted = -1 },
+ 	};
  
- 	net->ipv4.route_hdr = register_net_sysctl_sz(net, "net/ipv4/route",
- 						     tbl, table_size);
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index 4226ce923534..e65d67567af9 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -40,7 +40,7 @@ static void set_local_port_range(struct net *net, unsigned int low, unsigned int
- static int ipv4_local_port_range(const struct ctl_table *table, int write,
- 				 void *buffer, size_t *lenp, loff_t *ppos)
- {
--	struct net *net = table->data;
-+	struct net *net = table->priv;
- 	int ret;
- 	int range[2];
- 	struct ctl_table tmp = {
-@@ -465,7 +465,7 @@ static int proc_fib_multipath_hash_seed(const struct ctl_table *table, int write
- 					loff_t *ppos)
- {
- 	struct sysctl_fib_multipath_hash_seed *mphs;
--	struct net *net = table->data;
-+	struct net *net = table->priv;
- 	struct ctl_table tmp;
- 	u32 user_seed;
- 	int ret;
-@@ -824,7 +824,7 @@ static const struct ctl_table ipv4_net_table[] = {
- 	{
- 		.procname	= "ip_local_port_range",
- 		.maxlen		= 0,
--		.data		= &init_net,
-+		.priv		= &init_net,
- 		.mode		= 0644,
- 		.proc_handler	= ipv4_local_port_range,
- 	},
-@@ -1213,7 +1213,7 @@ static const struct ctl_table ipv4_net_table[] = {
- 	},
- 	{
- 		.procname	= "fib_multipath_hash_seed",
--		.data		= &init_net,
-+		.priv		= &init_net,
- 		.maxlen		= sizeof(u32),
- 		.mode		= 0644,
- 		.proc_handler	= proc_fib_multipath_hash_seed,
-@@ -1753,7 +1753,10 @@ static const struct ctl_table *ipv4_net_table_dup(struct net *net)
- 		return NULL;
- 
- 	for (i = 0; i < table_size; i++) {
--		if (table[i].data) {
-+		if (table[i].priv) {
-+			/* Handler context follows the target namespace. */
-+			table[i].priv = net;
-+		} else if (table[i].data) {
- 			/* Update the variables to point into
- 			 * the current struct net
- 			 */
-diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
-index b8df02173d7a..16058d584989 100644
---- a/net/mpls/af_mpls.c
-+++ b/net/mpls/af_mpls.c
-@@ -2679,7 +2679,7 @@ static int resize_platform_label_table(struct net *net, size_t limit)
- static int mpls_platform_labels(const struct ctl_table *table, int write,
- 				void *buffer, size_t *lenp, loff_t *ppos)
- {
--	struct net *net = table->data;
-+	struct net *net = table->priv;
- 	int platform_labels = net->mpls.platform_labels;
- 	int ret;
- 	struct ctl_table tmp = *table;
-@@ -2746,9 +2746,12 @@ static __net_init int mpls_net_init(struct net *net)
- 		return -ENOMEM;
- 
- 	/* Table data contains only offsets relative to the base of
--	 * the mdev at this point, so make them absolute.
-+	 * the mdev at this point, so make them absolute. The
-+	 * platform_labels entry has no backing storage and carries the
-+	 * namespace in priv instead.
- 	 */
--	for (i = 0; i < table_size; i++)
-+	table[0].priv = net;
-+	for (i = 1; i < table_size; i++)
- 		table[i].data = (char *)net + (uintptr_t)table[i].data;
- 
- 	net->mpls.ctl = register_net_sysctl_sz(net, "net/mpls", table,
+ 	for (i = 0; i < ARRAY_SIZE(match_int); i++)
 -- 
 2.25.1
 
