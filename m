@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793199216;
-	b=o4ecTp3MxPuI9Xto/Mvwg+9aFl7FoWZk2wFg0snBzxw3Sa9hjRwASr2/MyOQbn00pboM
-	 C0ScEyfAcY71FpHdgKStV6/CPOijMjtl2AmmN16NuxNo099YJfEuw3zsbbWFDU5LQDIFJ
-	 pBRqbcogYGp8s13g3hWgpZ/UNCX2AVe9X1vmVBN8uXb1NsCxdrKS5v7zieZdNvw25K0z+
-	 cJsrtTuKwsBojnm5F/4J9vhWf4nStuqpdTNdBfkwCRkKD8b22mCbZY90/xXGLNEPYJTVB
-	 Sag37TGcxRgoK3Y3fp6Kfz/9tbnOtJQyxrnu6+rWSnOnu/Bktd5v33CgxRK02O/TxcA==
+	t=1793199236;
+	b=I5Afl5vt7cBFmBeOgqxd1QEqtFPUXfg5CXlNxAcevJH2/fZEJP0uofVzLu7HZpGQN+FF
+	 Nss3fFf3ckXWgwbzJnBgLPrkOqgMFDSN9EBxHTeanhSL0UfVXuXhkBmq+HaQvpCQkLCFw
+	 stS4Mk7fBB3GE+za3LAH1Xw4ZM0xuuSQQCEX6EGs/XZNsfmkttO/wt7/gWS9oxLVJBrSu
+	 TqO4i3PvWspvw0zZfDRiK3uuDoxTVR97HLANob5JpS3U7uXRCw8tO4ojLgtgMBsr0XCZG
+	 ZQE/wbaC8VfPyY6cWJqzKgcX/0cTYwbFPq6AYikgR3NoR2mRrprgof8/AlSWT2Q6PsA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
-	b=eJ0U/pXXpIbcbGG/R5MvDXPiQv7/lVzezUHzOCBELqTtZgcaVjawWitviNzq+KUniA+Z
-	 c+WPvwHIvi/fYfTbnZxzPlw3KuyONkWgJywF+ZYiTSqfikRICbaJ2K0UHJZ+Uq4rpIpuc
-	 0NmndCiqrn1fQXMEBQDfm9G3dlzEY1borAUO6Kt+AXtWJXJ74UQjpMGPKrxHJO5X4slop
-	 9VYfSlMHVgBjieqwc5gvFuZQRQjuTmNhMUrhpMqperk1zIK5gq0qvOizpMLztHnlNa1+U
-	 qL5q6nSm3rpvjGekOCmlfBPvnvuZC+xtBkpFC9sMwrMCnuJ/sRBmJdps93B/MET2TTA==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=d8xiOKoQDSvdpojkDy4fldRww1u+2VH02DEwdCLpEj8=;
+	b=g1ym+UVRuAe1mYNrXUkkjdTTLPJjQtZlc4B0ni7eotVhv8Qn9ZLZgmGIaQyhlVcqY2Mq
+	 Rxcb0i5V+RDnGqsFouIWWpX593qDB7PflT6f/ysp2qtquYohWbz4sONmGV+ZsBtQ34XWL
+	 por7kQr1N7b4sIa76c6TQUh9vm5ofE3qoIzw6KD1TOcvDKLzdvxbQqs1ul8OwfElmdXPY
+	 1ALEUA7hQrH1JBomyUrjRNs/zlc6mEpwgwE28iQ0W41f2FFTKjvnVJiormc4yKm9wh48w
+	 7SNBilG9Nky+BDfSRvqy/wzwc0q9KSIdPcsejUcBXF7TfFvyOMFBRDArwqXkYjVQQ9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hMMo5D5r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LB632zMh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F8A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F8A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6ED606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A6ED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hMMo5D5r
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a1467ca93so133024eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:53:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793199215; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LB632zMh
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-4a85c656c58so752872fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:53:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793199234; cv=none;
         d=google.com; s=arc-20260327;
-        b=l0O+jMf4FELvpW3Mu+ZzvWPTi0plgN3/RJKV6gIg5wnCkks0xz0PLbxv64HmCBJlQk
-         9KDiiXT+JfDsAc6bxcxvL6buxuwK64qJr5+2DUexrypJ1fUvqcl9wxpFxZeL11uJGY9v
-         b05jEr/hQc4Sj69O0qC7inkJckLvsbB4xQZ91YAK8p0u+Si/2RH+F3+9WJZkjTc+jbY6
-         Le7wAlFHC975d37PIszaKs0L0cYZa8yoAYKOkAAyq3is0/zAM35wIVRvQwP1ZaqYBfrd
-         ibIJGfvvNlcC7vVRP1GNO5B4u9WtnRE5gVS89vtZ9G5ZHLAEDvRMNvo8+8d6kYYCWwQD
-         5neA==
+        b=mestx7YLPqTrE5dVcKjsN7/PHGOq6dgjlyi046ysExnafaq8aX6VfS5Hlb6PgNgFRA
+         1ay9jxEx2L68KvpbYX95mZ4iBQHNHWKwvinzMN47bwxzfZip8ikGTQDx1Jg2Nw7szeNv
+         ON1hwsgc8TAIcmDQCcw6RUhRbx8nmYrD7k5BKWBQb4bfUXHZEhif8Kx2yX7zSvF1XKxY
+         BseqkYrEHilzrXbVjEzPWFseZPtAHGvxsUd8Ye7RpUzlRpyfqDs6HX9clCHPpGe7BgE3
+         p7x4aHIohwqIOfqEoWeAU9yJZ/FlfxjuJkmFebeXZaa2xF5YtvUwGt1+urrCVblK8Dqb
+         /+Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
-        fh=MLwA/DmCWllzs2KsGJYVVy0sIR8SRdzUZdvn/qD4Ijc=;
-        b=RaUnC28rO/v5i39BFMtjbiA3uPzX23aU8JIW84PM/3Zub2RZcZwIHrgisoK3Ns7HrG
-         1pLUj6vuLVwy67oFW4a68eqJdrPnOZY2P/1Didug1XggM9ni4ipSpj1FtdCsJ7i3n+m0
-         YllDUvvQht3T/SsP/RhRfX8x8aP73CpS4w4opEY7vuu1yAr8W7wohJVHC7Z+qaSt6BJm
-         ntCY+fhTHDjRV3nWcIJdtuz7UimWbkavEs/wJc30KE3G7sTgx6zsJVMdmoAq9D7PYKvw
-         kwHPx01Mdlrt/iLJbMcA34jwLGOiCMdLEmr1KWHdLjdc09ghMSoa90KmmmHcuPllMFuz
-         2NtQ==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=d8xiOKoQDSvdpojkDy4fldRww1u+2VH02DEwdCLpEj8=;
+        fh=kKwISBuoDxw68NrwypF50f6k9ZfjYO0YOMzh3pnPMgs=;
+        b=nKb4Zct8CyKSyXmdDBeqp/1p/pem5p33oihJyz5birBTVwJnk0epOqZbdQVJIa4hLL
+         3FM/6IAlSNnLEusyJEsSltu83Ctqj/GQyxbv/jyTaH02NW4J1hfdPsS6iIwZa1+UkdKm
+         6fe543mc3mmB1G/nHwXwla953ma8k597cLQDpKGDiHOnu5OX7xdQOBxFcP1Hm0lCN+X7
+         V9N9vT3iVwKqs4+PaBXkuXQbQLorJdWGfjYRRNo58b58P8tBMyndOS0BFFi5bxsLnAhF
+         0DQdeKNkLBN2lg3VG9govmZosf6YadSQN8jDd8QjJn3XT5qeYjCzDBlQjZ6/gcVMNad4
+         J4hQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793199215; x=1793804015; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
-        b=hMMo5D5rjgLmJtP7tG6KPpa71+jDflHNclle2YOUPtkgXw/ygeKATzmdmy13P7QW1Y
-         89jIgqlHqVSsMcMHie8uA/ge9hstH/oSpq4tezZ+98MyJD0Jz08TJRz948BDD+u+rq0P
-         pboOFglmfMJrDZtKaawVUEd/j1BaG/25TnJDr1tcTaQ9etlMfSrFarm3iLfXUGSJB93r
-         Njte15D4tKgKSugfN/wMdLKWpMiuqoxwhWrVgb7yvBT96M/BavALT6AbOl4uBXlGXi29
-         gB2Mb7G4W+iJZaUgx6IpE0BsI76c0lJnqEAqqxS6B2WTVl926IMB5viSHSt+eKZm7hBv
-         3cwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793199215; x=1793804015;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1793199234; x=1793804034; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
-        b=fO41U6S/0+s5JnwL9uwMB83mC8cpoH5Tq6veLx6a75vyu2muDT6xMeklznz6i9v359
-         gkI2z5JIaNE0uHNmlbJg1TXhlp1BBMZNGYrzns69aCuHOtG5dF+GYbKoq5MXsaarwOzl
-         uwFpwhqstVDGC3z0cbP3qiWTPh22iSgxdj/rwXs5+2A1zamaAIUZX/HnLS2qNdmiTqqO
-         ny5bu5a3h5FDYne55ZsTiEjrgZtQkPZZD5AoTHzVVEdk2FC/WEWcG3oVYWag2nPFvnLO
-         1ZCLgEltX6gFF3ovdH/lrjscxeI+3UgLIRQn39UnRQ1z954CIQueCedZGchjVXBlKV9X
-         h79g==
-X-Forwarded-Encrypted: i=1; AKwUvBw+vK/ELKZX91E+BXHffpfs4UoQiRCwciXoDWcz1znixvAPeVwDlCi8ieK8KlEtzXwLSkZDIUSQqIsKTGo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlBUznOWxKnp5J6MNhZkoLnROB/XtB5jJdsFOLCs2X24dqPGng
-	Q6KD7+6PAoN0u6rP6yBpzz5nArtguIHL1NXWkzRNBWC93ShNtI2Ts45EBDKLLAO2Hw9fUVsQSt7
-	uweWRPTMPM3oGVAYMtDr6ecLknoZF0s0=
-X-Gm-Gg: AYBFou12aHAB/Zq8D7tY0ACOP0Tc2pxhI5YeKtDcHT/SGlQNVLvUwnGb+iHjuW229LA
-	w7EZZqpBJenTzyAsYLk7HWn3uVmakL2bCc4AqXUV8zDrGsG+m2BhRxM8IEvNIsxf83jVpyWrSIa
-	wU4nEWm1ZZVK0XWSNaHsmnhkzPylgsXiweNrUIN+uVsSfhv2a4FPlW5bfjSgpeyyYNbHaZcgHZD
-	xkpgiy9Dpv5H7ZtpiZsRKjOEoMYiWkTnaFKPJmDciIEwrL1PHQsLCz4Jw03Nu7ZyvVP6Q7eR2Ew
-	NhHr1CWsH00eMu4ZWDmiyliVMzBRse/Atb+hVdT6CR6BVqLxLDCRBbc6m6vDmfbFZ08d9SqiK60
-	0fC9M6WLJXhgu6M+ck3cU4bHRYvAHGnY043KQF8BTC93Gi6uY0fjC+vkpnWjtsw1gaWNTKPf/ku
-	nMu6QPHpMJYNU0B45NgvyIX29uJ3JhgGiGtYiH6Mqnys99
-X-Received: by 2002:a05:7301:1a8c:b0:369:ffc5:6767 with SMTP id
- 5a478bee46e88-36a1ffc100fmr5213282eec.2.1793199215122; Wed, 28 Oct 2026
- 07:53:35 -0700 (PDT)
+        bh=d8xiOKoQDSvdpojkDy4fldRww1u+2VH02DEwdCLpEj8=;
+        b=LB632zMh6fbtAjcuY/JmB+mZzChbJULldZ3lslv+91OAKPqcR1wzMeMozQyYJtB/ss
+         G+3i1y120plYc3geex7Gs0cPDheHUCt9IaIFhzZgd1ux9Zje4/nRIyfShqaeoPGG00q6
+         cWqAC9PhAbV8BXbYKKpVDiOK0DJ9LpiXfRU31UngmdRmn/HgjUHmtK0MHrCSfhqY8tAT
+         UG5bqWQt8nJQNVRIuDLxT1RxgYrU7wT3Vz2rI6Mb3ZvFogdKbRsNwW20NbPOibIqLKbM
+         U3fOtFZR8alc5DqS/mFsze3QcoRI83g8m6O2uJyqETfaxjxYSxIm6MiwyUOwqNRh1u+z
+         wu5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793199234; x=1793804034;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d8xiOKoQDSvdpojkDy4fldRww1u+2VH02DEwdCLpEj8=;
+        b=Du0biNPvuY2A2TgwGbf7EqusZMTuPaQtQNGwdhNLvK37uE3J3FFnBrnj+Y36gUHOZ3
+         bKVjZId+fGa/s3tWckwRNUyK73lTOqfk9hTWsVIXhPRgxbyu7/voiWPzAEkM/ZIEwXgu
+         +BP0WGmA99uP3C9G4HKqQItwZmplooyYKWKP41Ojaa7t1WQTKwQLaPUp71kO1FYjcRby
+         IHfiUWYK5FP9uqW/GkXNB3S0IQureNU+uzP/D1EJ//cW1feDVcEDRuvU7AGXzrJhdAK1
+         pcGwloGCIoxeYlK68aN4A0kdd2C1RT//SYo1Wu9e6Q2ubRAUx8PEkXg4ggC7oaELmsIf
+         D02w==
+X-Forwarded-Encrypted: i=1; AKwUvBy9u1ATf6C/DWGPUdGoKPTl5TFEQdUOfGjArX2B5YsRwDi+mTs4licKEHrL4Q7NU0mgg4tXPyESG9fGlxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiyMFtwI4ExcqiyHcLZ+Op0GHVcWXJgnSPn00WuPIf1M68lPho
+	C9YjrB0eLiIIOrZUMjygxkkx9Pi4crdkwv6pRYoGsw7eEqgXVBT12qxkCLUY5ZpauQ0c6FQ3P4w
+	GxA2dtpdfHCLHvTPBKTaq3yRk5gjM8uCeimxk5qGR42EAs8xnjqkN/7M=
+X-Gm-Gg: AYBFou3lEBDhMAsvHHuXCfLEfgRHo4xffId4MeUdQ4gCBVF5KBOc2VYOZzgqLsvI0+H
+	Ajq7uukMtka+hZ05xJZWS8/WVJh3JXC4PR2rpAysSLFxJwVwRAIL4NXNqfZ8OvphGqAv8rM8t25
+	8Cli3Y3cjgG5tgFw6FZgXGz8SF4J6fO/MIbA/fi/2j5RcaxeqdtPb7KI/WdvIc/OQduqZByoTdp
+	3WV5yP55oIxyRXq4hgFn65J63ADw9Rqqm++qZbjo4b5ZD/ZLk3wevISM5w6xrRtEjLZcUGmdTWv
+	d2jRjUIFNANGG91+vXv2LiIHkYU3McV9pyfgmuzVHEienFWSWQv/8KuppOm5K+PKZTzF42jqV1i
+	MMFmngnA/Cz8NKz6di0Odim5PefDbOSp7nHqmHwEpFnlbMEBhWSGkCZEEPfR7Xdem4Gr7Wr3WXL
+	I0Bi1kODWyC1nhXZFT/ZVYVj6fwnWTAzOqGfgJcyUM0RyuytOU+l9g
+X-Received: by 2002:a05:6870:812e:b0:49e:4ed0:11d6 with SMTP id
+ 586e51a60fabf-4a8bb54635dmr1913954fac.37.1793199234106; Wed, 28 Oct 2026
+ 07:53:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,249 +104,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com> <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
- <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com> <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
- <138497f6-2271-4229-87f1-4e42e9d2b581@gmail.com> <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
-In-Reply-To: <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Oct 2026 10:53:22 -0400
-X-Gm-Features: AclHuK9PGvqElJiJ4JkJ6TDlP1xlfh9iqAhttNXCNmpg8zpVdT6TtOWjX57qcnA
-Message-ID: <CADnq5_NUKVeF_UNqx=8KfPQ8ntvkT5iv_Tfgp5v9r9ADv8go9g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K iMac
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Richard Lane <richardlanedev@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261026191618.9430-1-henryzhang62@gmail.com> <20261026191618.9430-3-henryzhang62@gmail.com>
+In-Reply-To: <20261026191618.9430-3-henryzhang62@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 28 Oct 2026 14:53:37 +0000
+X-Gm-Features: AclHuK-yXvNbMb1wINM_sef0W5700xQE-XEO0jTPLsBShdsNppw3Y1J1uJ4AXF4
+Message-ID: <CAPY8ntCBPwyZkM=F0_0EQOjMRqKO2Do_Cwum24ZGoWEofr7ETw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] drm/vc4: dsi: Rate-limit error interrupt messages
+To: Henry Zhang <henryzhang62@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 10:14=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Mon, 26 Oct 2026 at 19:16, Henry Zhang <henryzhang62@gmail.com> wrote:
 >
+> The error interrupts (contention, sequence and timeout errors) are
+> always enabled and each one is logged with drm_err() from the interrupt
+> handler. When a peripheral leaves the data lanes in a bad state, the
+> same error is raised again as soon as it is acknowledged. On a
+> Raspberry Pi 4 a "data lane 0 sequence error" was seen at more than
+> 50000 interrupts per second; printing every one of them, mostly to a
+> serial console, starved the rest of the system to the point that the
+> SD card driver timed out and the board had to be reset.
 >
+> Use drm_err_ratelimited() so that the errors stay visible without
+> taking the system down.
 >
-> On 10/27/26 18:59, Richard Lane wrote:
-> > On 27/10/2026 13:37, Alex Deucher wrote:
-> >> On Tue, Oct 27, 2026 at 9:16=E2=80=AFAM Mario Limonciello
-> >> <mario.limonciello@amd.com> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 10/27/26 07:57, Alex Deucher wrote:
-> >>>> On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
-> >>>> <christian.koenig@amd.com> wrote:
-> >>>>>
-> >>>>> On 10/26/26 23:46, Richard Lane wrote:
-> >>>>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
-> >>>>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated=
- EFI
-> >>>>>> framebuffer.
-> >>>>>>
-> >>>>>> Override the stolen VGA memory allocation size to 64 MiB when matc=
-hing
-> >>>>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
-> >>>>>> framebuffer corruption during boot handover.
-> >>>>>
-> >>>>> Hacks like those are usually a big no-go.
-> >>>>>
-> >>>>> Why is that framebuffer handling not working with DC out of the box=
-?
-> >>>>
-> >>>> The GMC IP code reserves the memory used by the display hardware fro=
-m
-> >>>> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to s=
-ee
-> >>>> what display viewport was set by the pre-OS environment.  If the Mac=
-s
-> >>>> need a workaround, that's where it should go.  Since these displays
-> >>>> require multiple display pipes, my guess is you need to double the
-> >>>> allocation in that case since the current code just checks the first
-> >>>> pipe.
-> >>>
-> >>>
-> >>> Could this also be a logic error in that callback?  Would it be worth
-> >>> double checking all the register values in that callback for this sys=
-tem?
-> >>>
-> >>> I know for example there are a few different IP specific implementati=
-ons
-> >>> in gmc_v9_0_get_vbios_fb_size().
-> >>
-> >> Not likely.  I suspect the issue is that these systems use two display
-> >> pipes so we only reserve enough memory to cover half of the display.
-> >> On PCs the vbios never sets up MST.
-> >>
-> >> Alex
-> >>
-> >
-> > I tested doubling the allocation in gmc_v8_0_get_vbios_fb_size():
-> >
-> >       if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
-> >           size =3D=3D (2560 * 2880 * 4))
-> >               size *=3D 2;
-> >
-> > That eliminated the corruption across the middle (45-60%) of the screen=
-,
-> > but still left a band of corruption along the very bottom (95-100%) of
-> > the screen.
-> >
-> > Dumping the DCE registers inside gmc_v8_0_get_vbios_fb_size() on the
-> > iMac17,1 showed:
-> >
-> >    vram_start =3D 0xf400000000, d1vga =3D 0x0
-> >    CRTC0: grph_en=3D0x1 surf_hi=3D0xf4 surf_lo=3D0x300000 pitch=3D5120 =
-vp_size=3D2560x2880
-> >    CRTC1: grph_en=3D0x80000000 surf_hi=3D0x0 surf_lo=3D0x0 pitch=3D0 vp=
-_size=3D0x0
-> >
-> > Even though only CRTC0 is active at EFI boot with a 2560x2880 viewport,
-> > Apple's EFI allocates a full 5120-pixel stride surface (mmGRPH_PITCH) a=
-nd places
-> > mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000) from
-> > vram_start.
-> >
-> > Because CRTC0 scans out 2880 lines at a 5120-pixel pitch starting at
-> > offset 3 MiB, the active pre-OS scanout spans [3 MiB, 59.25 MiB) in VRA=
-M:
-> > - Reserving 2560 * 2880 * 4 (28.125 MiB) places permanent driver BOs at
-> >    ~28.125..32 MiB, corrupting the middle (40-60%) of the screen.
-> > - Reserving 2 * 2560 * 2880 * 4 (56.25 MiB) places those BOs at
-> >    ~56.25..59.25 MiB, leaving the final 3 MiB exposed due to the 0x3000=
-00
-> >    surface offset and corrupting the bottom (95-100%) of the screen.
-> > - Accounting for the 5120 pitch and the 0x300000 surface offset reserve=
-s
-> >    the full 59.25 MiB span and eliminates the corruption completely.
-> >
-> > For v2 of the patch, which of the following two approaches in both
-> > gmc_v7_0/v8_0_get_vbios_fb_size() would you prefer? Both tested working=
-.
->
-> My feeling is that Option A is less magical.  I'd actually wonder if we
-> should be doing this more widely.  I'd *think* the same problem could
-> happen on a non-Apple display that behaves similarly.
+> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
 
-I had discussions with the vbios teams when this code was added.  They
-said the display base was always put at the start of VRAM.  The only
-area I have a concern about is adding the surface address.  It works
-ok if the the displays are put near the start of VRAM, but if not
-(e.g., the pre-OS environment puts then at the top of VRAM), we'll end
-up reserving most or all of VRAM.  I think the right solution is to
-add an offset to the reservation and then use the surface address as
-the offset.  That's more work however so maybe it would be better as a
-follow up clean up.
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/vc4/vc4_dsi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> >
-> > Option A (change whole function):
-> >
-> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
-)
-> >   {
-> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
-> >       unsigned size;
-> >
-> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
-)) {
-> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
-> >       } else {
-> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
-> > -             size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
-_HEIGHT) *
-> > -                     REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
-IDTH) * 4);
-> > +             size =3D REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_=
-HEIGHT) *
-> > +                    RREG32(mmGRPH_PITCH) * 4;
-> > +             if (size)
-> > +                     size +=3D RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) =
--
-> > +                             lower_32_bits(adev->gmc.vram_start);
-> >       }
-> >
-> >       return size;
-> >   }
-> >
-> > Option B (add Apple 5K iMacs quirk):
-> >
-> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
-)
-> >   {
-> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
-> >       unsigned size;
-> >
-> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
-)) {
-> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
-> >       } else {
-> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
-> >               size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
-_HEIGHT) *
-> >                       REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
-IDTH) * 4);
-> > +
-> > +             if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APP=
-LE &&
-> > +                 size =3D=3D (2560 * 2880 * 4))
-> > +                     size =3D size * 2 + RREG32(mmGRPH_PRIMARY_SURFACE=
-_ADDRESS);
-> >       }
-> >
-> >       return size;
-> >   }
-> >
-> >
-> > Richard
-> >
-> >>>
-> >>>>
-> >>>> Alex
-> >>>>
-> >>>>>
-> >>>>> Regards,
-> >>>>> Christian.
-> >>>>>
-> >>>>>>
-> >>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>>>>> ---
-> >>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
-> >>>>>>    1 file changed, 9 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> index 4204c3c750a8..8b196fbfa724 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struc=
-t amdgpu_device *adev)
-> >>>>>>           } else {
-> >>>>>>                   size =3D amdgpu_gmc_get_vbios_fb_size(adev);
-> >>>>>>
-> >>>>>> -               if (adev->mman.keep_stolen_vga_memory)
-> >>>>>> +               /*
-> >>>>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIE=
-WPORT_SIZE
-> >>>>>> +                * while scanning out up to 64M across the relocat=
-ed EFI
-> >>>>>> +                * framebuffer.
-> >>>>>> +                */
-> >>>>>> +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR=
-_ID_APPLE &&
-> >>>>>> +                   size =3D=3D (2560 * 2880 * 4))
-> >>>>>> +                       size =3D 64U * 1024 * 1024;
-> >>>>>> +               else if (adev->mman.keep_stolen_vga_memory)
-> >>>>>>                           size =3D max(size, (unsigned)AMDGPU_VBIO=
-S_VGA_ALLOCATION);
-> >>>>>>           }
-> >>>>>>
-> >>>>>> --
-> >>>>>> 2.55.0
-> >>>>>
-> >>>
-> >
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+> index 5452b727a..face44a23 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+> @@ -1487,8 +1487,8 @@ static void dsi_handle_error(struct vc4_dsi *dsi,
+>         if (!(stat & bit))
+>                 return;
+>
+> -       drm_err(dsi->bridge.dev, "DSI%d: %s error\n", dsi->variant->port,
+> -               type);
+> +       drm_err_ratelimited(dsi->bridge.dev, "DSI%d: %s error\n",
+> +                           dsi->variant->port, type);
+>         *ret = IRQ_HANDLED;
+>  }
+>
+> --
+> 2.47.3
 >
