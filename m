@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224305;
-	b=Z470uu3E/HGC86Iyf6y4mZI1C1ecJhCd1BJlpVsxnXjgUoVfz6g6o06TMaD6JdGNoWN3
-	 Ka9QWxPi+lUR8X9pxGeqDlONvTeB5wAXJYHPJfDPvjJXRKAexLPrbN0B5VOZjE2ehwIIX
-	 sWXZdM5L9AwV0084OiZjATB9CP2MhEOQ6jxDKVFn+Itkml7GWVkqiuj2RDr0xalS9qAWh
-	 TsSWnSZGfusDW9WiP4eYUz7pIZ5rGsZtc8BbIrZQG/0XPuXoU+cbbORDUtK4xB5l137Dh
-	 8eQLY5dQM0HjMalia9vVb9Uk5oFd5+sIFKwy2jfNVh96EtriyAuXhq+AAgvGOIuxdeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224305;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793224323;
+	b=h/N7YrYGuoDRn/AtAcLibLCrjXPdArDToyz753Agz9s9S1f4hclwBNhJw75yYK1A9j3B
+	 Re7Ty5vIFlz5GlInCUFwA/k2SHGk9xESlUKvcdm7JXyDM1UH6of6ILi0b+pZ0mLretqZf
+	 F8/8ZutcBQwvJ7JRwgdqMKyJ3j43+v7xqLiuz3iDr6pcryBibywsYMriJoO3kDzdlGQnS
+	 t5hmxMv0ux+yHWB6KKfzsspUb3l/Od8kJEATkTZmXA0IoYVFuyASiz0E4oHKxiMnaOt2J
+	 huGx3hVfZffrFHL7hsQbk3ptUHWU+ytVOgdCW5UhCq5WnVfbYXoaBmPbDiMh+RTFWHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224323;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=w7Bp9dEIJxBru2Yx4Wp3IUe1NzI0zM2Aj6BmYM8tSDQ=;
-	b=HKkf4Yf2R2DjTouki/sqDlSItWzvcscjOn9zlL7GlNr43nhgdlhw9+z1/ybLUUtSumQx
-	 NOPuGTBaru8mpg/sWOzyp7TXWjdWw5eIoFF5PgPO4UFxR61H7njJg7FIm3Qji9niTP8J4
-	 bGyKUxW3MrgxO4xfFlohqcS/QAH7xA1nGaoJ5CikVysfyjIN0k1O54TqPga6apeAljMEi
-	 /fT1YesOo/tYmN/2FsioT+TCI+7FUX06LaBuF8k2xa3ddqdEeCuWBl7IC710rWC6F9WtM
-	 7dbnAqX56RD6Ns7w2UTv7rY05JRbQbkCvo8mFveARSV10HoAx0lXhFVXbd7RlmFgjcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JYIR2HRf;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=mPtExrnKGOMQtspuIP7yF8Ip7fswDzEEpF0H728OVnI=;
+	b=lKswTjdLqUBUQm3PLZnvjmEp/VBnz7VGyOYbnFXtjwC55LGObQHospfckkA0+B+7l9xR
+	 z43mCHI/A5pT4RJSS3kyIsQttJ5nkFBXNif+IF/8W6zgLld2gllR3inCDb3/+3bVUaN4k
+	 pyL1EKRNfbxxgkk240XCXegkJy17G4brJ71RHTwmZ2Z/3QEhTCKFUBbzq5Jj4ZYd57iFg
+	 aHfCfohuLao68Dp6uW7+IEYJXUnITvIOzZJl9hBtrQ8JPaFS18shZ9Is+WRyo9By40vzE
+	 8uXCe1jC5sKNc6qaJGpRR6p319kSFpfJxikm7OrhQN0VaaqkRUAHd3aklGNu8kjG9vQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MVKsgzc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5825B606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:51:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5825B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784FD606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 784FD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JYIR2HRf
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ada6ccd402so1352322a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:51:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MVKsgzc
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9e53d011eso10512625ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:52:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793224323; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W63TmVULv6cMtoTquo1jeTrXYQSIw6O4NCHneLlcA9nmglPFybr3lCLqbn0AoqcxKW
+         h1/DTmIg8mWV6Beh6/rrmIV1xVOHudm8lpzfuvm2ywytlAirjs6aWl6UFzapVTbtsTRh
+         noGADwJLiLdQ5OZDmf/Apq5v2n5vqHPRAUkLBmP7fmYmOVSpzSX0H/xairaybHGL+LT4
+         0f+cruQ6FDJk5vm3L+h1Ec2aaPZ2aAYULZtIuBESo0xsmllhDd0lbV7YISGrtf6dKk1y
+         xVmhr6H9PZFyz2EEijFxi/6S+JdFaSsAYtw9sBgxWMHeA5uEWQRLPEhfETap0qDye5hJ
+         As5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mPtExrnKGOMQtspuIP7yF8Ip7fswDzEEpF0H728OVnI=;
+        fh=89NBXn0QjktoIyTymEysBNAs4AVnrISUMZPCa+g3pTo=;
+        b=g2BuKbWpqbHwIvCTJu0YiaFxw/09NDNrRQ63m9BQPROCwaLxa7M8SDFCscfx8bvK9T
+         agfJfco/0Q2euVxGG/2g4mjDtDZbpPyVRYqgbgiJ1fJbwXkNObFNQ6NZVPXPpwy0MMJt
+         gUPfv6SvWYs84CQXzwyVVCABhq6Ib0S+KZ1j8nJnBULqNZ2z9m9XColrfTWLua/IHQjM
+         v5dj/yXOuuUSsa9aEJqftKv6L0wvmQmAK04+OYbzWbslXxbYL2tRUFUSmscwg2I0xs9t
+         HtgbauW789XstC7RGieNNSXwOof+KjeuI/4XZc3hYh8nlnkbzxprHmtMCK6PkCdqYVlP
+         aS9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793224305; x=1793829105; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793224323; x=1793829123; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w7Bp9dEIJxBru2Yx4Wp3IUe1NzI0zM2Aj6BmYM8tSDQ=;
-        b=JYIR2HRfFnGvSU2rQGBW5sxdBR8+2GlH2qjSq/HlD6S1u4eJjR1i/w+as6DToQOKvk
-         RSDAri7eQHTr4j9eUTy4Z2DbhxFMnZsVBHmi/fT6/ey6EKp/8L3qtsdyFQVLxeJCqV2D
-         xDHqQydzMq9zx1vSYnV5613GpblmNqBGeXypBuGM2MtlhNUGk5n7a7+RZfJmB8WAVcwG
-         OaJ+Pp4etwzurozhxQU8jivNTMaWuu+r6eaF5dfVdvCQX4ABCS+ynxCJ0SBmG8elQT07
-         HSeIPzYrnw/B3podc0ti5M63QabUaVeyVgEXoLhQhk4NhgCLTvc+yckuVNgToedhZotl
-         S6yg==
+        bh=mPtExrnKGOMQtspuIP7yF8Ip7fswDzEEpF0H728OVnI=;
+        b=0MVKsgzcw3XsZH5xCrtY10JGwrODxblZvE9fjvtxdDOfDlIewMlbTr/AUZBdZAdIRv
+         0XG1+CGZb8xXRLmCTL6fiRGDyomJDYNr4QM/uqJT3iK5SsdywoNabbCFBqs20TpdPKHo
+         in5si+Hxd/5IJI1ttPwmNlRbnyEf7ik3UqRrWwEDueLvq+WLrU5IvQztNMXNwEjvW6dZ
+         lda1In9bhFdsinJ5V6NZsO3emcR9VATiODrcC+AuKtafi5TVHEkqYzpz991Ua0p3pwg0
+         COypZaI+4OuJhTuNOwGZP6bn2ajsgpsRfQfS895cWAKcgB9eqUvxR0b+lK4tm8EuZVwp
+         0RlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224305; x=1793829105;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w7Bp9dEIJxBru2Yx4Wp3IUe1NzI0zM2Aj6BmYM8tSDQ=;
-        b=VT3zSfipHGO1Ags2M3bCDvq91iEze6SfwSUQAWbI4K1oUzoumF+ENcgvl9iLjeFoqD
-         fPkJaSPAkzZkGHfOTmNm0Uymvmemy02lSyHoDwLPP6DpHlaUfXIuyUSfANgakiSmn3NB
-         D+mwxwgtbzV+OXwxyYc7+gXEMXm2aEBPqpJ4RwVcxCizXs3fR4+YBJBFBcRF1Fjp/JdK
-         BOMyHEo/2J9gkrTXQ9rwTByOt+lg1Ff5oSos8oUUBk2GzPW/v2RhUGjN0zxPE4JvZ7is
-         XEIeVHBI4X8/HVWvnwO7IXtCO6J99wcJbcSghpzTndKDVBU5hhJrG3VpoWT6/uZa7w0Q
-         yRcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDVxhAP+UUEhK53XGC06P1pfV8EYhEzzcpC2MOhwIM5M6UBpWoidllSKIC3cgpvDBEWkI+O/uouYyQEfY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8w1TPvdHDqQz29UItVetu+oc75gMiMSGprjx7Ndnum3TpG7Ar
-	Xlqz8Da4Y/jKaFc/tEHTv4AGJqmh/FHoWZl5IDdNi1HiwOBq2WZKRDhetmYZLlsgrwXBHdfjJcy
-	fbEhBo0evdXwYD+nwk0IJ3Q==
-X-Received: from pjbcm5.prod.google.com ([2002:a17:90a:fa05:b0:3ad:ce88:b6b5])
- (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:57e3:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3ae58123796mr2472490a91.37.1793224304446;
- Wed, 28 Oct 2026 14:51:44 -0700 (PDT)
-Date: Wed, 28 Oct 2026 21:51:43 +0000
-In-Reply-To: <20261028202607.1844883-4-seanjc@google.com>
+        d=1e100.net; s=20260707; t=1793224323; x=1793829123;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mPtExrnKGOMQtspuIP7yF8Ip7fswDzEEpF0H728OVnI=;
+        b=fTpuQLbTd22DipVQLIJZOE4ROyrtSEzpknv6nBlkbwhaHgsHGK8yXWI/4WIyKnepbk
+         u0hFH1uKdHYQgnOxF7ooHwBjRjR9OxFtXST40p9cSNk+tSMSV+OpTqtVng00Zi5iYNoG
+         OfzXmm5OywZTvhM2niJ9KviMUS/wcvJ39pb1UqX6AaTrQnOqxjis8ch5nNy37NTsn8LE
+         7XGLySMXLiEzzBRzOUGIkzoRSnTLmm5HaFmC5dvNMLXKA+122SAmY4N3Mh4AD7xhjWDF
+         cxVN3VEQJfOoyON2OZ8h8Kj0nhgKm649GtJlDIzrsAYcnjXCeB09O/KaI/mCMNO3G0z+
+         sQow==
+X-Forwarded-Encrypted: i=1; AKwUvBz1GBt1aAw3IgwoFIwKmvZfB2V1Mtx//1e8hYKet7VGTlm2TQs3j2ckKFzMMAO9WaPuAMcfU7QlsiqPmBs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtBDbabp/6MeVJgAc/A8DuSs7p5+/4bCb8g6hLjuHTYQHH/uy2
+	E7Olyjh/xURb7YyGr0k1HY65cc6hDJE49ZbGaABq4jCQ+NvEBPXZM63/ufP9JIxHdjzEjmGiVtP
+	KRyqbpPvD+APpLeowoo6o/7EoHxo4nhc=
+X-Gm-Gg: AYBFou3Cjat4Vg7+QJ8gqLXJK567iaYvwFrkiu5KlsfcEavQR5QbKONjlzpvfW3PaHj
+	WuoR5adlIxJoi7JX7OAX/BLoYwe2APD1kWBWtVI55kR++N85egdAni5HR38SAqCrFW07750EIIr
+	655U+nxKY0TJx0ybaRRrORtLZ6vlIdflS+rdYzv/egSFSd4UVEBVjnqlMDu8gTpwwAD+w08vYgb
+	IbxQSxsxsbBDYS8QJK31mNiXutn/8JJtWuf5TYmlhS4i7jOGSwtkct8QiqDMac4HDqc01WJnVaN
+	FD5iyGoM+FZ2Gb2zFwlmgrf82uV6Lm0KJFdFB41DT/ZKG7J41HU2xd2169JCJEJ/97LhdXKLAxG
+	eJZWFICLbwBVoQnlQXbAA2quzQ6TRjx3MBmNzT/U=
+X-Received: by 2002:a17:903:94d:b0:2e8:1d5c:f6f2 with SMTP id
+ d9443c01a7336-2eb003bd5f2mr34821655ad.24.1793224322720; Wed, 28 Oct 2026
+ 14:52:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,212 +102,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028202607.1844883-4-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261028215143.2913059-1-jthoughton@google.com>
-Subject: Re: [PATCH 3/4] KVM: x86/mmu: Add automatic prefaulting/prefetching
- for TDP MMU faults
-From: James Houghton <jthoughton@google.com>
-To: seanjc@google.com
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, mamarang@amazon.com, 
-	pbonzini@redhat.com
+MIME-Version: 1.0
+References: <cover.1793216372.git.ashish.kalra@amd.com> <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
+In-Reply-To: <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
+From: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+Date: Wed, 28 Oct 2026 22:51:51 +0100
+X-Gm-Features: AclHuK-lLMUGo00CsLuRjBYLJYO8QfoO65WYw2V8BbtyozSJ3LTmNXJa2V5HQzw
+Message-ID: <CAM9Jb+gBzgwvtOkV32bNudAqb4sU5+40zuj54py+JoLVvV+naA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] x86/sev: Clear RMPOPT when segmented RMP is
+ disabled by firmware
+To: Ashish Kalra <Ashish.Kalra@amd.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, seanjc@google.com, 
+	peterz@infradead.org, thomas.lendacky@amd.com, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, ardb@kernel.org, pbonzini@redhat.com, aik@amd.com, 
+	Michael.Roth@amd.com, KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com, 
+	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com, 
+	pgonda@google.com, rientjes@google.com, jacobhxu@google.com, xin@zytor.com, 
+	pawan.kumar.gupta@linux.intel.com, babu.moger@amd.com, dyoung@redhat.com, 
+	nikunj@amd.com, darwi@linutronix.de, linux-kernel@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 
-On October 28, Sean Christopherson wrote:
-> Leverage the prefault code to add "automatic" prefetching of surrounding
-> SPTEs when handling TDP MMU page faults.  As pointed out by Marco, the TDP
-> MMU doesn't support prefetching SPTEs, which puts the TDP MMU at a severe
-> performance disadvantage relative to the shadow MMU when faulting in guest
-> memory at 4KiB granularity, and in general is a gap in the TDP MMU.
-> 
-> Use the prefault flow to prefetch SPTEs instead of the more minimal, custom
-> approach used by the shadow MMU.  Reusing the prefault flow sacrifices a
-> small amount of performance (the standard page fault path is "heavier"),
-> but is vastly simpler, supports backing memory that can't be GUP'd, and
-> shares its maintenance burden with KVM_PRE_FAULT_MEMORY.  E.g. multiple
-> flaws in x86's prefault code were practically impossible to hit with
-> userspace-driven prefaulting, but were hit almost immediately with
-> KVM-driven automatic prefetching.
-> 
-> Provide a writable module param to let userspace control the number of
-> pages to prefault, as KVM needs a control of some kind, and letting the
-> user choose how aggressively to prefetch is just as easy as hardcoding the
-> number of PTEs to prefetch.  I.e. supporting a variety of use cases is all
-> but free.  Default to PTE_PREFETCH_NUM as that's been KVM's behavior for
-> the shadow MMU for decades, i.e. even if it was arbitrary, it's gotten a
-> *lot* of mileage and so presumably is a reasonable default.
-> 
-> Instead of unconditionally bailing on hugepage faults, skip prefetching if
-> the original installed page size covers at least the number of pages the
-> user wants to prefetch.  In practice, it's unlikely hugepage prefetching
-> will see much, if any, use, but it's practically free to support, and will
-> allow for more experimentation and tuning.
-> 
-> Note!  Check for an incompatible memslot *before* invoking the specific
-> page fault handler, and thus before fast page faults are handled, otherwise
-> the fast page fault handler can "fix" a fault that never happened and log a
-> spurious, non-existent access.
-> 
-> Do NOT prefetch in response to protection faults, i.e. if there was already
-> a shadow-present SPTE, because prefetching in that scenario is unlikely to
-> be beneficial.  Note, this would also prevent spurious dirty logging via
-> fast page faults, but (obviously) only for writes, i.e. wouldn't block fast
-> handling for !PRESENT page faults when A/D bits are disabled.  I.e. the
-> aforementioned early check is still necessary to avoid spurious dirty log
-> entries (or KVM would need to explicitly treat auto-prefetch "faults" as
-> "can't be fast").
-> 
-> Lastly, don't go down the slow I/O path for auto-prefetch faults, as the
-> goal is for auto-prefetching to be light and fast, i.e. to pull in SPTEs
-> without significantly increasing the latency of handling page faults.
-> 
-> For now, use the auto-prefaulting code to the TDP MMU, i.e. defer
-> converting direct shadow MMUs to a separate change.
-> 
-> Reported-by: Marco Marangoni <mamarang@amazon.com>
-> Closes: https://lore.kernel.org/all/20260825140159.70997-1-mamarang@amazon.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> From: Ashish Kalra <ashish.kalra@amd.com>
+>
+> Segmented RMP has two independent states: the CPU *advertises* support via
+> the X86_FEATURE_SEGMENTED_RMP CPUID bit, and the firmware *enables* it via
+> MSR_AMD64_RMP_CFG[SEG_RMP_ENABLED].  A platform can advertise segmented RMP
+> (CPUID bit set) while the firmware leaves it disabled (SEG_RMP_ENABLED
+> clear) -- e.g. through a BIOS option to disable Segmented RMP -- in which
+> case the system runs with a contiguous RMP.
+>
+> snp_probe_rmptable_info() clears X86_FEATURE_RMPOPT only when the CPU does
+> not advertise segmented RMP, or when the segmented RMP table probe fails.
+> It misses the advertised-but-firmware-disabled case: that path falls
+> through to the contiguous probe with X86_FEATURE_RMPOPT still set.
+>
+> X86_FEATURE_RMPOPT is a CPUID bit advertised independently of whether
+> segmented RMP is enabled, but RMPOPT requires an enabled segmented RMP.
+> With the capability left set, RMPOPT_BASE is programmed and the RMPOPT
+> instruction issued, both of which #GP on a contiguous RMP:
+>
+>   unchecked MSR access error: WRMSR to 0xc0010139 ...
+>   general protection fault ... snp_enable_rmpopt
+>
+> Clear X86_FEATURE_RMPOPT on the common contiguous fall-through so it covers
+> both "segmented RMP not supported" and "segmented RMP supported but
+> disabled by firmware".
+>
+> Fixes: 15d974be0a3b ("x86/sev: Initialize RMPOPT configuration MSRs")
+> Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+> Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+
+Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
+Tested-by: Pankaj Gupta <pankaj.gupta@amd.com>
+
 > ---
->  arch/x86/kvm/mmu/mmu.c | 64 +++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 60 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> index 3bd0d921778d..c56a2eaa4646 100644
-> --- a/arch/x86/kvm/mmu/mmu.c
-> +++ b/arch/x86/kvm/mmu/mmu.c
-> @@ -122,8 +122,15 @@ static int max_huge_page_level __read_mostly;
->  static int tdp_root_level __read_mostly;
->  static int max_tdp_level __read_mostly;
->  
-> +/*
-> + * The exact number of PTEs that can be prefetched for the shadow MMU, and the
-> + * default number of pages to prefault/prefetch pages for the TDP MMU.
-> + */
->  #define PTE_PREFETCH_NUM		8
->  
-> +static unsigned int __read_mostly auto_prefault_nr_pages = PTE_PREFETCH_NUM;
-> +module_param(auto_prefault_nr_pages, uint, 0644);
+>  arch/x86/virt/svm/sev.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+> index bd70c4d0b774..cd0412b9d251 100644
+> --- a/arch/x86/virt/svm/sev.c
+> +++ b/arch/x86/virt/svm/sev.c
+> @@ -827,10 +827,10 @@ bool snp_probe_rmptable_info(void)
+>                         setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+>                         return false;
+>                 }
+> -       } else {
+> -               setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+>         }
+>
+> +       setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
 > +
->  #include <trace/events/kvm.h>
->  
->  /* make pte_list_desc fit well in cache lines */
-> @@ -4709,10 +4716,12 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
->  	/*
->  	 * If resolving the page failed because I/O is needed to fault-in the
->  	 * page, then either set up an asynchronous #PF to do the I/O, or if
-> -	 * doing an async #PF isn't possible, retry with I/O allowed.  All
-> -	 * other failures are terminal, i.e. retrying won't help.
-> +	 * doing an async #PF isn't possible, retry with I/O allowed.  Never
-> +	 * go down the slow I/O path for automatic prefetching, as the goal is
-> +	 * for it to be light and fast.  All other failures are terminal, i.e.
-> +	 * retrying won't help.
->  	 */
-> -	if (fault->pfn != KVM_PFN_ERR_NEEDS_IO)
-> +	if (fault->pfn != KVM_PFN_ERR_NEEDS_IO || fault->auto_prefetch)
->  		return RET_PF_CONTINUE;
-
-Hi Sean,
-
-I wasn't sure where to leave this feedback, but Marco's original patch[1]
-used fast-only GUP instead of relying on normal GUP + FOLL_NOWAIT. I think
-fast-only GUP is better here. (Correct me if I haven't understood this
-series correctly.)
-
-With normal GUP, we'll get allocate more pages than absolutely necessary,
-and pages that are swapped out with zswap are swapped back in even for
-FOLL_NOWAIT. And I'm a little bit concerned that normal GUP (even with
-FOLL_NOWAIT) might stall page faults noticeably longer than before.
-
-If you leave prefetching as normal GUP, maybe leave it off by default?
-
-What do you think?
-
-[1] https://lore.kernel.org/all/20260825140159.70997-1-mamarang@amazon.com/
-
->  
->  	if (!fault->prefetch && kvm_can_do_async_pf(vcpu)) {
-> @@ -5072,6 +5081,18 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
->  		 */
->  		fault.gfn = gpa_to_gfn(fault.addr) & ~kvm_gfn_direct_bits(vcpu->kvm);
->  		fault.slot = kvm_vcpu_gfn_to_memslot(vcpu, fault.gfn);
-> +
-> +		if (fault.auto_prefetch) {
-> +			r = kvm_check_memslot_usable_for_auto_prefetch(fault.slot, ACC_ALL);
-> +			if (r)
-> +				return r;
-> +		}
-> +	} else {
-> +		/*
-> +		 * Indirect MMUs need to use a dedicated prefetch mechanism, as
-> +		 * the associated guest PTE factors into the prefetching.
-> +		 */
-> +		WARN_ON_ONCE(fault.auto_prefetch);
->  	}
->  
->  	/*
-> @@ -6654,11 +6675,44 @@ static int kvm_mmu_write_protect_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
->  	return RET_PF_EMULATE;
+>         return probe_contiguous_rmptable_info();
 >  }
->  
-> +static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
-> +				  u64 error_code, u8 level)
-> +{
-> +	gfn_t nr_pages = READ_ONCE(auto_prefault_nr_pages);
-> +	int nr_pages_msb;
-> +	gfn_t i;
-> +
-> +	if (error_code & (PFERR_RSVD_MASK | PFERR_PRESENT_MASK))
-> +		return;
-> +
-> +	if (!tdp_mmu_enabled || vcpu->arch.mmu->page_fault != kvm_tdp_page_fault)
-> +		return;
-> +
-> +	nr_pages = min(nr_pages, KVM_PAGES_PER_HPAGE(PG_LEVEL_1G));
-> +	if (KVM_PAGES_PER_HPAGE(level) >= nr_pages)
-> +		return;
-> +
-> +	nr_pages_msb = find_last_bit((unsigned long *)&nr_pages, sizeof(nr_pages));
-> +
-> +	start = ALIGN_DOWN(start, gfn_to_gpa(BIT_ULL(nr_pages_msb)));
-> +
-> +	for (i = 0; i < nr_pages; i += KVM_PAGES_PER_HPAGE(level)) {
-> +		gpa_t gpa = start + gfn_to_gpa(i);
-> +
-> +		if (gpa < start || gpa_to_gfn(gpa) > kvm_mmu_max_gfn())
-> +			return;
-> +
-> +		if (kvm_tdp_page_prefault(vcpu, gpa, error_code, KVM_PREFETCH_AUTO, &level))
-> +			return;
-> +	}
-> +}
-> +
->  int noinline kvm_mmu_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa, u64 error_code,
->  		       void *insn, int insn_len)
->  {
->  	int r, emulation_type = EMULTYPE_PF;
->  	bool direct = vcpu->arch.mmu->root_role.direct;
-> +	u8 level;
->  
->  	if (WARN_ON_ONCE(!VALID_PAGE(vcpu->arch.mmu->root.hpa)))
->  		return RET_PF_RETRY;
-> @@ -6692,7 +6746,7 @@ int noinline kvm_mmu_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa, u64 err
->  
->  		r = kvm_mmu_do_page_fault(vcpu, cr2_or_gpa, error_code,
->  					  KVM_PREFETCH_NONE,
-> -					  &emulation_type, NULL);
-> +					  &emulation_type, &level);
->  		if (KVM_BUG_ON(r == RET_PF_INVALID, vcpu->kvm))
->  			return -EIO;
->  	}
-> @@ -6703,6 +6757,8 @@ int noinline kvm_mmu_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa, u64 err
->  	if (r == RET_PF_WRITE_PROTECTED)
->  		r = kvm_mmu_write_protect_fault(vcpu, cr2_or_gpa, error_code,
->  						&emulation_type);
-> +	else if (r == RET_PF_FIXED)
-> +		kvm_mmu_auto_prefault(vcpu, cr2_or_gpa, error_code, level);
->  
->  	if (r == RET_PF_FIXED)
->  		vcpu->stat.pf_fixed++;
-> -- 
-> 2.56.0.313.g2479322e68-goog
+>
+> --
+> 2.43.0
+>
+>
