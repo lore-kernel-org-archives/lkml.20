@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173691;
-	b=yGD3wh0GTUsMLO6etv0LqHbgoekLsP9hb3YevS5yUuzSr+FBxbUQToQUOD2PjSMlX7ac
-	 q7MV+jxaxwlp70RCPo4/6ay908ihklMeYVlUKlDRKKUV/8cfoq+HGS5KAQxb/sdKbMcuT
-	 zJhWpTWwUH10JqFdh5YiMzhsjeJIzMYVF5Y0ctDhFv+IrPfKOIGjOmZpjt6MZAvItsurC
-	 TP2Fr+0KhXfCV8VKG2zo9FfqDrbT9vVKqale9XqLbkc6Pg0P/VFCz/YPwQsXBv36W3306
-	 O07KZ/0bQspSAKgkxphe+7ZlZsRfHOzPXC15vOZv2GweOOnt8mgNfqRzsWv0eliZ0VA==
+	t=1793173707;
+	b=KPt3mZsp8G1b2knD+7Smwps1cx7gESubeIPCK67CVagknVpklfdIt2B+x5emOxJxPCZt
+	 y4BoMQKNRa70W7lERBDizWIKO8dIA7OFtB0cR9x/IDtUwslyIp3q9QOPS46WELjegLltz
+	 5ygyegV7qQNLR3BnrktlNX8VP0WxIE4XwTZCJAv3ZNxOzrRprEa6ODYUz1jNWzrsC58jE
+	 klaHs6pNiN2v5Y9+CGdZ5K8A314/IPspT1aEa1hNjc7/kamfUjE1/cHeFSG+UhhuvL2Mw
+	 F8TvZceORLFi3WML6IO18M4/vjzOuGOojYvveAt68vPA06rR+RCNMOlQnviXtO7uhUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173691;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dStZLAdYSepSAwN9IhU7KtYdNu5D8XvgIKxNBjeJlZE=;
-	b=tJhK9QLuj144EMB6MDPjviryf8ryPaJlbL/mnvMqGRHwqPOD/cyoxsU2y8apPxFpNRX/
-	 sr121JZQoh5COnXvN3FN5LcjJH481RehL+4u0iYWYuqBjFMVhgk6o8GX52AS/yd41tQpV
-	 DVTJmLZjjFNU8eApAU1USAbbWE/VQ0AAJKdXxfSQfoV5zudTdVt0gkBRoH84qFkGxx9MT
-	 sdDB/9QuWCBRu+z3o96ERNFTefHtjCp7VrPiWJ7hE0HeYx9rkdX6dCzHhvbzUY0qlFVWR
-	 ILFPW02I7lRbik/i4RJYuscW2XUFTKkWGwz6I+FBI8pz6bAJUQtr50vEIJUsRciQCBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173707;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+	b=xB7yBXV7beHLwVEXbO1QXRewGgbTfQ4UvdIYNGw7579GiGYtcim1Gfd7GiDws0k0njFB
+	 r4Yon65zpPptkhJpd0OpZoMcXLD2oA0m5Bn1pVTkd/RIx/WRFaAaNjKz8UTQxKXMghkck
+	 bll/pceWYvdIj6BwXFVLbJiukHyehmYrSdYgutIjxqC3v7ofvgXwogUZdg9D6JWkpwBig
+	 +W4UnElNue1ksVf4Q/AapSoq11Y1RyTpIOiY/WISs3pdNWl5eJp8wDBI/7dQTEmX/SB82
+	 m9l5dBGRu8rB00PNufyzjF3Gk9ljqlb87hyBX2CkneptJM6efzRnoI9kTmUYT2fxrVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AzUL/bSu";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="WJwsi/aP";
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D7A606A31A;
-	Wed, 28 Oct 2026 07:48:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F45606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:48:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6F45606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AzUL/bSu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1071F01825;
-	Wed, 28 Oct 2026 07:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793173689;
-	bh=dStZLAdYSepSAwN9IhU7KtYdNu5D8XvgIKxNBjeJlZE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AzUL/bSuc22lql9pAow+vEkDsAHyexxPhEcJHe00gRIXy/Kkzq12BqNZaSE2UM78r
-	 Szn7su5uMg2jTEoEnCUXg+vAcbWzjWkVVM8FvkZoLyuOaObEideYpVkLHb7fmsldR5
-	 YYY7ltzUNJxLKyVqWqcmaGJ2mSqDIqj3lFy23kGAI1uzGNnOuQ7410NoOCwwPVySjp
-	 5mrSjcFb3KLbyXH+Xpv3J8whdfCTddBIRnXl7ZJV2OBdgvqkHlC2jeZn4VBN7zCc7a
-	 izW5OPOeFkoj8TjRGRKpUhF/jwSuME0hNvU3ukhiQYuzOucmeFScJz6ACs6fuYUNE4
-	 7CRY2OIG8SA4Q==
-Message-ID: <48ed164f-d146-45a9-bee7-ed6b74693ff4@kernel.org>
-Date: Wed, 28 Oct 2026 08:48:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WJwsi/aP
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eaf3f829b3so6987845ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793173706; x=1793778506; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+        b=WJwsi/aPDlmQuEKdqEBYuYMRnOF0Ys+WLx1d+m9JyaUXGwib3GorzJdcuivp7QkZli
+         zIofH4rrKKKrF8IJ2g0uzdCfbFnuiS2qeaNFbL3eCS8Sdq4zB6Ou/JTDd4jaYB0Pzjjc
+         JALC9Unlvj3ZStTweea5iGCX3+l0ZMMjkI5UJyBcYVONeyCbIJnLwhdepY0UTOpWvgfH
+         uXc0bVnZFBNuDXmyJtNDUA7T6UmwSmwyx97W/Z1H8l/fDfA34gkutmxCL7Paw2YoQB/2
+         ns0mKVANZ60JtEGSfoljBS1MEF+YynsbKhO/fLELjqvntrNjEn5fA5CNxIRDoNgkmbk9
+         boFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173706; x=1793778506;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+        b=bXir/r7T9RLcMHPeu+Q6jb2paiV9KjzD+uBeFLFlbu46yxf0XcnilQ6FgPwf2euHrh
+         uecYyDkHAJppMnKFzfzTIjWlzZaX73CgT0Z63eB2bDcQpLHDSczu2bo6fbsy75MGR8Et
+         ebZjjiY50+vu7Jm6mXBIb6WXx5selzucI5jvFao4m0kW3DsuQuK7xM0Y7h5LeSdNRn2y
+         uCJPK0CTYudMOWMtYFimwmeBkRHhIU4Fq7rPunWlMxbqN0aXRcG/hpgTJOn1mROPAkOJ
+         EJBJz7NJoCHK6/6Bv4ByhkG08Q4W7NoOQ+FMtygT8MKjyi/LYiw8DJZVFTYbWO5aenMN
+         Sh7w==
+X-Forwarded-Encrypted: i=1; AKwUvByhDrcQ1qVliAb0ZcEMMiAEmI5Q0++dwckh/JfgRvipp+JTSU6isRpP3vOYEBlK799KheyrfZkQN+xNKgo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQy5y1/U8ARBSKUFWn3P/+mJIvpJJ+30JYWDTVpYcFHaMqtwVm
+	zL2cK9A2ly9HDtycR+gezF8nEmT1C607OjXR1tQ7+9RMU6L/wldWL2jzrfcUL0wlpzM0D/ESCV4
+	UMiSGdGi0AQcPHFEuRKTb9G9+6mux8Kactg==
+X-Received: from pleo1.prod.google.com ([2002:a17:903:2101:b0:2ea:f42f:612a])
+ (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:2cf:b0:2e2:d834:a40f with SMTP id d9443c01a7336-2eb00141a17mr13956705ad.9.1793173705739;
+ Wed, 28 Oct 2026 00:48:25 -0700 (PDT)
+Date: Wed, 28 Oct 2026 07:48:21 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,85 +75,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] power: supply: qcom_smbx: add SMB5 support
-To: David Heidelberg <david@ixit.cz>, robin@snyders.xyz,
- Casey Connolly <casey.connolly@linaro.org>,
- Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Joel Selvaraj <foss@joelselvaraj.com>
-References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
- <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261028074821.579450-1-sonalipradhan@google.com>
+Subject: [PATCH v2] usb: gadget: f_midi: fix UAF race during IN request handling
+From: Sonali Pradhan <sonalipradhan@google.com>
+To: nkapron@google.com, gregkh@linuxfoundation.org
+Cc: tiwai@suse.de, balbi@kernel.org, jeffinphilip14@gmail.com, 
+	victor.krawiec@arturia.com, fanwu01@zju.edu.cn, christophe.jaillet@wanadoo.fr, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, sonalipradhan@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 16/09/2026 15:37, David Heidelberg wrote:
->> change-id: 20260811-submit-qcom-smbx-send-v1-69acefa61977
->> prerequisite-patch-id: 3d8a9cf43b5e5eac64a60aeec5e9c90880bcf792
->> prerequisite-patch-id: de3e3b494f9644596cfa4cafc362ca0b48288c45
->> prerequisite-patch-id: d5e22a0fe7cd55374f60d7c2cb14ed3df8f94e0b
->> prerequisite-patch-id: 9eafa41402e97d6a3e5369bec46df4e9db3d2af6
->> prerequisite-patch-id: 5638b901cd10773fa9485605f84b25a1dd826a84
->>
->> Best regards,
-> 
-> Tested-by: David Heidelberg <david@ixit.cz>  # SMB2 (Pixel 3, Mi 8, OP 6 / 6T)
+f_midi_disable() drains and frees pre-allocated IN requests from
+in_req_fifo without holding midi->transmit_lock. If f_midi_transmit()
+runs concurrently on the workqueue, f_midi_do_transmit() can peek a
+request from in_req_fifo and write into its buffer while
+f_midi_disable() frees it, leading to a use-after-free.
 
-You cannot test a binding, so this is not applicable to 50% of the
-patches here. Why you cannot just reply to the patch where this tag is
-applicable?
+Additionally, when usb_ep_queue() fails in f_midi_do_transmit() (such
+as with -ESHUTDOWN when the endpoint is disabled concurrently), it
+resets req->length = 0 and returns active instead of the error code,
+causing the do-while loop in f_midi_transmit() to keep spinning under
+midi->transmit_lock until the substream is drained.
 
-Best regards,
-Krzysztof
+Fix this by acquiring midi->transmit_lock in f_midi_disable() while
+releasing IN requests from in_req_fifo, and returning the error code
+from f_midi_do_transmit() when usb_ep_queue() fails so f_midi_transmit()
+aborts immediately and drops active substreams.
+
+Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
+---
+Changes in v2:
+- Remove the transmit_lock and ep->enabled checks added in v1 from
+  f_midi_complete() and f_midi_transmit().
+- Return error code from f_midi_do_transmit() when usb_ep_queue() fails
+  so f_midi_transmit() aborts the loop immediately.
+- Link to v1: https://lore.kernel.org/all/20261019135701.2767078-1-sonalipradhan@google.com/
+
+ drivers/usb/gadget/function/f_midi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
+index 63fb6ee70a3d..48cda34399e8 100644
+--- a/drivers/usb/gadget/function/f_midi.c
++++ b/drivers/usb/gadget/function/f_midi.c
+@@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
+ 	struct f_midi *midi = func_to_midi(f);
+ 	struct usb_composite_dev *cdev = f->config->cdev;
+ 	struct usb_request *req = NULL;
++	unsigned long flags;
+ 
+ 	DBG(cdev, "disable\n");
+ 
+@@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
+ 	usb_ep_disable(midi->out_ep);
+ 
+ 	/* release IN requests */
++	spin_lock_irqsave(&midi->transmit_lock, flags);
+ 	while (kfifo_get(&midi->in_req_fifo, &req))
+ 		free_ep_req(midi->in_ep, req);
++	spin_unlock_irqrestore(&midi->transmit_lock, flags);
+ 
+ 	f_midi_drop_out_substreams(midi);
+ }
+@@ -661,6 +664,7 @@ static int f_midi_do_transmit(struct f_midi *midi, struct usb_ep *ep)
+ 		ERROR(midi, "%s failed to queue req: %d\n",
+ 		      midi->in_ep->name, err);
+ 		req->length = 0; /* Re-use request next time. */
++		return err;
+ 	} else {
+ 		/* Upon success, put request at the back of the queue. */
+ 		kfifo_skip(&midi->in_req_fifo);
+-- 
+2.56.0.307.g5fe7bd680c-goog
