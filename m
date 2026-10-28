@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201212;
-	b=K6c+KEA4XwL39ESxDVnRIk+ndXqLPY2Yp8pT5ij8yxT3OkvM/1A9b7ftDXYu73LZAIeF
-	 0lQwDF1uH+f7yg8/c83Iftp1dZ7FfSRZtCqJTHgq/wxoZWg5bOAm/KvDDTTDMD0YmVyd4
-	 o4fZaI+PAej4uAXuxIJ3RkUbt/1uUNam4Ioy0J6X+3mUWEYi8hEsCkacwcEHe+w2WxTxo
-	 tTPkWotL3ujn4S7FyXky4uDl0TmRC6wtYOKOShtiU+RttIn4//HwzJQEy/+5Vljm0POta
-	 6Icq1p85LkcysQJnoqv4hXKRRgcHC19XjwaKbKHtTMLUF1NkvffBU9Ynt4kfVjOX6HQ==
+	t=1793201221;
+	b=TcdyKQkcBJ+wpUgkt/BdWYBxPZkkT1LrrkJr9OwXYcmjPLQu/nEIwzPhOX+kadF1SQU6
+	 fDBKMVWkzS4dK/A2dtwVtH66GkTBzoRDgk9h4cBqAkGEXlYBFmKNd6tQA8ZoB//Esu1Yp
+	 zXId60I7Xe4Gr2SqVHn/3C7Dcf5Pt92EQ6Jn01Xb6MBR5LKwR/H8vv6KyWLJUDku+990l
+	 q6VPueBMCgOqLu/B17y/R1drubZYlsMX35y6efScl/JHFsj2sNOCcsH3t/qXN/QAxz7r2
+	 JvkCnluuZ4wWMX1UAKS7Q5L+jdeLMAQ2MWM4ona1AUscZCUgexOAvRIV710evB17aRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201212;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sirCQZqxefXuHL4irgboS/LvB2QlM6ul3cOLcu7k13Q=;
-	b=yVLTboUGdE9Rzw/Uyb5+GpTai5m1gQZwHZ6RLiTKwbHbxLKggbMgc/OoFXv74zNVQsgr
-	 eimxZPkGqMPVPPJ2vMqTeVsKEk9F79hxYlpzt+arq9Svb5/9hwkZg3hdw9vxvctuSFcc1
-	 C5eh+CBjdExlSmlCP886AA4OEt5m+oddjZT7QW/gfp/13JmtQ3tSaoFPWs9gYDzDH5xU9
-	 O2g6dxnXtR0QWZg+b8blOUYuYmzLTRByAvbE+NpnQPAKhHoPQmvHgRNKEezCee2OyoGkT
-	 nYFLTnb5gEtY5KRJU83bW31gERseVgbZjtbR2afEE3fFHdZz094J3zp3p6l5HVK3v6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201221;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=VB5jNk5xkH6on40MV2K4aHnG1H26SC3nlVA3Ge7l2CY=;
+	b=mYZum0MJn7vrPfThnZ3UYclNxAEFHGbxjOfmXluU8Wcymumvt23mAoBmrJJPKJGYVQiP
+	 nmbFe+PkbQjYVss1o2toFpCyO3q0MwBRdihFBQ9MEEqku2A4UkOEvA0WCIUszm+SV2hnY
+	 2/JMDoXO+/AcuPNf3EMuVqEsX+WyGJ09LBWvrHMwCPL5tj3p9glOS/4yIELiq7ridiBuo
+	 vF49r0/+OgmmQfwz1WUvRonrIE5qO5Su/v3JwgY19dVS5sEtS6yXY1meAbIqyOWvh0BL/
+	 tV5hhmwJRFH+SaUkXYgrGUZme6VW+kfA/Dn3K2/a+0L3G9YKJK8sxm8OZrgd+4U/qNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="guqvCF2/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=i34c8xuC;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E906606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CB7606A31E;
+	Wed, 28 Oct 2026 15:27:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CB7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=guqvCF2/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAD9B1F01828;
-	Wed, 28 Oct 2026 15:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793201211;
-	bh=sirCQZqxefXuHL4irgboS/LvB2QlM6ul3cOLcu7k13Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=guqvCF2/p/ybbJZ0RCEKf7JZa886e8hTrp9n9QOsjENzfDTVQYeisqc9v3p+GHu2h
-	 NU8UmkF2W68lm/46T50nfiD8xtv23pD+mMiPmQGQbGKTPzkqnC+MglDFF735I93Ohu
-	 KG98TTDLY8T0YeubIjbuRlqplUD6pG97hcApOTMOzfd1/eNdK8M5f7MR334xjGYFB4
-	 MJmLLI6E66aCPLx62GPg4e/LjsID49KDZh6MV2LsYinC4AEGUI8kW+DY0eZgqJxF/Y
-	 Mt0CupN27JhaMRK6vPaUzA1msd5TAJHaQXAuWX6QEhDorrS9SxQdXWCe7+aHag2n0c
-	 uMxx27u+4RRWw==
-Date: Wed, 28 Oct 2026 15:26:50 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Chao Yu <chao@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-	stable@kernel.org
-Subject: Re: [f2fs-dev] [PATCH] f2fs: do f2fs_zero_post_eof_page for all the
- time
-Message-ID: <auIUOuuiz3rbwSuZ@google.com>
-References: <20261028050615.259268-1-jaegeuk@kernel.org>
- <c87b011c-08fa-4e65-8b22-a6bf5a2efd5a@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=i34c8xuC
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 4E61340430
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1793201220; bh=VB5jNk5xkH6on40MV2K4aHnG1H26SC3nlVA3Ge7l2CY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=i34c8xuCGVXoLmvzJ+z39EjUgu4CcQ2zM2AdFq7J/vTbdnzPtXtNANEgTYEwLhZC7
+	 39OZZYEjmce2EZ73fGYG6fUu8QVOQxMZB29MkyaNt/QApW/7HB1DCTMB6sLZ813m2w
+	 lam+kgzvvot1xt5GZ3iRCigvacvkJH/HUT0vlLLXqpXK2lLPirZxHbqzvOfRwxFavg
+	 O1Xx+ep0LARD25C0qQRJhW8uHUwu4OmWrummk/v9/RGs5awSLVknpeqtC37UZgOdKp
+	 hT37TcTsxeB507hCjImsWex0lXkce0I1cfxcnmaEK8stIJpO5VSI3xLuVjSF4qrcYR
+	 Pw1+QH460FUpw==
+Received: from localhost (mdns.lwn.net [45.79.72.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 4E61340430;
+	Wed, 28 Oct 2026 15:27:00 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] More documentation for 7.4
+Date: Wed, 28 Oct 2026 09:26:59 -0600
+Message-ID: <87o6cdq20s.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,91 +63,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c87b011c-08fa-4e65-8b22-a6bf5a2efd5a@kernel.org>
+Content-Type: text/plain
 
-On 10/28, Chao Yu via Linux-f2fs-devel wrote:
-> On 10/28/26 13:06, Jaegeuk Kim via Linux-f2fs-devel wrote:
-> > This fixes xfstests/generic/794, since the issue is not related to the
-> > posix=strict mode only.
-> 
-> Jaegeuk,
-> 
-> Actually, I fixed this only in fsync_mode=strict because I don't see such
-> scenario (described in original patch) in Android:
-> 
->     Steps of generic/794:
->     1. write 4096 bytes to file w/ 0x5a
->     2. use fiemap to get PBA of first block in file
->     3. truncate file to 4080
->     4. umount; write 4096 bytes to file w/ 0x5a directly via PBA; mount
->     5. extend filesize via
->        a) append 4096 from offset 4096, or
->        b) truncate 8192, or
->        c) fallocate 4096 from offset 4096
->     6. verify the gap is zeroed in memory [4080,4096)
->     7. sync range 4096 from offset 4096; shutdown -f (flush meta before shutdown)
->     8. umount; mount; verify [4080,4096) is zeroed or not.
+The following changes since commit 90d9f76ccb72ec024ef476b4229f3dd1957d7b26:
 
-I saw your comment and I think we should not connect posix=strict to who's
-using that. It was supposed to handle the myth of the recovery on rename().
-This sequence looks general which seems we should guarantee.
+  docs: add AGENTS.md as a symlink to README (2026-10-14 11:45:46 -0600)
 
-> 
-> Maybe we should only enable fsync_mode=strict for 794 to let it pass?
-> 
-> Thanks,
-> 
-> > 
-> > Cc: stable@kernel.org
-> > Fixes: 5eced87b7d19 ("f2fs: fix to zero post-EOF data when extending file size")
-> > Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-> > ---
-> >  fs/f2fs/file.c | 14 ++------------
-> >  1 file changed, 2 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> > index 8b4a7a9d7dbe..823df06ae0f2 100644
-> > --- a/fs/f2fs/file.c
-> > +++ b/fs/f2fs/file.c
-> > @@ -74,15 +74,10 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
-> >  					loff_t new_size, bool lock, bool writeback)
-> >  {
-> >  	loff_t old_size = i_size_read(inode);
-> > -	bool strict =
-> > -		F2FS_OPTION(F2FS_I_SB(inode)).fsync_mode == FSYNC_MODE_STRICT;
-> >  
-> >  	if (old_size >= new_size)
-> >  		return 0;
-> >  
-> > -	if (!strict && mapping_empty(inode->i_mapping))
-> > -		return 0;
-> > -
-> >  	if (lock)
-> >  		filemap_invalidate_lock(inode->i_mapping);
-> >  	/* zero or drop pages only in range of [old_size, new_size] */
-> > @@ -90,14 +85,9 @@ static int f2fs_zero_post_eof_page(struct inode *inode,
-> >  	if (lock)
-> >  		filemap_invalidate_unlock(inode->i_mapping);
-> >  
-> > -	if (!writeback || !strict)
-> > +	if (!writeback)
-> >  		return 0;
-> > -	/*
-> > -	 * In fsync_mode=strict, when we expand an unaligned EOF size, we
-> > -	 * should zero post EOF data and writeback the data immediately,
-> > -	 * so that it can avoid exposing stale data after metadata flush
-> > -	 * and POR.
-> > -	 */
-> > +
-> >  	return do_zero_post_eof_page(inode, new_size);
-> >  }
-> >  
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/docs/linux.git tags/docs-7.4-2
+
+for you to fetch changes up to 151235bf3d5d4de1a077a83c54ee651e074816ae:
+
+  uaccess: fix some erroneous kerneldoc comments (2026-10-26 12:42:28 -0600)
+
+----------------------------------------------------------------
+A handful of late-arriving changes, most of which were ready ahead of the
+merge window:
+
+- More Portuguese translation updates
+
+- Some docs-build and self-test fixes
+
+- Bring documentation for the user-space access primitives in
+  include/linux/uaccess.h into the docs build.  This revealed a number of
+  malformed kerneldoc comments, which are fixed in a subsequent tweak to
+  uaccess.h.
+
+Expect a trivial conflict with your tree due to a kerneldoc change that
+came via another path.
+
+The uaccess.h change was done late, but only affects formatting, not
+content.  Nonetheless, if you don't want it, this stuff can wait until
+7.5 without causing undue grief.
+----------------------------------------------------------------
+Daniel Pereira (10):
+      docs/translations/pt_BR: admin-guide: add features.rst
+      docs/translations/pt_BR: admin-guide: add sysfs-rules.rst
+      docs/translations/pt_BR: admin-guide: add sysctl/index.rst
+      docs/translations/pt_BR: admin-guide: add cputopology.rst
+      docs/translations/pt_BR: admin-guide: add hw-vuln/index.rst
+      docs/translations/pt_BR: admin-guide: add LSM/index.rst
+      docs/translations/pt_BR: admin-guide: add perf-security.rst
+      docs/translations/pt_BR: admin-guide: add bootconfig.rst
+      docs/translations/pt_BR: admin-guide: add kernel-parameters.rst
+      docs/translations/pt_BR: admin-guide: add efi-stub.rst
+
+Igor Giamoniano (1):
+      docs: pt_BR: process: translate userspace debugging guide
+
+Jonathan Corbet (2):
+      docs: core-api: include documentation from linux/uaccess.h
+      uaccess: fix some erroneous kerneldoc comments
+
+Karl Mehltretter (1):
+      docs: kerneldoc.py: preserve headings in kernel-doc output
+
+Mauro Carvalho Chehab (4):
+      docs: test_doc_build: better handle python version
+      docs: test_doc_build: update it to support newer Sphinx versions
+      docs: test_doc_build: address pylint warnings
+      docs: test_doc_build: don't select urllib3 yanked version
+
+Pasha Tatashin (1):
+      docs: xforms_lists: Handle DECLARE_KHOSER_PTR() struct members
+
+Subhadip Sarkar (1):
+      docs: admin-guide: Fix typo in kernel-parameters.txt
+
+ Documentation/admin-guide/kernel-parameters.txt    |   2 +-
+ Documentation/core-api/mm-api.rst                  |   3 +
+ Documentation/sphinx/kerneldoc.py                  |   3 +-
+ .../translations/pt_BR/admin-guide/LSM/index.rst   |  53 +++
+ .../translations/pt_BR/admin-guide/bootconfig.rst  | 425 +++++++++++++++++++++
+ .../translations/pt_BR/admin-guide/cputopology.rst | 105 +++++
+ .../translations/pt_BR/admin-guide/efi-stub.rst    | 102 +++++
+ .../translations/pt_BR/admin-guide/features.rst    |   3 +
+ .../pt_BR/admin-guide/hw-vuln/index.rst            |  30 ++
+ .../translations/pt_BR/admin-guide/index.rst       |  34 +-
+ .../pt_BR/admin-guide/kernel-parameters.rst        | 134 +++++++
+ .../pt_BR/admin-guide/perf-security.rst            | 328 ++++++++++++++++
+ .../pt_BR/admin-guide/sysctl/index.rst             | 108 ++++++
+ .../translations/pt_BR/admin-guide/sysfs-rules.rst | 195 ++++++++++
+ .../translations/pt_BR/process/debugging/index.rst |  10 +-
+ .../debugging/userspace_debugging_guide.rst        | 297 ++++++++++++++
+ include/linux/uaccess.h                            |  10 +-
+ tools/docs/test_doc_build.py                       | 120 ++++--
+ tools/lib/python/kdoc/xforms_lists.py              |   1 +
+ 19 files changed, 1900 insertions(+), 63 deletions(-)
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/LSM/index.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/bootconfig.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/cputopology.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/efi-stub.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/features.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/hw-vuln/index.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/kernel-parameters.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/perf-security.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/sysctl/index.rst
+ create mode 100644 Documentation/translations/pt_BR/admin-guide/sysfs-rules.rst
+ create mode 100644 Documentation/translations/pt_BR/process/debugging/userspace_debugging_guide.rst
