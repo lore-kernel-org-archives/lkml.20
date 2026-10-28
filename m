@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197609;
-	b=Eao4+4mQaDov5xLO9iT8Wkj+R7e2xaScafx449F29HgvlB2P/Sx9MfIFlZ6seeGCEZ8Y
-	 F6c/tMsJNMKayq3hS6x27K9A2Muxk+t6USqm1hcmK0f1zs2VsMllcf438kKty6YvTeue1
-	 N4WGG6LNOqQxfYoMdJMfRwqHpq11/4Efk8eTQQTrpSPsHJiSggJ2IZYCWlb4Gd8w+Y2/H
-	 0EgcKzVheli7q/LNqEZAGCDaCStWj1q9jzb87XvXrFTUYliFxcWiCNnJ69n7zRVnR+F+W
-	 hQL6RGYrJPyrQiJMD/4vPj9SbN4b+EIeKfCFyvPRCs+ZPzpvLtSypWYAd7EmTx2LFlA==
+	t=1793197624;
+	b=Zf/Qd21bXeiWFzS8k/fTrhJXJE0Cdk2MljSI5zz7xQi1Ttxchr6H7x5IcwoG55dYLx/C
+	 qeiOgXRze31ssYpyYJNKCmAa1WiHCHzVsNDtbCdO39A3SMOv4pNPw4KRaX9dUHdkbnKdu
+	 75oJmVitYCL2Mwg3Xlr162kPH/UxS0BYlVCYYCubFF+D5xO9L2ON/Jomd9NgaCJZta/tL
+	 4ihF9kn3FfloLVO6XYhWCJWoC79OVsscqdk1vrQF7UtBmnQ41sZ0Qfv6LWxv8doZbdFHR
+	 CtWG3uFunoeKZPy1jDfrK/ngzIGIFnGTA49Kzt2oZTEUiccXEaJDqOHA4ZwLnoViRNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197609;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mAUpM9hp2JPWH7qVzCiMmZQ9MdNMzKuSufpGFP57zjI=;
-	b=slMNq+XbGXqIdJc339nqY+IWA67E/s1U1D5Rh3k8zD/9fbiBAoByr73vhq77U1cxVe4d
-	 0JMpE2GZuxbNBtewL6pGZcWpthwP1KOtnUomkJYC8E8maVW11zlCIlOJ3+dMuOb5BIUUt
-	 joGvJ4tcAwH0lgb3d9LHqeaI1Ev/36rLqx6yAkU9ohL9+JpddSzPoBEE5IhzIWvLBl7iI
-	 2PxfKdnrEP0mSMMICHAfCEWYCLeDP92p8aEDO5SDGpPW5cJJkszFv14Zntp43InQBX2UU
-	 qyJk81/fTZqs6VmoZLd8EcuKnkcm8RT434mD+/y1/RM4FI6JTC7qT60Nl6uIYf0AnVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197624;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=ouM8Jyf5xp1XhUc42Rrlc+J0uWzI2n/sd/KhMhx8z+8=;
+	b=s3VEnFVUaNvNWQ6etQi45yJCzWymPRTUu6fDgO9rxjsKWe7vS0kSRdtzUX74R5O7mfsJ
+	 zSBdceqhGKa0Vg9WdaoB7VpUjeXsvfFUbrW+o9YEd0BCOoHlBvw5+u9+vfQQ6741a3CPw
+	 5bhnqxmGUdnXpe7p7ZuKICojgi8x5f1pNxq7lvNOUtMAlNPVun6+aQru6gkkv86YuroDY
+	 upmFEHzdil9uopfYBGvt6074E8tYFHc1oWkbQfK3jm/u/hpoHyT0NtXJxMXKfAGQMAV1V
+	 s0KQn2VttbJqkVT9e9VnMzUeJzYsuDsNyumsdVl6K33bb/oSPUc6KkVMbmvyJ8heDDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pdVan7rM;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437B4606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437B4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pdVan7rM
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2862562eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:26:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197608; x=1793802408; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mAUpM9hp2JPWH7qVzCiMmZQ9MdNMzKuSufpGFP57zjI=;
-        b=pdVan7rMDZM7NKWH+O5IGlX1yGDtitzpKHJQxhL4R8ucesVs9X8Xcb30l6Jc5MZLJk
-         GPjhbUTOJAjYFnyBmASUngPocuIpIqc+qR6vbklKDkpwAdrzSSllz3QXrmJpGRf7kIvO
-         /0YCqMMljVU9dCUO+41AAKOehtwZ1ApgNSz39cjVHuDwcaVTFk8R3npdvuuvw0yUKyY+
-         JyQzs23d53KMIVuHuUNr3unkc/qpAE0HwdNnOEGGeoCecqE+yDMCWTlGPx85xL2rtqZN
-         oZfsERiBkL0aXBcHa/Dd+q8MCzJtuzdR9QfsHe5+EiRw6yjBNCJLnsMKBc5Yn+lCvAW1
-         OYtA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A33606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A33606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cbf700ddccso1003837b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:27:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197608; x=1793802408;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mAUpM9hp2JPWH7qVzCiMmZQ9MdNMzKuSufpGFP57zjI=;
-        b=rSH3to9HDkPX3oo8sdWE2qgNDDR/ZMnkR3KzHr8pv5FpXfAKtrKsoOeojwlQN1jcwD
-         WRsr7j2HwQRdPIAT910Uo7qCaXPmKiCpIVqvY9acjpm6rfxjHUun9/nU02KIRurljBf/
-         Zw5wHyDciK3O5V6ZWvDzODr85HYqF/ztbhVpOlbs2OvREEPqVHmhkDa0ibswUKXj32AJ
-         lJKEbsvqIgEDYF79PvCsq31ECUIWXggp0sngFkPXzGgNb1kG/eccbsS5b90U8ETn+LaM
-         8nDHLggIQJoMdP8SsoVz4f/3LwFWqZadD9xuMxMAt7xAr2D2zy8p783DY0T/ZkZz0u1M
-         t0UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2ydHycrlUGVsTLVj6Mqb10lk/+FoXC7/0i7a5dZX69uYBdK78bplAm78ldGjPHnpKmI8XtGXlYGWWSDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMvGHtFhaMYTiq3Q/W3hPWc7AQAI65QT4lYzZrls0oZUAQfZNI
-	zhuBMeKGn/nDnamTK00eQ2d5xCnO515t93GfVDlbUdyZbKp0bbXCUNR0
-X-Gm-Gg: AYBFou0y8cV1Avrqzyuw2nHYkEBCT1LLEnmAz0ZpFziyOgOswwl276V9x7SHl2lnJko
-	QOoKw7aevYteZ2iKuXjTm5pZBKek5dWgOYqCu2UTx+bX1+me3mj02NQuocGxh5UCWWSLgbz4SIc
-	60ECBpHzSvJ8hx2yKe5dsfw/H+HZJo8dzY1uXHnFMxjM9bLD8Oe6RNj0vpkLmmQ1bgKQyyQHCgp
-	oyfs4l7rDO0hNjLZwnijOw1Vrq4nwSHwu20x1Pip7zSbKaAo4vJLNLgskxBpPk3OA3xJOUrGUwq
-	C2wS7hBcuPafnXWDGKl6SJmrFq68q0UZlX0wLkiWUFZSspAiT5iUzCByl8HK1qJ0b/nCUI/J4cL
-	TWj77p6TRblFkxJ86vqbnqX2IRZ4FItEzz9Co3d99ZAOOJpqHE1YZjse313i4TUeUcLrdEPwQcE
-	9Q2xqZRw1GcrN8Ox7gmlvLi/7yerhmBQ9QyrOxlTyks99xqg/TL7d9XzrlHRdUomKCkiO/ZCvtq
-	hSOxEp0vsLRGUfM4/7pn7RFErBhnIQJt4ZWiznEexdnbJ/IqWogxeItkyRedj8Q+4yj4PlQXvry
-	c2wNqBpbZwqFK4bu+kDvgEvpuoAH4JmzO6iQc/5o4MJ1BryLVYudVP81CVZC0zEMq+g8nDk=
-X-Received: by 2002:a05:7300:f0ce:b0:35d:d9a9:e455 with SMTP id 5a478bee46e88-36a203f3c8bmr3950191eec.21.1793197607827;
-        Wed, 28 Oct 2026 07:26:47 -0700 (PDT)
-Received: from kernel ([223.181.214.113])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2398fa4csm8689638eec.24.2026.10.28.07.26.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 07:26:47 -0700 (PDT)
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: ebiggers@kernel.org
-Cc: ardb@kernel.org,
-	Jason@zx2c4.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-Subject: [PATCH] lib/crypto: aes: use memzero_explicit() instead of memset()
-Date: Wed, 28 Oct 2026 19:56:36 +0530
-Message-ID: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793197623; x=1793802423;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ouM8Jyf5xp1XhUc42Rrlc+J0uWzI2n/sd/KhMhx8z+8=;
+        b=pYCkIwtvJ39249JlC/Lyuji9xq2KaKSCHkgLt0EQ9jei3N9+qQJljqG7mbevQ3Ulke
+         Zq6oVsfi+YBy53hR1dXxYCUR4ERKIhXtfD19QeWxQJ9NGOoD/+xWDNo38P7bmPmAP0ZZ
+         VHW7A6XjP8XK7hxDHj6dLhVcH3LCzfDjKE+alMl69P0u0PymRDzOlxud5thHUDKz/b8Q
+         Nu2p8UGZYxrQko6lGW7590UDU5Tge2BvjVIRAOHF+AbOU0nndNmItOzH5ESdH6WNVxtY
+         c0tthFftkiZK+RabA7QcJxL0LLSDmOeD20N5dEZVLo0u93Ckd6kyhzUThbHc/44gFy4Q
+         IZ9g==
+X-Forwarded-Encrypted: i=1; AKwUvBz7WHg23p6/dd4TX3g77OsWfd28rfpkUu/wYRJIu5ZAoSG+k/Rp0sOMzvi5WIQQrNXQte61RmKXQ9IburY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv3FgDQjH5L/XwFadPmVrJHKc4DCXUGFxH6E0E5SXTsO1m3I2b
+	RqB1znVRFpSsD7a2d2161SzaHY+TiAsrMl0o+1iwYfCuthbGS7v3SnQnKz/+r1h1h+V4gqBxhwC
+	cycfAKwliE5cR/UwUEVx8LWG2Lg1U9eMmJR3YSi6SGgrpDXEE0Qnk0dUVTcU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,43 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:309c:b0:55c:6aa:14f7 with SMTP id
+ 5614622812f47-56382c81c64mr1795765b6e.21.1793197622894; Wed, 28 Oct 2026
+ 07:27:02 -0700 (PDT)
+Date: Wed, 28 Oct 2026 07:27:02 -0700
+In-Reply-To: <CAA=drAoaK4tbiwuR+RPMQvo2LwDwqbSKsN0Ft-pMi2vCOH0m4w@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae20636.cbab20e0.42a9b.0006.GAE@google.com>
+Subject: Re: [syzbot] [mm?] WARNING in setup_conf
+From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
+To: google-kernel-team@google.com, gowtham398gs@gmail.com, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
-output buffer when authentication fails. But the compiler can optimize
-that wipe away, so use memzero_explicit() instead of memset().
+Hello,
 
-This matches every other sensitive wipes in this file, which already
-uses memzero_explicit() for keystream blocks, tmp buffers, ctx
-teardowns.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
----
- lib/crypto/aes.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+Tested-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
 
-diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
-index e1c191551736..7814ef525239 100644
---- a/lib/crypto/aes.c
-+++ b/lib/crypto/aes.c
-@@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
- 		 * Clear the inauthentic decrypted data so that callers won't
- 		 * receive it even if they fail to correctly handle errors.
- 		 */
--		memset(dst, 0, data_len);
-+		memzero_explicit(dst, data_len);
- 	}
- 	return err;
- }
-@@ -2074,7 +2074,7 @@ int aes_ccm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
- 		 * Clear the inauthentic decrypted data so that callers won't
- 		 * receive it even if they fail to correctly handle errors.
- 		 */
--		memset(dst, 0, data_len);
-+		memzero_explicit(dst, data_len);
- 	}
- 	return err;
- }
--- 
-2.53.0
+Tested on:
 
+commit:         65ba8f34 Merge tag 'xtensa-20261027' of https://github..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13631d21580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8fae3718ee4d506
+dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1637e17f980000
+
+Note: testing is done by a robot and is best-effort only.
