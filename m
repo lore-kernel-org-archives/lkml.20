@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211163;
-	b=n1apQpnrq7ikGj3b8sEJPCp502GLj3Eqloci38h9KGClKYpI12bwqmLVvOgU+rfjhVrV
-	 Bn4i+dk/EPs+QT7U1+bQZOsVyF/60YU0TZ3pIhpjiSf2uAD2fHimgtJXj0nL6TldEQ+H1
-	 p8ZaJbgNeJN0k4tcjgYQzciwN5R/mQMq0m2ewfqPLOCXsT3BFJeaqE6gJYbKdVMxvrZ3f
-	 kg4Kdpl6WF2YwG7sHfhwhq3eVwQrC4/gz8VQzSEGNKrmW7I3jHiB2vOWVuozfQP8GDO3Q
-	 odqDRa1DRHIUvWQM/SpnJ+4saF0OmTiAcncLcmFPqBg3VMhzHcl3eddN6b/s25qGeFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211163;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793211180;
+	b=iUWgxv57oOdDO2y1wZGAUP31sXG9IlE1eTjr0Djpc7y2eWI8CMaJ0nxX/ghglgoSrRje
+	 e/vMMDGApA+DqnP3D9OH5Kn3jmrJQgJuBfZUv5LzbHnPlfXdIcD6/HGNmoPIeAZeWZPol
+	 1/tD5cl34rOatzUIiLdxx/RtBK0Cg4NagXF9HfhnqY4ILkZv3L5HZIjnP4fUgNhsL8O5t
+	 dNbC1GME5Cd6L6Tgu+3mLKx4nBPzR4GrZmD3lcWVTdHwjFQydzQCFa95iy3NMvMbvFTLH
+	 nrVNT3oC+6qU8irsQKfGcZf2UtwY5j/8YwM5RoZ3j01HIJ9lIYWDlX4P1DRpdmoIr6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211180;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SC+rlLyAXoWmtdm6xDuX7v9is1jRIFMfGWnpAh7mi7I=;
-	b=E+aSXk5wsWI8AJTj0Ds24ISMaOT3R2Eof15gdFNTyNujT8pBbeNHmhJ0p2Rq7/Rz4W1k
-	 +qM705W6nS5zsWio78zCgOhNVmRhwMbRokt3kbpb/KGN9airc3rGFRbbKctEYyLJTffWy
-	 dgl4RyE4LicyF0zp1aLwr5Fvnpwo9ztQN68NqjR7aw+OdYvFMlAwQAlCY8NgJ2sGDvG50
-	 9TetXGCGXdZYV5UfYjKwd9JY66TAkDzHRl/bggaOPHrQ6rhhFGCLNtG292slfIjBn++xa
-	 elh+F1p0jyrw1Qo9HZ/etIHiw568PWhHXWDt2385xKD5WC/lF32T1FFxLDZUIo9L63A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LTqxRz3a;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ARyFxRSvqAD+wB2pvv1XS401e8GE7i3ocZP4rplHOIw=;
+	b=kvAfejOAsgzXBI6rllV6WkH6+1Tb7g9BYVIBbxp/IL684vc15IKVA1aSAcPYzy2vyCMN
+	 BHKtSos4P2CduCkHarFbmZv/3Kdwm86WNLw9cKPJghsJ7FgWn/t8xSbuimz6JY7lgKpG2
+	 99mbuJG4TEJaxXvHutqcjy0Vu8Bzljnh7B5MeGhZgw3XQj6MA6Ml9d9ozA2tCvE+KV5Gs
+	 l4UVtTDCZmMIRGQjM7mKQegpAr0gRDozxAAI898+d+VjN3I2bIcQ/cfey+kf9H4mtYaWM
+	 sX+FMAYSCWOq/IYJB7PBc7lTzD9FXzZ7OhsTOfzZgQ1SAXF88av3BFUwmGa2zzqTJZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HIBoTpnA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DCE60A382A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2DCE60A382A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56FF60A3828
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C56FF60A3828
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LTqxRz3a
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36a18fc7a38so2653350eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:12:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HIBoTpnA
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8565d77c277so12062227b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:12:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793211179; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FHbYv/T5bqVgxbzqYLY55L7BjlB/x5B6ZnxJ0nkMF9teBVHakzBYyhuzBXvB6d4Vpl
+         WDlugiAJn9vi9hBg2OkwmbtztjuXsL7DHASh3aYtK2GwBvRa6FyoQXC26Cace4m5vi6m
+         KXW0fkCgcailoNl0xJanh0sNJegBuvKxmDUX7wFfb069vjCXaCtvP+S8ZkMXInMDzLKO
+         gSEgATDCQq7jmvDH7jk5gG3L4qoMTXNkUfXs9zn/OPNjCX9x7y+Sbze1DNx1MP5WMIFK
+         04tQQqNhs2f8yJJsR87c/5EWz4+4sPcWMhJ7k/ua3f0QTiodpAgiCO7cUYVORfXEX4F9
+         m7bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ARyFxRSvqAD+wB2pvv1XS401e8GE7i3ocZP4rplHOIw=;
+        fh=kTz/SrE6qyc3UVAom7KVg1YLEAPQyWt/VmN3T+jRBzA=;
+        b=dJQ76zxKJBtXn5A3QEtNHUtvc/7DLlyzD6AyzfdglVp40FSJpfDI/nIgedKHrMa+rg
+         WBHHqAMdQyvAvHwB3LfaXRC5coGRvloJwNaODnfEu2ANCwt5lzgfDl4bKjur2dEoGOfO
+         aE8R2Y9NclOLriHgQNLtTyUFzI0ik1Po7HI/jgc/VZ0zl8TqltnkRPbOzPb/6JXsm30/
+         bHtEL5qOqQ7MfdNniVxYNZPwF5aEXctxDBTjTwRRUUlAPUxMVFQ0zlD5GymJnnp5eCfu
+         Po5BvBLmGk2jeAWYJMscG3G7/uN7sienX4PTXicZw4SvK5ziegAvLgqS5lmiFjEvg4jR
+         uWxQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793211161; x=1793815961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=google.com; s=20260707; t=1793211179; x=1793815979; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SC+rlLyAXoWmtdm6xDuX7v9is1jRIFMfGWnpAh7mi7I=;
-        b=LTqxRz3atU/3Py4bE5qrCwTTL8ubQSIxirokP4Nj/IxLMIPzl9oXnN9LNdj77gFs0c
-         WHGFKwAOq9wdzrDMT1rXbBD16vZYrdFgx6JMXIwYdbszQvOW8oY8JaVpklu+ncMfvJuR
-         UgmwVADOP+HqaUmMXCxpqEFbKoADiJQLx1xc5p8ZYDofEqFAbQLjFnniYr/MqlPLw6gV
-         Wyf6Sx/MtbfCkx/Cxp0TBvYJCqBUVQCDDSd2K0wMCaz10bGNcD9cvX4OfzNcjQCubmfh
-         ugSHppyZKaDVe1VC30/FyZ7RKTd2DJeQaQlP+dDF0hFV80Dz+GbY+jupPABB/1+Ra005
-         oDvg==
+        bh=ARyFxRSvqAD+wB2pvv1XS401e8GE7i3ocZP4rplHOIw=;
+        b=HIBoTpnAvU9mMFCmmSFVKRCFAd659KMsW7tTEnDrrCYuk9Kk2KrpYcvGJMXBp5yYJ3
+         FG32/WC1xU0d8/1XEk3ICK8C+q5UqKQoqN5wi38+6NCQdz3qVZN5PjVRED3lJIE2PLg9
+         OwAdptAebOFSdCg6RQF/8JpmdTTGs522Iy3kLNSc4QblZphhsOVaQzZABe9BbMr3O7Dg
+         hgoALtjUth0N9I/4QptPdUJtpEPLTLEEREzfobo0x76M2nuTycjZfBg3tq0V7bu5Dwz3
+         cIxP31Rg81WI0ALjRpZyg2iz6jlWK/028Hh8lNFFQjtnaSPPJ9u92lFtc3c7swQaDpJc
+         fbbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793211161; x=1793815961;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793211179; x=1793815979;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SC+rlLyAXoWmtdm6xDuX7v9is1jRIFMfGWnpAh7mi7I=;
-        b=WcyhJOEZraWQyuKLci6aQEiZTSMJn8qBTMuzfgR4HeMylWyzTZocasnPPLWbIlAjlT
-         PTm1S4FBCtO+YALcChcWWprUreBORP+OUSFRSwUpGR2DKJ6MDtBeT1OiTtK7Ex7XsKNY
-         jGuVU2pNN2rQ+91doRid1z9fyzITt17CwP1Y6Xk4yMgXrDlD1Y63wg9DCvybEYEOZr5f
-         Gsoe/amQuWDxg8tOO868QWedmUrSIBldfUmTSv+/sVg8A8X6JsH8kVef5aisQO1lXPID
-         Rx7erfk9iNaik59WS7dpp1BTfXBL9aF1TA+DnpV9ZYeUwLaGi6BktCX85qqe1fPW+xAT
-         KFrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMnabFDygUdF/iNVfginphjSSOdytOZFYlmlwP6JeD4oGYGgjVQy2YzUuFsGJ2viU36SgH4eu++LwgEUk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIJ2OZYSsIL8OvUA7SAAtbWxjO7hjTeyMz2lmRu7y0TwJYsSpW
-	/5piz8g8Io8e3e6VEIybaJ4X9zdln2SbbEWuw66absYB0ds4EPiQOOew
-X-Gm-Gg: AYBFou0vNccGaap5qHuLEvJ9YVjLtAhaq2kQuXroG69GjOpJ52Pxh1FVzz/9xSrrjVO
-	6t4BKFHWEGLR6rlHQbfYjJzUz5+wlsEgjshexpujiTrUVaC7bOJwskcvWr6AFdIqnhW9dvE61W3
-	CjpJzd37oKTmGlRl93F30/duLsOGiL1w8vSoWBLbLOkPPUIccJ/tgIR3guAashSRcsIKm/PaW4Q
-	TRi86CGS96BdMc/onznugwukinGVKzCn3dZ+AsFKwJFj2/rPqBEb8A/EwoQiFkewhu5iKwYu/Od
-	NhJzSd+0eGe+KQx13QcbYYDX0ldm+6fScITw2MS+zSAl+qYmLLF6HI+UOx7BHlyt0wjPXdbxO2u
-	VjJ3LeXf20RSdtPFXINhjUtEQRhTSeMtL1AJUlVRXQuYlo15BiKTMUF+iyzN9WNVOq3Bs/2K15t
-	nsyn7INeB6h30OmZiLP/4vZHyrFYIfxFAk+wOc5/bbFkpdBrBsvHUPnSoLAFUxWsoDJhvjtxfvm
-	LqhogQodVAeVj6QXqxvxLnk6rEEx6cU4DVlbw+sLA52PGNI1os24pyW4Ire1OPmlIf6dCM46l+F
-	581ex/6IDMZ8vQ/8pOEu2Mc=
-X-Received: by 2002:a05:7300:cb0b:b0:351:4866:255c with SMTP id 5a478bee46e88-36a204a1735mr5413054eec.32.1793211160870;
-        Wed, 28 Oct 2026 11:12:40 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238da675sm8309394eec.5.2026.10.28.11.12.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:12:40 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev
-Cc: Shyam Prasad N <sprasad@microsoft.com>,
-	Steve French <stfrench@microsoft.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH netfs v1 2/2] netfs: add KUnit coverage for reissue prepare_write errno
-Date: Wed, 28 Oct 2026 15:12:29 -0300
-Message-ID: <20261028181229.1408342-3-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
-References: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
+        bh=ARyFxRSvqAD+wB2pvv1XS401e8GE7i3ocZP4rplHOIw=;
+        b=Vlhy2uZxoUkgtQ3IssODliqAmJMYPfkj4gYJ90ReGRMyIJFOeZRPc+MmTfN7KoKdRj
+         AdwGHkmLUoMhZYzJL+NsuTQ8j/HzylqHlHN6q4kloSVmmJhu+IA9xPUUq5rV5Tavpy37
+         mc/WrA3xbSCanXGFPFbtQI9qYwehonEpn2iuP7kAor5UmDFldukfMGpG1WNYFp1V37zv
+         BdweDOmaMqfjd5q1voXcwMb8z8MdOfPjY4psZcrryGlKPq7EURMjCc6sRjienHlC6l5h
+         kjeCEFefP5tpKvQSrY2m0u7LESN6OULKputv0/vT+xsmMY6/tyMhapXLvpYrXc5Lols4
+         v6Mw==
+X-Forwarded-Encrypted: i=1; AKwUvByI/ouSctSkbUIvFPY3npnF+tmxtHwnXAaVIqihe1BQ/BSeDl3N0Ur14tpazfaKpgBd1VvMaClsGBp37uw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr/LRCsdx7BlZOJ0vEPMki2YMk4PXor+XZOmotZ9ekERg7S/Uj
+	ZXTMBdTPZLgtfyl4gGPOSQ4HcyazyZzzS+Zj9kCum9HLSxP3qt/iZNH/SFZqcawu8DH+KTCvrpx
+	Fvq1qK7F4dwiZlkf+uRVsEMLgvCNOB1JXJvbBpiT2
+X-Gm-Gg: AYBFou08HALSAxLCphrykFC9qwU93wSR7+Tsay7H6d75XWuayNN/oFxSnbjmA3vYeo9
+	d4LK+jYlH6dXANnNDSP0lYQPcM9PHOnl3rRMtWv/ngO4W39AamRX/yDvF9mZ3Hi2J6rPF+0fiIE
+	X7NBdOXCuN++/Tz8uRdCrRiueEE5OLCPCMAv38tGiULUYzz6t3cnvhds0loQ5BV90lfBgzu2+Qk
+	C2sWZxj7snQSwPF5QJP48F4lsuwqe5B2zlWuFGDTrTeShSsMFvcsfSRNK7mhMd5VHwMexQpXJhF
+	5bwcU+LW+L10Cws97r9SUhXEGqNjcx3iqntwagE8RDwgr5PVrb7YiYtDL004dT50U2Dv4CDAQG0
+	TYFTvvZipz5e9mNAIhpBHZp9MuQiCQl09DpJ70yLj1J9iqQZmhO2/Zdn6Bt6z0TDv/G0=
+X-Received: by 2002:a05:690c:f86:b0:8ab:436f:6e7b with SMTP id
+ 00721157ae682-8b1b5e93e9amr21228787b3.63.1793211178194; Wed, 28 Oct 2026
+ 11:12:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,167 +104,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261027025616.1632690-1-kevinloughlin@google.com> <279a92da-772c-422b-8047-ad37dbae211f@kernel.org>
+In-Reply-To: <279a92da-772c-422b-8047-ad37dbae211f@kernel.org>
+From: Kevin Loughlin <kevinloughlin@google.com>
+Date: Wed, 28 Oct 2026 11:12:47 -0700
+X-Gm-Features: AclHuK87kmeri51i0i8SscXVJiPFVq3oTJZMZ4FP6A_jqbPgcyRklPs7gnicX7s
+Message-ID: <CAGdbjmJ8qk7FCbGU85u9+db5_RtcrK2y_7TfNH+iuz+OJxebow@mail.gmail.com>
+Subject: Re: [PATCH 00/13] virtio_balloon, efi/unaccepted: support memory
+ ballooning and free page reporting in CoCo guests
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Michael Roth <michael.roth@amd.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Alexander Duyck <alexanderduyck@fb.com>, virtualization@lists.linux.dev, 
+	linux-coco@lists.linux.dev, linux-efi@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Sidharth Telang <sidtelang@google.com>, 
+	Punit Salian <psalian@google.com>, Peter Gonda <pgonda@google.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Jacky Li <jackyli@google.com>, 
+	Steve Rutherford <srutherford@google.com>, David Skidmore <davidskidmore@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Stub netfs_write_subrequest_terminated() and call netfs_reissue_write()
-with FAILED + -EIO.  Unpatched trees terminate with 0; patched keep -EIO.
+On Wed, Oct 28, 2026 at 2:01=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 10/27/26 03:56, Kevin Loughlin wrote:
+> >
+> [...]
+>
+> >  mm/page_alloc.c                               | 248 ++++++++++++-----
+>
+> This diff stat should give you a good indication why this series is not a=
+cceptable.
 
-  ./tools/testing/kunit/kunit.py run --kunitconfig=fs/netfs/.kunitconfig \
-	netfs_reissue_write*
+Got it. I will keep that in mind going forward, especially if I end up
+attempting a v2 that simplifies things.
 
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- fs/netfs/.kunitconfig          |  3 ++
- fs/netfs/Kconfig               |  9 +++++
- fs/netfs/Makefile              |  2 +
- fs/netfs/write_collect.c       |  4 ++
- fs/netfs/write_reissue_kunit.c | 73 ++++++++++++++++++++++++++++++++++
- 5 files changed, 91 insertions(+)
- create mode 100644 fs/netfs/.kunitconfig
- create mode 100644 fs/netfs/write_reissue_kunit.c
+On that note, I believe the majority of the bloat in mm/page_alloc.c
+comes from...
+1. supporting the legacy inflate/deflate option
+2. introducing support for various page sizes to be unaccepted
 
-diff --git a/fs/netfs/.kunitconfig b/fs/netfs/.kunitconfig
-new file mode 100644
-index 000000000000..c783d180ab8f
---- /dev/null
-+++ b/fs/netfs/.kunitconfig
-@@ -0,0 +1,3 @@
-+CONFIG_KUNIT=y
-+CONFIG_NETFS_SUPPORT=y
-+CONFIG_NETFS_KUNIT_TESTS=y
-diff --git a/fs/netfs/Kconfig b/fs/netfs/Kconfig
-index d0e7b0971fa3..d796dbe4bd7c 100644
---- a/fs/netfs/Kconfig
-+++ b/fs/netfs/Kconfig
-@@ -33,6 +33,15 @@ config NETFS_DEBUG
- 	  management module.  If this is set, the debugging output may be
- 	  enabled by setting bits in /sys/module/netfs/parameters/debug.
- 
-+config NETFS_KUNIT_TESTS
-+	tristate "KUnit tests for netfs" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	select NETFS_SUPPORT
-+	help
-+	  This builds netfs KUnit tests (e.g. write reissue errno).
-+	  Say N unless developing netfs.
-+
- config FSCACHE
- 	bool "General filesystem local caching manager"
- 	depends on NETFS_SUPPORT
-diff --git a/fs/netfs/Makefile b/fs/netfs/Makefile
-index 54834cde7e56..fa1544b9a199 100644
---- a/fs/netfs/Makefile
-+++ b/fs/netfs/Makefile
-@@ -33,4 +33,6 @@ netfs-$(CONFIG_FSCACHE) += fscache_proc.o
- endif
- netfs-$(CONFIG_FSCACHE_STATS) += fscache_stats.o
- 
-+netfs-$(CONFIG_NETFS_KUNIT_TESTS) += write_reissue_kunit.o
-+
- obj-$(CONFIG_NETFS_SUPPORT) += netfs.o
-diff --git a/fs/netfs/write_collect.c b/fs/netfs/write_collect.c
-index 6e8ea534230d..f3236fe494bf 100644
---- a/fs/netfs/write_collect.c
-+++ b/fs/netfs/write_collect.c
-@@ -11,6 +11,7 @@
- #include <linux/mm.h>
- #include <linux/pagemap.h>
- #include <linux/slab.h>
-+#include <kunit/static_stub.h>
- #include "internal.h"
- 
- /* Notes made in the collector */
-@@ -529,6 +530,9 @@ void netfs_write_subrequest_terminated(void *_op, ssize_t transferred_or_error)
- 	struct netfs_io_subrequest *subreq = _op;
- 	struct netfs_io_request *wreq = subreq->rreq;
- 
-+	KUNIT_STATIC_STUB_REDIRECT(netfs_write_subrequest_terminated,
-+				   _op, transferred_or_error);
-+
- 	_enter("%x[%x] %zd", wreq->debug_id, subreq->debug_index, transferred_or_error);
- 
- 	switch (subreq->source) {
-diff --git a/fs/netfs/write_reissue_kunit.c b/fs/netfs/write_reissue_kunit.c
-new file mode 100644
-index 000000000000..fca5f7dd9265
---- /dev/null
-+++ b/fs/netfs/write_reissue_kunit.c
-@@ -0,0 +1,73 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * netfs_reissue_write must not clear prepare_write() errno.
-+ */
-+#include <kunit/test.h>
-+#include <kunit/static_stub.h>
-+#include <linux/uio.h>
-+#include "internal.h"
-+
-+struct term_capture {
-+	ssize_t transferred_or_error;
-+	bool called;
-+};
-+
-+static void capture_terminated(void *_op, ssize_t transferred_or_error)
-+{
-+	struct netfs_io_subrequest *subreq = _op;
-+	struct term_capture *cap = kunit_get_current_test()->priv;
-+
-+	cap->called = true;
-+	cap->transferred_or_error = transferred_or_error;
-+	/* Mirror production: leave subreq->error as prepare_write set it. */
-+	(void)subreq;
-+}
-+
-+/*
-+ * prepare_write_failed() sets FAILED + errno, then write_retry still calls
-+ * reissue_write().  Before the fix, reissue wiped error to 0 so terminated
-+ * reported success and mapping_set_error(0) was a no-op.
-+ */
-+static void reissue_preserves_prep_error(struct kunit *test)
-+{
-+	struct term_capture cap = {};
-+	struct netfs_io_request wreq = {};
-+	struct netfs_io_stream stream = {
-+		.source = NETFS_UPLOAD_TO_SERVER,
-+	};
-+	struct netfs_io_subrequest subreq = {
-+		.rreq = &wreq,
-+		.len = 1,
-+		.transferred = 0,
-+		.error = -EIO,
-+		.source = NETFS_UPLOAD_TO_SERVER,
-+	};
-+	char buf[1] = { 0 };
-+	struct kvec kvec = { .iov_base = buf, .iov_len = 1 };
-+	struct iov_iter source;
-+
-+	__set_bit(NETFS_SREQ_FAILED, &subreq.flags);
-+	iov_iter_kvec(&source, ITER_SOURCE, &kvec, 1, 1);
-+
-+	test->priv = &cap;
-+	kunit_activate_static_stub(test, netfs_write_subrequest_terminated,
-+				   capture_terminated);
-+
-+	netfs_reissue_write(&stream, &subreq, &source);
-+
-+	KUNIT_EXPECT_TRUE(test, cap.called);
-+	KUNIT_EXPECT_EQ(test, cap.transferred_or_error, -EIO);
-+	KUNIT_EXPECT_EQ(test, subreq.error, -EIO);
-+}
-+
-+static struct kunit_case netfs_reissue_test_cases[] = {
-+	KUNIT_CASE(reissue_preserves_prep_error),
-+	{}
-+};
-+
-+static struct kunit_suite netfs_reissue_test_suite = {
-+	.name = "netfs_reissue_write",
-+	.test_cases = netfs_reissue_test_cases,
-+};
-+
-+kunit_test_suite(netfs_reissue_test_suite);
--- 
-2.43.0
+(1) I can get rid of by dropping the inflate/deflate option, which I
+think makes sense given free page reporting should be sufficient to
+enable dynamic guest downsizing in cooperative scenarios.
 
+(2) becomes simpler in part just by doing (1). For further
+simplification, we could potentially restrict free page reporting for
+CoCo guests to the current 4 MB MAX_PAGE_ORDER instead of supporting
+any order 2 MB and up. There's a trade-off here for reporting
+effectiveness under fragmentation, but perhaps support for 4 MB only
+(and its relative simplicity) could be acceptable? Especially since we
+would then maintain the invariant that all pages on the unaccepted
+list are MAX_PAGE_ORDER?
+
+If I can sufficiently simplify the changes (especially in mm/), do you
+potentially see a path forward purely for the free page reporting
+aspect of this (dropping inflate/deflate)?
+
+Thank you for taking the time to review, David!
