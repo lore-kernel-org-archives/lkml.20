@@ -1,162 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.142
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793176965;
-	b=2Ooac81GNpH0dGfW6UQJjBx7joQXjAX9KfuW0T6IzuB92Rvrmr+h/QTvyDi0kPMOu59z
-	 B0W3+3vAF76cR1C4pYbvKkQYel8dk1X+QuFvg2kjLixSGAGraWcDkuOmmGd70hQBWpi08
-	 YyEE1356YHEPneWJSaQviH1CcoMpD7XbntRtvebn8v8qY4G0+z8m4mvqdUngEXk2N9OaE
-	 VPy8oyXdUKuuXPUjHccz2J1JZH0Wq9s3KkCiTxCyyRJl0sL2jPtEvdi8TMDvrR4bYYYyC
-	 vt5e7uUy+XxNKqWogb+LOnhA5yiYCD/5gYvwI9kUE7TLrpdY6Ukj9YD6QVEDkVaFsFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176965;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RkzP348H0sHnY/ZP4OTCBz9VJGCcXeIaljpzW+uzk2c=;
-	b=y5GBZs05jyVS7z6SWDTJMrbbrwyZYKHqiRYPYwIqnFVJMTiDAPSU97ayb/53g+X41K16
-	 RkobowyeFsS6S6XwUXxsYRtaf/MMrLS1lPWmW5jVIlvn08aagVFevoqNHJrBOQCmdSXzR
-	 tIE0gR5MhaPA2jVn7s30/F4U2J5ZiB5x01gnbkwLEQfOF9jvnNF6YpIhw5FO8L06BduvT
-	 oT+zVu/xRrgbSa34g6KXrD1rV9ALA4WqVpZdqHsJn7RfoCUtNrj2kNRY8RDXUzm6gijA9
-	 9R4wcRiQd0jNd2GmfylbiQwOiiju68eHrdsLpORflNnz50+xV/NoRrtJQWNlLDrq+CA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vecima.com;
-	spf=pass smtp.mailfrom=vecima.com;
-	dkim=pass header.d=vecima.com header.i=@vecima.com header.a=rsa-sha256 header.s=selector1 header.b="sG0/VjL4";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.142
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11023142.outbound.protection.outlook.com [40.93.201.142])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793177036;
+	b=dgQt4BBO/ayrvZ56uQcXowGTMgFJbcsWIPjNb9+EKqbYbOQPjLSOquo8pBA5YxiX2aM5
+	 vd51PgVY3jn2e8TsFTJdpFTup3Rfr6VHTxrQjeX8BmBc+ERM2PcxWboVDzbHlvFL3uyzN
+	 YDCAEWO4VKOclqBcktInNcNNdQRRMtr5tXCwgZKBVTiNtaKy6vjkIavogvLBtLT8u9Ybb
+	 bSLQJT3qm0cPtykFchUJD86uRGGkWBDiFNK/MXv4EQQ5pG8EZmu3DqTFGSTK8pJwqe1dG
+	 cR0Z6jw4l7Pte/mq/+Y7cIx3bhlaHSfvOuFGvESTDAUVA9JuW1cupe6l5QAeGpt0u/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177036;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LMwbpJ5FecMxJ5P7RbpHp11xGjgqCgb5rSN6ahzVqzY=;
+	b=mCCOXk8x2+IQWsILC8Npb/e2NWD2Eoj/4VfbaD+OMsi2Qp6fu2WOrWD3Jxh97acajdok
+	 kwGnRPE+dhZdnWaajRbdSDnb/vnTJ2yMAQFptAlnisbLPD8+kLFWPi3yRGp3YCwVoraHw
+	 7mxbk7FI0fgvt7VX9YuWF9UVxL6/WHHCoY2e8iYGHVGEmzNiRI9OCIxNXduatHPZcq2ER
+	 mt0yYBcZlJMCDHF2n6eQ2/WEcapCOG6RWJtUqMjSknKSe2BntJRrimkF86eeFBt+VNiNq
+	 C0FFVS/UfXtGMn1EW+ZxvZGChdcaXBqFu6poR+Yiev7081QTe0TfEDRbv2yHgsMjtuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0FGFPFZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCF2606A31A;
-	Wed, 28 Oct 2026 08:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FCF2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vecima.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vecima.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B976A606A31A;
+	Wed, 28 Oct 2026 08:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vecima.com header.i=@vecima.com header.a=rsa-sha256 header.s=selector1 header.b=sG0/VjL4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xTRpJwavuN0bHV4ADpV4RFNj40s3b/wC/ygaW5hO4KyilOm7BSp7u/oqrOGsANBZPfy/NNlqxtSaYWi/jLmYtXLp8D9y2r9/WppL7J+pyQNlvXg64VmRpOJIGV7OlyaY1OCnNfbu1b6To8jdl8F/5IDwixBC3/ESIj8G+tx+nhowZT2YsSOVlo4jYknZl+ZDdQkBMhFKF8VHVqqJbw48D7y7Auvv8kIWaOy6FapeYLV3En6XmrDl/+67N6A+ynUsEPPpwNv8wFKwcazUc40RKBAzvY0HRLY+zR/n0WVyZHT2Q531avYjX+4ZuiQsbFz7Hof/a8jY5ApTmE2semLREA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RkzP348H0sHnY/ZP4OTCBz9VJGCcXeIaljpzW+uzk2c=;
- b=tWJnadYO8ifH7FjqivE2ZxU8BCFk3wMdYIk98io+FNSs6ihUTRAXjX4Me2PswaIq7iLO3QN6IkrJ6RPwE828gjT81NRY6tVhEbMtWW6AiVVdfCCyaDMT0WsMNKtEZdiyTzmOhug3WV4vQ1l5TzL1x27NA2IcmYXvxTLM3hd6XhbbeT3gYQmFb5kJmmgqa1TabZrYTjlC1rAGsrayEthsFAp4jHO3U8KNuYF/MevSlJDRjcHtT/xH7A0XJ3AQ+OQierqjEeuonGCp8V0IuyJqZdl9bfRBjWm5zXlbtw5/+f+pJXjD1PAFmyXZnbIxzdAZbpZR7J0jEz8FBPjTXvnIsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vecima.com; dmarc=pass action=none header.from=vecima.com;
- dkim=pass header.d=vecima.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vecima.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RkzP348H0sHnY/ZP4OTCBz9VJGCcXeIaljpzW+uzk2c=;
- b=sG0/VjL4ZZPLdKayvR4ABzAfSfXTR/sBgdQ6MAOADuM+dZ5uAkAcs/kWKEx07fQ2GGReQPxrPz8dzqKyILqW8vVnWSrecx76q+SmaH1LETIp9SaOCFrCbitXcHfkrNkqRzkQIFsnyeGvzuvfY9DlOkPJhzvf8VPssikU+bw/xcpxDFX0+kkuMY8I2dmqFLV5PEBNKyWZQoH2qJi5v7dEGMcUKmlQktYtvSn0SEAJykw0jDzA60NTHQmvWVPoWsfV8dhwavb1unt3yp5LOYQC2x+0JxPW24aQjNDEZIx4idVeqcbnAPURqpPLvdWY33zxNVm27D4T6nrtJauhH+UR4Q==
-Received: from DS4PPFFD8A841C2.namprd18.prod.outlook.com
- (2603:10b6:f:fc00::ad2) by IA3PR18MB6311.namprd18.prod.outlook.com
- (2603:10b6:208:529::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 08:40:06 +0000
-Received: from DS4PPFFD8A841C2.namprd18.prod.outlook.com
- ([fe80::6a72:cf5b:2c44:9ac0]) by DS4PPFFD8A841C2.namprd18.prod.outlook.com
- ([fe80::6a72:cf5b:2c44:9ac0%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 08:40:06 +0000
-From: Marcin Knap <Marcin.Knap@vecima.com>
-To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Maciej Fijalkowski
-	<maciej.fijalkowski@intel.com>
-CC: Magnus Karlsson <magnus.karlsson@gmail.com>, Tony Nguyen
-	<anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Magnus Karlsson <magnus.karlsson@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, Alexei
- Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper
- Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
-	"jtollet@cisco.com" <jtollet@cisco.com>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
-Subject: Re: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is
- full
-Thread-Topic: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is
- full
-Thread-Index:
- AQHdX6MW14dMxGSC9k6V0uDc5Tc4vLcFXSSAgACWooCAAA4QkIAAWoaAgAAN7TOAAYa7AIAKu+BU
-Date: Wed, 28 Oct 2026 08:40:06 +0000
-Message-ID:
- <DS4PPFFD8A841C2FF8203BAD3C773A7784D806F2@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
-References: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com>
- <ataHK9s/MpNgXWhT@boxer>
- <CAJ8uoz38cE-1diOnih=HYW+ACqq9YQhaM7tz8KCHjTxgZVc+rQ@mail.gmail.com>
- <DS4PPFFD8A841C2AC917618A9B1B19453C480672@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
- <atddQ8qN/R1tU1fk@boxer>
- <DS4PPFFD8A841C22E2663DBBA3A1B4F581E80672@DS4PPFFD8A841C2.namprd18.prod.outlook.com>
- <87ld7r6xqh.fsf@all.your.base.are.belong.to.us>
-In-Reply-To: <87ld7r6xqh.fsf@all.your.base.are.belong.to.us>
-Accept-Language: en-150, pl-PL, en-US
-Content-Language: aa
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_Enabled=True;MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_SiteId=9d639caa-2d40-486d-ac82-e59b0005382f;MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_SetDate=2026-10-28T08:40:05.739Z;MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_Name=General;MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_ContentBits=1;MSIP_Label_93f18445-29d5-46c2-bca3-016d3ef06464_Method=Standard;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vecima.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFFD8A841C2:EE_|IA3PR18MB6311:EE_
-x-ms-office365-filtering-correlation-id: 648bffac-eb9d-4a25-b7bb-08df34cf116c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|38070700021|4143699003|11063799006|10067099003|261026121527099003|261009223027099003|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- iOeWfwVjztS1TrXXI3J43h2Kg/0UiCQDouBWjonWUgQz4BaO8h2YqLFw36kfljFL/9QLnjZvNpRwyfauMxP0OrYBMkIEIWatf8P2NgXUsOauHcffztzT/1jGUJKLldrBaHWnBK+fyNocf962MPVRZEqO62DM55j2dLyMEUaolgwr8j3QRNreqGtQkZBp2u93P94O2GCc9I5HwogKLiLpBSKNfPgmrwm9c8NPml2tSRcNjVdVB7Bhejkvx9BHQWw6Xo8645b8YUBESMLJCc7KKwTLamGokzHDbV0Ry9+rg6gH7b8fY2TFj4BYi6snqEXLgJyPpXyrT6vgLMdqSNGJwE40Wst45Kg+yKJ7xfro2kV7kjhFcuyZTco2qra6WjE29XQ5UvUB3Zrn/V1CkSKr7IK28aPHw8cVp5lKlNOZ5X3JqUFYQiPwleBcavkN/66HmLEEojeYbUYN4voQ7/pbZr+LrSqbVpbfa4nvA5skTtQCSWFvY+vJ0Y8cExCRj8ACAgrVnJcCZYO9VGmKDWa+YDbVfuikR+LpU30RtbGjSCqVeJxc+V7gSaZYNRrdhQfvbsC7DO24CBACb0P6r/YRiXHfw/zNmJhfNIWZZbYGjOCUvSTyVLcvg8hbRle7/bS9Ty++KDADSvnzcK+Gq7jDIK49Nvr1tWR+gPIZHDIErVQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFFD8A841C2.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(38070700021)(4143699003)(11063799006)(10067099003)(261026121527099003)(261009223027099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?iXAoD1Oewkpn2EmU/I/XeUeIfBh0De4mLKhUnZ6jOY+1hrWWvOojniKdht?=
- =?iso-8859-1?Q?Rui0tY6XooXZa4c5RH5s0d0qZvN7MOWUYnGjYMrUv1Yr4jZtOuBUG7Bm8R?=
- =?iso-8859-1?Q?ENVahVfLzTfTptTHMRgx8R5GPnj8iX2OiUXL5Sf0lbzsS9MTNBNb5b0c4k?=
- =?iso-8859-1?Q?uzqz8uSZx0HiaU8iWaKKC5GmnRF8o50CTTwLYZguPvUTc/1CT36vhrJgpR?=
- =?iso-8859-1?Q?RoCVbhMApYbW0exXzF4mS6RWcXWO10BEYblKi24pCeiuuqpmt9p5Bc6asz?=
- =?iso-8859-1?Q?1/EV+zwLFUEulcZWsrEV1tZxw+8rA7mOGsKYmTJEnfW+ynNk19IraODgU5?=
- =?iso-8859-1?Q?cTjrKsMqqxvP51wiDlZQo34rLxofQPBJ+dxgO6G9dmng6NylWXJ7z+Eqv/?=
- =?iso-8859-1?Q?NGqnNwYgCjQWB9kQk1ugsuT1EGDE3+BJAhnSlKfiLcln8LEL2z2JXuX1FT?=
- =?iso-8859-1?Q?bbQ+ztlPtPmRmnMdbiXT+lQbB6cIsMg9xyIQoU/QjA6ObXBlhZDJfZ/ZX7?=
- =?iso-8859-1?Q?THDnk289OlbZp5F+CcFHfCX3YfSiMQe6mFfYDYd2CDpnNwCaV6n5edeILh?=
- =?iso-8859-1?Q?2tWtnC3UFieiqwGdqyU9jl8MRof/Kmddm2o3HFmMYMcv6UM+6PQyp3qefs?=
- =?iso-8859-1?Q?i0pcHeonMBaPEnJYbyRbojyCmoD069QKZa29aaX0sqWlMXO4c7LPn4ysWq?=
- =?iso-8859-1?Q?5jiuFVBRUaHz8PV7yB25nL9Q8sXRnAwsSHhKcEDkjA5iOaAfQvRWhI1Fiv?=
- =?iso-8859-1?Q?b3whnBL6H4vzy/sYYOMUzE6nQOxraWA4HuqFl9UzS/e3aTlEzfQy0CKAex?=
- =?iso-8859-1?Q?J4TskvEHXIivPtTqrHj6XqLRhhuiVrI0H2/DGmjoacvhPa5ApKD/yt4HWG?=
- =?iso-8859-1?Q?Hg8tXJLa/vy9mK11DKYybSWHWmTghdLg16PfltIYBGRqKO0EGkTtHf6IbK?=
- =?iso-8859-1?Q?LJZOijs+fGYmcBk8YGMAZ43LB2e50y4wAnmHJVu6BUWGbew+TXdcvFJ3WV?=
- =?iso-8859-1?Q?hDh1LHJGKMxTgeI1/RfFxbP1hIjpOEpmgcCMZoWlKiJXK82pPCyMkRgm0h?=
- =?iso-8859-1?Q?dEdyrklMcsJGyCQ5uf1m+raC5LGMRWs36smlrM/czOhpuUKUV2Oeiq1c3l?=
- =?iso-8859-1?Q?N+JnETkVsQbmzmhOT55DaPIm70SPIezxC+mpOJeBFR0bxBejRtPuHdGCi9?=
- =?iso-8859-1?Q?6daGRJT+S7PcANZWwQJP91LjM6GJGYkZts9tB5rZSpQxPT272R2CvNnDHV?=
- =?iso-8859-1?Q?iFZCJU5ABqR9MQFuL8vT87m6vxeQbT96BgtTU9V6hrgMrMUWK55Towghgz?=
- =?iso-8859-1?Q?IDj71+k6GUH698Jevqg3qCKrURRByYvO4YGBWGBwRddpzmqZy1pmDBAwYW?=
- =?iso-8859-1?Q?rUMRYZNQb2XCe1b06UWQ0sl7zwvq3Ayvhff51WcSjdAAg0rRp2dUJ337/k?=
- =?iso-8859-1?Q?SEu14+HObT0IarF0Tcj30B0PLN9EsWIqfmy6WhsuAyyOxL1fjw+FUwNCxV?=
- =?iso-8859-1?Q?wtO8KPJqqS0iktIr2FHYpfxbYs6/lXYJ69rb/Ivv1fz4shKhlbT1gqSzdK?=
- =?iso-8859-1?Q?UmCEmyUsHqCjdsf5HtlK7wei0422PI9Gpdcxxoz5dRT3oTZLkYst9NTxA2?=
- =?iso-8859-1?Q?/47NciZOQuQOtsZ0/Og4t3QEAZVfFvwzgyTalXHJr/1vy4ALij8L5o0bt/?=
- =?iso-8859-1?Q?ZFSnhBmN8V27yCwdTc+fZPxf0tx38H4pLxZdLFHrxEbGk6l7bDjh+aulyA?=
- =?iso-8859-1?Q?XYVhKW86E+vdM0oUt1o7aXr6qDSkCwm8l68ZNY3RPA2eOXdoSIGe2+yti/?=
- =?iso-8859-1?Q?62VEK5Mqug=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0FGFPFZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514F81F01825;
+	Wed, 28 Oct 2026 08:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793177035;
+	bh=LMwbpJ5FecMxJ5P7RbpHp11xGjgqCgb5rSN6ahzVqzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=e0FGFPFZV0eKLLl32jk8I59lTEHQZEc8BJazgceNrvGoPpcwCu+4WvrvaSKgCd9WX
+	 IzOyxh5oVJv8Nwhf5GAZZMKstLdzYZ32czuXW9YbIlsF03Nm3316wrUZvZlxWKb6du
+	 1PI+nawkxeyHD3BszZ03n5XTcheeQMbGpQFJ5Fs1Kcei/oeJBiMO3407pEVCoFxfRp
+	 w+UqDHQWXzrYlTaICvdhu1UyuH0FoWiPJyYnP7SA8hO6sA+LJGZky0dPGRW4/HJK6q
+	 FsTNGORi3mzq4nTdwM7L+t0toa2Kn+9DsarvP71ZTDicaw2OfwnPj1BKd7c89OkoOU
+	 Zl4DnismZRDgA==
+Message-ID: <829c448d-e6e2-4874-a166-7624e87489ef@kernel.org>
+Date: Wed, 28 Oct 2026 09:43:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -166,37 +51,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: vecima.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFFD8A841C2.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 648bffac-eb9d-4a25-b7bb-08df34cf116c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 08:40:06.4567
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9d639caa-2d40-486d-ac82-e59b0005382f
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hg+bLekeqOdZ8MLEqpnqt3hzJRvVQOdWQMEt0wRUVLSxaqbMlxXHKhPFwnX1/oI89Vg07hxIeUz6j0stzwbb8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR18MB6311
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/uverbs: Don't return the shared zero page from
+ rdma_umap_fault()
+To: Zi Yan <ziy@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>
+Cc: linux-mm@kvack.org, Lorenzo Stoakes <ljs@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261025-fix-rdma_umap_fault-zero-page-v1-1-186255624f1f@nvidia.com>
+ <78802ed9-9cc6-41c4-b131-7c7d38f7ff39@kernel.org>
+ <DMEVZ5MU1YA9.2X3HCCHNQOIA7@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DMEVZ5MU1YA9.2X3HCCHNQOIA7@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Marcin, FWIW, we'll discuss this topic on the office hours today [1].=0A=
-> Feel free to join! I added a link with suggested wording for a future=0A=
-> doc [2], and asked an LLM to audit the drivers [3].=0A=
-=0A=
-> Bj=F6rn=0A=
-=0A=
-> [1] https://lore.kernel.org/netdev/aqPxxX9MeGmAqGy6@boxer/=0A=
-> [2] https://gist.github.com/fb-bjorn/d6835c49650bc3433b427a9c9708fbe2=0A=
-> [3] https://gist.github.com/fb-bjorn/181786547c4dd8182ba09e23cf394dbe=0A=
-=0A=
-Sorry, for late answer, I couldn't join last week, I can join today if need=
-ed.=0A=
-I saw your audit which is very descriptive, that helps with understanding i=
-t.=0A=
-Thanks! As I understand you would like to fix the drivers ,which broke =0A=
-the R2 handling considering RX Ring Full rule.=0A=
-I can send fix proposal for mlx5 driver. if so should I create another patc=
-h=0A=
-from scratch and link that conversation only?=0A=
-=0A=
-Regards,=0A=
-Marcin =
+>>> +	/*
+>>> +	 * VMAs that cannot become writable map the page as a raw pfn, like
+>>> +	 * the device memory it replaces. The page lives as long as the file.
+>>> +	 */
+>>> +	if (!(vmf->vma->vm_flags & (VM_WRITE | VM_MAYWRITE))) {
+>>> +		ret = vmf_insert_pfn(vmf->vma, vmf->address, page_to_pfn(page));
+>>> +		goto out;
+>>> +	}
+>>> +
+>>> +	/*
+>>> +	 * This VMA is forced to always be shared so this doesn't have
+>>> +	 * to worry about COW.
+>>> +	 */
+>>> +	vmf->page = page;
+>>> +	get_page(page);
+>>
+>>
+>> This split handling is pretty horrible TBH.
+>>
+>> In once case we take a reference in the other not?
+>>
+>> Why not perform a PFN mapping in any case?
+> 
+> For writable path, a new vmf_insert_pfn_mkwrite() is needed, so it was
+> not fixed. I can fix that part as well.
+
+We should do that; returning kernel allocations from this function in ->fault is
+bad.
+
+How urgent is this fix here? (can it actually be triggered?Specific hardware?)
+
+> 
+> The read-only zero page part might need more attention, since
+> we just prevented vmf_insert_pfn_prot() from using zero_page. Do we want
+> to add the support for rdma_umap_fault()?
+
+We just have to make sure that we cannot install it writable etc. But that's not
+a concern.
+
+Just have to be careful :)
+
+> 
+>>
+>> (Does GUP have to work on these things?)
+> 
+> These are VM_PFNMAP mappings, I guess not. But I am not a GUP expert.
+
+So we installed folios with ->fault in VM_PFNMAP!?!?!?!
+
+That doesn't sound right :)
+
+-- 
+Cheers,
+
+David
