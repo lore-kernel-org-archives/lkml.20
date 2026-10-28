@@ -1,68 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793149670;
-	b=dm2f4qdlVgUo5jctUF0qjmRiLZc6PFTiveRW8duu7jI4sJQiUR8Vch2M/cbNDwypzIku
-	 DFjZIhqYyuP6DSUCCRhPGywffONiYIJsIOjEbOCg3GtLsICbQcpoEXXSYGwENPMA9JRIT
-	 lixS+5M75ip9ibGmmJReraIjW9+Fu/z9e3tS0ix7r15Nz17mDL95jOWCOPj719RvLDqnD
-	 etPC63k8YuxWq4nMnqQECQylDk0y+PUe8kjLLYYgQ5rYWiEWf6V8mbC5cwwCs7M6ppu97
-	 K7+0LfqS7xah+G3gxqWPgEvA4aaIpFyo0OwIgdrGiWw9q55tDIdCIxTQZOclrkzpsSA==
+	t=1793149838;
+	b=ipPQVrpADnhctaYN437X2Y6EKhjIx0A9PZlnx/3MVM/f5TsOWIy38A1EvrZrc/uQcWMb
+	 /moiPAWBDpumEXUaeTAceb91Sz5Wo/GPmvQDN+TJ+lUSprR6h1+mM4RJQwmjSt3or+68n
+	 6ITE3q9AOJlI11JDWRxvPvAhuhtSg6TRYzBVlQyHCv8l+KOEwxzcVamNmlsGEmRngc5Kt
+	 W6K9FvAPIFZ7MU8z3GOrpitxrdRN76jlo5mlo8GQ7HgRRs41ceqj0Wnw1v0xsJ4ymLApl
+	 VbzYo/GY02zj20n8hAW9X0rGY4T4yQIX/lGH0AwBvekEgxSyGQnE471TNqddGrXMMyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793149670;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=G5hV2V6SdAWvpaPSkKW+zcHsAnkahIlajifYwNF+O8c=;
-	b=bhfsR0Bm/xjSstEsrBah4odJ7EtjcViQMtRqwc+Dx31R+iP1ly9QHIX+GrKdsqV1Euks
-	 qAJ08wuI0jLgsa9QKcsK0dkcvVOjsxrPVIvz6w8van+5GS4nigAJrkKQU2h0q55EeK/I8
-	 c1p98hfqj8lk0K2AhBHlxVx5ECSV57AbjEnsHwXUMp3Ip37BbUQIcyD2nqo+Xby6nSHVg
-	 HVje/0weg1HMhpBs6pKaja41xVM5qilRcvFpf3b5OOPmXYhjfm6sNWkBQ7oGe+xnn4ha3
-	 LWY7pXjFVXa6MX+B6bE3y5a402WyTI3KS8O/idlpjomLmvKSCdzfedIvfAdreVQ2+dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793149838;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ouBqehUakR7SvhmTexou4smL/OlHYmPuilTGYVp8FO4=;
+	b=ru3mGP4Y5Yx62NHadD8mpwfp/MW1BlAWPcn5re2tTya0w+fz9aYrSw+yPD9acQlh+6ou
+	 BBfGTaVU6LE71JiavA8PLL4Dgooq2YO8YGt2B5wKElIsBnoZJ/H7GnYA2NkxayE3T8mmB
+	 4iH7F/Vk1jxRMI5Ie/tAeDwgRbc+gMIYoIvCv0vwrFO7AsBeYpvgReISMjjjis2KlOokP
+	 KY033nlWXij4SXMrHKWLq2yo1Yf3QsWqW3C7G96nl7d/w/a5eiZYVZ0mb/9VN5X+ebJPT
+	 jDfYWTdq3IGlFacjXiVLjMBN4jbbaAFRdMYB9KX2aY+6k6c2FN7BavSmp9fNDk2/CLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlwjzJGb;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MSUIHUdv;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7930B606A31D;
-	Wed, 28 Oct 2026 01:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7930B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68717606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:10:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68717606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlwjzJGb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793149669; x=1824685669;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=hYzpcDmj3XuKtz2I8wv6l4Dkd+nsYNx+Svvl0NP8les=;
-  b=AlwjzJGbDOUnw4Oa+DjbRgvK4Sugiqzyv1BvUl00xCBVg6XP8y6JFACw
-   GRxPv0XPhsio6NPoLGIc3NqWoyKOiY20GvuSPdTugX0YIt3IhB3MJRkIc
-   zBUmylNZu7ANVey7RqbrXIk3HsSDrBGW/lqRfWDIC1lpkdsuLaOQFHpE0
-   +28NXDIWoimHp5qc26Iwr76B67hl1IcNXe67Gjll0uMFxoAZDx0XrRnqh
-   DFGjiiBBNHRhdyoxdPYfu5G7EpNmpw91whXNoPkRVtkgUtnTcvLAWmnnw
-   AHATSa2jX2Zrg9LHXAk9oJUrKR0XxVv8A2EeMTbTfP7woGLwog6rdRAFK
-   w==;
-X-CSE-ConnectionGUID: L1+p77DZTYG0s0AFiZOjnA==
-X-CSE-MsgGUID: fBqhvuKTTymIRP1BN/pVhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1743363"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1743363"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:07:48 -0700
-X-CSE-ConnectionGUID: nrx1XpZdQBS8raKXNHLajA==
-X-CSE-MsgGUID: 19HQZixvRZaQQhzrTXeq3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="5080448"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:07:44 -0700
-Message-ID: <e87a8037-92b1-45b9-871b-8d470fa90962@intel.com>
-Date: Wed, 28 Oct 2026 09:07:42 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MSUIHUdv
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso318893a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:10:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793149838; x=1793754638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ouBqehUakR7SvhmTexou4smL/OlHYmPuilTGYVp8FO4=;
+        b=MSUIHUdvkaTyCe+FSUelzUBf0PwwVP8DFOaD8OBK7+odPFTk/RrcmvoDFWLOwH4gO/
+         jcYvJbEDd/S/l9YQf2YE+5YvMv2DB+jR6RsebbrRHL8WiUAXKrZ2q2/OClAZypFBlqlo
+         7koHtHdFFlMDEjHuzVVZM+qU6T0ocUOGyJaCZzlGZNcSGRwwLnQHwiDYyHvzTq9BNJtk
+         fP8OJL8wVetlmnrqIX9Hoem8/Zi7pSJIOSvJS1/BAe4UUFX+JGWxwd7CGopt7SKhyCuc
+         6cdnzzaKJ57fTZWD6cmJeL5BgRIUykcKrYGdGP6l7sYqgKwVajhnypzKSGHsbj0kXhGM
+         KZrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793149838; x=1793754638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ouBqehUakR7SvhmTexou4smL/OlHYmPuilTGYVp8FO4=;
+        b=syA4Iy4DRdrbohHzvelHZs/nq34Xw9SdYgYrL9179y5HnqP7iflJxDBSwFP030HrUY
+         hZQxlcmsOoy41P5GjEzAtxxQhBDFVHbxk2nUMkHe87+zw5qZL471MjmkcL86z+S183P3
+         yIZAULnERx0fbts4Y+HXJFj+ZM4x9LAr4hi/FAXY7vnpPfxvdPzQLeEa7UNGAujV7mfD
+         TpUPk/ulnpeZ4f+ps5hWU3evCWz6IMb9DBdTfZlXisaGiFksjWQKD9TG0r72OvZwDmNa
+         Txk8YxH28e/QBQ1s5FUJMh0amA9SXwEA/R1SCOFK495xOdRqkLnrewOoiKfXWq/vEKgP
+         xH2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxt8/X8og6BhDL9U5ORG8SroFHLI7+nTPMXaSDmxQ0luEOaq13W34kin0Xf+c8d4v7l5b6gI7Jz2OsZbqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2WXeDD+4Dw9ohGluHz7eqrXTngEPahuqqBqEjULXgR3P85DJy
+	Mi5MANy5KLRZ1ODARZsiK5PhJPX/DjtxTuny7XHDZpX32xXOP3yFa+MF
+X-Gm-Gg: AYBFou0qnNpqZqq9/380TFdYu0gZqciOLz6HkvbvDhkSJUlXnjdinuVGzqsVjX2dAbO
+	ZqMBGJxweznOfIDZXeFlKs2BjCCSJ0pCdvRPKDXn7eKxcw6SeFgJAhNiYaGAqXT7GGtaSJs4Kab
+	KL1YeosNOOTFjQWvNNtHQeoFt4JY/sC3fh0Kw38GgmltCPfnSd6CrXV4TvxA2ab9sAn7gKiQ8Kb
+	04dOWtP0WqM8ZU+viR6DzYt1+D+pT5/aZpLRV3bnzG5SwmRVSY5eI7XsSAnhcbHwbDVK1QBRFYl
+	l2ZhJ4NVF+5HX0g1AJoMlBftBjKknzcxhLhkW/CasVmXT2FdYIjRZ6u6DeVk1WwELYIGnaG2xI3
+	ER6snQPMk3jqMg48GMqeuLYdXHUw5imjxCgUMdJsYss2Gs2S7HK/JxXn3QWT+zbzQHulA84W7M4
+	JLc886r3Dia5vHzkHu63btDxoN59J9xpjT4iADUp1aFV0QYQG1y54c27VFfHxjsDpk0CMWpZmII
+	zowGMPXFJdj4qkozLDLuhakLX7gGeafDtckhnAEyaMYtxsk48c3stDPwp39oz+0OLSE4t/yVQHT
+	IygmbYwJNMVs/CXfHVTAtjZPs+XA5mOCSzf1zr/k4mHUsa5AcdpUzzfPwqZNOAxs0uGdPAHpJIT
+	A4DtoQHfVchL5X34ZpFE0IHetz0HvUVtPK8IM3nE/TyJ5cNNIskE5efl2hXxLauHvcuIgpdIfts
+	FryQ==
+X-Received: by 2002:a17:90b:54c5:b0:3ac:a204:aa27 with SMTP id 98e67ed59e1d1-3ae58195369mr591267a91.66.1793149837700;
+        Tue, 27 Oct 2026 18:10:37 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9a58d1sm456471a91.9.2026.10.27.18.10.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 18:10:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Felix Fietkau <nbd@openwrt.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2] net: bgmac: fix oversized RX frame check
+Date: Tue, 27 Oct 2026 18:10:35 -0700
+Message-ID: <20261028011035.49201-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,53 +103,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
- functions don't match
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
- Binbin Wu <binbin.wu@linux.intel.com>, Changyuan Lyu
- <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
-References: <20261022210134.612848-1-seanjc@google.com>
- <20261022210134.612848-4-seanjc@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20261022210134.612848-4-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/23/2026 5:01 AM, Sean Christopherson wrote:
-> Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
-> entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
-> bug where userspace could bypass the TSX and WAITPKG checks by simply not
-> marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
-> more in-depth validation of the incoming CPUID configuration.
-> 
-> This is obviously an ABI change and diverges from KVM's general approach of
-> "let userspace do what it wants".  In practice, no "real" VMM that supports
-> TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
-> actually breaking userspace is basically nil.  And unlike normal VMs, where
-> KVM has full control and thus can deal with bizarre CPUID input without too
-> much fuss, TDX VMs require extra care due to the TDX Module also reacting
-> to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
-> than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
-> setups.
-> 
-> Opportunistically rename the helper to make it more obvious that it's
-> checking if the passed in @entry is unsupported, as opposed to returning a
-> set of unsupported entries or something.
-> 
-> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+While reviewing commit 77dac783f11
+("net: bgmac: rate limit RX error messages") , Florian spotted that the RX
+length sanity check compares the length reported in the RX header against
+BGMAC_RX_ALLOC_SIZE. That is the size of the whole fragment, including the
+space reserved for struct skb_shared_info. The data area handed to the
+hardware is only BGMAC_RX_BUF_SIZE bytes, and the frame starts
+BGMAC_RX_FRAME_OFFSET bytes into it, so a valid frame is at most
+BGMAC_RX_MAX_FRAME_SIZE bytes long.
 
-Given the discussion of patch2 has settled down,
+A corrupted length between those two limits passes the check, and the
+following skb_put() runs past the skb tailroom and calls
+skb_over_panic() instead of dropping the frame.
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Compare against BGMAC_RX_MAX_FRAME_SIZE instead.
+
+Only compile tested. Not tested on hardware.
+
+Fixes: 6a6c708469c9 ("bgmac: add check for oversized packets")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: replace Suggested-by with description.
+ drivers/net/ethernet/broadcom/bgmac.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index b3a92ae95de3..6873c7bb7a14 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -455,7 +455,7 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
+ 				break;
+ 			}
+ 
+-			if (len > BGMAC_RX_ALLOC_SIZE) {
++			if (len > BGMAC_RX_MAX_FRAME_SIZE) {
+ 				if (net_ratelimit())
+ 					netdev_err(bgmac->net_dev, "Found oversized packet at slot %d, DMA issue!\n",
+ 						   ring->start);
+-- 
+2.56.0
+
