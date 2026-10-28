@@ -1,51 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.214.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179808;
-	b=W5WLw2pk8f6BpAZJ+tJVsIThXVgqF6BwsBx2XVjwG18T4nCM6+UljCBMU7O6w6vt+b/U
-	 DxM3jZ56s/lYrTn0hs8oV3a0UWivQw+tW5Yq1M22JcW7llMDr3bt50telh9k+yv+mMnUF
-	 NyoS8DlEJzyU58AitAsU+laeIbsUWORGya6oV5b6OCIT0mLfLfFocMBwTAs7XQZR7EChb
-	 gf2Xkzut6UX9ae+Vd9zqgtXslKniphPJN6riMTztcM+mmbbwAzU1sn75md7db9pCiKU0a
-	 03JPZ0F7MYIB1Oe4Kw/GnBSxS+kq0r5dsn9u2U5kGzJfezDqqLbVX8TIyssyKEXAo3Q==
+	t=1793179825;
+	b=4B/wHofO7chiNEC5jEUrIXSeNSCGCP3sTX32kh9E+9DxvEddF3wSFBT5wT+n7khjPQy2
+	 v+M3MwfWIJjb/zxikOe9MUBnKjojMWh5FXASM6FJ88hDTHt5Y7xLo4PyReqrZB0g8NFU9
+	 sRaDo3Sp4BQNA6liEGjPpS5HzfMN+p2ZCLBmMVtdbS8lhtg9oOlAMaIYgslwMJlD5sqmH
+	 N/CuvoQvQRNaxC6uJGb/rjSPQNqe2pqlkgK5SdE7MyQtT6oOWtyYgQy6VcXGxqkIIIqo6
+	 +yErcAMnOFdsxzLke3Hztpx+sTL1I8Ke26nxfX4ZxGkLAzg9Vnl9/i38HfMFa6h9YVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179808;
-	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
-	 Subject:X-Priority:X-Mailer:X-Originating-IP:MIME-Version:Received:
-	 From:Date:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=ZBpXdJpwd/BHTaMg5ETJ4LZhWuDry7H0ZxiVYVoJruE=;
-	b=fPxTHtlsRj+d7supnmdc+UDpM/Gg+bhy8Y3w+6rQXMkmLEz5wNgODkE/5E/DA/ZoRxO9
-	 WpbAyy41Fjjdc3O1M9mSfrtJYqDbK4CDEySsTh8iwdJQKvS//5KNgfw72vuTiWjXwQgdV
-	 cx8phTPcef2SWl5cOezT/day5nZwn9aSHRhgkbk3T5j6+hR/r578ZobcIzrIP++O5wkPT
-	 HU9V8DoKbR/f6p1MbfEYeH04+xVR4VBai8YpVg3gO5eW2z3P0TD9efcGvfyACCIkhRed0
-	 a84VShHxCPNdaEosXfyRXsT4xuenNQd6aT5UJQDxKBrPI5Du0R6LP4YkoH7lXsh8qFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179825;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=3EXXyX5va3tHTtjCGa0DMtYwejMB9WIO3viEeD2GKho=;
+	b=G/VCoxBY+imFlOzGKsxewUNBezzExTfDEXGUkFsgbaVJIKT2QLv2Bk+SJD1UlbrroPR7
+	 nOxmuAEa0RzHanXRGBV1WSL7/mNnFty3MrJ0K0LzwzVvrliQyLbBWmG7+Ym0fFFE0Oaoz
+	 ARxdWBXH6QeXTQ8EMJtWnC3hXedDOH8YPi+mI/Ohv2oNmQVWdF4rCrEDGIaXbnKBsy1Rv
+	 iqkjRO0yYvaBCTe08sBYpnUeFTym4VAJafVuyDO9Gh/GiZ5SsdLaluPGkJZMyTjl8pq20
+	 1EdGCtXmnzuiUBKHzCJIrMJN3OC2+4VOvMKr3ZbLYUDt3oMy8V8MvGbShDZvJXyN6BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hdu.edu.cn;
-	spf=pass smtp.mailfrom=hdu.edu.cn;
-	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=hm+BxumQ;
-	arc=none smtp.remote-ip=117.135.214.68
-Received: from mail-m21468.qiye.163.com (mail-m21468.qiye.163.com [117.135.214.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234CE606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:30:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 234CE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=gD0rzjlN;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A99C6606A33D;
+	Wed, 28 Oct 2026 09:30:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99C6606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=hm+BxumQ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ADwAnACnLLRRmIer2NKrbqoB.1.1793179799059.Hmail.242270054@hdu.edu.cn>
-To: zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?SW52YWxpZCBGSUZPIG9mZnNldHMgbGVhZCB0byBhIHdyaXRlIHBhZ2UgZmF1bHQ=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=gD0rzjlN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=3EXXyX5va3tHTtjCGa0DMtYwejMB9WIO3v
+	iEeD2GKho=; b=gD0rzjlNf9x0iheCG8Efp4bK9+VCsgdNWXJpSwfrX72G3P1avr
+	/5Oo0DGXjS+4lVlJrz/FWooM/kWdc1cQ9x8jWH3EqOvMcVxLoiUR1TbpzSSjoO4Y
+	Zjc7ZcaTQ1lQgETm1yEx3XuJPMlXNY+A4Q/B6rwFRNxFmXG6tWC+K+dEo=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S9;
+	Wed, 28 Oct 2026 17:30:16 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 7/9] media: camss: video: stop the subdevices already started when a start fails
+Date: Wed, 28 Oct 2026 17:30:01 +0800
+Message-ID: <20261028093003.722745-8-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,104 +69,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail ( [127.0.0.1] ) ; Wed, 28 Oct 2026 17:29:59 +0800 (GMT+08:00)
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Date: Wed, 28 Oct 2026 17:29:59 +0800 (GMT+08:00)
-X-HM-Tid: 0aa181d8433dd45akusy6e3e1bd310b48
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQx0YVkwYSB8fSkwdTUwdSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlLVUtVS1
-	VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=hm+BxumQJOrPgmCMgYOLoCJHPm2UWXRTjKlGTU3GeeZ8GJLczhaA70mDwq8iGVAXsf4L+aOY8sNTfqMGyMDJgBaNHPM0MPmxSxxmsu7VIiMxWVXrKjcQpbUZ7e2yMWtPCezfwJoCPfaf9MCfvUz0Q5ZkbkZdnaVkbmRf0sEQmWc=; c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1;
-	bh=ZBpXdJpwd/BHTaMg5ETJ4LZhWuDry7H0ZxiVYVoJruE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S9
+X-Coremail-Antispam: 1UD129KBjvJXoWxur48AFWDAFyftF1rCr15Jwb_yoWrJFy5pF
+	18tFyYgFWSgFyUKw47Ar45Ja43K3sYy34ftry3Cw1rAF15tr1YqFs3K34FyFW5C3yUA3W2
+	yrWjgrWUZr4rWFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUgi05DUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBYsb
 
-CgpIZWxsbywKCiAgR1BULTYtTHVuYSBhc3Npc3RlZCB3aXRoIHRoZSBpbml0aWFsIGFuYWx5c2lz
-IGFuZCBkcmFmdGluZyB0aGUgcHJvcG9zZWQgZml4LgogIEkgYW0gcmVzcG9uc2libGUgZm9yIHRo
-aXMgcmVwb3J0LgoKICBJIGZvdW5kIGEga2VybmVsIHdyaXRlIHBhZ2UgZmF1bHQgaW4gdGhlIHZt
-d2dmeCBGSUZPIGNvbW1hbmQgcGF0aCB3aGlsZQogIGZ1enppbmcgTGludXggNy4xLjUuIFRoZSBm
-YWlsaW5nIGlvY3RsIHdhcwogIERSTV9JT0NUTF9WTVdfRkVOQ0VfRVZFTlQuIFRoZSBkcml2ZXIg
-cmVzZXJ2ZWQgRklGTyBzcGFjZSwgZGVyaXZlZCBhIGNvbW1hbmQKICBwb2ludGVyIGZyb20gRklG
-TyBzdGF0ZSwgYW5kIHRoZW4gd3JvdGUgdGhlIGZlbmNlIGNvbW1hbmQgdGhyb3VnaCBhbgogIHVu
-bWFwcGVkIGFkZHJlc3MuCgogIFRoZSBpbXBvcnRhbnQgY3Jhc2ggZXhjZXJwdCBpczoKCiAgICBC
-VUc6IHVuYWJsZSB0byBoYW5kbGUgcGFnZSBmYXVsdCBmb3IgYWRkcmVzczogZmZhMDAwMDA5ZTg1
-MjMyYwogICAgI1BGOiBzdXBlcnZpc29yIHdyaXRlIGFjY2VzcyBpbiBrZXJuZWwgbW9kZQogICAg
-UklQOiB2bXdfY21kX3NlbmRfZmVuY2UrMHgxNmUvMHgyOTAKICAgIFJESTogZmZhMDAwMDA5ZTg1
-MjMyYyAgUjE0OiBmZmEwMDAwMDllODUyMzJjCiAgICBDUjI6IGZmYTAwMDAwOWU4NTIzMmMKICAg
-IENhbGwgVHJhY2U6CiAgICAgIHZtd19leGVjYnVmX2ZlbmNlX2NvbW1hbmRzKzB4MTIwLzB4MjAw
-CiAgICAgIHZtd19mZW5jZV9ldmVudF9pb2N0bCsweGM3LzB4NjcwCiAgICAgIGRybV9pb2N0bF9r
-ZXJuZWwKICAgICAgZHJtX2lvY3RsCiAgICAgIHZtd19nZW5lcmljX2lvY3RsCiAgICAgIHZtd191
-bmxvY2tlZF9pb2N0bAogICAgICBfX3g2NF9zeXNfaW9jdGwKCiAgVGhlIHNvdXJjZS1sZXZlbCBl
-eGVjdXRpb24gcGF0aCBpczoKCiAgICBfX3g2NF9zeXNfaW9jdGwKICAgICAgLT4gdm13X3VubG9j
-a2VkX2lvY3RsKCkKICAgICAgLT4gdm13X2dlbmVyaWNfaW9jdGwoKQogICAgICAtPiBkcm1faW9j
-dGwoKQogICAgICAtPiB2bXdfZmVuY2VfZXZlbnRfaW9jdGwoKQogICAgICAtPiB2bXdfZXhlY2J1
-Zl9mZW5jZV9jb21tYW5kcygpCiAgICAgIC0+IHZtd19jbWRfc2VuZF9mZW5jZSgpCiAgICAgIC0+
-IFZNV19DTURfUkVTRVJWRSgpCiAgICAgIC0+IHZtd19sb2NhbF9maWZvX3Jlc2VydmUoKQogICAg
-ICAtPiByZXR1cm4gZmlmb19tZW0gKyAobmV4dF9jbWQgPj4gMikKICAgICAgLT4gdm13X2NtZF9z
-ZW5kX2ZlbmNlKCkgd3JpdGVzIFNWR0FfQ01EX0ZFTkNFIHRocm91Z2ggdGhlIHJldHVybmVkIHBv
-aW50ZXIKCiAgVGhlIHJlbGV2YW50IEZJRk8gcmVzZXJ2YXRpb24gY29kZSByZWFkcyBNQVgsIE1J
-TiwgTkVYVF9DTUQgYW5kIFNUT1AgZnJvbSB0aGUKICBGSUZPIG1lbW9yeS4gSXQgY2hlY2tzIHRo
-ZSByZXF1ZXN0ZWQgc2l6ZSBhZ2FpbnN0IGBtYXggLSBtaW5gLCBidXQgZG9lcyBub3QKICB2YWxp
-ZGF0ZSB0aGF0IHRoZSBkZXZpY2UtcHJvdmlkZWQgb2Zmc2V0cyBhcmUgYWxpZ25lZCBhbmQgd2l0
-aGluIHRoZSBGSUZPCiAgcmFuZ2UgYmVmb3JlIGRlcml2aW5nIHRoZSBwb2ludGVyLiBUaGUgZmF1
-bHRpbmcgYWRkcmVzcyBpcyB0aGUgcG9pbnRlciB1c2VkIGJ5CiAgdGhlIHdyaXRlLiBUaGUgcmVw
-b3J0IGRvZXMgbm90IGRpcmVjdGx5IHByaW50IHRoZSByYXcgTkVYVF9DTUQgdmFsdWUsIHNvIEkg
-ZG8KICBub3QgY2xhaW0gYW4gZXhhY3QgcmVnaXN0ZXIgdmFsdWUgaW5mZXJyZWQgZnJvbSB0aGUg
-ZmF1bHQgYWRkcmVzcy4KCiAgVGhlIHVzZXJzcGFjZSBlbnRyeSBwb2ludCBpcyBEUk1fSU9DVExf
-Vk1XX0ZFTkNFX0VWRU5ULiBJdHMgYXJndW1lbnQgcmVxdWVzdHMKICBhIGZlbmNlIGV2ZW50OyBp
-dCBkb2VzIG5vdCBjb250YWluIHRoZSBGSUZPIE5FWFRfQ01EIHZhbHVlLgoKICBUaGlzIGlvY3Rs
-IGlzIHRoZSB1c2Vyc3BhY2UgZW50cnkgcG9pbnQsIG5vdCB0aGUgc291cmNlIG9mIHRoZSBiYWQg
-RklGTwogIHBvaW50ZXIgaXRzZWxmLiB2bXdfZmVuY2VfZXZlbnRfaW9jdGwoKSByZXF1ZXN0cyBh
-IGNvbW1hbmQtc3RyZWFtIGZlbmNlIHZpYQogIHZtd19leGVjYnVmX2ZlbmNlX2NvbW1hbmRzKCk7
-IHZtd19jbWRfc2VuZF9mZW5jZSgpIHRoZW4gcmVzZXJ2ZXMgc3BhY2UgZm9yCiAgU1ZHQV9DTURf
-RkVOQ0UgdGhyb3VnaCBWTVdfQ01EX1JFU0VSVkUoKSBhbmQgdm13X2xvY2FsX2ZpZm9fcmVzZXJ2
-ZSgpLiBUaGUKICByZXNlcnZlIHJvdXRpbmUgcmVhZHMgTUFYLCBNSU4sIE5FWFRfQ01EIGFuZCBT
-VE9QIGZyb20gZGV2aWNlLWJhY2tlZCBGSUZPCiAgc3RhdGUgYW5kIHVzZXMgTkVYVF9DTUQgdG8g
-Zm9ybSBgZmlmb19tZW0gKyAobmV4dF9jbWQgPj4gMilgLiBJbiB0aGlzIHJ1biB0aGUKICByZXN1
-bHRpbmcgYWRkcmVzcyBpcyB0aGUgdW5tYXBwZWQgYWRkcmVzcyByZXBvcnRlZCBieSBDUjIsIGFu
-ZCB0aGUgc3Vic2VxdWVudAogIHN0b3JlIG9mIHRoZSBmZW5jZSBjb21tYW5kIGZhdWx0cy4gVGhl
-IGlvY3RsIGFyZ3VtZW50IHJlcXVlc3RzIHRoZSBmZW5jZQogIGV2ZW50OyBpdCBkb2VzIG5vdCBz
-dXBwbHkgTkVYVF9DTUQuIFRoZSBkZXZpY2UgbW9kZWwgc3VwcGxpZXMgdGhlIEZJRk8KICBzdGF0
-ZSBvYnNlcnZlZCBieSB0aGUgZHJpdmVyLiBTaW5jZSB0aGUgcmVwb3J0IGRvZXMgbm90IGxvZyBy
-YXcgcmVnaXN0ZXIKICBjb250ZW50cywgaXQgcHJvdmVzIHRoZSBiYWQgY29tcHV0ZWQgcG9pbnRl
-ciBhbmQgd3JpdGUsIGJ1dCBub3QgdGhlIGV4YWN0IHJhdwogIE5FWFRfQ01EIHZhbHVlIG9yIHdo
-aWNoIEZJRk8gcmVnaXN0ZXIgZmlyc3QgYmVjYW1lIGluY29uc2lzdGVudC4KCiAgVGhlIHN5emth
-bGxlciByZXByb2R1Y2VyIGlzIGF2YWlsYWJsZSBhbmQgY2FuIGJlIHByb3ZpZGVkIHByaXZhdGVs
-eSB0byB0aGUKICBtYWludGFpbmVycyBvbiByZXF1ZXN0OyBpdCBpcyBub3QgaW5jbHVkZWQgaW4g
-dGhpcyBwdWJsaWMgcmVwb3J0LgoKICBUaGUgcGF0Y2ggYmVsb3cgcmVqZWN0cyBhIG1pc3Npbmcg
-bG9jYWwgRklGTyBzdGF0ZSBhbmQgdmFsaWRhdGVzIE1JTiwgTUFYLAogIE5FWFRfQ01EIGFuZCBT
-VE9QIGJlZm9yZSBjYWxjdWxhdGluZyBvciB1c2luZyBhIEZJRk8gY29tbWFuZCBwb2ludGVyLiBU
-aGUKICBjcmFzaCB3YXMgb2JzZXJ2ZWQgd2l0aCB0aGUgUUVNVSBtb2RlbCwgd2hpY2ggZG9lcyBu
-b3QgaW1wbGVtZW50IGZ1bGwKICBTVkdBIEZJRk8gc2VtYW50aWNzOyBJIGhhdmUgbm90IGVzdGFi
-bGlzaGVkIHRoYXQgYSBjb25mb3JtaW5nIFZNd2FyZSBkZXZpY2UKICBjYW4gc3VwcGx5IHRoZSBz
-YW1lIGludmFsaWQgc3RhdGUuIFRoZSBwYXRjaCBwYXNzZXMgYGdpdCBhcHBseSAtLWNoZWNrYCwg
-YnV0CiAgaGFzIG5vdCB5ZXQgaGFkIHJ1bnRpbWUgcmVncmVzc2lvbiB0ZXN0aW5nLgoKICBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY21kLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vdm13Z2Z4L3Ztd2dmeF9jbWQuYwogIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS92bXdnZngv
-dm13Z2Z4X2NtZC5jCiAgKysrIGIvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY21kLmMK
-ICBAQCAtMzAyLDkgKzMwMiwxMiBAQCBzdGF0aWMgdm9pZCAqdm13X2xvY2FsX2ZpZm9fcmVzZXJ2
-ZShzdHJ1Y3Qgdm13X3ByaXZhdGUgKmRldl9wcml2LAogICAgdWludDMyX3QgbWF4OwogICAgdWlu
-dDMyX3QgbWluOwogICAgdWludDMyX3QgbmV4dF9jbWQ7CiAgLSB1aW50MzJfdCByZXNlcnZlYWJs
-ZSA9IGZpZm9fc3RhdGUtPmNhcGFiaWxpdGllcyAmIFNWR0FfRklGT19DQVBfUkVTRVJWRTsKICAr
-IHVpbnQzMl90IHJlc2VydmVhYmxlOwogICAgaW50IHJldDsKICAKICArIGlmICh1bmxpa2VseSgh
-Zmlmb19zdGF0ZSB8fCAhZmlmb19tZW0pKQogICsgICByZXR1cm4gTlVMTDsKICArIHJlc2VydmVh
-YmxlID0gZmlmb19zdGF0ZS0+Y2FwYWJpbGl0aWVzICYgU1ZHQV9GSUZPX0NBUF9SRVNFUlZFOwog
-ICAgbXV0ZXhfbG9jaygmZmlmb19zdGF0ZS0+Zmlmb19tdXRleCk7CiAgICBtYXggPSB2bXdfZmlm
-b19tZW1fcmVhZChkZXZfcHJpdiwgU1ZHQV9GSUZPX01BWCk7CiAgICBtaW4gPSB2bXdfZmlmb19t
-ZW1fcmVhZChkZXZfcHJpdiwgU1ZHQV9GSUZPX01JTik7CiAgQEAgLTMxMSw0ICszMTUsNiBAQCBz
-dGF0aWMgdm9pZCAqdm13X2xvY2FsX2ZpZm9fcmVzZXJ2ZShzdHJ1Y3Qgdm13X3ByaXZhdGUgKmRl
-dl9wcml2LAogICAgbmV4dF9jbWQgPSB2bXdfZmlmb19tZW1fcmVhZChkZXZfcHJpdiwgU1ZHQV9G
-SUZPX05FWFRfQ01EKTsKICAKICAtIGlmICh1bmxpa2VseShieXRlcyA+PSAobWF4IC0gbWluKSkp
-CiAgKyBpZiAodW5saWtlbHkobWluID49IG1heCB8fCBuZXh0X2NtZCA8IG1pbiB8fCBuZXh0X2Nt
-ZCA+PSBtYXggfHwKICArICAgICAgICAoKG1pbiB8IG1heCB8IG5leHRfY21kKSAmIDMpIHx8CiAg
-KyAgICAgICAgYnl0ZXMgPj0gKG1heCAtIG1pbikpKQogICAgICBnb3RvIG91dF9lcnI7CiAgQEAg
-LTMyMSw2ICszMjcsOSBAQCBzdGF0aWMgdm9pZCAqdm13X2xvY2FsX2ZpZm9fcmVzZXJ2ZShzdHJ1
-Y3Qgdm13X3ByaXZhdGUgKmRldl9wcml2LAogICAgd2hpbGUgKDEpIHsKICAgICAgdWludDMyX3Qg
-c3RvcCA9IHZtd19maWZvX21lbV9yZWFkKGRldl9wcml2LCBTVkdBX0ZJRk9fU1RPUCk7CiAgICAg
-IGJvb2wgbmVlZF9ib3VuY2UgPSBmYWxzZTsKICAgICAgYm9vbCByZXNlcnZlX2luX3BsYWNlID0g
-ZmFsc2U7CiAgKwogICsgICBpZiAodW5saWtlbHkoc3RvcCA8IG1pbiB8fCBzdG9wID49IG1heCB8
-fCAoc3RvcCAmIDMpKSkKICArICAgICBnb3RvIG91dF9lcnI7CiAgCiAgICAgIGlmIChuZXh0X2Nt
-ZCA+PSBzdG9wKSB7CgogIFJlZ2FyZHMsCiAgWXVoYW5nIFBhbgogIDI0MjI3MDA1NEBoZHUuZWR1
-LmNuCgo=
+When one subdevice fails to start, the ones already started further up the
+pipeline were left streaming, and the next start would try to start them
+again.  Factor the teardown loop out of video_stop_streaming() into
+video_stop_subdevices() and run it from the error path, stopping at the
+subdevice that failed.
+
+While at it, keep stopping the remaining subdevices when one of them fails
+to stop instead of returning early: the pipeline is being torn down, so a
+failure there must not leave the rest running.
+
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ .../media/platform/qcom/camss/camss-video.c   | 60 +++++++++----------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 027cf024f..ee9ffd043 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -265,11 +265,37 @@ static int video_prepare_streaming(struct vb2_queue *q)
+ 	return ret;
+ }
+ 
++/* Stop the started subdevices, excluding the one that failed to start. */
++static void video_stop_subdevices(struct camss_video *video,
++				  struct media_entity *stop)
++{
++	struct media_entity *entity = &video->vdev.entity;
++	struct v4l2_subdev *subdev;
++	struct media_pad *pad;
++	int ret;
++
++	while (entity != stop) {
++		pad = &entity->pads[0];
++		if (!(pad->flags & MEDIA_PAD_FL_SINK))
++			break;
++		pad = media_pad_remote_pad_first(pad);
++		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
++			break;
++		entity = pad->entity;
++		if (entity == stop)
++			break;
++		subdev = media_entity_to_v4l2_subdev(entity);
++		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
++		if (ret && ret != -ENOIOCTLCMD)
++			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
++	}
++}
++
+ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct camss_video *video = vb2_get_drv_priv(q);
+ 	struct video_device *vdev = &video->vdev;
+-	struct media_entity *entity;
++	struct media_entity *entity = &vdev->entity;
+ 	struct media_pad *pad;
+ 	struct v4l2_subdev *subdev;
+ 	int ret;
+@@ -284,7 +310,6 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	if (ret < 0)
+ 		goto error;
+ 
+-	entity = &vdev->entity;
+ 	while (1) {
+ 		pad = &entity->pads[0];
+ 		if (!(pad->flags & MEDIA_PAD_FL_SINK))
+@@ -305,6 +330,7 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	return 0;
+ 
+ error:
++	video_stop_subdevices(video, entity);
+ 	video_device_pipeline_stop(vdev);
+ 
+ flush_buffers:
+@@ -316,35 +342,9 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ static void video_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct camss_video *video = vb2_get_drv_priv(q);
+-	struct video_device *vdev = &video->vdev;
+-	struct media_entity *entity;
+-	struct media_pad *pad;
+-	struct v4l2_subdev *subdev;
+-	int ret;
+-
+-	entity = &vdev->entity;
+-	while (1) {
+-		pad = &entity->pads[0];
+-		if (!(pad->flags & MEDIA_PAD_FL_SINK))
+-			break;
+-
+-		pad = media_pad_remote_pad_first(pad);
+-		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
+-			break;
+-
+-		entity = pad->entity;
+-		subdev = media_entity_to_v4l2_subdev(entity);
+-
+-		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
+-
+-		if (ret) {
+-			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
+-			return;
+-		}
+-	}
+-
+-	video_device_pipeline_stop(vdev);
+ 
++	video_stop_subdevices(video, NULL);
++	video_device_pipeline_stop(&video->vdev);
+ 	video->ops->flush_buffers(video, VB2_BUF_STATE_ERROR);
+ }
+ 
+
