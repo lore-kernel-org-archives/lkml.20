@@ -1,109 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182462;
-	b=ckf5JhYwSOxWcS0GZNbiTsUbfeVTIN8z4gq+HfeTzq6eqwiNNKkF+5BmjOvwU0wbQmsT
-	 BxDrMWPgj+mjSW5DfsDlh8IzE5AGhyj/FALgrhEFACdl5c6MVbFs48Ya9FyCHb9jeMkWB
-	 WJdMxGw5i0QQBKYt+bMCVHUVn6WLpsKiGNAEXhZVpFpwpQ+2hLVZ+iL88ufTy8XxxP0Tg
-	 KAOsetDqm8aGLaGZ9tBa5f9N1jprTMMzbjj47BbRaAFh0WciWu6/bqi0iA1JBaStwd3oc
-	 fFVqNLjF1l+ng7F+eqqZIs16B7ZTV4wUShllV5M05rHKLGjmA7CVuxFT7syusRPzYuA==
+	t=1793182475;
+	b=oRZv46VCWnfqTRf7+WetLhJMAobzrxMmP5AuhqnSUP4hgX0sTY4JOdDAH+rdSoGWZUSA
+	 QbKqGfh4pPDUC0+w4kFwl76osxs8u4/lWoFE3sJHJagpPEHYBhaCdDwtWtJcHztUaTDV8
+	 hDgXFPkxYm/OtTVRfhx49a0dZ4D3KPugB1Exmwt+4Rd4KI2CqGM5ib08upOp19ajSC5du
+	 oDhNacTxRdOA3aqJZZL7UAQkX1Zkm0yPR7OpJyuKireaHwDRbgxL+ulRpnengGiqjhNUJ
+	 BifR+SaQdyEepYjNnafMYuEq/i8xBr6i6KWjOhEDm4sQsTPYkfQESLq5T5L0l2ChRzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182462;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=TkOEGXO4ceRytIfIBg8IGlWQWM8J1Qz+zygeub1NN30=;
-	b=zsGNYBOf9D4YLqhGEN58aUuLLFPevMLoCkUJi2T3RIn+YfEphw3f+NDI+lRMiJLqt3VL
-	 5AevGODWuELWH+T002IUkBWqS2hJJEEEF1cq5m24H1qKHK62oJYJv5U64pYu2B0lxBrTR
-	 lG898VRj/7NiV5rwsIqsakHNCuWrMYAMRHnkyDHZYJR4mMIYlnSg12HcmDjxIpgyN4CZl
-	 J4Nd0LUpffDU3yd2hIWPuIVBMOLxYAQ9wbHm1gB8qyndfJeUFTHI2yKbHWF1pMxgWM+cj
-	 Zix75u5I85ZV3Jiujg2aJIy9VQoNjIC3Pk81XQLXZIay5vcil0JWgSk1K3pfu9uwp7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793182475;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=NXqfJx/4sDzowXeGWOnLU0gI6PbiTuWJ4AyhpQ8TWvw=;
+	b=3O/Wrtn43+c0JCQ3X1KmfFmgk2PQm+UJhlilLOb/ZPD9JfHrxSuqXDipmH76bC3XZFXs
+	 oscIM1BjM8lNO7C0hgmBh+s8PpU8K+lkRFmAlSzXYb9fZj//WFES0FUv3NNFrCEsBWIdp
+	 B8C2RJ+JEsnuWhGICZXINUiJuRg7uhC/2i/qfe5Qmt9KXQn0Y+NQZxNyxbICjl+T2gmkX
+	 GtcsStIz9oZGYreHxIKFQ7MOg4G8qZxSAxlbPcir3uvqzaohjT0aexjY7pQQIi/AgXlHc
+	 WgM1sRkJYxcRsL53yDaR+N4Zkf0agA3B/3KWqgmISiHWn4ECX+kR8dgy3yXjtbsTRWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="DuQTg1/+";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LGp6AoNR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8VMrlu4;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wdIeoE5z;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAE1606A31C;
-	Wed, 28 Oct 2026 10:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCAE1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N5F2WDpm;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70135606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70135606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DuQTg1/+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LGp6AoNR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r8VMrlu4;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wdIeoE5z
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D2C0B1F79E;
-	Wed, 28 Oct 2026 10:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793182460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TkOEGXO4ceRytIfIBg8IGlWQWM8J1Qz+zygeub1NN30=;
-	b=DuQTg1/+vkq4mNcpc4bmqroh8oLO0tsmai60QR29cLm9r+2MEUdcSxh47ywNxeEEB0yQfE
-	mPgc1OWwqNMTKbImz6moDw9VBXhU8bTSCzICKFEJLbWI1Iq9FhJclWDZHCeIe41zbvbbPM
-	IYmAwBOeNoCmQc8Q+9zo0b7PS+liawA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793182460;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TkOEGXO4ceRytIfIBg8IGlWQWM8J1Qz+zygeub1NN30=;
-	b=LGp6AoNR9vwRYCToEVe5VBQYQvN0D1pOvWKYATd6xrCX0g1xwRkc8Spe7AVZwbfU7qK6zi
-	H1amVG3KiVoD0IAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r8VMrlu4;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wdIeoE5z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793182459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TkOEGXO4ceRytIfIBg8IGlWQWM8J1Qz+zygeub1NN30=;
-	b=r8VMrlu4fGH60fqFeUsEaSAyplCEN5pVRDtBooMwYLBlEV6yNMaAiRXXWdKfrK1yalNtzR
-	PUoqGG338lKhOJi5tifMbrdpvXwj6jMI28CDxuqd3GaS38bkEpZVNjndgLYnnwOYNsZkkw
-	OxSIYlPaKKfRCABk9Z9c9ot/mL3N5oQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793182459;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TkOEGXO4ceRytIfIBg8IGlWQWM8J1Qz+zygeub1NN30=;
-	b=wdIeoE5z8QUt9vHG+gRU/oKUYuMbs/ZfFz9KVVQq7ocA6St993htXyu9VTMQzFPtOYDPei
-	JXY0F3Du1lpRr1CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 64A771342D;
-	Wed, 28 Oct 2026 10:14:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 66D5C/rK4WoobAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 10:14:18 +0000
-Date: Wed, 28 Oct 2026 10:14:16 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	jannh@google.com, liam@infradead.org, willy@infradead.org, paulmck@kernel.org, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
- tearing tests
-Message-ID: <auHK3k-W4gfL_MhI@pedro-suse.tail5790ac.ts.net>
-References: <20261028051312.1505295-1-surenb@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=N5F2WDpm
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EE102E9D;
+	Wed, 28 Oct 2026 03:14:30 -0700 (PDT)
+Received: from [10.57.16.117] (unknown [10.57.16.117])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD77E3F7B4;
+	Wed, 28 Oct 2026 03:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793182473; bh=uezKJlNlNwhvOmrpbfGGH+riPupzeBfdHtfumoMYw3c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=N5F2WDpm2rFVKi8/R0XyvsPlnYo2jzO7/gXd7IhSq7i/gpaa/vgYGgzDKyzHNmodj
+	 Ut2V8X1tsuDUuD/BeO/Uq2Mebd9ZKW6cwfyeXBoZCLpe08DZhJDMCFkvGnTmf9kCO/
+	 bH8fucxMB5hxHEfAui6ZvtMHBkbwH+kpB32QnJw8=
+Message-ID: <3eda6e99-291f-40b1-9fd8-13ca193b5fa4@arm.com>
+Date: Wed, 28 Oct 2026 10:14:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,53 +53,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028051312.1505295-1-surenb@google.com>
-X-Rspamd-Queue-Id: D2C0B1F79E
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/10] coresight: configfs: Don't assume active until
+ cscfg_mgr is set
+Content-Language: en-GB
+To: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>,
+ Leo Yan <leo.yan@arm.com>, Suyash Mahar <smahar@meta.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Qi Liu <liuqi115@huawei.com>, Junhao He <hejunhao3@huawei.com>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
+References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
+ <20261016-james-cs-multiple-per-threads-v4-1-dedf961aca0e@linaro.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261016-james-cs-multiple-per-threads-v4-1-dedf961aca0e@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 10:13:12PM -0700, Suren Baghdasaryan wrote:
-> Pss metrics can be affected by map count even if VMA tree stays unchanged,
-> therefore test checking VMA tree integrity can't use them. Use Rss instead
-> and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
-> double-counted.
+On 16/10/2026 11:46, James Clark wrote:
+> Perf's etm_setup_aux() calls cscfg_activate_config() and dereferences
+> cscfg_mgr, which can be done after coresight_init() has initialized the
+> Perf PMU but before cscfg_init() has finished while the driver is still
+> loading.
 > 
-> Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tearing tests")
-> Reported-by: kernel test robot <yi1.lai@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@intel.com
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> Fix it by only assuming cscfg is initialized if cscfg_mgr is set.
+> 
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
+Is this possible though ? The component drivers are dependent on the
+coresight-core being loaded and this is not complete until the coresight
+module has been initialised.
 
--- 
-Pedro
+Or the other way to fix this is delay the etm_perf init after the cscfg
+init, which clearly is the order of dependencies ?
+
+Cheers
+Suzuki
+
+
+> Fixes: a0114b4740dd ("coresight: etm-perf: Update to activate selected configuration")
+> Signed-off-by: James Clark <james.clark@linaro.org>
+> ---
+>   drivers/hwtracing/coresight/coresight-syscfg.c | 11 ++++++++---
+>   1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
+> index 2bfdd7b45e49..7e3c9844bc00 100644
+> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
+> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
+> @@ -26,6 +26,11 @@ static DEFINE_MUTEX(cscfg_mutex);
+>   /* only one of these */
+>   static struct cscfg_manager *cscfg_mgr;
+>   
+> +static enum cscfg_load_ops cscfg_get_state(void)
+> +{
+> +	return cscfg_mgr ? cscfg_mgr->load_state : CSCFG_UNLOAD;
+> +}
+> +
+>   /* load features and configuations into the lists */
+>   
+>   /* get name feature instance from a coresight device list of features */
+> @@ -581,7 +586,7 @@ int cscfg_load_config_sets(struct cscfg_config_desc **config_descs,
+>   	int err = 0;
+>   
+>   	mutex_lock(&cscfg_mutex);
+> -	if (cscfg_mgr->load_state != CSCFG_NONE) {
+> +	if (cscfg_get_state() != CSCFG_NONE) {
+>   		mutex_unlock(&cscfg_mutex);
+>   		return -EBUSY;
+>   	}
+> @@ -662,7 +667,7 @@ int cscfg_unload_config_sets(struct cscfg_load_owner_info *owner_info)
+>   	struct cscfg_load_owner_info *load_list_item = NULL;
+>   
+>   	mutex_lock(&cscfg_mutex);
+> -	if (cscfg_mgr->load_state != CSCFG_NONE) {
+> +	if (cscfg_get_state() != CSCFG_NONE) {
+>   		mutex_unlock(&cscfg_mutex);
+>   		return -EBUSY;
+>   	}
+> @@ -902,7 +907,7 @@ static int _cscfg_activate_config(unsigned long cfg_hash)
+>   	struct cscfg_config_desc *config_desc;
+>   	int err = -EINVAL;
+>   
+> -	if (cscfg_mgr->load_state == CSCFG_UNLOAD)
+> +	if (cscfg_get_state() == CSCFG_UNLOAD)
+>   		return -EBUSY;
+>   
+>   	list_for_each_entry(config_desc, &cscfg_mgr->config_desc_list, item) {
+> 
+
