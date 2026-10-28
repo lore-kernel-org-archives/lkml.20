@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793149880;
-	b=u6vgk/Pg+pJmlKZCXsj/1S0FZHsSvlW/xcU4ydEaOi/9ClQlhnd8Eu7MwfUVCeD1D6Ni
-	 Klj2xf3B5syYrKj1ApZDoi/oHM9Jj7Pt284gpFiEpHA7ApLD64AfnfoVEcYm9KFU74OqK
-	 Hq1Thpyq7ONISUYWBqJ/ncEd8dHPKYQ4g9OZP1URREiQE6DU9yg/FSHau12hEENNY0fmS
-	 NNYSshtVn3FdFigc9arFGZ0nRiQUuNOMLTqelcOVF4Gm9MF5gB9bmxZYM14He3StBe6RL
-	 r7U6eeFmjLNdQsyUQi0hjSh8Egrr/dsNtAlL6UpJsLekg4XwIN0y+GPj7BvRxXA+sIw==
+	t=1793149914;
+	b=aJs7otd5WKoDJRmdsoxNTdzhjJ76T5NwuXj1fdLG0EEMjKqYKYfSUzp7ZlIF8zUMNp63
+	 nTOXllUMe8IdcKxGcULS9ONU0MU9Q9dfii/BnLsDV39XTN7/MHQnwrLBdpR2w/BSyYNCd
+	 J30ECymhxvijSU5hfJX9oXTJwoYLSJxXX7fl9CFoIFleDzXO1byJtk43w8yEK+pHppCPv
+	 Kgf57VmUwOnNiE233SzzUSmSa+lNNuhkWUOrOeyjmukn5fSB8zwXXwoqGuJCm7Bc+MoW7
+	 3nuFD2gbst+SY535MHFdlYesrAsTbCV/dpI12sX0LFP2Mvzh16yvJ5wIhaG6ia1iqXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793149880;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=EOtsku+LVHgjVDSzts8zB9nHmLHcnjbYrT0Rhv2hfWo=;
-	b=a7i5mxIJ+w7wmRKlgiQAMQxauUi5rwEpCHuH2Yt8cPRmmIjYxbJmYYYqZgsOr85rcNHT
-	 qtV+ERb7aw7f1ji1rXzT0XQdK6VSpNDuifdc49U75d8QFR0yZLSpfgpKRCgFgy/FMIkW1
-	 wWZH7aWr+/Ow8De36aEezKAuB7Odbtxok5PnUrj6F5bnpUr3sH3Jlfq8IanIv9D4xDKMb
-	 wnTeDaKbFUQxFiqAUYMAYJfwNkRL3X2bo1YTgagUjhKNThHhLPO2mnxx+CsNeO+YkG6JX
-	 IJeMHUNBMCQ6MNThUs1/YJM+iQO0ahuhaIFwTzzSyZiWnhLz55SSuMCafPXgM3FgvcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793149914;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=yMMzs9Pna+jtafw1vf89IdntKCnHY1198130cQ5LmJI=;
+	b=RlTG8Grv6wPlz5sMdhAB5l2RRuUV8x2tpxIxaWuOFqdsb+akLYxkdHgQ3c4smX4NArwi
+	 7nuB/QNhovfLfxvWg96pfE6KmQmbNEID/Y7K+PiuZAQs+PzU4hRBjyEVC69YY+FsBuySt
+	 iau7usCrH0+l3ZvgePA7TqpQJSOAYu8KYM+sjlug3VPcUFGIBFeBgEqJW4si/o6XpfjTt
+	 tcvKV3gMKs+Kw2qz0zOOaGfMjPoK1TAI0lZ3ncwUoRK196Xz6dKyuVvJibxrMl+UQRaps
+	 Hmy2bnAczmgRbWt/FDjzxkwaG0cR79GpKIG7TWL8GY0tPBbOo8XTE2t3er3FaZA/GuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMtoJROn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WF3dVuBT;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB31D606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFF0606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEFF0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMtoJROn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E3E1F031E7;
-	Wed, 28 Oct 2026 01:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793149879;
-	bh=EOtsku+LVHgjVDSzts8zB9nHmLHcnjbYrT0Rhv2hfWo=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=IMtoJROnaq1YfxSQTAbZHMe+n/zn8GEGe15xlz2WaXKxMNCYINM0jOcVPVLasNALv
-	 01R10RMhYch7YmHNZNXIKljlPejqnF9UhxAjBT6rMJKgGbxHdLGmsG9MEH7u3yG94U
-	 Afzz7LgGffcMezJ0IzKzrEA4SgXkE+3SKxrrXU59ctjCWvjvJjJFcyxPClEHFjvnfN
-	 N05EaBlxbHtBszeBKCADTijisMdnGChGepmUy1pBTZgwAeH55frBeJpN77q5mBzHz0
-	 u/w/hgF4zbezhlt8kVoAx+uJysDC5EO576nEoeEVVG8axFdjt0hlfiosfa8w8wCJXH
-	 y2kxcX60d4l+w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 814523AA9413;
-	Wed, 28 Oct 2026 01:11:19 +0000 (UTC)
-Subject: Re: [PULL 0/3] xtensa updates for v7.4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261027225317.1561318-1-jcmvbkbc@gmail.com>
-References: <20261027225317.1561318-1-jcmvbkbc@gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261027225317.1561318-1-jcmvbkbc@gmail.com>
-X-PR-Tracked-Remote: https://github.com/jcmvbkbc/linux-xtensa.git tags/xtensa-20261027
-X-PR-Tracked-Commit-Id: 28722ed2527aa63ac1454013defe718c56032886
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-Message-Id: <179314987798.422389.9669441406376801972.pr-tracker-bot@kernel.org>
-Date: Wed, 28 Oct 2026 01:11:17 +0000
-To: Max Filippov <jcmvbkbc@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WF3dVuBT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793149914; x=1824685914;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=bRrSSI31hvxe5p4s6MhnpET0k5fmh93d4jplPxCRmPw=;
+  b=WF3dVuBTKQk+kN4ykeBbtFSTiCQblhuieRGDKoBwwPAhd8/WXS+2Y8s/
+   oLxK3QpMg2b/mbOyj6VF/of3dQVS4x/m1re0nr82wINcRewpWqSlaExUz
+   QSTmUt53MSv+BlNRsKZOJYvSLMqdzrGZds1fKfIO7kbsdL6dh9MWwzpI2
+   WiINbQNkhD9UraN61MfWAoOnLXJLBWe2eDvaPcGKgB1eUBzVcaWFOlmjj
+   5w22iN8pwP/MXM1YL30e1I4Y08Pq47IvKDsg0Sq/M7R+G0uCWkCY0wyye
+   GrmmT0z4sDhZDSRsyt/s2Y9aaKBETGI3uO7tWvvrLmXnw03suDo/j0sYX
+   A==;
+X-CSE-ConnectionGUID: ksDl42daQiqii7Jsyah4HA==
+X-CSE-MsgGUID: Kkn0ETjjQ424Z2DwU784NA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1870198"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1870198"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:11:54 -0700
+X-CSE-ConnectionGUID: Il5r4mD2TAqZL8hUeXkOWQ==
+X-CSE-MsgGUID: tqfZYdDyQzi7dyaNWBs2uQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4805966"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:11:51 -0700
+Date: Wed, 28 Oct 2026 09:11:48 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>, aubrey.li@linux.intel.com,
+	yu.c.chen@intel.com, yi1.lai@intel.com
+Subject: [linus:master] [sched]  333238da9a:  stress-ng.vm-rw.ops_per_sec
+ 36.4% improvement
+Message-ID: <202610280223.6ff1abde-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +78,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Tue, 27 Oct 2026 15:53:02 -0700:
 
-> https://github.com/jcmvbkbc/linux-xtensa.git tags/xtensa-20261027
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+Hello,
 
-Thank you!
+kernel test robot noticed a 36.4% improvement of stress-ng.vm-rw.ops_per_sec on:
+
+
+commit: 333238da9a193ffc58792995f3e951e4cb87bfd2 ("sched: Update time before requeueing delayed entities") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 224 threads 2 sockets Intel(R) Xeon(R) (Sapphire Rapids) with 128G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: vm-rw
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261028/202610280223.6ff1abde-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp3/vm-rw/stress-ng/60s
+
+commit: 
+  v7.2-rc7
+  333238da9a ("sched: Update time before requeueing delayed entities")
+
+        v7.2-rc7 333238da9a193ffc58792995f3e
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+ 5.011e+08           +35.9%  6.808e+08 ± 35%  stress-ng.time.voluntary_context_switches
+ 2.519e+08           +36.4%  3.436e+08 ± 36%  stress-ng.vm-rw.ops
+   4200915           +36.4%    5729669 ± 36%  stress-ng.vm-rw.ops_per_sec
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
+
