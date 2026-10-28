@@ -1,83 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180729;
-	b=o9IgOHwnmDiroanb0MUQ8kvilCuSAEjCUJc+LER543XEPHc0khMwCCXM1nvQLq5VIj5H
-	 rQv557Q32x9EaOGQXOvg2R4bWDAWI97vamILGfzV4OhyRaXak8PbA6aP2pocbW8h8mLCu
-	 oBeSFWRSJ7yR6/4IzsRP/2Ytl3SWt7c0N9QexrVfxX5wm8E75Ht2c1O9/F7JndQOeZ8ee
-	 k81PHWZl2Y0wKLXip+LZ9liqXpZ1NFIlVivdBIhCSp0d8/LwdYrVlGOTnDsnFZwF+atxZ
-	 P4i6uWauEZEwS2d4U/dQ47Wt8pXQlL9QOUWcDXrzJSk/6wOC1mVY+/ZBJAQFJfuqbkA==
+	t=1793180728;
+	b=ffh9/B1AkT4vGky80uLRYIZ2rDb33y+3LHdoaDpRRtLIwpNRNsbd15jM7kW7B2lSILIe
+	 fddHxr2Zmwtc0atXraiFaPV0Ygvk3PmouqepGxD+xP3wvzW6qtllzj5WLLumZqB3fRbag
+	 VbRuuBfKIoqDBSzoPmwp+UAkwmc3Rfzy9mL5zEP7lUs2LMxImoMs5OCDnJCVzpvaWRjHS
+	 96B58QA1BGxnWOgvkQx6QUO530P/bbyo5KX0u9lo70YPnknWlIIppT+cG09DQfzV/F49d
+	 TVlhZzB6eUNpL1K9pThmZZvzEAK3jCHt966Su98dIO4PEq+VkqtM36CZ3z7sFocMddA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180729;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=9aFo0L0jon7+/G9fXPa2tntqqWwFAcaJAliV5DNKX2I=;
-	b=4jOh6m45h3XPkI5i32U4jFA4ILyvSJiwRClBgTR7aLe1N9igV5IvpjgBUiN10aabvDVr
-	 xWB4EXy6920z1Vnh/1ADOsbDgD/fxpH152YBzCqLGFX29F/QJlTZp3z/giDF2DiiH6kPf
-	 VUPucGWOO++d5SmLkzW/+ZcNxOiT8s9A6Mk9HdCziRHoLTD7Hva25lHiSnP+lr1E2Ez0a
-	 XgVE3zFh1zKvachWUjCplRuuuQha35XTopKQq8i6Bzrlq6+u2z8YDRX8TONuCxX8ey1K5
-	 bZvm/BFyv2kUZr0tNmPdU7IXvJbyfBC+TGYoGIQoXlenR4YEKcIflSBPL3RkMF1MdLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180728;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
+	b=46zk/4hJYOj5+Zf2TKpPm9OJCkRzk0UHI/LuRNtvHrFaPwCGKFDXUy1NPBbbaM4xhIKI
+	 NLGOBpaHKOB1SvK7kP6Z5Ci0U8bkhI/gns/+NZfeHcsNcL/5jL0tEc7L7P+ylR6x0APfx
+	 D8+0inazoMJI/Gze9Kch3iMBBpr1M5jUpoijqefvHTiZV3JbXwBLblFl30F5nSP0qERkO
+	 b099b3X0kbenpTnTcnkDAlX5gNMPGt6+/3rvbrs65WdDg2brWNl+l4WtqJ9XON24/kZoK
+	 XBV59OP7naSSTvgnfbr1FIfkV7dK7EWJPWZf3JLAPPLfdeoebE1DP3iiQmaFK4bVVbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mreYnfeF;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uMHotoVx;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1048606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB5A606A31F
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1048606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB5A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mreYnfeF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793180729; x=1824716729;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cGgaP3xn8OVZ4sh0TYyonmgb9hzn2fCnVLUnNqvoSM4=;
-  b=mreYnfeFUU2db7sbnKH+7SqSvHHPAKcW97pFRloElVzcUbyXz3dDoiBz
-   fXxLZ+/oOdSMl+7OpSyCgQTfhxVfJ6TpsDYEKnMEiO70TAfU3475S778H
-   /F/9r1hTnanWwBKWC/sgNEGo+z6cR/iSUMNB/KLY/DTw+tI33mtk5vmYF
-   SCQmpKAzO1SZLUwgewmbZRqAPH7A8QIWe2zYUfz/KSRqOrPeELF+JMX+s
-   uKlnZlZGDIxQ9fQ4Z8bFZDi410gt68Phcqop3KCJfkIHJAFrEpvmZv6h9
-   GdyIpPtLKw7KyVXq7xpwiEnztViJaRJbggbxqzAlh7cjnJVbZlc234XkA
-   w==;
-X-CSE-ConnectionGUID: bq3BWEVgQoi/jfCfg/yWtQ==
-X-CSE-MsgGUID: u3df/SJLQJuotelYT4OdlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1927274"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1927274"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:45:28 -0700
-X-CSE-ConnectionGUID: mUyh5x4ZSYWR6L8bbgquqw==
-X-CSE-MsgGUID: FxKOblEDSm+28Ot7JQSR0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6609868"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa013.fm.intel.com with ESMTP; 28 Oct 2026 02:45:23 -0700
-Date: Wed, 28 Oct 2026 17:39:23 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
-	aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
-	pbonzini@redhat.com, chao.gao@intel.com, vishal.l.verma@intel.com,
-	kevin.tian@intel.com, chao.p.peng@intel.com
-Subject: Re: [RFC PATCH 15/15] virt: tdx-guest: Accept default DMAR entry
- during PCI driver attach
-Message-ID: <auHCy2idoZfKpdnC@yilunxu-OptiPlex-7050>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-16-zhenzhong.duan@intel.com>
- <de19ab97-c86b-442b-be23-c921c0831542@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uMHotoVx
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48bbb06e746so350751f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:45:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793180727; x=1793785527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
+        b=uMHotoVxO0t/VdyZy3UkWFC6sTzuIAYKwc55rVuXbV4v3la+IpZqUGhWOhsfYtjJkK
+         NhRSNsOLElwRX4WuJVY64Fd+Dhgv1nnH5JdOpTJgPJe7P9IW06fWoZ73t5iGcZinZZMS
+         YJjcbYiD8hVx/SQOw5UrO2DfcFdRGMt12Q4g2DbixQfB4WfsFjDmpt+XlZGKCQPVK57l
+         ES2qO3tXbiV004udPcGaHlamvbjOjNELbwPtTkSZrRuEaBUMoZufJHTJcSA9z2EtVL/+
+         6F0gbnuWZnw4409iFY7jAUfCGcDHfCzZoLVUBQl8PUzthI8okuQDMr2nLKvFf3rnZMXs
+         yxAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180727; x=1793785527;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
+        b=Ys1QLHKKSeHKwmtjJcRVhLE5fgw9SXk5AljHzsUbv138SP3HZWaTGB2L4oOMIyDciN
+         PmevTlVkn8OoUE3rjNysVnqrZA+3M7DBEqvbxSkGRzd9x1pJxVeKD8W1V+1Bxjv7pucV
+         Af2swYzk8opBqdmU1Scwt4hVk7ezTeQzqWu8wuPY9P6Z56+jMMYdPzeqWdTzLXxI4lZB
+         ekjrlD7uCKi1Sc+EXRsRod2ABoz+8dvt3ynk7x9n6bCzc3RixCHzX4oQ9O5Tl2d6JDPv
+         cy90y/tF3/V0++pp7IZA4A1cqvo11dNLZle26bvbeJ7HuJ0uzfYqHcZ12pjXzCAEwYyc
+         uXTA==
+X-Gm-Message-State: AFq9FYKH+TCdDBrbJaddn8URKwnUHTQ1+NKZfRZ3G01J3OCptaHBqSzo
+	ATjdNm6yk5P/s70cRA+TT3GlGJia5ESfTm8H4gzPGi+cOmo84UIQC+2cVJc1NFSl
+X-Gm-Gg: AYBFou36EOJp/nIUC3QhVNM5t6Pr0ofUaNgKKeAlxyqVInqAbXbdRBIU/RaIugUuyYT
+	9KY+3UYoH/9lbL87KPss6UlJd98sKRv1eyFj7BTSla25QC0afxaVly0chC3PVf3WoyLVJukmX7R
+	C+/Wrn6bidXnBRxtuDZL2n10RzitDtIsrKbjnzoA7ht77fpfBv3ZigXYyq79A+CrpuMsEaAmZcO
+	Xg1g2gLXpNwdM306C2nqSlGikwBR7mqelkPKEawpZqC3+DmpM00l5J3wF/klsDNaK9Psyqsa656
+	g+F60X78n8sYxVuxc2T1WjVMENT5z0oHdiPjE44Ioxf3dsKGGIis+SZ7ZrBDJOqU98t3uzhQs5P
+	TwDDVw+DYqSPHne9h7TAFWtCxcRJbt+cD2i1uALVpZ3BaY1JABV0HtGBzTXF5/AK7TmdhyJW/yX
+	633ycKhLqizm9k+JAbO6BjNQ5Q2JZQAJgNtG8yLV/0MA7ZXfVjEfe774oxYkGSNIa/uifZo0eoY
+	nkJYiuxQCAlsy7/I/cKVtZ/PtIGXQPzy1miaewPB15Xvrhp1Qijs6lQ/fMg5YBU82hmO4lV3IWs
+	JgbBdWTUwYWOKjnA/3J7c7NlQCCpcC9z3u44kDG15Z4SQfWDTM4EdYKBeHA3mHNHc8El/rv+NRt
+	6C2NteLvNDRiajVGkNckgvOU0TVX4pVmBoo8WKl3CXi5tXuk=
+X-Received: by 2002:a05:6000:46d4:b0:48e:dee:52bc with SMTP id ffacd0b85a97d-48e5d324c1fmr3314620f8f.0.1793180726495;
+        Wed, 28 Oct 2026 02:45:26 -0700 (PDT)
+Received: from GLaDOS.station ([187.13.215.88])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3da7sm28827539f8f.20.2026.10.28.02.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 02:45:25 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org
+Subject: [PATCH v1 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
+Date: Wed, 28 Oct 2026 10:45:04 +0100
+Message-ID: <20261028094504.4256-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,57 +99,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <de19ab97-c86b-442b-be23-c921c0831542@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 03:49:30PM +0800, Xiaoyao Li wrote:
-> On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
-> > Before a TDI can perform DMA to guest private memory, its secure DMA
-> > mapping must be accepted. This happens during driver load stage after
-> > MMIO acceptance and TDI activation.
-> > 
-> > The enable_dma callback issues TDG.DMAR.ACCEPT to set secure PASID
-> > table entry to present state and target non-partitioned TD.
-> > 
-> > The secure PASID table entry is cleared in unlock stage implicitly
-> > so disable_dma is a no-op currently.
-> > 
-> > Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
-> > ---
-> >  drivers/virt/coco/tdx-guest/connect.c | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
-> > index a9d41fd38b64..b328caac0a49 100644
-> > --- a/drivers/virt/coco/tdx-guest/connect.c
-> > +++ b/drivers/virt/coco/tdx-guest/connect.c
-> > @@ -427,10 +427,26 @@ static int tdx_devsec_run(struct pci_dev *pdev)
-> >  	return 0;
-> >  }
-> >  
-> > +static int tdx_devsec_enable_dma(struct pci_dev *pdev)
-> > +{
-> > +	int ret = tdx_mcall_dmar_accept(pci_dev_id(pdev), 0);
-> 
-> after going through the series, I have a basic question on guest function_id.
-> 
-> Per TDX connect API spec, TDG.DMAR.ACCEPT, TDG.DMAR.RELEASE,
-> TDG.TDI.MMIO.ACCEPT, TDG.TDI.RD and TDG.TDI.START all require guest function_id
-> as input parameter. However, the guest function_id is specified by the host VMM
-> on TDH.TDI.CREATE.
-> 
-> So how can the guest ensure pci_dev_id(pdev) is the value that will be specified
-> by the host VMM?
-> 
-> This is a strong contract, while this series doesn't mention it at all.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-I think the contract is already built for legacy VM. QEMU made the
-mapping between the gBDF & the device.
+The optional reset control is deasserted without a delay, and probe then
+proceeds directly to the first I2C register access. Since reset-gpio
+initializes its line asserted, this provides no guaranteed minimum reset
+pulse width or recovery interval before communication starts.
 
-The TDX guest doesn't need a new contract to identify a device. Instead
-the VMM tells the firmware what is the contract on TDI creation.
-That's why there is a tdi_id argument on host side TSM BIND (though we
-may refactor the interface later).
+Table 66 of the ST33KTPM-IDevID datasheet specifies a minimum reset pulse
+width of 1 ms and up to 50 ms from reset release before the first command.
+Choose a 2 ms assertion interval to provide margin above the minimum and
+wait 50 ms after deassertion, before initializing the I2C guard times.
 
-But yes I agree we discuss this in changelog.
+Associate these timings with the existing st,st33ktpm2xi2c compatible using
+match data. Apply the delays only when a reset control is present. Preserve
+the existing deassert-only sequence and the behavior of devices without
+timing data or a reset control, without adding Device Tree properties.
+
+Link: https://www.st.com/resource/en/datasheet/st33ktpm-idevid.pdf
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ drivers/char/tpm/tpm_tis_i2c.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
+index cde0b093ed58..8bcbc84815fd 100644
+--- a/drivers/char/tpm/tpm_tis_i2c.c
++++ b/drivers/char/tpm/tpm_tis_i2c.c
+@@ -12,6 +12,8 @@
+ 
+ #include <linux/i2c.h>
+ #include <linux/crc-ccitt.h>
++#include <linux/delay.h>
++#include <linux/property.h>
+ #include <linux/reset.h>
+ #include "tpm_tis_core.h"
+ 
+@@ -55,6 +57,11 @@
+ #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
+ #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
+ 
++struct tpm_tis_i2c_reset_timings {
++	unsigned int assert_us;
++	unsigned int deassert_us;
++};
++
+ struct tpm_tis_i2c_phy {
+ 	struct tpm_tis_data priv;
+ 	struct i2c_client *i2c_client;
+@@ -330,6 +337,7 @@ static const struct tpm_tis_phy_ops tpm_i2c_phy_ops = {
+ 
+ static int tpm_tis_i2c_probe(struct i2c_client *dev)
+ {
++	const struct tpm_tis_i2c_reset_timings *timings;
+ 	struct tpm_tis_i2c_phy *phy;
+ 	struct reset_control *reset;
+ 	const u8 crc_enable = 1;
+@@ -347,17 +355,25 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
+ 
+ 	set_bit(TPM_TIS_DEFAULT_CANCELLATION, &phy->priv.flags);
+ 	phy->i2c_client = dev;
++	timings = device_get_match_data(&dev->dev);
+ 
+ 	reset = devm_reset_control_get_optional_exclusive(&dev->dev, NULL);
+ 	if (IS_ERR(reset))
+ 		return dev_err_probe(&dev->dev, PTR_ERR(reset),
+ 				     "failed to get reset control\n");
+ 
++	/* Allow an already asserted reset to meet its minimum pulse width. */
++	if (reset && timings)
++		fsleep(timings->assert_us);
++
+ 	ret = reset_control_deassert(reset);
+ 	if (ret)
+ 		return dev_err_probe(&dev->dev, ret,
+ 				     "failed to deassert reset\n");
+ 
++	if (reset && timings)
++		fsleep(timings->deassert_us);
++
+ 	/* must precede all communication with the tpm */
+ 	ret = tpm_tis_i2c_init_guard_time(phy);
+ 	if (ret)
+@@ -393,9 +409,19 @@ static const struct i2c_device_id tpm_tis_i2c_id[] = {
+ MODULE_DEVICE_TABLE(i2c, tpm_tis_i2c_id);
+ 
+ #ifdef CONFIG_OF
++/*
++ * ST33KTPM-IDevID datasheet DS15011, table 66: tWL >= 1 ms and
++ * tCMD <= 50 ms. Allow 2 ms for tWL to provide margin above the minimum.
++ */
++static const struct tpm_tis_i2c_reset_timings st33ktpm2xi2c_reset_timings = {
++	.assert_us = 2000,
++	.deassert_us = 50000,
++};
++
+ static const struct of_device_id of_tis_i2c_match[] = {
+ 	{ .compatible = "infineon,slb9673", },
+ 	{ .compatible = "nuvoton,npct75x", },
++	{ .compatible = "st,st33ktpm2xi2c", .data = &st33ktpm2xi2c_reset_timings },
+ 	{ .compatible = "tcg,tpm-tis-i2c", },
+ 	{}
+ };
+-- 
+2.47.3
+
