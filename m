@@ -1,96 +1,169 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197167;
-	b=EdSzUOEXZzEQvppIjgN38ZB7MQuEvALplYdWh4MflHwWDWgbcqXFyHWLYCE3k6m1dwtU
-	 aV9qgLTRmSMWs5vhCHQo14P0fukTbum6pZEfWaZQNZ8EjToKh8W2u4sjPfNKXLRskUTmr
-	 C2e3FN+ZccfKdCA/ubednOHnVDXj7X3RyCtP3vV1KB83RXXh4NzjvYlLh0uAKa/xRyhML
-	 T8KSybMD/HzytWau5ZLXa47tqP3pBJxzvM36uy/LHZXLu/1jjEvgf3IUjIbAiKVHyu/g3
-	 hL2eBbsCajtCZDCE8PnK/V6BFQRFLR3K/LQmCE/wRo4LlfufA9xswEW5UmoZNhaxmqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197167;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wfVFawx1WEgioRP93JnhxZQvMdlK3X24yVnDut49gjc=;
-	b=BjAuKcCF5kCSaR2Gte7G0c1rEo18XydBpMAOSm6uFI8FsEfHqacS/XfLiKJ1BUfg1p1P
-	 PJKFCx0Ga96lfdR9tY+mIByek5ZH8a1yZiHjp+EWbTCRqkEZLCo8FSqVjH2FSG+b8U7nm
-	 twevOGz0I62i8Q19BGsblKqAWJBk+1EzxMZHV7qUiYlsfcUFZ4TPeynaoPt5V/8ohkKmk
-	 zzaPa57B3GdjsTmKhzQ2VdhqYl2bAIy8RNDMA9CW4NmYgdHBCTzBBcSF4+baPJr4jdnoU
-	 alSFjpkCHc1BlabFtePdRCbErKu7cu77yk3PUj2/g2NC1MR+bkWIZo6tswVAUftmEBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P1XA+VnQ;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793197166;
+	b=08rXgNG8NHfxLYKd5IZ/9sRplgVi5G4e6C7bG97ulA6DnfEMSu7w0h4fyup2f9QjhklR
+	 yF5K5vgVQXSlqTaUhjtYg36Q9AbnHd0nu4Xs6I2b6kdLg2PpZkg+UKBF1y9+cHdF9gPYH
+	 wT3pyw4FFN0kzb+sq2QO8mO6+t9qlGjkx+d662EuMur9mKKuL9t3GgZ/JPMz1S4xye9iV
+	 RzkGa4UY1kqGqQy03JK+ImLTLEU+vFmTKjv+nzI4VYfPKwSI0XEkffVKfCrWhHDFBnCGG
+	 R4ydfgAdlJ9HPcDnHOb6qWqBBy6rfQWwaU/P/4bbIFR2edaAgF/kfSpa7nVz+pLFEBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197166;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
+	b=eGgVzNRSFfgC4mMwzuB7ESonijOdcavj1grDxG4m68Qo6nfBznn+fMuQ04HZpYZCzWaF
+	 trB/B1bNDeMuv+Joyr/eogFkQOY7/MgYqnxVFXjIdcsDsydqSG1In0j9LSoTksetGXOhy
+	 jyRoAZdmzk28iRpB2rW8Li5oHWg1LjZGdTPu/UlNE5NXb2BjHI8HX/ZPcrrfjgz7NmlZw
+	 19dMoM2nKH6iLt+6pmwxvdqs5IEZU0LUpdICPg13O6GnzjXibkG1S2mgAFBvBhvYjZJLS
+	 Cxa3am2KOEUr5ZyPHwcEeaKwwVDEx56EhxaVWfc0gydc26LixPJUKc7DSc0jY+vAt8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7tRupHG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.33
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B5560A2600
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B5560A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7862360A2604
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7862360A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P1XA+VnQ
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so588560a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197167; x=1793801967; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wfVFawx1WEgioRP93JnhxZQvMdlK3X24yVnDut49gjc=;
-        b=P1XA+VnQPQCdb8cQtqtSQOiFR33H3BylLmzvaDP5xvfAoAO+KLEchzy0HUroGMJ9Yf
-         pLiTWLeBzGjv60XR0m8sHhiyZhBhnKcQFAwRP+a/UoOGkFHAzOvzxjmV8ZmVxrqb9BFe
-         UomSN2nAOriW2X8FvIegSKAg4hCpzjSG0l4pfmHg2R3tdvA8k8FrSlegrlsGYDI9pISc
-         RQiJq9VJ4S3ZH3JDGBI7i1S4x/1BXncfu0OaBN7EykMMbBBB6sbtzUSy+GFPNO0ZcFcj
-         O4iK9rkiCOpaj3zAQ87CPSqrVOoHRY2+REuScBVAWsgzbiNKjFw5zUQLw9YM/epf+8WD
-         y1xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197167; x=1793801967;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wfVFawx1WEgioRP93JnhxZQvMdlK3X24yVnDut49gjc=;
-        b=vvrq+/1yI2Al5Ai6eIyF4uQxZYhe86yTUxnpmLrDm0ev2cojjIStJ7pwkob4l/jhkM
-         Ej3p59b4ox0povjJAsz9VFZgr2UtKg4PzbV9z7RCir4xZcaAXO/TT6YaEA5DzaT12QYX
-         TDeWE1KSjPB+ra0m4yQvQ1d4E/mE1/rnknVeBXFcbe+Q9j4oVoZVjPOiCEGntGARfCVP
-         V26OtbnaJh+7dW+HnFy3EbPiZLv+EAItpDmT53FWopIDd0Qc560xGyGFyyKd9Sozk7N3
-         gPjOP5zhudPZZPB69xf2gS6RqWstLSNptxJ0JJCiog5JZ50eUqvBIohH45q3dFWq8UpP
-         AtoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0pXhRmYwxHg9gQyqOQ5WtvsC0gGhNuW6TTxYKzHYydDsWU+AgMg1ATA1v9iqTnPpcAt2mp0iPGfeQAwk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxMWrJvKf5zFbNHVoA4vrF6t3vsvwem7KCnVoBvHZD09dPdcKw
-	HW1sbDxYWtCwom5ko918kBTCOzDt6GlmjKAdfacLWy0pewnGyonJJAMixkvq/koM//s=
-X-Gm-Gg: AYBFou1ZD2MWgnkOAUr+kXk0HBJjYnNrgqJovDQdrNtpqU3DsToU2jRtSdG+kJhVCpt
-	rffnlOGUoSB4wrUnGhVZsPpk7N9Heb8VAWDfavSIrPVRFBTscXGTC4vTY04pVI8mSxw3Wr4TtrY
-	y+n1EEEPlwVgk+YLERpcfegnPIwZvZ+R+2/0y5KWqYa0kBv6f2qqjrUleC7ALDt7zWdxTOJU95r
-	0+1wU4ihdTLOvxC6j7/AmKvvqJXQCGR0Zk19rk1kmzexwKcn7cxrr4QhcIjUYQrWaO2OSBPPaJF
-	tLECnl/z37l++/LlL3zmWNs7kljIgTpvp5BzQ6V3Y2RzkHstJY4BQ54kLGgU5FKurS2yGeuCVXb
-	NLLLBpueM9y3+mkWOMrnxho5pSbeNMcL5C+LSpgfJd+cAYAcb2J50rLdjrz/tcmagTWGES+x04C
-	DqZBagJ0FfhnYIugN4QapR//JMTxLHhBEOYNqeLxk0WK9Ykl00nelMuQpkXJBkDiZU40ahjW2kd
-	DrikftGG1IPsaL3pRQsqU7DZsyZxAWQSgQOE7Sj1Rja6HTb1qsvTuH6rykfdUIZnC8kqBBCLHDV
-	zCBemqa3gsv95PaRZL3z8NWAJOCLngQETkjRxasfs/XPsZRwmPSnANrb9cjyVLn8v0o/
-X-Received: by 2002:a05:6a21:8217:b0:3e2:7030:9080 with SMTP id adf61e73a8af0-3e9023aaec6mr2697680637.47.1793197166415;
-        Wed, 28 Oct 2026 07:19:26 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6cf9489sm1300647b3a.39.2026.10.28.07.19.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:19:26 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: neo_jou <neo_jou@realtek.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Kalle Valo <kvalo@kernel.org>,
-	Hans Ulli Kroll <linux@ulli-kroll.de>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: rtw88: usb: stop RX work before unregistering hardware
-Date: Wed, 28 Oct 2026 22:19:04 +0800
-Message-ID: <20261028141904.8707-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7tRupHG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cKB4eKbRjH8P066G9rcmIGoDL8O/wfcjlL5GulEq80weJ5DgrpDLmB1OgkyOEIKy3f4Ay9+Bo5vdn7qfKSvTIbSpWm6UckXM4A+vFrK1FnZucPFIp0yLB3BM5AXsLH7GaA5LksKEllss/b9T9kiMgmrFtA38TxmPEFMM99JJjt2QjO9MsMhkPowrXvnVDqMflaf6lZSS728HWaOw17JAcVqIznLoBao9WC0ayADCaycW0d63o2CSf7+rLh7dDjr49q1yU0ixazBMhtpT86YdUJlK0k2cy9IjTZo/E8PrAgCU2vUL/wUfbpyvENYO2rnxaDb4nBplKuHd8oKNz6QbHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
+ b=hjqGd2R4vqCYFv8rtBjYZNMLOzq/DXcQ2s6k9imQdctRIZIMl4q8/AAvKY1+SnuUoI3EzNSs+6a8G7IgDZJ636s8VxTnTjx20aKuv6SSp8fTPm5GnWcBa2HwgHQAdSHrRKM8zmDubywaYh5g5SL93RpR0KvvdkpXYeNAuKuPL9YwK4/nEPpPbDNuVqVGGLRSR3tZSlIehIKYPOpRYec/WdfY5PThbYCENi3zUn3Xwx3vdUs2h1UFaWZWOidBhy9JDBdN7bEVLzBkDelR4idROefChsJakpd9x+g8EgeKEdFa4gVl6yMhsmcQVv7YyWC+f6ykSWDYJtzzGRDlrreu8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
+ b=K7tRupHGjzzfY+Z0nKx0q5/XytfoiS6pcHMdZR8v0Cm4AFmKKw9EnI5iYHQ8RjMnNkRchvVwv+V7s9ZGhz4/rWxdQXEsH+aSI1KgP5p4ZvcqRTr4pI73p65gnbDHKHf+9ihLadaDFd0K3d7a3EmBqVlTzfTDAO5UGsVH4Q+EYowrbIe7+1p8dsUSSIQGSFtEE/bIbnCpfdPekYMRemTlio/XNKdX17c76xbUcmIG0fWDbhLvsLlknXCDYsdv/821BP0na5xMtQmz8kLdt0+QfT/Ip5C/Qgx9KH10RiywQ6C0X5AQRjlu16mtY+vOEYX0yPs/9aquPo2NTY5Lhl7lYQ==
+Received: from SJ0PR12MB8614.namprd12.prod.outlook.com (2603:10b6:a03:47d::17)
+ by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 14:19:17 +0000
+Received: from SJ0PR12MB8614.namprd12.prod.outlook.com
+ ([fe80::fe0a:6e6a:fe60:a43b]) by SJ0PR12MB8614.namprd12.prod.outlook.com
+ ([fe80::fe0a:6e6a:fe60:a43b%5]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 14:19:17 +0000
+From: Shameer Kolothum Thodi <skolothumtho@nvidia.com>
+To: Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+	"joro@8bytes.org" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+	"rafael@kernel.org" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, "aneesh.kumar@kernel.org"
+	<aneesh.kumar@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Gavin Shan <gshan@redhat.com>, Vikram Sethi <vsethi@nvidia.com>, Anshuman
+ Khandual <anshuman.khandual@arm.com>, Shanker Donthineni
+	<sdonthineni@nvidia.com>, Mostafa Saleh <smostafa@google.com>,
+	"rppt@kernel.org" <rppt@kernel.org>, Thomas Huth <thuth@redhat.com>, Marc
+ Zyngier <maz@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+	"kas@kernel.org" <kas@kernel.org>, Kohei Enju <enju.kohei@fujitsu.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, Ard Biesheuvel <ardb@kernel.org>,
+	James Morse <james.morse@arm.com>, Steven Price <steven.price@arm.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>, Omar Sandoval <osandov@fb.com>,
+	Andrew Morton <akpm@linux-foundation.org>, Jinjie Ruan
+	<ruanjinjie@huawei.com>, Sam Edwards <cfsworks@gmail.com>, Douglas Anderson
+	<dianders@chromium.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+	Chen-Yu Tsai <wenst@chromium.org>, Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Pranjal Shrivastava
+	<praan@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "driver-core@lists.linux.dev"
+	<driver-core@lists.linux.dev>, Sonang Patel <sonangp@nvidia.com>, Ankit
+ Agrawal <ankita@nvidia.com>
+Subject: RE: [PATCH v1 7/8] iommu: Park TDISP T=0 devices in the blocking
+ domain
+Thread-Topic: [PATCH v1 7/8] iommu: Park TDISP T=0 devices in the blocking
+ domain
+Thread-Index: AQHdQNVJsIEcU7+R30ubkYzGNAOtD7cTTLzw
+Date: Wed, 28 Oct 2026 14:19:17 +0000
+Message-ID:
+ <SJ0PR12MB8614232EFC74C584CB44AD28AB6F2@SJ0PR12MB8614.namprd12.prod.outlook.com>
+References: <cover.1789010941.git.nicolinc@nvidia.com>
+ <0d57c59aa3cae891e9d3e07e939e13918a4e99a0.1789010941.git.nicolinc@nvidia.com>
+In-Reply-To:
+ <0d57c59aa3cae891e9d3e07e939e13918a4e99a0.1789010941.git.nicolinc@nvidia.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR12MB8614:EE_|MN2PR12MB4078:EE_
+x-ms-office365-filtering-correlation-id: ddae15b1-f915-43e5-a6a2-08df34fe735e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|921020|38070700021|11063799006|4143699003|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261021135927099003|261022075727099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ SNL/2U+6LZBx4p/dsDH3aXNOUU/lDzNxuxXiuc4q9h35CztBAQ7z7VHsR/QpIU4kHfER99bR4MMMj4A2Swpl2iJ08MbaUXiEaMA93FUy5JyYYTkElDGOlJs/bVkdHZHudTCE9ejgNGXcIxz7DyZfj821CgK+E0fxrgKIBhcJaBfu9rvlEcssxtkqriG1IfWMpN/r4mnE5woZE/KOm9ajILt46KPu7yH3TuESiRnrY2YDqMcOrKdirmfhEh6Yl4EkmhNTWVq/o5aYQwEdJcFipgy84qyTdLzowhDIie2gmv93Id2oqbc/5C8FhdzfkISslgIqFaulJI4kcRmN35bZ5jY5XDNSKuBiiGTJryvPatd7BJZbkqT4/2EuqIbKoXT4esq5+YWd0dVfkwWv6Gqz0wLcWtJs+uJAvgWJnO1NcwC8hMclEi6/qoUg2fk9ZXUZw7dJuVbF3xHOQkWnOaS9ebnSpbke2HrjLA9pcV6X3NX52HXJRgWj4cYGUxf9cTP8t7xtudCaAVNKhEWC1qSBtOVa1S97xkbcZ1j81yuENBka+jD5mn/mak5KummFRLYLQtVNjgzTTdXUU9JMYjjobD0sYJVVqf3skr2hzhT9q30BOuPspdxsSwirzPXa+I5xj1ifhAuV/Daxb/rGL67SbykTVRctY4WguBMajLUf9qcx/y57w17beF/nf29qrTTkE5AIJQRiYB/OCuIqI3X1ave/RarWNw8pkZ7YaU6EOEq5Up6MiePeKy2/cfqXALw0
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB8614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(921020)(38070700021)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261021135927099003)(261022075727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?pbFRXyOCu76o/P4zz5umYHVPrY/XeQ1BFg/ACkkgCfNIf0okHI2RUpGTCoZU?=
+ =?us-ascii?Q?BmMOSgdr5d3tN88bR726LU9d5qY6BXEZNR5vRTDpRYaDSc+v87UuypqZbK2j?=
+ =?us-ascii?Q?d36VsMdGdG0JFu+eujggxlRPpcpgFsTg+2J/Vn9gfFTjTs+fiP14F6J78MUZ?=
+ =?us-ascii?Q?Hw4w1Z5o9qqVcQGqM7FPcQAZM1EcRq0YrWCNzT8W6asuZQNdyrkPPRa8xrHl?=
+ =?us-ascii?Q?VtCbuUv9h6VeovzZWejoMEC7oGnn8p8Xs4kGItc7Zrs2LL8ihCROCFN8gRF5?=
+ =?us-ascii?Q?dOYPjzt3J/N49aCTeND5xGjlAud8cct0HV8M+RjvkUNV572XRL7ActDr9X13?=
+ =?us-ascii?Q?QHDOcjq7yKP2f0D6y+uKxWvj8Ncg+lMYAPCCwT4haGCLmsF/TiADojAptqZH?=
+ =?us-ascii?Q?fCMqRg7n6Z5ufAKIkWhxjGcjwYpOpVbDfPjpfiDeeRc4WINAJA9chAxaj84K?=
+ =?us-ascii?Q?88hCeDuueBYVt2qfaNC0FtnnxE/9WSoQGUcyDZjZLX1nltAVTXwcedLo5mD4?=
+ =?us-ascii?Q?IzuQBK+wqQXdx4k8n01NFYrvxJxvMQ6ht50fj5zQDtzeYXgcN8WRqkwkvhAv?=
+ =?us-ascii?Q?1EHEWQajjW0TyIfJswODpzNpqX3coQlXmOYxJ+W1dfev3QeAs7Zn/0cz+taO?=
+ =?us-ascii?Q?At0R2He2sSlZuHOAR6oyo6kOQunRROsDtvUftacLwcx3XbI5RZwaA56L25/E?=
+ =?us-ascii?Q?K9mQRlFB/Wr88hZeUBgbhT/tB/aDmzeVGOPWXO/w+9t9KCPKWKrZdxkgXsor?=
+ =?us-ascii?Q?tEwKVxMv9s5KMPEarrnP+FNs3xKBC0D2ylAQ0PFY0spJgAbXIe3Z77ZOO/xv?=
+ =?us-ascii?Q?IRKIyAmUbwlyCQwZTE8SRTsAYz8UhofD5YYohBDMS0EqD3tsJBR1ZCFZzSZL?=
+ =?us-ascii?Q?B9aEn+GoQy1VY7XQgvrJXJ/92FYJKj1pD6UnhGi+Cv2T/uzkcfKvAz84RfXj?=
+ =?us-ascii?Q?lz6caxTiWUAjpW+68Bm2KY9CVbMERArExgCdHuYKfzjK8GmZfLwUQUCcJF7j?=
+ =?us-ascii?Q?qoV5rvnhPGTSabmYDj7sleOto9T5yO1I8n7ogsRHBBcm0FTWzw0WLyACI3mi?=
+ =?us-ascii?Q?VxfFjqapESJtjD93BtQrbBEA/gqG7nUgSm4jWZOQJZvAWWWGkw+vljFJ/cEQ?=
+ =?us-ascii?Q?r12BzeUB2jFlH0lSeyFlNl7jU8+mCoNt+mmx8Ufgz2KIQt288NR7feK/uQd0?=
+ =?us-ascii?Q?hMUk3rdeOo9yFKI03FyqTwt0B6uaWvCZZ1Z745fJVQpPnFmo3XENZcNWN7WQ?=
+ =?us-ascii?Q?v1kRRmOC011ZkPckRTQTbgT5bmF34AlU3wwWrwrccsOG0uNMmeqngm8+cIBG?=
+ =?us-ascii?Q?5gn5RIRIIfvfaduG16raYytYqiSQ/hc8x7CBbzucdAbHbPvN6F+YDKDkE95u?=
+ =?us-ascii?Q?uBTT3T71L0Fv9q3v98L1cTudFOpI5hyMjIfBMycJrjf3owahMGzsRnghyiL7?=
+ =?us-ascii?Q?2CbjPFOXK3CACdD5pgjIKAMMOPC8xELa9mBXUPN63yv+hFrHyguYHUGU02H3?=
+ =?us-ascii?Q?fUkRPj1bZrC49MAi7QV22Y0gO0MadA+yBfbhwAPY0sgi2QRhCQpPSib1dlVv?=
+ =?us-ascii?Q?EnLKjGRwwMVIIivZJugIf7B7aWgSx1+tYFTjP1meWCl8LpSSMVWtTu1y3S8V?=
+ =?us-ascii?Q?inI3z/m9A21LxEajbRzT5qWcoz41/6oRce5VZ0RJlCTp5LkkjcYW0ManVLjw?=
+ =?us-ascii?Q?i0IcDFHAMOkq3C1L+rRkLNUjJNmXQQ7xeTQlRtV81c5d37WNmfbiaETQ/y9+?=
+ =?us-ascii?Q?421fd+eo8A=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,55 +173,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddae15b1-f915-43e5-a6a2-08df34fe735e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 14:19:17.1619
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JscbrpawtEr55MYsvM2Wyh5SXfI+iX4hs4nlG0WL+Asce+hgn4s2GuyVfCR1XfDCGvW7P7V5coInl4/xmGnpGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
 
-Disconnecting an rtw88 USB device while RX traffic is active can leave
-the RX worker running after mac80211 hardware is unregistered. A firmware
-event can then queue C2H work onto a destroyed workqueue.
 
-rtw_usb_disconnect() kills active RX URBs and unregisters the hardware
-without disabling rx_urb_work or canceling rx_work. The resubmission work
-can restart a killed URB, while an in-flight RX worker can keep processing
-packets during teardown.
 
-Disable rx_urb_work before killing the active RX URBs, then cancel
-rx_work synchronously before unregistering the hardware.
+> -----Original Message-----
+> From: Nicolin Chen <nicolinc@nvidia.com>
+> Sent: 10 September 2026 04:33
+> To: Jason Gunthorpe <jgg@nvidia.com>; Catalin Marinas
+> <catalin.marinas@arm.com>; Will Deacon <will@kernel.org>;
+> joro@8bytes.org; Robin Murphy <robin.murphy@arm.com>;
+> rafael@kernel.org; Danilo Krummrich <dakr@kernel.org>; Marek Szyprowski
+> <m.szyprowski@samsung.com>; aneesh.kumar@kernel.org
+> Cc: Mark Rutland <mark.rutland@arm.com>; Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org>; Suzuki K Poulose
+> <suzuki.poulose@arm.com>; Gavin Shan <gshan@redhat.com>; Vikram Sethi
+> <vsethi@nvidia.com>; Anshuman Khandual
+> <anshuman.khandual@arm.com>; Shanker Donthineni
+> <sdonthineni@nvidia.com>; Mostafa Saleh <smostafa@google.com>;
+> rppt@kernel.org; Thomas Huth <thuth@redhat.com>; Marc Zyngier
+> <maz@kernel.org>; Ryan Roberts <ryan.roberts@arm.com>; kas@kernel.org;
+> Kohei Enju <enju.kohei@fujitsu.com>; Shaopeng Tan
+> <tan.shaopeng@jp.fujitsu.com>; Ard Biesheuvel <ardb@kernel.org>; James
+> Morse <james.morse@arm.com>; Steven Price <steven.price@arm.com>;
+> Sang-Heon Jeon <ekffu200098@gmail.com>; Omar Sandoval
+> <osandov@fb.com>; Andrew Morton <akpm@linux-foundation.org>; Jinjie
+> Ruan <ruanjinjie@huawei.com>; Sam Edwards <cfsworks@gmail.com>;
+> Douglas Anderson <dianders@chromium.org>; Florian Fainelli
+> <florian.fainelli@broadcom.com>; Chen-Yu Tsai <wenst@chromium.org>;
+> Huacai Chen <chenhuacai@kernel.org>; Thomas Zimmermann
+> <tzimmermann@suse.de>; Pranjal Shrivastava <praan@google.com>; Ashish
+> Mhetre <amhetre@nvidia.com>; Shameer Kolothum Thodi
+> <skolothumtho@nvidia.com>; linux-arm-kernel@lists.infradead.org; linux-
+> kernel@vger.kernel.org; iommu@lists.linux.dev; driver-core@lists.linux.de=
+v;
+> Sonang Patel <sonangp@nvidia.com>; Ankit Agrawal <ankita@nvidia.com>
+> Subject: [PATCH v1 7/8] iommu: Park TDISP T=3D0 devices in the blocking
+> domain
+>=20
+> A TDISP T=3D0 device stays associated with its guest T=3D1 vIOMMU, yet do=
+esn't
+> use that IOMMU for DMA translation. Instead, park its guest-visible strea=
+m
+> in the driver's blocking domain.
+>=20
+> Linux's model requires a device to either use T=3D0 or T=3D1. Aside from =
+MSI,
+> it cannot use T=3D0 for normal DMA once moved into T=3D1 mode, since the =
+device
+> will have IOVA's that are not valid in T=3D0.
+>=20
+> Select the blocking domain before normal default-domain policy is applied=
+.
+>=20
+> Direct-map reserved regions are still fine, because the T=3D0 stream alwa=
+ys
+> goes to an identity mapping. Skip them here, as recording the request wou=
+ld
+> only refuse the device its blocking domain.
+>=20
+> Reject sysfs domain changes, driver-managed group attachment, and any
+> PASID
+> attachments that would install a translating domain. The state is uniform
+> across each group because all devices on a confidential IOMMU start in T=
+=3D0.
+>=20
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>  drivers/iommu/iommu.c | 49
+> ++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 48 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index 7ac6569af6773..d6b00e0373f5c 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -1238,6 +1238,14 @@ static int
+> iommu_create_device_direct_mappings(struct iommu_domain *domain,
+>  	unsigned long pg_size;
+>  	int ret =3D 0;
+>=20
+> +	/*
+> +	 * The direct-map reserved regions are still fine because the T=3D0 str=
+eam
+> +	 * always goes to an identity mapping. Skip them: recording the
+> request
+> +	 * would only refuse the device its blocking domain.
+> +	 */
+> +	if (iommu_using_t0_stream(dev))
+> +		return 0;
+> +
+>  	pg_size =3D domain->pgsize_bitmap ? 1UL << __ffs(domain-
+> >pgsize_bitmap) : 0;
+>=20
+>  	if (WARN_ON_ONCE(iommu_is_dma_domain(domain) && !pg_size))
+> @@ -1790,11 +1798,22 @@ __iommu_group_alloc_default_domain(struct
+> iommu_group *group, int req_type)
+>  static struct iommu_domain *
+>  iommu_group_alloc_default_domain(struct iommu_group *group, int
+> req_type)
+>  {
+> -	const struct iommu_ops *ops =3D
+> dev_iommu_ops(iommu_group_first_dev(group));
+> +	struct device *first =3D iommu_group_first_dev(group);
+> +	const struct iommu_ops *ops =3D dev_iommu_ops(first);
+>  	struct iommu_domain *dom;
+>=20
+>  	lockdep_assert_held(&group->mutex);
+>=20
+> +	/*
+> +	 * When in T=3D0 mode the T=3D1 vIOMMU must always be set to
+> BLOCKED to
+> +	 * release control of ATS.
+> +	 */
+> +	if (iommu_using_t0_stream(first)) {
+> +		if (!ops->blocked_domain)
+> +			return ERR_PTR(-EINVAL);
+> +		return ops->blocked_domain;
 
-LLM assistance was used to find the bug and review.
+How is MSI allocation handled for T=3D0 devices? The ITS calls
+iommu_dma_prepare_msi(), which appears to return -EOPNOTSUPP
+for the blocked domain. Is that intentional?
 
-Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-Fixes: 3e3aa566dd18 ("wifi: rtw88: usb: Preallocate and reuse the RX skbs")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.13
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: A W=1 module build with MODPOST passed on the rtw
-tree. Not reproduced; rtw88 USB hardware was unavailable.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
-Kernels before 6.14 have no rx_urb_work, and 6.6 also lacks
-disable_work_sync(). There, killing the URBs already stops resubmission,
-so the backport only needs cancel_work_sync(&rtwusb->rx_work) after
-rtw_usb_cancel_rx_bufs().
-
- drivers/net/wireless/realtek/rtw88/usb.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
-index 64e1c3420e0a..1d2759eb96bf 100644
---- a/drivers/net/wireless/realtek/rtw88/usb.c
-+++ b/drivers/net/wireless/realtek/rtw88/usb.c
-@@ -1370,7 +1370,10 @@ void rtw_usb_disconnect(struct usb_interface *intf)
- 	rtwdev = hw->priv;
- 	rtwusb = rtw_get_usb_priv(rtwdev);
- 
-+	/* Stop deferred resubmission before killing the active RX URBs. */
-+	disable_work_sync(&rtwusb->rx_urb_work);
- 	rtw_usb_cancel_rx_bufs(rtwusb);
-+	cancel_work_sync(&rtwusb->rx_work);
- 
- 	rtw_unregister_hw(rtwdev, hw);
- 	rtw_usb_deinit_tx(rtwdev);
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
--- 
-2.56.0
+Thanks,
+Shameer
 
