@@ -1,61 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180676;
-	b=H/bS6KP2rgSS0rnF6lSCH2nwYls2zsElzcbR/r7IR/GdqaIbq31iED/ei5iop33Ej8t8
-	 EI3MgxgIC6WhLERDwFTwwJrk30LVO/nouTcnFlk9uig/JMUneOEFlfa7/0AgMPQ6mAq3n
-	 0jevUJ6+gagQJeWn3/jFV8UsMMb8DdHPicgCEPO8+FeLQNUmIr6vdpM/9OMgWun54xMyQ
-	 +I0Sffffkx45kyybSPcRZ4q8LZazGuCDgjgP+TGf7R5stndm7LeqrelRy1ZOrfJ7KWQPv
-	 1Nv9s+S41GQe7EU71MNASKTCnG5FNSaaFIdn/HYqdABxhK4VUtG9Tl82j4i8uxFWlpA==
+	t=1793180729;
+	b=o9IgOHwnmDiroanb0MUQ8kvilCuSAEjCUJc+LER543XEPHc0khMwCCXM1nvQLq5VIj5H
+	 rQv557Q32x9EaOGQXOvg2R4bWDAWI97vamILGfzV4OhyRaXak8PbA6aP2pocbW8h8mLCu
+	 oBeSFWRSJ7yR6/4IzsRP/2Ytl3SWt7c0N9QexrVfxX5wm8E75Ht2c1O9/F7JndQOeZ8ee
+	 k81PHWZl2Y0wKLXip+LZ9liqXpZ1NFIlVivdBIhCSp0d8/LwdYrVlGOTnDsnFZwF+atxZ
+	 P4i6uWauEZEwS2d4U/dQ47Wt8pXQlL9QOUWcDXrzJSk/6wOC1mVY+/ZBJAQFJfuqbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180676;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=LrdgbXUa6z0Y+LQlvYe3uBNAKemA2wKtujkxyMRCSf4=;
-	b=dxXOr2CUvEWIva4HQyhv3nbYlbNmNM+uKjVnjPSo2GNbnuJAt8LwCVx4ZrCb5RCzHBTl
-	 8UjccNI8inTfNodkG/cEfqU511+2NcJKZlMUJPzzyw5rMTH9zI8SRV+uwWx2txTpWkpID
-	 fnVPAE5aPbolE9hqxEFf0IeI+6Rol8lWghJkimB/ssU0kO2jZD3d851W3j4q4QsulWmw3
-	 Gx22VM0pG6oaZImpOtJWymHpBfgAhKfGcU9vaJiXvXRKvZxLTXrdSd3IYuChf4prxabE5
-	 qTLLvyrpbB5Kxae/bfgD329EsG4zJGLnbeHJXxtxxTqSDtfYV5GV+KV8G1bB/yBmC+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180729;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9aFo0L0jon7+/G9fXPa2tntqqWwFAcaJAliV5DNKX2I=;
+	b=4jOh6m45h3XPkI5i32U4jFA4ILyvSJiwRClBgTR7aLe1N9igV5IvpjgBUiN10aabvDVr
+	 xWB4EXy6920z1Vnh/1ADOsbDgD/fxpH152YBzCqLGFX29F/QJlTZp3z/giDF2DiiH6kPf
+	 VUPucGWOO++d5SmLkzW/+ZcNxOiT8s9A6Mk9HdCziRHoLTD7Hva25lHiSnP+lr1E2Ez0a
+	 XgVE3zFh1zKvachWUjCplRuuuQha35XTopKQq8i6Bzrlq6+u2z8YDRX8TONuCxX8ey1K5
+	 bZvm/BFyv2kUZr0tNmPdU7IXvJbyfBC+TGYoGIQoXlenR4YEKcIflSBPL3RkMF1MdLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9Zptmwz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mreYnfeF;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7080606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:44:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1048606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1048606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9Zptmwz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD67A1F01829
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793180674;
-	bh=LrdgbXUa6z0Y+LQlvYe3uBNAKemA2wKtujkxyMRCSf4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=g9ZptmwzRLs6hFP0ri5PGG/VdS21dkgEUq8MSMOGFMv+llZiFjwZy03nLL6K3RGAE
-	 gFWRcjZRVQrIH+G9u41eBqWdRVDsLz+tHZ8K9AfxrletJ8ME5ty0y8BWzJXxAzSmN6
-	 C4JY9zJGxt6RKUbQdVqcazolhOePgXfyANE3znaARC6qT8qZY79qpHmGkgDcoLqkaZ
-	 CTuEXRS1euNXuQXCCI6N80PByHWzSWR/r/LzzuZIYNb8PXb9G9CU28p0lT/ZFj7ro8
-	 eURUyetIdDg4KR+dOp9FLDVxWtZdwCubP6YXIIxy8yUqrS9NIjfpYGjgABhwoKxWLN
-	 VHpQp6IoCIbjQ==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a595487d43so5635571fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:44:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzq/kXoHScBpzrhu1j24UXMhBh7GYF5FQ4Cb6VhDfTCOAMKn4EkmSn8vh4dQMEY8nKS9gnTzkXl9A1kQeg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkscW4aJe0IfU1rswIp6RhaF00L4R1rg/dE5eJjSmnKrFMj8x4
-	ZgvdnnIneEvp9ectFYac3hUSzaft4Glv1W1lGB4rFrTxyPDHWa/st0XZZxw3A1vDxOai2de1rYi
-	V/3WrDOI8qw8zRRzF8rJFRCDUYKBlOqS0Clp0P03lFg==
-X-Received: by 2002:a2e:a986:0:b0:3a9:7711:1cd7 with SMTP id
- 38308e7fff4ca-3ac9cfae41fmr4295071fa.23.1793180673415; Wed, 28 Oct 2026
- 02:44:33 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 02:44:31 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 02:44:31 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mreYnfeF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793180729; x=1824716729;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cGgaP3xn8OVZ4sh0TYyonmgb9hzn2fCnVLUnNqvoSM4=;
+  b=mreYnfeFUU2db7sbnKH+7SqSvHHPAKcW97pFRloElVzcUbyXz3dDoiBz
+   fXxLZ+/oOdSMl+7OpSyCgQTfhxVfJ6TpsDYEKnMEiO70TAfU3475S778H
+   /F/9r1hTnanWwBKWC/sgNEGo+z6cR/iSUMNB/KLY/DTw+tI33mtk5vmYF
+   SCQmpKAzO1SZLUwgewmbZRqAPH7A8QIWe2zYUfz/KSRqOrPeELF+JMX+s
+   uKlnZlZGDIxQ9fQ4Z8bFZDi410gt68Phcqop3KCJfkIHJAFrEpvmZv6h9
+   GdyIpPtLKw7KyVXq7xpwiEnztViJaRJbggbxqzAlh7cjnJVbZlc234XkA
+   w==;
+X-CSE-ConnectionGUID: bq3BWEVgQoi/jfCfg/yWtQ==
+X-CSE-MsgGUID: u3df/SJLQJuotelYT4OdlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1927274"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1927274"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:45:28 -0700
+X-CSE-ConnectionGUID: mUyh5x4ZSYWR6L8bbgquqw==
+X-CSE-MsgGUID: FxKOblEDSm+28Ot7JQSR0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="6609868"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa013.fm.intel.com with ESMTP; 28 Oct 2026 02:45:23 -0700
+Date: Wed, 28 Oct 2026 17:39:23 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+	bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+	aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+	pbonzini@redhat.com, chao.gao@intel.com, vishal.l.verma@intel.com,
+	kevin.tian@intel.com, chao.p.peng@intel.com
+Subject: Re: [RFC PATCH 15/15] virt: tdx-guest: Accept default DMAR entry
+ during PCI driver attach
+Message-ID: <auHCy2idoZfKpdnC@yilunxu-OptiPlex-7050>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-16-zhenzhong.duan@intel.com>
+ <de19ab97-c86b-442b-be23-c921c0831542@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,70 +87,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 02:44:31 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeK=BV6WEQNVC5wXo8giAgnrjtdROswXF8Py3BMDLZa2A@mail.gmail.com>
-X-Gm-Features: AclHuK-TgPLK5QfzM7dwlPZli1UwVXLAoH6m3aWG7qnH8A2NWOyXFwaC5rx4nH0
-Message-ID: <CAMRc=MeK=BV6WEQNVC5wXo8giAgnrjtdROswXF8Py3BMDLZa2A@mail.gmail.com>
-Subject: Re: [PATCH v2 00/12] clk: qcom: Add PDM GP_MN fractional clock
- divider driver and DT support
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	netdev@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de19ab97-c86b-442b-be23-c921c0831542@intel.com>
 
-On Mon, 26 Oct 2026 12:29:26 +0100, Taniya Das
-<taniya.das@oss.qualcomm.com> said:
-> The Peripheral Web PDM block on several Qualcomm SoCs contains a GP_MN
-> fractional divider that generates a clock output from the PDM XO4 clock.
-> The output can be routed to a dedicated GPIO pin for use as an external
-> reference clock.
->
-> This series adds the binding, a runtime PM-aware GP_MN divider driver,
-> and the GCC, pinctrl, and DT support needed on QCS615, QCS8300, SA8775P,
-> and SC7280. GP_MN controller nodes are disabled by default so boards must
-> explicitly opt in before the output pin is muxed.
->
-> Changes in v2:
-> - Add SoC-specific compatible strings with a qcom,sc7280-gp-mnd
->   fallback, map the 0x1000-byte register region, and document the PDM
->   source rates. [#Konrad Dybcio]
-> - Use runtime PM and pm_clk for AHB register-access clock management,
->   rely on the pinctrl core's default-state selection, and generate the
->   output-clock name. [#Dmitry Baryshkov]
-> - Enforce valid GP_MN duty-cycle constraints and report high-phase duty
->   cycles through the common clock framework.
-> - Add and register configurable PDM XO4 divider clocks and their public
->   IDs for all supported SoCs, allowing the source rate to be configured.
-> - Split the pinctrl changes by SoC, retain Reviewed-by tags, and combine
->   each SoC's pin state and controller node into one DTS patch.
->   [#Konrad Dybcio]
-> - Correct the SC7280 output to gpio60 and disable every GP_MN controller
->   node by default. Add QCS615 support as well. [#Luca Weiss]
-> - Link[v1]: https://lore.kernel.org/lkml/20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com/
->
-> The series is organized as follows:
->
->   1. DT binding for the PDM GP_MN divider
->   2. GCC PDM XO4 divider clock IDs
->   3. PDM GP_MN divider driver
->   4. GCC PDM XO4 divider clocks
->   5-8. GP_MN pin mux support for QCS8300, SA8775P, SC7280, and QCS615
->   9-12. GP_MN DT support for QCS8300, SA8775P, SC7280, and QCS615
->
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
+On Mon, Oct 26, 2026 at 03:49:30PM +0800, Xiaoyao Li wrote:
+> On 9/24/2026 12:10 PM, Zhenzhong Duan wrote:
+> > Before a TDI can perform DMA to guest private memory, its secure DMA
+> > mapping must be accepted. This happens during driver load stage after
+> > MMIO acceptance and TDI activation.
+> > 
+> > The enable_dma callback issues TDG.DMAR.ACCEPT to set secure PASID
+> > table entry to present state and target non-partitioned TD.
+> > 
+> > The secure PASID table entry is cleared in unlock stage implicitly
+> > so disable_dma is a no-op currently.
+> > 
+> > Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> > ---
+> >  drivers/virt/coco/tdx-guest/connect.c | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> > index a9d41fd38b64..b328caac0a49 100644
+> > --- a/drivers/virt/coco/tdx-guest/connect.c
+> > +++ b/drivers/virt/coco/tdx-guest/connect.c
+> > @@ -427,10 +427,26 @@ static int tdx_devsec_run(struct pci_dev *pdev)
+> >  	return 0;
+> >  }
+> >  
+> > +static int tdx_devsec_enable_dma(struct pci_dev *pdev)
+> > +{
+> > +	int ret = tdx_mcall_dmar_accept(pci_dev_id(pdev), 0);
+> 
+> after going through the series, I have a basic question on guest function_id.
+> 
+> Per TDX connect API spec, TDG.DMAR.ACCEPT, TDG.DMAR.RELEASE,
+> TDG.TDI.MMIO.ACCEPT, TDG.TDI.RD and TDG.TDI.START all require guest function_id
+> as input parameter. However, the guest function_id is specified by the host VMM
+> on TDH.TDI.CREATE.
+> 
+> So how can the guest ensure pci_dev_id(pdev) is the value that will be specified
+> by the host VMM?
+> 
+> This is a strong contract, while this series doesn't mention it at all.
 
-What is the merging strategy?
+I think the contract is already built for legacy VM. QEMU made the
+mapping between the gBDF & the device.
 
-Bart
+The TDX guest doesn't need a new contract to identify a device. Instead
+the VMM tells the firmware what is the contract on TDI creation.
+That's why there is a tdi_id argument on host side TSM BIND (though we
+may refactor the interface later).
+
+But yes I agree we discuss this in changelog.
