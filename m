@@ -1,77 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214948;
-	b=V4NF+ibM34pNF4doUWx6t8FCRD7lIK9e8mjaPuMMMl0nhLSLY55yojQ5sA4iwWLjwE10
-	 kYn4JRPLXlRKWnS7Vy2on9M5WW9k9ehZmlU7HvbqP2sbmJLWVVhcvrkdnSo+LDS0JVQ89
-	 lo2f2b9ccLEgNdw59U4XGGmGdntwcRTbl7D39O2PJYCAXZSvatX8zJpWtaJ5zFSeYepb1
-	 sTqCaT0QHydXb4m/flS1JKA/OF2HZ546Vibo/70ui8gA400pbpzvIZMtGP7OVf2OKc61H
-	 auTcYX9t5VKFRU667855cNgmM0Nyj2H7qEHzt9uGPV3Tp81JVTT4Z/Pn/+cJNsWi5mQ==
+	t=1793214966;
+	b=LoE2T0oMymMA+TyFWsK9G0ob2o1NX36w9V4AMYptNu4N8OZRJags4rjBJQACdl9rRVWW
+	 fo9+7ubs+7i9lFiXaG0KElj10FYTQsV8RIEl5SwxFYzpZlUXYeYTA3ko5RWDtYtckc8BX
+	 U9pHKT32Fh+ZmPnH4ovGr33pt976Rl2wqvac0/NXfoH/cccaD9bSNruksVXtJ2cmWFKpP
+	 4b6Edq6WOApZzK6Wkj9HOuDeU9ugY1vH6Rqn8Z1RuUoSAaJP0yQknFw27KE0YPvZRMKV9
+	 WUScb92U7YVWd8v/COzTjIEm1JtSEBXuulIe1Fnmlps+aB5ENjEWQCqdQuORaJJg+Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214948;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=blfPghdZI13T3uCclhGxzMQPkTNJyMCZwHiprQpcXKc=;
-	b=lbJZw3JqHbNMwVqTaSqHnLctM6T3ceinQecD2MImKZZ87vAhHGeEcKKz1cqOcTZUOuNS
-	 FABkCzPeSo7CiqAgJ4aQgqSFOCvaGty2mkztd9sY176XZc+DH6WTmr6610kMyfOk0UnU1
-	 8UjAgqGWyTalUcGIoDQv2forzUcrT9JJ504vEJm3BlTjeqY0bVylBtrD3uUVW3BfwEjmI
-	 eaR/UlxVIBvl7z4mrL1EJe7ogI69m/V6W+x7hP/TwOUdNEvM5uxd1lFe38+tDFJ1nL/9I
-	 LeI6CnPbLiUy2IIG+7sA4JPvlhg/A8Azrj/KcNzjlM7N646DRBrCI0Nkk6/fgv8t61w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214966;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=qGezakZ14m2S2fBQBFRj+wGiFP2dTv5zD8y12G0rUYk=;
+	b=2GZLSHDIljejuGewTekxce/iGkE7szgKFWKuWM4ZX/ZsnBIfOGOZCaro6m8c/OkGd2wr
+	 cEcYju55I4zutfGXYDjNEnBO+jwdy1P4ZX0XqAj/SwKh0Tul7UiY5m9DURY5Gedo6KcJb
+	 tyoLctwcxL1KmILcwk+5i6JXRdlpq4EclwtSn9bWc+za5zFf8xqrTx/Bafte0Eo1IBLDH
+	 NaMbYixSQOE99KrCeiX1qpOLtVYbkD+Gja/GtBfF1G3SbddEZrzcTu9dg7OogBUpgY4hp
+	 QXgvICzkwEuodKVdes5bFhPMhU1JXKDFbQWS4+1bOF44C8ylGyLtxj00Sx9ysu2fMBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Q1UabqJZ;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WTpmk2h7;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AA7606A324;
-	Wed, 28 Oct 2026 19:15:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55AA7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9C5606A31A;
+	Wed, 28 Oct 2026 19:16:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF9C5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Q1UabqJZ
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 0DFDF21F6D;
-	Wed, 28 Oct 2026 21:15:43 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=blfPghdZI13T3uCclhGxzMQPkTNJyMCZwHiprQpcXKc=; b=Q1UabqJZYWB6
-	rR/qW5A6C8gHy2zdDxxoRuUmNhzwBJ3k7YLNGeo6D3RE88XT0mvENLa+FKxvJY1A
-	1fk0CgJqXvolBR/wzJ5eSm+zvI9YltEWfM9CS0DZLrnd1GMinP8E2xqBi7tCaDT8
-	+ovBrfo6/ejTUfNfBA1vjR82YwVWS06c1YjoFvZ4f/ZXLdT5zPfoVq9jAkrbWLuh
-	ugebE9Mv8WOXfGTirMWj4zMO37kaqVQy3TMTL4NYoipGZOJWZImm/oZY2ts2HQCn
-	AFaI07i9jxL/4MtV78KAGScBEPDg0L9b2ZEtp1D1Q3XNJ/fojX4Gl9V4acDg0h8G
-	dxXMb9fxfWa7IPenBkerY23ykBM3Y0j+VlRBUCScD5HFctSLkRGSgWKwZzisTG2u
-	1Ff6isz7DNJ5mr+yc0fKNS1ScO0a7CjJIqLF06BZ9wTW4j+wQrfYLZAWc0uahxJ8
-	lgijjtljAwgKv15hmRNu2fnd8aflYf2mnk0/qwi6i3XpJFJcHn/hZ/x6V6wdtXDu
-	Mbgq4kL1b4KIed5ub+DN9bjEFaAjKv4JpQCbuzngqrwoEJJ1oDHPmFx8bkAqy8Ek
-	sbgFJiww11H0WNMdhH8H3B43xya8kl23i6EPHZgRuuSXqrHB4IcsjxJ0D06stylM
-	dRv+QGvLih44JabwHQS5XuUI3H95Axo=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Wed, 28 Oct 2026 21:15:42 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 68FC06044D;
-	Wed, 28 Oct 2026 21:15:42 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69SJFYVC057702;
-	Wed, 28 Oct 2026 21:15:35 +0200
-Date: Wed, 28 Oct 2026 21:15:34 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Linkui Xiao <xiaolinkui@126.com>
-cc: horms@verge.net.au, dsahern@kernel.org, idosch@nvidia.com,
-        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-        pabeni@redhat.com, netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
- sysctl_sync_threshold[0]
-In-Reply-To: <20261026083708.617278-1-xiaolinkui@126.com>
-Message-ID: <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg>
-References: <20261026083708.617278-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WTpmk2h7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793214965; x=1824750965;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rRZl7q5Yb7g0I0jNr9cXRIGHWPDX6gfnH7Raa8Tf3Aw=;
+  b=WTpmk2h7GCigQjqCLBxWyahsrnr2uqPKkkZVDaJkHcVaZfxrQuljiUDf
+   cjqYYVTz3cNpH/1ODUzZXSwnyqMBJMPFOx34unWGoNcjkyCZjnz03e1f5
+   qldEzfIyf8kIRaPqHJGEcItNdR+8zExSx7l6K5MD2t85HLQoHcy9mEUna
+   ftI61v+YNp28T8hVPNUZXr6jQ7Y8Y8Dif8HrjU976ftNCKDPX/9yuopkh
+   yS8JQj6Ziwemod8q4aZhUymOvAz6FaXJ798CWNxr+l4Rgsb2L0z1CrDzQ
+   C8H2n/FgSqZrZ03N3bL2vg00Xrb0ysZcLiPguXUrpgyU9e+bBjAuWS2NH
+   w==;
+X-CSE-ConnectionGUID: 1x4qVIq3QQiCT/9xlP9y3A==
+X-CSE-MsgGUID: 3vvemW/HRhK+k3s0oxfnyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1859741"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1859741"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 12:16:04 -0700
+X-CSE-ConnectionGUID: 20RWCkcZQhGqvEM8MSfJZg==
+X-CSE-MsgGUID: FZXQX+YnQMKd+y8FCbeiDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4987771"
+Received: from iherna2-mobl4.amr.corp.intel.com (HELO [10.125.108.227]) ([10.125.108.227])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 12:16:02 -0700
+Message-ID: <c57c45bb-5047-4aa9-9f06-6ac5f36ff3ce@intel.com>
+Date: Wed, 28 Oct 2026 12:16:01 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,71 +72,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org,
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, david.quigley@intel.com,
+ lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
+ cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
+ James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
+ qinkun@google.com, pgonda@google.com, jic23@kernel.org,
+ alistair.francis@wdc.com, ankita@nvidia.com, suzuki.poulose@arm.com,
+ kas@kernel.org, rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+ dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
+ peter.fang@intel.com
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
+ <20261027193629.GK1685504@ziepe.ca>
+ <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
+ <20261027234658.GL1685504@ziepe.ca>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261027234658.GL1685504@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-	Hello,
 
-On Mon, 26 Oct 2026, Linkui Xiao wrote:
-
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On 10/27/26 4:46 PM, Jason Gunthorpe wrote:
+> On Tue, Oct 27, 2026 at 04:09:19PM -0700, Dave Jiang wrote:
 > 
-> sysctl_sync_threshold() reads ipvs->sysctl_sync_threshold[0] from the
-> packet path without any synchronization: ip_vs_sync_conn_needed(),
-> ip_vs_sync_conn_v0() and ip_vs_sync_conn() run in softirq context on
-> behalf of ip_vs_in_hook(), ip_vs_conn_expire() is a timer callback and
-> ip_vs_proc_conn() runs in the backup sync kthread. The only writer,
-> proc_do_sync_threshold(), updates the array with a plain memcpy() while
-> holding ipvs->sync_mutex, a mutex none of the readers ever take.
+>> There are two issues for TDX Connect. One, the device info is collected at
+>> SPDM connect (TDH.SPDM.CONNECT), not at lock. TDH.TDI.BIND only returns the
+>> interface report. So the measurements a TD sees at lock can be from well
+>> before the lock. To get measurements taken after the bind, the TD has to
+>> ask the VMM for a recollection with its own nonce.
 > 
-> Commit 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-> already recognized this race, but only for the second element of the
-> array: "As the sysctl_sync_period now can be 0 use ACCESS_ONCE to avoid
-> division by zero". sysctl_sync_threshold() was left with a plain access
-> even though both elements live in the same array and are written by the
-> same memcpy().
+> IMHO measurements taken before lock must never be made visible through
+> this interface, it defeats the security property of evidence within
+> the locked session. I would expect the guest kernel TDX driver to
+> prevent this.
 
-	Yes, ACCESS_ONCE was used to solve possible division-by-zero 
-problem, not to solve the data race. Even if memcpy is converted
-to 2 int copies on some archs (eg. x86) may be it is time to use
-2 WRITE_ONCE instead of the last memcpy. Can you include this
-change in v2. Post it when net-next opens again by using nf-next tag.
+Agreed. I'll change the guest driver so the lock asks the VMM for a
+recollection with a nonce the driver picks. Each lock then costs one
+recollection.
 
-> A stale value is not dangerous here: the element is only compared
-> against a packet counter and stored into cp->in_pkts, and an aligned int
-> cannot tear on any supported architecture. What the missing annotation
-> does allow is for the compiler to reload the element, so the two
-> comparisons in ip_vs_sync_conn_needed() can observe different values
-> for one and the same packet, and KCSAN reports the unsynchronized
-> access.
-> 
-> Read the element once with READ_ONCE(), exactly like the adjacent
-> sysctl_sync_period() has done since 749c42b620a9.
-> 
-> Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->  include/net/ip_vs.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 9a83bff32569..5aa6a94ed104 100644
-> --- a/include/net/ip_vs.h
-> +++ b/include/net/ip_vs.h
-> @@ -1353,7 +1353,7 @@ static inline int sysctl_conn_max(struct netns_ipvs *ipvs)
 >  
->  static inline int sysctl_sync_threshold(struct netns_ipvs *ipvs)
->  {
-> -	return ipvs->sysctl_sync_threshold[0];
-> +	return READ_ONCE(ipvs->sysctl_sync_threshold[0]);
->  }
->  
->  static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
-> -- 
-> 2.25.1
+>> Second, a device may take a runtime firmware update of equal or higher SVN
+>> while its TDIs stay locked, unless the lock sets NO_FW_UPDATE. The
+>> TD isn't
+> 
+> Sure, any of the live update things are not really relevant, the
+> evidence can change asynchronously and without notification, so we can
+> just ignore the issue. If the guest opts into live update then it can
+> only rely on things like min svn.
 
-Regards
+makes sense
 
---
-Julian Anastasov <ja@ssi.bg>
+> 
+>>> I'm a bit puzzled by this optional challenge concept, I haven't tried
+>>> to read SPDM spec yet, but it really has a way to omit the challenge
+>>> from the reply? It doesn't just replace it with 0 or something?
+>>
+>> SPDM puts the requester's nonce in the GET_MEASUREMENTS request, and only when
+>> the request asks for a signature. The MEASUREMENTS response always carries the
+>> responder's own nonce, and the signature covers the request too. An unsigned
+>> request has no nonce and gets an unsigned response.
+> 
+> Returning an unsigned collection seems like an interesting use case,
+> but why would you want to do that in the first place?
 
+I don't have a use case for it. That was answering whether SPDM can
+leave the nonce out.
+
+> 
+>> The empty challenge in my provider means something else though: don't
+>> recollect, return the evidence collected earlier. So it's less "omit the
+>> nonce" and more "no new collection". Maybe that's better as an explicit flag
+>> than an empty challenge?
+> 
+> I'm not sure 'no new collection' is an especially useful thing. Since
+> the kernel won't be validating the signature you still need to pass
+> the expected nonce from the prior collection back to userspace so it
+> can check it.
+> 
+> Is there some specific use case for this?
+
+Getting the lock event's evidence. With the suggested lock change above, the
+guest driver collects it during the lock. But the lock is a sysfs write and
+returns nothing. Userspace still has to read the evidence to appraise it before
+run. The device was already locked when it was collected, so the read needs no
+new collection.
+
+Userspace doesn't need the expected nonce passed back. The guest driver picks
+the nonce for the lock's collection and checks it before publishing. If userspace
+sends a challenge instead, that nonce is its own. The collection's nonce is in the
+evidence in the GET_MEASUREMENTS request that asked for the signature.
+
+> 
+>>>> 6. tdx_attestation_test's discovery_and_construction_fields expects an
+>>>>    inheritance chain of 4, but the TDX family inherits ctlv-attestation
+>>>>    directly, which gives 3. In a real TDX guest it fails with
+>>>>    "Expected 4 (4) == ctlv_chain_len(self->dev) (3)".
+>>>
+>>> I would have naively guessed this should inherent from some SPDM family?
+>>
+>> The TDX family is the TD's own attestation (TD report, Quote and RTMRs), with
+>> no device or SPDM in it. In wip_attestation_all_1 it inherits ctlv-attestation
+>> directly, so I think the test's 4 is what's stale. Jiri would know for sure.
+> 
+> I think TDX report/quote/rtmrs should be a different familiy from TDX device
+> assignment SPDM. They are completely different things.
+
+Yes. That's how wip_attestation_all_1 has it, and the device side is the SPDM family in the POC.
+
+DJ
