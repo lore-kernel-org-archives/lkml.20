@@ -1,110 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199059;
-	b=OEJA17bCHurl5GpsxYeyHwiSySWf9plSHZBYb1Gr6Nt5p0KGh2LF7duVYyHNPzTMwcG5
-	 NjkkKoz1s4vIfNy9Zvcfwf8ekEucoSAVZoD7CPsonbH6df6eyCA7ncU3D8B3jN35wMdby
-	 0nlbSPUbCHbOtkV5ytXKvmEUce0VYaxBYpg7/6YeyMKy31JloKhKUHCsA1/Dc0cCqYQQQ
-	 o12PR1hCx3O4AJA/WO+Lkgz1gZJ4hlwfBaq3XfPB0CWiRQSjg4I4jgQeG49xj0xt5oyE2
-	 xLg15lZlKbp4Fjl0E+wgY+sFyzZDWfK4DUeeGWMaRye9hgqI9ioCpasVHndbqL0kdMw==
+	t=1793199071;
+	b=3XOivYT4dqMC7a83JEr02uO3Z21yyrgZUlWPbpFQynj9anHAtw9Il0GPRxZNSgWC+PQs
+	 IzGdC8+13M5uR6SBomfO53eHOhP2st8YzQBbWbOfhXUGTAvWTQgBLNZA+0rKet/uUmbwk
+	 rHKE3k0atE91752fCNt5XDUPxdlUNk0QM50LqJcqcFD2vQrRvuYbF+XSFXkTS9sA5l37W
+	 5Xxzph8qgM/5V04PYVZoVX2fFc3Oo3cUmnCcydm2Soh/ul/iK+dPl/szcvGM1DaE1cUyw
+	 w3aWOQDjqXWz529VKR4Yo7IN5dMgRQP0Vm22wUnWn/i30tS5VFkAdCBDHPUu71cEtcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8g9t7ALU7n+7VW9gQDZGowaF3x6SIEajb/2Mc6wiGZg=;
-	b=GhEHhCLLgr4AlmcVoqJaa1M91ZdJSfIcOKOnQkpYy8hShhj1FgZANOpirK1VAvu5SeAP
-	 S79M88ar5r5xs/9/QpDNNqyJBANvA6gZI9rf4w+PMohZxWMwrDoJ034LQPUZDvJCRpC0b
-	 G6+EV+Gj6gTO9c19IcLIHMQqH+PRuu71PwUAUeAECYV7UuO29JsS85C6JgseykNQayEG9
-	 zsnKs27uAjgXT3XiE8rUVs5n7xdPb/jVqg/MkTeTkfCt/70/cJkESxcskxcJ6Vm4VzafL
-	 a5f7yU35xJ4nr2ruIodrcjl0WJdcDDWlLdVpCjjZ45dRs8UIcwmSrlrx7FpwHIlhg4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199071;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ug43qQts6gDuZkuchi5FUzqrEwboOJCBBSHYXZMY/S4=;
+	b=xn3E7bSoUwMrgC+xYG7nkM69JnF5reEdvERgPQrV2GrcxoV35f9M8qpG29IwG17XCOV8
+	 bdWWm3mQvPZzayQY7Mqrz6lFUW3YoaprFZCAZSHULYOf05zyP0tYhJ/eP5EaB7vacrbln
+	 kfwpUXeaP2xjqAOf5eXNuE1Go1sN+Nsc42Nk1Bwut5Mov0HI6BqSJd0T1AQlvdarkEXKs
+	 /PWXuliCJpo0tyqXBtdb2a0pP2W0i1ruUHjW9S7kD5vmHGh/JYXBzUEXGF5RX35ZXDrq3
+	 +Cpb61P0CvXpRsjDLJIsN9V1se5FJsJ4OBnGIaPAHtPCGd8Nlg3C5V2DhOJYkNES11Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMluKOLv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175E7606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175E7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso9685155e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:50:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793199047; x=1793803847; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8g9t7ALU7n+7VW9gQDZGowaF3x6SIEajb/2Mc6wiGZg=;
-        b=ZHI+PnMYUO4N11z48C45pvIZIJWpMQLYtqa/tXxi4VJPtckafE2C8vZsmMqf8WSay0
-         WkP8vzXw7KUTk+v36CyGXajDZqG5by6+RXck/9D3EACNfx4yeyKYYQCGbZWVuUnG8rUY
-         5qLQe1LGWxfOMYFobc3VGIHrV+AV15yetvd7tYKfqNhVaNLNUnVgOeygrUQUPRbwHDiW
-         lcID/IWXFCzR53WbNv/a/lMfGMt8NtxMv4qhxOQ+gXhSRnRitG8FLFKqq0+vRsgTDT10
-         G8Oqf0Udam7YRK2gHQ+5l/UpMXkarOzmpwiZriOVr29JvpcbNa84+vP5mTUlSdzwCT8R
-         2qnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793199047; x=1793803847;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8g9t7ALU7n+7VW9gQDZGowaF3x6SIEajb/2Mc6wiGZg=;
-        b=UXyQG5tUlmLf/Yk+oVdbcUKgpkw9OG3tbT97QYJYFSnYdGzyR+DGO5K2dcoJgg86Ef
-         Ue5GQF+sm5htMykY+B+LVDyMN5Vzb/26W8oPWH8TYoY5sEbP4uNYsiuIvYUcBobisJ/z
-         bokWiapVYqLzjnd72FbDB1SKOk2duJSLIzYy5Fky0QzWsNRjOI2EuCbVIVRqTUIxICDS
-         j26YyU+TTPGHTYAh7xpgarUtvpBP4JEcJxkxhZlyBZfNFLnBkenLNlghy+ctfe2DmOeE
-         4pYM9iCWXEv5QcebF9LslX52/vpRkpV6lhJF3C8BuTYYmltsjr1gLCO2G8deHu/GzlhH
-         IdQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaHZTZq3G6wfEQf/2djxtJZtapD8LsQhHWfGr3nLlCMDWD5xT4hNqo1tiDX4yeShn2PIk1pKNgQWj0pVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2oYfmRElWtLVd3hHgx8v4oQek+RdUZKPTW8yfctVaYwHcx04y
-	ZNmg4AUzOFNf0GMevE0v5RDkvNwUQKWI/v6NCCFThNn6b4sg7uL8Pcfilnnqg2bZ+Hc=
-X-Gm-Gg: AYBFou14EVh9Ogj6K7FbiEEW+awknrfHGu1oRAwTt1HjUxpVR54sn+SPIsUwQLMBl6H
-	XyV8wqVCwRqUeZvVWxEfmfb2WRTllIaO/C5z3gHwN08V0utOdAwyZMuchoUCgPjCVB2JZhXUe7t
-	EljcIKwKrRPoczCVh9uPSBZpqXTDkX6bhOAkbY4iOFPe1VtYI8CrOjiKOp6gnBKj5hf+YdjxHco
-	wvvDZgIRfXuhDMYoRG0ddLKbesjnZxHnLkIvgcr8ojudIKVn7qzbSmT5Uu03m8I2idWERxNUJv3
-	bDYop75h4pfxa3BxUR/Y1R3IiP91Jma9CHjvH8f98fWRwNuMucsktJwRJMnqijbzmvcN2bdMTvn
-	fgI9YvtyE+8e7sRdpbAI7fepXja1KzAP84jUzy2TiI/fYNTHJzgP6GEk3Oeq5zh8+IkEBaR6157
-	Q4mgirt3Zv9fDqrlp7fpesC/dMQd7eLo8Azyv/zM+Lr5Hxey9BoYcORAoRJWBKYjkLprtpvVN/L
-	O1hT7xQTFR733GQY6IsMxAw6nQdCHideti/rxAtaS2umk8Ur4JFiboOmNvI1b/1PGxFOiUnO3ph
-	QAy0JGQXsiTL/PCZQlcNLQuN/9KL/fGkZxw=
-X-Received: by 2002:a05:600c:3510:b0:4a4:7a8d:c436 with SMTP id 5b1f17b1804b1-4a96667dd75mr52332595e9.11.1793199047357;
-        Wed, 28 Oct 2026 07:50:47 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a97cebf858sm57250745e9.12.2026.10.28.07.50.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 07:50:46 -0700 (PDT)
-Date: Wed, 28 Oct 2026 15:50:44 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Alex Williamson <alex@shazbot.org>, 
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Bradley Morgan <brads@mainlining.org>, 
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, 
-	Richard Weinberger <richard@nod.at>, Thierry Reding <thierry.reding@kernel.org>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <auILBqh9Ccv7ztid@monoceros>
-References: <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <2026102437-vista-unsoiled-b089@gregkh>
- <at34UOuYv3NtX36R@monoceros>
- <20261026225950.GD1685504@ziepe.ca>
- <2026102849-turkey-series-ac07@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A23606A31E;
+	Wed, 28 Oct 2026 14:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMluKOLv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465101F01828;
+	Wed, 28 Oct 2026 14:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793199070;
+	bh=ug43qQts6gDuZkuchi5FUzqrEwboOJCBBSHYXZMY/S4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RMluKOLviz+Ct3J2Wy3Xk3+fpXHwBN8wkd2rTQFVpk8MDEY3An467I6G1waDkLfUb
+	 VkGRs+h2B24EJvrK0ySisYsWH+cQbnAUlxksG4EQRljv43zjUYjw8f6Z0XfSO38yxF
+	 xAFii0j6cA3Ug37MbkJTm67Xg6KVeH/0hfR8R1CIz58f/vGWi8QA9c1Ke67u+MODf2
+	 KJp32HqJMqsSJYYEQ3z2VpFioZ6wGVBHcdFfv0jaIQMZP6aMBO21RB68+MWDxFumal
+	 ZMPd0LXmnTCPjSOQoxliQAU0dTjzjSjKisolkDVK6y5wew9t3QxPGZmwXG0eNSd2VT
+	 BmQ23rn6E5RvQ==
+Message-ID: <76e47b43-2f00-4b29-bf2b-afb6fa0387d7@kernel.org>
+Date: Wed, 28 Oct 2026 15:51:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,64 +51,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dvdgfsb6jpiy7bdt"
-Content-Disposition: inline
-In-Reply-To: <2026102849-turkey-series-ac07@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
+To: aousherovitch@rambus.com,
+ Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+ Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+ Thi Nguyen <thin@rambus.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261026-cmh-b4-a-v7-v7-0-500a83faf500@rambus.com>
+ <20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 26/10/2026 20:44, Alex Ousherovitch via B4 Relay wrote:
+> From: Alex Ousherovitch <aousherovitch@rambus.com>
+> 
+> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
+> hardware crypto accelerator.  The binding describes the parent
+> SoC-level node with its SIC register region and one queue@N child
+> node per mailbox the host owns, each carrying a reg (mailbox instance
+> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
+> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
+> crypto cores are present is discovered from the SIC CORE_ENABLE
+> register at probe, not described in the device tree.
+> 
+> Register the 'rambus' vendor prefix for Rambus Inc.
+> 
+> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
 
---dvdgfsb6jpiy7bdt
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-MIME-Version: 1.0
+Why is this sent multiple times?
 
-On Wed, Oct 28, 2026 at 02:45:18PM +0100, Greg Kroah-Hartman wrote:
-> On Mon, Oct 26, 2026 at 07:59:50PM -0300, Jason Gunthorpe wrote:
-> > On Sun, Oct 25, 2026 at 01:48:04PM +0100, Uwe Kleine-K=F6nig wrote:
-> >=20
-> > > The more I think about this taint, the more I believe the commit shou=
-ld
-> > > be reverted and replaced by a some stop gaps for driver_override. (Be=
- it
-> > > a taint or better yet
-> > > https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.=
-1790612298.git.u.kleine-koenig@baylibre.com/
-> > > .)
-> >=20
-> > I also think this patch is way too broad and should be reverted until
-> > something better is designed.
->=20
-> Fair enough, I've sent a revert for now, will get it merged before -rc1
-> is out.
+b4 diff '<20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>'
+Looking up 20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com
+Checking for older revisions
+Grabbing search results from lore.kernel.org
+---
+Analyzing 8 messages in the thread
+Could not find lower series to compare against.
 
-\o/, thanks
+And both variants are present in Patchwork, so not sure what you want us
+to do here.
 
-> I'll rework this for a later release, thanks.
-
-Please look at the series behind the link above before investing time
-here. I think most of the ideas are already implemented there. If you
-voice your preferences there, I can rework accordingly and rebase on top
-of your revert.
-
-Best regards
-Uwe
-
---dvdgfsb6jpiy7bdt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmriC7gACgkQj4D7WH0S
-/k7RWwf/cwXDsUHX0jhgjipjJFi1+cjW14UhDdlEnrd0BnzhDhCcWYdtX4Jokju7
-CvB5Oiyfrbzutn6NGqwDb2r6lwabIE+FUkSwqOYBh0v9DeYZc09PyetAJUrJc1P+
-ykWQcL5z1tPk5gkQDnk/OMUtvZXVwgH9T+CJaYjJ1zX5KQEqpM1iA0orv6blUtcV
-QoHhDAdbFR9S/jZ/4rdCfk08awpvM3VqeV4VW0n2VR/QwFLZ7NS45TRo8EZdRHiI
-enU/kyx10Vep14yRZmuVr3Xw5rdSN+ylwbNFFKzSLcL/Vz00iyhlIOgvlsS2wy69
-vU6dhHVeUJVTb8Y8hxbTBePHR0MSsQ==
-=kVFg
------END PGP SIGNATURE-----
-
---dvdgfsb6jpiy7bdt--
+Best regards,
+Krzysztof
