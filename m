@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793156856;
-	b=us9zjZ64Hjg27rOkWKC9rCp1WW2fZQ7TvKjU9oUWiPPfCkfvAsmdzxVCemuLUMEeACpH
-	 eE3sii6fqXinYZ18HVlIhBJyTZPxNDFWb4qMTV09jRdE8Mc0E+jfTLdeDIO5QDjdwnujT
-	 HKon/VIt2JOvOWDbRlQyVVQyfoR3Ao5yB2f6jnNw/ZzldK6xHb3jb6tGvOTiz9Zf+Hmut
-	 gfZWqJkiKD8P9mGpyy4eALKTyAUFWNmOo2AX1s1K86Zntekg3p2I0XfQAk1R6CgrCmv1B
-	 eWqbsiFnLlKfFLOQyIwbuJ0iZyhSXYah54/hzoji21NBsMQ6NMsGRjt76e5kQ4ZwuTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156856;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-	b=z2E9yE/NEAx2KK0MLIr1MbpXF38NS3ASlQ9R70umitzDbbSDNH57FErggs0lP4F0K7BT
-	 wyiDHGq8L5GaM1bsjL0QZE0kE3atwatX9UzVcVLRBostnBHCE9jEOAXeUDIAUQjH3b6SD
-	 f4SLAFLhuLrhEzL5EzabS4beXbSers2rrgogGzdDufGU9crT/TDaoOPfEZeKU8Ij8CmIh
-	 D80IpvkL17Mj0w7oSiGnZaH/GIlLvwCTg9bhe+F90oxIjGXJGD2aw6Wx42PbxAiX9fJuR
-	 5XF37xQ0MqUq8evY66S6Na7DTQt+4equH7WswQhrKEbCyApWN8dWxFU5S2I5B5pklsw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793156858;
+	b=w5vcNMWrmud/4cTl53X7V3gHDYtc2QdVPjgVGAkOtMUJ6iwbXZsHUkv3TOtVUGau7Lj6
+	 pXOVwQNic1xZw3P1XRP519yyCcOQBTPrGCVsTSMmfbkGHTtRbDf7Ff3boxcjUPTTvQayE
+	 Yb9xxp5+rz9a7U8fzEOhT4Tg5RtPQUTj+es7gnn9yxBGvkM7OQWuOOc8AGrjIdm2F7/GB
+	 cHNcJFwXzlrPZyiBFMyBJIiJrfp06Zja/FGor5at5LfshIGxAMEcylXQMWgbIqWulfy28
+	 iJsb/QTu+C8O1S+jHvQ9qNe9d671x+ewnhSI9J7z3F2B2NbHpKnFTBl1gLjgjsbXVZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156858;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=hFLHtyAEUbucyklnv273Nmookz4wD3SmGr8qXgopcSE=;
+	b=eLKS3QrPnjMftm1zBjTmK0073WLemR9GL9T2P3OrxD98Cmg9FBMfD/5ft3riVIk/EAVw
+	 SqCC0xHqtCHCiK15kylIGbrcR8DfOhb4kJLAgO3iuHikTpIn7+mTbUgkpTLtCvUmXKOVh
+	 lWBxkm0ykBueSOodKkGcshyRlvZhPwKfFczEawj7uQkgtsy9lcJBSYJH3xNjw9RpP8FYl
+	 6BjrppMmtb+Q+bi98pTZPk0EXXlKPnID071aCaYXVdi1GV+yWzH3sGZfT6XZ96AsUF9dB
+	 zwKaF2zhX2PWcRFgfrc1Sl8lWhjR8VlrxRgtY/zPMsYGPY10Tip8ETSIvgQHXADx84w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g6BGph+W;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172CC606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172CC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D356606A32C;
+	Wed, 28 Oct 2026 03:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D356606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso795984a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:07:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793156853; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OhDBoaJDk5DFkQou6LaC99ADjeyiWx9Yo1QnEclbptvzaTKg6Z6ehwLPYi3cp3/dSS
-         HNFHynC3Nl6YfG4tfPnc9bBxoTZ6NJuxIZjkJiOe2xkEgY0n1rOIcmGmeFnLbPhFcoOr
-         w85UyZnV3aLs+rn7j73ApgGssOIjB4ZhNuhbxal80ghUcpAwMiaKaY4M1W8+/h2wTfFb
-         1suVrqgUuphvuT3lSEwjN2J8JqIKL25izmMQJ0CIy8D4wEl4dnnZsLIP8yrhojlbXNCG
-         JZyZXlTI6ZsuVJP3+3XaIZ3q1lOzZWBex0nzVBJ6GDlqQJQWbL5e95kXA06zvLVT6hAW
-         mdwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        fh=xL+vKb1/coxwI9ZvV83D/uB8u9zdjMIsmTlBcENdBL4=;
-        b=UjgyGQeocuTA5yO1QKUuN/Ot5RmAgdlrSLfYa83cKZT/zkQKOywHb1h32NAbwGZf7e
-         mDBehH7g/vArT5K9YiufX69sWLBGPjTWTAY9YybKDnwPJQercIb+drnk6Hhg+BY/fXDe
-         1SsIMYoCELdGj/6Q6o8nWhjnaijprlASl/KOH1qcc7PN5+3ZnJeTScJ+STNJDp0wITbF
-         ia97ZND+HkOCeKa4V5UzLx7bUIgZAgkzNCVXv1EncL9Wlnwg3nK5jHVsesiMEa72xiWG
-         CGrzZ2VVJAzkVnxUHExZg6lUk2i+iIJ4nElloI7Lfsi+QrM8oGVm64Mwu6ej8IqxuctW
-         LjlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156853; x=1793761653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        b=ourcRmkOH/IjfAvfCJMqpw8JEzyGEQLLpIyM3oq32ZzxtqSCibGO/9Qw/Zk8dFF5D8
-         fq//S7uF6tXiGg9nQZRB6HtoBxFSa2TVcrKRBzBk5be9hIxjLnhroFo6uiFDTIL9+COy
-         GKuGIj4CWW+G7mOqoAXg8EaLp0hk8d9+L0PXgj/Vy028JFOIXvBPPhhEJjYBBEt+u805
-         2+GOsDyCAQDkByjNAJiQzEGqowmLSCJGi0AtsMpvSTEiIVkZ5a9wCJ1grbRnLH9hZBH2
-         l6VXiMFEwb8nUI2eKb8LXhhz+qy0r0h3R++UuQIYJn1PKvc76dEdobFz1zSbnASn4i9m
-         2cvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156853; x=1793761653;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        b=UBhSUwrwvo0cQoutf2whDHfdUk6NFRXOLtxd998BDWTX6B0Mn1MXJ5WGo8CD4Q2Y5K
-         7FwZXJti1nbXdLtdtKJ+dn/JSZ7+1yp1FIAxTlEqs7+2J9cgRZSUan8eZtCM00VkDx0d
-         hf959AYWnjyB6KEvGanyMfbpOaS1y6im1yxl6aVvEa+ZAatLowK7v37DspS/xH8iniHY
-         HsFzosZGRanKr2/qXh8cO7AktQxfwLZq2hbVcgFiD49YvKkQp2Gn6vBD8zFbKk7C+g4d
-         fiqLEYmk/B+e6feqXeGzITr6bdXbv+/TNoMjZL8yLOVPAmz0njJVDA1eikDXlaihFojm
-         lapw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgHriBvsiGDsCbCZSPI/cqAXO6+gsP3vge9zVbgosc4mjPY8ZmTJD8ei4aAE3QTi3vK3rqXnQ7GCY5oYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKolyaJExo5ji7rkfjwL+b7ZuwvrR3Io7M7j/WX+G4fUD8EWsyS
-	ODMnIlzmKrkLz2Cn871KXFhKXv1vwwUa/dVtMSQYMet5Atwazd3lqAtsl85JnZXhOVzsc+BLuUL
-	FfKUCf6JjOVpD+WlsDqpzEjukli12X2A=
-X-Gm-Gg: AYBFou3v/ZFJZU4cJQJorm35RWINi4ujtk5/sVt7HWUTcYl4ZACXSsiQbOwnbDHYxHd
-	qhMAVTHJPKokBynS/mz5c5zEY/znBKk2pNEoxD35qtubhWzEpERrvkTekQVMOKnibTrDIB+isik
-	SSh4Gd04rF5zINultTp1HyBE6dV4FuXvFsMeoWWjbsQIX656F0V29tpt0GO40XShUdaSPj0o8ra
-	1IiU1G5LlJD2oKmMAF6Kcwq6KbLH3rLpF3C45+sxJQuOJsEX/z0NglZ1a/7OOf9aqC91TtuNnJw
-	txWa+L2XBThUhzKdDaGbME7xF/l9oLVT0CecpIF2OVztnXa1GYlYu1t7rl5sMVjYfDSP04hdTBr
-	iC+yp0RcXTRMm7MREbr80R3BqsO+O0FijlES17OjUdvv2CcbCN42Jntv/eCSPFk1SCJo=
-X-Received: by 2002:a05:6402:42c8:b0:6ab:6e:a8e4 with SMTP id
- 4fb4d7f45d1cf-6b49cc24773mr498856a12.44.1793156852883; Tue, 27 Oct 2026
- 20:07:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=g6BGph+W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hF
+	LHtyAEUbucyklnv273Nmookz4wD3SmGr8qXgopcSE=; b=g6BGph+Whp9fOSqPrP
+	uV/PKq/RbpyX101MLm4jpxdDC3R5aRquWyjZvCUmy7eM3i7B8v/w+RYzHxn3c5OU
+	kAuBV45nPuzwJlYwq4TZFSEQhxg5S25F/dUjffZpbM3wpC3j+BNePDaw4d0nJt4V
+	HRihUeKzIwntnvAvOqFGnCGe4=
+Received: from Precision-7960.. (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDnD07QZuFqZiY4DA--.60713S3;
+	Wed, 28 Oct 2026 11:06:59 +0800 (CST)
+From: Hans Zhang <18255117159@163.com>
+To: bhelgaas@google.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	jingoohan1@gmail.com
+Cc: imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hans Zhang <18255117159@163.com>
+Subject: [PATCH v5 01/16] PCI: dwc: Add pcie_cap field and caching helper
+Date: Wed, 28 Oct 2026 11:06:37 +0800
+Message-ID: <20261028030652.2917756-2-18255117159@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028030652.2917756-1-18255117159@163.com>
+References: <20261028030652.2917756-1-18255117159@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,64 +76,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027192027.8617-1-dennylin0707@gmail.com>
-In-Reply-To: <20261027192027.8617-1-dennylin0707@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 28 Oct 2026 05:07:21 +0200
-X-Gm-Features: AclHuK8Zk3JqjSuknFqDZQNv-pnsmVv-lUejnYaLZe-5J4JnZLEJi3oDDiYwgrk
-Message-ID: <CAOQ4uxj3et_cyzD1iWHr3_z1dH1R3WQMCOm+kO2Q90TXjaV9pQ@mail.gmail.com>
-Subject: Re: [PATCH v2] inotify: do not coalesce rename events
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnD07QZuFqZiY4DA--.60713S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4xCr4UZFW3KFW7Zw17GFg_yoWrZr4rp3
+	9xJFWSyFs8Jr4SvFsxA3W09F13Aas3AFW7Ga93Gw1fZry3ur1UKFW0yFWjyF17Gr4Igr12
+	gr43ta48GFs8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zErgAOUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BPghGrhZtPOwgAA3p
 
-On Tue, Oct 27, 2026 at 9:20=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
- wrote:
->
-> inotify compares the mask, watch descriptor and name when coalescing
-> adjacent unread events, but ignores their rename cookies. Distinct
-> IN_MOVED_FROM events can therefore be coalesced, losing the cookie needed
-> to match a later IN_MOVED_TO event.
->
-> For example, watch two directories with IN_MOVE. Move an entry from the
-> first directory into an unwatched directory, recreate it under the same
-> name, then move it from the first directory into the second watched
-> directory before reading the events. The second IN_MOVED_FROM is merged
-> with the first, while the IN_MOVED_TO retains the second rename's cookie.
-> Userspace can no longer pair the second rename's events.
->
-> The original inotify implementation compared cookies before coalescing.
-> The fsnotify conversion lost this comparison. Do not coalesce
-> IN_MOVED_FROM or IN_MOVED_TO events, which carry the identity of their
-> respective renames. Leave coalescing of other event types unchanged.
->
-> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+The DWC PCIe core and its platform drivers repeatedly call
+dw_pcie_find_capability(pci, PCI_CAP_ID_EXP) to obtain the offset of the
+PCI Express Capability structure. Besides being verbose, that performs a
+DBI read every time, including in paths that run repeatedly such as link
+up polling, suspend/resume and interrupt handlers.
 
-> ---
->  fs/notify/inotify/inotify_fsnotify.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/ino=
-tify_fsnotify.c
-> index 7c326ec2e8a8..6e3af6452dcc 100644
-> --- a/fs/notify/inotify/inotify_fsnotify.c
-> +++ b/fs/notify/inotify/inotify_fsnotify.c
-> @@ -36,7 +36,7 @@ static bool event_compare(struct fsnotify_event *old_fs=
-n,
->
->         old =3D INOTIFY_E(old_fsn);
->         new =3D INOTIFY_E(new_fsn);
-> -       if (old->mask & FS_IN_IGNORED)
-> +       if (old->mask & (FS_IN_IGNORED | FS_MOVE))
->                 return false;
->         if ((old->mask =3D=3D new->mask) &&
->             (old->wd =3D=3D new->wd) &&
-> --
-> 2.43.0
->
+Add a pcie_cap field to struct dw_pcie and a helper
+dw_pcie_get_pcie_cap() that performs the lookup on first use and caches
+the result for the subsequent calls.
+
+The lookup is deliberately done lazily, at the first place that needs the
+offset, instead of at a fixed point during controller initialization.
+This guarantees that the DBI read happens exactly when the open coded
+dw_pcie_find_capability() call it replaces used to happen, so the series
+does not introduce DBI accesses at points where the controller might not
+be accessible. This matters for endpoint controllers such as qcom-ep and
+tegra194, where DBI is only accessible after PERST# is deasserted, and it
+also means platform drivers do not have to call the helper from a
+specific callback at the right time.
+
+Reading DBI while the controller is inaccessible (clocks or power gated)
+is platform specific: some integrations hang, some return zero and some
+return garbage. dw_pcie_find_capability() already rejects offsets below
+the standard header, unaligned offsets and entries whose capability ID
+does not match, but a transient bogus read could still look valid. To
+prevent such a value from being cached for the rest of the lifetime of
+the controller, the offset is only cached after the capability ID has
+been read back at that offset. If it is not confirmed, the offset is
+still returned to the caller for this access but not cached, so the next
+call performs the lookup again, just like when the capability is not
+found.
+
+The cached value is accessed with READ_ONCE()/WRITE_ONCE(), because the
+first lookup may be triggered from different contexts, for example the
+qcom-ep global IRQ and PERST# IRQ handlers. A concurrent lookup stores
+the same value, so this race is benign.
+
+Signed-off-by: Hans Zhang <18255117159@163.com>
+---
+ drivers/pci/controller/dwc/pcie-designware.h | 38 ++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index 6d788aa000117..dede6b3966585 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -594,6 +594,8 @@ struct dw_pcie {
+ 	 * use_parent_dt_ranges to true to avoid this warning.
+ 	 */
+ 	bool			use_parent_dt_ranges;
++
++	u8			pcie_cap;	/* Offset of PCI_CAP_ID_EXP */
+ };
+ 
+ #define to_dw_pcie_from_pp(port) container_of((port), struct dw_pcie, pp)
+@@ -832,6 +834,42 @@ static inline void dw_pcie_dbi_ro_wr_dis(struct dw_pcie *pci)
+ 	dw_pcie_writel_dbi(pci, reg, val);
+ }
+ 
++/**
++ * dw_pcie_get_pcie_cap() - Return the PCIe Capability offset
++ * @pci: DWC instance
++ *
++ * The offset of the PCI Express Capability structure is read from the
++ * DBI configuration space on the first call and cached in
++ * @pci->pcie_cap for the subsequent ones.
++ *
++ * The lookup is done lazily at the first place that actually needs the
++ * offset, so the DBI read happens exactly when it used to happen before
++ * caching was introduced, i.e. never before the controller's clocks,
++ * resets and power are enabled.
++ *
++ * A DBI read issued while the controller is not accessible returns
++ * platform specific data, and a transient bogus value must not stick in
++ * the cache.  The offset is therefore only cached once the capability
++ * ID has been read back at that offset.  Both the not-found and the
++ * not-confirmed cases leave the cache empty, so the lookup is simply
++ * repeated on the next call.
++ *
++ * Return: the offset of the PCIe Capability, or 0 if it could not be
++ * found or has not been confirmed yet.
++ */
++static inline u8 dw_pcie_get_pcie_cap(struct dw_pcie *pci)
++{
++	u8 cap = READ_ONCE(pci->pcie_cap);
++
++	if (!cap) {
++		cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++		if (cap && dw_pcie_readb_dbi(pci, cap) == PCI_CAP_ID_EXP)
++			WRITE_ONCE(pci->pcie_cap, cap);
++	}
++
++	return cap;
++}
++
+ static inline int dw_pcie_start_link(struct dw_pcie *pci)
+ {
+ 	if (pci->ops && pci->ops->start_link)
+-- 
+2.43.0
+
