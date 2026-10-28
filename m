@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158145;
-	b=DGqkXoNKTIHoFvaX8H7lxgz97En8oESCqv6OF1tfHVhaZDbrfhw6S7akDnC+fBmPYdrT
-	 eIJV7K/timQ2z6RRzXcrUyzJa4ioWWOtetzxBkarZ/1XWPra07TgbsMAz7cAhmIR2/goa
-	 UwZJwVjzl/aM0DmHUyO53TTlOcoY5KI7kpFVRN2NEiEzIEQy7Aj3F97yAfQv8lzeclSCb
-	 mj24w2SyQK5npCD649QtAxuF0SGLoUh2vTEStIPgAakEB5nWyrt+9tn8x4KM2dC3zB1p2
-	 HRyTQJxZK6nTgsVtBe6pH3WnGDko+Lq/Aeqd2APtMvcwAdI4F9n2O4LRK61y1XsfUYA==
+	t=1793158180;
+	b=BWwRpECWe+4vmIolqnY5R16BewBYbDrYWP1kqBxyziUyRezOS1Kw7joSC3WIGW3GbLfA
+	 sr0f6D8UWQyrUiEVHwpxbT26O4PY03Itw/2DGdb16+S8q0wVPOPoZa9LfCcfKEwB5vYNg
+	 7yeUIVQPAAb06mbRwqvVDbfPvqGIshZupkxw+TdkvTWWSsSeAq2Beh5CE3XyU899GNBid
+	 1bIucOUVwm0e+zxF5iQu2PzvZLNx2fhBqNtn0BvrkoonScDK+FXB+hCueHVEQIlJLG7DQ
+	 n8q6ngkVngAi5cAtuCLwpcTF8wkL16BuDuNyk4NnWbF5DIJT3EFUdwTCv7ck5XxUIDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158145;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VrZ0m8QHDacZrqzDgxCpcv/7YLv5jV5PmL4thK5aFqw=;
-	b=bkszxjbqbwPEG8JabWB/oahelm0Grk7ENhhjMM2gDkFR5VvOPtGNdNTTUwEIMZYNfk1X
-	 lTU2XUcakSLdrNHdwwtOUhBHEKtG49vQVCuOVqR3a3cvi7TRGmTsnppnMrgtRMVeHEFuA
-	 eXzuVhZPKtgXHfDWgg2GGyMa6D3YT5n/hcON6A6UeIAA9ker/O32mpiDXlK36CmFUz39j
-	 2ql7hOkAZPOQqMDK5yP0+n3KC3NZFJoprsvZ/aFoJtNKM4UoXa0Em/JarAv5EQEPn1NfV
-	 /i606Vahum0fZphsjP5Z4WTyWLaZqWp+AWZDwDS2BUVKm8VNKXlZAhdiTwB43aL06vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158180;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=vEj7FK67g3rIaaz5Lq/NNY45PcOS57ENcFCjo3BtHwA=;
+	b=4PU6XQ7kbs1sKe4a9kDftX149iiLnhgk9+oktAjq28SDurPj564pSKhnF0yaRMlieQpF
+	 0Xya8pzBMhz+bI3NjfAU2TBzf0JVMkzYNocghkf7kX0qo/Jr41bWKvsswrlsyVwv1qEte
+	 0SpKj3CBcHB0IgIzJj6AXGArS7aUqYNqlJGBwvHQaODb9ut8gYcq6nE/EcB5F1Zh0F0dI
+	 aMqi+hHds5yT9lllVADDPRJvkYxyI8bZgcT73pEOwwsoGv9bA571QRY/u3JLNTuxb02cw
+	 EgBQqSm2txhE1/f8VMTY1Z0ZdsedFeH8au14okRglVGpjameCuzSiK6LPUkXQgRi5VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bpQVS6Q6;
-	arc=none smtp.remote-ip=43.163.128.54
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6BjhZcd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1457606A31D;
-	Wed, 28 Oct 2026 03:29:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1457606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6386C606A31A;
+	Wed, 28 Oct 2026 03:29:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bpQVS6Q6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793158135; bh=VrZ0m8QHDacZrqzDgxCpcv/7YLv5jV5PmL4thK5aFqw=;
-	h=From:To:Cc:Subject:Date;
-	b=bpQVS6Q6C35LsYYwSoO32YBBIArdyX1+qedXE8IHsVE4J8t9lIw2UeoGLXQ875CLS
-	 MPl4gSUFhR4kXTSUsBIKf7bYOX8XZ0yEuDFSjp7jXWJHXjm9S312byXzOjgF6R5n5U
-	 OWaqOqbtVfvpZ3rNUUbWkdNvRHPG09CefcaLTVyg=
-Received: from localhost.localdomain ([36.129.27.111])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 73486AB6; Wed, 28 Oct 2026 11:28:52 +0800
-X-QQ-mid: xmsmtpt1793158132tadwnjs7z
-Message-ID: <tencent_056A9EE408796550EF0B9739470910E62F08@qq.com>
-X-QQ-XMAILINFO: Nc9yw6Uiw6QHeIinfqnFVyyqj6+n9bHg4FcfJ9IIJ5OSVUKdT3XXJ6A40EmU41
-	 njhi2RVBmuKJhm8MIVsvpAVrOCicbKkwKusBAwOvqfma3jaCQVEYRuS3AT81d8kHJEUpFwd6+Jk3
-	 F8SuZ98QwIW8Z9H2gasyXHsbkRZ4spySUPgBNMiUwPUKPXXMSI2NiAL+CeTr0zemKQqmJWsLlC00
-	 yTMlVFSGR1ajXmNq4f00u2FqOrwHFWVI0C+rHvXllPu6mSGvQCfooxD2f4e45/QVryiBUkCHpgzf
-	 vO9WfFAJm4c0ykKQG5mFvryVs0SplK5D1MJfDZpb8jRyXd0tfWtW7QLAU8lG6unpSopSl5HhJHyL
-	 5pJKH4xVr+pCA51euCF4xYtMZpy88eGWQxrrBeOieXL8KmJCzq15qTU4B86g2goGS2Somg5UVQaZ
-	 6lYUdByOTZAHt5uN3hzR3lWXiX+jeHnjPtwt9Q+cHzxci4siUv2AIyOPDtgiafY0lXmCkekODqzb
-	 E+Q+7qSEY+VrQPec1ARG5Tp+p2JCFB72l5jOwVmhlY5KCChmIwriFTVvLoBc0zD9r6ylvs3gsdCZ
-	 6imHyeXCMsHmHH5RKt36HO67kXwT+umKK9OLWWXqzvCljQ2bosz3eOI4fIQWR9S24FcQWXNHg2/l
-	 YivlK2ntVGwQBqAbQbMJTs9j9/mm094CDwDmjIBvh7jZ8tG2OvLnRxXRtJZSDxHbpGoUBt6Z/2lj
-	 VUPYgyEmklLCjxiv3dT4O+kaTME5QymPBGTCIx8Rsm8jypVBu1jkbjzCmOFwC1HHGc0xywCuf6YH
-	 iEc1LUUP+hyzDqra8R75rY40K4jb8O13XJlk6djdJ87d8oM6vTHSwg5hXjovwhfRq0wVOtRBzlW6
-	 w38V6gP0pBYvBYIckCEAkOJ0T22Qewl9XulVwxJm1PZ9KFSFUem3QX0q8KC9ny4YYaU8ux4f1eyk
-	 8dWXTjF/+NruCqIs8CmpIh9PTun82p1gft9QqIDdpAhnzNZ/+/yL+uke9jqwmiHpNwdJo47cE5+H
-	 kTJHNDFbkbZQk14busQtVywE0Y3RyneMw8YXQhpA==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Lei Qiu <750592120@qq.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Qiu <750592120@qq.com>
-Subject: [PATCH] fs/libfs: add blank lines after declarations
-Date: Wed, 28 Oct 2026 11:28:49 +0800
-X-OQ-MSGID: <20261028032849.17016-1-750592120@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6BjhZcd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948061F01825;
+	Wed, 28 Oct 2026 03:29:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793158180;
+	bh=vEj7FK67g3rIaaz5Lq/NNY45PcOS57ENcFCjo3BtHwA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d6BjhZcdkiF7NzVN/VdODtDgSYU2T3vnRqqnNrciDnvB4d7eKRegdXZ2loH+5vPv+
+	 Czm1V91BEUUCCmC7iAvk92u2RC2Ba+IQNpCkPBHAxYEH9pERkkrZbW/LJtdynShcHV
+	 2UFg33kCflug53Ch2Rr7Y7iQIJH4DUZLk+QEuKOGaK0+73a66xuakEAO+9rtB8bgGk
+	 SRQA3101JBL9pJEd0MwT4sWO6h2cp69nn+ycpVBWv9xlY/vs8z93mlar3Nfi0C6u0Z
+	 ielLuh7Edi9767f2xt5OnZxaLLB0fqCVUsIk2WRMl3NB1vQRa7CSiNgwtkExD9jsfz
+	 edQKopALHlMNw==
+Date: Wed, 28 Oct 2026 04:29:31 +0100
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
+ domains
+Message-ID: <76mvypefoe6l5c26xdycrxcyrtkpxmnybi6bm5xyudqqcbawg6@5dzvmwkhqk2e>
+References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+ <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
+ <e255ml7kf2pyjnw4k3ssi3jp4hkovw7x62cln6n3xbf7tz5q7y@ijqwv75233a6>
+ <CAFEp6-3YP29y5JYp+6Cw3T7bGEJHjfGD9mYsiQXGaTSegsMWXQ@mail.gmail.com>
+ <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,77 +67,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
 
-Add a blank line between the declarations and the following statement in seven places, as reported by checkpatch.pl (WARNING: Missing a blank line after declarations).
+On Tue, Oct 20, 2026 at 03:41:54PM +0300, Abel Vesa wrote:
+> On 26-10-14 14:09:04, Loic Poulain wrote:
+> > On Wed, Oct 14, 2026 at 1:59 PM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> > >
+> > > On 26-10-12 14:58:43, Jagadeesh Kona wrote:
+> > > >
+> > > >
+> > > > On 10/12/2026 1:29 AM, Abel Vesa wrote:
+> > > > > When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
+> > > > > gets stuck off when powering back on, preventing the system from resuming.
+> > > > >
+> > > > > Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
+> > > > > state across suspend and allow the system to resume.
+> > > > >
+> > > > > Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
+> > > > > Assisted-by: LLM
+> > > > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > > > ---
+> > > > >  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
+> > > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > > >
+> > > >
+> > > >
+> > > > Hi Abel,
+> > > >
+> > > > Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
+> > > > collapses.
+> > > >
+> > > > For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
+> > > > the below changes from PCIE side helped to power ON the GDSC properly without any issue.
+> > > >
+> > > > https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+> > > > https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
+> > > >
+> > > > Can you please try if above changes are helping on Eliza also?
+> > >
+> > > Thanks for the hint. Mani's patch (v2) is already upstream, so just enabling
+> > > CONFIG_HOTPLUG_PCI_PCIE did the trick.
+> > >
+> > > Suspend/resume works fine now on Eliza, so this patch can be ignored then.
+> > 
+> > So should the retention configuration above be conditional on
+> > CONFIG_HOTPLUG_PCI_PCIE, or should we simply depend on
+> > CONFIG_HOTPLUG_PCI_PCIE?
+> 
+> None. I think QCOM_PCIE should select it.
 
-No functional changes.
+Nope. It should be selected by defconfig [1].
 
-Signed-off-by: Lei Qiu <750592120@qq.com>
----
- fs/libfs.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Just to clarify on how the hotplug support is fixing this issue. Once we enable
+the hotplug driver, the Root Port will be allowed to enter D3Hot during suspend,
+which is a pre-requisite for powering off the PCIe devices and the controller.
+So once all the conditions are satisfied, the controller and devices will be
+powered off. So even if the PCIe GDSC gets powered off at the end of suspend, it
+won't affect PCIe devices as they already lost their power. So we don't need
+GDSC retention.
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 8e2cc627b..578cdb688 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -34,6 +34,7 @@ int simple_getattr(const struct mnt_idmap *idmap, const struct path *path,
- 		   unsigned int query_flags)
- {
- 	struct inode *inode = d_inode(path->dentry);
-+
- 	generic_fillattr(&nop_mnt_idmap, request_mask, inode, stat);
- 	stat->blocks = inode->i_mapping->nrpages << (PAGE_SHIFT - 9);
- 	return 0;
-@@ -114,6 +115,7 @@ static struct dentry *scan_positives(struct dentry *cursor,
- 	spin_lock(&dentry->d_lock);
- 	while (*p) {
- 		struct dentry *d = hlist_entry(*p, struct dentry, d_sib);
-+
- 		p = &d->d_sib.next;
- 		// we must at least skip cursors, to avoid livelocks
- 		if (d->d_flags & DCACHE_DENTRY_CURSOR)
-@@ -145,6 +147,7 @@ static struct dentry *scan_positives(struct dentry *cursor,
- loff_t dcache_dir_lseek(struct file *file, loff_t offset, int whence)
- {
- 	struct dentry *dentry = file->f_path.dentry;
-+
- 	switch (whence) {
- 		case 1:
- 			offset += file->f_pos;
-@@ -599,6 +602,7 @@ static void __simple_recursive_removal(struct dentry *dentry,
- 			      bool locked)
- {
- 	struct dentry *this = dget(dentry);
-+
- 	while (true) {
- 		struct dentry *victim = NULL, *child;
- 		struct inode *inode = this->d_inode;
-@@ -1096,6 +1100,7 @@ static DEFINE_SPINLOCK(pin_fs_lock);
- int simple_pin_fs(struct file_system_type *type, struct vfsmount **mount, int *count)
- {
- 	struct vfsmount *mnt = NULL;
-+
- 	spin_lock(&pin_fs_lock);
- 	if (unlikely(!*mount)) {
- 		spin_unlock(&pin_fs_lock);
-@@ -1117,6 +1122,7 @@ EXPORT_SYMBOL(simple_pin_fs);
- void simple_release_fs(struct vfsmount **mount, int *count)
- {
- 	struct vfsmount *mnt;
-+
- 	spin_lock(&pin_fs_lock);
- 	mnt = *mount;
- 	if (!--*count)
-@@ -1365,6 +1371,7 @@ ssize_t simple_attr_read(struct file *file, char __user *buf,
- 	} else {
- 		/* first read */
- 		u64 val;
-+
- 		ret = attr->get(attr->data, &val);
- 		if (ret)
- 			goto out;
+But that being said, if any of the PCIe devices support wakeup like WOL from
+D3Hot, then we do not power off the controller and devices. In that case, GDSC
+retention would be required to keep the controller/device state intact. You can
+reproduce this issue by enabling wakeup for the PCIe device from sysfs and
+attempt suspend.
+
+So to cleanly fix this issue, we need the PCIe controller driver to signal
+retention state to the GDSC driver or the GDSC driver has to figure this on its
+own and configure retention accordingly.
+
+- Mani
+
+[1]  https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+
 -- 
-2.43.0
-
+மணிவண்ணன் சதாசிவம்
