@@ -1,59 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206302;
-	b=DIZ+LF2TQ4/GsTciVlsEFB7OiOx05+TT1NicwLXIGcq/oCBUyOP2De/sbJFEbpjcfbXa
-	 JaK0KQwOirIowwbf+mDNOdyFaNQwL8gveCK29c3vRav2wuKea6AtoPoQF8mwTJNTv8oE1
-	 LL19kiowNS8w5/JKT5NLJbYCakw7csHG0WzB/2il1KMCppBvy6p/e/SuWgL5+MSL4E2KD
-	 SlGsuF6LwMVkoZ8Dzg74GT3XkluONhy0xlc6byftKG+AmyqYLnXQ3XgKP0/wSegK5UAy2
-	 G6Koi3HHVhh43NC47YDS1NCG5iWtYd2sNy/OYSR3AufI1sJGvtbaMfOaJRcPYpByjUg==
+	t=1793206328;
+	b=3oNz9Ypm66QUTbcTduQwf2zll2UfssYwbxFnUoL8M8hjOeMm9mDmtvczNVdeQfN7r+xB
+	 g1t/cveIxggq2WGixERvDHWnOYYbQ1Lt3MFntLJagTI32Z/Qdm4mh9auEjrkLY0FQig//
+	 3mgc9FLFqcMNpgrabeyhYSuemAV2SKLQ7zVk4QwrSvERvLacVA0krgX3Vta286RtZzkBY
+	 Mgepp/eDEjFIUiyprNwjX1oeBaHFMlS0s5HeshMumjZkMLEdtvDjux8VkEP4QRLVHSXfy
+	 5gFO4D4XKrRMRESC8QVHwQCezIVWQ328sQKs/fMJSbO2qE8kOrd5q+OYSDwXNxP+1Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206302;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=GxSBgBRj6RlRgwj5Vbp2CHWHsvzFLRSYYFbbHUEstQ3aFT4kXEPxiytmABn8XiWgUbrc
-	 OLSwhom+PsGc1Lc3oVsSk7R+haL8J2uuawzm+uinlJYzyxtwpdjyKSkUMORlB0T0Ovb3w
-	 uW0eMzgFyBRw69jK90GMFIjnBrkDMDIQ67oNPIAqUtgRBHf8xzLACMhS7OYmZRGtjaceN
-	 L9MZ3UdM7KjO2xpYBaul2Yh7AYomgoVQ3Pyl8AD9g/nOkl29/b+BmCKVPMeMgqnUT9YSQ
-	 XQ90ws9zwrfZ3yWwOtxvXADJBpUK49J9yezOfrmfMmD7iFKKisYH659iFaxvsUlE4CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206328;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=1YA1pnK2XncY5lqNVKOymhfOhZgmGZ7s1l1eW83JveE=;
+	b=sGmQ76kBXQjqf9ffp4FJ3US/x3p2LgNN0v2o6taqfKk5tCwmilcDg5obXRCDMbRv21CB
+	 p9t2CywIo9bNXND9iV0RNWYL4gDmm18At3Kmzv9tExLOCnnu8SGbsCOeHSjfA324FOy10
+	 MSOG+vk1lEnyDffi+sFlgV0NscMGOxoDpOWrPhKgIgS0XdZ0WCb2G8bA17r20rMUeR475
+	 9lrIkDVFnH3UdX5TfgUaJfztbnldJsyQ5c3xAnjjq9bSSXV/hVqEd96/skNPIeZHFvbJQ
+	 927/gMZXTh+shbjp5swmDu48Q29DoQ5jsn75YnToLo5jlQI99Lyu9GPhN/B2iGosuaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYUDXnXn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uUL+AdTg;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13D9606A31C;
-	Wed, 28 Oct 2026 16:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C319B606A31C;
+	Wed, 28 Oct 2026 16:52:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C319B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYUDXnXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C08F1F01825;
-	Wed, 28 Oct 2026 16:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793206301;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IYUDXnXn811YSJ04LkVqxGdLBsih2ExNheFomRihXxc1hkZ/j+vndsq7uY1KzAk8n
-	 3eQHFRdoltyQAPY3Y+1ZWmMWNF4IER4A0FVNMqRoiGxaSOSDpRGihyfJ/MaARTKh7z
-	 /GpS1FkgN+Mob9TnP77Yh4YbZ3U5b99gDfW5DtIv10jFJPRBf254BdipOywEV5egF9
-	 eC/tpdga6WfiJkwA9R5zPxXTAIxcZcSly0OoFLP4CSyvLyrunos/8yELk0om5hUSZg
-	 92ep9KUvptA7mFZTCtSRS6E9LylBQafjhlaxfqGcep2KQPfwlRcXwLgqwyZX2HPXPr
-	 IOj1111X9xsBw==
-From: netdev-bot+sinfo@kernel.org
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>,
- Ido Schimmel <idosch@nvidia.com>, bridge@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net v2 0/2] bridge: cfm: correct CC receive monitoring transitions
-Date: Wed, 28 Oct 2026 16:51:40 +0000
-Message-ID: <179320630061.3327.303082876376528510@kernel.org>
-In-Reply-To: <20261028164730.253238-1-pocj8ur4in@gmail.com>
-References: <20261028164730.253238-1-pocj8ur4in@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uUL+AdTg
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFD102sZ8zMllN;
+	Wed, 28 Oct 2026 17:52:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793206324;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1YA1pnK2XncY5lqNVKOymhfOhZgmGZ7s1l1eW83JveE=;
+	b=uUL+AdTgjM/9MiitX0whRTqEsijLx4C6KdxAhwRCKa0kb4eF0Sce7/FRtdiqf2XOzEBkdj
+	p1g/KbhveW0qdGPfM04WDSHoIs6eUPJr3gwrhbkhffZmV6urAxgFaSb8zXDRRn491Bcj73
+	1998YgkwZ3sEs2iPBApCD92oTVrYT701g8LIV4FO2QCQTaayhbVZVh35FT2/3fkzfEpN+w
+	FBgPKyoMFdUPE56H6PeN7wv4KhcWdo584HvmGg5rAfhUCgDP0WpxW7h0HyytreXRGViHIl
+	dHX1AlkEA1X54Ld0YUEkrKli/q4bDzbC600FPJIx8B4dE/bMkQX99lk9cuzWOA==
+Message-ID: <1303b843e41498612cce4acdbb47941c054bcf7d.camel@mailbox.org>
+Subject: Re: [PATCH v2 1/2] Docs/admin-guide/mm/damon/reclaim: improve
+ grammar and style
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: SJ Park <sj@kernel.org>
+Cc: corbet@lwn.net, damon@lists.linux.dev, jm5905938@gmail.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, 	rdunlap@infradead.org, skhan@linuxfoundation.org
+Date: Wed, 28 Oct 2026 17:52:01 +0100
+In-Reply-To: <20261028000637.157110-1-sj@kernel.org>
+References: <20261028000637.157110-1-sj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,21 +74,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MBO-RS-META: jjn9q5xi6rqow5uypb9g11hnxcsctzaq
+X-MBO-RS-ID: 7eb96ce423f99d218cd
 
-Hi!
+Hi SJ,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On Tue, 2026-10-27 at 17:06 -0700, SJ Park wrote:
+> On Tue, 27 Oct 2026 20:05:04 +0100 Manuel Ebner <manuelebnerli@mailbox.or=
+g> wrote:
+>=20
+> > Fix upper case. Fix tenses. Replace 'set as' with 'set to'. Add space a=
+fter
+> > sentence to make it double space.
+> >=20
+> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> > CC: Aveline Noir <jm5905938@gmail.com>
+> > ---
+> > @ -113,8 +113,8
+> > Choose as you wish.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+I will refer to this below.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+> >=20
+> > @ 20
+> > should be:
+> > -Free Pages Reporting [3]_ based
+> > +Free pages reporting [3]_ based
+> > or
+> > +'*Free Pages Reporting'* [3]_ based
+> > * the right kind of quoting/ kernel-doc highlighting.
+> > Choose as you wish.
+> > ---
+> > =C2=A0.../admin-guide/mm/damon/reclaim.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +++++++++----------
+> > =C2=A01 file changed, 18 insertions(+), 18 deletions(-)
+> >=20
+> > diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documenta=
+tion/admin-guide/mm/damon/reclaim.rst
+> > index e4e2ffa52e..0bab2299ea 100644
+> > --- a/Documentation/admin-guide/mm/damon/reclaim.rst
+> > +++ b/Documentation/admin-guide/mm/damon/reclaim.rst
+> [...]
+> > @@ -30,12 +30,12 @@ guests could mitigate this problem.
+> > =C2=A0How It Works?
+> > =C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > =C2=A0
+> > -DAMON_RECLAIM finds memory regions that didn't accessed for specific t=
+ime
+> > +DAMON_RECLAIM finds memory regions that weren't accessed for specific =
+time
+> > =C2=A0duration and page out.=C2=A0 To avoid it consuming too much CPU f=
+or the paging out
+> > =C2=A0operation, a speed limit can be configured.=C2=A0 Under the speed=
+ limit, it pages
+> > -out memory regions that didn't accessed longer time first.=C2=A0 Syste=
+m
+> > +out memory regions that weren't accessed longer time first.=C2=A0 Syst=
+em
+> > =C2=A0administrators can also configure under what situation this schem=
+e should
+> > -automatically activated and deactivated with three memory pressure wat=
+ermarks.
+> > +automatically be activated and deactivated with three memory pressure =
+watermarks.
+>=20
+> Let's keep 80 columns limit.=C2=A0 Same for below.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Okay.
+
+> [...]
+> > @@ -113,10 +113,10 @@ quota_sz
+> > =C2=A0
+> > =C2=A0Limit of size of memory for the reclamation in bytes.
+> > =C2=A0
+> > -DAMON_RECLAIM charges amount of memory which it tried to reclaim withi=
+n a time
+> > -window (quota_reset_interval_ms) and makes no more than this limit is =
+tried.
+> > -This can be used for limiting consumption of CPU and IO.=C2=A0 If this=
+ value is
+> > -zero, the limit is disabled.
+> > +DAMON_RECLAIM records the amount of memory which it tried to reclaim w=
+ithin a time
+>=20
+> Didn't we agree to keep use "charge" ?
+
+I thought we agreed to "records' but I sensed a misunderstanding. That's wh=
+y I wrote
+> > @ -113,8 +113,8
+> > Choose as you wish.
+above. Should i have been more explicit?
+
+Thanks
+ Manuel
+>=20
+> Other than the above two things, looks good to me.
+>=20
+>=20
+> Thanks,
+> SJ
+>=20
+> [...]
