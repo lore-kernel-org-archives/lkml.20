@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.62.254.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175642;
-	b=YkrunWWlSX/7BMCyLcJxAQOexZ0/JSgBvQmZ0crPPqkn9Fpj7k9d2cYB/XlRxEj4RDGm
-	 ObZ/WvMLZoRJ9QWWoDBEH7i7KFMKeODANNwzBPyDuHcQwus6JqRH3Cy8f5g2q2IM9SugC
-	 lRLpXShaCzYG6vROkxdwGNGlblPU5wnWN31cWAnufY7mMdKI+0gzNX2v4hLAV+MHEys0D
-	 5EkuFqQJw+9qYDcAopDSpDdz6U0R4jzml9WATAyUih26t2TxpHDCk3DDa9qIZwWFSvLTa
-	 hrb5kigl94F27oE0CM9oWE2n056x1a+uXCnzfGUEtGK0N9kOi8zOze2dJjB8AKESQgA==
+	t=1793175643;
+	b=XKt32pVhuODC68gQS4MI7NL/BEjQqC7zz9RjlJDOlGuf54YgPDrej8SsSaqGB1wv6Nc9
+	 XXcR7AWSe6Yb0eeADlJmhjK8HouEte+0cD9FxJFAoFVKXMD3bkGd0XrhFHmW8gR8iPrU0
+	 H4FKrr8ltlkm/QRpM1rJecBAEHeDeW90VQI1jiOihM5fbdMepQuKjO56kcoLKYyc8G6+3
+	 W2KRBl5rEQxEVRE1M4aFNzGqML7E3CpDEEnxDsL6Sg/4bMEFRrWjsEY6C0PWg+HPhMvB6
+	 h8qyPXI6KWqidpxsELp38GrBNkDKy9W/zbtZdRjOgUOX7iGLKNlJLtkeGCn/O0mbYsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175643;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=K5LKyQgYKwl4SQBjA15TdSBAX9bbXAc3tVQHLRXEih8=;
-	b=s5LljF0zPkrRDmD40e4rO+xnIHHSuPwdC+LcbObTM1VfldOJ966N9K0LBpTnyiC9byVx
-	 YDFdomHE8lPYJdaWPS5i4672sIPpDF363NGkBRSo5VU9Ed8nXHP+ynw6NG+FHfb1XDa4t
-	 89yAtD56Rn1QaFm0kSUaOCyHuJLNdnhwMb+utdW4XfBtIY7NWWy/1iITQdWQitKgyY6ua
-	 Z35f1ASPPqOuNSgMxi2LXps1DBkYFHBOu23qDWE7TH6PL7xXf+bpnUYK6yOpachbO+ExC
-	 0UJee5J1mcLSp3p6LKzTXhCHZMHCsYj1tFuYmzvJrqNVlTnhjganvsSyMqetfb3vSjA==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7iGwC/zgOWLrxX4ANiv2xF58zogBn71EZM14tRgOJbE=;
+	b=GMGmF/cKeefpBxH3garKwCaLnumP0BwHtejzBe4nQOLOpcL0TNYK257xl1hBwoBoqKuP
+	 PpfmxxJoQJk+2akfJv147EVN5bqJWzjjk+xhlHAfhUncPTBMkV0Te2mlAzciA+c90QIDc
+	 WhueBxBJHmHtXOViOrDQOw6185omivxsSSiPyTBaeLP3MkQOeXIoXlr5eWgEHa9Q8846I
+	 XdMNUGkgb7usCcooAE07OcglA6WTiqYazMpVpCj/a8wuhfE/805FzTTcTrHYuKB+2SAEm
+	 dwlCj0jIWZqZjEJQ/RhrvTMJK+ZqpHpoBZFrRBd123sRpLNlOjVHiL/GwsYOWzkpAZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ilvokhin.com;
 	spf=pass smtp.mailfrom=ilvokhin.com;
-	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=scmphY3W;
+	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=csUWtQzw;
 	arc=none smtp.remote-ip=178.62.254.231
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62250606A31D;
-	Wed, 28 Oct 2026 08:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62250606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5229D60A260D;
+	Wed, 28 Oct 2026 08:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5229D60A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=scmphY3W
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=csUWtQzw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1793175633;
-	bh=K5LKyQgYKwl4SQBjA15TdSBAX9bbXAc3tVQHLRXEih8=;
-	h=From:To:Cc:Subject:Date;
-	b=scmphY3Wunrsmp+34WEVPizPYNuER4OuyqQN+7wcAk8b243s6Ql6ZgZzt2Q3H2Zn3
-	 fwtCXvfv3lUFbjuEGdD5xIfcK8QirvUz/AoB8DzMfhdVnF9ZGl/3QyMwT3LvSHQOfV
-	 tYEhcDcVdgbtrWL1qNZRxMyUJGS6xrDDGVIAFe9A=
+	s=mail; t=1793175638;
+	bh=7iGwC/zgOWLrxX4ANiv2xF58zogBn71EZM14tRgOJbE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=csUWtQzwD2E/XlWZClH8qe1DSNmkf/BxgxVrI21nciRCwiVBnNkgR/QmWPWiXgOFf
+	 r7hvwbXh1TI+dwN3mfeJxPnh+wv9MNKw/OzT9SWuYLztFyR/10iP2qfxQuy6XpjkYc
+	 swD9LFS71C2gJ4LZM8Rqw6CkTpFxgtqHX1iTdRcg=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
 	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id E3225FBCE3;
-	Wed, 28 Oct 2026 08:20:32 +0000 (UTC)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 91086FBD11;
+	Wed, 28 Oct 2026 08:20:37 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -83,10 +84,12 @@ Cc: amd-gfx@lists.freedesktop.org,
 	linux-doc@vger.kernel.org,
 	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
 	Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 00/10] treewide: switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:39 +0000
-Message-ID: <cover.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 09/10] soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:48 +0000
+Message-ID: <6b82201d601c23bf8545f8d581fd6632c36cd208.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
+References: <cover.1793027261.git.d@ilvokhin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,62 +102,41 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-nonnull") added the __nonnull_args() macro to wrap the raw compiler
-attribute, keeping the attribute's quirks in one place rather than
-open-coded at every call site.
+nonnull") added the macro __nonnull_args() to wrap raw compiler
+attribute.
 
-This series replaces the remaining open-coded __attribute__((nonnull))
-users with __nonnull_args() to standardize nonnull attribute usage
-across the tree.
+Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+nonnull attribute usage across the tree and keep the attribute's quirks
+in one place rather than open-coded at every call site.
 
-Each patch can be applied separately by the respective maintainers. The
-only dependency is kernel-doc: the string and lib/list_sort patches need
-patch 1 ("docs: xforms_lists: support __nonnull_args()") in the same
-release, otherwise strends() and list_sort() drop out of the generated
-documentation.
+Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+---
+ drivers/soc/aspeed/aspeed-lpc-snoop.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Latest Sparse release could not properly parse __nonnull_args() without
-arguments. Fix was proposed [1] and merged, but until updated version of
-Sparse will reach wide masses it might trip on __nonnull_args() without
-arguments.
-
-There are few more instances of __attribute__((nonnull)) usages left in
-the tools subdirectory, they are perf related copied files and can
-(should?) be updated separately after this patchset lands.
-
-Build-tested allmodconfig with GCC 11.5.0 and clang 22.1.8.
-
-[1]: https://lore.kernel.org/all/20261019175633.415493-19-bvanassche@acm.org/
-
-Dmitry Ilvokhin (10):
-  docs: xforms_lists: support __nonnull_args()
-  string: Switch to __nonnull_args() macro
-  lib/list_sort: Switch to __nonnull_args() macro
-  xarray: switch to __nonnull_args() macro
-  drm/i915: switch to __nonnull_args() macro
-  drm/amdgpu: switch to __nonnull_args() macro
-  drm/gem: Switch to __nonnull_args() macro
-  leds: pwm: Switch to __nonnull_args() macro
-  soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
-  checkpatch: suggest nonnull attribute conversion
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
- drivers/gpu/drm/i915/i915_request.h        | 4 ++--
- drivers/leds/leds-pwm.c                    | 2 +-
- drivers/soc/aspeed/aspeed-lpc-snoop.c      | 4 ++--
- include/drm/drm_gem.h                      | 2 +-
- include/linux/list_sort.h                  | 4 ++--
- include/linux/string.h                     | 2 +-
- include/linux/xarray.h                     | 4 ++--
- lib/list_sort.c                            | 6 +++---
- scripts/checkpatch.pl                      | 3 +++
- tools/include/linux/compiler.h             | 4 ++++
- tools/lib/python/kdoc/xforms_lists.py      | 1 +
- 13 files changed, 25 insertions(+), 17 deletions(-)
-
-
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+index b09dca34099f..ee84a06a035e 100644
+--- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
++++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+@@ -226,7 +226,7 @@ static int aspeed_lpc_snoop_config_irq(struct aspeed_lpc_snoop *lpc_snoop,
+ 	return 0;
+ }
+ 
+-__attribute__((nonnull))
++__nonnull_args()
+ static int aspeed_lpc_enable_snoop(struct device *dev,
+ 				    struct aspeed_lpc_snoop *lpc_snoop,
+ 				    struct aspeed_lpc_snoop_channel *channel,
+@@ -279,7 +279,7 @@ static int aspeed_lpc_enable_snoop(struct device *dev,
+ 	return rc;
+ }
+ 
+-__attribute__((nonnull))
++__nonnull_args()
+ static void aspeed_lpc_disable_snoop(struct aspeed_lpc_snoop *lpc_snoop,
+ 				     struct aspeed_lpc_snoop_channel *channel)
+ {
 -- 
 2.53.0-Meta
 
