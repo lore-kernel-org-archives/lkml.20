@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214242;
-	b=qTSd7rBZ+JZWbhzbPkVtiGQkZUiUIijzxj1lhlLvK7g8S7kceOGER6XoORgDFdqNleZS
-	 gBCH5Urhn+FTrVcdsA9g8+tKKLtyRLrH2drucHHYUw2MZ0rI/uvvt+RiV9IqIp8hy/oIJ
-	 2WDz3caASnwyz73Fnb7k2FvzgcaEA0VeZXqEz0goil7PkOtNxbGkVPoc1tMnJ/SOtlXJ9
-	 TghpNsjQ5xhs9veC2LUfMUvOBAteTlD6DMJBwd3/jvuFvH4MD67WtjqRIyK8xgi3YyQ9q
-	 Twz1czbYOo1P9/26VpEHhNHdzR61SVpO3750+t+ncPuSmiEw38R0oeTH6GYYEHsHleg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214242;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793214240;
+	b=iFZ7nK0ryqFyiw+MQQtvJinxnBDvDpqqe+11c8wicEZ4EE1vey4zWf4w/QUxa9jg1pYz
+	 xZVYXSYqgBQa4xuBXwTumYUOUg5C7ep4O21Mh8GUJczUcgpBilsnw8M1avvVdIdXBLMsr
+	 KJBQ8DlpVm2EsH8UJsj/rtMmnF1yfmoY6wBYE6IdOE58Gsa/Aavp1pr1ct5ip2ppxL5C1
+	 unxYMYv9UPahP+EP1AOAuTR201Xj6OYFpqqIKKT50o/1IPY1POIgCXYcggeQY4gH0LCNl
+	 qndewiqydz66pektai+MkXrUxIx9R7RH0xE5KjtG1c5+y0SXh8khLRZKb7VA0nTPgjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214240;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=O9/B5lF6u9GNtEi9e232diGEwQ+Oj3apNpXMoqj8NjY=;
-	b=WCNjjZAWi79EwXRywa6DiZl8wMS08BfMMrb3RvX7vwhuZOmwqCU0ZkNiC5ws0/5BNIRu
-	 9kwHsG3d+GOsyykHchBBxtoH/rzpoeCn1h/h74aQwm/siz9h3n/Akr069zZADZYAMx7ok
-	 CL2lfCmmLlJLv0kl8pcbHprHqSThkIBwxbjiYMNnOXkeadKrwersPH1ckD1AR7K/ibITc
-	 Sc8+bwzniNDcnKBrOZjsV5yTHa40xAwINdUMKzbLNL7fcIOBSUxOprIKWgsQMCCejtSGy
-	 G3GfTuaVy6M0G8ktbP8S6HY65TD8Z/VanZKqaM+xPf7ajeb85LR3f/Pfa8fi57bxvkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gYV5Bfizpq8kTLjJP5sooyUCJxWfa7okNcqH8MZz4LM=;
+	b=HYA0dyfn5Mdii6i50tH5Q/8O1n1IXqV4VOZ/tCGY7QalraKt26uVBumeh+d+ZY2mjE7r
+	 +zbrX0+Q8ZqNhId3GKj6aedleOxbOfHVx5KXADBLbJqZ7SLZA2tmMGFxvMppjhzSz4GCo
+	 LVEtHbOyHC01fjIIWICjwX9NSbdLcI8EVrXStC36na4u5Qfy16PrcelP9JH5/c3HgFbLk
+	 5MKRHXgma7QhcL18WmfY/W3pLaUt9AR+Dd4bzaHuZ7oDsAMd4T5sBfyp0l1rhaNQ2PvDI
+	 HpfYbFUHmqg2ARPmF8p1plPiuov6afGGtDNJL2+6t4gRa9MzrKN8165Dy7OJr3eGrFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QlGZSSwR;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmTJlIj9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6142B60A263D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:04:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6142B60A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1967E606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:03:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1967E606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QlGZSSwR
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso12447545e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:04:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmTJlIj9
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8ab432273c5so13788487b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:03:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793214239; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F9wIWO4iHijJskfpnxDR3eBmHJHNM4fKtePhFC+m8A0TpUXTTyJvwEOeG8DG6VKiyz
+         gnLj5jW2B/xyDfCv45Pr8DWwxdQf3/if9m/0XtVdxkQt1C9jeA6giwB2vyRbOnccflkU
+         PgN+UpYnoZ4vXy9OZ68VCIWzmmAogoLZ1iRDHkjltsy/CcZxkrCPJ/AmL9pXtBqNR11C
+         GgetQuT9ZCuO4XiWONmx3KDll79+v3+qb01NaCVuzfER7YVs6gFXyCfoAGEO8QOSrCl8
+         8VomJMk2o4jqKtDEFgABeMz6y0XHB2WyN6l509h5Z2Kd0i3mL6Xqa19cvHYKHqgnigQc
+         SUHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gYV5Bfizpq8kTLjJP5sooyUCJxWfa7okNcqH8MZz4LM=;
+        fh=FQKwJUCPYlC/Umj+1vNuMRyfRIIs7SWGmxJrPT2tbbQ=;
+        b=GekMtQcJcdQD0x0Y9ZXyahG4W+20p4HfUB066YwxmmY2h4EROlv/NN7S42iQI7pfAc
+         qEYj9PdO9PDEKfQvvfYoVUtEnNljNqTJa6XxfF0Buchnh8Ze3CPOvx69gnHlhvZgDp3Q
+         bqCTEQ4WwFmAnsq6V9eIokUMFUaMgpUEcaw+tpdnkAIgNkFN8Pp2lGrl0lhYAApZfTmV
+         vG659UBOi/3Q5IhZiwjcjmoxo/3m5biXWzCQjWgR0YM8XU8Jb+mrFb/YO6Ecip7gTJMI
+         ICPgFgcyeyotrUsA5VU9zwxj/m8AWJNkkESF+dc2SWbV6RIUgIcFNXb3aQyeu3KTfN4a
+         3tGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793214241; x=1793819041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793214239; x=1793819039; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O9/B5lF6u9GNtEi9e232diGEwQ+Oj3apNpXMoqj8NjY=;
-        b=QlGZSSwRN9Ir0wj1Yu6CVDKeAPqhbpY0J/iZ2PGJYz4DwcmoxDJ54Jp/74TitKPMKb
-         kNy6ln+VKEk4wZaIKNF3x7MU8LpJ5G9aXWX6dLKIzRyx3XjDVFR9nESTO1ctd2We2vre
-         z1pVvdqgFXk4k9K82PO/6wYHC9XpQIB2nkqOWDSpm/ZT8E0TTLmmLAS1iCLK0Bt/mGui
-         jgz87eCjjHl3soAbI8Mje16UWh9Vw3tdosUbiJnSMuaFpx1clioe8Q6Dddwsn4/hZm17
-         ZDJYBNbPqXzpGPVh4CjLolquj+lzHI2WpaYsgOf9XTg0OvvyZ8cxxgLHMxHP5V7o+NJ/
-         277A==
+        bh=gYV5Bfizpq8kTLjJP5sooyUCJxWfa7okNcqH8MZz4LM=;
+        b=PmTJlIj9BJE+hyWdYFmRhJ+3tw2R4WUGUDZVYILng+0oxJHUDaC9pvgOJiP+/g/GVW
+         Jhv3CgGsVhdXnLp5zNe69oj87R+yWv+rh7zb7Y7JFFlsmzoaHUUcLELpNaSyTSWM+RM1
+         CxOE7zT308P9cR7jJhSUPhFXrtf9VRYI1qzSrK8Erdbw1plM+UylP/yPlUnQ/iwNiDPS
+         tMxkJB02aqb3L0+NIqZEMzTz4uh1g00BKOmZvi2KbGuZzsEFaRK9qrK1oyiJ6zvi/pV0
+         qfRo9mnyvnaWsLQh5HGoviBGccm9j1jWwaedGCLja2JC/qO7HIz9SDEH6U+Fnwg/+d7+
+         lscA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793214241; x=1793819041;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O9/B5lF6u9GNtEi9e232diGEwQ+Oj3apNpXMoqj8NjY=;
-        b=RJoZgcW3Q/TAsVh3I1kDyRJg9ytoSwdJiHJDWARI8I6oGknl0jt/juAtYeUscjruEM
-         NsJNRJk2TBf1+/TxZvaXQtvk1+iG21XwrEY/8HciA0dAXjbjVjSQ87QyCGt2/QNcfTPn
-         rlV0QZEPGyK5QzyJbo4/YZ1NIpK0GjFhshYq3ycBK/Jhbvdphn9uiErXEc7BeX7jDIY5
-         XSOWyCHR/g7VkJZ8iYJRz1KRUirjlkLWm0hbzIWurgykX8JEsuy+JNsEaAdteDJdLkSQ
-         fQUIABhudbv8PtPvWZoKo/xwSdt5ZfwC9nC01zw048gsB+MsQ3FZzn+F1GsdsdlNdKt+
-         O4tA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwQs0j0jN/BUBj96pXhdfx+Dv/1BBRdGXUwsDWfkY71guFjoVi7CiKmB9dEp19Y4I++dUIGZ+U7QTewGg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzl7r3AbpwH0zG5zzY5GOEcfTxAFIiZWxWkVdUGWL2r7RB1hWu
-	WJU2IPc2eYyUrf0AwZDAJcMnLKktroj9i6sxWC/SxVPMTH2V/D9t9v3e
-X-Gm-Gg: AYBFou395c/D+4MBD/BdzZs9nABUo1Zn7E9ZZYBVHde3OzXT570w3j4UdA5tVdw/lOE
-	+ZaLO8/FDUCQocyKHybyKs4Sa0Pu8JZ8kiYeLJ0SL9HwKJ95iWjViQb5YId2HeWkSiHl+lvuBTU
-	x3jmJq4ExB6j26NHSQFG+4aHlCGwExAxH4lKdZoPDhNnisXyk3TuYbwIHlZACL9qP1yvm9kv/n6
-	G7/Jba4kX2khZbsQNPvTyGI7XlVhlpjCjZmlVYN8eJXZn6Lg+aJ37Ol/xftmthddNVcSvq+V+7U
-	PLw5aX/uS8JlWGC+iAisRuX4pMCWmffmZkiypWTCfZhoXJIzc4yUskaTDPuYtbJPr29XIeutkah
-	/uoNog15EeQClaAxMQZY376gLUMSR6nBaC+IJ2vXQYlOUQ18mh619YUsVUD/8YnaMFZti6Sssk6
-	DvuYZYGEOexukFKbepNQ0zAsNyiSRQOq4NIRrIRbW0ONvVRFTssg9YV2X82pSDHGMDChsdbhdhe
-	d4I0Lh6dRNvoTl6TzMde1ZeJ1WVtRaB2yOA/3p4Nwu9aTx2ilrjl6eDaJYUXizMPseFRSAJkn6B
-	VcD+Q3jTkD/5HMEjLpctx5i24NEXTFA1xqvMgULR4mUSAjWRlec1tHLC54V6jcXXciXI95UZci8
-	9ZdNv4Q9MENq5caJ9pMVqqJqAARv4gjW5CTTZ0Uyub0YY29GhFkf/VT4=
-X-Received: by 2002:a05:600c:8b38:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4a966c4062fmr75242105e9.14.1793214240486;
-        Wed, 28 Oct 2026 12:04:00 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff07190050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:1900:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a9ead8aa0fsm18317935e9.4.2026.10.28.12.03.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 12:03:59 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift.daheim with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xM8wG-000000014l8-30th;
-	Wed, 28 Oct 2026 20:03:58 +0100
-Message-ID: <5cecf4d8-d16d-4004-aaba-6a2c7c77ea10@gmail.com>
-Date: Wed, 28 Oct 2026 20:03:58 +0100
+        d=1e100.net; s=20260707; t=1793214239; x=1793819039;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gYV5Bfizpq8kTLjJP5sooyUCJxWfa7okNcqH8MZz4LM=;
+        b=UVU4FIFzHLVkGZSmZfEojAEQIxHLBFoNzw0STIhS7AV7tqK4xWFECbsvam3Qxhu8GA
+         QituVn5ZZKecn3vhvlTtFo+Y4xqAKYimnlzjov8ZGkN1FaWBu6Jzm7sT8bVXvUvtPkzi
+         tpQEVUE9nwu052pzaHOBJly6JHdf2u/NGSdw6YNurtrSp/gO95bep8+0+Z37kdVh7fq6
+         d+zLcaBzoGzxOAd8IIlWwuXPIss0v1GZHeBJFbCSRZYjYyirzeoZTE6bRfwgIRNCT7il
+         qUBamO2I7QXX5bP26WAQ/BYVF/CxPLj82dd97zlKiPg5feeUa5mriE2oX6RNyWW9WRH8
+         IVYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeBosjfi0t3/SPm5TyLjJSI9HPiOUZRiXEDlNSCTDkCTF6+zOINyNA6IJ1WZhY+k5koxOjZdKC7ZdRibs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoBIdAuFRoHdO9AJhoBQnxFFHOJAuCpohPbeSU7nEmw7YAkONs
+	dvuRPnIFyxVNLhzOmQ2hxVZPzQwp5vEorlaLL25cc/C17m+mW56gnH0YcgZohqnzMUv61ktYrrt
+	TvSX9CcnEUKVo2W+g0oF8Wqyh/qmDwsw=
+X-Gm-Gg: AYBFou0Vw/qIqGWBHxGZ2gj9pmQp6LV0v4X/EYiBmo98raUPR58Ovc9pVuQ8O8kGWJl
+	pQc5HeeonKZtjDCYJeiL22PFsofvBq+UK0kvIbAlUQIVsB1jnNcXg7ayD0aaFHsdB01yPq9vUjN
+	MiL3k8Q+b+7r2N+iIT6SiEpJoknghPLVv9+/XD9eR3BSWEQ+Yi3W34LkkkhLLJTpC6O/KaH/1pU
+	9g0bZqsoxbyJUcXrEtHQPYO+WT9A5Uabd1Mi+c714kqcp5ooCyRRk13qbEIHad9b5jwH+9RXEDV
+	X/Z/9a42tqd6snIGsYgWrvTrGKf05G/q+jdq0omRtsqY2ISU/+cC0FWoTvDk5rCrsDGzQsxFbki
+	2EKAGA348zTTWLqz0tvlC9tavKEW/X8fzlzLmb7pdHc5ffpkvdS+rh83dnMMo9Q2sqA4ZFEc=
+X-Received: by 2002:a05:690c:dd4:b0:8b1:60a1:cd3b with SMTP id
+ 00721157ae682-8b1b5c17da0mr25103967b3.24.1793214239135; Wed, 28 Oct 2026
+ 12:03:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,85 +103,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 wireless 3/3] wifi: p54: replace open-coded IE search
- with cfg80211_find_ie()
-To: Tristan Madani <tristmd@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>
-Cc: Ivo van Doorn <ivdoorn@gmail.com>, Kees Cook <kees@kernel.org>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- tristan@talencesecurity.com
-References: <20261026223222.2093813-1-tristan@talencesecurity.com>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <20261026223222.2093813-1-tristan@talencesecurity.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+ <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
+ <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
+ <CAHC9VhTHUU0h9k74CMT6wYhMwyY3YhbSSFwJoDTvoFRyTFVZwg@mail.gmail.com>
+ <20261022-hausbank-dozent-hurtig-9443f3777475@brauner> <CAHC9VhQ4sdCRvJ+YPZoiQzR_hgQN6-=84qvnTDDGPf=7=L9-jA@mail.gmail.com>
+ <5143896100674c9fd744c4d7d6ce12232910e789.camel@gmail.com>
+ <CAMw=ZnR54hMBwGTps23t9Mm_VO1bAvmeX8uTf_VJ0rJsFNMLuw@mail.gmail.com>
+ <37b653494cf282c6e428e2ae8fd781a0ea69bf3f.camel@HansenPartnership.com>
+ <CAMw=ZnQU0PRSn5gh-QNT+GuKroQaRsRUUMDB=rM=LSX+=h-JkQ@mail.gmail.com> <ac7d9af1336f86baf2dfbe417944298a3ff6edbb.camel@HansenPartnership.com>
+In-Reply-To: <ac7d9af1336f86baf2dfbe417944298a3ff6edbb.camel@HansenPartnership.com>
+From: Luca Boccassi <luca.boccassi@gmail.com>
+Date: Wed, 28 Oct 2026 19:03:47 +0000
+X-Gm-Features: AclHuK_dsl-iiTAA_RkgI0lW_me3PKlvDAD9Xjk5WqhnflULesXoa7TLNE1dmyA
+Message-ID: <CAMw=ZnQA8nZnF-khYkKfY9L4dtB2hmmbzHyKQrf_Vf1scVNM8A@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Paul Moore <paul@paul-moore.com>, Christian Brauner <brauner@kernel.org>, Fan Wu <wufan@kernel.org>, 
+	Manuel Huber <manuelh@nvidia.com>, David Howells <dhowells@redhat.com>, 
+	Jarkko Sakkinen <jarkko@kernel.org>, Andrew Halaney <andrew@amutable.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/26/26 11:32 PM, Tristan Madani wrote:
-> Replace the hand-rolled p54_find_ie() with cfg80211_find_ie() at both
-> call sites.  The old function had a buggy short-frame guard
-> (sizeof(mgmt) compares against pointer size, not struct size) and
-> open-coded the IE iteration that cfg80211_find_ie() already provides
-> correctly.
-> 
-> Add a pre-subtraction length guard at both call sites to prevent an
-> unsigned underflow when computing the IE area length from a truncated
-> beacon frame.
-> 
-> In p54_beacon_format_ie_tim() the returned pointer is cast to non-const
-> u8 * because the caller modifies the buffer via memmove(); this matches
-> existing in-tree precedent (ath10k, wlcore, cw1200, nxpwifi).
+On Wed, 28 Oct 2026 at 16:14, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+>
+> On Wed, 2026-10-28 at 14:26 +0000, Luca Boccassi wrote:
+> > On Wed, 28 Oct 2026 at 12:42, James Bottomley
+> > <James.Bottomley@hansenpartnership.com> wrote:
+> > >
+> > > On Tue, 2026-10-27 at 11:07 +0000, Luca Boccassi wrote:
+> > > > On Mon, 26 Oct 2026 at 12:57, <luca.boccassi@gmail.com> wrote:
+> > > > > I think there is one issue with the design pattern where
+> > > > > keyrings are set up in userspace, that I have mentioned a few
+> > > > > times already and I got documented in
+> > > > > https://www.freedesktop.org/software/systemd/man/latest/systemd-system.conf.html#RestrictFileSystemAccess=
+> > > > > as well: they are trivially bypassable if the kernel has kexec
+> > > > > enabled and it is signed. The security model relies on the
+> > > > > "good" userspace running first, but if kexec is enabled,
+> > > > > there's no guarantee that will be the case, and as far as I can
+> > > > > tell it gives root trivial capability of overriding it and
+> > > > > extending the trust chain as the attacker wishes.
+> > >
+> > > The attack sounds doable, but it also seems to be exploiting a gap
+> > > in kexec policy: kexec is supposed to behave like a warm reboot so
+> > > if boot policy requires UKI only then so should kexec and that
+> > > sounds like the thing that should be fixed.
+> >
+> > I don't think that's the case though, even before KHO/LUO existed,
+> > kexec has never really behaved like a warm reboot, as for example
+> > boot services do not run again, so various chains of trusts are not
+> > reset  (eg: a bootloader might now be blocked so warm reboot would
+> > not work, but kexec would). And since KHO now exists, the difference
+> > is even greater, as more and more state is retained across the
+> > boundary.
+>
+> But still, a lot of people are using it for servicing reboots so it
+> does sound as if it needs policy control.
 
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
+And what policy would that be, given there are dozens of different
+ways to boot a system, each with their own particular methods of
+establishing trust? Even the most common one (UKI) was tried several
+times over the years to be tied into kexec, but to the best of my
+knowledge nothing was ever actually merged, as in practice it's really
+difficult to do, there are dozens of ways of doing it and no apparent
+agreement on which way to go, and so on and so forth.
 
-> 
-> Fixes: e5ea92a7528d ("p54: AP & Ad-hoc testing")
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->   drivers/net/wireless/intersil/p54/lmac.h |  3 ---
->   drivers/net/wireless/intersil/p54/main.c | 30 ++++++------------------
->   drivers/net/wireless/intersil/p54/txrx.c | 12 +++++++---
->   3 files changed, 16 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/intersil/p54/lmac.h b/drivers/net/wireless/intersil/p54/lmac.h
-> index 8adde6ba35ab8..d9cbffb74a265 100644
-> --- a/drivers/net/wireless/intersil/p54/lmac.h
-> +++ b/drivers/net/wireless/intersil/p54/lmac.h
-> @@ -553,7 +553,4 @@ int p54_download_eeprom(struct p54_common *priv, void *buf,
->   			u16 offset, u16 len);
->   struct p54_rssi_db_entry *p54_rssi_find(struct p54_common *p, const u16 freq);
->   
-> -/* utility */
-> -u8 *p54_find_ie(struct sk_buff *skb, u8 ie);
-> -
->   #endif /* LMAC_H */
-> diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
-> index 57a62108cbc35..30f235d470bb4 100644
-> --- a/drivers/net/wireless/intersil/p54/main.c
-> +++ b/drivers/net/wireless/intersil/p54/main.c
-> @@ -100,12 +78,18 @@ static int p54_beacon_format_ie_tim(struct sk_buff *skb)
->   	 * The dummy TIM MUST be at the end of the beacon frame,
->   	 * because it'll be overwritten!
->   	 */
-> +	struct ieee80211_mgmt *mgmt = (void *)skb->data;
-> +	size_t ie_start = offsetof(struct ieee80211_mgmt, u.beacon.variable);
->   	u8 *tim;
->   	u8 dtim_len;
->   	u8 dtim_period;
->   	u8 *next;
->   
-> -	tim = p54_find_ie(skb, WLAN_EID_TIM);
-> +	if (skb->len < ie_start)
-> +		return 0;
-> +
-> +	tim = (u8 *)cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-> +				    skb->len - ie_start);
+> > > What's the mechanism boot uses to ensure UKI only? So we can see if
+> > > it can be adopted to kexec.
+> >
+> > There isn't one, and I don't think there is correlation, as booting a
+> > UKI is not the only way to boot a system. Eg: this problem applies
+> > just as well to booting an arm system on uboot. So I really would not
+> > tie this to UKI or UEFI specifics, it's more generic.
+>
+> Well here's the problem: I agree root could kexec to their own initrd,
+> but it looks like they could also properly install and reboot to it, so
+> it doesn't make that much sense to plug one hole without the other (and
+> when they both get plugged it does make sense to use a similar
+> mechanism).
 
-casting (const u8*) to (u8 *). Oh well... If the checkers are fine with it.
-Then sure.
-
-
->   	if (!tim)
->   		return 0;
->   
+That depends on the firmware and bootloaders involved. It is true in
+some cases, but not in others (again, setups using uboot for example),
+and in the latter cases the hole exists only at kexec time.
