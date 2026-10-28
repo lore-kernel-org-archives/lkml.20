@@ -1,112 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198495;
-	b=apnZxAab2htVThgV3A/Nx6F1HncQIrzX4VYq27yRu3FPch/SsLCMAw4jrlqAKzeaFBhJ
-	 ovInczKUksABT0pvbHLSOSMVsiyGOi0r0HPmwvbeU/X7h5de1aYbNk7g6qcPKUG7CJre5
-	 RobZo9uLTd+HIQQVha/0+CR152f7vNytN48hU+Hk5s2Ul8s/DaZDVx3whLfn7lYM/mehp
-	 CLLXREauODpsWExs2rdXiqxb5Dwvpv7HU5jpqHkQiHDTByY93sMZ3h8C4RD69NDSoFA/N
-	 M0SRjm9DArJzKAXywxWrLQ40jEHSZK5Up9wgTPbrZtmIU/jV3Z0wHrOCLb8wUGTknDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198495;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cU+ZB9844KPXAcjrEqi/T/TxmCtfMJe4KVaRRxeF4PI=;
-	b=Ud3b3+VICalMvHDVj0SO5enec2TJ/GQxxWnjuY8Extd3K4a83WiS1GlNQS4Usxs7myav
-	 aJ5AS0calry2M547PX67ZQ5RBV4ewiXXwpl3B0Um/iJ57XI1hwXO03NO94HpKamIOowMV
-	 /e5Y9kPRz6SRxRHT77OlTVvZPD05EK4ZP6eIY4OCUzd41UR/hvSbdcuoZdjGJWRgw2Z2R
-	 QxT8mSqTWz4vFIsfLyqo0HX51DigfMzLA4zvwZKuqbVS1jucwDBH8QdpScdLY1uzqCv/A
-	 7Np/6EMTZ1rHWDUlYb2kH31N9nvYOe6DNrKy50ZVa9sFda5xQg1NZqCJL7+QlQpwlvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QK6P9sRl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dE2iqtn4;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793198493;
+	b=4PFzcrNc5+2B/yWNDRNjJHVarYzBOJoUHDmbKJaIuFRDnTA7piBET+f2ETBewUnW4IFc
+	 0CCgFWsp3USN70OgnSPzpA3Gnfp4+ggP2obvcjmweC+64pcvR5I/1xnITf2QXZ1lWDTIa
+	 a8SpAoWqsBGdlE+fh65PXhT1cDR8Wqc5rBCNMvgmeffBfvHsUGxL+xsLupzFc88ANjYDL
+	 cVBoVPp8A9SajS3fetVRfGCTIAL1AXpbepy4f2qBK8xooKjb1BvHDtAQPbOkV+p3cPAaF
+	 xcbfDUMskYhRjkgUe8DxDl5OtSB0RubIOZxOrfqM7UXbyyrjm4W54KX/lCSRrW//lcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198493;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=KnViDZO+W7JL/TAntmxN9l2ez9WUYbOiuW9lHtkdn1w=;
+	b=tj1xnOIWm39Q8OlvK/eiPAQe0ngBG2Z/PH5Eax2sxMW98DqPitkClzSzKrA8ybDv/YRy
+	 BAizUZobk0o96S88aYWr0d0lB/EnXxtwzrY+sdj7eN4eT3EvjhISHPVd2mIu+cxWzvsci
+	 wAUKlUTRP2QOStV+oJcfgMAyYqUszRlWQeMx4hIRXGcXKW9qSh9O5j6eQx8WNZWBCILoG
+	 JaU8uKhE3klhJ0gikv9A/0KbZWfYhT8t3vo9AEQ9tUm3VAqOsxdqm9AEDzvEyLOusfqfE
+	 HaJ7C4dwSOgNCAXairgznRxoCx6P8wuuGy+IEJWxidM6s1V1Cz//1yBrRE5gAPv5uTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WBmHb9vn;
+	arc=fail smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C30A606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C30A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90746606A31C;
+	Wed, 28 Oct 2026 14:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90746606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QK6P9sRl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dE2iqtn4
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SDI5pX718077
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:41:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cU+ZB9844KPXAcjrEqi/T/TxmCtfMJe4KVaRRxeF4PI=; b=QK6P9sRlLQRXw6DN
-	5y8otHdGrG0lxl0Y26kfdeAF0hp4rr10saNLUaBdlF4GUhI3ELvHc4HAnnpF6hnz
-	msyjQAT5ZSqRqyADyOQolglwcbUU0614GTZDpLbZAaWs849h+4+EvfUV+2usdeDm
-	m93j32xYU8ZpK2tOOaZDCgGbkkfXUiiaCLDqdRR5tkAFfyxC9buM5dU0SzVtNU8B
-	IVxhnfWAvRDfqer7AgM+0Sl1RqTbGYKnZmCNJMj8K/fdj1TTE04G8g/MxH7eUZ9F
-	nJwr+XtE1K7FI3kX/LVcI2OAvZmaABsu8lCpO4TI5M7xxUBO7SQjZBlJiBMfJwJr
-	MaKsXw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtjgbrw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:41:34 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3acc98e3b3cso898797a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:41:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793198493; x=1793803293; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cU+ZB9844KPXAcjrEqi/T/TxmCtfMJe4KVaRRxeF4PI=;
-        b=dE2iqtn4jyxZogmzG6xMCFssuZNzBJCTBOFSvjRZkIFS0mOC3kVBKzrljCoC+SQpR2
-         eDwRi70oNzQS7iYq9Upyh1ohmaiQ5E4853fcqgvrNRlOOInk9DLPcdXGx8werPWgIg1/
-         Ej6SoTdNezQeZ3QsYoy06BJuQU/zYO3ag5iQcdXtiTCuwPPfA3oz5BFQVw87AtwEq26K
-         0zzI+Hr9IpOOZ40/bntcI/t0tvn46d0OgTwNwlt8FLSMS0af4Y2FpMsLFZH8NdQ53ZXt
-         ZUgcXj37/jiS8eLyvylpRaTOcWVAEPbjA0ALgirgLHtJvZSX8cA1y+zP3+5KKixHYtOd
-         kDVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793198493; x=1793803293;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cU+ZB9844KPXAcjrEqi/T/TxmCtfMJe4KVaRRxeF4PI=;
-        b=V8cNCPwkkABp2QFy/3RjdY+WyUPKqMKaWS9HuC3BnW5fXimGCZ7sx72ZVK118h42Ep
-         7KlqodtucDZYbVvO2cR9BGpZJ3FPiSgbMXbjA+m4p4YJYQK9YMbatP4VP1Ek/I8AlgNI
-         IZwWXP0DI1DqQv7vlbqgr/kGsQe3liWw4K3k/3ZHJgUJTfNMJBYAqE75FIqBnm0WYAU4
-         XyeLlNFEwe4hGXWxlb0nGYDiuKhcj2KdwxmCf+mjAFoNHPQvhhMriSkqZEDr2CL7YeFS
-         iMzALaCb6iOxqJE8hrOZO7EIGs4+tZLsLzVeRmAiVLL9Gny0o5Xy95BeETe6u4UZGvwd
-         QIgw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmz3C8pR2MFaUfLrpe2PMIh+XQXQQHOtRMiKF6FdAaib3HuK6khoohcWUA72axtlawPjkUtCtKNxwKyMA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZJ4Wxtu3vAGCjB87g0TiZuOTyX3oXzJdt8WpGLIxjKmOsqGVM
-	NN8mjnqeA+ttkAQxjpu88P2jtIgVE6PwFbJJkawxLLF61xwu9zfPBHeHTYuWGlW8rc+Po5uaRY9
-	qhyiJzz1w/lAkqrhR1FoQf8WudXkv+0UADymbreHIGZgSwWw5NNiLhH3bhVvQ9ntFk1s=
-X-Gm-Gg: AYBFou0p9O/xwJVbkOoyE+9PmFnl2Q5iKnshFLwNgQQKs+JIoBqE4W1sjdi/pGrN1uN
-	XCPMztfmUcNvFB1pDbTsDqLWKSJBz7B/OXVpMX2bkGJ0UKiweh85EHiDfQFqrlwiguIMMjxMRqf
-	cpolnz34Ywu+f/doM2IAH/PVHZAk7hVpvb9lpaRLBivSNYSH6RsZwfZ1Tc7L3mYOtuNbU3tpHk5
-	eJSkcWjRrXhBwTVkmS5DKHH8BOyz8ptMqMeXBWLP9lxyvfkPRT8WjgIsghGw/ia8iLbUbgPmP5J
-	ck3qDclyg32vUby7TD8eL4zmr2Ny8vIjKvggiEKgvOW3WuY8wE/bApnksTRS+FgS/OBIpGsBwP7
-	ZHnjJV1jCVM+EySslie0BjgFnMKok4Zg43THSz5QzYbP8tV3v9YAuTMa1Q0g1H19Qgz6aMzOaaB
-	gCC+lTiogPTiZf+UCwqtgcLgh83JH6SpOZGsKU8qkPt9vz
-X-Received: by 2002:a17:90b:2296:b0:3a4:b30b:b501 with SMTP id 98e67ed59e1d1-3ae57e2b787mr1494817a91.9.1793198493238;
-        Wed, 28 Oct 2026 07:41:33 -0700 (PDT)
-X-Received: by 2002:a17:90b:2296:b0:3a4:b30b:b501 with SMTP id 98e67ed59e1d1-3ae57e2b787mr1494800a91.9.1793198492549;
-        Wed, 28 Oct 2026 07:41:32 -0700 (PDT)
-Received: from [10.133.33.238] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a5839besm3357980a91.11.2026.10.28.07.41.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 07:41:32 -0700 (PDT)
-Message-ID: <b228d3c3-ac4b-43df-8829-edb9c459860d@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 22:41:28 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WBmHb9vn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793198492; x=1824734492;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=pE8x3z6+CQKccN1KJb9xlW8plgIjsNf/fFpXrjUpGl8=;
+  b=WBmHb9vnU+SB2PzIcOFcZ1bnkiV/ipKI/d1RED5HJS7g8O3vT1kcwLMl
+   Y5WHPKfoxRhdK6vrkKgagCv5TDYb0Y3ya9SdICYIYBaikJKDtEIGzxKLO
+   Iz6lnAdIlmK4H97x/YYfBNyVnl02CDSeeKJ7E51dAXIY0Fn48h7NYEGHh
+   IIjd9rXnUAEdfegrdBf1tMNYmhD4vTD3Cd3mn4yr6Jxqb0CzPa7R/0c+e
+   kUoh9W3jegHNU1pTxKOwHvIJ/heMKrny0jw9RLYMaV0Wpp5Yk0zQSYLIu
+   pq8T3CEYsbS8nrJqW3kSE2KS0mobAZdA9Ch2MnbrCXCczc5tCoUrb5VFk
+   w==;
+X-CSE-ConnectionGUID: r6tqCmxjQpuG2jPUKgoaqQ==
+X-CSE-MsgGUID: seLJ4LEKQwizhkdsFjIbqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1945757"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1945757"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 07:41:32 -0700
+X-CSE-ConnectionGUID: 127v2mYcS6CD8Wku8jSr0g==
+X-CSE-MsgGUID: +LuPUcrlS5aqV+NcgOtfCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4717413"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 07:41:31 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 07:41:30 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 07:41:30 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.23) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 07:41:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cT9hCKwrAzef5AIlUb3Lll1uLyzPB2GOuv0ip11BXG7DQuRYMBEtuMnz9BD5LGsHNzyW86VRp9fqOQ6v2qLRvXQZWrymErIhXEc3nlXUm9IUVZfzdqgyOD78wSoKFSwagofnmwAczflafgF2LCZnnNAliKsmDHyoReNFq2DdiNyjIxFhSgLgzc1asMao5xY0x+yZdFPPNhF6cxZU7Ff07bDv8AtltvVi5I6rozvZXCQJAjwIp+sl15KYwk0Y1xXks/SD+Op+Y6pSr8sKClt0O4xyu/fWqxePaTNr4FOSibvb8zv83T4fCTatIBTfR9xBMfhSZggYRK+sV86ijAmKgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KnViDZO+W7JL/TAntmxN9l2ez9WUYbOiuW9lHtkdn1w=;
+ b=ZwzhSM4psOO9E1IDu827xFIpe0+eeXOiGdTD7ek+CcqZIe5M3ru4Tk8wgc8z1q/5EHECaDhbtz9zR9S3L0GUe5/Wjvx9W4SWq6OvWuTWzoCY6d1ysa3QXKmfzzqGJXma4oQCXFDgqg4SfJuM0zHQFO0cCWHW7tz1kRwYid7s20Wx4d5WSOlNdgHt9k9E11WzsSC3wSFFjQ99YHwtkSpfJwXGia/aHpOScvcwzSgTv9Xbd4fqN1M6hzlQzOQq2lhK6g1DuS+WRTpCrYFfgWAtBcO5MnmyDn0T/jm1aYTGMSOyKw5zvqrNh1ETa/t7/g3MVi36WE76zPV/LDXXGaICFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV3PR11MB8508.namprd11.prod.outlook.com (2603:10b6:408:1b4::8)
+ by SA1PR11MB6782.namprd11.prod.outlook.com (2603:10b6:806:25e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 14:41:21 +0000
+Received: from LV3PR11MB8508.namprd11.prod.outlook.com
+ ([fe80::a1e8:1786:e5d1:8e51]) by LV3PR11MB8508.namprd11.prod.outlook.com
+ ([fe80::a1e8:1786:e5d1:8e51%5]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 14:41:21 +0000
+Message-ID: <1950d325-384c-46dd-aa24-3d3ee561b2dd@intel.com>
+Date: Wed, 28 Oct 2026 15:41:14 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
+To: <choiniere.vincent@hydroquebec.com>, Tony Nguyen
+	<anthony.l.nguyen@intel.com>, <intel-wired-lan@lists.osuosl.org>
+CC: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Wojciech Drewek
+	<wojciech.drewek@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
+From: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU7P190CA0030.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:10:550::7) To LV3PR11MB8508.namprd11.prod.outlook.com
+ (2603:10b6:408:1b4::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,215 +138,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] selftests: cpufreq: stop CPU hotplug loop after
- cpufreq update test
-To: xiong yining <xiongyining1480@phytium.com.cn>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chenbaozi@phytium.com.cn,
-        zhongqiu.han@oss.qualcomm.com
-References: <20261028100241.189085-1-xiongyining1480@phytium.com.cn>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261028100241.189085-1-xiongyining1480@phytium.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfX2tpAbcxCXUC1
- w09T/M+4jgFjOXrQfXoMq/bu3xUpdnP6L3h7F/lc7VGm/L7/xnrdmyNpIMnkIyHoTyKPeIIXK7y
- r0rv4y2MEtaD87qAkzaeMMuf7xJkgahQwD0dwvQMcN2fOCw/oMEEpiC5IfsOAyKR+M5pTajupVH
- zX+O6IDKqR0sjOeu7oGamSN71G97+Rc/ArCKSu9ZrAXSe4sF0S0J/f/KzxBY6mxhdGn5s4jRVgK
- 95Xc/tKv8WKgcJnQoLanQWu7DtULtmjJ7bbul+4jlY64ToxPJ7vUey3KbwBB0owkrujYLQ+Sgot
- wn/+ZO5I9RHbh3jMUeITsx8V4vNuAPvGXpCS2xOZ06QBK/0lg1xiyfu7dOEeqEwuNIYgts5EAg5
- ljfiw4+4VuH/vTLOJTPS9g/E0Hmx2hcEmVkt0L3KwbPCCd1C6ufZS34G9kMjCescWkoKzFneMfN
- Y3zIP7TCWn6KHDDHI8A==
-X-Proofpoint-GUID: yJ7Xr6E_Nw9oPKzWIC08Jrbez2I7HKTt
-X-Proofpoint-ORIG-GUID: yJ7Xr6E_Nw9oPKzWIC08Jrbez2I7HKTt
-X-Authority-Analysis: v=2.4 cv=LdipeTfi c=1 sm=1 tr=0 ts=6ae2099e cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=Vt2AcnKqAAAA:8 a=VwQbUJbxAAAA:8 a=c92rfblmAAAA:8 a=fgrLqfBXAAAA:8
- a=rLnwe5TcSjkNIz7vCUkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=v10HlyRyNeVhbzM4Lqgd:22 a=GvGzcOZaWPEFPQC_NcjD:22
- a=_Ge82aPy-h_wFa7gWU4u:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfX8Il0KvTw0paC
- oR+35oqh5+rOOgL1JqJ9ypxLTeLgtTrmq8PmrLHoHIg19z5rAAn+KKQxKUFFdMAsaTT1kYR3WG8
- gI7/EhDdBR2yRdrhtcZa2kGdHsFckCk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280058
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR11MB8508:EE_|SA1PR11MB6782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d507a2a-8e8a-4471-7a72-08df3501883f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|261022105027099003|261009223027099003|261021135927099003|261021121427099003|261022113327099003|261021130227099003|261022075727099003|261022115727099003|260925022911599003|261021123027099003|260925021311599003|10067099003|260925021911599003|261021133027099003|56012099006|261026135527099003|261026140227099003|6133799003|261026130827099003|22082099003|18002099003|261026121527099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: 8crUgMvxRTGIxOV2jja7AbfM7S/8oQYB5Czn8F4ZgRjKKb/yfKvYoplpNsVjC+wXnBLjidNMw3+mEntDbMvowDI/PlNIyqv1J75eRMadSuX8/Xs6+zfsdrqDk1/DKMnJ1QJWEbn/svO/Si0jfeiUULIUJryWyk0vKJNXUQ0oWYbPX/tzP4deGPTNA650nybwS9ca4TZtWsDr6NzhQ0qvRLdpuB5KrMv2srMVOWotgv3Klvh6F0r3D2pL6D8Z/IEhNvpYFycPIA4cS0r0YaREoo1K/o8bE5PLuml4v4cD7lm10qfIeYTy6rqbtAMZseMv3DP8M9BM7D53nZLuQoK0WHgs9w6wOPurJzk8FD3epMew9UiI9ieDjd4W9kpQP900x7H12tRj5NjPNHy0aaTVzznZF+BuvwV5pE3RYDByD2vNwKxBytlIZbaUzt9WUn9PouMp+Fk66YvImzXhzcJw130Bh/Ys/61rwN1JN/EYbJueHhfb+226FAQIZ4uI/MROKlEejfimFqIsyR/gu9ogKnLpkuXyN20Qs2RwFsiKYt5vvLajv/qYKP3bocZm8nIVCBbgHihAsEMMH6FaTyOv/itvWLRhmd+cG9cJqnnYXDVi3/60ZMMqcpOHeNTuOfLa
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR11MB8508.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(261022105027099003)(261009223027099003)(261021135927099003)(261021121427099003)(261022113327099003)(261021130227099003)(261022075727099003)(261022115727099003)(260925022911599003)(261021123027099003)(260925021311599003)(10067099003)(260925021911599003)(261021133027099003)(56012099006)(261026135527099003)(261026140227099003)(6133799003)(261026130827099003)(22082099003)(18002099003)(261026121527099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTc0SUVPRFp2RTBraThQSit3ZFZ4dE80cTRpOFRSeHZxdkFlVklGYStuSVNi?=
+ =?utf-8?B?bnB5TUVob3N6bWRSTE5wR21iMGU4SWYra0sxbTdaQjQzVk1xMUNlMWlxYmI3?=
+ =?utf-8?B?d2dSaWYzdlpkTGl0Rk5lK1pQd2Vub1g3OXFKK1hGeUxRRG1xWGxsNWlIZHZj?=
+ =?utf-8?B?SkREbCtSNGxUaGNHOXcraG9mNGxCcXl4Q1JVTllmNWpIaGtjcjU4bXFJblpI?=
+ =?utf-8?B?b21vU0RjU1RNWVdiTXgvYXA0MS9wNUdXWXQ3VEFGNTN5WGlqY1U1elppVFhQ?=
+ =?utf-8?B?c2NJR0FrQ2h4TVltaXREZWIzMFBaN0gzOGNYeDFGMTVBZ3pXUjZ5OUZWKzlm?=
+ =?utf-8?B?dWdKS3M0SDd4K1FpOUs5bFdwK0dnSlZlcmVWbDRKcFVydEVoQlptZ2dhc0tw?=
+ =?utf-8?B?UnQ1OUpQN1J1NUkzRTdoUE1yUG00Z3ZiMUFmZWp0NjNvL0JSMnVSUDVLNnhC?=
+ =?utf-8?B?eVpwK2hvb0Vhbm1HczBEMnV4N1hkZGZ1YnJYYmlhWEM5amRRTk5lNWZjUHBD?=
+ =?utf-8?B?RExUTHFPbE5paHdEL3hxQktpSS83dFdJQzVZOXl5eGQyUldRa2plVlZWSmVy?=
+ =?utf-8?B?Mk1SSUxHRmc0WVlOc2c2SjZ2YUJXZTlTZ0UyU1lqdkw4Y1UrbjhtbVNoQ1RT?=
+ =?utf-8?B?eUZjNGttY0VDNnlTc3BSSzJxY1E5UmlseUttcmw1ZmxSNEloTHQxemszSHhT?=
+ =?utf-8?B?Q1ZUUkpvblh5TkxVMHg3cWdlMGhtZUpxUWhkeWlMMVpsUHVYTldCeVY2YXVY?=
+ =?utf-8?B?NjBNQjV5RzlQR3ZhNlljd2NKbm1lR3ozWW8wL200eUVYVEltWUdHT1Zqdk04?=
+ =?utf-8?B?bXI5dEdEdjBIdTNISURvS3JPcE93aFgzUzYxN0RyemtMK3RJOVFRMHlCaXBK?=
+ =?utf-8?B?NExCc1dlS2lEQkRWbk5hVGtPRSswU1ZoUHgvQ0xRREZUaGZvK3RrZ0hzYmtt?=
+ =?utf-8?B?Y1o3QlU0RVJERUMrVWloSitvR0xBaGd5UVY1ZFlJUjR6Sjd5SC9jSXMvdEVp?=
+ =?utf-8?B?bkNuMDNOeTI3dmVjUVJpVXVtejRpdUlONEVTUWE0OHBPaDhkenJ6Y1JoaEtj?=
+ =?utf-8?B?V05JdEpRWjRHVFJxUzZVY3JyZFNia05jSDdpeGxmVnNSRU9DeEV0bnpFSzBa?=
+ =?utf-8?B?eWY1N1dQc2ZwZ0FmSEx1cVArcUdSM2NFNmFPbGJkUDd3TS94dHQ0RG1oaFl4?=
+ =?utf-8?B?U1A4WklCc242aVdRWGN4ZDhNTHlzaUExNktVVFBXaXBweWNUazA0RllYRlN2?=
+ =?utf-8?B?UkJpc2xYQnBQVy9aS3lTbVgrTjJaclVMOFVaVHZOeGxhTDhqK2JFdnI1YVZR?=
+ =?utf-8?B?UUlBcEZUQi93bzJzZGZNWmRNaDJVM1l5SHhZK2VET1lXaVUzNjBpc3pOMVdG?=
+ =?utf-8?B?Qjc2SlVLaCtQbjZvckdjNFpQNjFZTGZ4MGoyWmtwWVlHdmZwU0VkTldpbWFN?=
+ =?utf-8?B?M25scmlYem1JSy9sV1M4eVRDeDlQQVhicTNxVVNLUVRIWVhSSjhGcmhKSlBM?=
+ =?utf-8?B?QWU5UlVDd1lPUVJkZHFHc0Nmd1VxZHE1MjlUYTV3T01OemtycDhyV3poK0Z1?=
+ =?utf-8?B?Wmd1dUo5UmI0aVE5MGluNSt6djdNRGtpaHVMby9EeWFaN3dzNEhhYzZxWGND?=
+ =?utf-8?B?TzN4WS9aSWxtcER4Z2cwbUloSmh0dGhGdGtxdnArbGEvTko1MGFRZGtBZDFE?=
+ =?utf-8?B?OFhXYkt6dzVDL0k2VkdGMGlwbmJqc2hsc1N2aURzdVBaUjhGOXlLTFRwRGZv?=
+ =?utf-8?B?MlorSExTL29lRUZMQk10QVUxZkJiUEZTS3k3YjQ2elNRL1RGM2JKWTBEOEE3?=
+ =?utf-8?B?bDZPT25JRVcvN1gwcDROOTdoWVA4MkhGcG5rYzJud3JPM1ZRTi9EYU1jbExX?=
+ =?utf-8?B?WWhlbkZlMmZGbmxpRXFhM3dBREh4Zmo4ekFiSjA1MmI0QWRraHhFVmNOWUxW?=
+ =?utf-8?B?WUlXQWpvc0xXZE55eU9IWDVCUXdmMjBkbG9uVS9sU3kwSHFLd285b1dHd3dB?=
+ =?utf-8?B?TVhLYkp1Unp1TlY3ZGpxTWVTN2poU0haRHQydGwzbWRMRTdzM05NOTVZNk5r?=
+ =?utf-8?B?K1JqRW1oME1kdDBIRGJMWUVSVzEwUU50ZElvWXhrMEdmSldtVEN4UnlMM2Vo?=
+ =?utf-8?B?UStWUTBtYlZnNWVsYnJZWnBGdStVTDBTbUdDZDhaT091L3hvL2w4am5CRzRE?=
+ =?utf-8?B?ajlHTStCWTB3cytjcDFLaXBJWloyTnQ0c0VJSHQySzU5L2F5Um5hajRjb0hs?=
+ =?utf-8?B?d3paUitJNDFRZVIyMXBZWFJTQmdyMVlxdDM1ZTREU2JFVnFpMkVBT1M1YlNU?=
+ =?utf-8?B?eUtIQTZQbW9ZcDF5SzY3NldpTm1RbTFmWWZ5OTJkOWRkNmlsVXdvbStmallh?=
+ =?utf-8?Q?6Y7OEYqzrAx+DJIA=3D?=
+X-Exchange-RoutingPolicyChecked: KlFcl0kP81kae4PUok0bl7lDr0N3YbMC78dbbxJJ4XRhbHJZ7LW9W/CZIiNYhxrDKDm3mrBKkDkEoGqpZ+vr4Bf99edaLV6WppqAMAMNg6h7Li1MOwmb0k8OiyuRUTsxV9p3TmBgLNXQjRy0Kw+p1hjRSJh6t0m/dM+iVHt3sQI3csbHjy+ZOgH7UdnRaoa0NDYXMHGFXH8k+htgaL4YOZ+pXt9tqPYtS7ZmMTXN6f10E9MHm8rZkfWPbgW0GOTGZ4r0Yx6bmsFlR6nLq/V+UYj9nXKgtFh5PVYpG1eZvaSuqbno+HphL+u9vBK/ruDa85PlGf7yIL/uMhXepNVuDA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d507a2a-8e8a-4471-7a72-08df3501883f
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:41:20.9331
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4AWYhMq9SA3IzNHp6Ss6cAELBQ3qkWbzZMh7NfhMbSmEplb+lC13UCco31TpPN1jo5ni5sSMyDUbmx7qWhM2TFik5bSDTyQl0CQkVdaS+s8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6782
+X-OriginatorOrg: intel.com
 
-Hi,
-
-On 10/28/2026 6:02 PM, xiong yining wrote:
-> Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
-> for verifying cpufreq synchronization between CPU hotplug and sysfs
-> writes.
+On 10/26/26 2:30 PM, Vincent Choiniere via B4 Relay wrote:
+> From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
 > 
-> Two issues exist:
-> 1. Background hotplug task keeps running after test completes, causing
-> redundant CPU on/offline operations.
-> 2. When cpufreq frequency setup is slow, the hotplug loop may exit
-> before frequency updates finish, which breaks test purpose.
+> ice_tx_hang_reporter_dump() always reads tx_ring->tx_buf[0].skb,
+> regardless of next_to_clean. The Tx cleanup path frees the skb and
+> marks the buffer empty without clearing the skb pointer, so slot 0 can
+> hold a stale pointer. A NULL check alone does not cover this, and
+> devlink_fmsg_dump_skb() can fault on the freed skb.
 > 
-> Introduce a file-based stop flag to control the infinite hotplug loop.
-> After all cpufreq updates complete, create the stop flag file and
-> wait for the hotplug task to exit.
-
-The changelog still describes the v1 stop-file approach; please
-update it.
-
+> Using tx_buf[next_to_clean] alone does not fix the lifetime issues.
+> The dump runs from the service task without synchronization with Tx
+> cleanup or ring replacement:
 > 
-> This makes hotplug run only during cpufreq sysfs write test,
-> align with test objective.
+> - ice_clean_tx_irq() can free the skb at next_to_clean while the
+>    report is being prepared. It calls napi_consume_skb() before
+>    marking the buffer empty.
+> - The ring saved by ice_tx_timeout() can be replaced or freed before
+>    the service task runs. ethtool -G replaces the ring contents and
+>    frees tx_buf and desc, while ethtool -L can free whole rings.
 > 
-> Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
+> Record the queue index, next_to_clean and next_to_use at timeout time.
+> Before reporting, take RTNL and check that the saved ring is still
+> one of the PF VSI Tx rings and that the VSI is up. Copy the
+> descriptors and IRQ name while the ring storage is protected against
+> replacement. If the ring cannot be used or the copy cannot be made,
+> report only the values recorded at timeout time.
+> 
+> Tx cleanup can still run while the ring state is copied, so do not
+> dereference the skb. Retain only its pointer value in the dump and
+> remove the skb contents.
+> 
+> Release RTNL before calling devlink_health_report(), which takes the
+> devlink instance lock. Build the dump from the copied data and free
+> the descriptor copy after reporting.
+> 
+> Observed on an E810 PF passed through to a KVM guest with Ubuntu
+> kernel 7.0.0-14 (PREEMPT_RT and a local scheduler patch): a delayed
+> queue IRQ led to a Tx timeout and a page fault in
+> devlink_fmsg_dump_skb():
+> 
+>   BUG: unable to handle page fault for address: 0000000004cd0c11
+>   Workqueue: ice ice_service_task [ice]
+>   RIP: devlink_fmsg_dump_skb+0x2d8/0x5d0
+>   Call Trace:
+>    ice_tx_hang_reporter_dump+0x1ce/0x210 [ice]
+>    devlink_health_do_dump+0xcc/0x190
+>    devlink_health_report+0x1d7/0x260
+>    ice_report_tx_hang+0x7d/0xa0 [ice]
+> 
+> Fixes: 2a82874a3b7b ("ice: add Tx hang devlink health reporter")
+> Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
 > ---
 > Changes in v2:
-> - Stop the hotplug child process by signal notification instead of
-> a stop file, avoiding the predictable temporary path.
-> - Add an exit trap so the hotplug child is also cleaned up when the
-> main shell terminates abnormally.
-> - Link to v1:
-> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2662696.html
-> 
-> This addresses the security and robustness concerns raised by Sashiko.
-> ---
->   .../selftests/cpufreq/special-tests.sh        | 30 +++++++++++++++----
->   1 file changed, 24 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/cpufreq/special-tests.sh b/tools/testing/selftests/cpufreq/special-tests.sh
-> index e87ed7c8e5e5..b3ebead1c52a 100755
-> --- a/tools/testing/selftests/cpufreq/special-tests.sh
-> +++ b/tools/testing/selftests/cpufreq/special-tests.sh
-> @@ -16,6 +16,8 @@ source cpu.sh
->   source cpufreq.sh
->   source governor.sh
->   
-> +HOTPLUG_PID=""
-> +
->   # Test 1
->   # $1: policy
->   __simple_lockdep()
-> @@ -92,20 +94,34 @@ governor_race()
->   	restore_all_governors
->   }
->   
-> +hotplug_cleanup()
+> - Validate the saved ring under RTNL before dereferencing it from
+>    the service task, and restrict snapshots to the PF VSI while it
+>    is up (Sashiko).
+> - Check next_to_clean against count before indexing tx_buf, and
+>    copy the descriptors and IRQ name while ring replacement is
+>    excluded (Sashiko).
+> - Stop dereferencing the skb and remove its contents from the dump.
+>    Keep only its pointer value (Sashiko).
+> - Release RTNL before reporting to preserve the devlink instance
+>    lock ordering.
+> - Record the queue index and ring indices at timeout time as a
+>    fallback when a snapshot cannot be made.
+> - Drop Paul's Reviewed-by because the patch changed substantially.
+
+lot's of changes and code, but rather nothing controversial, I'm
+generally happy with it, one nitpick from me inline, and otherwise:
+
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+
+> +static void ice_tx_hang_snapshot(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
+> +				 struct ice_tx_hang_event *ev)
 > +{
-> +	if [[ -n "$HOTPLUG_PID" ]]; then
-> +		kill -s SIGTERM "$HOTPLUG_PID"
-> +		wait "$HOTPLUG_PID"
+> +	struct ice_vsi *vsi = ice_get_main_vsi(pf);
+> +	struct ice_q_vector *q_vector;
+> +	struct ice_tx_buf *tx_buf;
+> +	unsigned int i;
+> +	u16 ntc, ntu;
+> +	void *desc;
+> +	u32 size;
 > +
-> +		HOTPLUG_PID=""
-> +	fi
-> +}
+> +	ASSERT_RTNL();
 > +
->   # Test 4
->   # $1: cpu
->   hotplug_with_updates_cpu()
->   {
->   	local filepath="$CPUROOT/$1/cpufreq"
->   
-> +	(
-> +		local quit=0
-> +		trap 'quit=1' SIGTERM
-> +		while [ "$quit" -eq 0 ]; do
-> +			reboot_cpu "$1"
-> +		done
-> +	) &
-> +	HOTPLUG_PID=$!
+> +	if (!tx_ring || !vsi || !vsi->tx_rings ||
+> +	    test_bit(ICE_VSI_DOWN, vsi->state))
+> +		return;
 > +
->   	# switch to ondemand
->   	__switch_governor_for_cpu $1 "ondemand"
->   
-> -	for i in `seq 1 5000`
-> -	do
-> -		reboot_cpu $1
-> -	done &
-> -
->   	local freqs=$(cat $filepath/scaling_available_frequencies)
->   	local oldfreq=$(cat $filepath/scaling_min_freq)
-
-
-The background hotplug loop is now started before switching to ondemand
-and before reading scaling_available_frequencies / scaling_min_freq. If
-the CPU happens to be offline at that point (such as single-CPU policy),
-those accesses return -EBUSY: the governor switch is lost, freqs is
-empty so the update loop does nothing while the test still passes, and
-oldfreq is empty so scaling_min_freq is not restored. Please start the
-hotplug subshell only after that setup is done.
-
->   
-> @@ -117,14 +133,16 @@ hotplug_with_updates_cpu()
->   		done
->   	done
->   
-> +	hotplug_cleanup
+> +	ice_for_each_txq(vsi, i)
+> +		if (vsi->tx_rings[i] == tx_ring)
+> +			break;
+> +	if (i == vsi->num_txq)
+> +		return;
 > +
->   	# restore old freq
->   	echo $oldfreq > $filepath/scaling_min_freq
->   }
->   
->   hotplug_with_updates()
->   {
-> +	trap 'hotplug_cleanup' EXIT
+> +	q_vector = tx_ring->q_vector;
+> +	if (!q_vector || !tx_ring->desc || !tx_ring->tx_buf || !tx_ring->count)
+> +		return;
+> +
+> +	size = tx_ring->count * sizeof(struct ice_tx_desc);
+> +	desc = kvmalloc(size, GFP_KERNEL);
+> +	if (!desc)
+> +		return;
+> +
+> +	ntc = READ_ONCE(tx_ring->next_to_clean);
+> +	ntu = READ_ONCE(tx_ring->next_to_use);
+> +
+> +	if (ntc < tx_ring->count) {
+> +		tx_buf = &tx_ring->tx_buf[ntc];
+> +		if (tx_buf->type == ICE_TX_BUF_SKB)
+> +			ev->skb_ptr = READ_ONCE(tx_buf->skb);
+> +
+> +		memcpy(desc, tx_ring->desc, size);
+> +		ev->next_to_clean = ntc;
+> +		ev->next_to_use = ntu;
+> +		strscpy(ev->irq_name, q_vector->name);
+> +		ev->desc_ptr = tx_ring->desc;
+> +		ev->dma = tx_ring->dma;
+> +		ev->desc_size = size;
+> +		ev->desc = desc;
+> +	}
+> +
+> +	if (!ev->desc)
 
+this is abuse of ev and bad style, instead just glue an else to the
+previous if, basically:
+      if (ntc < tx_ring->count) { .... } else { kvfree(desc); }
 
-AFAIK, regarding the EXIT-trap-on-signal remark from Sashiko:
-
-https://sashiko.dev/#/patchset/20261028100241.189085-1-xiongyining1480%40phytium.com.cn
-
-Bash runs the EXIT trap on SIGINT, SIGTERM, and SIGHUP, so I don't think
-additional traps are necessary. This issue occurs with Dash, but not
-with Bash.
-
-One sample simulation script：
-
-
-#!/bin/bash
-
-for sh in bash dash; do
-	command -v $sh >/dev/null || continue
-	for s in INT TERM HUP; do
-		out=$(env --default-signal=INT $sh -c \
-			'echo "$(readlink /proc/$$/exe)"
-			 trap "echo EXIT-trap-ran" EXIT
-			 kill -'$s' $$
-			 sleep 1
-			 echo not-killed' 2>/dev/null)
-		rc=$?
-		self=$(echo "$out" | sed -n 1p)
-		res=$(echo "$out" | sed -n 2p)
-		printf "%-14s %-4s rc=%-3s %s\n" "$self" $s $rc "${res:-<EXIT trap NOT 
-run>}"
-	done
-done
-
-
-output:
-/usr/bin/bash  INT  rc=130 EXIT-trap-ran
-/usr/bin/bash  TERM rc=143 EXIT-trap-ran
-/usr/bin/bash  HUP  rc=129 EXIT-trap-ran
-/usr/bin/dash  INT  rc=130 <EXIT trap NOT run>
-/usr/bin/dash  TERM rc=143 <EXIT trap NOT run>
-/usr/bin/dash  HUP  rc=129 <EXIT trap NOT run>
-
-
->   	save_all_governors
->   	for_each_non_boot_cpu hotplug_with_updates_cpu
-> -	wait
->   	restore_all_governors
+> +		kvfree(desc);
 >   }
 
-
--- 
-Thx and BRs,
-Zhongqiu Han
