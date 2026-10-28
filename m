@@ -1,69 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222377;
-	b=BF4mxCfBM+GqxAXU6Y+xqEFMYRwgUc0YJ1g/NH8QLI4m/cW02jiP4MGPg4cBTpzFgYDQ
-	 dcOnTQk0PjorkqIpztkSJ6ASFTBQbRX8CEmFlPycGUt5NGkR/o1tLxC9/BoHMQmVc+Zk1
-	 XpBNk8UhdniI4xmZ/+bmUk9z/J+giJJrsQ8VUm1+SSOGeQPk9LEICBfxA3VnlcaaZU97P
-	 s5qp6On0Y/e7evKMZYCNUqc6NjmezDGGdv0tZkyaTAAmsMuXmZfveE2jF41CXfVp8r+li
-	 U8lVLi2++1/f8SJgTY14bF2GTe5m56f2PY7hgWoVVI0sUpYpCTyyQoZMYxQH900SNuQ==
+	t=1793222384;
+	b=0jWn5EIlPgTRSVIa6o13coQsu4EsHZXWylMMgWg03LiPD0ZbShDMK3X3Lv5Xco/7+XQp
+	 GTZdFlpdncKeGYNyt1jOM0nWJMqqnhU9plJkHfV4ilIt/XFMxF56uPZGpcG4PqFXscLZb
+	 Mr/5gxJAOqfnVJQgfW500Aj0oytu0Cxmc5rz/rsOoaQ7YFntmJVdZxnVvcacEGpp9/cvd
+	 DbX0qJOIpIAb2bg0lTEL/LuUBaBS3VtnD6bQU5foSPqvr0bDU1PfoTBntKkVgUhmTgdlM
+	 CCvkcDJWGzYr4/9AehSErTTXV6fbNy8OPjq8ZRF3mGnVX1jRQcwKieQHSZdWLg/GSBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222377;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=WsUSq2k+2aYiN37qb7aSkQdP06LKemiN8mY/m+NRNe8=;
-	b=gMmDU04kd6ajpXGu4r69BwZukjMMEwWWxqNhNuAEMCLo2n+djVJRRKLO4+eKPlC8oSV8
-	 A+EYXsQpJkafajNSOV5I6O6sYaJpTsr4mk9t1gcfV3PEjhfhkQVJnxONdOxbqpcVaII07
-	 XyNzl2uASqGalFIZqKMbnxdzJE9hYEBP1/i4VN6BXahZluw1XU3flS1Ft9SDdCZzmDhiw
-	 fcLuBGjpl/bVmmdh98PoYwsYxqsTbuMJp6DBRBHpqkwEvdrNCuFgznMVFx8sWts60/vNR
-	 cIyb4Y3qCjpi3fiqCUvsPz42P9J96vs2NCWHNKML2aNuPzqE35JnQ8+CuCbeeWlxYBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+	b=kJjhJU45kA4OIRx3Yon3Osp8RVhwf+gjTMrr3uTUVYKKx8QjpifFSYJ8z/2heDOKoCls
+	 XWqHz6vItwkAyrBdCkMSryZTwDg7bnLgu9BkwsGg+DPrSkG0wDdxWcnwFwz1EsbJ7Jg48
+	 N5NFaVn0PgTHJiB2XqAOvFmi8mqOsNocszSxOqgBGuK+itWVjwVubD6n5JytyGtpijqYe
+	 IWdKLhOKFpnOxy9++nm5zHrrZVOQtBCb19U8BExvYMCUomxXPShM5g6KQbF8+e+LhUh1Z
+	 yRluZ9nvotntcYMxH+vs7WtO8KmKTZO/cV5H+eiJO5X7S6Nep0hD+/b0FFBmOfAkdEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.21
-Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=lzBMaCtX;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C33606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C33606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NbKq6I63kMRUcieNKpMBmStZcf0/mybvQYK4JY69Rog=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793222373; v=1; x=1793827173;
- b=IUTfhChrGaXdSKAPxL8ULFldU5qp4G0COqGFcI5mxjUvVoJy5CyxRcoohbXmwQUdOH3jHbon
- 5qSplCJKXaRrYyvz1COPD7QThQckz80fFPvwvd//mIAAJhKianmRANYa9wiHbnHnnQUaDTho/9Y
- w6K/S3rFbC4+smuztWa480m4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6dc190b38c415713;
-	Wed, 28 Oct 2026 21:19:33 +0000
-X-Mizu-Trace-ID: 6dc190b38c415713
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: bpf@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	eddyz87@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	memxor@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55F2606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:19:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E55F2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=lzBMaCtX
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91bb5795792so16608426d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793222383; x=1793827183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+        b=lzBMaCtXTe4tIpZ/BLXyFwBocpFxb1SXXSkNaR9zcuSy0NtHU2rbYUrKdmmn4mGIP4
+         aAkJ+6vGAjmXXK8CHHnTiWaAbCYWgbuo/kixn/kOSXZpf+4pVg8mgtBL1dUT151qGao5
+         sk+ukapGeh3XMji1zB7jsFjgojOlUINRMi3pCzetjSkjt3oxSw7IkP6FHnJW1uSk3YXc
+         /W48SoaPARvF2f49D7//zXhoVHnHgt1AH/guGluBR3L3lIjX1B583PpOsxX/H7tmxY3X
+         pbWGhzHVfCTH788LRz+gJLzzFve4X0JEiuesbDfMFjTJUe+TcZk5p/JLpIZqH5WN0Tae
+         8HyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793222383; x=1793827183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+        b=EXo0sUyFkryBN2aS1q3qA28gUyW7c7S2B3XxUME2bBDJRbUEyRquJE/8LzIeIV2olC
+         hkWC54vhJ54Cr3GFyb9J6WwD0WsXlZauwd/Sr478Mwwt94UPB+zyKP0858t1bH3FAmgh
+         6NOB422/ea2TRWkYfAT7nVp8d/Ih7YA20QNPx4WD6zI5dBoJvWJRwCeHqJnZOeThSwjH
+         IZ9FZtMTnD5/3CEca8BtbZkDgq70DIyqfmt5qAeq1L5ZTRieFbJnnZwRAyyFSn2pACYN
+         VXjnnqloFSREUL6wd2X6SxyMevEkde+g2haTf+tggyLleg0IQIELVtOHEe6zUgAGwmgP
+         dBIQ==
+X-Gm-Message-State: AFq9FYJH0USFIV/T+cGyzz6HwEgaBqvnij7Jek1L7uTJo6yVoUJbXxBQ
+	Zc3v4AtqfWGeIqPkQ3ldAsLb4JCC3gNCCDIbBWVJtf0jyXwBI9GfhbmeMSw33XMNY/s=
+X-Gm-Gg: AYBFou1NmkAjjUSfTUlz+U6gEMInoBihTupsiY1JS3KiN5mSAsSPNmiolGaao1DHJr6
+	sAEmFLbSnVWLAhYK5xfNZBDq6OZSWB3jVa2hdwCrarzIIPY+3MTjSudcW6f8cUR09jYmfhLvE/q
+	0Za+nbRCAhBl8xSal7gZYsR/JqEqph7NyppKJZbdf80krlAsT1jfPso/Avh6Tk/rYm7pimYqSYF
+	1/lHK3u0kesJWa0Gd/6gKhmU4ZfbZ3+ZOg+2JqE6sUcPfAnhE0Mi88Vwqx9qX0R5p6g6rsYnJYs
+	NMWNncL9zLlyyx9JNUwnRV0k7joEMN4cQAnSbl46OR5QDDmh5DEeizCq+dt6cDkjc+lAck/xWB0
+	DOY2RoOXPA9G5laMYvYvjIY482j0E2Wa3O5+a9TbXsYmvJ+8PSLh0MbXSiHVlbxVoOo2n+YVmdB
+	22duOdhxIvpZv+PXJB8rG60rGWaxOgAp9eKWdPRP9D5Idqoh/R6b2IGGhrpVocF0PpfzyjH9ADd
+	2t7pa/7ekq2ZEaxExfDSQN69dDVEh96QQ8rv8isPCRtAPHz3uHOc9jY7nbIB9z2cb2APU5oky+w
+	n0ku8XNLAAGSfe1QSr5HABUO+/lIiyapwx3skkewX6x7C4f4uBHAH6EWRgQwp5sQ+lNrLujIcKO
+	osuO1eNyqAmco4f4eGncKk3gwrigsRhNdzH4S
+X-Received: by 2002:a05:6214:21e9:b0:912:517b:844 with SMTP id 6a1803df08f44-91c7d1e7b9amr58841976d6.40.1793222382629;
+        Wed, 28 Oct 2026 14:19:42 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 14:19:42 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next] selftests/bpf: don't count skipped reg_bounds cases as skipped tests
-Date: Wed, 28 Oct 2026 14:19:21 -0700
-Message-ID: <20261028211921.1055711-1-vineet.gupta@linux.dev>
+	kernel-team@meta.com,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	mgorman@techsingularity.net,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4 7/8] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
+Date: Wed, 28 Oct 2026 17:19:29 -0400
+Message-ID: <20261028211930.3504634-8-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028211930.3504634-1-gourry@gourry.net>
+References: <20261028211930.3504634-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,151 +119,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-test_progs-bpf_gcc reports an order of magnitude more skipped tests than it
-lists.  A recent bpf-next run ends with
+Onlining the first block of a zone rebuilds every zonelist in place,
+shifting the slots after the new zone.
+alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
+and nodemask, then loads the zone from it:
 
-  Summary: 720/6383 PASSED, 8392 SKIPPED, 105/368 FAILED
+  CPU 0                             CPU 1
+  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
+    slot 0 (NORMAL1) approved
+                                    online_pages()
+                                      build_all_zonelists()
+                                        [NORMAL1]
+                                        -> [MOVABLE1, NORMAL1]
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    alloc_contig_frozen_range(MOVABLE1 pfns)
 
-but the log for that same run names only 684 skipped subtests which are
-all accounted for; the other ~7700 are just ghosts.
+A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
+caller can get a range from another node.  Gigantic pages are kept out
+of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
+non-migrateable gigantic pages from movable zones").
 
-Nothing here is specific to BPF_GCC; reg_bounds builds its programs
-from hand-written instructions at run time, so the BPF compiler is not
-involved.  That build is just where the inflated total was noticed.
+Check zonelist_update_seq before using each zone, and restart the walk
+if it changed, as the hugetlb pool walk does.  Check again before
+escalating to the pass that may migrate hugetlb pages, so a pass a
+rebuild cut short is redone rather than escalated.
 
-The total is not reproducible either.  Four runs over an identical
-tree reported 8240, 8261, 8405 and 8424 SKIPPED; two of those had
-byte-identical verdicts for every test.
+With kprobes holding the walk across the online, the base kernel put the
+1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
+ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
+{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
+and neither with this change.
 
-The extra skips come from reg_bounds.  Counting the increments by
-test, every heavy contributor is one of its random tests:
-
-  632 reg_bounds_rand_ranges_s64_u32    576 reg_bounds_rand_consts_s64_u32
-  624 reg_bounds_rand_ranges_u64_u32    564 reg_bounds_rand_consts_u64_u32
-  600 reg_bounds_rand_consts_u64_s32    552 reg_bounds_rand_ranges_u64_s64
-
-The path, for one of them:
-
-  test_reg_bounds_rand_consts_u64_u32()
-  `- validate_rand_ranges()                     100 random cases
-     `- verify_case_opt(..., false /* !is_subtest */)
-        |    if (is_subtest && !test__start_subtest(sb->buf))
-        |            return 0;       <-- no subtest is opened, so
-        |                                env.subtest_state stays NULL
-        `- for (op = OP_LT .. OP_NE)             x6 -> 1200 cases
-           `- verify_case_op()
-              `- if (reg_state_needs_two_arcs(...))
-                    test__skip()
-                    `- else env.test_state->skip_cnt++   <-- once per case
-
-skip_cnt feeds the SKIPPED total, so it grows once per case rather than
-once per test.  The variance has the same source: how many cases are
-unrepresentable depends on the seed.
-
-Report the skip up to verify_case_opt() instead, the one frame that
-knows whether a subtest exists:
-
-  err = verify_case_op(init_t, cond_t, x, y, sub.op, &skipped);
-  if (skipped) {
-          if (is_subtest)
-                  test__skip();
-          else
-                  ctx->skip_case_cnt++;
-  }
-
-with the tally printed once at the end of the test.  The subtest path
-keeps its old behaviour: test__skip() only sets a bool there.
-
-After the change, a run of reg_bounds_rand_consts_u64_u32 -- the test
-contributing 564 above -- reports 0 SKIPPED and logs
-
-  SKIPPED 480/1200 cases needing two range arcs
-
-The two counts differ because the seeds do.
-
-This also stops the rand_* tests reporting themselves as skipped: with
-no subtest open, any non-zero skip_cnt made print_test_result() call
-the whole test SKIP, so a test that ran 1200 cases and checked them all
-was indistinguishable from one that never ran.  18 of the 32 report OK
-instead; the rest were already OK, their type combinations never
-producing an unrepresentable case.
-
-Fixes: bbc631085503 ("bpf: replace min/max fields with struct cnum{32,64}")
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- .../selftests/bpf/prog_tests/reg_bounds.c     | 25 ++++++++++++++++---
- 1 file changed, 21 insertions(+), 4 deletions(-)
+ mm/page_alloc.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/reg_bounds.c b/tools/testing/selftests/bpf/prog_tests/reg_bounds.c
-index 7f170a69d1d8..6231258b26cc 100644
---- a/tools/testing/selftests/bpf/prog_tests/reg_bounds.c
-+++ b/tools/testing/selftests/bpf/prog_tests/reg_bounds.c
-@@ -1504,7 +1504,7 @@ struct ctx {
- 	struct range *uranges, *sranges;
- 	struct range *usubranges, *ssubranges;
- 	int max_failure_cnt, cur_failure_cnt;
--	int total_case_cnt, case_cnt;
-+	int total_case_cnt, case_cnt, skip_case_cnt;
- 	int rand_case_cnt;
- 	unsigned rand_seed;
- 	__u64 start_ns;
-@@ -1541,7 +1541,8 @@ static void subtest_case_str(struct strbuf *sb, struct subtest_case *t, bool use
-  * performed)
-  */
- static int verify_case_op(enum num_t init_t, enum num_t cond_t,
--			  struct range x, struct range y, enum op op)
-+			  struct range x, struct range y, enum op op,
-+			  bool *skipped)
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 70830689048a..7d06c6c4011a 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -7593,6 +7593,7 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+ 		gfp_t gfp_mask, int nid, nodemask_t *nodemask)
  {
- 	char log_buf[256 * 1024];
- 	size_t log_sz = sizeof(log_buf);
-@@ -1581,7 +1582,7 @@ static int verify_case_op(enum num_t init_t, enum num_t cond_t,
- 	    !assert_reg_state_eq(&tr2, &te2, "true_reg2")) {
- 		if (reg_state_needs_two_arcs(&fe1) || reg_state_needs_two_arcs(&fe2) ||
- 		    reg_state_needs_two_arcs(&te1) || reg_state_needs_two_arcs(&te2)) {
--			test__skip();
-+			*skipped = true;
- 			return 0;
- 		}
- 		failed = true;
-@@ -1629,13 +1630,26 @@ static int verify_case_opt(struct ctx *ctx, enum num_t init_t, enum num_t cond_t
- 		return 0;
+ 	unsigned long ret, pfn, flags;
++	unsigned int zonelist_cookie;
+ 	struct zonelist *zonelist;
+ 	struct zone *zone;
+ 	struct zoneref *z;
+@@ -7601,8 +7602,13 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
  
- 	for (sub.op = first_op; sub.op <= last_op; sub.op++) {
-+		bool skipped = false;
+ retry:
+ 	zonelist = node_zonelist(nid, gfp_mask);
++	zonelist_cookie = zonelist_iter_begin();
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+ 					gfp_zone(gfp_mask), nodemask) {
++		/* A rebuild may have shifted an ineligible zone into this slot. */
++		if (unlikely(check_retry_zonelist(zonelist_cookie)))
++			goto retry;
 +
- 		sb->pos = 0; /* reset position in strbuf */
- 		subtest_case_str(sb, &sub, true /* print op */);
+ 		spin_lock_irqsave(&zone->lock, flags);
  
- 		if (env.verbosity >= VERBOSE_NORMAL) /* this speeds up debugging */
- 			printf("TEST CASE: %s\n", sb->buf);
- 
--		err = verify_case_op(init_t, cond_t, x, y, sub.op);
-+		err = verify_case_op(init_t, cond_t, x, y, sub.op, &skipped);
-+		if (skipped) {
-+			/*
-+			 * Outside a subtest test__skip() bumps the test's skip
-+			 * counter, which feeds the SKIPPED total; tally these
-+			 * locally instead of reporting each as a skipped test.
-+			 */
-+			if (is_subtest)
-+				test__skip();
-+			else
-+				ctx->skip_case_cnt++;
-+		}
- 		if (err || env.verbosity >= VERBOSE_NORMAL)
- 			ASSERT_OK(err, sb->buf);
- 		if (err) {
-@@ -2167,6 +2181,9 @@ static void validate_rand_ranges(enum num_t init_t, enum num_t cond_t, bool cons
- 	}
- 
- cleanup:
-+	if (ctx.skip_case_cnt)
-+		printf("SKIPPED %d/%d cases needing two range arcs\n",
-+		       ctx.skip_case_cnt, ctx.case_cnt);
- 	/* make sure we report random seed for reproducing */
- 	ASSERT_TRUE(true, ctx.progress_ctx);
- 	cleanup_ctx(&ctx);
+ 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+@@ -7637,6 +7643,9 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+ 	 * second pass, we will try moving HugeTLB pages when those pages are
+ 	 * smaller than the requested contiguous region size.
+ 	 */
++	/* Redo a pass that a rebuild cut short before escalating. */
++	if (unlikely(check_retry_zonelist(zonelist_cookie)))
++		goto retry;
+ 	if (skip_hugetlb && skipped_hugetlb) {
+ 		skip_hugetlb = false;
+ 		goto retry;
 -- 
-2.53.0-Meta
+2.56.0
 
