@@ -1,58 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198097;
-	b=f4PG4qoM6wSmouzumbrX/wPLkZznyc/LnXc5JXv7qtHoRgUvGXPwxCm5bOCwOAHts/3W
-	 glq5601X00O/016xqgIggHEY1qBS4nZhtRcIFh0/ze9b1JZjzC/KJZBi5ZrolOV1z3+E+
-	 HkdwL7xKe0wGIswzMa3HVZexHRsgVKrOPCHtfOQjq4wph/HRH3JzcrEcqXYki72mkoXlf
-	 9nmadZ1svCTlKJAGFeZ9KDPsSdMNgk8XFDPcbXM/oUYAeVt8MezogZtv3QRozOLqGEydi
-	 YawgFovCJ6PAqk0mDGRe3glecHim+Wv4f2Mf3nYkTl/Y9OPmkw8OjAAWD4iUicx31hA==
+	t=1793198106;
+	b=DZjrS9hlfGJUFOHdS1NTRe62viC77z0MXIL9z9dGcAtAVqYZqRMJQ4OKHp2g0C4aSZAH
+	 VGEMNPCMDYhpkZHE+o9+r3BaynlVjgYM4x81m3QTrEsFaJKUKqbYCinu1qUDpeoNuc1Me
+	 lQRgt0TOR2EOkKs9fmC6qo+v4P9E64oa5wUoW4aPAxYa8HvpbCqn/BZunWne8sijvBc+R
+	 FaM6CVH/owOZkl4cEX6gamABFPFV4RYmU5k8F83RCqPjhRHW+856YWEON64NPv3lu8w/J
+	 ubRwxWci93QQksX4v9N20kufPs9oIdrO6q9HVReiMR6bX0v4cwujuqAw9bP/nYCmvcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198097;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=vGJwTqYdbrZtckhZYhD/RIzHIRbhV2RUl+NlHGXe2VM=;
-	b=U9C6RtnRPlP6phhNTsr6yhdDCza4B2bDPTB/bv21LeecrWJBWi5UEVdEwTaJwMcIGfuE
-	 DxjXlFGLl4aQewhdVsq7V0PgmKFpz/ShiLFPRA5NdA6GBNEteZ5HA3N1OXrLsQbI3KuJD
-	 Dfq40hmaqTdIGrntCUYshQiZca84Z5cm5hm4UMYjpl+os/mU6c+KYjVaC6vuAx3eRluz8
-	 8cLD7I3F6tgXPq6PwkMZDOGQJGc6WVmJJaF7Jhjgg38ZynhnOwfIERAK5YEipr0ix0xEn
-	 mAgARD19DakQkIFdHRPW/xe67Hr5rZ1nXl3Yg4rkJZB9/LJrnN8u3CM/3roHPriygIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198106;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=bnNJbpqduWQXQiwHAnkGgrFtEfEJIJp2I+OMZwtwzic=;
+	b=h1TVEpNbtTeCUQl4m2/vGTKA5UQ21qfkcv5vU1LLLM6qV8fJy9816e8DDdYerhiYIiDP
+	 xBO1BQkLMgZxSfCMQ+10eYu8+lzE6a2jQ9RRSvS6ibtQ6OIsFTfjp1hfNKVx/NqqFQucX
+	 pEYz2YGVCjdrqLtDfR/Y17H0xY/UKoUKhRiJqtxBfsWRXShwuJMrWOEFoD+/TfB4U8YgJ
+	 9txqoEyeukgcNDyyx6s8qVHmAvaB+6KVlWCA2l2WJ3znsvGo4vyXe2GblPo6XRA8yDypH
+	 15yCfxHbrhY7o4zXhs1/MkcX/7pDNwEBgC+6UIwnnuUDQ0Su4AnFj6h+SArlogZMSlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0+VX3Z9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0YgkuBs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537C0606A31A;
-	Wed, 28 Oct 2026 14:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB92606A31A;
+	Wed, 28 Oct 2026 14:35:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0+VX3Z9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A7E1F01828;
-	Wed, 28 Oct 2026 14:34:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0YgkuBs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8817C1F01829;
+	Wed, 28 Oct 2026 14:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793198097;
-	bh=vGJwTqYdbrZtckhZYhD/RIzHIRbhV2RUl+NlHGXe2VM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Y0+VX3Z9uZSAHU0mZ8PYqiCsNyI5hBqywsEMhb1le3hLmJsz6YS7Hs7V3XkEYLbyx
-	 kmCq3CcfiTu8Txa+pAhaaNlPF6OIJ+tW3xuPcei942b51Q4qmfKFNtpKSBOxzCSRjc
-	 ELt4sxgakcqZXrtPRCqBLWkMvlukXKgw5EsvvETKyKEA5s1SBf2xal3NEk5jp7GO4u
-	 qeF2j0qEy+7rOGL4IG8u/zZpRgXDzLq0lBVy2Xrr4ns0h5tf5AumzAuf1JqZ0Ueh3j
-	 Ehmc4dXS9B8RoeVYMdikDkubgqoMnYRT+Jm265Aw0ivflPLE3g6hBUMmYa2hbuhLAK
-	 aGZUAdoPZACcQ==
-From: Lee Jones <lee@kernel.org>
-To: mfd@lists.linux.dev, Rosen Penev <rosenp@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Lee Jones <lee@kernel.org>, linux-omap@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261017004758.1256875-1-rosenp@gmail.com>
-References: <20261017004758.1256875-1-rosenp@gmail.com>
-Subject: Re: (subset) [PATCH v4] mfd: twl-core: Embed the twl_client array
- in twl_private
-Message-Id: <179319809509.3743962.8693833243810954971.b4-ty@b4>
-Date: Wed, 28 Oct 2026 14:34:55 +0000
+	s=k20260515; t=1793198105;
+	bh=bnNJbpqduWQXQiwHAnkGgrFtEfEJIJp2I+OMZwtwzic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T0YgkuBsdR804jUsWJpj2B/zsCd9n3tZvgdKCNt5UYd9zgMDJ8c0FqB4w27Z+AKP1
+	 rtVTs2lw0z1WnDGaNJRAZ1zRS0LT38h2XwJka46b2ciG/oNWTJDeZWP8jQ4DFWh6zQ
+	 1OFyb+c3OR1cg6moqRPExet86ph3aqIGacSBvtini3BuxgEIV9hyFgQAGYV2J40d/9
+	 A6pFzAToEh4Q7m5QXiBhlaB590ccPrcLdf8O/ScvtwkbPVGXHH0gBUfZ7x6UbAXidD
+	 yqbyXIhEsBxLJfWvG6LbrBxiEdvnaQxJynAWWG0RCYvS/u40CF43TJdS3MY5mQvhZk
+	 eDxqJIIpWecgQ==
+Date: Wed, 28 Oct 2026 14:34:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Paul Cercueil <paul.cercueil@bootlin.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>, Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>
+Subject: Re: [PATCH v4 0/7] spi: Add support for panic mem writes
+Message-ID: <15640a01-ac6e-499e-a5f4-37860c701f49@sirena.org.uk>
+References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
+ <fdc79c99e3045635841f68c89fec3b9d9e2f7233.camel@bootlin.com>
+ <8979e4ad-5209-4fb0-bd3e-95919849d2fa@sirena.org.uk>
+ <cf96edf1cba37b775817d4df5f759b10e71c73da.camel@bootlin.com>
+ <8c8cf14d-954f-4b33-a0e7-8524b1596845@sirena.org.uk>
+ <7f27a8b7624ddbd0f7d32c27fe3f58df48a08c0d.camel@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,21 +72,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7NfKPAq3m99Mfz6P"
+Content-Disposition: inline
+In-Reply-To: <7f27a8b7624ddbd0f7d32c27fe3f58df48a08c0d.camel@bootlin.com>
+X-Cookie: Pushing 30 is exercise enough.
 
-On Fri, 16 Oct 2026 17:47:58 -0700, Rosen Penev wrote:
-> At most four I2C slave addresses are ever used (TWL4030 class), so
-> there is no need to allocate the twl_client array separately. Embed a
-> fixed array of TWL_MAX_SLAVES entries in struct twl_private and drop the
-> extra devm_kcalloc() and its error handling.
 
-Applied, thanks!
+--7NfKPAq3m99Mfz6P
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[1/1] mfd: twl-core: Embed the twl_client array in twl_private
-      commit: 73f3a89d27c3da9ea28750a420fa2567c0bc1701
+On Wed, Oct 28, 2026 at 02:59:03PM +0100, Paul Cercueil wrote:
+> Le mercredi 28 octobre 2026 =E0 13:25 +0000, Mark Brown a =E9crit=A0:
+> > On Wed, Oct 28, 2026 at 02:15:00PM +0100, Paul Cercueil wrote:
 
---
-Lee Jones [李琼斯]
+> > > Your name is not Mark? Or where did I misspell it?
 
+> > You added a random @ to it.
+
+> I do that when addressing people in emails, I thought it was universally
+> understood. I'll refrain from doing that from now on.
+
+That's not a thing with email, it's something that some services use to
+format usernames.  It just makes it harder to read due to the
+misspelling.
+
+--7NfKPAq3m99Mfz6P
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriCBMACgkQJNaLcl1U
+h9BK6gf8DMFrIAc6ZaxY5bDWI3hF9E+0urLGgv3mbK0FYpZDofbv+dUr89BC74zv
+vdbtYfCaUxYNEVwkhZwUZIDiVDuII6d1LQtzMPOBz1OyBNTzaZRHN/UAeRXskMFw
+FeGZ5fxTjlBLQY22jQsJrG9RnoUj89Zf+gqHQMKW5qwo8Ryu+8ES/93C6TmVxdvt
+7IT2FzX/miZxFQ11GFG7cKNBsLUJ5F1oiRUE90KyoMv1B7NsKu9mj+ruoxvDWE1r
+/jx4zQ5p8EM4GeWR3v9LXVjEKxIuJ2psj2wYiIJXdtL9AZrfgNUtoHfTbmB0htDA
+2fuPw3hXq1tep0hGX/m8LicZTqGCtw==
+=rvPu
+-----END PGP SIGNATURE-----
+
+--7NfKPAq3m99Mfz6P--
