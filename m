@@ -1,80 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793195576;
-	b=2qAatNbCoZnXhdLacI3aLCtxi4RRYiJA4O2OnRK9mJWkyBzeX613anMjoNfY6zgVjx4a
-	 bq8ZiSpBlF+10MYruWgHKrYEEl+CG+CNzVr0PKNbQHI9KQpyfy6YtsPCy7LkRcqhYGGxf
-	 RoQ+p2uspLhxQhQTbyIOlavhJ/Gq8NMS5ic+4MuLS44yrhy0tftpdg4JWcEn4AsF09O/A
-	 FnJWr+yATRZ5Mlfgx/qAoQUSeudxNMv4HZTnXrtHBV5Mzc7Baa6iZ+w9z2q/ZAUxVX6oE
-	 94EKDV0INvl548yIBemYLwjKshZhZ+CuT0VeMAhSueL8V1FlBvzfsdMcozSxCLA7XsQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195576;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ZqrYyC3+GC/TqFv0dbS5jMAL2lbu60cx0lMAlfRFVpM=;
-	b=fclyupKcsRiJOjPsSsX4KMNbuIbbcMhx3Vm5CvkWpNvkLnbh//ZkjTnbF+HsllUFu6Cw
-	 M4UXV9NlZDzzAY01NADD6tJlUX/gkW52Hyfsytaa0JlRQabGZv7nZ4Syy76X1rGWbX7FJ
-	 w616de7ESkaz7741OvzGVQ0e8g1C5v13O9IUkB2iXlO9jIryaIzwo207L5eeFyc7R4pMc
-	 B6mwaioStKAfRuCsFGzTCy2xj01Vho7qqJn31cJ2BUcjRsub3Bc54QP7N60UkS01tByet
-	 kBSEnbYbRMDcsrSTSuzt4TLdz37wJBQoYKVb3g1/7u97TQhxQVD4UqSAg17mHbxAzUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNx1wiUF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C42606A32E;
-	Wed, 28 Oct 2026 13:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNx1wiUF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793195576;
-	b=pM3+lhXspxUIyFF8qmrktCiinHIEmLTjgOzqF2MYVSVCOgod0R0zp61l9AjCrHNlBa8W
-	 skgwBemq16ic61dYTIGBfns71B8RxHaKTVYcNahaHPlcME9SXC06DFYJpf/+Vi8Ob/PME
-	 YXeFOrQDJtCc0LemF3wMleBwuT1KI5N/pfMt6gkxai2BqyYi53PJrFHsz1x+FsclGwLAv
-	 KaNz4ZNbrEZTNrahEoX5QG6GGmNbc2lUkY3duq3bjDlNxbbnLB0jYBlpXpoYO2ycSmoZR
-	 693uHde96/iYB/+YFAfEicgUCiZFMnc6gU0YskhD5I+ie+IxtNA+Tc1tHD++cNF1w0w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793195576;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ZqrYyC3+GC/TqFv0dbS5jMAL2lbu60cx0lMAlfRFVpM=;
-	b=ZBCYKhMSjfuNDFAxxCiAsD0vzXQDets5uthvAsFAN0Ly2qRrrUd0RnQXPZiPRDsBWdDZ
-	 Xv3HBzos/7cgbKGf+ypPg63EDLzj6wxYHFWoTg1XNv45rpKWPaRvktP/Ppep3mxaBtYEp
-	 /mlbJDIftDuHCK764Ghd9SzpppKfksPUKxcsOLmfa0fDJ5R5Gva7h9ShmXX6Ilm2ZIuYF
-	 zYH+r8HoNTytPHapxWA+YlWElGUm+jlml+k7FR4fPKkcQnkbvnutLwUGaW3sPiUD9/ujH
-	 1HKE8FcOSPGFY8B2FNyxc5NlHDIpvWfah1yWqqpwc4VXFsfZZtxHlkCasXVmhcnSIRA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793195578;
+	b=k9EFhSertI3Qe/eW4GpZqu8iYn2BXWlQ/557CJg8Y2gjP/kadbv+WhMSOdmv/LYOkMvs
+	 dIl907ay6X9PuaUGLP1Uk+twOobln18R+ifoXFxwxwutSSWnHwxqPtd7q/jA2THm1emSv
+	 I9WTXQYsJKlM9vjinZ09Q1Oo6+3jzNi3S88WnLEiYBYaWGMuAuAZZd+jKI0Zu2OlVCsQh
+	 Zpr1gea1eEAMo0eHm6pKM1XRSgq7zQSHW0kW29I9cW6diMQJHug0eSQaIPnoAipXwZ2Jg
+	 6LCPKf0XtAI834Zecs1DtCbKv2hmvZRYmdi4C7wquP2EHpv9RROvU1wpq+dR1wVPFOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195578;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
+	b=kPskJJ2cUXBE6Mn+/Km0Zxbxr9rsxs7kiW1QRwFIGQw3k+PNRq4ELRDfJ1buPWdvEsbS
+	 i9tHakRKLB7cbPUiyaTaq/Qall1XkxrTCDXcZTSiCUNT3vAHB4kC0SJX2mekvIrz63EGL
+	 +ngxcobcMipVUve16XoMs7F15RnHcteIJm8DPGUWKoTvU8acCihiLw+8CH+r1wFrG6NUA
+	 F9EsUWJj3F3JFrhIWzWXMhI9rXhxlOzATZf4Te4Sfpka2KeLesAtCB6GBExN5lvlAhgp6
+	 OtcoDRQk+2ELr95RIsHM5KBFzYDkfMfIaIALp0O7WoE5+CQ/3o/sdsUSh44uaDhoKeA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 53EC61F031E0;
-	Wed, 28 Oct 2026 13:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195576;
-	bh=ZqrYyC3+GC/TqFv0dbS5jMAL2lbu60cx0lMAlfRFVpM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=lNx1wiUFvV4Djivg+ZSELz+JWbcSNFbljd+zcmq3I+dU0hhbrIf3DBrkbJyPOuOBp
-	 OANEUYJ/xVVeJQac/Vgp0jNPo5b/SV8j/ukWymYTepSBjGctO8PM687xaecRo0R5wX
-	 jgFUwhWlg3qfI/NUBSEf+CRtsXaNUZg5+JEyaUA5Gzn3h5SJLC7u/Sx9cTFsDCQqy9
-	 GJGXFzggB/ESc6cIkRtu+aJuf/0r+9tDtczIFIBIJynQTSx++CxwoYkV1owmHhi/J5
-	 H0yTBGbd9NO+Dh0nvFq54X0uCzC0kzEQ+dwV9bp4PPq052YasW5iqG8d4ypwO3tEE+
-	 8Zn/S9NDCycxw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A65DC45488;
-	Wed, 28 Oct 2026 13:52:53 +0000 (UTC)
-From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Subject: [PATCH RFC net-next v2 0/5] tls: perform TLS 1.3 KeyUpdate in the
- kernel
-Date: Wed, 28 Oct 2026 09:52:50 -0400
-Message-Id: <20261028-keyupdate-rfc-v2-0-eb5143b4c487@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3167606A33A;
+	Wed, 28 Oct 2026 13:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3167606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D80E215FD22;
+	Wed, 28 Oct 2026 14:52:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793195573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
+	b=SAvQBHOmhiuyKvlXtM1AIKAj6CRqI92p5TarTfEUggze30z+GnbG565ZljxAgt9yHEC2dM
+	uD5iBoqtnOoZOkDKm2IGdLODqoyp/e0jfOhfmpnSaikTs7D6Lenc1O1BbWgh87s/ma/Nyv
+	vXgTMgY1W84l8PsDxj4I+9z1ztQDiCRxWVVACm3kSa6NgsrRAOPZ/Vhus041nsaRWalF1C
+	DoCc3UPTBDy+cs4xKDWnbbmOkb4G/zZCOhvIYOmx+6EyMWoAV+2XadysA9Wdy/uPflREyO
+	0119GI7xKpC5Bf/FgQbIOizvjAHIjyaiWdtPRb7F8nPbA73yEHVZi50bJKd6Xg==
+Message-ID: <c6154519-98f4-46a7-ac30-076ebf588bab@cjdns.fr>
+Date: Wed, 28 Oct 2026 14:52:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,195 +55,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 2/7] dt-bindings: net: dsa: mediatek,mt7530: add
+ passthrough mode
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-3-cjd@cjdns.fr>
+ <a031f089-0b96-4fc0-b878-6af13414524f@lunn.ch>
+ <521b930f-0bf9-4373-bfbf-3e2570661ec9@cjdns.fr>
+ <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3VOSw6CMBC9Cpm1NaUCVVcmJh7ArWEB7QCDUkhbC
- IRwdwHXLt//zeDQEjq4BjNYHMhRa1YgDgGoKjMlMtIrBsFFEnIRszdOfaczj8wWil0ifVISzxG
- XEtZMZ7Ggce97wfNx3ziDnhkcPaQ/g+vzGpXfWje5IudbO+0PhnAP/hkbQsZZwnMp4wSVyvWtb
- DL6HFXbQLosyxcEuZRnzQAAAA==
-X-Change-ID: 20261025-keyupdate-rfc-94d3c7e84077
-To: John Fastabend <john.fastabend@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
- Alistair Francis <alistair.francis@wdc.com>, 
- Martin Belanger <martin.belanger@dell.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793195573; l=7775;
- i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=1N8ztvltpxCgLjG4JCYeAP0U6mmOIq99oUVPwvzatY4=;
- b=kGG+fFh2LD1Iu4Z+nzZ/m5P/t+epO0cfX1R/YRXMafPgpSqafLGvKKdwCcJCCZ6dfaElmk2p5
- bHsq7B1vuIDC4xJ60W1W0hVTMEW6r5XURsEK42DblbxAPJOaw3pRuT1
-X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
- pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
-X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
- with auth_id=1176
-X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Reply-To: martin.nvme.dev@gmail.com
-
-kTLS does not currently handle TLS 1.3 KeyUpdate. It never sends a
-KeyUpdate. And when it receives one, it blocks the socket until the
-application installs the next key. kTLS also does not enforce the key
-usage limit on transmit.
-
-This applies to TLS libraries in user space as well as kernel users such
-as NVMe/TCP or sunrpc:
-
-- GnuTLS sends a KeyUpdate after 2^24 records when it runs its own
-  record layer. With kTLS, the record layer is handled in the kernel and
-  GnuTLS therefore never runs the check. OpenSSL never sends a KeyUpdate
-  on its own.
-- NVMe/TCP and sunrpc don't have a mechanism to install a new key. A
-  conforming peer that sends a KeyUpdate stalls their connection.
-
-RFC 9846 (July 2026), which obsoletes RFC 8446, makes the limit
-mandatory (section 5.5): "Implementations MUST either close the
-connection or do a key update as described in Section 4.7.3 prior to
-reaching these limits." Long-lived connections with small records reach
-the limit quickly. One NVMe/TCP queue sends at least one record per
-command, and more with large I/O. Depending on the load and link speed,
-the 2^24 limit can be reached in less than 10 minutes in many cases.
-
-With this series, kTLS handles KeyUpdate in both directions for a socket
-that registers its traffic secrets. A socket that does not register them
-behaves as before. A user can opt in by passing the secrets after the
-handshake. GnuTLS and OpenSSL install the kTLS keys themselves, so they
-could register the secrets at the same time. tlshd gets the secrets from
-GnuTLS through a callback it uses for QUIC.
-
-Why the record layer
-====================
-
-KeyUpdate must be handled where the records are built.
-
-The 2^24 limit is a record count, and only the record layer can see the
-count precisely as it changes. A user sitting above kTLS can only read
-the count with getsockopt(TLS_TX) after each write. A kTLS user writes
-bytes, and the kernel splits and merges those bytes into records. I
-counted send calls in an NVMe/TCP prototype trying to guesstimate the
-2^24 limit. The count was correct with 4 KB I/O, but was 21 times too
-low with 1 MB I/O. Each send call translates into a different number of
-records. It's simply not possible to precisely guess the number of
-records based on the number of send calls.
-
-The KeyUpdate must also go at a precise place in the record stream
-(section 4.7.3). It is encrypted with the old key, and every record
-after it with the new key. When the peer sets update_requested, our
-KeyUpdate must go out before the next Application Data record. The key
-can only change between two records. Only net/tls has control over that.
-Fixing this in one driver or library would leave other drivers or
-libraries to re-implement their own (imperfect) solution.
-
-The in-kernel QUIC series under review on netdev splits the work the
-same way as this proposed fix. The handshake stays in user space, the
-secrets are passed in with a socket option, and the kernel derives each
-key update with HKDF-Expand-Label (quic_crypto_key_update()).
-
-What the series does
-====================
-
-- Two new socket options, TLS_TX_TRAFFIC_SECRET and
-  TLS_RX_TRAFFIC_SECRET, are used to register the application traffic
-  secrets. The secret is passed as raw bytes. The kernel derives the
-  hash (SHA-256 or SHA-384) from the cipher installed with TLS_TX or
-  TLS_RX. The TX secret must be set first because the RX secret needs
-  the TX secret in case a received KeyUpdate asks for a reply.
-- A third socket option, TLS_TX_KEY_UPDATE, can be used to send a
-  KeyUpdate now. It can also optionally ask the peer to update too.
-- Receive: kTLS consumes the KeyUpdate, installs the next key and
-  continues. This works for recvmsg, splice and read_sock.
-- Transmit: kTLS sends a KeyUpdate after 2^24 records, a margin below
-  the 2^24.5 limit of RFC 9846 section 5.5, and in reply to
-  update_requested. ChaCha20-Poly1305 has no record limit.
-- kTLS aborts the connection when a peer sends more than 8 KeyUpdates in
-  one second, or an invalid KeyUpdate. GnuTLS uses the same rate limit.
-- Software path only. Device offload is unchanged.
-- SM4-GCM and SM4-CCM are not supported: the kernel has no HMAC-SM3.
-
-Testing
-=======
-
-- NVMe/TCP host and target over loopback, with the record limit and the
-  rate limit lowered for the test: more than 1000 KeyUpdates in each
-  direction under I/O, with AES-128-GCM and AES-256-GCM.
-- Interoperability with OpenSSL in user space, which derives the keys on
-  its own, including the reply to update_requested.
-- New selftests in tools/testing/selftests/net/tls.c for every TLS 1.3
-  cipher kTLS supports. The full tls selftest passes.
-
-The matching tlshd change for ktls-utils is a small patch to be
-submitted at a later time if this series is accepted.
-
-Questions
-=========
-
-This is an RFC for feedback on the design and the new socket options, in
-particular:
-
-1. I used one socket option per direction, like TLS_TX and TLS_RX. Is
-   that the right form? Would one option that sets secrets for both
-   directions be better?
-2. When the application installs a key itself with TLS_TX or TLS_RX
-   after the secrets have already been registered, the series removes
-   the registered secrets (TLS_TX removes both, TLS_RX only the RX
-   secret) and gives KeyUpdate back to the application. Is that right,
-   or should the key change be refused while a secret is registered?
-3. TLS_TX_KEY_UPDATE (patch 4) is not needed for the record limit. I can
-   move it to a separate series if you prefer a smaller first step.
-
-Signed-off-by: Martin Belanger <martin.belanger@dell.com>
----
-Changes in v2:
-- Patch 2: check that the installed key and IV come from the
-  registered secret. (Hannes)
-- Patch 3: free the KeyUpdate record when its processing fails.
-  (Sashiko)
-- Patch 3: after a rekey, wake pollers only if a pending KeyUpdate held
-  them back. (Sashiko)
-- Patch 4: keep MSG_NOSIGNAL when sending a KeyUpdate. setsockopt()
-  never raises SIGPIPE. (Sashiko)
-- Patch 4: clear the KeyUpdate request state when the application
-  installs a key with TLS_TX or TLS_RX. (Sashiko)
-- Patch 5: derive the test keys from the secrets with AF_ALG. Add tests
-  for the changes above.
-- Not changed: if TCP fails to send the KeyUpdate after the record was
-  queued, TLS_TX_KEY_UPDATE can return 0, as sendmsg() returns the
-  queued length. The next call reports the error. (Sashiko)
-- Link to v1: https://patch.msgid.link/20261025-keyupdate-rfc-v1-0-60b7756eccbd@gmail.com
-
----
-Martin Belanger (5):
-      tls: add HKDF-Expand-Label for the TLS 1.3 key schedule
-      tls: add socket options to register the traffic secrets
-      tls: update the RX key when a KeyUpdate is received
-      tls: send a KeyUpdate at the record limit and on request
-      selftests/tls: add KeyUpdate tests
-
- Documentation/networking/tls.rst   |  43 ++++
- include/net/tls.h                  |  23 +++
- include/uapi/linux/tls.h           |   3 +
- net/tls/Kconfig                    |   2 +
- net/tls/Makefile                   |   3 +-
- net/tls/tls.h                      |   5 +
- net/tls/tls_hkdf.c                 |  82 ++++++++
- net/tls/tls_keyupdate.c            | 155 ++++++++++++++
- net/tls/tls_main.c                 | 175 +++++++++++++++-
- net/tls/tls_sw.c                   | 193 ++++++++++++++++-
- tools/testing/selftests/net/config |   4 +
- tools/testing/selftests/net/tls.c  | 412 +++++++++++++++++++++++++++++++++++++
- 12 files changed, 1091 insertions(+), 9 deletions(-)
----
-base-commit: 1a2c35c49cc7c6be860038b8442b52424a8f123c
-change-id: 20261025-keyupdate-rfc-94d3c7e84077
-
-Best regards,
---  
-Martin Belanger <martin.nvme.dev@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+On 28/10/2026 13:28, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 12:27:18PM +0100, Caleb James DeLisle wrote:
+>> On 28/10/2026 03:04, Andrew Lunn wrote:
+>>> On Wed, Oct 28, 2026 at 01:13:12AM +0000, Caleb James DeLisle wrote:
+>>>> MT7530 switches can be configured to blindly pass packets between their
+>>>> CPU/upstream port and a downstream DSA port, in particular, without
+>>>> altering the MediaTek DSA Tag on the packets. This mode is used in some
+>>>> integrations where an SoC integrated switch exists, but a more capable
+>>>> MCM switch is added to effectively replace it.
+>>>>
+>>>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>>>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+>>>> ---
+>>>>    .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml       | 7 +++++++
+>>>>    1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> index 90b3582b7619..e29fb8693498 100644
+>>>> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> @@ -73,6 +73,13 @@ description: |
+>>>>          Check out example 7.
+>>>> +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
+>>>> +  mode. In this mode, traffic is unconditionally passed between the CPU port
+>>>> +  and the DSA port which links to a second switch. To use passthrough mode, the
+>>>> +  upstream switch is configured with a DSA link to the downstream switch. In
+>>>> +  passthrough mode the upstream switch is restricted, with no other ports or
+>>>> +  switch configuration allowed.
+>>>> +
+>>>>    properties:
+>>>>      compatible:
+>>>>        oneOf:
+>>> Looking at just what is here, all i see is a comment. There is no new
+>>> property? Yet the subject is "add passthrough mode"?
+>>
+>> Indeed, I used "add" to mean "add documentation of". Per my reply on patch
+>> 3, I think we really prefer to avoid special properties and let this
+>> constitute (very) limited support for a switch hierarchy.
+>>
+>> If there's another verb you think makes a better commit line, I'd be happy
+>> to adjust.
+> [Goes and looks at mediatek,mt7530.yaml]
+>
+> So pass through is not an existing property. You are also not adding a
+> new property 'passthrough'.
+>
+> What you appear to be saying is that the MT7530 and MT7531 are hard
+> coded by the driver into pass through mode? So it is in effect a
+> property of the compatible? So maybe put this comment next to the
+> compatible? And make the subject/commit message talk about the
+> compatible being hard coded for pass through?
+
+
+Perhaps I should rephrase as follows:
+
+
+"""
+
+The MT7530 and MT7531 switches do not support switch hierarchies except in
+the case that a switch is configured with only one CPU port and one DSA port
+that links to a downstream switch. In this configuration, the upstream switch
+acts as a blind pass-through to the downstream switch.
+"""
+
+
+> Looking forward, what happens when somebody wants to use the switch as
+> a switch? Or you figure out how to do proper D in DSA? It becomes
+> messy because you need to add a property indicating the compatible
+> should actually be a switch?
+
+
+Full hierarchy (using DSA tag) is impossible because of what seems to be 
+a hardware bug where switches don't distinguish themselves in the tag. 
+However it is possible (albeit ugly) to enable ports on both switches 
+providing the same numbered port isn't enabled on both switches.
+
+
+If somebody ever implements that, even if they remove this passthrough 
+support, users of the current passthrough capability will not notice a 
+difference because that will do the same as this.
+
+
+>
+> So maybe you really do need a property?
+>
+> But DT describes hardware, and pass through is configuration. So maybe
+> it should not be in DT at all, Maybe the driver needs to look at the
+> DT tree, figure out a port is used as a DSA port, and put the switch
+> into pass through all on its own? Once D in DSA is supported, the
+> addition ports become available, but no other changes are needed in
+> the DT blob?
+
+
+Previously there was no documentation regarding hierarchies, and any 
+hierarchy would fail at runtime. I think a brief note that this one case 
+of hierarchy is allowed is nice for the users, though it does bend the 
+definition of "describing the hardware" so it could also be excluded. I 
+may be persuaded either way.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> Sorry, going around in circles, but hopefully it helps you think about
+> the big picture.
+>
+> 	   Andrew
