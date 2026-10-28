@@ -1,69 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208615;
-	b=0732HVFJi2nm8dRuXzgi2B9QuADOQxP9hGASJFtez6/hEM4/WFm8y5N/CvLrANYRac1+
-	 HwZKHydaZecF/ouNMvSe7lN/XEt/KfN6FXoxxy2UiebwyfrbAhb++dUkzqapocmgFj755
-	 46I58za1WkFzHqigKl3A2eJDK7p6TNDFGJhGw/ukufrogjkGBUK9ScgNHRb+uTA0oi91j
-	 S4TIT6p1JQgbK5g33OJYzGzm2QgIRgH4o0oHspO3KAJp/D/buk0+FFqHB2/zAC6EZTgSH
-	 csdTMO8AbhnpKR6EAuin4zy08Ktw0zhv0KMXiZi9VfQlcGmxL+/h+i3uPKZH2G/n5DQ==
+	t=1793208640;
+	b=xQmKxtgR/dJZrNgqDs/5SOThBt0o++pryRTCeM8YvKPRp//0hoYKGlYBKzUNHCO/8nRU
+	 CY1RJ8icZAViFrlReVTG6OEzcDjQgmN5vR7u3xWu7decVVLA+Ithfu7HxqWSYe9+xsCSK
+	 rgL0nn7kIULiux/qzC2DRDpen6/ZFmRS0MED1ws4rzUo0NjOvDr9VZu2gESOw21SBeRDa
+	 qhbuGv4ybXZh0y+oW3VSANnV3UA0ZzFn+gbgmzh5t19OvtvvqR5kixxmnNtOFC0X6l2Ec
+	 xdh7Cn56KA6MRPz/ZIBeonA/IKpVONE27p8Vy9iwsEqTUM2mimD/Kgcds+L4Aaku2Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208615;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8Nt84TnHQ+TaYGknZlTszyhNfDuEosB1hOb+5gllpAA=;
-	b=dunmlAM5x/1l6bFlZLD8MgTFsqjWWoglirsBwLoNvVqhFnzwYYML/kBKjHltcOvGJRHF
-	 c945Fa6NDRN/0DjfomTdy+EgPAURPAQPIGn/dF6S1fFZlxx4XDDWGdpWe5pkLQAxNi3bD
-	 2YAMSUmnG5U9+a05FCDEIoLG6uGETH9K8YsijsqgNktXutZO1Vf7q1Li8AKKBcawMP2bl
-	 Ia6Yt7f9Li8Swne0uBzxqpha+CXSmbXueOyVcL+HzGvR41tvqn6qX9zK2EkaN7DpYZ5Uk
-	 ULalSSaD6KmXZnnty0vEzNj87KAuN6Do1cLHGLdwpn3XrCkGfogTYFGXlGYB72B0D7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208640;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=aT/pVU6IgIaYwku4adsSNoBoyYJO/ByS0tjhWNwyOaU=;
+	b=YQNHCiCY9IF8cSNfLh7EH0Q1H+SWdCFE0T0ucTCfjLxz2qk/eXHCANuXUeiWyMC0AIrl
+	 nAsU6x9C4BwprO8xh7Q9PlcMFNm9MrHxArNV2SZqwhUSelFTvnFMxrQMQpkBglyAh5sCO
+	 D+25sfIdsPhUWUZGTcNt6jRdQSxKS2NqIHt0Vl4iFLPF26AbFymsCq+i6gJsiXSua1RG7
+	 8Iuz0STsGc1/go0AjxXja1j9gw/LQXYfSMQX+BVygSlA9iojrmJARewogvWNwq4JPHigl
+	 MHHCyOb6rvts8MLhFjS91pF+gU8bK0/FZRpXd050EEMTB75Rc+jst9rM6aTeHni2V0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=bqVyZiZy;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="YjBgM/Gs";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="i8oSMlu/";
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC4C606A31A;
-	Wed, 28 Oct 2026 17:30:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FC4C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C53606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:30:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7C53606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=bqVyZiZy;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YjBgM/Gs
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793208603; bh=8Nt84TnHQ+TaYGknZlTszyh
-	NfDuEosB1hOb+5gllpAA=; b=bqVyZiZyFCps9UXd6hcbK4kf8kXhPTJGsXv6KBi4tI1XTQUn9G
-	dAzk+wS3PLftjaGj8OeuQUv72i0slUXPbchvRae0PfaMVKqucdCAQRzT18/YsQPJLoAZxhcxHi+
-	QLmm+rqc4JfEKoNtDx8ywYTM2pukIZECQslL9+tG4ujh+Y/LvgNkDFix2KZQUPGngrFQtuZSZ9+
-	eboIa9J7HjwAHGPgMcpiY1AYRNgZN/IdlVo1InhrP9gg0EIzH8tFzJzJeVvs/vGqIyY+Zm31m0O
-	5WHRqRsmmKUKzQQQkitrGd29ZALcym8sIvXc6qyx/vPrFvusDjLc2PJcFtlM4UZkT5Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793208603; bh=8Nt84TnHQ+TaYGknZlTszyh
-	NfDuEosB1hOb+5gllpAA=; b=YjBgM/GsLKmZyxnaoLCZ7LyRolUKQcM3G0xtB7StLcjTmY3jsG
-	JRP4nqINTEfoiOwrh4TCrqm5vvAe1QOiaVAQ==;
-Date: Wed, 28 Oct 2026 17:30:03 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrea Parri <parri.andrea@gmail.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-CC: Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Gary Guo <gary@garyguo.net>, Kunwu Chan <kunwu.chan@gmail.com>,
- rcu@vger.kernel.org, lkmm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_-rcu/dev_3/4=5D_hazptr=3A_Do_not_warn_?=
- =?US-ASCII?Q?when_a_backup_slot_is_released_on_another_CPU?=
-In-Reply-To: <20261027163811.2470569-4-parri.andrea@gmail.com>
-References: <20261027163811.2470569-1-parri.andrea@gmail.com> <20261027163811.2470569-4-parri.andrea@gmail.com>
-Message-ID: <E9999478-EEF8-4CD6-A042-2E65D96FFE69@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=i8oSMlu/
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a065d0e9deso1042078b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:30:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793208639; x=1793813439; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aT/pVU6IgIaYwku4adsSNoBoyYJO/ByS0tjhWNwyOaU=;
+        b=i8oSMlu/WkbIYGthAShj23qls5PPa/cxrQ80XRTY7eJl6stpBqjqTJoVWruuxGySrD
+         Zet9b9zdF8MYfRamF8DMgs5eTpbkL70dL230V2a5giSqkRbElhM3zmNCyl4TDOU21mF3
+         I3RNxSFADpGlcEccnqECxbVl5H2SzwAJeGg4F424R0B03qLvEhXDR1Tb1gRgpRx2Iuc/
+         CUw3ZMIVtBZO67OfWZ5JBfhx6S+/MgGHU3Bb5FrcpxKbCCCeWZaNkCWf+3RcGagxU3zQ
+         V4DU3aAnNuK+8QFF6wVKtsVW16pHwRNHSQD0WqALj+8lM+nCIiN80jMQl1OaLNpyOFrH
+         QWVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208639; x=1793813439;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aT/pVU6IgIaYwku4adsSNoBoyYJO/ByS0tjhWNwyOaU=;
+        b=Q/YPK2/UJcf1lYuBnLHM/B3yRzTvy6CXvLev8mNeEgSifmYAcXUFxDx4FxUmV5A42I
+         Q5533QrdgUy4efX67sE3vNhbvEEKoFKZJHxysJdBVvl7ATyYlJWV7/U5HtjrTunLiOfj
+         cMdlnaA/XDzh9xPluPRZBpD9AYBt7dLaly/HdTvpZTC+7ysXzkJuBoFzDzxLZe4cZVIv
+         SCIJrjaDKsxYh/LTiWdimj7N/2NMljfct+VmWsKN6qO70fCc2+jrXqm2tSwbqoDKPwCA
+         iDS7tJs1iGAKtt+agZmw+BIYgJMfWo0BsHpJ19RHZRgwb8v+baF7xsRJ8cyEYsPqSAYQ
+         gmNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwHo56hhqPTSPCld2mPhfqAKeG2fb5t/wQ5+NAWWkaaQkWDCBsKToGIy4psvmsWVJpWaYNR/BZpEht2fI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkEn1tc5KxiX90XlBGGSYRpQdy1cDhGmjHHUFNlgKuJIj213o2
+	u1F2/R7nBgMIAcJr2O5rGDf85W2QVloeh82KuhBQ7jATERSF92u6DwlyB4kPis6kiWUV3RSzzpO
+	EN1YEHD4MbV7W/NkG+gfJfsmsV+hLK5vJow==
+X-Received: from pfaq14.prod.google.com ([2002:a05:6a00:a88e:b0:89b:34dc:b094])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2e93:b0:883:7868:94d7 with SMTP id d2e1a72fcca58-8a82efe49c7mr111145b3a.10.1793208638703;
+ Wed, 28 Oct 2026 10:30:38 -0700 (PDT)
+Date: Wed, 28 Oct 2026 17:30:38 +0000
+In-Reply-To: <20261027230853.GA519764@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +78,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261012-fix-aer-mask-override-v1-0-49a0d7aeaea0@google.com>
+ <20261012-fix-aer-mask-override-v1-1-49a0d7aeaea0@google.com> <20261027230853.GA519764@bhelgaas>
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028173038.292999-1-rathodpriyank@google.com>
+Subject: Re: [PATCH 1/2] PCI/AER: Make aer_mask_override effective for
+ injected errors
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: bhelgaas@google.com, lukas@wunner.de, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, ilpo.jarvinen@linux.intel.com, 
+	dave.jiang@intel.com, prarit@redhat.com, ying.huang@linux.alibaba.com, 
+	terry.bowman@amd.com, corbet@lwn.net, jic23@kernel.org, 
+	danielmaraboo@gmail.com, linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 27 October 2026 16:38:05 GMT, Andrea Parri <parri.andrea@gmail.com>
-wrote:
->With CONFIG_HAZPTR_DEBUG, hazptr_release_debug() warns when a hazard
->pointer is released on a CPU other than the one that acquired it,
->unless ->detach_cpu is set.  hazptr_detach() sets it, and so does
->hazptr_note_context_switch() when it promotes a per-CPU slot to the
->backup slot.
->
->__hazptr_acquire() can also put the hazard pointer in the backup slot
->directly, when all per-CPU slots are in use or the pointer changes
->under __hazptr_try_acquire().  Nothing sets ->detach_cpu then, so if
->the task is migrated before the release, the check warns although the
->backup slot can be released on any CPU.
->
->From hazptrtorture, with CPU hotplug and readers that nest a second
->hazard pointer, as "hazptrtorture: Nest a second hazard pointer in
->readers" makes them do (without the nesting, 30-minute PREEMPT and
->NOPREEMPT runs do not hit it):
->
->    Hazard Pointer (addr=00000000e2979b1e) released on remote cpu without context switch. Acquire: caller=hazptr_torture_read_lock+0x43/0xb0, pid=80, cpu=0. Release: pid=80, cpu=1.
->    WARNING: ./include/linux/hazptr.h:293 at hazptr_torture_read_unlock+0x80/0x160, CPU#1: hazptr_torture_/80
->    Call Trace:
->     <TASK>
->     hazptr_torture_reader_tail+0x88/0x250
->     hazptr_torture_nested_reader+0x6c/0x90
->     hazptr_torture_reader+0x2f5/0x550
->     kthread+0xdf/0x110
->     ret_from_fork+0x179/0x240
->     ret_from_fork_asm+0x1a/0x30
->     </TASK>
->
->Set ->detach_cpu when __hazptr_acquire() falls back to the backup slot.
->The remote-task check still applies to such a hazard pointer.
->
->The false positive was found with the help of an LLM.
->
->Fixes: 3d48872eb74f ("hazptr: Introduce CONFIG_HAZPTR_DEBUG misuse detection")
+Hi Bjorn,
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Thank you for reviewing the patch!
 
->Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
->---
-> kernel/hazptr.c | 4 ++++
-> 1 file changed, 4 insertions(+)
->
->diff --git a/kernel/hazptr.c b/kernel/hazptr.c
->index b15b84ebd4ceb..b06164aac3a70 100644
->--- a/kernel/hazptr.c
->+++ b/kernel/hazptr.c
->@@ -112,6 +112,10 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-> 	 *   synchronize forward progress.
-> 	 */
-> 	slot = hazptr_chain_backup_slot(ctx);
->+#ifdef CONFIG_HAZPTR_DEBUG
->+	/* Unlike a per-CPU slot, the backup slot can be released on any CPU. */
->+	ctx->detach_cpu = true;
->+#endif
+On Tue, Oct 27, 2026 at 06:08:53PM -0500, Bjorn Helgaas wrote:
+> Can you start with a one- or two-sentence description of what's going
+> on here?  Evidently injecting some errors doesn't work as expected
+> today?  As long as the justification is compelling and the code is
+> readable, I don't think we need quite as much detail about every
+> little implementation detail.
 
-Makes enough sense.
+Good point, thank you.  Would a shorter commit log like the following
+look better to you?
 
-> 	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
-> 
-> 	/* Memory ordering: Store B before Load A. */
->
+  aer_mask_override=1 is supposed to allow injecting masked errors, but
+  aer_inject() corrupts the hardware Mask registers with "&= !" and
+  restores them before irq_inject_interrupt(), so aer_isr() still drops
+  the error as masked.  Emulate aer_mask_override in config space reads
+  and writes instead of modifying the hardware Mask registers, and
+  document the parameter with MODULE_PARM_DESC().
 
+I am happy to send a v2 with this updated commit message, unless you
+prefer to adjust it directly when applying.
 
---- Thanks!
+Thanks,
+Priyank
