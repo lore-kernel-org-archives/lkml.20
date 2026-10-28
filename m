@@ -1,108 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204405;
-	b=F7FvEgzxefSuiF0MfigRbNPndVCNa8l93Ugv670o8cbZldyognJ3jZIDu9+EyOPylOEs
-	 LVwKddjbKw6EayFfnBsbLPGzEUMPxDOu41kBGeGsPsNmSvw+XURita6B/2IarazOEJvfT
-	 0Wg4eg3+Bt7A4Ud8HYflVj0gw1AQbHnzqh94XJVlVZEqNE9NExxIn9SouOK/MlsKihzwN
-	 nUhnxMsHLcKC1yOv5YQsacqb4wQlKaPmBuQJ3TgPjLhF3rGMW0pjZthHrBfZvW2gjFQSP
-	 FyX23BCDDayw2LXHSlNK/rKAQaVjLtEOK2MaCtUymDR8X9vo1KFn6xZ7wtKWcswirfg==
+	t=1793204415;
+	b=fCvMlPE8ekJNQKJasYew2L3DtGomlC8xkygDNGLpgLG9Ev/9KIiofDGqIgg7iP7t2Avr
+	 j0KKzIeJV7eh0GqJQxkvfMWp7rbNdceDIPo69ViSO5tDp8NTKy56agBp6fTeIRVA5O7FV
+	 RyxAQTW7IukxWC+xylZG1//VVyr9NTCXO9Hm5qDLQDE3D9v6jPucClsnrEM682dtoYwM2
+	 gSFPBHv2hALDnVZvlrHdPzZntMyqYgqrrZnnGTY2CZVY4kseNoVJWLbcxPM7Vlf5s20rM
+	 0s0IoxZ9oRFpnEkjM26IQJNFUPx6NR0Zn8B0XR/DBRM8ejGYpRnLfeSNZ74Y28+DIIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204405;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0rATnQQTJ72YrBkABg0cEBhwiSsSBn8AUhfECRfpTKo=;
-	b=If84rGanyj1RShYMdDSy6rNy+a+iVYwi0h84OQyD4fmczvdWi3kNcpMjMgwpltEJSoDg
-	 Aavx434Mv93r/l1bmMRJwqrYyHKvO+GdvIvsE4X+RBK5QYkRSJ6conUSf9hfc6i71DCzf
-	 x6GrwWyVSIWOFvIngBYtEdZ4dBprt5y/zyaS/eFw8lxoIzOUwfTGKqltOeSk0Sl7b+yzc
-	 bQKFTSkA+4Q5Uf6CD3g6lzLOanVmp1cSpsFrC1fStic8HC4CizkOyFuSeKZHCnTgQsdDE
-	 a/lTbP1GaX8of5QjpQdhomAXMeuXlxQNQVq4wfbVKfBxI9Ynfr26QrNszSUSu1SM4OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204415;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=1FCShw/w+0/Qgo+QANKmmkw+M3AH8C1BuscjzFqFcA4=;
+	b=cDvumHkwh8f+MKvvELpQ7CimvjR5TkOztDyzeuL6yT7VJ3vEQvmKofVhduY0hYH/1iPx
+	 JvsdUu6zDEMsk8g3W7zZsm36P3IKOHPAg2TZgq2wnWSJwbc0ekQTPaiS0XRWJYy8NzqfF
+	 Us+dMPTRsXUiOPRgtenZ1kH+kbHVPZLxxjE13Ryif6AZYY9NAkBayaEGJJ9NMcrwFDVJO
+	 JF9ase0nBttIVIVNT2PllJbuRM/CbOM6yMVR3vXwMuRBqeqoT+1U/VwnFR2yLCiCfSpL+
+	 A8O6iuEtLsX8OroVc0B9ErTE30H2th9+5xOwgJr1gZcYRfvHIh+kM0t1hPQXbIMVLCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Od2jCajZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D83606A31D;
-	Wed, 28 Oct 2026 16:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Od2jCajZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24D31F01825;
-	Wed, 28 Oct 2026 16:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793204405;
-	bh=0rATnQQTJ72YrBkABg0cEBhwiSsSBn8AUhfECRfpTKo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Od2jCajZKWKTDmGKxuYQxCznLzK5lE5I82XP6kHR/pVw15VviXOu0f+rBJztE2sWt
-	 aHB1YXF7LuPYHU40KtFSmxWKD6wxnYzbFJeWxCtv5kmvj0IwusDwG6I8dKNYl5hbAX
-	 qHQic4MJqltiIVHxUe3brboc9KewZxE/aWUva6VSi7IMJ81oP7hTDulOU8yLFxWP4u
-	 W3jZr5qZ7IvLut3ypzOXBw5SA0Vx7r0s7K9pRjlpSjQpPHMhmwn5yGGklOO6EJ9nTi
-	 wgAJwgkpfhsVSNks3KTWED/hZ081N4N8oDSY/jJ5jMBOtMs1oL4u97xlwL0bgFticW
-	 VC7cHA1IM/c3g==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 29073198005A;
-	Wed, 28 Oct 2026 12:19:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 28 Oct 2026 12:19:59 -0400
-X-ME-Sender: <xms:pCDiapHR5_UfAlK6Y5IwuSd6tG-IN25ti_9qop6y33Mn7A8IfOyH2w>
-    <xme:pCDiaolisVVX49paz5DMLbhyfp3Q6L1SCMdynmBx-MO6JItRfQaLAqjheIBSQuP6W
-    utF727eX3BINM1KjFyEGeeFcQzdUVht_0jxrDU5lvFsc9Uo93IjJqpd>
-X-ME-Received: <xmr:pCDiatI176GX8GobYrpPR5_2HleYubAakxHYnaCbeKCR92Rik7DrWnkMNEI>
-X-ME-Proxy-Cause: dmFkZTGclD1JbppB9HJ+wc+PBYUc7y+dixlkOiA2HsCm5bBLjgZcXtU5z4GDtO5noWzmDd
-    ORQFP5u9B2gtbQIzAfn62HyoZPZzOaRlPLXMJbRuOKsJfFDAVc93Ms6EaNrHWEq6z6wsvt
-    Vwv7YGYHYp1DmH0JFFFqpqagIBWKJjdY8K+9fHquSKFVK4QpWZo3/X+8b1lo1wJj7cOP/0
-    UxPerUKzYQfYIPe0+zZpOe+dudiR/ZmyEvfhO+buEi+HLpafl9BeNw9D79/rT5MOLUUGeC
-    H20VI38/59YkMmPnP0Lyu8v9OMGay2+0LMnea7uAS3uuq0rtJ908MMUpIuTf0GbHo8UsAY
-    ua+t7Qev6BT8kMHCeyM4V1m6u5YQwDA4moRebSE73U9F3vqd/sLjELfF2vONZb+ZcW5TQB
-    94GQy7Qy9EYuo6vu61hPJ1VjyjuMJ99xhWVMI+3gZz6H3VQ84mHv5w8TE9tnJChUhoUUP9
-    4BpLr6gQs04DR36/rOYGy/+LZjcGIu/GNpIN099cOSZ+EN2zqtR43z7EhAL94X1B/ytyyp
-    oo/rRFI886c55KcN4on3qj6HWPCrIJtfc0D4lmBumEi5I8lrnU3HxQLS8Z22AYR9GbRHTz
-    75P/PVpblWhTAf4127jPQ1kO6sZzgqCljd55hkW2aMHmD3LDpX4z8/2t8a7Q
-X-ME-Proxy: <xmx:pCDiahze4ae2vr6g0xh1CGHOySl6hdDch_bPcHI01gx7Cx5B5_AyJw>
-    <xmx:pCDiapp2l8L-56W56KcYVToqHeGQ2dwKvVCsSdlmv3g205bP2Roufw>
-    <xmx:pCDiaj3XJkMTDlTUcybqoOOCtsjCPlXp0xH4AP7sKqkLmlew_k_rVA>
-    <xmx:pCDiaoL8lIOsfn_CSb0VzXBCgfJe6RSz91C-07dxto8nIE3ph-anSQ>
-    <xmx:pCDiaopVBBj5qbjabGhIOaxTeF90y_zQKddqmsT3AwUNkwcLcz8ejdNW>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Oct 2026 12:19:46 -0400 (EDT)
-Date: Wed, 28 Oct 2026 16:19:45 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
-Message-ID: <auIgkX9zz8TdnLum@thinkstation>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5820C606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5820C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8210034ccc0so1506704a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:20:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793204414; x=1793809214;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1FCShw/w+0/Qgo+QANKmmkw+M3AH8C1BuscjzFqFcA4=;
+        b=QGA/0Kfv5jCSKjRj1Pb7CpCfoeIs03rKBz7xUc/jq19sFA19FHP+1L1ZmbUwYdPCuM
+         LZl7fwNlxN7VvHd7eJftbKnYvNT3Xml6Cvodzb/AS24evzedegKqCrwvomdI5c+8uOVM
+         TzY5qOguJ8wS9DbZ/WjNjJbraoenMUoJpFqpM01e4HXAskchMZrhxqZELNCo5Yub8PcY
+         PivyrTNkmJZwjw0H3T4DgpW33aSTODwyohAi+LjRG+NOGgZth9293J4a/xW27OsvT2E9
+         u6Hh9Gco57OIkmzvz1m9ziqSooYkXG2IyQOKJulffnIg6XE1Uoxh/noGKk6wjv4/rHjP
+         pUiA==
+X-Gm-Message-State: AFq9FYIsnykBjJo+YP59gM1HbZEUCTx1S0Vi0FWDhhRav6q4M2pYMqG5
+	ezRK+NIpXyl7bYZqQkbn8cDNuhZ8M+e27nh4ybbDGelCD0QkTp/Fztrzfl67CL+hG0RlqQ98PEK
+	hDx/Bx7JV3tbBGGGOpHvMMCma4XD2lHX92HvzOPgGlyHwY3VCe2h6LLv245E=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,36 +57,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
+X-Received: by 2002:a05:6808:2384:b0:4e4:4b49:3a2d with SMTP id
+ 5614622812f47-56385c466f1mr1903139b6e.19.1793204414341; Wed, 28 Oct 2026
+ 09:20:14 -0700 (PDT)
+Date: Wed, 28 Oct 2026 09:20:14 -0700
+In-Reply-To: <000000000000bb900e061440909c@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae220be.cbab20e0.42a9b.000e.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [tipc?] BUG: soft lockup in do_sock_setsockopt
+From: syzbot <syzbot+10a41dc44eef71aa9450@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 12:17:22AM +0100, David Hildenbrand (Arm) wrote:
-> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-> mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
-> and newer heap mappings, causing later brk() requests to fail.
-> 
-> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
-> cause inconsistencies.
-> 
-> As a simple and robust fix, grab the parent's mmap_lock earlier. This
-> way we don't need to update individual mm fields in dup_mmap() and
-> keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
-> exec_vm, stack_vm), as that is now no longer required.
-> 
-> Keep releasing the parent's mmap_lock in dup_mmap(), before
-> userfaultfd completion, to avoid moving the userfaultfd handling into the
-> caller. This should get cleaned up later.
-> 
-> Move uprobe_start_dup_mmap() to preserve the lock ordering.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+***
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Subject: Re: [syzbot] [tipc?] BUG: soft lockup in do_sock_setsockopt
+Author: immersa.bartosz.chronowski@gmail.com
+
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git 6430fb7f1cc4e329e386521b7b208df443de92f2
+
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index 65cc0c4964b31ff3174b0947659e928029247ef5..b03dd4a3d3ea293ef347a8abfe45bbcd83621dc6 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -94,6 +94,7 @@ struct sockaddr_pair {
+  * @peer: 'connected' peer for dgram/rdm
+  * @node: hash table node
+  * @mc_method: cookie for use between socket and broadcast layer
++ * @backlog_work: processes receive backlog under socket ownership
+  * @rcu: rcu struct for tipc_sock
+  * @group: TIPC communications group
+  * @oneway: message count in one direction (FIXME)
+@@ -128,6 +129,7 @@ struct tipc_sock {
+ 	struct sockaddr_tipc peer;
+ 	struct rhash_head node;
+ 	struct tipc_mc_method mc_method;
++	struct work_struct backlog_work;
+ 	struct rcu_head rcu;
+ 	struct tipc_group *group;
+ 	u32 oneway;
+@@ -143,6 +145,7 @@ struct tipc_sock {
+ };
+ 
+ static int tipc_sk_backlog_rcv(struct sock *sk, struct sk_buff *skb);
++static void tipc_sk_backlog_work(struct work_struct *work);
+ static void tipc_data_ready(struct sock *sk);
+ static void tipc_write_space(struct sock *sk);
+ static void tipc_sock_destruct(struct sock *sk);
+@@ -499,6 +502,7 @@ static int tipc_sk_create(struct net *net, struct socket *sock,
+ 	/* Finish initializing socket data structures */
+ 	sock->ops = ops;
+ 	sock_init_data(sock, sk);
++	INIT_WORK(&tsk->backlog_work, tipc_sk_backlog_work);
+ 	tipc_set_sk_state(sk, TIPC_OPEN);
+ 	if (tipc_sk_insert(tsk)) {
+ 		sk_free(sk);
+@@ -2428,6 +2432,17 @@ static int tipc_sk_backlog_rcv(struct sock *sk, struct sk_buff *skb)
+ 	return 0;
+ }
+ 
++static void tipc_sk_backlog_work(struct work_struct *work)
++{
++	struct tipc_sock *tsk = container_of(work, struct tipc_sock,
++					     backlog_work);
++	struct sock *sk = &tsk->sk;
++
++	lock_sock(sk);
++	release_sock(sk);
++	sock_put(sk);
++}
++
+ /**
+  * tipc_sk_enqueue - extract all buffers with destination 'dport' from
+  *                   inputq and try adding them to socket or backlog queue
+@@ -2445,18 +2460,30 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 	struct sk_buff *skb;
+ 	unsigned int lim;
+ 	atomic_t *dcnt;
++	bool deferred = false;
++	bool owned;
++	bool local_backlog;
+ 	u32 onode;
+ 
+ 	while (skb_queue_len(inputq)) {
+ 		if (unlikely(time_after_eq(jiffies, time_limit)))
+-			return;
++			break;
+ 
+ 		skb = tipc_skb_dequeue(inputq, dport);
+ 		if (unlikely(!skb))
+-			return;
++			break;
+ 
+-		/* Add message directly to receive queue if possible */
+-		if (!sock_owned_by_user(sk)) {
++		/*
++		 * A local Nagle backlog may loop back into this socket while its
++		 * spinlock is held.  Queue the triggering input for processing under
++		 * socket ownership, which keeps a concurrent sender from overtaking
++		 * the already queued output.
++		 */
++		owned = sock_owned_by_user(sk);
++		local_backlog = !owned && !skb_queue_empty(&sk->sk_write_queue) &&
++				in_own_node(sock_net(sk),
++					    tsk_peer_node(tipc_sk(sk)));
++		if (!owned && !local_backlog) {
+ 			tipc_sk_filter_rcv(sk, skb, xmitq);
+ 			continue;
+ 		}
+@@ -2467,6 +2494,7 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 			atomic_set(dcnt, 0);
+ 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
+ 		if (likely(!sk_add_backlog(sk, skb, lim))) {
++			deferred |= !owned;
+ 			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 						 "bklg & rcvq >90% allocated!");
+ 			continue;
+@@ -2483,6 +2511,12 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 		}
+ 		break;
+ 	}
++
++	if (deferred) {
++		sock_hold(sk);
++		if (!schedule_work(&tipc_sk(sk)->backlog_work))
++			sock_put(sk);
++	}
+ }
+ 
+ /**
