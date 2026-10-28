@@ -1,105 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191380;
-	b=R7XaodXmRfvWZvJUkCWQxp3tNtx4zKO8JXhGtjdUou3bLsVvtUc0hg4HVvzFbKu9VDJv
-	 zjQU3eliPMQfJgF1v1NRj38zxG0Gq1tE/eJrtGSegR0uO4m/T03jjf52DSffnT/ktUrgF
-	 LbARbcodev5hi1tor6zU44jobZesIyYsqojJFe/x/p5YcAfxEIckjC2tZx5rqvMpURogw
-	 aPeBgqHWGNZVJlbIjvolGWunRGhkydaaw3LUkdEJRXurO65cFj/dpncAeyqD4XHa9sDgk
-	 N8hSTjYhvdng1FY8jnRzTFSX0g2ql2eO1oL9GJ8YEbnnaIKu1cSqIytQ5KLGuDyCxtg==
+	t=1793191396;
+	b=X55fa/9fwFeyRYrg4Z/0c+Ne2tcRzVBYbyym64MtZYYJxdbKA85HEgCOjYl/1rT9reWY
+	 CRY7Ucaox4KYqqSJ2y7NYFnN+OyiYYc6QCNDUFL0DjO4Lz8y2WhPVFljvXCdy2+1KY2Fw
+	 JgUmHcWme6J6mEx6jBcuyBblpcWkoqmAQUWl0Y21kd/nFXPwQcrYqa1nIO/cyUZnQ4ugz
+	 oRxhzGlpFrcjFrgdo4+FRdskRrDFGF3EoeLwHn7qGet3voSiT+caKDQ9QEjl0df2s/fmb
+	 K6a/Q0nMvKfalFxLfYT1/5gsnRuUappxdyTT5np85kjc6p4EMk8CaVTDIwTPk1OFsyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191380;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=bMwDHB+3ddcFQ1aKjPTDttqfXggRKYnNB2Il1VmUkbE=;
-	b=xWsXEbQrDG8F52t12aLYWZoMlWb/6bwGfYUEQOk3oTDxDCasoKYPojecxETg2GhgcdS8
-	 DZDmodNLEgpb9MoSRjLZYnI251/ia4tdrGq832NrhEBqA7eAf/iDDXbM6DjvgW3J94vw5
-	 4083Tz/N/VjvNghwknkoJqa2IOHmOyym/ACpWdleN77RjBPKUtjgPc658CgsL+IdXKmNZ
-	 6u5mj37wEvAD0f2EoHhC2qfQnQT6o4s0xjlme6FT5K0BTew7Xl3eFZnyvULE2rOOz4Qdx
-	 gD9VRxt78xsSqbd7KZ91Psvw/kNmB+Y2L+X99IAHbgEi3KniCoPgNxAIb7uRuqFrJzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191396;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=rPtVDj0xwOVJpoIRUE07XELbiv1KYq5Ib220WAkiYto=;
+	b=UkUrvDVSYuYmUQKZK2yDvsQbvasyNBB1vvx1zHzlXtwnN6ju5nZTTJo2DmR9F7tA2Hjo
+	 tCyQY5dGgsjjZm1iv530hxXHEP0zwa8PLf2FHdknX/g2rZ3yNFTMGZCGc4kt8qRjvmeEa
+	 W7xkuN2PWXxVCtPbGNTUZ2yv3c4wtpEa8TN3qn9nyVLj8HLfHTsqZmcpcurQ6hGHuMKct
+	 SP4XG+TvNEO3lp9ibhAHhUoW3I6SKRtkrBl0tftNqfRTOngrRtT1DYz8o1xk3d+wCScEJ
+	 +8BpUeHoWFMISvUoTpMrAI9YdRj/Oo3mKu045ienOBgkpMGqXocapfxR4JPZ9UC8VmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=HansenPartnership.com;
-	spf=pass smtp.mailfrom=HansenPartnership.com;
-	dkim=pass header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=OZtKrVBj;
-	arc=none smtp.remote-ip=198.37.111.173
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AGM1wk93;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439AC606A31A;
-	Wed, 28 Oct 2026 12:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 439AC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64BE606A31A;
+	Wed, 28 Oct 2026 12:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D64BE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=OZtKrVBj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1793191377;
-	bh=fOpHXwlwUlS4qieCt/lH6UJKlWGZ1ep1hs8jgE78xrU=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=OZtKrVBjbSBB+nGPoP2tKR9rJfuuXNoMVW3RQajFz2ChnghhL0uV/rbRJdFPw3qkn
-	 PGNDiiuCTfTIjxnFi30x3KUnY1Gnn6jxABeXB9vpDN8WiVkX7yiKWpM0mGefImF3X9
-	 +R6vg2QuZz2/37NEHLX3GY44U40Dyz8zICyMuQVk=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 2E90E1C012B;
-	Wed, 28 Oct 2026 08:42:57 -0400 (EDT)
-Message-ID: <37b653494cf282c6e428e2ae8fd781a0ea69bf3f.camel@HansenPartnership.com>
-Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Luca Boccassi <luca.boccassi@gmail.com>, Paul Moore
- <paul@paul-moore.com>,  Christian Brauner	 <brauner@kernel.org>
-Cc: Fan Wu <wufan@kernel.org>, Manuel Huber <manuelh@nvidia.com>, David
- Howells	 <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, Andrew
- Halaney	 <andrew@amutable.com>, James Morris <jmorris@namei.org>, "Serge E.
- Hallyn"	 <serge@hallyn.com>, linux-security-module@vger.kernel.org, 
-	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kexec@lists.infradead.org, Mike Rapoport <rppt@kernel.org>, Pasha Tatashin	
- <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>,
- Alexander Graf <graf@amazon.com>
-Date: Wed, 28 Oct 2026 08:42:56 -0400
-In-Reply-To: <CAMw=ZnR54hMBwGTps23t9Mm_VO1bAvmeX8uTf_VJ0rJsFNMLuw@mail.gmail.com>
-References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
-		 <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
-		 <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org>
-		 <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
-		 <CAHC9VhTHUU0h9k74CMT6wYhMwyY3YhbSSFwJoDTvoFRyTFVZwg@mail.gmail.com>
-		 <20261022-hausbank-dozent-hurtig-9443f3777475@brauner>
-		 <CAHC9VhQ4sdCRvJ+YPZoiQzR_hgQN6-=84qvnTDDGPf=7=L9-jA@mail.gmail.com>
-		 <5143896100674c9fd744c4d7d6ce12232910e789.camel@gmail.com>
-		 <CAMw=ZnR54hMBwGTps23t9Mm_VO1bAvmeX8uTf_VJ0rJsFNMLuw@mail.gmail.com>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AGM1wk93
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793191392; x=1793450592;
+	bh=rPtVDj0xwOVJpoIRUE07XELbiv1KYq5Ib220WAkiYto=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AGM1wk939Vod3ABnDykCMMpNlIMZO9ZYQYgemk6N4N6jC9kKMv+l/S8BnyG0wV6Nz
+	 PCKLcdETdgicbsuQCn4jkLr7WFSkJKT/ygzAE5kRs+oDF62zqxnQ1tp5Ji0pS6xNEK
+	 J/TH4niYsjEJwK0F727el4nib37dy+bt5cjU9iKv1L5dtLWKhcjuJHBm6v1dQVf7t4
+	 iI3rpYCF/XKj8/D1XmxrLKmAycb0KPQ3PAkIjrhAb9VwNygMK7JGT0iSKN8V2pZzCi
+	 YLoKMvzblIIuVFReFrksoGBdeLSHTJ4LrBawEhYXKgNN+rAFU3i/wB3bjTL5c0NhYZ
+	 AIhc92AFz3xMQ==
+Date: Wed, 28 Oct 2026 12:43:05 +0000
+To: Alessio Ferri <alessio.ferri@mythread.it>
+From: vit9696 <vit9696@protonmail.com>
+Cc: =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Michael Buesch <m@bues.ch>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH wireless-next v2 6/8] firmware: bcm47xx_sprom: read ledbh4..ledbh15 from NVRAM
+Message-ID: <024A939C-939E-4C36-81A5-60D84DA0AA09@protonmail.com>
+In-Reply-To: <20261027-bcma-ac-rev1-v2-6-b69b61c31920@mythread.it>
+References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it> <20261027-bcma-ac-rev1-v2-6-b69b61c31920@mythread.it>
+Feedback-ID: 739018:user:proton
+X-Pm-Message-ID: 0886d8a1f30d5638ebb904e13b002c39c00b72c5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,72 +64,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------ff4c29d6f96438e751f778a80f42ab70689aafbe692ab7ce2034fe8a73abeb44"; charset=utf-8
 
-On Tue, 2026-10-27 at 11:07 +0000, Luca Boccassi wrote:
-> On Mon, 26 Oct 2026 at 12:57, <luca.boccassi@gmail.com> wrote:
-> > I think there is one issue with the design pattern where keyrings
-> > are set up in userspace, that I have mentioned a few times already
-> > and I got documented in
-> > https://www.freedesktop.org/software/systemd/man/latest/systemd-system.=
-conf.html#RestrictFileSystemAccess=3D
-> > as well: they are trivially bypassable if the kernel has kexec
-> > enabled and it is signed. The security model relies on the "good"
-> > userspace running first, but if kexec is enabled, there's no
-> > guarantee that will be the case, and as far as I can tell it gives
-> > root trivial capability of overriding it and extending the trust
-> > chain as the attacker wishes.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------ff4c29d6f96438e751f778a80f42ab70689aafbe692ab7ce2034fe8a73abeb44
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.4\))
+Subject: Re: [PATCH wireless-next v2 6/8] firmware: bcm47xx_sprom: read
+ ledbh4..ledbh15 from NVRAM
+From: vit9696 <vit9696@protonmail.com>
+In-Reply-To: <20261027-bcma-ac-rev1-v2-6-b69b61c31920@mythread.it>
+Date: Wed, 28 Oct 2026 15:42:47 +0300
+Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ Michael Buesch <m@bues.ch>,
+ linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org
+Message-Id: <024A939C-939E-4C36-81A5-60D84DA0AA09@protonmail.com>
+References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
+ <AgtUu3ZjiWVws8MLmu_wWG3sfoRDJz6iEpykvQkallguflWWPuH0kI6qYTu1BeAymKTslopitIRl1jtSMNLjQQ==@protonmail.internalid>
+ <20261027-bcma-ac-rev1-v2-6-b69b61c31920@mythread.it>
+To: Alessio Ferri <alessio.ferri@mythread.it>
+X-Mailer: Apple Mail (2.3864.700.51.1.4)
 
-The attack sounds doable, but it also seems to be exploiting a gap in
-kexec policy: kexec is supposed to behave like a warm reboot so if boot
-policy requires UKI only then so should kexec and that sounds like the
-thing that should be fixed.
+VGhpcyBjaGFuZ2UgbG9va3MgY29uZnVzaW5nIHRvIG1lLg0KDQpXaGlsZSBJIGJlbGlldmUgaXQg
+bm90IGNsZWFybHkgZG9jdW1lbnRlZCBpbiBwdWJsaWMsIGZyb20gbXkga25vd2xlZGdlIHRoZSBn
+ZW5lcmFsIGFwcHJvYWNoIGlzIGFzIGZvbGxvd3M6DQotIEJyb2FkY29tIHN1cHBsaWVzIFNQUk9N
+IHdpdGggY29uZmlndXJhdGlvbiBkZWZhdWx0cy4NCi0gVmVuZG9yIG92ZXJyaWRlcyB0aGVzZSBk
+ZWZhdWx0cyB2aWEgTlZSQU0gd2hlcmUgU0RLIGFsbG93cyBpdC4NCg0KSSBiZWxpZXZlIGFsbCBj
+dXJyZW50bHkga25vd24gU1BST01zIGhhdmUgY29uZmlndXJhdGlvbiBmb3IgWzAsIDNdIEdQSU8g
+cGlucyB3aGVyZWFzIE5WUkFNIG92ZXJyaWRlcyBjb3ZlciB0aGUgd2hvbGUgWzAsIDE1XSBHUElP
+IHJhbmdlLg0KDQpXaGF0IEkgZW50aXJlbHkgbWlzcyBpcyB3aHkgdGhpcyBwYXRjaCBtb2RpZmll
+cyBiY21hX3Nwcm9tX2dldCBhbmQgbm90IGp1c3QgYmNtNDd4eF9zcHJvbV9maWxsX2F1dG8gKGNh
+bGxlZCBmcm9tIGJjbTQ3eHhfZmlsbF9zcHJvbSDihpAgYmNtNDd4eF9nZXRfc3Byb21fYmNtYSku
+IEkgYmVsaWV2ZSB5b3UgY2FuIHNhZmVseSBwcm9jZXNzIHRoZSByZW1haW5pbmcgb3ZlcnJpZGVz
+IHRoZXJlIG5leHQgdG8gY3VycmVudGx5IHByb2Nlc3NlZCBbMCwgM10gb3ZlcnJpZGVzLg0KDQpJ
+biBteSBvcGluaW9uLCBpdCBhbHNvIG1ha2VzIHNlbnNlIGNvbnZlcnQgZ3BpbzAvZ3BpbzEvZ3Bp
+bzIvZ3BpbzMvZ3Bpb19leHRbXSB0byBhIHVuaWZpZWQgYXJyYXksIGJlY2F1c2UgdGhpcyBpcyBh
+Y3R1YWxseSBhIDE2LWJ5dGUgb3IgYSAzMi1ieXRlIGFycmF5IGRlcGVuZGluZyBvbiB0aGUgY2hp
+cC4NCg0KQmVzdCwNClZpdGFseQ0KDQo+IE9uIDI3IE9jdCAyMDI2LCBhdCAwMjo1MywgQWxlc3Np
+byBGZXJyaSA8YWxlc3Npby5mZXJyaUBteXRocmVhZC5pdD4gd3JvdGU6DQo+IA0KPiBBZGQgZ3Bp
+b19leHRbXSBmb3IgdGhlIExFRCBiZWhhdmlvdXJzIG9mIEdQSU8gNC0xNSBhbmQgZmlsbCBpdCBm
+cm9tDQo+IE5WUkFNIGxlZGJoNC4ubGVkYmgxNSwgYm90aCBmb3IgYSBTUFJPTSBidWlsdCBmcm9t
+IE5WUkFNIGFuZCwgdGhyb3VnaA0KPiB0aGUgbmV3IGJjbTQ3eHhfc3Byb21fZmlsbF9iY21hX252
+cmFtKCksIG9uIHRvcCBvZiBhIFNQUk9NIHJlYWQgZnJvbSBhDQo+IGJjbWEgZGV2aWNlLiBUaGUg
+YmNtYSBwcmVmaXggbG9va3VwIG1vdmVzIGludG8gYSBoZWxwZXIgc2hhcmVkIGJ5IGJvdGgNCj4g
+cGF0aHMuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbGVzc2lvIEZlcnJpIDxhbGVzc2lvLmZlcnJp
+QG15dGhyZWFkLml0Pg0KPiAtLS0NCj4gZHJpdmVycy9iY21hL3Nwcm9tLmMgICAgICAgICAgICAg
+ICAgICAgICAgfCAgMyArKw0KPiBkcml2ZXJzL2Zpcm13YXJlL2Jyb2FkY29tL2JjbTQ3eHhfc3By
+b20uYyB8IDg2ICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0NCj4gaW5jbHVkZS9saW51
+eC9iY200N3h4X3Nwcm9tLmggICAgICAgICAgICAgfCAxNSArKysrKysNCj4gaW5jbHVkZS9saW51
+eC9zc2Ivc3NiLmggICAgICAgICAgICAgICAgICAgfCAgMSArDQo+IDQgZmlsZXMgY2hhbmdlZCwg
+ODMgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9iY21hL3Nwcm9tLmMgYi9kcml2ZXJzL2JjbWEvc3Byb20uYw0KPiBpbmRleCBjOThiNmZi
+NjYuLmFjNzYyMjUxMiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9iY21hL3Nwcm9tLmMNCj4gKysr
+IGIvZHJpdmVycy9iY21hL3Nwcm9tLmMNCj4gQEAgLTExLDYgKzExLDcgQEANCj4gDQo+ICNpbmNs
+dWRlIDxsaW51eC9iY21hL2JjbWEuaD4NCj4gI2luY2x1ZGUgPGxpbnV4L2JjbWEvYmNtYV9yZWdz
+Lmg+DQo+ICsjaW5jbHVkZSA8bGludXgvYmNtNDd4eF9zcHJvbS5oPg0KPiAjaW5jbHVkZSA8bGlu
+dXgvcGNpLmg+DQo+ICNpbmNsdWRlIDxsaW51eC9pby5oPg0KPiAjaW5jbHVkZSA8bGludXgvZG1h
+LW1hcHBpbmcuaD4NCj4gQEAgLTg0MSw2ICs4NDIsOCBAQCBpbnQgYmNtYV9zcHJvbV9nZXQoc3Ry
+dWN0IGJjbWFfYnVzICpidXMpDQo+IGVsc2UNCj4gYmNtYV9zcHJvbV9leHRyYWN0X3I4KGJ1cywg
+c3Byb20pOw0KPiBrZnJlZShzcHJvbSk7DQo+ICsgLyogTW9zdCBob3N0cyBoYXZlIG5vIE5WUkFN
+OiBpZ25vcmUgdGhlIHJlc3VsdC4gKi8NCj4gKyBiY200N3h4X3Nwcm9tX2ZpbGxfYmNtYV9udnJh
+bShidXMsICZidXMtPnNwcm9tKTsNCj4gfQ0KPiANCj4gcmV0dXJuIGVycjsNCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZmlybXdhcmUvYnJvYWRjb20vYmNtNDd4eF9zcHJvbS5jIGIvZHJpdmVycy9m
+aXJtd2FyZS9icm9hZGNvbS9iY200N3h4X3Nwcm9tLmMNCj4gaW5kZXggYmNhMDNmZDg1Li43NTYw
+NGNkNzAgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZmlybXdhcmUvYnJvYWRjb20vYmNtNDd4eF9z
+cHJvbS5jDQo+ICsrKyBiL2RyaXZlcnMvZmlybXdhcmUvYnJvYWRjb20vYmNtNDd4eF9zcHJvbS5j
+DQo+IEBAIC0yOSw2ICsyOSw3IEBADQo+ICNpbmNsdWRlIDxsaW51eC9iY200N3h4X252cmFtLmg+
+DQo+ICNpbmNsdWRlIDxsaW51eC9iY200N3h4X3Nwcm9tLmg+DQo+ICNpbmNsdWRlIDxsaW51eC9i
+Y21hL2JjbWEuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9lcnIuaD4NCj4gI2luY2x1ZGUgPGxpbnV4
+L2V0aGVyZGV2aWNlLmg+DQo+ICNpbmNsdWRlIDxsaW51eC9oZXguaD4NCj4gI2luY2x1ZGUgPGxp
+bnV4L2lmX2V0aGVyLmg+DQo+IEBAIC0xNzIsNiArMTczLDIwIEBAIHN0YXRpYyB2b2lkIG52cmFt
+X3JlYWRfYWxwaGEyKGNvbnN0IGNoYXIgKnByZWZpeCwgY29uc3QgY2hhciAqbmFtZSwNCj4gbWVt
+Y3B5KHZhbCwgYnVmLCAyKTsNCj4gfQ0KPiANCj4gKy8qIFZhcmlhYmxlcyByZWFkIGZyb20gTlZS
+QU0gd2hldGhlciBvciBub3QgdGhlIFNQUk9NIGl0c2VsZiBjb21lcyBmcm9tIGl0LiAqLw0KPiAr
+c3RhdGljIHZvaWQgYmNtNDd4eF9zcHJvbV9maWxsX252cmFtX29ubHkoc3RydWN0IHNzYl9zcHJv
+bSAqc3Byb20sDQo+ICsgIGNvbnN0IGNoYXIgKnByZWZpeCwgYm9vbCBmYWxsYmFjaykNCj4gK3sN
+Cj4gKyBjaGFyIG5hbWVbc2l6ZW9mKCJsZWRiaDE1IildOw0KPiArIGludCBpOw0KPiArDQo+ICsg
+Zm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoc3Byb20tPmdwaW9fZXh0KTsgaSsrKSB7DQo+ICsg
+c25wcmludGYobmFtZSwgc2l6ZW9mKG5hbWUpLCAibGVkYmglZCIsIGkgKyA0KTsNCj4gKyBudnJh
+bV9yZWFkX3U4KHByZWZpeCwgTlVMTCwgbmFtZSwgJnNwcm9tLT5ncGlvX2V4dFtpXSwgMHhmZiwN
+Cj4gKyAgICAgIGZhbGxiYWNrKTsNCj4gKyB9DQo+ICt9DQo+ICsNCj4gLyogVGhpcyBpcyBvbmUt
+ZnVuY3Rpb24tb25seSBtYWNybywgaXQgdXNlcyBsb2NhbCAic3Byb20iIHZhcmlhYmxlISAqLw0K
+PiAjZGVmaW5lIEVOVFJZKF9yZXZtYXNrLCBfdHlwZSwgX3ByZWZpeCwgX25hbWUsIF92YWwsIF9h
+bGxzZXQsIF9mYWxsYmFjaykgXA0KPiBpZiAoX3Jldm1hc2sgJiBCSVQoc3Byb20tPnJldmlzaW9u
+KSkgXA0KPiBAQCAtMjA5LDYgKzIyNCw4IEBAIHN0YXRpYyB2b2lkIGJjbTQ3eHhfc3Byb21fZmls
+bF9hdXRvKHN0cnVjdCBzc2Jfc3Byb20gKnNwcm9tLA0KPiBFTlRSWSgweGZmZmZmZmZlLCB1OCwg
+cHJlLCAibGVkYmgxIiwgZ3BpbzEsIDB4ZmYsIGZiKTsNCj4gRU5UUlkoMHhmZmZmZmZmZSwgdTgs
+IHByZSwgImxlZGJoMiIsIGdwaW8yLCAweGZmLCBmYik7DQo+IEVOVFJZKDB4ZmZmZmZmZmUsIHU4
+LCBwcmUsICJsZWRiaDMiLCBncGlvMywgMHhmZiwgZmIpOw0KPiArIGlmIChzcHJvbS0+cmV2aXNp
+b24pDQo+ICsgYmNtNDd4eF9zcHJvbV9maWxsX252cmFtX29ubHkoc3Byb20sIHByZSwgZmIpOw0K
+PiANCj4gRU5UUlkoMHgwMDAwMDcwZSwgdTE2LCBwcmUsICJwYTBiMCIsIHBhMGIwLCAwLCBmYik7
+DQo+IEVOVFJZKDB4MDAwMDA3MGUsIHUxNiwgcHJlLCAicGEwYjEiLCBwYTBiMSwgMCwgZmIpOw0K
+PiBAQCAtNjQ3LDQ1ICs2NjQsNzAgQEAgc3RhdGljIHZvaWQgYmNtNDd4eF9zcHJvbV9hcHBseV9w
+cmVmaXhfYWxpYXMoY2hhciAqcHJlZml4LCBzaXplX3QgcHJlZml4X3NpemUpDQo+IH0NCj4gfQ0K
+PiANCj4gLXN0YXRpYyBpbnQgYmNtNDd4eF9nZXRfc3Byb21fYmNtYShzdHJ1Y3QgYmNtYV9idXMg
+KmJ1cywgc3RydWN0IHNzYl9zcHJvbSAqb3V0KQ0KPiArLyoNCj4gKyAqIFRoZSBOVlJBTSBwcmVm
+aXggb2YgYSBiY21hIGJ1cydzIHZhcmlhYmxlczogcGNpLzxidXM+LzxzbG90Pi8gb3IgaXRzDQo+
+ICsgKiBkZXZwYXRoTiBhbGlhcyBmb3IgYSBQQ0kgZGV2aWNlLCBzYi88Y29yZT4vIGZvciB0aGUg
+U29DJ3Mgb3duIGNvcmUuDQo+ICsgKiBSZXR1cm5zIHRoZSBwcmVmaXgsIE5VTEwgZm9yIGEgU29D
+IGJ1cyB3aXRob3V0IGFuIDgwMi4xMSBjb3JlLCBvciBhbg0KPiArICogZXJyb3IgcG9pbnRlciBm
+b3IgYSBob3N0IHR5cGUgTlZSQU0ga25vd3Mgbm90aGluZyBhYm91dC4gKmZhbGxiYWNrIGlzDQo+
+ICsgKiBzZXQgd2hlbiB0aGUgY2FsbGVyIG1heSBmYWxsIGJhY2sgdG8gdW5wcmVmaXhlZCB2YXJp
+YWJsZXMuDQo+ICsgKi8NCj4gK3N0YXRpYyBjaGFyICpiY200N3h4X3Nwcm9tX2JjbWFfcHJlZml4
+KHN0cnVjdCBiY21hX2J1cyAqYnVzLCBjaGFyICpidWYsDQo+ICsgICAgICAgc2l6ZV90IHNpemUs
+IGJvb2wgKmZhbGxiYWNrKQ0KPiB7DQo+IC0gc3RydWN0IGJjbWFfYm9hcmRpbmZvICpiaW5mbyA9
+ICZidXMtPmJvYXJkaW5mbzsNCj4gc3RydWN0IGJjbWFfZGV2aWNlICpjb3JlOw0KPiAtIGNoYXIg
+YnVmWzEwXTsNCj4gLSBjaGFyICpwcmVmaXg7DQo+IC0gYm9vbCBmYWxsYmFjayA9IGZhbHNlOw0K
+PiANCj4gKyAqZmFsbGJhY2sgPSBmYWxzZTsNCj4gc3dpdGNoIChidXMtPmhvc3R0eXBlKSB7DQo+
+IGNhc2UgQkNNQV9IT1NUVFlQRV9QQ0k6DQo+IC0gbWVtc2V0KG91dCwgMCwgc2l6ZW9mKHN0cnVj
+dCBzc2Jfc3Byb20pKTsNCj4gLyogT24gQkNNNDdYWCBhbGwgUENJIGJ1c2VzIHNoYXJlIHRoZSBz
+YW1lIGRvbWFpbiAqLw0KPiBpZiAoSVNfRU5BQkxFRChDT05GSUdfQkNNNDdYWCkpDQo+IC0gc25w
+cmludGYoYnVmLCBzaXplb2YoYnVmKSwgInBjaS8ldS8ldS8iLA0KPiArIHNucHJpbnRmKGJ1Ziwg
+c2l6ZSwgInBjaS8ldS8ldS8iLA0KPiBidXMtPmhvc3RfcGNpLT5idXMtPm51bWJlciArIDEsDQo+
+IFBDSV9TTE9UKGJ1cy0+aG9zdF9wY2ktPmRldmZuKSk7DQo+IGVsc2UNCj4gLSBzbnByaW50Zihi
+dWYsIHNpemVvZihidWYpLCAicGNpLyV1LyV1LyIsDQo+ICsgc25wcmludGYoYnVmLCBzaXplLCAi
+cGNpLyV1LyV1LyIsDQo+IHBjaV9kb21haW5fbnIoYnVzLT5ob3N0X3BjaS0+YnVzKSArIDEsDQo+
+IGJ1cy0+aG9zdF9wY2ktPmJ1cy0+bnVtYmVyKTsNCj4gLSBiY200N3h4X3Nwcm9tX2FwcGx5X3By
+ZWZpeF9hbGlhcyhidWYsIHNpemVvZihidWYpKTsNCj4gLSBwcmVmaXggPSBidWY7DQo+IC0gYnJl
+YWs7DQo+ICsgYmNtNDd4eF9zcHJvbV9hcHBseV9wcmVmaXhfYWxpYXMoYnVmLCBzaXplKTsNCj4g
+KyByZXR1cm4gYnVmOw0KPiBjYXNlIEJDTUFfSE9TVFRZUEVfU09DOg0KPiAtIG1lbXNldChvdXQs
+IDAsIHNpemVvZihzdHJ1Y3Qgc3NiX3Nwcm9tKSk7DQo+IGNvcmUgPSBiY21hX2ZpbmRfY29yZShi
+dXMsIEJDTUFfQ09SRV84MDIxMSk7DQo+IC0gaWYgKGNvcmUpIHsNCj4gLSBzbnByaW50ZihidWYs
+IHNpemVvZihidWYpLCAic2IvJXUvIiwNCj4gLSBjb3JlLT5jb3JlX2luZGV4KTsNCj4gLSBwcmVm
+aXggPSBidWY7DQo+IC0gZmFsbGJhY2sgPSB0cnVlOw0KPiAtIH0gZWxzZSB7DQo+IC0gcHJlZml4
+ID0gTlVMTDsNCj4gLSB9DQo+IC0gYnJlYWs7DQo+ICsgaWYgKCFjb3JlKQ0KPiArIHJldHVybiBO
+VUxMOw0KPiArIHNucHJpbnRmKGJ1Ziwgc2l6ZSwgInNiLyV1LyIsIGNvcmUtPmNvcmVfaW5kZXgp
+Ow0KPiArICpmYWxsYmFjayA9IHRydWU7DQo+ICsgcmV0dXJuIGJ1ZjsNCj4gZGVmYXVsdDoNCj4g
+KyByZXR1cm4gRVJSX1BUUigtRUlOVkFMKTsNCj4gKyB9DQo+ICt9DQo+ICsNCj4gK2ludCBiY200
+N3h4X3Nwcm9tX2ZpbGxfYmNtYV9udnJhbShzdHJ1Y3QgYmNtYV9idXMgKmJ1cywgc3RydWN0IHNz
+Yl9zcHJvbSAqb3V0KQ0KPiArew0KPiArIGNoYXIgYnVmWzEwXTsNCj4gKyBjaGFyICpwcmVmaXg7
+DQo+ICsgYm9vbCBmYWxsYmFjazsNCj4gKw0KPiArIHByZWZpeCA9IGJjbTQ3eHhfc3Byb21fYmNt
+YV9wcmVmaXgoYnVzLCBidWYsIHNpemVvZihidWYpLCAmZmFsbGJhY2spOw0KPiArIGlmIChJU19F
+UlIocHJlZml4KSkNCj4gKyByZXR1cm4gUFRSX0VSUihwcmVmaXgpOw0KPiArIGJjbTQ3eHhfc3By
+b21fZmlsbF9udnJhbV9vbmx5KG91dCwgcHJlZml4LCBmYWxsYmFjayk7DQo+ICsgcmV0dXJuIDA7
+DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgYmNtNDd4eF9nZXRfc3Byb21fYmNtYShzdHJ1Y3Qg
+YmNtYV9idXMgKmJ1cywgc3RydWN0IHNzYl9zcHJvbSAqb3V0KQ0KPiArew0KPiArIHN0cnVjdCBi
+Y21hX2JvYXJkaW5mbyAqYmluZm8gPSAmYnVzLT5ib2FyZGluZm87DQo+ICsgY2hhciBidWZbMTBd
+Ow0KPiArIGNoYXIgKnByZWZpeDsNCj4gKyBib29sIGZhbGxiYWNrOw0KPiArDQo+ICsgcHJlZml4
+ID0gYmNtNDd4eF9zcHJvbV9iY21hX3ByZWZpeChidXMsIGJ1Ziwgc2l6ZW9mKGJ1ZiksICZmYWxs
+YmFjayk7DQo+ICsgaWYgKElTX0VSUihwcmVmaXgpKSB7DQo+IHByX3dhcm4oIlVuYWJsZSB0byBm
+aWxsIFNQUk9NIGZvciBnaXZlbiBidXN0eXBlLlxuIik7DQo+IC0gcmV0dXJuIC1FSU5WQUw7DQo+
+ICsgcmV0dXJuIFBUUl9FUlIocHJlZml4KTsNCj4gfQ0KPiArIG1lbXNldChvdXQsIDAsIHNpemVv
+ZihzdHJ1Y3Qgc3NiX3Nwcm9tKSk7DQo+IA0KPiBudnJhbV9yZWFkX3UxNihwcmVmaXgsIE5VTEws
+ICJib2FyZHZlbmRvciIsICZiaW5mby0+dmVuZG9yLCAwLCB0cnVlKTsNCj4gaWYgKCFiaW5mby0+
+dmVuZG9yKQ0KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9iY200N3h4X3Nwcm9tLmggYi9p
+bmNsdWRlL2xpbnV4L2JjbTQ3eHhfc3Byb20uaA0KPiBpbmRleCA0MGE3ZGEzZWYuLjQ3ZTk5MjJl
+YyAxMDA2NDQNCj4gLS0tIGEvaW5jbHVkZS9saW51eC9iY200N3h4X3Nwcm9tLmgNCj4gKysrIGIv
+aW5jbHVkZS9saW51eC9iY200N3h4X3Nwcm9tLmgNCj4gQEAgLTksNiArOSw3IEBADQo+ICNpbmNs
+dWRlIDxsaW51eC90eXBlcy5oPg0KPiAjaW5jbHVkZSA8bGludXgvdm1hbGxvYy5oPg0KPiANCj4g
+K3N0cnVjdCBiY21hX2J1czsNCj4gc3RydWN0IHNzYl9zcHJvbTsNCj4gDQo+ICNpZmRlZiBDT05G
+SUdfQkNNNDdYWF9TUFJPTQ0KPiBAQCAtMjgsNCArMjksMTggQEAgc3RhdGljIGlubGluZSBpbnQg
+YmNtNDd4eF9zcHJvbV9yZWdpc3Rlcl9mYWxsYmFja3Modm9pZCkNCj4gfTsNCj4gI2VuZGlmDQo+
+IA0KPiArLyoNCj4gKyAqIEZpbGwgdGhlIE5WUkFNLW9ubHkgdmFyaWFibGVzIG9mIGEgYmNtYSBi
+dXMgd2hvc2UgU1BST00gd2FzIHJlYWQgZnJvbSB0aGUNCj4gKyAqIGRldmljZS4gTGlrZSB0aGUg
+U1BST00gZmFsbGJhY2ssIG9ubHkgd2l0aCBiY21hIGJ1aWx0IGluLg0KPiArICovDQo+ICsjaWYg
+ZGVmaW5lZChDT05GSUdfQkNNNDdYWF9TUFJPTSkgJiYgSVNfQlVJTFRJTihDT05GSUdfQkNNQSkN
+Cj4gK2ludCBiY200N3h4X3Nwcm9tX2ZpbGxfYmNtYV9udnJhbShzdHJ1Y3QgYmNtYV9idXMgKmJ1
+cywgc3RydWN0IHNzYl9zcHJvbSAqb3V0KTsNCj4gKyNlbHNlDQo+ICtzdGF0aWMgaW5saW5lIGlu
+dCBiY200N3h4X3Nwcm9tX2ZpbGxfYmNtYV9udnJhbShzdHJ1Y3QgYmNtYV9idXMgKmJ1cywNCj4g
+KyBzdHJ1Y3Qgc3NiX3Nwcm9tICpvdXQpDQo+ICt7DQo+ICsgcmV0dXJuIC1FT1BOT1RTVVBQOw0K
+PiArfQ0KPiArI2VuZGlmDQo+ICsNCj4gI2VuZGlmIC8qIF9fQkNNNDdYWF9TUFJPTV9IICovDQo+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L3NzYi9zc2IuaCBiL2luY2x1ZGUvbGludXgvc3Ni
+L3NzYi5oDQo+IGluZGV4IDA1NDhhZjY2NC4uMDJlNmM5MDU0IDEwMDY0NA0KPiAtLS0gYS9pbmNs
+dWRlL2xpbnV4L3NzYi9zc2IuaA0KPiArKysgYi9pbmNsdWRlL2xpbnV4L3NzYi9zc2IuaA0KPiBA
+QCAtNzYsNiArNzYsNyBAQCBzdHJ1Y3Qgc3NiX3Nwcm9tIHsNCj4gdTggZ3BpbzE7IC8qIEdQSU8g
+cGluIDEgKi8NCj4gdTggZ3BpbzI7IC8qIEdQSU8gcGluIDIgKi8NCj4gdTggZ3BpbzM7IC8qIEdQ
+SU8gcGluIDMgKi8NCj4gKyB1OCBncGlvX2V4dFsxMl07IC8qIEdQSU8gcGlucyA0LTE1LCBOVlJB
+TSBsZWRiaDQtMTUgb25seSAqLw0KPiB1OCBtYXhwd3JfYmc7IC8qIDIuNEdIeiBBbXBsaWZpZXIg
+TWF4IFBvd2VyIChpbiBkQm0gUTUuMikgKi8NCj4gdTggbWF4cHdyX2FsOyAvKiA1LjJHSHogQW1w
+bGlmaWVyIE1heCBQb3dlciAoaW4gZEJtIFE1LjIpICovDQo+IHU4IG1heHB3cl9hOyAvKiA1LjNH
+SHogQW1wbGlmaWVyIE1heCBQb3dlciAoaW4gZEJtIFE1LjIpICovDQo+IA0KPiAtLQ0KPiAyLjM0
+LjENCj4gDQoNCg==
+--------ff4c29d6f96438e751f778a80f42ab70689aafbe692ab7ce2034fe8a73abeb44
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-What's the mechanism boot uses to ensure UKI only? So we can see if it
-can be adopted to kexec.
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-> > IPE specifically was designed to avoid exactly that, and ensure
-> > userspace could not execute untrusted code, even with root
-> > privileges. With this enabled by default, userspace can just load
-> > the same signedkernel image, passing in compromised initrd and
-> > command line, and gain arbitrary code execution on the host, since
-> > only the kernel binary itself is verified, and anything goes for
-> > the rest of the kexec parameters.
+wsCpBAEBCABdBYJq4e3YCRBPsoxt7Hy0xTUUAAAAAAAcABBzYWx0QG5vdGF0
+aW9ucy5vcGVucGdwanMub3Jn598NAWJGu/Hv0SisEBf8WBYhBERSlkTqW1Te
+3v1Bj0+yjG3sfLTFAABnYQgAmaOGgD/QihS5bYDPYLihxk94kH0S+YcNYIv4
+I3+cuiyx2e1IwLKHvRSYYQ+zstPT0Zf2b405R3fza7jHhPv2C0GU9f/wU/Cb
+LpPJyeJ2isgM4TsGXScSpk0lje4DYYX+8fud7MrFztu4JQXca69B/0IWf5sk
+dMGd0ZfToYKS9bvS7DFlCxXDBfWQxUQLs4OF0DxjrdF96EdmLb+hCVhQn/bH
+pH9U+5rbFZRXSyGIlh79ZUCYFgglA9kvy5DrxVhQxApbHwkfmWSjGa/lRbco
+MotHpRN0sg38HxsE1mPXSx1/CLtelHI4MtD1Zv+uv3o6e8SbpiUXOviHZI+S
+fOat1w==
+=1Qzs
+-----END PGP SIGNATURE-----
 
-Yes, but, it the above kexec policy problem were solved, IPE would just
-work as expected, wouldn't it?  So this seems like a work around for a
-kexec issue rather than a fundamental IPE need.
 
-> > This is of course not to say this new IPE keyring shouldn't be
-> > added. But perhaps it would be nicer if the default build flag was
-> > mutually exclusive with kexec being enabled? Not sure if that can
-> > be expressed in Kconfig though? default: yes-if-kexec-off, no-if-
-> > kexec-on
+--------ff4c29d6f96438e751f778a80f42ab70689aafbe692ab7ce2034fe8a73abeb44--
 
-I wouldn't do this because a) I don't think it's an IPE problem, I
-think it's a kexec one and b) distros get very tetchy about hard to
-solve feature anti dependencies.
-
-> > At the very least IMHO this relationship should be documented
-> > explicitly in the kconfig blurb, as it seems to me it's a major
-> > footgun to leave laying around, and users might not necessarily be
-> > aware of it.
-
-I'd document the need for trusted userspace on kexec if it was a boot
-requirement, yes.
-
-> KHO/keyring folks, what would you think about preserving sealed
-> keyrings across kexec via KHO so that the chain of trust can't be
-> reset by userspace? Good idea/bad idea/yes send patches/no go
-> away/etc?
-
-Well, yes, we do have a similar problem with the trusted keyrings.=20
-They're actually initialized from the shim created ..RT variables
-(which are volatile, but don't die on kexec).  On first boot they're
-initialized before user space, so we know they came from shim (or
-another trusted component in the boot chain) but if root uses UEFI RT
-services to add to a ..RT keyring, the added key will appear trusted
-after kexec.
-
-Regards,
-
-James
