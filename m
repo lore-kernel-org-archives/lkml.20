@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793169098;
-	b=03uj7L/RlJ9aesiEykOFgkPL8SZaApF2x1vAK+l00jbwgh30XGOesPWiHbHr6xPVacQn
-	 bNWyuAyQ/n5s2bRguuALH8LwQekY/KhRdKfsw2E+J9rPQjwjSBq6pnU7nu9vl0ljmb/+8
-	 plbiw2TWNNVpHrZzAi/Ms9IxFsmwIQrRUXMGO6WgadE5Bf4z+ghNU43EaqybyDks8+4ci
-	 4mqUaIOvFXHR22JRQO10TghN0/xiqWlYlKG61zDAT60EIwHBHiRu4LEaUJI8cccSHJGvD
-	 9OYef/poOsoh+SsrFoSKxNeZtGydxMAcZo4EesnQ82xl9miJ22yy1jzst45+O+zrhCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793169098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=q3gM5Luu6vI28PjmhPAEQ6TEdK5ARDl4ei6yQBf8kDA=;
-	b=Ed7IuNc2le2DS7/JN1z8TnlKSqm3jEalp/uR13YtlwiUkmPSNiPd03ksMZLlBxH4clDJ
-	 GH2kRKcYZPQ95M+g/nSOovULLPfgNKw189k4qnVyk43KZn8A3r6HviNb389BYKhSofozP
-	 3XJjVqjaornv9b4ktbsE/uD/miCPytuSl1JVRGDH4GuFNzcLCOnJXdCIEKQiRFUIWKRWf
-	 xwJ78jl5LcJRxeKFX9H6eKUnI/CVKTVwXvlCZLG5tLkjX9GFTV3PbqsiRB1g/Hngnsjrj
-	 UgSBIQwinq+4xGGsMfpDqKSS/Bi+EiKzsfJ0Bwacs58/HhzCknemBcSUyk1SxHjdOZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B09Y7vdV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793169265;
+	b=U0qJ9faVkG7MdrJ2h67v6pFYWXIoRHwuYEOApw/gZ6D/KfGPAdBfo7I3eqFLwYyWFaNT
+	 4dJBQndn8RBOxriKnQ4XhUChsdfAEwwMpReIxVtSgu91GUPcwAJQcvlrQJeO8FA1fEMjT
+	 qSgbCUMAuStpm4wdiF05FJsSKvAs4ICVvSTdSK/0Oehmq/vcbW4WzKPcX2TKTWUee5IIA
+	 k+YCr83D5/h4X1JEwL3NRC05KhZkqUmy78w2iNULa7azRr2cJmSxuT9vt4A0l7kWvlBGh
+	 LFgZtHy0OhcLfVN8jccaACwKT3IjVSbIuL7L4/1ymmgIu1ECzegdMKAYfEnp730h/Ew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793169265;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=vQof/cj2rfQzelHAPjIhcxdxd60z5aCplNluzkoFJ+o=;
+	b=hBXlvCIx8vLoJQGSZs842szqVQRutFgCNljRx8h34bkWiJDwOg6/ka/8w0qamatieW2S
+	 zH9qo7SOTPsVGXNetSDl5csO5WmvTBqtA6sTGiloHBPhFDQDs2ogvMwxyZRBnhYqH2M37
+	 g6eNqhoPC8nk7N9h9iPsSpRBmOyEupa6TAfIwx+4Np/tByBZgdTE8jRKNGFI/KAWPmzfy
+	 kFRYaD3vmPtl3n7H1spXdvdA10uGigMSQVKGIQRxlNXSu7mtz0iZQN8jw2efxB6XMEBpJ
+	 XLUCB6/DnLcznXNCGuNw2PexpJZQa7C3GV08+aWrNCZtsyHjKYpMjQmM3QCXLR3QCWg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=gtvc8xLO;
+	arc=none smtp.remote-ip=43.163.128.48
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362EB606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 362EB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F793606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:34:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F793606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B09Y7vdV
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a0673d9bd2so379334b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:31:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793169097; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kNC8Y/OMmL37FKce9HZmL2riyb6sXuuTe7Z2QZWyAn3ohlhtWC7YyhxcRkMionXSS1
-         WIsrEMxfmJJbfUjLDlRSbnPzUfxHmIxqcayadj5se1QWiyycKLIyyKwzMKCuePICcO73
-         RTPB3GlwTEM5w0oNikWVzGAjwoaO6g0ldo1faBCCt5WW31nZHwkfAyN6MM/pTLQjczDY
-         38uNFyk3MPnel/4Gg5vXhVkPKkJHcRkLLK0W/4BDbbxM1f+lWPkfgrKP94eVEfg6W3h/
-         jrPh6+OkviF5UEzyE4yWcvO9K+8fsw6Ylb/JYaFBIuJplk8GnzUj/J7R1w41n2SBC9JM
-         8EkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q3gM5Luu6vI28PjmhPAEQ6TEdK5ARDl4ei6yQBf8kDA=;
-        fh=/hj99M61p5sNdShg9lOeISd1RcFfeQshg9qel/Mbsss=;
-        b=IdUOSSDJVwv3Z7u+Mj1SQQXZqqz/lQc6zxkY3R62b6Ei7PkGB3J3eKVYjukRNCNzr/
-         tejJdjs+94U0w7POPGr7CzHR0fiywNZhWF528hDvfwlwUaMHIUbxJ8Fbrdb53t3Wh86v
-         akFCgIDC7q4Ru+soWOt6Bq2wqOClZUAehbJtz8/vnQhcYAKj72PiORao+RdmgYtXZfHE
-         9zjRhoGPxxnNyAWDlj8szTxxRONo6JLw2/YYk74xorYuDJz25b8RqqARfzwdRYv16V6P
-         EDFxy6LyQywnlJqSr2nV2KGK6g101G2qfslLqPfcT3P6o9oPJiX7zfIbfGHxBU03Zjzz
-         ywmA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793169097; x=1793773897; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q3gM5Luu6vI28PjmhPAEQ6TEdK5ARDl4ei6yQBf8kDA=;
-        b=B09Y7vdVJYZw60Pwnixl/wIPa2quHhCWMivLPFSvp/vsGqTgEAvt/J5eKNOlQEfcjm
-         vAHwY7/L8sSlHPGtxmZCquSNwwNCvOdXptqPsxcKJ3TzKKXHX2tyEWARsnlPXx/YcilG
-         Z0fxMelygD7uuK/GGJnC4eJwF2xyrZEMQAysn0OqZdwyaMKDSPrQHlzwVWsvvv2YBRIF
-         VlM0UwngpulwvtXSbs0j+SDEdN9NDrnoPPEuwdua/ya4ehtMXslYPKgrdqIe7+jZyJWu
-         yDMWFZX4s4SJnmt+Ffm39we48eUw0Tgj7td9vyfm/Qtbr9FZvxxnA7koTeYgrMoqtOo+
-         hrVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793169097; x=1793773897;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q3gM5Luu6vI28PjmhPAEQ6TEdK5ARDl4ei6yQBf8kDA=;
-        b=PhlXF7cN87Q9AD3bAw7Ms4e4B/4uGutRDSNXljdnh7wXDV3ku9QAtSPMwZtDEvvn7J
-         njj80shdW8SWzruLWuIEjy9/44u15MuUQUoZPRS4KIUMUQKLmA4GWmJXKDI1Qebqf2U/
-         227d/octF3Wid2XQNla44+rUZguhVtYfesYjXbKz/ZeAazoLDJehoN6CU6qF8DHBcp0P
-         pren0gCiUkGqPBxYDCF7XCoB4gSQzmwPWgoBJOPmNgsEf2v9NvdVADAFbIvBIdBIVhaE
-         yf67+7ExU3qPMt7irIePWW6FLd5F7JSQAcaBE6BzRESCul9NZrIBk6sVwMtLFwr8J/DF
-         vU4g==
-X-Forwarded-Encrypted: i=1; AKwUvByfvwFtP5PLxtCgMxVegQW7iAGS7haWeRNa8Hgux60eZCUsrHLtF1JIK6b9mMJmVRcslpIWG6uYOeEFTTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpRDMLNX1C/ya9dYK0MNoQOnQXGenUpUgzIJuqgmBkoXK/o2ee
-	IaYvPjz1Pv+5v+k2VmhjlePYNgqJTDXQVs+PYfsEtkBmbrlHjC7Don6ZpKYGfbOBHcLrtwPWgAg
-	40YN4DAb78UskfFz1GWk/jE9IUNBcuos=
-X-Gm-Gg: AYBFou12USXWFQbg6bABUkRCAcDZhgQKAaIfqWQ34Xi2ymkA7mnIcQYy7NGc6VuD8YC
-	pSqCutIGmBvPf5oKGFnvR1GJhWq9L2pWiigiAsi7RPvNnrNWzLQrBNc7rwehehfhKvPL199Q85c
-	qeJhC3dbkvf2y0ymUKnKZBWIVOeKj3MyKfxTNVjVeTXb2MMxunXy5JRzFDA6Ni8sZgQBVnaWJ0A
-	j/8Tr0DxKmXCEUfnfD7jS1TcoNx74AQ/EFiAhzTUzHG5pKi/5Cs9GV6p1U10QZZC/4UlEQ62GL+
-	KgIeddH7O7a+ZA2ckKgGeezI8BY1tNMuoij9MZdopgmEpFNk9/pMsUFbURSK4eNVZkoBmEecvrK
-	AuQaEaIZKbACbWyNxplajDycoDWeyWK2Zl6NayA==
-X-Received: by 2002:a05:6a00:bd04:b0:89e:3ccd:b3c7 with SMTP id
- d2e1a72fcca58-8a6e75cf5ecmr1113257b3a.33.1793169097500; Tue, 27 Oct 2026
- 23:31:37 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=gtvc8xLO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793169255;
+	bh=vQof/cj2rfQzelHAPjIhcxdxd60z5aCplNluzkoFJ+o=;
+	h=From:To:Cc:Subject:Date;
+	b=gtvc8xLO7ZPjwXBX2FUduGPYhQKtTAFfpPAKtDZzGDWhCwIpmJ6bteIrgVRHO8G2L
+	 XxGO5AscHPjKao0PxRe7Fy942q1YOLxv/pp3YAfuhTXRxNRam90k6JPQWcwnWKCXCA
+	 Xmds0w2YWiJhPBElSa0bmjJ137HvNi2yX9rR9zzo=
+Received: from LAPTOP-TKBJAGN4.localdomain ([27.38.201.62])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 87A2BC36; Wed, 28 Oct 2026 14:33:58 +0800
+X-QQ-mid: xmsmtpt1793169238t2xcorkks
+Message-ID: <tencent_E6D69775D91AD9FE45C994B3755CB1452506@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3Juz8BRtUTIynhC7xXOfHjjR0NWlufK1lc8NauVMKx5cGNn+stB5Y
+	 g78ip6EvWmYmz1jfKCNsytbtwYz3nCGwMHrW3ISNHhI59rEjHExvEjGU97Boo2OM7hJxDRFyTZqQ
+	 +hJdOyhfVaG2DJX1OVnWV5pgGUMumk6i/KH4vBK/FDXx8vfuvgd5xZg/AVjW/DvvXHqgbalHb1RD
+	 9z4cFYyu7Ordh/NjSgPsqpsJVOH2a3LngM4vAWSshyQIfysVNaQNCY/kQWb5zLLIjXfXfiBAGK6L
+	 Bgg9IM5ISSFDfb5oJ9mejV7EK+Sf56iIKDZfRz0wAL+a1FBMOXmbOH77tG1UFY6ntIliUa5x7m8q
+	 w1RHyna+RYF96hJR7tgaNzGNhpzR1orME4DXPEetDMfA0k7JAa/ruCmxSVbwoi+CLaQ47xMRPyC3
+	 r87qt7tI2okiJq0J7W1mWe4P0KMzyo/veznRIq9a8V0DuKlCKreFMeGT0DE4neaUVkN5dJ21V0lV
+	 uzD9dARAb/YsLYA1sfZwZ2utQMT/P14wFmaxA07jNW2eThpn5bV2DZeCY7c1PVyLpBBR8l76Unt+
+	 chnU0tChMvy8q1VNUQFEu8Yyq6XsLMINDqnRY6l47CMxMB8dxlDa3XnzgLULpDtrWwCP2JBrlC11
+	 1NavXBCGaDNzR/pngkBlIgxLvTw5SZqBw1Kj7LeyvJuTovUDzQ0J+EQ4t3hlnR7+vfspBLOrcGsV
+	 zVBPcT+ot29s0SfZBGNJx0hqmqC9k90dswwmVADoYBi3wziJJN5EpZpZvpa37F0h66PNWkOKmtFL
+	 /tfJX91lYDFyqCaIzziMYv87Hduh0T88uGgiDyZSlTpvv19vhT1MW2v6c4AiHfPNRBGclXOslZre
+	 /fQQTg4ANrbj2aP+BONSjE3uNojDo9UgBLZXdPde3WQcZ7A3DkfzW1GcYLNqC0exKDDPBMO/vhKP
+	 ILpkTeRbQdkILV6mu3C+UIqxW2KAnldrzD9c1W+rXcsiv9S/eXI1gJ7rGwFo3YEVg8JkENwA9UHh
+	 KOKtBFuFzQ0bG/TmxgSlH9jO21ihL1L6XO4aP0V5JTdnnabF/wR7IAYPdlmXr7KKTN+0NJ48ZWps
+	 Ie79+l290bRm6QmpqmvaaNTmZx+X6RL9SzgF1q
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Haobin Jiang <lemonoutput@foxmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-i2c@vger.kernel.org
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Carlos Song <carlos.song@oss.nxp.com>,
+	Vincent Jardin <vjardin@free.fr>,
+	dillon.minfei@gmail.com,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Haobin Jiang <lemonoutput@foxmail.com>
+Subject: [PATCH v5] i2c: imx: honour I2C_M_IGNORE_NAK
+Date: Wed, 28 Oct 2026 14:33:34 +0800
+X-OQ-MSGID: <20261028063334.24845-1-lemonoutput@foxmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,82 +89,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014103241.3847-1-sid9.karanam@gmail.com> <11c794c1-6fb2-4a21-a127-4762c6f45699@ti.com>
-In-Reply-To: <11c794c1-6fb2-4a21-a127-4762c6f45699@ti.com>
-From: Sidd <sid9.karanam@gmail.com>
-Date: Wed, 28 Oct 2026 12:01:23 +0530
-X-Gm-Features: AclHuK9wwib5U8oGIgouyIs5-olf5nbQKP2hXA6sdZQe95ce4Bc2ClNw_KUuXZw
-Message-ID: <CABM86pxVyAc8iSqGJqO+-_+UJbfEkH4c1Q2o2mr2B28OswqXJw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] remoteproc: Merge ti_sci_dev and ti_sci_proc abstraction
-To: "Padhi, Beleswar" <b-padhi@ti.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
-	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> You might be interested in this:
-> https://lore.kernel.org/all/20261027140751.2465743-1-b-padhi@ti.com/
+Honour I2C_M_IGNORE_NAK for supported PIO transfers and keep flagged
+messages out of DMA.
 
-Sounds good, am assuming the RFC will be implemented after this is
-merged (provided this patch has no issues) right?
+Following Sashiko's review, reject zero-length reads carrying
+I2C_M_IGNORE_NAK before START. This prevents the newly supported flag
+from exposing an existing receive-path bug, without changing unflagged
+zero-length reads.
 
-Thanks,
-Siddharth
+Link: https://lore.kernel.org/linux-i2c/tencent_877C99956190215D644EB959DF1663542A0A@qq.com/ # [1]
 
-On Tue, Oct 27, 2026 at 7:42=E2=80=AFPM Padhi, Beleswar <b-padhi@ti.com> wr=
-ote:
->
->
-> On 10/14/2026 4:02 PM, Siddharth Karanam wrote:
-> > The previous version of the patch had a new header ti_sci_dev.h,
-> > that mirrors ti_sci_proc.h in terms of the struct decl and
-> > its helper function structure, with the goal of abstracting
-> > all ti_sci_handle's members like ti_sci_dev_ops from being
-> > invoked directly in the driver code.
-> >
-> > Lore link to the v1 patch:
-> > https://lore.kernel.org/all/20260922191453.324983-1-sid9.karanam@gmail.=
-com/
-> >
-> > Upon discussing in the original patch thread, it seemed
-> > better to combine ti_sci_proc.h and ti_sci_dev.h's structs
-> > and merge all their helpers into a single header. That is
-> > what ti_sci_ctrl.h aims to do: It has the union of tsd
-> > (ti_sci_dev) and tsp (ti_sci_proc) and both their helper
-> > functions are prefixed with ti_sci_ctrl_dev and
-> > ti_sci_ctrl_proc respectively.
-> >
-> > The goal of the patch (v2) is to maintain a single source of origin
-> > for all ti_sci_dev/proc_ops call sites. Any stray calls
-> > to dev_ops/proc_ops function pointer members in driver code should
-> > eventually be abstracted through this header (ti_sci_ctrl.h).
-> >
-> > In the future we can try to abstract tsd's dev_ops even further
-> > through pm_runtime, but there are some roadblocks that
-> > I am unaware of, so that warranties a different patch.
->
->
-> You might be interested in this:
->
-> https://lore.kernel.org/all/20261027140751.2465743-1-b-padhi@ti.com/
->
-> Thanks,
-> Beleswar
->
-> >
-> > Siddharth Karanam (2):
-> >    remoteproc: Add ti_sci_dev_ops abstraction
-> >    remoteproc: Merge ti_sci_dev and ti_sci_proc abstraction
-> >
-> >   drivers/remoteproc/ti_k3_common.c         |  21 +--
-> >   drivers/remoteproc/ti_k3_common.h         |   6 +-
-> >   drivers/remoteproc/ti_k3_dsp_remoteproc.c |  26 ++--
-> >   drivers/remoteproc/ti_k3_m4_remoteproc.c  |  23 ++-
-> >   drivers/remoteproc/ti_k3_r5_remoteproc.c  |  66 +++-----
-> >   drivers/remoteproc/ti_sci_ctrl.h          | 177 +++++++++++++++++++++=
+Signed-off-by: Haobin Jiang <lemonoutput@foxmail.com>
+
+---
+v4 -> v5:
+	- Add a scoped zero-length read guard following Sashiko's review.
+	- Previous version: [1].
+---
+ drivers/i2c/busses/i2c-imx.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index ccf08cd63151f25581dd3059ee874b606d0dc94c..1e2fd699f4fc658f4a9298cd1852455966018e37 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -612,9 +612,12 @@ static int i2c_imx_trx_complete(struct imx_i2c_struct *i2c_imx, bool atomic)
+ 	return 0;
+ }
+ 
+-static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx)
++static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx, bool ignore_nak)
+ {
+ 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
++		if (ignore_nak)
++			return 0;
 +
-> >   drivers/remoteproc/ti_sci_proc.h          | 130 ----------------
-> >   7 files changed, 231 insertions(+), 218 deletions(-)
-> >   create mode 100644 drivers/remoteproc/ti_sci_ctrl.h
-> >   delete mode 100644 drivers/remoteproc/ti_sci_proc.h
-> >
+ 		dev_dbg(&i2c_imx->adapter.dev, "<%s> No ACK\n", __func__);
+ 		return -ENXIO;  /* No ACK */
+ 	}
+@@ -971,11 +974,15 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
+ 	return ret;
+ }
+ 
+-static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx)
++static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx,
++				    bool ignore_nak)
+ {
+ 	i2c_imx->isr_result = 0;
+ 
+ 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
++		if (ignore_nak)
++			return 0;
++
+ 		i2c_imx->state = IMX_I2C_STATE_FAILED;
+ 		i2c_imx->isr_result = -ENXIO;
+ 		wake_up(&i2c_imx->queue);
+@@ -988,7 +995,7 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
+ {
+ 	int result;
+ 
+-	result = i2c_imx_isr_acked(i2c_imx);
++	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
+ 	if (result)
+ 		return result;
+ 
+@@ -1017,7 +1024,7 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
+ {
+ 	int result;
+ 
+-	result = i2c_imx_isr_acked(i2c_imx);
++	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
+ 	if (result)
+ 		return result;
+ 
+@@ -1249,7 +1256,8 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
+ 	if (result)
+ 		return result;
+ 
+-	return i2c_imx_acked(i2c_imx);
++	/* I2C_M_IGNORE_NAK messages never take the DMA path. */
++	return i2c_imx_acked(i2c_imx, false);
+ }
+ 
+ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+@@ -1268,7 +1276,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, !use_dma);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1401,7 +1409,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, true);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1416,7 +1424,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, true);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1613,8 +1621,9 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 	return ret;
+ }
+ 
++/* I2C_M_STOP is the controller's native behaviour; don't reject it. */
+ #define I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS \
+-	(I2C_M_IGNORE_NAK | I2C_M_NO_RD_ACK | I2C_M_STOP)
++	I2C_M_NO_RD_ACK
+ 
+ static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
+ {
+@@ -1625,6 +1634,12 @@ static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
+ 		if (msgs[i].flags & I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS)
+ 			return -EOPNOTSUPP;
+ 
++		/* The receive path cannot handle zero-length reads. */
++		if ((msgs[i].flags & I2C_M_RD) &&
++		    (msgs[i].flags & I2C_M_IGNORE_NAK) &&
++		    msgs[i].len == 0)
++			return -EOPNOTSUPP;
++
+ 		if (msgs[i].flags & I2C_M_NOSTART) {
+ 			/*
+ 			 * NOSTART continues an already open frame. The first
+@@ -1712,6 +1727,10 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
+ 			msgs[i].flags & I2C_M_DMA_SAFE &&
+ 			!(msgs[i].flags & I2C_M_NOSTART);
++
++		/* A NAK'd byte may not generate a further DMA request. */
++		if (msgs[i].flags & I2C_M_IGNORE_NAK)
++			use_dma = false;
+ 		if (msgs[i].flags & I2C_M_RD) {
+ 			int block_data = msgs->flags & I2C_M_RECV_LEN;
+ 
+
+base-commit: 123cffeca4a33d770c29ff8d3f22453a5fd59c32
+
