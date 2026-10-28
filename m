@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190310;
-	b=5cYhqI4MuJehvzoLUNnXILaEa77uDVuEy0YI7ToYrKDsH37X2GJOyme/f9OO3dTiNM7K
-	 W50/tdqPRbL68M3agKKoACfArgGZB+iMdo95GpFiAEBjcoMkNelY6bRBf135HoT2y8YP0
-	 vE0BUD05bR6ppDzyKz8qsbd95LzrcFvsiAB4dQ+pKvWblDz841rbo/lgQMY+4DHlVlWmb
-	 Lt7LSRjG2EkB5OZeZ/zodUit1Wv5gpCjQVmNWU5k8Zoet7+PIWFkzqH+YRwBuie8D7sdc
-	 DVURBcN//u+wQGvCxRrdwfTurI4Oi7/spWYYztWl/MUyBkOVEoHuHOnUURqtF9BZVLA==
+	t=1793190318;
+	b=Bk7jligkVJGjN78Rrg4L4bGDqB8d32RESIa3DQCjrHRR4EiHI7girbB4IN/OgOUfirrz
+	 KviClwF3+qowMIpxBGAH8buqqL9cV2V5BozqVWj7WNqNFzKgzrMpHS4b58GB2A0F4gt6L
+	 evNy6SjdGpTecLCRpnf72XyX6nRH9CiLzDJC5gGsTdfo7RakjnFtBaqk30+dsODaDOhvt
+	 ThZ9ytU9ipSMrCIs5tk2VOgj1J8LrpKUdAwoKvmLEAnZh6B81RD5cAa1vuRFzxZOYYuNO
+	 XsFg48vTc2iT0OKuTL9quGoAmFJDDdsXnnmzbHtzW4zwErlyY5NIFsWaa8bvRkj22yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190310;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+cHxjlvN8VOyDiFUXngXTjITFg1sgmv8T/ntGX/9zrA=;
-	b=exB57TO2bE1U9RX1l0o/eqjtC6Kr1cDdBDDrbQla+P4bpuboQDHs5evE1gR6WTdSwU5m
-	 ptfeRmq2rs4k8YVDtFyz/D6+/TcrELmf7+C6gAPXMuDKuBNjIBGVGMp1ISCfu2/yCTxzE
-	 bBmEAuBDnzvew4Bq79BoSKeZQJpabwLRWFj5Q/CQck6BxNvLD5VPJjVadaQdjb48mj3Pv
-	 +YDYF3zKMULm9hjoXoplU8XxwU9aAEVQSZ21fgQj1UF45u1tBuBaOp5XZjE97+qPY/JVB
-	 3oB1CHeockiKk3v3/3/rYRVWE1ELBGtN98bHD9slAz+1TYPo+YeNPIrmLTUdhbDCzlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190318;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=s4OWMi3a8s2wA4xLjiaf+j11RhfHAHM82llxPPU2rPM=;
+	b=1WfBFBWn4zmMe1uW34h0rlIFlTS7lYo4vgBMWIjEFDEBZeqBqvJ5a+hFmFFsvbti+FYk
+	 nzojK7sojjLFfjC7hFHPoC3X12ewjK4mBkSDpJvAhGPHtA3PCOzsOEDOolwARJMzuVRuI
+	 cw3aGwIpW+A6PWL2oz6GZUNGyoNElx+UoYD/IeKXW0m7p95SufOVyc3uUzQMLrmUDP6GV
+	 pdzUFWWBnK5sKC3B/j30Tp2CaKIubN8c6EJ8KznKuJOQ7Rw/Zz20cgfwtyAofs7asx7Gs
+	 CUstDPbGs+rkkdT1WtOpIrzgNzVdzLh5o6WIAMMf8t6HzBpgjChIDcdGaYvrd6VjsNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QErtFuBe;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9Y6eDhf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEB5606A31A;
-	Wed, 28 Oct 2026 12:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CEB5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193D9606A31A;
+	Wed, 28 Oct 2026 12:25:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QErtFuBe
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBi5xP1345741;
-	Wed, 28 Oct 2026 12:25:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=+cHxjl
-	vN8VOyDiFUXngXTjITFg1sgmv8T/ntGX/9zrA=; b=QErtFuBektbiHHF4suxnKm
-	rDQQ7a5/Tinlk5LDoTHhewb2xFgh5GTeKn8FJfZP4En9eFJf4Ul9VpCpLs01kCrh
-	cHhO9hjVRdBZ1DfCpjUWr4fErPqOWHSghpRpTv6T6ihsLyeV/pQ0nPVs79V+0T3v
-	C8CTAcMixHRpzP6S1h1q2KM07Pkrplf4NURIqXZcHhA5Ott/QD8H2UIDnR9APUCp
-	o94IWXnjKzyhvb1dLB2/rb7u+lis3TzmScnBB/e9AwslCS7hh2zLlJtm8HhVOKit
-	gdFsFxac6RW7OzLbLXIYoUhco3hFqJwUF5GK3BxjD/c1l96p+sdCJVH9LfcnTR1A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm644mfv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:25:09 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBo1ah1501987;
-	Wed, 28 Oct 2026 12:25:08 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7w4eg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:25:08 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SCP4wk38928672
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 12:25:04 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C76142004B;
-	Wed, 28 Oct 2026 12:25:04 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8CB0D20043;
-	Wed, 28 Oct 2026 12:25:04 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.73.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 12:25:04 +0000 (GMT)
-Message-ID: <adce2896-9c2c-4f71-ad3f-a319d801a617@linux.ibm.com>
-Date: Wed, 28 Oct 2026 13:25:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9Y6eDhf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22DA11F01825;
+	Wed, 28 Oct 2026 12:25:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793190317;
+	bh=s4OWMi3a8s2wA4xLjiaf+j11RhfHAHM82llxPPU2rPM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=D9Y6eDhfcdUsVH6F3wKJudaPj7jPaGHuZORFmOjXXcbSKHAU1uhVxVXLARYT5V5al
+	 jpEOTV4dygvds5SG4gyqbHvCAGElNhUnGxxZREz+e+5RFHLOoO16yzI3lpLH/s3EZH
+	 /XY6Y/OR2A43RpPdgt09SJ51P5Aigg9cYK9l4T2KwNFCLw0iV0dM8ioE4OE1P2o09d
+	 3LRajvFZXdPywZmCrxTzUmNmgQhJERuRG3Mq2dZVny5q1i5ZCknxZIFPaKjcE3NtW3
+	 GGwi1wUe82jPFo5v+xzBx+tMFvBV0gdnYhMtxmb6xsikTUj2fphiNcpMs+w9j1sn6S
+	 iebHacYGO7Mfw==
+Subject:
+ Re: [PATCH net v3] bonding: fix initial last_rx vs ARP-monitor slack window
+From: netdev-bot+sashiko@kernel.org
+To: ramses@well-founded.dev
+Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, jbohac@suse.cz, edumazet@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, razor@blackwall.org,
+ liuhangbin@kylinos.cn
+Date: Wed, 28 Oct 2026 12:25:16 +0000
+Message-ID: <179319031668.3134.15966773474485635933@kernel.org>
+In-Reply-To: <20261027-bonding-last-rx-v3-1-54907f1fb042@well-founded.dev>
+References: <20261027-bonding-last-rx-v3-1-54907f1fb042@well-founded.dev>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,62 +64,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/10] s390/alternative: Serialize text patching with
- text_mutex
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
- <20261027143030.3154657-9-hca@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261027143030.3154657-9-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX14plyNZ4YFLH
- ruxWsAtkS5PSwdEGKzkOAthykQSXoh/3DJEA95gY37D0CZ+Dx6g7D1XrlxXlDy0pCh3ma7iX53j
- LbQAfyO9SQZNMoQjJwgL7PoimdVNMXc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX/WbqcPByJdlJ
- Fm1IMjuJFPN4qG4qvzQDoVBXo0wGFmnIGftHqMOc5gk9SwX6zlPRANUBrfN6dIDFtjYTb1OwecI
- e1XOFPydJzbTALs7sm4gvQ6oMpTbZ9yEAZ9rsAx9Sarf/Muc/kisuACWkeShwmLvCVRDzFe6o8w
- njiKgDrauqKpDumzvOg3DRgSTZtoclS6Xae+K6qqIvSZBi1N7UqrYJXGasAZUwwl4aRPmL7QqYh
- 0K/LpLErytd2E7s0DTg12b48T90Hd8qZpItJxOul83L8DUEuTEvFnLfI+ovbUoPSCvM0XQfJhH0
- vl4yb+q0phRVC/QF4L+SudrCndIe8ouTFnPtwQBhPYqCMM+Sbe2eA/ruFElyKpEJRCB+NBe4YAu
- BcdNmWT6zSVXN3oG4Z3YgBgi2BNiPtTpN3xd4eAKxd5epd4x1uU6vSmWQoaEZhtpjGvV40OnXJ8
- 4VE2eWKG5pCqoDdH1gg==
-X-Proofpoint-ORIG-GUID: wWZLr-p43YW3C8gV-MahScC2_ycUrXQp
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae1e9a5 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=lFAPrgHvWctSVXuBu1YA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-GUID: wWZLr-p43YW3C8gV-MahScC2_ycUrXQp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280048
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-On 10/27/26 15:30, Heiko Carstens wrote:
-> Acquire text_mutex inside __apply_alternatives() around the patching
-> loop.
-> 
-> Serialization is not required for __apply_alternatives(), however this is
-> part of larger series where at the end s390_kernel_write() requires that
-> callers hold text_mutex.
-> 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->   arch/s390/kernel/alternative.c | 4 ++++
->   1 file changed, 4 insertions(+)
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] The patch ages last_tx along with last_rx (new_slave->last_tx
+  = new_slave->last_rx), so last_tx is now two intervals old instead of…
+
+--
+
+bonding: fix initial last_rx vs ARP-monitor slack window
+
+This commit moves the initial last_rx seed in bond_enslave() from one
+arp_interval in the past to two. The goal is to keep the seed outside the
+arp_interval/2 slack window that commit da210f559019 added. The
+per-target array and last_tx get the same seed, because they are copied
+from last_rx.
+
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 7019e5d8fdc8e..269384fadfa6f 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -2123,7 +2123,7 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>  		new_slave->link = BOND_LINK_DOWN;
+>  
+>  	new_slave->last_rx = jiffies -
+> -		(msecs_to_jiffies(bond->params.arp_interval) + 1);
+> +		(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
+>  	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
+>  		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
+>  
+
+[Severity: Medium]
+Just after this hunk, bond_enslave() copies the same value into last_tx:
+
+	new_slave->last_tx = new_slave->last_rx;
+
+So last_tx now also starts two intervals old. Could that cause a spurious
+UP->DOWN transition in bond_loadbalance_arp_mon(), used by balance-rr,
+balance-xor and broadcast with arp_interval set?
+
+A slave enslaved with carrier OK starts as BOND_LINK_UP. On the first
+arp_work pass, the UP branch checks last_tx before this slave's first
+bond_send_validate() call in the same loop:
+
+	if (!bond_time_in_interval(bond, last_tx,
+				   bond->params.missed_max) ||
+	    !bond_time_in_interval(bond, READ_ONCE(slave->last_rx),
+				   bond->params.missed_max)) {
+
+		bond_propose_link_state(slave, BOND_LINK_DOWN);
+	...
+	if (bond_slave_is_up(slave))
+		bond_send_validate(bond, slave);
+
+Unlike bond_ab_arp_inspect(), this path has no last_link_up grace. The
+comment there says each slave is given "as long as it needs to get the
+tx/rx within the delta".
+
+bond_time_in_interval() accepts jiffies up to:
+
+	last_act + mod * delta_in_ticks + delta_in_ticks/2
+
+With d = arp_interval in jiffies, J0 = enslave time and the new seed
+J0 - 2d - 1, the upper bound is:
+
+  missed_max = 2 (default): J0 + d/2 - 1
+  missed_max = 1:           J0 - d/2 - 1
+
+With the old seed and missed_max = 2 the bound was J0 + 1.5d - 1, which a
+first tick at or before J0 + d never crossed.
+
+The arp_work tick phase does not depend on when the slave is enslaved.
+With default settings, does that mean roughly half of enslavements into a
+running load-balance bond see the slave marked down on the first tick,
+before any probe has gone out? With missed_max = 1, would every carrier-up
+slave be marked down on its first tick?
+
+When that happens, link_failure_count is incremented, "interface is now
+down" is logged, and do_failover is set if this is curr_active_slave. The
+link only comes back on the next tick, after the first ARP has been sent.
+
+Documentation/networking/bonding.rst describes arp_missed_max as:
+
+	Specifies the number of arp_interval monitor checks that must
+	fail in order for an interface to be marked down by the ARP monitor.
+
+The commit message says:
+
+  Seed last_rx (and with it the per-target array and last_tx) two
+  intervals in the past, so it is outside the slack window from the
+  start.
+
+It does not mention the effect on the UP->DOWN checks in
+bond_loadbalance_arp_mon(). Would it make sense to keep last_tx at its
+previous seed, or to describe this behaviour change in the commit message?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027-bonding-last-rx-v3-1-54907f1fb042%40well-founded.dev
