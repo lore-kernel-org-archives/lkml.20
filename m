@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224589;
-	b=IE+91yorM7wbn1OPjkuzGZQSJgI1A/i45lsBPBGSujvHpsUQFYt/51kLaMwEDl8w+Ips
-	 2XZKFbJTGsDZaMZqwLpzD4TbDOjcW35y+0HkkqDdHATDwCYtVfc1kJ9X6aG1HrbjOybeT
-	 w4OGdNQ05tiyVU1Gw4ne/ocRURNgWz/HkihjkM1tVTTJNXThBKAE/Brt5UGSl4MDamB/0
-	 s7CP264+X7RDDvCOqfoG2IuOoI6JhH5JEe44YKyvDWFvYQPovbfQzxko50ClJeffQkBCz
-	 5NvWdYRmEG6GStTMtJrWsAFqKBZWRJbWj/UU1CXjIs6hMA5EgByRtT5NozIchT5Wu4w==
+	t=1793224599;
+	b=JElBuneRLqLBEISW4ltots1YNlWtFVuHlc5ic+vcleZlKd6aQ4GE01fOWh3SCKmsc2ux
+	 TVBwp40GxiCTvQdrMQQDoR0Oc+nLNTqJ+mSykoD6iYDAYgxrkNPL/Y96rczafzBkK8kPm
+	 Y2SWhOi8ptwDZmQGbtzui5pH6naTd8xiPmLbq/YEBJG87jMXlUJZ+wKoMAE1tKjbN8TNN
+	 /Vo/Zt3la1AmL/Lz0HJpws2ccZzfMrswezCnN9a737Rz7GWkigiZeMEGo6DETyFJZx2na
+	 5mlhA2wNoqu8YohccayYLoZ0kAktsnEDVDP370dO3BeGIuOZwnsgvS+UHcwTMpgjNDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224599;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
-	b=d4+nrB4PMp/wgCetl9Ad7shBh41wCwpmikZdhAmcaxnBRzJR1rpMwUZJ+FXCce0YOYEj
-	 2YTpAfYPC0qB74qo5cx4YGQJT+0ZNmSEg9mAmMhHk1YHnUQLHhMZqhP1ZUygcN+8Q5ruT
-	 TGmyioiuPDHBXXLFwzCaNxzTFp/gkVISpoKWpdjeeu2lucgG08ZiWN0DAZtccHtRLDj+J
-	 k3TBu0WWdP3qFJPvegZ2uzgKHj5bh4IaqDupGNLQRpZ3sSnIZbyeq12MalaP5KgHY9HNC
-	 p2feITQuOavuhiuDBaF4uaacn8WsCpeDgAQG1E1qNmDwkhBy/0/JRu2E/7wC6l0PPog==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=h4HKRMUyyVkUrUI+YJ3JgmkowAX5KVGFd9xGnSrbsX4=;
+	b=gGKtNw1bOidI+8Tsoj55JJSFnW4GnM0PEJwKPtCehJzv1H7cs6xVPeu+zzQSAHTZcmxk
+	 5hOQZGJfkjjQ++ogej5II4ZTNM0BOFTwvAaJIgjBkh4+Jg5oT0xFu8p+Abl9lfWTWilda
+	 Wo1poRokL3bN0zpesJJrNMmosgx3TJBh3rqXWEpJZ109PrBSSPGDIEs4FVZxs+SVwwQUm
+	 AIX2dDZh2pZBHGGJS9+QMFVKaPnBbbMz/IiMet02jch/7GGXi4l0QmgqPwK4TJHYohwyb
+	 yXWA+dmNsK9IpPxiIplAgvD3O8LuHSw0rpdrmor4KD5jbqKXEzAnT3vYyrUsyUdFe0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iYTzqz6Y;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130B960A2606
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130B960A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21784606A33E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21784606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a17a332ecso2050066eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iYTzqz6Y
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so1676169eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793224587; x=1793829387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
-        b=Dam7nWgrXb7+KZguosSLcJIwgRURctcRj9WnpX4bkBxB1Ar/mIxd6vrzjvqFMun7F6
-         7GHpXOlrzYP6rs3eplIgnny4CLTWS8rRVWLP06F71rdP8syr+EVZ6LJm0luVzagNjbGy
-         xmzexiLS9ysGJ1l2/yiVsqqB0CoElpoLWuTcM=
+        d=chromium.org; s=google; t=1793224597; x=1793829397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h4HKRMUyyVkUrUI+YJ3JgmkowAX5KVGFd9xGnSrbsX4=;
+        b=iYTzqz6YPcJmE2qSwQzaPYHIE024dfvGm9L3oILacF0YrmIWqvp3ei0Z6QaYJAc+Hp
+         Xp3V0jnf+kMXBoI1UQ+wimHUElRyAKPGtDht59P/gUm7MFLdsFrbCqm9s+cBjnd3oO/F
+         eOFVWgAvU2OnR3J+j/teuuqLl6QDgkO2bvef4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224587; x=1793829387;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
-        b=BrbcBOr0g80JgHD1Am50jC3NMFIG3ygEB4IaEESVcxPq9a22Tqd7cPBX3IeaLN/4hj
-         Gr4nJ/we+0eGqznaVeJQ2VXDENLMgtNzX81l5ZJkrLXsiJE1/69Eh0vfJT+hDNFxny66
-         C+ghHldXtNyKntfYAgH5fKoZo1t/6gaLcygNeGCTmQNCzMY7SW/2PtPYkD8SaO8qsm7Z
-         q62WL0KPhA7KXeEbYWaT6wLpeMi8HN0VL0cN1HIsjII3HgNCvq3cOhhKzEin+WYvfcpx
-         EmOFsR8ts4e0Oygzs6FnlhfYz9AnWO79okUgZ1xU1hXdsur+0tJ48h6KRtYG0NYNMT4T
-         7Tpw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0p5z3I3xC7T2Ujz+SQHJHATPzjr3etvszxEmkA9EjvqOwSRitqPLRGWWESN4IXCTzTNWolqxfoNqvo1g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAJ/KbYkQQlzb6dJ420fIL4vTG+hWCEUe0Q5y4KW5j3TYw40/R
-	IMZACJxJPXQ8oQUB67VsgG2uvm3Tt54XMzPzeUMlFjMR8rNgSdQ0NihITRU3WPvcfw==
-X-Gm-Gg: AYBFou0MnLQtD3yf4ncolGQs2vfknfAWcEQNLcvz1tWGiIzta1iF1hdGhSout1R612L
-	1VEEmy/GJzOxtL/FNzkCokEAwTK8pSztsgObdTWjq8eKzYOZpUnb9PvE7aBwNUzyszWh2li3dJB
-	mDQURsHS+MeH9Jt5CAkKTXcsM8h1+Ov8GgSS4aYiFMS5ff9Xj2VLueVpp2OwSUKlNOjLHnAGExR
-	RgwidDLv6gct8qeK2loKEQNFc2rhy1k1x5fD+hj8IdcXSNweEwMW3zDRnP7p6N0/NuwmLvUxgSY
-	90w4EBjgI4/YPDyvxgGLZsjHKCVWRyrPjfLLtxhe9IyWeINIT0qCj1VlYyG0z4WHROGD6SCr6FQ
-	2gXc5iq0hHHzG9kmC/LrOyBp6yllyNXi8tOFO6ogq9E1npXwPOjE5VJ9BjHI6Lt5kSb25vA6lSX
-	Pd7kHWU+c+RM4TO+6oqL0CbmdXhTQeFDLX/oerxJUCa8AUG9q7GXgoi+N7bZqWLZ7c0o/bL77mr
-	1sgP4MJD2CJ50oFDwDuqfBejzH1c9vYasSTxIiwPYKg0e57Frx/jCeMpskqClZUctsDknE12FAo
-	20m7vUQuMxmSW7j2/OM08DLcmAY0deUb60oWZUFiW5xHnx+HdPTGLmyXdBr3QbgU6PEXwDtfiNZ
-	kwbQeAjWH1hAA
-X-Received: by 2002:a05:7300:8aa0:b0:36a:168a:96c4 with SMTP id 5a478bee46e88-36a1ffc56efmr5102572eec.1.1793224587050;
-        Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793224597; x=1793829397;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h4HKRMUyyVkUrUI+YJ3JgmkowAX5KVGFd9xGnSrbsX4=;
+        b=SHBUxg6xHheX/o0nN8CZBOI9x7RtkracLPsQWBBkp0e95UXZPqz2A08iHqy1wg/En3
+         Bmh+CkDopaHucaI5D/dnOtUe0nDkhbe3H9vRv9RDedPyjK2D+YdZu7+Z4oOh2n6bajBN
+         V5TGBGuAl/3MY51JxuYUwyK6XxRotThBasR+fuEmOfnaux3ynnM/r5WvJTha+12oHGwt
+         VwmClKq3X3iSxOaRte6oU0A9utNKNFGu/6/cVfh4g0F1kR9mwIAI09L+vKcrqvvef0+o
+         5M9pLDRgl+xBeiIMOtMsfxAKefVxuHSxqVrTTZdpRIKKqTQzcRbO3t6PaTWeL+HgrVPx
+         7T5A==
+X-Forwarded-Encrypted: i=1; AKwUvBx7Uz+6IDiRsqVUMqAKVkk1lDf8n2HgLsJApCBLMSUigZbBSl5NSmrSCX3XeZwWxQSWWpf8N5hPdqqCLOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGkudh9UCZ8q57ttZFD54mZHE+5kWZHb570+Dc9sVMCl84lElg
+	yeAs0ZgrTUPa+U1+51X8Nx6qC5pMH10OovFf08cC6AHdeUN/PtLKCLWFMy3KcERy2Q==
+X-Gm-Gg: AYBFou21qVVpUb1CKkJrm6WdKrjxJmmz3GtViD6aCbA/Ymd9UUewdthH9lIW6H34Bzk
+	WfQvTi2p8II1GYeBVof+PBfsgZiFXddf5pR7qrrmcHZbP20QGcbjq2EzAO/BTszOVVMZwvaLB/f
+	ims2VBdjtD3ieQWDc2U8uf9v6qKbvBHj0fFMJOjV+I/MdCWc15C2vfItCXpOFteoz3BltD3/Ayd
+	shdeg5iRZmkE4QZyS9ZMuwSpNs6v5CzvyZ8BNMD1/uiVOcq21EkmfFVnVAb0lslpuAzEyqZREs5
+	EL27gBE3mCYAMLdsvMgDbv6X3rhonD9bGhAtyfixgkqlTSoRkgfMSQGWQsTWtOnC7Rt7y/085+Z
+	5vtSRve4gasiBFjQZi39tmV0mJd+gqpvY5HMEIB5QHujTcXiL9ObniKGVllauVWiYp+4DpoauyC
+	Q1WOi02MkacVqKfVG6PIN0TLk3wo39swEjyI8ZjTJrtNDgFDe04XnK6fq3pa/P36x/ED9rUeKM/
+	qqr3CaySFqs0YCD/MsfS/uTjPArnDk0KmNnM3SHuk5oAvQOEMpCCUNFs6wWwq4ePsVHDhMKNVuV
+	xvW2IcA2Cg4Dpn9cFIYL/ERU6b3ddet5/m/udDdXMOm47gYDIyHD7Vadj1wfSWmHt+jMKDZCQCT
+	Xx/0UYX6/dB6l
+X-Received: by 2002:a05:693c:639b:20b0:36a:1904:60a3 with SMTP id 5a478bee46e88-36a203d0975mr5134289eec.15.1793224597294;
+        Wed, 28 Oct 2026 14:56:37 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:19e7:c87:2527:4e12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:56:26 -0700 (PDT)
+        Wed, 28 Oct 2026 14:56:36 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,10 +94,12 @@ Cc: Brian Norris <briannorris@chromium.org>,
 	Saravana Kannan <saravanak@kernel.org>,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v2 00/10] fdtfactor: Introduce fdtfactor to auto-factor overlays
-Date: Wed, 28 Oct 2026 14:46:49 -0700
-Message-ID: <20261028215600.1713475-1-dianders@chromium.org>
+Subject: [PATCH v2 04/10] libfdt: overlay: Factor out fixup and fragment path parsing helpers
+Date: Wed, 28 Oct 2026 14:46:53 -0700
+Message-ID: <20261028215600.1713475-5-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+In-Reply-To: <20261028215600.1713475-1-dianders@chromium.org>
+References: <20261028215600.1713475-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,223 +109,306 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+In preparation for updating the base device tree's `/__local_fixups__`
+node during `fdt_overlay_apply()`, factor out two helper functions in
+`libfdt/fdt_overlay.c`:
 
-Devicetree overlays exist at both the source level (via `/include/` and
-`.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
-applied to a "base" `.dtb` at runtime to add or modify nodes).
+- Factor out `overlay_parse_fixup_entry()` from
+  `overlay_fixup_phandle()` to parse `"path:name:offset"` entries in
+  `/__fixups__` properties.
+- Factor out `overlay_split_fragment_path()` from
+  `overlay_symbol_update()` to validate and split
+  `"/<fragment>/__overlay__[/<rel>]"` paths into the fragment name and
+  relative subnode path.
 
-Binary `.dtbo` overlays were created by transcribing source-level
-overlay semantics to `.dtb` blobs to serve two main use cases:
+This commit is pure code movement with no functional change.
 
-1. Supporting add-on boards (like "hats" on a dev board), where a base
-   board's `.dtb` is combined with an add-on board's `.dtbo` at boot or
-   runtime (a use case that Hervé Codina's upcoming "addons" work aims
-   to model more cleanly).
-
-2. Allowing constrained bootloaders or firmware images to support a
-   "family" of similar boards in a space-efficient way without shipping
-   a full `.dtb` for every variant. In upstream Linux, for example,
-   there are 47 distinct sc7180-trogdor boards supported. At the source
-   level these boards share common `.dtsi` files, but we still compile
-   (and ship) 47 separate full `.dtb` blobs. Binary devicetree overlays
-   can make this much more efficient by factoring the common bits into a
-   single base `.dtb` and representing each of the 47 boards as a small
-   `.dtbo` overlay.
-
-Even though `.dtbo` overlay semantics are a natural fit for case #2
-(since they derive from source-level `.dts` overlays, which were
-designed for board/SoC families), upstream Linux has mostly reserved
-compiled `.dtso` -> `.dtbo` overlays for case #1. Many Android phones
-attempt to use `.dtso` overlays for case #2 by describing the SoC as the
-base devicetree and describing boards in `.dtso` overlays, but forcing
-the binary base/overlay split into the source files has drawbacks: there
-is still lots of duplication between board overlays, and upstream
-reception towards structuring board source files this way has been
-lukewarm [1].
-
-This patch series introduces a tool to decouple binary `.dtbo`
-generation from `.dts` source structure. The idea (suggested by Konrad
-Dybcio at LPC) is to continue to represent all the boards in a family as
-normal standalone device trees in source code (using `.dtsi` includes as
-makes sense for human readability). Then, after building the full `.dtb`
-blobs, `fdtfactor` automatically factors them into a common base `.dtb`
-and a set of per-board `.dtbo` overlays.
-
-This tool has quite a few advantages over other solutions:
-1. No change to the way device trees are stored / arranged upstream.
-2. No need to deal with some of the awkwardness / limitations of
-   overlays.
-3. Better savings than just a simple partitioning, like between SoC and
-   boards.
-
-I've used this tool to reduce sc7180-trogdor device tree files (which
-are stored lz4 compressed) from 1.71 MB to 213 KB, an 87.5% savings.
-
-To compare against the manual SoC-base + board-overlay split used by
-downstream Android kernels, I also tested `fdtfactor -S` on the
-downstream Pixel 10 family device trees (29 physical hardware board
-variants: 27 phone variants across Pixel 10, Pixel 10 Pro, and Pixel 10
-Pro XL plus 2 socketed dev board variants) by combining the downstream
-base + overlays into full board DTBs and re-factoring them with
-`fdtfactor -S`:
-
-* Just B0 silicon (29 boards):
-  - Full unfactored DTBs (29 `.dtb`s): 26.30 MB uncompressed (5.28 MB
-    lz4)
-  - Downstream manual SoC base (`lga-b0.dtb`) + 29 board `.dtbo`s:
-    8.06 MB uncompressed (1.66 MB lz4)
-  - Auto-factored with `fdtfactor -S` (1 `base.dtb` + 29 `.dtbo`s):
-    3.27 MB uncompressed (668 KB lz4) -- 2.48x smaller than the manual
-    SoC split (and 3.68x smaller across the 27 phone boards alone, where
-    average overlay size drops from 252 KB to 44 KB uncompressed, or
-    52 KB to 9.1 KB lz4).
-
-* Both A0 and B0 SoC steppings:
-  In practice, phone Proto boards (8 variants) only ever use A0 silicon,
-  phone EVT1.1+ boards (15 variants) only ever use B0 silicon, and only
-  phone EVT1 boards (4 variants) and the socketed dev boards (2
-  variants) can have either A0 or B0 silicon -- giving 35 realistic
-  (board, stepping) combinations (14 A0 + 21 B0), compared to 58 for a
-  naive 29 x 2 cross-product:
-  - Full unfactored DTBs (35 `.dtb`s): 31.71 MB uncompressed (6.37 MB
-    lz4)
-  - Downstream manual split (2 SoC bases `lga-a0.dtb` + `lga-b0.dtb` +
-    29 board `.dtbo`s): 8.78 MB uncompressed (1.79 MB lz4)
-  - Auto-factored with `fdtfactor -S` (1 shared `base.dtb` + 35
-    `.dtbo`s): 4.00 MB uncompressed (855 KB lz4). This could likely be
-    improved more with multiple levels of overlays, but we're already
-    2x smaller than what downstream is doing today.
-
-NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
-an optimization. On Android phones like Pixel 10, the bootloader logic
-bakes in the need for overlays. Specifically, if we want to be able to
-build a single image that supports multiple boards and have the
-bootloader auto-construct the right devicetree, we need the boards to be
-represented by overlays. This fdtfactor tool can make that a reality.
-
-The fdtfactor tool can either work directly on a set of compiled
-devicetree files or it can work on a FIT (flattened image tree) file.
-The idea is that you'd create the FIT file containing all of the
-duplicated devicetree files and then fdtfactor would "optimize" them.
-
-Before introducing `fdtfactor` itself, the series starts with a few
-preparatory patches: adding Python iterators and a `NodeTree` live-tree
-abstraction to `pylibfdt`, and teaching `libfdt`'s `fdt_overlay_apply()`
-to update `/__local_fixups__` on the base tree so overlays can be
-applied in multiple stages.
-
-I'll freely admit that the patches in this series were pretty heavily
-vibe coded. I'll not pretend that I have a deep understanding of the
-intricacies of how overlays are implemented. That being said:
-* I've spent quite a bit of time reviewing the code from a high-level
-  perspective: confirming that functions are well documented, well
-  structured, and make sense.
-* I believe that what the tool is doing and how the tool is used make
-  sense.
-* I have had quite a number of internal "the AI reviews the AI" rounds
-  to the point of diminishing returns.
-At this point, I'm not embarrassed to put my name behind this. While I
-won't promise that there are zero cases of the AI doing something really
-stupid, I'd be willing to bet that the end result is better (and cleaner
-/ better structured) than what I would have coded up if I had spent a
-few weeks doing this on my own.
-
-[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
-
-v1: https://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
+Assisted-by: Gemini:gemini-pro-prerelease
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
 Changes in v2:
-- New patch fixing FdtSw.as_fdt() buffer resize when < 4 bytes remain
-- New patch adding FdtRo.subnodes(), FdtRo.properties(), and
-  FdtRo.get_mem_rsv_list()
-- Split NodeTree live tree representation out of fdtfactor into
-  pylibfdt (David Gibson)
 - New patch factoring out overlay_parse_fixup_entry() and
   overlay_split_fragment_path() helpers in libfdt/fdt_overlay.c
-- New patch tightening fixup offset parsing and generalizing
-  overlay_split_fragment_path() for non-NUL-terminated paths in
-  libfdt/fdt_overlay.c
-- New patch updating base /__local_fixups__ in libfdt
-  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
-  (David Gibson)
-- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
-- Store parsed trees directly in NodeTree with node.phandle and
-  node.fixups attributes instead of parallel dicts (David Gibson)
-- Extract phandles in a separate pass after unflattening and reject
-  legacy linux,phandle properties (David Gibson)
-- Exclude non-root common phandle nodes lacking a common symbol from
-  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
-  Gibson)
-- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
-  a dedicated fdtfactor test suite (David Gibson)
-- Split -S/--strip-local-fixups into a separate opt-in patch (David
-  Gibson)
-- Add --base-compression to explicitly control base.dtb compression
-  while documenting auto-detection from --base-dtb's filename suffix
-  (David Gibson)
-- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
-  (Simon Glass)
-- Drop "tests: Fix Python test environment setup in meson.build"
-  (applied upstream by David Gibson)
-- Clarify source-level (.dts/.dtsi) vs. binary-level (.dtb/.dtbo)
-  overlay history in cover letter (David Gibson)
-- Add Pixel 10 (Tensor G5) base + overlay comparison numbers to cover
-  letter (Simon Glass)
-- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
-  FIT mode in the --help description (David Gibson, Simon Glass)
-- Reject signed FIT images with signature* subnodes (Simon Glass)
-- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
-  common-prefix heuristics (Simon Glass)
-- Compare FIT group node overlap against the group's common node set
-  instead of only the first entry (Simon Glass)
-- Document in README.md that U-Boot's boot_get_fdt_fit() currently
-  requires FIT overlays to be uncompressed (Simon Glass)
 
-Douglas Anderson (10):
-  pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full
-  pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
-  pylibfdt: Add NodeTree live tree representation
-  libfdt: overlay: Factor out fixup and fragment path parsing helpers
-  libfdt: overlay: Prepare fixup and fragment path helpers for reuse
-  libfdt: overlay: Update base /__local_fixups__ on apply
-  fdtfactor: Add tool to split DTBs into a base DTB and overlays
-  fdtfactor: Add -S/--strip-local-fixups option
-  fdtfactor: Support compressed DTB inputs and outputs
-  fdtfactor: Add compiled FIT image factoring support
+ libfdt/fdt_overlay.c | 226 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 154 insertions(+), 72 deletions(-)
 
- Makefile                           |    2 +-
- README.md                          |   74 ++
- fdtfactor                          | 1626 ++++++++++++++++++++++++++++
- libfdt/fdt_overlay.c               |  847 +++++++++++++--
- meson.build                        |    1 +
- pylibfdt/libfdt.i                  |  310 +++++-
- tests/Makefile.tests               |    7 +-
- tests/fdtfactor_board1.dts         |   38 +
- tests/fdtfactor_board2.dts         |   36 +
- tests/fdtfactor_board3.dts         |   34 +
- tests/fdtfactor_board3_shifted.dts |   34 +
- tests/fdtfactor_lz4.its            |  109 ++
- tests/fdtfactor_other1.dts         |   33 +
- tests/fdtfactor_other2.dts         |   33 +
- tests/fdtfactor_test.its           |  109 ++
- tests/meson.build                  |    2 +-
- tests/pylibfdt_tests.py            |   80 ++
- tests/run_tests.sh                 |  337 +++++-
- tests/testutils.sh                 |    1 +
- 19 files changed, 3629 insertions(+), 84 deletions(-)
- create mode 100755 fdtfactor
- create mode 100644 tests/fdtfactor_board1.dts
- create mode 100644 tests/fdtfactor_board2.dts
- create mode 100644 tests/fdtfactor_board3.dts
- create mode 100644 tests/fdtfactor_board3_shifted.dts
- create mode 100644 tests/fdtfactor_lz4.its
- create mode 100644 tests/fdtfactor_other1.dts
- create mode 100644 tests/fdtfactor_other2.dts
- create mode 100644 tests/fdtfactor_test.its
-
+diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+index 51a3859620a4..f9d1a555ed5d 100644
+--- a/libfdt/fdt_overlay.c
++++ b/libfdt/fdt_overlay.c
+@@ -351,6 +351,72 @@ static int overlay_fixup_one_phandle(void *fdto, int symbols_off,
+ 						   sizeof(phandle_prop));
+ }
+ 
++/**
++ * overlay_parse_fixup_entry - Parse one "path:name:offset" entry from /__fixups__
++ * @valuep: In/out pointer to the current NUL-terminated fixup string
++ * @lenp: In/out remaining length of the /__fixups__ property value
++ * @pathp: Output pointer to the target node path
++ * @path_lenp: Output length of @pathp in bytes
++ * @namep: Output pointer to the target property name
++ * @name_lenp: Output length of @namep in bytes
++ * @poffsetp: Output byte offset within the target property
++ *
++ * returns:
++ *      0 on success
++ *      -FDT_ERR_BADOVERLAY if the fixup entry is malformed
++ */
++static int overlay_parse_fixup_entry(const char **valuep, int *lenp,
++				     const char **pathp, uint32_t *path_lenp,
++				     const char **namep, uint32_t *name_lenp,
++				     int *poffsetp)
++{
++	const char *path, *name, *fixup_end;
++	const char *fixup_str = *valuep;
++	uint32_t path_len, name_len;
++	uint32_t fixup_len;
++	const char *sep;
++	char *endptr;
++	int poffset;
++
++	fixup_end = memchr(*valuep, '\0', *lenp);
++	if (!fixup_end)
++		return -FDT_ERR_BADOVERLAY;
++	fixup_len = fixup_end - fixup_str;
++
++	*lenp -= fixup_len + 1;
++	*valuep += fixup_len + 1;
++
++	path = fixup_str;
++	sep = memchr(fixup_str, ':', fixup_len);
++	if (!sep || *sep != ':')
++		return -FDT_ERR_BADOVERLAY;
++
++	path_len = sep - path;
++	if (path_len == (fixup_len - 1))
++		return -FDT_ERR_BADOVERLAY;
++
++	fixup_len -= path_len + 1;
++	name = sep + 1;
++	sep = memchr(name, ':', fixup_len);
++	if (!sep || *sep != ':')
++		return -FDT_ERR_BADOVERLAY;
++
++	name_len = sep - name;
++	if (!name_len)
++		return -FDT_ERR_BADOVERLAY;
++
++	poffset = strtoul(sep + 1, &endptr, 10);
++	if ((*endptr != '\0') || (endptr <= (sep + 1)))
++		return -FDT_ERR_BADOVERLAY;
++
++	*pathp = path;
++	*path_lenp = path_len;
++	*namep = name;
++	*name_lenp = name_len;
++	*poffsetp = poffset;
++	return 0;
++}
++
+ /**
+  * overlay_fixup_phandle - Set an overlay phandle to the base one
+  * @fdt: Base Device Tree blob
+@@ -403,44 +469,14 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+ 		return -FDT_ERR_NOTFOUND;
+ 
+ 	do {
+-		const char *path, *name, *fixup_end;
+-		const char *fixup_str = value;
++		const char *path, *name;
+ 		uint32_t path_len, name_len;
+-		uint32_t fixup_len;
+-		const char *sep;
+-		char *endptr;
+ 		int poffset, ret;
+ 
+-		fixup_end = memchr(value, '\0', len);
+-		if (!fixup_end)
+-			return -FDT_ERR_BADOVERLAY;
+-		fixup_len = fixup_end - fixup_str;
+-
+-		len -= fixup_len + 1;
+-		value += fixup_len + 1;
+-
+-		path = fixup_str;
+-		sep = memchr(fixup_str, ':', fixup_len);
+-		if (!sep || *sep != ':')
+-			return -FDT_ERR_BADOVERLAY;
+-
+-		path_len = sep - path;
+-		if (path_len == (fixup_len - 1))
+-			return -FDT_ERR_BADOVERLAY;
+-
+-		fixup_len -= path_len + 1;
+-		name = sep + 1;
+-		sep = memchr(name, ':', fixup_len);
+-		if (!sep || *sep != ':')
+-			return -FDT_ERR_BADOVERLAY;
+-
+-		name_len = sep - name;
+-		if (!name_len)
+-			return -FDT_ERR_BADOVERLAY;
+-
+-		poffset = strtoul(sep + 1, &endptr, 10);
+-		if ((*endptr != '\0') || (endptr <= (sep + 1)))
+-			return -FDT_ERR_BADOVERLAY;
++		ret = overlay_parse_fixup_entry(&value, &len, &path, &path_len,
++						&name, &name_len, &poffset);
++		if (ret)
++			return ret;
+ 
+ 		ret = overlay_fixup_one_phandle(fdto, symbols_off,
+ 						path, path_len, name, name_len,
+@@ -887,6 +923,80 @@ static int get_path_len(const void *fdt, int nodeoffset)
+ 	return len;
+ }
+ 
++/**
++ * overlay_split_fragment_path - Split "/<frag>/__overlay__[/<rel>]" into parts
++ * @path: Input NUL-terminated path property string
++ * @path_len: Length of @path in bytes (including trailing NUL)
++ * @frag_namep: Output pointer to the fragment name
++ * @frag_name_lenp: Output length of @frag_namep in bytes
++ * @rel_pathp: Output pointer to the relative subnode path after __overlay__
++ * @rel_path_lenp: Output length of @rel_pathp in bytes
++ * @is_overlayp: Set to true if @path is under an __overlay__ subnode
++ *
++ * returns:
++ *      0 on success
++ *      -FDT_ERR_BADVALUE if @path is not a valid NUL-terminated '/' path
++ */
++static int overlay_split_fragment_path(const char *path, int path_len,
++				       const char **frag_namep,
++				       int *frag_name_lenp,
++				       const char **rel_pathp,
++				       int *rel_path_lenp,
++				       bool *is_overlayp)
++{
++	int len, frag_name_len, rel_path_len;
++	const char *s, *e;
++	const char *frag_name;
++	const char *rel_path;
++
++	*is_overlayp = false;
++
++	/* verify it's a string property (terminated by a single \0) */
++	if (path_len < 1 || memchr(path, '\0', path_len) != &path[path_len - 1])
++		return -FDT_ERR_BADVALUE;
++
++	/* keep end marker to avoid strlen() */
++	e = path + path_len;
++
++	if (*path != '/')
++		return -FDT_ERR_BADVALUE;
++
++	/* get fragment name first */
++	s = strchr(path + 1, '/');
++	if (!s) {
++		/* Symbol refers to something that won't end
++		 * up in the target tree */
++		return 0;
++	}
++
++	frag_name = path + 1;
++	frag_name_len = s - path - 1;
++
++	/* verify format; safe since "s" lies in \0 terminated prop */
++	len = sizeof("/__overlay__/") - 1;
++	if ((e - s) > len && (memcmp(s, "/__overlay__/", len) == 0)) {
++		/* /<fragment-name>/__overlay__/<relative-subnode-path> */
++		rel_path = s + len;
++		rel_path_len = e - rel_path - 1;
++	} else if ((e - s) == len
++		   && (memcmp(s, "/__overlay__", len - 1) == 0)) {
++		/* /<fragment-name>/__overlay__ */
++		rel_path = "";
++		rel_path_len = 0;
++	} else {
++		/* Symbol refers to something that won't end
++		 * up in the target tree */
++		return 0;
++	}
++
++	*frag_namep = frag_name;
++	*frag_name_lenp = frag_name_len;
++	*rel_pathp = rel_path;
++	*rel_path_lenp = rel_path_len;
++	*is_overlayp = true;
++	return 0;
++}
++
+ /**
+  * overlay_symbol_update - Update the symbols of base tree after a merge
+  * @fdt: Base Device Tree blob
+@@ -907,7 +1017,6 @@ static int overlay_symbol_update(void *fdt, void *fdto)
+ {
+ 	int root_sym, ov_sym, prop, path_len, fragment, target;
+ 	int len, frag_name_len, ret, rel_path_len;
+-	const char *s, *e;
+ 	const char *path;
+ 	const char *name;
+ 	const char *frag_name;
+@@ -934,47 +1043,20 @@ static int overlay_symbol_update(void *fdt, void *fdto)
+ 
+ 	/* iterate over each overlay symbol */
+ 	fdt_for_each_property_offset(prop, fdto, ov_sym) {
++		bool is_overlay;
++
+ 		path = fdt_getprop_by_offset(fdto, prop, &name, &path_len);
+ 		if (!path)
+ 			return path_len;
+ 
+-		/* verify it's a string property (terminated by a single \0) */
+-		if (path_len < 1 || memchr(path, '\0', path_len) != &path[path_len - 1])
+-			return -FDT_ERR_BADVALUE;
+-
+-		/* keep end marker to avoid strlen() */
+-		e = path + path_len;
+-
+-		if (*path != '/')
+-			return -FDT_ERR_BADVALUE;
+-
+-		/* get fragment name first */
+-		s = strchr(path + 1, '/');
+-		if (!s) {
+-			/* Symbol refers to something that won't end
+-			 * up in the target tree */
+-			continue;
+-		}
+-
+-		frag_name = path + 1;
+-		frag_name_len = s - path - 1;
+-
+-		/* verify format; safe since "s" lies in \0 terminated prop */
+-		len = sizeof("/__overlay__/") - 1;
+-		if ((e - s) > len && (memcmp(s, "/__overlay__/", len) == 0)) {
+-			/* /<fragment-name>/__overlay__/<relative-subnode-path> */
+-			rel_path = s + len;
+-			rel_path_len = e - rel_path - 1;
+-		} else if ((e - s) == len
+-			   && (memcmp(s, "/__overlay__", len - 1) == 0)) {
+-			/* /<fragment-name>/__overlay__ */
+-			rel_path = "";
+-			rel_path_len = 0;
+-		} else {
+-			/* Symbol refers to something that won't end
+-			 * up in the target tree */
++		ret = overlay_split_fragment_path(path, path_len,
++						  &frag_name, &frag_name_len,
++						  &rel_path, &rel_path_len,
++						  &is_overlay);
++		if (ret)
++			return ret;
++		if (!is_overlay)
+ 			continue;
+-		}
+ 
+ 		/* find the fragment index in which the symbol lies */
+ 		ret = fdt_subnode_offset_namelen(fdto, 0, frag_name,
 -- 
 2.56.0.313.g2479322e68-goog
 
