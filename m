@@ -1,92 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194497;
-	b=CAe7nnvoxerlWqtn6je8FGJDMpJFiRmugWMXkmclHfnBkwqbgTwtmBdKRLCztexuhzwh
-	 ud4hSxbm/YoAi6hPCGTbGmQ9vqR0eVJC3hsCZP+Q6J/Rjj2Ru9yKixbB1m9G8UZyL1Web
-	 DXpJSvuJyVXIcJUu1BEV7aGSQ7D16CWmIgMPwljScj8IquLhsCaylyChWtqLJrbjWjXzt
-	 JHqaBsX2rT8hommIyEz28x/M72KwxaoBOQRHCTBwr9pAW/fWGnmWxr5hRFIP4ZGh+34Mm
-	 1x6msOnH9bM2r7kpySGSjxAqoGznQLDZT45aOPBTxGj+Jq23mU/bAU/jBPfpDOHmsYg==
+	t=1793194499;
+	b=vaxsS0LA1UebuSt6WLevYtgGios8g7rg/L5WY4yNYmgP1EEeMdVx5IGR8/s5nwGf6UYH
+	 xJCq67d255RpG4Pyq0kZg0OvWoN8ZJdhjwPu/B80kixqM8sE5LEFqgUMMUIbu1Fq5+qZh
+	 esgmyZUctbCj+h3QXk+jS9aJuig3YbiX7fPQw/5EilyTlBGwEldbh6pC+6kU0o1HiC4fC
+	 OJYu1Ym/9dyEJm0hJ33ic6opK6DdEDy6jxM/J7z6lY2QINUSJzEZV8Qropc8j/KG9mMES
+	 b3+QsrbwOCRnVdzx+rVDVUQ/FkfHghrys5lMZTaZcl87F+8OH9xtqT6sHluCFvejZ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194497;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=K5sU8ZAJRz6gFhM4gDWxCHu2kvyqTC/PTTWhoAieCGY=;
-	b=zvz2UrUH8e2e/TZJ3eFZ3Y+aFSccgRLTqSKJJfiz01mtZ4xDpSbUrAtFQKXyG3/PS8pE
-	 K5OPGuezyG+6eKoVN6C/yCvp4AaxsjFjp2z2+hQ3ZUEBEVoZShMPWF1LUErzFf776dpw5
-	 CgRZEqzWfln7AOB/6DN8+8LHUXOrJc0VZmoRZx/jjWvwFBDu5c2Kd4blVzAS1+c1JD6zv
-	 tyoeMJSWMomuCNzmP3zvckVeowHSi3yJxcOQ2vK5dgf3/83yl6msvZLEF+axMnJgS0CjJ
-	 RPEqw+yWod0GfyiWjYL9pKvIHLcrNwnCm7c3CO4O/IynqnQpxkTeFSLjAsXTsa5GBWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194499;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=maFM6J3tuW6aGxj4suln/5TGodXdNpTT72L7DWb+75E=;
+	b=sVYrG8/gxjo0r2JTzIp0Rp6RnhOUuCQsnGni5AzhKP2nNvXbodRBLczjIm6QL4400/nr
+	 AIxWYulELFYBm8js4BbcVJMIyRWPPPggInomxQg+3RtpUg5W1CD87aJu0A7hrpEBgfhe1
+	 BCQjxgtPz8a+UOiSk/FA00EnbDKIqEtEjEzKwzCH56aOz/IcWe3AfrvLy0Y919JdkTO3X
+	 RDkwsfMtdt84Sv+u5ntwkgsZUUamYFpdmshiNvbPQRFWnSuv48JCy22pJFoZ0zOcIuHlB
+	 FwmByrY1YMPQognJvYaNhkXgLnIflJj8VizPLXvs5FaUApJVHnhWFomATrnjU23PUPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=WQTo7RRj;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lnBL5+QF;
+	arc=none smtp.remote-ip=79.135.106.31
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7A6606A31A;
-	Wed, 28 Oct 2026 13:34:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7A6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A05606A324;
+	Wed, 28 Oct 2026 13:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A05606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=WQTo7RRj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=K5sU8ZAJRz6gFhM4gDWxCHu2kvyqTC/PTTWhoAieCGY=; b=WQTo7RRjUws4wLzC6TxpAmx57w
-	qcq5fCMagtfKad2FmcZhLNiyNmxBTF8/cvyU5FhHuyznlY2ota9MN31xYDxFIv2Erfp4aIicHdOEl
-	E2jxLk1iu6UVgBFuNZDHQbP8i5O71tuJIGJbKRCf70a3PNnSQKK+sWlOzaRMzfKYFkbHgL5lDL9Vp
-	ZvXgetdmOXoLVKHD/1ZDYuRo7eMc1PaJvukhM56Ia68PICeBLH2PimR6BGNHj7GsDJbTI86FtVG5t
-	W0wLnsMXdRptmezamho6yQr8A3y96kAxjX7Nk07pkHXtbr6zoq0TtEiKMjF427WJnVaamNRv1dQ0Y
-	/t33+Xow==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xM3ne-0000000G0rh-0VGE;
-	Wed, 28 Oct 2026 13:34:43 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E42F1300DB9; Wed, 28 Oct 2026 14:34:39 +0100 (CET)
-Date: Wed, 28 Oct 2026 14:34:39 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	kernel-team@meta.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-Message-ID: <20261028133439.GK2668804@noisy.programming.kicks-ass.net>
-References: <auCKv_omLGRc6wv2@thinkstation>
- <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
- <auCZFckDfBMrlfxV@thinkstation>
- <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
- <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
- <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
- <auDkbDlgSZxqlk2G@thinkstation>
- <7cb3dd91-f518-49b6-b311-9ec807b3c63b@linux.dev>
- <20261028080635.GD2668804@noisy.programming.kicks-ass.net>
- <auHxIORufMbldrBr@thinkstation>
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lnBL5+QF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793194496; x=1793453696;
+	bh=maFM6J3tuW6aGxj4suln/5TGodXdNpTT72L7DWb+75E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=lnBL5+QFQhFFZbR2BE/I5znV5WXdjgw52krlOgqBACIdB7x9Y9gF4CX8fF5LXXh4b
+	 yTAxXLDS2d3WGgZgXwtKu3CFAk3bWWPDrZBGuRV9oS9rq6P2BIxCoGsBkdBD55vBOJ
+	 NJPdMbaQRo1e4ZvPB8XQY3UcDG+h+WFwYp48cZVm4k9WVHGven7f1g3jdgTCyVZni8
+	 BZlfk7xJIEJctAkuZ9n2DxOJCj+wpvYT9P1LQeFcfrro1YW3oob+xuHZHNrGBGbo6o
+	 1yZIhTUevJq5uWSEkNDExO404vcTvSbFJOgf9AUaRd3WX8GGQekizF8s181TSDsbPQ
+	 4HwOe9El0bxcQ==
+Date: Wed, 28 Oct 2026 13:34:50 +0000
+To: Alessio Ferri <alessio.ferri@mythread.it>
+From: vit9696 <vit9696@protonmail.com>
+Cc: =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Michael Buesch <m@bues.ch>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
+Subject: Re: [PATCH wireless-next v2 2/8] bcma: pmu: init PLL and resources on BCM4352/BCM4360
+Message-ID: <87C23173-4498-4D56-A143-03CA0358C4FF@protonmail.com>
+In-Reply-To: <20261028101448.7f26dd0b@fedora>
+References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it> <20261027-bcma-ac-rev1-v2-2-b69b61c31920@mythread.it> <B511987C-C9E8-442B-89EB-6AF6E8398F38@protonmail.com> <20261028101448.7f26dd0b@fedora>
+Feedback-ID: 739018:user:proton
+X-Pm-Message-ID: 029e3bdb5cd63c89a9cf081f415d2e8d8d5d4f6c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,65 +64,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auHxIORufMbldrBr@thinkstation>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340"; charset=utf-8
 
-On Wed, Oct 28, 2026 at 12:58:11PM +0000, Kiryl Shutsemau wrote:
-> On Wed, Oct 28, 2026 at 09:06:35AM +0100, Peter Zijlstra wrote:
-> > On Wed, Oct 28, 2026 at 10:38:22AM +0800, Muchun Song wrote:
-> > > 
-> > > 
-> > > On 2026/10/28 01:51, Kiryl Shutsemau wrote:
-> > > > On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
-> > > > > Therefore, I am kind of leaning towards removing the RO protection
-> > > > > and restoring RW permissions to solve the race.
-> > > > Okay, what about this:
-> > > > 
-> > > >  From e23ab850837b53cc79d57d58f1cfb4266e745c3d Mon Sep 17 00:00:00 2001
-> > > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > > > Date: Tue, 27 Oct 2026 17:23:47 +0000
-> > > > Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
-> > > > 
-> > > > page_ref_add_unless_zero() reads the refcount and then updates it with
-> > > > a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
-> > > > scanner, can read a non-zero refcount from a page that is then freed
-> > > > and reused as a hugetlb tail page.  If HVO remaps its struct page to
-> > > > the shared tail page in between, the cmpxchg writes to read-only
-> > > > vmemmap:
-> > > > 
-> > > >      CPU0 (lockless get)               CPU1
-> > > >      c = atomic_read(&page->_refcount)
-> > > >                                        page freed
-> > > >                                        page allocated as a hugetlb tail
-> > > >                                        HVO remaps the struct page RO
-> > > >      try_cmpxchg(&page->_refcount, &c, c + 1)
-> > > >        -> write fault on read-only vmemmap
-> > > > 
-> > > > The refcount is zero by then and the compare fails, but LOCK CMPXCHG on
-> > > > x86 writes anyway.  The kernel oopses when hugetlb pages are allocated
-> > > 
-> > > Is this an X86-specific issue? If not, I suggest a more generic
-> > > description.
-> > 
-> > AFAICT most architectures that implement single compare-and-swap
-> > instructions are affected, with the possible exception of s390.
-> > 
-> > That is, sparc, arm64-lse, riscv-Zacas, loonarch-amocas, openrisc (and
-> > ia64 for those people keeping the out-of-tree port alive) all require
-> > write protection to begin cmpxchg.
-> > 
-> > All the LL/SC architectures should be fine, they'll never get to the SC
-> > part.
-> 
-> Only architectures with HVO matter here: x86-64, riscv and loongarch.
-> arm64 has had it disabled since 060a2c92d1b6.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.4\))
+Subject: Re: [PATCH wireless-next v2 2/8] bcma: pmu: init PLL and resources on
+ BCM4352/BCM4360
+From: vit9696 <vit9696@protonmail.com>
+In-Reply-To: <20261028101448.7f26dd0b@fedora>
+Date: Wed, 28 Oct 2026 16:34:32 +0300
+Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ Michael Buesch <m@bues.ch>,
+ linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org
+Message-Id: <87C23173-4498-4D56-A143-03CA0358C4FF@protonmail.com>
+References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
+ <20261027-bcma-ac-rev1-v2-2-b69b61c31920@mythread.it>
+ <B511987C-C9E8-442B-89EB-6AF6E8398F38@protonmail.com>
+ <PI9Cjv-14HEqAnf26GqGftOIUBT5oOa_o0utCXnHdtqKa24Jazoe-KvlG3LsxR1IOqUb22h9EpaxF0OYYrnNgg==@protonmail.internalid>
+ <20261028101448.7f26dd0b@fedora>
+To: Alessio Ferri <alessio.ferri@mythread.it>
+X-Mailer: Apple Mail (2.3864.700.51.1.4)
 
-Per that commit, could it be re-enabled now that its no longer marked RO?
+Hi Alessio,
 
-> riscv and loongarch implement atomic_fetch_add_unless() with LL/SC only,
-> no CAS variant, so they see the zero at the load. That leaves x86.
+I checked the other patches and e-mailed my thoughts where I saw I could pr=
+ovide some help.
+Although I do not have expertise in Broadcom hardware design, I co-maintain=
+ complementary set of extensions for macOS Broadcom drivers for the purpose=
+ of broader hardware compatibility and happen to have some sparse informati=
+on here and there.
 
-Ah yes, I only looked at the cmpxchg implementation rather than the
-fetch_add_unless :/
+In general I would recommend to rely more on the open-source part of the Br=
+oadcom drivers, especially for Northstar boards, because it often contains =
+useful information.
+
+Best,
+Vitaly
+
+> On 28 Oct 2026, at 12:14, Alessio Ferri <alessio.ferri@mythread.it> wrote=
+:
+>=20
+> Il giorno Wed, 28 Oct 2026 00:44:31 +0000
+> vit9696 <vit9696@protonmail.com> ha scritto:
+>=20
+>> Hello,
+>>=20
+>> XTAL frequency on BCM4360 and BCM4352 apparently does not only depend
+>> on the revision number. It is determined by bit #0 presence in
+>> chipstatus. If bit #0 is set, then it is 40 MHz, otherwise it is 20
+>> MHz. This logic is actually already present in the bcma driver[1],
+>> and looks correct to me. FVCO frequency being 960 MHz for all BCM4360
+>> and BCM4352 chips is also more or less known from the public
+>> open-source part of the Broadcom driver[2].
+>>=20
+>> The nitpick here is that whereas PLL seems indeed to be only
+>> programmed on revision 3 and newer[3] (with the code there assuming
+>> 40 MHz XTAL frequency, probably because Broadcom migrated to 40 MHz
+>> at a certain point for all newer chips), but there is a special case
+>> for HT clk_ctl_st bit[4], i.e. backplane is running on HT clock.
+>>=20
+>> With this in mind I believe the patch:
+>> - could handle revision 3 or newer, not just 3 in CTL2/3 logic;
+>> - could bug on BCMA_CC_CHIPST_4360_XTAL_40MZ not being set in CTL2/3
+>> logic;
+>> - could check for CCS_HTAVAIL bit not being set in CTL2/3 logic;
+>> - perhaps could calculate resulting CTL2/3 logic values in a slightly
+>> cleaner way, after all si_set_bb_vcofreq_frac is open-source;
+>> - perhaps could handle CTL6/14 for other revisions, si_pmu_res_init
+>> is also open-source, and to me it makes little sense to ignore it.
+>>=20
+>> Best,
+>> Vitaly
+>>=20
+>=20
+> Hi Vitaly
+> Ok, it seems i missed it, i'll fix. In the meantime would you mind
+> looking in depth at rest of the series before i resend with this change?
+>=20
+> Best,
+> Alessio
+>=20
+>> [1]
+>> https://github.com/torvalds/linux/blob/8a36f53fd5ec3eff01f1b637d42cbdc38=
+21d0493/drivers/bcma/driver_chipcommon_pmu.c#L336-L342
+>> [2]
+>> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
+.4708/shared/hndpmu.c#L3450-L3460
+>> [3]
+>> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
+.4708/shared/hndpmu.c#L5142-L5143
+>> [4]
+>> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
+.4708/shared/hndpmu.c#L4961C37-L4964
+>>=20
+>>> On 27 Oct 2026, at 02:53, Alessio Ferri <alessio.ferri@mythread.it>
+>>> wrote:
+>>>=20
+>>> On chip rev 3:
+>>>=20
+>>> - program PLLCTL2/3 for a 960.0098 MHz fractional VCO from the 40
+>>> MHz crystal, except on a BCM4360 strapped for USB;
+>>> - set the up/down time of resource 6;
+>>> - with chipstatus RSRC_INIT_MODE0 clear, program PLLCTL6/14 and set
+>>> max_res_mask to 0x1ff.
+>>>=20
+>>> The values are those of Broadcom's driver on rev 3; other revisions
+>>> are left as they are.
+>>>=20
+>>> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+>>> ---
+>>> drivers/bcma/driver_chipcommon_pmu.c        | 41
+>>> +++++++++++++++++++++++++++++
+>>> include/linux/bcma/bcma_driver_chipcommon.h |  4 +++ 2 files
+>>> changed, 45 insertions(+)
+>>>=20
+>>> diff --git a/drivers/bcma/driver_chipcommon_pmu.c
+>>> b/drivers/bcma/driver_chipcommon_pmu.c index 263ef6fa1..ab2b2701d
+>>> 100644 --- a/drivers/bcma/driver_chipcommon_pmu.c
+>>> +++ b/drivers/bcma/driver_chipcommon_pmu.c
+>>> @@ -145,6 +145,39 @@ static void bcma_pmu2_pll_init0(struct
+>>> bcma_drv_cc *cc, u32 xtalfreq) /* TODO: Do we need to update OTP? */
+>>> }
+>>>=20
+>>> +static void bcma_pmu_4360_pll_init(struct bcma_drv_cc *cc)
+>>> +{
+>>> + struct bcma_bus *bus =3D cc->core->bus;
+>>> +
+>>> + if (bus->chipinfo.rev !=3D 3)
+>>> + return;
+>>> + if (bus->chipinfo.id =3D=3D BCMA_CHIP_ID_BCM4360 &&
+>>> +    cc->status & BCMA_CC_CHIPST_4360_MODE_USB)
+>>> + return;
+>>> +
+>>> + /* Fractional VCO, 960.0098 MHz from a 40 MHz crystal. */
+>>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL2, 0x0c31);
+>>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL3, 0x100e);
+>>> + bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
+>>> +}
+>>> +
+>>> +/* Returns the max resource mask to program, 0 to leave it alone.
+>>> */ +static u32 bcma_pmu_4360_resources_init(struct bcma_drv_cc *cc)
+>>> +{
+>>> + if (cc->core->bus->chipinfo.rev !=3D 3)
+>>> + return 0;
+>>> +
+>>> + bcma_pmu_write32(cc, BCMA_CC_PMU_RES_TABSEL, 6);
+>>> + bcma_pmu_write32(cc, BCMA_CC_PMU_RES_UPDNTM, 0x00200001);
+>>> +
+>>> + if (cc->status & BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0)
+>>> + return 0;
+>>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL6, 0x09048562);
+>>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL14, 0x09048562);
+>>> + bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
+>>> + return 0x1ff;
+>>> +}
+>>> +
+>>> static void bcma_pmu_pll_init(struct bcma_drv_cc *cc)
+>>> {
+>>> struct bcma_bus *bus =3D cc->core->bus;
+>>> @@ -156,6 +189,10 @@ static void bcma_pmu_pll_init(struct
+>>> bcma_drv_cc *cc) xtalfreq =3D 20000;
+>>> bcma_pmu2_pll_init0(cc, xtalfreq);
+>>> break;
+>>> + case BCMA_CHIP_ID_BCM4352:
+>>> + case BCMA_CHIP_ID_BCM4360:
+>>> + bcma_pmu_4360_pll_init(cc);
+>>> + break;
+>>> }
+>>> }
+>>>=20
+>>> @@ -188,6 +225,10 @@ static void bcma_pmu_resources_init(struct
+>>> bcma_drv_cc *cc) BCMA_RES_4314_WL_CORE_READY;
+>>> max_msk =3D 0x3FFFFFFF;
+>>> break;
+>>> + case BCMA_CHIP_ID_BCM4352:
+>>> + case BCMA_CHIP_ID_BCM4360:
+>>> + max_msk =3D bcma_pmu_4360_resources_init(cc);
+>>> + break;
+>>> default:
+>>> bcma_debug(bus, "PMU resource config unknown or not needed for
+>>> device 0x%04X\n", bus->chipinfo.id);
+>>> diff --git a/include/linux/bcma/bcma_driver_chipcommon.h
+>>> b/include/linux/bcma/bcma_driver_chipcommon.h index
+>>> 0cb6638b5..45c37b6bd 100644 ---
+>>> a/include/linux/bcma/bcma_driver_chipcommon.h +++
+>>> b/include/linux/bcma/bcma_driver_chipcommon.h @@ -107,6 +107,8 @@
+>>> #define  BCMA_CC_CHIPST_4706_PCIE1_DISABLE BIT(5) /* PCIE1 enable
+>>> strap pin */ #define  BCMA_CC_CHIPST_5357_NAND_BOOT BIT(4) /* NAND
+>>> boot, valid for CC rev 38 and/or BCM5357 */ #define
+>>> BCMA_CC_CHIPST_4360_XTAL_40MZ 0x00000001 +#define
+>>> BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0 0x00000020 +#define
+>>> BCMA_CC_CHIPST_4360_MODE_USB 0x00000100 #define BCMA_CC_JCMD 0x0030
+>>> /* Rev >=3D 10 only */ #define  BCMA_CC_JCMD_START 0x80000000
+>>> #define  BCMA_CC_JCMD_BUSY 0x80000000
+>>> @@ -500,6 +502,8 @@
+>>> #define BCMA_CC_PMU_PLL_CTL3 3
+>>> #define BCMA_CC_PMU_PLL_CTL4 4
+>>> #define BCMA_CC_PMU_PLL_CTL5 5
+>>> +#define BCMA_CC_PMU_PLL_CTL6 6
+>>> +#define BCMA_CC_PMU_PLL_CTL14 14
+>>>=20
+>>> #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_MASK 0x00f00000
+>>> #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_SHIFT 20
+>>>=20
+>>> --
+>>> 2.34.1
+
+
+
+--------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wsCpBAEBCABdBYJq4fn5CRBPsoxt7Hy0xTUUAAAAAAAcABBzYWx0QG5vdGF0
+aW9ucy5vcGVucGdwanMub3JnovhRn/wmbxLfqc36oddm5hYhBERSlkTqW1Te
+3v1Bj0+yjG3sfLTFAABgsggAhyERKvEfFf7PNdZqgt/P5OZLnhUSn441S6XN
+Rf1TMsUiAL8QQ4bWxD3G2orGt8d8//mZeHES0TMPlwFtkvjEeOVdLcybhuWP
+qYNJFOpGcPJCUP++PNbxXnlk5tVYwUJRbm4rWDkw83rNgzqZNB+znFvy8S6n
+UnvDVOIQO7gOjKuyhMBz8KSRzemFihyQ2nqImWyb/0NOh2LBQhQnrOP0jfRU
+0PvVXI2hIIxY9JOG31AwZU36vQTV28HKxh1qAympi5UkBDbJQSurqPwkh3hf
+roXUX8+knmCy4YlGKQXd8gg9dGEoFMwo+GPO14/jXcPuSM9oWzSb8LRWYEWK
+PRZooA==
+=vQFV
+-----END PGP SIGNATURE-----
+
+
+--------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340--
 
