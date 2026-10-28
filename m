@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793177872;
-	b=xb6QE2EO2my4znGUUqd6d8oGokBD+g6rl6RLv0o5Sj8ZqOoU+LJDiA2380dfyfl0m8Ib
-	 GwG9UcyxPIJ1kHRKiQuEEnC0urDmJThiMGiFhw49mY7Mkglr+1FNLKNgW4DUUd/5gyAwE
-	 MOsvbNGfEbH6AxKj/Ly8H4fyybSx5yNk6Y1CgA6JEGqzBdkgNIFWWGK0lOIHMro8vWfYf
-	 kC69I5etRXJjRR+Qa2YjqIkhpVUDvsHk//X/Juniu1akD9q26RH3WamAKxgP/dMcKMpk9
-	 uKKTdFnLL0YQyk7R5/RWLoK6NZe4ifep18EYYbi+L+ZKl4QGOsw9sIxBGpzgmJgFbiA==
+	t=1793177868;
+	b=e2iilniuK7enWFEX3dRLFI0dvozc8QpjjQ2NwqIvo35HNkHBd5WQA9eNgBToBm4wXASh
+	 jPZSYAa//uEviZE/vsOLrpoW5Mhv1+SGrv/ehP6t3uBF/JdSPgI7GCjtWenV7qvPGKN7A
+	 XU+2bN0tJyh2325857kdQgOmBZmEWyFAwl1oXH8kgVJr1MggcM59VStj3MgYqAMkotxDo
+	 OyWxxP2WOuVH7N3CIVqgEhDHRe3NaOufYsrFl4+ld/OkN8wmt3VY4/QndDiuq6ViSDx3P
+	 /fWJxnHYMy99OJ09IPAT2AgYGH0TNsc79RAsSZJcNxSUJC6Q+Ts6DgAgDBC1o9ZprHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177872;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+RejnB+h8n3B5SjN1/dH/aM6eDuxs01fVfpUcQkNmDQ=;
-	b=S7kc2db85PNuAotknAoEQYOAgTsIpuIahrrR210dptiKDIjh/+GGhKwPGD/IwjWeIfjo
-	 o095bWUsWtD8SeP01PGyil6H1YojCI3qw+nBGFUxLnI5/KYeb09f9ZMHrSdKccNrLTu91
-	 Q9h61vcqxWy6yjQm0KOotcYj9btcAGWvSiJ93/755ZO89175iqhroXeUrAdz5dLCSYAQ/
-	 1dNRbyLu10WSsdXRX6XwDqdNlGq03WCnud1AiWAV/LhNCNwFFzK5nZ0P1C+aKp0Fel03L
-	 Ff1Hv8MtMm6jTI7u0EvB20euVKtVb6jsq3Gkz6QH5qUfmI2moDUtMRaXYbzu3v1Y9qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177868;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/WqBXbdrr81VFuR+G6HpIUqhONN25pqT1vt0MHbETgY=;
+	b=p+gy1ZgOjsVEUh1vaYsdm/5GMVTyK+QbkRiZKAqv9stoJkJ7zJb1pxzyjMQdBMcqyWLO
+	 8Wvic25vfGZifpmU8WRIv3ZaOV0zISIHCihIFZfj0AMT6EujDpgTb17dTBSXqDh7KVhZa
+	 saxvOTyDmGTn49X5adjssDaAI+OTQ95RcRobp+0rW0j6PJ/dLZosM/SfI+9YXGhqz/tq0
+	 Xf6+Cr2R0MqprKXTtCQcDiNE8lHfpv7YKO903y1tnajT2AUtNErjQPwOKrOvbVpNKOuA2
+	 WrPHD7iVJTjGjDVbArqRaaoRfo9RZ6b1H8CDy5XMfrP4Eli7zm2bD7Tnpg05rLW6thQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YsBqi22q;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 126B7606A320;
-	Wed, 28 Oct 2026 08:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 126B7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=CFv5AfZu;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E308C606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E308C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YsBqi22q
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1E1B175D;
-	Wed, 28 Oct 2026 01:57:46 -0700 (PDT)
-Received: from [192.168.178.72] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0E2153F7B4;
-	Wed, 28 Oct 2026 01:57:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793177870; bh=qZzzQjsMm43XS3Uzw7+KOUDHHFywhHHO4VzAbejGsvk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YsBqi22qzBrzOdum+ZQ2UTn61F1f43lQDgjubuzIi4xom/NLR8BuOqNN33dmagxCC
-	 WqBy+1fcSfVr+HFTY73NEjKOifu6H8G2qq8kcSpx6wTOm+wqOMH1STKVe5W/AzXTOD
-	 77urUGd/esefQCC4dOS2R+406xkjOl2QzG5nW2eM=
-Message-ID: <10f350ff-8f82-4a3c-beea-4a02d0d179f9@arm.com>
-Date: Wed, 28 Oct 2026 09:57:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=CFv5AfZu
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so5428235e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793177866; x=1793782666; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/WqBXbdrr81VFuR+G6HpIUqhONN25pqT1vt0MHbETgY=;
+        b=CFv5AfZu5I2b9KXFq0rOQPwx5UV0ZFc+xHcUWQMTcUuoaaCCbTqUKE2sjAMCyCKKuS
+         rdafitpNcg5oiyS0CZjoKlJY3o0peJuKFzL4a68vw2whwjYNLbygWPA6iyXxMkbCHuaw
+         lUi2hjyacO81EYVMX03X18jKuZU+N3fY4n3qLOWvkNEcFnZc/QJyPIafW9EJMx6h+bbV
+         MynPWKZhKIjQEaGEPpKkDOueqoolfl/FAZVoFCjoG9TEoWiWSgaswZqeDErFDuDIo23A
+         qg50u0QBJv2HO7OuqmLq+2lWtgZZGerhOBvXBAA68k/meQvgU+UgtZCkxSju6ioa7mD1
+         Y7hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793177866; x=1793782666;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/WqBXbdrr81VFuR+G6HpIUqhONN25pqT1vt0MHbETgY=;
+        b=WLvwrE2TbmxJ6Kvrgc4B44hJt8hONfti30wpcqYC9tJPyW40slwrHJKwxzrNRBeGYy
+         LqsDBgTB2507Uzf0XaoeVYtoXSpcbHSZpDH+G7sZ2E7K1cLVcCOV+JLuKrqCmth3zOgd
+         ve3yzop2ZwqHWbls7tG36jReBdvBd8QoaHCekNZkcFkRcF3+0bX9fsLzbEowvo13SMnJ
+         J7QK6Gq6O6K5xmp12llX0j1z9bO01UFnuZZe5mJBT18/jDFowrpOVGSAlsL3is8HE8X5
+         ns19FPlVVmQS8Nnn1s1lEQjowOiiJTXyLWD8lmoU0c5PympMiqVLEZQ1oamjg9w98ByL
+         JVCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWJzOZqEcGtIekPKYUEqO8xREG3KP1NxEUkLMj5h73e0Rp+VHke4JhGYZVcuFl7IK07jGjlYtQg+ryUtc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8Ie+B3O3klvnmpn5NVG4fL6eglzVtv7pQrHAPDVmFAkyO2aBK
+	58szV//qrsrtglwi5/Ayx6UmoqRCKVJ7JhwLRYv6nsandKkxAfQeupZW8bPVFShAWGk=
+X-Gm-Gg: AYBFou2Qvrd4RLSvU+gNi7mgNCAV2Fw+/0ae3USO72iLMcW2I1golf6Aytfn9rxKg5c
+	Gn7P8THf5WPy3sSGv8hQBuRXAfh7sHfj6QnysEwaVuRSSlymC6Y1p7UsiG1SVUuryZ1rUmeas3V
+	flElRSRMjxJUEq2acRNx3YV/hXm37gJ/WWAT/HSvUCTA+7f0LrpRxIEsqLXI8zsUHh2dmKYEFZx
+	ueJVnzXFnTKcnQk0lKBbqpgQ8e02yE+FdiiAKJigIDlNbrRGyHJLKJonbu8Gurx0KjG6VQ8t5xT
+	wqIIfkTbtOUnhIPRUxbBVo2RthSi/84mfB9eCksIxm3cnMrTw1bWM6bAuzUZQtCJS/EqRFZmgIB
+	556ctd9yuGzPYXQv5pSyQNYsUk8EXraGMxsA0cnGlMQMB/64AnzPNjaU9dnvybjBYnrfCh0yPe8
+	aO8t7Vp7A5PIOMBluZZerSG3lRdw/yQgU0Wx1csp0wb7miSU9bjQWYa7lcSrr7mrW5mshHBmub2
+	NOiuYeg0/rwYq+hBJznuNheU5FdBVV1uQFWaEnUqGxNjvq2HIwgrNm0o01+a/bVuBww7NZpH1aT
+	RFNIwthSq7db13NQfNAqBw==
+X-Received: by 2002:a05:600c:8715:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a967ab1ce3mr32942435e9.33.1793177866215;
+        Wed, 28 Oct 2026 01:57:46 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9035casm2084162a91.2.2026.10.28.01.57.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 01:57:45 -0700 (PDT)
+Message-ID: <65fd2260-78e1-4521-9df1-b042788ae7bc@suse.com>
+Date: Wed, 28 Oct 2026 19:27:39 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,152 +93,160 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] serial: 8250_dw: describe the Allwinner H616 UART
- configuration
-To: James Hilliard <james.hilliard1@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+To: Luca Stefani <luca.stefani.ge1@gmail.com>, zhiwei.liang@zliang.me
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ Filipe Manana <fdmanana@suse.com>, Robbie Ko <robbieko@synology.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+ <CAO0HQ0UE5BtevPHHfV9mQo5HoqzxzDDjAkj9e=pD_0AaXmSYFQ@mail.gmail.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <CAO0HQ0UE5BtevPHHfV9mQo5HoqzxzDDjAkj9e=pD_0AaXmSYFQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 10/28/26 00:05, James Hilliard wrote:
-> H616 has 256-byte UART FIFOs, but lacks the DesignWare component parameter
-> register used to discover their capacity. Its debug-divisor and RS485
-> registers also overlap offsets used to probe optional DesignWare features.
 
-that affects almost all Allwinner SoCs, not just the H616, so should be 
-solved universally, not just for one SoC.
+在 2026/10/28 19:21, Luca Stefani 写道:
+> On Wed, 28 Oct 2026 at 07:57, Zhiwei Liang via B4 Relay
+> <devnull+zhiwei.liang.zliang.me@kernel.org> wrote:
+>>
+>> From: Zhiwei Liang <zhiwei.liang@zliang.me>
+>>
+>> When a suspend starts during FITRIM, fstrim can fail with:
+>>
+>>    fstrim: /: FITRIM ioctl failed: Unknown error 512
+>>
+>> On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+>> fstrim.service runs were in progress when an automatic suspend started.
+>> All three failed this way and left the filesystem untrimmed.
+>>
+>> Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+>> loops"), the trim loops return -ERESTARTSYS when
+>> btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+>> to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+>> properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
+>>
+>> -ERESTARTSYS is only valid while a signal is pending, because only the
+>> signal handling on syscall exit turns it into a restart. But
+>> freeze_processes() first sets pm_freezing, which makes freezing() true
+>> for every user task. Then it walks the task list and sends each task a
+>> fake signal. The trim loops check btrfs_trim_interrupted() after every
+>> extent. If a check falls in this window, the loop returns -ERESTARTSYS
+>> with no signal pending. Nothing restarts the syscall. On that laptop,
+>> with a few thousand threads, freezing user space took 2 to 5 ms in each
+>> of the three suspends above, and all three runs hit this window.
+>>
+>> Make btrfs_trim_interrupted() treat a freeze as an interruption only
+>> once the fake signal has arrived, i.e. when
+>> freezing(current) && signal_pending(current). freeze_processes() sends
+>> that signal in the same call. The trim loop stops at the next check
+>> after it, so suspend is not delayed.
+> Looking at how ext4 handles this scenario it seems to me they don't set
+> the error code to -ERESTARTSYS and (from a quick glance) return the
+> bytes discarded to the caller.
+> And like before they continue the discard (which will skip/fail again) until
+> there's nothing to be done.
+> 
+> I don't know what the intention of btrfs: handle user interrupt
+> properly in btrfs_trim_fs()
+> was, maybe we should just swallow the ERESTARTSYS case in those scenarios.
 
-IIUC Chen-Yu has a patch to attribute the right FIFO size, in each 
-.dtsi, which I consider the best solution to this problem.
+I agree on that btrfs is the exception, we should follow ext4/xfs, not 
+rely on some tricky signal handling behavior for suspension.
 
-I'd say we wait for -rc1 and then work on top of his patch.
+I think the tokens of the author should be spent on unifying the btrfs 
+fstrim suspension behavior instead.
 
-Cheers,
-Andre
 
-> 
-> Add an H616 compatible for the integration-specific setup. Keep the
-> existing 16550A port type and describe its fixed FIFO depth in platform
-> data. Use common Allwinner helpers to configure the transmit load and
-> receive thresholds from that depth. Configure automatic flow control,
-> preserve the BUSY-safe integer divisor path and keep the UART gate enabled
-> during termios changes. The H616 configuration uses PIO.
-> 
-> The series first introduces platform setup callbacks and a shared RX
-> trigger conversion helper, then adds the binding, H616 setup and SoC DTS
-> changes. Based on tty-next at 6b4b543fa187 with the posted RX
-> trigger callback-lifetime fix [0] and DW BUSY-safe divisor fix v4 [1].
-> Platform setup runs before installing the BUSY-safe divisor setter.
-> 
-> [0] https://lore.kernel.org/r/20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com
-> [1] https://lore.kernel.org/r/20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com
-> 
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
-> Changes in v4:
-> - Introduce common Allwinner setup helpers with the fixed FIFO depth
->    supplied by compatible-specific platform data.
-> - Rebase onto tty-next at 6b4b543fa187 and the posted DW divisor v4 fix,
->    installing the BUSY-safe setter after platform setup.
-> - Use an early return for FIFO-less DMA setup, following Andy's review.
-> - Default to generic setup when platform data has no setup callback.
-> - Select Octeon's optional-register discovery with IS_ENABLED() in its
->    setup helper, preserving the existing 32-bit and 64-bit behavior.
-> - Extract the shared 8250 bytes-to-FCR conversion, including the
->    unsupported-table check, into a preparatory patch and use it for
->    H616, following Andy's review.
-> - Set the fixed 256-byte FIFO depth in H616 platform data and omit
->    fifo-size from its binding and DTS, following Krzysztof's review.
-> - Precompute the Allwinner RX thresholds during setup and retain the
->    sunxi FIFO-depth helper for filling the table. Use named FCR encodings
->    in the helper, following Jiri's review.
-> - Share threshold-table initialization and callback assignment through
->    a sunxi RX trigger setup helper.
-> - Group and comment the H616 trigger and RS485 setup.
-> - Link to v3: https://patch.msgid.link/20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com
-> 
-> Changes in v3:
-> - Introduce a platform-data setup callback in a preparatory patch,
->    replacing skip_autocfg and preserving the existing Octeon setup.
-> - Describe each H616 UART's FIFO capacity with the standard fifo-size DT
->    property and use the value already read by uart_read_port_properties().
-> - Derive the Allwinner RX trigger thresholds from the FIFO depth.
-> - Use an unsigned trigger index and conditional runtime PM guard,
->    preserving error propagation when the device cannot resume.
-> - Rebase onto tty-next, replacing the earlier DMA prerequisites with the
->    posted RX trigger callback-lifetime fix.
-> - Separate DMA enablement into follow-up work, retaining PIO operation
->    for the H616 FIFO configuration.
-> - Link to v2: https://lore.kernel.org/r/20261023-submit-h616-uart-fifo-v1-v2-0-af0593504635@gmail.com
-> 
-> Changes in v2:
-> - Keep PORT_16550A and set the FIFO size, transmit load and capabilities
->    during setup, following Andy's review.
-> - Select H616 setup through the matched platform-data pointer and remove
->    the type and DMA burst-size platform-data members.
-> - Use get_rxtrig/set_rxtrig for the 1/64/128/254-byte receive thresholds,
->    with port locking and runtime PM around register updates. Keep the
->    standard half-full FCR default, selecting 128 bytes on H616.
-> - Advertise UART_CAP_AFE so CRTSCTS enables hardware automatic flow control.
-> - Rebase onto next-20261023 and declare the posted sun6i pause/lifetime
->    fixes and their prerequisites for DMA enablement.
-> - Link to v1: https://lore.kernel.org/r/20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com
-> 
-> To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> To: Jiri Slaby <jirislaby@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Chen-Yu Tsai <wens@kernel.org>
-> To: Jernej Skrabec <jernej.skrabec@gmail.com>
-> To: Samuel Holland <samuel@sholland.org>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-sunxi@lists.linux.dev
-> 
-> ---
-> James Hilliard (5):
->        serial: 8250_dw: select port setup through platform data
->        serial: 8250: share the RX trigger conversion helper
->        dt-bindings: serial: snps-dw-apb-uart: add Allwinner H616
->        serial: 8250_dw: configure the Allwinner H616 UART
->        arm64: dts: allwinner: h616: describe the UART integration
-> 
->   .../bindings/serial/snps-dw-apb-uart.yaml          |   1 +
->   arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     |  12 +-
->   drivers/tty/serial/8250/8250.h                     |  16 +++
->   drivers/tty/serial/8250/8250_dw.c                  | 138 +++++++++++++++++++--
->   drivers/tty/serial/8250/8250_port.c                |  12 +-
->   5 files changed, 151 insertions(+), 28 deletions(-)
-> ---
-> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-> change-id: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
-> prerequisite-message-id: <20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com>
-> prerequisite-patch-id: d8219673210dac82d3adab41578ff2f76f5862c9
-> prerequisite-message-id: <20261024-submit-serial-8250-rxtrig-lifetime-v1-v1-1-731b78d5003d@gmail.com>
-> prerequisite-patch-id: 9a9395c715c2bf7bbcae5bdd16a339d7f2af6269
-> 
-> Best regards,
-> --
-> James Hilliard <james.hilliard1@gmail.com>
+>>
+>> The restarted syscall re-reads struct fstrim_range from user memory.
+>> When the device phase is interrupted, btrfs_trim_fs() has already stored
+>> the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+>> the struct back unconditionally. The restart is then asked to trim
+>> [start, start + trimmed) instead of the requested range, or fails with
+>> -EINVAL when nothing was counted yet. Skip the copy_to_user() for
+>> -ERESTARTSYS. In all other cases the partial count is still copied back.
+>>
+>> Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+>> during a trim leaked errno 512, and 10 of 10 restarts after a
+>> device-phase interruption failed with -EINVAL. With the patch, all 30
+>> runs restarted and trimmed the full amount.
+>>
+>> Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+>> CC: stable@vger.kernel.org # 5.15+
+>> Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+>> ---
+>>   fs/btrfs/free-space-cache.h | 3 ++-
+>>   fs/btrfs/ioctl.c            | 7 +++++++
+>>   2 files changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+>> index e22443598b..cba2f5fd6b 100644
+>> --- a/fs/btrfs/free-space-cache.h
+>> +++ b/fs/btrfs/free-space-cache.h
+>> @@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
+>>
+>>   static inline bool btrfs_trim_interrupted(void)
+>>   {
+>> -       return fatal_signal_pending(current) || freezing(current);
+>> +       return fatal_signal_pending(current) ||
+>> +              (freezing(current) && signal_pending(current));
+>>   }
+>>
+>>   /*
+>> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+>> index ac070c745b..b02c59cbb0 100644
+>> --- a/fs/btrfs/ioctl.c
+>> +++ b/fs/btrfs/ioctl.c
+>> @@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+>>          range.minlen = max(range.minlen, minlen);
+>>          ret = btrfs_trim_fs(fs_info, &range);
+>>
+>> +       /*
+>> +        * A restart re-reads the range from user space, so do not clobber it
+>> +        * with the partial len the rerun would otherwise take as its input.
+>> +        */
+>> +       if (ret == -ERESTARTSYS)
+>> +               return ret;
+>> +
+>>          if (copy_to_user(arg, &range, sizeof(range)))
+>>                  return -EFAULT;
+>>
+>>
+>> ---
+>> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+>> change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+>>
+>> Best regards,
+>> --
+>> Zhiwei Liang <zhiwei.liang@zliang.me>
+>>
+>>
 
