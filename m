@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793186357;
-	b=4qzxqShE3qmCdTuu9uv5t8Ec8X2yayI4GoUdW5lkwURfpWDjhe415xwEV9Nt5AJ1MmTA
-	 ZJl+bFHipirLfSNKimZr+hAkV1CSJUgFUt8xUkOSgDeMji8WIPWYA3wgc9Zg0khJd9cF1
-	 Z66JXTONwqA+95OLwXdPFGp/W+I5/XbpWFVxUr0zUr0T1V0vkw0Nu0/EVf31O3Owj5oAL
-	 hSAygzT3PFwJjbAp+SyFo9fY17GvTT6gktkrlkLsThosO5Gw7y7c0ptBRsdpmPJZRY3zb
-	 +zEjuusYXu+miUESBjRpkOhuxTE2k6WKJ97D+VVjUuA0lLfbAx5E9NJl2BRL6y6PReg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186357;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=ld/iz65uIN8LqjKhxw6gkcF3QLRHuX2KKUjXPIm2UlS5nfsyRaDal2f/BjV2eKqgblO5
-	 ejhRJ7Em18mHXqIV7Vx56k9QqPa5ecZXOxUUtx1TTaK1NuxGuQwYXaYmSDpPyYclDOBlN
-	 Pj4lYqUlaHoda0GeR11sbAKwe6d6VTtcxQ1nV22H8q7DxLhfR6PVyu+kZArpyo3PGZMRz
-	 eSVKi7bMtjyTH6EnxA17ib+P4StbswJ+ZSPVrOBG4EkB2lvPN4hHW8Yh4vtIC7u0RHNsx
-	 6SIrqBraoZgLhKrNXl5Vorp0nXK7/y7hayKtyEOZfjHmDRp6mFxiEunWI4atPN70ozA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2qzZ8cu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE060A2621;
-	Wed, 28 Oct 2026 11:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2qzZ8cu
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793186356;
-	b=H/OLYwJi+D1RgtG4l79kTwvAvQOGGegwh0YXvGlj/U+d8Koj5iDcwZXhBcDS9ezdKcu8
-	 UVbwoor0I/H8wd2yc1bSMVcMaoMh2fNyY+8lnXJSPl5DmLIhSD92RrSJv3LQZXg+Pc+Gt
-	 L1uAJip1lg1MHkxOxI/DVGkOlUZQTYE8jq3vfmIg5W0lQt7jHoYsNBI1KJv+wpBUXQEHE
-	 w9VTctwQmz6pOfbWUKSuoBvOaFocTs/hB5ob1yL6EsrLYo1mQYBAUKL++IqGRhyqSHL2Y
-	 GzTW4xb4iewEQd8t5F4CsV/MS4c7VDFC8elS6OsHAHMup2HOTQjzmxxoXyKQgd0hViQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793186356;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=3LUT88M7uNSef3Y/dbnEqFsbgVAcziNEDCLlfwjSkpMUxz0jKTYa+zS4eSdAa62pyz3f
-	 RSRRhhKEQZYetwcdvz/uuNxr29XGbZ3cAfQoyZN0kvc1McBPlnPRSeHdIB3wh3lf0GZyx
-	 CpyzfRLKV5g2pUPDSLJRCXyzaxSxMAzu80NcuRWTa4XV0EDbuKr190K6qMMydtLgxRgC2
-	 QntCOln4efdOY6V53vSBw4F4oKVaBabTmG0d1tymXE01KJ0haBtfrEbna/oqnAD0TJMqP
-	 BeD0etbm11Hs+NWuHDSkfXl4iYWLIqm0fGltfvnxtDDi/OUfklsZgqhzmEReQZ2lw8Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793186347;
+	b=A00wS+MTwc2eVvNpIds4i0ZGm9V2guWbAl6zA5IaKcKc3qUjgelh2tfTWVRgVRn1g46F
+	 uWzH2LQIFCEE45CG5pwZOImU+wANzgCZZmgcVh26ToHZARrvWvaIfctm93FijArXZsVOP
+	 z24zFcs8QgizhAhHLInB7Lw2M69AzFprL5lD/uLudbFznVG5Kvqd+LgcheGw7Eb8vT/PQ
+	 eZwLidZPPL8Q1a9oDC3+nIx5OkBQh/G7YGuJmS46JLkk5Uh2IPwFRPUjb4YfIbrG854F3
+	 dHdb2xVFyrXGWPJM8z1jQVCqrf+E/VBNMbJvs1bvav6cDrrhty0+O9Q9TeNyM3cFmSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186347;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=KOoA9Umgn4JIoMaxIckP13h2ihpbZ+7K1hns+hD7csA=;
+	b=kKfSCRGeTPSfynf9Y82dc3zt2Qcc1Zqas22ZC0JDX47GjjN49mTR4+cfYZWOMsYKbPu/
+	 0PKa0yJQZjoVTSecDu+faYq/J1JIZoXTgWXS3ccs6tY7gu9L6WeKInE8eNZUEI3ub1/5r
+	 En4Pwd3ljo+MgxhBF2/j3dMQTgbdC0wAEuneE4MiCWAuwFo/OLat6YbEvPmidEcnQC6qO
+	 j7PRBcPmW46zDKjMxKOQYtpwRTpsU+eiAs1AdFAmbG8brljzaLt3BvMuwbr0wdAvKEghd
+	 xUSFs5CsQWTmAhuX8vYMk1kqEOQpIyNGUyaFE/2mJIz1paswMTNJbyXvFnaQLmYRajw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j0C8rcYX;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1C2FE1F01340;
-	Wed, 28 Oct 2026 11:19:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186356;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=b2qzZ8cu4aVJvtP4q5wNdcchc/woej4B7IVRs46PjGeArSY6aVnjvK+e9mY5sxrG3
-	 GnPWHEd2O+2M5oLxbhOIlGtz8lVQD9Mm4h/u/oGcPMqVurpudyM5oYfkJWZtyr82Ac
-	 wvO1Yazvwp4SJI18O4yxLQyry0GFwexFhLQAU66gLaDBhRqOQNDqygHYojnnEfyXMo
-	 RC//XSYD40rkUAnJ+8oN74JjRbEEXNWVHAw5Sg+3jp4y5DEEwO/6lVRx6po23Zpwdx
-	 4IycHcU+lKCamwGlD/Cc1UDdClgGyDg31Y8E0Os04Bn3AxOy/NNcdfQToaTXRIAdxq
-	 lPdlCmVayCumw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1C58445437;
-	Wed, 28 Oct 2026 11:19:13 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 28 Oct 2026 14:17:29 +0300
-Subject: [PATCH v6 10/11] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71950606A335
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71950606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j0C8rcYX
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a208d93758so8551545e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:19:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793186345; x=1793791145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KOoA9Umgn4JIoMaxIckP13h2ihpbZ+7K1hns+hD7csA=;
+        b=j0C8rcYXMoI0cHH6kB7YfdWfZh09kZxhGFC/Ew9pWrhnbWA+VWktWHe6a8uCRv4epn
+         QtefVpLGyHDpfRsYKZF7xLnBe9uHEI11jP+GJfl/2r3RNfe3VhPaWByqMgy0h6CNFF+z
+         wHPhfYNFXWQ8sImdfsr9VtQUc+ZNeNLON5eflMXAyn3LiR2yHA5CDqzBEGYU92Onmet2
+         k8NPKNOqsP/CfjUJE95kaDcLV5vv4kSy5vKFtDMPZqcx7pLJO/Diu87YlcHEZfscH9Ne
+         xFT8SitdW+DM8YTFN8BDiMXvNSHkBVnvYhZ3Pa2vrP1nKaPGu8YazCEHu6IqCYfI5hMr
+         7XtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793186345; x=1793791145;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KOoA9Umgn4JIoMaxIckP13h2ihpbZ+7K1hns+hD7csA=;
+        b=o/UEi29Pula/YCnJYBfMJQ/Kc2quMoliNgJO9eIImEEmUX3UCSpCtMeT4DnI2hzqh6
+         WRYrPnA55gVOHqR30BclsoW7moMN6z3925wvjUAUjFBCJM6q4rPQP0nYnXG+lseP6y+U
+         wO1jWSH7SGIR5phRCTBzxkUWBT49tUQpvl2rq3MT2oiMSvB5YStrgAnwCIAwot9g3TN3
+         cXaRzlKYWXSu3z51YF0kkkmtMop1Wl4dobVoihBjrALaUKiyvGN8MCWTuzdKyMeE1Lji
+         zs12QFPCWLb9XIrd/68ce+bzjJ4yPS+rywdFZyhfCGSispPZDKTm35dD0iC3152/6T4u
+         FDuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTDU/yRYpEduCn92tE1Mj4jCEkdt4u7iAyRqYm6nH/B3leayGY6xOoDBEGkRcY222mjPzbjxoK+dLvkNM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwwggAIt9RjmoXVkFJ2h2DReaJo/QlRLrCMzXIWvBy9zcVWkSh
+	HScFvsC3MWwOqxEzMTdW/v9v4ZPcGwWf0eePsBRVvaf5l8mzmZ1+Wdle
+X-Gm-Gg: AYBFou1BUfMxcPCxuVoKOHm5w1xe1TpDUMahQ5WWhktp2vkj2I+5qXvfxhXmMSkRmww
+	Qhv1D9Ttm55L+PjuOga4mPIWWLPbf9n5gn/WhmpmDP3gN4p4D1kfmBFm9xI4sOJU4cTT0Wc/bQM
+	R3IT5bsZJFsmscuZqVSKp0mwyFDBBaZOu2h2XcuKoUvx0V9j91pwKSiWNk46Kp+UP/rM4XSsCQ8
+	1HMUNJ+X1PzxRL03JUfIWJzRA88HouENSSOQYBCExE4mXBzPNnPK2GjEGRG6RqnhBWlVNAIMUSX
+	d0fllPiRQTRpCBGjjj+XKQ+5mb9Kl6qnlS0DAcWAeR2bOhOsxbKQp5O6zO6n8u8Sj1NyrOUYr6w
+	eNzrqYBm/fq7TRYjjGHxrbHKMA7y6MqcNwIBOWVNpoEvR5FQtpiTb+EWbkWA0Pl5dP4GbFBcacc
+	YmIezXOQuPiGkrLvw9v33Sd1U9v/Yq5KSNJCwwDC9lgDZ4drQiZlXy0SfgtvaIWPgcnGrFbe8/r
+	81sCsRn9cRvxw1g9vei2ltsQ6lkkYN3NREP3rwRdZzZEf8qnvLqrplNfy19f1qNjIPi15BglIzm
+	C9DCfBj/l8DcIJfoiClUDPsnCBWqfatd0HKoK4Y=
+X-Received: by 2002:a05:600c:c3cf:10b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4a967d96ef6mr29165285e9.33.1793186344800;
+        Wed, 28 Oct 2026 04:19:04 -0700 (PDT)
+Received: from fedora ([2a02:587:85d1:a500:5135:1deb:a9ab:fb3f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978d57b39sm64197635e9.10.2026.10.28.04.19.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:19:04 -0700 (PDT)
+From: George Karagounis <taterraster@gmail.com>
+X-Google-Original-From: George Karagounis <mail@taterr.org>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mail@taterr.org
+Subject: [PATCH 2/3] HID: elo: Replace create_singlethread_workqueue with alloc_ordered_workqueue
+Date: Wed, 28 Oct 2026 13:18:52 +0200
+Message-ID: <20261028111853.22429-3-mail@taterr.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028111853.22429-1-mail@taterr.org>
+References: <20261028111853.22429-1-mail@taterr.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,117 +102,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-msm8952-initial-support-v6-10-e07ddd8bcf4c@mainlining.org>
-References: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
-In-Reply-To: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Rajendra Nayak <quic_rjendra@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793186351; l=1656;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=WcI6NF2jH7/1jsgO/qq/6GfopHH27DV/LBlXLYlg2yo=;
- b=bH46ezpINOJGaqTGuv8ax4EGvA3DWxV2Yq930+Quu+D70OJ6ZNJtsQ+ibnaxx8zH6mpZtRUen
- U3OY+akPQPeCF3YGHWmBgTadJbP4fCH5vhc+r4fJpFndxqMGKAc6x9n
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+create_singlethread_workqueue() is deprecated. Replace it with
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+alloc_ordered_workqueue() for the elousb workqueue. WQ_MEM_RECLAIM
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+is added to ensure hardware events can be processed under memory
+
+pressure.
+
+Signed-off-by: George Karagounis <mail@taterr.org>
 ---
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ drivers/hid/hid-elo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
+diff --git a/drivers/hid/hid-elo.c b/drivers/hid/hid-elo.c
+index 86e8729e1975..72fdc073ae39 100644
+--- a/drivers/hid/hid-elo.c
++++ b/drivers/hid/hid-elo.c
+@@ -296,7 +296,7 @@ static int __init elo_driver_init(void)
+ {
+ 	int ret;
  
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
+-	wq = create_singlethread_workqueue("elousb");
++	wq = alloc_ordered_workqueue("elousb", WQ_MEM_RECLAIM);
+ 	if (!wq)
+ 		return -ENOMEM;
  
-   reg:
-     enum: [ 0x5d, 0x14 ]
-
 -- 
-2.55.0
-
+2.56.0
 
