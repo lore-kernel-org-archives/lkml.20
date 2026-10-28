@@ -1,132 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193633;
-	b=g7K8k/hLy4e/J4/Kopf+aUYXm21LTBq5d57IEAVkO35KVS/mdbYzzI0aGoWZ+9ZIZLp2
-	 ZhmAif3VxwwkHadORwcMjgYTwAuI+n0uvROgjXt4gT/PP8XMd5ejzi5rzcYyQ8bR730Rg
-	 4NRBPFtxYiSCyiGbrWrOzvDmlA7CDA8/8vjWtuEd0X66sGm5iftv3HkDxiL6Wmnvs6YGI
-	 T586D8JrwkR5Pk2eo/cbYOhbsgYa+8NDpSYKCEs62l54+AR8UZua3fuBsRMZf+B1AKnp1
-	 1VZQGBOmOOUgRctA4xDORgSLovMBkTfdCpF4of3CdlGgJE0fxdZ4vhLESzpjW4PXTIQ==
+	t=1793193679;
+	b=fud6IPzpdvVX5L4KC7zzhKOMtyHhuK2Qhsg/SC8GLCWH/Em7GdWbljfIj1lrZEywmXgz
+	 FM7xjvEqDNLBhETCBJ+1MsoGHweVcAFnHOjUGcT3b0QmTSiNpUdEmo8n6okWwRa5ZiXEq
+	 OG13WYmNO4E5cwB/BqBjWrIN1d8QQm3rFLdxXTY0p0SCkoDtHvkgmFmwm+icXIqWwqcp4
+	 hKD54LN6p1LLfamVl3aPS77OKYDmGGVYAENK/s3aDpyzk7A9HR+bpTC9H7t+zqqGhJXx2
+	 rgFbkKKOWQTCUWsHBj0GeZJoKtne3A29X1A7K4qh6+YrbOJoOOBpnq/c/6m5OAGwsrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193633;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
-	b=t6pw+ZWUbKgMBhbaIO+VXVm8QiKBDK44Drt71VYElaPxVb5w0tba8SDKXwv5qREDoXF0
-	 g4IlGJ3xlZeTP1H27bo3MxqPwdAzhwBTMKf0wk+JHesUOmDnxYZEnrvdoYNcGb0POYC83
-	 CWSSLLZayr3zW9td0d1wA8V7d8c6cgFua/512+GsD+jrS5c5lN7gf0hVSViAiBRwgtTjk
-	 GToNzctKRB0gcYwSdDjLYGaRQnrlH6CEK8MQUwHPPM+JtWejLfu9I4ENN13QO8iGUa4EB
-	 OL1CYCVn3NoW2xnB96pHU5pq4Z9dl3fXi15TTPWdv112j1/TfwXhigl/YvG2uiiRsbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193679;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=XV8iChu3fD6X6TY3BBYBIzbZ7fUQVD/5ZOVj3gnhZ6E=;
+	b=1c4W30K8uVK9CtOCUs+kOruo+s5E2UYl4DE3fa4MC0v0uFbKNZ8d0TtO4scedftmL4dW
+	 nJzh0Oa9cizMUQ/iAn/Ios++iJcdVfo68wbkR87RBAuBbev40k/xdODYks8FS5p7iMH4n
+	 PcLHb6vVTmrS+spUnlek8NUh9qHjNrAti6xVsbkGM3a9EhQ/Vj0BuBEUBTJ3f6ROlNxLt
+	 liVLsGwNX62cSAceaXClwldLpx6qNDh8AeyMwM/2ZRZbJOT6W3ZU1lBduYh1xNqXHtP/k
+	 ovzjbIb7CxSOIpwoEGlw6y2KVLIQTiP1NFv6ah/aBK+G0ourf33I+61YPM/Un1Gtypg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A67606A31C;
-	Wed, 28 Oct 2026 13:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83A67606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FTS37q5V;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65A3C606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A3C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikc01+Yw;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H67vUejc
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7E5B61F7B8;
-	Wed, 28 Oct 2026 13:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793193630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
-	b=ikc01+YwkeOjP5cK4KAg7kIoSfmaM/gDbSvjS1fyX9g7tvuFqqvq/YRInE2SmYquyKuV4D
-	aHYXced9O69IJ7RGfVG5LE7kLChiFHEqnyrGiFwspHb5MLam260d4LDSYXFyhX2+5Sy8BS
-	5hXUItxzlNghQKEUiaIz3NO+Xfi6ZEM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793193630;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
-	b=H67vUejcCsq2/G2lrDpyvijucebSJxY4S+sD6pv2UhwuYbNF8k8aRG0jrgVpf3dy0w6evT
-	+N2yNvzlHwnULBDw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ikc01+Yw;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=H67vUejc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793193630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
-	b=ikc01+YwkeOjP5cK4KAg7kIoSfmaM/gDbSvjS1fyX9g7tvuFqqvq/YRInE2SmYquyKuV4D
-	aHYXced9O69IJ7RGfVG5LE7kLChiFHEqnyrGiFwspHb5MLam260d4LDSYXFyhX2+5Sy8BS
-	5hXUItxzlNghQKEUiaIz3NO+Xfi6ZEM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793193630;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eP4c7kBh4vXoea1Jno5pzeNfYitw/HO5XidJB0zRVa4=;
-	b=H67vUejcCsq2/G2lrDpyvijucebSJxY4S+sD6pv2UhwuYbNF8k8aRG0jrgVpf3dy0w6evT
-	+N2yNvzlHwnULBDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5339213419;
-	Wed, 28 Oct 2026 13:20:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id UXF+CJr24Wr9MAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:20:26 +0000
-Date: Wed, 28 Oct 2026 13:20:24 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 31/46] mm/mremap: fix moving PUD leaves
-Message-ID: <auH0bgdchd6DyCbU@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-31-6f74bec9a5bb@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FTS37q5V
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 521582F2E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:21:13 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 254253F673
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793193676; bh=TIXOvAa5u8BHXyeDGddjtvfEGCKxtPwppVHGBq9KnSU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FTS37q5VwBlfUT5oFMtcwy2XOFghm31FKDTW2XsOsKr9gYNjkD7ta6MIXcwSZVHxc
+	 U4zeG5rct2RW9GSNV33bsGhxAffi5DSjlBYt0q+e3wfinTyZzB/2vE+zLICQPg+RD2
+	 Eyikg6ggZ6gJopndyclTELH81J2TZOQ8GlcvE0uY=
+Date: Wed, 28 Oct 2026 13:21:10 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v1 08/27] drm/panthor: Add Mali v15 hardware support
+Message-ID: <auH2xsce2sWg8rvm@e142607>
+References: <20260922204535.2850094-1-karunika.choo@arm.com>
+ <20260922204535.2850094-9-karunika.choo@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,111 +67,387 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-31-6f74bec9a5bb@kernel.org>
-X-Rspamd-Queue-Id: 7E5B61F7B8
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.de:dkim,suse.de:email];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[65];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.01
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922204535.2850094-9-karunika.choo@arm.com>
 
-On Tue, Oct 27, 2026 at 12:17:51AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Sep 22, 2026 at 09:45:02PM +0100, Karunika Choo wrote:
+> Add the panthor hardware description for Mali v15 GPUs and hook it into
+> device matching.
 > 
-> pud_none_or_clear_bad() only really works on page tables. PUD leaves
-> confuse the check and make us clear the page table entry and print a
-> warning.
+> This includes the v15 register map and product identification needed to
+> populate the GPU information exposed by the driver and its uAPI.
 > 
-> Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
-> when mapping"), this also leaks device-DAX folio references, mapcounts
-> and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
+> Add compatibility string for v15 GPUs.
 > 
-> Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
-> whole or the move fails, split it. This unmaps it with proper accounting
-> instead of treating the leaf entry as a PMD table.
-> 
-> Keep using pud_trans_huge() for now, in the future this code should be
-> cleaned up to just check for PUD leaves.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: fallthrough after splitting ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 > ---
->  mm/mremap.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
+> v1:
+> - make COHERENCY_FEATURES register read use cached gpu_info values.
+> - Added Mali-G2 name variants and NX aware model identification.
+> - fix premature reading of l2_features gpu_info field during
+>   panthor_hw_info_init().
+> - build as_present using GENMASK.
 > 
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 91f0865f6aeea..1237718848f5c 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -87,7 +87,7 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
->  		return NULL;
+>  drivers/gpu/drm/panthor/panthor_drv.c         |  1 +
+>  drivers/gpu/drm/panthor/panthor_fw.c          |  1 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c         |  3 +-
+>  .../drm/panthor/panthor_gpu_discover_regs.h   | 25 +++++
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  1 +
+>  drivers/gpu/drm/panthor/panthor_heap.c        |  3 +-
+>  drivers/gpu/drm/panthor/panthor_hw.c          | 98 ++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_hw.h          | 13 +++
+>  include/uapi/drm/panthor_drm.h                | 10 +-
+>  9 files changed, 147 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 8cdba0c1a14b9..3fe9f96f7755e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1886,6 +1886,7 @@ static const struct of_device_id dt_match[] = {
+>  	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
+>  	{ .compatible = "rockchip,rk3588-mali" },
+>  	{ .compatible = "arm,mali-valhall-csf" },
+> +	{ .compatible = "arm,mali-gen5-am" },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 679ea1d233d53..1449d9a66302e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1563,3 +1563,4 @@ MODULE_FIRMWARE("arm/mali/arch11.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch12.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch13.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch14.8/mali_csffw.bin");
+> +MODULE_FIRMWARE("arm/mali/arch15.8/mali_csffw.bin");
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index d6534fabc682e..e6e970e9b59d3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -499,8 +499,7 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+>  	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+>  	 * ACE protocol has never been supported for command stream frontend GPUs.
+>  	 */
+> -	if ((gpu_read(ptdev->gpu->iomem, GPU_COHERENCY_FEATURES) &
+> -		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+> +	if ((ptdev->gpu_info.coherency_features & GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+>  		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+>  		return 0;
+>  	}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> index e6bfe1fe2c68a..c4d0cb2fca92d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> @@ -16,4 +16,29 @@
+>  #define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
+>  #define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
 >  
->  	pud = pud_offset(p4d, addr);
-> -	if (pud_none_or_clear_bad(pud))
-> +	if (!pud_trans_huge(*pud) && pud_none_or_clear_bad(pud))
->  		return NULL;
+> +#define DISCOVER_REVIDR					0x8
+> +#define DISCOVER_GPU_FEATURES				0x20
+> +#define   GPU_FEATURES_VARIABLE_RATE_SHADING		BIT(0)
+> +#define   GPU_FEATURES_SIMD_STATE			BIT(1)
+> +#define   GPU_FEATURES_CROSS_STREAM_SYNC		BIT(3)
+> +#define   GPU_FEATURES_NX				BIT(4)
+> +#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+
+There is duplication in the macros with panthor_gpu_regs.h. Found out as I've tried to apply your
+patch and we have already merged Daniel's patch that calls the feature GPU_FEATURES_NEURAL_ENGINE.
+
+Maybe when you refresh the patchset you can fix the conflict.
+
+Best regards,
+Liviu
+
+> +#define   GPU_FEATURES_LD_LEA_TENSOR_INSTRUCTIONS	BIT(6)
+> +#define DISCOVER_MCU_FEATURES				0x40
+> +#define DISCOVER_PRFCNT_FEATURES			0x50
+> +#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
+> +#define DISCOVER_DOORBELL_FEATURES			0x60
+> +#define DISCOVER_MEM_FEATURES				0x100
+> +#define DISCOVER_MMU_FEATURES				0x108
+> +#define   MMU_FEATURES_AS_COUNT(x)			(((x) & GENMASK(23, 16)) >> 16)
+> +#define DISCOVER_AMBA_FEATURES				0x120
+> +
+> +#define DISCOVER_L2_FEATURES				0x128
+> +#define DISCOVER_TILER_FEATURES				0x200
+> +#define DISCOVER_CORE_FEATURES				0x300
+> +#define DISCOVER_THREAD_FEATURES			0x320
+> +#define DISCOVER_THREAD_MAX_THREADS			0x330
+> +#define DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY		0x334
+> +#define DISCOVER_TEXTURE_FEATURES			0x360
+> +
+>  #endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> index 753df87009901..60819c4ace428 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> @@ -65,6 +65,7 @@
 >  
->  	return pud;
-> @@ -847,11 +847,10 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
->  		if (!new_pud)
->  			break;
->  		if (pud_trans_huge(*old_pud)) {
-> -			if (extent == HPAGE_PUD_SIZE) {
-> -				move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud);
-> -				/* We ignore and continue on error? */
-> +			if (extent == HPAGE_PUD_SIZE &&
-> +			    move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud))
->  				continue;
-> -			}
-> +			split_huge_pud(pmc->old, old_pud, pmc->old_addr);
-
-Note that, if the HPAGE_PUD move fails, we split but miss the opportunity to
-move at the PUD level (right below). Is this on purpose? Am I missing
-something?
-
-... I say, realizing I am missing something, because split_huge_pmd (and
-consequently split_huge_pud) just decide to zap if the VMA isn't anonymous,
-and split_huge_pud() just hardcoded it to "of course it's not anonymous, lol",
-and just zaps. So there's no point in moving what isn't there.
-
-Lord help us.
+>  #define GPU_FEATURES					0x60
+>  #define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
+> +#define   GPU_FEATURES_NX				BIT(4)
+>  #define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+>  
+>  #define GPU_TIMESTAMP_OFFSET				0x88
+> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+> index 99311abdf1e91..afb7d68abc874 100644
+> --- a/drivers/gpu/drm/panthor/panthor_heap.c
+> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
+> @@ -11,6 +11,7 @@
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_heap.h"
+> +#include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+>  
+>  /*
+> @@ -105,7 +106,7 @@ struct panthor_heap_pool {
+>  
+>  static int panthor_heap_ctx_stride(struct panthor_device *ptdev)
+>  {
+> -	u32 l2_features = ptdev->gpu_info.l2_features;
+> +	u64 l2_features = panthor_hw_get_l2_features(ptdev);
+>  	u32 gpu_cache_line_size = GPU_L2_FEATURES_LINE_SIZE(l2_features);
+>  
+>  	return ALIGN(HEAP_CONTEXT_SIZE, gpu_cache_line_size);
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 13090ff6db7b5..9d539f5f80158 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0 or MIT
+>  /* Copyright 2025 ARM Limited. All rights reserved. */
+>  
+> +#include <linux/bits.h>
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/platform_device.h>
+>  
+> @@ -74,6 +75,29 @@ static struct panthor_hw panthor_hw_arch_v14 = {
+>  	},
+>  };
+>  
+> +static struct panthor_hw panthor_hw_arch_v15 = {
+> +	.ops = {
+> +		.soft_reset = panthor_pwr_reset_soft,
+> +		.l2_power_off = panthor_pwr_l2_power_off,
+> +		.l2_power_on = panthor_pwr_l2_power_on,
+> +	},
+> +	.regs = {
+> +		.gpu_control = {
+> +			.offset = 0x3000,
+> +		},
+> +		.mcu_control = {
+> +			.offset = 0x3100,
+> +		},
+> +		.pwr_control = {
+> +			.offset = 0x3800,
+> +		},
+> +		.mmu_as_control = {
+> +			.offset = 0x2800,
+> +			.stride = 0x80,
+> +		},
+> +	},
+> +};
+> +
+>  static struct panthor_hw_entry panthor_hw_match[] = {
+>  	{
+>  		.arch_min = 10,
+> @@ -85,6 +109,11 @@ static struct panthor_hw_entry panthor_hw_match[] = {
+>  		.arch_max = 14,
+>  		.hwdev = &panthor_hw_arch_v14,
+>  	},
+> +	{
+> +		.arch_min = 15,
+> +		.arch_max = 15,
+> +		.hwdev = &panthor_hw_arch_v15,
+> +	}
+>  };
+>  
+>  static int panthor_hw_set_power_tracing(struct device *dev, void *data)
+> @@ -152,8 +181,11 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  						gpu_id->prod_major);
+>  	const bool ray_intersection = !!(ptdev->gpu_info.gpu_features &
+>  					 GPU_FEATURES_RAY_INTERSECTION);
+> +	const bool neural_present = !!(ptdev->gpu_info.gpu_features &
+> +				       GPU_FEATURES_NX);
+>  	const u8 shader_core_count = hweight64(ptdev->gpu_info.shader_present);
+>  
+> +
+>  	switch (product_id) {
+>  	case GPU_PROD_ID_MAKE(10, 2):
+>  		return "Mali-G710";
+> @@ -196,6 +228,18 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  		return "Mali-G1-Premium";
+>  	case GPU_PROD_ID_MAKE(14, 3):
+>  		return "Mali-G1-Pro";
+> +	case GPU_PROD_ID_MAKE(15, 0):
+> +		return "Mali-G2-Ultra-NX";
+> +	case GPU_PROD_ID_MAKE(15, 1):
+> +		if (neural_present)
+> +			return "Mali-G2-Premium-NX";
+> +
+> +		return "Mali-G2-Premium";
+> +	case GPU_PROD_ID_MAKE(15, 3):
+> +		if (neural_present)
+> +			return "Mali-G2-Pro-NX";
+> +
+> +		return "Mali-G2-Pro";
+>  	}
+>  
+>  	return "(Unknown Mali GPU)";
+> @@ -219,7 +263,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+>  	return 0;
+>  }
+>  
+> -static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +static void panthor_gpu_info_v10_init(struct panthor_device *ptdev)
+>  {
+>  	unsigned int i;
+>  
+> @@ -260,12 +304,55 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+>  		ptdev->gpu_info.tiler_present = gpu_read64(gpu_iomem, GPU_TILER_PRESENT);
+>  		ptdev->gpu_info.l2_present = gpu_read64(gpu_iomem, GPU_L2_PRESENT);
+>  	}
+> +}
+> +
+> +static void panthor_gpu_info_v15_init(struct panthor_device *ptdev)
+> +{
+> +	void __iomem *pwr_iomem = ptdev->iomem + ptdev->hw->regs.pwr_control.offset;
+> +	u64 texture_features;
+> +
+> +	ptdev->gpu_info.gpu_rev_wide = gpu_read64(ptdev->iomem, DISCOVER_REVIDR);
+> +	ptdev->gpu_info.l2_features_wide = gpu_read64(ptdev->iomem, DISCOVER_L2_FEATURES);
+> +
+> +	texture_features = gpu_read64(ptdev->iomem, DISCOVER_TEXTURE_FEATURES);
+> +	ptdev->gpu_info.texture_features[0] = lower_32_bits(texture_features);
+> +	ptdev->gpu_info.texture_features[1] = upper_32_bits(texture_features);
+> +
+> +	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, DISCOVER_THREAD_FEATURES);
+> +	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, DISCOVER_THREAD_MAX_THREADS);
+> +	ptdev->gpu_info.thread_num_active_granularity =
+> +		gpu_read(ptdev->iomem, DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY);
+> +
+> +	/* The upper 32-bits of following registers do not contain any information (yet) */
+> +	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, DISCOVER_GPU_FEATURES);
+> +	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, DISCOVER_MEM_FEATURES);
+> +	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, DISCOVER_MMU_FEATURES);
+> +	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, DISCOVER_AMBA_FEATURES);
+> +	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, DISCOVER_TILER_FEATURES);
+> +	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, DISCOVER_CORE_FEATURES);
+> +
+> +	/* AS_PRESENT register removed on v15+ create virtual mask from MMU_FEATURES.AS_COUNT */
+> +	ptdev->gpu_info.as_present = GENMASK(
+> +		MMU_FEATURES_AS_COUNT(ptdev->gpu_info.mmu_features) - 1, 0);
+> +
+> +	ptdev->gpu_info.l2_present = gpu_read64(pwr_iomem, PWR_L2_PRESENT);
+> +	ptdev->gpu_info.tiler_present = gpu_read64(pwr_iomem, PWR_TILER_PRESENT);
+> +	ptdev->gpu_info.shader_present = gpu_read64(pwr_iomem, PWR_SHADER_PRESENT);
+> +}
+> +
+> +static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		panthor_gpu_info_v15_init(ptdev);
+> +	else
+> +		panthor_gpu_info_v10_init(ptdev);
+>  
+>  	return overload_shader_present(ptdev);
+>  }
+>  
+>  static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  {
+> +	u64 l2_features;
+>  	u32 major, minor, status;
+>  	int ret;
+>  
+> @@ -273,18 +360,23 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	l2_features = ptdev->gpu_info.l2_features;
+> +
+>  	major = ptdev->gpu_id.ver_major;
+>  	minor = ptdev->gpu_id.ver_minor;
+>  	status = ptdev->gpu_id.ver_status;
+>  
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		l2_features = ptdev->gpu_info.l2_features_wide;
+> +
+>  	drm_info(&ptdev->base,
+>  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+>  		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
+>  		 major, minor, status);
+>  
+>  	drm_info(&ptdev->base,
+> -		 "Features: L2:%#x Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> -		 ptdev->gpu_info.l2_features,
+> +		 "Features: L2:%#llx Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> +		 l2_features,
+>  		 ptdev->gpu_info.tiler_features,
+>  		 ptdev->gpu_info.mem_features,
+>  		 ptdev->gpu_info.mmu_features,
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+> index 68627f0df7f95..48232254fef97 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+> @@ -88,4 +88,17 @@ static inline bool panthor_hw_has_pwr_ctrl(struct panthor_device *ptdev)
+>  	return ptdev->gpu_id.arch_major >= 14;
+>  }
+>  
+> +static inline bool panthor_hw_has_gpu_discover(struct panthor_device *ptdev)
+> +{
+> +	return ptdev->gpu_id.arch_major >= 15;
+> +}
+> +
+> +static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		return ptdev->gpu_info.l2_features_wide;
+> +
+> +	return ptdev->gpu_info.l2_features;
+> +}
+> +
+>  #endif /* __PANTHOR_HW_H__ */
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index 843a0b40e1d36..5c75dda5f0ae7 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -371,8 +371,8 @@ struct drm_panthor_gpu_info {
+>  	/** @core_features: Used to discriminate core variants when they exist. */
+>  	__u32 core_features;
+>  
+> -	/** @pad: MBZ. */
+> -	__u32 pad;
+> +	/** @thread_num_active_granularity: Granularity of number of active threads */
+> +	__u32 thread_num_active_granularity;
+>  
+>  	/** @gpu_features: Bitmask describing supported GPU-wide features */
+>  	__u64 gpu_features;
+> @@ -389,6 +389,12 @@ struct drm_panthor_gpu_info {
+>  #define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
+> +
+> +	/** @gpu_rev_wide: 64-bit GPU revision for v15 onwards */
+> +	__u64 gpu_rev_wide;
+> +
+> +	/** @l2_features_wide: 64-bit L2_FEATURES for v15 onwards */
+> +	__u64 l2_features_wide;
+>  };
+>  
+>  /**
+> -- 
+> 2.43.0
+> 
 
 -- 
-Pedro
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
