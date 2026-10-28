@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793149579;
-	b=5GPto2A8+lRqSoYdAtJ/5lPRn6H5QWMbwVA1YWBCrq8uNvAycRgVpKG9pRnyCkrCqOuk
-	 w9MCRoXiWUZotxfu4yyNcNoueUG9sI8FwxJbo5O/gBbObhxcLvXWv4mMEmBkJ+ytBVR8I
-	 sl9ojMbMqctPh3FsE+QGNVK/W2aBqTzY2ixu53xJBjcq8g0tkNnUdyd9tFBw50VrMRVLS
-	 ys2oqNLFcj6Ef6PRNSJvY4+Pou42ffuwnI/WqOLivZl/zkrQFgq3NRJc/QnNrdXYD8Hyq
-	 ZoxZ0meIjfapOrs5xNg5xTxW/8WXZaANur/emF2hq9zu7TltuOwa+tZR3DQVwlMzUCg==
+	t=1793149581;
+	b=dNGV8+8wPjH837Xk1KfM7MUVPFlmyvNLnXjCF4cEfpFB2ww6mzbCmXnSwbC2LRjDLiWB
+	 qwOWDK8nTvL3n0ujqL+3Ty4ywf9I2jiRPCkxAti5ks5S2v1ZBRfFEDCGS6mXEFrU2zzgK
+	 qS8zczlNcPfYAPR0+pvDigomwOdormmuWATVSDgEAEoct7kaHch+ZU6hjXfHdyG+Zn28Y
+	 0svCop4X52iAmtVQdJy2ZoQurpdpFji3ZV56SrDy7xZHax898rJp9jSx3DTfRe7Hmtk43
+	 S+CIxcEJ1WFCsoexHP/N8gbSo1UtQhWTs84ImQeKukXFH8D/R+oV+REPHLcitgRQCLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793149579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793149581;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
-	b=KukKDMtPzj+pPizQ0EPFW3CweexJUwwOuYP7xDWMHMTMxNll0FxSWFiWyqKJjLh20OVF
-	 b8jdVk7h9HgwziSMVVNIuPPE2DmPlwTGRPjAoAJigRY22EPZbCFlMyc0Y3BinU9g53g+v
-	 12BUHwuotkCpVxSt27/pMTgIy+fp8X2Qi8RwikfPQrS+S7N2xFu2kHW6wixm1DR3oZcg2
-	 W64uPzGSPuGP6y7V0C8bG2qcXQtkZMikbinE112SwobITRY/ABZtCSutswmmZhfQF/bwI
-	 dADErpskVpJKWDA16n16mr+BuY1zYL4DF+9yPMapWaKreETuUqLoZprTbmVuC9oqITA==
+	bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
+	b=JI+SisiiSjStYnUOeO3Kfky2XvBDtzY0WiX7gPqrq1z8NeGwyziOqeZ4BdOilmL3AX/I
+	 Pul+txqgTtyV3f8bvZBGa3ul28FH7WwENQkMYPrg6A2mXqlBFgdrag6J5ujOqNWYVWfw7
+	 Tj+kg4TI72K4AcHX5ygOrIxBOz/+AwQwT0OoBJto8pWQow5SkTnXZFulxb2mjkef5AoTa
+	 wBF6KtsaQIkZQk6ZHbN6net98srYn4QeeXkj09Nej1kxl4JSM8cy8B7LveAJOeEJ6Y4gm
+	 8v6awlCnXXXwbH7Zbav0gIk554Z2no2tNf5rILW5SHis6tozq+9M35vJ8B0ieAZX2vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OtUv3TnD;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LUDkWSOc;
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D6E606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15D6E606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A57A606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:06:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A57A606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OtUv3TnD
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab67ff8ec3so297148a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LUDkWSOc
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd8b299b0abso340339a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793149577; x=1793754377; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793149580; x=1793754380; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
-        b=OtUv3TnDPbA3AuHcy1JU6FuEYodEhAUNNGdhXYfAuph2rUOjTpyZEiLzsLSXpAJuuu
-         xEwVjcZrLJF2XKOKc5g2WNXK6BJvoYtVWfeF3NPdW0tL486rau7oB1R9a4Mhy9/1gzgb
-         bIaW4pmfNpLo96zwliWkgf8bWwIoeX2l08NfzYcogdMSAP5b+V3ce+duNa8GTD3mbEjF
-         FCsGCgLMaFZX957D1JF5seAqeoxfRjroiFWPDbXyhkcvJofhw/V8hoLauaZiRd98Oqrq
-         fEvkfB5OQY4FMU6U60kLTd0QwvylkqYbakuRIBu/G7xn78Hy3+SrYsSv+QZ+Krv6TlB4
-         4Q1Q==
+        bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
+        b=LUDkWSOcPb9F6RsSuNpHkpeq2oPkJVL1bNUvM/wgwBs1vJAQ+pzxMsfoleYav07b9n
+         0bCX2f/lu5EZoJTagA9tI1v1mi4pbidDxwbJHP5JWTvNqH/GBK4LxvKWL3t4o6Sxo2HK
+         rPdf2IeAHPWcONw2k0azXKIiv5O1UUtMC9MeaQ3L5CPOGxPchhIQQaLR2g01hb/XK0vE
+         AOc0ISOYbewo84ORL85KUJkOp4m0n++49YLGUHavkKQ2hh/8+nkss/hb2rKT3XSEcM57
+         YcN+ghkD6R8K0l2IvepVkEgmWC+I6ayy8tBd72VhspdqziwF54EjV7eIUXIjEDWonimY
+         IWRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793149577; x=1793754377;
+        d=1e100.net; s=20260707; t=1793149580; x=1793754380;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
-        b=D1s0mRFKx4wpy+BrQRkIFA/6Wr29QzV+oR22O2eexdenc6ZrkV84eTFRB4UcojvRWd
-         lgQfee3lJHvC9k0eM+Qug5H8Whb1InP2uNLWNqOcSb9x27jcXTIXtcWlhKyJv9GhNUCZ
-         5M8HzEPPOmLxmI+PbmOWL/beagLOFhYjvAo21afUnoMLQSrY7QrWHnbsC3QhtK1SB0KF
-         SVfcf6o0coemPbQE0uhPds9FwPhJKEYQaRLczKTw7e/z97q8kPr1/mx/j/kkGQ0SlLUd
-         PI8asSfJsj6NoeZvCfyPDDzsHdWs/1B6JXeBSx9YMroh0Bmsq6vKgeceicLWsVOU7ewx
-         zepg==
-X-Forwarded-Encrypted: i=1; AKwUvBzP4WLTqKb1mqGkb24Q7xcNx3e697WQ1Ikxp3R+VHQ3zTlkULfetypMSPa8o4GjTSyGlG0Gc8EFR0B1UFw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGqpDeVRxHPMaya+DGJ7++/VtMVVtskJehvPAHmzopSSX+vK+7
-	AuMROV3BkCb25xBFKw9AilQpD9Bp3tWfjRPbZEcvW8XvEoPnApX2e7YdnJ4667EHhjhalbERWbO
-	leJw+wJdrXEb4ZkbX2A==
-X-Received: from pjbpw4.prod.google.com ([2002:a17:90b:2784:b0:3a9:ccc3:cbae])
+        bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
+        b=213DCj7XjpvwDqPNAI2dC2R7Ui2r1jKLB7tpHFtuvwgBOxdRX4niehL/0roTDNiQaD
+         fyR2GEvm3Ig36pWrieQLRWk4NU0x5F1043yAoaL9hpXnpsSDtHM/dgb2/qvhYds398Me
+         R1jHesjuYqIY+NpOyLWWOwwbSb8HggsxhS2seXj7vXlb6f4tig+Rsbua+nib0p5+0gH8
+         +Pi411s5Ebb3oqLw5Y/fM6/NbR4VUI/lqbskq2ZQ3nWX0g4n9/24mvMNHiAL1yPVKzS9
+         LhkwGFg+Vkyhxf/wdfMgx5MLnkoFL0RfSgtgxlkv56uVwS4Tt9tp3Nn7YleSR58a+abH
+         rScQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQwWtaj8cINYI3G59YudN8fM0u/NUq7L7M8pPQscNtZnAuBRKOKjVb94fAb4HIYH78WIUKi9fse72UedA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7WyPnYiZWnNabhZQVRMA0ak2QnpTj6kEAMlRUwRtT1zYWfH3Z
+	hoVXgsKWnsxKBQRqlg5yZfcPWHvz0J08u6UgCCZ2i1Qzd1UHqLc0hPtDhgHMLjL30Y4Bc19OYZh
+	c++O74k10YMiA+5YAyw==
+X-Received: from pgbcl22.prod.google.com ([2002:a05:6a02:996:b0:cc7:aab6:f8a6])
  (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:564c:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3ae58150cf4mr614654a91.34.1793149577155;
- Tue, 27 Oct 2026 18:06:17 -0700 (PDT)
-Date: Tue, 27 Oct 2026 18:06:05 -0700
+ 2002:a05:6a20:5482:b0:3e2:7225:d14b with SMTP id adf61e73a8af0-3e9023f5055mr675991637.72.1793149579547;
+ Tue, 27 Oct 2026 18:06:19 -0700 (PDT)
+Date: Tue, 27 Oct 2026 18:06:06 -0700
 In-Reply-To: <20261028010611.3929937-1-tjmercier@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261028010611.3929937-1-tjmercier@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028010611.3929937-2-tjmercier@google.com>
-Subject: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online() checks
+Message-ID: <20261028010611.3929937-3-tjmercier@google.com>
+Subject: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old generation
 From: "T.J. Mercier" <tjmercier@google.com>
 To: roman.gushchin@linux.dev, muchun.song@linux.dev, 
 	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
@@ -92,133 +92,165 @@ To: roman.gushchin@linux.dev, muchun.song@linux.dev,
 	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
 	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
 	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
 	Johannes Weiner <hannes@cmpxchg.org>
 Cc: cgroups@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
+lru_gen_offline_memcg() moves an offlining memcg to the head of the old
+generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
+visits it first and evicts the folios it left behind.
+
 Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
-move LRU size accounting on reparenting instead of copying it"),
-mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
-and zeroes the child's lrugen->nr_pages and lru_zone_size before the
-memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
-afterwards. A folio that is off the LRU during reparenting looks up its
-lruvec through its objcg, which now points to the parent so it is put
-back on the parent's LRU.
+dying memory cgroup for LRU folios"), those folios are reparented to the
+parent before lru_gen_offline_memcg() runs, and nothing can be added
+back to the offlined memcg's lruvec afterwards. Putting an empty
+offlined memcg at the head of the old generation no longer serves any
+purpose and only delays reclaim from the memcgs that still have memory
+due to additional shrink_many() iteration.
 
-As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
-when !mem_cgroup_online(memcg) is true, making the offlined memcg special
-cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
-code. Remove them.
-
-With the get_nr_to_scan() special case removed, an offlined memcg that
-still has stale effective protection now has
-apply_proportional_protection() applied like get_scan_count() does, so
-the MGLRU and traditional LRU behavior is now the same.
+Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
+like any other memcg below the reclaimable size threshold until
+lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has no
+other user, so remove the op and update the memcg LRU comment as well.
 
 Signed-off-by: T.J. Mercier <tjmercier@google.com>
 ---
- include/linux/mmzone.h |  8 ++++----
- mm/vmscan.c            | 28 +++++-----------------------
- 2 files changed, 9 insertions(+), 27 deletions(-)
+ Documentation/mm/multigen_lru.rst |  4 +---
+ include/linux/mmzone.h            | 14 +++-----------
+ mm/memcontrol.c                   |  1 -
+ mm/vmscan.c                       | 20 +-------------------
+ 4 files changed, 5 insertions(+), 34 deletions(-)
 
+diff --git a/Documentation/mm/multigen_lru.rst b/Documentation/mm/multigen_lru.rst
+index 52ed5092022f..b532ce961371 100644
+--- a/Documentation/mm/multigen_lru.rst
++++ b/Documentation/mm/multigen_lru.rst
+@@ -234,9 +234,7 @@ the active/inactive LRU (of folios):
+ 1. It has the young and the old (generations), i.e., the counterparts
+    to the active and the inactive;
+ 2. The increment of ``max_seq`` triggers promotion, i.e., the
+-   counterpart to activation;
+-3. Other events trigger similar operations, e.g., offlining an memcg
+-   triggers demotion, i.e., the counterpart to deactivation.
++   counterpart to activation.
+ 
+ In terms of global reclaim, it has two distinct features:
+ 
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 3b96d6c7123b..7f078ff0dd76 100644
+index 7f078ff0dd76..542e465ee7a1 100644
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
-@@ -638,10 +638,10 @@ struct lru_gen_mm_walk {
-  * The events that trigger the above operations are:
-  * 1. The first attempt to reclaim a memcg below low, which triggers
-  *    MEMCG_LRU_TAIL;
-- * 2. The first attempt to reclaim a memcg offlined or below reclaimable size
-- *    threshold, which triggers MEMCG_LRU_TAIL;
-- * 3. The second attempt to reclaim a memcg offlined or below reclaimable size
-- *    threshold, which triggers MEMCG_LRU_YOUNG;
-+ * 2. The first attempt to reclaim a memcg below reclaimable size threshold,
-+ *    which triggers MEMCG_LRU_TAIL;
-+ * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
-+ *    which triggers MEMCG_LRU_YOUNG;
+@@ -626,12 +626,10 @@ struct lru_gen_mm_walk {
+  * per-node memcg generation counter, whose reminder (mod MEMCG_NR_GENS) indexes
+  * the old generation, is incremented when all its bins become empty.
+  *
+- * There are three operations:
++ * There are two operations:
+  * 1. MEMCG_LRU_TAIL, which moves a memcg to the tail of a random bin in its
+  *    current generation (old or young) and updates its "seg" to "tail";
+- * 2. MEMCG_LRU_OLD, which moves a memcg to the head of a random bin in the old
+- *    generation, updates its "gen" to "old" and resets its "seg" to "default";
+- * 3. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
++ * 2. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
+  *    young generation, updates its "gen" to "young" and resets its "seg" to
+  *    "default".
+  *
+@@ -643,8 +641,7 @@ struct lru_gen_mm_walk {
+  * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
+  *    which triggers MEMCG_LRU_YOUNG;
   * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LRU_YOUNG;
-  * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
-  * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
+- * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
+- * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
++ * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG.
+  *
+  * Notes:
+  * 1. Memcg LRU only applies to global reclaim, and the round-robin incrementing
+@@ -675,7 +672,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr);
+ void lru_gen_init_memcg(struct mem_cgroup *memcg);
+ void lru_gen_exit_memcg(struct mem_cgroup *memcg);
+ void lru_gen_online_memcg(struct mem_cgroup *memcg);
+-void lru_gen_offline_memcg(struct mem_cgroup *memcg);
+ void lru_gen_release_memcg(struct mem_cgroup *memcg);
+ void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid);
+ bool recheck_lru_gen_max_memcg(struct mem_cgroup *memcg, int nid);
+@@ -709,10 +705,6 @@ static inline void lru_gen_online_memcg(struct mem_cgroup *memcg)
+ {
+ }
+ 
+-static inline void lru_gen_offline_memcg(struct mem_cgroup *memcg)
+-{
+-}
+-
+ static inline void lru_gen_release_memcg(struct mem_cgroup *memcg)
+ {
+ }
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index a05d9a8baa1b..e2ddf0680e62 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -4475,7 +4475,6 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+ 	memcg_reparent_objcgs(memcg);
+ 	reparent_shrinker_deferred(memcg);
+ 	wb_memcg_offline(memcg);
+-	lru_gen_offline_memcg(memcg);
+ 
+ 	drain_all_stock(memcg);
+ 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 9959ca158ce8..636152d8c94d 100644
+index 636152d8c94d..45a2c1021f4f 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -2754,13 +2754,6 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
- 		scan = apply_proportional_protection(memcg, sc, lruvec_size);
- 		scan >>= sc->priority;
+@@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+ enum {
+ 	MEMCG_LRU_NOP,
+ 	MEMCG_LRU_TAIL,
+-	MEMCG_LRU_OLD,
+ 	MEMCG_LRU_YOUNG,
+ };
  
--		/*
--		 * If the cgroup's already been deleted, make sure to
--		 * scrape out the remaining cache.
--		 */
--		if (!scan && !mem_cgroup_online(memcg))
--			scan = min(lruvec_size, SWAP_CLUSTER_MAX);
+@@ -4560,8 +4559,6 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+ 	/* see the comment on MEMCG_NR_GENS */
+ 	if (op == MEMCG_LRU_TAIL)
+ 		seg = MEMCG_LRU_TAIL;
+-	else if (op == MEMCG_LRU_OLD)
+-		new = get_memcg_gen(pgdat->memcg_lru.seq);
+ 	else if (op == MEMCG_LRU_YOUNG)
+ 		new = get_memcg_gen(pgdat->memcg_lru.seq + 1);
+ 	else
+@@ -4571,11 +4568,7 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+ 	WRITE_ONCE(lruvec->lrugen.gen, new);
+ 
+ 	hlist_nulls_del_rcu(&lruvec->lrugen.list);
 -
- 		switch (scan_balance) {
- 		case SCAN_EQUAL:
- 			/* Scan lists relative to size */
-@@ -2769,14 +2762,8 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
- 			/*
- 			 * Scan types proportional to swappiness and
- 			 * their relative recent reclaim efficiency.
--			 * Make sure we don't miss the last page on
--			 * the offlined memory cgroups because of a
--			 * round-off error.
- 			 */
--			scan = mem_cgroup_online(memcg) ?
--			       div64_u64(scan * fraction[file], denominator) :
--			       DIV64_U64_ROUND_UP(scan * fraction[file],
--						  denominator);
-+			scan = div64_u64(scan * fraction[file], denominator);
- 			break;
- 		case SCAN_FILE:
- 		case SCAN_ANON:
-@@ -4355,12 +4342,11 @@ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
+-	if (op == MEMCG_LRU_OLD)
+-		hlist_nulls_add_head_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
+-	else
+-		hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
++	hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
+ 
+ 	pgdat->memcg_lru.nr_memcgs[old]--;
+ 	pgdat->memcg_lru.nr_memcgs[new]++;
+@@ -4613,17 +4606,6 @@ void lru_gen_online_memcg(struct mem_cgroup *memcg)
+ 	}
+ }
+ 
+-void lru_gen_offline_memcg(struct mem_cgroup *memcg)
+-{
+-	int nid;
+-
+-	for_each_node(nid) {
+-		struct lruvec *lruvec = get_lruvec(memcg, nid);
+-
+-		lru_gen_rotate_memcg(lruvec, MEMCG_LRU_OLD);
+-	}
+-}
+-
+ void lru_gen_release_memcg(struct mem_cgroup *memcg)
  {
- 	unsigned long total;
- 	int swappiness = get_swappiness(lruvec, sc);
--	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 
- 	total = lruvec_evictable_size(lruvec, swappiness);
- 
- 	/* whether the size is big enough to be helpful */
--	return mem_cgroup_online(memcg) ? (total >> sc->priority) : total;
-+	return total >> sc->priority;
- }
- 
- static bool lruvec_is_reclaimable(struct lruvec *lruvec, struct scan_control *sc,
-@@ -5199,10 +5185,6 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
- 
- 	evictable = lruvec_evictable_size(lruvec, swappiness);
- 
--	/* try to scrape all its memory if this memcg was deleted */
--	if (!mem_cgroup_online(memcg))
--		return evictable;
--
- 	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
- 	nr_to_scan >>= sc->priority;
- 
-@@ -5325,13 +5307,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
- 
- 	flush_reclaim_state(sc);
- 
--	if (need_rotate && mem_cgroup_online(memcg))
-+	if (need_rotate)
- 		return MEMCG_LRU_YOUNG;
- 
--	if (!need_rotate && lruvec_is_sizable(lruvec, sc))
-+	if (lruvec_is_sizable(lruvec, sc))
- 		return 0;
- 
--	/* one retry if offlined or too small */
-+	/* one retry if too small */
- 	return READ_ONCE(lruvec->lrugen.seg) != MEMCG_LRU_TAIL ?
- 	       MEMCG_LRU_TAIL : MEMCG_LRU_YOUNG;
- }
+ 	int gen;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
