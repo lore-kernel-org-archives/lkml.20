@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189087;
-	b=HGnrO5+QHUbabymbWRlfl4vJoUtjngZQOALEP7hpDry8ql6bdi7j51+LIrxds60x8q+t
-	 GQ9IUdhDGYxxs1WkPeOKzgaf0CIhA2j9W08AdphTngH0e/Qr0VlSvSYA7mfuZsnPeqHYc
-	 v6jgRprxMN+tYswbX28An7tldKKw7SDeWUb4ZjXf8gXoZl41ZBef+4Y5uLkgC4sLXVhVa
-	 W3lgf4FVpq2gt9eGGm8pELBcOacPuL0QCVzWdGeo4Asyyn6aM0QLIds1fR6YlLzPVCCqZ
-	 mAXNuibLzyssO8jX4Oot5lMIxy9a8jH6L+7Mb8pWnJOQLOhCsTZq1LAAFQTYi9rhR6Q==
+	t=1793189351;
+	b=h9RYvR3Nx6P3xrxpLYjMQmam8yEm8s6JmHAkG1JHUYLHw2VHRFWAr7vUTCBS8VK/25qS
+	 Vn3VGo80gWPHWEAWysrX2FGwVpINHQWMR8R88Fc4hV0tCwXqfmXyKgj4GtmSnG6NynUNe
+	 jjO+74e/vRUWcoFDDy3sSi7jCxNUNtGp2nKzL0QTLKRtYsgLxTXbwNXHL+wNXAZmArEae
+	 Xq1dJ/BnRaIouHUhNUH6jxfYA6/fW+0PENtynCDOTbfbIN5dPDgtB7dJ9B2HvHjxZ573D
+	 BxJMle3Oj5fYKnDZncP7otHJAmd2qdKz05vF+/FsN3MWX2/6PheQxz+wm/OYEiEmmGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189351;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=NpUDO29bN7DsBNoG1utxSe3fpPv2KWrE9Pv0OY5SUTY=;
-	b=KLhv3+Tv4T6PZORjw2vRiGjLLacLLRf8UciyOqbocFoxtkbv+aGfGCIHRpYeOctwnTbU
-	 m1MRXGHfnLbnIuTV4kLyMC0KLdac87kMkJZ72Lfu5VYRDzrnG5Wfyy7jtVUM0hjgCsys7
-	 ydcmYzIvEPbobn6dk0qg40nnH8XovoP321ivqgeI8AHlLFNeL3dQ8r+w7olC36nbXUiL3
-	 G6FZ6kG5ArT3Ws1L3mDq/ub+CONfVcQa0oDH+5/dRe+vK/xXo8J3bAm2gSCQiFAYJAT7P
-	 /muE21/mLFtCTz9DhanqEG2MsGkJvBTBY2d8LRX1Tqhze5cSVbbWf8n5lJTEvjgKR9w==
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=DmdTMbPjtWxfoa8cBjGlNCm80JGdkutMoXit7eg+qwc=;
+	b=EqGxrBfrUqEGXhcZokjUkXoolfGIi63prysBRwNpxJCV0LYOigYgDkvqCp42yl6j+T9v
+	 l0Miprve29SEeeF6SzQpWZY93XPxSGq0EczcUi7QVRJxmL22NcVpWoheqLkN6IY3HK8yq
+	 Ins59xDWKfC/aQy3bnSRQRzEAkc2hZFHWlbUSMLkfFnMSFisL4XqzomyzKPr+PzMffhpl
+	 p6x9TyGmTFiqBwh2oDCCQyqz2b6nMj3otOnkEBZiJUXhwq8mpk5qjj3t8SgM+DVRrnI3F
+	 oLCu0cE2TFObajcAOQ2B0Co6q1uBBjjdwfgIV9PdbyBLSW4z/Mf/gEqZokb/biAzPbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="axIcbnk/";
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="V/AmCjrg";
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52BF2606A325;
-	Wed, 28 Oct 2026 12:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52BF2606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E839606A31A;
+	Wed, 28 Oct 2026 12:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E839606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=axIcbnk/
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=V/AmCjrg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=NpUDO29bN7
-	DsBNoG1utxSe3fpPv2KWrE9Pv0OY5SUTY=; b=axIcbnk/WhemhkRq78pq8UnzpP
-	bq++u6npuhHLzEo7Efa3K+732h2a2DTHSN0MVagcFIsOI0ksmcdz8t0EufYp0B5O
-	TquaAoSAvjVHggNB2WJfqNwgTLMm3ozJ9AB9f144wH1Qf+yhNb0VeKKtPw7Ahxjt
-	HIQ3+f3VFlDMvS8g0=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn1ira5OFqM9dYAA--.3602S2;
-	Wed, 28 Oct 2026 20:04:42 +0800 (CST)
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=DmdTMbPjtWxfoa8cBjGlN
+	Cm80JGdkutMoXit7eg+qwc=; b=V/AmCjrgIk9pU7+rpjoMJaYYcIYpboT3yW5A8
+	r2VP4EWL+pSGQHnt/qqNQIywNwdhZFSGvhElpclO7IRGcNSIWtp4RaZ1TwyDsYls
+	arc2E/x0DN6nSWO9ZzE7htDZ03/AlA8diOcoJZlTswfD9odnRghfVux1EMHaUpt/
+	nmtnM0=
+Received: from [127.0.1.1] (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3cjfd5eFqgNxYAA--.9511S2;
+	Wed, 28 Oct 2026 20:09:01 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Wed, 28 Oct 2026 20:04:42 +0800
-Message-ID: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+Date: Wed, 28 Oct 2026 20:09:01 +0800
+Message-ID: <179318934146.107329.15810039464216984473@mail.ustc.edu.cn>
+In-Reply-To: <218d69dc-5761-4a8c-824f-7a15307f54a6@oss.qualcomm.com>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+ <218d69dc-5761-4a8c-824f-7a15307f54a6@oss.qualcomm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,167 +68,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn1ira5OFqM9dYAA--.3602S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF18tFy3KryDKFWxAFWfuFg_yoWrurWfpF
-	Z8ursFkryrKF1xG3yxGa4xZ3WY9as5Jwnayr12y34rKay5tFnYvwnIyw1Yv3WrAry8Gay2
-	yFyqkr42yF18Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+X-CM-TRANSID:3pYKCgD3cjfd5eFqgNxYAA--.9511S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr4kAryktryxJFyxuryxAFb_yoW5AFy8pr
+	WfKw43Cr4kKFWvkr48Zr17Ja4rW3Z5tay5JFyY9a4qv3W5Xr4IgrZ2qw4qg34DC39akFya
+	yr4Yv3yDCFZ8ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
 	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
 	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
 	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
 	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxUgM7NUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZksQAKsh
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxV
+	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
+	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
+	WUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJbIYCTnIWIevJa73UjIFyTuYvjxUgBbkDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZksQANsm
 
-The WL2868C is a camera power management IC with seven programmable LDOs.
-LDO1 and LDO2 share the VIN12 input, LDO3 and LDO4 share VIN34, and LDO5 to
-LDO7 have one input each. LDO1 and LDO2 cover 0.496 V to 1.512 V, the other
-five cover 1.504 V to 3.544 V, all in 8 mV steps.
+Hello Hangxiang,
 
-It is used on the Lenovo Legion Tab (TB322FC, SM8750), where the two camera
-sensors take their DVDD, AVDD and DOVDD rails from LDO1 to LDO5 and LDO7.
-Without this binding those supply references cannot be described, so the
-camera stack on that board cannot be brought up.
+thank you for the pointer, and sorry about the attribution. You are right on
+the substance, so let me be precise about what happened rather than vague.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
-Changes in v2:
- - Regenerated with git format-patch from a real commit on pristine
-   7.3-rc7.  v1 was sent with a diffstat typed into the commit message, so
-   the mail carried two of them; that is what Krzysztof called a broken
-   patch.
- - Subject rewritten to the regulator tree style:
-   "regulator: dt-bindings: willsemi,wl2868c: ..." (was
-   "dt-bindings: regulator: ...").
- - MAINTAINERS: the entry was in the V section while its name starts with
-   W.  Moved between WIIMOTE and WILOCITY, and renamed from "WILLSEMI
-   WL2868C CAMERA PMIC DRIVER" to "WILLSEMI WL2868C CAMERA PMIC" since
-   there is no driver in this patch.
- - MAINTAINERS: dropped L: linux-media@vger.kernel.org, using
-   L: linux-kernel@vger.kernel.org like the other single-file regulator
-   bindings.  The device registers as a regulator, so the regulator tree
-   is where it belongs.
- - Commit message now says who uses the binding: the camera PMIC on the
-   Lenovo Legion Tab (TB322FC, SM8750), supplying DVDD/AVDD/DOVDD of both
-   camera sensors.
- - Binding: gave the five input supplies descriptions, grouped the
-   regulators patternProperties, used the real board voltage in the
-   example, and added the closing "..." marker.
- .../bindings/regulator/willsemi,wl2868c.yaml  | 79 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 85 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+I went through all nine patches of v2 and compared them line by line against
+your SM8750 v6 series and against your Kaanapali v22 series. Three of them
+carry your code:
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 000000000..7abbd53fd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description:
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: Input supply for LDO7.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-min-microvolt = <1128000>;
-+                    regulator-max-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8..632b17b3e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29413,6 +29413,12 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
- 
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
-2.53.0
+  - 1/9 qcom,sm8750-camss.yaml - 76% of the added lines are from your v6 2/7.
+  - 4/9 camss-csid-980.c      - 92% of the file is your v6 5/7, 20 hunks changed.
+  - 8/9 camss-vfe-gen4.c      - 84% of the file is your v22 9/14
+                                (camss-vfe-1080.c), retargeted to the 980 bus
+                                base, plus the SM8750 csiphy/csid/vfe tables.
+
+The other six are our own work: the CSIPHY 2.4.0 lane table comes from
+disassembly of the vendor camera.ko, and the csid error-path unwind, the CSID
+frame-start reporting, the two camss-video fixes and the sm8750 DTS are new
+code. I am not claiming anything there was derived from yours.
+
+For v3 the trailers will be, for those three patches:
+
+  From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+  Co-developed-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+  Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+  Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+
+with Atiya's Co-developed-by/Signed-off-by kept in the csid-980 one, since it
+is already in your v6 5/7, and a short note under the --- line naming the
+series it is based on and listing what we changed. 8/9 will point at the
+Kaanapali v22 series, not at the SM8750 one - that was the part of my earlier
+description that was simply wrong.
+
+On posting: I will hold the SM8750 series. Nothing further will be sent until
+your team has rebased onto Kaanapali, and when we do send it will be rebased on
+top of your trees with the trailers above.
+
+On splitting: I would rather not split the SM8750 generation support out,
+because the binding, the CSID 980, the VFE gen4 and the DTS only make sense
+together and would be reviewed twice. What can be separated cleanly are three
+patches that do not touch your code at all and are not SM8750 specific:
+
+  - media: camss: csid: unwind the power-on path through a single error label
+  - media: camss: video: check that a buffer is DMA contiguous
+  - media: camss: video: stop the subdevices already started when a start fails
+
+Those are pure camss framework cleanups against the pristine tree. If you would
+rather not see them before your rebase, say so and I will keep them back too -
+otherwise I would send them as a small standalone series so they do not sit
+behind the SM8750 work. No dates from me on either; I would rather wait than
+add review load at the wrong moment.
+
+One thing worth flagging separately: Vladimir has asked for the CSIPHY to move
+to drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c, following the SM8450 series.
+That affects 2/9 only and is independent of your series, but it means the
+CSIPHY part will change shape before any repost.
+
+Thanks for the review and for the patience.
+
+Best regards,
+Qianhui
 
