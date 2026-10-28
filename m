@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219178;
-	b=LdQ/Lit3y15QtYbcllhqRV+y8WLaadJnDnR+K5DqqIBCm3YTGo+G/m2uu33s8WH09iiP
-	 AAfOikSMNfhCW+IMqaqM2Nkqdp6GpM0edaG+tn++SJwXuooBFEDxHOi99fuaH13t1gk4r
-	 Ryo7X9wqkVvofncECAelEwrHA9y2Uyks7UK4olo9tYtke5EtXc04LyzumYa2gkIPbjlED
-	 bbbCKQGp6Tmk7fYnTSCmx/QHXQ3wG+PIvn+7vgKMwz4eaep6B1i+5XGOBLaphkKR3fo3o
-	 eq4c+jpRrYvaq7wOngLVjLhJMSssV1a9LvXRKlhxX4rFnImJur+m2kGaw2xe2oEn8mw==
+	t=1793219175;
+	b=tmyFctk+bMs/bPnrD6g6PLzkXk/t3qCxSKhwrW9FdP5eBn/2LY9Zx7l4DEQD7uy2K/5F
+	 ZdJZAVDF1fdTCnjPFNAmNtx9L+KQ7JbHWEEg63O4pFk4ujpD6RwxuCiKDcOOjnTBOFTHt
+	 iJwF0vkFtLv3zMOcpW1cU6ADoKpFN31Od/zUBeWiqgSO/jya4NMqvl+DzXKdlDZIkIUgM
+	 xmyloRCil6VATdkGMmBRIzQtHjWN0OXXusTvlNnorO7v0nAJZ6YDeLXHZeaUD1b1uW+oN
+	 PYbMDGUwN9OphWPOEektIeDd0UHEtE/ncAjzuS9SnqxdjOcgXfklv4YXhbYj89EwTkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219178;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219175;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=DQPRF1RqEpntROrXpO4DTcTkPcIgq3OBHakNhIQaiCc=;
-	b=4h6fvFvMdykRgXo1c/+Uhes2CwEWQK53rPs4PawBLMXr7m0qkXQnGZGS9zxRFtNPR0dI
-	 r7xIHrci1QU/9BdYhJpfdAJbLryd+sa2ddf0nataEYdBomHVV2XNh4qVkFYWl2fsHvaeH
-	 XqgSHTqmH1HPaCeMxqYgeHFMBMfnz/QnZ4wtRnZSS47FLfK1W4YQe2wM9/dZR0sZbR9GS
-	 t/XhM2sFa80PIaa8unTc8DLTbDV2xJDGWNmEmMrqnh8LChCb+0cVK21cYz0C+bFjql58r
-	 UwVzXq5OdiyM4dRo/yRd89RQWqwGunFm95cNlzY1iekqxLS5MK66ugUNPf9pMmJb9Cw==
+	bh=9C07IryRGsBVGXruGSb5dwHcNUfmVbbFhhcLmi6Efy8=;
+	b=Xl2Hypiq+ExDpgqpJHxzn5bk3g0jpSa+249Pxze5OM3zqLB+AwNu7EnfrW71xwWrsQr0
+	 ZEmXN1ypu2DdcjdTw6zPs9jrV09b73v7uDmo4Urbxu1SnsizqS5Er175AMrFCHyBt+Fa7
+	 AuO74PjfsoBn+6FXarCrKNyjK8lZPu4vOuQsLMmoeUOQitB+qfA+vT+gY9m6Ib29Lk57w
+	 ClywzjXyjU95ZUThh/HUVna3d9/uVOuu5yqYo0agxIpzQB8ZQiqAo4+Zu81O6DXeSZLPj
+	 uAz0t8ncwfEVTKy/Qb5CLmuA7SBtySEDncJHPcfWJzrs7F/HjIsm4lkWt/Jf/PO6COA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KhxD6YW7;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AV1Mq68K;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1AC60A2610
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A1AC60A2610
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B2F606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4B2F606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KhxD6YW7
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd6532dbd7bso860047a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:26:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AV1Mq68K
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac7a4ba546so43121a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793219177; x=1793823977; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793219174; x=1793823974; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=DQPRF1RqEpntROrXpO4DTcTkPcIgq3OBHakNhIQaiCc=;
-        b=KhxD6YW7jsi2Rkd1zG7UJKzhHhXhWOkvdBGECq6LhP9JvIxx9OQP2ZgqXCibHf4Bv5
-         B9ykKc/+47Dztkc7bvyNC7rglGN91slqpUXescK7j0coO5QbU65JeU7Ar7h1ZPjJxpE+
-         XCv2mVF4MpqFolk9nr+B6Qd8GOmJRXgMlYEAHeJSgSDIPnNg1B3fL6UwM8gHOtklYtIl
-         FMcxIgzRNlwo1ngeibPOFQwIQTXGWLNrrgLCKSBEduMFl7ltQ5OfdHc4hfwxJdRiDkNS
-         to3p/Zz5uutSrNl/WMWLG/FJ2oWSkYLw5mOj5enzBkrImlCm24CUAoWk0w/ajJohMLzO
-         SWGg==
+        bh=9C07IryRGsBVGXruGSb5dwHcNUfmVbbFhhcLmi6Efy8=;
+        b=AV1Mq68KBQnEakbG0NpZwoWnnbXnne3bM2VR2Ndfo12crYRAF3BM0DnalYN15wu62z
+         T3mZqmvnRERBut7JxPNIr3qUzn2eK1CGjLocByU3ozzVnJOAnqfiB1wtapOY9xU9SYyC
+         rlZCVXShNLtE2VR3AywqX3ccIK2l+kRNRWwY0FBF6WoXui14aepMQpXJKUt2Eo0m66wG
+         bL1oKWtGNW30ZnVl6qUxPyhw3dFmd+XzlVeifKgliok5SLtTNhpf5rxBQX8C9WhNDahz
+         1LpFueHCmlrpZIaiCP7PfIKem3BPPj9KxDegZhdR0Ax/FtW6cn7dXm0jFZ9i/1Y86O8H
+         KxSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793219177; x=1793823977;
+        d=1e100.net; s=20260707; t=1793219174; x=1793823974;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DQPRF1RqEpntROrXpO4DTcTkPcIgq3OBHakNhIQaiCc=;
-        b=iCv4EogbfYp/SPf3lIhRI5x/DPL7AUmICRbohws2Cnq23PD3ogoVtPa6mSmQeWi29w
-         EGtGQHKXiIBBpljaeln+QCbZg/zLVx/sUdIBzN/chwn/w/nQvlkP+N9gddl12Kyk12Qc
-         KdO8U9aO+5arB8FL4blEOTusDyhyZxXpgXTtfwOFPyFNt8wz8sTknzpfJNldhDzlspag
-         Xm3q3SaaVA0dee222pngL598dxmrt3Zt0cRt0Ko/LFgn8Ed7M96j4R3Sw7PhtldS5Slq
-         iHCO/wFzfu5ex9aMT5P8vhn81gvj/UEN0cKhbk0fCjDrZGwHdXEdoO3vS1pzxa41q7Sb
-         wkhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwnRXd9BkZERht1VSrUQ3rCDpywx81LXjW4FylLeey+7rqL83sj3MlbF11q+TGQuh5dbsMmbUICJSIglcE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJI6DldlL0Zhys0lDvs5ka4jKLvloykBu6u71ijYuc42JN9j8EE
-	S0yJGwXw0pIldsxBlmZNMWqDVivgkuEhYNQGbYSJvdXedzZtSyPA8Jfysfgg5iPa3Ob9kdaL582
-	4HrXtYg==
-X-Received: from pgbm25-n1.prod.google.com ([2002:a05:6a02:6199:10b0:cca:c02e:bfe5])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:4303:b0:3e1:5086:35cc
- with SMTP id adf61e73a8af0-3e9023258c6mr2732929637.39.1793219177098; Wed, 28
- Oct 2026 13:26:17 -0700 (PDT)
+        bh=9C07IryRGsBVGXruGSb5dwHcNUfmVbbFhhcLmi6Efy8=;
+        b=p0NWVHPVaDRY7HYkjGxY8bwE2h6Tag/csjgd0scxA7Was/0E8YcQHsDk1K+urlSzQB
+         bUgeQmnQ8xr3HbUYmRgnCtJs48RlZZtUlwGSfx4cMdJ8G3d4YyrN63IgPbw+Rqb05x/y
+         IMG1JvsUVgDvg3XcgglURmb2/UGPJgN00tS/MCMmlYOzGsRtr3DfHPrMRr3oIlSMDkXz
+         ttFVq/v+K0LPmoqTEEUfhRe2qNdc2Rt2XBdZlTRl7tmMYAStWhXXqzDxaFcIWHG5X7u6
+         ZhTTlgy/kd3UrojyZb9KtmwIPTRdp7NFvnXoWu/U+7BOAehcTwhwGVYceStki1ggmtC6
+         P9uA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZG8ejNUEovBCQ/euuItWP8KDLqKmPN8ql+0z32chz94ABnl2aLB+PETrJJBDUh3kX3sQJTTIL7MltY0s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYDjaGDceVeYKw8Vdt2lCbkgnHWBWATZo4NFpu/kSYMrJmAnsA
+	cBSLjGuLPiGDucn6z/fdSoT5CyRA5txRQGsSOmoZ50KrtpJpU7zV+QP4249DY3esnGom/5d2Nqk
+	8g9Wc5A==
+X-Received: from pjph15.prod.google.com ([2002:a17:90a:9c0f:b0:3ac:92a7:e8d8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1dc1:b0:3ac:9ed8:f301
+ with SMTP id 98e67ed59e1d1-3ae6ed6bd58mr284625a91.30.1793219173927; Wed, 28
+ Oct 2026 13:26:13 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 28 Oct 2026 13:26:07 -0700
+Date: Wed, 28 Oct 2026 13:26:05 -0700
 In-Reply-To: <20261028202607.1844883-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,141 +82,129 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261028202607.1844883-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261028202607.1844883-5-seanjc@google.com>
-Subject: [PATCH 4/4] KVM: x86/mmu: Use the generic auto-prefaulting to do
- prefetch for direct MMUs
+Message-ID: <20261028202607.1844883-3-seanjc@google.com>
+Subject: [PATCH 2/4] KVM: x86/mmu: Differentiate between manual and automatic prefetching
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Marco Marangoni <mamarang@amazon.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Use generic auto-prefaulting for direct shadow MMUs and drop the small bit
-of custom prefetching that is unique to direct MMUs.  Direct shadow MMUs
-are basically on life support, and the generic approach provides comparable
-performance, plus it supported guest_memfd and PFN-backed memory.
+Differentiate between "manual" and "automatic" prefetching, where automatic
+means the prefetch is initiated by KVM without any corresponding userspace
+request/command (KVM_PRE_FAULT_MEMORY) or guest access (async #PF).
+Tracking auto-prefetch "faults" will allow implementing prefetching in the
+TDP MMU using the standard page fault path, without breaking existing
+prefetching rules in the shadow MMU, e.g. don't auto-prefetch if the slot
+is being dirty logged.
 
-Note!  Deliberately keep the core direct PTE prefetching logic, as it's
-still needed to prefetch PTEs for direct shadow pages in indirect MMUs,
-i.e. when the guest is using hugepages but KVM is not.
+Arguably, async #PFs could be considered automatic, not manual, but they
+_are_ initiated in response to an explicit guest access, and unlike true
+automatic prefetching, KVM generally wants to put more effort into handling
+async #PFs, e.g. wants to punch through dirty logging or wait for I/O,
+precisely because there was a prior guest access and so giving up likely
+means a vCPU task will end up paying the cost.
 
-Opportunistically drop the double-underscores from direct_pte_prefetch()
-now that only the version used by indirect MMUs exists.
+No functional change intended.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/mmu/mmu.c         | 48 ++++++----------------------------
- arch/x86/kvm/mmu/paging_tmpl.h |  2 +-
- 2 files changed, 9 insertions(+), 41 deletions(-)
+ arch/x86/kvm/mmu/mmu.c          | 26 ++++++++++++++++++--------
+ arch/x86/kvm/mmu/mmu_internal.h |  1 +
+ 2 files changed, 19 insertions(+), 8 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index c56a2eaa4646..7f8beb1b307b 100644
+index 393feeaddfb1..3bd0d921778d 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -123,8 +123,8 @@ static int tdp_root_level __read_mostly;
- static int max_tdp_level __read_mostly;
- 
- /*
-- * The exact number of PTEs that can be prefetched for the shadow MMU, and the
-- * default number of pages to prefault/prefetch pages for the TDP MMU.
-+ * The exact number of PTEs that can be prefetched for indirect MMUs, and the
-+ * default number of pages to prefault/prefetch pages for direct MMUs.
-  */
- #define PTE_PREFETCH_NUM		8
- 
-@@ -3275,8 +3275,8 @@ static bool direct_pte_prefetch_many(struct kvm_vcpu *vcpu,
- 	return kvm_mmu_prefetch_sptes(vcpu, gfn, start, end - start, access);
+@@ -5031,9 +5031,15 @@ static int kvm_tdp_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *faul
+ 	return direct_page_fault(vcpu, fault);
  }
  
--static void __direct_pte_prefetch(struct kvm_vcpu *vcpu,
--				  struct kvm_mmu_page *sp, u64 *sptep)
-+static void direct_pte_prefetch(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp,
-+				u64 *sptep)
++enum kvm_prefetch_type {
++	KVM_PREFETCH_NONE,
++	KVM_PREFETCH_MANUAL,
++	KVM_PREFETCH_AUTO,
++};
++
+ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+-				 u64 err, bool prefetch, int *emulation_type,
+-				 u8 *level)
++				 u64 err, enum kvm_prefetch_type prefetch,
++				 int *emulation_type, u8 *level)
  {
- 	u64 *spte, *start = NULL;
- 	int i;
-@@ -3301,33 +3301,6 @@ static void __direct_pte_prefetch(struct kvm_vcpu *vcpu,
- 		direct_pte_prefetch_many(vcpu, sp, start, spte);
- }
+ 	struct kvm_page_fault fault = {
+ 		.addr = cr2_or_gpa,
+@@ -5043,7 +5049,8 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 		.present = err & PFERR_PRESENT_MASK,
+ 		.rsvd = err & PFERR_RSVD_MASK,
+ 		.user = err & PFERR_USER_MASK,
+-		.prefetch = prefetch,
++		.prefetch = prefetch != KVM_PREFETCH_NONE,
++		.auto_prefetch = prefetch == KVM_PREFETCH_AUTO,
+ 		.is_tdp = likely(vcpu->arch.mmu->page_fault == kvm_tdp_page_fault),
+ 		.nx_huge_page_workaround_enabled =
+ 			is_nx_huge_page_enabled(vcpu->kvm),
+@@ -5097,7 +5104,8 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
  
--static void direct_pte_prefetch(struct kvm_vcpu *vcpu, u64 *sptep)
--{
--	struct kvm_mmu_page *sp;
--
--	sp = sptep_to_sp(sptep);
--
--	/*
--	 * Without accessed bits, there's no way to distinguish between
--	 * actually accessed translations and prefetched, so disable pte
--	 * prefetch if accessed bits aren't available.
--	 */
--	if (sp_ad_disabled(sp))
--		return;
--
--	if (sp->role.level > PG_LEVEL_4K)
--		return;
--
--	/*
--	 * If addresses are being invalidated, skip prefetching to avoid
--	 * accidentally prefetching those addresses.
--	 */
--	if (unlikely(vcpu->kvm->mmu_invalidate_in_progress))
--		return;
--
--	__direct_pte_prefetch(vcpu, sp, sptep);
--}
--
- /*
-  * Lookup the mapping level for @gfn in the current mm.
-  *
-@@ -3562,8 +3535,8 @@ static int direct_map(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+ 
+ static int kvm_tdp_page_prefault(struct kvm_vcpu *vcpu, gpa_t gpa,
+-				 u64 error_code, u8 *level)
++				 u64 error_code,
++				 enum kvm_prefetch_type prefetch, u8 *level)
  {
- 	struct kvm_shadow_walk_iterator it;
- 	struct kvm_mmu_page *sp;
--	int ret, access;
- 	gfn_t base_gfn = fault->gfn;
-+	int access;
+ 	int r;
  
- 	kvm_mmu_hugepage_adjust(vcpu, fault);
+@@ -5120,7 +5128,7 @@ static int kvm_tdp_page_prefault(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 			return r;
  
-@@ -3594,13 +3567,8 @@ static int direct_map(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
- 	if (KVM_BUG_ON(it.level != fault->goal_level, vcpu->kvm))
- 		return -EIO;
+ 		cond_resched();
+-		r = kvm_mmu_do_page_fault(vcpu, gpa, error_code, true, NULL, level);
++		r = kvm_mmu_do_page_fault(vcpu, gpa, error_code, prefetch, NULL, level);
+ 	} while (r == RET_PF_RETRY);
  
--	ret = mmu_set_spte(vcpu, fault->slot, it.sptep, access,
--			   base_gfn, fault->pfn, fault);
--	if (ret == RET_PF_SPURIOUS)
--		return ret;
--
--	direct_pte_prefetch(vcpu, it.sptep);
--	return ret;
-+	return mmu_set_spte(vcpu, fault->slot, it.sptep, access, base_gfn,
-+			    fault->pfn, fault);
- }
+ 	if (r < 0)
+@@ -5175,7 +5183,8 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 	 * Shadow paging uses GVA for kvm page fault, so restrict to
+ 	 * two-dimensional paging.
+ 	 */
+-	r = kvm_tdp_page_prefault(vcpu, range->gpa | direct_bits, error_code, &level);
++	r = kvm_tdp_page_prefault(vcpu, range->gpa | direct_bits, error_code,
++				  KVM_PREFETCH_MANUAL, &level);
+ 	if (r < 0)
+ 		return r;
  
- static void kvm_send_hwpoison_signal(struct kvm_memory_slot *slot, gfn_t gfn)
-@@ -6685,7 +6653,7 @@ static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
- 	if (error_code & (PFERR_RSVD_MASK | PFERR_PRESENT_MASK))
+@@ -5207,7 +5216,7 @@ void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu, struct kvm_async_pf *work)
  		return;
  
--	if (!tdp_mmu_enabled || vcpu->arch.mmu->page_fault != kvm_tdp_page_fault)
-+	if (vcpu->arch.mmu->page_fault != kvm_tdp_page_fault)
- 		return;
+ 	r = kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code,
+-				  true, NULL, NULL);
++				  KVM_PREFETCH_MANUAL, NULL, NULL);
  
- 	nr_pages = min(nr_pages, KVM_PAGES_PER_HPAGE(PG_LEVEL_1G));
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 8e350095508c..baaab791f107 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -631,7 +631,7 @@ static void FNAME(pte_prefetch)(struct kvm_vcpu *vcpu, struct guest_walker *gw,
- 		return;
+ 	/*
+ 	 * Account fixed page faults, otherwise they'll never be counted, but
+@@ -6681,7 +6690,8 @@ int noinline kvm_mmu_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa, u64 err
+ 	if (r == RET_PF_INVALID) {
+ 		vcpu->stat.pf_taken++;
  
- 	if (sp->role.direct)
--		return __direct_pte_prefetch(vcpu, sp, sptep);
-+		return direct_pte_prefetch(vcpu, sp, sptep);
+-		r = kvm_mmu_do_page_fault(vcpu, cr2_or_gpa, error_code, false,
++		r = kvm_mmu_do_page_fault(vcpu, cr2_or_gpa, error_code,
++					  KVM_PREFETCH_NONE,
+ 					  &emulation_type, NULL);
+ 		if (KVM_BUG_ON(r == RET_PF_INVALID, vcpu->kvm))
+ 			return -EIO;
+diff --git a/arch/x86/kvm/mmu/mmu_internal.h b/arch/x86/kvm/mmu/mmu_internal.h
+index c29002c60126..b02cdacd3e42 100644
+--- a/arch/x86/kvm/mmu/mmu_internal.h
++++ b/arch/x86/kvm/mmu/mmu_internal.h
+@@ -228,6 +228,7 @@ struct kvm_page_fault {
+ 	const gpa_t addr;
+ 	const u64 error_code;
+ 	const bool prefetch;
++	const bool auto_prefetch;
  
- 	i = spte_index(sptep) & ~(PTE_PREFETCH_NUM - 1);
- 	spte = sp->spt + i;
+ 	/* Derived from error_code.  */
+ 	const bool exec;
 -- 
 2.56.0.313.g2479322e68-goog
 
