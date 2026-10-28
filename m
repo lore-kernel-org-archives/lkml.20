@@ -1,68 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793154407;
-	b=1bRznpN1rtNkKw467CvUX0BP3cUYgyH5lOUOoieNUHJazA9Wd+s1/0F5EL9oMbOjketI
-	 etCaVd85qnxbyynNrkNc6Pr4XdEwA4lyGkIFZAlfTDNaa9lIi+yHuXxnqvAJnoor4r3bc
-	 MmKfw5WsCVtND87D7YrxCocAio5rGksUDxrz/ECbXGhuoohxCxsxhpQxMUOWBWiFxNK9R
-	 UpXte4v4nXgOhJTZWv2YigbEhKXxYKKo0FRABs0ubzOpRHx+LPRfs8aSqe506CSR1acOJ
-	 NJ4593IMt5WxZTrQ2ssGXVVxTCo8VGhC8AG9uJ2/sX9czsedRkPUsF71wS0cVDuqCyw==
+	t=1793154421;
+	b=tWwQGUZLZXqt5irrX8QZxEa5gL3q+bjOViN+ztTv36OtODLAAqlpwFC+8rFZw/9JSNlD
+	 ZFzAT4jXFGfsX/WVVWZI0z47GhCXAaOcI2CaKhPQJkzmU+yoC11IwpB8zxC8ltgUtqnwg
+	 vyVVH1MSXHIZ3sl5mdu1OZZ8XJuozKbgeOSGo/3TKWrOsjzMUaZwYiyYRiLV6ibZBNKeQ
+	 VedXIfCjtbUgmlRvqI3X1iLR6PwIXOCPL1fXPYZUG7QgErQVV41WuEJs3hpDRWzAYmTdE
+	 ssFa7Gs/V3zcxlYr5JNxaUa7PVjKf3i5E4SyOvso3DJnUxA6tgvObc8vbXm1cR8Utcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154407;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nPtXLhmYKu2MN1HqVNGXKzPAg4qEhpU7r/v/4I5Gcsw=;
-	b=ili6r6DySaLHWzAIgh2k3r2lG2H375RtfU3vhyG3w/LNas3R0I7nqiZCeN/uyeGzkgDx
-	 gPox0YOHl4ERQpoLgd/lPn78/jz7k6s+GG1cF6qoiyOiXa3Hqh8U3IXBprWfHBhKbJXBQ
-	 RRz8vv+STAs2JZrBahlZfm3FeBI+7U0N5zQEqrTJXocAV8sypE9pFJ/CnlgXUYFa75uiu
-	 SuKghskSrZEJT9iIZGGw79f/QxW0wA/R/vmZr+kNMUvydt/w7Pg0qaySx9OirmUwmvLZ6
-	 yzAwYCz/a4qQB2v8GyqJuwx7+ioPv4YRH9czSUwHUXwzTuR6FOhMz2mlz07LKjBnarA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154421;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
+	b=Zd4pr7VDbhkIo8rYil2u0Kp56ktK4xA2Q3nHCC9SXdDaTfazuXiHz91VZIZuYVI/2STD
+	 frZMpcd4WbLl0wgSGDoOXx1PZW1x39Mkf4L7n/PWFVL7UeabwIT0ILaQJTR1Yo7h0bxtn
+	 FlQ2hClGS3Whp4TlfZxP3eqQ2l/3niCwtxUCAZ9DW7LSnW4loV8TFduHR2WX5c/6o5pkt
+	 zQOyTvSVuw3KqZVE2COQETb9w5PCaf466sCqc3XDBHLl1dlybbaeN/hw9r/xmj1J8oyBa
+	 csSvMUkgXI068JfzRwawl2mTOiMRTuyOk4ocArEyAx9IsaSl5sSLd9MtvvsafTdxbDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=VEDWLivC;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6u4ASHA;
+	arc=none smtp.remote-ip=209.85.222.49
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28753606A31E;
-	Wed, 28 Oct 2026 02:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28753606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3B3606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:27:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF3B3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=VEDWLivC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=nPtXLhmYKu2MN1HqVNGXKzPAg4qEhpU7r/v/4I5Gcsw=; b=VEDWLivCoqhxBjJLnnm14TEPWp
-	COR2QNe350SBN7ngS9ca47m5qquhREyv6mzRKL+WbB4zC67Pm96/qcSlpdnIfWZ4se8X7lrJLdAIp
-	JLyOynqzySu/jv5BmF15h8rEn14Yxs2ASxRzT1T0t8F7demXZgLsXVhnrMbQbLpVCinM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLtMz-00D2sQ-Fk; Wed, 28 Oct 2026 03:26:29 +0100
-Date: Wed, 28 Oct 2026 03:26:29 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com, daniel@makrotopia.org,
-	linux@armlinux.org.uk, arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v3 6/7] dt-bindings: net: dsa: mediatek,mt7530: add
- econet,en751221
-Message-ID: <f9249c6d-ef72-4723-a3b5-8d5375e53744@lunn.ch>
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-7-cjd@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6u4ASHA
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9912c47367cso316080241.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:27:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793154420; x=1793759220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
+        b=q6u4ASHAlu96sY2ofBItUFB1lKaUWqtlWcAjq1ouApqcY9t1yw/Wh4kibHPEDawxFh
+         VksZEMuoeQxaWyIEf9SyZnbklSAYVChDgCLG/EQLSM8ltiILoRoF26o4QlDAPXW1Vl5Y
+         ahbBNd2ed5e4dZ4wFAaoDVIOUJCVkV5M6rl2KuVq1HavhyAKFN7RdW0BaimAwmGBstIt
+         BgfJFswec0DhT2mz43ls7KM9phFFtq1ThmmvFaas6zEnLYqrz5TYaZhpWAOY4hdTsSke
+         ZTHX+2th4s8+FFHJOeX7b42JRpdmDBCW7gSVzBnSC+qqc4yLX/f27lS+9cYM0lomxpio
+         b5lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793154420; x=1793759220;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
+        b=GUzJV2kg9mevsz6dk1bHyOMYDKPGgK2CJxgVIfinfEv5og/3ggrohZZ4D6LGgB1rEc
+         ptafvG85KDK7mm5FXzvTyoYE6GSxmabKpwiqdSZ4bgv8A9E4G7hqbAPeLrvEPD0PEQFO
+         UECe6ltv1bWvbYIOsiwwxDfbLZvZw8x/0DKsm4a7AGEku6LvuZM7WeTIPjala+zVnW7S
+         X4zAnBllAGSImeFebbHTjQkXeFjHdCD9w5Y4IZIBrTojED0szh8kWOqu+m9Kbh5Ksfy8
+         AuWca5Yy0T+XjyBii+/8Xo/DnWXnGiRBqOuJu0yg8kdb2zQEUEy400lzU+fCzjgEIFXU
+         K9SQ==
+X-Forwarded-Encrypted: i=1; AKwUvByw07W4/wKFMGdBa4SvlhCKwFy9ck2AWMCtKRB9SC1COqKW7QSNICR+KEjSnZJ2mP9/WwJ4lu4ztl287Gs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAtjRK0xxmwswjK1f5jS3eTFeoMZXXVjJwXP/7x6baqLDwvgbT
+	9PModz2+XTxKiogVD0a4nWR6NQZlnNCPKPIT4YHPAP8N7T1+mhDYbPna
+X-Gm-Gg: AYBFou2XLJ5wr0T7MZbXCyTPj+CV3NF8m/7KO81ZF/VmflRQW7emBHmkWej2Y/zWB2M
+	20ftr4mEG6Ds9QpaWnHyVdyFQmzTl6bzTbasOC3FqmsaTyEJK8/0+RmB7vc/xIhegAz1xkcneSr
+	HZk91I1zi5qTUz8AkvUqRG6yQA0Gm87XrAww54dC3ERqcTwcTv3ibnzwj+rtLDx2rqD7olubwl4
+	8EfyxtHhKuzp3TuFVWd8T09pBmDERpMixr2AeGThou41zwW82ik5SmfLEzfHtWff9/oqMGaYLzp
+	LH6gT5UzwnZxl+W4KnEPQArqsVdyBEeGa3V2S80B6XSDHTLJOQsAonPJRkw5+WOpzRpWtLl3aOU
+	+auflbYygNUjkmj4rIvBgM7NPT4G2W6sW1WAHssjyQeyaJfiaM4yqNZm11vjYqlrlbECRzRbdAL
+	oxLmjsm8Vjr4jeUilTvhKbL6+HEmo3YFT27bZvb9gLocjx9jajw1NlclM/4j6tkG9v3OX8UtScg
+	L+2XXuhsK9EfjvjgRF1wtS0zJFr/ydfP3EY5rop3xjbV0v4UuqEPdvp49n75pge8KNj2Yb/37RT
+	W088TnXpGbP46tYlYRvBLZRa0oYnxmH7gn+nzN/yzeZMBCsSUCLU
+X-Received: by 2002:a05:6102:41a3:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7d041913706mr48618137.6.1793154419656;
+        Tue, 27 Oct 2026 19:26:59 -0700 (PDT)
+Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:4df:52dc:4559:394e])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3bc3824sm4456693137.4.2026.10.27.19.26.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:26:59 -0700 (PDT)
+From: Stephan Costa Barros <stephanbrrs8@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mike Looijmans <mike.looijmans@topic.nl>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] iio: adc: ti-ads1298: add ADS1299 support
+Date: Tue, 27 Oct 2026 23:26:52 -0300
+Message-ID: <20261028022652.31121-1-stephanbrrs8@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025233429.23b02702@jic23-hlaptop>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com> <20261024231335.280955-7-stephanbrrs8@gmail.com> <20261025233429.23b02702@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,30 +108,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028011317.1557238-7-cjd@cjdns.fr>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 01:13:16AM +0000, Caleb James DeLisle wrote:
-> The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
-> in the SoC register space. It is similar to the econet,en7528-switch
-> except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
-> port 5 has no PHY, but is in some implementations connected to a
-> downstream MT7530 multi-chip module via a TRGMII link.
-> 
-> The downstream MT7530 is similar to the MT7621 multi-chip module and
-> has all gigabit ports.
-> 
-> Add the econet,en751221-switch compatible with the same constraints as
-> the other built-in switches and also add the econet,en751221-gswitch
-> multi-chip-module switch whose port 6 is configured as a DSA link port.
+On Sun, 25 Oct 2026 23:34:29 +0000, Jonathan Cameron wrote:
+> A few things in here feel like they should be in precursor
+> patches because the implication is they apply just as much
+> to improving support for the ads1298 as they do for the
+> new device.
 
-Is there a use case of the econet,en751221-switch not in pass through
-mode? This is where you could have a different dsa_switch_ops
-structure, which probably makes the changes less invasive.
+Agreed. DVDD and PWDN become ADS129x patches, binding and driver, before
+the ADS1299 ones.
 
-Even if there is a use case for not pass through, you can still look
-for the property in probe, and decide which of two different
-dsa_switch_ops to pass to dsa_register_switch.
+> > +	if (FIELD_GET(ADS1299_MASK_ID_DEVICE, id) != ADS1299_ID_DEVICE ||
+> > +	    nu_ch > 2)
+> > +		return dev_err_probe(dev, -ENODEV, "Unknown ID: 0x%x\n", id);
+> How do backwards compatible parts with fallback compatible of ads1299 work?
+>
+> Generally we don't reject on simply an who am I value mismatch.
+> Note the existing driver may need relaxing on that point - we used
+> to do this before DT maitainers pointed out what it broke!
 
-	   Andrew
+Today that works only within a family: the channel count comes from the
+ID, so ti,ads1299 serves the -4 and -6, and ti,ads1298 the ADS1294/6
+and the R parts. A part with a new ID is refused, as the existing driver
+does too.
+
+For v3 I'd do, in a precursor patch for the existing driver: the
+compatible's chip info is what the driver trusts. If the ID is a known
+part of that family, it still gives the channel count and the name; if
+not (another family, or a reserved channel code), the driver warns and
+goes on with the compatible's chip info. The channel count from the ID
+has to stay, since ti,ads1298 has been the only compatible and existing
+boards with an ADS1294 or ADS1296 depend on it.
+
+Does that match what you have in mind?
+
+> > +	/* The ADS1299 comes out of reset with its inputs shorted */
+>
+> What is the case for the ADS1298 - is this just harmless or does
+> that have similar behavior?
+
+Harmless. On the ADS129x CHnSET resets to 00h, normal electrode input,
+so the write changes nothing. On the ADS1299 it resets to 61h, input
+shorted, and without the write each channel reads its own shorted input.
+I'll make it ADS1299 only, through chip info, unless you prefer it
+unconditional.
+
+> > +	for (i = 0; i < indio_dev->num_channels; i++) {
+>
+> 	for (unsigned int i = 0;...
+
+Will do.
+
+Thanks,
+Stephan
