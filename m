@@ -1,98 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187231;
-	b=oAVaHhpkz521rXrJfaxf78QPj8wUNqAfmKWzMllgTMD1/Lb7spoU/hm1fm9XSkPMCp6Q
-	 77TyiZwtrpaEUe1AxkdyX9hCRTPze5uG1RoWb2JSUYbOLbL8gN3URNoBXZWeB7UY4zQve
-	 N+1p1ptdL4rP/SRbCixrY2TP9kwXjsSnQt2GGpLdB5H6m1R7tyNbCeZAGDU3TLgFRsSJq
-	 05V39RRRZdF0dtRDmzMy2yyu+99a7KVTHZgC44xl1sFfp9uZxbJHCZE6Lq03fK+Od7zE+
-	 6mZVdYAl8PPVvqZow1bt1/NBmy254KJsMOZdJY8h/PLUxFet1doyUwxtC+7hcu1Pw7Q==
+	t=1793187277;
+	b=MdnB29rTbAwoiy2x6qJnB9XauzElimMs6cQRkhmelq02w8o9x6zQKemNsSL43iAy6qZs
+	 Xt1wRvRTp6573/hGRUQ5bFPJsiXoj1YCt4TCsD0jwYOaBxk2/Xd1h9DyghhcuFcvExOCe
+	 XUvjAPpakM+23LpTV/vsQYoEHffOXy/de3rBXi/eHcum2YBu8FnG2ViF/P1j3QeTt9EyQ
+	 wJYD6vIGBMUeSyc2GxSQ7p6ztu7tO54PAIKEwedDibyGWp81AMAVENZ8QvtWCoTH7LjC4
+	 y3SpFhm5jDYiYAueajfFGySPjIaUv9obxiFDe55p0plCJHEJwyhFkbTEMh3nGf9BbHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187231;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=jLuXcsrhYze/uot6RAritgtezmvs46B7suAi1iRl0v0=;
-	b=A0pi3kk96ukyb/qHJUzwZRjFTNu75826ktHdX3PrbOF6bw84j9MlYmDdstg0vJsG6EZO
-	 p0oUpJKDieRZe+xYEz4BU7Z9ZJ4jgaE/6rW8f6+ryPvUNGC/hugKAggOQ2aRAc+++Gyd6
-	 Q9GMfKTWlqz5+sbkij3d5t9oSpjz9R6zt4Jb86qBnAZPy2HSaBix1x2jVrZrSvsuOHbpZ
-	 e6Bvt+YSnE7AIzAzi5ASm4MdWjZcCIspyFPc0by1kzEb6yaMfdum9dq4eifh7KlNxWwF+
-	 5PSOeRRlawU1DvmIwreJn6lBppVZ6UTfhu5uLjX9MN2Ki/NKzMgm5SZP3s8UiiJgtwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187277;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Dm2204N5q4pUPSLYAJkabKLi2pj0kqDbpxLVbB0EmvY=;
+	b=dhZRJEjHUtj5Zrjn/rEYd4Cz+10bDve53GbKCVZ5rVqrLgnpgZWxwgvQvWCLt+KV+v/f
+	 zK9815dyeTcuHRnQ8BvUVRfxyo3rlhBzESU68dCR309VT67LMZYloWKf7KkhxlVoRZhhA
+	 Kdu4tFZHyoh8FPAx0JEm//fg9KotlxMVm05tv0o2x0+pb3daJrnPNWSK3NBPeN7KknobF
+	 PObQvfK6vOpYhlmOaAoqQjIg9VYZYuDmtJBIyxeoP9P47EWLZZnF12XaYruQERFkDJTnK
+	 EEB68YA+PTJuMWZaMpbxo+BNpZbtTcMne6oHaPtEwwA4g4dfkZAtaLrcHC5BD438ZIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGKF85hm;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncrqWbEt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CE1606A31F;
-	Wed, 28 Oct 2026 11:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43CE1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57CF606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:34:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGKF85hm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793187229; x=1824723229;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=z8y8XV24bROqh0zonAMNAjIZyMJbY12xpb+/fK8m0AI=;
-  b=JGKF85hmCVQ9pf9eXbOsC8wgPHWDavTdyCGWPRpxPC23gPTB9HurHR1u
-   WQIzCd0zwuTx3xDYu7R6x7Tug0u3cG2len/6bLyuT1Ba9nt2Ksz9lFv16
-   uWsDoRlbFOlyD/wV5bIxwsw3kIwHlbx+7870/Q08076xKsblgMcUIm7Xw
-   nkUIXIu5vX0mQFDdirfJv+J+GkeTU7aMk2olzE59xTR4u4jE9NpgRt9lo
-   j3gf2C66LaqLw0qU6mJ+rQfIH8X+Zwj6uep7ZyHB2nWJbxPDyFDqeTPXW
-   uH7NK1RnZY34FW9rSVNOCVg9/KCrbR1XNYeByeZKByf52EvDlzja4Tmz3
-   g==;
-X-CSE-ConnectionGUID: LjtfTqsfR6q7+D7U9Clktg==
-X-CSE-MsgGUID: ULH4gWuCRSGUwGXlKvyOzQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1813628"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1813628"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 04:33:48 -0700
-X-CSE-ConnectionGUID: F9mrBK1+QXS8jOjCv8P8bQ==
-X-CSE-MsgGUID: KJ1QgI6jS6ey2L/RLS17LQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6633584"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.146])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 04:33:40 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones
- <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Joel Stanley
- <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen
- <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook
- <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Matthew Wilcox
- <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
- Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
-In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1793027261.git.d@ilvokhin.com>
- <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
-Date: Wed, 28 Oct 2026 13:33:37 +0200
-Message-ID: <3b839373c03f6b8aeafa8e4801a486ece68b0815@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncrqWbEt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8171F01825;
+	Wed, 28 Oct 2026 11:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187276;
+	bh=Dm2204N5q4pUPSLYAJkabKLi2pj0kqDbpxLVbB0EmvY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=ncrqWbEteNkw0tdcqQJOmlYeN4rLNB/aR3RqVXNPszzMrAsYqA4iMxuffdi2o5sSG
+	 BrbEhi3fDg6jMtb1HRRdt8nnbkVr1tJ3epwMA1a57QuqNYL3SMYR67fT6trC+bBOuv
+	 p5WP2Jh6TUBKIL/15kptjV+FB8/1TLusBTDPyxBfA/JVvuhdLgQZ3fLWr5E96XZNdr
+	 httJhs9evRd5CrylnckTJ6eIOCuFpcakik1peGJRcmcIjGl9Ywd4zOGUBBCkOpD8AR
+	 vWrYHVyUb77X5eMdwl0O/J/jXaD/X0MCCbn5E/LuURcK4AxsiVcz6owhYopJvrMHM5
+	 95LazxELTTByg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,68 +49,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] phy: marvell: a3700-comphy: Guard missing polarity
+ argument
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: =?utf-8?q?=C5=A0t=C4=9Bp=C3=A1n_Daleck=C3=BD?= <daleckystepan@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261001151939.23658-1-daleckystepan@gmail.com>
+References: <20261001151939.23658-1-daleckystepan@gmail.com>
+Date: Wed, 28 Oct 2026 17:04:29 +0530
+Message-Id: <179318726992.5872.8966112619057702864.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1495; i=mani@kernel.org;
+ h=from:subject:message-id; bh=fR2hoJz11vogsarSjJMB47094/svk4kkI+B5BqmBXeI=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4d3IfjcamPUAIxgUX26jrukCB2rCPDjl/4WDp
+ BL5kxdCIACJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHdyAAKCRBVnxHm/pHO
+ 9X0YB/4t5U7JQ00GkNTsEc4oTiFzpHouhrDd1D6Tjf8G7s8kD7w1G5xn5fNXGZ4l3B1zlnYIsv5
+ JB9RVmvXA6MHEqysE27yXwU/wALJG+3UUSgH5dS4LmkyGzqBcWKZIG4gH2s4HnKuOIrP9IwN2U2
+ fb6LqKaPXpNg08mC0i7EGU5L+/V8dPPNYhm6lBlDQZQFML2z9mpkb1lNy/tFKdmv5TfGI7kdHBy
+ ceHEOk0qn8foJ+oObdRADLYfn7SHAXpHkaa6XJQBhx+Uj/dT8ZGXFNY7bG4gTQb1L1DzJZ9nKk+
+ LRDcu+WFlXj+6612XfBLqQuVLCOh100GCggOjyoUWcmK/WgW
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Wed, 28 Oct 2026, Dmitry Ilvokhin <d@ilvokhin.com> wrote:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
->
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
->
-> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
+On 2026-10-01 17:19 +0200, Štěpán Dalecký wrote:
+> The Armada 3700 COMPHY binding specifies #phy-cells = <1>, so PHY
+> references supply only the port argument. However,
+> mvebu_a3700_comphy_xlate() unconditionally reads args[1] to select TX
+> and RX polarity inversion. The PHY core does not initialize its
+> of_phandle_args structure, and the phandle parser fills only the
+> supplied cells, leaving args[1] uninitialized.
+> 
+> Using the unused cell can program unintended SerDes polarity. On a
+> Turris MOX with a Peridot switch running OpenWrt with Linux 6.18.54,
+> the CPU link reports RX CRC errors and fails to pass traffic. The
+> switch PCS does not record a partner advertisement despite link-up.
+> 
+> Check args_count before reading args[1], leaving polarity inversion
+> disabled when the second argument was not supplied. This does not
+> change the binding or introduce a supported two-cell interface.
+> 
+> The same change restores 2500BASE-X communication on the affected
+> MOX with no CRC errors. Cold boots, reboots and interface down/up
+> cycles were also tested successfully on Linux 6.18.54.
+> 
+> Fixes: 934337080c6c ("phy: marvell: phy-mvebu-a3700-comphy: Add native kernel implementation")
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/openwrt/openwrt/issues/24069
+> Assisted-by: LLM
+> Signed-off-by: Štěpán Dalecký <daleckystepan@gmail.com>
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
->  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> index a2f4b6758a65..648d0b4139cf 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> @@ -127,7 +127,7 @@ __deprecated
->  struct drm_gem_object *
->  drm_gem_object_lookup(struct drm_file *file, u32 handle);
->  
-> -__attribute__((nonnull))
-> +__nonnull_args()
->  static inline struct drm_i915_gem_object *
->  i915_gem_object_get(struct drm_i915_gem_object *obj)
->  {
-> @@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
->  	return obj;
->  }
->  
-> -__attribute__((nonnull))
-> +__nonnull_args()
->  static inline void
->  i915_gem_object_put(struct drm_i915_gem_object *obj)
->  {
-> diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-> index b09135301f39..f559203c332d 100644
-> --- a/drivers/gpu/drm/i915/i915_request.h
-> +++ b/drivers/gpu/drm/i915/i915_request.h
-> @@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
->  long i915_request_wait_timeout(struct i915_request *rq,
->  			       unsigned int flags,
->  			       long timeout)
-> -	__attribute__((nonnull(1)));
-> +	__nonnull_args(1);
->  
->  long i915_request_wait(struct i915_request *rq,
->  		       unsigned int flags,
->  		       long timeout)
-> -	__attribute__((nonnull(1)));
-> +	__nonnull_args(1);
->  #define I915_WAIT_INTERRUPTIBLE	BIT(0)
->  #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
->  #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
+- Mani
 
--- 
-Jani Nikula, Intel
