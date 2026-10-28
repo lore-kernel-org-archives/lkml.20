@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224590;
-	b=zVMkho+4pEw3KQl3AfAD5LlCT8sSRGl1nOFL70rCnFX1H5lNMyLFBHhf88nENU8BdLev
-	 DBWiB/SSYYHEMCZTt1EZpKcYXSWiR4uZOpn7edDp3IIk2ZRaaiZgalQ5+Ppl1ap4UHLew
-	 u9zv7RiQ5Z2cQy3pRzIK0z5MOdxD8zFXnHWnsxx3QEGYjcZ2DjmdHqRGUMnfjj15CWWws
-	 CbWeBRs1TNX3YgDC9j75MAERv/hrfQp/aegc0gs6X8YlfOmTXG1IST8zLIFteF7YU8t0z
-	 sdxyUhRgt6WNtYK9XUiZmpiSeBIH1aOTNZTlJT8Yu1aObgyeQKtwjaWScRPnuqCe58Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224590;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MM0KvfFyAbh8VWSliCEimGsM/uJay/dgVTHB3JwFRmU=;
-	b=ZGOug6nCtyClrUHmhsKSg7FvXNdli+nnGdTlXsprfR9aBbL5tu+tO7KzjOULYkuD5ua8
-	 N2/wP52v1bS8e/i+cVqW27VA2ewrayDMkaAnoBoZfHz/Aioi/3E/UZggME9CJcu0ynpa7
-	 UIHQItI8zNTh7HXL4EngjYF6+0Fjxa0Ppv02aOWilEk493yC07g0MasDESl1sNq4W24Ko
-	 LLkydkh4qldhjy4BHXDfUZtsBs4yywfEr+lRUfmvnB1e69XAUinuZMzOXRjHVVs9X8kr+
-	 pQ3B823OYXAy8dw9KmvNjO1gfznPfv81jqz+1/N1Tfet1Yf352MzF9dIWi5/anHtEXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PnLT18oH;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793224584;
+	b=E/ZN5dGflKO3SC0WioC50Blf+B+tgS2h0Gn/pYzLG73F3bbQYRmjPoR50Eyv5pdW8SXS
+	 K+tuRLIoE+JS7FEgAzaHq+OTx8bHEcD6kO0hI902B35X58DhVlq9A8kTIN7YHxL3o1NnI
+	 n1tk9FjAxewB0MHhrx4KeQ9O+eFh8glfAsqvpSIbplbdWxZmP4/il8CjbCAl8vFet/8IP
+	 dOKF55h5zuYBAkhPxyCeQjvht+cEzNs+mr8AwSdSY6iEiG1qvlC3e9fLiVd4mWjitjKWe
+	 ZwmVngf9CrZ7qAcGVzGmG9cGA4hPKuyRs7OHeQ1Bzcb2KT/52qN8q30YljHGVYoyBlg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224584;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cwHDfKzPJqK9u5eKFVtCIbHjqWzMR9vJ9deY9M3mm9E=;
+	b=cnxU40H30w/rYPnjyUg37gujVfs+ERoRCzAhUSpPodhFdZCNq9Z8MFci+PGQZ2xqaUJC
+	 HolMYWswJ+3B2xapH8feXqGrAYLhu1AC8sxhnpJxCfd69gTNpnMWl8aj2qBiJ3noe72QF
+	 waDiHjH60FiPaVsyryHanKYT6BzuzqjYhwWbB95g2jyHElguJUOTOaZcpl91QmwrC0be+
+	 rqe64CQA+AFUDVMGZJMvEIK9xnGRhH0v7Ru44mKQrdsZ2O95Z6CfUCWH3XU9WS7fOGdq6
+	 RJtN+UqvAUoEg7E5w1vJ+pjE0Uj8Bu6BnaS6e/JBcCw4FIQlZXclKIxzJpbpXuGYESw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=lXbw6PfY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503D1606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 503D1606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31884606A323;
+	Wed, 28 Oct 2026 21:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31884606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PnLT18oH
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3535a54bed9so2139025eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793224589; x=1793829389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MM0KvfFyAbh8VWSliCEimGsM/uJay/dgVTHB3JwFRmU=;
-        b=PnLT18oHCXAMfz3A6UxJ7+6+7m4vVBG6m1yn3t9WOYzXb6GHmVOe8Pgz6xzkh7aT1E
-         wcqDZjHqJBN4M/+f7MTso6YoWzpfSjAGNm40BRQU0ASkPH1Vf582AmC8ItEPS02eE6pq
-         AvZg9tyonmALfffiWK90CkcnUfrzKuaNLfxPQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224589; x=1793829389;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MM0KvfFyAbh8VWSliCEimGsM/uJay/dgVTHB3JwFRmU=;
-        b=q4ohNrAzyzSstMvqxym9jqQP6RUxbaQFH0w8AYr5ISWDtDYnGd9+lj9XLCmji8tvBE
-         hQ2/SYitgbk2PUT8bRbKrel+o8j8Yl0xa0+EFt7VbKBwb9o37jmmWOgKkwhpsIvTEAWR
-         oOZP8I5g8/3B3RYfjVipLX3iyqQmpBZAT+jHZcu5ZsTiKJJPcc0GXt9DuMIyVjNE+Rqz
-         tx2yXWNj5/BxjcokVEU22m6LTyolP2SHWJOqwy+O56JVGk8xJYH/f2beeQ6kr9l3ZR6X
-         B8uYqeR1AX9jtx/JPjrWPN0iOuVSr6kMeHUdvGbd4hkPAKE4jhffV3sUCeFpE6gID9W8
-         tJVg==
-X-Forwarded-Encrypted: i=1; AKwUvBz/PUm0aQcqofQvXaLiZDG9Dn9o/tBh11JskRAPZSC9E7N2ZVmSr5nIPSDJuLxHO4z+4r2J0JlPc4VijAA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLza+frDHf5iP/XEwVQ4EMBb9iyi7No3/hycfWY7Oil2Q47llN+
-	mgAzhrtmGx0McDY/SCOeuOA4FV3xW2nUg0S3PvuA3G4VpBbdHtk0jGf2/F3iGuYFGQ==
-X-Gm-Gg: AYBFou3z0uoTq3XlrHubmhhDzwIItUiB5w/Qs+7I86XNCx492HmsZXq0U4dBp0qqGEx
-	dxd5W9Tu8k/GEl5rwIzZvnhgOQu+jB7p1IWOtAk/aCwEt4tIW2rxsCgajI5E2/djvF8CK+48wbr
-	8YnqXNxYH7z1ggwoTq0MD2rpdm3DzM740slBsifkXNEMMjZFx2IlBBnpkAKE/l3gVw+St9QjiFl
-	Ybc/EgUHKk9nG59nw9p0SnsIkwyvTpHamcoaMtzVyr2P/BcpHHrxSmXvnSNlwMJ/PEnAqnXpxtr
-	iB9aj3o47XOz+ITeHuNY0GCGn6rP/PwozFJS3y+e8+lchjn41uOdDpgBbbli/e49Zvg0Z3bpLPR
-	8hb98vgE2+MoYH1INrBQErcU9BCR+9m32MQujGWSxBvux/Fr18CYG5iPnvQLmdUafI21I9L/UQ1
-	lLxSf8zS+8o18VQzUNo8lVGEhlE2CFl2pbmyvankopE7jUCShiYTjMEd3XLdACz9nJoClkQIzlh
-	0hQ6T9Z1X2HcyQAFudA7L6Kt3RxXJ3iFdulgsDDdRX2PyHswGxc+lzIjRCXg2WTEbLQ8fWv4BLb
-	crvI2FaOTnXwQ1Ybj8LIXlxFGxLCOZDPMJBoKL/yRFqhnye698KSdzQTeFAYvQkjSENlYcZv5rF
-	ybo5adiemUZrL
-X-Received: by 2002:a05:7301:1708:b0:369:987f:d15e with SMTP id 5a478bee46e88-36a202871c0mr4715544eec.2.1793224589274;
-        Wed, 28 Oct 2026 14:56:29 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:19e7:c87:2527:4e12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:56:28 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Brian Norris <briannorris@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Devicetree@vger.kernel.org,
-	Simon Glass <sjg@chromium.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	linux-kernel@vger.kernel.org,
-	Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v2 01/10] pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full
-Date: Wed, 28 Oct 2026 14:46:50 -0700
-Message-ID: <20261028215600.1713475-2-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-In-Reply-To: <20261028215600.1713475-1-dianders@chromium.org>
-References: <20261028215600.1713475-1-dianders@chromium.org>
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=lXbw6PfY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rper5bFN0LSvh226MuZBCWaMxZ4exZfKQp6Q2PlSyvSxhzNoXANHA6Gcs4z6EhSZYrTVlivdNn8O3Q+rw9FjYuuGFv+sB1xKt/9zBVw0nPqcaFiikjg/DtRphUIBCVC4JQrpfKU6i1HY/JAifQBF0CQ5z+BY9ALFqpeQ9/3vUipTnOVKftFYqnzOBwjUoS9tzYwhdcHUXp6dE6viIRhel59/v7TT+7yJIB9yQlahDtXjVtw1e5EnciTUuu33cWZvFszRwmTlokbJ/lt+k7LG1QqDRRNCg88JbOSLjUOrODVCwsTzKzVsuVfFBpCnzh3EwO7C/p5dm2NVulWRcQPz0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cwHDfKzPJqK9u5eKFVtCIbHjqWzMR9vJ9deY9M3mm9E=;
+ b=oHhQh1hZtA1VSSWIGVLa2hF3btmp0+riNNIxSmzVZ+npkfeXOVlM0mrmDiTwFUjB3QZ7niBK4vQKcWT8Bzyf5vuWqPRFglbzB9k7ZGvihF4SLdQnMg8YrpszFbXxKhIVfjGy7wmejZlcR5tIHrJW23dYkRuXjS6sYyVjKJVRXF4Piq4HBNBV2NBk2Q+sqOx6zj35z/ljmLp2Oj8ohhMY33UXMGLK9/R0q7V3q54+mKCfBjpOktt1p8hhp8rVZVbpiUR8X5GrtGjxJjzEKWOCZ4nGzY1mVEKFC04w8ldcpuyk6erumi65/0wZ55Th1tV+UYHV4VKnhE9dWE6gKjNytg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cwHDfKzPJqK9u5eKFVtCIbHjqWzMR9vJ9deY9M3mm9E=;
+ b=lXbw6PfYc933T9ZAs8H/Dg1DMkE3zrc9fyr831U/FTtNQXr/Bb/2Fsr4XTZhvffiaj0JO/rjetBcHwLalXss2AM9TCyFvnle1dClbvpGYZQH6U8/DSP5XUGZrCGWPYgMjjSyMZV4MEXu8okzZvWrA89rReN0dU1s02+udjF2J7o=
+Received: from DU6P191CA0011.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::25)
+ by PR3PR02MB6330.eurprd02.prod.outlook.com (2603:10a6:102:7e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 21:56:18 +0000
+Received: from DU2PEPF00028D07.eurprd03.prod.outlook.com
+ (2603:10a6:10:540:cafe::81) by DU6P191CA0011.outlook.office365.com
+ (2603:10a6:10:540::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 21:56:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DU2PEPF00028D07.mail.protection.outlook.com (10.167.242.167) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 28 Oct 2026 21:56:18 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Wed, 28 Oct
+ 2026 22:56:16 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Sebastian Reichel <sre@kernel.org>
+CC: <kernel@axis.com>, <linux-pm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 4/4] power: supply: bq25630: Add support for liquid detection
+In-Reply-To: <cover.1793223841.git.waqar.hameed@axis.com>
+References: <cover.1793223841.git.waqar.hameed@axis.com>
+Message-ID: <a68c819a948d15b88c6584be73b258c3eec853a5.1793223841.git.waqar.hameed@axis.com>
+Date: Wed, 28 Oct 2026 22:56:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,62 +105,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D07:EE_|PR3PR02MB6330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99d972bd-c66b-41a7-edc8-08df353e4be2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|22082099003|18002099003|261026121527099003|56012099006|11063799006|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	wVLIs4L3P7J0gEkHbiOMJf6uxMf1p/2LaaMj8CYUiaoOVgzy8dYjDtzaPIxkt9PqtazL/SBupgYuqiuGe6Pgnic+X3nASgFZvGWtRH/SEV43M7ilvgtXwBsSp9QRgBVKArGhudlgzZfin5+0YOyvzqO+duw4fAFOZ+C33E/hr80Ouh5V5MGcB9ib3EeZ0JAHZhOUfqlzQCeRPR6c1ggIpf0TtSpxbY1HB4yJuzUlrcJDpfWKiLBhhSzStmFY5h/gvlCpHrI0qN9fhX3d37gjYRHDKmXSowG1k8iPCvSJAz8W9biFFtOSz/0FoXnAQjSQFsaz+gFVzuToSlrSm6U01QxdyuQtmMM7THPfHJiyPUhStiW+BWLUfClMeAorfV0Z9opH1rzt+57DQc1RGY6rY1gOJV6q/wdNg90ZutW9Z15jbEfgWsBpa3+MNAuxR8Tk9XOH0eX7Hq5dNAR+yr+HW3tgf7C+kw6nKkFIL3pz8DO9pN1De7KvLkg9UP3aM/500w3hDrb2Pfu2odH/c2CevIQFKSF/d0vZZ36Lx680k0iYRyilaeA+OVS1rkbyTUyYCJtbBV+WiHwBuubD6UmCeP7LH2uZotxP6JdZ+aP+IABD9wo7RF71N4HQhXxWVVz8/vMWJlfQqXUjXbEAQmE3S3bdGwsTNTFLj7NmYiz6LvXzzTbSIpxjXhw4BgPlyAHcRGvQvSAoRAsGbO82ZRLBCw==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261026121527099003)(56012099006)(11063799006)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uvneD5K4Rl2ru/YFaijCEnLGvJ/cF5FndTdVb31ln212c0CxClaNoF5lAfKwJK9Iz93oapsXIFOERGeisaXcWTBQ25HaoVd2FMondSktqI/rT3TXlRMnCENPdY31Znw8pc3wYxIaKs5lZD+504DjZ9b0qhwxI6ZcMMm3hRHuQaenP6kygCWHFBqNXWZqd1S2i/CyWoC+wS9m4ybADRB7XnOF2u6cQ/jDnxmggIbIwUzQdiG3e17bJ3l3a31/1ukdYrPWubrd8nAcunsLNaOMKr89zgSokhJE9DZAkD+8F3rAr/jfbO0rsWLN2Ga/HkgSgGzhs8+HmCTb3FAEvKycV8qfS3KljAm2gm8jQmQmlp9kMbl8MtQkEdoLPygDSIFhq+shq+6MYBZr1zRpg/vFXrjslquJovXf9QAKsnnS6kftcrwRIwMWcJCjokFtiTxG
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 21:56:18.6815
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99d972bd-c66b-41a7-edc8-08df353e4be2
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D07.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR02MB6330
 
-`FdtSw.as_fdt()` calls `fdt_finish()` on a copy of `self._fdt` without
-using `self.check_space()`. Because `fdt_finish()` appends the 4-byte
-`FDT_END` token, `as_fdt()` raises `FdtException(FDT_ERR_NOSPACE)` if
-fewer than 4 bytes of free space remain in `self._fdt` after the final
-`end_node()`.
+The framework supports reporting and controlling liquid detection. Map
+this to the different liquid detection registers available in the
+device. Moreover, use the default reset detection threshold values since
+the framework currently has no way to specify this.
 
-Wrap `fdt_finish()` in a `while self.check_space(fdt_finish(fdtsw)):`
-loop so `FdtSw.as_fdt()` automatically resizes the buffer when needed,
-matching the rest of `FdtSw`'s methods.
-
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 ---
+ drivers/power/supply/bq25630_charger.c | 158 ++++++++++++++++++++++++-
+ 1 file changed, 157 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- New patch fixing FdtSw.as_fdt() buffer resize when < 4 bytes remain
-
- pylibfdt/libfdt.i       | 3 ++-
- tests/pylibfdt_tests.py | 8 ++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-index b41c03f4932a..46f28f67290d 100644
---- a/pylibfdt/libfdt.i
-+++ b/pylibfdt/libfdt.i
-@@ -959,7 +959,8 @@ class FdtSw(FdtRo):
-             Fdt object allowing access to the newly created device tree
-         """
-         fdtsw = bytearray(self._fdt)
--        check_err(fdt_finish(fdtsw))
-+        while self.check_space(fdt_finish(fdtsw)):
-+            fdtsw = bytearray(self._fdt)
-         return Fdt(fdtsw)
+diff --git a/drivers/power/supply/bq25630_charger.c b/drivers/power/supply/bq25630_charger.c
+index a934f3deba63b..dac791718bd98 100644
+--- a/drivers/power/supply/bq25630_charger.c
++++ b/drivers/power/supply/bq25630_charger.c
+@@ -198,6 +198,16 @@ enum bq25630_regfield {
+ 	/* VBUS fault. */
+ 	BQ25630_REGF_VBUS_FAULT_STAT,
  
-     def check_space(self, val):
-diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-index 0e1660753477..1b65961491bf 100644
---- a/tests/pylibfdt_tests.py
-+++ b/tests/pylibfdt_tests.py
-@@ -646,6 +646,14 @@ class PyLibfdtSwTests(unittest.TestCase):
-         # Make sure we did at least two resizes
-         self.assertTrue(len(fdt.as_bytearray()) > FdtSw.INC_SIZE * 2)
- 
-+        # Check that as_fdt() resizes when fewer than 4 bytes remain for FDT_END
-+        sw_exact = FdtSw(76)
-+        sw_exact.finish_reservemap()
-+        sw_exact.begin_node('')
-+        sw_exact.end_node()
-+        fdt_exact = sw_exact.as_fdt()
-+        self.assertEqual(80, fdt_exact.totalsize())
++	/* Force liquid detection. */
++	BQ25630_REGF_FORCE_LQD_DET,
++	/* Automatic liquid detection. */
++	BQ25630_REGF_AUTO_LQD_DET,
++	/* Enable liquid detection. */
++	BQ25630_REGF_EN_LQD_DET,
 +
++	/* Liquid detection status. */
++	BQ25630_REGF_LQD_STAT,
++
+ 	/* Sentinel value. */
+ 	BQ25630_REGF_MAX
+ };
+@@ -250,6 +260,16 @@ static const struct reg_field bq25630_regfields[] = {
+ 		REG_FIELD(BQ25630_REG_FAULT_STATUS, 6, 6),
+ 	[BQ25630_REGF_VBUS_FAULT_STAT] =
+ 		REG_FIELD(BQ25630_REG_FAULT_STATUS, 7, 7),
++
++	[BQ25630_REGF_FORCE_LQD_DET] =
++		REG_FIELD(BQ25630_REG_LIQUID_CONTROL_0, 3, 3),
++	[BQ25630_REGF_AUTO_LQD_DET] =
++		REG_FIELD(BQ25630_REG_LIQUID_CONTROL_0, 6, 6),
++	[BQ25630_REGF_EN_LQD_DET] =
++		REG_FIELD(BQ25630_REG_LIQUID_CONTROL_0, 7, 7),
++
++	[BQ25630_REGF_LQD_STAT] =
++		REG_FIELD(BQ25630_REG_USB_C_INFORMATION_0, 6, 6),
+ };
  
- class PyLibfdtRoTests(unittest.TestCase):
-     """Test class for read-only pylibfdt access functions
+ /* 8-bit value regmap. */
+@@ -451,6 +471,115 @@ static int bq25630_write_limit(struct bq25630_data *data,
+ 	return 0;
+ }
+ 
++static int bq25630_read_liquid_detection(struct bq25630_data *data, int *val)
++{
++	unsigned int regval;
++	int ret;
++
++	ret = regmap_field_read(data->regfields[BQ25630_REGF_EN_LQD_DET],
++				&regval);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not read liquid detection setting (%d)\n", ret);
++		return ret;
++	}
++
++	if (!regval) {
++		*val = POWER_SUPPLY_LIQUID_DETECTION_CONTROL_OFF;
++		return 0;
++	}
++
++	ret = regmap_field_read(data->regfields[BQ25630_REGF_AUTO_LQD_DET],
++				&regval);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not read liquid detection type (%d)\n", ret);
++		return ret;
++	}
++
++	if (regval) {
++		*val = POWER_SUPPLY_LIQUID_DETECTION_CONTROL_AUTO;
++		return 0;
++	}
++
++	/* Can only happen after unsuccessful writes... */
++	*val = POWER_SUPPLY_LIQUID_DETECTION_CONTROL_UNKNOWN;
++	return 0;
++}
++
++static int bq25630_write_liquid_detection(struct bq25630_data *data,
++					  const int val)
++{
++	unsigned int regval;
++	bool automatic;
++	bool enable;
++	int ret;
++
++	switch (val) {
++	case POWER_SUPPLY_LIQUID_DETECTION_CONTROL_OFF:
++		automatic = false;
++		enable = false;
++		break;
++	case POWER_SUPPLY_LIQUID_DETECTION_CONTROL_AUTO:
++		automatic = true;
++		enable = true;
++		break;
++	case POWER_SUPPLY_LIQUID_DETECTION_CONTROL_ONCE:
++		automatic = false;
++		enable = true;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	ret = regmap_field_write(data->regfields[BQ25630_REGF_AUTO_LQD_DET],
++				 automatic);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not write liquid detection type (%d)\n", ret);
++		return ret;
++	}
++
++	ret = regmap_field_write(data->regfields[BQ25630_REGF_EN_LQD_DET],
++				 enable);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not write liquid detection setting (%d)\n", ret);
++		return ret;
++	}
++
++	if (val != POWER_SUPPLY_LIQUID_DETECTION_CONTROL_ONCE)
++		return 0;
++
++	ret = regmap_field_write(data->regfields[BQ25630_REGF_FORCE_LQD_DET],
++				 1);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not write liquid detection check (%d)\n", ret);
++		return ret;
++	}
++
++	/*
++	 * Datasheet says the register resets when liquid check completes. Poll
++	 * it for the default check cycle of 500 ms (field LQD_WAIT in
++	 * BQ25630_REG_LIQUID_CONTROL_0).
++	 */
++	ret = regmap_field_read_poll_timeout(
++		data->regfields[BQ25630_REGF_FORCE_LQD_DET], regval,
++		regval == 0, BQ25630_IRQ_CYCLE, 500000);
++	if (ret)
++		dev_err(data->dev,
++			"Could not read liquid detection check (%d)\n", ret);
++
++	/* Turn it off after checking once. */
++	ret = regmap_field_write(data->regfields[BQ25630_REGF_EN_LQD_DET], 0);
++	if (ret)
++		dev_err(data->dev,
++			"Could not write liquid detection setting (%d)\n", ret);
++
++	return ret;
++}
++
+ static int bq25630_read_charge_type(struct bq25630_data *data, int *val)
+ {
+ 	unsigned int regval;
+@@ -493,6 +622,19 @@ static int bq25630_read_health(struct bq25630_data *data, int *val)
+ 	int ret;
+ 	u8 temp;
+ 
++	ret = regmap_field_read(data->regfields[BQ25630_REGF_LQD_STAT],
++				&regval);
++	if (ret) {
++		dev_err(data->dev,
++			"Could not read liquid detection status (%d)\n", ret);
++		return ret;
++	}
++
++	if (regval) {
++		*val = POWER_SUPPLY_HEALTH_LIQUID_DETECTED;
++		return 0;
++	}
++
+ 	ret = regmap_read(data->regmap8, BQ25630_REG_FAULT_STATUS, &regval);
+ 	if (ret) {
+ 		dev_err(data->dev, "Could not read fault status (%d)\n", ret);
+@@ -921,6 +1063,9 @@ static int bq25630_charger_get_property(struct power_supply *psy,
+ 	case POWER_SUPPLY_PROP_LOAD_SWITCH:
+ 		ret = bq25630_read_batfet_ctrl(data, &val->intval);
+ 		break;
++	case POWER_SUPPLY_PROP_LIQUID_DETECTION_CONTROL:
++		ret = bq25630_read_liquid_detection(data, &val->intval);
++		break;
+ 	case POWER_SUPPLY_PROP_MODEL_NAME:
+ 		val->strval = "BQ25630";
+ 		break;
+@@ -992,6 +1137,9 @@ static int bq25630_charger_set_property(struct power_supply *psy,
+ 	case POWER_SUPPLY_PROP_LOAD_SWITCH:
+ 		ret = bq25630_write_batfet_ctrl(data, val->intval);
+ 		break;
++	case POWER_SUPPLY_PROP_LIQUID_DETECTION_CONTROL:
++		ret = bq25630_write_liquid_detection(data, val->intval);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1012,6 +1160,7 @@ static int bq25630_charger_property_is_writeable(struct power_supply *psy,
+ 	case POWER_SUPPLY_PROP_PRECHARGE_CURRENT:
+ 	case POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT:
+ 	case POWER_SUPPLY_PROP_LOAD_SWITCH:
++	case POWER_SUPPLY_PROP_LIQUID_DETECTION_CONTROL:
+ 		return true;
+ 	default:
+ 		return false;
+@@ -1035,6 +1184,7 @@ static const enum power_supply_property bq25630_charger_properties[] = {
+ 	POWER_SUPPLY_PROP_PRECHARGE_CURRENT,
+ 	POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT,
+ 	POWER_SUPPLY_PROP_LOAD_SWITCH,
++	POWER_SUPPLY_PROP_LIQUID_DETECTION_CONTROL,
+ 	POWER_SUPPLY_PROP_MODEL_NAME,
+ 	POWER_SUPPLY_PROP_MANUFACTURER,
+ };
+@@ -1084,7 +1234,13 @@ static int bq25630_probe(struct i2c_client *client)
+ 				     "Could not initialize regmap8\n");
+ 
+ 	ret = bq25630_alloc_regfield_range(data, BQ25630_REGF_WATCHDOG,
+-					   BQ25630_REGF_TS_STAT,
++					   BQ25630_REGF_VBUS_STAT,
++					   data->regmap8);
++	if (ret)
++		return ret;
++
++	ret = bq25630_alloc_regfield_range(data, BQ25630_REGF_FORCE_LQD_DET,
++					   BQ25630_REGF_LQD_STAT,
+ 					   data->regmap8);
+ 	if (ret)
+ 		return ret;
 -- 
-2.56.0.313.g2479322e68-goog
+2.43.0
 
