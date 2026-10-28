@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793147231;
-	b=G8KTa8ndOg7OZtcoBE74meJlil/sjHVBzSXSFY4Xq+iOsvSPVw0BFXsho676X63npPpg
-	 Qx+m+56vEK4n7hy3WHHvYxW9nIAiN177jY+Ua6+blRtH4ayv1dtY1Gk0FXobGeYx6Mpx9
-	 tylXR0er0wnkQKW9x7xsj92jycRhGkzRg+zmfKOaKPaKGvTS8TbfcVKVScQ7NUTupU2Z3
-	 kEx1H6cXd8ZZDA4pyrqij/09NEUnzK6qxCrfqiX1oqromK5VPtvMApXQGhRbXzEwOk2+o
-	 fIGH6RrdWw2vPAUJ/04dgG9LweBdMrHJNzIKRVihebr7wbbdjDD23r9rsNp7wqOj3RA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793147231;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793147632;
+	b=a37bJX6v71qasGWV5w/5M694DA3zJ5GeknOZ4yEoMbxtgKOgaBFwEwqVq/Raj+8OE+zD
+	 nogGF/C70M2frj0C48ObmIGpuLVIstZApmlBoO+SfCSWuluoiijOpya9nsoa/3CF3Wf0+
+	 OMjG9qGtWnj7qPstQI+6w894QRxHOuxf88FBq7/9LyIsVEEbkSQAziMpCIQJR9qeUNzAc
+	 1KKNbPC3IqWBfZmQ03F7OOVKOzV5ng61JIes/3SMR8FUQTDQwTTudrmyUgd3hsEQxzonS
+	 hoX8ZSUcTGecLgkE6ATusXJEyHel87MlErv5PoyiE4u+iLBCE7gskLJMmw+Nohxj3kw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147632;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
-	b=oMQRgzVfFnxM0NAPhvkpYBT+XXuHbXLxwQr78oEd++e1ga1PQGDsZgfqPuqivHguWFL8
-	 5Eg9yKyAq9gqIabZnj59Ue4C+35lHN3943zy4do/ruaYH5/HWH9TujxpQPqeQtaBOIhrQ
-	 CAlH1MXjBqUkXBdmDdEmaRJUyOW8BE1tMLfkVu3Quu6i3pCQCiUvGEnnmRJxVykuJ5rAp
-	 g53XsVfhDmN4BPNmXZxmB/sr3B5PjNgvZPuVZqr4ke7+1ViQCYELBYhYeG68W38P6s9LB
-	 RgZ+HvV3QPgVcZeUuOWyT4DDLJU+3VM8gl+ZhXYvDMBrjxQbC8M6NqcNpbGT7BOiJ/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lfNtr6Pi;
-	arc=none smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=a/g709wCzxTBAV5yLrw3H5BO2UbCvR/yueVUmZTiqJQ=;
+	b=naYBgUtfAazQ9N0oPv4N4+fbS3bpogHe483uO1GoGcZIprlpbixaL9z2iqfLe8pmSKBW
+	 aU8RCFj9EHbIx6cdV+RqxI+Rve4noWzNSMr06nlI8m5rkCTFj5RgCIyo0F2KUPcLMx5aD
+	 mqs4DFaFgRLT3MRRW1E/3Fx0dfjK6KC0lJqp5/IK1eVtuu2fc5NeNqZxjpXjcYuosu7Cb
+	 MxiY7MFYaLAYWNCoJ76btwn96M5cx6Ny2e2zEenHSF9o9CKy9mf1TYz7Zu/yWj+UO3EWE
+	 B6jIYTG9ILpAe6EhTEnTlYnHahD6105BOPCBYvr0wZcjjJmALDKumChAUqA6DstrZpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NCVmBnRi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC32606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AC32606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76577606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76577606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lfNtr6Pi
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7cc1cf48a39so154059137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:27:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NCVmBnRi
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6f5a0893610so420195eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:33:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793147630; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HuXPwRT4IJufLO+0N4K7xu+JauDCN8X5mpL+waVhr78ok1fPEsUghLyCeNAbrg8oL1
+         BRsAcar3qwYW05X+Bgat1tt6d21ga2hxQaVDs9SjNJzmElDQ8FrSuNk81VxeQwP08G5T
+         kmc4jdO0JeilaOSoPqaCRYwyDJAfJWwPUAd6L49H+xGDSMHFvKVsyd4VjFyPtPpOoRy2
+         TGJ6sRO91WdSGaOP+guFYtgD1ixatecF4sCGGcmBbFLzCLXelSASD9G9a9Gfu/O03KL6
+         4e7rucmRC3z7xi/jRNPKtvdrve0Y7N0P4XyI6OP3aq2RZwueDFwVSSj/a9VxwUf7Xvh+
+         szlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=a/g709wCzxTBAV5yLrw3H5BO2UbCvR/yueVUmZTiqJQ=;
+        fh=a3ZI28tKDR1geINdWjfLVZgpWHBsqYZVl0QwqHGtpZw=;
+        b=kO6UOgimKeTM/Tfgb0x1x1XJhiIDqgaoswVp01wDQxmTVhb0l9TUGfG+tI7DJlegIH
+         hv8zzxUT1jhw4CT2H3qF9WbxPMgqMWWmYsDfXNoG2UPSwKmszMFe30uxd9wH7bNLBY2k
+         IkbF+ZQmkKfs9g40JyxZ127QYVOevmZSn9BgyB7dZEN5tzQU2QnXJAsn82wd4llPMVZA
+         PtnfCS0Rn+Dd1yZxoP/0mngZJaWOqdYx/0gwLGQwJguV71gQbaDlChVcwSW1YSvSPa8J
+         VGNuSiprm1BEPD3AF85rW98lWrJqnXp9gE3MkRAIihnVrAD+YsLAhKm0j/AnH2yRfK30
+         8OFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793147230; x=1793752030; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
-        b=lfNtr6PiSAH1oHY9TFG7Lfa//lNYlxmMmDU6PmWLKQDnxVvzY3UUWMy36t8HTC2xKm
-         q1wDGsnVJnFiQ4a8xNHlXxFcBaVp4txTtaYEoXxuUDCmHu6XaUVi5qWpTDPTSJLXOUwS
-         VNGhguFxZmVnSp5HDKkXTR98FIc2w+kyeiQY83wVB1qQLgQU/unb3ou5RJ4QmTq4LTaQ
-         Gv8M+JTndU0V/hQ7/zJuXk1I8h4MENi3BLNVKTMsjWHJtVYWhg6qsxVpDad+gnlu7hpV
-         FAtWYn/e6h+Ab73Q+//7vMt2r0jQGaobQMNyV/cqNkDUJaEGiB1/6Oa/nKH5J2wlyxpl
-         +IKw==
+        d=google.com; s=20260707; t=1793147630; x=1793752430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a/g709wCzxTBAV5yLrw3H5BO2UbCvR/yueVUmZTiqJQ=;
+        b=NCVmBnRidhrFFMllAhawcqRAN0tNuE5Q7tarJMvVaxg7V4QXgiwrDW7ZGHbRKAeZFR
+         r/8oNNpNXs5fKJZBPM29sjLjJBylIKHa9TOn3UyF9icqHdswHuoG16TyN3pvengXOjp9
+         BRaHP39CZHtVTsLQ1a/2kqQ8NgQ7xyjTqVOtp73NTzEiKw8FyYtLtn5KsAVqNesudUnW
+         YojsNnjXeAOeLcAoGsIXOKiEi2uO5dm8wFKYm+ZnzD7Dvn76DpWYwy/deZlRH+Laa3wx
+         iRJLDvKB0dSeD7a5yltu+j2cHcaw6u7Ize6NA6Hzh/SESMdQGbTwUzVnlVdw6wZk9Q1E
+         AC9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793147230; x=1793752030;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
-        b=CMgtxVOGZU4t08rx1lOMiFkwVXjpCfjJSm2WhTv80jS0ZzLbyC7LFP7oyBL3s/Cf31
-         Bm/BuqRYzzdVVFKXOc6i9geGKBda0dMoM8bfeEf0mJLz+bNIDEsjkL01zeK7fIpp4QfP
-         Ks7Iy8/0t/mZyv27SGzXISA6AJpPZ3aspRAoJAohe9poUrCOUcsP/EmNzEEy64tEQjge
-         n8Z7mf2crwuJjVG3zfP6jx/mUvbTM1tsL6Ud5/X1nCcxofqhrj9ZYhGZFyM8U//Zj9AX
-         gkYIkBa8FRvMGYhZhxtzDXD6zasRLejx5gAiWMC5H1Cj5LBpew1q57Qb3laxmb9TqwlH
-         WP1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByMOXaGRd96q2pncLFIJfkao3PhWOXG2pXu8K4N3umqpl7ejeIMo239lM9m8TrcpHzyXW0bn5IZUiq5FYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrrfpIeuVXCxhV/MrV+HgFHn0ylfuBCgnxIA1zhfSWgPXFTKIT
-	HQa3B40AxKOVtMpl+jQ8+uCT2E5OXSJUBdGymXRhoY1eEFeu7l+/Dthq
-X-Gm-Gg: AYBFou1dZX64GZWFBDb9mgpMF3lvEtie0wMdKyDvch1VaaU/lJf73HowXIJgh9EFy7S
-	+hKApGlG8b47SPl58qJSGhOM/McXy/WXqAZSfPxkd4plLKo3nQsvzpNxJTtckRMoZcKMZGnuq5M
-	4CJEuoSCdMOTrMyISm61sVxpCkwz2vnYPRYDP/movhptvr6yO/KqLs28L2lGJdtokpfgHaJdDzm
-	rIxhUKgKMOHzhh5PAdHT4tyY52hCB/x8pNTKkffU19GIO1oGw0MwqqBtaspyxlASql8Y2gTKhWu
-	oBtW1hdKsVG4HZprgiwPdVBtApvJ2+kqbvkpapjztXT/xC8WgrRKiIjaks3SG0h6r1N2nbfAeRk
-	yQRPXWPvJwlYYTsxxq5dIMKbIZPC0zbHG/GI3uYMORerbtivPJYf9yL2txqRU7o5O8gbB3xrT/P
-	am6AqC1M12SAnyILyJA//7KnsoYaDHZOtMwksTykcRQumCqqhJbcXSLAHHyRQQu7NcrOUc+8Npm
-	muEmMr11DpbxUaR5Q7B992BuIMrZ3xICofsLVca59AcHMIcW32VmDIlBgrKIZ8ePyaGz+Tb/vz1
-	zWJPMlG8rQw=
-X-Received: by 2002:a05:6102:f8b:b0:7c8:3b8c:82ba with SMTP id ada2fe7eead31-7d03a5ee504mr404653137.32.1793147230250;
-        Tue, 27 Oct 2026 17:27:10 -0700 (PDT)
-Received: from bridge.. ([2804:14d:ba6b:8339:260a:a9d6:ce02:aaa8])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3c3b00fsm4156770137.5.2026.10.27.17.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 17:27:09 -0700 (PDT)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	hare@kernel.org,
-	sgogte@purestorage.com,
-	wagi@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Subject: [PATCH] nvme-tcp: fix NULL queue->ctrl dereference on reconnect
-Date: Tue, 27 Oct 2026 21:26:54 -0300
-Message-ID: <20261028002654.1077190-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793147630; x=1793752430;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a/g709wCzxTBAV5yLrw3H5BO2UbCvR/yueVUmZTiqJQ=;
+        b=s+njEU/smksWNrAX69M0LXLvdi81uUsh3P/iWwrzaDI9limvlTD8MamVwEHr3OZQQi
+         448ASsRyPhfQnQm/rCsxI1aisTgEbIqqwb0Z9E4YkO8j6g7hGDPZ6uBl85X7tEOFQK1E
+         9a/Kf7wDGY7pb0pnZ9opq/qXulL+NYNZh2Xm6XX0aJVXzKvN7qauLW6NUEBenXD88saT
+         LZ8vROpVT6PGZHDQMJJRkDoS5QN673pmMlKEXph2Yx197CWVqXPkKu3qe/f5kMSgNfy2
+         LcZfwksbbbDCi5pQ3hjj9njvwNIJaBQ4prUZVmMeDnevwk/2Q03dqQbrs4Z1UVfOHsCq
+         ll6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxuS+N8Is+NZljwchYDlz00K5ecvT1ZUrBQRwzakSQBfgyg/D3eU+eZAyjDe/fL7VH99JiEPfjqXExUu2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmDUVM3EejnMjaVEik9KqbF5bDi2BkDg5XDW4HYkonIeroz9JB
+	1+tEVOu3CLT4MZoGFHnxNLBsJzZllWpfTDJnJY1VDc6eszsfc/qf9DBY/8oc3G3uDeJNBFMXveI
+	ty9bExpxVCN1YAXYwxoU46S+lyQUHlFSAhhpMksfR
+X-Gm-Gg: AYBFou0A7eL5X1x3wI1wg37CABmMA3W/5+J3+etJA32qLqaB+wkddxzBBJV/IRDGCuJ
+	pYbqZTIpEmjLr1tU7RjNNkw/wrMJYR1Nf7oFJhGv4uX/CwL783FYYUJJaLM2R9CyC3SjD9xGvav
+	CFlq4raYgmG//mgq2t1sWKp+Gb+UvLZ5GiYDSfXUjVbaQ7O+ia1YrtEu8JwXkmPKB1ix1K02pr3
+	E9apQodttH0cAvhuuuJbZMZMOQwAAk0s0yGHy/EG9gMcDuiQHucSlKdnoNsiWiemFJ/O98xVzNj
+	sVtGBr/a0FJVHooGo0cLcyssTaVBvzSrbL+PvGsml5Is5KKQUsZCV8hszYbs5cRLu/MEOYIkKF/
+	kOsOzFuhwIDHVGil7vvhtJCswutynN+pBFu1qg/d8+CJCrrXs45YUKmimkDRLz+mXcw7AoUZ5QQ
+	B0tNkSbf6c4VRUsKKHiHkuxzzcNpyU+vwisUkIsrcRvztXrYqkUvKN6mKfNv3HQv5IkpiVpkGEN
+	CW0EhSx
+X-Received: by 2002:a05:6820:2207:b0:70a:4053:52ec with SMTP id
+ 006d021491bc7-713eb0544damr493322eaf.4.1793147629845; Tue, 27 Oct 2026
+ 17:33:49 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,105 +106,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027221209.1560865-1-seanjc@google.com> <20261027221209.1560865-11-seanjc@google.com>
+In-Reply-To: <20261027221209.1560865-11-seanjc@google.com>
+From: James Houghton <jthoughton@google.com>
+Date: Tue, 27 Oct 2026 17:33:10 -0700
+X-Gm-Features: AclHuK-F0YzeAsS0pikjvH3kUnFLPGjUCM-xAT7i-6P6IT1kD4-v_r0V8PDPxPE
+Message-ID: <CADrL8HXMT8zBoB8ec2LP1UQWf1qn8qx8rqixvVpcsuO+Sb4p3g@mail.gmail.com>
+Subject: Re: [PATCH v3 10/15] KVM: VMX: Explicility free vmcs01, not the
+ current VMCS, in vCPU free paths
+To: Sean Christopherson <seanjc@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
+	Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation
-and startup"), a reconnect that gets more I/O queues than before grows
-the tag set before the new queues are allocated. queue->ctrl is only
-set by nvme_tcp_alloc_queue(), so I/O submitted in between reaches
-nvme_tcp_queue_rq() on a queue that was never allocated and
-dereferences a NULL queue->ctrl:
+On Tue, Oct 27, 2026 at 3:12=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Explicitly free vmcs01 instead of the currently loaded VMCS when freeing =
+a
+> vCPU, as relying on loaded_vmcs to point at vmcb01 is unnecessarily risky
+> and confusing.  E.g. during vCPU creation, the error path relies on setti=
+ng
+> loaded_vmcs and obfuscates that it should be impossible for vmcb02 to be
+> allocated, let alone active.  Similarly, if KVM were buggy and left vmcb0=
+2
+> as the current vCPU when freeing a vCPU, operating on loaded_vmcs would h=
+it
+> a use-after-free *and* leak vmcs01.
+>
+> Because KVM isn't buggy, no functional change intended.
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-  BUG: kernel NULL pointer dereference, address: 00000000000002ac
-  RIP: 0010:nvme_tcp_queue_rq+0x33/0x3b0
+Reviewed-by: James Houghton <jthoughton@google.com>
 
-Add nvme_tcp_init_queue() for the queue fields that do not depend on
-the connection (ctrl, pf_cache_lock and both digests) and call it for
-every queue when allocating the controller. Such requests are then
-requeued like on any other queue that is not live.
-
-Fixes: 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation and startup")
-Suggested-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
----
-Keith suggested the helper when applying "nvme-tcp: fix request PDU
-size when header digest is enabled". Based on nvme-7.4 (9afc1b71d963)
-with that patch on top.
-
-Reproduced in QEMU with nvmet-tcp over loopback and
-CONFIG_NVME_MULTIPATH=n: connect with attr_qid_max=2, keep direct reads
-running on the CPUs that map to the new hw queues, then raise
-attr_qid_max to 4. Before the patch the host oopsed as above within two
-tries in each of three boots; after it, 8 of 8 tries went live. Digest
-I/O, the 2 to 4 queue grow and 30 resets under I/O also pass, and the
-grow and reset runs are clean with lockdep enabled.
-
- drivers/nvme/host/tcp.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 191e5811d25e..46816a9fb2bf 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -1977,6 +1977,22 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	return ret;
- }
- 
-+/*
-+ * The I/O tag set is allocated, and grown on reconnect, before the queues are
-+ * connected, so blk-mq can initialize requests on a queue, and dispatch to it,
-+ * before nvme_tcp_alloc_queue() has run for it. Set up the fields that do not
-+ * depend on the connection once, when allocating the controller.
-+ */
-+static void nvme_tcp_init_queue(struct nvme_tcp_ctrl *ctrl, int qid)
-+{
-+	struct nvme_tcp_queue *queue = &ctrl->queues[qid];
-+
-+	queue->ctrl = ctrl;
-+	mutex_init(&queue->pf_cache_lock);
-+	queue->hdr_digest = ctrl->ctrl.opts->hdr_digest;
-+	queue->data_digest = ctrl->ctrl.opts->data_digest;
-+}
-+
- static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 				key_serial_t pskid)
- {
-@@ -1986,7 +2002,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 	struct file *sock_file;
- 
- 	mutex_init(&queue->queue_lock);
--	queue->ctrl = ctrl;
- 	init_llist_head(&queue->req_list);
- 	INIT_LIST_HEAD(&queue->send_list);
- 	mutex_init(&queue->send_mutex);
-@@ -2079,8 +2094,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 		}
- 	}
- 
--	queue->data_digest = nctrl->opts->data_digest;
--
- 	rcv_pdu_size = sizeof(struct nvme_tcp_rsp_pdu) +
- 			nvme_tcp_hdgst_len(queue);
- 	queue->pdu = kmalloc(rcv_pdu_size, GFP_KERNEL);
-@@ -3225,16 +3238,8 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 		goto out_free_ctrl;
- 	}
- 
--	/*
--	 * The I/O tag set is allocated before the I/O queues, and initializing
--	 * its requests already allocates the PDUs from the page frag caches of
--	 * the queues, sized by their header digest setting, so set up the
--	 * locks and hdr_digest here.
--	 */
--	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
--		mutex_init(&ctrl->queues[i].pf_cache_lock);
--		ctrl->queues[i].hdr_digest = opts->hdr_digest;
--	}
-+	for (i = 0; i < ctrl->ctrl.queue_count; i++)
-+		nvme_tcp_init_queue(ctrl, i);
- 
- 	ctrl->net = get_net(current->nsproxy->net_ns);
- 
--- 
-2.43.0
-
+> ---
+>  arch/x86/kvm/vmx/vmx.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index d433cd846ac4..2ef1f634e7ec 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -7515,7 +7515,7 @@ void vmx_vcpu_free(struct kvm_vcpu *vcpu)
+>                 vmx_destroy_pml_buffer(vcpu);
+>         free_vpid(vmx->vpid);
+>         nested_vmx_free_vcpu(vcpu);
+> -       free_loaded_vmcs(vmx->loaded_vmcs);
+> +       free_loaded_vmcs(&vmx->vmcs01);
+>         free_page((unsigned long)vmx->ve_info);
+>
+>         if (vmx_can_use_ipiv(vcpu))
+> @@ -7614,7 +7614,7 @@ int vmx_vcpu_create(struct kvm_vcpu *vcpu)
+>         return 0;
+>
+>  free_vmcs:
+> -       free_loaded_vmcs(vmx->loaded_vmcs);
+> +       free_loaded_vmcs(&vmx->vmcs01);
+>  free_pml:
+>         vmx_destroy_pml_buffer(vcpu);
+>  free_vpid:
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
