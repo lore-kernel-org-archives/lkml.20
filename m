@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.241
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181710;
-	b=yo3m8B9+sSkPu8vLvcfVbzgpUnsqKrNpef1kz7ztO8eZ5KuWrlGDuJiT68dQlayWApz6
-	 WeEh1JUkCFhzhsk48vTvRwv1dDTGDk4nFWZtBsZW/steib0cTfpduW20iw1o0FdGhpSWA
-	 XFL58dLPSRAtPiTmxZ/0mQ7XRuSWd+2hkMbKGYTJZ3Ik01R2pIAymnUOS/CqIvKGfzsXU
-	 4MCNPpByOSIU2NU+ITl20cHVpNGY1UQtjK2fOOMcFl4A0QgdXfSD/BvkC/n9MV26gOqxP
-	 AVIY+siNk2/Zr/vPSIzKtrXeoC1fzpVF8msRwz7OOxak0oRvBrHNKwmM5ni8shilirA==
+	t=1793181725;
+	b=SWBuKkgnfJvBbYver7jz20gbjfnpLRMJgP8KkYf0m1TMDG38qeqotxDIzP+x8cUaiqaj
+	 f7N5VaKL9SCMMD3UVEyCvRnDe20C5EtqplWQICP8/8br4hMX/7aaifMhUlYEvTOxBL3DY
+	 eh7oKNfDo5b4LHa1Rd6hc+QjPlRVaLekrYNfgom2p96PxomEN5Bs7WTwfwZ4RAu7ZhbbC
+	 Zd3f8jy9tk1ojpra3mP9GcLdtAVcyJyBXP+88edVyKY8H/fEfybXX8BOq/c0ujLWi27yu
+	 MU6g8igiLcgjx93t9WzYEXeXz39Sj564vgH5QOt2a8KoI2PQLbyhn8k9jEbvy8one3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181710;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=SN+4KpKU4pO0w+hnkVBnVZtVPIWPahdjf4GIcjr94dc=;
-	b=i8YO1yj3UUjM8r0W+uESdsSVXL6npE0MUi8VbZiC92Z8aHJYi2GehFJHloVKNzluEqm4
-	 MC44FkCoWAbW3In2G6vdDjIFnQE43YM1477EXWQ1x7Y7OOYspwxKOCOjyh0GQOGh1Jwxn
-	 c6mmsrR/3ZpF2c0LWSo7WtJgEhSI+xjdlL5qejZgoKkzG8kVJqdt/K9nvwTJrK4tGupt7
-	 Da+kVsBguQ9WliBJMcezdV33GGT7Cp9BjTUd32J8S2mwR1Snk3RquYhuB4pXCZjbehZbN
-	 WllRXd3RZbU2b8y6ag4n8BvPOJEYwOkyrnXXwKzATVG2OuKpjLn2FQpytAAJtG+AEXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181725;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=h346dBwTcXp12j8JvQWcUPOg/wYuINR90li767Hpzx4=;
+	b=cJtnPkfd4QWzHxKKR7YQ29qSVfluxcMm8vATprLFmlwJZinQz3ZpITmE1vF5ZtzotxeQ
+	 Y+VIxpgI/OgXUR/MT38FOre3t6k8Sau4Zf7+NIPZ0ytY2QUFkiOQQ7khRaq/51BHxH+oR
+	 235JIOFPSAHNBDpQTnRIl4H8CNzopzhn1iGOa5QY343V9wwbFxdSqg+l4fkZbZtK3/cVa
+	 1uKMGGN/m3b9xX8b5kg73PQOqS0EpZ6nH+TZAvoHx39Tw4mMzyx4nSdAmJNmh79CWvZq3
+	 gf/jxRMhox8Z/OFR6N0UnUl2S13a/oMMZviTRtrcy5gAwnji6csZ3NLvixgr4fouQbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=omwUzGSy;
-	arc=none smtp.remote-ip=95.215.58.241
-Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2PgvYHc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45042606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45042606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB94D606A31A;
+	Wed, 28 Oct 2026 10:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=omwUzGSy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/dUQ3gxRWfPKKEHri1OjskVqUHdSvq6M0Wda3oynvuk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793181707; v=1; x=1793786507;
- b=omwUzGSy9w6/mFbekyH2CeZjT7h+OgL1CqRyiwElJhUiifK7sFD9Fy4p0XR/w8PVj/OQNs/8
- D2/uCPyIFpoEwsGGqQSpOqpk9vwh1XrEr8xLpGaTJn7tNlFiG/TPHs0iMGF9dJuyMPKD4+zOTuJ
- vHSHfcYcDcsNtcI4Ka7+Ui8U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c473c188e45cfd80;
-	Wed, 28 Oct 2026 10:01:47 +0000
-X-Mizu-Trace-ID: c473c188e45cfd80
-X-Migadu-Flow: FLOW_OUT
-From: Zenghui Yu <zenghui.yu@linux.dev>
-To: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>,
-	Kiryl Shutsemau <kirill@shutemov.name>
-Subject: [PATCH] selftests/mm: skip collapse_compound_extreme() on THP allocation failure
-Date: Wed, 28 Oct 2026 18:01:19 +0800
-Message-ID: <20261028100119.11340-1-zenghui.yu@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2PgvYHc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5030F1F01825;
+	Wed, 28 Oct 2026 10:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793181724;
+	bh=h346dBwTcXp12j8JvQWcUPOg/wYuINR90li767Hpzx4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=o2PgvYHce2EMgAZ2FPWXpApN/diFGjL7R2i5i4TYeF3vgxYlP5ms4+rS69Ihacw5l
+	 rPaDU9/pY66P409WOYFZb4Gk5BQLniWn9NtsqTvF7Kp2WfMe1v4naLj4Dn1wThjySL
+	 6Pa5RR3B/5Etr/TSBlslux9wTut5TMBac03NhQABllGzMu19sB/12cD0XUhPhMvWCd
+	 CVEtC/lOALcl7nZlelwuypIXBkZVfXCsZpu8Al1FoWigxdHflmofa7uAl5jAAwQUw0
+	 ePcUjVAUv9du/6js9oLCL93UshG3+dX3JmfDu8IG7JB1EAPWVccjgntXpWzTDFdQ3G
+	 YEhF9xJ1R8Njg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 445F33AAA0DC;
+	Wed, 28 Oct 2026 10:02:04 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,73 +54,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net: sched: prevent scheduling deactivated qdiscs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179318172275.622019.2392717179120363996.git-patchwork-notify@kernel.org>
+Date: Wed, 28 Oct 2026 10:02:02 +0000
+References: <20261023194712.package1-20-v2-david.lee@trailofbits.com>
+In-Reply-To: <20261023194712.package1-20-v2-david.lee@trailofbits.com>
+To: David Lee <david.lee@trailofbits.com>
+Cc: vinicius.gomes@intel.com, kuba@kernel.org, jhs@mojatatu.com,
+ jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kylebot@openai.com,
+ dominik.czarnota@trailofbits.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Hello:
 
-collapse_compound_extreme() needs hpage_pmd_nr PMD-order allocations in a
-row, and it kills the whole test binary via ksft_exit_fail_msg() as soon as
-one of them fails.
+This patch was applied to netdev/net.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-Gating the case by PMD size (commit b36bec6a01b1) -- the current workaround
-for arm64 with 64K base pages, where a 512M PMD makes every construction
-step an order-13 allocation -- is not enough: the case still dies below the
-cutoff, e.g. on an arm64 VM with 16K base pages and 8G of RAM, where the
-construction would need ~64G worth of PMD-order allocations.
+On Fri, 23 Oct 2026 16:02:56 -0400 you wrote:
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> TAPRIO can schedule a deactivated qdisc after some_qdisc_is_busy() has
+> reported it idle.
+> 
+> Commit 47e8dbb6e763 ("net/sched: do not reset queues in graft operations")
+> made graft deactivation skip queue reset, leaving TAPRIO's timer armed.
+> 
+> [...]
 
-Remove the PMD-size gating and treat a failure to allocate a huge page
-during the construction as a skip: whether the allocator can hand out
-that many PMD-order folios in a row depends on the memory available on
-the machine, not on the kernel.
+Here is the summary with links:
+  - [net,v2] net: sched: prevent scheduling deactivated qdiscs
+    https://git.kernel.org/netdev/net/c/d6f81fd6abe2
 
-Suggested-by: Kiryl Shutsemau <kirill@shutemov.name>
-Link: https://lore.kernel.org/all/atiQmWnz8zx2AKI7@thinkstation
-Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
----
- tools/testing/selftests/mm/khugepaged.c | 26 +++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index 1bc7acc66a46..e6151732b17c 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -953,23 +953,25 @@ static void collapse_compound_extreme(struct collapse_context *c, struct mem_ops
- 	void *p;
- 	int i;
- 
--	/*
--	 * This needs hpage_pmd_nr PMD-order allocations in a row, which the
--	 * allocator will not supply if the PMD is very large.
--	 */
--	if (hpage_pmd_size > (32UL << 20)) {
--		ksft_test_result_skip("%s: PMD too large for fault-time THP construction\n",
--				      __func__);
--		return;
--	}
--
- 	p = ops->setup_area(1);
- 	ksft_print_msg("Construct PTE page table full of different PTE-mapped compound pages\n");
- 	for (i = 0; i < hpage_pmd_nr; i++) {
- 		madvise(BASE_ADDR, hpage_pmd_size, MADV_HUGEPAGE);
- 		ops->fault(BASE_ADDR, 0, hpage_pmd_size);
--		if (!ops->check_huge(BASE_ADDR, hpage_pmd_size, 1, hpage_pmd_size))
--			ksft_exit_fail_msg("Failed to allocate huge page\n");
-+		if (!ops->check_huge(BASE_ADDR, hpage_pmd_size, 1, hpage_pmd_size)) {
-+			/*
-+			 * Constructing the PTE table requires hpage_pmd_nr
-+			 * PMD-order allocations in a row.  Whether the
-+			 * allocator can supply them depends on the memory
-+			 * available on the machine, not on the kernel: skip
-+			 * instead of failing the test run.
-+			 */
-+			ops->cleanup_area(BASE_ADDR - i * page_size,
-+					  i * page_size + hpage_pmd_size);
-+			ksft_test_result_skip("%s: Failed to allocate huge page\n",
-+					      __func__);
-+			return;
-+		}
- 		madvise(BASE_ADDR, hpage_pmd_size, MADV_NOHUGEPAGE);
- 
- 		p = mremap(BASE_ADDR - i * page_size,
+You are awesome, thank you!
 -- 
-2.56.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
