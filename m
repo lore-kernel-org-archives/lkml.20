@@ -1,77 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793167269;
-	b=11KdUwu50rEZzMdK0O435t6AIgTjdrPOMd0/qXwf4txNigaN/H1o5wMDnMTWR/yil1we
-	 pD1v7YQPdykjxIOiU4v36dDv8nEUFAiwLYs/UWaYd6I6CI7b9vwayqU80xMUw94eg01P4
-	 kV6WTpA3aaXiGik+IYAskVkbkkqY9YoqnXvj416+gxbcegbaIwP0P5ozYgjgfmK4+Hs/E
-	 ltrSUTinozeJvFvOL3N01bfrX+CDJLdLeRh2NSgNrQvFCa1QbeK2Rr4Yy9t4W+DhMVawz
-	 g2dWAe8uvJEiCTuFlOEvKmtlfCgPBRMg1SEkfiALtFKjy1Q+h6aUg1BoU3/Z6XNK9lA==
+	t=1793167276;
+	b=oUhAm0U/BPvSW+zegpPxz0FL6mUpalYqifD1VrIJj2KyKuJYIoGXZWfkKDIQBUzLj9Ba
+	 SxMVBajCL05zLWCemo/iCfGt6KzUQKBFNstZWxDqof7DMQEWN91x5TgxLo4bNws8aJfg2
+	 9UKA2Y4qKUAGl0wTrO/Y/2wAkWDiB/AfIKY8GdltP8n8Q1/i62OWSlrn73EmlD4n5ml1H
+	 Pdnwq+HR2Yu6bFG7CxAz1Qj7/GSB1cFrZdLsRpjoNXD/cDsC1gaib61Ny3NbsnDnAczu5
+	 L0jKiSeaxVXA3gjKIiOae0JcYf0wjbC651UhNMg5PN4KQXHfCOkL9CxitqUfysv4a+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793167269;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=84Bn2Cf6EqABafANereiG8E0SsGFJGqQ6GZUSuDqBf8=;
-	b=R+OJdiZ5UskneNVwQyVQSUA+NOFwK51k7caW2qqHQrB5KvaNhM6ejArrgwPv13iB9Ety
-	 Y6U6zNxadAkiRSQUsZTdkTIa0XgMy87tpNakATmw5wfSMb9uA/w1Mc4772sR/mdFUJ2P0
-	 uNqmL2hg6E4tip8xGNb2lZugs/NEI9+4kHAMUkPWVilPTnV+GA2SIlUgItAspg0sMLEIc
-	 9TRvH66xMx90+pXGCrCKuM804I1GjKT7S+aTZ+JJk0nCVL/SvfJ+qTBZeSkJs9n6AhG4V
-	 W2hRNyNAky5ub+Wf7Y7D8lY+YASAD7uHK/wjtBXEly+I6lbn1VkkmAdTRGxwuF2RYIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793167276;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=tvkOawm83twhdq4JidzmKHuTlWLmlEYfP/MMxte24Rk=;
+	b=jBB0GISOV0zF9XzDkYmGUlAhYLFMOsiCRp0i6k9aOZ1Xle6pcB6HqvRanMeJ4RWgPNY1
+	 pcfu9hvMCp24eUuk+vOINlx/ksgbQW7hzPADEkfcUkmvclkXzX59i33dfuZXTqG9yhWiX
+	 BGIpF5uCOXJyWT3avKNzDWH5fbrkmCanHeShHZyr53D6zHaKWbJL46aiwbeSqfL9ULMcQ
+	 HMys23TgpFI5kqgcrE5/eTW8817QW5vi5aVkhDlK3HrRPvUPYVaWyi/uwxGoHYR2P38G8
+	 taW0bkjw0da77itXmsLjiZL5sRUjYhxZVRD4f6fjkMlOwM5NBJ/HZ9AYiOjT+eJUqEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=G50fdtRa;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dkNmkqCu;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9333606A31D;
-	Wed, 28 Oct 2026 06:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9333606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81677606A337;
+	Wed, 28 Oct 2026 06:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81677606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=G50fdtRa
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=84Bn2Cf6EqABafANereiG8E0SsGFJGqQ6GZUSuDqBf8=; b=
-	G50fdtRa8wTyuAvMeYEo+S30zeCB8FwXN0oROcbZXEn2T5nRrTsI96+Q8Ju+4n1yxSj1mZa0L79YD
-	g01XrvGgKhzl4Z1SKwu9uIbJ1g26cjzWZwXWFKc4kNKTqttTKoDry0iPSK69p3zVL3arAuj5nyOxX
-	/bn/O4rULzfBEZEABOxq9MlF08JBVYb5HIEkl6/ETqGZaBkvKYM/WJyNwfIRq67J0eUWsC2N9+uWO
-	dJtMz+5xCX5+DELtFTb+fQC583V6WzCzypVoMpIeRmeh3bd+JVFwHVPK2UOPoS2A6JKExDVnn1CHa
-	pt15Bz1X4VZ9xjyYn3megJGy/q2isg4cVA==;
-Received: from [58.29.145.179] (helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xLwiY-00CYmD-VK; Wed, 28 Oct 2026 07:01:00 +0100
-From: Changwoo Min <changwoo@igalia.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	david.dai@linux.dev,
-	Gavin Guo <gavinguo@igalia.com>,
-	bpf@vger.kernel.org,
-	sched-ext@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	changwoo@igalia.com,
-	kernel-dev@igalia.com
-Subject: [PATCH bpf-next 1/3] selftests/bpf: libarena: Order equal rbtree keys FIFO
-Date: Wed, 28 Oct 2026 15:00:44 +0900
-Message-ID: <20261028060046.549097-2-changwoo@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028060046.549097-1-changwoo@igalia.com>
-References: <20261028060046.549097-1-changwoo@igalia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dkNmkqCu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793167276; x=1824703276;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xcZ4y1GP1fQheOF1G99rgsos9gP/L78+S0Brp4SO91k=;
+  b=dkNmkqCupe+tZPdZsxG1sCkpjyLIdRZUdkABJUYkH0hUk99j43f7qsN5
+   fVB9m0JfRhA7ghCvJlti0e3rNjfKpv+Zz1wzNtPlmPl5A8/N7zzAP6hD2
+   /GrNYnW1a9N1yrvvP5t3UqerCKF8q8Y1tHXja2XLdLaZd+esxN84/0kyy
+   PNNxWG/WCZQ/+TsPnGzp7I68wHul3J9xvduVj+UX1buN3WUJVhl+dPTUw
+   b3QPox/q+cX5PlrxiXfgBbH4XMaDHQFQocy2sndEhuahstb+l2kMdOYAi
+   /mau4FTjH/Y8gNZZBiH7Hzt0G9SbY+sgevf5Cno9i1WQHBzg3KZw6PPyd
+   Q==;
+X-CSE-ConnectionGUID: jpGMIX7HR0OVm33R/6+ESg==
+X-CSE-MsgGUID: 5x76ERtqQqqY+B1aDQ467Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1895267"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1895267"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 23:01:15 -0700
+X-CSE-ConnectionGUID: DK3b5CDgSpaAXOpwgte17A==
+X-CSE-MsgGUID: drqn8nbQTyy8nKZrCPM9ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5101961"
+Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 23:01:10 -0700
+Message-ID: <9e0c1aee-5a4c-4e93-ab26-f7e59b268f2d@linux.intel.com>
+Date: Wed, 28 Oct 2026 14:01:08 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,142 +72,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/18] iommu/vt-d: Combine disable_dmar_iommu() and
+ free_dmar_iommu()
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-10-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-10-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-An RB_DUPLICATE tree links a new key to the left of an equal one, so
-rb_least() and rb_pop() return the newest of several equal keys. A
-queue of tasks keyed by vtime should instead serve equal keys in
-arrival order, as sched_ext's vtime-ordered DSQs do.
+On 10/25/26 10:19, Samiullah Khawaja wrote:
+> Every caller of disable_dmar_iommu() immediately follows it with a call
+> to free_dmar_iommu(). Combine the two helpers into release_dmar_iommu()
+> and simplify the teardown and error paths in init_dmars(),
+> intel_iommu_add(), and dmar_iommu_hotplug().
+> 
+> Also drop the early return when
+> WARN_ON(!ida_is_empty(&iommu->domain_ida)) triggers so translation is
+> still disabled before freeing the IOMMU resources.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/iommu/intel/iommu.c | 30 ++++++++++--------------------
+>   1 file changed, 10 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 23a1da351ddf..35ec2ae0c8d5 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -985,21 +985,17 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
+>   	raw_spin_unlock_irqrestore(&iommu->register_lock, flag);
+>   }
+>   
+> -static void disable_dmar_iommu(struct intel_iommu *iommu)
+> +static void release_dmar_iommu(struct intel_iommu *iommu)
+>   {
+>   	/*
+>   	 * All iommu domains must have been detached from the devices,
+>   	 * hence there should be no domain IDs in use.
+>   	 */
+> -	if (WARN_ON(!ida_is_empty(&iommu->domain_ida)))
+> -		return;
+> +	WARN_ON(!ida_is_empty(&iommu->domain_ida));
+>   
+>   	if (iommu->gcmd & DMA_GCMD_TE)
+>   		iommu_disable_translation(iommu);
+> -}
+>   
+> -static void free_dmar_iommu(struct intel_iommu *iommu)
+> -{
+>   	if (iommu->copied_tables) {
+>   		bitmap_free(iommu->copied_tables);
+>   		iommu->copied_tables = NULL;
+> @@ -1867,10 +1863,8 @@ static int __init init_dmars(void)
+>   	return 0;
+>   
+>   free_iommu:
+> -	for_each_active_iommu(iommu, drhd) {
+> -		disable_dmar_iommu(iommu);
+> -		free_dmar_iommu(iommu);
+> -	}
+> +	for_each_active_iommu(iommu, drhd)
+> +		release_dmar_iommu(iommu);
+>   
+>   	return ret;
+>   }
+> @@ -2280,12 +2274,12 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
+>   	if (ecap_prs(iommu->ecap)) {
+>   		ret = intel_iommu_enable_prq(iommu);
+>   		if (ret)
+> -			goto disable_iommu;
+> +			goto out;
+>   	}
+>   
+>   	ret = dmar_set_interrupt(iommu);
+>   	if (ret)
+> -		goto disable_iommu;
+> +		goto out;
+>   
+>   	iommu_set_root_entry(iommu);
+>   	iommu_enable_translation(iommu);
+> @@ -2293,10 +2287,8 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
+>   	iommu_disable_protect_mem_regions(iommu);
+>   	return 0;
+>   
+> -disable_iommu:
+> -	disable_dmar_iommu(iommu);
+>   out:
+> -	free_dmar_iommu(iommu);
+> +	release_dmar_iommu(iommu);
+>   	return ret;
+>   }
+>   
+> @@ -2310,12 +2302,10 @@ int dmar_iommu_hotplug(struct dmar_drhd_unit *dmaru, bool insert)
+>   	if (iommu == NULL)
+>   		return -EINVAL;
+>   
+> -	if (insert) {
+> +	if (insert)
+>   		ret = intel_iommu_add(dmaru);
+> -	} else {
+> -		disable_dmar_iommu(iommu);
+> -		free_dmar_iommu(iommu);
+> -	}
+> +	else
+> +		release_dmar_iommu(iommu);
+>   
+>   	return ret;
+>   }
 
-Send equal keys right on insert, as the kernel's rb_add() does. A new
-node then lands after every node with an equal key. Rotations and
-removals preserve the in-order sequence, so equal keys stay in
-insertion order without a tie-break field.
-
-Add a selftest that interleaves equal keys while the tree grows and
-checks the pop order.
-
-Signed-off-by: Changwoo Min <changwoo@igalia.com>
----
- .../bpf/libarena/include/libarena/rbtree.h    |  6 +--
- .../bpf/libarena/selftests/test_rbtree.bpf.c  | 37 +++++++++++++++++++
- .../selftests/bpf/libarena/src/rbtree.bpf.c   | 16 +++++---
- 3 files changed, 51 insertions(+), 8 deletions(-)
-
-diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-index 486428911d96..00e63b12d82e 100644
---- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-+++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-@@ -45,9 +45,9 @@ enum rbtree_alloc {
-  * the existing node.
-  *
-  * RB_DUPLICATE: Allow nodes with identical keys in the rbtree.
-- * Finding/popping/removing a key acts on any of the nodes
-- * with the appropriate key - there is no ordering by time
-- * of insertion.
-+ * Nodes with identical keys are kept in insertion order, so
-+ * rb_least() and rb_pop() return the oldest of them. Finding
-+ * or removing by key acts on any of them.
-  */
- enum rbtree_insert_mode {
- 	RB_DEFAULT,
-diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-index 856c484a009a..1e2a0fac1e4f 100644
---- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-+++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-@@ -248,6 +248,43 @@ __weak int test_rbtree_duplicate(void)
- 	return rb_destroy(rbtree);
- }
- 
-+#define FIFO_NR_NODES	64
-+#define FIFO_NR_KEYS	4
-+
-+SEC("syscall")
-+__weak int test_rbtree_duplicate_fifo(void)
-+{
-+	const u64 per_key = FIFO_NR_NODES / FIFO_NR_KEYS;
-+	struct rbtree __arena *rbtree;
-+	u64 key, value;
-+	int ret, i;
-+
-+	rbtree = rb_create(RB_ALLOC, RB_DUPLICATE);
-+	if (!rbtree)
-+		return 1;
-+
-+	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
-+		ret = rb_insert(rbtree, i % FIFO_NR_KEYS, i);
-+		if (ret)
-+			return 2;
-+	}
-+
-+	for (i = 0; i < FIFO_NR_NODES && can_loop; i++) {
-+		ret = rb_pop(rbtree, &key, &value);
-+		if (ret)
-+			return 3;
-+
-+		/* All of key 0 in insertion order, then all of key 1, ... */
-+		if (key != i / per_key)
-+			return 4;
-+
-+		if (value != key + FIFO_NR_KEYS * (i % per_key))
-+			return 5;
-+	}
-+
-+	return rb_destroy(rbtree);
-+}
-+
- static inline int
- clean_up_noalloc_tree(struct rbtree __arena *rbtree)
- {
-diff --git a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-index 7f0f6dc3e17d..e6c9430f734b 100644
---- a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-+++ b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-@@ -161,8 +161,14 @@ struct rbnode __arena *rbnode_find(struct rbnode __arena *subtree, u64 key)
- 	return node;
- }
- 
-+/*
-+ * Find the node to link @key under. Smaller keys go left and everything else
-+ * right, so a new key lands after every node with an equal key and equal keys
-+ * stay in insertion order. Rotations and removals preserve the in-order
-+ * sequence, so they keep that order too.
-+ */
- static
--struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree, uint64_t key)
-+struct rbnode __arena *rbnode_insert_parent(struct rbnode __arena *subtree, uint64_t key)
- {
- 	struct rbnode __arena *node = subtree;
- 	int dir;
-@@ -171,7 +177,7 @@ struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *subtree,
- 		return NULL;
- 
- 	while (can_loop) {
--		dir = (key <= node->key) ? 0 : 1;
-+		dir = (key < node->key) ? 0 : 1;
- 
- 		if (!node->child[dir])
- 			break;
-@@ -255,7 +261,7 @@ int rb_node_insert(struct rbtree __arena *rbtree,
- 	if (rbtree->insert != RB_DUPLICATE)
- 		parent = rbnode_find(parent, key);
- 	else
--		parent = rbnode_least_upper_bound(parent, key);
-+		parent = rbnode_insert_parent(parent, key);
- 
- 	if (key == parent->key && rbtree->insert != RB_DUPLICATE) {
- 		if (rbtree->insert == RB_UPDATE) {
-@@ -278,8 +284,8 @@ int rb_node_insert(struct rbtree __arena *rbtree,
- 	}
- 
- 	node->parent = parent;
--	/* Also works if key == parent->key. */
--	if (key <= parent->key)
-+	/* An equal key goes right, after the existing ones. */
-+	if (key < parent->key)
- 		parent->left = node;
- 	else
- 		parent->right = node;
--- 
-2.56.0
-
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
