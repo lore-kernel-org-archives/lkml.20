@@ -1,85 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214033;
-	b=B3X7wPbXYT3U8kS4hAjLpT6mkXRV5kbjSXq/Ca7ZNrKOdtF4VHfjzUt4sVSU8Xxm7aPa
-	 RDoiLnCuTlb06Q/OrFgmDWJcQz5iOT4ajBrDNKKV3rCaNCb+EHEWVq2MdoqBk5VKcTOcR
-	 GyYaRQkED2gHvB0N5iH116/SD/FeoLrQuXG6sr3w3mGIKmIf99/E0rhjZ8m/snnVWVMst
-	 AeP4rA3nNPx31ID8zakOe+4ltYxuUsz7GCd0ZggiBOVlAMlo3LtDoYVWLE74UFXTRMTKP
-	 n4NMlLCZktJI8tX0IyC/0jDOVXly2rtE1kYGhUL9OJbAcWJ2r+pb2yeeM2OT6LkLusw==
+	t=1793214031;
+	b=pJcSzuflFp3+S85300Y8KonZEF0oLVbrJWaGSVgOvKfUC0YOem44j6OThmdGDDslnAAg
+	 BSF8voFtgecwzJ/Q0nSAkZMk3YXvh4s08SV1Rx9EjbQO5oL2Er1qyVoV2Tx5xupZjM9s2
+	 1cMdSllmkKdxRJ8qm/vd4IHgxArKtfO3DqNCB4oTpurplMbOzUXWXNBpNqvH2wsJ+3ATX
+	 gCtwWqx17VyEFsRuWXBgNdmGauwvxU2ReCcwPXlUPhZU7gRrK19HRSBsU27XOLNqNRki8
+	 xWszum1tkFppsLU0fDAhH7KN13ohqnCuXo6C3VJk8tP2SDasPXJdcRh7VdeFryoDOgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214033;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0SF6Z6fkYcC3mNc32hQG4riaKfE87q4Tb0lTvxci1qc=;
-	b=BtN5TInc7hPW8ZBGfgAH8Ru6mNFEbAabxrhceJWw864g2AHkIhlos7nxNzDW64+mr2dQ
-	 SKYqiObjohWLK2krwtDLDBeBWGOcsSDhudtGLaGRlgjrzcLlHkXxPNqQZOoXVF7usSHkr
-	 NY98ZJSiKY3gOq4AtIr94VsAO+jMyXhl0kf9dUyFRJ64+41zZGG2c7dG5Xgvlnnm85Oxv
-	 d+re6CsdHq2TANdiDmDN/U4sIBmJBGFq39XUrSN6Yr4/tiEe24BpZ0Z5fTah3p/S1YoM5
-	 T/ZrMwvYcrjZLaNaWA21aFSXkLVJiqJ1TV0dlcdRTXZVfx/Sk0+nXdUqQWspR76FtWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214031;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
+	b=Ndrku1QG6TMQFYsunw6HCz2AzY6/3NQynqGJkXi+bf/wCDtO+ngwK7SiU6vPjaercsZT
+	 cwEUJsMpIh48uMWTn2WSZzXPCbY6tXp0SzXJZVaHxm4HrkK6Af4p2mzcqIlsJH9FnAxoS
+	 jWZ4tlBbrc20X5HUDSG0VffbNfnof1Zxzi2LqPahlijSSDEO/rrGwMpARmWS6UpKEeXKh
+	 aIcxEiJ7lUEd2GWANPIySKAaVC1hp1KLXD0DooBVaDGYZ/su68a3BFepsb1O85K4lkRLo
+	 oDZe88+PhdW8EpjQevDl1mF6wqaF8KAJaYRj2nYtg+k1JE7vUoELR+GzuL1z7ulQhBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G1xQ1Pcd;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J87loaFo;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ixuuXWe+;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873C6606A321;
-	Wed, 28 Oct 2026 19:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 873C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32253606A32C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:00:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32253606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G1xQ1Pcd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793214028; x=1824750028;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SvF0qrPpa1mze0SmaiTONN6P7h8s1a5USFeiNzRZx70=;
-  b=G1xQ1PcdgHcFibQvoVcLBrnyrlkHd3ndAtpC/bodAco4iVZSYvpVMoNG
-   Jqyqog5aFte9V58AmllbEk64yKbqPEUH3QySzZ92U+pPJ4X6DayrRTLnT
-   4jRAR0NcAva4E4Fa1u5mmDBgWmg+rFzgdHkGPwUsM6cZK2UqbdLLZ2Pbw
-   lz+tNxaQVt1VEf5McV9mvE6akgMjtc1B3K43IlGep2ifh0/LFc/IaN/9k
-   3CaAbj0IqVoP/kb5PLv6st8g9MZWBYrX4nGOvnMq0MPZmMN6QxEjUcl3E
-   8o/kjINzaI8tvrxWttcACZyRX3aNQenoTzsJw2bHE/cC/Viu2YejCA9NH
-   w==;
-X-CSE-ConnectionGUID: y9BkPTHAR8Ong9nD2Mps8g==
-X-CSE-MsgGUID: npGtg7aZTUGVTXqyCn6qUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1962913"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1962913"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 11:59:47 -0700
-X-CSE-ConnectionGUID: kAwP7TzjT2a7K5T1rBaG6Q==
-X-CSE-MsgGUID: zEn4UmG8RQ6ShkL/enzcxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="4789786"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 28 Oct 2026 11:59:44 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xM8s9-00000000Z8O-0v7S;
-	Wed, 28 Oct 2026 18:59:41 +0000
-Date: Thu, 29 Oct 2026 02:58:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] cifs: fix UAF read of server->hostname in
- cifs_get_spnego_key()
-Message-ID: <202610290208.vMXHYOZa-lkp@intel.com>
-References: <20261027150438.943354-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J87loaFo;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ixuuXWe+
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SIPiBD400630
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:00:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=ihzh9krNeTK
+	98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=; b=J87loaFooyki6t56M+osl7xd0Nh
+	0J7oCPNoLJIdleMrM+mZXByx8GlkLvKz+EQgaQQBroSNN+vh9+9UmMnu4a5zKYHP
+	anIYVH7AoqxYaV3Pu4EmPPwrGZVUwIGEjhs0a+eFCQaKEK5Xw+BQjPfSGWgabLX6
+	SHKmoho/ynimbeplHzz6B4V4gWHj8Uv9pKQS5dxRwKcSyrKrZUDWKfIZvcbg1VLr
+	Au8bjJUg6WWydu90Y2TGfaFnWE9uI0XmiWc6p4W3NxIhrym1lqp4im2O7W8RgleU
+	7/W3wB7Qa7PPjfipEaKVbJkLoMwwXRMwgfCWNG0aF8NGU7H+6FlpsAlrJUQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtnhhny-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:00:13 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c5aef2a74so4393042eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:00:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793214013; x=1793818813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
+        b=ixuuXWe+a/v36SY1H6f+VsmVNlIuo16jnlxGJ6QkBHYYvFAPsYqW5hQ5iVaaLch13L
+         6wVRd8kR6HUcN0Slcpw9XQt221knO2eFnGLoHU/t1vWxhMCzdwOqQ2zuIt2jX4Y2Y25c
+         TieQ6us5zZMcinDjkS8FBF9CgFAsnOEBZYf1Bc+Vlx2fz83v1RJ7eIlFnWuhqmLCOV7j
+         4DV3LdDLpbUsKjX8UY84xoQpJ5ydWa4acRY7oL03mgvW2cyhGXqfC5SGjk+pal6yz7Hx
+         tnICGMs2AYsyjZuCAPoqRhkrw6+4TQs5KDMXhkBEnF4RQhLt3LpjMrD2wSOZRP0P8q8x
+         0DEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793214013; x=1793818813;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
+        b=AdLooJS2w11bEcbZaK/DplsLjQccuxf7aYE7BUMs+pmmZBw1yggaUBIMjyfb8wpvj3
+         i/wAQVKevubzxuMpYoioDYYNsjs6Jw1vhTDgcwlRms2LacwrB8GYUpJ/ClMEyrvKKbhv
+         sMvndgN9MaBLXNEchicSwp404NMkkKWQv7y7cUEU6xL1ObcyG5xPT5+OHnlPfnb5Bizf
+         Xl8OwtfatRYopQnwisCMi94x6e/JQnU2gKOGQnnTKkny266r0bcDxRspfJi+4x3lVIom
+         PP3o9XvmAxDWp5eJbId8xSKNhzr4wwylK9L16FloCQLlPvmTDiawevq680oRfbjePpvp
+         8wsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqkKGQTUICBMnTI3QetQq4pVKYvAmuBNr+Nv8EywLvzHX6ur8TuHvBnUCFkLyCvYnq/c/ZpZzDgWPQKcI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3DZZJW35DVO7Quujp0EKBw8ry30EMjD9gYS2tSncj7fjd7rr3
+	Nn1KeFBTb6tWurMzzRkG/jEYotxrEFwDh8A7+A+tr7tIN5hDkaDwgHFJV07gj+ijfzgLtZQHXaQ
+	bd3/4OAAbUDEwNi/gMTfyvpgyAeNRQ+itT0uPoDarxFe0M/GlSmTj4n6j2vPGnMDYJjU=
+X-Gm-Gg: AYBFou3mBVfUNjHcdr4TwWIC3wqltDJTuWk5dwUVyMDKyLllcyVERj+Skp35UdlpxYA
+	fOv0kbLee0TB06Qd4Pc6eHZIUnOplwAykLeGSe25xI3g0NsQXYXoHFuBqVPUnZrfeasKi43Z3Og
+	2zUeCOyfc9vvFNswFNnlnhp79eobSnYUobVQt+MNYtfD5XBn/q4wpUMXN8T2UwJiHpecvL++JXh
+	8xs7DwAI7D4MaMNcLn9Ie0NjdhB8+eT0uKt320dIREmv2OGSHSUUZQDmBA5BOmQ2mrvNvQxj7Pb
+	qG10PHaJJmK7F7azvFj9z9VrLsdrGuWt24WRoV59/QaP/vWB9Oejma8JFJWSfvPlIM44XtMD/7Y
+	yVCVgi9L/bFjeYA8AJagnGUmkIpjkEq9Ujbupy6INwvYVOrZhdFyyk9Vc+uWWgz9FceCn4q9PMX
+	dgbIzaJw==
+X-Received: by 2002:a05:7301:29a5:b0:36a:12c1:3adb with SMTP id 5a478bee46e88-36a203efd45mr4646592eec.20.1793214012813;
+        Wed, 28 Oct 2026 12:00:12 -0700 (PDT)
+X-Received: by 2002:a05:7301:29a5:b0:36a:12c1:3adb with SMTP id 5a478bee46e88-36a203efd45mr4646546eec.20.1793214012227;
+        Wed, 28 Oct 2026 12:00:12 -0700 (PDT)
+Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239a56e9sm8639936eec.27.2026.10.28.12.00.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:00:11 -0700 (PDT)
+From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+To: linux-usb@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 7/7] usb: dwc3: qcom: Enable VBUS override at probe for default peripheral role
+Date: Thu, 29 Oct 2026 00:29:37 +0530
+Message-Id: <3c1778a36380bb6d9123c3791f15cc3656b80145.1793212717.git.faisal.hassan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
+References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,50 +123,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027150438.943354-1-bsdhenrymartin@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 1ZZfdJcUCXHBl2lWDvgE9LhUFxZO4pLC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA3NSBTYWx0ZWRfX/CkPj8G09gXl
+ HGr1yj3nZ1LRUVSTpGbhLk03H/LwRVps6h7a3s4OknuEGdwPXnj4tOROzyDI9x0/Ldrt7bVK5FI
+ e59DjdvxYLPEvhjwcwYsRDRxBrZrqGM96hyGHRSq6S7q4L28igHwuGBoR4o/l6mcORuzIGm1eq6
+ oONaQDLLjljUorJSB88Agzwvk/TXOZ0bOndOVqGMHNWncXq97ikp4z5S43OGIcM6VZYJvVC3E1F
+ nbRysE49rDTH0SK7JAY7+Yiro4AU3bVB5GYU8u5F9Nyw5MIE15RI2TY6H6nSTZ1pb3FuCnM9c8x
+ 2pSRGbls4VCBHMFJio9VrVGn5HuB3jBQv7mWuns3e7TPbudu4CZIKGHTEUIkpM+5Ys4V10NM7pO
+ nrSZH7KsNzcrBb4YO0AjHt23WmDpVWMVMTXGdTQHTFEtMKOIMAIPCdtikNIiAQBLrxojg8MU5MD
+ EAcxQpIODUYv6Q2pVGg==
+X-Authority-Analysis: v=2.4 cv=c/A+0h9l c=1 sm=1 tr=0 ts=6ae2463d cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=KL4VWcfqKbbHtFUGL8sA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: 1ZZfdJcUCXHBl2lWDvgE9LhUFxZO4pLC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA3NSBTYWx0ZWRfX+9QLumS9hh2P
+ CRpRl22xPDyHFtmVeuiAsiGENRDWpjk5KOWoSgqJcnC3GHaYgyM6OgxoG3XTPcczKmjBnoHmfNt
+ 7wt8bJ6IllSC231CQTyInE5+3OC/1Xc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280075
 
-Hi Henry,
+When the controller is in OTG mode with usb-role-switch and
+role-switch-default-mode set to peripheral, the role notifier never sees
+a transition at probe, so the QSCRATCH VBUS override is not programmed
+and the device never gets a session-valid indication.
 
-kernel test robot noticed the following build warnings:
+Enable the VBUS override at probe whenever the initial role is
+USB_ROLE_DEVICE.
 
-[auto build test WARNING on manguebit/cifs-next]
-[also build test WARNING on manguebit/cifs-fixes linus/master v7.3 next-20261027]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Validated on SA8255P with an HS host attached: 20 unbind/bind and 20
+suspend/resume iterations completed with no failures.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Henry-Martin/cifs-fix-UAF-read-of-server-hostname-in-cifs_get_spnego_key/20261027-230438
-base:   https://git.manguebit.org/linux.git cifs-next
-patch link:    https://lore.kernel.org/r/20261027150438.943354-1-bsdhenrymartin%40gmail.com
-patch subject: [PATCH] cifs: fix UAF read of server->hostname in cifs_get_spnego_key()
-config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20261029/202610290208.vMXHYOZa-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610290208.vMXHYOZa-lkp@intel.com/reproduce)
+Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+---
+ drivers/usb/dwc3/dwc3-qcom.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610290208.vMXHYOZa-lkp@intel.com/
+diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+index 0896a323bdda..92f1223f7b21 100644
+--- a/drivers/usb/dwc3/dwc3-qcom.c
++++ b/drivers/usb/dwc3/dwc3-qcom.c
+@@ -953,10 +953,12 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+ 		dwc3_qcom_vbus_override_enable(qcom, true);
+ 	} else {
+ 		if ((device_property_read_bool(dev, "usb-role-switch")) &&
+-		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST))
++		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST)) {
+ 			qcom->current_role = USB_ROLE_HOST;
+-		else
++		} else {
+ 			qcom->current_role = USB_ROLE_DEVICE;
++			dwc3_qcom_vbus_override_enable(qcom, true);
++		}
+ 	}
+ 
+ 	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
+-- 
+2.34.1
 
-All warnings (new ones prefixed by >>):
-
-   fs/smb/client/cifs_spnego.c: In function 'cifs_get_spnego_key':
->> fs/smb/client/cifs_spnego.c:199:1: warning: the frame size of 1304 bytes is larger than 1280 bytes [-Wframe-larger-than=]
-     199 | }
-         | ^
-
-
-vim +199 fs/smb/client/cifs_spnego.c
-
-f1d662a7d5e532 fs/cifs/cifs_spnego.c Steve French  2007-11-05  195  
-f1d662a7d5e532 fs/cifs/cifs_spnego.c Steve French  2007-11-05  196  out:
-f1d662a7d5e532 fs/cifs/cifs_spnego.c Steve French  2007-11-05  197  	kfree(description);
-f1d662a7d5e532 fs/cifs/cifs_spnego.c Steve French  2007-11-05  198  	return spnego_key;
-f1d662a7d5e532 fs/cifs/cifs_spnego.c Steve French  2007-11-05 @199  }
-b74cb9a80268be fs/cifs/cifs_spnego.c Sachin Prabhu 2016-05-17  200  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
