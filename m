@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175205;
-	b=Nfb4PQhG1cA99MlN3ypNTrAXhyis8swZ0ltJwk40+RYPCiNZsAnxm5v6pvD96f5MmTOd
-	 WQQMOofgi5RIy7+ZGPEK83oKNXaE6UEjid1u4vEF/S4l5a4J7/2UPf1nYnI6pW7GsvTyn
-	 fhn0Lh30Wzkcd8tihGnC7+yQ/cD1xUxRfvVTcILeEhCDKoKHRCbXHYi7aSVS8HYduFFN5
-	 CsooXl7jfiUF3wWfLlL9hwdeq+LTjxJTjCjRtCcUqEwJCf/5Fbsjn4x9ZI/oX0JjP6Ft0
-	 0u/HfE5VdBAPNgoT0vGPmsv4mFfVThf/Fqs9OIVdUB2skPXm6dKP7S0pLKhy9msTbww==
+	t=1793175209;
+	b=0uHRMoC3/KGceZIkWmHALOZ72pgUd6X2tdT7wbF0AGrE5K8v+mT3yKOV6Px1CSZhY7Pz
+	 YZNX6gS/qar/Hj2/YFPSxLJfsGA3vnnaWPxWBgDgcmx1m8z+/HBgfAfau+zsKnI0L2eTd
+	 Ve7I/cMUaAS+6ZkAgoGZKIgTIX7f6ZqXxjI1jnE5JFmOAbk01sflnnZ8o6yB3SlbXhCiA
+	 mSSYO8HY/KcN4n/PJ3zVLmYjXsi2sol4MuKx3GLJOXfRIrbYT/WmQtRnbm+GDYFVELiph
+	 e5sOOMOf3Zf/0NH6hIVfhBLiMlWUPzoc5A3O0XAEDtzATGXJzOK5RtTl2XCfwX1vEkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175209;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SAVWs/NDsyGnOu1pGDZ7YW8QusqcbylNwmGlYdt/fqM=;
-	b=hppiTOno6J/Md3iDsagB+gSokoBLHhRo0OJDY0EO8pvmvsokpCfW7VNC71khGm1p0spU
-	 RwQiJZzKF8csJYeK3DU3DIN1osB3S1FipZ0zem7KtsvKnst8lZ3q58mFXQ4NIdRaLsf/Y
-	 Ot7sJ51G4yAVNhTMOKkPrdF6N85o6cgGBv6+AKhJ6quIU1FtWNbIgCz8bnVDWx91rpXzL
-	 ev6OksoYo9mP5ugmr5k2EhMWnt3b5H8T1r8n05i9Ml4K7IKwLIbf4CUUM3pvHrZXHJsfu
-	 +IdrIad3QyzF81sVTl46fq6OCSGSbX0stzUyzbbYpKtow6gEytntWRlaX6Hlc1yLM2w==
+	bh=VUzBHhWhDxOLvkLJk+E77UmTIWfq3Yjnsro1mI6SDTw=;
+	b=VyNGY4zpifu2XWGvqPcj+WxhNmCbHtkR/48vrX2+fK9mk++xvVLuu3LsbNWcy5UFZiHD
+	 HbbwKUloWKEpisdT8UiD4XLzacFlVXKncHWhvkt09QjsDVT548pjDV8QMG7O0PgxD9OjN
+	 JVvQprE/araR7JX86iIZNwPcEgHhV2eop3ZaPmcII8r38oolXTT64bipUZDfiwYAWK0oj
+	 dn226PkI4vvoQn+M+SX4Lowxjl3gw8Xo2pf9TMYr7kgFNSk3c2Cp+tjZkUaeVFJSGveoM
+	 YzZAjMeYq1mcaSooNn+lk/0OJGGvGiXNyw/8By2BmYKZNYbUU0UDf4SwyijO4tAYPGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0t+4k8Ci;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ijjngkcf;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B8F606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:13:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B8F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C31360A2611;
+	Wed, 28 Oct 2026 08:13:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C31360A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0t+4k8Ci
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so6031585e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:13:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793175204; x=1793780004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SAVWs/NDsyGnOu1pGDZ7YW8QusqcbylNwmGlYdt/fqM=;
-        b=0t+4k8CiMsN8rPI0idoPqjYbF2Kw2hKwDRaG8OWnlzy2CBSM2GeQpQjORaAeIcpXjW
-         Q2uOzh8brR3pEODXEo4xeNT1kxapuM2/Z14e72hsuVCFqGn134q5HYzR1gTmMxaCYXIH
-         1PBFnYvNRDYFaa7YFCKeymxx4rQ1EbZTL+72Si/9/Ge9i0vzuuK6tCFCvJweEmBc/ZKb
-         qA/z8AK62WLP5A0Zub4jf5RdZHda76OGBJr7TPLlT6K6Lgo5j1CtNxGc3JTAO67cZ3xy
-         cktotQaThqA8R3hXrHasIGrZy/+9JqmNglPyPDC8IoKyi7CaNVb5JuFJ8VzbltiUwwaG
-         W4Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793175204; x=1793780004;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SAVWs/NDsyGnOu1pGDZ7YW8QusqcbylNwmGlYdt/fqM=;
-        b=PzsshDR6jLkNA9EsUXz/d3wusFseI0XKvZXPo5VtizTBAX8Ir2IMgeWpi82QIcrOs3
-         9N4M87vvd5pEHPEtKVjlubzffbCOcyaMYjZz/fDy2obXdUiiXL4XmY2C6AkUSKmjehWG
-         kFtuEJyIXcw94IIqSxISrVkoVHbsjNZEniI5niKdCBARvjN0FFq9Zz12I7I/QfjoO6pG
-         5AiabN3tF+rI50um/q8vCtAAvazv9V2twmxML5BBgJrUtt1dVo2v6kV21w2GwnzmS1cW
-         Xi2kHfxvkYA5hvcMXiiMmoBbuxg3temPA2+DX+iVk3mrQTV+9EMDDraEXLC29RF/JhYQ
-         uG3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwqf2HLtL2gY4pKn3AL1BF50ZCSHM43q5P/KVvr6gxs9IlMvM/tULPLtb0enqbsC1IrZarZacXgtjBsfPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJG4PEXchlQibnN1VaYjdrHiq3ixoR3OHlKpl1+dkE1kIjhD2Sb
-	HOFjqWlmpObdPuSaKLZNngVfSMmBYjrUwv2Dj0w8bpsJnQWTPiZqk/nA
-X-Gm-Gg: AYBFou2nfR0nl9GXJUrpIe2aqQ53pYqeTELeG/8FcMJ1v0WtZYudrDGLbkKRZSbam2u
-	Y8ozK4SJCYQVzZbDJD+YuA4HhgNrN9TmevWsLMBD56pBFR1PwpmC+vGSAiSkvnIIyLw4o4wy0Tg
-	WcXPGUlYELvPb2Ak/ECNwph2usheLjHHH6A8VR8GPF966ZEYpGE6htd3dUatXpzePTe4mm40Caq
-	EApFRjJ4DlmAt8XwSxHgbszd2g5Ps61fpXzJWBKRD2b8cPHrfqDrmzZghJuneBWiDQ4wjdazoWP
-	4x/eVpsqnPif44ZQDkuzsPBo1MPhnoTpCzkHm7yUis/RnjFDSYgeEJ25YcpqSioDHyzDRJSQVAD
-	ky3bdA0S9kUo5YBGxU9U3cMEUSco61MGzBvyEuaWrOW9EhMWU0k10rWDy9jO482K34QksMt7otm
-	sK+oglM5AcYOikOI6DsoufmV8YyVDVdV6Vij0CKLgvVlijCefMir4jyZ+yfYhc6JR2PLTYlSRWV
-	KXeWO6yFhFAgEVx6uSTmGgRpr9VzqZt8gBu4/6WXbg8KP+9uWAQZT2v4XNGF+33U3pKLLPfUxD8
-	aDnWXunwrm4pOQjl2z6bytcY+nN+KYzpn9NEo+Xy1d/onQ==
-X-Received: by 2002:a05:600c:c117:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4a9672030cbmr23856025e9.22.1793175203701;
-        Wed, 28 Oct 2026 01:13:23 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97cebf858sm30046085e9.12.2026.10.28.01.13.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 01:13:23 -0700 (PDT)
-Message-ID: <6c73ec1a-4dc4-4c18-aaf4-e85ca73f64a4@gmail.com>
-Date: Wed, 28 Oct 2026 09:13:22 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ijjngkcf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793175209; x=1824711209;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=aVa2hkQPjq4qDne7EdqmA9CNHEkPAbwUq3TJXBaTmRk=;
+  b=ijjngkcf620Bba9G3iR7fTiexfVcWAjuR/qd0ZhfxI5fAblcoWyLJMGB
+   +4oHBX43vrHiK2CaEb80L/hRBIKMsADowWyhp9FdzCeFhwqC/sOWD1pWJ
+   NSYGpyieTyKUnvcUlKKRBooJ0qEVZ5Pu1o2S+qtfP4/qj6yqjscp94xXH
+   y8TVVF10fH5iKlb1oLKumCI5Kt19Vwfh6hgVPV8RmFDNkhNLY0o90C5m2
+   n8tX8HTY8n+BaQ0n9NQDn+bpmg+r4zwW0OVSrl8NqKE4eEcX42/gCu+wV
+   lIrDIhSxnq0AMIyPOHqQD4Q9YK09oBiDBXwinNOS1OCXphlhUFbUu/Iqx
+   Q==;
+X-CSE-ConnectionGUID: aZPRE2yDQBGL+wgkEBm0vA==
+X-CSE-MsgGUID: NlEOwD0kStWj/l8ZJYq/nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1902943"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1902943"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:29 -0700
+X-CSE-ConnectionGUID: UN/KtB3PTEC9FC404Nxqjg==
+X-CSE-MsgGUID: ORhPM2GkSU+2pZawUG2tYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5118504"
+Received: from litbin-desktop.sh.intel.com ([10.239.57.15])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:23 -0700
+From: Binbin Wu <binbin.wu@linux.intel.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: seanjc@google.com,
+	pbonzini@redhat.com,
+	dave.hansen@linux.intel.com,
+	andrew.cooper3@citrix.com,
+	nik.borisov@suse.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	xiaoyao.li@intel.com,
+	chao.gao@intel.com,
+	tony.lindgren@linux.intel.com,
+	kishen.maloor@intel.com,
+	dedekind1@gmail.com,
+	binbin.wu@linux.intel.com
+Subject: [PATCH v6 3/4] KVM: TDX: Report only KVM-allowed CPUID bits in KVM_TDX_CAPABILITIES
+Date: Wed, 28 Oct 2026 16:16:56 +0800
+Message-ID: <20261028081658.1228484-4-binbin.wu@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
+References: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,69 +92,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] selftests/mm: load xfs before checking for it in
- run_vmtests.sh
-To: Qiliang Yuan <odys.yuan@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-0-cbb36b014322@gmail.com>
- <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-2-cbb36b014322@gmail.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-2-cbb36b014322@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/17/26 5:07 PM, Qiliang Yuan wrote:
-> run_vmtests.sh creates a loop-mounted XFS for "khugepaged all:file" and
-> for the pagecache folio split cases of split_huge_page_test, since
-> tmpfs does not give them large pagecache folios.
-> 
-> It only does so when xfs already shows up in /proc/filesystems. When
-> xfs is built as a module that is not loaded yet, the check fails, no
-> XFS is created, "khugepaged all:file" is reported as skipped and every
-> pagecache folio split case of split_huge_page_test is skipped with "No
-> large pagecache folio generated".
-> 
-> Load xfs with load_module() when it is not registered yet, so that it
-> is unloaded again once the script is done. "run_vmtests.sh -t thp" with
-> xfs built as a module and not loaded:
-> 
->                                    before    after
->   skipped tests                         1        0
->   skipped split_huge_page_test cases   43        0
->   xfs loaded after the run             no       no
-> 
-> Fixes: fc4d182316bd ("mm: huge_memory: enable debugfs to split huge pages to any order")
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
->  tools/testing/selftests/mm/run_vmtests.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-> index 56f5416681da7..ba77fae5df4f2 100755
-> --- a/tools/testing/selftests/mm/run_vmtests.sh
-> +++ b/tools/testing/selftests/mm/run_vmtests.sh
-> @@ -428,7 +428,7 @@ CATEGORY="thp" run_test ./khugepaged -c 4 mthp_khugepaged:anon
->  # Try to create XFS if not provided
->  if [ -z "${SPLIT_HUGE_PAGE_TEST_XFS_PATH}" ]; then
->      if test_selected "thp"; then
-> -	if grep xfs /proc/filesystems &>/dev/null; then
-> +	if grep -q xfs /proc/filesystems || load_module xfs; then
+Filter the directly configurable CPUID bits reported through
+KVM_TDX_CAPABILITIES against KVM's TDX allowlist, and drop the hardcoded
+denylist-based filtering.
 
-doesn't this also match selinuxfs? with SELinux on, xfs is still loaded
-after the run. would grep -qw be enough?
+The TDX module reports the CPUID bits that the VMM can directly configure
+for a TD, but KVM must not advertise bits that it doesn't support, as
+blindly exposing a feature that clobbers host state can corrupt the host.
+The existing denylist, which clears only TSX and WAITPKG, can't account
+for such features introduced by future TDX modules.
 
-also, needs a rebase, 6593a15af108 ("selftests/mm: skip khugepaged file
-tests if mkfs.xfs is unavailable") reworked these lines.
+Add tdx_get_cpuid_cfg_mask() to compute the mask of directly configurable
+bits that KVM allows for a given CPUID register, and apply it to every
+CPUID entry reported through KVM_TDX_CAPABILITIES.  The mask combines
+feature bits, taken from tdx_cpu_cfg_caps[], with non-feature bits, which
+are identified by function, index, and register.
 
+Treat CPUID.0x1.{EAX,EBX}, CPUID.{0x4,0x18,0x1F}, and CPUID.0x80000008.EAX
+as fully allowed, as these registers enumerate non-feature information,
+e.g. family/model/stepping, brand index, CLFLUSH line size, APIC ID,
+cache/TLB/topology properties, and address sizes.  Allow the reserved bits
+in them as well.  Though there's no architectural guarantee, given what
+these registers enumerate, the reserved bits are expected to be used to
+extend the existing information rather than to enumerate new features.
+
+Also allow CPUID.0x24.0.EBX[7:0] (AVX10 version), which the TDX module
+reports as directly configurable when AVX10 is supported, even though the
+CPUID virtualization table in the "Intel TDX Module ABI Definitions"
+currently lists it as not configurable.  The table is expected to be
+corrected.
+
+As a result, directly configurable bits that aren't in the allowlist,
+including bits introduced by future TDX modules, aren't advertised to
+userspace until KVM explicitly opts in.
+
+Note, this is an ABI change, as some bits that were previously reported as
+configurable no longer are.  However, the semantics of
+KVM_TDX_CAPABILITIES are unchanged: KVM already filtered unsupported bits
+out of KVM_TDX_CAPABILITIES, albeit via a denylist, and the set of
+reported bits already varies with the TDX module and KVM versions, i.e.
+userspace can't assume a fixed set.
+
+The change isn't expected to break userspace or guests:
+ - Userspace that honors KVM_TDX_CAPABILITIES simply stops setting the
+   dropped bits, and KVM_TDX_INIT_VM still succeeds.
+ - CORE_CAPABILITIES, which older TDX module specs defined as fixed-1, is
+   still allowed.
+ - The dropped features are either obsolete or unsupported by KVM, and in
+   the latter case, a guest relying on them would already have run into
+   problems.
+
+Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+---
+v6:
+- Rebased on patch series "x86/cpuid: KVM: TDX CPUID fixes"
+  https://lore.kernel.org/all/20261022210134.612848-1-seanjc@google.com
+- Fix the changelog on ABI change. (Rick)
+- Collected RBs. (Rick, Chao, Xiaoyao)
+
+v5:
+- Change the shortlog to make the change more clear.
+- Update the changelog to call out the user-visible change more loudly.
+  (Rick)
+- Describe CPUID.0x24.0.EBX[7:0] in the changelog rather than in a code
+  comment, since the comment would become stale once the spec is updated.
+- Update the changelog/comments for the CPUIDs that are expected not to be
+  repurposed to hold feature bits according to their definitions.
+- Drop the note in the TDX document as the semantic of KVM_TDX_CAPABILITIES
+  is unchanged.
+
+v4:
+- Rename functions. (Tony)
+  tdx_cfg_non_feature_mask()       -> tdx_get_cpuid_cfg_non_feature_mask()
+  tdx_cfg_feature_mask()           -> tdx_get_cpuid_cfg_feature_mask()
+  tdx_get_allowed_cfg_cpuid_mask() -> tdx_get_cpuid_cfg_mask()
+- Update documentation. (Xiaoyao, Rick)
+
+v3:
+- Handle non-feature leafs at runtime. (Sean)
+- Add CPUID.0x24.0.EBX[7:0] into allowlist. There is a mismatch of the
+  description about CPUID.0x24.0.EBX[7:0], which is listed as
+  "XFAM & CPUID_Enabled & Native" but should be "XFAM & CPUID_Enabled &
+  Configured & Native".
+---
+ arch/x86/kvm/vmx/tdx.c | 97 ++++++++++++++++++++++++++++++++----------
+ 1 file changed, 74 insertions(+), 23 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index becdd5aa9e682..0741c3ef4745e 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -284,31 +284,12 @@ static bool has_tsx(const struct kvm_cpuid_entry2 *entry)
+ 	       (entry->ebx & TDX_FEATURE_TSX);
+ }
+ 
+-static void clear_tsx(struct kvm_cpuid_entry2 *entry)
+-{
+-	entry->ebx &= ~TDX_FEATURE_TSX;
+-}
+-
+ static bool has_waitpkg(const struct kvm_cpuid_entry2 *entry)
+ {
+ 	return entry->function == 7 && entry->index == 0 &&
+ 	       (entry->ecx & __feature_bit(X86_FEATURE_WAITPKG));
+ }
+ 
+-static void clear_waitpkg(struct kvm_cpuid_entry2 *entry)
+-{
+-	entry->ecx &= ~__feature_bit(X86_FEATURE_WAITPKG);
+-}
+-
+-static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
+-{
+-	if (has_tsx(entry))
+-		clear_tsx(entry);
+-
+-	if (has_waitpkg(entry))
+-		clear_waitpkg(entry);
+-}
+-
+ static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
+ {
+ 	if (cpuid_function_is_indexed(entry->function) !=
+@@ -318,6 +299,70 @@ static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
+ 	return has_tsx(entry) || has_waitpkg(entry);
+ }
+ 
++#define TDX_CPUID_ALL_ALLOWED_MASK	GENMASK_U32(31, 0)
++
++static u32 tdx_get_cpuid_cfg_non_feature_mask(u32 function, u32 index, int reg)
++{
++	/*
++	 * Allow all bits in registers that enumerate non-feature information.
++	 * Note, CPUID.0x1.EAX, CPUID.{0x4, 0x18, 0x1f} and CPUID.0x80000008.EAX
++	 * contain reserved bits.  Though not architecturally guaranteed, the
++	 * reserved bits are expected to be used to extend the existing
++	 * information rather than to enumerate features, so allow them too.
++	 */
++	switch (function) {
++	case 0x1:
++		if (reg == CPUID_EAX || reg == CPUID_EBX)
++			return TDX_CPUID_ALL_ALLOWED_MASK;
++		return 0;
++	case 0x4:
++	case 0x18:
++	case 0x1f:
++		return TDX_CPUID_ALL_ALLOWED_MASK;
++	case 0x24:
++		if (index == 0 && reg == CPUID_EBX)
++			return GENMASK_U32(7, 0);
++		return 0;
++	case 0x80000008:
++		if (reg == CPUID_EAX)
++			return TDX_CPUID_ALL_ALLOWED_MASK;
++		return 0;
++	default:
++		return 0;
++	}
++}
++
++static u32 tdx_get_cpuid_cfg_feature_mask(u32 function, u32 index, int reg)
++{
++	for (int i = 0; i < NR_KVM_CPU_CAPS; i++) {
++		const struct cpuid_reg *cpuid = &reverse_cpuid[i];
++
++		if (!cpuid->function)
++			continue;
++
++		if (cpuid->function == function && cpuid->index == index &&
++		    cpuid->reg == reg)
++			return tdx_cpu_cfg_caps[i];
++	}
++
++	return 0;
++}
++
++static u32 tdx_get_cpuid_cfg_mask(u32 function, u32 index, int reg)
++{
++	u32 non_feature_mask = tdx_get_cpuid_cfg_non_feature_mask(function, index, reg);
++
++	/* Skip reverse_cpuid[] walk if it's already all allowed. */
++	if (non_feature_mask == TDX_CPUID_ALL_ALLOWED_MASK)
++		return TDX_CPUID_ALL_ALLOWED_MASK;
++
++	/*
++	 * It's possible that a CPUID register contains both feature and
++	 * non-feature bits.
++	 */
++	return non_feature_mask | tdx_get_cpuid_cfg_feature_mask(function, index, reg);
++}
++
+ #define KVM_TDX_CPUID_NO_SUBLEAF	((__u32)-1)
+ 
+ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char idx)
+@@ -352,8 +397,6 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+ 	 */
+ 	if (entry->function == 0x80000008)
+ 		entry->eax = tdx_set_guest_phys_addr_bits(entry->eax, 0xff);
+-
+-	tdx_clear_unsupported_cpuid(entry);
+ }
+ 
+ #define TDVMCALLINFO_SETUP_EVENT_NOTIFY_INTERRUPT	BIT(1)
+@@ -376,8 +419,16 @@ static int init_kvm_tdx_caps(const struct tdx_sys_info_td_conf *td_conf,
+ 	caps->user_tdvmcallinfo_1_r11 =
+ 		TDVMCALLINFO_SETUP_EVENT_NOTIFY_INTERRUPT;
+ 
+-	for (i = 0; i < td_conf->num_cpuid_config; i++)
+-		td_init_cpuid_entry2(&caps->cpuid.entries[i], i);
++	for (i = 0; i < td_conf->num_cpuid_config; i++) {
++		struct kvm_cpuid_entry2 *e = &caps->cpuid.entries[i];
++
++		td_init_cpuid_entry2(e, i);
++		/* Only report the configurable bits allowed by KVM. */
++		e->eax &= tdx_get_cpuid_cfg_mask(e->function, e->index, CPUID_EAX);
++		e->ebx &= tdx_get_cpuid_cfg_mask(e->function, e->index, CPUID_EBX);
++		e->ecx &= tdx_get_cpuid_cfg_mask(e->function, e->index, CPUID_ECX);
++		e->edx &= tdx_get_cpuid_cfg_mask(e->function, e->index, CPUID_EDX);
++	}
+ 
+ 	return 0;
+ }
 -- 
-cheers,
-jose a. p-a
+2.46.0
+
