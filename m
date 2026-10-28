@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219689;
-	b=f9FVb9bGzZmm/f+PWaqC4fO8WUKTW399L6/k0Hj6kZb4TXMJcS52Nn6QbvRF0Gu7HFkR
-	 tXUDmCnEpDDAwNd48arH4Lx/CmdavPA9706lM8GInsM1rwP61a9oWMKCsuWuazw6U4XtS
-	 757jhFzfaBrYM19p2KQ/TlRVSRo5g4VOd5QTfYt9PnsR2KXpnkzHsLrUU6/HgyIruSavp
-	 bUHKK5Z7TCHyuEATAXlTio7fRmbwS8T9rEhwPEwcoBGjX1EPQvppt3F11tHhdu2gqxs1i
-	 YXjrE3h64x4tEXZa0cn3XQjaFrCy8QN0UIo0hVJd6SCGHO9oaubqUS6Yl9jsSLWGZMw==
+	t=1793219756;
+	b=AtYCMgSNQ3aWdNARq8brFwkR7IPvRHEPbLeKDDey9D6iYnMBm0E5pr7u7SSd8LGshK7Q
+	 NopIpf+6oRdEHpaFOVfUd//xNFyOFVOU5g7ZKYQFR8fanrrmT0pBugisEHh8KoaNJVbl7
+	 BqSc94Qj/bdsTwdSx+HbKoTsx7U3rIKhxZrqScwhS1MVciB6uQR9wvaTl684MwwZYirJt
+	 /b/Xq5fqInKrioWd0bRPyI8sGXi9MXjQugHWPIZCjgbMKKVtqK7PMHTzCYNen0t5gBlpR
+	 HfDsMwOKg4ZJ7MqTkhZqWwN28y9UpvmPYNTp/HwV3A7JqJTPtdhfUO3QJDnAhN5xDMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219689;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=Yk5/XLzJ5f+1po7K3dQbPw3WGKnnHFKPtx8SFjJPecs=;
-	b=mV6gv2B2fvWoKUzydavN9NtnDPeo1SbkQKOqh76s6ZviGYW/ngA55n4X55lI6XdQHkcc
-	 Fq92p7FvWfcq6GtTauRaDedU8Qf34CEclbu9KpODlbTCKxw2EcHkMyjoXhBYBrWL/of7t
-	 4FBUQxV0LXHN0EPakXBrs/B93yZclOOQYeIIYEcmB9bjnMuQg1M8v2DkXfPQaFyYuhEbr
-	 LqCAVXevWsTO3Q8HUW32QmuLBZSCz2qq26oxPeb7yzBnEq6FEs0Im2Uaii7h9xo2DknD4
-	 SCfeESkxDGcJ2pkdlMvT5mhOqdc6rlHKSMCdw0UnDFRAof9dUZ1BBJ7cUu7Dv3ZSrLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219756;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4QAe5SGrIPwZ0tTzn6oh4wSWtXWrJvkc6TieHYKerj8=;
+	b=R/xL8SOzT6v68dBevqDmA9zHlMqMzswLqJKQRpK/Wtw75mXUwvL/N55wcp+BAKxKzWK7
+	 DsIpUZfbhJ7sIo1cnOxJ2ZZafbYDXkCyaCWnqt4RP196VsohrcgqFjCoN8yV1o0JSf6Eq
+	 2ToRgjwlvc3M+Zt9cdeLmCHhG55kWdDG8bEEkaC/bMxCku4HdxtoZfMqM8i4dTVnC4c9Z
+	 BV2m3zlc7BIAvFaR7e6JdvZSMJd2qml5zH9PdPkcY3ruitCgM9vTNkJsB506HKGjAqCGT
+	 Cka6RClEwKS5q7iR1/1TmQKmaIfOCGnDVOpnfOZ7Da35jWqnH+GcAkjAw5iGoVEbwJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ObYGDubl;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=MAA9UFqb;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjMR2woc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D41606A31C;
-	Wed, 28 Oct 2026 20:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D41606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D92606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:35:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ObYGDubl;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=MAA9UFqb
-Date: Wed, 28 Oct 2026 20:34:44 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793219685;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yk5/XLzJ5f+1po7K3dQbPw3WGKnnHFKPtx8SFjJPecs=;
-	b=ObYGDublF7qeEzK8zHCYewskqTVxIX3WhJexVVLXXbyB/4K/dED8aBqKVPs88Os3wGBto5
-	rNA4Ddq5b8R39oTU32kPsgwmsgQMIrk0SodfkB9IC6bP1HveZ8908itZ165PzZEcFFgwPR
-	9q+O5JxUh833xGDSj72E1/hIpN7UUdxDIq9Nv1yw/T7AS7ETg7u9KC/v/btzd4H7iu6y+U
-	QhbyLyh7vxRoHQl2QpBmRdg9pNVE6WAGoYgFch5bDtkiTjvee+wUy/M/D3KfPfURBqN0RY
-	o+ZqkeI/2rj2JQqdPT7S93uf8yjCaj3WdXYB9JzmZ8oXvxEzJmO3V6xGNHRcYw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793219685;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yk5/XLzJ5f+1po7K3dQbPw3WGKnnHFKPtx8SFjJPecs=;
-	b=MAA9UFqb4wbI3MCjuCRcrgzXuJ3DuTzrqcxWQK9+gM4+7Gp0X2QWqlLbu+5/rAp4ddXqfH
-	3uiCeVrqSIXRnfCg==
-From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/urgent] irqchip/irq-msi-lib: Free wired MSI descriptors
-Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261025122058.2180685-1-thnkslprpt@gmail.com>
-References: <20261025122058.2180685-1-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjMR2woc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B221F031EA
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793219754;
+	bh=4QAe5SGrIPwZ0tTzn6oh4wSWtXWrJvkc6TieHYKerj8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OjMR2wocoM7Ox2qkxXBhUairznGYjwxxr+hvzFGtTgF6uMo9XQ1Cp0IajDgW9HZP3
+	 0iVS7OpQC+B9dgU07dSzT7xN348tTAemsVTWhywiJN7fBeX6NliTGmrcukeQlf5td+
+	 ObdnFDlHTjb2Ht4zhXAO9R12oYpBOy0QPgLEVI4bY6n9+Plys4IkAAH57manEN+vY5
+	 CknM+ZKT4Pxf+cMu5QpPHFFFhi99hl9xoS3ALRGpcMAqOho/PtYRZyjfJy0Kmols1h
+	 BKzasg01PyuL5ExBDmP4Mo7v+DQhCfgbMGPPRCGPZZOfoKlTlk7tGuq+AckrLCiU/C
+	 FQMhpBEExti4Q==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f2b8cf037so107679785a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:35:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztVkbqJPlSNCMyjlJgiAb2gEj6WbCQ8zmd3MW+iEqpmTEXtFT5nV8YmYCQNeeqfoqna7AMchM164lvRLQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITZ/fckhFt3x9NBBo9uZ0w477p22dNRjeoBar0+NPZdG4xJZBn
+	yJ21+YGRT6+zCuShrRrXtuqGsUWP31oWdGkJT7CWxP7yxNwj/wnHuRLQzNLRGFwaBRAibdYweKr
+	HN0rFw77VKs8vlKs7zPTJDjzu27ZWUdk=
+X-Received: by 2002:a05:620a:2728:b0:93a:1048:7d2f with SMTP id
+ af79cd13be357-94408cd0363mr536255285a.41.1793219754031; Wed, 28 Oct 2026
+ 13:35:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,55 +59,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179321968402.4109677.4505423239419852725.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+References: <20261028010611.3929937-1-tjmercier@google.com> <20261028010611.3929937-2-tjmercier@google.com>
+In-Reply-To: <20261028010611.3929937-2-tjmercier@google.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 29 Oct 2026 04:35:42 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xGy4O0GdU1xwVURjTZ+upbZYGFsKwf-ZjKKkntOiwtHg@mail.gmail.com>
+X-Gm-Features: AclHuK-kz9wxt-69rhz-Vpf7nKwcRzuuxuV15spsnkGsOFzx8iPMuvTrFEMb7zA
+Message-ID: <CAGsJ_4xGy4O0GdU1xwVURjTZ+upbZYGFsKwf-ZjKKkntOiwtHg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online() checks
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: roman.gushchin@linux.dev, muchun.song@linux.dev, 
+	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the irq/urgent branch of tip:
+On Wed, Oct 28, 2026 at 9:06=E2=80=AFAM T.J. Mercier <tjmercier@google.com>=
+ wrote:
+>
+> Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
+> dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
+> move LRU size accounting on reparenting instead of copying it"),
+> mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
+> and zeroes the child's lrugen->nr_pages and lru_zone_size before the
+> memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
+> afterwards. A folio that is off the LRU during reparenting looks up its
+> lruvec through its objcg, which now points to the parent so it is put
+> back on the parent's LRU.
+>
+> As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
+> when !mem_cgroup_online(memcg) is true, making the offlined memcg special
+> cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
+> code. Remove them.
+>
+> With the get_nr_to_scan() special case removed, an offlined memcg that
+> still has stale effective protection now has
+> apply_proportional_protection() applied like get_scan_count() does, so
+> the MGLRU and traditional LRU behavior is now the same.
+>
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> ---
 
-Commit-ID:     1c16bc2b1122f78f9d51c5785f7a78b36d44972b
-Gitweb:        https://git.kernel.org/tip/1c16bc2b1122f78f9d51c5785f7a78b36d4=
-4972b
-Author:        Avi Weiss <thnkslprpt@gmail.com>
-AuthorDate:    Sun, 25 Oct 2026 14:20:58 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Wed, 28 Oct 2026 21:29:53 +01:00
-
-irqchip/irq-msi-lib: Free wired MSI descriptors
-
-msi_device_domain_alloc_wired() allocates a descriptor for each
-interrupt, but wired MSI domains do not set MSI_FLAG_FREE_MSI_DESCS.
-msi_device_domain_free_wired() releases the IRQ without freeing its
-descriptor, eventually exhausting the domain. Failed allocations also
-leave descriptors behind.
-
-Set MSI_FLAG_FREE_MSI_DESCS for wired MSI domains so both paths
-release the descriptors.
-
-Fixes: 64a855324311 ("irqchip/irq-msi-lib: Prepare for DOMAIN_BUS_WIRED_TO_MS=
-I")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261025122058.2180685-1-thnkslprpt@gmail.com
----
- drivers/irqchip/irq-msi-lib.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/irqchip/irq-msi-lib.c b/drivers/irqchip/irq-msi-lib.c
-index 45e0ed3..a1e12aa 100644
---- a/drivers/irqchip/irq-msi-lib.c
-+++ b/drivers/irqchip/irq-msi-lib.c
-@@ -75,6 +75,7 @@ bool msi_lib_init_dev_msi_info(struct device *dev, struct i=
-rq_domain *domain,
- 		info->flags =3D MSI_FLAG_ALLOC_SIMPLE_MSI_DESCS | MSI_FLAG_FREE_MSI_DESCS;
- 		fallthrough;
- 	case DOMAIN_BUS_WIRED_TO_MSI:
-+		info->flags |=3D MSI_FLAG_FREE_MSI_DESCS;
- 		/* Remove PCI specific flags */
- 		required_flags &=3D ~MSI_FLAG_PCI_MSI_MASK_PARENT;
- 		break;
+Reviewed-by: Barry Song <baohua@kernel.org>
