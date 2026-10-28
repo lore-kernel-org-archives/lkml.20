@@ -1,72 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212302;
-	b=yy6Cu8f3mX6+1zPz3KXPv6w+J62kpg5VHOxuIQ92lgCkMNUjCnYz8dnC/Bu/LjEbC2oB
-	 tda+srOs0/ABu4/wbWKj+8pJ7mvn4nWSBmitEIu4q6buiCqUiPtfNm73baKQyIKvSuwZm
-	 pIity4TeLaAtyh84Pj2O8f5RcKXCAhsfUOmls9cmunNB9JLcu8shytifrDY/QTZ0WnIv1
-	 KGbmeE246tt3ym9dRwlMD3DUaGTILcRZ6wlGn9Klzz0ALOQiJBfFlXYTY1LormBGf/Evh
-	 1bcPuF0NVndeRnEjQtrp6DTuoxQ9jYwsdl9TMXNQtoiXnFXtdHEBiYdub7/kFpAy3qg==
+	t=1793212319;
+	b=2aRwVL8TvNGRs2pp9/XEAefdG6VhNrBvRFmDYxCI1bAaEHQDKMlQz81gK3iTTSbfX1mZ
+	 wOCKIIpKTkjEXUfc6090MN288QXCEXvJBVf9nXwMPdlxvL4xOKTW4DXA0hgQFdri9lSKO
+	 OUsGgE265/R3Jh0JpG8GiLhmjDs/y9y+iFiWk8qzp90pWZnEMY7YChAKIbr121u+az8ly
+	 uq0BRIwtAXko1abPGhzVDQaaSMP8kzhQseEGmuU3s/6tZjO6MsWvKB6N70tamb+HNPnVX
+	 WiQdR+9adWVvT97cGWq5xfzCGp+tnt2JcecKGAZDO2WGXPBdxw6YxhDEft1Zz+uZJCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212319;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=AhGwMBlXb9QayOpoIgLMCOSWoppIw0OFkOZJ4bKojBU=;
-	b=NMMgse7H6T7s8WbI8T/DH30TqXo8CmnXFJkkIfrLoZFzrv67nes+M6GA9QV2LUXdFtJl
-	 4I3027dtU7Ies7UrqKfWfkRbdZdt1PlmjrGE57eOVAZ64oOatx5EQCEoRa9SZoxV5C/3v
-	 pykbiS2HZthYyG0JvdBEwe3fBuLGE3vYtb+QTLzgoh3ao4D1ddclKEEVMDxZGHAwKdnKS
-	 Tj9Qll+/2/Z0zMwIrR1f5w2V6x9Vn3HKcYiXJSHC5hyi6EOmclYf6JwmMZdVad8LEaDkI
-	 /cNYBbH9BHLbyz8Y5mYIGHswnCP7CXvTtiqw1OxQ7LKwjTG/vk3+NwS7dMW18lr+ujg==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ghhDGGx/7hBw9mEgNWE6Bl/InzcO7uxTtfNEwQ2pmxw=;
+	b=kyHSN5TkkYuayuvLs+wOH+8xf2t7L6794OQZWsMho+TU2PpSA/bLAq8mRAKMs+Qtvth8
+	 eaOUpfn5mtoqOHOWkur2x04D2B8QuobBiSXnHT1MpxA4QqKy+ds0WYPg6p4Ldim5/SPDG
+	 /348zuuHUp32W6ZEm2ew++WWLZY+gwqNw5VS6tEo0QPzFP/Pj4UOrpQ2pRATSa4QAvhAF
+	 XgZrK9qi7u3YuiQdGfP2PwfBvaE7HTvHbCQpO/aERl+0czkoQ+byor4tESwAm+v/TSMRE
+	 P4f4AkBqhP2LGGt9hrjp50JY8nOhZtEmkzFrkRlTzeljqec6qnPlYm6YuI/WA1WA2aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zpmpp+Zq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhLpJxgt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE77606A326;
-	Wed, 28 Oct 2026 18:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BEF606A31A;
+	Wed, 28 Oct 2026 18:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zpmpp+Zq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BC831F01825;
-	Wed, 28 Oct 2026 18:31:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhLpJxgt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F741F01828;
+	Wed, 28 Oct 2026 18:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793212302;
-	bh=AhGwMBlXb9QayOpoIgLMCOSWoppIw0OFkOZJ4bKojBU=;
+	s=k20260515; t=1793212318;
+	bh=ghhDGGx/7hBw9mEgNWE6Bl/InzcO7uxTtfNEwQ2pmxw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zpmpp+ZqiBhJDbBCqSiYhds7+OsBVknD16S19y+dM78X5O/2NLnnQRzQOLKxa8rGm
-	 AWqo+psYcNkpxa6CU3ZqLQdv8kJ99QKbFsX9D4xU6HdBguei7iRkKuyf7kWDdnfHsV
-	 OC4dqatLiE6pCPji5GpazeqoFSPDjfKBmCbiejFHseBoyEd+vz8vmZtKtXJWVO3u8G
-	 CnT39zMnWqvR/Y6RjfoqHd4qyzplNXVVG1rCNuCzVBNR9OlXr4qENeCdlqU74jx/Gr
-	 Wl5SPcdhBeHdJyjHOj78fuDRzRC7sKcwWhK/WpzEyj8isUevSlSjmE/yFsABpvz+lk
-	 JtLqsxrGGZcUw==
-Date: Wed, 28 Oct 2026 18:31:34 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>
-Subject: Re: [PATCH v3 3/4] selftests/arm64: GCS must not leak on a failed
- clone3
-Message-ID: <e87dc329-3f77-45bd-89af-c98551801658@sirena.org.uk>
-References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
- <20261028154315.1272705-4-ivanrwcm25@gmail.com>
+	b=GhLpJxgtyXWQ7mZOZKpfocS1u06EHb9nWfYVIMeHLYr4P+qRzlMXx+Ly6QWN9kT8s
+	 UfyJ0frrdtufoypkRrRugecF/QkjcPt5fr5veWk9FfEJCAqR9STE22xK1fUOvcwoaj
+	 HIPcm65NZTnn6ShHcVHyqBf9pNaXZJXAaAmVW97GNZtBjzH30euB6ciKfeVR8J/ib2
+	 O9Gd6abrZ3Hfj5oKXTxVSKDhFiQzlzOYL7b/7n7z7hhdKNFCvqRhpuLWkUkmnQUXH0
+	 AURiPuLeye9kFVqJWT/zjsElrAsruR4aobCEVlqxL45W7ZQCHqUgpjqfYpdZpU4+bp
+	 B4qEJk5dL29tw==
+Date: Wed, 28 Oct 2026 11:31:57 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Magnus Kulke <magnuskulke@linux.microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>, Arnd Bergmann <arnd@arndb.de>,
+	Magnus Kulke <magnuskulke@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Dexuan Cui <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
+	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
+Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
+Message-ID: <20261028183157.GA3595008@liuwe-devbox-debian-v2.local>
+References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+ <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,52 +67,274 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EgSzcDImSQq/kPzv"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261028154315.1272705-4-ivanrwcm25@gmail.com>
-X-Cookie: Pushing 30 is exercise enough.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
 
+On Wed, Oct 28, 2026 at 07:28:15PM +0100, Thorsten Leemhuis wrote:
+> On 9/30/26 14:10, Magnus Kulke wrote:
+> > hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> > guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> > ownership of those pages and per contract revokes root partition
+> > access to them, raising a #GP on access from the L1VH root partition.
+> > 
+> > However, the pages remain mapped in the kernel direct map, so kernel
+> > code may still access them even though the hypervisor has revoked
+> > access.
+> 
+> Wei, Magnus, this patch showed up in -next today and broke my daily
+> Fedora builds on x86_64 and arm64 which use the rawhide config as base.
+> Reverting it made the build succeed.
+> 
 
---EgSzcDImSQq/kPzv
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Can you share the kconfig?
 
-On Wed, Oct 28, 2026 at 12:43:14PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
-> KTAP coverage for clone3(CLONE_VM|CLONE_PIDFD) with a bad pidfd
-> pointer: sixteen failures must not grow the parent's GCS VMA count.
+Thanks,
+Wei
 
-Thanks, this is a lot cleaner and easier to understand than the original
-version.  It'd probably be nicer to do the refactoring of the existing
-code in a separate commit but that's more nice to have than essential.
-
-> +TEST_GEN_PROGS :=3D basic-gcs libc-gcs gcs-locking gcs-stress gcspushm g=
-csstr \
-> +                 gcs-clone-pidfd
-
-We should update .gitignore as well (or merge the test into libc-gcs but
-that's a bunch more work and definitely into bikeshed territory).
-
-I verified that this fails with the current kernel and that the kernel
-change causes it to pass so with the above:
-
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Tested-by: Mark Brown <broonie@kernel.org>
-
---EgSzcDImSQq/kPzv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriP4UACgkQJNaLcl1U
-h9BzNwf/fWeDVy8I0F3zpUZkbDWBz+B0NHeFLUK3At/UfT7hecHF42jNPNh3Xc0b
-uZQr3+cver9uHhs6hWET4qJctAOzVU204Lc2PNA9Flr42rh8h8+MkwwoBwGZ0r3f
-r78kAheb3Kt0vcKAZW6uISJLn5jW5Wf4RNxgh91OlNstBhasep2Bso5Oc6GuIBpG
-mbX/7VW4hG9auddgjYFwLW7hxBPt2ktTN52xxWwPuvaUSShN6ymkddfN+FJFeGIm
-axGOVeyLJGYFaZ/z93kpVAeO6SbO4+dvJJWdyGXHcrax1CUI9ACivl3bMEBehioB
-T7NHKcS/pNoywh81iKvz7auWKzyETQ==
-=XNL0
------END PGP SIGNATURE-----
-
---EgSzcDImSQq/kPzv--
+> """
+> > drivers/hv/hv_proc.c: In function ‘hv_deposit_update_direct_map’:
+> > drivers/hv/hv_proc.c:32:23: error: implicit declaration of function ‘set_direct_map_valid_noflush’; did you mean ‘set_direct_map_invalid_noflush’? [-Wimplicit-function-declaration]
+> >    32 |                 err = set_direct_map_valid_noflush(pfn_to_page(pfns[i]),
+> >       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >       |                       set_direct_map_invalid_noflush
+> > make[4]: *** [scripts/Makefile.build:316: drivers/hv/hv_proc.o] Error 1
+> > make[4]: *** Waiting for unfinished jobs....
+> > make[3]: *** [scripts/Makefile.build:598: drivers/hv] Error 2
+> > make[3]: *** Waiting for unfinished jobs....
+> > make[2]: *** [scripts/Makefile.build:598: drivers] Error 2
+> > make[2]: *** Waiting for unfinished jobs....
+> > make[1]: *** [/builddir/build/BUILD/kernel-7.4.0-build/kernel-next-20261028/linux-7.4.0-0.0.next.20261028.509.vanilla.fc46.x86_64/Makefile:2252: .] Error 2
+> > make: *** [Makefile:256: __sub-make] Error 2
+> """
+> Full log:
+> https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-x86_64/11219444-next-next-all/builder-live.log.gz
+> 
+> Ciao, Thorsten
+> 
+> > Helpers such as "load_unaligned_zeropad()" deliberately read past the
+> > end of a buffer and across page boundaries. A read into an unmapped
+> > page is tolerated and triggers a #PF, for which the kernel executes
+> > a fixup in the exception table.
+> > 
+> > If such a call steps into a page that has been deposited, the access
+> > raises a #GP by the hypervisor from which the above handler cannot
+> > recover and the kernel panics:
+> > 
+> >   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+> >   RIP: 0010:csum_partial+0xe5/0x110
+> > 
+> > This condition will appear on L1VH system that have created L2
+> > partitions (and hence deposited pages) and exercise networking code
+> > paths such as csum_partial() can trigger this condition when a buffer
+> > ends close to a page boundary (e.g fffc in the above example).
+> > 
+> > The fix is to remove the deposited pages from the direct map before
+> > they are passed to the hypervisor, and restore them when the hypervisor
+> > returns them again.
+> > 
+> > We want to avoid flushing the TLB in the loop, so we use the _noflush()
+> > variant of set_direct_map_valid() when marking a deposited page invalid
+> > and flush the affected page ranges in one go ourselves. In the opposite
+> > direction this is not required:
+> > 
+> >   > If a paging-structure entry is modified to change the P flag from
+> >   > 0 to 1, no invalidation is necessary. This is because no TLB entry
+> >   > or paging-structure cache entry is created with information from a
+> >   > paging-structure entry in which the P flag is 0.
+> > 
+> > (Intel SDM Vol. 3, 4.10.4.3)
+> > 
+> > Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+> > ---
+> > Changes since v3:
+> > - Batch contiguous pages in the restore path
+> > - Adjusted comment about failure modes
+> > 
+> > Changes since v2:
+> > - Checkpatch format fix
+> > 
+> > Changes since RFC:
+> > - Handle direct-map restoration failures without returning unmapped
+> >   pages to the allocator.
+> > - Move freeing of withdrawn pages into the restoration helper.
+> > ---
+> >  drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
+> >  drivers/hv/mshv_root_hv_call.c |  4 +-
+> >  include/asm-generic/mshyperv.h |  4 ++
+> >  3 files changed, 87 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+> > index 57b2c64197cb..b056051a5ac5 100644
+> > --- a/drivers/hv/hv_proc.c
+> > +++ b/drivers/hv/hv_proc.c
+> > @@ -7,7 +7,9 @@
+> >  #include <linux/cpuhotplug.h>
+> >  #include <linux/minmax.h>
+> >  #include <linux/export.h>
+> > +#include <linux/set_memory.h>
+> >  #include <asm/mshyperv.h>
+> > +#include <asm/tlbflush.h>
+> >  
+> >  /*
+> >   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+> > @@ -15,6 +17,35 @@
+> >   */
+> >  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+> >  
+> > +/*
+> > + * Add or remove a set of physically contiguous page runs from the kernel
+> > + * direct map. Once a page has been deposited the hypervisor owns it and
+> > + * revokes root partition access to it.
+> > + */
+> > +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
+> > +					int num_allocations, bool valid)
+> > +{
+> > +	int i, err, ret = 0;
+> > +
+> > +	for (i = 0; i < num_allocations; ++i) {
+> > +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
+> > +		if (err && !ret)
+> > +			ret = err;
+> > +	}
+> > +
+> > +	if (valid)
+> > +		return ret;
+> > +
+> > +	for (i = 0; i < num_allocations; ++i) {
+> > +		unsigned long addr = (unsigned long)page_address(pages[i]);
+> > +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
+> > +
+> > +		flush_tlb_kernel_range(addr, addr + size);
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> >  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+> >  {
+> > @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+> >  	}
+> >  	num_allocations = i;
+> >  
+> > +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
+> > +	if (ret)
+> > +		goto err_restore_direct_map;
+> > +
+> >  	local_irq_save(flags);
+> >  
+> >  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
+> > @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+> >  	if (!hv_result_success(status)) {
+> >  		hv_status_err(status, "\n");
+> >  		ret = hv_result_to_errno(status);
+> > -		goto err_free_allocations;
+> > +		goto err_restore_direct_map;
+> >  	}
+> >  
+> >  	ret = 0;
+> >  	goto free_buf;
+> >  
+> > +err_restore_direct_map:
+> > +	/*
+> > +	 * We don't want to return pages to the allocator if weren't able to
+> > +	 * mark them valid in the direct map.
+> > +	 */
+> > +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
+> > +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
+> > +		     num_allocations);
+> > +		goto free_buf;
+> > +	}
+> > +
+> >  err_free_allocations:
+> >  	for (i = 0; i < num_allocations; ++i) {
+> >  		base_pfn = page_to_pfn(pages[i]);
+> > @@ -110,6 +156,41 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+> >  }
+> >  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+> >  
+> > +/*
+> > + * Put withdrawn pages back in the direct map. Counterpart to the direct map
+> > + * removal done by hv_call_deposit_pages().
+> > + */
+> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
+> > +{
+> > +	int i, j, end, n, ret;
+> > +	struct page *page;
+> > +
+> > +	for (i = 0; i < count; i = end) {
+> > +		page = pfn_to_page(pfns[i]);
+> > +		/* find consecutive runs of pfns */
+> > +		for (end = i + 1; end < count; ++end) {
+> > +			if (pfns[end] != pfns[end - 1] + 1)
+> > +				break;
+> > +		}
+> > +		n = end - i;
+> > +		ret = set_direct_map_valid_noflush(page, n, true);
+> > +
+> > +		for (j = i; j < end; ++j) {
+> > +			page = pfn_to_page(pfns[j]);
+> > +			/*
+> > +			 * Retry individually on failed batch. We don't want
+> > +			 * to return pages to the allocator that we couldn't mark
+> > +			 * valid in the direct map.
+> > +			 */
+> > +			if (ret &&
+> > +			    WARN_ON_ONCE(set_direct_map_valid_noflush(page, 1, true)))
+> > +				continue;
+> > +			__free_page(page);
+> > +		}
+> > +	}
+> > +}
+> > +EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
+> > +
+> >  int hv_deposit_memory_node(int node, u64 partition_id,
+> >  			   u64 hv_status)
+> >  {
+> > diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+> > index cb55d4d4be2e..150a0c63ebc8 100644
+> > --- a/drivers/hv/mshv_root_hv_call.c
+> > +++ b/drivers/hv/mshv_root_hv_call.c
+> > @@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+> >  	struct page *page;
+> >  	u16 completed;
+> >  	u64 status, withdrawn = 0;
+> > -	int i;
+> >  	unsigned long flags;
+> >  
+> >  	page = alloc_page(GFP_KERNEL);
+> > @@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+> >  
+> >  		completed = hv_repcomp(status);
+> >  
+> > -		for (i = 0; i < completed; i++)
+> > -			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
+> > +		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
+> >  
+> >  		if (!hv_result_success(status)) {
+> >  			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
+> > diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+> > index bf601d67cecb..397c8ec0ce9a 100644
+> > --- a/include/asm-generic/mshyperv.h
+> > +++ b/include/asm-generic/mshyperv.h
+> > @@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
+> >  bool hv_result_needs_memory(u64 status);
+> >  int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
+> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
+> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count);
+> >  int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
+> >  int hv_call_notify_all_processors_started(void);
+> >  bool hv_lp_exists(u32 lp_index);
+> > @@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
+> >  {
+> >  	return -EOPNOTSUPP;
+> >  }
+> > +
+> > +static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
+> > +
+> >  static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
+> >  {
+> >  	return -EOPNOTSUPP;
+> 
