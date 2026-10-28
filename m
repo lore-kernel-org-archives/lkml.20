@@ -1,102 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174640;
-	b=cSTkRt52+QiqWkW/0Wk9NHBXJrhniImCALvxBBuVz4o9QUDTRxTQqBbfbuXm/4ejLUyV
-	 eJ7zxRF/QiK+HspSq6GwVoOV7YkySOIGZk6fEpsIecXLnzAjSDpttJk4zrg+Y4fNqQD2J
-	 MhqBtyeDK6EhgY/5czCSq9K9VMu7mo880Gjqbly3T5jwUTQ5xKPdRpmzooayyO6tqwlTH
-	 zN5lmbrHh2rsKvATGDTIun4q+qaEWofARowb0iAoak14rgqrIzwigEQMpC1eOlGmZXhkW
-	 iauxuAuxWTrmpehS7mvLSzIcNEE+POXkNVIBUvG5JHBxXfrOZcribpEkHO/lWR/d6oQ==
+	t=1793174662;
+	b=tM1eKuiw+qZaW4h3XGvCwYkS/XfKug7dbHF76lC2dbk1ug8xvnamlAHLNUcKtRyY6Ym4
+	 WYSsTQIX2BzC9RjIZF9e7G+SozvIngByaQVo1G6c6LCXwHlnSVlvy15fxiTtns1I82D32
+	 hcpatUDoZmlV8TDtUtAPz80kIA8/AvPLzxw/3n9GZLWEEWFGY4yD9stkyyQArwbGrnEXy
+	 mfvgUDn/FQ+xfCyDjnVf6xdZGKZbmhs58AlRad0r58Xr7Crrpi+P6ycYzq8gw1jlvHm31
+	 TkBSix9Gbj1UM15RkLylsq5suBK4hROOFbTlOf09oudsg+b/8LcGcyPFOYPZuja9R7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=cmUygOtzVQYGYmoDrp60NTGZ/egBDRJwiYY9TeXBYAA=;
-	b=VzTX1R2j14XV6WzEb8jdF6nncnMqMDQwOaTY877KNQjw4+tuVW62sSv7GLWB6MoBzm8S
-	 lzrr9o1Ff671zkHHXtIq2byTq4MnaJVGX+9SkPTwPgl1q4ezFHLfcpmvSzOOLR0lQK+vp
-	 bwKg5n6eDhViYw4hZu/qhyLiHVgefTqJ1H9o7J0e50e0kAsIrsezrbqgCqREoW7gk+elL
-	 E3dCEo9RpEEMmr7TxzTaXW8wAk/yi6sB9dPpORFprGNptXXd6TIt33NCr/lxoFEUKdrIt
-	 Mpqboi8YrrbGI14W5+PbCh3aJrHwxRRjcE/HRcYpntQC5spvuIJ+hYpnrZ6/aEphPQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174662;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=QYUY+SzuyzidMIs5wvcWQ+wJedzQHVpapr2RX4nAS3g=;
+	b=aTCP8atxdM5BlUJgkAlpC5uZTrCgJHVEntngJprjERh8IqtrmZQTX6Spl4k2QvqHOpie
+	 LJIH5i0ircn2R92jq5tpC6OWcT5VTdAXRV0Ocfyj1JS5+OaMWQwEvVaaFxdBCLF5cUDI8
+	 z5MCvTzAZ0FsltTlBjh5Yp2A14Hc0fHInMlil+Wr7F4lfgbXwd5mfgBVLOLoML2naUpXo
+	 Lj+FzrCZih+dwmV9bfoBWG9GHo1HRd539Ooeu8L9QtALEO8WEANTAKSDFptRd8FK7sB5O
+	 iAIXiUfiMndIfnoEKgrfMwfwTCZt8rBBpFjmqtIhqaXmDDNzoBq5mOVN9I+T09HaPDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=VeacjZeX;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSBniF0w;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30362606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30362606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E841606A31D;
+	Wed, 28 Oct 2026 08:04:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E841606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=VeacjZeX
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a215e64962so6837075e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793174637; x=1793779437; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cmUygOtzVQYGYmoDrp60NTGZ/egBDRJwiYY9TeXBYAA=;
-        b=VeacjZeXZ2H13/shN5QKdF0Sxcnm9lpHBcpJfpiq/VZZCzVqilfmiMnO6yd9HPmtP8
-         TlP7YPN/+pGErIJoG9jZhviV59zAjTP3slB4ZYlffC2y4ybUKnDtr8VDEBowp1/236dz
-         41VKts/axq7MozBdQ1YY2hKuPYsWiXs8pAQof3scRBNPlVaD+qoHb8JXzNRQjfvCr75b
-         eBgkGWDxzyyYqgqqf32SsbL+4S69QKep2J7ckixHRyauW04C4j2WRVVeZugAz2hZXeqh
-         j/n/IfrenSmA+1cUAixL8t72OKzbOqwY1WpyqJttvkxGfBv2p0MVLHQftbPotHpD4HrN
-         s3dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793174637; x=1793779437;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cmUygOtzVQYGYmoDrp60NTGZ/egBDRJwiYY9TeXBYAA=;
-        b=UwXBruo5ncn1zgkY6VX7Hn247W/m8hw3DBdENHmV1NEvOnaC+dwyvR8as7RaVRM80I
-         qOzfornf32O6ydQgQ15vFwggsEAM21ut3z80dKiYypDixhq9xgxCEKaXMosZXIHmSw8R
-         pzOtJgqko0tc54nXmiTsvZGGMhRCyWi5B5eeaRDXxq3U8+a91GHbK4IuLViWMZYAYxLO
-         McqqQHNLqCHinGaktyjRS5pxtP124lS7jmAXYwnJz24tfslCb39seE+H8MFPPo1vQMPJ
-         CH41qOJSGE+EeL0qiLk0pZ7NgFlZD3C6IchYBc02vlYmR8ZUVjX6HNAOqd12rinPS5KD
-         +TXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxFPa7jjG67GbUp33Bhsue6Pym6IWBs5vv4thOFb0zYh471XAFSm19X21o91QlymorO6CEpKEPMIX/kCag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbjoXl2MtvzBUdFzHCtstIFGs7DqiQgvo2HnmB5W7TCS9VIdLg
-	+tH85UoKqUNZcDvIstLJkwNH3Xe01zLYBQstrJGgP8eBAC3yCVCkbWfdACRCVWxsLk4=
-X-Gm-Gg: AYBFou39ifFynFO42u8PomcDM8b3QRZ2UnfpiUO80gK5+bzlkuUlwyt/U5pbeob8Xam
-	cFQ6RX1N/4Se7MX5hKIIZFfDpVlyz+E1qaLh44GIgc0n9cVpNg1c2PDJWA4YqKSDK7keS3U60yQ
-	uQxdsDgeQ1ZsPzB66bQqjnb2bHeFUb+yyVxxYCkPCAhpU+ABh9B2QjH/NyDrl3zFi/kZXssJIka
-	ReLY4ipBFdVTwSpJJR94ZF7ZaB74CZ1V9pHg+ysEh6W3Xh1qRHCTTfd3zTEnFHkhiGDYyDBVnNc
-	UWSU396FAaireOH+8+hZDJ6X7Psx1LaV9smTNGewupqJzUb0uUkpNv7xSUbVBrNj7ieHXeMmevs
-	Xn/TuWm+YvW/GlNkCymwiYhYf01308qj4OxZSnCzg2Z4wLfHC+9STOZPte4k5Mggf786BkxhtWj
-	jgSJYXHgoh8cRygrlp5c69E+/EYnUUtRA8/al6Vhb5P169Dp0fc5ABuFqkrhSPN7ewdvJVtoMk1
-	xf8tvvw7VtET6Fc39Z3jJecrYgdhAKFNAhGO+M330CC7LWPcOLtYiDvmWBeNKKta4dWYCSxDGDN
-	u/aA/JWaMrUrXtoCcX/5IB8vuxwRMpY9T6Q5JPwhBJ0QCbxji9VrYZPvynXf/kqH+uvD/BY/TL1
-	hOLh8ldXboNfXGMY=
-X-Received: by 2002:a05:600c:c117:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4a9672030cbmr23350005e9.22.1793174637584;
-        Wed, 28 Oct 2026 01:03:57 -0700 (PDT)
-Received: from localhost (p200300f65f19a904c16506b94501b867.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c165:6b9:4501:b867])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a97bf5d6besm25792835e9.4.2026.10.28.01.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 01:03:56 -0700 (PDT)
-Date: Wed, 28 Oct 2026 09:03:55 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Alexander Usyskin <alexander.usyskin@intel.com>, Dominik Brodowski <linux@dominikbrodowski.net>, 
-	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
-	Dongliang Mu <dzm91@hust.edu.cn>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3] Documentation: Update after split of
- <linux/mod_devicetable.h>
-Message-ID: <auGsNgw50hDIdm3R@monoceros>
-References: <20260908070031.32833-1-kmehltretter@gmail.com>
- <87h5jq8gia.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSBniF0w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793174661; x=1824710661;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GlCrv/Z8ykZTWKLkjrgizpbqqqsL18IOZ9JsGj4pQww=;
+  b=PSBniF0wd7ppMixld2UUoEB73b1yiGoF8vRXQw+G1YSVuOdfGa10kRy1
+   PP038b2/20WyHj8Za8s3lOK6A5CKledqp9kljtVsDUOiHC+eGA3zA2vlM
+   MT+/FAI3eBlmS2C57vmTMY/nyWjYUaQySkZWV1rFyvAhDua/Nh3xd3GdY
+   sWwjrfJ8DDi7yQFTihVA+9UVxHpxbl2/Ir0XbFIFvaF+ALvnRLsnNW4NV
+   s/AYwI6IkDwqYskbzcKE+gmmy5RrHX+JztLgLKfgdsnx3gKVSDAKY0OQJ
+   fttgekcrMV59ncuafHN6jde7skpkm3TP+u/EPoo8Z96VcipDy/1yMDhB8
+   Q==;
+X-CSE-ConnectionGUID: VvuNxWhBR5mRVIB/1sqpXw==
+X-CSE-MsgGUID: S9P5R5nJQ4GOca9bIDys7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1780746"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1780746"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:04:20 -0700
+X-CSE-ConnectionGUID: 3U2XXT5qQFSCkgAuKxEChg==
+X-CSE-MsgGUID: XN/qcR2yR4S9jibXAKAjrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4852263"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:04:11 -0700
+Date: Wed, 28 Oct 2026 10:04:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linux-mips@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Frank Li <Frank.li@oss.nxp.com>
+Subject: Re: [PATCH v3 1/2] dmaengine: virt-dma: share the DMAengine
+ synchronization callback
+Message-ID: <auGseGw39K115Zfi@ashevche-desk.local>
+References: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-0-aad7a6b3c62e@gmail.com>
+ <20261027-submit-mtk-uart-dma-synchronize-v1-v3-1-aad7a6b3c62e@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,64 +111,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oh5zvfs3ycvvg6bf"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87h5jq8gia.fsf@trenco.lwn.net>
+In-Reply-To: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-1-aad7a6b3c62e@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Oct 27, 2026 at 12:22:26PM -0600, James Hilliard wrote:
+> Several virt-dma drivers implement device_synchronize with a wrapper that
+> only converts the DMA channel and calls vchan_synchronize(). Provide
+> vchan_dma_synchronize() with the DMAengine callback signature so these
+> drivers can assign it directly.
+> 
+> Document the requirement to stop the channel and prevent new callbacks
+> before synchronization, and the context in which the callback wait may
+> run. Replace the equivalent wrappers in the existing drivers with the
+> shared helper, preserving their callback-wait and descriptor-cleanup
+> behavior.
+
+...
+
+>  drivers/dma/hsu/hsu.c                          |  9 +--------
+>  drivers/dma/idma64.c                           |  9 +--------
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com> # hsu, idma64, virt-dma
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---oh5zvfs3ycvvg6bf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] Documentation: Update after split of
- <linux/mod_devicetable.h>
-MIME-Version: 1.0
-
-Hello Karl,
-
-On Tue, Sep 15, 2026 at 01:24:29PM -0600, Jonathan Corbet wrote:
-> Karl Mehltretter <kmehltretter@gmail.com> writes:
-> > Most structs that were defined in <linux/mod_devicetable.h> before were
-> > moved to a bus specific header. Follow the movement to get the struct's
-> > documentation back.
-> >
-> > For the list of device ids in basics.rst use an explicit list of all the
-> > headers that have kernel-doc annotations and that are not described
-> > elsewhere (i.e. pci and mei_cl). <linux/device-id/acpi.h> is left out on
-> > purpose, ACPI_DEVICE_CLASS() is not a device id struct.
-> >
-> > Also repair the referencing in the zh_CN translation of pci.rst and
-> > don't duplicate `struct mei_cl_device_id`.
->=20
-> This one adds some new build warnings:
->=20
->   Documentation/translations/zh_CN/PCI/pci:98: ./include/linux/pci.h:3: W=
-ARNING: Duplicate C declaration, also defined at PCI/pci:3.
->   Declaration is '.. c:struct:: pci_driver'. [duplicate_declaration.c]
->   kernel/Documentation/translations/zh_CN/PCI/pci:106: ./include/linux/de=
-vice-id/pci.h:3: WARNING: Duplicate C declaration, also defined at PCI/pci:=
-3.
->   Declaration is '.. c:struct:: pci_device_id'. [duplicate_declaration.c]
-
-Do you intend to address this?
-
-Best regards
-Uwe
-
---oh5zvfs3ycvvg6bf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhrGcACgkQj4D7WH0S
-/k77+AgAlbsTSlbn2W+qPf7ANkGol57boWPL2S0I72TOezIPXND8DYud1c7YRtKB
-PhpKb65OvxBNMec8fqyAFR6akXoak+b0LjgivWXWCOLrQOVwd96tYscMz9T9Zo5a
-iRhWUg++SffuMe29/9xFDsjM8JgReW0CUhMfsySfbQm/TSFEl5H+4cCJJsGGtfL3
-D1yiIWAQh24ef4OCHJjVjXkWufmtZitqRhecerzr0XU23WE5HyloUqa5j9rMKkiL
-0zhPpQMkyPgmas+RNzxq8PVExFJdmjzr8D2BSNitOhQYuzUl762KznuCur+bCurI
-6r+fdfpC0jZ68DsEx6a7fNVLvdalZg==
-=tz1o
------END PGP SIGNATURE-----
-
---oh5zvfs3ycvvg6bf--
