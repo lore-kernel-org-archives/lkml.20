@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219047;
-	b=nl33En/DbS0Lp72K0Yi2Zn31XFrKKq96t6Y7BdeO2tsq9sg1LxUmV9pENtHnJpDdKaZf
-	 CssbSDYX4asN50Iq1uF8miZOC33+OTJeHVAA5ejnwcz22loP824tEig2hztQ1bYSlyqBt
-	 aW2qnX/TTTESejlVUSlilCvstTIWEY1KF07XoyFHAoKBLpHD2GZFW+1duMqs1cV7jtxcE
-	 prVbIc+2y0zhdEyOrFP72ZMAyvgE0NHmK7azKazdaGS79AYIYqkjuvy4MyHlrOw2ZhIsA
-	 EZZXyzD842T4GXKk+QfZaWpWHb5+UT5R2qK1YhyIrjLc6yl4sysfCEstvt5Us47OYLQ==
+	t=1793219072;
+	b=tDaBc0FfTkM4yrbnQo8VPeDvd4yBbFsE/Xs54cPmsNqW2QGOCRt1U5czoymWIv7j5wCF
+	 laicBJUD3mI1yU9dZE+xKkLHqinWgmE0a5q1Htz3issNLk/8AYu1KDWMV3r0sVPXlem1e
+	 oSUlYYUBaOt+HnaM0Jyduu8HQ86qxn32qXsbmB480Oo4wOicGBuQ/YYO8kznJVPZQJng+
+	 uu5Hj8VcpZLpj6SKUtUtQisPUTe5wJRUrs9ahGAou/5rNwqmuHA+I2zf7+AOAc6Dwp8js
+	 wyPYQQfzf4vTxO0ePc9Ix2qqz9y7acNrs6/YmAfpHOqDB39PApso98Pf+nw54Q4a+dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219072;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
-	b=wKa/DGH+t4Bu9WVbsRfEDWAs4h1xOBugz5tlf3LazWgCN56FQTDj9oDOjn2ATdsLVTnc
-	 GybJ1+6T12AOUH3lPAW0/xYqVG95MVHt3VKB7msOkypEwsJ61c6BLLBNEPQG53+4v6ncg
-	 kuSLuBDsity2ZA/5JY4agng327AtN7kesf1N3keYTvILdw3ECyBMNTMvlfvkL+eoW+lVu
-	 oLnZ6yI0utIv9Uejouo9QyE7AYbslkwrHVFvIubGvTOOI42a/VYNevEkTkOJrxUKiXuQN
-	 KD5aR1Uc2XYCQv2R1Nliz1KGQFevgNkzdXS6j/tCe7Q40ffx3mdfw91gkzxS/d68prw==
+	bh=KZO0llYPU/YEOMtaIxYJKySzHbda7jaK+nmG1BkJ+Z4=;
+	b=Cm7RBrUK+JINU5PQcZXKrrMSzAM8sPbBbza7GcYl0D9ni+6PsZmSigcvnR9G4rEbTX1T
+	 zhPDgNz7H2ZuuUmSNxdeWWSvIYLjZfjOgx8GIv/CTAoMS4APYddGyEEkXHiDZbb+Ju30B
+	 pVctVeCGMaUlWUG2mJ1SuvJdbIPcFn+zclMyHL0SC3rEArVufDNtvTRm7J9pwZipgQPbz
+	 eWVpdysGmtSJX59ZEn1Nb6V8iKLXHJIf3c4D9JKLCom6u2KSS22fi0HANgllozKXpkrW5
+	 cZ3Q+BJWItDadcOABTG/FctT+Z1IudaI5dB8AD09zFKvGBdBk4Q/t2GvV4PZHFdlMGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=purestorage.com;
 	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="apIzO/FL";
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=CUXRjv9P;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD025606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:24:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD025606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0131606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:24:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0131606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=apIzO/FL
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so15872185e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:24:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=CUXRjv9P
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso868582f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:24:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793219045; x=1793823845; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1793219070; x=1793823870; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
-        b=apIzO/FLOIPEPyIQkW/EQOtJrZIBvmNI7vSesQpObzJ/kDpba9EGoD4T0k5TLlc181
-         0kXlmFAp56SVfPFL1kLdPKR4f2B+BRrUslAmh3XfWufk1Fz0R8M1IJCBxkhHREtkD+WG
-         LCdDG8bhnGcuRLHKtA8Y12TW8DcnlEZwaJtoYDyddQoafRj8VPtbu2HI9HSl+jTMo6L3
-         4mrmKgltCTm4etvn4GMrOmZfhQXwtmk4GdiyOmA2LoD32RcIM+ruzwDhNDTv51XJ3VJI
-         /PsQsjLABk+gmp0wznLa0iM8ZKncdgktyGSTwKEYlLe8CgK4cEc+8ZA0gSjh9Kwp++jl
-         2fIQ==
+        bh=KZO0llYPU/YEOMtaIxYJKySzHbda7jaK+nmG1BkJ+Z4=;
+        b=CUXRjv9PZSBaRi4Wr5D8+F2lxZ45eA+WHxVPHavMmQwNXaeV4ess/InR84ibks/mnX
+         aU9I6nKsVRlRaKBP9vrQVXkJiHjpN1cek6LE3Xix9Y06b8ZWe+QmBMosbkVgJCCf1LQz
+         Sb/cpp/y5p15sN46rRyYK9ZwahZk9BPH1tjoacBuCjdRipjylWbNrDmF8qVwuhAlryI+
+         GVyclxvFwoJ0lUd9cCNoxYGp4QxoMDq1aKRq8lOSWgfveIDS4OIa7aQ1P9jYjR7eVqKa
+         LNtqRjnGYpJlK2m4ofSEkTGYlXQ9szu4c4akgBBTB7irBAN5yNng/GEjJuc+v0i+uUsp
+         nCFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793219045; x=1793823845;
+        d=1e100.net; s=20260707; t=1793219070; x=1793823870;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
-        b=mqXMvm9ju4cxEbTUIQRCY6ODt4ZeYa4FeQxuXBuYwbG+RM/tG2qYQ/PaQRVOB6y5S6
-         BQaJ/lNNE4U3wYVDdbMdgYqMPBTbsvM2pMTS1WJHi7WiqcObIoPGNrrAIeQYx5gomjCv
-         5OQPo+Yf+leVo1oTAiA/OcurfWowyKJv66GPXCj1NMa0qp75h24JqkUM1joG2a7Gft5K
-         yhyDv8L0E/XcB3MhHpXO4ggv3YjshBmGqx5lSYbK0whRG4MuIcblDW6m7NhiHISSx2Nj
-         Z84ZG6iuYpGR+H4eTixF19PyhT1KQa937zEgHGkk4lOUxsEu4n/5uXohDHAXk7feZQtS
-         ExGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwRPUX9YKj1x8AhIqORP3fGkoezSBRdbOwziLGvVcwyLTlqqj1wecH7VkLHGl6JFutV4T5kvx7195R+dUc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJk+gF+Ui4OiPoj1mVTiIhXWY9Gh2NZnSQvOo1lnLwIC0tRzWiG
-	XyDBIkBN6eIPOAtjNzl1PNcvFSmxHePU6ENEcba2zA6Eo3Trk45V51Dheui2hZTafA8=
-X-Gm-Gg: AYBFou3znlBYExYPgFuoUk5FBlYW0SVV9DbUZcdvxhik+aVLDG3m3NrFWQlDP5vPMT4
-	GF7HAaTxvlYdVIXzE8+wDh6FV7WAp6xZgXRevS7U9Yeiem/eG9MRpDwGB4Y9f+aC6ttQRaSiV1+
-	Bm0zqwssDxmY+/V9q3dFDCAyUXPcCWAxczApomWxvhAzcCBVmEWBchlGYY0WxmHjEy36CDjAl8N
-	dCTjvvNrXXrB2RzolGL3YokvdNHuhyEMoAM3UHqDA77rVkRY0ZcZCG+RxUstchL1FnP5LqFPAoE
-	lDcxy2w083W026wUCJbn5P/qoQ13OWIv8fKHDuaF7qdSrcdsRv7Q8W3Ptepn4KnZljO5rXsDqiU
-	LgzzN+cDQWn/tiOdrxJzkmK5LBLvtA0TIN5RLJlsfZUCxP8l4/HZkhSfZ6QNxvq4tnPChPR/tPz
-	RgD2hSrMnfUfNCEJstAeRLHvHK1yfDiNJGUBHEHBRagWJar9Fb8NSxwPT1NqYDdm6Yvjfi2fFF/
-	Qh1v5z/2ozahFxSdP9XsfPqZpGjJSUZBb6CT//xHnyz5unlc73nkB0Sya+BUjluYh5RcX8qkzax
-	WRdBihVc7YACmVQjjHxc97IdcK82G0GPdlwUOUleFYn2Jd0dOvZK6b4Or3h4fCSm2MsFO2gYc3P
-	FO6J1FljpTVk6RhXpVRRnt0ymhT1eYfBu
-X-Received: by 2002:a05:600c:350b:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4a966c41721mr72974675e9.20.1793219045017;
-        Wed, 28 Oct 2026 13:24:05 -0700 (PDT)
+        bh=KZO0llYPU/YEOMtaIxYJKySzHbda7jaK+nmG1BkJ+Z4=;
+        b=gfcMs95wzwAGnsNYDoh53tCi+Bxs4bcdKMXoDeTs2LQoR1gx8pG+RDp5NyjgVh1fKJ
+         nI9uaNMaCCy6rrmDyk17zk7azo+A11s5arqoLX8jIUa1nTuhUoxMam6kmNk/VOVqNnu2
+         4dC0CVWIGqZFOK62PVEvzepkDQcgEyUoNr597zZR7jUioSieA0qwuA2nrnOUwmUWLaYZ
+         VYlM2b/swVm/4W1bkTyYbbopJ5CQXQsHjj2rDVCUHKb7ceWjRx4rZKypGgfiVbN7BFXl
+         fMNy8CxvTOs143tLS4/HGPzwvh8BgCB2pW4sxPV22x2sLTJiT8aFQHYom1rRPbG/vqFV
+         3I4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxoXu8LE/wzrM3bo9wXm4SfOEn9fkvcYfQsUHVVn5qs3MR38n6iTBqbnVF7pj5PZZgrkgK6kRqu14KlDBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJ9rv84xlmWmHabvIo/RQsg4fJwdXQPN0uFG4XGYINsWLDLvfX
+	2yW/+90e3cr3YTWOm5usFpgKb5N3/YrvQMEYIGho002DgkFrXvVc21LMm0VtLIXzFw4zGnZvSM4
+	PyvGM
+X-Gm-Gg: AYBFou1bIUH7GZx3lIW9sZiT2Qz1iNbt2u6jNJJLCQtZZ019sopxoJAQLMMzJ5Hlt1H
+	Z7NOfpdYYLtAHpF4DOg31hW3rOkoMuJLphpInJMf5v9UZxj55fRMEfcSyfgdWjXLlJnGJSKoaCp
+	hzFGGzVnxwhfwKZj2oHwFgKmp897jiUUdGvJvB4fcp+KJ6QywIiU0FE9sc90RZKPL2ExgZ/pCWF
+	bynNph6jkIsl0mmPrRXx+dnbxDRUUraYaiVrE1u+tfkyjIdmNbdylSfW0lej8r6BuZt5TFiwiUN
+	pS0Okr/NoL6u90EyTzyi+SH1hdaZHd2iReVuRhJugE7aXbEPQyXQBRjsMdhUcTNY97CPguuHuVN
+	16m1l1DY6ShiEsDiftPxp2BBjcTH3tHrbHTS5L8tPtD7zfkxfUv5KW5ld/Z4zc1ihJL5Gg1gH0w
+	VtSRE/P5fZB44LcHkUEYMbPw0TVbCNaVBRc1QnRTbfheKUUit1VeFFvLLjvKwja8B2uoDwLRFyL
+	0Kxutd12gZOaE6C6quxOPDq2qi1slSn8eYZtY7U0oB0WnALXu+0x7MvMqRrTjZzyga7S4erX86S
+	A6u2dm8Y8UL34TVqjywexfMG6E1zBlfSWous+U7FLLiGbbvSMpcjAaoUeUFCW2/GEw7RyneLvSU
+	zmlAQm2jK0Ls=
+X-Received: by 2002:a5d:5d0a:0:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-48e5d58cca9mr9393565f8f.4.1793219070045;
+        Wed, 28 Oct 2026 13:24:30 -0700 (PDT)
 Received: from irdv-jinli.dev.purestorage.com ([208.88.158.129])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee57589sm17498015e9.2.2026.10.28.13.24.02
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm28563439f8f.7.2026.10.28.13.24.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 13:24:04 -0700 (PDT)
+        Wed, 28 Oct 2026 13:24:29 -0700 (PDT)
 From: Jingyi Li <jinli@purestorage.com>
-To: vinicius.gomes@intel.com
-Cc: steve.wahl@hpe.com,
+To: vkoul@kernel.org,
+	vinicius.gomes@intel.com
+Cc: Frank.Li@kernel.org,
 	dave.jiang@intel.com,
-	vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	fenghuay@nvidia.com,
 	xueshuai@linux.alibaba.com,
+	fenghuay@nvidia.com,
 	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jingyi Li <jinli@purestorage.com>
-Subject: Re: [PATCH 0/6] dmaengine: idxd: More error handling fixes
-Date: Wed, 28 Oct 2026 20:24:00 +0000
-Message-ID: <20261028202400.1144290-1-jinli@purestorage.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] dmaengine: idxd: fix crashes in the probe error path
+Date: Wed, 28 Oct 2026 20:24:25 +0000
+Message-ID: <20261028202425.1144329-1-jinli@purestorage.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
-References: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
+In-Reply-To: <20261028003708.834341-1-jinli@purestorage.com>
+References: <20261028003708.834341-1-jinli@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,42 +106,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Vinicius,
+Hi Frank, Vinod,
 
-We hit the bug fixed by 1/6 and 2/6 in a kdump crash kernel on
-systems with DSA: idxd probe fails at device reset ("Device is
-HALTED!"), the error path oopses in destroy_workqueue() on a NULL
-idxd->wq, and no dump is saved. With slub_debug, the duplicate frees
-in idxd_free() are also reported.
+Thanks Frank for the review and for pointing me to Vinicius's series
+"dmaengine: idxd: More error handling fixes" [1]. Patches 1-3 of that
+series cover both patches here:
 
-Testing: I applied patches 1-3 of this series on top of 6.18.57 and
-tested on 10 systems with DSA, triggering kdump with idxd loaded in
-the crash kernel, with and without slub_debug=FZPU. Unpatched: 10/10
-oopses in destroy_workqueue(), 0/10 dumps saved. With patches 1-3:
-10/10 dumps saved in both configurations, no oopses, warnings or
-slub reports.
+- 1/2 (double free in idxd_free()) is covered by their 2/6, which
+  makes the same change to idxd_free().
 
-The failure here is at device reset, before idxd_setup_internals(),
-so it exercises 1/6 and the idxd_free() part of 2/6; for 3/6 it only
-shows no regression on this path.
+- 2/2 (destroy of a NULL or already destroyed workqueue) is covered
+  by their 1/6 and 3/6 together. 1/6 adds the same NULL check in
+  idxd_conf_device_release(), for a probe failure before idxd->wq is
+  allocated. 3/6 removes the early destroy_workqueue() calls, so the
+  release callback is the only place the workqueue is destroyed.
 
-Could 1-3 carry Cc: stable? The commits named in the Fixes: tags have
-been backported to stable kernels (we hit this on 6.18.57). Also,
-from reading the code, 1/6 alone only covers the case where idxd->wq
-was never allocated: with only 1/6, a failure after
-idxd_setup_internals() still destroys the wq twice (once in the
-unwind, once in the release callback), which 3/6 fixes by removing
-the early destroy. So 1/6 and 3/6 should be backported together.
-(Our kdump failure doesn't reach that path, so I haven't reproduced
-it.)
+So please drop this series in favor of theirs. The one caveat is that
+1/6 alone only covers the "never allocated" case; without 3/6, a
+failure after idxd_setup_internals() still destroys the workqueue
+twice. If 1/6 and 3/6 don't both go in (including to stable), 2/2
+here would still be needed.
 
-For patches 1-3:
-Tested-by: Jingyi Li <jinli@purestorage.com>
+I've replied on their series with test results.
 
-I sent an overlapping series [2] before finding this one; I've asked
-for it to be dropped in favor of this.
-
-[2] https://lore.kernel.org/r/20261028003708.834341-1-jinli@purestorage.com
+[1] https://lore.kernel.org/dmaengine/20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com/
 
 Thanks,
 Jingyi
