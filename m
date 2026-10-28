@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173248;
-	b=EAUY/lm9tPz6N+t452akzlct5QVv2i7lVg70KWFVpdxG6YfpEd9VtOiq3fYSrxkb0h54
-	 b9AmhotiGCp6L8Mf4fFbFTFl+2WknBxMze3XLqKowYhjx+AYWUsJLDPQ5USRajda6kgFs
-	 slRkzAmZISgB+InXhSKfejond2Z4g2TiApI0r38u9c6vAPpt+vZEgEDsK5s8cbQlHfeMA
-	 HnNSQkHPMQZo6OBF+P8g2ywD/+IQbd/yIzW4sIubWahMD0YF4rhkqFH4fj8M+RbJwW/+S
-	 ymALjTgyesZRVFg4tYdWS7q3UREdmizkeeR9ZPIkZVHORB+DPAqP5WvHQ9Md4Tgu1Yw==
+	t=1793173330;
+	b=y1FaqBOAR6FmlfLg6ICwrlRaywPS4Zy1ou2h4oR8Kl30vABiSVrmwCkTTZPfmZPbRcui
+	 8ptOfKj/woM0axU9QsswF2X753TmPGuESQQoLv9k4ROd8cWQUQzbW6h6cQYYNiJn85VdY
+	 zS1nupxUB8I6hfA9gn7YApW+TROCRrk1vPLiVW8Z22486hH9A2l2c5xXcE7QvvN/gimb0
+	 3iFQ6KltG1N68s/3y51gsaLVKOmonzrWsgRg/eyyIfGBlwNhBmv0T8K2EpBdcZPZxb8TF
+	 Za0QUGfiSchHxff5jasq35nTojcmfOX+YaOy9aa1w73mWHLp1/1v7zMM5wjEvyO1kXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173248;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=JgSqjGLkhPK3vICnAOXyWbM67kSh/OMJMraMs0151RA=;
-	b=hXYcjEaAF6smuHafGAVuylF7cogUfzjI7oO71PANkfXnpFOQKihUwIu3Vdzz0J48mcNV
-	 bptxCYasz5r1nkqfmWcOX+n4q3PvQBWTKKqgANnSrZRaMxQ1hSZpnyEHVoAXR2Nj06A0I
-	 2HpnjhZ8h5j3K2LyQcoRdt6cusAalg9G+5HeAkBhkCb4erk8Ru+oK+VjJGMpFZzYphaZa
-	 eUafKI7WaJCUMfrVh33LD/HcDGVQPBycj/fM3TOohm3R41bcUmQaQAdSFN6LR5Wvubxpw
-	 mp70zQcYR51PATXAVmTtZMyqriM7v9sB8TGV5BUcOsK4B3r1SLA80uo4kyHNhsQPNRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173330;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=Q4u5rewkLp38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=;
+	b=QjpfKBEBovs2YZswrnHtnDWbnL0Tl4+SD9waedRN6FQRQfbGzfKzOqSCKVy4I/Q6cX2w
+	 KKGMdMdgj2winVY/WBkhiCNDPzdiFzSsm/YBuCGNeCFvF79QRemSHYoHAVJj2KmUGfsaM
+	 7oySA99n31DWeBK4Kgrrn8V1aU0XoASwZ6Si/MzEODWvGWaLDf+GiBEuch4gOixqRNVfo
+	 /yZ2YLnY7rYZtlO39n+jFgez/kD0ahP8hFSbdAdOSWPuahz86CbVBH9P1D+H2NdWIkWKN
+	 NVK1T0i9LHivxEqLPj61Lct4QYt6YiSZo/HirjqgIR9h4XQQ88lCOO0hUXoxU3ju9aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=NoEC3t0D;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096E0606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 096E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=NoEC3t0D
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 95D6D1D15;
-	Wed, 28 Oct 2026 07:41:32 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=NoEC3t0D;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 0F881D9;
-	Wed, 28 Oct 2026 07:40:45 +0000 (UTC)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EF51606A31A;
+	Wed, 28 Oct 2026 07:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF51606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1793173245;
-	bh=JgSqjGLkhPK3vICnAOXyWbM67kSh/OMJMraMs0151RA=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=NoEC3t0DHZkfT3Qqa/klBaPU3+nWgQJJd1zTNeR7hQXw9AC0sTIKlByhPUlxDSu/Z
-	 hFjbxknPQ2chfPTzsM9yT0s++dIK1Kq89xw3ODrQtdUptswNKYATiN6xwpJK6UJA/F
-	 JPKEeSO8rl33wb0vvVrHVchOKJnu7S9OUjSEzYcc=
-Received: from [192.168.95.128] (172.30.20.183) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 28 Oct 2026 10:40:43 +0300
-Message-ID: <16cff409-fe5e-4aa7-8f0f-abe0b62982f5@paragon-software.com>
-Date: Wed, 28 Oct 2026 08:40:42 +0100
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Q4u5rewkLp
+	38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=; b=LF3MonnxQ7JM2tTjDFsPDUO8bJ
+	2xjY7ZC0cG8DNZ89+F9MPYhlLd/91Eb/65TG7eaDRuixPs2/lyJEDOlozxfjkfCi
+	0e9gUBLMuGUAXTNzLgoHfPIcdKKF5E/dogLZLXYrSOjFAKkoUmZm4vclPt37ESJ3
+	7fmOyQRXmByUJR7TI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WgA4p+FqxLLzAA--.57600S2;
+	Wed, 28 Oct 2026 15:41:46 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH] ALSA: us122l: Fix NULL dereference at hwdep open and release
+Date: Wed, 28 Oct 2026 15:41:43 +0800
+Message-Id: <20261028074143.14440-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,102 +59,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: handle partial allocation in
- attr_data_get_block_locked()
-To: Slawomir Stepien <sst@poczta.fm>, <ntfs3@lists.linux.dev>
-CC: syzbot <syzbot@kernel.org>, <syzkaller-bugs@googlegroups.com>,
-	<linux-kernel@vger.kernel.org>, <syzbot@lists.linux.dev>,
-	<syzkaller-upstream-moderation@googlegroups.com>
-References: <8fc44517-e231-4539-a353-3dd47045a203@mail.kernel.org>
- <ammdVFSsD9cP8eYU@nr200>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <ammdVFSsD9cP8eYU@nr200>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkA2WgA4p+FqxLLzAA--.57600S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCF43WrWrJF15ury7CFyfJFb_yoW5Cr18pF
+	WrurWSyFyDJan3WF1fJa18Za1F9w1kKa43CF97C34rZr1rG34fZ34Yyry5uF17CrW8Cr4F
+	gr98t3WDWFW8Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2rgvlNkOwABsy
 
-On 7/29/26 08:27, Slawomir Stepien wrote:
+usb_stream_hwdep_open() and usb_stream_hwdep_release() pass the result of
+usb_ifnum_to_if() straight to usb_autopm_get_interface() and
+usb_autopm_put_interface(), without checking it for NULL.
 
-> Hello
->
-> A gentle reminder about this PATCH.
->
-> On lip 15, 2026 12:29, syzbot wrote:
->> From: Slawomir Stepien <sst@poczta.fm>
->>
->> When allocating clusters for a sparse or compressed attribute in
->> attr_data_get_block_locked(), the requested virtual cluster number (vcn0)
->> is aligned down to a frame boundary (vcn). The function then attempts to
->> allocate a full frame of clusters.
->>
->> If the disk is nearly full and highly fragmented, attr_allocate_clusters()
->> might only manage to allocate a small fragment and return success with a
->> partial allocation length. If this partial allocation is so small that it
->> does not even reach the originally requested vcn0 (i.e., end <= vcn0), vcn0
->> remains unallocated (a sparse hole).
->>
->> When the code subsequently calls run_lookup_entry() for vcn0, it finds the
->> original SPARSE_LCN entry, which triggers a WARN_ON(1).
->>
->> Fix this by adding a check to verify if the partial allocation reached
->> vcn0. If it did not (vcn0 >= end), treat this as an -ENOSPC failure and
->> jump to the undo1 label. This safely rolls back the partial allocation,
->> restores the original size, and repacks the runs, leaving the inode in a
->> consistent state before returning the error to the caller.
->>
->> WARNING: fs/ntfs3/attrib.c:1236 at attr_data_get_block_locked+0x1980/0x25d0
->> fs/ntfs3/attrib.c:1236
->> RIP: 0010:attr_data_get_block_locked+0x1980/0x25d0 fs/ntfs3/attrib.c:1236
->> Call Trace:
->>   <TASK>
->>   attr_data_get_block+0x1f1/0x2a0 fs/ntfs3/attrib.c:979
->>   ntfs_fallocate+0xd3d/0xf70 fs/ntfs3/file.c:670
->>   vfs_fallocate+0x663/0x7f0 fs/open.c:338
->>   ksys_fallocate fs/open.c:362 [inline]
->>   __do_sys_fallocate fs/open.c:367 [inline]
->>   __se_sys_fallocate fs/open.c:365 [inline]
->>   __x64_sys_fallocate+0xbf/0x110 fs/open.c:365
->>   do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
->>   do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
->>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->>   </TASK>
->>
->> Fixes: 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
->> Assisted-by: Gemini:gemini-3.1-pro-preview Gemini:gemini-3-flash-preview syzbot
->> Reported-by: syzbot+7be6ad5cb228286af3e3@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=7be6ad5cb228286af3e3
->> Link: https://syzkaller.appspot.com/ai_job?id=3c9dee6e-001d-4972-8bf6-f6c960708246
->> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
->>
->> ---
->> diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
->> index c621a4c58..786fd0ec0 100644
->> --- a/fs/ntfs3/attrib.c
->> +++ b/fs/ntfs3/attrib.c
->> @@ -1227,6 +1227,10 @@ int attr_data_get_block_locked(struct ntfs_inode *ni, CLST vcn, CLST clen,
->>        total_size = total_size0 + ((u64)*len << cluster_bits);
->>
->>        if (vcn != vcn0) {
->> +             if (vcn0 >= end) {
->> +                     err = -ENOSPC;
->> +                     goto undo1;
->> +             }
->>                if (!run_lookup_entry(run, vcn0, lcn, len, NULL)) {
->>                        err = -EINVAL;
->>                        goto out;
->>
->>
->> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-> --
-> Slawomir Stepien
+usb_ifnum_to_if() returns NULL once the device is gone, since
+usb_disable_device() clears udev->actconfig on disconnect.  The hwdep file
+can outlive the disconnect: the card is released with
+snd_card_free_when_closed(), so a process that keeps the character device
+open reaches the driver's release callback after the USB configuration has
+been dropped, and interface_to_usbdev() then dereferences the NULL
+interface at offsetof(struct device, parent).  The open callback has the
+same problem when it races with the disconnect.
 
-Hello,
+Check both lookups and fail the open with -ENODEV; in release, skip the
+runtime PM put when the interface is already gone and still run the rest
+of the per-file cleanup.  Move the us122l->first bookkeeping after the
+checks so that a failed open no longer leaves a stale file pointer behind.
 
-Sorry for the delay. Your patch was applied, thanks.
+Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ sound/usb/usx2y/us122l.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-Regards,
-Konstantin
+diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
+index a5db0d044ef9..d93e3240b1b0 100644
+--- a/sound/usb/usx2y/us122l.c
++++ b/sound/usb/usx2y/us122l.c
+@@ -129,19 +129,26 @@ static const struct vm_operations_struct usb_stream_hwdep_vm_ops = {
+ static int usb_stream_hwdep_open(struct snd_hwdep *hw, struct file *file)
+ {
+ 	struct us122l	*us122l = hw->private_data;
+-	struct usb_interface *iface;
++	struct usb_interface *iface, *iface0 = NULL;
+ 
+ 	if (hw->used >= 2)
+ 		return -EBUSY;
+ 
+-	if (!us122l->first)
+-		us122l->first = file;
+-
+ 	if (us122l->is_us144) {
+-		iface = usb_ifnum_to_if(us122l->dev, 0);
+-		usb_autopm_get_interface(iface);
++		iface0 = usb_ifnum_to_if(us122l->dev, 0);
++		if (!iface0)
++			return -ENODEV;
+ 	}
++
+ 	iface = usb_ifnum_to_if(us122l->dev, 1);
++	if (!iface)
++		return -ENODEV;
++
++	if (!us122l->first)
++		us122l->first = file;
++
++	if (iface0)
++		usb_autopm_get_interface(iface0);
+ 	usb_autopm_get_interface(iface);
+ 	return 0;
+ }
+@@ -153,10 +160,12 @@ static int usb_stream_hwdep_release(struct snd_hwdep *hw, struct file *file)
+ 
+ 	if (us122l->is_us144) {
+ 		iface = usb_ifnum_to_if(us122l->dev, 0);
+-		usb_autopm_put_interface(iface);
++		if (iface)
++			usb_autopm_put_interface(iface);
+ 	}
+ 	iface = usb_ifnum_to_if(us122l->dev, 1);
+-	usb_autopm_put_interface(iface);
++	if (iface)
++		usb_autopm_put_interface(iface);
+ 	if (us122l->first == file)
+ 		us122l->first = NULL;
+ 	guard(mutex)(&us122l->mutex);
+-- 
+2.34.1
 
