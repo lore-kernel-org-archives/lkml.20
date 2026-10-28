@@ -1,69 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197437;
-	b=IxbTkMjqgICe+0l6A19cOlDC3YMOrmXDrbNgW4sL/dXEmCU5cA0/RYdgH0exQPZLiH8G
-	 NWpNUMzshjhfeRR/nKyNdjPSBDN7phIcqYMDdS0IqasvmSfuGNPEsl2WBkL7q4njdEwCB
-	 GAO/eIkH+cM5E8XBXhzBJWPyhnH4IDi5cprY8OtxMfgbfo2znsUymgO/dhVGMVv7wDeE0
-	 oBeaK50wkBpK8bHtFchJBecsaWjA59Az6R/TxWINe55j/iITe0dx6Un0889q2JjrTh4jj
-	 /FE9T3DZbdybQrqJGeIbOqaTGzQfDsiZf0TcSHuG62A9/+bICcR98I0wwNTOJ189k/g==
+	t=1793197451;
+	b=YryWrOYnkbzglBlZQ8jNb5SyRLryXAq2LJqGrd+PaveHHoQrXnuKxRWlk6AULEdkCacQ
+	 IwQQ37S3GDKFUYgT5xyhOv+rsVB89BJRVnXHAmJET7WC7RB9Y+91b+6cxHyJwj+CMArA6
+	 6GPkDi1uzejhkZpQToOQvJ74HYtC3XtZ3SmHn4rf0TI5cVp+OnJffZeytn+y8LqOCiWn1
+	 WOIP/2lGw5C095cNhpTspvCmcw+YUGBX7TfuWvXxR0Gb1E/jsNZ1rziLEEfPy4GWyx8lE
+	 voyu1L6Q1w+Md2eWJP+YDQMw6oorjIfhh6UmcVE86sYtaag+EA7XrPBPQvgvRsDG8qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197437;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rli+5BgvJFUYW9dxHDoQTZKNT+u6yXvrLrSJl3h0Alg=;
-	b=PlvU6Z4jjohXhkI+6zTBE7PpnqjEw9ah/74+PmrIk0XLJYVfEgCOuYGiqDr244ECi2Vw
-	 7GdtcGC0s+YqKvbT/9TaTK34Gz+QwD4yFfV0ZW0FDbTxqy0zLbs8qmhNxG7liqAEV3pAk
-	 bw/4VIQajUtDvnJxCUgG2lZWxyEtoqM1EniVINXqAoQg7jwofqfu1yFbyJk87PXFpdJcM
-	 RpCdOR+iA8zFZWkcDQAB5DWaH+Cj648knOsjfsmbnaBUE08ndfsnYQ4SKNwkKGf/sqsv4
-	 HcfGPlZyP4HdzmbTxlFrYgBFk12bkSFxoK8z9nHjRgfml+QCa3Lwplag7smag9AU82Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
+	b=BQV3gBbTGwnrZ3+TI3fmKWyKoHxKw0kJGu4BKKxq8Msev5U3I4Z6q3ctCfNKfRy1w0AO
+	 FaAd2DjnQEIAjyzKgs7LgyQdRsJEyIpEmIdhx0tpPos53FzsVQZDRggHSzwEjPpTKNNTn
+	 aAoqBiulCodSkqX/65r21dUMC3tLk1hT9owzskl6Reot2wC8vO0PHaY+fPw+RzccemjTW
+	 EgFT42QY9zVZgALq+JXWq2zBMrtciIGkQPNqR23ZdasOw/uCcCvvxtyPZzIxrEjX2M2Mg
+	 A0qnG/SkY5eS7UzXf3fr+m58jjQY8v2hqfEvkcniM6KAinMIrBZr9ik0fh1sHS3vp3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9Nt9lT5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zK61OYZt;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D693B606A322;
-	Wed, 28 Oct 2026 14:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE9E60A2638
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE9E60A2638
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9Nt9lT5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDD51F01825;
-	Wed, 28 Oct 2026 14:23:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793197436;
-	bh=rli+5BgvJFUYW9dxHDoQTZKNT+u6yXvrLrSJl3h0Alg=;
-	h=From:To:Cc:Subject:Date;
-	b=j9Nt9lT5mo9/hofHi2fJKrA+C/V6mmsG/lvXo8ad5VN6cyACjX+2zJSKFDbe4p3hv
-	 8nUsaYHinUQmcOQsS7XQLtczZA9CrofXr3wBXj64Nk7dHpfL501fVEUgUI9BQujcl0
-	 Xy7Wor6kezCrbBtLfdeoKDuAe+ySesP5Qf21A1xOAryYyMvXCuyCiSS/DD10RLscvD
-	 M570o+9pv/Smx8IELZI2xbpZviOZwbP1z/ag74MJNkyATkUThj1tccTzb4wVBnPyfj
-	 oStlNYdjOmR+02djFP/U/xdk5Ch7RTJZ/diT8zr1hzk5jTZXoO5P1RKzb1b/5qyewH
-	 slNsaMchTnJrA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andrew Davis <afd@ti.com>,
-	Francesco Valla <francesco@valla.it>,
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-	Yonghao Zhang <hyz3367@gmail.com>,
-	Rahul T R <r-ravikumar@ti.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tanmay Shah <tanmay.shah@amd.com>,
-	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
-	Casey Connolly <casey.connolly@linaro.org>,
-	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Marcel Hofmann <marcel.hofmann@ingenics-digital.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Rob Herring <robh@kernel.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [GIT PULL] remoteproc updates for v7.4
-Date: Wed, 28 Oct 2026 09:23:49 -0500
-Message-ID: <20261028142349.19495-1-andersson@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zK61OYZt
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so921501a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793197450; x=1793802250; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
+        b=zK61OYZtAVgUCp/JFTqhE9re+jZLYZst9EUpWbl9zk1eujT9d1ZBBnpgroXqL8alrm
+         vCTMNJvWzRGWLgH8nl5dawueHJAUKLpWjikU19XJIrKTlivQVSU/9cqQd1arr4n7P1AZ
+         r1GE4hTVEZw2UCNNl3ou1VHlgCqsKQRZt7sLBq3y//fQM6dBIPV0Py0Ebb2ApHw0qHLM
+         Fw9HSxv+D1xui+An2+t5y3LLkjyd7E+thRSu7wQ0DX7TfdApyBv0+cUMb2Zn0ot/wXxA
+         wToMV59t3vLN0Vw/t6CaCZ1B33Fv9QMyV2aeHMlnmDZnHRe6D8v6vQ1CemQhX4tcmpJf
+         7txQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197450; x=1793802250;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
+        b=PGgkH//dVAtgaDnNvtCDhyaBLxLLUUw4ybNK0VskkbCa+rI6VYtBuiJ8pvdfe5W/Zy
+         tOrQnCJ6QRrBv50zKotILX8X1jdiQy+E+3KME+dVF/8c8rU/lWd1S1Kwh5oGFfJ9PuFp
+         Y+ysyznVG5sqvvsz+tRS8PSbLwor951f5TAOLMSMVzVKQspzKTxT+Pqc1I8GP4GT17I3
+         oeEDgEhQMrlA8jjwTHdnqJ6gB9IZxx9gQIJd2qExt6AKyw06mYRcrDbErGKlIt51Osk4
+         wVUdIlovE/yQG2YEEOsihG+IQMcUztHD+IkPtRkMM5U/cGZyBU2Z2dAj25Z3UWIAFq7h
+         uSQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhzrsAPdRDee59phgF+Giz8AWbEEbsUnzTww5uHFg8WcRDXFGlHhpC/M1Vo4akDYdSzU5KMdANmSXGDQs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9+SlVpiZNST+rH+zqNEAJbh3kGAh+OCkh6+gLlJJVxbSoRFzY
+	/F52GO74+oBL9RSPorQJ+TaCYTkzdEIys5YfvXM9deIiV61Dp9iKY6We
+X-Gm-Gg: AYBFou2of8XHMq+4cdq6qVXOvX1OuZ6BIVA9cAPIKY5mdl3rIqjV4bQDKKcwK5KQGn9
+	RFDywM2R1fJ5gHerdshy9HgcNipvGdjOebakS4L4jEhf8vtXlD49i74wLV0xE/uG4QKEo7QQrNS
+	ersW/tU0hgR0abdvdTlrswgg8eDUPOpLQB68i1pItpVcjRUF5mJdgZUpjXDA7UkNUX8B3CDsJ6w
+	hRFnK/CrpVZ1EvQE1JSYnaIij31t5KH21zgDqSmLPeNn6/K6l6MsrkNFnisJj/0/xAKkUye8vZU
+	dMeiK5E29Zgxvf+1xL6YMer3hqaB9zHmRHTEHVECAg1SWPYcEVqNWogvozf0aeMrVJJ8zRNgC8w
+	UI2BTQLVfkTtzJmhoxDwtRM56glWg9FLKZVEXbiQpp49W8Y6sUsfE7QAIvbLQ32cjcm4AWk3WJT
+	Rm6jHkbNUggTftiV4T6OSPBBbaQqtTuwVbrXaJMNvz2yA2Cj0Qf9JPnY3ut+Y299QRB4XJX4Q0j
+	b6H9ATeJ8WomZoVKCZeiDgIIP3BfGvpF5CvOyYYnVbJQ0XbKR5tgoWgWcOByxC3sTWhxiReFS/K
+	+UkKjjshuX4CG4ffYBv9249iCthXWkXMTSx3lJziOsf9eZHYguF3jwtZDRkOyHw4tjiO
+X-Received: by 2002:a17:90b:4a4b:b0:3aa:6b5d:a02e with SMTP id 98e67ed59e1d1-3ae58318a19mr1972701a91.54.1793197449365;
+        Wed, 28 Oct 2026 07:24:09 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a48c2d3sm3324593a91.5.2026.10.28.07.24.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 28 Oct 2026 07:24:09 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: stable@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5.10.y] wifi: mac80211: shut down RX BA session timer on teardown
+Date: Wed, 28 Oct 2026 22:23:49 +0800
+Message-ID: <20261028142349.19894-1-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,147 +98,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+commit e588e83e5c7a0f6d7a77dbbb58927c8c8cfd598e upstream.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+Tearing down an RX BA session while a BlockAckReq frame is being
+processed can rearm the session timer after teardown deletes it. A later
+expiry then accesses the freed tid_rx state.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+___ieee80211_stop_rx_ba_session() uses del_timer_sync() before RCU
+readers have finished with tid_rx. del_timer_sync() does not prevent a
+concurrent ieee80211_rx_h_ctrl() reader from calling mod_timer()
+afterward.
 
-are available in the Git repository at:
+Mark tid_rx removed under reorder_lock before deleting the timers, and
+serialize the BAR removed check and mod_timer() call with the same lock.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git tags/rproc-v7.4
+This differs from the upstream commit, which uses timer_shutdown_sync()
+instead. Linux 5.10 does not provide that helper.
 
-for you to fetch changes up to a6e0c839f999007721d060618b6ca2134dad46a9:
+LLM assistance was used to find the bug and review.
 
-  remoteproc: qcom_q6v5_pas: Add QMI TMD cooling support for Shikra (2026-10-28 08:14:21 -0500)
+Fixes: a87f736d942c ("mac80211: use RCU for RX aggregation")
+Cc: stable@vger.kernel.org # 5.10.x
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Validation: A W=1 module build with MODPOST passed on v5.10.272,
+with no diagnostics beyond the baseline. A forced QEMU/KASAN interleaving
+changed 9 use-after-free reports to 0 and produced no lockdep or
+atomic-sleep splats. Natural race frequency was not measured. A reproducer
+is available on request.
+Sparse C=2 and targeted Smatch introduced no new diagnostics.
 
-----------------------------------------------------------------
-remoteproc updates for v7.4
+The affected files are identical in v5.10.270 and v5.10.272.
+Equivalent fixes are present in 6.6.160, 6.12.113, 6.18.56 and 7.2.10;
+adapted 5.15.y and 6.1.y backports were queued when reviewed.
 
-Add Qualcomm QMI Thermal Mitigation Device support for PAS-managed
-remote processors, with cooling device bindings and configurations for
-Hamoa, Kodiak, Lemans, Talos, Monaco, and Shikra CDSP and modem
-subsystems as applicable.
+ net/mac80211/agg-rx.c | 5 ++---
+ net/mac80211/rx.c     | 5 +++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-Add per-power-domain proxy performance states for Hawi CDSP and update
-Hawi, Maili, and SDX75 PAS compatible bindings and the SDX75 device
-tree. Correct the Qualcomm ADSP startup timeout.
+diff --git a/net/mac80211/agg-rx.c b/net/mac80211/agg-rx.c
+index 6ef8ded4ec76..b23ff9793fac 100644
+--- a/net/mac80211/agg-rx.c
++++ b/net/mac80211/agg-rx.c
+@@ -103,12 +103,11 @@ void ___ieee80211_stop_rx_ba_session(struct sta_info *sta, u16 tid,
+ 	if (!tid_rx)
+ 		return;
+ 
+-	del_timer_sync(&tid_rx->session_timer);
+-
+-	/* make sure ieee80211_sta_reorder_release() doesn't re-arm the timer */
++	/* Prevent BAR and reorder release from rearming the timers. */
+ 	spin_lock_bh(&tid_rx->reorder_lock);
+ 	tid_rx->removed = true;
+ 	spin_unlock_bh(&tid_rx->reorder_lock);
++	del_timer_sync(&tid_rx->session_timer);
+ 	del_timer_sync(&tid_rx->reorder_timer);
+ 
+ 	call_rcu(&tid_rx->rcu_head, ieee80211_free_tid_rx);
+diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
+index 8ec630a4d069..c7504dff7b4b 100644
+--- a/net/mac80211/rx.c
++++ b/net/mac80211/rx.c
+@@ -3101,12 +3101,13 @@ ieee80211_rx_h_ctrl(struct ieee80211_rx_data *rx, struct sk_buff_head *frames)
+ 		event.u.ba.ssn = start_seq_num;
+ 		event.u.ba.sta = &rx->sta->sta;
+ 
++		spin_lock(&tid_agg_rx->reorder_lock);
++
+ 		/* reset session timer */
+-		if (tid_agg_rx->timeout)
++		if (tid_agg_rx->timeout && !tid_agg_rx->removed)
+ 			mod_timer(&tid_agg_rx->session_timer,
+ 				  TU_TO_EXP_TIME(tid_agg_rx->timeout));
+ 
+-		spin_lock(&tid_agg_rx->reorder_lock);
+ 		/* release stored frames up to start of BAR */
+ 		ieee80211_release_reorder_frames(rx->sdata, tid_agg_rx,
+ 						 start_seq_num, frames);
 
-Fetch auto-boot firmware only once and synchronize boot work with device
-removal. Bound ELF section header accesses, improve trace diagnostics,
-and update coredump configuration documentation.
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+-- 
+2.56.0
 
-Set 48-bit DMA masks for TI K3 DSP and R5 remote processors, correct
-mailbox message types, and enable compile testing for more TI drivers.
-Fix i.MX address range boundary checks and DSP runtime PM ordering, and
-simplify mailbox notification handling.
-
-Harden Xilinx mailbox setup and teardown and avoid sending notifications
-when the transmit queue is full. Propagate STM32 optional IRQ lookup
-errors and correct the MediaTek MT8188 SCP register binding.
-
-----------------------------------------------------------------
-Andrew Davis (3):
-      remoteproc: k3: Include what we need and only what we need
-      remoteproc: k3-dsp: Fix usage of omap_mbox_message and mbox_msg_t
-      remoteproc: Add compile testing for additional TI drivers
-
-Anup Vishwakarma (1):
-      remoteproc: qcom_q6v5_adsp: Fix double jiffies conversion in adsp_start()
-
-Casey Connolly (1):
-      soc: qcom: Add QMI TMD support for remote thermal mitigation
-
-Dipa Ramesh Mantre (1):
-      remoteproc: qcom_q6v5_pas: Add QMI TMD cooling support for Shikra
-
-Francesco Valla (3):
-      remoteproc: virtio: Add vdev_to_rsc() helper
-      remoteproc: virtio: Replace kmemdup with kmemdup_array
-      remoteproc: virtio: Remove stray white space
-
-Gaurav Kohli (3):
-      dt-bindings: remoteproc: qcom,pas: add #cooling-cells property
-      remoteproc: qcom: pas: add support for TMD thermal cooling devices
-      remoteproc: qcom_q6v5_pas: enable QMI TMD cooling support
-
-HyeongJun An (1):
-      remoteproc: elf_loader: Bound the section header table
-
-Krzysztof Kozlowski (1):
-      dt-bindings: remoteproc: ti,am3352-wkup-m3: Drop redundant reset-names dependency
-
-Marcel Hofmann (1):
-      remoteproc: imx_rproc: Allow mappings ending at region boundary
-
-Mukesh Ojha (5):
-      dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi and Maili MPSS as SM8650 fallback
-      dt-bindings: remoteproc: qcom,sm8550-pas: Make SDX75 MPSS fallback to SM8650
-      arm64: dts: qcom: sdx75: Use SM8650 MPSS as fallback compatible
-      dt-bindings: remoteproc: qcom,sm8550-pas: make qcom,hawi-cdsp-pas standalone
-      remoteproc: qcom_q6v5_pas: add per-PD proxy performance states for Hawi CDSP
-
-Pengpeng Hou (1):
-      remoteproc: imx_dsp: Acquire runtime PM before adding carveouts
-
-Rahul T R (2):
-      remoteproc: k3-r5: Set a 48-bit DMA mask for remoteproc device
-      remoteproc: k3-dsp: Set a 48-bit DMA mask for remoteproc device
-
-Rob Herring (Arm) (1):
-      dt-bindings: remoteproc: Fix MT8188 SCP regs
-
-Runyu Xiao (1):
-      remoteproc: xlnx: Initialize mailbox work before requesting channels
-
-Sebastian Andrzej Siewior (2):
-      remoteproc: imx_rproc: Invoke the callback directly
-      remoteproc: Use %p for pointer formatting
-
-Tanmay Shah (2):
-      remoteproc: xlnx: Do not send new mailbox notification
-      remoteproc: xlnx: fix typecast warnings
-
-Yonghao Zhang (3):
-      remoteproc: sysfs: Fix stale coredump attribute documentation
-      remoteproc: core: Set trace buffer name for diagnostics
-      remoteproc: core: Fetch the auto-boot firmware only once
-
-bui duc phuc (1):
-      remoteproc: stm32_rproc: Propagate errors from optional IRQ lookup
-
- .../devicetree/bindings/remoteproc/mtk,scp.yaml    |  22 +-
- .../bindings/remoteproc/qcom,pas-common.yaml       |   9 +
- .../bindings/remoteproc/qcom,sm8550-pas.yaml       |  31 +-
- .../bindings/remoteproc/ti,am3352-wkup-m3.yaml     |   1 -
- MAINTAINERS                                        |   8 +
- arch/arm64/boot/dts/qcom/sdx75.dtsi                |   3 +-
- drivers/remoteproc/Kconfig                         |  11 +-
- drivers/remoteproc/imx_dsp_rproc.c                 |   7 +-
- drivers/remoteproc/imx_rproc.c                     |  51 +-
- drivers/remoteproc/omap_remoteproc.c               |  12 +-
- drivers/remoteproc/qcom_q6v5_adsp.c                |   2 +-
- drivers/remoteproc/qcom_q6v5_pas.c                 | 172 +++++-
- drivers/remoteproc/remoteproc_core.c               |  69 +--
- drivers/remoteproc/remoteproc_debugfs.c            |   6 +-
- drivers/remoteproc/remoteproc_elf_loader.c         |  23 +-
- drivers/remoteproc/remoteproc_sysfs.c              |   7 +-
- drivers/remoteproc/remoteproc_virtio.c             |  61 +--
- drivers/remoteproc/stm32_rproc.c                   |   2 +-
- drivers/remoteproc/ti_k3_common.c                  |  10 +-
- drivers/remoteproc/ti_k3_common.h                  |   4 +
- drivers/remoteproc/ti_k3_dsp_remoteproc.c          |   7 +-
- drivers/remoteproc/ti_k3_m4_remoteproc.c           |   4 +-
- drivers/remoteproc/ti_k3_r5_remoteproc.c           |   9 +-
- drivers/remoteproc/xlnx_r5_remoteproc.c            |  23 +-
- drivers/soc/qcom/Kconfig                           |  12 +
- drivers/soc/qcom/Makefile                          |   1 +
- drivers/soc/qcom/qmi_tmd.c                         | 595 +++++++++++++++++++++
- include/dt-bindings/thermal/qcom,pas.h             |  20 +
- include/linux/omap-mailbox.h                       |   5 +-
- include/linux/remoteproc.h                         |   4 +-
- include/linux/soc/qcom/qmi.h                       |   1 +
- include/linux/soc/qcom/qmi_tmd.h                   |  36 ++
- 32 files changed, 1032 insertions(+), 196 deletions(-)
- create mode 100644 drivers/soc/qcom/qmi_tmd.c
- create mode 100644 include/dt-bindings/thermal/qcom,pas.h
- create mode 100644 include/linux/soc/qcom/qmi_tmd.h
