@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793170211;
-	b=f0S7cW0iFMDeAPq1vOVfpOEb7OeHaq/F4INW6KNgtsnhQVzNXUYhaCmeXhZCkXzZen1i
-	 qADL17QtzwqnMzOFD5wSrbF61XSRvq+zXIGXxOHwfQno96+s1+iuS2VDi4v/xyz0LbQ/L
-	 WBR7+IOGMJ7UXmejgsRiCQMfYnHZ6SFbvOPexUBfwJKJyZ+nUZY0dU9d5oaTQgFPRFChR
-	 fVZfPihE38ZkrO8NytNB0qKfiFIEVxlf1xW8IhbBEdsHc3F+kkZCnxCjrzvomJQxSu6kR
-	 33+Lfnyh8+BVmbYK4cbYDtDGQGeB0G+Q39rkdtY1KYCBzsW/U5yOpMsHnxfN1HzTybw==
+	t=1793170236;
+	b=to966a40Rzjb2fTdlCySH0m+nbpZLr3gvqsw/3HhqWvSLrN2kf9TEx2JQUqCkT64cs2f
+	 8JHm6PIt5Tu+TEidG5I+wkavc/mXFnjXFIx3TENUOwZYD7JItk38cazfLAHB5UA5IYagC
+	 yFr/kB87B3cUSUxLMQvDJXBLTzTkGSOM3eR6tUg42rK0zWlicp5mgAKOAVkN4t3uuOMXj
+	 /Zh7DlHc8bY2y64fI89QGJd1A8Hjdl3yy8il9Hi4bqG/J7OQY8UcbrfI35dZFy14yHcgF
+	 P6+er+ry7RyttXJvV2OuDb1OZnFVySp1F0+F98WS0SGhEhGUakuedgVcQl7PUT/81+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793170211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sFhRdI8EQ8MK0p+CW7dH/qNlkXIP7SsPBqhbqXWLgo8=;
-	b=irRT2QB1+ARq+N+bI/Qtba+EXnXBTCHmm8IxAc6IyiGGlgVxFoAdTQFEWI+N29qNDlX9
-	 BOgDl6kK+bFRCevBW6fOHgmCWksqmYTL9B3hoAOCsfi0aE3aBwqyED+mIpAlyUFTR+S3V
-	 d9MmRZLfMwAW8+WUcp66jGWFlwwXjnh/qT2HAsvPiqSdKAknvTE9a4eWcuz1cj+pexXiL
-	 CrHe2Hr1t8/AzXkJC3W+mBF0DVd3jAg3ga2wGEzUmlLAL4Iq29Swk0nrDNae8OvR6IwBb
-	 E/hIYikKE/Fn+DgOHq2WtJUWzuj/jmY6TGuAfNbDKOvhPi8agX+pwXkOw+xhFAVFe5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793170236;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=MM4e7fqDmtE4Y1ZW9vkBOxUF+4WU0wru0ULzuQOF7XA=;
+	b=0VixCM6zljjygfFagl6nCDzxsJx1coumtrvDz3mE5Pi4orEeeFCZlfBBiqDXxgT1S4Xc
+	 KNbnISF4pOOjfcS5Kkd1xCqzyw7N6CcOktlqWUzGxq2KB/x0BGALpzvBK1uzeYEHW5r58
+	 fNvzGBR0ioSGgIz3bVQsaccc2UnGHTJ2oP/ZZ124xyiaIH0McGJZBrI6tOjDW9EmPu8Lh
+	 +SJ/SJyNeRBKQN3jO0xp0shhFBa6Xkmc0XHIoC8Drd7eN+PgbbyDOsrUntKOivdP0Gxd7
+	 SiUMi5EKOITE159P9VO0dKrvIiRpwBVA5+EtYp0C6UhcPGZp+qlP/zNUbUPkOZQ8Tkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HqMUEPXJ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=kDYCJR6S;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A9C606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A9C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB13606A31A;
+	Wed, 28 Oct 2026 06:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB13606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HqMUEPXJ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a215e64962so6188955e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:50:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793170209; x=1793775009; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sFhRdI8EQ8MK0p+CW7dH/qNlkXIP7SsPBqhbqXWLgo8=;
-        b=HqMUEPXJVdP6J1IEnR1xcnYhEHqrxYYo9t0WW9OF/y887mPyMsPavGLyLE4fOEPvAZ
-         1rpgz8llkCN4XHtVNIULxpHhY0O6FtZfYMtlD9mzH1ffpCb3hcEuBxQ3O+X6UX3dedGl
-         eUKS88Psa82wHjupcx01IGEd/7aq7NESmRkc+AFd99PpHe3YQunLvnQ8PzPCFLwRncKK
-         46/eaYSHd/oEorjebO2mSIASZUKIhXn8hhui0MAXOrUftee5I45COXgHYu8kxZWbVwmH
-         t7cC7qER7Nq3cqj/uFDOnK0kR6KTXPuGuMdwTRkz6gO9cQT/rhknwACglRa7thSXu15P
-         Uimw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793170209; x=1793775009;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sFhRdI8EQ8MK0p+CW7dH/qNlkXIP7SsPBqhbqXWLgo8=;
-        b=qVmvwOgAVHEy2YE1xy0jXQdZJc6Y7PS0sFCwbdCBvubygqzgQ22R5wR6zXgMR4/MtV
-         R+WrwSzMzAue1hlXkb5xqGLBXDjX/oB51HLKcLuIm9QElmwMqhvWs5wJg9ewpfEsbGl0
-         5JOEW2g0b9LfGLj9rqQbu6sKeu4xjgXV5pMAzdXk9rFmc9ymvrtArU7lWAtW4A6TBwkn
-         3sxDY9gkmnjUjl/OL0WYtBOcD179CbOxN9S7Qq4QFXh/Itd7PKMBiMq1DwH8iuOkhUsL
-         2nLwkTvgLxyKfWrkCST8phh0ndB9EhA8WkXRRLqzTt1OMctxgI1UrMRCv2L1xXnAhF3X
-         Cxgg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0akx3Z3WFJyZX8n37IdomW876EzGfO7byjHwNCi0DUC0ugy+pka+WsPWADZMxT5M/zlK2AcKjV2mKDm0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUGTq7Nou2QI2lbouzy+gs2DtTLZ73LnHR15dmOP3seuiQdBo6
-	ZNs8WEFNkAGQ2aAsJy7vTEmXY2uEGrqF8FTKxEFk1pXcQ/btuDDnRr5+
-X-Gm-Gg: AYBFou2smZWRXLH7Z2H+Hgf817NcT1DBTOVqDHIHRrTTTOQaevUmbrmPFGsAMDmNuYN
-	zSqYmh/zuG9YC4XOcSxCK6Ni8oBgS9M7m1KEFTx4iFlUJ1N4kMGOud0XWXWtISlw7Q3V3KvGval
-	TPkxXqS2W7WMXW6i+9DO2HCGedqnZ3NBTqkZkpTRkM3F5KRrIP7nlNsF3A5xkSwzFN63t7On5Aw
-	vpnh2AQhy+/TAwjhyW6rETZZx08r/LnXZZ9T8lOEtTNjaeHrSLY9xH0+2oRd6UZKeMCZd24H5Ax
-	B+zgTueuCygnNF3l8o52OUVbQiVjN3ek+a/MU9Ty2Fvt+i43qrBHr27DMh5/tJX0p5/3fIHDUKF
-	/rMu4FlZNDkJuSvTOmIFyL5MRCy+/WoFi3Hd/7hbxkWA3dTy2xY3k/m+qlyJ3OSdBbMmU1iQZNX
-	Le0unqxf1ndpE5hpRmtjXyV2FWbCt9kPTTFo4ZdLLjQJRWB0dX2JAddlVu0CQ2YIu+gWGDUTAsa
-	WEZFiH1hGMaECPlVNNU6d/xH4O/53Ne8mb3HgpxDTf9UCSp+5okEbulCvs1n+oKeKpznl6+hsid
-	41jQSHO8jvQhjRv/u+A/nc98niXndPJ6MLw=
-X-Received: by 2002:a05:600c:154a:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4a9678c268dmr27227395e9.28.1793170208726;
-        Tue, 27 Oct 2026 23:50:08 -0700 (PDT)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4778:c500:80cd:d127:b224:9e6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978d57b39sm38767015e9.10.2026.10.27.23.50.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 23:50:08 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Dan Williams <djbw@kernel.org>
-Cc: Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] dax/bus: clear parent drvdata when releasing a region
-Date: Wed, 28 Oct 2026 08:50:01 +0200
-Message-ID: <20261028065000.580077-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=kDYCJR6S
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=MM4e7fqDmtE4Y1ZW9vkBOxUF+4WU0wru0ULzuQOF7XA=;
+	b=kDYCJR6SJ82tPv7VlCiiurY6K2bKbbvDJxj3cmhJNiV6IeumEI1K1Ib+EOGfAF0FExlMWgzAu
+	0VU372aPc4j52tFDFJU/YVCKIXA7Ib+XrObEW0jN50KdQLSSeIXeOxJiUQLp1wLBLvNsXAuLTK4
+	ibWmxgHJEB8QLqv5F/24Q3s=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jDyfl5V83z1cyqb;
+	Wed, 28 Oct 2026 14:50:23 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 71B9340586;
+	Wed, 28 Oct 2026 14:50:30 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 28 Oct
+ 2026 14:50:29 +0800
+Message-ID: <e0475b6d-3728-49e2-aab7-efd4c49593f1@huawei.com>
+Date: Wed, 28 Oct 2026 14:50:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,45 +62,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/7] arm_mpam: Add L2 cache monitors
+To: Ben Horgan <ben.horgan@arm.com>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <mark.rutland@arm.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <james.morse@arm.com>,
+	<reinette.chatre@intel.com>, <fenghuay@nvidia.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
+ <c1e80268-3981-48bb-b251-dcd2218fc9d5@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <c1e80268-3981-48bb-b251-dcd2218fc9d5@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-alloc_dax_region() sets parent drvdata before reserving the resource
-and registering sysfs attributes. If either operation fails, the
-region is freed but drvdata still points to it. A later allocation
-on the same parent is rejected by the non-NULL drvdata check.
 
-The devres unregister action also leaves drvdata pointing to the
-released region. Clear drvdata on both allocation error and
-unregister paths.
 
-Fixes: d7fe1a67f658 ("dax: add region 'id', 'size', and 'align' attributes")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- drivers/dax/bus.c | 2 ++
- 1 file changed, 2 insertions(+)
+在 2026/10/26 19:46, Ben Horgan 写道:
+> Hi Jinjie,
+> 
+> On 22/10/2026 09:48, Jinjie Ruan wrote:
+>> MPAM resource monitors hang off a partitionable resource in an MSC, not
+>> off a particular cache level. resctrl only knows about the L3 scope, so
+>> the L2 cache monitors that MPAM platforms implement are discovered by
+>> the driver but never show up in resctrl.
+> 
+> Yes, it would be good to add support for more monitoring scopes. This is not just relevant for MPAM.
+> RISC-V can also have monitors at many places in the system and we should coordinate so we have a
+> uniform solution across architectures.
 
-diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
-index b809e1a264afa..dceaa395760e7 100644
---- a/drivers/dax/bus.c
-+++ b/drivers/dax/bus.c
-@@ -627,6 +627,7 @@ static void dax_region_unregister(void *region)
- 	sysfs_remove_groups(&dax_region->dev->kobj,
- 			dax_region_attribute_groups);
- 	release_resource(&dax_region->res);
-+	dev_set_drvdata(dax_region->dev, NULL);
- 	dax_region_put(dax_region);
- }
- 
-@@ -685,6 +686,7 @@ struct dax_region *alloc_dax_region(struct device *parent, int region_id,
- err_sysfs:
- 	release_resource(&dax_region->res);
- err_res:
-+	dev_set_drvdata(parent, NULL);
- 	dax_region_put(dax_region);
- 	return NULL;
- }
+Hi Ben,
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+Agree, we should take other emerging architectures such as RISC-V into
+account, design a more extensible solution.
+
+> 
+>>
+>> An L2 MSC has the same CSU and MBWU counters as an L3 MSC; the cache
+>> level comes from the ACPI MPAM table's cache locator. So this is mostly
+>> a resctrl scope problem, not a hardware one.
+>>
+>> Extend resctrl's monitor scope to L2: register the L2 occupancy and
+>> bandwidth events against the L2 resource, pick the L2 classes for them,
+>> and borrow a CSU/MBWU monitor for the duration of a read. With CDP the
+> 
+> Borrowing an MBWU monitor doesn't sound right. The MBWU monitor needs to be configured while the
+> traffic is happening so that it can keep count of bytes. The CSU is different as it can measure the
+> occupancy without having to keep any state.
+
+Thank you very much, will drop this approach and try the compatible
+solution you suggested.
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+>> two PARTIDs need separate accumulating monitors, so the borrowed-monitor
+>> context becomes one monitor per PARTID.
+>>
+>> Patches:
+>>
+>>   1-2  Generalise the per-domain read path, add l2c_occupancy and
+>>        mbm_core_bytes, update the documentation.
+>>
+>>   3    Split the borrowed-monitor context into data and code entries.
+>>
+>>   4    Do the CDP num_rmid halving for every mon_capable resource.
+>>
+>>   5-7  Pick the L2 classes, describe the events with the L2 resource,
+>>        add the read paths.
+>>
+>> Tested on QEMU with an L2/L3/memory-controller MSC topology. The L2_MON
+>> files show up and are readable; l2c_occupancy reports the modelled
+>> occupancy, and mbm_core_bytes reports the modelled bandwidth.
+>>
+>> QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
+>> Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
+>>
+>> Jinjie Ruan (7):
+>>   fs/resctrl: Generalize __l3_mon_event_count for non-L3 resources
+>>   fs/resctrl: Add the L2 monitor events
+>>   arm_mpam: resctrl: Split monitor context for code/data
+>>   arm_mpam: resctrl: Halve num_rmid for every mon_capable resource on
+>>     CDP
+>>   arm_mpam: resctrl: Describe the L2 monitor events with the L2 resource
+>>   arm_mpam: resctrl: Pick L2 classes for the L2 monitor events
+>>   arm_mpam: resctrl: Add the L2 monitor read paths
+>>
+>>  Documentation/arch/arm64/mpam.rst |  23 +--
+>>  drivers/resctrl/mpam_resctrl.c    | 236 +++++++++++++++++++++++-------
+>>  fs/resctrl/monitor.c              |  15 +-
+>>  include/linux/resctrl_types.h     |  13 +-
+>>  4 files changed, 222 insertions(+), 65 deletions(-)
+>>
+> 
+
 -- 
-2.43.0
+Best regards,
+Jinjie
 
