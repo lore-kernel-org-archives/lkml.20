@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793165478;
-	b=qkUHVuqUA5v6LUzUg5QfbxMKTjQdjBXsKJcjZZSD00t7dX4P8G91f7Q8SQ7qRDkzMSQv
-	 LLanCmgHTeaoKa8Vsbp4IjHGCdWZHQUgKvE02E4zIEb4nCHOg7uHTIks3dMER/uUSGSCy
-	 vkqlHV2aon3gqv+LZjFVrIbWUrrJ1efYPRjxRd/r19sDjZsg+KAs6LAHRQolvYF6T4rBf
-	 R3xieJhUSJzB7Gfr+I+AT+yK+rUyqYp5CMVskVeunig7wj0F33D7s+UFl32X+izgY02rn
-	 XmGcCarPyClzIGwvqytH3aYcc7ZavCU1CLeBSPqgabFRktQSfqx/0AvSgDldrEb2NZw==
+	t=1793165733;
+	b=Zzge49+cZPR3r9X+Dn4NvkyaeKM2u1sbbN8JhadvrZN2nTZ074N4J04LJV2BKda+bb7Y
+	 jXNHT8ulU1wwevbhxZvCysTcFdQf9RS4FgsDUa0yXCAXhoF0W33t0DuxnUIOfeMepDaza
+	 T9f2k3Q+8M3g+2HknrV7Ouw2z6gE5f8icXaxTLarNtjR1sdSk5gFoJduCAgtK2SVtFlc6
+	 EZ5RdwKAT5yGLErZcWTsgA472hyZI+OYUbby+1WnPayc9gePWuD2HQaBIAWANvyksM0ww
+	 LhiJ78g//Vfgry+8fuBynzCBT4mbozAQVL/Na2A2wNDDS5eFNquPXUX0Df8Unoc6Sew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793165478;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QV6pMFl0zTgQMpH2r3tNqJTPiinMZ5x7f45iM8R0mz0=;
-	b=1YFRbecounhzKhuBJQaufVokAtPkNPbrSILGZ/9Zw0k7IPossi36i/e1QYNyLOJK/Z2o
-	 5yhxK8LeQwKtEILjgeuBDp7E31iH66/FHCm81OrNCjw/fFk2PWmd1H8AAurG4DiSLTm0f
-	 2sRgECqXqcxFKKIWrU/HyKBZob4xKoFleVt4k4ILCcc4hSXTEE2MMjOoVRDd4bid4fe8/
-	 xebmO6uNuA2RYH7/MSXFjcCMhp9xC7AoR/zg4YygWTnQ+OY8eqMPQeEL4ZsBKPrZMc0Lw
-	 qS1cfAJNYK1jbARuX80Ze6LAuKFYQ5xEcvJ6GiIE5W93I15U9nFcxj6ONOw5KVp9VCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793165733;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oCF8kfzyKgaGcmmngoeyp1DL7LEberyF6cj2vg7mrCw=;
+	b=2zsOysCGaCsIDlOCO1JHIARYfD2ZRYQ8Qs8kPLRbhF7Hlwho4kWBMqk9f7Xt4r2rjJA1
+	 kYhnvqvf20eYJKiBPsrp8E8v8Qj663sdAbFocmkSJzGy2SF7CBqEVa2TX8TBMLWtmbSlz
+	 lvyBim89w/Za8mwLtWzzizXUJeIgKDDBCEAfJZjxw+8NlguQ/im6YSNi4hJOTldAY6Pgi
+	 xUD4FqCU53lwUlW41mcuoaNCDNPtFTByfb+uElPsRCQzCuI0nI24OwAso1IZXQYLp5kR0
+	 BXJjdgnzSkPaLuiWcgeO7dUDXZ32v5BnCAt0q4zXF9NXxynJ79NbW7fuo4XUuoAME6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u4quU7V+;
-	arc=none smtp.remote-ip=91.218.175.198
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vx5RaM+k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E99606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4E99606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532C6606A31A;
+	Wed, 28 Oct 2026 05:35:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u4quU7V+
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2mQVqzf4Zlx0HzGDppIEZ0GDsAqfCA7ew5bAmcp8+5Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793165473; v=1; x=1793770273;
- b=u4quU7V+e0lAk42zYCjWzgo/K7g+u/uA0C/z9CydaChW0Io3Q6xo2gUFqf6V86L6lI42NqtB
- xPwD3z2Jm34x9ysPdlWlM7/384DRdckZfjPAfhjXUrPiFcgNK3TklgK3PEap9DH4wGVnbwAOM3s
- NKfD5LVQnSibQaD6fYelmldY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b55fb0c8a3f5edd5;
-	Wed, 28 Oct 2026 05:31:13 +0000
-X-Mizu-Trace-ID: b55fb0c8a3f5edd5
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 13:30:55 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Jamie Nguyen <jamien@nvidia.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	netdev@vger.kernel.org, kerneljasonxing@gmail.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] selftests: net: txtimestamp: fix out-of-bounds read
- in raw UDP checksum
-Message-ID: <auGIVnxH_9ggCDFi@fedora>
-References: <20261027162945.2122306-1-jamien@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vx5RaM+k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18281F01825;
+	Wed, 28 Oct 2026 05:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793165732;
+	bh=oCF8kfzyKgaGcmmngoeyp1DL7LEberyF6cj2vg7mrCw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Vx5RaM+kkDCqcYpK1TthH4mUUylEW9pvnlM6hLj9wD4ydPVPP79FDITUhr9XcbipY
+	 9xGaEUTpZYpgQ9miH23CU1NgqEyRkQZb80TARyylyHKAOdJOhpuqm5yprWDKtFy75b
+	 6xxyldCvVpHTDB9UygE0jMu+x5UF1FdfqeD5d9AWFbVW2cTOl4/rclO+W6+FpvoD89
+	 ZoAYLpIJB7rZCZdEUcZzYeGBiSbybOQw6wLxYFa6Oy06VxwoqEq6j+ulym67/NwrLm
+	 w65uM6fn6G3cPMnY/02Yk6Ij8crJhSIV78SBss9kcKuM4ZJ57rBWCVjPbBIfRisemq
+	 D3Sf+ymu+jUsw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Docs/admin-guide/mm/damon/reclaim: document how to disable watermarks
+Date: Tue, 27 Oct 2026 22:35:25 -0700
+Message-ID: <20261028053525.155909-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028052425.154616-1-sj@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,87 +64,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027162945.2122306-1-jamien@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 09:29:45AM -0700, Jamie Nguyen wrote:
-> With -r (SOCK_RAW, IPPROTO_UDP) the test writes only the UDP header and
-> payload, and the kernel adds the IP header. get_udp_csum() still expects
-> the IP source and destination addresses to directly precede the UDP
-> header, and reads 2 * alen bytes before the start of the buffer: 8 bytes
-> for IPv4, 32 bytes for IPv6.
-> 
-> ASan reports a heap-buffer-overflow for both -4 -r and -6 -r. Without
-> ASan the read usually goes unnoticed, but it faults when the buffer is
-> the first chunk in the heap. That happens on Ubuntu 26.04, where the
-> kselftest runner wraps the test in uutils stdbuf, and txtimestamp.sh
-> fails with SIGSEGV on every run.
-> 
-> Even without a crash, -r packets were sent with a checksum computed
-> over unrelated heap memory, so their UDP checksum was invalid.
-> 
-> Build the pseudo-header from the destination address and checksum only
-> the UDP header and payload. -R and -P already write daddr as both the
-> source and destination address, so their checksums are unchanged. With
-> -r the kernel selects the source address, which equals daddr for the
-> loopback addresses used by txtimestamp.sh.
-> 
-> Fixes: b52354aa068e ("selftests: expand txtimestamp with ipv6 dgram + raw and pf_packet")
-> Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
-> ---
->  tools/testing/selftests/net/txtimestamp.c | 23 ++++++++++++++---------
->  1 file changed, 14 insertions(+), 9 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/txtimestamp.c b/tools/testing/selftests/net/txtimestamp.c
-> index 170be19..f7bdf30 100644
-> --- a/tools/testing/selftests/net/txtimestamp.c
-> +++ b/tools/testing/selftests/net/txtimestamp.c
-> @@ -418,19 +418,25 @@ static uint16_t get_ip_csum(const uint16_t *start, int num_words,
->  	return ~sum;
->  }
->  
-> -static uint16_t get_udp_csum(const struct udphdr *udph, int alen)
-> +static uint16_t get_udp_csum(const struct udphdr *udph, bool is_ipv4)
->  {
-> -	unsigned long pseudo_sum, csum_len;
-> -	const void *csum_start = udph;
-> +	const void *addr = is_ipv4 ? (void *)&daddr.sin_addr : &daddr6.sin6_addr;
-> +	int alen = is_ipv4 ? sizeof(struct in_addr) : sizeof(struct in6_addr);
-> +	uint16_t addr16[sizeof(struct in6_addr) / sizeof(uint16_t)];
-> +	unsigned long pseudo_sum;
-> +	int i;
->  
->  	pseudo_sum = htons(IPPROTO_UDP);
->  	pseudo_sum += udph->len;
->  
-> -	/* checksum ip(v6) addresses + udp header + payload */
-> -	csum_start -= alen * 2;
-> -	csum_len = ntohs(udph->len) + alen * 2;
-> +	/* pseudo-header source and destination: both are daddr */
-> +	memcpy(addr16, addr, alen);
-> +	for (i = 0; i < alen / 2; i++)
-> +		pseudo_sum += 2 * addr16[i];
->  
-> -	return get_ip_csum(csum_start, csum_len >> 1, pseudo_sum);
-> +	/* checksum udp header + payload */
-> +	return get_ip_csum((const uint16_t *)udph, ntohs(udph->len) >> 1,
-> +			   pseudo_sum);
->  }
->  
->  static int fill_header_ipv4(void *p)
-> @@ -479,8 +485,7 @@ static void fill_header_udp(void *p, bool is_ipv4)
->  	udph->len    = ntohs(sizeof(*udph) + cfg_payload_len);
->  	udph->check  = 0;
->  
-> -	udph->check  = get_udp_csum(udph, is_ipv4 ? sizeof(struct in_addr) :
-> -						    sizeof(struct in6_addr));
-> +	udph->check  = get_udp_csum(udph, is_ipv4);
->  }
->  
->  static void do_test(int family, unsigned int report_opt)
-> -- 
-> 2.43.0
-> 
+On Tue, 27 Oct 2026 22:24:24 -0700 SJ Park <sj@kernel.org> wrote:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> Hello Jinjie,
+> 
+> On Wed, 28 Oct 2026 10:36:28 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+> 
+> > DAMON_RECLAIM runs its scheme only while the free memory rate is
+> > between `wmarks_low` and `wmarks_mid`.
+> > 
+> > But some users want to reclaim cold pages even while the system has
+> > plenty of free memory, and it is not obvious that the existing
+> > watermarks parameters can already do that. So Document the setup.
+> 
+> Thank you for this patch!
+> 
+> > 
+> > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> > ---
+> >  Documentation/admin-guide/mm/damon/reclaim.rst | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> > 
+> > diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
+> > index ec7e3e32b4ac..23fede7d1cdb 100644
+> > --- a/Documentation/admin-guide/mm/damon/reclaim.rst
+> > +++ b/Documentation/admin-guide/mm/damon/reclaim.rst
+> > @@ -193,6 +193,13 @@ DAMON_RECLAIM becomes inactive, so it does nothing but periodically checks the
+> >  watermarks.  In the case, the system falls back to the LRU-list based page
+> >  granularity reclamation logic.
+> >  
+> > +To keep DAMON_RECLAIM always active regardless of the free memory rate, set
+> > +``wmarks_high``, ``wmarks_mid`` and ``wmarks_low`` to ``1000``, ``1000`` and
+> > +``0``, respectively.  Then the reclamation is limited only by ``min_age`` and
+> > +the quotas.  This is useful for reclaiming cold pages even while the system
+> > +has plenty of free memory, e.g., right after an idle virtual machine is
+> > +paused.
+> > +
+> 
+> I feel like above might be too detailed.  Particularly, the second sentence
+> looks too detailed.  In a sense, it is not technically correct because of
+> 'skip_anon' parameter.  We might later need to add more such controls, and I
+> concern if this kind of detailed documentation will limit such extensions.
+> 
+> What about keeping only the first sentence and dropping later two sentences?
+
+If you don't mind, I could add this patch to damon/next after dropping the last
+two sentences on my own.
+
+
+Thanks,
+SJ
+
+[...]
