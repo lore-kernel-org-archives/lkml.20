@@ -1,81 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793185006;
-	b=1N0Se3yw+TqLLGLD+zqdTZevtNKhPXPidCdlE4p4YHnHxjs9CHBD0Z4rIQ4zbsCol7OZ
-	 CZsj/2pu9D3t1CZ8wPy62XNJOkbYVXUtdN43VWU4OftseSf+Cb99/PZZh8DVgvsVW46v2
-	 2xl4PL9xtQyY1YsI5ffCqhQqR4w4n6qf3K/eyosc/Qah+Cd7n+gXBDFVeOD8n++lADzv/
-	 mFXe5+zlRXV7bLlG6tEc/4hCNxND26qghS9aExcuWaDrgaMm0iqe1pCW8XEl+jDdpKpNJ
-	 b1St41mpMmLsIPJ+ESMAOPboSTf6AHtud6TB9FEiwogOZ0zZ/VkS0A6lhpUWMhpVvQQ==
+	t=1793185094;
+	b=kOgXsF1G0BR80UEiag4ud+6usCxq6+4RUA8/zpv2uLh8TSKBD+gROsfc2pdATZ1HgwfH
+	 9nRERTiNe6ACVNYIbsRu6/66HApSIWEwdbIAlRQBE6GxxEo/e+5RnbBlGIpsf7OsL9HbV
+	 vX6ob+dvBT6mywOx2qGGf9TLes5nKrxLLJR9VGXebbedT9cEanFsA+A5EZnTKiW7OrFDU
+	 HvmMsdY4rDlZ57Ej+1Sp/rY9kJ/iVm3AGwMYNiGnkAdwhGsJ1HxwMDa+aX7IAqkLZhNKR
+	 WvPVowCN0tP9wFM3WnfOhgUPLazVIKCByFPFjG3i+S9twJjOz24xe51yQ8yRbHjHCFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793185006;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=P3Cx7xZ3eRr6G5PUqS9jqZ8goXeOXuPLjJPRVGRgDAw=;
-	b=Iv5gQ9WwEOLqfLCNKV7uBgn9XFlwmli03oZDOrejLnlDVJlYvGlDQHKwNkISn809KlBk
-	 uVAUKOmwSd0NvCIVQzIQ2PfB8yTGl1aumEtlMOqB1MCs2aKp4pCRdyKJ2SJTWpC854WTJ
-	 eI5dy+2LYlxwwgzJ7pAYlh5QARTCLh2aSDAw1bAJy+3phZoUxqyYC1yddJGtJ2DtDLG95
-	 zfRXGota26H0nsIB/fk5Lt0QezCsityTDuj1cOrXvDjn7+CH9299ZWYPNiVQxcJZaJClN
-	 S/d9E91AQmInyF1uOkOxd4ukR/0xixGJSPGMokUWn8gJ6vPJxwmq/POjd8A5i0YlevA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793185094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Q1RsoPgnfkWmfzIcQOevxAgUv9RWbdrqvZKCjq9hQeg=;
+	b=U4Vv19e0O3FlLTMIDn9gEdrwdVWwpTdQzrZvz5WsdAYukGGs37xnFsI/4bCYagcxd7/f
+	 wmPQ8mOcz9qcD/6s15XLUQmAtrIAZR99peTJ6aQgrjKhmGtezZZhiiELAhJJ9fIgp5WYg
+	 +KSy5KJZdNAWbWxTARroWqWONR9FzVE5048oFZZ7db2bnOq8EBgPe6a89P+yvkCrsOR8Q
+	 uENzVuBlzYnOioUu+F+aCmuUcUEaxppSYzADxwRbCilPFi+apc3mMy+HrslBCLu2U/XOX
+	 9cZBnF4Ao8lVD+gRn6Ju96iyctm0qWGKQ7ddkFHCYwgiVnl4x3+f3qFxJDf89gBUAyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KlrSArkg;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=GivSWpYZ;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA77606A31C;
-	Wed, 28 Oct 2026 10:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CA77606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65DD606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B65DD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KlrSArkg
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8ib9m791581;
-	Wed, 28 Oct 2026 10:56:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=P3Cx7x
-	Z3eRr6G5PUqS9jqZ8goXeOXuPLjJPRVGRgDAw=; b=KlrSArkgWf18n7oDaVdJvv
-	jUOKJsaGTHLXpIeXN/+lBc7nSgYaSwvgm3j6CH96jhfLHjgN4qPCnu9tWLP9ihg7
-	aAVTpZnUW7stavv2iBRlEiiGXl1Zv9j2y8YEfThspNNaXXa7MF6rC23gU2a0ntDh
-	HL5ziUjHOkGn939YsfCO/MhGRi0blxaRr2HuuZkpTDjM48hjV7yXDVRL0O49xVJT
-	cdaeKbUvn/+mzBb1BycH0bpvIZo787nPbk9oj6tiCJf5jcPBSE8PVs52kExNUuE5
-	4tyJaBtfqinwNdVux7RT2q96kjR9l7yV09ICcs217cvW1CJ8sVmWQGWnxaLrIn2w
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmavksud-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 10:56:44 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8K6r11316185;
-	Wed, 28 Oct 2026 10:56:44 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjvh1v927-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 10:56:44 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SAuemr34079020
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 10:56:40 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8613E2004B;
-	Wed, 28 Oct 2026 10:56:40 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 49BEE20040;
-	Wed, 28 Oct 2026 10:56:40 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.73.9])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 10:56:40 +0000 (GMT)
-Message-ID: <72bd0cb0-2c5e-4c51-b68a-499ab96689fa@linux.ibm.com>
-Date: Wed, 28 Oct 2026 11:56:39 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=GivSWpYZ
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so5661435e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:58:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793185092; x=1793789892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q1RsoPgnfkWmfzIcQOevxAgUv9RWbdrqvZKCjq9hQeg=;
+        b=GivSWpYZ0b5ikL0WirNkogDtQIaJF9JnCAAB7wXuMCQm0nxYklLILmPiqrBVMyjlHK
+         fIBaVv3uGdWIumdKrf6seIRCnj56owvuip6GEDmX74WBq/gM/JDoE2WwSpiPciz7hJ9n
+         nA0dEafM4LG3GVapQx6FLZNTooVewlXjix6oU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793185092; x=1793789892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q1RsoPgnfkWmfzIcQOevxAgUv9RWbdrqvZKCjq9hQeg=;
+        b=m1djzcTu2hAqijG/h4s//vkIH69CWCCqpIjyUpQntpWLieUuQDwhckWMbbmUOci3Og
+         gsvIwVfhZnYEO0Tx7sCPP+E0aXpcSaH7cOmwzUxhMQgTbCe9E8LehnQ4nLVUqXKs1fgT
+         wvGcvLlDrRgwdMalPDw5uIxabHo7Cn97x0lelOBdLkROemclSh4WMYfJtKDNUpkv14Xs
+         OjSa3UTNS5BqjPBkN/FNEfia77hz+57vhv7/F+IovBHIhurZgRvao9Dc+L6gH4gj4C+6
+         +AjZXu9a0kpDgysPKWNPGgfytYoW3SmEJgfzDb1f0lKXF3u3ML3LfK/W6ZUINAHXZRSo
+         yBoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPp2ZC3hFX4dE1ir/9AGjV/lSkebUjhjy/5xAj4+xn/tLHVDt7gqIGsvgPwk5m1kcOEHHC3DsBpwabw54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIy9IbcYLNpzpLwl+9CAbITaTq4dSsB7WjYwoaowbCgfsr2ec8
+	8OON58uXSjn+lS/YMapZDHaf0kdbxAAHh4mstj8AiQbV4eYuJY1Ik1QwPnvNzFzQyLc=
+X-Gm-Gg: AYBFou1k4i4Uou4Py4lRcs9rJxJVP0f8IBy9gdJLL5gaOj1GkIIMbkkL21R4sV+tJMr
+	v9a5FSo6QO7Dte5UNBEqe4ve4d1Wm9dPeEER10luFWYhH0RG81dUeLB+m+oKr3fElbSrskHfzWy
+	XYfISdLgbGxKnSMl40KE8CFuiEufFb6yuE9WvYp6wYOqXhUBvQ+Mx4YJHQacgrbqQ7c8CL2ULON
+	oapusWdxfBrmPQC1a1N9tgyVRf247aOLwmQMch6sX5tlceWU1YjqvcuWBJOqEqJcxUbrk3maryw
+	CBH90puUpap6h2jYS54MYIzWsxk6BV0HM+/EfMxE1TBDFleIRPVX54YWB5yu3vfNj/KYrpvP32J
+	7DQKgOXlqRYTBEh7BOuLIrGP17K0ytlEyO4KZ+Ba0Cxwg+ZPzBuvyjxRMm56a0IjaJp1pz9YCXo
+	QY47cAjpvHonrstiCAHmPjdLzap0P72Vy1dDtntkmh0g6xvIk2Nd8VPAMNMspY9K9x4oTsBYHMv
+	oKtW9e6ew6GJoDRGn5VeMemrwSYtUM3dM7J8yrz2OgphteFvB4PY55Jx8u+cyQ/hv7JUN4kM3aM
+	f/bbw9/MbUXdM/30bXtl49Vye4YyJON84Shbx1VsezFFbRKPHQW5ly3tuM2Gj8Xfsmm6G7Oqpfn
+	v0VdygEmkRfeA2nzQthI1N10ELt2UfKx1nFpP+9UX0uB/McPqJNy1pbaNw9JrMALe/x7wLxY=
+X-Received: by 2002:a05:600c:4e03:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4a9640f217amr38505965e9.2.1793185092065;
+        Wed, 28 Oct 2026 03:58:12 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c42ca77sm35782785e9.8.2026.10.28.03.58.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:58:11 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] arm64: dts: st: add firmware reserved memory to Engicam MicroGEA-STM32MP257
+Date: Wed, 28 Oct 2026 11:57:40 +0100
+Message-ID: <20261028105807.2567225-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,64 +101,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/10] s390/bpf: Serialize text patching with
- text_mutex
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
- <20261027143030.3154657-4-hca@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261027143030.3154657-4-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=P8SvFSAu c=1 sm=1 tr=0 ts=6ae1d4ed cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=Yp5wXM3k0iUQaFnxeTgA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-GUID: 85FYskONHFN3onAgQTPJ0EW8SZGl86x1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX1sj7e3ycHmB9
- I4XhlKlyCzSyEsQ/fE/3lx7us8tTuByoa/CR9uzT3v4sHsZnWE/c9zMLGH00j604Ba4CvZmf/kf
- Yk0DhCg3DCr7ePQmL8MqQoGXAYgZb7M=
-X-Proofpoint-ORIG-GUID: 85FYskONHFN3onAgQTPJ0EW8SZGl86x1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX0J0gZddOOnnY
- YroByeSmRJwJ6Qhn9vjVbF3j/IRjOSAWwyHzTenOPNe61X8FKrXvHogdxWZvlmpHjqIhpllI8wh
- 3ljjuTUpEh0/N2iX8ExW9xe0lsfwYatVTZT4b7z5z4J+u/4sdHJSUwbqQD7tAzG6JSIjdcZ+CEA
- Y68xJj4IKLImeasQkhpoo2JJuHzY/K5473+xkyEzbVPkVdRw/oSrhNxaOh90P8lU33cRNAOc+Je
- xtjtzu3KX0V8ZA4wp1t3BEqnjpbQwkbFteA9bZ7rMnzNANvxDZP3IQ2edOYOxY2PtUHAUTohLYi
- B4Fr5DvQu8bdASCEIcrO4ZzIfhoeU+WWN5SfVXZ2NqT9ibExvoCgKxryLPg72/vEkznDlujVeSp
- 0T45xpXdjQnrSvz51QgYhpsehCcl5HGTU+q3uV/qOk+6mZQaKaRULz4mc+K8DTo70VNhvu5gvYl
- OK2zOL1kcCWHoKUjX/w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280042
+Content-Transfer-Encoding: 8bit
 
+The first 64 MiB of the DDR are used by the secure firmware (TF-M,
+Cortex-M33 firmware, BL31 and OP-TEE) and are protected by the RISAF
+firewall. Without a reserved-memory node Linux allocates pages there,
+and the first access triggers an IAC exception and an OP-TEE panic:
 
+  E/TC:0   stm32_iac_itr:197 IAC exception ID: 137
+  Faulty address (IADDR0): 0x80000060
+  E/TC:0   Panic at core/drivers/firewall/stm32_iac.c:212 <stm32_iac_itr>
 
-On 10/27/26 15:30, Heiko Carstens wrote:
-> Acquire text_mutex in bpf_arch_text_poke(). This way s390 uses text_mutex
-> like most other architectures.
-> 
-> This is part of larger series where at the end s390_kernel_write()
-> requires that callers hold text_mutex for serialization.
-> 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->   arch/s390/net/bpf_jit_comp.c | 21 +++++++++++++++++----
->   1 file changed, 17 insertions(+), 4 deletions(-)
+Reserve the region, as done for the stm32mp257f-ev1 board.
 
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+Fixes: c5ce8d7bcc78 ("arm64: dts: st: support Engicam MicroGEA-STM32MP257 SoM")
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
+---
+
+ .../boot/dts/st/stm32mp257-engicam-microgea.dtsi     | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
+index 5b4287e86def..6cd64587ecdc 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
+@@ -19,6 +19,18 @@ memory@80000000 {
+ 		device_type = "memory";
+ 		reg = <0x0 0x80000000 0x0 0x80000000>;
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		fw@80000000 {
++			compatible = "shared-dma-pool";
++			reg = <0x0 0x80000000 0x0 0x4000000>;
++			no-map;
++		};
++	};
+ };
+ 
+ &scmi_regu {
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+branch: stm32mp257-engicam-microgea-fw-reserved-memory
+
+-- 
+2.43.0
 
