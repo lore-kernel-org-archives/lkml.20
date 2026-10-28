@@ -1,107 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174662;
-	b=tM1eKuiw+qZaW4h3XGvCwYkS/XfKug7dbHF76lC2dbk1ug8xvnamlAHLNUcKtRyY6Ym4
-	 WYSsTQIX2BzC9RjIZF9e7G+SozvIngByaQVo1G6c6LCXwHlnSVlvy15fxiTtns1I82D32
-	 hcpatUDoZmlV8TDtUtAPz80kIA8/AvPLzxw/3n9GZLWEEWFGY4yD9stkyyQArwbGrnEXy
-	 mfvgUDn/FQ+xfCyDjnVf6xdZGKZbmhs58AlRad0r58Xr7Crrpi+P6ycYzq8gw1jlvHm31
-	 TkBSix9Gbj1UM15RkLylsq5suBK4hROOFbTlOf09oudsg+b/8LcGcyPFOYPZuja9R7w==
+	t=1793174676;
+	b=y5QurF6KBJJZBZDl+mE0fPlTMsSkk+tsuR2v3z0Jx0etK2BMHOAxODPFNXICQ5y9UXPS
+	 CSHbvSy1M7Sj2qKCTg0WPT7Abv3WyJvt1NjW9eKR5Xb5W8eXpjQMYP1EhCYEbc5FFyNpF
+	 K1PncJBnmm3G2akgG72yRjfQ9ldX05FSTT/vbhoT4j4IpKATalKuh5y8+8zKyCgnDUVHf
+	 1hy4sgUIkvU2X1wna6mdm/VBfRkthVfjaBRAjj4jOSsD+0OwxMeA/ev3V8Si4F9+ziRVu
+	 seQdkNsIxywOsDHH1WOwkifoRIA03UxnJawBmDwROyoggq0Oc1jsWa7epxUT7z+luQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174662;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=QYUY+SzuyzidMIs5wvcWQ+wJedzQHVpapr2RX4nAS3g=;
-	b=aTCP8atxdM5BlUJgkAlpC5uZTrCgJHVEntngJprjERh8IqtrmZQTX6Spl4k2QvqHOpie
-	 LJIH5i0ircn2R92jq5tpC6OWcT5VTdAXRV0Ocfyj1JS5+OaMWQwEvVaaFxdBCLF5cUDI8
-	 z5MCvTzAZ0FsltTlBjh5Yp2A14Hc0fHInMlil+Wr7F4lfgbXwd5mfgBVLOLoML2naUpXo
-	 Lj+FzrCZih+dwmV9bfoBWG9GHo1HRd539Ooeu8L9QtALEO8WEANTAKSDFptRd8FK7sB5O
-	 iAIXiUfiMndIfnoEKgrfMwfwTCZt8rBBpFjmqtIhqaXmDDNzoBq5mOVN9I+T09HaPDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174676;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dMVQm1q9hj5px7kva5n+Re31faL4ivcfdXRilvKCNy0=;
+	b=fQhu2U3xz24CgGGY71729zR3SR+QTIjsBO1K4OYlsVa7qA15MOSA7U1ths+4nDE5MGbS
+	 BlGWJaumvGz3GkzBwPjw0EpkmQcp2I9fbOpD7uZE8nwfK3xYgCz+IaIPVWuNqXar+flFH
+	 BnjG7Z8HJuuX1ZRKr6Jxktvba3nCVUAJ0d5nV8p7Ei97B7iAeCeZjqc3UwG/ffF3ETFjl
+	 4m+BXEU2hKfHJ/lQqWi3LKTH1qmKqwH39FPPQZ+/GKoH4fr3kEa+2UWpphVa0BS6WIto+
+	 G0JwDD3YvBdWtYgztxBoexrFU/kIF8SP1/RFT/DQtps4nwEFZh2r1kPsQxgA8muTVYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSBniF0w;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lSaftPGg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E841606A31D;
-	Wed, 28 Oct 2026 08:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E841606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E45606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PSBniF0w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793174661; x=1824710661;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GlCrv/Z8ykZTWKLkjrgizpbqqqsL18IOZ9JsGj4pQww=;
-  b=PSBniF0wd7ppMixld2UUoEB73b1yiGoF8vRXQw+G1YSVuOdfGa10kRy1
-   PP038b2/20WyHj8Za8s3lOK6A5CKledqp9kljtVsDUOiHC+eGA3zA2vlM
-   MT+/FAI3eBlmS2C57vmTMY/nyWjYUaQySkZWV1rFyvAhDua/Nh3xd3GdY
-   sWwjrfJ8DDi7yQFTihVA+9UVxHpxbl2/Ir0XbFIFvaF+ALvnRLsnNW4NV
-   s/AYwI6IkDwqYskbzcKE+gmmy5RrHX+JztLgLKfgdsnx3gKVSDAKY0OQJ
-   fttgekcrMV59ncuafHN6jde7skpkm3TP+u/EPoo8Z96VcipDy/1yMDhB8
-   Q==;
-X-CSE-ConnectionGUID: VvuNxWhBR5mRVIB/1sqpXw==
-X-CSE-MsgGUID: S9P5R5nJQ4GOca9bIDys7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1780746"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1780746"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:04:20 -0700
-X-CSE-ConnectionGUID: 3U2XXT5qQFSCkgAuKxEChg==
-X-CSE-MsgGUID: XN/qcR2yR4S9jibXAKAjrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4852263"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:04:11 -0700
-Date: Wed, 28 Oct 2026 10:04:08 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Zhou Wang <wangzhou1@hisilicon.com>,
-	Longfang Liu <liulongfang@huawei.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Taichi Sugaya <sugaya.taichi@socionext.com>,
-	Takao Orito <orito.takao@socionext.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-tegra@vger.kernel.org,
-	Frank Li <Frank.li@oss.nxp.com>
-Subject: Re: [PATCH v3 1/2] dmaengine: virt-dma: share the DMAengine
- synchronization callback
-Message-ID: <auGseGw39K115Zfi@ashevche-desk.local>
-References: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-0-aad7a6b3c62e@gmail.com>
- <20261027-submit-mtk-uart-dma-synchronize-v1-v3-1-aad7a6b3c62e@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lSaftPGg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF291F01825;
+	Wed, 28 Oct 2026 08:04:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793174675;
+	bh=dMVQm1q9hj5px7kva5n+Re31faL4ivcfdXRilvKCNy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lSaftPGg9mCVlEp1rZx1cE0wm91xV4FYGjWuTotVlo2FRnQcWd4kXkBbWPS+DihbS
+	 UNX4QYI7AY1j9P6FzC2pjiE6+yMfZr/fiZYxLw27KfN6K+X1kffTpR3aswSCKB+4WQ
+	 Sz+wElTmH3iwjzEDGYNe4B8KEhVYqUpp8J+FD5eU=
+Date: Wed, 28 Oct 2026 09:04:31 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Yaxing Guo <guoyaxing@bosc.ac.cn>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] uio: uio_pci_generic_sva: reject multiple opens
+Message-ID: <2026102846-zoom-upwind-cce7@gregkh>
+References: <20261028072725.623111-2-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,31 +54,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-1-aad7a6b3c62e@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261028072725.623111-2-thnkslprpt@gmail.com>
 
-On Tue, Oct 27, 2026 at 12:22:26PM -0600, James Hilliard wrote:
-> Several virt-dma drivers implement device_synchronize with a wrapper that
-> only converts the DMA channel and calls vchan_synchronize(). Provide
-> vchan_dma_synchronize() with the DMAengine callback signature so these
-> drivers can assign it directly.
+On Wed, Oct 28, 2026 at 09:27:26AM +0200, Avi Weiss wrote:
+> uio_pci_sva_open() stores an SVA binding handle in device-wide state.
+> A second open from another address space overwrites that handle. Closing
+> the two descriptors then unbinds the second handle twice and leaves the
+> first binding active.
 > 
-> Document the requirement to stop the channel and prevent new callbacks
-> before synchronization, and the context in which the callback wait may
-> run. Replace the equivalent wrappers in the existing drivers with the
-> shared helper, preserving their callback-wait and descriptor-cleanup
-> behavior.
+> Reject another open while a binding is active and clear the handle on
+> release. UIO core already serializes the callbacks under info_lock.
 
-...
+That's up to userspace to protect, as it can pass around file
+descriptors to other processes just fine, and the kernel can't do
+anything about that, so this type of change doesn't make much sense.
 
->  drivers/dma/hsu/hsu.c                          |  9 +--------
->  drivers/dma/idma64.c                           |  9 +--------
+In other words, if you open the device multiple times, that's your
+problem, you get to keep both pieces :)
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com> # hsu, idma64, virt-dma
+thanks,
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+greg k-h
