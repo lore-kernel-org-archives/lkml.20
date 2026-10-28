@@ -1,92 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793231232;
-	b=2PYZCg3mThLzezw1w8n3cKmfiXois7312sqxBrg6f75mQfDuzrQrbW/WZs7xuOcOUmc3
-	 rbvAyYsmgAxwb1liL0ds61kEzS0psOySjwAOK7dXCejsRXeZKbI9hw8qfkCSpGbJGl56c
-	 ZzliyZUGe4HuKOTQJu0idfUKx4qe7qVKIb9xhmoceGfN2sArbnVHqK/zEO/p+T21gKS1B
-	 SSOy32jI7FqP7nnvp7hFQC42b0O85ETPRx+PmLrdYsy8Rppmd4YAimx363Lpmsjqq2oTI
-	 gChxwBW+3ztxI7apDI31m2qn6BEoF4vOhCmCo2980ad7MfUvrudDgMzVPSpVvbIvFQA==
+	t=1793231474;
+	b=rPnic9r2abfHvRfo6vh/ag5vZQek2Kz0cu1rnSmdw7R/XwGiFBVO0IN7RrTd86JBOFad
+	 khCjN6J1NMqTGJGHavV0VhDZz9/ZmYp6jRxVZJF4sBrUDjA6OEBymNNLz0H19o3fCP2VR
+	 5Zfat+pk8FRihUT6BfWuqJSOUBKDOD7mUWrfgEPK2NtTnsvUo/Js5HaoF2omGAKpebEY0
+	 PUqG6jUu3/qz0vO62qjwZaiI6vuzthigwys9R8rJhZAODnxY1uGcWmQtiQrlUTmhp1Jue
+	 bcgX6V43LWoh44uYpsXWW2vRMUNdOIjkJdZeBG8czY3XxL0RfywMS+x4eShNciqUiwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793231232;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=neOivWsfnHbQR3N6AKh/3PoW3tIDMGi3k5qezfAAwY4=;
-	b=vbXkEV5Z5oBXMuPtH9KWc+F9vfTYPbVbrN5cEmremTKv0nHnm/7UM5fOrG9FrE/7JFUE
-	 ad/hpOcLIMtiGa8hw6thvz2TRO/TXIiLOQfSwYLm9b9ndsVh15iGYoACBqO1XTrnPy3g6
-	 QQ4S6jMU/Jj30PM5Wy4gVa5Q8w77jxf65ZhZ5aszGbjwECpywmB3psanHfgmuYMYLiy8v
-	 Uj51XEXBrGg6jmoheaGi51m/TnS2gMoZaCVLVsS7d2QJRAMyo2uISZcXupc8b4CenzMgk
-	 pW4XOb1uaxmdhfCTk+gJ42vG2R7sD1EKqH5oXwE9YZCBZdRyrmS7wx9X5XvRmlInZIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793231474;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=qE+gdncUYmDtaXPwhKS4SBqJ3puL8SPS2UeBXaanCbk=;
+	b=QjVGWhvpomOaUeTMzO+3blHX8X+BldoHayYHC+R6inwVFaUzv03DCyYO54oYF9TiCNkM
+	 OwTbVjQvBgIMEwJN2c9Zmus6gVdGfTZnxr7rljn5lFdTBqjinx5JpRs8sBW4ZXa2NHPhs
+	 Vl0e/onxlbJe+CBXwOOUglYpS5fKgb0LrzWmA8vpQJtLQY5XbYpQblN89LnAKX761Mm3n
+	 3O+oSX+cwS1DhSXhWb4DrI5GvdfQXBBZplVK0W20XAeBQ++Hgg5qTOt4SwKpnEhIHu6x/
+	 gNolAFZTAv8dKYtp3ggEkodMlPMU3vngGe/+myhjZZ90HUwVju9Wec6a/kexn6xO1hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f/4cLrJ4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EdM5uZYy;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746DF606A31A;
-	Wed, 28 Oct 2026 23:47:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA73606A33A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA73606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/4cLrJ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF611F01825;
-	Wed, 28 Oct 2026 23:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793231232;
-	bh=neOivWsfnHbQR3N6AKh/3PoW3tIDMGi3k5qezfAAwY4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=f/4cLrJ4TGztgvmr14VBy6t7mBV8AM+uDlLfYVyShzm7APQvQBIiI0EDLgRGe0v7z
-	 LrPP1CYrALPm5Q04g1ErXIwYEqxpncy7n/vcasP5VS7fxapXxWQMRvQ3eLtXYsxC4u
-	 pO80RH6CgwyVic6xTA3E8YyB/WqO22L05DI08uL25eIqchvragaWR3rowAwilUDAAt
-	 Xh6oVb4uczfsq1lW3toZ9+v63X4qnWgC+a2EdGz7QxrKclbDs6hRlAucgG9mlmv1zz
-	 0pRXR0bqvqejkSM04r2n2wZ9K5nHoWUM+gUptsMAuOcN5EfgGaQV+XNpzRAcoIe2zH
-	 rDwATDPNl5e/Q==
-Date: Wed, 28 Oct 2026 23:46:52 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Frank Li <Frank.Li@nxp.com>, Vinod Koul
- <vkoul@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Tiffany Lin
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5?=
- =?UTF-8?B?xYRza2k=?= <kwilczynski@kernel.org>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Christian Marangi
- <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, Aakarsh Jain
- <aakarsh.jain@samsung.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
- imx@lists.linux.dev, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-Message-ID: <20261028234652.0d075035@jic23-hlaptop>
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
-References: <20261028120216.2657397-1-robh@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EdM5uZYy
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so1219988a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:51:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793231473; x=1793836273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qE+gdncUYmDtaXPwhKS4SBqJ3puL8SPS2UeBXaanCbk=;
+        b=Y9SdWxERmDPNTBCEEnFtYFOZ5+lsV6zT3TsLO50EBLGMtkfC4NZBiGinWrcl2dXaLm
+         FipiFIoT6ZstMY0MK0CrAYbA8tJi5A8yKNBNOES9IW5escJzXBV3hpmWINEMRsv4D+Hz
+         g1GxTZW/9Cwdw9CEYU/eGHxZuT/zCOdLp1A2z51cPImCvl5JOxVOLD9AraqQIO34w1Aq
+         hCc3Z09GEhrG4mXYv9N5OWsWMyIW1GjAGFK/UISJzt2rV6iVM/7J2EqNHFY7BHAoCkha
+         74h0UmoRwG/zbC3hrSFI2lDedSndUVHvVDfhmH094mPfifi0kBzC2l+4xIAtVfHrrtfC
+         WDrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrj7tsVcdwK9TNY/ObJCQWnS5uxy+Ar/PW6kux5bJlP5zn1o5HLtP+cEMHEsaFhJE2aYbHup6Wg/qQ7A0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKraEVyEmMZ9Xy6Kn85wqwqAVE1bBTpvilO+QrXhfLfYJjyq2ar
+	zOeTxo8PI+ZYwQV1/FnpBB2ufrD7NbQ7D8J6PsNB6DYC20E6VALHmbcv93El66RNfeJoI+CobYl
+	TZ7KAe0Cbfq2A90yxbCU6rqQqMA86acGBMukmSJkw5ZjZpD+VAiQVNUUmuB0OQvf5JqZtGMutdk
+	IWYf3UPlmq5ce8H69qVnMvnkplrDmARpp5Nl/g6350BpxnC3QBbqYwqwFlsbT1xAMIY83YIDFOD
+	IlGhYhoLNCkwe1ikEONeWY1
+X-Gm-Gg: AYBFou2xlrCMSBGJvNEQKNZuQFWY5KZ4y8PPboSnnk+yf/r7ycUsomv4XbEU6pfNs7J
+	O/WEpsOklGu0AzU5Pimdy689iBN2vdXTdudQjo1fYS8QfSefJY059um4fqhvADNiHZmhoQFQVAe
+	z+AI1j/TSCUqs535wEl7/XvXicMSkgjceMmucprlXw1UmETysmXq/UcpAgRC+DFxd6PGYgAzMZh
+	VfQvzw0ooZhKb+Eur6guTzEhYnlzAfXEpH/X438wGo6lWKmZjnPMkd6GVunOcP5t1EUX6nKzCfi
+	DIWNLRk1qMoIpHOfoTwXC2ntgbh2fI5fLQOA2qcEh0DUO+6tUo1El6ql2in3p9DhYCUA5ADuf7k
+	c/ov4it5VmEH9y7pWt6nhrxqJ/FD0Fni/E7ndRydmal0VsoY6ifRXyVBBd1Z9SHXE9oL018qzPz
+	iEJvoANWKKX3YQC0bxHKo9ZQvzpdkX4cbPBcesisCG
+X-Received: by 2002:a17:90b:48c6:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3ae5836cbd4mr3013656a91.63.1793231473113;
+        Wed, 28 Oct 2026 16:51:13 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e5e5305sm752380a91.1.2026.10.28.16.51.12
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 28 Oct 2026 16:51:13 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91785bd637bso28996126d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793231472; x=1793836272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qE+gdncUYmDtaXPwhKS4SBqJ3puL8SPS2UeBXaanCbk=;
+        b=EdM5uZYyS0r+GAkwxx8JeK8c7vaySU1BZ4no7WThfG5gAnAuqrK9K4ZNyVV99YqPjb
+         8FDGIotB+ZSFT4VHMkl+TOjCUyBbD1y3T2423bS38Ko6yuMKNcXT6w4iAMJOvR6kv7KK
+         VKPmXTZBxfbBvC3NDqK9OjmKndQLhDHJR9nKA=
+X-Forwarded-Encrypted: i=1; AKwUvByd11A3XPR5+2sRe6e1mP5zuIiEfuMLujnP9uKib2FaVsXIuRwGsWSPIaZqLRwcRMhb7RihPqFYKg2qS7M=@vger.kernel.org
+X-Received: by 2002:a05:6214:21e5:b0:91c:7542:c033 with SMTP id 6a1803df08f44-91c7d216a69mr64594206d6.42.1793231471534;
+        Wed, 28 Oct 2026 16:51:11 -0700 (PDT)
+X-Received: by 2002:a05:6214:21e5:b0:91c:7542:c033 with SMTP id 6a1803df08f44-91c7d216a69mr64593986d6.42.1793231470984;
+        Wed, 28 Oct 2026 16:51:10 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c84ca44e3sm23074216d6.10.2026.10.28.16.51.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 16:51:10 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v3 1/2] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
+Date: Wed, 28 Oct 2026 16:50:59 -0700
+Message-ID: <20261028235100.3892374-2-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028235100.3892374-1-florian.fainelli@broadcom.com>
+References: <20261028235100.3892374-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,236 +121,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Wed, 28 Oct 2026 07:02:12 -0500
-"Rob Herring (Arm)" <robh@kernel.org> wrote:
+IGMPv2 reports and MLDv1 reports are addressed to the multicast group
+itself. Once the first listener is installed in the ARL table, subsequent
+reports can follow that entry without reaching the CPU. The bridge then
+fails to learn additional listeners, although static MDB forwarding works.
 
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
-> 
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
->  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
->  .../bindings/display/msm/dp-controller.yaml          |  2 +-
->  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
->  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
->  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
->  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
+Enable the high-level protocol classifiers so that IGMP and MLD control
+packets are copied to the CPU independently of the multicast ARL lookup.
+Retain normal L2 forwarding by clearing the CPU-only forwarding modes,
+and preserve unrelated protocol-control fields.
 
-For IIO
+Handle the BCM5395's 16-bit register and different classifier fields
+separately from the 32-bit layout on the BCM531xx, BCM5301x and newer
+integrated RoboSwitch families, including BCM7445, BCM7278 and BCM4908.
+Export the helper and call it from bcm_sf2_sw_setup() as well, since SF2
+uses its own setup operation instead of b53_setup(). This also restores
+the classifiers after the switch reset on resume. Leave older devices
+with different IGMP controls untouched, and propagate register access
+failures during setup.
 
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+The SF2 setup integration and BCM4908 chip gate were updated with
+assistance from OpenAI Codex in response to review feedback.
 
->  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
->  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
->  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
->  10 files changed, 19 insertions(+), 23 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> index 88b7672123a0..ed347096df46 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> @@ -62,7 +62,7 @@ then:
->      - '#clock-cells'
->  else:
->    properties:
-> -    clock: false
-> +    clocks: false
->      clock-names: false
->      '#clock-cells': false
->  
-> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> index c1cefd547391..fd4d598f6ff8 100644
-> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> @@ -145,7 +145,7 @@ allOf:
->              - description: CEC stuck at low interrupt
->              - description: Hotplug connected interrupt
->              - description: Hotplug removed interrupt
-> -        interrupts-names:
-> +        interrupt-names:
->            items:
->              - const: cec-tx
->              - const: cec-rx
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 094a6383bb77..f72d1b354007 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -304,7 +304,7 @@ allOf:
->          clocks:
->            minItems: 6
->            maxItems: 6
-> -        clocks-names:
-> +        clock-names:
->            minItems: 6
->            maxItems: 6
->  
-> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> index dfec6c3480f3..02d27ccad024 100644
-> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> @@ -113,7 +113,7 @@ allOf:
->              - const: core
->              - const: master_iface
->              - const: slave_iface
-> -        core-vcc-supplies: false
-> +        core-vcc-supply: false
->  
->    - if:
->        properties:
-> @@ -136,7 +136,7 @@ allOf:
->              - const: core
->              - const: alt_iface
->              - const: extp
-> -        hdmi-mux-supplies: false
-> +        hdmi-mux-supply: false
->  
->    - if:
->        properties:
-> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> index f609038e35ae..0260d177c7d0 100644
-> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> @@ -172,7 +172,7 @@ allOf:
->              const: fsl,imx7ulp-edma
->      then:
->        properties:
-> -        clock:
-> +        clocks:
->            minItems: 2
->            maxItems: 2
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> index 69852444df23..07c8b233c6bd 100644
-> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> @@ -80,7 +80,7 @@ allOf:
->          - resets
->      else:
->        properties:
-> -        "#interrupts-cells": false
-> +        "#interrupt-cells": false
->          interrupt-controller: false
->          resets: false
->  
-> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> index 70ab4e140e71..535213ba0c5e 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> @@ -92,7 +92,7 @@ allOf:
->      else:
->        properties:
->          nvmem-cells: false
-> -        mvmem-cel-names: false
-> +        nvmem-cell-names: false
->          clocks:
->            minItems: 4
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> index 4505e66876a2..52f471a070d5 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> @@ -110,19 +110,15 @@ allOf:
->  
->      then:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_lt_sel
->      else:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_sel
-> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> index b46cc780703c..4488d5ca9b9c 100644
-> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> @@ -174,7 +174,7 @@ allOf:
->              - const: mfc
->          iommus:
->            maxItems: 2
-> -        iommus-names: false
-> +        iommu-names: false
->  
->  examples:
->    - |
-> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> index c009a7a52bc6..7c40361f95ec 100644
-> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> @@ -127,7 +127,7 @@ allOf:
->          phy-names:
->            const: pcie-phy1
->  
-> -        power-domain: false
-> +        power-domains: false
->  
->        required:
->          - resets
-> @@ -150,7 +150,7 @@ allOf:
->            minItems: 2
->            maxItems: 2
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -171,7 +171,7 @@ allOf:
->          clocks:
->            minItems: 6
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -193,7 +193,7 @@ allOf:
->          clocks:
->            minItems: 6
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -215,7 +215,7 @@ allOf:
->          clock-names:
->            maxItems: 1
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -223,7 +223,7 @@ allOf:
->  
->          phy-names: false
->  
-> -        power-domain: false
-> +        power-domains: false
->  
->          mediatek,pbus-csr: false
->  
+Fixes: 5d65b64a3d97 ("net: dsa: b53: Add support for MDB")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ drivers/net/dsa/b53/b53_common.c | 57 ++++++++++++++++++++++++++++++++
+ drivers/net/dsa/b53/b53_priv.h   |  1 +
+ drivers/net/dsa/b53/b53_regs.h   | 17 ++++++++++
+ drivers/net/dsa/bcm_sf2.c        |  5 +++
+ 4 files changed, 80 insertions(+)
+
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 0880310c9ce3..e54f6d4d1f7b 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -836,6 +836,59 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
+ }
+ EXPORT_SYMBOL(b53_brcm_hdr_setup);
+ 
++int b53_enable_mcast_snooping(struct b53_device *dev)
++{
++	u16 val16;
++	u32 val;
++	int ret;
++
++	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
++	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID ||
++	    is5397_98(dev) || is63xx(dev))
++		return 0;
++
++	/* IGMPv2 and MLDv1 reports use the group's destination MAC. Once
++	 * the first listener is offloaded, ordinary multicast forwarding
++	 * can keep subsequent reports from reaching the bridge CPU.
++	 */
++
++	/* BCM5395 has a narrower register and a single IGMP classifier.
++	 * Its ICMPv6 classifier also covers MLD.
++	 */
++	if (dev->chip_id == BCM5395_DEVICE_ID) {
++		ret = b53_read16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val16);
++		if (ret)
++			return ret;
++
++		val16 |= HL_PRTC_IGMP_IP_EN_5395 | HL_PRTC_ICMPV6_EN;
++		/* Zero forwarding modes copy control traffic to the CPU
++		 * independently of the ARL lookup, retaining L2 forwarding.
++		 */
++		val16 &= ~(HL_PRTC_IGMP_FWD_MODE_5395 |
++			   HL_PRTC_ICMPV6_FWD_MODE);
++
++		return b53_write16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL,
++				   val16);
++	}
++
++	ret = b53_read32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val);
++	if (ret)
++		return ret;
++
++	val |= HL_PRTC_IGMP_RPTLVE_EN | HL_PRTC_IGMP_QRY_EN |
++	       HL_PRTC_IGMP_UKN_EN | HL_PRTC_MLD_RPTDONE_EN |
++	       HL_PRTC_MLD_QRY_EN;
++	/* Zero forwarding modes copy control traffic to the CPU
++	 * independently of the ARL lookup, retaining L2 forwarding.
++	 */
++	val &= ~(HL_PRTC_IGMP_RPTLVE_FWD_MODE | HL_PRTC_IGMP_QRY_FWD_MODE |
++		 HL_PRTC_IGMP_UKN_FWD_MODE | HL_PRTC_MLD_RPTDONE_FWD_MODE |
++		 HL_PRTC_MLD_QRY_FWD_MODE);
++
++	return b53_write32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, val);
++}
++EXPORT_SYMBOL(b53_enable_mcast_snooping);
++
+ static void b53_enable_cpu_port(struct b53_device *dev, int port)
+ {
+ 	u8 port_ctrl;
+@@ -1334,6 +1387,10 @@ static int b53_setup(struct dsa_switch *ds)
+ 			b53_disable_port(ds, port);
+ 	}
+ 
++	ret = b53_enable_mcast_snooping(dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
+index 29cca7945df7..c4d2a41c714f 100644
+--- a/drivers/net/dsa/b53/b53_priv.h
++++ b/drivers/net/dsa/b53/b53_priv.h
+@@ -504,6 +504,7 @@ static inline struct gpio_desc *b53_switch_get_reset_gpio(struct b53_device *dev
+ /* Exported functions towards other drivers */
+ void b53_imp_vlan_setup(struct dsa_switch *ds, int cpu_port);
+ int b53_configure_vlan(struct dsa_switch *ds);
++int b53_enable_mcast_snooping(struct b53_device *dev);
+ void b53_get_strings(struct dsa_switch *ds, int port, u32 stringset,
+ 		     uint8_t *data);
+ void b53_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data);
+diff --git a/drivers/net/dsa/b53/b53_regs.h b/drivers/net/dsa/b53/b53_regs.h
+index 54a278db67c9..cfdb5ed38326 100644
+--- a/drivers/net/dsa/b53/b53_regs.h
++++ b/drivers/net/dsa/b53/b53_regs.h
+@@ -274,6 +274,23 @@
+ /* Revision ID register (8 bit) */
+ #define B53_REV_ID			0x40
+ 
++/* High-level protocol control (16 bit on BCM5395, otherwise 32 bit) */
++#define B53_HL_PRTC_CTRL			0x50
++#define   HL_PRTC_ICMPV6_EN		BIT(4)
++#define   HL_PRTC_ICMPV6_FWD_MODE		BIT(5)
++#define   HL_PRTC_IGMP_IP_EN_5395		BIT(6)
++#define   HL_PRTC_IGMP_FWD_MODE_5395	BIT(8)
++#define   HL_PRTC_IGMP_RPTLVE_EN		BIT(9)
++#define   HL_PRTC_IGMP_RPTLVE_FWD_MODE	BIT(10)
++#define   HL_PRTC_IGMP_QRY_EN		BIT(11)
++#define   HL_PRTC_IGMP_QRY_FWD_MODE	BIT(12)
++#define   HL_PRTC_IGMP_UKN_EN		BIT(13)
++#define   HL_PRTC_IGMP_UKN_FWD_MODE	BIT(14)
++#define   HL_PRTC_MLD_RPTDONE_EN		BIT(15)
++#define   HL_PRTC_MLD_RPTDONE_FWD_MODE	BIT(16)
++#define   HL_PRTC_MLD_QRY_EN		BIT(17)
++#define   HL_PRTC_MLD_QRY_FWD_MODE		BIT(18)
++
+ /* Broadcom header RX control (16 bit) */
+ #define B53_BRCM_HDR_RX_DIS		0x60
+ 
+diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+index 9e5713015187..1c846f6d7802 100644
+--- a/drivers/net/dsa/bcm_sf2.c
++++ b/drivers/net/dsa/bcm_sf2.c
+@@ -1059,6 +1059,7 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ {
+ 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
+ 	unsigned int port;
++	int ret;
+ 
+ 	/* Enable all valid ports and disable those unused */
+ 	for (port = 0; port < priv->hw_params.num_ports; port++) {
+@@ -1074,6 +1075,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ 	b53_configure_vlan(ds);
+ 	bcm_sf2_enable_acb(ds);
+ 
++	ret = b53_enable_mcast_snooping(priv->dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+-- 
+2.53.0
 
