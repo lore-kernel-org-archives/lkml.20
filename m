@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793154997;
-	b=HDuFNJRyFvgEKFPibdOwzHPNnqJnGMvtPZUSeNSGXMXObvghUC8Wk/TMiLVeAhxBf1r5
-	 uaYEScofXk764D3x78T9edpduG2em2jRYiqesXdrvcp3SDjeuQz5GC/l0LEOeAvr44yWI
-	 5vRc0zCHuVhwckNpHe5MB+XOuLMo3Jd5wzgyc0skbbivA2HJaIufUZcyIBRjisSSdGNyL
-	 dnzuYF1xMOyLCkcY9DWRAoHvB6LGgiVvTOBt4ZeEP3WlVMlrqKGe/ujHwuVuKrHp7z0hy
-	 TVfA9g9IvyAlBKO/Zudm1NL5uKgwu3RUH+jMJ62AlI5QpvEQ4I6YT7sjeAiX4h6I+vw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154997;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.201
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793155018;
+	b=oav2eZvQvjGpsKwify/3Rrd9kM33ihHqvSTX03AYn42IaxTnmKC+/373cEh8h9z0uq+A
+	 QfUtPJRqmzcJ6IHwQpX8h/EPIV1DSrK8kIlun51+6/5fIYd45G2zeLurVc1zskvacvDMm
+	 kqHcWmgBYq9D5dUG8Ol6wIQM5DJ59gCsQOdFn+GAZ7WhIrv/KW8h85q7zgqfba/hmo9T6
+	 St0w0iFcjjJUCWPEHC9qZTL9vACT6Sx2aNWQhZKWusWJNeYSOJBkFIIY4nG2XrWiqZ9V0
+	 P0vI1EXtPefzyryAI/OiIptjDbRBv5jdOGcuGGjUHb5QjTzGvF/OPwKohAffqwkTWew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155018;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
-	b=HniRmpN8BNnQg4kWQODxyQ7Eg9R5lscxTr/sR1VAVyeGwIlo/A2INx8Hm6/3+enFPI56
-	 HzgbhFVmHqd63v+JvIGqyEAFq5VFgQIFVBXiDdinDrEo/FW3so90ZVi/cwX8I+MwHyHUD
-	 sXCve3GHaVoGEhajZKiqZkOG8G/WUB9lDSoUR9EsFkqq/gDPyZH6MBfzzvzuh548MaYHY
-	 86eN5gixn2Lfi7dKvFfTZoeO2Get54MQUFJW3P9UVv4RB7AY1NpxOLuciHNXLUYgqHwjz
-	 X1YHVQXmG/Qii2aKvIHGCI0ow7t0++mR/4ghp7qOSvibNWZISBmmvIq4IXl9GIj6mOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+	b=4CDpy41VmGqJhzMKFOPQemiD3DSYcvYiL46417hVCxTZFg7QH7A0IOriE6vn6aqVHeQh
+	 CaZVCaMf663pgDm2PSHOTNDXNDD23Yo5zckrN2vG5/D8D3BSALtQG+ZD97d+KGGvYd/Uc
+	 9Wk//W6yooJUyakmqVG+J2a5u8rMYiYTfUA4+CyP6gPYaAL8gF30hUyN1rmdDlv2bDEqm
+	 SDY/g0fSXFE6xQi6a7zL5oaMeXVFDV4OFS9RlYfCG0TlUr5MbVUnqMlYxZn52F89woIzp
+	 5fpOJ3xTbHAGgeJX8h5GmZYagmoRQ75tB/ALLZYAl4VidNEOQTeYdZtrOqq6ygFTB3w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzFZ9jOz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nakEMdqa;
+	arc=none smtp.remote-ip=74.125.231.201
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB884606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:36:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB884606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32601606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32601606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzFZ9jOz
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfa686881fso465374e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:36:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793154995; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HH5ErwUo4Uxygx1lKL8b2asYw0oMB2ZJKvTCPB2390kB6fVf1KZLtumMEGmPv7J9la
-         rhDYXMRJD5/lLArqryKWBPvJTUjFTEc407T5qLLZsYiTH5+fOncxd0XuI6Lpeec30fcL
-         eL6yjjr4kK8ClLIyfZjWBlOcWG1PkUoHxVm7uvdisJz/iUsIrZITMw+6Vmskymf80T37
-         uwu1AjSEn7POtV7W0b4uK8tGmE3Iov+xIyWB3UaUJTgFtagHxPoFJ3v7B+KVBVNLyX0z
-         6isfWCOA1pTGPfGpe5hCXsJp/DMBOCZYR7ggg2wgUyzz+bmR60oGtTrPoed/wUtKbAls
-         mgQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
-        fh=LrttzmAFJF/BOu7lBOolixfPM1wKOZU0Cvv06/eb6I8=;
-        b=f5eE7X7fJlX1F4vxgJEOrXf1TWHDC0DEgNpHdEjNCjKthpg3SFOzp/mCySSBnkjibr
-         EwK8BcGFJeROmQ17zP7YNJwVft5oEsR4Z52UY1vDmOv8PlRk14ILjtlsqxwNZgtDzzcJ
-         yc8Q+uSqZp+CAsbsYsvBpj48rPs94Dka9jZoFhKB82rnSlaIXcZvTWmsrSA8iQfG3Cnn
-         jdI3vezKRcbIN2cFGQ7fjnjaOmBpKiGbWNlEKaFlsZZKRPqTuUWc5i5eDZW1vwQ8Uu2r
-         1vd0W0qgSEOZ9dlKow0aUuEmor/bBC0zOFdkU9bcvG8byNJ8eQfRL5Eu4jdQqMsYqiew
-         h1QQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nakEMdqa
+Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f47feb5a15so113849b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:36:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793154995; x=1793759795; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
-        b=rzFZ9jOz7i2ac77OXVlgf1fvPX9Ab3WmJDWVqROiaTpFbXiDNBhs5VZxiGMMLKN3aj
-         dZa/DN0xBMih0J3m4+GpEVZWTxGuXNcj/m7F/gquHRukMYpL1nNLgQYb6KbBimGqxDQ2
-         InsKa5HhiU6xOKyejzeIDhnSehEDGXeR+GdxApvUmyMxcdQahu/aRY2KnFj6wfeVfSBf
-         qkhyxOeAk4dDN1CZdDgG/ESvL5hIlRRUskU346lY4CwGRbQs8+xG+/8IMgbosuBU1F5h
-         DcoWZzLhrEFKGytxqHCZa6CWJGdEyAS7zMeeUV1RZQJ6y74+pp8M+GBOcFpNaEMW/KVl
-         vaQw==
+        d=gmail.com; s=20260707; t=1793155016; x=1793759816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+        b=nakEMdqaUeTld5vVcr7Yy0fq4SnRBp79o6/Xs5DxMJlXF/Hk+AAJ2x3S+0QLpLRuP5
+         3ngIGa5xKn/rVgxzv6SuxZ4SGtfbe2l+Kq03UlGeyS4pORiwiZyQgMOxJ+wYJzBiB6dQ
+         7F3AJNeEN0je5DoOXrDZwoph0wkahsPf0K7WRyrsWyVih5rlWbeesi0t1E6IcBVlKeJi
+         3f7j8+nt9U1YyJU/NoPJVIJ9IpKtyTVIiyFBbkUvSZhswSYbb9QEwvmEoGWCwVtn4DkB
+         88Kl5kg2KQuH5SjHlztEFy31cjtlcxYbcA+FIIjVB+gUucXqSe80DVvQ4/TuFNl3AH9a
+         aHHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793154995; x=1793759795;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
-        b=cagfNB+rwzrtyCIf5hrjtk3gVUAIoZjfP2XOiNXl4hbU+6KnvPeQ3hwh+Gz3y59Auj
-         sMLv6XXC+1E4XwmgY8Bx8TFm7KY+H5gI2q95spdSaiil2u5p8F6Kkx9kiiCiNIe9Hh84
-         357ZFaismtKc680WTcc6unItk1Q8104eo1/uTwyf7Nk96XTILSYu4i4TfydKjYkmy0WC
-         JYexE1gnMjV80TGBmprsn9i5he6mxryALBUtmtG8wizMyEL7nGvNn8uiJn8IN4ivIpwY
-         P7uiKihjtNpvxMH/dhB+IEFn8qcHHDwZqfmBfrYYwC7zWOKvPH5l9SGjEyzVjdVsTSDH
-         9Lgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrLBbWgnk0re4woN6SHY11uZVHh16FqdGTyx8mbXHXMUELC5hncr36xhxZR98iV/q2ardEr598pEPSb6o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAZKATv46GqTr0yBjNs+MrB5FUDNcda4seiX1mlGFP85Xq5MSe
-	tjXe55C4sMwPa+GtNFXpIrQZKam02LC96n5kYRpsGZrFvN1XlWFk8azUw8dRMF+TO76cLDwaQpP
-	i+R2SCHjCDSZ9gB0R3klX+btWZBuWd8c=
-X-Gm-Gg: AYBFou1V1AuEeKC8vohZwUsDj+TxhqWQ2Zt1wmBdz7w465D6AMxLL+N4DXnrXePz4d5
-	oJoKCukhqI+CoEaRmfMJ1WFcbzTkz6E63a+OddUouawrAlaZaK5BF+U2SqJKvD8DnidifaJKRah
-	+ao224QElN5NGM44764hG4JwLSdp8XwCFasaCegjwl/27iauPcxP7SV18DHkIyob7w8USNOLemX
-	6jUJXt4VyRXESX8VAwgr43etK2XHG8hEsvyVb9d8jtyZ9AHztW0IR4JE0rdzuaZ1nnRW+DbgGR8
-	BBjLCDU/TA64RWJeQqRP5zEhD0AoOes71WD6Y+XwkvR9oioP2WzeRvhxBy09TsNkG0IKMzbuh7p
-	GGN1KI52bvY8LTIVhhihlrJ1ZRPxbphcT+uMYzLzR974E0mvnttczidOopJwF2fGg+4zsBnJmW6
-	Z+uOQY4abcF6suCvwA
-X-Received: by 2002:ac2:4bcc:0:b0:5bf:bfa7:cd33 with SMTP id
- 2adb3069b0e04-5bfcacc8d0fmr434647e87.8.1793154994755; Tue, 27 Oct 2026
- 19:36:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793155016; x=1793759816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+        b=NHK3EDuu7CqhZvnj0czoBgyP1WLu7mHq5RqQYe91QN2rXyzF6s+IWrbQ3NFkxpv8ar
+         NZOU4dlgxzBDzHK2/wD1FixWzcGoga/Q3EPAVCr/F+5Gozwzimku7S4L5wXpVXLP6LwQ
+         g6t/gsd94nfcURLhBX6ZexAO8uIu6K/WboRHbARcbFESs84uvQkUnf/pPyipnhyxJrzE
+         9ur0oDGwnB7NsKcoYmN7RdCJuRMsEXhjcCjfuX/tVrcw425cK+cXK76+YDqpObGFQZw5
+         FHRLr57jJZmHv4C2boKglupj90aU29dHf4oPVbmYK98xXezbEoWmEBgU+5/PIE1BjS8G
+         atRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMXTnceBjvrzxxCszL1rkka8R3mTqrpRc+QT814bYSiw8V4MFGpKirPMn7/eZLJxU/Hquex6qaY7Hhaxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLsxxYe5emfHlp6C9ZcnV/Kg7I9yxyuHYAg/RpAwKVOieT8cHx
+	4wHfiT2ydkTSGzoOXv3oR/90e/gOOj7CIdWfzfnOUIItFvqJpCjP4Q84
+X-Gm-Gg: AYBFou27mHbDX0MK8Tj0E4fKRwFHdTxQLA67UQTDCkQKJX5HvH/0CFLbGbHz3AfDr3P
+	qNSnM8Z59CAQom8aNh/A1rhi61AIlO88lk2RvRnZ8p5dCF/nIK4FEX2hmxb6FR3fEq7lEaeqUbm
+	Bd5gg5LqO4ppOzgNhGdGc5id2mLH9zmXoNp93wzCglAEXgT7Pzm1uDK2HpDwxlu1Nuf2EAfxKYM
+	o6MYu7mq/NqwLlxqsaRrCiW6H37dymLEIjGzvEa5ifD1OHZNHjhDze7S+vuM7aUGNrMp6a/HY1v
+	tV3UcsfFKGT59gSzfquUSViCMLrQDgJDWqC8XGIhSsKfZB7PtsxQWe1fQyCNc4aBYIJ/qN6ajWv
+	zYXlJ34m3PV8HSdKt+/eFsWRC6cUzOxQJAQMIK7Y3WkrOs17dlH3yHpySoCpcINafoZ+hZDRjm6
+	0nMJjKlJt/oXFjZlt9qQ2eeKp4tcQWmYmmTMq/uJJ8xU7hrH767VSWCUK4rdPfxfr9fSE6fDc97
+	whxgYk/ZoB6xaWhMdNbBJ6WAZkCQylBeR6J5tYrW8nDl+W82DeaAbFoLRZhXZS/6VvVO+cGDm83
+	r5i8bsPr/os0HNAUNjZu8XoZY9NsEsgAUbGx1xAtDjTEC14bPLfZTL3W1sVriAcnV/JOoteVNLN
+	a4gR+0rsvCvQYOsA=
+X-Received: by 2002:a05:6870:8a09:b0:48f:e25e:e202 with SMTP id 586e51a60fabf-4a8bb5e13e9mr920244fac.61.1793155016073;
+        Tue, 27 Oct 2026 19:36:56 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.38])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b785d108sm1478108fac.9.2026.10.27.19.36.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:36:54 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: qedi: fix OOB read in login/text response completion
+Date: Wed, 28 Oct 2026 10:36:46 +0800
+Message-ID: <20261028023646.2151626-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,103 +101,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019230159.834954-1-mrwillporter@gmail.com>
- <at-dpPOGs2zD2fuL@khmer.arcnet> <CAMZ8TExJThTMZVvbDMVdtXSB-edGAsAnmKYtAtM1CCw0pDvNGw@mail.gmail.com>
- <auEyD23PT_kpJsrJ@khmer.arcnet>
-In-Reply-To: <auEyD23PT_kpJsrJ@khmer.arcnet>
-From: Will Porter <mrwillporter@gmail.com>
-Date: Tue, 27 Oct 2026 21:36:23 -0500
-X-Gm-Features: AclHuK-MYfRR2Ytpzl3UFpBwLNrsz8gDJW_Gm_bBh87oewtYdi1oUomSx4Y7hwY
-Message-ID: <CAMZ8TEw=rmc=H3L60j-o_wa0fNc9eOhG7ZY0SdttFf+p-qUfkQ@mail.gmail.com>
-Subject: Re: [PATCH 0/5] ALSA: usb-audio: Audient iD14 MkI vendor controls
-To: Christian Ruppert <arc@gmx.li>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Neil Andrews <neil@androos.io>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+qedi_process_text_resp() and qedi_process_login_resp() take the payload
+length straight from the CQE field (hdr_second_dword &
+ISCSI_{LOGIN,TEXT}_RESPONSE_HDR_DATA_SEG_LEN_MASK, 24 bits) written
+back by the adapter.  The same raw value feeds the PDU header's
+dlength field and the amount of payload buffered, and neither is
+bounded:
 
-On Wed, Oct 28, 2026 at 12:21:51AM +0100, Christian Ruppert wrote:
-> BTW: the mixer matrix seems to be identical also for the EVO8 so
-> chances are it's the same for most audient devices and we could
-> simply use a width and height parameter to generate it in a loop.
+    hton24(resp_hdr_ptr->dlength, <raw 24-bit value>);
+    ...
+    pld_len = <raw 24-bit value>;
+    qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
 
-That sounds good to me. On the iD14 it would be 14 inputs by 4
-outputs.
+resp_buf is an 8192-byte buffer (qedi_iscsi.c).  A CQE whose data
+segment length exceeds the buffer makes resp_wr_ptr point past its end:
+the data segment is delivered to __iscsi_complete_pdu() with a
+fabricated length, an out-of-bounds read of the buffer delivered to the
+iscsi userspace daemon over the iscsi_recv_pdu netlink unicast.
 
-> My view of the WO implementation would be to add three flags: cache,
-> init and force_write:
+Clamp the payload length to the response buffer size once, before the
+header is populated, and use the clamped value for both dlength and the
+buffer pointer, so the header always matches the bytes actually
+delivered.
 
-These look right to me. As per-control flags, you could set init on the
-EVO matrix, and for the iD14 entries, could we set it only on the
-write-only controls? The matrix, routing and readable monitor controls
-keep their values across a replug on mains power, so I'd leave those
-untouched at probe. Would each entry also carry its init value? On the
-iD14 most start at off or the first item, but optical mode starts at
-S/PDIF.
+This issue was discovered by Tencent CodeBuddy Security.
 
-I'd keep force_write on the cached write-only controls, as a precaution
-against a reset that leaves the card registered. I haven't seen that
-on the iD14: the resets I've seen re-enumerate it and run probe again.
-For the readable controls, skipping an unchanged write seems fine to me.
+Fixes: ace7f46ba5fd ("scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
 
-> - The intent of the control types was to associate unit/selector
->   pairs with data types. I would add a new ctype for each
->   unit/selector pair [...]
-> - I don't have a preference between explicit control names and the
->   basename/suffix system the EVO driver currently uses. If you prefer
->   we can simply replace the basename with a full name and remove the
->   flags field in the controls.
+v2: Clamp before populating resp_hdr_ptr->dlength and feed the clamped
+    value to hton24(), so the embedded header does not advertise more
+    payload than iscsi_recv_pdu() copies after the buffer bound is
+    enforced (sashiko review).
 
-Yes, full names would make the iD14 table easier to check. And
-one ctype per unit/selector pair is fine with me.
+---
+ drivers/scsi/qedi/qedi_fw.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-> - The boost switch writing 0x0 for 0dB gain and 0x0a00 for 10dB gain
->   looks suspiciously like a volume control between 0dB and 10dB *
->   256steps/dB. Does this control only accept these two values or can
->   we simply implement it as a standard volume type controlling a mic
->   pre-amp?
-
-Your guess was correct! The device answers no RANGE request for it, so
-I tried intermediate values with a loopback cable: 0x0100, 0x0280 and
-0x0500 gave +1, +2.5 and +5 dB on both mic inputs, each tested
-successfully within 0.01 dB of nominal. I didn't test outside 0..+10 dB
-though.
-
-Even so, I'd like to keep it as a switch in this series, because the
-iD14's documentation describes a fixed +10 dB boost. Your max-for-true,
-min-for-false boolean would fit that, with 0 and 0x0a00. A 0..10 dB
-volume could follow as its own patch if people want it later. Does that
-sound reasonable?
-
-> - We definitely need a new snd_evo_type entry and get/set functions
->   for enums, up to you to define those in the most suitable manner
->   for the id14.
-
-OK, I'll write the enum type with the iD14 tables.
-
-> Sure, error management is always good to have. [...] Also, for the
-> controls I checked, the EVO cleanly rejects out-of-range writes but
-> if the id14 doesn't we should add those checks as well.
-
-I haven't tested whether the iD14 rejects them. Could the generic put
-handlers reject values outside each control's writable ALSA range with
--EINVAL, before converting them to device values? That would cover
-both devices.
-
-> I would definitely prefer to list both of us as maintainers.
-
-Okay, let's do that.
-
-> I suggest I submit an RFC with the generic part that you can apply
-> locally to work against (and potentially adjust) before you submit
-> everything in a final series which, if everything goes well, I only
-> need to retest and tag.
-
-That works for me. I'll carry your rename and generic patches in the
-final series, with your authorship and Signed-off-by kept and mine
-added, followed by the iD14 patches. Are your four fixes still going in
-separately first? And could you include the base commit in the RFC?
-
-Thanks,
-Will
+diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
+index 854efa4f61d87..ddab627826180 100644
+--- a/drivers/scsi/qedi/qedi_fw.c
++++ b/drivers/scsi/qedi/qedi_fw.c
+@@ -102,9 +102,11 @@ static void qedi_process_text_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->flags = cqe_text_response->flags;
+ 	resp_hdr_ptr->hlength = 0;
+ 
+-	hton24(resp_hdr_ptr->dlength,
+-	       (cqe_text_response->hdr_second_dword &
+-		ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK));
++	pld_len = cqe_text_response->hdr_second_dword &
++		  ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK;
++	if (pld_len > qedi_conn->gen_pdu.resp_buf_size)
++		pld_len = qedi_conn->gen_pdu.resp_buf_size;
++	hton24(resp_hdr_ptr->dlength, pld_len);
+ 
+ 	resp_hdr_ptr->itt = build_itt(cqe->cqe_solicited.itid,
+ 				      conn->session->age);
+@@ -113,8 +115,6 @@ static void qedi_process_text_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->exp_cmdsn = cpu_to_be32(cqe_text_response->exp_cmd_sn);
+ 	resp_hdr_ptr->max_cmdsn = cpu_to_be32(cqe_text_response->max_cmd_sn);
+ 
+-	pld_len = cqe_text_response->hdr_second_dword &
+-		  ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK;
+ 	qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
+ 
+ 	memset(task_ctx, '\0', sizeof(*task_ctx));
+@@ -279,9 +279,11 @@ static void qedi_process_login_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->flags = cqe_login_response->flags_attr;
+ 	resp_hdr_ptr->hlength = 0;
+ 
+-	hton24(resp_hdr_ptr->dlength,
+-	       (cqe_login_response->hdr_second_dword &
+-		ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK));
++	pld_len = cqe_login_response->hdr_second_dword &
++		  ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK;
++	if (pld_len > qedi_conn->gen_pdu.resp_buf_size)
++		pld_len = qedi_conn->gen_pdu.resp_buf_size;
++	hton24(resp_hdr_ptr->dlength, pld_len);
+ 	resp_hdr_ptr->itt = build_itt(cqe->cqe_solicited.itid,
+ 				      conn->session->age);
+ 	resp_hdr_ptr->tsih = cqe_login_response->tsih;
+@@ -290,8 +292,6 @@ static void qedi_process_login_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->max_cmdsn = cpu_to_be32(cqe_login_response->max_cmd_sn);
+ 	resp_hdr_ptr->status_class = cqe_login_response->status_class;
+ 	resp_hdr_ptr->status_detail = cqe_login_response->status_detail;
+-	pld_len = cqe_login_response->hdr_second_dword &
+-		  ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK;
+ 	qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
+ 
+ 	spin_lock(&qedi_conn->list_lock);
+-- 
+2.43.7
