@@ -1,124 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793183818;
-	b=sCyNDmcJvqWIfzbNeK+YdiZE6s9HCW/yyK4Nw6yB3VGT/y29kydWdyhnqK6q98OP5VFZ
-	 mh8Iy09K4SjmK8ed9D3mDuC/8ZjFNdTRCqzrgWxR7IBZDGdOKCWk7yM8+IlZT5VsmdIC7
-	 4wsHosSvwAM0KCpA8pRJsvGfH+diRQZFyKaxo66vowepP3xF4lJ2lIIAmJIYEL0R1Hlcf
-	 v/uOGSKCOtBcE9aXvZC165EK7mdbejM2JxyKO6zfFx9y5MtplU+fyn+ZvayS39Uz4epB0
-	 cxyJR1InAuhVJ/+mDwnObok/Wu9VUwIBtsol8vDSrVvYNX9jsUYTIFiRUJQxj9tdl8A==
+	t=1793183898;
+	b=xepC/ZB6o27/jx0M6FH0T2/HTWDS/tuqzTySN4t0OPr+buSBeaosVnUxQgHnmfJD9KEr
+	 PnhEcQXXL4+Ek+lco9vbuAhFaIKgJUtsY5yon5uPF65paEAo2OqzZr7FVhMyuO/oK/Ayj
+	 UAcPWOKWzlM9iAad9yJ79Ws8FWifmTcxydsKwGPeMTqwZyKcMDZQs5WNFqMLXSbAG9FDP
+	 Q6WSUC1ZZxfGdhAmvtw67XnZEkzhlVlGNtvNDf9eSJVuxpFZ0HlU8azHOVx81sDF0AEEa
+	 hseGHu9zqhyuy/G7odHEZQaKk/Vu92RFNOlXk7hsfhrwjCNbXrXNt/Rq7LazxvFfB7Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183818;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
-	b=DlBhhN/GHYomM9dLht100Sv9wedYJS0Xk+dma+sknNw9CcTaFcoaUWy2K3GsGeCzI4n6
-	 g0qaXhEYr9W+vQaSaovk2hxhyjZ/SWugb1skTTuXyE/EbdFGz6RAokanzJALm93icf7ve
-	 6W3Kq1B8Pzdr3UnQ5Tq+EV6QUJSvvyh3Xom3iWlpjsmKcEISHRiGBgFi/pCg9Fp6sP/ux
-	 isHKmv1JDzWUHv1JszTuddo2/U//BUG8SNtpyBrEnTsdc1w5Q1fQva+30VpAG1JD07qGQ
-	 A2QrqN27GF0eOavIQr2EFzs8jPV+HJz8a6MHftrNl5VEHN62UujEtZc6f7ORA5XTzhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CGvNJU0xYjBPfEidzCdNCr0rCPA+a8oBaQszJZJKH+M=;
+	b=El/2LqCaoXvliKUJFj9YK8eK5GO7pYzQv4K8sdawW3cHxu2IQuMnyuztTP+D7WAAUVu/
+	 MgnByvPWCUKtEurciX8hpZR2Cj7H5YWy1g/OWctjRcah+L+lWLUs3nMqI5ajuMJeiQtqA
+	 rmVZUq+ZGQlR7lrpiJM2FWOKgKG/2C8Li72LXoab+SWN9TqhJP+JfizIvyabvEPmrhCkP
+	 8pvpf80ZZjH3YJLTNRmriR40jlprEQbbeZNviVIrAPYF/A6SjaqcDhPi9krkwlf6AL/sZ
+	 +jETlxHCF9SwMEgjYdP0yWuv0lwA2/pd5lSJJlud53HZUzJsxEnhO81lCHyzNkrinLA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="SeaJ5/oq";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R3MxyAaO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CGbSsJuD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9D7606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08882606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:38:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08882606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SeaJ5/oq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R3MxyAaO
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KKS13264790
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=; b=SeaJ5/oqFe9yCvFG
-	n8K5pKGPqPeTOZBVHIi5C/Zu1ziqtPTzTFOt4eTj/IBskftxuxfQWzrnhIRHrcjz
-	SFq3qvCWszIEq7JFk1ufb2QyufxO7uj10E0c+TUIJ05mzD5GS4OeI7mN7ylnkja1
-	Y5FD6bz4fsxycnipTEVdylXAjAlhwXN9aTuhEYDxl+R7F9WhmY3IsHVIvJOEsfXo
-	E+h/sf02/K87ugR6c38m0CYs0uacEOOy0F/B9qHIwAUU8Ecq/Rgz6P+NyaS6GJxi
-	c/+/Umzga+XJrTYCl+9dU4Sl55l04mSASmKlZy8A0+3YIgol2o7EXhb0JVVFPMCR
-	fqFdwQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy713r9v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:56 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3adf71ee6a5so1150245a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:36:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793183816; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CGbSsJuD
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4550d8ab15so100034366b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:38:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793183896; cv=none;
         d=google.com; s=arc-20260327;
-        b=FkwzDM3KkRsSjxLayK0e+pXTtvGgmLjs0vMNTA4sUVa7TzCZkRPaFIdehDNeJlk/2n
-         QDdjbuCPO/vhh9ZqojA+HLvwJ4QY67eOGrk0oZN8yWsIe8BacD0PG4+ID6lZpk3Kbwlx
-         A2pX1MX2WoreRtDr0fwWm3CRV7FwFfXCiXwuuY4lsKvn7P3W67SnBWpu9oDPoy4U/YOc
-         TtfTfvGBz3TsVk1L4n6f2glVPyYkS+rWAyYTo1lc5MIpsy0U4a8Uldlww2IkGVAKzxhA
-         Ooz5tIZK11ksFKGjrYHbwnY2Gu0LF0osqWTIn/i5FrBtH79GSKe6voN0x4rQHmrzYywV
-         VgAA==
+        b=CD4cpH06LqNCMW9uFuJQ/Mxghi9ZzHHviCPAfNrvIZ2VkP4/JpnN/m1nwfP3tyH2BT
+         YSgSAtZwmHa1Dx3fNELnES7W1A+4vQPhXJzY274mX5+Tb4OCuRyirrvd7dW2RBGV+705
+         0yM3Y5sswZ5SxHan+lfUuxxT8loQHYAHd31leSZ2eElhPkFRtFTZbtuP2B1yZXbevemB
+         xTCdW/Sozd+HsKso+4o+nthIasZPYrTnCbhQkR4VlvdghWIry8+ikSYCTLirI8u6oI+0
+         P3cQ1sQQSiXJSyfyzVVSaQOqHNwV+kQnURveONdwhyNy73NkrrxyXcxVbgmjZXndiyCg
+         XAkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
-        fh=ivHtVYu6gqIRsQBTP7BmxD7TWuFu9o7GN/0riwIttvQ=;
-        b=CKgZkgy/a62HDXuiZrEjFSsYSvs79szP8H7wMNrmDi8NcqqmHob48nfJZcTPL19W7G
-         HfTBenC0gjSMDcx73h3A0GjNtO29FVSSAE2DigOeQR/YMIejE+Qz5P0nxnlLYnIgZOHn
-         DWqOLhBB9esBjm+syvsUTzPapv/z604ltaIVbRzUw5Zdh8S4f1xWVgenX9bkIqIk9ubm
-         mp0bD4uB5PUOwdk1e8tsZm+5HCnvfoR04xr9yYsCVIWzWvIVd7h4V5IsfAJpF8d3xAgq
-         32rFWLiUKKReaBebjgQnper0nfHIAnyJ/VyaGpNXJk528dlmdgYF6QLOHhtQoYwUhidp
-         HLLg==;
+        bh=CGvNJU0xYjBPfEidzCdNCr0rCPA+a8oBaQszJZJKH+M=;
+        fh=4tiCTT/TZ12nJcnEakm1r8EpDRdsypPceY7etls8D0Q=;
+        b=f0mHL36to6kw0hQIikxOmvam333L68+YpPseUXHz7x+6UV92GU3g1R/8ovt+KvY+Z7
+         13/bpA//lTte9jc37rkVluJaDS9c/jfvIdWlPP/F5U29j6VMN7+ZQ48yJ1i07IvWYRDt
+         eALWMiawbziMpdSMTC2G81tEHr9+od6sAWUu1czBOc8eiZs8j0MyQprvHx2z9BBKWIzG
+         axATvW0IGivdvUTm9395AqAH2j9u26/gkvaSS3hYleiEocpv6x365vF36tTAKTn+dj+T
+         wi1seblgWzLWySsYciOx2aGZZHqYwUisyrKakSCqpnlN5Aezyp89x1d7ufQlzzuNaePh
+         6DBA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793183816; x=1793788616; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793183896; x=1793788696; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
-        b=R3MxyAaOexEH0lun8t2yK7yt3N70o/OlnilQy799DFMEb+iOJ2wEnCYrF8QgeJRTYe
-         g7eXF5ybkYmkBUfdy3uTWnflbP9JVAcLdGaTmyr8wqDQQ3ndIs/KU3usNaur+mwxbel3
-         v/ddWaH0VutQBBYr+ITb2aVy7DeOtMZkNTngLxgiWR69tmKkVvL4J6WwOYBSUozpYbGb
-         nQCAn+yaYLaRMcKjdwGZehXiDf52yi9A3bFR2xLF86RuS6FeH8vLptiOQxeFP6DRiz5L
-         ncELnUarmpGc0no+OOEf+QNSiYzP2jujWzHIqoa8iX7CLlOXFri3DvcxDwz3hjw5vIF9
-         qmJg==
+        bh=CGvNJU0xYjBPfEidzCdNCr0rCPA+a8oBaQszJZJKH+M=;
+        b=CGbSsJuDFpm9cR/AinbpH4d6OnVs5671xl8yLP9EAX2fch6hUrzB32MgfiVv2Lq75z
+         Cqzt2QW0zRHlpT/2hxtKY/nyELVgsw2awEpz6oZkUVpnn8RJAuznWgworfKq8bXVyxMt
+         hKvl/y6GTfrXDJpIijuKrwl/CzAj1cnMj232QEj1CVfmYSrlxHOjI+snCe1JZd0orsuC
+         dy2tuIbWA2suu2/kNYNcF27rKdalm9neTWF/t90O2Jos+ed14MXtgX4jKBnmgNCo4w5p
+         lxzINgDIF4x+NI+1bsFWJYSp6CreQY6q3iKSGvGkT4DB25OiV+dYveecdPnX2yPSQ6/n
+         itWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183816; x=1793788616;
+        d=1e100.net; s=20260707; t=1793183896; x=1793788696;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
-        b=bGr7OZc3poSgEbkQPrrDchT1/+SIk7Ms9mxym/knmPLJiIDZgvJ3ZizjQurdYq86D5
-         smsCE3bVCogQ1fnxFD1WNVfNiPRYY3iloDvxTEOtd2umAnOMKxWoKt7oRlBKoAAtNMdD
-         dHMweAZjAQM3UURxMr9RhpiSndrvC7q+9knYTbsPHNzhABULdyAzpG99z68ekUXSiQBl
-         HSOwz32yrvXs0nElAKaVpOxiIdZqtFxlaqrGLgFUtM9mHJfqhGV9DmJ3NrPtAn15WEiU
-         a/rCOE5tcWzGNj4qVS+u6aZpm0FyN5IHmQMhSxITV3Vgwx/NSfcFR+LAdsrrWZBfAA+6
-         tWQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwqXa5+Gf/JvQXRDAyjy7tSHqTRa+Mdmte1Lhe1qOI2VkSwftMm5WMTkI6ySC9uEv5/5hGt4Mk0qHJ+bdY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJB3seXRGyIZMwT5PBDxHJyHS8rbZdSzDNFn8/oUVi3AqcbPazp
-	R55UD9qz6OBPJuT4tYndcmk4uW+eNEwtgwfldRObGqVuAmCCfGMYdY7yXQfw91O8sLh5pLZvPlc
-	1ja+2nHSbpZ8r8ZtREllU7DW9zm9o5Qo43CZlkPKdDc+mDtTRuA9fKr04KuLzzXuwrbZgnn6RRf
-	1dLjF96hSqal1qffriBRqkYf3JspHn8P0dSf+doytG4Q==
-X-Gm-Gg: AYBFou2BxFZ17gqGTn8xaUHW5KgiphMxriXB4lyWHXZtXuB8z8J8oUW0nssv3cL1eNw
-	XkbRB7t7MMEkeM6kXbxlhq99OfpnMOHy48KoHpxjTQQxOqVtfBcYDP3y3Ya9Z54igBxM7E2QVOf
-	iekrNJyDiCE2CYZO/K7OS7cOIsoMqNycG22yicA/6SVnv53SziB/mDCS1gLpMHl7jH8XEK5mK1/
-	k6SygHgkm/fu/yF/A==
-X-Received: by 2002:a17:90b:3f8c:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3ae5835d8a6mr1377091a91.59.1793183816006;
-        Wed, 28 Oct 2026 03:36:56 -0700 (PDT)
-X-Received: by 2002:a17:90b:3f8c:b0:3a8:9b79:e6ea with SMTP id
- 98e67ed59e1d1-3ae5835d8a6mr1377070a91.59.1793183815482; Wed, 28 Oct 2026
- 03:36:55 -0700 (PDT)
+        bh=CGvNJU0xYjBPfEidzCdNCr0rCPA+a8oBaQszJZJKH+M=;
+        b=qZKtBB5t4rA/uWvh7O2ILGedelYC+wavhcYcSBslJP25gSydix4sz8ewPCP6+OsZlQ
+         dCjWrfmFQ16UyAyvz/R97D11gQQdyY+oz0+E6T5pZ0NjkkfsSBtabyZwlGylt2fo3Aq5
+         ktFmqkWQW9hWSdEn6Gc9ptHtjfEps/wKDUiX3ayM22NE6+wxgypo4Kga1uc8ykFIbMj0
+         L+/lWyf8C80kTl320iuZYhdatstoLVyrRGI2qJadd087gYdvkO8of2CMl7pCQObqe1JH
+         RlzocYfQjSo4SYBDbug4KJf9/0SScI3uYg8EkwJS/qNWBDW1xSalTCSODNXIlammlk0N
+         wCgw==
+X-Forwarded-Encrypted: i=1; AKwUvByaBHudGDgVq4A5JZMkvE1xslpP1tg07IKO3VUJgjoXl/gRGvMcHoMUnnweTF2yvaCwvPc+L82Uxcf3Hbk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzgUgCcMkIrgkjjd7MxRhUvvyBE9Oat8dNMatvv5v9SzjlLHxt
+	NZeXIej4/o+F+8SL94pPO6MGHdUh5lc0XaiUiKMZqI1ITrguWXGxSHi1OKayTh6rgbixgvlV1vx
+	cDtAnL3QH6HgBtrXyxS3sMrUok2vq+PY=
+X-Gm-Gg: AYBFou2rL90/AqN1S9xidUoM9zihH1UMxJ9bRh40kTh58a9pxJFBzABo7hwD8HsrOpa
+	FNPxVj0Kg+zEplAW/ur3Zuoxth2x3cOkaIH9f1c10h3RmCEOgsZCs2N+gWZaL7m44M4TEuwLlbZ
+	l3yk3fwioVsbfs61EpYrU7zRLVYJoGSvl8a3Qu0+Zl7hzG8D5ZtWh3u95no/we/FAhPHQgPBF31
+	uNkIaDxaiyYMDBlBZvkG3HCIyz5+RUkf5lW9NKEFN82ttng/qu5e/6MUGXFI/xW9zVdSvK4/R1G
+	MCwijQW4aSRPytIpJ9PblZ8akOCV5Wb09Gyov+hJ87e9YLzs/o8znB2SPdA4tinE1I3TLo94MIp
+	npjrzB/ZJZttkuFnCKVBadf4iHivFFICDZyUwFINElO2DjC27pPJVT1g4XSRCRmZwCGdx
+X-Received: by 2002:a17:907:1b15:b0:c37:c0dd:6642 with SMTP id
+ a640c23a62f3a-c49bdf39b8emr148047866b.37.1793183896319; Wed, 28 Oct 2026
+ 03:38:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,122 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
- <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com> <00b63b4f-053c-40cf-82db-21a86fc485c6@kernel.org>
- <CAPx+jO821-wULVT_KbZB4oaPSYAHi3PEpM0VzvSL_7NBns1t_g@mail.gmail.com> <CAKekbesRt5qDOf76MBG_8hROMa6Z=UCNdXHKoE=5u3xFcznhhw@mail.gmail.com>
-In-Reply-To: <CAKekbesRt5qDOf76MBG_8hROMa6Z=UCNdXHKoE=5u3xFcznhhw@mail.gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 11:36:40 +0100
-X-Gm-Features: AclHuK9Xu0HlqvsyEeUvS1LrhIXq4uQwwd1vAC47YGpdju_wAFdqdb0bMNU_sHU
-Message-ID: <CAPx+jO_C+xHihnu+ZweSoFL3gJrj3mjJm9RUVX4aXTdKEi2mug@mail.gmail.com>
-Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
- beyond SDIO
-To: Kamal Dasu <kamal.dasu@broadcom.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-mmc@vger.kernel.org,
-        Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261026125751.1700779-1-stjepan.poljak@gmail.com> <87pkwv385p.wl-tiwai@suse.de>
+In-Reply-To: <87pkwv385p.wl-tiwai@suse.de>
+From: Stjepan Poljak <stjepan.poljak@gmail.com>
+Date: Wed, 28 Oct 2026 11:38:04 +0100
+X-Gm-Features: AclHuK_PuamjIiFfAzndUS8tRuWw0N7bi55u4XT3JCo3FvrjTK2Q_qFdFwSq2b0
+Message-ID: <CAKVkeTxg4LWANUmqa4rzC-w8Ai62vcxeSU1FCAWSyA76iyK8yg@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: usb-audio: reset a MIDI device whose input is stuck
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Clemens Ladisch <clemens@ladisch.de>, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX2xNwu5ItFSbM
- ndVy/+ooNLof/TpHDpoaBT/iSodEfuG6TF7Iq5Acz/hCP1XwpsR5Y+eKWf3onbr+W7/KuilD9Gu
- Dsti80uWoCOEiy88LSyaBQiSBQmdHr4uHsj7fgadgbQmxKgpQ9XSMu9zM1lwcZLnazYMxuRAH7S
- 7wy+k0DKkEKqqDN44vz2qMySPf7cwK3m9cGluLV+2f+ZtaEq6bJTOxokXiShun1hUSDhnM7hRsr
- Synp6jb/XPlKYVig0yEy6zxVJc3a5W7Xkn2lOSvcqalTwWa5XMQEpu1JmNdmO++p/1/PswvBI6I
- ckGOHiA4ywB2ss6+uKdPbKkDA0qEwzHhb48NChqM76LHp6nTaJATYl4EEWTNHC8FpvXvn12CaAL
- EueGZtMbKZ0JSgxZkx4kRAjYmCVN8FSVt+6QQN9CDW6hZtpK4pgdXx3hSlwszN7bZD3jB49b428
- 4SWgmFSOrvKHsLYzieQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXylxrQlJZqtKc
- 0Fs7tTjKYLLeRKNKTjpK55hxWjX/LOPTjGgKVomn532vtWwftTxJWEN1SLwQOT7vAyoq43MvhX0
- 0oyfpegGhxNtGCHo/rp6dObIiMog+6E=
-X-Authority-Analysis: v=2.4 cv=JspkP84C c=1 sm=1 tr=0 ts=6ae1d048 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=Q-fNiiVtAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=VJCnStefonsj0tF54p0A:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: _krPgNr59U-LFnMa6R2hNWMjJ9m3hWVQ
-X-Proofpoint-ORIG-GUID: _krPgNr59U-LFnMa6R2hNWMjJ9m3hWVQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280042
 
-On Tue, Oct 27, 2026 at 9:31=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.com=
-> wrote:
+On Tue, Oct 27, 2026 at 8:38=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
 >
-> On Tue, Oct 27, 2026 at 3:48=E2=80=AFPM Ulf Hansson
-> <ulf.hansson@oss.qualcomm.com> wrote:
-> >
-> > On Tue, Oct 27, 2026 at 4:33=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> > >
-> > > On 27/10/2026 15:40, Ulf Hansson wrote:
-> > > > From: Kamal Dasu <kamal.dasu@broadcom.com>
-> > > >
-> > > > keep-power-in-suspend is currently documented as SDIO-only, but the
-> > > > requirement it describes -- preserving card power across a
-> > > > suspend/resume cycle -- applies just as well to any card type. Drop
-> > > > the SDIO-only restriction so eMMC and SD platforms can use it too.
-> > > >
-> > > > Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> > > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.=
-com>
-> > >
-> > > Incomplete DCO.
-> >
-> > Sorry, I should have explicitly stated that I will leave that to Kamal
-> > to contribute on top.
-> >
-> > Kind regards
-> > Uffe
+> This doesn't look like a problem to be worked around in the USB audio
+> driver side, but better to be addressed in the USB core, IMO.
 >
-> Hi Uffe,
->
-> No problem. I'll resend the two dt-bindings patches myself with the DCO
-> fixed and the DT list on Cc. Do you want them as a separate two-patch
-> series on top of your patches 3-6, or should I post the whole series
-> as v11?
->
-> On the SD wording, since you plan to add SD support too, I'll keep the
-> description as it is, unless Shawn or Krzysztof object.
->
-> > That said, I was also thinking that maybe it would make sense to add a
-> > sysfs node to allow the behavior to be controlled by userspace.
-> > Thoughts?
->
-> For this board the requirement is fixed hardware behaviour. Firmware
-> reads the card at every S3 resume, so the card has to stay powered and
-> be reset each time. Without both DT properties the board enters suspend
-> and then resets at resume, so I think the DT properties are the right
-> way to describe it.
+> Please try that, or ask USB guys.  If they find this should be rather
+> fixed in that way, I can reconsider and review again.
 
-Yes, that part is clear and user space should not be allowed to
-override that requirement.
+Hi Takashi,
 
->
-> A sysfs knob could make sense where it is a policy choice, for example
-> on SD. If it is added, I think it should not be possible to turn it off
-> when reset-card-at-resume is set in DT, since that would bring the
-> board back to the failing case. I would prefer to keep it out of this
-> series and add it separately when SD support is added.
+Thanks for your time, and agreed. The host should have seen the
+disconnect and on xHCI it does. The Pi uses the downstream dwc_otg
+host driver, so I'll first check whether mainline dwc2 has the same
+problem and take it to the Raspberry Pi kernel or to linux-usb
+depending on that.
 
-As stated above, the reset-card-at-resume requirement it brings with
-it, must not be overridden by user space.
+Sorry for the noise: I sent a v2 yesterday, fixing the review bot's
+findings, before I had seen your reply. Please disregard it.
 
-The reason why it could make sense to allow an eMMC and SD card to
-stay powered on during system suspend is primarily for two reasons.
-*) It allows internal garbage collection to happen in the eMMC/SD
-card. Meaning that the card should be able to perform better later on.
-*) System suspend/resume latencies may decrease.
-
-Of course, this all comes with draining more energy, so it would need
-to be carefully used.
-
-Kind regards
-Uffe
+Regards,
+Stjepan
