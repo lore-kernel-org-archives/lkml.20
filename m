@@ -1,84 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793228056;
-	b=03FSc7A2IugzM960dqEhs1wEHCzDERKN5CTLw9ms/fxp1OL8IFsdDSoChnAaMsp/YYs6
-	 ID4Yv7LJzVLKgbmpy3kICaoSlp8EdCBJb5H19J7R3+mHl+ZW287f8U0bhngcwEMyxYDYt
-	 /R9l4uh+yW5cZet61nM7lIaQuKp0ZtE8h0S+BKl6/W4hxSgUZ54+y1ZEROGE14xOGAQO4
-	 zfvIYpZ2Bk5pUqG6nL0L4kwrWHwKWJ5EWEQZWpQuAhlzTEr0xRtu6zbpm8p/yiBN4i8yn
-	 Emg0+zT4hWIF1xwDBaDww3HyYlfGCegR5s5GWAnHcwbD4aa8gVHAKpN1Lyy1FiXdklQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793228056;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=1nzL/A4OIGWxPEaAp0V3O0CBZ7XOASlD1R5vK61L67g=;
-	b=SN/VRIhvpKYYSspiG34zRPmgZpF3hjjm3yqezOT0JCOhmTtkuAimUOd67X//wInZIv3p
-	 ytjUhLvrdFFxBQtkDWS870MrmCLFxoqxGClhmd1vIQjM34xg/1P8qnL1hK+jntxRnNpi4
-	 yYaEV6S1FR90GNm6U1MkNDXPfzv7MM3MTVo3+BX6TC27fe1kfIaNhG1fF4G4E0ok4lfP9
-	 Di/cPBmSLfRNWxmAHxPeAxgzSCtMLdvruvMCj6R1fuc+9eEazshR9bLkkk99RzbHiJ5sY
-	 U/L9C88xraMBKyMztVp67CACvmvHXMb2aFh2MhIEB9YTxWkok2raGDQAuyz5i39+nXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Jd09Eqyr;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793228059;
+	b=LlW4xsG4S3asD2zYN6YY4VG1jgQfx1QJsYeqlmr1ncJheVLcTHRFRle/6IY39FCjo0hF
+	 K0QmkHR+rnRy+dTFx0xHduvGfNpYbRM8S04B1cLyEIX9YnC9H8gp/LD3IFWN0GYvh8GDl
+	 oIk2MYZZ13o4pwMopEPEyPr9/816A6vcKlGUsNh1e+BifEHWchFFpuowefsj9PTn2DVcR
+	 aOaqwMTNIn51AX740FU9/RUull1MvyZ/9YofOY/w8xCg1gvDHgsgxzoPg7uJSKvhR79td
+	 eKTeGS6eEg3XDlPvSOTubIReTE2/UjI/Rr89uj5AiBp9HE2dUuCLU4iOPr72KFXP+vA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793228059;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=/ZALVaMldwQ0X/K5RLZjuplS/iUb0KWyBVqHtiMBqmI=;
+	b=i2XXjP1EFHxEqcH+DcElzY/goqDZKpA6+2o3mKHa5AdcqP8rCaxqWiYu7M1zZQWjnox7
+	 HBKevXmr9Zi6isBAFncT6iONZTVbwI7nfOMYlilBWhKAhTVBih4gX03k/geQQZDpbss5b
+	 kb+iLZgxaNMQ/If8MeTEnZGYR1db7WXkbuJdiJrqEOAt3M3a7+IQ042dVB9JefMqP9W5q
+	 54dg/KOQC9VxqjCPLse/klKqFpVivrwrpIaOv9ukyHuy0quBk8bOp576kOEXKklpXX6jm
+	 GlrcnM1Bi2XNzNJDBu0CxEQBURqHTcvN1LWShC6eIS+U26ThUg6DmLUNmTckdNBHLQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQebQVXJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15027606A337;
+	Wed, 28 Oct 2026 22:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQebQVXJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793228058;
+	b=YC4ocxpXM0ok2A956+OW3sHELt6EyKgyr67lXK6UxLf5KjrMDCKlb5f8jF3BVsa0o8BK
+	 uT1BlGNsi987zKFSZGbG69Q8/EfJC7PeuvGPDvPXfItzFAIeW72wV4DVGRWJJMzrX8myA
+	 9GSv5H3YGYMZTZIsZOfhcEYGMstMn3rJRmGptjcBRi6vTV4jljcU25/zpyW3KLmkDRk62
+	 Ng1lW+oZpP9D0Qcy3Hxg70XEjgLLKIzW0mnChiXZp8pYvpKQYGxfrbtESePXpEbfAPRBq
+	 H9YFPJsuGP1jf5jXiLjwWgzS76fK1KJWMJFbvDW9cwJJzNMbY4BG7P5o5B6mnCAXblQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793228058;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=/ZALVaMldwQ0X/K5RLZjuplS/iUb0KWyBVqHtiMBqmI=;
+	b=ajIXd7KbV2P9fe2sLPNLKxtCzOc2i730scAZI4/rVz2+eEce1NYc2HOepmpqvSjoaFBb
+	 l8GJKtU5RG1/RTKggg3AziKi6HC0pab1sMcQknkuumnW+Gci1R9jRj9R9IfDiiS1laVAD
+	 7Id4HoQjaO4YQEmq6B+/NlZ+Ff0aeSLX7m3Q6yn2RV7s5pof4sGGuNo+Ifm3KUdFnIrAQ
+	 yFPopJzhZ8ocxBiuVWEzI/0JnIH84kZRcrpY5J7Y+8gX4Cc1wxRIv5xyhW8Joj9UfFhEM
+	 6GYfUgwoB6V+bNsiC6KvBAC9HbsoaFCRiuWe9ycy6XIhHitn7815s7p+Nb4xTUpILnA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FA7606A32F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28FA7606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Jd09Eqyr
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so2253302a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:54:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793228053; x=1793832853; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1nzL/A4OIGWxPEaAp0V3O0CBZ7XOASlD1R5vK61L67g=;
-        b=Jd09EqyrE5Ah8cRBCETOBxDbT9b0oGnFriZ7N/vtIFnR4atxKwoVXBEkw9jWiyscaL
-         9cBv//XvhVx0QHadjkJLBobkr5XoWyssGxmav1gWZI3g+BwjlhfZWo65PjCsgnm9H3K3
-         xu5Gt8LjlHXosZzQxl27itMRU6XM03eBrNEUzaUgmLacP/vWk9QUrBawj9QiMopYPRXA
-         tFTTkouWxIpyyRzhMiRtstmfu3ZGpQ3UoEM6m+ucddIsmxmD56hyTjhxLKo4VCQBrV7A
-         s99qsxF/HxZexb7mRhlnvehngAX2PDIIfWSoapPGufqyJfpOj/CE/u6FaQ8yHPJb3EEt
-         tvmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793228053; x=1793832853;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1nzL/A4OIGWxPEaAp0V3O0CBZ7XOASlD1R5vK61L67g=;
-        b=HiDeiMpEpZIagMHaLtfBhTRooGjBTDmukncz/6Ye07w6hF9a/ZIEV5LslE2hoXgJJl
-         cg+HNWrmOcfDpsmw2YbDL6QS2E0gUWpuMddusnRYRjxQ0P3nNuS1XVEEiemr1KvIvjtV
-         NRNXm6tguJALKM3NSkkbU9vmI+CQunnoS3Mz9BhQpG/KLBaLy9bK4as/wcyUfJsnaRDd
-         NBCYm85PDm+XcfrPhW3PMXe6COKI1tQToXHqllbzYa0wrzXaQ6BLA8i7e3cve0s4oVPk
-         f/VVFGzLoyDCc5H++rUHMsYSQE5lCnaqEuHlrANXSozEYLQcvnwmoW1n43ayI3ZJmy8E
-         47WA==
-X-Forwarded-Encrypted: i=1; AKwUvByRODgDfYxXtsfxRMDMaxqJglPrMpGqZtWQNbXpvhWyrNsIbwOsiqx0vOET2MDIPzW0cch66ueR4LHl6go=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWupmtBgmjLb9eneuIyiqkQ6J8PfjRLhCcQhbqks2iqzeaf9az
-	nKBIGm42yvnCFZRl7k+xdilzAT3AdattdOFVsdxUcChmbGAwO77LUpy/274VrhwAiKs=
-X-Gm-Gg: AYBFou2Wz2aVMsvdbbXwrrzZSUEMlCbX3rNxcSykfMM9/fMcd2QyMgYzy2rlsxXhC1F
-	Kd9JDjdBfzgE2FJJ0mWlRENUgnlz2UXaEquL2463k2+LKbiNGQlCvsNqIcQIa41DyW/jw0hOohk
-	t4Z5NHM2RFn21Htzg3y9ki60ByLQakpLXbU4VYm6oeeq2+SRU/yMk6bikS+Ia7CRvTTlQeuIvVo
-	yE8cI9AIXzONeZXUZoeTfJ6IxqisAXCr1W/3rteQtRwQAzVD7MMH6Tx3IlmgVz+3WJMnLFIcPYF
-	rmBvEHuy428fzy13KArCqEnh+/P2gkx+NLbJuShOJWIRR1dZVQ1xYFbNs3uxdW2DS1CGLHyyIX6
-	WdjOqoPD9Hl5EHgJcAypKjwXsZ9ca0Jh0XnEnKQbgtkE/K1VsjGTtkgptESAFwQC5A9xZN4fvPM
-	EdTk/7P1YyDSQa72bWqAK9AZI/0KlpYX+uz3p2/fECOqfhmoEPBumat91FpMILCNKJo+cljx5av
-	ZYaVYKRUgAJdTSsozx3l4dbPmbTh58Na9iGu/QSSGyQ2kGG7yrRq+SACjU4bSvoMjq6zJcDiTSh
-	H/5qU0azwny02peoHeI7zRzyKeloQ2FM72yA2OzzT3U=
-X-Received: by 2002:aa7:d0d3:0:b0:6b4:78c3:b8bf with SMTP id 4fb4d7f45d1cf-6b49cbfe65cmr2043596a12.26.1793228053385;
-        Wed, 28 Oct 2026 15:54:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:49::])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4964601f2sm1991741a12.37.2026.10.28.15.54.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 15:54:12 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1C2661F031EB;
+	Wed, 28 Oct 2026 22:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793228058;
+	bh=/ZALVaMldwQ0X/K5RLZjuplS/iUb0KWyBVqHtiMBqmI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=aQebQVXJ75y4EOlzzhXQ+JAHn3//z1zw685NW0+YfmwTQ+soum1EVSCXDofTMTews
+	 DV7kGsBuLYXwU7ao7DQqJU74qo9ewx0zAyBC673oHPXlRHfU2fVkfPL5LVaP72GFzZ
+	 aW/dAukwh26N4xqdPTza6/jmWYNrFIpQ7VtbUlwRE87JVgf0sOxGKBLj3sbo3pgfgs
+	 QHq2QQFyrMC277DMMqPW6xldi8cHLRzw0qShK5lCXcafPAGB4TUyQEiZ05xgDSWydb
+	 0mzKn/mIFUEjgc2MxqOHWzeG19E3AKAmGA4epE9nmi77/B0iXYcTYdkFAziyt6Mca4
+	 bmmL7baPjIHYg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A4BDB455FC;
+	Wed, 28 Oct 2026 22:54:15 +0000 (UTC)
+From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] drm/amd/display: Keep FreeSync flip timing across
+ plane resets
+Date: Wed, 28 Oct 2026 15:54:11 -0700
+Message-Id: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,74 +86,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 45/46] mm/memory-tiers: unregister empty tiers outside
- memory_tier_lock
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-In-Reply-To: <20261027-fixes_core-v1-45-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-45-6f74bec9a5bb@kernel.org>
-Date: Wed, 28 Oct 2026 15:54:10 -0700
-Message-Id: <179322805093.453251.8441529644965692562.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQrCMBSEryJZ+6StVsGV9xAX+Zm0T0wqebG0S
+ O9uoxdw+Q0zH/NWgsQQdd68VcLIwkNcodlulO117EDsVlZN1RzrqjmRT4DM0dLzoSMoQZApcwC
+ 1zhzbE2C8g1r3zwTP09d9vf1YXuYOm4uwNIwWkEk62r5EOjiSrDuOHbkUKGLKpdaz5CHN349jX
+ XT/3BlrqsiYw960Ve21P1y6oPmxs0NQt2VZPt9+2WX7AAAA
+X-Change-ID: 20261027-freesync-plane-reset-time-5db657eebfde
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Davey Hughes <davidralphhughes@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228055; l=2607;
+ i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=uB3zeg6snFrSpyNToh+cKiC4OgQ+D5vVvwK0Qxj7Jc4=;
+ b=Hp94BmA/h9H3IVvCisahJrlrYCrKHzdJdDkP7r5umAgla/kMsClkNNArhtAolupdBKBDB2RLg
+ eXAtm6Bvnd7DWltsqQImRYeV/HqKtvQleG0Am68OK2VLMLRunTOgkKD
+X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
+ pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
+X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
+ with auth_id=1335
+X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
+Reply-To: davidralphhughes@gmail.com
 
-On 2026-10-27 00:18 +0100, David Hildenbrand (Arm) wrote:
-> When offlining a node's last memory empties its tier,
-> clear_node_memory_tier() calls device_unregister() while holding
-> memory_tier_lock. A concurrent sysfs read can hold a kernfs active
-> reference and block in nodelist_show() on that mutex. device_unregister()
-> then waits in kernfs_drain() for the read to finish and release its active
-> reference, while the reader waits for the offlining task to release the
-> mutex.
-> 
-> Return the node's former tier from clear_node_memory_tier(), making the
-> helper more similar to set_node_memory_tier(), which also returns a
-> memory_tier pointer. Let the caller unlink an empty tier under
-> memory_tier_lock before rebuilding demotion targets, then unregister its
-> device after dropping the lock.
-> 
-> Fixes: 9832fb87834e ("mm/demotion: expose memory tier details via sysfs")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On a 48-165 Hz FreeSync panel, fullscreen clients under KWin with HDR
+enabled and color accuracy set to "Prefer efficiency" run at about 51
+fps instead of 60, with flips locked to the 13.45 ms BTR mid-point
+grid. That grid drifts upward at the rate expected if FreeSync takes
+the 32-bit microsecond timestamp itself as the last render time (3.46
+us/s measured, 3.45 predicted).
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+KWin replaces the CRTC GAMMA_LUT blob on every commit in that mode, so
+every flip resets the plane and the new DC plane starts with zeroed
+flip timing. Patch 1 carries the timing over from the old DC plane, as
+DM already does for flip_addr
+(amdgpu_dm_plane_drm_plane_duplicate_state()) and for the BTR state
+itself (dm_irq_params.vrr_params). Patch 2 adds KUnit tests, kept
+separate so patch 1 backports to stable trees without the KUnit
+infrastructure.
 
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+Tested with KUnit (UML, all AMD display suites pass; the new timing
+tests fail without the fix) and on 7.2.11 with a Navi 31, an AW3423DWF
+over DP, KWin 6.8.1 and Mesa 26.2.5: 60 fps content now flips at a
+steady 16.65 ms instead of on the 13.45 ms grid, 30 fps content still
+gets BTR (30 fps, no 13.45 ms grid), and debugfs shows
+color_mgmt_changed=1 on the CRTC in every sampled commit. Not tested:
+DCE, overlay planes, other compositors.
+
+I am not sure of the current AI disclosure policy, but I will freely
+mention that I used Claude Opus 5.5 to help debug and write this patch +
+tests. I have tried to do my best to match existing style/procedures.
+
+---
+Changes in v2:
+- Copy the flip timing in amdgpu_dm_commit_planes() instead of in
+  atomic check, so it can't race with the previous commit still writing
+  it (reported by Sashiko AI review)
+- Skip the copy when the plane keeps its DC plane
+- Add dm_plane_inherit_flip_time() in patch 1; patch 2 only exposes it
+  to KUnit
+- Check the whole flip timing struct in the KUnit tests
+- Link to v1: https://patch.msgid.link/20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com
+
+---
+Davey Hughes (2):
+      drm/amd/display: Keep FreeSync flip timing across plane resets
+      drm/amd/display: Test FreeSync flip timing across plane resets
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  23 +++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 188 +++++++++++++++++++++
+ 3 files changed, 214 insertions(+)
+---
+base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
+change-id: 20261027-freesync-plane-reset-time-5db657eebfde
+
+Best regards,
+--  
+Davey Hughes <davidralphhughes@gmail.com>
+
+
