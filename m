@@ -1,121 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793206505;
-	b=X46i+YX/wML2iRFVwg+8jnBFIES2sjwvxUMQaZoX0fDoopvZZQ4674w+hRaSVtxaRrer
-	 snBkcpHNf4smuLbpJOtfDEyOO0qqQxqjFYh52l14efu6G6WQ8fc2xeaauSgj2gkvMjC7A
-	 Dh00qbTHSybB2GbUd9eD/cQeDqRtGxef6+/HWg5xXAiIO0mBL3+EiZQ84PiMmQit3Yd2T
-	 L0iWDPo2UPuEK5IQOH7v1cPNEKovTGSP/4s4NFvPMp6F2qkcbsoQeqtP+4191d4Pu9llJ
-	 6CHk3a7eewYGpyymYH3PleP9+mj9Xq1gPsez1cO4Y1lD5WMKoB6bV4obRIVMdaEWCWg==
+	b=ylXsUhgPbhA/VFvXWl71k/UzSujAUwwiZB/bCkt9KpiIkaEmtNHrq4IdDy9HSkipVPyR
+	 ePslsZN5JaqEf6zvXQbirvlLDpG9wfDlpijfVbIeaWk/6U1isgSZmO1MJRm84cpY512l6
+	 7qMctTG87Q/jgaiBSO1vh0amXl2EgvQW4Sr6dx5n+LYiLJiLFRRWl4kgR8a0CeKSygoMd
+	 ebd5YM5ySwxbfYVS9zOFWDHBx2F+Hwp7EtVAt4rlehmsh39bJ7/lY1LHaTCU9N51oE5X7
+	 LcfTx22nV9Eo7WKduOjk4ZH8eqxXDahcazXO5+hAMjhco2llTT/JCU+adPrJyuyMKpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793206505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
-	b=Rto44ReB1vQmWEdT3+rKMGy8bIGPGJwVAxdItkJo06o7d6lWD/l8cDp0AAYzeg8YWrck
-	 OvkjKJXRBKCpmbvEfYC59Vicd2bEADKnTCZCsef1bk7L7WK4vSSBzMYMkRNFWPNs20g6O
-	 CF0cTR6mPBTv5AxkyNn0ux42dScI5L9lyXpV7ayV1UG13i4I8uwuhiuy4XR2RGKYcMlz6
-	 vPkx7SqOTzmXhf5bazdoikAB7VpNRngDXMuOn7aM1S7LUGKaRTKXPX0a/mDB0GyYkRaqD
-	 rK79pH8KyfeHFCCKlvixPvjLw+8WTVBNnxSxLyzQ1aO70ARZ540CPaMFVZFky9yH0DA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
+	b=A1p+2ry7VeDqlIx6YZLvlHzr1aJilra9/BzfPFZsdfR+AOKNyvnV2wzgja4KeqMwECV5
+	 V9PHDh4qMMqbPm25PmjTkur8aDJsQJz7nBHmrucpyTDi3xAyb7bsrBXWwbUW+5fMzUWK5
+	 /n7v2kjIBMxST4K+FCZzt/YW9Kq+qRRR7vwUCMKy5Q+/RLgb0uYewo64NVAvn5sHFYW1E
+	 X6ZUyrtf2YJoJoco5IeoUxXZzz5rPcRoV7qQsiUVWkfDruiS0QZ2eOBmHkp7MrGatgJ+A
+	 kpw/7ogY+gEmU4kMSOH7A9yCixHvnxX5Xh5A2C07Q+JV0lQX6Zr+GeDyNZdkopxoInA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YZTcsWCI;
-	arc=none smtp.remote-ip=209.85.222.41
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	dmarc=pass header.from=smartx.com;
+	spf=pass smtp.mailfrom=smartx.com;
+	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c5vSMU4O;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D58606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613B3606A333
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29D58606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613B3606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YZTcsWCI
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9905d61449cso427961241.0
+	dkim=pass (2048-bit key, unprotected) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c5vSMU4O
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2122343eec.0
         for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:55:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793206504; x=1793811304; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
-        b=YZTcsWCIUypnB5n4D/hsVZ4sYhEwp0OAWBZMIpgCIgC9VKYTguiLg2qUrAb1YtwQXm
-         fBX2qjbMohrDsF8FpU3xT0wg+Z/De85xmZkcivTaFPK/xC2rSJQKjq22NWOhc1lGVidr
-         hM8JGH+eSNGpRlvJh4EuWmmvnFfWam7TOV3FYkuqC4/2+sI4BlGechXv6xOQOVgypb6q
-         zWTc1Wh0ex2ijemeCLiISE7AQnNSqdbH3U9hHcLHJdV8/WdwHyqp0xajG5zARiSHdoqr
-         pOVMKySmKrvxR+H5Dzu0wqmwb1u32hxlg1K0CKnzvk4A8gUXWUD4WI0PaDrMBKpYlNaK
-         M9iw==
+        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1793206503; x=1793811303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
+        b=c5vSMU4OlFpJofx8pyh53OYoKfiY201bp+bkEJXfqn7e+hktJysWEkZucR6HjEPfBB
+         LDhg+3CBKTEqrpKe0VQPdo4WxW4U+n39wNy2ru5bquFNadzoWRfv182qfvJWGxU/OvIZ
+         Vlhp2/P2q8Ljb/HU5UwFLFl4gmfZ5zEcABDGS/p0ws+ULgk7GO4NX4vn8H2AYSvd29Zs
+         NXpI+6s24H6auqF5CJaqN32/AbZ4vmJcySvMQndnUHPoouAxBLXAs6QwEua6iarUbB3v
+         XK+zJ3YN9uqzQhZVCkV798LASYaWoLBTboPr79DJqitpYzdW9NJx5kIyyZ8lqwjqNQtz
+         VogA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206504; x=1793811304;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
-        b=ogjFCdXQHaetHzQHJAKkO0cTXKR4DArUoaKZuXLO75Msk4aFwAHxnEpagBG8Nn6w7V
-         DgRr3tyyyawyncAxVS1ZjagEm2HP11wdUZdgo49sSRhKAi4hS/+kpFrAC0v0pYv6c+gK
-         1xH5cPYlGnIV2IgoNNnVYgHBr1kh7PisxrsyIdhXd+QLRhG0zq2fj3ZQK2d1CS0alIti
-         NsEqlfzLFcCvGhtXtJb0InCLSzfTl4mQDojSeFBz6xIx2cDc0TKsyq2vsJn8F1T7w88Q
-         quFF4DUM3hpVm0xXZDKu6Wbmiw0IedaiiSXpBjbeyziXQ/EohEklko1PokLFNjBaDDuL
-         pVqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzp0PtH6enUS9h7xoqtKY0BOXrmNZ6VqNy1NTSv1NLg4HKWWZEXoJuWZEtNOzRHnsw4rsFTuIsi8sgZhv8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnU709KGMtCsn8lPqfoPErbF99zkgRNryg7p1X9eEZUodxQO6o
-	5vlx+65O9g2EtSp7wp1Q8wmq52Pz0ms7W2hbp6U/NoEjobpKpIttH1fvn4RN/LQ70hg=
-X-Gm-Gg: AYBFou1uI7G8zV4T0OYDE5mFcz1Pyiu0DLi5q9wwQdlzkEOJ48xKjsjL2D4kHumiTlz
-	jV2irbDcPJV0dvinnTLJub4WiSXmAajxtyVOah5pLz9rG1Io8BJ2Byo71EHO9ramufBFhIWuqCG
-	zEAxfaIwQ3EKMoTkL9nhkFV65STZuosxp1JaBl7c5ec47Cp+Go3EmOFexwoJlQz3IcRv9V13rx+
-	k9aAmVayZvi/NqsI7C9li+oCTMd3u/Ue/qTjmf36W5chZCwFApNwIdjkgV+b0s1QQo8zhwj14PT
-	kr7kd/ux4aVsQKTWpdcSk17eueJuzK9QXqpnvnpNt+cJhluHRk8ipX4eyDRHs1TUw7VSHthhX0i
-	i9YnjEnKkLSGGI9Ef4wUuuIzm/gx8ogezAa3gn9F11Jen5lW8nisiEX8CxN9ESx7O1DtIpUg8x4
-	0DafcBgjuqUCotxmEWdtJjBICmqKTIVLrkc9+xZFVQnqCob0docCkCCHOObyLyFr/X7GvVng5lF
-	dz8SherykbMkhznTnuj81rAm2fcaj3HjzJ1RwJHWl1F+cYeSnGGfGEblI5e+CqL5Ca81dvy0rxo
-	q4TmNONKkqulHJLqMNvXUFD4bl/id9+D06W1S/+QXG0K1z4J+jgA7tt2LVaKr4u0mrfsJSXgQWD
-	20bFBhl7hoIaFyZSujMIXHieBefaJOw==
-X-Received: by 2002:a05:6102:a54:b0:7b1:6028:5475 with SMTP id ada2fe7eead31-7d03a505a71mr1235376137.12.1793206503993;
-        Wed, 28 Oct 2026 09:55:03 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3d32a48sm6300543137.9.2026.10.28.09.55.02
+        d=1e100.net; s=20260707; t=1793206503; x=1793811303;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
+        b=En1Bdl1iJYq7MkNnmpW3ORXyMDFibdUTlUny/NhPs0hIutUYHMT/qN58jW9y/XJHdD
+         uxssa1B3hwC9Mo7eohJnnV64yiSycyr+kpeT793IXabRhtnMaiY2QEeIJRBfGpSJ1c7T
+         HWNXEpZFa78yZZUs28ismm9y5sP1nKszB/GMz8NvV5U1Q/DcIySnVMxFkjmt9l3Wa+mi
+         NQDszsl0VzIKOkrVPBGHbZzwkHllNHqSB2bZwcpt4tVXoQWuEnLI1mZulYkhtN9VtNmh
+         GrrAfxoHtTy/UuNjRfh47PDvfIzG5txU4tA3PYxS0sIsnDGEzzaB5zXYy5xs2herixwq
+         +/fg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2uTLrJ1VfPtHY6ykCDHltVujJLjRt1Gtw7AW4Nb7RXEAwanH57j5Lu8VeckxvEpjvSYl21u4s1vq5+no=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaqaOs/nnVgY0Xw8VD9RabG4Zv2j/2vE26MApoooJMAt725Yhk
+	g2KGTCTX3abncC2BJbunu8jsYsKvbtjcJmTb+maDGzGLGxiwNKc8sNmOmIY341Clw254wmCBZK/
+	fIESkG4nsd4OCGNYMPsJN8bOCsPuv1bR8jLkBKCkL5QOBbjKRPV3yRjJ5rlg=
+X-Gm-Gg: AYBFou1dlJMQye3iHXy0cE/0oYFUWVmTXaPOItJpdwVwdmdbP//Yo/jk5b6dI5dt5B3
+	m1Me/DjHtt0c/4llAfKsij+c+P6e/eAxqPIGcjrW6aHeomm+YS546y8ViWPZRcHIQTpjqoR4IC3
+	XIFYPbkHev3hdmCDsHHyyjrtgG3+WfRgEr9Wys1+kE2dxVZFBGLPeLUfWiTc/0zuKkfG9j95/oE
+	WtsGhLf9vibHpUs48HkorLFaNQTud5L/ML3yKTqLww3l7Vyj1TLrmo/9QnBKwcRKHTSNKit22Lh
+	gcFUrhkdAoG9/b7nXJWSbfZarbTzNkMq3j7JuDygvTW9Z1TXFSzTK/egyqiIwfqImxT46k1J1TI
+	hSuwxQhxJgh7A2Q9Ymb9xchP9jb8O3tpRfW38R9Zs3fdwDaU6MzG51vjhdVJsq+bDxf+1puuMjS
+	Q3SrI4kUcd7HWx50Q4vl+aIpE3jonqx+vtXVMHC+D8mlw/Z1ERxkYkaC91G6VGO1zpyMSI2GoHH
+	7FHwxkdX7MlnKQKXi3SvDG/ekAahL7GyIl6vIY+G6amGhqbdYHfBo6TCcAJ2B4itCK3RplfTLKw
+	L2WBj+RQkhKeZkNufOxO5Z7bM/GRVKHWHeE92wzX5sI=
+X-Received: by 2002:a05:7300:a210:b0:366:83dd:4704 with SMTP id 5a478bee46e88-36a2014b145mr4102794eec.17.1793206502537;
+        Wed, 28 Oct 2026 09:55:02 -0700 (PDT)
+Received: from localhost.localdomain ([23.148.204.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238d9a21sm8603125eec.4.2026.10.28.09.54.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:55:03 -0700 (PDT)
-Date: Wed, 28 Oct 2026 12:55:01 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
-Message-ID: <auIoupm228FQTNGi@google.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+        Wed, 28 Oct 2026 09:55:01 -0700 (PDT)
+From: Wang Zhan <wang.zhan@smartx.com>
+To: netdev@vger.kernel.org,
+	Yingjie Wang <x-professor@outlook.com>
+Cc: Wang Zhan <wang.zhan@smartx.com>,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: preserve rps_default_mask on failed writes
+Date: Thu, 29 Oct 2026 00:54:40 +0800
+Message-ID: <20261028165440.1093223-1-wang.zhan@smartx.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <7fc32d133404c078352f0b8fbcc80a67861bf2c3.1793199118.git.x-professor@outlook.com>
+References: <cover.1793199118.git.x-professor@outlook.com> <7fc32d133404c078352f0b8fbcc80a67861bf2c3.1793199118.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,68 +106,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 10-27 00:17, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-> read(), write() and lseek() on a shared open file description of a regular
-> file serialize on ->f_pos_lock.  The flag that asks for it,
-> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-> too, but its struct file comes from alloc_file_pseudo() and never passes
-> through do_dentry_open(), so it does not get the flag:
-> 
->   CPU0                                CPU1
->   write(memfd, "a", 1)                write(memfd, "b", 1)
->     pos = file->f_pos  (= 0)
->                                         pos = file->f_pos  (= 0)
->     vfs_write(..., &pos)
->                                         vfs_write(..., &pos)
->     file->f_pos = pos  (= 1)
->                                         file->f_pos = pos  (= 1)
-> 
-> One of the two bytes is overwritten.  Two threads writing 100000 bytes
-> each, one at a time, to a memfd end up with a file that is far shorter than
-> 200000 bytes, while the same program on a tmpfs file never loses a byte.
-> 
-> Set the flag when the memfd is created.  As for any other regular file the
-> lock is only taken if the file is reachable in more than one way, and
-> nothing a memfd does in read or write waits for another operation on the
-> same file.  This cannot be done for all alloc_file_pseudo() files: anon
-> inode files such as eventfd are S_IFREG as well, and a blocked read holding
-> ->f_pos_lock would lock out the write that is supposed to wake it.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: minor description tweaks ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Wed, 28 Oct 2026 14:52:09 +0000 Yingjie Wang wrote:
+> rps_default_mask_sysctl() passes the live per-netns mask to
+> cpumask_parse(). bitmap_parse() stores chunks as it scans from right to
+> left, so a later error can leave lower chunks changed.
+> rps_cpumask_housekeeping() also intersects its input in place before
+> returning -EINVAL when no housekeeping CPUs remain.
+>
+> Consequently, a failed write changes both the value read from the sysctl
+> and the default copied to RX queues created later. On a four-CPU VM,
+> after setting the mask to 1, writing zz,00000003 failed with EOVERFLOW
+> but changed the mask to 3. Writing a mask containing only isolated CPUs
+> failed with EINVAL but changed it to 0. No kernel modification or error
+> injection was needed to reproduce either case.
+>
+> Parse and validate a temporary mask, then replace the live pointer only
+> after both steps succeed. Readers access and consume the pointer while
+> holding the same mutex, so the replaced mask can be freed after dropping
+> the mutex.
+>
+> The rps_default_mask selftest failed on the base kernel and passed with
+> the fix. The fixed kernel also kept the mask at 1 for the overflow and
+> housekeeping failure cases, while valid writes of 2 and 0 still
+> succeeded.
+>
+> The issue was found while fuzzing sysctl write error paths.
+>
+> Fixes: 605cfa1b1090 ("net: introduce default_rps_mask netns attribute")
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
 
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
-
-> ---
->  mm/memfd.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 7d2da23157003..6f5fbce74f21e 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
->  	}
->  
->  	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
-> +	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
-> +	file->f_mode |= FMODE_ATOMIC_POS;
->  	file->f_flags |= O_LARGEFILE;
->  
->  	if (flags & MFD_NOEXEC_SEAL) {
-> 
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Wang Zhan <wang.zhan@smartx.com>
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
