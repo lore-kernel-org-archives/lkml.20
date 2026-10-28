@@ -1,113 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222376;
-	b=LJIkOWJoP7Qpzxkr0ypg81AKKS9ZuCyen31ZkDsQFKtsPhGbhtLfh4hbAfJZnU7WNP/c
-	 lzU3tFZ/cAlfHlTQVVxJpnafnY2ED3D3GlxdQPXZa5NsHgHpUXU65aHs2uZNJ9hQwYaBK
-	 FcI2u0UILEx0sW+sUwsiazSsiBsU0ogZfNWRwp0DloZMim3wUlgFMPNKzRWEkwBwf9VAy
-	 LHuEeYXNojnE4nLBsVDGP1qdsWugwaZzQYqGyRW+MkB/XqI9ShCy5deKIypAhe8EBcder
-	 r+Zqg9hAHRr3TMMDVLnR7MgibS3VqNznpImm8/NrCTwa5J1bkTwZ7oTDNd6vjHcNjPg==
+	t=1793222499;
+	b=L1a3huBxeSvnqwS7+KnYSQrF3h0680enafaVAKjIx2c1aUaXz1U2x2MUG0w82KM8bHrV
+	 dpcn2okYpinphU8izsLwMDMEDtlTKuPt+qCZeX6Rre91r8nPUDUMLPnCHN6esRQHidgfH
+	 ZrtAPCFy0o0HZH+d+hNbzIgmZz+gG2DRY4SUHDFUp1Tbw7l317BNucQky8KafOX0ojv4Y
+	 1H2u20oIzys83sdwpseiF/NFk/hdnjSijXCnAhyY5aHbz2UQQtm7uWtDUVCt/EERomA87
+	 uk0izH+npnUtVziOSj0lV9MTUZc0ySE6aSQpuIq8CTm0stIVLUQfRLslgnkxnjBAURw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222499;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-	b=Ob2EeHqFKBzxNMHxO25t3+L+MxUaR6p9LjyxZuBImyjaZozge1JAjV1+hxQ7hYJaOYCD
-	 apzteMuuHp8yokKW1kJkQ8ZoXJPUxsEpmxpFwa3UEVl46JdzZxZwOn+8woy4x/zkqYstt
-	 IcMW5Hi5sBwJpFuAiVhY9VBLc30ITx7q0wzODo/ityE/A0lnda7fas8DVAC3Hu9GrviuT
-	 FspX+YaG05WwfNKaDmBp1X0ClPsmoP8GOLv07iq9808HhrRFlQicPxoOvZM8fH7+YNT7c
-	 hjOHzUAthXaUoW2kvgbiPIhvZaMypnV4pks8LnJ7PF95qVJZToTV9Vbl46k3Pztr0vQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/AnoOf4KaoFS/ftZh5xPkws/q1U7dINbhxvKXiKw/hw=;
+	b=G1OLO/xOey+Aoikpla61AdFXZMnW76uQ6hJ+YeROt+H8tpJ+9eJ6jBJioiyofj1mpQnb
+	 Tp64uMK0g6LoEdszbxeBfJ7WlIQrcRKwBXT/kC0CQnTtMj4IykolWfLlkwO4N776ZEKQO
+	 whaMy6db/9z9abfSC4anTuowMgrw0IAdtgIjukx2qCirfLK0yfnIvpB+FnL61kgRvinIn
+	 qvgz+nTzPWcNk4dQQLCges/mOOOFLnn8vOh0sTOqQcteQ/OMV3Q8+8U5oH7zErqvkHZSS
+	 w0R0rZBnnj6g+/XO3rorqpvLrml7BGCKXuBXp1gNyUZd4h8ALZdhlH0UUH29ZdQeIWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EvUYa4qw;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=C0bh0Mps;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4265606A329
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4265606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606E2606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 606E2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EvUYa4qw
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53397554beaso18818571cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=C0bh0Mps
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8565d77c277so13599557b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:21:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793222375; x=1793827175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-        b=EvUYa4qwi5SXGlC+UBEqHZqCvIE+YN7S91MM+EArmzp+wW6PtPPCdYah7QR7pPuEV1
-         kW0ErYOPNz8OBaNREFnU+5/l4NXYle4OV5lMBrS6/iuI0UH8XrYurRwujjvxt7sccV2t
-         rBW1i3lzdelTGrdAvLBNW2jwZkoAVVtKoYb2pXtBGt2TPjXRUoDWOr9Fyq3xSbnGmemV
-         Fdz4M/IVO9zxmsmKbX/Fct7EtbxHXLsO+aUgGOtWukXy/6y+wLR5cnQAUnjpDiv27wWG
-         bLvnB7x3ITeoxdCPJM9AD6+RjehjMiZOhwFdXioBjZsPb82u+HGkdPsZRWjZ7Qdez4ho
-         tezg==
+        d=cmpxchg.org; s=google; t=1793222497; x=1793827297; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/AnoOf4KaoFS/ftZh5xPkws/q1U7dINbhxvKXiKw/hw=;
+        b=C0bh0Mps1qm3/4kL6QqtrrocFRbdkoL6IZA3D82P0RWdr6+DOFzB8s5zW2RI8bVS2K
+         Mg27GpCHXxtvNQpZkQ0yZmqL/72TEG7KSkRWdsmZIEDDitYmUvSx9qCSpt7OmPUv0Y4s
+         r2eJBY/DmmL83xCy2P/sXRSP3APelzWGeej4J2Zq6ph5V+QNpKYwLpne/F0khHpkREjs
+         A3dl30zWrM9zQQ0sgMSDVF2yky9YFY/9QsrLalMQrbn2vK8EI1R0TRsnqvdKtp7PnFXi
+         zDCm02U7MnGPnYpz6QunJCDJikTzZWC2QMuYth2M8sI99Y/BW+ITdq+6HiGu7BxdsEwN
+         8sFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222375; x=1793827175;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-        b=agatwKmn1mguTLAj048+N6qXIsPtsegKP/1hHMwpAvY51D8Yx0ndQjD9YQjGkF97/m
-         CsL3uqOl+dNyS3HAcMld5t7UyWCjGp/TQkVLAWLK5NTmz0e7dviGfoS/hSlMaSvn68m3
-         W3YKh2Gcr2NsJOuKBzKP/sushcDeatIYXHPX/VvinQKQYiKGYqHpBGyJEN/RjbcEjPbU
-         EVDRpN6R530NIsch50AHHwJkM1g6BJAHuWZwywoye9vFlZrnQeW1z2wAspkDalN/jtjJ
-         rZ9TuE2dI7VaY1b0LkrFymCr+AP7IQNh/J/bQS47HRxtTc+6B4VXW0saTkLON9x0/cNk
-         VVQw==
-X-Gm-Message-State: AFq9FYKdwzh75LNILk1G91jAVtxvheeym81acjMUJ0MyZy2Z44DqC337
-	y/Cml3rH1mo0OfFh9dCj/AN42NMvGuiA+cOjjMmC1QIQajc7ridI44DHL5785h9nH5o=
-X-Gm-Gg: AYBFou1Z0dUh5VI2WawrG6Wa6/WCZFy29vOtz2YUKHPNkxm4BzVM2NZIi2lPYkcY9jY
-	altbEyZ22gTAPyG4U+5HTe3w9xYDBvqDMeUgfZ0yAocstephiqobcRvrTeQyn1PRj9nKEY3srLj
-	itouPmaTcOYmV6flq2Gwc1e7JIIX+aThEBQ+gv/TLPaGwx89O0/OMNszCBWfKfqhShTRIMmvZNv
-	uj4lkU6u8C9lub5F89c9PZQs/KZKJ7KyjxThjuxH0IwxQhEyESf+IAuVVJB9kgGXqsueUSNMSOa
-	3N8zpyNvMJybR0/azEpgaI5n5P8K4d5JO/bySgzXDJfmqq+lVubdqM/eJ3+bLk29xVWppWpEeFd
-	MYvdbRVQZ4aCAsCl+tZELLj2U2vQgj6iV+JruiD/NaXX8/pEfjzpjfHoOgeI+X1sj0ezMOS8sYV
-	ocDTKM8q2YmbF9wLLcsDigwLbtPMBRkjUw1wc4zCtkfldkleAb4uOIkJlHpN8xM9ReGgRtO3Lm/
-	qC0Mwt2puEoFwPBtGXV3twjlNcFXoMa1Z9NKqGOib7us44kytMe/D2jMpuVYQ7cjc5TQ8MezGWU
-	X8QKjEI/jRoanBe0YCQZWfH2zK2fGR/kItme50MQC+V97UJgDQqfFlQ85ZepV4nvR2rkRXfJQlo
-	9aTYQg+eE2mVabq0=
-X-Received: by 2002:ac8:5d47:0:b0:535:b506:11c6 with SMTP id d75a77b69052e-53fcc7ca8e2mr64934561cf.57.1793222374554;
-        Wed, 28 Oct 2026 14:19:34 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.33
+        d=1e100.net; s=20260707; t=1793222497; x=1793827297;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/AnoOf4KaoFS/ftZh5xPkws/q1U7dINbhxvKXiKw/hw=;
+        b=z5sKBV42gTILK8eQbLeKNSwd0Bn9JK9huEOC0oGKn2yg9sR6eWTSdrb86KygRCwfZ3
+         TquI78H+YzzYPIblVwi31+un8ylj/RdiQEL2qszZMrOenftdBllB8jBABzIGyc8s3wUd
+         fiSW/ar6Qf/xME2dqCJYgQHHsPgrWwWKEOug34AlnKrdwzbfyXajbZ1bBeYEnggEECRl
+         T1xApKWGuMNRs6br6rdLDkjD7GHB1GXYypZ6Wgh1Q/l9tzFWMON5AtmSR5CtPoS0Mk+v
+         9fE4ztcPWEdCYPHFswVS15mlciRkhHbH3NJWC90N5VAxfEfdt7vfN9Xu++breopLYGKQ
+         CaGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxf+0Mp8Krz80Nb31sVg+HZQDprKlw7yG/q3vZ6dDaCrWDQM2Abd2zFxPkaOw4xe2tECxcf77S/a8y0yY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRSUO4iopEwleHhpT/0wkZajmNrhtZtt/eV13tZfiGfV7zEmLG
+	z8T1tR5u0JkmHwqjcQvIIOwLcS7lmYakGqgKUdZM98EgBwGF026NXbZwKZZIUB3Yp0g=
+X-Gm-Gg: AYBFou03oEQOD0HnCWdRLeq3APoMSwPUtBuOKZ9nbpDkvxKQ46Ux0XZ+9xSzYLt3H0A
+	/MJi4ZMuEsVz0waPJ3oT2EhkMIMbWHtjInlSf8znZNNhisIilZEWcSceIXWUxK58RVxFviHHX5p
+	hXLDCoS5b33bgM96B9sOSP6S9loxW3USC8EywhKl7O9hLwaidxpaCbIePRC0NCJVyLVwIE6vzMg
+	5UlD7WIsfS7TUoYuiI4MGdURsSVnKrALNnN5S7O5m7CKfEpb58nR1gmiM+nZPcI0kNHOE8ya9MI
+	MCLmWTw1q/7W8im2vDAAeZgJtsm/XHqGRobV+eHTQnKDzodhE0MXFximg7f2dBp4wEpNjvvDPLy
+	IFsZl1jLwQpWuK54f7rE8UakvnaUNsGiZTZ4OQicq5Eau7+oHNzh6ptxRFv57Yb4i+1KHdAxKRo
+	ZAzqeayOwDGO/GrceNH1iNgK6IoYIxZanzsR1plOSOczDvYbXfD7rKLlIRfekkDOJZjexb12jQq
+	Hc6glhAdQns1dQnMDgnQTbHLzGgh6ZFVdTjQdWfm3W08U8m1Fuj63XpHHe0LGIAe/OOmUxqF8Th
+	TLkd+8ie/I6zMwTIYEdaULt43rw3
+X-Received: by 2002:a05:690c:c5e0:b0:8a6:1901:30d9 with SMTP id 00721157ae682-8b1b5c9952emr18568837b3.37.1793222497186;
+        Wed, 28 Oct 2026 14:21:37 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e566718sm35368027b3.17.2026.10.28.14.21.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:19:34 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	mgorman@techsingularity.net,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/8] mm/page_alloc: reset can_retry_reserves when the slowpath restarts
-Date: Wed, 28 Oct 2026 17:19:23 -0400
-Message-ID: <20261028211930.3504634-2-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028211930.3504634-1-gourry@gourry.net>
-References: <20261028211930.3504634-1-gourry@gourry.net>
+        Wed, 28 Oct 2026 14:21:36 -0700 (PDT)
+Date: Wed, 28 Oct 2026 17:21:36 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: roman.gushchin@linux.dev, muchun.song@linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online()
+ checks
+Message-ID: <auJnYNDHiAED_dtv@cmpxchg.org>
+References: <20261028010611.3929937-1-tjmercier@google.com>
+ <20261028010611.3929937-2-tjmercier@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,53 +113,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028010611.3929937-2-tjmercier@google.com>
 
-Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
-flow") retries an allocation once with reserve_flags when the caller
-becomes eligible for reserves, guarded by can_retry_reserves.  The flag
-is set at its declaration and never reset.
+On Tue, Oct 27, 2026 at 06:06:05PM -0700, T.J. Mercier wrote:
+> Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
+> dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
+> move LRU size accounting on reparenting instead of copying it"),
+> mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
+> and zeroes the child's lrugen->nr_pages and lru_zone_size before the
+> memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
+> afterwards. A folio that is off the LRU during reparenting looks up its
+> lruvec through its objcg, which now points to the parent so it is put
+> back on the parent's LRU.
+> 
+> As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
+> when !mem_cgroup_online(memcg) is true, making the offlined memcg special
+> cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
+> code. Remove them.
+> 
+> With the get_nr_to_scan() special case removed, an offlined memcg that
+> still has stale effective protection now has
+> apply_proportional_protection() applied like get_scan_count() does, so
+> the MGLRU and traditional LRU behavior is now the same.
+> 
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
 
-A restart after a cpuset update or a zonelist rebuild drops
-reserve_flags and comes back with can_retry_reserves already false, so a
-caller that cannot reclaim, such as GFP_NOWAIT | __GFP_MEMALLOC, fails
-without trying the reserves again.
+Great cleanup!
 
-Reset can_retry_reserves at restart.  Only a cpuset or zonelist change
-restarts the slowpath, so the retry still runs at most once per change.
-
-With kprobes failing every attempt without reserves and the first with
-them, and a memory block onlined during the walk, the allocation
-returned NULL in 3 of 3 runs, and a page in 3 of 3 with this change.
-
-Fixes: 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath() flow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
----
- mm/page_alloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 2daf358269ae..78569ac6f2d9 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4783,7 +4783,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	unsigned int zonelist_iter_cookie;
- 	int reserve_flags;
- 	bool compact_first = false;
--	bool can_retry_reserves = true;
-+	bool can_retry_reserves;
- 	unsigned long alloc_start_time = jiffies;
- 
- 	/*
-@@ -4817,6 +4817,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	no_progress_loops = 0;
- 	compact_result = COMPACT_SKIPPED;
- 	compact_priority = DEF_COMPACT_PRIORITY;
-+	can_retry_reserves = true;
- 	cpuset_mems_cookie = read_mems_allowed_begin();
- 	zonelist_iter_cookie = zonelist_iter_begin();
- 
--- 
-2.56.0
-
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
