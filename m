@@ -1,48 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196643;
-	b=V+IK90L9DGFWCBTlSUrI/HW1VWCu6opHgtkAVG0GBKF5lFMQbPSIXS/3EiZYHgZvWAbf
-	 sYiCD0pUfkUS+BMReFXc8gkNWP5HK5gyZ5oKTDBDMkwEdU/xX/sKv9XUIgn9qMTBee12O
-	 0BJRg/0CfS/1036rqS6CNgklPiQ6LfGKhzM2U4As70UgEbc6QOvfk0SgRkieFjcfAOGyR
-	 Pa/NwYN/02sVPnwoGS6/7R7FmxCWyBR3E/Ubn9ILIiRTYErFPazsI1cxOlicH8vO2ks99
-	 3KfYxeH7W0hxCznLhb1stkEtp2A46/UbBZ+VbKeJhBZSIlR1pYwHT+OFBocjMH/xanA==
+	t=1793196712;
+	b=ndsfwL4iklh3LjrSCEmN7dXExfsF+5WcfgFxG2mwvKb7X/9DrK6NrhF5zNgS2+2eo5oq
+	 /ayl6F8mqbll0C5UXT7jZ95I0uMs0aDQG3p3agUNxp6YugBHTkBAi4S68Q04kLLSkgIrI
+	 5qK0aFW2VPetyl/RgMmMbGrxosSb/9LpscmFoBL0ZP8gfo9Jk8YfQanXYT3iL2YT7SdwL
+	 B6X6QG6uxsi2/8mAimLGvSbOQb6tEIMnalH2ilVzu9kKExm6Bhd5PzD06Z+OCJeH/od1k
+	 vo6C4IMfAh7XrogDeHlC+tzr6d3RL81HVTA6ZxHuSlK70e2mkFN1aKoep8+e9zBrgBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196643;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=4BRT1/zIsyosY6pflwCLcmCWvRIh0NtUfvIwl0z89uk=;
-	b=bpuXrhrkRCiF/JyyyZpBInN1bMVuPN4XpFfARGFXTbzlaDd0F9YEBKKHRrS6GXqvSv5u
-	 ik52KweOo15u9ISdfq0vZs8wZsEEjHqYv56e4iu6W2WlNmAg2Nh7Y7s9iqFEAcgZ+CrLa
-	 6vfJ136OvuKqiM0VIbfAw86HRX4BKFfRfjyCtAyDd6A4eaUvkyGFU7GGYx1Nce8SJ4+3W
-	 7U+kt27ddrwlGGCo5pVyOJqvJTvj+GNVChX4NtqGrXdRSuYIqq5Eg/QSydh5ek4OcSeVh
-	 NLl6OY6ENDVB5PlqnT3WAfyU0fRhE4EdB5PQrB2hNlTfS8Z/Uhz4azbowV4fh/9rwQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196712;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JBajJS2Cb5COg7/6bYodYxyuwbqhfYKEOKgSd/X0w/Y=;
+	b=zfUuG3nXONN8HfJ/DVaqk8uFYnv3d5By6AJ7KKtM4eN31YZYVitt6nR4lAF2b4HnoWPA
+	 ePtJzFQWGfaO4fOmT4OxAQDblHpL/ze8r3DRaW/O7uZy2J6a+eiGo642EgXfm3y1SxW7i
+	 Dz8LgoUsEFdAJLwTafdGIj3hwhEQUPK8NdJSam0KaH2T7YqZPLS7Y6zrZewK0/f9RnT70
+	 Wal8tEvWutWPqcT3Ux3PWsS649C9tPv3z5GasLVo+poaH7oSkUvF/CdTtxxiRBB3IoFv0
+	 UrWPMlDWglVecyBgesbv2kL0+WUREM+od+uRmGRxWSedz3djDokyJ03dmwiXDzIxcPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBa8TRTF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=YO0Upq03;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BE6606A31A;
-	Wed, 28 Oct 2026 14:10:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A44606A31D;
+	Wed, 28 Oct 2026 14:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36A44606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBa8TRTF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063B21F01825;
-	Wed, 28 Oct 2026 14:10:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793196642;
-	bh=4BRT1/zIsyosY6pflwCLcmCWvRIh0NtUfvIwl0z89uk=;
-	h=From:Date:Subject:To:Cc;
-	b=bBa8TRTFmzcrgllgJTEQt/b18VFkSZgtDfE+SbqhcyGmU/5t2Uxq8yrr180hcmOse
-	 TuaY0Hui4WzYPU3tzs3hLbw5yHMrNcLL0HJNJtyjuHLYowyItXtPDZrr1UYm7RZWfW
-	 dOcw2LSsTvw/3bq3zjsroRL0aXysE3BBIqYIa/84hdIzCsYY4PHp9PSzM/yCHIFX9I
-	 tTSJ96pxTUiWyuFvLi/h3SJ9OCxDU8zDYtqbm9TPKHetU7cLPe5ErtbIemLqlcdeV1
-	 yo5Zj2QtYGb8Mw2+jwArarRczpngQvfmzuqxb8d8/e3KlJQg3taIo/rz7sQutp9bcz
-	 fXf+6jJOQRd6Q==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 28 Oct 2026 10:10:38 -0400
-Subject: [PATCH] NFSD: Don't dereference cp_clp in async COPY tracepoints
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=YO0Upq03
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JBajJS2Cb5COg7/6bYodYxyuwbqhfYKEOKgSd/X0w/Y=; b=YO0Upq035Shjp6fT/zLdHvtzR2
+	yJiEKxsEFo7wGGeZBLsHKaP+BK6T30CqkgpqGUW2+abqosz1W72rnwyCR04n4P2wg1mlHhz2BElSW
+	O6cw9kp87nERS4Z+6BVydoMcJG9TUpPc3qX3HxGQTjij/V8edp2VnTC7p4AC/CKaEOj8Nl7fQfkE7
+	YCgA8i5iCimmfsji+adFFENTeImUeSPAuerjF1xR8FZOya3wLMcV+F8p35DaOJ6ILIro8BYtLtT9/
+	BGyC4+ewhQjNEbTMSpjzRfoTXS74GiYO1v5j8dKKHW0rXZ3BslbQfAiwHPbu5jYdtlb4CJXqy/fEW
+	qOorq8Cw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xM4NY-00000003xkc-3REh;
+	Wed, 28 Oct 2026 14:11:48 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6050030030F; Wed, 28 Oct 2026 15:11:48 +0100 (CET)
+Date: Wed, 28 Oct 2026 15:11:48 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Bill Wendling <morbo@google.com>,
+	Chuck Wolber <chuck@wolber.net>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
+	Marco Elver <elver@google.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [RFC PATCH 11/20] objtool: Detect code coverage instrumentation
+ in noinstr code
+Message-ID: <20261028141148.GT2668564@noisy.programming.kicks-ass.net>
+References: <20261028120034.871983-1-sashal@kernel.org>
+ <20261028120034.871983-12-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,179 +75,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-nfsd-testing-v1-1-9116f59c4f77@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyML3by04hTdktTiksy8dF3D1FRTszRLY5PkFAsloJaCotS0zAqwcdG
- xtbUAjziGVF4AAAA=
-X-Change-ID: 20261028-nfsd-testing-1ee56f934cd8
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yifan Zhang <yfzhang23@stu.pku.edu.cn>, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5285; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=QYbxlce+C/ZVlhxVFqskvOP8wo7FVTQi2Vz0y8YHBks=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq4gJhAVeCNCBdbp2kMFoqe/kXKJ/TezOsiLOnP
- 4yR1lATPbCJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauICYQAKCRAADmhBGVaC
- FcPfEACwAyKUMMMkFCnqqYT7+9JRBzrYZg0LtdPs8izC+hFnAiR01ZvLfpJ6aJvaJmKlN6wj/q5
- xuR+u27Qsnwp2r/JJMrdxUN5HJPoij7GtlPPsczKmI5VyBNXcCMSmF6U8+8kgBj0pjiQBSBFFbv
- MttRvrOL/ZOp0QjyssyHYCJHP4Oo9QrgiYCBldlofxrg0ltez2jzzg2EeG8zu0fWePr/j2o/fGB
- FyduMAYPkAuhu8TrNP0/hOtWYaJOnSrmOg6fvlOcyXtB9AMzpiZNMfn45CcLtarqkc8eGqvJI9p
- J8pNPfl99Ap08KKJ9UBVQKBR2imjYXxhctgf4cNlt06jV7lZL1kLGbx5gyQ84PQNKtHX1WfB5sY
- avOv+dqh7gaYQvHW2bavBRKyHN8Y2liwdmpqLkWvhYNzzfaNXYbtnc0wyQANtRWsCA898uoQvZt
- mIq/3mz0+Yym0hjsIgD/+NHphXOB4xhuvKNFwoG+Aa+teQZFoZQfZvTAXVOBBRefKlygJ9h6gDQ
- Ifd6bdyYKUMPHpB3izc4ykM94ymhfzthwttkOtz75vr/xGMB/+Ok5+hHgeyZNMZ/MSloVqcosM6
- bgQA7ZJQbttVuVIIXjEj3IJdwb8RkxOLK5hQlhrJMsWmSWAKGf+E3TKtnCBMY2wFElV9YGOorlC
- pGkoM60BLksDUdw==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028120034.871983-12-sashal@kernel.org>
 
-nfsd4_unhash_copy() and find_async_copy() clear cp_clp before
-nfsd4_stop_copy() fires trace_nfsd_copy_async_cancel(), which reads
-copy->cp_clp->cl_addr: NULL deref on shutdown or OFFLOAD_CANCEL. The
-kthread's nfsd_copy_async{,_done} events race the same clear.
+On Wed, Oct 28, 2026 at 07:59:35AM -0400, Sasha Levin wrote:
+> gcov and Clang's source-based code coverage update their counters
+> inline, rather than by calling into a runtime like KCOV does, so
+> coverage instrumentation in noinstr code goes unnoticed by the noinstr
+> validation of call destinations.
+> 
+> Flag instructions in noinstr code, outside of instrumentation_begin()
+> and instrumentation_end() sections, that reference coverage counters:
+> GCC's __gcov<N>.* counters (including the MC/DC counters), Clang's gcov
+> __llvm_gcov_ctr* counters, and the __llvm_prf_cnts and __llvm_prf_bits
+> sections of Clang's source-based code coverage.
 
-Pass the client explicitly: cp_stid.sc_client for async copies (never
-cleared), cstate->clp for the sync paths.
+Nice!
 
-Reported-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-Closes: https://lore.kernel.org/linux-nfs/179317462025.87538.12362003258355443382@stu.pku.edu.cn/
-Fixes: 62a8642ba00a ("NFSD: Fix nfsd4_shutdown_copy()")
-Fixes: 62c0f6eaf050 ("nfsd: fix UAF in async copy cancel and shutdown")
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/nfsd/nfs4proc.c | 10 +++++-----
- fs/nfsd/trace.h    | 20 ++++++++++++--------
- 2 files changed, 17 insertions(+), 13 deletions(-)
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  tools/objtool/check.c | 53 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+> 
+> diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+> index 464f6c9d9ff0b..6382d2a44ef2b 100644
+> --- a/tools/objtool/check.c
+> +++ b/tools/objtool/check.c
+> @@ -4,6 +4,7 @@
+>   */
+>  
+>  #define _GNU_SOURCE /* memmem() */
+> +#include <ctype.h>
+>  #include <fnmatch.h>
+>  #include <string.h>
+>  #include <stdlib.h>
+> @@ -3507,6 +3508,52 @@ static inline bool noinstr_call_dest(struct objtool_file *file,
+>  	return false;
+>  }
+>  
+> +/*
+> + * Code coverage instrumentation (gcov, Clang's source-based coverage) updates
+> + * its counters inline rather than through calls, so it can't be caught by
+> + * checking the call destinations of noinstr code.
+> + */
+> +static bool is_coverage_counter(struct symbol *sym)
+> +{
+> +	if (!strcmp(sym->sec->name, "__llvm_prf_cnts") ||
+> +	    !strcmp(sym->sec->name, "__llvm_prf_bits"))
+> +		return true;
+> +
+> +	return (strstarts(sym->name, "__gcov") && isdigit((unsigned char)sym->name[6])) ||
+> +	       strstarts(sym->name, "__llvm_gcov_ctr");
+> +}
+> +
+> +static bool insn_updates_coverage(struct objtool_file *file,
+> +				  struct instruction *insn)
+> +{
+> +	struct symbol *sym;
+> +	struct reloc *reloc;
+> +
+> +	for (reloc = insn_reloc(file, insn);
+> +	     reloc;
+> +	     reloc = find_reloc_by_dest_range(file->elf, insn->sec,
+> +					      reloc_offset(reloc) + 1,
+> +					      insn->offset + insn->len -
+> +					      (reloc_offset(reloc) + 1))) {
+> +
+> +		sym = reloc->sym;
+> +		if (!sym->sec)
+> +			continue;
+> +
+> +		if (is_sec_sym(sym)) {
+> +			sym = find_symbol_containing(sym->sec,
+> +						     arch_insn_adjusted_addend(insn, reloc));
+> +			if (!sym)
+> +				sym = reloc->sym;
+> +		}
+> +
+> +		if (is_coverage_counter(sym))
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index a50f9dcb3a31..b572210ee526 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1653,7 +1653,7 @@ static void release_copy_files(struct nfsd4_copy *copy);
- 
- static void nfsd4_stop_copy(struct nfsd4_async_copy *copy)
- {
--	trace_nfsd_copy_async_cancel(&copy->cp_copy);
-+	trace_nfsd_copy_async_cancel(copy->cp_stid.sc_client, &copy->cp_copy);
- 	/*
- 	 * Join the kthread before releasing its resources. The task_struct is
- 	 * pinned in nfsd4_copy(), so kthread_stop() is safe even after the
-@@ -2245,7 +2245,7 @@ static int nfsd4_do_async_copy(void *data)
- 	struct nfsd4_copy *copy = &async->cp_copy;
- 	__be32 nfserr = nfs_ok;
- 
--	trace_nfsd_copy_async(copy);
-+	trace_nfsd_copy_async(async->cp_stid.sc_client, copy);
- 	if (nfsd4_ssc_is_inter(copy)) {
- 		struct file *filp;
- 
-@@ -2280,7 +2280,7 @@ static int nfsd4_do_async_copy(void *data)
- 	 * joining.
- 	 */
- 	set_bit(NFSD4_COPY_F_COMPLETED, &copy->cp_flags);
--	trace_nfsd_copy_async_done(copy);
-+	trace_nfsd_copy_async_done(async->cp_stid.sc_client, copy);
- 	atomic_dec(&copy->cp_nn->pending_async_copies);
- 	if (copy->cp_res.wr_bytes_written > 0 && copy->attr_update)
- 		nfsd_update_cmtime_attr(copy->nf_dst->nf_file, 0);
-@@ -2306,7 +2306,7 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 
- 	copy->cp_clp = cstate->clp;
- 	if (nfsd4_ssc_is_inter(copy)) {
--		trace_nfsd_copy_inter(copy);
-+		trace_nfsd_copy_inter(cstate->clp, copy);
- 		if (!inter_copy_offload_enable || nfsd4_copy_is_sync(copy)) {
- 			status = nfserr_notsupp;
- 			goto out;
-@@ -2317,7 +2317,7 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out;
- 		}
- 	} else {
--		trace_nfsd_copy_intra(copy);
-+		trace_nfsd_copy_intra(cstate->clp, copy);
- 		status = nfsd4_setup_intra_ssc(rqstp, cstate, copy);
- 		if (status)
- 			goto out;
-diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
-index 951af645d1cb..e7b186307c21 100644
---- a/fs/nfsd/trace.h
-+++ b/fs/nfsd/trace.h
-@@ -2481,9 +2481,10 @@ TRACE_EVENT(nfsd_ctl_fh_key_set,
- 
- DECLARE_EVENT_CLASS(nfsd_copy_class,
- 	TP_PROTO(
-+		const struct nfs4_client *clp,
- 		const struct nfsd4_copy *copy
- 	),
--	TP_ARGS(copy),
-+	TP_ARGS(clp, copy),
- 	TP_STRUCT__entry(
- 		__field(bool, intra)
- 		__field(bool, async)
-@@ -2526,7 +2527,7 @@ DECLARE_EVENT_CLASS(nfsd_copy_class,
- 		__entry->src_cp_pos = copy->cp_src_pos;
- 		__entry->dst_cp_pos = copy->cp_dst_pos;
- 		__entry->cp_count = copy->cp_count;
--		__assign_sockaddr(addr, &copy->cp_clp->cl_addr,
-+		__assign_sockaddr(addr, &clp->cl_addr,
- 				sizeof(struct sockaddr_in6));
- 	),
- 	TP_printk("client=%pISpc intra=%d async=%d "
-@@ -2547,8 +2548,9 @@ DECLARE_EVENT_CLASS(nfsd_copy_class,
- 
- #define DEFINE_COPY_EVENT(name)				\
- DEFINE_EVENT(nfsd_copy_class, nfsd_copy_##name,	\
--	TP_PROTO(const struct nfsd4_copy *copy),	\
--	TP_ARGS(copy))
-+	TP_PROTO(const struct nfs4_client *clp,		\
-+		 const struct nfsd4_copy *copy),	\
-+	TP_ARGS(clp, copy))
- 
- DEFINE_COPY_EVENT(inter);
- DEFINE_COPY_EVENT(intra);
-@@ -2580,9 +2582,10 @@ TRACE_EVENT(nfsd_copy_done,
- 
- DECLARE_EVENT_CLASS(nfsd_copy_async_done_class,
- 	TP_PROTO(
-+		const struct nfs4_client *clp,
- 		const struct nfsd4_copy *copy
- 	),
--	TP_ARGS(copy),
-+	TP_ARGS(clp, copy),
- 	TP_STRUCT__entry(
- 		__field(int, status)
- 		__field(bool, intra)
-@@ -2627,7 +2630,7 @@ DECLARE_EVENT_CLASS(nfsd_copy_async_done_class,
- 		__entry->src_cp_pos = copy->cp_src_pos;
- 		__entry->dst_cp_pos = copy->cp_dst_pos;
- 		__entry->cp_count = copy->cp_count;
--		__assign_sockaddr(addr, &copy->cp_clp->cl_addr,
-+		__assign_sockaddr(addr, &clp->cl_addr,
- 				sizeof(struct sockaddr_in6));
- 	),
- 	TP_printk("client=%pISpc status=%d intra=%d async=%d "
-@@ -2650,8 +2653,9 @@ DECLARE_EVENT_CLASS(nfsd_copy_async_done_class,
- #define DEFINE_COPY_ASYNC_DONE_EVENT(name)		\
- DEFINE_EVENT(nfsd_copy_async_done_class,		\
- 	nfsd_copy_async_##name,				\
--	TP_PROTO(const struct nfsd4_copy *copy),	\
--	TP_ARGS(copy))
-+	TP_PROTO(const struct nfs4_client *clp,		\
-+		 const struct nfsd4_copy *copy),	\
-+	TP_ARGS(clp, copy))
- 
- DEFINE_COPY_ASYNC_DONE_EVENT(done);
- DEFINE_COPY_ASYNC_DONE_EVENT(cancel);
+Since you can have many relocations to the same symbol; does it make
+sense to cache the results of those many strcmp()s in symbol::coverage
+or something? We have plenty bits left in struct symbol.
 
----
-base-commit: 19bbac00ad1cfa28e9127488f161ffc2ac03fad4
-change-id: 20261028-nfsd-testing-1ee56f934cd8
+> +
+>  static int validate_call(struct objtool_file *file,
+>  			 struct instruction *insn,
+>  			 struct insn_state *state)
+> @@ -3680,6 +3727,12 @@ static int validate_insn(struct objtool_file *file, struct symbol *func,
+>  	if (statep->noinstr)
+>  		statep->instr += insn->instr;
+>  
+> +	if (statep->noinstr && statep->instr <= 0 &&
+> +	    insn_updates_coverage(file, insn)) {
+> +		WARN_INSN(insn, "coverage counter update in .noinstr.text section");
+> +		return 1;
+> +	}
 
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
-
+Perhaps merge with the previous conditional?
