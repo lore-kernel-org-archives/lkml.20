@@ -1,86 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219829;
-	b=dhmS+C2AxU3jqXTsSiDtlLdkknx0y0qAEKdeNaFb1ZZL9b4MY1MNBsOV17o4G8ykiuVh
-	 SVefhHvg3rxjdvECy7G1fo6l7JNx/cSG+0wVR4wJW1x8VLkE+CdcsRsT++kMO3D9xZhxV
-	 8vufYQr9lTQgSSIp6Kqd4uHe/L1dKiNksvQ/DqAfXv2Srbzpq6N7Y0HzU1/4Vxz9jfl9E
-	 pKHnsQvYQMTYSgng49iv869Fi54ytvLQmVbIb2Bk2HJoGhU8b98dLrgOVfO9tpvdyhRff
-	 0Q7Xi0m3FtOS7AAf5THD52StfdlAx57XhwC0VL8psGqwcjXvCScjj1ElEN1wY7OsRMA==
+	t=1793219859;
+	b=Jnx73JeU+ee/P1TB1GTNzV1Z+/AIqw95WeYjKmWYNV2slqkVU7RZaMIEHcXGYi/xifHX
+	 v6ieIdk1K6//9cT8S+8m5f8DdbdrTltXX7fJWxNCvGk98cnuUcy5ZEd9E6xu9GoaOIvS0
+	 BmIu8D8n7MVyfvdLlwk7+bzoVz0c1YP7Hz8/Ib7/uE5CLnfO+r+Qnafy2ic4F1GFNc8hb
+	 c1Fj5vb8dSsDVDwirUd2uFmRbzYzvUgIBJXczmiLWLskBJsOjCiELuT8yYd+XwxWzIQCF
+	 hSDK3GPTKNcPqaiaDpOf8tJdHG1z7qDXPOhBCgfTMcBxq/4WeLzkogWVBO3QTjNZGKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=GOkZMWndE8pvmQEZjLf6QfLtdr6Oc875cvI2O5RWo1A=;
-	b=cJ/LQ/0wwht+UHvgDVO03uQWfv/B88qAEId/Jo9VIIdAxkp1GJnD0lUm/aS6bF7ISxIO
-	 M1kLgAYI8yGfL3hW1bsbtpMi7V29x0A/J25wbLvO3v9AWjGtaVRo8ZLunFJuGwp45i+4f
-	 LVVn+VjkJNGQ95K+TGZRIjcdwUBHEuc+XUuhk+r++G2k3lQNro0XoC7GBE7a1sF1widYA
-	 tZenJKBnR5FwuEDOp16+JpLccuCeqG9nOUwGtAaNC64pmKPj+8vxomveNfoywzHEGoacD
-	 45i7uyCyX9GhfHXoZwT422vp7mJRhC0hH3wMZFlpuWJmNbYtxCOAUTW6LM310BW+NyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219859;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oj1lyO8CIX4oSXtDos3MWpr0D3srxGl+35ySEqyQsvE=;
+	b=eMxMxPEwCi4Up/fVuS58jTu0RMSLyy/aL1TEbx/MKwRTZSRJPNa9bahqd1dFbwDFxbl0
+	 TupYz/o5Dmr2Zt77LoT+6A3PMHswfccLZ7vucSh9CEExUVF+BEzOl6UWhQikK0CqaUSaK
+	 azpSGVyVvVV6XDnrYJSWaWKdutd/addXQVzV/JZ9p0Bl/+NqnYSvMs6Ogtpc0yJrBSiKw
+	 rC1DZAw7VcX57VtGyQtnrf8Hr+x9B4JwVNWYJp52JtXXzZFjfTvvhkBoT2rBi1fAbTSIE
+	 QWVhxbI3Mndl2OB1roJxRro/aKKXW5eycFR2k1ZcN87xhBYQ/EIXy0tzthg+ZoEtLZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=TAe25ahd;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncu9Dfir;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7160A606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7160A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1BA606A31A;
+	Wed, 28 Oct 2026 20:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=TAe25ahd
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaabf28c06so1195751e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:37:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793219828; x=1793824628; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GOkZMWndE8pvmQEZjLf6QfLtdr6Oc875cvI2O5RWo1A=;
-        b=TAe25ahduDUoJ2Df6GDNj6g1K0GNDwadJWeM9d71dY/Kg5P//CUMBBiOUzh/f8q+w0
-         jUSNhyns6i9PCiLzpb/4IXdowNQQUHmS1qSsD3ecdiF3VVlGvSeV/z0FOBXURzQ5QXiy
-         m+Z5HXCcuE7UFKf7f7v3yMdyY+oYc2VMbqihp72ccXvnl2b8bR+lVLt4GqxD/dqqOzoc
-         0478O12Gs0Dcvk00suElhRNVZUabVIC6ugsV3JAcOgBHb4hADNbxbh0B/TdQ4NPOVG7q
-         OjVFcT0YHK9S87uEjGAsbkclhOKFuxhegC5AW8Xeqj+Mp6VEQzS/0MMLFcw7O2I/Qkl2
-         6TFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793219828; x=1793824628;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GOkZMWndE8pvmQEZjLf6QfLtdr6Oc875cvI2O5RWo1A=;
-        b=iiqQ5fJUTJlIy6MvcJCi0ZmW/NvaBwPhXtM3RF9Z+0Vi/dDnWPG8RWB6pcho9p7Yx9
-         yQE3tz3gNZciOJ14wv7kgygOVvzK01ZHKi2VWA3PhyMNzmhjPNaWkOUAKLkxi9UL7AT6
-         j2+pjBfcE7bbpAn4+TLgPPnK2de6UecGMwNrB0igKT1BEfo/0B1YS54eQTypgFphZqvY
-         Oek1aGIxP+N3FyranMvWE0m/ehY4/f3kpOTfNuE4XpjgDvvdHau07XYQqlJynqvf3EoT
-         FF8tI/mYomwoeGjVOD42xQdjLVjGVN+N9p75NhmJXOcxCUV0crsuhsQwiWFjLmoX82zr
-         gSvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJxCjnGwZvH4AFK7pVgKpzpuaUOwLJ6WHyT/F6kUw//v60l6tJezlTFmjxX+ypYT4T4mcu8c6o5jKQA4o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4hr6KTmxWBVRSCtHNHljHXUsfC3H+jRpF8nuYRksyENXOHnrb
-	+axAuXx5ycNRmKvpBsoE6W87E/CQxax4zOPo/9sY+dfgIxTiWudCDRzt41IqIeS1buw=
-X-Gm-Gg: AYBFou0ut0Y1MU7OXnaPdqlImkfObeo9rgEJwEOF625f9U/I5Jg9wKM30+cY1aDObn0
-	pbAmgiHRVzMZvhJYDhpY0a+H0Yub7yZFWZ7CVXspXbMn6UKDQfceVHG0T7EJiUep9Rdua2SjTyV
-	hScoqjtxycPbsDGleMRvNIiwBYDYsKGz2tVd1McOwe6Rg+IfnzOeX9w5mNGmiPOzFgM92YYLWbN
-	gW2m5OqEK5dpR9VfTwBHdiUuwSK/QiXgXtSPCZZSsvFSmanEHQc79bZ4aQSh/41j5NZoNUAfhrk
-	Tt8qjcC3g2N0DU0RvhmFVE4r5WHw0twnmuGsf83NNZ2/5RviR1Xu/om3sUXdrc90EpD1NPcILnN
-	h6FNFB250HU7qZNcg+jzFKbTlkmCNgM7cYUUC+sVJl5ObACQyW2N79fQ8mn5JdeGpwl4ndVX3uk
-	h5pw7m6t0nCbi9hk0O4sQimSSTKXya+XOuocibyIhDIGZEfK2fS77oWTSXxF9vrEnHuHhN3dmcu
-	N5hud4RcbV2RwWTLgn6Kn5ge+hb5vm5MMBaBs8XXS1N/V3M151OZCAxxFF4VrolRTCpwoZBKWMO
-	O7loL1LWxhmYs4488zbebCpAo0RBDzNEbIBCPPd6st1y6gXTg06aJQwISeb3R9RztTWEyg1Bso1
-	xgOd8rFiZgRh56KSKq9gRblvFPi7ueBAoFqMKp/Ia8gxC
-X-Received: by 2002:a05:6122:e146:b0:5ea:aedd:6087 with SMTP id 71dfb90a1353d-5ec4cc275f7mr2103697e0c.4.1793219828216;
-        Wed, 28 Oct 2026 13:37:08 -0700 (PDT)
-Received: from soleen.c.googlers.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f931911sm3001789e0c.10.2026.10.28.13.37.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 13:37:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncu9Dfir
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3BD1F01825;
+	Wed, 28 Oct 2026 20:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793219858;
+	bh=oj1lyO8CIX4oSXtDos3MWpr0D3srxGl+35ySEqyQsvE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ncu9DfiraLPRvKYf9kIaxfvp9YfD75C18sih8ao/6wCR9R9vSlJTBFBm9GdvKGokr
+	 m/aayADpprvj20FDNqr5t8oeXaEFiwRgwug9HCS5lSBNB3Txi2XYK2ZRw0eFg+YbZI
+	 0LqcD1hd4crcaN/sD6MfHbAYNef4emqvR9G2c5ClaXbyl5vwKMllJll/Iazr3Sb1dP
+	 QEy9qMqyWl1TLeLfi1Q1+Wln7fdiH+YluiW66Nragd6QEu7WfhBciIBgWro9tyI5aM
+	 kHQmXhXZOHLEIkZIOqUz3clJqx5v6ccce5a71r1rcHPaJLK37oYnLmGSlZFSwUwleP
+	 UiHbVtxm7v04w==
+Message-ID: <ce84acad-fbc9-430c-9be4-c9e86e615fef@kernel.org>
+Date: Wed, 28 Oct 2026 21:37:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,156 +51,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/15] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+To: Balbir Singh <balbirs@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Pratyush Yadav (Google)" <pratyush@kernel.org>
+References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
+ <20261028-fixes_shmem-v3-4-4ce3baf2db4b@kernel.org> <auHJOSkggc-V9dVi@parvat>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auHJOSkggc-V9dVi@parvat>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 06/10] mm/shmem_luo: Don't make early retrieve
- failures permanent
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-mm@kvack.org, Alexander Graf <graf@amazon.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Christian Brauner <brauner@kernel.org>, 
- David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, "Liam R. Howlett" <liam@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- Samiullah Khawaja <skhawaja@google.com>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
-In-Reply-To: <20261022225035.377445-7-dmatlack@google.com>
-References: <20261022225035.377445-1-dmatlack@google.com>
- <20261022225035.377445-7-dmatlack@google.com>
-Date: Wed, 28 Oct 2026 16:36:59 -0400
-Message-Id: <179321981903.1894369.10174219200491856665.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3851;
- i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=tG1lwbJH2imddc9/EkdAvCrAH3EsxAEhBkg3bvhE7pU=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq4lzu/Ke5JngGl45TFenDqO7sG2rxu1esqb+GP
- W9djlMo20SJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCauJc7gAKCRC7dyhM23N6
- 3iaED/9+Ua/XelfQOiEDcPhs+IpN2Oer+RtBy5oWFs3Ld85ncxpkokj4M4S+zrCda7T6eqJ99qt
- WLFndguG8lw6lCfX6vMRTCE9OvLMPJBZgk++IOWd8vMSMo6sJuHC2aIVh3oiJGQbplm8A1pHtUd
- vK6/sqWNP+mqdoADa7IlEmu7uydtPZQ6gVUtj2oUDU/YZzfGVeoNe5EpResTvkYk6Vdp1neLYfh
- lGFsCCrjbH7TCtTThMrEBPQ4JJlJ1/OFqdkCwFpq+cdyUtErBGUGLeK2rxFf07U8U/ydQn4SZUM
- WENbDKA0F1DjRR8/sx7kedrfcj9vWP2vd3hFY+cEsyTLawSybRQS3QTUa+gEJtOXZPjHosBrYLV
- SgvOrjrbhjAv0oaxXMYRWWKgn64IPRbOdPvQ4F/QszjMPjkReBEjjmQFtsspuKgQddk58EUwpqT
- 4ngiCEIpWUObRZBvgLFJYKOfdLl0q15dVVsk2n07fF0Neb1UD5cKlw/weF8lT3q6GuTXbsMyJum
- A4XQ+dpSI5XTmQAxL/tylp3fhJLTkVqQo9jG9GkfeVltDyl5rgMWOELBqk40kb4LfCQGwzLL4Hl
- lFLQ2ewQ3dOcxeCNM8ZEEzGZDPFihhVjKt13uUjJSoCIYziR5ctZUkisBrVjd+w69E7fYLFUC0e
- eLmLu3ergMn5ALQ==
-X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
- fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
 
-> If shmem_luo_retrieve() fails before it starts restoring the folios,
-> mark the failure as retryable and return the error without freeing the
-> serialized state. Nothing has consumed the preserved state at that
-> point, so the retrieve can be tried again. If no retrieve succeeds,
-> finish() frees the preserved folios, like it does for a file that was
-> never retrieved.
+On 10/28/26 11:06, Balbir Singh wrote:
+> On Wed, Oct 28, 2026 at 10:55:02AM +0100, David Hildenbrand (Arm) wrote:
+>> From: Chris Mason <mason@kernel.org>
+>>
+>> The owner of a memfd sealed with F_SEAL_EXEC can still change its
+>> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
+>> this lets an unprivileged owner make a non-executable memfd executable,
+>> bypassing vm.memfd_noexec=2.
+>>
+>> simple_set_acl() updates i_mode directly, bypassing the seal check in
+>> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
+>> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
+>> in include/linux/memfd.h.
+>>
+>> Fix generated by an LLM and sent by Chris Mason in private.
+>>
+>> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Chris Mason <mason@kernel.org>
+>> Acked-by: Pedro Falcato <pfalcato@suse.de>
+>> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>> Acked-by: Zi Yan <ziy@nvidia.com>
+>> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+>> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>> [ david: use common helper; simplify description ]
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  include/linux/memfd.h |  9 +++++++++
+>>  mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
+>>  2 files changed, 39 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/include/linux/memfd.h b/include/linux/memfd.h
+>> index c159e40e3f34..272479317cf1 100644
+>> --- a/include/linux/memfd.h
+>> +++ b/include/linux/memfd.h
+>> @@ -2,10 +2,19 @@
+>>  #ifndef __LINUX_MEMFD_H
+>>  #define __LINUX_MEMFD_H
+>>  
+>> +#include <linux/fcntl.h>
+>>  #include <linux/file.h>
+>>  
+>>  #define MEMFD_ANON_NAME "[memfd]"
+>>  
+>> +static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
+>> +		umode_t new_mode)
+>> +{
+>> +	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
+>> +		return -EPERM;
+>> +	return 0;
+>> +}
+>> +
+>>  #ifdef CONFIG_MEMFD_CREATE
+>>  extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
+>>  struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
+>> diff --git a/mm/shmem.c b/mm/shmem.c
+>> index af21a89abb0f..e3e4bbbe1d80 100644
+>> --- a/mm/shmem.c
+>> +++ b/mm/shmem.c
+>> @@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
+>>  #include <linux/magic.h>
+>>  #include <linux/syscalls.h>
+>>  #include <linux/fcntl.h>
+>> +#include <linux/memfd.h>
+>>  #include <uapi/linux/memfd.h>
+>>  #include <linux/rmap.h>
+>>  #include <linux/uuid.h>
+>> @@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
+>>  	if (error)
+>>  		return error;
+>>  
+>> -	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
+>> -		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
+>> -			return -EPERM;
+>> -		}
+>> +	if (attr->ia_valid & ATTR_MODE) {
+>> +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
+>> +					       attr->ia_mode);
+>> +		if (error)
+>> +			return error;
+>>  	}
+>>  
+>>  	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
+>> @@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
+>>  #endif
+>>  };
+>>  
+>> +#ifdef CONFIG_TMPFS_POSIX_ACL
+>> +static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+>> +		struct posix_acl *acl, int type)
+>> +{
+>> +	struct inode *inode = d_inode(dentry);
+>> +	umode_t mode = inode->i_mode;
+>> +	int error;
+>> +
+>> +	if (type == ACL_TYPE_ACCESS) {
+>> +		error = posix_acl_equiv_mode(acl, &mode);
+>> +		if (error < 0)
+>> +			return error;
+>> +		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
+>> +					       inode->i_mode, mode);
+>> +		if (error)
+>> +			return error;
+>> +	}
+>> +	return simple_set_acl(idmap, dentry, acl, type);
+>> +}
+>> +#else
+>> +#define shmem_set_acl NULL
+>> +#endif
+>> +
+>>  static const struct inode_operations shmem_inode_operations = {
+>>  	.getattr	= shmem_getattr,
+>>  	.setattr	= shmem_setattr,
+>>  #ifdef CONFIG_TMPFS_XATTR
+>>  	.listxattr	= shmem_listxattr,
+>> -	.set_acl	= simple_set_acl,
+>> +	.set_acl	= shmem_set_acl,
 > 
-> This fixes leaking the preserved folios when one of these early steps
-> fails, e.g. because the file has seals that this kernel doesn't support.
-> The retrieve freed the serialized state but not the folios, and finish()
-> then skipped the file because its retrieve had failed.
+> If CONFIG_TMPFS_POSIX_ACL is not defined, do we want to set the set_acl
+> callback to NULL? Earlier it was simple_set_acl
 
-You should also note that args->retryable was introduced in this 
-series, so there is no fixup required for this since this was 
-previously not possible.
-
-> Assisted-by: LLM
-> Signed-off-by: David Matlack <dmatlack@google.com>
-> Link: https://patch.msgid.link/20261022225035.377445-7-dmatlack@google.com
->
-> diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
-> index b8d86055912d..bcac1bbb3db3 100644
-> --- a/mm/shmem_luo.c
-> +++ b/mm/shmem_luo.c
-> @@ -390,9 +390,9 @@ static void shmem_luo_finish(struct liveupdate_file_op_args *args)
->  	struct shmem_luo_ser *ser;
->  
->  	/*
-> -	 * If retrieve was successful, nothing to do. If it failed, retrieve()
-> -	 * already cleaned up everything it could. So nothing to do there
-> -	 * either. Only need to clean up when retrieve was not called.
-> +	 * If retrieve was successful, nothing to do. If it failed permanently,
-> +	 * retrieve() already cleaned up everything it could. So nothing to do
-> +	 * there either. Only need to clean up when the file was not retrieved.
->  	 */
->  	if (args->retrieve_status)
->  		return;
-> @@ -526,11 +526,16 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
->  	if (!ser)
->  		return -EINVAL;
->  
-> +	/*
-> +	 * Nothing has consumed the preserved state until the folios are
-> +	 * restored below, so failures before that can be retried. If no
-> +	 * retrieve succeeds, finish() frees the preserved state.
-> +	 */
-> +	args->retryable = true;
-> +
->  	/* Make sure the file only has seals supported by this version. */
-> -	if (ser->seals & ~SHMEM_LUO_ALL_SEALS) {
-> -		err = -EOPNOTSUPP;
-> -		goto free_ser;
-> -	}
-> +	if (ser->seals & ~SHMEM_LUO_ALL_SEALS)
-> +		return -EOPNOTSUPP;
->  
->  	/*
->  	 * The seals are preserved. Allow sealing here so they can be added
-> @@ -539,8 +544,7 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
->  	file = memfd_alloc_file("", MFD_ALLOW_SEALING);
->  	if (IS_ERR(file)) {
->  		pr_err("failed to setup file: %pe\n", file);
-> -		err = PTR_ERR(file);
-> -		goto free_ser;
-> +		return PTR_ERR(file);
->  	}
->  
->  	err = memfd_add_seals(file, ser->seals);
-> @@ -552,17 +556,20 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
->  	vfs_setpos(file, ser->pos, MAX_LFS_FILESIZE);
->  	i_size_write(file_inode(file), ser->size);
->  
-> +	/* The preserved state is consumed from here on. */
-> +	args->retryable = false;
-> +
->  	if (ser->nr_folios) {
->  		folios_ser = kho_restore_vmalloc(&ser->folios);
->  		if (!folios_ser) {
->  			err = -EINVAL;
-> -			goto put_file;
-> +			goto free_ser;
->  		}
->  
->  		err = shmem_luo_retrieve_folios(file, folios_ser, ser->nr_folios);
->  		vfree(folios_ser);
->  		if (err)
-> -			goto put_file;
-> +			goto free_ser;
->  	}
->  
->  	args->file = file;
-> @@ -570,10 +577,10 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
->  
->  	return 0;
->  
-> -put_file:
-> -	fput(file);
->  free_ser:
->  	kho_restore_free(ser);
-> +put_file:
-> +	fput(file);
->  	return err;
->  }
->  
-
-Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Excellent question: because simple_set_acl is NULL for !CONFIG_FS_POSIX_ACL.
+It's clearer to jsut keep using shmem_set_acl here, thanks!
 
 -- 
-Pasha Tatashin <pasha.tatashin@soleen.com>
+Cheers,
+
+David
