@@ -1,91 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205728;
-	b=FcFQzd9d9rTvSgwYWL/3JRYLVqwluL5FVcaMvGqAsDxd7HXhvt0B2fCNctSx32SwuFIH
-	 1H8Oty/LTBHtnCIhPoDgAuyGOQsVjslUGbsQ2W0xFcwVjYTDg8U8ILGfMMUExKBEGAuIp
-	 rTK9JKFU3ifUuDEsN7JHN4kRw1NH/WcmgOnzYHM1cNqBX5rA6DkkM5AyFbg0B0cgdgRMp
-	 p87ZyYNIeLj41hv94vDUfy4urenDSYzPfinKpjXMgoc+zdGBVDOiUVcxwt7yStnUQm7EC
-	 dLmFjGSt2kfM44XggL5XEUELHp+lYQw8drPHB/nucwTlj2PEaq2a8IDyPj/MMs+U9Sw==
+	t=1793205967;
+	b=BR9kgqA1zug7hFuxJdTBJEc/fvRRiYymRKoNsLvNUK89NYQT8VwH0PHi0txhyaLLhr+y
+	 2HtnApdqhZr5c9OibGrkUivbSSWqCGBYK0vgGu4Z1WgqGQKsF+OJS9EWmpjJCP6dKQxDO
+	 XuqpHlTGHsi4a+irdbdCdKUSHEXemD8MWHvMj00lJXNLPr1b0xXMJ/NUfjs4e6OKzMt0k
+	 gzIYXf2qiduvcbj+x6VaT61+WbjSn0DU9+1Yj77xlawCCWHXIKJYGHzeCOaMgEPrgXTFZ
+	 PcHVyZGt6MegWSKf6UN0tMWsm/Qj8lEtdQcR5ymfrUmRNI/FvOQX2b00NvG133j34HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205728;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
-	b=OA5nTActOKyt+4ErEFn8lpLx6xcDSiSc/RRuq3g1lh1mbGxIyebVdNJeI4hs7C68mmBd
-	 tpznIOv7eSeRYQrTGKVZG++UqTFGHRKVPo+UelMIsNkHwXjs2w3KjvYuyesLGKRp3KSS2
-	 yHh6ZVLElpA1NvWjxSTPF6MfJ6rXQV1XI2MzX2ZyWzvotSb9pzE8tSmJTrXS+PU4z3oiW
-	 2L9XuSd9Ookh1fK4djF4M5+LPh+tho64SJz4oQnFP9z/M0PNtUOkiRc4UfkPv7mAxztWK
-	 3+qIgrOt78gbUD/iWgKPxFGuxAuxqwN7h4QTtU9HSDB6yRuVutNj8e/P9yoBGZTHtig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205967;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0UL87BPpz/Txn3nRYlhE0bstZ45VXoCY4R89vUK5fGY=;
+	b=5cy3dzsg3yzk8bOm8NH7fx3BHC7WhPfHZHsz5MAXMoYVGJpmUp8AAWtGtu6iteCWkPUq
+	 ncnEr9fVtoVPH25h+ovYyVxbfbTLyAF97Xk/srGaDK8VC5J2bbiIHl4y3r4II8dejctGn
+	 iKIt8C4nNyCqA264B3cOfiDfnoqjnYziJk/m/L7tFCGHuUrzcBsqlzDubtqWaoGNM5uo7
+	 mRBsSbW73Dy1ABAdaIBcBNC9I1il9DoaeI2tL73ZK1S2SalyN+mpZLgi8C2O9oYbpVPsZ
+	 HDhq76cp1umzV2kI7CmzmBgg+3mWJvlyDJl5SSQwyD6O+0Dx0ayVUNYc12yu6RAJwHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FuUKp2dV;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoiMPYdd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0587D606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0587D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A44606A31E;
+	Wed, 28 Oct 2026 16:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FuUKp2dV
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1290919e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793205726; x=1793810526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
-        b=FuUKp2dVgK29EYIJoFP+0qnkReg68SnBeIYDmT25uB5/pBVCn/yqlbzX5pOEvHop4R
-         WGwzkIetRY5s60pdbY3zdgC5u3d8oDYVGAPkF2oqCwWXNEataCkyssbEoZpG50hIbWhw
-         svQdbig/ausoK0ITqRKAk/gf53tGhobN8k+No=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793205726; x=1793810526;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
-        b=iU2sgH2ZxYs9zXHl8yklhCMP2pnDzzX6T+TaQoIKLaIboEhl8MLa2d42blQ1s93Mdr
-         +5xP53CL3LFY/TwnJBvfqMgZt5soSmtI9gEesKbmkGTwAakccYxN9WHKUG6EwTHCbkEe
-         DyCDL/DzDyireR8wQBgovOe222zwSNlwmMEaKDcnIDgli6pJcZtfPYKQgUDXDD1ko1Pu
-         O79LGp0mpXOKwACWNPmdf8onpWmw5s7HjK2JiWG2xdBtD7A3OP7WSqIwfRqBs6uNG/hR
-         gXGEqnEsYoZlKyJrACjWRcD0dCLcVsJ4XbOU2LDrXiJtvZB5xGO/UFubwL9NYYLsFewf
-         /L9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBykmPtD4jPPO6wKg/tIcfYZn9HOZ/l9Xrtuvk3lzLurl9Dfjato1pGZxR4InYQhJK3oubapEjPXRvd77zo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHEizBZeQ5Ro2Htq4mxO9ADINXBRlwAt+OdH/7TjwRm7mBZ9U9
-	3W/Tf6161SGct8AqhjyRfFjbDSjcsSa6NqencBMEFuC3pX+ZCd8Yq8WDqIsRq11KXAIPcfsxGNj
-	pZutMAvPo
-X-Gm-Gg: AYBFou2gRcSrcoX4GloWsPXHZtleKmzy2eHoutMRDI5XQNsdLYJDgJpcDDAuWRdJ4So
-	/vxauqFSVqGv8BtNX+UCBqnPLyyBNf/X3MdlWrQmbnTOCvWHBkl8mcb3AesuZh+GHGzBV/yXhHb
-	hYp3XIvVEGKdI6Av297htwWT9U4GSk5Rs1qwnwFBb9JFw3p8DxYODml0Q2wN7qRCCtCb2nqi/Ye
-	ZbOtRk01pvATC6aXfJxLRwVCelNkIVJpQcN2obsphY/pn24+y5gpDZTkNIkOi92cCdSI4ale67K
-	I938sIoFVyZThX6ceB8wBHWFd/xKk3pzVTmEUmkr3DEGx0nQ7Sai0y0gBNU8RhVL7HewN5TZbXQ
-	rqeN1p7iMyEpbarU6eRrxcNNNYcvQyyIMfvsIwergAiVHhtJAS5Aj4opLSDWUty+O57XpEK99Ki
-	WmJ00Uj7WID6n4B8T3JPB9sXMVzd6Xe3bm6fGSt9Eb4HMrdKb1CaaUV28OFziWm+bbz7sgse/9n
-	HQT9t6/EUS+f50VSESQs+gVHRMVKYcARmXvqs+Iq5bqF5pT2oxJkXWBE86I1IlbuDFR7CmeeKzC
-	9Z4DPFEX8sNDy3t8Ol9ax4SlMsydH0ad/DyW8wSNaMHfBNlJekWqeeuWvAYYGIXC++oLv+fZWH6
-	6o70esXjemFETdA==
-X-Received: by 2002:a05:6512:3da6:b0:5bf:bd7e:197a with SMTP id 2adb3069b0e04-5bfcad7e2cdmr1142323e87.16.1793205726110;
-        Wed, 28 Oct 2026 09:42:06 -0700 (PDT)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com. [209.85.167.54])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca47fb8csm734523e87.4.2026.10.28.09.42.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 09:42:05 -0700 (PDT)
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1290911e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxDsCRayvhsVDE89QKBzpCPfCp0wlgMPrBiEu5USfhxeDVpL0rYoJQWX8C38+sEe7HuA5TwoYNW8tAOCzE=@vger.kernel.org
-X-Received: by 2002:a5d:5f07:0:b0:48b:9d2:1a6a with SMTP id
- ffacd0b85a97d-48e5d45a3c2mr6625980f8f.1.1793205267445; Wed, 28 Oct 2026
- 09:34:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoiMPYdd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EDE31F01829;
+	Wed, 28 Oct 2026 16:46:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793205966;
+	bh=0UL87BPpz/Txn3nRYlhE0bstZ45VXoCY4R89vUK5fGY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VoiMPYddyXVIAat6zPP7nql4MbQMWSQPzOI5mnQ44U2EZnfNTefrmdj7hvMVQRhlm
+	 89Ybj+4fElIIhRDExU6dufHsqBU/6dMH8y6rhn0hE5X4qPFLmwP1TJbfXbLO0fhw50
+	 e0DZcGxKt+OsQ1Qabyp08URn+8dCJ6A5WZ07u5zLVIU14pEnwXDI61k+GuJyLExu1m
+	 FrNzBQimIuzoxuZx8OyNXh5I2Z9mgg0sRxxMUwqCdiKYZNffONqOGZB8rt84gk+wo7
+	 NZa/UGEUIFaWrCJw/sxPaagr9t1xl/EGaaH8BUspOFQpEYdo+uzhXwdjHimIx6pthL
+	 bTFS7kEwclL0Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Bill Wendling <morbo@google.com>,
+	Chuck Wolber <chuck@wolber.net>,
+	Justin Stitt <justinstitt@google.com>,
+	llvm@lists.linux.dev,
+	Marco Elver <elver@google.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	wentaoz5@illinois.edu,
+	chuck.wolber@boeing.com,
+	steven.h.vanderleest@boeing.com,
+	Josh Poimboeuf <jpoimboe@redhat.com>
+Subject: Re: [RFC PATCH 04/20] compiler_types.h: Don't instrument __always_inline functions for coverage
+Date: Wed, 28 Oct 2026 12:45:54 -0400
+Message-ID: <20261028164556.1610305-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028140118.GB2669272@noisy.programming.kicks-ass.net>
+References: <20261028120034.871983-1-sashal@kernel.org> <20261028120034.871983-5-sashal@kernel.org> <20261028135140.GR2668564@noisy.programming.kicks-ass.net> <20261028140118.GB2669272@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,83 +72,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
- <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
-In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 28 Oct 2026 09:34:15 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
-X-Gm-Features: AclHuK_LwyJo9CN0zxlkO30oKOFraZ6PCLD3VchvtC_WbqyDogSG-WeDzg__Frs
-Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
-To: tb@a-marquet.fr
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
-	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
-	Hendrik Noack <hendrik-noack@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Wed, Oct 28, 2026 at 02:51:40PM +0100, Peter Zijlstra wrote:
+>This is pretty vile. But also, since people were trying to use MC/DC for
+>validation efforts and the like, how does this impact them? If I
+>understand correctly their previous emails on the topic, this means they
+>have to go manually audit every single __always_inline function.
 
-On Tue, Oct 27, 2026 at 5:01=E2=80=AFAM Alexandre Marquet via B4 Relay
-<devnull+tb.a-marquet.fr@kernel.org> wrote:
->
-> From: Alexandre Marquet <tb@a-marquet.fr>
->
-> Add an entry for the eDP SEC LTL101DL02-002 panel used in
-> google-manta.
->
-> Raw EDID dump:
->
-> 00 ff ff ff ff ff ff 00 4c a3 0f 9c 00 00 00 00
-> 05 0e 01 03 80 21 19 78 0a 87 fe 98 57 51 8c 27
-> 21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 14 69 00 a0 a0 40 2e 60 30 20
-> 36 00 1e d6 10 00 00 19 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9e
->
-> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 2 ++
->  1 file changed, 2 insertions(+)
+Yes, the __always_inline helpers join noinstr code as something that
+has to be justified separately rather than covered by tests. Steve's
+answer to your noinstr question in 2024 [1] was that this is workable
+as long as the number of distinct categories stays small, and this
+adds one (556 functions and 445 MC/DC conditions for the config in the
+changelog).
 
-nit: subject doesn't quite fit the pattern of recent commits (_ vs -).
+Chuck, Steve, does that match what you'd expect on your side?
 
+>Still, I'm left wondering if these tools should be fixed. For instance,
+>while the front-end emits this instrumentation, the backend could easily
+>remove it again when it finds itself in the context of a noinstr
+>function after inlining.
 
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-nel-edp.c
-> index 94bc54c3833a..c92985363093 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] =
-=3D {
->         EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, =
-"134WT1"),
->         EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, =
-"LP116WHA-SPB1"),
->
-> +       EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL10=
-1DL02-002"),
-> +
+Yup, we should do that. Both GCC and Clang add the counters before
+inlining and let always_inline win over the attribute mismatch, so
+neither can do it today. We can look at improving them, but it's probably
+outside of what this series can do.
 
-It would also be good to note in the commit message where you got the
-timings from. Datasheet? Downstream code? Guessing?
+On Wed, Oct 28, 2026 at 03:01:18PM +0100, Peter Zijlstra wrote:
+>Ah, also, we have objtool's hack_noinstr :/ But sssh, don't tell Josh
+>about that.
 
-I had my AI agent take a look for itself. It found evidence suggesting
-the enable delay should be 97ms, not 50ms. The other ones seem to be
-OK.
+I looked at that. NOPing the gcov counter updates would be easy, as
+they're all single locked instructions, but Clang's MC/DC bitmap
+updates go through registers and would need dataflow analysis. It
+would also only help x86, while gcov and noinstr are on arm64, riscv
+and s390 too. So I'd rather keep this as the guarantee, with objtool
+(patch 11) checking it.
 
--Doug
+On Wed, Oct 28, 2026 at 02:51:40PM +0100, Peter Zijlstra wrote:
+>We have -O0 code? I thought we hard relied on building with at least
+>-O1, we often get 'fixes' to enable code to build with -O0.
+
+Only crypto/jitterentropy.c, and lpfc when built with GCOV=y. The check
+makes no difference for either (lpfc doesn't build at -O0 regardless),
+so I'll drop it in v2.
+
+[1] https://lore.kernel.org/all/20240905180758.1396234-1-wentaoz5@illinois.edu/
+
+-- 
+Thanks,
+Sasha
