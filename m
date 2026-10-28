@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220143;
-	b=SyzDMV4kF5aZjETYuHaHp4TbMJCXEbLo9qI4FkY0whnNIQPz7EV0XqpZuADR3hD7zb+F
-	 hjliea+mOKK+mPCYeBTEreg7h+WuwP/u09rU/PpfUvGxc+WyP35RhnTUYrCXxtcNVBR62
-	 5ma06Px4d9KTTPA0SplB+P7uS6lQZWTjjvrj+4NVX/eHUFhT75eP0ckNOM7aCJglY+0oq
-	 8NMWCKLgLHE8w2UFpbo2h/eN2L9v6x/nVWAF4HcalXsuvgFbWDyWtpf4fy5pyV8pSNvmn
-	 OO6p1ELEABpYWqcQ2ZfJXJJDDGTzBsLRuenqg2q5r9U8lz75H5RpV8MpFpOXJZ9blng==
+	t=1793220139;
+	b=p1rJGHghshbLj2MKKNQDPcpkhUhbKJKzGe1RgU03mfsRfX5CjY2JH7ZczO+O+xpepOUl
+	 ujIBGe9SC8vEaMYIEPTNKfHeqckIEdCUvzYhrDguLq4hHsqUoisog1m1Qy0M0W9wN5Ogt
+	 w9aBDu1lf7e9PEteaTeKUjNh96G24IOQIUiI72JREmZN+YwvJ6AuKAFZZ5O+JgR6VsDkS
+	 7rZPZOpGjLtioCjtqHXDL9vgRnxe1AhMhOiTT+3YR+76reTCbvNAPwhENElUscuEwx26U
+	 Sg5MsZ4MDyo5pZbBq1a/s4aCBp/0Vb6r5/ceGbnjkYE4GF3vQ21UjuC5C6vopDw4AyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220139;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Om5wsWQy7xXSuQJOLFKedV+wlSX1EwlRGEEQL2fiiMQ=;
-	b=DkiUnhY88YMzMt9k+R4PYlNlqbVWV3OjmtlUF5M8um2Aq+aprkUZhCTV/08TFgTuVjFL
-	 7sErNO35byfSLt1XsIBS+++Am7QOKagAF6jsEMLJegM8T9z3blkSBHoMPy46HERLVLGPQ
-	 XY2iMfIBeYuBVY9r/b/W0SCUHl/98/dhhEs+KU6UoC0MkPsCqb0vkwF5SX0FCTVCfvE2e
-	 1iJuCnL0ORurSARGMqnuSjSWbKeXRf0Zxn18hsI3JdIhC8+XfahYyZwv46JKjuax3qMU+
-	 ogvdsVezRD+PVtyjniW1NqH1RrpEvyjhe6DZPtU4XI3Z2D9VG/g2F/wLTABiy7gOggQ==
+	bh=e2Gu+WtYg+b+BufeEKwovfJrZnzsq5njm/Oj2WFts14=;
+	b=Y8/BQPZLYR8JUHlppTbhBqiOT+vW9THW+ju7LjYKu19FOr48oeGKtxgKu5V8RAvPSm1j
+	 QwrM3ymDZOmKmeBm/8/LPXIIJ0qcpBVNLGL2kJEzGRHOcuIyfekNvj/DvpEkMe/izG9mH
+	 OqiHCN23kpiJRTvTCzOV75/SOVaD0rCJ1CcTfS6x6J71Goc1MfJiU9Ivk/wYdBnavOUhw
+	 ppH8/gfPL3pWEIcedHzLNOMGNeEaODTURXTMIfIpTUkZ6NzYzmoL/ORqHwhmehPaZf81U
+	 j5gd5bPjHICHM0q2Sn7o/m7dU9Xr7lD8B6sYUtVAFzmPKdGvIn1p3qiH6aBvfSgp9eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PTWSfgtY;
-	arc=none smtp.remote-ip=91.218.175.219
-Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gRt8gAw4;
+	arc=none smtp.remote-ip=91.218.175.213
+Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD4860A2607
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:42:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD4860A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC400606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:42:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC400606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PTWSfgtY
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gRt8gAw4
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JZq9lsjVVrgrs8qdiaJMhiC6lBrq4JNth20Rezu2Nzc=;
+DKIM-Signature: a=rsa-sha256; bh=HvXm1nkfB3D6+zLr/zpDnWhSj8kJjYR8mhYehTdnkX0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793220141; v=1; x=1793824941;
- b=PTWSfgtYgkb73kWbEThmCNtSQbSskZkcABiOvmw/FNEaBtuueiZ9Uv0eLRqEyVi7gmJI5llf
- X7bFjp7xxb2uJwPHnZ1shSDrUPv90kU77DYbwvul4EiPAsQBh5sK0gUC8fs5Efpb37h1tgkG/tW
- qYs6Yszn03rc2L2TuzUi7MVY=
+ t=1793220137; v=1; x=1793824937;
+ b=gRt8gAw4UrkXwheXkxaXorfGMkmToiS890IJ1h4aC3BXzcG1mSZPo2eXdW7oYOy7pqgFD/Uo
+ u+QOu2TkFq+XxIzjC5CNf8p/HcGEVSMEwSSv6iQj7cuBt4cfnMwqbCCUCmH59MbwpoERCWYl0FF
+ 9VUJQjxaF/XIH8XKSmwf1a8k=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef6a844833244217;
-	Wed, 28 Oct 2026 20:42:20 +0000
-X-Mizu-Trace-ID: ef6a844833244217
+Received: by smtp.migadu.com with ESMTPS id 502aaee1b83b8e53;
+	Wed, 28 Oct 2026 20:42:16 +0000
+X-Mizu-Trace-ID: 502aaee1b83b8e53
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: bpf@vger.kernel.org
@@ -67,9 +67,9 @@ Cc: ast@kernel.org,
 	jose.marchesi@oracle.com,
 	david.faust@oss.qualcomm.com,
 	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v2 3/8] selftests/bpf: report SKIP for arena tests a compiler cannot build
-Date: Wed, 28 Oct 2026 13:41:53 -0700
-Message-ID: <20261028204158.1021284-4-vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v2 2/8] selftests/bpf: don't pass clang-only warning flags to GCC
+Date: Wed, 28 Oct 2026 13:41:52 -0700
+Message-ID: <20261028204158.1021284-3-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028204158.1021284-1-vineet.gupta@linux.dev>
 References: <20261028204158.1021284-1-vineet.gupta@linux.dev>
@@ -84,220 +84,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tests guarded by __BPF_FEATURE_ADDR_SPACE_CAST don't have a dummy fall back
-when the compiler doesn't support the feature: so they are absent from such
-a report entirely.
-Every subtest inside one of those guards is invisible: 24 across seven
-files, plus the five in stream_arena_fault_address, which has no guard
-and fails to load instead (addressed separately, later in this series).
+The clang only togges are passed to every BPF object build, including
+for BPF_GCC build.
 
-Give each guard an #else with a dummy marked __skip(), so the skip gap is
-reported rather than invisible.  Add __skip_without_arena for it, which
-expands to __skip() with a fixed reason when the compiler cannot do arena.
+GCC accepts an unknown -Wno-foo silently until some other diagnostic fires,
+and then appends a note to it, so every warning in a bpf_gcc build comes with
+two lines of noise:
 
-Measured on bpf-next with a stock bpf-gcc, test_progs before and after:
-seven subtests appear that were previously absent from the report
-altogether, and arena_kfunc_jit goes OK -> SKIP because every subtest
-it has is now one of them.
+  cc1: note: unrecognized command-line option '-Wno-initializer-overrides' may have been intended to silence earlier diagnostics
+  cc1: note: unrecognized command-line option '-Wno-microsoft-anon-tag' may have been intended to silence earlier diagnostics
 
-  arena_kfunc_jit/arena_unsupported          SKIP
-  compute_live_registers/arena_unsupported   SKIP
-  jit_insns/arena_unsupported                SKIP
-  verifier_arena/arena_unsupported           SKIP
-  verifier_arena_large/arena_unsupported     SKIP
-  verifier_ldsx/arena_unsupported            SKIP
-  verifier_zext/arena_unsupported            SKIP
-jit_insns_arena.c needs the same treatment and is easy to miss: both
-of its programs are inside the guard, so without arena support the
-object has none at all and RUN_TESTS(jit_insns_arena) runs zero
-subtests without saying so.
+Collect them in CLANG_BPF_CFLAGS and hand them only to the clang
+flavors, through the per-flavor BPF_CC_FLAGS that Makefile.skel appends
+after BPF_CFLAGS.
+
+Only these two are clang-only; -Wno-compare-distinct-pointer-types and
+-fms-extensions are understood by GCC 14 and later and stay in
+BPF_CFLAGS.
 
 Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- .../testing/selftests/bpf/progs/arena_kfunc_jit.c  |  9 +++++++++
- tools/testing/selftests/bpf/progs/bpf_misc.h       | 14 ++++++++++++++
- .../selftests/bpf/progs/compute_live_registers.c   | 10 ++++++++++
- .../testing/selftests/bpf/progs/jit_insns_arena.c  | 10 ++++++++++
- tools/testing/selftests/bpf/progs/verifier_arena.c |  9 +++++++++
- .../selftests/bpf/progs/verifier_arena_large.c     | 10 ++++++++++
- tools/testing/selftests/bpf/progs/verifier_ldsx.c  |  9 +++++++++
- tools/testing/selftests/bpf/progs/verifier_zext.c  |  9 +++++++++
- 8 files changed, 80 insertions(+)
+ tools/testing/selftests/bpf/Makefile           | 8 ++++----
+ tools/testing/selftests/bpf/Makefile.buildvars | 6 ++++--
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
-index b5a01cbc33a7..97912a7b6b5e 100644
---- a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
-+++ b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
-@@ -112,6 +112,15 @@ int arena_arg_jit_args5(void *ctx)
- 				   (u64 *)&val[4]);
- 	return 0;
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
+diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
+index 1e4af62e8312..b5303c28973e 100644
+--- a/tools/testing/selftests/bpf/Makefile
++++ b/tools/testing/selftests/bpf/Makefile
+@@ -376,7 +376,7 @@ CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
+ endif
  
- #endif /* __BPF_FEATURE_ADDR_SPACE_CAST */
+ CLANG_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
+-CLANG_CFLAGS = $(CLANG_SYS_INCLUDES)
++CLANG_CFLAGS = $(CLANG_SYS_INCLUDES) $(CLANG_BPF_CFLAGS)
  
-diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
-index 1b264480e128..ed1ed1b5bd09 100644
---- a/tools/testing/selftests/bpf/progs/bpf_misc.h
-+++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
-@@ -116,6 +116,10 @@
-  *                   feature the toolchain or JIT cannot provide, so a run does
-  *                   not report OK for coverage it never executed.
-  *
-+ * __skip_without_arena
-+ *                   __skip() with a fixed reason when the compiler cannot do
-+ *                   the arena address space, nothing otherwise.
-+ *
-  * __log_level       Log level to use for the program, numeric value expected.
-  *
-  * __flag            Adds one flag use for the program, the following values are valid:
-@@ -156,6 +160,16 @@
- #define __success		__test_tag("test_expect_success")
- #define __description(desc)	__test_tag("test_description=" desc)
- #define __skip(reason)		__test_tag("test_skip=" reason)
-+
-+/*
-+ * Without compiler arena support, report the test as SKIP rather than let it
-+ * pass vacuously or fail to load.
-+ */
-+#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
-+#define __skip_without_arena
-+#else
-+#define __skip_without_arena	__skip("compiler does not support the arena address space")
-+#endif
- #define __msg_unpriv(msg)	__test_tag("test_expect_msg_unpriv=" msg)
- #define __not_msg_unpriv(msg)	__test_tag("test_expect_not_msg_unpriv=" msg)
- #define __msg_next_unpriv(msg)	__test_tag("test_expect_msg_next_unpriv=" msg)
-diff --git a/tools/testing/selftests/bpf/progs/compute_live_registers.c b/tools/testing/selftests/bpf/progs/compute_live_registers.c
-index 1ff24bbc7beb..e05431600358 100644
---- a/tools/testing/selftests/bpf/progs/compute_live_registers.c
-+++ b/tools/testing/selftests/bpf/progs/compute_live_registers.c
-@@ -403,6 +403,16 @@ __naked void addr_space_cast(void)
- 		  __imm_addr(arena)
- 		: __clobber_all);
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
-+
- #endif
+ # genkey writes both outputs. Pattern rules group them even on make
+ # versions before 4.3, preventing concurrent genkey invocations.
+@@ -521,7 +521,7 @@ BINARY := test_progs
+ BPF_CC := $(CLANG)
+ BPF_CC_MSG := CLNG-BPF
+ BPF_SYS_INCLUDES := $(CLANG_SYS_INCLUDES)
+-BPF_CC_FLAGS := -O2 $(BPF_TARGET_ENDIAN) -mcpu=v3
++BPF_CC_FLAGS := -O2 $(BPF_TARGET_ENDIAN) -mcpu=v3 $(CLANG_BPF_CFLAGS)
+ BPF_DEFINES := -DENABLE_ATOMICS_TESTS
+ include Makefile.skel
  
- static __used __naked int aux1(void)
-diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-index 95736eae2a58..ccda60e96524 100644
---- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-+++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
-@@ -106,6 +106,16 @@ int cast_to_user(void *ctx)
- 	: "r1", "r2", "r7", "r9");
- 	return res != 0;
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
-+
- #endif
+@@ -537,12 +537,12 @@ $(OUTPUT)/test_progs: $(RUNNER_PREREQS) $(BPF_OBJS) $(ALL_SKELS) FORCE
  
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
-index 1ce9c4b78481..3b3410802825 100644
---- a/tools/testing/selftests/bpf/progs/verifier_arena.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
-@@ -713,6 +713,15 @@ __naked void mixed_arena_stack_atomic(void)
- 	  __imm(bpf_get_prandom_u32)
- 	: __clobber_all);
- }
-+#else
+ $(OUTPUT)/test_progs-no_alu32: $(RUNNER_PREREQS) FORCE
+ 	+$(Q)$(RUNNER_MAKE) RUNNER=test_progs FLAVOR=no_alu32 TESTS_DIR=prog_tests \
+-		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v2'
++		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v2 $(CLANG_BPF_CFLAGS)'
+ 
+ ifneq ($(CLANG_CPUV4),)
+ $(OUTPUT)/test_progs-cpuv4: $(RUNNER_PREREQS) FORCE
+ 	+$(Q)$(RUNNER_MAKE) RUNNER=test_progs FLAVOR=cpuv4 TESTS_DIR=prog_tests \
+-		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v4' \
++		$(CLANG_RUNNER_ARGS) BPF_CC_FLAGS='-O2 $(BPF_TARGET_ENDIAN) -mcpu=v4 $(CLANG_BPF_CFLAGS)' \
+ 		BPF_DEFINES=-DENABLE_ATOMICS_TESTS
+ endif
+ 
+diff --git a/tools/testing/selftests/bpf/Makefile.buildvars b/tools/testing/selftests/bpf/Makefile.buildvars
+index ff3476bc40a4..8ae2792c0c1e 100644
+--- a/tools/testing/selftests/bpf/Makefile.buildvars
++++ b/tools/testing/selftests/bpf/Makefile.buildvars
+@@ -157,13 +157,15 @@ BPF_CFLAGS = -g -Wall -Werror -D__TARGET_ARCH_$(SRCARCH) $(MENDIAN)	\
+ 	     -I$(abspath $(OUTPUT)/../usr/include)			\
+ 	     -std=gnu11		 					\
+ 	     -fno-strict-aliasing 					\
+-	     -Wno-microsoft-anon-tag					\
+ 	     -fms-extensions						\
+ 	     -Wno-compare-distinct-pointer-types			\
+-	     -Wno-initializer-overrides					\
+ 	     #
+ # TODO: enable me -Wsign-compare
+ 
++# Warning flags that only clang has.  GCC accepts an unknown -Wno-foo
++# silently and then notes it on the next diagnostic it emits.
++CLANG_BPF_CFLAGS := -Wno-microsoft-anon-tag -Wno-initializer-overrides
 +
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
- 
- #endif /* defined(__BPF_FEATURE_ADDR_SPACE_CAST) */
- 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_arena_large.c b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
-index dbdea14ca76f..34f0a0f88e12 100644
---- a/tools/testing/selftests/bpf/progs/verifier_arena_large.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
-@@ -348,5 +348,15 @@ int big_alloc4(void *ctx)
- #endif
- 	return 0;
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
-+
- #endif
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/verifier_ldsx.c b/tools/testing/selftests/bpf/progs/verifier_ldsx.c
-index 49e8cd4bb4f9..35b20d0796db 100644
---- a/tools/testing/selftests/bpf/progs/verifier_ldsx.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_ldsx.c
-@@ -450,6 +450,15 @@ void kfunc_root(void)
- {
- 	bpf_arena_alloc_pages(0, 0, 0, 0, 0);
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
- 
- #endif /* __BPF_FEATURE_ADDR_SPACE_CAST */
- 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_zext.c b/tools/testing/selftests/bpf/progs/verifier_zext.c
-index 572017fe28fb..dbfeeea4cf9f 100644
---- a/tools/testing/selftests/bpf/progs/verifier_zext.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_zext.c
-@@ -381,6 +381,15 @@ __naked void zext_arena_cmpxchg32(void)
- 		     BPF_ATOMIC_OP(BPF_W, BPF_CMPXCHG, BPF_REG_1, BPF_REG_2, 0))
- 	: __clobber_all);
- }
-+#else
-+
-+SEC("socket")
-+__skip_without_arena
-+__success
-+int arena_unsupported(void)
-+{
-+	return 0;
-+}
- 
- #endif
- 
+ VERIFY_SIG_SETUP := $(CURDIR)/verify_sig_setup.sh
+ VERIFICATION_CERT   := $(BUILD_DIR)/signing_key.der
+ PRIVATE_KEY := $(BUILD_DIR)/signing_key.pem
 -- 
 2.53.0-Meta
 
