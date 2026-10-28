@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793160750;
-	b=jC0yLXCy8CXROqYw6yFM9gd1qKyAoAeM2Opw+AIGPqCYPv9OK5gMpV1GxhfUoeQ66XIF
-	 PWJGp+YfoMHSnRIOfZUjJWKm8T8PZwtG6j7NH9ApvlLR+Sab49LBzpYjBbT1v8oEIN5Dn
-	 oqGgLyXKrVhSrUvCVgw3NFF2PfXo4y0+ZREYwrCH2GxTXxZmsQndsonqt6L3fEQ8lWBgU
-	 wFGjfkelECXZUbb6TUiT+YgPM1XQFP5d0xZaQ5i2F86Mw2Fc3UTRZ5tRtVdgQKsS+e/dy
-	 m7SNfdoCHfJNXqQs2RsLJKXoe1hFjJEfWMrlPMDmzQ30oDTTH0/AX5h+ej7VjDEyKhQ==
+	t=1793160838;
+	b=n8h4sXsdGmq6JLX1TCZUN3Wat3KNGUr4sfYqigdMxxAWpXSMBnWzAM2LyT5Bm6LlPyXi
+	 3qbYLUNEY4UtbFHYv0LQMEuMAJVYwlemYnmuwrsuHn9RRVgw3PtGe3xFMJhhUcLWa839/
+	 /Jk+gOiacnED5zXH7SB0ei9DuH9TaKwEJ7qYxHQVMJF+29ApMsV8SV1GM9AjZghjImx2P
+	 C7Vru+JAFJ0bOuyPACCp+zlMrOxTTMvKTncIfnktMI1xosZfE0a5H4I1ceIbKmFVnxNBf
+	 Y/JtUQdUb2sjsP8s0OIeWmf+ioY8kSZnHPtNvNZ+b7+3tCMsggCgzx506cBFlIrBT1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793160750;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=MpDlwjuRFgwBHHvnjINiRA7cF+LE+auMwtdlBgg5/l4=;
-	b=STgJtYHZWVjv4g2ZAJMv14Rq8ptM53m3Y9L9q2xkIc/aFfzMDrQMFWC9Oa7+Wd2yBOyl
-	 kRhbcto6aMt6lZ+kyRV7Kyh/vFvhj6SGSWuhQEPz2lDyitcxBrSfpI12JJmvthDHGIM4p
-	 kFSnBoioNhdcya0fOQaenmOgEwc8T1rDjrOERwzDGMeyPrgNow8DEhCl23MUIOgEqQc9f
-	 /t23UcuXgkaSGpHHuEO/y2mNm8v6eDAJ5OY1axeaUHifxFOhZ8Ay70TOlPDSv4H/el7Gm
-	 qk5fQT7CdwaeeaGAAGSPHnUQEO+ovUZrhrUubtgFJP9KopW6NsD+KU+MFK6xrYTfNSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793160838;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:Mime-Version:
+	 X-Lms-Return-Path:Content-Transfer-Encoding:To:Content-Type:
+	 X-Original-From:Cc:From:Subject:Date:X-Mailer;
+	bh=Ufn0FgIJu+3KUWz3Ja9xTt0y5cutm6hq8a8JjEz61Gs=;
+	b=GZhhj7yMLCFjxqMyiC8EIj9sdz5WVwfIkvLSG5ZG07yPxgTxwRz2eKvTG9niKcsGBmms
+	 V/SUqTIg2qLklQLQPFpr5KQ15oGvfBYdsGOlb9Ph46tbKbCx4mMFDUkLKna37CJo52QAy
+	 r+0JfTmQuB2R/Gfw1wicSV6YmxhIE7ZmYB5iMfloYimaDHWQ20cz/mQ/rODcIEFA2sYS6
+	 gIrHp+Uo0rs+Leau8Q+uIq6Z3tSZD//ObmzYLTYYbilnzFzOPIA16HQ2dmwalItaVghKN
+	 aLvU7wGtLqbPureZfFy1GwGDlxTwCvPuzXDSPQfwHwFMm25hGGw8g5844gRhm3bVWcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="NlsE5S/g";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QPVr+U0A;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94ED9606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94ED9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0D5606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:13:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B0D5606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NlsE5S/g
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S0j3pH3957940;
-	Wed, 28 Oct 2026 04:12:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
-	content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=MpDlwjuRFgwBHHvnjINiRA7cF+LE+auMwtdlBgg5/
-	l4=; b=NlsE5S/gCL5/QtJD8e1i/Q3/PcpVW06RtWqXykHYXXPffgOnFqzdfC2W+
-	O7t5Pmlq8ej0vSRTh1aYHp38SK8hcbtdRv77KXhrxzAjdVdcn6+w/OPHAQT1FnLr
-	S417kOXQgwdRwrDkVr+prkSXPm1iZGzs7Qa7QPxyjqo0kyl1Cc5I38tHXQ0GmEIT
-	z2GO1Fb9/PGFYwi9VxlkO68dYuNlGdQ5yLoIMCMK1E2i8WUYIH8myh2m4VWBZFgB
-	ofs3ueeNUD7eszzZlLRWrllzjvKWSqyt46u/RvVjiolvlSGM6SGmJM+Xb2iGiiGp
-	kYmFJmUXDzUnn0vhx/tX4yM/4MBKg==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgj3mb0jt-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 04:12:22 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S0o7Dj736333;
-	Wed, 28 Oct 2026 04:12:22 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hjtnnbggk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 04:12:22 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69S4CKkf30802208
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 04:12:20 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1953C20043;
-	Wed, 28 Oct 2026 04:12:20 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AE39620040;
-	Wed, 28 Oct 2026 04:12:18 +0000 (GMT)
-Received: from jupiter.bl1-in.ibm.com (unknown [9.123.6.78])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 04:12:18 +0000 (GMT)
-From: Mahesh Salgaonkar <mahesh@linux.ibm.com>
-To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Linux Kernel <linux-kernel@vger.kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Andrew Donnellan <andrew+kernel@donnellan.id.au>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] MAINTAINERS: Update OCXL maintainer details
-Date: Wed, 28 Oct 2026 09:42:17 +0530
-Message-ID: <20261028041217.499673-1-mahesh@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QPVr+U0A
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793160831; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=Ufn0FgIJu+3KUWz3Ja9xTt0y5cutm6hq8a8JjEz61Gs=;
+ b=QPVr+U0ANHSlCCAX8olEc2ciXekwax7Kkr/vj4atUOGWVA+dOWxQGoZuiJxcUyvDthqQq3
+ LEup4EKSz9FnUrqUTaTbLR2baaXNbD6AelTh+18wnSvsJjiClny4VIt8UpAOfeaYGIELS9
+ RpRfi0iIlGTTle4QzucTwM6ycY1+otCjFiHBt2lQVf+mszioWks+B/m51wNemHM/z6tzvK
+ OF/TgbxZGts6KwPU4ywCGe8bN1y0bGC5R8RC3Amslxq8bTjj3HflrMQtf/t4jS2LYH2Kkx
+ F0xTER+tNqYR28NjSwXCyj/pcJCXpSdR3HMoClWjq2FqmJACupr/wfBxZcXckQ==
+Message-Id: <20261028041253.74839-1-lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,60 +52,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAxNCBTYWx0ZWRfX2VmK41fDm6B3
- pMOmLOAQppV4IdtRRsTIrvwIonbLOHsxJFbn68uSrKKdw1zoQLBCD/1ugQL010Ii0MuBxwh/rB7
- 9Z/5TuGaRMFK4OAv37Qtc0N6H6D5S2w=
-X-Proofpoint-ORIG-GUID: 2pk3XT-co2aNojj1OPwRvG3pFBb8pDrF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAxNCBTYWx0ZWRfX+r0SRFozpAn9
- 0M/am6MMW4bKcqL/TIpni9IphyLhSG7Rk4kP9FJu2jruISxPpg5/E0JIFHgI+CMu1QPRc1hJkkO
- g3CMcB0xhCGEfusFaoJ5xuCrpnHiuLNv4LXJM7fFlQjNqfpZwiWMfy4JIhAcEC3wxEyfiGfzD7S
- 2UJj1W5sxaiC0cCaS3A87Dv4cL8jEG2Pg0jYF7XiaEBQQ9U4aut9AI3tgGsmJiC9SjKfEHilXBd
- hDQZg1g8+OsujJDNG0jnbF+n3O0SqhGsjY8rsns8h8yBkGqrTgkWIW6L9G3w1pGkOzDlxWovDWA
- nGNmx+HTiVlmPDpq80laAaOZNthk3rFuRKY6+revVPd9hyAPV4GWBF2ePes7vXy4sjq+BJJzgwq
- r7JTR6Oz2iE7dQxJQuTNub+vTxb3AmhYAMbhKaoJjU2CVHPM8GW+gu++SHmt96QM+H0c88XuSDF
- EZYbS2KKElycHInhUhg==
-X-Authority-Analysis: v=2.4 cv=G7uJgNk5 c=1 sm=1 tr=0 ts=6ae17626 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=voM4FWlXAAAA:8
- a=Zu9sFVggB4hjnozgOzMA:9 a=IC2XNlieTeVoXbcui8wp:22
-X-Proofpoint-GUID: 2pk3XT-co2aNojj1OPwRvG3pFBb8pDrF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 clxscore=1011
- phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280014
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ae1767e+81b04e+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: <akpm@linux-foundation.org>, <bsegall@google.com>, <david@kernel.org>, 
+	<dietmar.eggemann@arm.com>, <gourry@gourry.net>, 
+	<joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, 
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
+	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>, 
+	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, 
+	<vschneid@redhat.com>, <ziy@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, "Li Zhe" <lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: [PATCH v2 0/3] sched/numa: refine memory tiering promotion heuristics
+Date: Wed, 28 Oct 2026 12:12:50 +0800
+X-Mailer: git-send-email 2.45.2
 
-I no longer have the bandwidth to maintain OCXL. The powerpc maintainer,
-Madhavan Srinivasan, has kindly agreed to take over.
+This version narrows the series to memory tiering.  The generic normal
+NUMA balancing cleanups and heuristic changes from v1 are not included.
 
-- Add Madhavan Srinivasan as the OCXL maintainer
-- Remove myself from the OCXL maintainer role
+Patch 1 makes the free-space promotion bypass configurable while keeping
+the existing eager-promotion behavior as the default.  Disabling the
+bypass forces slow-tier promotions through the normal hotness and
+rate-limit checks, which helps workloads that intentionally keep part of
+their memory on a slow tier avoid short cold bursts refilling the fast
+tier.
 
-Signed-off-by: Mahesh Salgaonkar <mahesh@linux.ibm.com>
+Patch 2 keeps memory-tiering-only promotion faults out of normal AutoNUMA
+task-placement statistics.  Slow-tier NUMA hint faults use the folio
+last-cpupid field as access-time metadata, so those faults should not be
+interpreted as normal placement feedback.  The patch marks them explicitly
+and skips the placement accounting path.
+
+Patch 3 builds on that separation.  Once tiering faults are no longer fed
+into task placement stats, tiering-only mode can use tiering-specific
+outcomes to tune the scan period: hot feedback speeds scanning up, while
+cold, throttled, failed or empty windows slow it down.  This prevents
+tiering-only promotion feedback from being handled by the normal placement
+heuristic, where repeated promotions can otherwise push the scan period
+towards the maximum.
+
+Li Zhe (3):
+  sched/numa: make free-space tiering promotion bypass configurable
+  sched/numa: do not feed tiering promotions into task placement stats
+  sched/numa: fix scan-period adjustment for tiering-only mode
+
+ include/linux/mmzone.h               |   5 +-
+ include/linux/sched.h                |  17 ++++
+ include/linux/sched/numa_balancing.h |  10 ++
+ kernel/sched/debug.c                 |   2 +
+ kernel/sched/fair.c                  | 140 +++++++++++++++++++++++++--
+ kernel/sched/sched.h                 |   1 +
+ mm/memory.c                          |   6 +-
+ 7 files changed, 168 insertions(+), 13 deletions(-)
+
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v1: https://lore.kernel.org/all/20261014094347.99157-1-lizhe.67@bytedance.com/
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e7bc0bb7353d..aeac4300e0b8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19967,7 +19967,7 @@ F:	drivers/net/dsa/ocelot/ocelot_ext.c
- F:	include/linux/mfd/ocelot.h
- 
- OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
--M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
-+M:	Madhavan Srinivasan <maddy@linux.ibm.com>
- R:	Andrew Donnellan <andrew+kernel@donnellan.id.au>
- L:	linuxppc-dev@lists.ozlabs.org
- S:	Odd Fixes
+Changes since v1:
+- Dropped the generic normal NUMA balancing patches.
+- Added patch 3 to dynamically adjust the scan period in
+  memory-tiering-only mode.
+
 -- 
-2.56.0
-
+2.20.1
