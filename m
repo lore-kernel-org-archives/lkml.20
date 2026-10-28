@@ -1,92 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188288;
-	b=DcUrw+4AFGj9im7TWXhYynT9d+IRboND2doWr0z6gIxmzNokzzP1n7ovD8MKZ8jIKfM4
-	 T5dQQ5/SwbNQH4z6P5KdF3j4vCOK75cUZXgKicZhC4BnI/ZB+sHp0+2fOUqrRw/aws3NW
-	 XHZF2dFpMC9jzN5SG1glZDl/vt1rLRYPEJhFXyL2lC3A1s7pjIhWq2eS2d3fvGAqOvgOE
-	 BZt7nl5gMlFMYINykqzy6/IY9tLZKPp6cP8NtJYOEboNul+2uAH443/A4kGjtAxQ6helj
-	 4OjuCGi53ttWvGUuRdo5TE0Qhg5r0L7Kn3+owWm37yliSyDzaowhPlB8E1+gXxu29TQ==
+	t=1793188656;
+	b=CcLkcpg0BSjNd4byGwMpgfs5rxwzCR8A156HjLHuS7oK7uSFjALjTq8XaDuuqXiKCmWw
+	 PmGlTDOa4JlPJ1Rb7I9uC6Svy8gZQaxnC2jX4/KuNBDirA11Z5Aprw7QO3rTGgyevaF4N
+	 T0+esZnEITa5Tgiapkir07dinHPBEolm6RMX4w53+rfLtUkP6ladJRj5taVigF36tNdJB
+	 adRuh6y6m2l8ufgIDN5av4hwUNSHnn98J0GkbFcoE/YkV6rz/fLImvvAyTEQvSiSmIy+Q
+	 fVTHeRoM7yB3/0BNNzp2paftaWckKbVHEJeJ4mp1U1KlIfrimfPTzmD4JZbRvnK6rnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188288;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188656;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=D5eK3OYxooGR+Ub/eQArvzI2ld0dXQ6MAm+b6bma6Gg=;
-	b=XNakolfiPdRdBkRc7ceTFDX9/P6d7hJLu/qa/rfNqVVJi4drYDryBFOn6e+3AqmYkglh
-	 8WAmV9im8zI8m/hid2pUAyS9b9fbINjCmgjYIH40S3TMbdyP2scEvi1iI/7w1Lr8CulRl
-	 szOGyf9XoaLTqYPxpcmDLNlDZOeaEOmPAxSjGgT/RPpHc+ZUuI1wQsECS1UBfS1/AN/5z
-	 zKBeGj1bjD3HtNLnKo/BhdITu2UKLZE3ecdzPOaUxOOLE3gmIFpDI/2CAIxt6vR220C7r
-	 8NXI4D8TFcs4LaUL7t0G66l7Nnm9lqfplVoX2nPLql7O+pdHV0x+XA2klN/g/jkH26A==
+	bh=vQn70RFilaV6vCUmTPIBJG08q6mnqtgfrSTQOJVWmnM=;
+	b=MSsaco+pgURPwa/SKpGkbylhOfUTxxkp+UUpVsxkxZvoqe4UUGab/JtHfaR0n29YUO1S
+	 jdh5b4IQrGfdXFHi11VKizsgLVGKa+rHzno+2i63gbMlgHeShlBAPhq5n5aY/s5x6+XVX
+	 EkyB/6xx7OnlPYxztj0C7MpX/4k6ljQyKhedJn1WUh9GDTUJuf4J+Dc9iWjRXR2kfsNbF
+	 iKhmwHDt+bzFwEjDlJZcumFnRKvKOa2JGkQp/lQc8M5OKvdhmhPllVS1Nc+j9htvf54+h
+	 fXRZDBVhlAUWoYNPJeu6zSwM1SCtx+EkAbXrknUYJdq/Mh32s2qd68yHgSzZneWhJCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V93HvWF4;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=klIQwHUu;
+	arc=none smtp.remote-ip=43.163.128.44
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.44])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B832606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B832606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D411606A333;
+	Wed, 28 Oct 2026 11:57:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D411606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V93HvWF4
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e04773687so345987f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:51:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793188286; x=1793793086; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D5eK3OYxooGR+Ub/eQArvzI2ld0dXQ6MAm+b6bma6Gg=;
-        b=V93HvWF4gVsvGpl314PMh2JpbQW3bZjFTnKefla66L9rfKfmRYPcigQ+U+wlCMY8Jp
-         2+vcgNoSXUCjaX3oFmX5Ko/XBMF1wnnBZ2Ud3pXIesUwcp1SFsoUAx8NKAiBLSPNrCb/
-         aHBfhTg4W889MCfuWYCVxDx2SjOon9yT6zlIMNGwQeaaKNk38wcRyx7/sL/TQPkV1A7u
-         l2XYVd2VjPbJK7Tku334lhdnBf6157CFfwKagR1uQOl8c5eNlT51sIt/pbotvjffUmGZ
-         Yhz7S4esDr0mi8U4gKSvnOEIH5J0UJXdZSkxqfGvXJkijzpVqThDWLXxuRnYxlnWfvfL
-         FL0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793188286; x=1793793086;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D5eK3OYxooGR+Ub/eQArvzI2ld0dXQ6MAm+b6bma6Gg=;
-        b=WnzdCZWMJsxBJ6nTGhyUPIZ1ZuWYtuxdoFHZpcAfVTmu3+Mu7r4HTWBlfNWDA+Fo5R
-         MM4ksIWXiLv8qdKfLUvpyip8B4wZ2VI9HppdzX+NhMt1Zb1rFE7V/1o9uwsAmnHvmJNO
-         gxd7VAGVZYhQYfQ3mQ3EPPkYstvvjPI8o3Gm68ZSFz+0LhA0i230g1+frP/pMzt80eQw
-         GCPFGmYmLq7IqvqmW3cS4eolKLwSfDlV3NETMmzUkAXB3NYd2myZUOLpvK4z/mEhmEWi
-         trY+h2Y08IT5g1nAXpjdobP+1Ch6N7iw2Y6g2oI79Ypo+1aozEVn6Tg/b5hG4XnFnEP1
-         q4jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoJ7x+dMT0JZcT/liQguW0BIDrYELmN9SOz1TSaVyVPd0yqs1+5zc70vlkO0MZof7NukPe+Udu4M9u4VQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMoHWcjrKNx/YI9XsbE3iyED5wQV6iOstTXQacDhJujzTaEJnH
-	tWpsHCMbzUcbVsvW0gpxvGcEuQEJ+mATOiOFJllyu1VvhwhwIn/2lBpg
-X-Gm-Gg: AYBFou2jSBon+iqO0IF2wSmBdRv2Vezh09vzbemfdD5UR58Cx+8sf3P/OJ+c5aVBBFC
-	fwjwVMTPqZ2qnzvk1Cyfa125f415kpII9O0lxT3dVNoWsZUaafhr4fgJ8wVRj9B1dKP0GJ9qzPB
-	GY01xryZgPdJSG83yLUT0QxBBua0yj8PUPeOeniwi06FlAz3Ew/jcKCjI7w47wDx/BlexMvhM2y
-	vIrl5ctl3+Xv6gM10SWf3wjvbvSC6TIY9k4zEpG6Iq2JIEG4f7CCQISREsj7GNNjfh4pLvhelGs
-	jhcGU+7b61IEebvVwJsIlfAckBbEMneSId7/NAmlpdvBk6fu/qNryvYmrHrTWcWcBwkrh8RhSZs
-	mYga7Drj7c3Bzwh5rcH/jZS8aY6DXqAjfPsUrhbH0Qpj5/afcfqDiFfwsAQ4EwG7Jmk9Lr5Oz0K
-	pO+0AWMDA6naDQKrBdise38I7z5zL5MRmkWAC05GEE3G0TNxAGALZQaj44RSkI0KPROoU2RLMam
-	wLt5A7/T6yGOhUAwI78DspPFr5iI6XiugpoCtaqFAcaLdtvmwNHEWogueEIUmLDn2UPrzz4jNgG
-	46+2tbvo7Z+X6OLS+0Ftn/wTvp7jp0eVvS7vhnUOwl9Vzjrj6BApfJwC19fc5wwfHw==
-X-Received: by 2002:a05:600c:8b05:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a967202925mr42842605e9.19.1793188285694;
-        Wed, 28 Oct 2026 04:51:25 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:47f1:8a3:6e76:cd9e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c9f150fsm37684425e9.10.2026.10.28.04.51.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:51:25 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Christian Gromm <christian.gromm@microchip.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] most: configfs: ignore repeated create_link requests
-Date: Wed, 28 Oct 2026 13:51:20 +0200
-Message-ID: <20261028115119.902049-2-thnkslprpt@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=klIQwHUu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793188647; bh=vQn70RFilaV6vCUmTPIBJG08q6mnqtgfrSTQOJVWmnM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=klIQwHUuzh2w45eHtuOnqbQAuZd7Fpx91XWMp/Gc3S/rXVxug8HU/H8SHCOe1Il86
+	 8ibt/no49YAHrWUnxt645If5Ac9fwJwc4dxyORRXNe7E1KJuUNHmE82/ZZrZJtHYfs
+	 XPOfAVOBkJAOj2/ETMkMVsjwgPt81IwnMHdn/tak=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:7875:da97:7462:bbd3])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id E54BDCF4; Wed, 28 Oct 2026 19:57:20 +0800
+X-QQ-mid: xmsmtpt1793188644t4xpull8n
+Message-ID: <tencent_BFD509CFBFC7E76F10959593270DD1CAA506@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJDwY7q+uWS/ezw2m7FPoHn9QNH3RigtCsbW4ix+ZHS/aNzvIYXU
+	 SFCKEknR0qW1MsihjWZNbEMd8dacQ2CrxYSJO+MTicnuwaKy3N9P9kLnJlldIqNVIbJ86Phfdhen
+	 ZreMA7dFlqxB8BIXvfkRfXDI811Oa9JXn6+m959yk7lr372RlZRaz6RQRvfalnZ6A/j9Gv8k7xVe
+	 pr7YfAR6NjD/m8AcjGmIFmjQ0B0o08431itwnambfkK9OCVhXHEH0VkB3bn9ZD1siABq+V1711Ob
+	 DyASJ2WIMBfL32gbWn6UYuhU3QIdgd5h0iZtEUbRXr0mI6MRCQt4Z6e/HtppUD1+a8+YGhs28NL4
+	 dndWA7WCET7Ec5hRc16MXg9lPJYRf8lEoBHabubJ4RCtHlPWusNbi/rHFt08HmeFjP1km346iebZ
+	 sgBY06G4h3SHVPDyKQocusDwLFKd3mYCFJ803rT9FpM0sTKi/gTGlIv/yiz87lxFmmIbMqu85mN7
+	 LzajgbqQHsy3NwVy85Yd2F6T0RUaBePGokd5w3hVuvaVcho2YwwYFTX2YTwQ/NjPzNWRAPgl0dq9
+	 ljasEATEQGhgClxAJxIQwlgg9SSt+f44H4aPitLkmIqfvRbJu7hdDNFeHFsBceFCw6PTRl9nAn9q
+	 EBmzhLCHxj0niCfAlszdmWsMlxxXtyhTvNs69rwzP/FBtg06mR/deRx36ZBpLFqPRWEv3EZ00rzE
+	 mALVoJa29tGDxzUK8qY08mXs9bj6bauOG1Nol20Cf4+ToDp24re0j9h3ooqBbSbXBxnjbULbhefF
+	 L4Wo0SIeE6pbI1QZcq5+krAaIE+n64lRGg8WjAE7hYuhzXaTPSQ/CJQJh+VERNx3kxCMNQUEmPNj
+	 MVQbgbjUdhnFwTIDpoTkTIJqTK635V6BGEtjnWCJYXdRp9JeTNHTEc+hCaGTmksf+Q0LJ6BZ82Iw
+	 QHRK23d3nrkwtM7uUBIoZl9yIakj1JYQhA0EYVyHXGfxS37MxFN0zfjU0mVJUy7W17nr7+xTBSOr
+	 IQKNcNsmS8UiFGvueKj0771zOKwxXsDR8LrsRYB1sivOrilBjmpccpAQSPUJBrOovmE+Uq2lqtlL
+	 QNPZO+IzbW23ooqQVZVcza4VyUufN6nmzati6iMoPedfqtYAo=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	hare@suse.de,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/2] nvme-tcp: validate the TLS handshake timeout
+Date: Wed, 28 Oct 2026 19:57:20 +0800
+X-OQ-MSGID: <54ebf9c3b89165a0a4d5df754b3a099253dc15b2.1793188633.git.1075151112@qq.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793188633.git.1075151112@qq.com>
+References: <cover.1793188633.git.1075151112@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,35 +91,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mdev_link_create_link_store() adds a link to mdev_link_list even when
-create_link is already set. Two writes of 1 for a device that is not
-yet present insert the same list node twice, triggering a warning
-with CONFIG_DEBUG_LIST or corrupting the list without it.
+tls_handshake_timeout is writable but stored as a signed int. Multiplying
+the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
 
-Skip repeated requests until destroy_link has succeeded, allowing a
-later create_link request to create the link again.
+With HZ=1000, setting it to 2147484 overflows both multiplications. If
+the handshake request is accepted and its completion remains pending,
+schedule_timeout() reports a wrong timeout value with a stack dump and
+returns zero. The handshake then fails immediately with -ETIMEDOUT,
+while the handshake agent was given about 24.9 days. Negative values
+such as -1 have the same kernel-side effect.
 
-Fixes: acdbb8975373 ("staging: most: allow speculative configuration")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Store the parameter as an unsigned int and reject values that cannot be
+represented both by tls_handshake_args::ta_timeout_ms and by a safe
+jiffies delay. Take one snapshot so a concurrent parameter update cannot
+give the handshake agent and completion wait different timeouts.
+Document the accepted range for built-in use.
+
+wait_for_completion_interruptible_timeout() returns the remaining
+jiffies as a long after a successful completion. Keep that result in a
+long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
+systems.
+
+Negative and oversized values now fail with -EINVAL. Keep zero valid,
+preserving the existing immediate-timeout behavior.
+
+Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
+Cc: stable@vger.kernel.org
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
 ---
- drivers/most/configfs.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../admin-guide/kernel-parameters.txt         |  5 +++
+ drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
+ 2 files changed, 31 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/most/configfs.c b/drivers/most/configfs.c
-index 8f5158d95bc38..73794d2200125 100644
---- a/drivers/most/configfs.c
-+++ b/drivers/most/configfs.c
-@@ -122,6 +122,8 @@ static ssize_t mdev_link_create_link_store(struct config_item *item,
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 5bd8a24be6b61..187917a4f196d 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -4801,6 +4801,11 @@ Kernel parameters
+ 			Example:
+ 			nvme.quirks=7710:2267:bogus_nid,^identify_cns-9900:7711:broken_msi
+ 
++	nvme_tcp.tls_handshake_timeout=
++			[NVME] NVMe/TCP host TLS handshake timeout in seconds.
++			Valid values range from 0 to the smaller of
++			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
++
+ 	nvmet_tcp.tls_handshake_timeout=
+ 			[NVME] NVMe/TCP target TLS handshake timeout in seconds.
+ 			Valid values range from 0 to the smaller of
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index dbefe36b0575e..1b9c090bfda93 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -6,6 +6,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/module.h>
+ #include <linux/init.h>
++#include <linux/jiffies.h>
+ #include <linux/slab.h>
+ #include <linux/async.h>
+ #include <linux/err.h>
+@@ -48,9 +49,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
+ /*
+  * TLS handshake timeout
+  */
+-static int tls_handshake_timeout = 10;
++static unsigned int tls_handshake_timeout = 10;
+ #ifdef CONFIG_NVME_TCP_TLS
+-module_param(tls_handshake_timeout, int, 0644);
++static int tls_handshake_timeout_set(const char *val,
++				     const struct kernel_param *kp)
++{
++	return param_set_uint_minmax(val, kp, 0,
++		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
++		      MAX_JIFFY_OFFSET / HZ));
++}
++
++static const struct kernel_param_ops tls_handshake_timeout_ops = {
++	.set = tls_handshake_timeout_set,
++	.get = param_get_uint,
++};
++
++module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
++		&tls_handshake_timeout, 0644);
++__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
+ MODULE_PARM_DESC(tls_handshake_timeout,
+ 		 "nvme TLS handshake timeout in seconds (default 10)");
+ #endif
+@@ -1930,8 +1946,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ {
+ 	int qid = nvme_tcp_queue_id(queue);
+ 	int ret;
++	long wait_ret;
+ 	struct tls_handshake_args args;
+-	unsigned long tmo = tls_handshake_timeout * HZ;
++	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
++	unsigned long tmo = (unsigned long)timeout * HZ;
+ 	key_serial_t keyring = nvme_keyring_id();
+ 
+ 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
+@@ -1945,7 +1963,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ 	if (nctrl->opts->keyring)
+ 		keyring = key_serial(nctrl->opts->keyring);
+ 	args.ta_keyring = keyring;
+-	args.ta_timeout_ms = tls_handshake_timeout * 1000;
++	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
+ 	queue->tls_err = -EOPNOTSUPP;
+ 	init_completion(&queue->tls_complete);
+ 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
+@@ -1954,10 +1972,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ 			qid, ret);
  		return ret;
- 	if (!tmp)
- 		return count;
-+	if (mdev_link->create_link && !mdev_link->destroy_link)
-+		return count;
- 	ret = set_config_and_add_link(mdev_link);
- 	if (ret && ret != -ENODEV)
- 		return ret;
-
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+ 	}
+-	ret = wait_for_completion_interruptible_timeout(&queue->tls_complete, tmo);
+-	if (ret <= 0) {
+-		if (ret == 0)
+-			ret = -ETIMEDOUT;
++	wait_ret = wait_for_completion_interruptible_timeout(&queue->tls_complete,
++							     tmo);
++	if (wait_ret <= 0) {
++		ret = wait_ret < 0 ? -ERESTARTSYS : -ETIMEDOUT;
+ 
+ 		dev_err(nctrl->device,
+ 			"queue %d: TLS handshake failed, error %d\n",
 -- 
 2.43.0
 
