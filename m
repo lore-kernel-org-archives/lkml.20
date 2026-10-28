@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187320;
-	b=CY3MN3HzKKRCkTuQuzw5TV6yckcpVs3X5tmPN4s0420Sdv4IrewzxHvIjCtYkbSk/cGW
-	 7jqUTOe5vggu1cfVTFZPcAf36wt7cxnyzrvIVjWOdOTLld6BYu0kj/sQ+JYNSvLQjSHTq
-	 KNxyvVqUELuZ6bugdCFg0p4+oSnUS3KNp6tVHkHb9X51n4vVj2sC4tYb/isIr9LCom2Wv
-	 oDFeuylJ98VOco/6rZ1vPeBfsRXsZoiUZAgageJPCNqwXfm7TEEVSYKjZoInG0XfSMhK7
-	 ZUtSykYbQYYMjOIH4gNYmngLgwQIrVrBonMMHol2lTTMP2pKdrZrSrhr1RXBZUZE3/g==
+	t=1793187339;
+	b=Zf3TyOPwyI/FFbi3mvLeN+fLAw2jns3ku1Y/DnefCgc98/gIkMNQkxGfm4QSLh5b0Y6z
+	 VbjswZBUWA35Sw6Oh/qz0RfjRdvUBlJkBo3RMmdYkoW4AIl0kTEdPOeRSyr/ayQnT4CQd
+	 DzHS3CmdLlI7Ruz7WFWQ6hq8nbjovonamtstxbnwbDAFB40GijBE1zcMtMN2dE7ZyiW1y
+	 /78eVO4AR26G2dDM1vMWjUhQvtf5rhcrtpCdYpCdh7iQ5jFlGOJ7PSll7ChzK1TfJX3BC
+	 9tbp9r+phiOaRq0AgGmUWh70DVYvPpMo2jjmB+yF/wI+YGCWk9fI/964YKJtrSsOZdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187320;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=B8vJFfofHUzZYZ/GbKfSFUlRIzxbI853xLgZK6SUVxEYJnmoP6pOSc0s/o3p4a996jzn
-	 9dCpaUiNoWflC15gWk0kQFtZ9tLcoDgyQYBR12lIUrFIl2elg4NCzrxJtJ5xhiFSRyRrR
-	 kt4MWAr68nQFynI2j52CaNw0TRrW3xmvpi9+JLPG9v5jMK5VbSz9x8HPym4JE7thsxgQe
-	 0Cv/7IT2NJbPiTx2qWJX0NhbDBJUzbjdibFOeWk0aeesYKn5Cj1WngCyFyxac5HMC8r+U
-	 4w5iAPHmuGWd0RKwOpojuhrE3G9Nv81/WXlP2p5js327PWRPB91ExHRTSDeeW7uK4hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187339;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JUxgy1qRD86ZxMGDKv05wIfS/1ugnuo1jwVn/XUQAUQ=;
+	b=JWPjFfiu5ZHF7oCxBewGu1zbEktkouIHgOIMcJsCovss28MjdjgKZW8stiQf+QjwbJ+x
+	 NhOve2tScErWxoMPIJUhg+3D1QUn1LCaAEb7uV+1ja2+keVBgNInR7AToKCwo2Dxp3kNe
+	 HY52YrzzhlkJzD7tGRZfv7XtcIywpeyJ3mJ34sZRYSjBb1oMH3WsLalpIiOSnt7sSXbph
+	 w5BALj16UFmIZNW+R1ll8bgeoHzAigiyCdswrBj2fhZrDrupoYQnMuyfe7UTSONOpZ58/
+	 mALwAVJfrnFs/s+qWJ+D2cq1GuR28klTwYALUR57fNybPMbVjnQmGOqq2Svqyo6+qzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENLrp3x4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6uxqfuC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF65606A31D;
-	Wed, 28 Oct 2026 11:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D2606A31A;
+	Wed, 28 Oct 2026 11:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENLrp3x4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CA81F01829;
-	Wed, 28 Oct 2026 11:35:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6uxqfuC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160E21F01825;
+	Wed, 28 Oct 2026 11:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793187319;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ENLrp3x4fVCj2fd8PUkdXs7htbYd0m0ytAAujsddQ9q3EjQ1ctCRP6aUYX4rmHVum
-	 0zTVn+CR1ukkvg0yt+cwOA19es186qwKxG+tp162zBuJurM4Ls89sIn5/HkKFePXsi
-	 5KdjLtvlZsrsBMPu9wqtSd65AIRHfE87A7B65zcCsYCWfQBvE20sTGtobch3RPDRKH
-	 jRB0ZMBftRPl/0qXpCkxLnNBFmudKVqE6xcWNIfzxzXMjuMlu8efMHdkJ8nt8yqjeC
-	 s/bIUKA/5D4fruMpvMZusPJOkyiPeTAX3Wsr7SWFkyKrpjwNwIwvhO72upWi8mtfrz
-	 mu9LLFOapM9kQ==
-From: netdev-bot+sinfo@kernel.org
-To: Tang Bin <tangbin@cmss.chinamobile.com>
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
-Date: Wed, 28 Oct 2026 11:35:18 +0000
-Message-ID: <179318731865.3327.13254506298277087120@kernel.org>
-In-Reply-To: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-References: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793187338;
+	bh=JUxgy1qRD86ZxMGDKv05wIfS/1ugnuo1jwVn/XUQAUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F6uxqfuCLgZDap3U0SMr7iZV1wNYsmDKH4ZCcjATHHDdpGqaIgaPhWk0RBnBPf73K
+	 c2ZYF4UGiF7NTAjgC/mlBwmqaLveiUkmJY5g+bfH08pZuVw4dqjb0erpx0/QET8yqa
+	 Lu00SmcX8Oq5nizhCVMlaFr4CxPSTeLBQtGo7j8ROcUUv4YgxBo6BcVN5De3zRL5ss
+	 o2ENpAaEOD72nOfZfIqLsDdB1znBo9hKRWv6J59zgaT2zA3M7auRu2GE9OlYBxdG0j
+	 1Oe7eURiqDeV1m7iM2fwdNao0ZOrtPl95oyJ8KVNGt8jp1Ad3KBiWYVq+2IkDIA1fa
+	 cy2tFiu/qDO6w==
+Date: Wed, 28 Oct 2026 12:35:35 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Robert Marko <robimarko@gmail.com>
+Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, konradybcio@kernel.org, taniya.das@oss.qualcomm.com, 
+	ansuelsmth@gmail.com, john@phrozen.org, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: clocks: qcom,gcc-ipq8074: Allow CMN
+ PLL bias clocks
+Message-ID: <20261028-screeching-magnetic-mongoose-52ad2f@quoll>
+References: <20261026120920.1667982-1-robimarko@gmail.com>
+ <20261026120920.1667982-2-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +61,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026120920.1667982-2-robimarko@gmail.com>
 
-Hi!
+On Mon, Oct 26, 2026 at 01:08:13PM +0100, Robert Marko wrote:
+> CMN PLL in IPQ8074 provides 2 fixed clocks to the GCC clock controller.
+> In order to describe this in DTS, allow passing them as the inputs to GCC.
+> 
+> This has a benefit that it avoids doing a global matching by name.
+> 
+> Signed-off-by: Robert Marko <robimarko@gmail.com>
+> ---
+> Changes in v2:
+> - Keep the existing four-clock form valid with minItems: 4.
+> - Drop the _clk suffix from the new GCC input names.
+> - Correct the NSS NoC bias clock description to 461.5 MHz.
+> 
+>  .../devicetree/bindings/clock/qcom,gcc-ipq8074.yaml         | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Best regards,
+Krzysztof
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
