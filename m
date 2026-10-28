@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187034;
-	b=R2kCZzxDaR1aWFiEcnz3b8Vq9wdWdhmErHGf5sflPvJeyYUC5lYvM8XnDvHXUBqUuIph
-	 ADTpO5eT8DQi0MYWVDpdHCTEfg0mqkWy5lQghdp4QRq0ObesXgpEamwIQJXHDVOYnVcJ5
-	 hsqy0qv0E7Ub0/+3bkNv1zPq9jS+XPrfPjK5SCzVkj5VoTvkdx/RJjxUSR8+sC2puonl9
-	 T6Ifp+LH2CEbpcYivT3AV0NmpZfXuazcM1U4uihj4PCQvQo5+ns4mIm+fv5yvO8SQoDbl
-	 vUMKTJ/LS4Qto4qMGOrLjRT+TnM1f1uh6vFCECZBXoiF5XKIhk4cSfGNnkLPwsM61Uw==
+	t=1793187101;
+	b=2DHCCp2fmUyO/VciPN8FCxn34VY3xjA9MFtwN2ujV1NfbtcQ56JFe81Q4rPniTLDSJ9t
+	 vmO7MFUIQoF8KC7c9Jc7kCw7Poh7MDYEmf2F73B7u9r0D4RxNKARYK3AIQC2OiDPv0y7X
+	 14cv9RNRyT76YeymuKNNxspy8c9OP8LvX/BgzqGwkqGDOxTBLCAOKuFgaIa1rmvruC1Qe
+	 pc8ivwCzmaipceCrkkF6ihBybqwTX49NyBY+tA2naRO3AIPMWHpiTjyA2UV3pjviQAn9o
+	 HY8VHX+CWmcnbkpShuy5DwMbFove8SfKpRnDCwTUDaetYEO37RimA85+iLJge94jCPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187034;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nK4wxJlF1X3a08zXOdP0lWerEzc2FL4X4MzbdiQi0B0=;
-	b=oRERH7BE5B0H2C3UOPDwKu7JtNk6xjN7P2ksCVcbC8jIfQ4s2HhnFW78vindHXCOttIK
-	 l6ZwDF0m3+Sa5bHRb+uko3mY3EmoZRRSSX3YfRKwrBk+kfIcfh9O4ZunjMbfoenvEF0cX
-	 ATe2MTNQGPSbKKkt1QDwj5VVETDg5JYjBoS7ITDfImU7YHjryLsaaBJjEXuFJxcrjDrzA
-	 0A7vwNen0CJJ/rO+jd7Fu/6ix39AJcUyKopZojcmi0ZjPulzob2CPd+vUxsWDgDQAvOhP
-	 WFklLmmavVvhtWOJvMAEC8gRBUy9Rd/EZmIbBPpw1CvELlQdQ1UnidFEmFk1ag9wfQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187101;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+	b=aJifrJctZnOyV32Q+U+tAwR54jZIT+OolUryLOJRmmAjqwwy4TEalsjzyctL+enBsaNF
+	 JSqmB0ZNTHnq2tZnJGeYV/KW0D1m4GlzzHwwCtRRclueMWRANsMjOFmsHhCpq1rh0LihZ
+	 1EexsJmbWGaoArSXQGZ1SwG1wsqTNHA3rFYiulZcuCY9MrDLaPKK9DAHF2dPGFy6jqngW
+	 KVYU3HSYOgdsPF1qd9+AbQ7AFx3usf3ujfaY6gHmMROGeqB2H5E/TO6PDzEWyCREKXCoC
+	 ZdYp51T32AaVn40FBE6mWuRwGYpsVbw8VA89v+3SLFvs2tprCxKiYfTBlySqFJ3zVpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQAtIssq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rzC/RiYb";
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B325F606A31C;
-	Wed, 28 Oct 2026 11:30:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0D6606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0D6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQAtIssq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814231F01828;
-	Wed, 28 Oct 2026 11:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793187033;
-	bh=nK4wxJlF1X3a08zXOdP0lWerEzc2FL4X4MzbdiQi0B0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DQAtIssqPLSYUwXo8Ja4LvMO2QBS6lM0CVubOc2fgVe0DYA6540L8UjP+/LUMOYxC
-	 d9f0s95LUqMcD8UJrMoh08bgrL3biChIoMrCb/9AvOJOoqgwNMaFXH0K0JWB8J9nN/
-	 9DNYr2n1eyq5ID1zEFK2+gh3ryw23/7RNNArffdKb8Og/0+RJXdC3NawUd90Bq/rus
-	 GvZKRtclUuDHvSIBNr2T/8yIqhXwccXt8gG8w0i9DmFUOg5QaaJqvxuuCzDPIrU+cp
-	 1D6LRjYJwrFrLsFOj7EPCBqTp0BW0vREj9HtWOBZNQ67ccb1hHuKOcVJQLWdLDsMJx
-	 iAI9O3rbZIALg==
-Date: Wed, 28 Oct 2026 12:30:30 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] dt-bindings: i3c: renesas,i3c: Add RZ/G3L support
-Message-ID: <20261028-ecstatic-fluffy-lizard-9a5da6@quoll>
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-3-2e76b87209bb@renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzC/RiYb
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so6036535e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:31:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793187100; x=1793791900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+        b=rzC/RiYbWvBXA2P565MellKyXzy3OLBZHsPXUzchhH9CD9zSbNGGuQPPT6M+tYvTCh
+         Yuk3owPEQXYdclywO47Aa8Feei31oXB0GOBAxAzDxGgQ8YFQeagzW0GeuDO/n2RxJKjG
+         19GAzCGFDXZwwWUsPH5Nm03BEzVsE1XJ6od4B6jI1FzJZcFIBHu80YIwgbNOFBrpu2EX
+         Ny/OwLurBh9eljPCKwhK2stMULN9YUKrX0y2QYYBMZ+mRBR95ViPp/VHpkeZbctfNX+K
+         sJHJDw8OvegYMUdFmcPTt8j86nfLsMu1ZsIkRlTLvK1G51x49TkUBZe0GmJLXTOBj2Fo
+         AkwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793187100; x=1793791900;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+        b=TWH30xGoTnT0JvZB7PZCvI4U83riX7fFm10Mr636UpkUBdB448BIMfZKQB512ZRS8E
+         T4YOnmJM2WBzwgARjjFswV5ruRbeSBkDc/58idVhbCj4TBzw8MmSrNcQYHTC06prGlK+
+         xLY1g7iifPwoNsNZhg50oJZL8O+7IZ3Yxm443pCb3qYmftmdyn1JZFMba+xslXDJ8ThE
+         r4Mjb4h/C3e6UDf7/AH1YqFOscyyHWxBOIYqmT/oty1LHRiQ9/tnMIpxZK/xxvx+5xF4
+         g8230A5/khiIb+7sUjYloJYbqMKq8LPaelcR3OQrlyL4NVYaZMaUspEj7ZiBvCT//72Y
+         a9/A==
+X-Forwarded-Encrypted: i=1; AKwUvBySg5dtNjVcJO7N0JyQf8LmCfq5V6OP+JdDMiDH/iVF+Wx3JTd3WFcVVdAbNSPHOtusLQc5BKNuJ2PEG4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOlUzEQcx2lb03eL6DBVcjW7xoARqUi7BWfOsPN47dbZCu4aaz
+	RuMd8PDRw3znDt+FqgauITyjpjf0F2lk36U+A/5M3UEtdcNq3hEdWRab
+X-Gm-Gg: AYBFou3KwMkajpSKTwiixg2B5cIMjWfzpfzEU7Z1xefKFzhwljb2iyIc9KnKgPkFsk/
+	XIlo9I8v0dQ7GWfjxcUdH5lXpnaHxbLQ1TnBuqqM2OrJ9u6ONQg5dyVbgUn+fefzJCpnrx9afTd
+	GsDans49BcD8wuxSWw3Ivl6bCx5EiFL5Tw/z0yg1vBXxJBmQrEb2sdP6UVBAJSFNNBFHsBFsgWH
+	18O9mjv5uF9UtJzeh404zTac7QEs5Wx5gC/5zkzBl2L7MT4/jUwir9r25lqh9AF2kswkFYIvZwf
+	pTAd8vlDkMWwKEXi57xoAv1X/D+u6Txmx254qTPzzQ9BIc1gqTVTneK3SG0P8VF/ih4WXlLndEf
+	CJSwv9o2NGVOasqU2j5WF7w+MILvBNspxSQGTSrUTYl5FvC5i8D50/guwyJDW28dUPj9ZZf3Oqh
+	rYxVZLTQC2dRfFaFAHNEg+McwcvCixzC8kEsBY8vFwfo1Mi918k4I9R2WYl7Xt5gK+yeWsQxAU5
+	g3Qml9/mEvwbtEcCga2+qQRDLJTo0saBLgUYRoa4Dkn21Z5Ngwv4LEIn72MNy2dMaEomE6GMzq2
+	quSuWTkUKPEeqzQwJ/BMJCLZW81vzchMIldyF/zW0PpXe5DXdjzE71KY6SbWmdhaexOR+g9Bmm8
+	oDy3Ob8jrvShyLP6jnpsAy3I5cs2J/XdFnIuacQr+QJTLm2CAL4k8/CYTPUjPdi6kKPtDR5yOCw
+	CW+LxSAg5gUU8=
+X-Received: by 2002:a05:600c:3f0e:b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4a99781ff60mr36159265e9.14.1793187099590;
+        Wed, 28 Oct 2026 04:31:39 -0700 (PDT)
+Received: from PC-Marco.lan ([151.59.117.24])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a996aa0ff3sm16684455e9.1.2026.10.28.04.31.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:31:39 -0700 (PDT)
+From: Marco Ziliani <rylos78@gmail.com>
+To: Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	Chris Simpson <chris@nilk.net>,
+	Simon Kruse <simon0x+git@proton.me>,
+	"D. Manresa" <dmanresa@gmail.com>,
+	Tony Garcia <tony@loafecho.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: ov5693: Keep the Bayer order when flipping at full resolution
+Date: Wed, 28 Oct 2026 12:31:36 +0100
+Message-ID: <20261028113136.36524-1-rylos78@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <30b2925b-0518-4692-ae2a-f70fd11ce43b@ideasonboard.com>
+References: <30b2925b-0518-4692-ae2a-f70fd11ce43b@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +105,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-3-2e76b87209bb@renesas.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 11:35:46AM +0000, Diogo Ivo wrote:
-> Add device tree binding support for I3C on the Renesas RZ/G3L
-> (R9A08G046) SoC.
-> 
-> The I3C IP on the RZ/G3L is a subset of the one on the RZ/G3S, as the
-> RZ/G3L has no HDR Exit Pattern detection interrupt. The resources are
-> consumed by name (the tclk clock, the presetn and tresetn resets and
-> seven of the named interrupts), all of which the RZ/G3L provides, so
-> software can match and bind a RZ/G3L node through the RZ/G3S
-> compatible. Add the RZ/G3L-specific "renesas,r9a08g046-i3c" compatible
-> with a fallback to the RZ/G3S "renesas,r9a08g045-i3c" compatible.
-> 
-> The RZ/G3L is not compatible with the RZ/G3E, which has no input analog
-> filters and supports high-speed mode (up to 3.4 Mbps).
-> 
-> Split the clock and interrupt constraints into separate if/else blocks
-> so that RZ/G3L nodes inherit the 2-clock limit from the RZ/G3S fallback
-> while being constrained to 16 interrupts alongside the RZ/G3E.
-> 
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> ---
-> Changes in v2:
-> - Describe the RZ/G3L by a SoC-specific compatible with a fallback to
->   the renesas,r9a08g045-i3c compatible of the RZ/G3S, instead of a
->   plain compatible, and drop the corresponding driver patch.
-> - Split the clock and interrupt constraints into separate if/else
->   blocks to handle the RZ/G3S fallback on RZ/G3L nodes.
-> - Explain in the commit message why the RZ/G3L is not made compatible
->   with the RZ/G3E.
-> ---
->  .../devicetree/bindings/i3c/renesas,i3c.yaml       | 27 ++++++++++++++--------
->  1 file changed, 18 insertions(+), 9 deletions(-)
+Hi Dan,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 28/10/2026 09:31, Dan Scally wrote:
+> Hm. But what's the right approach? To allow flips without changing the
+> media bus format code by offsetting the output rectangle, or to have
+> flips change the media bus format that the driver reports and flag the
+> flip controls with V4L2_CTRL_FLAG_MODIFY_LAYOUT. At the moment that
+> would mean that you couldn't set flips whilst streaming though, which
+> is suboptimal.
 
-Best regards,
-Krzysztof
+I went for the offset because it keeps the flips usable while
+streaming and keeps the format the driver has always reported, so
+nothing changes for existing users. Other drivers do the same: ov13b10
+and ov01a10 shift the window offset by one pixel when flipping to keep
+the Bayer order, and in imx290 the sensor itself moves the readout by
+one pixel for the same reason.
 
+The cost is one extra column of the pixel array, which is why the crop
+end is widened by two columns, clamped to the array. The reported
+format, crop rectangle and size don't change, and the binned modes are
+left alone since the flips don't move their Bayer phase.
+
+If you and Sakari would rather have the MODIFY_LAYOUT approach, I can
+switch to it in v2.
+
+Regards,
+Marco
