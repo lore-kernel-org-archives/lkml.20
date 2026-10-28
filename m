@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793217007;
-	b=GLXdQy+YIdzY7raLvLbLj/AwQ6LTRBgtLlxlidGPpSgFo46T330cTzH4Q+sp/cLhqL/R
-	 pKNzRN4bZWiL5neyCWJwaWMacmNWNrwYXuPGdRkZDAz6y3I2kUJbzgsqIqpqwAnuP7q+f
-	 iHuAVFMuwVdP+ZHL3GO3sd8X2PgBB6S9Jff7+2F4F5JoJYniwSSC9eUGy7uFyKNRNmiS2
-	 T4RJUeezSQKBWEfZ/BzbV2q2ny+msx4lQeUXFdlXlTzoi6Zy42BrPucExg+SnXnN22IlX
-	 QyU/giQco53EwfGZdzGA/c1jVru+IAzmBrKxrRcO3DSBWE3alw6HvrzGednV6J9SFPg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217007;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793217029;
+	b=iWXE9b9Sj2GN6tRyqcqRjDaTm1erCm+kF5Yp0lYIGK83PLhq2f6v2K7mAzupeRSkXwnB
+	 kodDhr2Nn/y5vQYiQCK/ke0oTobqPq+AkJqNEbbECOWmIS6CRniaH4wyIjjBlgq7IisqF
+	 6WSDzkdS3RK+j5sd+Ia3bkZPS2vAQMEBa60TS/cLAO3xEJELbbfw5bwpncfOJnwPIfGQk
+	 hwiLqqxtnJO8yM3U4mwqTStbO4o7gHeBhi60ylXsFg/93hDSoIfST6H7W7k7qkZONxDaM
+	 PPxjRlNiIKTc3S9UtRbeqPbbndz4xHtlFkH//QeTc2MPaxH6xt3KpYNPGA1vZaYTilg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217029;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=x6V0ut3kqKgQIto1YCEH+vR5sKEvkw9wBhgLEXh9NNo=;
-	b=RKRobuaISOP8rQA19/9hTu9rk26JQ9ZZNjnaUDfUUCepXtTrLfyZgdPvhIUAJJDOkQaC
-	 XCRHdhjsbFnNbgI1Qcxjlh7gnEY8FozMjlN7p9dbcm6BKPfEZwjfRciNvJeTgCa4qdK8v
-	 GJc1NPXLdU1lzgE9//ujOaXbPvhHKARmJZadJGSPgxFljYc+ERXXy7wgLFWkPLQjTu08k
-	 XqwJX00YhkweTsOEajwc6EObj2zHWzsga/oDnWZqD9a11Ao+fxlYOrzmtNhtqeIqyJiq7
-	 gh6u2WgkK/TptMqf8gBm9j68kkW2PtW8Ge27p9PKur/jwvBjAHFqkgd1XpAIuB9m7wQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+J8BcEC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+	b=q0Bm1+dj66ZlObhCgRpBujFRycAsh3I9ZOXpJRhUH/Dn2cYy9jbcCvbbtns5iN1IalWS
+	 CozJih01MkFiAx0pFPhNIWL0494nSFNj8NFhpTV2JKTqJ9tdcSfghRUADngC/Pq1HIxYf
+	 jEztO9u8T+XIf2d/SUAPgRtmM8gmo/Ah/wycLmhR6MUCcSiOJk2hk+RmZ2HnJ7tttoXc4
+	 5wE7ordtra3xq16rkpGJnRyVFnmSGRb4kq40X1jJTmbnykwweNNBoXmuwlZdDphibopXi
+	 3TmBhaFnPyiP24CPId5UU0S+0fN75oLOTm1fTS+JSGUaW2qeVIklbV3QZXDQEabGWbQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIGq3gNS;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5F3606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E5F3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66C560A2611
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D66C560A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+J8BcEC
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b10ac6ab7bso13116257b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:50:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793217006; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ghWCEGjtqUQT3k3qbkfc7MDAsgkFwzJTXkKjZryvnVI42d1Cm9AffMGrTi4X5uMga1
-         l7A00L08mxMviesNNBvm/un/1NCE+UY/d1/xbSCBi5IlIihr/7CdjS/HllOQubsq7Xit
-         8cxNYKqcM89bThi+QRD/rNSbE+pbYVAHVvnc/RKfChysVurvYOdFSuHSTjkMRxJFf0ci
-         uI8B7LTrAr7UHTbIIGZarQX+j1QHBIc+TbeXDHmAH4CVuObnYMlcYr/VJwcxrTtPHFlv
-         3IiJA1KYbzXI1yC+PjaNDHdRaZ40Fz4kkAodP87c3Q7YR9p9H7hMEhhUcUVnTQcaVvhI
-         uajw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=x6V0ut3kqKgQIto1YCEH+vR5sKEvkw9wBhgLEXh9NNo=;
-        fh=4cv2/+V4v41MXeDYoYsz+HMUdLJX4qscn30a8m8XyOo=;
-        b=Kz8rPBWDpChoGOiZ4yebIN+octaSr6axAb8XyoqOJCk8cbHNfuuqgAsOOVuKPguxo3
-         f+hbrMAt1YRPDu+ZGpl1UFTyZJk8mHEw0c7ery22QLCwjq8SP9ip4yYPkdyDcrJ7EjRz
-         t8ZwnMJCtTW7likt2FALLjOxCafty1H6eXBTBQUQzx5N5OkgD8CFIgiBWT+1d3kyUTBW
-         KpsYUuelDgis0W9ctTWyilbRB5jZnRNLT6jnK0giDvQ6H1Lr08Cl/njZICGIsyog5Tkv
-         AC2oRnSmmmhUPDJ3rdEGU2OtekKCS0hhvVC2GQ3XitRofJtDP5oh/CC6vzv5trhm/NgU
-         e0sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIGq3gNS
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so11684575e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:50:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793217006; x=1793821806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x6V0ut3kqKgQIto1YCEH+vR5sKEvkw9wBhgLEXh9NNo=;
-        b=p+J8BcECk9qp0MqCsZAffqEEIl4vI4RMnAzxwQxLwHjhYniu3ypHCsnijQ18zCM8Gq
-         fluB52VtU8Ut5Krf+KyfYPhqJRQZZ0KSer1I3sSRcmwCFTKy4BZW/WTm45zmYqNXwZ7C
-         qqA6lzDY4R9wotg88gxKzwO9uWXNHWRn69o+4rCXs4E07CniuY3om8LXxqsc6T/BPerc
-         aH29cbPYqNDktsgW8d5W3kLt9l1qhhgWxTgwX0lhoVoFHgfn4PCKoJPIAgQBTd2X++vk
-         kXvXeMkM5CnvZLACkUNAE62++QlziRuKpCCce03ODvYuQ25FSzB1wJfdU9ejK0UP48rA
-         a6jg==
+        d=gmail.com; s=20260707; t=1793217027; x=1793821827; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+        b=TIGq3gNSEQTGFE8dirwFKRkWnd2Scl2mBdvbI3o75uLkytzDGiMdvcHJ7K+8HBB91j
+         YMCyy5YoVCr6B4L/aMd8GXJ8cWK1y/M7cuXQDJtkpMLRZiNK3HjOXQSJ/naWqYQglkiW
+         3up1GCHSKhOS5YT4aikidg8Qq5XCIxwk6otkmHO9up4rFsuFa3GmujedpuO1x8cLU1O3
+         YrqwJLryCf4dFeXsLlHOkzbCU33UKhzJDCRBO7wD1zi/nEUXqqTaLR7gKm1g/AegosYs
+         P/xLfute2jVjbAycdQdaluXrl7sht7ZYMtoN6we0YeCDrJ1zOYhdrwaI3cQEm9M20xxh
+         GRJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793217006; x=1793821806;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x6V0ut3kqKgQIto1YCEH+vR5sKEvkw9wBhgLEXh9NNo=;
-        b=DGR/NVT20G2oFqAJSZ8PtTcZ3XYl5NmvOef/yK8NKD2t0qrFspoZS7nSe6R1lxKfIu
-         nlzoCxFddpvS6CSa5KCfGtBU0Z/e+gcwQHI9szjw1voFjupEOtHkv8ZRK8PQ29MFjbFM
-         W5G/nPuuZhHm7VNFDK8keiSLz9ZFc9DpL5LVwhH00urhGo25H6/5GgN+qQRgKtZosm+W
-         DdtTk4fx8UMcVdLySBqAM36/Ma7ANS0H1MGX1Sd6+4vE7JOUfklH0cVYMsdMb3h65WQK
-         91vrQfCHcfp7x3J/Ytr03mTOOYx7MQfLlDvR75mgbOp+/FUmOoLXwaAtglP7AVgRkoRx
-         APuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztyz6OPOGWjcQphtSsqMtXV88lVW5GnAzjfJJ4Wro5eCl7QB0qikNX1C794R8MFN9d6uTLJz9GOwk/nTY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5ZcnqhfO58pTsGq7N6K+RZutsnxlIAp+7LTt7TwrIqHNeDBet
-	2jQwuvx4nSdM0y0zcEeRWAfGmd5SHs76ig2m2J8LHsoEVifEsHBX0DY/n3eC4ZySWmOep14mBI8
-	3j2kZZ3Enw+lOrCjTu5mgh7wvQ0HlmbV/ICtyUnIG
-X-Gm-Gg: AYBFou3Dna230XsTpcMz5kGY+DOIc2jtKlcs3rXco3qm7uPxDqktuCcJRckvqR8HWGe
-	mcfUqpAmpCzBuA1AQ980R6xT6Y7GajQvNq8olibNTTH6YTaH7I6zVC6mlBufHHgkrrPDTUmzuvx
-	LFWtqgKq2OavM6XaJ+5kj+OCU0HyrVc6MGXOlHJ/CYTLHI3N/Mv7eCZLVFRdSHp/dD5f6HkpCfK
-	uzs93WJsibIJVStMOZzJ0+nTVWE62aBQfcIMgQHTB9J9MHkOVD1J3SdwyoLd46tSvhEsxUV/2aY
-	OEpsNam3yLCNQgQy0pydrqYWYEHaHuzb8g7AAeGSyvGSndwWyswnLC0n5RBzx4eBsK7oVPL8a8J
-	wevacWzfxxccLMXuTYD0bcPy5P6wO1G6IQn069EYXPr7ozKINjsq3cqRmnprceD/pJg==
-X-Received: by 2002:a05:690c:498f:b0:8b1:a485:dee1 with SMTP id
- 00721157ae682-8b1b5e870f8mr20662047b3.62.1793217005584; Wed, 28 Oct 2026
- 12:50:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793217027; x=1793821827;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+        b=gWBo9ffjxOzYKRGmsnDd1Pt+QElHy/R1G5XE9JVPRyB9aK+jlEQmArb4v5Jcek9RvK
+         M7lS6/ATBlQvSAz1EnodTnnacW9+e+rmcnsc70TEzFdcd02jb+Eh9JwVmyvtL+Xvm8Bz
+         pfeM24eZDSvkyhJUd7I2tONRBio39N1pW+JuqWYbm2/aXGuWNLgwkwRCS4QFz6/BsqC4
+         15kZGDvzAt1UZb/Ed8Opir/rpEcCWz5Cr0PR6TcBKrJxv3sjqd9GlOZq2dRZsSGMjnH/
+         OcNvakhMNpjVsfloJ3VpWwkDtu2hhYZ0pmvFPpRAigp3xa9WszhNacUjyS4Uwn1HL8qk
+         V1Aw==
+X-Forwarded-Encrypted: i=1; AKwUvBzteVgTmT6oeWLVcgngnegZFA9hHdcxsoE2qsp2xbr1H5qbNtuPHXNSM+JEmADUDKNZY9xumAK888VzDz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6Q77HgiNs3TU6CiITq7irFEr0Zq293inG7JEPO+PCgSWOvEXR
+	gZCiYY02R30p2TxKxXhfL9Lf0wEMGsLrLDFQLt7xwhzQ1PCdbX658/sd
+X-Gm-Gg: AYBFou2G8es9WUzzPXGE8jCIQ7UF/I50aXAjL5d7TDapGRLWFjWAd/iLdtdH7cdRjKN
+	anzWdwmbMQAxx3IXobOo+rpxVdTy1c4LQYOZEjKhUVqU18onmfB3T3WzQh2oY/mukdnWsC39S5N
+	2yhNgimYhSsw/Pz2bZ51dRxLLnMGoO/eIhoikYv8iQd9dGIIKg6U7rnAjWhplHrfMEtHsPKFeEH
+	Ss0GUjbm6VO0xsPUOqUhpt2uBQqVkcHlUl5110v1jXCFnqhotGqUDNbS1Xq+Th4p+JKBKB67ZbA
+	snBROuIior3UYH+rlZCreCLN7k1MnyVT4g8CUTqtiODpMrY7rBgndwP60Kcb6nZt7zpM2TsPW3d
+	hecU+hbFlQOu/C8Wk3ozqIYGeOV9iJUtHn17aBtdIiPBgpy2AprY1FbpcjBSQSovBjzh9gpfMFP
+	R61mJgs/uiI1uVnZn+A8F1HdVi/IROhPgaX+c2s8N0kOplYJkwEFIHDSLrtn6+o2DCT2OteQtUD
+	jgQ7VkjMeokyL5dLurHZKnO3dG0txcqqPEkWZrAwvOhwkuj/ht29rQhWDfFxQb3r7PdRJDtREUE
+	0rhSCSKzdqUL6z+VipkkfB8e9tWH5Err0qF9+EUq7L/tzmMTmxdpAPTcxMiZG3oHs6Ee45OthUA
+	yq0gRJTw0BKtb8cdnaWVND391+OqMTH0oeLIBsE357Kb+J7BBY4jyMZ50R/FhXGLba7nBznaT0w
+	kygyTsalLr6f2vcZ4=
+X-Received: by 2002:a05:600c:530d:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a966774cbemr70339165e9.22.1793217026916;
+        Wed, 28 Oct 2026 12:50:26 -0700 (PDT)
+Received: from PC-Marco.local ([151.59.117.24])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm15170845e9.10.2026.10.28.12.50.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:50:26 -0700 (PDT)
+From: Marco Ziliani <rylos78@gmail.com>
+Date: Wed, 28 Oct 2026 20:50:18 +0100
+Subject: [PATCH] ata: libata-pmp: disable the SEMB port on Marvell 88SM9705
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,100 +93,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027025616.1632690-1-kevinloughlin@google.com>
- <279a92da-772c-422b-8047-ad37dbae211f@kernel.org> <CAGdbjmJ8qk7FCbGU85u9+db5_RtcrK2y_7TfNH+iuz+OJxebow@mail.gmail.com>
- <20261028145316-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20261028145316-mutt-send-email-mst@kernel.org>
-From: Kevin Loughlin <kevinloughlin@google.com>
-Date: Wed, 28 Oct 2026 12:49:53 -0700
-X-Gm-Features: AclHuK-xGxvCvL4otBtvefj81uI5MhPmhwclIN6rdpDM6CRLGOUQBZrCbVhrSfI
-Message-ID: <CAGdbjm+4Jqx8Xv3uvhgaaiThYuVT0vF6UGx83XUku04Q_PN+OA@mail.gmail.com>
-Subject: Re: [PATCH 00/13] virtio_balloon, efi/unaccepted: support memory
- ballooning and free page reporting in CoCo guests
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
-	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Michael Roth <michael.roth@amd.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Alexander Duyck <alexanderduyck@fb.com>, virtualization@lists.linux.dev, 
-	linux-coco@lists.linux.dev, linux-efi@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Sidharth Telang <sidtelang@google.com>, 
-	Punit Salian <psalian@google.com>, Peter Gonda <pgonda@google.com>, 
-	Ackerley Tng <ackerleytng@google.com>, Jacky Li <jackyli@google.com>, 
-	Steve Rutherford <srutherford@google.com>, David Skidmore <davidskidmore@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-pmp-88sm9705-v1-1-cf951fe74573@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyML3YLcAl0Li+JcS3MDU12jNHMTwyQTY9M0QzMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAWrVLmXAAAAA=
+X-Change-ID: 20261028-pmp-88sm9705-2f741b435f16
+To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>
+Cc: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Marco Ziliani <rylos78@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793217025; l=3551;
+ i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=jq/bX4Fw2tFf9xoqbWcRl/77+7jumFvnKruLVmfuESM=;
+ b=QmP1T7AMCqTiyXZgs9/3e4KvTqqNeOjWSzyF3W/gT6zMoxHave+E4fbXSsO6v2doE0t3tfwvm
+ sb4mnLBhg4SD/A6vQVZvPszY6XNAoJA+QQ988f7EhJwSRySSHCdbf0B
+X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
+ pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 
-On Wed, Oct 28, 2026 at 11:54=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com=
-> wrote:
->
-> On Wed, Oct 28, 2026 at 11:12:47AM -0700, Kevin Loughlin wrote:
-> > On Wed, Oct 28, 2026 at 2:01=E2=80=AFAM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> > >
-> > > On 10/27/26 03:56, Kevin Loughlin wrote:
-> > > >
-> > > [...]
-> > >
-> > > >  mm/page_alloc.c                               | 248 ++++++++++++--=
+The Marvell 88SM9705 is a 1-to-5 SATA port multiplier with one
+additional SEMB (SATA Enclosure Management Bridge) port [1].  Ports
+0-4 are device ports and port 5 is the SEMB.  The number of fan-out
+ports in GSCR[2] is 6 when the SEMB is enabled and 5 when it is not,
+so on boards without the SEMB there is no link 5 and this quirk does
+nothing.  That includes the common 8-port PCIe cards that pair an
+88SE9215 with an 88SM9705, which report 5 ports.
+
+The SEMB port never answers SRST.  libata probes it like a device
+port, and every EH round on the PMP ends in a retry loop that lasts
+about a minute before EH gives up, then starts over:
+
+  ata19.15: Port Multiplier 1.2, 0x1b4b:0x9705 r160, 6 ports, feat 0x1/0x1f
+  ata19.05: hard resetting link
+  ata19.05: failed to resume link (SControl 0)
+  ata19.05: softreset failed (1st FIS failed)
+  ata19.05: hard resetting link
+  ...
+  ata20.05: reset failed, giving up
+
+Disk discovery waits for this, including disks on other controllers.
+
+libata.force cannot work around it: the "disable" horkage only takes
+effect after IDENTIFY, which the SEMB link never reaches.
+
+Treat port 5 the same way as port 4 of the Marvell 88SM4140 and mark
+the link ATA_LFLAG_DISABLED.
+
+Tested by the user who found the problem (see the synodeb link below)
+on a Synology DX1215 expansion unit (four 88SM9705 r160 behind a
+Marvell 88SE9235), one disk in the DX1215 and one on a separate AHCI
+controller, one boot each, Debian 6.12 libata with and without this
+change:
+
+                                      without     with
+  "softreset failed" lines            60          0
+  disk on the separate controller     200.6 s     18.6 s
+  disk behind an 88SM9705             203.3 s     21.3 s
+
+Each PMP still logs one "failed to resume link (SControl 0)" for port 5
+at probe time.
+
+Link: https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88sm9705-functional-specifications-2015-06.pdf [1]
+Link: https://github.com/rylos/synodeb/discussions/8
+Cc: stable@vger.kernel.org
+Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 ---
-> > >
-> > > This diff stat should give you a good indication why this series is n=
-ot acceptable.
-> >
-> > Got it. I will keep that in mind going forward, especially if I end up
-> > attempting a v2 that simplifies things.
-> >
-> > On that note, I believe the majority of the bloat in mm/page_alloc.c
-> > comes from...
-> > 1. supporting the legacy inflate/deflate option
-> > 2. introducing support for various page sizes to be unaccepted
-> >
-> > (1) I can get rid of by dropping the inflate/deflate option, which I
-> > think makes sense given free page reporting should be sufficient to
-> > enable dynamic guest downsizing in cooperative scenarios.
-> >
-> > (2) becomes simpler in part just by doing (1). For further
-> > simplification, we could potentially restrict free page reporting for
-> > CoCo guests to the current 4 MB MAX_PAGE_ORDER instead of supporting
-> > any order 2 MB and up. There's a trade-off here for reporting
-> > effectiveness under fragmentation, but perhaps support for 4 MB only
-> > (and its relative simplicity) could be acceptable? Especially since we
-> > would then maintain the invariant that all pages on the unaccepted
-> > list are MAX_PAGE_ORDER?
->
-> I'm not sure what is meant here.
-> But if a lot of memory is free and it gets merged beyond MAX_PAGE_ORDER
-> and then it's not reported, that's counterintuitive.
+I don't have this hardware myself: the problem was found and measured
+on a DX1215 by a user of synodeb (Debian on Synology NAS units), who
+preferred not to send the patch. It is carried in the synodeb kernels.
 
-Sorry for the confusing phrasing on my part ("2 MB and up" vs. "4 MB only")=
-.
+Kyrylo, your DX1222 has the same 88SE9235 + 88SM9705 chain: if it shows
+the same port 5 retry loop, a Tested-by would be very welcome.
+---
+ drivers/ata/libata-pmp.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-MAX_PAGE_ORDER (order 10, 4 MB on x86_64) is the maximum order in the
-buddy allocator, so free pages never merge beyond MAX_PAGE_ORDER.
-Today, page reporting logic scans from page_reporting_order up though
-MAX_PAGE_ORDER.
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 904f418387..72bc458568 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -482,6 +482,19 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 			if (link->pmp == 4)
+ 				link->flags |= ATA_LFLAG_DISABLED;
+ 		}
++	} else if (vendor == 0x1b4b && devid == 0x9705) {
++		/*
++		 * Marvell 88SM9705 quirks
++		 *
++		 * 1-to-5 PMP with an extra SEMB port.  It reports 6 ports and
++		 * port 5 is the SEMB, which never answers SRST: EH spends about
++		 * a minute per round retrying it, and disk discovery waits for
++		 * that.  Seen behind a Marvell 88SE9235 in the Synology DX1215.
++		 */
++		ata_for_each_link(link, ap, EDGE) {
++			if (link->pmp == 5)
++				link->flags |= ATA_LFLAG_DISABLED;
++		}
+ 	}
+ }
+ 
 
-Accordingly, what I meant is:
-- Currently, upstream mm/page_alloc.c assumes every block on
-zone->unaccepted_pages is MAX_PAGE_ORDER (4 MB on x86_64).
-- In v1, I set page_reporting_order to unaccepted_memory_order()
-(order 9, 2 MB on x86_64) for CoCo guests, such that free page
-reporting processes orders 9 and 10 (2 MB and 4 MB). However,
-supporting 2 MB blocks on zone->unaccepted_pages required generalizing
-mm/page_alloc.c to track variable-order unaccepted blocks (Patch 7),
-not just MAX_PAGE_ORDER.
-- If we instead set the CoCo reporting order to MAX_PAGE_ORDER, all
-MAX_PAGE_ORDER free blocks are still reported, and we keep the
-existing mm/page_alloc.c invariant that every entry on
-zone->unaccepted_pages is MAX_PAGE_ORDER. The trade-off for this
-simplified logic is that a standalone 2 MB free block whose buddy is
-in use wouldn't be reported until its buddy is also freed, such that
-they merge into a 4 MB block.
+---
+base-commit: fb2c3f44a7e14627b9dca8e6b568e6cdc234b40b
+change-id: 20261028-pmp-88sm9705-2f741b435f16
+
+Best regards,
+--  
+Marco Ziliani <rylos78@gmail.com>
+
