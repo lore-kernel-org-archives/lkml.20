@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195340;
-	b=evWLLUvJlCcT7MKLdBCGKGSspT39Lt7Ws/4b1rBTxfaQjpJEqnqPuTyGZ3S0dVachMJA
-	 KMM7SlubvbsIPgQI7r4MpoqO/FL3Uk5mS7c+W7BDMhYc+E6u9BH2ADjRTENrI/iXS9POm
-	 X6NzBTN5NS2o56C+dF7hd/3a4gGmittuyDTKWwoOY0e6k89kcIloiK7FdUxMKNzWAJlKM
-	 TI2ZaJy5hdNuIF0HbE6vUEUNBT/UDSsGRJQAoQ/0tNygUQ+qwTpiA6byuHENO6KXFymvF
-	 3NgMvmuLWG8qQhKAdndXJ8BANiatQZ26Pg0lFw6ghsYcY6fWeKsa7cG3wMsXHFmwBzg==
+	t=1793195409;
+	b=IYgoSYKxDeNnkmSYWQVe+UT8BcK0REU2EjbaCGwv0FM7zOXS64k37wfShOigKqZ1Sb5p
+	 xJmWerukzxVpYz7/lWxpL7N6OitFeYkg38oYyASsybWFmugDVrJMUJfRIGocGfYSA4Fgd
+	 g/ik59ZiPaAqeaHMO7d6ybIEsJXGYu7eqlhK4XmTdYHhuqZHk+sZx+1AFudBDgKUd21Vc
+	 H/YkpSHci8XWJ3lR16w9ed0pbz2/kfSXTHdQXjMHeH8I9sl6mnD6P20pTcjHnEh7/Z4ac
+	 xeZpJ3m9v7eRReRPDyrbSjDgDFd4NB0pIVF8X8AEZVfrHgD8/uJfxhLWwSKK+bh/PjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195340;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
-	b=UJPxAa0xhDUYAODbHod3I+OCJFV9z1ZkOZZDp9HqTcBg1DGChhIquH2771Vc6gYylKmE
-	 HdEquwn4I4GvKe7oOPEI3Cv9ZIAsWQx+K3JWF4xEDzf50YeDIUKEwkMwcyegU9q1qjag0
-	 0wVptPmfJJK38jM2ru0eLgBtV/zWp5uerwWy5UrWWipsmlvCQfbM0dwkQvyrLdcegVK7t
-	 O/wJj1SaeQ8VPUtTCYm23Tkv1x8VLc7UtbPSO7JXjlB3AY6QavDqV5N8hytmce5oYgsVL
-	 XfBdzfFaLOg6ViHsfjOuLn+SqeG4Grhju9MUDxhkX4iUSt0s73Kw+rMsDXmEG+icbSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195409;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JdWNP8JpkypifgTIvG1V7ARGk/pgBkZ3PALw6mjNWMY=;
+	b=D+fhbubuw99jWVg8RY9CU7ggPFCtb1/VJpOcYBfppi2RoSZFUs65xQJOi83f4uQ5lviv
+	 fyNY/DxkzcmA59RiiQV7uwvZIjcmsvE5FMrWRBSoNJRDqYfRRH6NPlDVeUOivTTy/4HlR
+	 J4J+Uz7vtO4SyQeUCtFEGpkfuus7MOdEU+GogFi3GnFoOrXOM6OOiQzS5pnUU8Ycd3zcJ
+	 xWnhlE2j+9/vIEpwQma3bVh93EGLqQUvGG8C4U4g523qCjGA/wx+O7ZxHach5CyH2tktQ
+	 WK0/v72pAR5K4gEoTxtGh0y+VkJsPbhuyLI60Bh38sr2xZyE1A7TrZdRpJUh4Nra8Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apmeTwME;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfZBBmss;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D4B606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:48:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11D4B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D00606A31A;
+	Wed, 28 Oct 2026 13:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apmeTwME
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6ddef424972so804706eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793195339; x=1793800139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
-        b=apmeTwMEm7Er4RiiqptHiz26E8hD/INQ3q5n5r9r9rcJQ24FsKAzrfsc6yRE8hcFGV
-         g7pUEMwhgEqcgWHsgW4LhmiDEPnRRuEIcz04lWjkq/1zxTucRWdRiPvtcrfdIDEJT9Uo
-         UhdzOhTsphug2En4UvmxPYdE4i3WR72Dyt23Pb01/5fxRdxU7SrhSRjMHpzP8JONhr7u
-         WXNLqAB/YC7hxIPgiSDjDb4vZvIp5Wzpw+Cx/P/HLmb1/wbVFFT8tCQJCYxOEP21WlHH
-         6jghq5Q9o+r/ZqWSJILVxnG7GlU+T/WIS9MnM5ImdRY7Y7km3vr+hy5qjD3MzbFYe8iN
-         GwqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793195339; x=1793800139;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
-        b=TqdCXle3+vt1Cf7i6M+dWZCm2nz6WYD2miyCd9jpVGI3WDG58m8dFDBP+aXXzZysmY
-         gd25tFscw/TSY0wB3mvdcwvteHlJJKvunFsyWqNDsRJDF182CPZ90Ok4YW9UageO2nqC
-         ybWc/KNxWzdBnouTb/DyC60uLMLz6ffOz/krNjpWELnbpVanBKJF0NK7oIfpn8SlH+By
-         jGh5j40XGF18xvM8uSJqRPir37gQWYxNgvf9HYfO1MUoIgsBFYguPRcfUWNjeS4zvoES
-         GPbqyjxiXg6ILD/UwKE/tg2bWH7BqLNSct1DMhaL9PLUUdR5eJkWVzIz6sK2nZpRcOq6
-         yXSg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRyLBuXuTyVshNswmrREVThwQuK3vXfoaa15qoi6lzUp8rZZhncaKTwflLE7V4U1XT9sqDPv9ggVp+yf0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHIJ5csBwEn0ccmh1jOiBeb5cgNlrM4gTnK5cnwJcjQ4AF5ztR
-	2LNxwIrDJjKdmVKC3spX6NdXe2jRPIF5eplowURcfhhkDUbedW677f+0
-X-Gm-Gg: AYBFou3E0m/rsh5dVnzwDCHWTPik8x1zBKKZGFVR2VUxedyCEVRbrTTatBvZsyTr8dV
-	4Xyk0jzujWrhLrQvYv6nCr0kYYgkuPrr2+mjwRZ1FwGHu9g1w/WZGOFvtGyEuA7xa9I0hNsV+NO
-	2RlvLS/8SbfYNjKzqhKg2QZ35HnctoeA1ilyt8UONsmN2/CE0R9rEwY709QD8NPwO1KtALina9g
-	W+VXl6AzBMHqyxSLZ006nN21LIxRrMZl6scIoa/3amBCa1rYV8MnT1ji7A2IuEKTC9V5UWXFaWV
-	G+VOLjpvMWeYL7WeS9lZ7iHNkAVtzNYSRpThsaYoccTi1G0sb31dDMMEK91gxfVoUp55/scuP2u
-	+RQlWhN1wcmoarX3cL+alBFO/1f0lIhdUrWoc7gZo7y9NXjcjgm5hpjUXD7OOKzZipHxwZ3gj7p
-	lqQEI1R40e+IFmHyvr5DEOpkGOVWR29kn0GSRsykVntUjljH7MEdebGgwUoN29m3pqWGGBc/LdL
-	5HyKXtrpC9iMmSv/7My56nAvLbCEnFGB5RSKCpu8rqjcpsMLzesCoOaEEezgf53n7OD8qVqfnG1
-	AzLmEHVGDGlgN3aDlrsaXMnWGL+192jYsev2oNKS0wRejz6d0exq4Iya5nHiSHl7tRPZFPg=
-X-Received: by 2002:a05:6820:450f:b0:6fc:373a:176a with SMTP id 006d021491bc7-713efb16571mr1090755eaf.77.1793195338875;
-        Wed, 28 Oct 2026 06:48:58 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7142d124f03sm1409758eaf.13.2026.10.28.06.48.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:48:58 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Danish Khateeb <danishkhateeb03@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
-Date: Wed, 28 Oct 2026 08:48:57 -0500
-Message-ID: <20261028134857.36086-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <179213356828.2581328.5085333261240588869@kernel.org>
-References: <20261015144033.56519-1-danishkhateeb03@gmail.com> <179213356828.2581328.5085333261240588869@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfZBBmss
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0F91F01825;
+	Wed, 28 Oct 2026 13:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793195408;
+	bh=JdWNP8JpkypifgTIvG1V7ARGk/pgBkZ3PALw6mjNWMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lfZBBmssFuY5GIeH/+TA0vjEn/RvC3hK32p0OtU44e7VVztf2H/TVIKTl7n/IkTMP
+	 MIQNE9vhYFOibv8O6tYh3unfpZUeHugTk8zIEc1GmralXr6pPWl2kRV7TW7xNmqEXh
+	 zB/f4e3p4vhhrHu2xO3WuRwbqunNRYoBSNfuJ1DR8lZJnu3PnaM5khvwTgtOGGZWsr
+	 xMN8JKQi1KYSOAP3qYsHXLycqAylILTRm2jL+3Ak8Nu+5nP2QKgWOiNUJVVyfNtrpz
+	 dMspbLdB7bcQvrBg60cilk1c0xVCxYXtnckuDCs1rw5+nubANVKNVdx4ZO18l3MUzS
+	 jrxPdk/slN7yQ==
+Date: Wed, 28 Oct 2026 14:50:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
+	abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom: Add Mahua QCB
+Message-ID: <20261028-satisfied-strange-bullfrog-f3c1fd@quoll>
+References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+ <20261027114955.1266499-2-sivansh.gupta@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,17 +59,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027114955.1266499-2-sivansh.gupta@oss.qualcomm.com>
 
-On Wed, 28 Oct 2026, Lee Jones wrote:
-> Please review, explain or fix the Sashiko review(s).
+On Tue, Oct 27, 2026 at 05:19:52PM +0530, Sivansh Gupta wrote:
+> From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> 
+> Document the Mahua QCB (Qualcomm Compute Board) board id, an open
+> form-factor Mahua board intended for compute bring-up and power/signal
+> measurement.
+> 
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Sashiko is right that the "LED off" write queued on unbind gets
-cancelled, but that predates 1b5c2fa7081c: remove() used to call
-led_classdev_unregister() and then cancel_work_sync(), the same order
-this patch restores. Since 1b5c2fa7081c that write only ran on freed
-memory. If you'd like the LEDs turned off on unbind, I can send a
-separate patch that flushes the work instead of cancelling it.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks,
-Danish
+Best regards,
+Krzysztof
+
