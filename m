@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203594;
-	b=S/ogMn3gqYipicZSICnmXTuk6W9bqR6Rt9WnAC2Gl5cx10JbMfJCPW7ROiWxNz+NoEBz
-	 kjOG17MWxKnhzvFzjfYg4bSbel/Fsqt0DOuQqTvELS5p8niW8hrOVqdlBE6a1POdMf3G6
-	 TJTqKW+OmHTpuvEG8Vc84gVg97k7BLknLusMaYzGLYmpW/Q16MZQtiL1fHCSothNPYaHX
-	 nsL35d8OZgd9+GfXgv+/Sn1F5xSgdHZDBhOeQDCswe0zYrD0AitFEj8SqQ08poe8Wlyda
-	 K0WYcMr2fBFLek9/gj3S6A8SzCVmCaxaW2oxUCfqSt86nDP7FNquJP1STJHsWWNSehA==
+	t=1793203596;
+	b=jAyghQcj6qpLr17TVhvpfPBUqYysbD0XCL5Xu0YJl2qIVSe7TpWJ1KE1Jeqv3lB01RDe
+	 fmD5vGdiu2swBmr5lAEOM8/BlVoaw22YnENPeLCWYh6GIXSJpWg186m7uXWydqk3qlJdj
+	 duaefYTzxPP35fmNNOM5eYiwozOXBazelcw8uzxNsa2v9NFKX1XSdvxpWzo1YvLP+aUT0
+	 I6O+m2ux6m4zaWNkvdCSjuv2XdysxiO33y4JLU2iMnv8PhNJBmdy/hrlwiFp1R0/VhinO
+	 9lbvb9PaV6N8bLSccsiLUQCWX8NGMAfLJgAYjEyCqZ3Kc8PVqrjgVUlnmNoUqGZWbQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203594;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203596;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
-	b=Fhh+T11drSrrqt3BX/HYKiAy67gPkbJexXSVYX0ASJewEwliPMNhxn1XnIg0bAiukaoQ
-	 VJt10zMpVqQgWtyO8i347JTJZQFEJDCrSQ2AEcV83/V+ufMVExqBhmUkjm040paH0+Xdt
-	 QaO4l0BjufRMCcxNwXRlY0B9XzTi+RqITcWfIgpERINbABaVMwefTtVeF8F+AfLOo6UP1
-	 XC3bPp0035Xf3XSUNurT+mMH1N8oCkc6iaBljUXHnyX+X0d+2LlXIrkviIA3YDJMfZNz9
-	 vJKv+hZ04s3vuKQomrr43UDyZcY9JB712NXp3bpTuCqe8DrkTAP+V6+CRVba6JAaRHg==
+	bh=Z8/Xk2PZDV84vw6TpgqIZSg/Fqm5aTct485yHDlUUv0=;
+	b=pv34k9tXhPgQ7saBF9fsd5U9x7EAbKtY/TF7zQlOtjpZamWV86x4SA2e+KfrLiY7vaHc
+	 M4OM83kdv8nFrwbAi3ZyF+i2Us9VYcAMJIUQ0pzV9kXm0UyDW/0/BSV8HP+CvleSHhhih
+	 EjmCe5ovNq/fiDnqkFJiYOz1vqneIgFUKNq1+3rVlExBn9vfKv0XbPkRf/R1d+SRnCszy
+	 p4uG9hc1kss/1C+1ZP2hhPW5uTtxWBQA9xPAhBsZSkn3UmEc+c+q4HIj0sHMR0zRyj0QL
+	 lBIlMVtoShmDH9I08S0FhplxEPxLuNB2JHO1ArxzcGt0HBrSMwdtTF1LZBbrmUgb6RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mPH3qpCb;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hXdFDHGP;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C3C60A3811
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:06:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54C3C60A3811
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C51E60A3832
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:06:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C51E60A3832
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mPH3qpCb
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so10335355e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:06:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hXdFDHGP
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10468265e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:06:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793203593; x=1793808393; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793203594; x=1793808394; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
-        b=mPH3qpCbAKLiev8/hNU719zKhQN6qRmCwgloVp7ypKQZpC9Uk61P8Yj7ABA16hvoM0
-         +86OxbofRb70B4z3af2vh/6kS4boXPnK7Kr89xBvlCdoqdhMkfgWk1yAjghm1hu4q6C+
-         Cqwmk6aI6MN2x4uCioaMdg0xvqiG+9IUdy7JUA5mub6nVtisQhw7+4pXhqWLkcExZxnQ
-         rT0/j5XQ/jd9qw9/cnEW/pB5cJhyiPF6bDCExaREU0X9TRMvOk1a+QVOnAO0CGLGJ9tc
-         aa2I5lc1eDV8ES3nhSOvoHuiZ3adPz9KxarEvKxpzICn871XshDaJ9331nE3NhtQoDpg
-         Kmrg==
+        bh=Z8/Xk2PZDV84vw6TpgqIZSg/Fqm5aTct485yHDlUUv0=;
+        b=hXdFDHGPmWU6mP6G5/xCluPbuMXxOiHWgSJSzoRor1apnhZ6GTaV0JsBTeQAFZjLWT
+         hXcoaD6o+zXFzj60fF3YWL2Kol39gLchltQ0UMKtPhiHx8FMyVSx57FyzMPDeSp6sQWy
+         AvncDceFrVgtuxOsJrJyauVhsBJFWKl9AMV2wfux+vaQgF5pVI9Jvsr2gcxCqK6WJ/6m
+         JdE53dSwwfhbvdl7m+b0xsy2HHcOz8PaaKZKa/Q4X2f9jbCK+tMlk8KbxVMImq6QmZx7
+         89F37MTUWm1MU5KU5fWm3Uty0yFUrx7dPNLw/DGbdPUgjzYpSQfV3i914kW+QqeyBauh
+         oD0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793203593; x=1793808393;
+        d=1e100.net; s=20260707; t=1793203594; x=1793808394;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
-        b=uVA9pMHUOn+M2vs4CdV4UbhQj5tmn12yPLrfLoM73Gv161VyMnbC2Nb80MJufKF7j8
-         t+bkcIGp36o/0kG+GEWVzJ58nPrmmrChPT2DBa7tSFBKZqud9S+bpxXp1z8qnPvuiHwD
-         3A/OZM8CPgjVSaQJtXs2dT77MEIdMqWtuQNmn9HP/NoxWH+fQ2d0FHXscueeId8gKB01
-         lIVg3EL8JYOPGd4QuPCRNVXNOS6/GHxVaFJh/N5Mr2leJI8hYP9lVTAlnm19X+Ie4Jww
-         v3S6zoZNIzREPqlsmRFsHUQ3zkKP656xXq4XlvLxYg845jr7kMcWRH7j9gH8PBRS64MD
-         n8XA==
-X-Forwarded-Encrypted: i=1; AKwUvBwx5C2CcJOcfR3G6etgeKZ4XjJjvXpJb75RzUWQODJpf6qG3pu5kD9xpYulkrV9vymZ8WJ5BrfY4P2JgRI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAPiBl6QmnWLNbj25YBXHjjqDrczZNB2/X/ud+TO1SJTf6090v
-	qf6/QiywTXz3Jr9tW+c7b9mSUQxg8baI1mQyY9pGmmzKfxL52GtRn6iE/UEjKenkzP0=
-X-Gm-Gg: AYBFou1ot4H2muB36CEzUVPr3LfENtu1DTQWBOy07PKs5O0X9VFg6TPIu3w/nrlLvqj
-	xICjRr5TQeKdlGemQdyvIVhrJqYEvF5VBFNTpVXv9n71Yiv2vf03rluVYttWj808rTHdEzRKYjW
-	XsOGF8oexNQaPRM7Id+z+IMD4aJRV6y43jI16WU6nuh1Dc0nu+kvosdTQ1FOp7idLTHhppd5x0y
-	UF2RQu9R1QLEEnuM0SK2lDqtyp07mtpdeCeFvA+WuSZzdG9sZEWbMLzeoIQZ90pmzEyk1DRu9Yd
-	unnkEoriJVs2VwSwfzwR6LsLpDbb7s/9BT0zgEMLdV7u5hIzl07fneKDaQ6xRwOeZfv6NctFOMW
-	R/nxd4BUxG8CVzJNcNTgfyHEhChCkwmXfSxjg1Bn6BT4aj80hR0e2rgF7lo6yLr8zv5ygnvd7vj
-	kf+qp868rqaeQS6Xl9g76yWtVIvsatgxMLmRgkSq7vIgJnUXyRA8leD8f9/nJmW6HaA79jIeTyi
-	wBjiDyY2Isxa32lxrZUIw7/ihQRcvzdly5lYkI6GXXg49HvLkknSrle0ZjYTiwXioYL3VdwlpXB
-	NV0YOh7lK8ADSheKsFASwso4562bVP7dB//nsKInwDgsHerhrhte28ndnB3d7r+qobM52KZuum2
-	l72uTBkabcJ1V/nIHgpU/2kweuG0IB44Y8yNwN5VkPFsAnUw=
-X-Received: by 2002:a05:600c:34cf:b0:4a2:397:73fd with SMTP id 5b1f17b1804b1-4a9667755f3mr61530825e9.12.1793203592754;
-        Wed, 28 Oct 2026 09:06:32 -0700 (PDT)
+        bh=Z8/Xk2PZDV84vw6TpgqIZSg/Fqm5aTct485yHDlUUv0=;
+        b=Zxhpv7XQLqGg5S1bAsj/uIYgClRAzshwaLrTF56Ulfs8vkbcORor7bOu4UddqL197e
+         xkMcCVC8c73IkFTuHPCF8MXbmITQmMl6JUQXJ5e+BnDXE3eLi3g9cNFpH5sBJixCegY6
+         USJ4LY5chU1NU+sLzYqoYsiEwrChSPEixDCAMW2gdu2CSMU5E2y132SOoDNM/1HgE3mv
+         z/KdfOlrEKSMwY6r9/tl1VGu9JgFTek5ZxWDEIXFrqa+gTRlOK1G90+P6JC3xwVaowR6
+         NZW5JL0ODdBA60dzdKkG1rfQF+5rL+lDQudr003wlJeYzXx3Y6VdDo5xGWae9+9Alkzy
+         D4OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBweybchMEzBD3BkgV0OTO+zyHbe86/xHQwL4IX6gLejaYAWTZ8l7PE1arbcsAQvldXIeVz0NnzrzlvsXsQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMMDURvbBb1U8sRTkVxME/y2XCtmHHXKxBKxfddF1Jrt9F8Ji1
+	acPf5PCgT+pcGCmn/lITOnTJq7rLzIH2br8d4jao1u6VSFbl0t/WuS3kDtDDbzR2yz8=
+X-Gm-Gg: AYBFou3rvu8xFy8gMvtCPmvQD4T/BUHBu3b59re/SVQDXp4MDr52Od2reSrMvvwT/m4
+	lqNaUmpNOJPIWstQgDqpsJPrLP2IAExXk1voCeIzBv9C1Do6LZEeq8uLc8cYBd2alBAZNaAls3A
+	LBIT5tLBUuUipig6mlkb2si/Cdc2RBzm2y1n7dGD7ClTWKVmt2sBQEh90U9wwThBJbiyuJWWlkY
+	lxRqsFbhDW1tW2KRy9XsvfwVyJJ/AhYYTfd9DQe3pnS3StdIiqgq8shVMG3ninHLz977wYY8dkj
+	k0nk8/TFx/yGsMP4j9L5uyxKx9DVvA2gmYPTAGa6UXOVrmngMr+M26DdbFo4ze+5hAzzSSmPAlB
+	E3rXSk6B/ViAvqD9pIIz80U/xayKaMWPliL8v57xSgctFS6l+c3TGFaX99PZ86KlsQ/uhgFkL66
+	j7OwooJO1QP9MFxaY+ZSmZeZCKxkPy6bzXEDpkS02k/XcZM7nnlp9K+izi4sEltzQrqpFV5Eknx
+	Ja1tJS6AhoRxR1xKBIz532McJSr164PjSxansSzVyuejR44Fx1GlhH0G9orGAmQpGQGpq9sZA21
+	q10WEbReYhVchSGOR0cV5dOkeWTMn0Ws/c0p6WsACv8zPs7jz5qFAGLDdskdwtxLnOclQZ8m3D6
+	3hwg/b9GCxMXwhz+FRf/eagmxLDVDz5fZTFFaBnP0z1PfCEw=
+X-Received: by 2002:a05:600c:348f:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4a9643d380dmr62293675e9.4.1793203593792;
+        Wed, 28 Oct 2026 09:06:33 -0700 (PDT)
 Received: from z13-ek5.local ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm1625875e9.9.2026.10.28.09.06.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm1625875e9.9.2026.10.28.09.06.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:06:32 -0700 (PDT)
+        Wed, 28 Oct 2026 09:06:33 -0700 (PDT)
 From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Wed, 28 Oct 2026 17:06:09 +0100
-Subject: [PATCH v2 8/9] ARM: dts: omap: dm8168-evm: Correct SD card pinmux
+Date: Wed, 28 Oct 2026 17:06:10 +0100
+Subject: [PATCH v2 9/9] ARM: dts: omap: dm8168-evm: enable MUSB multipoint
+ support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-patch-ektor5-dm8168-dts-v2-8-4544429251e2@linaro.org>
+Message-Id: <20261028-patch-ektor5-dm8168-dts-v2-9-4544429251e2@linaro.org>
 References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
 In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -112,58 +113,59 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  Ettore Chimenti <ettore.chimenti@linaro.org>, 
  Christopher Obbard <chris.obbard@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793203582; l=2102;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793203582; l=1428;
  i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=eWhzeB8jAMTZPI1KrE3IIq1D7Ssewn5fvDeiaH0we+4=;
- b=CUTdkEkF+dq1LidthdxZMOHWhYkh3VNaqmkMHQcbzmIMwWqhtlFSpowlgfjJ9B+E6nNFDhmgJ
- 4l964OezPWqCU8RpaNDL7ofSCLEmk1/wscSP2drx4dcm0qqWHWQZ+ME
+ bh=T/OTFeU/v/eoDvotZ5j14Er/J0T6ty7EyR4RK8RPU/Y=;
+ b=tNkgUp3nDaJHGL2hMsaJN+z8EhlSjiujuDHYAdAC3akJpa5TYYAUeQyN7Hs7ubj5f3GxEPgs1
+ rlFx3lwxv9SDGeA63+/JqJUP3QwhstYNTZkSLFqa1KBjtDWJh1fPc6D
 X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
  pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-From: Andrew Goodbody <andrew.goodbody@linaro.org>
+From: Christopher Obbard <christopher.obbard@linaro.org>
 
-The SD card lines use external pullups and so the internal pullups need
-to be disabled so that they do not cause contention on the lines.
-This bug was revealed by correcting the effective bit mask of
-the pinctrl device. Use the correct macro for DM8168.
+The DM8168 USB controllers are used in host mode and must advertise
+multipoint support to the MUSB core. Without this the kernel disables
+external hub support and warns:
 
-Also fix typo in comment SD_DAT2->SD_DAT3.
+    musb-hdrc: kernel must disable external hubs, please fix the
+	configuration
 
-Fixes: 86800ffe84055 ("ARM: dts: omap: dm816x: Correct pinctrl register")
-Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
-Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
-[ettore.chimenti@linaro.org: squashed after fixing DM816x macros ]
+On the affected board this also prevents devices from enumerating
+reliably, with descriptor reads failing with -EPROTO:
+
+    usb 1-1: device descriptor read/all, error -71
+
+Set mentor,multipoint to the default value of 1 for both MUSB instances.
+With this enabled, USB devices enumerate successfully on the host ports.
+
+Signed-off-by: Christopher Obbard <christopher.obbard@linaro.org>
 Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
- arch/arm/boot/dts/ti/omap/dm8168-evm.dts | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ arch/arm/boot/dts/ti/omap/dm8168-evm.dts | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-index 81450e15b889..a6d42766a496 100644
+index a6d42766a496..4b4e4d850231 100644
 --- a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
 +++ b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-@@ -45,13 +45,13 @@ DM816X_IOPAD(0x0aac, MUX_MODE0)			/* SPI_D1 */
+@@ -198,17 +198,14 @@ &mmc1 {
+ 	wp-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
+ };
  
- 	mmc_pins: mmc-pins {
- 		pinctrl-single,pins = <
--			DM816X_IOPAD(0x0a70, MUX_MODE0)			/* SD_POW */
--			DM816X_IOPAD(0x0a74, MUX_MODE0)			/* SD_CLK */
--			DM816X_IOPAD(0x0a78, MUX_MODE0)			/* SD_CMD */
--			DM816X_IOPAD(0x0a7C, MUX_MODE0)			/* SD_DAT0 */
--			DM816X_IOPAD(0x0a80, MUX_MODE0)			/* SD_DAT1 */
--			DM816X_IOPAD(0x0a84, MUX_MODE0)			/* SD_DAT2 */
--			DM816X_IOPAD(0x0a88, MUX_MODE0)			/* SD_DAT2 */
-+			DM816X_IOPAD(0x0a70, PULL_DIS | MUX_MODE0)	/* SD_POW */
-+			DM816X_IOPAD(0x0a74, PULL_DIS | MUX_MODE0)	/* SD_CLK */
-+			DM816X_IOPAD(0x0a78, PULL_DIS | MUX_MODE0)	/* SD_CMD */
-+			DM816X_IOPAD(0x0a7C, PULL_DIS | MUX_MODE0)	/* SD_DAT0 */
-+			DM816X_IOPAD(0x0a80, PULL_DIS | MUX_MODE0)	/* SD_DAT1 */
-+			DM816X_IOPAD(0x0a84, PULL_DIS | MUX_MODE0)	/* SD_DAT2 */
-+			DM816X_IOPAD(0x0a88, PULL_DIS | MUX_MODE0)	/* SD_DAT3 */
- 			DM816X_IOPAD(0x0a8c, MUX_MODE2)			/* GP1[7] */
- 			DM816X_IOPAD(0x0a90, MUX_MODE2)			/* GP1[8] */
- 		>;
+-/* At least dm8168-evm rev c won't support multipoint, later may */
+ &usb0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&usb0_pins>;
+-	mentor,multipoint = <0>;
+ };
+ 
+ &usb1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&usb1_pins>;
+-	mentor,multipoint = <0>;
+ };
+ 
+ &sata {
 
 -- 
 2.56.0
