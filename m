@@ -1,61 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215398;
-	b=iTwv0Ilj9L3SmE+ZjWUb5kydE5cw5uNQm2/+08PIIVINQkni1FyWzhiSPFY0Z5hOSKaQ
-	 zLrE8Ljx97XMftpbFpEVbDTlGS50keChCv77zZNPrcFTIckIhtih5K5bjmPQswBoa8cPu
-	 r+zMUI2pW1xHlpsyWGjlyUM2ot8lVTdlET985o8z8HhaAchBbZWlSDGxN/Su2RIzMWxD1
-	 16Bmm1KnQraRSCvRZi6Ap2rrtAV+7E1EFZ/084bNQyDIovHn01Qvh7cb/cQlL0FoFik8b
-	 XcF909n0FI+0+0yX5aQglSxnqAvEQ3jcgoXljnVq+d2jz/1PY+SM36cQZWq2pUNPl9w==
+	t=1793215415;
+	b=xiZd5XEWJrjG9RXijzxIirsxEgOcoWmeTkRKPzcPXd3qdE6e3gNSGpRLLqu7REosQb3c
+	 gslSF2eaTh77WvEAxPG6V8GnaQs9SLk9fFpLZ5F1Uo/S1xN67krNdM2u/czNpNn5m8B05
+	 8o836cBNUTc7RyBnfF/RmjLQJZD9dgeOs9TjteUWM4Fql/LjVDtwUmfe+61P0tybcM+Gw
+	 JLcrJrgF/t1lfHE8MIWNv+bpYg6cZ93ttb9DzZg2d3Ts2V+sCmnjYJpxajErQgaCSFHBd
+	 k3lcml99UiUAT+h8dmQBPbwmSOnx+Vzz+N8qKkoZ9c3UEujWCzJdi+22RhakTgGjIww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215398;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Last-TLS-Session-Version;
-	bh=+CT7xNi4V7NLtmTPotvfL9tR5+vobSh/WC6FmZZIHvM=;
-	b=orEggqLadjs7f3/cgkay9kyPuzAUjN52ObWebQvQTWdkADEMjdxqtEA1Uk7on8xRqQua
-	 qM5d9po26Uh8iQxiQnDu64yS5nfwKEU4Fmo8dxlCV3Iorq9Gfiaaamdz54h2zHD34U23+
-	 RYZfzaNYSvvYHtF4KgAmHVA8vjCD/c/AsVBGsoFYluHnkgmAWHIim34o1qA+kbdw0b4W6
-	 J+9r/A/HidWF1Vw7Sb98PZR7RlT7GdicIBaKt9wOKSf+7klCLLWKVpODdrePHOZLS4xpC
-	 mN2i6Da4I5Lg8kKS7HIaGLTOs2G1ueZmjLx8N0LgoMg4keDLae9tZN2wv/ncDdiWZkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215415;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BXrl2Gy2EHaylNKL4MTPyKATt4jFZLfoVq5Oc32xJ+0=;
+	b=azAkw14D9u7c9RnjdkyDJ0RXJ7UBianrkz3BSnaZr5wT/XrGoiW5mrXGz4xixsUqDB20
+	 3bx4NRiBnqeSCIQu3e8DTGxq8z51lohpM32aWlKpdO2TIvs7rUKiqODm7Vet5VrVik7Ns
+	 4pvKGlz6Ca7zse7d2OXr8OZVONr5gPZRqpzmVbalEGvPoLaAJueK3cHi/Q8p8/YaSTsHG
+	 6pBtwN6IJLp1MXsZYN78SgGpUKKkPIlfl+JrNpDRZ37EDxJYPz7GcrTKI9wzmv1H+2XAN
+	 ZSsmVblqB4LGPZ/6MLe/Em/Hel8Tq7oHyQciycFFkgQgA/DoRDEuPTKUXUSrxpjvgSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=HFU5aeAG;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jgt6xSuZ;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F964606A31C;
-	Wed, 28 Oct 2026 19:23:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F964606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72359606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:23:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72359606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=HFU5aeAG
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BB3D4A161B;
-	Wed, 28 Oct 2026 20:23:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793215387; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+CT7xNi4V7NLtmTPotvfL9tR5+vobSh/WC6FmZZIHvM=;
-	b=HFU5aeAGXzRBm09k2dM7cQWoCtg//2oUMTXHstAoG6EqNQ3uNEi/MXR8AMBcnD0TbDb7UP
-	GiNG+mrbd8yJ1dmaI8noLT3VbC0Zgi2/O6DZ+A4YuegMc3HfwrxVHEnHywu72kDsLaDgj8
-	Ms+nLFAoY9gwcKsVJ4eG8+AYxW3z3Hy2MFzy1hWyNqGbLY8MlBt/s5Iw5T1ww30DlzMXTy
-	QfbeajXrNS12a7wTZARTmnMUWSoRYLsdYRl0xvaQtBvfE3HUnjCy+1lvKzNnNzJ7bZucNi
-	4DIa/Pm2zfV+Bh4Kr9FwrIKGe/jUCPOW8lQE5zwf4JDV7P7DmEtpsEqSElzOMA==
-Message-ID: <28a80e7bc00ef3a30b841142ecd08cf4908fc6a8.camel@tipi-net.de>
-Subject: Re: [PATCH] usb: xhci: Relax high-speed bulk max packet size rules
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Michal Pecio <michal.pecio@gmail.com>, Mathias Nyman
-	 <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 28 Oct 2026 20:23:05 +0100
-In-Reply-To: <20261028104329.3d1c8029.michal.pecio@gmail.com>
-References: <20261028104329.3d1c8029.michal.pecio@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jgt6xSuZ
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df4f540ebso713365f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793215414; x=1793820214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BXrl2Gy2EHaylNKL4MTPyKATt4jFZLfoVq5Oc32xJ+0=;
+        b=Jgt6xSuZrNU1xu7yuq7GzRE5SO0KShBkCtOAREqPjIqnXhax7gZ9YLCxDeN28CBHI8
+         a6e8prcVd6zz+Qh0YCVoTZTe/JkyW2umDzI0cGa+FO3kY57EwskwHrzVCp2tDvLD0PEp
+         W+Tg4zsvPdGL3b+gImuFkxMvm4t8OGHy8g1QkFhK3dMr38z+vvRGKFe4iO1WIRh+STA9
+         Q3pDnyl0zEx55QH2w2B7fs45IP2o4wLSSBbJaqRZgmWLsh1rwlE8JPVYKov52D1O2mnM
+         x0BgHeiaS6tdR9rdHOn1ljVvQ00Dmq+gPDxIZZ0p5C3VlWNHbeyrKRXP0TJKmLtaw4OR
+         P/0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793215414; x=1793820214;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BXrl2Gy2EHaylNKL4MTPyKATt4jFZLfoVq5Oc32xJ+0=;
+        b=GU6uqudQa5cOy7fNU7jGHbvVEqPQiShdW8E2XwSlmDav+Vgqx1R2OAVynYT1QnpVy+
+         FZmIy6P7vBi5h2hkNgDdz0tcwaeGnSrZ45vjTP6t+6txAj/gXXSNoY6r+mRdTwsilRsp
+         NAOuU3RAIuuhPSUn0dbXFhPxgHpPSZZDobHSYL4ceuBjJxl+45Bv+X7HFqoZL5zjDjyH
+         1W8FpnVAGhV8sbuMHG20B9yrr57Wbl9FL2l4pDrbYQksMKirzw42pQFG68YBRxNpwKWN
+         MNkJif3qIAs3a7eXQaLQpCvcGF6Wony1YoKhPsEHHisYPC5IXttZurkfBxn5S8onc5kE
+         KMaA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+VTHsEk7ZHzaI6onmQIpfBLbe0+iHigQ2m34zpFIOa3SXaBHERDV30RaM5yAryudkz4CS2mca8WflhY0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOHa6yV+O2uv88bgEfGKrtfivG15XlxrXt5mxwAePVwVTZacwZ
+	SQ/Zt5f4yJinVw95ehg+mu/Wb2RfOUdj67gRIKDeIWMrrNtK88d4mytW
+X-Gm-Gg: AYBFou2mVQZ6D5RMSSjjmgCfKj9yRQOWUjUgORAfOofHeECZUM9Wxx88wA3Sf2DHS37
+	FkPMjdiDH7z3z/Gr1Z6i5TFckgjz9H7aUozlIhYABZWWP8Qx2b9zO9oTyeAGeYTHWBRVy0RSk61
+	A3Vq6L37zGRg1RNzH2TUK2F7RF11ALNSqPDFJvKtWHRIyJauMK7UN9h8t0Oot0EtmuF4Y/JFf9P
+	tnYr9DJSQIhXWOdCatorR86WWT/PfaodlYFsb5LfXhMvIqm9lWl7+lSBQNlc5ExcMW815kU7Uxa
+	DU406qxNgZzv3g/K38yeljEmIY8T3XgLvAcLFzHaHkFz1LfS/qsKWShzRcyWZZK9/jnKyYUn67b
+	QFDrxIX6eD4AABY83LHBbFr2A2bXx4VBYQJr8u2UCtp54u64seHmUt3wB+fRINDWGzoO22xYj3i
+	eY+9IMOFxjfvDl72m2eoXNFg9+wfiogx4QGP+kaaiC7x/ObeCEv2V5DhyfiXIXh/+UilBcojc5k
+	TMA65YyR0Y1hUGVMfdndn0fNV5EeZlHKwDaIP38J9HFcPyoibkEFfyENk9HPiUbGaV4dH+4yW3l
+	1z6GW2kueznSC4doIXNld6Qe3A6qzA==
+X-Received: by 2002:a05:6000:46c3:b0:48e:62a9:1a65 with SMTP id ffacd0b85a97d-48e62a91a6dmr2250254f8f.49.1793215413691;
+        Wed, 28 Oct 2026 12:23:33 -0700 (PDT)
+Received: from thinkpad ([2a00:1370:81ac:50e7:d3c8:c903:5898:874a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdd5b3sm29978125f8f.53.2026.10.28.12.23.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:23:33 -0700 (PDT)
+From: s1nkhole <dedemorow@gmail.com>
+To: dave.hansen@intel.com
+Cc: x86@kernel.org,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	hpa@zytor.com,
+	Peter Zijlstra <peterz@infradead.org>,
+	Kees Cook <kees@kernel.org>,
+	Brian Gerst <brgerst@gmail.com>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrey Zakharov <dedemorow@gmail.com>
+Subject: Re: [PATCH] x86/entry/32: Harden return-to-user
+Date: Wed, 28 Oct 2026 22:21:39 +0300
+Message-ID: <20261028192139.32606-1-dedemorow@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <ac147f25-a2d3-46b9-89c5-44a1c0e4f038@intel.com>
+References: <ac147f25-a2d3-46b9-89c5-44a1c0e4f038@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,70 +109,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Michal
+From: Andrey Zakharov <dedemorow@gmail.com>
 
-On Wed, 2026-10-28 at 10:43 +0100, Michal Pecio wrote:
-> Nicolai reported multiple dodgy high-speed devices still being made
-> which declare out-of-spec bulk wMaxPacketSize and actually require
-> the host to use it for correct operation. Apparently, Windows copies
-> this field to the EP Context verbatim and other Linux HCDs like EHCI
-> and DWC2 do similar things for compatibility's sake.
+On 10/27/26 15:01, Dave Hansen wrote:
+> I'm curious who cares.
+>
+> Is anyone who is actually still running a 32-bit kernel concerned about
+> this kind of hardening?
+>
+> If no one cares, then I'd rather pass on the complexity, even four
+> instructions of it.
 
-Thanks for picking this up!
+I don't know of anyone. The only motivation was KSPP issue #41, which
+asks for parity with the x86-64 check added by 1e4d3001f59f, and that
+issue is marked as low priority because 32-bit is legacy. I have no
+report from a 32-bit user asking for it.
 
->=20
-> We are also aware of devices like astronomical cameras which use 1KB
-> to reduce protocol overhead, and audio devices with MIDI endpoints
-> that specify unusual MPS like 8 or 4 (the latter was full-speed) and
-> work with larger sizes just fine because they never do multi-packet
-> transfers where MPS really matters.
->=20
-> I found that sensible (power of two, 8 - 512) MPS are usable on many
-> xHCI controllers from vendors like AMD, ASMedia, Fresco, NEC/Renesas,
-> and VIA. Nicolai also tested two Raspberry Pi SBCs and a modern Intel
-> machine running Windows 11 and 64B endpoints worked.
->=20
-> OTOH, Etron rejects Configure Endpoint if MPS !=3D 512. For such cases,
-> commit e4f47e3675e6 ("USB: xHCI: override bogus bulk wMaxPacketSize
-> values") sets HS bulk MPS to 512, which obviously breaks those dodgy
-> devices that perform multi-packet transfers with other size.
->=20
-> Problematic devices known so far use power of two MPS of at least 64,
-> so try to recognize them with this heuristic. Non power of two or
-> small MPS seems to indicate a clueless device which treats bulk like
-> interrupt and specifies intended transfer size; we will use standard
-> MPS here to avoid trouble with potential other HCs like Etron.
->=20
-> Reported-by: Nicolai Buchwitz <nb@tipi-net.de>
-> Closes:
-> https://lore.kernel.org/linux-usb/20261020-fix-usbtmc-short-packets-v1-0-=
-903f4d029193@tipi-net.de/
-> Link:
-> https://lore.kernel.org/linux-usb/93d5aeb4-f1c7-9342-7bc5-4b277b4ec55e@ve=
-ikia.lt/
-> Link:
-> https://lore.kernel.org/alsa-devel/CAE-xCyPhrS6pgY0T9SG0TCubSi0CE2Yd5H=3D=
-ttOzBmvgrR8fTPA@mail.gmail.com/
-> Link:
-> https://lore.kernel.org/linux-usb/348c50de-f922-8295-ef87-cf5cdea5c7f4@gm=
-ail.com/
-> Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-> ---
-> [...]
+Please drop the patch. Thanks for looking at it.
 
+If you have a moment: this is my first work on arch/x86, and I would like
+to contribute something that is actually useful. Is there a small task
+in x86/entry or in kernel hardening that you would suggest as a better
+starting point, or a place where help with testing or review would be
+welcome? I can build and run kernels under QEMU.
 
-I ran the patch on a Raspberry Pi CM4S with a Rigol=C2=A0DP832A.
-Multi-packet replies up to ~1 KB and writes up to 760 bytes
-work fine. dmesg doesn't show anything suspicious.
-
-
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # BCM2711 in XHCI mode
-
-Regards,
-Nicolai
-
---=20
-Nicolai Buchwitz <nb@tipi-net.de>
+Thanks,
+Andrey Zakharov
