@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793153093;
-	b=114KwsedMP3vhWZaCQH7szn6JWVYEiJHQ1rQkGjBrzn7+9belYtg7PGNf4tuNOqJlJdm
-	 lGvdrF2q9dNduwgHF8VXOIWWnLZ0EibXPmbfO4H5UKMRSBC9avhPqbAYC+oevIY4xvdm9
-	 tswyImjvzdtfyg2IOTDcX6GRH5irC9xN39EUvAktmsV2lnQgBuBYxzDe3Ry/mN7pS9R6T
-	 CrA7rjKHXYcUepAE2QjQ1zsvqAN3/02A7iEBcRJaFlKYdsKYUuQ+BoLRMaE+gxmzQtfy1
-	 J2fzhPgj9KOqR90B3RoQHta3kK6gYE0gdzTuSZKNMD2TzEZ6UvJ6y3wD0yU+WsSBZhg==
+	t=1793153125;
+	b=T3OnVrPo1vlRbSq9Bitg3RjPc5p6+Ea3ydnXtJgH0hsFEBJSebw4PpdPDQ7QbEinoeg8
+	 fmHj2yHc39gAIEgs0meoUxFEBkfSsvjv7Tb384GJZWyydeQrTvXu0ZWVFeC8R5Gz3vWzy
+	 Nix6bFHgXLptVM24GGOJ06rx63K6Cq9sxJ+iTMa1HMer5qoXnKf9jxxWhqzOJfYJ7Gvj/
+	 eo7n2xj1e1HqTDbJL3DOmjTwKR2aep3nKZjT9YEop1Z/QXZFU18cgUamQPkWyEW6hwL8H
+	 53q7HPH99vTkAfKhMa8VIgFRNR1KghoKnZR8t9q5wRLnr5B/iAsujj1uVVN+1OWQr2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793153093;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=B2dbDPohrwxKAwssPy3BtXvVXxGswtl67OL+peXJlOw=;
-	b=NcGQWp5jYj5Ruh+JN5cDXeJKavyAgoqSZ73Aw8gh0fQTd9kAJ+b1RJjRrANGN2M33eha
-	 kCmiPhPfQodvH73VUXunLPQ6bAGywa3Orvg6x2p9gFVgTgL4Ma2yriItga+9jb/V+remf
-	 sTc8/atlwsmUJCNLLZzVGkRNWCETOfftjVbPHT48BsvgPv5uQ0FKNa1lYQOKdzBvLZDGy
-	 LASDMEpuwb1dllxSaTt+voHyUZmi/FAUMIROEh4VO0QR93wfZwppSW7L+Fc5T/zpH611U
-	 qT7k//b0iT+GP0iFQSV5aBYddM2vH19sYHADov02qsLWHHh+HyRtRXwZiS0ePKCM4Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793153125;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=v0ZejxDlEv3QVlq6pfef28jG+0w+X8uWfGMFvWJum3o=;
+	b=vBPigcmbOSTVIjYwjVIqp8NTfs6DKJyPdDrnMIOK4MbgbT1eoRMfYJf/Naxa1VTFAVXg
+	 u3Hv5ye46sLYNhHQq241VGkuUzspiLlTpcIUvEKgEF/wS+NgfHM3RJ15oNp9zIOYSKZ4F
+	 hB2hGhkZi6twMO+z8XzsHTglI4q61xbG2zr4YKs69/8UAlGu6LnQAtpQ3V1dN3msMypuL
+	 PZJMcWoZKF4uSuTBvC7zXbE3VsQWM6rWODXBh20bppIxo9V7vchiKmVGxI77wtZOhO3EN
+	 iznwObg2aifYRrou9aIT+vwhHA8MlzJfDBlA4Hy3PlUmQuup0tfSCCUvKfaEirRZn+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=5x8cAJ7L;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XNoQGiSe;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD8B606A31A;
-	Wed, 28 Oct 2026 02:04:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD8B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622C4606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 622C4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=5x8cAJ7L
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=B2dbDPohrwxKAwssPy3BtXvVXxGswtl67OL+peXJlOw=; b=5x8cAJ7LZHUnDKePmgwZ20M/j7
-	hn+Nb0k8uUqZHRbyWaRzScZ3ohhWxC40WHQ+04V/gsEzMtmnWa2VZeNku0lHlB0L/rppedXTKNBHe
-	gxR1um6VYW1zj/Ok1qxCZnxpDkzJRSb7sbdHcqPKrvjfM/P/cXQIxpWSjzlSvujBo6DQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLt1b-00D2jJ-0N; Wed, 28 Oct 2026 03:04:23 +0100
-Date: Wed, 28 Oct 2026 03:04:22 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com, daniel@makrotopia.org,
-	linux@armlinux.org.uk, arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v3 2/7] dt-bindings: net: dsa: mediatek,mt7530: add
- passthrough mode
-Message-ID: <a031f089-0b96-4fc0-b878-6af13414524f@lunn.ch>
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-3-cjd@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XNoQGiSe
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so3388065e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:05:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793153123; x=1793757923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v0ZejxDlEv3QVlq6pfef28jG+0w+X8uWfGMFvWJum3o=;
+        b=XNoQGiSeN4Kekj/X2ahpOmaO5uEXCrSaenzYxO5TWNPVQeko2cU7L8aS6jDDw6G2dP
+         EEcqbENmePxAVisooWdHhnQ2dl+cd3FCEoYRQ/tjZPia1wm6jDVAmPPcBUS2xcOE1PaM
+         Bilkmh3SZ0r4mtP5waGv8EBRtcFz3mYN+dvC93PemUP0HOTaTCWhjvXICksB7Gu+K5vp
+         9P/SHOa7LN72QWG2rquA+/7IN2sRTRnrfRzmSXP0g/Yf1dGaqKmn/w46AocWDV04bjGv
+         pNgf4kCIsUBoocAmbtK4QdO/kqCB+diQqrIcYjWtcRVtfyr19uNmwjPxU4LHINMUn4fN
+         dkWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793153123; x=1793757923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v0ZejxDlEv3QVlq6pfef28jG+0w+X8uWfGMFvWJum3o=;
+        b=P41ddsu0Wt9uZA6QHn6eqarvK/8csSdfR/X9IatTlkm/Rt0u1g1+qd3Kd2tRs0Hqp4
+         9YaQJSKXaD4GurncXLMg0YPcMkTBFu73dx3xQp+ysnPg9MkXHFBFFqp2rHJ5oBp5KVH1
+         SFOJPqN87vu4ePv3gW3uD8J8v0tDLdZ3mN6UyhZ8TulMLUDKRmTV8z8b/zjXXm1PbYuW
+         2Mb+Sjkh+eKkEFE5pm4n9dqmCkpQe2QLldDutKDi5bl70YbZBcJk3FQlrP4JYnhYiD3Y
+         3duFRjTUtdZR19ESDcZDIcWGDGgHeR+bpv4HsAj6RRAKrAFyc6xacPjRDnkuNkBfyn/Z
+         mz0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBztwOBKrJHgw68YTsgH9lSFZWC4rNm6PonVeKM7bG+Adi9P/NhIqAV2zKr3PV12XpYbHpREP8dF8RJyQxU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvAkLyZp272E2SKNf53CBCZm6OTIjb2nOhwOtAiYzrNc7ePEBs
+	5bbWKarVVu+DFP082VjH+Tck5+rjEWWytjYdVWD4LkU1BXE9oBRJ3tQn2S1TtfDG4NE=
+X-Gm-Gg: AYBFou2v5NPOmZ0wwGOJdBmVTyBn4SB/CRQK3uv+MW+rYUKJjGRNpb2TDAlMoNf98FI
+	ljFFMdmWvR3Z3pOCMC0udUmwiLt5TKIaA9vfDsEpErot1msJAp1iPZtIMiIIN9OFyIgiyZ4oCSX
+	7SiDFPUI7hy4KfJXsfiF9/ceS9hcQR7aNU6toE/5zLTJedkRcO8p2vbCpNa7BT6pIpGIWJMKMC7
+	ywSQ2OgfECvwQSklRBTOC71qtNafBp1dPbxuMAOZFuHDFYadRKwO/IBtRBIy6t6aYFlm3h2t2Ii
+	8TIwwtl62gkHeOtqO5YSXEY719ioQ5aV68o7eVl9aWVR4ZxU0WmTytJ2WN8YSz1X14cT35uUxLa
+	0C6rVXBkfzvnRchgsp65dR14sK5vjgcjRV+cBzVMKoBH7UfSeR/PPkvS7s2UvQyhNYk4+WDh+mO
+	L13U+92oTewZCfYA0AgbLgaPUHgTzXtQqaP6VQnvxDsr10A58Fxhz1uPePwz/s/S9Gv27YUcQKs
+	nPC7wSFVf81ZovgUWKiaHG1hg5qvAAL9Cl7bs/HU12JCFAPm63oHhHe0czk/sI3TIEWWHZQnD5/
+	p73kKXJNWt7ELKAVBnF206U0cENOMRE5QcnPTAsrwrZghaxkxdto+NSpOVxAfq3EzhvJXMrDIuZ
+	rvw==
+X-Received: by 2002:a05:600c:3c98:b0:4a1:f9e6:f418 with SMTP id 5b1f17b1804b1-4a967ba6b5amr13337155e9.34.1793153122451;
+        Tue, 27 Oct 2026 19:05:22 -0700 (PDT)
+Received: from aerith (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97cebf858sm10101395e9.12.2026.10.27.19.05.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:05:21 -0700 (PDT)
+From: Qais Yousef <qyousef@layalina.io>
+To: Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Christian Loehle <christian.loehle@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>,
+	linux-kernel@vger.kernel.org,
+	Qais Yousef <qyousef@layalina.io>
+Subject: [PATCH v3 0/2] Fix uclamp race against non atomic static key enable
+Date: Wed, 28 Oct 2026 02:05:10 +0000
+Message-ID: <20261028020512.10245-1-qyousef@layalina.io>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,43 +101,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028011317.1557238-3-cjd@cjdns.fr>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 01:13:12AM +0000, Caleb James DeLisle wrote:
-> MT7530 switches can be configured to blindly pass packets between their
-> CPU/upstream port and a downstream DSA port, in particular, without
-> altering the MediaTek DSA Tag on the packets. This mode is used in some
-> integrations where an SoC integrated switch exists, but a more capable
-> MCM switch is added to effectively replace it.
-> 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml       | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> index 90b3582b7619..e29fb8693498 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> @@ -73,6 +73,13 @@ description: |
->  
->        Check out example 7.
->  
-> +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
-> +  mode. In this mode, traffic is unconditionally passed between the CPU port
-> +  and the DSA port which links to a second switch. To use passthrough mode, the
-> +  upstream switch is configured with a DSA link to the downstream switch. In
-> +  passthrough mode the upstream switch is restricted, with no other ports or
-> +  switch configuration allowed.
-> +
->  properties:
->    compatible:
->      oneOf:
+Changes since v2:
+	- Use uclamp_rq_is_idle() instead of scanning buckets to detect
+	  imbalance
+	- Do some cleanup on accessing the flag as an additional patch
 
-Looking at just what is here, all i see is a comment. There is no new
-property? Yet the subject is "add passthrough mode"?
+Changes since v1:
+	- Fix kernel test robot report due to missing static inline in dummy
+	  definition of init_uclamp_rq()
 
-	Andrew
+Tested with the patch below to force imbalance via sched_feat. I could see the
+warning appearing and frequencies spiking during imbalance. Correct behavior is
+restored when sched_feat is disabled where the idle entry reset fixes things
+up.
+
+I had a mix of uclamp_max mainly used in the system via schedqosd.
+
+	diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+	index c6780358a7975..d3e73ba88f22b 100644
+	--- a/kernel/sched/core.c
+	+++ b/kernel/sched/core.c
+	@@ -1889,6 +1889,11 @@ static inline void uclamp_rq_inc(struct rq *rq, struct task_struct *p, int flags
+		for_each_clamp_id(clamp_id)
+			uclamp_rq_inc_id(rq, p, clamp_id);
+
+	+       if (sched_feat(UCLAMP_IMBALANCED)) {
+	+               for_each_clamp_id(clamp_id)
+	+                       uclamp_rq_inc_id(rq, p, clamp_id);
+	+       }
+	+
+		/* Reset clamp idle holding when there is one RUNNABLE task */
+		if (rq->uclamp_flags & UCLAMP_FLAG_IDLE)
+			rq->uclamp_flags &= ~UCLAMP_FLAG_IDLE;
+	diff --git a/kernel/sched/features.h b/kernel/sched/features.h
+	index 8f0dee8fc4755..b59e532500fd9 100644
+	--- a/kernel/sched/features.h
+	+++ b/kernel/sched/features.h
+	@@ -142,3 +142,5 @@ SCHED_FEAT(LATENCY_WARN, false)
+	  */
+	 SCHED_FEAT(NI_RANDOM, true)
+	 SCHED_FEAT(NI_RATE, true)
+	+
+	+SCHED_FEAT(UCLAMP_IMBALANCED, false)
+	diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+	index 950e2885bba63..cb31b3c9df23c 100644
+	--- a/kernel/sched/idle.c
+	+++ b/kernel/sched/idle.c
+	@@ -516,7 +516,7 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+		 * everything should work as expected.
+		*/
+		if (uclamp_is_used()) {
+	-               if (unlikely(uclamp_is_imbalanced(rq)))
+	+               if (unlikely(WARN_ON(uclamp_is_imbalanced(rq))))
+				init_uclamp_rq(rq);
+		}
+	 }
+
+Qais Yousef (2):
+  sched/uclamp: Fix race condition leading to imbalanced uclamp_rq
+  sched/uclamp: Use wrappers instead of open coding UCLAMP_FLAG_IDLE
+
+ kernel/sched/core.c  | 16 ++++++++--------
+ kernel/sched/idle.c  | 17 +++++++++++++++++
+ kernel/sched/sched.h | 13 +++++++++++++
+ 3 files changed, 38 insertions(+), 8 deletions(-)
+
+-- 
+2.53.0
+
