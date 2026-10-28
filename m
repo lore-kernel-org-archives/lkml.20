@@ -1,96 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793172411;
-	b=gIDugV5kMixtjVl9xDkiavKSq36aAyBQurYR4SEbFbWoTkDVh0BDXqvJl/tIJ2pwPUYO
-	 RrI1qtl9La0xowSf/4k5+tVUui8pNPftedw3HRh/uZ0sDOp7096OXQ3Pel27TCyAlAm0J
-	 R1qzwVYy0f18A8KRkavKJpH/yk9GAqFf6PPshYoAIiteXAafJsyNdtIYfNsQjoxCiv8bg
-	 Kw7v9hHWarNc2GEC/gqYlr4zwk3KVriolxBJW5pT9YTgPfkr0EdQw7IxHdiMlCmLPuKIj
-	 LQHC6OXSf58vqxO6KZLeE4MA5MxCSC/5VxGdWyxk9cPkxA1BlujlVNsNatqd/Ek9rrA==
+	t=1793172451;
+	b=v/9S/t8GSitXbjkYf4D9uruIQf5OKy5RxPYFMxl3wOIIVH2mj1asHNTkqeNpN6BqugXf
+	 1Zp7odV2qk79AWbZEPe/HP0UY07pR3pLUiIkKQflXZ/Rnv67h8wVszqssq2aQvO5Ct7SL
+	 YX48+5IxxJoIU9K4I5hi9bxNX2PmZy9hIjadXcfZW7uQCrrh2/2U44qdf1P5OaXqqQ0cU
+	 keaF/JwQrTepIEmDa44rIL66RuGpR8k5TRLaMI7qSqPEyAUPLFt6VjeuNOZbkjCHBs5Yl
+	 J9jxygemS8E/rXbnLklgCi3F/lQvfcogmBwBwYFKtzqyQhAtIS23ZthdfFEB3dX+qFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793172411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793172451;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8fL9gMXaJRZ0Xj4WziyDDNMiCJApIpywa4WB+ca7aWE=;
-	b=CzTS0aLoQxcyn8BX0CrO4uvmz/Hsj/0xFMNIXMXIMgK8LnoAvdKVGOk/NIyks4vnvaqM
-	 xDMG35/5AFb0nodkDjQluwkIiORf29PIyPolOflFvnKaVD3beUR5106AKMGQRJgLiTiUX
-	 Y5sanE/Q6CS1FDHlh0+zIMqQC+Sav0YSwjY3cD5CZlu/afa2tRvDZlzTp67l0xB+Q2ZNV
-	 xaFKkkz6NdvZc1BHNYKc3yZO/NKp9xZiuOdebhAgtdEwuOnxAMba0rGLA5ekprpm5pWQ7
-	 QgRfbOpIpIAEq3ItAhKpNfAvN7TTrDXyDzTHm4HtZmnVwz7wZVRADLrKJjAlcx0H7OQ==
+	bh=T+F1i+V9tSX+9YZunHCuTfVrejTHofyibW7KyovteA8=;
+	b=AogivdECBJYKe08FlyxnZDXzSGUj1PD1cTerB3DUVE/ZxZXtJZTPKxLvSVjrj2z1L7xe
+	 401eFUVlX6T+UeSHAvkQ5USzN5xorR5MpX0F9/Iqj/s3sBPLeQ+BtaxAyfQuNptSnkWTn
+	 gIHGOE8HmDoxuaYP1wNrtG/immoh86uqOAHtX5JyegoSm/ZNQcTRz2JqeaR9fSVsbl67+
+	 31HPcbTqqFkDu5PP0jK3D/++H06G2qI9IexaCy/sfQ6NgcB+d3ob9s3Q0VxYBQ/O1BNhp
+	 ZJRv38PQLdrmdSQdGThhshcbZNpo2kSK48l9qi84QSFvYaPUXym3uH0pmVaK1nZ0Ofw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KTxc01Xt;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J8DItM0y;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D028E606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D028E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A89606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:27:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6A89606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KTxc01Xt
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso97298866b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:26:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J8DItM0y
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so10630355e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:27:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793172409; x=1793777209; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8fL9gMXaJRZ0Xj4WziyDDNMiCJApIpywa4WB+ca7aWE=;
-        b=KTxc01XtexAWBJr6OrZOfuAvgMg+gEOwA5+7/Mcz13J4YoEvTeIaMOw/5roWGCi8Q5
-         k5OtJRjb+W2CttkG8CkChCJRu/be7C/QHocZuXAaqRlPK3aS9eDvJKeduDIjBA38AyQy
-         0E3FSb/4LbLMrt/2Wxs5rRhxnk5Rs5d2tVoh//HfpgxjVocdlCO6V72KvO1NMTXx7Uxv
-         3YntGDWu1wdpttTfCC2iE6MUKKi0cDZnyu94mB5WMo1DiPp6n/d3q8GBPDnd3LpdP6J+
-         Gos8dm3b/5EDRffG5o4oUWqYfPPCwK6n0+y4t1X5zSFn0gDSMmWSgJSyyYmrt48Nt9L6
-         vTGg==
+        d=gmail.com; s=20260707; t=1793172449; x=1793777249; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T+F1i+V9tSX+9YZunHCuTfVrejTHofyibW7KyovteA8=;
+        b=J8DItM0y2qJx2snW7H202c1YCSEx5X+ubw0T9fz4FhNmif7sscH9Ljbu7BBtiHo1bL
+         q5u6GQTAMkzEoZnee4IjwxF0NjAF30IXgAwIgwqpmQPiYvoMk2QM8FDx/Ls0BUiuU1br
+         zUnxa7OdNIHQS6yJoS1vO7T4A+CWZ950kmV72+MH7b6rcj3FTcf4DPNQiGyV9bUeas1U
+         UxGXq5jGe/flbGNMMUTrd3BX6/3eZrutJWykAYGc+JCfy7u8mHLiUcG36Qt73j+8sGXP
+         IBCyOmBP4Cg8hjD0T4/fbW6sBKpuqha1Es3lURB/ug+6u/pxBSTu09QJ1DkhE3ddQ7Qt
+         M9yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793172409; x=1793777209;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793172449; x=1793777249;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8fL9gMXaJRZ0Xj4WziyDDNMiCJApIpywa4WB+ca7aWE=;
-        b=iddgr8MFiNu95WNkUVy1HthtIeWCMoOoaaLHHwKqc6RUuBg4ztZNv9sa1DvTkez2o0
-         s4bgiBqy0/0n4357pDCdUUSmcvC82x21WRu64ALrAURPIVJRPSVrM/9iHTEuW1+s5pbR
-         EfJGCm2okOrMt7XcnIGJini7BaP/0G20rKBGPmAnSmNhNRPR+TMkX62swVTVLvTrdt8I
-         lKYx3cYCYIYXQp+mBr9WjfGK8TcNVt/MuvxLGQJAbZsSO89tvNB9WWJHkRb7YBouNzyD
-         aLCFb5ufRVEHFLOXnp+jnSLfuZFAeWVkZ4Q68HKNF7Bic6nu1G3KAPY1RADmKThXhtBP
-         xOfw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9HUfnF5nJOYXCkPgfT8gqBMTatOYTsKBwwPA2rVoEdhYtEuu6cfk89nkfn8eQBhxxsM/fHaOYaaKhMWM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhTVa/G2EyV7yHayd5z8xwmZMXKECwzw1z6NJirwwCgybkU3U3
-	7vpJJhikHu26cOLIkKVljMIwfSkZU/QUDamX9VI+sePNNghvlcQcaNfO
-X-Gm-Gg: AYBFou12rcuc4bAOghr1pDvmXSX5I1alBe0v9Q8zFrcjcrWwo8bXWNTcwZvftCeNAKJ
-	xfEQOv0dkRSWLhrrSAhN09bYd/TCt4Ny6pVuOsOGdUPh+G5kYhvkV30NGoJ7r6xc92qOyef1dHK
-	e3rLFqMV0ns2YIWOH6OSQFA6mWfbiTaMkPGO8PcdtIHiI9FJiJKXyN12Ikapq7dpw0CSAcPWEOd
-	Ome7bFhcerEnTgXMKvv+4c0BY1r3pyc5O/wx6lGSZaC/6yPsx6/pNNkTcedvjzkJCAPfoirqgE6
-	LIFkq74Wr8K7VjLrxDpQBmIGOuGqiultK8eeGQUXgV3/irlpS2xmUflzzB1hiZeKY0QZ1p31loj
-	3lMFSCE9Z7Jwfvgky/01MkGLbcu+l4nkQFOaBrwmE6pUGTJYjQ43agJoQzJew1P5HjUtveeGIZD
-	oJnqGY7q/3UikAvp1RwQvYZ8Rpj3ToPZsWhIemcJRFWmqknamqjy+ZjSD7QagV5HLy1gl1fWZaK
-	Yu/IVZOoGUv17h4RwN/Y++JDv9qEmfl5fn2B8ykbwuxPNBazYo16a6q0WNNCE8fQwI6d1lXaU/+
-	LYOg1EKkwv3vQr31gjdqUN0b7tPtBcKhN0Hc
-X-Received: by 2002:a17:907:3f11:b0:c3f:c878:7c1d with SMTP id a640c23a62f3a-c49bdf2b6ddmr121255066b.9.1793172409029;
-        Wed, 28 Oct 2026 00:26:49 -0700 (PDT)
-Received: from RuiTian-14.guest.local ([2a09:bac5:303b:28c::41:144])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd795bf8sm564019566b.70.2026.10.28.00.26.47
+        bh=T+F1i+V9tSX+9YZunHCuTfVrejTHofyibW7KyovteA8=;
+        b=B4un32Yw8rJy1+UX1cITFEm2fytOTCpViDSPlGLpxayvs6IPHBD1z5RGK9RQZ+ckaH
+         QAuHEfgK+GwkIfR7M1J3eQfm2cZM2SIbnqNrc8Ec4IndEDti2I5qJW0DesEF3wXzIwmX
+         8jxVIokicZxBJvs50jNnG8cmtNxBZE92GSKYrzxjy3VtYcU5PdVE3rzSb1U507NHDTM1
+         ay/MUqPNzJV5zUzvN8AK+j4UT3qYM55eg/4KjY37pWGKIeBiwI6Qm6xkVRz4VSWe+22W
+         HifLl3/XinfBecwEyNSN9r8gnmmy/TCKViohXIOsvqBsUhNE6TT2HMieX5vR2rGHN93Q
+         lfVA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOQ16hWwPBevOjQ3OYL0mz6Gxtb5RaBL6Cxz2a7YeQOnzlVCu4Jz1oxZOUdOmRLM1h2buSbodnXGt4zTw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIw+c7bwKvMeqi7RJON3kKD0bR55O9lGksqts6yLa2a7dc74IVY
+	N2ziX3IuvymdlMwT0X9xkJwESo0lE3yx44OtUWfpQgu8FGbltTxUlyuj1Bd9G4r5
+X-Gm-Gg: AYBFou1873bAO0DTRIas4gW5ZkeQGZu/bWkTfFDS+NY+uaYyvVJdTOg/CTdmIgcbdCl
+	RkHtHdnyjv/S9Uqap5Co8neI4C/MQKpv5fRto7r+O4E13XP5duI/EwHKS8npwF6Od9znpUja+2u
+	wTWgp5Yef8c2Cxf+6ekjbtSY4k6Wk8ZfpG1D6Qi2yYNmtgEzbDUgiQinWosXcZCclvkv3Go4Kfo
+	meea1sWJnXjvWI1RkqEQpsJUMnybnkwpGSqZ4gYnpDafovDdhW4+MG/jywebrfxU2K8ut9iXYwv
+	tF6Tu9CtuiB0uTCfq/ivK/oWW1hPLEQEqxtp0wNDoXfqfq84FQLMDRvcC6Y6sURI/XXk/fEmIqS
+	fLCVXQoJPb53CJn0rJIWP0fjYMX8HMstNFTfIBc33SMGUa2BFgJ/3NJCrkSV/QxaLFewRGdn/tB
+	a+nSElqWFTKDFC9/e52hcLLpztBG9l5odVGiq7wK3WWIBA0rrEuuo1f5oILvWxWnV+IhKevgFiM
+	PyqCV10d0jbHbXPjJOZT2a+7XVcSI1bF4ioinakjASElXrZexrfCo4K5QTI8JGrxNpPj3rGgZTO
+	GCxwYK/RHJ3hdU838ZuK5HUP2Ur1tzNVL/I=
+X-Received: by 2002:a05:600c:4f84:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4a992fea9bcmr19065985e9.0.1793172448967;
+        Wed, 28 Oct 2026 00:27:28 -0700 (PDT)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4778:c500:80cd:d127:b224:9e6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a976010ca7sm25667725e9.1.2026.10.28.00.27.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:26:48 -0700 (PDT)
-From: jiamingouyang13@gmail.com
-To: alexs@kernel.org,
-	si.yanteng@linux.dev,
-	dzm91@hust.edu.cn,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Date: Wed, 28 Oct 2026 08:26:43 +0100
-Message-ID: <20261028072643.32250-1-jiamingouyang13@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 28 Oct 2026 00:27:28 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Yaxing Guo <guoyaxing@bosc.ac.cn>,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] uio: uio_pci_generic_sva: reject multiple opens
+Date: Wed, 28 Oct 2026 09:27:26 +0200
+Message-ID: <20261028072725.623111-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,93 +95,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+uio_pci_sva_open() stores an SVA binding handle in device-wide state.
+A second open from another address space overwrites that handle. Closing
+the two descriptors then unbinds the second handle twice and leaves the
+first binding active.
 
-Translate Documentation/usb/ohci.rst into Chinese Simplified.
+Reject another open while a binding is active and clear the handle on
+release. UIO core already serializes the callbacks under info_lock.
 
-The translation covers OHCI driver overview, hardware protocol
-differences (OHCI vs UHCI), improvements since 2.4 kernel,
-queueable interrupt transfers, and non-PCI support.
-
-Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+Fixes: 3397c3cd859a ("uio: Add SVA support for PCI devices via uio_pci_generic_sva.c")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
+ drivers/uio/uio_pci_generic_sva.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes in v4:
-- Replaced spelling problem.
-- In your cited discussion [1](https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/), I still would like to keep ':翻译:' line.
----
- .../translations/zh_CN/usb/index.rst          |  2 +-
- Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
-
-diff --git a/Documentation/translations/zh_CN/usb/index.rst b/Documentation/translations/zh_CN/usb/index.rst
-index df99814c6497..c96eacf13e11 100644
---- a/Documentation/translations/zh_CN/usb/index.rst
-+++ b/Documentation/translations/zh_CN/usb/index.rst
-@@ -32,6 +32,7 @@ USB 支持
-     chipidea
-     dwc3
-     ehci
-+    ohci
-     usbmon
+diff --git a/drivers/uio/uio_pci_generic_sva.c b/drivers/uio/uio_pci_generic_sva.c
+index d05ef77f7e322..fedf54e82f270 100644
+--- a/drivers/uio/uio_pci_generic_sva.c
++++ b/drivers/uio/uio_pci_generic_sva.c
+@@ -32,6 +32,9 @@ static int uio_pci_sva_open(struct uio_info *info, struct inode *inode)
+ 	if (!udev || !udev->pdev)
+ 		return -ENODEV;
  
- 待翻译文档：
-@@ -49,7 +50,6 @@ USB 支持
- * mass-storage
- * misc_usbsevseg
- * mtouchusb
--* ohci
- * raw-gadget
- * usbip_protocol
- * usb-serial
-diff --git a/Documentation/translations/zh_CN/usb/ohci.rst b/Documentation/translations/zh_CN/usb/ohci.rst
-new file mode 100644
-index 000000000000..5f2bc7b41f29
---- /dev/null
-+++ b/Documentation/translations/zh_CN/usb/ohci.rst
-@@ -0,0 +1,38 @@
-+.. SPDX-License-Identifier: GPL-2.0
++	if (udev->sva_handle)
++		return -EBUSY;
 +
-+:Original: Documentation/usb/ohci.rst
-+
-+:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
-+
-+========
-+OHCI驱动
-+========
-+
-+2002年8月23日
-+
-+“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-ohci”
-+驱动程序。“usb-ohci”代码主要由 Roman Weissgaerber <weissg@vienna.at>编写但也获
-+得了来自David Brownell <dbrownell@users.sourceforge.net>，Linus Torvalds
-+和Gregory P. Smith的支持。
-+
-+它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
-+硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多智能功能
-+注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
-+
-+自2.4内核以来的更改包括
-+
-+         - 提高了健壮性; 修复了错误; 减少了开销
-+         - 支持更新和简化的usbcore API
-+         - 中断传输可以更大，并且可以排队
-+         - 通过使用上层“hcd”框架，减少代码量
-+         - 支持一些非PCI的OHCI实现
-+         - ... 以及更多
-+
-+“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohci”
-+中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
-+失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
-+处理，来最大限度的降低这些风险。
-+
-+- David Brownell
-+  <dbrownell@users.sourceforge.net>
-+
+ 	domain = iommu_get_domain_for_dev(&udev->pdev->dev);
+ 	if (domain)
+ 		iommu_detach_device(domain, &udev->pdev->dev);
+@@ -55,6 +58,7 @@ static int uio_pci_sva_release(struct uio_info *info, struct inode *inode)
+ 		return -ENODEV;
+ 
+ 	iommu_sva_unbind_device(udev->sva_handle);
++	udev->sva_handle = NULL;
+ 
+ 	return 0;
+ }
+
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
 -- 
-2.53.0
+2.43.0
 
