@@ -1,59 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214688;
-	b=i2lVU20AmBt/kjA9JVhhXcN8FrHGDSq99xguefrtb8aGdBZn5nulYUpROUOZgzVneBUl
-	 18ZxTZ+9TFwzsIjblL97LwuUtM06Wq2s4D2ijRnh2KvJ5YoB6uBcf78Hy+OKvgI1PmZyh
-	 7a7ciyIK4Y8E7PNGxZSj00zHsIvXcfi4BKOS8MYYC8XxilmNm/JmKp1y778E6lZGigf0Z
-	 85yDMMiTi5xxS7MZVLjDsthpIQ38iIf2N0wp15gItzATsUuHr3gZqR1IRw4Qp6b8tAU63
-	 obaXfCGjwMz1WtNtzmAQ3pF+KOxPjY1iFhzIOPu5THoNzVcgHBwSZwtEoZ0fy5CY5xA==
+	t=1793214706;
+	b=YPs0BET1XHGxqAp7DjyAX+qjocB43zF8VHjOtmWDupzf3bD7czgtWIOQplEAq+Y7inq5
+	 334md1B+VWGhyWTyzqEA4b6v4zm/IZSkgOtELsnh6Manq5ltWBR3hokWCskc9qyg8i0Cy
+	 smVstv/UA7Eoi0Ay4AwuwsEEamGLPLAV+AW/0mIC00U23VkIQAU1wyXZxEHvXDn2AJkqA
+	 0hqifD8BLl5bSAEIPYQFaJf7c8TXkwctVpU97aWq3+Aj6WXoUrTgInVH/T7Q/WHNp/0r9
+	 hn9Ijp+j9cYwjxipOfXTMvdTqOM3FYHC6Ue4ccrr8owLPsV7ZNw38FLqsw56eqvW/8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214688;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1ZCiiEwQ5cdvAEferIPSF0WM9T5tFjDIqRGawKcIWjE=;
-	b=Y2G9+PB4HZKcDfBCRd7wzld1OFvz309HY4KVurkVFuDJVC7RmHyPbw5xqC/2GAQTnwfn
-	 Cs/CoTv5Nhxhze5t/PhVZf4PRKXbUcvCLGzAM/ySGKoR9YCn2U5FY4qKTun70dJoxHFJi
-	 owbzpoy6CJ+Y5AWJejYadeR4A823b9X4Ln0NVQhy8oqpiCSKrNk9bgkwkFD2Iyw2csO8u
-	 Wwo4wgA76T8CP4mnF7Z4d1KKu86a9RYgnYtgkOz333e4ab1jGvBTt9IBHXCEbEbR6vhn+
-	 B1mn2oLNWOmweEehzYuu60OJ8u9AmZH9r8rcttpM1rlG0bBu7KMkPk5TnKndudurJbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214706;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=PecuHkPy/BskxqIvmHmfDOrA6qqbFt0RAmMpgkm8YC9aSpB2E32lmbLvcI8KumUV64I/
+	 vWzYTJNeAkrFICb2wor1tJG6yNOleEcDTCCUXmy5PNdsNts4JjC6aEXsxieMEcZSD0m34
+	 rn+QSZkmRXoShoP6nvmLm0zlqBxNRr8Uc0AnJ9iYdtl42t3P4CPVtV4jqiLJFAEhhq9Ms
+	 QuiFrDKBPH55bojQLoY4gi+xLehy9uY5noKzc51idAo1htUYtSx4vFU4IGE48eRdUQbzp
+	 IDREb3x27WJG0njRMJcgArYVXrjXR7YN9vbAoKqCx3kNqnTlUeyMSczsvAQv8G/yccQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmOud5m1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFgbM5JB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E8E606B7FC;
-	Wed, 28 Oct 2026 19:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BA0606BFA2;
+	Wed, 28 Oct 2026 19:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmOud5m1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CAD1F01828;
-	Wed, 28 Oct 2026 19:11:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFgbM5JB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369481F01825;
+	Wed, 28 Oct 2026 19:11:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793214687;
-	bh=1ZCiiEwQ5cdvAEferIPSF0WM9T5tFjDIqRGawKcIWjE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hmOud5m1Sys3ZbTVWvDLH3V3m0RYDac/VMmvlzuKOpUFVThxM9d66icG4REDhsESI
-	 VkbmzLvsCDD4IkwZyColJ4DMXhsDF/wQCixhdKvmY3cSyt3UhjBF/u2VaT/I3PeGZF
-	 N7E+Oo5g53zikjg8t6V6ZXsvopctc4u79C51eB/ZuqqChDZ41cphS5bcgW3G9T3OZd
-	 v2srl5wPazMKelBV/jMiqY9X1jjFk0iho1+sUukEBFmpNXl1eKbDlSvCPaW6KpETE9
-	 p5QqvR65F9sbstCc5R7yBPIvZZQs+EolG8UszOEiTDpRu9tLd8NSeXiCtxMW004ZhA
-	 pMdmD5HqKfAJg==
-Date: Wed, 28 Oct 2026 21:11:21 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] sh: mm: replace the page size bits in pte_mkhuge()
-Message-ID: <auJI2blzfpFD9yLe@kernel.org>
-References: <20260926183904.76186-1-kmehltretter@gmail.com>
- <20260926183904.76186-2-kmehltretter@gmail.com>
+	s=k20260515; t=1793214705;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gFgbM5JBJNm58X5FVXR4kAxidNrhrgcIGwITuz0sjEhtXqcH2uwtYivKICnsfKk23
+	 mUJeZolreTPNDVgqEVD8NFhmLzGrXBm8Nr2mzndNYiMHOKXzJm13F++Nx6kZkPJUFX
+	 WBzqY9EySCALQiYyYCMXRG/OonwVnsY+gr9QcgQbKclJJx3/DQ+t7r2CFqpRcaflPK
+	 UqFGv3ZHDmbZN175W3mkphcJHm3CX1wIClfb5etOvS1I/vdElMextVRM/wKUa/Tqqt
+	 MrHk+pFjyVffj0sIaF2zRAAxf0ga/sUXrX/lABkZE+u9UZhkMZc+sJztRc9VPI3oQZ
+	 4tVMlOqmtA/MA==
+From: netdev-bot+sinfo@kernel.org
+To: Octavian Purdila <tavip@google.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ "David S . Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5] tcp: do not let tcp_collapse() drive
+ sk_forward_alloc negative
+Date: Wed, 28 Oct 2026 19:11:44 +0000
+Message-ID: <179321470477.3327.2849472044719813166@kernel.org>
+In-Reply-To: <20261028190820.2917252-1-tavip@google.com>
+References: <20261028190820.2917252-1-tavip@google.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,57 +67,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260926183904.76186-2-kmehltretter@gmail.com>
 
-On Sat, Sep 26, 2026 at 08:39:03PM +0200, Karl Mehltretter wrote:
-> pte_mkhuge() ORs _PAGE_SZHUGE into a PTE that already carries the base
-> page size from _PAGE_FLAGS_HARD, which every PAGE_* protection
-> includes. The PTEL size field is an encoding, not a set of flags: on
-> SH-4 with 4 KiB pages and 64 KiB huge pages, _PAGE_SZ0 | _PAGE_SZ1
-> selects a 1 MiB page. Every hugetlb mapping is therefore loaded into
-> the UTLB as a 1 MiB page whose physical base is the huge page's address
-> rounded down to 1 MiB, so user accesses land in unrelated kernel
-> memory.
-> 
-> In a QEMU r2d guest, after touching a MAP_HUGETLB mapping at
-> 0x30000000, QEMU's "info tlb" shows
-> 
->   vpn=c0000 ppn=32e00 sz=3 size=1048576
-> 
-> and writing the two huge pages overwrites kernel data, for example
-> page tables ("bad pgd 5a5a5a5a" on munmap) or a struct file:
-> 
->   Fault in unaligned fixup: 0000 [#1]
->   PC is at file_tty_write.isra.0+0x24/0x220
->   R1  : 5a5a5a5a
-> 
-> The SH-X2 extended size field has the same problem: a 4 KiB base page
-> (ESZ0) combined with 64 KiB huge pages (ESZ2) encodes 256 KiB. Only the
-> configurations whose huge size encoding happens to contain the base
-> encoding, such as 1 MiB over 4 KiB on SH-4, have worked.
-> 
-> Clear the size field before setting the huge page size. All hugetlb
-> PTE constructors, including huge_pte_modify() on mprotect() and the
-> fork/COW paths, go through arch_make_huge_pte() and so pte_mkhuge().
-> With this change the same entry is loaded as
-> 
->   vpn=c0000 ppn=32e00 sz=2 size=65536
-> 
-> and the mappings read back correctly after mprotect() and fork()/COW.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Hi!
 
-This implies nobody ever used hugetlb on sh-4, doesn't it?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  arch/sh/include/asm/pgtable_32.h | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
--- 
-Sincerely yours,
-Mike.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
