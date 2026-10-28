@@ -1,51 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195578;
-	b=k9EFhSertI3Qe/eW4GpZqu8iYn2BXWlQ/557CJg8Y2gjP/kadbv+WhMSOdmv/LYOkMvs
-	 dIl907ay6X9PuaUGLP1Uk+twOobln18R+ifoXFxwxwutSSWnHwxqPtd7q/jA2THm1emSv
-	 I9WTXQYsJKlM9vjinZ09Q1Oo6+3jzNi3S88WnLEiYBYaWGMuAuAZZd+jKI0Zu2OlVCsQh
-	 Zpr1gea1eEAMo0eHm6pKM1XRSgq7zQSHW0kW29I9cW6diMQJHug0eSQaIPnoAipXwZ2Jg
-	 6LCPKf0XtAI834Zecs1DtCbKv2hmvZRYmdi4C7wquP2EHpv9RROvU1wpq+dR1wVPFOQ==
+	t=1793195587;
+	b=fyipsKlzKF25ZXh089AFtwxpKcz3uXD0OxU8jKNFxYPe+AzdJtcF2K/BeBfWBzsf0jBi
+	 c3Ig3xYjr+DsjtYopND85pnUMGVchoG1HsmC+4NvKkjczAFrnAq9daWs2Nxv+NI6OWYVi
+	 RR7am3Zy825EIET1RqF1ulVbf5MIuG1SZk5J6x9pgD4h6t1kzYoSYtWXvfdkKMrqYhN1+
+	 LZj/QQ9kmlepfBIsL+KUesKzjVU5I5mst5w+5PUaks2jA59cnoGdMnMxZ51vWx3xG4Xsz
+	 TfBbjrYg//EKOeKS6yj3ENaFJ9Hqghh/7wFiwGlfJN0tAlTRAvgCTTJSlnhOd0PL8hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195578;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
-	b=kPskJJ2cUXBE6Mn+/Km0Zxbxr9rsxs7kiW1QRwFIGQw3k+PNRq4ELRDfJ1buPWdvEsbS
-	 i9tHakRKLB7cbPUiyaTaq/Qall1XkxrTCDXcZTSiCUNT3vAHB4kC0SJX2mekvIrz63EGL
-	 +ngxcobcMipVUve16XoMs7F15RnHcteIJm8DPGUWKoTvU8acCihiLw+8CH+r1wFrG6NUA
-	 F9EsUWJj3F3JFrhIWzWXMhI9rXhxlOzATZf4Te4Sfpka2KeLesAtCB6GBExN5lvlAhgp6
-	 OtcoDRQk+2ELr95RIsHM5KBFzYDkfMfIaIALp0O7WoE5+CQ/3o/sdsUSh44uaDhoKeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195587;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=SxymvfAlNS0X8/xbI9/XRQHmV9LZfSmga4dSHsFV4Hk=;
+	b=ZpPkASvwxPkkIeacxEZaSRCbDTpwHXSV51HjTTSSnFzNuOyMKJNOPdyzLjWDezren5Ji
+	 2T88+LuzFWgNnPHWLJyGP6Iy9o21jKjMy8+YWa49HkqsNsAU12eIlku0sl2/Qxc5VjlQR
+	 bOar2TlZMfqNEdyz+nQ5R5AKbNMHVsBeN2uzk3SEcpFk1TotNxhMZAqbFI4nIVtQbCV0I
+	 7V2TiWYH7a/pzpDUpjAYSht1ozTBjWieb15CoWXZPkznplCyPjS0N/iBNQqL39jBb/xGD
+	 XSuOwYU2CzZwgx9pM9j8s/gkXFEJJ6Zg446g0lRhuM79HR87zR39uVRnlBfWH6YeX9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm;
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AjWDTT3c;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3167606A33A;
-	Wed, 28 Oct 2026 13:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3167606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4875C606A320;
+	Wed, 28 Oct 2026 13:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4875C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D80E215FD22;
-	Wed, 28 Oct 2026 14:52:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793195573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
-	b=SAvQBHOmhiuyKvlXtM1AIKAj6CRqI92p5TarTfEUggze30z+GnbG565ZljxAgt9yHEC2dM
-	uD5iBoqtnOoZOkDKm2IGdLODqoyp/e0jfOhfmpnSaikTs7D6Lenc1O1BbWgh87s/ma/Nyv
-	vXgTMgY1W84l8PsDxj4I+9z1ztQDiCRxWVVACm3kSa6NgsrRAOPZ/Vhus041nsaRWalF1C
-	DoCc3UPTBDy+cs4xKDWnbbmOkb4G/zZCOhvIYOmx+6EyMWoAV+2XadysA9Wdy/uPflREyO
-	0119GI7xKpC5Bf/FgQbIOizvjAHIjyaiWdtPRb7F8nPbA73yEHVZi50bJKd6Xg==
-Message-ID: <c6154519-98f4-46a7-ac30-076ebf588bab@cjdns.fr>
-Date: Wed, 28 Oct 2026 14:52:44 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AjWDTT3c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793195586; x=1824731586;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+0hcYzDXE2GYoXsQ0MP6klFZxsUOFBht4tZhtoGv83o=;
+  b=AjWDTT3cAd77LTPUBK9Lgxpr1UsgmakAvb78kRlJDC+QFofEsRm6Vglw
+   YIsO3n2legf6TUD5/gcZv2EZGJ14Y8+HOCq8llRtfR38XyT1AHe5LDCqI
+   sti7ZHrzkA+wH2pUi/J4rmglx+DWN/tXyK6CpRZ+xCBR94Qqj5LTC2CVk
+   24tfsoOhBl+vcaEHm0LymA937cp3XsY25KLp9MovgJF1gvVLTDSsDYzZS
+   elCy78OpKmLkolwL/Ons3+0wnJUrPygvQweDPVri1s81pgy+N9PTsog9W
+   MpLVPwtBgB9yyTI9wHLlhavJk3o6gKcu2CyEuz1lpG+cuy5V0u6GzefVA
+   Q==;
+X-CSE-ConnectionGUID: 3/DC+L49QfGjI6HeEqK0fg==
+X-CSE-MsgGUID: V6ExW2teTam+90kURm11pQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1904406"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1904406"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:53:06 -0700
+X-CSE-ConnectionGUID: emGC5Cc7RHmxfp5uMqR2QA==
+X-CSE-MsgGUID: l+3uM1XCTVevg1M65njuRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="6618376"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:53:03 -0700
+Date: Wed, 28 Oct 2026 15:52:59 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: claudiu beznea <claudiu.beznea@tuxon.dev>
+Cc: geert+renesas@glider.be, mturquette@baylibre.com, sboyd@kernel.org,
+	wim@linux-watchdog.org, linux@roeck-us.net, ulf.hansson@linaro.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v4 4/4] watchdog: rzg2l_wdt: Power on the watchdog domain
+ in the restart handler
+Message-ID: <auH-O0LwqdmgzrQf@ashevche-desk.local>
+References: <20241015164732.4085249-1-claudiu.beznea.uj@bp.renesas.com>
+ <20241015164732.4085249-5-claudiu.beznea.uj@bp.renesas.com>
+ <auC7FueGYTiLOpcX@black.igk.intel.com>
+ <0602847f-4fef-49b6-a1eb-3240d7c1ecbc@tuxon.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,139 +86,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3 2/7] dt-bindings: net: dsa: mediatek,mt7530: add
- passthrough mode
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
- Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- naseefkm@gmail.com, b.larsson@gmx.com
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-3-cjd@cjdns.fr>
- <a031f089-0b96-4fc0-b878-6af13414524f@lunn.ch>
- <521b930f-0bf9-4373-bfbf-3e2570661ec9@cjdns.fr>
- <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0602847f-4fef-49b6-a1eb-3240d7c1ecbc@tuxon.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, Oct 28, 2026 at 02:45:15PM +0200, claudiu beznea wrote:
+> On 10/27/26 16:54, Andy Shevchenko wrote:
+> > On Tue, Oct 15, 2024 at 07:47:32PM +0300, Claudiu wrote:
+
+...
+
+> > > Commit e4cf89596c1f ("watchdog: rzg2l_wdt: Fix 'BUG: Invalid wait
+> > > context'") dropped the pm_runtime_get_sync() and replaced it with
+> > > clk_prepare_enable() to avoid invalid wait context due to genpd_lock()
+> > > in genpd_runtime_resume() being called from atomic context. But
+> > > clk_prepare_enable() doesn't fit for this either (as reported by
+> > > Ulf Hansson) as clk_prepare() can also sleep (it just not throw invalid
+> > > wait context warning as it is not written for this).
+> > 
+> > > Because the watchdog device is marked now as IRQ safe (though this patch)
+> > 
+> > ...which is complete hack and has to be avoided.
+> > 
+> > Can it be solved differently?
+> 
+> Can't tell ATM. This solution was suggested by Ulf.
+
+With all respect to Ulf, this is a bad idea. We need to get rid of
+pm_runtime_irq_safe() sooner and avoid adding new users of this hack.
+
+> > (Note, OMAP, for example, got patches in the past
+> > and become pm_runtime_irq_safe()-free.)
+> 
+> I'll look through it.
+
+Thank you!
+
+> > > the irq_safe_dev_in_sleep_domain() call from genpd_runtime_resume() returns
+> > > 1 for devices not registering an IRQ safe PM domain for watchdog (as the
+> > > watchdog device is IRQ safe, PM domain is not and watchdog PM domain is
+> > > always-on), this being the case for RZ/G3S with old device trees and
+> > > the rest of the SoCs that use this driver, we can now drop also the
+> > > clk_prepare_enable() calls in restart handler and rely on
+> > > pm_runtime_resume_and_get().
+> > 
+> > > Thus, drop clk_prepare_enable() and use pm_runtime_resume_and_get() in
+> > > watchdog restart handler.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 28/10/2026 13:28, Andrew Lunn wrote:
-> On Wed, Oct 28, 2026 at 12:27:18PM +0100, Caleb James DeLisle wrote:
->> On 28/10/2026 03:04, Andrew Lunn wrote:
->>> On Wed, Oct 28, 2026 at 01:13:12AM +0000, Caleb James DeLisle wrote:
->>>> MT7530 switches can be configured to blindly pass packets between their
->>>> CPU/upstream port and a downstream DSA port, in particular, without
->>>> altering the MediaTek DSA Tag on the packets. This mode is used in some
->>>> integrations where an SoC integrated switch exists, but a more capable
->>>> MCM switch is added to effectively replace it.
->>>>
->>>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->>>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
->>>> ---
->>>>    .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml       | 7 +++++++
->>>>    1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
->>>> index 90b3582b7619..e29fb8693498 100644
->>>> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
->>>> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
->>>> @@ -73,6 +73,13 @@ description: |
->>>>          Check out example 7.
->>>> +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
->>>> +  mode. In this mode, traffic is unconditionally passed between the CPU port
->>>> +  and the DSA port which links to a second switch. To use passthrough mode, the
->>>> +  upstream switch is configured with a DSA link to the downstream switch. In
->>>> +  passthrough mode the upstream switch is restricted, with no other ports or
->>>> +  switch configuration allowed.
->>>> +
->>>>    properties:
->>>>      compatible:
->>>>        oneOf:
->>> Looking at just what is here, all i see is a comment. There is no new
->>> property? Yet the subject is "add passthrough mode"?
->>
->> Indeed, I used "add" to mean "add documentation of". Per my reply on patch
->> 3, I think we really prefer to avoid special properties and let this
->> constitute (very) limited support for a switch hierarchy.
->>
->> If there's another verb you think makes a better commit line, I'd be happy
->> to adjust.
-> [Goes and looks at mediatek,mt7530.yaml]
->
-> So pass through is not an existing property. You are also not adding a
-> new property 'passthrough'.
->
-> What you appear to be saying is that the MT7530 and MT7531 are hard
-> coded by the driver into pass through mode? So it is in effect a
-> property of the compatible? So maybe put this comment next to the
-> compatible? And make the subject/commit message talk about the
-> compatible being hard coded for pass through?
-
-
-Perhaps I should rephrase as follows:
-
-
-"""
-
-The MT7530 and MT7531 switches do not support switch hierarchies except in
-the case that a switch is configured with only one CPU port and one DSA port
-that links to a downstream switch. In this configuration, the upstream switch
-acts as a blind pass-through to the downstream switch.
-"""
-
-
-> Looking forward, what happens when somebody wants to use the switch as
-> a switch? Or you figure out how to do proper D in DSA? It becomes
-> messy because you need to add a property indicating the compatible
-> should actually be a switch?
-
-
-Full hierarchy (using DSA tag) is impossible because of what seems to be 
-a hardware bug where switches don't distinguish themselves in the tag. 
-However it is possible (albeit ugly) to enable ports on both switches 
-providing the same numbered port isn't enabled on both switches.
-
-
-If somebody ever implements that, even if they remove this passthrough 
-support, users of the current passthrough capability will not notice a 
-difference because that will do the same as this.
-
-
->
-> So maybe you really do need a property?
->
-> But DT describes hardware, and pass through is configuration. So maybe
-> it should not be in DT at all, Maybe the driver needs to look at the
-> DT tree, figure out a port is used as a DSA port, and put the switch
-> into pass through all on its own? Once D in DSA is supported, the
-> addition ports become available, but no other changes are needed in
-> the DT blob?
-
-
-Previously there was no documentation regarding hierarchies, and any 
-hierarchy would fail at runtime. I think a brief note that this one case 
-of hierarchy is allowed is nice for the users, though it does bend the 
-definition of "describing the hardware" so it could also be excluded. I 
-may be persuaded either way.
-
-
-Thanks,
-
-Caleb
-
-
->
-> Sorry, going around in circles, but hopefully it helps you think about
-> the big picture.
->
-> 	   Andrew
