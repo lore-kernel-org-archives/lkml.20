@@ -1,68 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208281;
-	b=sTdCt2wrWMg+u5JmN83rW6Ih0p0++1/z9xpbczQ/KPcWFjlPXpL5zAxnCiOzQnyzMCQ/
-	 BIFr6yz5qnfPw/C6WAIAdY9+Re6f1ewuDOgYvdgba5MAn+oWrU3JUf2kWeILajfE4ihgC
-	 FNuBC4IoohrHekMeoGGi3WiaI6wl14qeFlfEXBgItxfUWQKTcGCQRAyKCXMfKUSQbuqjd
-	 1YMCZuYtqceIYpTHwDcn+kD5aVeU/ShDkigIaFwt5R29rJ6zZmDMftdiJyJzpVkuBKgXf
-	 s8bqKCzJgY1Rjnp/l+q3S7TRqigXl/u4rf9KxBiCKLpnWMr5SUkKbfJrOc7L+CiFFxA==
+	t=1793208339;
+	b=YgwUecK3vQW2LYF4aJ9XHRLY4uc4S5KFuUCWuLh0NkXLZ/6/1BugyzHK4ruG1cjvwylM
+	 RiDwuw/mVML4ppN2NP0zNx//XFWCq1PTr9BFBBKoZpBU6wXGU2guc8ClQMpcJWenZTmPL
+	 7aPvt+AItEboiVNK+gLnkwISEmUHgGiaEMHrirLgNNuRns9LZaI52Cipq0ChAoRS0HN0h
+	 Y8HDSIrtp0lcGFdSWaTwrBejU6X497YXYsUyLjKcwhtUAs5HolG4/Rssh1XTrSJgwcJuG
+	 3fA9TcQ6Px3ztHiFiF7GWPXDf9byzCm3kbkNI6LxvxSLFUPKA0JZVlEEYhRJ2S3VZ6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208281;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=RA66YBmGNKgUK8XzlgiU2huD/uB0ixeOMHaKer0sa7U=;
-	b=LFDMtCL1c15nFoRsaYJWcFgEKIqagqQz8EiJ5aIFkBT5PMbXew/UucV2Bh3y/HM4TFST
-	 XeHaTn8TcnAghhy3UJLO9k0IsrjGGjaP4uT7s8kwxgCfcb9Ae1HTTz+sLnt43kNje7BdR
-	 ixK1Lv6AVtv0yvA6uYmJVEX/qUMWIP5hQII6EZ3KN1I2nSoRvTuJEv4Ab3RxHgTElctLL
-	 dENe0HZYfQVjcebdLGC3mLND4esAu3cCgmRzmB2fhmfP/8ojMJOi99GSdxMsMeqpKnCxJ
-	 bl3rNJoJRjhngdJb8yQIUUXn88YgQgaGjIMzHnn8U5Iq/D/bW0RNnsiVjQnuYc+2tfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=XLYiEepDtnyQ6wJ1rlYe5RaJc/i8ARvs/UjwaNMVQRE=;
+	b=SRs6GSUbUtUZHRC7ZtPNz+pYRnLJWZ2H6auJU/NN77Z9J3I6rRLK3hX5MQv7IBaioclE
+	 O036dFe3e9rfMYFDOhRpwT1qxa/R2g6m9FtWyB5824HIwFbGP16fSm6B9KnNdtOy2/EwY
+	 2bSLfZp3pS5udX3Qrl3Fci2dyK3XRAF7grUsUDSzhFidjllj34Z4TL1/FC9F0GzI5aZt2
+	 T5tdTTYA5v9nH0hlvnnh7N4yC3nbAszNkDPwJ52TSQILHdBqHFhYJJsBf/JYBxbR1cy0u
+	 veq4zr/yUwwLai0c+D1q9Oa1icU+9/IWNgOql4s/efCpq5OHxQzfXkfZffB2JtJuQGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KIckdC4T;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Af7y52Ro;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7433606A31A;
-	Wed, 28 Oct 2026 17:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7433606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3597606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3597606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KIckdC4T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793208280; x=1824744280;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=UzMJ9Snt5Khu9cExhTaooZ2u6408LhF70IpYcfPgfuY=;
-  b=KIckdC4TDcxUmwlA5bwxp1r0EyR1i7HoAFMpdbqk0GmfjU/q3NAnMTEk
-   S5J/Z/wrjZnN2r08NuRdelkBODDPbBU3bBU1ne+QMqENAUe2Pi1jJr+Vo
-   NIG6FUqj9sJGZ1XlpaRITtAVL+GkJUa0aHBB3g1tmxnn4TOcDeVyam2sc
-   +/NhCtWvQ33Xb/kwZLGxPlzqd0jDOd3mQE4NptkGVUQs1lCWyrBXTc7bv
-   zdWKoLAEhSZeWTspvzNf/fUPe1XpPLcxYftV6kWsRwEGnbLYQQF0/nUxK
-   9DCIxOvM8gb/l2WYjlZ5vnz81nYqPUGL45CltrSnb3rwhat7ZeFcjGiF+
-   g==;
-X-CSE-ConnectionGUID: Ca6961A5S723sWk5IrNaMA==
-X-CSE-MsgGUID: laBjqMxeRHmcaOArH6g6Gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1953565"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1953565"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:24:39 -0700
-X-CSE-ConnectionGUID: 6zyU+4oHQomjzuGykKxWlg==
-X-CSE-MsgGUID: ed5JSSllRXGZmmNNDq/aRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="4882940"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:24:38 -0700
-Message-ID: <074a327f-5560-43d4-bb7f-960f5549ced6@intel.com>
-Date: Wed, 28 Oct 2026 12:24:37 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Af7y52Ro
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc751eddf25so889821a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793208333; x=1793813133; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XLYiEepDtnyQ6wJ1rlYe5RaJc/i8ARvs/UjwaNMVQRE=;
+        b=Af7y52RoNQXZRESfNzlA5nWU7zYO0dfLPezS+5rNH3Tx4+4DsnOMyhABRaQvfQPhli
+         WGDEJ6zWLk88idrS1IRmCJxUBASFuuPGGngNzQZZ7LzmANcSte3aAEFKuC2VjHtOK2z7
+         yjKMj+n+y7innZ39T/IQMUNxUrOFGpd7ZgkibuW592Y5ybQz3HYIMsH9Gk9Vo/7F25Aa
+         q36OaknOzdG878FRgHSj5M2t3J2VawgIYj7j4isik5KORWNcsNhJEboFyrcCLGCCUvS1
+         gSvujDxwZjfi6G+bKCVFt8XzBT2Fk2cA1mp2Ztj8lzO/DQBvE/UHm9uoMPtJq1mQY/nw
+         HIEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208333; x=1793813133;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XLYiEepDtnyQ6wJ1rlYe5RaJc/i8ARvs/UjwaNMVQRE=;
+        b=H4UDQWprAB1WZftdDUbOOUppyxWd/R0+5mN7xhzQGFwAWCaD7oKfU87jGf8N79PHzb
+         LNQ00A5DJQtU7D0fVlaes51dCDI9MpJuaSQqrG3GKhcjf/ByKB7uN5Itaei0hvXNQvFo
+         lBWTacwJ0AklesQxs3MRW+900dKIxUTBpLc9+YmcLr8ZWO7hPSMD8Q3LaaO6+ZlnsKPk
+         2MVrqyWS6ZS/x+QiPoAlEBp4VPzKRLHzJYl4Dnzk8SOVHqhJLhC9LChuErdpOUFVPtrf
+         JCBsu1gzS86lsYcYMRBrumynADv+MJjzCnWrHBVuBgqXGjKsi2bq+H7FGf2ndkNdepnv
+         56jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuYcVEPmQPvG1akFNgkZIcpLTzFwuypj88lSbXcFoxqz+FYfApz7y7qZ1Lh5WElKC9jpYbrCJJROaX+20=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJN5JgGtOIBiDwL5m62JyaA9sQ924Z51C225Lsk82whrblBUIL
+	yyIgSyOSrVfhqTVNSbHN0UzLAZ/kjdg+OMn/wmqukwe+TfRMgMFU3dfR
+X-Gm-Gg: AYBFou2OjoZSJdOPLjM4PyNSrIysXPViftLQEzT4VOxK/FADM7Ngyy+SE+iHsavJPzf
+	muxOkt5yaELBqMuMepT0r0gpxhLWo+HaxTuTX7jQfMafuS/Hg5LqvzqGAq67uPR/5V5Onc+2cee
+	dIbsWHmOJB022Vu4T9iv2Su4KC8e2PHgKgRldpRJM6Y+3FzeDhaBTv54vcIElN8fJjpEQHZbKyq
+	hqlPfxEu9EL3raKKgW8DWbJuMEL/zGqQB8qgyvzG5j+1dp3s+lNFnEaXsOY7OBN13+6u91zhN2k
+	BB7tyTE++w+oUh2xyDSU1tosaSKHU2nQPl2NK7PGgIPu7maSr8ZCQyFy9gRYYnmRX2fkOHw/1F3
+	ubJzUoghaa77PQLuT2rMk4eK9lEz43e7ZwB5iWw2iWca/12A67qvZiVsWbEQBbUOLM+rDxWcK/m
+	v0vJ6+3EshWmU1Lr/DzhiSz4P3ek2TcgPJIhCfcoKkFWI3+zutVbv+WssrK3xt7bJ4mLhKg9WNP
+	TED68lDud+UkHkJ7H0LgYB8Qezo9Xc/HoTPGtofDtabjuwECzh/RFKV7/CwoJ8HFDHRjySkY/54
+	0JYOwmCxH/Ci2GpcThF6FyJ+VuZKijp6xOEdANp7NTvkKNoTYI4W2ajHInuacUWUgmT84BI+J2j
+	PZHFIPHtF76x5TmzNywye1yRtVkBuBYk1IQ==
+X-Received: by 2002:a17:90b:3a46:b0:3aa:fdad:7d6e with SMTP id 98e67ed59e1d1-3ae581b7b3fmr2290113a91.10.1793208333116;
+        Wed, 28 Oct 2026 10:25:33 -0700 (PDT)
+Received: from localhost ([153.61.198.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm397200a91.10.2026.10.28.10.25.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 10:25:32 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 28 Oct 2026 17:25:31 +0000
+Message-Id: <DMGNAV67LK3F.2FNLTD5NVHDEA@gmail.com>
+Subject: Re: [PATCH RFC 0/8] vsock: add datagram support to virtio and vhost
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Sergio Lopez" <slp@redhat.com>, "Stefano Garzarella"
+ <sgarzare@redhat.com>, "Bobby Eshleman" <bobbyeshleman@meta.com>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, "Bryan Tan" <bryan-bt.tan@broadcom.com>,
+ "Vishnu Dasa" <vishnu.dasa@broadcom.com>, "Broadcom internal kernel review
+ list" <bcm-kernel-feedback-list@broadcom.com>, "Stefan Hajnoczi"
+ <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, "Jason Wang"
+ <jasowangio@gmail.com>, =?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, "Xuan Zhuo" <xuanzhuo@linux.alibaba.com>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>, "Dexuan
+ Cui" <decui@microsoft.com>
+Cc: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-hyperv@vger.kernel.org>
+In-Reply-To: <20261028-vsock-dgram-support-v1-0-e457cf7cee78@sinrega.org>
+References: <20261028-vsock-dgram-support-v1-0-e457cf7cee78@sinrega.org>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,93 +112,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/16] KVM: x86/pmu: Add PMC bitmap accessor helpers
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
- Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
- Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
- <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-6-zide.chen@intel.com>
- <CALMp9eQ4uBX69=jZSx83t1xeO-3Jd0qsLOV=9ok+qGB+UnfRSg@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CALMp9eQ4uBX69=jZSx83t1xeO-3Jd0qsLOV=9ok+qGB+UnfRSg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+On Wed, Oct 28, 2026 at 09:04 AM Sergio Lopez <slp@redhat.com> wrote:
+> This series implements SOCK_DGRAM support for virtio-vsock and
+> vhost-vsock, allowing applications to exchange connectionless messages
+> through the existing AF_VSOCK datagram API.
 
+The cover doesn't say who needs it.
 
-On 10/28/2026 9:32 AM, Jim Mattson wrote:
-> On Thu, Aug 27, 2026 at 3:48 PM Zide Chen <zide.chen@intel.com> wrote:
->>
->> pmu->nr_arch_{gp,fixed}_counters is not able to represent that a PMU
->> may include non-contiguous GP or fixed counters.
->>
->> pmu->pmc_exists already holds a bitmap indicating both fixed and
->> general-purpose counters, and loops over valid counters can be done via
->> pmu->pmc_exists alone. Extend it to a union so that the u64 alias is
->> available for convenient mask arithmetic operations.
->>
->> Add the necessary helpers to prepare for bitmap-based PMC counter
->> implementation.
->>
->> No functional change intended.
->>
->> Co-developed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
->> ---
->> v2:
->> - Rename kvm_{gp,fixed}_pmc_supported() to kvm_is_{gp,fixed}_pmc_supported()
->>   and simplify them by removing the temporary bitmap. (Sean)
->> - Split kvm_for_each_set_pmc_idx() to kvm_for_each_gp_counter()
->>   and kvm_for_each_fixed_counter(). (Sean)
->> ---
->>  arch/x86/include/asm/kvm_host.h |  5 +++-
->>  arch/x86/kvm/pmu.h              | 53 +++++++++++++++++++++++++++++----
->>  2 files changed, 51 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
->> index 90d80483df7f..49a8a2e9cee0 100644
->> --- a/arch/x86/include/asm/kvm_host.h
->> +++ b/arch/x86/include/asm/kvm_host.h
->> @@ -594,7 +594,10 @@ struct kvm_pmu {
->>                 DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
->>                 atomic64_t __reprogram_pmi;
->>         };
->> -       DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->> +       union {
->> +               DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->> +               u64 pmc_exists64;
->> +       };
-> 
-> Is it worth adding:
-> 
-> BUILD_BUG_ON(sizeof(pmu->pmc_exists) != sizeof(pmu->pmc_exists64));
+Bobby and Amery took the same feature to v6:
+https://lore.kernel.org/all/20240710212555.1617795-1-amery.hung@bytedance.com/
+Stefano said there that it can work well and that the virtio spec change
+is the next step. The last mails of the thread have Amery's v7 WIP and a
+short list of what is left.
+The cover doesn't mention it. The spec change is still missing.
 
-Good idea! I can add this:
+Why not finish v7 instead ?
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index 1dac6ae2cbc2..41eaefeea429 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -1051,6 +1051,8 @@ void kvm_pmu_init(struct kvm_vcpu *vcpu)
- {
-        struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+This RFC goes the other way in these places:
 
-+       BUILD_BUG_ON(sizeof(pmu->pmc_exists) != sizeof(pmu->pmc_exists64));
-+
-        memset(pmu, 0, sizeof(*pmu));
-        kvm_pmu_call(init)(vcpu);
- }
+  what               v6                        this RFC
+  -----------------  ------------------------  ----------------------------
+  (cid, port) space  own bind table for dgram  shared with stream. The 2nd
+                                               bind() gets EADDRINUSE
+  vsk->transport     empty until connect(),    g2h or h2g, picked in
+                     lookup per packet         socket(). -ENODEV with
+                                               vsock_loopback only
+  routing            one helper for stream     2nd copy of the chain in
+                     and dgram                 vsock_assign_transport()
+  recvmsg()          in af_vsock.c,            dgram_dequeue() stays,
+                     no dgram_dequeue()        dgram_payload_len() is new
+  VMCI               fallback                  first. No virtio dgram when
+                                               its module is loaded
+  dgram > RX buffer  drop, EHOSTUNREACH in     every RX buffer is 64K
+                     the error queue
 
-> 
-> Either way,
-> 
-> Reviewed-by: Jim Mattson <jmattson@google.com>
+> Datagrams use destination-based routing across guest-to-host,
+> host-to-guest and loopback transports while retaining the socket's
+> transport state. VMCI keeps priority as the dedicated datagram
 
+A dgram socket uses two members of struct virtio_vsock_sock: tx_lock and
+bytes_unsent. They serve SIOCOUTQ only.
+virtio_transport_alloc_skb() does skb_set_owner_w() already.
+udp_ioctl() returns sk_wmem_alloc_get() for SIOCOUTQ.
+
+Without them a dgram socket has no transport state, like in v6.
+Then no need for the owner transport, dgram_transport_match(),
+fallback_transport, tx_accounted, the skb destructor, etc.
+
+> transport.  Guest RX buffers accommodate complete messages when
+> datagrams are negotiated, preserving message boundaries.
+
+That's 64K per RX buffer instead of 4K, for stream and seqpacket too.
+It undoes commit 03a92f036a04 ("vsock/virtio: Resize receive buffers so
+that each SKB fits in a 4K page").
+
+pskb_trim_unique() doesn't reduce skb->truesize. So a datagram of 1 byte
+charges more than 64K to sk_rmem_alloc of the guest socket.
+The default sk_rcvbuf is about 208K on x86-64. The 5th datagram in the
+queue is dropped.
