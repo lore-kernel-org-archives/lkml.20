@@ -1,81 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221193;
-	b=MGlI1/sBJ10Hz4EvZrkaSyZCSASIZoNstJHV6pY3LBcUqOQDz3u7tgRq440ZYYkjziFl
-	 39JUadqPF1HkY5rCOANwFjdu/qKIJsY0+ytrCzwT6DMI2WUAp+tRigvwXL9SgORBwZGcZ
-	 QpaQRgmZ2gEOI0ctrSPgvxqpzpiofasm9fwQjjMIWb8u7pJxlVXGSHJrGMxytvexv9Trr
-	 p/y6TULm6t6AhOQk7c4lXL8+l4cjaT+Q99Z+Xb02qTiwfkSMVwhLWdMo82EKUCgKKH54I
-	 +C98P2QIy4bUCzPb5cA/0oeSRYjX/SniwpbV6FZTAEBc1rx7cc9FnL/+R6fVPC0tKNg==
+	t=1793221344;
+	b=4cn0d2VlZvoxoNGhMcuiN+ucJlQG3GYhxkEwQfeC52OGiHMzkeSDDr1zbkAnpEAAcZah
+	 ZTvQNSi2Pj/jvrAM7ZLb920ultWbqbZ41Hy6S/yDb2/9N7JIbhugsiCN5dXj9m5AeQLr7
+	 LvDW5XHxyAGkEdHxzTb+/GY8pU0E0LAUMTgS9yKjYFn/xAnGd6yzMPffZOTts1uJVGCfO
+	 B+GqV6cSn7G0y1Y9ytQN/+pyw4a9PmXuzmRyCejG5IxaB3Qt4dHqFCjVUx772AOxjejz/
+	 a0RZY39IzkoXw7YkhVj84w1is8z1PxIPoW1ZUDDGmIzsYn2JiJYzfv4Nlw1OsT+BifA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221193;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=B+ILGEghY39r13/JkwaxN9aY8a9WSldjM6rorjvMUhk=;
-	b=po9lnJQzIhe+1V6+5FKgJXWPOeeKDLQLlWXdlVego3e7SZq3cB6RSH7KJaa1tqCFwmRs
-	 oCdayMT9XfnKCK+omwYamj4y2vHg2HMS5gVo6yFHhcXk/+zSlX71TLAWRSS/gZSd0XYMV
-	 wioBmZ846I6IUE2AvbV0gF9yQFloCfeln+4KIgFKk3lQpZJe7MynKuOIs60tA93PTRCsa
-	 HmzKYjHYRQCrXzxeI4aGwNS4sTYNTHvZ7Ae84OkFhKHpSHOBpTcZgPPJ/Wmgmg4uMAQ/1
-	 0m3FAimGHsQW9dwo2Wfd5Ei6isDxIK2Im+IH7V6jrKFufFOGKwbTpYqjFAPznG1Pw5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
+	b=uiCZA+CwEPK54SMj3Uw2uk5J7PCMniqnVIF2+JkNndur6ARZvAv0dU3eAaTLs318MEfs
+	 s+8R5kfua/UDsgSlsb4nr7igxU/dpZFqtH0bQmcrpWese9uq+mwiEbAhXB1BzV8vMPYS/
+	 hwaLiAKpnERaRQ3D2eNgkEZr4pEe/fjOFK4jivAcJWDg3CKwVfY1Ivduuw6qZWc8UO+wh
+	 yp/dtQZsR9+s5S4xPMPKN/Cn5yklFSZVq72t6fqn5ZvoJtxEsK7NslZ3H0+I5NJp35DRg
+	 L3ywf0WDm4tlnXgE/TzGxGaWxk+ZoZVOv0Izoz7ObmAagw7InAW+wIxaoe/ZNX5+LRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="paH15z/h";
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I6VdWccZ;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409F0606A31C;
-	Wed, 28 Oct 2026 20:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 409F0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD7B606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD7B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=paH15z/h
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SJYsYe2340172;
-	Wed, 28 Oct 2026 20:59:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=B+ILGE
-	ghY39r13/JkwaxN9aY8a9WSldjM6rorjvMUhk=; b=paH15z/hwHdy5wVGhXeZtt
-	L82T1577Sv1lLspdy/d4IjMI0kpwgjmn/7YucyAMN1TimZXwHKo7K7j+a/oAoMMC
-	Tra7KG+Itqwp42hw3Gi0YH3A9aTauhFDdLhBnfo+SIUP2zkOinU6sTdxsIAPVmhN
-	a2xcjNZLT022iXAxlZo/u0XNSnDaMNuF8iebYHTpX1b5vDQt+gNPfhaE6fR58rQb
-	BDPbiTZmtM/eXHV3bpMR78/2q8b3cWEre3+m1EjvJN3DNUKncYJuwO1yxd9YR2lA
-	7k/UY53TeB0xPCkLN+gD5W2x6aUyoCNDSB6bzAx739V3ziU6pQ09cs8WuHthqyWA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm646yv5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:59:52 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SInjTE1983896;
-	Wed, 28 Oct 2026 20:59:51 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pc2jn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:59:51 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SKxldU47317300
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 20:59:47 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 327C720043;
-	Wed, 28 Oct 2026 20:59:47 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DFA0020040;
-	Wed, 28 Oct 2026 20:59:46 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.73.9])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 20:59:46 +0000 (GMT)
-Message-ID: <11f7072d-3c4b-4ed5-9954-49c39a012d8b@linux.ibm.com>
-Date: Wed, 28 Oct 2026 21:59:46 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I6VdWccZ
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so9445755e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:02:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793221342; x=1793826142; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
+        b=I6VdWccZ34lFN1zBZ8fGVTwa71nz0eMGoWRNeR4BOOYTn8XzzMG9EfeUPufPOHIQTw
+         bV97F0O5NwU3ZzBmswKA/4FuspwNXjHXzBVQWZv0xk79EPSIe37YNZu36QYkoJjbUOs/
+         uE/x7IdQlT1h7Md7hl8S/UAHKX2Ff7iEe3eSbMdddPVBcg2isAGv7gvgEEtf+DVjVs1z
+         K1F8qGnruWVGGHMhOzoEjICpjsYCtbr7Iw/8gjcE2iM5Nxn2keJaBQdxWCmjvwj/NRFw
+         fGeSWRCd3IJdtg8L9WoeEBxWDokcTpFMyiYakPzwTyoubMcCsHi56R+NZGCVh/qTQ7cG
+         YZHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793221342; x=1793826142;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
+        b=1AWZPVfDfcAD9veqw02aSQYyrUcLamKqexw5Jnr3Kjfv4fVDRALKyapwSNpAYh6Je/
+         jPqFnIMlLzXyO64pI83HFk3ZcglfdsCDn1p++6v/JFnNlicCLsTEKeULAjR3UBJo0rrI
+         OXzZPiNAF83m0YPDxuE4ZwY8ay9vdKooyC5MNATKgJqo1ieAWRkf409hYPqUXXzdm0Tc
+         HkTqX3SI8Bv/Cn10Ic0pJl/Jsg0rj44kKBKb3o/WuWt9zG7hAhOsX3iVUTA84tlxFsex
+         4u3IlbwH5wV7zzeZHQsFsa1AyUbuLmweV8+GsXYmYDIIIoQCmFlI+GUDVq1znby/jHCE
+         b6yw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmUaTtdkPlyM1jh/dhCJNV6u2fEjxpMXv2HOnHMJJFqoS/HzaQZm2FQaRhJ91bTTguVoAH+i6V1rtwfX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKO7bzUUaSMnEJinXeQz1g7fYePqI6IpapftcEVSUfUm94cTH3Z
+	ZPmhZxaz4SQMJqWcJkwUczM70SUL7dA3zQA+Pf7cAg9VT+YMg5ttHPcEwMEnqsEIMEDeTQ9nuxa
+	sILpM/ntAjA==
+X-Gm-Gg: AYBFou0/hs9txNyN2HaJ37hz88TvgHDAiJC59REAq+RzNKm9BaGYcUezIMjiJTAE31c
+	ctB6zDn9vlxariKjOyKwHdjy219PXBRGN3msLYXsxM8aezzh48JBq0PrEAKqhsjBrWWjMJ/bG0X
+	0RufMPf7PX34Zn5iDX0b3lqdUeJKKdklpTzPw6/xDbdPIKsPZNZ6hdlZnPUiazDSKygaHDyIQli
+	r6iVsHvUk7wJbp1NYNUbrWNhdl8SuhOn9Q573i3MnGupFiErKZeRcxG5+KFBhrMcW54+IxAhMgN
+	Jj+OSrU1sR1KdqCFpjfc72voVl3xAtgbbjNd45yBMcoEtwcSMc6DftklGTA5i9P9UUYB+YX61v7
+	8n3GOjLay5qo07hhhMjz8vBgZHT92hdurgR13p21XBBGDm7498ldPGkMbx/bFQfJPDXIx2NG5Ss
+	YEGyrtsFyu3zSMl/AmZ2GVqMHn9nX54EwMa6wyeEm0GJhbpqTsZ4GZiWlOW/yQPr50LsDVTtC8i
+	w6PdKIBVguUvhGEODLFsvU6pPkJj74QFQ5nerrdNbQjc4Ma5ruL1uRjFPia+6du7NOToMJ4kZhv
+	EWKPo/NdazEe/x1Upq0w8Q==
+X-Received: by 2002:a05:600c:1d0a:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4a9678c28ffmr80849565e9.22.1793221341733;
+        Wed, 28 Oct 2026 14:02:21 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57a010basm2292120a91.3.2026.10.28.14.02.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 14:02:20 -0700 (PDT)
+Message-ID: <4de45a85-6db2-48ce-826a-90dee4e44a5a@suse.com>
+Date: Thu, 29 Oct 2026 07:32:15 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,115 +94,126 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/10] s390/maccess: Remove spinlock from
- __s390_kernel_write()
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
- <20261027143030.3154657-11-hca@linux.ibm.com>
+Subject: Re: [PATCH 1/2] btrfs: account partially completed discards
+To: luca.stefani.ge1@gmail.com, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+ <20261028-b4-btrfs-fitrim-interruption-v1-1-bf5c53738b3a@gmail.com>
 Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261027143030.3154657-11-hca@linux.ibm.com>
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261028-b4-btrfs-fitrim-interruption-v1-1-bf5c53738b3a@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX2fKgjyz21dt5
- QBNA0TQX7CmL3ClPQUGDGNmxT1sWYd7ciFzKlS8CuvELhVNpIDun6byDqczJry3gJ9EZZrN+NVA
- U1oDUM+Sy6QCG6RmHbo60LjXJJbgUMw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX7xvIlHIQfss6
- 6cE6WomK73JtdoyNY4Fvu7097Mcqprs0FtBwJpevfKI6QV9VN8QKAn/mffVQP0kw5jWHBuILJiS
- XQvRKUbiWcVS4bpSyl1d+z6WR/xCl5NS0udUC3C7MZdVKbZBDvhMRPopF7PK3AfABGevarcub81
- oQ5o8c02jyi2HY1EBf1V5LmTs+mFD1WcxIQdKZCPASrQH1lU5yVtOSw/TeAe9UaesNRZiXAmLrT
- laT0q1vwZEhViOD1D6B5/0uPwh2psPxXs3oxmJB9kQwvV4wZRPm9XHIhglRHi65rYiO1Q6J2G78
- Lunu+emFiO/qsO8F45ZkLOGqhgVicoE/jltqyiq4xRjxewJ291jHz+BHi98FDx+zsj59GZ/2HFT
- PykPWMOsB+eMs1mIwQsIrqfxsEa24jJ5LhyeLgOKrv6nhyGjcwdz3nMoVrricQMYOjMjDe6iA7A
- rEqai8h0oBcWRc2Gg/g==
-X-Proofpoint-ORIG-GUID: Wcq-VWVUn41p_v4DZtlw5fgIPp2vwJKA
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae26248 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=5OG-X-8QiNZRF-oGS5oA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: Wcq-VWVUn41p_v4DZtlw5fgIPp2vwJKA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280082
+Content-Transfer-Encoding: 8bit
 
 
 
-On 10/27/26 15:30, Heiko Carstens wrote:
-> The spinlock in __s390_kernel_write() was introduced to serialize the
-> read-modify-write sequence against concurrent callers. Now that all
-> runtime callers of s390_kernel_write() hold the text_mutex, the
-> spinlock is not required anymore.
+在 2026/10/29 04:25, Luca Stefani via B4 Relay 写道:
+> From: Luca Stefani <luca.stefani.ge1@gmail.com>
 > 
-> Replace it with preempt_disable() / preempt_enable() and sync_core().
-> Previously, CPU serialization was implicitly done by other
-> instructions. Make this explicit with sync_core() instead of
-> relying on that.
+> A discard can complete part of a range before a later chunk is interrupted
+> or fails. btrfs_issue_discard() reports the bytes already discarded, but
+> its callers only accumulate those bytes when the entire operation succeeds.
 > 
-> Preemption is disabled so that sync_core() issues the CPU serialization
-> instruction on the same CPU that executed the stores. This completes all
-> previous stores and makes them visible to other CPUs.
+> Link: https://lore.kernel.org/20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me/
 
-Doesn't preemption happen only via interrupts, which always serialize?
-> Other CPUs need to perform CPU serialization, e.g. with text_poke_sync(),
-> to discard already prefetched instructions.
-> 
-> To verify that text_mutex is held instead of the spinlock, add a
-> lockdep_assert_held() call to s390_kernel_write(). To make that work
-> a change to the kprobes code is required:
-> 
-> swap_instruction(), which calls s390_kernel_write(), may be called in
-> stop_machine() context.
-> For that case the task which calls s390_kernel_write() is not the task
-> which called stop_machine() - lockdep_assert_held() will report that
-> text_mutex is not held by the current task, even though text_mutex is
-> held by the stop_machine() caller. Exclusive text write access is
-> guaranteed.
-> Work around that by calling the non-checking __s390_kernel_write(),
-> and add lockdep_assert_held() checks to arch_arm_kprobe() and
-> arch_disarm_kprobe().
-> 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+I don't think this link tag adds any value.
+
+This series is going a completely different, and more sane fix than that 
+LLM generated one.
+
+Otherwise looks good to me.
+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+
+Thanks,
+Qu
+
+
+> Signed-off-by: Luca Stefani <luca.stefani.ge1@gmail.com>
 > ---
->   arch/s390/include/asm/text-patching.h | 7 +++++--
->   arch/s390/kernel/kprobes.c            | 4 +++-
->   arch/s390/mm/maccess.c                | 8 +++-----
->   3 files changed, 11 insertions(+), 8 deletions(-)
+>   fs/btrfs/extent-tree.c      | 5 ++---
+>   fs/btrfs/free-space-cache.c | 5 ++---
+>   2 files changed, 4 insertions(+), 6 deletions(-)
 > 
-> diff --git a/arch/s390/include/asm/text-patching.h b/arch/s390/include/asm/text-patching.h
-> index c2f87f20ff97..a382a3e7c2f8 100644
-> --- a/arch/s390/include/asm/text-patching.h
-> +++ b/arch/s390/include/asm/text-patching.h
-> @@ -19,9 +19,12 @@ void *__s390_kernel_write(void *dst, const void *src, size_t size);
+> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> index 9b0a5c6b96f3..242db255cf1c 100644
+> --- a/fs/btrfs/extent-tree.c
+> +++ b/fs/btrfs/extent-tree.c
+> @@ -1463,6 +1463,7 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
+>   				continue;
 >   
->   static inline void *s390_kernel_write(void *dst, const void *src, size_t size)
->   {
-> -	if (__is_defined(__DECOMPRESSOR))
-> -		return memcpy(dst, src, size);
-> +#ifdef __DECOMPRESSOR
-> +	return memcpy(dst, src, size);
-> +#else
-> +	lockdep_assert_held(&text_mutex);
->   	return __s390_kernel_write(dst, src, size);
-> +#endif
->   }
+>   			ret = do_discard_extent(stripe, &bytes);
+> +			discarded_bytes += bytes;
+>   			if (ret) {
+>   				/*
+>   				 * Keep going if discard is not supported by the
+> @@ -1471,8 +1472,6 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
+>   				if (ret != -EOPNOTSUPP)
+>   					break;
+>   				ret = 0;
+> -			} else {
+> -				discarded_bytes += bytes;
+>   			}
+>   		}
+>   		kfree(stripes);
+> @@ -6703,6 +6702,7 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+>   
+>   		ret = btrfs_issue_discard(device->bdev, start, len,
+>   					  &bytes);
+> +		*trimmed += bytes;
+>   		if (!ret)
+>   			btrfs_set_extent_bit(&device->alloc_state, start,
+>   					     start + bytes - 1, CHUNK_TRIMMED, NULL);
+> @@ -6712,7 +6712,6 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+>   			break;
+>   
+>   		start += len;
+> -		*trimmed += bytes;
+>   		trim_len += len;
+>   		if (trim_len >= BTRFS_MAX_TRIM_LENGTH) {
+>   			*ret_next_pos = start;
+> diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
+> index bff6e5b372d6..a85806bcf87a 100644
+> --- a/fs/btrfs/free-space-cache.c
+> +++ b/fs/btrfs/free-space-cache.c
+> @@ -2415,10 +2415,9 @@ static int do_trimming(struct btrfs_block_group *block_group,
+>   	spin_unlock(&space_info->lock);
+>   
+>   	ret = btrfs_discard_extent(fs_info, start, bytes, &trimmed, false);
+> -	if (!ret) {
+> -		*total_trimmed += trimmed;
+> +	*total_trimmed += trimmed;
+> +	if (!ret)
+>   		trim_state = BTRFS_TRIM_STATE_TRIMMED;
+> -	}
+>   
+>   	if (reserved_start < start)
+>   		__btrfs_add_free_space(block_group, reserved_start,
+> 
 
-I assume #ifdef is required because lockdep_assert_held() is not
-available in decompressor and there are no stubs?
-
-
-Anyhow:
-
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
-
-[...]
