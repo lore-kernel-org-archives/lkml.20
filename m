@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793155101;
-	b=0Z/SMBZphDmS5YkbvuDWttFVtlHLJt6gBwFxU+wwb8Z0D555PCBZWnAZS5E56yMDX5YT
-	 4X+E6PUOrK5wLX9l2P06qESlfmxyJEiMkrHN2xf4U898KX7hkLWhiBYfUG10TWgdAqYe5
-	 gQfVdNE0dxEX22iiwD2rBneDORRpXanIlcj8g4yDOF8kI9+dCMDtFecfYQfX3vXfbSdqA
-	 0/Kj9zQhDu7zFV/NYzGPRM63Zj2RYxKpp1ayZrI8V7npymLIUquvKm7B3pvLr2nhndfD3
-	 aLjnJt/f2IgNrEHPutAXscxnXR3s11RbCGAq1X81cxlt+8tBNrsIDw1dNJlWlBIeSCA==
+	t=1793155114;
+	b=Fl7bsJhH7SePHXJWuGhspx+/Fr0vwvC/vZpeiItZ/TPBV+Wqels2SK8ziC7vTPh0x39p
+	 yWLCQb+hhxDma+MPH3Dv1pLJ1H+rnI3c/UHUP5Sc95133VOiOjGiiJ4VbrLA4x3XbvoCn
+	 POAZCpNeG2fIDf/rWHuGPkFK7va/G5d2uqMW+926ahVSQBcKu0KfauctpfmPy3YsyuEi+
+	 9fcK3sOlWjEhuUC+L9OnxUSmDaG3U0yT/F4BhoDcizRy4JyObAxeFFLTTFcPZKT5kgscY
+	 sCgfm1MqxacOmmCD0MAS5+FOZrAJai1hzUKkY282qtUDfA2wkP70h8EZdsLLnF2Deww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155101;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=0RkIbvE5bVns9Dq3iZQPM9pC/n5nH6FuvYmj/Tc5+Jo=;
-	b=zJs6keOVQ9U8XfEwu3pTx2QYXAmbTEr1jSX2wDSa66L4+KG4UvHhUQH4hnIG1jyKh4e2
-	 WMscfcrcDXG6eCBaRWfl1teQc7JfDlOgVeua0pv5QOf2nO3u/dTyei239J2ipe9NFmB0a
-	 2GaRS/QmEkevtWgCTbqK4uegcNbGcMAZo5WgQtcI/yb8SiwDWUYheiwjWQ3cjWhRh/hb8
-	 LhjoLP9b+I7l30N/XpkolbGngfcnCJpXCy8YWIglb4tz9gj4ZzehRbtgenlOikYIdsYzT
-	 jWSjlEVVyssK2iScE1rCuMHNicaK+VhLQuBp59yMMwRq6rk4bK4zo09En94kJB/LByQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155114;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gWOt3gCxCJxa2iTMcD7U8FKt63sulo4DQ8hTX1fQe1A=;
+	b=2lqHnGUIs8aoGO3/xkE0vcNV/IwgXjHdiuqJqEtDfjSTHRQ8Qo0GbSE4CoTQFLzdWM5Q
+	 4SXoItfB4C+LRxoD49tTRz7/u3G4I7V+H2uLpu/KQdBvkCzhWTW72FyBIKZcytWuUSig7
+	 H0b1J2V39V0+yPiWT83omz8w8WYUzVddtWkxdP2fDYuT9IB+Mc/x2Ba40ZBvzztyK5W3C
+	 MHfDLYxKXP2XGbL3Lojhti53vx2+AP7n8B4l1G9c/oQlcMETkkAr3e7RhPl+6HlSbEcSz
+	 PlbldASotA9At58KSaxbQaONCnl4JVXkSQBynwF83p7AKK/3JDWDg+FawdZ+ZXs0doQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=G6Ue8S84;
-	arc=none smtp.remote-ip=67.231.156.173
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jXwOsPem;
+	arc=none smtp.remote-ip=95.215.58.16
+Received: from mta1.migadu.com (out-16.mta1.migadu.com [95.215.58.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D700606A31A;
-	Wed, 28 Oct 2026 02:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D700606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED96606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED96606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=G6Ue8S84
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S0hRxd3340378;
-	Tue, 27 Oct 2026 19:38:10 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=0RkIbvE5bVns9Dq3iZQPM9pC/
-	n5nH6FuvYmj/Tc5+Jo=; b=G6Ue8S84uG+dYnJRS+2bIthWcS0eZFNvaqoFX2pWn
-	cK7x3AvrDyehEEiOXhrufF/SH7R7t0Rb67DkssQzuxRd8teO6k6IYG8biSwfsurD
-	qv9p0vqfv7HReMiMzFQ6cP2gSaYgab5C4wVMSs2Dm64TL8IdVRtR4uw8oqBx1U7m
-	l0vHT84DOpJo6hmnRpVxiVbIoqWCjYvJlmz1lRoFz1NdYeaF2zAQIyYzb4Ukn0bx
-	/FsddmcLFLib8lu2d9LHXpcYwdstOOHiM3e76Ii40kH8wXHP2bV4V4Gg9763ZuQh
-	9YM1HV0kgVogH9JG1Kf+sbXWex36+us10cg4+sM6yHUfQ==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4hk1a3sxr8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 19:38:10 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 27 Oct 2026 19:38:09 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 27 Oct 2026 19:38:09 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 31AFF3F70CF;
-	Tue, 27 Oct 2026 19:38:04 -0700 (PDT)
-Date: Wed, 28 Oct 2026 08:08:04 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Geetha sowjanya
-	<gakula@marvell.com>,
-        Subbaraya Sundeep <sbhatta@marvell.com>,
-        Bharat Bhushan
-	<bbhushan2@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S.
- Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net 2/2] octeontx2-pf: pass the skb to
- otx2_dma_unmap_skb_frags()
-Message-ID: <auFgDIyangziDH4V@rkannoth-OptiPlex-7090>
-References: <20261027-nb-otx2-ipsec-tx-fixes-net-v1-0-2114c4f10c36@tipi-net.de>
- <20261027-nb-otx2-ipsec-tx-fixes-net-v1-2-2114c4f10c36@tipi-net.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jXwOsPem
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mH0ZQfc34RCOtl2VGjdl8OmmCthdfz1kAMiroh/O+oo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793155110; v=1; x=1793759910;
+ b=jXwOsPemx6nPPPWhLyBfFsUK638JsuH8vWBB2BXx1z2g/7MsOmykTPau9pQ+A8fZw7P0ZpTa
+ fGknOnwEHphp2pvLDdsQzifBLrGH6Tf8cX0ILKEQn9HEIRfho1LVCmyrFJIFVGYtRJ6CZ79JBSz
+ D8weOeehEMYc1l8qTXKqM7l8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7896afea03d26d48;
+	Wed, 28 Oct 2026 02:38:30 +0000
+X-Mizu-Trace-ID: 7896afea03d26d48
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7cb3dd91-f518-49b6-b311-9ec807b3c63b@linux.dev>
+Date: Wed, 28 Oct 2026 10:38:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,75 +58,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261027-nb-otx2-ipsec-tx-fixes-net-v1-2-2114c4f10c36@tipi-net.de>
-X-Authority-Analysis: v=2.4 cv=cLh1IVeN c=1 sm=1 tr=0 ts=6ae16012 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
- a=Ha73tMEPztgjm5QTfB4A:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-GUID: -Zi98IZkC548Tm_8DZ9cusYWHHdV1CHc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAxMCBTYWx0ZWRfX7T8tP8iqyCh5
- VEvWet3ukM4CSRs/BS7y3dpqmRJe0EXz2xAcO+SpQ2WprqgPpxyODD5TsDpkghhsBIiFc5/0wr+
- 8lh6bDefGBKWfzGKu77L9r90iDiWet0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAxMCBTYWx0ZWRfX8Vs9Lbf5shjP
- OOoLSQIyQZHxWhOUB8bsudfI7WJ9Xrk+jORbSKxvObo/CczfWcT8dzTWSheDcHm1TWW333wSBOP
- 54+oUt6ARW87/6ZL9Vnn7n+kRVW6hodfw8V+OffLL2PgGTT/o1vwM9gsh/uh+QTX97Ued2GuQDv
- 78kB0MM4KA3vjbjSoFuGeNuc0J0QKcM0PUbY0A1dlKW6xC4jW4kwDiwnxXQI8e4xhTweVhjtPtV
- 2KDok6Oi3W8aZ2tjz3BWGJHy8aY+3nSKmpBa/h3qLb8Jc9i5bhKH+kqZE7IY1tuLN4k9pHKYXDY
- jmKv5M+Wq3Wdd9P0fn7AiBp4R6sxM7i5O/jU92mc5wKQ0z+2JITdk3HIXFmrVIX48UhaTMLTZKV
- a8dI/FrtiKl4ADyNbuasf3drcKI/8Ac6fvW58jaWzFfwc432LVcGTW9ED16iLHzXOftSq4xItWv
- jJBESPbfWUFzWSoUeLw==
-X-Proofpoint-ORIG-GUID: -Zi98IZkC548Tm_8DZ9cusYWHHdV1CHc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_01,2026-10-21_02,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Wilcox <willy@infradead.org>, Usama Arif <usamaarif642@gmail.com>,
+ Frank van der Linden <fvdl@google.com>, Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@suse.cz>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
+ Baoquan He <bhe@redhat.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
+ <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>
+References: <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+ <auCZFckDfBMrlfxV@thinkstation>
+ <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
+ <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
+ <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
+ <auDkbDlgSZxqlk2G@thinkstation>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <auDkbDlgSZxqlk2G@thinkstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-28 at 01:24:07, Nicolai Buchwitz (nb@tipi-net.de) wrote:
-> After a DMA mapping error, the unmap reads an skb pointer that is not
-> set yet. It can be NULL or left over from an earlier packet.
+
+
+On 2026/10/28 01:51, Kiryl Shutsemau wrote:
+> On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
+>> Therefore, I am kind of leaning towards removing the RO protection
+>> and restoring RW permissions to solve the race.
+> Okay, what about this:
 >
-> Fixes: 195c3d463181 ("octeontx2-pf: map skb data as device writeable")
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+>  From e23ab850837b53cc79d57d58f1cfb4266e745c3d Mon Sep 17 00:00:00 2001
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> Date: Tue, 27 Oct 2026 17:23:47 +0000
+> Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
+>
+> page_ref_add_unless_zero() reads the refcount and then updates it with
+> a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
+> scanner, can read a non-zero refcount from a page that is then freed
+> and reused as a hugetlb tail page.  If HVO remaps its struct page to
+> the shared tail page in between, the cmpxchg writes to read-only
+> vmemmap:
+>
+>      CPU0 (lockless get)               CPU1
+>      c = atomic_read(&page->_refcount)
+>                                        page freed
+>                                        page allocated as a hugetlb tail
+>                                        HVO remaps the struct page RO
+>      try_cmpxchg(&page->_refcount, &c, c + 1)
+>        -> write fault on read-only vmemmap
+>
+> The refcount is zero by then and the compare fails, but LOCK CMPXCHG on
+> x86 writes anyway.  The kernel oopses when hugetlb pages are allocated
+
+Is this an X86-specific issue? If not, I suggest a more generic
+description.
+
+> at runtime with HVO enabled while a lockless get races with it.
+>
+> Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
+> walkers") closed the window with RCU on both sides.  The RCU was removed
+> together with fake heads, on the wrong belief that it was only needed
+> for them.
+>
+> Map the shared tail page writable instead of restoring the RCU.  Every
+> struct page on it is a tail with a zero refcount, so a late cmpxchg
+> fails and leaves the page unchanged.  RCU would put rcu_read_lock()
+> back around every get and synchronize_rcu() back into hugetlb
+> allocation and freeing.
+>
+> The cost is the protection against stray writes to tail struct pages.
+> The shared page is shared by all hugetlb folios of the same order in
+> the zone, so such a write now corrupts all of them instead of oopsing.
+>
+> Bootmem folios optimized in early boot get their tails mapped writable
+> and write protected later.  Drop the write protect step.
+
+For bootmem folios, I don't think the RO mapping should be removed,
+because we are in the initialization stage of struct page.
+No one should touch those pages at this point; otherwise, they could
+encounter uninitialized struct page as well. This assumes no race
+exists during early boot.
+
+Since such a problem does not exist during the boot stage, why should
+we give up the protection that RO provides?
+
+Thoughts?
+
+Thanks,
+Muchun
+
+>
+> Fixes: 32c440d67e6c ("mm: drop fake head checks")
+> Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
+> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 > ---
->  drivers/net/ethernet/marvell/octeontx2/nic/cn10k_ipsec.c |  2 +-
->  drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c |  5 ++---
->  drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h |  3 ++-
->  drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c   | 10 +++++-----
->  4 files changed, 10 insertions(+), 10 deletions(-)
+>   Documentation/mm/vmemmap_dedup.rst | 13 +++++++++----
+>   include/linux/mm.h                 |  2 --
+>   mm/hugetlb.c                       |  4 ----
+>   mm/hugetlb_vmemmap.c               | 21 +++++++--------------
+>   mm/sparse-vmemmap.c                | 23 -----------------------
+>   5 files changed, 16 insertions(+), 47 deletions(-)
 >
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/cn10k_ipsec.c b/drivers/net/ethernet/marvell/octeontx2/nic/cn10k_ipsec.c
-> index 3920cd0985831..4434356087814 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/cn10k_ipsec.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/cn10k_ipsec.c
-> @@ -1037,7 +1037,7 @@ bool cn10k_ipsec_transmit(struct otx2_nic *pf, struct netdev_queue *txq,
->  	cn10k_cpt_inst_flush(pf, &inst, sizeof(struct cpt_inst_s));
->  	return true;
->  drop:
-> -	otx2_dma_unmap_skb_frags(pf, &sq->sg[sq->head]);
-> +	otx2_dma_unmap_skb_frags(pf, &sq->sg[sq->head], skb);
->  	sq->sg[sq->head].skb = (u64)NULL;
->  	atomic_long_inc(&pf->hw.dev_stats.tx_discards);
->  	dev_kfree_skb_any(skb);
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> index c441c0161dbf4..c85436457286e 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> @@ -2132,13 +2132,12 @@ dma_addr_t otx2_dma_map_skb_frag(struct otx2_nic *pfvf,
->  	return otx2_dma_map_page(pfvf, page, offset, *len, dir);
->  }
->
-> -void otx2_dma_unmap_skb_frags(struct otx2_nic *pfvf, struct sg_list *sg)
-> +void otx2_dma_unmap_skb_frags(struct otx2_nic *pfvf, struct sg_list *sg,
-> +			      struct sk_buff *skb)
->  {
->  	enum dma_data_direction dir = DMA_TO_DEVICE;
-> -	struct sk_buff *skb = NULL;
->  	int seg;
->
-> -	skb = (struct sk_buff *)sg->skb;
->  	if (unlikely(xfrm_offload(skb)))
->  		dir = DMA_BIDIRECTIONAL;
->
-Acked-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
+> index 9fa8642ded48..6cd85aca4b96 100644
+> --- a/Documentation/mm/vmemmap_dedup.rst
+> +++ b/Documentation/mm/vmemmap_dedup.rst
+> @@ -131,8 +131,15 @@ pages of ``struct page`` (page 1 to page 7) are tail pages.
+>   The optimization is only applied when the size of the struct page is a power
+>   of 2. In this case, all tail pages of the same order are identical. See
+>   compound_head(). This allows us to remap the tail pages of the vmemmap to a
+> -shared, read-only page. The head page is also remapped to a new page. This
+> -allows the original vmemmap pages to be freed.
+> +shared page. The head page is also remapped to a new page. This allows the
+> +original vmemmap pages to be freed.
+> +
+> +The shared page is mapped writable. A lockless get of a page reference can
+> +read a non-zero refcount before the remap and attempt its atomic update
+> +after it. The refcount of a tail page is zero, so the update fails without
+> +changing the page. Nothing else may write to the shared page: it is shared
+> +by all HugeTLB pages of the same size in the zone, and a stray write would
+> +corrupt all of them.
+>   
+>   Here is how things look after remapping::
+>   
+> @@ -196,8 +203,6 @@ happens at a later stage when we populate the sections. HugeTLB reuses the
+>   the head vmemmap page representing, whereas device-dax reuses the tail
+>   vmemmap page. This results in only half of the savings compared to HugeTLB.
+>   
+> -Deduplicated tail pages are not mapped read-only.
+> -
+>   Here's how things look like on device-dax after the sections are populated::
+>   
+>    +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index dd09c438fa23..bfaf4ce6d831 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -5162,8 +5162,6 @@ int vmemmap_populate(unsigned long start, unsigned long end, int node,
+>   int vmemmap_populate_hvo(unsigned long start, unsigned long end,
+>   			 unsigned int order, struct zone *zone,
+>   			 unsigned long headsize);
+> -void vmemmap_wrprotect_hvo(unsigned long start, unsigned long end, int node,
+> -			  unsigned long headsize);
+>   void vmemmap_populate_print_last(void);
+>   #ifdef CONFIG_MEMORY_HOTPLUG
+>   void vmemmap_free(unsigned long start, unsigned long end,
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index cea25773a6c9..7596704d94b5 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -3220,10 +3220,6 @@ static bool __init hugetlb_bootmem_page_earlycma(struct huge_bootmem_page *m)
+>    * if marked with the 'noinit' flag. Set it to the default (MIGRATE_MOVABLE)
+>    * here, or MIGRATE_CMA if this was a page allocated through an early CMA
+>    * reservation.
+> - *
+> - * In case of vmemmap optimized folios, the tail vmemmap pages are mapped
+> - * read-only, but that's ok - for sparse vmemmap this does not write to
+> - * the page structure.
+>    */
+>   static void __init hugetlb_bootmem_init_migratetype(struct folio *folio,
+>   							  struct hstate *h)
+> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+> index 917db0984143..77f9d035d04c 100644
+> --- a/mm/hugetlb_vmemmap.c
+> +++ b/mm/hugetlb_vmemmap.c
+> @@ -222,10 +222,12 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
+>   		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
+>   
+>   		/*
+> -		 * Remap the tail pages as read-only to catch illegal write
+> -		 * operation to the tail pages.
+> +		 * Map the shared tail page writable. A lockless get that read
+> +		 * a non-zero refcount before the remap can still do its
+> +		 * cmpxchg after it. The refcount is zero, so the cmpxchg
+> +		 * fails and leaves the page unchanged.
+>   		 */
+> -		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL_RO);
+> +		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL);
+>   	}
+>   
+>   	list_add(&page->lru, walk->vmemmap_pages);
+> @@ -629,19 +631,10 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
+>   	nr_to_optimize = 0;
+>   	list_for_each_entry(folio, folio_list, lru) {
+>   		int ret;
+> -		unsigned long spfn, epfn;
+>   
+> -		if (boot && folio_test_hugetlb_vmemmap_optimized(folio)) {
+> -			/*
+> -			 * Already optimized by pre-HVO, just map the
+> -			 * mirrored tail page structs RO.
+> -			 */
+> -			spfn = (unsigned long)&folio->page;
+> -			epfn = spfn + hugetlb_vmemmap_size(h);
+> -			vmemmap_wrprotect_hvo(spfn, epfn, folio_nid(folio),
+> -					HUGETLB_VMEMMAP_RESERVE_SIZE);
+> +		/* Already optimized by pre-HVO */
+> +		if (boot && folio_test_hugetlb_vmemmap_optimized(folio))
+>   			continue;
+> -		}
+>   
+>   		nr_to_optimize++;
+>   
+> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+> index 5a2469fb1838..3f25d4a0bf47 100644
+> --- a/mm/sparse-vmemmap.c
+> +++ b/mm/sparse-vmemmap.c
+> @@ -299,29 +299,6 @@ int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
+>   	return vmemmap_populate_range(start, end, node, altmap, -1, 0);
+>   }
+>   
+> -/*
+> - * Write protect the mirrored tail page structs for HVO. This will be
+> - * called from the hugetlb code when gathering and initializing the
+> - * memblock allocated gigantic pages. The write protect can't be
+> - * done earlier, since it can't be guaranteed that the reserved
+> - * page structures will not be written to during initialization,
+> - * even if CONFIG_DEFERRED_STRUCT_PAGE_INIT is enabled.
+> - *
+> - * The PTEs are known to exist, and nothing else should be touching
+> - * these pages. The caller is responsible for any TLB flushing.
+> - */
+> -void vmemmap_wrprotect_hvo(unsigned long addr, unsigned long end,
+> -				    int node, unsigned long headsize)
+> -{
+> -	unsigned long maddr;
+> -	pte_t *pte;
+> -
+> -	for (maddr = addr + headsize; maddr < end; maddr += PAGE_SIZE) {
+> -		pte = virt_to_kpte(maddr);
+> -		ptep_set_wrprotect(&init_mm, maddr, pte);
+> -	}
+> -}
+> -
+>   #ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+>   static __meminit struct page *vmemmap_get_tail(unsigned int order, struct zone *zone)
+>   {
+
