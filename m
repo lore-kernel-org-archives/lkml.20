@@ -1,113 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.255.227.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207880;
-	b=Ks7h2Ilm4KjZIAplZp49EH39qRWRensaEilkBGrQLAQnBTpX583pif66uue+5gcxZp9n
-	 xGK/cKq99doaKKK9Vgz8PowhaquhfFzwA/ogC95cE7AuXGAihJXaCQVpQmh1uRW7PqMQg
-	 nNC2ZFlFJb6EQ8oBKXvJUFST3rI7mXoWpKJq9IdHW2N0vyG9iFcE9mzVQdnDeo9E07gBb
-	 7zIPCWGIfAIQbl2w3sL0d4TXElKPJL/LNF0m6uxU5aUzLdRnEwxLwlvByiYNDz2ILRe/J
-	 QRVvV2LeD0xy5foKiB5Dqui3Qa8HV8kNeS3/aETb7pv+rtVaZJMFbqSAp3RjSNl6B2w==
+	t=1793207865;
+	b=K0+97qyotfn25D4TBQd6R+UV0Al7uKFe6WO9yBdTyow2MNU0QpnNgTjDsIAUQ9/1B9nZ
+	 XLK737XDeQcowiYvjiItYU2Nan/bdVHk3bUTjVM2+Lyf++D+0vlv0xTUHdL8V9YVkK4kr
+	 5ha8QTJ+HS8m72Cpdqa7cFVcurdPdjI6dYxjLu/ROpuAYdi1Ao87qMZ7buIQSU40wc8qF
+	 UeScucUTqtaqBV45WQ4R7QOlR/e1dk0Ydr/WedhO7Cit7Ixy9aYwf2xG1WBqCfrv+2quJ
+	 aTo6DPxCBip/oFFze4nCTgfJDfvBeU9ZyPZvAwjVhofLP/QX3jt3k+PUlek5oC8JkZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207880;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=LAsDZInV195QFG9YcqW3Qj2NrjZbQEXmSac9Yxv4PQg=;
-	b=iIjc13Xres6t40iIikRvXVqENRXb/eJeEl3n+4OYQqr0i7hcyDBHDDt3qlX+UB2WP2/c
-	 8JKxwEl7OC25VNRtgTuaWz05TgJUuC2wfZKRAEzBeWlEky44VdARyFbc9uMGc8T7wrwsX
-	 REGgSFQQdqa8dgtQkwncK5nPZQEUJaSlk2w2Pxq43J4TSl9DCLi4gRM8hUZgCd8mRQAO1
-	 Vyw32SVWfp7iIgldMPaB2TjYZHi4Iy6BosRpJeGtBx0TwmBtzF4Hx+lBksqnYecYE4GpB
-	 H/ACbpFESxBPFDNdfG/Ot8VQ9Ozp3lVHMc65hxPjuEg05wfzRDLA/7+ZDfTB10DbTDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207865;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ThreatScanner-Verdict:X-IPAS-Result:IronPort-PHdr:
+	 IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:X-Talos-MUID:
+	 X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:Received:From:To:
+	 Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hzV/ZJGd94HL5X5mqltv4CJEN+vCU91tSnLK6kAjKrE=;
+	b=0JHd2TTJV/+C1gbdSwEzH0zylf1sbvJCoUkKnVZw61yBYQik8HTI0TxvjGgxnkzGWl0J
+	 nwI5dKxpDoULJ0sZfthNOGmMTg7m5V7iZekEpXaFpvJbJwxAQUphJHJBNOdjnU8ILPcdD
+	 i9vtcqS/gMeVGL1p6zN+LthQV4ygU4856fO7deS7lsXamZN6PAyTy5qwXbPLxYK4/j9tx
+	 nN3ZijiUR6n+XzG2NC3tpyQy+mce2OvjGPsRhNWcnsH9oRb96UCTXMdo31edvG4tO6Qfm
+	 tCT1uGqOq9195tfULeYRt2PmmGGiOXJCCMoj8CB/OgEcu4KgiTRKs7GYbfdeIlLdChA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MHIjwBdH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ecUBtY5T;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=pobox.sk;
+	spf=pass smtp.mailfrom=pobox.sk;
+	dkim=pass header.d=pobox.sk header.i=@pobox.sk header.a=rsa-sha256 header.s=mail header.b="AIHZ/u6G";
+	arc=none smtp.remote-ip=46.255.227.203
+Received: from gmmr-2.centrum.cz (gmmr-2.centrum.cz [46.255.227.203])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980DB606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:17:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980DB606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7955B606A333;
+	Wed, 28 Oct 2026 17:17:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7955B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pobox.sk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.sk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MHIjwBdH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ecUBtY5T
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SF9xij966208
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:17:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LAsDZInV195QFG9YcqW3Qj2NrjZbQEXmSac9Yxv4PQg=; b=MHIjwBdHdjeK6yli
-	9Wbz068RmTNqueWQUph68D1zojIT9iEobJsrFYRWOv4+MOBSjj2wBa9yzTEc4nfl
-	f69GNF4jKh1+tPrQnm9T3RaeZZXStPvJw6q49p3n/OfQknyvT+XgudmPpsKpgnMe
-	Gs4WPZFJw4BSOkljAfcFrqnhQQu3EPzm8Y22Na/sR2aufmOHOexPtuEgdNjO1d7y
-	1gYcEe4LbOx5FK7pCIgMM1spBUGJfViTPQ0RPs4yOXASU0oE1K+OzO5iKqJx9TGs
-	VNdrdrmfn5dVu0wtNQNZbdmSUFzjRRG34q5IVYrb6rI28M/XBPCkQUVA+zFLeuGM
-	ds6mag==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtjh3kk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:17:58 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so987015b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:17:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793207878; x=1793812678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LAsDZInV195QFG9YcqW3Qj2NrjZbQEXmSac9Yxv4PQg=;
-        b=ecUBtY5T5AGwbNprXj7ymZTOKJdseAZ7mPQO2s9Es4F3+LcREdCoeKC9BYr7f5emu+
-         1GlZl2doafyi1kVM2Zxyz+bmkNCenDPwlBdr9ylckoiBGSePklF4pvLMmnqneV440/aD
-         RFpceC+wwYutssgrdE5Ex16UfrbK52YTuRdMZ9uqxuFM/b+T/wbTLXDtpys0coAXatpT
-         th8u4BTSn4VaFLrYKgSOi5EjycP16/z2/K20IuIKUkjku8CAbfHHtH3FkQeih0Bhep6j
-         /QnpBpwJ9jTrqYwccv994MoVTZasvb92wJHxIVMBRciL/4Q7upKqB5rolzCHNk4BVptq
-         wFSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207878; x=1793812678;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LAsDZInV195QFG9YcqW3Qj2NrjZbQEXmSac9Yxv4PQg=;
-        b=dThUjJ6IP2QScOZfLsG8GxQYmM62hVrKrB5O6A7C+4zF2L7fgMHsmjXudeacG5rvgh
-         XqmVsEXOKyAsFv7lkBmdfEd18uxEhKZJYbwkBT8tQupjW1dAK2bbASfT5OxGxyc+VjUa
-         NV6l4DQWoar09jKHNgYSJxN+FST59VlqONc8EyAykxK/uIlZnVLjwM7FR7EmwNk+78se
-         aUY2VwIdzJj6z+6V2KZ/sB8jwkjNOqMVZ+E6kGl4isaORR0TIuYL2oIdDWOhPdUG6z87
-         xpP6ZCxT1ic4Ast4ja5ZIxyj6cZ+z74j2HPkGfYR1sQSRttDEZ/gjKZu3h9pRf/bGwju
-         D1jA==
-X-Forwarded-Encrypted: i=1; AKwUvBxz2bpyELF4I2prEJKOU0yTjGJi53oMMDjipoJQKPLw78oyZy3nDOv+NEn5zjHwn06QKgAa1Ed3Fp4G16w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzAQJ+f4KEKbseGms1Kz+krM0q5jWJP7/n4/1Y2QamzkCF5UXQ
-	0MauXJaxVTm+PhZaxHqKhs6gJqK9lUPq7zThXeYrVDnq/NuYEnx8ehWCmy1qnoKuca4pZmagUeG
-	BMZJ6hXNOQfA5wlWxo9F5hpUyuMVSVZjP8Xr0WtJY2/nrBk3AB4Ag2KZF0ZS/3lklz5cLFdyUT0
-	w=
-X-Gm-Gg: AYBFou3M6rGoTWZ603m9o+EL5p2TR+9jSeW601NYnFGCH113ObFb0VTW+zV7ii6eZK8
-	zp86feQehhF+cOiHCFBvqT9ZpEPG9a4Vhy3VASkqxc+X8K4Qv450fq9ma+giwnHG1jFWk9zyVks
-	alG4Mmxb8nuP54fUpsSZGwVguhImvvpo/BHY/yCsRI47WSQKeORjkrsumBr6F6+5GISUPcAu1o7
-	8xau8BP5drS0h6P6sHVdTpSODWXwdikPDJDxRwHSSbqeKO5lw3od0x7aLgSY0Tkrh+dBUkbPMt/
-	EIpsKBvUkYtLSFirznCySJ5ZJVxSF/qzuzb7odcLGS3VKUUtzQHsHiTvH7Yvm2eIOgfZcPogs9C
-	1yPeC9r5a73gJLc2xUrhxRX3durWUKxaupWGhWbjVjOP6ktg0WnFGj5tTjbBXbb/D4Pwk4Sa/Cw
-	RluFCP6XlRWG8/zOmf9TUUI5RD1W0m9Kt/yAISO3Qn
-X-Received: by 2002:a05:6a20:6a25:b0:3e0:d508:59b0 with SMTP id adf61e73a8af0-3e902382a6cmr2223707637.34.1793207878000;
-        Wed, 28 Oct 2026 10:17:58 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6a25:b0:3e0:d508:59b0 with SMTP id adf61e73a8af0-3e902382a6cmr2223686637.34.1793207877421;
-        Wed, 28 Oct 2026 10:17:57 -0700 (PDT)
-Received: from [192.168.1.6] ([122.177.241.224])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6c03c09sm1454483b3a.35.2026.10.28.10.17.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 10:17:56 -0700 (PDT)
-Message-ID: <138abb5c-b1cb-44e5-a103-dccb022f3102@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 22:47:54 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=pobox.sk header.i=@pobox.sk header.a=rsa-sha256 header.s=mail header.b=AIHZ/u6G
+Received: from gmmr-2.centrum.cz (localhost [127.0.0.1])
+	by gmmr-2.centrum.cz (Postfix) with ESMTP id 39B0A2015CCC;
+	Wed, 28 Oct 2026 18:17:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.sk; s=mail;
+	t=1793207857; bh=hzV/ZJGd94HL5X5mqltv4CJEN+vCU91tSnLK6kAjKrE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=AIHZ/u6GvG82RgUIX7ap5qJxUHr3sjKq2fa1QkkiwrZ2LQZG3XoGYrM4dxqJyQelR
+	 FSTV+c8iojppIbkUKrx2ra7p+gpJJdQleZKiOyhONpDuiS6LMTOUnHPoPStgV623nv
+	 Q8RW0KrE4zBFvwe6Nx/UsnhgMmjF0OpeE4GQ0iPE=
+Received: from antispam96.centrum.cz (antispam96.cent [10.30.208.96])
+	by gmmr-2.centrum.cz (Postfix) with ESMTP id 37756200B34A;
+	Wed, 28 Oct 2026 18:17:37 +0100 (CET)
+X-CSE-ConnectionGUID: 9PGTwW1HRPqDFqy7uWKuBg==
+X-CSE-MsgGUID: qvYBplllSWCrqR8jRApZTg==
+X-ThreatScanner-Verdict: Negative
+X-IPAS-Result: =?us-ascii?q?A2FOAgBBLeJq/0vj/y5agRKBR4JXgmGWTIEWimWSJIF+D?=
+ =?us-ascii?q?wEBAQEBAQEBAQlRBAEBPw+ENwKOHSc2Bw4BAgQDAgMBAQEBAQEBAQEBAQsBA?=
+ =?us-ascii?q?QYBAQEBAQEGBgECgR2GCVOMGgGEAAYnCwFGEBg5VgYTgwKCOgEDN7dGMxoCZ?=
+ =?us-ascii?q?dx/FjUZZoFoAQsUAYE4jWN2hH2CC0SBFYJzdoQKhn4Egy6WREiBHgNZLAFVE?=
+ =?us-ascii?q?w0KCwcFgWgDNRIqFW4yHYEjPheBBxsGBYEdgR6BGYEHXYErKWABISdhgXYCg?=
+ =?us-ascii?q?lGCAAIBSUEOB0VTCSVDEkckIggSCQETGi4LgRo1PAkmQRUMZAsaBWIIAg0Md?=
+ =?us-ascii?q?jkQMSAmMgQDCRgNSBEsNxUZBD5uB5FMgw4WeIEDgWPGdweEIYRznGkaM4FKl?=
+ =?us-ascii?q?jQDkm6ZCKRahGmBbwmCBk2DWlMZjj0W0ht4PwcCBw8CkXM0gUwBAQ?=
+IronPort-PHdr: A9a23:NrLxABNpurLx8Sf4Wlsl6naVChdPi9zP1u491JMrhvp0f7i5+Ny6Z
+ QqDvqsr1AWCBNuDuqMMotGVmp6jcFRI2YyGvnEGfc4EfD4+ouJSsioeReWoMgnFFsPsdDEwB
+ 89YVVVorDmROElRH9viNRWJ+iXhpTEdFQ/iOgVrO+/7BpDdj9it1+C15pbffxhEiCCybL58L
+ Ri6txndutcZjYd/K6s91h/Er39VcOlK2G1kIk6ekBn76sqs5pBo7j5eu+gm985OUKX6e7o3Q
+ LlFBzk4MG47+dPmuwDbQQWA/nUTXXwanwRHDQbY9B31UYv/vSX8tupmxSmVJtb2QqwuWTSj9
+ KhkVhnlgzoaOjEj8WHXjstwjL9HoB+kuhdyzZLYbJ2TOfFjZa7WY88USnRdUcZQTyxBA52zb
+ 40TD+oaIO1Uq5Dxq0YSoReiAAWhAv7kxD1ViX/sxaA00/ovHB/b0gIuHNwAt3bbrNv6O6kdS
+ u250KrFwC/fY/5MxTvx9I7FeQ0hr/GWWrJwdNLcx1coFwPAlFqQspHuMS2S1uQLs2iU9fdgV
+ fmxhG49tgp8pSSvyt0wionOgIIVykrL9ThiwIkrP921U1Z7Ydm/H5tXuCCWLZB2QsA7Tmxup
+ S01xaEIt4ShcygW1JQo2QTfa/qffoaG/x7uW/qcLSl8iX94ZL+zmha8/Eehx+D9SMW50FJHo
+ ylEn9fCqHwByh/e59SbRvZg4kqs1jaC2x3d5+xZL045k7fQJZ05wrMomZcesF7PEjH2lUj2l
+ qOaaFso9+qy5+nlYrjqvoKQOox3hw3kL6gjm86yDf4lPgUAXWWX4/mw2b3n8ED/Xb5ElOc5k
+ rPDv5DfPckbo6m5DBJL3Ys78Ba/Cium0MwfnXkaMFJJYBKHgJbtO1HJOP34AvK/j023kDdu2
+ /DGJqDtDonXInffjrjhe6p961RByAo219xQ+5NVBqkAIPL1REDxqMTVAxA4PgCu3erqCNVw2
+ pkAVW6RAKKVKqHfvF+Q6uIqOeaMZYsVuDjnK/gi4v7jlWM5lUUBfamu25sXaGq3Hul9I0qHe
+ 3rhmc8BEWARsQo5Q+3mkkaCUT1La3aoQ608/i07CJ6hDYrbQICim6GO0Ty9HpJNe29KEFaMH
+ m3td4qaQ/sMcj6dItd9kjwYUrisU5Mh2QuytA/9zbpnLvDb+jADtZ39zth4/PXTlRYp+jxzA
+ MWRyXqNT2JskmMSWzA2xLx/oVB6ylqbzah4hP9YGsJI6vNVVQc6NoDTw/ZnBNDxQg7BZMuGS
+ E66QtW6BjE8VtYxw94IY0ZgFNSulxPD0DSwA78TibOLAIc58rzT33fvPcZx0XXG27c7j1kgX
+ MRPMXeqhqll9wjcH4LJiVmWl762daQA2y7A7GODzWuIvEFFXw98SKvEXXEFZkTIqdT2+FjCT
+ 6S1BLQ5PQtO19SCJrFJatL3l1VGQunsONDEb2K2gWewCg6ExrWXY4XyYWUSwD3dCFQYkwAU5
+ XuLNRAyCTqio2LfCTxjDUrhbUzi/udgtH22Ukk6wxmXYE1kzbW14AIaiOSERf0KxrwKt3Rpl
+ zIhIFG+0pr2oAqBowNncOB+ygMn71pBzm/f/1hhOZ+tB7xlhVNYfwch7G300BAiNoJFmNNik
+ HQszANvMq+CmAddMS+f25D5J6baMEHq+xqoe+jN2QeNg56t5q4T5aFg+B3YtwazGx9nqi0/u
+ +Q=
+IronPort-Data: A9a23:s7EdUKPb0BdeJtXvrR24lsFynXyQoLVcMsEvi/4bfWQNrUp31jMBz
+ GVLXGjTP6rYNmr2Kd0lOdji80sP6MCHzNVkSnM5pCpnJ55oRWspJjg7wmPYZX76whjrFRo/h
+ ykmQoCeaphyEjmE/0nF3oHJ9RFUzbuPSqf3FNnKMyVwQR4MYCo6gHqPocZg6mJTqYb/WVzlV
+ e/a+ZWFZgb9gW4sbgr41orawP9RlKWv0N8nlgNmDRx7lAe2v2UYCpsZOZawIxPQKqFIHvS3T
+ vr017qw+GXU5X8FUrtJRZ6mGqGiaue60Tmm0hK6aYD76vRxjnBaPpIACRYpQRw/ZwOhxIktl
+ YoX5fRcfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KTB22
+ sAHF2ktVCiaq8yv0e2mdcpxrMt2eaEHPKtH0p1h5T7cSO0jXYiaG+PB6NlExio1wMtcdRrcT
+ 5ZHL2AyMVKaOUIJZQp/5JEWxY9EglHjNSFfrlKcuLE6+UDLywZ2wP72M7I5f/TTFJ0OxhzC+
+ DuuE2LRGw8rHsSbzT6+zVm2n9WfnxnSQLAuG+jtnhJtqBjJroAJMzUQX1eTp/O1zEi3Xt83A
+ 1BS5i0oraEv70GxZsH6VRqo5mWH1jYAXNldO/E96wzLxqm8ywKYAHUUCz1MctorsOcoSjEwk
+ FyEhdXkAXpoqrL9YXac8KqE6CyzIyURIHQZTTELQBFD4NT5pow3yBXVQb5e/LWd0oOzQ2yth
+ WrQ825h2t3/kPI26klyxnif6xrEm3QDZlRdCtn/No590j5EWQ==
+IronPort-HdrOrdr: A9a23:gVLbQa8p9g+DBP9ywwxuk+DPI+orL9Y04lQ7vn2ZhyY4TiX+rb
+ HLoB1173HJYVoqMk3I3OrwW5VoIkmskKKdg7NxAV7KZmCP01dAbrsSj7cKqAeOJ8SRzINgPN
+ 9bE5RDNA==
+X-Talos-CUID: 9a23:RcTN6W4iha9o8cvYctsspXY7Jt8aK13n9G78DVapVntWa6C/RgrF
+X-Talos-MUID: =?us-ascii?q?9a23=3A7SwDFQ+jrKiHZz4pEhEbGwqQf9520o62DEQJqqo?=
+ =?us-ascii?q?todC+ZS5KEi+vsDviFw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.27,183,1787004000"; 
+   d="scan'208";a="190302261"
+Received: from unknown (HELO gm-smtp10.centrum.cz) ([46.255.227.75])
+  by antispam96.centrum.cz with ESMTP; 28 Oct 2026 18:17:36 +0100
+Received: from blackbox.p10 (188-167-137-159.dynamic.chello.sk [188.167.137.159])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gm-smtp10.centrum.cz (Postfix) with ESMTPSA id A47671011FBFB;
+	Wed, 28 Oct 2026 18:17:36 +0100 (CET)
+From: Tomas Tonhauser <t.tonhauser@pobox.sk>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: linux-wireless@vger.kernel.org,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-kernel@vger.kernel.org,
+	Tomas Tonhauser <t.tonhauser@pobox.sk>
+Subject: [PATCH v2 1/2] wifi: ath9k: clear destination mask for non-aggregate frames
+Date: Wed, 28 Oct 2026 18:16:51 +0100
+Message-ID: <20261028171652.1125692-2-t.tonhauser@pobox.sk>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028171652.1125692-1-t.tonhauser@pobox.sk>
+References: <20261028171652.1125692-1-t.tonhauser@pobox.sk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,239 +134,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: dwc3: core: Fix RAM interface getting stuck
- during enumeration
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20260929-ram-interface-stuck-v3-v3-1-0d1a54db233c@oss.qualcomm.com>
- <d45f758a-8d00-4f76-aef9-7364156f4ce3@oss.qualcomm.com>
- <as7c1LHrOsqAA4Nx@vbox>
- <94c4056d-7f7e-46ef-97cd-dd12621260bd@oss.qualcomm.com>
- <atAuSs9VTveGwzpy@vbox>
- <526b4857-4a4e-4ebc-a367-bdcf9a9c9a53@oss.qualcomm.com>
- <atgaF8VoapljDa2f@vbox>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <atgaF8VoapljDa2f@vbox>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfXyagEwhqCaY9q
- 4Wih57a0OjwhHZS+RBV5mgY90j37/vIIvbjZw05aNgwWDcSP8sIOcpvx1uLBTbr5I9k1w3Wnp4S
- XZMw/AJ6y86eLLQs2bHV78ft0PInNFYQoXpWVu6//TDL5hGoHvbWVuATcAxUE3Wzug+osyuV3Bc
- S5+TMx8Iff8+P1UPRk8+3PbYPdO3yqDAzFb5SB0GIMjsgmensD2c7a0KtrfgX28Ipsw1bdYipRn
- JA2vt83wgzzDa4UE6aA4SCEfEKaPg/hUUEXGVUtSheOidrZp3AaugJh2QSOu5boWeZ/vKHLWwJP
- cFtExNJ6gOyFiLk8CDC0OELZjEtjTO8KJm5dDAHXjYarvetLxwc/ADxFGX9r89JMWi2CCZaMQIc
- s/UO3s+sDkVO9MEMc/EQ1XiUVwoJh2nDxyVE8UzVU0NSliQO/+owG/bOL0jpWsYgRkNKBnDy7eC
- MHlOjJU3KquMJASzbrQ==
-X-Proofpoint-GUID: xrmP_cxLCRHtRd_oeS-_sQSSowNtlu9k
-X-Proofpoint-ORIG-GUID: xrmP_cxLCRHtRd_oeS-_sQSSowNtlu9k
-X-Authority-Analysis: v=2.4 cv=LdipeTfi c=1 sm=1 tr=0 ts=6ae22e46 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=VANyJ50yWUE6IziFVoGcxg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=EyA4L-WO06RbGTTq3NMA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfXxgnwLQMumQQ+
- KMOlspM+rXSoouZlMskEshCpvEDKwYW/5ukY+sR/GOxg1AhvkvkHmqq/roNxRfz/uV3SmOM+wMt
- wlaRhUalpxIbeYhNb7oFnU7gRaXgTaY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280068
+Content-Transfer-Encoding: 8bit
 
+Frames to stations without an A-MPDU session (e.g. non-WMM/non-HT
+clients) use the non-aggregate path. The hardware may complete such
+frames with ATH9K_TXERR_FILT while the station is awake. They are
+then reported to mac80211 as IEEE80211_TX_STAT_TX_FILTERED, and
+ieee80211_handle_filtered_frame() retries them only once for a
+station that is not in powersave.
 
+The aggregate path re-queues filtered subframes on tid->retry_q and
+sets tid->clear_ps_filter, so they are retransmitted until they get
+through.
 
-On 10/21/2026 7:31 AM, Thinh Nguyen wrote:
-> On Thu, Oct 15, 2026, Krishna Kurapati wrote:
->>
->>
->> On 10/15/2026 7:42 AM, Thinh Nguyen wrote:
->>> On Wed, Oct 14, 2026, Krishna Kurapati wrote:
->>>>
->>>>
->>>> On 10/14/2026 7:14 AM, Thinh Nguyen wrote:
->>>>> On Tue, Oct 13, 2026, Krishna Kurapati wrote:
->>>>>>
->>>>>>
->>>>>> On 9/29/2026 10:49 AM, Krishna Kurapati wrote:
->>>>>>> During plug-in/plug-out test cases, it is sometimes seen that no events
->>>>>>> are generated by the controller and all CSR register reads give "0" and
->>>>>>> CSR_Timeout bit gets set indicating that CSR reads/writes are timing out
->>>>>>> or timed out.
->>>>>>>
->>>>>>> The issue comes up on different instnaces of enumeration on different
->>>>>>> platforms. On SM8550, the debug log is as follows:
->>>>>>>
->>>>>>> Prepared a TRB on ep0out and did start transfer to get set
->>>>>>> address request from host:
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421006: dwc3_gadget_ep_cmd: ep0out:
->>>>>>> cmd 'Start Transfer' [406] params 00000000 efffa000 00000000 -->
->>>>>>> status: Successful
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421196: dwc3_event: event (0000c040):
->>>>>>> ep0out: Transfer Complete (sIL) [Setup Phase]
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421197: dwc3_ctrl_req: Set
->>>>>>> Address(Addr = 01)
->>>>>>>
->>>>>>> An XFER NRDY is received on ep0in for zero length status phase and
->>>>>>> a Start Transfer was done on ep0in with 0-length packet in 2 Stage
->>>>>>> status phase:
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421249: dwc3_event: event (000020c2):
->>>>>>> ep0in: Transfer Not Ready [00000000] (Not Active) [Status Phase]
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421266: dwc3_prepare_trb: ep0in: trb
->>>>>>> ffffffc00fcfd000 (E0:D0) buf 00000000efffa000 size 0 ctrl 00000c33
->>>>>>> sofn 00000000 (HLcs:SC:status2)
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.421387: dwc3_gadget_ep_cmd: ep0in: cmd
->>>>>>> 'Start Transfer' [406] params 00000000 efffa000 00000000 -->status:
->>>>>>> Successful
->>>>>>>
->>>>>>> A bus reset was then received directly after 500 msec. Software never
->>>>>>> got the cmd complete for the start transfer done in status phase. Here
->>>>>>> the RAM interface is stuck. So host issues a bus reset as link is
->>>>>>> idle for 500 msec:
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.935603: dwc3_event: event (00000101):
->>>>>>> Reset [U0]
->>>>>>>
->>>>>>> Then software sees that it is in status phase and we issue an ENDXFER
->>>>>>> on ep0in and it gets timedout waiting for the CMDACT to go '0':
->>>>>>>
->>>>>>> <...>-7191    [000] D..1.    66.958249: dwc3_gadget_ep_cmd: ep0in: cmd
->>>>>>> 'End Transfer' [10508] params 00000000 00000000 00000000 --> status:
->>>>>>> Timed Out
->>>>>>>
->>>>>>> Upon debug with Synopsys, the root cause is as follows:
->>>>>>>
->>>>>>> During any transfer, if the data is not successfully transmitted,
->>>>>>> then a Done (with failure) handshake is returned, so that the BMU
->>>>>>> can re-attempt the same data again by rewinding its data pointers.
->>>>>>>
->>>>>>> But, if the USB IN is a 0-length payload (which is what is happening
->>>>>>> in this case - 2 stage status phase of set_address), then there is no
->>>>>>> need to rewind the pointers and the Done (with failure) handshake is
->>>>>>> not returned for failure case. This keeps the Request-Done interface
->>>>>>> busy till the next Done handshake. The MAC sends the 0-length payload
->>>>>>> again when the host requests. If the transmission is successful this
->>>>>>> time, the Done (with success) handshake is provided back. Otherwise,
->>>>>>> it repeats the same steps again.
->>>>>>>
->>>>>>> If the cable is disconnected or if the Host aborts the transfer on 3
->>>>>>> consecutive failed attempts, the Request-Done handshake is not
->>>>>>> complete. This keeps the interface busy.
->>>>>>>
->>>>>>> The subsequent RAM access cannot proceed until the above pending
->>>>>>> transfer is complete. This results in failure of any access to RAM
->>>>>>> address locations. Many of the EndPoint commands need to access the
->>>>>>> RAM and they would fail to complete successfully.
->>>>>>>
->>>>>>> Furthermore when cable removal happens, this would not generate a
->>>>>>> disconnect event and the "connected" flag remains true always blockin
->>>>>>> suspend.
->>>>>>>
->>>>>>> Synopsys confirmed that the issue is present on all USB3 devices and
->>>>>>> as a workaround, suggested to re-initialize device mode.
->>>>>>>
->>>>>>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->>>>>>
->>>>>>
->>>>>> Thinh, Can you help provide your review on this patch.
->>>>>>
->>>>>
->>>>> Hi Krishna,
->>>>>
->>>>> If the CSR_Timeout bit is set, why not check GSTS.CSRTimeout directly
->>>>> instead of indirectly checking DEPCMD type mismatch?
->>>>>
->>>>
->>>> As per discussion on [1], implemented this checking of DEPCMD registers. Let
->>>> me know if reading GSTS is a better option here. Will send v4 accordingly.
->>>
->>> At the time, my understanding was that all register reads return 0 in
->>> this state as noted in that conversation. However, based on your commit
->>> message and the databook, GSTS is still accessible and CSRTimeout is
->>> set. Also, on CSR timeout, the read data is residue from a previous read
->>> and isn't guaranteed to be 0. So the DEPCMD read back isn't reliable.
->>>
->>> Can you check GSTS.CSRTimeout after the CMDACT polling instead?
->>> Something like this:
->>>
->>> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
->>> index ee837235630a..ff4957a7311e 100644
->>> --- a/drivers/usb/dwc3/gadget.c
->>> +++ b/drivers/usb/dwc3/gadget.c
->>> @@ -283,6 +283,8 @@ int dwc3_send_gadget_generic_command(struct dwc3 *dwc, unsigned int cmd,
->>>    	return ret;
->>>    }
->>> +static void dwc3_schedule_err_recovery(struct dwc3 *dwc);
->>> +
->>>    /**
->>>     * dwc3_send_gadget_ep_cmd - issue an endpoint command
->>>     * @dep: the endpoint to which the command is going to be issued
->>> @@ -432,6 +434,14 @@ int dwc3_send_gadget_ep_cmd(struct dwc3_ep *dep, unsigned int cmd,
->>>    		cmd_status = -ETIMEDOUT;
->>>    	}
->>> +	reg = dwc3_readl(dwc, DWC3_GSTS);
->>> +	if (reg & DWC3_GSTS_CSR_TIMEOUT) {
->>> +		dwc3_writel(dwc, DWC3_GSTS, DWC3_GSTS_CSR_TIMEOUT);
->>> +		ret = -ETIMEDOUT;
->>> +		cmd_status = -ETIMEDOUT;
->>> +		dwc3_schedule_err_recovery(dwc);
->>> +	}
->>> +
->>>    skip_status:
->>>    	trace_dwc3_gadget_ep_cmd(dep, cmd, params, cmd_status);
->>
->> I don't have the apparatus to reproduce this issue at my end currently and
->> extremely difficult to reproduce at customer end. Will send this diff along
->> with your suggested-by tag if that is fine.
->>
-> 
-> I'd rather not take this without testing. The check adds a register read
-> to every endpoint command and implies that CSR timeout is expected
-> during command sending, which it shouldn't be. Without confirmation that
-> it catches the issue and that recovery works, that cost is not
-> justified.
-> 
+The result is downlink loss to awake non-WMM stations, while WMM/HT
+stations on the same radio are unaffected. On a QCA9563 AP with
+ESP8266 clients this caused 20-40% ping loss.
 
-I won't be able to test this in my environment. The only PIPO test that 
-easily reproduced it easily was with one faulty cable from (IIRC Xiaomi) 
-and CDP port of AMD based Lenovo laptop (there was a particular variant, 
-I will find out). I don't have that faulty cable for now, but this issue 
-was reported even on Kaanapali as well on 6.12 Kernel (mobile build). 
-Not sure if I can provide this series along with err_recovery_work to 
-OEM and get the results since this is reproducible with very difficulty 
-on their end too.
+Set CLRDMASK on every non-aggregate frame. This restores the
+behaviour from before commit 5519541d5a5f ("ath9k: fix powersave
+frame filtering/buffering in AP mode") for the non-aggregate path
+only. The trade-off is that non-aggregate frames already queued in
+hardware when a station enters powersave may be sent to the sleeping
+station instead of being filtered.
 
-How about we add the Depcmd check and then the GSTS check inside it ? To 
-avoid checking GSTS always.
+Assisted-by: LLM
+Signed-off-by: Tomas Tonhauser <t.tonhauser@pobox.sk>
+---
 
-> Also, looking at the original report again, the stuck state could start
-> without an endpoint command being issued. Unplugging the cable then gave
-> no disconnect event, which blocked suspend. A check only in
-> dwc3_send_gadget_ep_cmd() wouldn't catch that.
-> 
+Notes:
+    v2: code unchanged, commit message updated
 
-Currently on downstream, the way we work is that if we unplug the cable 
-we expect the controller enter runtime suspend. If that doesn't happen 
-and the controller is stuck, we do a 
-"usb_gadget_disconnect(dwc->gadget)" and then upon re-connect we do a 
-"usb_gadget_connect(dwc->gadget)". So, if upon any plug-in, if 
-enumeration fails and if we encounter this scenario, we are not handling 
-this until plug out is done.
+ drivers/net/wireless/ath/ath9k/xmit.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Regards,
-Krishna,
-
+diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
+index 3413bb4906d4..913aa280ae2a 100644
+--- a/drivers/net/wireless/ath/ath9k/xmit.c
++++ b/drivers/net/wireless/ath/ath9k/xmit.c
+@@ -1432,7 +1432,7 @@ static void ath_tx_fill_desc(struct ath_softc *sc, struct ath_buf *bf,
+ 			if (!sc->tx99_state)
+ 				info.flags = ATH9K_TXDESC_INTREQ;
+ 			if ((tx_info->flags & IEEE80211_TX_CTL_CLEAR_PS_FILT) ||
+-			    txq == sc->tx.uapsdq)
++			    txq == sc->tx.uapsdq || !aggr)
+ 				info.flags |= ATH9K_TXDESC_CLRDMASK;
+ 
+ 			if (tx_info->flags & IEEE80211_TX_CTL_NO_ACK)
+-- 
+2.34.1
 
