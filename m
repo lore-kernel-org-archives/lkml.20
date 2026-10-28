@@ -1,61 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176191;
-	b=zjzKhrf/wxQ2FtZnkD9EVi9NSaBuYHoQNfCPzauB8q4SAudg8Jg4iPloVWP8ouAepjTD
-	 w78MvUF4jOvMSTxZk7wH5haRx4h94CclzXmr08EcUi3y/Mi9MKE71aR62isi/g2wt+9+O
-	 YbYoST9jyRhs58U5prpz/+2SSJo+KdTpsT08l8PvTE9Zyf3ZfGqlBkDFfj5yH2PuwWfTp
-	 RY7mxtIhmn4pATtvyvaKcAN4f/5PrEVgJHCqKNDZHMWf4qJLgty/RxQ9p6Ivd2qG7DRm3
-	 OsaIflHZMreB9IQcs/mdy6+4s84oZotBOplipdulGkV5gMOSRBkWw8EVsi5Cu2dMp/Q==
+	t=1793176195;
+	b=2g7QV1EtGUq7zZfaaxv5xDjQSzhJuPtiLzh/aXrQKoD3ZHPRyakrAxVCtgu9Ld12Pslk
+	 WCkMIeL+UWT3vDxJugC9dSy6bdlx67f1Vf7ZLQGZ0EicOAQlHyd5V2KS+XiaLe3pAu5XM
+	 za9OA0nCmiRzUF7a4LMer6YMZju0cLpzkhbG8tQcnbRELnamOupjUqICL/E2cMktGo/H0
+	 J9wZ+Lw/w78ZJQP1xHIXcvUmjnXwVQg4sIjhz9TuY2S4PVqftuA0EHfif2GDL+pL5cLnn
+	 Y2anV7SNiwKTn2jw66+8QWjNfJW2f0mhBBd380dB9Dnf/7p0Ww+eAtr63qK8WBPWkgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176191;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=tSsll3kKf/A5nOKxO5JS6a9ssNuy0Uui3cKpvaZxhZ0=;
-	b=uo8UXgS2Mlh2DP0T+am9k0PAP/+gEAWu/rYPeaJAxaSA4MXjfWj3p8uqEgbQUyW49z9l
-	 121K6k5NgXwdZelrWXT92TJAJfu+BZ7pjUfwGETLmFAoTh/q/OL1AliJfScAVQxxTfYc/
-	 BmMH1Ocl783CJZQGZ0vKZ5MAh6X8ArvLbYMAC708vDz/LoYADrGnfdUu77HQ8onD8/Rr9
-	 52f3wdEKduyOZl6+9v4J2S1W+e/6eMri7EVvXCmx7G7pr2CPthik3+chLT6X/BdzcsCkT
-	 AsHNVPAMlZmU4rhQedjtS4ohkOpr9eVKJRSabWiwgp+FYkv1cUy5rJ77DS3m4JZ3bmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176195;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=phov0yx4/iWFGJSHvqREaKJOsHR3bBycQ5pnM0JKxhE=;
+	b=yK8PXrE7VbhvFOp0NzHxTnkDvmY2BgscdTJKh4vZXDzjnVmvw8pZZrPfMv/KVKZESLkJ
+	 lDNN3dcoToyH1aQcN/L3AK+eJ7QoBcnRumpuPVd0bZgU8baSje7Ctb6quLRY41MX7oI2S
+	 VNJ1+ZZJN1a946XNRiw17C4/BkVvULHlZVsgk6N/cgCZiVpKRIGQolucaELSMZ4m7j4q7
+	 a6tPgKeRJ2unEZOUUCEOl5Bl1pH+vYojsg8vBdhBLlwEh4PPg6EfcIpUmXlm1PzeEbTvm
+	 l+YzqLenbB2n+6DNrWdlbxxiMXMIYaPdWwqNoFIEjvy/UFuyNB8a9A+fzw8OLwMaWXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJ5Q5aLb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MB4AYznO;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZvAc9nHM;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69EF606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:29:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3922606A329
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3922606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJ5Q5aLb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7E11F031F4
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793176190;
-	bh=tSsll3kKf/A5nOKxO5JS6a9ssNuy0Uui3cKpvaZxhZ0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eJ5Q5aLbqDPJ5gof5fltzVkIsyvjcisnT6uC7Ii6JTZqbS+D5XYGScuRWpa1tX2SF
-	 MVQZq27HUDKZzmlR5s4xpRjwQ/IS/jZDPXPityyrXnpDNVJhMVii6hBsp5K83mmYUe
-	 nMSJnU8mMA6Od/5vfvCI54TKcHyd/cLIN3y/U7+Y45y8qVycueSy+oqPYbpQwOXPDj
-	 kpQlh9ZUujRsVeCNaZfzS4TyDzpMPG4yoOa8BrV8BvXwHI5crpnGofzIP5SBfNCevQ
-	 r8UivzfCpUNJW8xmuZzi80gdrABlR7w9ZJdaIJAT+pa9QULQ2FjU+xSL7Y5Zu+yyqW
-	 Y8ZymlLzf8PTg==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso820390e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:29:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzY+j5gVQ235J+KKLKO1yktGXHklfTTo5pxaTJfaZu8jt3CkupsLgkd5PEDw/t5+yl0kwUoa6dQPjQS474=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgHzapiusaKKw5lUnW8SDxpifFPNZAPpVlpVpXYjRcU8HeGVpZ
-	ud8fotiheI6rHa6mO2gjXNktDQ1efK4LA1QYKXcDtmcz+nQ/onwrHnmGfb48AgXXBdudAZRCvSU
-	774qhye9eMYomSSUIUKsLbvac/2Ivd4ZW8CTU0ZCPDQ==
-X-Received: by 2002:a05:6512:39d4:b0:5be:4904:d2c4 with SMTP id
- 2adb3069b0e04-5bfcad7e51bmr690736e87.15.1793176189147; Wed, 28 Oct 2026
- 01:29:49 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 03:29:47 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 03:29:47 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <5114bca8-91bf-4db0-ae12-442d21ebad84@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MB4AYznO;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZvAc9nHM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793176193;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=phov0yx4/iWFGJSHvqREaKJOsHR3bBycQ5pnM0JKxhE=;
+	b=MB4AYznOUEDvYIZNqKIwk+zgeXx+3SGMWTtHmqy3ynHlAPe5qknsc3rRjwTFmSt7UPMWp6
+	NIlb8vdP03afTdEp5EL0jlIS5+V33VGH0xS9DDUX0PrELGoIogv6hbEFl4ypmaIknp+mUN
+	vCy/aF44pLGiR1aCfzeZiPX7EX0fu14=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-556-RSiDeoxYPEeA-AnlsWBOZw-1; Wed, 28 Oct 2026 04:29:52 -0400
+X-MC-Unique: RSiDeoxYPEeA-AnlsWBOZw-1
+X-Mimecast-MFC-AGG-ID: RSiDeoxYPEeA-AnlsWBOZw_1793176191
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b01a74792so437642f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:29:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793176191; x=1793780991; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=phov0yx4/iWFGJSHvqREaKJOsHR3bBycQ5pnM0JKxhE=;
+        b=ZvAc9nHMlHp4WGyWUmvgA7gFATCXQ1Xlf4bFz+FTyQ1j460Qq/d+jJ4B3uTHhvFP/m
+         +xS0qx+z3CNVN1WvPSi4KVf/MznA7zMvPEkaEDtxOHIXqyIp0K1zev8JXD5sgfysCQ98
+         NweuZ5gd2FYHn6XH8GR+OzeM0J2CQ8vAeu78ze0sMFkrS/O4lfNB3O5n5raWq5wfuVlZ
+         4X97+GNd6U8KeYd8lsS+DgxkT1a70enF6qEGTsjcfnCp/dTpuq/2cOstBpd8I28qltAV
+         j9sgaRbFeCdfLpcJWu/zydgzVGsZLoUVcMs2bbJJWMk/4Mixrvz8e6X6bnUCl1Adafj2
+         zaXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793176191; x=1793780991;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phov0yx4/iWFGJSHvqREaKJOsHR3bBycQ5pnM0JKxhE=;
+        b=iIVK7YCKDL1Z8MmE91XYAO0JzNTG5nXOv9WbT01BTm68PZJLcvsO2G3TtLkpfyXrP5
+         +DtZiOHDRWOHGoD01ChMRDM+6i7Xy+yZopcr+hcW/hDVvEs+nK8f9DA43WoKqvLDbubo
+         ZuqZX/qB+KjMuDWLM/uXjzLzK+FMdS31Y6JcAzjBG+Vv+qysaqdD+itC1kKNbmuPSOUJ
+         ItNWSjCEpKdnYkxXY5AuMSZZj+I8xSQHAYRCzr7I/6nJy9sQGdC/G6qjQy0BsxnLOu/d
+         vIwqoGqvhiBRO/pQHkpqlwab1SNN7sdcUJkrTenGJd1T4bA82W22Qw5bB/LLrdla8Np1
+         lT9w==
+X-Forwarded-Encrypted: i=1; AKwUvBysxwtCcWXz7tyjzzWnZ1GF40ahsjSKvuMW1IgEqQExjSJ4IFLWEWAZNQIyf30kUho6zpNJntQ98g5Jl0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4Edl4wT9eVwnrFUKB47KP3VjLmoc1tkVo8B0zpxcBLQym9wU8
+	IOVE1hXqqfYOrPKK9eZk/wd25OcWpFlEv6O6FjcBAg6+BUUbAXEV8qxnRskNKlZdqmdEL3Tjclx
+	2P6JKHsZL9/39bI8ElswldeokFDXvWGb2t50x8Wc0n2N7GESWaqvXDLhZagXqi838SQ==
+X-Gm-Gg: AYBFou1st5Pn1WquTxqN0mjqKMAjNOHLpA9w6hk7hjPuvkxmijlfHCAYxwl/Or01OjK
+	6rF+lUprKjy3vcKVC7VpxwXcxy6cDuiHGGwk1IbjnREtOdA8OtGizp7SvuufuIFakKYwrW8C0+G
+	vWzpfqRs3xlo0CR+X0xFUGJW9tKPQ7jXSe5c0y0Sk7WNP0b5MatpGk6RA9ufUjWKfgMIC2TQmS6
+	32+b4TeOn2XV18hvrh/oGSIHfNUgnwcCn7iIjViHPMB3pv9fBIICQw4JZtr6v7b7xA8cT/sjr4J
+	yQp7Aq48XYbJ5IDgw2SPPRnS3dsKqpkO6/1++R3B4xuydua7bERfySz2pRzQMcGuVppoveprP7k
+	PDi5oXM9p/1JKY9NjRqPKZAnf0sOpt350IstXBFAtHt4=
+X-Received: by 2002:a05:6000:25fd:b0:487:342:d141 with SMTP id ffacd0b85a97d-48e5d5986bcmr4042052f8f.23.1793176190922;
+        Wed, 28 Oct 2026 01:29:50 -0700 (PDT)
+X-Received: by 2002:a05:6000:25fd:b0:487:342:d141 with SMTP id ffacd0b85a97d-48e5d5986bcmr4042016f8f.23.1793176190533;
+        Wed, 28 Oct 2026 01:29:50 -0700 (PDT)
+Received: from localhost ([139.47.30.142])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48e0sm27541537f8f.38.2026.10.28.01.29.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 01:29:49 -0700 (PDT)
+Date: Wed, 28 Oct 2026 09:29:48 +0100
+From: Albert Esteve <aesteve@redhat.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Sarannya S <sarannya.s@oss.qualcomm.com>,
+	Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+	Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/4] soc: qcom: smem: validate private entry list walks
+Message-ID: <auGyfKTc9QnREUr3@aesteve-thinkpadp1gen8.rmtes.csb>
+References: <20261022-port-smem-v4-0-b0baf39c6e01@redhat.com>
+ <20261022-port-smem-v4-2-b0baf39c6e01@redhat.com>
+ <abf21903-16ee-4d3c-8bd4-84ac2c4623f8@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,67 +120,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-sa8255p-emac-dts-v1-0-a34d778ce9ac@oss.qualcomm.com>
- <20261023-sa8255p-emac-dts-v1-3-a34d778ce9ac@oss.qualcomm.com> <5114bca8-91bf-4db0-ae12-442d21ebad84@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 03:29:47 -0500
-X-Gmail-Original-Message-ID: <CAMRc=McWSHn03C9DZ8ZohebfDA9z8L=xJ05KDOYEm6n3eHPArA@mail.gmail.com>
-X-Gm-Features: AclHuK9WkISxEdVMPKocpMJX1vIBeHnYYBYBtz3ekKYCE5vss8u7OwiUvounMh4
-Message-ID: <CAMRc=McWSHn03C9DZ8ZohebfDA9z8L=xJ05KDOYEm6n3eHPArA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: lemans-sa8255p: add ethernet nodes
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <abf21903-16ee-4d3c-8bd4-84ac2c4623f8@oss.qualcomm.com>
 
-On Fri, 23 Oct 2026 14:32:16 +0200, Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> said:
-> On 10/23/26 11:02 AM, Bartosz Golaszewski wrote:
->> Add the ethernet nodes along with their serdes PHY nodes for the gearvm
->> variant of the lemans ride board. Enable scmi7 and scmi8 to serve the
->> EMACs.
->>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi      |  28 +++
->>  arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts | 213 +++++++++++++++++++++++
->>  2 files changed, 241 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> index 4c155cbc79754af632848cd55b738e3ef0511cb5..c64cfd279af458e24fb48083ae549c96cfc07485 100644
->> --- a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> @@ -58,6 +58,14 @@ &cpufreq_hw {
->>  	clock-names = "xo", "alternate";
->>  };
->>
+On Tue, Oct 27, 2026 at 01:45:26PM +0100, Konrad Dybcio wrote:
+> On 10/22/26 11:47 AM, Albert Esteve wrote:
+> > From: Sarannya S <sarannya.s@oss.qualcomm.com>
+> > 
+> > When walking private entries, use the uncached/cached free offsets as
+> > the list bounds, require room for a header before dereferencing, and
+> > reject a next pointer that does not advance.
+> > 
+> > Skip the cached list when the cached free offset is at the partition
+> > end.
+> > 
+> > Signed-off-by: Sarannya S <sarannya.s@oss.qualcomm.com>
+> > Signed-off-by: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
+> > Signed-off-by: Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  drivers/soc/qcom/smem.c | 52 ++++++++++++++++++++++++++++++++++++-------------
+> >  1 file changed, 38 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
+> > index 36a4a10f3aec..a6732832e2c5 100644
+> > --- a/drivers/soc/qcom/smem.c
+> > +++ b/drivers/soc/qcom/smem.c
+> > @@ -422,6 +422,7 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
+> >  				   size_t size)
+> >  {
+> >  	struct smem_private_entry *hdr, *end;
+> > +	struct smem_private_entry *next_hdr;
+> >  	struct smem_partition_header *phdr;
+> >  	size_t alloc_size;
+> >  	void *cached;
+> > @@ -434,19 +435,25 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
+> >  	end = phdr_to_last_uncached_entry(phdr);
+> >  	cached = phdr_to_last_cached_entry(phdr);
+> >  
+> > -	if (WARN_ON((void *)end > p_end || cached > p_end))
+> > +	if (WARN_ON(!IN_PARTITION_RANGE(end, 0, phdr, cached) ||
+> > +			cached > p_end))
+> 
+> nit: i wouldn't break this line, and otherwise the next line should
+> start below where the first condition starts
 
-...
+Right. The statement fits in one line so will do that.
 
->> +
->>  &firmware {
->>  	scm {
->>  		memory-region = <&tz_ffi_mem>;
->> @@ -3226,6 +3234,26 @@ cma: linux,cma {
->>  	};
->>  };
->>
->> +&soc {
->> +	serdes0: phy@8901000 {
->> +		compatible = "qcom,sa8255p-dwmac-sgmii-phy";
->
-> Hmm.. I was hoping Shawn's DT reshuffling would land first
->
+> 
+> [...]
+> 
+> > -	if (WARN_ON((void *)hdr > p_end))
+> > +	if (WARN_ON((void *)hdr > (void *)end))
+> 
+> LLM noticed that before this patch, we risk overrunning end, but with
+> this patch, we now risk a corrupted/malicious partition ending before
+> 'end'. A valid walk always lands exactly on `end`, so the fix is:
+> 
+> if (WARN_ON(hdr != end))
+>     return -EINVAL;
 
-This series depends on Shawn's, I too hope it lands first. :)
+I see, makes sense. Will do as suggested.
 
-> Are the PHYs hardwired? If so, you can move the phys= reference
-> here
+> 
+> 
+> Otherwise my clanker is reasonably happy and I see nothing wrong
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Yes, they are and will do in v2.
+Thanks!
 
-Bart
+> 
+> Konrad
+
