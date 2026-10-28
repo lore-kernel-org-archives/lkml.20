@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214797;
-	b=Dq4fGpOfpIwy1mCB4pcBXeyQ5UntYTCkYZUql0OAi8cG+6ORvwnz+8GKJSr9IH+Ks4Tk
-	 79TLv9ALNs5c/5LMamSaDsuWtwgsCD7zPWlppu5OLEeMFKuPjRegz+bgiNytM8UgI50lt
-	 lmDFwKkgMG/s3xx+R9EK0PnnjsqqzlDugEr9/7714o7LRaW3oIGhCSoCZ/7JulQMXPxg2
-	 ZgaMKLFcJEhdSyIEvp9T+zj/is2ffF9C4EoVjnD98sMZq/3Yto13C6FdtJzsypsIf0ryJ
-	 VH/fwJ5XUGZECi9uCZ2tGGVMBOOJd+OgLJgFqLNYi9sNj4hWwKBG83N0EfbEPL+RojA==
+	t=1793214879;
+	b=dM1dOGgzXiVPgayqxjzBnuyHkHmrWDqaPM5FC5InZUor9npwglEcYWf5Hm7VeML+InpB
+	 zsb20GDBRHEr3NI9UDIpVmiNuvXXVZn8DuMsRe+Prgdz+VWoPhqpJzIpS00iwSjplXexl
+	 QoLtGC0OAeyksf+wL3CNU6XpV8yyW38h1HZXlLmyAja/WS8Fe77/hFb71AIXLKkR89idS
+	 9knURm4pSV8hNddrjW9ZUOQJvF0s3ttEK2g/0+9VBS1KyErj+dKu7hPLbsfKUJLN1A6Ju
+	 GoWIZjMlvE7P0uTY7dQZL7BLonAH4qfb13DKeVDHPne+2lbOEai8fF4G1TqxjKMU5TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214797;
-	h=DMARC-Filter:DKIM-Signature:Cc:Date:X-Change-Id:X-Lms-Return-Path:To:
-	 Mime-Version:Content-Transfer-Encoding:Message-Id:Received:
-	 X-Original-From:X-B4-Tracking:From:Subject:X-Mailer:Content-Type;
-	bh=5Ho613DEFXGKANIja0pHs3tOiqG6nqaHpNl0UxzSoSQ=;
-	b=NTMd7TEB9RlO3tClco4qnNk6AIoQne0ricBwPkPj4eOnvmMcuWPAE3HcaAVOYMjb19Ht
-	 6tAbcfNBorebbT3JnkQjld1tUGbSZw+X7eMPf0VoSQY+9HQrikcXLyXVyE/Xa6nPwnQb0
-	 ZPWqbs9rgfO5ORjknINlwvx+BJg208NFJIwsudZge8CVxbg066cuRHmmHGFoEM2FjtCkg
-	 vsLgEA3UkYdl1aIgk2hX9NT77uUFheWycoJy1HvGq+kpDCLnqz/w2x7ih2B1EM0KgUtTZ
-	 knEEUHVQZnxmH0m5RaMDcJrUpqkEE7DbCUMyZWvfC7qpci449fMmu/SVc0JtdKKZZmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214879;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aWVDvbEQQQ1SjDTO2dDhPAAkUx0gj3dMclo/LMFAu/s=;
+	b=ml794H6YkaEpHB5q1aj3W4Y66b9XmZ5MofzrqWSqe3MJ88szjJnd8FUUpkTJr7H28HoU
+	 h9MB6mWA+wnOb586IXzrNNgRUAhiGWQDt4ViLyiE2cO+7v4dsLj2SNDOHDWCWoMu+1esT
+	 ZReUQV8Yf2jzapmHdYKFqYdpAk+vUKIB7I3wkKV1bRyQhbPf9iPIgd2eWaEE7vtAZ7IZ8
+	 GJ1NKJf64GSdli/741frFS4nleUdBhW8A0WAcx2Z4nHWnz24SDkoMWMGLI6qkpnEaLFty
+	 jmS7C1xiWI4WgxnAeWx8iZGRd3Y5+VxVYSqw1w4O/F9fdyRe5SkrhWd9ivYol2+fMXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=sdaAd5sD;
-	arc=none smtp.remote-ip=71.18.227.4
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7eMqn8a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB73D606A33A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB73D606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF83606AB38;
+	Wed, 28 Oct 2026 19:14:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=sdaAd5sD
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793214790; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=5Ho613DEFXGKANIja0pHs3tOiqG6nqaHpNl0UxzSoSQ=;
- b=sdaAd5sDasqUo/v9Ym1bRsiUTApO5wNunRezUl98f0W08jjDFL2OqooCervkoa/WJXK9Nb
- G4yzXZvHatjk2rzkLrtvHtMxfn8O7LKiwBk/GLGNEBKbd+28grC3sotl1kbm9aYiGR0l3c
- EZ2i/zAxn5l7Qo23pXBQGx+YgkVwz5wSzMUeqrlNYrLr+Wl4jPVDTzViNF05olX6xWEEn3
- QUQP8YkWPXeN47ne5XBZJVUSjaNWXcDsy0sjj+N1OAPOEXvqItDTBG1i9V4Hm0esz2vfNy
- Puc55z+aXE32uePaRvCJ+yoD4mtSj9ECPiUvnAdZ6WTaqaLRa2auChqTttu/sA==
-Cc: <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Jiale Yao" <yaojiale02@163.com>, "Maoyi Xie" <maoyixie.tju@gmail.com>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 29 Oct 2026 03:13:05 +0800
-X-Change-Id: 20261028-b4-goodix-attachment-pkg-size-3c7a69d6d4c4
-X-Lms-Return-Path: <lba+26ae24944+5a1453+vger.kernel.org+me@cherr.cc>
-To: "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	"Dmitry Torokhov" <dmitry.torokhov@gmail.com>, 
-	"Charles Wang" <charles.goodix@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7eMqn8a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296641F01828;
+	Wed, 28 Oct 2026 19:14:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793214879;
+	bh=aWVDvbEQQQ1SjDTO2dDhPAAkUx0gj3dMclo/LMFAu/s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h7eMqn8a8EdRBoi0X6nQ2LgNYHVdM2nmxsFYYPFJhseEhpgfO/hmFqWZ8d8bMYDtW
+	 T0nx51XwU1r1azFSFuhrqHZUmWELHLojmC3c7BOgrQ5PobT7aUyr0d+Gpx/HiX8zYT
+	 q7f3N2oyG2j5j/1ZK4aSq7pKJxO/azTvygQs1JnyosJ0FE4r6V5TtdSvDufRuhgxDw
+	 6P9glPp8xTu1YRQEf3bM/sveV9h05QQ2FcH9jhPhE07r3GQtvVODHdO1pPxTuiDJdB
+	 PdkBHXIuLria+haObP79SizdHZULGJKIRLSmhFJHaKYxBgXc5rpjZwysCwDiti/0+3
+	 LNZth8EzkCjKQ==
+Date: Wed, 28 Oct 2026 12:14:32 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Wentao Zhang <wentaoz5@illinois.edu>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Bill Wendling <morbo@google.com>, Chuck Wolber <chuck@wolber.net>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
+	Marco Elver <elver@google.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Nicolas Schier <nsc@kernel.org>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [RFC PATCH 16/20] coverage: add MC/DC measurement
+Message-ID: <20261028191432.GA669102@ax162>
+References: <20261028120034.871983-1-sashal@kernel.org>
+ <20261028120034.871983-17-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,80 +68,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-b4-goodix-attachment-pkg-size-v1-1-ada7dda20f75@cherr.cc>
-Received: from [127.0.1.1] ([111.42.148.226]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 03:13:07 +0800
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAEBJ4moC/yXMSw7CIBAA0Ks0s3aSFgl+rmK6oDDS0QgNg6ax6 d1Ldfk2bwGhzCRwbRbI9GHhFCu6QwNutDEQsq8G1SrTteqMg8aQkucZbSnWjS+KBadnQOEv4dG drLl447XTUI8p053n33/r/5b38CBX9hTWdQMD+TE8gQAAAA==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH] HID: goodix: validate attachment package length
-X-Mailer: b4 0.16.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028120034.871983-17-sashal@kernel.org>
 
-goodix_hid_irq() reads the attachment package using the event header's
-length, but passes the independent pkg->size to hid_input_report()
-without checking it against the bytes read.  An oversized package can
-forward stale buffer contents or cause an out-of-bounds read, exposing
-those bytes to hidraw readers.
+On Wed, Oct 28, 2026 at 07:59:40AM -0400, Sasha Levin wrote:
+> Larger decisions, and decisions the compiler can't instrument, produce
+> warnings. Starting with Clang 22 they are kept from becoming errors
+> with CONFIG_WERROR; older versions can't be used together with it.
 
-Reject package sizes smaller than the two-byte length field or larger
-than the requested read length.
+What is the reason for keeping these warnings in the build as opposed to
+just disabling them altogether? Are developers expected to address them
+and if so, how? It seems odd to keep them in the build but prevent them
+from breaking the build unless they are not intended to be acted on, in
+which case they should just be disabled outright.
 
-Reported-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Link: https://lore.kernel.org/all/178212703386.2270604.12694603282649418418@maoyixie.com/
-Link: https://lore.kernel.org/all/20261028050901.139292-1-yaojiale02@163.com/
-Fixes: 75e16c8ce283 ("HID: hid-goodix: Add Goodix HID-over-SPI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-Validated by source analysis, simulated SPI/HID callbacks and object
-compilation. No kernel/hardware runtime A/B was performed.
----
- drivers/hid/hid-goodix-spi.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
-index 03d549efbdce..b7092b85dda2 100644
---- a/drivers/hid/hid-goodix-spi.c
-+++ b/drivers/hid/hid-goodix-spi.c
-@@ -575,6 +575,7 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
- 	struct goodix_hid_report_event *event;
- 	struct goodix_hid_report_package *pkg;
- 	u16 report_size;
-+	u32 pkg_len;
- 
- 	if (!test_bit(GOODIX_HID_STARTED, &ts->flags))
- 		return IRQ_HANDLED;
-@@ -620,14 +621,21 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
- 	}
- 
- 	/* Read the package behind the coordinate data */
-+	pkg_len = report_size - GOODIX_HID_COOR_PKG_LEN;
- 	pkg = goodix_get_event_report(ts, ts->hid_report_addr + sizeof(*event),
--				      ts->event_buf,
--				      report_size - GOODIX_HID_COOR_PKG_LEN);
-+				      ts->event_buf, pkg_len);
- 	if (!pkg) {
- 		dev_err(ts->dev, "failed read attachment data content");
- 		return IRQ_HANDLED;
- 	}
- 
-+	if (le16_to_cpu(pkg->size) < GOODIX_HID_PKG_LEN_SIZE ||
-+	    le16_to_cpu(pkg->size) > pkg_len) {
-+		dev_err(ts->dev, "invalid attachment event package size, %d",
-+			le16_to_cpu(pkg->size));
-+		return IRQ_HANDLED;
-+	}
-+
- 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
- 			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
- 
-
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-goodix-attachment-pkg-size-3c7a69d6d4c4
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-- 
+Cheers,
+Nathan
