@@ -1,91 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793201158;
-	b=Q8PhfqRcisCinNrkmppTaC6QqrTtj59nyC/tykGckf5xj6Mfwwz/3C6bYvZnVCjmNGLe
-	 kiddXwC7T1giHPdHXF5v9ptCeGoqifaOrGKhUBDEdcJRGSaACXn8sjyC3XsUP8QZBD4tQ
-	 6NKU0JA1Da4I6w+z4Fczo/O8L7kC+GSMkRHOVBrGLNyMEEmatuxRw2dw/wCxsBsfJfvbH
-	 29WvP9NzWQD5lPgxnNscXKfv3pbfhirSQex5LLkRYMkL03gU7pNmFapixDu3ZT0Dadwnf
-	 FndvnlF8NDlYQGxx5ZmMkdvDRKlM6rM6EMfMvdPkGq4q4WFwAqbE9D//KzPh8uxQRsQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201158;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OfcLdZFWKx4jL5WniK99EPSPg+BrVaLxliddva9JLJQ=;
-	b=auul3OlzUnu6/G7nvu9/JYmxfbcIBwWP/xbnuULf4vRH1FI0E84ztgJIWMAfqnHs7XA9
-	 i51qClNGzMmrgbXCWaebnjKlO6744GEpC9Y91nR2Suz657OB+i+TFAS6kcP6M44AvyikE
-	 rUGHNh91X3rnTLTFgigGDCeattlvwsupv6I2fFWO0t8CWBW9MHm1ZIraM8t7bjSbdGORc
-	 i54pjZI0c+FN56v9EN2sggpOvNq44uf9hmzpTIgpSfN/p6Y8pcYHgwtp1VbijKKMi2akH
-	 X9oC68xF4U4hmtRh4CVWNVemE6xMEiR8DY/SeM8QEr+UVUfohy2o5HESbeUlYpYAARw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qtihmgWv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.67
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010067.outbound.protection.outlook.com [40.93.198.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793201170;
+	b=Tg3lVOitx1vr49O/m3va875pvkRSBLOGLAyni/ZmBQmmVwPCF9iuiUsApbAmrveRAQi2
+	 q2vl25VKHD2ob/znoT6VkQrreGCf5NWOf2RShurGGPEzp45ak0MQ4pGmWSW/QtPxNoQjR
+	 C+UhJ4wDx4/thCKPaunTMW71dMmrGj1DIuR67mVqSd1FpDWqisIybjBQK8xnEryafbEhz
+	 i2qGM8sutP3lnhlDq2quxlsZcjIhjA611jCOBNo0i/hLQP7Bs/qB4RzJg+p+gOS+mjS9+
+	 aQ1x6zBE02WjiTmEtZgdo/6dfmVqmx2NXKyhKaV+FrXK8DVQXT+xr1O+bkZm6Ej4ECw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201170;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SzGJeY1XQv7Ti80u9ROK+gf1nVRlsdCP+OcYBFcsbik=;
+	b=sQtaW0QwjS0r+g6NNTmGefQVvG8vk2lJJB5BnUp0pobKuKqJZ9pSgBFtjnUo4z6z26mq
+	 xqeOyPGarbB5ROm/2dP1/MncDV6InHOf5BWLsR238nG34Q9uNvEEHl7GDwRJb7RnUWJjA
+	 QbvUYJSwUq6xZGpAZkd6+ISb/cw2byMjNfy+SY7W6czAOG9WTMyOAvimQjPIg0+2UmuU3
+	 PXHTY3Rcj20+MLEcxTzGqtjaDk2/+unViA+arlQ8AkObfWtde91PRL3dlvQrPsvZzz5kF
+	 jZALhXcRHPb5y8BhsZvXI5URHQLvqcf3iGCp5hlSmPP0/FxqbksNY8wv88x1jCTmuaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61AC606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:25:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C61AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qtihmgWv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M1UN6s/qoaXluNM1J84R6eeM2BulyzdhjSEiaeP6+0K1lW6rW+HjiFn91I/SqiB9FXUqx+9040V3zrbzfd45fnXukHd8Mbt/gA3L5vFEd+n5nKjeZNMRzG9rsdwpj3c9rulHCHvzCmPNq6fjxrAG3eEWaOYdN7U2bUOyNvL8W1080ohh6duJGx8dwRh0jBSgiwXjZuNW5xex4oL9yth5nZ8Hf/gI5/dJLS3bCpZEnREy7j/dfYY3NrqoT2gR0jT4RgRtnvMUMt+z7h60RShbiyCn//s+05uOwgStK5thJ9v3dIZbZ5FWbdUVpyziaud5gBRIC0B5SyLSooB5QiiYTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OfcLdZFWKx4jL5WniK99EPSPg+BrVaLxliddva9JLJQ=;
- b=Jw0IfvW+meNF0W91oOqtC5yRxdd/dTipHsBBesPM5xXrpsVVQACDL3plFjaPNeaoGV8w53PtEKi39i+Jy+hIyxHXGwYA7OZBgx++HhLfdDeCakq9suSRTKp/T2T+7GQcm23vo3QybHtTdhY2JD6Bt99FiL555RIk8bRPJdj2nZu5LAZieuEUao68FB+b1aP5y3astg1TrmcRBgWPlRQkNTZRNWO9nbEwKSAwSGTsg0PVdw25Y6rQmia/ccS5QISqBOPKJO8niEQZlSWgDBOeyOJrJRbSRjMxXYSQQHOS3VP2Xo0w3UmiaUw+HhFAGHptzt4Qc7uTR/tN+HCj2alKUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OfcLdZFWKx4jL5WniK99EPSPg+BrVaLxliddva9JLJQ=;
- b=qtihmgWv5PHMZxQAsDiiNu9Ocw8DKjwOXQl6qrS8iBqMfpwzHL8XuymGozj70ajsNr8JDCei8WjiTf6NajwDRxV4IMXRikAWgUNdEkIJJMbd/FaWWWk+dPFRY7XyaBU/rZdCynCp2/S7ms2CNTaIQRO/36rwpZDWVuPnp6nP5kYfSdGUckcOM/ks/DjHy6QPQVyzskrJOnezt5VHDIDyG61TIivG5KA0OGwgaufBX08D7rRVzh0Nzt5IiOGl5I5dHtxSF2Nlq/qyRVh7D782Lyrt1XxNRePfofm+IkVBDmovbxmZaL8SIEVwee4GJXbH1RyY5YRvfrK62YXiXlJokQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by BY5PR12MB4260.namprd12.prod.outlook.com (2603:10b6:a03:206::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 15:25:54 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 15:25:54 +0000
-Date: Wed, 28 Oct 2026 11:25:52 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: yury.norov@gmail.com, linux@rasmusvillemoes.dk, tklauser@distanz.ch,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cpumask: Preserve short reads in cpumap printing helpers
-Message-ID: <auIUAEuUC65rgHot@yury>
-References: <20261020170126.15428-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020170126.15428-1-dennylin0707@gmail.com>
-X-ClientProxiedBy: BL1PR13CA0188.namprd13.prod.outlook.com
- (2603:10b6:208:2be::13) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E725E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:26:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E725E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso9662825e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793201163; x=1793805963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SzGJeY1XQv7Ti80u9ROK+gf1nVRlsdCP+OcYBFcsbik=;
+        b=rsq0wtTSaf4iz+wbiJJZgHr9hp6cDYJGgeOP+2Fe9Qo2d1WQnOGaniKHOHs8iD5jWL
+         Tihubk/mVvEO/1IpSruBRrV2VdU7RcCU2WEF5fu0AH4bSmwAVmgQvMpjrC/XXFuADryB
+         Dpuayw9/IxsWURlpwp7yFfLx+NE+SIG0a5tpWo426ap1Q0pE7R9IEPOcRS5hcsfHV5Lh
+         GNT8MDo2Wi2qGdztK+nAKwzLmXIWrsPjTk63aBuuaQ2LTYI4+FlgGeWy5ZT7971pW5VA
+         5/OJex/STuawXdak7AgPYS/NTLDY1vlqMMnchFe9iBtHCh8ZasGttBkI2qRMF4b2sCs5
+         rSFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793201163; x=1793805963;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SzGJeY1XQv7Ti80u9ROK+gf1nVRlsdCP+OcYBFcsbik=;
+        b=U0D9g4CTNWLqmYXNyol+aV5ap/2t65IOXRxyg/GbluMF54CBGfx4Jdcoww1d8dH+Wn
+         ERN7dtt9LFi2kxq4/o92xFPXKkhml0ycLFW7m/iDDrQew9rj1DzmABviwx1otr60h3bC
+         KnyrXNdWIdYPFSXMX8XFIPczwoTIJkQNO4S2ZqY4DkhXiWJ3gdqCXRAAw5r5Wz05gnFY
+         c4a4gweAggJUqR082C1KT+VzfjCgreBge0zsYy7oE/fnI51MWAVnJ0xxfHFWpMey/pFe
+         5KbqBKcSArLjVs/vOQKMRoZcFg5rP1rfD4PsJ9h+s2nrNAJDSRrMwGSH0y+6LDxvgcsG
+         oASA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtJ5mNI4tQ0g7Vw6+T+sLxVWAPL4p53FFk+qfVkFgTVsOS5z7ZSpDgwdg4uFkCU1mr/wsqIPeczcCpBD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4KcvSVjIER2pb6Uzpwr/4WGJ3IAzJy0v3Ka6DCbaddiqte/jZ
+	9Jv+ylqqeQ3FLlC+9zjY3roD/Z7jXwsm3N1SIowdXvhn/KFR7u+aLzzio7uVdPwMrLw=
+X-Gm-Gg: AYBFou3O1mlOwBoKFqFiJpTXHjiEuiMrrvMsLyHcal+9RdzsnpBt3iU+dqKeHbwW7r0
+	PQvS2hF4DEZNOIcnL3C1G0bQOiK7hmtpNqcjkzooshkTdv+1IVDCzjFZcVwLOmh3fRU1sXgODaW
+	ZejtYq3xPUXLBcWVUABOp6vWsz1wn259kqdf26rGKMI1wPF40FFw9Iz4S6z2yAb5GzFfeyRyfCC
+	9o6RcZklNJ+5De2sdvfapNs/iLgsUGJRNKn7YO1iD3lEP8x+LbbFPoZMAYBgOclcARqis/qaMfo
+	lLNhIlnjmkHK6Kz8RnVmsQLQOgKXt7u/oeUImxML4kAzSfjGtdWk1YxY4pXmyZg4QaB1T3jp6Cp
+	qUDlPZG26jAHgu9DmWhzwCF9a3PxcFmxTWSmqRYpgVdG24GzZwJSN3EvzTEfmiWMacFmXwTByVn
+	LOm8G4tgBEvWH4TLanQb4GTPHzdrw/koe34E7yM5J9I9dP6koNaqAuz9mt8jmkfA2t1Xkpz/+Fc
+	sPT/niY4yNwO80+8GMuFjVeUi9uomnCBeLE3xTvFCW5IAeQ28qFATD1C340NsPmn0e4WMej5eoc
+	gW1UsaoG7W9nsvJgO+tvHSgfQjGQyj9wBGOHP5OPY/xu52ZxqHD3Qq6LH0gB2AUW5CCUQl98plW
+	3CPYR0vL+kA==
+X-Received: by 2002:a05:600c:848c:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4a966b4afc5mr66907105e9.20.1793201162964;
+        Wed, 28 Oct 2026 08:26:02 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b1ca:4456:1276:95ca? ([2a01:e0a:106d:1080:b1ca:4456:1276:95ca])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a9783b7e87sm49789775e9.6.2026.10.28.08.26.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 08:26:02 -0700 (PDT)
+Message-ID: <d2e93ac7-1689-4e06-a694-d0a95d05a400@linaro.org>
+Date: Wed, 28 Oct 2026 16:26:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,120 +90,342 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|BY5PR12MB4260:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfa5736c-3c8c-4951-fef5-08df3507c1b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|1800799024|366016|23010399003|22082099003|18002099003|261028144727099002|56012099006|11063799006|5023799004|261022105027099003|261026140227099003|10067099003|261021121427099003|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	M9wPZk7wWQWJCSCZ32nFmzDT+I9kySvJY4NkMKPABMuG2Kjh4ZEgSYc788q19YKwF4fvNp/W45OuwoUDtr1O4gdf/tUrWyAOieWHaB9IcagbSvooyyVfSj7sZRK3EBd5U/WUF5l/MwuJAwfKu7lJEsvttsO05oiqVPI3/tgPUAota8cThaEsoVQdm8U+7RD8Ricx2NptRmTaXnd8U1SBBZQVGqZ6id64lnKM7+cHDHj+ndXF/NSEfB5OLbfNywP1hcUXhcI/X3lntoa2F3qoO8GGYKJe/lLYYkyCyQeWZXGXtfjnEy1HdKfW0klpduDdsprJA2+egEmrWl864502jznoIVnGtg2Kl6NL/r3cLirxdFeLTZ7hSNWH0LGU0DSn9slR+s++lBJBmvhQ/W0fCqsZQmXN9j17R40SYjnZ1aUYH+KovrhE9REKEdIJNzQNB6DdvNQ6YufGOFoFTHctDRvFvxP5FTTLLDHai316CqBZ/WoRDl9ReIZv+zTADXNBszLG5UAGKnPc7WydvaMAQ9NLvOHi2+ali536Ah8Rop3eOgZWVzLWcH876Bb1/jjc0W5GjCZzRVJxyHHXBS8OuXRiOhktFk3e5+1mJWPqk9YRMhKpINu63pgv53k546K6pm8c6YWjMlXmG/hexMvJlIiZv/5hw22NjPE6dQ6k4bg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(261028144727099002)(56012099006)(11063799006)(5023799004)(261022105027099003)(261026140227099003)(10067099003)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uSKhYzj0W3CuM2nEjnPp+qYH48loBWeNKLdZaPQBjQAIeIJDxk3/x1qyWdtZ?=
- =?us-ascii?Q?CQVBYjpSz+5p1x/3BH90aUuM9rUCh5qwt0C3MzDjkO9yQZKNoUxYahYYNTFy?=
- =?us-ascii?Q?LaoXNpm72feVsssmG7LJwPq3Lb0x7UKY8wX86wI1KV0iyzTnX4KF/VOlagx5?=
- =?us-ascii?Q?4RsUKI2s01nkB///XyLEA21GxVUMAyvJK63CYJ+E1k5x/7iOSz7DjxyXiiyF?=
- =?us-ascii?Q?4RLE2sf/2FyEriWc4plAbR7FRI43oV/EkRbx0U9zxqgtjQ07UNUwb991xryB?=
- =?us-ascii?Q?K4THRjySAsjy3BZaBbMwpHDj4Vm7DuDh0lOj9MTFTqOZVaU9bBD2I1Rk4MHR?=
- =?us-ascii?Q?vbeGjkvIIff0Cc2Cxopv06P0b0LRiGWwYh+4MRlo28G6ceMfEop4W4h0Bqxh?=
- =?us-ascii?Q?DFEyKzvczIRsynnJKh256d+4A82N4rmnBqS2FfSo4yoiwFNOIIq65Ek6u4ji?=
- =?us-ascii?Q?Wj+T28It1xZeEvxBD/WccxNCCYIefjzKBnFGK7VJRePh4qFI1Gg2TBS+rnwz?=
- =?us-ascii?Q?afjbXx961/ONuNslexmub0fy/n5lEjQszexKcVeEvKAvBcHKtrdaTg3TBDCk?=
- =?us-ascii?Q?P9vT/wPwQZA/TzJENaR73dhX+eGT31RJ7QJk89qCCjwFonToLmgTrTIlzRxE?=
- =?us-ascii?Q?Xl+BFgexaJfGFuiPZYCIn+MGtOgkfxG1+W93C97cdP5a3IPq9US8Sd94ExXX?=
- =?us-ascii?Q?MdCQIITy3gBRPBd0dh1/Kkp8kD6A/zO0+qq7nBHfU8HUKISMa6yz0A4oA2Cb?=
- =?us-ascii?Q?1DcQWeIoJ7qW0jc8G+2UgY7P4RbkU5Nlx1E0d/0gBzvV8Ws1bhr++tqBYjDV?=
- =?us-ascii?Q?E1hM0PSTcchYcHl6GPjSd3nmtKgSYMhduHrTtvOlkq5qCJqtQisyNKfkseEZ?=
- =?us-ascii?Q?zUx0Oo1RdzsSL8zGSJ/FW3yKuWrT1hNWOZjLluFXIFaLTrsszwPBRHowFVZc?=
- =?us-ascii?Q?x9ova6Zk68TcJiDY8PLAjT+uS+rsOh1TBhpc189fz4iyXnaf/gSdB3kqjEni?=
- =?us-ascii?Q?dmSARDBlb0SaTG9PANQRxsKKk1TAqEwXv/y7aBy39AzUEOtjTPZrWGmsu5//?=
- =?us-ascii?Q?7hTuUaBSvmpLsz7RMt1D/Bis/KwcMEzhArH0QUi4hWjijg0MZyAMaqHZiI1X?=
- =?us-ascii?Q?2n4RPvGMB/0UNap2/KIKW/U+xr0rGMYl2BwG/x2IZFf1hPToYMHSCphe8v5m?=
- =?us-ascii?Q?yrL4qjiMRAfYgpw5Hlp466k7n8bA9VBrGJhYHIqlZ/2DRFdyzmAkr/dAakgT?=
- =?us-ascii?Q?g/kFlJN+PmqMJiqZxDisBr2wQDSiDRl1GxBEr/mQv2emrx3gCAlYE6KvpyRk?=
- =?us-ascii?Q?lqSCdlQjIJDRxMjz9evFekCkr+s0VBsfZAKC6G+8DWgzMnQXmbSyLv/1ohx+?=
- =?us-ascii?Q?iXy8tmeNhqIK7r/ONNagJjuixVuhQpx9mD8YREjtGldiAkoQpe5++lrmbnvh?=
- =?us-ascii?Q?x5ougJkxvLb5LLKBZbWYBjjxp+IUR8btX4vHn9SXxIuKCBe2m0aWxg7fQq8G?=
- =?us-ascii?Q?pP0XTxVO1785WuB5EbFGNNx8oArPqwfzZO1ssqQ/ikb+IfrCZ9RzmTWzjb6g?=
- =?us-ascii?Q?kZkJl7OD2mPmLOKvvbY0DhEz0aIwfHiIUCCkivUfCeWLs7Z9kFVagOtqtQkK?=
- =?us-ascii?Q?ULk/xLTQoeLQcFZpkp6Ld/MnqHC7+bfJYQm6Q15tT218Aa3q938ciX5rrnQu?=
- =?us-ascii?Q?Bafy0q60HHt/GZDgMOhe/Yn3DQ2ggwVjkzNOdhnf166NrxTUJ10mKRRtydeO?=
- =?us-ascii?Q?RKLQHkAz+qDV2RuL0M+IIr2RvIdA+SB2igWPgmBPKWljP9ega7Vw?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfa5736c-3c8c-4951-fef5-08df3507c1b9
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:25:54.2394
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TdNW0ha2Ag9vnnbSYLnaPPxHxZSH2NIEXcxumrZnEibLO7L0+jc9MmAwFauE08s3pWByfE+qdkvDX4Lwe7nTEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4260
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, linux@analog.com
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
+ <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+ <auIPfwQII72aqyWA@ashevche-desk.local>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <auIPfwQII72aqyWA@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 05:01:26PM +0000, Hungyu Lin wrote:
-> The cpumap printing helpers unconditionally subtract one from the bitmap
-> helper's return value to exclude a terminating NUL. A partial read may
-> not reach that NUL, so this also subtracts a data byte from the returned
-> length. A one-byte read therefore returns zero even when data remains.
-> For example, this command prints nothing despite the file being nonempty:
+On 10/28/26 16:06, Andy Shevchenko wrote:
+> On Wed, Oct 28, 2026 at 02:19:06PM +0100, Neil Armstrong wrote:
+>> The MAX34417 is a specialized current and voltage monitor used to
+>> determine power consumption of portable systems. The driver support
+>> getting the channels voltage, average power, accumulated average
+>> power and energy over an I2C/SMBUS serial interface.
+>>
+>> The MAX34417 datasheet only specified on how to calculate the
+>> accumulated average power, but with the Sample Per Second rate
+>> we can easily get accumulated Energy in mJ.
+>>
+>> By default the IIO driver only supports single-shot Voltage
+>> and Power sensing, but the accumulation can be enabled by
+>> enabling the Energy IIO channel which then enables the
+>> Continuous Accumulation Mode.
+>>
+>> The counter is common to all channels, so when reading a single
+>> channel we will copy all accumulators to registers, so in order
+>> to permit reading individual channels we must accumulate the
+>> other channels in the driver when Continuous Accumulation Mode
+>> is enabled.
 > 
->   head -c 1 /sys/devices/system/cpu/cpu0/topology/core_cpus_list
+> ...
 > 
-> Subtract one only when the copied range actually ends in NUL. This
-> preserves short reads, EOF and negative error returns while continuing
-> to exclude the terminator from complete sysfs reads.
+>> +#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
+>> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
+>> +#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
 > 
-> Fixes: c86a2d9058c5 ("cpumask: Omit terminating null byte in cpumap_print_{list,bitmask}_to_buf")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Add unit suffix. The comment versus MILLI multiplier is quite confusing.
+> What I read, it's milli-Ohms by value.
+> 
+> ...
+> 
+>> +struct max34417_data {
+>> +	struct iio_dev *indio_dev;
+>> +	struct regmap *regmap;
+>> +	struct mutex lock;
+>> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
+>> +	const char *input_label[MAX34417_CHANNEL_COUNT];
+>> +	bool cam_mode;
+> 
+> Don't you have 4-byte gap here in some cases? Can you confirm the layout
+> with `pahole`? On top you can check binary size by running `bloat-o-meter`.
+> 
+>> +	u64 acc_power[MAX34417_CHANNEL_COUNT];
+>> +	u64 acc_count[MAX34417_CHANNEL_COUNT];
+>> +};
+> 
+> ...
+> 
+>> +static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
+>> +{
+>> +	switch (reg) {
+>> +	case MAX34417_DID_REG:
+>> +		return false;
+>> +	default:
+>> +	/* MAX34417_CONTROL_REG field OVF is volatile */
+> 
+> Why not add a case instead of a comment?
 
-Added in bitmap-for-next. Thanks!
+The case is handled by the default, the comment is here to
+explain why MAX34417_CONTROL_REG is considered as volatile.
 
-> ---
->  include/linux/cpumask.h | 20 ++++++++++++++++----
->  1 file changed, 16 insertions(+), 4 deletions(-)
 > 
-> diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-> index 4c8bb6953107..2caeae982faf 100644
-> --- a/include/linux/cpumask.h
-> +++ b/include/linux/cpumask.h
-> @@ -1334,8 +1334,14 @@ static __always_inline
->  ssize_t cpumap_print_bitmask_to_buf(char *buf, const struct cpumask *mask,
->  				    loff_t off, size_t count)
->  {
-> -	return bitmap_print_bitmask_to_buf(buf, cpumask_bits(mask),
-> -				   nr_cpu_ids, off, count) - 1;
-> +	ssize_t n;
-> +
-> +	n = bitmap_print_bitmask_to_buf(buf, cpumask_bits(mask),
-> +					nr_cpu_ids, off, count);
-> +	if (n > 0 && buf[n - 1] == '\0')
-> +		n--;
-> +
-> +	return n;
->  }
->  
->  /**
-> @@ -1356,8 +1362,14 @@ static __always_inline
->  ssize_t cpumap_print_list_to_buf(char *buf, const struct cpumask *mask,
->  				 loff_t off, size_t count)
->  {
-> -	return bitmap_print_list_to_buf(buf, cpumask_bits(mask),
-> -				   nr_cpu_ids, off, count) - 1;
-> +	ssize_t n;
-> +
-> +	n = bitmap_print_list_to_buf(buf, cpumask_bits(mask),
-> +				     nr_cpu_ids, off, count);
-> +	if (n > 0 && buf[n - 1] == '\0')
-> +		n--;
-> +
-> +	return n;
->  }
->  
->  #if NR_CPUS <= BITS_PER_LONG
+>> +		return true;
+>> +	}
+>> +}
 > 
-> base-commit: a73b4d1fa7d334a5f7de5bb0a14726530f66196e
+> ...
+> 
+>> +static int max34417_reset_smm(struct max34417_data *max34417)
+>> +{
+>> +	int rc;
+>> +
+>> +	/* Set SMM=0 to re-init the SMM mode */
+>> +	rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+>> +			       MAX34417_CONTROL_SMM);
+> 
+> With
+> 
+> 	struct regmap *map = max34417->regmap;
+> 
+> this becomes a single line
+> 
+> 	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_SMM);
+> 
+> Use this trick elsewhere where appropriate.
+
+Ack
+
+> 
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Reset accumulators after setting SMM=0 */
+>> +	return regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+>> +}
+> 
+> ...
+> 
+>> +	*val = lower_32_bits(power);
+>> +	*val2 = upper_32_bits(power);
+> 
+> Have you included wordpart.h?
+
+Will add
+
+> 
+> ...
+> 
+>> +static int max34417_read_label(struct iio_dev *indio_dev,
+>> +			       struct iio_chan_spec const *chan,
+>> +			       char *label)
+>> +{
+>> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+>> +	const char *input_label = max34417->input_label[chan->channel];
+>> +
+>> +	if (input_label) {
+>> +		switch (chan->type) {
+>> +		case IIO_VOLTAGE:
+>> +			return sysfs_emit(label, "%s-voltage\n", input_label);
+> 
+> sysfs.h for sysfs_emit().
+
+Will add
+
+> 
+>> +		case IIO_POWER:
+>> +			return sysfs_emit(label, "%s-power\n", input_label);
+>> +		case IIO_ENERGY:
+>> +			return sysfs_emit(label, "%s-energy\n", input_label);
+>> +		default:
+>> +			return 0;
+>> +		}
+>> +	}
+>> +
+>> +	switch (chan->type) {
+>> +	case IIO_VOLTAGE:
+>> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
+>> +	case IIO_POWER:
+>> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
+>> +	case IIO_ENERGY:
+>> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
+>> +	default:
+>> +		return 0;
+>> +	}
+>> +}
+> 
+> ...
+> 
+>> +static unsigned int max34417_calc_input_correction(u32 rsense_microOhm)
+> 
+> rsense_uOhm is shorter
+
+Used that initially, will revert to that
+
+> 
+>> +{
+>> +	/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
+> 
+> Comment in this form is almost useless. Rather explain that we except
+> the result in the certain units or something like this.
+
+Will try to improve
+
+> 
+>> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_microOhm;
+>> +}
+> 
+> ...
+> 
+>> +static int max34417_probe(struct i2c_client *client)
+>> +{
+>> +	struct device *dev = &client->dev;
+>> +	struct max34417_data *max34417;
+>> +	struct iio_dev *indio_dev;
+>> +	struct regmap *regmap;
+> 
+> *map is shorter
+
+Ok
+
+> 
+>> +	int rc;
+>> +
+>> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
+>> +	if (IS_ERR(regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
+>> +
+>> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+>> +	if (!indio_dev)
+>> +		return -ENOMEM;
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vdd");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vio");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+>> +
+>> +	max34417 = iio_priv(indio_dev);
+>> +	max34417->regmap = regmap;
+>> +	max34417->indio_dev = indio_dev;
+>> +
+>> +	rc = devm_mutex_init(dev, &max34417->lock);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Set default input correction for all channels */
+>> +	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
+>> +		max34417->input_correction[i] =
+>> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
+>> +
+>> +	device_for_each_child_node_scoped(dev, node) {
+>> +		u32 rsense_microOhm, index;
+> 
+> rsense_uOhm
+> 
+>> +		rc = fwnode_property_read_u32(node, "reg", &index);
+>> +		if (rc)
+>> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+>> +					     node);
+>> +
+>> +		if (index >= MAX34417_CHANNEL_COUNT)
+>> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
+> 
+> -ECHRNG
+
+Ack
+
+> 
+>> +					     index, node);
+>> +
+>> +		if (fwnode_property_present(node, "label")) {
+>> +			rc = fwnode_property_read_string(node, "label",
+>> +							 &max34417->input_label[index]);
+>> +			if (rc)
+>> +				return dev_err_probe(dev, rc,
+>> +						"failure reading label property of %pfwP\n",
+>> +						node);
+>> +		}
+>> +
+>> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+>> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+>> +						      &rsense_microOhm);
+>> +			if (rc)
+>> +				return dev_err_probe(dev, rc,
+>> +						"failure reading shunt property of %pfwP\n",
+>> +						node);
+>> +
+>> +			if (rsense_microOhm < MAX34417_MIN_RSENSE ||
+>> +			    rsense_microOhm > MAX34417_MAX_RSENSE)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "invalid shunt value %d of %pfwP\n",
+>> +						     rsense_microOhm, node);
+>> +
+>> +			max34417->input_correction[index] =
+>> +				max34417_calc_input_correction(rsense_microOhm);
+>> +		}
+>> +	}
+>> +
+>> +	indio_dev->channels = max34417_channels;
+>> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
+>> +	indio_dev->name = "max34417";
+>> +	indio_dev->info = &max34417_info;
+>> +	indio_dev->modes = INDIO_DIRECT_MODE;
+>> +
+>> +	/*
+>> +	 * Reset mode and set accumulator width to Wide
+>> +	 *
+>> +	 * The MAX34407 variant could be supported by setting the
+>> +	 * MAX34417_CONTROL_MODE field to 0 and handling a smaller
+>> +	 * accumulator width.
+>> +	 */
+>> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
+> 
+> You have local variable for regmap, use it.
+> 
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "Error writing control register\n");
+>> +
+>> +	/* Reset the accumulators */
+>> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	return devm_iio_device_register(dev, indio_dev);
+>> +}
+> 
+
+Thanks,
+Neil
