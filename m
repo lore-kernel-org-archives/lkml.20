@@ -1,63 +1,180 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212319;
-	b=2aRwVL8TvNGRs2pp9/XEAefdG6VhNrBvRFmDYxCI1bAaEHQDKMlQz81gK3iTTSbfX1mZ
-	 wOCKIIpKTkjEXUfc6090MN288QXCEXvJBVf9nXwMPdlxvL4xOKTW4DXA0hgQFdri9lSKO
-	 OUsGgE265/R3Jh0JpG8GiLhmjDs/y9y+iFiWk8qzp90pWZnEMY7YChAKIbr121u+az8ly
-	 uq0BRIwtAXko1abPGhzVDQaaSMP8kzhQseEGmuU3s/6tZjO6MsWvKB6N70tamb+HNPnVX
-	 WiQdR+9adWVvT97cGWq5xfzCGp+tnt2JcecKGAZDO2WGXPBdxw6YxhDEft1Zz+uZJCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212319;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ghhDGGx/7hBw9mEgNWE6Bl/InzcO7uxTtfNEwQ2pmxw=;
-	b=kyHSN5TkkYuayuvLs+wOH+8xf2t7L6794OQZWsMho+TU2PpSA/bLAq8mRAKMs+Qtvth8
-	 eaOUpfn5mtoqOHOWkur2x04D2B8QuobBiSXnHT1MpxA4QqKy+ds0WYPg6p4Ldim5/SPDG
-	 /348zuuHUp32W6ZEm2ew++WWLZY+gwqNw5VS6tEo0QPzFP/Pj4UOrpQ2pRATSa4QAvhAF
-	 XgZrK9qi7u3YuiQdGfP2PwfBvaE7HTvHbCQpO/aERl+0czkoQ+byor4tESwAm+v/TSMRE
-	 P4f4AkBqhP2LGGt9hrjp50JY8nOhZtEmkzFrkRlTzeljqec6qnPlYm6YuI/WA1WA2aA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhLpJxgt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793212349;
+	b=vYaHSinvetig1qMkqbNeUe2bPBRd672jn84d4qU6hOmpmk1eAC0F+qf7EROv0OUYNB8o
+	 1Qr9irD4vMmg6FYmGVb6wnd1gmcNDIEG3lZhJ1xgwRKmXzlioPDQW2hjgtAHkG6u5uaNd
+	 U+DltILyuHFHFvxiuKFWylvE2ALMSCMk5zbbkNEm2Wigr3kmg0Ai1t7EfOVYQsqQZk2oi
+	 4p3dBTcgWMY+NbHun8u60f3yHpLwfnJ43d1Qa7aQnEwrjysXoU3iRo0nOIvYo8OUiytrZ
+	 tF3CeVo1nji3n9/Pz2gorjczRELpRcz5iaKYTEs4Rl7eafmontDYSTICUhxKw5Kekhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212349;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=KCNE2POEWKIGax9H9ogWdo8P5YF+/3Dhj4Jakf6oBdM=;
+	b=LjgKMkazL5p81lOficP5QKxLqhww3jeBgqe6A51YOE4MmU9Lnm7LINzwTs85Mu9sW394
+	 ftx+Dp7W6SOtgb+au7AwT4NJBMyR9SibMvifpMKhnQgPn5X2r3iUHf/xDk/4q/bz5kj8i
+	 M+RHgSMnzs9IIoW8OiAORBN+eTJLzagfAECOzKptjckBlb79/foBgfrKzkdhvsnt4orX/
+	 vvigYB4QghMo/LeqBUCrtwUvKyYEkEHlveasY+8Bza6MtMisLeSKuHtyLq6mkbfAVDfTv
+	 SZGGfScZGY1bfe3t7XVKszR3qetjhVVp1TAuxESgIt9Sn4EGi+hluoof9e3uZsiNKxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K7fBaWBI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BEF606A31A;
-	Wed, 28 Oct 2026 18:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22663606A31A;
+	Wed, 28 Oct 2026 18:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22663606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhLpJxgt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F741F01828;
-	Wed, 28 Oct 2026 18:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793212318;
-	bh=ghhDGGx/7hBw9mEgNWE6Bl/InzcO7uxTtfNEwQ2pmxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GhLpJxgtyXWQ7mZOZKpfocS1u06EHb9nWfYVIMeHLYr4P+qRzlMXx+Ly6QWN9kT8s
-	 UfyJ0frrdtufoypkRrRugecF/QkjcPt5fr5veWk9FfEJCAqR9STE22xK1fUOvcwoaj
-	 HIPcm65NZTnn6ShHcVHyqBf9pNaXZJXAaAmVW97GNZtBjzH30euB6ciKfeVR8J/ib2
-	 O9Gd6abrZ3Hfj5oKXTxVSKDhFiQzlzOYL7b/7n7z7hhdKNFCvqRhpuLWkUkmnQUXH0
-	 AURiPuLeye9kFVqJWT/zjsElrAsruR4aobCEVlqxL45W7ZQCHqUgpjqfYpdZpU4+bp
-	 B4qEJk5dL29tw==
-Date: Wed, 28 Oct 2026 11:31:57 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: Magnus Kulke <magnuskulke@linux.microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>, Arnd Bergmann <arnd@arndb.de>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Dexuan Cui <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
-	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
-Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
-Message-ID: <20261028183157.GA3595008@liuwe-devbox-debian-v2.local>
-References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
- <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K7fBaWBI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793212347; x=1824748347;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ZdeVNkTEcRlSUY02aeUY6ynNMvMyvh77HyZ8z6qPG7c=;
+  b=K7fBaWBI2uGIUFg24rbnx7Ev8jk/C8ZxmsRDxoNsRcI0eYIyEug+I1yL
+   jyTF/t1qoDM47Y6ftvvm0HlwxDPyeJDIeF6Rpx6RkaqqZN2se2pWrgr1u
+   lnNhI5Kfl0T9ymR2SGj44dfOLFMN1TKVepKAywUfiCObofY81Ib/eidyS
+   6pRTY3RYT4iasN+sffomAiDKwlo2nPCNXSYwwdGuNZsZhd299E8yG4muK
+   lSnm53ujUKSEr3n2gsq9MIunOSswrg6TcaAGC2sUV0A2OHStxLTqhdRfV
+   x8Es7jpV7lyLayNCIWHrYpI0MqM2tZmc/kW2arxza2kIjK+vMQIgb8+xh
+   A==;
+X-CSE-ConnectionGUID: W8uFniaURxuUuQYffuNTAw==
+X-CSE-MsgGUID: nhdedLhTTv+tLTmXQ+DGMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1959384"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1959384"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 11:32:26 -0700
+X-CSE-ConnectionGUID: YER+YfgPShWUScNiRHy3ww==
+X-CSE-MsgGUID: dHt1uNXESF693RGzrhTSKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="6682889"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 11:32:26 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 11:32:25 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 11:32:25 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.71) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 11:32:25 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nigTHlsFm+5Dt431lJul954rOmV0ESZkqiK692b7WEFbtb46sSikCI9W9ZlDC41WC/J42Eg40y+fM46rEd1mlP52DCL+idRVL7zs+Ngm+keKdW1K8LQ0d2BTp59UQWUCvton00eoS9htQd7Ei3c+ZUgzR+2VJWfZzylD7TF93FL6m9EoAOrvtidZDEAETmsSag+VxIy8iYwhAo5SFvS4OIHZ8Vt2yd85XFZ/v4QHaADPh25KuyW9QU78d5N7coMlHZTzyhacMWyFnnUvCm2qN3Ydg8SEpa+a+OJ5LipIOctgXaWVAw6NLSq2EC0s7gPoGTkQwW4ITvbd+wpIuaRJCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KCNE2POEWKIGax9H9ogWdo8P5YF+/3Dhj4Jakf6oBdM=;
+ b=NPB+B5JASi0+ylER9cs+umISC1TIF8kRqN3n59aFk31GiAXt9ZHtL8cGDwYoDajDNF8NLJXlH/SkTh7auQa44AnLKTlB9n2CPg+WNV9a1VntqtwJkfIm/2Ls/LrltS/IyJ/MTl02v1HXwhpxcbW+jCLjZKBapm1oer9T4FFhTQGqfueV5ePkPAsgG0BmmIxCawQEVNNFYKJ7nYlFfwzus8mdHVo63c5qzS4J15wo0yL7IiH3ZAcmQ5uFloEYCPgETjH8E+Dl/HY1MFoN20FKPNhkn3ObeloBWd12JgN3VGTeH1wSwV00M3TdI4L33bG2LbMbZUZY3BEtduxkC0TzQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB566895.namprd11.prod.outlook.com
+ (2603:10b6:610:34d::22) by IA4PR11MB9395.namprd11.prod.outlook.com
+ (2603:10b6:208:55f::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 18:32:22 +0000
+Received: from CH3PR11MB566895.namprd11.prod.outlook.com
+ ([fe80::87f5:c8cf:d52:e584]) by CH3PR11MB566895.namprd11.prod.outlook.com
+ ([fe80::87f5:c8cf:d52:e584%7]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 18:32:22 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Linkui Xiao <xiaolinkui@126.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Linkui Xiao
+	<xiaolinkui@kylinos.cn>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before
+ it is applied
+Thread-Topic: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before
+ it is applied
+Thread-Index: AQHdZruLRSZYTrtwcUOvkRugQlvGEbcTR8sg
+Date: Wed, 28 Oct 2026 18:32:22 +0000
+Message-ID: <CH3PR11MB566895BB8161C896AFE24A0B7AE56F2@CH3PR11MB566895.namprd11.prod.outlook.com>
+References: <20261028090455.2291659-1-xiaolinkui@126.com>
+In-Reply-To: <20261028090455.2291659-1-xiaolinkui@126.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB566895:EE_|IA4PR11MB9395:EE_
+x-ms-office365-filtering-correlation-id: d6fe669f-0566-4f91-44be-08df3521ce59
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|6133799003|22082099003|18002099003|921020|56012099006|11063799006|261026121527099003|261026140227099003|261021123027099003|10067099003|261022105027099003|261021121427099003|261022075727099003|261009223027099003|261028144727099003|38070700021;
+x-microsoft-antispam-message-info: o4ho07AFuYiAB0sCsHEQvJ+d2jsaOTuMA1q7D1h2kh1SICE2a+3ice8DOhMaoo+Z7SWy5tskpL+njsxEnt2YoO5fxt5yf6wzPCcCMUyX7EiOIABPO3W4OZgJVkBnChcfGdNXhYPEe4V/1LNPLrp9x5e0BibhbLZts4xdsJ4gcCATVsHAztKCfTFRpfLr3UdOcnb58Y3/j4uUMk1Q1Y34dUIr6tSR0ptv89bQcDnUwcCkez5imlZcnQ/wW3b2UHhDqIBaOGwWgX8EPjcom5YXcZHiIinDIKiDvnUaEZ9Q2lCDtrRi6qUGm2gN23DgNz+2tx8TpJaAeo+IxAMLfjMiLJTWS6O9zkZu5fJjOSC3Rhb3YaRRXwrUlzBPx8/ft3YBQoDhKTc1z049BQ2gvcNpJtGzs637YHcA8dJsgrbqCfMAYleOfwQfFLaiumakvBCBzUc19In/Ny8ygsrI8C54W7TfgYtAOVEzsegAkSmUrk7g61mq7JMO3s8Fmr9lZDZoXmCC7sTAgPTfjtDBlWf8lqtIZKGLUw+lXF5qwpzVZOzPmNsiGPvNysUF0PBLqm9gpnjeW+SMeuVfk5fXl+K12RwR3ynDaf4cOFRLrHiOImOaycqiF4ammxFZDmZJnVHif5xmvmUcc90Z+DMtj9ffIEaHTZPKnMNYtm1xFp6Em6Unz4/hrc9Pe+5cjTzaPt2/FVwsAoRyyKhx2nhd/34jvXLfBepUT2CiT79dj8lDfJJPc3qo9yFVLX+oAs/L1+Au
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB566895.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261021123027099003)(10067099003)(261022105027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261028144727099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m08/vvgH2NpK8Yy8XHMvZfjqhymTMpYaw6jkeakIbdvbaNfIVXNXfUJcDRpR?=
+ =?us-ascii?Q?3hO/2Z+8dYEGS9GxaOAw34a7M/Pb+BHbypwxxaa4g32HCgOJAsnC1iwohhZl?=
+ =?us-ascii?Q?wNS2vxdm7ul6cY8qNwlvb/mVfIXmSBHNx02YSOIaTdVccB/maKLGsFv7XHSQ?=
+ =?us-ascii?Q?+xin6heNFkfadmpdhpqTeVsHSzxy60F3N01WSEvp+c36Tlg4khHsrX3Qyunz?=
+ =?us-ascii?Q?Wbn7jEsvueG8y1SZ+EjE663nep7rpmkYsPWCXa227XpmQU0c8xOYeyKD5Xfz?=
+ =?us-ascii?Q?oswGSslfMA9ROX+ur9Zr1iPFyng/48SlYpt/45ncUtqyfoBFJbIoOe4FwmI7?=
+ =?us-ascii?Q?Gt9QY9jGp905apVtdSrqlV9oJj+dysi9VRCR34z3PC1qQPtHWbVCO5tIwZYO?=
+ =?us-ascii?Q?SZ3AWRfxf8iR9yAmnUEzEaPhqy4wUZE8EggqG+QZtev20mEicOxdR3/xGfmE?=
+ =?us-ascii?Q?/DOmQsmUFP09wn+nFiXasv410G3vY284eR7aoWOAUYnh2DBA95EkQryGG1Q0?=
+ =?us-ascii?Q?kU0aroZFRqcBAeR6dc0ApJtvh3sLWLuyX9APpgETfa+wMPnYXVLW8U6fkVVY?=
+ =?us-ascii?Q?quXrrKCHdtCXX3QT0mnA7eT7Vf6JdHAvH6plQZTCNtQph0DFAqduhje3icVd?=
+ =?us-ascii?Q?fckTdGjQ2QmHmyxtgk9yUnRtJxLpQD8WtII/9BZ3ZlQEy2BBUVUm7dfa7lFO?=
+ =?us-ascii?Q?f1jNxSFrv1S3CMLiH0NU2LnoSuFu26hGMeeiLcMCPRThAyDSGODbmOInmfDr?=
+ =?us-ascii?Q?5l8euP0a9qiiBspbZsrU5BPdAW6hvac6ISOBTWNdF+4ZHVx0SA3V0NG6qvYD?=
+ =?us-ascii?Q?QvFGxF4Z3FssC/lWoB1fxFAVZpo1mtriz1vK4e4L2ZCu2ov4nI+Ys3QU4xAJ?=
+ =?us-ascii?Q?TNBuQQeOQ7iNVsXr3F8uD43Zt1VZ+/Dp4A0/sI1OXRf5EwbeXF+eNpg19ASo?=
+ =?us-ascii?Q?V2TTTbTlRqNK/FXZcRTJ+uw6w9j97Tc6JL1u0lwp5vXRDW/Fe2xougsu3cbc?=
+ =?us-ascii?Q?cDRb1YtfHb588G8hCeAX8MSXFV8zyc/yulQf0iQAvDc5O1qScThWviC4cxje?=
+ =?us-ascii?Q?hhlkOVZzj0auYpf7BXOVoD/TtU5kbftvwMK2p05jlhpS+Ji07hjkHmA+HNLG?=
+ =?us-ascii?Q?wmpNi84aQWtORaNr8VInNsuyEOAcf3iZrDpQVp0OXkIsWTdJEsipszAqRvYN?=
+ =?us-ascii?Q?ZDBBr7JtAbRYWL9sOZqxpDXzdITgC/FX98yC002dLNNxVwp/JpvPBoWJJr7M?=
+ =?us-ascii?Q?HQ1LgcuvuWVVWouTFkDo4HObl3juN2v98wuX+aI8ObRhf2UpDh/3r/1beR11?=
+ =?us-ascii?Q?UrnRe5uZJbsd7X8xGj5e0LYo6fnfq4HH4qxR7yVgYtyjHTZan6ik8vYV5GF1?=
+ =?us-ascii?Q?68Ihs6uyvue+YUdPqvLRCHcSWZAuw3wbIzV2Kw8oiMaeHtQxKLLQ0h+mSuYt?=
+ =?us-ascii?Q?5mnuWXmlPIM68IrfJtaiT3a2dQe/5IKWtKqm5o1G57qu6fGezOlZDA8fWwJb?=
+ =?us-ascii?Q?WgZvDrf0zkU78C01Xgt8y/2Rw09/wtrHEDr2zUmuhJwmWdD2r7J0gA9+4Cul?=
+ =?us-ascii?Q?gSu42FpnEFNR1tGsFGIAtc42vQ1c4WpRFuU9j7C06+5rzFMznulOqKxCtnrm?=
+ =?us-ascii?Q?JHr/6r7cSfPmqBZqH+CJ0cFqUjkBP5EgvXVSVXMIUhM/xcppkoMUS+f9yBVg?=
+ =?us-ascii?Q?9XdqRTzIHPrLCUNS273s/lyVmaZcKeNeXFL+MsQyL0VYHxkmTLXhANKrqQSK?=
+ =?us-ascii?Q?xxlksAsf1gOIvlXlU5qlpahu2i5wVhc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,274 +184,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
+X-Exchange-RoutingPolicyChecked: jvdtUx4K06zBIVeg63Q2JBb3g72kQZ+hzruDw2FGXaQMw/tiohKiOmTkteQaqYYpyAlOy/lFo/dl7R3cf0JEkwgppPPMSlmO2GThfBnMFl65TIdm+DEitKso4D64er34DIlhOD3nj+M6S1ZEYUJc8MWGXjD3jzc/B0AQW9t5nN+hQdYvNbPEqFVuJvfn/qtrD1Jk5JYEZ+fG/O/ld9GigYy67JKVSJhrpp+asPURYQunyPkOapeDPaZdicJx0VwDkwUwgw81dkjNqCoxYyB9wkIqzhg0kc9oHTVhqfVnSuHFpfpvQ5QKfZ+f4ELDOQ51q66cG0uwng4OUhfCKj6Ojg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB566895.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6fe669f-0566-4f91-44be-08df3521ce59
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 18:32:22.1469
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UJ8oPKvAiqOdAQr3ueaV+41CcfkN+NR2gMcAdknxsPOQwQtVG63PR4AQNcAD9nOdS/t82zACpTMpsBdVoyX5l8t2GFVo7a7bMvDwy7AkLl0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9395
+X-OriginatorOrg: intel.com
 
-On Wed, Oct 28, 2026 at 07:28:15PM +0100, Thorsten Leemhuis wrote:
-> On 9/30/26 14:10, Magnus Kulke wrote:
-> > hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
-> > guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
-> > ownership of those pages and per contract revokes root partition
-> > access to them, raising a #GP on access from the L1VH root partition.
-> > 
-> > However, the pages remain mapped in the kernel direct map, so kernel
-> > code may still access them even though the hypervisor has revoked
-> > access.
-> 
-> Wei, Magnus, this patch showed up in -next today and broke my daily
-> Fedora builds on x86_64 and arm64 which use the rawhide config as base.
-> Reverting it made the build succeed.
-> 
 
-Can you share the kconfig?
 
-Thanks,
-Wei
+> -----Original Message-----
+> From: Linkui Xiao <xiaolinkui@126.com>
+> Sent: Wednesday, October 28, 2026 10:05 AM
+> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; andrew+netdev@lunn.ch;
+> davem@davemloft.net; edumazet@kernel.org; kuba@kernel.org;
+> pabeni@redhat.com
+> Cc: intel-wired-lan@lists.osuosl.org; netdev@vger.kernel.org; linux-
+> kernel@vger.kernel.org; Linkui Xiao <xiaolinkui@kylinos.cn>;
+> stable@vger.kernel.org
+> Subject: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before
+> it is applied
+>=20
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>=20
+> e1000e_config_hwtstamp() stores the requested configuration in
+> adapter->hwtstamp_config right after the rx filter has been
+> translated, but the two register writes that follow are verified by
+> reading the registers back and each of them can fail with -EAGAIN.
+>=20
+> When one of them does, the driver is left holding a configuration the
+> hardware never accepted:
+>=20
+>  - e1000e_hwtstamp_get() hands it back to user space, so an
+>    application that reads the configuration back is told that
+>    hardware time stamping is in effect while it is not;
+>=20
+>  - e1000e_systim_reset() re-applies it after every reset, including
+>    the ones the watchdog triggers, and keeps failing;
+>=20
+>  - e1000_watchdog() starts polling TSYNCRXCTL_VALID for the cached rx
+>    filter, and e1000_xmit_frame() still parks skbs that ask for a Tx
+>    time stamp because it only looks at FLAG_HAS_HW_TIMESTAMP, so they
+>    are eventually dropped by e1000e_tx_hwtstamp_work() with a
+>    "clearing Tx timestamp hang" warning.
+>=20
+> Cache the configuration only once both registers have been verified, so
+> that adapter->hwtstamp_config always describes what the hardware is
+> programmed with.
+>=20
+> Fixes: 62d7e3a2d006 ("e1000e: Validate hwtstamp_config completely before
+> applying it")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  drivers/net/ethernet/intel/e1000e/netdev.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c
+> b/drivers/net/ethernet/intel/e1000e/netdev.c
+> index 35f5590228eb..7ae33273734f 100644
+> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
+> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+> @@ -3715,8 +3715,6 @@ static int e1000e_config_hwtstamp(struct
+> e1000_adapter *adapter,
+>  		return -ERANGE;
+>  	}
+>=20
+> -	adapter->hwtstamp_config =3D *config;
+> -
+>  	/* enable/disable Tx h/w time stamping */
+>  	regval =3D er32(TSYNCTXCTL);
+>  	regval &=3D ~E1000_TSYNCTXCTL_ENABLED;
+> @@ -3763,6 +3761,8 @@ static int e1000e_config_hwtstamp(struct
+> e1000_adapter *adapter,
+>  	er32(RXSTMPH);
+>  	er32(TXSTMPH);
+>=20
+> +	adapter->hwtstamp_config =3D *config;
+> +
+>  	return 0;
+>  }
+>=20
+> --
+> 2.25.1
 
-> """
-> > drivers/hv/hv_proc.c: In function ‘hv_deposit_update_direct_map’:
-> > drivers/hv/hv_proc.c:32:23: error: implicit declaration of function ‘set_direct_map_valid_noflush’; did you mean ‘set_direct_map_invalid_noflush’? [-Wimplicit-function-declaration]
-> >    32 |                 err = set_direct_map_valid_noflush(pfn_to_page(pfns[i]),
-> >       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >       |                       set_direct_map_invalid_noflush
-> > make[4]: *** [scripts/Makefile.build:316: drivers/hv/hv_proc.o] Error 1
-> > make[4]: *** Waiting for unfinished jobs....
-> > make[3]: *** [scripts/Makefile.build:598: drivers/hv] Error 2
-> > make[3]: *** Waiting for unfinished jobs....
-> > make[2]: *** [scripts/Makefile.build:598: drivers] Error 2
-> > make[2]: *** Waiting for unfinished jobs....
-> > make[1]: *** [/builddir/build/BUILD/kernel-7.4.0-build/kernel-next-20261028/linux-7.4.0-0.0.next.20261028.509.vanilla.fc46.x86_64/Makefile:2252: .] Error 2
-> > make: *** [Makefile:256: __sub-make] Error 2
-> """
-> Full log:
-> https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-x86_64/11219444-next-next-all/builder-live.log.gz
-> 
-> Ciao, Thorsten
-> 
-> > Helpers such as "load_unaligned_zeropad()" deliberately read past the
-> > end of a buffer and across page boundaries. A read into an unmapped
-> > page is tolerated and triggers a #PF, for which the kernel executes
-> > a fixup in the exception table.
-> > 
-> > If such a call steps into a page that has been deposited, the access
-> > raises a #GP by the hypervisor from which the above handler cannot
-> > recover and the kernel panics:
-> > 
-> >   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
-> >   RIP: 0010:csum_partial+0xe5/0x110
-> > 
-> > This condition will appear on L1VH system that have created L2
-> > partitions (and hence deposited pages) and exercise networking code
-> > paths such as csum_partial() can trigger this condition when a buffer
-> > ends close to a page boundary (e.g fffc in the above example).
-> > 
-> > The fix is to remove the deposited pages from the direct map before
-> > they are passed to the hypervisor, and restore them when the hypervisor
-> > returns them again.
-> > 
-> > We want to avoid flushing the TLB in the loop, so we use the _noflush()
-> > variant of set_direct_map_valid() when marking a deposited page invalid
-> > and flush the affected page ranges in one go ourselves. In the opposite
-> > direction this is not required:
-> > 
-> >   > If a paging-structure entry is modified to change the P flag from
-> >   > 0 to 1, no invalidation is necessary. This is because no TLB entry
-> >   > or paging-structure cache entry is created with information from a
-> >   > paging-structure entry in which the P flag is 0.
-> > 
-> > (Intel SDM Vol. 3, 4.10.4.3)
-> > 
-> > Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
-> > ---
-> > Changes since v3:
-> > - Batch contiguous pages in the restore path
-> > - Adjusted comment about failure modes
-> > 
-> > Changes since v2:
-> > - Checkpatch format fix
-> > 
-> > Changes since RFC:
-> > - Handle direct-map restoration failures without returning unmapped
-> >   pages to the allocator.
-> > - Move freeing of withdrawn pages into the restoration helper.
-> > ---
-> >  drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
-> >  drivers/hv/mshv_root_hv_call.c |  4 +-
-> >  include/asm-generic/mshyperv.h |  4 ++
-> >  3 files changed, 87 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-> > index 57b2c64197cb..b056051a5ac5 100644
-> > --- a/drivers/hv/hv_proc.c
-> > +++ b/drivers/hv/hv_proc.c
-> > @@ -7,7 +7,9 @@
-> >  #include <linux/cpuhotplug.h>
-> >  #include <linux/minmax.h>
-> >  #include <linux/export.h>
-> > +#include <linux/set_memory.h>
-> >  #include <asm/mshyperv.h>
-> > +#include <asm/tlbflush.h>
-> >  
-> >  /*
-> >   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
-> > @@ -15,6 +17,35 @@
-> >   */
-> >  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
-> >  
-> > +/*
-> > + * Add or remove a set of physically contiguous page runs from the kernel
-> > + * direct map. Once a page has been deposited the hypervisor owns it and
-> > + * revokes root partition access to it.
-> > + */
-> > +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
-> > +					int num_allocations, bool valid)
-> > +{
-> > +	int i, err, ret = 0;
-> > +
-> > +	for (i = 0; i < num_allocations; ++i) {
-> > +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
-> > +		if (err && !ret)
-> > +			ret = err;
-> > +	}
-> > +
-> > +	if (valid)
-> > +		return ret;
-> > +
-> > +	for (i = 0; i < num_allocations; ++i) {
-> > +		unsigned long addr = (unsigned long)page_address(pages[i]);
-> > +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
-> > +
-> > +		flush_tlb_kernel_range(addr, addr + size);
-> > +	}
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
-> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  {
-> > @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  	}
-> >  	num_allocations = i;
-> >  
-> > +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
-> > +	if (ret)
-> > +		goto err_restore_direct_map;
-> > +
-> >  	local_irq_save(flags);
-> >  
-> >  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
-> > @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  	if (!hv_result_success(status)) {
-> >  		hv_status_err(status, "\n");
-> >  		ret = hv_result_to_errno(status);
-> > -		goto err_free_allocations;
-> > +		goto err_restore_direct_map;
-> >  	}
-> >  
-> >  	ret = 0;
-> >  	goto free_buf;
-> >  
-> > +err_restore_direct_map:
-> > +	/*
-> > +	 * We don't want to return pages to the allocator if weren't able to
-> > +	 * mark them valid in the direct map.
-> > +	 */
-> > +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
-> > +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
-> > +		     num_allocations);
-> > +		goto free_buf;
-> > +	}
-> > +
-> >  err_free_allocations:
-> >  	for (i = 0; i < num_allocations; ++i) {
-> >  		base_pfn = page_to_pfn(pages[i]);
-> > @@ -110,6 +156,41 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
-> >  }
-> >  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
-> >  
-> > +/*
-> > + * Put withdrawn pages back in the direct map. Counterpart to the direct map
-> > + * removal done by hv_call_deposit_pages().
-> > + */
-> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
-> > +{
-> > +	int i, j, end, n, ret;
-> > +	struct page *page;
-> > +
-> > +	for (i = 0; i < count; i = end) {
-> > +		page = pfn_to_page(pfns[i]);
-> > +		/* find consecutive runs of pfns */
-> > +		for (end = i + 1; end < count; ++end) {
-> > +			if (pfns[end] != pfns[end - 1] + 1)
-> > +				break;
-> > +		}
-> > +		n = end - i;
-> > +		ret = set_direct_map_valid_noflush(page, n, true);
-> > +
-> > +		for (j = i; j < end; ++j) {
-> > +			page = pfn_to_page(pfns[j]);
-> > +			/*
-> > +			 * Retry individually on failed batch. We don't want
-> > +			 * to return pages to the allocator that we couldn't mark
-> > +			 * valid in the direct map.
-> > +			 */
-> > +			if (ret &&
-> > +			    WARN_ON_ONCE(set_direct_map_valid_noflush(page, 1, true)))
-> > +				continue;
-> > +			__free_page(page);
-> > +		}
-> > +	}
-> > +}
-> > +EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
-> > +
-> >  int hv_deposit_memory_node(int node, u64 partition_id,
-> >  			   u64 hv_status)
-> >  {
-> > diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-> > index cb55d4d4be2e..150a0c63ebc8 100644
-> > --- a/drivers/hv/mshv_root_hv_call.c
-> > +++ b/drivers/hv/mshv_root_hv_call.c
-> > @@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
-> >  	struct page *page;
-> >  	u16 completed;
-> >  	u64 status, withdrawn = 0;
-> > -	int i;
-> >  	unsigned long flags;
-> >  
-> >  	page = alloc_page(GFP_KERNEL);
-> > @@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
-> >  
-> >  		completed = hv_repcomp(status);
-> >  
-> > -		for (i = 0; i < completed; i++)
-> > -			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
-> > +		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
-> >  
-> >  		if (!hv_result_success(status)) {
-> >  			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
-> > diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-> > index bf601d67cecb..397c8ec0ce9a 100644
-> > --- a/include/asm-generic/mshyperv.h
-> > +++ b/include/asm-generic/mshyperv.h
-> > @@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
-> >  bool hv_result_needs_memory(u64 status);
-> >  int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
-> >  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
-> > +void hv_restore_withdrawn_pages(const u64 *pfns, int count);
-> >  int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
-> >  int hv_call_notify_all_processors_started(void);
-> >  bool hv_lp_exists(u32 lp_index);
-> > @@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
-> >  {
-> >  	return -EOPNOTSUPP;
-> >  }
-> > +
-> > +static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
-> > +
-> >  static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
-> >  {
-> >  	return -EOPNOTSUPP;
-> 
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
