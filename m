@@ -1,68 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.109
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174783;
-	b=h9EiUycrBPMhcV5IXHuyhIp9oM1sYD9vbjEUDUlLvknlPq0esia/kv2Ttpt6jhS/P+ny
-	 HzG2VgI0WS+D2er2jPJuKZrXJm+7pdK2NalQE2v6FW8+lNkc2MRQgHGjq8oDwiIP4Fwv4
-	 hjycc+sINGEYbFIKgYcWU/T+p/vAUx/SGdwQ8I2+wSxI0nIOFJTf72Nj54I4DnR6XkJu1
-	 qpqvUWhAX8J2uMDMgntyY8FFAb+y3OXhj6OaUimKAm2Wn11RRq3jG2TPOS5sOz++6JU07
-	 yVqW4IJQlrFq39GDWqnKg42mE9zBxCK7Sp6zTR+SK2y2PQisOuJTRe455Z/0C+JazoA==
+	t=1793174815;
+	b=LVK4Sbdl9OM843F5QdNMCU/NEbVS6yMwwSD9aWsxkUnehHOTYsaStOIYEhO9gwsM+Blu
+	 pc+l07zWQlVOUkDnmfnQaUcthmv7QzS5J0PqgfW44HeHlhnNN28hkaxMu+5iOGRbew4qf
+	 nrCmIH4JoDpA5QHL4C8QrB7JWPYGctp/xbgaF7McY3nyBIfKbL9Sx7nlFNFJw77ZNEMOx
+	 sjE8Tr7w4xwhigw4nk/a4LW1MY9WIXM4fvuyeJgNbZzzafLWFP+T1t/l/Hr/UaCAs0LQj
+	 aFQQf1kMH9NT/dS+JMtOB4GbGtmJKdrz3XXJ8KhK0IhQeuRzC/CJ02QBJPw4+29J4Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174783;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=uZIWeCagrmwaBpsKeIsFuArogqnWp9j9ZTU7YinTLsY=;
-	b=lWH1ThNIqp81gLqxPMPYq6pxFltTg4r32Al80GPRRJLK9uq7QAvScC3XfAFIp9ruOduU
-	 aBik6jKL6zV3LJd/ttPBJztAEzSD4H9IO/2SIqJ5bzsPUJHGL2aJ2FF9J5gh1jxcpDV/k
-	 a7ueV77CkuT+YzZHZH02iLIcjtzQ8dc9dEk1FIrFhGz8RJCBOSz0a6B0sOYHmays9VUpk
-	 tyz+oN6VqQ+t+OnpM3rmFEFguhq+LjoMzj6GvnRf/yXqjngRorbaziyeln2493fYz4TsR
-	 wzYWA2CyCoWFfknV3duntlyB076fRO2NhUYrk1S1s2Cvm0xd8FdGqIL5eQOJgPBHelQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174815;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=c240DR83JuR63BMG4/5b1ZEcsT+lI3V8H+zMAtuhVW4=;
+	b=U04QJ6AM6gFhWXlIWLf1JBNuIJoX/dT0ePMsErcbdQD+8ajNdVBAGv5hAbYGnSQRflEG
+	 1L0Z8u4IV6kuDE9veYNewUVZIdtFIlmr3WSKgC7k5EtYtAQW0ECt8jrNDAimiY8JOav/k
+	 /sFnUed99Bn3W9kcfadbmUwwxhCutRp2QF4W04FF9rz9eOiW3K/GUSWxP3K53JJaAbnRf
+	 cS5PXQqQ5xAe3mElr73JV7fI4a/Z22RvtaemUZNKpbA1Rk8rj1aaUlmayQebbj4Fr2H0s
+	 Usyji3xtLAryTgH4aWy9Oq1xTy+mc7javCaLm4uqf33+jWeiRXxO2Bj/7Wg4lRGTUVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=bry2CQ0p;
-	arc=none smtp.remote-ip=95.215.58.109
-Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=JeUmYbrV;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9DA606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064F0606A31A;
+	Wed, 28 Oct 2026 08:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064F0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=bry2CQ0p
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9cfbiA0ky34n1lxGhHKsOxHGEDD/NxPfS/f0cKWP7wI=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793174780; v=1; x=1793779580;
- b=bry2CQ0p4OoxNflm/ewGyQMSCQsOfgIanVM59N8ix8f2RC0W9/Z5QorXm5C3zBS/PMhpuDph
- /vqBpXbtUODEcMXhBulSdoZ2UG05SKyKNb69t/NzYZ6LNe5yVMHuoWENexiaCLnH8RU4CoYbK33
- D8rrnRvIng6PLDex8+abQMtiYSaQSJMZmlOcfzaIClQjS33ZzmYHKTTiqpeHRZs829WG6gpTuir
- mUWal4CXwnDKlGhGhEMtrPRft+wI0dPNGCsHU4wdhxVEM62YyWb/ooKEvIWYSNqAuDi9FZO+HxS
- z0ytqz1did2nfsQZXNtW/Dj5wSciGOxbRdhAwIwn8Ovqg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b5c157013ac541d;
-	Wed, 28 Oct 2026 08:06:20 +0000
-X-Mizu-Trace-ID: 4b5c157013ac541d
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 16:06:11 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=JeUmYbrV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=c240DR83JuR63BMG4/5b1ZEcsT+lI3V8H+zMAtuhVW4=; b=JeUmYbrVJ5hVNkMe52I30pmZwb
+	L+n8t3cHN2+9FUJIQE15d3lhvXFlG4ucACiZ0nBTW+0PzzZLkZNMT67Ef8gqakJ4JJPxpvHRdamWC
+	JVoCh5fhQu1TgksInJTUjpzBJ3rbH4WH1gVgyCb8kuRXJw9sn7t33KaNmdCLZ8WEaw0ZjnR8ocks8
+	CU8OoqRi4TMb/SF3TUlzO/5+tzoBDD1Qp2K1+Uaukof1vxIdis56J+A6BLdVKWz01rJQzblygcKN1
+	gZxkSxBjuuVpqKS7RL1cwX500QdpU5nvVEqkWZi25MP4gCisv7FCpv3jk/mgXBHj/enb6KgwlrH7C
+	GvanlsQw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLyg8-000000025sx-1dmn;
+	Wed, 28 Oct 2026 08:06:36 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4FE7A30120E; Wed, 28 Oct 2026 09:06:35 +0100 (CET)
+Date: Wed, 28 Oct 2026 09:06:35 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: Re: [PATCH v2 4/9] docs/zh_CN: reorganize process debugging guides
-Message-ID: <auGs89xiNoacI5vi@wyuan.org>
-References: <20261028034134.4144660-1-dzm91@hust.edu.cn>
- <20261028034134.4144660-5-dzm91@hust.edu.cn>
- <auGsi1N37Ptp7Kqg@wyuan.org>
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	kernel-team@meta.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <20261028080635.GD2668804@noisy.programming.kicks-ass.net>
+References: <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+ <auCZFckDfBMrlfxV@thinkstation>
+ <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
+ <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
+ <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
+ <auDkbDlgSZxqlk2G@thinkstation>
+ <7cb3dd91-f518-49b6-b311-9ec807b3c63b@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,104 +96,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auGsi1N37Ptp7Kqg@wyuan.org>
+In-Reply-To: <7cb3dd91-f518-49b6-b311-9ec807b3c63b@linux.dev>
 
-On Wed, Oct 28, 2026 at 04:04:36PM +0800, Weijie Yuan wrote:
-> On Wed, Oct 28, 2026 at 11:41:29AM +0800, Dongliang Mu wrote:
-> > Move the GDB debugging translation into process/debugging. Update the
-> > process and development tools indexes to match the current English
-> > structure.
+On Wed, Oct 28, 2026 at 10:38:22AM +0800, Muchun Song wrote:
+> 
+> 
+> On 2026/10/28 01:51, Kiryl Shutsemau wrote:
+> > On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
+> > > Therefore, I am kind of leaning towards removing the RO protection
+> > > and restoring RW permissions to solve the race.
+> > Okay, what about this:
 > > 
-> > Synchronize the process index with upstream revision a03ef333fbd6.
+> >  From e23ab850837b53cc79d57d58f1cfb4266e745c3d Mon Sep 17 00:00:00 2001
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > Date: Tue, 27 Oct 2026 17:23:47 +0000
+> > Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
 > > 
-> > Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-> > ---
-> >  .../translations/zh_CN/dev-tools/index.rst    |  37 +++---
-> >  .../debugging}/gdb-kernel-debugging.rst       |  15 ++-
-> >  .../zh_CN/process/debugging/index.rst         |  62 ++++++++++
-> >  .../translations/zh_CN/process/index.rst      | 111 +++++++++++-------
-> >  4 files changed, 160 insertions(+), 65 deletions(-)
-> >  rename Documentation/translations/zh_CN/{dev-tools => process/debugging}/gdb-kernel-debugging.rst (93%)
-> >  create mode 100644 Documentation/translations/zh_CN/process/debugging/index.rst
+> > page_ref_add_unless_zero() reads the refcount and then updates it with
+> > a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
+> > scanner, can read a non-zero refcount from a page that is then freed
+> > and reused as a hugetlb tail page.  If HVO remaps its struct page to
+> > the shared tail page in between, the cmpxchg writes to read-only
+> > vmemmap:
+> > 
+> >      CPU0 (lockless get)               CPU1
+> >      c = atomic_read(&page->_refcount)
+> >                                        page freed
+> >                                        page allocated as a hugetlb tail
+> >                                        HVO remaps the struct page RO
+> >      try_cmpxchg(&page->_refcount, &c, c + 1)
+> >        -> write fault on read-only vmemmap
+> > 
+> > The refcount is zero by then and the compare fails, but LOCK CMPXCHG on
+> > x86 writes anyway.  The kernel oopses when hugetlb pages are allocated
 > 
-> [...]
-> 
-> >  ============
-> >  内核开发工具
-> >  ============
-> >  
-> > -本文档是有关内核开发工具文档的合集。
-> > -目前这些文档已经整理在一起，不需要再花费额外的精力。
-> > -欢迎任何补丁。
-> > +本文档收集了用于内核开发的工具文档。目前这些文档只是汇集在一起，尚未充分整理成一份连贯的指南；欢迎提交补丁！
-> >  
-> > -有关测试专用工具的简要概述，参见
-> > -Documentation/translations/zh_CN/dev-tools/testing-overview.rst
-> > +测试工具的简要概述见 ``Documentation/dev-tools/testing-overview.rst``。
-> > +
-> > +调试专用工具见 ``Documentation/process/debugging/index.rst``。
-> >  
-> >  .. toctree::
-> >     :caption: 目录
-> > @@ -21,21 +19,26 @@ Documentation/translations/zh_CN/dev-tools/testing-overview.rst
-> >     testing-overview
-> >     sparse
-> >     kcov
-> > -   kcsan
-> > -   kmsan
-> >     gcov
-> >     kasan
-> > +   kmsan
-> >     ubsan
-> >     kmemleak
-> > -   gdb-kernel-debugging
-> > +   kcsan
-> >  
-> >  Todolist:
-> >  
-> > - - checkpatch
-> > - - coccinelle
-> > - - kfence
-> > - - kgdb
-> > - - kselftest
-> > - - kunit/index
-> > - - ktap
-> > - - checkuapi
-> > +* checkpatch
-> > +* clang-format
-> > +* coccinelle
-> > +* context-analysis
-> > +* lkmm/index
-> > +* kfence
-> > +* kselftest
-> > +* kunit/index
-> > +* ktap
-> > +* checkuapi
-> > +* gpio-sloppy-logic-analyzer
-> > +* autofdo
-> > +* propeller
-> > +* container
-> 
-> + cc Chen-Yu
-> 
-> My b4 review agent scanner says..
-> 
-> | OpenAI Codex <codex@openai.com>:
-> | 
-> | The move leaves Documentation/translations/zh_TW/admin-guide/README.rst
-> | (line 289) pointing readers to the deleted
-> | Documentation/translations/zh_CN/dev-tools/gdb-kernel-debugging.rst.
-> | Please update that reference too, either to the new zh_CN path or to the
-> | existing zh_TW/process/debugging/gdb-kernel-debugging.rst translation,
-> | so readers can still locate the debugging guide.
-> 
-> Seems to be a good finding :-)
-> 
-> Thanks.
+> Is this an X86-specific issue? If not, I suggest a more generic
+> description.
 
-Sorry, actually I did not Cc Chen-Yu.. Now done.
+AFAICT most architectures that implement single compare-and-swap
+instructions are affected, with the possible exception of s390.
 
-Sorry for the noise.
+That is, sparc, arm64-lse, riscv-Zacas, loonarch-amocas, openrisc (and
+ia64 for those people keeping the out-of-tree port alive) all require
+write protection to begin cmpxchg.
+
+All the LL/SC architectures should be fine, they'll never get to the SC
+part.
