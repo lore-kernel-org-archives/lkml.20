@@ -1,110 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224569;
-	b=Q0wBLoira9tVYjrcbhka3RO7er1VzBGKjUspRPJIB6voRXI3bZsHh+QdRwZJ8MPJo+ix
-	 PH2zzygEOX7lBbqLe0TaSPqZ73V8zNe4jeBe2a/jZ2oN1vaaFh9yE6qCgq2J/5FoRA/XS
-	 ZFBOosqdlis1V0/gQltAaSjUACjwbyYaR/cSB1eVdjHP3h7NhcrfzovyXGLMjFxZnPl9c
-	 imOqD087x9PGbs1SX3zbmntHMu2Yyv/oy96WzG97Qk114p0/hGiIc3LX7+T+xeWTxr05P
-	 4lc1YjMp1cERGsL6pjgS5irpMF8l2MIKi38s0+5btAW+8n7SlEhs0ehNml8JRHELafw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224569;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-	b=zKeoNL9yqrBV1VL4+C1abuacn9216Fkuis79BiID/owEmz7hOi9g3IhQWq6zH8oQUXJR
-	 Qai2PosHSYVomAp1WSL6T+5KUNSWGcx2wayrzAE3HMUIv7qxinlpISNGzQBvUdVx5HNon
-	 8ANcDp3tBskiaRS+uSay7t82JTc2W35tAJ7Nr41mm9rr2Wjg4nn9vlBBhiDIif+8D5pXe
-	 iaXbfi0citkWXi4F8uexXN0PODHgZjC4P4O15KBxQPLjO2th9C0EEkjSzlRw2i6KbsDZF
-	 Qdra+Rd0sd+KaByg9gjfAQOBZPCbXiF5oMfCfisoSL0b0MKjniaRvoBRCuwqJ1QJ8cQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I6+V08SU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NnCOu144;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793224580;
+	b=JRMGis+yRg3D6yzV/D/FhVYk1M81cXeXB2AWjEtK1etjKD0zYsTL6a+NNSb2e3hrUJKk
+	 S/p+8claImSSB9IcwQZIElpzafcp6HQUpH8t/t1pz8dkuT6zDiRFRabqK0KZDAPV3Ytqr
+	 6SXKefU6RvUc9niEl46oKHyRfa68s8rXflEf2U8pabc51NmHEXtAWdHkzryombSLUE7rS
+	 JiCUjE/iWdoiBDLVXr8IZAqhPp/SpiMIRHy4yp7wSigLvnbHfggM06bBhRM8tL1NakUfB
+	 o+h2K0+JbUJwZYc8WNHgh35CKVOVEMK2ZDrcki5P/81UrcUssDy6UaKzafWcHck3H0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224580;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GlhKj8MLLh7jWiRA8984cnhV8kqZCfQit/G97/c71Es=;
+	b=FgtvuPPR/dWYVSpFg4HNOPAXUqzNdU/wByZbvHol2KKxaBr+4pAiGmrusLzlWOOJBnMa
+	 OBZOJ6X57EILCtffNIs906t6Y0Y3kBIRSwt4WVMuM+XKZIeT/54PAvx+TQHCBj9yz5VnD
+	 /9OQ/w277w+KHB4PL8lpMcdngO74wUVN4MhPDQluA2xJngFO5U7Vx/w1mWELrff4oWQJ3
+	 Lj669VZr3xcJxZtqvTm6ZaULw9aIcSvfrZgU/uCzxCWxTefR9uOsoxGAzqn2ptNUAAhDd
+	 /UIz/jlvsn2Yy6O1wzaETMybkC+nTM6lNjkztBNr6kezOIlFxINF1Em7RO+SVgCvZJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=IKneGL4E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.66
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013066.outbound.protection.outlook.com [40.107.162.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D88F606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D88F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0934B606A31A;
+	Wed, 28 Oct 2026 21:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0934B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I6+V08SU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NnCOu144
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SIPNun1942145
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=; b=I6+V08SUWFn8OrJj
-	/oc980yhRpnBQ54mN3PIWbEuO1FUMEMdNjS6wI+GTpHqI+3erfHUvhl4JPKS6Kyh
-	XhsHfvUi5kNq0lg81sAV56Z83lgeiT6GEiSbLDaybfRwh2ryNGLSRimZuF6aWlY2
-	A8iBxYUtmYNACwXeCfNOvdcfUEbrXlzoMkHPcPfWRF7RSGM/Pw12Y1dKtxkzhtSf
-	6uzsI+/W2xjo7qSi0D6IrzX4P5rMmEcCnlFmWAJ9BbPMRp/bNoUwMiCPC7vBnuzC
-	Nyks3CrstZZZvoWl9+kootfOwOkFWsXcXPAgWGuU41nAKgyxrbu2S62G6VbDT98N
-	NquHDw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhwbmxw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:08 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb98809caso240359185a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793224568; x=1793829368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-        b=NnCOu1444bSiyiYhISyWXlFagTvu8hTB2k5OJzIgdwSRkKnN07f/u3bzt0Z6KzcSNA
-         KGnWD9IoMoWlpI1zMOyg/ocZEyk/1tkhr/O2G/u3AzmDtT42kobv/3eEUHkN5aA29kcK
-         T7qDndE/zHj6abXU4hf54AdHlrVMCnN7Eo8wYrc3W1/F0pGqzBAHv+gJD0ijInl+Y0iU
-         wtSPfrK2zgsFOyhRiy6qJODs3+GV70yq2Vrj+bsvqZxhJq2eJa5o15ZmwSU53J/PEmcJ
-         06nuOdvhBw3IJg1ayCN8SfOLO820Lst+wHSA6dYMhvBcLL9dtNlZJwUb6gj07a5LJoND
-         f5GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224568; x=1793829368;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-        b=dK8w169LKRdkgb8pmdhXDee6KT5RSwSBZU2vHWL93sfTcfyeL6YKzq+oO5ZmETgbgC
-         9NWcJKImynMDBbIMMpTH63WoSZGYUR+iwgl1QC0w+kvEE5NYQaPBEucgdsiEN7Lksqnb
-         +i2JiUUIxI02paMfSh+KT1ugiV0PNacVCBAuekG7DUevDFc7e+hdtbL7Wp/74kdcWnou
-         lZPmJ3w0+0qdXjO73ZyzDuGqGXa2MpjI2GajGMWtpSTjGstMpOj+0FDHd4fj8z1APM6e
-         HDW8Ez3J69eAnBVd6V+KzkJ24JU899VV3y96/cZfE5Eq08z/LRH805s5OdfIG/Zod6MS
-         EgMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwH7uY1I8kx61tBnuL9zlf+fkqMczTlmr03HIs2qH3R4l122NmGXAnFEWE9fqhREQcLU5pm5XleIKRoiLE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4QkgMhgdibe5nERX8PHDReuyhq/GjIGlZHDvndHMab/XpJywE
-	3Ru6pgSyAxDR0U1gPf+yli2OeKvl1nCmCMUb262Q4yjO/dnbDX/qZutm5XV98to7qd5kuWPlcqj
-	INFdkaVVLFEhGq0lEe7lPp/7wclXkSki7f2uP64tbntjHZ70s/HNxb7WWcakTvuBnHAc=
-X-Gm-Gg: AYBFou14fX8Gsw1wOE2Abtr7dTCEY70s3jXIhMstMzIpm9EWVHmx7KPs6l2g6ZVTgYd
-	zk3+tRf6HoeLMkOPCd69Gydhw3OZJBzcPcoBRtlmZcehVnz1KVFFF4kP0ULLzLIRdkNRbVgXRSb
-	qBLzohNgHDba0m0JVOd+tzwNjpDV4CFZieB2TCIdG/PFUfCqNJGWM+ItDz+fceKrEAzNLzP12iY
-	C04C7rNDC4qiOakqJZCVIsZL8WjYTgme6VCMpnWQ00qodMWDr7ui+orEssWUq6KNaUApBGIfogm
-	kdpudIGOR+RGdEb6IY/gobARZafCKyizuc1bpr7pwSZo6GfARczlheXM6Rmdcf1b5L8x2t6ui2A
-	KorjL1f4bnO8rwIU0eK9JFAdtpvIga8bVuc4pDe/zBVtvBo9FLnwZrilWPXMnAVNhomJoTvihzc
-	g=
-X-Received: by 2002:a05:620a:6f03:b0:93c:29b3:3525 with SMTP id af79cd13be357-94408a94fe3mr548789185a.36.1793224567339;
-        Wed, 28 Oct 2026 14:56:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f03:b0:93c:29b3:3525 with SMTP id af79cd13be357-94408a94fe3mr548785385a.36.1793224566702;
-        Wed, 28 Oct 2026 14:56:06 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e64ccc693sm1283103f8f.5.2026.10.28.14.56.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:56:05 -0700 (PDT)
-Message-ID: <110e1d54-347f-4186-bbe1-6aa03aa8ff3f@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 21:56:04 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=IKneGL4E
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YxCimRqmsNJWU2X1hYCZ/G+FuKiUnwMuPf1ljjs5G57tdjNAGhiuYPG5UafejhujRcBeRV8a9lS4K6JjmtQV7kF1/CMuOWMM4Rq05uKkj5lGZep+du3Md6McyKk3kLDCz37wq4FqIPQeZVxOcLUGajoS2MLOAy6HPjJquK+wwKM97MQG61zPV7BVY1q4ddJqu9QK2gddAvVvRpMctx+d5jV11HyeM+MushxIYeklhlbZiHqhL+777Y+3lsQSVSstxJtio1REOXFuqe+d/iQw+yWUbV24t/yYUeuZpw13KYrQf/wvZFDetAN+pHtkZuhXAQvJcgxBiIKcd9tNgl5cRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GlhKj8MLLh7jWiRA8984cnhV8kqZCfQit/G97/c71Es=;
+ b=kNrNskyD8Q4AfNluhf1VmsGD1ruUhvwXeiGROzdkMYA/oU/94Zkp/qPUBrpbxzq7QlRWmj52IWrCbZCfu8ZSg7d+XJSsa0Zs65LBC/Hn0q1ODQOAAEfl4oYcqdvLyqhZY9A/yWWDhDen2SgvKPNPSXGUFADOWWBBLCVXFO0NMAe1VhAWyuraxioeWztKAn3QwpA/lealGDlhbjR3xICzkKuJtAA03NlFaILz9oN0KSGGPZtlxsU5J3WYrdI0zWZ9M7StPgkQQVlgRXRTdJE7zbSlpzOKxTdI2p6jM3V7EMzSDdbVMiTEdoZ6NFi3xhxg4kJuMYzDzs7t7fEANb5iTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GlhKj8MLLh7jWiRA8984cnhV8kqZCfQit/G97/c71Es=;
+ b=IKneGL4EOOOUk3MwJWeIHaU4S4OVZxQHvJN8E2R6/+G78NLxEpmxMKkMeRu6cAAW1L2Wk7N8JCmn1LckiIBq1Zv5W4fKPh+oba8W0d9FZ0S8JOZMPXeVDU2DtkNwd0FcNel5QSH1gnxxZiAyBQuucZcb9mkxpddki1kOmExJuGQ=
+Received: from DU6P191CA0022.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::13)
+ by GV2PR02MB11250.eurprd02.prod.outlook.com (2603:10a6:150:2ae::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 21:56:16 +0000
+Received: from DU2PEPF00028D07.eurprd03.prod.outlook.com
+ (2603:10a6:10:540:cafe::22) by DU6P191CA0022.outlook.office365.com
+ (2603:10a6:10:540::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Wed, 28
+ Oct 2026 21:56:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DU2PEPF00028D07.mail.protection.outlook.com (10.167.242.167) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 28 Oct 2026 21:56:15 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Wed, 28 Oct
+ 2026 22:56:14 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Sebastian Reichel <sre@kernel.org>
+CC: <kernel@axis.com>, <linux-pm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/4] power: supply: Add sysfs entry for liquid detection
+ control
+In-Reply-To: <cover.1793223841.git.waqar.hameed@axis.com>
+References: <cover.1793223841.git.waqar.hameed@axis.com>
+Message-ID: <adfad9fb335164b4f1c86b2b3ba9ec03a33c2a98.1793223841.git.waqar.hameed@axis.com>
+Date: Wed, 28 Oct 2026 22:56:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,144 +106,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/23] ASoC: qcom: AudioReach Active speaker
- protection for WSA884x
-To: Fabian Renn-Giles <fabian@fielding.dev>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261028163152.26892-1-fabian@fielding.dev>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261028163152.26892-1-fabian@fielding.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Nq7DE4bu_5_5rNvT5rW-lodXtejvOpJE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4NyBTYWx0ZWRfXziOtrNBR6mK0
- btv1sBXXNxi7z1tGt9tMTk1ZdTjZwt4XwOB7gedqZXC7M/5dWsefsqkjbsWFx29NHqnnHHnQN7F
- lMR1ERaLqVoGOdPKi7AsxOpjznxyKyw=
-X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae26f78 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mQyjg09NGKRehI6BM-EA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: Nq7DE4bu_5_5rNvT5rW-lodXtejvOpJE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4NyBTYWx0ZWRfX2+h4in+Ln4Oh
- 2vEuwK7AR3q5xmwDj+LtUpGHwM9TMhlLLQV6b5oTN/mBvABRrbuq7cndzPqCzH0eX/IuIUFsWlS
- 5K1gQWvnkBJ7gNzqxdHvJVWph/BUSEm0Gfw6bbME7mhg3jSa2zz71xkJrI8NqvCzkoIN1352cwg
- ZZq0ruDiGFPi96KWbHRJx3X3sOaV2w4fcAlPU4MNI50lWYA2IQJPY/oz8IgWO+1en4eTBIxh4Bw
- 7w7Wc+5UOVlCLQDki1YeW9k2L+t+n1NyPyyUySyqGo46anOEOnIdykqEypV+SZYSKjw3flxzd1K
- vtdTRmVNBQJN457DuwIcb3Ai9ltiPDzLH3/Eelu5mwgQ+0dwXhdDwiRt1u7qOMgaoQGhwl0qXU6
- CaMIq6B1oAjloQ/vwHQ9cmSUBpYmtUM5KiCcRnFcti/VCYcNiJT3mEdCIdSW/2L6+kMiJTnemKE
- pIJ8a4qvBW0LR/lBLdQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
- phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280087
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D07:EE_|GV2PR02MB11250:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f0b8bbe-7f9c-4cdc-f04b-08df353e4a27
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|11063799006|56012099006|261009223027099003|261026121527099003|261021123027099003|261021121427099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	52CbYm/vQAXy/wVN0ZpL9m5vs7XBqItuvhj/LvqYCzGuVvUOGRPCXnIxJaW7C3KD2tLpRJF7T2QkDk6WHYLc/hdLaHtnnf0IhoS0RxaCxF5UBLW4CGPX5FrV8na2h8ZKVIuR9ISswgeUXZBVFRC5xIOIQH37uuVH5sBDIPnGso0txeK8hXmeIqzFGzXBxqT04rD+M2s8ii97KSIgJ8GpHovDXDcutpGmnMtKpLYgcqn4d1gqaQxrRe50zcC7dESsnFNNUpMIYFylm+kyiQCKUUVYIXzL+xJS4rJsFXUgwucCu90hVlRKm2V9H+S8E7mEeJlg2cVKXnvA3A+iMVT3catR9oRexDgCLa/mLD7chMaNa74Eq+gXMU9vDHaxZZNdBCFFCCu5gwc/WozGEPSbQgtO/QCzL8IEndp2cmc7qGfySoPh0HNwwoKunoIuAZl8/3oCQ5r6mv0dsZijHjr1WKF9BtfJFHI/7uQcgZoTCVeBh6KUgyksqJuqyOuqBVexbVaTwfXwLL+TEj9tAi6NmfB1pvscwOsAsaVnFDj+1TN8Ksuvd/AJLRpirRWgpb1nnhs977N/T4RZheAUUuvARGKRQ3pyzgUU/8iE8kUlZ1ZM9A8Mb6SlvIQ6aPwK2NLW/WCJknXCIPghoix+H4hiEbPJKQtQ1vvalD0XazXI3Wj4agQc7ac53AH9SsbkWLCntyYa1xEJcPgdtF7gNO+SIw==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261021123027099003)(261021121427099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	2XT6tdoRxLavRM5fgz2bEMQ+rBEiPsPjKFC5Z+spr9yrp6tX89xduy3b4433aegURKY46OJM3kM8IbMhTTA+TdAwPBOFTCCZIvsQzyGImhzT6tadjHji5E3R6guU6uS6eJ6u/ZDvqypIcXqVu7zytM3lftqWN1VhgBmW5SpEMF6uXPnJE7w31sH/rfj3hD9Ox9X+rOeDadWin7mtwjbKTHUWSnFv5lOfpa31Wv4mV94zNLIlOrrpBa3CiqG+ppwlJtipFlCkaHVRASE5jHqxyftHY+fs2siXaFeAG7Xy7u/5BT0EJclFKd3oTvjncYS4GqAnxtFy5iErNMHN+4v4IQI7cJqud2wyjoNYliQdUH+F2pWBc3tMjZtldvjfg08qg6NXPTJgEp45XR4si0H8OAx7oHxaDgFWwfqH2I5jolLhKSykTmumURktpDWRWd2+
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 21:56:15.7781
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f0b8bbe-7f9c-4cdc-f04b-08df353e4a27
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D07.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB11250
 
-Hi Fabian,
-Thanks for trying this out,
+There are devices that have built-in liquid detection. For example to
+mitigate corrosion caused by moisture in a port. In order to be able to
+configure such devices, add sysfs entry for controlling a device's
+liquid detection.
 
+Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+---
+ Documentation/ABI/testing/sysfs-class-power | 19 +++++++++++++++++++
+ drivers/power/supply/power_supply_sysfs.c   |  8 ++++++++
+ include/linux/power_supply.h                |  8 ++++++++
+ 3 files changed, 35 insertions(+)
 
-On 10/28/26 4:31 PM, Fabian Renn-Giles wrote:
-> Hi Srinivas,
-> 
-> I tried this series on a Lenovo Yoga Slim 7x (X1E80100/Hamoa, 4x
-> WSA8845, Linux 7.3.0 based tree). I found one bug and have one open
-> problem.
-> 
-> 1. Over-read in audioreach_get_module_priv_data() (oops on topology load)
-> 
-Have you looked at
-https://lore.kernel.org/all/20261023171316.819857-1-srinivas.kandagatla@oss.qualcomm.com/
-
-this has fix for the exact issue, along with the VI fixes in codec,
-please pick them up.
-
-My Next target is X1 T14s Gen6 platform, I have not tried it yet, but am
-hoping that it should work.
-
-I will keep you posted.
-
-> The function allocates
-> struct_size(pdata, data, le32_to_cpu(mod_array->size)) and then
-> memcpy()s from the topology blob. It crashed on the first load of a
-> topology containing the speaker protection module config blob. The
-> cause is in the size computation. data[] is __le32, so struct_size()
-> counts elements while mod_array->size is in bytes. The allocation is
-> 4x too large and the memcpy runs past the topology data. This is what
-> I used instead:
-> 
-> 	size_t len = sizeof(*pdata) + le32_to_cpu(mod_array->size);
-> 
-> 	pdata = kzalloc(len, GFP_KERNEL);
-> 	if (!pdata)
-> 		return ERR_PTR(-ENOMEM);
-> 
-> 	memcpy(pdata, ((u8 *)private->data + sz), len);
-> 	return pdata;
-> 
-> 2. Slim 7x bring-up: V/I feedback never reaches the DSP
-> 
-> DT changes for the Slim 7x:
-> - The WSA codec list is extended with the VISENSE ports
->   <&swr0 10>, <&swr0 11> on the left pair and the mirrored ports on
->   swr3. The speaker nodes get #sound-dai-cells = <1>.
-> - The static port-mapping is <1 2 3 7 10 13> / <4 5 6 7 11 13>. On
->   Hamoa the din ports are 10 and 11, versus 12 and 13 on Glymur.
-> - I cloned the CRD topology and UCM, using 4 speakers, with the
->   WSA_CODEC_DMA_TX_0 VI capture at S32_LE/8 kHz.
-> 
-Speaker tuning data might be different, but overall it should work.
-
-I will have to recheck on the port-mapping.
-
-> What works:
-> - The card probes and the SP/VI controls appear.
-> - Normal playback through the SP graph runs without errors.
-> 
-> What doesn't:
-> - Calibration (Operation Mode set to Calibration, then silence
->   played) times out waiting for V/I. R0/T0 stay 0.
-> - I read back the SoundWire master and slave port registers, the WSA
->   macro SPKR_PROT TX path enables, and the DSP module config. They
->   all looked as intended.
-> - With the SP graph active, the amp stays gated and playback is
->   silent. This matches the calibration never completing.
-> 
-> Question: is there anything Hamoa-specific on the VISENSE path (din
-> port numbers or channel masks, the macro TX decimator routing,
-> multi_direction_codecs handling) that I should check? I can run any
-> debug patches you want on this machine.
-> 
-> Unrelated noise: SoundWire parity errors/clash messages appear in the
-> logs, but they also show up without the series applied, so I don't
-> think they relate to it.
-
-I did hit some soundwire issue related to runtime pm, which was
-triggering the timeout too, Can you try to disable runtime pm and give
-it a spin.
-
-
---srini
-
-> 
-> Regards,
-> Fabian
+diff --git a/Documentation/ABI/testing/sysfs-class-power b/Documentation/ABI/testing/sysfs-class-power
+index 671786d4600de..a98e6b2a75fbc 100644
+--- a/Documentation/ABI/testing/sysfs-class-power
++++ b/Documentation/ABI/testing/sysfs-class-power
+@@ -619,6 +619,25 @@ Description:
+ 		"Ship"    (4) Ship mode.
+ 		============= ==================================
+ 
++What:		/sys/class/power_supply/<supply_name>/liquid_detection_control
++Date:		October 2026
++Contact:	linux-pm@vger.kernel.org
++Description:
++		Devices can have built-in liquid detection functionality. This
++		can for example be used to mitigate port corrosion caused by
++		moisture. This entry controls a device's liquid detection.
++
++		Access: Read, Write
++
++		Valid values:
++
++		============= ===============================================
++		"Unknown" (0) Unknown state.
++		"Off"     (1) Liquid detection is disabled.
++		"Auto"    (2) Liquid detection is checked periodically.
++		"Once"    (3) Check for liquid once then transition to "Off".
++		============= ===============================================
++
+ **USB Properties**
+ 
+ What:		/sys/class/power_supply/<supply_name>/input_current_limit
+diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
+index 9704557ffe1dc..661b42adf6efc 100644
+--- a/drivers/power/supply/power_supply_sysfs.c
++++ b/drivers/power/supply/power_supply_sysfs.c
+@@ -160,6 +160,13 @@ static const char *const POWER_SUPPLY_LOAD_SWITCH_TEXT[] = {
+ 	[POWER_SUPPLY_LOAD_SWITCH_SHIP]	   = "Ship",
+ };
+ 
++static const char *const POWER_SUPPLY_LIQUID_DETECTION_CONTROL_TEXT[] = {
++	[POWER_SUPPLY_LIQUID_DETECTION_CONTROL_UNKNOWN] = "Unknown",
++	[POWER_SUPPLY_LIQUID_DETECTION_CONTROL_OFF]	= "Off",
++	[POWER_SUPPLY_LIQUID_DETECTION_CONTROL_AUTO]	= "Auto",
++	[POWER_SUPPLY_LIQUID_DETECTION_CONTROL_ONCE]	= "Once",
++};
++
+ static struct power_supply_attr power_supply_attrs[] __ro_after_init = {
+ 	/* Properties of type `int' */
+ 	POWER_SUPPLY_ENUM_ATTR(STATUS),
+@@ -240,6 +247,7 @@ static struct power_supply_attr power_supply_attrs[] __ro_after_init = {
+ 	POWER_SUPPLY_ATTR(INTERNAL_RESISTANCE),
+ 	POWER_SUPPLY_ATTR(STATE_OF_HEALTH),
+ 	POWER_SUPPLY_ENUM_ATTR(LOAD_SWITCH),
++	POWER_SUPPLY_ENUM_ATTR(LIQUID_DETECTION_CONTROL),
+ 	/* Properties of type `const char *' */
+ 	POWER_SUPPLY_ATTR(MODEL_NAME),
+ 	POWER_SUPPLY_ATTR(MANUFACTURER),
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+index cce61137aef4d..8e5bbdfebe794 100644
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -112,6 +112,13 @@ enum {
+ 	POWER_SUPPLY_LOAD_SWITCH_SHIP,
+ };
+ 
++enum {
++	POWER_SUPPLY_LIQUID_DETECTION_CONTROL_UNKNOWN = 0,
++	POWER_SUPPLY_LIQUID_DETECTION_CONTROL_OFF,
++	POWER_SUPPLY_LIQUID_DETECTION_CONTROL_AUTO,
++	POWER_SUPPLY_LIQUID_DETECTION_CONTROL_ONCE,
++};
++
+ enum power_supply_property {
+ 	/* Properties of type `int' */
+ 	POWER_SUPPLY_PROP_STATUS = 0,
+@@ -191,6 +198,7 @@ enum power_supply_property {
+ 	POWER_SUPPLY_PROP_INTERNAL_RESISTANCE,
+ 	POWER_SUPPLY_PROP_STATE_OF_HEALTH,
+ 	POWER_SUPPLY_PROP_LOAD_SWITCH,
++	POWER_SUPPLY_PROP_LIQUID_DETECTION_CONTROL,
+ 	/* Properties of type `const char *' */
+ 	POWER_SUPPLY_PROP_MODEL_NAME,
+ 	POWER_SUPPLY_PROP_MANUFACTURER,
+-- 
+2.43.0
 
