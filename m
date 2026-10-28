@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793149576;
-	b=Ow5gUg2JJkEyTGsvNALaAnxYgd2oux1fQZ39kUZRrUfOW/9x5lsdG4qOwj9NoeQPgikE
-	 HpAwiJTfpozLqgxlI9RUqWtoYnnCVWK7pSXc1dz+d5ZQ2e5cOdV/HTdSDfVzzGaKK8d4N
-	 PikSgakEHqhPz1wL8lwcdT9xH5otGDsg+i7rzap9Av7Z5eSEKmQa2iJH6tg3qVER1BG/i
-	 +9ExblPGgEYE6hZr5bBI7rTwYsMeCF0LROu3rm0iuy9Ri5+CI23alEGaYtBC+8BG8cvG9
-	 TMV3XZB/tX21UZoQzYN9rNHmvbSMfl3Mjts9FiCCeZ9Vm7gzfvBqAxn8UmyW8jWGvSw==
+	t=1793149579;
+	b=5GPto2A8+lRqSoYdAtJ/5lPRn6H5QWMbwVA1YWBCrq8uNvAycRgVpKG9pRnyCkrCqOuk
+	 w9MCRoXiWUZotxfu4yyNcNoueUG9sI8FwxJbo5O/gBbObhxcLvXWv4mMEmBkJ+ytBVR8I
+	 sl9ojMbMqctPh3FsE+QGNVK/W2aBqTzY2ixu53xJBjcq8g0tkNnUdyd9tFBw50VrMRVLS
+	 ys2oqNLFcj6Ef6PRNSJvY4+Pou42ffuwnI/WqOLivZl/zkrQFgq3NRJc/QnNrdXYD8Hyq
+	 ZoxZ0meIjfapOrs5xNg5xTxW/8WXZaANur/emF2hq9zu7TltuOwa+tZR3DQVwlMzUCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793149576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793149579;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=PpW1w1fTH4pWdwk/odzA2Xx9G09sfx2zMLzLE1poreA=;
-	b=cuzbLzy9YMUgTWzZlJlpMrICGdI2ykvAqLtK2yh+rtB0R4cxVxvPXXnKhlOYNyNPTcXK
-	 cUYbc9PSI4+fb9w+HMOEyROPe5wC0eECMRAuQiGtP1Coa5CNzJ0QNYMxxByi1PDEW5HtT
-	 XB+5CC+6lUiSPKAHLKckUX6+wDYgtvq8RrIqy/Ctrf1WzZyyJL3/LuP1OBDZ+W4Vbpoql
-	 Ic/fa39648LoSS05yNZ/Gyc1CNtB13G4DLLDIZwIDObjCVc1RP8UdD+FteaaspxdRcMMb
-	 MlsWnLtr2jxKFr131l05S0xEM6VoLabn5mVlzcp+9kOMxDIrgJwhl5sTTsSbFOZYNVw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
+	b=KukKDMtPzj+pPizQ0EPFW3CweexJUwwOuYP7xDWMHMTMxNll0FxSWFiWyqKJjLh20OVF
+	 b8jdVk7h9HgwziSMVVNIuPPE2DmPlwTGRPjAoAJigRY22EPZbCFlMyc0Y3BinU9g53g+v
+	 12BUHwuotkCpVxSt27/pMTgIy+fp8X2Qi8RwikfPQrS+S7N2xFu2kHW6wixm1DR3oZcg2
+	 W64uPzGSPuGP6y7V0C8bG2qcXQtkZMikbinE112SwobITRY/ABZtCSutswmmZhfQF/bwI
+	 dADErpskVpJKWDA16n16mr+BuY1zYL4DF+9yPMapWaKreETuUqLoZprTbmVuC9oqITA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IPwkcPFV;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OtUv3TnD;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13610606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:06:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13610606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D6E606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15D6E606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IPwkcPFV
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e94f72fb9fso3394975ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:06:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OtUv3TnD
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab67ff8ec3so297148a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:06:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793149575; x=1793754375; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PpW1w1fTH4pWdwk/odzA2Xx9G09sfx2zMLzLE1poreA=;
-        b=IPwkcPFVyzgfuBUhhocxH+WImzb55zfjbLbDD0hWPoFWKHPSqvkFbDwsbhKGQ4PLrX
-         pA60Dbt1ahknus8zsRXikJ3Eb50EO2sCCJ7kPGRTNY5z2Ru0j17dazlzJIx0OxDdDKMc
-         3ghrWG56vyaM+9A+P3D1iqqweazvK01ap547sTlu4pTPI1hC85fLahI8y1HoYfFFlPOH
-         ZOmeofYNMSGxrU+mDJDfFn5h/79zmSplvr7nT5TCdaCTtBVZIUN95ew+rD+uxuL1SzRH
-         fxQTULmmU2FyTt1VKStcaGKSwBaDWZtoHYsou7IgQLM/61JaNgHdIesqZIps11MdVazp
-         cnvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793149575; x=1793754375;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793149577; x=1793754377; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PpW1w1fTH4pWdwk/odzA2Xx9G09sfx2zMLzLE1poreA=;
-        b=p2FZzBDanXFATbTHvhaVgE3dzfHnf/FVVchZrcR82m6vT/B+C63kjQIAdYwxdQkaLM
-         y4xouBaWZ0T63kf4OIQ1q1beLGE8DvnzcGcdoq/S0Uy06ZSp1kAQidPVlxDRViBDE8sf
-         PwZiONFogk+iUfC+aLoTwXya8OuzKtj5AdObob2DtGPQxEaWZfEJWlOQD49hqtYlKfx9
-         0po3DR4+n7Mr29XPvf0ccME+AG4UnBrhZJl/BDItWINAocYQ6ulB8u72iLnlUlxWpyGC
-         EvPggPa7z+ciNhOEjlu3RELZ2wK4jBocUNXf1k442iI6va9fG4iJ23uD2eFC2PrjXFd/
-         7Ing==
-X-Forwarded-Encrypted: i=1; AKwUvBzUYDG2CIdUi7gqVg797wgYixKFiWgbUFXtpWtlFRrmqXq+f6KYN8s6T7acSORnWVkfT0YwZtC4LQ2POMc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlLThE6bu3aLIbYLd/8Xh6xYBwZ+H3pR6nqOveSsloVxzajKsH
-	IQ15HGc4RoUjEWQ3kCPkwPE5wnSSOoBMCzOLJKjoGnsJx+IjQmg1P9tt03yva89fo4ROdjU78iO
-	kC3dCbEeoU0Z0DXtU8A==
-X-Received: from pldb12.prod.google.com ([2002:a17:902:ed0c:b0:2e8:fa52:c600])
+        bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
+        b=OtUv3TnDPbA3AuHcy1JU6FuEYodEhAUNNGdhXYfAuph2rUOjTpyZEiLzsLSXpAJuuu
+         xEwVjcZrLJF2XKOKc5g2WNXK6BJvoYtVWfeF3NPdW0tL486rau7oB1R9a4Mhy9/1gzgb
+         bIaW4pmfNpLo96zwliWkgf8bWwIoeX2l08NfzYcogdMSAP5b+V3ce+duNa8GTD3mbEjF
+         FCsGCgLMaFZX957D1JF5seAqeoxfRjroiFWPDbXyhkcvJofhw/V8hoLauaZiRd98Oqrq
+         fEvkfB5OQY4FMU6U60kLTd0QwvylkqYbakuRIBu/G7xn78Hy3+SrYsSv+QZ+Krv6TlB4
+         4Q1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793149577; x=1793754377;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yJNW2+65j5NYIKmcFdANCwPbFrFgTfSn4JMq31uqTFY=;
+        b=D1s0mRFKx4wpy+BrQRkIFA/6Wr29QzV+oR22O2eexdenc6ZrkV84eTFRB4UcojvRWd
+         lgQfee3lJHvC9k0eM+Qug5H8Whb1InP2uNLWNqOcSb9x27jcXTIXtcWlhKyJv9GhNUCZ
+         5M8HzEPPOmLxmI+PbmOWL/beagLOFhYjvAo21afUnoMLQSrY7QrWHnbsC3QhtK1SB0KF
+         SVfcf6o0coemPbQE0uhPds9FwPhJKEYQaRLczKTw7e/z97q8kPr1/mx/j/kkGQ0SlLUd
+         PI8asSfJsj6NoeZvCfyPDDzsHdWs/1B6JXeBSx9YMroh0Bmsq6vKgeceicLWsVOU7ewx
+         zepg==
+X-Forwarded-Encrypted: i=1; AKwUvBzP4WLTqKb1mqGkb24Q7xcNx3e697WQ1Ikxp3R+VHQ3zTlkULfetypMSPa8o4GjTSyGlG0Gc8EFR0B1UFw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGqpDeVRxHPMaya+DGJ7++/VtMVVtskJehvPAHmzopSSX+vK+7
+	AuMROV3BkCb25xBFKw9AilQpD9Bp3tWfjRPbZEcvW8XvEoPnApX2e7YdnJ4667EHhjhalbERWbO
+	leJw+wJdrXEb4ZkbX2A==
+X-Received: from pjbpw4.prod.google.com ([2002:a17:90b:2784:b0:3a9:ccc3:cbae])
  (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:37ce:b0:2dd:c100:b2c8 with SMTP id d9443c01a7336-2eb005a750dmr7696975ad.51.1793149575175;
- Tue, 27 Oct 2026 18:06:15 -0700 (PDT)
-Date: Tue, 27 Oct 2026 18:06:04 -0700
+ 2002:a17:90b:564c:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3ae58150cf4mr614654a91.34.1793149577155;
+ Tue, 27 Oct 2026 18:06:17 -0700 (PDT)
+Date: Tue, 27 Oct 2026 18:06:05 -0700
+In-Reply-To: <20261028010611.3929937-1-tjmercier@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261028010611.3929937-1-tjmercier@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028010611.3929937-1-tjmercier@google.com>
-Subject: [PATCH 0/2] mm/vmscan: remove obsolete offlined memcg reclaim handling
+Message-ID: <20261028010611.3929937-2-tjmercier@google.com>
+Subject: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online() checks
 From: "T.J. Mercier" <tjmercier@google.com>
 To: roman.gushchin@linux.dev, muchun.song@linux.dev, 
 	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
@@ -88,38 +92,133 @@ To: roman.gushchin@linux.dev, muchun.song@linux.dev,
 	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
 	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
 	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
 	Johannes Weiner <hannes@cmpxchg.org>
 Cc: cgroups@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
 dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
-move LRU size accounting on reparenting instead of copying it"), LRU
-folios and their size accounting are reparented to the parent memcg
-before a memcg is offlined, leaving the offlined memcg's lruvec
-permanently empty.
+move LRU size accounting on reparenting instead of copying it"),
+mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
+and zeroes the child's lrugen->nr_pages and lru_zone_size before the
+memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
+afterwards. A folio that is off the LRU during reparenting looks up its
+lruvec through its objcg, which now points to the parent so it is put
+back on the parent's LRU.
 
-This series removes the remaining reclaim special-casing for offlined
-memcgs that assumed they could still hold LRU folios:
-    1. Remove redundant !mem_cgroup_online() checks in vmscan.c
-    2. Stop rotating offlined memcgs to the head of the old generation
-       (MEMCG_LRU_OLD) in MGLRU.
+As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
+when !mem_cgroup_online(memcg) is true, making the offlined memcg special
+cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
+code. Remove them.
 
-T.J. Mercier (2):
-  mm/vmscan: remove redundant !mem_cgroup_online() checks
-  mm/mglru: stop rotating offlined memcgs to the old generation
+With the get_nr_to_scan() special case removed, an offlined memcg that
+still has stale effective protection now has
+apply_proportional_protection() applied like get_scan_count() does, so
+the MGLRU and traditional LRU behavior is now the same.
 
- Documentation/mm/multigen_lru.rst |  4 +--
- include/linux/mmzone.h            | 22 +++++---------
- mm/memcontrol.c                   |  1 -
- mm/vmscan.c                       | 48 ++++---------------------------
- 4 files changed, 14 insertions(+), 61 deletions(-)
+Signed-off-by: T.J. Mercier <tjmercier@google.com>
+---
+ include/linux/mmzone.h |  8 ++++----
+ mm/vmscan.c            | 28 +++++-----------------------
+ 2 files changed, 9 insertions(+), 27 deletions(-)
 
-
-base-commit: 2bba28e98578de622ef307d00875aa8f8bca3d10
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index 3b96d6c7123b..7f078ff0dd76 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -638,10 +638,10 @@ struct lru_gen_mm_walk {
+  * The events that trigger the above operations are:
+  * 1. The first attempt to reclaim a memcg below low, which triggers
+  *    MEMCG_LRU_TAIL;
+- * 2. The first attempt to reclaim a memcg offlined or below reclaimable size
+- *    threshold, which triggers MEMCG_LRU_TAIL;
+- * 3. The second attempt to reclaim a memcg offlined or below reclaimable size
+- *    threshold, which triggers MEMCG_LRU_YOUNG;
++ * 2. The first attempt to reclaim a memcg below reclaimable size threshold,
++ *    which triggers MEMCG_LRU_TAIL;
++ * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
++ *    which triggers MEMCG_LRU_YOUNG;
+  * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LRU_YOUNG;
+  * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
+  * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9959ca158ce8..636152d8c94d 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -2754,13 +2754,6 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
+ 		scan = apply_proportional_protection(memcg, sc, lruvec_size);
+ 		scan >>= sc->priority;
+ 
+-		/*
+-		 * If the cgroup's already been deleted, make sure to
+-		 * scrape out the remaining cache.
+-		 */
+-		if (!scan && !mem_cgroup_online(memcg))
+-			scan = min(lruvec_size, SWAP_CLUSTER_MAX);
+-
+ 		switch (scan_balance) {
+ 		case SCAN_EQUAL:
+ 			/* Scan lists relative to size */
+@@ -2769,14 +2762,8 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
+ 			/*
+ 			 * Scan types proportional to swappiness and
+ 			 * their relative recent reclaim efficiency.
+-			 * Make sure we don't miss the last page on
+-			 * the offlined memory cgroups because of a
+-			 * round-off error.
+ 			 */
+-			scan = mem_cgroup_online(memcg) ?
+-			       div64_u64(scan * fraction[file], denominator) :
+-			       DIV64_U64_ROUND_UP(scan * fraction[file],
+-						  denominator);
++			scan = div64_u64(scan * fraction[file], denominator);
+ 			break;
+ 		case SCAN_FILE:
+ 		case SCAN_ANON:
+@@ -4355,12 +4342,11 @@ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
+ {
+ 	unsigned long total;
+ 	int swappiness = get_swappiness(lruvec, sc);
+-	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 
+ 	total = lruvec_evictable_size(lruvec, swappiness);
+ 
+ 	/* whether the size is big enough to be helpful */
+-	return mem_cgroup_online(memcg) ? (total >> sc->priority) : total;
++	return total >> sc->priority;
+ }
+ 
+ static bool lruvec_is_reclaimable(struct lruvec *lruvec, struct scan_control *sc,
+@@ -5199,10 +5185,6 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
+ 
+ 	evictable = lruvec_evictable_size(lruvec, swappiness);
+ 
+-	/* try to scrape all its memory if this memcg was deleted */
+-	if (!mem_cgroup_online(memcg))
+-		return evictable;
+-
+ 	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
+ 	nr_to_scan >>= sc->priority;
+ 
+@@ -5325,13 +5307,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 
+ 	flush_reclaim_state(sc);
+ 
+-	if (need_rotate && mem_cgroup_online(memcg))
++	if (need_rotate)
+ 		return MEMCG_LRU_YOUNG;
+ 
+-	if (!need_rotate && lruvec_is_sizable(lruvec, sc))
++	if (lruvec_is_sizable(lruvec, sc))
+ 		return 0;
+ 
+-	/* one retry if offlined or too small */
++	/* one retry if too small */
+ 	return READ_ONCE(lruvec->lrugen.seg) != MEMCG_LRU_TAIL ?
+ 	       MEMCG_LRU_TAIL : MEMCG_LRU_YOUNG;
+ }
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
