@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208813;
-	b=c0HAYJQqspg/uFKucKWx+WviOGN/2zgHl9YnSRKDZbtILYGYF2FrEtugDtPpIFrU/0U0
-	 Wsov1zdgPXqy4Giatdozolri1q9aNqZwThoQ3435OQiA5hOlWAESY84G5AkrF/3zWH4if
-	 3ezuI96h9dKBNnRyho2F57EJPYy/19VGikxQXR0/MDVQYwSkAN6RU2o7hDd7DkjAUpANx
-	 4ROMKo/laO9FhysGTkxihmjLkAm7BUs1B293iwyJ5u53VLZSq4SaBpMB/0YpqNaEg01ii
-	 zVJqwgaWMVReUWNTi2/HAwEP40RpeAzeYLYjsRpexyUSq8A59oKbGjdMj3bAyN3ACUw==
+	t=1793208818;
+	b=C52P/flx7L0fbC862A747tZ4IYlX/945M+cQeRmUlha12ste5LE8zVeGrjT30Cr8mCR5
+	 TqDoPWHuX+C82Mb6IoKB5Qm4Mn+Mb89JcdJJYYlFQiCiq939t6jDpddZeQvAreNrTJDdR
+	 t0P+jMUTUzFHx/oNWTDOpgOIBm+IM2s5Bq32vCl2eR2q5lNdJxww9tJ8bI0xXe8UOTfEp
+	 aZJBNjwrXRddLlJKljBBiqkDEjAvcqAPGTbKZUlaTmVAsEE6N7fbJk6ARGqvL7ueRS4tt
+	 vSLsbRGQOpDyiiqvRTyRZix9TRvy6+FELWqT95dKC1ckwk2natutKyODwgpd5zrgaDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208818;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dNmOFP2cirQx+YDQEQMQpytQ7cOmuEPmcGGZd0DDSf0=;
-	b=NP/lj0uwJHWSgCs0vVVJ+OS99yRL+DTOcfcn0AFYBtzGQ7aNQYd6W15sbgzyPOCVcT4T
-	 1g1+PNgfusEwQGmj7hENM1Ntb5ULjg/Y4KtVQjDb+ZKO6pex/uCeCQaPepkO5HXgBu2II
-	 CxqdRguWh1YFF2Mdv6zAjh6Z2SKVOrV06+VqBVxsBzrpxLHVSQWiWBVWyhULMSIh1dgnl
-	 FDutumq6gcJF9I41o2bkuDtr0EHMvk4D7KFCAG81+qoua90HcW2YW+P2OJ5+9snhFHsYb
-	 cxFR+axvRy1RgEJWCHx3gBq+Z/lgjrM6Guqh/9Ay/38s2ymyMROQs4BbmMviSnoIINQ==
+	bh=I1Fa6JRPP7VYNcV1UYSNzfVBuIai7Yz+ImynYwQzz8w=;
+	b=dRUki0WdxU5ptPr3L2j/hhiLUB1JIt7cEu+tVuUf/Fcp75cE2AH3PqeK17WvJI3IlJa7
+	 911RM4SDSjsXbfiLQX8PnSDds6eq2nRgYpZ02DpCyBcCjgO4cDGogp75HJhwLKkwhXKk0
+	 1bsAN3fPxf5QO7P7TCN1vVonSL2AHvR6O0nu6CmUqeu0+0JFwobeRpvCd1zxp4Y8PSvqB
+	 56w6G1wAYITb8fxTyw4cFLYpt1gzBANWXPpWuFhikkGOfmw41dqa4BBWzflJdxAF8F0sY
+	 9eeBog98G6j/DoFPzv02QPTgz0AEjFLMJSn5VSDBV89BJFEkLTQyuwoi/cDZP+fAA0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=siSl1Hy3;
-	arc=none smtp.remote-ip=95.215.58.104
-Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YldVIdE0;
+	arc=none smtp.remote-ip=95.215.58.118
+Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EF3606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06EF3606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87187606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87187606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=siSl1Hy3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YldVIdE0
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BTGGQc4FPmp0Xx9SreLWs1ULHPHd2vAigHga5ye70II=;
+DKIM-Signature: a=rsa-sha256; bh=Vu3DCnFQlvZnnQDvCt8iSvZagRZVGtqQzKTq6UXQQNA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793208811; v=1; x=1793813611;
- b=siSl1Hy3Cwsxg40/OJDoYSjJpFes5gt8chCTV0GO4pMSayCuyMok4eG3NgMyPrP59zJl0NV5
- 2y1vrzBIJprMVWchPdoQHYoO+8T6kKuukG0f90BMbGJMV5IsRINV4z8yWSHQ4Oyw7p1xzah/tBe
- odDrPKg+Ue0dV2+WHT9WAG2I=
+ t=1793208815; v=1; x=1793813615;
+ b=YldVIdE0tZen68U2dzYAeLfmvCn/AYpRxWJFx3P/bZU+3lg8OkAkiv8LzWz35zCguLpc2HKT
+ uqEPOk4lIqIMYEpy+vQ/zQOyE7Fmqf8t+bVhqSi0E5R6jjx89onQgmgZLBzpv5mwCP9bc4+rrBZ
+ qIadKiMGGYOrpMBweNdPzo0g=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d53de949a052cfc7;
-	Wed, 28 Oct 2026 17:33:31 +0000
-X-Mizu-Trace-ID: d53de949a052cfc7
+Received: by smtp.migadu.com with ESMTPS id 5cb386fb5ff2312e;
+	Wed, 28 Oct 2026 17:33:35 +0000
+X-Mizu-Trace-ID: 5cb386fb5ff2312e
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -62,9 +62,9 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Andre Przywara <andre.przywara@arm.com>,
 	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] KVM: arm64: vgic-its: Clear an unqueued LPI before dropping its lock
-Date: Wed, 28 Oct 2026 17:33:18 +0000
-Message-ID: <20261028173319.1807811-2-fuad.tabba@linux.dev>
+Subject: [PATCH 2/2] KVM: arm64: vgic-its: Remove the pending state of a cleared LPI
+Date: Wed, 28 Oct 2026 17:33:19 +0000
+Message-ID: <20261028173319.1807811-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261028173319.1807811-1-fuad.tabba@linux.dev>
 References: <20261028173319.1807811-1-fuad.tabba@linux.dev>
@@ -79,55 +79,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DISCARD reads which vCPU's AP list holds the LPI, drops the irq lock to
-pause that vCPU, and takes the lock again to clear the pending state.
-When no list holds the LPI there's nothing to pause, yet the lock is
-still dropped. In between, vgic_queue_irq_unlock() can list the LPI (for
-an MSI that had already made it pending, or a GICR_INVLPIR write
-enabling it while latched) and its vCPU can load it into a list
-register. The guest then takes an LPI it has discarded.
+CLEAR removes the pending state of an LPI (IHI 0069H.b 5.3.3). Since
+commit e99ff76f4a02b ("KVM: arm64: vgic-its: Remove the pending state of
+a discarded LPI"), DISCARD does that under the irq lock, after pausing
+the vCPUs whose list registers can hold the LPI. CLEAR does neither. An
+LPI pending in a running vCPU's list register is folded back on exit, so
+the guest takes it after the CLEAR. pending_latch also shares a word
+with on_lr, so a racing CLEAR can restore on_lr after the exit path has
+cleared it under the lock, and trip the WARN_ON() in
+vgic_v3_compute_lr() when the LPI is next queued.
 
-Clear an LPI that no list holds before dropping the lock.
+Move DISCARD's pause and clear into a helper and use it for CLEAR too,
+after checking, as DISCARD does, that the event's collection is mapped.
+CLEAR on an unmapped collection is a command error. Without the check,
+the helper could be handed an LPI that has no target vCPU to pause.
 
-Fixes: e99ff76f4a02b ("KVM: arm64: vgic-its: Remove the pending state of a discarded LPI")
+Fixes: df9f58fbea9bc ("KVM: arm64: vgic-its: Implement ITS command queue command handlers")
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/vgic/vgic-its.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ arch/arm64/kvm/vgic/vgic-its.c | 67 ++++++++++++++++++----------------
+ 1 file changed, 35 insertions(+), 32 deletions(-)
 
 diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 37059d1338406..42dc71495ad98 100644
+index 42dc71495ad98..f9e9b0a71eb5a 100644
 --- a/arch/arm64/kvm/vgic/vgic-its.c
 +++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -842,22 +842,24 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
- 		 * Only an LPI on a vCPU's AP list can be in its list registers,
- 		 * which the exit path folds back, and that exit moves the LPI
- 		 * to its target vCPU if the target has changed: pause both.
-+		 * Clear an LPI on no AP list before dropping the lock, so that
-+		 * nothing can put it in a list register first.
- 		 */
- 		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
- 			vcpu = irq->vcpu;
- 			target = irq->target_vcpu;
-+			if (!vcpu)
-+				irq->pending_latch = false;
- 		}
+@@ -817,6 +817,38 @@ static u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
+ #define its_cmd_get_target_addr(cmd)	its_cmd_mask_field(cmd, 2, 16, 32)
+ #define its_cmd_get_validbit(cmd)	its_cmd_mask_field(cmd, 2, 63,  1)
  
- 		if (vcpu) {
- 			if (target != vcpu)
- 				kvm_pause_vcpu(target);
- 			kvm_pause_vcpu(vcpu);
++/*
++ * Only an LPI on a vCPU's AP list can be in its list registers, which the
++ * exit path folds back, and that exit moves the LPI to its target vCPU if
++ * the target has changed: pause both. Clear an LPI on no AP list before
++ * dropping the lock, so that nothing can put it in a list register first.
++ * Must be called with the its_lock mutex held.
++ */
++static void vgic_its_clear_pending(struct vgic_irq *irq)
++{
++	struct kvm_vcpu *vcpu, *target;
++
++	scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
++		vcpu = irq->vcpu;
++		target = irq->target_vcpu;
++		if (!vcpu)
++			irq->pending_latch = false;
++	}
++
++	if (vcpu) {
++		if (target != vcpu)
++			kvm_pause_vcpu(target);
++		kvm_pause_vcpu(vcpu);
++
++		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
++			irq->pending_latch = false;
++
++		kvm_resume_vcpu(vcpu);
++		if (target != vcpu)
++			kvm_resume_vcpu(target);
++	}
++}
++
+ /*
+  * The DISCARD command frees an Interrupt Translation Table Entry (ITTE).
+  * Must be called with the its_lock mutex held.
+@@ -833,38 +865,9 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
+ 		struct its_device *device = find_its_device(its, device_id);
+ 		int ite_esz = vgic_its_get_abi(its)->ite_esz;
+ 		gpa_t gpa = device->itt_addr + ite->event_id * ite_esz;
+-		struct vgic_irq *irq = ite->irq;
+-		struct kvm_vcpu *vcpu, *target;
+ 
+ 		vgic_its_invalidate_cache(its);
+-
+-		/*
+-		 * Only an LPI on a vCPU's AP list can be in its list registers,
+-		 * which the exit path folds back, and that exit moves the LPI
+-		 * to its target vCPU if the target has changed: pause both.
+-		 * Clear an LPI on no AP list before dropping the lock, so that
+-		 * nothing can put it in a list register first.
+-		 */
+-		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
+-			vcpu = irq->vcpu;
+-			target = irq->target_vcpu;
+-			if (!vcpu)
+-				irq->pending_latch = false;
 -		}
- 
--		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
--			irq->pending_latch = false;
-+			scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
-+				irq->pending_latch = false;
- 
+-
 -		if (vcpu) {
- 			kvm_resume_vcpu(vcpu);
- 			if (target != vcpu)
- 				kvm_resume_vcpu(target);
+-			if (target != vcpu)
+-				kvm_pause_vcpu(target);
+-			kvm_pause_vcpu(vcpu);
+-
+-			scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
+-				irq->pending_latch = false;
+-
+-			kvm_resume_vcpu(vcpu);
+-			if (target != vcpu)
+-				kvm_resume_vcpu(target);
+-		}
+-
++		vgic_its_clear_pending(ite->irq);
+ 		its_free_ite(kvm, ite);
+ 
+ 		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite);
+@@ -1309,10 +1312,10 @@ static int vgic_its_cmd_handle_clear(struct kvm *kvm, struct vgic_its *its,
+ 
+ 
+ 	ite = find_ite(its, device_id, event_id);
+-	if (!ite)
++	if (!ite || !its_is_collection_mapped(ite->collection))
+ 		return E_ITS_CLEAR_UNMAPPED_INTERRUPT;
+ 
+-	ite->irq->pending_latch = false;
++	vgic_its_clear_pending(ite->irq);
+ 
+ 	if (ite->irq->hw)
+ 		return irq_set_irqchip_state(ite->irq->host_irq,
 -- 
 2.47.3
 
