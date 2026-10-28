@@ -1,113 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188111;
-	b=npfnK1Jw/1H17tJbcMs9dDUY+icYVmjTsO3BncDB6adP2m2k7oEDzhH9urCJfIsmkBK5
-	 jTr6z7GS+GMiW8S1xvpSKcHL+X7kyg8unB7CLiuciYhL4IsfTMKPvM1jkJklviDE45jmn
-	 T0XjFsBlEdDEbNePaUGsuiOySLqds6L9utE6JUjQwASgtOrVcOsYBbTyIrMkh0VTH+ViV
-	 CGnB1EnwKY2HVkJGz9M1Epes06ma0JA47Yo0cXRHvPvz06rFEwfca3lUzXhfBTAIbCxoQ
-	 NzZJSLrShJbUSETiOgtkewQXn0NxGXnVYrHLpF7tgjrCJsKLoe27kDdiIzyhoyUZ0GQ==
+	t=1793188120;
+	b=MZUm/BFAtx7ilMFGG/S3T5s9Ws2NewIsrA277nb03RgcChXyYBSU+orp6Uv0V+NarnJA
+	 WpxGU11CkTQSLXpmp8OtaTo7JyJ2vvflNWYEdgn7uzWBgHNPwcMR9Pb7Px91FzKZ6DE9W
+	 SiuLCezZsvvqQ5QK0X4ztdXrjd2gB5ti8+hk042OhB0Rlnz9BR5rH2hDf+4Ai2AzjGfRF
+	 kVWkN42B5CVDNfSdKfoYZcbjlTfLliBm83wOYG8yb6HZKrQka2hxuDVylH5hw66c3OX/0
+	 amBZYO2E5TZo1obLM5tlK+WvEZh0yStAouef8Wo6+jgI6Np4l9muZEAUZnywVgRewiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188111;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=gk3Y1DE54vx+474+Yzmdg4fyyjQx7MEGk73ueeUupgo=;
-	b=JtvQUW1TAd5vAzlkoaZMWt858VvOyLflmVwXrDyY0dsAaG9YD3E63lFp88sfmfp5TASA
-	 irjNExo9NiJnEedWdLOkzwk5e5/hLnfV8uhvJT+6NGN98IYu52czxuWDRexF35fo5Qefr
-	 1R5W0Iu/YQQlFBRL1OyfgFohh4aalN6ohS+623bUbeGEH7OQ7Sn3wSf35ZMB+1ZTJVGgo
-	 ZTclCQimM7yJ9hMMZUgrfawTbBRL9xxmuhlnX6B3GkONlzs0oKQ1gTXgYnRpcZ2/36LSE
-	 9qkW56x/4vzrKIRlVYETGgkGCfiBuNkT9G27VXFhLqetSadqmYycLpXYepKDWpK2Gzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188120;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rz4LcTuIBFgFlzGCEXc77TsZGPHM5RG2DLR5yTjpqhU=;
+	b=48rRgrC++IufBTrHDhnUKVYg1lZ9ZHPNGZMCWVD22JB3kZuXzo8zq19SDmBZF1gh9CW0
+	 znUXLugz4unlEJbwgXmGFB3F4Pe3VkZI3JHA8P4yyIU0/578W4atxF/LnPvKzsEfRfUFP
+	 4IInn7L/ZlOzhAXd9Hj36Ov9tuYeEQ7abwc6f+i1XUGHx0IhBT0mkztylIrlcS2xu/Xva
+	 dRb3RGKlH4i1Mg1e8d7Dvj4M+zUqg4eoLs0rQkhD6QsmB6YO3ZOOa4maS4T6wPLQ89EmV
+	 ZulEUz9gnArDl3S9M/ehv8kVMelLB/5YYHpbFqZ0IHC6qJNOc/2dB25ztTz8RVDyp6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BPCNdJwD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bn6P3afa;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2gJuUjT;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30814606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30814606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED68606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED68606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BPCNdJwD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bn6P3afa
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe88G1012067
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gk3Y1DE54vx+474+Yzmdg4fyyjQx7MEGk73ueeUupgo=; b=BPCNdJwD35hChuwT
-	JQOnqjp4G0M2tcP2sveGVgO1bOK0Bi6WszVbz4yjet+bzzstrO+Ga2YJLSteeRj8
-	zCm42pWeQz72IU8i+1ECjHGVVZNtf5PwqQyYDJtMfes91o39rKJijOyGDco56M5c
-	ogvPLGrZdMsmdhqKBAHevYqq7Jk4f+rjk1ThiBEwpAPPnQcyoCUJGE7t7Afj6m/N
-	D4R4C0yWpbs5VzefSQuBsgs2ggSgQKBi5cJctkqN/ZcdugzgaV6IUGLI8Ad61d9u
-	x8JtSyATjx5267hYSLyKBKxmrERSXui9G+D2B3OU1FZ9jO3U/BOjx5raAkVnvOHh
-	VSY5GQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkfehg86s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:28 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e869e00005so10696555ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:48:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2gJuUjT
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c46d41f6af3so117800966b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:48:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793188108; x=1793792908; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793188118; x=1793792918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gk3Y1DE54vx+474+Yzmdg4fyyjQx7MEGk73ueeUupgo=;
-        b=bn6P3afa4ok+thlXjBr+0YaDGdiX9PJmq8LlhwhqIG6MRazwHEdEs/BYAjZTO+xAY/
-         fRTEFHmaBPiGW/6ANQDax8A/jGdgWJfHn2xzpa2LPJpBazpmltSnKUnq7qcMeklS7Z7F
-         0HL/GghM4Ve5cWBDKdidj50e1dSwNKcC9OtukqWa2uQpaluOAmxu7qaEXRLnht7yZEP6
-         rlGIg80aFdpa0SAsRJTIuWF1CSqOffRpUDPMnLwYUZrMLoZkI0zFWuZb//WtJm/4wOhJ
-         fbY1/mzCWU21zAyQOWWZ3J0AFjeYxz/+lIHfJEmAW+zDwOvGC71KdHa/NlI0W9LPmIFa
-         pSmQ==
+        bh=rz4LcTuIBFgFlzGCEXc77TsZGPHM5RG2DLR5yTjpqhU=;
+        b=t2gJuUjTUxdmJHYfEwyOU8B9odZv+OBtRYQtfaOaEhdxugMehZJIRfZBR0+pT9Wrvx
+         xJBKLZDCnCOzMPmLPeHeHjPe3cmNxwgHhYPUlFmG5LUkGvrF0BJf+S7zWD7s+vUwyYsO
+         jVbvuwPg9mI/7ARATnaEOjZoxG3a6ET6UiocRkz6y+RGu80rQDoSDD7I3jio7s+69cWq
+         GObddatvItFxd8KzhHGNeNdVQky8pl8nZlDbPkWIRtmnBO7FAUCCSiDG4M1N+sbmUQr/
+         A0R/ECCrvbKz5OZwPKeIdc9/m5LezrS3Ahmg918cEPu4XQgwadVCHdsAjq0y7AcYTaKu
+         QxiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793188108; x=1793792908;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gk3Y1DE54vx+474+Yzmdg4fyyjQx7MEGk73ueeUupgo=;
-        b=goIkOc2ixaQPq5Zu9ITBccz5E0enGp4K+VHInGPmhyekA6FCKRX4oebg0SyglNR/hB
-         H3M1Krm1Ii/+d+YBhXAi7j7oQSAULPH5IhJM5nTBF8vcwcUvSKZ73SqjtAZsU3tL3+Yk
-         OV2yOg4uZj4jkhcgF9v671MLIBwqMZHkN5vs3tiJUiygnlOC3dceGYIC8anyrB7KRjOe
-         rSlUnh6tV/UHrKESSOXkI/rqzViFC5nxT2ZOBtIT8caYmkb426PTNMlMk7EW3O1EhkoS
-         cBe9ur1PlgZ50T42Fgrj/M6zXm6/x1I/iKNj21xN1wBBhD+RfeAuiUBA5DTk2XZcwGPl
-         UdzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWRWKPnsoXCwymt5rnCMFFrgDQXa07Q6Dm1pYpr7QybiYXPBlSzcv3eev6TczmSl5Cj7hLzuFm7cJH+zE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+17SFecRYM26v4zxhBLjXPa3SMSoA3gP1DsUoVsMVRTOTtyiJ
-	hER+NJVEHKOgRTjTcccqAbOJCoeDM4iKm5uL8W/EmHL82bRIcl6sU5Nt8kw33zFGlod6PUbFAmV
-	gG6LORakTFEbYgGjEUpEi9C1boYzNZZT8CbD+YCN48JzmvDUNbtqXBhlYNmGIt/i8Crk=
-X-Gm-Gg: AYBFou3iD/PBgHymp0SlWvnPMXeMuhwAPUn2e1EwBA/4BTa2oT33yv7jIVAjqZZCp54
-	yDYOKKZD6PW0GrvJ4G7Pn5UQz2nNlrgOgDZGOZGTFX4Mgbfv4YfE0SOxJ2YbGYdY3inRZKEo3Vz
-	6quu9jqdfqye3gVgSTnkrEGTggxksSsampBhjESl5ZXzvUoTO0UqZ8MU2hJ3jzDTOpNyffPq8GS
-	WJNN9nGDN/NFONBwFlmZhcsDGGlgJEGMwLddEGEsh0MwvLzFwQg4y5cdC33ZiYd/g8JMXOv30m8
-	Jc95Y/ICo9WSg7MfCFed9VyM/WLqPytlsvpJJKtr6f2Nmh9HDCgI4vGRqnUtMlqmVscO5na3wuy
-	BGl7nX69e6HWJ+7HH/CK020SNEpLB5KmIQ5+IMtfYl2sopPJL5qkxiibH9mbp0YgMPclNEpuv8C
-	tuAEqQzLoDZXqsVSJjntAH8WzRfddZ
-X-Received: by 2002:a17:903:2b06:b0:2e9:5714:6087 with SMTP id d9443c01a7336-2eb00156635mr19432945ad.5.1793188108007;
-        Wed, 28 Oct 2026 04:48:28 -0700 (PDT)
-X-Received: by 2002:a17:903:2b06:b0:2e9:5714:6087 with SMTP id d9443c01a7336-2eb00156635mr19432715ad.5.1793188107526;
-        Wed, 28 Oct 2026 04:48:27 -0700 (PDT)
-Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c37551sm21207715ad.51.2026.10.28.04.48.20
+        d=1e100.net; s=20260707; t=1793188118; x=1793792918;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rz4LcTuIBFgFlzGCEXc77TsZGPHM5RG2DLR5yTjpqhU=;
+        b=vpLV+fNo3lDGcdTDIiiC772s3iDGOG9SJTZBLBqZP3ukNYWE8PmFlqm0ZfDeQrVwgi
+         ZLMDz9T6szbxDTvuoaMoOOzHml9N5vmhmhACZ7s4ORjhpieYLHE/fGxL+QzgaE6/20rk
+         wbTT0d0H911SaCMhc6rShDJNdQgzw3caoinDKonVp0xFtZOrtgaYZ3oMfzQXXhYuMzKw
+         eVBAuFaPCL/mQtyty9kY2Pybn4tPCT1IpRgiPSPvtp2UE/5PLtIzSuOBIm6VjpHyWqfz
+         ZpW4IpidDBUJoyogke3rkfIXKCp2f27y5v772ow1CQCK4G3lxQWh8DiWa9iZMozlrnDu
+         Dh2A==
+X-Forwarded-Encrypted: i=1; AKwUvByAG/XLSfimH0UwINbR3BqS6uyxEyIBfTHV9wlOww1yGH/cn/CJoCCLqxJIFhRuSik+MmJcCj2dmXmg/x8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmV5xFwHDfOAQ1NjqCX9kbXp23wUrd32vmi0oQG37NB4vG6Pnw
+	wDzKZs9k39Or2+cDbOuLKCVpl+PzG7AluSE2RENs+a5geKLU4BkYWJVi
+X-Gm-Gg: AYBFou2qI7HLaWEBd+3cOVw03hTo2AbLSXGJl6g6noRYtAjVd+azbeRWZnH/nXOyz3u
+	L6d3xSZulmlqCwK8pdfHbTyxn5+XBDg3i1gvZLX1eRBk61CLIP+E48niomy1Yohk4VNWS6inlAH
+	RpFkU2oculQXWb+jNj7iOe6JYkARN5+hXpeA6zIzFnX8v0cnsiwxJHmpIgvS6vJv0fZ/w/92rJo
+	yMzftf8rPGDils+OGR84mgu9r4FXToZD2moVzAlsrdGsU6A3NSyYJqJ5emDVIxRq96y3cEmU4dw
+	pjNmoRLrrcLXPXZDLbQlHN566qRrdBLb5YLeAS+NgDh2+1gjiSdcj5TLa+d16gyDxjbYxiQr+IX
+	aeWZUqNTLFRRhAEozAAY1ozCwxau1BjBsHJrz/Un3Dn0xkMc0bVeupuQFMij6PRQGqnS9MsAvSy
+	d/dKLAfJVDqIOdTbP1OC/pN4dV5i15Anlt0buFR5scJNAA7hHt0RYjYgqcgmAkmGbWkLu1E4fmu
+	/3z2YSedrLEKceNe7N+EGQhwtMzqy2BameTRTD17yOv38BNplEdA9HgpR260puD5appCVmg7Mr6
+	IAV1Uub5ZRZbNDLNmWcOsf8=
+X-Received: by 2002:a17:907:94c9:b0:c3e:34fa:611d with SMTP id a640c23a62f3a-c49be00bf6fmr159888566b.35.1793188117832;
+        Wed, 28 Oct 2026 04:48:37 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:43::])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b496459f10sm1375962a12.36.2026.10.28.04.48.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:48:27 -0700 (PDT)
-From: Yin Li <yin.li@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 19:45:46 +0800
-Subject: [PATCH DNM v4 6/6] arm64: dts: qcom: kaanapali: Add MPAM MSC nodes
- for the L2 caches
+        Wed, 28 Oct 2026 04:48:36 -0700 (PDT)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: netdev-bot+sashiko@kernel.org,
+	netdev@vger.kernel.org
+Cc: Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Jinqian Yang <yangjinqian1@huawei.com>,
+	Andrew Preece <apreece@meta.com>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] bnxt_en: Don't keep MSI-X vectors added before FW reserves them
+Date: Wed, 28 Oct 2026 04:48:33 -0700
+Message-ID: <20261028114833.239086-1-vlad.wing@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179310474137.3134.4690740150964769309@kernel.org>
+References: <179310474137.3134.4690740150964769309@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,172 +111,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-mpam-resctrl-dt-knp-support-v4-6-bdda1e445cba@oss.qualcomm.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
-To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
-        Drew Fustini <fustini@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793188049; l=2980;
- i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
- bh=EIpg2fIGRMBRydrB5ptmJ7TII/dpx+YM1XoZaljDCw4=;
- b=x/J3ue5uV1wMxc65LI2QTgcNRDwtcWB8n7h0nyP0eO1K1PUyDd6XfFsaaNBgUK2zJSIqu8/PW
- qhoFFd1vmHqBIA1YzSyn/HzTI0xkTspyTgNaiZf1+/H9UOE3fkw1nRm
-X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
- pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX6bDnAKjbuO5U
- gkvkKWU6vYC8lSMnpRxfK/7Ys83WEQv1rZIdin1p1ylQGoIF5F4X4HZMK82auG8Qm9n6PUWtB43
- GjePH5inxYj3K6OQl66zOyYVn5QXseMK4lNpq/cM4APTVyAxc4ItMeEKff4Vf1BxehxkTNpfOpc
- fOxWCCYuX9XaJj7Oz2Cy0ecz5mIdah4eOuq2SUSX+0ZlJiCKV/IRvwPAvAczEZMMTww0wrccmq7
- uVuGXWJe0tNiRx36n6iEj7opSCUwmYVQ9M2o+GmCMCfdpFQJEd3ibbwbMKSMHbg392IbuHH8Var
- VAXCjTOUBPRBz92riPDGwbX2ReujpIcGtYs4jo/FZK34DtcVjSUEulYXmqYVdvWRpoI1gkCbNPJ
- /wcKqYjy5Cvf3PN/C6ZBgTEZD0K6+yQLAj63P7ggIYO02/PotRe3tHMjGK+21Lw68iK0uVqSpaZ
- FOc1cR46OLgIlVHJ0nA==
-X-Authority-Analysis: v=2.4 cv=A/T5rKWG c=1 sm=1 tr=0 ts=6ae1e10c cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=ODdVmvVKQohEaym1G8sA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: kf7e9yhRknMTcAHUVrM065-WgtbhDoQB
-X-Proofpoint-GUID: kf7e9yhRknMTcAHUVrM065-WgtbhDoQB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX5IqDdF8asrzE
- kYsJcz89ylMeNXPPlyvq3BhaHS4mrv2A+1pweJW/wGgniej/y2p7IB3lZ6yA1NWall7bBf4rB9e
- JXTHQw0VP501W4aILOqduX1JtrR1l4A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280046
+Content-Transfer-Encoding: 8bit
 
-Add an MPAM MSC device node for each L2 cache. Each MSC is nested
-directly under its L2 cache node so that the cache node is the MSC's
-parent device and its CPU affinity is derived from that cache.
+On Tue, Oct 27, 2026 at 12:39:01PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> - [Medium] The fix is incomplete when FW grants fewer MSI-X vectors than
+>   requested.
 
-The L2 cache nodes are placed directly under the root node, using
-'ranges' to map the MSC's register region to the physical address space.
-The MSC register size is 0x2000: the Kaanapali platform implements the
-MPAM registers up to offset 0x1FFF as permitted by the MPAM
-specification when MPAMCFG_MBW_PBM is not implemented.
+Agreed. bnxt_reserve_rings() grows to the irqs_required it computed
+before the reservation, so a partial grant would still activate
+entries that FW has not reserved. In v2 the allocation is sized from
+bnxt_get_num_msix() after __bnxt_reserve_rings(), i.e. from the rings
+actually kept. With no RoCE driver registered, that fits within what
+FW granted, and it is never more than the old pre-reservation count.
+With RoCE registered, __bnxt_reserve_rings() can still keep more L2
+rings than a partial grant covers, because the ULP share isn't taken
+out of resv_irqs. That accounting predates this patch and belongs with
+the ring accounting work on net-next, so I've left it out of this fix.
 
-The nodes are disabled by default. Production firmware does not expose
-MSC register access to the OS, so these nodes can only be enabled on a
-local test setup where firmware permits direct MMIO access to the MSCs.
-This DTS is therefore only an example for other platform DT authors and
-is not intended to be merged.
+> - [Medium] New error path leaves the state inconsistent.
 
-Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 52 +++++++++++++++++++++++++--------
- 1 file changed, 40 insertions(+), 12 deletions(-)
+Agreed. This path existed before for the bnxt_reserve_rings() grow,
+but the patch makes it the main one. In v2, bnxt_reserve_rings() also
+grows the vectors when no reservation is needed but bp->total_irqs is
+below what the reserved rings need, so the next open recovers instead
+of returning early. bnxt_change_msix() also clears irq_tbl[].vector
+when it trims, so a stale virq can't be requested again.
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index e48a179d0722..10aee29a1ba8 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -49,12 +49,6 @@ cpu0: cpu@0 {
- 			power-domains = <&cpu_pd0>, <&scmi_perf 0>;
- 			power-domain-names = "psci", "perf";
- 			#cooling-cells = <2>;
--
--			l2_0: l2-cache {
--				compatible = "cache";
--				cache-level = <2>;
--				cache-unified;
--			};
- 		};
- 
- 		cpu1: cpu@100 {
-@@ -121,12 +115,6 @@ cpu6: cpu@10000 {
- 			power-domains = <&cpu_pd6>, <&scmi_perf 1>;
- 			power-domain-names = "psci", "perf";
- 			#cooling-cells = <2>;
--
--			l2_1: l2-cache {
--				compatible = "cache";
--				cache-level = <2>;
--				cache-unified;
--			};
- 		};
- 
- 		cpu7: cpu@10100 {
-@@ -532,6 +520,46 @@ soccp_smp2p_in: slave-kernel {
- 		};
- 	};
- 
-+	l2_0: cache@19870000 {
-+		compatible = "qcom,kaanapali-l2-cache", "cache";
-+		cache-level = <2>;
-+		cache-unified;
-+		cache-size = <0xc00000>;
-+		reg = <0x0 0x19870000 0x0 0x2000>;
-+		ranges = <0x0 0x0 0x19870000 0x2000>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		msc@0 {
-+			compatible = "arm,mpam-msc";
-+			reg = <0x0 0x2000>;
-+			arm,not-ready-us = <1>;
-+			status = "disabled";
-+		};
-+
-+	};
-+
-+	l2_1: cache@1a870000 {
-+		compatible = "qcom,kaanapali-l2-cache", "cache";
-+		cache-level = <2>;
-+		cache-unified;
-+		cache-size = <0xc00000>;
-+		reg = <0x0 0x1a870000 0x0 0x2000>;
-+		ranges = <0x0 0x0 0x1a870000 0x2000>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		msc@0 {
-+			compatible = "arm,mpam-msc";
-+			reg = <0x0 0x2000>;
-+			arm,not-ready-us = <1>;
-+			status = "disabled";
-+		};
-+
-+	};
-+
- 	soc: soc@0 {
- 		compatible = "simple-bus";
- 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the DCB IEEE
+>   ETS path reaches bnxt_check_rings() and bnxt_change_msix() holding...
 
--- 
-2.34.1
+This race between the DCB path (RTNL only) and PCI error recovery
+(netdev lock only) is real as far as I can tell. It predates this
+patch, and the grow loop already has it. I'll leave the locking in
+bnxt_dcbnl_ieee_setets() to Michael and Pavan rather than mix it into
+this regression fix.
 
+v2 follows.
+
+pw-bot: cr
