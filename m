@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189555;
-	b=bg0LjtDf87/xNBVmPWYC7lqcQuLbn/sIRgE+ckE/1hHcNTvkNWKhkRz+IPdGn+bmod/X
-	 Mq+IW0Y4p6n402UT2i8LNT6b0DgNcAYQIb7MiJ9yfsTULnja9+QNwIASucxeTGFlNg78t
-	 ZDOSCbdoZqeloE2Y6URqBjfCfB2211pCaL1SCbhd3a5By65XBOSsPzCvKm/Gv0G1a+fjK
-	 es8cf8Un1CexhlAe2CxuPNs1tdlwfSeA6k00GEErfD5lk91/3D5bOyAX9UDdLvqntTZTz
-	 Z2IUlAOet821tvbR2sP+4AnxWlfMXjRiFv5BzsryZHHRhbTjn4uMAHaF9NK6K46jwkQ==
+	t=1793189705;
+	b=ozpfIqajFo/8KQWIBkdRmuRwnjUE9QU/V/+0CpftlLMWi7uWXtRDkV1798Ju9AtLCpP7
+	 IqVHO5OxmdfynlT68BJ9m89HatxvowtZ7s4u2Q7Unjkx/QUOfF3RtrZclsdQOy76Kk3uD
+	 yA7H2EEz6ppzp8l9JI1MNe56dV01qWfSP+TVFKEfGIF5DmO9ktXPgnlmxTtZbx58o9szM
+	 XgW86rBgzX7DFcFxyw1bCjjznnznIy+4KUjQp+KKHyiWdlWKo+lbaYDxFIfhaNb+CIv1V
+	 wvoa7fKY9Vv6f6msElvU953/dM+6vShEF21qDXKXd4jIwjyMzTRORAvn8E2C8CRzsKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189555;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hN4HbOsDQHi/NU8yy1iBJn/aHgqs4Mr+FW66cmSUjoY=;
-	b=BjcLKOKV/1TkcCQTUYtuUu+Q+J47Kkmrv1NWms3bMdnnXQkfjLRo7zuGafEnbD78MHWi
-	 RsdS9Ih636HdHZflQ+Pp5IOYOZwTTXa5+iIbVT8iTQJTREzoKdWepQKuSn5wmA2l8oln6
-	 JXAeJlk++1q3dxCYE8nAGgoaH5TkY+jD+7r2oR0pGNqzRiHoMf8PGhZQPwQv3urELcsUP
-	 i3Ocdh5Wz7b1J1ILpeLUYSTTB18sL2GUqDHPtOAQCqJWo1hKYm4NsIepbwRni63zy0bQL
-	 hBaKnU1LBBMaRDsxzfpm72T404VxeMcp5lCFoZAH8v1zB/UneqdBX1QYf8WrHhdO2Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189705;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8KxBRO5Re9XYDN/KL2CHYqXPi9yMnF5dDqV6a6oJZqs=;
+	b=ClcddtMM3VEP/gx//HXIX9nx2qgFUuIdUrq2lwXC3a7cB9/VGWmEJIkXc+wn5PdxK0ez
+	 e8FS1X21Oo/gxQQhj+L37lr+NAqBS5QUTDN0d5UXLv4LlmvYfvWXr6CsqFO45SwBxH17N
+	 Hb5/ICG/JpbUqMcjUy2Wn5aGfq2o38qt8GPK/yRgE+tdXzs87I4gQ/BkiM/qj2z9wwhzo
+	 xR+AahwKLYJY/Oi7hQmAh0hyrGZZj2QsZGFHqpfYJsnBQPKNeyc23GTjgrs+mcR47hVUX
+	 HyiXzcJBUIxAJI0l/vSuVut6EgXH6HVyk1do8GSiIdWW6QwcETEM2E6lHjGJYr3e6uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnAr5C4v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Or/Q+STa";
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B04A606A31A;
-	Wed, 28 Oct 2026 12:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC83606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:15:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBC83606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnAr5C4v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076051F01825;
-	Wed, 28 Oct 2026 12:12:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189554;
-	bh=hN4HbOsDQHi/NU8yy1iBJn/aHgqs4Mr+FW66cmSUjoY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gnAr5C4vUH8ajNAKoxqpSc8cDOibncHA3oc8uOBk/V5pflU14wbxqCanvd/iGg7v5
-	 9xTEoTSqWb4/q4k7W1E76VkWrDNt7GIAaBMLd7ZJPTPbXGFo91zk+pXtGvkMKqt197
-	 fQ31TpNhl7Jq7mxH97HT9d9V0iDjjm7CZ4DzWtbxZz7sreG/GUcAmnu2XFGq1g7Yjr
-	 zopiVv2xf9RkMGRqKqDHe6Bh69r9PpppsdbGzTrdMX5QAfJCV0xRvnLGbcXIcNuPTm
-	 SaN9duJIsHh1216g0ETh8wXfFTkbz9ZIYtVztfYN7mUpUzVhCl+swCLl7TXYVAYpBW
-	 5JSrrVYZRkyEQ==
-Message-ID: <0f60fcba-8f31-4b3d-a7d8-8dee548e0b41@kernel.org>
-Date: Wed, 28 Oct 2026 13:12:29 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Or/Q+STa
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so459268b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:15:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793189704; x=1793794504; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8KxBRO5Re9XYDN/KL2CHYqXPi9yMnF5dDqV6a6oJZqs=;
+        b=Or/Q+STazFsIo3FjcUyTOqi4KYvUXfDAp3gKR73iETChiV+q8+UFsXQRTjisYjcDfZ
+         jm8wJ3ngrmT7XfAgURNjMLUTyPtXqcdfHwiTmm9WbqzN0rIQ9+kvz8zrW3/tgaurd4RW
+         M1wlqUuz8GguK0CQgop6WfPDvfWWRuZ0m+ym31YTFD/t/CScvFdYtxQs5LhVWJEnnq6F
+         xg9Ssj2M3YqBgamOtKhuAXwFw5hEzPgkJgsqNYFNJ81/7xuxTgb3hW2R5IW20ihxa2Fn
+         BCEtHQ+CJ479Lwk+z5QS4cWbyB9M0+jxgBwSJa6/zeEYgcYO35iVQ9RXyG2ae1wgpvWS
+         H5sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793189704; x=1793794504;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8KxBRO5Re9XYDN/KL2CHYqXPi9yMnF5dDqV6a6oJZqs=;
+        b=YG/90UMBIhv2pAf4WyQTMG5/wkWNsyrbaYEBNeh+0ljhkV0JjTMlKXwmnT4oZQ96Sk
+         9pP8UNYarZd1NK7knU722si3wJfXz25xTtjQe4g0eNfEDHZct28qPy0TSU3+YU1wJK4h
+         Ys0Y4fNlarzJXvUgVY+LNiiDx+MhHizN6pVJPVl9gsloms0soh1MGTO24hepsArSUiTG
+         htDpeiglrfQ/wnSqEBCw1S55rwOqBJUH9PkIbiUf0GV9NdkMhU3aRjGQMng6q/6fC7nL
+         6hcD4XuejH7+ZGaLCw7cctRjTp/R0abNqlHTGiVk6zgHOoOvBB+BER6R04R8hi7EEvk5
+         pPTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDVRVkmJOtW8yFffQKw8Ip28nIzH5PoNW4W7hfGtcSQ+91QteZ/R9qJ9Bn5T/l248yCF7Y+xFJZef3xMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZ+1++qtqsL0yNoSg4obO4pJGB7aMP58nljd3jEYSxRlKZCYUn
+	dij9kH2azya1iv4UjwYfxEcK6c5V0XZ0McSLBJf65blHTeR3d+2QtuP5
+X-Gm-Gg: AYBFou2hWLLBw4AK4SlVO/474BS11K/WXSQ6aXMvGL5pNvvSZRkyjQv4VyXdVMwcaZ0
+	MzOzYchUcFKVe8QofX0bruFeU9tRQ8TuixJpBMs+DdSqQauo6MqtTZxAAs6w5wj3S1Sq9JG0YYV
+	JaPGoWrZGWfgNHfkWoNPe1Ii7NY4zLI+PkiddOqycP1iRyDdycJ9IXmacBj9SUFKN0bOr4d21Lg
+	NxzLJj7wymX0517JPklZk3frc5+fSZMshKwyO34Nouf0QfD9wLNmvlmyJwYa0KvF0JM5tZk9PLq
+	2MuQKvzMJaSznIl86fgCEqEAZAVSc4UoQwIf4fQWBubDvSIfkA367exsr/rmITC3y9415IoqDkc
+	Vcsb6OZBznkHPP45rlQ7aq9QyVSMVRjWMMl1mWMIuHDd6GEf+o1dw07enKyVIVo3EqPXMiQVtRj
+	N2o2vnFp1lw1fZsuX76GRg2IPjYRlB5hV/xF6XXDvXpNCNVrSpqreTx9UHuM9ct8w11z2cTjjwE
+	6EXyxr4gNPMf0qf/j6zPkftHQf/wpycPDPW+KH5jAxpavUB1lTLpYYam5hzZSHeSDWWaHmOIkso
+	nnlqHSgghQlo4m6lwuf8tZjNEUfCIYPC2szcJJkI1gRmjoZfdQ==
+X-Received: by 2002:a05:6a00:3d0f:b0:89e:7bfa:f86d with SMTP id d2e1a72fcca58-8a75a02536fmr776911b3a.9.1793189703875;
+        Wed, 28 Oct 2026 05:15:03 -0700 (PDT)
+Received: from localhost.localdomain ([152.136.45.109])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6df0b5dsm1068172b3a.44.2026.10.28.05.15.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 05:15:03 -0700 (PDT)
+From: Qing Zhang <diasyzhangqing@gmail.com>
+To: linux-btrfs@vger.kernel.org
+Cc: David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	syzbot+5c01398781fb51df783a@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org,
+	diasyzhang@tencent.com
+Subject: [PATCH] btrfs: set the block size before starting a transaction
+Date: Wed, 28 Oct 2026 20:14:58 +0800
+Message-ID: <20261028121458.23499-1-diasyzhangqing@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +101,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: regulator: add Will Semiconductor WL2868C
- PMIC
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
- <179312390429.199157.12016700546762955000.b4-review@b4>
- <20261028120432.99230-1-xiaqinghuan@mail.ustc.edu.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261028120432.99230-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28/10/2026 13:04, Qianhui Xu wrote:
-> On Tue, Oct 27, 2026 at 05:58:24PM +0000, Mark Brown wrote:
->> Please submit patches using subject lines reflecting the style for the
->> subsystem, this makes it easier for people to identify relevant patches.
-> 
-> Changed in v2 to:
-> 
->   regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-> 
-> which is the shape the regulator tree is using (e.g. "regulator:
-> dt-bindings: ti,lp872x: Document input supplies", "regulator:
-> dt-bindings: sy8827n: support standard properties").  The v1 prefix was
-> copied from the media-side bindings I was preparing in the same batch,
-> which was my mistake.
-> 
->>> +WILLSEMI WL2868C CAMERA PMIC DRIVER
->>
->> Please keep the file sorted.
-> 
-> Moved.  It was sitting after "VOLTAGE AND CURRENT REGULATOR FRAMEWORK",
-> which is the V section, while the entry name starts with W.  It is now
-> between "WIIMOTE HID DRIVER" and "WILOCITY WIL6210 WIRELESS DRIVER".
-> 
+From: Qing Zhang <diasyzhang@tencent.com>
 
-That's LLM output. Why do you paste it?
+When adding a device, btrfs_init_new_device() calls set_blocksize()
+with a transaction handle held. If the block size changes, this takes
+the bdev inode's i_rwsem and triggers a lockdep dependency cycle:
 
-Best regards,
-Krzysztof
+  bdev i_rwsem -> mmap_lock -> trans_num_writers
+              -> trans_num_extwriters -> bdev i_rwsem
+
+The buffered read path nests mmap_lock under the bdev i_rwsem, while
+mmapping a btrfs file can join a transaction through atime updates.
+Since commit c0e473a0d226 ("block: fix race between set_blocksize and
+read paths"), set_blocksize() takes the bdev inode's i_rwsem when
+changing the block size.
+
+Move set_blocksize() before btrfs_start_transaction() to break the
+cycle. Also check its return value to reject devices whose logical
+block size exceeds BTRFS_BDEV_BLOCKSIZE.
+
+Fixes: c0e473a0d226 ("block: fix race between set_blocksize and read paths")
+Reported-by: syzbot+5c01398781fb51df783a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5c01398781fb51df783a
+Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
+---
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+ fs/btrfs/volumes.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index d3e6a9b429dd..a7f0607a5b86 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3019,6 +3019,10 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ 	if (ret)
+ 		goto error_free_device;
+ 
++	ret = set_blocksize(device->bdev_file, BTRFS_BDEV_BLOCKSIZE);
++	if (ret)
++		goto error_free_zone;
++
+ 	trans = btrfs_start_transaction(root, 0);
+ 	if (IS_ERR(trans)) {
+ 		ret = PTR_ERR(trans);
+@@ -3043,7 +3047,6 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ 	 */
+ 	atomic_inc(&device->dev_stats_ccnt);
+ 	device->dev_stats_valid = 1;
+-	set_blocksize(device->bdev_file, BTRFS_BDEV_BLOCKSIZE);
+ 
+ 	if (seeding_dev) {
+ 		/* GFP_KERNEL allocation must not be under device_list_mutex */
+-- 
+2.43.7
+
