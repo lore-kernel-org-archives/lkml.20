@@ -1,81 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190213;
-	b=HSAouBFcoBH2uzkrh66XQo5Uy1H+S0VgCOJs/4zx4kFYyHJ9V/jrtnvZZPBOsK6pH+GA
-	 7ZChdg7m3asmjw7Se1Q4miFQBSho3NBPqjBFPrX7ZoYo37yDeg6OL9l/P8DNBzk8alpfX
-	 W7iQQyRBgk4FXMa47cNpnAre4EXtQrpuvtHhMVfxLJ4xVwqxJy4Srju3WfBsROQMaq8Q8
-	 M39XmI+pzkf+6dds8kL2Wne/k2r3oMTrZjucfD+GhMWE8JKvNYjRvXdUroxvYPKOaT6An
-	 q1yZflHM1roqTXgHkwe9m/QxcvXhrHgFTVEpfLvvZ7eEiM2A0FGqrG0vN0ci0jaU86w==
+	t=1793190239;
+	b=OlY+iBssdQrxuUk5WtRinbyhlJ6QwuUCLgUrJoW0aDNhQ4/UVc2gd8KA0KrObvb5QKRX
+	 Oa/lw0sYZpLuakwkl2vVZUZNlwzho5gTEpfDt0OgBaQW/Z6AmzdhwR1NwuVGXN3DjZpR3
+	 c5WWowZiBnPsBGQ0iSz2gXHmPwGB1j4gcp8luK1j3w15i2RNOZT+yPERUuatkS5WJb1VF
+	 1gH4KTBjVX8mV2rh3doJzrQ9OYXT1+frWIWDxjOcAkEY/49JRytzHCD56jPOwyiXw2QT7
+	 xjoTbDF8R3XPbMKKozJGt/Eifj1pFo8pqhwBZoTOeJP5IIaVwipNHJBkHR0B4AyecwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190213;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+5WKr4dpUQrbKQkQfg+TPq6rjgjwzQ/77mIIZewsFhc=;
-	b=wfDGXnbVfifVSpOyFd0DGQlDGIgzkqtY5EsOITzJv8jmOaW84eAbIaG74rSCGlKQeKba
-	 mtbg2ZFllBi2RakYbkdoNkZQefDmlKHYDNcaRJqmV2CX932EQj8LEPOJerdxsh3LQ/z0r
-	 ION4cgABHX9rYpfra8+8Q4Cn6LqmOoL9yOZghYNXr3IEVphhVLKgXUOuQ1wjF+VCAS9Et
-	 v2Jg0gH/ww2A/+rDbMCzN/5q4nmspfgc4zhtmO9VRLJ7iEO/hk9IhDEPBhaXatnd72RQE
-	 w9a0DaumJjzFTCbO9sZBFnyYGu+/IYrtRkGAZYusOigG55sjM28n9CYMdciL+hyi3kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190239;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cVPfinBcqbOTfVLlNcyfK95ZPjIWvy4g7kt54rOT7UQ=;
+	b=Jngoy6qTaXk2uHlE92Z1r7w4oNzAUP0C5UhVCx5EpvTte3nEtlYp+aHUgsIzqyavLNx0
+	 MS602fgKzvRfSNg/kiMZtkbvqI4994NovAklaRgEvyaxfOtW74/RssT40GmHxvszSTge7
+	 3wfyJXEVgAVMPOA8PY5M0kDMfk+3iXWZFn7jc/PIvuc8MhZlHez5GOzXWw6d0HuQCdjjW
+	 iIRNlAHtAf+lS7dDudh5Q1QvLK2iFaRf6UV5CAWbs4H047NuQtaDMmOfk2kp9Gyio4o/8
+	 AQBwpX5hvNj1aSxwrB7d1t9712powHtYhL3KhcciAhfm8KcGObnqyC83DBcgCO5ZZ+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CZWg2TZk;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7QsyzZX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD14606A31C;
-	Wed, 28 Oct 2026 12:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADD14606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E949606A31A;
+	Wed, 28 Oct 2026 12:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CZWg2TZk
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBiJJ61078949;
-	Wed, 28 Oct 2026 12:23:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=+5WKr4
-	dpUQrbKQkQfg+TPq6rjgjwzQ/77mIIZewsFhc=; b=CZWg2TZkMCR2mq6UOTfSgP
-	c3PzYhxv4xjbmyUN8N59bmMTUNjVAz7o4T4VuD2c6sXnOYgZv1igNiSgSlpoOVth
-	2YXsIhPYyD6ln0+dFieMjTso6YVQg/866NFEPkWeO+voXS+WPunon7GvGvD5cxmb
-	RCANcExEy8/OlSkcgGQ576lDYaWvBZRFf63yQG5F7YgHn/Edff3KlkgDdcZzNtu0
-	pC7ucr5fDdjnleXpyjU00Jxci+MIqs0vRAj54FK5Ztb/Emr9POwTsXWZlUIahRKC
-	GmhiUzAjgRw0SztahbLty894ILOeYc2WQKar//jO5OO0kp1ojnWFSaq/OhwQ2NKA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgj3mcqne-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:23:31 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBnx4R1501927;
-	Wed, 28 Oct 2026 12:23:30 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7w4a5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:23:30 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SCNRnM36897234
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 12:23:27 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1835220043;
-	Wed, 28 Oct 2026 12:23:27 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CF97720040;
-	Wed, 28 Oct 2026 12:23:26 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.73.9])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 12:23:26 +0000 (GMT)
-Message-ID: <145b04ac-6115-4c8b-b942-347854b0567d@linux.ibm.com>
-Date: Wed, 28 Oct 2026 13:23:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7QsyzZX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C2F1F01825;
+	Wed, 28 Oct 2026 12:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793190239;
+	bh=cVPfinBcqbOTfVLlNcyfK95ZPjIWvy4g7kt54rOT7UQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=R7QsyzZXVOBspXAzif+Uty1yaR7OocO1eksw27ZhIaRbw/zacVji13CDlOTud6Swz
+	 U2Pr9SoeMIodt6hlwTKc23qnEot+1Xf+3Fpmqs2sc0x+gAy06cQPwl6HX50O//Vwg0
+	 JfeUTjqUb6rRdtqKeiyFtt6jrxr2rPqr+7BpvOubiYfbBNjj4q1AQgL3IVswavsSPa
+	 uVG9pyHRrxOYa6AUoIOQF7N8VrJo7GhhRsf5VfthPgerxVv7Az9UBhLHjeT4p7vif6
+	 G1sW7qs05H+nVGh2G8fnJ5PUmtl5GjcNwmlcRVNtpupitI1FhE4sJq0eEI4OVZNEUH
+	 QK71F8+3qDytA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,62 +49,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/10] s390/stackprotector: Serialize text patching
- with text_mutex
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
- <20261027143030.3154657-7-hca@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261027143030.3154657-7-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX32f1o46puQ5c
- 24JkmdwtRDHqJ9n/1hbnHaelOshTZ82HFIhQZptsRlbpRTTbeW4VHtX55qOXU0/AQbejte1xbBs
- wfegD7JSHo/07+Mm4wDv//B39lrlZ/U=
-X-Proofpoint-ORIG-GUID: KY3nDaxql7BPxsV84iDvqrc7ra6xXY_2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX+Pv0XAXDKx4D
- l5Y4cC1Jk5gGw/3Gcw3gfBbl+h9DlsdGhxD/ex54PNmmjgk1pWz6laXaBTWxWScMlEGArXr8wfL
- M0R91FS8B/0E+8ve5RZ3F12NwDpgs2owsXzteP9YZ3MVMGIqtmPkSWCH26SBYTuL3YmW8mqsMJq
- HYJ/HPk+jtRnYGPAApcZuEKtCTXD30Q9hVlEHX7PUSrVCvWGZxEfk+jOMX9gbIrH5hvvBrE3uG2
- 0bkSgkPINTy0KE6wfFiKZ0RXO5oF5LFaMMBTSBhks/f3CGL+5Gw8JllmEIJY43vjnbqGk7oz+4l
- iWaMaRczcqRh0AMcxVDBp5ZHG1sH90xx6O39LB7vk2w6mrIImA5jciE275Zc/oWEzVgIBEMWOl7
- 050Q4IdclU4OXefh1tDiLzcs7oe9nU1+20Whbkt0RK0e4YMPWIb2apw8l9Tc+rYsLVft/2TgC4q
- A8xoAskshZ2xflsx4Dg==
-X-Authority-Analysis: v=2.4 cv=G7uJgNk5 c=1 sm=1 tr=0 ts=6ae1e943 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=kMqweQCj9uxs_qz7cW8A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-GUID: KY3nDaxql7BPxsV84iDvqrc7ra6xXY_2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 clxscore=1015
- phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280048
+Subject: Re: [PATCH v14 2/3] phy: move and rename Airoha PCIe PHY driver to
+ dedicated directory
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261006102937.10972-3-ansuelsmth@gmail.com>
+References: <20261006102937.10972-1-ansuelsmth@gmail.com>
+ <20261006102937.10972-3-ansuelsmth@gmail.com>
+Date: Wed, 28 Oct 2026 17:53:46 +0530
+Message-Id: <179319022610.10280.5883386163307156406.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=906; i=mani@kernel.org;
+ h=from:subject:message-id; bh=Mff5QIqkdgNj/liBi+gaY4m1v9rfasm070afTA3Ry+Q=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4elVXqDJm3di9PWM5V1+d6+9zjcjgs05/y0rW
+ f5QcVFPU3mJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHpVQAKCRBVnxHm/pHO
+ 9dN9B/wNOCkrjfY+pJYF9ctJ4uUInfPKV3MX7T2VRidZvY7axyDCyG/TuaH5jj+U+zn17S+ed2D
+ xMfyNmPCL/+qG0lSSQgF3Tlh5p9D+nbMjFxaLX1UEFfLs9gJ+pib/zWf3vi+J6utQoiP3+91duI
+ d0PPqg+eSkmmiwT/JT4QJgTyHNmK1+LqZkqMEna3M2eQMBp3iP2k2EAZpI8z6hFtxZIlfuQNxit
+ YOSAkV1FLgYyo1L11INZq6/x1Fef/8SCrnZwSNxIJoVHB8Be2Lo525o2WkWPWbBxh5rnQZ57/cZ
+ 99+0vgb7oSfJaqckRYvXnJzNDZmg4c9sBY169YOmxSzpiONy
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-
-
-On 10/27/26 15:30, Heiko Carstens wrote:
-> Acquire text_mutex inside __stack_protector_apply() to serialize text
-> patching.
+On 2026-10-06 12:29 +0200, Christian Marangi wrote:
+> To keep the generic PHY directory tidy, move the PCIe PHY driver for
+> Airoha AN7581 SoC to a dedicated directory.
 > 
-> Serialization is not required for __stack_protector_apply(), however this
-> is part of larger series where at the end s390_kernel_write() requires
-> that callers hold text_mutex.
+> Also rename the driver and add the relevant SoC name to the .c and .h
+> file in preparation for support of PCIe and USB PHY driver for Airoha
+> AN7583 SoC that use a completely different implementation and
+> calibration for PHYs and will have their own dedicated drivers.
 > 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->   arch/s390/kernel/stackprotector.c | 4 ++++
->   1 file changed, 4 insertions(+)
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+> The rename permits to better identify the specific usage of the driver
+> in the future once the airoha PHY directory will have multiple driver
+> for multiple SoC.
+> 
+> The config is changed from PHY_AIROHA_PCIE to PHY_AIROHA_AN7581_PCIE.
+> 
+> Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+- Mani
 
