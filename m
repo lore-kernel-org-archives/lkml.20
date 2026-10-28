@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793226051;
-	b=V8HMIyCJZ8OXGmfq4XEBgZ8JAtMGClQ24Ydq2OKSzTfUtEXnfTzR1vFTGn4bI/AA0m1c
-	 f6GLxDbntfizwZCK25yJXMXWJz++xVRA0b95xzI1Ka8fw8SKgcz/JlRNTXDO5G5AC37bl
-	 buzXeGorNHHa4nPNzOwLNmq+ujHE/+eVCech5j6dZbw8Y0Ta+75v0VHXvfXPcSzJ0vs0t
-	 Poxs+lSdp68Klh4qLZjObQfxiaOmyh9RZJbSzJPO/bNU9KAJSXBq16+u5ygPYzET/xTLx
-	 mt7qw11+DN1p5NR3/1SdNMCTG96Lk2IehCF+Vey0PHHLadRSfN6eP4sF25QWwIQ5c7A==
+	t=1793226080;
+	b=O2z93kKYigmLvHiyR7au6AUz3UB/zYGHhfI+owD3mUWblppqnrW8Z7zf/rNNQm0V71Wb
+	 HPPhhLPCKyR1Kl77x/f2j0M7ypMmV/1NEiiOZcxEF78ISMIVDlgvujyFRlvNn/aQI6f83
+	 9hvHABXao26y8aMGZT3lwvBp2Ax8aT6cB3nQz69cTfT9FRiiQeHNIAnHVBu76K1RVORVK
+	 i5maKfdIl1XHCzHFocIaZVo2P5Xzp7E9qTGFC3IlxHjI6EZ+snXbiKvJO+V2qFZft3fTY
+	 fp5NmmbATVNQdkzYJqgURYDvm2mrivdlbGo8ToQs844uQTawAe0nI/pGLsXlbwPA0Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793226051;
-	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6k3mwGo0Ko38RJGbMaFKnc5cA44pMnEE+a+lrwIaTnI=;
-	b=sKI5sknoy77FjaH5JFA4qJpc/UA8KLRSxaw+DMGgkCqVzYKAGMceBZ/x8JmHiLG5RBkz
-	 4THhdlv9xLhvn/UGzg6IMugFRtVRIWJ47tl1SOJvTGYC7LuHULaTk0v6xT4oBTokOAnG4
-	 xCInCL6yNQGDMYB3H0p++906KH0ELN3/q0qdzlFV4uTG6G5cP3tMSbGSZH8bKXw15kXr4
-	 bEZt8hQVj2TVeoWHLgdkSYsJP4qEIUxIg4cqADwUrJtf/wV2ixJadqh70wOjHQuIVWapJ
-	 himFuUfdB2H9tTioab8IVdJ9Kem+MGoLUGNSKWwhwBq1yqzIsvA+ukrgvgOXowASc9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793226080;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5PYntU4pcZbtBDlk3G303agmpMU/iAC4KlHp+fta+Pw=;
+	b=ee/u2pw1p+3iRQhDA1KlH4eiRRycyzGn6M6aih5ksK0pZrSRgtZHwEHPsJCebLjg9uc8
+	 btSCiTI2lLJ3xJnFAu7IWCSp8EVXw8H/nqrUUiCM7H2sJdDa+uPJvvtwoszNI/ZEZX32P
+	 GDPhuY8r1okZFFzaAwnafQaBHhumpppPpM1K9QvL7dPnx6E1j8CD5g/9XWoLW1uIdo1hg
+	 nC7wOdlOzctEdO4eH5NwFnWETLL9fvcQZQtwhMc5OBvK7zovmXnR5NjVB19BXgv1UFNlj
+	 qOP1ijgrlgZuW/Ard5MgeLZ8830fkYeU9ZZffZadRgYx8j1SxObiAYtZR00iAEDDohA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfNOl7LW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lJHtAcnU;
+	arc=none smtp.remote-ip=91.218.175.223
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E084D606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A43606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:21:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A43606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfNOl7LW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9E01F031E1
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793226050;
-	bh=6k3mwGo0Ko38RJGbMaFKnc5cA44pMnEE+a+lrwIaTnI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DfNOl7LW3mlO1WeVo+osAJO3xRBGgRYFDMESofUDg/nh+OSVwMsJgqiouTyQh88aH
-	 mfoO9cLgEeSp22LU2BmcfDzqmhaP586pfJHyCF5Ovq4Jl1DIregbBOS2ltflaVnzKM
-	 Zo6/YrcnijC9PGL5xoWAgPHidpUpyzHS436a4Hlj/JXYCnKPqjsi4w0hqYMraxIABu
-	 T7tqqnIYhNAsPvdWrbpgAiIt1n3MgMwaahTuaVc3tI+Hz4n2pjmLObCTj1l5ibZYzY
-	 1LvI+GQpJmVscNx6rEl2aCH4v6fvfP99SQ8jHLSGpu+W5+T3qVy1W2j2QvxeHCFJJP
-	 ppnoAUsgeDyRQ==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f3c616c84so124158085a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:20:50 -0700 (PDT)
-X-Gm-Message-State: AFq9FYKAcZcFoYahV69tS1HDzjQ/uvfATT1nIr4bfkXSRMKa+z8klCoT
-	8zU1kBhYiiO4qTmbn+ERGsJYQ/TTXzPpcSly8nSDnng5V2rvum+A51cjkPTYNkwE1YoJdh3aE5n
-	IPC3Q4TGI/0MjqN8E01Ccmov/42Mj9xU=
-X-Received: by 2002:a05:620a:29cb:b0:93f:3cb0:464b with SMTP id
- af79cd13be357-94408a92d54mr568990785a.49.1793226049819; Wed, 28 Oct 2026
- 15:20:49 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lJHtAcnU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KEyQW15tu0msESBhCETqAqGeyqCoqt8QavWxxHjja3M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793226078; v=1; x=1793830878;
+ b=lJHtAcnUpgNiNEQx/U0cEz+4H7TDAHnctMsJXv4T8RmEkjcg5GWpbCsrUGSGy2NlII3gRhH8
+ JLBEBTINIsfGA904OVz8EqbnUFrsWdzubvCqMKmirEyq5uoPcraQotyVWfgw4WOUM55m3YUXHKH
+ DdOI0rV0cf1SjVZPSiYIyxk0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f80d48f7db07d649;
+	Wed, 28 Oct 2026 22:21:18 +0000
+X-Mizu-Trace-ID: f80d48f7db07d649
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 15:21:12 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: "T.J. Mercier" <tjmercier@google.com>, mhocko@kernel.org, 
+	roman.gushchin@linux.dev, muchun.song@linux.dev, zhengqi.arch@bytedance.com, 
+	akpm@linux-foundation.org, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm: memcontrol: fix NULL pointer deref from
+ high_work_func() on dying memcg
+Message-ID: <auJ1ID25dW55gT9h@linux.dev>
+References: <20261028183537.605854-1-tjmercier@google.com>
+ <auJzXV3nnPZA5GSr@cmpxchg.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,47 +67,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023011049.1164625-1-song@kernel.org> <20261023011049.1164625-8-song@kernel.org>
- <20261023093256.20d3e300@gandalf.local.home>
-In-Reply-To: <20261023093256.20d3e300@gandalf.local.home>
-From: Song Liu <song@kernel.org>
-Date: Wed, 28 Oct 2026 15:20:37 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW78w86tV3gwRWQMOdWUK7Rcc8dSsp==XypKdB5BMP6QiQ@mail.gmail.com>
-X-Gm-Features: AclHuK-FDTrAy-23MCIT0G9xMBF8_Y6vMb52wr6WlZqzmScWbO6PAc8beSFR7FE
-Message-ID: <CAPhsuW78w86tV3gwRWQMOdWUK7Rcc8dSsp==XypKdB5BMP6QiQ@mail.gmail.com>
-Subject: Re: [PATCH v2 07/16] tracepoint: Mark __do_trace_##name() notrace
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	live-patching@vger.kernel.org, mhiramat@kernel.org, mark.rutland@arm.com, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auJzXV3nnPZA5GSr@cmpxchg.org>
 
-Hi Steven,
+On Wed, Oct 28, 2026 at 06:12:45PM -0400, Johannes Weiner wrote:
+> On Wed, Oct 28, 2026 at 11:35:37AM -0700, T.J. Mercier wrote:
+> > When memory.high is exceeded in non-task context, try_charge_memcg()
+> > schedules memcg->high_work without taking a reference on the memcg, and
+> > high_work_func() invokes reclaim_high() without pinning the memcg.
+> > 
+> > cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
+> > mem_cgroup_css_free(), so high_work_func() can start or still be running
+> > reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+> > called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
+> > reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
+> > NULL pprev pointer.
+> > 
+> > With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
+> > memcg/slab: obj_cgroup API"), objects charged to a child memcg are
+> > reparented to its parent in mem_cgroup_css_offline() instead of holding
+> > a reference on the child until uncharged. Subsequent uncharges of those
+> > objects go to the parent, which can leave the child's memory use
+> > permanently above its high limit, so any later charge on the offlined
+> > memcg in non-task context schedules high_work.
+> > 
+> > This problem was first exposed when commit e4dde56cd208 ("mm: multi-gen
+> > LRU: per-node lru_gen_folio lists") introduced the memcg LRU, and was
+> > later widened from kernel memory to LRU folios when
+> > commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying
+> > memory cgroup for LRU folios") converted LRU folios to use obj_cgroup
+> > reparenting.
+> > 
+> > Fix this by acquiring a reference with css_tryget_online() in
+> > high_work_func() before calling reclaim_high(), and by resetting
+> > memory.high and swap.high to PAGE_COUNTER_MAX in
+> > mem_cgroup_css_offline() so that charges via references on an offlined
+> > memcg do not trigger high_work on the dead child or skip checking live
+> > ancestors in try_charge_memcg().
+> > 
+> > Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> > KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> > CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
+> > Tainted: [B]=BAD_PAGE, [W]=WARN <- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
+> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+> > Workqueue: events high_work_func
+> > RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+> > Call Trace:
+> >  <TASK>
+> >  ? read_ctrl_pos+0x22f/0x3f0
+> >  shrink_lruvec+0x16cb/0x1b80
+> >  ? ret_from_fork_asm+0x1a/0x30
+> >  ? lapic_next_event+0x15/0x20
+> >  ? clockevents_program_event+0x2bb/0x6f0
+> >  ? lapic_next_event+0x15/0x20
+> >  ? __pfx_shrink_lruvec+0x10/0x10
+> >  ? __pfx_clockevents_program_event+0x10/0x10
+> >  ? _raw_spin_lock+0x84/0xe0
+> >  ? __pfx__raw_spin_lock+0x10/0x10
+> >  ? kasan_save_stack+0x30/0x50
+> >  ? psi_group_change+0x381/0x740
+> >  ? __pfx_sched_clock_cpu+0x10/0x10
+> >  ? save_fpregs_to_fpstate+0xc4/0x2c0
+> >  ? finish_task_switch.isra.0+0x1de/0xac0
+> >  ? __schedule+0xf62/0x42c0
+> >  ? __pfx___schedule+0x10/0x10
+> >  ? __pfx___irq_work_queue_local+0x10/0x10
+> >  ? shrink_node+0x626/0x31e0
+> >  shrink_node+0x626/0x31e0
+> >  ? ring_buffer_unlock_commit+0x11d/0x5c0
+> >  ? kswapd_clear_hopeless+0xa0/0x150
+> >  ? __pfx_shrink_node+0x10/0x10
+> >  ? 0xffffffffc0000095
+> >  do_try_to_free_pages+0x255/0x13b0
+> >  ? ring_buffer_unlock_commit+0x11d/0x5c0
+> >  ? reclaim_high+0x10a/0x1b0
+> >  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+> >  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+> >  ? irqentry_exit+0xc6/0x670
+> >  reclaim_high+0x10a/0x1b0
+> >  ? __pfx_reclaim_high+0x10/0x10
+> >  ? process_one_work+0x5ff/0x1030
+> >  ? __pfx_high_work_func+0x10/0x10
+> >  process_one_work+0x6e2/0x1030
+> >  ? __pfx___schedule+0x10/0x10
+> >  ? __pfx_process_one_work+0x10/0x10
+> >  worker_thread+0x422/0xbb0
+> >  ? __pfx_worker_thread+0x10/0x10
+> >  kthread+0x2cd/0x3a0
+> >  ? recalc_sigpending+0x15c/0x200
+> >  ? __pfx_kthread+0x10/0x10
+> >  ret_from_fork+0x368/0x590
+> >  ? __pfx_ret_from_fork+0x10/0x10
+> >  ? __switch_to+0x588/0xf50
+> >  ? __pfx_kthread+0x10/0x10
+> >  ret_from_fork_asm+0x1a/0x30
+> >  </TASK>
+> > 
+> > Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> 
+> Hrm, yes I suppose the work itself keeps the memcg allocated, but not
+> from going deep into the destruction sequence. I was briefly wondering
+> whether mglru shouldn't move its callback from css_released into
+> css_free, but I think your fix is more robust after all: don't send a
+> barely allocated memcg down the reclaim stack.
+> 
+> The _online variant of the tryget seems somewhat unnecessary. There is
+> no real harm in reclaiming an offline group - and it was the standard
+> way, before reparenting, to garbage collect an offline group with
+> lingering pages. With the updated Fixes, this would look odd in
+> backports to kernels without reparenting. The PAGE_COUNTER_MAX reset
+> would also cause reclaim_high to bail.
+> 
+> So I wonder if css_tryget() would be simpler and just as correct. But
+> no strong feelings either way:
 
-Do you plan to apply this set to the trace tree (after the merge window,
-I guess)? If not, how should we proceed?
+css_tryget() is not safe after percpu_ref_exit() which can happen here. Only
+css_tryget_online() is safe.
 
-Thanks,
-Song
 
-On Fri, Oct 23, 2026 at 6:33=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Thu, 22 Oct 2026 18:10:40 -0700
-> Song Liu <song@kernel.org> wrote:
->
-> > __do_trace_##name() takes the tracepoint SRCU read lock and calls the
-> > probes. It is called from trace_##name(), trace_call__##name(), and the
-> > notrace rust_do_trace_##name(). It is a plain inline function, so if
-> > the compiler emits it out of line, that copy is untraced only because
-> > inline implies notrace.
-> >
-> > Mark it notrace explicitly. No functional change.
-> >
-> > Assisted-by: Claude:claude-opus-5
-> > Signed-off-by: Song Liu <song@kernel.org>
->
-> Acked-by: Steven Rostedt <rostedt@goodmis.org>
->
-> -- Steve
