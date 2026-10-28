@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191780;
-	b=Z3/PHq85rirxCVEQpaXGTpGvvwb0KKF1BlG9fIh+D8tFiPC8Zi6QGFAmBkp0AKnxH1tJ
-	 XT9MahrE9s07Zgp9thd/QysoeTN/Nn9lLEwXukG9jArNyzP7By30iJEAJv3sySsPIu/nU
-	 jtFdAgEk09DLPZs1J5EuH2TXPrmBm+6fPaP3WyCd6ObeOQIf15y5QJgorvADsx8w8zdtt
-	 b8Afj+hs5T9KDbjQP/zB9BlXxAG7GvWdyLRrKvOICzKhsbzHoztE+mMxjagB7iS3EVSIY
-	 jH9bqHh/q3Xh80xWDHXrRRriXsBl7wlbRts4ahXuaFjuhZ6Cg+FX2AH+Q9aUBNG273Q==
+	t=1793191795;
+	b=ZjYwd/RY/rIlW6VZjAzUwQgX67Ah/StwG8Vv6qywzvUppEFeoOlcW3IDb/wSdPe2+sbE
+	 fyIi2vP6j/BY91aMjZIXnv/o/6Af5Ypds67owjEclctjU/85T0EFWc/W0g1swIlyNTGxK
+	 v48AehiEvicaiGcOQM3Y+JH8bvgfWg4Po7z925qyQjm+RIj4yEE9YtXXiAJHw32/DNMz1
+	 Yh/ENxGmCqBtKWF+aC+W+L+hptQ2gWacMHpHm7MQDJKn/i3KRYuEVEjsLM74rI9TrzqW0
+	 hfzx4E3nfI8g9D7Ck5NB0Q/QbOartjlxLwClJ3pKy+8wWFftMu0Gjr/aH2gaWikr7Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191780;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vFL6cRdxdM/GvutOrTal3gLSXRDYBsRFQAjUnosz4qU=;
-	b=BM+zc6/Xl2KjFXsHFAxXvVbQlFoFjxSXgEM4AdImpvKJuuTtdvjD7v43JveRPFN+VsgL
-	 VrR0bQ3Hpt333gDSb8GBffrVPpYofDARiblox7t4jVmCEJosVY4GYkkrn5xXBDnpqGG5+
-	 N2JxlKjxs8hPg0Ym2Gxd5YEJfiCC3A/tOWX9eazJH+RUDTlaK6mjiVssK7pds3zANnrvT
-	 W4mbqxB4VvhWFWnjg3vT4pxKSgESQn/Qa8oWMIDaWZ0vdQ9oHqqpkzg+GKE2fmPO+NzSn
-	 ArPZWQe0OaHGJsA9fQUjpZMAyfXY+aqiOuItPomeku5/gmiuhBcimTnoPgeticOAhNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191795;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZfYYIFc96021z2Ptr5l4lRWqOsC/xE10NBYAqp4BDUA=;
+	b=nYgiJrxRB/kAGqqyoCRG/ZAjz4gbMbbA5zfvcc8mGWJHPkR4/UiKqL90Ss1RokQ3ALJE
+	 t4MxL2gXfdm2pceLR0FlKjVvgcuYbHBc1lEdTIPxsR0VQqi/L+fZS7kHPdzmUDwUBjm+7
+	 sDoB5QRNHu5NnuUOsIqftiUZfla0kGOOyIMAO0dk5r/76gpaeZVcQo8RaskjtqLU51AHs
+	 x/yVATqvIYSj1+Gj6AUd38ZhtQe/donAvgQWGtP2xdYB7Wfak0Opr6GYIidD1XnpS/rIL
+	 F4hxSbAz4iiNg+0QliJ6MrCDOQcMZD+mT4UKvzICWB/nOtHUnKvHfwMJTPYfz9H2VCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXyejjpd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=O2aaWT1Q;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF35C606A327;
-	Wed, 28 Oct 2026 12:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F8D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09F8D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXyejjpd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DD21F01828;
-	Wed, 28 Oct 2026 12:49:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793191779;
-	bh=vFL6cRdxdM/GvutOrTal3gLSXRDYBsRFQAjUnosz4qU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iXyejjpdwmtKdyZQ4wNmhns8jXDZFgDROrNkHd+b42jEhmnvoJKsPi1NZJZyRWTMv
-	 KRRh67fHj2DXO85bKfe/HtSkJQ0a9713nl9xzTaX4nhwejrtxVFiUldfDQ/JrajZkR
-	 9YNAGKin9nAOwzI2j3hX7vKG8qbog2rcHyH4t0c8V3cbrm4UaEdnLNt7irOhr1UORq
-	 KzOrWHiukj/wPz147KINOUEWy1UD3rN5ojmVAwA6LBnvKdpGQCeDLVZ4RoOSl45O25
-	 Dj6dB1nw/m7/iwSQmx4Jespu/zdw0apdoopwnpapXjr85ZIjFori9yJ2ods2cDMAii
-	 nCxrM06XZlnww==
-Date: Wed, 28 Oct 2026 12:49:35 +0000
-From: Simon Horman <horms@kernel.org>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: ja@ssi.bg, dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
- sysctl_sync_threshold[0]
-Message-ID: <20261028124935.GS257209@horms.kernel.org>
-References: <20261026083708.617278-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=O2aaWT1Q
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso672847f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:49:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793191793; x=1793796593; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZfYYIFc96021z2Ptr5l4lRWqOsC/xE10NBYAqp4BDUA=;
+        b=O2aaWT1QUG5iHDpwaXyhMod5A3B/CFUFOO5o9xVnVv9+hVyLHlYVUnhjiTBDnvP0bw
+         j97TZ+f9XcH2gXfC27ofhf3is0GhaAZ4F2R4EYVvVRwW/1g+HRE42j4t2aUl6tB0RuWM
+         eGBGqh857T6SB3Vv01NI9V2T8ARx2MxyadEiHyDbv7IP/9/wvBt9bZ9EVoZ8/MhxRwqo
+         FL51cHN41T8oSUloJITZx1Esez3ywHlY7XUe4ySd2ad8pkkRj7ewfe8bh4tEI+nibzRu
+         OvgBGi0Rkq/ng1f2kZuM+G3CShg/OD6tdEsxsh0Rzhjk8j33TknS846UEv3L4jP4p0sp
+         +mXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793191793; x=1793796593;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZfYYIFc96021z2Ptr5l4lRWqOsC/xE10NBYAqp4BDUA=;
+        b=KGlL9rtBJVz/+D+jeLqxbkUtDMPsrALmUl9NR+yt03M/Ze+diUnQF+nblPS8h6WMHO
+         Kz0YI1vNZTu1a/H6ZMIMpv2lRu2T6i13/8hSWXGiPZ0gTkMLZsVKwnCXcRqxSUJknTVt
+         DJMFnyqNpD07PG79jjYj6EkR2u1sgm1LcMTxVNnSvEBc7heL0gWnht4tEJYfaDGpq8K1
+         H87H5KCEOSxOSe0FSMJSAxWZg3A66VLSm2FMsqZtReRzByWGVQAxFRGf1NqdbA7QveSn
+         IOjRkXAt0C3X7SdB1JPNbym2EI7FEyEbSwnQCGPq1pVXsYm6Ebp46Kr6yfxH8NuIEc5s
+         bFVA==
+X-Forwarded-Encrypted: i=1; AKwUvByEw/P5Z5DycjSIw+fVK2GPzB/fbG4dIKo2FC+MbGFXzYAuokSV1z0FAkCLrcEbz/A8RU15YjcEpDDGCYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIP4KGpjU+8MHgPQn/71alTpgRi8m9sBsPB1IXwZdHVZHpsFTLe
+	e7ubI9erlrx/VuOwgAv9b+7GxocyfFPZwJD0nmYdzjmvUZCmfY5v1ca+MuB+gTQhsNA=
+X-Gm-Gg: AYBFou1PRMqk7ZQhaKS2EZBz6GihiSUJaUkz94lbBPDonne82eSX4Tq1/As8KaOYyv0
+	yJE5EFEFuAYQxnkP3rLwZ1zo3kORO+utupNz7KRRiAYgN62Wek877v8+l4AqKvn0JCZR5Hcz2Pq
+	j0679gRuY7ppkAjFrqRB3xS7Jr7c8DPRxl555lUQoSmkFOaw0GGVuz8FO9jShujmfIFyc4fc5GA
+	KsR1SJftd/SnpSGGoX+lTQ/4ij+73k9QR9zCiuI7gP7auH13w4hKvjYE0vr5mi7YUQCgmkZF9fT
+	bv6iGEeAenAkMe6bgszzr3CDK7oBAduwmq8kmzHiJlxKhOc47EwW54/UDByQfafahpJq12hRM1Y
+	gxfgCQJalTdlYsEQf55DeCiRrdytar//m+Bn3zPUCaRlESJn5GPZIDNR5VF2sWy8YsowjWlGM+l
+	cVaUOUUog1WFPY6u6LjR6nJtygTg9Sk+r9NDZb7SVLBz/1e41LxBXFO7TiG6A6qONUBPrVJKEBZ
+	upNckYhsn/BWxhAyfainlTGpdjtrWTleyA0AIszuj/rDqWCv1TTXOQfryX/nSuD6FcGhVuEy1j3
+	VJz+SJUjCXfi6TrqI2MkcOTNGFpuqFcNpmpuEl4yg0QGvkT3pYpB7w==
+X-Received: by 2002:a05:6000:29d7:b0:48e:e2a:4093 with SMTP id ffacd0b85a97d-48e5d5c277cmr3745966f8f.19.1793191792916;
+        Wed, 28 Oct 2026 05:49:52 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdd5b3sm28285252f8f.53.2026.10.28.05.49.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 05:49:52 -0700 (PDT)
+Message-ID: <567ad0ec-378a-4f65-833b-e40c07ab56d2@suse.com>
+Date: Wed, 28 Oct 2026 14:49:51 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,68 +92,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026083708.617278-1-xiaolinkui@126.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] KVM: TDX: Validate userspace CPUID input for
+ KVM_TDX_INIT_VM
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ xiaoyao.li@intel.com, chao.gao@intel.com, tony.lindgren@linux.intel.com,
+ kishen.maloor@intel.com, dedekind1@gmail.com
+References: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
+ <20261028081658.1228484-5-binbin.wu@linux.intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20261028081658.1228484-5-binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 04:37:08PM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> sysctl_sync_threshold() reads ipvs->sysctl_sync_threshold[0] from the
-> packet path without any synchronization: ip_vs_sync_conn_needed(),
-> ip_vs_sync_conn_v0() and ip_vs_sync_conn() run in softirq context on
-> behalf of ip_vs_in_hook(), ip_vs_conn_expire() is a timer callback and
-> ip_vs_proc_conn() runs in the backup sync kthread. The only writer,
-> proc_do_sync_threshold(), updates the array with a plain memcpy() while
-> holding ipvs->sync_mutex, a mutex none of the readers ever take.
-> 
-> Commit 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-> already recognized this race, but only for the second element of the
-> array: "As the sysctl_sync_period now can be 0 use ACCESS_ONCE to avoid
-> division by zero". sysctl_sync_threshold() was left with a plain access
-> even though both elements live in the same array and are written by the
-> same memcpy().
-> 
-> A stale value is not dangerous here: the element is only compared
-> against a packet counter and stored into cp->in_pkts, and an aligned int
-> cannot tear on any supported architecture. What the missing annotation
-> does allow is for the compiler to reload the element, so the two
-> comparisons in ip_vs_sync_conn_needed() can observe different values
-> for one and the same packet, and KCSAN reports the unsynchronized
-> access.
-> 
-> Read the element once with READ_ONCE(), exactly like the adjacent
-> sysctl_sync_period() has done since 749c42b620a9.
-> 
-> Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Hi,
 
-I agree that adding a READ_ONCE annotation is appropriate in
-sysctl_sync_threshold().
-
-But I wonder if it would also be appropriate to call sysctl_sync_threshold()
-only once (per-packet) in ip_vs_sync_conn_needed(). Stashing the value in
-a local variable if appropriate.
-
-> ---
->  include/net/ip_vs.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On 28.10.26 г. 10:16 ч., Binbin Wu wrote:
+> Validate the CPUID configuration provided by userspace through
+> KVM_TDX_INIT_VM against KVM's TDX allowlist, and drop the hardcoded
+> denylist-based check.
 > 
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 9a83bff32569..5aa6a94ed104 100644
-> --- a/include/net/ip_vs.h
-> +++ b/include/net/ip_vs.h
-> @@ -1353,7 +1353,7 @@ static inline int sysctl_conn_max(struct netns_ipvs *ipvs)
->  
->  static inline int sysctl_sync_threshold(struct netns_ipvs *ipvs)
->  {
-> -	return ipvs->sysctl_sync_threshold[0];
-> +	return READ_ONCE(ipvs->sysctl_sync_threshold[0]);
->  }
->  
->  static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
-> -- 
-> 2.25.1
+> The TDX module lets the VMM directly configure certain CPUID bits for a TD
+> at initialization time, but KVM must strictly govern which of those bits
+> userspace can set, otherwise a feature that clobbers host state could be
+> enabled behind KVM's back.  The existing denylist rejects only TSX and
+> WAITPKG, and thus would accept any bit that a future TDX module makes
+> configurable, even if KVM knows nothing about the associated feature.
 > 
+> Rewrite tdx_is_unsupported_cpuid_entry() to reject KVM_TDX_INIT_VM if
+> userspace sets any bit outside of the mask returned by
+> tdx_get_cpuid_cfg_mask(), i.e. the same mask used to filter
+> KVM_TDX_CAPABILITIES.  Don't bother intersecting the userspace input with
+> the bits that the TDX module reports as directly configurable, as the TDX
+> module itself rejects any bit outside that set.
+> 
+> Ignore the index for non-indexed functions when walking reverse_cpuid[],
+> as userspace isn't required to zero it.
+> 
+> Note, this is an ABI change, as KVM_TDX_INIT_VM now rejects some input
+> that was previously accepted.  However, the semantics of KVM_TDX_INIT_VM
+> are unchanged: KVM already rejected unsupported CPUID bits, albeit via a
+> denylist, and userspace has always been required to consult
+> KVM_TDX_CAPABILITIES and set only the bits reported as configurable.
+> 
+> The change isn't expected to break userspace or guests:
+>   - The newly rejected bits are no longer reported as configurable by
+>     KVM_TDX_CAPABILITIES, so userspace that honors KVM_TDX_CAPABILITIES
+>     won't set them.
+>   - CORE_CAPABILITIES, which older TDX module specs defined as fixed-1, is
+>     still allowed.
+>   - The newly rejected features are either obsolete or unsupported by KVM,
+>     and in the latter case, a guest relying on them would already have run
+>     into problems.
+> 
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
