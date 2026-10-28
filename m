@@ -1,78 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207856;
-	b=l3l6BAp2syHiTcZqxstbas/ZN9JoGYCa+C7CGLIVwwuGbH8P6u4ixwSGZ3x7nuWa+cSq
-	 3zxQNuTnMBd5ZEElKFNGIgvWq6bxHvw7mzT+ay1/VJtES6Q/Bef4J70CgLGFawSKHa5kB
-	 EUBG0O+HL5Er1OlzsA/AFohTioQCVAJfAs5EYb3EXEpebSHRbSFNt3JjLtYUFYGAc2ZG2
-	 emI/99buXQjb2GaDdfI5++iZ1v0/4spyAewgAZkoB4o48xD8nHUOvvXP1VH1L0ORluQ0A
-	 eTRpuoBOqR7/6CuXGrc6aBNZNa155eFEiymaS1vIcyt2ZHVV9Z6Sxltu+GTMBYB/UyQ==
+	t=1793207850;
+	b=QHkXCOggyUQerXIcrpoWwi4Fqv3Sg5/8xp831MC2HjoGU2VgecEmU0B7hI9uzyXvRMAa
+	 OVt5fuazY2GxJX1w73qvf5rhTDNRzFy4qDaInavh21Y26Clt0lZB2pG527S0DgwN0lkur
+	 NGgOnT7jmfBsJbvKwRSPZDWX5Kz2ldzM3rgCJzMuCsXRIf1mYHLffLKw3wPkwmpZeB0Xn
+	 m/PUVw86+lesPJdL7wL3Vg1Fr4evrFmrKX28mubv8Q1CQDAkILr3QxdlYl0vPsX+EK1uz
+	 r8tTJ76b+WVmQouhj6vj+fvDKN5mQn/Ie+nYVtweCAKt6wdbEAVzlPxyMG/QAfwNuoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207856;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Virus-Scanned:X-Virus-Status;
-	bh=4xlm+iOZGH5Go2YFUU3+UHHX7jeMx1Dlrs8HI4RLlvk=;
-	b=ZLN8jrcuFutTyr6PYj9CUnb1Xa3dBidnje5IlAfr1C7lNIy7cL9DVbSxjlnIhunPQ+5+
-	 VNO64Ie3GSu20ybGNx/j8cjjsd6h7KwGaMkpY4JE8eQAdWh9FDyqHNZgCKi+ZLtKs0Z6L
-	 tTkpawKH8fA0K0vxr0zyJI7Z3keSj3vxVyt38wnWrtQqK5pIM16FxHsdBK8Zr9e9w6kBQ
-	 wPLtmku5NnVjNp5MIzESDypD3OHeh/oEui8MqJGFLRKjCHPKeFORABLEaLHRLIP0AjTtP
-	 bUEcdL6bOHO7d9i7IV48GJEQT0WypVfKYyldaN9jSBdyKX92ZFYsv5y7wG6GcbLFPyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207850;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+	b=mmS4AfRAwl9a3k1vqnezeb8aNUw2RRo6wLW176szDazQnxeqwGOQdUe/5Sea3sneg2yP
+	 QC8Don9zNd4w/9aKmujvayU2RGWRSbilZaZOLTfesMf1vcri+T3nk417vvjX9xuoARH2D
+	 QaZMpf2P1zPk0i2Xxboo5RKYxQsHH2NGLc+bEAoqKuyiNPIdcWLgOgHMdxBhRzZjOdyS1
+	 6FZnaUkgIB0Gj5XCi9fzlKyuftXzEi64BGYZqVG18QYjo5B9C+iAxfMa8YZ5NMFjK/w9Z
+	 1Wo92RgGsS7q2lGsFh7KMa2kpmlz+JoXCzAK+haR66GT5BwtLKC/j949TNMfGjeHPFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniroma2.it;
-	spf=pass smtp.mailfrom=uniroma2.it;
-	dkim=temperror header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=3mYJXMWi;
-	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=BXQvKhE3;
-	arc=none smtp.remote-ip=160.80.4.37
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DE60606A31A;
-	Wed, 28 Oct 2026 17:17:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DE60606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo;
+	arc=none smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2221A606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2221A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=3mYJXMWi;
-	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=BXQvKhE3
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69SHGYRr026236;
-	Wed, 28 Oct 2026 18:16:40 +0100
-Received: from localhost.localdomain (unknown [160.80.105.87])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 38D26120EB0;
-	Wed, 28 Oct 2026 18:16:30 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1793207790; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:references; bh=4xlm+iOZGH5Go2YFUU3+UHHX7jeMx1Dlrs8HI4RLlvk=;
-	b=3mYJXMWiFCNBvx8jWSsdbbL6nBbKx3Jd+is8HmDW/nCJ6DM/obgvK8G8uRSk/OgSoJyfPJ
-	c+vpu/3cJHAH9nDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1793207790; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:references; bh=4xlm+iOZGH5Go2YFUU3+UHHX7jeMx1Dlrs8HI4RLlvk=;
-	b=BXQvKhE3l9yecMrym4IOTZy+oJa0XMOGfJvBgVK9u/lybS2f6TOwGCSBq0c4au253CM5Ea
-	BvmZsghVt3kCMuYDLJkJ6nxxGA1YhRLQl85rZ+qZfEHC73Ed1BCOVRSaQyjPG5zMb5mYza
-	nqf7iETslJLofiv/3/Ud/w8solFeLwQhfSbxflIXDIRe6sXojseZyZPqD2htULrbAHWpCn
-	igg10uPcZ1sSa4b/CKOoY6fx0rBUXfud2XATTgdvp60x5bcXcpDTd/nk5mbXGcphRx44q7
-	i8Iu1yNnTJmblASFsXJq+WlSc1nWVkgc6Ts+GJ3qU7mC7aCDH7ZaHQ8UGIHSwQ==
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        David Lebrun <david.lebrun@uclouvain.be>,
-        Steffen Klassert <steffen.klassert@secunet.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        David Ahern <dsahern@kernel.org>,
-        Hazley Samsudin <hazleycryilis@gmail.com>,
-        Hangbin Liu <hangbin.liu@linux.dev>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>,
-        Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: [PATCH net v2] seg6: fix transport header for inner IPv4 with IP options
-Date: Wed, 28 Oct 2026 18:15:11 +0100
-Message-Id: <20261028171511.35-1-andrea.mayer@uniroma2.it>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-679334baa1fso1582580d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:17:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793207848; x=1793812648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+        b=CI8y2eXovwu/O5fMtk947eXXsHmnlNxwGrTROXV//Q8qMHsfQljEZshE1ytljUjlKT
+         NuYxQaotba5cxDEzyVf4zNqNA0L4/Ey8T9lWccUzBDTk8bwdODKqLL53H67ikao9MUNk
+         d12kOZtlBmk7hCKx1pcI3BeAhbHzCSFpxqWziTGjUD5CABmZGC/DAnvec0L9kMz9Lzuk
+         eCsheYTS3wED3G7AjNheGRs+3o3rVI5PlhIW0TGGeIZoDR3mAloTMzhw3xccnj8oc1ER
+         Zngcqxz0qaR4u/J10Gc5njuMJc69LoT9h8VHZBNL5dFKCsp+lblZdsE88e4Fl3KAF6n1
+         p2zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793207848; x=1793812648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+        b=1P2DDJqd6w6Ed60u5iVLrvgM0YWGGqX1YOlnUVFPyITDLB1QK7jPcl+qWGbpuAQskZ
+         4v3QdpDW5vLyv+4URBbcr9bcSJYHd2rvhJbgwQzzK/r3iOl9AkYBiBvQKw6btH3k5NGQ
+         VhQ6ZQdpYDD8A0nwtZlkxZB3oQsP0NNOQFPk69OlyLQLFlaUm9Ev87A/x60XSXUvxVhO
+         RGXLLkyZotFLXCX2XpvLCwhWoca6ncSP1CsvgNquxJJT93r3wodoyAI4OjzA13m7eaH3
+         OcSueRol7MAxuSO6RLthqtZgArpNFhVJvhSROqBRh2UungbDykzTw13ERS5YG3H/QhrW
+         BfVA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkhytOpJC4h8Nh5ltvLXnK6yApyuOzB48ucBF9jSB5EQk5xaMQ3iHBu56x2spUqC0U8mVUxIflTpcvsRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYII9Ej8o7nebkqJcS0vAJ6hyICvBiUE6nu0foqGuMaP/RTHUMkv
+	uJRDojpIc7KgUMdLo8Nqlc6Kn6ebtXtQKAl+johEaBvPrzKOT0Hgm5g/ipFdN+B0k+s=
+X-Gm-Gg: AYBFou0S78il8KE1FL2/DVg5mUM+wjP/Qmx68bMtbEKUMelCaQgk00vDEDH4kH8dw4A
+	V+SAkjWLjnqJmhbtliPbpV+306cxtba5FEGVhEpYxSP75RisPIHOulms8gL7dMmSQIzlRBYt97w
+	B0OVUaT/oIa6AdxZfLvgxapX+XgtkItbG4myIVXhwvUWmMwYaCmxOYGLmWpzOveL054iuBIqCC7
+	/MGAPJ5kdC8MOfTJSoHRuG1P33dKkMk1HLP+bOVJcq9fho8UtBTM7Q+ZUM0TN2f/EYG0SCVgwy6
+	fDAa8BZ+WQJMUDW2e1bYR2UDeOhmirH8t8kIbGW9DMpulSddKdbkGdyqlUxi4BWSM/FIRE/XR76
+	OGJCqS4uUdLH1hh8qVg80enlEC0Foe8ROlTgP5iGf7dcy/DngEPVshuhus5vrTRqmG3s2OIK+YU
+	gDNwzxW2MZi8j8iGQasqptmyAPeNWtwlucTi0OcCB0aEGhfG1QTDoURnkTJPX0rUmKpeYSJAxJT
+	gW+Bnk8XS4M7medSGaTv02t0Hl9WZGrHlIvBZMTP8Vo2BhOgDFaualCv37WIyju+EuBGkxe1N/+
+	ugbKl7DMZYxulFEjPlDgIP4kxyM9
+X-Received: by 2002:a53:c30f:0:b0:677:ad01:32b0 with SMTP id 956f58d0204a3-67a7bce93abmr1470801d50.36.1793207847839;
+        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a0c31f1sm2058926d50.11.2026.10.28.10.17.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Wed, 28 Oct 2026 13:15:53 -0400
+Message-ID: <20261028171719.2043421-2-hannes@cmpxchg.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028171719.2043421-1-hannes@cmpxchg.org>
+References: <20261028171719.2043421-1-hannes@cmpxchg.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,208 +111,65 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
 
-The End.DT4, End.DT46 (its IPv4 path only) and End.DX4 behaviors set the
-transport header of the decapsulated IPv4 packet at a fixed 20 bytes, the
-size of an IPv4 header without options. They do not validate the header
-length either. With options, the transport header points at the first
-option byte. The effects include:
-- ping -R sends an echo request with a 60-byte IPv4 header to a local
-  address through an End.DT4 or an End.DX4 SID. Since icmp_rcv()
-  computes the ICMP checksum from the first option byte, the request
-  fails the check and is counted in IcmpInCsumErrors.
-- A UDP datagram can reach a port that an iptables rule drops. The rule
-  checks the UDP header after the full IPv4 header, while the socket
-  lookup reads it at the fixed 20-byte offset.
-- With an inbound AH state, ah_input() reads the AH header at the fixed
-  20-byte offset, but copies the IPv4 header over it with the length in
-  the IHL field. A packet shorter than that length can make ah_input()
-  write past the end of the data, into skb_shared_info when the skb has
-  no tailroom.
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
 
-Validate the inner IPv4 header length with the new helper
-seg6_validate_iphdr_len() and set the transport header at that length. A
-packet that is not IPv4, whose header length field is below 5, or whose
-header is truncated, is dropped with a drop reason. The fix is limited to
-the header length, which the transport header relies on. Other checks done
-on IPv4 input, such as the header checksum, the total length and the IP
-options, are not addressed here.
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
 
-Found by code inspection while reviewing commit 44930446dde4 ("ipv6: seg6:
-clear IPv4 control block on IPIP decapsulation"), as a pre-existing issue
-that Sashiko also reported on v2 of that patch. Without this patch, a
-bpftrace probe on ah_input() shows the reporter's reproducer packet
-written into skb_shared_info. With it, that packet is dropped before
-ah_input(), ping -R no longer fails the ICMP checksum, the UDP datagram
-reaches its real port, and the SRv6 selftests still pass. These effects
-reproduce on an unmodified kernel, without error injection.
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
 
-Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
-Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
-Reported-by: Hazley Samsudin <hazleycryilis@gmail.com>
-Closes: https://lore.kernel.org/netdev/20260809221915.2ffc1ecd0f445fcb70270e31@uniroma2.it/
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+Cc: stable@vger.kernel.org
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 ---
-v2:
- - Use SKB_DR() to declare the drop reason variable, and move the
-   family mismatch check before the switch in end_dt_vrf_core()
-   (Hangbin Liu)
- - Fix stale comment on struct seg6_end_dt_info::family (Sashiko)
- - No functional change from v1. Collect Reviewed-by tags from David
-   Ahern and Hangbin Liu, thanks to both for the reviews
-v1: https://lore.kernel.org/netdev/20261020023336.34-1-andrea.mayer@uniroma2.it/
+ mm/page_alloc.c | 4 +++-
+ mm/page_alloc.h | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
- net/ipv6/seg6_local.c | 69 +++++++++++++++++++++++++++++++++----------
- 1 file changed, 53 insertions(+), 16 deletions(-)
-
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 0c3d1be7f129..0d952514d095 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -149,9 +149,7 @@ struct seg6_end_dt_info {
- 	int vrf_ifindex;
- 	int vrf_table;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index a8cac5e01066..8ac2e2bf14fc 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3238,7 +3238,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
  
--	/* tunneled packet family (IPv4 or IPv6).
--	 * Protocol and header length are inferred from family.
--	 */
-+	/* tunneled packet family (IPv4 or IPv6) */
- 	u16 family;
- };
+ 			if (!page) {
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index e238ee91ed24..9c3c2830acb0 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -60,6 +60,9 @@
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
  
-@@ -1056,6 +1054,40 @@ static int input_action_end_dx6(struct sk_buff *skb,
- 	return -EINVAL;
- }
- 
-+/* Validate the length of the IPv4 header at skb->data (which must point to
-+ * the network header) and report that length, options included.
-+ * Only the version, the header length and the presence of the whole header
-+ * are checked.
-+ * The length is written only when SKB_NOT_DROPPED_YET is returned.
-+ *
-+ * skb pointers may change: after this call, the caller must evaluate again
-+ * any pointer into the packet data.
-+ */
-+static enum skb_drop_reason
-+seg6_validate_iphdr_len(struct sk_buff *skb, int *hdrlen)
-+{
-+	enum skb_drop_reason reason;
-+	const struct iphdr *iph;
-+	int len;
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
 +
-+	reason = pskb_may_pull_reason(skb, sizeof(struct iphdr));
-+	if (reason)
-+		return reason;
-+
-+	iph = ip_hdr(skb);
-+	if (iph->version != 4 || iph->ihl < 5)
-+		return SKB_DROP_REASON_IP_INHDR;
-+
-+	len = ip_hdrlen(skb);
-+
-+	reason = pskb_may_pull_reason(skb, len);
-+	if (reason)
-+		return reason;
-+
-+	*hdrlen = len;
-+	return SKB_NOT_DROPPED_YET;
-+}
-+
- static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
- 				       struct sk_buff *skb)
- {
-@@ -1085,14 +1117,18 @@ static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
- static int input_action_end_dx4(struct sk_buff *skb,
- 				struct seg6_local_lwt *slwt)
- {
-+	SKB_DR(reason);
-+	int hdrlen;
-+
- 	if (!decap_and_validate(skb, IPPROTO_IPIP))
- 		goto drop;
- 
--	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-+	reason = seg6_validate_iphdr_len(skb, &hdrlen);
-+	if (reason)
- 		goto drop;
- 
- 	skb->protocol = htons(ETH_P_IP);
--	skb_set_transport_header(skb, sizeof(struct iphdr));
-+	skb_set_transport_header(skb, hdrlen);
- 	nf_reset_ct(skb);
- 
- 	if (static_branch_unlikely(&nf_hooks_lwtunnel_enabled))
-@@ -1102,7 +1138,7 @@ static int input_action_end_dx4(struct sk_buff *skb,
- 
- 	return input_action_end_dx4_finish(dev_net(skb->dev), NULL, skb);
- drop:
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	return -EINVAL;
- }
- 
-@@ -1237,16 +1273,24 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
- 	struct seg6_end_dt_info *info = &slwt->dt_info;
- 	struct net_device *vrf;
- 	__be16 protocol;
-+	SKB_DR(reason);
- 	int hdrlen;
- 
- 	vrf = end_dt_get_vrf_rcu(skb, info);
- 	if (unlikely(!vrf))
- 		goto drop;
- 
-+	if (unlikely(info->family != AF_UNSPEC && info->family != family)) {
-+		pr_warn_once("seg6local: SRv6 End.DT* family mismatch");
-+		goto drop;
-+	}
-+
- 	switch (family) {
- 	case AF_INET:
- 		protocol = htons(ETH_P_IP);
--		hdrlen = sizeof(struct iphdr);
-+		reason = seg6_validate_iphdr_len(skb, &hdrlen);
-+		if (unlikely(reason))
-+			goto drop;
- 		break;
- 	case AF_INET6:
- 		protocol = htons(ETH_P_IPV6);
-@@ -1258,11 +1302,6 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
- 		goto drop;
- 	}
- 
--	if (unlikely(info->family != AF_UNSPEC && info->family != family)) {
--		pr_warn_once("seg6local: SRv6 End.DT* family mismatch");
--		goto drop;
--	}
--
- 	skb->protocol = protocol;
- 
- 	skb_dst_drop(skb);
-@@ -1273,7 +1312,7 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
- 	return end_dt_vrf_rcv(skb, family, vrf);
- 
- drop:
--	kfree_skb(skb);
-+	kfree_skb_reason(skb, reason);
- 	return ERR_PTR(-EINVAL);
- }
- 
-@@ -1286,9 +1325,7 @@ static int input_action_end_dt4(struct sk_buff *skb,
- 	if (!decap_and_validate(skb, IPPROTO_IPIP))
- 		goto drop;
- 
--	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
--		goto drop;
--
-+	/* end_dt_vrf_core() validates the inner IPv4 header length */
- 	skb = end_dt_vrf_core(skb, slwt, AF_INET);
- 	if (!skb)
- 		/* packet has been processed and consumed by the VRF */
+ /*
+  * Structure for holding the mostly immutable allocation parameters passed
+  * between functions involved in allocations, including the alloc_pages*
 -- 
-2.43.0
+2.56.0
 
