@@ -1,76 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179361;
-	b=4zf+jkPLWNoAej/nMD046sV05i5LPi8xxQT23qY2WC+rZJIRI0itqhOIczkmUWunsel+
-	 /W5/MyCxX/NcNclMdVZeR0mePyQ1syTPh0F3sDYdoQC00vlFwkyVNQ31ehWMHdyf4uYrk
-	 gLAnRDynhr566wLqTgkM2mQNAVaBMVOHnaQsxjQKRNeoln+Ss3N3eDIGhYhuSC4239KmQ
-	 1f5/U0Zz9ut+RPXxvVyYts55yxcFvy6nvymV4cfRbGdRrmRynelV+2lzUxd0PI4iteHdj
-	 xSpsgWB9zqAaKIMdBgXI7CYvtQ67wYypzbS+8J9VHVmcKc5QG3wUQ7KQgb4NEIS4EMQ==
+	t=1793179374;
+	b=gfuQiHKBA9wCF8gBvxbKab2rgYe8ZZ1yTsoZnAA74fTMRzAytWb1hDbmDM0vpEj7O0xE
+	 r7Kk1xFkyqERPyZLxom4nlsYCb58X6GQ3vZXa2MQtpMyn3unP1vOaZw3T4jRvH0lfELDU
+	 5TWytP0aB4ob7yYTd2gMaRVhptGKbnatYHWjP4xO+BvhvH2gbQ4b0m/jjmsa4QCwcq2Xe
+	 okkIzaryYZNNxbPuKrlDNVpxdRXoIR6ziQkPd0gC7/+81A2PS0eSw5a+u1k/h33lx8ueF
+	 1gVHRj15c7PUUZGwaPRU6QjrvYLzBg+vUwJgkXg7WXdYtDATGs6wTRAbH2YesKxRvXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179361;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=19+eeBNUAmZsCt2+Qrg/7Sbo4WI/mza3DkIk/V28yOY=;
-	b=qHbzqVQiqIq8EYfahza5LLnasPmY++cZtwxKvCoIsqJ/jjL7Kjw61YG6nJKap2xu6aF3
-	 vFnzX0N3ZCzkPf/HXpD9j3jaW3PP02cU4cigdoiJB7w+EycTMps6hpEKPzGXsZizKtSut
-	 oCw0V6TJ+M34EXB7RDNqFVL4KhLytAbWcDQyEYpCLtjVNyU5cy9RpD/OE3KX0xqobMoS7
-	 uWKI7Y5TIQBqDR0TFwq68DJ+Oj0lFWTJLzgCb4SoovNuD+1zz5CT8FFlJMzslVQsC91D2
-	 72+GzPbJFQrV6eCD1hzB0s5JrVT1kEOM7fx128k8mO9xGqQTPbmucKKo7p2Gl7VcLHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179374;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=Obd6DBT8X0xh3lgiYCV38ulNGq3OGCe1QiMxMC6hx3I=;
+	b=u+W/b3WecohlqRbyCqrK2ic4ggqfqIG4EVEstNHXJCEdmTGpvdl/jrquEF3vIt2QIotP
+	 c/LaBq7sMBfph/Pa6OjqbBbkjRPrr6ed/zigkYV/CqMQ+HMHL1ZhOxU6l0dERXY6sCld5
+	 3+dTcEpKnEe6g3zwm55B4nKFgC9H14X1bJkKvqb/b23ddwCupOPkxV2iDLO6si/kJ+6/v
+	 wKHM9wGOPzXCN7rN0LaCnOfDDdvFz5cWgDtC5Hr2WZ7+YtqWOXGkgI53a7jalKqoquwmc
+	 ImNd9fODjsSKz+YhXUO1eVhd3OamatkiYzt99iX2KZqRX5RyxOhp9a0mhwm1+4hIjhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lIylgfas;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aQIBYwy/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD3606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABD3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1242A606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lIylgfas
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=19+eeBNUAmZsCt2+Qrg/7Sbo4WI/mza3DkIk/V28yOY=; b=lIylgfasTg8t/IItuyhwBrv/fB
-	/4sNk03XSfF6USkHcPx8bZKwXJIeumxCTcGs+TXJzqxC50h70ysZYcuO9ofVhC/LUQc+BjG35niuQ
-	qDqPF+on48KHV7Subkl4fNh4Tu66m38083S+mgE+RSbC8KE4xE7qtqo0ryIeVH80EuvIghn1Ap/cH
-	Au9lESXy22yGwQ6bxQYMzyMDL6MNhdH2ikYhhmVfmiIohHlHZR5zuTm9eZIka8TNal6GN8XmVGSHu
-	BX/0poDpfjaOGf0Hu01qwF6AIbbJaqMM/d06MxY70QEqNK+npiKrJ5BW5MhICivuKzWq50+7aqvg6
-	vSTUIBFg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLzrX-00000002SNf-4BwT;
-	Wed, 28 Oct 2026 09:22:28 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 89D9730120E; Wed, 28 Oct 2026 10:22:27 +0100 (CET)
-Date: Wed, 28 Oct 2026 10:22:27 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, albin_yang@163.com,
-	albinwyang@tencent.com, bsegall@google.com, chen.yu@linux.dev,
-	dietmar.eggemann@arm.com, juri.lelli@redhat.com,
-	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com,
-	rostedt@goodmis.org, vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
- blocked donors
-Message-ID: <20261028092227.GH2668804@noisy.programming.kicks-ass.net>
-References: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
- <20261026133831.4111227-1-albin_yang@163.com>
- <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
- <auA7AQ_S9iwPHr4d@scheduler.schedules>
- <4ac4564e-08fb-4639-a89e-a2ad54cee3f7@amd.com>
- <auBEeDRRFKZOGlZA@scheduler.schedules>
- <f23a6e77-58ef-46bc-b8bf-d9f043bcfa57@amd.com>
- <20261027120945.GN2668564@noisy.programming.kicks-ass.net>
- <auCU65gKjdeUOoLl@scheduler.schedules>
- <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQIBYwy/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45D31F01829
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793179373;
+	bh=Obd6DBT8X0xh3lgiYCV38ulNGq3OGCe1QiMxMC6hx3I=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=aQIBYwy/m9UrJS4YAHUhYXzzc7JVpTAKhtcJ9R9jNbXz9LZRAm+3AlgXt9jfxd7Gd
+	 L5aSNBr0EUWE3OavMSrTNK0kRIrwww4bUc/OD1VgUUceUz4Bfn/N/emb0uc1yMs1Pe
+	 Cwr2WYrxCSHGoPdhFStgkvxsIuSfZcSCPUOtkgW4jZkCpIrCacIDNlOYBh1GoSHFUr
+	 LGF3TJ69TjL2jxF+/OCpvmPBhcaDQxGQ5csUNSMUgMhzYCr+kg4l2HIJ93kb411UXT
+	 Hdf/cuRKKnDtxoBJ+6m1GQKfVbjnqb/D4Y/RbQ6ci9E6fV8GUfaa8q8MiYIB57TpKQ
+	 rno1OHKrDA6RA==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a9e87ba696so5618711fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:22:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwsizrn09UQk3v4Knq/eIBQ55sfW1u94Pean/3UoKqvykr77O4zbNA0vntsyfWVgJpTIJAKYmlla0Dvj5I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbafliTbZhna0QypM0bgqrjnUYy5+Jo7OKUywsCEL0EyKMwExT
+	9ze/Lbvy42Xt38/bQXRnPczFjQWk9jeTz1Xc3JLLsYjzZzqnx1p6XgzO+TiyRrb1jboLgZVfDRO
+	yCnIA6RS7CsMmzGuTOFOwaZpbIbs9QyHs6Uh186KA8Q==
+X-Received: by 2002:a05:651c:554:b0:3a6:6f81:1027 with SMTP id
+ 38308e7fff4ca-3ac9cf92016mr3387891fa.24.1793179372646; Wed, 28 Oct 2026
+ 02:22:52 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 02:22:51 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 02:22:51 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <auGdrYC_mZeJft0q@QCOM-aGQu4IUr3Y>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,40 +65,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
+References: <20261017043605.1503563-1-shengchao.guo@oss.qualcomm.com>
+ <20261017043605.1503563-4-shengchao.guo@oss.qualcomm.com> <CAMRc=McoAYKHojJCT6yeTvsMLKDTisD3V42VH5ebRapuG-UGBg@mail.gmail.com>
+ <auGdrYC_mZeJft0q@QCOM-aGQu4IUr3Y>
+Date: Wed, 28 Oct 2026 02:22:51 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mf1k4ZKi9L+UVshuQnbomJAPV+jPR1jgH8Q2QWnMbqOVw@mail.gmail.com>
+X-Gm-Features: AclHuK_dZXUibCWs0t-BhTAf_ntpzeX3ptAFBulw6eXjtSP7RPvDwHaWd5jEueY
+Message-ID: <CAMRc=Mf1k4ZKi9L+UVshuQnbomJAPV+jPR1jgH8Q2QWnMbqOVw@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] gpio: shared-proxy: Drive the default value when
+ no votes are cast
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 09:10:00AM +0530, K Prateek Nayak wrote:
-> On 10/27/2026 5:43 PM, Kayra Cizmeci wrote:
-> >>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> >>> index 04b62c16fa8c..d5758b78b741 100644
-> >>> --- a/kernel/sched/core.c
-> >>> +++ b/kernel/sched/core.c
-> >>> @@ -3956,6 +3956,8 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
-> >>>  		 * it should preempt the task that is current now.
-> >>>  		 */
-> >>>  		wakeup_preempt(rq, p, wake_flags | WF_TTWU_RQ);
-> >>> +		/* Start accounting wait time. */
-> >>> +		sched_info_enqueue(rq, p);
-> >>>  	}
-> >>>  	ttwu_do_wakeup(p);
-> >>>  	return 1;
-> >>
-> >> So the normal wakeup path goes through enqueue_task() which gets the
-> >> sched_info_enqueue() callback there. But yes, ttwu_runnable() does not
-> >> go through that, and needs this additional call.
-> >>
-> >> There is one more site in ttwu() that also doesn't go through
-> >> enqueue_task() and that is the p==current thing at the top.
-> > 
-> > The counter already measures how much time a task waits for CPU,
-> > curr is already is at the CPU so we don't need a call from there.
-> > 
-> > Or not?
-> 
-> Yup! on_cpu / task_current() gets dealt at sched_info_switch()
-> which will enqueue the signal if the task is preempted.
+On Wed, 28 Oct 2026 08:01:01 +0100, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> On Tue, Oct 20, 2026 at 09:17:00AM -0400, Bartosz Golaszewski wrote:
+>> On Sat, 17 Oct 2026 06:36:04 +0200, Shawn Guo
+>> <shengchao.guo@oss.qualcomm.com> said:
+>> > A consumer that requests a shared line with GPIOD_ASIS never calls
+>> > direction_output(), so def_val keeps its initial value of 0. If the
+>> > line was left high, for instance by the bootloader, a later
+>> > gpiod_set_value(0) from that consumer matches def_val and the proxy
+>> > treats it as withdrawing a vote it never cast. It returns success
+>> > without writing the hardware, and the line stays high.
+>> >
+>> > The consumer has no way to tell. Its request to drive the line low is
+>> > silently ignored until it first votes for high and then withdraws
+>> > that vote.
+>> >
+>> > When the requested value is the default and no votes are
+>> > outstanding, write it to the hardware instead of returning early.
+>> > For lines configured via direction_output() this is a redundant
+>> > write of the value the line already has. With votes outstanding the
+>> > request remains a no-op, as the line must stay at the voted value.
+>> >
+>>
+>> Wouldn't this only matter for a line requested as-is? We could avoid the
+>> redundant write if we only did it for such lines instead of for all
+>> unconditionally.
+>
+> It also matters for a line configured via direction_output(), after
+> patch 2. When a proxy releases the line and restoring the default value
+> fails, gpio_shared_proxy_free() still drops its vote. The line is then
+> at the non-default value with votecnt == 0, so "no votes outstanding"
+> no longer implies "line is at the default" either way. The unconditional
+> write lets any remaining user that sets the default bring the line back.
+> Gating it on as-is lines would leave it stuck there.
+>
+> The proxy also has no direct notion of as-is; it would need a flag in
+> gpio_shared_desc tracking whether def_val has ever been written to the
+> hardware, set and cleared in the init paths of direction_output() and
+> direction_input().
+>
+> The write itself is cheap and rare: it only happens when a proxy that
+> hasn't voted sets the default while no votes are outstanding.
+>
+> If you still prefer the gating, I can do that in v5 and keep the
+> free-failure case recoverable some other way. Otherwise I'll add the
+> reasoning above to the commit message.
+>
 
-Can we record this in a comment; so that the people who come after us
-(most likely our older selves) aren't left wondering ;-)
+No, that's alright, let's keep the write.
+
+Bart
