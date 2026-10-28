@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200950;
-	b=c+z99PEJyIkh/e9G7eJ6PvnJhFTB5i9ZNPPwF0iT1eqRhxzGglRXkN+66X33nrMgZQAJ
-	 3G1fdYnpYRy64z4CCtLHxPAQY+/UVp5gqfWegkO3Ddq6/jcqB2WoDLCBKIEHzmGaLRh3/
-	 PBZKUWsJJiidjDXfnOlU/jOHOlM/baufey3ZNz9oDfOsXN+DizrIWoqCS8fP6BgKBfoqo
-	 rmZ7K2+2DPBo2MOYl03qXkWnYXOFaNoDBgmLLSgr8X6HE9BXx6HkV/hiTrUyhn+CQlnw8
-	 tB1hiTwT516LfduR5entuFUueUIR6oxV7Im7h5xn+ODNQKCEU+66ZGjDeR8HffwCv6A==
+	t=1793200967;
+	b=tuiH7OKwDuwKCzDg5n12bKnEGDBkJ/eHfx7UYDozN+PmpU125pegmD0h9+nH8ZKQLHSy
+	 Jes4KnPMqv1woa697ZNlSDPegrK5nESP9rnB6IqEx0nubOnfIszz4363Zlee2kxVviA/J
+	 kTFbkGN+ENFags5AFmV/7qEXFdxRWXcSLpSOEXUX8HO0lQHKNJRN3ATz12CFS3rixCyNi
+	 ESrO4RRkVVG5/uzrqFiluqjRdWizM88av2MsGcThVS2LCA7kJM7hrKoLWxfL9wTNuJb6C
+	 zYZxBsR4NWLzU+WhJG3Xsw7pXLWQe+1Bv7kzditzvIf0FnomuNIjGrID5zxGAnDs7Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200950;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=xBtco3yaw3qEzXnfIqoE7d0Ook29poapW94M82D2xPU=;
-	b=by0DOyVQ2zQneNzTvC3AfOBlG8PvEVwkwl+BTPDKLjazOrI9fsSEbls6EiljESGWC2nW
-	 rzl/WI8DpIJHHP+4xKG34c06h80+hb/fCcv67/71oJPHWVl2tSIgnpmLQ4bpwS4rQTLqf
-	 FLHQqbbO9dmweKy+R5UP92SRHPaLQAOdcHyqU87SU4h+GDYsZ+sjQTh6f1u/9yFsmLeJ8
-	 sDfMdE7fnzWrY1q8CKahGVQZeObU8C1hq5kRdEDQycSMtuRtfKwgXTtpAy0qBOrXjfo1s
-	 uvvmUrfIPnsbYMLmx5CTogCW5Z8YLabwi5T0Qy6q3K4ZNhH5QHS9BdBBAsn6GBCEi4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200967;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=qGRmNggSaPp8mWkkEQlD8kxUR423ZcG9+LSn2ibB6HM=;
+	b=vjhuXmolRG92NC61EB/7vQDBdp3CZixEZDm2qYZAJEHOoieIC4kBO8zAiTq7jQMxEa/i
+	 IiJY74DoMlgO96PxVO5W4txuIi4BCbwHq0JxH4nbDTYDoIL1hHqyRBUcT7euAbUV6loeZ
+	 tk9fgCTS8zoUy/xPiwPb5yU1hNaG9oq3n2yurdHkHmkIcLizslqneTkwgMy/gr8crAovj
+	 /jzOEyizmFLVUmUHNEbUGp5ZuPDmhJ6ziu6Ig5Y2JYHPg7bQ5vGLm31WK6KX13funF4Cn
+	 wf1Vnc5lT16q83xyDceDGoLidRrNqyR/JQdUC9M6jxJovSPHtLYXU9m5rLZmYOnWSHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=fQwPSBpU;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=EJ5WAzHG;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B5D606C037
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0B5D606C037
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FF4606AB2B;
+	Wed, 28 Oct 2026 15:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27FF4606AB2B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=fQwPSBpU
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261028152227euoutp010d54645b1ac3ae3e1820a4a10d23a81d~iusK2lxiu0384203842euoutp01I
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261028152227euoutp010d54645b1ac3ae3e1820a4a10d23a81d~iusK2lxiu0384203842euoutp01I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793200947;
-	bh=xBtco3yaw3qEzXnfIqoE7d0Ook29poapW94M82D2xPU=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=fQwPSBpUAkaEsyUCQ8rrhxlmIAkTBNxkPuEgbG+gG3aOm6HHfPWc9RMqVhK9J4qwY
-	 r4oD6xTY4JUxACnPovdtFm3WyAAqO3BL8vLaaClPD9mWfOiWUWDHlkLKMfQr/HW2QJ
-	 PYxcITTU6peVRe7kuEi1ejqICeAKFyQqlcLEqQ7A=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261028152226eucas1p1d17fa9350e2d480774843e5b9e78fb37~iusKa4ztM1685916859eucas1p1c;
-	Wed, 28 Oct 2026 15:22:26 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261028152225eusmtip16d6428135e48edb5558e2cbfe49d21ca~iusJm4mEe2037320373eusmtip1Q;
-	Wed, 28 Oct 2026 15:22:25 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Wed, 28 Oct 2026 16:21:41 +0100
-Subject: [PATCH v6 1/5] dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=EJ5WAzHG
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 846BB21F6D;
+	Wed, 28 Oct 2026 17:22:36 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=qGRmNggSaPp8mWkkEQlD8kxUR423ZcG9+LSn2ibB6HM=; b=EJ5WAzHGKKQF
+	gIHozt7WR3TkigkU74+wh7TyKYh8lgsjr8a4caRnGha6k4D+KWs95IpfwHVwjzf0
+	Fv4i6rRUvjKwLRHdALBEVQG0s2ErjTggT8jLq/MHa46RWxZJPEA/9KDx0Pszg3ne
+	K4328bA1zS4xh/vXZSTK9uecgY1kErQp0D3PhvKW24Q2fHIMBUG2831AJI1cGKuL
+	TeOOL0c8XzwspPgGn66JG/4E9ADKg6vU4RVFFW2IuOmRQprEjv47z6kqsC9Y9BTo
+	yqno9kyznagqWymfPgqmESem7iAV5/QQ0enURfoJW7xcoZd+pDoahtqgwn/6s6x6
+	qv8hssZ1Pkrt0hUZAYY/a5+DptkvVmuW7uxBcNFx/pGnnhYxxuDYqt/tvmjVL5vW
+	NavyUnatxCL/FimsX3UVeqH0poitzDUqkzVYjgUT+mNS4lXhM9OOUHZImeYKAwbr
+	HnJ/ab8FiW3R4p8vYQTYmDGBdkrB1v+YZyoqMsxfazcE6HKdSx54qnpE+ZbKCeZa
+	PlDLN091P9+9YcJQffkXG4+8DeLavvE0Oh/ck/upBor2KPaFKuFl7nN+o66uuc5l
+	OoGGkCRVZ1RqTubxf2kaGLEw4SKQ7b4rI6+JEZkmvPJ4sh+BMF70k63KwoKqrzXr
+	KRenrAzaXEtxozalhGZUrH9ogaR+znY=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Wed, 28 Oct 2026 17:22:36 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id CA8B9608C6;
+	Wed, 28 Oct 2026 17:22:35 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69SFMRhY035032;
+	Wed, 28 Oct 2026 17:22:27 +0200
+Date: Wed, 28 Oct 2026 17:22:27 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Star Chang <starchang@google.com>
+cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org, johannes@sipsolutions.net,
+        johannes.berg@intel.com, linux-kernel@vger.kernel.org,
+        wangroger@google.com
+Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+In-Reply-To: <20261028061644.2997812-1-starchang@google.com>
+Message-ID: <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
+References: <20261026150539.1357037-1-starchang@google.com> <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg> <20261028061644.2997812-1-starchang@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,110 +82,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-jh7110-inno-hdmi-phy-v6-1-f3379684d97e@samsung.com>
-In-Reply-To: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
-To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
-	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
-	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
-	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
-	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
-	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
-	Andy Yan <andyshrk@163.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
-	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2053;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=WSoM/PLgxIAO3P/HP4El0/pBeW1xIxFbcAyyXD+Ha8c=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9EjYQKrk1N7aa4wx7YUij4xrX0wvezhLa4u1Tvszj1
-	ttgJXOujlIWBjEOBlkxRZazG6ONJP8xPC0//vgXzBxWJpAhDFycAjAR40uMDB9e3f7AwHDgHr+p
-	vXKjo+9VyeuvreZVLtXQ3Rpn/SNpJTvD/6pz/6TnXMx1FtvNzcvDJZt7KNSqQmzjvGy1fKboc4v
-	KWAA=
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261028152226eucas1p1d17fa9350e2d480774843e5b9e78fb37
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261028152226eucas1p1d17fa9350e2d480774843e5b9e78fb37
-X-EPHeader: CA
-X-CMS-RootMailID: 20261028152226eucas1p1d17fa9350e2d480774843e5b9e78fb37
-References: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
-	<CGME20261028152226eucas1p1d17fa9350e2d480774843e5b9e78fb37@eucas1p1.samsung.com>
+Content-Type: text/plain; charset=US-ASCII
 
-Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
 
-This device is a child of the starfive,jh7110-hdmi-subsystem node. It
-functions as both a PHY provider for the controller and as a clock
-provider for the variable pixel clock (hdmi_pclk), which it generates
-from its refoclk.
+	Hello,
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+On Wed, 28 Oct 2026, Star Chang wrote:
 
-diff --git a/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..6417553e0f5ba295b0451301ca7c1a25534993a3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JH7110 Innosilicon INNO HDMI PHY
-+
-+maintainers:
-+  - Michal Wilczynski <m.wilczynski@samsung.com>
-+
-+description:
-+  The PHY portion of the StarFive JH7110 INNO HDMI IP.
-+
-+properties:
-+  compatible:
-+    const: starfive,jh7110-inno-hdmi-phy
-+
-+  clocks:
-+    maxItems: 1
-+    description: Reference oscillator.
-+
-+  '#clock-cells':
-+    const: 0
-+
-+  '#phy-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - clocks
-+  - '#clock-cells'
-+  - '#phy-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  # Shown as a child of the HDMI subsystem node; see
-+  # Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml
-+  # for the full node.
-+  - |
-+    phy {
-+        compatible = "starfive,jh7110-inno-hdmi-phy";
-+        #clock-cells = <0>;
-+        clocks = <&xin24m>;
-+        #phy-cells = <0>;
-+    };
-+
-+...
+> Hi Julian,
+> 
+> Thank you very much for the insightful review and for pointing out the RFC 826 and RFC 2002 references.
+> 
+> You are completely right on both points:
+> 1. Per RFC 826, the Target Hardware Address (tha) in an ARP Request has no protocol meaning, and Linux updates neighbor entries using (sip, sha), never tha. Inspecting tha on ARP Requests was a fundamental mistake and would break legitimate devices that leave arbitrary/unicast addresses in tha.
+> 2. In RFC 2002 (section 4.6), many real-world GARP reply implementations legitimately set tha to the broadcast address (ff:ff:ff:ff:ff:ff) since the announcement is broadcast to all hosts. Requiring tha == sha in our check was overly restrictive and would cause false-positive drops for legitimate GARP replies.
+> 
+> Regarding your question about arp_accept:
+> In our testing, arp_accept = 0 successfully prevents creating *new* neighbor entries from unsolicited broadcasts. However, in typical client scenarios, the victim station almost always already has an existing neighbor entry for its default gateway (i.e. n is not NULL in arp_process).
+> 
+> When n already exists, arp_accept is bypassed, and once the 1-second LOCKTIME window has passed, arp_process() calls:
+>     neigh_update(n, sha, state, NEIGH_UPDATE_F_OVERRIDE, 0);
+> which executes memcpy(&neigh->ha, lladdr, dev->addr_len) in __neigh_update(), overwriting the gateway's cached MAC address with the attacker's MAC.
+> 
+> In a Wi-Fi (Hole-196) scenario where clients share the GTK, an attacker cannot forge unicast frames directly to the victim, so they broadcast an unsolicited unicast ARP Reply (sip = gateway_ip, sha = attacker_mac, tip = victim_ip) over L2 broadcast (PACKET_BROADCAST).
+> 
+> Under standard networking behavior, a non-GARP ARP Reply is strictly meant to be delivered as an L2 unicast frame (PACKET_HOST) to the requester. The only legitimate reason an ARP Reply is ever sent over L2 broadcast is for Gratuitous ARP (sip == tip).
+> 
+> Based on your feedback, we plan to completely drop all checks on tha, leave ARP Requests entirely untouched, and strictly narrow the ARP defense to drop ARP Replies received over L2 BMC *only* if they are not Gratuitous ARP (sip != tip):
 
--- 
-2.34.1
+	Sashiko gives also example with RFC 3927 Section 2.5 and 4
+where ARP packets (especially replies) with sip in 169.254.0.0/16
+MUST be sent as broadcasts, so that boxes can detect that
+their address is configured also on another host. So, may be
+we should not drop sip in 169.254.0.0/16. But it is another open door.
+
+	As for the received broadcast requests, it is still possible
+to send replies where needed but to skip the step where we use sha
+to update the cache for sip. We can set some flag 'cacheupd' early
+and later to check it. The result will be:
+
+- ARP Probes: replied as usually (there is no cache update for sip 0)
+- n = neigh_event_ns(): avoided but replies are sent if !dont_send
+- do not lookup for n, jump before the lookup
+- ARP Announce (GARP): ignored, sorry, the attacker announces
+new sha for GWIP
+
+> 
+> --- a/net/ipv4/arp.c
+> +++ b/net/ipv4/arp.c
+> @@ -791,32 +791,18 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+>  	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+>  		goto out_free_skb;
+>  
+>  	if ((skb->pkt_type == PACKET_BROADCAST ||
+>  	     skb->pkt_type == PACKET_MULTICAST) &&
+>  	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+> -		bool is_valid_garp = (sip == tip) && tha &&
+> -				     !memcmp(tha, sha, dev->addr_len);
+> -
+> -		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
+> -			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
+> +		/*
+> +		 * Standard ARP Replies are strictly unicast (PACKET_HOST).
+> +		 * An ARP Reply in an L2 broadcast frame with (sip != tip)
+> +		 * is an injected unicast reply. Legitimate GARP (sip == tip)
+> +		 * is preserved and defers to DROP_GRATUITOUS_ARP.
+> +		 * ARP Requests are left untouched per RFC 826.
+> +		 */
+> +		if (arp->ar_op == htons(ARPOP_REPLY) && sip != tip) {
+> +			net_warn_ratelimited("Drop non-GARP ARP Reply in L2 BMC on %s\n",
+>  					     dev->name);
+>  			goto out_free_skb;
+>  		}
+> -		if (dev->addr_len == ETH_ALEN && tha &&
+> -		    is_valid_ether_addr(tha) && !is_valid_garp) {
+> -			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
+> -					     dev->name);
+> -			goto out_free_skb;
+> -		}
+>  	}
+> 
+> With this approach:
+> 1. ARP Requests are completely untouched (fully adhering to RFC 826).
+
+	See above
+
+> 2. Legitimate GARP announcements (sip == tip) for VRRP/HSRP router failovers are preserved regardless of what value they put in tha (respecting RFC 2002).
+
+	Drop them. Or leave it to DROP_GRATUITOUS_ARP to decide,
+it is per iface too. There should be no chance to update cache
+from broadcasts.
+
+> 3. Injected unicast ARP Replies in L2 BMC (sip != tip) that poison existing gateway entries are dropped.
+> 
+> Does this sound like the right direction to you for v5?
+
+	Yep. But not sure for the IP part...
+
+> Thanks again for your time, guidance, and expertise!
+> 
+> Best regards,
+> Star Chang
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
 
