@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193319;
-	b=OTvlDmm1jbRFeRldbDSdLCtzrcXwKlhOtxIdXZ2+QbAXTkFVHZdn4Sprl0j1sMVZ1xXw
-	 N31NFtQ/w7Nnd2tOPzA7dPQHBhwMxJAYHcm1HdkzFLrNtUBOt8XoQXDjTTl+eUxbnHZXH
-	 459o5vIv6igTGk95RZ0ZOMa3vS8aC7qwdB4U7jPf38po99/OFoFt8lzsnwrYPhmJPTJXR
-	 WFKaoOlpcmaCZBG1c0020/Uhoa2LBZYuId8roHtM8QUKex5EYaKZOcyrJEyt/0umUyXJd
-	 XISTsteJSAtRmdD+6Px9lQ1o6kHEgB32EiJ0w40dD/tH9gxUnsH2dpeuxP53BszyN5g==
+	t=1793193431;
+	b=xa8igzh4yUCU1IbqxLf7Guuld9MOIiZVaBwZoIHWGvnAputEStVMeDb6XXNbSPR3BspM
+	 wPErpHaZgnIAp8ziiBaOwWzL/CxeOgB+Fj74XmeI0NZkfr88jc3eHKbVB8109SpoTb8Od
+	 LJk+4QI5246LuIOezp5fNezcvtW1eUSRhm6OyeoRO4qYWizC9w3VJAqwsFUIjQTLVGeDS
+	 KMrEY33eaUIvsSz6HXewpaZtH6aLcl5KEd8qM2k0CQfrVDg4FTWFf4F0+EMm7lCIcai+R
+	 F72GOTDPlDxL3xemnZ3UuHpG52p9r/hGQ4G1eZcBI0LrJ4O5TFlqqE7Os3U9vE7U8xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193319;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Last-TLS-Session-Version;
-	bh=X9Btf5XhOqdmeGG64jS4Slgjum0vmoxQYvsMqkyuAm0=;
-	b=zCX4Ss02fqm8dmqljtnF8m8Jyh1cK/1MnFW9e8xBVr5FKMsOkEaH1CGsGFUFqLn/NHaK
-	 sc+KU8fdEL1NeefrdQgd0rYMkZLNWq+T4xqVzaQcRaKByLODYFmUe4XN+8zlTklxnBi48
-	 FXzDhguY3MlGUibLCksSQSYCgsNSNgLmrp5i/Vr42mpZLg+Ps+CWL6x2GVD7n4tPXhgdy
-	 LHNQbLaZRGmcDx9A0aeL0K+OmTVZfjNakwwvJVxbVuh0jqigx8kKzlao9TZkgoG805uAS
-	 tp5kjxqi0X4wltoe7TJCWu4mHF2KHk46QtoyEEe+sgMc2vPUXXDCOpAnju56DJRxLiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193431;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=3j2eYR4antN667sJZSWGK9AUNaz39VbmQuGfmYqknq4=;
+	b=oEULnqOOVastY0ih6ODx0FU18yJ6CqTAr1EHwe3oMqDTTrjNeHUotijFJS8YtCaefDgc
+	 Z/KLGjZR6YnoJI4jLybbtn0ZVrQsBwv+I/MHj8GBAitrQ3y+U8AeSUZAszEU1Hw+uLhWO
+	 zQw161cAqxuxfs5Y2/DAj1AAfsx7mJIgKybLVEd/3BNTtZvGfypABPg2WcdjBeW9go+F5
+	 qvxt854N4P2MwxvcoZEZvSHjZouvLcIOQylKibjpdcWUo9TtnpSKbEHFHExdnHGnK/h8L
+	 0t47nx3PqkQWm5Pkc2ON0EPLIbJ01MdwMRHwbPesW8nrhyqixwrdELoNi/e/dekzJOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXMPqtaF;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKpCmgIY;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA647606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:15:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA647606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD097606A31A;
+	Wed, 28 Oct 2026 13:17:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD097606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXMPqtaF
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8B6784E4136B;
-	Wed, 28 Oct 2026 13:15:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5765360769;
-	Wed, 28 Oct 2026 13:15:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 60B931032904F;
-	Wed, 28 Oct 2026 14:15:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793193309; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=X9Btf5XhOqdmeGG64jS4Slgjum0vmoxQYvsMqkyuAm0=;
-	b=HXMPqtaFe6tOTgCdgNq63gOjGLoD81XTo0eU2xSORaqhJYxwUFPh1DuTFkrKOTl/bDr90D
-	sZslTZoFozi9koBKKQ5/LjyLJrpC8KNB5hc055TsS/ZHXQG/GpyUEtqdOZCRmGdPS6mhZk
-	xpKAka+Nkx1+rdLCmeIQzx71XcRzp08jpTgyLfoiY1a0MhBhU4V7ICiD0A8Re4mkUjyhgA
-	NS2LFXXIFHaiYE2WIBYiiv2f2R0MC945QYx//nwxVgN5tqq2TTt74Aw1xBAkavdSYarpd+
-	Hz1miIjW61CvLfUIaEdOaI4A4cbE9RDUkutMfmpqjj1jsm22qwHxi/0bOMotlg==
-Message-ID: <cf96edf1cba37b775817d4df5f759b10e71c73da.camel@bootlin.com>
-Subject: Re: [PATCH v4 0/7] spi: Add support for panic mem writes
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
-  Takahiro Kuwano <takahiro.kuwano@infineon.com>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Richard Weinberger	 <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, Kees Cook	 <kees@kernel.org>, Tony Luck
- <tony.luck@intel.com>, "Guilherme G . Piccoli"	 <gpiccoli@igalia.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-spi@vger.kernel.org, Bharat Bhushan <bbhushan2@marvell.com>, Sunil
- Kovvuri Goutham <sgoutham@marvell.com>, Tanmay Jagdale <tanmay@marvell.com>
-Date: Wed, 28 Oct 2026 14:15:00 +0100
-In-Reply-To: <8979e4ad-5209-4fb0-bd3e-95919849d2fa@sirena.org.uk>
-References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
-	 <fdc79c99e3045635841f68c89fec3b9d9e2f7233.camel@bootlin.com>
-	 <8979e4ad-5209-4fb0-bd3e-95919849d2fa@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKpCmgIY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3j
+	2eYR4antN667sJZSWGK9AUNaz39VbmQuGfmYqknq4=; b=kKpCmgIYAXQakkASeD
+	WnFa7OnwLC0l62VrDfq/0/QNMwgQtHL3ohvE1YoHEj5MSt2H1/iFKVLvuTbauCsp
+	kEzSR/AgQVzfCbow0vP/GSVlFSVN9RrgCUvTcuXPjrN23SnWM1ADCSKLIcXIFz4K
+	yTZiUjohICtso7ueFE+DMZKkM=
+Received: from flipped.. (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD313u_9eFq01krDQ--.42072S2;
+	Wed, 28 Oct 2026 21:16:48 +0800 (CST)
+From: Sicong Huang <congei42@163.com>
+To: linux-media@vger.kernel.org
+Cc: jean-christophe.trotin@foss.st.com,
+	mchehab@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sicong Huang <congei42@163.com>
+Subject: [PATCH] media: st-hva: fix encoder use-after-free on release
+Date: Wed, 28 Oct 2026 21:16:46 +0800
+Message-Id: <20261028131646.2957101-1-congei42@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,40 +61,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD313u_9eFq01krDQ--.42072S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWruF1rJFWxKFy3Ww45Wrg_yoW5ZF1xpF
+	WrWw45KrWUJF1kAF97tw48ZFyS9w1ftFZ8Jr1093WSyrZxZrn8tFyjvw10vF4DJrZ3Zr1Y
+	qa1Dtry3uayqvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piIeHrUUUUU=
+X-CM-SenderInfo: 5frqwvrlusqiywtou0bp/xtbC9QDAs2rh9cBeXwAA35
 
-Le mercredi 28 octobre 2026 =C3=A0 12:59 +0000, Mark Brown a =C3=A9crit=C2=
-=A0:
-> On Wed, Oct 28, 2026 at 11:42:33AM +0100, Paul Cercueil wrote:
-> >=20
-> > I have a second patchset for spi-cadence-xspi pending (unrelated to thi=
-s
-> > one)
-> > that happens to have some Fixes: tags, and those fixes conflict slightl=
-y
-> > with
-> > the changes here.
->=20
-> > I'm thinking that in order to make it easier to backport those fixes to
-> > older
-> > kernels, my other patchset should be merged first. So I guess I'll v5 t=
-his
-> > one
-> > with a rebase once the other one is in.
->=20
-> I have no idea what that other patch set is, sorry.
+The st-hva driver encodes frames asynchronously. Its V4L2 mem2mem
+.device_run callback, hva_device_run(), queues ctx->run_work to
+execute hva_run_work(). For H.264, the worker calls encoder operations
+that access the private encoder context in ctx->priv and its DMA
+buffers.
 
-Because I haven't sent the other one yet. I'm just saying that since it has
-fixes it should probably go first to make it easier to backport those. Basi=
-cally
-I'm just saying "don't pick this one quite yet".
+During release, hva_release() closes the encoder and clears ctx->enc
+before calling v4l2_m2m_ctx_release() to cancel outstanding jobs.
+hva_h264_close() frees the private encoder context and its DMA buffers.
+However, the V4L2 core does not stop streaming before invoking
+hva_release(), so ctx->run_work may still be queued or running.
+The release path does not synchronize with the worker: hva_release()
+does not take ctx->lock, and hva_run_work() reads ctx->enc before
+acquiring that lock. As a result, the worker may access freed encoder
+state or dereference NULL through enc->encode() if ctx->enc has
+already been cleared.
 
-> > @Mark, do you want me to wait for -rc1 to send it to you?
->=20
-> Please resend any new feature work after -rc1.=C2=A0 Please also do not
-> misspell my name.
+One possible interleaving is:
 
-Your name is not Mark? Or where did I misspell it?
+  CPU0 (release)                    CPU1 (worker)
+                                    hva_run_work()
+                                      enc = ctx->enc
+                                      hva_h264_encode()
+                                        ctx = pctx->priv
+  hva_release()
+    hva_h264_close()
+      devm_kfree(dev, ctx)
+    ctx->enc = NULL
+                                        task = ctx->task->vaddr /* UAF */
+    v4l2_m2m_ctx_release()
+      /* Waits for the job too late. */
 
-Cheers,
--Paul
+Here, ctx in the H.264 functions refers to struct hva_h264_ctx.
+
+Move v4l2_m2m_ctx_release() before closing the encoder. It prevents
+further scheduling for the instance, removes jobs waiting in the mem2mem
+queue, and waits for an active job to finish.
+
+Recheck ctx->enc after v4l2_m2m_ctx_release(), as releasing the vb2
+queues may invoke hva_stop_streaming(), which closes the encoder and
+clears ctx->enc. This avoids closing the encoder twice and accessing
+already-freed resources.
+
+Found by code inspection.
+Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
+Signed-off-by: Sicong Huang <congei42@163.com>
+---
+ drivers/media/platform/st/sti/hva/hva-v4l2.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/st/sti/hva/hva-v4l2.c b/drivers/media/platform/st/sti/hva/hva-v4l2.c
+index 33b768774e20..feca81eaeffa 100644
+--- a/drivers/media/platform/st/sti/hva/hva-v4l2.c
++++ b/drivers/media/platform/st/sti/hva/hva-v4l2.c
+@@ -1229,8 +1229,13 @@ static int hva_release(struct file *file)
+ 	struct hva_ctx *ctx = file_to_ctx(file);
+ 	struct hva_dev *hva = ctx_to_hdev(ctx);
+ 	struct device *dev = ctx_to_dev(ctx);
+-	const struct hva_enc *enc = ctx->enc;
++	const struct hva_enc *enc;
++
++	/* Stop encoding before closing the encoder. */
++	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
+ 
++	/* Queue release may have already closed the encoder. */
++	enc = ctx->enc;
+ 	if (enc) {
+ 		dev_dbg(dev, "%s %s encoder closed\n", ctx->name, enc->name);
+ 		enc->close(ctx);
+@@ -1244,8 +1249,6 @@ static int hva_release(struct file *file)
+ 	/* trace a summary of instance before closing (debug purpose) */
+ 	hva_dbg_summary(ctx);
+ 
+-	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
+-
+ 	v4l2_ctrl_handler_free(&ctx->ctrl_handler);
+ 
+ 	v4l2_fh_del(&ctx->fh, file);
+
+base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+-- 
+2.34.1
+
