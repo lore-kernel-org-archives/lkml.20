@@ -1,92 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202255;
-	b=CtAM/TaJbBuQukNDzAskPV0vGjyVUFooCblI0KmZyfGNY2OyTZSaL8vbIaBZiao4vkVQ
-	 ijqDcyFQEYc7p+PE+hoQ5tvZ8OgXLWQ7AExXVx4s0hxU/1fVqUotPc9RGQmN9gLqXPm14
-	 xxjUuvg9ZmkdRpEVy2W/pMGafYic+bCPtAgZbPkEfCEoRfFwXbNM4odfWdJAAkw28uVol
-	 NSnmMwRfzY3jURpdslzBkB/J0ALoEH+XWC+W1bPNT6kjb4UjnAjL3XMieSKzU6s85s5/b
-	 WBaEGXTihhvidivU6I2VZYhhxoVsiqPQ3xKd5DQ4Aua/9Jybgc9SShni/VCQmtNnCMQ==
+	t=1793202268;
+	b=thl9gSrZPIduzJb0aU6xbDPH6vJ6eKUUfJQddSEzI4LD5oL51bx8OM1yuVpbfqasjDdZ
+	 CL88XsK/DjkD6AJoBvaB+31CHxkqTfen6SK18MWtZqvKTnNkWLa/iYzvWFEt1GTgwZ/FY
+	 C40cwnOh5gArCVbIpMCVPQ8fq3FxCInt399kce3lG8v2LRk9XUmo5Gn/SiA8kSjdI5oWI
+	 yRIIgHU2wYQs0le7Vm7PLgfMtkDHt5uXNmJlGJJBHi8rM/LYFean/L/QQzyCBt4UXkiv7
+	 KYpqwbrf8WblmZE2Wm+05gXliN8tBhWYyXdxvOUG9cngPiU6l/KMoOIxGyyp6o8JwLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202255;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bOgF5ikzMKUuUDgv/vm2Ch+e8FNs0kJzkLULdKGPfBY=;
-	b=YikiIuS7CdHpeWWyNqRK7uESvozxSm2j0Gdey+fTxEyXqb8fvalkb8brvbfpAH+7VWGd
-	 pQ3mcvqK0yMlnPIzwn4nLAg9dnxKzdhTkllSIVQjhakAlxVhO9WgkQtKnh2yUQvnmSJca
-	 JmbohiHHunX78lyRDbLWFXT7v+pClcpyP/8PfH8dRJd5rMXvrRDWtcLcKG4TqRh+7nmjv
-	 SOg6YUWotzurf+XJShHJndgqEHWFXr5x0VVbSsf+WQEEOCbW0oW73Bh+T/JdOQfwGrXM3
-	 uCeErfvpaQJDR3jHJ/7lSc7q+VAGqa6Dlo682bGtJ+p1DcpoP8W0cRi2AFI5DiT3bRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sdZSA4NDFr1pO/Eh75mZMaNOeHmEs+DObpcXA0s9FLE=;
+	b=kTHLQsaUC7LrEC9Dm6zpNNEkSngkpS1slOz8uK6gxaGyKB2gRy7NGYBd4bUfsgdP849D
+	 mzgrlsLGsIyt7Gkngzvy4M71Y5NrOUiIBN/39A7MpaEAePQnCf4yUNYqxXd4Oc3oBcYwY
+	 YCK1CK0rxedF7FOSvIAZKfnnuI/myE8bh0KmUM70BE3Up/JLVe2Mf1oXLBka1Sn/pHi+2
+	 /lik7X0ELSdLJ+dILEzWrg8KrUuNw7JdLQQumPyJpm2BLx9DE7jGDVTZqTJDzvmqVSjoz
+	 bShag300uLZcqOUAUGvtoFMJDauAxUrBT8DqO+mMxyto1unAZd2bAUd+pJV8H/NvgMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aEysPRuS;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vWAVNC/d";
+	arc=none smtp.remote-ip=209.85.214.195
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com [209.85.214.195])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEDD60A380A;
-	Wed, 28 Oct 2026 15:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEDD60A380A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205460A6F4C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6205460A6F4C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aEysPRuS
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFEsDh425241;
-	Wed, 28 Oct 2026 15:44:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=bOgF5ikzMKUuUDgv/
-	vm2Ch+e8FNs0kJzkLULdKGPfBY=; b=aEysPRuSiEBmNkD9751pSKo14aj4o0q8b
-	ouWTS21+vEjAXSq/lI86vMT0oZho24EAVQchK6EgH4JZgYcDA3xaJ3WcSN91iu7D
-	q5py5bBCZBS1NMiU7LlMZLwv3esXOk85yqf53afeUYQdVA8q3MyxbceHHQ9HjevB
-	yETGYhMnmOBjUVpze1pHCPjMKQlaGHGrnAhTW9FfncT5TxJfDWKqMsVQBTXKK1ks
-	XgOAIRAA4XF0D+/dAC8qSrdqF5giSkjKzo7WrpHzU5iDkEZR6C7iKkkB4ffJAvDk
-	AxmUaBuMAJGkR1VZ8vVHc8AzVTqY722NUMWDsErQgEi4Msby4dvjw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3g5c82-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:44:12 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFK9LT1784823;
-	Wed, 28 Oct 2026 15:44:11 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7xnp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:44:11 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFi9Si16843338
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 15:44:09 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7ACBE58045;
-	Wed, 28 Oct 2026 15:44:09 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5B3F158062;
-	Wed, 28 Oct 2026 15:44:07 +0000 (GMT)
-Received: from Mac.ibm.com (unknown [9.61.240.205])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 15:44:07 +0000 (GMT)
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
-        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
-        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
-        frankja@linux.ibm.com, imbrenda@linux.ibm.com
-Subject: [PATCH v11 5/5] vfio-pci/zdev: Add VFIO FMB device features
-Date: Wed, 28 Oct 2026 11:43:52 -0400
-Message-ID: <20261028154352.15108-6-oelghoul@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028154352.15108-1-oelghoul@linux.ibm.com>
-References: <20261028154352.15108-1-oelghoul@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWAVNC/d
+Received: by mail-pl1-f195.google.com with SMTP id d9443c01a7336-2e9ae391a05so8328695ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:44:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793202268; x=1793807068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sdZSA4NDFr1pO/Eh75mZMaNOeHmEs+DObpcXA0s9FLE=;
+        b=vWAVNC/d6fAZGxyWibiDhKuwVmrlOhdTzWnzYeQpiPA/tetx+Oob+6t1qs6Mb89n60
+         HrT1bM5Z+j8ofBd3WWOT6NTxP/ZB9IVWWAH6pcOq36guF9z72HrU34h3Xoo+XC2XO4BN
+         vZdlmP0tdGbtLm70Y24tZBWyICBJw7UjYp+xNVZXI1PFUPLi+PqLAtsp8zwghK35Qlk1
+         1JWAVN6052jQvLvN6R76rOpEjBHkolBWnvZlV0Xfv5UMTwjpU+hEGowu8npgFEVoU1Cu
+         mclMv4FXOz7J6umXwZ1Org5VDsNjGTDoRTW/WQsBa11NFRAl2YAUC1Ub+ZtliVF2hmSl
+         i7og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793202268; x=1793807068;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sdZSA4NDFr1pO/Eh75mZMaNOeHmEs+DObpcXA0s9FLE=;
+        b=0Mbf0PGpAI68rS1RxoohahDc0QtMkWiMOqIFXlyHPAF/adYwgvtaP17QXYciPjWtno
+         PB97aP7bJmwWmBY4A60WenPIo6pqdOMEZGeZznEEX4w7jnaduYZtoIDvGo/x1r+6Abzl
+         gHX6juYPjLLXhqpKf5f95xmDFjCK5R6CP8uxrdw+cZ15VP82lHZeSuTCzEktMfcKcjEz
+         oCqi7cnIvOSoVdLY6MCJ0YcwVaDWUgQnNjk2nKXJmbxbGJsEYSm2h15pf2YJm9fqIS2J
+         ZE+/Wa+QRNCeolJRtzMBN13W0FXvXH0uAMo8tcVoX3Obi+JJ1E/XYnFG8bcL8VVKeUxT
+         11GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlS+PMum++zn96UJprGcHbqtKwKWzudwJBQ9sL2QMOOFtW4Rdz9VWL07gOX6XVyFt2UQU370c8qG8plxw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRRDh8FHnWsOuvHwGFlB2v5OnkEEh1u9klVkRm7APk4dQUFcp+
+	mlPxTloliE4yUgD5PQlgNPx9JZ0Uvr5KIt03CzLbWR9B+JcePF3CboKA
+X-Gm-Gg: AYBFou0riyQdzyBZaj0HCF5xV4IzDgMTZvJ/56gLn5bHamcldtSzVb8EyfGeZgNcduo
+	3PtgtUr4tAMgEHHSJSmc98owSXfg25mdj4KOXnIjJr++bTLggDR8RWgievT2PegdljdGmNp4aXQ
+	9lGvl1unr8EoMDvaRRZWcpHH/1GqW25d78BgiSbOVPS6zEORg080k8BFXo1TrFOOlfgoUUCB5KZ
+	LwLUq3frjJ+IMT9B7csjlrkfhfghq1w+XtQGjmkkWoezjrycKheamrZ5tWEHXyYrIYHzLFPwxwK
+	GBkIU0t2PBUkRxqwlEn6o6U0n1l21JgRjA1zQshkAo8+7H2M66FR2s/HRO2rgam2uuA3DJ630Tt
+	XQWX3TzP4YljgM345EM1Wy5VBh+UARNODZUOu8xVchKS72aTS8POjF2QDmk43sKujnBdj4uw9sU
+	E94eRLxlP93QXkP/lV0zQmrVJEIrNZwMbAlUQuuRf5q7b1BbxbVC2Gq2q+5l8vd535ky7hC/KZi
+	12IucxD0EXs0OIsXec3exo/gsGPbj3LRsv70aw8gc5DEFCZtzROxyJ14jQo9LBNSvfwopPDiHlq
+	YYCMI+dKsB7gaIUyY0zwB8UgFjWc/352cDQStd2gJAEgzPjrSPs7rivIOGsBqg97uqA=
+X-Received: by 2002:a17:903:17c7:b0:2e9:484d:693 with SMTP id d9443c01a7336-2eae394f821mr31309845ad.5.1793202267637;
+        Wed, 28 Oct 2026 08:44:27 -0700 (PDT)
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6be5105sm24111655ad.37.2026.10.28.08.44.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 08:44:27 -0700 (PDT)
+From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: [PATCH v8 02/15] f2fs: carry subpage offset and count in write IO
+Date: Wed, 28 Oct 2026 23:43:53 +0800
+Message-ID: <20261028154407.1601430-3-nzzhao.sigma@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
+References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,214 +110,353 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae2184c cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=wtvrgtD0Hc2VqHSVShsA:9
-X-Proofpoint-ORIG-GUID: Lo2_HbFZJAvn4fsXCrFZ-pqeuPlfV44R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX0exm0YGw8e2/
- BYOXLyIE1sXTZhg/sX7Ub/pq6dLuxcX6V/Wplelfpoy2X30iwfpfxnvIKobDoUf+H1OEtVPeYUR
- aTj9HiuxBoGxN4Emo0g2pazwFC+HsldPEpCY0AbpyJRobSr/DBbk8icpXKv9TFWGKT/APrT58FE
- zga//GB/8B22wG2gMFTKCKi8sgSMH+pj06w1mh9JFA42JKE27EfKtImzTh10EXo57G4nV9niX8E
- 13zbBt8Rx9gO8toBS+E/seyiNMdpQhMzkJ7RS53QMpsh3gkU3DUqAiWSRMnj3ArXTIKx+PW2vop
- HrgxuYSgs4oW25Gkalxnuamn52luLL7zZAR6wJ18TMtLLX86lnpCM9fsH0sraKYw91Nf2xwBsHl
- OvCgeSikIV3c74ARExNrX/uNAvf41uoD9Bh1UNMbRZSYw4vG/I53elVzFRIgA8tY21z1mHZAQnT
- v3yFh2AWOqbAwDKrCMw==
-X-Proofpoint-GUID: Lo2_HbFZJAvn4fsXCrFZ-pqeuPlfV44R
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX3D98ycOKWgxE
- EXuzwtniDN4Ww7bt9BweNm1p/cpfm31DuAMZsFh9HCGnBL3d0q6K/O9ZKULlhuBqWLoq2GF0468
- Imy34Z52hRIhW75uVe1UEZSKbnrcB0o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
- phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280062
 
-Introduce new VFIO features for zPCI devices to provide FMB passthrough to
-userspace.
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 
-Allow the user to enable or disable the FMB using the SET-only feature
-VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE. Likewise allow the user to read the
-latest FMB using the GET-only feature VFIO_DEVICE_FEATURE_ZPCI_FMB_READ
-in the case when the FMB is enabled.
+Large folio write paths need to submit I/O for a range inside a
+folio instead of always submitting the whole folio from offset zero.
+Add folio_offset and folio_blkcnt to f2fs_io_info to describe the
+block offset inside the folio and the number of contiguous blocks
+covered by the I/O.
 
-Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Apply the new fields to the bio submit paths that need the subpage
+offset or contiguous block count.
+
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c |  4 ++
- drivers/vfio/pci/vfio_pci_priv.h | 18 +++++++++
- drivers/vfio/pci/vfio_pci_zdev.c | 64 ++++++++++++++++++++++++++++++++
- include/uapi/linux/vfio.h        | 30 +++++++++++++++
- 4 files changed, 116 insertions(+)
+ fs/f2fs/checkpoint.c |  2 ++
+ fs/f2fs/compress.c   |  1 +
+ fs/f2fs/data.c       | 78 ++++++++++++++++++++++++++++++++------------
+ fs/f2fs/f2fs.h       | 11 +++++++
+ fs/f2fs/gc.c         |  4 +++
+ fs/f2fs/inline.c     |  1 +
+ fs/f2fs/segment.c    |  3 +-
+ 7 files changed, 79 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index fcbb2da860e2..f2d5b6857925 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1614,6 +1614,10 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_ZPCI_ERROR:
- 		return vfio_pci_zdev_feature_err(device, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE:
-+		return vfio_pci_zdev_feature_fmb_enable(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_ZPCI_FMB_READ:
-+		return vfio_pci_zdev_feature_fmb_read(vdev, flags, arg, argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 4e7162234a2e..e04d7e9d0c30 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -95,6 +95,10 @@ int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev);
- void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev);
- int vfio_pci_zdev_feature_err(struct vfio_device *device, u32 flags,
- 			      void __user *arg, size_t argsz);
-+int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
-+				     void __user *arg, size_t argsz);
-+int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
-+				   void __user *arg, size_t argsz);
- #else
- static inline int vfio_pci_info_zdev_add_caps(struct vfio_pci_core_device *vdev,
- 					      struct vfio_info_cap *caps)
-@@ -116,6 +120,20 @@ static inline int vfio_pci_zdev_feature_err(struct vfio_device *device,
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 5c5b45d3c67b..3ad709f69893 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -264,6 +264,7 @@ static struct f2fs_cached_block *__get_meta_cache(struct f2fs_sb_info *sbi,
+ 		.op_flags = REQ_META | REQ_PRIO,
+ 		.old_blkaddr = index,
+ 		.new_blkaddr = index,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.is_por = !is_meta ? 1 : 0,
+ 		.is_cache = 1,
+@@ -462,6 +463,7 @@ int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start,
+ 		.type = META,
+ 		.op = REQ_OP_READ,
+ 		.op_flags = sync ? (REQ_META | REQ_PRIO) : REQ_RAHEAD,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.in_list = 0,
+ 		.is_por = (type == META_POR) ? 1 : 0,
+diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+index 747141c79900..c0e39f580993 100644
+--- a/fs/f2fs/compress.c
++++ b/fs/f2fs/compress.c
+@@ -1282,6 +1282,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
+ 		.op_flags = wbc_to_write_flags(wbc),
+ 		.old_blkaddr = NEW_ADDR,
+ 		.page = NULL,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.compressed_page = NULL,
+ 		.io_type = io_type,
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 603a7a570f2a..3a3852566a2a 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -849,6 +849,13 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+ 	struct folio *fio_folio = fio->folio;
+ 	struct folio *data_folio = fio->encrypted_page ?
+ 			page_folio(fio->encrypted_page) : fio_folio;
++	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
++	size_t bio_offset;
++	size_t bio_len;
++
++	bio_offset = data_folio == fio_folio ? F2FS_FIO_BIO_OFFSET(fio) : 0;
++	bio_len = data_folio == fio_folio ? F2FS_FIO_BIO_SIZE(fio) :
++					    folio_size(data_folio);
+ 
+ 	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
+ 			fio->is_por ? META_POR : (__is_meta_io(fio) ?
+@@ -861,11 +868,11 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+ 	bio = __bio_alloc(fio, 1);
+ 
+ 	f2fs_set_bio_crypt_ctx(bio, fio_folio->mapping->host,
+-			fio_folio->index, fio, GFP_NOIO);
+-	bio_add_folio_nofail(bio, data_folio, folio_size(data_folio), 0);
++			fio_lblk, fio, GFP_NOIO);
++	bio_add_folio_nofail(bio, data_folio, bio_len, bio_offset);
+ 
+ 	if (fio->io_wbc && !is_read_io(fio->op))
+-		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, PAGE_SIZE);
++		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, bio_len);
+ 
+ 	inc_cache_count(fio->sbi, is_read_io(fio->op) ?
+ 			F2FS_RD_DATA : WB_DATA_TYPE(fio->folio, false));
+@@ -924,7 +931,8 @@ static bool io_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+ }
+ 
+ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
+-				struct folio *folio, enum temp_type temp)
++				struct folio *folio, size_t len, size_t offset,
++				enum temp_type temp)
  {
- 	return -ENOTTY;
- }
-+
-+static inline int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev,
-+						   u32 flags, void __user *arg,
-+						   size_t argsz)
-+{
-+	return -ENOTTY;
-+}
-+
-+static inline int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev,
-+						 u32 flags, void __user *arg,
-+						 size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- #endif
+ 	struct f2fs_bio_info *io = sbi->write_io[DATA] + temp;
+ 	struct bio_entry *be;
+@@ -933,7 +941,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
+ 	be->bio = bio;
+ 	bio_get(bio);
  
- static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
-diff --git a/drivers/vfio/pci/vfio_pci_zdev.c b/drivers/vfio/pci/vfio_pci_zdev.c
-index f47f36314a1c..39921c363892 100644
---- a/drivers/vfio/pci/vfio_pci_zdev.c
-+++ b/drivers/vfio/pci/vfio_pci_zdev.c
-@@ -219,3 +219,67 @@ void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev)
- 	if (zpci_kvm_hook.kvm_unregister)
- 		zpci_kvm_hook.kvm_unregister(zdev);
- }
-+
-+int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
-+				     void __user *arg, size_t argsz)
-+{
-+	struct zpci_dev *zdev;
-+	struct vfio_device_feature_zpci_fmb_enable fmb_enable;
-+	int ret;
-+
-+	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET, sizeof(fmb_enable));
-+	if (ret != 1)
-+		return ret;
-+
-+	zdev = to_zpci(vdev->pdev);
-+	if (!zdev)
-+		return -ENODEV;
-+
-+	if (copy_from_user(&fmb_enable, arg, sizeof(fmb_enable)))
-+		return -EFAULT;
-+
-+	guard(mutex)(&zdev->fmb_lock);
-+
-+	if (fmb_enable.enabled) {
-+		ret = zpci_fmb_request_off(zdev);
-+		if (ret && ret != -EINVAL)
-+			return ret;
-+
-+		return zpci_fmb_request_on(zdev);
-+	}
-+
-+	return zpci_fmb_request_off(zdev);
-+}
-+
-+int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
-+				   void __user *arg, size_t argsz)
-+{
-+	struct zpci_dev *zdev;
-+	struct vfio_device_feature_zpci_fmb_read fmb_read;
-+	struct zpci_fmb fmb_bounce;
-+	int ret;
-+
-+	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_GET, sizeof(fmb_read));
-+	if (ret != 1)
-+		return ret;
-+
-+	zdev = to_zpci(vdev->pdev);
-+	if (!zdev)
-+		return -ENODEV;
-+
-+	if (copy_from_user(&fmb_read, arg, sizeof(fmb_read)))
-+		return -EFAULT;
-+	if (!fmb_read.data)
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &zdev->fmb_lock) {
-+		if (!zdev->statistics_on || !zdev->fmb)
-+			return -ENOMSG;
-+		memcpy(&fmb_bounce, zdev->fmb, zdev->fmb_length);
-+	}
-+
-+	if (copy_to_user(u64_to_user_ptr(fmb_read.data), &fmb_bounce, zdev->fmb_length))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index e41437fa17ad..7e9adb61c5e1 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1555,6 +1555,36 @@ struct vfio_device_feature_zpci_err {
+-	bio_add_folio_nofail(bio, folio, folio_size(folio), 0);
++	bio_add_folio_nofail(bio, folio, len, offset);
  
- #define VFIO_DEVICE_FEATURE_ZPCI_ERROR 13
+ 	f2fs_down_write(&io->bio_list_lock);
+ 	list_add_tail(&be->list, &io->bio_list);
+@@ -950,7 +958,14 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+ 							struct folio *folio)
+ {
+ 	struct folio *fio_folio = fio->folio;
++	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
++	size_t bio_offset;
++	size_t bio_len;
+ 	struct f2fs_sb_info *sbi = fio->sbi;
++
++	bio_offset = folio == fio_folio ? F2FS_FIO_BIO_OFFSET(fio) : 0;
++	bio_len = folio == fio_folio ? F2FS_FIO_BIO_SIZE(fio) :
++				       folio_size(folio);
+ 	enum temp_type temp;
+ 	bool found = false;
+ 	int ret = -EAGAIN;
+@@ -972,8 +987,8 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+ 							    fio->new_blkaddr));
+ 			if (f2fs_crypt_mergeable_bio(*bio,
+ 					fio_folio->mapping->host,
+-					fio_folio->index, fio) &&
+-			    bio_add_folio(*bio, folio, folio_size(folio), 0)) {
++					fio_lblk, fio) &&
++			    bio_add_folio(*bio, folio, bio_len, bio_offset)) {
+ 				ret = 0;
+ 				break;
+ 			}
+@@ -1087,6 +1102,14 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ 	struct folio *data_folio = fio->encrypted_page ?
+ 			page_folio(fio->encrypted_page) : fio->folio;
+ 	struct folio *folio = fio->folio;
++	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
++	unsigned int fio_cnt = F2FS_FIO_BLKCNT(fio);
++	size_t bio_offset;
++	size_t bio_len;
++
++	bio_offset = data_folio == folio ? F2FS_FIO_BIO_OFFSET(fio) : 0;
++	bio_len = data_folio == folio ? F2FS_FIO_BIO_SIZE(fio) :
++					folio_size(data_folio);
  
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_SET, enable or disable FMB for the VFIO zPCI device.
-+ *
-+ * enabled is treated as a bool, so any non-zero value evaluates to true. Nested
-+ * enabling disables and re-enables the FMB, while nested disabling fails with
-+ * EINVAL.
-+ *
-+ * Returns: 0 on success, -1 and errno set appropriately on error.
-+ */
-+#define VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE 14
-+
-+struct vfio_device_feature_zpci_fmb_enable {
-+	__u8 enabled;
-+};
-+
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_GET, provide FMB passthrough for VFIO zPCI devices.
-+ *
-+ * The user-provided buffer must be at least fmb_length large, where fmb_length
-+ * is reported in VFIO_DEVICE_INFO_CAP_ZPCI_BASE. If measurement is not enabled,
-+ * fail with ENOMSG.
-+ *
-+ * Returns: 0 on success, -1 and errno set appropriately on error.
-+ */
-+#define VFIO_DEVICE_FEATURE_ZPCI_FMB_READ 15
-+
-+struct vfio_device_feature_zpci_fmb_read {
-+	__aligned_u64 data;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
+ 	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
+ 			__is_meta_io(fio) ? META_GENERIC : DATA_GENERIC))
+@@ -1101,20 +1124,21 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+ 	if (!bio) {
+ 		bio = __bio_alloc(fio, BIO_MAX_VECS);
+ 		f2fs_set_bio_crypt_ctx(bio, folio->mapping->host,
+-				folio->index, fio, GFP_NOIO);
++				fio_lblk, fio, GFP_NOIO);
  
- /**
+-		add_bio_entry(fio->sbi, bio, data_folio, fio->temp);
++		add_bio_entry(fio->sbi, bio, data_folio, bio_len,
++			     bio_offset, fio->temp);
+ 	} else {
+ 		if (add_ipu_page(fio, &bio, data_folio))
+ 			goto alloc_new;
+ 	}
+ 
+ 	if (fio->io_wbc)
+-		wbc_account_cgroup_owner(fio->io_wbc, folio, folio_size(folio));
++		wbc_account_cgroup_owner(fio->io_wbc, folio, bio_len);
+ 
+ 	inc_cache_count(fio->sbi, WB_DATA_TYPE(folio, false));
+ 
+-	*fio->last_block = fio->new_blkaddr;
++	*fio->last_block = fio->new_blkaddr + fio_cnt - 1;
+ 	*fio->bio = bio;
+ 
+ 	return 0;
+@@ -1177,6 +1201,10 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 	struct folio *bio_folio;
+ 	struct f2fs_lock_context lc;
+ 	enum count_type type;
++	pgoff_t fio_lblk;
++	unsigned int fio_cnt;
++	size_t bio_offset;
++	size_t bio_len;
+ 
+ 	f2fs_bug_on(sbi, is_read_io(fio->op));
+ 
+@@ -1209,24 +1237,32 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 	/* set submitted = true as a return value */
+ 	fio->submitted = 1;
+ 
++	fio_lblk = F2FS_FIO_LBLK(fio);
++	fio_cnt = F2FS_FIO_BLKCNT(fio);
++
+ 	type = WB_DATA_TYPE(bio_folio, fio->compressed_page);
+-	inc_cache_count(sbi, type);
++	for (unsigned int i = 0; i < fio_cnt; i++)
++		inc_cache_count(sbi, type);
+ 
+ 	if (io->bio &&
+ 	    (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bio,
+ 			      fio->new_blkaddr) ||
+ 	     !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
+-				bio_folio->index, fio)))
++				fio_lblk, fio)))
+ 		__submit_merged_bio(io);
+ alloc_new:
+ 	if (io->bio == NULL) {
+ 		io->bio = __bio_alloc(fio, BIO_MAX_VECS);
+ 		f2fs_set_bio_crypt_ctx(io->bio, fio_inode(fio),
+-				bio_folio->index, fio, GFP_NOIO);
++				fio_lblk, fio, GFP_NOIO);
+ 		io->fio = *fio;
+ 	}
+ 
+-	if (!bio_add_folio(io->bio, bio_folio, folio_size(bio_folio), 0)) {
++	bio_offset = bio_folio == fio->folio ? F2FS_FIO_BIO_OFFSET(fio) : 0;
++	bio_len = bio_folio == fio->folio ? F2FS_FIO_BIO_SIZE(fio) :
++					    folio_size(bio_folio);
++
++	if (!bio_add_folio(io->bio, bio_folio, bio_len, bio_offset)) {
+ 		__submit_merged_bio(io);
+ 		goto alloc_new;
+ 	}
+@@ -1234,10 +1270,9 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 	F2FS_BIO(io->bio)->entry_cnt++;
+ 
+ 	if (fio->io_wbc)
+-		wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
+-				folio_size(fio->folio));
++		wbc_account_cgroup_owner(fio->io_wbc, fio->folio, bio_len);
+ 
+-	io->last_block_in_bio = fio->new_blkaddr;
++	io->last_block_in_bio = fio->new_blkaddr + fio_cnt - 1;
+ 
+ 	trace_f2fs_submit_folio_write(fio->folio, fio);
+ #ifdef CONFIG_BLK_DEV_ZONED
+@@ -3231,7 +3266,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+ 		set_new_dnode(&dn, inode, NULL, NULL, 0);
+ 
+ 	if (need_inplace_update(fio) &&
+-	    f2fs_lookup_read_extent_cache_block(inode, folio->index,
++	    f2fs_lookup_read_extent_cache_block(inode,
++						F2FS_FIO_LBLK(fio),
+ 						&fio->old_blkaddr)) {
+ 		if (!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
+ 						DATA_GENERIC_ENHANCE))
+@@ -3250,7 +3286,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+ 	if (fio->need_lock == LOCK_REQ && !f2fs_trylock_op(fio->sbi, &lc))
+ 		return -EAGAIN;
+ 
+-	err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
++	err = f2fs_get_dnode_of_data(&dn, F2FS_FIO_LBLK(fio),
++				     LOOKUP_NODE);
+ 	if (err)
+ 		goto out;
+ 
+@@ -3353,6 +3390,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+ 		.op_flags = wbc_to_write_flags(wbc),
+ 		.old_blkaddr = NULL_ADDR,
+ 		.folio = folio,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.submitted = 0,
+ 		.compr_blocks = compr_blocks,
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 116c36a37f30..567568e1c49f 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1350,6 +1350,8 @@ struct f2fs_io_info {
+ 	blk_opf_t op_flags;	/* req_flag_bits */
+ 	block_t new_blkaddr;	/* new block address to be written */
+ 	block_t old_blkaddr;	/* old block address before Cow */
++	pgoff_t folio_offset;	/* offset in large folio */
++	unsigned int folio_blkcnt;	/* block count in large folio */
+ 	union {
+ 		struct page *page;	/* page to be written */
+ 		struct folio *folio;
+@@ -1372,6 +1374,15 @@ struct f2fs_io_info {
+ 	sector_t *last_block;		/* last block number in bio */
+ };
+ 
++#define F2FS_FIO_LBLK(fio)						\
++	(((fio)->folio)->index + (fio)->folio_offset)
++#define F2FS_FIO_BLKCNT(fio)						\
++	((fio)->folio_blkcnt)
++#define F2FS_FIO_BIO_OFFSET(fio)					\
++	((fio)->folio_offset << PAGE_SHIFT)
++#define F2FS_FIO_BIO_SIZE(fio)					\
++	F2FS_BLK_TO_BYTES((fio)->sbi, F2FS_FIO_BLKCNT(fio))
++
+ struct bio_entry {
+ 	struct bio *bio;
+ 	struct list_head list;
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 5b948c92f981..72c7f9ceafc2 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1228,6 +1228,7 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
+ 		.temp = COLD,
+ 		.op = REQ_OP_READ,
+ 		.op_flags = 0,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.in_list = 0,
+ 		.is_cache = 1,
+@@ -1338,6 +1339,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 		.temp = COLD,
+ 		.op = REQ_OP_READ,
+ 		.op_flags = 0,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.in_list = 0,
+ 		.is_cache = 1,
+@@ -1550,6 +1552,8 @@ static int move_data_page(struct inode *inode, block_t bidx, int gc_type,
+ 			.op_flags = REQ_SYNC,
+ 			.old_blkaddr = NULL_ADDR,
+ 			.folio = folio,
++			.folio_offset = bidx - folio->index,
++			.folio_blkcnt = 1,
+ 			.encrypted_page = NULL,
+ 			.need_lock = LOCK_REQ,
+ 			.io_type = FS_GC_DATA_IO,
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 273b6428c9f9..ab7537ff7ebd 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -151,6 +151,7 @@ int f2fs_convert_inline_folio(struct dnode_of_data *dn, struct folio *folio)
+ 		.op = REQ_OP_WRITE,
+ 		.op_flags = REQ_SYNC | REQ_PRIO,
+ 		.folio = folio,
++		.folio_blkcnt = 1,
+ 		.encrypted_page = NULL,
+ 		.io_type = FS_DATA_IO,
+ 	};
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index daf6d9617d5b..80f58c586e33 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3876,7 +3876,8 @@ static int __get_segment_type_6(struct f2fs_io_info *fio)
+ 		if (file_is_cold(inode) || f2fs_need_compress_data(inode))
+ 			return CURSEG_COLD_DATA;
+ 
+-		type = __get_age_segment_type(inode, fio->folio->index);
++		type = __get_age_segment_type(inode,
++					     F2FS_FIO_LBLK(fio));
+ 		if (type != NO_CHECK_TYPE)
+ 			return type;
+ 
 -- 
-2.56.0
+2.43.0
 
