@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194919;
-	b=pDZLNuow7YmK+lGKie4+XnwEOnjNsNjPbAYahGL38Tk8bH56EOZPdbbMLbX4HwkuL28l
-	 UiDt7AWf02C1H+p9PkDIG1anoA+D5WOxbNdV6Yqu8lUk06CkpWfbu0A2km9AqhVcBJt+e
-	 eryl3BQppr5hdjY4vs2MsbFj1fHchIR2pwfyQKrk6gLRmgOAlrO8uP77ySgc2/MPi1IFj
-	 azb1VqkswRXDLL9aaiyjQbop7sgC5qnnU5hBL4D3q3AuxmXapkrPJyO5MgUMHi87xlAV+
-	 MLeuitWzAtMOVVh9RB/O3DkDF5IIRd1wjf1fSKNAPZqd7Db4qYAAgHgoanulFWBNBcw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194919;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793194923;
+	b=x9S7zDtzldT5qFHN6BkK9nLWxgp9Xyw+oxob1P1bsqjtr+F2TvKKZmL1qllN7SdYQDjK
+	 9qW9orq70xyL42aqq+pvv6fGtRDsPRoJIrmBWiKMEXcaurBpPXGuOV/38kuv3fKESKLGL
+	 H1BEFAWw/OaC7kNCC6jjHp0xsPwzgUTmxBlonxvTMN6xklZJenTl69g06yA0TfSRym3J9
+	 TdtvF1ROTpwtw8k1HZ7whB7aJIq3UdDPqsPjQGCnIwBy2zJGBghriEt7ak9F12gPt+LS5
+	 J43H5bShXpBk069SfQzzYOQkZO3QAimELy/WC89YEOseKqsFvqhh55wV+GxrwUZHxig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194923;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=1mZLWc84btDXl0MHk8lbS2Z2QDCAWwzGK7CzWjzphtY=;
-	b=2T+GJIQuuBafEr4kTXuRdKmTxUcTgYXKzG4dhOVrGffYKfTT+YouzGkNx+u19XmiCKDc
-	 pCA45DGTp+YX4uRqMsVnnOe0/KbZRD97mBBcR7sfz4gFSarAA1u/G2s8b8vUHTn63/O8z
-	 OHFwCJ4Jte3eBRv2BzXSTJkqz9qnGz8/JY3cB8ejnH1eLT5hT39Ojza/5y8aBOKB70bcM
-	 5k4c0b+glcfqMN1xS+Y/bhGMLoeo7rkwsgu5W45i5kmcdzgV5lHYvfl4eaB8DrcOGj1eS
-	 okUxXxBPhNN8WY18bSSY0SxfcDIzYXEAc7yNv+FqMytFbgma2Qtj0qwp06wN1spHYkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=MULD2iT9;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=HWavZ6/zSVisPj33wFjAW+QGbNYpScdop0n6pN4rj5w=;
+	b=CNW2hlif0PItltFhuCI9+ajDHp/5SmyRiO/rNULr4TbPm+X4QYTquQ1FU4m10vNPaqTF
+	 1NOddqjrrbu3Bm4uHuAKVWR+kdOmIAGVbSZB48V0M66gJcNNCZghSxRHbl1r6IfCg3FeQ
+	 6tXyA7DtRCgTaQZGE3NmZNEu7DumeGTq7F5qodCJ/NTl1a/idp3m9Qu5M1Pv7xFKqZDB+
+	 hfYZpPV5lbWwjddK8ZFH+4Ov7o/wukv9IYOVcPylBKEhmVdj0eXlE7ZvqwI3u+wJ5YzDn
+	 aPCHhB0lpyL7ZfUmPt+cCotti/rMmydyXCvpBKAZo6vuItTc3niyj6JsL7KdDnEYcFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pNVGOqae;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA82606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA82606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC75E606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC75E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=MULD2iT9
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-535179e995bso10363331cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:41:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pNVGOqae
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4a755bbe158so539985fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:42:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793194921; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KDlDIbviTODID4Srx2GohSEAXXoobUibBkls5+7R5KG1Au5ugw+DQbLrMEvMzKKxDs
+         JZ1LefTWMGtVfCnKI+jhZmaq15ezByTwXhJT2vaBftnQ6vaMitUspQdnkWu0LkJKjzZS
+         nXruD8BuvY7NvxnQtJ2ofCgGVxec595wDH2vdfcAwE7BWwR7kfmm0f8vXyLGdM22Zglm
+         DkqnZ7dqK4jOKkvXZI8dfbKVU8WASaDYKc9kMQinaE0ZmzobrMOHgPO+DgeiG2gozhkE
+         uSsPUtX1IQEqfkB+2o5OTDYYf0T4/Rc1NMV0zOzkGy9jZfMeHHzcepk88vYvKaQIvnLH
+         cmCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HWavZ6/zSVisPj33wFjAW+QGbNYpScdop0n6pN4rj5w=;
+        fh=9mlHlN+p42ezdlcq4EV0R0Ke1ujimy5OOYZIjYK90fg=;
+        b=gF7nHPmiMcPiuKllI71qWESALYetQ1vYbvoGZKxjYJoTRKjBBhlUlWahUD3yCihr+b
+         a1e3MT6L0wvhH3+HUnM59YjlM4lhN9EmddlTdobRGPUo/HSjMUI2FljaBZi5JXkZU9hI
+         J+vaIWdHXyhsxGlET0OIg7aS2gRZe2Iapm9Egkl9AAopat+8lBFsvrGuZj0/dpFVRmVG
+         TTax3ni89r/J5yjzjpwocBlZNFVQF2THF0reImm7nwG36LqnGm7EEQ1R+VMCRu1hfxUM
+         cETkBm5ySSdLWU6O+74BnhV1c6hZg6cDLjJv3Q2S2vOPf4Q76aYkmKxF9BDXEdaEpsQC
+         yxfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793194917; x=1793799717; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1mZLWc84btDXl0MHk8lbS2Z2QDCAWwzGK7CzWjzphtY=;
-        b=MULD2iT9vqKXxE4Bobb4BC1FqAXTg3Gac46Ovpts/VEGnwZEnZpfuDiU5ZL8Lrv+iT
-         QmGT8o7KY1DdnPLq5TtIHC5FHSk4X/MgzfPVlZtpUafCc7tVjL9WqaZWwI1msn0BsZr1
-         o4s1aPJHaa+4VgKQF9JLCaFX/8FGDpyn7IU/yftUj/obLa/bW29vNsjD1MtqaG50COD/
-         s5p5ay4a89S7pWulkPrRwE2/LqIpe0skRIAz7wOaIkHTqTamkNRRC59He1VIAe7GLIcq
-         i7QWK9vHeH8x/bkSicmubBW4We5p95MfOL/zLRHHkoVLwLdomC1dOm1pewKuH1juBCl7
-         8vIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793194917; x=1793799717;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793194921; x=1793799721; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1mZLWc84btDXl0MHk8lbS2Z2QDCAWwzGK7CzWjzphtY=;
-        b=2Uj/XwNN0B4suoR+eCqRUv0Quti2ZbIHznJ35dKuWmwGKSLNHasjGjsgdPbgolyin0
-         7o0TNT0dpq7J/Ik2NinoSIYiXoqiLkAb5/swXn+Crt3coVZtsfloGul4VaHyen8myKI+
-         XS9k5rkfyv+5SXYEnUutsonSJpE6MItwXdr8bHkn9uT9E0zHVnB6ZoPAr4Gv4g3D/24G
-         NGMrhJOwpDgz/pYfDpUbgMy0VY5Rnef9GHYjhmTfq7bZVJxynJm6uqPK1fVVjWlsnH/i
-         P2lQ2RPCaszFdM6MT+J3KOHsV50r0tKTga8HlfLGPqYjRu/SDamXU11sg/isEYUym0Zx
-         IqjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxOqplU3dU+W4/6n8GjQHHMYw/1xR9WDaSXHrdU3/LQVKH17jp1fr1DIQs8cP+/MD/GAQzdtLA4l34pAA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcG26S52mR0OL+TdMzDgkJsb1HPIk9WjIsxwhzv7Hs1/WPr9II
-	U4eYijYYmtp1sTw4yv4s/OTj0xEmuKyyO30BTMxXBd8Lc0fwLkdjmqGBncMYzC/b74U=
-X-Gm-Gg: AYBFou2zjBZfHxTEWCihA0w9KE76WuA/2mls0A2FMMB5Fw7jmx66HrI6kQql2WQKKGU
-	Uwe9PxiBk/47V1+1P6OIdmV7nvSGNxBzta2mQuCLsnavIE5PvZ/hiq5vVrnpViJvffuYJx0pNvR
-	CHG5vI8W24kSalzbXQcexxidv37buwbWaGYbHSHnQEP2YlcEuQViZdyzfVE1w/t24ruVFJI8KOj
-	EPPm4tIeIG4aAKpZfvBopLg+2czoAMlBkENh8QMutLeDQl/nP8CPwqqVQHRhSIpm1uv/dRmlnxH
-	kBBcHU3+VYs+S/nNNZBSTRkWbtt0T9Oh4DvsxUyJXBYOXz8UFdlzYEnklwd9UU4VkLVhhRdqrbR
-	J6w+usJw+xkPb9qTDoejEzqyWRnzpcNWYvAR8q5w52PKeFG9tcPqwenII8UrZJAjtwb5hctkB9I
-	+8KvKfyJ+kiZkXCGan9+lhViIhqBIQ7TKqGpLaB/rOuC6gxWcChdDWjoV+o4rrJ/VktfYrKJ6Wh
-	pOFzIBweugINqJZ+d5bOI0YZYy5suArP5OgAV47IkBdVDG+kD7LWzQHxYcbLETF7AvO0NRc3+ea
-	iiHUo+WqaWM1bcMm+Hne8eP7Ac9GgthXCvJ4HVwpxoRlWtTVjbIU030TM+3BV9KuTolLMn86JK4
-	g
-X-Received: by 2002:ac8:59cd:0:b0:535:52c:a2d6 with SMTP id d75a77b69052e-53fc919dd94mr39416861cf.3.1793194917292;
-        Wed, 28 Oct 2026 06:41:57 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c96375sm132097726d6.33.2026.10.28.06.41.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:41:56 -0700 (PDT)
+        bh=HWavZ6/zSVisPj33wFjAW+QGbNYpScdop0n6pN4rj5w=;
+        b=pNVGOqaeKAtj8aHOhd6hnqx48NNmdU4C26vXEIldW1SIz6scAQK1yO8g3LVWASQasc
+         q7CD4KqCrCmAwq5jscXXokg99hdiAOe77ctP/mBrjC2Vy2SSW+N8GfbaiR/BNq4vufEm
+         69lqPJSco4TKJNcx0FtvevRZgZWtSARqZHnZUWRquB3O19K+pN90fCnlBzTWn2xOLq37
+         cJQOOuJenLSfSGCYChUpYKeQU9SPd4kHwjXI28bQnTfnHpK77T2MOuOMI1/SNhIykSli
+         hJSXsWuT7ZV5l2RvIVTf4yzaOmGhV/uTtT7+gx/OkA7Am4i1388Dsl9Mii7ZaJ2bcISV
+         QWGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194921; x=1793799721;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HWavZ6/zSVisPj33wFjAW+QGbNYpScdop0n6pN4rj5w=;
+        b=RmN0OrfHAUpMTC8yR/rAka+z+gCiUSqz2FCSEb+LZ3ZoJocbRbhZ4u5cIn+KcZMC21
+         1uvS0vZ35k4Acyr43OEwMrmtO8tTcV+wce5LL1gQ8SGRW3EjErgRjIeEQL8w+binkT4b
+         qP88taOQMNyRljBQ2fNisYOsMOwaGH4OtuIuRhm6ZasoDkMO1INUiuVdl7G2PfMXbGYf
+         i7spxDxr/Q/AEKCagZpq5XKseGey5p/eGPIKBxnX2OoHqECBogf8ASUVmfFcbs0CawQ7
+         agCXP4GmaQFWe68NQl+ZPfv4oyyCXN+6S+oFvqjtsfYiHOBiYHeA6lPqgQdaeUipydh+
+         LKaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhzxUEBVKvMM6skGBjzECove0VBqcLZGs8n+E3IeL4/SmDbl86z8wyzXIgdW9ztvTCtSGLO+P6pJmEXPY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzTBRTI0gOtPppJla9P01tAdYfSt3vywQAHAtlwE+uW7hQOxdq
+	DBpvUZeBXEYPvmjM+7k33IMatNTeMyibQTFoYHs7/2Qu2hsoAHQVQMCqYEUkujQDf+hkBUOuDwl
+	QVV10kO/0Df/o/DB/AJY29fdp4F1zeC8=
+X-Gm-Gg: AYBFou3sTJmTl69TJk+mW8YfqkOI2JkZ6FWRhW/juEvk+nne5XeJUiYC/ER9Qu5E5ge
+	9N5kDPoJtyrBtKwSrAFJGFEwXQqveD6oSS3/PeVZBh10xJ5uwe6CgHW64MNmnrSK/y6an/AuXMw
+	qtRr5v827W+iRXt811zZy938zDLyvPuR+H37jwE3heqkGoUUvIC9MlqK2za8Y+p2iuZOrh4UQk3
+	ZGPvTSPq1512xYSvDug2xIoQFz5jvcxWybAU5g5Ny165jt4M+CAkWUz9mZ28CL5xk9qTE1d1XnA
+	D3QVf9vIr/EHafRtq6K3bysVLG5WKv+WgLp9k9MjfcUd5wUr5BWOE8czF41nytJsfvyApvBs2/Z
+	bmlFLehwYkZkS5av4Z+gdo2SQHeeTElQvE6GJY4xD9W4IFYj3bEOAi97WXiDChMXRPwnfHMUO
+X-Received: by 2002:a05:6870:f202:b0:49e:cbe:9968 with SMTP id
+ 586e51a60fabf-4a89b867a92mr3003622fac.28.1793194921538; Wed, 28 Oct 2026
+ 06:42:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,64 +103,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 0/8] mm: fix allocator races with memory hotplug
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, kernel-team@meta.com, 
- akpm@linux-foundation.org, mhocko@suse.com, rientjes@google.com, 
- shakeel.butt@linux.dev, rostedt@goodmis.org, mhiramat@kernel.org, 
- mathieu.desnoyers@efficios.com, muchun.song@linux.dev, osalvador@suse.de, 
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
- surenb@google.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, 
- ziy@nvidia.com, bigeasy@linutronix.de, clrkwllms@kernel.org, 
- mgorman@techsingularity.net, anshuman.khandual@arm.com, 
- Bessel.Wang@huawei.com, jiang.liu@huawei.com
-In-Reply-To: <5e980194-d892-4b68-80fe-612c910c29d7@kernel.org>
-References: <20261021023940.1940971-1-gourry@gourry.net>
- <5e980194-d892-4b68-80fe-612c910c29d7@kernel.org>
-Date: Wed, 28 Oct 2026 09:41:55 -0400
-Message-Id: <179319491540.2032926.7199366288730313291.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261028132536.375927-1-ziaowang2007@gmail.com> <20261028132536.375927-3-ziaowang2007@gmail.com>
+In-Reply-To: <20261028132536.375927-3-ziaowang2007@gmail.com>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Wed, 28 Oct 2026 21:41:24 +0800
+X-Gm-Features: AclHuK_zqJxUnPCaNFg8MbtA5PoBLjeNjF1hMKIEkWPTHAkMWku6PNDEB4ByHCM
+Message-ID: <CABOQOSUsZ6C324EXJgVKeshpQ3druMU331n9Gp-bOC18FimQXQ@mail.gmail.com>
+Subject: Re: [PATCH 2/3] HID: quirks: Ignore Valkyrie USB LCD devices
+To: ZiAo Wang <ziaowang2007@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+	jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-28 09:37 +0100, David Hildenbrand (Arm) wrote:
-> On 10/21/26 04:39, Gregory Price (Meta) wrote:
-> > Eight fixes for allocator paths that can act on state another CPU is
-> > updating: zonelists rebuilt by memory hotplug, and the pagesets of a
-> > zone that offlining empties.
-> > 
-> > I've packaged these together because they're all related to hotplug.
-> > 
-> > *** Backport note - Patches 5-7 build on patch 1: without it, their
-> >     retry is compiled out when CONFIG_MEMORY_HOTREMOVE=n.
-> > 
-> > Most of these race conditions stem from zonelists being re-ordered
-> > in-place at runtime during hotplug.  The result is a mixture of failed
-> > allocations, NULL dereferences, incorrect placement (GFP_KERNEL in
-> > ZONE_MOVABLE), node misplacement, or incorrectly allowing hugetlb /
-> > contig allocations on a node/zone otherwise not eligible.
-> > 
-> > Most of these are incredibly narrow race conditions, but since the most
-> > likely impacted machines are VMs with memory hotplug, the narrow
-> > condition can more easily occur when a vCPU takes a long interrupt / VM
-> > exit of some kind.  I've made all of these race conditions
-> > deterministics with a kprobe reproduction module described below.
-> 
-> What's the status of this? "memory hotplug" caught my attention, but then then
-> is all page_alloc material :)
-> 
+On Wed, 28 Oct 2026 at 21:26, ZiAo Wang <ziaowang2007@gmail.com> wrote:
+>
+> Valkyrie USB LCD devices (0x345f:0x9132) expose a HID interface
+> for vendor-specific display control commands and a separate USB
+> interface for bulk framebuffer transfers.
+>
+> The HID interface is not intended for input and should be managed
+> by the dedicated USB display driver instead of the HID subsystem.
+>
+> Add the device to the HID quirk table with HID_QUIRK_IGNORE to
+> prevent the HID driver from binding to it.
+>
+> Signed-off-by: ZiAo Wang <ziaowang2007@gmail.com>
+> ---
+>  drivers/hid/hid-ids.h    | 3 +++
+>  drivers/hid/hid-quirks.c | 1 +
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index 91319aa651..d135ea8f06 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -1704,4 +1704,7 @@
+>  #define USB_VENDOR_ID_HUAWEI                   0x12d1
+>  #define USB_DEVICE_ID_HUAWEI_CD30KBD           0x109b
+>
+> +#define USB_VENDOR_ID_VALKYRIE                 0x345f
+> +#define USB_PRODUCT_ID_VALKYRIE_LCD            0x9132
+This VID and PID pair is used by all macrosilicon usb display adapters,
+so it wouldn't just affect this product.
 
-I have a v4 with the requested tweaks and some performance analysis,
-though i think there is some overlap with the other Fixes: series.
+It also doesn't seem to negatively affect the device and is
+useful for debugging, so I wouldn't recommend ignoring it.
 
-I can send it out and if it helps i can pull together a report on
-overlap between the different Fixes: series.
-
-~Gregory
-
--- 
-~Gregory
-
+>  #endif
+> diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
+> index 793db001a6..70ada7320c 100644
+> --- a/drivers/hid/hid-quirks.c
+> +++ b/drivers/hid/hid-quirks.c
+> @@ -226,6 +226,7 @@ static const struct hid_device_id hid_quirks[] = {
+>         { HID_USB_DEVICE(USB_VENDOR_ID_YJXCHIP, USB_DEVICE_ID_YJXCHIP_MOUSE),
+>                 HID_QUIRK_ALWAYS_POLL },
+>         { HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH, USB_DEVICE_ID_LOGITECH_GROUP_AUDIO), HID_QUIRK_NOGET },
+> +       { HID_USB_DEVICE(USB_VENDOR_ID_VALKYRIE, USB_PRODUCT_ID_VALKYRIE_LCD), HID_QUIRK_IGNORE },
+>
+>         { 0 }
+>  };
+> --
+> 2.56.0
+>
