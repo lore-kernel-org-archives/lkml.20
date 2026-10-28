@@ -1,93 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.59.206.189
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212130;
-	b=dIiulF4MQ9skNKtxrxd/v94XuYAaAop6W59pNgqOsi/1jxUOeFolFSjc6ezjrUGY6TCK
-	 eA8/QN2w2XQI04/bC7/rPsBuvOOY0su2JpDu4vhspCw8OGGAxilw6PFZcYw+j+AnFMnCo
-	 O2MkQ1tDOzgF9W8zswc1J/ZmEFKz90PQN/ADRUWwe4LNeG2yTG+l2tS/qAcCNtrCBSZjT
-	 AqHtwsPMQ8IvZ+QYNnztlt/6SNduGXffOzXedJzdHXRP5h+K4pohdtMOqDRHl6DUHsQP5
-	 mPMMLpE87NK2VEMMeKyYoqG2OCtK+oBjGckOOJj431sWkGU/67lRP2hJZ4ysnnp55cQ==
+	t=1793212145;
+	b=Z3ifeejHs2G7ZZcvYHvChGQaSsyC++mAqz649rb//JyhhkBvHL3zQ/G8xPnO2584Yyiu
+	 S3ggXRYzeDf5wRi8uWyl2SpITW8sFL4m3Kvn7umZhf9dp0kjddnAWBDTV1G/mXek/iCzb
+	 dTC5AAo71lW7GJAl0M+tHdsYo6czRVCtaCjkabtUJcT3di2UfN4a6RPHWAoz9P9Ricl/Y
+	 XdYUqL6M5+E8Wfpu2L2SWBUA5wgBMTxlmQWB+aEwubPlouLRQ0rSZAjj9rkEWT4bWMe26
+	 JZAIL6jJaKpcmPYXcCag4jMayYEBt/EbPIzhdAmOGNP262SyJN+fogtMOmrh22mor/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212130;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PbKGqNfUqgTQK7tkH7alniEEuM5QCv88jvXrchkccXs=;
-	b=QPgw/kdLn/G2zMUWrGOTMq9bWYbDhES/oaExfmsd9uxq1Kv5y90mBmkgn6+RsvQOyKE5
-	 zMo3MRI4YrFy3Veq/0F28NBw3PnS/NmWPY/HdZcNwrQcs5or+AB9/Ooiqlqv+VeP0OjwA
-	 jLz8vHGKb+puQOVTkX1jzSGfrUGLn2yjk9kSJ/uoFAZKP6YKbBfYFlhYcepBVunrk62Xz
-	 Bpzm+erB3fOHv8wsxEcfxUHKoWBONb/jPleC+xoR4UGdhp/i99tU6q3H8ldCkdWeroDHb
-	 RwrwIkZbnEpIK6rCOCdhBzHghmwuS7GuEFWCUVwTK3aZuUjf8i82Fn9HJ495OY4rhAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212145;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
+	bh=lSqJHM83HEGMB/dALp36Vpi95BnuVUaKo4Yx3v2mjGI=;
+	b=BG1HYVHMCPTg0VEkczQBs93ftAvYg9MT2yCwpuIGiw6+eDFYWFGeaafTtd2V6ShLYrk5
+	 c8uT++68HIbW7gz6GFpALw60i6slaKHKEsrsxGWbAhjvnwfPLgu9PeMnsC/eE+0oUA5p3
+	 NZm8oP4bauYpOPvsXtpTRyVhSQq0Tav+iWbTpZz/qYLIN2eYSxS02/ZtwlubG6kYR3IxL
+	 IeiThvCm7c9BIWlxWoBLmIIzMY800sYmgAqFzG61AOoHrxdeIjuvjz8GOoEcRCL+d4sU2
+	 UD5VggYqOq6ZrroY2nxHmv9paqYcGa9tQTuZ8vz0bcKXVq1FRadwiubT/fh/aYmwXEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aRG7yHUS;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=GClSd0E4;
+	arc=none smtp.remote-ip=194.59.206.189
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1606606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1606606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3330A606A31D;
+	Wed, 28 Oct 2026 18:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3330A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aRG7yHUS
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1846bc43c28so1549551c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:28:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793212129; x=1793816929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PbKGqNfUqgTQK7tkH7alniEEuM5QCv88jvXrchkccXs=;
-        b=aRG7yHUSDd+MTkKytJav6i+528qytXX/cKfTZLUKkB1nNUDBOEaZ8Amzxy4t282DtU
-         pBjMqjP+lRsPMR+fYy2CPP+57kQLWP7ZKI+f+vgsRKftRGPydiB7vpTMPLvSULWnKAnm
-         994oMs9IpZsZUItSrbIX0yd4yIsNJOb1zbb1l4xScDvpLpLF7P4CrJKVSlBJZBG9vOx+
-         jcPkkgNkpdLWs9o7Fl7RwHgo0NlTe74U1BR6I1TqsQazeUZfYiFGTo6h5Nllo+MA2JgV
-         hHWKeisJLPNoY+D8ZverCwkq7RP1Bi0do2RCbzyhmFBuleGhK9/LrmMeT3mEsrdnOyro
-         0NIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793212129; x=1793816929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PbKGqNfUqgTQK7tkH7alniEEuM5QCv88jvXrchkccXs=;
-        b=wRn/oBIKHKLqJmRpWaIjTdTaSJqKNuq7HJI9+H9+o2SKHKKRaapF3/ajStqe6jzDqs
-         EWQfQpmYZTjk7K/bu9/okIEeJSWMw+oDVfV+cXXEeBYQ632yk+S76GnGY5JuuhRYvnEY
-         g9xkBz+CZnrMfUdZiJ0NohN72ekP/cF2Rg1RXHPwNJIdWVTNRS+9SySnq3IUYV7hlNWt
-         txC0lGK7UhN8rOdO6CvvjbQMLw26uhLO+nG5rYoRuF3TuOIBZTwVGyIRjAFvBLDeaeaW
-         1V/FdRNY883n0lCAymW2qFGoDYJBzuB2Ueda/24IOTkzcGzV6cEUVfCYBZjQSS8puqbG
-         bJCg==
-X-Forwarded-Encrypted: i=1; AKwUvByv4lHtoZ4MiKW9gjxqC4vBeUDjHD0P7VMyrMP+mOvR/1YVwk2uwIRPFG+XrX9EcVkvbeh3dhqNLiYyFWQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlnvUhFkf/8ntrMubnv9tVdQODilWwxjUzWH7pazSlP0ywLJBC
-	Yl/lkkXO2t/4/24+6GPxwShPA8vuq1rSxzaQUviB3cvAx5zTzqD1fq/D
-X-Gm-Gg: AYBFou2m1QBcihRvCoV38DZpko5DIeIRx5HN/2KLXf3WpYhU4d5WFRGliitH1C1/2pN
-	TZ8cKn43zOk/50lklgVwWPUJkHgamsaulIPMWsja1PQOiU2qm47yteXfJqeLvjMh3d4fL6IubDP
-	gATqFdGa7FjuSCLUuPA6S82yWRorQk4ZjdBAF868XpJUF2bLZd+8b7h8GekZaZYXXj90PjNSCK7
-	JRFktxxViLI647nYSL9pjfKEx7o6GunIIJK5C8yNWzik5U6UMj6W47KdFjlwgUtbtKtWyvnXbdq
-	7aR/Alef5XBcEc3N2/+nDgbR5fLCESgAup1KwSGRl+RJ4FPGp0Xw05rkam+kZSfdXtxlgkU0ULs
-	TKuHR0lcvo0CjdOu1dOMhvntZf19948ABZwK7EIhbnwOgogfqKhlKwPWFrTT0p6Jd/RBRT5j/qG
-	7x4cDpBDFGihwqTNL8D8pPKeRsw494ah0r4dGZtYDMxpshBoK+naygDE/AdO0TNbA3+pWw3yOur
-	0iNnyX7Cd+Q46VLY5DovP3tX2tG6ngE7tXFcXXwSDHMq1VORjIoEVjiWuQR4Ov5DWHhSTQSNKqb
-	Tj91vOYo8kPTZcSVtWU41ebtoH0c
-X-Received: by 2002:a05:7022:622:b0:14f:8d59:edcc with SMTP id a92af1059eb24-1a6cd3a116cmr5669570c88.12.1793212128524;
-        Wed, 28 Oct 2026 11:28:48 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:b53a:a25d:3477:6f54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a760569d53sm7111839c88.23.2026.10.28.11.28.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:28:48 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: starblue@users.sourceforge.net,
-	gregkh@linuxfoundation.org
-Cc: legousb-devel@lists.sourceforge.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH] USB: legousbtower: use stream_open for stream semantics
-Date: Wed, 28 Oct 2026 23:58:01 +0530
-Message-ID: <20261028182802.25212-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=GClSd0E4
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jFG8F185Zz4Yny;
+	Wed, 28 Oct 2026 19:28:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793212109;
+	bh=VBA7+aH0ah5aQc//ee4BUr0sp5oFph24masVhDF9LDE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GClSd0E4a4+FwTWXzckpXzBgN99BYGmffnTxc5+O2fDqqe1RwvNEWokEtdYguqMnC
+	 jBXpeVS2aCjF0PRQsjy7Li5NquCIZJV7GYh0zeSPCclQ1aq4BAU6YQS7eFcg9DXCUe
+	 7QNKuEYw+qnv3aGJ+QHLM2hH2jzaT7Bin0JPFaMb0Js76mCbXtnxghXeb8k6ZFE29o
+	 HZFnoJjvKUYNBmbvGiTAc5/MwNwh6kfpEOZDXPrylXkAcWm6HizdUkqRUSCWbmh2wh
+	 /+MT3j1+rX8u5VCLdk5E9+OjKpeghi5ymWTaydTXQO8b/szwKeWdEkwFtOdefuBqPN
+	 t7w+eHEqxvTmQ==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jFG8F0Pgjz7x7G;
+	Wed, 28 Oct 2026 19:28:29 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jFG8C0QkDz8tdL;
+	Wed, 28 Oct 2026 19:28:26 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id B70DA5FA29;
+	Wed, 28 Oct 2026 19:28:17 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
+Date: Wed, 28 Oct 2026 19:28:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,37 +78,326 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
+To: Magnus Kulke <magnuskulke@linux.microsoft.com>,
+ Wei Liu <liuwe@microsoft.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Magnus Kulke <magnuskulke@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Dexuan Cui <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
+ Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
+References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179321209847.3573970.1932748380206728237@mxe9fb.netcup.net>
+X-NC-CID: U17wed8QA5AkefoeP/1F4TRwVnOSmSu6v35YJZdNN5vvYRo2aGA=
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+On 9/30/26 14:10, Magnus Kulke wrote:
+> hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> ownership of those pages and per contract revokes root partition
+> access to them, raising a #GP on access from the L1VH root partition.
+> 
+> However, the pages remain mapped in the kernel direct map, so kernel
+> code may still access them even though the hypervisor has revoked
+> access.
 
-The LEGO USB Tower driver uses nonseekable_open() in tower_open()
-However, its read and write have stream semantics.
+Wei, Magnus, this patch showed up in -next today and broke my daily
+Fedora builds on x86_64 and arm64 which use the rawhide config as base.
+Reverting it made the build succeed.
 
-Use stream_open instead to mark the file as a stream and disable
-unnecessary file position handling.
+"""
+> drivers/hv/hv_proc.c: In function ‘hv_deposit_update_direct_map’:
+> drivers/hv/hv_proc.c:32:23: error: implicit declaration of function ‘set_direct_map_valid_noflush’; did you mean ‘set_direct_map_invalid_noflush’? [-Wimplicit-function-declaration]
+>    32 |                 err = set_direct_map_valid_noflush(pfn_to_page(pfns[i]),
+>       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>       |                       set_direct_map_invalid_noflush
+> make[4]: *** [scripts/Makefile.build:316: drivers/hv/hv_proc.o] Error 1
+> make[4]: *** Waiting for unfinished jobs....
+> make[3]: *** [scripts/Makefile.build:598: drivers/hv] Error 2
+> make[3]: *** Waiting for unfinished jobs....
+> make[2]: *** [scripts/Makefile.build:598: drivers] Error 2
+> make[2]: *** Waiting for unfinished jobs....
+> make[1]: *** [/builddir/build/BUILD/kernel-7.4.0-build/kernel-next-20261028/linux-7.4.0-0.0.next.20261028.509.vanilla.fc46.x86_64/Makefile:2252: .] Error 2
+> make: *** [Makefile:256: __sub-make] Error 2
+"""
+Full log:
+https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-x86_64/11219444-next-next-all/builder-live.log.gz
 
-The issue is reported by stream_open.cocci script as potential
-deadlock between read and write operation.
+Ciao, Thorsten
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
----
- drivers/usb/misc/legousbtower.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/misc/legousbtower.c b/drivers/usb/misc/legousbtower.c
-index 18dd4115befb..b849bd0e9664 100644
---- a/drivers/usb/misc/legousbtower.c
-+++ b/drivers/usb/misc/legousbtower.c
-@@ -313,7 +313,7 @@ static int tower_open(struct inode *inode, struct file *file)
- 	struct tower_reset_reply reset_reply;
- 	int result;
- 
--	nonseekable_open(inode, file);
-+	stream_open(inode, file);
- 	subminor = iminor(inode);
- 
- 	interface = usb_find_interface(&tower_driver, subminor);
--- 
-2.43.0
+> Helpers such as "load_unaligned_zeropad()" deliberately read past the
+> end of a buffer and across page boundaries. A read into an unmapped
+> page is tolerated and triggers a #PF, for which the kernel executes
+> a fixup in the exception table.
+> 
+> If such a call steps into a page that has been deposited, the access
+> raises a #GP by the hypervisor from which the above handler cannot
+> recover and the kernel panics:
+> 
+>   Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+>   RIP: 0010:csum_partial+0xe5/0x110
+> 
+> This condition will appear on L1VH system that have created L2
+> partitions (and hence deposited pages) and exercise networking code
+> paths such as csum_partial() can trigger this condition when a buffer
+> ends close to a page boundary (e.g fffc in the above example).
+> 
+> The fix is to remove the deposited pages from the direct map before
+> they are passed to the hypervisor, and restore them when the hypervisor
+> returns them again.
+> 
+> We want to avoid flushing the TLB in the loop, so we use the _noflush()
+> variant of set_direct_map_valid() when marking a deposited page invalid
+> and flush the affected page ranges in one go ourselves. In the opposite
+> direction this is not required:
+> 
+>   > If a paging-structure entry is modified to change the P flag from
+>   > 0 to 1, no invalidation is necessary. This is because no TLB entry
+>   > or paging-structure cache entry is created with information from a
+>   > paging-structure entry in which the P flag is 0.
+> 
+> (Intel SDM Vol. 3, 4.10.4.3)
+> 
+> Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+> ---
+> Changes since v3:
+> - Batch contiguous pages in the restore path
+> - Adjusted comment about failure modes
+> 
+> Changes since v2:
+> - Checkpatch format fix
+> 
+> Changes since RFC:
+> - Handle direct-map restoration failures without returning unmapped
+>   pages to the allocator.
+> - Move freeing of withdrawn pages into the restoration helper.
+> ---
+>  drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
+>  drivers/hv/mshv_root_hv_call.c |  4 +-
+>  include/asm-generic/mshyperv.h |  4 ++
+>  3 files changed, 87 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+> index 57b2c64197cb..b056051a5ac5 100644
+> --- a/drivers/hv/hv_proc.c
+> +++ b/drivers/hv/hv_proc.c
+> @@ -7,7 +7,9 @@
+>  #include <linux/cpuhotplug.h>
+>  #include <linux/minmax.h>
+>  #include <linux/export.h>
+> +#include <linux/set_memory.h>
+>  #include <asm/mshyperv.h>
+> +#include <asm/tlbflush.h>
+>  
+>  /*
+>   * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+> @@ -15,6 +17,35 @@
+>   */
+>  #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+>  
+> +/*
+> + * Add or remove a set of physically contiguous page runs from the kernel
+> + * direct map. Once a page has been deposited the hypervisor owns it and
+> + * revokes root partition access to it.
+> + */
+> +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
+> +					int num_allocations, bool valid)
+> +{
+> +	int i, err, ret = 0;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
+> +		if (err && !ret)
+> +			ret = err;
+> +	}
+> +
+> +	if (valid)
+> +		return ret;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		unsigned long addr = (unsigned long)page_address(pages[i]);
+> +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
+> +
+> +		flush_tlb_kernel_range(addr, addr + size);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>  /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+>  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  {
+> @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  	}
+>  	num_allocations = i;
+>  
+> +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
+> +	if (ret)
+> +		goto err_restore_direct_map;
+> +
+>  	local_irq_save(flags);
+>  
+>  	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
+> @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  	if (!hv_result_success(status)) {
+>  		hv_status_err(status, "\n");
+>  		ret = hv_result_to_errno(status);
+> -		goto err_free_allocations;
+> +		goto err_restore_direct_map;
+>  	}
+>  
+>  	ret = 0;
+>  	goto free_buf;
+>  
+> +err_restore_direct_map:
+> +	/*
+> +	 * We don't want to return pages to the allocator if weren't able to
+> +	 * mark them valid in the direct map.
+> +	 */
+> +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
+> +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
+> +		     num_allocations);
+> +		goto free_buf;
+> +	}
+> +
+>  err_free_allocations:
+>  	for (i = 0; i < num_allocations; ++i) {
+>  		base_pfn = page_to_pfn(pages[i]);
+> @@ -110,6 +156,41 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>  }
+>  EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+>  
+> +/*
+> + * Put withdrawn pages back in the direct map. Counterpart to the direct map
+> + * removal done by hv_call_deposit_pages().
+> + */
+> +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
+> +{
+> +	int i, j, end, n, ret;
+> +	struct page *page;
+> +
+> +	for (i = 0; i < count; i = end) {
+> +		page = pfn_to_page(pfns[i]);
+> +		/* find consecutive runs of pfns */
+> +		for (end = i + 1; end < count; ++end) {
+> +			if (pfns[end] != pfns[end - 1] + 1)
+> +				break;
+> +		}
+> +		n = end - i;
+> +		ret = set_direct_map_valid_noflush(page, n, true);
+> +
+> +		for (j = i; j < end; ++j) {
+> +			page = pfn_to_page(pfns[j]);
+> +			/*
+> +			 * Retry individually on failed batch. We don't want
+> +			 * to return pages to the allocator that we couldn't mark
+> +			 * valid in the direct map.
+> +			 */
+> +			if (ret &&
+> +			    WARN_ON_ONCE(set_direct_map_valid_noflush(page, 1, true)))
+> +				continue;
+> +			__free_page(page);
+> +		}
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
+> +
+>  int hv_deposit_memory_node(int node, u64 partition_id,
+>  			   u64 hv_status)
+>  {
+> diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+> index cb55d4d4be2e..150a0c63ebc8 100644
+> --- a/drivers/hv/mshv_root_hv_call.c
+> +++ b/drivers/hv/mshv_root_hv_call.c
+> @@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+>  	struct page *page;
+>  	u16 completed;
+>  	u64 status, withdrawn = 0;
+> -	int i;
+>  	unsigned long flags;
+>  
+>  	page = alloc_page(GFP_KERNEL);
+> @@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+>  
+>  		completed = hv_repcomp(status);
+>  
+> -		for (i = 0; i < completed; i++)
+> -			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
+> +		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
+>  
+>  		if (!hv_result_success(status)) {
+>  			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
+> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+> index bf601d67cecb..397c8ec0ce9a 100644
+> --- a/include/asm-generic/mshyperv.h
+> +++ b/include/asm-generic/mshyperv.h
+> @@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
+>  bool hv_result_needs_memory(u64 status);
+>  int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
+>  int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
+> +void hv_restore_withdrawn_pages(const u64 *pfns, int count);
+>  int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
+>  int hv_call_notify_all_processors_started(void);
+>  bool hv_lp_exists(u32 lp_index);
+> @@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
+>  {
+>  	return -EOPNOTSUPP;
+>  }
+> +
+> +static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
+> +
+>  static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
+>  {
+>  	return -EOPNOTSUPP;
 
