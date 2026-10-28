@@ -1,76 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212901;
-	b=0K164FAZZEUjYd6Z7r+KQqK13Hc63hCiE7Zj2qpDyAJ4/02jfT5Wpfs8omHImhyLoaTe
-	 0yt7xecNL0UnO7ppWr/ZKaWk2BXP+aHO7GSelMSjvxsL1hWpzBdDJYbaQs7XhO1vABDf9
-	 S4lLqudXvQHbKRn4WfquSpBf/M1E32SeZOmcL45kTtOBf0S6UEyGLGbKghOq6nMlnZSMT
-	 27zDnFdEyE3YEnpjb8pw1UYxbvqJLZ7zE1QH/JJjGAFKHGp5qVzhWEOc/D7j9OzDRFleA
-	 YlcP7plzxn9HPBEIoJWVnakVY2Ahgqyn9F6x28gqY0gi/dvuE2NK2FdI+nKbUnLkCfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=cCEoF6s94hPP1zkc5Bn/lx1s1R+sfWNsW5xGnw922Do=;
-	b=oJ5sJt0Kas7CcW7QkA/FCY/TVGDYqnuqpbUnqumAgl02nYWTBzYJoSsz25UBWb71r2nz
-	 iXPwKaxrWmpWPVBv/ZuQGamar62x4Wl417YoR7KdU7Emagbwl8XT4s13/mTH4ncih9hEY
-	 T12OK0EBFAHslZExfUM6Uo9QlhKgco0ymjhXAaxLjbilbLZFsht2gD2IdSZDbfod4dPLt
-	 5DLJMevqComafts90YUvMQhq7vsQJfZwR17DZtSHVxhUyAGOXLBulZO9nVGlUI26JilMq
-	 JAl9YslYrcCXQWUHzVyfHuGPBax4qPnFcJS//LeQzVBznvHG0xchyZJS3D7PfuOmuLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=L6ds6xCo;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793212914;
+	b=PodaRPy/zgtybPQ1Pi/weDPHr9Tz/gjCMRu6UoQiLC+s/ZbLU3mbl18MunoXX9r2DFEQ
+	 TNNWhzvs7KV9O+Au+DXB7Zk5GZE/gQs1q7HFsJIFXQZGlPEOA4snU5NND4K1ICXF3N7T2
+	 6jWGjEeGvcw8lYYx+jdRXTgzrTE+mclydW185Q9tj+7Nv0TtXbWalYS1PgDRbSC6G11Pz
+	 oXFihOjAsk88eWiX/Y/+ZXDTn4Ah86PWLzuOPSAa+zhvbqtN4kJftCEX8KX41vyVUlHRt
+	 BCzL5qmp+JJLtAoKG+BTbv0tvW5EeLbzUeLqJQWWzMaDh2akn1TrgoRQb6GZlBRPbNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212914;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=pZjSdxglP8K/HTprQmoijCfoHC8s7E6h9Pki9teqbBY=;
+	b=L6QS+hfV6dI6iwN6+f9xhp3TT4jeSyiufiYQiyDqkkrmLmQsdGLs0zX2AQQMJ49AjtW3
+	 BWuKxiP+xV4Hs3JBVkmEQcMMQMtAI2E2mctJjcuSyXnoNVUqIZv2bVZk4ZaUQC3YJPbNV
+	 L+iLIeyur+iVfYX34pKOXILzHM2DLpV7a/TvHP7Zn+MANALId2rc2gKpGV6oqaChwiOsq
+	 Ph1nHe6likApApE22TSpoXFnAnh5rGzx2f826zge/maLj8EJN7ouSYNnMsMOuCZAponXf
+	 x7vCFmqu8+olgyF+jHCL4RU128pKeBjWYL1XIyDiA1+9WrZoUKaQUrrrU8HVg28Uf2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YHeRZZEj;
+	arc=fail smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4257606A332
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4257606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297AB60A2600;
+	Wed, 28 Oct 2026 18:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 297AB60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=L6ds6xCo
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aca98f01c1so1088697a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:41:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793212900; x=1793817700; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cCEoF6s94hPP1zkc5Bn/lx1s1R+sfWNsW5xGnw922Do=;
-        b=L6ds6xCooLXl1F7vSVYsmM0XuZB39A0c/mZvIvNz+AsClzszPf3VkE1brXqdqAI50f
-         tfiZWyV/Kr5sAHMBOrvr145/8Oa4XNsMMktW3ydsBV8fcMeueDz6Z3SQV0yHhqsmWD3c
-         YBGBtDEHhsroBczslP8JkYgUpuyAfhkYhirHbOHof6m0Tl/KWV5CtThhrCWveAqktNaO
-         5bBY2KYfkmTDjnbfzDiuYeTC/IHi/UDQd3sQEPyIqoH8NAkg4Ww1zzIIoNNVy/6MzMHm
-         uKx30j6mTwObDhP5gUS8UFVtvoHHCYQAMSHHD4O4pxVkexfrEd1jqDlSzIBcLErLSIni
-         7Vew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793212900; x=1793817700;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cCEoF6s94hPP1zkc5Bn/lx1s1R+sfWNsW5xGnw922Do=;
-        b=PMZABAaSJQ0YiWhaqJz8QVOnt4X3Q5PscVuYy/uAFoMiXw1DfsPLG55w4wGI+32dma
-         z/WoNuVoJgqwwf1/OhHY3ZwmcmKYmanoL6PdDPobE+Q3KlB2mDs1Ws9RRSdTGC4gwtp8
-         Q7W43f6Hd/lwRANDeTT1+uprxZWDYh+KEW7ZHB0d6+ZkjG54U+PFeb0qD8+OuIcC+FNr
-         e/2UE9H2cAIu5HbT6mAI8cvbR3/FI2YsU29y+aLyf99NKh/XebvfLQPjCHfBnhInxn22
-         YxV9+LwSQHPDYn0l0JDIEQDKaYuGuka4+biD/Maelml03/2HzG7/egyeFyIybmedbF9H
-         RtFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFI60SN05QEd+KvB8UHFykLWMoSmzn8ajRjDO5WFFFBgIwy2/53mWTZyYgDZXMzUUdrErTNox1xslwaYE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdbXiD9S9H7Da0Bml71sYPF50u9SoHOVDprn3WKbsJFIDBmxvb
-	K5DYVoBPk6ewvi+h0SJ2eONoh5kqf8ae07H8CEhh3pie89MusxyTHpKQH6sO/w3xVnvW/bxdAH2
-	T3ytAyg==
-X-Received: from pjlm17.prod.google.com ([2002:a17:90a:7f91:b0:3a7:e2d8:4f4c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:280b:b0:3ac:8af9:4a6a
- with SMTP id 98e67ed59e1d1-3ae580df8d5mr2273458a91.42.1793212900004; Wed, 28
- Oct 2026 11:41:40 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 28 Oct 2026 11:41:36 -0700
-In-Reply-To: <20261028184136.1803336-1-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YHeRZZEj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793212913; x=1824748913;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=2TiVUkAScpyaMm1d+hQ15etWkXLe+mOPiNnoNgKT6Qg=;
+  b=YHeRZZEjvDAgWJrWvTomAQUjpUa2gYzeyDaoQc6QGz9v+Wzf42LZBJdS
+   lbilKuwAIsvadqx6io1lM0D+Bxq1bSFRT+TKCIdGcVjX3+nMLYENG9swR
+   NSjHhXs6BzYyeQKVeFXDmcVBHby9x7RIwHUab6kjr7g6sB+hc3GCOiBeg
+   lNkzU1hcs5FkTFETOsFSCAKWVz/trKek3tLo6Rj/bQ8/tmE7B0w9LdcZK
+   ofQmZwIle2NrQMMC2NTdmIHhaNvsjzys5IhJ/iGCsKUIi2xIWj2Xjs/+r
+   Ykx//eKlcPKuRGvyKkev8giiCOkmQIdJiG7GTAFfeiiJeFCFf7wEwSkW0
+   Q==;
+X-CSE-ConnectionGUID: pPRkIgyeR8Okxd27IajWiw==
+X-CSE-MsgGUID: lTBf/q/UTHKYE37RrRttlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1839617"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1839617"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 11:41:52 -0700
+X-CSE-ConnectionGUID: v0YgX3PYREu3m6owTYJ4HA==
+X-CSE-MsgGUID: s3BQMOQIRiGuZnj5pO4C6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4905781"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 11:41:52 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 11:41:52 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 11:41:52 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.34) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 11:41:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LcttaHoYZ6Vrm/b7bXCmDHdLaoUipmyqb5Sj024V8+ixC3iL6rr0SjwwQ9XlQTMFlts8m+AQIflPMSqVf7uSZMnXWXJwu/Kqm4f0a4I9MfAabH/ai/4agajA6PgfGxNYH78ybDch//7JLXop50WzqeLnqPBH8I0Re4Jo1/ZzuuapqzEZjOgDKYCTzfTB7YfaB1277TOeZSJRgX4gaiAiAYHBE5rnE2eL2UgE5pCQbIc/qsuHAOlttQFAcIrU+QA0KHia/uFa3LA6L8emBh4nEDtv0VpWSz33UOSm9KnOZNZyLrjNIzOaCD1gBkMDIY2HM8EyJXFNpNAOC9lQtSwjqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZjSdxglP8K/HTprQmoijCfoHC8s7E6h9Pki9teqbBY=;
+ b=Gra0l0g0AGWZnZsS+PzN+nKXWhEDPw7ss3DZDF8eHrJ3i762XPKpv/+eZSh/Njydm3R+uE1jal9N6n0DY0tmZan5nRREQkMOkRqxCHws9ssj6wkMk1VqOtcfMDh2ADsflc5QbUtxZk156U4SMPTkM0zCtHKI2ok7xRhPya3ZegF5yKfTeDSxde7DlPemKtbEA60Ht+5mTCzE7y4TdWuuT7PxDeMa0T+LlprGiS8aBRChYvw33WVQqF8LFhA4Y7Tmyk+o3+mW2t3OyKMNqGSxRUzHn/eldrcm9aq7jbyOAYPAzaJP53emBX5ue7OlhJWV5G6mNtmH9dFKMEApCItZRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by DS6PR11MB710370.namprd11.prod.outlook.com (2603:10b6:8:468::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 18:41:47 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0546.016; Wed, 28 Oct 2026
+ 18:41:47 +0000
+Message-ID: <c57f0d76-8fa7-443c-8ba4-2a18eb0ba7fc@intel.com>
+Date: Wed, 28 Oct 2026 11:41:45 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/5] selftests/resctrl: Add support for MBM and MBA
+ tests on AMD
+To: Swapnil Sapkal <swapnil.sapkal@amd.com>, <tony.luck@intel.com>,
+	<babu.moger@amd.com>, <shuah@kernel.org>
+CC: <Dave.Martin@arm.com>, <james.morse@arm.com>, <peternewman@google.com>,
+	<eranian@google.com>, <tan.shaopeng@fujitsu.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<x86@kernel.org>
+References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+ <20261022132517.46805-4-swapnil.sapkal@amd.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <20261022132517.46805-4-swapnil.sapkal@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0221.namprd03.prod.outlook.com
+ (2603:10b6:303:b9::16) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,504 +138,201 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028184136.1803336-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261028184136.1803336-3-seanjc@google.com>
-Subject: [PATCH v2 2/2] KVM: x86: Convert all runtime WARNs to ONCE variants
-From: Sean Christopherson <seanjc@google.com>
-To: Vitaly Kuznetsov <vkuznets@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|DS6PR11MB710370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 207cc7f6-9a5f-4cf1-4c1e-08df35231f43
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|11063799006|4143699003|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261022075727099003|261022105027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: HNsc0dYjSbQZkNtI/FEHh8YD0/9vo1Jm6+9auchZtFMfcCtBzkiqQLUktDFzPFMAb32Vt4kq5wY7LBMEH+z1upABPPJOYAPXGfFCxrhGWPZWWwYGvyLCK5OhGArYz8vdG1mPN2SpZ2kTY9wpizgEizAsuq+j8HFF00wtjHucTRrq9o57mYmRAaM3XSzKFm8W6c0DrSQQQxyr90PIMBq8WpmWQzHmN0Fp0MHq8Ug+7VANtALu0H0L3v3A2iIa0tLD0V2hzK0hhvUzJe2u4987wVAw+M5nvpKEhYuuOKfHWfYJJpPWK8GyDJvXrjLOhlCOijLCaybY/X+UGkMNV0iRw71+aoGTXHmuURP/seLZ/GTWY7iW3Srufl97aoVihRiNnW/uHsvPDiGI9BX/Fyyv4wa/gjxR5iZi4V2NkbfExbPJ/sHLT77lFDTXLb+jZDhw162opvs9iOe9llOZUDFbFbanDoXIKLfUrxbaa2PKmMW7YjPKcOO5OtUA6ZvUbv6t7WXaVpeL+Bdq1YbAIL7J/xWhCs9s139QdNGyFVIBytp7H3u/qHfjJDmB+pyCRPw2Ota/VyLewrORE/+2yZTc3W8Z/3XQxlT5XntpNYd3+l9PEayxggRd2KK7K6NC7tcyV8NVcOXxNo59BtHSzYHh/apW6I+kDG5Lai3kGJ4cc2I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SitscFkzU1hveGpoWm1ybGx4MWhaWGdvNzRPa2QweEZaT3p1WGZ3YUwwNkdK?=
+ =?utf-8?B?RHJ4VjRCRzRweTZYSGQ4cVdoTVJHanBDVk1nUEllcXVNZW1CRWJaa3FXbnBB?=
+ =?utf-8?B?bTRhK1NxUDJHMTAxdHBKc2FjZUdlWW9ucitLSlliRUF2d2tWbEVuVGo2NWsz?=
+ =?utf-8?B?OC9wbGxnTU4vcjlWNk1KN2xES0U2Z2hKZWkzaWVVVTZRaTcxWk1MUHJ5Rmtm?=
+ =?utf-8?B?dHNQVlNiWEd0NWQwS3l4UWxHYXUzS0k1dmRtbWxxb2wrZFBVYzlZemU2ZXhY?=
+ =?utf-8?B?bzNaTWVvSDJWRTVDZ3pmWTljU1FaWjd5NWd5ZnQwKytENlRadVN4VTU3TGFH?=
+ =?utf-8?B?aklWV01wMnVUa0llSmtCSHpGOU4vTTViS2V3akkxckE4bEtxUy9hT3pIbFB4?=
+ =?utf-8?B?dVdxdW1aOFpvUloxZVBjOEwxOW4yNjdlQkc4eUFUT013RUl5blpFV1NzOGx6?=
+ =?utf-8?B?OTBoU0xvNnNRdXBaSEdDVTlIUEVnUTN4c3FEdW9sTTMyaVZuL1ZsdjZOdVVJ?=
+ =?utf-8?B?N3ZxaWcrdERkays0MllmYmpHMEJTaE1OblZBSk0rWFRiSUY1VDIzU3JOWFRI?=
+ =?utf-8?B?RG9FUUtEWTBLY2VuREo1d1BvSWdIa1lkb09PNlFsRXRXeXl5STJlelpIdXVB?=
+ =?utf-8?B?ZEFtNC84RFJ0MEsraFpwU2o1MjBYNHJvcVZKZVlNdHA4T3grSVMvZmZJdHM3?=
+ =?utf-8?B?SS9wU3FxNUY4aTRMRnRqSjNrYitkSXB0TWpsclVEYTFiSnB1dUp0M3EyRUY1?=
+ =?utf-8?B?ZW55bFJ5SzVZbUNHMHU0dUc4MGNqYnl6UVdWcjZ1dkloRXdubDRVWFVyM1hZ?=
+ =?utf-8?B?RVZqTjBxRmNuZ1Z3dlh0REM0WG14T3R3dzROc1dHVHptNkdlazNHYmgxaFFx?=
+ =?utf-8?B?Y1JVUWMraitsR1kybnFKMWJjUTJremVFVklDYUtuWVlYZzJDUkJOR0NMOCtV?=
+ =?utf-8?B?UUxPNUJGcTlUZ0M3UlkyNXp4MUhoL0dhLzdiNW1tL01TU29OVDR2aXJIb0M5?=
+ =?utf-8?B?R09CMklMckVPOFNHSllBb044OVRQdVlWM0RBTks2NXlNbmdvRmZwZ0ROWVJ1?=
+ =?utf-8?B?ZldyVXg4TjRFRjNXRXFKb01IbU5VUTcyNklKVkZEY1FQSzNYeDVyWGRKMzV3?=
+ =?utf-8?B?V2k3Q3R3dVZ2cW1IemNVekVOMUZQVTBqb3ZuQ3pqYk9EWUNoSEw4ZVRzeDI0?=
+ =?utf-8?B?Ty93anVaMVQzVDdTbDJHY0dOR0lXb3lXTjAyeWlGbEMvbVRiQ1FjV1dzaGVo?=
+ =?utf-8?B?QWg1b3FxczlTZHEvTFl5TGR1cW9ZTVpUR1JwcERkL3NqV0E1Yy9NYjVHd092?=
+ =?utf-8?B?S200S1gyQWRScmVCQnhzWXVvRldFWXJZMU1uWlZGMWVsVnJndGdkbG45dThL?=
+ =?utf-8?B?UzhuTUo4UkxGcnJoeDN5bGhHajA0azlJazdOWFFxR2ovMFhDM2tFMVFycU5K?=
+ =?utf-8?B?RG5MY3I4UlpXdTJtRjRRNVhHN2lES3FyNVNUbDJGWTRaLzJwVDhMZ25ZU0JX?=
+ =?utf-8?B?NWNyb21BNE8zQUw5cFEzREtnbkltbUhPYjRySFBBOHJpdkxDRFNSNC8wSjlP?=
+ =?utf-8?B?dmczdEE1RFRpZnhuUVJtYVdmbGhtR1pheloyK3ZOQW1VTkxTTVlxRDVIWDVT?=
+ =?utf-8?B?bU9XSmVGdFdTdWtqRmlsbVdRTDRkaktFcWNhUkdMckduVVpEajVOVHF6NDdZ?=
+ =?utf-8?B?RmZQRXFxVW1qRjkxUmphRmQ4NVpwSlY4bHFhU3lSeUdQdjJOZjArRzc3Uzd1?=
+ =?utf-8?B?ekQrb3hCYmVrcUxnZ1BmZjhUa2pweXBaczZOSjNBaU5BSnhRcFkyNGx6RjJQ?=
+ =?utf-8?B?a1E0UmJJUUFDRWNiUzBPaWp4aU5TM2dMQ3FBVlRUc0dFWmZGcythRmJSY2Nj?=
+ =?utf-8?B?NDhMclBMaGtNTW5xS3M3OWxVQ1JEZzlVRGVJbnlSK0NURlFkYlllTitreFln?=
+ =?utf-8?B?eEwvRWpudjk4eWgzRHFsRHd0UGdZQ3FwS2JUaUFHTytqdjBMNnFFdXBLcVJV?=
+ =?utf-8?B?SXg5WG5aWU9Ca0gwY3NLdkk3RFZnY21HVXRzTkJUNXJCMXVVQlAya1BkUTZa?=
+ =?utf-8?B?WStIclV3aWR3Z3QrTHpXbnUrNzh2OWg4bGNYZVMvZ3pwVEhSN2Jtc2pvRlZG?=
+ =?utf-8?B?T2h5THA1bXNPbU9BT0RENVQ2MTR3bGFRTWNKM2RyOTVJQlpxYjBXSUtDTkth?=
+ =?utf-8?B?WDJnemhZWU81Z3ROMnRlOXRGZi91WjQyaTUzdGNlT3ZlV3BsQjVidDg0RjFq?=
+ =?utf-8?B?Ni8vMDhwMmJVS1UzcE5KNm80Z0dFb1dtYnBGWDQ1RTF5cVVyOUFURnNnOWhm?=
+ =?utf-8?B?U2xiQkwwamRnVzRuYnBHTXo5MnBUSXVJNVgyWnhkckhEVERZZ2o4QVc2b3Jv?=
+ =?utf-8?Q?hRPkKtScD0kp77Dk=3D?=
+X-Exchange-RoutingPolicyChecked: djHlMsDUttd7SvljikDB5wVkp4oAZi79dkgVfFHP173zdOEMQ1L/9Z0ou6guxxgqwr4LVgoM2r9Nah79gMCR51YEkXszGw+kfb8RrxwMgmtLnqcG1jEqxz2mTn666y6hLAXZjBqMWAjyTTl3DG2UqEVv2fmDNSdZ1h54DbM6HJg7d1O8+kdp0lF6G9DheWLfSEuz3+89naSj405SwGpsqIPhul3slH6/9PWkGcvvxwX61pzm2quVSK84GQXNFyBbQVLKFAxhAObmroHItYv6Liit2l9hww9GeexpCAt81TwjNAs7IGDnWj/ShArafKz8yH04K88M2tKoiEyow7j3FQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 207cc7f6-9a5f-4cf1-4c1e-08df35231f43
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 18:41:47.5611
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CTEg5b36F6Xq9prB8CzvVtC5zelglr6B5FtBJJweSj+OMqgnv5VTBL7zvUf8Iq0WqVn2ISwUtwbaqwOKs5TCyPMv02EpyTgZx679I4vubP0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB710370
+X-OriginatorOrg: intel.com
 
-Bulk convert all non-ONCE WARN_ON() and WARN() calls that are reachable at
-runtime to have ONCE protection, as WARNing multiple times on the same
-issue rarely adds value, and if KVM is flawed/buggy, unprotected WARNs can
-be leveraged by a misbehaving guest to effectively DoS the host.  In the
-Age of AI, such flaws/bugs are depressingly easy to find.
+Hi Swapnil,
 
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/hyperv.c          |  2 +-
- arch/x86/kvm/i8254.c           |  2 +-
- arch/x86/kvm/irq.c             |  4 ++--
- arch/x86/kvm/lapic.c           |  8 ++++----
- arch/x86/kvm/mmu/tdp_mmu.c     |  4 ++--
- arch/x86/kvm/msrs.c            |  2 +-
- arch/x86/kvm/svm/avic.c        |  2 +-
- arch/x86/kvm/svm/nested.c      | 12 ++++++------
- arch/x86/kvm/svm/sev.c         |  2 +-
- arch/x86/kvm/svm/svm.c         | 12 ++++++------
- arch/x86/kvm/vmx/nested.c      | 12 ++++++------
- arch/x86/kvm/vmx/posted_intr.c |  2 +-
- arch/x86/kvm/vmx/vmx.c         |  8 ++++----
- arch/x86/kvm/x86.c             | 18 +++++++++---------
- arch/x86/kvm/x86.h             |  2 +-
- 15 files changed, 46 insertions(+), 46 deletions(-)
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5d2e3617c952..d9e3d49a6cc5 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -1977,7 +1977,7 @@ static void hv_tlb_flush_enqueue(struct kvm_vcpu *vcpu, u64 *entries, int count,
- 	 * space, just put 'flush all' entry there.
- 	 */
- 	if (count && entries && count < kfifo_avail(&tlb_flush_fifo->entries)) {
--		WARN_ON(kfifo_in(&tlb_flush_fifo->entries, entries, count) != count);
-+		WARN_ON_ONCE(kfifo_in(&tlb_flush_fifo->entries, entries, count) != count);
- 		goto out_unlock;
- 	}
- 
-diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-index 1982b0077ddd..7ad8c11a1809 100644
---- a/arch/x86/kvm/i8254.c
-+++ b/arch/x86/kvm/i8254.c
-@@ -409,7 +409,7 @@ static void kvm_pit_load_count(struct kvm_pit *pit, int channel, u32 val,
- 
- 	if (hpet_legacy_start) {
- 		/* save existing mode for later reenablement */
--		WARN_ON(channel != 0);
-+		WARN_ON_ONCE(channel != 0);
- 		saved_mode = pit->pit_state.channels[0].mode;
- 		pit->pit_state.channels[0].mode = 0xff; /* disable timer */
- 		pit_load_count(pit, channel, val);
-diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
-index 871977288272..7f8b092b4479 100644
---- a/arch/x86/kvm/irq.c
-+++ b/arch/x86/kvm/irq.c
-@@ -128,7 +128,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_cpu_has_interrupt);
- int kvm_cpu_get_extint(struct kvm_vcpu *v)
- {
- 	if (!kvm_cpu_has_extint(v)) {
--		WARN_ON(!lapic_in_kernel(v));
-+		WARN_ON_ONCE(!lapic_in_kernel(v));
- 		return -1;
- 	}
- 
-@@ -513,7 +513,7 @@ void kvm_arch_irq_bypass_del_producer(struct irq_bypass_consumer *cons,
- 	struct kvm *kvm = irqfd->kvm;
- 	int ret;
- 
--	WARN_ON(irqfd->producer != prod);
-+	WARN_ON_ONCE(irqfd->producer != prod);
- 
- 	/*
- 	 * If the producer of an IRQ that is currently being posted to a vCPU
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 61bf09badb5a..08b96b124b07 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -2062,7 +2062,7 @@ static void apic_timer_expired(struct kvm_lapic *apic, bool from_timer_fn)
- 		ktimer->expired_tscdeadline = ktimer->tscdeadline;
- 
- 	if (!from_timer_fn && apic->apicv_active && vcpu->wants_to_run) {
--		WARN_ON(kvm_get_running_vcpu() != vcpu);
-+		WARN_ON_ONCE(kvm_get_running_vcpu() != vcpu);
- 		kvm_apic_inject_pending_timer_irqs(apic);
- 		return;
- 	}
-@@ -2272,7 +2272,7 @@ static void cancel_hv_timer(struct kvm_lapic *apic)
- {
- 	lockdep_assert_preemption_disabled();
- 
--	WARN_ON(!apic->lapic_timer.hv_timer_in_use);
-+	WARN_ON_ONCE(!apic->lapic_timer.hv_timer_in_use);
- 	kvm_x86_call(cancel_hv_timer)(apic->vcpu);
- 	apic->lapic_timer.hv_timer_in_use = false;
- }
-@@ -2359,7 +2359,7 @@ void kvm_lapic_expired_hv_timer(struct kvm_vcpu *vcpu)
- 	/* If the preempt notifier has already run, it also called apic_timer_expired */
- 	if (!apic->lapic_timer.hv_timer_in_use)
- 		goto out;
--	WARN_ON(kvm_vcpu_is_blocking(vcpu));
-+	WARN_ON_ONCE(kvm_vcpu_is_blocking(vcpu));
- 	apic_timer_expired(apic, false);
- 	cancel_hv_timer(apic);
- 
-@@ -2392,7 +2392,7 @@ void kvm_lapic_restart_hv_timer(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_lapic *apic = vcpu->arch.apic;
- 
--	WARN_ON(!apic->lapic_timer.hv_timer_in_use);
-+	WARN_ON_ONCE(!apic->lapic_timer.hv_timer_in_use);
- 	restart_apic_timer(apic);
- }
- 
-diff --git a/arch/x86/kvm/mmu/tdp_mmu.c b/arch/x86/kvm/mmu/tdp_mmu.c
-index 44dad106fad1..9169d8dbe43c 100644
---- a/arch/x86/kvm/mmu/tdp_mmu.c
-+++ b/arch/x86/kvm/mmu/tdp_mmu.c
-@@ -43,7 +43,7 @@ void kvm_mmu_uninit_tdp_mmu(struct kvm *kvm)
- #ifdef CONFIG_KVM_PROVE_MMU
- 	KVM_MMU_WARN_ON(atomic64_read(&kvm->arch.tdp_mmu_pages));
- #endif
--	WARN_ON(!list_empty(&kvm->arch.tdp_mmu_roots));
-+	WARN_ON_ONCE(!list_empty(&kvm->arch.tdp_mmu_roots));
- 
- 	/*
- 	 * Ensure that all the outstanding RCU callbacks to free shadow pages
-@@ -1368,7 +1368,7 @@ static bool __kvm_tdp_mmu_age_gfn_range(struct kvm *kvm,
- 	 * this helper must NOT be used to unmap GFNs, as it processes only
- 	 * valid roots!
- 	 */
--	WARN_ON(types & ~KVM_VALID_ROOTS);
-+	WARN_ON_ONCE(types & ~KVM_VALID_ROOTS);
- 
- 	guard(rcu)();
- 	for_each_tdp_mmu_root_rcu(kvm, root, range->slot->as_id, types) {
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index e91650af44c2..b8ab784704fa 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -643,7 +643,7 @@ static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
- 
- 	r = kvm_x86_call(set_efer)(vcpu, efer);
- 	if (r) {
--		WARN_ON(r > 0);
-+		WARN_ON_ONCE(r > 0);
- 		return r;
- 	}
- 
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 3b037e385523..0042039e15e3 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -1042,7 +1042,7 @@ static void __avic_vcpu_load(struct kvm_vcpu *vcpu, int cpu,
- 
- 	lockdep_assert_preemption_disabled();
- 
--	if (WARN_ON(h_physical_id & ~AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK))
-+	if (WARN_ON_ONCE(h_physical_id & ~AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK))
- 		return;
- 
- 	if (WARN_ON_ONCE(vcpu->vcpu_id * sizeof(entry) >=
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index af0ef678433d..ab66f07337b5 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -100,7 +100,7 @@ static void nested_svm_init_mmu_context(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 
--	WARN_ON(mmu_is_nested(vcpu));
-+	WARN_ON_ONCE(mmu_is_nested(vcpu));
- 
- 	vcpu->arch.mmu = &vcpu->arch.guest_mmu;
- 
-@@ -260,7 +260,7 @@ int __init nested_svm_init_msrpm_merge_offsets(void)
- 		int bit_nr = svm_msrpm_bit_nr(merge_msrs[i]);
- 		u32 offset;
- 
--		if (WARN_ON(bit_nr < 0))
-+		if (WARN_ON_ONCE(bit_nr < 0))
- 			return -EIO;
- 
- 		/*
-@@ -277,7 +277,7 @@ int __init nested_svm_init_msrpm_merge_offsets(void)
- 		if (j < nested_svm_nr_msrpm_merge_offsets)
- 			continue;
- 
--		if (WARN_ON(j >= ARRAY_SIZE(nested_svm_msrpm_merge_offsets)))
-+		if (WARN_ON_ONCE(j >= ARRAY_SIZE(nested_svm_msrpm_merge_offsets)))
- 			return -EIO;
- 
- 		nested_svm_msrpm_merge_offsets[j] = offset;
-@@ -1065,7 +1065,7 @@ int enter_svm_guest_mode(struct kvm_vcpu *vcpu, u64 vmcb12_gpa, bool from_vmrun)
- 
- 	svm->nested.vmcb12_gpa = vmcb12_gpa;
- 
--	WARN_ON(svm->vmcb == svm->nested.vmcb02.ptr);
-+	WARN_ON_ONCE(svm->vmcb == svm->nested.vmcb02.ptr);
- 
- 	nested_svm_copy_common_state(svm->vmcb01.ptr, svm->nested.vmcb02.ptr);
- 
-@@ -1716,7 +1716,7 @@ static void nested_svm_inject_exception_vmexit(struct kvm_vcpu *vcpu)
- 			kvm_update_dr7(vcpu);
- 		}
- 	} else {
--		WARN_ON(ex->has_payload);
-+		WARN_ON_ONCE(ex->has_payload);
- 	}
- 
- 	nested_svm_vmexit(svm);
-@@ -2123,7 +2123,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 
- static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
- {
--	if (WARN_ON(!is_guest_mode(vcpu)))
-+	if (WARN_ON_ONCE(!is_guest_mode(vcpu)))
- 		return true;
- 
- 	if (is_pae_paging(vcpu)) {
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 6427db390b1c..8cd0f1539829 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -3007,7 +3007,7 @@ void sev_vm_destroy(struct kvm *kvm)
- 	if (!sev_guest(kvm))
- 		return;
- 
--	WARN_ON(!list_empty(&sev->mirror_vms));
-+	WARN_ON_ONCE(!list_empty(&sev->mirror_vms));
- 
- 	/*
- 	 * If this is a mirror VM, remove it from the owner's list of a mirrors
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 487897ef11dd..c8e82debb7f4 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -1598,7 +1598,7 @@ static void svm_set_vintr(struct vcpu_svm *svm)
- 	/*
- 	 * The following fields are ignored when AVIC is enabled
- 	 */
--	WARN_ON(kvm_vcpu_apicv_activated(&svm->vcpu));
-+	WARN_ON_ONCE(kvm_vcpu_apicv_activated(&svm->vcpu));
- 
- 	svm_set_intercept(svm, INTERCEPT_VINTR);
- 
-@@ -1633,8 +1633,8 @@ static void svm_clear_vintr(struct vcpu_svm *svm)
- 	if (is_guest_mode(&svm->vcpu)) {
- 		svm->vmcb01.ptr->control.int_ctl &= ~V_IRQ_INJECTION_BITS_MASK;
- 
--		WARN_ON((svm->vmcb->control.int_ctl & V_TPR_MASK) !=
--			(svm->nested.ctl.int_ctl & V_TPR_MASK));
-+		WARN_ON_ONCE((svm->vmcb->control.int_ctl & V_TPR_MASK) !=
-+			     (svm->nested.ctl.int_ctl & V_TPR_MASK));
- 
- 		svm->vmcb->control.int_ctl |= svm->nested.ctl.int_ctl &
- 			V_IRQ_INJECTION_BITS_MASK;
-@@ -2666,7 +2666,7 @@ static int cr_interception(struct kvm_vcpu *vcpu)
- 			err = kvm_set_cr8(vcpu, val);
- 			break;
- 		default:
--			WARN(1, "unhandled write to CR%d", cr);
-+			WARN_ONCE(1, "unhandled write to CR%d", cr);
- 			kvm_queue_exception(vcpu, UD_VECTOR);
- 			return 1;
- 		}
-@@ -2688,7 +2688,7 @@ static int cr_interception(struct kvm_vcpu *vcpu)
- 			val = kvm_get_cr8(vcpu);
- 			break;
- 		default:
--			WARN(1, "unhandled read from CR%d", cr);
-+			WARN_ONCE(1, "unhandled read from CR%d", cr);
- 			kvm_queue_exception(vcpu, UD_VECTOR);
- 			return 1;
- 		}
-@@ -2725,7 +2725,7 @@ static int cr_trap(struct kvm_vcpu *vcpu)
- 		ret = kvm_set_cr8(vcpu, new_value);
- 		break;
- 	default:
--		WARN(1, "unhandled CR%d write trap", cr);
-+		WARN_ONCE(1, "unhandled CR%d write trap", cr);
- 		kvm_queue_exception(vcpu, UD_VECTOR);
- 		return 1;
- 	}
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 9b0bfa2f854c..ec3bc441a0e6 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -515,7 +515,7 @@ static void nested_ept_new_eptp(struct kvm_vcpu *vcpu)
- 
- static void nested_ept_init_mmu_context(struct kvm_vcpu *vcpu)
- {
--	WARN_ON(mmu_is_nested(vcpu));
-+	WARN_ON_ONCE(mmu_is_nested(vcpu));
- 
- 	vcpu->arch.mmu = &vcpu->arch.guest_mmu;
- 	nested_ept_new_eptp(vcpu);
-@@ -1315,7 +1315,7 @@ static void nested_vmx_transition_tlb_flush(struct kvm_vcpu *vcpu,
- 	}
- 
- 	/* L2 should never have a VPID if VPID is disabled. */
--	WARN_ON(!enable_vpid);
-+	WARN_ON_ONCE(!enable_vpid);
- 
- 	/*
- 	 * VPID is enabled and in use by vmcs12.  If vpid12 is changing, then
-@@ -1698,7 +1698,7 @@ static void copy_shadow_to_vmcs12(struct vcpu_vmx *vmx)
- 	unsigned long val;
- 	int i;
- 
--	if (WARN_ON(!shadow_vmcs))
-+	if (WARN_ON_ONCE(!shadow_vmcs))
- 		return;
- 
- 	preempt_disable();
-@@ -1733,7 +1733,7 @@ static void copy_vmcs12_to_shadow(struct vcpu_vmx *vmx)
- 	unsigned long val;
- 	int i, q;
- 
--	if (WARN_ON(!shadow_vmcs))
-+	if (WARN_ON_ONCE(!shadow_vmcs))
- 		return;
- 
- 	vmcs_load(shadow_vmcs);
-@@ -4978,7 +4978,7 @@ static void nested_vmx_restore_host_state(struct kvm_vcpu *vcpu)
- 		if (vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP)
- 			kvm_set_dr(vcpu, 7, DR7_FIXED_1);
- 		else
--			WARN_ON(kvm_set_dr(vcpu, 7, vmcs_readl(GUEST_DR7)));
-+			WARN_ON_ONCE(kvm_set_dr(vcpu, 7, vmcs_readl(GUEST_DR7)));
- 	}
- 
- 	/* Reload DEBUGCTL to ensure vmcs01 has a fresh FREEZE_IN_SMM value. */
-@@ -5408,7 +5408,7 @@ static struct vmcs *alloc_shadow_vmcs(struct kvm_vcpu *vcpu)
- 	 * doesn't support virtualization of VMCS shadowing, so vmcs01 should
- 	 * always be the loaded VMCS.
- 	 */
--	if (WARN_ON(loaded_vmcs != &vmx->vmcs01 || loaded_vmcs->shadow_vmcs))
-+	if (WARN_ON_ONCE(loaded_vmcs != &vmx->vmcs01 || loaded_vmcs->shadow_vmcs))
- 		return loaded_vmcs->shadow_vmcs;
- 
- 	loaded_vmcs->shadow_vmcs = alloc_vmcs(true);
-diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-index 2644add54b76..0f508015692b 100644
---- a/arch/x86/kvm/vmx/posted_intr.c
-+++ b/arch/x86/kvm/vmx/posted_intr.c
-@@ -187,7 +187,7 @@ static void pi_enable_wakeup_handler(struct kvm_vcpu *vcpu)
- 		      &per_cpu(wakeup_vcpus_on_cpu, vcpu->cpu));
- 	raw_spin_unlock(&per_cpu(wakeup_vcpus_on_cpu_lock, vcpu->cpu));
- 
--	WARN(pi_test_sn(pi_desc), "PI descriptor SN field set before blocking");
-+	WARN_ONCE(pi_test_sn(pi_desc), "PI descriptor SN field set before blocking");
- 
- 	old.control = READ_ONCE(pi_desc->control);
- 	do {
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index b341af4c6057..0038626f5486 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -3089,7 +3089,7 @@ void free_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
- 	loaded_vmcs->vmcs = NULL;
- 	if (loaded_vmcs->msr_bitmap)
- 		free_page((unsigned long)loaded_vmcs->msr_bitmap);
--	WARN_ON(loaded_vmcs->shadow_vmcs != NULL);
-+	WARN_ON_ONCE(loaded_vmcs->shadow_vmcs != NULL);
- }
- 
- int alloc_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
-@@ -4468,7 +4468,7 @@ void vmx_set_constant_host_state(struct vcpu_vmx *vmx)
- 	unsigned long cr0, cr3, cr4;
- 
- 	cr0 = read_cr0();
--	WARN_ON(cr0 & X86_CR0_TS);
-+	WARN_ON_ONCE(cr0 & X86_CR0_TS);
- 	vmcs_writel(HOST_CR0, cr0);  /* 22.2.3 */
- 
- 	/*
-@@ -5537,7 +5537,7 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
- 			 * STI and MOVSS blocking.
- 			 */
- 			if (is_icebp(intr_info))
--				WARN_ON(!skip_emulated_instruction(vcpu));
-+				WARN_ON_ONCE(!skip_emulated_instruction(vcpu));
- 
- 			kvm_queue_exception_p(vcpu, DB_VECTOR, dr6);
- 			return 1;
-@@ -5962,7 +5962,7 @@ static int handle_task_switch(struct kvm_vcpu *vcpu)
- 	if (!idt_v || (type != INTR_TYPE_HARD_EXCEPTION &&
- 		       type != INTR_TYPE_EXT_INTR &&
- 		       type != INTR_TYPE_NMI_INTR))
--		WARN_ON(!skip_emulated_instruction(vcpu));
-+		WARN_ON_ONCE(!skip_emulated_instruction(vcpu));
- 
- 	/*
- 	 * TODO: What about debug traps on tss switch?
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba9..a9be847d3cc2 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -370,7 +370,7 @@ static int exception_type(int vector)
- {
- 	unsigned int mask;
- 
--	if (WARN_ON(vector > 31 || vector == NMI_VECTOR))
-+	if (WARN_ON_ONCE(vector > 31 || vector == NMI_VECTOR))
- 		return EXCPT_INTERRUPT;
- 
- 	mask = 1 << vector;
-@@ -4907,7 +4907,7 @@ static int kvm_fetch_guest_virt(struct x86_emulate_ctxt *ctxt,
- 		return X86EMUL_PROPAGATE_FAULT;
- 
- 	offset = addr & (PAGE_SIZE-1);
--	if (WARN_ON(offset + bytes > PAGE_SIZE))
-+	if (WARN_ON_ONCE(offset + bytes > PAGE_SIZE))
- 		bytes = (unsigned)PAGE_SIZE - offset;
- 	ret = kvm_vcpu_read_guest_page(vcpu, gpa >> PAGE_SHIFT, val,
- 				       offset, bytes);
-@@ -5167,7 +5167,7 @@ static int emulator_read_write_onepage(unsigned long addr, void *val,
- 	bytes -= handled;
- 	val += handled;
- 
--	WARN_ON(vcpu->mmio_nr_fragments >= KVM_MAX_MMIO_FRAGMENTS);
-+	WARN_ON_ONCE(vcpu->mmio_nr_fragments >= KVM_MAX_MMIO_FRAGMENTS);
- 	frag = &vcpu->mmio_fragments[vcpu->mmio_nr_fragments++];
- 	frag->gpa = gpa;
- 	if (write && bytes <= 8u) {
-@@ -7042,7 +7042,7 @@ static int kvm_x86_check_processor_compatibility(void)
- 	 * compatible, i.e. KVM should never perform a compatibility check on
- 	 * an offline CPU.
- 	 */
--	WARN_ON(!cpu_online(cpu));
-+	WARN_ON_ONCE(!cpu_online(cpu));
- 
- 	if (__cr4_reserved_bits(cpu_has, c) !=
- 	    __cr4_reserved_bits(cpu_has, &boot_cpu_data))
-@@ -7783,7 +7783,7 @@ static int kvm_check_and_inject_events(struct kvm_vcpu *vcpu,
- 			vcpu->arch.nmi_injected = true;
- 			kvm_x86_call(inject_nmi)(vcpu);
- 			can_inject = false;
--			WARN_ON(kvm_x86_call(nmi_allowed)(vcpu, true) < 0);
-+			WARN_ON_ONCE(kvm_x86_call(nmi_allowed)(vcpu, true) < 0);
- 		}
- 		if (vcpu->arch.nmi_pending)
- 			kvm_x86_call(enable_nmi_window)(vcpu);
-@@ -7800,7 +7800,7 @@ static int kvm_check_and_inject_events(struct kvm_vcpu *vcpu,
- 			if (likely(irq != -1)) {
- 				kvm_queue_interrupt(vcpu, irq, false);
- 				kvm_x86_call(inject_irq)(vcpu, false);
--				WARN_ON(kvm_x86_call(interrupt_allowed)(vcpu, true) < 0);
-+				WARN_ON_ONCE(kvm_x86_call(interrupt_allowed)(vcpu, true) < 0);
- 			} else {
- 				kvm_warn_on_lost_irq(vcpu);
- 			}
-@@ -8470,8 +8470,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 	 * KVM_DEBUGREG_WONT_EXIT again.
- 	 */
- 	if (unlikely(vcpu->arch.switch_db_regs & KVM_DEBUGREG_WONT_EXIT)) {
--		WARN_ON(vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP);
--		WARN_ON(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH);
-+		WARN_ON_ONCE(vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP);
-+		WARN_ON_ONCE(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH);
- 		kvm_x86_call(sync_dirty_debug_regs)(vcpu);
- 		kvm_update_dr0123(vcpu);
- 		vcpu->arch.dr6 |= kvm_get_dr6_fixed_1(vcpu);
-@@ -10038,7 +10038,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 
- 	lockdep_assert_held(&kvm->slots_lock);
- 
--	if (WARN_ON(id >= KVM_MEM_SLOTS_NUM))
-+	if (WARN_ON_ONCE(id >= KVM_MEM_SLOTS_NUM))
- 		return ERR_PTR_USR(-EINVAL);
- 
- 	slot = id_to_memslot(slots, id);
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index cfe96962a4e4..99ba31aa5ef5 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -348,7 +348,7 @@ static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
- static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
- {
- 	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
--		WARN_ON(adjustment < 0);
-+		WARN_ON_ONCE(adjustment < 0);
- 	adjustment = kvm_scale_tsc((u64) adjustment,
- 				   vcpu->arch.l1_tsc_scaling_ratio);
- 	adjust_tsc_offset_guest(vcpu, adjustment);
--- 
-2.56.0.313.g2479322e68-goog
+> diff --git a/tools/testing/selftests/resctrl/resctrl_val.c b/tools/testing/selftests/resctrl/resctrl_val.c
+> index fdbbe2155cea..38cf58c41be1 100644
+> --- a/tools/testing/selftests/resctrl/resctrl_val.c
+> +++ b/tools/testing/selftests/resctrl/resctrl_val.c
 
+
+> @@ -233,6 +277,7 @@ static int read_from_mc_dir(char *mc_dir)
+>   */
+>  static int enumerate_mcs(void)
+>  {
+> +	int (*read_mc_dir)(char *mc_dir);
+
+Could this be named read_from_mc_dir to avoid the unnecessary churn?
+
+>  	char mc_dir[512], *temp;
+>  	struct dirent *ep;
+>  	char *sysfs_name;
+> @@ -241,6 +286,10 @@ static int enumerate_mcs(void)
+>  
+>  	if (get_vendor() == ARCH_INTEL) {
+>  		sysfs_name = UNCORE_IMC;
+> +		read_mc_dir = read_from_intel_mc_dir;
+> +	} else if (get_vendor() == ARCH_AMD) {
+> +		sysfs_name = AMD_UMC;
+> +		read_mc_dir = read_from_amd_mc_dir;
+>  	} else {
+>  		ksft_print_msg("Unsupported vendor\n");
+>  		return -1;
+
+...
+
+  		}
+> @@ -335,15 +387,40 @@ static void perf_close_mc_read_mem_bw(void)
+>  static int perf_open_mc_read_mem_bw(int cpu_no)
+>  {
+>  	struct mc_counter_config *mc_counter;
+> -	int ret;
+> +	int ret, opened = 0;
+>  
+>  	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+>  		mc_counter->fd = -1;
+>  
+>  	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+>  		ret = open_perf_read_event(cpu_no, mc_counter);
+> -		if (ret)
+> -			goto close_fds;
+> +		if (!ret) {
+> +			opened++;
+> +			continue;
+> +		}
+> +
+> +		/*
+> +		 * On AMD each memory controller (UMC) has its own PMU that is
+> +		 * tied to a specific NUMA node, unlike Intel where opening an
+> +		 * iMC event on the benchmark CPU always resolves to the local
+> +		 * memory controllers. A UMC PMU can only be opened from a CPU
+> +		 * that belongs to the same node and returns -ENODEV otherwise.
+> +		 * The benchmark runs on a single CPU, so skip the UMCs that
+> +		 * belong to remote nodes and measure only the memory
+> +		 * controllers local to the benchmark. This matches what
+> +		 * mbm_local_bytes accounts for on the resctrl side.
+> +		 */
+> +		if (ret == -ENODEV && get_vendor() == ARCH_AMD)
+> +			continue;
+> +
+> +		ksft_print_msg("Error opening memory bandwidth performance counter: %s\n",
+> +			       strerror(-ret));
+> +		goto close_fds;
+> +	}
+> +
+> +	if (!opened) {
+> +		ksft_print_msg("Could not open any memory controller counters\n");
+> +		goto close_fds;
+>  	}
+
+As the comment above highlights, the test runs on a single CPU. It is thus not
+possible for the test to change which MC it needs to obtain data from. 
+perf_open_mc_read_mem_bw() is called several times during the test run and
+repeated attempts at accessing MC that are known to fail is unnecessary. 
+Considering that -ENODEV can be relied on to indicate that the MC is not
+valid for the test run, could it instead be used to drop that MC from
+mc_counters_list? This will avoid the subsequent unnecessary attempts at
+accessing these MC and also simplify the users that walk mc_counters_list
+during the test run since they can continue to rely on all MC being valid
+without needing to keep checking if the fd is valid.
+
+I suggest switching the list_for_each_entry() to list_for_each_entry_safe()
+and drop the MC's from the list on ENODEV. This also eliminates the need for the
+"opened" tracking that can be replaced with a list_empty(&mc_counters_list).
+
+>  
+>  	return 0;
+> @@ -363,14 +440,20 @@ static void do_mc_read_mem_bw_test(void)
+>  {
+>  	struct mc_counter_config *mc_counter;
+>  
+> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+> +		if (mc_counter->fd == -1)
+> +			continue;
+>  		read_mem_bw_ioctl_perf_event_ioc_reset_enable(mc_counter);
+> +	}
+>  
+>  	sleep(1);
+>  
+>  	/* Stop counters after a second to get results. */
+> -	list_for_each_entry(mc_counter, &mc_counters_list, entry)
+> +	list_for_each_entry(mc_counter, &mc_counters_list, entry) {
+> +		if (mc_counter->fd == -1)
+> +			continue;
+>  		read_mem_bw_ioctl_perf_event_ioc_disable(mc_counter);
+> +	}
+>  }
+>  
+>  /*
+> @@ -395,6 +478,10 @@ static int get_read_mem_bw_mc(float *bw_mc)
+>  	list_for_each_entry(r, &mc_counters_list, entry) {
+>  		struct membw_read_format measurement;
+>  
+> +		/* Skip memory controllers that were not opened (remote node). */
+> +		if (r->fd == -1)
+> +			continue;
+> +
+>  		if (read(r->fd, &measurement, sizeof(measurement)) == -1) {
+>  			ksft_perror("Couldn't get read bandwidth through MC");
+>  			return -1;
+
+With unusable MC dropped from mc_counters_list all the above fd checks are
+unnecessary.
+
+Reinette
