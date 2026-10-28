@@ -1,101 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793155915;
-	b=vL495lH+ZLIlivCO9FLhhnT/SbFW9Vb8Fya5xcIPx6/yRO0RTDpFSvXuB+u8scApEj20
-	 R/EaVnlpKsvH0bW3Q9ma0a/zJTj5ZUHjRCUh8aWybhlctZ2vmZ+uq5pQvURGC4SWGv0tm
-	 F9+9N5L05UpY4VoEkROT3HvH0n7IOzCQFLr8qZcLyd+h9fj7w9j+5THpvy/TdaVxP2FRE
-	 OaVCK1+5U/5C35JChVbbWEL74VN1pJkRg3p5v7R1zTfi+zdIn/TRkIxWm9lX1cl9B9/SR
-	 9XjkvbV6g6Gzp1vz640GGNzakXkdeFdvk6aSCK928P7yISN3R+ZmGwHGJCd4hwPBJ+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155915;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:Received:Received:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
-	b=QnMI+Mvga7DzwlqX3eDT1/4QwgVyhIvMeIa9sXFjUpQuvmF+kt8XSO7zCFKu0v3xHpQa
-	 88PhajOsktE+rnPzZ6Icj3yWnWT1nTTR7y359n1xh1ysj6JV/Xzxhzq/qUwohFsiNrZX+
-	 rODvoNAUzrbpGKeRttzm32z4qQ3I6y8Fk5mpjZoxoxdWr0v80DLQwQT5SxnITxFFYK2PC
-	 v6x3bME5bLvW50PZTbWRdHqxcDLGK+b4VkmzCRrgF2uM+NK+oLf0xRebFs9ttEpnld38s
-	 mKM0StlWWj9guSLjQBB5VapuYYwIItWQgF71DzkoGq5opWTN347hcIu+DhBgDWlVPTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sz5bTcKg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793155997;
+	b=mrvx/dciyfIMxocUYB+1dXziS8hwaTCqmJd4WSgoHS9h5Iet/mYY8FTQt3lwVIeXBc+H
+	 hmBIVezsiUuf1GGZnmM+PoaexcYA1nUFwOA2sNTxmVDO3UhyggT5yL8jXm8ZHkjUINWI2
+	 0LDOXu8cuC9HxmCNhsHeGXxs1+iQ3KJuVe+uvaSky3oJeKSRZAXNyypHsETjcueLkZzM6
+	 yiXoF2ubyu5CZ6znoD+vq9Ae3se8k05vGEwPgKfj9gb9crMc37EpCfAaoKaQDXYjmFmBY
+	 YelJf9mLskXshyjHN/0bslSuxnv+p7hkKFK/WdIpXq9TH3oFXHU/hHgGVqGPWXXRL/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155997;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4FQfWhXyKnllwH8Qdp5MZVHzeOgFKCQIqgo1jPplSa4=;
+	b=dyLHCb8FH7jEGQ634Z2tivClHvvntfDgEdpn1M0g5slQCf3ylVkLiluKJI1leI+Jhc4/
+	 BIgK4vP++U8MtA5OXK57PAQKXp8pYRRH1JslUnt18n+XWcGnLKc/q8bc+ckhMaVvnkIf/
+	 VnjA21s9cWMXK9S1xPv+7cxWM2ImGPKJrS5BWYwj2r4XW5tdAJsPzXH1ClytO4YW44S+x
+	 CQCpM4NSCFRFslnqB1thxjNxL6rW788a04NeEnXDwXLDbhNDlwowxlswK5rdbEqm1kzCM
+	 Mp9GBSaxAzAGeEeCcQaDrmMMTlBCCWwB2MMEj5Ak4ncILm+GWl57zUpRqCRzBU0ZTPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPjESAR6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD6606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:51:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DDD6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0F9D8606A31D;
+	Wed, 28 Oct 2026 02:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sz5bTcKg
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c46822eefb6so55191766b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:51:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793155914; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pmUYV/q/vxtrQLWDQDLywNFdq6n+4gLgOdmVO4KRIf/EF6fJlC6KAbMKqOjnqa9QI2
-         ej+gqadz37n5ZwfwO7T4PhWX2dcqKcpgva2GVLXLK1tyjWoE83hef7o+2mXwDizAjlS0
-         VNmkajhSFJce3+9xuxlAkM6TDK7voPOWX+eQMFDRsvKNWH7zEk2utwcN5CUxqbNrT/Ha
-         8nXuc702bbdcQoTyWX4H+T/9NjxboeAICVbHi70xqBenoTKEBLQfwEHdzBjnBFFygBhZ
-         YOWhuGyvnwzszo/1XgHBTaz3/b1yJXNBZfhhnhiWtjb5FhT/43GrHmbQbElvHoBYM9eM
-         p08Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
-        fh=fb7t/+5scWd0fwmxjoM2Efa/blf8P6T1R1RqA2wbPLc=;
-        b=nQ7bvpHyilGRvo2S7m9fICDiYl86qosYurRrXInXY492URGsZW/EHE/uYFBO1pqqYP
-         19I8KD6cyJJXPBgP9TBod/AseYSmkfh08D8zzyrElqvKIM8c5g5kvbSvFtUwFH3A0RXa
-         TnXra70OiXok+1CyapB6BUeX48Yg1ILjENsWQ2J7m4RPgqZ+hyAP/2cgLZTsxzlZu8z3
-         XH/iovnJNVErHSBlwVi3kBUQA36eUSxHlLNGT6j/lduQq5eNU1u9xfpLbm7QiCpanQtg
-         I4mEDgnLl+HPvGakW1aMKi4mdCCBtuyQwxUvZUOz0tzfV589/ZUV4dJ+Jt95uDAtpyJC
-         K0Jg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793155914; x=1793760714; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
-        b=Sz5bTcKg98yj6giv1/os9QvXpflEh9/gf6LE+Ytfa5GwQEc320BTyiieI6N9vRbc8z
-         kSGeqLxdLuESpH3S9h1Fof9V2RXUssuHgpK3FR7nUWlYUl7YlJwAljsF8VIAGwqwgfha
-         Lzm52IeeUReLWzBcYjzk6zbhr6doqJThLazxGWqgL9OPCcixPEOltBkVyMLymyEtRMc7
-         1t0Fhocmt5waN6EQA/nLXLXCuEWbda+lRDtMxrR3LI4kr7L2M+Xyg0/NbrW1Gfrrmn95
-         Z9DIHHNxEBMj5x/0P1lL2VNrw2OeFNNBq9kTCcv1DatTwjH4Fc+7Rdg8OiiulzZ4zEwq
-         d4ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793155914; x=1793760714;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
-        b=y3ukisfRKro03hfzXpjQEbxgNZs1EMGSrZyLkiRsyVNuvp33uIFPaNlS7BKWWfMWGI
-         AXKJI/ZA/GCq+7mrSI7rSB77CINoHRbvBGwnUXKBI6zWpVYGfGmvQF9E66G/71STXbZ6
-         dA3/rEiFOn6tZ6L0QCApLE1eJL3pD2al9EC3mp3AAw7scRZNCmnSkc2gxKxATNEeIZjW
-         o0BfWoqZPJjMryVDoTx1POBA4r95OuLOgAwOneyD55I9ZYI0i1H/ud/qdL0/z4mPnqho
-         FyzthZkUdyhKz9n5N/On61renPqR969Fxywwt7CTwrsaB5m59ZCzfyeCuMfI14E9BODh
-         LP1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzIMdVnCPwTP3P5DbKup3Yb2rktaRzLtnjs5bXfxcyPOEekYRV6lbsRz1mGCVPih/PgRMtW7G4RtPa8T6k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/Ngzz/dFjSr7NuHDJs3gzpvFgE2u4gyNFLwJ/ygBoVGI3DsVR
-	GXd7ySihQcAuIOtLZMTFc0XXTajWEO5FaQ2ILRn0QMCCnr3JflQI8xmyw4Wb40nKjyf08WRW8I5
-	61aff+DW7bI85OOUBLWMuF5SZ6/CQ6PA=
-X-Gm-Gg: AYBFou0JodJhrMrU48AZiyu9oemtcFBcKm729PjIJ9HtnSmNW+MN4gXp6uqFaCQ8D9b
-	1QSr8MOu6/9wt7eIoEZjTq8De4298a3srm+fC7xCqdZwS5ky3z8YXRPpXx4M4atPtvnUsu/5S6/
-	tuf2eAucPvGCXYRH32kSuQNFuNyarmuPVvWgMAb7WlJI2AszcbHmsOtRWSKthrCI+vYRjNDMA0b
-	9vjzWxG/uEOYqQdxQ2QyFI8FH6rCTttvcLZxHTGSx2hNS+n1FM6Tv0O316eSQXwwEBSEj4y0X45
-	/SnLmCxs6w+PILaOvF8JAw48aKARqd/MMfrTwaETuBhi8WNJoqh0Pegu6mm1S0Lbgf58D2Mio4H
-	OPNZegjAhSyWk9d/3C58VqTa3cWngf1M/uA8=
-X-Received: by 2002:a17:907:843:b0:c40:19dc:a24d with SMTP id
- a640c23a62f3a-c49bdf2572bmr85850666b.9.1793155913845; Tue, 27 Oct 2026
- 19:51:53 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 11:51:53 +0900
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 11:50:45 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPjESAR6
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 094B61F01825;
+	Wed, 28 Oct 2026 02:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793155996;
+	bh=4FQfWhXyKnllwH8Qdp5MZVHzeOgFKCQIqgo1jPplSa4=;
+	h=From:To:Cc:Subject:Date;
+	b=bPjESAR6VaGJyThBnsyiiwlKRw89fOAEfv/YSkDs5kPVWJ1IcVnHMQfH8GPyomcdJ
+	 Oq/b20+lnC+4fJnanVFqcBeVNcm6VP4tvFOFQC1wRxnp+yycAKN63uES7dRbDMcrIT
+	 7mWqase+X6Apzg5BronN2QA9tE1wQaoXFJUy+ekLdu3uapmIuTT5DKvaQj+EqxF/vf
+	 uv811s2KebdU2zncNtL3tB4nqLuLpVJXPKR+2Y5KVVlLjXMZ8uN7iyvZIr/0jZyB9y
+	 ITpnw9fYU7758ZhFkvje0cJwupf80Rz2Zg+q9tZ2wt4JkwJRmWRpFQ9Kn1M+TYFHBR
+	 k1NwXRVJXK0Jg==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	keyrings@vger.kernel.org (open list:KEYS/KEYRINGS),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] KEYS: key_garbage_collector(): process in chunks
+Date: Wed, 28 Oct 2026 04:53:04 +0200
+Message-ID: <20261028025306.2063007-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,142 +65,395 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Wed, 28 Oct 2026 11:40:24 +0900
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Wed, 28 Oct 2026 11:25:16 +0900
-From: John Macias <dencity7@gmail.com>
-Date: Wed, 28 Oct 2026 11:51:53 +0900
-X-Gm-Features: AclHuK_A2rY_Ata835sL5hsQUpNXEsBloeRCfhOTL6a9CPGznDPVJe_mmj9uw7g
-Message-ID: <CA+KzPspNN14ZEyxisGrOSpgfTqajJfZTXG_iHBRMYd2su1dRKQ@mail.gmail.com>
-Subject: [PATCH net v2] net: dsa: clear the conduit RX queue on receive
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-A multi-queue conduit records its RX queue in skb->queue_mapping with
-skb_record_rx_queue(), as stmmac, mtk_eth_soc, fec and dpaa2 do.
-dsa_switch_rcv() passes the skb on with that index unchanged, although
-it counts the conduit's queues, not those of skb->dev. A user port has
-a single RX queue. For a packet from conduit queue 1 or above,
-get_rps_cpu() finds the index past the port's real_num_rx_queues and
-returns without steering, and its WARN_ONCE() stays silent because the
-port has only one queue. So rps_cpus on a user port only takes effect
-for packets from conduit queue 0.
+key_garbage_collector() has a design that is not resistant enough for
+workqueue lockups. The duration scales up relative to the number of items
+in the serial tree, which causes a reoccuring theme of being guilty of
+causing workqueue lockups.
 
-Trunk-tagged frames go straight to a bond or team (tag_dsa), through
-the netif_rx() branch for devices that are not user ports. That device
-has its own RX queue count, so the conduit's index there selects the
-RPS map of an unrelated rx-N queue, skips RPS, or, when the device has
-more than one queue and an index at or above that count, triggers
-the WARN_ONCE().
+Resolve the problem by processing in chunks:
 
-Clear the queue mapping once the tagger has chosen skb->dev, before
-that branch, so both paths are covered.
+1. Declare a static variable key_gc_work, which owns the garbage collection
+   in-flight state, and key_schedule_gc_work() for re-scheduling the work.
+2. Define KEY_GC_CHUNK_SIZE, set to 1024 keys, as the bound for the number
+   of items scanned and destroyed.
+3. Define KEY_GC_DESTROYING to mark resume to destruction without repeating
+   the RCU grace period. Drain the graveyard before advancing key-type
+   reaping.
+4. Define KEY_GC_REAP_REQUESTED for preserving full-pass requests across
+   the continuations.
 
-This leaves no RX queue recorded, rather than recording queue 0. Both
-make get_rps_cpu() use the first RX queue's map. They differ for code
-that reads the recorded queue later:
+The following test was performed:
 
-- skb_tx_hash() picks the TX queue from a recorded RX queue when no
-  socket mapping or XPS map decides. A flow forwarded from a DSA port
-  to a multi-queue device now gets its TX queue from the flow hash
-  instead of the conduit's RX queue number. Recording queue 0 would
-  instead put every such flow on the first TX queue of its traffic
-  class. The selected TX queue is also an input to several taggers:
-  tag_brcm encodes it directly, while tag_ksz, tag_sja1105,
-  tag_ocelot_8021q, tag_netc and tag_vsc73xx_8021q derive a traffic
-  class or PCP from it. A different queue within the same traffic
-  class need not change that encoded class.
-- With CONFIG_SOCK_RX_QUEUE_MAPPING, packets received through DSA ports
-  no longer update sk_rx_queue_mapping, so XPS by RX queue (xps_rxqs)
-  stops following the conduit's queue number for those sockets. A
-  mapping the socket already holds is left as it is.
+1. Add 499995 "unused" keys.
+2. Add 499994 "expiring" keys i.e., keys with expiration times.
+3. Clear the first keyring.
+4. Wait for the timeouts expire from the second.
 
-Found on an IPQ8074 board (OpenWrt, Linux 6.18, conduit with four RX
-rings): with rps_cpus set on the LAN and WAN user ports,
-/proc/net/softnet_stat showed RPS only for traffic hashed to conduit
-ring 0.
+When tested with QEMU using x86-64 and aarch64 (emulated) architectures the
+elapsed the results were the following:
 
-Claude and Codex assisted with diagnosing the queue-metadata issue,
-preparing the change and its explanation, and checking source and test
-results.
+- x86-64: chunk max: 125 ms, total time increase: 5%
+- aarch64: chunk max: 235 ms, total time increase: 6%
 
-Fixes: 91da11f870f0 ("net: Distributed Switch Architecture protocol support")
-Signed-off-by: John Macias <dencity7@gmail.com>
+Tests were performed using a laptop with AMD 4650U (Zen 2 uarch) CPU.
+
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
-Changes in v2:
-- Clear the queue mapping before the branch for devices that are not
-  user ports, so trunk-tagged frames delivered to a bond or team are
-  covered too (Sashiko review).
-- Replace the claim that TX queue selection is unaffected. The changelog
-  now describes the effect on skb_tx_hash(), taggers that consume the
-  selected TX queue, and sk_rx_queue_mapping and
-  xps_rxqs, and says why no queue is recorded instead of queue 0.
-- Subject: "on user port receive" -> "on receive".
-v1: https://lore.kernel.org/all/20261025072203.1519561-1-dencity7@gmail.com/
+v2:
+- Fixed typo in the commit message.
+- Drop the local variable gc_state.
+---
+ security/keys/gc.c       | 151 ++++++++++++++++++++++++++-------------
+ security/keys/internal.h |   1 -
+ security/keys/key.c      |   2 +-
+ 3 files changed, 102 insertions(+), 52 deletions(-)
 
-Claude assisted with diagnosis, the patch and runtime harness. Codex
-independently reviewed the code, claims and raw results, and corrected
-the test descriptions.
-
-Testing on net/main (5d7f3375c), x86_64 under QEMU: a 4-queue virtio-net
-conduit with dsa_loop, which for this test only was changed to use the
-Marvell DSA tagger and to accept LAG offload (lan2 + lan3 in a
-balance-xor bond with 2 RX queues). The host injects DSA-tagged UDP on
-chosen conduit RX queues; rps_cpus on lan1 and on bond0 rx-0 points to
-an otherwise idle CPU. 200 datagrams per queue and path. The RPS columns
-say on which conduit queues the receiving socket saw the RPS CPU
-(SO_INCOMING_CPU, which holds the socket's latest receive CPU, so this
-is a per-socket observation rather than a per-packet one):
-
-                       lan1 RPS     bond0 RPS    WARN_ONCE   eth1 TX
-                       (q0-q3)      (q0-q3)                  per queue
-  unpatched            q0 only      q0 only      yes         800/0/1/0
-  v1                   all          q0 only      yes         201/100/150/350
-  v2                   all          all          no          201/100/350/150
-  skb_record_rx_queue  all          all          no          800/0/0/1
-  (skb, 0) instead
-
-(Queue 2's NAPI happened to run on the RPS CPU, so q2 does not tell the
-cases apart; q1 and q3 do.) The last column is the eth1 TX packet delta
-per queue while 16 UDP flows (800 datagrams), all from conduit RX
-queue 0, were routed out a 4-queue virtio-net with XPS cleared; each
-total is 801 because one other packet was also sent. The aggregate
-counters are consistent with fallback TX selection favoring queue 0
-when RX queue 0 is recorded, and flow-hash distribution
-when none is recorded; the unclassified extra packet is not attributed
-to a test flow. W=1 build of net/dsa is clean.
-
-On the original hardware (Netgear RAX120 v1, IPQ8074, OpenWrt Linux
-6.18, four-ring conduit), v1 was tested as described in v1. v2 has not
-run there yet, and I have no switch with LAG offload to test the trunk
-path on real hardware.
-
- net/dsa/tag.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/dsa/tag.c b/net/dsa/tag.c
-index 6a5aa7fc3..e53dc3f3c 100644
---- a/net/dsa/tag.c
-+++ b/net/dsa/tag.c
-@@ -95,6 +95,13 @@ static int dsa_switch_rcv(struct sk_buff *skb,
-struct net_device *dev,
- 	skb->pkt_type = PACKET_HOST;
- 	skb->protocol = eth_type_trans(skb, skb->dev);
-
-+	/* The RX queue the conduit recorded is an index into the conduit's
-+	 * queues. It means nothing on skb->dev, a user port with a single RX
-+	 * queue or a bond/team with its own queue count, and get_rps_cpu()
-+	 * would check it against that device. Leave no queue recorded.
-+	 */
-+	skb_set_queue_mapping(skb, 0);
+diff --git a/security/keys/gc.c b/security/keys/gc.c
+index eda445f815d4..ddf51879971c 100644
+--- a/security/keys/gc.c
++++ b/security/keys/gc.c
+@@ -10,16 +10,27 @@
+ #include <keys/keyring-type.h>
+ #include "internal.h"
+ 
+-/*
+- * Delay between key revocation/expiry in seconds
+- */
+-unsigned key_gc_delay = 5 * 60;
++#define KEY_GC_CHUNK_SIZE 1024
+ 
+ /*
+  * Reaper for unused keys.
+  */
+ static void key_garbage_collector(struct work_struct *work);
+-DECLARE_WORK(key_gc_work, key_garbage_collector);
 +
- 	if (unlikely(!dsa_user_dev_check(skb->dev))) {
- 		/* Packet is to be injected directly on an upper
- 		 * device, e.g. a team/bond, so skip all DSA-port
++static struct {
++	time64_t start;			/* expiry range start */
++	time64_t end;			/* expiry range end */
++	struct rb_node *cursor;		/* serial tree position */
++	u8 state;			/* state flags */
++	struct work_struct work;	/* work item */
++} key_gc_work = {
++	.work = __WORK_INITIALIZER(key_gc_work.work, key_garbage_collector),
++};
++
++/*
++ * Delay between key revocation/expiry in seconds
++ */
++unsigned int key_gc_delay = 5 * 60;
+ 
+ /*
+  * Reaper for links from keyrings to dead keys.
+@@ -34,6 +45,7 @@ static unsigned long key_gc_flags;
+ #define KEY_GC_KEY_EXPIRED	0	/* A key expired and needs unlinking */
+ #define KEY_GC_REAP_KEYTYPE	1	/* A keytype is being unregistered */
+ #define KEY_GC_REAPING_KEYTYPE	2	/* Cleared when keytype reaped */
++#define KEY_GC_REAP_REQUESTED	3	/* Another complete pass was requested */
+ 
+ 
+ /*
+@@ -44,6 +56,20 @@ struct key_type key_type_dead = {
+ 	.name = ".dead",
+ };
+ 
++/*
++ * Schedule a new GC pass or re-schedule an ongoing GC pass.
++ */
++static void key_schedule_gc_work(void)
++{
++	/*
++	 * Order caller updates before setting KEY_GC_REAP_REQUESTED, given that
++	 * set_bit() is unordered.
++	 */
++	smp_mb__before_atomic();
++	set_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
++	schedule_work(&key_gc_work.work);
++}
++
+ /*
+  * Schedule a garbage collection run.
+  * - time precision isn't particularly important
+@@ -57,7 +83,7 @@ void key_schedule_gc(time64_t gc_at)
+ 
+ 	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
+ 		kdebug("IMMEDIATE");
+-		schedule_work(&key_gc_work);
++		key_schedule_gc_work();
+ 	} else if (gc_at < key_gc_next_run) {
+ 		kdebug("DEFERRED");
+ 		key_gc_next_run = gc_at;
+@@ -85,7 +111,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
+ void key_schedule_gc_links(void)
+ {
+ 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
+-	schedule_work(&key_gc_work);
++	key_schedule_gc_work();
+ }
+ 
+ /*
+@@ -119,7 +145,7 @@ void key_gc_keytype(struct key_type *ktype)
+ 	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
+ 
+ 	kdebug("schedule");
+-	schedule_work(&key_gc_work);
++	key_schedule_gc_work();
+ 
+ 	kdebug("sleep");
+ 	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
+@@ -134,7 +160,9 @@ void key_gc_keytype(struct key_type *ktype)
+  */
+ static noinline void key_gc_unused_keys(struct list_head *keys)
+ {
+-	while (!list_empty(keys)) {
++	unsigned int chunk = KEY_GC_CHUNK_SIZE;
++
++	while (!list_empty(keys) && chunk--) {
+ 		struct key *key =
+ 			list_entry(keys->next, struct key, graveyard_link);
+ 		short state = key->state;
+@@ -178,54 +206,64 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
+ static void key_garbage_collector(struct work_struct *work)
+ {
+ 	static LIST_HEAD(graveyard);
+-	static u8 gc_state;		/* Internal persistent state */
++	typeof(key_gc_work) *gc = &key_gc_work;
+ #define KEY_GC_REAP_AGAIN	0x01	/* - Need another cycle */
+ #define KEY_GC_REAPING_LINKS	0x02	/* - We need to reap links */
++#define KEY_GC_DESTROYING	0x04	/* - We need to destroy keys */
+ #define KEY_GC_REAPING_DEAD_1	0x10	/* - We need to mark dead keys */
+ #define KEY_GC_REAPING_DEAD_2	0x20	/* - We need to reap dead key links */
+ #define KEY_GC_REAPING_DEAD_3	0x40	/* - We need to reap dead keys */
+ #define KEY_GC_FOUND_DEAD_KEY	0x80	/* - We found at least one dead key */
+ 
+-	struct rb_node *cursor;
++	unsigned int chunk = KEY_GC_CHUNK_SIZE;
+ 	struct key *key;
+-	time64_t new_timer, limit, expiry;
++	time64_t expiry;
+ 
+-	kenter("[%lx,%x]", key_gc_flags, gc_state);
++	kenter("[%lx,%x]", key_gc_flags, gc->state);
+ 
+-	limit = ktime_get_real_seconds();
++	if (gc->state & KEY_GC_DESTROYING)
++		goto destroy_keys;
++	if (gc->cursor) {
++		spin_lock(&key_serial_lock);
++		goto continue_scanning;
++	}
++
++	test_and_clear_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
++	gc->start = ktime_get_real_seconds();
+ 
+ 	/* Work out what we're going to be doing in this pass */
+-	gc_state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
+-	gc_state <<= 1;
++	gc->state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
++	gc->state <<= 1;
+ 	if (test_and_clear_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags))
+-		gc_state |= KEY_GC_REAPING_LINKS;
++		gc->state |= KEY_GC_REAPING_LINKS;
+ 
+ 	if (test_and_clear_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags))
+-		gc_state |= KEY_GC_REAPING_DEAD_1;
+-	kdebug("new pass %x", gc_state);
++		gc->state |= KEY_GC_REAPING_DEAD_1;
++	kdebug("new pass %x", gc->state);
+ 
+-	new_timer = TIME64_MAX;
++	gc->end = TIME64_MAX;
+ 
+ 	/* As only this function is permitted to remove things from the key
+ 	 * serial tree, if cursor is non-NULL then it will always point to a
+ 	 * valid node in the tree - even if lock got dropped.
+ 	 */
+ 	spin_lock(&key_serial_lock);
+-	cursor = rb_first(&key_serial_tree);
++	gc->cursor = rb_first(&key_serial_tree);
+ 
+ continue_scanning:
+-	while (cursor) {
+-		key = rb_entry(cursor, struct key, serial_node);
+-		cursor = rb_next(cursor);
++	while (gc->cursor && chunk) {
++		key = rb_entry(gc->cursor, struct key, serial_node);
++		gc->cursor = rb_next(gc->cursor);
++		chunk--;
+ 
+ 		if (!test_bit_acquire(KEY_FLAG_USER_ALIVE, &key->flags)) {
+ 			/* Clobber key->user after final put seen. */
+ 			goto found_unreferenced_key;
+ 		}
+ 
+-		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_1)) {
++		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_1)) {
+ 			if (key->type == key_gc_dead_keytype) {
+-				gc_state |= KEY_GC_FOUND_DEAD_KEY;
++				gc->state |= KEY_GC_FOUND_DEAD_KEY;
+ 				set_bit(KEY_FLAG_DEAD, &key->flags);
+ 				key->perm = 0;
+ 				goto skip_dead_key;
+@@ -239,24 +277,24 @@ static void key_garbage_collector(struct work_struct *work)
+ 		if (expiry != TIME64_MAX) {
+ 			if (!(key->type->flags & KEY_TYPE_INSTANT_REAP))
+ 				expiry += key_gc_delay;
+-			if (expiry > limit && expiry < new_timer) {
++			if (expiry > gc->start && expiry < gc->end) {
+ 				kdebug("will expire %x in %lld",
+-				       key_serial(key), key->expiry - limit);
+-				new_timer = key->expiry;
++				       key_serial(key), key->expiry - gc->start);
++				gc->end = key->expiry;
+ 			}
+ 		}
+ 
+-		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2))
++		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2))
+ 			if (key->type == key_gc_dead_keytype)
+-				gc_state |= KEY_GC_FOUND_DEAD_KEY;
++				gc->state |= KEY_GC_FOUND_DEAD_KEY;
+ 
+-		if ((gc_state & KEY_GC_REAPING_LINKS) ||
+-		    unlikely(gc_state & KEY_GC_REAPING_DEAD_2)) {
++		if ((gc->state & KEY_GC_REAPING_LINKS) ||
++		    unlikely(gc->state & KEY_GC_REAPING_DEAD_2)) {
+ 			if (key->type == &key_type_keyring)
+ 				goto found_keyring;
+ 		}
+ 
+-		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3))
++		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3))
+ 			if (key->type == key_gc_dead_keytype)
+ 				goto destroy_dead_key;
+ 
+@@ -269,7 +307,11 @@ static void key_garbage_collector(struct work_struct *work)
+ 	spin_unlock(&key_serial_lock);
+ 
+ maybe_resched:
+-	if (cursor) {
++	if (gc->cursor) {
++		if (!chunk) {
++			schedule_work(&key_gc_work.work);
++			return;
++		}
+ 		cond_resched();
+ 		spin_lock(&key_serial_lock);
+ 		goto continue_scanning;
+@@ -281,12 +323,12 @@ static void key_garbage_collector(struct work_struct *work)
+ 	 */
+ 	kdebug("pass complete");
+ 
+-	if (new_timer != TIME64_MAX) {
+-		new_timer += key_gc_delay;
+-		key_schedule_gc(new_timer);
++	if (gc->end != TIME64_MAX) {
++		gc->end += key_gc_delay;
++		key_schedule_gc(gc->end);
+ 	}
+ 
+-	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2) ||
++	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2) ||
+ 	    !list_empty(&graveyard)) {
+ 		/* Make sure that all pending keyring payload destructions are
+ 		 * fulfilled and that people aren't now looking at dead or
+@@ -297,33 +339,42 @@ static void key_garbage_collector(struct work_struct *work)
+ 		synchronize_rcu();
+ 	}
+ 
++	gc->state |= KEY_GC_DESTROYING;
++
++destroy_keys:
+ 	if (!list_empty(&graveyard)) {
+ 		kdebug("gc keys");
+ 		key_gc_unused_keys(&graveyard);
++		if (!list_empty(&graveyard)) {
++			schedule_work(&key_gc_work.work);
++			return;
++		}
+ 	}
++	gc->state &= ~KEY_GC_DESTROYING;
+ 
+-	if (unlikely(gc_state & (KEY_GC_REAPING_DEAD_1 |
++	if (unlikely(gc->state & (KEY_GC_REAPING_DEAD_1 |
+ 				 KEY_GC_REAPING_DEAD_2))) {
+-		if (!(gc_state & KEY_GC_FOUND_DEAD_KEY)) {
++		if (!(gc->state & KEY_GC_FOUND_DEAD_KEY)) {
+ 			/* No remaining dead keys: short circuit the remaining
+ 			 * keytype reap cycles.
+ 			 */
+ 			kdebug("dead short");
+-			gc_state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
+-			gc_state |= KEY_GC_REAPING_DEAD_3;
++			gc->state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
++			gc->state |= KEY_GC_REAPING_DEAD_3;
+ 		} else {
+-			gc_state |= KEY_GC_REAP_AGAIN;
++			gc->state |= KEY_GC_REAP_AGAIN;
+ 		}
+ 	}
+ 
+-	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3)) {
++	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3)) {
+ 		kdebug("dead wake");
+ 		clear_and_wake_up_bit(KEY_GC_REAPING_KEYTYPE, &key_gc_flags);
+ 	}
+ 
+-	if (gc_state & KEY_GC_REAP_AGAIN)
+-		schedule_work(&key_gc_work);
+-	kleave(" [end %x]", gc_state);
++	if ((gc->state & KEY_GC_REAP_AGAIN) ||
++	    test_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags))
++		schedule_work(&key_gc_work.work);
++	kleave(" [end %x]", gc->state);
+ 	return;
+ 
+ 	/* We found an unreferenced key - once we've removed it from the tree,
+@@ -335,7 +386,7 @@ static void key_garbage_collector(struct work_struct *work)
+ 	spin_unlock(&key_serial_lock);
+ 
+ 	list_add_tail(&key->graveyard_link, &graveyard);
+-	gc_state |= KEY_GC_REAP_AGAIN;
++	gc->state |= KEY_GC_REAP_AGAIN;
+ 	goto maybe_resched;
+ 
+ 	/* We found a restricted keyring and need to update the restriction if
+@@ -353,7 +404,7 @@ static void key_garbage_collector(struct work_struct *work)
+ 	 */
+ found_keyring:
+ 	spin_unlock(&key_serial_lock);
+-	keyring_gc(key, limit);
++	keyring_gc(key, gc->start);
+ 	goto maybe_resched;
+ 
+ 	/* We found a dead key that is still referenced.  Reset its type and
+diff --git a/security/keys/internal.h b/security/keys/internal.h
+index b7b622bc36a1..cca936f5015d 100644
+--- a/security/keys/internal.h
++++ b/security/keys/internal.h
+@@ -162,7 +162,6 @@ extern bool lookup_user_key_possessed(const struct key *key,
+ extern long join_session_keyring(const char *name);
+ extern void key_change_session_keyring(struct callback_head *twork);
+ 
+-extern struct work_struct key_gc_work;
+ extern unsigned key_gc_delay;
+ extern void keyring_gc(struct key *keyring, time64_t limit);
+ extern void keyring_restriction_gc(struct key *keyring,
+diff --git a/security/keys/key.c b/security/keys/key.c
+index e88548f1a704..5c2d0e3b49e6 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -670,7 +670,7 @@ void key_put(struct key *key)
+ 			}
+ 			/* Mark key as safe for GC after key->user done. */
+ 			clear_bit_unlock(KEY_FLAG_USER_ALIVE, &key->flags);
+-			schedule_work(&key_gc_work);
++			key_schedule_gc(0);
+ 		}
+ 	}
+ }
 -- 
 2.47.3
+
