@@ -1,73 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197321;
-	b=rhitFq5cQHFdazw+51AIqgaRjgvXev/aLbRrYzuBwjUm12nYW2MeqBXF9Od9KSrmQLCJ
-	 c+HNdcTysfeqE4/hWlAzKa5w+97TjlH/x0vyC+pgEHODPvkMUPPaQBTih6pbWyAIupX3v
-	 ztcX2gMnsgCO2IgpvwKutdvLXrEj76VcRogdCUoyKkWNKK76Rzblm9d1DW9+z7FBGF7i6
-	 7nGUauwE6YiGZXxQdWDz+16SweybglWokxtE/7rlxL0YJpec/sneKeZmynHGu/AlGyvLB
-	 PaO7IzznbH4rqH97p9RIiO2EadFJs5pEyl2YGJVrTzjyIRB/HYxPN1zh4d+t7rLoYww==
+	t=1793197332;
+	b=D6yYHpD+vuxhx+849e5lGifOXDEMZd9PVDfWrhDLiEYErI7Nf8CD3TuBRWvea774lnux
+	 FK5mTAs6mcKP/Pi2E7L6GobvwwmqW7XOq6b0xAGISyN2TtaBs9vAaBCw6LgW0izhK10SM
+	 gyzsK29S2X/ESaEnUhQuLTRoc4+lUTYfmn2YUJoj9cZgpBGCSN2Mk+FczH4cbiYia9CZg
+	 k+mbpCniy6cLd0xBmEuVdfa6llIkYHz5/PnZBzn7/HR7QxAeOnecpKq96AllsuXeWEFh1
+	 i0xKd+O0wwqZKNje2/8cYmUm7pVXX0xs5AVluALEoIYxvpyoB2QCJbEEqI7WXpYvCyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197321;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=2DFl8D5AbpYniLCVgRy/mQv0p9Nen7WB6MhNchHMoOY=;
-	b=bfrqykSekg7Ju4C/elvg7/RS7CSlH+f0KaAJfF5D73HgXc2eNegcOIHH1A0pJnZ60IHo
-	 jfgsFq3pSXrNJxSW9EZO10oW2J/mq1zvylzNkNn6bXABQFTP6FS5Hw5NFCVTkPT+Ywbrb
-	 u3BnLxKHm4FP/M31DWQmeMAGv/kOhNnRdj1YutfDq9X6kJ8fq86tCVNqRjnQ87AktvB+S
-	 +B7e1w0u9kfIcm7wcdGE4PgsZmkEKGfkIxbvh9vE31ncS3RnzbYmN96/686sBpR4cF83v
-	 ZcyDHkogqXORHHFCYguAu05CIBbf3r1JqEoTOHMhBJtuYCEr2vX7u4nDXoyH4I6ILQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197332;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
+	b=MXpjJVvr7m9D2aGerdnbUXSs3xATFYfPInAfhNojT2hj27vcSiKIVih4KqV8o5iXB/13
+	 I4iqbrFARRa0A/QB3CR1Huh3qTVPBGwebAOXpNPXMRMr7RavGunWqZbX2P9d4NBAL0hgH
+	 2jO++9I92ThNpHvCbHApsZyGVN3jFwEax+prrwp9+x8IpGPlCx3dI/KLYvTLlj4FMxwyx
+	 zxmzFrKBozOKSPNlAMDxZtsaoWG340pFon8BDv+E7N/L5TCpU4ZSMt0+XnyQdCavnHThe
+	 PaDFntEcKJ+BnpVjXNIVOoQbRjMYTX5VBE5syo81w2jyGjBAyePRqFAsmHPegYsvDJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GV39Z3BM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGN7imdB;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B8A606A31A;
-	Wed, 28 Oct 2026 14:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83572606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83572606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GV39Z3BM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5BB1F01825;
-	Wed, 28 Oct 2026 14:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793197320;
-	bh=2DFl8D5AbpYniLCVgRy/mQv0p9Nen7WB6MhNchHMoOY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=GV39Z3BMq8guOH1JNEh5l5Ykd0J5SIsg2ewcgDSRWu+Futb2/mbkTZyplVKkgIy7S
-	 denrPoKvlnuvGNbYRIa3C1LmYhjR9Toh312qygfMtacXZCv9ZioO3kmFDFGNSeDzFY
-	 21gJQLrzZpGgOHU1eBnMoBfgw2UhAmMxlmbbJAdYn+ehZwezDpmbqqaxng3cAWHjR7
-	 kO3dUSJM3+nP0n23H/3IE81cCJjblZjitfUyEKfWzR2Hv/zzsZs3lSZb0gE25LZIzH
-	 mKHEDfI8y2wMeYD+i4rul3lqLYJmQT21fKUI3R8RwbXn8qqvsZcnAXsblNvOpSDqBc
-	 GDDz4IduI64fQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 642FEF40067;
-	Wed, 28 Oct 2026 10:21:59 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 28 Oct 2026 10:21:59 -0400
-X-ME-Sender: <xms:BwXiatPXCbP-mp8vFfVEJMQs85u7B0HKspOfkV-WWhxo1jlFOGDYSQ>
-    <xme:BwXiaqxKK99o0iUCmiK9H7aiVLnrpQPFHvKbPB6TGwcRRN5Mq7A6bdKSgKSK-m7Me
-    D2FEMI-lc3OlmHDzit-D2MJXv0ueoVMlI6u5qtVFzn3qyRO5QAv1u0T>
-X-ME-Proxy-Cause: dmFkZTFFPdKSGxXAGU90y/2PmLAq1d3yAok18Viynk+2E9Rp2Jph1WStD7I9eXrOzvN/h4
-    61kg/APA9V06T1Kntch14dq3W4Vw66kbX4eOYXTe67S3R3s7oiEQcFyDCzreJ7yGIqragv
-    hE9OtMEDbHmYCl3HSJu833sj/zOLrYAD45WtbQ6LkNNHizBVEgtvJT9sjdQnaKYBKOQlfw
-    wHBcMT2xtjlZWltOAFGN0MOE0Tiy6kPoqtqyiD/YLFKo+v9KocQX5DyHDK1xJwXTBtdpa3
-    OVrn6lPPAZVaD1/onu0X56dz7YRI+G5JUqq3E3cTnQIhz9doi2pLkeB+ba5DY1wKqmhlHA
-    diD/2ofebl1gXJ83jFfTDjMJVdlEQ+JzVHweoBegGXd57xbf3sMwHTXNwdLGkyazFNH9xI
-    EtXZUzfOP9q2qzYbj0QBefIMUmhThE/MygZdbt/3qNM6pK7u17QZkJ+YLX6Z/Kcg6LX+JS
-    lOGXbrbCeyOHrNqNsTSfxSZYHa2YFgOHRhGwddC7Pv/IXS/3EGf8hkAx9ktG6Fv3YQMM/U
-    Vi+67yixenT/XoTyvaUUoTPQLwI93Ha9QPAT+zUqZ+e4RixPfStCOnySgh4lKlsEE1bFYk
-    OWxIZdhFQZjcx731tdvDm93YNNqub2FsYP26/FXoSyNyRcP0swFtW3uYAAsw
-X-ME-Proxy: <xmx:BwXiat9SZVLNiki8y2LvBHRWb8LvWjSZZAVofPW-HHPQm6hy_YDQ1A>
-    <xmx:BwXiaiJqmQA2uW4lydBfo3mAkA7JbP44z5pp2oDZXeDu6uXJtGD0rg>
-    <xmx:BwXiagcAwz61a4Hy4EMbuCVJ2TSMNQkMHytj2PSHuaTWFKQT57CRvQ>
-    <xmx:BwXiavajuRnu-Ta6mF9EPk6Y4IbkqLZ0kXGwkX8FTVlwaOiK03OTCw>
-    <xmx:BwXiamBM2S-DzU620tQew_1DvMy718vukuGPXYrKvJAtUK9MZXyQbUBy>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 32AC3782738; Wed, 28 Oct 2026 10:21:59 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGN7imdB
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso488784a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:22:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793197332; x=1793802132; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
+        b=zGN7imdB9l7Z90ZT96iLtDTKw947mg/cpOB45lxUfEVaDUFTM15+26LDyBrTG8G/N4
+         XdVAT1Gs/9WdN8gWJ+tJhsk83hT4Z2zuFu5GxOpwxbEEv8vai3TPJ77IJDNnqhYiOGEm
+         WfREZDMWnLsKTdRZwPndWNaF36kJQW4qMKwndesuARyGbx/qSejFAi2ia7Mqo2+2ABKI
+         Q2aZbDqsQflidZ2Q5vMYfILZBubAtIBuouRLnYoVZm8n7CbgZe0V2JUrjwTOMREL9zFh
+         kHuJfmhVMhFC169xRuIhdGd/JPQFGpG72OrE7XC0fvWEMuvDwaIKlkDODQjzWxs6FmK/
+         vqig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197332; x=1793802132;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
+        b=XR1/ZfuntOJm5hOZ3BhpPFGLuzrNHqiQyNo/KCQrd9YO01G2ywWtH/VwvbRqVhHKKU
+         A5gvdiIuIzbKs0sOd4szaNXM7PhdgKQ7hia7QZkg2UDu4KFmXeY1vx/Oetxnhy0tljQE
+         qBQJSedNvEjA7YShfiNMUbgLLGQr70ob4yvmuVMwYkaTARTaym3A5tlD4M+KjjsInkkL
+         0JD/L4zhl57w1MS2NXdf64WjFHN+Fx04j7djGHSTyrOIz4utbPP9us5UVoSQUBUwDJUu
+         0BfXnetYMaiopAEiTxW2u2uq0gESvnq0T0rjxtLBJL4PCOIKh9h0Y4HThTmkUJTVWgsA
+         5jhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjKi2BXNXkGkodNm785J6vm92HXy9C47h5syldQmNTxz83wSx6/TB5bpO69jaVIgSoSKCdudqb6NI+eNg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCtH/8DBHF1LLKXQsbN+hiSXxJG44MNONGfnVFYH1zeVBBUY9k
+	qRPjLBzQVh10gjFTC5WKvjxrqsKIGQOsiU3m3YdZPeSCTSmNjaC2f5UY
+X-Gm-Gg: AYBFou0CqTbuGUWTiary7zZviBSAqG7nsErEscAy/awasuaMj93fbPHDjmSxysPvBuW
+	YknYd8gJrGKlWPErZ1XX3HTsWYrqCWDQj68OPfT2E9MJwOtml4/k/hZx3uEk46UQsatGdyiLpe0
+	7cCOsnPqS7+cxfGPxO2pwol/66jG6vGa9v8p2rogiPk/Kw14CXU9tti2+ZD+F4g7GAW7p8HJhP4
+	RbaHrU2f4c2+lfib4CfzbzrtU8tU6fpoAIFMwh514HaE3/iwND3fzLi6MoUQ3bPc8riW8CyNAVL
+	lO4TK0uLnLhg/npPh60x4T7q72CA9XZCYwcdk51hDzcLqmbfG9QyaA7XbjwNJGSpz5QUPgNPZMU
+	Cg59l9p5ZI9MBucmwEz1GEk7C/z5CDfjhl9TMxM2El7scT+1XPyc3swOMaraa5NIIvcK/ut0vb8
+	aP5YR+fMiAyHAfzNXlmUpJtkn2Hc4K40zU+oLCuhf7GAbAHPHCGKrS2PVGBjTFk+sW+IM0GztSe
+	JubIbVWumV2jONFGdmZxWttLVESiGVkMxEv6czBMUTy18p1CVHXG531oIs3Mf4XXz6gPLDKf9Px
+	WtkXVtjcjump1q/9xR3L9X8GGJCtBlKLlI3ssfx+33lzcNnqihjfGNtBb+vimrgB0n/LOJTs1y5
+	FLYqI2k0yFDK2ow==
+X-Received: by 2002:a05:6a21:4784:b0:3e2:26fc:2e06 with SMTP id adf61e73a8af0-3e9023072ffmr1926419637.26.1793197331584;
+        Wed, 28 Oct 2026 07:22:11 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a7b786b4sm1271966b3a.57.2026.10.28.07.22.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 28 Oct 2026 07:22:11 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: cfg80211: preserve mesh A-MSDU lengths when adding mesh headers
+Date: Wed, 28 Oct 2026 22:21:49 +0800
+Message-ID: <20261028142149.13834-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,69 +98,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Ae7b_N49t5D-
-Date: Wed, 28 Oct 2026 10:21:38 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: martin.nvme.dev@gmail.com, "John Fastabend" <john.fastabend@gmail.com>,
- "Jakub Kicinski" <kuba@kernel.org>, "Sabrina Dubroca" <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, "Shuah Khan" <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- "Hannes Reinecke" <hare@kernel.org>, kernel-tls-handshake@lists.linux.dev,
- linux-nvme@lists.infradead.org,
- "Alistair Francis" <alistair.francis@wdc.com>,
- "Martin Belanger" <martin.belanger@dell.com>
-Message-Id: <76ccd502-f1d1-4135-b92e-d783f259a687@app.fastmail.com>
-In-Reply-To: <20261028-keyupdate-rfc-v2-0-eb5143b4c487@gmail.com>
-References: <20261028-keyupdate-rfc-v2-0-eb5143b4c487@gmail.com>
-Subject: Re: [PATCH RFC net-next v2 0/5] tls: perform TLS 1.3 KeyUpdate in the kernel
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+A malformed mesh A-MSDU subframe with a declared payload length near
+65535 bytes can pass validation against a much shorter aggregate.
 
+ieee80211_amsdu_subframe_length() adds the mesh control length to the
+declared length in a u16, and ieee80211_is_valid_amsdu() stores the
+result in a u16 local. The sum therefore wraps before either walker
+compares it with the remaining aggregate length. The decomposer then
+splits and delivers the malformed aggregate instead of rejecting it.
 
-On Wed, Oct 28, 2026, at 9:52 AM, Martin Belanger via B4 Relay wrote:
-> kTLS does not currently handle TLS 1.3 KeyUpdate. It never sends a
-> KeyUpdate. And when it receives one, it blocks the socket until the
-> application installs the next key. kTLS also does not enforce the key
-> usage limit on transmit.
+Keep the computed length in unsigned int in both the helper and the
+validator so oversized subframes cannot wrap.
 
-No argument here.
+LLM assistance was used to find the bug and review.
 
+Fixes: 6e4c0d0460bd ("wifi: mac80211: add a workaround for receiving non-standard mesh A-MSDU")
+Fixes: fe4a6d2db3ba ("wifi: mac80211: implement support for yet another mesh A-MSDU format")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Validation: A W=1 module build with MODPOST passed. A QEMU
+guest using the real validator and decomposer accepted both malformed
+mesh formats and emitted two frames before the change; both formats were
+rejected and no frames were emitted after it. No KASAN report is expected
+or claimed.
+A reproducer is available on request.
+Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
 
-> This applies to TLS libraries in user space as well as kernel users such
-> as NVMe/TCP or sunrpc:
->
-> - GnuTLS sends a KeyUpdate after 2^24 records when it runs its own
->   record layer. With kTLS, the record layer is handled in the kernel and
->   GnuTLS therefore never runs the check. OpenSSL never sends a KeyUpdate
->   on its own.
-> - NVMe/TCP and sunrpc don't have a mechanism to install a new key. A
->   conforming peer that sends a KeyUpdate stalls their connection.
+ net/wireless/util.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-The design intention of these consumers is that they are supposed to break
-the connection and create a new session, rather than stall. If that is not
-happening, that's a bug. KeyUpdate is complicated enough that backporting
-to LTS is not really an option, so that bug needs to be addressed first,
-IMHO.
+diff --git a/net/wireless/util.c b/net/wireless/util.c
+index f2464d2ce0d5..c510fc62d819 100644
+--- a/net/wireless/util.c
++++ b/net/wireless/util.c
+@@ -822,12 +822,12 @@ __ieee80211_amsdu_copy(struct sk_buff *skb, unsigned int hlen,
+ 	return frame;
+ }
+ 
+-static u16
++static unsigned int
+ ieee80211_amsdu_subframe_length(void *field, u8 mesh_flags, u8 hdr_type)
+ {
+ 	__le16 *field_le = field;
+ 	__be16 *field_be = field;
+-	u16 len;
++	unsigned int len;
+ 
+ 	if (hdr_type >= 2)
+ 		len = le16_to_cpu(*field_le);
+@@ -849,7 +849,7 @@ bool ieee80211_is_valid_amsdu(struct sk_buff *skb, u8 mesh_hdr)
+ 		    __be16 len;
+ 		    u8 mesh_flags;
+ 		} hdr;
+-		u16 len;
++		unsigned int len;
+ 
+ 		if (sizeof(hdr) > remaining)
+ 			return false;
 
-The argument that was made that put tlshd in user space is that we do
-not want the kernel to handle something that the libraries are already
-good at (IOW, mechanisms that have been soaked in commodity usage by many
-consumers).
-
-Is that rationale different for handling TLS KeyUpdate? I see that the
-series adds back the HKDF functionality to the kernel. That seems like
-an indication that KeyUpdate should be handled via an upcall.
-
-Are there policy decisions that need to be made during KeyUpdate (like,
-has the peer's certificate expired, or has it been put on a revocation
-list in the meantime) ?
-
-
+base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.56.0
+
