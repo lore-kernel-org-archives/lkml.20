@@ -1,115 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793146150;
-	b=pdFBJBU9rRg4/pJooEZuNUrhvBjAZrQTs/w2bKLPRu637AZayEezGijezFcSLXV+U5+F
-	 i0SKyhV4sxWIYsmLFmFYwE7z92ZXJPxG61uvI3jZzrHXSdcYp+XZDqWmKylCX249cJUCf
-	 1SFHmTChhn1E5W0sMM9r+YjMI7q/9729X9Xa2eEw2BidNQRzgQ+p3DtXSl02WTBma/aWm
-	 IHk7AymFVZq14r/oA1Zh9ZRoCTxA24hp0r52bRlx7L1kUXl3qQL3AxHutrNSSiDfteoGV
-	 b7pQw8ocLQEZu4oZkhWn07kcttN+ZjvUS8vustKY8nu1RO0bWQIm8n3+mHbnqr7pEdA==
+	t=1793146206;
+	b=4ib/S901ZWaQf2GrPTrWipa3Hk17xDmea2RMZ2NPe4hpgPkNRR/7fZ4euxS8b0/Kfy2t
+	 BRlNSV2LANO0uHs30nu7q62g/V0s9IkJ0WWzgo7j5rPSwQeLTDO8kqGrtqZ90JuzFAHiq
+	 zj6ScZNyYCWhukw3zCpZuAAFiz5ZFauukFWfcuMt+k3HF6Hey+08SXVTyt1W8I+OQGu8V
+	 CvdRz2Y8LDFyFuAxJ2Ut/+UVW5v7tyie7SYziiKPxbneEX5ImS+kbgvtvtgViuwus/0iw
+	 l6znYvb7vF6tmYvy4SKEylHYlL74sbcZSTzVMC20EhIb+e0CtiYt5AujR4MmlTZqH7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793146150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rYaht9shbFWxq4kumOpndSaFwe2UdArezXMn/5BLyPQ=;
-	b=3pInUmg7+31p8Ygz/y4haBnVsGsH+gLY+RrmnGAozSlL/DjGfVMq73+QxEKpobTrlswp
-	 7/Mft0f0kUT5qY6301DuhJ/V1WvCGgdxhafcvkj29VRigZ6JM30tcOidv62mXuTCd018+
-	 bawb2LKqNIcs2tHsGJ4owrs8xaFHngK8kP1C5R51LfqFax9DJMISLXRosaY7lURxPGwSa
-	 jbPcP6mU23Tlr9B3YtRgh8Ptzn11cU+4FsL9TwS9a0BrcpHQ2aB+1ZGNsKR3TRaCRmTa0
-	 +GgkLSB+1EgGIUHT12TCykK3CMQqekBg8pzvrbzrirDscOn3wtjDlhAnrvelX0+DWcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793146206;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=ofMWakNioGH7vCKJ3imiIU6N74XvaMdKJ5ShmRfXWNY=;
+	b=iKmXdmSdENmOBqVvBall0hrVUdd/0Iu8YhFDhR6Fajz1maov+Vz3iEuDfI1/MTQjD16U
+	 rIfLOJ7GaWfEAfUkXuiN/IN7uLgY4VxfkJr4dLFxlhoJW7sKzNDxSjv/n3pBo9XkueFHQ
+	 rmgKZl8Ag3sJcVBf4dVxnhSbAuM9+MIFfNZmpyt3dwMe97zJA5yJ0sFQCpQQ7y5esF72Z
+	 NlAYqa27CWBsQUuQMivxNKndD1m2ojeAGu98Ji4O0nWXPKHJ7rSp+P7UM7hYII/3Z8dtZ
+	 j52jAXG24Gxqwa9D/57zDgHstQN+xJkJYEF4VPsGYg+Nyl+CAjgEJ4nIMX/MffqL7ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c965U5rN;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KakoMyeL;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A270606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A270606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72E7606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:10:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E72E7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c965U5rN
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso724076eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:09:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793146149; x=1793750949; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rYaht9shbFWxq4kumOpndSaFwe2UdArezXMn/5BLyPQ=;
-        b=c965U5rNBMbffOcZNVLX7SYC5p8jyV80hOEHtyvhV7AogFI+ESUuCFugBF5gwdEW20
-         1fiy5dd03AVDB/cQe0C2Q/RBf0zXqKxCwbDPMYjT4MS2A3E0X5mvX49a6WCzw69f8hoA
-         /AbRH0Zpauzco43FsFU+8YvGTT1N96yrAqTD/QS8XIuKhvU4b5Q/iseu+NQ+WaunolGn
-         vFYPzzBjXIXCruLcSApWJMHiAO6IFXuZLuMhC9e7kIi3vz7n1XlfZ9tFjiF5Mnj5EJlS
-         R0pxRi2kX9r75u0t+R7/97vtTf04NnYctSwuK8dRSx7xAlpU9SukX0TDQzOmpY4B4XM3
-         QBZw==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KakoMyeL
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so253965a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:10:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793146149; x=1793750949;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rYaht9shbFWxq4kumOpndSaFwe2UdArezXMn/5BLyPQ=;
-        b=Z3eWTvRryOw9aW/3zcwKyJgJ3Qq+JkwevD/EkvmPPoWzATDuJwqVIWRkH3GO2TcYyo
-         pE9cLjChAHQ82Yiwoswb3dTyWumEvoh3dA2PcVmQcB2KtNaGIm7A6J31mbog9wu3hBJH
-         uFv+IKXhu2HWYNOBHM4rUIvF7iL+PdwkPfA1DTjzSaZrtwf+1AWb6GFd7TBamXZJtoOo
-         RCdcekAWNhLyiwAVpreq1SEzS+ZDAMmLd5wviDrVDMJkJrocqs4OjqLEbUTI76YPEalE
-         RyDsfC20VpkZA9uaJs45FzowzcD6KkL16SCtZNTwXhcsrXaGgyY2rhwvYdfXkyP2Huvy
-         89Tg==
-X-Forwarded-Encrypted: i=1; AKwUvBydzHeQLG95dM5ygK4061Gqd10azay6qaRcNN82cFtCjOKuPgJys+EoWrrJgEZPEebz+LXp3mM6c0XtJqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHyQ4Xemi9fmTZOEmDMP7lwfiPGy97ym1qvRGkYiVZdQ+LNIpp
-	ETo0llKUovB/mNzde7JhmB3JNxF27xHqQMvZpA0iGcQn/Ej6zco1Zm8=
-X-Gm-Gg: AYBFou2igDuqKxLPN1gGwCcRMkrbkMGtlWhPT6s+XIj8oa17ss0D7J7OBIykAVvghbh
-	utlgipY8El9yc28mnmalEFob6lQAxu+U/TMMJjrsKxfZRlSm/oTTp5beppL/2hD+0LQK8Lu/GMF
-	R/iCM+D9mNyb5mbrHvNY627Ys2kBA4R6xJMcVJngG1h8T5QEM36aVY2qylE6MycEX7tJyNfidhH
-	nnLAnSLp/CYHNZr20vHvFGjM+0PQfqtq4/IHfIug+iPy8jKfHRnvIZgwrvQ0F5e1Nh3gBjN+fva
-	Zud4VFvKmfegoKPz4EPkohW+a9b+YKREdjQRoXmvjlW40n2w2IKXG14DFrltTUhaNUYaUJUbq+q
-	/OWeHGj7tAKkkWoyl8JhT9myU3G7/c8tUmko9RO2Rz5uhazSGkB+KN2+4ouO2P8w6jSLbt6G5XC
-	jDPMeJhTqTr95dWpHNXvjheFmbcGv8/x4m0hq1KpZiMkm5S0hMtuMgfoOD7ySR6M7ZybgYabiWw
-	Ub5jzn3HC55J6MsSKK6G2uWFMuv86Y91SbY8gD6CfnaRw99ZVXDa+ROaY7Ioz+aU1Do6GrzP09w
-	kzdMTEx1idwQo9c1qw==
-X-Received: by 2002:a05:7300:c7c3:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-36a2017929amr1084712eec.23.1793146149163;
-        Tue, 27 Oct 2026 17:09:09 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.118.107])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239198c9sm336354eec.15.2026.10.27.17.08.49
+        d=1e100.net; s=20260707; t=1793146205; x=1793751005;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ofMWakNioGH7vCKJ3imiIU6N74XvaMdKJ5ShmRfXWNY=;
+        b=GyIe398nRs9vH5Y8/4v4L5G3YZhQU9UdYryS/zl+JhVok7e5m5xSQSP72GJSYGCuRW
+         KyxsspOYr2guvk66DfLd7lKVhvg/BdENANn2Lv++8W2mQsRTkxU8HZkXOwRwxVUfoQEc
+         bd4bp1x0EXofPQ8thyz6A3ZCwbQ46nmSJcWRi25wUBNRgZ4HmGPmM1kTMMkKm30YQFiw
+         9aj/x4Q6Gfo6mFnwvCZ/DDHG8sAACv44/CBSyNepKetdaipImqFEsjojXXJjY8GYUpRQ
+         5j80eSrLwBVcRbJDR6ml+2Fsdnyx5VLgWPqis2MsQKAmbXuQcASwSxewiZJT5tOqdbYI
+         aYyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwL+rCZ9h9kb3fvoL6X+VvRLthXv8glSueeZJkI/ViVjNILYKX5MTB9HgRpBfHemjXWFyxecZfRjsB2Nic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNJW3hx9Tbx+ubWUQMZS0zCU2tMH7Jpx54rqMl+nBBw4Dh9nPi
+	0e9UllOnzngxZTe5FbfGJz5iMC+pS8ez9KjXZFErsDLOyhBD+sgMz4wLSUnYfLLXF1Bv36cjTxM
+	9gUbEIZ2tvno+1kkTlXKLGdlk3iQYfEfo1fkZA4P7g9eWfPIfYILHMVOF35MUs2qUZoAEs+oWZm
+	SL/M5eje2zazmGjcpqiMzGHc6OKbmLDWiUPT3beM+u5tpTThFNenRHYxmtMX+Kaawvd5YRxeK1p
+	hUav5zSmAS2Xg68py6JFxcR
+X-Gm-Gg: AYBFou10ULY5AdF8bOza0TosibRZzSGbZdsIxIFlYyhYDMLiEbNZ1Xsqa/fla53NnGx
+	/UnD/vXj8j4CGz73G20y/ipjmJxzdgkyWp6FDPaY7IJdhwUncHzi9MygKPI3lHy8yZggjT2HFyE
+	RWWVZCSv3pTZeuU62LdsGNIGjUQlfh8mNQG6buQWmpFZ26EbKYsuwF44pKOosaalzKI6znvHyeK
+	ecPDICvfysO4W3HzHhq56g0b5DgijqfKbf9t6jw16d78Y8wM3QfG2QIzOyRp2x0M0qvPwQ271A9
+	4kAlgTO0Ys0lv7AYg519wBQOo6kHF/KVU5fqlSIpohIElQRXrPxIESS1VhlS+kAghMe91h7+K8n
+	U7VHYaFuorRKbDhj2Fnzu53hjdhou0MMOStROC6dmWUCRCRwwpj1hdWgo/Ifinw9LzwPX8rDjYq
+	jZZWHwzq7xB2x2gkqWahqLVJcDwElqPahsLYE5Am/1
+X-Received: by 2002:a17:90b:280b:b0:3ab:752f:5f9c with SMTP id 98e67ed59e1d1-3ae581049b1mr424897a91.31.1793146205077;
+        Tue, 27 Oct 2026 17:10:05 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae55d66953sm346816a91.1.2026.10.27.17.10.04
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 27 Oct 2026 17:10:05 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so719185eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:10:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793146203; x=1793751003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ofMWakNioGH7vCKJ3imiIU6N74XvaMdKJ5ShmRfXWNY=;
+        b=KakoMyeLxmDqDr9DuGw4E0hDWWTBR1ngKiWaQ2ro2hYXilZGCIIAC4Qepsamq3jLJ4
+         uHegGHP5uPowlwktvaHzaX1NBmVMisQjD2Q8UbatTzHBRVZtREktMNo0FZTfO+zjbPVz
+         UvU/psd1ZWw7f9vO74iVXxO6bIOQyyxSBiLQI=
+X-Forwarded-Encrypted: i=1; AKwUvBy5mZuNK7AoUt0ENnUXkKMh3wG2Atnn34hg9F15e72NAOHh+4jHgCoYW/pwcDtglVBLRJjMWjN2F2bnA84=@vger.kernel.org
+X-Received: by 2002:a05:693c:41c8:20b0:351:5cb5:53f7 with SMTP id 5a478bee46e88-36a2027e717mr1630536eec.3.1793146203150;
+        Tue, 27 Oct 2026 17:10:03 -0700 (PDT)
+X-Received: by 2002:a05:693c:41c8:20b0:351:5cb5:53f7 with SMTP id 5a478bee46e88-36a2027e717mr1630494eec.3.1793146202477;
+        Tue, 27 Oct 2026 17:10:02 -0700 (PDT)
+Received: from stbirv-lnx-1.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239a56e9sm288486eec.27.2026.10.27.17.10.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 17:09:08 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: helgaas@kernel.org
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	atharvatiwarilinuxdev@gmail.com,
-	bhelgaas@google.com,
-	bp@alien8.de,
-	christian.koenig@amd.com,
-	dave.hansen@linux.intel.com,
-	dev@deq.rocks,
-	dri-devel@lists.freedesktop.org,
-	hansg@kernel.org,
-	harry.wentland@amd.com,
-	hpa@zytor.com,
-	ilpo.jarvinen@linux.intel.com,
-	kenneth.feng@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	mingo@redhat.com,
-	platform-driver-x86@vger.kernel.org,
-	simona@ffwll.ch,
-	siqueira@igalia.com,
-	sunpeng.li@amd.com,
-	tglx@kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH 02/13] PCI: Disable pcie port and access on D3 on specific amd devices
-Date: Tue, 27 Oct 2026 20:08:41 -0400
-Message-ID: <20261028000841.6816-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027230042.GA516670@bhelgaas>
-References: <20261027230042.GA516670@bhelgaas>
+        Tue, 27 Oct 2026 17:10:01 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vivien Didelot <vivien.didelot@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
+Date: Tue, 27 Oct 2026 17:09:11 -0700
+Message-Id: <20261028000912.2081659-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,28 +117,177 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-> Reading or writing to PCI devices in D3cold is a problem on every
-> system and we should avoid it in generic ways.  I don't know what's
-> special about these MacBooks.
+IGMPv2 reports and MLDv1 reports are addressed to the multicast group
+itself. Once the first listener is installed in the ARL table, subsequent
+reports can follow that entry without reaching the CPU. The bridge then
+fails to learn additional listeners, although static MDB forwarding works.
 
-I did not know about, i will try to remove the ignore_access code, and
-will tell you the results, i added it as a failsafe
+Enable the high-level protocol classifiers so that IGMP and MLD control
+packets are copied to the CPU independently of the multicast ARL lookup.
+Retain normal L2 forwarding by clearing the CPU-only forwarding modes,
+and preserve unrelated protocol-control fields.
 
-> > +++ b/drivers/pci/pcie/portdrv.c
-> > @@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
-> >  	int type = pci_pcie_type(dev);
-> >  	int status;
-> >  
-> > -	if (!pci_is_pcie(dev) ||
-> > +	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
-> >  	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
-> >  	     (type != PCI_EXP_TYPE_UPSTREAM) &&
-> >  	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
-> 
-> Nor does this.  I don't know what the purpose of this is.
+Handle the BCM5395's 16-bit register and different classifier fields
+separately from the 32-bit layout on the BCM531xx, BCM5301x and newer
+integrated RoboSwitch families, including BCM7445, BCM7278 and BCM4908.
+Export the helper and call it from bcm_sf2_sw_setup() as well, since SF2
+uses its own setup operation instead of b53_setup(). This also restores
+the classifiers after the switch reset on resume. Leave older devices
+with different IGMP controls untouched, and propagate register access
+failures during setup.
 
-This is however nessacary, without this The CPU just catters, so something
-used the PCIE address space or the config space of the bridges, unfortunately
-dmesg dosent show anything or journalctl.
+The SF2 setup integration and BCM4908 chip gate were updated with
+assistance from OpenAI Codex in response to review feedback.
+
+Fixes: 5d65b64a3d97 ("net: dsa: b53: Add support for MDB")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+Changes in v2:
+
+- export the helper and call it from bcm_sf2.c as well as spotted by
+  Sashiko
+
+ drivers/net/dsa/b53/b53_common.c | 52 ++++++++++++++++++++++++++++++++
+ drivers/net/dsa/b53/b53_priv.h   |  1 +
+ drivers/net/dsa/b53/b53_regs.h   | 17 +++++++++++
+ drivers/net/dsa/bcm_sf2.c        |  5 +++
+ 4 files changed, 75 insertions(+)
+
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 0880310c9ce3..51784432d266 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -836,6 +836,54 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
+ }
+ EXPORT_SYMBOL(b53_brcm_hdr_setup);
+ 
++int b53_enable_mcast_snooping(struct b53_device *dev)
++{
++	u32 val;
++	u16 val16;
++	int ret;
++
++	/* BCM5395 has a narrower register and a single IGMP classifier.
++	 * Its ICMPv6 classifier also covers MLD.
++	 */
++	if (dev->chip_id == BCM5395_DEVICE_ID) {
++		ret = b53_read16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val16);
++		if (ret)
++			return ret;
++
++		val16 |= HL_PRTC_IGMP_IP_EN_5395 | HL_PRTC_ICMPV6_EN;
++		val16 &= ~(HL_PRTC_IGMP_FWD_MODE_5395 |
++			   HL_PRTC_ICMPV6_FWD_MODE);
++
++		return b53_write16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL,
++				   val16);
++	}
++
++	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
++	if (!is531x5(dev) && !is5301x(dev) && !is58xx(dev) &&
++	    dev->chip_id != BCM4908_DEVICE_ID)
++		return 0;
++
++	ret = b53_read32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val);
++	if (ret)
++		return ret;
++
++	/* IGMPv2 and MLDv1 reports use the group's destination MAC. Once
++	 * the first listener is offloaded, ordinary multicast forwarding
++	 * can keep subsequent reports from reaching the bridge CPU.
++	 * Copy control traffic to the CPU independently of the ARL lookup,
++	 * retaining L2 forwarding rather than selecting CPU-only traps.
++	 */
++	val |= HL_PRTC_IGMP_RPTLVE_EN | HL_PRTC_IGMP_QRY_EN |
++	       HL_PRTC_IGMP_UKN_EN | HL_PRTC_MLD_RPTDONE_EN |
++	       HL_PRTC_MLD_QRY_EN;
++	val &= ~(HL_PRTC_IGMP_RPTLVE_FWD_MODE | HL_PRTC_IGMP_QRY_FWD_MODE |
++		 HL_PRTC_IGMP_UKN_FWD_MODE | HL_PRTC_MLD_RPTDONE_FWD_MODE |
++		 HL_PRTC_MLD_QRY_FWD_MODE);
++
++	return b53_write32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, val);
++}
++EXPORT_SYMBOL(b53_enable_mcast_snooping);
++
+ static void b53_enable_cpu_port(struct b53_device *dev, int port)
+ {
+ 	u8 port_ctrl;
+@@ -1334,6 +1382,10 @@ static int b53_setup(struct dsa_switch *ds)
+ 			b53_disable_port(ds, port);
+ 	}
+ 
++	ret = b53_enable_mcast_snooping(dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
+index 29cca7945df7..c4d2a41c714f 100644
+--- a/drivers/net/dsa/b53/b53_priv.h
++++ b/drivers/net/dsa/b53/b53_priv.h
+@@ -504,6 +504,7 @@ static inline struct gpio_desc *b53_switch_get_reset_gpio(struct b53_device *dev
+ /* Exported functions towards other drivers */
+ void b53_imp_vlan_setup(struct dsa_switch *ds, int cpu_port);
+ int b53_configure_vlan(struct dsa_switch *ds);
++int b53_enable_mcast_snooping(struct b53_device *dev);
+ void b53_get_strings(struct dsa_switch *ds, int port, u32 stringset,
+ 		     uint8_t *data);
+ void b53_get_ethtool_stats(struct dsa_switch *ds, int port, uint64_t *data);
+diff --git a/drivers/net/dsa/b53/b53_regs.h b/drivers/net/dsa/b53/b53_regs.h
+index 54a278db67c9..cfdb5ed38326 100644
+--- a/drivers/net/dsa/b53/b53_regs.h
++++ b/drivers/net/dsa/b53/b53_regs.h
+@@ -274,6 +274,23 @@
+ /* Revision ID register (8 bit) */
+ #define B53_REV_ID			0x40
+ 
++/* High-level protocol control (16 bit on BCM5395, otherwise 32 bit) */
++#define B53_HL_PRTC_CTRL			0x50
++#define   HL_PRTC_ICMPV6_EN		BIT(4)
++#define   HL_PRTC_ICMPV6_FWD_MODE		BIT(5)
++#define   HL_PRTC_IGMP_IP_EN_5395		BIT(6)
++#define   HL_PRTC_IGMP_FWD_MODE_5395	BIT(8)
++#define   HL_PRTC_IGMP_RPTLVE_EN		BIT(9)
++#define   HL_PRTC_IGMP_RPTLVE_FWD_MODE	BIT(10)
++#define   HL_PRTC_IGMP_QRY_EN		BIT(11)
++#define   HL_PRTC_IGMP_QRY_FWD_MODE	BIT(12)
++#define   HL_PRTC_IGMP_UKN_EN		BIT(13)
++#define   HL_PRTC_IGMP_UKN_FWD_MODE	BIT(14)
++#define   HL_PRTC_MLD_RPTDONE_EN		BIT(15)
++#define   HL_PRTC_MLD_RPTDONE_FWD_MODE	BIT(16)
++#define   HL_PRTC_MLD_QRY_EN		BIT(17)
++#define   HL_PRTC_MLD_QRY_FWD_MODE		BIT(18)
++
+ /* Broadcom header RX control (16 bit) */
+ #define B53_BRCM_HDR_RX_DIS		0x60
+ 
+diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+index 9e5713015187..1c846f6d7802 100644
+--- a/drivers/net/dsa/bcm_sf2.c
++++ b/drivers/net/dsa/bcm_sf2.c
+@@ -1059,6 +1059,7 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ {
+ 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
+ 	unsigned int port;
++	int ret;
+ 
+ 	/* Enable all valid ports and disable those unused */
+ 	for (port = 0; port < priv->hw_params.num_ports; port++) {
+@@ -1074,6 +1075,10 @@ static int bcm_sf2_sw_setup(struct dsa_switch *ds)
+ 	b53_configure_vlan(ds);
+ 	bcm_sf2_enable_acb(ds);
+ 
++	ret = b53_enable_mcast_snooping(priv->dev);
++	if (ret)
++		return ret;
++
+ 	return b53_setup_devlink_resources(ds);
+ }
+ 
+-- 
+2.34.1
 
