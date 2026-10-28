@@ -1,60 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194040;
-	b=5GbzLNzh+1RB0K3pIFtcHqfX1b3s3ykw5m3p7Pm5KMsqdnkobc+8k45TzwX5J72n93oN
-	 2wK1oZmiiZ+xHHd6KlwfR5OIn5u5xP4dx+7iiks228CXpwTfzcsXJm5s4kC/gwXwSidFA
-	 SY74tnwMVXkPwCwNhdVdHq7O5vBgL3GHPouTPD/4+tIpkgrbQdicFwR9c8b3+P8ORbhd0
-	 s2zwUdEhO3pHQUIwWBHyKkNPoQAye4ItmxAdndF5JAxiOIlxJMbpRkP4TerPnCJz3nK2J
-	 bf26LRYc5l7hic9JrnLf/Rau08UJDXoKUCHcLTM2LQjLSzumxPMJCvZP+yVpjUsMfHg==
+	t=1793194045;
+	b=SWxVzdzyfBTJ/2jvKu1qj2svgwLOXlDzqWmeGz7hv4cfBhTHhYjHg1nqaR1i0xoU4lHc
+	 WvqKJlF9wjzn0ryZt1aCBC3v+bfY/YSwKtbAgEyo0+gM5CbcRL/LFr4rLxpyksR4xEZ7n
+	 vem6ePEv37+VS2UvZ9qXSYA2v4roMDEKBraFJf1yinc1mb3HA5NMtbasbfue0RfuvxAhW
+	 mkQh0m8SmVXZFDte3oJm62AekM93XSepkJeAGUUviDB8I50BGfQnGu3de46gnwe3u79w9
+	 NC6ID8RLyl6m7DcNE17Xjl356QGX0BFZMpuz/fdJ0/Jm6QUGS8TegNfZhBvogdw+aEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194040;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=A6GJLofawO/+zi4/7sWpSsUpHgHBirqyy+AePLtW8L8=;
-	b=3RS4wpCrFu6Cmfeevqt2Zmbp6tdJZTC6eM77Gc42+Y6yJKaqfCyXes/VkzAazgz7w35V
-	 ghIZeNctmle6wzIyC82HgCwl3o7tm/RvjuxIqeQAjPbYYM3ib0p2J+JrVS0OOHizQ0P9y
-	 +RsgBu3gPUzX65kE5oAvoUo/0C6IoKgi8k10Efrmk+ZrrJwt97wQ/wCYWn58EFpd6jNS+
-	 iBw0ldQ1CtfdiM0d913P/U0wtX9yvlndK+IxREvNFgdv+YqsQW+CSk/WWblVL2WlRnO26
-	 v7Qvtbt9pd6FPEmsbnrdiTM7YgaHsvyGNWygsZIL+D5t5aogG08zbG0JBDo5nvDQilw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194045;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=+mVvp7TjbMKQWDHg7IqBJlBTx3ZQ6XoSxRPaCYFhPkw=;
+	b=QPfTzaBid55lLtVvAVXNwkNlRBRd7WgUDKkk9MBSYSlqnRrZKmm1DzZCvZP3Rcggvv7b
+	 D6EiwW6cAfiqpSpy39OceLngMZ0FjH70UgyaEW6og9t96NTftnEOW3bJU+SpQG7kK2zyg
+	 ryUymNBKuW5B3ep3Jsjv6X4GAPHRlYhKLznv1Mcy0X1i7IPRbWkr3KrpersNxyUqgGm1Q
+	 CJ3nmLsoLnNbgLncu7maNbR0Pq3ca/mx4gIx4FrEROEoiDu3fgyg/gwyz8v5sCOrDs4CU
+	 +KgCh54jfaJkcnCMOFtQHnxbPaIW1QQFmcWyXMZouKqKXm/+Cmah0vuV+WdajrP2zfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=UkuY5UVZ;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a1l09Ix2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Er0SBlZ5;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FCA606A33F;
-	Wed, 28 Oct 2026 13:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81FCA606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC43606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:27:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABC43606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=UkuY5UVZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793194036; x=1793453236;
-	bh=A6GJLofawO/+zi4/7sWpSsUpHgHBirqyy+AePLtW8L8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=UkuY5UVZ9i0jdy+CiIvBdmzYu1dcC/Zokz6IQqSzWyRapk+PfNrV9uqQgx1yprV2P
-	 D8z6PaT6+WXDQrGIaV8ps6DvxazII31dPMvpzsO4/ezXbyGZcPga3e8bXylj5G6gSw
-	 d1kzwt/WfTa8l0icF4jH85JWUt8+AnjLpTvOz7UB4eG96gKvZlFGYnPTlWxlOI9+8l
-	 WXu0pSeJHvZBnJELSDN709eEGZ7YQAEmiKaybb70Q/EUePKWorvJygHfuZZeS53SBl
-	 v35KS/CXjoLOB+KWkPjU/Ds/foE0d2LVX+fknUUJ/No/8FXF4h9zZABIwu71dnqfSM
-	 5BmfA3IBPJhTg==
-Date: Wed, 28 Oct 2026 13:27:11 +0000
-To: Alessio Ferri <alessio.ferri@mythread.it>
-From: vit9696 <vit9696@protonmail.com>
-Cc: =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Michael Buesch <m@bues.ch>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-Subject: Re: [PATCH wireless-next v2 7/8] firmware: bcm47xx_sprom: read boardflags3 and AvVmid_c0..2 from NVRAM
-Message-ID: <C5853649-F843-4533-89D7-7E36B54372E4@protonmail.com>
-In-Reply-To: <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it> <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
-Feedback-ID: 739018:user:proton
-X-Pm-Message-ID: 3f3119bd226a7b628a6c5713a0831c5712485f21
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a1l09Ix2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Er0SBlZ5
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe4lj1053339
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:27:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+mVvp7TjbMKQWDHg7IqBJlBTx3ZQ6XoSxRPaCYFhPkw=; b=a1l09Ix2BCcHKKKZ
+	fGLBdzeI4THVJWj8zMXDns9+h457BVMzP063mYKfUi2e4qQdrdTNmSn1r5sTI7Ls
+	Tw5Ja+63kly6j/NeA23Qg8wsZeLUjpT7m+LkNYWz6cZklBO6T/wOGjMtQNAybUmH
+	3VwafKKTZ7CbGhcY/1eZhv9QQZh1rIefZyAGZyXuR3SfX7ml6j2KeMM/SFSS+d32
+	8q5AtVgI021rI9d2pC9gW6mZlzmH+Vfan1kqRYN2IRTMfQoi3wCvvmtBG1C118fd
+	npVRNI+WseHZgqa5jP5+j+P2BMWMDpPzxtCDjp4JxK6TvTopn10GUTxrTPByalPq
+	Phqftw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhw9kb7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:27:23 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1e62510cso226747785a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793194043; x=1793798843; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+mVvp7TjbMKQWDHg7IqBJlBTx3ZQ6XoSxRPaCYFhPkw=;
+        b=Er0SBlZ59z6qbciRcWPXsOMYAey8/finMAPhax7kY4vnYn4aPuRhj5ffQjw16FJvO+
+         5d99QwAalDGCIm9gLCu9G74JBf+ub0LPEe/15XfjZjD3EOVw7e0xwDGwsIXr/ygsUQPZ
+         XwQPtvdZmgcFN0agIp4l061nYee8KMRTTPpYDArgezJwOo8Iskl93IHJ+7GsBZolsDqx
+         hm0IXz+BKZBeFpg7UZCUMUtRVZEvLA3iLNbZ0foHtYjkaFfbf2hr8xjpiGVkkGYxwO6t
+         M4Ye7bajeHhVREbukdnGsHnW9jpEVa/r8i4pXSGkfRvuS8mVYjSJIcI4xmH04TtyfRPD
+         t3Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194043; x=1793798843;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+mVvp7TjbMKQWDHg7IqBJlBTx3ZQ6XoSxRPaCYFhPkw=;
+        b=M7rOBUz7bSeDhhMJGj7GVoTs7rSxzEqC9Du0uGdZIwBYta8M44VewxI4PMlch92b3i
+         +9V5PWib6GeWzR1ehk2xnTPXs3sZEBRGeAgbiqNAA5rng6Dz5Pdj/EZh/Shb8MBTWANQ
+         JNkTfTisMtVK+TnfwtBLfFKaTpKPi+ogPyJYs1Guxd0Z71X/MQ4X8P7Wee1QxI4105vC
+         Reuel8VhhCH30ykiI6QQnNDUDytVsmJCRjAHdkpbcme4usuf0agd7rwWjgnAGz6/V43W
+         1UH7AtLDDtdnRZK8GBCt3NxDXgF5Gx9rWY7JLR+XbwWtrf/GI16bmvzkXAQZmNevVSeC
+         REVg==
+X-Forwarded-Encrypted: i=1; AKwUvByr0a9MVEatZHTjhbiprL4nEujgAVisuI3fggeRrx8v4s9gmUobdMGR0yndRoZf6yWmgVX33yII/ceOyUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlq9VaNOQ24YC9FdmR/jcfwGx9R2owCSBpYaHWkxOpYezaDpdi
+	x3TcIhaXCw5sudHTvyGd11D+PdeHCoeFXOwleBoCGJzpdrUQkrqsxLYpY5DvXsi99+urmUpOXNk
+	TckGOr8Y2qRFpDtJPAgBg2aJT63s4rM+85wYIIePDQ4cb1FuaXU/SzHNaBZBcaXDPTRc=
+X-Gm-Gg: AYBFou0fGfrx9V8MaRwyhmJaWsvvqfZP0GniTDGBG6yNVeJv1O9tET+DgZ3J3mMMi2b
+	DZb+a5zqWZqq3kux0zaH1n4YFWTtlkLBIvFNXq0O3fQkDVq4kcV1voOvsq0Ult11+a/io2GLN0C
+	9ICyWT1Q84EESleCVg9Hxi9y5xVHiSC+11pld1JUZElY1hD1JcRUjbW//pnfOv8zsaEC2xhAJ/x
+	BIHIf94zYG4vcffuwGDI5AAxaXH3B/yYftp7lV7hpMokKvlk3jw6JzKqs3Iz7eG0xaLtRW4brD7
+	n01Qy0o/PVtB6vvCryvRjupQ3NmMsrgNu10R5uhmm8HdHS23fMcygIpH2dFVGUp8fVG/W/egj+5
+	gstPgeVGIHdJtj4c5MBQpO5xLdvb3THb7LyuorgKyur2LBE7AfyjENpZLl82oilxvRJo3B/oKxI
+	lUzlKPhw==
+X-Received: by 2002:a05:620a:6ccd:b0:93f:3219:835f with SMTP id af79cd13be357-94408d6566fmr316578585a.81.1793194042832;
+        Wed, 28 Oct 2026 06:27:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:6ccd:b0:93f:3219:835f with SMTP id af79cd13be357-94408d6566fmr316573185a.81.1793194042330;
+        Wed, 28 Oct 2026 06:27:22 -0700 (PDT)
+Received: from t14s-gen7.fritz.box ([2a0d:3344:53ef:7b00:6223:3974:4196:280e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94fce50a8sm37133035e9.4.2026.10.28.06.27.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:27:21 -0700 (PDT)
+From: =?UTF-8?q?Lukas=20M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>
+To: Luke Macken <luke@phorex.org>
+Cc: =?UTF-8?q?Lukas=20M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>,
+        andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        srinivas.kandagatla@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
+Date: Wed, 28 Oct 2026 14:27:05 +0100
+Message-ID: <20261028132710.10051-1-lukas.maerdian@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014234949.1730808-1-luke@phorex.org>
+References: <20261014234949.1730808-1-luke@phorex.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,173 +125,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------bef7a0702c170b7e09f9f09c7e068bdd4556e7264843297ddaaf53831cec5aec"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------bef7a0702c170b7e09f9f09c7e068bdd4556e7264843297ddaaf53831cec5aec
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.4\))
-Subject: Re: [PATCH wireless-next v2 7/8] firmware: bcm47xx_sprom: read
- boardflags3 and AvVmid_c0..2 from NVRAM
-From: vit9696 <vit9696@protonmail.com>
-In-Reply-To: <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
-Date: Wed, 28 Oct 2026 16:26:57 +0300
-Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Michael Buesch <m@bues.ch>,
- linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org
-Message-Id: <C5853649-F843-4533-89D7-7E36B54372E4@protonmail.com>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
- <sTt-cgVrqE0COhM_6wYkpmZJbQu8hUP8ZIA0l6gf74lag0S47_DPBAt2USH3vcEFulu2KOgvDOioL-DQm5sFoA==@protonmail.internalid>
- <20261027-bcma-ac-rev1-v2-7-b69b61c31920@mythread.it>
-To: Alessio Ferri <alessio.ferri@mythread.it>
-X-Mailer: Apple Mail (2.3864.700.51.1.4)
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: wRglPS5U9-Q_Qp_v8x8w8tGwmZ8lMlXH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfX+ap1IZYt/78h
+ QlXQKcYUpn8FulGGCrgnkH2mfEsA8NhE4b04ss0f4kMaaeSaSkcyMA9qQS1BAkH69WJ76Vf6xgJ
+ SZh9h1VzHZWJmBUL77iZJOXB2jiIkBg=
+X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae1f83b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=meHnPOM5Jtsmck6FLoIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: wRglPS5U9-Q_Qp_v8x8w8tGwmZ8lMlXH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfXzoMpIacg53zj
+ oZH9JAxUEjn7tBdFkCVwECxVAMM9IqeiSFGxbPTxwlEbaLpdAb7MjAtB9qbZNJ65qNqVbhyDuQy
+ bCNInaVI7MJc9+RJcFmd/Gz+N9XPJj382nmZ7gRLIi8g9cV6vqNRQ1G/UICdghzV3z5SF6aZYNL
+ zVif5WsO43at9qbGYcVEprM1psF2c0p9QXkPTCc261KM/9rGdAMsIFjo/6024ce/jaq4TbXq+CD
+ jawQeyPeuon/pNJuN1I95q//+JXb/t29QhYrEKpEDTP4OZeJdPNNSgmZl1iubrrZB2ErfXygH7G
+ 8CIgH0bzwPOhprF/7BaGyED978WQf5i0vqQWTksiOS2NKrGXzS0xRmA0V5Ftl2bx7O9FUvkcgxn
+ UOl4PeP8PH+PRp0gj98BTCGEgOFGrz8kwqz5DFeTWGY/xEHichqCrTh6yMH8ng3Mi6AUf75Stwy
+ gSqV+AqSBu3vfXmserg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1011 bulkscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280053
 
-I think my previous message regarding 6/8 also relates to the change here i=
-n 7/8.
+On 2026-10-14 23:49 UTC, Luke Macken wrote:
+> Like the T14s Gen 6, the Gen 7 ships with either a Synaptics touchpad at
+> I2C address 0x2c or an Elan one at 0x15.
 
-You are right to observe that NVRAM overrides are generally used to set not=
- just GPIO leds but also PHY properties. Some of these variables are actual=
-ly present in the open-source driver[1].
+Tested on a ThinkPad T14s Gen 7 (22A8S0070B, BIOS N4PET33W 1.14) with
+the Elan touchpad (04F3:3327): it binds to hid-multitouch, touchpad@2c
+fails probe silently, and no pinctrl conflict is reported for GPIO 3.
 
-Whether or not you need to support them generally depends on the hardware. =
-I personally do not remember seeing AvVmid_cX being set on BCM4360, I think=
- it is generally set only for BCM4354. The proprietary driver might observe=
- these variables regardless of the general configuration presence perhaps f=
-or unification purposes, but I am not sure this is needed for any BCM4360 i=
-n the wild.
-
-Do you have an NVRAM dump with AvVmid_cX set for any BCM4360 hardware? If n=
-ot, the AvVmid part is probably a no-op and I would not rush adding that. T=
-he amount of overrides supported by Broadcom drivers in general is quite la=
-rge, dozens of vars, and it is probably best to add them based on NVRAM dum=
-ps to reduce the amount of potential format parsing bugs.
-
-In general defaultsromvars_4360 array[2] is a good reference of which varia=
-bles are generally found in the NVRAM. You can see e.g. boardflags3 there.
-
-Best,
-Vitaly
-
-[1] https://github.com/RMerl/asuswrt-merlin.ng/blob/ca72a61f8bc5ef920e29d63=
-d53d9864262208f0c/release/src-rt-5.04behnd.4916/bcmdrivers/broadcom/net/wl/=
-impl103/main/src/shared/bcmsrom.c#L2823
-[2] https://github.com/RMerl/asuswrt-merlin.ng/blob/ca72a61f8bc5ef920e29d63=
-d53d9864262208f0c/release/src-rt-5.02axhnd/bcmdrivers/broadcom/net/wl/impl5=
-1/main/src/shared/bcmsrom.c#L598
-
-
-> On 27 Oct 2026, at 02:53, Alessio Ferri <alessio.ferri@mythread.it> wrote=
-:
->=20
-> Read them along with ledbh4..ledbh15. AvVmid_cN holds the Av/Vmid pairs
-> of chain N's power detector per band; avvmid_valid marks the chains
-> whose list parsed. A boardflags3 in NVRAM overrides the SPROM word.
->=20
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> ---
-> drivers/firmware/broadcom/bcm47xx_sprom.c | 32 ++++++++++++++++++++++++++=
-+++++
-> include/linux/ssb/ssb.h                   |  3 +++
-> 2 files changed, 35 insertions(+)
->=20
-> diff --git a/drivers/firmware/broadcom/bcm47xx_sprom.c b/drivers/firmware=
-/broadcom/bcm47xx_sprom.c
-> index 75604cd70..581dd867d 100644
-> --- a/drivers/firmware/broadcom/bcm47xx_sprom.c
-> +++ b/drivers/firmware/broadcom/bcm47xx_sprom.c
-> @@ -173,6 +173,32 @@ static void nvram_read_alpha2(const char *prefix, co=
-nst char *name,
-> memcpy(val, buf, 2);
-> }
->=20
-> +/*
-> + * AvVmid_c<core>: Av,Vmid of the chain's power detector for 2g, 5gl, 5g=
-ml,
-> + * 5gmu and 5gh. The chain is marked valid only if all ten values parse.
-> + */
-> +static void nvram_read_avvmid(const char *prefix, int core,
-> +      struct ssb_sprom *sprom, bool fallback)
-> +{
-> + char name[sizeof("AvVmid_c0")];
-> + char buf[64], *p =3D buf, *tok;
-> + u8 v[10];
-> + int n =3D 0;
-> +
-> + snprintf(name, sizeof(name), "AvVmid_c%d", core);
-> + if (get_nvram_var(prefix, NULL, name, buf, sizeof(buf), fallback) < 0)
-> + return;
-> + while (n < ARRAY_SIZE(v) && (tok =3D strsep(&p, ",")) !=3D NULL) {
-> + if (kstrtou8(strim(tok), 0, &v[n]))
-> + return;
-> + n++;
-> + }
-> + if (n !=3D ARRAY_SIZE(v))
-> + return;
-> + memcpy(sprom->avvmid[core], v, sizeof(v));
-> + sprom->avvmid_valid |=3D BIT(core);
-> +}
-> +
-> /* Variables read from NVRAM whether or not the SPROM itself comes from i=
-t. */
-> static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
->  const char *prefix, bool fallback)
-> @@ -185,6 +211,12 @@ static void bcm47xx_sprom_fill_nvram_only(struct ssb=
-_sprom *sprom,
-> nvram_read_u8(prefix, NULL, name, &sprom->gpio_ext[i], 0xff,
->      fallback);
-> }
-> +
-> + nvram_read_u32(prefix, NULL, "boardflags3", &sprom->boardflags3, 0,
-> +       fallback);
-> + sprom->avvmid_valid =3D 0;
-> + for (i =3D 0; i < ARRAY_SIZE(sprom->avvmid); i++)
-> + nvram_read_avvmid(prefix, i, sprom, fallback);
-> }
->=20
-> /* This is one-function-only macro, it uses local "sprom" variable! */
-> diff --git a/include/linux/ssb/ssb.h b/include/linux/ssb/ssb.h
-> index 02e6c9054..5a4daa76d 100644
-> --- a/include/linux/ssb/ssb.h
-> +++ b/include/linux/ssb/ssb.h
-> @@ -77,6 +77,9 @@ struct ssb_sprom {
-> u8 gpio2; /* GPIO pin 2 */
-> u8 gpio3; /* GPIO pin 3 */
-> u8 gpio_ext[12]; /* GPIO pins 4-15, NVRAM ledbh4-15 only */
-> + /* NVRAM AvVmid_c0..2: {Av, Vmid} for 2g, 5gl, 5gml, 5gmu, 5gh */
-> + u8 avvmid[3][5][2];
-> + u8 avvmid_valid; /* bit per chain whose AvVmid_cN parsed */
-> u8 maxpwr_bg; /* 2.4GHz Amplifier Max Power (in dBm Q5.2) */
-> u8 maxpwr_al; /* 5.2GHz Amplifier Max Power (in dBm Q5.2) */
-> u8 maxpwr_a; /* 5.3GHz Amplifier Max Power (in dBm Q5.2) */
->=20
-> --
-> 2.34.1
->=20
-
-
---------bef7a0702c170b7e09f9f09c7e068bdd4556e7264843297ddaaf53831cec5aec
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wsCpBAEBCABdBYJq4fguCRBPsoxt7Hy0xTUUAAAAAAAcABBzYWx0QG5vdGF0
-aW9ucy5vcGVucGdwanMub3JnF8Z1/uXcH+9FW8tp6UrVzBYhBERSlkTqW1Te
-3v1Bj0+yjG3sfLTFAABehgf/Xoqr6Y2LViLXrDck2wIs+j6LIR0df/G97Vpu
-8q6PBbs0rz03t8o9FH+M/dzthx74PiW7YhXARH+OCudSrjrOBr7nQWSdrnHf
-tF6tWAVwjeZOjv2AyeXaahH7alaJg0VB9PDEXYJS16+HkZ3KLzHNheXulfpn
-g/u6bYSNaD0VVYCCf9tCr9CcjqppM40IxvIPfludWsSeIaxf6j1mlJK3rf/r
-yyok3UeB73TluoOhMgLU2bBANcbee5oh9J5E7zrzw6qpMBDB7r+0rs5u+eFB
-VqX7ClEZFHaTRYSd47axYAvTkdA8l8ihfDtSpFii8yLzFlek1qQZOwlPVLnT
-aLLLOg==
-=qryN
------END PGP SIGNATURE-----
-
-
---------bef7a0702c170b7e09f9f09c7e068bdd4556e7264843297ddaaf53831cec5aec--
-
+Tested-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
