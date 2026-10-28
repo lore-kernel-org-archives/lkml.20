@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202259;
-	b=QEpXc7Ewy/JdY0Gzg/d72EYk+EllsdqG5XGVUZwhciDMxjfrXXxgyA5GpSOXiQHeinqI
-	 xBIqTFFDHUo7Yhn1LjTUY10hL01FsuhqH3/Gc556jIqXRRQ4hmIPdTZQdeAhpCDnMtKFT
-	 +rMDgkvdovMo3XI7Q1MO8NqNAJcFDPi+FJ/0XE6AQJCzWbzXTrb4DkDwruOBpbSfhyhpJ
-	 XEHGQ4W5ZqNYt3vtlD4JZEJHpb8qhW+V+YhD7+ZqCLQJ1wsoJWB8k8aat/EjOkEX9EAgR
-	 wPsdGtC8e184Tja/0p5qeaaIesZCWz+yrxi3BZsHZyuFROQYxZabpL0xFioTwToQY3g==
+	t=1793202255;
+	b=CtAM/TaJbBuQukNDzAskPV0vGjyVUFooCblI0KmZyfGNY2OyTZSaL8vbIaBZiao4vkVQ
+	 ijqDcyFQEYc7p+PE+hoQ5tvZ8OgXLWQ7AExXVx4s0hxU/1fVqUotPc9RGQmN9gLqXPm14
+	 xxjUuvg9ZmkdRpEVy2W/pMGafYic+bCPtAgZbPkEfCEoRfFwXbNM4odfWdJAAkw28uVol
+	 NSnmMwRfzY3jURpdslzBkB/J0ALoEH+XWC+W1bPNT6kjb4UjnAjL3XMieSKzU6s85s5/b
+	 WBaEGXTihhvidivU6I2VZYhhxoVsiqPQ3xKd5DQ4Aua/9Jybgc9SShni/VCQmtNnCMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WvvJjNewKYR1SRv+tuxb6RUDvDpK3KFT+CR8TO9HsGA=;
-	b=zq55LQE+QO1alcoJYZD6BFg0l1O4l+9Cq479zidC8OiWzhHBBa1GUr9gSu5monXkRMpc
-	 CYeSLWTEMG+u7Yrf5aYP1xW0qTGqolDGlmpvqVMEOG+nBrvbytxTpBi/UN8NmjjjjBhRs
-	 eV5RpcgMduZHFljjgoF8Oa8n0tTj0obwY2ZWQYeuN9R+/9k2V6gYkZlFPLheRKKXD5pwe
-	 4mbjMd8hhS2iK82vD2hMLByuUT6hW8ineUFQNqVr52SmMQ5shJPTGjrzUkp/cOjsxRitU
-	 93/qCnpaowf0h/M7BhtGXuJLfzdCVu4LxQ5hsBHR/VnRFn7M8pDpq0IHGrhOQnxXRvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202255;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=bOgF5ikzMKUuUDgv/vm2Ch+e8FNs0kJzkLULdKGPfBY=;
+	b=YikiIuS7CdHpeWWyNqRK7uESvozxSm2j0Gdey+fTxEyXqb8fvalkb8brvbfpAH+7VWGd
+	 pQ3mcvqK0yMlnPIzwn4nLAg9dnxKzdhTkllSIVQjhakAlxVhO9WgkQtKnh2yUQvnmSJca
+	 JmbohiHHunX78lyRDbLWFXT7v+pClcpyP/8PfH8dRJd5rMXvrRDWtcLcKG4TqRh+7nmjv
+	 SOg6YUWotzurf+XJShHJndgqEHWFXr5x0VVbSsf+WQEEOCbW0oW73Bh+T/JdOQfwGrXM3
+	 uCeErfvpaQJDR3jHJ/7lSc7q+VAGqa6Dlo682bGtJ+p1DcpoP8W0cRi2AFI5DiT3bRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSF0n0ex;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aEysPRuS;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A282260A260B
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:44:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A282260A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEDD60A380A;
+	Wed, 28 Oct 2026 15:44:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEDD60A380A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wSF0n0ex
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e613f813b0so3055425ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:44:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793202258; x=1793807058; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WvvJjNewKYR1SRv+tuxb6RUDvDpK3KFT+CR8TO9HsGA=;
-        b=wSF0n0exdmpD81J4YNlfvOp48RmY9El5/Y1SsmhieBlt9bev6sY6V1RnArT7K5kX39
-         HbR5N1pp0xXmqqGXG/ouz0PljqOIKbCQdrld4knsiKfm1GuEiEDPfQQS66Sbcv39Kepq
-         XxL6LZkpTdOczHXGAQ/bWS1IPCKQM7YL8SVjkaK16+6LFmIq1hxG6PtHoDWwXiIx/+vu
-         HjZw+hCA9ah300DUhsMuoxAgLedh73LPBzb4dcmCDD2tKBDUlKAmWy8mQnXC5SC7p5ZV
-         BeKOFfnUpXn5MCl/7Hk3H0mdhnQv/H4L3Q1WFsZC29W7kSYztxU00+zrgUnHjnc/wM9p
-         TFXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202258; x=1793807058;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WvvJjNewKYR1SRv+tuxb6RUDvDpK3KFT+CR8TO9HsGA=;
-        b=KHXedzkCp3HKGFIAaUadhi4DXgdwuO/D0LRywWqrSI4tzyJI0ZC4bBSUZGfWF20Rt/
-         v8iau6Xj0KeK+vsUgnm7KjToVne2ZLFjw2MI6+y8d5yRMsXnrzwIFz0fIWmg9B2Dw49g
-         IpdrqAe2IJ1PlNObDBSRoI5M3H9PyfqnyOnzMpx1Rf72LNZdGh/dBZuYgWtoDh4pv2m3
-         tAg8OBLtWMtTLZ9Mn/21vMbH08nkwhH/dbPpojUj7udPwmvf6FPKeTS22tBoukDJDz4r
-         K9JLxuZd8siKSU+Osj0gvJPSxzbvW9Qz5hxPaN/Rh98EbTrTwQKbeXV25WC7knGscX6P
-         KxNA==
-X-Forwarded-Encrypted: i=1; AKwUvBweEHG3KUcX+DYwOS6mVPU6PojMQpkKkbVgcdX8QA3gw5GNTpnXJk8LHvmxk+MPVqTnMKpUhDdKhvyZRzQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYY//06G76A0daOXar1wjrdM1OV9d5uC86o/xti9suI0iw+xnA
-	pzzYkQdqNz+BMQNaImat6YSPruYDHndfsBLl9OcRqQm2wqYlGk0lAMjv
-X-Gm-Gg: AYBFou2EmfzyfcRIOV84x428w7vYpLMOHd193ej9urZCm/5/oGxYrInwhQJvMOfZzZr
-	8D9CtrMdCjRQuf45chLHvOyjzVR/n1FG66Te6FV0gGm5Ei8Iginl1M6OxZ1xlZC55i147xKKwoZ
-	aFdhnjzVXtUB8db5yi7GW8ew/A9wcXWM0GTWXClfMzQO+diTPMDT2W02nqpo0kuBMtZrQcw/oDL
-	c4xJyR5NpFD3sGS3SN33ReogeWJJsgYGNnexZNGBtwxBYHV4CEMXzLh4AnCVaA1A05lae6GLxPZ
-	2bXda1GVGu14RXSaDibefpAN+j7lUXkRSaYvomH/2GMx4MCKS1S0xZRIil/Xzb0KkrrJKNC7LCq
-	Vdn0hjGFgQ8R7FqQ3Ki3YfE2eztfcIpuYw8p1cFw0SRDHF6jr82C7JBRgRPXsWHD4el8Zcrgy1K
-	YtE68fBjM4FMRD9l1mN38fg2gWe7E/I9vCsEsb82adewKD6M5U8GEfniK/2Bnyr4XgDxrYzDCur
-	FMb7eoZTr+7J8N5rTdkMm3+WmA1r4v+MxvHDiObTLXdl/dqy0Qh5CJQuNMXEnaz/bkV5pE4RmTv
-	X4dElH/RQF5wWGNbAzNF0WpA8K7Qtbr8Z4VpJPTOQ5NWSXT/PeG68C1zL7Vj4cYunJE=
-X-Received: by 2002:a17:903:17c7:b0:2e9:3a86:b995 with SMTP id d9443c01a7336-2eb07406f2dmr9006645ad.15.1793202257758;
-        Wed, 28 Oct 2026 08:44:17 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6be5105sm24111655ad.37.2026.10.28.08.44.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:44:16 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v8 00/15] f2fs: support & optimize large folios for writable files
-Date: Wed, 28 Oct 2026 23:43:51 +0800
-Message-ID: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aEysPRuS
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFEsDh425241;
+	Wed, 28 Oct 2026 15:44:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=bOgF5ikzMKUuUDgv/
+	vm2Ch+e8FNs0kJzkLULdKGPfBY=; b=aEysPRuSiEBmNkD9751pSKo14aj4o0q8b
+	ouWTS21+vEjAXSq/lI86vMT0oZho24EAVQchK6EgH4JZgYcDA3xaJ3WcSN91iu7D
+	q5py5bBCZBS1NMiU7LlMZLwv3esXOk85yqf53afeUYQdVA8q3MyxbceHHQ9HjevB
+	yETGYhMnmOBjUVpze1pHCPjMKQlaGHGrnAhTW9FfncT5TxJfDWKqMsVQBTXKK1ks
+	XgOAIRAA4XF0D+/dAC8qSrdqF5giSkjKzo7WrpHzU5iDkEZR6C7iKkkB4ffJAvDk
+	AxmUaBuMAJGkR1VZ8vVHc8AzVTqY722NUMWDsErQgEi4Msby4dvjw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3g5c82-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:12 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFK9LT1784823;
+	Wed, 28 Oct 2026 15:44:11 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7xnp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:11 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFi9Si16843338
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 15:44:09 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7ACBE58045;
+	Wed, 28 Oct 2026 15:44:09 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5B3F158062;
+	Wed, 28 Oct 2026 15:44:07 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.240.205])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 15:44:07 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com
+Subject: [PATCH v11 5/5] vfio-pci/zdev: Add VFIO FMB device features
+Date: Wed, 28 Oct 2026 11:43:52 -0400
+Message-ID: <20261028154352.15108-6-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028154352.15108-1-oelghoul@linux.ibm.com>
+References: <20261028154352.15108-1-oelghoul@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,147 +97,214 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae2184c cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=wtvrgtD0Hc2VqHSVShsA:9
+X-Proofpoint-ORIG-GUID: Lo2_HbFZJAvn4fsXCrFZ-pqeuPlfV44R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX0exm0YGw8e2/
+ BYOXLyIE1sXTZhg/sX7Ub/pq6dLuxcX6V/Wplelfpoy2X30iwfpfxnvIKobDoUf+H1OEtVPeYUR
+ aTj9HiuxBoGxN4Emo0g2pazwFC+HsldPEpCY0AbpyJRobSr/DBbk8icpXKv9TFWGKT/APrT58FE
+ zga//GB/8B22wG2gMFTKCKi8sgSMH+pj06w1mh9JFA42JKE27EfKtImzTh10EXo57G4nV9niX8E
+ 13zbBt8Rx9gO8toBS+E/seyiNMdpQhMzkJ7RS53QMpsh3gkU3DUqAiWSRMnj3ArXTIKx+PW2vop
+ HrgxuYSgs4oW25Gkalxnuamn52luLL7zZAR6wJ18TMtLLX86lnpCM9fsH0sraKYw91Nf2xwBsHl
+ OvCgeSikIV3c74ARExNrX/uNAvf41uoD9Bh1UNMbRZSYw4vG/I53elVzFRIgA8tY21z1mHZAQnT
+ v3yFh2AWOqbAwDKrCMw==
+X-Proofpoint-GUID: Lo2_HbFZJAvn4fsXCrFZ-pqeuPlfV44R
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX3D98ycOKWgxE
+ EXuzwtniDN4Ww7bt9BweNm1p/cpfm31DuAMZsFh9HCGnBL3d0q6K/O9ZKULlhuBqWLoq2GF0468
+ Imy34Z52hRIhW75uVe1UEZSKbnrcB0o=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280062
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Introduce new VFIO features for zPCI devices to provide FMB passthrough to
+userspace.
 
-This series supports large folios for most readable/writable files
-in buffered I/O paths, including normal files, block-layer encrypted
-files, and atomic files except for inline-data files, compressed files,
-and quota files.
+Allow the user to enable or disable the FMB using the SET-only feature
+VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE. Likewise allow the user to read the
+latest FMB using the GET-only feature VFIO_DEVICE_FEATURE_ZPCI_FMB_READ
+in the case when the FMB is enabled.
 
-It also extends f2fs_folio_state to coexist with f2fs page-private
-flags and to handle large folio write path and partial truncate of
-large folios correctly.  A valid large folio always carries a
-f2fs_folio_state at its folio->private in the current implementation.
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+---
+ drivers/vfio/pci/vfio_pci_core.c |  4 ++
+ drivers/vfio/pci/vfio_pci_priv.h | 18 +++++++++
+ drivers/vfio/pci/vfio_pci_zdev.c | 64 ++++++++++++++++++++++++++++++++
+ include/uapi/linux/vfio.h        | 30 +++++++++++++++
+ 4 files changed, 116 insertions(+)
 
-Benchmark details can be found in the RFC v2 cover letter:
-https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
-
-Changes in v8:
-- 01/15: add a sanity check in f2fs_folio_has_ffs(): if a large folio
-  carries non-pointer private data (PAGE_PRIVATE_NOT_POINTER), report
-  it with f2fs_bug_on() and return false instead of casting the value
-  to a struct f2fs_folio_state pointer.
-- 03/15: cache sbi before dropping read_pages_pending, so
-  f2fs_finish_read_bio() no longer uses F2FS_F_SB(folio) after a sync
-  reader has been woken up and may have released the folio.
-- 05/15: clear the dirty bits of the whole folio on success, otherwise
-  post-EOF subpages (e.g. fill_zero() with FALLOC_FL_KEEP_SIZE, or a
-  block migration beyond EOF) keep the folio redirtied forever;
-  - recheck cp_error after f2fs_balance_fs() or the trylock_op() backoff
-    dropped the folio lock, and drop the folio instead of writing on a
-    filesystem which can no longer checkpoint;
-  - reset the per-folio submitted counter for each dirty range.
-- 07/15: since the whole valid range below will be marked dirty, a large
-  folio whose subpage was invalidated by a racing collapse/insert/punch
-  hole is not usable; after folio_lock(), unlock it and return
-  VM_FAULT_NOPAGE (-EFAULT) so the faulting access is retried instead
-  of dirtying the stale subpages.
-- 08/15: keep PAGE_PRIVATE_GCING on a failed GC write which redirties
-  the folio, and clear it only when no dirty subpage is left; mark the
-  target subpage dirty in f2fs_defragment_range() and
-  f2fs_migrate_blocks(); and submit the cached bio before unlocking a
-  large folio in move_data_page() to avoid an AB-BA deadlock with
-  WB_SYNC_ALL.
-- 15/15: make redirty_blocks() large-folio aware: allocate the
-  f2fs_folio_state and mark the cluster range dirty.  This is mainly
-  for the chattr +c (FS_IOC_SETFLAGS) case, where the compression flag
-  is set on an inode that keeps using large folios until it is evicted;
-  since F2FS_IOC_COMPRESS_FILE is already rejected for large-folio
-  mappings, this hint state is only reachable through chattr +c.
-  Without this, F2FS_IOC_DECOMPRESS_FILE and
-  F2FS_IOC_RELEASE_COMPRESS_BLOCKS would find no dirty range and
-  silently skip the rewrite.
-
-Many thanks to Chao for the detailed v7 review; several of the fixes
-above are folded in from his suggestions.
-
-Changes in v7:
-- 01/15: realloc the f2fs_folio_state in f2fs_get_lock_data_folio() if
-  it was released while the folio was unlocked.
-- 04/15: on an atomic buffered write repeat if folio was unlocked, check the 
-COW block before reserving it again, so inc_atomic_write_cnt() is not called twice.
-- 08/15: clear PAGE_PRIVATE_GCING if large folio has no dirty sub pages
- when f2fs_trylock_op() fails before any write is submitted in f2fs_do_write_data_page().
-
-No other functional changes.
-
-Changes in v6:
-- Rebased onto the f2fs dev branch (fd106ada4dee).
-- v5 12/16 ("f2fs: wait for folio writeback before ffs_detach_free")
-  is dropped, because the lkp warning reported by [1] was caused by a
-  write_pages_pending leak on the GC truncate path.
-
-- Improve large-folio support in the f2fs_do_write_data_page() path used
-  by GC:
-  - 05/15: use __folio_start_writeback(folio, folio_test_dirty(folio))
-    in both the IPU and OPU paths, so a single-subpage GC write does not
-    clear PAGECACHE_TAG_TOWRITE while other subpages are still dirty [3].
-  - 05/15: add f2fs_ffs_put_write_pending() as the common writeback
-    completion helper; do_write_block() only ends writeback for order-0
-    folios.
-  - 08/15: move the write_pages_pending increment from move_data_page()
-    into f2fs_do_write_data_page(), take it only after
-    __folio_start_writeback(), and drop it on every error path.
-    move_data_page() no longer adjusts write_pages_pending or clears
-    gcing on error [1].
-
-- 02/15: compute bio_offset/bio_len against the folio actually added to
-  the bio [5].
-
-- 05/15, 06/15: fix the order-0 dirty accounting leak in the cp_error
-  path [2].
-
-- 10/15: allocate ffs before f2fs_truncate_read_extent() [4].
-
-- 11/15: move the existing truncated-page handling into
-  f2fs_clear_truncated_page_state() and reuse it for the subpage-aware
-  large-folio writeback path, including the -ENOENT/NULL_ADDR case [2].
-
-Link to v5: [6]
-
-Many thanks to Chao, Daeho and Jaegeuk for the reviews, and to the
-kernel test robot for the report.
-
-[1] https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
-[2] https://lore.kernel.org/r/6be679d1-d8ab-41b3-9975-1f1bcd552579@kernel.org
-[3] https://lore.kernel.org/r/fc101bc7-6ece-4a30-9e19-9b32376489a8@kernel.org
-[4] https://lore.kernel.org/r/36220ef3-5b00-4aa1-ad11-60b10857a886@kernel.org
-[5] https://lore.kernel.org/r/atA8dsZ35E6wTMD6@google.com
-[6] https://lore.kernel.org/r/20261014064445.2835813-1-zhaonanzhe@xiaomi.com/
-
-Nanzhe Zhao (15):
-  f2fs: extend folio state for large folio write path
-  f2fs: carry subpage offset and count in write IO
-  f2fs: support regular file buffered writes on large folios
-  f2fs: support atomic file large folios buffered write
-  f2fs: support large folio writeback
-  f2fs: account large folio dirty data at block granularity
-  f2fs: prepare mmap write faults for large folios
-  f2fs: make GC migration large-folio aware
-  f2fs: optimize small block size large folio read
-  f2fs: support partial uptodate large folio read
-  f2fs: handle partial truncate of large folio dirty subpages
-  f2fs: fix zeroing paths for large folios
-  f2fs: handle block cloning within the same large folio
-  f2fs: allow large folio support to writeable files
-  f2fs: make compressed files compatible with large folio
-
- Documentation/filesystems/f2fs.rst |   10 +
- fs/f2fs/checkpoint.c               |   40 +-
- fs/f2fs/compress.c                 |    7 +-
- fs/f2fs/data.c                     | 1550 +++++++++++++++++++++++++---
- fs/f2fs/dir.c                      |    2 +-
- fs/f2fs/f2fs.h                     |  182 +++-
- fs/f2fs/file.c                     |  269 +++--
- fs/f2fs/gc.c                       |   51 +-
- fs/f2fs/inline.c                   |    3 +-
- fs/f2fs/inode.c                    |    4 +-
- fs/f2fs/namei.c                    |    1 +
- fs/f2fs/node.c                     |    2 +-
- fs/f2fs/segment.c                  |   13 +-
- 13 files changed, 1869 insertions(+), 265 deletions(-)
-
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..f2d5b6857925 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1614,6 +1614,10 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+ 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+ 	case VFIO_DEVICE_FEATURE_ZPCI_ERROR:
+ 		return vfio_pci_zdev_feature_err(device, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE:
++		return vfio_pci_zdev_feature_fmb_enable(vdev, flags, arg, argsz);
++	case VFIO_DEVICE_FEATURE_ZPCI_FMB_READ:
++		return vfio_pci_zdev_feature_fmb_read(vdev, flags, arg, argsz);
+ 	default:
+ 		return -ENOTTY;
+ 	}
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index 4e7162234a2e..e04d7e9d0c30 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -95,6 +95,10 @@ int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev);
+ void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev);
+ int vfio_pci_zdev_feature_err(struct vfio_device *device, u32 flags,
+ 			      void __user *arg, size_t argsz);
++int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
++				     void __user *arg, size_t argsz);
++int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
++				   void __user *arg, size_t argsz);
+ #else
+ static inline int vfio_pci_info_zdev_add_caps(struct vfio_pci_core_device *vdev,
+ 					      struct vfio_info_cap *caps)
+@@ -116,6 +120,20 @@ static inline int vfio_pci_zdev_feature_err(struct vfio_device *device,
+ {
+ 	return -ENOTTY;
+ }
++
++static inline int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev,
++						   u32 flags, void __user *arg,
++						   size_t argsz)
++{
++	return -ENOTTY;
++}
++
++static inline int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev,
++						 u32 flags, void __user *arg,
++						 size_t argsz)
++{
++	return -ENOTTY;
++}
+ #endif
+ 
+ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+diff --git a/drivers/vfio/pci/vfio_pci_zdev.c b/drivers/vfio/pci/vfio_pci_zdev.c
+index f47f36314a1c..39921c363892 100644
+--- a/drivers/vfio/pci/vfio_pci_zdev.c
++++ b/drivers/vfio/pci/vfio_pci_zdev.c
+@@ -219,3 +219,67 @@ void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev)
+ 	if (zpci_kvm_hook.kvm_unregister)
+ 		zpci_kvm_hook.kvm_unregister(zdev);
+ }
++
++int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
++				     void __user *arg, size_t argsz)
++{
++	struct zpci_dev *zdev;
++	struct vfio_device_feature_zpci_fmb_enable fmb_enable;
++	int ret;
++
++	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET, sizeof(fmb_enable));
++	if (ret != 1)
++		return ret;
++
++	zdev = to_zpci(vdev->pdev);
++	if (!zdev)
++		return -ENODEV;
++
++	if (copy_from_user(&fmb_enable, arg, sizeof(fmb_enable)))
++		return -EFAULT;
++
++	guard(mutex)(&zdev->fmb_lock);
++
++	if (fmb_enable.enabled) {
++		ret = zpci_fmb_request_off(zdev);
++		if (ret && ret != -EINVAL)
++			return ret;
++
++		return zpci_fmb_request_on(zdev);
++	}
++
++	return zpci_fmb_request_off(zdev);
++}
++
++int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
++				   void __user *arg, size_t argsz)
++{
++	struct zpci_dev *zdev;
++	struct vfio_device_feature_zpci_fmb_read fmb_read;
++	struct zpci_fmb fmb_bounce;
++	int ret;
++
++	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_GET, sizeof(fmb_read));
++	if (ret != 1)
++		return ret;
++
++	zdev = to_zpci(vdev->pdev);
++	if (!zdev)
++		return -ENODEV;
++
++	if (copy_from_user(&fmb_read, arg, sizeof(fmb_read)))
++		return -EFAULT;
++	if (!fmb_read.data)
++		return -EINVAL;
++
++	scoped_guard(mutex, &zdev->fmb_lock) {
++		if (!zdev->statistics_on || !zdev->fmb)
++			return -ENOMSG;
++		memcpy(&fmb_bounce, zdev->fmb, zdev->fmb_length);
++	}
++
++	if (copy_to_user(u64_to_user_ptr(fmb_read.data), &fmb_bounce, zdev->fmb_length))
++		return -EFAULT;
++
++	return 0;
++}
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index e41437fa17ad..7e9adb61c5e1 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1555,6 +1555,36 @@ struct vfio_device_feature_zpci_err {
+ 
+ #define VFIO_DEVICE_FEATURE_ZPCI_ERROR 13
+ 
++/**
++ * Upon VFIO_DEVICE_FEATURE_SET, enable or disable FMB for the VFIO zPCI device.
++ *
++ * enabled is treated as a bool, so any non-zero value evaluates to true. Nested
++ * enabling disables and re-enables the FMB, while nested disabling fails with
++ * EINVAL.
++ *
++ * Returns: 0 on success, -1 and errno set appropriately on error.
++ */
++#define VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE 14
++
++struct vfio_device_feature_zpci_fmb_enable {
++	__u8 enabled;
++};
++
++/**
++ * Upon VFIO_DEVICE_FEATURE_GET, provide FMB passthrough for VFIO zPCI devices.
++ *
++ * The user-provided buffer must be at least fmb_length large, where fmb_length
++ * is reported in VFIO_DEVICE_INFO_CAP_ZPCI_BASE. If measurement is not enabled,
++ * fail with ENOMSG.
++ *
++ * Returns: 0 on success, -1 and errno set appropriately on error.
++ */
++#define VFIO_DEVICE_FEATURE_ZPCI_FMB_READ 15
++
++struct vfio_device_feature_zpci_fmb_read {
++	__aligned_u64 data;
++};
++
+ /* -------- API for Type1 VFIO IOMMU -------- */
+ 
+ /**
 -- 
-2.43.0
+2.56.0
 
