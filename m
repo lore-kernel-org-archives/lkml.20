@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793212786;
-	b=MVV9dIu5D/M9811LrD8s7kDqU2PU6+Jy8yrtPeNlXJRPSWIiku4IBYls2PPW+AA5XSHR
-	 C40yNH37q88TTsJQQ4x99iWxliQlzO637En0dNXn246Jiw0hKUwwkshFDo9O2Fe5JPuh2
-	 5A/VNhgnR5tfYqwp/WtpSbSJTwY/hAPNUxqjcyumyDEratfs3JTmH3jrVnfLJTT06+ftD
-	 1LsSVxRRHRlX3oQF5H2BCeVzhWWiiddfBK6iTgRtGibsNbp76ZmElHjKkX5amiJcg4YAt
-	 XaKb/bLaQ5SwC0v+MDNkNbRiUapVMW2oHl9VA7L/pSIwmXtzedamhGhPyBbN9U9KJwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212786;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793212816;
+	b=gA+DJU5ARRdpSfibI4U6uMKNccW7o9Fr0Dr85XbhMOGUQdHglwAnjbfKD8/j6VILmI78
+	 1Qc3vX9ylRgPoWEs04pPNadFVY2mBbOynTwSw4mO7rZaXH2M+1GC7tzlb7oiaufbFwlv5
+	 NA3spUDLbJkwsr5pHbsVa+nMfIOTRnH4EcrzzzpRCTu9ifuI0qm1D+1fFM4znG/d6nBxb
+	 XTxKrrEt3JlXWrUOwiG4x4PHtE5o2I6XKpsKkrAS+3Mq4EUdm8kb8POF71r8MQctqbs/W
+	 fw4uLBrLc3Ca0bsXjKZoUaD4aiYCJjBP5JQ09AVXOONtmOj15RU0CMJOKrGaR1yO9EQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212816;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=lzWBDFykZYmQVbPs60wnZX1zpllZ/48DYMT9Prys7GQ=;
-	b=sVVNyVv8Ddlu3XFrBw9PlFeUn32dj4HYiiX/V8OYwrQZfz6m9LWkR+J/a6MvzF3A0Rin
-	 21DrNq3g2d8K9oZbYHaooIGf8aiNmBHAdf1XFy37BHMAHe0LaKQd1VZROztMGczLmTueK
-	 2miRIRC8VffwB7EAaPZnGh1EqlOcLMA6GR68Tz2OGxu1fFNbEuHWyVcMIHgys0qCTCqwu
-	 E6i36tVKQ9x1NxbvRcLreSwnQqbKvdbW8W2Vkcop11zD3zy2UIG3u0J2IT0q1sa68ErPr
-	 oup+wnnjrWA8CZc7Yj+cFnRADgOhrn6xm5EfK1ft7H6/vcyDWKiFZEkqXZTJLFquGJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=sAcaLbhJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QiKOO0YrqKharvG7Lk0X9XBUnnQ3jxJPKziFFjzJ2Mw=;
+	b=y7NzMasLjvEXlXMUPTWr/ZK0MOrlpVX2ZClvD/hUTIlqH9qIWO8/4ArYimL+fBYOHdi7
+	 5cbn+7NdrqxN4wic0fZMDi1+2PfDfp6abOg3eMMGJ4WXyctXn0X7qi0xu9Vg16IG5i7AT
+	 9ydDpspdsRSdAG5ZXLod6SqjM5BWgSEEsq7RWiNKp5q+N7SlI9OxLUesQgF4KGZUGAlO0
+	 8iUXtSJcjqauziXXLFkAfafLrG38BmvtD94LV8Qzz0sdFZbNqZ3Pl/lSQ3ctHIsQjws/r
+	 p10gX+0xzBkZ+h31aA7eLfnlgTGwCcYwgNticn8o70AOochO3Yn3r2vEylJ0aaoapzA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tD3pDpnl;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E51606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:39:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B18606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B18606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=sAcaLbhJ
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a6fb4040cfso462751fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:39:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793212784; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eRLzl5q9qvc7Wi9Ju8kDFE0pgkS9n2L6Ip2/dD1FFmLytUaEYjSxuev59fFR7vk96a
-         PaC3A7CPdRIz5uzRkKVhKpAOm4nnqL5KFKFBCLypZyLiRZhhdeexlIYnt0GxP1CfU04f
-         Mp9kxdyNAOa2bdwiYxPtA1zDgh36f0gUDStTV0WPm4tYxiRlzObrzQL5wgjqDpSX55PM
-         SjGdnu2hQpsDVSs1syerW6TT/L7tlxyF2ifEX4T6NxQX6dsk66pLRk4ZcyBr/Y2QwDjD
-         j/dkkLYPxBoHWlKC0pjGPJe8Ax1hfecj+hJtCHNEHI5dijFoz/h9Wai17R/nqrYAgJDp
-         VC2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=lzWBDFykZYmQVbPs60wnZX1zpllZ/48DYMT9Prys7GQ=;
-        fh=niPNAgNJxy3JRFBn3vpm6FSKhEM6t5sEJ15WmIO0DBU=;
-        b=QcE9qLIWXV55EPRuLnZUawc8iGZZAtQ614ZAakFakGOCIOOSmRMibCwdBV+ag2jU7A
-         b18vA2f3yyLmvbddmOxG+QLM74/EdSXcQeNpo1z10D38ASWXg+KzWLH1h9mnZHHzx8kv
-         ExYfRbSqUapU++og1uWoZgibxAjsZsJb0TzN9/UrDzkAkpe7LelSF9GEJy3jfoJceLEv
-         oKBZq1WOFNLwJa+v+vpC708df3lsKtRcj+stcTRzy7vnn2tWeE4Gj+E1DUZWShCE58h0
-         j8Uxxu51rrvXEqZVhZPM+NCueawSmKE7UJDs9QOUmRI9sBy7fACdJTb9C+H+Q7vlLEVY
-         1HEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tD3pDpnl
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so15114335e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:40:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793212784; x=1793817584; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lzWBDFykZYmQVbPs60wnZX1zpllZ/48DYMT9Prys7GQ=;
-        b=sAcaLbhJ4PruFteD+5ifr+3dehHdYOyHdN7/Vug7o1ZVK7UP2t8RBFc/6vSdb6NVfW
-         ThBR0SoY8CmwCphHBJ4Gdfp50QsB+g+GP1v8j/NbV+3kxjFc/6yZQLfGdSvgfRA22mJw
-         klP3MK7XkXoieaY3VVvZuj6Aex00KfJw78O4rMEcY+0TXJE4wSJG6PinXcn8/8YwY7/Y
-         mOWYqgQ+4Skcd0dkw6+z+9xC4Cua95f/TjhuTrP4U+5SO3+Zb7XbyqoDj+viEo8LxcuC
-         FIUDPwrr3uj6U4tbAk//zbh/VHK2umu7B1EbEoZAf7wqMMRkBiLyvh6+cyhsSWPfjjs5
-         8+3g==
+        d=gmail.com; s=20260707; t=1793212814; x=1793817614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QiKOO0YrqKharvG7Lk0X9XBUnnQ3jxJPKziFFjzJ2Mw=;
+        b=tD3pDpnlXy0LkVNdZuYH7NK64MjzEnlKvp44lGFujmHV9TJZEVqtcNtNO7rr3Xr1ZK
+         lVY1LdNvqSSMTyOY9ViS94NIYVu2ZhlDf3RffiFOkZP5C14n+w1l+CSqHiBc5sadFRQp
+         zv/KuzK/vMd6L0DHutVe9desnAeYM4Sp5+Gg7MSNfOuUGnHNuddgX5xqM11JvzvIz+/1
+         WAQBnCi/5xS2lvmNPh57WKwjWGJPesDMYtOCYKIEhADpEu9tYzqF6wU2tOAQpRY6kuSl
+         sDHRhK0VCumOdypux/BHZl+g9VAmbM+iCAdnwX8u5uyudAbhr9HOJNxz4r+aAKesYqEw
+         oy6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793212784; x=1793817584;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lzWBDFykZYmQVbPs60wnZX1zpllZ/48DYMT9Prys7GQ=;
-        b=k9lBzzDJz9bI7t7Sq+S49RZwpbvrMP/r5rLG2w8f68PiqfJsVGcyYSCdbPyrK7aK2L
-         WIwZTk4zBCSngZWV8zZYIX1acDCgkxjJWJ7+R8tE+52A4A8TIzHBTOzsyUN5s/nWbpsW
-         uj1LxYeXCpVx4U/OO0rmC9ASBLlEVjZWsTzOOPqTn0LE6lL4qIGWJO0A7wxDlf7xaw4s
-         u4Tayr190AAOpHxBOcrP0EBMGw4p+2hveAfn50mnOgqjKKNWgioIc5T4gfwUlA79L9ih
-         smNRf/EtNfgQeHA8NKkwt9pfZwmQjc0uO6xJiA/61OQ/chSDJJV/BYHlBXy1LzTTR0+3
-         rizg==
-X-Forwarded-Encrypted: i=1; AKwUvByVEsHDwy9kHVLJGtVEHdbwlVxxMyiTgGjLmYszec3hxhlF9IXHEbvFU32tHHYuNsdGGnR+RcO6fOb/G0I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLjTQPJvT885dpEkqYup/wKIoZiTESKTRfk7NsHtswjZvN1oYu
-	Sw7ecSKwhfU2dWPsUKKVSX4jyOagK18oa6t1Q5bWrwxyFEQ6/TYsvnxk8J7NpgqmX23k3rXFfrX
-	9AKgVjCy6Germu96L274i9DNdXaLhfbtuJbmfAIioTg==
-X-Gm-Gg: AYBFou3O6gH99WE+mxCTfA0rbPyYUyKbbtI8Op1B/T6Kwsxg0/EKQEz6QE1J5Mk3zG/
-	4QnoCaohJ4QwZfONn1VlU8IKwiakMsMc/xsq5iHhzAp6XSRA90/x29jlZPvehg4mcaarPZfcjMJ
-	aPWTMzDgCAlgH3277CSeTAs7+bfC7D0rjAJUNVyTXDMbfwRQ4TE5zENCaiYM5w0HNjjarX14tpL
-	fTUsJeYETE+DDQNZ3rHxOmbBiEKX1wg+YCJersLng7GvRLwKHCuQthP29/LagSskMg+yvvzdXm9
-	fvHMyLlrzesvT84iWjYdJ9ld7i97+bEy/KZHGRF0DiG0QhU2y69GsgBT2Me982XNjfKISoGPzRO
-	03SplRwF78Xv9yHUk8elBLC9HllLWUEIDtYfB7TgakAtVoKBGwJ+TBs0dCi4XDofhnsmPjPrFEF
-	Y9vX8dFmFi29q+CtDf2QBocQ5ruVdTPW610iwrz9OJp6hzOH/Dme9texIgol6uu8xdnfw+JtZFL
-	A==
-X-Received: by 2002:a05:6870:702b:b0:491:88f1:f3aa with SMTP id
- 586e51a60fabf-4a8bb48c1b5mr2356106fac.26.1793212783847; Wed, 28 Oct 2026
- 11:39:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793212814; x=1793817614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QiKOO0YrqKharvG7Lk0X9XBUnnQ3jxJPKziFFjzJ2Mw=;
+        b=MDFbmmCxV6Aj0dBKZfS+YaXHGTYAXnJRfYVGhTWN79vU3IY2ABautVY++euEUQ4eMC
+         0iO/AwsSNfV+PjZDeQlynw/jKCl+BJP/6p1qRHvvM14huR3zYC8N7jkKDZEHLUIYaOJQ
+         Ng41Kt89ORCRvThSMrdp+1Y4K/UzH+I4TTKXEFcKzTBmKuPK+xsTnCkKXph8Nu5TT9Wy
+         EmPqQmPdfq46MKQ3wd/Yo8kxve5r2lwDafsWVxGB/fhfbnOShsJn7WunfMCO2qFj7TOU
+         G+3Lq8X78VSs9W8rp30mqA/v2X3MAAMeKO1A88fGqbM7BI2kZrcOrz2+RO/loJMrPTlw
+         +s0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwH8qzPons63L2bbF/7xQ7SjHajJnx2m6qbf6zbU2SopHz/jAXtSVwo85jLC9SidfoCIj+uQbUcMX2PL+k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOgYmoDJeUNRc6tyCz+i6cWJ4HloqpEFQ5/cXat8wqaa9LxSbZ
+	P85IPKOzTuF+5e3pOW4E83ZRqVWHNq1FC83fjw36MrQDX0/zsgLKMp7e
+X-Gm-Gg: AYBFou2CArS36tJ4sPQzosPlde1zI2dgKRm1YrAdqpk3MFKLpMXZhiafEiQgz0K+DX5
+	vp3LDfAFe160wVRNAZu8XTbLHnVz7fc+Pzovw1qfoNuOVl0wTjBurMtBocIKrmoaZNEOBIwrEex
+	R+709EIm5dBorZY6+8D0L2FIiHbIIn1sZ2KyI4Gsi+5tsnl6n406kHJKtfhNDHYAnGpZRjnlKhf
+	hciFTyr8mHe1iuQ5kItw3q8boNv1+eYCeQX5FJNBKuuHUc9kBdoFaFCF9waMzz6NGVp+0RRpmTu
+	TgQYEfOeQUXirihx6bqxB2e/IAJp+NTQagK2wTlIAbDg2SnnH57qbZ5oswMD18DCoVZ8xA+Xpvi
+	VYhdAT2qvOEDBNrDqbew75/v7XVcr14icuPo6zwDYUgfvNYtAt0ds97YODMKIsSpsC5zO+NHsqL
+	uTLyLYZfsP5CwvH6+Nkw5RrvcMBwSRV3WEBlcMqbwE6HMtzLf/bfFCXi/KVsQNXaXrBjdVvKLgi
+	7l/VmYOLfUQojwgUfgfeqV2lyy4NXShA530HCEPT8jUtyT5FJV1hKFAVs/eR0OwsUCegyslOmNR
+	laFt2tkfF0+QOG9frHTqIvBVHfhivmgw9cN0tT3A5ULdAgUZV132+5fw3vA1R5bLfrI3qbvvAoZ
+	A67Ndv/NTZbbF19oEV+5lIw==
+X-Received: by 2002:a05:600c:6555:b0:4a1:d45a:3ae9 with SMTP id 5b1f17b1804b1-4aa8b05fa4bmr7063735e9.15.1793212813465;
+        Wed, 28 Oct 2026 11:40:13 -0700 (PDT)
+Received: from mtardy-friendly-lvh-runner.europe-west1-c.c.cilium-dev.internal ([2600:1900:4010:1a8::])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39a8sm30862921f8f.11.2026.10.28.11.40.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:40:12 -0700 (PDT)
+From: Mahe Tardy <mahe.tardy@gmail.com>
+To: bpf@vger.kernel.org
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	linux-kernel@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Mahe Tardy <mahe.tardy@gmail.com>
+Subject: [PATCH bpf] libbpf: Reject excessive program counts in generated loaders
+Date: Wed, 28 Oct 2026 18:39:47 +0000
+Message-ID: <20261028183947.9606-1-mahe.tardy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,60 +107,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026164028.78792-1-lucas.tanure@neat.no> <20261026164028.78792-2-lucas.tanure@neat.no>
-In-Reply-To: <20261026164028.78792-2-lucas.tanure@neat.no>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 28 Oct 2026 18:39:27 +0000
-X-Gm-Features: AclHuK8Od9Fw9YArha1MRLfNbwD9hyqoyIn5oK-539amYVA4Yy6MtEUKuv8b45Q
-Message-ID: <CAPY8ntBg==BaznZcnm+zj+GWcooDeo7fW3_WfyAAEes86BNhBQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] drm/vc4: hdmi: power down the BCM2712 PHY when the
- output is disabled
-To: Lucas Tanure <lucas.tanure@neat.no>
-Cc: Maxime Ripard <mripard@kernel.org>, Dom Cobley <popcornmix@gmail.com>, 
-	=?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 at 16:40, Lucas Tanure <lucas.tanure@neat.no> wrote:
->
-> From: Dom Cobley <popcornmix@gmail.com>
->
-> vc6_hdmi_phy_disable() is empty, so on BCM2712 the PHY keeps its PLL
-> and TMDS drivers running after the HDMI output is disabled, until the
-> next vc6_hdmi_phy_init(). The TMDS clock is therefore not stopped
-> between two mode sets, which the SCDC clock ratio change requires, and
-> the idle PHY wastes power.
->
-> Reset and power down the PHY on disable, as the BCM2711 variant does.
->
-> Fixes: 0b1dbe82e051 ("drm/vc4: hdmi: Add support for BCM2712 HDMI controllers")
-> Signed-off-by: Dom Cobley <popcornmix@gmail.com>
-> [lucas.tanure: Rewrote commit message to clarify the issue and fix]
-> Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
+An object containing MAX_USED_PROGS+1 (33) programs successfully
+produces a light skeleton that laters fails at load time with -EACCES
+because saving the 33rd FD emits a store at r10 + 0:
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+	*(u32 *)(r10 +0) = r7
+	invalid write to stack R10 off=0 size=4
 
-> ---
->  drivers/gpu/drm/vc4/vc4_hdmi_phy.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> index 56e6a35da357..5040f014bf7e 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> @@ -1197,4 +1197,9 @@ void vc6_hdmi_phy_init(struct vc4_hdmi *vc4_hdmi,
->
->  void vc6_hdmi_phy_disable(struct vc4_hdmi *vc4_hdmi)
->  {
-> +       unsigned long flags;
-> +
-> +       spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
-> +       vc6_hdmi_reset_phy(vc4_hdmi);
-> +       spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
->  }
-> --
-> 2.56.0
->
+This catches the unsupported count during generation instead of
+producing a loader that the verifier rejects later.
+
+Fixes: 67234743736a ("libbpf: Generate loader program out of BPF ELF file.")
+Signed-off-by: Mahe Tardy <mahe.tardy@gmail.com>
+---
+ tools/lib/bpf/gen_loader.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
+index 251392aa8b41..80a6b5306183 100644
+--- a/tools/lib/bpf/gen_loader.c
++++ b/tools/lib/bpf/gen_loader.c
+@@ -122,6 +122,11 @@ void bpf_gen__init(struct bpf_gen *gen, int log_level, int nr_progs, int nr_maps
+ 	gen->log_level = log_level;
+ 	gen->nr_obj_maps = nr_maps;
+ 	gen->max_func_ptr_maps = max_func_ptr_maps;
++	if (nr_progs > MAX_USED_PROGS) {
++		pr_warn("Total programs exceeds %d\n", MAX_USED_PROGS);
++		gen->error = -E2BIG;
++		return;
++	}
+ 	if (nr_maps + max_func_ptr_maps > MAX_USED_MAPS) {
+ 		pr_warn("Total maps exceeds %d\n", MAX_USED_MAPS);
+ 		gen->error = -E2BIG;
+--
+2.43.0
+
