@@ -1,90 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202867;
-	b=WnwlnpMYGA2GYVlJo2zwH3SpuHB/t6cHnuz8gIOiHYB9crM12ygrRUqpy9AQC3euG2wf
-	 Hh6zSPjSMiqY33a638LlQ3QdFksmobXM0rougnZl9bUU5RIenHkBrwM47j1znTWvon5cb
-	 kDS0UL3Ve6dK9j15Q0/OIqlVw6Grxj7dES+T2/LObBxvDzSUoM149BZxtRPABNGKrUO3c
-	 jFGnQVv48tmrPBzq4jU0sPa1AAZH55KjdjCNMACdfze4fttKnOxxFcPXx1gG2i/9sCRJz
-	 mubNH6fKVJ8qaMn3UhCvoZ24sPTfu2Fm4HFmbe6vzUbVeS0hd/YkASOlwsKJzm05+Mg==
+	t=1793202861;
+	b=LGSwW9hIfYEmJCopcwLi5aJes/4DeSuUxqRAcCtndAXJiHCCWkG4F2/tU7qShZ/nftgh
+	 ee7pDOd5xsaHTrD7oYEGTZ0ks5PViVCq7igGM1aGLi1/HJyjKQhpLCgzR6J0vf6gKnJW4
+	 W5Nyowya0HirL0kfpz5UZl0KRIIjQt6ovPSZLW/Ds05r/zIxBWufAEkdnqKvBXhaZZtWW
+	 arIVz5ecs4Jz0R3z/mB/i7x2xAzEQ3YIDElwHSHPGDFJBDpz4sL3lJwt7ubhNi2WZb6ZD
+	 8sbxY5mt6zhNEU+SvBNGsJFR9qnsdVhXaCwN8D/crqMLwXU9r1tsWFNPLKvgAI/lUvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202867;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=ccajBfB1DRQJx0jrMEZz3XqV1UkUklVx5XXr8c2Z960=;
-	b=RVEQNAVfdeyWHMx2K4e38pPI4hyu0fEESWM8rGO5/4kRVreqPHGhirzq2NegQG1ey9uv
-	 G8iEWQ9pBn67f3mtsvIJN5BVBH8ecwi/nYHhl6LDFZfSHMGd8xHoeKF4rhlq+K1pJ66LX
-	 nTRQr7Ieo4kjmWNJbubJZXriEFcbocZqixo2fCxFNBWlWMAv9e8VevZM5iC0uJN1gCYbS
-	 2ngoSH7aSy69t9YaYhyGgkrNsFRpgNrMWB5rx9tq9mzl1hh+6V5mJ6mMZXt0v3AeM5rSC
-	 heTUiWvx9v65nfDY8SFa2LatlhMI6tPb+/o7l6c+TrM7OyDW5L+rRbNF/9SO96metzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202861;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gANX9w/0wruJvkwVULFIrrl4yranIWLJJeagbYk81/w=;
+	b=wyLV+49OYKOQqqh5eCz4V6/ux7WJCKPZ1/tRdFosuabymIXDaHOnfDiT9NE+bMpvfxYF
+	 v8VwIgvclDUW2JkHGpvcyk3XMvO7A9QAWgA2quodLTDN9U8Sk/9sVD0zRXdEo34OBnI3g
+	 P3XPGgoVQHQc4DhM7Fd4pfguSj0Ng9gmBx//FLh1CCxzNMYkO1rc8M/YrkzHgk/Qp7OiO
+	 Ijol3H/qr8sq9hkfOokXPnY9lOnEnXBJgKv1kfe2u7tQUZLvgKjLUR1gMFiuit/nrA2am
+	 wln3zZFwG0JSDcp5IhXTEornp+uQZ1tfCJqGkEb6ridNzqhEWUq7JbBw0klDSyMHb3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GkTDrLIs;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUug+QZV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B7606A335
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2B7606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EC2606A329
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:54:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GkTDrLIs
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10336035e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:54:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793202853; x=1793807653; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ccajBfB1DRQJx0jrMEZz3XqV1UkUklVx5XXr8c2Z960=;
-        b=GkTDrLIsrm1vtvQLBsXeNrwfCa3oJVly33MOEkh+K9cKm/r1BqduL9IJs5nJCOwLBS
-         7WcwizkEQ3VynNSnJnAEP8q4O7SWxFpkBVzMW7Akb5C6oM3Sm3tnH1/zwTmmQ/uaolR3
-         1Ydtbvxoyig0vZiwZwfNuy4UZ8mY0+urDngIaLsVGXxWs2br7VubefsYe2sJmzjPBzR/
-         m5tEaMRyCegh54VaMe4X8UeMlBNWOPvIzwuzlvhsgIUirqcD6Tl0EMBpnrjWHoU8tFyh
-         OsRBpO5I8XmuVcea6sQKYtZR5M6RznNM9dXylb8ER4djsM6F1THF/ODKZEF53U1/wIYa
-         3SYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202853; x=1793807653;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ccajBfB1DRQJx0jrMEZz3XqV1UkUklVx5XXr8c2Z960=;
-        b=xjW2kjGTgkE3Ed9zt51Fvk+ozBQcORB6GD4Jlzt8xVw9Sm4USrBKBTzKqvdRQH75hg
-         kNP+GDzNDLGJwczt2x7U/k9XiV4vqi5DxZsOef/SXLKH702rWFPW73nEjoK9ZHRigjUj
-         0rBt9Id1UtEcIRicl3SKk1puBdvRTPK0vCbwcGjrzBB6wzFykqkfdyweXBwfbdEWA/0q
-         97W4IkSxHqSYZlBFMY+2fuEtTQIPgTJLpWngpTXWV1blbY7EPyGCFwLUm5+EX0657vh6
-         r1Cz/D4hfpqGXj73rgLnun62/F8ZyzYtJ+CdX6NL9kMElhbcllR1JoqKxD4jIA7Bw94f
-         TF9A==
-X-Forwarded-Encrypted: i=1; AKwUvByOwujnQChPFG7H7HTuSquucY2KMxILfUGGqvdcI5k/ST2K0sM8XH20kkjGTxybhBt0uxqfOo4YWObVpjw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRpDnhDQEL4wu+JCuSy6aGDOGxeNjNWU0Yvp2ohk3DvvPNpxVU
-	wBVDhqejAvMcbGA248lKHxHKzhnH07+i0tjw94pc0vj0NaeM/V5TJmbT2mP7d3mp14A=
-X-Gm-Gg: AYBFou0S5ZMpMyHIpCwTwzVzE/VJMYaU7Hm6a8fti6ZEkjVMTEhWQqzc+qdi/0KRALz
-	2PSyMUfCwUsscGa7fOygCB87RNBzRLXW2tWO6RdwOr+RcKNT2LO/jBYn/sDRsq0g7lZOdPxNKM/
-	LnVVSLnN5OGWn+UoGjWwxIt0c4Tq8NU1VLYBXqRJPAxiX45KeLz0RGg4JQY68F97lZbq/khLMXR
-	B+9TCncq0E7hlUqQd3GkhhZqnTaqwgG4/Usa7zFwRquvwvH28EC6qjbFRu6cthOW6xg2fJToNXA
-	NzBPrcMAavtAydCFRhm0pjLMEqUNM9o/5i3fqiCKcTmLDrCzly8klfjoraWaIZ0uHoBZ9dCh2dC
-	xmyHJUzbOCfFPFw6crAQF9dwD7eHXHkF+7J/S4gP/KD8U2rT8uVd74meFT5maQXNgJuSo7TVBOM
-	9u32wPwgJMY+kdKK+XD83ikBoEZfbWvNqJAJgFoQU4rIAJaO6BD9yLGh/+ndE/5GguOKCqDuif5
-	Gv1WIT09XPDzoTLT1b2dWuBKpVG8L5ypWhq3pegkEUK+QeT3vNVlSnf4NMa3h27noYdoiqYepqc
-	tfcX0tU+43AYHHc6mG5qF3ZqcQsFL95oswBoaM+D8u0Y1+KNfrtRbwwW3y9WrCaYpCNBVdr764v
-	L1QY/Rw054cE7Wpq6oldv9zd9Kg==
-X-Received: by 2002:a05:600c:1d0a:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4a9678c28ffmr61407455e9.22.1793202852789;
-        Wed, 28 Oct 2026 08:54:12 -0700 (PDT)
-Received: from z13-ek5.local ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm1468515e9.1.2026.10.28.08.54.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:54:12 -0700 (PDT)
-From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Wed, 28 Oct 2026 16:53:51 +0100
-Subject: [PATCH v2 3/4] clk: ti: fapll: print clock name that fails to
- register
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CUug+QZV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107C21F031F0
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793202861;
+	bh=gANX9w/0wruJvkwVULFIrrl4yranIWLJJeagbYk81/w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CUug+QZVCctl0wiSptzHfiUvSnNJOdKbn/BOEyCFL2AyFSBZHq3uluQ1cyrQ+1k8H
+	 VNJQlI0XoBnqFQ7UJjYM07XqOhv5uaHApY4WQaHdETlQEe4LFCHJXtUhhgSEv3Ff9y
+	 ezz40K5db8MlennFMiimDJiul7kLrxGKWO3ICExEAa74aAh7q1Sr3QhtENnnmF0OAU
+	 trAsV5LQURowif2lfe9YjsSn2W2wbDbfJWgxyz2BFdP/9i23/7CU7MN2c68hKhKQe1
+	 Tzq/e60tmNQ0UdsOoAEBBrNL0BOF2H8ocxxskCd+7p/1hvziNeqJwkJTuU3l6H/ctG
+	 h6K8XbXmgmh4g==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso915513e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:54:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzldUSP422tDvkUttOmHvSac9ahkSEk1a2pznsY9y7UNXwydfvWHv1/B+lQ7LEYKVF98gkfaIeBI3KvwA4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoldaJsoesFG6BzzIfP76kHutXMY0hN+tfz6GHOIb5RCRVlMFm
+	ME+hQEiZYkZostg43shFC22JFzmikDdQ4WselWuL3DmX8S5YXX+GmPNWOlg1zWQN85QhG1l/Hpb
+	Nobji5h+t7er9edpJpYJrZHr/X3oSz1Y=
+X-Received: by 2002:a05:6512:688b:20b0:5bf:d063:608 with SMTP id
+ 2adb3069b0e04-5bfd06308afmr270261e87.17.1793202859544; Wed, 28 Oct 2026
+ 08:54:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,53 +59,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-patch-ektor5-dm8168-clk-v2-3-dc6bf0fabae4@linaro.org>
-References: <20261028-patch-ektor5-dm8168-clk-v2-0-dc6bf0fabae4@linaro.org>
-In-Reply-To: <20261028-patch-ektor5-dm8168-clk-v2-0-dc6bf0fabae4@linaro.org>
-To: Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Tony Lindgren <tony@atomide.com>, 
- Michael Turquette <mturquette@linaro.org>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Cc: linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793202849; l=826;
- i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=Slbv+1YP2F1a+aBq2BJ9DLP7Wji77v+hSEpGjiXeytg=;
- b=O5OWEnIaLu4SaaALVpToqLuve4ADF6Pi4kM+qtBiKp67uCZLvnY7K6PnWC1gqUsH3oIg/uxU3
- Ariczt9c58VAr4RVCBk7U4KvTD2dOQs6lR0U7IniniqERExBUAerwfS
-X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
- pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
+References: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
+ <001101dd6631$6167dbd0$24379370$@telus.net> <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+ <004401dd665c$97eda060$c7c8e120$@telus.net>
+In-Reply-To: <004401dd665c$97eda060$c7c8e120$@telus.net>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 28 Oct 2026 16:54:07 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gvruWF7VhVuLrn4AgV9_n6Ayektrh+jB=eLY79ufw4UA@mail.gmail.com>
+X-Gm-Features: AclHuK-Icinm4JvJ45RiL5mDQBZ5mfoMZRC5LyoKV_3cvcCC7oWf9BvwWeYFo_Y
+Message-ID: <CAJZ5v0gvruWF7VhVuLrn4AgV9_n6Ayektrh+jB=eLY79ufw4UA@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
+ without HWP
+To: Doug Smythies <dsmythies@telus.net>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Zak <zakbrightonknight@gmail.com>, 
+	linux-pm@vger.kernel.org, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Rouven Czerwinski <rouven.czerwinski@linaro.org>
+On Tue, Oct 27, 2026 at 10:46=E2=80=AFPM Doug Smythies <dsmythies@telus.net=
+> wrote:
+>
+> On 2026.10.27 Rafael wrote:
+> > On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies <dsmythies@telus.=
+net> wrote:>
+> >> On 2026.10.27 07:37 Zak Brighton Knight wrote:
+>
+> ...
+>
+> >> I confirm your findings and tested your proposed patch. It all worked =
+fine.
+> >> I had not seen Rafaels's reply about a possible race condition until n=
+ow.
+> >>
+> >> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
+> >
+> > Passive or active mode?
+>
+> Apologies for the incomplete report.
 
-Improve the error message when a clock fails to register by including
-the clock's name and its parent's name for better debugging.
+No worries.
 
-Signed-off-by: Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
----
- drivers/clk/ti/fapll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Passive mode has the issue. Active mode was fine without the need for the=
+ patch.
 
-diff --git a/drivers/clk/ti/fapll.c b/drivers/clk/ti/fapll.c
-index 8ab9acd57b60..d360e9d986c3 100644
---- a/drivers/clk/ti/fapll.c
-+++ b/drivers/clk/ti/fapll.c
-@@ -520,7 +520,7 @@ static struct clk * __init ti_fapll_synth_setup(struct fapll_data *fd,
- 
- 	clk = clk_register(NULL, &synth->hw);
- 	if (IS_ERR(clk)) {
--		pr_err("failed to register clock\n");
-+		pr_err("failed to register clock '%s' for parent '%s'\n", name, parent);
- 		goto free;
- 	}
- 
+Thanks for the update.
 
--- 
-2.56.0
-
+Please check the patch I've just posted if poss.
