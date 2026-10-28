@@ -1,94 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180850;
-	b=HW+7uNvJAkIFzxP1XxMWDYkLXyuRFWUKtyA0M40DpM2+hld4XoShipa+NRXBzx8DmLxF
-	 aXI1qIlzUSwCpl2KZIsCes5zS6siFTYpnY3E10nUrzzhva1mUsRuoA88sdojTS+mDH7vc
-	 j+0FtFMbNb4LNWaHuom2CaBBrUosek6PV4YcizL3PL4bhyzom6f0Sj9XU0gszON7t5bLV
-	 3rqNieJy69aSkcZhmVyd5OHdu9pomXiu2Lqm14PdiTVMOkZITzHPtAcyYMjH0mJw8rqPa
-	 STGqcGu5yigRSLvJese0jugXy89oSpbaPzMcr4RVGAGpsqQgv3jfsyACKzWxYXH6yvw==
+	t=1793180866;
+	b=Apenv3UhFPWFTzvQ9AdgjzMSCGVpbrluue8dT+EEqHuckiwfOPy/VuqV5eCFLQYzmXNN
+	 Lhi/fIiHPYA4k3i9s6MpMlHVjpY36m3/7XJzvE1aejG/DalzBizPGiPedpBGaq96NNtBC
+	 Z5hrq9WoKMJI0hzBM9jk/bXY6ctCDJfgoFr/p7WVrafZ0+WcWF/tDtnu994010I7xB1Lc
+	 IK2HfKdnPvTT1wAMLMSbrSFxMKtpWQHAPVSXk7VYyQcjL545whuNub68DSYXaIVtWHoIf
+	 I39lhGQLeAezA2Gj/gPSxDUrla0/7oCQgZTBDouzy7q6+2DPooN2tlAuVa8wF9xm33g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180850;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=nKYFxQRH1vuVIe7/MLAy4kkLQU+A9Me4O9WKmx61f9U=;
-	b=OzdztJsnyFDv23c7OYM1Raqway8UBJONqD6R1XmlpEeQd4/iA7sAcWcfFftKEiAXalar
-	 o9pZBrk4YbSyM8PhoQO11Tk5z5KMmBBKzKz7Go3zUGaWqFm09V3PjFhmPF/bsdqwDJ/LX
-	 XrjcSIh3fFXQObCBwHHbzQHGcpiVRbNR3moECAh/igH2VUtkP5D3v9PKzsO6Q0qgY7y1d
-	 hrgNDoULJhlLk/+Yo2BLmpsjTkOBL9WmTab5qBjpTIFlUcGJiqvltEy6KXrdf7lHX8kxu
-	 Lf5u2UDjTimkGnx7Pg/Pk6YxwpnIpYG6WSLq/t9r22x1+jKoobjTmRANRlveEVtdjcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180866;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=jwu93O0r5jyG0xwNtXyzwSpYXaM7JMXv4NzJ2EU/I4g=;
+	b=NfS61kYgsP3hYYsyxiCo5L6Hq+EDa0jqNls/9a5O4cHAfKKl3lqKyBCSfzLlC+xLTZH7
+	 45s0kIwDqG8UsKRG72KhFKBf6vhWvmJMI4pD36vuTh6qistUuisY2H4Y6PFM4Qcq27jAB
+	 gaf7O52mdR4Y9S2WbCXIufTNLEa2mYhLv3oyOmrbk02NGMcMePKzmzOPqG5gMeZ/6O1Qt
+	 /4LY4x8fCtPkplYXzQqe+UZPdEkgEalxG+PBOGtRt+F6MwpP6Exp2WWzXtNKur0lh33Hi
+	 S7t95P8b4Fyy48cCtCOc6VO2bL412QDtXLhPY+arf5xKSmH4LzgDKTRP0LU0mvNI0Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wxh7nxPZ;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9030E606A31C;
-	Wed, 28 Oct 2026 09:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9030E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wxh7nxPZ
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jF2b05FVDzKnB8;
-	Wed, 28 Oct 2026 10:47:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793180844; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nKYFxQRH1vuVIe7/MLAy4kkLQU+A9Me4O9WKmx61f9U=;
-	b=wxh7nxPZ3iBUYyzqOmx2XDE76ZphfykyCRuAosYPWP47z0Pzf1bVpl04m5X6WPVpxqDb76
-	C9IMwFNXAO0Bc/rF0AAjmptGHmYtscrD+MmJRaj/SMYdBhD9TAhIG4oNy7QPVoISU0+tSj
-	562hrglSu9820+OAFhoF3wrPOV73urXb1ouVgfb5bJhZdcOcsMoyOXcAKr1+nU1H2xdUCj
-	ukuSIDc2A/mpXaPld+JwbzLD3X9yYXpOQPYSOTLZX1z3YZZv6pKWrKVn0s2f0PVZWxFC96
-	6SS7e7Jgkb/AWiKJedqhGOu5sXW+OwHfal+83mB+gJZ1DHVXpTo7rR+UsLY3ow==
-Message-ID: <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Wed, 28 Oct 2026 10:47:18 +0100
-In-Reply-To: <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
-	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
-	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-	 <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-	 <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFDE3606A31F;
+	Wed, 28 Oct 2026 09:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDE3606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.172])
+	by gateway (Coremail) with SMTP id _____8AxS_CxxOFqwxQaAA--.10356S3;
+	Wed, 28 Oct 2026 17:47:29 +0800 (CST)
+Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJAxHs+wxOFqB+MwAA--.11789S2;
+	Wed, 28 Oct 2026 17:47:28 +0800 (CST)
+From: wuqianhai@loongson.cn
+To: bhelgaas@google.com
+Cc: wuqianhai <wuqianhai@loongson.cn>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tzimmermann@suse.de,
+	javierm@redhat.com,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] PCI/VGA: Fix boot device detection after framebuffer relocation
+Date: Wed, 28 Oct 2026 17:46:34 +0800
+Message-Id: <20261028094634.766723-1-wuqianhai@loongson.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,190 +54,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 16b7de5af4c5b86025a
-X-MBO-RS-META: rb53xxngg1k75mcmbijsukd3yebomd1t
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxHs+wxOFqB+MwAA--.11789S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uryfKrWrAF43KF1Uur4kGrX_yoW8Ar1kpF
+	Z3JF4ayFWkWr4xGrsFga4vvFyrZa1kCa4FkF4UKw1F9w13C34jya4rK3s5K34Dtrs3A3Wa
+	vF13Jw1rCFZ8GFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Eb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JM4kE6xkIj40Ew7xC0wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
+	JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
+	v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
+	67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2
+	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
+	Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8vJPtUUUUU==
 
-On Tue, 2026-10-27 at 15:59 +0100, Christian K=C3=B6nig wrote:
-> On 10/21/26 14:49, Philipp Stanner wrote:
-> > On Wed, 2026-10-21 at 13:53 +0200, Christian K=C3=B6nig wrote:
-> > > On 10/20/26 17:36, Philipp Stanner wrote:
-> > [=E2=80=A6]
-> >=20
-> > > >=20
-> > > > Nope, I want to protect shared data, which is the signaled-state. W=
-hich
-> > > > is currently a race-condition worked around with RCU (and sometimes
-> > > > with manually doing the right thing (locking!)) [1], stemming from =
-the
-> > > > fact that the fence's spinlock is not used consistently.
-> > >=20
-> > > The fence spinlock is consistently used for protecting the fence
-> > > signaling, in other words it always happens with the spinlock held,
-> > > same for adding callbacks.
-> > >=20
-> > > The only thing which happens without the spinlock held is the fast
-> > > path checking of the signaled and enable_signaling bits and as far as
-> > > I can see that is ok as well.
-> >=20
-> > No, it isn't. It makes the API fragile.
-> >=20
-> > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
->=20
-> This bug is exactly what I'm trying to prevent here.
+From: wuqianhai <wuqianhai@loongson.cn>
 
-What is your proposed strategy for preventing it?
+PCI resource assignment can relocate the firmware framebuffer BAR, which
+leaves the base address in screen_info stale.  The VGA arbiter then calls
+screen_info_pci_dev() from vga_is_firmware_default(), which fails to match
+the framebuffer against any PCI device's BARs.  As a result, the boot VGA
+device is not recognized and the arbiter may select the wrong default
+device.
 
->=20
-> This problem only exists because we call the backend operations with
-> the lock held!
+Fix this by calling screen_info_apply_fixups() in vga_arb_device_init()
+before adding the VGA devices.  This relocates lfb_base to the assigned
+BAR address so that vga_is_firmware_default() matches the boot device
+again.
 
-Nope, this particular bug exists because Nouveau thought that it can
-drop its reference when dma_fence_is_signaled() returns true, which is
-not the case, because the fence backend has a race condition there.
+Tested on a LoongArch platform, with vga_is_firmware_default()
+additionally enabled for CONFIG_LOONGARCH via local changes.
 
-A race condition that was allowed for performance reasons.
+Fixes: 337bf13aa9ddab8ae47f2677ab75cf69ae33437b ("PCI/VGA: Replace vga_is_firmware_default() with a screen info check")
+Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+---
+ drivers/pci/vgaarb.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index 3e58b2c05c85..aca594651f58 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
+ 	int rc;
+ 	struct pci_dev *pdev;
+ 
++	/*
++	 * PCI resource assignment may have relocated the firmware
++	 * framebuffer BAR. Update screen_info's lfb_base so that
++	 * vga_is_firmware_default() can match it against the boot
++	 * device's relocated resource.
++	 */
++	screen_info_apply_fixups();
++
+ 	rc = misc_register(&vga_arb_device);
+ 	if (rc < 0)
+ 		pr_err("error %d registering device\n", rc);
+-- 
+2.34.1
 
-> What nouveau does is to delegate the cleanup since it can't do that
-> in the signaling handler because of the lock inversion.
-
-What signaling handler are you referring to?
-
->=20
-> This problem doesn't happen any more if you just completely drop the
-> approach of calling the backend operations with the fence lock held
-> and then re-structure the cleanup handling in Nouveau.
-
-ops->signaled() is typically not called with the lock held. You might
-be referring to ops->enable_signaling(), which is consistently locked.
-
->=20
-> > 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free
-> > of VM")
->=20
-> I already discussed that with Simona back then. Simona actually
-> explicitly rejected my approach to take the spinlock to check for
-> signaling. Pointing out that amdgpu is using the API in a wrong way.
->=20
-> The problem is that amdgpu doesn't track the callback structure and
-> so can't remove the callback. It's on my TODO list every since to fix
-> that miss use of the API.
-
-You mean the issue is that amdgpu cannot deregister callbacks?
-
-I don't see how that's related. The lock-unlock-cycle clearly ensures
-that amdgpu cannot continue while the fence is signaling.
-
-To clarify: our conversation circles around two partially independent
-topics:
-
-a) the signaled-bit is read without lock-protection as a fast path in
-dma_fence_is_signaled() and
-
-b) the ops are not consistently called with the lock held.
-
->=20
-> > Tell me one thing:
-> > If locking is the wrong approach, then how come it was added to
-> > literally all callbacks except for set_deadline()? Seems to me that it
-> > must have solved some issues.
->=20
-> Well, it's because concerns with the lock inversion brought up by
-> Alex and me was ignored and the patches merged anyway.
->=20
-> This is just another one of those DMA-buf design problems which would
-> have been fully preventable if I would have clearly NAKed that stuff
-> from the very beginning.
-
-My impression was more that central design criteria for dma_fence (like
-module unload of the driver who issued your fence, which is designed to
-live arbitrarily long) were ignored, there was no clear guidance for
-drivers how they should use what callback, and then driver problems
-were solved in dma_fence, for instance with this shared lock. So same
-story as with drm_sched.
-
-If *everything* would have been locked from the get-go, that would have
-forced drivers to design their locking correctly, and decide wisely
-what tasks they want to perform where.
-
->=20
-> Back then I made the mistake to believe the argumentation you come up
-> here as well and so I don't explicitly rejected that approach, but by
-> now we have strong evidence that this was a mistake and I'm trying to
-> fix that mistake ever since.
-
-Well, I am a different person with my own background that informs my
-thinking. Please keep that in mind.
-
-The "strong evidence" you claim to exist has still not been shown to
-me. I show you concrete bugs that we could have prevented, but the only
-piece of code you ever showed me where something would break is the
-list_del() in nouveau.
-
->=20
-> We should have never taken the lock for the callbacks in the first
-> place, this just made the implementation much more complicated and
-> caused way more problems than the few raised by putting the ops
-> pointer under RCU.
-
-Lock-inversions are not being solved by just not taking the lock, they
-are addressed by having good lock design. We recently solved exactly
-that in the Rust JobQueue, where drivers also reported lock-inversions,
-but we could eliminate them with just a few discussions, discovering
-that the driver does not need these locks when interacting with the
-JobQueue.
-
-Often enough btw the only object the driver really needs is the
-sequence number anyways, which can trivially be passed and shared
-around.
-
-Now with dma_fence, I strongly suspect that the problem came to be
-because of no clear guidance by dma_fence as to what the driver must
-and must not do in its ops implementation.
-
-The only evidence I have ever seen is the fence-list-lock, and it's
-just not clear at all why any callback would need access to that.
-
-
-Let's walk it through together, shall we?
-
-ops->release() and ->wait(): deprecated
-
-ops->get_XXX_name() -> never needs driver locks
-
-ops->signaled(): "Driver, here you read an atomic integer, the sequence
-number, and tell the fence backend whether this fence shall be regarded
-as completed"
-No need for any driver lock.
-If this particular driver also signals fences through an interrupt
-handler, it can take a list lock, then signal the fence. The ops must
-not do that.
-Why would a driver need both modes, sw *and* hw signaling? And why then
-is it supposedly the case that both paths need to keep a list updated?
-
-
-ops->enable_signaling(): "Make sure that this fence will get signaled.
-Register an interrupt or schedule a work item". These locks also don't
-interfere with the fence-lock.
-
-ops->set_deadline(): clock up the CPU frequency. The only implementor
-trivially does that through a work item, too =E2=80=93 after voluntarily ta=
-king
-the fence lock over the entire section.
-
-
-As you saw from our recent amdgpu discussions, the confusion of what a
-ops is even good for caused drivers to mess around with the fence
-directly in their callbacks, checking for the signaled state etc.
-
-It was too much freedom that has caused the trouble. There are no
-canonical solutions now.
-
-
-So except for updating the linked list in ops, can you show me any code
-example where a lock inversion would occur? I'm quite confident that it
-will turn out that the driver has no good justification for performing
-the related acts in the ops in the first place.
-
-
-P.
