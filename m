@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184168;
-	b=iXlLsU6eon0Ud3cVOGtLZI2YBq7PZP3LljGrTGDFnTHMKVuiOh+Pp1Tj3REnPD2HOHS+
-	 MyrpckpNku7WWalc1oLOqv2undWuzXxpns93M6dI3df9uhYdttUqmyFqhCuHsMzP2YM99
-	 zXHovue4duWkq/crU96n6DDZQdRsLnLFmPzD8Vb7tSxTD26BsIqwFjlgFEjOKwV86GzT6
-	 MtB159kzXl7ohM8cZw2Yju9e5tr9vV0hhVSTnU/TDae/5360vrKWIjzLGdqK2Ya0sPlFD
-	 6y/l6MsKa7UiYEDYQ+mpargQJqJB3KCIseXn1lnHOMzWt2xnHHXvxIZNS8Uljo6xHdw==
+	t=1793184174;
+	b=ajlKN2TL05tN9q2Azg/iF+HoZZ2p4aT+3pe6WjWvE3oIGP10Olw6K1Y3WDDuQZuN7/Re
+	 g2V+6BcX6IhMBKkCzgV4rfJoJeONseC3BgH6ogCWPJFKeP/iUeSxr/QiXib4gBWoWh4ob
+	 aik3zXf7bYzFyJLdRZxNwhLyREGhBuBTEAuNHE/gJ5XkfH0t8fIuJEeMViepufzUBc6Op
+	 OR6gB6aMVHnPANPONZYydRAvpL7EUgmOhMB1bFqUIU+exj4vZMzg9zJFQtnC5BbR2E15r
+	 TnGFIxanzj3bgvgt95gQFLpwrjGWn+apjdpeUgLvp2VECzJ8VgWWttKBhVcbxj307QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184168;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Last-TLS-Session-Version;
-	bh=G7SGsnjmO2AtGa1YhQju9ah0Ewiw5mAJClKeUYxhBsU=;
-	b=bfeMWEqx050mykSlAu/zzWK8Vl3NOoRZd0hiJ61Nh96SkQv9tZKOWha618wUXVHLfCCL
-	 x78hDUTWoWBRzKgwg6N10uzgKKLbGPNb3A+m363Z8VueBcBHwXaOa4iEsKHTfZ0k7sDwY
-	 p/2XR/qBei/XIlzOInm3F9w3Q/15pAkwaEoRC36T+FU/dHhHe617eWKwx2EMbPjHq0L3L
-	 PZxBjDYnsXgEKe6SokMxx7ODvZfw6ALCeAyns4tSROBjy9q4pnoWr/SfGOTgtSAx/rBK4
-	 h9UX0MbOuHVY7B8iGeoNqsJKso8Ne2kbxBSIbcH3guMbQVBxU9rVzBI2UzCJvecPT1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CHKlt9EiCZBoeJAf8lBIIGBUp/VrvuHtQnHUB1Jp6wo=;
+	b=2gatmFCvUryqXBxGoxPAR6LKjt5Alp2CCRgoXqrV01D8XUAAeK8lhdVFBeiYuutaOE+D
+	 q7nREJckBQK9MmrugwrUR5wU3F2RgQz6vATm9sma1MdncT990Q9v6Yneo9YpUSYoJ7PyB
+	 7AvgTgfFBT4M329knC3XmC0i35pVhd0jHCDVx8d3R/FpB4rbqeqhr71Fiv5r6O6SroPP9
+	 +OmYkgrdPN5oKv6arnT5iyVFVgzU26XymDvuE6Kr1USRcqGIBnJODBNWhYwWUGTaAg8nX
+	 ycYmppwN7aDevqxE6xEd9S9BBBnIsoyIWVSpGfRfs3/CReP3qUBP8hL5Ydzqs7prA4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=f4gB9JfG;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0L04td+;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F87606A325;
-	Wed, 28 Oct 2026 10:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F87606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABE2606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ABE2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=f4gB9JfG
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 277B84E412DD;
-	Wed, 28 Oct 2026 10:42:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D854560769;
-	Wed, 28 Oct 2026 10:42:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4BB39103290AC;
-	Wed, 28 Oct 2026 11:42:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793184162; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=G7SGsnjmO2AtGa1YhQju9ah0Ewiw5mAJClKeUYxhBsU=;
-	b=f4gB9JfGl2MsxLy3brpGXg+G5YiC8friNAVRIR/pW0cXoVvzpMz9F+2Mx75zlxUblt3kwR
-	RILbkCBaOb/DYo01a7OLZZXjoaFBgDpZhvhVAhwAcdF4lGFadI4Wcsg6VynphzAgQRYCE+
-	52aiaEBTHrRUtFV3mA0CueMUb90PvOPX4Yt2Cm0rq0w9T6bx5RIe7zzPGyZ49rRK8laPJ5
-	15ejyqmkRsTG0uLEKPqlNSRil6lZpLtF2kMzPfIX+Haj4Z7VKdPrKpQ89H1WJWVzCuHX2d
-	aSDX8mxdhwJ0tjURlxDwH3CDLJv8UzO3SKgywCOdeOHrR9hJUXgv4KktJcFK0Q==
-Message-ID: <fdc79c99e3045635841f68c89fec3b9d9e2f7233.camel@bootlin.com>
-Subject: Re: [PATCH v4 0/7] spi: Add support for panic mem writes
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
-  Takahiro Kuwano <takahiro.kuwano@infineon.com>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Richard Weinberger	 <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, Mark Brown	 <broonie@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme
- G . Piccoli" <gpiccoli@igalia.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, 	linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	linux-spi@vger.kernel.org, Bharat Bhushan
- <bbhushan2@marvell.com>, Sunil Kovvuri Goutham <sgoutham@marvell.com>,
- Tanmay Jagdale <tanmay@marvell.com>
-Date: Wed, 28 Oct 2026 11:42:33 +0100
-In-Reply-To: <20261016102917.171095-1-paul.cercueil@bootlin.com>
-References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0L04td+
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-369f33df08eso1547269eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:42:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793184173; x=1793788973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CHKlt9EiCZBoeJAf8lBIIGBUp/VrvuHtQnHUB1Jp6wo=;
+        b=t0L04td+ucOxAZJqC2/wwirF8OMhgrmv3OjGzBf3vaZM7KhCerUIlyH1p2bythR+nW
+         0HmnFOW3cOg6+KQO0FV4BezZNPYBXy5g6X36aE5F0+BwPHOFMkTXn2KMz+TTPktegUDH
+         nIMZ6C9yBZCDAeezY+bH0mgd2gMGdaU2aOL4rf/0/e3bbGrp2j03Kygqp/wXEZI2PLXd
+         O64tQYlqxGho7LlVy+rqBn3QubURgRlVZdHBvkZnn1hTZ/mqa34vnBh6iZsCfqOIticU
+         Jwq1t9ttrVwsC2YwOQjJucaBzXY3IcYBZwbFhOeC5kMvXYt/c9ILTXkbDDcN6tJThxPX
+         j1sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793184173; x=1793788973;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CHKlt9EiCZBoeJAf8lBIIGBUp/VrvuHtQnHUB1Jp6wo=;
+        b=11tm4iDNdPwQGz2I4wRuJbTbuk+fUrgbHDUK8ssnBc/RSknphiIIAzzQyQB4Sbf/gs
+         EKVSUjwchlSlzigLsHZ8dEBkbSi/AHPMbSGTwSTBEOO3mENtSoU3EAiSMzMQdZwoLmr+
+         hjygitGBitos5LyzQc3WQNv710IOEjxJv2aAJHtsRyNZMvZSzvB6sZPEur2TFwshP2VZ
+         gmEiXzQ/kIURwDOIu+AhX4D1x+4YiDN4isWuY85/a50AxcyMw3aF91Yd8/sIbTlcHsCV
+         IQtF8Y07IZrQqbjte0mC/I+Kzt5yC+uCM3RV4Doen6JLU7Fu0rfWwodtAhOe5Ck0UwMO
+         85KA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXHzui5faxwRzkZL6d4cs5k3YYztXB49cfpTLTTRmsMNtdVfPkZfthDPsftk8sf/5EfZepmeo3bXUtvFo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZYNKc8bKwfRPQcwrW4wNQchDk+3u08xIn/viJrZmi37cb67Km
+	KVZ9nT+RBgXwVRvG2VV/xrHF4S1onpq4/pwzsuclTilMjS9LTUi3MUVB
+X-Gm-Gg: AYBFou1EzvA8Fy7Wix+bkM+3fSLLCaIkzM0W+Ifv8nCIEJdJJ3WUK+rSa5ZPxfsNzZn
+	GDmqjcDiCqQrySKeFZkQKCK3kygBj9UXUOKVJjHJDwLmd5YsaQ5mBnLCQk9qHV8uRWUbhD/cgTh
+	WeKBtLeiKPhI/TmvchXeL937HdZnXGrmSGd1BM5pCdIo7CjeDvTGj60IIna9LyDcWnH7oFKYHNy
+	gBhiMpPej1wviX1bZyNLuwnfgUC06A2QKrmxB2CwCQiRbhdQOlK61mz47BHGsqaPArwvz1fN6ku
+	lcz7FLanX+nFFhWlt/qOqYWqPecaBQSe/yQcw0FIzZhNIoiEi9sNRv4xCZur32zk+1Fkg/fiXqr
+	T+US29PwFbwBV6pypWShcp/2HjNFBPhIy++LPO3BV0wgL/0GgTBRJXuoMgLsk4VVnLw9yKwCO2a
+	1l6t4lhUz695FtYWwBanJaoKEpB38mFfGHe1byAFxeHkuFP8eJZme6nKbXNHg7h/FKiuD+ntGhX
+	CFSGbsUmog6riEmKExqaWjZ3BUKTA2cxQMMazgzLa7CBIB7vISX04dN3eAWFS3BPZtYKwf3MRHk
+	XoJONx0UXhn+BAEswtg46PsIMEW+U+Dq27YF/+HiC3IlgxbnqqPp6U34L9g8uxlcpEp8+JMz/cj
+	H5zMly7flVIuQjlHfyEzxeJwsHpZBOizHDQ5fSmrpeU5z
+X-Received: by 2002:a05:7300:d209:b0:36a:15ee:c209 with SMTP id 5a478bee46e88-36a201080b4mr3009186eec.23.1793184173342;
+        Wed, 28 Oct 2026 03:42:53 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238da3e1sm7531469eec.8.2026.10.28.03.42.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:42:52 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 2/2] ASoC: img: img-spdif-in: Fix clock leak on probe failure
+Date: Wed, 28 Oct 2026 17:42:23 +0700
+Message-ID: <20261028104223.27007-3-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028104223.27007-1-phucduc.bui@gmail.com>
+References: <20261028104223.27007-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,74 +103,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-I have a second patchset for spi-cadence-xspi pending (unrelated to this on=
-e)
-that happens to have some Fixes: tags, and those fixes conflict slightly wi=
-th
-the changes here.
+The error path of img_spdif_in_probe() only suspends the device by hand
+when runtime PM is not enabled, and otherwise relies on the asynchronous
+suspend request queued by pm_runtime_put(). The pm_runtime_disable()
+call that follows cancels that request if it is still pending, leaving
+the sys clock enabled. This happens in particular when the reset
+control lookup returns -EPROBE_DEFER.
 
-I'm thinking that in order to make it easier to backport those fixes to old=
-er
-kernels, my other patchset should be merged first. So I guess I'll v5 this =
-one
-with a rebase once the other one is in.
+Disable runtime PM first and then suspend the device by hand if it is
+not suspended, as img_spdif_in_dev_remove() does. On the -EPROBE_DEFER
+path, call pm_runtime_put_noidle() directly and drop the err_pm_put
+label, as there is no point in queuing a suspend request that gets
+cancelled right away.
 
-@Mark, do you want me to wait for -rc1 to send it to you?
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/img/img-spdif-in.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Cheers,
--Paul
+diff --git a/sound/soc/img/img-spdif-in.c b/sound/soc/img/img-spdif-in.c
+index b630644f20cc..d60eb1da4ecd 100644
+--- a/sound/soc/img/img-spdif-in.c
++++ b/sound/soc/img/img-spdif-in.c
+@@ -722,7 +722,8 @@ static int img_spdif_in_probe(struct platform_device *pdev)
+ 	if (IS_ERR(rst)) {
+ 		if (PTR_ERR(rst) == -EPROBE_DEFER) {
+ 			ret = -EPROBE_DEFER;
+-			goto err_pm_put;
++			pm_runtime_put_noidle(&pdev->dev);
++			goto err_suspend;
+ 		}
+ 		dev_dbg(dev, "No top level reset found\n");
+ 		img_spdif_in_writel(spdif, IMG_SPDIF_IN_SOFT_RESET_MASK,
+@@ -763,11 +764,13 @@ static int img_spdif_in_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
+-err_pm_put:
+-	pm_runtime_put(&pdev->dev);
+ err_suspend:
+-	if (!pm_runtime_enabled(&pdev->dev))
++	pm_runtime_disable(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		img_spdif_in_runtime_suspend(&pdev->dev);
++
++	return ret;
++
+ err_pm_disable:
+ 	pm_runtime_disable(&pdev->dev);
+ 
+-- 
+2.43.0
 
-Le vendredi 16 octobre 2026 =C3=A0 12:29 +0200, Paul Cercueil a =C3=A9crit=
-=C2=A0:
-> Hi,
->=20
-> Here is the v4 of my patchset that updates the MTD spi-nor code as well
-> as the spi-mem code, to add support for panic mem writes to a memory
-> partition configured as pstore.
->=20
-> This revision adds a workaround in mtd/spi-nor to avoid a call to
-> kmalloc(), and fixes a kernel doc mismatch.
->=20
-> Changelog:
->=20
-> =C2=A0- [2/7]:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - Also update kernel doc for n=
-ew 'timeout_ms' parameter
->=20
-> =C2=A0- [3/7]:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - kmalloc() is not safe in pan=
-ic context; reuse boucebuf instead
->=20
-> =C2=A0- Patch [1/7] and 4->7 unchanged since v3.
->=20
-> Cheers,
-> -Paul
->=20
-> Tanmay Jagdale (7):
-> =C2=A0 spi: spi-mem: Add support for panic mem writes
-> =C2=A0 mtd: spi-nor: Wait for NOR ready with poll_timeout_us()
-> =C2=A0 mtd: spi-nor: Add support for panic writes
-> =C2=A0 spi: cadence-xspi: Clear "SDMA ready" IRQ flag after polling
-> =C2=A0 spi: cadence-xspi: Add irq-less support
-> =C2=A0 spi: cadence-xspi: Add support for panic writes
-> =C2=A0 spi: dt-bindings: cadence: Make XSPI's IRQ line optional
->=20
-> =C2=A0.../devicetree/bindings/spi/cdns,xspi.yaml=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 1 -
-> =C2=A0drivers/mtd/spi-nor/core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 128 ++++++++++++++----
-> =C2=A0drivers/spi/spi-cadence-xspi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 114 +++++++++-----=
---
-> =C2=A0drivers/spi/spi-mem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 42 +++++-
-> =C2=A0include/linux/spi/spi-mem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 5 +
-> =C2=A05 files changed, 209 insertions(+), 81 deletions(-)
