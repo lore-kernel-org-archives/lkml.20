@@ -1,105 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196365;
-	b=poh5mzNXxumml6ynCxBvLKZN8mXCsjWvZ3Wsqzb03UTqBSi1ZXmFnzfetKeFUYhs/0j/
-	 VKZeTmx/lgGG9UMKi9/0AEEzsiufYFipcll+Vgo6FbqLsirUIZJZLtjQQL2rxhDIgBNiB
-	 1EpiZn4A3ZZu8YIxz5Xy2TBJkFRjtJqcUbW+fJ6z1U4Bi1t1uZ+wgCmYYck+sDyrZU7YO
-	 nzZpSk3lCS3kxwXzsmD9l4wTjGQrHKTco6EeVQYqW7QxknfAnj/kQfkPJP5HyajqPDxfn
-	 gDEJHvYeRXorA77gIGHym09h3I6G9IwRvU5Ui9oDz7d2u1Vjt51LeFG+meuv0xEaNMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196365;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793196373;
+	b=FhenWT4HfTbTNToFtoPgYHSZ9kzHsRcvlPiqNrVNB0v3eJxg2EEk+zSUNTLy3JGXglt1
+	 0/cDgwck/KhKWspjKESXIsqaf+3EYAP8QJz45/msh+/et/Ldx3l7P70jKMsZhDFvBZGhJ
+	 yNH5K7Od/ysCEyDcO3RmXCmMWSMq28csxolLinIzrW2BK2yWKonUDVfjhJZh/71T8miCJ
+	 mWH7iotjfm8C70Wmu045ny7fBG5ioKARPMhPvjiy85VMuVXI04i1cj3ccqA5KQq3gxvHe
+	 BBIDFmIrGEHHGeeLSdlMmtk9rqGt/XsSH6pW4gQWAMm7rZOfN+F9m5r4ryUi0J866KQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196373;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
-	b=ikoc6DFgjBwgOQeuMypB42RVw4IjKfw4s92PGRRugEd7qFXDmTR31QC3nHlv8skudJ+b
-	 m8IG8HWBqB3bXWJ7zcghA5lwJeFi75Z3Og3LVsAFsrY2hcHewxvGZwW8gIg74E5d98FcX
-	 EouPYsLhTA/IF4JI73BdDznVKpa9sBaMbE6MRJH8Gq7N5pRq96ECKuURZRQv8x2Vez/zG
-	 USc+z/wMVyuRY1O6uq8iNPgl+lPazn2SNdjFgeWLpUP5zKIWSvRtp41MtmO4JIe2Ysb9u
-	 CeZbm2SaevNHJXJW34cEYmKqOzgMjGgW8xqza9FZc51+sJzwJfy3ZkVn13VeKj2GW8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YydVNc5M;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XhVUa5jPeCuPjlkTbV5ixpr3E0TOAw03LN9aAir2Bn4=;
+	b=gfrjWoTorWLPxDlqCDRZ23+kw3J0DvZuwmNmnjiLNd6ZTG5jKKzO4AE6FGzlCAodTAZX
+	 lS/bq9cL3R3O3BVbii0k4KCG5cbY/uryXK+uDMAUHLQV5ogiybp1e2/kkoO89JD0/XrIB
+	 UEFQhMDz0FeF2K89sLAGOV/ax8NtfX9waL5gRe9F+ry6QU5tHR4P8t5FkEnBQwkVEIPzk
+	 5DcWJLOYIM8nuL+CTF7OC2PWl3Xl6Io3k88CNCLQbt4vJfTAOyr/yALKopPgOz/oUXF0J
+	 fAc8abO2HIAesbtc2C/fN1nTXiH5INkc1oan8aDw8epCtVEupC/dyS1KQ4Nc8+hrzsQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eMN0rMVo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6224606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6224606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB06D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB06D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YydVNc5M
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8796845e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:06:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eMN0rMVo
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so9535a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:06:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793196371; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S2PqlRup+XjOAve6RMWBXTuS/L04v23se5+mlQQZWNhhNyHE7clrJjVDz9nU/b0/zg
+         UqxoENdpHjrj+YCuzxXRk5Go/9pa8MZHJ4SnyXWKP3LROG9OTPkXdzCYr5pl9iKUEfqw
+         hacnGlsw5T6x+Lne/0IKSoFtBJHIONtDsotOVKATfpZ5XkJYV0dLrtW8schTGQ7TWVCA
+         C4rREfy/1d8UaxWprZT5TFoOpGl388FpYYrrPRiG+p7tsX9wsBVux12h1GgEBtjlEUlQ
+         7f+nGvcy/PAnuFcyG+oWVbwdjtAUhdbEiTgR+eAKlYCbMUTP/PjnGglbrFPaWo//IQAP
+         5d6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XhVUa5jPeCuPjlkTbV5ixpr3E0TOAw03LN9aAir2Bn4=;
+        fh=GIudKUQ9qsFF5gJSlyb5lfs070oDWtkdjE5GHgEOQ+Y=;
+        b=ffRYc7J5cDgdPSOFEMM/gPxjWTstcBt3BO0/iB/wJaxkyKBO6Leig+3oPEkcYFwIGt
+         VNq4KIFpF9r2HwB5OYIKcULnGXTyTfVckIv1pjIm/Z0h/yBc1Hneav/WJKpmRbSDfspR
+         sBF1UI5ZVFggZz1qoAiLzQgiYgN0xn01v9x11ucYnKsvMfk3neUlDqN1hWCrLlzxMrlI
+         XWbAWP12TsK4O8yzt5r9k2o7c0HQpVkM+lH+FKK8S/96PrXMvzKJ1nSFlqA9SwdJYR5m
+         MxiOW7im3Nm7qajTYNLCz83kuusW0Fob2xCcLkOwVWjHZyjVaKAjUL+Otflu4fg6a3Gl
+         /9jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793196363; x=1793801163; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
-        b=YydVNc5MceqShSejrFJ6Nbtu3be7qW5NHv4WumUtkz4Pyxan9pBuYLGklrIxcec97j
-         KqLu41w2R98DMnDnh/e4Rs7oRHTyIP9bj2QzNmoftVEs/c+kL7i+32izAwqh1kWkcRu5
-         HhiEO7WglZ65/Ao+0d0mvvNZkv3vp+ZvmGJRTXtT28EPYId3p8pmirSeu+6ajrV/P9ko
-         9e+eKG4VHqzicDn8IocsbMBCLapeKesDE2TiGYLjIpeOAISEDmM7Rhra31uclXHTia0v
-         ILWRx1yTrdS10eku7/MBgnRNPoJ9vdg+b+EL4X0pfTqEd/ZDY8y+QXGKFGD7QYyCgvQM
-         THvg==
+        d=google.com; s=20260707; t=1793196371; x=1793801171; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XhVUa5jPeCuPjlkTbV5ixpr3E0TOAw03LN9aAir2Bn4=;
+        b=eMN0rMVomcbHDoi1Fi3sNeSNuwHWSCwTftWgAefVogJ6CuyaupZy5b9Bt3gyV74OdD
+         M4xMJRLRiK+vf8zD4/9nnq4JpLANGh2NMN1TALhUTNuTYXi40fNcmhWDSPpraAmND5aG
+         PBrHye0dqjRVR18VeJwzqYOxCZYAjMGhTtYG2sTqCFm9CeghId1SRblGFtCFiMJXZ4B5
+         YvaI9nyNnSpjniiZB1ZLFuIvNuqhT5Pf2mKRzSS9QVSYIYsizq7VgsZdL2yc7QCQf87G
+         N3HH++mL70ujXo53FA8dbCvjdLV/nV0TZ3JuB3H+e077Tq7apyS2kC/dPgoE9UWylj4c
+         h2Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793196363; x=1793801163;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
-        b=ted53gL84RbSL50KurBPalP/Jpzf7jXsZpinndcvHs47548MqP1AWKjdSPgqc02K9+
-         WvxNe9ucxrc0RszNNKOdy8uZxhzZjgR54HBZpLx37ZlG5p2HMfwnK7Z6NL3LEcXNL79v
-         lPMn7CYWwQpm//T3cvdIrDn8x0NZI0xxKCOwbwMN2YXPBUCaArS8BNtlcBGosEkJIfFP
-         0Qzxy0lzLUvpznOA8ygLUPCeBxm32tHa6WzTqej0oAWfscBhIRX2+06N7m16S8Xa1cV3
-         tu/iFSIaHHbKRoOTVqx1WiAWtnTqrjxFajBcdx368gowpNcecbJxWIAc/2KvHm1MIOIs
-         oQTA==
-X-Gm-Message-State: AFq9FYIyInueUNR9Oz0xMW5+YIgKar/sdCCEn/5TkfPeEnJ/8EPIoN7k
-	FgcRxJHnIQLzZCmGZjAiBlsqFFPG9jtdJ0Um165K2iXuwum0g31oASut
-X-Gm-Gg: AYBFou1d7bA28dS1+tr7rA0VkmtesMw/KN08ivAZrp5SwLagJdJ1RjyuiJx1hTTqlKI
-	r8h58sQOJx5S++A6oOkOBKhh465kRKxbcZpwcEr+6gy9D5cpoVnQomxb29kUuI1lJPlkWE0ZrMu
-	BOE8l97hJ7/OXsQixkk/WA2q3rZdU6zl4LYqTj23aE1ieQdeA/fgiB5pY8zulKCz9PjVBcsAXzp
-	ZFmOrLXhO524Uo6G0azKM4GUOCK2QKMkthN7W0+Gxeipj/O1VCVSqNR7jsE4Nml+FIbZPI6vcw0
-	/FrKTM+EmY0UBegN69fea8RmDT4bXinM1H/ZQLNqfOBqQ8AF7iYgRen3VMOTHgGvF9ncPXd0qia
-	G8A+o52JSQnB5yhCovleokpjeQiwEPmijtCkrCGw6gKDm0+OieU2aBeuZWgDnJpuotfXenxa9DR
-	7lmZUzTsVxncJKvJE64R+7ZkVKM4BE1JIBB8kCSmsuqu+Ys4Y1CvhPv3LXRLELoDuRq7yD1Igv1
-	BO9jloZIPy9UGwt3agXbswKXmT1TLnqm16Q8dyPv8QaX7MlSn6PsgoyjJWwATIbdphNq4d4MEDz
-	dedil4jPtmtQr5wMTZwIW11bbwiKeTkohoOAk0ksZYbAFn56eivrFfeZaUw0q+pd/V9ha08BMik
-	DDXOplYB9pFKnn1DwH13YL45VQafCWxrK9F8Hq70V0OPzPl1KG6F9llc/oFkd5qBH78TqGUaMDf
-	CALjg5aFTeQr+oyzo=
-X-Received: by 2002:a05:600c:5308:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4a96855295fmr50429605e9.35.1793196362728;
-        Wed, 28 Oct 2026 07:06:02 -0700 (PDT)
-Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a977edc08fsm45906435e9.4.2026.10.28.07.06.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 07:06:02 -0700 (PDT)
-From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	maddy@linux.ibm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	sashiko-bot@kernel.org,
-	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-Subject: [PATCH v2] powerpc/dts: Add Device Tree for WatchGuard Firebox T30
-Date: Wed, 28 Oct 2026 10:05:56 -0400
-Message-ID: <20261028140556.130612-1-lefteris.koutrakis@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028110951.101614-1-lefteris.koutrakis@gmail.com>
-References: <20261028110951.101614-1-lefteris.koutrakis@gmail.com>
+        d=1e100.net; s=20260707; t=1793196371; x=1793801171;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XhVUa5jPeCuPjlkTbV5ixpr3E0TOAw03LN9aAir2Bn4=;
+        b=xB5ng9rOJF7sS2vNIpv9yMR+1pxlV8PZKZyNpSkJ+6yIkQU52I2jm7BrWD/KmpTTTA
+         Awg4F4rnzGTBOzzs7XretrvkkASCTq27h40ECJmOpD8FHVPZoM/oV/sXuJdRD3mnOzR6
+         /FbObP3fAeNC/Jrwvqa3NbT5VekXhZ656hEC8NMLm/JNAPzJuAbsli0IH7hvjGaaaNJ8
+         CR+pisxLLjIGAyvWhak0ys/KqVHNw3IG4dzdrvNltSLaTT/DSr5iT0R67Sk8o1h6WzLC
+         SbrW6z4uI2fCwc6ggltlcE6nRkzi/5IJeDH/IrrjddoZv+e4kG2EaJl2LmOTuAsHsyWP
+         6VvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoGjq9oUVbFj4MG8qJ7fijQmxJtrz/JzYVPSRpPEAH33ypiUWDvsjcHwhY2MLAvH3Hsups9BpiJ/uiQm4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnF2NY5gzQJ0JI5W9YxYxM/ml0WEmMqJ0iw9lDWEpuoNMQQXxl
+	e6fZ3940YWLATbQBV2DWy4Y3TxQEK1VILX16wwAK7MWvAfzS9IZb5KvXmJEaV56Ad8tnI/kZDk8
+	kBOcBLD49QhRrk20ZYWAiM+FXJX6T7MvmdgRX5m4YZVkW1HoxknlS13mf
+X-Gm-Gg: AYBFou2o3LWSAMwJ+7ZBrfNncilOgO4y4/3K/ttrSVBv0JMgEaME4Y674ZAeFWn44do
+	2BnlnuceD0uB5aLQgmw+Ln1jt7QNef/E6XulxniFDFO+Da208KcyYAKwlP9YUUkQBRiHunWVKv0
+	VHy9SibzBE9+Da+qJmErB1dOrubt+MgSAv2tOEsHbLwf5eGrCE8YNBHyJ1dp+letslq89v8dCM3
+	p6mgHPIvwToxi98olfg7O7LbfachwgxpFHZ8Pb0XGoemqVMU6R+Cs0RXHJcCp7IQDhmDziqxSVE
+	gDv8Pr9GekQAhJ06iM1rBHjlpbahAByh+A6p1Grw33gPTMkxPuCKQrZ0XTayHlXek8LRA5Fje+P
+	wuJw3BXLVBqJr3H+7AS+aDigjS97BJni1RWCs
+X-Received: by 2002:aa7:d516:0:b0:6ae:1503:5a27 with SMTP id
+ 4fb4d7f45d1cf-6b49b872a5fmr76004a12.8.1793196370614; Wed, 28 Oct 2026
+ 07:06:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,76 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-4-zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-4-zide.chen@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 28 Oct 2026 07:05:58 -0700
+X-Gm-Features: AclHuK_aEVnfXNRRUg-lFYwMwKWRYKASiTuGPMHFAH2Vod9MbJchX0sY8wu9o0k
+Message-ID: <CALMp9eT_iXLG0csWyiMHPKzEuu=a8=aXNOiu_uSbzVcykrDp3A@mail.gmail.com>
+Subject: Re: [PATCH v2 03/16] KVM: x86/pmu: Rename reserved_bits to
+ eventsel_rsvd in kvm_pmu
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
----
- arch/powerpc/boot/dts/fsl/Makefile        |  1 +
- arch/powerpc/boot/dts/fsl/firebox-t30.dts | 23 ++++-------------------
- 2 files changed, 5 insertions(+), 19 deletions(-)
-
-diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
-index ebbf301e1..0a5c8b596 100644
---- a/arch/powerpc/boot/dts/fsl/Makefile
-+++ b/arch/powerpc/boot/dts/fsl/Makefile
-@@ -45,3 +45,4 @@ dtb-$(CONFIG_GEF_SBC310) += gef_sbc310.dtb
- dtb-$(CONFIG_GEF_SBC610) += gef_sbc610.dtb
- dtb-$(CONFIG_GEF_PPC9A) += gef_ppc9a.dtb
- dtb-$(CONFIG_MVME7100) += mvme7100.dtb
-+dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
-diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-index 546e98938..6e9ec7f90 100644
---- a/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-+++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-@@ -4,30 +4,18 @@
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
- 
--/include/ "fsl/p1020si-pre.dtsi"
-+/include/ "p1020si-pre.dtsi"
- 
- / {
- 	model = "Watchguard Firebox T30";
--	compatible = "watchguard,firebox-t30";
--
--	chosen {
--		bootargs-override = "console=ttyS0,115200 rw root=/dev/mmcblk0p2 rootfstype=squashfs rootwait";
--	};
--
--	aliases {
--		label-mac-device = &enet0;
--		led-boot = &led0;
--		led-failsafe = &led1;
--		led-running = &led0;
--		led-upgrade = &led1;
--	};
-+	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
- 
- 	memory {
- 		device_type = "memory";
- 	};
- 
- 	cpus {
--		/delete-property/ PowerPC,P1020@1;
-+		/delete-node/ PowerPC,P1020@1;
- 	};
- 
- 	lbc: localbus@ffe05000 {
-@@ -158,9 +146,6 @@ sdhc@2e000 {
- 			reg = <0x2e000 0x1000>;
- 			interrupts = <0x48 0x2 0x0 0x0>;
- 			interrupt-parent = <&mpic>;
--			fsl,sdhci-dma-broken;
--			fsl,sdhci-ahb2mag-irq-bypass;
--			fsl,sdhci-adjust-timeout;
- 			clock-frequency = <0>;
- 		};
- 
-@@ -410,4 +395,4 @@ ath10k: wifi@0,0 {
- 	};
- };
- 
--/include/ "fsl/p1020si-post.dtsi"
-+/include/ "p1020si-post.dtsi"
--- 
-2.53.0
-
+On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
+te:
+>
+> This field stores the bits that are reserved in guest IA32_PERFEVTSELx
+> MSRs. Rename it to eventsel_rsvd to better reflect its purpose and to
+> align with other field names in struct kvm_pmu.
+>
+> Opportunistically, replace the magic number 0xffffffff00200000ull with
+> macros.
+>
+> No functional change intended.
+>
+> Suggested-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Jim Mattson <jmattson@google.com>
