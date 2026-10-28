@@ -1,76 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194569;
-	b=sylmk486h1qTMpv0YmOyJqR8IQmqtK7MSZpXzan8E0KRtEt1TjZ0QyWdKPQ7NkehnN3A
-	 cH+WVe8aR/P0n8eIt7CNuPb0SVneXnxfZtpXhPtFpsc0js/VyUDbweMbKbenVOkSxpxDL
-	 oeYmlgQta3Ph2xYoN0CnOxMgIb2LSY7Wv1oTPScnNuV+COXFAOw8YE0sVg5KnhI4MHn9H
-	 M94/TbbrXQBLDKiDS9uAyCkhcIHExwWcE1wsP72d8+glIrFmGYVym1WjkcBeDNEq0wG+6
-	 qE1atjS6p1Q4YeWWtJ77hsvT8sb6T1EFAYwN8TTdILkqeoXOVlvC9ARynaCMdAXHdCQ==
+	t=1793194699;
+	b=FJ4ma6YWL83PQ2zPBwzmsBnd+9bV7wGytTZCt9s5n5gULeozNocq/MVTpmRqNWrUOA+5
+	 KfQRDB6asHu2JTmnMAdTscCeNfbUIaSxhhz3WE9vQR9yGcHClrBr+jOa05ggFOooV5cxM
+	 +51/OlSEg2E01I4d8b3npsekMw3tdPxCUFbRCtexYyjynnvNuinNuG40fu2cxXSghDm1C
+	 zdBRHt/2Zfp3ggUbknyJk67b2J71M7mbFgGAg5028c05ApyCZXV/FPythr9acBgvtjTYh
+	 ol4cYENYwqiId9cjJm8nuhJQH8fl0Beq+i6BLIjboImdJlLu3DUPP+qGLQPebZKfuzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194569;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
-	b=J+LxyfpbywBpkfJs7zQP2zf5uVcdyPq5HfgBl/PkC4Y87axjQewNlXhsi8WXHgM0x0OI
-	 xBpecMQ7HtYmIXMTdCcsZACCY112Fpu+REA1iOoDfHJr3cmt5TaigelzZxVXXiHn093IO
-	 bNoGk3IQxM1aCdIok0COb245AA/0i7rujBo3GoSepOXevolLV/CDQo6tJLRmL88jDXLXd
-	 egJQ4c6yv9WyofDJj8LRKeSAUKks3foZUNg/2wygdeYM8iPb+iuCBl7Wm+MP78TWNOXFx
-	 RJuUtmoftxw/E+d+Rf8z4vEP2DrVyLmqDp/nDG6b27T+CID5A+zZrzJAt/ecjEMYPag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194699;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/mpEE39JA9/80m6032FRQgwoN+AByKF2xUG7co+uHQE=;
+	b=MZk9KY+L6DoBOZuQlKGZcca8h1HBVvNOR6wM5+fLcdq9dVsL4KXK9CMMpfeiKIolWEG6
+	 PzrqXMiUfSDhmv0Nna1+RQ9PeZ3S0wO1LVrZ6YSbGhbrIDxx2vPkU2+DOFQq0vjTnG5wT
+	 afc52JfOE09C5aitPXvGexJC55yG+dy7Is8YTproba5ScWYiWTFu+Rb7Si8LYWK2Cq8wH
+	 moFRMMzXOKW5OvMP5u24TV3KJXbku1y5PLophrpEl9c1y1Kvfu4gkvrGeHrZhExabWATM
+	 u9+LtYIwaZ/4bQ1hAOL05SGVVeZN56s2u5No3y6IkHVL0BFzYor2zKCQErtomi3W6UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UaBdrW1s;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="kybmvRQ/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=djHwWfUg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA77606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA77606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C70606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:38:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C70606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UaBdrW1s
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e93e2f72bfso15747495ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:36:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kybmvRQ/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=djHwWfUg
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe2xN994555
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:38:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/mpEE39JA9/80m6032FRQgwoN+AByKF2xUG7co+uHQE=; b=kybmvRQ/e8UryMBc
+	WTenpDPQ1WXj2/WXl6n6Bq5zRTSaoMiIq1oHOfYCQs2rjN60Az7tYyL1caLBWoyS
+	5uqiCf81wrK1zFnWSOQIieq+99Mp/7YDDAtU0NWqbMGq/yGOIG9i+KiL8yiR4GXi
+	X72Lp3p5GyAH7Hd+atC3W3CIHzw89ogn8shdErygiC+Cx3+/ZCnIsh+o3RgASQYw
+	nA5ake7yV87wcaPewH//Urw/AUqpqUwOlaJfT/+j3Xs0s89eDvv2Z5ivMRoET1iX
+	xdHmIFy9DRmjwRxZPsUiPxJtNp+hFSemWqCalsL0lyhFkkCT/d5doiVtaFhagvjK
+	fB74Bg==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk82tt9w8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:38:17 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eae4d7ebd2so87789e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:38:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793194568; x=1793799368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
-        b=UaBdrW1sWlHQAcS/+N+c2Il1L+5MLovpqJX789BQ/xpzIfBFJx9z5JX2zMYe2QQ+mL
-         BKX/tIADBTZVCqJlYqKapebToVv2JtavgaGKrGpGr3LIkvQ3kUa1zAf2nn8pwpeQ+Fug
-         0SfP0X90X36ukAPwUZ2926UqpkV2VP2uH/0A3iYU0hpoLccvKo27JqIqU/V0TYqgZcZk
-         ijtf2yPDj/0eUy1u2qFu3aisyLYWvitHTjgTuFCkSARm9+0aLc4FzEO4PzXPn4ZVecjt
-         ve2BHSRNr1ITz4sMeLzRrYiBr2KHRggO1vLf98b0K4sefcg9f6WxchzBltiiDd9qIA0/
-         K9zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793194568; x=1793799368;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793194697; x=1793799497; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
-        b=lEEvenOk8dkgt2U9tjO5P9qTf/PjFNL4QJf/xKDYi38kJIBVihCVLn3F8fiWY912Fp
-         04G7yQGEyJQgMI8iwyA2ShrmbaIPQ21ER3pzC0SWt+9AOouISoQyEiUjSCYxpIXDe8au
-         xWjUbxrEnt0ydW0yHR6kCzUXA1Xf/2HOkAfkrx8In9a3znfeBOrRVdQBv4tmEjUZ87ba
-         ZeOO0RAB4SVvgToqsdZqvVBO5Kn5mWjX023hxrsK0CK7Z3L9IFWVF0Oi2NDCkxWJ3V5D
-         2LO/NnjbX/TXrxPzXKxtJ9qGI9vcilotxKGIjUMvCIHuVOuHbPsUHgyCejU6XkltE7vz
-         zwsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/1yJL1Fn20yO6NVl5cpx9zD7TBGdXt3IgaFGMSOC1N4KbY+F2FMIuk85OKidgzYcC825vuDjaLmB/TbM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJG3+0BuhU6MUwmn5eH5XTR1hEQqL2liDoo1h0yoxKkrLQECVhl
-	OAzdCAP/ldXL3jHitPpMOQqS4iak6iiL3SuqkHpI/hduwU8aX4oPtSDjW4qb7iY6BlnWDAqwFgS
-	0ok2K5g==
-X-Received: from plwp2.prod.google.com ([2002:a17:903:2482:b0:2e8:87fd:f180])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ccc3:b0:2eb:5e:35d7
- with SMTP id d9443c01a7336-2eb005e3608mr21355465ad.15.1793194568038; Wed, 28
- Oct 2026 06:36:08 -0700 (PDT)
-Date: Wed, 28 Oct 2026 06:36:07 -0700
-In-Reply-To: <CAO9r8zOnf_AiBJfTJTO9jS6cYj6bUxhDoBsNdmbeP_jaQnLCkw@mail.gmail.com>
+        bh=/mpEE39JA9/80m6032FRQgwoN+AByKF2xUG7co+uHQE=;
+        b=djHwWfUg7mpzu1uq6nHEi2OX/T89tBmMQmOfLP8QKR4P9N1VvL5X46Bo2yMkSmQvyF
+         E+lLCfzhIe1dkpwgf4pdm1irvUr9+x6OVG+KPfmYaE+q/x468oFI96WGhtGLdRe8fDz8
+         YGXT5ODIgq/ncLSNHLAEJjqMssWBDnTplw/oNePBO5sXq+sji9xkpfucYH/ihqSA7Etu
+         y0qyC6DwlQVHM4CbCgApVUb5Y2amtDvHw1u/Y5BmvCKIuHv9vS9jXiYVUfFlq+3GtJ4j
+         cGyD0/e1GbMOhB54JrkGghtvqZ1+ru4qF2B18UknNyanPGimm1B1p1/PdXVU3GNM76Ni
+         KkPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194697; x=1793799497;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/mpEE39JA9/80m6032FRQgwoN+AByKF2xUG7co+uHQE=;
+        b=mOGqrEk7isAsH8QQLjfvn3IKRy6mrPK8FmaaA/sndnPOmt7itZocSDY+GtXgHXUtWf
+         /JpJY/ayDVRQuP0KQ+OEXJ0vWhpVu38swXVedGghQDQHoozoAR2oHkNq/Jjs8EsNaPly
+         6RFDUVN+02ARQYr5qp2QSvg4FP9w6jd+sebingxBPNe1fKS1jbsjviel2HmbS5MMJ6JE
+         QAJJ3zHoeFmfQis7axdb9JRXyJcTCkkRrCjwZFzXPPD20nUDb6SdfDr4kQiCTcYYUHEO
+         4NeuZNS/0DBMkl+Du/9+JrDnpUtIH90nyAG47NbfaXJrkMuFQUwIDhOJGP/WTmQt0PEL
+         ecQg==
+X-Forwarded-Encrypted: i=1; AKwUvBycHCDZtuNTyZnYdA9XuGSrjtbrgmNBNUrGz0SqkU4VF99NVKVEGvGeU8JNpQklRfanbhBh32+R5wT5blE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmJlxoIrRGWawLRBcrQYJ80FwgdCUhhwS6DyGMqgoW4GvKI/bD
+	gQJIF6amOQeu42J/dGgipylUqsSm5OeXRUTgFBYYdwol29TzHjT1KbSNXvX+TkAnV6+OTFxCVKI
+	azGFbTzev/LOd8K6NaIOmDUURYiAgO8h461AgP0QrDVDoVX9PRfefG0remIFnwEEeIes=
+X-Gm-Gg: AYBFou30xkOYWn2cUbXgnaZV/90KRWOEnYAIQHPaJBT/7AUu5uMOAQTwiaL6x2xaDlq
+	fN61dLT4Pvcl0SNPap9paGwOZC8Dj47klz8fHWcF7uLyrgASnLjEmcQ0fQsi8qPFtKVU9ylrpDy
+	7kLagPe/urjgwu9TZj1NvmGwGB0VVgXaeskLgqMiaxSFk2Or4c6FgfHpDPlSY1EDS0IUU7gq58u
+	5UcRhA9PF4edi/Nmexcs+ob22pNPMbMowuUZ6NelW8dkb4ClNWM3UuOdkcF6JO27i0WIIbdRxTP
+	ifDZLVw/sg+kYCVpJwg4CyRVhr9H5UqBsmCmjbnolb1BMajxWwWmtcHKUsMCxhhvPz5BQZhm2tD
+	a1kPBLtdumPHj3Fab+roLX16Z0Z6cbeh+ezXCQVnjaki2QLUfP9JYkbORT6N+19VkAwCKMTc=
+X-Received: by 2002:a05:6123:553:20b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec4cc714a5mr1020170e0c.4.1793194696844;
+        Wed, 28 Oct 2026 06:38:16 -0700 (PDT)
+X-Received: by 2002:a05:6123:553:20b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec4cc714a5mr1020137e0c.4.1793194696325;
+        Wed, 28 Oct 2026 06:38:16 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac709f3d9esm30451071fa.26.2026.10.28.06.38.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 06:38:15 -0700 (PDT)
+Message-ID: <0bbe4db6-0c47-41e3-838c-37d880869ea9@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 14:38:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,94 +114,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027224914.1574319-1-seanjc@google.com> <20261027224914.1574319-3-seanjc@google.com>
- <CAO9r8zOnf_AiBJfTJTO9jS6cYj6bUxhDoBsNdmbeP_jaQnLCkw@mail.gmail.com>
-Message-ID: <auH6RzFLvSmCKbXY@google.com>
-Subject: Re: [PATCH v2 2/6] KVM: x86: Reject clearing EFER.SVME via
- KVM_SYNC_X86_SREGS if L2 is active
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 22/23] arm64: dts: qcom: glymur-crd: add WSA speaker
+ protection VI feedback
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Alexey Klimov <alexey.klimov@linaro.org>,
+        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261023171433.820092-23-srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023171433.820092-23-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: IQq7K8dghvwlIgVJeCsjbJwLp8kyvHlQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1NCBTYWx0ZWRfX7tnICbpzU8NB
+ 1V0jQ1VjEMlICeQxzwj1u5WOqlEsK3I1VpINCBUQtlsMTnuQ8hnpBQSJwcdRAuQLKSJ+hYJOhTD
+ lvBqKOAX6VuxDaQ2B/k2GrklEzmsMyg=
+X-Authority-Analysis: v=2.4 cv=Tr1zFzXh c=1 sm=1 tr=0 ts=6ae1fac9 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=7ERdoP64vwSu8KGZOMAA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: IQq7K8dghvwlIgVJeCsjbJwLp8kyvHlQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1NCBTYWx0ZWRfXwi9s6UnnOiQt
+ Nx+oEnhpjX3p907tegqGQZiJDbvqVQVrWBoC6cJ9sagdXnhcCvqCTNBw7+USeyzrcouGW7ZusgQ
+ lJd336lTMb35pkONO0Y7CTSxhPATM19UMazvHVjst/EJxtf5SMjT3PjAzg/x7MYfXyr2Run7d5N
+ PDn1Z5o5YZb4oro7ucATxm85ES85TIwXYV1UbAe/wh9ZWy92/Q7XM83F67N/BzDvZgqIuJtAY53
+ DV56XvM3po2xF2gAawqrgYnVlhNRocnFffkS6AZ5nz6GM/ttomqPR0ASQOV714iVgMKiVxkjspY
+ 4DFvpP3HeUFU/Ma0KAUhUr0tzXnSxyZlH4Lwpht5CfVhtUlY112ApNGMtRUz3E44Sk5lJIl3+tQ
+ nV0aJVRk1ayNgPxbbf4zkjECDUCKoruKjPxVcLZ2+2wMfucop8PKS50mKE0yMGvcZUY4VcfBHFM
+ 3LR3HvTyaS8rsak5JgQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1015 phishscore=0
+ impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280054
 
-On Tue, Oct 27, 2026, Yosry Ahmed wrote:
-> On Tue, Oct 27, 2026 at 3:49=E2=80=AFPM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > Disallow clearing EFER.SVME via KVM_SYNC_X86_SREGS if L2 is active so t=
-hat
-> > svm_set_efer() can treat yanking the vCPU out of L2 during KVM_RUN as a=
- KVM
-> > bug.  Ideally, kvm_is_valid_sregs() itself would reject attempts to cle=
-ar
-> > SVME while L2 is active, but the risk of breaking userspace, e.g. acros=
-s
-> > save/restore, is too high.
->=20
-> I am confused. This says we shouldn't disallow clearing SVME while L2
-> is active because we may break userspace..
->=20
-> > On the other hand, yanking the vCPU out of L2
-> > during save/restore is already "broken" as doing so would queue a tripl=
-e
-> > fault for L1.
->=20
-> ..and this says it's already broken.
+On 10/23/26 7:14 PM, Srinivas Kandagatla wrote:
+> From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+> 
+> Add the V/I sense DAIs of the four WSA8845 speakers, the SoundWire VI
+> ports and the WSA macro VI capture DAIs to the WSA Playback link, for
+> speaker protection. The speakers now expose two DAIs, so give them a
+> '#sound-dai-cells' of 1 and address the playback DAI explicitly.
+> 
+> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 29 ++++++++++++++++++------
+>  1 file changed, 22 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 58158b51fe29..fddc76f59557 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -256,11 +256,26 @@ cpu {
+>  				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+>  			};
+>  
+> +			/*
+> +			 * WSA SPKR playback-side codec DAIs plus the WSA
+> +			 * speaker-protection VI capture-side DAIs on both
+> +			 * WSA (left) and WSA2 (right) buses. One MM1
+> +			 * playback open brings up both chains via the
+> +			 * machine driver's multi_direction_codecs flag;
+> +			 * the SP<->SP_VI control link in the tplg handles
+> +			 * the DSP-side pairing.
+> +			 */
 
-Gah, the "save/restore" part is a goof.  KVM_SYNC_X86_SREGS is already brok=
-en.
-That should read:
+I think this part belongs in the commit message instead
 
-  On the other hand, yanking the vCPU out of L2 via KVM_SYNC_X86_SREGS is
-  already "broken" as doing so would queue a triple fault for L1 (because
-  "wants_to_run" will be true).
+Otherwise, do you think we could bind the speaker protection
+channels in the driver to avoid having to modify the DT?
 
-> I suspect you in the first paragraph were referring to userspace
-> restoring a vCPU not in guest mode on top of a vCPU in guest mode or
-> similar? Might be worth clarifying what exactly we don't wanna break.
->=20
-> >
-> > Link: https://lore.kernel.org/all/sashiko-outbox-182127@kernel.org
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> >  arch/x86/kvm/regs.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-> > index 3621f1a47d37..e53496fdeb82 100644
-> > --- a/arch/x86/kvm/regs.c
-> > +++ b/arch/x86/kvm/regs.c
-> > @@ -738,6 +738,10 @@ int kvm_run_sync_regs_from_user(struct kvm_vcpu *v=
-cpu)
-> >         if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_SREGS) {
-> >                 struct kvm_sregs sregs =3D vcpu->run->s.regs.sregs;
-> >
-> > +               if (is_guest_mode(vcpu) &&
-> > +                   (vcpu->arch.efer & EFER_SVME) && !(sregs.efer & EFE=
-R_SVME))
-> > +                       return -EINVAL;
->=20
-> Do we need to check (vcpu->arch.efer & EFER_SVME)?
->=20
-> If that's not set, we already lost, right?
-
-This is common code, i.e. runs for both VMX and SVM.  The vCPU could be in =
-L2
-via nVMX.  This could check guest_cpu_cap_has(vcpu, X86_FEATURE_SVM), but I=
- worry
-that would be more confusing overall.
-
-> IIUC, we can't be in the middle of save/restore here. Is this intended
-> to check for the situation where userspace cleared SVME while L2 is
-> running? Or maybe L1 cleared EFER_SVME from under L2 but the shutdown
-> didn't happen yet?
-
-It's intended to prevent syzkaller from abusing KVM_SYNC_X86_SREGS to trip =
-the
-KVM_BUG_ON() I want to add in the next patch.
-
-> I suppose it makes sense for the sync to only fail if it's actually
-> changing something. Mostly just thinking out loud.
+Konrad
