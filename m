@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156003;
-	b=JibeGbzTxrhzbRPmjRJOgsaWpUoekBuYBE2Lj5BA+575Ab8zegsI97s4565HriL9XzIN
-	 OllHmbWJdms0FhV76nPLUowZP9COUCXnfEpx0WEfSyULYsdI30LoUMHCSIHQLVItTFmsR
-	 MfbVzvR9pmA0jFpO6jg1syTee3MlyoWOW8fa/mYlUEtfTsXKdlHAl8P7UViQ7G/1CEVZB
-	 Vtvuj1ygH6/zh9cgeNMH9x4u++FofUL1R8iqe9YPCHkZRXjE5G3Qzk3og2bvJQn231QY0
-	 DUikqU9xQQXPnZaZiVxqH6aIFPKl4R6FDRNZEmrAMYTnDQqsniECp3bldjAhy7SFrAA==
+	t=1793156029;
+	b=0LR5JuN/W7FSgNU/aKCA/r80uUYqpvw4xkgTLQIk385xf/1DzCPHJwKh5AhkfzH9p8Kv
+	 SJ8P8pNld0ZPlV8S5I3hRNC3rUTy/gsTWdozXJdJDKhoMiNvp71lKJZKnGm2vzJ21M0FE
+	 3x2OGhP3tYivWm1NvtzxV+yDA7E34or92Nb7v2Y/q0Em5PGETVmRP9i0GLu25UDlvVXKn
+	 9FzbwjrYdrlTuylBLfne2ZN8Kkt1OGxbD6cxN559FMb4xihN+IKzxdWDQW6opOBKETcuo
+	 HaK1naeEsEQjG9nPpmrpZJQoBDErJNKuqwiHUxh3RsKkrwIIOVHFHq4yW9XMzjIUabw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156029;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MFltAnN4KbJLJHAjYR8GHiau2832NVeS+N4nXWFF7jM=;
-	b=Fnp+X2RdPcI6pyqA328M9tv6V1AV/20ntAK6iSwsls94govpgaSE7lJBqr6ltSOxqb4D
-	 eY5xIeQ+xU5gwdh1SIuDJRyXu2ZQN406UXMM+sU5Me2+QUfxrElvkuO/Wytu0Ux/3hV+x
-	 rHsE1hKE69ci3ZzA5L66ald73LdUmVEsVHxtt2e9tCzNd34z+MVNkjQGqOyLnvMEuf/Xk
-	 on0bQG1nwdnwPDShqh2vG6gHtAtABBDeaN89R2L9ZZekQ7zdUdd206sj+fGvuSsTiC6Tj
-	 AbabTK57801GZxyx8NJ5JGy2WRzOz3mc4rOyH/fcLCjQ+34NBztG1Dy+MGjlSvdSmLQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6eYi7haKrUUz5ppcKTnEsRmfpDKe/7u+K3cLCBGytI4=;
+	b=VEWSW7Uz+SW0uEDpSdkw0wWqPutxGnSm7KWXtzWEw1rjv2u7pWcURYSf9hg09JTpZAIr
+	 yvqnEZLUkZE3l099ZQ++m/XVyIHGFbU0YQFokEUBOJe2weItzwlplY2SsjY4k6miJ0kHv
+	 ayEw4/suTfzixgSRSDpKwoy0hzmabFWRHYQuH2utAaIvCzGN5yq27nz77hwnwQPElwv3Q
+	 fPuXkoa1nu7rOBHl23EJF1Vk8X2VhTudq/5oG7DIgTIiPMXREBkiatKF2Xt08LSh1tQsS
+	 FPqab9G/3mFRVY81yUqMyw8FrpqcGr9IiMojmToBhxkTOCvCJmxz+iQipwb4CjVaP4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cl96z0W2;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcCUvZYN;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDC8606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CDC8606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838F860A2630
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 838F860A2630
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cl96z0W2
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-369f33df08eso974825eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:53:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcCUvZYN
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3535a54bed9so730209eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:53:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156002; x=1793760802; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MFltAnN4KbJLJHAjYR8GHiau2832NVeS+N4nXWFF7jM=;
-        b=Cl96z0W2+p/NG4GS6og+oX5YT0/aiv5M1fEt8p74BMN0gjZESdsgzugC0IPtL/6SOx
-         MmTx+CNWAUP0wnLUvbXFmFzn0eegQMAMRijcJKGkxDGnZ9PJ+hR2ufU2AoRXlgD4lynL
-         Es4X01vmFES9M80MF7ipZMsuS5i827BwKXzhba/AiJ+PNa9SJnUIeHITw9E6t9i5XIqd
-         4mcNvVt01TBynXWGrrTt69ZjNwLLjZwlNBR3FZ2XiTCBB7oSJd9wmPmq22ZM4RkINzsg
-         AJtvgzIiIBAJDT3DoNaRXK0rwgaxi7W6pd2Pg4R70TRC8qyw4v4GXfAcivqy9W7B9a9c
-         fT8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156002; x=1793760802;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793156029; x=1793760829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MFltAnN4KbJLJHAjYR8GHiau2832NVeS+N4nXWFF7jM=;
-        b=jIL1vDC9fX2VIlujG2BysqTEZWjJKx1buhUNY9XS8HCCh7IDUaRCEeCdHTGOp6xg/X
-         DuyXFcx8aQre0kwBvYNV6BV5Uyd1Bd/vttGez8TwWazDNK8a/F6aT4/ppw/w5Dt+qhuu
-         FGIsDcwBGyE7ssFxvHVF20oag9SaJbSEm2+vCNw2+eaH1w+fpawcirddi9Q1v+wF1xlu
-         7PH0rRQzqz4Ak4i6kkbdUPwGMODY5PSM3OKtBYfkGjyoeEN9UTTNfmIgBf4yODYE2bG0
-         NUR63Nb+mFnk/26pmaWSUa1MCA5ZdmJ/uY0jEW4XUbsLUzpzIEUVhvwppv0VgOKXzlcF
-         By4A==
-X-Forwarded-Encrypted: i=1; AKwUvByCCPBXmd5GNlhXzsXanWx6Tdmpa5oUlw5oRolLEk1Pdvqc4F6jLVME8UHFfjNd/HE7ApuQeamE7TJi0VQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPYLWSumKfZOroAwOOs9Pk8NlDKHY6WNsHDFbRpGjyRwfe80+N
-	/v8h28QjE7EuvnM2/1XL/MEKVYlsuLeQPSTvO/a+epmYAHCRPy/k/Z4M
-X-Gm-Gg: AYBFou24gyWwDgHGOyNoc6E610Q6pEgMQSo5mLTNoSQ4UFQbv5g0EAqahSVD1PLOTDT
-	31rLkJXfChzNNE6O5+GtTPbZQsjug40yqeHRL434FRoOEP+rd5Iq0SKl8zySx6Sbekm+I7WVbWV
-	ABMV9zUE54+6dGkE7NhCG00EXBwY8UicrzMk6KglhmgvOUdyKvxnZB+rHXuMRj183OVatk4jEx3
-	+l8dA9pKIdxzMQVp/f8ofDw8WH3kB4mtzsTi2Id7nlKDZUbWgMPJnVgpJx8rmmhifhCOhaFslY8
-	HWnmwkACMY5u51gRAg21l0PUeELUJos9cjNZV8XQsQacCkYhiWZOYtzMx4flDdpY3jeOr7gVt66
-	/d8Lk/QRRn0EmpeAW62A01ZBneXcQQerauoHLUFcUZDc3Lgc0fqLByhHFxy/rynM6xyebil7iNd
-	0sfDzlCC+oW7TNyvZTN1f7eMXngPMxF7229kaLZXrJ4zyfi1E8Ie+H1tvgCJkWZPpN9CRsc97Tm
-	LbRgiPAeVr/B/LvIaIK42qx5Scs1lWFJB8elcRxdXjQtofA4Jzkyc0nVVLnKw5mwTP9zkMQ4cb0
-	RJzNIVRGTzdorN0G+a57NfzeL0GY4+Kjmyw/yqYPeBoxjU4ub08QOsddVDMvAvtlG8UsWXfFGe7
-	EALV4/wZYtY8fERyc9Pa7bEQGK6n7C4sdcnzaVpvSkSh1GfXcQ3Mt8SEXVwDVWESylwcm
-X-Received: by 2002:a05:693c:240c:b0:369:b75e:d24f with SMTP id 5a478bee46e88-36a20108feamr1659593eec.24.1793156002025;
-        Tue, 27 Oct 2026 19:53:22 -0700 (PDT)
+        bh=6eYi7haKrUUz5ppcKTnEsRmfpDKe/7u+K3cLCBGytI4=;
+        b=GcCUvZYNuJplwZi105tiG31GEPMJAoLyuLpDupceTwBiWXRE38SQtq7x2jqFOolTi3
+         5XfBja0nz0WdYLJPFlgcCHhjMKxHgrYOKbQiFSn5HtTvRCTwAwtQ5XfmPyN04VydQdbV
+         zEjEblrsw23FvdM1R+dbw7gBipF1L7gptzV6eV3fZXAKA5LjZI9EGEZdqHXJ/VjPUQ4i
+         m6wcdIAFYWzfFiTxWp8IYwX6pq102T4I2zf48bbFJMMOwzesyB38SiRloWbnh3YyGiRT
+         zNhzPe+KxH0BH1KXx21QILSyyu3UOb6lvq4iePG299Jc3aH5xZhIO6nF6fi1u0pe1noI
+         la9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793156029; x=1793760829;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6eYi7haKrUUz5ppcKTnEsRmfpDKe/7u+K3cLCBGytI4=;
+        b=frfLX0NLmC/9pjAQmiDDQCytbysbrXpULNL8u74ssWoCpR8DyXhOjNw2xe88tkGjQu
+         JIfqMkLJcRP7Ejw+5ishRx7h884+LozZIHXvAOHjlEEkXMe1iuT7TuRwo9RqB0FZHd8o
+         VRigxV2DzMjz+ZdkREC5o65le602xprB/5Hlj/4qF+pNrwqFzYHqa5csU697W+w9NLDK
+         Q8u+dAd35joWn24LZ19nzg2t4QmV+qBV2NupPaXN/TWYA4hJV+H02iM0ZS6B643INmhy
+         7hurzwei9N2WWklccFDb+hAnc9eoxMEt134o3XmGnqP8oiAc3MrbdChKoGwFVYOgbNqb
+         mBZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKa1WX+wxiIa8bDKmnqZR1qO9oAk3hG7KGLDXlyjvBqAGbpA3gfzjrbKw/1cZkHEe6CUGEvPwzq+bAHps=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbWXFvOVQUGscEQtBjxMgs+eTsISnCBLg3Pep59jf9K2BRwKOr
+	PqJ7+oAQjs1f48csDTFeTjsOmvH7XhCDydYyNgyi5ZJD1P1MvyIkX64o
+X-Gm-Gg: AYBFou32WYgnZ+YvX9Yc5OYJu8yMYuix7HyOAi5DRbSZuYMd0XjJ7MK7yzr3VOqWvuI
+	UQ1plDM6szqWA0bVmwpLeLoyAqTZldd6vezXUAQrQpuSclHTNzm6IXzigu18AtLSwSyEBvvzvhs
+	44ZDPWpN8dZBFs7ROuk1bmKx8uVVUiaiisauwPw29IVKfE9TX5u6tSxIgdW8VytejvZUCO0iXMI
+	L+EQ05Yhro2IhWUzwc/xu9grTdYVMXfVosV2IHTl+QX0RBTF+Q5OFSOL00yJhIWJnKIaNtzDpvr
+	5+QMavDIRDNgLDvYFMW1UppARZyFsexkfJn2zgsMBNZrB2GnfA5ieeIyHjyRxeWswQ/NV8GT2gL
+	J9Rtj3OMZV+XLwOZX65H9W90TPOBVMJU0TS4qma9ylZLZQvwYNQ/+K/gSi9IxCdiY3naL6TMCFt
+	wQdzUtabaH1qt4vgdNHDvbvU0v2tIWOV013RscaEzSUPyfory031px2mXC6egmdec+h/xqJXo7j
+	+WnkUrELlRcSgV8EfdSOOAgUmC0b6PrMybB2hHAf0htNJunvx7D2MvHjfLJu6Zi6gqHTq5fxlf1
+	EIxrRQOngEe2qW2fNpse9AB2kQ6i4x6MaExHP79m06I8Zm3brivg3TORc1vQ62siXA9S1VymB0y
+	K9qU6VJHh+RkIbL7kwB5ihnBALpPKNKqP3v2ll/P/TdhJ6Gg=
+X-Received: by 2002:a05:693c:401a:b0:36a:1b95:fc75 with SMTP id 5a478bee46e88-36a2040717fmr2212392eec.35.1793156028554;
+        Tue, 27 Oct 2026 19:53:48 -0700 (PDT)
 Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239644efsm1711914eec.23.2026.10.27.19.53.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239644efsm1711914eec.23.2026.10.27.19.53.45
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 19:53:21 -0700 (PDT)
+        Tue, 27 Oct 2026 19:53:47 -0700 (PDT)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.de,
@@ -89,11 +90,14 @@ Cc: tiwai@suse.de,
 	corbet@lwn.net,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v6 00/14] ALSA: virtio: staged capture and dsnoop recovery
-Date: Wed, 28 Oct 2026 11:53:03 +0900
-Message-ID: <20261028025317.92450-1-mynameisjune111@gmail.com>
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v6 08/14] ALSA: virtio: account staged capture reads before RX refill
+Date: Wed, 28 Oct 2026 11:53:11 +0900
+Message-ID: <20261028025317.92450-9-mynameisjune111@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261028025317.92450-1-mynameisjune111@gmail.com>
+References: <20261028025317.92450-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,102 +109,185 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Takashi,
+The RX callback holds the queue lock across a batch of completions. A
+reader that has copied samples can wait for that lock in ACK before its
+consumed bytes are removed from capture_ready. A later completion in the
+same batch can then reject data using stale ring occupancy.
 
-This revision addresses the Sashiko review of v5 and includes a closer
-look at two intermittent XRUNs seen during the follow-up tests.
+Account the staged read under the substream lock before acquiring the RX
+queue lock. Release that lock before taking the queue and substream locks
+in their established order to refill requests.
 
-The series applies to sound.git for-next at
-bcb4494239f57c98a8ef576566b03f2935b3000f. All prerequisites are included.
-Targeting 7.5 or later still works for me.
+Once accounting is committed, latch refill errors as XRUN and return
+success from ACK. A negative return would make ALSA restore appl_ptr while
+the driver retained the consumed-byte accounting. Keep pre-commit errors,
+ring-capacity checks, and normal period-work scheduling unchanged.
 
-For this review, patches 1-11 retain the v5 code and commit messages.
-Patches 12-14 carry the review corrections separately:
+Source-extracted host and kernel fixtures reproduce the stale-capacity
+race and post-commit ALSA pointer rollback. The candidate preserves wrapped
+data and pointer accounting. KASAN/lockdep QEMU lifecycle checks passed.
+The fixtures substitute selected backend helpers and do not independently
+establish physical-device acceptance.
 
-  12: control-transition waits, aligned control values and capture drain
-  13: prepared/reset state, failed-open lifetime and pause/ACK recovery
-  14: documentation for the five capture compatibility options
+This follows pending staged capture support, whose introducing patch has
+no upstream commit ID for a Fixes tag yet.
 
-The earlier dependency chain is unchanged: 1-6 cover request lifetime and
-error handling, 7 adds staged capture and pause restart, 8-9 cover ACK
-accounting and period work, and 10-11 add policy sampling and dsnoop support.
-The staged-capture and device-compatibility options remain opt-in and
-false by default. The VZ compatibility assumptions still need review.
-
-Changes since v5
-----------------
-
-Capture drain can consume its remaining tail without queueing fresh RX.
-PCM state-changing commands and pending-RX teardown wait through signals
-within the existing timeout. INTEGER64 values use aligned response storage.
-
-Transfers now require a successful device PREPARE and a live queue.
-Reset fences transfers before resetting the device, cleans up the queues
-and period work, and makes prepare re-establish device parameters.
-Failed-open cleanup cannot leave period work using a released runtime.
-NOMMU capture copying also accounts for native pause.
-
-Pause recovery distinguishes definitive command failures from uncertain
-submitted commands. RELEASE_SENT retries wait for RX drain, preserving an
-existing XRUN for prepare recovery. Pointer and counter reset is locked;
-ACK cannot advance past the position observed by ALSA. A successful
-partial read while paused also arms cleanup when it crosses the stop
-threshold.
-
-Validation
-----------
-
-The corrected ARM64 kernel was built with KASAN and lockdep. The
-non-staged drain test changed from -EPIPE to a successful final-frame read.
-The paused partial-read test changed from prepare=-EBADFD to successful
-prepare and 48000-frame recovery in both pause modes. Queue-failure,
-failed-open and virtio bus freeze/restore tests also completed.
-
-I compared v5 and the corrected kernel using the same QEMU device,
-48 kHz slave, 960-frame periods and 7680-frame buffer. Delaying a bounded
-to free-running transition by 120 ms caused both kernels to reach XRUN
-before the transition call. The test had already used half the 160 ms
-buffer and had about 80 ms left before overflow.
-
-The shared-client fixture also started clients before creating all reader
-threads. A controlled setup delay caused client-threshold XRUNs while the
-hardware slave stayed RUNNING. Starting each client from its reader thread
-after configuration removed that startup gap; both kernels then passed
-three repetitions with the same delay.
-
-Delaying only the 96 kHz reader by 240 ms during capture produced a client
-XRUN on both kernels in three repetitions each. The 16, 44.1 and 48 kHz
-readers completed their requested frames. The hardware slave remained
-RUNNING. These results give no reason to weaken the ring overflow checks.
-The original intermittent failures lacked per-client timing, so this does
-not establish the exact scheduling history of those earlier events.
-
-With one vCPU and two guest CPU busy loops, both kernels passed the
-13-case mode/lifecycle suite. In separate VMs, both completed 70-second
-captures at 16, 44.1, 48 and 96 kHz and a subsequent five-second reopen.
-Each client received its requested frame count. KASAN and lockdep stayed
-quiet, and the loaded module hashes matched the intended builds.
-
-An initial combined run exhausted the QEMU fixture's finite test signal.
-Those failed runs were retained, and the long capture was repeated in a
-fresh VM with enough signal. They are excluded from the passing results.
-
-Physical VZ/MOTU, KCSAN, 32-bit and NOMMU runtime tests were not rerun for
-this revision. This round checks frame counts and recovery, without a new
-bit-exact sample-continuity claim. Not every signal/late-RX ordering or
-RELEASE_SENT retry timing has been forced in a runtime test.
-
-AI assistance was used to examine the Sashiko findings, prepare the
-corrections and diagnostic fixtures, analyse results, and draft this
-series. The affected patches retain Assisted-by attribution.
-
-Previous v5:
-https://lore.kernel.org/all/20261027234334.32551-1-mynameisjune111@gmail.com/
-Sashiko review:
-https://sashiko.dev/#/patchset/20261027234334.32551-1-mynameisjune111%40gmail.com
-
-Thanks,
-Joonho
-
+Link: https://lore.kernel.org/all/rfc-v2-vz-capture-compat-1.b9ab4c1540dc4691@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 ---
-base-commit: bcb4494239f57c98a8ef576566b03f2935b3000f
+ sound/virtio/virtio_pcm_ops.c | 128 ++++++++++++++++++++--------------
+ 1 file changed, 77 insertions(+), 51 deletions(-)
+
+diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+index 003832d112551..85e7576903d56 100644
+--- a/sound/virtio/virtio_pcm_ops.c
++++ b/sound/virtio/virtio_pcm_ops.c
+@@ -1229,70 +1229,96 @@ static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
+ 
+-static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
++static int virtsnd_pcm_capture_staged_ack(struct virtio_pcm_substream *vss,
++					  struct snd_pcm_runtime *runtime)
+ {
+-	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct virtsnd_pcm_transfer transfer = {};
+-	int rc;
++	int rc = 0;
++
++	/*
++	 * The RX callback holds the queue lock while draining completions.
++	 * Account ALSA's read under the substream lock alone so completions later
++	 * in that drain observe the newly released ring space.
++	 */
++	scoped_guard(spinlock_irqsave, &vss->lock) {
++		snd_pcm_uframes_t appl_ptr;
++		snd_pcm_sframes_t diff;
++		size_t bytes;
++		u64 next_acked_total;
++
++		if (!vss->runtime_active || !runtime || !runtime->control ||
++		    !runtime->dma_area)
++			return -EBADFD;
++		if (vss->xfer_xrun)
++			return -EPIPE;
++		if (!virtsnd_pcm_capture_counters_valid(vss)) {
++			vss->xfer_xrun = true;
++			schedule_work(&vss->elapsed_period);
++			return -EPIPE;
++		}
+ 
++		appl_ptr = runtime->control->appl_ptr;
++		diff = appl_ptr - vss->pcm_indirect.appl_ptr;
++		if (diff < -(snd_pcm_sframes_t)(runtime->boundary / 2))
++			diff += runtime->boundary;
++		if (diff < 0 ||
++		    (snd_pcm_uframes_t)diff > runtime->buffer_size) {
++			vss->xfer_xrun = true;
++			schedule_work(&vss->elapsed_period);
++			return -EPIPE;
++		}
++
++		/* ACK includes any subperiod tail already copied to the ring. */
++		bytes = frames_to_bytes(runtime, diff);
++		if (bytes > vss->capture_ready ||
++		    check_add_overflow(vss->capture_acked_total, (u64)bytes,
++				       &next_acked_total) ||
++		    next_acked_total > vss->capture_copied_total) {
++			vss->xfer_xrun = true;
++			schedule_work(&vss->elapsed_period);
++			return -EPIPE;
++		}
++
++		vss->capture_acked_total = next_acked_total;
++		vss->capture_ready -= bytes;
++		vss->pcm_indirect.appl_ptr = appl_ptr;
++	}
++
++	/* Preserve the queue -> substream lock order while refilling requests. */
+ 	scoped_guard(spinlock_irqsave, &queue->lock) {
+ 		guard(spinlock)(&vss->lock);
+-		if (vss->capture_staging) {
+-			snd_pcm_uframes_t appl_ptr;
+-			snd_pcm_sframes_t diff;
+-			size_t bytes;
+-			u64 next_acked_total;
+-
+-			if (!vss->runtime_active || !runtime || !runtime->control ||
+-			    !runtime->dma_area)
+-				return -EBADFD;
+-			if (vss->xfer_xrun)
+-				return -EPIPE;
+-			if (!virtsnd_pcm_capture_counters_valid(vss)) {
++		if (vss->runtime_active && vss->xfer_enabled &&
++		    !vss->xfer_xrun) {
++			rc = virtsnd_pcm_capture_send(vss);
++			if (rc) {
+ 				vss->xfer_xrun = true;
+ 				schedule_work(&vss->elapsed_period);
+-				return -EPIPE;
+ 			}
+-			appl_ptr = runtime->control->appl_ptr;
+-			diff = appl_ptr - vss->pcm_indirect.appl_ptr;
++		}
++	}
+ 
+-			if (diff < -(snd_pcm_sframes_t)(runtime->boundary / 2))
+-				diff += runtime->boundary;
+-			if (diff < 0 ||
+-			    (snd_pcm_uframes_t)diff > runtime->buffer_size) {
+-				vss->xfer_xrun = true;
+-				schedule_work(&vss->elapsed_period);
+-				return -EPIPE;
+-			}
++	if (rc)
++		dev_warn_ratelimited(&vss->snd->vdev->dev,
++				     "SID %u: failed to refill capture queue after ACK: %d\n",
++				     vss->sid, rc);
+ 
+-			/* ACK includes any subperiod tail already copied to the ring. */
+-			bytes = frames_to_bytes(runtime, diff);
+-			if (bytes > vss->capture_ready ||
+-			    check_add_overflow(vss->capture_acked_total, (u64)bytes,
+-					       &next_acked_total) ||
+-			    next_acked_total > vss->capture_copied_total) {
+-				vss->xfer_xrun = true;
+-				schedule_work(&vss->elapsed_period);
+-				return -EPIPE;
+-			}
++	/* The ACK is committed; a refill failure is reported by the next XRUN. */
++	return 0;
++}
+ 
+-			vss->capture_acked_total = next_acked_total;
+-			vss->capture_ready -= bytes;
+-			vss->pcm_indirect.appl_ptr = appl_ptr;
+-			if (vss->xfer_enabled) {
+-				rc = virtsnd_pcm_capture_send(vss);
+-				if (rc) {
+-					vss->xfer_xrun = true;
+-					schedule_work(&vss->elapsed_period);
+-				}
+-				return rc;
+-			}
++static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct virtsnd_pcm_transfer transfer = {};
++	int rc;
+ 
+-			return 0;
+-		}
++	if (vss->capture_staging)
++		return virtsnd_pcm_capture_staged_ack(vss, runtime);
+ 
++	scoped_guard(spinlock_irqsave, &queue->lock) {
++		guard(spinlock)(&vss->lock);
+ 		transfer.indirect = vss->pcm_indirect;
+ 		if (vss->stopped) {
+ 			rc = -EPIPE;
