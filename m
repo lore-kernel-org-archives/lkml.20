@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793191575;
-	b=q8Gd1MFRVlc5Qs2SmBaDml1yB2QdFSS1crGKax9gawwbW4RiMXY26nSM0Aveg0BHOpAh
-	 8KO8MT/MLUFNRKWmnEPyNaen3zJ/QitbW9fe4YG930DsAZqOr0Lvp7iDYqJL5Zy81s5n1
-	 vbtaCVk2/2FvB7cWXEJjcsMgK9LHPz0eHFsaP8t105IJCc/Ei61KJPXy2itfvCTMdchPV
-	 EopobvdDPrwYxHKWJrKR2WLQ2wfhIyqnVlSiZnT48KW959/yBomeESYclPn0n3xzYcizd
-	 JdtZYKXgADvr8SROKMlnj/P3uIQo6wuXd8pWVp+D2Y9Ko6GdJQbKSpPWK31cDt79siA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191575;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Pr+Qh9RwQ2EtytMAMXYpVvXWO/lPy5jLS4bDF48/ePg=;
-	b=OZlUVbZj087097EP+A3iJ1/Ln4tdMMl21aGSbDd+IIKsQPsDTIACvI7EiLRtdZ/pIngz
-	 F7JGiqYsl0TcpZmChcYZVzs6wMhxfRWtsMRAc/GfySpM0JUy77rnany22t3yIpggjCMOX
-	 lkYR3pzahgP7UFIBIJMTql2dIpT3bAwkus6CzYas6NWbFXAhlialzyHYsY45GuszL/7pZ
-	 UsZa5wSN6rIm1SJmv4JRehk4L4buLz8UpikiHAX+42K2NxbxdmPigXbQgNWd93pCeF7LC
-	 3YhgSE+bU5t4ORK8ybG52/dluPd4CbYOEnAZaCGCxtrtoesVBQW24eediQtX/uONcJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NvCNg+hE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793191683;
+	b=UM5l5h/Wh5TOhG0fcDSpxJ3noMID4TMn+EO/Rb5SBP5wGDeBdU2K470KCcoYHJzPFFz2
+	 05mQO+1MyY2D2OHTszYHVOF4HcQpngG3YoWaNf9PddHo1+hLU0VbUqWujg3JpHpw9ZwoW
+	 F8rNlcssxOfa0obQprCh/yWR6nqYgKUMKzwMCXdBNQoF1ViiNV7q2DXcNeJCkRNuIKQuK
+	 y8EPgnJBoQmcUH/958sk/XBSKHbqgk24pLjtyrq5aUh8T1paxuzPskT5P52w5+Ck5DrJf
+	 oUHXl52VXXuzPGNU4/KnqcnO2PbiVCx0Wfpl+ni1iqzNLhA6UtJ6TCdnFufERZuQVqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191683;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=x02mqaq+jckkniOXgK+HidnLK52gK4oRF7bevLY2k3Q=;
+	b=phAdkxeGHT/KLDNUMFU+zXgsyhuLnQMbeeyvRjqh5f0+Q4ToPq+JcAs1b3Vu/Vx6OeCr
+	 DKeJNnZk4RodRSD7JPLotzo0lPYRsjyJzAC72GfA2T/7Fo9HEpjv+bM9HUytxrOggfhyO
+	 xW7wNR9frhKrGWZ4ZcyzG+NhHwAxViCmdItNIX55GNWaI5hsoyy6rnddVxdEIFrm+Zzqr
+	 Rkfz7bPEHk4Hi1XgV15iaLvcruZuqMtWhrbpjGw025A2kjbJdkOS4qJ5ozxvOeaQZ635e
+	 kjIA3+jsPTlF44uBnnDVkZV8C+AJkEvBwVy0YIchvU5dX0C2WCk8Hh/uVlY1DKDBQXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="U/dAt4b1";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XdMEZhGs;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7F2606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:46:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB7F2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1932606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1932606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NvCNg+hE
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1292620eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:46:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793191574; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k5trYCURAWDzeX2jNugn3r78KWyIZ4GnbN8+hH65oZqbxQwVDq0+8XM/L5TBaLis23
-         2oFvuT46g4LQU6OQZvryWIMtkxlohNlLG5cGvdaohUM4cc+O/tgaSGuxtlWCSBIsDA5L
-         Wo7dcWLMzbKqtCuvqBIRM56MkpITF9QTM9o/c/eD7i04homBfCAvcL9GwbnWWm3CT8TN
-         Jd6GBarHAvsMmlzGJIICC0isu4ULOL1YCaOxOIY/BEYq/VW+NHCe7J2Kq6kny6XCdjxG
-         kpkdol2EZhOGZ8CElkyKprrV9OV53jzs2Weuj8otr+KIKrNImKEdeae/pa3lnPFDcq1k
-         DDag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pr+Qh9RwQ2EtytMAMXYpVvXWO/lPy5jLS4bDF48/ePg=;
-        fh=izLRR0OtchQRoAoiyzW5slR8Hw4XyZ0tDIbxiZ+KTa4=;
-        b=kJ0e9b20OzURdVBnX1SmzxFei+hdhkHulcR1YYfA/fVhAjD4DVCyJh/nhoYLYw+msL
-         eTSinhXUasPPy+pwtR4l3WhNYoYguDEYvUHaN49rAdTo347g99ziiNRvtuZc5btt4EkK
-         qiF177XuKX4VtHnDCoQ93HpJ0+FQ5A9CraBN0cZtmCn0BW8wvkuVX3wPQ4aLE/7R/VQW
-         naK1RzXi1wk+/2MilFhQeS9TJ7Na0Nw4WUtD4zAEsn3bDQmG2ytOrhh4VSJvbTvTeJpr
-         M/fYBNtJY66r58v/5ooJug9oIQMwOoxxEJpu0g4nzBxxWwDL/s3qQFEXEN4iB/DhhfHs
-         LLSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U/dAt4b1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XdMEZhGs
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBdsJn1011769
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:48:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	x02mqaq+jckkniOXgK+HidnLK52gK4oRF7bevLY2k3Q=; b=U/dAt4b1vCKJz4R2
+	1Mlby663Hp00rQgi2nW3Y9jB6nBqLctbracDmSB6Xj4ySTHPYv0k+qeR3hhr0Sqs
+	2UJkHfm2bHLBJWrY93IMake8ERgHb4KtnN101wVPbwczAOrvCkOHVtnUVTOp1JJ6
+	hQ597in0/dNY9pA7VN82PcIFWTRvyeryckbFi+kIGgRvhmYOVuJ9mjuuPs1VUZ/x
+	MmPd5zRT5uVpdzqsrgBCRgTIGlvVqnwmJPDEPYarIZ39p0UKr92ey1mqHNvc58W8
+	X8sq49s6pxhvWvsj6qOVtmE8TvsyFOzI4l8C8ZENejDGYtgp+glLfzjkqng1kSh6
+	Hb9uOQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkfehgf4d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:48:00 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1a71dd190b0so2614954c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:48:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793191574; x=1793796374; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pr+Qh9RwQ2EtytMAMXYpVvXWO/lPy5jLS4bDF48/ePg=;
-        b=NvCNg+hEj1GXa1PRFxoLoNiYzUhef+0uHJboLonS+/zNc5dMN5k3f0Zt2Ahy1xFZwr
-         QyFN58dy11p85F771z5tTe/di7qPb6PsxdHZboYrwY3cnDtsg4np9V5pRH/h3zqrre7U
-         xYNzsZt63dNqTMIXUaC8ikrrQlsbtdurOkZ+HcgLJa7pXvt8QOKF8wTuVJo9HiaWHuf1
-         YmpbxIzayqGQGF0iu4Zwi0JsFMj+JqD743iNYPBvbRe9MKcgQ8ynKsnE23ViRdZTGmnJ
-         6OsY/QM9izfyU5t5p5O9jflxl0fR8qlEcWVWAQQvPDHu5tyoU5pU/+D91HJ+EJXuhRvM
-         +uBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793191574; x=1793796374;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793191680; x=1793796480; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Pr+Qh9RwQ2EtytMAMXYpVvXWO/lPy5jLS4bDF48/ePg=;
-        b=cGgTZRpeGg/kIf9iiD3twPshUYQziQjhtQ0tHNVXoNBcL1nWwT2qLsRtjyHOqIj+m2
-         43k+dmxrnnxbfATfDeeNGqnSJSTBmpEXthi2cT85B+UvncKPso8jdV3itl30kntNXIfB
-         R8Rz6Ns2nFqtLzIX3P1gMXDLNKzlTzVF/5LLnOGYxPbZLc7kuaDqRPl7KKqgtdjfTwsW
-         Hfnp0YZRsLwK0S1tisqxqYD3fJjhILdUzoh4HZSSgXUxfI1AyBlZA8DsSrhty29wFeWR
-         mw8mHbo2zuhqUBcEcioy/heWNe3FDBBLvtdUfTPAHwjj5uF63BJldCpGi0K/Khtb/9LK
-         2qYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwMMIZpsP0cuQYJIKjBRHBZo3CexTSxKBp7eRxMBKnIkST1kQ4qnnpjaoNcA1FPKGFeElrWxvbtQ21veY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJt/j2h+6JY/YGLEXfcKQGm+kGEvXne3gGkfroc1gl8/w6m6Wt0
-	6LQX3zvP3z67TslMLVjOzvs0gXQtDNzdZkAGzILHxkRUvUq9pCAOd+X1TqAUayyOoSCz61J0J9A
-	sogleoaqWrtP1umKp9vnSHOcO5Au/2Bg=
-X-Gm-Gg: AYBFou3d6GpZ1ZixdHRL7yEmhbDMSTq0qkOvl3pepiSqxyAS2dVx6RyBuVlo1k5xPqE
-	XD1BHbHfEUYie8baQbgXTWM9HxZaHrtI9YmBONPzLDnm/jSn87/azKFdpkAYsT/zM3zkZu0vw+A
-	hY9cDewzIGY86oUD80sAHv9lCGUBR3kL/2ZP5iIYdu+5TOfFxAGiidnQB7FxzruoslnrXjPojp3
-	l+s+wgKxsDn48PeK6ZykSNaKgVRyjL/KjcTq47cPy2OtSbJk1gRz1mpt6CWmp2/MjtPLRfVR6PV
-	lsPr/U6mD05CxnJVAXgrxYsCSKxmh28em8Swplcp79RTmMCxxDhw5lNIn6ylW7tDHj6ofnQe8d/
-	+S4PaMk3p0NdWDw3+vE5OW6weAcZx+2VGhyx0FnVU6AydBhMLMTK+226VwnZl7xXPeEFIAg==
-X-Received: by 2002:a05:693c:83c3:20b0:369:f182:8e99 with SMTP id
- 5a478bee46e88-36a20114838mr3697076eec.35.1793191573518; Wed, 28 Oct 2026
- 05:46:13 -0700 (PDT)
+        bh=x02mqaq+jckkniOXgK+HidnLK52gK4oRF7bevLY2k3Q=;
+        b=XdMEZhGsC08xa/HoM5cUlqv0b/EBViQYSs5FZlc5IhPFfYqC2xHwgTxh1gnh3fdRDn
+         mKBEQs8RSmItWMxwaxKCCOWOQPojsbEfs9xTEmYcWZYYW6ZO2MKj8hN7w4HuufZ/NLhH
+         h9r0HFAh+b2O1zOHtV2g/RsMG43/bpY8Y1xsJxaUK3u0yskLUBjiz1kj8GwdjaDWKzML
+         Vr0acyj+EwqsykOB05JEzMQID83kM6TtpnE7p29Fo/4Vl8yOHnC23Ca/fFL9wQMXuLz/
+         VopE7X/yeR/1MFUsjgzhDXfyo5R2Ce3Q0nLr+tL4QLDr0zeBms6vrA7lD04RqGyOluge
+         2HKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793191680; x=1793796480;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x02mqaq+jckkniOXgK+HidnLK52gK4oRF7bevLY2k3Q=;
+        b=dOCyLGH12TehAyju6EpplrvnrobRiHQKZwOUY7YLX48cuM19dlOm5JWBII6xUVRy7K
+         Lt8KlueGeZ878sXiDau2ahdtqeu4fiR+2qPkyR2op+QTWk5GfX7r6CdUbm3Q8buJIUNL
+         5LDeNwgGMZNaps2yTW997uXWrG2hKEEVPoBcY5CpGDkQe8JozA2Op/0o39EnqNjUfqQ3
+         rXYrvx7oAzKUB6Najfu3P2hMa2+UC7w7OJAaitVj/KJKAevSt/LxmqNXqIxns0rX4ElY
+         j+e9NDcGxO1Zu7SlunVbS4icVXH6/UbCTOymPk/u1ewpwsxdXaSGpNPUfvu4YAe44x6R
+         gHdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKLaNIN/TfDoFRTdNx3jUC/cYxs/bECZECeUm64ZCYrLwaZrWNpP6l5RMpNf3KyYydROK/at5olYetG18=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKahvmcaLDjMlRFy0qwoQgCgkI49f7q1CqlAdX+MAZ3Kwz2y40Z
+	+KFkRzNVoEr1v8y5C6qIS3u8XHD/CPCKIW1ZF/e7k++fVmlh54kKUuFaSQDkRcjHlaVlhb8NNK1
+	H6gETUogUISeE+TGgG3p/XFchSXox9qGnN62cLPb+ibVBaGXMNM021M6kaRcKTU/mQQA=
+X-Gm-Gg: AYBFou3M96HqZOpELFX0SmksObGz2fOjm2NAh7npPZXTgviq193P6nZTDGinH3ESXzY
+	KhEh7w3bq0JM6UgggCIJgWgpoz8nTsmneOE5mik0NGYPGnp8PWcp3EZdoJ/5sKzOd0H8D/2oaxI
+	BIP9dSP1OjGHIQJpKhmhoNG8PIefs6FsQBNVjtoed/SnLANZg2UAvlMmA+iGJrTEXvn1ogWBXRu
+	KX2YMzHInLmlC5zrNI3KPldrXXGVO35y6D6W9mV6citQLKa1qIQ/orJBsqe4bm9R+W97JcmLokN
+	svO1dufxHl3VBUE+RGVxXZSVfX2BtPxmZgB7c81+M4UeVL6WQfB/nu89qS1AIx8GVRbA4/zjiX2
+	djJU3/V9/l5NRubmQo4PJHPhSn7dRWM+NZ+2cZezNDKu4ih7jPEUA85DmadJGQeITDUvg3FwAZA
+	b9nZEk5c0q
+X-Received: by 2002:a05:7022:4a:b0:199:107c:25fe with SMTP id a92af1059eb24-1a6ce2fec32mr3873322c88.31.1793191679694;
+        Wed, 28 Oct 2026 05:47:59 -0700 (PDT)
+X-Received: by 2002:a05:7022:4a:b0:199:107c:25fe with SMTP id a92af1059eb24-1a6ce2fec32mr3873241c88.31.1793191678889;
+        Wed, 28 Oct 2026 05:47:58 -0700 (PDT)
+Received: from [192.168.0.104] ([124.123.197.72])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a76037e2b5sm8546468c88.21.2026.10.28.05.47.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 05:47:58 -0700 (PDT)
+Message-ID: <fa7ddad3-81e8-4c0e-a5a7-74434746bd88@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 18:17:52 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,319 +116,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022132259.240717-1-clamor95@gmail.com> <0g7damfVTZ2r6s4H0kv6Lg@nvidia.com>
- <CAPVz0n1G0cDuUj7WRfj9YRgvMSd0sqSCjnir2p=QxUGu5BWTXQ@mail.gmail.com> <gXWEBbhSRWKBIHUcDXZu7w@nvidia.com>
-In-Reply-To: <gXWEBbhSRWKBIHUcDXZu7w@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 28 Oct 2026 14:46:01 +0200
-X-Gm-Features: AclHuK_z6xlcnPRnX5tVTskqs4cNcLBGx7AePFeqnVIxnyi6sGqea_4KfJ43bfE
-Message-ID: <CAPVz0n3PeDm3X+hwP_yMhZPk22-gRL0+vFRj5J7QsyUhcAahtw@mail.gmail.com>
-Subject: Re: [PATCH v4 7/7] drm/tegra: Add support for 8-bit CPU interface
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] ASoC: qcom: sc8280xp: Add shikra-cqm-evk
+ compatible support
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260910-shikra-machine-v2-v2-0-9bf6bad589d8@oss.qualcomm.com>
+ <20260910-shikra-machine-v2-v2-3-9bf6bad589d8@oss.qualcomm.com>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260910-shikra-machine-v2-v2-3-9bf6bad589d8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MCBTYWx0ZWRfX8xmYshxx6vby
+ L4tKnYwPsfnUtusg/dNjGEHeROyfpV4+HexeaTpBCDbgipV/9UBfH+dVtAWnHl2nHjf8Xlfwush
+ SJdfo5JmWxjNYlbV0/Y9yzJ4kfi3SKAPSYVjhp+gaiF9VM7/PYvYhaqxEBEi8VtQvZLax6yURVr
+ FbFiE7X8Qj6OtaPVJmFgota+lsscWcFRZBDvrk+NpYLFwZ0Z2nyBHyUWIBk1mSnhKbOazZiK1gt
+ 3N+qDn5t1CjNQ6IC7gOYs92pKAwuc2AsctGx45HqUVqOYqfiP+DIsNcZw7gKqSsgOvVD2g9rcz+
+ 3fiXWjG9eN3/yRPGlg0rl+ZPBPs2yd/VL7AplTWfvOO4qirrlchtphBtwuqeM2leAjgstgCK6v+
+ +If2V9WrOfgZjaCLwDt/Q1H1HDAZK6nSHkP2VRxRHwxEVJY35Ftpz0zOcXmM5HuSBtDGYgGzkCr
+ pVVQZd6ZOmt3YYtmoSg==
+X-Authority-Analysis: v=2.4 cv=A/T5rKWG c=1 sm=1 tr=0 ts=6ae1ef00 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ud/Gc3SFmwde3Mv7YyqU3w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=lZdmFDQy_dSNCzDU9jwA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-ORIG-GUID: POwlDk3VR9dc3lONEl0dbko4a5CYazjE
+X-Proofpoint-GUID: POwlDk3VR9dc3lONEl0dbko4a5CYazjE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MCBTYWx0ZWRfXy5GBsudG8QI7
+ 4HGLfXBb0hZGNFR7nHuZY8PgQdNHgqapxDiGBLxUqLAZ7hbtLqk7fwNq6s8Uo0J5dPNr+f8QpCE
+ /Dnlphf0Bq5fUT1uqep7dfEQ2BhQDdg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280050
 
-=D1=81=D1=80, 28 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:3=
-5 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sunday, October 25, 2026 5:51=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D0=BD=D0=B4, 25 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-03:46 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Friday, October 23, 2026 11:14=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 11:26 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =
-=D0=BE 10:53 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=
-=B5:
-> > > > > >
-> > > > ...
-> > > > > > > +MODULE_ALIAS("platform:tegra-dbi");
-> > > > > > > +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> > > > > > > +MODULE_DESCRIPTION("Nvidia Tegra20/30 MIPI-DBI Type B driver=
-");
-> > > > > > > +MODULE_LICENSE("GPL");
-> > > > > >
-> > > > > > No separate platform driver or device. If a separate struct dev=
-ice is
-> > > > > > needed for some technical purpose, we need to create a minimal =
-separate
-> > > > > > virtual device, but unless there is a strong reason to have tha=
-t we
-> > > > > > should be fine with just the dc device.
-> > > > > >
-> > > > > > Thank you
-> > > > > > Mikko
-> > > > > >
-> > > > >
-> > > > > ATM, I use bridge framework to describe interface and I am attach=
-ing
-> > > > > it to RGB since it basically uses RGB to transfer video data. It =
-works
-> > > > > pretty nice so far.
-> > > > >
-> > > > > You propose to replicate how RGB works just for DBI?
-> > > > >
-> > > >
-> > > > One of the reasons I used separate pdev was to be able get mipi_dbi
-> > > > from it using dev_get_drvdata() from patent (dbi bridge in this cas=
-e).
-> > > > DBI framework seems to not have a way to pass it in any other way,
-> > > > unless you know smth I don't.
-> > >
-> > > Right, I think using a bridge is fine; passing the mipi_dbi interface=
- is
-> > > properly done in other ways. The direct parent devdata link is a bit =
-of
-> > > a "poor man's bus", and sometimes it breaks down, such as here.
-> > >
-> > > MIPI DBI is comparable to MIPI DSI -- both have a hardware channel th=
-at
-> > > sends both pixel data and commands. I think we should follow DSI's
-> > > example and have a DBI bus and devices while keeping it as simple as
-> > > possible.
-> > >
-> > > The DC driver would register a DBI host and the panel would bind as a
-> > > DBI device. The DC driver can then supply the mipi_dbi object in a fi=
-eld
-> > > of the mipi_dbi_device.
-> > >
-> > > This is a bit more complicated than a parent devdata pointer but much
-> > > cleaner, and follows the existing DSI pattern.
-> > >
-> >
-> > I understand your intentions, but ATM kernel lacks any DBI type B
-> > framework. No hosts, ho devices, noting granular. Implementing
-> > everything just not worth my time to support 2 panels of device based
-> > on Tegra 20. And I am talking not about time to actually implement
-> > this in the code, but to upstream. DSI framework is huge, copying even
-> > part of it to wrap legacy DBI interface and ustreaming it does not
-> > worth hassle. And yes, I am a poor man, I use a parent devdata bus.
->
-> I sketched out the bus implementation and I really don't think it's that
-> complicated -- about 200 lines in total. See below. If there turn out to
-> be issues we can put an equivalent into drm/tegra/.
->
-> -- drm_mipi_dbi_bus.c
->
-> /* MIPI DBI devices with command transport through parallel interface */
->
-> #include <linux/err.h>
-> #include <linux/init.h>
-> #include <linux/of.h>
-> #include <linux/of_device.h>
-> #include <linux/slab.h>
->
-> #include <drm/drm_mipi_dbi.h>
-> #include <drm/drm_mipi_dbi_bus.h>
->
-> static int mipi_dbi_match(struct device *dev, const struct device_driver =
-*driver)
-> {
->         return of_driver_match_device(dev, driver);
-> }
->
-> static int mipi_dbi_uevent(const struct device *dev, struct kobj_uevent_e=
-nv *env)
-> {
->         return of_device_uevent_modalias(dev, env);
-> }
->
-> static const struct bus_type mipi_dbi_bus_type =3D {
->         .name =3D "mipi-dbi",
->         .match =3D mipi_dbi_match,
->         .uevent =3D mipi_dbi_uevent,
-> };
->
-> static void mipi_dbi_device_release(struct device *dev)
-> {
->         of_node_put(dev->of_node);
->         kfree(to_mipi_dbi_device(dev));
-> }
->
-> static void mipi_dbi_device_unregister(void *data)
-> {
->         struct device *dev =3D data;
->
->         of_node_clear_flag(dev->of_node, OF_POPULATED);
->         device_unregister(dev);
-> }
->
-> /* called by dbi host driver to create panel device */
-> struct mipi_dbi_device *
-> devm_mipi_dbi_device_register(struct mipi_dbi_host *host, struct device_n=
-ode *np)
-> {
->         struct mipi_dbi_device *dbidev;
->         int ret;
->
->         if (!host || !host->dev || !host->dbi || !host->dbi->command ||
->             !host->ops || !host->ops->attach || !host->ops->detach || !np=
-)
->                 return ERR_PTR(-EINVAL);
->
->         if (!of_device_is_available(np))
->                 return ERR_PTR(-ENODEV);
->
->         dbidev =3D kzalloc_obj(*dbidev);
->         if (!dbidev)
->                 return ERR_PTR(-ENOMEM);
->
->         if (of_node_test_and_set_flag(np, OF_POPULATED)) {
->                 kfree(dbidev);
->                 return ERR_PTR(-EBUSY);
->         }
->
->         dbidev->host =3D host;
->         dbidev->dbi =3D host->dbi;
->         device_initialize(&dbidev->dev);
->         dbidev->dev.parent =3D host->dev;
->         dbidev->dev.bus =3D &mipi_dbi_bus_type;
->         dbidev->dev.release =3D mipi_dbi_device_release;
->         device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np)));
->
->         ret =3D dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev), =
-np->full_name);
->         if (ret)
->                 goto put_device;
->
->         ret =3D device_add(&dbidev->dev);
->         if (ret)
->                 goto put_device;
->
->         ret =3D devm_add_action_or_reset(host->dev, mipi_dbi_device_unreg=
-ister,
->                                        &dbidev->dev);
->         if (ret)
->                 return ERR_PTR(ret);
->
->         return dbidev;
->
-> put_device:
->         of_node_clear_flag(np, OF_POPULATED);
->         put_device(&dbidev->dev);
->         return ERR_PTR(ret);
-> }
-> EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
->
-> static void mipi_dbi_detach(void *data)
-> {
->         struct mipi_dbi_device *dev =3D data;
->
->         dev->host->ops->detach(dev->host, dev);
->         dev->attached =3D false;
-> }
->
-> /* called by panel on probe completion to attach to dbi host */
-> int devm_mipi_dbi_attach(struct mipi_dbi_device *dev)
-> {
->         int ret;
->
->         if (dev->attached)
->                 return -EBUSY;
->
->         ret =3D dev->host->ops->attach(dev->host, dev);
->         if (ret)
->                 return ret;
->
->         dev->attached =3D true;
->         return devm_add_action_or_reset(&dev->dev, mipi_dbi_detach, dev);
-> }
-> EXPORT_SYMBOL_GPL(devm_mipi_dbi_attach);
->
-> int __mipi_dbi_driver_register(struct device_driver *driver, struct modul=
-e *owner)
-> {
->         driver->owner =3D owner;
->         driver->bus =3D &mipi_dbi_bus_type;
->
->         return driver_register(driver);
-> }
-> EXPORT_SYMBOL_GPL(__mipi_dbi_driver_register);
->
-> void mipi_dbi_driver_unregister(struct device_driver *driver)
-> {
->         driver_unregister(driver);
-> }
-> EXPORT_SYMBOL_GPL(mipi_dbi_driver_unregister);
->
-> static int __init mipi_dbi_bus_init(void)
-> {
->         return bus_register(&mipi_dbi_bus_type);
-> }
-> subsys_initcall(mipi_dbi_bus_init);
->
-> static void __exit mipi_dbi_bus_exit(void)
-> {
->         bus_unregister(&mipi_dbi_bus_type);
-> }
-> module_exit(mipi_dbi_bus_exit);
->
-> -- drm_mipi_dbi_bus.h
->
-> #ifndef __DRM_MIPI_DBI_BUS_H__
-> #define __DRM_MIPI_DBI_BUS_H__
->
-> #include <linux/device.h>
-> #include <linux/module.h>
->
-> struct device_node;
-> struct mipi_dbi;
-> struct mipi_dbi_device;
-> struct mipi_dbi_host;
->
-> struct mipi_dbi_host_ops {
->         int (*attach)(struct mipi_dbi_host *host, struct mipi_dbi_device =
-*dev);
->         void (*detach)(struct mipi_dbi_host *host, struct mipi_dbi_device=
- *dev);
-> };
->
-> struct mipi_dbi_host {
->         struct device *dev;
->         struct mipi_dbi *dbi;
->         const struct mipi_dbi_host_ops *ops;
-> };
->
-> struct mipi_dbi_device {
->         struct device dev;
->         struct mipi_dbi *dbi;
->         struct mipi_dbi_host *host;
->         bool attached;
-> };
->
-> static inline struct mipi_dbi_device *to_mipi_dbi_device(struct device *d=
-ev)
-> {
->         return container_of(dev, struct mipi_dbi_device, dev);
-> }
->
-> struct mipi_dbi_device *
-> devm_mipi_dbi_device_register(struct mipi_dbi_host *host, struct device_n=
-ode *np);
-> int devm_mipi_dbi_attach(struct mipi_dbi_device *dev);
->
-> int __mipi_dbi_driver_register(struct device_driver *driver, struct modul=
-e *owner);
-> void mipi_dbi_driver_unregister(struct device_driver *driver);
->
-> #define mipi_dbi_driver_register(driver) \
->         __mipi_dbi_driver_register(driver, THIS_MODULE)
->
-> #define module_mipi_dbi_driver(driver) \
->         module_driver(driver, mipi_dbi_driver_register, mipi_dbi_driver_u=
-nregister)
->
-> #endif
->
 
-Looks promising. I will give it a try.
+On 9/10/2026 8:32 PM, Ajay Kumar Nandam wrote:
+> Add machine driver support for the Qualcomm Shikra CQM EVK board.
+> The Shikra CQM platform uses an I2S-based audio path with WSA885x
+> amplifiers and PM4125/Rouleur codec components.
+>
+> The CQM variant uses DSP_A framing on its QAIF CPU DAI, configured
+> via the cpu_dai_fmt field introduced in the preceding patch.
+>
+> Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> ---
+
+
+LGTM,
+
+Reviewed-by: Prasad Kumpatla<prasad.kumpatla@oss.qualcomm.com> Thanks,
+Prasad
+
+
+
