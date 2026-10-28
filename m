@@ -1,65 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179837;
-	b=tj7nu0IpwHzk6gwuPnnUEQx5JxGyBv86EfmGOvqxiQtH1mTOt8K26sIjRvhmD+T3y6Qt
-	 ZvWt8xYVO/IfGe9OiVHVe321l+4PuLFdiRRP6pZS5COTB6fST+GQGQ1+cdHDxd5fbDxit
-	 99H1+1SirGAOnDROIHNzEYZX2ekop94x1GKZqQ76HEGyNocbSuPlO8DRuIzjD2wJzQZRd
-	 0wsiOVAZ4FShgdxoG5MgN4e7t/D1Meu/ZiOm+lgwmT5mE6w8vJCSnEbIk6fPX5NewfRin
-	 gR9zJWcHk7mECk5oO/5tDwAerMtg+Gk5wHC4p66P8/0dcNcU+H02fSsmHNwgGOe8rvg==
+	t=1793179879;
+	b=B0pHDex5JpKe4O6L6RYmVONxIg3iurxzUbo04EfD9RzjP9y/fZ3emO/D5RzWV5HdOzuG
+	 03yCUnvoPQUJ4X6A3goaMIkqu7d+gWXrPEg516i0zSHmWBQIsqBgTKaI9aWUQvOBg9KUT
+	 lX4HosbvIvsRx7yhSjfCdeMUB/Uo4IfxNJiP72O2KtC4gdi+8O+6U2GVDFYoLxVxKru6E
+	 wJL/hRq2uLI4d1UtwGDyEMGaujNwsP4nN69aVkbc1dbRZPvx/1ZRGV7enhBVx1+2S0MGl
+	 MpX5KDJcK3CS5hH+9C6NuqX4cT5lMb9YNv2qTzCmvNPATfDRgBeweFdiQfI38kt+cPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179837;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=KYHj1QnRHQ5cCL3XkB6mwbRtXBfd3jhebMYHMpMx9Gs=;
-	b=kTTQMBP9VzuigF1mWc7VJ9mxeQ6qoUSAldXCfyG0ES6qJnhP/oyLXpRzSylAL2MFcExp
-	 XM4AGDyw4KqqKhjhxZ55aOeG/mo0A6KhO6Zi3idzpMZLxHezy6XGRkaAChnnJEtukrGQY
-	 b6GVgdKuMOqEO25jd/j8pgas+yefhqn5fAgbhUCvTHgecqiXMqNrO7UJwxc9GcCal5gfN
-	 U7nOxiV9ujbHclzBgBvN9YeByGXD49BOGg+hqoAqf78o/v5ag7fuBCW1dnf7I+h73WPuc
-	 WBho9Ai6nqNTAXeAmK4SECKrrFQqzEs2yw9BPxq08aDCZzochHJzBYN9LJWmtUUtRBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179879;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MPrCqYlx4mKG8Otra71wvhn03dGut2sTy6q8jov1oiE=;
+	b=xVrSQgxh9M5sRxHfKtx/jTBbF6dMDks6eHEcTjx0TpS55cGidiyvBD3yUELCztGjcq9A
+	 zh3h3VCxfb+YBiM1ksNcjKMFH/NyjxoAhfamWA4HnxKY9c6GgKnoheUKPrPp2Axb0Q/r3
+	 wtdJSkHfj7G9XnAZJTxVpiJd8t1qPLjIFB9+wRK64qdjsrJjG2E1ZvV18kgBQR3t9Nf9m
+	 M/CGMJB7N9fQ27mEEaEOq/sLQJi7fXcF/fKHkgC/TOaYmDLq0N6WVPI7nJRCHapj7MFYj
+	 a6xVp+NOt0sgm6hHnOzkUWb5R2WkjtAvDaL9pv2X+WQr6aOEBG6ehqBMEdtY2ocvtCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=aUUgKCIc;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 93EFA60A260C;
-	Wed, 28 Oct 2026 09:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93EFA60A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TQFwKZD1;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D9C606A31E;
+	Wed, 28 Oct 2026 09:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D9C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=aUUgKCIc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=KYHj1QnRHQ5cCL3XkB6mwbRtXBfd3jhebM
-	YHMpMx9Gs=; b=aUUgKCIcUl/MR7RHnXH+K8/8BzL+CkZMQAqIrvEc9GOcjaRvkd
-	pzgcU9HC8kbk8y2wnuGdB6mH6b7ybmBxWoeqrXRr9T2VJTpFBvxYWxHPnQ6UFTNH
-	nIW46UIeXzooQOMSZCUiG7abHOtRs+UlJnBek2K0zQDRkhMFeC510QFRA=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S10;
-	Wed, 28 Oct 2026 17:30:20 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 8/9] media: camss: vfe: add the gen4 block and SM8750 camera subsystem
-Date: Wed, 28 Oct 2026 17:30:02 +0800
-Message-ID: <20261028093003.722745-9-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TQFwKZD1
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 14ABC4F1;
+	Wed, 28 Oct 2026 10:29:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793179744;
+	bh=YiFY6VG/LOBOa7WvB2X52V1IBWHcEWEBv6LdPuf5Mww=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TQFwKZD14pxORh3eSiYLQ7a3yAbtLWUjTcej43cl5dt5a4JJ5EDCkw8M98dVIuual
+	 d9iQ4xnKrv+G4loQSutWUuFtv/MGq4G6KZ/mchQeVKkh+fKoHTzJCBN94vHjUZH88W
+	 dX12qo2tvMNCo/x3bOFEE5ZbcUWQryM8Nzc9b9hc=
+Message-ID: <30b2925b-0518-4692-ae2a-f70fd11ce43b@ideasonboard.com>
+Date: Wed, 28 Oct 2026 09:31:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,657 +54,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S10
-X-Coremail-Antispam: 1UD129KBjvAXoW3tFW3JFW8GrW7uF4xWFW7Jwb_yoW8AF1rZo
-	WfCF4qyr40gryxGFZ2y3W7JrWxuryvgFy7Aa1rCF45Zw1Dtw4rJryxGw4Fq3WYgr43tFn7
-	AryFqr93Jas2q3Z3n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUO67k0a2IF6w4kM7kC6x804xWl14x267AKxVWrJVCq3wAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
-	I2jVAFwI0_JF0E3s1l82xGYIkIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2
-	F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjx
-	v20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2
-	z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0V
-	AKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8uwCF04k20xvY0x0EwIxGrwCFx2Iq
-	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
-	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
-	xVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20x
-	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8
-	Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07botxgUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBZsa
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] media: i2c: ov5693: Keep the Bayer order when
+ flipping at full resolution
+To: rylos78@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
+ Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>,
+ linux-kernel@vger.kernel.org
+References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+ <20261027-ov5693-fixes-v1-2-3c8ab1ae104d@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261027-ov5693-fixes-v1-2-3c8ab1ae104d@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The VFE on SM8750 (gen4) keeps the write master interface, but the
-registers move to a new base and the frame based interrupts are gone:
-buffer done, register update completion and start of frame all come from
-the CSID (see the 980 CSID support).  Implement the block with the
-existing vfe_buf_done()/vfe_frame_start() helpers, and require the DMA
-address and the frame size to be 256-byte aligned, as the write master
-takes both in 256-byte units.
 
-Instantiate the sub-blocks for SM8750: six CSIPHY instances, two full
-and two lite CSIDs, two full and one lite VFE, the interconnect paths,
-the top-level resources and the compatible string.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/media/platform/qcom/camss/Makefile    |   1 +
- .../platform/qcom/camss/camss-vfe-gen4.c      | 212 +++++++++++
- drivers/media/platform/qcom/camss/camss.c     | 357 ++++++++++++++++++
- 3 files changed, 570 insertions(+)
- create mode 100644 drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+On 27/10/2026 20:29, Marco Ziliani via B4 Relay wrote:
+> From: Marco Ziliani <rylos78@gmail.com>
+> 
+> In the full (unbinned) readout each of the horizontal and vertical
+> flips moves the Bayer phase by one column. With exactly one flip
+> enabled the CSI-2 receiver gets GBRG instead of the SBGGR10 the driver
+> reports, which gives a magenta and green image; with both enabled the
+> two shifts cancel out.
+> 
+> The crop start is only honoured in steps of two pixels, so compensate
+> by shifting the output window by one column when hflip XOR vflip, and
+> widen the crop by two columns, within the pixel array, so that the
+> window still fits. Reprogram the window when either flip changes. The
+> binned readout is left unchanged.
+> 
+> With this change, raw 2592x1944 frames come out BGGR at all four
+> hflip/vflip settings on the Surface Pro 5 (IPU3)
 
-diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-index 348da1ccc..1ac787164 100644
---- a/drivers/media/platform/qcom/camss/Makefile
-+++ b/drivers/media/platform/qcom/camss/Makefile
-@@ -28,6 +28,7 @@ qcom-camss-objs += \
- 		camss-vfe-680.o \
- 		camss-vfe-gen1.o \
- 		camss-vfe-gen3.o \
-+		camss-vfe-gen4.o \
- 		camss-vfe-vbif.o \
- 		camss-video.o
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen4.c b/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
-new file mode 100644
-index 000000000..2ee82898f
---- /dev/null
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
-@@ -0,0 +1,212 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * camss-vfe-gen4.c
-+ *
-+ * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module gen4
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+
-+#include "camss.h"
-+#include "camss-vfe.h"
-+
-+#define BUS_REG_BASE				(vfe_is_lite(vfe) ? 0x200 : 0x800)
-+
-+#define VFE_BUS_WM_CGC_OVERRIDE			(BUS_REG_BASE + 0x08)
-+#define		WM_CGC_OVERRIDE_ALL			(0x7FFFFFF)
-+
-+#define VFE_BUS_WM_TEST_BUS_CTRL		(BUS_REG_BASE + 0x128)
-+
-+#define VFE_BUS_WM_CFG(n)			(BUS_REG_BASE + 0x500 + (n) * 0x100)
-+#define		WM_CFG_EN				BIT(0)
-+#define		WM_CFG_MODE				BIT(16)
-+#define VFE_BUS_WM_IMAGE_ADDR(n)		(BUS_REG_BASE + 0x504 + (n) * 0x100)
-+#define VFE_BUS_WM_FRAME_INCR(n)		(BUS_REG_BASE + 0x508 + (n) * 0x100)
-+#define VFE_BUS_WM_IMAGE_CFG_0(n)		(BUS_REG_BASE + 0x50C + (n) * 0x100)
-+#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH		(0xFFFF)
-+#define VFE_BUS_WM_IMAGE_CFG_2(n)		(BUS_REG_BASE + 0x514 + (n) * 0x100)
-+#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE		(0xFFFF)
-+#define VFE_BUS_WM_PACKER_CFG(n)		(BUS_REG_BASE + 0x518 + (n) * 0x100)
-+
-+#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x530 + (n) * 0x100)
-+#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x534 + (n) * 0x100)
-+
-+/* VFE lite has no such registers */
-+#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x538 + (n) * 0x100)
-+#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x53C + (n) * 0x100)
-+
-+#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x560 + (n) * 0x100)
-+#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x564 + (n) * 0x100)
-+
-+/*
-+ * IFE write master client IDs
-+ *
-+ * VIDEO_FULL			0
-+ * VIDEO_DC4_Y			1
-+ * VIDEO_DC4_C			2
-+ * VIDEO_DC16_Y			3
-+ * VIDEO_DC16_C			4
-+ * DISPLAY_DS2_Y		5
-+ * DISPLAY_DS2_C		6
-+ * FD_Y				7
-+ * FD_C				8
-+ * IR_OUT			9
-+ * STATS_AEC_BG			10
-+ * STATS_AEC_BHIST		11
-+ * STATS_TINTLESS_BG		12
-+ * STATS_AWB_BG			13
-+ * STATS_AWB_BFW		14
-+ * STATS_AF_BHIST		15
-+ * STATS_ALSC_BG		16
-+ * STATS_FLICKER_BAYERRS	17
-+ * STATS_TMC_BHIST		18
-+ * PDAF_0			19
-+ * PDAF_1			20
-+ * PDAF_2			21
-+ * PDAF_3			22
-+ * RDI0				23
-+ * RDI1				24
-+ * RDI2				25
-+ * RDI3				26
-+ * RDI4				27
-+ *
-+ * IFE Lite write master client IDs
-+ *
-+ * RDI0			0
-+ * RDI1			1
-+ * RDI2			2
-+ * RDI3			3
-+ * GAMMA		4
-+ * STATES_BE		5
-+ */
-+#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
-+
-+static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
-+{
-+	struct v4l2_pix_format_mplane *pix =
-+		&line->video_out.active_fmt.fmt.pix_mp;
-+
-+	wm = RDI_WM(wm);
-+
-+	/* no clock gating at bus input */
-+	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
-+
-+	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
-+
-+	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
-+	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
-+	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
-+	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
-+	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
-+	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
-+	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
-+
-+	/* no dropped frames, one irq per frame */
-+	if (!vfe_is_lite(vfe)) {
-+		writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
-+		writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
-+	}
-+
-+	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
-+	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
-+
-+	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
-+	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
-+
-+	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
-+}
-+
-+static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
-+{
-+	wm = RDI_WM(wm);
-+	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
-+}
-+
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+			  struct vfe_line *line)
-+{
-+	wm = RDI_WM(wm);
-+	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-+}
-+
-+static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-+{
-+	int port_id = line_id;
-+
-+	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-+}
-+
-+static inline void vfe_reg_update_clear(struct vfe_device *vfe,
-+					enum vfe_line_id line_id)
-+{
-+	int port_id = line_id;
-+
-+	camss_reg_update(vfe->camss, vfe->id, port_id, true);
-+}
-+
-+static int vfe_prepare_buffer(struct camss_video *video, struct vb2_buffer *vb)
-+{
-+	struct camss_buffer *buf = container_of(to_vb2_v4l2_buffer(vb),
-+					      struct camss_buffer, vb);
-+	struct v4l2_pix_format_mplane *pix = &video->active_fmt.fmt.pix_mp;
-+
-+	/* Image addresses and frame increments are expressed in 256-byte units. */
-+	if (!IS_ALIGNED(buf->addr[0], 256) ||
-+	    !IS_ALIGNED(pix->plane_fmt[0].bytesperline * pix->height, 256))
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static const struct camss_video_ops vfe_video_ops_gen4 = {
-+	.prepare_buffer = vfe_prepare_buffer,
-+	.queue_buffer = vfe_queue_buffer_v2,
-+	.flush_buffers = vfe_flush_buffers,
-+};
-+
-+static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
-+{
-+	unsigned int i;
-+
-+	vfe->video_ops = vfe_video_ops_gen4;
-+	for (i = 0; i < vfe->res->line_num; i++)
-+		vfe->line[i].video_out.vb2_q.min_queued_buffers = CAMSS_INIT_BUF_COUNT;
-+}
-+
-+static void vfe_global_reset(struct vfe_device *vfe)
-+{
-+	vfe_isr_reset_ack(vfe);
-+}
-+
-+static irqreturn_t vfe_isr(int irq, void *dev)
-+{
-+	/* nop */
-+	return IRQ_HANDLED;
-+}
-+
-+static int vfe_halt(struct vfe_device *vfe)
-+{
-+	/* rely on vfe_disable_output() to stop the VFE */
-+	return 0;
-+}
-+
-+const struct vfe_hw_ops vfe_ops_gen4 = {
-+	.global_reset = vfe_global_reset,
-+	.hw_version = vfe_hw_version,
-+	.isr = vfe_isr,
-+	.pm_domain_off = vfe_pm_domain_off,
-+	.pm_domain_on = vfe_pm_domain_on,
-+	.reg_update = vfe_reg_update,
-+	.reg_update_clear = vfe_reg_update_clear,
-+	.subdev_init = vfe_subdev_init,
-+	.vfe_disable = vfe_disable,
-+	.vfe_enable = vfe_enable_v2,
-+	.vfe_halt = vfe_halt,
-+	.vfe_wm_start = vfe_wm_start,
-+	.vfe_wm_stop = vfe_wm_stop,
-+	.vfe_buf_done = vfe_buf_done,
-+	.frame_start = vfe_frame_start,
-+	.vfe_wm_update = vfe_wm_update,
-+};
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 92d536986..b70fbff0f 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4187,6 +4187,349 @@ static const struct resources_icc icc_res_sa8775p[] = {
- 	},
- };
- 
-+static const struct camss_subdev_resources csiphy_res_8750[] = {
-+	/* CSIPHY0 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy0-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy0-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy0", "csiphy0_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy0" },
-+		.interrupt = { "csiphy0" },
-+		.csiphy = {
-+			.id = 0,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY1 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy1-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy1-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy1", "csiphy1_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy1" },
-+		.interrupt = { "csiphy1" },
-+		.csiphy = {
-+			.id = 1,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY2 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy2-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy2-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy2", "csiphy2_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy2" },
-+		.interrupt = { "csiphy2" },
-+		.csiphy = {
-+			.id = 2,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY3 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy3-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy3-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy3", "csiphy3_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy3" },
-+		.interrupt = { "csiphy3" },
-+		.csiphy = {
-+			.id = 3,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY4 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy4-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy4-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy4", "csiphy4_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy4" },
-+		.interrupt = { "csiphy4" },
-+		.csiphy = {
-+			.id = 4,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY5 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy5-0p9", .init_load_uA = 148000 },
-+			{ .supply = "vdd-csiphy5-1p2", .init_load_uA = 14660 }
-+		},
-+		.clock = { "csiphy5", "csiphy5_timer",
-+			   "cpas_ahb", "cpas_fast_ahb" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "csiphy5" },
-+		.interrupt = { "csiphy5" },
-+		.csiphy = {
-+			.id = 5,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+};
-+
-+static const struct camss_subdev_resources csid_res_8750[] = {
-+	/* CSID0 */
-+	{
-+		.clock = { "csid", "csid_csiphy_rx" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "csid0" },
-+		.interrupt = { "csid0" },
-+		.csid = {
-+			.is_lite = false,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.hw_ops = &csid_ops_980,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID1 */
-+	{
-+		.clock = { "csid", "csid_csiphy_rx" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "csid1" },
-+		.interrupt = { "csid1" },
-+		.csid = {
-+			.is_lite = false,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.hw_ops = &csid_ops_980,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID2 */
-+	{
-+		.clock = { "csid", "csid_csiphy_rx" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "csid2" },
-+		.interrupt = { "csid2" },
-+		.csid = {
-+			.is_lite = false,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.hw_ops = &csid_ops_980,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE0 */
-+	{
-+		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "csid_lite0" },
-+		.interrupt = { "csid_lite0" },
-+		.csid = {
-+			.is_lite = true,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.hw_ops = &csid_ops_980,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE1 */
-+	{
-+		.clock = { "vfe_lite_csid", "vfe_lite_cphy_rx" },
-+		.clock_rate = { { 400000000, 480000000 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "csid_lite1" },
-+		.interrupt = { "csid_lite1" },
-+		.csid = {
-+			.is_lite = true,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.hw_ops = &csid_ops_980,
-+			.formats = &csid_formats_gen2
-+		}
-+	}
-+};
-+
-+static const struct camss_subdev_resources vfe_res_8750[] = {
-+	/* VFE0 - TFE Full */
-+	{
-+		.clock = { "gcc_axi_hf", "vfe0_fast_ahb", "vfe0",
-+			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-+			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-+		.clock_rate = { { 0 },
-+				{ 0 },
-+				{ 360280000, 480000000, 630000000, 716000000,
-+				  833000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 200000000, 300000000, 400000000, 480000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "vfe0" },
-+		.interrupt = { "vfe0" },
-+		.vfe = {
-+			.line_num = 3,
-+			.is_lite = false,
-+			.reg_update_after_csid_config = true,
-+			.has_pd = true,
-+			.pd_name = "ife0",
-+			.hw_ops = &vfe_ops_gen4,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE1 - TFE Full */
-+	{
-+		.clock = { "gcc_axi_hf", "vfe1_fast_ahb", "vfe1",
-+			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-+			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-+		.clock_rate = { { 0 },
-+				{ 0 },
-+				{ 360280000, 480000000, 630000000, 716000000,
-+				  833000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 200000000, 300000000, 400000000, 480000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "vfe1" },
-+		.interrupt = { "vfe1" },
-+		.vfe = {
-+			.line_num = 3,
-+			.is_lite = false,
-+			.reg_update_after_csid_config = true,
-+			.has_pd = true,
-+			.pd_name = "ife1",
-+			.hw_ops = &vfe_ops_gen4,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE2 - TFE Full */
-+	{
-+		.clock = { "gcc_axi_hf", "vfe2_fast_ahb", "vfe2",
-+			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-+			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-+		.clock_rate = { { 0 },
-+				{ 0 },
-+				{ 360280000, 480000000, 630000000, 716000000,
-+				  833000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 200000000, 300000000, 400000000, 480000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "vfe2" },
-+		.interrupt = { "vfe2" },
-+		.vfe = {
-+			.line_num = 3,
-+			.is_lite = false,
-+			.reg_update_after_csid_config = true,
-+			.has_pd = true,
-+			.pd_name = "ife2",
-+			.hw_ops = &vfe_ops_gen4,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE0 */
-+	{
-+		.clock = { "gcc_axi_hf", "vfe_lite_ahb", "vfe_lite",
-+			   "cpas_vfe_lite", "camnoc_rt_axi",
-+			   "camnoc_nrt_axi", "qdss_debug_xo" },
-+		.clock_rate = { { 0 },
-+				{ 0 },
-+				{ 266666667, 400000000, 480000000 },
-+				{ 0 },
-+				{ 200000000, 300000000, 400000000, 480000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "vfe_lite0" },
-+		.interrupt = { "vfe_lite0" },
-+		.vfe = {
-+			.line_num = 4,
-+			.is_lite = true,
-+			.reg_update_after_csid_config = true,
-+			.hw_ops = &vfe_ops_gen4,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE1 */
-+	{
-+		.clock = { "gcc_axi_hf", "vfe_lite_ahb", "vfe_lite",
-+			   "cpas_vfe_lite", "camnoc_rt_axi",
-+			   "camnoc_nrt_axi", "qdss_debug_xo" },
-+		.clock_rate = { { 0 },
-+				{ 0 },
-+				{ 266666667, 400000000, 480000000 },
-+				{ 0 },
-+				{ 200000000, 300000000, 400000000, 480000000 },
-+				{ 0 },
-+				{ 0 } },
-+		.reg = { "vfe_lite1" },
-+		.interrupt = { "vfe_lite1" },
-+		.vfe = {
-+			.line_num = 4,
-+			.is_lite = true,
-+			.reg_update_after_csid_config = true,
-+			.hw_ops = &vfe_ops_gen4,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	}
-+};
-+
-+static const struct resources_icc icc_res_sm8750[] = {
-+	{
-+		.name = "ahb",
-+		.icc_bw_tbl.avg = 150000,
-+		.icc_bw_tbl.peak = 300000,
-+	},
-+	/* Based on 4096 x 3072 30 FPS 2496 Mbps mode */
-+	{
-+		.name = "hf_mnoc",
-+		.icc_bw_tbl.avg = 471860,
-+		.icc_bw_tbl.peak = 925857,
-+	},
-+};
-+
- static const struct camss_subdev_resources csiphy_res_x1e80100[] = {
- 	/* CSIPHY0 */
- 	{
-@@ -5735,6 +6078,19 @@ static const struct camss_resources sm8650_resources = {
- 	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
- };
- 
-+static const struct camss_resources sm8750_resources = {
-+	.version = CAMSS_8750,
-+	.pd_name = "top",
-+	.csiphy_res = csiphy_res_8750,
-+	.csid_res = csid_res_8750,
-+	.vfe_res = vfe_res_8750,
-+	.icc_res = icc_res_sm8750,
-+	.csiphy_num = ARRAY_SIZE(csiphy_res_8750),
-+	.csid_num = ARRAY_SIZE(csid_res_8750),
-+	.vfe_num = ARRAY_SIZE(vfe_res_8750),
-+	.icc_path_num = ARRAY_SIZE(icc_res_sm8750),
-+};
-+
- static const struct camss_resources x1e80100_resources = {
- 	.version = CAMSS_X1E80100,
- 	.pd_name = "top",
-@@ -5769,6 +6125,7 @@ static const struct of_device_id camss_dt_match[] = {
- 	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
- 	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
- 	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
-+	{ .compatible = "qcom,sm8750-camss", .data = &sm8750_resources },
- 	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
- 	{ }
- };
+Hm. But what's the right approach? To allow flips without changing the media bus format code by 
+offsetting the output rectangle, or to have flips change the media bus format that the driver 
+reports and flag the flip controls with V4L2_CTRL_FLAG_MODIFY_LAYOUT. At the moment that would mean 
+that you couldn't set flips whilst streaming though, which is suboptimal.
+
+
+; the same change in
+> the linux-surface tree gave BGGR at all four settings on a Surface
+> Pro 7 (IPU4P) and a Surface Pro 9 (IPU6). Without it, the order is only
+> right with both flips off or both on.
+> 
+> Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
+> Link: https://github.com/linux-surface/kernel/pull/181
+> Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+> ---
+>   drivers/media/i2c/ov5693.c | 56 +++++++++++++++++++++++++++++++++++++++-------
+>   1 file changed, 48 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+> index 579aa55b7..ca0968498 100644
+> --- a/drivers/media/i2c/ov5693.c
+> +++ b/drivers/media/i2c/ov5693.c
+> @@ -361,6 +361,49 @@ static const u8 ov5693_test_pattern_bits[] = {
+>   
+>   /* V4L2 Controls Functions */
+>   
+> +/*
+> + * In the full (unbinned) readout each flip moves the Bayer phase by one
+> + * column, so with exactly one of them enabled the CSI-2 receiver gets GBRG
+> + * instead of the SBGGR10 the driver reports; with both enabled the two shifts
+> + * cancel out. The crop start is only honoured in steps of two pixels, so
+> + * compensate by shifting the output window by one column instead, and widen
+> + * the crop so that the window still fits.
+> + */
+> +static bool ov5693_bayer_shift(struct ov5693_device *ov5693)
+> +{
+> +	const struct ov5693_mode *mode = &ov5693->mode;
+> +	bool hflip, vflip;
+> +
+> +	if (mode->binning_x || mode->binning_y)
+> +		return false;
+> +
+> +	hflip = ov5693->ctrls.hflip && ov5693->ctrls.hflip->val;
+> +	vflip = ov5693->ctrls.vflip && ov5693->ctrls.vflip->val;
+> +
+> +	return hflip ^ vflip;
+> +}
+> +
+> +static int ov5693_window_x_configure(struct ov5693_device *ov5693)
+> +{
+> +	const struct ov5693_mode *mode = &ov5693->mode;
+> +	bool shift = ov5693_bayer_shift(ov5693);
+> +	u32 crop_end = mode->crop.left + mode->crop.width;
+> +	int ret = 0;
+> +
+> +	/* Widen the crop for the shifted window, within the pixel array */
+> +	if (shift)
+> +		crop_end = min(crop_end + 2,
+> +			       max_t(u32, crop_end, OV5693_NATIVE_WIDTH - 1));
+> +
+> +	/* Offset X */
+> +	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, shift, &ret);
+> +
+> +	/* Crop End X */
+> +	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG, crop_end, &ret);
+> +
+> +	return ret;
+> +}
+> +
+>   static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
+>   				      bool enable)
+>   {
+> @@ -373,7 +416,7 @@ static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
+>   	if (ret)
+>   		return ret;
+>   
+> -	return 0;
+> +	return ov5693_window_x_configure(ov5693);
+>   }
+>   
+>   static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
+> @@ -388,7 +431,7 @@ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
+>   	if (ret)
+>   		return ret;
+>   
+> -	return 0;
+> +	return ov5693_window_x_configure(ov5693);
+>   }
+>   
+>   static int ov5693_get_exposure(struct ov5693_device *ov5693, s32 *value)
+> @@ -566,16 +609,13 @@ static int ov5693_mode_configure(struct ov5693_device *ov5693)
+>   	cci_write(ov5693->regmap, OV5693_CROP_START_X_REG, mode->crop.left,
+>   		  &ret);
+>   
+> -	/* Offset X */
+> -	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, 0, &ret);
+> -
+>   	/* Output Size X */
+>   	cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_X_REG, mode->format.width,
+>   		  &ret);
+>   
+> -	/* Crop End X */
+> -	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG,
+> -		  mode->crop.left + mode->crop.width, &ret);
+> +	/* Offset X and Crop End X follow the flips, see ov5693_bayer_shift() */
+> +	if (!ret)
+> +		ret = ov5693_window_x_configure(ov5693);
+>   
+>   	/* Horizontal Total Size */
+>   	cci_write(ov5693->regmap, OV5693_TIMING_HTS_REG, OV5693_FIXED_PPL,
+> 
 
