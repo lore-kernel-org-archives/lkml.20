@@ -1,121 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206565;
-	b=sU9uLyCUwaqyvLX467Io6X5XIEWM901f28ZJpc7zYMA7drBNDml8MW+IECrq/ugOBz6L
-	 zVhzHXbXzI2iyP4mj/vtaOWqHyiVTXM4BcFWl0wALwaEiPO6f4q4xK0IjLA3YIA4eZFeQ
-	 2a6XL4PXOnlbG6K459FfLu2kN4oB1qyrovJBMll+GxsEvIeW2sl1Q+8oKF3Ilg5nw2I5p
-	 RbZNopJxWuqEtsZQTTsiV+jyPT2LWlmWkEndUboS57E2og4S9KvHnttNvDQepm1O4Fzj3
-	 yehFGyQBPJ/VH+YgsufuUJtGkZZHtg8K31XPJ2zDjKDi0R2WgKnwajBK/paA70f497w==
+	t=1793206580;
+	b=rvnYJLW3tZ7zooImtVO12pKGrmaiISMNAAi+47v2rsK3PFzJleLezIAw216AehG/OWU1
+	 z+QUGWDUVtA2RMhHiPH/3RLs9x220OMCVG84dDah1y6tqGuLCBT3IpXbTMfUrCcWfPNO6
+	 obcGMN3HbbzoyYDj46AfXqo9kFUZeAB99M7JEpnnkVjm7oUny0Oik6hGAU3v9uLas8b/V
+	 MgAgiccr1rwfewZl1+P0x1djhx+Hj6zu/ydkNGfxtGNO2oKdndeDLicGJIsrntPpSdmsy
+	 vfK4AJRywf9x1TK/sUeMcu1KZgkUgsrYfH5Z+WrvYMeD7GAdrv0PctyFqbkmdRFtuMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206565;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=r3C0d19m+/iHxVzVsZqZF5QMTPBWCH1ibPkdNy3hhyQ=;
-	b=d7DlWIFwZWljNdrmVyDexxRY46v6Q/tnrvA4riTixZ2Gg+/WvziN6uChynQnKXd4iaOg
-	 lOyJoHwuqQbIttAAKMWEFjTrMFq7thz8MVVAnbf6/zBLjAAh0JCdAgBsxq89tj0D91mlt
-	 5LGTgF6RFvsHONiWvgBKotfIS02x2VkRyXuuvhiajOHXgZc8eITgodTHZlA0P8qAbmcrD
-	 p/ku19qSNjbPXr+X8mU6Nppv5B9snEaTdSuMK87XCKUfeRjN0m+luEcnE7UaVyzozdoO4
-	 IID0DmktlsrdtY4qxjlR6s4XfU8rULGs+Ig4HFDqq9iKrpAeLf8knEZK/+4jCBY3zYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206580;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7WmdMPjJ2NrxzGe7d5uluyZgYPehQw5MUFdjLbKyP8Q=;
+	b=0fRwLUs/ou2axZ8mcknxUeFJzCEA8sNYqQFUxy0k14qpbJrj0LSmHytSOe7DttTjpfVG
+	 GP+OPNHnNCN08I7TPtnXFoH2aReWQkIVLkQQEvDDWzX1/FuwpZCX2OgDK7D5J0LeDlp4l
+	 He2/v77ljkwoGrFOybFhNl2+yC1l1dSKbYPZZT/XdTr9o0P90CxYVSRJz0biIxe1Gg319
+	 dLZ1ds76KPIgABlW3otd65/T2+uEK79trNt82rXFE0YyjhEoxZH4RJMFRZvj42ERZdHjj
+	 yO2wZOOYBI+UlRxtIix3UZQCPJFpsfDi8EWs69Y22A3lPtmQmk6/BJKuGxJhLQrkY9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=RLxEwpL1;
-	arc=none smtp.remote-ip=209.85.222.47
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duo7yyJf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58591606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58591606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57984606A31C;
+	Wed, 28 Oct 2026 16:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57984606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=RLxEwpL1
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-99075306daaso649917241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793206564; x=1793811364; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r3C0d19m+/iHxVzVsZqZF5QMTPBWCH1ibPkdNy3hhyQ=;
-        b=RLxEwpL1hIyB/8de987ZDlpeLtVUV1o6ZwdAJJ5mPDG/A2ay9kTAD4XqeALAUEZc7T
-         E+rNOMrhz40DYs3ycXgV4yPyi2Usq+ABEvzGTdQ6EpE08oZlMGrXBuZn0oksHESP214x
-         HOhO5Bk+S9aZF/Fy2QjBdly76Bg3QJbA3fHIMsPq+C8FaEknA6C+IUV0EwW0bTP9/zWQ
-         OOiQwebdi3deLoTwUunNlh8mr6V4B5Us/zvAKXtM1PltIwFDSzlYp0tYCGFgZb7w9dqp
-         BlbKIJP2xgxwiBLxFNlTcmwU0vPots5dguJS0n27G0NkKxZIVloQxL0s3OxtMGYRXIkB
-         K+lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206564; x=1793811364;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r3C0d19m+/iHxVzVsZqZF5QMTPBWCH1ibPkdNy3hhyQ=;
-        b=mwu9aFxMcRyy7Z2Z8cH1w09U6xl3/6biTIundEdlC9dQlOuU/dqVEk67pNSwg3xUm/
-         TC7qB2Jvo1nJ0bQOuOJHP6YtyLJnr7DdVF16AsW+xa6MFkF+XusRLmvCCE7/UqWRKcUd
-         A9sYKCrQzphKxFL9JgWESPYT6b5xGxPqKD+trse2DJ//qmjfWlXpAQJbzFKoUwMNzAS8
-         QSSkA/HxxDSUzhEqt+DJQH2/cB/uhsU4l+xsBcoFguTtvDEPhLVYyxsHcXrzhsRHtu8t
-         KC9Dr4wmrvGm/7ODhre61mTmAjiFz7W6b5JKuw1gP6rqFTqg9RdCjhDXLxT46HC1ThAd
-         C1QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwivDY6vqBSSxUiioOWavruE9SlF2zBbgtK1ekqNHax5c6qWWWGHu31F33LnjAnG/JmMybsJmDmIL+jktY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJyq5jb6/vaF1c1gAa++tzLf5BNhgzPapzNaJzAQVSZudSAEHl
-	kRHTDK1ywxb9qmE3xMcWSjoCzbUuOSIbOYImEmHMyFEqx1xVK9NnNJfi+kbBZ6BAXlw=
-X-Gm-Gg: AYBFou1qOUAetZjTZ07+VBDvGm0LXi8/TR0ma3XuR9/n5rDX8RdWy8L+jMFWMgTFNMF
-	chFqrtSNiLT0tIQ/znUbC+HQs8QGRYvZsFn8kjpSFSKGyVHXThkqkyiHB1OZ4Z7itexWzw7Ri5S
-	Gfy3+g+TM9I1KK6bHMRNE82dw8/p/UnNaZBeOoqVF09tCC630uUQhGyrtJRXIZnbWFLgq6ERb1E
-	dRZpagV0vm4KXB4my0pa3Lttml8iaLZfJOEsbIGdnTemftDmpzTYl7RQsOxjIb9HaMh5trYapCT
-	egyOUSrRv5D2Ck7/wgkwnV7HEYchLgOcXODPmoeuf5WGO5w6K2IhWZw4goDIsNTczXFnyDEl24W
-	Kp8UsOChWvW9KYq+iL+3Mblu3bO17a2XgmpAVINI9F9MUrjIsp7uLB5CLULp+wcHMZYo2fsrRvw
-	UfLjVCNKxRjgH6N8hLVZpZIOi5+ZclB7R9pIi2No+vHJTJT3i7ONrdgLeQgb9XvE4NXTy1nU78s
-	egH0PjhbDu0E2cjwCb9d7nVYW3Ij6fY49wnv0ZOMkaHS7kZSbJXkVJLzjGn0f2cYvfInjwGt6dy
-	S819GRA5vCN8B+9Ef9WDjQjqlETnMFwSIDwH0w5wRO5SB1iTG4O1cwR7U/cBw7cfGVTJbWgybf5
-	gANCjy+T/LSkNk/zSBFbYFnyxsjKJ2E1F4U+eGYuFJtGkoITswDpr
-X-Received: by 2002:a05:6102:370e:b0:7ce:a79e:75a9 with SMTP id ada2fe7eead31-7d03a59dbf7mr1528233137.36.1793206564343;
-        Wed, 28 Oct 2026 09:56:04 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259fbcbfsm6525438241.10.2026.10.28.09.56.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:56:02 -0700 (PDT)
-Date: Wed, 28 Oct 2026 12:56:01 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 38/46] mm/ksm: reset the unstable trees of all nodes
-Message-ID: <auIpGR1VG7lOxJ8P@google.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-38-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duo7yyJf
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SF9xOZ2542978;
+	Wed, 28 Oct 2026 16:55:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=7WmdMPjJ2Nr
+	xzGe7d5uluyZgYPehQw5MUFdjLbKyP8Q=; b=duo7yyJfD/fQH6Wr9/R1cUfQ8EG
+	xZVrwJK5u21sZZ6Q5b0AV5uM4H6/IOlAke8uTWNKxbV7/6v+sG5G7cyBkF5HPcap
+	TiLBuh9Yy1Jn+oyCdlDFryZ0Fps93PA9z9EYBypekEglSrsj/mIzNZ0HKcpc74L9
+	MaJ/fTcZJAIgQ+R1AO2wAJN7uZ/35a9/jIECjs5nRDBkYIgaWBZeXuP9Upo6cN4H
+	ZeKgvGtiqH6DlB9IXOzqSHYuVrSy0BTXHG3R07wuO5MABXGKDS7Ry84zbsKf3r0Z
+	wj6WrEMahYqI7CliJubVneCdVu1/TMXKqXs3lEKVWDtPLnugmizHtOwE9Mg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkkehrgev-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 16:55:38 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SGtYEX1881526;
+	Wed, 28 Oct 2026 16:55:35 GMT
+Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69SGtZMD1881554
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 16:55:35 +0000 (GMT)
+Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
+	id 3BD0624B5A; Wed, 28 Oct 2026 22:25:33 +0530 (+0530)
+From: Anup Patel <anup.patel@oss.qualcomm.com>
+To: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Alexandre Ghiti <alex@ghiti.fr>,
+        Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+        Conor Dooley <conor@kernel.org>, Atish Patra <atish.patra@linux.dev>,
+        Anup Patel <anup@brainfault.org>
+Cc: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+        Yunhui Cui <cuiyunhui@bytedance.com>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        James Clark <james.clark@linaro.org>, Will Deacon <will@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        Susheng Yang <yang.susheng@zte.com.cn>
+Subject: [PATCH v11 6/9] perf: RISC-V: support callchains with SSE delivery
+Date: Wed, 28 Oct 2026 22:25:28 +0530
+Message-ID: <20261028165531.940336-7-anup.patel@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
+References: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,72 +98,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-38-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: 6xShqfkFfh8v9YvfQrlOIUVUh-Q0zUGQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX0pmetC6uT463
+ 7DnnQ85MyHaoT3/LavgdSdYNQsxN5OmEwJdp5VG5p0sXodOR+0MacgOJs3R5j3ufaJ9XtkX6vKd
+ jA3vgx9VPudYVJ1OxmSbufQnT5zZElvVf2hJh+uj37cqpzrQRw6CRhXB/qUZ1wsCWhZHX1u6qNL
+ AArv1YjMs0ybhnIEoBjBs6o12Orn/THJPnRkU/wa0ns0x+GHZ/EtscpS70c4Dg2pu0Esg5qie22
+ tlAB+tS2uTZ5odfV+r0vmvX7sKX/wAe/50omSQWzMuA6KNURSoiXGmy9IFDcyTot+3fLzGrv/9B
+ jDdwNRbwfJGWCf/KqoFUZgiuwSlUpoUMDSIL26FziR2qdqNulEXYMTZFW0DqNV4dsvBzZPqJqJF
+ cJG1Xb7oLO50atlfT1GBWXImtl0g3yQUvG1uLuvjjEmf0jyUWkyCFzuctC5pKmW3by5Axoe2Jdk
+ tHV/YeHNcg9X7iglFCw==
+X-Proofpoint-GUID: 6xShqfkFfh8v9YvfQrlOIUVUh-Q0zUGQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX0v7nfO9VCYhg
+ /iHSEjY2rJw1v4dFc4/pKs+5uhvDmmHhiaoNfZ6LuWo7dK/avyZvtywW6Sxz7CoH/2y/vSdd5ct
+ 97p/MCDhRNqUj2S5HGrb61bIxpq06gY=
+X-Authority-Analysis: v=2.4 cv=bYv+w+PB c=1 sm=1 tr=0 ts=6ae2290a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=968KyxNXAAAA:8 a=1RTuLK3dAAAA:8
+ a=oUB1ajNOr_kzCuKrLyYA:9 a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ phishscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280067
 
-On 10-27 00:17, David Hildenbrand (Arm) wrote:
-> Each full scan resets ksm_nr_node_ids unstable tree roots. Enabling
-> merge_across_nodes resets this count to 1, even if per-node roots were
-> previously allocated.
-> 
-> So when toggling "merge_across_nodes" 0 -> 1 -> 0, a scan that starts
-> while the setting is 1 and continues after switching back to 0 can
-> encounter stale unstable tree roots, resulting in UAF.
-> 
-> Only root is allowed to change "merge_across_nodes", and the documented
-> sequence is: "merge_across_nodes setting can be changed only when there
-> are no ksm shared pages in the system: set run 2 to unmerge pages first,
-> then to 1 after changing merge_across_nodes, to remerge according to the
-> new setting."
-> 
-> Let's fix it by tracking in ksm_nr_node_ids the actual number of
-> allocated tree roots.
-> 
-> remove_all_stable_nodes() and ksm_check_stable_tree() will now scan
-> more tree roots (skipping the empty ones), which is harmless.
-> 
-> Fixes: ef53d16cded7 ("ksm: allocate roots when needed")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/ksm.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index dbfb8f98b1892..9c51925825cbf 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -475,6 +475,7 @@ static void advisor_stop_scan(void)
->  #ifdef CONFIG_NUMA
->  /* Zeroed when merging across nodes is not allowed */
->  static unsigned int ksm_merge_across_nodes = 1;
-> +/* Number of allocated stable and unstable tree roots. */
->  static int ksm_nr_node_ids = 1;
->  #else
->  #define ksm_merge_across_nodes	1U
-> @@ -3636,14 +3637,13 @@ static ssize_t merge_across_nodes_store(struct kobject *kobj,
->  			else {
->  				root_stable_tree = buf;
->  				root_unstable_tree = buf + nr_node_ids;
-> +				ksm_nr_node_ids = nr_node_ids;
->  				/* Stable tree is empty but not the unstable */
->  				root_unstable_tree[0] = one_unstable_tree[0];
->  			}
->  		}
-> -		if (!err) {
-> +		if (!err)
->  			ksm_merge_across_nodes = knob;
-> -			ksm_nr_node_ids = knob ? 1 : nr_node_ids;
-> -		}
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
+PMU overflow delivery through SSE enters Linux with a synthetic supervisor
+context on a dedicated event stack. The perf unwinder must use the context
+interrupted by the overflow rather than treating the SSE handler frame as
+the sampled frame.
 
->  	}
->  	mutex_unlock(&ksm_thread_mutex);
->  
-> 
-> -- 
-> 2.43.0
-> 
+Use the interrupted pt_regs published by the RISC-V SSE entry path. Walk a
+kernel callchain only when the interrupted PC, SP, and frame pointer are
+consistent with the current task stack. For sensitive entry windows and
+IRQ stacks whose bounds cannot be proven, retain the interrupted PC without
+following an unsafe frame chain.
+
+User callchains continue through the existing nofault RISC-V user unwinder.
+If hstatus.SPV says the interrupted context was a guest, do not interpret
+the guest stack through the host address space.
+
+DWARF callchains additionally copy a raw user stack. The generic
+arch_perf_out_copy_user() implementation can take an exception-table
+handled fault when a source page is not resident. Repeated nested faults
+from the SSE handler can corrupt the interrupted kernel context under load.
+
+Provide an SSE-specific RISC-V copy path. Verify that the active page table
+belongs to current, use fast-only GUP to acquire each resident source page
+without falling back to a faulting slow path, and copy through the kernel
+mapping while holding the page reference. Stop at the first unavailable
+page and preserve perf's existing truncated-user-stack semantics. Keep the
+generic in-atomic user copy unchanged outside an SSE handler.
+
+Susheng Yang reported this failure with perf callchain workloads.
+
+Reported-by: Susheng Yang <yang.susheng@zte.com.cn>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+---
+ arch/riscv/include/asm/perf_event.h |  10 ++
+ arch/riscv/kernel/perf_callchain.c  | 142 ++++++++++++++++++++++++++++
+ 2 files changed, 152 insertions(+)
+
+diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
+index bcc928fd3785..ddc404794751 100644
+--- a/arch/riscv/include/asm/perf_event.h
++++ b/arch/riscv/include/asm/perf_event.h
+@@ -18,6 +18,16 @@
+ 	(regs)->sp = current_stack_pointer; \
+ 	(regs)->status = SR_PP; \
+ }
++
++#ifdef CONFIG_RISCV_SBI_SSE
++/*
++ * Raw user-stack sampling can run in the NMI-like SSE context. Route it
++ * through an implementation that does not fault on a non-resident page.
++ */
++unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
++				       unsigned long n);
++#define arch_perf_out_copy_user riscv_perf_out_copy_user
++#endif
+ #endif
+ 
+ #endif /* _ASM_RISCV_PERF_EVENT_H */
+diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
+index b465bc9eb870..ec75689c7aec 100644
+--- a/arch/riscv/kernel/perf_callchain.c
++++ b/arch/riscv/kernel/perf_callchain.c
+@@ -1,9 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (C) 2019 Hangzhou C-SKY Microsystems co.,ltd. */
+ 
++#include <linux/kallsyms.h>
++#include <linux/mm.h>
+ #include <linux/perf_event.h>
++#include <linux/sched/task_stack.h>
++#include <linux/thread_info.h>
+ #include <linux/uaccess.h>
+ 
++#include <asm/csr.h>
++#include <asm/sse.h>
+ #include <asm/stacktrace.h>
+ 
+ static bool fill_callchain(void *entry, unsigned long pc)
+@@ -11,6 +17,128 @@ static bool fill_callchain(void *entry, unsigned long pc)
+ 	return perf_callchain_store(entry, pc) == 0;
+ }
+ 
++#ifdef CONFIG_RISCV_SBI_SSE
++static bool sse_addr_on_task_stack(unsigned long addr, unsigned long size)
++{
++	unsigned long end = addr + size;
++	unsigned long stack;
++
++	if (end < addr)
++		return false;
++
++	stack = (unsigned long)task_stack_page(current);
++	if (addr >= stack && end <= stack + THREAD_SIZE)
++		return true;
++
++	return false;
++}
++
++static bool sse_kernel_regs_safe(struct pt_regs *regs)
++{
++	unsigned long fp = frame_pointer(regs);
++	unsigned long pc = instruction_pointer(regs);
++	unsigned long sp = user_stack_pointer(regs);
++
++	if (!__kernel_text_address(pc))
++		return false;
++	if (!sse_addr_on_task_stack(sp, sizeof(unsigned long)))
++		return false;
++	if (fp < sizeof(struct stackframe))
++		return false;
++
++	return sse_addr_on_task_stack(fp - sizeof(struct stackframe),
++				      sizeof(struct stackframe));
++}
++
++static bool sse_callchain_is_guest(const struct riscv_sse_interrupted_context *context)
++{
++	return context && (context->hstatus & HSTATUS_SPV);
++}
++
++static bool sse_callchain_kernel(struct perf_callchain_entry_ctx *entry,
++				 struct pt_regs *regs)
++{
++	const struct riscv_sse_interrupted_context *context;
++	unsigned long pc;
++
++	context = riscv_sse_get_interrupted_context();
++	if (!context || context->regs != regs)
++		return false;
++
++	/* A guest stack cannot be walked using the host kernel address space. */
++	if (sse_callchain_is_guest(context))
++		return true;
++
++	if (user_mode(regs))
++		return true;
++
++	if (sse_kernel_regs_safe(regs)) {
++		walk_stackframe(NULL, regs, fill_callchain, entry);
++		return true;
++	}
++
++	/*
++	 * Keep the sample useful for sensitive entry paths and IRQ stacks. The
++	 * generic walker does not take explicit IRQ stack bounds, and its
++	 * THREAD_SIZE alignment assumption fails for non-vmapped IRQ stacks.
++	 * Conservatively avoid walking IRQ stacks in every configuration.
++	 */
++	pc = instruction_pointer(regs);
++	if (__kernel_text_address(pc))
++		perf_callchain_store(entry, pc);
++
++	return true;
++}
++
++unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
++				       unsigned long n)
++{
++	unsigned long addr = (unsigned long)src;
++	unsigned long copied = 0;
++
++	/* Keep the generic fast path unchanged outside an SSE handler. */
++	if (!riscv_sse_get_interrupted_context()) {
++		unsigned long ret;
++
++		pagefault_disable();
++		ret = __copy_from_user_inatomic(dst, src, n);
++		pagefault_enable();
++		return ret;
++	}
++
++	if (!access_ok(src, n))
++		return n;
++
++	/* Do not sample user memory through an unrelated active page table. */
++	if (!current->mm ||
++	    (csr_read(CSR_SATP) & SATP_PPN) != virt_to_pfn(current->mm->pgd))
++		return n;
++
++	while (copied < n) {
++		unsigned long offset = offset_in_page(addr);
++		unsigned long chunk = min(n - copied, PAGE_SIZE - offset);
++		struct page *page;
++
++		/*
++		 * Fast-only GUP cannot fault. This follows perf_virt_to_phys():
++		 * local interrupts remain disabled throughout SSE processing, so a
++		 * concurrent unmap cannot complete its TLB teardown before this
++		 * temporary reference is put.
++		 */
++		if (!get_user_page_fast_only(addr, 0, &page))
++			break;
++
++		memcpy((char *)dst + copied,
++		       (char *)page_address(page) + offset, chunk);
++		put_page(page);
++		addr += chunk;
++		copied += chunk;
++	}
++
++	return n - copied;
++}
++#endif
++
+ /*
+  * This will be called when the target is in user mode
+  * This function will only be called when we use
+@@ -28,6 +156,15 @@ static bool fill_callchain(void *entry, unsigned long pc)
+ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
+ 			 struct pt_regs *regs)
+ {
++#ifdef CONFIG_RISCV_SBI_SSE
++	const struct riscv_sse_interrupted_context *context;
++
++	context = riscv_sse_get_interrupted_context();
++	/* A guest stack cannot be walked using the host address space. */
++	if (sse_callchain_is_guest(context))
++		return;
++#endif
++
+ 	if (perf_guest_state()) {
+ 		/* TODO: We don't support guest os callchain now */
+ 		return;
+@@ -39,6 +176,11 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
+ void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
+ 			   struct pt_regs *regs)
+ {
++#ifdef CONFIG_RISCV_SBI_SSE
++	if (sse_callchain_kernel(entry, regs))
++		return;
++#endif
++
+ 	if (perf_guest_state()) {
+ 		/* TODO: We don't support guest os callchain now */
+ 		return;
+-- 
+2.43.0
+
