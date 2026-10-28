@@ -1,55 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173330;
-	b=y1FaqBOAR6FmlfLg6ICwrlRaywPS4Zy1ou2h4oR8Kl30vABiSVrmwCkTTZPfmZPbRcui
-	 8ptOfKj/woM0axU9QsswF2X753TmPGuESQQoLv9k4ROd8cWQUQzbW6h6cQYYNiJn85VdY
-	 zS1nupxUB8I6hfA9gn7YApW+TROCRrk1vPLiVW8Z22486hH9A2l2c5xXcE7QvvN/gimb0
-	 3iFQ6KltG1N68s/3y51gsaLVKOmonzrWsgRg/eyyIfGBlwNhBmv0T8K2EpBdcZPZxb8TF
-	 Za0QUGfiSchHxff5jasq35nTojcmfOX+YaOy9aa1w73mWHLp1/1v7zMM5wjEvyO1kXA==
+	t=1793173355;
+	b=lGl8cvo0ViUR8R1t/MnAyMLMa1NSmSf5sJ5dmH5Hc1Bj9mkdJ+d4/u/YCYrnXJoOGo7t
+	 1u4tdVwEVoVs+2zah7+MwGno7c3EbrOsga59K88d5rdTDn632hLjGbY5lYBKTuCHbPPiR
+	 ofxwc+q944kBo5E7VZzu8O5KskBfcyT4X+zbC8Rit3Gi40D75F4FsDjSyREugdaGvUWYt
+	 z8tFafsyhHfeT2nX17TvRbkO8VjGQQr7xZZNEyfZRfXM9TrhEb17BvXRjkotCdoOr3+B4
+	 5/GBW6o735PM2ImHTuCmzuyXOZKEM4uCPIt4qee+smqCIpzgGqyborJFuxyqxrw0BOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173330;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Q4u5rewkLp38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=;
-	b=QjpfKBEBovs2YZswrnHtnDWbnL0Tl4+SD9waedRN6FQRQfbGzfKzOqSCKVy4I/Q6cX2w
-	 KKGMdMdgj2winVY/WBkhiCNDPzdiFzSsm/YBuCGNeCFvF79QRemSHYoHAVJj2KmUGfsaM
-	 7oySA99n31DWeBK4Kgrrn8V1aU0XoASwZ6Si/MzEODWvGWaLDf+GiBEuch4gOixqRNVfo
-	 /yZ2YLnY7rYZtlO39n+jFgez/kD0ahP8hFSbdAdOSWPuahz86CbVBH9P1D+H2NdWIkWKN
-	 NVK1T0i9LHivxEqLPj61Lct4QYt6YiSZo/HirjqgIR9h4XQQ88lCOO0hUXoxU3ju9aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173355;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Subject:Message-ID:
+	 Date:From:To:Cc:Reply-To:X-WS-Location:References:In-Reply-To:
+	 X-Mailer:X-WS-User-Origin:X-WS-User-Mbox:X-WS-LOCALE:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
+	b=4+UdI/X4YGMyyGZYWodJyZ2rVXy5LiEjyVSaGTn0/yT8zI4kbEyfsjLbJLPiuSjbvF68
+	 BkTjPcCqFmxsz0dZdBP3SpDDooiTFFfX3s0ThptIA42N4Ol330PF4HenAnDOimVGz6LJw
+	 1tmX80YfTeSXxAqQKgKHpbV7Rd/qyXGC4jPf9BozozD2LAxKgbOdd9JGSlEVgsBqwwrzL
+	 4M4nJBC98DMrW9MFaUPaDjJqE8DgRDVgyT2PErAN6a5cu9ZVPm2ID+EQPF0jasJAMBXth
+	 u8OvPQOSdUDD8o+0BahJOY2LrE8Kmux4vFHZrGmops8KudftQ7aHgui35VV97hFT/qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EF51606A31A;
-	Wed, 28 Oct 2026 07:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Q4u5rewkLp
-	38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=; b=LF3MonnxQ7JM2tTjDFsPDUO8bJ
-	2xjY7ZC0cG8DNZ89+F9MPYhlLd/91Eb/65TG7eaDRuixPs2/lyJEDOlozxfjkfCi
-	0e9gUBLMuGUAXTNzLgoHfPIcdKKF5E/dogLZLXYrSOjFAKkoUmZm4vclPt37ESJ3
-	7fmOyQRXmByUJR7TI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WgA4p+FqxLLzAA--.57600S2;
-	Wed, 28 Oct 2026 15:41:46 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH] ALSA: us122l: Fix NULL dereference at hwdep open and release
-Date: Wed, 28 Oct 2026 15:41:43 +0800
-Message-Id: <20261028074143.14440-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=snyders.xyz;
+	spf=pass smtp.mailfrom=snyders.xyz;
+	arc=none smtp.remote-ip=83.166.143.175
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE649606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE649606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snyders.xyz
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jDzpj0jWhz2Xqw;
+	Wed, 28 Oct 2026 08:42:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=snyders.xyz;
+	s=20251118; t=1793173340;
+	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
+	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
+	b=nlXH7SRt4ZBw6LmlvyA5iRDdpgSbMG4/Z1G1ZSmxl7+38UqbjSSic2fgRgpC3dYTI
+	 /0HQDyPN71qYfVY4D36WBLZ5Y4Pm4JKvtOC0jjZoKccW2ibbN2kIWjLiPHYXhhcZNq
+	 3t8un0nZq9sowt7DiNHI3LAeh0SyzMREDsyyOIYBxcJOWzQQq1jCh3iHn/qz2epPRL
+	 DXFpnyP3EtBii+ZyIIibsFounlcLcySKPSyLe6UOZWCLnnAaAMAI3wVSZLGUBic+C+
+	 TsImNd2JIfQtOXqxQZTTziuC2mIXKNAy8JdKk9wv42f228AtHaqj94w6ZEbPNPGnlQ
+	 rGgqt5X0oBBaQ==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jDzph0qM7z87K;
+	Wed, 28 Oct 2026 08:42:20 +0100 (CET)
+Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
+Message-ID: <468873b2-d154-4793-93b1-82816a00e580@mail.infomaniak.com>
+Date: Wed, 28 Oct 2026 08:42:19 +0100
+From: Robin Snyders <robin@snyders.xyz>
+To: David Heidelberg <david@ixit.cz>
+Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel
+ <sre@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, Joel Selvaraj <foss@joelselvaraj.com>
+Reply-To: Robin Snyders <robin@snyders.xyz>
+X-WS-Location: eJxzKUpMKykGAAfpAmU-
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+ <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
+ <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
+In-Reply-To: <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
+X-Mailer: Infomaniak Workspace (1.3.1384)
+X-WS-User-Origin: eyJpdiI6IjhEbFU5d2JqV1RlQmJSZytpdnY1clE9PSIsInZhbHVlIjoiZENrbS9COXVReW9IT1hMaUlNS2t0UT09IiwibWFjIjoiODRmNjcwMmIxZGY5ZjVjMmEzY2M5Njc0MTAyNThmMTg5N2JjZDliMmQ5ZTZkMzk5Zjg2NTUyMzcwZjcwY2JkMCIsInRhZyI6IiJ9
+X-WS-User-Mbox: eyJpdiI6IjVoNy9NZDhqdlZKYXBlS0VCRWYxSGc9PSIsInZhbHVlIjoiWGozSTVHUUNvUDdHa0xsME9FaEVkQT09IiwibWFjIjoiOTY3ZThjMTU1Y2E0NzAyNDE2ZTc3Yjk1YTViODg0MjY1N2UxOGQ5ODU3ODJjZDJjNjk3Y2M3NzkxMjQ1ZWE1MSIsInRhZyI6IiJ9
+X-WS-LOCALE: fr_FR
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,107 +78,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkA2WgA4p+FqxLLzAA--.57600S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCF43WrWrJF15ury7CFyfJFb_yoW5Cr18pF
-	WrurWSyFyDJan3WF1fJa18Za1F9w1kKa43CF97C34rZr1rG34fZ34Yyry5uF17CrW8Cr4F
-	gr98t3WDWFW8Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2rgvlNkOwABsy
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Infomaniak-Routing: alpha
 
-usb_stream_hwdep_open() and usb_stream_hwdep_release() pass the result of
-usb_ifnum_to_if() straight to usb_autopm_get_interface() and
-usb_autopm_put_interface(), without checking it for NULL.
+On 27/10/2026 18:19, David Heidelberg wrote:
+> On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
+>> +enum smb_generation {
+>> +=09SMB2,
+>> +=09SMB5,
+>> +};
+>> +
+>> +#define SMB_REG_OFFSET(smb) ((smb)->gen =3D=3D SMB2 ? 0x600 : 0x100)
+>> +
+>
+> More and more as I look at it, this shouldn't be here, but within the dev=
+ice-tree as
+> charger@1000 {
+>     reg =3D <0x1000>, <0x1600>;  # SMB2, or
+>     reg =3D <0x1000>, <0x1100>;  # SMB5
+> };
+>
+> But see also:
+> https://lore.kernel.org/all/eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf=
+46ibp@jzcjmje4aqc3/
+>
+> I'll try to do some basic separation so we know what bits belongs into wh=
+ich blog, keep you in CC.
 
-usb_ifnum_to_if() returns NULL once the device is gone, since
-usb_disable_device() clears udev->actconfig on disconnect.  The hwdep file
-can outlive the disconnect: the card is released with
-snd_card_free_when_closed(), so a process that keeps the character device
-open reaches the driver's release callback after the USB configuration has
-been dropped, and interface_to_usbdev() then dereferences the NULL
-interface at offsetof(struct device, parent).  The open callback has the
-same problem when it races with the disconnect.
+Hi David,
 
-Check both lookups and fail the open with -ENODEV; in release, skip the
-runtime PM put when the interface is already gone and still run the rest
-of the per-file cleanup.  Move the us122l->first bookkeeping after the
-checks so that a failed open no longer leaves a stale file pointer behind.
+Thanks for looking at this.
 
-Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- sound/usb/usx2y/us122l.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+Agreed. Describing the second register block explicitly in the charger's
+reg property (0x1600 on SMB2, 0x1100 on SMB5) is cleaner than deriving
+its base address from the hardware generation.
 
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index a5db0d044ef9..d93e3240b1b0 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -129,19 +129,26 @@ static const struct vm_operations_struct usb_stream_hwdep_vm_ops = {
- static int usb_stream_hwdep_open(struct snd_hwdep *hw, struct file *file)
- {
- 	struct us122l	*us122l = hw->private_data;
--	struct usb_interface *iface;
-+	struct usb_interface *iface, *iface0 = NULL;
- 
- 	if (hw->used >= 2)
- 		return -EBUSY;
- 
--	if (!us122l->first)
--		us122l->first = file;
--
- 	if (us122l->is_us144) {
--		iface = usb_ifnum_to_if(us122l->dev, 0);
--		usb_autopm_get_interface(iface);
-+		iface0 = usb_ifnum_to_if(us122l->dev, 0);
-+		if (!iface0)
-+			return -ENODEV;
- 	}
-+
- 	iface = usb_ifnum_to_if(us122l->dev, 1);
-+	if (!iface)
-+		return -ENODEV;
-+
-+	if (!us122l->first)
-+		us122l->first = file;
-+
-+	if (iface0)
-+		usb_autopm_get_interface(iface0);
- 	usb_autopm_get_interface(iface);
- 	return 0;
- }
-@@ -153,10 +160,12 @@ static int usb_stream_hwdep_release(struct snd_hwdep *hw, struct file *file)
- 
- 	if (us122l->is_us144) {
- 		iface = usb_ifnum_to_if(us122l->dev, 0);
--		usb_autopm_put_interface(iface);
-+		if (iface)
-+			usb_autopm_put_interface(iface);
- 	}
- 	iface = usb_ifnum_to_if(us122l->dev, 1);
--	usb_autopm_put_interface(iface);
-+	if (iface)
-+		usb_autopm_put_interface(iface);
- 	if (us122l->first == file)
- 		us122l->first = NULL;
- 	guard(mutex)(&us122l->mutex);
--- 
-2.34.1
+For v5, I plan to extend qcom,pmi8998-charger.yaml with a second reg
+entry and use that base for both the power-path status and the
+effective ICL status accesses, keeping their generation-specific
+register offsets.
 
+I'd retain a driver fallback for existing PMI8998/PM660 DTBs that only
+have one reg entry. The binding could still require both entries for new
+SMB5 descriptions. If you or Sebastian prefer a different compatibility
+approach, I'm happy to adjust.
+
+Given Dmitry's concern about shared charger/Type-C register ownership on
+SMB2 in the gen1 Type-C RFC, I'd like to coordinate v5 with your block
+split so that we don't introduce conflicting register descriptions.
+Please keep me in Cc.
+
+For reference, I also audited the current v4 SMB5 accesses on PM8150B.
+They are confined to the charger core (0x10xx), the DCDC status
+registers (reads of 0x1108 and 0x110b), the USB input/BC1.2 registers
+(0x1340-0x1380) and the watchdog/AICL registers (0x1651-0x1661).
+
+In particular, USBIN_TYPE_C_CFG at 0x1358 is part of the USB-input
+peripheral, not the dedicated Type-C port register at 0x1544. The
+current SMB5 accesses do not overlap with the dedicated Type-C port
+(0x1500) or PD PHY (0x1700) register accesses. The DCDC peripheral is
+also used by the VBUS regulator, so this is a register-level
+observation rather than a claim of exclusive peripheral ownership.
+
+I'll update the public register-ownership note to reflect the exact v4
+access paths.
+
+Thanks,
+Robin
