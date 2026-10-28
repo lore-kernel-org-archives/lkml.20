@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793231741;
-	b=EeZ3hUMyo7GnMy1lURL9jiicn2/HBIgFdp2u6k6C66cYk2BDB68v1k+TrPXi6l9zy6wX
-	 sSxnLiXPo7ALi6k7CHswVufUGbk/zXsU1L+RNaE5EiT9Buzd4tS0muDA4udn/AQ77zJ97
-	 3yKB4fWqxhG3N/DzdhfS4VBvg/MiKfh4/HOjYCO8IyqPOfQffGlodBrrSmMjx1bubR8/K
-	 LwxTzltQHxD7wJhk+6sxntNDvewK8BKCCQNmrNm/4E/Cbwh6zB8ShCYgd5yBzz/9dQ9md
-	 u5+XbutsfWRM6JO+xaut57x9o641AYaKqOBwz/yyLAlwBNT5u2a9XZw+l1PWOlnMqwQ==
+	t=1793231850;
+	b=p15XB8orlYV4yjEnECBBAwayj38PmNjJPuPAYfCA7TzFMYYnV1D5tlWe30O87sIbAk48
+	 M8hFUx1bhgiF3ggKn/IxQTH8B252CUSFwSA1IMwFo4Td6AaYbjbW65EKZseLFQBq54w2m
+	 HUVg7i94doOEsp0ARBuKJY12mR2YAYh7LAmcRge9DPoxd07uKUm2HXk0bJCG8HJ/tCO7Z
+	 BB48y90FBH6f5iGG2MPj+2UzuU92bIrLXIk1Rz2qaZ0aFpPmIlb4Y4zYPvIPBiK2L3HoB
+	 J3NJOwf8KthJuBVxEU56h/ct5RqR/7tu7BAPg5aPgWjt+bPl2IEmqeDF07eKiG0IlJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793231741;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DFG1Jsjwt8/FAlxp4iBJYsZFk7sxWWq4BlOV1rwa14c=;
-	b=yh+ZIkehZssSCms+iMWr4UQgGDYVfF9qNo9CwJFpxPJArDOSFRUlDLo+OWAT87ABhOEB
-	 6gYZqh0K77/o5tYrc1nDs7k2OnEE+Vudn0ouKGDgpE5gP5PciVN2BV5hX85qbJTPietom
-	 UYDFNVdfCx9sp/uqkXr5xAKft6D3d1ihAE7++oWF8KiEXo7K/mlFWR4JebDPSo6GP/s9r
-	 Bduse8i8eiduoCtzuuFw2m4nj1/3qS5KgMCKN9H2wQHByDZ+kzbYgKVFUtLI6dVb5bzBv
-	 ORioOyJ7P2GQ3oFsHjuiTyXg0aVTmZhE987Ehcz28R2HH9KzeTpgbRa058zGuel3U3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793231850;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wy9CJ/y0JguXD4knEC3K+vSUhevvAsn5QvrIqf5UXXk=;
+	b=uhV6tHY4VSjXN8PjUm4z29REBHnEGgTAnnPMIiJXbIQwct3ngGs+ul51uCghqd1QodUu
+	 YLKYdhOiq+UPzQDAVUZoIlwMvmpsAFqUttS4vTALVi9UwrO75Pox0J2PRMWBu6SNr1FA9
+	 xZKpdq/2cNcMTL4YvLK5DB9C9Im1wgsRbc0lGdV4deno0p60Dn6ZDFk/DYfjvmazymesn
+	 Fv6P3zpij6fnva+oQH/szImVsjc87ZP4PK2kkgvd+P68I7sY5ODaMZo9+mDjW4vC5mtkK
+	 jZ30rW7LPsTFEn7icEQ5EdJUMLBihO9SXHCUpIBPUDYWNxJ422MMytbYjKEvtRyMDzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PPl/0NQe";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.74
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC6F606A31A;
-	Wed, 28 Oct 2026 23:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPl/0NQe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0731F01825;
-	Wed, 28 Oct 2026 23:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793231741;
-	bh=DFG1Jsjwt8/FAlxp4iBJYsZFk7sxWWq4BlOV1rwa14c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PPl/0NQekQphvLogChbYEWl3sq3TqKqR6K5FxV3wzdCTOgYUAp3SEKMfrBcs6y2Pp
-	 AWMVIS0hS5kfGWjCd2WjoylqngSsygY744HB23FDd+DXJ9m8+snL4BvWTf623IqnRn
-	 WxWJmqGXYV+iy6Z3d/Rbiw2ZMytgoQ25+YCHUVu0rbV8Uo3QAmI4oKFynwMaOrwoFV
-	 ewjGRed7ln0gqU77C8X9uZbM9d6+zw8/XCtwSrI0FR07L0tJgz8J07/U8ImROzOFVJ
-	 9ie6hkrNcCqkN4NcKKAUnim3UijVutkSiainqEaIoCkxRUhVQlD4ESKlEYTZouYIlu
-	 pkVU/oOj4SRdg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v3 09/16] tracing/filters: Reject stray quotes and parentheses in unquoted function event operand
-Date: Thu, 29 Oct 2026 08:55:37 +0900
-Message-ID: <undine-1793231737781982017-eb6a165f6356f864@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261028095037.39c9109a@gandalf.local.home>
-References: <179314820431.684037.4147763044424284198.stgit@devnote2> <179314828848.684037.8273600995293830928.stgit@devnote2> <20261028095037.39c9109a@gandalf.local.home>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB51606A31A;
+	Wed, 28 Oct 2026 23:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FB51606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07946176|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00518608-0.0160223-0.978792;FP=7180752150399191531|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jrnSxiR_1793231833;
+Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jrnSxiR_1793231833 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 29 Oct 2026 07:57:18 +0800
+From: Tina Zhang <zhang_wei@open-hieco.net>
+To: x86@kernel.org
+Cc: puwen@hygon.cn,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	linux-kernel@vger.kernel.org,
+	yangzhen@hygon.cn,
+	dengqiming@hygon.cn,
+	Tina Zhang <zhang_wei@open-hieco.net>,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
+Date: Thu, 29 Oct 2026 07:57:12 +0800
+Message-ID: <20261028235712.383977-1-zhang_wei@open-hieco.net>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,88 +59,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 09:50:37 -0400, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Wed, 28 Oct 2026 09:44:48 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> 
-> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > In parse_pred(), when parsing an unquoted operand for function events,
-> > the loop only stops at ')', '&', '|', or the NUL terminator.
-> > 
-> > However, calc_stack() parses '(', '\'', and '"' independently to
-> > determine stack depth and string boundaries. If an unquoted function
-> > operand contains stray quotes or an open parenthesis (e.g. "ip == foo'bar"
-> > or "ip == foo(bar)"), parse_pred() consumes them as part of the function
-> > name operand, causing parse_pred() and calc_stack() to desynchronize.
-> > 
-> > Reject unquoted function event operands containing '(', '\'', or '"'
-> > by reporting FILT_ERR_INVALID_VALUE.
-> > 
-> > Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-> > Cc: stable@vger.kernel.org
-> 
-> I wouldn't really call this a fix, as I can't see this breaking anything.
-> Yes, the calc_stack may say there's more elements than what parse_pred()
-> sees, but the parsing still fails.
-> 
-> This looks more of a clean up than a fix.
+The XSAVES malfunction described in AMD Erratum 1386 also affects
+certain Hygon Family 18h processors. Under specific conditions, XSAVES
+may fail to save XMM register state, allowing stale register values to
+reappear after the state is restored.
 
-Agreed. I think fixin error_log UI issue will be a part of improvement.
-OK, let me remove the Fixes and Cc: stable tags from those patches.
+None of the affected processors enumerate supervisor XSAVE state
+components. XSAVEC is therefore equivalent for their enabled state
+components and is not affected by the erratum.
 
-> 
-> Unless, the current code allows something to actually be broken. Does it?
+Family 18h models 00h through 06h and model 10h are affected. Other
+Family 18h models contain the fix in hardware.
 
-No. Hmm, should I split those "improving parse_error()" patches from
-this series?
+For the following model and stepping combinations, the minimum
+microcode revisions containing the fix are:
 
-Thanks,
+  Model  Stepping  Microcode
+  04h    0         0x9040000f
+  04h    1         0x9041000f
+  06h    0         0x9060000f
+  06h    1         0x9061000f
+  10h    0         0x91000004
 
-> 
-> -- Steve
-> 
-> 
-> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > ---
-> > Changes in v3:
-> >  - Split from the monolithic function event parsing patch into a
-> >    standalone patch rejecting stray quotes and '(' in unquoted operands.
-> > ---
-> >  kernel/trace/trace_events_filter.c |   14 +++++++++++---
-> >  1 file changed, 11 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> > index 96977eb9af85..48e16d75be74 100644
-> > --- a/kernel/trace/trace_events_filter.c
-> > +++ b/kernel/trace/trace_events_filter.c
-> > @@ -1863,9 +1863,17 @@ static int parse_pred(const char *str, void *data,
-> >  		for (; str[i]; i++) {
-> >  			if (q && str[i] == q)
-> >  				break;
-> > -			if (!q && (str[i] == ')' || str[i] == '&' ||
-> > -				   str[i] == '|'))
-> > -				break;
-> > +			if (!q) {
-> > +				if (str[i] == ')' || str[i] == '&' ||
-> > +				    str[i] == '|')
-> > +					break;
-> > +				if (str[i] == '(' || str[i] == '\'' ||
-> > +				    str[i] == '"') {
-> > +					parse_error(pe, FILT_ERR_INVALID_VALUE,
-> > +						    pos + i);
-> > +					goto err_free;
-> > +				}
-> > +			}
-> >  		}
-> >  		if (q && !str[i]) {
-> >  			parse_error(pe, FILT_ERR_MISSING_QUOTE, pos + i);
-> 
-> 
->
+These are the only known steppings for those models.
 
+Disable XSAVES on affected processors unless a matching model and
+stepping entry identifies a sufficiently recent microcode revision
+containing the fix. This allows the x86 FPU code to use XSAVEC
+instead.
+
+Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Tested-by: Qiming Deng <dengqiming@hygon.cn>
+Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
+Cc: stable@vger.kernel.org
+---
+ arch/x86/kernel/cpu/hygon.c | 40 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
+index ec51c2b9a257..0967b0f181dc 100644
+--- a/arch/x86/kernel/cpu/hygon.c
++++ b/arch/x86/kernel/cpu/hygon.c
+@@ -10,6 +10,7 @@
+ 
+ #include <asm/apic.h>
+ #include <asm/cpu.h>
++#include <asm/cpu_device_id.h>
+ #include <asm/cpuid/api.h>
+ #include <asm/smp.h>
+ #include <asm/numa.h>
+@@ -170,11 +171,50 @@ static void early_init_hygon(struct cpuinfo_x86 *c)
+ 	set_cpu_cap(c, X86_FEATURE_VMMCALL);
+ }
+ 
++#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
++	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
++			    step, step, ucode)
++
++static const struct x86_cpu_id erratum_1386_microcode[] = {
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
++	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
++	{}
++};
++
++static void fix_erratum_1386(struct cpuinfo_x86 *c)
++{
++	/*
++	 * Affected processors enumerate no supervisor XSAVE state components,
++	 * so XSAVEC is equivalent and is not affected by Erratum 1386.
++	 * Disable XSAVES unless the microcode is known to contain the fix.
++	 */
++	if (c->x86 != 0x18)
++		return;
++
++	/* Models affected by Erratum 1386. */
++	switch (c->x86_model) {
++	case 0x00 ... 0x06:
++	case 0x10:
++		break;
++	default:
++		return;
++	}
++
++	if (x86_match_min_microcode_rev(erratum_1386_microcode))
++		return;
++
++	clear_cpu_cap(c, X86_FEATURE_XSAVES);
++}
++
+ static void init_hygon(struct cpuinfo_x86 *c)
+ {
+ 	u64 vm_cr;
+ 
+ 	early_init_hygon(c);
++	fix_erratum_1386(c);
+ 
+ 	set_cpu_cap(c, X86_FEATURE_REP_GOOD);
+ 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.43.7
+
