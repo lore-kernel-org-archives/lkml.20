@@ -1,76 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793161875;
-	b=xtRJCAgoARLVWbkUAkUiRfJTXaVpk7ibTwP7vQEZqL5c0teycHzFlJ7HnEVwuag/1AeN
-	 XAyF2JHw9wYc32YIsnYXlQkdA7nGQvVsOd7uzcVbDgc0pSn9D5Pb65vzo99wltZIs+63K
-	 Ch/lZ6MWwXD4IU8QJ+suCBEmHTK/DVlU2thgPNqlDNPJqGKMeTjIVwgtFGo4t26Xx5rDl
-	 boTNfWiHixhR+ifJHlXra0I/ypqv3/SNUOUD/VZmwX9YK4NXOdJhsqqnhzhOe+3dhX/hg
-	 EonKlTGHXJWevpHP09e0nqFVgA0RwHQFLM1rgiOZOzEBp6UfR2kljY2MXcDw3W3YDbw==
+	t=1793161925;
+	b=f/3x5bknybEo+gCk1goXSD/r8xOf06i6q7gVSAg08HzGmknzYVjPf1YIJoIwcouuBsa/
+	 eCEXxBTMa55TUI5s2BF4brfGvZUDCEk1QSxLQMHebPZM1c63RKPAiDPGw2yXjqzZX9l0W
+	 qxHoz4OOxie5pU0JHiKF9wle2VRXVevMaqLE3WrbCWwH2z+sf8ESRY7v++tUW0CZeAEIu
+	 P+F/oTjD/y+eAaBBv2L9vRe1u83XrPE5gzIJgt9csy2G5uX4eLx8y4afKL6FXv54Xxnez
+	 +djGgD0uCfx5x9KbjkT1f5yIGwO1XPFVrB+/1dH05D+cdzdEQkB+VSdOcbY3WgViNkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793161875;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=p8BxSIMfDSmHAM4gw+YeVACWBRtMMeTX1xYassRc3dE=;
-	b=X4DK5jQFjtkeY8QPgvrdtdx3rp4VhetUg4xdeQ5k2yd38ZKPRfOApkC44R/ApBny47GL
-	 F5VcOpF5SSjPxlNeMCtYEcpJCc3ykA6/uTyr7m3ptyuHAs4kOTIDqiIRN4VRu1llFr2zF
-	 aH8T1aZ4dht83zd2HjeYH6hzGAK8WAuTXslHV7rhBO/qd+eC5jrUlQEGvP8YfOw6X7xGC
-	 2miHhFbUk9GxYnKtnf+UruXnWKppFB1C0fqp3yLusl+O4dd/Kcp7j89wy4iCPHBxy9Xnd
-	 0ROI7kAcVh/PkmmUxPQTclbczLupqo6qYiybKFI4y53eFu2rRsUuLuq4syAwxx1ZDMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793161925;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=yM14926zPg3ZfRwCbYZBe9j460yUUMo0egqFW1RVlJQ=;
+	b=i+HNMhgIjp/n4M4zofIEeuLPSdxCbH3bvRZiI3xYoe5noYqChYOqVGPqP/Py7FEBk/D8
+	 GuE3M+aeUJE2YS9VczlxxMcZZJbbg5Tr2+vMdk2/wVLv1O4SoIzyw9jEzcLkWyhwPNzwx
+	 IArVP/iefJnhJ5wOg8dR+Ax4t51ETCojYLpSJKaCkdGuGVb9cjK1v+GLlO0EN4kUy722X
+	 n9JsU3jtp1n/Cqp9DLeWC++nVjKrzocV/NiGBVb6IZFg0ABY4fpOmG848sGNL2kRxLkat
+	 bALqdQlUXHL2Erl7+Xkxqu6XyEFRt+2EDpiDRlbjrEHt/frum8m77xf03UhF30HagWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JPAY7kIp;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=XKUxt1pO;
+	arc=none smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73960606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73960606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C27D606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:32:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C27D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JPAY7kIp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793161875; x=1824697875;
-  h=date:from:to:cc:subject:message-id;
-  bh=yQmczqsMPR+lsWi12hYTj1ogEg+r/Hi8La4C+q6OHyc=;
-  b=JPAY7kIpBwgeR1EEh+W64DEaHDud2+9p6ahP6Anzi/ZeGA+DhO0mK51K
-   KOuAo/iuLE4LnKC3a4wjnBgiMAzvvehNA8mqnu2AwOIKnJ0f3ssgh+UPM
-   7PfV+njbJs4+QuAGDPgTrk6quprAEs6ejzy51EYDY6NTiPI/pJGdGt+ca
-   Upp2Gz9yd71c/EZ5S7rA29JhixbrN+Kzhu6CwgM7+QJpbJSSMnYL38dbc
-   r5OZdKnm+rakPDhwY+EFbPdmuT0WkNotoADDMCti+5sbPcmcD/98mPXAS
-   fCfvD0HU6v7m94WBiGMpl+OZlB0jWzJqwO40H2BxYC1z3e6yznVDoMytb
-   Q==;
-X-CSE-ConnectionGUID: vacoTauuS8mVufhdcVu+ew==
-X-CSE-MsgGUID: a2UwMa1LRnC0pajbd5S+cA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1762216"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1762216"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 21:31:14 -0700
-X-CSE-ConnectionGUID: LWbIpx1iRMW9ifVOsgsgmA==
-X-CSE-MsgGUID: by6LkpaCSyCjOPvu9lmwcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4675324"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 27 Oct 2026 21:31:13 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xLvJe-00000000YCV-1QBl;
-	Wed, 28 Oct 2026 04:31:10 +0000
-Date: Wed, 28 Oct 2026 12:30:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:master] BUILD SUCCESS
- f19aa57d9feb58cfb455b52b84b74a988941b417
-Message-ID: <202610281237.YBQzR1oh-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=XKUxt1pO
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6767d92cde6so621391d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:32:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1793161923; x=1793766723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yM14926zPg3ZfRwCbYZBe9j460yUUMo0egqFW1RVlJQ=;
+        b=XKUxt1pOjBpT1oR0Rna8fq1yt2L6uBNBxCIRQjlix2Cczel6chttmbX5yCRuKhsYxj
+         6icJovGdzvM8e1m2EUJjBRZQRPb9KMPLF1H8L+lFy02ciU/rnyZ5zr/ESlwDFojYCFXG
+         tjHLZA6ZAgDWgiae3IAw84h6IuBB2LZSVMfkCDSId4DuTiMs6biP8hk0fPNpJQHp2Q2j
+         O23YdGhjlFLcrbC3PQ1o8R2tcqDrDMvBm7FAeGUM/rkf9hTuEr7TjM1EqF8hxiiMx+Gh
+         XuQs+k93UVqRCt0gj3blcDyoCptfCZA6eaz7tAb5ta0Y8i0DS78Vc1sgcjbBiMbSDJKo
+         r5zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793161923; x=1793766723;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yM14926zPg3ZfRwCbYZBe9j460yUUMo0egqFW1RVlJQ=;
+        b=Fj6+xL0qw+gEFMyZSQdjMcXNhpa5AsoMWxbOyrXM25AC4fZ4SOoSx/inpfz/T6XLe+
+         fMrvS3pxVEjR30a0TaxhJgXRdPSFvm/YabhuR1qtAIFgOw8a9zLbHzID40gLe/l9qqk2
+         f/zsZ1DiOCYOxbQrahmUIXKhHjrVqS2cstJ9tbvenKeTrckYcyd9jvVmSuIqTXHnLZzz
+         t89MKK/FEuYg/nyIl46UYMx4xLwgSupvrpmFF1VQ1GLI1/xDU/y0ddmfYCeJgtyuw+yL
+         RdtfVXhZrJoTyhtXqCMVIY3DBQLkFbm41e8xNGNr2Hr9erStc5fskDpvzeVkoVmZCM/r
+         bKHw==
+X-Forwarded-Encrypted: i=1; AKwUvBxm340ffcmwsMJjySvECrlw2rWDSZrSwNM7FM8OwU3bJzVQTHUvU0iuezkWYBGi8IxkLm9Mmra9O78qgPk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK15BU2YQMOsm7q5ZA2Ldgxcc4lD1yIFLxvArzcosDHAOlagqH
+	kwfxhP1V/hVtWi8lGzu9vCVuK4BFzNZqeAR1u89dhOmDLJKq0CVNuIc1sEPh+fEbXg==
+X-Gm-Gg: AYBFou3+snFvCqAVPEYEeQyouPeJ04jDJ7OWtG4YW302fMEg2llSzIhjvTzxC6n9xGh
+	qnzGhDno4WLEIc9Rd7qzyDxGZx/g+UOmW9C81iVfrcxoa8di6XPWTL2vmuPJRYP9kt4tAfOynWV
+	HkbcL+FT/5uh0N6UtjRwDYZfLmVwiabTU2uYPVBZp/CHih8WCuwiRcqoW+Yozc1t9mPx8i2YvaA
+	Oj/2vxZnX4kw0CvNBuJGwny1u1cGGKBRYOPXxMLIwTzGL90J/Y6Zz95lBzwoFw1Jo52LBdOutO2
+	M2e1yfkrfdj99pBXA8bc3w2wGvdQRVzWWLQsw/KbdVB1XUrHB98WkvbQ+FmxX1Az4CM8lgTjffi
+	bO4ZeQAkEp8wpnCrWVLi/opqIunwUI58sG4QMtL9UagjMiWjiPnsyHQHzB6GnVTe+GiehNr6B9L
+	LfpGGItFnFa3tOpd/EY04Ux0BLiacXyTRcJqRaIs2E2MdV9dVI2I+WmuMILFeKSfQhI0hxuJQKo
+	YjMJRFdBm9/qsNoMAl/4o+35pvOQ/nErhc1PvEMVahXbjrVzl2UcWK+PsegxiKzy+F3spJ7CjrG
+	yVf6W2As5kZNPHTWeCJVgYSoOo4mfYezogKM/9OkxuQ5XxlgRr90cxwEXXjW9ZW5Af1M8cLs
+X-Received: by 2002:a05:690e:c45:b0:674:1b39:fe1 with SMTP id 956f58d0204a3-67a7bd6d393mr1148399d50.107.1793161923391;
+        Tue, 27 Oct 2026 21:32:03 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a07daf6sm1114915d50.7.2026.10.27.21.32.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 21:32:02 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: yizhang089@gmail.com
+Cc: linux-ext4@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Wed, 28 Oct 2026 00:31:46 -0400
+Message-ID: <20261028043146.771074-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <abcaabca-d99e-4bf2-b31b-5e96e7accd29@gmail.com>
+References: <20261023172532.3271348-1-hengyul@cs.unc.edu> <abcaabca-d99e-4bf2-b31b-5e96e7accd29@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,205 +108,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
-branch HEAD: f19aa57d9feb58cfb455b52b84b74a988941b417  Merge branch into tip/master: 'x86/misc'
+Hi Yi,
 
-elapsed time: 3198m
+On 10/24/2026 3:12 PM, Zhang Yi wrote:
+> I feel the last sentence isn't quite accurate. Dirty folio past
+> EOF will be cleaned up during writeback. In mpage_process_page_bufs(),
+> when lblk >= blocks, if 1) there are no blocks to map, it will
+> directly call mpage_submit_folio(), which clears the dirty flag on
+> the folio, and then mpage_submit_folio() will shorten the writeback
+> length, so that ext4_bio_write_folio() will also clear the dirty
+> flag on the corresponding bh; if 2) there are blocks to map, then
+> after the required block allocation is done, it will likewise call
+> mpage_submit_folio() and do similar cleanup. Am I missing something?
 
-configs tested: 185
-configs skipped: 6
+You are right when i_size is a multiple of the folio size. Otherwise
+mpage_submit_folio() sets len = size & (len - 1), which is not 0 for a
+folio that lies wholly beyond i_size. The first buffer of that folio
+is still dirty and delayed, so ext4_bio_write_folio() redirties the
+folio.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+I checked this on the dev branch with only the copied checks of v2,
+without the trim. After a failed 4 KiB write at 1 MiB into a 100-byte
+file, the folio at 1 MiB was submitted with len 100 and redirtied on
+every pass. It stayed dirty through three syncs, and umount printed
+"data will be lost". With a 0- or 4096-byte file it was cleaned as you
+describe, but the delayed block stayed reserved until eviction. I will
+reword the sentence in v3.
 
-tested configs:
-alpha                              allnoconfig    gcc-16.2.0
-alpha                             allyesconfig    gcc-16.2.0
-alpha                                defconfig    gcc-16.2.0
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.2.0
-arc                               allyesconfig    clang-24
-arc                           axs101_defconfig    gcc-16.2.0
-arc                       axs103_smp_defconfig    clang-17
-arc                                  defconfig    gcc-16.2.0
-arc                   randconfig-1000-20261026    clang-24
-arc                   randconfig-1001-20261026    clang-24
-arm                                allnoconfig    gcc-16.2.0
-arm                               allyesconfig    clang-24
-arm                      am200epdkit_defconfig    gcc-16.2.0
-arm                                  defconfig    gcc-16.2.0
-arm                          orion5x_defconfig    clang-17
-arm                   randconfig-1000-20261026    clang-24
-arm                   randconfig-1001-20261026    clang-24
-arm                   randconfig-1002-20261026    clang-24
-arm                   randconfig-1003-20261026    clang-24
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.2.0
-arm64                                defconfig    gcc-16.2.0
-arm64                 randconfig-1000-20261026    clang-24
-arm64                 randconfig-1001-20261026    clang-24
-arm64                 randconfig-1002-20261026    clang-24
-arm64                 randconfig-1003-20261026    clang-24
-csky                              allmodconfig    gcc-16.2.0
-csky                               allnoconfig    gcc-16.2.0
-csky                                 defconfig    gcc-16.2.0
-csky                  randconfig-1000-20261026    clang-24
-csky                  randconfig-1001-20261026    clang-24
-hexagon                           allmodconfig    gcc-16.2.0
-hexagon                            allnoconfig    gcc-16.2.0
-hexagon                              defconfig    gcc-16.2.0
-hexagon               randconfig-1000-20261026    clang-24
-hexagon               randconfig-1001-20261026    clang-24
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.2.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261026    clang-22
-i386        buildonly-randconfig-1001-20261026    clang-22
-i386        buildonly-randconfig-1002-20261026    clang-22
-i386        buildonly-randconfig-1003-20261026    clang-22
-i386        buildonly-randconfig-1004-20261026    clang-22
-i386        buildonly-randconfig-1005-20261026    clang-22
-i386                                 defconfig    gcc-16.2.0
-i386                  randconfig-1000-20261026    gcc-14
-i386                  randconfig-1001-20261026    gcc-14
-i386                  randconfig-1002-20261026    gcc-14
-i386                  randconfig-1003-20261026    gcc-14
-i386                  randconfig-1004-20261026    gcc-14
-i386                  randconfig-1005-20261026    gcc-14
-i386                  randconfig-1006-20261026    gcc-14
-i386                  randconfig-1007-20261026    clang-22
-i386                  randconfig-1008-20261026    clang-22
-i386                  randconfig-1009-20261026    clang-22
-i386                  randconfig-1010-20261026    clang-22
-i386                  randconfig-1011-20261026    clang-22
-i386                  randconfig-1012-20261026    clang-22
-i386                  randconfig-1013-20261026    clang-22
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.2.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261026    clang-24
-loongarch             randconfig-1001-20261026    clang-24
-m68k                              allmodconfig    gcc-16.2.0
-m68k                               allnoconfig    gcc-16.2.0
-m68k                              allyesconfig    clang-24
-m68k                          apollo_defconfig    clang-17
-m68k                                 defconfig    clang-24
-m68k                        m5275evb_defconfig    clang-17
-m68k                        m5329evb_defconfig    clang-17
-microblaze                        alldefconfig    gcc-16.2.0
-microblaze                         allnoconfig    gcc-16.2.0
-microblaze                        allyesconfig    gcc-16.2.0
-microblaze                           defconfig    clang-24
-mips                              allmodconfig    gcc-16.2.0
-mips                               allnoconfig    gcc-16.2.0
-mips                              allyesconfig    gcc-16.2.0
-mips                         bcm47xx_defconfig    clang-17
-mips                       loongson1_defconfig    gcc-16.2.0
-mips                       maltaaprp_defconfig    clang-17
-nios2                             allmodconfig    clang-20
-nios2                             allmodconfig    gcc-11.5.0
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261026    clang-24
-nios2                 randconfig-1001-20261026    clang-24
-openrisc                          allmodconfig    clang-20
-openrisc                          allmodconfig    gcc-11.5.0
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.2.0
-parisc                            allmodconfig    gcc-16.2.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.2.0
-parisc                randconfig-1000-20261026    gcc-14.4.0
-parisc                randconfig-1001-20261026    gcc-14.4.0
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.2.0
-powerpc                            allnoconfig    clang-24
-powerpc                     amigaone_defconfig    gcc-16.2.0
-powerpc                      ep8248e_defconfig    gcc-16.2.0
-powerpc               randconfig-1000-20261026    gcc-14.4.0
-powerpc               randconfig-1001-20261026    gcc-14.4.0
-powerpc                     sam440ep_defconfig    clang-17
-powerpc64             randconfig-1000-20261026    gcc-14.4.0
-powerpc64             randconfig-1001-20261026    gcc-14.4.0
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.2.0
-riscv                 randconfig-1000-20261026    gcc-13.5.0
-riscv                 randconfig-1001-20261026    gcc-13.5.0
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.2.0
-s390                                 defconfig    gcc-16.2.0
-s390                  randconfig-1000-20261026    gcc-13.5.0
-s390                  randconfig-1001-20261026    gcc-13.5.0
-sh                                allmodconfig    gcc-16.2.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                                   defconfig    gcc-14
-sh                         dreamcast_defconfig    gcc-16.2.0
-sh                    randconfig-1000-20261026    gcc-13.5.0
-sh                    randconfig-1001-20261026    gcc-13.5.0
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.2.0
-sparc                 randconfig-1000-20261026    gcc-14
-sparc                 randconfig-1001-20261026    gcc-14
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261026    gcc-14
-sparc64               randconfig-1001-20261026    gcc-14
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.2.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261026    gcc-14
-um                    randconfig-1001-20261026    gcc-14
-um                            x86_64_defconfig    gcc-14
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261026    clang-22
-x86_64      buildonly-randconfig-1001-20261026    clang-22
-x86_64      buildonly-randconfig-1002-20261026    clang-22
-x86_64      buildonly-randconfig-1003-20261026    clang-22
-x86_64      buildonly-randconfig-1004-20261026    clang-22
-x86_64      buildonly-randconfig-1005-20261026    clang-22
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261026    clang-22
-x86_64                randconfig-1001-20261026    clang-22
-x86_64                randconfig-1002-20261026    clang-22
-x86_64                randconfig-1003-20261026    clang-22
-x86_64                randconfig-1004-20261026    clang-22
-x86_64                randconfig-1005-20261026    clang-22
-x86_64                randconfig-1006-20261026    gcc-14
-x86_64                randconfig-1007-20261026    gcc-14
-x86_64                randconfig-1008-20261026    gcc-14
-x86_64                randconfig-1009-20261026    gcc-14
-x86_64                randconfig-1010-20261026    gcc-14
-x86_64                randconfig-1011-20261026    gcc-14
-x86_64                randconfig-1012-20261026    gcc-14
-x86_64                randconfig-1013-20261026    gcc-14
-x86_64                randconfig-1014-20261026    gcc-14
-x86_64                randconfig-1015-20261026    gcc-14
-x86_64                randconfig-1016-20261026    gcc-14
-x86_64                randconfig-1017-20261026    gcc-14
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                randconfig-1000-20261026    gcc-14
-xtensa                randconfig-1001-20261026    gcc-14
-xtensa                     xip_kc705_defconfig    gcc-16.2.0
+>> +	if (!copied && pos + len > old_size)
+>
+> Why do you keep the '!copied' condition? AFAICT, if copied is non-zero
+> but less than len, the excess delalloc extent allocate by
+> ext4_da_write_begin() should still be cleaned up.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Agreed. In v2 those blocks are only dropped one step later:
+generic_perform_write() retries at pos + copied, that copy fails, and
+->write_end() runs with copied == 0. With short copies of 2000 and 500
+bytes into an uptodate folio on 1k blocks, the end result was the same,
+but nothing is dropped if the loop stops before the retry, e.g. when a
+fatal signal is pending. v3 will drop '!copied' and compare pos + len
+with i_size after the update, as ext4_write_end() does, so a write that
+copies everything does not trim.
+
+Thanks,
+Hengyu
