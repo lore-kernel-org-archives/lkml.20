@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188019;
-	b=aaY1LbiQDZvZ1TKWSQnyIYj+E55IXqc8ryIvMsJ36B1+R3F226vdUQu2gXCdUiQ4ceRu
-	 oHUQXBd8feziyEv09F/E547V2IIt6L5WiJCePUIh4cnZKZqPcr9F+I7aYeFpPY9RWJUiP
-	 kLLjdStLS0b/LPlfIVETi0Xl9N+53Zg1HKuaxB1SzA/EId/moJMTA0641TyF1ugi625St
-	 Iwp9mkzWaqX6uvZbW3iitxggBvzT1227i8khlfECa+FFrb326tQR5KcG4/+WzF75AoYWj
-	 tkwtg7wusYgCTaq9ybF5aqVB2B6kVMjlcg20XUyBt1ASGl18xeu7kbiK8JFkXCIuhZw==
+	t=1793188060;
+	b=4hhxoXeaNc49PbJdgCwV+9+le94VC1qRCHd8AuY/NTs1e2xTo6tHsLZUzkv3RG6V75vB
+	 Z+KLPHlgJALYYmo6tjbymhSMkR9gSYA2uMG6uj3uHPGQbW/wrnFsRHDydCCnkXJVqpI0U
+	 96GyiECqpupQ0aMTNqH4IobjUWSVFIyaaMP1a2vIBY7eBeRcshFdbUoDpUzfR71A0QMJO
+	 P3/xu3oputc7lJHfDlYuoZdvelWSvF+z7WPKHk63DkKJXdA34Gol//pUBP+IhjMY0Pq1S
+	 ZoVn86Xed6pH9wX4Cu3+ldFgyQ+nK/Rt3v4daBhEipri+jHkk1gotY/f48hXNU5sK1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188019;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=eFe6s5JFIWpJiHFHoFsJcnEwAXC0fGF5HgwJEy/qRkY=;
-	b=qaGJt+2Fq63BOoP6i45BSRae3FNkYRNJ7yIai/i0S3czkZkHU/9T+G4gXnPXcyGLSI2c
-	 RS/KucYWjEoYacOtMnpUR6UVV6BR1R6EeUAh4R6JRoULUpF6NI+s6amSkMQ0+cq4osAZm
-	 PBwgejWhO6EXuORdccT9n0jsqCG9FpyrmWtVbBUPuMUzh9Ne7qZF74vf8ph4MdSuS2yGH
-	 Nv9qAZKKpqv2vIb6K7Ha9zN3Zq6+Cr2h4Qz4saewsPczGEJnEijjbd8ZmI+h9i2xUS4Va
-	 UZlQGoHT4hF+C5YahswJmVoCgcTu7COC2N7zE28/FvyMXvqnyCWXquYA9dzs2Ry3XWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188060;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+	b=rSTTGjw9BFk+RVyLcBcUGVLtZceVfz49WgbcD7Un3Hzx2D7pvjUfLIB5UvHJ/oOE0cXb
+	 SAWdYylmdMJRTJivunuLU0WQ68QOctEFzy9w/mCymGDK+fKj93wPGA40oaPP//TlwjZVW
+	 tgaJoV4Te3vrWQB4eKdAcpqlRRoXqNrB2Rq1IJDGxuh76uSQtUS+Q7eczPr6BhE4UqjcY
+	 v2cUuNEzZtKa1S0Q2/+qUcnFKwBHIJSn71s/r03kM9c+loGDVJXmmI9z05FlTiKM9UkYv
+	 ugBSFUO8qXTsNDGvyeA1xKH25ZTopclY5tRTuzSuINqrzykFgP/I3ZzCRXR3bnP2plw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Qx4OG0BI;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oKTUYAx5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LsR0TUCq;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873D0606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 873D0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89210606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89210606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Qx4OG0BI
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso484511a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:46:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793188018; x=1793792818;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eFe6s5JFIWpJiHFHoFsJcnEwAXC0fGF5HgwJEy/qRkY=;
-        b=sSX2j9CGXWnIDQNDBCnWzfaXmYd3WgMw81sVrpgPx3p96m1rXYlcggcesg+zUqNWm4
-         dYgpdFJ8elb1E2clZh+RvxeDlgaC4UquKZzbBdNtB6SuDIx4jna4CGG6Vf7njPOmrvoe
-         EAP/+p+0SVQPgSzkM6Zh0TGX2P+zOYdSA1ReMzxjvnElg/+5yGT9X2v+gkNbSc2Bi9hJ
-         zY2yN2t9Rk8JEEVT+D4kHqywleOnQcwDSoybRYFfGOFnTO60i0zUomqNVqAS7i7POWit
-         2GCtKfg+A8bfYv9hdOc+/Li5VRAvyKkEZiuURWa4EbYXozGsa2b25j/qNMhE3khGw0tW
-         Yvmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxe0rchLZTbGvRFTuic16HS+zYJ8LkVEn4gF3b66sQ1wI/VZEZ99q95jeWhFyne9f2/OO5aRDvl1eQ52AY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi3sHvlmqSA0sSptUP6BdLYD28C29ZX3KT/zRwFkR6Bkj0FBIB
-	3poYSYMvGICsCiMOPByrhjJL01fzwOSg2ZPsq5sL5tTKGAxmLRKZbfjv3jJ2XqZrgJiXggz8qfx
-	hAdPb6KPUXzd5pJjuT5XX9hmFhGp+pXOtTX3JHON5CeHxiRJzCneqoas1rSDQftJMvhHz4Mmeke
-	S3F32wrusuQydlFpzBj3MQMxnOHk97E0inu9uMg9juU+DQ+v6RUJIgBtUkd0D66ZDbCOl90dgLA
-	j0offOLmoCCshbW6A==
-X-Gm-Gg: AYBFou3rrrnRdp1XaoI7LLxKfqOfEEOqiJQ1FTFtyuE45M9GAUnt/U0ueiyQsYWWkaC
-	zgWJKoHgL2jNay29N0+X1u/Mid2xE5F4XTT7b91sPxU+BBeGSZRIcgueuDkwouz6G5Z8IT8p8z3
-	bZYa/SXrC3jn7RMO7e3O7bucgsh84V/kczPA7EUqEU0ZxIX0wgzxVCi4IUwzLeLb5+VldSVD663
-	a1XVSmR7nifcC1D78+hoPtMvhJAeK7zRp5FgjyvBYFbVKPCYYakloseTpUpmsETB9oaFvWvjTrL
-	QcI0YK0mS8aJwOxKLvAKgfzPeepJ6/ZSc0oiRtT5qLY/4o5PFXNKhifCmJULAvcURsbeOGqoMuT
-	1iazN659fwL2HBOcxsBaOvn48XEc/Eq7g47TP8f0BOdbWBLGxEsGmk6yCwQN+uZJiRYapYDZuAG
-	gL7lzNlwIm7yvV+NI52mnB5W+cGxS5LXKPiBPX
-X-Received: by 2002:a17:90b:4b11:b0:3ac:af8b:6f3 with SMTP id 98e67ed59e1d1-3ae581bc66amr1324645a91.52.1793188017702;
-        Wed, 28 Oct 2026 04:46:57 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae5ac44609sm1359865a91.8.2026.10.28.04.46.57
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 28 Oct 2026 04:46:57 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdacb64970bso530461a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:46:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oKTUYAx5;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LsR0TUCq
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBehn6506827
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:47:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=oTRZog1W0kVUlnt0eMjHj8
+	jyDlXn7iZFi9ARBq8uKVw=; b=oKTUYAx5YsUyPWrcDOxB8VKpbu/Zdb/STd5uLP
+	poDAyMcuzJqWeHzTnKTJspnUGidC5pOUEqGa5gMMcJkFBP32BD4ZmmHFGfBK+YYI
+	ss23Oc2Ggzn/q79T6ZkpOFqAf0RSt5iha5Q7cF8l+EBxPh4juzlr8Ai4nLd1Tbbi
+	Efa8WcPZS+CyknuxfGGMsSRn3SJvo/8+HKptEzu3a6oIZLGAUIIco6uur7rZFy1e
+	jYmV0RWndXTkz6U75er8buEfKOIhqV9KcmRrpj6Yj4ekBkM5cnFmNVrAZdHY0Th9
+	6VDTJlHmksxqTfwHAsP76YArSLtUiN2v9RCQhYlQaoUJLHOA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy6g3wtp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:47:38 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3acc98e3b3cso776406a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:47:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793188016; x=1793792816; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eFe6s5JFIWpJiHFHoFsJcnEwAXC0fGF5HgwJEy/qRkY=;
-        b=Qx4OG0BIDqonFAVc2T3inV0M3qvyXe/92mGQYgGaXLu7GpfsJcgFAbE/12Az1emwMN
-         llPJX8+Cs8ABWz02VMvjRsRbzfpfLgPn3vQEKYjjmth+0Bx6zEjJXmz/HmgTQjGacaNE
-         4ypEFbQCeYn9CLvmIMYdLKpH8LWkY7I/gMhuI=
-X-Forwarded-Encrypted: i=1; AKwUvByneARjskbYB11Zy5oVf90vvVwyKRutCxCAyUNJ/r7PMx0Nd2c65ojZqvh3yh/Lbfom9UKDVIIDnrcg2NU=@vger.kernel.org
-X-Received: by 2002:a05:6a20:6a07:b0:3e2:7d65:b1cc with SMTP id adf61e73a8af0-3e9023de832mr1983184637.51.1793188015906;
-        Wed, 28 Oct 2026 04:46:55 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6a07:b0:3e2:7d65:b1cc with SMTP id
- adf61e73a8af0-3e9023de832mr1983164637.51.1793188015460; Wed, 28 Oct 2026
- 04:46:55 -0700 (PDT)
+        d=oss.qualcomm.com; s=google; t=1793188058; x=1793792858; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+        b=LsR0TUCqLvtppQP/Iu7VxIQHMFmBvnEnNY4uUjMmJ+zo7F0ieR0hUPhciUcG/cLyev
+         52KTrFYDKdcjlovY3ZPP9EyG2DNEewj5Qtq1zCDj5mRUXDI0LzewGG+v0uejfSL0BL7F
+         +DJuS8zLlwJm7hSTLL5XPY+ZZcboy6RMn6YL65M7ZCtoqO+nVb9PudYNu0ZDI+z8zhyG
+         Qd370LCCyIFUQ1OeeEX0z99IpnYt0PwP1AiBcK5GLhVcr6RCOxGKFLHvglMYWjJIdvWU
+         KtybDH7Fwg0MUy3QRdhh/jnpHD9uggyGaPLQBjWo+Ac67/4y+0+L/NfqjYX50ikbOHp3
+         KZoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793188058; x=1793792858;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+        b=yzLvFG7BTB7nMYDjqg6CkaWgmIW3X+/eIFM+ZGTtfgF1t7iXn1ndoBPBZobnmK5s5T
+         QQL+SAcz1qWC2qw6O/K75KoSLdPOzxZ5Z+hVgDzPigU/fcvvcXpwg0Wnu68zQyyZhLK1
+         s0cYBBW6waZi/xp3waZsPZMU0i3YDBr3PpDnU7S1J7mhdn4sdnxsyL194rvN6GDjT0uf
+         01MeyG2xXC1ck7z4ifdBpIF2qwgUG80Xe9WL/kGhEquanRHhY95SnPCPkf4xyxbS9LzU
+         o29lwyeZaNwxhPjgOt0Pj9uwheaMmyu4wqyOB132VYcTjxfgDiluvr83c3Ypk32irU3T
+         yVvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ2yRhbpTNoaLT9pWhF+X/jdlPV+z8fLUkk4oS2YXZrouHDcUpry/ylVG7JD/xXt7bmlqZctsOGmLKmc8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbwUVSjLVVFLTDaQnCFAZccJ6ZLpWeCr/K6Ogr3UqaIcSHB1Ha
+	sz1xLOfcOrWNluu3J7IyzImWqrc3FEhzIG6O4JivJZxHl+h3shObwYMHQ+dWq0SQXtI0WWDvnjm
+	qOWLXa9JgE24Vso6SWhSNrR1jqRPHxLEMMUCTI8eCNPOVWpsJ6NBttAfZjEp1oazQpUo=
+X-Gm-Gg: AYBFou3egpgbJtePSKNnLR2n726X49I6bwvaResUTrjjmOHFE5buCEZZ5iOJwx353wM
+	z8DWSXO5cLELZ2F0z0tUnnvCf/FEJ7ogZcCeBIlLOK4NOXBWjdoexX0VLIvfwuYv4thMohmD73m
+	A3rgnENHHRPW9Fje0GreNQmwFixF6yeX4kNZhcqzcF5bglRGdyWb0YhqVa+NADdctU00jvm7APb
+	OJcKQdE7FckTvOsD8rNnU78TAL++d+kiCFekGv+6leKKY4RCJtXykC6mbiiryHM/7VBYfSFezBP
+	of0ccOu6e0qxDanRFlnSHnU4UtTkIQWYD69z312Mfb7bECnOalcMmVZZUSfI1fMhw8sIJfHV6D9
+	dveHYYzh3X3mXUi3/dGJPqqtlKvLw+W9P7joZaTCD5oufPSUCihznVDEaBaPkl9V0kcHe4rTnQx
+	JAQml8fWv9/nWUqgs/FuHXonrrqF9Z
+X-Received: by 2002:a17:90b:46:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3ae5824195amr1544044a91.59.1793188057795;
+        Wed, 28 Oct 2026 04:47:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:46:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3ae5824195amr1544019a91.59.1793188057285;
+        Wed, 28 Oct 2026 04:47:37 -0700 (PDT)
+Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c37551sm21207715ad.51.2026.10.28.04.47.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:47:36 -0700 (PDT)
+From: Yin Li <yin.li@oss.qualcomm.com>
+Subject: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
+Date: Wed, 28 Oct 2026 19:45:40 +0800
+Message-Id: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,286 +115,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009-psp-v2-0-5596ab50f677@gmail.com> <20261009-psp-v2-4-5596ab50f677@gmail.com>
-In-Reply-To: <20261009-psp-v2-4-5596ab50f677@gmail.com>
-From: Kiran Kella <kiran.kella@broadcom.com>
-Date: Wed, 28 Oct 2026 17:16:17 +0530
-X-Gm-Features: AclHuK8WaxqTC7G91_YpYCwqVkoDk00v6XyhptjYOm6zDQBcn6Nkyw9YlWIvFqw
-Message-ID: <CAPHeo3erVfzLE0wTmz4=0HKWdOL63+7W2KXO67OuEfRXhf_M8Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 4/7] psp: add core tracked stat for
- outstanding tx keys
-To: Daniel Zahka <daniel.zahka@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Donald Hunter <donald.hunter@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000b933b0065ee51ed7"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAG7g4WoC/33NTU7DMBCG4atUXuPK/41ZcQ/EwnYm1NDExuNEo
+ Cp3x2kl2EA2I33S6HmvBKFEQPJ4uJICS8SYpjbUw4GEs5tegca+bSKYMOwkOR2zG2kBDLVcaF/
+ p+5QpzjmnUmngug9BOuVsR5qQCwzx86Y/v9w3zv4NQt3I7eMcsabydcsvfPu7lzq+X1o4ZRSck
+ fbkwfXaPiXE48fsLiGN47EdsgUX8UtarvZJ0Ug/GKO092Iw+h9S/pCcsW6flI2UmlsThFfSD3+
+ Q67p+A5CpaoaFAQAA
+X-Change-ID: 20260731-mpam-resctrl-dt-knp-support-c15dcc3a4a98
+To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Ben Horgan <ben.horgan@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
+        Drew Fustini <fustini@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        ganapatrao.kulkarni@oss.qualcomm.com,
+        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org, kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793188042; l=6430;
+ i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
+ bh=gXJ2/d3OTcX+aSWArZnGPSQLM1rYFhxCK9CnoTgH7gM=;
+ b=iR4QarYGhjfQ3RvWKyd98W/aRgOpf+uRlESlrJKRESx/NzzxuHxqdS2xXLz64gm/T76FXFwzm
+ fD0w2wFvPYRB1RskulgaVc/9T/a/5RGppIHARSWAVfw9/maa0YBF3Hg
+X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
+ pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfXymrJSL+Re45o
+ K/j5joraWTLOI5rttInSPa/wvjnl1ZKjqIns42NBtUjaP/SXIihy2ch4Fa5WraKVPI7xsfMHnGc
+ J314wT5gVC2uVaK8PQKECQRqyJ9lyH0j9ORMOSKYIrLInlls1dVoKtiu66ZzTHxEjoftBKD9v3Q
+ g9PI2npO0ttIYdUCKmdO9jutAOp37m7ldNRUElT5hmyTFCE2vlL5BZxO1WeKBXQQs573elHY8rS
+ ygnrDADM0l867K3JYTWnje3rVS2nvv6t5KT4Ryen8CWlo0PmG+cAyfgYMui2rewhABEgyNYdvun
+ A+2Ya2/fuIcYdvAZgpIW2bJ0Z//2LDueqGeOmfFyo5Lllyp1yJpdgeidISzGf6LFlQWRXaNuTF3
+ osoEj6bqvmcwWKDdxuVTt9z+4BxyP7bnDL5R0L3LtEs7/9LmnJuQ2rGkqpPINxvVZFFCLINuIQ2
+ utVQV/snDGaVFKFz4cw==
+X-Proofpoint-GUID: zdm9SS_iNtdR4g0gvNaZ_T2v0rakduxE
+X-Proofpoint-ORIG-GUID: zdm9SS_iNtdR4g0gvNaZ_T2v0rakduxE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX5Dnq8yj3lHlS
+ VJGp2zL/Vy1yVKEWUYi8b8gwKcSp0E45MPQnIyhaAf7i6iKjbKRUxCM4wCffoduuaBpbplP7ggl
+ njSkOttIvyPoq9ivAkUvsbshm8PNt4c=
+X-Authority-Analysis: v=2.4 cv=dKgzC+Zb c=1 sm=1 tr=0 ts=6ae1e0da cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=7CQSdrXTAAAA:8
+ a=Ikd4Dj_1AAAA:8 a=ag1SF4gXAAAA:8 a=QyXUC8HyAAAA:8 a=20KFwNOVAAAA:8
+ a=omOdbC7AAAAA:8 a=JfrnYn6hAAAA:8 a=663aHFS58uk1Hu7jYysA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=a-qgeE7W1pNrGK8U0ZQC:22 a=Yupwre4RP9_Eg_Bd0iYG:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280046
 
---000000000000b933b0065ee51ed7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Arm Memory System Resource Partitioning and Monitoring (MPAM) with
+resctrl requires device tree (DT) support before it can be enabled on
+DT-based platforms. This series provides the foundational DT binding and
+parsing support for MPAM.
 
-On Sat, Oct 10, 2026 at 2:19=E2=80=AFAM Daniel Zahka <daniel.zahka@gmail.co=
-m> wrote:
->
-> It is useful to keep track of tx_key_cnt: the number of outstanding tx
-> keys from the hw's perspective. Userspace can monitor this to
-> determine if there is a key leak (leak in the sense that some device
-> resource like an SADB entry has been leaked, not that the crypto key
-> has been exposed).
->
-> It also may be of interest to userspace if a device is approaching its
-> SADB capacity.
->
-> Only report this stat to userspace if the driver uses an SADB.
->
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
-> ---
->  Documentation/netlink/specs/psp.yaml | 8 ++++++++
->  include/net/psp/types.h              | 2 ++
->  include/uapi/linux/psp.h             | 1 +
->  net/psp/psp_main.c                   | 3 +++
->  net/psp/psp_nl.c                     | 4 ++++
->  net/psp/psp_sock.c                   | 6 +++++-
->  6 files changed, 23 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/netlink/specs/psp.yaml b/Documentation/netlink=
-/specs/psp.yaml
-> index f3266763c325..d14c11d09891 100644
-> --- a/Documentation/netlink/specs/psp.yaml
-> +++ b/Documentation/netlink/specs/psp.yaml
-> @@ -190,6 +190,13 @@ attribute-sets:
->          doc: |
->            Number of PSP packets for transmission with errors.
->            Device statistic (from the PSP spec).
-> +      -
-> +        name: tx-key-count
-> +        type: uint
-> +        doc: |
-> +          Current number of Tx keys installed on the device.
-> +          Only visible if the driver stores keys on device.
-> +          Kernel statistic.
->
+The patches are based on earlier work by James Morse and Rob Herring,
+with fixes and additions on top.
 
-Maybe it is good to have a counter that denotes the number of PSP
-sessions set up on a device, which is managed in
-psp_dev_tx_key_add/psp_dev_tx_key_del operations similar to the
-tx-key-count. That way, even in non-SADB drivers the user can know the
-scale of the PSP sessions set up on a device at any time.
+Standalone fixes to existing mainline code (placed first, independent
+of the DT work):
+- arm_mpam: fix the RIS index range check
+- arm_mpam: fix the MSC MMIO window size (off-by-one)
 
->  operations:
->    list:
-> @@ -316,6 +323,7 @@ operations:
->              - tx-packets
->              - tx-bytes
->              - tx-error
-> +            - tx-key-count
->          pre: psp-device-get-locked
->          post: psp-device-unlock
->        dump:
-> diff --git a/include/net/psp/types.h b/include/net/psp/types.h
-> index 8ffc566cec2a..970801cb6502 100644
-> --- a/include/net/psp/types.h
-> +++ b/include/net/psp/types.h
-> @@ -90,6 +90,7 @@ struct psp_assoc_dev {
->   * @stats:     statistics maintained by the core
->   * @stats.rotations:   See stats attr key-rotations
->   * @stats.stales:      See stats attr stale-events
-> + * @stats.tx_key_cnt:  See stats attr tx-key-count
->   *
->   * @rcu:       RCU head for freeing the structure
->   */
-> @@ -125,6 +126,7 @@ struct psp_dev {
->         struct {
->                 unsigned long rotations;
->                 unsigned long stales;
-> +               unsigned long tx_key_cnt;
->         } stats;
->
->         struct rcu_head rcu;
-> diff --git a/include/uapi/linux/psp.h b/include/uapi/linux/psp.h
-> index 1c8899cd4da5..21810e8a7229 100644
-> --- a/include/uapi/linux/psp.h
-> +++ b/include/uapi/linux/psp.h
-> @@ -69,6 +69,7 @@ enum {
->         PSP_A_STATS_TX_PACKETS,
->         PSP_A_STATS_TX_BYTES,
->         PSP_A_STATS_TX_ERROR,
-> +       PSP_A_STATS_TX_KEY_COUNT,
->
->         __PSP_A_STATS_MAX,
->         PSP_A_STATS_MAX =3D (__PSP_A_STATS_MAX - 1)
-> diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
-> index e118b8019e7e..9f256157d88b 100644
-> --- a/net/psp/psp_main.c
-> +++ b/net/psp/psp_main.c
-> @@ -169,6 +169,9 @@ void psp_dev_unregister(struct psp_dev *psd)
->                 list_del(&pas->assocs_list);
->         }
->
-> +       WARN(psd->stats.tx_key_cnt, "psp: %s: %lu Tx keys still installed=
-\n",
-> +            netdev_name(psd->main_netdev), psd->stats.tx_key_cnt);
-> +
->         list_for_each_entry_safe(entry, entry_tmp, &psd->assoc_dev_list,
->                                  dev_list) {
->                 list_del(&entry->dev_list);
-> diff --git a/net/psp/psp_nl.c b/net/psp/psp_nl.c
-> index cdfc2d72fb39..494022ab5a71 100644
-> --- a/net/psp/psp_nl.c
-> +++ b/net/psp/psp_nl.c
-> @@ -934,6 +934,10 @@ psp_nl_stats_fill(struct psp_dev *psd, struct sk_buf=
-f *rsp,
->             nla_put_uint(rsp, PSP_A_STATS_TX_ERROR, stats.tx_error))
->                 goto err_cancel_msg;
->
-> +       if (psp_dev_has_sadb(psd) &&
-> +           nla_put_uint(rsp, PSP_A_STATS_TX_KEY_COUNT, psd->stats.tx_key=
-_cnt))
-> +               goto err_cancel_msg;
-> +
->         genlmsg_end(rsp, hdr);
->         return 0;
->
-> diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
-> index d21f7afd830a..c458bc551b4b 100644
-> --- a/net/psp/psp_sock.c
-> +++ b/net/psp/psp_sock.c
-> @@ -94,9 +94,11 @@ static int psp_dev_tx_key_add(struct psp_dev *psd, str=
-uct psp_assoc *pas,
->
->         memcpy(&dummy->tx, key, sizeof(*key));
->         err =3D psd->ops->tx_key_add(psd, dummy, extack);
-> -       if (!err)
-> +       if (!err) {
-> +               psd->stats.tx_key_cnt++;
->                 memcpy(pas->drv_data, dummy->drv_data,
->                        psd->caps->assoc_drv_spc);
-> +       }
->
->         kfree(dummy);
->         return err;
-> @@ -105,6 +107,8 @@ static int psp_dev_tx_key_add(struct psp_dev *psd, st=
-ruct psp_assoc *pas,
->  void psp_dev_tx_key_del(struct psp_dev *psd, struct psp_assoc *pas)
->  {
->         psd->ops->tx_key_del(psd, pas);
-> +       if (!WARN_ON_ONCE(!psd->stats.tx_key_cnt))
-> +               psd->stats.tx_key_cnt--;
->  }
->
->  static void psp_assoc_free(struct work_struct *work)
->
-> --
-> 2.52.0
->
->
+Inherited (authorship preserved, with fixes noted in each patch):
+- dt-bindings: MPAM MSC binding [1]
+- cacheinfo: expose cache-id generation from a device_node [2]
+- arm_mpam: device tree support for MSC probing [3]
 
---000000000000b933b0065ee51ed7
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=b38bed339681
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=2af39084438c
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=a6ab8b6c77cb
 
-MIIVVQYJKoZIhvcNAQcCoIIVRjCCFUICAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghLCMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
-NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
-26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
-hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
-ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
-pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
-71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
-G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
-Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
-4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
-x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
-ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
-gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
-1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
-YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
-b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
-c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
-AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
-bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
-IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
-Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
-dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
-nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
-AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
-mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
-5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
-CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
-F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
-bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
-YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
-LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
-RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
-xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
-vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
-TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
-sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
-D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
-DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
-VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
-zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGizCCBHOg
-AwIBAgIMW4V01MF2d3SFkqYoMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI1MDYxOTA3NTIzNVoXDTI3MDYyMDA3NTIzNVowgdQxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzEOMAwGA1UEBBMFS2VsbGExDjAMBgNVBCoTBUtpcmFuMRYwFAYDVQQKEw1CUk9BRENPTSBJ
-TkMuMSEwHwYDVQQDDBhraXJhbi5rZWxsYUBicm9hZGNvbS5jb20xJzAlBgkqhkiG9w0BCQEWGGtp
-cmFuLmtlbGxhQGJyb2FkY29tLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANC5
-FrOKm2HpP1K7Mk6/9FHfgDqiUc6C/tKmHjinP0OWjVj7KkQ2D4wZPasYTL7fdNrhNswcr0Wm25Ng
-ksPFF8lRQaSHMJFFWI2usTUpS9gKxRAuJyHc0xlNKy4vK2ZEic8RWs34T6LcL98JR51RaKtE0Dw9
-7F/uUf87z+/74aOyyxrTl58LlkxL/+1yMEHZhyn6z30LHQuA52TSp7uD3au8gu0YN+hKIsPBKVbs
-dzf/bW6eDpGSwgwRzqF2BcDBOUA9U2mB2cxinBxOxCVbYRy//Q46OuAx0pXw8trIkPDdp8kHAoWD
-7JxJ70nrdMy8VRmC02NQp185/6szeMFYLA0CAwEAAaOCAdwwggHYMA4GA1UdDwEB/wQEAwIFoDAM
-BgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3Vy
-ZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcw
-AYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIARe
-MFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZo
-dHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBo
-dHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIwYDVR0RBBww
-GoEYa2lyYW4ua2VsbGFAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQY
-MBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBS/iTArBeV9hFyyktvkwzGbaKne3zAN
-BgkqhkiG9w0BAQsFAAOCAgEAdavxLwcm6Kj3S7/bA/IO6B6MTHIndKyB630T3CTPeOeuHV7ZS4wr
-rDZbrSjERD36308lnaXSESlcu8LX2SKJ0KqNM3VQNTawSKS4wMXlyTzOBfaslsjtFiT4jQW9Py6u
-6nf1EVoQ6YTCGJ+htyKqFgIljJIdBBOvXY+gECh/DC+VbLUVK9CgZLKkFJ5udhYvw1tOc3zOXGOd
-kwaK7AtwRSLgNt5RSAaikL6bvU1kUWgITNKKhBK5F3CNUbR0hD/i7yG6Afdh27V1T7FEdV07fBbu
-3+AVnAdbZmHfnB2T8lHTaR9GbgkF6lG/a8I+eUG5NPrDEM+afXT7/+zOTjf799qoyhMdfgp90DEW
-9ukfyqfUq37ctBG4TdnDlxtkwy9XYw0Avotf2lrYy+6MYjt3cZFF+AF/F6ANk+Gx9zH5gyeUlruJ
-+aqmP1U1lX/n2YEXAfiLJulbb3Jfi8lvyYzHXpHLIFtLfyVOzUXdGdj3dVxxFSPJ4uXmpk2SLExM
-W7+cvJ+PxSJyWK723U609whQmqbVRz5B49CjNt/exjWtBGGjCwLPMGNWbHbwtDVWcoZzE0KoL7EK
-VPB0t6uom5ElZ+qieZghO80tR/MW2eL8i+EiVMwq5GF1Ni3D6uypwZYqgdicI0YGj7JCgrIzr1kC
-xwtQkw5ij2CCUWXxadt/C9gxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBH
-bG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIz
-AgxbhXTUwXZ3dIWSpigwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHCngfnsZ9Bc
-lihFrpGPLfzVL2Gy9hvuVEHHtSZOiEZPMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZI
-hvcNAQkFMQ8XDTI2MTAyODExNDY1NlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJ
-YIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUD
-BAIBMA0GCSqGSIb3DQEBAQUABIIBAKG/jGCdsIFB6PkZ2TY3YhLJY0NdXTfHg8gmU9W6IJqZlI0n
-LR0/mLcQfs3nGAMLESTiqhg/ng0PEC78ItoKy8pCvl08fwCx0MVTuHrrShRCFNaA6ur0RBv3NSkw
-Whmsubcc/ivyaetvI5lY7NlS2u+p8kdTxbBgi6ZkFcfXTkV3bhJGCDhw29cKCcIM2B2JKvOhuNW4
-KR9YYQfxjYXs11nD36SO8eAww7ArL0qI2XympNhyRGRNoU54aU/LL4NNFyPvWbNwGHk8tfYFQ5fu
-wy5DYlEv0ZI/0rBXH9nLDJqhRdGti5g8zKyjveC/mYhGq++q6Xz2Rvf3jrbvneArg0Q=
---000000000000b933b0065ee51ed7--
+The Kaanapali DTS patch (marked DNM) is a local verification example
+only: production firmware does not expose MSC register access to the OS,
+so it is disabled by default and cannot be upstreamed as-is. The MSC
+register size is 0x2000, as the Kaanapali platform implements MPAM
+registers up to offset 0x1FFF (permitted when MPAMCFG_MBW_PBM is not
+implemented). It is included as a reference for other platform DT
+authors.
+
+Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+---
+Changes since RFC v2:
+  - Fold the binding schema/example fixes into the binding patch.
+  - Fold the foundling MSC fix into the DT support patch; remove the
+    unnecessary parent cache availability check from
+    mpam_dt_create_foundling_msc() to keep it consistent with
+    mpam_dt_count_msc().
+  - Remove the #ifdef CONFIG_OF guard around the cache_of_calculate_id()
+    prototype in cacheinfo.h.
+  - Remove the [Yin Li:] annotation from the cacheinfo patch.
+  - Rebase onto next-20260918.
+
+Changes since RFC v1:
+  - Fold fixes to inherited patches into their respective patches with
+    [Yin Li: ...] annotations, as requested by Ben and Andre.
+  - Move the RIS index range-check and MSC MMIO window size fixes to the
+    front as standalone fixes with Fixes: tags.
+  - MSC MMIO window size: genuine off-by-one fix; the ">" bounds checks
+    include the access width and are kept as-is.
+  - ris_idx: validate range after of_property_read_reg() and keep u8
+    downstream, instead of widening the call chain to u64.
+  - cache-id sentinel: keep ~0U notation, leave cacheinfo.c unchanged,
+    replace unsigned long with u32.
+  - Convert mpam_get_cpumask_from_cache_id() and the cache/component-id
+    variables from unsigned long to u32.
+  - Fold the device_node refcount fix (of_node_get()), reviewed by Andre
+    Przywara in RFC v1, into the DT support and memory-controller MSC
+    patches.
+  - Drop the "clear mask on error" patch.
+
+Previous versions (RFC):
+  v3: https://lore.kernel.org/all/20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com/
+  RFC v2: https://lore.kernel.org/all/20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com/
+  RFC v1: https://lore.kernel.org/all/20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com/
+
+To: James Morse <james.morse@arm.com>
+To: Rob Herring <robh@kernel.org>
+To: Shanker Donthineni <sdonthineni@nvidia.com>
+To: Ben Horgan <ben.horgan@arm.com>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Reinette Chatre <reinette.chatre@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>
+To: Jonathan Cameron <jic23@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Gavin Shan <gshan@redhat.com>
+Cc: Andre Przywara <andre.przywara@arm.com>
+Cc: Drew Fustini <fustini@kernel.org>
+Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+Cc: trilok.soni@oss.qualcomm.com
+Cc: aiqun.yu@oss.qualcomm.com
+Cc: ganapatrao.kulkarni@oss.qualcomm.com
+Cc: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+Cc: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: driver-core@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+
+---
+Changes in v4:
+  - Reduce binding to minimal set covering only properties in current
+    use: remove RIS child node support, memory controller support,
+    arm,mpam-device, cpus and interrupt-names.
+  - Drop memory controller MSC patch (no concrete platform user).
+  - Drop RIS accessibility patch (no concrete platform user).
+  - Update DNM Kaanapali DTS: fix node names, compatible, ranges/reg
+    format; use 0x2000 register size reflecting platform implementation.
+  - Rebase onto next-20261014.
+  - Link to v3: https://patch.msgid.link/20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com
+
+---
+James Morse (2):
+      cacheinfo: Expose the code to generate a cache-id from a device_node
+      arm_mpam: Add device tree support for MSC probing
+
+Rob Herring (1):
+      dt-bindings: arm: Add MPAM MSC binding
+
+Yin Li (3):
+      arm_mpam: Fix the RIS index range check in mpam_ris_create_locked
+      arm_mpam: Fix MSC MMIO window size off-by-one with resource_size()
+      [DNM] arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
+
+ .../devicetree/bindings/arm/arm,mpam-msc.yaml      |  52 +++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  52 ++++-
+ drivers/base/cacheinfo.c                           |  17 +-
+ drivers/resctrl/mpam_devices.c                     | 254 +++++++++++++++++++--
+ drivers/resctrl/mpam_internal.h                    |   2 +-
+ include/linux/cacheinfo.h                          |   1 +
+ 6 files changed, 341 insertions(+), 37 deletions(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20260731-mpam-resctrl-dt-knp-support-c15dcc3a4a98
+
+Best regards,
+--  
+Yin Li <yin.li@oss.qualcomm.com>
+
