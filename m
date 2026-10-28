@@ -1,58 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793161587;
-	b=jUgUyjRertlINTBDBQf5iokab5ZwaAA54EAHXY0DRE9iv3fAuJFu6GIdtKcUSWB86lhk
-	 hOO8UAGqT7hY9bfBvRijDPhptIrGjDRhNCVM/dqN+K4Aau6mNJgakpRioZct555x6SmcB
-	 RfjetVK3tV93rIvd//YVfbKLlM+9v4Kfq+oHivE0XtzR+aoiSKHU7Hv+pWCuGKDrCL6op
-	 LnByylwgAI8ib9+GWNk2UzQtroTGTAPiBoQDHs5hPaxjWLWHipMxSCRfxbTWuhXGzg4xs
-	 bWXpYoFDDcNBqbarDBaG5QcS9qXzArGwAHe4ftEl3Dki29/63RzYNodkvzRBpVU8LoA==
+	t=1793161821;
+	b=ZURTBCTmVZjQr7XBxnogI+fW9cNvjBXNb4c85b29QhQ0AIAeMl7hQoKoxGytRfKpwqiY
+	 dubSGGiSQeQQt1Z504zQT0fzJ4tw/xoEprgh0vQRe9L2z9eNoXaOpa5Mr3d1yK2EP/TJp
+	 B4hJKUTYlzHROCufNL9UhgL0t369q+gBTUvYdjQCp6IOr/hJ9nUhK4/I5UWP15Ct5EkDy
+	 /bR4BHrzMN/AeQqXv9Lb+ITBfC7RGXIkmoSJ/zTUyZn4QPvAlvKGQkRSUh0NSeT3hvPEc
+	 Ozv5foL2eIkqOE4jZPkjAtksyOtLEYjJhxQcFRlr3wxqD7Va8Zk0B/yGImACYm0QHMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793161587;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BHxSttUyt/DDMdmQXBY+0M0nVJfrKzZZx/1K6D8VwE8=;
-	b=ulw5WZFBe1NTUP0aFBnEhTbwYfD+SpPWcIai3gr4G+K2sHwxbG9u3y35itEhbDzb5PnC
-	 yqQHzraHUicNK7ZGIiEIh1oFmJCAfDHKdbGGsqGXxtdKwcb7In7S/ZwZuvMe6gXE9EGW0
-	 44K91dgaegGhvcgMZkdaU1TagTwhEMaR2ohrJlG3rRuJgNf5uUKTp9SoebZLbzO+apAe6
-	 i4oNhjxpLDhy271d6+mxbKCNyxlqjNb95nLI2TesMmaSkjNoN/9eyMTgC3SKIIlhDuD4x
-	 k50tFOmkTHRm6TdORAf49hBUV07dnI09AE4GykxVrn/gjhQ3Ucn1S01iSWtc5kDbb+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793161821;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:
+	 In-Reply-To:References:Message-ID:Date:Subject:From:To:Cc:
+	 Content-Type;
+	bh=kPQx6GgboXmcUMcY5/lzKrJ0ssCkME3FTMDmy2U7T6k=;
+	b=wAk81ynPGdBOOOxo6e5Q76dCkA7T+Ye+K1J7aY79fuRWvxVUcBhpqC3G4zf49emkDumO
+	 kIMNo/5EQPpjLK0W2AJlZf1L3WOIuH+yAy3zQN0K9s6okBJbsNlxgxnp3XUJYdL9k0GF5
+	 2EA1GcJsU5GQ/gIFgTrhkACbgfmJV8eFVq553MHMeFMHQNctQjN7KV0HOT38ZdmOcFN7u
+	 sxY9vPVMimzRZ3fxYQVygq4l+6G6rvIylLt8A/XbAFDZTj7mSprJJ3BnJX5i9TslaRvpx
+	 ToLQ8RMwn6QOy4h2JHuOI4Tyiud7WGyqdaEt0swt6QkZA91Hc9tsI1M9GCqOMSoEygA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF3W7wWI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PCQLkeFq;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6FE606A325;
-	Wed, 28 Oct 2026 04:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67205606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:30:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67205606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LF3W7wWI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6FF11F01829;
-	Wed, 28 Oct 2026 04:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793161587;
-	bh=BHxSttUyt/DDMdmQXBY+0M0nVJfrKzZZx/1K6D8VwE8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LF3W7wWId59jcmTNAK6MHACa7HHFiCTxZWoKuFxMKJ57qczc2VX4NaCDXWjgF93q5
-	 cmAhviR3zb6BgwfA4V4H9AQ6zOh0ffWAWXXFGJTtpPndmKaa6zbIcoqiLMbDoEDIeU
-	 n8XJ2FcfuvZrbx0etfiBK1Ozvzgqbtjz2HDdcEMAr6qTWHkdxWtsuw+lsJ8D9fffvl
-	 dWKfSXGtJiNiuGgMWyujnFtS7aLDDghC6PIhksE+wol6GmLPToCmwxFGk8F8rQ8xRQ
-	 NFGqnava9OpDWqAdTllsAG5ctMPC1QZDzc84ZGgcS35Z3My6AzGLvyR/ip1tZgnYSw
-	 AT8bL+V4OKdqQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.12.y 2/2] mm/damon/sysfs: put target pids for apply_inputs() failure
-Date: Tue, 27 Oct 2026 21:26:15 -0700
-Message-ID: <20261028042617.165657-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028042617.165657-1-sj@kernel.org>
-References: <20261028042617.165657-1-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PCQLkeFq
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1038565eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:30:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793161820; x=1793766620; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kPQx6GgboXmcUMcY5/lzKrJ0ssCkME3FTMDmy2U7T6k=;
+        b=PCQLkeFqYzzEc1UNxxO2SwDWNuvwXCTIhjbkdQznKqU2g4DjFA/FXyxGRex5YcdsnA
+         Xgf5iy01BQ8rOnqrN6NVQPlizUrqHh2RZ6ivs+Oyj1MA9ZP9SL6SV4smhPoQSISGLof3
+         bfkA1nptW6pC7C2owKdZR1L+bpDE/sb4uN3KYnQm7kyN18GNyXQlDYxEK1+9gaL4vYUd
+         pnpf58X96pUnGR5kaD/ulKDbAv6Bam86N4YfddjhLeLkpwI9XD/lIKOBIC8VmpxhlctP
+         WGbuwl9Y9WOJy3woSOwZZW3I37lEy/0CEbwuA8XqraBjnRplspQ8Og0S/bGriiZtuOI9
+         k43A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793161820; x=1793766620;
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kPQx6GgboXmcUMcY5/lzKrJ0ssCkME3FTMDmy2U7T6k=;
+        b=2muepU/gl0SaNq3ZOWMltt37zIYDMEBw2pih0OHaZPEIIvfu1/2HYpumtPx8OmtoWp
+         oj5Es4+vZ6hBL/Nv652BEas7CKZ1Rvra3vDu4X0fQaqFHB7bffU8tgBzeSvFHcRY8utM
+         2oObcJCsyGnyJOiQoXm6WlR6VnA3pOUM240l+79/WOfwAe82CPafVtGKG6QK/Si919Jb
+         fEGxP0gIVN/efDXQxYM0rzPDzgWWbeOQdHCRlBGI9qMoCHPxDnMHP1c9isr7bnx09Kzq
+         PH3zAwcKnPXtIpe9m8ItQ0rEEcAPbtenWoSfNNpjSsfGJp6F/53yoEghJCYJu536f1oa
+         RR4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxkUc5Qt4HukpV3Ba1t1w2AWLkzfNJRHWYBTtv3DtGZZAA46/vI3ZSLC0vY2fAtZQU6REAf31YV5LzriAA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1HpnAtjStjlZ05v69xAWV6mRQ1IfSmT/+hK/JbmpoNWCvHvZn
+	arU+XFI3vyDNMeLi7OjchYVDmHpxrf3buId5RbLDvhRgwusygypG14muYfueb/jb5OLXwjPgc27
+	k7Asf5Q==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,41 +73,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: from dyaz12-n2.prod.google.com ([2002:a05:693c:638c:20b0:369:fbca:f640])
+ (user=jeffxu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:250d:b0:369:f5f6:36a7
+ with SMTP id 5a478bee46e88-36a2014b887mr2079336eec.16.1793161819981; Tue, 27
+ Oct 2026 21:30:19 -0700 (PDT)
+In-Reply-To: <auDTptDQsB4xBcz7@gremlin>
+References: <cover.1793094611.git.chris@chrisdown.name> <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
+ <auCxjbvY3qPv1sV6@gremlin> <auDTMb6WMFUpxeZy@chrisdown.name> <auDTptDQsB4xBcz7@gremlin>
+Message-ID: <18e2972cb8520c2e.3137322e32382e342e3434.279dd1.0000sendgmr@google.com>
+Date: Wed, 28 Oct 2026 04:30:20 +0000
+Subject: Re: [PATCH 1/3] mseal sysmap: Add mseal_system_mappings= boot parameter
+From: Jeff Xu <jeffxu@google.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Chris Down <chris@chrisdown.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Jeff Xu <jeffxu@chromium.org>, 
+	Jeff Xu <jeffxu@google.com>, Andrey Vagin <avagin@gmail.com>, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-damon_sysfs_build_ctx() invokes damon_sysfs_apply_inputs() for setting
-damon_ctx object with user inputs.  If it is configured for virtual
-address spaces monitoring, the setup also increases reference counts of
-monitoring target pids.  If the setup is failed, damon_sysfs_build_ctx()
-deallocates the damon_ctx object without decreasing the reference counts
-of the pids.  If the failure happened after increasing reference counts
-of pids, the pids can be leaked.
+Hi Chris, Lorenzo,
 
-Fix the leaks by decreasing the pid reference counts before deallocating
-the damon_ctx object.
+On Tue, Oct 27, 2026 at 04:57:04PM +0000, Lorenzo Stoakes (ARM) wrote:
+> > One option is to skip if [vdso] isn't sealed, and otherwise expect
+> > all system mappings to be sealed. Then there's parsing at all, and it
+> > also stops failing on kernels built without
+> > CONFIG_MSEAL_SYSTEM_MAPPINGS, which matters more once it's in
+> > run_vmtests.sh. The downside is that it can't notice sealing being
+> > broken entirely.
+> >
+> > Another is to check /proc/cmdline for no_mseal_sys_mappings and
+> > expect the mappings to be unsealed if it's there. That's only a few
+> > lines now, but the test still fails on kernels without the option, as
+> > it does today.
+> >
+> > Do you have a preference between the two?
 
-The issue was discovered [1] by Sashiko.
+> Yeah it's awkward, really moving the tests to mm we'd have to skip them
+> if the vdso isn't sealed, then assume a sealed vdso for a new process =
+> feature enabled.
 
-[1] https://lore.kernel.org/20260730040740.140836-1-sj@kernel.org
+> I guess at that point it's redundant to check if disabled?
 
-Fixes: 74bd8b7d2f8e ("mm/damon/sysfs: move targets setup code to a separated function")
-Cc: <stable@vger.kernel.org> # 5.19.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks for working on this series!
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 107a28557afe2..6ae35f55764d5 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1486,6 +1486,7 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 
- 	err = damon_sysfs_apply_inputs(ctx, sys_ctx);
- 	if (err) {
-+		damon_sysfs_destroy_targets(ctx);
- 		damon_destroy_ctx(ctx);
- 		return ERR_PTR(err);
- 	}
--- 
-2.47.3
+Could we please keep the test coverage for the unsealed [vdso] case and
+avoid unconditionally skipping whenever [vdso] is unsealed?
+
+There are two regressions I'd love for us to still be able to catch:
+
+1. Kernel or config regressions when sealing is expected to be on:
+    Distros/platforms such as ChromeOS and Android enable
+    CONFIG_MSEAL_SYSTEM_MAPPINGS=y. Originally this test lived in its own
+    selftest directory with `CONFIG_MSEAL_SYSTEM_MAPPINGS=y` in its
+    `config` fragment specifically so that if a kernel change accidentally
+    broke system mapping sealing completely, [vdso] being unsealed would
+    trigger a hard FAIL rather than silently turning into a SKIP in CI
+    (whereas `run_vmtests.sh` runs on kernels with
+    `MSEAL_SYSTEM_MAPPINGS=n`).
+
+2. Regressions in the new `no_mseal_sys_mappings` boot parameter itself:
+    When booted with `no_mseal_sys_mappings` (or when unsealed), running
+    the assertions in Patch 3 (verifying system mappings have no `sl` flag
+    and that `munmap()` / `mremap()` -- and ideally `mprotect(PROT_READ |
+    PROT_WRITE)` -- on [vdso] succeed) directly verifies that the boot
+    parameter works and doesn't regress.
+
+If we move the test into `tools/testing/selftests/mm/`, perhaps we could:
+- Check `/proc/cmdline` for `no_mseal_sys_mappings` and actively test the
+   unsealed behavior when it is set (rather than skipping), and
+- Either enable `CONFIG_MSEAL_SYSTEM_MAPPINGS=y` in `selftests/mm/config`,
+   or keep strict failure as an option (e.g. `./sysmap_is_sealed` fails if
+   unsealed without the boot param, while `run_vmtests.sh` passes a flag
+   like `--allow-disabled` when `CONFIG_MSEAL_SYSTEM_MAPPINGS` may not be
+   enabled), so CI environments that expect sealing still catch a broken
+   seal.
+
+Thanks,
+Jeff
