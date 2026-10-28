@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205530;
-	b=zCYn7H3GsXOq7dZYdTGF3dd1R7D8aONiYn4xgr/7AymQkpJtSTm/EEMEkzntJn6OfW1b
-	 d4AkL/wpkMtcsEAq8WpD7HX/gT9sLUJbJDBjIyFRXyMNvphbbj1puT3KOurESCTaxzEx1
-	 GkhjP0NFKFZCBB1uZlI8j5wG5glnHDt52nc3qamjNla2isSXtqsslqs3yC2UFOnpoTBRJ
-	 a7UjCGbT6fzm3viSo3rk166UaT3bBZHqeQD+LlLaxJ9RfnnhveCy901L+Z3NoS4Xq8V9y
-	 JRVO+MUrXtEXOfhJVD0308RL0bN4taO5CxAeFF+Oi5FbebNp8gG5oiuYQ/QIKGY64rQ==
+	t=1793205535;
+	b=BRI/tI17ffRvfsrcLNwWPp8jiEWnTmM/n6OHohZkaxd8rrUP2Fa+JQHWvREwRlcoJiwi
+	 SowmRZ6NrAexyre2iQCvcIx+FnLT23gH/cDElAgnV8XVioYt21TzreTou7vvHsCA8OTsE
+	 Tcun2cSqyg18LyiKCI5HQDxlQesfswhNISn1Kh2PgsT4mYUitZUBRcdgrLPaEXLnCQVQL
+	 EWsjtVo+n6sbslhzdTkFZ1qu33NqZy2ZcEm9mUj9OG89Ys0WkzmiCa+aFbfaEp0hFfN44
+	 7H8jukpTALwstS3lboOSPccH+p10oyxyJuwXsga1Jp5b264KAANX6p+Tjc935UuW+Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205530;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
-	b=hDqdzNB550Yvy54w2o82c9r/kqfxfd3C6WID++vbfyxGgfYPlDhe03yPQjuNZtlEy7tF
-	 5L6DTTvREZl7Da/J7gxh0srIzvOfMegjywn5fyXtnRRxxW6n2MHvLtXtNUYHPO12y+29e
-	 +GydL1MwQGKOcf9iLUGhqG2Abv2PFPI4AW/t0cRg7WB0ayIMThoRSmq1bmRhCuEmZRP1l
-	 pET8jxa/onXF14RRBvARWuJR/U0VYOAwa4HBwWGtzqDwqLRAqnxOJCAQpnRxiyEG4rGSN
-	 Z9eHGCiHC4Q2AbBf1dqvWD7UJ8FJys36g99VTIY1T9pSnLEjM+ZZNGBwWS+hzNmOdZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205535;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PyyEhaD8x2m34MKiecPyQSIILKDN7dZJGfcyqFPUk4o=;
+	b=4G5sBaIqWMimP3H4agnGQLV5x6Ysor5YDVnCjZvM1RtyJCnhYcEeUtsai5eDBFx6/vXE
+	 M8At2486gVCsh2b6FGu9maG9F8TXS/e29pl1VSYHVEkCxIQiYc+rZVPjTJf7ndpaJ65oU
+	 Lgx1bz+Jjhh8Zo5mwPirTwfC/orP/J9XOz553iLbCbGZOChSdYqfwbTDQhccQEPLa1vt6
+	 1yCGPu2RW4DswGsO64mcFXGjuQ36Ya3xfVwvRmk9OBD0U5kAJuvBmEEgXvq1qQChyHag2
+	 tAn7tZk/+GKxxm75CH1wT7jGB6xb2mD3wCIgpMVbvLSH5OXRFTRYhOOzfgx2XoMQXYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPXilkf5;
-	arc=none smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DP2PbMCG;
+	arc=none smtp.remote-ip=91.218.175.89
+Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E03B606B28D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E03B606B28D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA2160A3813
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EA2160A3813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPXilkf5
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb040841a9so162155ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793205530; x=1793810330; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
-        b=OPXilkf5W2mSrES/eYAou3I3925xBOmvAKuFXCfpSrnxPLnj4kUMLpI+jLbIXRhBp0
-         Tt0n9dCUTuUw8+ZO0sS3kJucb4xltTp5nfTz+RJDWmJduzVdHYqQOd18bWatWyjnNovE
-         YlZCPG3PGfuoMn/nqpAYtqGfP03M+3OSETEe8SNAH7VY91zPeU6BdgPCaw7u3EZmO7vY
-         RUkAZYxo8g0xeRYpPdlRVmnVn5D7sjsWuZkGbk9BiCb0oSCZaraD8+H9mZKKzy9GcRFI
-         A2ug5sAisBx6jr7IUqNsAwR0TnA6JRYhH+UizrU2Unehh9dbkTbDZdHmIia2jek02aWn
-         t5yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793205530; x=1793810330;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
-        b=WNf/18gDYYOEJ7y3TmTRZFHkGHHxaZvTyie7q9nYiVq6xMz2FRp8Y2+0T+AiEOo/al
-         hZR82Fb5vVLhGgHQUa3x6HbZUjtNyNpqhjuSI74knf3cs6p/UMaZyu86d0xtfPDi2azT
-         bol0vdOriK3qH1BfoNI7UYVp6Y3nGz2+15QeUp6YSJIhnzkhSMociBCEPFndenT1FB6I
-         HuILEDHQXILkQDgvLACSTltJ3KICF9CSHsnAZXsFSAHAQpNg85yQ9OMVEJvEv1DKgZZS
-         D0DM/uMpHazb4YaExoG4NGLzZOeTh0eylzvTsLLL1OjCP/rI6TnAGfFMSFPhroC/yUaZ
-         JA4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzklCb436JgMGo3FtsNjTzLC9FGjW3JpL0sghDHOl7cb0mYc5weGyH2YsPyhTv1oaRvnl0otIbmL1ovg8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZlbW52bZ/43+QiQ7upRGi4ehQuV4YeQIsOAYmHdoYNsRisrbl
-	4/BKs4lJpRG931TEsW3MxzD1GpZcQlitumlCJCXhnUCQca3bJpREsxIj
-X-Gm-Gg: AYBFou3zv1sD5ioogOZ8V/lvNgL6tkyysDkRNvO18HtsVMyMI6g4lZh4ivl5FnODi+q
-	WZOuqK0Ip65TvhVHz3Tmc9uCiXTqY+NKMgLc4cN1DF+JOJ1VytrmJmJr/qEGpZCnAwpO2H2rAyo
-	eKWG+jkzcrYZiYLNd/BbUn37bv5ocdL1lHXmGEAfAYjpd8yIB4Guhl5mNcrO+9OmZFLoRsq1QdY
-	NeR5GrRqj5KGg7w29fuS17+fvOgP+SHVBFOskPh6mNIxecxD+3OPmjKHnOWxVwfq/AuXyKvXYud
-	zf5rYE+Yb3feLFrKEmGAbnFxZB6/gV5ZBHQIu62i8hRu18fDfbaWFZwVePjTqEnBIC/uXIgjZyf
-	udVCevRiXoabVYpSvJ0LNXknvTg1j2iirN2L7FqDBEO/2Ytoz6Oi8mvyz5WmwjkkScbQk3U0yLb
-	RsMWS4klkj3lw0fu0V2a2o9nbpkO9an4YkQXdkv9U7wXKooMZgq1GQoA+7Rmx/O/ZS5Wk/yd4v5
-	gA/v8odiNKU2U2f6/fGy1y2VhNcvsAS5JT+jMQxvmM5WWUlRKHCGxySTqBDf1FztQ1bV6mJxkD3
-	oVr9jVI/WdPW5TPnTovYyVU83XBjAwEFJjdWw/WB1U3bL5HfXHZU
-X-Received: by 2002:a05:6a21:496:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-3e913a7ca80mr44385637.33.1793205529784;
-        Wed, 28 Oct 2026 09:38:49 -0700 (PDT)
-Received: from 192.168.1.7 ([2409:8a1e:2330:4ef0:1490:f0fa:6df7:f234])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cc9b25a3sm4395321a12.2.2026.10.28.09.38.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 09:38:49 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Stanislav Fomichev <sdf@google.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DP2PbMCG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Xz3+iH/EXgndvNvYbLnjDx/bNEeb8fE/MJkYV6nAti8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793205532; v=1; x=1793810332;
+ b=DP2PbMCGbps496lJrX4QbF5vMRxJ9ZKulVXeJ2WMWEBXTcrzHPJExtySUI5s08w4nFWn4Aoj
+ mNMCL9UtwKIthGzpBf1+1TE9MdMOuDPz/QjgBCkx4PdW4r1HQ9yqt7dKk2k1sWfZPkLvKMMiYFg
+ AZ8/JYum0j71Yg2S3/Vo1rx8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 97da82f30ffae365;
+	Wed, 28 Oct 2026 16:38:52 +0000
+X-Mizu-Trace-ID: 97da82f30ffae365
+X-Migadu-Flow: FLOW_OUT
+From: wen.yang@linux.dev
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Wen Yang <wen.yang@linux.dev>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
-Date: Thu, 29 Oct 2026 00:38:39 +0800
-Message-Id: <20261028163839.82573-1-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <auH2iJ9oXEQRVG26@boxer>
-References: <20261028025026.11401-1-testwrzwrz@gmail.com> <20261028025026.11401-3-testwrzwrz@gmail.com> <auH2iJ9oXEQRVG26@boxer>
+Subject: [RFC PATCH 36/39] parport: move device sysctl context to priv
+Date: Thu, 29 Oct 2026 00:35:15 +0800
+Message-Id: <99e864dc88f931ba5f065717bb5a9cb950b05eb7.1793204511.git.wen.yang@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
+References: <cover.1793204511.git.wen.yang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,12 +67,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Following up: I extended the selftest to run every descriptor count from
-1 through MAX_SKB_FRAGS + 1, not just 1, 2, and the maximum. This also
-covers uneven fragment splits. All cases pass.
+From: Wen Yang <wen.yang@linux.dev>
 
-Thanks,
-Rongzheng
+The per-port table uses extra1 for both the spintime minimum and the
+port context of the active and hardware entries. During registration,
+the loop also assigns the port pointer to vars[0].extra1, overwriting
+the minimum. A spintime write can consequently be checked against data
+from struct parport instead of the intended minimum.
+
+Move the port context to priv and use numeric bounds for spintime.
+Keep probe_info in data and set priv only for the entries that need the
+port. Separating context from bounds prevents this overwrite.
+
+The spintime bug exists in the base tree and can also be fixed separately;
+this RFC does not depend on that fix.
+
+Signed-off-by: Wen Yang <wen.yang@linux.dev>
+---
+ drivers/parport/procfs.c | 51 +++++++++++++++-------------------------
+ 1 file changed, 19 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/parport/procfs.c b/drivers/parport/procfs.c
+index 1bfafc2a5724..6f6d96c37a93 100644
+--- a/drivers/parport/procfs.c
++++ b/drivers/parport/procfs.c
+@@ -36,7 +36,7 @@
+ static int do_active_device(const struct ctl_table *table, int write,
+ 		      void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport *port = (struct parport *)table->extra1;
++	struct parport *port = table->priv;
+ 	char buffer[256];
+ 	struct pardevice *dev;
+ 	int len = 0;
+@@ -73,7 +73,7 @@ static int do_active_device(const struct ctl_table *table, int write,
+ static int do_autoprobe(const struct ctl_table *table, int write,
+ 			void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport_device_info *info = table->extra2;
++	struct parport_device_info *info = table->data;
+ 	const char *str;
+ 	char buffer[256];
+ 	int len = 0;
+@@ -116,7 +116,7 @@ static int do_autoprobe(const struct ctl_table *table, int write,
+ static int do_hardware_base_addr(const struct ctl_table *table, int write,
+ 				 void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport *port = (struct parport *)table->extra1;
++	struct parport *port = table->priv;
+ 	char buffer[64];
+ 	int len = 0;
+ 
+@@ -143,7 +143,7 @@ static int do_hardware_base_addr(const struct ctl_table *table, int write,
+ static int do_hardware_irq(const struct ctl_table *table, int write,
+ 			   void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport *port = (struct parport *)table->extra1;
++	struct parport *port = table->priv;
+ 	char buffer[20];
+ 	int len = 0;
+ 
+@@ -170,7 +170,7 @@ static int do_hardware_irq(const struct ctl_table *table, int write,
+ static int do_hardware_dma(const struct ctl_table *table, int write,
+ 			   void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport *port = (struct parport *)table->extra1;
++	struct parport *port = table->priv;
+ 	char buffer[20];
+ 	int len = 0;
+ 
+@@ -197,7 +197,7 @@ static int do_hardware_dma(const struct ctl_table *table, int write,
+ static int do_hardware_modes(const struct ctl_table *table, int write,
+ 			     void *result, size_t *lenp, loff_t *ppos)
+ {
+-	struct parport *port = (struct parport *)table->extra1;
++	struct parport *port = table->priv;
+ 	char buffer[40];
+ 	int len = 0;
+ 
+@@ -236,19 +236,6 @@ do {									\
+ 	return 0;
+ }
+ 
+-static const unsigned long parport_min_timeslice_value =
+-PARPORT_MIN_TIMESLICE_VALUE;
+-
+-static const unsigned long parport_max_timeslice_value =
+-PARPORT_MAX_TIMESLICE_VALUE;
+-
+-static const  int parport_min_spintime_value =
+-PARPORT_MIN_SPINTIME_VALUE;
+-
+-static const int parport_max_spintime_value =
+-PARPORT_MAX_SPINTIME_VALUE;
+-
+-
+ struct parport_sysctl_table {
+ 	struct ctl_table_header *port_header;
+ 	struct ctl_table_header *devices_header;
+@@ -270,8 +257,8 @@ static const struct parport_sysctl_table parport_sysctl_template = {
+ 			.maxlen		= sizeof(int),
+ 			.mode		= 0644,
+ 			.proc_handler	= proc_dointvec_minmax,
+-			.extra1		= (void*) &parport_min_spintime_value,
+-			.extra2		= (void*) &parport_max_spintime_value
++			.min		= PARPORT_MIN_SPINTIME_VALUE,
++			.max		= PARPORT_MAX_SPINTIME_VALUE,
+ 		},
+ 		{
+ 			.procname	= "base-addr",
+@@ -367,8 +354,8 @@ parport_device_sysctl_template = {
+ 			.maxlen		= sizeof(unsigned long),
+ 			.mode		= 0644,
+ 			.proc_handler	= proc_doulongvec_ms_jiffies_minmax,
+-			.extra1		= (void*) &parport_min_timeslice_value,
+-			.extra2		= (void*) &parport_max_timeslice_value
++			.min		= PARPORT_MIN_TIMESLICE_VALUE,
++			.max		= PARPORT_MAX_TIMESLICE_VALUE,
+ 		},
+ 	},
+ 	{
+@@ -397,8 +384,8 @@ parport_default_sysctl_table = {
+ 			.maxlen		= sizeof(parport_default_timeslice),
+ 			.mode		= 0644,
+ 			.proc_handler	= proc_doulongvec_ms_jiffies_minmax,
+-			.extra1		= (void*) &parport_min_timeslice_value,
+-			.extra2		= (void*) &parport_max_timeslice_value
++			.min		= PARPORT_MIN_TIMESLICE_VALUE,
++			.max		= PARPORT_MAX_TIMESLICE_VALUE,
+ 		},
+ 		{
+ 			.procname	= "spintime",
+@@ -406,8 +393,8 @@ parport_default_sysctl_table = {
+ 			.maxlen		= sizeof(parport_default_spintime),
+ 			.mode		= 0644,
+ 			.proc_handler	= proc_dointvec_minmax,
+-			.extra1		= (void*) &parport_min_spintime_value,
+-			.extra2		= (void*) &parport_max_spintime_value
++			.min		= PARPORT_MIN_SPINTIME_VALUE,
++			.max		= PARPORT_MAX_SPINTIME_VALUE,
+ 		},
+ 	}
+ };
+@@ -422,15 +409,15 @@ int parport_proc_register(struct parport *port)
+ 	if (t == NULL)
+ 		return -ENOMEM;
+ 
+-	t->device_dir[0].extra1 = port;
++	t->device_dir[0].priv = port;
+ 
+ 	t->vars[0].data = &port->spintime;
+-	for (i = 0; i < 5; i++) {
+-		t->vars[i].extra1 = port;
++	for (i = 1; i < 5; i++)
++		t->vars[i].priv = port;
+ #ifdef CONFIG_PARPORT_1284
+-		t->vars[5 + i].extra2 = &port->probe_info[i];
++	for (i = 0; i < 5; i++)
++		t->vars[5 + i].data = &port->probe_info[i];
+ #endif /* IEEE 1284 support */
+-	}
+ 
+ 	tmp_dir_path = kasprintf(GFP_KERNEL, "dev/parport/%s/devices", port->name);
+ 	if (!tmp_dir_path) {
+-- 
+2.25.1
+
