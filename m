@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214163;
-	b=nAVdgo6GxcspWa6H3qj5KQJuwGoF75YnjafaYAiQYlKAsHT8HuVdLSYzVIY1KCID+6eD
-	 JkND+bBdLA1baHgKD3GGCUrRjavBI+uZspT7mWHTVembcuubfFHrNbq15lx5F359/it6B
-	 CxZYb4slH46DtPJWL1a89ZAarPrzjdzD/ZJ4XvkTtxWSrdLhIQ5DGtBywXtcUgGMrXN6P
-	 ywgk0a5f67l1cR1kX6wtXfKluku3Pzfbd0Hz3hyRSX3BkoQ0q/akAeR1K9on7yF4Am/uT
-	 2Q63bZQxgEOHVyMReOTIMIrMcPhIBI+GXMqqaMMabRWvPBkE3VcMeUn4y+D+AuMYwCg==
+	t=1793214186;
+	b=m+ahS0jo44+YCt6At9xCl6953cnEI2eqGjEJnK13W5AcJWe5Lygh4EXNg+bN27R0y/q6
+	 lzGkDL3TSyRpyxYUvNXz5IBHY5nurREgBzuLYdNWSRaOMJw2IJX4LWy9r7yHUjdT5aopA
+	 tr2p2oxicbhrt84GMKAq+q3UdplUjFTV8YIT9s+P4C+L9OMojOdSxeGrSswx/xxZgg94I
+	 gHJufL02lrKL7VACpoXr/I3c/ve/Gfikdc2tqNtSgIpoD15EYNOKhl6+eM3zS7we4LE8w
+	 ulfHMfqFzfBJuq2sDasGdWhg2FZBddzuegegWZ4QvsM+FF/eTo+i8xWHvxFvtc6HsKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214163;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YGMMhhJbzgW/QzPBpPTTD30RztuRbfCJwa//1MZPoEw=;
-	b=4z8npSAVoAynBFjo96uPwbyFG3ipqyhg4+LS99kroI+qlacsQ4quEmwJTVHUSqxgHqi0
-	 d+NnYdJIfxSzodmhg+q89f/9xy+FetT2k0PvXX30Iw+DF7vSPPUqftxMaKnvgVeJ6t5jg
-	 h8nsqsxhmOgFG6o8lldnI8NQPt/dmedTrz1nuDhmczEbqjzobAYzm9ZfCGQPOjoZKDJX2
-	 TSOP4kFy1C0os/c9tiXHgb7UUyNpDDrshRgcJKkdsjPVF/lhZejlGUr2Mwhg3VW4V5Iez
-	 bIN0t51A+0WCXhxZno7T7REB4dGuzkKE/2j4NeuUTuIcOyY1PThtOv2g9oo58oYk35w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=kQihi39MSjxZBPCKWC1v+KxEdPYKoJ3DWZvMHVb+Z7E=;
+	b=He/9xLu3gjQOnMcLOFg5U3iPO0xPyLlfrxKJopIdyCxiQfj/Szq4qjIGz5yrfM3p+lMi
+	 IfaLrV1XaUqgkJYZNkMoKvRzNiTi+ya2/n9NEhKO6/uF+XFY613CBhap/9js91AeAbsnh
+	 SQ6T8/qaVHmpPNtXM8TvBL1MjN7FDoOtVYOQpMdi9h0o6OrpiMyeOXdCYP6bs+zHo3Ppb
+	 ifkpq/CioVHBnlSJLmwdtLKcGSzCQzY/BXNl86m3vN1MLVu2BGSouxqReBWkyg5mtxdsz
+	 H2pjg+mzYum+OmJNUZv4m/jv+6D0zisuhU7XwEMmRUmhFOMRz2ouFaOxN72j0nQ+BFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+yeLqAF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FLP7Cxw3;
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0489C606A31D;
-	Wed, 28 Oct 2026 19:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BB360A263A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67BB360A263A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+yeLqAF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF981F01828;
-	Wed, 28 Oct 2026 19:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793214162;
-	bh=YGMMhhJbzgW/QzPBpPTTD30RztuRbfCJwa//1MZPoEw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T+yeLqAFaIV5ugdB5NjhA61e12w1L+BSrYB7OFrpfAcIR2R3bvk8VTeuph4Z05PLq
-	 lcmoQ2GTvN7w8itK8z23Fb7CvX7UrXcLfbyTBM3+olmVREQ8OYm4Vt9S2hUlYCCwvh
-	 YoLN/FbwlRtpVeWgrBQUKtpCMq2aSk6BZ96fzAPA1Zh/BUv05xwNUJnUgjyW+0NxCu
-	 MFHryYeChyS2NXG+hd5tU1QFjVZnyNZfQFjz6S4tMUSJw3XSKUGdfABAiPkqNVvbJb
-	 9OHQv7qk/nx3jGBDgbUSjb7yK9vqoj5fsPWRjo8ypvHtUbGQp1971XrK08vO1X/XlJ
-	 WlJINox/ORLVA==
-Date: Wed, 28 Oct 2026 12:02:33 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
-	llvm@lists.linux.dev, linux-hardening@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	linux-s390@vger.kernel.org, gfs2@lists.linux.dev,
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>
-Subject: Re: [PATCH v2 1/9] Compiler Attributes: Add __must_init macro
-Message-ID: <20261028190233.GA669046@ax162>
-References: <20261027223847.652884-1-irogers@google.com>
- <20261027223847.652884-2-irogers@google.com>
- <202610281155.4D2AA663@keescook>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FLP7Cxw3
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd67d4bbdffso995267a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:03:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793214186; x=1793818986; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kQihi39MSjxZBPCKWC1v+KxEdPYKoJ3DWZvMHVb+Z7E=;
+        b=FLP7Cxw33/iojb8pUFLZUvfjojf9EeO4ai12YPbYkFJHT6FElfCizg8kBBKbhd4KfW
+         Fnb/+Yy8cY/x1595xJnxsYjS9RZfsrTg17EloC0+HMRSFW3DN4owzLixVhMRF8eOGJxL
+         s34yqDKA54I1ImBvfebl8TqJtYgm/dHyyQk4uyTMxmWnrby9CDH8Ife3uxNFigrsF4fD
+         NlFqP1hrxUtTzobr5HDG0sL1tAkI0bnsFDaGIX3nj5LyACZJmBZH22EVDKeScejAVOYB
+         SW7zxjrZJfqRI5hdIeq8Rh9FuQcHBAah0vOxlNRrvLl3RbdauHqkMqEVH/6WeS9stvwb
+         ZcVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793214186; x=1793818986;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kQihi39MSjxZBPCKWC1v+KxEdPYKoJ3DWZvMHVb+Z7E=;
+        b=lvjDmJckXkrfduYJSdxSTMRRm+M+OmjUifOU0Z/5l58L6s1BgVcalPfA2uK9nj8QTA
+         Vs1VYJswwrtS8hYXiW3Xy9m7Xgrx6PE4Oz7UF7wMnVRtpEJ6/iSGHvgHvviQ0o0K8wjF
+         x3pmBhxTsVXxdUWytTu/21Ou/JQ0MOLtXVI56G5Am5yqLPsFrncOIGp86xIC/UnAqaC+
+         eyUos+6+ffg0hFEy5Kveu234IesjOdX/O8tULyMzyPLBDU7gBJqQXhcRtcm6ivU/T7nr
+         bF/ODtHERHqcVZumMPFsGSyWGiyk+kDgk2ONvimSTQRofc0LF1i4Z0kO7q4R/8dYKkAC
+         evgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiTGBBPKvckwnVIyIvcRuyXNHcGXPn5LMjfrMgKBP/uzla1hGnASCcY4StSYHHreGQTytIyYgr23VRAw4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKA+kPBP1hB6RVhwAyWIS/LuCv6LqBp97MwKuscSE+Nl2s9RWVB
+	z6LHPCM+5B+zAhjvSvEr7kj/5SlXcesVRbTHwEOVA3S5ekWhrZN52XtAgn9WgVv1v/4/oD74EL+
+	NQ0xhww==
+X-Received: from pgx20.prod.google.com ([2002:a63:1754:0:b0:cd4:ef82:4e33])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a120:b0:3e1:5816:8749
+ with SMTP id adf61e73a8af0-3e9023eda44mr2865201637.38.1793214185450; Wed, 28
+ Oct 2026 12:03:05 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 28 Oct 2026 12:02:55 -0700
+In-Reply-To: <20261028190259.1819571-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,25 +79,169 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610281155.4D2AA663@keescook>
+Mime-Version: 1.0
+References: <20261028190259.1819571-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028190259.1819571-4-seanjc@google.com>
+Subject: [PATCH 3/7] KVM: PPC: Explicitly force IPIs when directly kicking vCPUs
+From: Sean Christopherson <seanjc@google.com>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+	Huacai Chen <chenhuacai@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 11:56:08AM -0700, Kees Cook wrote:
-> On Tue, Oct 27, 2026 at 03:38:36PM -0700, Ian Rogers wrote:
-> > Note that Clang does not yet diagnose file-scope objects declared
-> > without any initializer (initializers at file scope that omit the field
-> > are diagnosed), see https://github.com/llvm/llvm-project/issues/232483.
-...
-> As part of this, can you open a Clang bug for the lack of detecting
-> global initializers? It'd be nice to get that fixed.
+Explicitly force an IPI when invoking kvm_vcpu_kick() directly instead of
+relying on kvm_arch_vcpu_should_kick() to unconditionally return 1/true.
+This will allow dropping kvm_arch_vcpu_should_kick() in favor of
+kvm_request_needs_ipi().
 
-Is that this linked issue or a different one? Looks like you filed that
-one and it got fixed in clang ToT about a week ago:
+No functional change intended (1 || 1 == true).
 
-  https://github.com/llvm/llvm-project/commit/58936cb3678b4b5b96177f24cac3940b9a389fe3
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/powerpc/include/asm/kvm_ppc.h | 13 ++++++++++++-
+ arch/powerpc/kvm/book3s.c          |  4 ++--
+ arch/powerpc/kvm/book3s_pr.c       |  2 +-
+ arch/powerpc/kvm/booke.c           |  6 +++---
+ arch/powerpc/kvm/e500_emulate.c    |  2 +-
+ arch/powerpc/kvm/powerpc.c         |  2 +-
+ 6 files changed, 20 insertions(+), 9 deletions(-)
 
+diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+index 169ea6a7fbad..bbe7378ad0ef 100644
+--- a/arch/powerpc/include/asm/kvm_ppc.h
++++ b/arch/powerpc/include/asm/kvm_ppc.h
+@@ -30,6 +30,17 @@
+ #endif
+ #include <asm/inst.h>
+ 
++/*
++ * TODO: For unknown reasons, KVM PPC has historically ignored vcpu->mode when
++ *       determining if kicking a vCPU needs an IPI.  Either document why that
++ *       behavior is necessary, or drop this helper and the @force param from
++ *       __kvm_vcpu_kick().
++ */
++static inline void kvmppc_vcpu_kick(struct kvm_vcpu *vcpu)
++{
++	__kvm_vcpu_kick(vcpu, false, true);
++}
++
+ /*
+  * KVMPPC_INST_SW_BREAKPOINT is debug Instruction
+  * for supporting software breakpoint.
+@@ -598,7 +609,7 @@ static inline void kvmppc_clear_host_ipi(int cpu)
+ 
+ static inline void kvmppc_fast_vcpu_kick(struct kvm_vcpu *vcpu)
+ {
+-	kvm_vcpu_kick(vcpu);
++	kvmppc_vcpu_kick(vcpu);
+ }
+ 
+ static inline bool kvm_hv_mode_active(void)		{ return false; }
+diff --git a/arch/powerpc/kvm/book3s.c b/arch/powerpc/kvm/book3s.c
+index 2efbe05caed7..dce53c5a3868 100644
+--- a/arch/powerpc/kvm/book3s.c
++++ b/arch/powerpc/kvm/book3s.c
+@@ -260,7 +260,7 @@ void kvmppc_core_queue_external(struct kvm_vcpu *vcpu,
+ 	 * external interrupts for the guest just before entering
+ 	 * the guest.  That is OK even if userspace did do a
+ 	 * KVM_INTERRUPT_SET on a pseries guest vcpu, because the
+-	 * caller (kvm_vcpu_ioctl_interrupt) does a kvm_vcpu_kick()
++	 * caller (kvm_vcpu_ioctl_interrupt) does a kvmppc_vcpu_kick()
+ 	 * which ends up doing a smp_send_reschedule(), which will
+ 	 * pull the guest all the way out to the host, meaning that
+ 	 * we will call kvmppc_core_prepare_to_enter() before entering
+@@ -827,7 +827,7 @@ int kvm_arch_vcpu_ioctl_set_guest_debug(struct kvm_vcpu *vcpu,
+ void kvmppc_decrementer_func(struct kvm_vcpu *vcpu)
+ {
+ 	kvmppc_core_queue_dec(vcpu);
+-	kvm_vcpu_kick(vcpu);
++	kvmppc_vcpu_kick(vcpu);
+ }
+ 
+ int kvmppc_core_vcpu_create(struct kvm_vcpu *vcpu)
+diff --git a/arch/powerpc/kvm/book3s_pr.c b/arch/powerpc/kvm/book3s_pr.c
+index ecfb88bf6464..1894968f2c25 100644
+--- a/arch/powerpc/kvm/book3s_pr.c
++++ b/arch/powerpc/kvm/book3s_pr.c
+@@ -2066,7 +2066,7 @@ static struct kvmppc_ops kvm_ops_pr = {
+ 	.emulate_op = kvmppc_core_emulate_op_pr,
+ 	.emulate_mtspr = kvmppc_core_emulate_mtspr_pr,
+ 	.emulate_mfspr = kvmppc_core_emulate_mfspr_pr,
+-	.fast_vcpu_kick = kvm_vcpu_kick,
++	.fast_vcpu_kick = kvmppc_vcpu_kick,
+ 	.arch_vm_ioctl  = kvm_arch_vm_ioctl_pr,
+ #ifdef CONFIG_PPC_BOOK3S_64
+ 	.hcall_implemented = kvmppc_hcall_impl_pr,
+diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
+index 13ad4cf5fa71..fd7f24a68b31 100644
+--- a/arch/powerpc/kvm/booke.c
++++ b/arch/powerpc/kvm/booke.c
+@@ -650,7 +650,7 @@ static void kvmppc_watchdog_func(struct timer_list *t)
+ 	if (new_tsr & TSR_WIS) {
+ 		smp_wmb();
+ 		kvm_make_request(KVM_REQ_PENDING_TIMER, vcpu);
+-		kvm_vcpu_kick(vcpu);
++		kvmppc_vcpu_kick(vcpu);
+ 	}
+ 
+ 	/*
+@@ -661,7 +661,7 @@ static void kvmppc_watchdog_func(struct timer_list *t)
+ 	    vcpu->arch.watchdog_enabled) {
+ 		smp_wmb();
+ 		kvm_make_request(KVM_REQ_WATCHDOG, vcpu);
+-		kvm_vcpu_kick(vcpu);
++		kvmppc_vcpu_kick(vcpu);
+ 	}
+ 
+ 	/*
+@@ -1872,7 +1872,7 @@ void kvmppc_set_tsr_bits(struct kvm_vcpu *vcpu, u32 tsr_bits)
+ 	set_bits(tsr_bits, &vcpu->arch.tsr);
+ 	smp_wmb();
+ 	kvm_make_request(KVM_REQ_PENDING_TIMER, vcpu);
+-	kvm_vcpu_kick(vcpu);
++	kvmppc_vcpu_kick(vcpu);
+ }
+ 
+ void kvmppc_clr_tsr_bits(struct kvm_vcpu *vcpu, u32 tsr_bits)
+diff --git a/arch/powerpc/kvm/e500_emulate.c b/arch/powerpc/kvm/e500_emulate.c
+index 051102d50c31..10cd6b4ab456 100644
+--- a/arch/powerpc/kvm/e500_emulate.c
++++ b/arch/powerpc/kvm/e500_emulate.c
+@@ -75,7 +75,7 @@ static int kvmppc_e500_emul_msgsnd(struct kvm_vcpu *vcpu, int rb)
+ 		int cpir = cvcpu->arch.shared->pir;
+ 		if ((param & PPC_DBELL_MSG_BRDCAST) || (cpir == pir)) {
+ 			set_bit(prio, &cvcpu->arch.pending_exceptions);
+-			kvm_vcpu_kick(cvcpu);
++			kvmppc_vcpu_kick(cvcpu);
+ 		}
+ 	}
+ 
+diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+index 9194cf492d1c..09c94b849185 100644
+--- a/arch/powerpc/kvm/powerpc.c
++++ b/arch/powerpc/kvm/powerpc.c
+@@ -1903,7 +1903,7 @@ int kvm_vcpu_ioctl_interrupt(struct kvm_vcpu *vcpu, struct kvm_interrupt *irq)
+ 
+ 	kvmppc_core_queue_external(vcpu, irq);
+ 
+-	kvm_vcpu_kick(vcpu);
++	kvmppc_vcpu_kick(vcpu);
+ 
+ 	return 0;
+ }
 -- 
-Cheers,
-Nathan
+2.56.0.313.g2479322e68-goog
+
