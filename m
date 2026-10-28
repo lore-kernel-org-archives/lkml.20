@@ -1,58 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187690;
-	b=3BIOTfCoy7efCL2/dKeR8Ps++V9ZsBz7gQfVpmKgYnpT1YiSs18JBW2KbnozCAuuFyjQ
-	 1nomLhpD0oZ9aBhRVlrKzorSYUcnIPGYkOgVGHXow0JEunmnd+6QwbZs0vIS3PW04YhGS
-	 OXInTZDaoMZzVczPxPflvfgavinLVYi4/vC5gXqukwM+BZmnXx3J+/C0gaBl12j82dyv3
-	 SSYMwdHaVFOgVUdKv+CuoUAvngtuZxxzNT/xHUnQ7LWvfziSAaYui85Sg2buKiQVGC64e
-	 ysixqidZrg0Z9DxBd0B9A6JsL47gNNk4kmCNOjHEQHnEMvqdt01f+2dRzC2Pk+3nsxw==
+	t=1793187728;
+	b=ESAtsDedXZzWy6mGXucsl7L6uWYMqszxDIkOCsEu+LPdn4RY8Q4zUOBeJHDQh32Pl/Sr
+	 zZapdbGAPaS/FzYVz2ai70kACHwVrvyBTYkcWEgIgBwc1cevU6jjUBjJJNNjWggv2u4o5
+	 g8detiBNBrMtgfJJpumEbBHl2pWH0BCxp+mRjfo0L64Ulo3kYls2Ch42wRqtLLO9Iv0AW
+	 ZNGwSbP0kfV23gPTOvRx/hGJ4aXdo5eV55QwHtsHm3Mq/CkSortSDvhM95CZevCPcXx7G
+	 NWIWwND9O8r7hptTcKDiMk1lVUIgTi1cV9a5lvBReQR9EbinrAu1TFdilUZS8uKD5cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187690;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
-	b=sjPkBqBgZremlpqnqvd/9ecz6mhKIiMVQkgQdoZ77SlPaj/SRuXVCsGaew5ijvmYfcI9
-	 7r0lZ4XyquVYMq3e/IdE7hLVMpyvRZ+s+lUG7xHp2h7ZC32s49bR0KwZsFYnEq9lsvuBv
-	 iAxh0c3ijCS2/7bHUbEfzOPWruTogYpDC9yqcwq7vFmlf3kTHoemKxLBH0IZzzp+d8mzP
-	 4fBs2vmcq0hNmxhUS8PbGeAq1yVmLsqVdIsNmmshgEwaS1oRDUx38iCZ3igASxtxpigcq
-	 MFjDYdGNvJInSkbmcWxrgmg2t7CqbsU4VPrF1M8m8/579oyi3KidPuIY5kDJDFf2SSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187728;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1lj6/7yqKyEZQh/75Ouy2KxxOTyJUOrJdS5Tm8BiFW4=;
+	b=PAM/6+8LtSz3JlEIwZmoxj6wKxj5Q0kXR7RVBXKNSFG0LNXup7WdXn5E1jxa33jg1gAY
+	 kYxnXKHdc6ODvBCNDo37cEGv10XKp9s/5KGCRKGDgJJLeOxEjI0zSJGiK36iVd3BZu+IO
+	 Q9fP/b4bFgyswDkv14vajX8ltDAz0K3ZSbuTKmBM2C6jbYrShCuJv0W+SPUW2Rsh9LEPJ
+	 HsVmFrpV9R+LR/klGyumG9+t7Qs5fRLEtEzxQ4naRx6rOkRvOHASrIak3slQqugKpxvqh
+	 +HqgJF7KV1xDtkWbC1+DQJbXD/zOtyGfCe7Ih/K3JNaXYG63/nr/lIn2S6Al9RV3Ewg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AZknOMeO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E21E606A31A;
-	Wed, 28 Oct 2026 11:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C177606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C177606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADB41F01825;
-	Wed, 28 Oct 2026 11:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793187689;
-	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hUWdC9ii38YmtM4niQrcVuKM0MmLcS6Ymm/DpSbDM+uxAsUb9gym7iZ+LqjHT36YM
-	 uRRpINPqxTjQD1OYZX7hZdDA2FmQ01u1OGxpwXwGh62crNj8RdX31Y+QvcF+Qe3Bqm
-	 i3tx2Ar4D7q5eSfau6OEXjHP6DRwiRXMbcVo01NpfLhpqTM+HY4h4KST1dKFQrNQPo
-	 bLKfNqNrf+ETVHb0gT6RzsCE+qbBEZN9TLSn/4Mdo+daIGLKGYRlWVLgVVHsLZYpYW
-	 Wy9BAURW+S1OHFfq8kVrQchPE/H0KgLjNsKe9WV+MeBBjzXWWL47H58kNqZzsnWPdK
-	 I0stxpRbXUVEg==
-Date: Wed, 28 Oct 2026 12:41:25 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce
- IRQ with AER IRQ on R-Car Gen5
-Message-ID: <20261028-valiant-boar-of-competence-febbdb@quoll>
-References: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AZknOMeO
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EF3A4F1;
+	Wed, 28 Oct 2026 12:39:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793187592;
+	bh=Rsw2IDjWS22qxc49wx+UxcDu6FoabmR4PaoHgFRbUhI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AZknOMeOj+3yO8Q00UR3u69hCTdB7OXi4xmSamQpnyRDdok74NZGOQup/vXPVWaju
+	 fcZtuqO7zNTRBRDrddUYkBVcbgc88T5WGRUSjYXvlF/Pxw5mlPNEU7atW59XuiW4h2
+	 qmjbURehHXOLGZnJo3Yx6YMFmVywEosKpqHsfmhY=
+Message-ID: <1d50c475-9ab4-47de-b62d-0610454c9d42@ideasonboard.com>
+Date: Wed, 28 Oct 2026 13:42:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,25 +54,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/13] drm/bridge: tc358762: Various small fixes
+To: dri-devel@lists.freedesktop.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, Marek Vasut <marex@denx.de>
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andreas Kemnade <andreas@kemnade.info>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 11:44:18PM +0100, Marek Vasut wrote:
-> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
-> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
-> controller.
+Hi all,
+
+Ping for reviews or tested-bys.
+
+  Tomi
+
+On 15/10/2026 14:15, Tomi Valkeinen wrote:
+> While trying to get Raspberry Pi display v1.1 working on Beagleboard
+> platforms, I noticed various small issues with the tc358762 driver.
 > 
-> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
-> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
-> an AER interrupt, but to retain binding backward compatibility, this
-> interrupt is kept optional and added in a separate patchset.
+> The series also contains a patch to fix the timings in the
+> powertip,ph800480t013-idf02 panel. The combination of tc358762 +
+> ph800480t013 is used in the Raspberry Pi display module, so it makes
+> sense to fix them together.
 > 
-> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+> Changes in v5:
+> - Rebase on v7.3-rc7 to remove a minor patch context conflict
+> - Link to v4: https://patch.msgid.link/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com
+> 
+> Changes in v4:
+> - Rebased on latest upstream, fixing the minor compilation issues that it
+>    brought
+> - Added R-b tags
+> - Link to v3: https://lore.kernel.org/r/20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com
+> 
+> Changes in v3:
+> - Add missing #include <linux/bitfield.h>
+> - New patch: "drm/panel-simple: Fix powertip,ph800480t013-idf02 timings"
+> - Link to v2: https://lore.kernel.org/r/20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com
+> 
+> Changes in v2:
+> - Always enable VTG. There should be no downside, and it fixes unstable
+>    hsync
+> - Add four new patches at the end
+> - Extend the patch desc in "Drop SPICMR write" a bit
+> - Link to v1: https://lore.kernel.org/r/20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com
+> 
+> ---
+> Tomi Valkeinen (13):
+>        drm/bridge: tc358762: Clean up register defines
+>        drm/bridge: tc358762: Improve SYSCTRL register defines
+>        drm/bridge: tc358762: Improve LCDCTRL defines
+>        drm/bridge: tc358762: Configure SYSCTRL first
+>        drm/bridge: tc358762: Drop SPICMR write
+>        drm/bridge: tc358762: Improve DPI enable handling
+>        drm/bridge: tc358762: Update comment about the number of lanes
+>        drm/bridge: tc358762: Support VTG
+>        drm/bridge: tc358762: Fix sync polarities
+>        drm/bridge: tc358762: Move tc358762_init() into tc358762_enable()
+>        drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
+>        drm/bridge: tc358762: Set DE_POL and DCLK_POL properly
+>        drm/panel-simple: Fix powertip,ph800480t013-idf02 timings
+> 
+>   drivers/gpu/drm/bridge/tc358762.c    | 203 +++++++++++++++++++++++------------
+>   drivers/gpu/drm/panel/panel-simple.c |  14 +--
+>   2 files changed, 144 insertions(+), 73 deletions(-)
+> ---
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> change-id: 20260326-tc358762-fixes-6f666500da9e
+> 
+> Best regards,
+> --
+> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> 
 
