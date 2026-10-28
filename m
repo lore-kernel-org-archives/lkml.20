@@ -1,88 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180312;
-	b=YOdx3BAYKd0x2SkWndTSa4XK7od6sLBNgwP8kCIIM8Kvc411JXCxDBUQWNRn5HM6XXmh
-	 rT6MX9YU3a4YPUau3II5vfj6D0agP9Fwb3nXeJl/UmYtVM9AqyeunGpi+IrWyKJOmvQ1h
-	 8QpPFE+iHqOgNr56ES+LD1LvKzVJxo/IFLFiSrOpGA9TFdnD1OxQmLr6f6s/gALTpTPb7
-	 sXg8lRKslKkaITddnIB1pqup0abhZzHmwKaX1bDOpBObY1hTn18vZ6lRKVfsQGmCzN5t+
-	 ClVSZKJVHP2T20s3pkly94hHtwf3gubHfDAsB99b78aYUkB6MolwcfDcKgqduGPWPkQ==
+	t=1793180306;
+	b=LCqM79SL2/ndJQ6eZmvBx5Ln5qx1KmHOVyXDE36vP4y04FKNySFf+MR3S2qRR2KJQvbX
+	 E6YJIULerklwlpb+PsxFSaW4c/sagLYWUvCVtdN+K+e9SjoZNO5DE9YxcIXUXFpvpb4br
+	 32faQXKgiGLsfiUaXEe+K8V50QNgkTqU07vm2jF30s9q01hC2M7CrCTCZcGSxkm+mdNlQ
+	 ZjsV1KgNL16WwO68fGApoWvr6dKbioW53RSlnbywuKI43LmU8BpK1/DetkC/wlGDaKayc
+	 gRWjH59lZurvKy1kRj7JWErad6pYYl3qVmT90GmJyxKvKNMgL+2edrV0pc+x5zump2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
-	b=fwJlgYrXkmddcjHLJveYoaHXYV30yQDSWE2PQo9G6AKqr+GFperrNG7iqnbQX+mAuKsL
-	 2N4Im+zCHFf50pmAm/5jiFaW2kaNwc8SK53gBCeV4Vaivx/LbwDqw0QRzn7hk3aBkuCen
-	 nd2y2qOHyBk4SI7BGxgXMBzaN0vzHCBuOsVwytW5spPU1/r6SVnCSDj0zfFBQbYOZWeRp
-	 OucTs9FHQBNvykWbkZeCyP7apqTEd0KKXWJt1etpeTOswHE6WwFPnqrHpSlrwf/n8RW8c
-	 NUk3JUpE7cjg0i5RX9gDNIPfHPXspHW0V79wS10NCDcVkSbhFK7vRkL8z1q1T86phfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180306;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=C5Zve2yUOC8yB0rGIv8b0aK3NGYsoSH80/7cyPpB4hk=;
+	b=qDuqPSFzCYP9eqINkW2kDAolD8XZiFal+r8xG6D+Zb5wfQV6/UfI8Dlf4csCbjQEzUKw
+	 RFHZqRg44mNUbEcliuhUdY9ptpJf9xcnkKbB80tg1WZu4SI+pezK/+gabN6aF7LHMqau9
+	 ii7QUSkwvCuM8gSIa5AbJo/KJnskOssZy3agbli2Qw0NovUWek2DgnNTllE6p9PUMGpvC
+	 SXZgEoHG2cmkt8yVvHE0SJ7HqwZ4QYOocPRxjrks+viHZ6mWFf5w2asli+ZroI6n5+H4w
+	 BBqTcsYHMoSkO07ldiakA28jkrQo3TdGVy3qi0XNIazNZ33jShVcD1RBK8u7gHoR5Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="px198/PW";
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mcZ70rbk;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F68C606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F68C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F0F606A31C;
+	Wed, 28 Oct 2026 09:38:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2F0F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=px198/PW
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso4773525e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793180310; x=1793785110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
-        b=px198/PWpqiPIx8ytXkwsSbiuXzKqx9E8mO1xgR5CVTiCae/63ysQ6DDuOzgjIoXkz
-         7gAbPY/AIRYo6NOUedPy2tE2taSO1QtzfS3FYWOmwzJAdFY4d9Xqx1IEZeh40Xdfrqcy
-         u800PidSOgsYIZPxSFGEt+zNzczp9WENRdMrB8Np1w+sC9Mk/FPQjVBEHU4kh9QpBiyh
-         3Vb26fQbhmMzz+f0Psg8pvN0/qjJj+fH+TeTtY6TpJh1lzp3LajYUgET48cMsB7SYOJr
-         nhLN6stWREYjE8UWBew0RNsBZAwWumrlrLfXrpVDL42mp29limr+baqIrQLc5r9zXNC4
-         FkMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180310; x=1793785110;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
-        b=aLeYLab959r0UYiYlPDmEFlyYxdNgJlLLM2mZe8ATRi0H62bsYozvHKwWvdihAut2l
-         v8FQTqmvkbhWXlnbYpcbU4cjTlikPrs+kkmZeljED+r/z57ukgjiQFx+WaQ5l4QqLQw0
-         9/CVALs7ypaHeVXnqPUvj6Mi4sM41FQEZ/SdPuVvXrwBKlEz9ttKebkfQ91suDwTXnrI
-         bKRfT3OBdQYqMtdfDGxNZze5vTQFW0MVg5RWWP5175uUe6M4y6k3fy+Ig5AUhHLZ6D8R
-         3W0No1y0v7sZAu6uTT1Tpqtf0Hc1V3rynhQkFfdVo4yhGIm5Rq2EOtSKQkF4FyNLsr34
-         fu8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxKOE6535m/MQVcEtH/xjd5fW+f1PAXQQy0OWCLp+6CdJXSIWJx8NA6gPvEzIXNjDoUIpq3NyyldlOfHuo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnMTmfCRqqXNGFbkipr8EZImBgCuQ1fgMEBk1YOi9/KcwYsomg
-	on4CkMYCnggbkF+PHIQTHbTg7UX5ZPvQn93SJzl1xmTIAVFkrftC5gLC2+FOnu4jDkY=
-X-Gm-Gg: AYBFou3X3NXDCLpRgzqLnr8wsDx9+uYx0vtW/mFD/oLnM18xeg5Qtq5rnG3lscn1cqF
-	oFqpt7gS8TxCTn8voZG3tmX+/DbFCp3ugnU769vgM8/PXGUGlpCNjPj9FGxP5CEo86rifH2dr3K
-	u+xZmwCMBpPvLDQDcQ/2vqFCyz2DsT4lulXlJDtNmTRBhEWHWsePjpcJjfqdhJU5XfIN6NMNTFa
-	M4Z/Pzmaz95RxLzr2Qo29mxrBo/X3y4qFTxSGhSDGNu2eoixklydppRDXJKaCrfEUGvY0ouab3r
-	6GNmfG/CoQJpsUSIP7N7LTn6OZfPqi0C6EJAErgnui8Ku49yMMD8jE46Yd3G5D259XmBc2hnL/c
-	/yER2MEuTvs7s2hRDy8PDH5fCsJ7m4p4n55H/e/mORWXo2A0/JpFJN5OMojRoA3sKmhL6ixcUUJ
-	nkQAslrSRvnrzV+4VRstlxsE0LM2p3jX0tAJsJZJh80/HDcV5BLBrhHgablZEWjLV/ILi9oXjuc
-	TOVNvcdyS/CVPjC261pB8/d+hoN3I5voHGvtlcdR4441RJKszfNtp6mZnAxdYCoxifqNAAuq/YI
-	yj7vGZ5+wm1N1Eeed40F0XNYXbjQ9cMsQA==
-X-Received: by 2002:a05:600c:6089:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a967ca24ecmr34100865e9.32.1793180309742;
-        Wed, 28 Oct 2026 02:38:29 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c42b3c1sm35187485e9.6.2026.10.28.02.38.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 02:38:29 -0700 (PDT)
-Message-ID: <97df111f-edf4-4ce6-8ccd-9cccc730006c@linaro.org>
-Date: Wed, 28 Oct 2026 09:38:28 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mcZ70rbk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793180304; x=1824716304;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IlSmwz3t4apRrEpsmg5yqaNQ+6v66Gb3F1C490RGPSM=;
+  b=mcZ70rbkNx0D/75sYooY393N+VMsTX7cW2Akt3CeSsVlI4s5OLMVaS+w
+   9O6sytw4jQTh6/2az1yLd4GLmh3RCA1G1hfOoltkhRsvjzo4QUOyXCEa5
+   2M+Et0lKwVRrCr/An1vJJrgBEQ5xv70cc7+YfYxnVgnR25Jg5TdWTvehq
+   iFhLVa6ZF1H6dlgKB3cG4iGAf7CmGPKGNGR0DW+X/pwnf57P+fDTddR2Z
+   pU7Hw9nwQxZkiEKVuM/ewBBXkIEUftSSNHSz+KQZ/tEnFn5Cb1fqR/wUt
+   tXw6cYkoQCX4LL+xfHnNliSL6R3O3Y8ZlxK0A72hZ7zDWghCcbzrOk6LY
+   Q==;
+X-CSE-ConnectionGUID: kgoNT8BxQi6yACqGCkFS+Q==
+X-CSE-MsgGUID: okHjTsC8S0WhD6nphXfFxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1788142"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1788142"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:38:24 -0700
+X-CSE-ConnectionGUID: Q82VjP2sQ7yXQDALF0Wfpw==
+X-CSE-MsgGUID: +1HltY5zThyFajnK6gx61w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4762682"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 28 Oct 2026 02:38:20 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xM06r-00000000YXg-1W4S;
+	Wed, 28 Oct 2026 09:38:17 +0000
+Date: Wed, 28 Oct 2026 17:37:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Petr Machata <petrm@nvidia.com>,
+	Ferruh Yigit <ferruh.yigit@amd.com>,
+	Antoine Tenart <atenart@redhat.com>,
+	Seungwon Bae <qotmddnjs@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] vxlan: reject VNI add when the default fdb
+ entry is nexthop-backed
+Message-ID: <202610281752.nKGCORKp-lkp@intel.com>
+References: <20261027104713.328028-2-bsdhenrymartin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,95 +95,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] perf/core: Return errors from
- perf_report_aux_output_id()
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Mike Leach <mike.leach@arm.com>,
- Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>
-References: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
- <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
- <254599ef-ace5-423b-bc31-56150909d96f@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <254599ef-ace5-423b-bc31-56150909d96f@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027104713.328028-2-bsdhenrymartin@gmail.com>
+
+Hi Henry,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on net/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Henry-Martin/vxlan-reject-VNI-add-when-the-default-fdb-entry-is-nexthop-backed/20261027-184713
+base:   net/main
+patch link:    https://lore.kernel.org/r/20261027104713.328028-2-bsdhenrymartin%40gmail.com
+patch subject: [PATCH net v4 2/2] vxlan: reject VNI add when the default fdb entry is nexthop-backed
+config: riscv-defconfig (https://download.01.org/0day-ci/archive/20261028/202610281752.nKGCORKp-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 1da436a23e613c425fc9b868fc8deb979ede47a4)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261028/202610281752.nKGCORKp-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610281752.nKGCORKp-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/net/vxlan/vxlan_vnifilter.c:846:33: error: member reference type 'struct vxlan_config *' is a pointer; did you mean to use '->'?
+     846 |             !vxlan_addr_any(&vxlan->cfg.remote_ip)) {
+         |                              ~~~~~~~~~~^
+         |                                        ->
+   1 error generated.
 
 
+vim +846 drivers/net/vxlan/vxlan_vnifilter.c
 
-On 05/10/2026 16:46, Suzuki K Poulose wrote:
-> Hi Peter, Arnaldo, Mark, Ingo et al
-> 
-> 
-> 
-> On 01/10/2026 15:21, James Clark wrote:
->> It's useful to know if this failed or not so a retry can be attempted
->> later. Return the error code or success.
->>
->> Signed-off-by: James Clark <james.clark@linaro.org>
->> ---
->>   include/linux/perf_event.h | 2 +-
->>   kernel/events/core.c       | 6 ++++--
->>   2 files changed, 5 insertions(+), 3 deletions(-)
->>
->> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
->> index 48d851fbd8ea..01d318a4de50 100644
->> --- a/include/linux/perf_event.h
->> +++ b/include/linux/perf_event.h
->> @@ -1896,7 +1896,7 @@ static inline struct fasync_struct 
->> **perf_event_fasync(struct perf_event *event)
->>   }
->>   extern void perf_event_addr_filters_sync(struct perf_event *event);
->> -extern void perf_report_aux_output_id(struct perf_event *event, u64 
->> hw_id);
->> +extern int perf_report_aux_output_id(struct perf_event *event, u64 
->> hw_id);
-> 
-> This looks a trivial change with minor impact. Are you happy for me to
-> pull this via the coresight tree ? Please could I have an Ack on this ?
-> 
-> 
-> Cheers
-> Suzuki
+   819	
+   820	static int vxlan_vni_add(struct vxlan_dev *vxlan,
+   821				 struct vxlan_vni_group *vg,
+   822				 u32 vni, union vxlan_addr *group,
+   823				 struct netlink_ext_ack *extack)
+   824	{
+   825		const struct vxlan_config *cfg = rtnl_dereference(vxlan->cfg);
+   826		struct vxlan_vni_node *vninode;
+   827		__be32 v = cpu_to_be32(vni);
+   828		bool changed = false;
+   829		int err = 0;
+   830	
+   831		if (vxlan_vnifilter_lookup(vxlan, v))
+   832			return vxlan_vni_update(vxlan, vg, v, group, &changed, extack);
+   833	
+   834		err = vxlan_vni_in_use(vxlan->net, vxlan, cfg, v);
+   835		if (err) {
+   836			NL_SET_ERR_MSG(extack, "VNI in use");
+   837			return err;
+   838		}
+   839	
+   840		/* A default fdb entry that is backed by a nexthop group can
+   841		 * never take a remote; reject before the VNI is installed,
+   842		 * otherwise a failure in vxlan_vni_update_group() would leave
+   843		 * the VNI half-installed.
+   844		 */
+   845		if ((group && !vxlan_addr_any(group)) ||
+ > 846		    !vxlan_addr_any(&vxlan->cfg.remote_ip)) {
+   847			if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
+   848				NL_SET_ERR_MSG(extack,
+   849					       "Cannot add a remote to a nexthop fdb entry");
+   850				return -EOPNOTSUPP;
+   851			}
+   852		}
+   853	
+   854		vninode = vxlan_vni_alloc(vxlan, v);
+   855		if (!vninode)
+   856			return -ENOMEM;
+   857	
+   858		err = rhashtable_lookup_insert_fast(&vg->vni_hash,
+   859						    &vninode->vnode,
+   860						    vxlan_vni_rht_params);
+   861		if (err) {
+   862			vxlan_vni_free(vninode);
+   863			return err;
+   864		}
+   865	
+   866		__vxlan_vni_add_list(vxlan, vg, vninode);
+   867	
+   868		if (vxlan->dev->flags & IFF_UP)
+   869			vxlan_vs_add_del_vninode(vxlan, vninode, false);
+   870	
+   871		err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
+   872					     extack);
+   873	
+   874		vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
+   875	
+   876		return err;
+   877	}
+   878	
 
-Gentle ping, thanks.
-
->>   extern int perf_output_begin(struct perf_output_handle *handle,
->>                    struct perf_sample_data *data,
->> diff --git a/kernel/events/core.c b/kernel/events/core.c
->> index d7f3e2c2ecb1..232da3b6f393 100644
->> --- a/kernel/events/core.c
->> +++ b/kernel/events/core.c
->> @@ -10563,7 +10563,7 @@ static void perf_log_itrace_start(struct 
->> perf_event *event)
->>       perf_output_end(&handle);
->>   }
->> -void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
->> +int perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
->>   {
->>       struct perf_output_handle handle;
->>       struct perf_sample_data sample;
->> @@ -10585,12 +10585,14 @@ void perf_report_aux_output_id(struct 
->> perf_event *event, u64 hw_id)
->>       ret = perf_output_begin(&handle, &sample, event, rec.header.size);
->>       if (ret)
->> -        return;
->> +        return ret;
->>       perf_output_put(&handle, rec);
->>       perf_event__output_id_sample(event, &handle, &sample);
->>       perf_output_end(&handle);
->> +
->> +    return 0;
->>   }
->>   EXPORT_SYMBOL_GPL(perf_report_aux_output_id);
->>
-> 
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
