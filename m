@@ -1,54 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190595;
-	b=0M/A1NS7E+VxOVoLf1jAaNBB5MaOrtTgaGh/JqwBLqjZXZN+3Z2fPUIrnNRMlgATlqGU
-	 KmLj8kZM4wqmCmD7BIsk1x18fszLiKmD6HyDdtyFrJL2sdXt4Qe7WEYbNSW3Z1ueC+9PN
-	 MN9urIOF8WhUIzgnvqc8Npx7zlgmM2o/XgvtvT0/mVg7HfNl1BG3dTOCNdEV7dXOI7WUb
-	 hG8BwQ2YfeEs1NM3Aog/cG3l8xkSFnGUE98P9LqNJ8hRbrz04WZ/epni9WtAy3m/A4ipj
-	 PE7fEtyU+jlPy2RUUyOU3aorY2slya3AcOsLL/fsM+x/U0M9wVv4ebnuJcFmnrnNfkQ==
+	t=1793190620;
+	b=wB7kO72h2LEN5S53+5mNe50utPBmz8TsQiv7zq9kF8DM1gSZWLpqMNYUQf5K2rgWaQ/4
+	 Uoj6MF3FbOHiFHybH3XacC1wm8VBCkKP4wvV3w+mpeb2FSpEEmiw6QlsWD8YLdexWbtCY
+	 bp/SkT69X/yWh4CQgu4ZoSyUeoVPH/TP8OYbvqDtFYUKm5QHfPun2OpV4bNP6ZjWyW6MV
+	 6MKCjdt8vD1yMjmVQ/6SQY/Irqmh2JIUS5en+WfhYgLLWTxQKpH6uE+OsQDFj1u4DcGu7
+	 bSC60yHfFxuoXGJHnNkG4TXztgIJujy+4eSSSY2W/fRVYaH7pFhko+lHcucFLet9ZRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190595;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=QQ6ryj6wxEaWrQOLX8GVV94I03IXi50AK/ppVCfDOCY=;
-	b=L0ogVIrUrxBQMnGg/td7mQ9Rd1XVbKzek3cpqNatTT3UryhrMg2lXd9c29rd14/E10G1
-	 1a3h8tAnvwLc3yn7qGFyc83viZuJedfcR9qa4+7mDVDHzosTiNsGeQdT31HzcZJpFedLW
-	 yo1+7+64RJ/qv40xMMRRVnzwZglAPqqkmQRmvpMEOFLjuPFyaGOC20snQzBEUK0ZRuMCH
-	 gBzpAphpUYj6MNQdunhm7wmzLuVs6a0Ngw4pIWkw4zkBJk4H4NYd7Tff6MIRbAmU2kj0Q
-	 CCPCixTcY1VF+pCkiSwsjhBMSO1U6iSYp3RbI5VOrwlOTFbi76S/umyThSzD8Ffu1sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190620;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
+	b=A1QzaYi2h25qSUu1QnuTvP/ircrKd+bu2KcbXPzA5TT0o6TH/hF6/zB6Xr2NomWSV+n7
+	 ldxGQ8YUGMLjNbpNfqfsCKcaJaU1+FHuaxb2dqJkqACJ8mPVrwkfJH4nqMPsM3y5C5cPy
+	 lvSF/VRZHR0p6LLbbbgUcuQe+HOywPm0qmySM31qda5AHTws7G3hf2fk8k9RPUPIUjmsw
+	 M7f0N4BhuINaTZ6ckFb0uvBOeHVFHUbGaP2KSk4eZ0qsK+rX6jpyQWFlY3xMYknRU6PL9
+	 smnMFlqZxJ0spnMBPx7wQjYPvFhv0MpeLO2cL0f/9dqXNOhkUs7KsRmSCLzEWblQtwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcSffzHM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580CB606A31A;
-	Wed, 28 Oct 2026 12:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF9A606A31D;
+	Wed, 28 Oct 2026 12:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcSffzHM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC151F01825;
-	Wed, 28 Oct 2026 12:29:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35CE1F01828;
+	Wed, 28 Oct 2026 12:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190594;
-	bh=QQ6ryj6wxEaWrQOLX8GVV94I03IXi50AK/ppVCfDOCY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XcSffzHMfjKyFtwnFYsLgam+DiDOpjLX31Q8yYPac8tTrcoK9IP/hwDyoklAQlYUL
-	 9I2a7znKpOvK2ysVTauJCS+lsZDdVfRlrp8upFETyQCAxJwl2JMw/CSmujG4KaoeUz
-	 LlssXLETM5jcZgLRBRKoXT2RgkDYJ9KPJFDzvkXOI4VUPQiHsZN+5jVv7busSlFilR
-	 uN6n5t/jeAUQpfN1Zv/3eGIwJhARt1+Ne1c9myAoTZ3LqZnDuouBEvtBB+B+60qnQ+
-	 t6ukOqpw7OF8GPMOVh5ryjishjN8XEixUb1TUC6VvXBa2lw6DWHIIr09lA/Jk1OaZl
-	 JFjKhSoTVf4nQ==
-Date: Wed, 28 Oct 2026 12:29:51 +0000
-From: Lee Jones <lee@kernel.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
-Message-ID: <179213356828.2581328.5085333261240588869@kernel.org>
-References: <20261015144033.56519-1-danishkhateeb03@gmail.com>
+	s=k20260515; t=1793190620;
+	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lrLtIEJO3aOGm+W9qfoKDCPM9nPAzl/qXGkuhBCK92zhO1UZpUVyqigvG89qeGKAl
+	 8N7lguTVXGt3ulzhaC1QedPuNmbzKcNAxfrXMdPCdolHWPdOK+MHPAYkmiFbVvGWXV
+	 SVClED3CJ0j6ivz7aVab+2gqaUj9yVe7jWU8ATQ+o6mImw5+qkzcajfIZG3qVUbgIU
+	 gvKt3FHubrJsE0PVxmXacPn1C9vgHDQSgTRXfWLTi9hTs8XKge8xnzPFVFWkcC4U9Y
+	 YOrQrjchDlF0FIfNDwpuJ8i2MIS+8ngAjo79y7WFouwlBVM1fA69Tb3GCiWvOqUprg
+	 Zg8hhrc0fj2EQ==
+Message-ID: <84bc6332-1db6-4c9c-a956-51b76f96352a@kernel.org>
+Date: Wed, 28 Oct 2026 12:30:15 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,118 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015144033.56519-1-danishkhateeb03@gmail.com>
-X-AI-Review-Draft: <20261015144033.56519-1-danishkhateeb03@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/9] media: camss: csid: report frame starts from CSID
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+ 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+ <k2dZHJ94733JT5DJusl2nP9NvOh_j_-E6u4zAseXkHe8U1G3fkMGJbK6ZAN6r_hynH5O4Zsu20d0-0e69jXARA==@protonmail.internalid>
+ <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026, Danish Khateeb wrote:
+On 28/10/2026 09:29, Qianhui Xu wrote:
+> +			if (val & INFO_CAMIF_SOF) {
+> +				/* A new SOF may follow an as-yet unhandled completion. */
+> +				if (done && csid_read_timestamp(csid, CSID_RDI_EOF_TS(i)) <
+> +				    csid_read_timestamp(csid, CSID_RDI_SOF_TS(i))) {
+> +					camss_buf_done(csid->camss, csid->id, i);
 
-Please review, explain or fix the Sashiko review(s).
+SOF and buf done need not happen in the same interrupt and quite likely 
+won't.
 
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
->
->   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->   ...
->   Last potentially related work creation:
->    ...
->    queue_work_on+0xb6/0xc0
->    led_assign+0x223/0x340 [leds_tca6507]
->    led_classdev_unregister+0x26b/0x340
->    release_nodes+0xb3/0x140
->    devres_release_group+0x247/0x470
->    i2c_device_remove+0xbf/0x1b0
->
-> Set up the work with devm_work_autocancel() before the LEDs are
-> registered, so that devres cancels it after they are gone, and drop
-> tca6507_remove().
->
-> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
-> Cc: stable@vger.kernel.org
-> Acked-by: Andrew Davis <afd@ti.com>
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-> ---
->
-> Notes:
->     Changes in v2:
->     - Move the new include to the top of the list, where it sorts
->       alphabetically (Lee)
->     - Drop the comment above devm_work_autocancel() (Lee)
->     - Add Andrew's Acked-by
->     - Link to v1: https://lore.kernel.org/all/20260926172115.543800-1-danishkhateeb03@gmail.com/
->
->     Tested in QEMU on a next-20260925 KASAN kernel, with the driver built as
->     a module and a test-only module that adds a fake I2C adapter and a
->     software node for a TCA6507 with two LEDs. With the LEDs on, unbinding
->     hits the report above (38 reports in 20 unbind/bind cycles), and so does
->     unloading the driver in 2 of 3 runs. With this patch there are no
->     reports in 20 cycles or 3 unloads, and the LEDs come back after each
->     rebind. A W=1 build with GPIOLIB is clean.
->
->     v2 was retested the same way on next-20260930: 39 reports in 20 cycles
->     without the patch, none with it in 20 cycles or 3 unloads.
->
->  drivers/leds/leds-tca6507.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-> index 9afe2722986c..0f987e551f03 100644
-> --- a/drivers/leds/leds-tca6507.c
-> +++ b/drivers/leds/leds-tca6507.c
-> @@ -71,6 +71,7 @@
->   * not recognised when matching.
->   */
->
-> +#include <linux/devm-helpers.h>
->  #include <linux/module.h>
->  #include <linux/slab.h>
->  #include <linux/leds.h>
-> @@ -735,9 +736,11 @@ static int tca6507_probe(struct i2c_client *client)
->  		return -ENOMEM;
->
->  	tca->client = client;
-> -	INIT_WORK(&tca->work, tca6507_work);
->  	spin_lock_init(&tca->lock);
-> -	i2c_set_clientdata(client, tca);
-> +
-> +	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
-> +	if (err)
-> +		return err;
->
->  	for (i = 0; i < NUM_LEDS; i++) {
->  		struct tca6507_led *l = tca->leds + i;
-> @@ -766,20 +769,12 @@ static int tca6507_probe(struct i2c_client *client)
->  	return 0;
->  }
->
-> -static void tca6507_remove(struct i2c_client *client)
-> -{
-> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
-> -
-> -	cancel_work_sync(&tca->work);
-> -}
-> -
->  static struct i2c_driver tca6507_driver = {
->  	.driver   = {
->  		.name    = "leds-tca6507",
->  		.of_match_table = of_match_ptr(of_tca6507_leds_match),
->  	},
->  	.probe    = tca6507_probe,
-> -	.remove   = tca6507_remove,
->  	.id_table = tca6507_id,
->  };
->
->
-> base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
-> -- 
-> 2.56.0
->
+This logic can't hold over idle entry/exit scenarios.
 
--- 
-Lee Jones
+Also I think we need a different approach to latching qtime regs, generally.
+
+In fact let me follow up this email with a series to enable 
+V4L2_EVENT_FRAME_SYNC which is the right way IMO to latch SOF.
+
+---
+bod
