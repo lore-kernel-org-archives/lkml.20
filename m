@@ -1,45 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793148375;
-	b=FedwY2OeNsUaFdmjHx8gdlomTSfMdxVPdjXkipy69KnRobqAZ601aasERUdKpN9Cz0J3
-	 xTEX5BXr9RaSr9HPXtU+xSTI3Q2x25zisnSgKD0oLxcCAENxX8qvtzOcgiitr1m1FyCMZ
-	 +tFuWi8IGYJaPFPhbk/OkjBIdygv1dJVKT94a/msoBqxW3Lnk93J3LIopcpXkUsDnxbO9
-	 iXAMP6HMyqq4MScxEofZjtCXnaxUdATaUI7oeDjHii4eUCwDfHTa91lwqB6HWiZrw06c0
-	 kU9tAuMIrz9NSSkqi4pbP9sftnw80HjZPh0jGks9eN3sTEtbI6IS59gG2CQUsv8y3Wg==
+	t=1793148787;
+	b=NxEJvYEi1AJlvyoJfhkYdBw0Kk925ZSh7o/o6u+BuNJrni7rEkkZOqvshRpnsxemBLXY
+	 u7CuSvS6CSiK36XhG2ACco2ClmvZhZjQAtlxwYhDOzkZ4fCdcdgRLLjz+rW9Qcn9pkphP
+	 m2nNF4G+KPhsd7vjcu8lwqZky2WroPMJdMeORNL0Ow5gpKbMVOA7+uz3qKL3Jl0d6adit
+	 PtK8fLebjZXuorLJncUNynu3zwq/yvvYOQ7TA7WdhkalJMBG6UPkjx3IX+HMJuHva39tP
+	 c3i7pN5OCe55nhKbjPumg5P7JpL/XcxweD1dsOkrkz7GQpP32b/ES0G3TOFUTVPDL4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793148375;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=8gZsuEUTNhk86AZQjQRUY+I5v7lsSZovjlLUpdgI2nU=;
-	b=AKZcmT3cowTDsRWlYvs1GJQm4+q7vaTcJtMoC1ZZrC5sEwonDzgdnKMJxy2H1cpoMobk
-	 Xkd0KNL/44OUk13WLsBYXiqlsHffcJWiEuYQknU5kIV0T3zAlyBMwtki7TSzBfHBpRBB2
-	 bELlsnRNNjvX+r5TEPnmJ/7QXtQok7zSdIKwYQmp02enzSB3/VawHpa89UQhizbMn9BiR
-	 9aA3nEN6t3P7earDinqJoYRSYX2ylOrRKlc9qVHf3tp//eyVmmxyVK6RzQBSjxT5oGK+V
-	 bTiQ+njiBNeKhRVzxNBwJrUhQ+dAyjr6CxHVu07x+o2Xo4YglMf63hETKOCbC/5jwUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793148787;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=70/2LdS5pBXpfNj8kBNHr883OekoIQf/Q1qvO8XzJk4=;
+	b=mu4yxTr95u3og6r35HMpb45gpHNv0/5MslVmTkPKLV/M0nX4f8Ueq63qiQ/fsiw4/9Oq
+	 5Y0euxIM++dClwq3R5v1sxAVt+Hka4pBJkkFAJ90pYX1D6BKLUKyNOYntn6iGJ0vITcu5
+	 SEnU/sS6N9/FRU/ASDus69yLXJIavZHVF4vZUUM4qRucJ432PKvZ0Z2j4M+RT9OgkC2ax
+	 I8z8IK32UzomossH9U49zUQgVl0TCfOAbW8On0a9XzRbOyfY6BYRp1ts0CDH3Ib1avdGv
+	 7/ksP7FST/lbClrvuLr4RlEecFsmxv0BOoIFqu05GrUhto8j8aZ5ICXz6n/M2/fkD8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MH1UuXnF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dOTcvjMh;
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38A5606A31A;
-	Wed, 28 Oct 2026 00:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3886606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:53:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3886606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MH1UuXnF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CAF21F01828;
-	Wed, 28 Oct 2026 00:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793148374;
-	bh=8gZsuEUTNhk86AZQjQRUY+I5v7lsSZovjlLUpdgI2nU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=MH1UuXnF311mPXcchd12TNma2xme5mcEnYHshxWNnI1DjQUuTuqrhA75x+bqyyqNc
-	 qIf3ooMF5h064caVjREGl4hnkvUfWXPisiX2AR2NyuIerCSOx9VMEh3rhQt9x7iGwP
-	 hxNb+SRFIr/xsgrA/YICZ03yQbiSPf8uyiCW3N6ri0c7gpgxXo2uC4Y670iuuuT11N
-	 0fR+IAIRWV8ziIx+HrGYnd9jJ5h6kDS/ek/VGyxLhSzZhNwKa1oQ+bbraOzFE+3cuB
-	 H0h5Q+vR3qYTci7km73zl6VUBX8o+dH9LkWLTZ2EnBzWoJQSWo4Scut0+SbaDzUABA
-	 19xtWrsFLu1wA==
-Content-Type: multipart/mixed; boundary="===============2729655479492681053=="
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dOTcvjMh
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793148783; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=70/2LdS5pBXpfNj8kBNHr883OekoIQf/Q1qvO8XzJk4=;
+	b=dOTcvjMhIMZtReERq5BBmSvPLIse/JvdeAMgqwfIAWojRzaV+JIxNxbyQh+cZa4TtQmG9T0K1fAYolH2LZkN656iwot3Py//wkENFFMC5takVL6G1PeRYzS2Z0jRWI+5gMBkY0rk+osxqLZGehj5pdI72CxYxe39T5VOL6Z/J44=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XDf2cRu_1793148781;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDf2cRu_1793148781 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 28 Oct 2026 08:53:01 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org
+Cc: ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	jack@suse.cz,
+	pfalcato@suse.de,
+	ayushr@modal.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6] mm: memory: fix truncation removing mapped folios
+Date: Wed, 28 Oct 2026 08:52:57 +0800
+Message-ID: <14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,108 +71,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <bd70230bf88b570044957ec4866a4c0ad3870121a7e6c609e4d60043a13be905@mail.kernel.org>
-In-Reply-To: <20261028000411.4010967-6-vineet.gupta@linux.dev>
-References: <20261028000411.4010967-6-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v1 5/7] selftests/bpf: don't report arena tests as passing with an empty body
-From: bot+bpf-ci@kernel.org
-To: vineet.gupta@linux.dev,bpf@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,jose.marchesi@oracle.com,david.faust@oss.qualcomm.com,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 28 Oct 2026 00:46:14 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============2729655479492681053==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Ayush reported an issue that shmem/tmpfs folios are still mapped when
+truncating them on production:
+"
+BUG: Bad page cache in process ...  pfn:...
+page dumped because: still mapped when deleted
+"
 
-PiBzZWxmdGVzdHMvYnBmOiBkb24ndCByZXBvcnQgYXJlbmEgdGVzdHMgYXMgcGFzc2luZyB3aXRo
-IGFuIGVtcHR5IGJvZHkKClRMO0RSOiBDb21taXQgbWVzc2FnZSBvbmx5OiBpdCBjaXRlcyBhcmVu
-YV90eXBlcyB0byBqdXN0aWZ5IHJ1bm5pbmcgYXJlbmEKa2Z1bmMgdGVzdHMgd2l0aG91dCBhIGNh
-c3QsIGJ1dCB0aGUgYWRkcmVzcyBhcmdzIGFyZSBfX2lnbiAoQVJHX0lHTk9SRSkgYW5kCm5ldmVy
-IGNoZWNrZWQgYWdhaW5zdCBpdC4gQ29uY2x1c2lvbiBsb29rcyByaWdodDsgdGhlIGV4cGxhbmF0
-aW9uIG1heSBuZWVkCnJld29yZGluZy4KCj4gc2VsZnRlc3RzL2JwZjogZG9uJ3QgcmVwb3J0IGFy
-ZW5hIHRlc3RzIGFzIHBhc3Npbmcgd2l0aCBhbiBlbXB0eSBib2R5Cj4KPiBTb21lIGFyZW5hIHRl
-c3RzIHB1dCB0aGUgX19CUEZfRkVBVFVSRV9BRERSX1NQQUNFX0NBU1QgZ3VhcmQgaW5zaWRlIHRo
-ZQo+IGZ1bmN0aW9uIHJhdGhlciB0aGFuIGFyb3VuZCBpdCwgc28gd2l0aG91dCBhcmVuYSBzdXBw
-b3J0IHRoZSBwcm9ncmFtCj4gc3RpbGwgZXhpc3RzLCBpdHMgYm9keSBpcyBlbXB0eSwgYW5kIF9f
-c3VjY2VzcyBfX3JldHZhbCgwKSBpcyBtZXQgYnkKPiBkb2luZyBub3RoaW5nLiAgQSByZWFkZXIg
-c2Vlcwo+Cj4gICAjNTg0LzEJIHZlcmlmaWVyX2FyZW5hL2Jhc2ljX2FsbG9jMV9ub3NsZWVwOk9L
-Cj4KPiBhbmQgY29uY2x1ZGVzIGFyZW5hIHdvcmtzLiAgVGhhdCBpcyB3b3JzZSB0aGFuIHRoZSB0
-ZXN0cyB3aGljaCB2YW5pc2gKPiBlbnRpcmVseSwgc2luY2Ugbm90aGluZyBoaW50cyBhbnl0aGlu
-ZyBpcyBtaXNzaW5nLgo+Cj4gVGhlIGd1YXJkIHdhcyBuZXZlciBuZWVkZWQgdG8gY29tcGlsZSB0
-aG9zZSBib2RpZXM6IHdpdGhvdXQgdGhlCj4gZmVhdHVyZSBfX2FyZW5hIGlzIHN0aWxsIGJ0Zl90
-eXBlX3RhZygiYXJlbmEiKSwgd2hpY2ggZXZlcnkgY29tcGlsZXIKPiBhY2NlcHRzLiAgV2hhdCBp
-dCBhdm9pZGVkIHdhcyB0aGUgbG9hZCBmYWlsdXJlIHRoYXQgZm9sbG93cyBmcm9tIG5vCj4gYWRk
-cl9zcGFjZV9jYXN0IGJlaW5nIGVtaXR0ZWQg4oCUIGJ1dCBvbmx5IGZvciBhIGJvZHkgdGhhdCBk
-ZXJlZmVyZW5jZXMKPiBhbiBhcmVuYSBwb2ludGVyLiAgVGhlIGFyZW5hIGtmdW5jcyB0YWtlIG9u
-ZSBhcyBhIHBsYWluIHNjYWxhcjoKPgo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBicGZfcmVnX3R5
-cGVzIGFyZW5hX3R5cGVzID0gewo+IAkgIC50eXBlcyA9IHsgUFRSX1RPX0FSRU5BLCBTQ0FMQVJf
-VkFMVUUgfQo+Cj4gc28gYSB0ZXN0IHRoYXQgb25seSBwYXNzZXMgcG9pbnRlcnMgdG8gYnBmX2Fy
-ZW5hX3thbGxvYyxmcmVlLHJlc2VydmV9X3BhZ2VzKCkKPiBuZWVkcyBubyBjYXN0IGFuZCBydW5z
-IGZpbmUuCj4KPiB0ZXN0X2xvYWRlciBjaGVja3Mgc2tpcF9yZWFzb24gYmVmb3JlIGl0IG9wZW5z
-IGFueXRoaW5nLCBzbyB0aGUgYm9keSBubwo+IGxvbmdlciBoYXMgdG8gYmUgZW1wdHkgdG8gc3Rh
-eSBsb2FkYWJsZTogZHJvcCBhbGwgMTkgaW4tYm9keSBndWFyZHMuCj4gVGhleSBkbyBub3QgYWxs
-IG5lZWQgYSB0YWcgaW4gdGhlaXIgcGxhY2UsIHdoaWNoIGlzIHdoeSAxOSBndWFyZHMgZ28KPiBh
-bmQgNyB0YWdzIGFycml2ZToKPgo+ICAgNiAgIGRlcmVmZXJlbmNlLCBzbyB0aGV5IGdldCBfX3Nr
-aXBfd2l0aG91dF9hcmVuYSBhbmQgcmVwb3J0IFNLSVA6Cj4gICAgICAgYmFzaWNfYWxsb2Mxeyxf
-bm9zbGVlcH0sIGJhc2ljX2FsbG9jMnssX25vc2xlZXB9LCBiaWdfYWxsb2MxLAo+ICAgICAgIGFj
-Y2Vzc19yZXNlcnZlZAo+ICAgMTEgIG5ldmVyIGRlcmVmZXJlbmNlLCBzbyB0aGV5IGdldCBubyB0
-YWcgYW5kIHJ1biBmb3IgcmVhbCBpbnN0ZWFkCj4gICAgICAgb2YgcmVwb3J0aW5nIGEgdmFjdW91
-cyBPSwo+ICAgMiAgIGJpZ19hbGxvYzMgYW5kIGJpZ19hbGxvYzQsIGFscmVhZHkgaW5zaWRlIHRo
-ZSBmaWxlJ3Mgb3V0ZXIKPiAgICAgICB3aG9sZS1wcm9ncmFtIGd1YXJkLCBzbyB0aGUgaW4tYm9k
-eSBvbmUgd2FzIHJlZHVuZGFudAo+Cj4gVGhlIDd0aCB0YWcgZ29lcyBvbiBjaGVja19hcmVuYV9h
-cmdfcmV0KCksIHdoaWNoIGhhcyBubyBndWFyZCBhdCBhbGwKPiBhbmQgaXMgdGhlIG9uZSB2ZXJp
-Zmllcl9hcmVuYSBzdWJ0ZXN0IHRoYXQgcmVhbGx5IGZhaWxzIHVuZGVyIGEgc3RvY2sKPiBHQ0Mu
-Cj4KPiBNZWFzdXJlZCBvbiBicGYtbmV4dCB3aXRoIGEgc3RvY2sgYnBmLWdjYywgdGVzdF9wcm9n
-cyBiZWZvcmUgYW5kIGFmdGVyOgo+Cj4gICB2ZXJpZmllcl9hcmVuYS9iYXNpY19hbGxvYzEgICAg
-ICAgICAgICBPSyAgIC0+IFNLSVAKPiAgIHZlcmlmaWVyX2FyZW5hL2Jhc2ljX2FsbG9jMV9ub3Ns
-ZWVwICAgIE9LICAgLT4gU0tJUAo+ICAgdmVyaWZpZXJfYXJlbmEvYmFzaWNfYWxsb2MyICAgICAg
-ICAgICAgT0sgICAtPiBTS0lQCj4gICB2ZXJpZmllcl9hcmVuYS9iYXNpY19hbGxvYzJfbm9zbGVl
-cCAgICBPSyAgIC0+IFNLSVAKPiAgIHZlcmlmaWVyX2FyZW5hX2xhcmdlL2JpZ19hbGxvYzEgICAg
-ICAgIE9LICAgLT4gU0tJUAo+ICAgdmVyaWZpZXJfYXJlbmFfbGFyZ2UvYWNjZXNzX3Jlc2VydmVk
-ICAgT0sgICAtPiBTS0lQCj4gICB2ZXJpZmllcl9hcmVuYS9jaGVja19hcmVuYV9hcmdfcmV0ICAg
-ICBGQUlMIC0+IFNLSVAKPgo+IHRoZSBzaXggdGhhdCBkZXJlZmVyZW5jZSBzdG9wIGNsYWltaW5n
-IHRvIHBhc3MsIGFuZCBjaGVja19hcmVuYV9hcmdfcmV0Cj4gc3RvcHMgZmFpbGluZy4gIFRoZSBl
-bGV2ZW4gdGhhdCBkbyBub3QgZGVyZWZlcmVuY2Ugc3RheSBPSywgaGF2aW5nIGdvbmUKPiBmcm9t
-IGFuIGVtcHR5IGJvZHkgdG8gYWN0dWFsbHkgcnVubmluZy4KPgo+IFJlbW92aW5nIHRoZSBndWFy
-ZHMgZXhwb3NlcyB0aGUgYXJlbmFfYmFzZSgpIGNhbGxzIHRoZXkgd2VyZSBoaWRpbmcuCj4gVGhl
-IHByZXZpb3VzIHBhdGNoIG1hZGUgdGhhdCBtYWNybyBvcGFxdWUgdG8gR0NDJ3MgLVdhcnJheS1i
-b3VuZHMsIHNvCj4gbm90aGluZyBpcyBuZWVkZWQgaGVyZSBiZXlvbmQgdGhlIGd1YXJkcyBnb2lu
-ZyBhd2F5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogVmluZWV0IEd1cHRhIDx2aW5lZXQuZ3VwdGFAbGlu
-dXguZGV2PgoKVGhlIHBhcmFncmFwaCB0aGF0IHNheXMgIlRoZSBhcmVuYSBrZnVuY3MgdGFrZSBv
-bmUgYXMgYSBwbGFpbiBzY2FsYXIiIGFuZApxdW90ZXMgYXJlbmFfdHlwZXM6IGlzIHRoYXQgdGhl
-IGNoZWNrIHRoYXQgYWN0dWFsbHkgbGV0cyB0aGVzZSB0ZXN0cyBydW4Kd2l0aG91dCBhbiBhZGRy
-X3NwYWNlX2Nhc3Q/CgpicGZfYXJlbmFfYWxsb2NfcGFnZXMoKSwgYnBmX2FyZW5hX2ZyZWVfcGFn
-ZXMoKSBhbmQKYnBmX2FyZW5hX3Jlc2VydmVfcGFnZXMoKSBkZWNsYXJlIHRoZWlyIGFkZHJlc3Mg
-YXJndW1lbnQgd2l0aCB0aGUgX19pZ24Kc3VmZml4IGluIGtlcm5lbC9icGYvYXJlbmEuYzoKCiAg
-X19icGZfa2Z1bmMgdm9pZCAqYnBmX2FyZW5hX2FsbG9jX3BhZ2VzKHZvaWQgKnBfX21hcCwgdm9p
-ZCAqYWRkcl9faWduLCAuLi4pCiAgX19icGZfa2Z1bmMgdm9pZCBicGZfYXJlbmFfZnJlZV9wYWdl
-cyh2b2lkICpwX19tYXAsIHZvaWQgKnB0cl9faWduLCAuLi4pCiAgX19icGZfa2Z1bmMgaW50IGJw
-Zl9hcmVuYV9yZXNlcnZlX3BhZ2VzKHZvaWQgKnBfX21hcCwgdm9pZCAqcHRyX19pZ24sIC4uLikK
-CmdldF9rZnVuY19hcmdfdHlwZSgpIHRlc3RzIHRoZSBfX2lnbiBzdWZmaXggZmlyc3QgYW5kIHJl
-dHVybnMgQVJHX0lHTk9SRToKCiAgaWYgKGlzX2tmdW5jX2FyZ19pZ25vcmUobWV0YS0+YnRmLCAm
-YXJnc1thcmddKSB8fCBpc19rZnVuY19hcmdfaW1wbGljaXQobWV0YSwgYXJnKSkKICAgICAgICAg
-IHJldHVybiBBUkdfSUdOT1JFOwoKYW5kIGNoZWNrX2Z1bmNfYXJnKCkgcmV0dXJucyBmb3IgdGhh
-dCB0eXBlIGJlZm9yZSBhbnkgcmVnaXN0ZXIgdHlwZSBjaGVjazoKCiAgaWYgKGFyZ190eXBlID09
-IEFSR19JR05PUkUpCiAgICAgICAgICByZXR1cm4gMDsKCmFyZW5hX3R5cGVzIGlzIG9ubHkgcmVh
-Y2hlZCB0aHJvdWdoIGNvbXBhdGlibGVfcmVnX3R5cGVzW0FSR19QVFJfVE9fQVJFTkFdLAp3aGlj
-aCBhcHBsaWVzIHRvIGtmdW5jIHBhcmFtZXRlcnMgbmFtZWQgd2l0aCBfX2FyZW5hIG9yIF9fYXJl
-bmFfX251bGxhYmxlIGFuZAp0byBhcmVuYS10YWdnZWQgZ2xvYmFsIHN1YnByb2cgYXJndW1lbnRz
-LiAgcmVzb2x2ZV9idGZpZHMgYWRkcyB0aGUgYXJlbmEgdHlwZQp0YWcgZm9yIEtGX0FSRU5BX0FS
-RzIgYnV0IGtlZXBzIHRoZSBwYXJhbWV0ZXIgbmFtZSwgc28gdGhlIF9faWduIHJ1bGUgc3RpbGwK
-YXBwbGllcy4KClNvIHRoZSBjb25jbHVzaW9uIHRoYXQgbm8gY2FzdCBpcyBuZWVkZWQgbG9va3Mg
-cmlnaHQsIGJ1dCB0aGUgYWRkcmVzcwphcmd1bWVudCBpcyBub3QgY2hlY2tlZCBhZ2FpbnN0IHsg
-UFRSX1RPX0FSRU5BLCBTQ0FMQVJfVkFMVUUgfSBhdCBhbGwuICBUaGUKc2FtZSByZWFzb25pbmcg
-YXBwbGllcyB0byB0aGUgdGVzdHMgdGhhdCBubyBsb25nZXIgaGF2ZSBhIGd1YXJkIG9yIGEgdGFn
-OgpiYXNpY19yZXNlcnZlMSwgYmFzaWNfcmVzZXJ2ZTIsIHJlc2VydmVfdHdpY2UsIHJlc2VydmVf
-aW52YWxpZF9yZWdpb24gYW5kCmFyZW5hX2tmdW5jc191bmRlcl9icGZfbG9jayBpbiB2ZXJpZmll
-cl9hcmVuYS5jLCBhbmQKcmVxdWVzdF9wYXJ0aWFsbHlfcmVzZXJ2ZWQgYW5kIGZyZWVfcmVzZXJ2
-ZWQgaW4gdmVyaWZpZXJfYXJlbmFfbGFyZ2UuYy4KCkNvdWxkIHRoZSBwYXJhZ3JhcGggY2l0ZSB0
-aGUgYWRkcl9faWduL3B0cl9faWduIHBhcmFtZXRlcnMKKGlzX2tmdW5jX2FyZ19pZ25vcmUoKSAt
-PiBBUkdfSUdOT1JFKSBpbnN0ZWFkIG9mIGFyZW5hX3R5cGVzPwoKCi0tLQpBSSByZXZpZXdlZCB5
-b3VyIHBhdGNoLiBQbGVhc2UgZml4IHRoZSBidWcgb3IgZW1haWwgcmVwbHkgd2h5IGl0J3Mgbm90
-IGEgYnVnLgpTZWU6IGh0dHBzOi8vZ2l0aHViLmNvbS9rZXJuZWwtcGF0Y2hlcy92bXRlc3QvYmxv
-Yi9tYXN0ZXIvY2kvY2xhdWRlL1JFQURNRS5tZAoKQ0kgcnVuIHN1bW1hcnk6IGh0dHBzOi8vZ2l0
-aHViLmNvbS9rZXJuZWwtcGF0Y2hlcy9icGYvYWN0aW9ucy9ydW5zLzQwNjA4MzU1MjM0
+I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+branch, and I got the following crash info. From the dump message, we can
+see that truncate_inode_folio() is really trying to remove mapped folios,
+which is incorrect.
 
---===============2729655479492681053==--
+"
+[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+index:0x3880 pfn:0x191647
+[  189.171995] memcg:ffff0000cc073d40
+[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+.......
+[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+[  189.172026] ------------[ cut here ]------------
+[  189.172027] kernel BUG at mm/filemap.c:155!
+[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+.......
+[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+7.3.0-rc4+ #277 PREEMPT(lazy)
+.......
+[  189.183986] Call trace:
+[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+[  189.184391]  __filemap_remove_folio+0x34/0x160
+[  189.184633]  filemap_remove_folio+0x4c/0xb0
+[  189.184859]  truncate_inode_folio+0x34/0x58
+[  189.185087]  shmem_undo_range+0x220/0x658
+[  189.185308]  shmem_fallocate+0x2f0/0x470
+[  189.185527]  vfs_fallocate+0x128/0x328
+......
+[  189.187078]  el0t_64_sync+0x184/0x188
+"
+
+After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+MADV_DONTNEED synchronously releases the pagetable page before calling
+tlb_flush_rmaps(), this could cause another thread's truncation to skip
+zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+as non-zero. A possible race scenario is as follows:
+
+CPU 0                           CPU 1
+shmem_fallocate                 madvise_dontneed_single_vma
+  unmap_mapping_range            .......
+  ......
+  (filemap_map_pages() remap folios)
+				  zap_pte_range
+  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+    unmap_mapping_folio
+    ......
+      zap_pmd_range (saw pmd none, skip)
+
+  filemap_remove_folio
+    BUG_ON(folio_mapped)
+                                    tlb_flush_rmaps(remove rmaps)
+
+To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
+to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
+concurrent zapping, so that when we find a pmd_none() while unmapping a folio
+without holding the PTL, the folio's mappings are guaranteed to have been
+removed via tlb_flush_rmaps().
+
+Meanwhile move the second pmd_none() check to where it belongs: if splitting
+zapped the PMD.
+
+[1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
+Reported-by: Ayush Ranjan <ayushr@modal.com>
+Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+Cc: stable@vger.kernel.org
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+Andrew, sorry for the trouble caused by the several iterations:).
+
+Changes from v5:
+ - Keep the 2nd pmd_none() check (per David).
+ - Add Cc: stable (per Andrew).
+Changes from v4:
+ - Put the pmd_none() check in the 'else if' branch (per David).
+Changes from v3:
+ - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
+ - Update the related comments per Lorenzo.
+Changes from v2:
+ - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
+Changes from v1:
+ - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
+---
+ mm/internal.h | 10 ++++++----
+ mm/memory.c   | 35 ++++++++++++++++++++---------------
+ 2 files changed, 26 insertions(+), 19 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index b1b0f29d2216..ffb8eaec90e3 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
+ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+ 
+ /**
+- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
++ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+  * @mm: The mm_struct.
+  * @pmdp: Pointer to the pmd that was found to be pmd_none().
+  *
+  * When we find a pmd_none() while unmapping a folio without holding the PTL,
+- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+- * indicate that it's unmapped. Skipping the PMD without synchronization could
+- * make folio unmapping code assume that unmapping failed.
++ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
++ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
++ * for the table have been removed, but nothing orders the pmd_none() read
++ * against later mapcount reads. Skipping the PMD without synchronization
++ * could make folio unmapping code assume that unmapping failed.
+  *
+  * Wait for concurrent zapping to complete by grabbing the PTL.
+  */
+diff --git a/mm/memory.c b/mm/memory.c
+index e911e63ba1ed..e0fef107a022 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+ 		}
+ 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+ 
++	add_mm_rss_vec(mm, rss);
++	lazy_mmu_mode_disable();
++
++	/* Do the actual TLB flush before dropping ptl */
++	if (force_flush) {
++		tlb_flush_mmu_tlbonly(tlb);
++		tlb_flush_rmaps(tlb, vma);
++	}
++
+ 	/*
+ 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
+ 	 *
+@@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+ 	 * to hold the pmd lock failed, then we need to recheck all pte entries
+ 	 * to ensure they are still none, thereby preventing the pte entries
+ 	 * from being repopulated by another thread.
++	 *
++	 * Clear the PMD after the rmaps for the table have been removed, in case
++	 * an incorrect mapcount is observed after unmapping the folio.
+ 	 */
+ 	if (can_reclaim_pt && direct_reclaim && addr == end)
+ 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+-
+-	add_mm_rss_vec(mm, rss);
+-	lazy_mmu_mode_disable();
+-
+-	/* Do the actual TLB flush before dropping ptl */
+-	if (force_flush) {
+-		tlb_flush_mmu_tlbonly(tlb);
+-		tlb_flush_rmaps(tlb, vma);
+-	}
+ 	pte_unmap_unlock(start_pte, ptl);
+ 
+ 	/*
+@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+ 				addr = next;
+ 				continue;
+ 			}
++			/* We already synchronized with concurrent zapping. */
++			if (pmd_none(*pmd)) {
++				addr = next;
++				continue;
++			}
+ 			/* fall through */
+-		} else if (details && details->single_folio &&
+-			   folio_test_pmd_mappable(details->single_folio) &&
+-			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+-			sync_with_folio_pmd_zap(tlb->mm, pmd);
+-		}
+-		if (pmd_none(*pmd)) {
++		} else if (pmd_none(*pmd)) {
++			if (details && details->single_folio)
++				sync_with_folio_pmd_zap(tlb->mm, pmd);
+ 			addr = next;
+ 			continue;
+ 		}
+-- 
+2.47.3
+
