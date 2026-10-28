@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202430;
-	b=WY/W7rgyxK1Ay+HAzdKODXf8CbS724Yl13/2z42/UJqXMet/gqlJP9dulFzM5tLX2q2q
-	 4Uc80PaeF9aewA5ORFxJkic4NAiWUpVtHM+uF0xNzBugNrXocZ/H+i8T+q8EnhS5DQ8Yp
-	 P+PSIsBcx0HGOL1EiimZ+C5LoNt5JxUCeeqrNraXCZfUkLPxp4+eRq/ulVnVQC+olFU9f
-	 ByUl4racCEtbZMmhOWzmv4MaCG2UNEXHMw0KZ0zEVjV/8VI2S6VClPR2xpn3v7OL2eBK+
-	 YVw9mzFp4B7geb7s64e3b8Vro6OXEMey4RWjvWUGtOuHZ6nPb7b0GXzZM5xyHjC81oA==
+	t=1793202489;
+	b=JJM5Wk1XdIBx5s0iaKWxTDGQyM3SnPqAOyG6Z31OB0Y7HkK1xnDWGi5NapPC9/1ICdqZ
+	 7baGyAUYn3WT8tGId+u7XTwTvWWdDQZrBbiAP4IFqDs4MAtsXqqCMvG5XTSZ+PAPu4pyP
+	 FP8OQizbK53BoR/10y5D7oQYOIcWgtsbqm59h3eN6ML1HiukgTNVnOg7foFdMRoCBDG7m
+	 nKkBgY2wwAXYK3kwmoXXCe9FZIgOFZKJnr+bTyMwrgHKbeDrqu/1GCypnP+wSDfLCOlLa
+	 PxF1gUyFg/Wwm/+tb+E6p9q4hrzKN1GN5Ij/8CPJKrO4uPnCSme4rXqRqLjEpn3FLQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202430;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kDf0N2qKy2D5WoUW21DkgIjyXDWbzLDsDhnlR4wrAP4=;
-	b=isYT3hUhXxhBlbwXeIU1whVCcsBA7ebwGlDKI1vGlD03Q06DM43pLr4mlLMeB7E2Rm7r
-	 a1Ao3iZ7Sr+qNbSVCXmq4s2DAChjBAw1gBVpZFxKE7oTvG2H82eYNPHeL6kld7ZxSIgeB
-	 TOsfM3lkPIH1/qp7i95cSFwKm3H5yoBCEHM8cWZ0nOROQfjW/Itkux1EELU6yNYPBXMq8
-	 wcNelalj+JmDWRdNGDXYrv4zTry58cfEdVI5RVoEB7Uh4ZGGIx20AaCosoOMQdhuD1qXJ
-	 3QgqRNYJEAHUfWDuQwk9Aa4LQVAJBvtWqlva6EH/RZcfqYqz931+xFMs4XnWMqwkhBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202489;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=aaltjzKFEfEbF1rtU/0c4Nk1nD9Pu78rG2FlShgdIU0=;
+	b=1Kp685kRjtjOuJOUtdlw3di9podVNVktpmxUKK6bdqYRpv3IRDUS9ENhPY9i0ZjaLRcq
+	 TQvd+jwg2IGboS3QoE/Ztd2laI+K4Srq+ngvz3I9DXWFOoGOKKeqFRFThHf5MAxIGKw5f
+	 Z/vwmiXIhLeVcJjYWVJVeD04BTIIk1trwiuMe+Y5Dcx1HdY9GW3D8I9fJoHsTPB0jiixk
+	 Vd3leHJPOLN7Hw0uKiFDhkxBjN1r66F9J5kG3+qe5MI7T/AiUcokd6Qh9eCZKEVD4apRk
+	 MyO+wW52cq7T2kHdg2vKZbfqIBjJcs+Q0zKiyLUwjgX+Z7hLnmc6jISWWE3DStjnyYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9rNEbnr;
-	arc=none smtp.remote-ip=74.125.228.5
-Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=CuHPcbbn;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22B9606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22B9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E618B606A321;
+	Wed, 28 Oct 2026 15:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E618B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9rNEbnr
-Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cdae9336a3eso187838a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:47:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793202429; x=1793807229; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:cc
-         :to:subject:date:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kDf0N2qKy2D5WoUW21DkgIjyXDWbzLDsDhnlR4wrAP4=;
-        b=F9rNEbnrTLCd6DeinpLo/r8PZVWERyRj1NQW7lLlEjSoLuraWAUoMcPzpEW2wkzosa
-         OOk4K0drF/BcuFDZ6kUzbHnwNN6OAg4CTB6ybcK5u5pTYL3RfkYayiJVka/8vZ4kepne
-         eOPONAywM1h6/fKGFi5xCubogNvzTCm8T055uBbcVq890bNnqKSZnH+hM6zLscL/NcVi
-         yWEtQ9y0mR8Cr5l/J4zLED91orvRJYCOOtKHNbOQvPxX6Fu4pkWAH+OEUp6wjPnAg/S1
-         7gNCuuex2tH0d4tvcTDh2vXwyZjgsZ6argQi3IDyau6VDXhVIAT6mPtDU78wlyoVJPbm
-         0U5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202429; x=1793807229;
-        h=content-transfer-encoding:content-type:mime-version:message-id:cc
-         :to:subject:date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kDf0N2qKy2D5WoUW21DkgIjyXDWbzLDsDhnlR4wrAP4=;
-        b=tEAN2MUqUPtopk6WGq1YULP1cdsZ/FOnW0P9y3YmIM8gJZ+nEivfAogAOA4voKA9lr
-         3R3M7F0eR7l6TIB4MuUrnOy6ijcSBwpE6ukFka8/GKqcrul9RUzgy3cTsPng1CQ9Y57J
-         0hw+KF+7Q/uPJFr2IO0t2++C5b5XjLCo8+f2Pu728lnxBBzqvfgF4OURCc9dGQ3oE5Kf
-         0L0R6w8YAP8oEmZ+B482G+OYMMG7C5AfXBTcl4GzED/xqrU26NEE4R65zJPzIuL9CAXS
-         eNg9SmN9p/YB3o7S2Qm9PipoHOr8vGmY/LNCO19TuerOoPjFRRFgTF5/lU5M0ZxVqe4c
-         AR/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxZndKlOtrC1xB8mZ/x4ATTzTJ9VDiV1oaNJgWq5gAHBehRS0y3cIEH/qWNx8RPvfESQM0fOi6iyddfZpU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLon149YUAt3cq2UiyGj0M8+KZ0FWi4mYrPia3nClrK5BXgORHJ
-	68ek6Unr+XtlkkiEgouVCSaqSSjBfzC5y+5GqelMyp70EDKrB8sTYgO1
-X-Gm-Gg: AYBFou3t6p5kuP7MxtuAXKxKZ29H32eJiOtePI0uFod3ZDKywhMPOc9PXINDcSlCzm6
-	7y0PuGYRbBkcv6GnwmLJdOHOX8E+3Z0M/o53qaa+1wcESC2BArkpn0qhuV9KtPyI0Gokj+8xBiT
-	1y4tOav/xx5Jbp67Aa8zSZQ3h1vgCoYe8+lyF3SJ7JWxz+snZKF5RTER/dSSN8E//C7CtzoBBIo
-	VyB30uAwNKBIEu3yopWcNRmpZP5ighRWGcSWjA9DTlKreuBzQrhgtMlAHWdlWS8Y4Hb8Y5Y/1gs
-	nZFppOLjUeCFyJXpoZlmWfz0FYyj+nICWsgDllQTvI0suIj6SYmPyQgoTAc7aSzRYeLukRnaSs/
-	rZJQ0qDiIlqH+rZYA10wL5Joj6coImHp7MvAaC/zlwrlPiWQKHtxj7t7oVutt5pZFJoaKJuKRBE
-	iu4aH9W/inl9oEm2GeJx+VFKYrogJFg3Rs2kAJ8uRrzs93FO7TUOA3RN6Xk41PdMzVxWKZsf/LP
-	dBL/+Q3yGuIETIBrqyGuf8mi4FaaRmA8mIcIf9d6Dc2osI6KQVL0JF6h/Bgy/wa8QotzoDN0zol
-	sWG5KIr9+rfLWlMq6+xQtX/y8bc0aOhsxobLcWz3pyiNTGfu9TUJN3WXbHAi+GTrgFAQHPBCv03
-	DhZmVgAvTbZWY26+y4xHG8FkpsQ==
-X-Received: by 2002:a05:6a00:3493:b0:8a0:2344:c44b with SMTP id d2e1a72fcca58-8a6e8b8347fmr2113647b3a.40.1793202428981;
-        Wed, 28 Oct 2026 08:47:08 -0700 (PDT)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a5f66bcesm1375802b3a.15.2026.10.28.08.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:47:08 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Thu, 29 Oct 2026 00:05:46 +1100
-Subject: [PATCH] mm/damon: skip folios already on the migration target node
-To: SJ Park <sj@kernel.org>,
-    Andrew Morton <akpm@linux-foundation.org>
-Cc: damon@lists.linux.dev,
-    linux-mm@kvack.org,
-    linux-kernel@vger.kernel.org,
-    Bijan Tabatabai <bijan311@gmail.com>,
-    Bijan Tabatabai <bijantabatab@micron.com>
-Message-ID: <179320218513.2.7432933245840036676.damon-same-node-skip@gmail.com>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=CuHPcbbn
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6210940E04D4;
+	Wed, 28 Oct 2026 15:48:06 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id ZfiF1Mnx24IK; Wed, 28 Oct 2026 15:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793202483; bh=aaltjzKFEfEbF1rtU/0c4Nk1nD9Pu78rG2FlShgdIU0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CuHPcbbnpjiItXwHuESNRo8VmbkEMiUNvEVKMBtMPyZL8v7e91hHWRRrh/sin0IGo
+	 K9JnMwvttRqYhH470uv2H7pTbjMJ3bhjlejvuBRGBjzs69yd5WoTSErQQMpB0GrHJW
+	 ZclMJykhAn7m9OXDHs8Nosh9SfoSN31FgQdr5WNa7zmGjWfevbYFwIAQny0cZ1zUGx
+	 a+b4kdnlHpQdWsuby+0xM/+3VNpHzKj6TKztClSXU6ijqGP66hRtWPKqx7hfEjCfHA
+	 hD48Kd87I5qrXbQo99MYplZKd9FWBGyLd4JTpO2Ebi0BaziVvie5ERpZxZUff6IBCP
+	 KIlWUiS3fOWAMVjK4yoTbwdZJMXgHPbnw4QMtlCOvNd05kygHiaODyyBTR+8iDvM98
+	 9fCudyf1abm4rmxRxkrblVn7ssy9uk2VQmn8j3a9+7DsG1GYNnt10yRoKvIruiChSf
+	 2AqD2GECfPxk7WE39GpRUdUv7g1Gal3OyrRchEb4bIC+Xh3m+Pc7EqtCzVlAGUYYDX
+	 hDzIwFWF77ujV8ZNMautfh7Ki14TztpQEtwjsFekVn0UtpgcMcRtwrNzwfkrt24mCW
+	 maoBr4kPiWKyg43rxRHNdMSlTIp1WP/N0nSZAgrqzFp8TQhDq8S4uWG/T8O94cMwRY
+	 A133YqKy3LXueBQBpBaEzhc4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 984EF40E016C;
+	Wed, 28 Oct 2026 15:47:46 +0000 (UTC)
+Date: Wed, 28 Oct 2026 08:47:43 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"biju.das.au" <biju.das.au@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	Au Dang <au.dang.jx@renesas.com>
+Subject: Re: [PATCH v3 0/4] Fix transmit handling on SCI/RSCI ports
+Message-ID: <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
+References: <20261026-g2ul_sci-v3-0-b3097163edd5@bp.renesas.com>
+ <20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.local>
+ <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
+ <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
+ <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
+ <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,123 +99,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
 
-While measuring DAMOS migration overhead, I found that the target_nid
-path isolates folios already on the target node, then puts them back on
-the LRU without migrating them.
+On Wed, Oct 28, 2026 at 12:02:22PM +0100, Krzysztof Kozlowski wrote:
+> Someone from x86/tdx folks added such pattern, so it is not a
+> contributors fault, that pattern hit.
 
-Skip them before isolation in vaddr and paddr, as the vaddr explicit
-destinations path already does.
+No one's disputing that - I was trying to explain why I'm complaining. And
+that is, the avalance of mails I am buried under and that I don't want to get
+more, especially if they are unrelated.
 
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+So relax, please, we're fixing this.
 
----
-DAMON KUnit and selftests all passed. In a synthetic same-node fvaddr
-test on a two-node x86-64 KVM guest (8 interleaved runs per kernel),
-guest-kernel cycles fell by about 29%
-with 4 KiB regions and 90% with 16 MiB regions. Median kdamond CPU
-time fell by about 76% with 16 MiB regions, with no clear change
-with 4 KiB regions.
----
- mm/damon/paddr.c |  2 ++
- mm/damon/vaddr.c | 22 ++++++++++++----------
- 2 files changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 2cfdc356b415..5b773012a876 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -368,6 +368,8 @@ static unsigned long damon_pa_migrate(struct damon_region *r,
- 		else
- 			*sz_filter_passed += folio_size(folio) / addr_unit;
- 
-+		if (folio_nid(folio) == s->target_nid)
-+			goto put_folio;
- 		if (!folio_isolate_lru(folio))
- 			goto put_folio;
- 		node_stat_add_folio(folio, NR_ISOLATED_ANON +
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index b549496ea8e2..cd71fb1ac209 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -786,14 +786,15 @@ struct damos_va_migrate_private {
-  */
- static void damos_va_migrate_dests_add(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long addr,
--		struct damos_migrate_dests *dests,
-+		struct damos *s,
- 		struct list_head *migration_lists)
- {
-+	struct damos_migrate_dests *dests = &s->migrate_dests;
- 	pgoff_t ilx;
- 	int order;
- 	unsigned int target;
- 	unsigned int weight_total = 0;
--	int i;
-+	int i, nid;
- 
- 	/*
- 	 * If dests is empty, there is only one migration list corresponding
-@@ -801,7 +802,8 @@ static void damos_va_migrate_dests_add(struct folio *folio,
- 	 */
- 	if (!dests->nr_dests) {
- 		i = 0;
--		goto isolate;
-+		nid = s->target_nid;
-+		goto check_nid;
- 	}
- 
- 	order = folio_order(folio);
-@@ -821,12 +823,13 @@ static void damos_va_migrate_dests_add(struct folio *folio,
- 			break;
- 		target -= dests->weight_arr[i];
- 	}
-+	nid = dests->node_id_arr[i];
- 
-+check_nid:
- 	/* If the folio is already in the right node, don't do anything */
--	if (folio_nid(folio) == dests->node_id_arr[i])
-+	if (folio_nid(folio) == nid)
- 		return;
- 
--isolate:
- 	if (!folio_isolate_lru(folio))
- 		return;
- 	node_stat_add_folio(folio, NR_ISOLATED_ANON +
-@@ -840,7 +843,6 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	struct damos_va_migrate_private *priv = walk->private;
- 	struct list_head *migration_lists = priv->migration_lists;
- 	struct damos *s = priv->scheme;
--	struct damos_migrate_dests *dests = &s->migrate_dests;
- 	struct folio *folio;
- 	spinlock_t *ptl;
- 	pte_t *start_pte, *pte, ptent;
-@@ -858,8 +860,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			goto huge_out;
- 		if (damos_va_filter_out(s, folio, walk->vma, addr, NULL, pmd))
- 			goto huge_out;
--		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
--				migration_lists);
-+		damos_va_migrate_dests_add(folio, walk->vma, addr, s,
-+					   migration_lists);
- huge_out:
- 		spin_unlock(ptl);
- 		return 0;
-@@ -883,8 +885,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			continue;
- 		if (damos_va_filter_out(s, folio, walk->vma, addr, pte, NULL))
- 			continue;
--		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
--				migration_lists);
-+		damos_va_migrate_dests_add(folio, walk->vma, addr, s,
-+					   migration_lists);
- 		page_idx = folio_page_idx(folio, pte_page(ptent));
- 		nr = folio_nr_pages(folio) - page_idx;
- 	}
-
-base-commit: d865f2677c44cb2171b833d6775cf692756fa8be
 -- 
-2.56.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
