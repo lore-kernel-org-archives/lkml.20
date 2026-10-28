@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201770;
-	b=CX8amWA63yLqT/Iga5GQQZkGWUem3bvGQ5fpZEoOzmdzTro/2pYHpWk54Ie8FcDRFqSI
-	 /IY2sgeslM4uxsYlJZMAo32fCkKCpJmF9vivJfCmnmKrzCMeQXkrEQpWBkoPurXmeDNQo
-	 C66Cuy7biVOnVIpmoCtQCRwH8Z5F2mSbhqKHRnOu4poj4J2V9e5E5vRIdbtXkVXsQMiUJ
-	 8eoKXcEioHx22+wVGwH0V7oK1SMk68nxCv+Wfm8ObnDMCNW1xzuxvBcDL/AolCmSNN6+0
-	 yurKHhxIwNgp3oKkE/n4ihk3PNwxn0hReQY/o3HdCUwWo1OpRSYOrVotGor1mPAeYjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201770;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793201780;
+	b=Suo2symslnzfMeRHFFEuqiQJCTG4kqgdNu+BfE/B6yIYzBTHuDrS6lAD3kjfZAPWIvTI
+	 dLVmEyordtAhPRVpTyR3KtdOeK+hpIial+LIoydK0I2h0i+UEl++uNYORNkqcIn1uN9NN
+	 FQ/VG3uTaTA2fE3bTQR3NkoM4/YiiQ8wN37IZrbebNlNBLcESP9vXMKCHEJ+i9qPKAddd
+	 AzMbV7+eMfxejKDi4yJckZZREGKH2/MH9ETwMnYS++fxio03YWyKAODwIFeQbSBSbp18B
+	 12Y4O5uZ0Bi+THcUW7hNVMedp00s5v+cb2zbaOoVcGMWqtZZIi0yuSCcxLryVMoqkuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201780;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-	b=ejqn6YJpS0HRNIcvgKSY7s9xHUMeNCluo1f7eGkzHxkBCBl3nqqvVhQrOZcjKPtuI95R
-	 aBOEIWtJrSq+8S2vQUCrWWZrC4DA59oxhE70ZdxsLdkOvvpYvrgJr8whG/oe/lUMTLiFe
-	 L0LGRwXr/hkEdAHxrhEDu/r+mszCSA+ucFeqFhi+dmLnlirDZtsc1ImRFutEBvpR0psWY
-	 8SXSk/xi/YYMnFibib5/ntik+EzpP6wME7ECY6V/hwJL+HX/jxSGkf0nED0XIsDdobCQp
-	 DeaSuWL+LUfT0/YwvlQrW0XZkkmAkKyrngYVBsIKeh/519iAKD81vJTGN2+OKNy4yVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UZ5vxgZU;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Bz0lN3WwW56lrjEyeicNzFHRzWGZupLlnq02xtOwZE=;
+	b=fM5aLVqi2iD1K2e3At8iS30rVaIv+cd6tEi+64McY7Pfn17SJ/6nRMzFB7FtcHLBCzJj
+	 TvsYpGNNQCuJ7QJTHSNi1Rykrpc49nwFmUwcvQl1AHGEo2O51Es70F1PhSRmjn75PcTRQ
+	 kkG/WDkcnxZBgzDykCHdL5EZKvjj2Accfvy8k7L4fT0USaWnESdjusjt9/S1rRayYGiYk
+	 jJHCWu4EZKfGjQi6JzYK8AhnSE8hrpG46PRgNGmPOb9BxyfaSirHsP9gsRCDQHp/qZY/l
+	 nFfa02y4Pyj6FdBNr8ro339Zdbqix3a+vOAk8E9qKEm1uanxlH/KCnUwr1/jAHxp5Bw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o8+eS/kO";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FCF606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3FCF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0ACD60A2617
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0ACD60A2617
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UZ5vxgZU
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so9801775e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:36:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8+eS/kO
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso3714868a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:36:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793201778; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e6wtfvIZhXLVP2R+JexLUVdXy19DEZv85MLwqpzkO1mi9Bh6DVn3CvAfA57MUqwS1F
+         0dYtMS9us4UVBgKnc1flC+NiuVAmgP2ZT18GFHAyCEIkZtDjDCBsz1Ow+U+GxzXxqopC
+         6IIWUE1ndKgDzO4NEnftDwTGNNcQJr/eacjktIWHH1fQVg5reoNfQIO745k5N0SwZc1C
+         uc3yVi9cDrsic9K5rPVpWBRAmsbipHU+wzS9r/3AzyQaX9m8WO4kRYdJbkCsX5/rCM9m
+         kXa+FInsR18nDxa08CVlxfKJzyaaK7cRnJilOfakcayJzdAds+LJZ085aVCLnHTdgzA2
+         0ltg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9Bz0lN3WwW56lrjEyeicNzFHRzWGZupLlnq02xtOwZE=;
+        fh=csk8UveqzABHgxdEiCzDAavDmkeEjL5LdAZLpaX9px0=;
+        b=s0FSUIUnqYumhDLbO220NImJIo1/0f2KUkg8xs4keaZ31Fy8YTrnh7zQYf3xt1XMWm
+         asO6pYRHvXlCw/PLnQjV29RZqDiUgIJy36+ZZr71D3fi8+OTFyCGuL/NLMJpdTebcZL0
+         rxMxnjmInKWGAr5mBzqaFUW4+IxoltlVGnVM1q5KcvnoQHI2hb5nstqxwA+uPV9AyTR+
+         41tzqlXdOBcp3+AlGg2RYZUfMbEo7M6+I3m96e3fy0DNqlTJXSjQZBizr5cnrr+5qrmw
+         mhcw0MtLZBCzJ+QW597uMhUITiu+ZAbmHvVoebriRVz/8UzsOnhck6ea1wWoazGZXTFp
+         0KMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793201768; x=1793806568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-        b=UZ5vxgZUunglt4G10pOQzIVVK9fHKqQKfOoFuVBy7okRyLDlBjGEnBOAeVPvW/aOMu
-         1wadd36u1eZDO9mNluALYMFMr2+yMlApFveU9bZa2AhqrkIBMH/ZGT2XzMH6Ip8dReJJ
-         aaKalseqlpgjcq1GqbUOS7FDjwY75yP2MlyOmAtKaBRs9Z9m+SAd4S/uYNDPG25kNINs
-         F2Xa+qviSLXUBhO+NSoVvdoqYgTbouK6lRfZEf9zuBTvBNF0FDMNl3Epf/CG6nwqcmeA
-         V3hZ7yHlmaIiiI71wRfyx3A5JlWFE1+dM8uK/o1xLtkwEzrLDHmo+8/AzAaLuXjZJ6K2
-         8mfA==
+        d=gmail.com; s=20260707; t=1793201778; x=1793806578; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9Bz0lN3WwW56lrjEyeicNzFHRzWGZupLlnq02xtOwZE=;
+        b=o8+eS/kOJnmSQQuDmyzKcnpM8XIf62WHDcQTpfgGgAc33ST6Cpvb/Avm5gCEO3G83f
+         mwT5WJaRXBMVxl81EO5AaJjNxHST8plT8azYXYCCF/zkFLzRRxL39DAnbyDEtc0izQ7z
+         BXoAb+hBgpOG2MczfmPvBVDGk/iwK7R5wDwXpDgw00NJCrhcdpnLJlcQCfyX7fUAE/q3
+         TuCIcIAJMA+UYbeKn4XOSAztm+6f2MAyPPJZPpKrZOIFxUTkZmyPclmqG21F1aEzhplB
+         iTR/S6KCchmPfCqzmnzIC7zf+BT3HW7rmx33Rm1wtRiZPxIFwLBfca6G1MEP1JTTmXMW
+         ehHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793201768; x=1793806568;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-        b=1He/FlfnnRz6bTU1izj0c48NxppzmUVX9IKvs2s86YRVWLE7LKwJkeC9NvULNWZucJ
-         Sj1wwrejjV4SvNgr2dD6o5ItGfBbC9W+aRshPBYY4HXbLdAlDgjIvjHcw0S+5LKJGpOu
-         nOxbMKJpKjE+kVKzAPg5PLeS6HZS13JAjKPd7ArH6+R5N2Y2+CsaN0ZAxDDjJc4XFswp
-         cglFV5pu3KtRvLko58t7lS0w4/wIaRi3O2JJPovR3+bFB1RH+aP1Tz5FTitz1CNNvYLG
-         74E67alF/ORLbDjDNCrjN2lLkdC1AgCvE9pws+HNh6oe5HkxNInPneyoCFiJ5CKSCyUw
-         NALw==
-X-Forwarded-Encrypted: i=1; AKwUvBySk+xhOdY8QFn5HiLk2e8pVjl6UEq3E5VF4hJ0eSI/imq/vvEIUMm5d/+GTKoRe+lKgOoicevsY0Y5fgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcMvr+8GQOXPEoZ32aBh7b6W+IC218kZhpixm/5sHCnud73IKd
-	DtUQYtzBDJPzndifDMLiIf72wRPmXD3EczdtGsYrb9QEMeYW2dOaaNEl4vHmDXRaW9UcUu5uCem
-	Duc0H
-X-Gm-Gg: AYBFou20Y0z5YBr1VM1j3obEEL6A2LXmHHS2xfo/s5AHrre3vkeeWY41FHq9YGHM0fs
-	B1fK+5dbu4AJwb2AZQpq9oWu+jd2b8eM8LnRmJXJ//Y7f4rw+w/oxQVIwk8dKyshKsVVKK7XVYV
-	HM9WSb4E2vqfksEI1JbBi3wEgMrj9so0XRDWX9qSWdTd8qzwc7FKvlOgFKWtVLioTAbTbF46VhV
-	F10uyHlViY/qQ4042fCsL+6DKIRw69UkpU6XjnblRc8xkjkLCJVD9obPgStOuHMLsHf0ngMb+2T
-	P/rpSisSAVd6au9mxoFH9Q+o+zvJRSa0rAHIUvtL2SnxfmGEoWukmpXX3XhCg2HFH0+c5pWkA55
-	D50FL7XDD7gsnUqhADBUgeOGysRTFoVQFsey1mWHhT4bJP8cLoA34sx6frj7YkzOeJCQUEOmTYd
-	m5Z6RoGvCYSFzRXjBD6MHLtvy79VyB5Fx01mGmcXWrS6jTr7ohdt9d/y07CJ5ymty1Y04mC42Pi
-	hMGwPlib+L38nRxGhlCZN+aRUt7bETVxBBwk6WfGxZcleQEiEzfXw9o+7XExapA0C+6galib6/K
-	I7L5I8Eqq5ggF7RTkCpPFA/SIUDh8n2F7Ic3+AD+hA==
-X-Received: by 2002:a05:600c:154d:b0:4a3:5a42:b2a4 with SMTP id 5b1f17b1804b1-4a96720266bmr62849985e9.12.1793201768098;
-        Wed, 28 Oct 2026 08:36:08 -0700 (PDT)
-Received: from [192.168.0.167] ([109.79.76.222])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm41594465e9.4.2026.10.28.08.36.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 08:36:07 -0700 (PDT)
-Message-ID: <ba560f04-d817-4b01-a1c4-293165625f07@linaro.org>
-Date: Wed, 28 Oct 2026 15:36:05 +0000
+        d=1e100.net; s=20260707; t=1793201778; x=1793806578;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Bz0lN3WwW56lrjEyeicNzFHRzWGZupLlnq02xtOwZE=;
+        b=jjmewSifvUPMKUQej7+A0EmhbzNMbxEMSX+vVo+goFBBJkvM0z/+Q71VoIbtlOFw+c
+         P27I30sQ8de0DCvecSNw+QSQeiBm9O1SDJz58MELhfaOTbwfBI4XvJVloKzsgle0YAI3
+         0aKlU4qGMsIcrik8i5TH/vJKmwYCv4dqC5o7MbrpLeqLGiZAbUeGTduiaV1araIpejJD
+         le81He2Og8wVjfjIHYer/+17SoEsXSaBlHOWEEIR7g2hnBtCUD0UMq52sB6cZ5+isYR7
+         0/dRLfxbA6w+k4CiKFKrUOJqtbJujUEfGf4dGPQKMQopQMtX4W2m4tSaqtZmIVwkrdD/
+         8o8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwbPxunGNA8NuernjSQvdsXX0f05HN/t33tBuSqeCZ1lfauSmllcFWc1NaGyTqW+juUrchE3r4V0WFLnIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJD02x8mLiF/zfvKYYbv/KPjXSSe28hS4TLxJhHoObx98kdHfRO
+	rOyGRa7zmJ+7bkH3xEugOzRDCp4XoupMoATR7QTm5qZD3X/yng2/1yOUrZQC/ufW7A93LSIDDEk
+	cNr4b56++DxINREVeBme9mDzmdWA385o=
+X-Gm-Gg: AYBFou32Wjdzi1UAk8L5B56Sl+IzXbSWj2ADto9CdI+/QkEjfD3S307nNyAWjOlSZu6
+	lEiG8xLh3bDYttMBXHTZLbPoI9t9AaaiskCRKbNRdKHcBERNiyM7GnD3EbkL4byBkMc+Gmo9de2
+	j6SJuxHWBKU7HGvuVNl2xJ+JKBicxuvQi1+X01JiuO4nCR1hYeKQXY2d+Bitdt/qy1jIOnBqgO3
+	g0Jrfu/gaA0XvTBktPwdtGSNfUaOhJPhg0I2dHtPh9TyEEUlv5WpdNRxVx9/AT9AenLKwlEmAI7
+	Yy7MZmfh4IZ+VPqYQJOUgA9wH54erlpafIru86OpY2ec/lhasBuL6BBu4nmcHtO5rURk7k78nbj
+	Fz5zEm2VTeJQS/e+D9VO35MtM8MuOIEvKG7nDH9IK7w0j2eUTz5m3NR8h1lE7eH4qOKrmEA==
+X-Received: by 2002:aa7:d955:0:b0:6b3:b0b2:6e7 with SMTP id
+ 4fb4d7f45d1cf-6b47bcde687mr3518808a12.18.1793201777944; Wed, 28 Oct 2026
+ 08:36:17 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,42 +104,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 11/15] media: qcom: camss: tpg: Add support for v2.4.0
- TPG
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
- <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
+ <20261027-b4-ovl-containerized-sync-v1-1-802e512379a6@toxicpanda.com>
+In-Reply-To: <20261027-b4-ovl-containerized-sync-v1-1-802e512379a6@toxicpanda.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 28 Oct 2026 17:36:06 +0200
+X-Gm-Features: AclHuK-uy9OcEc2oh0_9o59ea-Px6xRmZClAxF9aj0taY8198qZo83-6yRUk1Js
+Message-ID: <CAOQ4uxjNWagHSXM0q+3q-SwX1RRun746iSsfyoR-4fLjcqH16A@mail.gmail.com>
+Subject: Re: [PATCH 01/10] fs: add SB_I_OVL_USE_SYNC_FS
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, "Theodore Ts'o" <tytso@mit.edu>, 
+	Carlos Maiolino <cem@kernel.org>, David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/10/2026 15:20, Hangxiang Ma wrote:
-> Add support for the TPG found on Kaanapali. This TPG uses hardware
-> version 2.4.0, which drives test-enable and reset through the
-> TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
-> TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
-> CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
-> the data source when a test pattern is selected.
-> 
-> Add the TPG resources to the Kaanapali camss resources so that the TPG
-> subdevices are created on this SoC.
-> 
-> Signed-off-by: Hangxiang Ma<hangxiang.ma@oss.qualcomm.com>
+On Tue, Oct 27, 2026 at 11:09=E2=80=AFPM Josef Bacik <josef@toxicpanda.com>=
+ wrote:
+>
+> sync_filesystem() writes every dirty inode of a filesystem and then calls
+> ->sync_fs().  The data needs that.  Whether the metadata does depends on
+> the filesystem.  ext2 copies an inode to its buffer in ->write_inode() an=
+d
+> nowhere else.  A filesystem which logs its metadata has recorded the
+> change when it was made, and ->sync_fs() commits the log.
+>
+> overlayfs wants to sync what was changed through one overlay instead of
+> the whole upper filesystem.  It knows which inodes it wrote data to.  It
+> has a much harder time with all the inodes which the upper filesystem
+> dirtied on its behalf, many of which it has no inode of its own for:
+> whiteouts, index entries, work directories, the parents of all of them.
+> With a filesystem which logs its metadata it doesn't have to know.
+>
+> Add SB_I_OVL_USE_SYNC_FS, by which a filesystem says that ->sync_fs() wit=
+h
+> wait set makes every change of metadata durable which was made before the
+> call, whether ->write_inode() was called for the inode or not.  Timestamp=
+s
+> which lazytime holds back are not covered by that.  As an upper filesyste=
+m
+> of overlayfs it then gets ->sync_fs() instead of sync_filesystem().
+>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  include/linux/fs/super_types.h | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_type=
+s.h
+> index 72f4288e16c5..370b0d27815b 100644
+> --- a/include/linux/fs/super_types.h
+> +++ b/include/linux/fs/super_types.h
+> @@ -359,5 +359,6 @@ struct super_block {
+>  #define SB_I_NOIDMAP   0x00002000      /* No idmapped mounts on this sup=
+erblock */
+>  #define SB_I_ALLOW_HSM 0x00004000      /* Allow HSM events on this super=
+block */
+>  #define SB_I_NO_DATA_INTEGRITY 0x00008000 /* fs cannot guarantee data pe=
+rsistence on sync */
+> +#define SB_I_OVL_USE_SYNC_FS   0x00010000 /* overlayfs: ->sync_fs() comm=
+its all metadata */
+>
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+I have some reservations about the flag name (how could I not).
+Not easy, but can we try the flag to describe the contract?
+
+I am interested to know if the same flag or maybe even a more
+strict contract which is fulfilled by ext4/xfs/btrfs could be
+used to help determine ovl_should_sync_metadata() -
+
+In commit 7d6899fb69d25 ("ovl: fsync after metadata copy-up")
+we added fsync on parent directories and metadata after copy up
+to fix correctness on ubifs.
+
+In commit 1f6ee9be92f8d ("ovl: make fsync after metadata copy-up
+opt-in mount option") fsync=3Dstrict was created for opting-in to fsync
+parent dirs on copy up, after a report on regression over ext4 when
+due to the unconditional metadata fsync.
+
+I am wondering whether fsync=3Dauto could decide regarding fsync of
+metadata on copy up depending on the flag, so metadata would be
+fsynced on ubifs and not fsynced on ext4.
+
+The problem is that your flag speaks of the metadata ordering contract
+of sync_fs(sb) and my interest is the metadata ordering contract of
+fsync(inode).
+
+To be more specific, in this sequence:
+mkdir t1
+chmod 700 t1
+mv t1 A
+mkdir t2
+chmod 700 t2
+mv t2 A/B
+touch t3
+chmod 600 t3
+sync -d t3
+mv t3 A/B/foo
+
+When A/B/foo is observed after a crash, in xfs I know that because
+all metadata writes are serialized in the single transaction, the mode
+of parents is correct.
+
+Not sure about btrfs and ext4 fast commit.
+
+If you think that the answer is that they provide the same guaranty
+then if the flag could be named something like
+SB_I_ORDERED_METADATA or something and
+the contract is documented, then perhaps it also fits the
+sync_fs case, because what you really want to know is that
+sync_fs persistent the metadata that the inode depends on.
+
+Am I talking nonsense?
+
+Thanks,
+Amir.
