@@ -1,94 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201674;
-	b=mMP6uCL6vVdnAeZDoZiB3ItopIwE29PbVMDeV9pw1iMgd+0gOEenxPUIzbPZ24wKxpjb
-	 lPE+/dZgxNv+UOjm1EKytP+ATHJNdBf1XxbsLR94mXv5PKxpeyVjkSWLUzeTO2bSCvacn
-	 FkGxPKviKHm/bixBtW9v/86QUQ7ui0x0EiPKmDYDOBmwBCNvFoUAzYMlPnf5zHIL3JUIs
-	 FEU6iQa1+zfFYE8Uz6I8JfiH3xFMYInnK+umTjuEGy4sg3RIuvbtWq47i9gVEQbY8q0iw
-	 7ZlgIn9/j3g9MvAfLoC+WiuuCLCX5p0ZICnuiJG6aU6gbCzGEkUDGYo7mqc15IZmrGw==
+	t=1793201678;
+	b=w4p9gJN/uwbCbwasxBSd6UhqR7HEx9QcmS/no2g4n3n5eJRAIZu1EP3H5S4GRt+0LjIE
+	 uw+PlUJVJGnlsoH5ZoSqasf/YIR6SKWQKWN3p/gtLYBhVgcc0Wp3KjrpsIqKl6SMcQ5WA
+	 xEb2gP1E57tbEE4Otcbye6AkQ5jUC9CoFV3CB16wSkHJN2H+Hm07VwV9HDZK8AVBBtGSX
+	 Tmi3ufy91YMLJiX/Er/y2PPww2ThrV7/jmuPj2g47jBpCetjo13FsY7nXrgyxmGrahvKc
+	 DDSv25O5B51kfzYUF8O9VXtTp7XE7BjpiMRar7aDNn65uu4YI2y4XpqUI7bpNT76fMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201674;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=fJh4nHfo8vDIas+JM/zBTxdDZjFMAqozk5NvMGQRHBA=;
-	b=ATN/0EK8UlKtLHCHZq4NymZskGbz6mD26IIVh3NNR+qwA6rvB7gEEkoFQ79k5v06wnM8
-	 jR580eN1vkYywQt78Gh644Ft/Srr3m37u4UMzT0NTBlw3I/gh/IZ63wdkbjOmPSFmxwCw
-	 lAoyECGxgqyAQU0NenJyvA9NCe3Kf0IHpSu5X6+LSmiGFF8apPhqMkeU1wQ3OWlseT1ZB
-	 znkifh5MfjLuhfyBopquFpCWeBlcoE9QBu3o4nh41P9Cdv4PW92lqX3CRjg6ZKhp4sUN7
-	 Y742EgGWnAmxMBFjdpTLLY4nQMVH5DlVb/qWWK+7zcYy6Vc6FD4BeYuNhoKta8Wzx2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nwQvp5gT0x4Cpwf86+olDk4WVML2oNByPo4ORkg5KCw=;
+	b=G3KGfKyHLENPadLUHB2FNX80Q7U2QkuIQf0T+yb3YfFU/t2nOZ3VXVP/bnz/CfqsvjeC
+	 8LtXvdocx4cWypHVS9kT/Bamladzoph1fNx7Tw60saxKhAcnffmHNBDN8Hf2c5JKQG2Gh
+	 4YARyn8WRw9q0MORI/ef2isZzPTjxhUrM10ke2YRgwoeHVTMQRKiKdWTSx0SXdSPTKEFv
+	 p4xNu5WqC/1ekEd6FiRGRxIcxZ3YoazyRJzV9oAI65JkCjwi7kHD/+thv/2Yeiu297bba
+	 E/AZAG1t8JpCzPgSKn/9KKZ6BegX3EefkjPJtEyel0px2EYli087MZN6L/Zif7BXL1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DvyKXzkj;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQMZ4hD4;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2A8606A31D;
-	Wed, 28 Oct 2026 15:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2A8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9E5606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:34:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC9E5606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DvyKXzkj
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFE41L4147837;
-	Wed, 28 Oct 2026 15:34:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=fJh4nHfo8vDIas+JM/zBTxdDZjFMAq
-	ozk5NvMGQRHBA=; b=DvyKXzkjqrdeQJ985EbnmXGQ6PjX4hmQ42WfThqNE/Oumg
-	0jPFfQzkio4NRlzMgHtk0SGpAJuQaw5DxokIeQhkwZ8R3hxpPx3ZaEkR7UhmlBz/
-	WLgFDq/cNVYsk1YoHsqr14yvkPjnKUV7M1pOt013O27zui2CgI2qu9Uj6jgMqGwv
-	aqifV+HTBBpz3aCyhaVoWSerhIOWYDj95zKCRu9Nbp3izTa2yMbNU5K7bFCUL1Fb
-	l73OtA56WKkDxuDrWuz00rNW+zhqQLwAb2ozmBF6sUgJMJ3xWiVr9KwnFFuuiGPj
-	x/WLMXzUkaEGnKPT+J42jH4J3ifXIdYuFgb2NZNw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmbt5j38-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:34:26 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFK5pY1784791;
-	Wed, 28 Oct 2026 15:34:25 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7wfn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:34:25 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFYLhs39649706
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 15:34:21 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9418B20043;
-	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 616A520040;
-	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
-Received: from osiris (unknown [9.68.31.201])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
-Date: Wed, 28 Oct 2026 16:34:19 +0100
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Kees Cook <kees@kernel.org>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Anastasia Eskova <anastasia.eskova@ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] s390/cert_store: Hold the keyring->sem while
- invalidating keys
-Message-ID: <20261028153419.8417E3b-hca@linux.ibm.com>
-References: <20261024144229.1546151-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQMZ4hD4
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1f80b7bf6so1118025e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793201676; x=1793806476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nwQvp5gT0x4Cpwf86+olDk4WVML2oNByPo4ORkg5KCw=;
+        b=CQMZ4hD4sVB4t0bzFakBLUKjDTrGYS3mdtMI0Mk9SqITBCUJ/Q5kUsVwo/cjdYl4r2
+         Gj0jSmbHV0IcRDbeLEBRdiwmYy/TNMa2GgVWaNLuOEQu7p/KcrRi+NDnoxlrCtoGmnCf
+         iB7fUXehopDG3JisGR1WTJio6CfokUl6bMkicidOn2udHddVNf/YNyxFbsOgoEhgCG3l
+         SKFemmXOBmpAZzo/oXCybTSVoMI3mlXcweJM8J6iZZ3F1gg69y+WRkI3JkMB2k5uslJo
+         Q6cCnuME7SfxFb98pVAlp80QGk9J/k7wKCW3HE3uPvCRav3rOG0jEQuGee/+B6/Vshjy
+         szdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793201676; x=1793806476;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nwQvp5gT0x4Cpwf86+olDk4WVML2oNByPo4ORkg5KCw=;
+        b=UjQ5gzKGzCZuXsbUCakpoqh0RyE1HgL3nhy7n5ykLMpn5zreKgygNcfF2KwtvaEHKD
+         w+L5bAbIgs+dmA+DqDJTZUBdbgatO4yf6n0V/fGixD98d0m+AdTd0gxRmbIcrFQKI56P
+         E1O66EsWgR7Q4Y2hwEmktsj5BKSJQIOY+9Vf2qa7tmbRyJj+cxLl0hXNpPOSugg5nR4Q
+         oicdaGItKPqS/3ilCj7r4j2/bGqbIFt5AnBOXGU5+OnYtTNwNPMDStkonTuwtGCuxBX+
+         9WPWq/HUilVCsONkJmtrku6JEKmzpKFRr9c1wnPe8S1zsTpzyLMU3oaS/N24XbD+jO53
+         95Qg==
+X-Forwarded-Encrypted: i=1; AKwUvByjk8a+XIlBBixIZ+f/RvqjzQ7vEdCcCmTM1SHQxe7LT/1o+vKFdmFsOxGhZO3hKA0O8pLE+6m5H+wzRm0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKgLqYejPh3xxxS+JTssvR3ZZSa1/RBeFRKOio3IAy+cKUAfl2
+	o7bMZ4hOOGUN39erypIKZM6wcPwU7cTJ+HrYN2xh4ME2CtN3ltx0fdx9
+X-Gm-Gg: AYBFou3XutRQqXHZAbGgSj99innt22pKui+en+621lycjjbh9LJ85tSpp2jJjWEzYsX
+	hKgQso7duAtz58QncpeDd36sla73HSabINsQGYenTfBFpLqLbgtvVrB7f7YNGPp0dzQRnTz3wmr
+	yx2msu0rT12zKjS7e8n6C+oEtGnhBF7SYrNQT0aCkFbTMlbbZL4ke5iUn/3BYh3ISRwslM7gJas
+	X23ZjQJD1BsWyiEwQxjDrLrtqkWuLmYE0lllqRvSPc5A9dyhxFvAg2hs8deHunFg4QacWrKqkZT
+	3gLwrKB5jiZmPkONfFpKp5TZISh6/a3cBv6KRllsxqrT3kOdD5N6Gq331lk7gjxbMW/SifkMHJS
+	rZn7W0D/VGbglorUDMYWCxU5i2VBuzGWzrJmJnNalQ0K41G5VOR3EuY1xzpaKwmC7sk5OjlTeXQ
+	4B1GAoz08YH8DYz77HMxxXgylHMu3q+0uprx2+os9bWGaDHXm+ZfPsfTpVxn6vAzxX7iw48qVQA
+	cp36zx8E0NFb9Ue/hzydGDV14UKTW4Cv6ZyctN7vqIUowXGkHyvIdpcHyQ/LWlqfGThH2zBYXg8
+	gh4uRTqhgbtpdvQvj3JQAQk5HPEAZ05mrfq9zbb2rOO2Qt+mx+/rRAXQ2GdgNkO/SV+IE9AxGX4
+	1otLQk0bV5Nc0d5P5aUYvxWQ=
+X-Received: by 2002:a05:6000:2ad4:b0:48e:60aa:793e with SMTP id ffacd0b85a97d-48e60aa7a9emr3918828f8f.3.1793201675959;
+        Wed, 28 Oct 2026 08:34:35 -0700 (PDT)
+Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e542ed998sm14428423f8f.13.2026.10.28.08.34.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 08:34:35 -0700 (PDT)
+From: Thomas Fourier <fourier.thomas@gmail.com>
+To: 
+Cc: Thomas Fourier <fourier.thomas@gmail.com>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Akash Asthana <akashast@codeaurora.org>,
+	Roja Rani Yarubandi <rojay@codeaurora.org>,
+	Wolfram Sang <wsa@kernel.org>,
+	linux-i2c@vger.kernel.org (open list:QUALCOMM I2C QCOM GENI DRIVER),
+	linux-arm-msm@vger.kernel.org (open list:QUALCOMM I2C QCOM GENI DRIVER),
+	linux-kernel@vger.kernel.org (open list),
+	linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+	dri-devel@lists.freedesktop.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+	linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b)
+Subject: [PATCH] i2c: qcom-geni: fix double free of the DMA bounce buffer
+Date: Wed, 28 Oct 2026 16:33:52 +0100
+Message-ID: <20261028153353.69651-2-fourier.thomas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,65 +109,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024144229.1546151-1-jarkko@kernel.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX/uhailaaCKMx
- ANIs4L918l2swsBLRVdrjxbxmVXvA/FyhCbgLnxpxUyr0WsAie97suX/jbjAotoG17qLKI2iaX9
- qCiJFCGd3yvnFy5zrwY/NZEyXNWc8V3dvHYrwXddHBwRIPbsBSZwTF53DNs1q9V6AIhqpzI3KTi
- biNnjlV7A0rjc2TzE9bLIbHV7HxPb/wjCssch95wdhVFMZycT8vg5MoA8e2EzLxtK5az/HN8HqP
- +dddnsQfcrnrp72JUko1v0PxBKChOQZD2W5Aehz95d7t9gcl2qWVQahmz7ty4cAn+2SCsjYynpN
- fsPl8bRzVaPyUIHoym3BgtfshFdSW/ZDBgTCWB/Z3RK1nAiwLlT/wjkjw3V6Vm16aUIg/Jawymx
- DCr+gX0V6vtBQCA6twhJx4bTn/zWrm1NF/f38La62M8Gbo2UtvolhFnAU89RNZs4FFKIhy5MY19
- OQJbAHfpkH4JlmuNdDw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX5M7xxQ9+SlmB
- a87JDv8cMBDl/V2uuMh9Vosch7oKAu2wQh41mCW+PwGQ7sxj9vg864tJMhoXPUiDdDhdYo0gWwY
- Hi2V6btNd3ijv5FtLfRA8skq6S9ARv8=
-X-Proofpoint-ORIG-GUID: XE_KJxF2zpnToa9w-7rI8aTAMMwylbrO
-X-Proofpoint-GUID: XE_KJxF2zpnToa9w-7rI8aTAMMwylbrO
-X-Authority-Analysis: v=2.4 cv=CeKdd7rl c=1 sm=1 tr=0 ts=6ae21602 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=DPC3QgldnefEYUrkxV0A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 phishscore=0 clxscore=1011
- adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280060
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 05:42:25PM +0300, Jarkko Sakkinen wrote:
-> invalidate_keyring_keys() does not hold keyring->sem while calling
-> keyring_read(), which is contrary to what keyring assumes from its callers,
-> and can lead to reoccuring bugs.
-> 
-> KEY_FLAG_KEEP alone does not e.g.,  protect from  the following call path:
-> 
-> 1. keyctl_keyring_move()
-> 2. key_move()
-> 3. __key_unlink()
-> 
-> Address the issue by guarding the critical section.
-> 
-> Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> ---
-> This came up as a side product while working on assoc_array to
-> rhashtable migration and going through various callers of the keyring.
-> It's made by me but please keep in mind that I don't even have a
-> toolchain for s390 setup so it is based only on reading code and I have
-> not even compiled this.
-> 
-> Just wanted to clarify the background for this fix as I'm not a regular
-> contributor over here. If for any reason it turned out to be false
-> positive, I'm fine with that too.
+geni_i2c_{rx,tx}_msg_cleanup() release gi2c->dma_buf through
+i2c_put_dma_safe_msg_buf(), which kfree()s the bounce buffer when the
+message buffer is not DMA safe, but leave the pointer set. gi2c->dma_buf
+is only updated when the DMA setup in geni_i2c_{rx,tx}_one_msg()
+succeeds. If the setup fails for a later message, the function clears
+only its local copy, so the cleanup helper sees the stale pointer from
+the previous transfer, unmaps it again and frees it a second time.
 
-It is not a false positive. There seem to be more bugs in the code.
-I'll take your patch and create a series with other fixes.
+Clear gi2c->dma_buf once it has been released.
 
-Thanks a lot!
+This bug was found statically and compile-tested only.
+
+Fixes: 357ee8841d0b ("i2c: qcom-geni: Store DMA mapping data in geni_i2c_dev struct")
+Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index a431e98723ef..78701310936b 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -500,6 +500,7 @@ static void geni_i2c_rx_msg_cleanup(struct geni_i2c_dev *gi2c,
+ 			geni_i2c_rx_fsm_rst(gi2c);
+ 		geni_se_rx_dma_unprep(&gi2c->se, gi2c->dma_addr, gi2c->xfer_len);
+ 		i2c_put_dma_safe_msg_buf(gi2c->dma_buf, cur, !gi2c->err);
++		gi2c->dma_buf = NULL;
+ 	}
+ }
+ 
+@@ -512,6 +513,7 @@ static void geni_i2c_tx_msg_cleanup(struct geni_i2c_dev *gi2c,
+ 			geni_i2c_tx_fsm_rst(gi2c);
+ 		geni_se_tx_dma_unprep(&gi2c->se, gi2c->dma_addr, gi2c->xfer_len);
+ 		i2c_put_dma_safe_msg_buf(gi2c->dma_buf, cur, !gi2c->err);
++		gi2c->dma_buf = NULL;
+ 	}
+ }
+ 
+-- 
+2.53.0
+
