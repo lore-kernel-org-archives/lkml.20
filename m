@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793155847;
-	b=0Zncvjp/qjDA9ccsoQu737cVmiMzI5SOZ0AJ+MnGRi2cEjRsaVP7+pH7Y2AkSdXt1YU3
-	 2/jvj9CDDdXb282Kw8I9a8Ivik23ugXUOCZaDKb/C3Rd0It80THWuKYL/Zv3yovQ+3DjE
-	 LIEzeNA3QdAKJrpYGC4F1tafb1/sCF0BVRO+M2/F0aTHAeoP9LL+rDON89wbSILWrhkaw
-	 /HywuosL2Kk2NewtYTd2+uwhh6/UB8T7mmpF9+8gF07/U62hBBBdkBsDEUVPD9hFKHORU
-	 PAFlcey5xt7wLomd/8GxwNIyHMfMekgMubmgTRa7vAciQKjIvXgq/Su6ngtIDRxMuoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155847;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793155915;
+	b=vL495lH+ZLIlivCO9FLhhnT/SbFW9Vb8Fya5xcIPx6/yRO0RTDpFSvXuB+u8scApEj20
+	 R/EaVnlpKsvH0bW3Q9ma0a/zJTj5ZUHjRCUh8aWybhlctZ2vmZ+uq5pQvURGC4SWGv0tm
+	 F9+9N5L05UpY4VoEkROT3HvH0n7IOzCQFLr8qZcLyd+h9fj7w9j+5THpvy/TdaVxP2FRE
+	 OaVCK1+5U/5C35JChVbbWEL74VN1pJkRg3p5v7R1zTfi+zdIn/TRkIxWm9lX1cl9B9/SR
+	 9XjkvbV6g6Gzp1vz640GGNzakXkdeFdvk6aSCK928P7yISN3R+ZmGwHGJCd4hwPBJ+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155915;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AzcWTO+plLWwZMdp/QBI7J2ezPiT1eBRX21oe2Waep0=;
-	b=lw8dpVcoibO2r9rt03cfVNX5g/4/+TNgkrfy9M2ywEHs6Wcw6ZojnSYIJPgGppSCHBBz
-	 9SFpRZo+7rB+i6sopRp5k7btsSzJekQaRw8Ksl/r1MG0AwaIh1Hdhr65gP1FI30xdd5HI
-	 vUzQWzH36QbnxTDoFznlk+hq7o6novSJ8z5I378Mui36myxhxY+uWm30LeQ+Jlv04vKmN
-	 BELqFddrypzwvF+wOJXGBVsPmKb+LQiZNoTDXq8eDB+e2/4AmWhhjVSFrGLW0UK7zfz/x
-	 s5Xx0WDWALIW181lHgU1ekdfo9g+uYUZtZTc2clnEKKiB4Rn2OoC9ds/xFLsziugusw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 Received:MIME-Version:Received:Received:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
+	b=QnMI+Mvga7DzwlqX3eDT1/4QwgVyhIvMeIa9sXFjUpQuvmF+kt8XSO7zCFKu0v3xHpQa
+	 88PhajOsktE+rnPzZ6Icj3yWnWT1nTTR7y359n1xh1ysj6JV/Xzxhzq/qUwohFsiNrZX+
+	 rODvoNAUzrbpGKeRttzm32z4qQ3I6y8Fk5mpjZoxoxdWr0v80DLQwQT5SxnITxFFYK2PC
+	 v6x3bME5bLvW50PZTbWRdHqxcDLGK+b4VkmzCRrgF2uM+NK+oLf0xRebFs9ttEpnld38s
+	 mKM0StlWWj9guSLjQBB5VapuYYwIItWQgF71DzkoGq5opWTN347hcIu+DhBgDWlVPTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sCxWXuMi;
-	arc=none smtp.remote-ip=74.125.227.129
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sz5bTcKg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84140606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:50:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84140606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD6606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:51:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DDD6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sCxWXuMi
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3ab37ea4798so104783a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:50:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sz5bTcKg
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c46822eefb6so55191766b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:51:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793155914; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pmUYV/q/vxtrQLWDQDLywNFdq6n+4gLgOdmVO4KRIf/EF6fJlC6KAbMKqOjnqa9QI2
+         ej+gqadz37n5ZwfwO7T4PhWX2dcqKcpgva2GVLXLK1tyjWoE83hef7o+2mXwDizAjlS0
+         VNmkajhSFJce3+9xuxlAkM6TDK7voPOWX+eQMFDRsvKNWH7zEk2utwcN5CUxqbNrT/Ha
+         8nXuc702bbdcQoTyWX4H+T/9NjxboeAICVbHi70xqBenoTKEBLQfwEHdzBjnBFFygBhZ
+         YOWhuGyvnwzszo/1XgHBTaz3/b1yJXNBZfhhnhiWtjb5FhT/43GrHmbQbElvHoBYM9eM
+         p08Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
+        fh=fb7t/+5scWd0fwmxjoM2Efa/blf8P6T1R1RqA2wbPLc=;
+        b=nQ7bvpHyilGRvo2S7m9fICDiYl86qosYurRrXInXY492URGsZW/EHE/uYFBO1pqqYP
+         19I8KD6cyJJXPBgP9TBod/AseYSmkfh08D8zzyrElqvKIM8c5g5kvbSvFtUwFH3A0RXa
+         TnXra70OiXok+1CyapB6BUeX48Yg1ILjENsWQ2J7m4RPgqZ+hyAP/2cgLZTsxzlZu8z3
+         XH/iovnJNVErHSBlwVi3kBUQA36eUSxHlLNGT6j/lduQq5eNU1u9xfpLbm7QiCpanQtg
+         I4mEDgnLl+HPvGakW1aMKi4mdCCBtuyQwxUvZUOz0tzfV589/ZUV4dJ+Jt95uDAtpyJC
+         K0Jg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793155847; x=1793760647; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AzcWTO+plLWwZMdp/QBI7J2ezPiT1eBRX21oe2Waep0=;
-        b=sCxWXuMiTRFMDv28AhbDMJMmQPvie5S0sxBQm3bJimPRpjEFtpCa1JBu5ZsUNOIKLq
-         jG8U9FwN426AXiW2Y3e1Y0mQUi4KdJxku8NcE3UP6K+qjA3Q6NhPPpzCjElkoOAhef4h
-         NPVeWsDcHDiG98KXSAeXMNtEvC/usBYVZvtYBlrgGSdUzZMDDWixCNG5vNtCME8IOoRA
-         3V0ghIvToh3Ria/Q5f8v/8Qi5fH9YUSXbBc77iA+VLVlDFwjPJfha6puC4bx6eHiD7mU
-         uP8jR+adwTQZqX0Rke4I9N4WAVGptpUu5glTdMckHu8WO9Qvk+1W0VCASPLS6Ezd5DNG
-         GNog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793155847; x=1793760647;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20260707; t=1793155914; x=1793760714; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AzcWTO+plLWwZMdp/QBI7J2ezPiT1eBRX21oe2Waep0=;
-        b=1+KDcp1qI328XdZAMiaI+AI+U8UdLMuYLGucSqTdZDnQLNv5quTUxNdNZ2AYcYbABd
-         59b/dwO+hXb+KTICX/aiHAZke0tAansaIYXjOFIA9ATued48IQadPrk+SiSMNV2HCtp5
-         hjOWU8udy+pUgZxDEW9t/cPKCIMp8WxwS5BxGyb3jSqJNvIS1L0gFigAtRDXx0NAyTWG
-         OA+RksxsYymp5+ZhSQE7ZPjmmJIc3HrbEl9+FkxkHORhCKjUf5jdzqfalcN0d4qtKhwu
-         1BYvfhhM7ml7tsfHk8BOoCgtKBwo1Bos5YXQdJhjPLG37vDWYQluT6egOFC6lleuXWeC
-         Cjyw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2P3bSHqWAstyG+Z8/bIaqJIsZ33RYwwBZIIz+5/V67bwJByvabIdS8r6x2dO7PB1ulHfcPuYEJJcQ7wo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1ql+DQwNOLR96fuMFQDJM5st9jSDx73MP4fjk4xSppD7jlAnP
-	TOIdqlonNJ2HQJPj3aLv4gQkgC1ynPXX7eR6b3v9ZJBgFa0rG8Aj/KpF
-X-Gm-Gg: AYBFou38unJjUzerMBD3u+it2sGXpmLxOMLWu9PoQu74BQlDHn72K3IjtIQndq4nWRE
-	jotyiVvJuCFKpiQo3wBGzAGv7JRMiaRdhXMk2UImeBLjTFtuDnYEV/uvwov2Zh34Mn+4vMLOQ73
-	ikKvxxw40JRh/wf0eDCAX/G431Vw0duReWcCdHYF3664oTtAfzwFCogf1+fUNQvfbQKkXLoM5Yn
-	vYWjs9p2PaPF8A8PuuOOLzvALVP8qWBDZ3LyaqRx1YjIWY/9Dr6QorUYm3su8wtluMGeP6Bn8Az
-	WrnKlLyvgzTtoqpq+anPamNDTgMRN/D7QdTC4ShAlgNnXRJOE8BOvv1L5636rPfpGNMpJJR9M0K
-	oWMohoffRyu6PBFrMUq7oIbp/vDlj9OLkp77VkWFm0IkbCkWAzc5USANEalHfVnJaxUJ+b58QIa
-	wH3DOL+ZWlfiZzaNvlWy8CkGRsyIDT04fhenYzXoxouXH8ezQHyiT03k/2UJQ3I1aUrr0BnrWok
-	T05Y1wQyWdf0x4dj82328ha6NnrmOHW6OczmFffmQj6sYpXnv1vZwVgC/Q1lc75DAaHaMzKDalO
-	9LuIdfh4HqDR5WbeEpQ6YjsAl4qsLQmfvKM5LfLvOG/+onwnDB5FJWgk3eRnqt8=
-X-Received: by 2002:a17:90b:280b:b0:3ab:752f:5f9c with SMTP id 98e67ed59e1d1-3ae581049b1mr644411a91.31.1793155846816;
-        Tue, 27 Oct 2026 19:50:46 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46d:1d00:2b84:48c6:402f:d1c5:644a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae55d64c0bsm812447a91.1.2026.10.27.19.50.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 19:50:45 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Magnus Karlsson <magnus.karlsson@intel.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Stanislav Fomichev <sdf@google.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rongzheng Wang <testwrzwrz@gmail.com>
-Subject: [PATCH net v3 2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
-Date: Wed, 28 Oct 2026 10:50:26 +0800
-Message-Id: <20261028025026.11401-3-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261028025026.11401-1-testwrzwrz@gmail.com>
-References: <20261028025026.11401-1-testwrzwrz@gmail.com>
+        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
+        b=Sz5bTcKg98yj6giv1/os9QvXpflEh9/gf6LE+Ytfa5GwQEc320BTyiieI6N9vRbc8z
+         kSGeqLxdLuESpH3S9h1Fof9V2RXUssuHgpK3FR7nUWlYUl7YlJwAljsF8VIAGwqwgfha
+         Lzm52IeeUReLWzBcYjzk6zbhr6doqJThLazxGWqgL9OPCcixPEOltBkVyMLymyEtRMc7
+         1t0Fhocmt5waN6EQA/nLXLXCuEWbda+lRDtMxrR3LI4kr7L2M+Xyg0/NbrW1Gfrrmn95
+         Z9DIHHNxEBMj5x/0P1lL2VNrw2OeFNNBq9kTCcv1DatTwjH4Fc+7Rdg8OiiulzZ4zEwq
+         d4ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793155914; x=1793760714;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=T5bJSIKcRblh1n/DNQPJ9kq7nzFmBPGiz7ZQXcqwIO4=;
+        b=y3ukisfRKro03hfzXpjQEbxgNZs1EMGSrZyLkiRsyVNuvp33uIFPaNlS7BKWWfMWGI
+         AXKJI/ZA/GCq+7mrSI7rSB77CINoHRbvBGwnUXKBI6zWpVYGfGmvQF9E66G/71STXbZ6
+         dA3/rEiFOn6tZ6L0QCApLE1eJL3pD2al9EC3mp3AAw7scRZNCmnSkc2gxKxATNEeIZjW
+         o0BfWoqZPJjMryVDoTx1POBA4r95OuLOgAwOneyD55I9ZYI0i1H/ud/qdL0/z4mPnqho
+         FyzthZkUdyhKz9n5N/On61renPqR969Fxywwt7CTwrsaB5m59ZCzfyeCuMfI14E9BODh
+         LP1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzIMdVnCPwTP3P5DbKup3Yb2rktaRzLtnjs5bXfxcyPOEekYRV6lbsRz1mGCVPih/PgRMtW7G4RtPa8T6k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/Ngzz/dFjSr7NuHDJs3gzpvFgE2u4gyNFLwJ/ygBoVGI3DsVR
+	GXd7ySihQcAuIOtLZMTFc0XXTajWEO5FaQ2ILRn0QMCCnr3JflQI8xmyw4Wb40nKjyf08WRW8I5
+	61aff+DW7bI85OOUBLWMuF5SZ6/CQ6PA=
+X-Gm-Gg: AYBFou0JodJhrMrU48AZiyu9oemtcFBcKm729PjIJ9HtnSmNW+MN4gXp6uqFaCQ8D9b
+	1QSr8MOu6/9wt7eIoEZjTq8De4298a3srm+fC7xCqdZwS5ky3z8YXRPpXx4M4atPtvnUsu/5S6/
+	tuf2eAucPvGCXYRH32kSuQNFuNyarmuPVvWgMAb7WlJI2AszcbHmsOtRWSKthrCI+vYRjNDMA0b
+	9vjzWxG/uEOYqQdxQ2QyFI8FH6rCTttvcLZxHTGSx2hNS+n1FM6Tv0O316eSQXwwEBSEj4y0X45
+	/SnLmCxs6w+PILaOvF8JAw48aKARqd/MMfrTwaETuBhi8WNJoqh0Pegu6mm1S0Lbgf58D2Mio4H
+	OPNZegjAhSyWk9d/3C58VqTa3cWngf1M/uA8=
+X-Received: by 2002:a17:907:843:b0:c40:19dc:a24d with SMTP id
+ a640c23a62f3a-c49bdf2572bmr85850666b.9.1793155913845; Tue, 27 Oct 2026
+ 19:51:53 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 28 Oct 2026 11:51:53 +0900
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 28 Oct 2026 11:50:45 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,241 +105,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Wed, 28 Oct 2026 11:40:24 +0900
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Wed, 28 Oct 2026 11:25:16 +0900
+From: John Macias <dencity7@gmail.com>
+Date: Wed, 28 Oct 2026 11:51:53 +0900
+X-Gm-Features: AclHuK_A2rY_Ata835sL5hsQUpNXEsBloeRCfhOTL6a9CPGznDPVJe_mmj9uw7g
+Message-ID: <CA+KzPspNN14ZEyxisGrOSpgfTqajJfZTXG_iHBRMYd2su1dRKQ@mail.gmail.com>
+Subject: [PATCH net v2] net: dsa: clear the conduit RX queue on receive
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Extend test_xdp_metadata to send the same UDP packet both as one TX
-descriptor and as two descriptors, and to run the existing metadata and
-checksum verification for both cases.
+A multi-queue conduit records its RX queue in skb->queue_mapping with
+skb_record_rx_queue(), as stmmac, mtk_eth_soc, fec and dpaa2 do.
+dsa_switch_rcv() passes the skb on with that index unchanged, although
+it counts the conduit's queues, not those of skb->dev. A user port has
+a single RX queue. For a packet from conduit queue 1 or above,
+get_rps_cpu() finds the index past the port's real_num_rx_queues and
+returns without steering, and its WARN_ONCE() stays silent because the
+port has only one queue. So rps_cpus on a user port only takes effect
+for packets from conduit queue 0.
 
-Reuse the existing AF_XDP setup, packet generation, completion, and receive
-helpers in xdp_metadata.c instead of adding a separate test harness.
+Trunk-tagged frames go straight to a bond or team (tag_dsa), through
+the netif_rx() branch for devices that are not user ports. That device
+has its own RX queue count, so the conduit's index there selects the
+RPS map of an unrelated rx-N queue, skips RPS, or, when the device has
+more than one queue and an index at or above that count, triggers
+the WARN_ONCE().
 
-Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+Clear the queue mapping once the tagger has chosen skb->dev, before
+that branch, so both paths are covered.
+
+This leaves no RX queue recorded, rather than recording queue 0. Both
+make get_rps_cpu() use the first RX queue's map. They differ for code
+that reads the recorded queue later:
+
+- skb_tx_hash() picks the TX queue from a recorded RX queue when no
+  socket mapping or XPS map decides. A flow forwarded from a DSA port
+  to a multi-queue device now gets its TX queue from the flow hash
+  instead of the conduit's RX queue number. Recording queue 0 would
+  instead put every such flow on the first TX queue of its traffic
+  class. The selected TX queue is also an input to several taggers:
+  tag_brcm encodes it directly, while tag_ksz, tag_sja1105,
+  tag_ocelot_8021q, tag_netc and tag_vsc73xx_8021q derive a traffic
+  class or PCP from it. A different queue within the same traffic
+  class need not change that encoded class.
+- With CONFIG_SOCK_RX_QUEUE_MAPPING, packets received through DSA ports
+  no longer update sk_rx_queue_mapping, so XPS by RX queue (xps_rxqs)
+  stops following the conduit's queue number for those sockets. A
+  mapping the socket already holds is left as it is.
+
+Found on an IPQ8074 board (OpenWrt, Linux 6.18, conduit with four RX
+rings): with rps_cpus set on the LAN and WAN user ports,
+/proc/net/softnet_stat showed RPS only for traffic hashed to conduit
+ring 0.
+
+Claude and Codex assisted with diagnosing the queue-metadata issue,
+preparing the change and its explanation, and checking source and test
+results.
+
+Fixes: 91da11f870f0 ("net: Distributed Switch Architecture protocol support")
+Signed-off-by: John Macias <dencity7@gmail.com>
 ---
- .../selftests/bpf/prog_tests/xdp_metadata.c   | 122 ++++++++++++------
- 1 file changed, 84 insertions(+), 38 deletions(-)
+Changes in v2:
+- Clear the queue mapping before the branch for devices that are not
+  user ports, so trunk-tagged frames delivered to a bond or team are
+  covered too (Sashiko review).
+- Replace the claim that TX queue selection is unaffected. The changelog
+  now describes the effect on skb_tx_hash(), taggers that consume the
+  selected TX queue, and sk_rx_queue_mapping and
+  xps_rxqs, and says why no queue is recorded instead of queue 0.
+- Subject: "on user port receive" -> "on receive".
+v1: https://lore.kernel.org/all/20261025072203.1519561-1-dencity7@gmail.com/
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-index 5c31054ad4a4..13de524c7fef 100644
---- a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-+++ b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
-@@ -19,6 +19,8 @@
- #define RX_NAME "veRX"
- 
- #define UDP_PAYLOAD_BYTES 4
-+#define UDP_SPLIT_BYTES (sizeof(struct ethhdr) + sizeof(struct iphdr) + \
-+			   sizeof(struct udphdr))
- 
- #define UDP_SOURCE_PORT 1234
- #define AF_XDP_CONSUMER_PORT 8080
-@@ -56,13 +58,13 @@ struct xsk {
- 	struct xsk_socket *socket;
- };
- 
--static int open_xsk(int ifindex, struct xsk *xsk)
-+static int open_xsk(int ifindex, struct xsk *xsk, __u32 bind_flags)
- {
- 	int mmap_flags = MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE;
- 	const struct xsk_socket_config socket_config = {
- 		.rx_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
- 		.tx_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
--		.bind_flags = XDP_COPY,
-+		.bind_flags = bind_flags,
- 	};
- 	const struct xsk_umem_config umem_config = {
- 		.fill_size = XSK_RING_PROD__DEFAULT_NUM_DESCS,
-@@ -133,31 +135,31 @@ static void close_xsk(struct xsk *xsk)
- 	munmap(xsk->umem_area, UMEM_SIZE);
- }
- 
--static int generate_packet(struct xsk *xsk, __u16 dst_port)
-+static int generate_packet(struct xsk *xsk, __u16 dst_port, u16 split_len)
- {
- 	struct xsk_tx_metadata *meta;
- 	struct xdp_desc *tx_desc;
- 	struct udphdr *udph;
- 	struct ethhdr *eth;
- 	struct iphdr *iph;
-+	u16 pkt_len;
-+	u32 num, addr;
- 	void *data;
- 	__u32 idx;
-+	u8 pkt[256];
- 	int ret;
- 
--	ret = xsk_ring_prod__reserve(&xsk->tx, 1, &idx);
--	if (!ASSERT_EQ(ret, 1, "xsk_ring_prod__reserve"))
-+	pkt_len = sizeof(*eth) + sizeof(*iph) + sizeof(*udph) + UDP_PAYLOAD_BYTES;
-+	if (!ASSERT_LT(split_len, pkt_len, "split_len"))
- 		return -1;
- 
--	tx_desc = xsk_ring_prod__tx_desc(&xsk->tx, idx);
--	tx_desc->addr = idx % (UMEM_NUM / 2) * UMEM_FRAME_SIZE + sizeof(struct xsk_tx_metadata);
--	printf("%p: tx_desc[%u]->addr=%llx\n", xsk, idx, tx_desc->addr);
--	data = xsk_umem__get_data(xsk->umem_area, tx_desc->addr);
--
--	meta = data - sizeof(struct xsk_tx_metadata);
--	memset(meta, 0, sizeof(*meta));
--	meta->flags = XDP_TXMD_FLAGS_TIMESTAMP;
-+	num = split_len ? 2 : 1;
-+	ret = xsk_ring_prod__reserve(&xsk->tx, num, &idx);
-+	if (!ASSERT_EQ(ret, num, "xsk_ring_prod__reserve"))
-+		return -1;
- 
--	eth = data;
-+	memset(pkt, 0, sizeof(pkt));
-+	eth = (void *)pkt;
- 	iph = (void *)(eth + 1);
- 	udph = (void *)(iph + 1);
- 
-@@ -180,18 +182,38 @@ static int generate_packet(struct xsk *xsk, __u16 dst_port)
- 	udph->source = htons(UDP_SOURCE_PORT);
- 	udph->dest = htons(dst_port);
- 	udph->len = htons(sizeof(*udph) + UDP_PAYLOAD_BYTES);
-+	memset(udph + 1, 0xAA, UDP_PAYLOAD_BYTES);
- 	udph->check = ~csum_tcpudp_magic(iph->saddr, iph->daddr,
- 					 ntohs(udph->len), IPPROTO_UDP, 0);
- 
--	memset(udph + 1, 0xAA, UDP_PAYLOAD_BYTES);
-+	addr = idx % (UMEM_NUM / 2) * UMEM_FRAME_SIZE;
-+	tx_desc = xsk_ring_prod__tx_desc(&xsk->tx, idx);
-+	tx_desc->addr = addr + sizeof(*meta);
-+	tx_desc->len = split_len ? split_len : pkt_len;
-+	tx_desc->options = XDP_TX_METADATA;
-+	printf("%p: tx_desc[%u]->addr=%llx\n", xsk, idx, tx_desc->addr);
-+	data = xsk_umem__get_data(xsk->umem_area, tx_desc->addr);
-+	memcpy(data, pkt, tx_desc->len);
- 
--	meta->flags |= XDP_TXMD_FLAGS_CHECKSUM;
-+	meta = data - sizeof(*meta);
-+	memset(meta, 0, sizeof(*meta));
-+	meta->flags = XDP_TXMD_FLAGS_TIMESTAMP | XDP_TXMD_FLAGS_CHECKSUM;
- 	meta->request.csum_start = sizeof(*eth) + sizeof(*iph);
- 	meta->request.csum_offset = offsetof(struct udphdr, check);
- 
--	tx_desc->len = sizeof(*eth) + sizeof(*iph) + sizeof(*udph) + UDP_PAYLOAD_BYTES;
--	tx_desc->options |= XDP_TX_METADATA;
--	xsk_ring_prod__submit(&xsk->tx, 1);
-+	if (split_len) {
-+		u32 addr2 = (idx + 1) % (UMEM_NUM / 2) * UMEM_FRAME_SIZE;
-+
-+		tx_desc->options |= XDP_PKT_CONTD;
-+		tx_desc = xsk_ring_prod__tx_desc(&xsk->tx, idx + 1);
-+		tx_desc->addr = addr2 + sizeof(*meta);
-+		tx_desc->len = pkt_len - split_len;
-+		tx_desc->options = 0;
-+		data = xsk_umem__get_data(xsk->umem_area, tx_desc->addr);
-+		memcpy(data, pkt + split_len, tx_desc->len);
-+	}
-+
-+	xsk_ring_prod__submit(&xsk->tx, num);
- 
- 	ret = sendto(xsk_socket__fd(xsk->socket), NULL, 0, MSG_DONTWAIT, NULL, 0);
- 	if (!ASSERT_GE(ret, 0, "sendto"))
-@@ -224,24 +246,26 @@ static int generate_packet_inet(void)
- 	return err;
- }
- 
--static void complete_tx(struct xsk *xsk)
-+static void complete_tx(struct xsk *xsk, u32 num)
- {
- 	struct xsk_tx_metadata *meta;
- 	__u64 addr;
- 	void *data;
--	__u32 idx;
--
--	if (ASSERT_EQ(xsk_ring_cons__peek(&xsk->comp, 1, &idx), 1, "xsk_ring_cons__peek")) {
--		addr = *xsk_ring_cons__comp_addr(&xsk->comp, idx);
--
--		printf("%p: complete tx idx=%u addr=%llx\n", xsk, idx, addr);
--
--		data = xsk_umem__get_data(xsk->umem_area, addr);
--		meta = data - sizeof(struct xsk_tx_metadata);
--
--		ASSERT_NEQ(meta->completion.tx_timestamp, 0, "tx_timestamp");
--
--		xsk_ring_cons__release(&xsk->comp, 1);
-+	__u32 idx, i;
-+
-+	if (ASSERT_EQ(xsk_ring_cons__peek(&xsk->comp, num, &idx), num,
-+		      "xsk_ring_cons__peek")) {
-+		for (i = 0; i < num; i++) {
-+			addr = *xsk_ring_cons__comp_addr(&xsk->comp, idx + i);
-+			printf("%p: complete tx idx=%u addr=%llx\n", xsk, idx + i, addr);
-+
-+			if (i == 0) {
-+				data = xsk_umem__get_data(xsk->umem_area, addr);
-+				meta = data - sizeof(*meta);
-+				ASSERT_NEQ(meta->completion.tx_timestamp, 0, "tx_timestamp");
-+			}
-+		}
-+		xsk_ring_cons__release(&xsk->comp, num);
- 	}
- }
- 
-@@ -398,7 +422,7 @@ void test_xdp_metadata(void)
- 
- 	/* Setup separate AF_XDP for RX interface. */
- 
--	ret = open_xsk(rx_ifindex, &rx_xsk);
-+	ret = open_xsk(rx_ifindex, &rx_xsk, XDP_COPY);
- 	if (!ASSERT_OK(ret, "open_xsk(RX_NAME)"))
- 		goto out;
- 
-@@ -462,11 +486,11 @@ void test_xdp_metadata(void)
- 
- 	/* Setup separate AF_XDP for TX interface nad send packet to the RX socket. */
- 	tx_ifindex = if_nametoindex(TX_NAME);
--	ret = open_xsk(tx_ifindex, &tx_xsk);
-+	ret = open_xsk(tx_ifindex, &tx_xsk, XDP_COPY | XDP_USE_SG);
- 	if (!ASSERT_OK(ret, "open_xsk(TX_NAME)"))
- 		goto out;
- 
--	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT), 0,
-+	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT, 0), 0,
- 		       "generate AF_XDP_CONSUMER_PORT"))
- 		goto out;
- 
-@@ -482,7 +506,29 @@ void test_xdp_metadata(void)
- 	switch_ns_to_tx(&tok);
- 	if (!ASSERT_OK_PTR(tok, "setns tx"))
- 		goto out;
--	complete_tx(&tx_xsk);
-+	complete_tx(&tx_xsk, 1);
-+
-+	/* Exercise software checksumming of a packet spread over multiple
-+	 * TX descriptors. The checksum is only computed once the skb is
-+	 * complete, so both fragments must be accounted for.
+Claude assisted with diagnosis, the patch and runtime harness. Codex
+independently reviewed the code, claims and raw results, and corrected
+the test descriptions.
+
+Testing on net/main (5d7f3375c), x86_64 under QEMU: a 4-queue virtio-net
+conduit with dsa_loop, which for this test only was changed to use the
+Marvell DSA tagger and to accept LAG offload (lan2 + lan3 in a
+balance-xor bond with 2 RX queues). The host injects DSA-tagged UDP on
+chosen conduit RX queues; rps_cpus on lan1 and on bond0 rx-0 points to
+an otherwise idle CPU. 200 datagrams per queue and path. The RPS columns
+say on which conduit queues the receiving socket saw the RPS CPU
+(SO_INCOMING_CPU, which holds the socket's latest receive CPU, so this
+is a per-socket observation rather than a per-packet one):
+
+                       lan1 RPS     bond0 RPS    WARN_ONCE   eth1 TX
+                       (q0-q3)      (q0-q3)                  per queue
+  unpatched            q0 only      q0 only      yes         800/0/1/0
+  v1                   all          q0 only      yes         201/100/150/350
+  v2                   all          all          no          201/100/350/150
+  skb_record_rx_queue  all          all          no          800/0/0/1
+  (skb, 0) instead
+
+(Queue 2's NAPI happened to run on the RPS CPU, so q2 does not tell the
+cases apart; q1 and q3 do.) The last column is the eth1 TX packet delta
+per queue while 16 UDP flows (800 datagrams), all from conduit RX
+queue 0, were routed out a 4-queue virtio-net with XPS cleared; each
+total is 801 because one other packet was also sent. The aggregate
+counters are consistent with fallback TX selection favoring queue 0
+when RX queue 0 is recorded, and flow-hash distribution
+when none is recorded; the unclassified extra packet is not attributed
+to a test flow. W=1 build of net/dsa is clean.
+
+On the original hardware (Netgear RAX120 v1, IPQ8074, OpenWrt Linux
+6.18, four-ring conduit), v1 was tested as described in v1. v2 has not
+run there yet, and I have no switch with LAG offload to test the trunk
+path on real hardware.
+
+ net/dsa/tag.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/net/dsa/tag.c b/net/dsa/tag.c
+index 6a5aa7fc3..e53dc3f3c 100644
+--- a/net/dsa/tag.c
++++ b/net/dsa/tag.c
+@@ -95,6 +95,13 @@ static int dsa_switch_rcv(struct sk_buff *skb,
+struct net_device *dev,
+ 	skb->pkt_type = PACKET_HOST;
+ 	skb->protocol = eth_type_trans(skb, skb->dev);
+
++	/* The RX queue the conduit recorded is an index into the conduit's
++	 * queues. It means nothing on skb->dev, a user port with a single RX
++	 * queue or a bond/team with its own queue count, and get_rps_cpu()
++	 * would check it against that device. Leave no queue recorded.
 +	 */
-+	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT,
-+				       UDP_SPLIT_BYTES), 0,
-+		       "generate multi-buffer AF_XDP packet"))
-+		goto out;
++	skb_set_queue_mapping(skb, 0);
 +
-+	switch_ns_to_rx(&tok);
-+	if (!ASSERT_OK_PTR(tok, "setns rx"))
-+		goto out;
-+
-+	if (!ASSERT_GE(verify_xsk_metadata(&rx_xsk, true), 0,
-+		       "verify multi-buffer xsk metadata"))
-+		goto out;
-+
-+	switch_ns_to_tx(&tok);
-+	if (!ASSERT_OK_PTR(tok, "setns tx"))
-+		goto out;
-+	complete_tx(&tx_xsk, 2);
- 
- 	/* Now check metadata of packet, generated with network stack */
- 	if (!ASSERT_GE(generate_packet_inet(), 0, "generate UDP packet"))
-@@ -518,7 +564,7 @@ void test_xdp_metadata(void)
- 		goto out;
- 
- 	/* Send packet to trigger . */
--	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT), 0,
-+	if (!ASSERT_GE(generate_packet(&tx_xsk, AF_XDP_CONSUMER_PORT, 0), 0,
- 		       "generate freplace packet"))
- 		goto out;
- 
+ 	if (unlikely(!dsa_user_dev_check(skb->dev))) {
+ 		/* Packet is to be injected directly on an upper
+ 		 * device, e.g. a team/bond, so skip all DSA-port
 -- 
-2.39.5 (Apple Git-154)
-
+2.47.3
