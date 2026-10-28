@@ -1,98 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209435;
-	b=CCykdwB/XzXn60jH9s6FvCTTqiEA9zDrdlhCaF1IqjU/iqMh8pGvVJT5HJEZplVLRnii
-	 4JnQ+p8nKfZsp2j2s9UYVD7OdbuUHiXcoh2GjH0YZc2zUAOMvpPcoJczCuqvPliW0i7Sj
-	 5Jf7OOCl2FsutSwPbvZzbZ6GPub/xM0+x47TpBOxOgzojsniKepUJkLLTCDWpDIqGWxSu
-	 k8HtVlY0QS1bTXl7R5LCj0JRE9yFfE4zw1QoMLCE8hilqz+m96JKcIhuDKKkEh3MgUUGF
-	 jFpoVs89NPB8QF8tbSMjiVCRc5h3A/Zjr/788EHdd6Vhwg+8HGOE0hIG4+bpH1gWeTA==
+	t=1793209470;
+	b=cgLUE2LBjiXQvwvYs6lAs3SvpXLGjfw2ilky68JA7qMTz395zqK4Bh/j1+5Gyy1wsHv0
+	 taUukwIVlXFGqHsV8sobDUSQLLgZH8Z/vj0JmBy9u9SvJJhec79xLKpDsJhRoewmo7ia0
+	 56daflCXYuz73FXg8mzcK5GPNiSx0vX3mIM5K4umatm+sjkrMmdui8bwRY1FW6mJ8q6Kj
+	 u1xATUOR1A5moBK4JAxW3a7PZDQ4MOKE8GKGzvTuJgkMDFHSobJLXpCjIniTx1mtSPFXB
+	 zapAdXocfnSY654tTmzGuYu8fETjg7MmK9BSWtDSUOLzZKf012Ezu5n/5d9KTer3Pvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209435;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209470;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=C7bPJOiOxWmpQxwy7s6DX34z4VIYYp5wKziJM3UDTWA=;
-	b=sI+uy8PEO2NNpAqdGLq/AKCQI7Yq+dECvM8Guzk3WBSyvljrntj0TNwD7ja5MkKUocT9
-	 N91h4DsnzCBFpsqkPFiVS9FBTMjazHmoXrrUWzu0mLJ2Lmu2sOJ29Ctmfwc4lvYauwNsd
-	 NKv4uHvSA3jFzJnGlZr6UZoDLrHKyOCshgT2HDK4hghsMvrs2n+PbWkOu8dI1NmJs95K1
-	 BfXwcThYA7flkRC8OwMavPhBzBhnqTTMauszsrn5QsGU1orR13CQYCxmbWagsyHUacA8q
-	 fRc02X/L3Zgcu0raImWiPmTW5C2Kvx3jKLXv7O0Qppy+2xC8E7fR5hTwUXI847Aamwg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
+	b=F0DNvg9hGHIcE0/RqkDNuUwafoY6S8Cn10F9TzyNKu7ntBPqRxXdiXZMpxG5VUhpuxvS
+	 x6R7wzFNgaTDoQljS1qrrkJQIEFAU4PMF9U+++13H9lr3XLKsLRd4qXYz3B68koH4fhUh
+	 /tEche94znFtNRImN9T8pdc0JOLskMc6Drk2zehnDms4WFrToEcRsq11vMEjenKAFMjQw
+	 7uErSyC2CD2KoEgeRysThvKlfqDVAoBeP7s1FizLKgdtnpvF1qWAVIZkopTQ2bsHz07+f
+	 P75xwtyxamGdusztrVBlggaY23Jj3xZjKikQLLNIKElaWXYsgT3DykXF4/x80UNsiyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJYiJJn4;
-	arc=none smtp.remote-ip=209.85.167.182
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=iJy5kuJI;
+	arc=none smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7CA606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:43:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B7CA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E381606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E381606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJYiJJn4
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-54cd7de2d42so811444b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=iJy5kuJI
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-990a39ba4fbso369337241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:44:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793209434; x=1793814234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C7bPJOiOxWmpQxwy7s6DX34z4VIYYp5wKziJM3UDTWA=;
-        b=JJYiJJn4JkWCZeEc6Eis2ekHoap8cCzGqHyN7y9E0/bmhYY6SeOMj9wXaDxYGCF9W4
-         rg6+zkS0FgWnliPYuAGh09K7H+ciIbzVpwopLnTlrKjr3K1sgsRTinNnSJQqI16KG2ME
-         zRD0FXl/xMNfcTSFf1Vw2j92iw2g9/DbY79Xu4A8/Aq0YonF6eSIBpGbs52puEJc1gfO
-         XgehVrwlBeXP9hXhhcZGLFYKkB5r6tuHGlTnxEV9n3iHFz7LB76f2WflVwH1DxlH0Y1z
-         MhGYvLVap0OCNB+iO3pgZimqvW9FhewVuq4G40TkNci7ysBcRx2Wz1rnVlGNFCMfP2Ug
-         +i/g==
+        d=soleen.com; s=google; t=1793209469; x=1793814269; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
+        b=iJy5kuJIKEFoVGXIv0G1W+lcBvi4+8Xg3Up72eyRWsM34ppCddP5ilpekezxnMXx54
+         wNVtglNWl1Juw56jX8SNwQS7WZKs9Y2X61a375wMFfYgiH4i03Atn7I+ij8S+kLhqtfT
+         l07FNZinyoqAk6s+eVtDRNFkKCg8ONt5X560obpxpG2ZC7VnPvjzuP7bhaeVMMRQaZQf
+         bnvIZGVN+qVBNlncKqiFZBQ2j+79seozjiyPSZgLY1TuGDnPTDoB10ATDbxfyjixqlJz
+         vdOfv2Qybh76j3dxSW1ILlTknOlei2s6oL7+i6Y7LDLEJWeTZKkbkP+obWZ+cP33y8/P
+         9s8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793209434; x=1793814234;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C7bPJOiOxWmpQxwy7s6DX34z4VIYYp5wKziJM3UDTWA=;
-        b=bzxcSZNOxS4cDmQkh4Ea1j7JzMkSQ1bL9b4OONHWd3NawZh9kJv5BVeI5/wk9OsJ/P
-         NGug3Wb8IC9Vy+8s6/tJcoPvTP/dCsGxo8GrJ4/yeOE5FB+zmkXczVwo6CfkYpWx4h80
-         qjRj7pYtqFvOnRtS72RS3Thb0cKV1VyIauO1TfWL7FhHxSDDn89QUFus6QIqZ7CRszZd
-         YV8hHC8MtrnLEvdp2hnpIqjZ/awBrGMVL0xoJ+3RnbbrsClCAzrAHSDbIRM0svWxqJfD
-         DWie+rA42qiSNvpI8wbu69Jhg0okKr0gS+th1MIplY6a0BK1JAOcsba0ZvnovkBQOQLf
-         LS7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwaAxJpMGgvrKJS7qhLl4vNuxIVD9gAVK0heEB9maffyIfw8mOiDXAioKgqmOyXsvFBMMtCyErD8EZdD+k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8vcnkQlLaUCCULjabocsQ1YBIsNWfEi/lcoyPurTJwraZ30eH
-	ciH+NJtP3gfZ1SbetXZIOu6yinus8g/8MEytF3yBDfLQwQYsDswVgGRo
-X-Gm-Gg: AYBFou2BtE5vGG+DkgjXU8KtaAo9stO6ugwOBCTr15Aqgo9sYyp+L7LUIU6tBfI99Wh
-	CacMnyE4e1BQ6BUDklIzFNlZXaCCJTJ/Em8OVzmPIc9yYMIAfe+pdcolj756AgbQR+FtAbfVsSQ
-	Jp049tLJz6uIGSE+P8cH00ppOFSvStzWhCl8ZsOvBLwUXrlcfagegEwVeqeElUbYg07bhqzARVw
-	VOT/gAripBIYGNCEPY8w0zZ+0JwBGvBXUvwHd9icRhFi7M+uhZpEBgSJi8fz0VK3Vu8poN4RHuA
-	24bW/kZtC9LZ+JL9WYhCMJ7wBn6d5pbWZgFgNb7v4PYRc7jbV/jTn6CRbeRtKXyj4ueug8cQOdi
-	Xm9+ItbCtQRwrwJpnk0aAE+ndyvJvbR5nnV2nNFIO0Z5qOzyXnfIi5U6+hoe8oTi4AXJi9AyweZ
-	BAwLp92zvY1efmpRndh/8+SxVinpLgZP/prsAHPUSEm7AjdLdvY9zD3xN8d+gls/mnV2mOMzPoh
-	mO0TRzAICzpoS/wqfBSQsLiqVgQf6PhoJqrDPJTI5xaYa3nZyWkRD+OSPPh0QfA70D6/HonYrfD
-	zkTUdTf0p3MHAWk6kYXKpdU5bgsAVRi2nf6q+zqbpB2gFIzDGbSaJg1jdrHJxwz7NYY4n8saYFp
-	TlPPuOjsWxdw2ww4a
-X-Received: by 2002:a05:6808:bd6:b0:4d6:9283:1dec with SMTP id 5614622812f47-56384c81150mr2067708b6e.58.1793209433737;
-        Wed, 28 Oct 2026 10:43:53 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c5a4d8b7sm1612114b6e.8.2026.10.28.10.43.51
+        d=1e100.net; s=20260707; t=1793209469; x=1793814269;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
+        b=Mnc1FfNJwfzDLyQUPh7ZcsMORar2EbEX+Yag13LcvAwi5ICfwcy6uqudel9csj2vpZ
+         Y/cXJhSA5eKSiE+rGb5QgodaQ5bgVfzRIBAqottzpaFnlcjFuQ2JBmUBfgry4eoJmymq
+         EHzT5mzxEryoR9YaZImMTkXf28FwTx8CWM1qsc+4FwmUP8cSBenSI0caKGwHRWJ+Pstc
+         Aa2rT5f4SjXt89M16ErKAF3CZGyYUWsEu+olEYqz4jpvmq8EQEpxd5anojOKq3mIpEVW
+         Eyjke4avYMPbOdEM+RDvICwLuY55/PFLiztJaZDYWCrzCq5dfvkSrLdjoMYA82JoBGbq
+         6SjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLryY2RTdQqCQwFNieUtwO7diYtkIW7Jknd99mkxJmCBNziEm+T9IVkaL8r6oFqUi4ternPrSqH386xRQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwIN0i+btOk6dFFB4WBu/jX8PXOXa5JrENqtMAcYUYX3U8xBe6
+	CCiTQ7cmbEgPrnC5Nr6hTijSyvJdQGSITk2FfClnCquriaG9D70+SRZjwdJb52PCvTM=
+X-Gm-Gg: AYBFou3qIAid8X+wQpQZ+5CUjseWKABkR9YD+cAqizrL+DAnsJ2iF6XKBz4KZ33VKnN
+	KAwTnDZFBX0gBwlyGN6iYQGVa9HAsfCn++F95jQjL0YLBLw1chSgAot7CZVTZ8ZRKDpg04PmOW3
+	e1qoQ7I/AYKHnf8VFwUR+jnv+r2AHQG1nsuRwkoPI0MKroYkU8R0mquEqrO0+WIePWiGYBEno9/
+	uFG2CH4crIf2JyU92ffsuCg1VHlgtBWe2rcMjVsef/+5h2M8KZIDJAhSwZcmklpVpelw68pjgGy
+	XkBe1BygOIW2mKyvQhlSRVHCShs/deXTpSFeVyH2gMqsbnsurRoh5aTPnd043wz+0XJXfIBYxAv
+	xiP7JkVDbhoudVHmvQ5ZJSUbU2TuIqrWT5wtfKcF2OIhXLnecsai1vBT9v4wvfeeKnqOqI7IlNM
+	+mMSU+acuWzLL5y78vG4Vhoh4w3kBKLKb9zy6jTqdHvFOYBLRNdF3VCNVHSh2bJSglas07A7bKM
+	7SuVCr0Py5l4pXEiorDGheOnm0dxc6MOC94WtH+TY0/6Vkglwr8fNgmKQUHxNCpduGLEyroO/MT
+	7fmV4FQ76HlgKmN16rGlzUDzwTvstwEv6t5zoyltPFdCPuDhyrWHbJmustJ4o7XPIsdZl+PUE4q
+	9zU2OsiScQW3cdmV+teZcJ7kirSqEgDK4
+X-Received: by 2002:a05:6102:3e8d:b0:7a5:7282:1994 with SMTP id ada2fe7eead31-7d03a50a85cmr1269510137.7.1793209468986;
+        Wed, 28 Oct 2026 10:44:28 -0700 (PDT)
+Received: from google.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99125931983sm6616412241.2.2026.10.28.10.44.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:43:52 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] leds: tca6507: Fix use-after-free on unbind
-Date: Wed, 28 Oct 2026 12:43:47 -0500
-Message-ID: <20261028174348.64014-2-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028174348.64014-1-danishkhateeb03@gmail.com>
-References: <20261028174348.64014-1-danishkhateeb03@gmail.com>
+        Wed, 28 Oct 2026 10:44:28 -0700 (PDT)
+Date: Wed, 28 Oct 2026 13:44:27 -0400
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: David Matlack <dmatlack@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>, 
+	joro@8bytes.org, Mike Rapoport <rppt@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org, 
+	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, 
+	seanjc@google.com, will@kernel.org, Alexander Graf <graf@amazon.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, linux-arm-kernel@lists.infradead.org, 
+	linux-arch@vger.kernel.org, sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+Message-ID: <auIvjVmWnsVPN_9g@google.com>
+References: <atl7peoVHdP5hz7z@google.com>
+ <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+ <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+ <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
+ <atpNFEFIlqAoYIwH@google.com>
+ <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+ <attmFVIFU_mS0Y7p@google.com>
+ <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
+ <at-8vkVpN2SF3XgB@google.com>
+ <2vxz8q3hoicx.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,85 +116,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2vxz8q3hoicx.fsf@kernel.org>
 
-Since the LEDs are registered with devm_led_classdev_register(), they
-are unregistered only after tca6507_remove() has cancelled the work.
-Unregistering an LED that is on turns it off, which queues the work
-again from led_assign(), and the work then runs after devres has freed
-the chip:
+On 10-28 18:17, Pratyush Yadav wrote:
+> On Mon, Oct 26 2026, David Matlack wrote:
+> 
+> > On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
+> >> On Fri, Oct 23, 2026 at 9:50 AM David Matlack <dmatlack@google.com> wrote:
+> >
+> [...]
+> >> The reason I care about keeping the header compact is that we are
+> >> defining a foundational kernel ABI and want to use this header across
+> >> almost every serialized data structure so we can evolve them later
+> >> without breaking compatibility. While some top-level structs are on
+> >> sparse folios today, other serialized structs are tightly packed, and
+> >> we are looking to add KHO slab support in the future where tightly
+> >> packed allocations will be common.
+> >
+> > My intuition is we will have a small number of headers per preserved
+> > file and per preserved FLB. One for the top-level struct and then
+> > optionally a few more for sub-structs like arch-specific data. That is
+> > why I am less worried 8 bytes per header, even if we fix the folio
+> > problem.
+> >
+> > Maybe where our visions differ is when there are collections of
+> > serialized structs, like KHO blocks. For collections I don't think the
+> > elements will each have their own headers. Otherwise the elements could
+> > be different sizes.
+> 
+> kho_block today doesn't store entry_size in the serialized payload. It
+> relies on its caller to do so. With extensible structures, this can get
+> messy. Sure, the owner of the kho_block_set can track the size somewhere
+> in its payload, but perhaps we should store the size in
+> kho_block_header_ser to begin with?
 
-  BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
-  Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
-  ...
-  Last potentially related work creation:
-   ...
-   queue_work_on+0xb6/0xc0
-   led_assign+0x223/0x340 [leds_tca6507]
-   led_classdev_unregister+0x26b/0x340
-   release_nodes+0xb3/0x140
-   devres_release_group+0x247/0x470
-   i2c_device_remove+0xbf/0x1b0
+I agree, and we will discuss versioned vs. owned serialized data 
+structures separately. With this series, we establish a common 
+framework: size/feature flags and accessors, and we update most of our 
+serialized structs to include them. All "shared" structs (e.g., KHO, 
+FLB, radix-tree, block_sets, etc.) should have their own versioning.
 
-Set up the work with devm_work_autocancel() before the LEDs are
-registered, so that devres cancels it after they are gone, and drop
-tca6507_remove().
+kho_block_header_ser should have this header. 
 
-Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
-Cc: stable@vger.kernel.org
-Acked-by: Andrew Davis <afd@ti.com>
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
- drivers/leds/leds-tca6507.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+Pasha
 
-diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-index 9afe2722986c..0f987e551f03 100644
---- a/drivers/leds/leds-tca6507.c
-+++ b/drivers/leds/leds-tca6507.c
-@@ -71,6 +71,7 @@
-  * not recognised when matching.
-  */
- 
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/leds.h>
-@@ -735,9 +736,11 @@ static int tca6507_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	tca->client = client;
--	INIT_WORK(&tca->work, tca6507_work);
- 	spin_lock_init(&tca->lock);
--	i2c_set_clientdata(client, tca);
-+
-+	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
-+	if (err)
-+		return err;
- 
- 	for (i = 0; i < NUM_LEDS; i++) {
- 		struct tca6507_led *l = tca->leds + i;
-@@ -766,20 +769,12 @@ static int tca6507_probe(struct i2c_client *client)
- 	return 0;
- }
- 
--static void tca6507_remove(struct i2c_client *client)
--{
--	struct tca6507_chip *tca = i2c_get_clientdata(client);
--
--	cancel_work_sync(&tca->work);
--}
--
- static struct i2c_driver tca6507_driver = {
- 	.driver   = {
- 		.name    = "leds-tca6507",
- 		.of_match_table = of_match_ptr(of_tca6507_leds_match),
- 	},
- 	.probe    = tca6507_probe,
--	.remove   = tca6507_remove,
- 	.id_table = tca6507_id,
- };
- 
--- 
-2.56.0
-
+> 
+> Anyway, not a problem this series needs to solve, but something we
+> should eventually do.
+> 
+> [...]
+> 
+> -- 
+> Regards,
+> Pratyush Yadav
