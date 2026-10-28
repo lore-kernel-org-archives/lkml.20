@@ -1,44 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793151259;
-	b=GqhwBro5EhB+NrxmaTeVbDAsLSNuLdFcUVYWUX6GbeBP0k2Hd1rPVxGzqF3GqLgUX82d
-	 EQigH5AAh0LY8wzoqUCMhqTVINgg8bv3UgLxXvv+tajzXuAtFXWNm6whrdA9ZmkcCJYuS
-	 yxLb46jr+5Qmp1mAOZAzOdVzAw6TGBkretHIbwPeUnL5tBRuztHtxqeXynK7locjNUt8V
-	 MCp1hjOAW16p+k2rmGxDOkBEx+AlWmP8ixtBRjiOL8NeaSJVwSXFKAFEubll7K2hSSXMA
-	 v4lRza2QlTRWUD3sKBX38L/w40XssBKOTfULU86TDHi02SU4XMZrjNxgwqJWJLEMwlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793151259;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=LvfJUkmOSAdKcYHotMDiif25qiNyYOm87m7lAWGURV8=;
-	b=P9RIq/DFSyvmN0yZ4yN6/G0wMsotq93jZmWFSf217nKSETuRlKfCSaQ+5rOKcg9tNVBF
-	 UCEpcKgUN2xB9RlnctQFPbdseyT8mWn6cIUP6RIHKRX2TjN8Zs9xjHPJN40BHdOrUUK0C
-	 SQGc+KbbB6hrUW4IXJH/cyV9aXR0vC7FrLnmNpp8+9N32/fhfdo+MzT0wXhjpOm5Lh78v
-	 w+UT56lAYi7vSTo3U6anL2oiF63726PluM0T0N03HMHQol+fLUO/4fRQ2jSPHo8fAMQuc
-	 GWZN5hebn/rwNQk+TeSI7ca+sezKzsLmcLdAPlXJxeB/fBcrqbD1w6mFrG/1MKDhxYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=gCqKuPAw;
-	arc=none smtp.remote-ip=154.81.10.51
-Received: from mail-m1051.netease.com (mail-m1051.netease.com [154.81.10.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793151266;
+	b=mZV5b5ZG4LwGxIdD2skvcym1cc5ZqOLcCjCwpWDRGL7ILvBU1p1mRSiazErETPX70Ohm
+	 yvY0U1ZeDXi0/8AgVClcp7lsXwkg3ZRC3IFGxV26PDIteCoct9oyiFkhH2xOdIrbwRXef
+	 wqBrPS9GOKHz7PcaXO7f5xGW+KgPi8q3ytMzqLbkjmdKUQ3HVDW34tWdKYVD/3m5FTwXa
+	 BwKHepxgXjxbusYXT+C0DkZpsIWK0haUWfH+Z6mhg10BYKx+lRLDwPR1eA4d0v2729L65
+	 BUkigVFJFrOd1oUiKfc0Hj1gRtj3uGSYMvhOAo7Tbkn3ALFFiy0INdwOpCpnJA8uu3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793151266;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Xm/wGXx2WzjPp6XsncEgT9WQiDFDT8zDzQqjFMg0UB4=;
+	b=Rmj8krLssASZVsc3r7Vjbg56d2S8hEY5qVpSPo83DoxDNZDhmEIh1vrWOgKZ3T7oR2Df
+	 B6YAEj26jZPvguGcfqsWrcXlA97cnSFzYBXxEuAc6eiqsJNem0G1UijKJGSIIUYMq66uL
+	 ualdVY/BQB6sp1tJJ/6WSkMGCsEghYoBBziIaPKE4yxzNPX1HNKRong78B9VCZqc9iVuo
+	 V0Oza/a9UO2MF5JxOEQifxeLeU8J8o1Cooef5qsZHnOyJUCqN7hEXxXCVtzhjN3FghkSO
+	 SuVOuWzZZ0uRDQXqpVLGDznP7GifQobsTtGSNu8gt45AzjQxSaZ1nuqV12b49n50PbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UjV8pOXW;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EwHlc+ns;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE47606A31E;
-	Wed, 28 Oct 2026 01:34:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE47606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB0C606A323
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:34:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AB0C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=gCqKuPAw
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5294a5264;
-	Wed, 28 Oct 2026 09:34:05 +0800 (GMT+08:00)
-Message-ID: <cf541723-eb4c-4ba6-92c5-33baafc20e7c@rock-chips.com>
-Date: Wed, 28 Oct 2026 09:34:04 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UjV8pOXW;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EwHlc+ns
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S0irgd3816321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:34:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=Xm/wGXx2WzjPp6XsncEgT9WQiDFDT8zDzQqjFMg0UB4=; b=Uj
+	V8pOXWAffqIp3CZMAyVWrXgVWRu0450pcGDimX5I66AOeUSNFIHx7xxmuRJXCBmt
+	RLx+uNacyaY3hO9woAutTYamvzDszL5AOA74yQ1MpQWDSsamVX+lGSqNpk2X842i
+	GDS4xWPGcDVu/Rq63IAd8U25Zdcq7BoscrJrRx+RuWvi+cX2w6SwllxXTXrQ33yq
+	3iIyo0yN3CTG/i7+XRlVDUYEDxHb3gG/B/Ty85OJ33+Vh89dI4SNtl4RcIOZP/U+
+	EnuV+pAsCVpuie25Q/Qf7DOFhhAmwyCi137KSJqNfN4uPS58zcDkm/UoSmDeqwBH
+	Ob/iuIlDMIgBOFZt4fnQ==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1kf19-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:34:25 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6dfe0f03baeso716458eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:34:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793151264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s4DoUtp9nsW7i+TmFEaq+jx0wFMMNkERI3hv26eOU6ULmFTj+fKPf6YdYUTHgWFNbM
+         ZzhgI3CGSa6OJiXTti5wRqI3W76kqSFvo/DMpNvCdlqwzQUIU/lFGtq6Y/I6v2PDbtKB
+         ZIumnFIowiI060mVataG+7AmWpp/Ka+uh+9as73WqlPf29EvUgRdteszCVET4tDgSfzD
+         Pu7h8VPTDLpfJRDatoXARYv7kuJAPxdCnR1LvlUmm7mDxVATMxTORQv2z3GJ7jWgSpaB
+         1O6asNf+kKAw+sbY4pO8uK3mbaz8ObXm4qIIZtVK9SY1fJUcZHnrwUarSa3H7CF315cS
+         lO9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=Xm/wGXx2WzjPp6XsncEgT9WQiDFDT8zDzQqjFMg0UB4=;
+        fh=c3EoS3Mkn2VIdkUMnmL9aTvjnGOA1S3DjdG39JC/bcc=;
+        b=XMRPNlcS8OvwmYP9tnNsNJsXWgur/BvpUVmQ/mV3l2kJP2evQ6w1upEoVswgqvWmuG
+         0J21uTHfQQUEbje+TLk16b1KJjo+bkJro0ShbRWa4iBbpPunMDI1FfXVmznmvtlO3BjO
+         C+FPT8YnYtBpfvXS4ymP6GETrfuJo+sr7tdL3GCTRxtCNcpXLS3lP8NToD9n2zPal736
+         d3Rx1RQjpUlWddLa0itS0Gc7Mcs31UIMBc852rifuHu0pkGNArXlrN04RGOYhwHi8GPi
+         20D9dUnzcY2l/ESWDj8mwoyM2GlQvXrDV0KyEd8DYdNprH54Xp8i8i+X9+GBCdXoRqgZ
+         +YWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793151264; x=1793756064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Xm/wGXx2WzjPp6XsncEgT9WQiDFDT8zDzQqjFMg0UB4=;
+        b=EwHlc+nsNnp+HpEs/2Gh5QPCWfeevsejgWhi33GO4s5XD6+ep5iI6C94uYiK05UTJP
+         TsTmiau7yk3+j/wKTuGof2VOodjmfIJyR4PJPOaGVY02Qno/kkNhPdwi5KFTbCC5NmV9
+         TsIEsRuXqgMljL5XMdG49FsTXq6j3h52AOOF4mK73ObKcYPSKH34kLGUPzYNXzpd6pQY
+         YeWT6VfebngQS5u0/dUGxHPyGUMCErOxIedLFXiXhTqciLaAiCu2baWrFj4gCiflROfG
+         ERNvVwdqyLrGeNYqEx1YO4CWpi//zhqoOClArSVGChyKG7pRyMac93m3dHGLTv1QXkPy
+         oBjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793151264; x=1793756064;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xm/wGXx2WzjPp6XsncEgT9WQiDFDT8zDzQqjFMg0UB4=;
+        b=GV9X3dWMJ+VKAS1+B7TLpj4YLgMmBzr5XrPbYFIpefTKvqStkLj2KojxEFJUpZil3P
+         d4LBxWZ2Iz5DmEh4uLmCTznzr7gZ8P8p64tHZlgpLyAR7PFpD89qmvnJmGEm3dekIdER
+         xIfujHOA+KymQTG3WdMNwG88cJoggAElTnIJTGBUWvXXRw+JRuKCIg8N40cc8ZfAOEcJ
+         XVLbjBKHxBPPVDMSGfS73/kFaVRqQ/Z7Uv5KDeW4n/a10YD6A9OlNWKBN1F4mKV5pf/2
+         noBwZHE8QnpMKi/RxhP/2KToniQFISfNjeVhG2+jV5yDuh5Xg0sbCHhepUS4C7fRqTJ+
+         u5Dg==
+X-Forwarded-Encrypted: i=1; AKwUvByHpYtPCBN++vAs8uy0Pg7V1lX6XyazBK/jeagrmfiMeUkZFP0PEvNjeBq/uK2kQe/IV0Nofv41U30hQXg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLevJn7Q0kMG3fYx1aETy8QKELYmRNVQ0OxeUMBsdFXIdaKIZnr
+	vNkjpMscGPl/dN8+6RKKrT8Q1ceD1oNoD+80a86Pepm27NOY9xzThDFiJwtAxH8EsJ7VZnaBR58
+	LiUc0ksrwd/jzAF3ILdxaeDfOovdXCDOX+d+8V7lv5Fnun15MFxCB43RsHdf/DKTBwJ0AQHlMFv
+	8gU7tGGAG3ux/e+QKaa9XhpS+cLOizFKEA7hPaQzTL8g==
+X-Gm-Gg: AYBFou24Z72DxffBwojwSTGRy9Mrv9Py3I6sCX9MQYIj+UhCo//UOaenFN7itJs8Ceq
+	/VcOHJHFFubl/jZQITOs7jB91qwjhMcY1ucu9A5ueQAqjMKvPUXBEl/GtfuVaD5l/+ktJ7ClBfa
+	4lJBg5+ySnx94jwNLwP1feN7cX3A8rEMeZryU94TaWCgwGZ0pCPq6pya7IGA==
+X-Received: by 2002:a05:6820:1693:b0:6d8:9568:840a with SMTP id 006d021491bc7-713ee188879mr490987eaf.46.1793151264357;
+        Tue, 27 Oct 2026 18:34:24 -0700 (PDT)
+X-Received: by 2002:a05:6820:1693:b0:6d8:9568:840a with SMTP id
+ 006d021491bc7-713ee188879mr490977eaf.46.1793151263851; Tue, 27 Oct 2026
+ 18:34:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,248 +127,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, heiko@sntech.de,
- dlemoal@kernel.org, linux-pci@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, iav@iav.lv
-Subject: Re: [PATCH v3] PCI: rockchip: Don't lengthen PERST# when power is
- already valid
-To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>,
- lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
- bhelgaas@google.com
-References: <20261028005603.2399220-1-ehbello@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261028005603.2399220-1-ehbello@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa180249ad703a4kunmcee67671525d6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQk1JVkNPGE8ZGEweS0JLHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=gCqKuPAwk6EMrudL9B35TW7LTcNUkDJ3ZYqGcf/yvX1m64qO5Ona3Ob54YAwMki45ZDFMn56HkqYO7tBhs8TXxDhJ03uCb4MPrPEkSmjpQAQmDpTeKBlrRvobXlx5RggIQF0E5NeLuI6g5MgHC5V072ltR5zR44Afgefsf+5YTM=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=LvfJUkmOSAdKcYHotMDiif25qiNyYOm87m7lAWGURV8=;
-	h=date:mime-version:subject:message-id:from;
+References: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
+ <20261027230452.130031-6-robin.clark@oss.qualcomm.com> <wxfx4nhwdx6dud4ahy3rfz3btfto4t2zor2pjbotlqpglvwolx@jhnm65bzecnq>
+In-Reply-To: <wxfx4nhwdx6dud4ahy3rfz3btfto4t2zor2pjbotlqpglvwolx@jhnm65bzecnq>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 18:34:12 -0700
+X-Gm-Features: AclHuK81DT8Al8nkBjxOqnV-fm8QFvrgKVznMTWgvFE3fwVLYN4R8IQKMbENEUE
+Message-ID: <CACSVV00rXU=UxbDMCiomUKZDZOcGg0viVnnJ68J8fg8rRFXdHg@mail.gmail.com>
+Subject: Re: [PATCH v3 5/6] drm/msm: Convert map helper to use dma-address
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+        freedreno@lists.freedesktop.org,
+        Jianfeng Liu <liujianfeng1994@gmail.com>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae15121 cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=qffPo4UZxZtRrYcd1KIA:9 a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-ORIG-GUID: IgXWtOs0vc8RZ4QUoVTYozQBk6FVAyOh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAwNSBTYWx0ZWRfX715X7ap5Jc4D
+ ErIZzm4XS3wdT1bAVKopcF+Fjx9c9XQ6/ytCZpMunXw1MF8DUtmdoDgO09nBTUEDkmH+q9gBkya
+ RH2hr8azE79LOdCDzgRKzMy+EaWvWJQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAwNSBTYWx0ZWRfX+wpoeZJBRui1
+ 60HcS+oVvREKSiQi+tUmUApfW/ededpPF5Hkl+Jouf6COqcl7VB4ZSg/naSPOzuVLIlq7TGFW7N
+ nqb0tWPKIgMypz139d6Qd8M+r+hgfm+wdB8I52F4TZp0HX5mV+JDgNJ7GBGLcEVFdzokE5B6WXq
+ Ll4tL/ZT9mHRqkIX9NwZD20S3etPQkorEBLThFrcfXnhj3U889ROkDEYHXr1kJx259jVbD9/PUz
+ +K6RgeM0D74fn6rPlrHA4TMlXzH2tsfJplooVV5uFsQWaGZtO0Fih1gLk4MuPs2Cd5Th4S6I/nl
+ je+xAURKwk6u5KPACp+cQnHS0DQCMbMCLKRalNA/nmxLVyRRmHRLWmK4/MjbT8JZ88HyArRZaA9
+ nbgXSAUrdPVf+YAYAu/qOXO+HEwdr3Pb6iORXSpZj6YUeYx3WDGeANI3w/Xdlr8JTNNI6fL0kfw
+ c0xHN0MAq1eLltH8gUw==
+X-Proofpoint-GUID: IgXWtOs0vc8RZ4QUoVTYozQBk6FVAyOh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280005
 
-在 2026/10/28 星期三 8:56, Enrique Hernández Bello 写道:
-> Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-> rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-> behind an rk3399 root port is almost never enumerated: the link trains
-> normally, but the endpoint's configuration space never answers. On this
-> controller a configuration read that gets no usable completion is
-> reported as an external abort rather than as an all-ones response, so
-> the machine does not merely miss a device -- it dies with an
-> asynchronous SError inside rockchip_pcie_rd_conf().
-> 
-> That change added an unconditional msleep(PCIE_T_PVPERL_MS) to
-> rockchip_pcie_host_init_port(). PERST# is asserted much earlier, when
-> the line is acquired with GPIOD_OUT_LOW in rockchip_pcie_parse_dt(), so
-> the sleep lands inside the assertion and widens it. Measuring the pulse
-> in the driver with a ktime delta across the two gpiod_set_value() calls
-> gives 1 ms without the sleep and 108 ms with it; msleep(100) rounds up
-> to roughly 107 ms. This endpoint does not recover from a reset that
-> long.
+On Tue, Oct 27, 2026 at 6:14=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Tue, Oct 27, 2026 at 04:04:48PM -0700, Rob Clark wrote:
+> > Now that we have everything unified in one path, switch over to using
+> > dma addresses for setting up the mapping.  This avoids issues with
+> > CONFIG_DMABUF_DEBUG stripping the pages from the sgt.
+> >
+> > Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SF=
+A14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=3Dy
+> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/msm_iommu.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> This commit seems to break GPU on db410c (which uses qcom_iommu).
+>
+> [  104.954564] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+> to idle!
+> [  104.954932] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+> *ERROR* gpu hw init failed: -22
+> [  105.958559] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+> to idle!
+> [  109.082571] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+> to idle!
+> [  109.082670] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+> *ERROR* gpu hw init failed: -22
+> [  110.086572] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+> to idle!
+> [  111.098576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+> to idle!
+> [  111.098674] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+> *ERROR* gpu hw init failed: -22
+> c[  112.102576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for
+> GPU to idle!
 
-Intuitively, one would expect that a short reset period prevents the
-endpoint from recovering fully, that seems more plausible than the
-opposite. A reset pulse that is too short may cause the device to be
-enumerated before it has completely reset. As long as the reset is
-clean, a longer reset wait should make the device work more reliably.
+If that came down to this patch (and not the earlier msm_iommu.c
+bits), then I'd look to the hint in the cover letter:
 
-Therefore, the actual observation that a longer reset causes failure
-is highly counterintuitive. Droping this wait for
-
-> 
-> To separate the two things that sleep changes -- how long PERST# is held
-> low, and how long the supplies have been valid when it is released --
-> both delays were made runtime-adjustable on a single kernel, one before
-> the assertion and one after it, and the host driver was rebound to
-> re-run the whole probe:
-> 
->    before assert   after assert   pulse       trials   enumerated
->    0 ms            0 ms            1-11 ms         5        5
->    0 ms           10 ms           ~18 ms           3        3
->    0 ms           15 ms           24-47 ms         4        4
->    0 ms           20 ms           ~28 ms           3        1
->    0 ms          100 ms          ~108 ms           4        0
->    200 ms          0 ms            6-11 ms         5        5
->    200 ms        100 ms          ~108 ms           1        0
-> 
-> Delaying the assertion by 200 ms changes nothing, whether the pulse is
-> short (5 of 5 either way) or long (0 of 4 and 0 of 1); widening the
-> pulse is what decides the outcome. vcc3v3_pcie on this board is
-> regulator-always-on and regulator-boot-on, so in every row above --
-> the failing ones included -- the supplies have been valid for seconds
-> by the time the driver probes, and Tpvperl is met whether the wait runs
-> or not. It therefore cannot be what distinguishes them. What this
-> endpoint reacts to is the width of the PERST# pulse.
-> 
-> The wait and a short pulse cannot both be had in general: Tpvperl is
-> counted from the supplies becoming valid to PERST# being de-asserted
-> (PCIe CEM r5.1, sec. 2.9.2), so on a board that powers the slot at
-> probe time the assertion does have to last that long. Where the
-> supplies are already up, though, the requirement is met before PERST#
-> is ever asserted, and the sleep only widens the pulse.
-> 
-> So record whether the supplies were already enabled before the driver
-> enabled them, and skip the wait in that case. A supply that is already
-> on at probe was brought up either by the bootloader or by the regulator
-> core at boot, both of which precede a PCIe probe by far more than
-> Tpvperl. When the driver really does bring the rails up the full wait
-> still happens, as it does if regulator_is_enabled() cannot tell.
-> 
-> The same check is repeated on resume rather than assuming that power
-> was cycled: suspend calls regulator_disable() on the 0.9V supply, which
-> only drops a reference, so on a board where that rail is always-on or
-> shared with another consumer the power stays valid across the cycle.
-> 
-> Skipping the wait only when every supply is already on is strictly more
-> conservative than what this driver did for years: until the change
-> cited above there was no Tpvperl wait at all, and PERST# stayed
-> asserted only for as long as the register writes in between took.
-> 
-> Boot-level counts on the same board agree with the table: unmodified,
-> the endpoint enumerated on 0 of 84 boots; with this patch, 3 of 3; with
-> other ways of dropping the same wait, 16 of 16. Each of the three
-> PERST#-related changes that landed together in v6.11-rc1 was also
-> reverted individually, and only removing this wait made a difference.
-> Moving the wait later but still inside the assertion did not help
-> (0 of 15 boots), which is consistent with the width being what matters.
-> 
-> The measurements were taken on 6.18, but the code in question is
-> unchanged between v6.11 and v7.2.
-> 
-> Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
-> ---
-> v3:
->   - Rewrite the commit message. It now leads with the width of the PERST#
->     pulse, which is what the endpoint reacts to, and demotes the Tpvperl
->     redundancy to the reason the wait can safely be skipped rather than
->     the explanation of the failure. Manivannan was right that those are
->     two different claims and that only the first one was evidenced.
->   - Add the A/B measurement that was missing: one kernel with the delay
->     before and after the PERST# assertion independently adjustable, so
->     pulse width and power-valid time can be varied separately on the
->     same binary. Also note that this board's PCIe supply is always-on,
->     so Tpvperl is met in the failing configurations too.
->   - Note in the comment that the regulator_enable() calls are kept for the
->     reference count and are independent of the Tpvperl question, so the next
->     reader does not have to ask it.
->   - No functional change from v2.
-> 
-> v2:
->   - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
->     assuming that the 0.9V rail was really turned off. On a board where
->     that rail is always-on or shared, regulator_disable() leaves it on,
->     and forcing the wait there would reintroduce on resume exactly the
->     failure this patch fixes. Spotted by an automated review of v1.
->   - Factor the test into rockchip_pcie_supplies_enabled() now that it
->     has two callers.
-> 
-> v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
-> v2: https://lore.kernel.org/all/20260911211559.207990-1-ehbello@gmail.com/
-> 
-> diff --git i/drivers/pci/controller/pcie-rockchip-host.c w/drivers/pci/controller/pcie-rockchip-host.c
-> index d203c48..495428b 100644
-> --- i/drivers/pci/controller/pcie-rockchip-host.c
-> +++ w/drivers/pci/controller/pcie-rockchip-host.c
-> @@ -314,7 +314,9 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
->   	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
->   			    PCIE_CLIENT_CONFIG);
->   
-> -	msleep(PCIE_T_PVPERL_MS);
-> +	if (!rockchip->supplies_pre_enabled)
-> +		msleep(PCIE_T_PVPERL_MS);
-> +
->   	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
->   
->   	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-> @@ -609,11 +611,39 @@ static int rockchip_pcie_parse_host_dt(struct rockchip_pcie *rockchip)
->   	return 0;
->   }
->   
-> +/*
-> + * Tpvperl is counted from the supplies becoming valid, and the driver waits
-> + * for it with PERST# asserted, so the wait also lengthens the reset pulse.
-> + * Supplies that are already enabled before this driver enables them were
-> + * brought up by the bootloader or by the regulator core at boot, both of
-> + * which precede this point by far more than Tpvperl, so the requirement is
-> + * already met. Treat an error from regulator_is_enabled() as "not known to
-> + * be on" so that the caller waits.
-> + *
-> + * This does not change who owns the supplies: the regulator_enable() calls
-> + * below stay, both so that regulator_late_cleanup() cannot switch off a rail
-> + * that the bootloader merely left on and so that the regulator_disable() calls
-> + * on suspend and in the probe error paths stay balanced. Whether a supply was
-> + * already on says only whether Tpvperl has elapsed.
-> + */
-> +static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
-> +{
-> +	return (IS_ERR(rockchip->vpcie12v) ||
-> +		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
-> +	       (IS_ERR(rockchip->vpcie3v3) ||
-> +		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
-> +	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
-> +	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
-> +}
-> +
+This all depends on being dma_map_direct() for the dma_map_sgtable()
+to work.  This should be the case on modern things that use arm-smmu.
+It's less clear when it comes to older pre-arm-smmu hw.  It's possible
+that this series causes those things to catch fire.  If so, look to
+commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to select
+direct mapping") for inspiration.
 
 
-The assumptions here rely on a very weak constraint. If some designs
-don't define the 12V and 3.3V regulators in the device tree, but those
-rails actually do power down along with the rest of the system during
-suspend, then upon resume the reset wait will be skipped entirely. I'm
-worried this could cause regressions.
+BR,
+-R
 
-Furthermore, even with the same power supply design, different endpoints
-may behave differently. What if a particular device requires a longer
-reset pulse to work reliably? How would we handle that?
-
->   static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
->   {
->   	struct device *dev = rockchip->dev;
->   	int err;
->   
-> +	rockchip->supplies_pre_enabled =
-> +		rockchip_pcie_supplies_enabled(rockchip);
-> +
->   	if (!IS_ERR(rockchip->vpcie12v)) {
->   		err = regulator_enable(rockchip->vpcie12v);
->   		if (err) {
-> @@ -890,6 +920,13 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
->   	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
->   	int err;
->   
-> +	/*
-> +	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
-> +	 * where it is always-on or shared the rail does not actually drop, so
-> +	 * re-evaluate instead of assuming that power was cycled.
-> +	 */
-> +	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
-> +
->   	err = regulator_enable(rockchip->vpcie0v9);
->   	if (err) {
->   		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
-> diff --git i/drivers/pci/controller/pcie-rockchip.h w/drivers/pci/controller/pcie-rockchip.h
-> index 3e82a69..e63259a 100644
-> --- i/drivers/pci/controller/pcie-rockchip.h
-> +++ w/drivers/pci/controller/pcie-rockchip.h
-> @@ -318,6 +318,7 @@ struct rockchip_pcie {
->   	struct	regulator *vpcie1v8; /* 1.8V power supply */
->   	struct	regulator *vpcie0v9; /* 0.9V power supply */
->   	struct	gpio_desc *perst_gpio;
-> +	bool	supplies_pre_enabled;
->   	u32	lanes;
->   	u8      lanes_map;
->   	int	link_gen;
-> 
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_=
+iommu.c
+> > index 479e5450a4dc..c2950d32c507 100644
+> > --- a/drivers/gpu/drm/msm/msm_iommu.c
+> > +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> > @@ -153,9 +153,9 @@ __do_map(unsigned long pgsize_bitmap, u64 iova, str=
+uct sg_table *sgt, size_t off
+> >       u64 addr =3D iova;
+> >       unsigned int i;
+> >
+> > -     for_each_sgtable_sg (sgt, sg, i) {
+> > -             size_t size =3D sg->length;
+> > -             phys_addr_t phys =3D sg_phys(sg);
+> > +     for_each_sgtable_dma_sg (sgt, sg, i) {
+> > +             size_t size =3D sg_dma_len(sg);
+> > +             phys_addr_t phys =3D sg_dma_address(sg);
+> >
+> >               if (!len)
+> >                       break;
+> > --
+> > 2.56.0
+> >
+>
+> --
+> With best wishes
+> Dmitry
