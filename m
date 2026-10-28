@@ -1,90 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207033;
-	b=FaXrqTf/HMSsOc2jsrAbaE6ek+kJ8k5EdLA/353akh6fgb4cZOG1rprCMKZcJuwGBCSa
-	 AFs2RWyY8CG0PT6GaFhyMHbCcPntSigVyxc3BZE53MCXD1WeGCOXuci8P6ZbRqsdIbcbY
-	 Ky+IdiHZUSJnTfDwxlYL6vnDzRoafze/fZLTRF8RZ3gUVX8PaNIGN+u6tsr9UEl/1XNII
-	 MWuLuEl+HAdptcUiBDfIr888GEp3c5HJMlo2std5VSnTpQLUbkZlLSMqo3Qk++AtmCL4L
-	 CI1/udoNoDrQbphoZSqM8B+HzhCQ4tkH+62HvWIoMHIRthIxj3vJa4u78gL5qO1B1dA==
+	t=1793207078;
+	b=AwU60rXZw2+ycNbjRK9M/3vGvNxGyDIiMIc/6yIK+HjS2ptBzZqpGdW54hyZcDX59aJL
+	 E55qVE9ofZifR2wJh2L9X+zCKECBPGLzc6gnXg0l0lMTT4kWmIxVUX0t2Psjv7EvFesFm
+	 LEaqexFwaMZXNUUP+JBkfHko2EfmUDQyKWdpcn4EEwkOAZqLIA5aXnnzUiO9mRWxuiPXs
+	 w3tl85bijNe0or+WqCOzhXdFI5ehnmK1DdKVeyc3gFCGdS2ulGzPqA0lE1tjvLlXzb/db
+	 yh77KwfKsFMtsI28BX0y37ehu320FAYu82kV1WOvH+II31Gomm1pbBNN+ZL/ou+SixA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207033;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=h+YDFIcoYa8WhHiPI5vwzPAhBMAspg9LSUNE5xsSIjU=;
-	b=0mUqPpJBuhgOfklWRNqzR3fbkyrQGHQDANl+Rm5sNYBK9CgYPCRPPbMwlqS92wk33oTb
-	 cFNAIXoGcodrOO+kWgVI1OdWgVRCOu1Y6olSQQG/kNgFGxWnthhgkYRc4/x7Vmzke2+HK
-	 U68EBPTdQwI0c7WNSYevMubKThSSJwuAm5hBKEuNi1Ab4WSffeK6nFAFWj24oQgZQIIhP
-	 owCZfhYAZPrqcH7xGyN58CeDOUBIMk3XN5aosZqpx8mwy2fnBBn5jxwy9FNFXa1MoROEt
-	 armKFsYA83oa0GZGxj2MVjhNfy7MTsL827beLPHXb5aeNfMUYZMVoUvDWNfvNzpWGqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207078;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=7u6epdxCRzzqEJ+g4x5/I9qZne8VNQ2rvwh6ewHJxGI=;
+	b=3mPwWTWmBLguyJb5J7eh1jHuQmjVe/y3dIqL7I8AtSk64C4yfJEmhOX3hBx68OBkqh99
+	 i94VV/75BPIJAJo4z4iX9yoUT/KR6Pv5jDt8W4ndBhcnqS+/HqEkY3TWv2Id9S+egomhS
+	 AKWhjPTZRRgfivwCC5rZdnwZ9O+qIeECpJWcE6aIHWz5DQElVch35wWIRoX7/ELNVodcW
+	 VlRLQUiSDiAGmoKjlS6sEjVWkF8VNSdRBTb9hKB0iEMhIQIdn2ZhEiCYOzkAJIMd1CGTM
+	 KVDqzD3Z81DJXE+EZvF7ZQDFah5nCGfN4KQz8LthyKqaX1YuV9KDNwbdAoJBL9cpX7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=HJEmqlAa;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MlznExYP;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBAA606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBAA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59498606A325;
+	Wed, 28 Oct 2026 17:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59498606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=HJEmqlAa
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso3884198a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793207031; x=1793811831; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h+YDFIcoYa8WhHiPI5vwzPAhBMAspg9LSUNE5xsSIjU=;
-        b=HJEmqlAaHjkokdckwBFUA42WhJIcz9eYNRImMUCKybu47xeRiO9kKcQsYJKOdBO5Zh
-         LKzh9JrwNzC+nj1WvuMNqlkEwBgxKoDqp0EgV3cQXUGIFu01XbIUNBpJC6xxv0ra2F7a
-         /y2VZ74ySU5NGD4KpUqDA7Vm3WYshLPdJ0PRA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207031; x=1793811831;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=h+YDFIcoYa8WhHiPI5vwzPAhBMAspg9LSUNE5xsSIjU=;
-        b=lr3xNqUKV3bjgIvJYM1gzRjvKcyfX63I12JkOyqJxgtc3Op6AnO7r/JdwIPl6FhV66
-         CQu8iFNtE/genTGONOMKpArl0AxkFs9SiKgqLUR5iERI7oLRKHFpdWe6YPnmJyyGa4zQ
-         +6S3xGXYqY3Y8ktxUaGyQjYG00Pnp1CC5iGhNJL+UAyBXvGr7C3oSvBNKhnBLj4AmbhW
-         6nBkaskzMwqPq/ZOI9jL54Oevbnd/dQuBYBd3o1iNlnYUfrNFIC/v3ykp+zu7foBehxO
-         OcymbWXdQgFbQrzZBL8PVrZVOye5NT3y/pY2Wpw2TnsaWHOILYBqalJsC6KtF7efwhce
-         CbbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxm1DulRImWJPSPzNf0VNf2pTcp5C2ktZTZZHo3nGfgpa0ipxVYN2P5btSCR4pfoX2xwFjOFFCIUWwEFOg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItlm9V1WUVROZgsPOOZNncYlJpsWNN1jTU3En5sTm0W9FnVWgZ
-	7FfCr/Li2BgQl91c+tU04QjNM3hqU+oFAOO4jiESK1GkxrGrfN3vcVO9nrEIbfcncBrC/HUSpBI
-	lIMm9I+E=
-X-Gm-Gg: AYBFou2oLF1HoP35KQhUDR6k84pH4yjZduPdErsDgguHeYPh0fUmddAllqb1xFKvvvY
-	Gnjl8CULgl96T8m2LuI/VL6Jo9ukRXWH4rTDrbSxl6VgfuR1XhesIygXDROLL2837p5yrTcL8Wk
-	Dx0W34XDIVMHxbhJP3+Zf+ARjxv6JLTmrjPMECsDp2imzDcdAY/Z/E80JmhwTdBCJD5VzaQA0hh
-	dfAPxh9TdNlCs4UR5Kl4S4uRo0kBVAGbzvMBpRiQ86eVU+nCcGIkyR6N147o9s5ZZY7IjSjryl1
-	EV9XbIdiW7zBxlbXLVD3JbFdQEQj2fIOb/bq2Tx7pAphmttGaDDE0OtmvYPxJKwFlBXDqTQKxf2
-	HTFEOOlT6PQwPKN167todKYnIJ4UzdzOdT8Qz6OSEOTU266Th/SqYgdZsrYJ3k3HCBKdZbs93D6
-	Q3e2DX7ffJ7gzp5Jr+LpljbpISBvpNKmSUmUrT7wjNsQiUxAB/keoJioQPLPpl3FHHS4eyfCG11
-	ftkJ1lw7P174cXE2UcoYQ2iNVOkTSQK2N6uDc9ja48hWHDIBroB1dRgjhJ9W0xEqobsZBLUuAEE
-	DUJluvh0ZIlglGZZ9FSnKbHPr6166SBM6ZXFJ8iVA4XQh9rIh0unnkoxMeEmwNfwK0TgJulxhn0
-	AY/g=
-X-Received: by 2002:aa7:d447:0:b0:6b1:b9b0:dcfd with SMTP id 4fb4d7f45d1cf-6b4b094791cmr152003a12.0.1793207030573;
-        Wed, 28 Oct 2026 10:03:50 -0700 (PDT)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b496447e8dsm1774945a12.30.2026.10.28.10.03.49
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 10:03:49 -0700 (PDT)
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c40e30c26a4so380253266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:03:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx2yQzomf7AdcVOx04icyYZ3SFnbBPcyMbH5r6kuj9r8MUL78qqVLfMtY77o/suExKbKyeTOmSRnsVRGh8=@vger.kernel.org
-X-Received: by 2002:a17:907:60d3:b0:c42:fc8b:6c6a with SMTP id
- a640c23a62f3a-c49d11b4b51mr14802266b.14.1793207028992; Wed, 28 Oct 2026
- 10:03:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MlznExYP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793207077; x=1824743077;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=yRZrXN5GFxu0MlVfZUZ1S2TnnWoC/2UKZVvWM7X82eI=;
+  b=MlznExYP77RB4nWVn5sPTgMZh0UkwEoj9ksI0NTu/cJeeUcqx0Q4AufG
+   f80vAIotXcT3EzSMoaJub7AwwB+VYCaddm7PgLBQ0h480oLeuG/zfg+CR
+   qdZZzMoni327hEdx08OXO+X7Tqnpv6lYKLhqTiyN8oa1VwHD2LnyfOAYL
+   BPPDRBTQwPsmDdL93s2TIwCzHVRsJMop2qJoeGWvoIyZIoalmLcfhX2p9
+   1/G7ykjABmh05za9yknbex6usULLzc94v1nngvZD1Ns69uIFeOQpsOGbO
+   ayEVtsWELBKG4tJKHJBdwYguYOwTr/Fo7jzEa259oueVWpdB9wbHy7kYd
+   g==;
+X-CSE-ConnectionGUID: /bPWuVF7SBilUVRJhdf1lA==
+X-CSE-MsgGUID: +V2ppeJyT+u8pVv7XMZZow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1960817"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1960817"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:04:37 -0700
+X-CSE-ConnectionGUID: Y6g6Vhd3Rgq8j2C7yOtevw==
+X-CSE-MsgGUID: Kyp+cRjATfeEe3pQkwugcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4953324"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:04:36 -0700
+Message-ID: <dbe6599b-2eb0-474d-b4ce-370b0adc4b28@intel.com>
+Date: Wed, 28 Oct 2026 12:04:35 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,29 +72,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
-In-Reply-To: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 28 Oct 2026 07:03:32 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
-X-Gm-Features: AclHuK8-USVJR-1T0Fea4kcfA6l9aoyMDdQza79RH1k9Ebxwlcs6AJdMI4vWZl8
-Message-ID: <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
-Subject: Re: [GIT PULL] sparc updates for v7.4
-To: Andreas Larsson <andreas@gaisler.com>
-Cc: David Miller <davem@davemloft.net>, sparclinux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/16] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
+ from kvm_pmu
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-7-zide.chen@intel.com>
+ <CALMp9eQ2D2BjX8ZNqRuNp9h46Rw-_7pJD=50JAXbNHf5KEVj2A@mail.gmail.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CALMp9eQ2D2BjX8ZNqRuNp9h46Rw-_7pJD=50JAXbNHf5KEVj2A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 at 03:44, Andreas Larsson <andreas@gaisler.com> wrote:
->
-> This includes the following changes related to sparc for v7.4:
 
-Send them for 7.5
 
-This is the second week, and the commits are all apparently basically
-just a couple of hours before your pull request.
+On 10/28/2026 9:49 AM, Jim Mattson wrote:
+> On Thu, Aug 27, 2026 at 3:48 PM Zide Chen <zide.chen@intel.com> wrote:
+>>
+>> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>
+>> This is a preparatory step toward fully bitmap-based PMU capability
+>> handling. Later patches switch KVM's view of host PMU capabilities from
+>> counter counts to counter bitmaps.
+>>
+>> Populate and use pmc_exists directly when walking guest-visible PMCs,
+>> instead of relying on pmu->nr_arch_{gp,fixed}_counters as intermediate
+>> state.
+>>
+>> Iterate counters via the newly added pmc_exists based helpers, and
+>> remove the now-redundant nr_arch_{gp,fixed}_counters fields from struct
+>> kvm_pmu.
+>>
+>> Note: {vmx,svm}_recalc_pmu_msr_intercepts() may leave stale intercepts
+>> on GP MSRs after CPUID narrowing. This corner case is resolved by the
+>> following patch: "KVM: x86/pmu: Switch to bitmask-based KVM PMU
+>> capabilities".
+> 
+> Are you saying that you are deliberately breaking bisection?!? Shame on you!
 
-The merge window is for things that were ready before the merge
-window, not for hurried last-minute updates.
+Yeah, I feel bad about this... the other solution could be to
+temporarily use for_each_clear_bit().
 
-               Linus
+-       for ( ; i < kvm_pmu_cap.num_counters_gp; i++) {
++       for_each_clear_bit(i, &gp_mask, kvm_pmu_cap.num_counters_gp) {
+                vmx_set_intercept_for_msr(vcpu, MSR_IA32_PERFCTR0 + i,
+                                          MSR_TYPE_RW, true);
+
+And then remove for_each_clear_bit() in the coming patch when
+kvm_pmu_cap.num_counters_gp is dropped:
+
+-       for_each_clear_bit(i, &gp_mask, kvm_pmu_cap.num_counters_gp) {
+
++       host_only_gp_mask = kvm_host_pmu.cntr_mask64 & ~gp_mask;
++       for_each_set_bit(i, &host_only_gp_mask, INTEL_PMC_MAX_GENERIC) {
+
+>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>> Co-developed-by: Zide Chen <zide.chen@intel.com>
+>> Signed-off-by: Zide Chen <zide.chen@intel.com>
+>> ---
+>> v2:
+>> - Fix AMD legacy PMU MSR intercept handling for guest PMU
+>>   narrowing reconfiguration by adding for_each_clear_bit_from().
+>> - Re-word the stale interception changelog part.
+>> ---
+> [ ... ]
+>> -       for (i = 0; i < pmu->nr_arch_fixed_counters; i++)
+>> +       kvm_for_each_fixed_counter(i, fixed_mask)
+>>                 vmx_set_intercept_for_msr(vcpu, MSR_CORE_PERF_FIXED_CTR0 + i,
+>>                                           MSR_TYPE_RW, intercept);
+>>         for ( ; i < kvm_pmu_cap.num_counters_fixed; i++)
+> 
+> Doesn't this potentially leave stale intercepts on FC MSRs after CPUID
+> narrowing as well?
+
+Yes.
