@@ -1,63 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180003;
-	b=dN3jzlmaBF3u6iMTEJ4ipo1+hQoiqA4qFrNJKnihFZi9WoTbCBmt1CdzLVpRAyH1ijgq
-	 /ZZANDO4gNJDHr2ZcNVx6DBOfZ3p8O+Y0LrLT1lpVhs4uVkAuoocJPiYw2BVIedcbS7lq
-	 Pl3xQIWdaMLmf1KnRccuD7HcpZvUuccTj+God840lnYFAwTs2LP6LHq3DtJW9I0Ir4ga/
-	 SLKqsTlnBIozeAFTALxuRQcL7yUVlDhohINVhnmfOc+X0OyRjY7en4firUv4sodW2Q3a/
-	 YDKqRi0P4v1+SkV27toISwTfsk36eGHPl/8KJDUhV8QhXqlVbQkEFAKxqjTFBCtysaQ==
+	t=1793180049;
+	b=PElRRruJigI5RJhRLEZsKfXrHxiAdLmAFbevzl+qKsvNN+bjpkpaHh2hDWCF1jHn+zhr
+	 su9iVZ25QQbIsACR1DopKzV7xuOpm6RJnisfdW+N1ctn5516u7xa/2rf0KKSJ2aA+4M0T
+	 9Q6qM5j02HpPVqW9Cq1JS3z8FbXBFMt71Nr2reZJYgDA2SJIFj9VHCns2o5oiQyFhVLfY
+	 KPF4OoNksUyDgpLJDZ0VWaoEZhkAFQ8bdO2HDvUi0ngEBg3E+0snAVWJvnzMlOjsq/z1M
+	 VvPzkIhp3+6NXtJWUtWoXHqCCsP3jYVcLK684dxiuoE+tce6k6WniDJIiy4aLj4fjvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180003;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=o48BxfVRKyt8VwocGYiaSs0bwuLsENkNmhgJ5mRhlcg=;
-	b=Prcr4JAf/TImxrnzVoTap/rc9J/iMUiAn84HGVIL4G8feLjVpST95VitwU55ulDILR59
-	 aRK1lI9wmxxmLwajXdj0U1vmujVWd3hcxtXgla5pMNPuQnBcKVBglzS+p8nOvpu1D3vnZ
-	 7jjmb/wo4Von350mlnTbpA/DA9oZxNMzKLUQKb6/PGOMwpnfb6HgETqoBNXcqIri90d9U
-	 xFGpsz43TOOXc89060By3s9s/Qd9seaFduZawhfSdtTmhQ6uJ5NjVvm4/caalZX4VWoSn
-	 hSUnWF8Ln4UJ24qUdzTq23+JJ9lPk+X7f9XSCEG6037gCWx9NXqu3XVGsHbnvU13ffw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180049;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:X-Scanned-By;
+	bh=ztpW1cmZTFL1klozjEQr8xShJIFgMfyy2BPuyAgjvas=;
+	b=tx5iBrC1ZraDG2r8PgBVL/dwHL8uAK2238weAVYqij7Y5ijGCnQfG9zy8BtN/nOwwhh+
+	 adgKxoNIeojlAyWnlku3bW50vmRTxispjl1KzngaiI1BXnIU1Csf/EbRbeuiw2U2vfp9n
+	 gEory4cmwg4GopB+K03pz8rMK0ibMtrbCxEl9e/mUa+FarrpBcD/V7dC6GdxdwJV1jR2Y
+	 vrJfkEWD/7DWedopnEBFF3IEk8wUk6GxekHAZhtH0qkAVOPcpQvObgxXSCSqhI+4vYp+E
+	 qzhjrM8aJ8GV5Pwcqyz3Z6O/fI5JA9KQ2I+4RIDdlSZ1XnVjJ4RTGS8SIzbj/katDow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b="QkmyU/vW";
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=igvqqN3e;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D936606A31C;
-	Wed, 28 Oct 2026 09:33:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D936606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C53606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:34:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C53606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QkmyU/vW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=o48BxfVRKyt8VwocGYiaSs0bwuLsENkNmhgJ5mRhlcg=; b=QkmyU/vWjCV60OWMBHN+43GJJq
-	T4cc9x79JCeL0TxvbjYQLZDzlgWaXu0VkmyYLUC0rHzkt8uUodCM7RIp/5o3yJ67y85h+vzpg7QwW
-	CxJtc6ubM4zs/ipN1Y+DX2uN7Zg6l1dIttfQM13IGlVU6Sl6EskwqqqoPBPDqC/5wQrzy5PTWlF0q
-	LogsmiaYO+FATLPXZ2bbYc/asQHc5cRQP79PQB0es9kDhkrAWZC/f3nsd4B49bO4yVIdTgQSRWAR0
-	A5YHqyOosp2BQQmpahoxT2JgkOFV8aVZ9qmPKKGQ+wJauWTgN9K/MFe79vAM27v+dCGzA1Y8QEl4Q
-	AePlXYSg==;
-Received: from [188.250.79.109] (helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xM020-00CisY-IC; Wed, 28 Oct 2026 10:33:16 +0100
-From: Luis Henriques <luis@igalia.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,  Amir Goldstein
- <amir73il@gmail.com>,  Shuah Khan <shuah@kernel.org>,
-  fuse-devel@lists.linux.dev,  linux-fsdevel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  linux-kernel@vger.kernel.org,  kernel
- test robot <lkp@intel.com>
-Subject: Re: [PATCH] selftests/fuse: add the missing symlink caching test
-In-Reply-To: <20261026194008.274349-1-sashal@kernel.org>
-References: <20261026194008.274349-1-sashal@kernel.org>
-Date: Wed, 28 Oct 2026 09:34:44 +0000
-Message-ID: <87zevyi2x7.fsf@igalia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=igvqqN3e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793180048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ztpW1cmZTFL1klozjEQr8xShJIFgMfyy2BPuyAgjvas=;
+	b=igvqqN3eSZ3D4XK/rCJEGxzj5hEbmHt00ipnAmTpcBO+AIhOZdNLkJ1P3EGOIs37Yo9/OA
+	CkU80C2W77p8bxWp3byTD3qavPLZp2bG2CrnnNdBF9rMFj/DaHXdm4nemth31y6xbnxeMc
+	OiEnEtYpjegwt1bJEsFVRzyK1W8BRK8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-426-CWwJ6owFN8Sit4txzsSoKA-1; Wed,
+ 28 Oct 2026 05:34:04 -0400
+X-MC-Unique: CWwJ6owFN8Sit4txzsSoKA-1
+X-Mimecast-MFC-AGG-ID: CWwJ6owFN8Sit4txzsSoKA_1793180043
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1DAA618011E2;
+	Wed, 28 Oct 2026 09:34:03 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DB72F1955F10;
+	Wed, 28 Oct 2026 09:34:00 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v5 0/4] Add automotive SMEM hardening for Qualcomm
+ platforms
+Date: Wed, 28 Oct 2026 10:33:47 +0100
+Message-Id: <20261028-port-smem-v5-0-121257d490b5@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,230 +73,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTW7DIBCG4atErEvEDGBDVr1HlQU/Q83CcQSW1
+ Sry3YOjqnGU5TfiebmxSiVTZafDjRVacs3TpQ39cWBhcJdv4jm2zVBgJwxYfp3KzOtII+81mND
+ 3wSrQrL2/Fkr559H6Orc95DpP5feRXmC7/lVQ7CoLcMEjWKd00kb69FkoDm4+hmlkW2bBJ7VC7
+ Sk26r2yfYwyKOPfqNxRfKGy0eQDkjPgOq3eqPqnIBD3VG2/Cu+StKEjAS90Xdc7a38clFQBAAA
+ =
+X-Change-ID: 20260819-port-smem-7518c77c9415
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Sarannya S <sarannya.s@oss.qualcomm.com>, 
+ Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>, 
+ Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Tony Truong <tony.truong@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793180040; l=3273;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=TtU6LeTmkDOOxYSSpvNYDWqW0i5o2/+GBz6R80HU5xk=;
+ b=ZEFitHo8aBJuL7TbYJDdmQzn+OmogejzL3Qwhulq72Ve6yWhgSVE2h6WNoMhSOk9C9UYPZTN9
+ qO+tqyXEXhoDUeQ6RDdyA54T2lh8R+U1/zVTVBorJ6mf52YM5Ps7Bnc
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Oct 26 2026, Sasha Levin wrote:
+The Qualcomm SMEM driver manages shared memory partitions used for
+inter-processor communication on Qualcomm SoCs, including the
+automotive SA8775P platform. Vendor trees carry additional validation
+and partition-enumeration logic that is not yet present in master.
 
-> Commit 3e14f079d7a0 ("selftests/fuse: add fuse symlink caching test")
-> registered fuse_symlink_cache_test in the fuse selftest Makefile and
-> .gitignore, but the test source was not part of the applied commit, so
-> building the fuse selftests fails:
->
->   make[1]: *** No rule to make target 'fuse_symlink_cache_test.c', needed=
- by '.../fuse_symlink_cache_test'.
->
-> Add fuse_symlink_cache_test.c as posted in Luis Henriques's v5
-> submission. The test serves a file and a symlink to it from a libfuse
-> low-level filesystem, resolves the symlink 100 times, and counts the
-> readlink requests that reach the server: one when FUSE_CAP_CACHE_SYMLINKS
-> is set during FUSE_INIT, and all 100 when it is not.
->
-> Fixes: 3e14f079d7a0 ("selftests/fuse: add fuse symlink caching test")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202610170822.oEJ1Autq-lkp@intel.com/
-> Link: https://lore.kernel.org/r/20261001164916.15311-8-luis@igalia.com
-> Originally-by: Luis Henriques <luis@igalia.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> As with e64a46aefc01 ("selftests/fuse: add the missing FUSE_HAS_SYNCFS
-> privilege test"), the new file in the posted patch is not in the applied
-> commit; the other files did land.
+Patch 1 adds IN_PARTITION_RANGE() for pointer+size checks against a region.
 
-Oh, wow!  I wonder how that happen.  Anyway, thanks for noticing that and
-for fixing it, Sasha.  If it makes any sense (I wrote the test! :-) ) feel
-free to add my
+Patch 2 adds bounds checks when walking private uncached and cached
+entry lists.
 
-Reviewed-by: Luis Henriques <luis@igalia.com>
+Patch 3 validates item payload size and pointer once a matching entry is
+found.
 
-Cheers,
---=20
-Lu=C3=ADs
+Patch 4 skips multi-remote-host partitions during enumeration. SMEM
+now supports partitions involving more than one remote host, but the
+driver does not implement that case yet.
 
+The first three patches split the original vendor boundary-check change
+so each class of condition can be reviewed on its own. All four are
+based on public vendor patches from Qualcomm [1][2]. Adapted for
+master. In particular:
 
->  .../fuse/fuse_symlink_cache_test.c            | 162 ++++++++++++++++++
->  1 file changed, 162 insertions(+)
->  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_symlink=
-_cache_test.c
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_=
-test.c b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-> new file mode 100644
-> index 0000000000000..7b53734995736
-> --- /dev/null
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-> @@ -0,0 +1,162 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Simple filesystem to test FUSE symlink cache
-> + *
-> + * This is a simple FUSE filesystem that contains two objects: a file na=
-med
-> + * 'file' and a symlink to that file named 'link'.  If symlink caching is
-> + * disabled (i.e. FUSE_CAP_CACHE_SYMLINKS is reset during FUSE_INIT), wh=
-enever
-> + * the ->readlink() is executed to resolve 'link' a counter will be incr=
-emented.
-> + *
-> + * If symlink caching is enabled (i.e. FUSE_CAP_CACHE_SYMLINKS is set du=
-ring
-> + * FUSE_INIT), resolving a symlink will only call into user-space the fi=
-rst
-> + * time.
-> + */
-> +
-> +#define FUSE_USE_VERSION 31
-> +
-> +#include <stdio.h>
-> +#include <fuse_lowlevel.h>
-> +
-> +#include "kselftest_harness.h"
-> +
-> +#include "fuse_common.h"
-> +
-> +#define FILENAME "file"
-> +#define FILE_INO 42
-> +
-> +#define LINKNAME "link"
-> +#define LINK_INO 43
-> +
-> +#define TIMEOUT	86400.0f
-> +
-> +struct test_state {
-> +	pthread_mutex_t lock;
-> +	int readlink_counter;
-> +	bool cache;
-> +} test_state =3D {
-> +	.lock =3D PTHREAD_MUTEX_INITIALIZER,
-> +};
-> +
-> +static void fs_init(void *userdata, struct fuse_conn_info *conn)
-> +{
-> +	pthread_mutex_lock(&test_state.lock);
-> +	if (test_state.cache)
-> +		fuse_set_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-> +	else
-> +		fuse_unset_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-> +	pthread_mutex_unlock(&test_state.lock);
-> +}
-> +
-> +static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *nam=
-e)
-> +{
-> +	struct fuse_entry_param e =3D {};
-> +
-> +	if (parent !=3D FUSE_ROOT_ID ||
-> +	    (strcmp(name, FILENAME) !=3D 0 && strcmp(name, LINKNAME) !=3D 0)) {
-> +		fuse_reply_err(req, ENOENT);
-> +		return;
-> +	}
-> +
-> +	if (!strcmp(name, FILENAME)) {
-> +		e.ino =3D FILE_INO;
-> +		e.attr.st_mode =3D S_IFREG | 0444;
-> +		e.attr.st_nlink =3D 2;
-> +	} else if (!strcmp(name, LINKNAME)) {
-> +		e.ino =3D LINK_INO;
-> +		e.attr.st_mode =3D S_IFLNK | 0444;
-> +		e.attr.st_nlink =3D 1;
-> +		e.attr.st_size =3D strlen(FILENAME);
-> +	}
-> +	e.attr_timeout =3D TIMEOUT;
-> +	e.entry_timeout =3D TIMEOUT;
-> +
-> +	fuse_reply_entry(req, &e);
-> +}
-> +
-> +static void fs_readlink(fuse_req_t req, fuse_ino_t ino)
-> +{
-> +	char buf[PATH_MAX];
-> +	size_t sz =3D strlen(FILENAME);
-> +
-> +	if (ino !=3D LINK_INO) {
-> +		fuse_reply_err(req, ENOENT);
-> +		return;
-> +	}
-> +
-> +	memcpy(buf, FILENAME, sz);
-> +	buf[sz] =3D '\0';
-> +	pthread_mutex_lock(&test_state.lock);
-> +	test_state.readlink_counter++;
-> +	pthread_mutex_unlock(&test_state.lock);
-> +
-> +	fuse_reply_readlink(req, buf);
-> +}
-> +
-> +static const struct fuse_lowlevel_ops fs_ops =3D {
-> +	.init           =3D fs_init,
-> +	.lookup		=3D fs_lookup,
-> +	.readlink	=3D fs_readlink,
-> +};
-> +
-> +FIXTURE(symlink_cache)
-> +{
-> +	struct fuse_common_ctx ctx;
-> +};
-> +FIXTURE_VARIANT(symlink_cache)
-> +{
-> +	const bool cache;
-> +};
-> +FIXTURE_VARIANT_ADD(symlink_cache, symlinks_nocache)
-> +{
-> +	/* Variant with symlink cache disabled */
-> +	.cache =3D false,
-> +};
-> +FIXTURE_VARIANT_ADD(symlink_cache, symlinks_cache)
-> +{
-> +	/* Variant with symlink cache enabled */
-> +	.cache =3D true,
-> +};
-> +
-> +FIXTURE_SETUP(symlink_cache)
-> +{
-> +	char err[MAX_ERR_MSG];
-> +
-> +	pthread_mutex_lock(&test_state.lock);
-> +	test_state.readlink_counter =3D 0;
-> +	test_state.cache =3D variant->cache;
-> +	pthread_mutex_unlock(&test_state.lock);
-> +
-> +	if (fs_setup(&fs_ops, &self->ctx, err))
-> +		SKIP(return, err);
-> +}
-> +
-> +FIXTURE_TEARDOWN(symlink_cache)
-> +{
-> +	fs_teardown(&self->ctx);
-> +}
-> +
-> +TEST_F(symlink_cache, test_symlink_cache)
-> +{
-> +	char pathname[PATH_MAX];
-> +	char buf[PATH_MAX];
-> +	ssize_t sz;
-> +	int counter;
-> +	int i;
-> +
-> +	sprintf(pathname, "%s/%s", self->ctx.mountpoint, LINKNAME);
-> +	for (i =3D 0; i < 100; i++) {
-> +		sz =3D readlink(pathname, buf, PATH_MAX);
-> +		ASSERT_NE(sz, -1);
-> +	}
-> +	pthread_mutex_lock(&test_state.lock);
-> +	counter =3D test_state.readlink_counter;
-> +	pthread_mutex_unlock(&test_state.lock);
-> +
-> +	if (variant->cache) {
-> +		ASSERT_EQ(counter, 1);
-> +	} else {
-> +		ASSERT_EQ(counter, 100);
-> +	}
-> +}
-> +
-> +TEST_HARNESS_MAIN
->
-> base-commit: 9b1da7b4a4e197072e630c3b85d4100a399752ff
-> --=20
-> 2.53.0
->
+ - Dropped the xarray partition rework, which is already present in
+   master (79602b750b96c, "soc: qcom: smem: Switch partitions to
+   xarray")
+
+Built on master (Linux 7.3-rc7), and tested on Qualcomm SA8775P Ride V3
+board. SMEM platform device binds successfully, socinfo reads (soc_id,
+revision) return valid values. No WARN or canary errors observed.
+
+[1] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/3e521f2641c8f01f00fd74a088206942ce23d6d4
+[2] https://git.codelinaro.org/clo/la/kernel/qcom/-/commit/842dd28b0276b3824a607e067b3c20e266bcf230
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v5:
+- Re-added WARN_ON() macros for bad padding_data checks
+- Update end of loop check to `hdr != end`
+- Link to v4: https://lore.kernel.org/r/20261022-port-smem-v4-0-b0baf39c6e01@redhat.com
+
+Changes in v4:
+- Updated email addresses in SoB and authorship
+- Updated IN_PARTITION_RANGE definition to use uintptr_t
+- Changed while loop conditions  to `<= end` to avoid
+  rejecting headers at the boundary
+- Fixed post-loop sanity check to use cached_end instead of phdr
+- Rebased to v7.3-rc7
+- Link to v3: https://lore.kernel.org/r/20260924-port-smem-v3-0-fbc2ea81a654@redhat.com
+
+Changes in v3:
+- Rebased to v7.3-rc4
+- Split the overflow/boundary patch into helper, list-walk, and payload
+  validation patches
+- Fixed qcom_smem_get_private() while loop condition
+- Fixed indentations
+- Link to v2: https://lore.kernel.org/r/20260904-port-smem-v2-0-bb497dd3c48b@redhat.com
+
+Changes in v2:
+- Update patch 1 authorship to Sarannya
+- Update all emails from @quicinc.com to @oss.qualcomm.com
+- Make smem.c copyright yearless
+- Link to v1: https://lore.kernel.org/r/20260820-port-smem-v1-0-d19a45f583bf@redhat.com
+
+---
+Sarannya S (3):
+      soc: qcom: smem: add IN_PARTITION_RANGE helper
+      soc: qcom: smem: validate private entry list walks
+      soc: qcom: smem: validate private item payloads
+
+Tony Truong (1):
+      soc: qcom: smem: ignore multi remote host partitions
+
+ drivers/soc/qcom/smem.c | 105 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 75 insertions(+), 30 deletions(-)
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20260819-port-smem-7518c77c9415
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
 
