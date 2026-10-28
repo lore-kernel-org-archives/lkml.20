@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189822;
-	b=MTbJvT8DTwEpfLyYb9hAHy5Ax89h4+I3p33fol27NoqjbNIrj+0aob/5acwLlaA+oFiN
-	 K9S50ozBOxWEAADYBZn4kQkDzOO+fQooPaTW3/+4E817JGKeBVsYZwFtcGbAz3O4jZBiw
-	 zBjbw7xfP62FbiDYnJUXJSySE5ySvPlkzihRzyjCm8QzkMpYYq/mCrkPZzp9zAHop2jhX
-	 2z4BGaETs5LyybFeTwArNGqnaW2gVLAKqHKuhyQsS2fWKv72kTB/JMPUbzpHtp/Cz7tN4
-	 nORNbB+dBEbjLYY28dJVa5AGtfeZ1j4WPXVAUphr8lt7/FFq2h3wC0iELPWQMOncJCg==
+	t=1793189874;
+	b=WEhkFWPLZXISgitMtGi3MuXPFLGdBgGgSEPvZbriPX/f0WOfd0jWVk4idCHozDrXzQMI
+	 b9lDmV+IKm09VymrYt5bcQlMPqdLRBnEW5qLOFDYaLDsHHLI4ZL8JyFCpUpvYZmHAEfFR
+	 0WIzE90rwYddUKXYrabaGnVNwrxDr/S68KRJkcZGbl+Wsd8irVPjDgBqz6DteDQ3E0PZ+
+	 EGtap0x1IhVGrL5z0y4FVGw3kwYsKRMN6kDxhxWq3WFwRNXfe4g7Y2fB7fLeJ3053TOlu
+	 zrr914S2paMR6Kz0CY5aINHm/oproEzvSuXd2cv6kkmfzPs0UIFyrM3LBtJomUSFxtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189822;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189874;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IKJCawaanHPArR6nrUE3ABcio2rMapdl7Iao2B9hHno=;
-	b=OQE0FdnscsfWMnRGHEL/Nm2bea3FlLot5EXe0eWmtDgVdF32nrVq9jrkIqqNVMDMT4nl
-	 3aw3FvITzPINNgnIAtFwoUTgTbHUnTS71MjLCIBd0GVv95MnaRIWymaCmNd/YsoKIIsRg
-	 AUS5rhR/tKfw2C8RQ2FZctTZcFUVz5plqJOr0SPaimnkoZyNqvJmCXe2QwMuWJ1qNU3u+
-	 79Vi8hzb/ksBVoZRLrcidfHnrwk1ddKuzBAFhB9hpXoyug9Dtv+pA8M/anqlugtrPsyIg
-	 kU/vHfjkPp0Y50/3sli75Wwm7yhhZjIo5LASK+1i+Al9oBiJkAziV1VeF1UwxicPr2w==
+	bh=R9mbGdHGMwpMhNox9aTC4SWc+oNvjA2nA08LY5OnD6w=;
+	b=tJuZh/4kd8bdNN7xwQmJisBGU2j86VMljxMNFpYTopKAB5/jBRmK+Vt5ySO9C++dGMp0
+	 cZnEL+CIpXhUD78ovHsyFieN3LQzYWoXHuY1Tie14u9ycYaPev6Fqv8TL3clBx+tWRg17
+	 gC5Tged4fd4wLPESdnSuCXq3NRLu8xGyRVbbZFu0XE4+VPQHCHmHMthyUflFHCs28Ot9e
+	 l2fyzlLCaAK0uQHgfXetpJZ94QgP8t/W4EywIfXAQXQaX/v+CUvL3fcFXiE1VTVKAFDbp
+	 toM4RNQlRJ3m9VxFgiJuT49LCjAb0eQxXXGys3Ile/YvpJQxm1GxneYXRhZ9CowcjiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dVo/cSaB";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvBJUt6O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA41606A31A;
-	Wed, 28 Oct 2026 12:17:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1EB606A31A;
+	Wed, 28 Oct 2026 12:17:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVo/cSaB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501B81F01825;
-	Wed, 28 Oct 2026 12:17:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvBJUt6O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2911C1F01825;
+	Wed, 28 Oct 2026 12:17:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189822;
-	bh=IKJCawaanHPArR6nrUE3ABcio2rMapdl7Iao2B9hHno=;
+	s=k20260515; t=1793189873;
+	bh=R9mbGdHGMwpMhNox9aTC4SWc+oNvjA2nA08LY5OnD6w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dVo/cSaB7BR1XTlwi6R3QlXwaRstCf4f2PlNH46HrNt3bebFHA6zFLEQmg36epUKf
-	 w0mX8qk0K2/Ubbwwwvk4/2A7rGJsuQZQXvkeWffJfaXnw1dEHYAn1mDH/sbg/1M9wW
-	 VG3iPODEEqIIlMl5lQBTl/XytGM2+k7hQui2vACtf1628fVqxkahD1pQncOxT08Vfc
-	 yVvl156IB4NfuwfChtvvorGSMvLUxS0hWWGlYl/zquOGSNJnKvlQf/pa5+UUrnD6ND
-	 H6jdilKsAySxLoWNCfp7Q9rp50riGvDNrIudqplpioW8x9ppj/zo+ihR2Ex6OElZBU
-	 GRPEp50pG7AJA==
-Date: Wed, 28 Oct 2026 13:16:58 +0100
+	b=nvBJUt6O5IFk0J8V4iw8AObcENqckNNYFnp3oxP2hTqyhJ6hD35Mx95tSlWe/dUDe
+	 ekWZKsXwGWDRjPSfKEz4s+TFqlwCUj+LrxuV63Dol8FmZTNwaxyCVIZ8x7zma1AFa6
+	 TT8jxbKRwFRksLAdgOTft6xbeB291wWqjaxfebrT4zyDwmhtycfJS3sZxhJ1vPhVQM
+	 IzadHdVQY9kNYAX60WLes52uD0YFmPFHiqvzYpf+oddolx+BbHNutKCyKXvqTPTNZe
+	 QpN6GASqk1ERgxEVwhzBuuynhpcb9/DIy92v4GBmYhwck3rIwiYl8ZvoK1xZdCm2mP
+	 ovYcknAuMzPtA==
+Date: Wed, 28 Oct 2026 13:17:50 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
-	Imran Shaik <quic_imrashai@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: clock: qcom: Add SM7250 graphics
- clock controller
-Message-ID: <20261028-spotted-outgoing-nautilus-e133be@quoll>
-References: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
- <20261027-gpucc-sm7250-v2-1-773056e4043e@brar.si>
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: Document Microsoft
+ Surface Laptop 8th Edition
+Message-ID: <20261028-busy-alligator-from-saturn-8b96c5@quoll>
+References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
+ <20261027-mahua-surface-laptop-v2-1-7dd903a12d22@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +64,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027-gpucc-sm7250-v2-1-773056e4043e@brar.si>
+In-Reply-To: <20261027-mahua-surface-laptop-v2-1-7dd903a12d22@oss.qualcomm.com>
 
-On Tue, Oct 27, 2026 at 10:05:01AM +0530, Ishu Brar wrote:
-> Add the compatible for the graphics clock controller (GPU_CC) of the
-> Qualcomm SM7250 SoC (Snapdragon 765/765G/768G), and the header with its
-> clock, reset and GDSC indices. The clock inputs are the same as on
-> SM8250, so the existing clock and clock-names constraints apply unchanged.
+On Tue, Oct 27, 2026 at 12:33:33AM -0700, Gopikrishna Garmidi wrote:
+> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
 > 
-> Signed-off-by: Ishu Brar <patches@brar.si>
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/clock/qcom,gpucc.yaml      |  2 ++
->  include/dt-bindings/clock/qcom,sm7250-gpucc.h      | 36 ++++++++++++++++++++++
->  2 files changed, 38 insertions(+)
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
