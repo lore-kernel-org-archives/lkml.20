@@ -1,100 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.138
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793178282;
-	b=GIioZip2LYJb4hvHmRlmZMSROhGi54QOKVoriOJ1EQxRhRvYEsexMfAxZJR5KoQbyHA9
-	 0CeBuwPs3PvSeNPctwjYcQtrR34EUcMp6t4nAmD/O+qtobp5VD58vpGEjZ+aN2unqr/qq
-	 4QJPBFeEWozg+4uFn/qm+7m6yTSSYW5fZ9SrtFWewOWO+i+2ClVKYmqIidZwLtTb6N6z+
-	 DpBwF9Bo3d6ShNDYEwVIQ6rRfKcQIJ+itM/tf0wrGqEBpdjFen1C4GcpnA4Ls7aBJvsAX
-	 UZ4SF4MH/MoNuyBHB16Ro0tMrXhmyAHyOaT9+vxr/emHTjh+E6sQv6PUbAp5G5Vs1wQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7baAZch0AV2ZQpsltJrgKMT5HFebbDsF2TyQttQo+4Q=;
-	b=ZIhJpgFPqSQYzjVSDYpeY+hqS6Nrng7ZXzJ6Syrp/M5PWPyFsLk+C0UGNqZwSknEZx0c
-	 Df0T5hTIelFQ8O/00g3WYGUCxnAYaKPHraVuS6PgzvjRGS2iE/I/qlnU846cJ9pluHHYI
-	 JXGWvN7ubWW2Vx9E/6+2yZUOmdJ3w/l/yVf9iCt5k7nLCVZUQywAFNRDfU1nbomp3DTJm
-	 lfqjRQdO7fxWQdmJAcvwjdGbRVav2OHcwyReqfDiRpaf6mXIdgTGJLd0Mx0p21pTpX8EX
-	 A830qimoa1e9qMci2hAn+muyXb0RDculE30FfOnOK/1K5QAAzHifJVyE7lQmcHW/FGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PeHJH9Hz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.138
-Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793178307;
+	b=1l+PY+HnYruBP8Qi1K28qUVyJ/NsraLH57FSAo7D2yXsSSmJvIghhwpe7EEye4zke9UF
+	 +8gcTnR9T60bCFa33k54NNmNg/L/HJmfuAf5q0RhHQTroI2QkZJniFpx6LIrrRUGWy1dV
+	 3zc+vVAF+7OLCj75V+uRW/HoLJ8RSBT9ay356Y8US2LQbvtsbI3JgM1bJMhRPLb8l5UfU
+	 YnLcGkF99aX5+CJMpvIHxad1AYPg8/9BTlEDigub1Se5DQwpTF2tBKvPXRJ9ei/RgA5+k
+	 4r4+fNnocAP4dzWu3h8iSvXlknTe8kMYaJ52c9X9lpxD2Lc4wYTmCw6elEwXSZ33WgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178307;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=XyXsofPcTo8FGzTY7aQGuAdJeI1I13ZBmLS61ks9e04=;
+	b=KBG9mNzSEFV4hgnkNwLGFD5pHxzf7U/Bk3RCPx+Mu3ozskDj6R6W99VRHBHOL8xoNmC4
+	 /rofhm0x7nORjSPiB3iDDxPeKoeDDCIegWu+J/etDzNN3k0KTDCaiDmCgAZzuySG7cTLq
+	 YOrnnW4xOOgr1VW2w0kplzyCjy7OlX+t6Vuhu8BzbxbrUCcnJ6G2/t6AV9hAYhiKk3rUl
+	 Gv/O9vFShJf55Sj7Bvk3FwNZ3zw/Y8uUlI9heTJGDym9SiG26nEqjVagcWW2Rj0TRK3RR
+	 sKRl67SzjR0l87wOERmskgSsaFLlOMgghObI11C9+jUs0r7CnYm7u/nAm9Imq5iihyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CvpDM1XK;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CCC606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:04:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1CCC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B893606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B893606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PeHJH9Hz
-Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-67a5448ee75so109555d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:04:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793178281; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ISPquQvwzrIFSaPEVtg99uxCeUkWIaOR87vtuezxchaOeAT92eMc4De5XQsSk6jydO
-         AjESp5whFi6QoT/2bmUfNVTndOaGwMOEOJvJx4UuFYzy1Har9tCIfkpg/nVNxYItJkp1
-         RS5NgNGd57psuqmOglUXqKbskCcrvorOa466eBrzKvOJjhzR7SQCovByXx0vhgfZipUG
-         mw//PvTfBwbu4wDxQqMUcwqxXg9LYCEk7x78gH/ZGvY5BOJwbcq9XuM4NQfuWnIKL7Z9
-         7yJHA3vvIsTIoZEMKfUykggym9ic+Ytie1hhm8ZTwqGJ8RWma1xKMXi4NWzZjrt25t6Y
-         Z+YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7baAZch0AV2ZQpsltJrgKMT5HFebbDsF2TyQttQo+4Q=;
-        fh=0kF7rFS1/CV/Hyfj4zaL6JALAzn26VcSb005VreqNJk=;
-        b=NUqhGLVO4CG8CmKaHbDhYHWSt32deZY7IiDVHuiaOTSlUwB9jS7UPnDqXOuErD6I6t
-         QUNXmiWzzyFuhiQ6mU61pgg0b9XqQymt5AzQcBltH9SBO+5h6QzrBesKu039kjAwP2QH
-         SztqiPwEssBX/J96HAlRRH21lDtgEDkv6QxxUaP3nq2uAcZmqNETLGF6ou9XOZtOKU9X
-         3M3ymSOYTn2ifOEVkbZClK8cmafU6wba/oCmcThjvG/rmj7LzlUW3dq29xp8RoD5w4M3
-         4bbiOyy4z6ulEK4LwHFN2+lsSK2lq0AtYrkILpT6GnDSkHKa6Il5kIRyfU+5EezRrqT4
-         kBmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793178281; x=1793783081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7baAZch0AV2ZQpsltJrgKMT5HFebbDsF2TyQttQo+4Q=;
-        b=PeHJH9HzitfqkHwUIHziH4oDgPV1ijSyhYS2wKuypkLLe+lOu9OQCg4T2KXrMxSJZj
-         ykW+O7RylgBeVYNscJ5iqZJ48jlNNNhh5Rbuz9fAsvvS0TIV0EW0QjcgjuNyhmWVvJw4
-         FjPxtpF0pBkjnucpcDHDuSPGnO+Hy27FrzDtYFdzJWI28spm2h6kWo9IHKSe3LsuX/uz
-         tuRLgGxD1DQX32ulW41HqIyNhcxn4mGnXUXwccr2adZ0vUr5t1zF1mVyAX4A3Ak5NcZ8
-         h8K8FiQqeJ7ujG2qQANX6pRLM2r8U8qFiPxlpeHb7eK0xlk0lqtC+O7j/RAjDQWTKkar
-         qfcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793178281; x=1793783081;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7baAZch0AV2ZQpsltJrgKMT5HFebbDsF2TyQttQo+4Q=;
-        b=2xgUC9uXJEP5xrko1z3MWZd37Ynp5DHDMPT40nKpjPS04uGWfHPODQnCAq0cg0hu1K
-         c1pOZ/hNYJu2JYSTj44DsoF8hA7mMG0ZTurK8BTZebmxsjoYhplICB4BmrLR/vx9pB7v
-         hYMiq9L3mg5d7IqYvwGDSs0iZrWMyhjkO8NaY499A5kMXgzKHxnVWI39VGopPIRWHyZJ
-         qMyNibRuMPJojld+UGCfcW/TkCceKH0k0wARrJl00Sy2ZBbUAQa+nCBwfsVEkADzxKgd
-         tY/5HhDqwNpqsHzwr5V+K69ovtbKb7w6YTJnKF/YMBYnLNfzqsE4TPZuNEG6dcgSlpll
-         j2mA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcbYxKbFGn3Y/BHakWcdx/+u4S+5xYCL0sYJdTG6fy40R26E4IjljIlwS5cBS1W2k3piCUSzlYSDYIn4M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLytVnaNn/mdBKvmoCaTcjZR6Q6IFl979vuJkPHkh+aWbXxUbOk
-	8arBfd4J7kHzPuN5SKG+xDy5u7h2Oof1ldjD8pQldIZuZSPkON1noHxQeHKDL37Jwvw5jENonfq
-	wRE7bKZfdHt6jSxOBWXbvFpIH7pT4Ojc=
-X-Gm-Gg: AYBFou3ZM7eHl+ZcCOm3Zr9w2OxpM/Q69JHIiMmsCxuyh1MVmiF44UT1Y0/tzkfcGcK
-	1czSjxmvXJV4/gCtC1IBqgHpZvBlRnbp/K/MMKCVcsYYfsJnrw1CTMXyAVqPCSv6D5Pd/QJqIJC
-	HyTX2ydfC7dufYMS7GxaBEjZj5SMgd3+1PVACqTHBaCbAZnWe1wskJjd+tL7rC2OyuQzGASrDYV
-	bFlTIXjOR0sw+bf2VNxhmm9EPcpMd6wvYsl/1bcB1rUeRCDtp8rtQ+eLQPLwyshCI5l1y5VbGld
-	aP0ltJ+J+x1igNA1VtndtgP0rLKrpo6iXXIaK0z4uzC2Z3Om6DayzJaEg2uX3xzJRV17jTkFRHk
-	X8fZenMigp228kjvEVG5sXXTOryEwzxVmkQOJddywU4F90H/KDsk+KlPqLQ==
-X-Received: by 2002:a05:690e:1699:b0:679:bd09:f46 with SMTP id
- 956f58d0204a3-67a813f79cbmr815916d50.6.1793178280698; Wed, 28 Oct 2026
- 02:04:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CvpDM1XK
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8i9UR710586;
+	Wed, 28 Oct 2026 09:04:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=XyXsof
+	PcTo8FGzTY7aQGuAdJeI1I13ZBmLS61ks9e04=; b=CvpDM1XKid0MSPAtaIw8OA
+	dsjL5A1rsNknjI8glZk3DVPOVjqUrbnM8CTX2T4AuvubjZ+SUD1DBTpjh1ySwgFt
+	lR0PBvjVrimV28l8eXQKZ+zU9AoCaR95DtuWWvFF6uP3ZmUqZBojzipieFlWNQYu
+	3Gw7Hm5GBnMWfaXjz3VOdZgDSIdECKjUk2fK+XUdtgdnxk9G9YVqr8fEDDl5TPZ0
+	LZwy7efzYmUJikvxRDOeBEnknTqm+ZKGeR/IPIgwFlCrchGsuwvh4GPb2m8KOfOA
+	e3Tcjr7nOYXVEx5Dx7dp9fDCh5JBU3SiBM5IBBQTdrUYGGZkCxegr1IF6BEBuJCw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgj3mbyfy-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 09:04:55 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8JsIj1274903;
+	Wed, 28 Oct 2026 09:04:54 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7vgx6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 09:04:54 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69S94rEC50790752
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 09:04:53 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0B62F2004F;
+	Wed, 28 Oct 2026 09:04:53 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C15D22004B;
+	Wed, 28 Oct 2026 09:04:50 +0000 (GMT)
+Received: from [9.39.19.193] (unknown [9.39.19.193])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 09:04:50 +0000 (GMT)
+Message-ID: <3cddf9d4-6ce8-4633-97f4-17eb70136db5@linux.ibm.com>
+Date: Wed, 28 Oct 2026 14:34:49 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,53 +85,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018081203.2431035-1-l1za0.sec@gmail.com> <20261018183707.23dba84df0a235e36de1620d@linux-foundation.org>
-In-Reply-To: <20261018183707.23dba84df0a235e36de1620d@linux-foundation.org>
-From: Li Zao <l1za0.sec@gmail.com>
-Date: Wed, 28 Oct 2026 17:04:23 +0800
-X-Gm-Features: AclHuK92W6eCjxLVFBVIgwy3cZtZtdZpLsiCnKY2XBI3u7Tc-5IEfkiWO_P6Glk
-Message-ID: <CAAwbnpdgKj5hEky8ZRcPOzJurj6W_rf4X4nEkMsfCU2CfXJj0g@mail.gmail.com>
-Subject: Re: [BUG] KASAN: slab-out-of-bounds Read in copy_folio_from_iter_atomic
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: viro@zeniv.linux.org.uk, linux-block@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, Tal Zussman <tz2294@columbia.edu>, Daehyeon Ko <4ncienth@gmail.com>, 
-	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] virt: steal_governor: store only the sampling delay
+To: Yury Norov <ynorov@nvidia.com>, Peter Zijlstra <peterz@infradead.org>,
+        Yury Norov <yury.norov@gmail.com>, linux-kernel@vger.kernel.org
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>
+References: <20261026171252.3860162-1-ynorov@nvidia.com>
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20261026171252.3860162-1-ynorov@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAzNCBTYWx0ZWRfX0RyBlccCftWU
+ rxSp060pGnOjVlBoeNYO2Dpx70lu8GyG0RJWWHk8GS3pAOgG67aJUlaCK5LSpRVll+QEIest2v7
+ 2k3uWmji2AkD7G+BA26hQHR5LDIKckA=
+X-Proofpoint-ORIG-GUID: B5bW1RDvggsx7WZRvy2_FEOq66pdOrZU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAzNCBTYWx0ZWRfX4gNiiJdPDfdm
+ uerqwTznPfBwFVa9HG98rnc880Rr1UMLRAml5h9NNI9YWiCcLUDaLOtQlSul+rBFPzepwiKO0OH
+ J0pM3L1A2AqPVrMYgNXGvUNFQuFKs4GhRAmaiSg3dmb29nWAF9Y9k/SGtwCpR168iVoD65oRjAo
+ OF9LURvACuiJvSQr8c0J2d6uiqPaukJq13KHHEgImmbJKzjmtUE1xl8rvQN156puK/N3D+Yy3lv
+ +qofpp3IQjaAESHrXLDrklT8ffKPUIHWN5dElTUOnd7zY9idjYS3+1QiuQEkezqU8MLb+T0J2w2
+ myUMFi5xN+iBSHA9qqdVQC1cxLo+LK0OVkDBBMk5r8/6tueEGiU74xa+kaA3vUnWCC4Fde5s8Do
+ SEfB20MR1kZ4EFBMogntTEtBHYOOwUwHrPZLZ+OLGQvV6Vf8A4+sJb9Dl/kecxoiT0tCHm7Wb7s
+ U3W3aQOAj0n+fY046kw==
+X-Authority-Analysis: v=2.4 cv=G7uJgNk5 c=1 sm=1 tr=0 ts=6ae1bab7 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=Ikd4Dj_1AAAA:8
+ a=VnNF1IyMAAAA:8 a=A5I0YoTLkxdnOS9TWZgA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: EvZSBbrxmlFtu13cvcMJiTG_C5sdBMN3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280034
 
-On Mon, Oct 19, 2026 at 9:37=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
-
-> Thanks.  Boy I burned a lot of tokens on this.
->
-> I was able to reproduce this.  I found that Daehyeon's "iov_iter:
-> validate extracted segment for bvec alignment" makes the KASAN warnings
-> go away.  https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail=
-.com
->
-> Daehyeon's patch is presently in mm.git's mm-unstable branch, with
-> cc:stable, targeted for upstreaming during the second week of the merge
-> window.
->
-> Daehyeon's patch prevents this reproducer from triggering the bug by
-> rejecting the misaligned direct-I/O request before extraction advances
-> the iterator.  Without that check, extraction skips the initial empty
-> iovec and the following 10-byte segment, then encounters an alignment
-> error.  The bio is discarded, but the iterator remains advanced.  iomap
-> subsequently restores its byte count without restoring its position,
-> leaving 1025 bytes recorded when only 1015 remain.  Buffered-I/O
-> fallback then walks beyond the imported iovec array.  So Daehyeon's
-> patch avoids the bad path, but doesn't address the underlying failure
-> to restore the iterator when rejecting a bio.
 
 
-Hi,
+On 10/26/26 10:42 PM, Yury Norov wrote:
+> The governor stores the sampling interval in both milliseconds and
+> jiffies, although delayed work only needs the latter.
+> 
+> Convert interval_ms to jiffies in the module parameter setter and store
+> it directly in sg_ctx.delay. Initialize the default delay to HZ and
+> remove the redundant interval_ms member and initialization conversion.
+> 
+> Keep the read-only interval_ms parameter by converting the delay back
+> to milliseconds in its getter. Use the same conversion for the startup
+> message. Both now report the effective interval after jiffy rounding.
+> 
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>   drivers/virt/steal_governor.c | 18 +++++++++++-------
+>   1 file changed, 11 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/virt/steal_governor.c b/drivers/virt/steal_governor.c
+> index 6e31f9923dea..81e5089ba824 100644
+> --- a/drivers/virt/steal_governor.c
+> +++ b/drivers/virt/steal_governor.c
+> @@ -39,14 +39,13 @@ struct steal_governor {
+>   	ktime_t			time;
+>   	u64			steal;
+>   	unsigned long		delay;
+> -	unsigned int		interval_ms;
+>   	unsigned int		high_threshold;
+>   	unsigned int		low_threshold;
+>   	struct delayed_work	work;
+>   };
+>   
+>   static struct steal_governor sg_ctx = {
+> -	.interval_ms	=	1000,	/* 1 second */
+> +	.delay		=	HZ,	/* 1 second */
+>   	.high_threshold =	500,	/* 5% */
+>   	.low_threshold	=	200,	/* 2% */
+>   };
+> @@ -74,15 +73,21 @@ static int param_set_interval_ms(const char *val, const struct kernel_param *kp)
+>   		return -EINVAL;
+>   	}
+>   
+> -	return param_set_uint(val, kp);
+> +	*(unsigned long *)kp->arg = msecs_to_jiffies(interval);
+> +	return 0;
+> +}
+> +
+> +static int param_get_interval_ms(char *buffer, const struct kernel_param *kp)
+> +{
+> +	return sprintf(buffer, "%u\n", jiffies_to_msecs(*(unsigned long *)kp->arg));
+>   }
+>   
+>   static const struct kernel_param_ops interval_ms_ops = {
+>   	.set = param_set_interval_ms,
+> -	.get = param_get_uint,
+> +	.get = param_get_interval_ms,
+>   };
+>   
+> -module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.interval_ms, 0444);
+> +module_param_cb(interval_ms, &interval_ms_ops, &sg_ctx.delay, 0444);
+>   MODULE_PARM_DESC(interval_ms,
+>   		 "Sampling frequency in milliseconds. default: 1000");
+>   
+> @@ -270,13 +275,12 @@ static int __init steal_governor_init(void)
+>   		return -EINVAL;
+>   	}
+>   
+> -	sg_ctx.delay = msecs_to_jiffies(sg_ctx.interval_ms);
+>   	INIT_DELAYED_WORK(&sg_ctx.work, steal_governor_loop);
+>   	sg_ctx.steal = get_system_steal_time();
+>   	sg_ctx.time = ktime_get();
+>   	schedule_delayed_work(&sg_ctx.work, sg_ctx.delay);
+>   	pr_info("enabled. interval: %ums, high_threshold: %u, low_threshold: %u\n",
+> -		sg_ctx.interval_ms, sg_ctx.high_threshold, sg_ctx.low_threshold);
+> +		jiffies_to_msecs(sg_ctx.delay), sg_ctx.high_threshold, sg_ctx.low_threshold);
+>   
+>   	return 0;
+>   }
 
-Thanks for investigating the issue and preparing a patch.
+Looks good to me. One less variable.
 
-I was wondering whether a CVE ID would be assigned to this vulnerability.
-The CVE ID is important for our research, and we'd appreciate any update.
-
-Best regards,
-Haocheng Yu
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
