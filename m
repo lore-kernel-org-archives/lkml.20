@@ -1,57 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193431;
-	b=xa8igzh4yUCU1IbqxLf7Guuld9MOIiZVaBwZoIHWGvnAputEStVMeDb6XXNbSPR3BspM
-	 wPErpHaZgnIAp8ziiBaOwWzL/CxeOgB+Fj74XmeI0NZkfr88jc3eHKbVB8109SpoTb8Od
-	 LJk+4QI5246LuIOezp5fNezcvtW1eUSRhm6OyeoRO4qYWizC9w3VJAqwsFUIjQTLVGeDS
-	 KMrEY33eaUIvsSz6HXewpaZtH6aLcl5KEd8qM2k0CQfrVDg4FTWFf4F0+EMm7lCIcai+R
-	 F72GOTDPlDxL3xemnZ3UuHpG52p9r/hGQ4G1eZcBI0LrJ4O5TFlqqE7Os3U9vE7U8xw==
+	t=1793193510;
+	b=dehlMYa9CCJSbKojZCemiFSGgeO7gru6bMkf3uuksF3x0KbbUnzdkIDiBYhMsvRKh5Yf
+	 KNqhGPBb56luOX3BBupuRMO2xNAHCyHxIqLWmyf9enD8ByBMd0oAfRdDTs49eEGn9ZmGD
+	 u+UIno1WUQb/w0LHhZH/eW/+wkQa1xlSYgPUY/aE3Upnh62OELzGhHWNmKqdFukoREZjX
+	 GpdrpZKlGWJEMRmpYvXhpfpchucpwQxy3jum4ci138TpTjYFr7uT4SWQoOpPHXoOz1Hmq
+	 be0H+L4to1rMcPx4zH4o2ecHIQy4EGM8DZjEXUj4wZVV9BSg0Rnm8gI27OmPEpdKsWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193431;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=3j2eYR4antN667sJZSWGK9AUNaz39VbmQuGfmYqknq4=;
-	b=oEULnqOOVastY0ih6ODx0FU18yJ6CqTAr1EHwe3oMqDTTrjNeHUotijFJS8YtCaefDgc
-	 Z/KLGjZR6YnoJI4jLybbtn0ZVrQsBwv+I/MHj8GBAitrQ3y+U8AeSUZAszEU1Hw+uLhWO
-	 zQw161cAqxuxfs5Y2/DAj1AAfsx7mJIgKybLVEd/3BNTtZvGfypABPg2WcdjBeW9go+F5
-	 qvxt854N4P2MwxvcoZEZvSHjZouvLcIOQylKibjpdcWUo9TtnpSKbEHFHExdnHGnK/h8L
-	 0t47nx3PqkQWm5Pkc2ON0EPLIbJ01MdwMRHwbPesW8nrhyqixwrdELoNi/e/dekzJOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
+	b=EOYhX5mTHRhKU98z2YPfPDw5+cN2GOi45+oR/SZMA8+ApNCbxiQudBLLilDTxFOtilnE
+	 +bhuwJuDXa6YYaMCOHO9AT28Pl6aZNuiiOBFJT0lk2aUeogJa5CmQk6Gfa1q7UYaDD/Qn
+	 bQQkNV1MXfcAiMCs4M0suUNZ5BI1bGFs6f4HxUpph+Kb1aYYOhOBhJ0ueJdv0MLVwQnBz
+	 riWJVGXD7dxk/NBJQB/pGn6Yw0vMSWUwq9oEda4/p2TIEq6QaOjXc6L5z7siCgLLj9DXo
+	 RvVfmHFrmiEV4Vrs/hRDnpn6haQp15TiU5iRasSVYNcdFX0hiSIZOlEpZcfXje5jBOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKpCmgIY;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b="S/IOAVK5";
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD097606A31A;
-	Wed, 28 Oct 2026 13:17:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD097606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4A8606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F4A8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kKpCmgIY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3j
-	2eYR4antN667sJZSWGK9AUNaz39VbmQuGfmYqknq4=; b=kKpCmgIYAXQakkASeD
-	WnFa7OnwLC0l62VrDfq/0/QNMwgQtHL3ohvE1YoHEj5MSt2H1/iFKVLvuTbauCsp
-	kEzSR/AgQVzfCbow0vP/GSVlFSVN9RrgCUvTcuXPjrN23SnWM1ADCSKLIcXIFz4K
-	yTZiUjohICtso7ueFE+DMZKkM=
-Received: from flipped.. (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD313u_9eFq01krDQ--.42072S2;
-	Wed, 28 Oct 2026 21:16:48 +0800 (CST)
-From: Sicong Huang <congei42@163.com>
-To: linux-media@vger.kernel.org
-Cc: jean-christophe.trotin@foss.st.com,
-	mchehab@kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=S/IOAVK5
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c315869241fso144245466b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:18:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793193508; x=1793798308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
+        b=S/IOAVK5NUZB6jNW20LHKneCPb6S2Yl9leksYecZxq+Psh7/11rrrfs5fNHSNKUM6j
+         Mz2IWVix+DIDm+i61KeOl0eZNNx5gozogDUbexZP5WbclHgovPfaT/KnTJhSYnXIrxrt
+         MMkAq6UXgAKl3fuQGpmxEABY38c1XHiBlnlMk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793193508; x=1793798308;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
+        b=x4wKSUtXO0LSUHkGpeUNAew4jelvMIc6+naBr+qWailUC008XATe5//vkkA8rYceCV
+         WsIrdPP49JvOdV7UVlhpeGl8dXhLt4/oZBpC91IK2xoWEeVrDPW/pvamI2wQ39j5KbqT
+         01IWP+J8vmRPphWUA7VNfupfs1/4qT55rh3bLHA0EvSFo9Z2+qyw1y3bi4543MenBI6e
+         t48W6KoakCHlqHgB5xFeAht9UpSEbn3e4oxnnbGyU4AoZaPL5Ctm/UDpkKk3Z4CxqHhK
+         0+zeQ5GuvzABpnRilpMcUQYB1RGFY3vLSYco2W87N0HSHTdAll+jx468MaF3DPa/fTsM
+         5jzw==
+X-Forwarded-Encrypted: i=1; AKwUvBz03zFtGuNeN5KqyhyzrovBieeXS/AN+Vpy6DY8XQR+G2kLTTQfPPUs+JVEoE6Si2uBycryT7kxjCwqKNI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIs1i32upwjwxp3WA5PLQzqhtpln9pKEQ1lXuKbo5FD17eTT1eL
+	D/AJfRrJu6NK5mtVT41MK6K5BPRcIXBj+cV80tgrHvCn/omgaGVoqwdIRA3PhArSn1s=
+X-Gm-Gg: AYBFou16xj2Vaaml2m/8JQey2+zg3ABZGYsK3hgScAwoLyp+VTtUVbfXNI6zMgtQ994
+	E/zlZf3/92E+SuGn7SuQuo4R3wEdeaFVtreiWZe94s2285/mWoFouubJjpROQqnXeqje4ZVmVYb
+	QCQRAym61Ia3KELC1zpwzmChh1+cWo6LcZ2haI4050QY+fK+AsatSb9TzE3jl0UczXb89w4KZJm
+	3l0U45HBRxEj42BjhD5Dn4EMRJMVuOjgPrmQ87uTXcEKiBg7OM+jyJ1EZJWavstRXzQN2Q0aB43
+	z4BFzhwBkH4/mOcr2+u+MIJoKCyis+5hNuXgfSD2rJXsv9hCki7neAHmU5vJcd5D2evUKzRPsfp
+	AYLJLty9XieRMSI3yFgb8jzQb83FSInoABpTEg1iyL8gBSnG8Beu6cJmDhGf5TBdpiZLYoVfvxZ
+	pGiMaX+8x8+7Ohe/8N8ddlQDGwGDHev64uB6gi3jKfBy8DToFOkDL1sZqt0NNqV5oArdssxdWpu
+	j9qXb4YpPnF8k0rBx73pThxdyI5cHDVbZ/6UrjgtzsksFCuCtukvq8JVtImqf5Me5fEIF7ISk91
+	OLscPaAFJGuLwZA008nQ644NBM28Zx0jH+uzigOAZEgH+v1GhMbU4zIpkLC6X+x9w8EVatP9nkS
+	ED2hGLvy6f94ldDc/CngUrZDfrQppll1KpTA5CMRvUkYGguS+
+X-Received: by 2002:a17:907:80d:b0:c45:b99:f282 with SMTP id a640c23a62f3a-c49bdda6ee2mr203173666b.7.1793193508300;
+        Wed, 28 Oct 2026 06:18:28 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd650a56sm602252766b.50.2026.10.28.06.18.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:18:27 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Philippe Cornu <philippe.cornu@foss.st.com>
+Cc: michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Daniel Stone <daniels@collabora.com>,
+	David Airlie <airlied@gmail.com>,
+	Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Pekka Paalanen <pekka.paalanen@collabora.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Sicong Huang <congei42@163.com>
-Subject: [PATCH] media: st-hva: fix encoder use-after-free on release
-Date: Wed, 28 Oct 2026 21:16:46 +0800
-Message-Id: <20261028131646.2957101-1-congei42@163.com>
-X-Mailer: git-send-email 2.34.1
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] drm/stm: ltdc: create blend mode property
+Date: Wed, 28 Oct 2026 14:18:18 +0100
+Message-ID: <20261028131823.2649142-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,93 +110,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD313u_9eFq01krDQ--.42072S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFWruF1rJFWxKFy3Ww45Wrg_yoW5ZF1xpF
-	WrWw45KrWUJF1kAF97tw48ZFyS9w1ftFZ8Jr1093WSyrZxZrn8tFyjvw10vF4DJrZ3Zr1Y
-	qa1Dtry3uayqvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piIeHrUUUUU=
-X-CM-SenderInfo: 5frqwvrlusqiywtou0bp/xtbC9QDAs2rh9cBeXwAA35
 
-The st-hva driver encodes frames asynchronously. Its V4L2 mem2mem
-.device_run callback, hva_device_run(), queues ctx->run_work to
-execute hva_run_work(). For H.264, the worker calls encoder operations
-that access the private encoder context in ctx->priv and its DMA
-buffers.
+After commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed") we get warnings at boot:
 
-During release, hva_release() closes the encoder and clears ctx->enc
-before calling v4l2_m2m_ctx_release() to cancel outstanding jobs.
-hva_h264_close() frees the private encoder context and its DMA buffers.
-However, the V4L2 core does not stop streaming before invoking
-hva_release(), so ctx->run_work may still be queued or running.
-The release path does not synchronize with the worker: hva_release()
-does not take ctx->lock, and hva_run_work() reads ctx->enc before
-acquiring that lock. As a result, the worker may access freed encoder
-state or dereference NULL through enc->encode() if ctx->enc has
-already been cleared.
+stm32-display 48010000.display-controller: [drm] [PLANE:37:plane-0] pixel format with alpha exposed but blend mode not setup. Please fix.
 
-One possible interleaving is:
+The LTDC blends the pixel formats with alpha by straight alpha, the
+only mode implemented in the driver. Create the blend mode property
+with DRM_MODE_BLEND_COVERAGE only.
 
-  CPU0 (release)                    CPU1 (worker)
-                                    hva_run_work()
-                                      enc = ctx->enc
-                                      hva_h264_encode()
-                                        ctx = pctx->priv
-  hva_release()
-    hva_h264_close()
-      devm_kfree(dev, ctx)
-    ctx->enc = NULL
-                                        task = ctx->task->vaddr /* UAF */
-    v4l2_m2m_ctx_release()
-      /* Waits for the job too late. */
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-Here, ctx in the H.264 functions refers to struct hva_h264_ctx.
-
-Move v4l2_m2m_ctx_release() before closing the encoder. It prevents
-further scheduling for the instance, removes jobs waiting in the mem2mem
-queue, and waits for an active job to finish.
-
-Recheck ctx->enc after v4l2_m2m_ctx_release(), as releasing the vb2
-queues may invoke hva_stop_streaming(), which closes the encoder and
-clears ctx->enc. This avoids closing the encoder twice and accessing
-already-freed resources.
-
-Found by code inspection.
-Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
-Signed-off-by: Sicong Huang <congei42@163.com>
 ---
- drivers/media/platform/st/sti/hva/hva-v4l2.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/st/sti/hva/hva-v4l2.c b/drivers/media/platform/st/sti/hva/hva-v4l2.c
-index 33b768774e20..feca81eaeffa 100644
---- a/drivers/media/platform/st/sti/hva/hva-v4l2.c
-+++ b/drivers/media/platform/st/sti/hva/hva-v4l2.c
-@@ -1229,8 +1229,13 @@ static int hva_release(struct file *file)
- 	struct hva_ctx *ctx = file_to_ctx(file);
- 	struct hva_dev *hva = ctx_to_hdev(ctx);
- 	struct device *dev = ctx_to_dev(ctx);
--	const struct hva_enc *enc = ctx->enc;
-+	const struct hva_enc *enc;
-+
-+	/* Stop encoding before closing the encoder. */
-+	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
- 
-+	/* Queue release may have already closed the encoder. */
-+	enc = ctx->enc;
- 	if (enc) {
- 		dev_dbg(dev, "%s %s encoder closed\n", ctx->name, enc->name);
- 		enc->close(ctx);
-@@ -1244,8 +1249,6 @@ static int hva_release(struct file *file)
- 	/* trace a summary of instance before closing (debug purpose) */
- 	hva_dbg_summary(ctx);
- 
--	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
--
- 	v4l2_ctrl_handler_free(&ctx->ctrl_handler);
- 
- 	v4l2_fh_del(&ctx->fh, file);
+ drivers/gpu/drm/stm/ltdc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 5311e0b3e8dc..3b6e680c1c61 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -1642,6 +1642,7 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	drm_plane_helper_add(plane, &ltdc_plane_helper_funcs);
+ 
+ 	drm_plane_create_alpha_property(plane);
++	drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
+ 
+ 	drm_dbg_driver(plane->dev, "plane:%d created\n", plane->base.id);
+ 
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+branch: stm32-ltdc-blend-mode
+
 -- 
-2.34.1
+2.43.0
 
