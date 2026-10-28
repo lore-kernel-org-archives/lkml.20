@@ -1,65 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188688;
-	b=aD/xopRvbYltIHBk1QHmdUscIdgJhhdZeBbzk/8dOqiMY4R1irL2YjrVWOu530fvhQil
-	 lyPycVdKylxm6QGRe52Sodyi57YpnUnyAFiG4XICutrxoEmaBJMLBIPUIaRnNn7PkxVmM
-	 segfSHY48IDams82XB5kODoeimH+4SeDeiyzWDeAZ0iEwouNhRsILByHUMvjnj7Jlznrr
-	 YVR8XOYrvHGINBUd+AgS7gft5kGogSplGfG1WFakzuzO80Nxt2goFf6FjsmA+D1i0LzdE
-	 F4fxU6rSJOUMFxYQSrxNq8f/TlnU9kpYXdJNmCAR2YNbn9c78tVpknSu1a49juaVQsQ==
+	t=1793188778;
+	b=kSc9KQEGnpKDeK1o/Sp/rsyTdTqUHlMLnIezULlg4tQlsKrq8UO9W4ZpEoAc3pIIhP7i
+	 KuYyeWhVLEX9yORpGxQXVoIDQMYUueDiJzK6z+F43I+y6iEZw0y2AU5J/fnAr50xrf5NR
+	 BhvP9UCQ7lMpwPVApcc6Ipdgm+7HMzY4xRA9NfCoiMiylVwH7GXFauhYtHjbXkwLfg544
+	 zYsUP4XPv0GwEYUj0aP4s4D1RaTFu10Wgaju030BWxd/7MbKWUlbNDDKby5ikjVEb3eE2
+	 /fbso1C3PDhcBf0mJ++6nnQrN3TrWE2L1Vf4vMJAXB2BYmJ+14C+Y+5Wz09DtkSeifQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188688;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=0rd0eq+HWmPKSTWPxG5jNO/1HvtIEnxtmy7jSKAuMZU=;
-	b=Ce5Mdbhc4GAv2IK+wIaq7nqyrnekylqByEzN18EWr+k05cS03jfxtToYu7KDaMXhz5SL
-	 ybsB1kkSXympS9bYwVMnVnVA4M/y3umSEUFYIRtogDUhtiL3TZBlZDmvU1x/dCl/qEwQ2
-	 4SSou63ztZTpaA0yr5S7mhp7R5tHHV6LIYufZuL1izeEisBjQVZMPG6iL1VMKJy2YC3pd
-	 R/pKk5/QPVyIE2b2XWuI6vLEWJ8xMjnhYbV7diF6WttUMqUexIouyyvRGCvizAVR79j5J
-	 R+2bQq9JCVcKY9cUXS6Zih495JJOgId6XxTeVo7aOH21GG5SKqIx4keWmnikCfrdoKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188778;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=f5NboUzo78TSvbEnVlTQueU5GwrKHZYmgsrDTsu8dJU=;
+	b=eVC5Bt2hJZXgD7SZoYQ45x8al4SFdgmeG3uZUYzpZROEZEDqo9HdCDPUipl8GXHvOl5V
+	 lLlJJZXsEOjUZEdyIc/+HYQiIdw016s5S5+ybxFGf+AZ3/JhK79BRNL0/L30x3nYk7rPL
+	 frB4xs2P19UFpiQxFMmX/c9GH7J7GvSv4UTaP9rS9Z64W1bpY9+h/TdKxGl49K/J9sp7a
+	 5YQKeRSj17wYdmS2uDt65hmT69EhZNYKKMPxDSfOoiiv3VVfWAnexzRitYIWStOM2VFaM
+	 efukY7LKfSXvw1lQ4ZRF8Z9EcrZkQi+WArYqBi0MbmC61P161zqJrZS53JQLFka/gmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=xH1CgE2W;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35553606A31C;
-	Wed, 28 Oct 2026 11:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35553606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=P4N3rUJS;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6740B606A31A;
+	Wed, 28 Oct 2026 11:59:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6740B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=xH1CgE2W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=0rd0eq+HWmPKSTWPxG5jN
-	O/1HvtIEnxtmy7jSKAuMZU=; b=xH1CgE2WFNhu+WDMbiZ6GUyJcTDyQTv92AAWk
-	OOegw6PiBMAQEyBkcC6Mt2ZXg2/P1C35aebPlGF4jTnToWxnPFiGiuO7nBdplDBR
-	jKA8gfLR24cgw44ZYrE+DRGHDCWaiEFVKsFwj+RVoZ0JyKZr2MHNSc7UJx7aFTtu
-	RNzcYA=
-Received: from [127.0.1.1] (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHST5F4+FqCs5YAA--.2697S2;
-	Wed, 28 Oct 2026 19:57:57 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-pm@vger.kernel.org
-Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on SM8750
-Date: Wed, 28 Oct 2026 19:57:57 +0800
-Message-ID: <179318867727.88971.13007415873000488463@mail.ustc.edu.cn>
-In-Reply-To: <84483ae1-1fbb-4219-a829-5867feb8bb17@oss.qualcomm.com>
-References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
- <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
- <52fc4222-508d-4acf-b38a-7b4e5aeff3cb@oss.qualcomm.com>
- <63cf18bc-5c89-4a55-aa15-2550dc47c155@oss.qualcomm.com>
- <179276335779.97093.2561281074827129812@mail.ustc.edu.cn>
- <179276342356.98176.10645303509497652146@mail.ustc.edu.cn>
- <84483ae1-1fbb-4219-a829-5867feb8bb17@oss.qualcomm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=P4N3rUJS
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1914B15A2B6;
+	Wed, 28 Oct 2026 12:59:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793188773; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=f5NboUzo78TSvbEnVlTQueU5GwrKHZYmgsrDTsu8dJU=;
+	b=P4N3rUJSUM89fo9E2InG1shZOpy0XpXcOvgzNy28wcBa2dk4P+TiyEQhdoOKC2iZpyCfPD
+	3ki45bzf6FsuR4HE9CJkmwVihB614DfRgS/1XQ+uPFi+9AMFDG1fWWwXOt2dzfQQ40M3iM
+	yuGpbv53MOJ6vmorSa04cXulx/u/LT0azavSqBwvFsvyydeLefaE2bibPSsF3BgI2YyWkt
+	nM5O2J2kEHb7kt0fXTbIUXYuG0QbnJCJlBx0jM6KzRffivz4eEXivXbeeDL5mrVjpWuf0l
+	/kOdX6Q1O+75jHkfq5kQJjBmHJF9/NsjcJkyR2P/LWH3a4zE//wRaFyRRmisiQ==
+Message-ID: <acf55987-e96d-407f-a4a7-1c78178a0c7a@cjdns.fr>
+Date: Wed, 28 Oct 2026 12:59:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,91 +55,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgDHST5F4+FqCs5YAA--.2697S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuryxGryfGr4kCFWxJr47Arb_yoW5ZrWfpa
-	yrtrnYkw1vyFWrCryUtr47Ca4Ygrs3AFy5Kr9Fv3sYva15Ar17tr1kKFn8Wr97Crn3XF4x
-	t3Waqwn3WF13CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
-	ecxEwVAFwVW8KwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUg_gCUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZfJwBgsm
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 5/7] net: dsa: mediatek: support MDIO switch downstream
+ of MMIO switch
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-6-cjd@cjdns.fr>
+ <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Konrad,
 
-You are right and my previous mail was wrong. I checked the repository
-you pointed at and the battery/QBG path is there. Correcting it properly,
-including why I got it wrong.
+On 28/10/2026 03:20, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 01:13:15AM +0000, Caleb James DeLisle wrote:
+>> The MT7530 / MT7531 can connect via either MDIO or MMIO. In MMIO mode
+>> the switch provides its own MDIO bus which connects to its integrated
+>> PHYs, but also can be connected to other things, such as another
+>> switch.
+>>
+>> If the MDIO bus contains another switch, then the upstream switch
+>> will register but it will not setup the DSA tree because the
+>> downstream switch is missing. Without the complete DSA tree,
+>> mt753x_setup() will not be called on the switch and therefore
+>> mt7530_setup_mdio() is never called so the downstream switch never
+>> registers.
+>>
+>> Update mt7530_setup_mdio() so that it can be called multiple times,
+>> export the symbol, and call it again after dsa_register_switch()
+>> from mt7988_probe().
+> I would suggest just moving it to probe. Don't also have it in setup.
+> KISS.
 
-What I did before was a partial clone with a sparse checkout limited to
-the display, mmc and audio paths. drivers/power was never materialised,
-so "there is no drivers/power/supply vendor code in the drop" was an
-artefact of my own checkout, not a property of the repository. That is my
-mistake and I should have caught it before writing it down.
 
-Checked now with the GitHub contents API on main (tip 210981a0ad74,
-last push 2025-11-09), no full clone:
+I don't think there's a way to do that which will work. And I guess I 
+need to add a few comments to explain why. Basically 
+when dsa_register_switch() is called, one of three things can happen:
 
-  drivers/power/supply/qti_battery_charger.c     70657 B
-  drivers/power/supply/qcom_battmgr.c            39375 B
-  drivers/power/supply/qcom/qti-qbg.c            78872 B
-  drivers/power/supply/qcom/qbg-core.h
-  drivers/power/supply/qcom/qbg-sdam.c
-  drivers/power/supply/qcom/qbg-battery-profile.c
-  drivers/power/supply/qcom/battery.c
+1. return error (often without calling mt753x_setup), typically this is 
+EPROBE_DEFER because the ethernet driver is not there yet.
 
-The same commit is the one I have locally and git ls-tree lists all of
-them, so the content was in the tree I already had.
+2. return 0 without calling mt753x_setup (because not all switches in 
+the tree are yet probed)
 
-On your three questions, now with the sources in hand:
+3. call mt753x_setup, complete setup, and return 0
 
-- Which channel does the vendor actually build? CONFIG_QTI_BATTERY_CHARGER=m
-  in both arch/arm64/configs/vendor/sun_perf.config and sun_le.config
-  (sun = SM8750). CONFIG_BATTERY_QCOM_BATTMGR=m appears only in the generic
-  defconfig, so the SM8750 build does not use the upstream-shaped driver.
 
-- Is the property remapped? I do not see a remap. qti_battery_charger.c has
-  BATT_POWER_NOW at enum value 22, maps it to POWER_SUPPLY_PROP_POWER_NOW,
-  and read_property_id() sends that id unchanged to the PMIC GLINK
-  firmware. Upstream qcom_battmgr.c also uses 22 for the same slot, so both
-  channels address the same property id; nothing in the vendor driver
-  renumbers it.
+In case 1, mt7530_setup_mdio must not be called, because it would be 
+setting up an MDIO on a driver that's about to get deleted.
 
-- Does that mean power_now is trustworthy on this board? No, and I am not
-  going to claim it. The vendor driver answering slot 22 only shows that
-  the firmware has an answer for it. It says nothing about whether the
-  value tracks load.
+In case 2, we have to call mt7530_setup_mdio because otherwise we may 
+not discover downstream switches (this is the patch)
 
-Two things that do not change:
+In case 3, mt7530_setup_mdio must be called before mt753x_setup returns 
+because after it returns, the DSA core synchronously enables ports and 
+it will expect PHYs to be operational.
 
-The vendor's own qcom_battmgr.c is an older copy - enum qcom_battmgr_variant
-has only SM8350 and SC8280XP, no SM8750 - so there is still no
-upstream-shaped reference implementation for this SoC to compare against.
 
-And qti_battery_charger.c is downstream-only: it includes
-linux/soc/qcom/qti_pmic_glink.h, linux/soc/qcom/battery_charger.h and
-linux/soc/qcom/panel_event_notifier.h, none of which are upstream, so
-qcom_battmgr cannot reuse it. Same conclusion as before, just reached with
-the sources in front of me instead of behind my own checkout mistake.
+Only the DSA core really knows what it's going to do, so I think the 
+only way to solve this without going inside of it is this patch where 
+calls are made from two sites.
 
-So the question from my previous mail still stands, now asked with better
-information: would you take the conservative version - add the SM8750
-variant, do not register POWER_NOW at all, no claim about what the slot
-means - or would you rather I keep the property and only fix the commit
-message? If you would prefer the numbers first, I can print slot 22 next
-to current_now and voltage_now in one sample and post that before sending
-anything.
 
-Sorry for the noise, and thanks for the pointer.
+That said, I think it's pretty clear that I should put a couple lines of 
+comment in there so that nobody is tempted to "streamline" this code 
+into one of the things that doesn't work.
 
-Qianhui Xu
 
+Thanks,
+
+Caleb
+
+
+>
+> 	Andrew
