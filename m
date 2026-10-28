@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189359;
-	b=qTnpKwL5PLxtxyvlgXbv/Ilj2AqCtS6JYT21usKvMN4zslxubsveBoqT1H0bhprqsij4
-	 yfGj8hSrVlaXsXnFJUmrRpLKpoCSfzvqsZNZvskeWLSL0XdP05O30XdRhQDhCB1lWayXW
-	 wMxP2BsAW0JVJdghJRqgXwHroEy2QoI2AjNtOUzlLGT2KjdYaigGKOebm32aGpMZfj13e
-	 r0AfDpO8HDF091IrNy2VIIo+haUHF2H70Yda6vL4VNOuF7zZgvz1kI+vzp1APTETaxTWK
-	 Zuts7aclAgvv53F4DUA8x3hBQnRJsOf8othuT+4L9U+6dIYbJIKJNnSwG4WaBlX/4bA==
+	t=1793189360;
+	b=O0nSvXh3VitvEkvzL36HcYf58W0GTKXahzDQKXGAMWqQDB3mfgBBlZXrjyB4mxdK6WTx
+	 vOsMKvpLH03ULW95jsXt70GQYz505kHVSNOWR7ixqMTEj2zj+/ZOtuh1u8uS0xp6ZFY2z
+	 GwuqnZ8c7IWjFP/GbVn/lvDJpbuillYD3XI9u7UIkOBCer7cp0xsbfZK0iQz9nH0vfdhh
+	 bZHSBnxEesxoW3rnyEH8re5vOM73cy2ff/HC39XbjdErXeSlZPCXLPC6PiOftGHjJpja7
+	 fRep36E3OEVm5kew4/QqSg0/Vypmo54+zEoyNy30I9HCol/B7pAe37lPnkFj4KSehLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189359;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4hubiP6UNKJsfIYjDwqYKPtFGEwf9AKbEUyOZBEjNMA=;
-	b=yZwUHnAlIT41mM/OpU6uoJ1MSTempDW97UA4DH4IhEpSJOIwxCpUw5oSNXsb2sD0V3Jq
-	 eBkXHQSgpKMCyelx4emOoaawE1Z2yW/U08VRYy7hGGgjkZb9NX5OTtj9dq1zUZCYLi2Py
-	 27ioETi2t7uL9XO83GtZC6x62utOg1vmPyTJhDWipur3t2dvCriXRJoBFz3Z1kU/xgkBM
-	 V8ZHFALpEHC0EEbHABaJkak8YMA+gjVsKB60Mn0OUzGr1vWCUEqU6plsNvz7AzTNl0bMj
-	 dup6023voT6Aa4cl4xhPS2i03KttbhAJB6XZPCISYxwTui/xCN0cgr7Wc28/7dCtRrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189360;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=1Sl6O3iIgu8J9uI3oOhkGE8jeT+SgkyHgDaQbTxgDr8=;
+	b=VodjKr7bhi9GimqABQcNpwg+6ZMlWryRWCLp/n+DSrSnMGSqXdmLfwaGMIs3PNzbhXDk
+	 NO8DsTBm7PH6BOgz7kGQ+2+crq2+Nfjx0rpr9mApaBENVbndt1sbmiUPtGeV3dbZKcPiU
+	 qEONx0ggLOTTownSGj4dTeYmxnG9NgOARuM8QXBsZ0ozk+sd9crOY4+6Mk2AVrk60AFhM
+	 qLKU8hwkFolcTpsv0CNPsrsZ3qyuh2NN57SK0OndVCDrwLbQMUQS7xUY10CxqvDBHysqV
+	 93CESyopg1BKD7cytQHCncf9eZR4o928rmifVmd1wr9fGpey60Co7gFosTWVhirMkAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BJsTRXYU;
-	arc=none smtp.remote-ip=95.215.58.190
-Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018B4606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 018B4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tkeH2Tgb;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7F5A606A322;
+	Wed, 28 Oct 2026 12:09:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F5A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BJsTRXYU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zzD/H3Q9pIRPfiCVs5ygv2SY/cTJiKPRPiAl8d46ES0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793189356; v=1; x=1793794156;
- b=BJsTRXYUUrG6bewvkc2Z+8TkNzpqAVfvp3kjMROIHI8UwJ+v33Cp2ortvwQWuAU/6dn1qLUx
- 9N/wnFXGQPx36Bf4yUIDaiBaWoQ9O0ShwMKMiCy6X4ViBFrSUJLxiI9hva1+Wp8JuKoGRi1orn+
- BVo+ZDlsC2VK8LC369NcG/d0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b67904be421a6b3;
-	Wed, 28 Oct 2026 12:09:12 +0000
-X-Mizu-Trace-ID: 0b67904be421a6b3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4b19d1b8-e799-40fd-9ee5-ca85aa3952c2@linux.dev>
-Date: Wed, 28 Oct 2026 20:08:59 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tkeH2Tgb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=1Sl6O3iIgu8J9uI3oOhkG
+	E8jeT+SgkyHgDaQbTxgDr8=; b=tkeH2TgbWNIu50IYUGT3oXGw10GBIoxnYI+d0
+	xgJb3KLMB14z+12D+kYmups9QMi9sJQZHBDL0hh1X22+P4z5XPlu/tfDCm16FFKU
+	O4va4z0YUVN0dIYgTDtsbwIaBwYm7JqO+DW6zhXXfuDP/ORKojjhiNpUICnwRpFV
+	3gsOXU=
+Received: from [127.0.1.1] (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i7o5eFqydxYAA--.812S2;
+	Wed, 28 Oct 2026 20:09:12 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+Date: Wed, 28 Oct 2026 20:09:12 +0800
+Message-ID: <179318935222.107529.54392791903989018@mail.ustc.edu.cn>
+In-Reply-To: <8e05a28e-7881-4bf5-98c7-c5ccf4e22735@kernel.org>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+ <8e05a28e-7881-4bf5-98c7-c5ccf4e22735@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,90 +69,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@linux.dev, Kamal Dasu <kamal.dasu@broadcom.com>,
- linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
- beyond SDIO
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
- <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
- <583dc515-855c-48d6-aefb-abaef26b2564@linux.dev>
- <CAPx+jO_+P-ksGzbYp9Aky7etMyKtTUvtAZJZJpauw03Y8zP0Lg@mail.gmail.com>
- <5ebe0445-a111-49a5-b9cf-0185d3c3f67b@linux.dev>
- <CAPx+jO98iHx=VRwyWgg+aQmduquLVZe9Q8FNNK4VwkizXB2A9A@mail.gmail.com>
-From: Shawn Lin <shawn.lin@linux.dev>
-In-Reply-To: <CAPx+jO98iHx=VRwyWgg+aQmduquLVZe9Q8FNNK4VwkizXB2A9A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgB36i7o5eFqydxYAA--.812S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFW7JFW3AF1fAF4DZF18Krg_yoW8ZrW3pa
+	yfKF45CrnrJrWj9rs7XrW8JFykCrZxtr45CF1rC3s5Aws0k34xJrZIkr90vw1UGw4S9Fyj
+	vF4qkryrCFs8JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxV
+	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
+	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
+	WUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Qo7JUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZksQAPsk
 
-在 2026/10/28 星期三 18:43, Ulf Hansson 写道:
-> On Wed, Oct 28, 2026 at 1:37 AM Shawn Lin <shawn.lin@linux.dev> wrote:
->>
->> 在 2026/10/28 星期三 3:46, Ulf Hansson 写道:
->>> On Tue, Oct 27, 2026 at 4:02 PM Shawn Lin <shawn.lin@linux.dev> wrote:
->>>>
->>>> Hi
->>>>
->>>> 在 2026/10/27 星期二 22:40, Ulf Hansson 写道:
->>>>> From: Kamal Dasu <kamal.dasu@broadcom.com>
->>>>>
->>>>> keep-power-in-suspend is currently documented as SDIO-only, but the
->>>>> requirement it describes -- preserving card power across a
->>>>> suspend/resume cycle -- applies just as well to any card type. Drop
->>>>> the SDIO-only restriction so eMMC and SD platforms can use it too.
->>>>>
->>>>
->>>> I don't see how SD could use it from the following patches. Perhaps we
->>>> should still be more strict here to say SDIO and eMMC only, unless
->>>> SD part is implemented later.
->>>
->>> I didn't have the bandwidth to implement this for SD at this very
->>> moment, but the idea is to add it for SD too.
->>>
->>
->> SDIO devices have a clear wake-on-host requirement, so keeping power on
->> is reasonable. eMMC and SD are passively accessed devices, making this a
->> pseudo-requirement under system freeze conditions until Broadcom chips
->> changed the situation for eMMC.
->>
->> However, for the SD part, I doubt such a need exists. It would require
->> dedicated ROM code support, and unlike eMMC, SD is not used as primary
->> storage. Worse still, unlike eMMC and SDIO devices which are soldered
->> down, vendors typically have an AVL to certify board-mounted components,
->> while SD cards can be freely swapped. The compatibility of off-the-shelf
->> SD cards is relatively poor, so I question whether there is a real-world
->> scenario for SD cards here. If there is no such scenario, this is dead
->> code.
->>
->>> That said, I was also thinking that maybe it would make sense to add a
->>> sysfs node to allow the behavior to be controlled by userspace.
->>> Thoughts?
->>>
->>
->> Sure, regarding the sysfs node you mentioned, we already have
->> mmc_caps2_set() exposed to userspace, and we can add
->> MMC_CAP2_RESET_AT_RESUME support there
-> 
-> The reason for the proposed user space node is not to control
-> MMC_CAP2_RESET_AT_RESUME. That is a different story, specific to
-> Broadcom platforms at this point.
-> 
-> Instead it was solely about allowing user space to keep the eMMC and
-> SD card powered on during system suspend. Which may be useful for
-> other reasons. Like, internal garbage collect and suspend/resume
-> latency.
-> 
+Hello Vladimir,
 
-I got your point now, it sounds reasonable.
+understood, and accepted - the CSIPHY must not grow another per-SoC register
+table inside camss. Our 2/9 does exactly that (a 103-entry lane table added to
+camss-csiphy-3ph-1-0.c for the 2.4.0 two-phase PHY), so that patch is the one
+that has to go, not be reworked in place.
 
-> [...]
-> 
-> Kind regards
-> Uffe
+What I am going to do before proposing a shape:
+
+  - read the SM8450 series (20261026224957.1115370-1-vz@kernel.org) as the
+    reference, in particular "media: qcom: camss: Allow CSI2 PHY devices
+    without CSIPHY resources" - that is the part that defines how camss is
+    expected to consume a generic PHY instead of owning the CSIPHY;
+  - read phy-qcom-mipi-csi2-core.c and phy-qcom-mipi-csi2.h in tree, and the
+    Kaanapali v22 phy patches, to see where the 2.4.0 two-phase register map
+    and the common-status offset are supposed to live;
+  - then restate the SM8750 support with the CSIPHY as a qcom,x1e80100-csi2-phy
+    style PHY device, camss referencing it through phys/phy-names, and the
+    binding describing the PHY nodes rather than CSIPHY registers.
+
+Two things I want to be honest about up front:
+
+  - our binding currently has no phys/phy-names at all; it lists the CSIPHY
+    register windows and clocks as camss resources. That is the part that has
+    to be rewritten, together with the DTS.
+  - the 2.4.0 PHY data we have is from the vendor camera.ko and covers both a
+    two-phase and a three-phase variant of the same block. Moving it into the
+    PHY driver means deciding which variant the SoC actually wires, which is
+    the kind of thing that belongs in the PHY driver's per-SoC data, not in
+    camss. I would like to get that right rather than port the table as-is.
+
+Separately: Hangxiang asked us to hold the SM8750 series until the Kaanapali
+work is rebased, and I have agreed to that. So this will not appear as a v3
+soon; when it does, the CSIPHY rework will be part of it from the start rather
+than a follow-up.
+
+Thanks for the review - it saved us from pushing the wrong shape twice.
+
+Best regards,
+Qianhui
 
