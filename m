@@ -1,109 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166743;
-	b=fpl9+ueK58cs/Af51KtUQbrC6efT+of8iW75FBMXowhQTChokwWSwla+Qwfbjo21oEDj
-	 dSPbvuBVEdSp2ZviBefovf2wlFBQ1vjMLq4ZBYzE1qe6TI10/e+0tq5RJH1qd8st5cl1C
-	 tfZQ94OojJq485LSh23QIa7faQajh6gyJLBHoDibdGivcjwMIKxJbz+gkxC/0wNq8npQ2
-	 Hobgh90BrjDn7UInvWyEp20fmAU9hyPULbthpDe3imbNuLceMGd427W5o1g/wCLHQnNbo
-	 pdtsHin2dymlAazMit97Q8S0eia6AgbhjlA+l+w2K94R3nkCCvNX5rJsRBUjXw6tm7w==
+	t=1793166885;
+	b=ZHxcV5CaQvM9wWKM8o8+r5ivp8B9hDl46tbMXRmXNgTENjzpBePPgya+vETb07YsmDXY
+	 cq33IuoPpD0Bw6wUBvCACufyJUBj2zB824fhbBDgokLeLMbZ9vJZ2jlWkWKDGOGKmNQwo
+	 AbH/K5w0BnXgbEeOvcUtz9eHOQrvEq5yjDDTgecGx/4pfrtAsJAJ9tWLtuHJlmmXbUQUi
+	 tjxb+OOxtmLcDO0vSGd1TyVFDeY2HDd8ZTBBRxXRwRGMObOsUnv2HozuKQG7gmfvht3Ty
+	 WcQVPpR4z/e1XMmCl13SCQ6CMvFK4KZWGRBEtpXYlOu3/ztyHOuUw00jHRKgua5uBYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166743;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=o0+YQ8IhrloxYZmXJNyf64tQivuQ6Pn/Dp36CBxwNv4=;
-	b=Z/Yu67XRXMVpybKYHu7Qh58keBrRbT73dlWfm/4PucwL/TlMlrByKeoBiopE3406+tbf
-	 phtJ5i8HpxUtszX9H8+1dk62InZHSxDw/7dw+JRnFKD/tf8htkutZXGhWbrMl5TN5NlUL
-	 YX/21+5nY3qpGEjeB9wnaxXTOs0pO6eqGDo4oBGhBPE9bVz2pNkBMgrLSZJbSVFnbFxLR
-	 6G/XhX1u4LJA2r5mPKFZyzRYidOsliK/c9X6LKXc2csH+pXRQHHyqCFdxuFjcvJmLRRTP
-	 kCkO/CGbKYM4kj0sUIhrxeKB2h1BCqJYEU+9KAmM3NoIYmg7EvM5FD5yN3Qm7jFrWKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166885;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:Sender:X-CM-SenderInfo;
+	bh=gS2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=;
+	b=SVnVCT025ZIXGXv1RbwcoZUOLe3FkvYfLY7YeB2bJWX2iS61xVuKcd4Yuu3wm8fA8tHq
+	 y6SqGI+RQu/O6nS25T8seMYZv/A0mqcnJQ9keBl0JrWHYtR8WV3gFiVzuOCawT5iOiCDN
+	 eJz0dSY7drAdUsP5kHctq2wE5SKHpeyN6nBMqQnSzikyaSWycBiriI2VTsv5P0lX8A5/d
+	 TDxK1PgD001LRP4aFUKC8qPd/cIP30KpZ4uMMS9oZ+er7cCBka9qHmcGv3W7zIuNL8Sgm
+	 Egfv8XyvfxHAvGLo3FsFeUzuRMyCrV7mTfxSa2UNA8FPYvhIlNfFCY4xAuyi4fS4G4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=u1CUAc5U;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TOceouPC;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A5E606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:52:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A5E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A32606A31A;
+	Wed, 28 Oct 2026 05:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A32606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=u1CUAc5U
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a05e3f0d23so353343b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:52:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793166742; x=1793771542; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=o0+YQ8IhrloxYZmXJNyf64tQivuQ6Pn/Dp36CBxwNv4=;
-        b=u1CUAc5UGEIg8w651QAnSj1ilJ1Hp07nRBlYJYLip7lca9dtV+G4XIVLxIkkYk+9He
-         Gi0KpLWies9ZXilvLmEHfJEIcvI8kzJ1Wyu473aUFgZ+EPn9NADS0gpTZFOInL5tm9Nq
-         7qBSbt2D7PxHKFRNJ0ExDlyKLPKzHEsOpZICg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793166742; x=1793771542;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o0+YQ8IhrloxYZmXJNyf64tQivuQ6Pn/Dp36CBxwNv4=;
-        b=PtG/p34wRvg5KYrmxAMIuNxKdpbn/XLUYka2XEbl2pEY26pTJgEyE3q+KfziLCsFA7
-         daNlWa0HuAc8tqdtDtrn8itNGxK/sMKXfcmyGnaB3GZuSYIVwpZeLI30uhI4OlBTXbc/
-         iDc4m18n2jDNL5Mhq15PTs6IutQgS4Go20q+zSUpZ+WJIetRT0SMtFIxVaG8JK8v2B3y
-         lvfzvGrAllRwQJ8EmgE2C9jXTvptq/UtFj0i4CSQa7mI6xk2SoviAHle5iPFqyCD0we1
-         cE3oLspqW9pmtWKbIcIV3pNgEtB8HhaqvB6V7ygYkptCVryEvgsn8fGKOwE7HzbQehnr
-         EHkA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNMf8BLw2ovl8PmwMyg8Sstde8LhCSGENLcQR+b+CFiRodg6+azjVtE6wCe8+mDDiP0oIHk5+c0xcVlW8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZOvWuSuUmrAbM6IQnnt9q+Y6CJmuj3Rqdtjh8Uf6ztnG6EUpf
-	aEJpuPDu1SL7eWJfHXCp+8WDQbyanYt5j2tSA2mTp/yU6eQBKxuwtCjk9HdUb0F2XbQ=
-X-Gm-Gg: AYBFou0u90ABKrd2UY3nzCq6urenMHJ0XpkexCYC6JvoxpBBoiApqTLbM6OvtlFuks3
-	RWCf6YC3JVx4WmqrfM9qpzEs5dvD3jYXQ1NfeHhlmVFSh9ZDTh6ih79kwITgefnle5B/GAbrnHa
-	Lg/G8Iz2vIVYa4vrJ3OocD7ggRfJ+SbWby5F228D6wz7L+F5aIUk/RZqAE/K7lcp1I9/bkP/9iN
-	H1R8JsqXqhQlbqV5Xzkj/eBbb5EW5nlz4KJf8mToa5TJQuwX+TOepM082paTfQhl51OcNZaaqpu
-	XuaeAczgL+Y2yjmB/EMDokrWvXyb9vNW7yHclSWc1qyYjtk2oe6WRxjsprm+GH0D1AzTM0EFHMf
-	CDIPn/ydbJooDPH77ulQQhkrqvRoIlVJYDRRYTnsUgmULnijuHfq4KFa6+OuKRIaRd6Ow1KgBkX
-	sgO6et/XlIi7JZe1W7zOn0maTNo5Y/O+rrx/tuNJkhwlAJ7pwjpTLlWldd+w7vIMiJh2YKcHesg
-	V5N6A14TeTVW76UOiRR2eRUuAbXzIMpCiRJv/P7Y3Gi6Rd+wHVsNMQLQ6X3iTJuSV6E+Si0/1Iq
-	FS2Z2RIOBukHe0HM8sEyGooCe5CqRMJuAUzV3/bm0Xzs60TlwZEzXOeka1zH0PLZuQzvAScsRMS
-	yi/JpXqo8RuG2urFEprcMW/5wR8hYm5OY2naN0xzTUrmcCvzeh5odFFX46OtU3DSDzIN0PJt+
-X-Received: by 2002:a05:6a00:4b4f:b0:88d:20ff:15c9 with SMTP id d2e1a72fcca58-8a6e7acb277mr1168038b3a.17.1793166741947;
-        Tue, 27 Oct 2026 22:52:21 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6cfc785sm695363b3a.38.2026.10.27.22.52.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 22:52:21 -0700 (PDT)
-Date: Wed, 28 Oct 2026 13:52:18 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Jeff Xu <jeffxu@google.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>,
-	Jeff Xu <jeffxu@chromium.org>, Andrey Vagin <avagin@gmail.com>,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
-	linux-hardening@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 1/3] mseal sysmap: Add mseal_system_mappings= boot
- parameter
-Message-ID: <auGNkhSHpBRd2U_5@chrisdown.name>
-References: <cover.1793094611.git.chris@chrisdown.name>
- <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
- <auCxjbvY3qPv1sV6@gremlin>
- <auDTMb6WMFUpxeZy@chrisdown.name>
- <auDTptDQsB4xBcz7@gremlin>
- <18e2972cb8520c2e.3137322e32382e342e3434.279dd1.0000sendgmr@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TOceouPC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gS
+	2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=; b=TOceouPCfAll7sSgYH
+	JYp0HzZSGa3x1+uqBUM+m7m8Koa7VYe80VFXIe6ard9yPvGJLxfncrQhVIjHS6N/
+	DVwd+RUw0LEKop8K6qCEf7P/4jXrPW+PI6Md5oflPEFC4NyGw/qZizzHacvC8YdF
+	cIlYGkwPIxBqcq6o2Qt2+RWLQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H1_6jeFqgMpkDQ--.40114S2;
+	Wed, 28 Oct 2026 13:54:03 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: dave.jiang@intel.com
+Cc: dave@stgolabs.net,
+	jic23@kernel.org,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	djbw@kernel.org,
+	iweiny@kernel.org,
+	ming.li@zohomail.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yang Yongxin <yangyongxin@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] cxl/core: Create einj_types when EINJ becomes available
+Date: Wed, 28 Oct 2026 13:54:01 +0800
+Message-Id: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,53 +68,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <18e2972cb8520c2e.3137322e32382e342e3434.279dd1.0000sendgmr@google.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H1_6jeFqgMpkDQ--.40114S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7Cry8KrW5GF1UGry7GFg_yoW5Cr47pa
+	1UGrn5Cr48Aay3Cr9xArWUX34S9rWkW3yDAryrW34ayanrCrn8tF1kJayY9a4DWFWUJryF
+	v3WYyr1DGw1xAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uymh7UUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbDABu0UmrhjftWlgAA3A
 
-Hi Jeff,
+From: Yang Yongxin <yangyongxin@kylinos.cn>
 
-Thanks for the review!
+The einj_types file under the CXL debugfs directory is never created.
 
-Jeff Xu writes:
->Could we please keep the test coverage for the unsealed [vdso] case and
->avoid unconditionally skipping whenever [vdso] is unsealed?
->
->There are two regressions I'd love for us to still be able to catch:
->
->1. Kernel or config regressions when sealing is expected to be on:
+cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+from einj_init() at module_init level. When cxl_core_init() evaluates
+einj_cxl_is_initialized() the EINJ driver has not been initialized yet, so
+the value is always false and the debugfs_create_file("einj_types") call
+below it is never reached. Users have no way to discover which CXL error
+types the platform supports from debugfs.
 
-Yeah agreed. With the cleanup it matters even more I think because when sealing 
-is set in one place the most likely regression is probably one that unseals 
-everything at once.
+Create the file lazily, from the first place where EINJ is known to be up.
+Note that this is a partial fix: if no injectable dport is ever added, the
+file still does not appear. Fixing the initcall ordering itself would
+require moving cxl_core_init() after EINJ is probed, which risks the CXL
+bus registration order, so it is left out of scope here.
 
->2. Regressions in the new `no_mseal_sys_mappings` boot parameter itself:
+Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
+---
+ drivers/cxl/core/port.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-In v2 I can check /proc/cmdline for no_mseal_sys_mappings to do that.
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 625e4aa427db..7de08063469f 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -802,6 +802,27 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
+ 
+ DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
+ 
++static struct dentry *cxl_debugfs;
++static struct dentry *einj_types_dentry;
++
++/*
++ * einj_types cannot be created from cxl_core_init(): that runs at
++ * subsys_initcall level, before einj_init() has set einj_initialized.
++ * Create it lazily, from the first place where EINJ is known to be up.
++ */
++static void cxl_einj_debugfs_add_types(void)
++{
++	if (einj_types_dentry)
++		return;
++
++	if (!einj_cxl_is_initialized())
++		return;
++
++	einj_types_dentry = debugfs_create_file("einj_types", 0400, cxl_debugfs,
++						NULL,
++						&einj_cxl_available_error_type_fops);
++}
++
+ static int cxl_einj_inject(void *data, u64 type)
+ {
+ 	struct cxl_dport *dport = data;
+@@ -819,6 +840,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
+ 	struct cxl_port *parent = parent_port_of(dport->port);
+ 	struct dentry *dir;
+ 
++	cxl_einj_debugfs_add_types();
++
+ 	if (!einj_cxl_is_initialized())
+ 		return;
+ 
+@@ -2501,8 +2524,6 @@ const struct bus_type cxl_bus_type = {
+ };
+ EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
+ 
+-static struct dentry *cxl_debugfs;
+-
+ struct dentry *cxl_debugfs_create_dir(const char *dir)
+ {
+ 	return debugfs_create_dir(dir, cxl_debugfs);
+@@ -2515,10 +2536,6 @@ static __init int cxl_core_init(void)
+ 
+ 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+ 
+-	if (einj_cxl_is_initialized())
+-		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+-				    &einj_cxl_available_error_type_fops);
+-
+ 	cxl_mbox_init();
+ 
+ 	rc = cxl_memdev_init();
+-- 
+2.25.1
 
-Lorenzo, I think that also may inform your question about whether checking for 
-the disabled case is redundant, right?
-
->   When booted with `no_mseal_sys_mappings` (or when unsealed), running
->   the assertions in Patch 3 (verifying system mappings have no `sl` flag
->   and that `munmap()` / `mremap()` -- and ideally `mprotect(PROT_READ |
->   PROT_WRITE)` -- on [vdso] succeed) directly verifies that the boot
->   parameter works and doesn't regress.
-
-Sounds good.
-
->  or keep strict failure as an option (e.g. `./sysmap_is_sealed` fails if
->  unsealed without the boot param, while `run_vmtests.sh` passes a flag
->  like `--allow-disabled` when `CONFIG_MSEAL_SYSTEM_MAPPINGS` may not be
->  enabled), so CI environments that expect sealing still catch a broken
->  seal.
-
-I like this and I think we can do it without adding some of the complexity that 
-Lorenzo was not so happy about:
-
-- Have check_sealed skip as usual when [vdso] isn't sealed and param is not set
-- A new test, say expect_sealed, fails in the same case
-- run_vmtests runs with -T expect_sealed when CONFIG_MSEAL_SYSTEM_MAPPINGS=y
-
-That should be pretty minimal. Lorenzo, Jeff, how does that sound?
