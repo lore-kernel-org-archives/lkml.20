@@ -1,39 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158916;
-	b=PjCGpwUA6wcjVwVxKJtRNzxra9Awil1XVduThlKtmM8nInkaLcQ7L2TGpJSrXP36wUiP
-	 RdeIEJesErNzQNUec7eKHDhvRdd7fQPWH39ep/cPDWeWo8spVdzxZXB8n15+6hVRWqg2t
-	 0hTfPHjYjGSRaWmY+b4CnJDDF5ZyYLP/rZjVf9j3jIFxT7JIkN4L/7vlCDFbvVjKjoyiw
-	 gjYjkqUh7kXBcX0suNEvRryYtcyLT4sQ6jZVuw18k11cVb4MEu3Xi3dpxOltGJieMSkAr
-	 QSCF/+bRx0s23XxehI5TH9T4jOVS6nUDte+mGPXW6SYVgOTI/c1ycFTf2oC/2/sUINw==
+	t=1793158914;
+	b=dpfqrzdVUt0f+jJsHDLEwgatyXaAPYUygIxn2DdHqNV8DOV+6FSeykxsALYobd1CBPaV
+	 ccTNIbiOL4xH1cMs3qj5gqBgbjCy5cEP4R4OaUsuIPXHzNS3UTdXz6sfliWcxp/g0nDnJ
+	 P8Dm6tvDG74cJ82vMKmIXyoOltRQcA9Zvsh2fQCt3bAwSzFl2W+fmDLRRfWIYctqiPcr+
+	 zYlgL1gV3jufY+/gVAhGCvI4vEBYJlaY5vVJAv+DXHqhEYUQFRxxinvWpb/pvH6VJr08K
+	 PtFTFUQ+nzgBb6Ao6dXgN4GGo85uXUZIlEwbufAQMll7Vk2mc6h+vq9gFttlLLKigWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158914;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=+CjNl1z8p2JpgWpr3DY7DQzXsmIPBj0B49pe9kUUqhg=;
-	b=S2n6RS9ZBNBFqirMlJt3tpRs2fhIUTsMALrMxxG61fVGtD9yQaAY7GYGPkQK6Ly8/dCs
-	 IdKI7g55vgFyiAeLWF3gQfsvDMRRolYhLN/wXG9HOq02b8XeLbmp+8qt5AtJoCYuH/QNK
-	 OXkSC9XWGOw8cDFYsgO7XylyGBIZ5E8jQmWH/hJGQNBPqn+MmpzhM4/NbBvmgoyQOjo5V
-	 am8ppCcGuKcdPtPACrwq8S8kuUrm4KEg1i6mQF/pU/+FGCfiKUtiV7+yx693Zbm5e6oIz
-	 sQXLVCQ3BUmHuybOcIgScg/zhUAtgv7RMSNiW5HNqrZgnXoxFf3Nsmqy7+u029TnF6g==
+	bh=Ji97ndRb0L85uvtFbDoAT0Doj9OLhT3C76ZLow53MNM=;
+	b=ZOm5dFEdruYDuVp9m2zPmwW/bgkHJ1MVDwyN0gMeBJ2BAp9/dlAs+lt7QKwL8ImmIGUv
+	 LCFjwai/I1qrPR4aaOGWSvdfz9ZLpv7fpDr7CUsff1oLJ3//638y/JA5vMBJVH3w4Uxfq
+	 50iW/b/ZDoq9R+74I4+ZOFpigE5EP9xyRLlSJBp7DzCYMjrCWF1C24qwI9UIMW/VECup9
+	 IVJpip7hu7Cy2Sg/qLk03yG/o34PDPWp8NgXly4LNovzJTxvHJ7jvGchOJ0qJy/qXhxS9
+	 14nkxr/bzWp2kJcqQdricH4npDAA+xpbDMk7ad1XYRFpuGzZovm7l6foaUGqNO76qzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=hust.edu.cn;
 	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B155060A5BD7;
-	Wed, 28 Oct 2026 03:41:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B155060A5BD7
+	arc=none smtp.remote-ip=162.243.161.220
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34E6860A3832;
+	Wed, 28 Oct 2026 03:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E6860A3832
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
 Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMCWvncBb+FqI+FgAA--.57281S2;
-	Wed, 28 Oct 2026 11:41:53 +0800 (CST)
-Received: from mudongliang-PC.tailb307d0.ts.net (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wCXkDvubuFql1YAAA--.815S11;
+	by app2 (Coremail) with UTF8SMTP id IQEQrMCmzHUAb+FqHOFgAA--.38435S2;
 	Wed, 28 Oct 2026 11:41:52 +0800 (CST)
+Received: from mudongliang-PC.tailb307d0.ts.net (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wCXkDvubuFql1YAAA--.815S10;
+	Wed, 28 Oct 2026 11:41:49 +0800 (CST)
 From: Dongliang Mu <dzm91@hust.edu.cn>
 To: Alex Shi <alexs@kernel.org>,
 	Yanteng Si <si.yanteng@linux.dev>
@@ -43,9 +43,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Weijie Yuan <wy@wyuan.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 9/9] docs/zh_CN: remove stale Original fields from SCSI and IPE translations
-Date: Wed, 28 Oct 2026 11:41:34 +0800
-Message-ID: <20261028034134.4144660-10-dzm91@hust.edu.cn>
+Subject: [PATCH v2 8/9] docs/zh_CN: update networking/xfrm/xfrm_proc.rst translation
+Date: Wed, 28 Oct 2026 11:41:33 +0800
+Message-ID: <20261028034134.4144660-9-dzm91@hust.edu.cn>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261028034134.4144660-1-dzm91@hust.edu.cn>
 References: <20261028034134.4144660-1-dzm91@hust.edu.cn>
@@ -60,12 +60,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMCWvncBb+FqI+FgAA--.57281S2
+X-CM-TRANSID:IQEQrMCmzHUAb+FqHOFgAA--.38435S2
 Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7KrW7JFWrCFWrXw48Gw1fXrb_yoW8GFy8pF
-	yvgr1Iq3W8Jw15Cr18Gry7GF17KFWxGayUGF9FqwnYqFs8tw4ktr43tryDKa93Xry0vFW5
-	XFsa9rWY9r1jyw7anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUH2b7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+X-Coremail-Antispam: 1UD129KBjvJXoW3AF4UtFyfWFW8tF1kCFykXwb_yoWxXr4UpF
+	48KryfKF48C3Wakw48Gr1UGF18Ka1xCanFkF17Jw10qr1kJrWYkrsxK39IkFyxGrWSkFW5
+	XanrKrW5uryjyFJanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHFb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
 	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
 	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
 	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
@@ -78,45 +78,340 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7KrW7JFWrCFWrXw48Gw1fXrb_yoW8GFy8pF
 	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
 	wIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJV
 	W8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUU
-	U==
+	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
 X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-Remove the stale Original fields from the WD719x and IPE
-translations. Both English sources use the same relative paths
-under Documentation.
+Move the XFRM proc translation to its current upstream location and
+adjust the disclaimer include. Add an XFRM chapter index and update
+the networking index to follow the English layout.
+
+Track the English xfrm_proc.rst through commit 03e23b18c720
+("net: Move XFRM documentation into its own subdirectory").
 
 Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
 ---
- Documentation/translations/zh_CN/scsi/wd719x.rst  | 2 --
- Documentation/translations/zh_CN/security/ipe.rst | 2 --
- 2 files changed, 4 deletions(-)
+ .../translations/zh_CN/networking/index.rst   | 238 +++++++++---------
+ .../zh_CN/networking/xfrm/index.rst           |  20 ++
+ .../zh_CN/networking/{ => xfrm}/xfrm_proc.rst |   4 +-
+ 3 files changed, 138 insertions(+), 124 deletions(-)
+ create mode 100644 Documentation/translations/zh_CN/networking/xfrm/index.rst
+ rename Documentation/translations/zh_CN/networking/{ => xfrm}/xfrm_proc.rst (96%)
 
-diff --git a/Documentation/translations/zh_CN/scsi/wd719x.rst b/Documentation/translations/zh_CN/scsi/wd719x.rst
-index 79757c42032b..f56eef04fd00 100644
---- a/Documentation/translations/zh_CN/scsi/wd719x.rst
-+++ b/Documentation/translations/zh_CN/scsi/wd719x.rst
-@@ -1,8 +1,6 @@
- .. SPDX-License-Identifier: GPL-2.0
+diff --git a/Documentation/translations/zh_CN/networking/index.rst b/Documentation/translations/zh_CN/networking/index.rst
+index bf22d22b64db..9f28240d6b14 100644
+--- a/Documentation/translations/zh_CN/networking/index.rst
++++ b/Documentation/translations/zh_CN/networking/index.rst
+@@ -2,8 +2,6 @@
+ 
  .. include:: ../disclaimer-zh_CN.rst
  
--:Original: Documentation/scsi/libsas.rst
+-:Original: Documentation/networking/index.rst
 -
  :翻译:
  
-  张钰杰 Yujie Zhang <yjzhang@leap-io-kernel.com>
-diff --git a/Documentation/translations/zh_CN/security/ipe.rst b/Documentation/translations/zh_CN/security/ipe.rst
-index 55968f0c7ae3..51065bbc53a1 100644
---- a/Documentation/translations/zh_CN/security/ipe.rst
-+++ b/Documentation/translations/zh_CN/security/ipe.rst
+  王亚鑫 Wang Yaxin <wang.yaxin@zte.com.cn>
+@@ -13,142 +11,140 @@
+ 网络
+ ====
+ 
+-有关网络设备（netdev）开发过程的详细指南，请参考：:ref:`netdev-FAQ`
++有关网络设备（netdev）开发流程的具体指南，请参阅 :ref:`netdev-FAQ`。
+ 
+ 目录：
+ 
+ .. toctree::
+-   :maxdepth: 1
++   :maxdepth: 2
+ 
+    msg_zerocopy
++   alias
+    driver
++   generic-hdlc
+    ipv6
++   mptcp-sysctl
+    napi
+-   secid
+-   vxlan
+    netif-msg
+-   xfrm_proc
+    netmem
+-   alias
+-   mptcp-sysctl
+-   generic-hdlc
++   secid
+    sriov
+    team
+    timestamping
++   vxlan
++   xfrm/index
+ 
+ Todolist:
+ 
+-*   af_xdp
+-*   bareudp
+-*   batman-adv
+-*   can
+-*   can_ucan_protocol
+-*   device_drivers/index
+-*   diagnostic/index
+-*   dsa/index
+-*   devlink/index
+-*   ethtool-netlink
+-*   ieee802154
+-*   iso15765-2
+-*   j1939
+-*   kapi
+-*   failover
+-*   net_dim
+-*   net_failover
+-*   page_pool
+-*   phy
+-*   sfp-phylink
+-*   bridge
+-*   snmp_counter
+-*   checksum-offloads
+-*   segmentation-offloads
+-*   scaling
+-*   tls
+-*   tls-offload
+-*   tls-handshake
+-*   nfc
+-*   6lowpan
+-*   6pack
+-*   arcnet-hardware
+-*   arcnet
+-*   atm
+-*   ax25
+-*   bonding
+-*   cdc_mbim
+-*   dccp
+-*   dctcp
+-*   devmem
+-*   dns_resolver
+-*   eql
+-*   fib_trie
+-*   filter
+-*   generic_netlink
+-*   netlink_spec/index
+-*   gen_stats
+-*   gtp
+-*   ila
+-*   ioam6-sysctl
+-*   ip_dynaddr
+-*   ipsec
+-*   ip-sysctl
+-*   ipvlan
+-*   ipvs-sysctl
+-*   kcm
+-*   l2tp
+-*   lapb-module
+-*   mac80211-injection
+-*   mctp
+-*   mpls-sysctl
+-*   mptcp
+-*   multiqueue
+-*   multi-pf-netdev
+-*   net_cachelines/index
+-*   netconsole
+-*   netdev-features
+-*   netdevices
+-*   netfilter-sysctl
+-*   nexthop-group-resilient
+-*   nf_conntrack-sysctl
+-*   nf_flowtable
+-*   oa-tc6-framework
+-*   openvswitch
+-*   operstates
+-*   packet_mmap
+-*   phonet
+-*   phy-link-topology
+-*   pktgen
+-*   plip
+-*   ppp_generic
+-*   proc_net_tcp
+-*   pse-pd/index
+-*   radiotap-headers
+-*   rds
+-*   regulatory
+-*   representors
+-*   rxrpc
+-*   sctp
+-*   seg6-sysctl
+-*   smc-sysctl
+-*   statistics
+-*   strparser
+-*   switchdev
+-*   sysfs-tagging
+-*   tc-actions-env-rules
+-*   tc-queue-filters
+-*   tcp_ao
+-*   tcp-thin
+-*   tipc
+-*   tproxy
+-*   tuntap
+-*   udplite
+-*   vrf
+-*   x25
+-*   x25-iface
+-*   xfrm_device
+-*   xfrm_sync
+-*   xfrm_sysctl
+-*   xdp-rx-metadata
+-*   xsk-tx-metadata
++* af_xdp
++* bareudp
++* batman-adv
++* can
++* can_ucan_protocol
++* device_drivers/index
++* diagnostic/index
++* dsa/index
++* devlink/index
++* ethtool-netlink
++* ieee802154
++* iso15765-2
++* j1939
++* kapi
++* failover
++* net_dim
++* net_failover
++* page_pool
++* phy
++* sfp-phylink
++* bridge
++* snmp_counter
++* checksum-offloads
++* segmentation-offloads
++* scaling
++* tls
++* tls-offload
++* tls-handshake
++* nfc
++* 6lowpan
++* arcnet-hardware
++* arcnet
++* atm
++* bonding
++* cdc_mbim
++* dctcp
++* devmem
++* dns_resolver
++* eql
++* fib_trie
++* filter
++* generic_netlink
++* ../netlink/specs/index
++* gen_stats
++* gtp
++* ila
++* ioam6-sysctl
++* iou-zcrx
++* ip_dynaddr
++* ipsec
++* ip-sysctl
++* ipvlan
++* ipvs-sysctl
++* kcm
++* l2tp
++* lapb-module
++* mac80211-injection
++* mctp
++* mpls-sysctl
++* mptcp
++* multiqueue
++* multi-pf-netdev
++* net_cachelines/index
++* netconsole
++* netdev-features
++* netdevices
++* netfilter-sysctl
++* nexthop-group-resilient
++* nf_conntrack-sysctl
++* nf_flowtable
++* oa-tc6-framework
++* openvswitch
++* operstates
++* packet_mmap
++* phonet
++* phy-link-topology
++* phy-port
++* pktgen
++* plip
++* ppp_generic
++* proc_net_tcp
++* pse-pd/index
++* psp
++* radiotap-headers
++* rds
++* regulatory
++* representors
++* rxrpc
++* sctp
++* seg6-sysctl
++* skbuff
++* smc-sysctl
++* statistics
++* strparser
++* switchdev
++* sysfs-tagging
++* tc-actions-env-rules
++* tc-queue-filters
++* tcp_ao
++* tcp-thin
++* tipc
++* tproxy
++* tuntap
++* udplite
++* vrf
++* x25
++* x25-iface
++* xdp-rx-metadata
++* xsk-tx-metadata
+ 
+ .. only::  subproject and html
+ 
+diff --git a/Documentation/translations/zh_CN/networking/xfrm/index.rst b/Documentation/translations/zh_CN/networking/xfrm/index.rst
+new file mode 100644
+index 000000000000..b366c908eb25
+--- /dev/null
++++ b/Documentation/translations/zh_CN/networking/xfrm/index.rst
+@@ -0,0 +1,20 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++.. include:: ../../disclaimer-zh_CN.rst
++
++
++=========
++XFRM 框架
++=========
++
++.. toctree::
++   :maxdepth: 2
++
++   xfrm_proc
++
++Todolist：
++
++* xfrm_device
++* xfrm_migrate_state
++* xfrm_sync
++* xfrm_sysctl
+diff --git a/Documentation/translations/zh_CN/networking/xfrm_proc.rst b/Documentation/translations/zh_CN/networking/xfrm/xfrm_proc.rst
+similarity index 96%
+rename from Documentation/translations/zh_CN/networking/xfrm_proc.rst
+rename to Documentation/translations/zh_CN/networking/xfrm/xfrm_proc.rst
+index a2ae86c44707..eb4ece66df49 100644
+--- a/Documentation/translations/zh_CN/networking/xfrm_proc.rst
++++ b/Documentation/translations/zh_CN/networking/xfrm/xfrm_proc.rst
 @@ -1,8 +1,6 @@
  .. SPDX-License-Identifier: GPL-2.0
- .. include:: ../disclaimer-zh_CN.rst
  
--:Original: Documentation/security/sak.rst
+-.. include:: ../disclaimer-zh_CN.rst
 -
+-:Original: Documentation/networking/xfrm_proc.rst
++.. include:: ../../disclaimer-zh_CN.rst
+ 
  :翻译:
-  赵硕 Shuo Zhao <zhaoshuo@cqsoftware.com.cn>
  
 -- 
 2.51.0
