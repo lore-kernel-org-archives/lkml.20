@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793154182;
-	b=DPtrAZafiK9kVvwy67Fx1xzD5zwEeMTZ4SQ0+y3jfdXkvnhFMD9ID5hHGaHYADxRw2gQ
-	 ttDcGC/VNonnImlNkZ/2SEW542lgN7VZg8CDEgoa9X3JeHyTOp59+nKJ/9cU1KFnE5vj9
-	 t/4P4RM0kIFZGAajibHR7zS2VtpaaRZ2+d3m1JWlzyEH5ASW0kIdBXICGZhLvPQUTmI5u
-	 DzNK/qCjJ6MgwbhF9f/jAwyOcjVhnbbiyp37BujOFgJzEIc8GUJw6a5+KZMSWGv6c1Q3F
-	 D2Y9Q4K1H/ID5TiRIR5UR/2wJk0vU2YIHX1tLlCkdR592w27ad1T+iOlzGAaum54+Bg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154182;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793154219;
+	b=QlTvbIOEBBAt9yMcAA5BphN3PL10di+4e6HtfQD1cGtd060t5doODI254V2T/H9NLuZS
+	 8dOOMApwOpJBI6+olPtU+5jXJj8QXXDqbWxeb9ASmKiiQxhREGPyG19gD9XXAmV73YRjT
+	 XQG3SOzxY0tCALAVhF5K2xqmJEd1eP/v0IkxaFZyZR4P1+2TbDEMFu5wwHpHzhHn4Nq66
+	 xCy3q+8oqMH0HHlyS/G4gpq9Rphw7vKBDVCNeMjsVGZgNvJ4yHJJKNOeAlHVSsDpkjscn
+	 FvAyrPT1Cp0SkwQv9jsF6NZO4j47xDmyb0KVX4pYimyRaveXt/4mcPYQaE9yWEFzzFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154219;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=g0KBJHkcotWZ5pbwfJssjN2rt/eD5H7NBoxiLo804zM=;
-	b=t95PWNBg/xsJH/wsmWu9NkkQXDzHbvGeF6lDnV2iEQeG1BHAcl0Q+MCDT33oqRMGJOdg
-	 zZmQwbawilq4Tr1+I3wPQdsmGXVIMukJavqsYJBi30SIdM+/oVw4bjq9fZ2dcMwlvLJyw
-	 epZThWXTYcOCNo22CvGrPhE5+LJzRT6UCcCZejhW8Qa0LSBhSikmbZWtv+7xvLnZAo7x7
-	 d0H8corNPuMH5C9X89p22XH1kYU9RgAaH5yhkqwcpD3fL7boUirDWCZNLuYgr1cUhA+Q8
-	 V+9QlffxO0OLxU0M9Q0TTlbxI0OqX6J8rN5VmZcBjPL8IpwUFNnCroeMBquEh5A0Msg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=NMQnf8rSmJb2IgSBV0OamLewABgq3/6kweCgJqa8h18=;
+	b=C8LLhmCHVwSN3YtY7ucuLEO2zFL9VTQfj3Xi8ymy4awlqXCssQK1FTsMKteXdAgmonGh
+	 4iBTlaeYZgPEew5OzC9haVF6GBMcp5+EzPMPA2axRTnkCm8N05NnmJfIpjnPmkSWdTwr2
+	 CxLbiLBhOVAy0MRffusB1K786aNPFEMCf2PAxL7FueD6o9rOWqcCi2DBkWAiQ5ABnjGYz
+	 8UF1t6a3bet0jY41yNdGOH5CPu/AYC0CPFuYvxf9bVQ5xJ/qitKv7u/XRyVuLUFB8hMEO
+	 313Mo6f43MtrCo+z9nA3apiD8zQFIURqrhj+qOF7bOvy4HsRt95xK15wqlSc+T4CcgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X0vXpkTn;
-	arc=none smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vl1YUOqH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4232606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:23:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4232606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25B0606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25B0606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X0vXpkTn
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7cc013095d4so149244137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:23:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vl1YUOqH
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so784580e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:23:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793154217; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qbnM1RdS6VT5WsXuvKd+fHGp93X4tzgRZXbWpJXaXKjHbsf0FX3ldmvL6+ahqmbRl5
+         QliEwaNg4tGI+BG6IBylLuxPbCBdGbLlGqL7PN4wyt8I9HwG2WXVo8y73fFFGpM5Cqpt
+         7F3wkAP79OsuNQYvCqiPu91Bzi/OpdqDMjIZWxfrZrOIw0BL+mjDuKU7jCzW+/lBV7IG
+         V2dBkjeZXtqiWfSpbRmSzm7HOTTJTvOwQQJLQUT/2QnrTUpqVpl7J2TABpyFvu8YH2z0
+         qFE9LYQORgom7zjp3TCW4kTtYo5PJadIy1U2SLA6yOndOxfkjpDoITnIZCQF18One1B7
+         dbFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=NMQnf8rSmJb2IgSBV0OamLewABgq3/6kweCgJqa8h18=;
+        fh=MBBXrRh/6FdPAKW9BnaedL1rw0Zk33+2/m2GOC3NGXY=;
+        b=ldnkZso7qUxFJt/KdVGh+UojxBQ7ZXEY5WYSAKW3mfwkPGAGsEYLq2+3kBqQCvIZuO
+         kmHyb5hWQU7cIVV2bDNTbw7Vaxh7NMhH/LZEypn/NFzzD6IiKczdmwp5/OKX8geV4lom
+         FOFdbZwYqXdD2W7nBphuxlWJlXGRayv/md3tvjNfLuzloQ2B20ilGd11rM6+KsQ/r4L6
+         l6Gopl3XXViL+y1we5VNgbejixLNkOY1DMx+/fhbgb8KSzbSe6bFCrc25gfDEKC0oKzO
+         thJDa4dYTNzPxIfuLV5f8aACygHvUtOqKQoU26kahOStrRsHcNEvvv/4sVAHpPE9PWr3
+         CfnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793154181; x=1793758981; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g0KBJHkcotWZ5pbwfJssjN2rt/eD5H7NBoxiLo804zM=;
-        b=X0vXpkTncO0c24ApbUJZYem4GIl8iQWduK/bkG26GR/UO7EXmUkft+ww1Tb75uaqcg
-         fRDfq3P5noIcxXovYJO0g/h3oyY2Hh64kGK5itnmtsyyJ0qv6nS1ueBTjYKFwkeSxPXH
-         NLattyYQ8cfA2i8ISYabPgyNybVL2Fyq41JoW+Hy2tq5nQli3KvNNo8a8eMbEJO5B1+i
-         srMKZT7AIVHCgryI9mNjOGC2FZuD+NlME1j3APWs62uLEheQ8/aB0Ex50U4uxoiSJLUX
-         6HpHaRh0ZQnxw1ykxtaS7M4SEO/RKhbLxIlQhytiGFJiyuukg30bxOpRazyZg860/Vq8
-         G80A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793154181; x=1793758981;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20260707; t=1793154217; x=1793759017; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g0KBJHkcotWZ5pbwfJssjN2rt/eD5H7NBoxiLo804zM=;
-        b=YdSdD3GKpmBTIOLqg/c2opqPLs8OgHOp/fY3tTyH0RgVCgWSscEE+Vqx4TyT+RVFhS
-         NLcBFOqnGf4XD8BQbkoVTItttYMEcJFpy395n0xMfoOuBG3BumcNseMluDG9a5ncxzU/
-         5NdLF+YPQjH4H4HJ1MRVNxdW/s35Q25aD+RWD9MOuRKa4ifaSEvchmKrMPvNGd7Gfl9A
-         t+PNh+3+wL49l9NHYxfNcZ+vsM8LX0EK3IlCbM/jeKZiAFfQ4aMBH5/7E89izEyw2YOA
-         f1Fy+TgwjaIPQm+WEpVYQ5JLLOpfzn5128gR2un7p5JH0dPA/rlfUXBdFtMVSgJ4lAQN
-         o8Ng==
-X-Forwarded-Encrypted: i=1; AKwUvBydKX2LPqJKFoIMUBitTFTc66He0YAUH01KKxKLuZIS+Kv5wVqrUvlUrp0AIexkxKiA7fDKh+Q661K165Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHOoMi+T73nNyFtX8kIq+ioU244QEn79V88Ic28tpQj4b+q6C5
-	H0JVfm9dDlXp+AYNZjVLkwNSD+Xkdqtm0MSFazPEiPdZ2Aux+6Qw03/6
-X-Gm-Gg: AYBFou1OuevaeJU7ncK6ue8b3CfJbOwtKHmmimyo+rI77V2V5DDZfoBl1wbCUxCDfxk
-	BekSrN5FTypCNxkW2iU/2Phc+SmgdJQ6tFMX7wAaQOcbbRJ6A1q5ivqfcjl9MnqSRXCl0MeEMf0
-	PDLGziHgmfL679ZxCYxnyPTpUi8PbrRBTToiNwYh0x6rmlYeGGL12CUOFnQJ4r+E/LzNkVBBrGs
-	85uJLp7ksSglJOuQECgjulI/j9MxVHlVdI7mjoqA3pMkzW6NnxJhakKMDpShwR3mGcNoWIrbPw/
-	BpFC4/vLIhti9tf4e8+mjxngRrZ4+tmXYYYqcHB5SntInoZ7kJOTdX5zCbnYt73Tl1klZSMISzX
-	WdckJN3yEBwJInUq8hYutY3fhYZ2oFKcm3rH7Pi/mQl8fpQe8nmNKo9qPBt2dEFAh0n2GhhaB55
-	agFvcAYnDl3/ljsK8oD0bW8UkZcFVG/5rrUVN6Z8qfALSqSKiJgASyzERmvfPUO5I16G48cL3wN
-	MzsXgXrktZh67CRxaEKQGVtl5+vAXIJro81H8/C/zaoUHWtD4RxAsSHu3NXfdxfwVDt3sJZ9pDf
-	5Z0+a4VjdpKUo7pK75OKmPAaZn8hUTunOLVYxDNwKZI5X8zO9zOw
-X-Received: by 2002:a05:6102:1626:b0:7cc:2bb7:131d with SMTP id ada2fe7eead31-7d03a4eabe3mr460742137.9.1793154180806;
-        Tue, 27 Oct 2026 19:23:00 -0700 (PDT)
-Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:4df:52dc:4559:394e])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f8e0327sm414520e0c.4.2026.10.27.19.22.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 19:22:59 -0700 (PDT)
-From: Stephan Costa Barros <stephanbrrs8@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mike Looijmans <mike.looijmans@topic.nl>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] iio: adc: ti-ads1298: prepare for more chip families
-Date: Tue, 27 Oct 2026 23:22:52 -0300
-Message-ID: <20261028022252.30530-1-stephanbrrs8@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <at5mQNfPsoQFyraj@ashevche-desk.local>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com> <20261024231335.280955-5-stephanbrrs8@gmail.com> <at5mQNfPsoQFyraj@ashevche-desk.local>
+        bh=NMQnf8rSmJb2IgSBV0OamLewABgq3/6kweCgJqa8h18=;
+        b=vl1YUOqHGv4FSVuU+MpRsZ1orgmp7endVR8qRCJ+V1E1NYC+NqRn6KfHuCt5eg6qoe
+         P/TLE3L5J2O1uCCame9lT4xTLMAK4LdHNenMrWcBRgHt2RUz4o4FTwwSGqdCtM3gLjy0
+         HG3OmmGLMmG1H8BOWggBr+B5kgsnVZ31d0DfGU+yRWEuzKmGE6c9NutPsTR+Sf3l9M0I
+         IBZdm0H3pLUMVHzvBZHtr1PwZ4Rq/EHJWkJqN1DToLKC+hH4EpTki66IDU8vO8HEDOHd
+         HsJf1eZAC1QA7BgzfHBI9fe44P2Tvk/EVq75qC1g6bS27DphCSZvtihewxjqyiTmLN13
+         3Znw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793154217; x=1793759017;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NMQnf8rSmJb2IgSBV0OamLewABgq3/6kweCgJqa8h18=;
+        b=uK0HxDD+2LzeHoib4gos+l3tR5Kd+Xex90qsN4MPg93pKbzV4D0CJ8TJyEvV28Yr3O
+         ES7Jhvu+UW2rzqDUB/gzoY2qpWD5Jq6hLRwWt6IVyBswj131hxEW2KLuYpMO8KEo59a5
+         hzoaW0DDd42fe3OGa7yQx8i8zp5KSEdWltm798M59F8z4ckqoSB1KZYZL806kavNqJ2r
+         uyR7JwJszzbPJLe0djKsKnTbZ09ibxSVvvXH9IYHaaPJJVVwZdYR1dsaOp/PCdrwvxUS
+         TWEeNezJSH2kslLm00bcOezLWVTDirA9oJaKdmRmyxizHwrPPAzGy6/yuthE2ZdC5oYc
+         MnKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzoWV91EFxaiWV+3PzXOBFZGZskymKUOL1lWhIMixed0MCtiKAxKtxx8ZDjnJDZ380LAOxX88z6me+sM28=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4C4+mGstUnfHbY/cxDgy6fptvm6P/Cslo58dug81FH3UOCbGu
+	UWIFsKYcMVTQJO5qwdg4RkUb0SKgVXd74ufwZ3/F7JWpC1Z0sHQ0b1Df9udj28Q3puN5I0LoPXd
+	ikuMTi1O3uOa7Tt+cAuPr07cHCosn65XzppxIoKM=
+X-Gm-Gg: AYBFou1kdgFJJgDnP1Bn4m25QFRkqid7CZboZQTUNpW81I6rF9PqOeHtf29iuyfzDcz
+	gvF8f1xL4SQOzhh77l7HjLvx1cTrzkKEU8b5cv1ACj37g94KzQ0zoX0Y4PxoknFiH4V5z/KZ/D1
+	TeIXOu/gfovs55JG6wC7SCXolmy6qfp0Vt23s1HmSv7HHW+hhHmLsQaXKqDVkTIKsrKR98rBg2E
+	P0xArH/7luP1a95CBBZD45GrH9x2DnyOG/joBq09gX0mkg69ArOT03DsSnc1Ms9bOAG3VcATbu4
+	6gpAuKdqcjMWhRWQsE4+joXLnmssfvu+n/Hw3cfxXtv7JEgaaR7s4HagabLv1ba5wdAaXTh8bHn
+	NaRAjcKKdA/2oTNCoGO6fTU40/Qu2cskMct16spgoESBkYtNT7nngzw==
+X-Received: by 2002:a05:6512:1393:b0:5bf:b144:fcbd with SMTP id
+ 2adb3069b0e04-5bfcad56697mr450920e87.42.1793154216891; Tue, 27 Oct 2026
+ 19:23:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,24 +101,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Sergei <fistboom@gmail.com>
+Date: Wed, 28 Oct 2026 05:23:25 +0300
+X-Gm-Features: AclHuK9TQ3jlszcX3q-6jan3r7y0WdMtqLdNNTXDdvzhKovX-HpF7W_fh9oyHSI
+Message-ID: <CAD6ZPytCGim57_DthuUhM2cnqG9iCJw+yP=5v5btQ4cE7JBteA@mail.gmail.com>
+Subject: Unknown NMI after resume from hibernation: restore kernel leaves the
+ NMI watchdog counter running on CPU 0
+To: rafael@kernel.org, akpm@linux-foundation.org
+Cc: pavel@kernel.org, TonyWWang-oc@zhaoxin.com, peterz@infradead.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Oct 25, 2026 at 10:27:44PM +0200, Andy Shevchenko wrote:
-> > +		*val = regval & ADS1298_MASK_CONFIG3_VREF_4V ?
-> > +		       ADS1298_VREF_4V_MV : info->vref_mv;
->
-> Can't we assign the default and always use info->vref_mV here?
+Hi,
 
-Yes. The ADS129x has two internal references (2.4 V, or 4 V with
-VREF_4V) and the ADS1299 one (4.5 V). In v3 init chooses the reference
-once and keeps it, and read_raw only uses it.
+I'm hitting the problem Tony reported in July 2024 [1] on an AMD laptop,
+and as far as I can tell it's still there in current mainline, so here's
+another data point.
 
-> I think this patch is overloaded. You need to split it to a series (to make
-> chip_info a separate preparatory change, for example).
+After almost every resume from hibernation I get exactly one
 
-Agreed, Jonathan asked for it too. chip_info becomes its own
-preparatory patch. The _mV names, pahole, MICRO / MILLI, -ENODATA and
-the single line: will do.
+  Uhhuh. NMI received for unknown reason 2c on CPU 0.
+  Dazed and confused, but trying to continue
+
+somewhere between 1 and ~130 seconds after "hibernation exit". It shows
+up after 25 of the last 28 hibernation cycles, always on CPU 0, and never
+after suspend-to-RAM.
+
+Machine: Huawei NBLL-WXX9, AMD Ryzen 5 4500U (Renoir, family 0x17),
+BIOS 1.07. Seen on 7.2.3 and reproduced on 7.3-rc1 (both Manjaro builds;
+the only taint is U, from ryzenadj writing to PCI config space). TLP is
+installed and sets kernel.nmi_watchdog=0 at runtime (that's its default);
+the kernel command line doesn't touch the watchdog, so it is on at boot.
+
+It's the same sequence as in [1]: the restore kernel boots with the NMI
+watchdog enabled, programs the perf counter on every CPU, takes the APs
+down and jumps into the image. The image kernel has the watchdog off, so
+nothing owns the counter that is still running on CPU 0. When it
+overflows, perf_event_nmi_handler() finds no active events and the NMI
+ends up as unknown. After the wrap the counter just keeps counting from
+zero, which is why there is only one NMI per resume.
+
+Reading the PMU MSRs right after a resume on 7.3-rc1 shows it directly:
+
+  CPU0:    PERF_CTL0 = 0x530076  PERF_CTR0 = 0xfffe53fa3a48  (EN, INT)
+  CPU1..5: PERF_CTL0 = 0x130076  PERF_CTR0 = 0xfffa...-0xfffe...  (INT only)
+
+Event 0x76 with the counters sitting at about -(watchdog_thresh * cpu_khz)
+(23.7e9 here) is the watchdog's setup. CPU0 had about 7.2e9 cycles left,
+and the unknown NMI came 69 seconds after "hibernation exit".
+
+Booting with nmi_watchdog=0, so the restore kernel doesn't arm it either,
+makes it go away: after a hibernation cycle every PERF_CTLn is 0 on all
+CPUs and no NMI shows up.
+
+I don't see anything in the resume path that stops the hardlockup
+detector before swsusp_arch_resume() (resume_target_kernel() only touches
+the softlockup watchdog), and the two patches from [1] never got a reply.
+Laptops running TLP probably all see this, since turning the NMI watchdog
+off is TLP's default.
+
+Is the direction Pavel suggested back then (suspend/resume hooks in the
+watchdog code) still the preferred one, or should the restore kernel just
+stop the hardlockup detector before jumping into the image? I'm happy to
+test patches.
+
+[1] https://lkml.iu.edu/hypermail/linux/kernel/2407.3/01199.html
 
 Thanks,
-Stephan
+Sergei Gorbunov
