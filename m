@@ -1,60 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173846;
-	b=UBQYh/k2egla4oHG9619TZElmEKWHjhSdWP/3aFrzEDcF0TEvNfaMIv7H0gctCMn/7Q5
-	 dYyA0ohWoP3QTDAoEV930Jw4BuH852OrvBC5vTlD6WT36MRT0l2o4xLjSRmPAZx+92pzR
-	 dnD3lc1623wUElOgJJMmQZWPCChg4ORrEFTjycM4mI6O3IyZytPDxIEV9CPDGFqS/blGl
-	 E1hpQuDm8f918CM9lhw/bJqGWfsQYNxp/POTDEiN4zYbmecQz9v9PTsVXaGk5fgwFY9sn
-	 k/pJhI2RhvP2ZHOd/onwKXVMtog4A0bOZvS5d6UFCJ66DePgSkRWUDdBK9oSH/kd2kg==
+	t=1793173870;
+	b=3j2mA/mUDh1zBWBTkl6aYtt62miDXJ70fzm/kPBDHplHuFmcx472c3yXjFHhMo4EWWKp
+	 xOdXX/C2/sdvr6Ap8Oa9tlEkduLYPMj3RD4+SO6Z9G8XvqDxA3oOS4b4G5v5I+lzm/xq4
+	 Ec0dtpOyCKvPor2zqYJcRlMZ5s6fKlTQzWpOzbTfi9US23cK36d5RJA2zQJu2MdOH9K1j
+	 57W4mo2XGyl4lnLJq9rwPxM/Gn3BNZS7/HNJ3IZGTJ05dTl+yYt0Imwpt6jtbxABLI2vb
+	 gwlSXaxC3QG4/RYfJlsJS7ylipHDN3aPy/Tq+JekMJbW4gDQu5hzVZBhdKH22rOfRxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173846;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
-	b=0Mx+vz88ZnNoUdbkN/ft8ugOFrm+pc1gQSeIqgh0TByLbN5fiPBkBYC2n3e0x8XZnWLJ
-	 0hnU50LL4ZTYShVIDwL3wsua0pfWV2wwsLEiEPqlJBj2hlhQQ/7lILVZo+U2YafxBC16p
-	 fB3lijTlGdSaQ7kbxYFY28nSoB1kRcyCAelkKso5oAzmHPsO5cvb6yNwhG2aV7K9AIGoY
-	 Uufq7N52fc6UaQVBYhizRMxOlN62fa78ejwgod73N8eGfryDuSsQLoJcjutdhnMg3pIWd
-	 NLS2d3lEN9sVCNn7vaZ2a5Q+MaYrTI3N35YJ5Et7E6b+ZCDARZ2CRcwhZjs3pe1aWIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173870;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zwOSIJQjqu1jiO+D10Z660xd0C1HKGPEar6chOI2AHs=;
+	b=i78BAi7vBIqP+JjRJHNDmSSXNX/oUKipMj2e4JgT2z/DRjViNjJGeB9O0ExhhHgau3lo
+	 8wNO3E3c7kWANIimXH1A4CxpRfG02K5obd5QrLlIZ0d+LxlXyqqERbnoHUtNUlkJzeho5
+	 4jL6IPERbXcFjLIuh3us/WLGfpRILfVhdS0wzOdh6OjAbcZXNysU46nu1PQTKLmp8unjK
+	 HVuApin/SDbPRlSFwr82bHRVQ5xSxyizIzeQxrc3f69LJmORk2jEAp3r/PdxIWqalKr9P
+	 xezeavWvaBueM//WItI9/QfPlgmXT5NpsAI+JNIKA+Ry5A4R8k/cQwqrV9gi+kTLNQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hE0aSd1o;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gmY6Thji;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CED3606A31A;
-	Wed, 28 Oct 2026 07:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7B2606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7B2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4300C1F01825;
-	Wed, 28 Oct 2026 07:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793173845;
-	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mgLqA7LE1hT8ifeFCdgKjxs07zUMgblZj0t3wZSKxr2lqKSEgLV6wZpDGHMDmH8vg
-	 dizIhqzKwtrjbGBS2t8dWYyN5k7a/3AwdNQAmKvMf8GnNoIlL3bvmm78wfgE41zb/d
-	 O3XjszQs6Y3Rb+xAN+uwfp2Hl5sl9aqdL+NkdrVEzug0sF6FhlQBQZo4KGbaswucSN
-	 T0BsZhXDXAW4365g1b5/MOxv9rKdnYn6zsMP6rXlIHlYIjtC39CX5tA6WdeN1jt4Fr
-	 4kNtOTJ2ITRIj7n4tQLBvvNOQWTLBjWdFQrPj/+Q3IqIcTHZI900ho1+JWqe5sZQTA
-	 qg7BHBvw5Lunw==
-Subject:
- Re: [PATCH net v2] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-From: netdev-bot+sashiko@kernel.org
-To: n0ps1edzz@gmail.com
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hangbin.liu@linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 28 Oct 2026 07:50:44 +0000
-Message-ID: <179317384479.3134.10802512477499125760@kernel.org>
-In-Reply-To: <20261026044808.613-1-n0ps1edzz@gmail.com>
-References: <20261026044808.613-1-n0ps1edzz@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hE0aSd1o;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gmY6Thji
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4PVas655647
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:51:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=zwOSIJQjqu1jiO+D10Z660
+	xd0C1HKGPEar6chOI2AHs=; b=hE0aSd1o1OyH1owE7CEwhpoMUehIl9Dop7ISz0
+	wVLZ/wDDJQZ9GibV8DSUn34BgYXrp+g2AWqtYSiV8QgwDtghqkJSpNSWskVhfYO2
+	ETZqLGPcXTPrM8uO2kJ03OjXoc/gJT8zWs0ROcgMSa4So41FJzeQ3poyKKQT8qen
+	UeAYxllf9tAgmJqc6kTylmxf1ZVBA8tFN9xoQE1j6TEZKDMqRYG4kQXEPzyuwy9g
+	HCdWDmSo3lwH9ZKIPwX6c1iHegBg9lLITLwTJMnSKHpHY2pgQdQLQG1x76BIL2Fd
+	mrsX4j6NfnUaOYPbLDi/E+VT5BpjFcHe0gPIoVOGuDSm5VsA==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk7g7h5m9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:51:08 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-139b62317d0so1981013c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:51:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793173867; x=1793778667; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zwOSIJQjqu1jiO+D10Z660xd0C1HKGPEar6chOI2AHs=;
+        b=gmY6Thji67U59lpx8Ch/zGGWkmUybnVTONV9oNDoWm2QOyBJPUSEu7FzEzKZvtmhW/
+         5wAoAgx0hcN4nLOWLFBGxQ3J/TWcmbCcbt9lHv0APVCrIbHx/m3unaoJmG99edc9xeCc
+         p3KounxSZkjKbeWGyo7i41Ginik2vGF3f8Gekeif29SjgNfBMXpH+5LQY5DVRfe7gv06
+         kaiJcLDhnGHjScj9kD0L6pAMfRKfYKhQDIsyJBsNI8ZETQZvk+ZoRBGQOVM+8SLT/j+4
+         Yrs6CEQVtzh1Z6gbf9tCmrVq+L005GTQYnT5+L2ReCu5nUndBEZySYjzlpql88dRkqRf
+         EVdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173867; x=1793778667;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zwOSIJQjqu1jiO+D10Z660xd0C1HKGPEar6chOI2AHs=;
+        b=nlTjBLP2gkbyHc+RDKo1eqCGYwRDJ7nkTQ1rqsnABwCgDbTf0BGYzfvh7m4gjQa6uw
+         J3vXWzy39pkByldBLBq6tHZx9Tjp+422dDOH+uETSTSCClUOSAfTho/U78rFIhDYEFP1
+         6spH/w+/UQrR5WkG+toAw9iJ+1w6fsGi3rqF6GaeEmzvUM53jcrQxMxtTO8A7dumEG9h
+         jdWob9SUhYx7M9t3zL33vYgJ6QqxERkOt6GJNCt5ug0kYI2Kfa0TCtz3f7f8EtHDZwku
+         m3FeSYE7NjSiLGGPA1qarObjcZUSAUqV/lmMUH4ywbE0xCv6AvT4e4Kxd7P8HWDE87ae
+         2gtA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6rcfn94CCq7FgpRC0F9eFBGwzJa3Y6PlhJYzpZy5hXbT5zPG28W/ZpJsIrgUJtYh28dENrZnET35e3Uc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNVaqnmFgDo2h4AWSenx5U9AsIqacug+g2g2lpku4vNSRaPCS/
+	RK6lOvKyHfzHld4sEJXwgb8XtEml9VEOIfIzy5VbLql4Z3D08cHVetIpqNeJHOIf3guscvAS5Dq
+	GR1EA+RKsllZCH3u2V/2C9W4q5EYtSFUQtkLiHFPDW5hB0z5AhuujyabiE4QqNlS37BE=
+X-Gm-Gg: AYBFou3lLuVhBWNI4+K11W9nd6rZxHqY2aRDf5qk6riJXuJdNuCMwUnRHn3McBGwsXS
+	4JdU1WgZAHPaobqjZDQ8WT3RO2X+RtR9ibQIAlvfezAtx/E9WraFHPHW5IMbqbYK9+dCvQ/oUEL
+	o7VMTuni4TCO370S77pvK7uPXyjyBUPe2dUV6Ovc63It5yem6jW093fH4cfOlT9qYU/zMRNZaxn
+	6lnl09nHPvnyGFk7DZTf1aWAUKRdNg3BS7nmvO+zo1JedMU1ONWBf+3/1RWfXjhRqGfkAxNDmEX
+	Un6AKv72r6tsfpH1raFv/jXeI3CQN8bwhz3eWjDNcuSUoSHLFotjtS7V2kc1RGvSc3VylNeCugv
+	lZeYcF49OGP7lAOG2+pmPTDG2nQA/yYeBjorcY4BB27qfRlNOE/qXW2aU1dFlaPTIUgA6FRhPuK
+	wyBWszKHhfWeOkmb0WEBnlZDtDT8u1avPu
+X-Received: by 2002:a05:701b:290b:b0:17b:fea8:1425 with SMTP id a92af1059eb24-1a6cdc492bfmr2054910c88.30.1793173867056;
+        Wed, 28 Oct 2026 00:51:07 -0700 (PDT)
+X-Received: by 2002:a05:701b:290b:b0:17b:fea8:1425 with SMTP id a92af1059eb24-1a6cdc492bfmr2054887c88.30.1793173866516;
+        Wed, 28 Oct 2026 00:51:06 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75c814917sm3430261c88.5.2026.10.28.00.51.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 00:51:06 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jie Gan <jie.gan@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH RFC v2 0/2] arm64: dts: qcom: nord: add CoreSight debug nodes
+Date: Wed, 28 Oct 2026 15:49:32 +0800
+Message-ID: <20261028075044.431228-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,92 +123,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAzMSBTYWx0ZWRfXxm4WTRoK6xRa
+ +wT/gVSpJGBHi3X710FfS+PPwjyOkYzgfCY40LuDr/towwTwK01iMLtOI5lHO5fd6phDbrN55Q8
+ h9ljt8ehTnzw7IQCfpuKPLaYfCMSGSc=
+X-Authority-Analysis: v=2.4 cv=SoIFe/O0 c=1 sm=1 tr=0 ts=6ae1a96c cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=GL7yGNlxQxINzW0oewMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-GUID: 45V-N7osqaN5VUuDOmWOMOSxwWYM2WfM
+X-Proofpoint-ORIG-GUID: 45V-N7osqaN5VUuDOmWOMOSxwWYM2WfM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAzMSBTYWx0ZWRfX+S+g4idFOdl5
+ eKJPsHWGsYZwGlC8XFQz2RPmaOCM/17XFfh6HZ1Y3Xbab+92AtLRJomXdFvsLUj1kovlOkdm6F7
+ XbTmJFkzeDyVBgvUP47Jybk9cPIQXE09K4ejjjSnSurZuSdEG5cRKFRSPCJ3LQnqjFnuk75h2bS
+ y7PJWnDtJ4nxIDYsJR+TWuH3ddo4Bl/sHq8fqZjj9deD71p1v2+2OXkv4rOvSFs+pONHSjs5asZ
+ 3mS0RMwkTsqvCblo2kpifx7roxx8AbA2zwgpoFSve0F/1GTifI5FxTHtxpHyk/ntFOav5kNx6ON
+ P/MwytYf15d9dwZxl9jclZQY2GeA1mR9xTFPGdq/zT4w8MXLpZzZqs+pOO5wC3elh/g2zM2hWBi
+ x36htM7wpE2xhyseBc4vtOlUdJ9WUTd8v5ZnfpHTjsLq4eG3vrV373yt5nV/n6lJTa4eZwqknFi
+ uAgzAtZMDV/DawepDyA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280031
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+This series adds the CoreSight trace topology for the Qualcomm Nord SoC.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Dependencies:
+- [PATCH v6 0/5] Fix traceNoC probe issue on multiple QCOM platforms
+  https://lore.kernel.org/all/20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com/
+- [PATCH v5 0/7] arm64: dts: qcom: nord: Add remoteproc and PMIC support
+  https://lore.kernel.org/all/20261014063953.549379-1-shengchao.guo@oss.qualcomm.com/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Changes for v2:
+- Tag the series with RFC due to dependencies
+- Fixed the ddr2 TPDM labels: tpdm_ddr3_llcc_2/3 → tpdm_ddr2_llcc_2/3
+- Renamed tpdm-nsp0-cdsp-llm-2 → tpdm-nsp0-cdsp-llm2 so it matches the nsp1–3 nodes
 
-- [Medium] In VRF redirect mode, rawv6_send_hdrinc() (net/ipv6/raw.c) no
-  longer charges per-interface IPv6 SNMP counters to the slave interface.
+Jie Gan (2):
+  dt-bindings: arm: qcom,coresight-ctcu: add Nord
+  arm64: dts: qcom: nord: add CoreSight debug nodes
 
---
-
-ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-
-This patch reloads rt from skb_dst(skb) after l3mdev_ip6_out() returns in
-rawv6_send_hdrinc(). The VRF output path can replace the skb dst and
-release the original route, which leaves the cached pointer stale. It fixes
-a KASAN slab-use-after-free reported in rawv6_sendmsg().
-
-> diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-> index b965258cf9e5f..bdea825434ea7 100644
-> --- a/net/ipv6/raw.c
-> +++ b/net/ipv6/raw.c
-> @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
->  	if (unlikely(!skb))
->  		return 0;
->  
-> +	/* l3mdev_ip6_out() may have replaced the skb dst. */
-> +	rt = dst_rt6_info(skb_dst(skb));
-> +
-
-[Severity: Medium]
-Does this reload move the per-interface IPv6 counters off the slave device
-in VRF redirect mode?
-
-When the VRF device has a non-default qdisc and the packet is not
-xfrm-transformed, vrf_ip6_out() calls vrf_ip6_out_redirect(), which swaps
-in the VRF's private route:
-
-drivers/net/vrf.c:vrf_ip6_out_redirect() {
-    ...
-	skb_dst_drop(skb);
-	skb_dst_set(skb, &rt6->dst);
-    ...
-}
-
-That vrf->rt6 comes from ip6_dst_alloc() in vrf_rt6_create().
-rt6_info_init() zeroes everything after dst, and rt6i_idev is never set
-afterwards. So after this reload, rt->rt6i_idev is NULL when the function
-gets here:
-
-	IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTREQUESTS);
-	...
-		IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTDISCARDS);
-
-_DEVINC handles a NULL idev by skipping the per-device counter, so this
-does not crash. Only the netns-wide counter gets bumped. The second
-LOCAL_OUT pass in vrf_process_v6_outbound()->vrf_ip6_local_out() does no
-OUTREQUESTS accounting either.
-
-As a result, raw IPV6_HDRINCL packets sent on a VRF slave in this mode
-would not show up in /proc/net/dev_snmp6/<slave> Ip6OutRequests or
-Ip6OutDiscards, and no other device counts them.
-
-The other IPv6 senders count OUTREQUESTS against the original route's idev
-before the l3mdev diversion. ip6_xmit() does it before l3mdev_ip6_out().
-__ip6_make_skb() does it before ip6_local_out(), and that covers raw
-sockets without HDRINCL too.
-
-Would it work to follow the ip6_xmit() pattern instead? That means taking
-rcu_read_lock() before l3mdev_ip6_out() and counting OUTREQUESTS while the
-skb still holds its reference on the original rt.
-
-dst_release() frees through call_rcu_hurry(dst_destroy_rcu), and that
-callback is also where rt6i_idev is dropped. So the original rt and its
-idev should stay valid inside the read-side section. This would fix the
-use-after-free without changing which device gets the stats.
-
->  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
->  	 * in the error path. Since skb has been freed, the dst could
->  	 * have been queued for deletion.
+ .../bindings/arm/qcom,coresight-ctcu.yaml     |    1 +
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 3088 +++++++++++++++++
+ 2 files changed, 3089 insertions(+)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026044808.613-1-n0ps1edzz%40gmail.com
+2.43.0
+
