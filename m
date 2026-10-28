@@ -1,65 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175202;
-	b=xuMXmv+/WkDciX8leuYQCp/vlGbBU0x6Yb77lJPlZgeri6STYcM07aX5z0aKoGOuMjI/
-	 IeqCoh0e5P1oAThoZu5bWWLHXhfty6z7rPsvvNCFCQKyzIZB1GYiFsgBAqH13tg8Xc3yx
-	 P0IAH1FgRIavt5Fj3ru48N9uQ3vM+rqwjOAiK3xMc70DuV0mWRv1+gL8rMRJUH2m1Bb/h
-	 QAE2zG6mPBVMApU2hUzIKRgmRap0ikaccqyb0QQefbRRhgPXQNNqHVB8DwjmHwzyhxeWI
-	 vLVmsBRg7lOLz/Hf6NUCUIxbSjPNCj62gnPhNU1EOhTRyuft5GraBSGZ0kmHOpYzDww==
+	t=1793175203;
+	b=C4RPMXKCJkNqca4hJOlNlsg3NHhbAUSkFnx6wyEahyiHPHJYSFwgJ5+C32ndHzu96yMR
+	 j9DUzwAqB4xYf01q/JGnfdvfWatHI6TzHDREacJ9qyY8QSBFfH5ypKN9zoLwLXDsBYKQU
+	 V6Y9atyZU+pEN/0cez66sQEXiIHmOglFctdVrbVIPGmVA65o1rpky7OL7GdeDQUxpqPkb
+	 LtkXR6duXlpw+r4lmMTSkRUEeakd7+Up/5A1PMvhyp1ZWDv4SCJaWdTk2QaacjiNhXkTH
+	 MELy9AyA8aeDFB8RxYRdmuIj4m58qkr+ZAwCbCZ15WvuOtCsGbnIbM2J5mQvQcSh9Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175203;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=AQ69QgwWrBTLbLy8ZCOmzzYIZQFOgR3K0SSo1y7xus0=;
-	b=n9g06leBfnA+iCkSWFKBsQwYTio2C6BbaUZY5cGH7hRBH7/uO0OogHqCMJaO90aATo6I
-	 UKTP9TFny7ULZrirEueJbmUG7bodhOk8KNjvkekz77Xv1+zKV6o7xvLXXmGMmsEr+Icnx
-	 TUQTqaj+P5C6oc6MuqKAxP6cKXDalFk7yNeqOTOHNcRUWIAicXF0+wAlDcbwjhqE5N67b
-	 3AG8p2e4U6Vb3wx23fGDvrNr9H4MInKBXvOYE2Fy08YwX7pEenU/kyRhu3C/Nf8AJAx/G
-	 3ZAUyasgK3aptFRB2BQL1PIsVx8zbX1NEvfBHzDpp3m8Odb+UPX/DPIjLkXmu6Iz+jw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cyFTSceoq3zuHq/GmeM10C/NFw97mGwU91gFM26+PlQ=;
+	b=M2cYHwCQBHd8K4QtynuZ4a7sTVomNyoKBfop4YFNvMNUAgLtNx4zjQoGreCXf2XqE9+D
+	 VyuZi25gIRoDZyDP92Am5Tynp0EbOaCRtiiKVn7HrfYP0USJk77lzsp7RM6sh1suJhByx
+	 SYc/TOMOoeC5Vjffttt5Koeney9UFDjDVqH4a5JfQMg9xGNlKhCAAz2Q+tLcBJEm/4zzo
+	 mxXAdCLSoZD22/P+6XwLE+lJU75NoYGDOLxCX+WHAAqInAiCCNy2cbFrCFtHRuQ+mkHf+
+	 B1j9e7vaXQzE/5etBK951h7jgOBwJlOWibWMpcSiQcGrnX7+1ROtlXCUQc7AaLxMtWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YbM4UYMV;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XgJION42;
 	arc=none smtp.remote-ip=192.198.163.16
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4B8606A31A;
-	Wed, 28 Oct 2026 08:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4B8606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B2B606A325;
+	Wed, 28 Oct 2026 08:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57B2B606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YbM4UYMV
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XgJION42
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793175201; x=1824711201;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=YdoBbntMRkrdPEwFCxfL27AAbVHzuUnLR/LwX9+Decw=;
-  b=YbM4UYMVjM7dlGjHWizIs2dyhhtJ+hg7ytnxDdj7hvIuAloCKUV/8pmE
-   WUahkU8ObEKIEo75Ef+uQF5LHvGgvz8NfMJxfAJ7ODSNKudbB8JgUrhdw
-   GzNg8O7igUuUkbU5kcfkNdrtMd5E5hotzAVVpNbQd49mI/HzsiCg05JJm
-   bPIsxXPbdqHmqrJJJeAbQb93Oeq5FgFhH6yOCEv0A16D0DV6pfNlmC9TO
-   VLfdIycpfo46zeoZEkNMMmf8pGVbHH6q2UD3thmoakYvTKR1+2a1Y+Bev
-   NYWns77R3hDaUo59Njz9jmleN8Pd9CVwaPDxNUU3AdZnTUajIHa8vgJYD
-   g==;
-X-CSE-ConnectionGUID: c5le7f29SfygcixKshIPQw==
-X-CSE-MsgGUID: K2nNZGPrQBGyskRafqbrtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1902885"
+  t=1793175204; x=1824711204;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=XG8I1ZlzrQJMmoZkxoBKg5VNeMfO70HWg+m1XgJxHG8=;
+  b=XgJION424HMDOlhR2UZkiS1+ASOlU3unP0yiZv1gaOV80RpB+gElO16U
+   WhVbHcPGnEZm1Ww8Lj/b+lZnFeHDRTfqr8n5arEyopzQVkfst0Vubl89W
+   andIYb9xJL7CXtDGUFfEBr0rG7l1J3MrhROUHDOnDDnhfrKxE5K+mb0bz
+   eZhbreVp9jaP6EHhgoA0ToxYLUEIA0zNkaqvzu6Xw+sEntSfCW/zR7NOZ
+   68Rr1Ma+i24lrOqzgR+WzFXb1QIsifFNFiAyrzJ4bwKEPRq+w3/bCTQAz
+   +bEYEb0jl6AG7QrLjVZyThc2vxmYQES514wnjXgJhqLPRV0nUswieF0fK
+   Q==;
+X-CSE-ConnectionGUID: IpNbj16GRfy4BEXQ4q89TA==
+X-CSE-MsgGUID: JVt0S1V2RpORKYM1avB6Ew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1902924"
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1902885"
+   d="scan'208";a="1902924"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:15 -0700
-X-CSE-ConnectionGUID: Wf6ZPOlUQhGh9RE7nrD4Kg==
-X-CSE-MsgGUID: VwaN//XQQ12DTxB+Ez6USg==
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:24 -0700
+X-CSE-ConnectionGUID: sC29fIEiTnO07dXkd0Wlaw==
+X-CSE-MsgGUID: At6m1/LXTASNneV1jWyQ0w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="5118463"
+   d="scan'208";a="5118495"
 Received: from litbin-desktop.sh.intel.com ([10.239.57.15])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:10 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:13:19 -0700
 From: Binbin Wu <binbin.wu@linux.intel.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
@@ -76,10 +77,12 @@ Cc: seanjc@google.com,
 	kishen.maloor@intel.com,
 	dedekind1@gmail.com,
 	binbin.wu@linux.intel.com
-Subject: [PATCH v6 0/4] KVM: TDX: Validate directly configurable CPUID bits
-Date: Wed, 28 Oct 2026 16:16:53 +0800
-Message-ID: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
+Subject: [PATCH v6 2/4] KVM: TDX: Add CORE_CAPABILITIES to the allowlist
+Date: Wed, 28 Oct 2026 16:16:55 +0800
+Message-ID: <20261028081658.1228484-3-binbin.wu@linux.intel.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
+References: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,108 +94,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Add CORE_CAPABILITIES (CPUID.0x7.0.EDX[30]) to KVM's allowlist of TDX
+directly configurable CPUID feature bits to accommodate the legacy TDX
+module definition of the bit, even though KVM doesn't support
+MSR_IA32_CORE_CAPS for TDs.
 
-This is a quick respin of the TDX CPUID validation series (v5 [1]) to
-address Rick's changelog comments [2] and to rebase on top of Sean's TDX
-CPUID fixes series [3], which this series depends on.  Also, patch 4 now
-ignores the index for non-indexed CPUID functions when looking up the
-allowlist, as userspace isn't required to zero it.
+Older TDX module specs define CORE_CAPABILITIES as fixed-1, so userspace
+may expect the bit to be set for TDs.  The bit is redefined as directly
+configurable due to #VE reduction.  Leaving it out of the allowlist would
+prevent userspace from setting it once KVM starts validating the CPUID
+input to KVM_TDX_INIT_VM, which would be an unexpected behavior change for
+such userspace.
 
-I think this version is in good shape.  If there are no further concerns,
-I'd appreciate it if this could be considered for queueing.
+Reporting CORE_CAPABILITIES as directly configurable also lets userspace
+detect that the bit is no longer fixed-1, and thus update its stale
+knowledge.
 
-The TDX module reports a set of CPUID bits that the VMM can directly
-configure for a TD, but KVM cannot blindly expose all module-supported
-bits to userspace.  Certain features imply additional architectural state
-(such as one or more MSRs) that KVM must explicitly manage across
-host/guest transitions to prevent host state corruption.
+Keep MSR_IA32_CORE_CAPS unsupported for TDs, as no existing TDX user needs
+guest access to the MSR.
 
-Today, KVM hardcodes a denylist to filter out host state clobbering
-features that KVM doesn't support.  However, a denylist doesn't scale as
-the TDX module evolves, i.e. host state clobbering features added by a
-future TDX module are not covered by the denylist, and userspace could
-enable a feature that KVM doesn't support.
+Note, CORE_CAPABILITIES is the only bit that is both unsupported by KVM
+*and* redefined from fixed-1 to directly configurable due to #VE
+reduction, and no further #VE reductions are expected.
 
-This series builds an allowlist for directly configurable CPUID bits, and
-filters and validates userspace input against it, so that newly introduced
-TDX directly configurable CPUID feature bits can only be enabled by
-userspace after KVM explicitly opts in.  Except for a few fixed-1 bits
-required for basic TDX support, host state clobbering features are either
-directly configurable or gated by TD ATTRIBUTES/XFAM.  KVM already
-validates ATTRIBUTES/XFAM, so the allowlist only needs to cover directly
-configurable bits.
+Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+---
+v6:
+- Rebased on patch series "x86/cpuid: KVM: TDX CPUID fixes"
+  https://lore.kernel.org/all/20261022210134.612848-1-seanjc@google.com
+- Collected RBs. (Rick, Chao, Nikolay)
 
-Discussions from v3/v4:
-- Rick asked whether the assumption that the reserved bits in
-  CPUID.0x1.EAX, CPUID.{0x4,0x18,0x1F} and CPUID.0x80000008.EAX won't be
-  used to enumerate features can be confirmed by the x86 architects.
-  Confirmation is still pending.  Per the SDM/APM, these leaves/registers
-  are defined for specific information (version, cache/TLB parameters,
-  topology, and address sizes), so the reserved bits are expected to be
-  used to extend the existing information rather than to enumerate
-  features.  Allowing these registers in full is a best guess, but it's
-  still far better than the existing denylist-based check.
+v5:
+- Clarify in the changelog that #VE reduction redefines the bit from
+  fixed-1 to directly configurable.
+- Change the shortlog from "KVM: TDX: Report CORE_CAPABILITIES as
+  configurable" to "KVM: TDX: Add CORE_CAPABILITIES to the allowlist"
+  since the patch doesn't change the CPUID reporting behavior yet.
+- Add RB from Xiaoyao.
 
-- Whether to restrict the TDX feature bits to kvm_cpu_caps[].
-  The conclusion from the discussions is to construct the allowlist based
-  on kvm_cpu_caps[], plus a few bits that KVM can support for TDs
-  independently of kvm_cpu_caps[].  If TDX feature enabling turns out to
-  be consistently blocked by non-TDX VM enabling, a solution can be worked
-  out then.
+v4:
+- Add #VE reduction related background to the changelog. (Kishen)
+- Add RB from Tony.
 
-- New opt-in interface vs. backporting.
-  There are two options for old KVM versions that don't do the filtering
-  and validation:
-  1) Add a new opt-in interface to expose features newly introduced by the
-     TDX module.
-  2) Backport this series to LTS/stable branches.
+v3:
+- Drop the code for MSR_IA32_CORE_CAPS access.
+---
+ arch/x86/kvm/vmx/tdx.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-  The opt-in design vs. backport decision is deferred, since this series
-  is correct and an improvement either way.
-
-- Potential backward compatibility issue when an effective fixed-1 bit
-  becomes directly configurable due to x86 feature deprecation.
-  This is left for the future, i.e. it can be addressed if and when such a
-  deprecation actually happens, e.g. by adding an opt-in interface to let
-  users/admins choose between migration flexibility and backwards
-  compatibility on old platforms.
-
-Changes since v5 [1]:
-- Dropped the bug fix patch in v5 and rebased on top of Sean's TDX CPUID
-  fixes series [3].
-- Changelog updates per Rick's comments [2].
-- Collected RBs from Rick, Chao, Nikolay, Xiaoyao.
-- Ignore the index for non-indexed functions when walking reverse_cpuid[].
-
-The series follows the CSV version of the CPUID virtualization document
-from "Intel TDX Module ABI Definitions" [4], updated in June 2026.
-
-AI tools were used to:
-- Polish the cover letter and commit messages.
-- Do code review.
-
-[1] v5: https://lore.kernel.org/all/20261016091422.3182216-1-binbin.wu@linux.intel.com
-    v4: https://lore.kernel.org/all/20260917072548.2314491-1-binbin.wu@linux.intel.com
-    v3: https://lore.kernel.org/all/20260827031837.2863609-1-binbin.wu@linux.intel.com
-    v2: https://lore.kernel.org/all/20260604023314.3907511-1-binbin.wu@linux.intel.com
-    v1: https://lore.kernel.org/all/20260417073610.3246316-1-binbin.wu@linux.intel.com
-[2] https://lore.kernel.org/all/b196cf9f65fe1e52aba7b867b7c2687c40caa337.camel@intel.com
-[3] https://lore.kernel.org/all/20261022210134.612848-1-seanjc@google.com
-[4] https://cdrdv2.intel.com/v1/dl/getContent/795381
-
-Binbin Wu (4):
-  KVM: TDX: Track configurable CPUID bits allowed by KVM
-  KVM: TDX: Add CORE_CAPABILITIES to the allowlist
-  KVM: TDX: Report only KVM-allowed CPUID bits in KVM_TDX_CAPABILITIES
-  KVM: TDX: Validate userspace CPUID input for KVM_TDX_INIT_VM
-
- arch/x86/kvm/vmx/tdx.c | 260 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 231 insertions(+), 29 deletions(-)
-
-
-base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
-prerequisite-message-id: <20261022210134.612848-1-seanjc@google.com>
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index b71460805c573..becdd5aa9e682 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -220,6 +220,13 @@ static void __init tdx_initialize_cpu_cfg_caps(void)
+ 		TDX_CFG_F(AVX512_VP2INTERSECT),
+ 		TDX_CFG_F(SERIALIZE),
+ 		TDX_CFG_F(TSXLDTRK),
++		/*
++		 * KVM doesn't support MSR_IA32_CORE_CAPS, but older TDX module
++		 * specs define this bit as fixed-1.  Report it as configurable
++		 * to accommodate the legacy TDX module definition, and to let
++		 * userspace detect that the bit is no longer fixed-1.
++		 */
++		TDX_CFG_INDEPENDENT_F(CORE_CAPABILITIES),
+ 	);
+ 
+ 	tdx_cpu_cfg_cap_init(CPUID_7_1_EAX,
 -- 
 2.46.0
 
