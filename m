@@ -1,108 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212301;
-	b=MvbXbx94PQLcG1Xrp3uuDIsMBh4DG+6HLKDvzAAp6evMnEfJ+ulCGm4LuwpQ9RHER4ce
-	 xPqyWMpkRnqIp0tgoefag/DJk9qVPW8/VGVT5bOHON18evapbDoNCX8ryKaddlXTlv2xK
-	 TjTPJJ4YWcTRA2JvbAmXaL2YtIfVSS+Qt+MtU7NLaI6d2nG/aIwxakxGPs+PLOCy+tVCE
-	 4thaHvK+/5jqvAP3HvKhSPLOFOeQoFa2I8iMYUAmP3KpxJfrxtNHqp4pWgD5wvgJj+1uI
-	 O5Q8UIeGNzYOWas8trqYSNVrQO5h+A1QstZx5tCK+OlfB9KmcvbCZjjHeIwl0c1LI3g==
+	t=1793212302;
+	b=yy6Cu8f3mX6+1zPz3KXPv6w+J62kpg5VHOxuIQ92lgCkMNUjCnYz8dnC/Bu/LjEbC2oB
+	 tda+srOs0/ABu4/wbWKj+8pJ7mvn4nWSBmitEIu4q6buiCqUiPtfNm73baKQyIKvSuwZm
+	 pIity4TeLaAtyh84Pj2O8f5RcKXCAhsfUOmls9cmunNB9JLcu8shytifrDY/QTZ0WnIv1
+	 KGbmeE246tt3ym9dRwlMD3DUaGTILcRZ6wlGn9Klzz0ALOQiJBfFlXYTY1LormBGf/Evh
+	 1bcPuF0NVndeRnEjQtrp6DTuoxQ9jYwsdl9TMXNQtoiXnFXtdHEBiYdub7/kFpAy3qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212301;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=X+QvVRHeWMxizCTRKzuAHQ+22/m0nu959maLN9qWALg=;
-	b=ufmqqTaDJCBRz7DO3wlwdGMK/19ofDHQ3xtCmKRXDs2lbnVtM5GyYgSwG2wr5XKW4DFx
-	 95+yvcx/2VOj/NuagbqcI+1dydILCW47G/U86W3oyKDDgbLBVuu0PIotVSZBFmFTJqwae
-	 IKOUxauIUDRM7sI0so2sKW/dxmZSAHQGSSTpy5fhAVywDgyjnYpZKcPaaw2JzXRkF6F5Z
-	 jiispw/B5f0dUoC2ZbGG0lLpfkcFEF3SIm5YxCNm3pVJ4GE0bjhfWeYpArWnzTHN0sHsl
-	 kkyR5rMEg6ZSbncInYJKSRVPI9R9lFqtBZbLjpMDOkOHXSv2hTuhbORS92qdULIuD+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212302;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=AhGwMBlXb9QayOpoIgLMCOSWoppIw0OFkOZJ4bKojBU=;
+	b=NMMgse7H6T7s8WbI8T/DH30TqXo8CmnXFJkkIfrLoZFzrv67nes+M6GA9QV2LUXdFtJl
+	 4I3027dtU7Ies7UrqKfWfkRbdZdt1PlmjrGE57eOVAZ64oOatx5EQCEoRa9SZoxV5C/3v
+	 pykbiS2HZthYyG0JvdBEwe3fBuLGE3vYtb+QTLzgoh3ao4D1ddclKEEVMDxZGHAwKdnKS
+	 Tj9Qll+/2/Z0zMwIrR1f5w2V6x9Vn3HKcYiXJSHC5hyi6EOmclYf6JwmMZdVad8LEaDkI
+	 /cNYBbH9BHLbyz8Y5mYIGHswnCP7CXvTtiqw1OxQ7LKwjTG/vk3+NwS7dMW18lr+ujg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Q3I/SShW";
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zpmpp+Zq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4542606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:31:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4542606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE77606A326;
+	Wed, 28 Oct 2026 18:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q3I/SShW
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so12873635e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:31:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793212299; x=1793817099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+QvVRHeWMxizCTRKzuAHQ+22/m0nu959maLN9qWALg=;
-        b=Q3I/SShWWIQLoN2RtHEvS3tWyt5qY8W/OL12MoF4oRRZohECYlsMONQyUzyl3lwFs3
-         dS8/l5SIzHnQV95IUGRfYVivCw80NKIlwiVbB5EfxMB2OSFPl/mQQTgSbC83u9K1E5gB
-         beQYiwuVcn+D1KL+RCmy+NZzb5kgy7hbubOhgQdyADaiKZa3TLTwWRrr05JHXZ6Hrq7L
-         UtyDKdZ7795d7EDIeGC5/E0R5wXO4N0GIBIUC0LTKVMN2Mr+aHlzWFAIZ552k6mDtHby
-         dsLy5FvT5eOaQOEtxMEDuMGr+KSRP+VoW1ehD95Cio/5wcmRqahTaDDG02V3tIwYsa2E
-         8fWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793212299; x=1793817099;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X+QvVRHeWMxizCTRKzuAHQ+22/m0nu959maLN9qWALg=;
-        b=LkVEIkgbpXbSyMdiH1rBEYiVsG5xr6j63y8TRPcIxZJGnbFKwmra3Yt+BD/z3Itx1l
-         DMcuS6nMvbnTQIdyaai5MJSLHHxuuFZ3phsy75+mNCRPYR2fLaaSf+evRyJ0NGd1mB9B
-         1Wt9Nmp1RLQhwZpeQPWWSUiOi/rM6hLTHE0zwqmsSzLJnPkBwACsfg/xAOk4pBpigIjb
-         yY1L1tedTlmTV1X4hL6dRIrLzUl4rT+YrEirE082WWHTM5fbBnRIopMBdKXOc6rSuqH/
-         yJODc5z0dBIkYpCtrPhMCjF7We697ez5YfcNb6Z+u905LJP2RL0L1U56YzHfZvrbxh8s
-         zMNw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3a1bIn59W7T0dhS4Q8/3mDCh2yCVv58VASWDmEXuMLWTZcqhDuYmaUAl7Pr3uPizHmCXhoDddA0q5XLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmah1M7uS1ZTKVfs9LBSxFQTdJ7CwUWarMvsVireHK0tcGrC57
-	gix7K4GDBr+ydn4Wdf8k7uYRYjUo8/3GebXwL08ttkqWNO1Ye+HxFVm0
-X-Gm-Gg: AYBFou1mRhF6C0pkyAPwsFZPZk+EhtI5wvUzJ05rEHc6oox7/f/tkiuS75oREYG8Min
-	ESrFWK2rqzFve0W3Jri+w2fsiZBaIhT6GTPeO/tfXyssayY0bJu8u1sBXY60xC0WikjY2qP8f6m
-	PNwrDxyhKHnfYig7iYvpH7uAO1mgY+u3NKYVpTXzmSQeFYJDQ0nd2JwU74ySxYPMhEV/B+lbzqE
-	KTKNzPWezxMakit/1FB1DDBqAYWp27LT8JvJiA6xdonqWxlMpkwnuWg4PqwT1dhleITh5YUGtYE
-	5L4+fmwFl6/Arlew7BYxWfvGAXRVowE0sPH7GyCRsyupKP1XSkgAseOzK21ehut9Yr7SSPxn0it
-	fQkqyRRgkIt54TdoOjfubgPaDX9BsKnc2uQfRELIKGHNt0hLBGQqaXxz65FAaf6XwxVFCzosOsR
-	PO+6n4+kyopWuR11h1DLdcLgOVn7f52PPa4ssKXUEWGixC+GZ1waEhgppfrv0U7RfqIvR/nwnxo
-	MbpGwaKqk/ARke5hLPHx9kIoOWTlS15PM5IaantzvcCqFCBQTNw6rvXTbyCrIyKetSX6IYmM+sv
-	mZ0f32Ka3TAdwQEQADTTUmE7qcXEngNNZpsQiPChyHlAFNYI
-X-Received: by 2002:a05:600c:4452:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4aa4eb767d1mr29197025e9.28.1793212299033;
-        Wed, 28 Oct 2026 11:31:39 -0700 (PDT)
-Received: from localhost ([5.83.201.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f25fsm29193591f8f.2.2026.10.28.11.31.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:31:38 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: John Garry <john.garry@linux.dev>,
-	Will Deacon <will@kernel.org>,
-	James Clark <james.clark@linaro.org>,
-	Mike Leach <mike.leach@arm.com>,
-	Leo Yan <leo.yan@linux.dev>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zpmpp+Zq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BC831F01825;
+	Wed, 28 Oct 2026 18:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793212302;
+	bh=AhGwMBlXb9QayOpoIgLMCOSWoppIw0OFkOZJ4bKojBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zpmpp+ZqiBhJDbBCqSiYhds7+OsBVknD16S19y+dM78X5O/2NLnnQRzQOLKxa8rGm
+	 AWqo+psYcNkpxa6CU3ZqLQdv8kJ99QKbFsX9D4xU6HdBguei7iRkKuyf7kWDdnfHsV
+	 OC4dqatLiE6pCPji5GpazeqoFSPDjfKBmCbiejFHseBoyEd+vz8vmZtKtXJWVO3u8G
+	 CnT39zMnWqvR/Y6RjfoqHd4qyzplNXVVG1rCNuCzVBNR9OlXr4qENeCdlqU74jx/Gr
+	 Wl5SPcdhBeHdJyjHOj78fuDRzRC7sKcwWhK/WpzEyj8isUevSlSjmE/yFsABpvz+lk
+	 JtLqsxrGGZcUw==
+Date: Wed, 28 Oct 2026 18:31:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
 	linux-arm-kernel@lists.infradead.org,
-	coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] perf cs-etm: Fix spelling mistake "should't" -> "shouldn't"
-Date: Wed, 28 Oct 2026 18:31:37 +0000
-Message-ID: <20261028183137.537812-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>
+Subject: Re: [PATCH v3 3/4] selftests/arm64: GCS must not leak on a failed
+ clone3
+Message-ID: <e87dc329-3f77-45bd-89af-c98551801658@sirena.org.uk>
+References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+ <20261028154315.1272705-4-ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,29 +76,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EgSzcDImSQq/kPzv"
+Content-Disposition: inline
+In-Reply-To: <20261028154315.1272705-4-ivanrwcm25@gmail.com>
+X-Cookie: Pushing 30 is exercise enough.
 
-There is a spelling mistake in a pr_err error message. Fix it.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- tools/perf/util/cs-etm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--EgSzcDImSQq/kPzv
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index bdcf94813129..65bce2450549 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -434,7 +434,7 @@ static int cs_etm__map_unformatted_trace_ids(struct cs_etm_auxtrace *etm)
- 			continue;
- 
- 		if (!intlist__empty(etmq->traceid_list)) {
--			pr_err("CS_ETM: Unformatted queue should't have trace ID\n");
-+			pr_err("CS_ETM: Unformatted queue shouldn't have trace ID\n");
- 			return -EINVAL;
- 		}
- 
--- 
-2.55.0
+On Wed, Oct 28, 2026 at 12:43:14PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
+> KTAP coverage for clone3(CLONE_VM|CLONE_PIDFD) with a bad pidfd
+> pointer: sixteen failures must not grow the parent's GCS VMA count.
 
+Thanks, this is a lot cleaner and easier to understand than the original
+version.  It'd probably be nicer to do the refactoring of the existing
+code in a separate commit but that's more nice to have than essential.
+
+> +TEST_GEN_PROGS :=3D basic-gcs libc-gcs gcs-locking gcs-stress gcspushm g=
+csstr \
+> +                 gcs-clone-pidfd
+
+We should update .gitignore as well (or merge the test into libc-gcs but
+that's a bunch more work and definitely into bikeshed territory).
+
+I verified that this fails with the current kernel and that the kernel
+change causes it to pass so with the above:
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Tested-by: Mark Brown <broonie@kernel.org>
+
+--EgSzcDImSQq/kPzv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriP4UACgkQJNaLcl1U
+h9BzNwf/fWeDVy8I0F3zpUZkbDWBz+B0NHeFLUK3At/UfT7hecHF42jNPNh3Xc0b
+uZQr3+cver9uHhs6hWET4qJctAOzVU204Lc2PNA9Flr42rh8h8+MkwwoBwGZ0r3f
+r78kAheb3Kt0vcKAZW6uISJLn5jW5Wf4RNxgh91OlNstBhasep2Bso5Oc6GuIBpG
+mbX/7VW4hG9auddgjYFwLW7hxBPt2ktTN52xxWwPuvaUSShN6ymkddfN+FJFeGIm
+axGOVeyLJGYFaZ/z93kpVAeO6SbO4+dvJJWdyGXHcrax1CUI9ACivl3bMEBehioB
+T7NHKcS/pNoywh81iKvz7auWKzyETQ==
+=XNL0
+-----END PGP SIGNATURE-----
+
+--EgSzcDImSQq/kPzv--
