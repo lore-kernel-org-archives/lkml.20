@@ -1,61 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200953;
-	b=OglqX2S4p9X3sf8wYdflhYnazTcyO6p4vSDgj3uI8dM0Aknx2I0z6GIeOtGHITPgHpaz
-	 zEgdmZJ1Rsh3aA6S2KHiojA+NfcD21ZXdZ7fEzUGQmHfw70mr87srI5KEOWdXsi8209bl
-	 BqljxhMMgKsusXitKBaliXcXqYuAeqPAOW+vRhfYqK38wTYDNFG2JKz/+QGNtVj2JBQ6r
-	 4d44D90yaWlytuLRdvcfhljgtL+By2MneaGJt2b6/zEC0OH2lULy9uVNFLp/AYLiwk0l3
-	 qcNQ8M3czW6j7nAb3JVbwEJuxd7tE+nRfJ0BOO4vwoDeFXzyelaYI16ZvZbVGjuJmgA==
+	t=1793200956;
+	b=Z9us6MPxIMcsOVgKurJ68RYCk1EVzVNw93Y+GGCpnlUdC6erPAwzvf1BEx8L8j5cdNQP
+	 SUxgoRIeaG8RVmrggBfeaPI858VK12pouI6FrlhaUDH7UlXCG8m/AzVIDvtCEy1k6Cg9T
+	 e6xja+k8fKlXSo8WkDj3SzknwM3MXIhDUXcWJPzyauw2Yo8qyYB/CRILTZB/WNQNwoh2j
+	 qzh8Xetr0vAOx7BQFtiJ3ZVk2kJ1OSEuLLrSjkztBi2a3ieYMFkTvmPX+OFLLV6xb6zih
+	 FO2x31djTvi4em3v5wF+q1jWqYu6zEZMlE67+7OIfDywe3ZOTsmQuuSFS5wKHw8FA3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200953;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=QH6jjxSQFlE/SRUSa0R2JTLIXImVKkLijmsa5G5HISU=;
-	b=zkEpRwjLD77ecId8ncPQSgsHYsi4g3Q8rAiVgHImuiA844UZOv+ZbXsTdjCI6nfW8Zts
-	 s78BGnK8FEdpMCdjj3VIjRsHgK1NCbFcCwoBlFUdusAlHpJ1V7GyPAWrLZrueVglUJYBP
-	 CmlME1IgtQ0uojk1v29ZCjhaDhV9wiLIM7mQ+RU+xQcdgruExUkzUQslmG5oIGSsDlUDn
-	 1AFh7VX96rKMw3853XS6KHzt4w/FBEJF4DrJVNrxsO9gxcO85NK3r7CkMOL9KL8Kk60MI
-	 GE+pKbH8NOOzzciP0nWepIjK19NsOuC9aadOWU4Z1DThNDLLDGlHAmtmwowzmzfVGOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200956;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kCYJhvcz0tkcZ//57aYlmOVbRldIvDRnjS0JoS2KLB0=;
+	b=KlsT5eZDudadl2UqFqkzfZxoyfFjDoAX6VQDBd6P9nxRkyhOIA3zgCLRgEUT4EJt3CmE
+	 Tt6+wEBAPbsKYoYY8itC99yg7jm1jwBe+hqpJSDK13q6aYSn1kYxefZG25udlKzHoJBXJ
+	 DMFDiCuh+H+o3s+d8VI3r/jBajZjLXOjQHK2/8Zaw6H72A3/Vd+htf2mO2N+KP6j9tjtA
+	 6iloCB2dz31kAA+3IRPD0I2TCzrmQYSq5CkNL6wkz5I8Bm2MJzT2/oTn5cbFikKFUFTmM
+	 EsgNDzkhrnX2YkKr3Fj6vB9rr9qk819dZDZm7TzDW0wSioWStu0BJmTVtvvtt5+CF9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gCZAKxfm;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MNNXo0Fm;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=inDwGyoi;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42A5606AB07
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D42A5606AB07
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEC660A5BD2
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AEC660A5BD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gCZAKxfm
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261028152231euoutp02b5e7189fda6c1f538630c570da5eb6a7~iusPAiWcj1482614826euoutp02U
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261028152231euoutp02b5e7189fda6c1f538630c570da5eb6a7~iusPAiWcj1482614826euoutp02U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793200951;
-	bh=QH6jjxSQFlE/SRUSa0R2JTLIXImVKkLijmsa5G5HISU=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=gCZAKxfm5FRNb3iMGpzVSs+9ZEf8KFC2gz5Af8FpuCfCBHRvgakS4SorFHzGOkksU
-	 4KLHxgl5Ys32+af0A8S/iRyCB9VQi38Wcyw2XZNP7GusF9zYeW39ds+FCqkX/I9LeJ
-	 vTokevr51K0ZWG7j5TjLLms9vZs/9pxTQcnxCvQM=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261028152230eucas1p2bb9681d2ae0139942c850a279b20c5d0~iusOMQrXD1847618476eucas1p2F;
-	Wed, 28 Oct 2026 15:22:30 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261028152229eusmtip1dab83fc87e0f4950dfc56f2d63f29ea2~iusNYwzjr2111121111eusmtip1k;
-	Wed, 28 Oct 2026 15:22:29 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Wed, 28 Oct 2026 16:21:45 +0100
-Subject: [PATCH v6 5/5] MAINTAINERS: Add StarFive JH7110 HDMI PHY entry
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MNNXo0Fm;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=inDwGyoi
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFA1Xe966395
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=kCYJhvcz0tkcZ//57aYlmOVb
+	RldIvDRnjS0JoS2KLB0=; b=MNNXo0FmsZuMVCHxoLd/wyoAUempg9g9tRIApuYA
+	IsmXFhtTFD60GeBKOj3L1CdOzlH+O/oPOMwLZzIZQUgsGFjelJs5Gi6qgKZq1yaD
+	vWUi1gLrlioJzIblvwb7ggNO3mPPr29Nl0+YOkKqqcfh6oTQnlmgJEvJ6FcKl7Co
+	/4jGd/1CNYr1j+Y0/T/5zzCFxomJO5+RtAdcpSO+r3gBbMT4kOhaq+FPdnrBQYXt
+	Op0Nedj8SmEjD7kdXUR58cFGqgKqrUJZNA+onMeCDXQhAnrcknosuVcpIH0ITcaX
+	7mfWicuD7slSiSfozlX++Y46jOzoqEKr4HU2y8C1EmhwUQ==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtjgj19-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:22:35 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eaab6fa0f0so1226586e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793200954; x=1793805754; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kCYJhvcz0tkcZ//57aYlmOVbRldIvDRnjS0JoS2KLB0=;
+        b=inDwGyoiF4OOP/34wRsXFATCAVk/i3XrFE6wo8uYkuEH+Rm0lL/kndHt8FVK3pWz1y
+         P0hbu9WXXzYtZUMHXKINOIEqff38u9djCQVbQD++LF1SMC+tcDmnp9rnpSzPhDH9JwYN
+         De9hlo7nGfL5jPLCdSZ7GLK83yoid7d+ifYsqBvqS5cli0y5OLFxJvbb9nVL8h7qBOCj
+         aN0RCQy9HfsfDBGUucgXc5O0vNHMA6FCdB5sw4a8is7vWMoTfx6p9rYLP2rh+8qPGzU1
+         QRlGcxE1HrSKPEduO/CiVUZLMue2SUFrC4YvMmmxiiXaTztdRIE8GqkK/RPqrohhchmy
+         o1UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793200954; x=1793805754;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kCYJhvcz0tkcZ//57aYlmOVbRldIvDRnjS0JoS2KLB0=;
+        b=HSID6KuyRBbXthtZPOYfN8ytq8AZm5xQRPZFxKkPIweF13pF/zP/UI+GPmNESSCQFI
+         z5NBS66hHZak4npbZ34YGlUYzXoh22596/Qa+QwzJP8cYEVqxONIqpkgE8rM5VJ1NQDg
+         lWWjluaCjmlK27tIyVJ4k6GGvT3lr7K99EZWJIn9LOX9va1bxBIKaenGOsNNGVuWBK0C
+         uEAv2G7wkCo5CnLA8a4mtUgQSxZWrys1dljR9zOxP7vJ7DAyzw8MUc2YZIkd6bLjvpxK
+         LTsaXn3182dhuEQHtXVeboj9ZXrt7VNRd6A4xtUx6F1dxUxZDslrcT+co4qd2J1Tyqj2
+         B+oA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNMHMR14YKRqaF7RFxaHjCuLCURqNqAZ0WIUuY33cpmKebqQsNEttl18/s5Kymxn4x1zMCgwUl6bZhGeo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKtZLXJS53WJrKRAewDvvY6LJC3M714wtW3QsUfXKI6UCPq9nz
+	9pzHJdGpcjg7z5W/0V5yBBC+du05cKZBkHZS42o7cmU39WsKqkdGiMcSJtdCv14kmm0sox1Gqb8
+	4/bMKaEQzu/+VurqPo2QOrgmGyQjDa+297BTygimtA7Nn84y1TIb3djfh827wcJmw6SU=
+X-Gm-Gg: AYBFou0HwjkdhqwMgYW0zuenAPyQn1rLHBf2cdU7+pD9hFIh0pUPdaktBQsX2q9IfIh
+	HTEbQw2Tf74caPMq1Fnzlz6KCB/G07IMMLe2vV1EuYDiSu/zCL0Z13bXapev/pRbdEBW9rFwe/J
+	ib3ATUO8uLg2Q99XB4wGe1QRGWO1r+TuP55rQ/21OoScBUJUSVlP7VWCXYFHOCRnOGcVaNZCfW/
+	jphBOCCRvpbN3eLJ4MoIHJJ6pQCH56q10+OV2HRy/JQ8IYzkPKSC1n+honTTdog+0M0J+J5Is/+
+	7VGqwpp4Po15pKrWW2W5YL7AfEtR5oY5HtY0wZmDyiu8kZd8zSY1se3JSXrLR4azRoTSq4Cdrb+
+	tiZyDcghl2QrqaIljWkGZMQqZC1jJpHUtGRWTDrQEUTyyfiSu4skYmTKc4aW6sTpH5A==
+X-Received: by 2002:a05:6122:4d13:b0:5ea:ddfd:3e99 with SMTP id 71dfb90a1353d-5ec4cbf4e29mr1354969e0c.10.1793200954352;
+        Wed, 28 Oct 2026 08:22:34 -0700 (PDT)
+X-Received: by 2002:a05:6122:4d13:b0:5ea:ddfd:3e99 with SMTP id 71dfb90a1353d-5ec4cbf4e29mr1354925e0c.10.1793200953762;
+        Wed, 28 Oct 2026 08:22:33 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm30560833f8f.24.2026.10.28.08.22.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 08:22:32 -0700 (PDT)
+Date: Wed, 28 Oct 2026 17:22:30 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Sarannya S <sarannya.s@oss.qualcomm.com>,
+        Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+        Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/4] soc: qcom: smem: validate private entry list walks
+Message-ID: <mpnzjjzlzwsv4qe25f36ox5kmxcztpgxf4lpxlmrmzqwhfiuwl@iquwzzn3y46v>
+References: <20261028-port-smem-v5-0-121257d490b5@redhat.com>
+ <20261028-port-smem-v5-2-121257d490b5@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,67 +123,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-jh7110-inno-hdmi-phy-v6-5-f3379684d97e@samsung.com>
-In-Reply-To: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
-To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
-	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
-	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
-	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
-	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
-	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
-	Andy Yan <andyshrk@163.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
-	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=916;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=GkUbaSZ7nQRw0MA7ruQjsKC0roRhT37Hf3V6QvV5qcY=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9EjbY+ujj78SDL06ZLZu9RnvL4/lRZy6fLtBYZjThr
-	RbjVs5ZjztKWRjEOBhkxRRZzm6MNpL8x/C0/PjjXzBzWJlAhjBwcQrARJTnMfxP95XL6O5y/7vq
-	JXPaSZH2CPa2y54/f8481BPanPX3q4YEwz9dB9aA/5M2tD5elyhWmGBTkPBNJHHPi80/vF3KqyZ
-	/5GUHAA==
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261028152230eucas1p2bb9681d2ae0139942c850a279b20c5d0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261028152230eucas1p2bb9681d2ae0139942c850a279b20c5d0
-X-EPHeader: CA
-X-CMS-RootMailID: 20261028152230eucas1p2bb9681d2ae0139942c850a279b20c5d0
-References: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
-	<CGME20261028152230eucas1p2bb9681d2ae0139942c850a279b20c5d0@eucas1p2.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-port-smem-v5-2-121257d490b5@redhat.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfX0l/DErS5GuVq
+ WFTZggPcFExMB9JY0ids+dounzKBWB2iMC2c03cAf4ChgUdqLPw6IHnsENLk1ifLb+jAwV7GLUV
+ ecVhChQidbeeX3kxgD0o/+fmuIpKuvTbnHOcWUpOPTbCTn4dKnk4ulUZql5ukb2YRFqvj5wrEg9
+ 9iURmy+YXx98masL81oBuCbiUbGLbiqweSnaV3dQJDlcRa2wrZ7powr8T9Bdl9OyNzVlVSvRtrK
+ jQkyBpFiJH5MaZUn745qj0vQpFnfK0Ky4h2CtyriNaq26+jSA26a1SJmcEESLjDDkVN/QCrzLTe
+ 2ESxpwCZJtF0W+zIZ7IAU2+cJtMWg0dx9wliwtZEGwHLEWKmdrTJxKh8BBZDQ5nu+oW/4lhTv82
+ fp4tehf1KAe9jGoRFUXZ13dwmNac6Xg9hx1ebSYrJSlbvAJ3zIIx6uuWGduUQ4g/w0+CEWoe+48
+ c47IurUZLoZg3DZ705w==
+X-Proofpoint-GUID: L_IoLIeqYo-8obHn00ReXWE-xMlRRIy6
+X-Proofpoint-ORIG-GUID: L_IoLIeqYo-8obHn00ReXWE-xMlRRIy6
+X-Authority-Analysis: v=2.4 cv=LdipeTfi c=1 sm=1 tr=0 ts=6ae2133b cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=20KFwNOVAAAA:8 a=LYivK3g_jumZP2eLkpkA:9 a=CjuIK1q_8ugA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfXycqjkgycZes3
+ ylbHShSygyHvnfsNCNyFJOwOL8LzBAj9P02IT2a1kQ2z9b1GLKEfQpdaq7nrxx35Iffabm6s4RZ
+ 3eISCc2W8V0/TPLz7J9RshQ4Bx9T2SE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280061
 
-Add an entry for the StarFive JH7110 HDMI PHY binding and driver, next
-to the other JH7110 PHY drivers.
+On 26-10-28 10:33:49, Albert Esteve wrote:
+> From: Sarannya S <sarannya.s@oss.qualcomm.com>
+> 
+> When walking private entries, use the uncached/cached free offsets as
+> the list bounds, require room for a header before dereferencing, and
+> reject a next pointer that does not advance.
+> 
+> Skip the cached list when the cached free offset is at the partition
+> end.
+> 
+> Signed-off-by: Sarannya S <sarannya.s@oss.qualcomm.com>
+> Signed-off-by: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
+> Signed-off-by: Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
 
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 782389bd5cd3d9e0117ebdfae707e1f61cb3e772..9e42d1705fcb3fa46325761a19c6b7244c18b7c4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26106,6 +26106,12 @@ S:	Supported
- F:	Documentation/devicetree/bindings/phy/starfive,jh7110-dphy-tx.yaml
- F:	drivers/phy/starfive/phy-jh7110-dphy-tx.c
- 
-+STARFIVE JH7110 HDMI PHY DRIVER
-+M:	Michal Wilczynski <m.wilczynski@samsung.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-+F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-+
- STARFIVE JH7110 MMC/SD/SDIO DRIVER
- M:	William Qiu <william.qiu@starfivetech.com>
- S:	Supported
-
--- 
-2.34.1
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
