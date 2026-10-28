@@ -1,101 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213655;
-	b=i77CP2uQQIRGH/5++f2sBYPz+/xsArq/OuP6/ku3G9EpHzfjEzM8DkqFlRSEoozljGqe
-	 dJIxJiu8cil0XqdlompM60yJ6R3acw4GmPRRcGOMK3GVGOh9pzBK4W/LaEfFMTUb8W0BM
-	 BoE3bgu1g8Qe6zY6MRzkeRpm+mxEwRuEgMQfHDlSOkbaqaCY7zC++ajs+HeLdOlXKyzfS
-	 JcMeSinliy1ry5CnvGcnF7E1mP5ChYgZZHvlGFu953UlikxRgRaVOuBE+cLibs9CdHs6Y
-	 nQAnBTII3jtnMzUv0D1G/E8uZijAm6skXjRnGBYd3Rzo44xsJhiaqsi2ZNfYDOwpcqw==
+	t=1793213672;
+	b=1Fw0GtlBNxcokV8ojxMpYHFVGjNHEZHM6yPvodJIhvtCfgWkijPhrNkRKWlCj7wK5J3N
+	 TVn7FwqgaumcN3yYAP6439Rq3tMmijv5IeTyRPre8rbrnYgHKQSOCL8kAcAjFlh9jnlY0
+	 H7BknncLu3TxdH5fgIc35wehN0/lREo+zGUsbC3qwRW1IoX26WMhh4goGumYferZKghhS
+	 mRNS5gxkkbThfYMM5AKMMl/BU5h9SiABdd1WN9D17gVhBYW05JmeGiNSId7TIU4GOALOW
+	 U778ITrJy3pGCdFbvINOJqzLqsDR3uq4xiJf3HAA0TL6KOHOdiAl35SUwV6nTTpwYyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213655;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
-	b=vnZlBkKrl2eF6sh/O/ymGFV7OtGM9A7inhgcZwY/sdP+Bjgii0IUDJ/yVXlA6kDWzhYe
-	 gO6klvXbu7UWNm7MhPCBFRFCZ9SQyeVuVrYf0OObJqkoAoahxqB6Rl42tWzvmMfPsjuHL
-	 2MqJJf5tOdZ+aWLa8DK0QQqPtX9xd3KutABJmdwpUZbCkhuRArih9DtOEiOkWWwdH+t+d
-	 Y5ox488DR3hu2TEqugpGASTNwJC6NK/e0PVNyYOkVxSrikRg4pOA+3gMP2Fv9QsD240ef
-	 YH/hE/to1CbViPBI8vDadjrmrW306hZKj36zZ7ByaCA+76tesEujPsJwiqv5maIsnAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213672;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=0vc/BwRMumh6GCDfZk9HEhgcPOmsWkZc9E+U0h5Wqek=;
+	b=OD673Mi3FrrVdITcSZBxyNfbZlWVDyntqLfE5oIT/6SHsFOBMdQvAmdDVGFm3V42Prxu
+	 Ke1xVDHOYKcPo/CKnx4uWWfIn/GUG7hAR4PdFNs8HX6lD+d2P3lBNmIc1UqtyIMQSYzlQ
+	 P5Bl+yGsUvGhifeuBIR4YMWMOZxe1yF7TPgVN3VFtxWHwD897mGFY4OJY/09IFAAolHeY
+	 7tK8eeKrsZwtbISRSUpH097qdO4+gRDzi/FszRgfmJ0jCsBmWN495KpeXob+fMqfFN11X
+	 MWyHiVIeaHMCa5E9OtGKPMhMrEF2bmtJ2twF5ghRF5RvKaFTcMAEpMkIxdMlACVj56g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPAmV54X;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SeS1RkuR;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=c9fjvsd9;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F741606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F741606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54235606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54235606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPAmV54X
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso7998375e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:54:14 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SeS1RkuR;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=c9fjvsd9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793213671;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0vc/BwRMumh6GCDfZk9HEhgcPOmsWkZc9E+U0h5Wqek=;
+	b=SeS1RkuRvO9X9jHXvlUujgjM0G48XQHydqW/fIEn79gpYu7DZ9Z/Zux5VdKM14REfgvDMC
+	mr47DhQCsP/qIR/vmZ279r4Tm7b2kC95TsUcveCObtfJEkmbS6N0hlRhweZB7+9y0xQGDe
+	zV8pqky/OP5/yD4gRICv1geKAnGXKi0=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-6-1obYaJjuNG6KOVW_Tz7XRA-1; Wed, 28 Oct 2026 14:54:28 -0400
+X-MC-Unique: 1obYaJjuNG6KOVW_Tz7XRA-1
+X-Mimecast-MFC-AGG-ID: 1obYaJjuNG6KOVW_Tz7XRA_1793213668
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1fa972b4fso6611065e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793213653; x=1793818453; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
-        b=bPAmV54XKyghqYN6QVtvkyj1c09K2mFnMi0kR3DTUjccjBUg7vw1P/NFR1+fL4y1KK
-         sTTbH34nIO0Ufj8AggfEi6gbvucc7dX6X3Sc9PiEK3MLiKJsQLDJp1QfVns0dxJpTqqO
-         u4Mhol1bbIKPAEcabFycApwlGHCZYGKlhLPLtx0/fNw7a5zwHu8lp0ETMJHd9fmw8hMY
-         qWb+3izQE2yB3e+9PWacZRsuaj2swaSLBFDyW/8R05WervEr1ShfWbxEa3q/KNmDILwC
-         VwdX46nObglPMqPzLyqC2BG/B/xPEi9Otwq5t88Bc4WU8+CoYnmfxzNDzc/8NCUL5ySc
-         JABQ==
+        d=redhat.com; s=google; t=1793213667; x=1793818467; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0vc/BwRMumh6GCDfZk9HEhgcPOmsWkZc9E+U0h5Wqek=;
+        b=c9fjvsd9b+OBbDCvEHn6EYsSMMeKxHxDwrYIf8VIBw++7QDXBC1I/5UeXjwqYjmWqp
+         +tIJsFOLMSXqbxLSZQiE/9Se8/X6KEhsqNgtE3NwQUTnrs2SVKMqIuO6tLAzH2T2zvoU
+         Wkbt1QT1vlPGs31QUbtwTmU+f5caR80TrmYU2WaREVPB9wgSGcUf/O94a8hQyalXAUIv
+         krPZGY2l8la2hueLlutRt6EO+FQRDjkKrKMv+UnJgagwUM4x0/iDeCA+hsAfuji0r7Yg
+         SY7ACyleHpO36jEYkUqAi3H/oIcpvMJ7P4R4gwgu4jwZhFGTW/FZhTSqHE0fHb1gIMFY
+         fghA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793213653; x=1793818453;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
-        b=WR9gd6OU42cdnZuUwKvkFaFnpmETL34nHVq3PLQMut65+2tW6ZHFNi2+Gk6Maab+WJ
-         Z5kFjfdCnpEt4aRhz2GMxEET7ISlfLyMrzA2e2zoyuwR7has7/zV0PeXMnNbey9daUTb
-         PBV49kmcEYMouz9/N/qANT+gYXImgcel+vR8VORRmyfAFP1ke7z6eeWoOJCblKdTbtTR
-         q2M0CULbqN3FWnGRSqZwPt+ueoArutPGJKvNHTECCR6jWUFnNbLY07EvF9vhoXkfnI7s
-         azP0kskWeVw61ysJQzjsXh0j0PatEAwn1vo1yxX4jmstoLlnqBGn1QrXUqQQ412L0MVE
-         LubA==
-X-Gm-Message-State: AFq9FYIpd1SRzJLxaB8dKkskqgDLxj+B2hbW70g26qFhdPpqZIqfZzQg
-	KcP8ie4J0KUY5q8NZ911ya9TkSbttxlaF8Jn8SQY96fGFUDpwGXwOhxK
-X-Gm-Gg: AYBFou1d1GYrHm+BW8yfW9t0mhPonfDkMgTAB19RFvsgIgem/qJ5t/lK7XJrEDgSxBh
-	part1JAMlrzaQeO6z9B+CHfl86MTbr56JhQHQBf+reB0PjCD6+zT6iu/xRP2AXP1yqoSoeUhVm8
-	Q1lWsyt169cStIoYz3pHjXJ9iEmJoF3oS6z/jeqe/b/g3JivzZqaTP6k6dGzU/m2jKeNK9vC/u4
-	+aNJAqhT1f9A9vAPxgQt7vpjOvKSi9L1g6yNEHmR4nc7hSV2PONqlam7aJSJ7t6NwgKGFVpE438
-	a2HBnXAvQUjPmM8Cu4QwhkuBSy6uOf76G+GhxlEnbTIs6rBM6tTps3lzZrhcVoupsPiLGrqgw86
-	9q5L8841wmgvQsEZJDjW9bR3Rl1z3DcsCQG9JTzxHxgCCK7+44+NhuTB8Koh8/WU2iU+hAOps1+
-	jDVTH+87PkvWjd1qVXFeBSXMCNkCuqfjC9+IRWQtkR5DyDPd9S92LGhcZtosmyo5Tv7g5aQXO/W
-	sr9DPncuA1iSrFQD894pJR4I5Izlo/dSY6KNOl4ChuI412AsQLBbzDVmWPu6aBKGYy3iQbbZtrB
-	y9penNwWUOjxJhf+1CwfkNC4mDSu4+Qzpup8NjOpQNKdohBGAmFVkUneM0ZoIutIVtw5oypZ0gA
-	nvIEeMIyBX6xkgWvd3WKQPpLIVWGiOOzgs1/bUSy1XuWihz7Ia7Vh7OPLs5QGnho+HNM6CuVZJw
-	hapIQAk7AtGYrZ1cY=
-X-Received: by 2002:a05:600c:348f:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4a9678c68c3mr72504645e9.34.1793213652696;
-        Wed, 28 Oct 2026 11:54:12 -0700 (PDT)
-Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94eb8dc84sm25417365e9.2.2026.10.28.11.54.10
+        d=1e100.net; s=20260707; t=1793213667; x=1793818467;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0vc/BwRMumh6GCDfZk9HEhgcPOmsWkZc9E+U0h5Wqek=;
+        b=iStC5KBPfc9+QxNjKOIyvqXx2T6Vz1oib9p4bktBzzqs4o9BidkQSPXk/wUyiP/4fD
+         FBCnuUoJcN88WgeWVxtgurd1uW0vGrewBN+k7AMJRZgmi2f4VEtWoTlZ3QPhcCA0Ao0F
+         7ivbMcczEaniQqoXBuuQ0K8rC1J8tBN4i0tqdsEJ4psndIVfq1qoDo7jgy4tYKDF2kce
+         EHM/1OglmjP4bAxYh0Imru63TdO0HV4q6SirC/GpDgezEgnoJAfVz73uxbgARcrtQWWS
+         xzBJmq9iSRfhAMeubq1w6Orla5+SP2zLG7tYeEDTK32K7qquuwEovyvnekG83NY9CgCT
+         zzxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxF50rOhpEe3p3Pp0YtAy3ZE0PvdlhmBIGT6WXzF4sdnMBTxke+7qQOD/SXLDD4tLPRBSXaPif1n+tnDj0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTUiux0E8ZAT7rhcRmpGSg9Z6/l9TDchTfyzQVhcTgoIS53jEg
+	POH8eQg5j3nSVzqhVJUoYeRkrw9jMqrPyJAbnCjk4w8/VNmjahAYCOCC5MYItRaTwECE5GPCbww
+	FrzFbXbhiUMDj/13H5f+oxlwuUSrIk2fW8tMgrJvZY3daXviArGYiMhRSLPTd4Guciw==
+X-Gm-Gg: AYBFou2MXfXOzkLiQbWn14YHAL92HIUE3V0RpHA0HIMZSB8/5DgZJ667DJcbObdDn/F
+	jxTdEDSTmsULlIAhdxLWkHtAQ1wd3bBx/+U2saXZ829DaHV9kGkCTCDtpd2Oqxha49cIdtOQ4DN
+	3oZ+Ur+DzjLK2biXxl6w4e+c3juGGh3bdEZ0HbddDKwrUuVKcIHDAGIpqkTI+c2uuVIUI06u5/t
+	iZQGFTlYuYKPChVPq/U+qsR3V/CW1zX1AZBLZxJLz5V/F5WG9/E1edMvNhd8ugZvlf/VgjP2JRa
+	9+ISzhORrYBOtdXlBILetUVBEBs0bSGjvZ24Ujr9Ht28ISdC3anYS7GSCFAY4iop6JHqWHUGzyG
+	g3rADH/kCUoEKwptQoKUcJWeqvDXEQkBl0Sz1wz2O
+X-Received: by 2002:a05:600c:524a:b0:4a1:efba:511 with SMTP id 5b1f17b1804b1-4a9674e6bf7mr73578655e9.35.1793213667427;
+        Wed, 28 Oct 2026 11:54:27 -0700 (PDT)
+X-Received: by 2002:a05:600c:524a:b0:4a1:efba:511 with SMTP id 5b1f17b1804b1-4a9674e6bf7mr73577935e9.35.1793213666877;
+        Wed, 28 Oct 2026 11:54:26 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm10398775e9.4.2026.10.28.11.54.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:54:12 -0700 (PDT)
-From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	maddy@linux.ibm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	sashiko-bot@kernel.org,
-	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-Subject: [PATCH v5] powerpc/dts: Add Device Tree for WatchGuard Firebox T30 (v5)
-Date: Wed, 28 Oct 2026 14:54:06 -0400
-Message-ID: <20261028185407.26952-1-lefteris.koutrakis@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 28 Oct 2026 11:54:26 -0700 (PDT)
+Date: Wed, 28 Oct 2026 14:54:21 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Kevin Loughlin <kevinloughlin@google.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Ard Biesheuvel <ardb@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
+	linux-efi@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sidharth Telang <sidtelang@google.com>,
+	Punit Salian <psalian@google.com>, Peter Gonda <pgonda@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Jacky Li <jackyli@google.com>,
+	Steve Rutherford <srutherford@google.com>,
+	David Skidmore <davidskidmore@google.com>
+Subject: Re: [PATCH 00/13] virtio_balloon, efi/unaccepted: support memory
+ ballooning and free page reporting in CoCo guests
+Message-ID: <20261028145316-mutt-send-email-mst@kernel.org>
+References: <20261027025616.1632690-1-kevinloughlin@google.com>
+ <279a92da-772c-422b-8047-ad37dbae211f@kernel.org>
+ <CAGdbjmJ8qk7FCbGU85u9+db5_RtcrK2y_7TfNH+iuz+OJxebow@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,410 +147,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGdbjmJ8qk7FCbGU85u9+db5_RtcrK2y_7TfNH+iuz+OJxebow@mail.gmail.com>
 
-This commit adds initial device tree support for the WatchGuard Firebox T30
-board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
-arch/powerpc/boot/dts/fsl/Makefile.
+On Wed, Oct 28, 2026 at 11:12:47AM -0700, Kevin Loughlin wrote:
+> On Wed, Oct 28, 2026 at 2:01 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+> >
+> > On 10/27/26 03:56, Kevin Loughlin wrote:
+> > >
+> > [...]
+> >
+> > >  mm/page_alloc.c                               | 248 ++++++++++++-----
+> >
+> > This diff stat should give you a good indication why this series is not acceptable.
+> 
+> Got it. I will keep that in mind going forward, especially if I end up
+> attempting a v2 that simplifies things.
+> 
+> On that note, I believe the majority of the bloat in mm/page_alloc.c
+> comes from...
+> 1. supporting the legacy inflate/deflate option
+> 2. introducing support for various page sizes to be unaccepted
+> 
+> (1) I can get rid of by dropping the inflate/deflate option, which I
+> think makes sense given free page reporting should be sufficient to
+> enable dynamic guest downsizing in cooperative scenarios.
+> 
+> (2) becomes simpler in part just by doing (1). For further
+> simplification, we could potentially restrict free page reporting for
+> CoCo guests to the current 4 MB MAX_PAGE_ORDER instead of supporting
+> any order 2 MB and up. There's a trade-off here for reporting
+> effectiveness under fragmentation, but perhaps support for 4 MB only
+> (and its relative simplicity) could be acceptable? Especially since we
+> would then maintain the invariant that all pages on the unaccepted
+> list are MAX_PAGE_ORDER?
 
-Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
----
- .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
- 1 file changed, 386 insertions(+)
- create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+I'm not sure what is meant here.
+But if a lot of memory is free and it gets merged beyond MAX_PAGE_ORDER
+and then it's not reported, that's counterintuitive.
 
-diff --git a/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
-new file mode 100644
-index 0000000..ec6cf91
---- /dev/null
-+++ b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
-@@ -0,0 +1,386 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Device Tree for WatchGuard Firebox T30
-+ * Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/include/ "p1020si-pre.dtsi"
-+
-+/ {
-+	model = "Watchguard Firebox T30";
-+	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
-+
-+	memory {
-+		device_type = "memory";
-+	};
-+
-+	cpus {
-+		/delete-node/ PowerPC,P1020@1;
-+	};
-+
-+	lbc: localbus@ffe05000 {
-+		reg = <0 0xffe05000 0 0x1000>;
-+		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
-+
-+		nor@0 {
-+			compatible = "cfi-flash";
-+			reg = <0x0 0x0 0x400000>;
-+			bank-width = <2>;
-+			device-width = <1>;
-+
-+			partitions {
-+				compatible = "fixed-partitions";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				partition@0 {
-+					reg = <0x0 0x20000>;
-+					label = "nor-cfg0";
-+
-+					nvmem-layout {
-+						compatible = "fixed-layout";
-+						#address-cells = <1>;
-+						#size-cells = <1>;
-+
-+						macaddr_nor_cfg0_1830: mac-address@1830 {
-+							compatible = "mac-base";
-+							reg = <0x1830 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1844: mac-address@1844 {
-+							compatible = "mac-base";
-+							reg = <0x1844 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1858: mac-address@1858 {
-+							compatible = "mac-base";
-+							reg = <0x1858 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_186c: mac-address@186c {
-+							compatible = "mac-base";
-+							reg = <0x186c 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1880: mac-address@1880 {
-+							compatible = "mac-base";
-+							reg = <0x1880 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1894: mac-address@1894 {
-+							compatible = "mac-base";
-+							reg = <0x1894 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+					};
-+				};
-+
-+				partition@20000 {
-+					reg = <0x20000 0x10000>;
-+					label = "nor-cfg1";
-+				};
-+
-+				partition@30000 {
-+					reg = <0x30000 0x20000>;
-+					label = "nor-mfg";
-+				};
-+
-+				partition@50000 {
-+					reg = <0x50000 0xc0000>;
-+					label = "nor-bootopt";
-+				};
-+
-+				partition@110000 {
-+					reg = <0x110000 0xc0000>;
-+					label = "nor-extra1";
-+				};
-+
-+				partition@1d0000 {
-+					reg = <0x1d0000 0xc0000>;
-+					label = "nor-extra2";
-+				};
-+
-+				partition@290000 {
-+					reg = <0x290000 0xe0000>;
-+					label = "nor-backup";
-+				};
-+
-+				partition@370000 {
-+					reg = <0x370000 0x10000>;
-+					label = "nor-ubootenv";
-+				};
-+
-+				partition@380000 {
-+					reg = <0x380000 0x80000>;
-+					label = "nor-uboot";
-+				};
-+			};
-+		};
-+	};
-+
-+	soc: soc@ffe00000 {
-+		ranges = <0x0 0x0 0xffe00000 0x100000>;
-+
-+		gpio0: gpio-controller@fc00 {
-+			#gpio-cells = <2>;
-+			compatible = "fsl,pq3-gpio";
-+			reg = <0xfc00 0x100>;
-+			interrupts = <47 0x2 0 0>;
-+			gpio-controller;
-+		};
-+
-+		i2c@3000 {
-+			rtc@30 {
-+				compatible = "sii,s35390a";
-+				reg = <0x30>;
-+			};
-+		};
-+
-+		i2c@3100 {
-+			tpm@29 {
-+				compatible = "atmel,at97sc3204t";
-+				reg = <0x29>;
-+			};
-+		};
-+
-+		spi0: spi@7000 {
-+			flash@0 {
-+				compatible = "everspin,mr25h256", "jedec,spi-nor";
-+				reg = <0>;
-+				spi-max-frequency = <40000000>;
-+				m25p,fast-read;
-+
-+				partitions {
-+					compatible = "fixed-partitions";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					partition@0 {
-+						reg = <0x0 0x8000>;
-+						label = "spi_mtd_0";
-+					};
-+				};
-+			};
-+
-+			slic@1 {
-+				compatible = "zarlink,le88266";
-+				reg = <1>;
-+				spi-max-frequency = <500000>;
-+			};
-+		};
-+
-+		usb@22000 {
-+			phy_type = "ulpi";
-+			dr_mode = "host";
-+		};
-+
-+		mdio@24000 {
-+			switch0: switch@10 {
-+				compatible = "marvell,mv88e6085";
-+				reg = <0x10>;
-+
-+				mdio {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					switch0phy0: ethernet-phy@0 {
-+						reg = <0>;
-+					};
-+
-+					switch0phy1: ethernet-phy@1 {
-+						reg = <1>;
-+					};
-+
-+					switch0phy2: ethernet-phy@2 {
-+						reg = <2>;
-+					};
-+
-+					switch0phy3: ethernet-phy@3 {
-+						reg = <3>;
-+					};
-+
-+					switch0phy4: ethernet-phy@4 {
-+						reg = <4>;
-+					};
-+				};
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						label = "wan";
-+						phy-handle = <&switch0phy0>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						label = "lan1";
-+						phy-handle = <&switch0phy1>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@2 {
-+						reg = <2>;
-+						label = "lan2";
-+						phy-handle = <&switch0phy2>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@3 {
-+						reg = <3>;
-+						label = "lan3";
-+						phy-handle = <&switch0phy3>;
-+						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@4 {
-+						reg = <4>;
-+						label = "lan4";
-+						phy-handle = <&switch0phy4>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@6 {
-+						reg = <6>;
-+						label = "cpu";
-+						ethernet = <&enet0>;
-+						phy-mode = "rgmii-id";
-+
-+						fixed-link {
-+							speed = <1000>;
-+							full-duplex;
-+						};
-+					};
-+				};
-+			};
-+		};
-+
-+		mdio@25000 {
-+			status = "disabled";
-+		};
-+
-+		mdio@26000 {
-+			status = "disabled";
-+		};
-+
-+		enet0: ethernet@b0000 {
-+			phy-connection-type = "rgmii-id";
-+			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
-+			nvmem-cell-names = "mac-address";
-+
-+			fixed-link {
-+				speed = <1000>;
-+				full-duplex;
-+			};
-+		};
-+
-+		enet1: ethernet@b1000 {
-+			status = "disabled";
-+		};
-+
-+		enet2: ethernet@b2000 {
-+			status = "disabled";
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led0: led-0 {
-+			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_ORANGE>;
-+			function = LED_FUNCTION_STATUS;
-+		};
-+
-+		led1: led-1 {
-+			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_STATUS;
-+		};
-+
-+		led2: led-2 {
-+			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_USB;
-+		};
-+
-+		led3: led-3 {
-+			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_WLAN_5GHZ;
-+			default-state = "keep";
-+		};
-+
-+		led4: led-4 {
-+			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-+			color = <LED_COLOR_ID_ORANGE>;
-+			function = LED_FUNCTION_WLAN_2GHZ;
-+			default-state = "keep";
-+		};
-+
-+		led5: led-5 {
-+			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_POWER;
-+			default-state = "on";
-+		};
-+	};
-+
-+	pci0: pcie@ffe09000 {
-+		reg = <0 0xffe09000 0 0x1000>;
-+		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
-+			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
-+		status = "disabled";
-+
-+		pcie@0 {
-+			ranges = <0x2000000 0x0 0xa0000000
-+				  0x2000000 0x0 0xa0000000
-+				  0x0 0x20000000
-+
-+				  0x1000000 0x0 0x0
-+				  0x1000000 0x0 0x0
-+				  0x0 0x100000>;
-+		};
-+	};
-+
-+	pci1: pcie@ffe0a000 {
-+		reg = <0 0xffe0a000 0 0x1000>;
-+		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
-+			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
-+
-+		pcie@0 {
-+			ranges = <0x2000000 0x0 0x80000000
-+				  0x2000000 0x0 0x80000000
-+				  0x0 0x20000000
-+
-+				  0x1000000 0x0 0x0
-+				  0x1000000 0x0 0x0
-+				  0x0 0x100000>;
-+
-+			ath10k: wifi@0,0 {
-+				reg = <0x0000 0 0 0 0>;
-+				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
-+				nvmem-cell-names = "mac-address";
-+			};
-+		};
-+	};
-+};
-+
-+/include/ "p1020si-post.dtsi"
--- 
-2.53.0
+> If I can sufficiently simplify the changes (especially in mm/), do you
+> potentially see a path forward purely for the free page reporting
+> aspect of this (dropping inflate/deflate)?
+> 
+> Thank you for taking the time to review, David!
 
