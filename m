@@ -1,45 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186689;
-	b=Jq5zWdF9U1kw9DcamN1q0tlBfyDsfilwaZS9XjqIDNmyGs31CygavOCJSQvjG/xjUz9p
-	 THwwhC4QUuR8ridQzkd9yZs0fzDeEhkVgOTbiFjmXzNKWQMaSgafwqmWcXN0guaYC60OM
-	 RTEiPpNSgTB2hoH2PvThRBK8ho/zZCWV5gSEVCG7EaQOTdbvcDunhENXshkocOvtsqlJP
-	 o8J0qSC20MjpHBt8/BCaix3FV/Fl7ae3f0Wy46uv0ngtBIqSYKG9VVAHXgl4Wr8ZMypcr
-	 mfWcLmZJyDuY5obxqvkCVnJ2KVr+JjZllfl8Qulue/Loj8aw6h/rx0V7ybU6L01i0Qg==
+	t=1793186733;
+	b=B14hPQi54kLBdNe+hXqmu+nLJdSqmeeu07o0c9qXCqfY8PrACjWxaNnsaBvHcSX3g6+g
+	 T/nKJX6TDzAl5GRq6//VNwB+Na7FMxsui3KlF8Vx3GC9bkTw13vja1RRYxinFV7KF8R1Y
+	 CUSeDZFgdGYKy5xCOpXNR34BxPzxjDpD+FICk99Gti26brCyEk6gSkZIjyIMp8hGm7GO9
+	 UTa8gJHAl12qCcNscd98CCb1Dsm/qCcq/Wj2BEpNmTZCv2UcE6e1LXZvUuDKR7cXodFjZ
+	 XHWX7hZROLRlatHfu3uYzgT3aycxiZYZVC8lvjkxX9WCC4dhRqkNMIvReATgIgMKmbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186689;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=GQQcgpZJwrZw/LB/XgVmY61NkifszxIOymjocQEoxmg=;
-	b=yDL7wiJLZQjRfL3YftGL/kfMi8EmITl611Y/5+07Tw23Batnl9WT08lLHF3CGhnRY0Xf
-	 ecmg/HV2A55DV79l+FiDpM3ap7cJMWya42LBZOe9KqqLjtUKy4DQuz7N4a7O8Qp+W+9Ur
-	 pFdGzReGR3+QpNmPi9+t+vBkMtl7gzKzRtxz3sn5bKwlx9CVhsJusBqChcbW9G7RQf2CI
-	 rXN7PKjaZon6qJ/dFmLR/NPHIYGcSwVw/w/+vYOOHGyxPYQdBOn1WEARjPJOdMONE11Lz
-	 A7aOwO8wVq+83y5qDOBghoWkGrMJUf00SxhEUOiKmm+n/YsUFBf9NOgQmSHeyPGBmkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186733;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9mJ43myQfb09ZHFd92pajyUabxECeLaGrPpQgoogl/M=;
+	b=WYPLA+TXkFhvFX9IAzWBmo8n6spk4Dfx6T/ywJHGD6WKq++p4a2cobd5YddL8PA12ebD
+	 bXdzGWE6DFi1iGE/m+TSBRp7JOgRw3E9lhA0WNJJvMtebxXuc7EONPzto2rl3kYP4F00K
+	 di/dPZi9bClDe23uNSdMI5dJ/mZbqluMhtIn+VmdRm5NyWjQb9L/lA0xNZ91Uhw8/DDxd
+	 2I6ctS8+niZk5JxA5e3F3PnZvYvXbvA8ByLE0YVaUXJtgfq6z9x2H1rX/a5icvpVeW8aO
+	 wEltPx6vuLcjmpwGApA8ldbX1ENvJoAjhvloyZsqtbq61vjL3GcUgYKaj2bAagwOz5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A21jxCc9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541AF606A31A;
-	Wed, 28 Oct 2026 11:24:48 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="P2hok/IQ";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F7A9606A31D;
+	Wed, 28 Oct 2026 11:25:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F7A9606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A21jxCc9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E681F01825;
-	Wed, 28 Oct 2026 11:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186688;
-	bh=GQQcgpZJwrZw/LB/XgVmY61NkifszxIOymjocQEoxmg=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=A21jxCc9sLaua+7v252kZU0tEG/QxrYQel1ipeb3evz+ffhYpVnL64zs5cKC+fMPK
-	 nWM7+OWiYVsU5JHj44jV0ZnzUBE2oVmGaVDeoIR9HgO3uQX5trBfvfc13I5Pq0Opkr
-	 uUxEPCT7nqh2Cr4lkieVNJvMklJNn5i2l7E+sKQAoOddtKgOim5EDHVTXsydDVL5D8
-	 aSXsen0NFrcX6e2gTkXYSB+3YwbSJROOCbEbicNIxzdIK/4pSYs0FHmnHIpsQLcaeG
-	 w30tG7eAqN40uLD1wEpws85o/yMFaAkC2kUs/KQPqSV5mNu/qBViuNf9P5DdgGJwWf
-	 3Cac7YMVUXfQg==
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=P2hok/IQ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3329416A3;
+	Wed, 28 Oct 2026 04:25:28 -0700 (PDT)
+Received: from [192.168.29.156] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B958B3F673;
+	Wed, 28 Oct 2026 04:25:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793186731; bh=YKaulhQLxUfKWnBASX1S/dUGhwJrFBUH8NuOouts5+I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=P2hok/IQmwm8cB2bnDnrDcPeAaV73twbAWps9caSEi5dY2Jcd844rTaNBr92pszip
+	 d/LDigAE/b9OTh414eXiZq1JnhVYqaRVz2PyIEus6hbpQG3OwnnX2NsX+NjmIMCxx+
+	 FVgww7zQ2JJU5HdwtOCk7+2L5pU8iAEcRnD9k6Qc=
+Message-ID: <abf93d06-e330-45f1-86b2-945d21d26f2f@arm.com>
+Date: Wed, 28 Oct 2026 16:55:23 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,87 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 3/5] phy: core: Add phy bulk data helper functions
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-In-Reply-To: <auBi722rs5BvaExx@inochi.infowork>
-References: <20260929085235.469515-1-inochiama@gmail.com>
- <20260929085235.469515-4-inochiama@gmail.com> <asN4I1cpVb5HLNu7@parshuram>
- <asOMP3uJJmdpfvtt@inochi.infowork> <atS9fkULEWfCbVVm@debian>
- <auBi722rs5BvaExx@inochi.infowork>
-Date: Wed, 28 Oct 2026 16:54:39 +0530
-Message-Id: <179318667977.5872.17095079427326558812.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2190; i=mani@kernel.org;
- h=from:subject:message-id; bh=O8WpozuHvriuxt1s/rrpiM234RfLSzQCVXwXN9/aUiQ=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4dt6eqI44paevA1QxiozX4MYt/L9zGkzkZ3M7
- oqCxyeQqI+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHbegAKCRBVnxHm/pHO
- 9bsTB/9LYbCYkGWRJiNpsmRbHJ+vYKT66zeLqkGy/SyKGlCu7lDkwu4xYMiF8Pck+lqmLxvXuHi
- P4lZUdP5QtvVi+j9V9GA5r1+44pvKSWx5/FqjFOkKZFb6Gy9LdEvb4IFLzq64E+wpui8kw0fhM/
- gHjDPyeKHFgURMBfMURVe2q0adgdFn5HPyPQEmpSi24QpibGq7jBX0IKJnG6pZdVLOA51omw2gx
- HTT56pRjnDhmGjKDFvZfYLJ7rAfchMJNl86IIk866QaLXxKCj56Z0u5fQSbrQ6q8KjNKBua5/HA
- RnxPCAJfH2E1WOXIYDuBdsv4u3fRqDXIchW1kwPuil3k5Qsj
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] selftests/mm: check MADV_PAGEOUT file permissions
+To: "Gregory Price (Meta)" <gourry@gourry.net>,
+ linux-kselftest@vger.kernel.org
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, shuah@kernel.org
+References: <20261019171206.3331374-1-gourry@gourry.net>
+ <20261019171206.3331374-7-gourry@gourry.net>
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+Content-Language: en-US
+In-Reply-To: <20261019171206.3331374-7-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-27 16:41 +0800, Inochi Amaoto wrote:
-> On Sun, Oct 18, 2026 at 06:09:49PM +0530, Manivannan Sadhasivam wrote:
-> > On Mon, Oct 05, 2026 at 07:41:52PM +0800, Inochi Amaoto wrote:
-> > > On Mon, Oct 05, 2026 at 12:12:51PM +0200, Vinod Koul wrote:
-> > > > On 29-09-26, 16:52, Inochi Amaoto wrote:
-> > > > > Add several helper functions that allow drivers to get several phy
-> > > > > consumers in one operation. If any of the phy cannot be acquired then
-> > > > > any phys that were got will be put before returning to the caller.
-> > > > 
-> > > > Do we have many such examples? Phy is not a many resource like
-> > > > clock/regulators... Do we really need this. How many in kernel users
-> > > > will benefit from this API?
-> > > > 
-> > > 
-> > > 
-> > > I guess the following driver may benefit from bulk api. Most of them
-> > > are PCIe drivers....
-> > > 
-> > > drivers/ata/ahci_imx.c
-> > > drivers/pci/controller/cadence/pcie-cadence.c
-> > > drivers/pci/controller/dwc/pci-dra7xx.c
-> > > drivers/pci/controller/dwc/pcie-tegra194.c
-> > > drivers/pci/controller/pcie-rockchip.c
-> > > drivers/pci/controller/dwc/pcie-qcom.c
-> > > 
-> > > Note: I mean the bulk api, not just the things I added. I guess many
-> > > may want devm_phy_bulk_get() or devm_of_phy_bulk_get() instead of
-> > > devm_phy_bulk_get_all().
-> > > 
-> > 
-> > No. I don't think the PCIe host controllers need the PHY bulk APIs. Most of the
-> > time they need to control each PHY independently in a multi-port setup. So
-> > having the bulk API doesn't seem logical to me.
-> > 
-> > - Mani
-> > 
-> > -- 
-> > மணிவண்ணன் சதாசிவம்
+
+
+On 10/19/26 10:42 PM, Gregory Price (Meta) wrote:
+> MADV_PAGEOUT only pages out file pages for a caller that owns the file or
+> could open it for writing, per can_do_file_pageout(). Any other caller
+> gets nothing from a shared file mapping, and only the anonymous COW pages
+> from a private one.
 > 
-> Sorry for missing this one. For multi-port setup, the answer is no. The bulk
-> API is not a good choice. But for multi-lane setup of one port, I think the
-> answer is yes, the driver can just control the phy together and do not need
-> a loop for that. At least for pcie-rockchip.c, I think it is reasonable, its
-> logic show it use multi-lane setup, so I think it is fine to port.
+> main() now also checks once whether MADV_PAGEOUT can unmap a clean page
+> of a file in /tmp, where the tests make their files. The tests below skip
+> if it cannot, since none of them would show anything.
 > 
+> Check that the owner of a read-only file can page out a clean page of
+> it. When started as root, the test hands the file to nobody and drops
+> privileges, so that capabilities cannot stand in for ownership and
+> nobody need not be able to write to /tmp.
+> 
+> Also check that an unauthorized caller leaves a shared file page mapped,
+> and that it pages out the COW page of a private mapping but not the file
+> page next to it. These need root to change credentials, and skip if that
+> fails. The private mapping check also skips if MADV_PAGEOUT cannot swap.
+> 
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+Thanks for the changes. It looks good to me.
 
-Yeah, if there are multiple PHYs to be controlled within a single RP for lane
-muxing, then bulk APIs do make sense.
-
-- Mani
-
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
