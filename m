@@ -1,105 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194436;
-	b=GEefhWREIY28pF5gZonDlQ8rM5XHOSR/Ghe8a/IFjF0L+GcZx6J488WDHqEvUQ95qyIv
-	 sksqAwbnmx/j2GXzzt8elNzeA1Wq4wAJJvNxDA8K7E8IUzu4FwStjSxWml0URnUGmmSMx
-	 R6cpgE222VNioSqOOjGoXP6uzXQxKBpUeqosV/zxSh57w+pHSTFcR8AqFnDi1TZNIFj2B
-	 OgK2pH1no+4ePUNrRTkMh+SrfXM8NOKZsTtCiT9DYrBja5m5O2VmMDiSdtfJQ0YfT0rCV
-	 S0564WwZVq00lDJNNrLHCS2x8cPSyU4aM2bvCVz9Mtq/4/NVkwTcZqtlO/OFsnjxlTA==
+	t=1793194444;
+	b=SyNTlRJWx1cEu9Mov19PtvYUlWUYpDbXBpV8jqFB9rLFCvdg/x8/da3/0c+vrtcm6ZuB
+	 vgUIln91Qst/QcI0t0NvqhSW0L6UJkZzOmFf8IxwCDAKCAZFIC5lbaB09HEK3fdcd9KyH
+	 6OBelp2P13fO6e35F9NuY7HSVcxhHOPHNrDRiASs6tx/B3J63GHjewMDQKErZ+8+kpC8n
+	 4VU5h6hDG/bfi/pYp1Ilbd0tDtORip+m5hVugkqUY6xUtPxuGb/ah2sCDlP4PsJhUxW88
+	 2p0nRR4FSZ30aMoL0KKJgi1txaZ1rq18WNt3sBb6LE1tjJjmrYu41+KjoH4XHs5yYYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194436;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mHBWVyhcqxaC5vumFhxxpKEuhD3213M1GsePKvUPh1Q=;
-	b=yavbcQzY6NK18QGgvD57hksJyeXg4iHE5K6oYgqTtze4r++dj9kT+LrkVE8FIuwkLNCj
-	 g3V2CvSeeMmNcQ8MWdR7LBo+uSmuncNoQ61gy/kSoUHQ+3qJaHPgPcea+vaBIP3R4dWwE
-	 Sw8RacL0KGVHqWwzpYI+w3z+25jKw8rpWryG6v/H8rUBc6elzvPqBA5ayWLlgz2gzpxrI
-	 trvI/OXcgowIfgsa45y+DWPj7D98KXqM0gTMx3PUbKDa5rPvSmx0tB18x4ExjbA0a8dj2
-	 OD1pxzcXfuUbQ55p9e+fen0qzIB7+NFNqwCDdnnuqEs1mzHVBRSB4bjuu+xhMjl2rCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194444;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=+i89gbLbnk0eWNWQfGRGjKqDrE0gEnhRAgw++rXrpR4=;
+	b=f1aFVeJAKMWZi87e6U0UfLpT9jR9P4ixUzKd+vRr06ur4MxC+WhZGvlBHwR6IZ94QsfO
+	 1cSsG0dsBZWVWDKLPdUhILwjBpgRXWnox7sIKdmPACclwioHyQiAwk+RU9APB/w8omdib
+	 otZ30OJxQeWs2EhDTf68o3/o5vK/X43CujPha5Y3DZyC3U/zHVbonHcAUyCz1RPwEhl1d
+	 nLlAokNzNrCA3IU28eTOPqHMWBYXygg15CNGSPq8/RjDBPicRg0OL1JFPRPWLqshE+dr3
+	 2b35d/31PePyiWq+v0VoLVZ7GFsenP76SGmw3DzlnTCdFEwiDLGSnH+2us4X5ESSFRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=armoriq.io;
-	spf=pass smtp.mailfrom=armoriq.io;
-	dkim=pass header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a0tLEIZV;
-	arc=none smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="WKNMsN+/";
+	arc=none smtp.remote-ip=91.218.175.146
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240FF60A2635
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 240FF60A2635
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECF7606A329
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BECF7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20260707.gappssmtp.com header.i=@armoriq-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a0tLEIZV
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6798eb0d13fso1114699d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=armoriq-io.20260707.gappssmtp.com; s=20260707; t=1793194435; x=1793799235; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mHBWVyhcqxaC5vumFhxxpKEuhD3213M1GsePKvUPh1Q=;
-        b=a0tLEIZVYyhkTlIJHtgGbFZONiiDQraHICSs8nIr1Mw8HVsHHaim+W21SJOURks2cx
-         61LO/g8DvIxgQhaGuocD17ZH/DA4iaOHyjQrLqvDuajbQoadCuwEJCYzv6ytYZ488PyY
-         6RP5RF0HmPdnKboB6PcfpwOn894vMmmRnBEgJgJHkKN20mHnSrwCmpTy9nNQaa76UAWN
-         NpNmbx2oRjFr0n7ImcBB7NpIjIxHAYO1AHWj0PGm8ai11QqqZC4jA1qSo7eoPgwI0ndQ
-         cBlclyvHvowc6wQkBzpllidO02OCyWxupMHOBYWp76zlmeTbU415dVFYLCJd5WjoD/Bk
-         ik0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793194435; x=1793799235;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mHBWVyhcqxaC5vumFhxxpKEuhD3213M1GsePKvUPh1Q=;
-        b=j/5+6zn501Jk5B1J73RrE4ci89L/HWxidnYtDiE0nQMtpZkyygzaQqZNS5zyk0PQuT
-         vzNkKwIQKG31iOSJmTNXzMH9kTNUG0BQ0VW2+nDx2ZDBlT4pD5L5CHQcvQuphux8Pt5s
-         KaNe/XDVJphPJ771DNRvFMXkYtoVpJmKC/ZvEjoAko3WzfSEZS884Ct7+9AqjPA9UX/p
-         lgVbSOnbYo4HWzjbKhkLTRIVt0e41xWkmO8saVzF97bgqi3sNAxN6Ch3IqmYvAnFUhKg
-         jQ71HdgE2Hk95s0QfvMrAkRQGC0H/whxfjVyh5cPxligCGLzhdrYRHKJwuP7i1u159du
-         5MFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMmj6pe68UzLCpVSxpGaWLV0JmD9qWT2rs/atlrdazKSAy6gUiT96UJaw0tVizTjwkGUt5Cv7EDn0FHRg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIguH0Hz4ccaJsw4WEU0iKq2vVePplKglAo+R3b0kYv0Z9S5N+3
-	aM1cMYoiqUeVW3V05w8lvsJZldmj5CvxmHrp1kLkYq6zW4LejIHqg8CQE7XOuhQ5Ngnj
-X-Gm-Gg: AYBFou1OVFa//suG20n5JhWiLtfjRx2tgfsQ1VyaNeVSu60n9Vlv92zrATOLc2uVUSk
-	qYmGlZpCIrl0fUXHVHnd4+94o3M945QQOeo1o8MiqQLio1PAvv2dboWnR80LDfxatYrWdNgiCt9
-	FPF5muayEYFGDA+c9heq+coS7lKZA6pGWhbDX4SVbLhkRuELGqFlg0Snf1VWP1/RrEUVVqVV5Sl
-	Nv2BazHOMyYVZ/gwML3dD/vNLAjTkizoHD7HVG5M/tLVay9A9MPzqc3s3lln3vFdpq2ZCEoMUFy
-	UP+4LU5oQmbsRz9ygg8Rlhc7i4ydxvcnePdXDlqIThAL2weqIwerSti2igA9s6Rb1Rl2KRUbxwy
-	+671+R5tNiffr8iysrFqj/IIQO8HZTBUJf2V+OHiv/AekpULV3sQDHWFft95qE7uCL0izW3CAKH
-	TJtifkmokV25Yt6XNkX7wQYpXEsNqAnf1UkRUpvZPd7Cnv4sbRn8oBejeOvIXAfCkTwb9/R3q3Q
-	oAz8stokQ9vDKNv007SW+lvCN2cQB6kcSGLfWHBZdgW1mmZyz1ieJQIs3if1uxVjSSORC8sHmU5
-	Ie7sBd5hzO7Zsi+tgBMvwCxZTkj968AWimfeOwSvqn6cQEV9xQ7+a8+0qGlf8g/mELI/JLURohl
-	7m8DHjTA2HHmaHT4G24lZU6KNNzuIjxtH4GP2LLEQYxKDvuc=
-X-Received: by 2002:a53:d60f:0:b0:679:992e:3ad8 with SMTP id 956f58d0204a3-67a7bd3cbf0mr1120504d50.132.1793194434760;
-        Wed, 28 Oct 2026 06:33:54 -0700 (PDT)
-Received: from CC-KJQTV599DQ.attlocal.net ([2600:1702:7b5a:ab90:103d:30e1:1f09:a9ae])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a79f38dfesm1694911d50.1.2026.10.28.06.33.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 06:33:54 -0700 (PDT)
-From: Ketan Bhardwaj <ketan@armoriq.io>
-To: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>
-Cc: linux-security-module@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	linux-kernel@vger.kernel.org,
-	"HARIHARA SUDHAN . R" <harisudhan@armoriq.io>,
-	Ketan Bhardwaj <ketan@armoriq.io>
-Subject: [RFC PATCH v2 6/6] MAINTAINERS: add an entry for the Kernel Assurance Plane
-Date: Wed, 28 Oct 2026 09:33:35 -0400
-Message-ID: <20261028133335.75899-7-ketan@armoriq.io>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261028133335.75899-1-ketan@armoriq.io>
-References: <20261028133335.75899-1-ketan@armoriq.io>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WKNMsN+/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZGabnbBPQOG1vD10Hk045MNH8SrJwcOoFj1T632b9xc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793194440; v=1; x=1793799240;
+ b=WKNMsN+/7QQJ0nkJCxFdL6jIECD96U8E8w7ib/hk7NVugdFM4/sf31Fm7dzVpmjnTbBX/Q1m
+ bklXMChdXq/GnVjzr+hEUwKRvazZvgtXPlRL7Xf1LQqCzwdzgtNJ0223jk7AD64gIWdIl/t6gTl
+ mA4kYVS5itSBPG1qtU8eHgXs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 87b8adf5ccd19833;
+	Wed, 28 Oct 2026 13:34:00 +0000
+X-Mizu-Trace-ID: 87b8adf5ccd19833
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,41 +57,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261028132623.2560146-1-kirill@shutemov.name>
+Date: Wed, 28 Oct 2026 21:33:33 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Frank van der Linden <fvdl@google.com>,
+ Matthew Wilcox <willy@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ kernel-team@meta.com,
+ linux-mm@kvack.org,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0C23A63A-43C8-4434-BEB8-8E5ED3471C25@linux.dev>
+References: <20261028132623.2560146-1-kirill@shutemov.name>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Add the KAP maintainers and the files they look after.
 
-Assisted-by: Claude
-Co-developed-by: HARIHARA SUDHAN. R <harisudhan@armoriq.io>
-Signed-off-by: HARIHARA SUDHAN. R <harisudhan@armoriq.io>
-Assisted-by: Codex
-Signed-off-by: Ketan Bhardwaj <ketan@armoriq.io>
----
- MAINTAINERS | 10 ++++++++++
- 1 file changed, 10 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047a..0946d15 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14118,6 +14118,16 @@ W:	https://linuxtv.org
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/radio/radio-keene*
- 
-+KERNEL ASSURANCE PLANE (KAP)
-+M:	Ketan Bhardwaj <ketan@armoriq.io>
-+M:	HARIHARA SUDHAN. R <harisudhan@armoriq.io>
-+L:	linux-security-module@vger.kernel.org
-+S:	Supported
-+F:	Documentation/ABI/testing/securityfs-kap
-+F:	Documentation/security/kap.rst
-+F:	include/linux/kap.h
-+F:	security/kap/
-+
- KERNEL AUTOMOUNTER
- M:	Ian Kent <raven@themaw.net>
- L:	autofs@vger.kernel.org
--- 
-2.51.0
+> On Oct 28, 2026, at 21:26, Kiryl Shutsemau <kirill@shutemov.name> =
+wrote:
+>=20
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>=20
+> page_ref_add_unless_zero() reads the refcount and then updates it with
+> a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
+> scanner, can read a non-zero refcount from a page that is then freed
+> and reused as a hugetlb tail page.  If HVO remaps its struct page to
+> the shared tail page in between, the cmpxchg writes to read-only
+> vmemmap:
+>=20
+>    CPU0 (lockless get)               CPU1
+>    c =3D atomic_read(&page->_refcount)
+>                                      page freed
+>                                      page allocated as a hugetlb tail
+>                                      HVO remaps the struct page RO
+>    try_cmpxchg(&page->_refcount, &c, c + 1)
+>      -> write fault on read-only vmemmap
+>=20
+> The refcount is zero by then and the compare fails, but a
+> compare-and-swap instruction needs write access whether or not it
+> succeeds.  The kernel oopses when hugetlb pages are allocated at
+> runtime with HVO enabled while a lockless get races with it.
+>=20
+> Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative =
+PFN
+> walkers") closed the window with RCU on both sides.  The RCU was =
+removed
+> together with fake heads, on the wrong belief that it was only needed
+> for them.
+>=20
+> Map the shared tail page writable instead of restoring the RCU.  Every
+> struct page on it is a tail with a zero refcount, so a late cmpxchg
+> fails and leaves the page unchanged.  RCU would put rcu_read_lock()
+> back around every get and synchronize_rcu() back into hugetlb
+> allocation and freeing.
+>=20
+> The cost is the protection against stray writes to tail struct pages.
+> The shared page is shared by all hugetlb folios of the same order in
+> the zone, so such a write now corrupts all of them instead of oopsing.
+>=20
+> Bootmem folios optimized when the memmap is set up keep their tails
+> read-only.  Nothing does a lockless get on them before hugetlb takes
+> them over.
+>=20
+> Fixes: 32c440d67e6c ("mm: drop fake head checks")
+> Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
+> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> Closes: =
+https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+LGTM.
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
 
