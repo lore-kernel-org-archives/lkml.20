@@ -1,67 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793148787;
-	b=NxEJvYEi1AJlvyoJfhkYdBw0Kk925ZSh7o/o6u+BuNJrni7rEkkZOqvshRpnsxemBLXY
-	 u7CuSvS6CSiK36XhG2ACco2ClmvZhZjQAtlxwYhDOzkZ4fCdcdgRLLjz+rW9Qcn9pkphP
-	 m2nNF4G+KPhsd7vjcu8lwqZky2WroPMJdMeORNL0Ow5gpKbMVOA7+uz3qKL3Jl0d6adit
-	 PtK8fLebjZXuorLJncUNynu3zwq/yvvYOQ7TA7WdhkalJMBG6UPkjx3IX+HMJuHva39tP
-	 c3i7pN5OCe55nhKbjPumg5P7JpL/XcxweD1dsOkrkz7GQpP32b/ES0G3TOFUTVPDL4A==
+	t=1793148938;
+	b=TsZ6N2LtF5nYLXAVMFJ+nSrkoJwE93nIzErl6A4Tq+MhDoC01VqNNZbnCSaadooA9Pbx
+	 Zif+nhRfwCqDvDTz8dZays3L9DoYvXXAdSExqOm67vpBQaNkrMaOTFWOinaBpdaVRQJ0Y
+	 Zn/D1d+zAP4otm20UKG+dBGhl0+mi3dGlm7tmgcD6rfl0+msBwGgxkzTry9gIUSUPQ417
+	 09cM8h0uO8HqAVeUo9ROK9ntJwtcufTSjiOUm7EON//HEiW5YWinqp2kFe9xAmqPMpLwN
+	 NHTANug3W45Bumjgbj7A/eZ0SWPW/xMWipDTAQOaRqfSwvwnJr+/4W5jKbESVtj6yOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793148787;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=70/2LdS5pBXpfNj8kBNHr883OekoIQf/Q1qvO8XzJk4=;
-	b=mu4yxTr95u3og6r35HMpb45gpHNv0/5MslVmTkPKLV/M0nX4f8Ueq63qiQ/fsiw4/9Oq
-	 5Y0euxIM++dClwq3R5v1sxAVt+Hka4pBJkkFAJ90pYX1D6BKLUKyNOYntn6iGJ0vITcu5
-	 SEnU/sS6N9/FRU/ASDus69yLXJIavZHVF4vZUUM4qRucJ432PKvZ0Z2j4M+RT9OgkC2ax
-	 I8z8IK32UzomossH9U49zUQgVl0TCfOAbW8On0a9XzRbOyfY6BYRp1ts0CDH3Ib1avdGv
-	 7/ksP7FST/lbClrvuLr4RlEecFsmxv0BOoIFqu05GrUhto8j8aZ5ICXz6n/M2/fkD8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793148938;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HzH8rykX5lmcZm9pB6FHq6gj3hJ7Y5hZ3zn+8svQBtg=;
+	b=d9iqni94q3DkWKxGwhnEtRrKaAz9zIrOHU3PUuMPl5EgyafsbJQQlLfKcngTehiHV2RU
+	 blAOsBhMIsnV8GkDW75HiD9aDcWr2KAI2VV/qwyK+O0RjlHoqwbZZkF2HJqJkcX+8RmWb
+	 PSU2oKab2kdJ6acTM+XXegTiViIz16KEas4h20P2Rj3PRHpTGO5c5+YWXrggUvtqoWrMS
+	 rfMfhL+XZ4D8eZA59aVn7QEFVunSk3yoUYV+sdZ/cJI/TfvI0tW72xThFSXoCZ1Dj9C+Q
+	 ls6qDtVpYLZPNBm4rHbVMv2DnTz015Li21lIQnl+MKeKWolzSd/c3lcLloic+YvKGGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dOTcvjMh;
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Hs2emRg;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3886606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:53:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3886606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8D7606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED8D7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dOTcvjMh
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793148783; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=70/2LdS5pBXpfNj8kBNHr883OekoIQf/Q1qvO8XzJk4=;
-	b=dOTcvjMhIMZtReERq5BBmSvPLIse/JvdeAMgqwfIAWojRzaV+JIxNxbyQh+cZa4TtQmG9T0K1fAYolH2LZkN656iwot3Py//wkENFFMC5takVL6G1PeRYzS2Z0jRWI+5gMBkY0rk+osxqLZGehj5pdI72CxYxe39T5VOL6Z/J44=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XDf2cRu_1793148781;
-Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDf2cRu_1793148781 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 08:53:01 +0800
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org
-Cc: ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	jack@suse.cz,
-	pfalcato@suse.de,
-	ayushr@modal.com,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6] mm: memory: fix truncation removing mapped folios
-Date: Wed, 28 Oct 2026 08:52:57 +0800
-Message-ID: <14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Hs2emRg
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a210470b49so3164705e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:55:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793148936; x=1793753736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HzH8rykX5lmcZm9pB6FHq6gj3hJ7Y5hZ3zn+8svQBtg=;
+        b=0Hs2emRg91qIM8PJTETU1uctThZ6xzoZy7RfV4IYtkSbB2npBvofG0LkEmloIA+7Qw
+         uyIKtxOwqYlIuVFJ5OoVN/atFvsTck/gM4njkRSG1rTHwODgoXb+piapKtOWlvsGamVW
+         q0ur5ex1UJV99FnY2ePxOIJ5rWi7wLSr4IgZYvB3A1tndimjxAIR8Atc3rwyVLprsVFQ
+         kZZltfPSpi2/pymLQ555h1m+q6P9WSQIteP+7U5nSG7KX66gZGUQPkdnczFvr81I412q
+         mXh6+TjzjOck86MyH1Tw9fyMZt6C5noj3lBZRebvxAD2ZuEbcUuxzJ6NHJxfuFxdA+w1
+         r8FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793148936; x=1793753736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HzH8rykX5lmcZm9pB6FHq6gj3hJ7Y5hZ3zn+8svQBtg=;
+        b=vu/DbmC06b3php76eX/tPP8sDFAk256A+JDF19y7bbMhoGtyCrceeXviN3JjY8uspk
+         pW0hq68KRUbWqCOaDR3OzTp9YRJZmp6TZMGi1Augbv/dz0dZ/2X/bPhk5QuqenrrGvJr
+         MkKOIFviZRkEjt2ii5UV0dsNCI46f1XNppiAlkaaoEkgwymw9TohsGK6194ZGldeESdP
+         MZU2B0BjhnpqL/OlG3uLS6qIC/pQ1CwZypPk7OKczrMCmiDRP2uMajoYDKbLt2mdLLDh
+         N178blGnox4wQI8HHdLY0DiBPFR2tiGf7cfAps2Gigz2Fzrg/j4Cq41odolrIsrDuQNU
+         FlQA==
+X-Forwarded-Encrypted: i=1; AKwUvByWWbMxli8HUogY3ps1yEDBSx/Q3/oDuHyYwGTr/VDEDDnheZBtBav4XI6b8kr2PsCDCd19w+64E1rWgS8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGXhGXK9FXJW6rfUP0tiR6Ky/Qk+ydaPYBwGKIq8XNnNihKaYo
+	MBJ/jzFeEXLZR1xgHYnptEzQp5vAa+GIgn6OOirOuiUYraW8vjHJPhen
+X-Gm-Gg: AYBFou1zIpKsedkN62gFrnmehtlGV1U8oQ75BaqDB7yr6kVulet9iziKWdmU5yZQn5D
+	T2idEJ4SzPT7Or51OgFsvh2NmHqFdnDvp5CFelr5ykQLI1ebpdyFNbqzznXNP0gq0vZkmhGQdeD
+	Ix9ujCe5NTazsWTX/AY1i2ZbKL0GpC/XlMGmAyNg1ml9EL2FKnOYfTwkN7kpc6kjqUTa1ZxBZyd
+	dqaZF1D/wr2kSs8o6MmzPBaXqWxPm2VbyN8eLNb4AXHlRU9J7VJUA6qGj1UQWPKRoUU1vovWL4K
+	6dbj7HL24mCsqlcfjwrKC4LgQ34ocxrs9VRnkuKyGthOaw84sF0SUYFg80xQlvuD0hXAJar+Qvr
+	a65mOsnEHBSR7dgf9MISef4kvhGJ/dTOufGV+mVKjwseMyhaC3II3AGSIfGPwEf+RLSJPckuO3A
+	t/xEnumvNfAHGHp4CCWDhNGR+itdou1zrjQGRqxWzjQ5gLAa861PJJT+5wfdDLtrXxB0iHOibzH
+	TCt5exsfRf3dgHWrl9rKtX/EUQOEHDPiZ053hoFtWaxkLQy1aEBa5JKptCzIKGkjLOgVhNc2fg+
+	Vy7o+DJfh6vk9ekXFuPfcZfch9xqMcsHU9UaL7dX5oNjKCMzqb17NXbh5lica+yHBV+3X5QEhV3
+	nMhetCzuw3prfmDn8hgYHUKFdacRQG8fnV8koWihyiV/S8Q==
+X-Received: by 2002:a05:600c:a11:b0:4a1:e11f:b2e1 with SMTP id 5b1f17b1804b1-4a966773233mr13027905e9.15.1793148935956;
+        Tue, 27 Oct 2026 17:55:35 -0700 (PDT)
+Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978d57b39sm13261575e9.10.2026.10.27.17.55.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 17:55:34 -0700 (PDT)
+From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+To: manivannan.sadhasivam@oss.qualcomm.com
+Cc: shawn.lin@rock-chips.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	heiko@sntech.de,
+	dlemoal@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	iav@iav.lv
+Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
+Date: Wed, 28 Oct 2026 00:55:32 +0000
+Message-ID: <20261028005532.2399083-1-ehbello@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179196286749.38040.5597453767131590054.b4-reply@b4>
+References: <20260911211559.207990-1-ehbello@gmail.com> <179196286749.38040.5597453767131590054.b4-reply@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,195 +111,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ayush reported an issue that shmem/tmpfs folios are still mapped when
-truncating them on production:
-"
-BUG: Bad page cache in process ...  pfn:...
-page dumped because: still mapped when deleted
-"
+On Wed, 14 Oct 2026 12:57:47 +0530, Manivannan Sadhasivam wrote:
+> This is hard to believe. First of all, Tpvperl is the min time specified by
+> the CEM spec to allow the power to be stable, not the max.
 
-I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
-branch, and I got the following crash info. From the dump message, we can
-see that truncate_inode_folio() is really trying to remove mapped folios,
-which is incorrect.
+Agreed, and the patch should not have implied otherwise. Waiting longer than
+Tpvperl breaks no requirement, and I am not claiming the current code
+violates the spec. What the patch rests on is only your next point: that the
+wait is redundant when the supplies are already up.
 
-"
-[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-index:0x3880 pfn:0x191647
-[  189.171995] memcg:ffff0000cc073d40
-[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-.......
-[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-[  189.172026] ------------[ cut here ]------------
-[  189.172027] kernel BUG at mm/filemap.c:155!
-[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-.......
-[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-7.3.0-rc4+ #277 PREEMPT(lazy)
-.......
-[  189.183986] Call trace:
-[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-[  189.184391]  __filemap_remove_folio+0x34/0x160
-[  189.184633]  filemap_remove_folio+0x4c/0xb0
-[  189.184859]  truncate_inode_folio+0x34/0x58
-[  189.185087]  shmem_undo_range+0x220/0x658
-[  189.185308]  shmem_fallocate+0x2f0/0x470
-[  189.185527]  vfs_fallocate+0x128/0x328
-......
-[  189.187078]  el0t_64_sync+0x184/0x188
-"
+> Maybe the issue is with the delay between PERST# assert and deassert?
 
-After analysis, I believe the race exists between truncation and MADV_DONTNEED,
-and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
-MADV_DONTNEED synchronously releases the pagetable page before calling
-tlb_flush_rmaps(), this could cause another thread's truncation to skip
-zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
-as non-zero. A possible race scenario is as follows:
+That is exactly the variable this patch changes, and I buried it under the
+power-validity argument. Let me restate the mechanism in those terms,
+because I think we agree on it.
 
-CPU 0                           CPU 1
-shmem_fallocate                 madvise_dontneed_single_vma
-  unmap_mapping_range            .......
-  ......
-  (filemap_map_pages() remap folios)
-				  zap_pte_range
-  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
-    unmap_mapping_folio
-    ......
-      zap_pmd_range (saw pmd none, skip)
+PERST# is asserted when the GPIO is acquired, not at the top of
+rockchip_pcie_host_init_port():
 
-  filemap_remove_folio
-    BUG_ON(folio_mapped)
-                                    tlb_flush_rmaps(remove rmaps)
+  pcie-rockchip.c:
+	rockchip->perst_gpio = devm_gpiod_get_optional(dev, "ep", GPIOD_OUT_LOW);
 
-To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
-to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
-concurrent zapping, so that when we find a pmd_none() while unmapping a folio
-without holding the PTL, the folio's mappings are guaranteed to have been
-removed via tlb_flush_rmaps().
+and it is released at the end of the init sequence:
 
-Meanwhile move the second pmd_none() check to where it belongs: if splitting
-zapped the PMD.
+  pcie-rockchip-host.c:
+	gpiod_set_value_cansleep(rockchip->perst_gpio, 0);	/* already low */
+	rockchip_pcie_init_port(rockchip);			/* PHY, clocks */
+	... register writes, Gen1 training enable ...
+	msleep(PCIE_T_PVPERL_MS);
+	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);	/* release */
 
-[1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
-Reported-by: Ayush Ranjan <ayushr@modal.com>
-Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-Cc: stable@vger.kernel.org
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
----
-Andrew, sorry for the trouble caused by the several iterations:).
+So the low pulse spans the regulator enables, the PHY init and the register
+writes, and commit c47f90be4c89 added 100 ms to the end of it. Removing that
+sleep does not shorten the time power has been valid -- which, as you say,
+is seconds by then -- it shortens the PERST# assertion by 100 ms. That is
+the only behavioural difference the patch makes at probe, and it is what the
+boot statistics in the commit message measure.
 
-Changes from v5:
- - Keep the 2nd pmd_none() check (per David).
- - Add Cc: stable (per Andrew).
-Changes from v4:
- - Put the pmd_none() check in the 'else if' branch (per David).
-Changes from v3:
- - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
- - Update the related comments per Lorenzo.
-Changes from v2:
- - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
-Changes from v1:
- - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
----
- mm/internal.h | 10 ++++++----
- mm/memory.c   | 35 ++++++++++++++++++++---------------
- 2 files changed, 26 insertions(+), 19 deletions(-)
+> But claiming that the Endpoint doesn't tolerate this 100ms delay, but still
+> several seconds of the boot delay is quite hard to believe.
 
-diff --git a/mm/internal.h b/mm/internal.h
-index b1b0f29d2216..ffb8eaec90e3 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
- void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
- 
- /**
-- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-+ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
-  * @mm: The mm_struct.
-  * @pmdp: Pointer to the pmd that was found to be pmd_none().
-  *
-  * When we find a pmd_none() while unmapping a folio without holding the PTL,
-- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-- * indicate that it's unmapped. Skipping the PMD without synchronization could
-- * make folio unmapping code assume that unmapping failed.
-+ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
-+ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
-+ * for the table have been removed, but nothing orders the pmd_none() read
-+ * against later mapcount reads. Skipping the PMD without synchronization
-+ * could make folio unmapping code assume that unmapping failed.
-  *
-  * Wait for concurrent zapping to complete by grabbing the PTL.
-  */
-diff --git a/mm/memory.c b/mm/memory.c
-index e911e63ba1ed..e0fef107a022 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 		}
- 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
- 
-+	add_mm_rss_vec(mm, rss);
-+	lazy_mmu_mode_disable();
-+
-+	/* Do the actual TLB flush before dropping ptl */
-+	if (force_flush) {
-+		tlb_flush_mmu_tlbonly(tlb);
-+		tlb_flush_rmaps(tlb, vma);
-+	}
-+
- 	/*
- 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
- 	 *
-@@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 	 * to hold the pmd lock failed, then we need to recheck all pte entries
- 	 * to ensure they are still none, thereby preventing the pte entries
- 	 * from being repopulated by another thread.
-+	 *
-+	 * Clear the PMD after the rmaps for the table have been removed, in case
-+	 * an incorrect mapcount is observed after unmapping the folio.
- 	 */
- 	if (can_reclaim_pt && direct_reclaim && addr == end)
- 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
--
--	add_mm_rss_vec(mm, rss);
--	lazy_mmu_mode_disable();
--
--	/* Do the actual TLB flush before dropping ptl */
--	if (force_flush) {
--		tlb_flush_mmu_tlbonly(tlb);
--		tlb_flush_rmaps(tlb, vma);
--	}
- 	pte_unmap_unlock(start_pte, ptl);
- 
- 	/*
-@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
- 				addr = next;
- 				continue;
- 			}
-+			/* We already synchronized with concurrent zapping. */
-+			if (pmd_none(*pmd)) {
-+				addr = next;
-+				continue;
-+			}
- 			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
--		}
--		if (pmd_none(*pmd)) {
-+		} else if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
- 			addr = next;
- 			continue;
- 		}
--- 
-2.47.3
+The endpoint is not held in reset for seconds. Before this driver probes,
+the pin is in whatever state the bootloader left it; the reset the endpoint
+sees is the pulse the driver applies, from the gpiod acquisition above to
+the release, and c47f90be4c89 made that pulse 100 ms longer. Whether that
+crosses a threshold in this particular endpoint's firmware is what the
+measurements below address.
 
+> Is the PERST# signal polarity on the board DTS correct?
+
+As far as I can tell, yes. ROCK Pi 4 declares
+
+	ep-gpios = <&gpio4 RK_PD3 GPIO_ACTIVE_HIGH>;
+
+and the driver acquires the line with GPIOD_OUT_LOW and releases it with
+gpiod_set_value(..., 1). PERST# is active low at the connector, so logical
+low is physical low is reset asserted: the DTS polarity and the driver's use
+of it agree. The Kobol Helios64 that Igor reports on uses the same polarity
+(GPIO_ACTIVE_HIGH) with the same SoC and the same endpoint chip, and does
+not show the boot failure, so polarity does not separate the two boards
+either.
+
+> I do agree that the Tpvperl delay is *redundant* if the supplies are already
+> enabled by the bootloader. But I do not agree that it causes the Endpoint to
+> not respond.
+
+You were right, and the two claims needed separating. I have now run that
+experiment, so here is the data rather than the argument.
+
+I instrumented the driver with two module parameters, one sleeping before
+the gpiod acquisition (so before PERST# is asserted) and one in place of the
+existing msleep (so inside the assertion), plus a ktime delta across the two
+gpiod_set_value() calls to measure the pulse the endpoint actually sees. One
+kernel, both knobs writable at runtime, and the host driver rebound through
+unbind/bind to re-run the whole probe -- I checked first that a rebind
+reproduces the cold-boot failure, and it does, identically.
+
+  before assert   after assert   measured pulse   trials   enumerated
+  0 ms            0 ms            1-11 ms              5        5
+  0 ms           10 ms           ~18 ms                3        3
+  0 ms           15 ms           24-47 ms              4        4
+  0 ms           20 ms           ~28 ms                3        1
+  0 ms          100 ms          ~108 ms                4        0
+  200 ms          0 ms            6-11 ms              5        5
+  200 ms        100 ms          ~108 ms                1        0
+
+Compare each 200 ms row with its 0 ms counterpart: delaying the assertion
+changes nothing either way -- 5 of 5 with a short pulse, 0 of 4 and 0 of 1
+with a long one -- while widening the pulse decides the outcome every time.
+So it is the delay between assert and deassert, exactly as you guessed.
+
+And your objection holds in a way I had not appreciated. vcc3v3_pcie on this
+board is regulator-always-on and regulator-boot-on, so the supplies have
+been valid for seconds before the driver probes in *every* row above,
+including the failing ones. Tpvperl is therefore met whether the sleep runs
+or not, which means it cannot be what distinguishes a working configuration
+from a failing one. The redundancy of the wait is only the licence to drop
+it; it was never the explanation. The commit message had that backwards.
+
+Two caveats I should state rather than smooth over. The threshold is noisy,
+not a cliff: at 15 ms one trial measured a 47 ms pulse and still enumerated,
+while 20 ms fails at ~28 ms. Across every configuration with the sleep at
+15 ms or less it enumerated 17 of 17; around 28 ms it fails more often than
+not; at ~108 ms it has never once worked, in 5 attempts (3 cold boots and
+2 rebinds). And the failure is not a missing
+device: the unanswered config read comes back as an external abort, so the
+board dies with an asynchronous SError in rockchip_pcie_rd_conf() rather
+than just enumerating nothing.
+
+v3 therefore leads with the pulse width and demotes Tpvperl to the reason
+the sleep can safely be skipped. The code is unchanged from v2: the two
+cannot be had together in general, since on a board that powers the slot at
+probe time the assertion does have to outlast Tpvperl, so skipping the wait
+only where the supplies are already up is the conservative form of the fix.
+
+Thanks for pushing back on this -- the causal claim deserved it, and the
+alternative you proposed turned out to be the right one.
