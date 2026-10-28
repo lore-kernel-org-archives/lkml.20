@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196103;
-	b=zibbEXoes6WAKyAjElApK7TEDyUBHHIGcGfYzkqwHtk47MJ57bN6bCABEZ2luoifhN0u
-	 SU8clHZiWFrONYf5Us1BlLAVi/+tgBz6ZXO9qOjfM89NbxKNXkpgBO/i7TC8z5//0al39
-	 XB++gbdxdB/JpKZYdPhztl9T2xroyEu1XHDGQcCFsL+Yaz/bl/7TevNB5543XhcXh0ERU
-	 HJx6SOUuwqSnj2ljz5kvpiO3XrH2Y6zDI8108GffS976D2QGPFXPIasge9MRyynbTse/B
-	 QldgOQ7Ty0Uvm05kHVo3rLm1US2xcvKseeiBTwbzARPvMN3+TVpFA0SJltYgL/sAZ0A==
+	t=1793196201;
+	b=0Rbm94lSoZ2uWviWoIn/oJ5bXxeDO4dBVPBfzBouCJE/8sQ80l77gbCRq02BoyAgBUv9
+	 JKIRBqMjMitL7NV58o6z/KRqdYfAmqiK3w5jB1bwiL8oKOr9Axg2w3mQoqqfMPo7TKtby
+	 kU5DESfrk836Q7mgR0XTJJ3RShvc/xPvHIuPccE/igfiRDdBOebAMFKDhfcCDsfp/NU0L
+	 n/+eYjHGqrtXm9p/7AGaAWMe1oOeSsC86gn2HDL7akhNfjrispd/n1JQo1cwZ25ry+6J9
+	 CqbcSxWRho9TyEOFKo0QXXGQONbCocVPhSAh4I4jV/jiTkkxwWHP8QPXsU03Te26b4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196103;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=URvNwBArbK+DIIhLGbBoBXGT5Jx0GevFLVlmjfRlhfg=;
-	b=cerk1Fo9RqIaV8MRJl1630WLMxWcwXM+BTcolJBhELq535XiphV3E9iYWm3f02PkNJ6U
-	 fwlM7iqCn6fDwcnh3IzHwcHiyI4CVfkSBkdQqsFlAT91OaQfLahl6LvrlAZvV2XLufrA3
-	 VuiTpBYB6fXzMW6M5mJCSjT+WcGIqvZnxgEcyZXcgVNKe5bQqcY2WJgWXJ9tCczkr6N3S
-	 jAfFNoSopLEkoYDJxMC0X1O+Azll19FzwNNpw1cYKbksHUpWG+HTXakovsVZfYZlbCuDp
-	 /PQqhveSuiH/osazcm1UZQnnMNIu4wtD6QjxjDslcTYP/GZadDOHhUYLCMYgTPhxlrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196201;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=IMQLUPm/67qUcr0JLF2vtMs9Hk5VtkMsbxTot7/xi9Q=;
+	b=PJOh56XubLkI4TmDzvRUMMMkn7S5Jx6/nd63Sytmgz2s+c2MisOymM6uyTKmJ0GEC1o/
+	 4o+psr3O/L+wHl0XAUmJL4iaeKxPy6nrger5EFBKJ0lujcAW9F/UIQdOHrroUU5ovNDCS
+	 47yuJf6K4GWkIAvkWI5vd/9hTZcdgahlmwz3fKSphGdrjAD6RmA+CKR8Di1CYb659sRon
+	 6ngMfDooIMVhXjuhO2q0Fwc9EP4/1DHf1rlq+CcAGCW0FeWL00+ZpOMPicPTIHvgPbIYE
+	 mrlpKPqPufUIfiSsJ3phXgOohhGahlASH//LkaVzXjIUlET8WOeqRPAXRPVC5rCj9ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	arc=none smtp.remote-ip=79.135.106.29
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hL/RI1Rv";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B980606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B980606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793196099; x=1793455299;
-	bh=URvNwBArbK+DIIhLGbBoBXGT5Jx0GevFLVlmjfRlhfg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iYR7ylgxJ9WdXgI2g3KsDNRUDkAvg5dWRzWLLNsQtsYrcrIKYM2vlY9+T4VBmnvFb
-	 IjnOMZj84R/oYZzPWmclrge5iWSFlvcFBqqZjTmcjaBMT1kIiHBoA89+KAcA/rqaSs
-	 5UY8UiwuCoxNKuYUwBYVwjklsnUkK8SBnTQ//HACPcSnYwGyrNbU7YhMc2rj3ufnAW
-	 cD/5FPA/o7RiYa+/cS095og2NvEKyf7QBMkMoyEOTuDtbEC90TN6zDB1W5eejX5rr+
-	 xHh686dRJ+0CTHq41F4pW3PqoXC3nh4BXJIg5LPDtOKuxgSadOg8l/6cr9kfqQj77B
-	 ZKB+8nv+GsCyw==
-Date: Wed, 28 Oct 2026 14:01:34 +0000
-To: linux-bluetooth@vger.kernel.org
-From: cochcoder <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] Bluetooth: btusb: use shared ACL buffers for TP-Link UB500
-Message-ID: <zcGBYR2UrTkb3I_O3296MnmoOcoKIbmC4udwcPhXqgB9LpQvmYusp_Zmh9Bm5ELvzwywRXJ-yh5gaRcqmQe2WdA73p5E2-OddcKgKgce6VM=@proton.me>
-In-Reply-To: <20261013032742.497402-1-cochcoder@proton.me>
-References: <20261013032742.497402-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 4002498d3f11dad7be2831b0f5f8b9706dcf26e4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE966606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hL/RI1Rv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53601F01825;
+	Wed, 28 Oct 2026 14:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793196200;
+	bh=IMQLUPm/67qUcr0JLF2vtMs9Hk5VtkMsbxTot7/xi9Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=hL/RI1RvRG8d7lA0UDIveNAv1zkuZqXJNVB8amjJb/jpad9fkMhvPK3gdmGxt6p0s
+	 jpHSUDbxDVVMABGR7O34IDXeDnf0zchzM7T/AiyZx3BRtvVBjunyRrNVBhzd4WvRjr
+	 4FNBLU7GFbWLSrXG19FFFTsDNLCtAoUxRsIM3Pg0oAYox/OyI528kRnOpd4KWYGi7e
+	 Mae0FOnR+jP0IYktREnfGvCJiwjmeAnFAsIPgn3pCJqkmSgE6U2q1Fj44HazvtTkVO
+	 fwrhanAniFFdYTIa5UO/Q91pJuoFzm3ck+WoNob3zkYnMOfzhOeoWNFK8REMSKTXwa
+	 7yYFxyCzJTZ3g==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: <akpm@linux-foundation.org>,  <david@kernel.org>,  <ljs@kernel.org>,
+  <liam@infradead.org>,  <vbabka@kernel.org>,  <rppt@kernel.org>,
+  <surenb@google.com>,  <mhocko@suse.com>,  <baoquan.he@linux.dev>,
+  <pasha.tatashin@soleen.com>,  <pratyush@kernel.org>,  <graf@amazon.com>,
+  <linux-mm@kvack.org>,  <linux-kernel@vger.kernel.org>,
+  <kexec@lists.infradead.org>
+Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
+ fixed-address CMA area
+In-Reply-To: <20261014145731.3431527-2-radhey.shyam.pandey@amd.com> (Radhey
+	Shyam Pandey's message of "Wed, 14 Oct 2026 20:27:30 +0530")
+References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
+	<20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
+Date: Wed, 28 Oct 2026 15:03:16 +0100
+Message-ID: <2vxzh5i5orbv.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,144 +65,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-Just checking in on this patch. Is there anything else I can do to help it =
-move forward?
+On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
 
-
-On Monday, October 12th, 2026 at 11:28 PM, Kyle Pepper <cochcoder@proton.me=
-> wrote:
-
-> The TP-Link UB500 (2357:0604) reports a dedicated LE ACL pool of 27
-> bytes by eight packets and a BR/EDR ACL pool of 1021 bytes by six
-> packets. Sustained large-SDU LE CoC traffic exhausts the small pool,
-> although this controller accepts LE traffic through the larger ACL pool.
->=20
-> Add an explicit HCI quirk and enable it only for the tested USB ID. When
-> set, treat the LE buffer as shared so the existing HCI scheduler uses
-> the ACL pool. Avoid inferring this from buffer sizes globally because
-> other controllers may have legitimate separate pools.
->=20
-> Assisted-by: OpenCode:gpt-6.1-sol
-> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+> kexec_alloc_contig() picks the destination of the next kernel out of the
+> default CMA area, and the next kernel then runs from there in place
+> instead of being copied out. That is only safe if the area will not exist
+> at the same address in the kernel being loaded.
+>
+> For an area whose base came from the device tree, it will. The loaded
+> kernel parses the same description, declares the range it is executing
+> from as a shared-dma-pool, and cma_activate_area() releases the pages
+> holding its own image to the page allocator.
+>
+> Distinguish the two cases. An area placed by cma_declare_contiguous_nid()
+> without a fixed base lands wherever this kernel found room, and the next
+> kernel repeats that search against its own memblock state, so it cannot
+> collide. Record the difference as CMA_FIXED_BASE and refuse to use such
+> an area for the payload, which leaves kexec_locate_mem_hole() to fall
+> back to the memblock hole search as it did before CMA placement existed.
+>
+> This is what makes the KEXEC_FILE_NO_CMA flag unnecessary on platforms
+> that describe their CMA pools in the device tree.
+>
+> Tested on a AMD Versal AI Edge Series Gen 2 VEK385 Evaluation Kit whose
+> device tree declares three CMA pools, the first of which is
+> linux,cma-default:
+>
+>   cma_reserved@800000000     4 GiB at 0x800000000    (default)
+>   cma_reserved@50000000000   6 GiB at 0x50000000000
+>   cma_reserved@60000000000   4 GiB at 0x60000000000
+>
+> All three have a fixed base, so kexec_alloc_contig() declines the default
+> area and kexec_locate_mem_hole() falls through to the memblock search,
+> which places the Image segment at 0x9c00000 size 0x1de0000. The kernel
+> that boots from it reports its image as [0x09c00000-0x0b9e0000] and
+> 14680064K cma-reserved, i.e. all three pools still present and none of
+> them overlapping the running kernel.
+>
+> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 > ---
-> Submission review notes (not part of the commit message):
-> October 12 N8/UB500 no-quirk trial opens CoC, completes START, DLE
-> and 2M, but sends no audio frames and logs two watchdog stalls. The
-> host advertises MPS 23 instead of the baseline 512; peer MPS remains
-> 168. Firmware pool semantics and simultaneous BR/EDR/LE accounting are
-> not established. Keep the quirk device-specific and this proposal RFC.
->=20
->  drivers/bluetooth/btusb_main.c |  7 ++++++-
->  include/net/bluetooth/hci.h    |  7 +++++++
->  net/bluetooth/hci_event.c      | 22 ++++++++++++++++++++++
->  3 files changed, 35 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
-n.c
-> index 71d8dccb2..5e1fb26ab 100644
-> --- a/drivers/bluetooth/btusb_main.c
-> +++ b/drivers/bluetooth/btusb_main.c
-> @@ -70,6 +70,7 @@ static struct usb_driver btusb_driver;
->  #define BTUSB_INTEL_NO_WBS_SUPPORT=09BIT(26)
->  #define BTUSB_ACTIONS_SEMI=09=09BIT(27)
->  #define BTUSB_BARROT=09=09=09BIT(28)
-> +#define BTUSB_USE_BREDR_ACL_BUFFERS_FOR_LE BIT(29)
->  #define BTUSB_QUALCOMM=09=09=09BIT(30)
-> =20
->  static const struct usb_device_id btusb_table[] =3D {
-> @@ -872,7 +873,8 @@ static const struct usb_device_id quirks_table[] =3D =
-{
->  =09{ USB_DEVICE(0x2c4e, 0x0115), .driver_info =3D BTUSB_REALTEK |
->  =09=09=09=09=09=09     BTUSB_WIDEBAND_SPEECH },
->  =09{ USB_DEVICE(0x2357, 0x0604), .driver_info =3D BTUSB_REALTEK |
-> -=09=09=09=09=09=09     BTUSB_WIDEBAND_SPEECH },
-> +=09=09=09=09=09=09     BTUSB_WIDEBAND_SPEECH |
-> +=09=09=09=09=09=09     BTUSB_USE_BREDR_ACL_BUFFERS_FOR_LE },
->  =09{ USB_DEVICE(0x2357, 0x0607), .driver_info =3D BTUSB_REALTEK |
->  =09=09=09=09=09=09     BTUSB_WIDEBAND_SPEECH },
->  =09{ USB_DEVICE(0x0b05, 0x190e), .driver_info =3D BTUSB_REALTEK |
-> @@ -4748,6 +4750,9 @@ static int btusb_probe(struct usb_interface *intf,
->  =09if (id->driver_info & BTUSB_WIDEBAND_SPEECH)
->  =09=09hci_set_quirk(hdev, HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED);
-> =20
-> +=09if (id->driver_info & BTUSB_USE_BREDR_ACL_BUFFERS_FOR_LE)
-> +=09=09hci_set_quirk(hdev, HCI_QUIRK_USE_BREDR_ACL_BUFFERS_FOR_LE);
+>  include/linux/cma.h | 10 ++++++++++
+>  kernel/kexec_file.c | 12 ++++++++++++
+>  mm/cma.c            | 16 ++++++++++++++++
+>  mm/cma.h            |  2 ++
+>  4 files changed, 40 insertions(+)
+>
+> diff --git a/include/linux/cma.h b/include/linux/cma.h
+> index 8555d38a97b1..2fe66377e5d3 100644
+> --- a/include/linux/cma.h
+> +++ b/include/linux/cma.h
+> @@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
+>  extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
+>  
+>  extern void cma_reserve_pages_on_error(struct cma *cma);
 > +
->  =09if (id->driver_info & BTUSB_INVALID_LE_STATES)
->  =09=09hci_set_quirk(hdev, HCI_QUIRK_BROKEN_LE_STATES);
-> =20
-> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-> index 1641d879d..d39a64663 100644
-> --- a/include/net/bluetooth/hci.h
-> +++ b/include/net/bluetooth/hci.h
-> @@ -375,6 +375,13 @@ enum {
->  =09 */
->  =09HCI_QUIRK_BROKEN_READ_PAGE_SCAN_TYPE,
-> =20
-> +=09/* When this quirk is set, LE connections use the BR/EDR ACL buffer
-> +=09 * pool instead of the dedicated LE pool reported by the controller.
-> +=09 * This is required for controllers that expose an unusably small LE
-> +=09 * pool while accepting LE traffic through their shared ACL pool.
-> +=09 */
-> +=09HCI_QUIRK_USE_BREDR_ACL_BUFFERS_FOR_LE,
-> +
->  =09__HCI_NUM_QUIRKS,
->  };
-> =20
-> diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-> index c055d16cf..9936f6365 100644
-> --- a/net/bluetooth/hci_event.c
-> +++ b/net/bluetooth/hci_event.c
-> @@ -1227,6 +1227,24 @@ static u8 hci_cc_pin_code_neg_reply(struct hci_dev=
- *hdev, void *data,
->  =09return rp->status;
->  }
-> =20
-> +/* Use the shared ACL pool for controllers whose dedicated LE pool is kn=
-own to
-> + * be unusable for sustained large-SDU traffic.
-> + */
-> +static void hci_le_use_shared_acl_buffer(struct hci_dev *hdev)
+> +#ifdef CONFIG_CMA
+> +bool cma_has_fixed_base(const struct cma *cma);
+> +#else
+> +static inline bool cma_has_fixed_base(const struct cma *cma)
 > +{
-> +=09if (hci_test_quirk(hdev, HCI_QUIRK_USE_BREDR_ACL_BUFFERS_FOR_LE) &&
-> +=09    hdev->le_mtu =3D=3D HCI_MIN_LE_MTU &&
-> +=09    hdev->acl_mtu > hdev->le_mtu && hdev->acl_pkts) {
-> +=09=09bt_dev_dbg(hdev,
-> +=09=09=09   "LE buffer at minimum (%u:%u), sharing ACL buffer %u:%u",
-> +=09=09=09   hdev->le_mtu, hdev->le_pkts,
-> +=09=09=09   hdev->acl_mtu, hdev->acl_pkts);
-> +=09=09hdev->le_mtu =3D 0;
-> +=09=09hdev->le_pkts =3D 0;
-> +=09=09hdev->le_cnt =3D 0;
-> +=09}
+> +	return false;
+> +}
+> +#endif
+> +
+>  #endif
+> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+> index b668ce8d68ee..10e770bcee0b 100644
+> --- a/kernel/kexec_file.c
+> +++ b/kernel/kexec_file.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/dma-map-ops.h>
+>  #include <linux/kexec_handover.h>
+> +#include <linux/cma.h>
+>  #include "kexec_internal.h"
+>  
+>  #ifdef CONFIG_KEXEC_SIG
+> @@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
+>  static int kexec_alloc_contig(struct kexec_buf *kbuf)
+>  {
+>  	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
+> +	struct cma *cma;
+>  	unsigned long mem;
+>  	struct page *p;
+>  
+> @@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
+>  	if (kbuf->image->type == KEXEC_TYPE_CRASH)
+>  		return -EPERM;
+>  
+> +	/*
+> +	 * The next kernel runs from here rather than being copied out, so it
+> +	 * would declare this area again from the same description and release
+> +	 * the pages holding its own image to the page allocator. Only an area
+> +	 * this kernel placed itself is safe to use.
+> +	 */
+> +	cma = dev_get_cma_area(NULL);
+> +	if (!cma || cma_has_fixed_base(cma))
+> +		return -EOPNOTSUPP;
+> +
+>  	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
+>  	if (!p)
+>  		return -ENOMEM;
+> diff --git a/mm/cma.c b/mm/cma.c
+> index a10ea37a261d..1f4d3d48a3bb 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
+>  }
+>  EXPORT_SYMBOL_GPL(cma_get_name);
+>  
+> +/**
+> + * cma_has_fixed_base() - was the area placed at an address it did not choose?
+> + * @cma: Contiguous memory region
+> + *
+> + * Such an area is described outside the kernel, typically by a device tree
+> + * reserved-memory node, and so lands at the same address in every kernel
+> + * booted with that description.
+> + */
+> +bool cma_has_fixed_base(const struct cma *cma)
+> +{
+> +	return test_bit(CMA_FIXED_BASE, &cma->flags);
 > +}
 > +
->  static u8 hci_cc_le_read_buffer_size(struct hci_dev *hdev, void *data,
->  =09=09=09=09     struct sk_buff *skb)
+>  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+>  					     unsigned int align_order)
 >  {
-> @@ -1247,6 +1265,8 @@ static u8 hci_cc_le_read_buffer_size(struct hci_dev=
- *hdev, void *data,
->  =09if (hdev->le_mtu && hdev->le_mtu < HCI_MIN_LE_MTU)
->  =09=09return HCI_ERROR_INVALID_PARAMETERS;
-> =20
-> +=09hci_le_use_shared_acl_buffer(hdev);
-> +
->  =09return rp->status;
->  }
-> =20
-> @@ -3939,6 +3959,8 @@ static u8 hci_cc_le_read_buffer_size_v2(struct hci_=
-dev *hdev, void *data,
->  =09if (hdev->le_mtu && hdev->le_mtu < HCI_MIN_LE_MTU)
->  =09=09return HCI_ERROR_INVALID_PARAMETERS;
-> =20
-> +=09hci_le_use_shared_acl_buffer(hdev);
-> +
->  =09return rp->status;
->  }
-> =20
->=20
-> base-commit: 964430c038967fd06643e866f68115664e1a1bd1
-> 
+> @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+>  	cma->ranges[0].count = cma->count;
+>  	cma->nranges = 1;
+>  	cma->nid = NUMA_NO_NODE;
+> +	set_bit(CMA_FIXED_BASE, &cma->flags);
+>  
+>  	*res_cma = cma;
+>  
+> @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
+>  	}
+>  
+>  	(*res_cma)->nid = nid;
+> +	if (!fixed)
+> +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
+
+Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
+and then you clear it later. Wouldn't it be better to just pass the
+fixed boolean to cma_init_reserved_mem()?
+
+With that fixed,
+
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+
+>  	*basep = base;
+>  
+>  	return 0;
+> diff --git a/mm/cma.h b/mm/cma.h
+> index 68e574b0f951..1bab24033284 100644
+> --- a/mm/cma.h
+> +++ b/mm/cma.h
+> @@ -80,6 +80,8 @@ enum cma_flags {
+>  	CMA_ZONES_VALID,
+>  	CMA_ZONES_INVALID,
+>  	CMA_ACTIVATED,
+> +	/* Base address was dictated by the caller, not picked by CMA. */
+> +	CMA_FIXED_BASE,
+>  };
+>  
+>  extern struct cma cma_areas[MAX_CMA_AREAS];
+
+-- 
+Regards,
+Pratyush Yadav
