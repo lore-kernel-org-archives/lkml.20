@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197551;
-	b=PAStFobb+Y3oklo7vMKq+GE+rqflxTRqUWk1+O7/XHRNv/pXvTgIOBKaigBAM9NUHzf/
-	 dnqo2nJ6B+N52B/5ro3tjosJlh1zoCC9A+bJTcPBZf6uLOyEcUgnrnpHr6s2RHCmvL5wv
-	 637yLYLVJjsTjk8t6BZ2clQYSEIqP1xxAH70/uRjvHlwlaSv8wkOa6yNA+6If/+lxKJ8K
-	 ZVNriKzN9qT7HIKbMR3W/egODILVcOkjmBjQTcFhALI+T2oVamFWC6tyKu/vglNrpJixq
-	 hTgEnuUwmmxxxs4rJJFxAvXUelOW9t5SyI6l9PiGaGSDFoc2hDlPeWlKvcy7mIDzfhg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197551;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=NVM8CpqGDLxv/mUkLXkafOv0WqcPzTuZcNmRYnoSUZU=;
-	b=KbstnlbmDxUhz37uNK19u2VZkeZjPanI01F1OZMNDCQkxLWXKI3lfPPqt0biL72AchMr
-	 +I8v/vdhsu3f+ym3sbYb05XjzYo/sFaUa1O44xThbP1vZg0sSOjdZGhQp0Z04M9lNftgT
-	 8s6sryBsT29NOicBVgPTSWTPeLJ3SN3Q5SDIj4YfRer18MEnjwNLJ+FcuPxKnXpsNQI55
-	 zba5AbG5v2Yz223fIiR48NsMJPNNlMIjDBeNELBNIgDyFskM+nc2KOz9xA7ZQf95ghkRB
-	 +RIt2bqwv1jFPz+Q+ihZmsbbmAsH+1S6GE8Lb3T8Vawmp9TUbawhekE2AZMQY1Eu9Rg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a65LlQkj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793197559;
+	b=K8AXCA4jq4PuIVfSjpV+RzoDlcHYirsAUw5LgIGOZba+AQUHJNQBvS2VB9dVXYcs1odk
+	 Qsz3Lt+VTmNaz5zXnxJ4Au9Zh8hDreX64vu2a+/hWKQVCpZFd87fpkPEdUmqw5DZhsohh
+	 uWqXK101q8ySmTCodHmocqfbCWCF91fcm4dynhMaeZmsf4DixLF5mB/6zxWaiDUPxh7eL
+	 Q4cyx0mobs67FSBfFBT0xtoS3hagUgOYP+WkU+VrUibQR+APPhMDzpH0GIKvoG3J8Pgms
+	 6IE0i7/WH3tnJRh33vXzR4VQQ/roWZv3uHwmTeV0bMX8YDTlznCKkfkoodlpayt6vow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197559;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=sVJnEkkaWyS3Mhu2w9u2jCkAacOtPK3HyLqTOhRVQ6A=;
+	b=JryrI8crdUlHKy0/fQTCTxXehUUiARML4mQu69Izb7B+IgoFTUSw0SHRlF0ruXxHdhY9
+	 yBI0/0TFHVu2ihLaze2C+MzHtaKudR3qpOZPn5tk/SzuFgfFObmgLlL2Q/m+wDpBkZbI+
+	 E1qFxeSCRSDSHctcOKcA+3ANbOU9+U/voTHifNDk/puMKAOJFaDsROsdYw3dfHE5cHuvf
+	 lxzJb/R5aXu2XFwwjU1hRwyamZqC4uwwC+aAeiYAEStZ7acc/WDofYl0yJXxhjoBP6OUd
+	 ucA7itjfBda34zd3C5e8hzTmaxaDiSA5T+c94Mq9MrClUwFudNE0QXkv3xTjIUjb9gA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brD7IDE9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEB6606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C663606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C663606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a65LlQkj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DE01F01825;
-	Wed, 28 Oct 2026 14:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793197550;
-	bh=NVM8CpqGDLxv/mUkLXkafOv0WqcPzTuZcNmRYnoSUZU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a65LlQkj2P8xTwtWiRtm+WR+jmJBapt8JWD9Yfpgzkl0FEni6vuJjmOTls5VgXtod
-	 mkPW/6HOfnsxvnVIinBaww35JBAsrJvw3BUyHSNmhj9Y1+wv+BLYfXrCt5qPBqba2A
-	 BuJHbiGnxiils8gTNWH2nVzTlN9Tau1yw+lB+Sbw007Rc2BByYDxin5rteuFjiHo/U
-	 Q6x+jOHW70b0X1EoJRAGkLrd/hA3X/FcouzWoFwbz6xTAFJz12oqcA1KyOe7z3R0n6
-	 t9lvYlTe2akNIAaF21vxN0v3HYEU2HpB4h8cwYPNhUYgp+gPPOeaQsFJhT/LrYnMh2
-	 07rVbD5h2mIgQ==
-Date: Wed, 28 Oct 2026 15:25:47 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: fangsz <315539811@qq.com>
-Cc: tglx@linutronix.de, anna-maria@linutronix.de,
-	linux-kernel@vger.kernel.org, richardcochran@gmail.com
-Subject: Re: [PATCH] posix-clock: bind the device before the cdev is published
-Message-ID: <auIF60_KImH9XCfb@localhost.localdomain>
-References: <tencent_D7A5991BA49FFDC9706385B0D2BED254EF06@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brD7IDE9
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5383c97c8cfso296371cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:25:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793197558; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oh4gpAscvL1+CqDIMxmQ+nrFjqGMXLTJ37rs5o19kmPQLhoFTALa8oPhI8cN22dEl4
+         xj0XpEjxCm1bJB1HnI/F+dKdjoHsaO8b+sV1mbaOQRwazH9txG2njO4mixYJILOU8yCr
+         6UjI3kXjxxJpWZVRM+A57EUq00tm0XDKk7MImDYugkq7M3wquz/4b1Y3MjLLVQivhKPd
+         KBuWdloTKYoFp1nmgxCmo3GNSXjQogweWH+tScvaclRoG2yWE+0QI/h5oMIsa03X8FBS
+         Pzgjuzwycr6MQ64Vbf1kRIje8pC9hjnnj/cXfpda5/grQvTaHHrycvXDGs2J4MDSWxjW
+         8hVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sVJnEkkaWyS3Mhu2w9u2jCkAacOtPK3HyLqTOhRVQ6A=;
+        fh=0dIi55RB0ERLGYPh6pOU5QakBoxHZXiyAlQpE4hsNMA=;
+        b=ZUf3n1Azb2vGjC+NUgL05Z/lwax7PddqJZF8cid049gwXTdsmlKW9+ms8y3wMycTp9
+         2vCABmyH+2awsjKs9lbad1yRglMon1mqGrZ+YUupo7L9tAzfxgdGXMgyqKeucuDiJwg2
+         j/JUUufHrrVOyi/sB9qJXRpnRqhiS2JcOBMWIi3aKZYq+yJ3JxTdFYLEK9IPi+YkH5cp
+         O9OMmqbxKfqrnIARHf8XuHZzBGINyZXef89FlWTEprjIho0GSOTNhlPwRJxZIHGK5zyO
+         t83W5K+jLQhksnBtR2Ftk0B7ekrRM+Sib9HhuitfQyWUfqkTtH+NHd42B0Dmbr5VsT1r
+         0f8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793197558; x=1793802358; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sVJnEkkaWyS3Mhu2w9u2jCkAacOtPK3HyLqTOhRVQ6A=;
+        b=brD7IDE947T6D/aBrnEkNLot/JQlZs1GDnEQ7U3EJeTPft6utw7s83SMHXvYfrsBQZ
+         rveD2dexzb2bgX/rWhFpFI1P5WcMQeHB/7VYsKX4v3PKVWxntAodR01hVDiVjtb3FaMB
+         1IBFQqddxh2XsiAnmEvq442JYGPuZKxITaWXwcpfEOdqW+j/AvtWFl1cPCfYac4wP9Lo
+         8TchXfRV76Y+TKxwfE4ZfewLzsv9uf9nWhhyNxgm7Kfy6LzdWjUfWrbgjH4YF4cmWMjC
+         QtoyDn7yHZoljGbzUc+jFJCKWtUts86AZF3HWGbDMcLBAqlYnyOuGhjHb7UN4KpnmX0Y
+         WkbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197558; x=1793802358;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sVJnEkkaWyS3Mhu2w9u2jCkAacOtPK3HyLqTOhRVQ6A=;
+        b=sk6QYdmHh04hCjmfmMqtv0XHEYW9cf548UawhLR6Fp8LYq44tBqDhtjeg0xo/OoMLf
+         Hn6KOOuRKlSlko8nIJ4eE6Ez5Qb6AVJU/cwpUA5ML+n2YDgTslsledArjTmOX9OlXRei
+         DcmcdNFbWmHs0KJW6wKF+cdh8Fjig6dXSjK2m3ArgWWqQFfI3NwHhdU2P6pJA9NuZoWp
+         w+PueikdPcEb5OgLy7l8uG9UJlORed/K+r9qABQCXgrq62eriY1yhucN4OevyRYA9Nrv
+         BQdQ8vaIE9xv54zTREf3do9WHd9yDO7/t07ctrY4HMfl8f6tQ3VHYwhG5PffX34oUx0I
+         mcMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwlh8DtOCpU5Dr3dbj29e2SiGvU0fahbnHTgnqt5QzKgXT9Py35JM6JIW0LJm1NPfAXdMZJQb+ff2z62PQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrsB/bWgV4HzplQyZ1ptYbwb9lhnu91zrrHUYEABMgy+3Ipdeu
+	CtzZk/EGlys6ZIo8hLTKvsBpSm6ZV+K4N6n5aGSfmY6nA7BX6jTkXf0FH3EhYVraYj9DoGXch1j
+	pIMYd0FM+mtvH9+O19fqA/xXBrv3EnhfpUkbweiL7
+X-Gm-Gg: AYBFou34tcugVhWO/epozqzRfTOTJOPoMfZu1I52pyu/ZRPYvX/TIoaQJOesq1whDhr
+	NAg0PSdQY26kL4nwWs3yTWtavw1kWT5Ih58olPz9D2W/y8MjEXmBcS6gHCw4sCmhbPb9yCVzsAJ
+	y6Y7eXnW31Fv3eBbKsCefwJcPVsoIJYD/wewLaShqrxm9Rpi24UKJNWqSXJEUZOrep/sFKmyF3L
+	XDTBqBiKSqrqTClm9BCECjUoU0GOVlbx6rYonoykBq48MMkCxCv09iiEqREIN6Gp5azBplGEhWn
+	AtUStGAl8wJj3kJwzkmWdTgbuAS0Pu6TPBoCuME6m3IWegcBdBZMARfxE3ppwYDwY7iWqrzXh5o
+	A9WcSMS53XltXshAJjtNIeP8zqy04r0HuFrun
+X-Received: by 2002:a05:622a:4c1a:b0:536:3ee4:81cd with SMTP id
+ d75a77b69052e-53ff26f72f0mr18093951cf.4.1793197557717; Wed, 28 Oct 2026
+ 07:25:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,66 +104,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_D7A5991BA49FFDC9706385B0D2BED254EF06@qq.com>
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-5-zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-5-zide.chen@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 28 Oct 2026 07:25:44 -0700
+X-Gm-Features: AclHuK-xtYfw983mE5Q7smgMFsswwoQHfGy-LeJFK4rz25_4O2Brshc8dDEycC8
+Message-ID: <CALMp9eTq-yPoQwwoEFPYLqvLNc_2n-4kGbnZ=x=-ZAJjyOrvnw@mail.gmail.com>
+Subject: Re: [PATCH v2 04/16] KVM: x86/pmu: Gate BUFFER_OVF reserved bit on
+ guest DS
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Le Tue, Oct 27, 2026 at 01:18:32AM +0800, fangsz a écrit :
-> posix_clock_register() adds the character device and only afterwards
-> stores the device pointer:
-> 
-> 	cdev_init(&clk->cdev, &posix_clock_file_operations);
-> 	err = cdev_device_add(&clk->cdev, dev);
-> 	if (err)
-> 		...
-> 	clk->dev = dev;
-> 
-> device_add() publishes the /dev/ptpN node through devtmpfs_create_node()
-> before it returns, so a concurrent open() can reach posix_clock_open()
-> while clk->dev is still NULL. get_device(NULL) is a no-op, so such a file
-> does not hold the reference it is supposed to hold, while
-> posix_clock_release() unconditionally calls put_device(clk->dev) and thus
-> drops a reference that was never taken.
-> 
-> That stray put frees the parent device early. When the character device
-> is released later, cdev_default_release() calls kobject_put() on the
-> already freed device and the refcount saturates:
-> 
->   refcount_t: underflow; use-after-free.
->   WARNING: CPU: 6 PID: 4270 at lib/refcount.c:28 refcount_warn_saturate+0xec/0x140
->   ...
->   Call trace:
->    refcount_warn_saturate+0xec/0x140
->    kobject_put+0x160/0x208
->    cdev_default_release+0x78/0x90
->    kobject_put+0xa8/0x208
->    cdev_put+0x20/0x40
->    __fput+0x2cc/0x2e8
->    __arm64_sys_close+0x3c/0x88
-> 
-> The window is small, but it is hit in practice once a driver registers
-> and unregisters the PTP clock repeatedly, for example on every link up
-> and down, while ptp4l keeps reopening the node:
-> 
->   [   50.048138] eth0: registered PTP clock
->   [   50.767426] ptp4l: refcount_t: underflow; use-after-free.
->   [   55.735110] eth0: Link is Down
->   [   55.816736] eth0: registered PTP clock
-> 
-> The ordering was introduced by a33121e5487b, which added the
-> get_device()/put_device() pair around clk->dev but left the assignment
-> at the end of posix_clock_register(). Bind clk->dev before the character
-> device is published and clear it again when cdev_device_add() fails, so
-> that an open() racing with the registration always finds a valid device
-> to take a reference on.
-> 
-> Fixes: a33121e5487b ("ptp: fix the race between the release of ptp_clock and cdev")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: fangsz <315539811@qq.com>
+On Thu, Aug 27, 2026 at 3:49=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
+te:
+>
+> global_status_rsvd unconditionally clears GLOBAL_STATUS_BUFFER_OVF
+> (bit 62), even when the guest does not have X86_FEATURE_DS feature.
+> Clear it only when guest_cpu_cap_has(vcpu, X86_FEATURE_DS), matching
+> hardware behavior.
+>
+> Fixes: f5132b01386b ("KVM: Expose a version 2 architectural PMU to a gues=
+ts")
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> ---
+> v2: new patch.
+> ---
+>  arch/x86/kvm/vmx/pmu_intel.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+> index 11c9161dc853..9fdae437e569 100644
+> --- a/arch/x86/kvm/vmx/pmu_intel.c
+> +++ b/arch/x86/kvm/vmx/pmu_intel.c
+> @@ -576,8 +576,16 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>                          ((BIT_ULL(pmu->nr_arch_fixed_counters) - 1) << K=
+VM_FIXED_PMC_BASE_IDX));
+>         pmu->global_ctrl_rsvd =3D counter_rsvd;
+>
+> -       pmu->global_status_rsvd =3D pmu->global_ctrl_rsvd
+> -                       & ~(GLOBAL_STATUS_BUFFER_OVF | GLOBAL_STATUS_COND=
+_CHG);
+> +       /*
+> +        * Layout of bits 48:0 in IA32_PERF_GLOBAL_CTRL is identical to
+> +        * IA32_PERF_GLOBAL_STATUS, but IA32_PERF_GLOBAL_STATUS has addit=
+ional
+> +        * bits.
+> +        */
+> +       pmu->global_status_rsvd =3D pmu->global_ctrl_rsvd;
+> +       if (guest_cpu_cap_has(vcpu, X86_FEATURE_DS))
+> +               pmu->global_status_rsvd &=3D ~GLOBAL_STATUS_BUFFER_OVF;
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+According to Intel SDM Vol. 4, Table 2-2 ("IA-32 Architectural MSRs"), bit
+62 (OvfBuf / ClrOvfBuf) in IA32_PERF_GLOBAL_STATUS (0x38e) and
+IA32_PERF_GLOBAL_STATUS_RESET (0x390) is supported "If CPUID.0AH:EAX[7:0] >
+0", and bit 62 (Set OvfBuf) in IA32_PERF_GLOBAL_STATUS_SET (0x391) is
+supported "If CPUID.0AH:EAX[7:0] > 3". Though it makes some sense, a
+dependency on CPUID.01H:EDX.DS[bit 21] is not documented in the SDM.
 
--- 
-Frederic Weisbecker
-SUSE Labs
+In mediated PMU mode, vmx_pebs_supported() is false, so KVM clears
+X86_FEATURE_DS for mediated PMU guests. However, when PMU global controls
+don't have to be intercepted, MSR_CORE_PERF_GLOBAL_STATUS,
+MSR_CORE_PERF_GLOBAL_OVF_CTRL, and MSR_CORE_PERF_GLOBAL_STATUS_SET are
+passed through directly to the guest. Hardware certainly allows bit 62 to
+be written to IA32_PERF_GLOBAL_OVF_CTRL or IA32_PERF_GLOBAL_STATUS_SET.
+
+If a guest sets bit 62 in hardware via IA32_PERF_GLOBAL_STATUS_SET,
+intel_mediated_pmu_put() will save bit 62 into pmu->global_status, and
+subsequent KVM_SET_MSRS(MSR_CORE_PERF_GLOBAL_STATUS) or intercepted writes
+to MSR_CORE_PERF_GLOBAL_OVF_CTRL will fail the pmu->global_status_rsvd
+check.
+
+Essentially, this means that we can't pass through the PMU global controls
+unless their reserved bits match hardware.
