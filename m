@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190969;
-	b=E0abG3dZ61flpFpLEPdOGeW1KYIz26yxQrTAbg8n9dkaXnpCwddPh+wygsWZda4Zq+h4
-	 kTyfOEU54rRI7b4dTvli1aR412Cz5XA12Nj+2xpla0LnfyKqeGzgRQiUxzRB+tGoVK5HK
-	 sLcKpFqX38VS+IfweU/pMIdTK43FddR6mtNWu7Pf+0WQFqttnoaJSX2wD4CnjqkmIdhlX
-	 t11QJGat4fLj3C2HQzWSaLeXRETziBswJmzIFhlPGnQf11NsPBOaC5Xpvjdkfz5m77QOb
-	 jTMnNNzRtpiL9bK4Xj7Wfb8zr/oe6fQCSDxeKfe7eDnyzSWA6lYa7ftl22jiMQNR6Vg==
+	t=1793191063;
+	b=UOZZ3lKKcdyjxV2MGC0QjmeZh3seAKu/hQVQt+E6kogL5oVKByKwigEK3ZfAtNr57Qnd
+	 MVpi+F2QjsaevWMZ1nbJLnI2M37kW0m+rrCsQpOGQIiPGjzOypuQpBaQKaW9MQ33Y4Vic
+	 CwKJJzrfiyd3gHox3c7sLLa/qdWm1QpdapzLNfx+ImDoRJGuAKxwg/QuNzSpJtgvfTgY0
+	 +RCiKvY+VK29ixPGaCYja6Q+WIbOaoYolcG8wAkMNGmHlyqNts0NIrlH5GvZJe/ddQA9Y
+	 sUu0NX/jhDABVB5lk9cEnA91DXpr99a2wRu8L6h3H8kIB3Kz5dLqNppqTW9GxpJInyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190969;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=RN66CKdSFH5BokxN8gXeYXM9ec3pclcfHKHj0hdU+y0=;
-	b=e7QDrZ3VHpfc4bwavxge5fIEmL2Eiy7r3ghJhADyMmYs5qCoAlXeBXlxcwT1rPlyFJzt
-	 Gq9w/AdOhii4hr8NVfyYI/WEpnE774/XU5+t1USpgF1xRmW38AVdImpAIiuNT7jYUPcll
-	 OeKeTyMu/50q6+Vm5nZlkG+n0I+T/3tgmHxalEMPsJCoxn41q/Agm3pehGoDLA4XI4u6Y
-	 PFGQPL1pKRrWj4a422/sYcMtvBYBlg1AXFAWA4O9xCC5dtDqUE+oMmq17XxkmeYfzRO/c
-	 qslRv7ULB+M1lpiUo+fbyg27cxc04ynjH1ip27xLZ09gap5SCwZ/i2B/eFEjkBv56Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191063;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=2fPfC6kGhMzQ15NT2JguGTcaL9m4KcoiMLditaM36mI=;
+	b=cN2j+kpVQJjwX4WPNIw0xlfOWD7CI5dzfxuSiiftL86nly1FJCNeSCTp3zOxYEE2stGz
+	 K4p8kW3dFN9m2u2CxiWPMAoXvnFkNrzNizYyqXa1S7PvFXP+OSeqmnfY1rl9CuTobS7mm
+	 IrbsKD4WM4Mc2AFAVmCn8yJSmJoq9ijdoVyrB2vVS92yA1R9GP3XjYJ61KdBpyqeW+3A2
+	 66ntKbKubfdXOUCFGNAQBc0QasTd6PIjUpfOCEMb0NrPRjTunJRLw84j5G/NW9M9NJG8A
+	 GEmhpA/s3wLJM+Vfn7vtlkYjQ01qlq/L7WAk1WvAULiP4lLMOwetCTZJwE8HE+6JFMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IkgVIPPI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE083606A31A;
-	Wed, 28 Oct 2026 12:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IkgVIPPI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3021F01825;
-	Wed, 28 Oct 2026 12:36:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190968;
-	bh=RN66CKdSFH5BokxN8gXeYXM9ec3pclcfHKHj0hdU+y0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IkgVIPPIqTICtUeItkxA6P4kKztnYtrCCrmcCp4fEOjTuAyrrVfcAMNC+ew4l1wnh
-	 nQanSAshIhnQaG+Ac/EVzx87EvjI1VbMaILCRwRbnz6KibJeqcKVcP+vfPt/CQrZJz
-	 4EDPudw1BaAh8uMmIABVfRHG6ja+v7eSDaLTQ52FZr3mKLRUzAx6eHBJzW7z4fwARG
-	 dtU7ksepKRECIZEr/vLNDkyF6EOu1SCxZu3HlBxsZGonLyPD8WzUkhuhjhMDZuZ8uN
-	 7Xa/0+zsuTo6fj+QzyaYH8080hwxOUxWJNyVInwqRidowNlrwUwvHxUB8yIPh2Khfe
-	 AxsGOANE3YreA==
-Date: Wed, 28 Oct 2026 12:36:04 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Ram=F3n_Jes=FAs?= Miranda <ramonjesusmiranda@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: codecs: lpass-macro: release macro and dcodec
- clocks in runtime suspend
-Message-ID: <706ee7bf-4f61-4f0d-adb0-a7b0476c671c@sirena.org.uk>
-References: <20261023173216.6245-1-ramonjesusmiranda@gmail.com>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=162.243.161.220
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3671A606A31C;
+	Wed, 28 Oct 2026 12:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3671A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMDmDXeJ7OFqR9xhAA--.58018S2;
+	Wed, 28 Oct 2026 20:37:29 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wBXFMCH7OFqjTLHAA--.20876S2;
+	Wed, 28 Oct 2026 20:37:29 +0800 (CST)
+Message-ID: <0ecb719c-5e0a-400c-b1b3-da2923c40bb4@hust.edu.cn>
+Date: Wed, 28 Oct 2026 20:37:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,39 +45,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LsvMrbdD0nz4dxp3"
-Content-Disposition: inline
-In-Reply-To: <20261023173216.6245-1-ramonjesusmiranda@gmail.com>
-X-Cookie: Pushing 30 is exercise enough.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/9] docs/zh_CN: align translation paths and update
+ guides
+To: Weijie Yuan <kernel@wyuan.org>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261028034134.4144660-1-dzm91@hust.edu.cn>
+ <auGucr4smrSp9g5l@wyuan.org>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <auGucr4smrSp9g5l@wyuan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:IQEQrMDmDXeJ7OFqR9xhAA--.58018S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF4DKr17GF4rKFyrKFyxAFb_yoW8Gw1rpF
+	nxGFy0ka18t3WSvrn7C3yxXF48GF43Gay7Kw17twn3KrZayryrXFyrKrWq9FZFgr4Fqa45
+	Za1YgrWDWw4DCrJanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHjb7Iv0xC_Zr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
+	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvE
+	x4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU3YFADUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
 
---LsvMrbdD0nz4dxp3
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/28/26 4:12 PM, Weijie Yuan wrote:
+> On Wed, Oct 28, 2026 at 11:41:25AM +0800, Dongliang Mu wrote:
+>> Several Chinese translations are no longer at the same relative paths as
+>> their English originals, and some Original fields are stale. This series
+>> moves the translations to matching paths, adjusts their indexes, and
+>> removes stale Original fields. It also updates selected translations to
+>> newer English commits.
+>>
+>> v1->v2:
+>> - Drop the unused top-level readme_zh label from the translated
+>>    admin-guide README.
+> Hmm, so why still keeping these labels here?
+>
+> [2/9] .. _zh_applying_patches:
+This is necessary and used by another location.
+> [4/9] .. _process_index_zh:
+> [5/9] .. _magicnumbers_zh:
 
-On Fri, Oct 23, 2026 at 05:32:16PM +0000, Ram=F3n Jes=FAs Miranda wrote:
-> The LPASS rx, tx, wsa, and va macro codec drivers prepare and enable their
-> "macro" and "dcodec" clocks (which correspond to q6prm LPASS_HW_MACRO and
-> LPASS_HW_DCODEC clock votes to the ADSP) in probe() and only release them
-> in remove(). Their runtime PM callbacks only toggle mclk, npl, and fsgen.
+The above labels needs removed. I forget to clean the same issues in 
+other patches.
 
-This doesn't apply against current code, please check and resend.
+Dongliang Mu
 
---LsvMrbdD0nz4dxp3
-Content-Type: application/pgp-signature; name="signature.asc"
+> Thanks.
+>
+>> Dongliang Mu (9):
+>>    docs/zh_CN: update admin-guide/index.rst translation
+>>    docs/zh_CN: update admin-guide/README.rst translation
+>>    docs/zh_CN: add media administrator guide translations
+>>    docs/zh_CN: reorganize process debugging guides
+>>    docs/zh_CN: update magic-number to match upstream
+>>    docs/zh_CN: reorganize media driver API translations
+>>    docs/zh_CN: move GFS2 translations into filesystems/gfs2
+>>    docs/zh_CN: update networking/xfrm/xfrm_proc.rst translation
+>>    docs/zh_CN: remove stale Original fields from SCSI and IPE
+>>      translations
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrh7DMACgkQJNaLcl1U
-h9DtMQf+OinpQt+Pqh4v46Satg70DJeawqG5u6goCnkANGda/vECBmWijbd5ykVF
-wpX68CFXd6lBOWuPIAl3oJon4otePmTyG/9RApHgU59Kbc2/29u6HwgaRDGa7OcM
-bmPBrcZWj4jqitkEreBaTXyVo9rrtmmqhm2Fl3M2Ozwit0SOfMskIqPkV0YvG6T0
-HfX7eqLa4fKcYVPJHIGSptDJYcck1upd1dxE+j7472Mj+xOqYdtuRkKHAzXi8zG8
-nWlwPX+JQe7fGWeiKpmUJ3hl9MkP6ZnQZrHlpuPzWKjdr3gMpD6+Ep6OSTVAFgiE
-K2I24vmeHJoZR0RPsnMFIDmEYW2ufw==
-=4IJn
------END PGP SIGNATURE-----
-
---LsvMrbdD0nz4dxp3--
