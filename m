@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793148228;
-	b=JtG9YfW78LkruiVrRie13c7Le7h6BTECksEQDRXu+S3SSq+WRf6RkrIVdfUpmnCPUGrx
-	 0S4sFKw/WSPwzKAoYDUQWuS+UMgYZyWlLuWbyMZRhYjoIspgxvQPAx9hqjxBNEQOnWumt
-	 uI6napM1/B1R9g+7ORo/q69+r5Ky5keQbRc1l85mguQ45k/fBAnrD44ryym3KlxrPYbBO
-	 eU6EnFC/wsnl8l8tyl79CUWtCGrg6hD0w7Mk62IgDmizlYzmvWt09u2z8XkyoCOBVnKKU
-	 /SU3euBVwDF1SP3FRKOk4ii9AgDdQfl7IpDFPPfpTO/8se/mQvrOxnQKeUy1LGz4Evg==
+	t=1793148246;
+	b=sx42sSvHAjVW7f505TYjgmf4bBt6R6/yzu2W9lK6Mageuq+JNuaXw+WlqoOX1L74yKlo
+	 dR8E/I3R7nJ4+cfxdB5Hwh9G9xPbndaNGKHSvx8j0ela21dqzL4TutfMeEyUvoARpLYu3
+	 cLgfQLXfrV7wO7tKX+gRnykOOFjzB724EHzOSmru9IZZn167OHESeMiIvOyp4ccDH0ScS
+	 skjxMADRFSKihG7jPME5TuisEW+10HhwnfO8n1PTI3K0YZjY4+I8OTr6LkJUxmzf2b1rQ
+	 C/vtObja/cMqGKSEb8DXnmmVNjfdv5hG10gfe3Vztet45B+ao3KhbNC7fLyd6xQ2KEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793148228;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793148246;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=qkXvnQeDr3o2Osn+PFE7gXCH6PjN120/QyJlXvXFSPE=;
-	b=JWuLpccVgswzG8VIGUqNHTt27k6OCyLnJoguRFj+j8id5MdKnBE90+6xgcjx99iHdac9
-	 PFWWHh3lvM6V0sp9fv/vyacHwxaA+mKfgpNa615CR+Frky3YyIMv9pxR8Ce/JM1lGfqVj
-	 nueCmkSAJIpYDZQe73a+MA8N1zhqoBk1vs8e4sy6Xa2+92QdBRyGMp7z9kTZimF7XQpo6
-	 rfKk/LVb8GnJldtg5ic76YwoOORcc4Ep3PZbrv+31BakHthxaumpstEiz1M/5vt3qm77i
-	 sRKbVUpevD1diTAiKXcuHlU53fP4VlkdVGi12n/a24+RQtPA6NL6IeSLy/ZsUIsV07A==
+	bh=usOWKzenmKiz2WH6LLtgCuOemrulNXIjys0U/h6pqN0=;
+	b=UQ8w2mLOKtADOdVwo5CbK0hweVIrgwi6ejgl3bHk/YMBeaXdjahHEtGLQan9Z0TjZ5zG
+	 zxkwSuicbbF7eoREvkgmRw4T6B75IEP9zmKD6BGqpqgTcIU06I3T/CK1Q5v1bzmIuveZZ
+	 gn0rGHn4ow1jRUmv77d9UyUnDPKqG90DNz+99OVEWISckexRiQmLJk9kaAzta9/AVajf8
+	 15cJJzrL9CCOQRHUQ6nFov/Wb6zM5IqJ+NrwxEkErQ7byD8MNK9pNBF5pD2tCtvgnYmHG
+	 LHyxx1TcG7ewY9VQiMPHfo/s1LN4On8qZkpbr0rjGXOdy1wRUXg0myKgEKc8YmedymA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oc63TZ5z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIeiWzjq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD23A606A31A;
-	Wed, 28 Oct 2026 00:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C5F606A31D;
+	Wed, 28 Oct 2026 00:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oc63TZ5z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63281F01828;
-	Wed, 28 Oct 2026 00:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIeiWzjq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBD41F01825;
+	Wed, 28 Oct 2026 00:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793148227;
-	bh=qkXvnQeDr3o2Osn+PFE7gXCH6PjN120/QyJlXvXFSPE=;
+	s=k20260515; t=1793148246;
+	bh=usOWKzenmKiz2WH6LLtgCuOemrulNXIjys0U/h6pqN0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oc63TZ5zKUkPYoRonvAl6yg6YuTeLMl6AZdpDccZW9XPb+IoVMFpPONDjGkBauC0t
-	 Lmnc1T6OxrWLt4HCO5EE50AX28/gRYbHA7oUatVmYTt7QuRxoSqoDn5wyjaDb5WaAH
-	 CtdEA70/Y6Nz9uLqZXGbSQ3khnbqfDRV6GYhN3uobFYCA7LvJnDeXmTre19Do4dGLV
-	 997KoL5D0CZddMv0M/y8EfekM3F+aaopDo3YvcGVQXHC2sV1uStNeJmaKNRvEYDYXc
-	 go94LUb+YLuR+OhFaHjZZLhN5p+l8cI1QWGNWrGat7ICHeIhC7iiHXEshDSDTLkpDF
-	 qc5qo7H3d2z/A==
+	b=OIeiWzjqPXTFUjoc72IcrmysappGO8JntxQe3i6zXRVuH5TUHkWT6T8vCTOSWkT+V
+	 XgPzrFejjLOtLSQNhh9k9ce4Ehap2KuEZKGTbR/bWMAsf3vbBDwdc2X4s6YSX4JRnZ
+	 L12AARBRPaz+JSy7su6Yu8pqAN400ufod0rmFQNLR+Y6KrFqg8ldf9TQ5Inah0eonP
+	 4RgY1iMjMcMfQCSwUGU9j8fdL/5NvyYgajfU79AGwAy5JG6OctHLksJbEQDT3Nomb5
+	 W0M18gtI121JY6L1lu93UHdtzQPJ86p/2zQ1gxyXTmbj+qwLYo9oeYs+YrCaQyQLaz
+	 AzDhTwj5aGCHA==
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
@@ -48,9 +48,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v3 02/16] tracing/filters: Fix MATCH_END_ONLY regex matching for fixed-size strings
-Date: Wed, 28 Oct 2026 09:43:43 +0900
-Message-ID: <179314822364.684037.9099512445135198750.stgit@devnote2>
+Subject: [PATCH v3 04/16] tracing/filters: Handle out-of-range CPU for OP_NE in cpumask comparison
+Date: Wed, 28 Oct 2026 09:44:02 +0900
+Message-ID: <179314824223.684037.4554950018476510986.stgit@devnote2>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <179314820431.684037.4147763044424284198.stgit@devnote2>
 References: <179314820431.684037.4147763044424284198.stgit@devnote2>
@@ -69,81 +69,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-regex_match_end() calculates string length as "len - 1", assuming @len
-is the string length including trailing '\0'. For dynamic strings
-(filter_pred_strloc) and pointer strings (filter_pchar), this assumption
-holds and allows O(1) constant-time suffix matching.
+In filter_pred_##size##_cpumask(), if the event's scalar CPU value is
+out of range (cpu >= nr_cpu_ids), it unconditionally returns 0.
 
-However, for fixed-size string fields (FILTER_STATIC_STRING) and "comm"
-(FILTER_COMM), the callers pass the buffer capacity rather than the
-actual string length (field->size for filter_pred_string, and
-TASK_COMM_LEN for filter_pred_comm). Because these buffers hold
-null-terminated strings (e.g. prev_comm in sched_switch holding "bash"
-in a 16-byte buffer), regex_match_end() tests against the tail of the
-buffer capacity (typically trailing '\0' padding at offset 13) rather
-than the actual string end. Consequently, suffix matching like
-comm ~ "*sh" or prev_comm ~ "*sh" fails for all strings shorter than
-the buffer capacity.
+However, if the predicate operation is OP_NE (e.g., field != CPUS{0,1}),
+an out-of-range CPU cannot match any valid CPU in the user-provided
+cpumask and the condition is satisfied. Returning 0 produces a false
+negative.
 
-To fix this without penalizing dynamic and pointer strings with an
-unnecessary strnlen() scan on every event, introduce a dedicated match
-function regex_match_end_str() for fixed-size buffers that uses
-strnlen(str, len) to locate the string end within the buffer capacity.
-In parse_pred(), assign regex_match_end_str to pred->regex->match for
-FILTER_COMM and FILTER_STATIC_STRING fields when MATCH_END_ONLY is
-requested.
+Return "pred->op == OP_NE" instead of 0 when cpu >= nr_cpu_ids.
 
-Fixes: a3291c14ecf0 ("tracing/filters: Fix MATCH_END_ONLY filter matching")
+Fixes: 3cbec9d7b93d ("tracing/filters: Enable filtering a scalar field by a cpumask")
 Cc: stable@vger.kernel.org
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
-Changes in v3:
- - Split from zero-length string fix into a dedicated patch.
- - Introduce regex_match_end_str() for fixed-size buffers and assign
-   it in parse_pred() for FILTER_COMM and FILTER_STATIC_STRING, avoiding
-   strnlen() overhead for dynamic and pointer strings in regex_match_end().
----
- kernel/trace/trace_events_filter.c |   18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ kernel/trace/trace_events_filter.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 59a0d3ba7274..f7c067a58ba4 100644
+index 617bc3c0bb0c..3f56e234a02c 100644
 --- a/kernel/trace/trace_events_filter.c
 +++ b/kernel/trace/trace_events_filter.c
-@@ -1087,6 +1087,20 @@ static int regex_match_end(char *str, struct regex *r, int len)
- 	return 0;
+@@ -759,7 +759,7 @@ static int filter_pred_##size##_cpumask(struct filter_pred *pred, void *event)	\
+ 	unsigned int cpu = *addr;						\
+ 										\
+ 	if (cpu >= nr_cpu_ids)							\
+-		return 0;							\
++		return pred->op == OP_NE;					\
+ 										\
+ 	return do_filter_scalar_cpumask(pred->op, cpu, pred->mask);		\
  }
- 
-+static int regex_match_end_str(char *str, struct regex *r, int len)
-+{
-+	int slen;
-+
-+	if (len < r->len)
-+		return 0;
-+
-+	slen = strnlen(str, len);
-+	if (slen >= r->len &&
-+	    memcmp(str + slen - r->len, r->pattern, r->len) == 0)
-+		return 1;
-+	return 0;
-+}
-+
- static int regex_match_glob(char *str, struct regex *r, int len)
- {
- 	return glob_match_len(r->pattern, str, len) ? 1 : 0;
-@@ -2026,10 +2040,14 @@ static int parse_pred(const char *str, void *data,
- 
- 		if (field->filter_type == FILTER_COMM) {
- 			pred->fn_num = FILTER_PRED_FN_COMM;
-+			if (pred->regex->match == regex_match_end)
-+				pred->regex->match = regex_match_end_str;
- 
- 		} else if (field->filter_type == FILTER_STATIC_STRING) {
- 			pred->fn_num = FILTER_PRED_FN_STRING;
- 			pred->regex->field_len = field->size;
-+			if (pred->regex->match == regex_match_end)
-+				pred->regex->match = regex_match_end_str;
- 
- 		} else if (field->filter_type == FILTER_DYN_STRING) {
- 			pred->fn_num = FILTER_PRED_FN_STRLOC;
 
