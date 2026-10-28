@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793164119;
-	b=YhFQAid+EGbkclTn6v91gme7RxUB0bVeDwpMsgutidjuv1wEP1kec3rXvoTjyCYDZ2ju
-	 4LedD4b8HF7L/BCAbBue6vVEU0Y2t7k8NjuSItis+uI1s6iZG3+SnxXaoiPszJbofrl5h
-	 XNu3USk6mZLCfw4HT/fvtjQ0QUY+O590jvoaLLSKkJ6xqp/mplH4odho4Hw+yxnbgmDxi
-	 D6UIL6W692k7m0+UK5txHIkK+sBPDN+lXHIzoKWWpK4KKbszfpksbERNPfl/dwHb+CwfJ
-	 jQSRIzxgrBtHOmSI6mSkT6yYfMvtLcJZswDCd513W++CP0llCyoYGLd/ItoHvEtdNkQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164119;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793164152;
+	b=Xx39jgbQb6GE5hS9jY//j8ObRzklIHHiN92kA5+dmFao4WZVZ7MWNMJr8nv3SM6bX5OY
+	 Zk5PgpqOYbkOfeo2fnYDPOnzsoK2qXZic74BUtUUnfc1lV4oyui4dAlyjDjxCFyGZiNFd
+	 O0yQYlHuiUBGrY0g6WXNxWa5TwFyYPfKaRHB/v/WxhmELgcILdOa/v0bb1icnprnrV77K
+	 ZOuL/eVI/ZU/q4o/jxBpHArzV5Rjum/x2eAks4/51K68NJeLpT7eNM5p3FAqxVs9la4s4
+	 L8mlB6rcms6bR/Qj0riYUe65TsdOtUQHb04eyQa8RLPduHRjM6olK8rb2nq7fMviyEQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164152;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pU1kLn/e7S5gHH4LSe4wUg2uRsyVInrWCYyeusC2FTU=;
-	b=5CYjvJH4SJl77xircB9qw/Q4vyBZdpYLaB5NKetzHdJDhoaYkjMCvGL+PHhsUofxLPHD
-	 L7PolDd2PH+YgXEtmg2s1VSQvrvriyxXz4oW0zu2zxo6Mw1EqKUMKNThS67CdmGNPklyA
-	 VwBtwEof2oj4I+oL0KHUOXbfbTTlPj5Vzsy93enVDMmlDwC6yvZCs5PoFk+0gEIiMdecc
-	 1A6LTnIbrsC9CexKAX4igYgEjqIz21Cb2HDxXuZn9lWThOVi3olgoUaBOFkvCvoAhvQUn
-	 evIIqcZp43UJsaf7TBWJAVb0gakFM/kIhPlFjOGCU/IPjPRJuK4RVDRvUrtduv3Nnlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=DNFiuBby;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=RkLs06oSKjndtEtH9UzjUkBgZdd4DTrmYRSHCcEFS1c=;
+	b=LIb7ecYb3D3plY8Osq2ccpSjzfXTaSYhKz1PkexONccp/dPSr784r8afJQcNWdATEMJg
+	 Pl/Xg79y69YHPSdumxnS72iCKN1vE8feem6gSmJL8r902JANVccrvYSXiIfIyPSWYUr0Z
+	 Nc4uSZRjXk7RqyggjSvRmVB/TOdANnE8mGLGkT2Y0YNMjIuAsjVAR8JFT4sH/LhDLocn4
+	 EEvI0WTQGvR6TP5UBzWww4XJjvahKTJp8M7F5zJkAoT3eAHMBQVnwieBc7k1A7XwE+nC7
+	 oruRxdlypweV9djOcHnmtRG9ZJqJrg4l91a2SvfTuJwzvda8AUEPwkAozqZcmCdcJpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=b5RUbuWT;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F18606A31A;
-	Wed, 28 Oct 2026 05:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F18606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8274D606A31A;
+	Wed, 28 Oct 2026 05:09:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8274D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=DNFiuBby
-ARC-Seal: i=1; a=rsa-sha256; t=1793164081; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=YxtRGSao/0ViiHH7k1+F6DOeV5dS4qbM78G3BRBGRbpY2aNDK+8x1iBguAIrgdmMFm8DvdVkOcu5tIf5bXYvxuuQZ6f0q5zqc+yc4Bwh7hmNgjzFl0NVIVVGvKyY+pPlTsXMsmzVEBfuHvyOxciFTq3Kp5XcgzZWTQjI/w/jJ6U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793164081; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pU1kLn/e7S5gHH4LSe4wUg2uRsyVInrWCYyeusC2FTU=; 
-	b=bq7gza7UWXBfvlXnk7Zq1SIGhbbphHJrUCOV99cSnVozr5gmbhNi83812xQI9nEjaWz+ayVCbjZE8wvbWTJXogcZtCbJDmGuZs+jvHE8Jea3dvUtdReiU41BQWxN0DgNlGBRYdVjIc/60CBNqgWzK+hyib44wwZWtEu6CLvA9wM=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=DNFiuBbyry0dtEQCG82ninBQPHF20PnwvMwpfxS4EBju8nxnKxWPUVb3+QeqB7fEFtxwBoXVGL/Q5pimjSFB9T8EMdzxXa8Se4NR78rGHnq7LXEyIySrTXW9oG30AIDxE3Buw0BtGstcxBfBHy5AjL8Oyz04Pn/KEda3X55mhx4=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=pU1kLn/e7S5gHH4LSe4wUg2uRsyVInrWCYyeusC2FTU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793164080508149.31550770494346;
-	Wed, 28 Oct 2026 06:08:00 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Enrique Hernández Bello <ehbello@gmail.com>
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, dlemoal@kernel.org, linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, manivannan.sadhasivam@oss.qualcomm.com, iav@iav.lv
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
-Date: Wed, 28 Oct 2026 07:10:00 +0200
-Message-ID: <20261028-h64-tpvperl-ab-skip@iav.lv>
-In-Reply-To: <20261028005548.2399155-1-ehbello@gmail.com>
-References: <20260911211559.207990-1-ehbello@gmail.com> <179196286749.38040.5597453767131590054.b4-reply@b4> <20261016-h64-pcie-resume-tpvperl@iav.lv> <20261028005548.2399155-1-ehbello@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=b5RUbuWT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rk
+	Ls06oSKjndtEtH9UzjUkBgZdd4DTrmYRSHCcEFS1c=; b=b5RUbuWT2UqmsPUIYn
+	TJl39qzVRLc75xp4+W1YILKglhDYoierqyAQGrbJhLAOt1oZmCx0QvCL9ODe4VmZ
+	dwj+i+Orpci6ySWPe/6ITE3U7byxSeqEH4K1jN28eU2BWC1XFbkGzjcLtL9bGJJC
+	jvtIueKgpSbWBczpljIyJ2kcc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDXn9Ntg+Fq8KFYDA--.38106S2;
+	Wed, 28 Oct 2026 13:09:02 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Charles Wang <charles.goodix@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] HID: goodix: validate coordinate package length
+Date: Wed, 28 Oct 2026 13:09:01 +0800
+Message-Id: <20261028050901.139292-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,18 +63,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXn9Ntg+Fq8KFYDA--.38106S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFy5CryDXr4rCw1kXw13Arb_yoW8Zr1rpF
+	WfCFZFkw1qyw47Gw1UGrn5CayrJrWrJw48uF9rC3yS9345Kry7uFyj9FWqv3y3Jrs7t3sx
+	Kw4kK3y5Ca4UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwdb8UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ4PSWrhg27IXAAA33
 
-On Wed, 28 Oct 2026 00:55:48 +0000, Enrique Hernández Bello wrote:
-> If your first resume then survives, the resume hunk is the problem
-> and I will drop it
+The coordinate package length comes from the device.  goodix_hid_irq()
+checks only that it contains the length field before passing the
+remaining length to hid_input_report().  A package length larger than
+the fixed coordinate buffer therefore makes the HID core read beyond
+the data fetched from the device.
 
-Since the next version keeps the full wait on resume, it no longer
-changes the resume path, so I'll skip the A/B and test that version
-on Helios64 instead: boots plus s2idle cycles, results in reply to it.
+Reject coordinate packages whose declared length exceeds the coordinate
+buffer.
 
-The probe SError is in the cover letter of my rockchip-host RFC:
-https://lore.kernel.org/r/20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv
+Fixes: 75e16c8ce283 ("HID: hid-goodix: Add Goodix HID-over-SPI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/hid/hid-goodix-spi.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Igor
+diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
+index 03d549efbdce..eb63ee728a20 100644
+--- a/drivers/hid/hid-goodix-spi.c
++++ b/drivers/hid/hid-goodix-spi.c
+@@ -574,6 +574,7 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 	struct goodix_ts_data *ts = data;
+ 	struct goodix_hid_report_event *event;
+ 	struct goodix_hid_report_package *pkg;
++	u16 package_size;
+ 	u16 report_size;
+ 
+ 	if (!test_bit(GOODIX_HID_STARTED, &ts->flags))
+@@ -600,13 +601,15 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 		return IRQ_HANDLED;
+ 
+ 	pkg = (struct goodix_hid_report_package *)event->data;
+-	if (le16_to_cpu(pkg->size) < GOODIX_HID_PKG_LEN_SIZE) {
++	package_size = le16_to_cpu(pkg->size);
++	if (package_size < GOODIX_HID_PKG_LEN_SIZE ||
++	    package_size > GOODIX_HID_COOR_PKG_LEN) {
+ 		dev_err(ts->dev, "invalid coordinate event package size, %d",
+-			le16_to_cpu(pkg->size));
++			package_size);
+ 		return IRQ_HANDLED;
+ 	}
+ 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
+-			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
++			 package_size - GOODIX_HID_PKG_LEN_SIZE, 1);
+ 
+ 	report_size = le16_to_cpu(event->hdr.size);
+ 	/* Check if there are other packages */
+-- 
+2.34.1
+
