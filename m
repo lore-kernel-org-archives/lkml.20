@@ -1,105 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208673;
-	b=Q40nG9e2vsVntUSWQZayVFDlqLA4Wxvl97B36kGNBQFR4I9n9yl4/QOWwogtYRLcTVvt
-	 1uq65rGnepW3In59CKx7j9N9HmiVPZGq1qvSrxnLod8wY10kemsMulv7Q/O4QhmvLGVtT
-	 za/+AfhaULFrQkReJeal4Snn0hrq54k4kq6XmkL8rzbJylk1F8Abkk0e1RmK0PH81w+UI
-	 2kATvs+ZSPPjFB4iaSh+f+N5Vk4T1WAqjQeT5kFMQYWwbRODKGWiEKHiqi/YwaNGAUCHQ
-	 Fy8EIcPiBLDLrcL5JA8sftY+51fIUFT4b5zjV4grfzN7KCKvI2jXskpYLJJy5w56WKA==
+	t=1793208683;
+	b=tUqyW/vEG7MQeKsC8HgND9qvK9e+mH4tIZs/UUtS+ev8wCiEYGw6P0O5u9kFn/Rk2bal
+	 RwjvzvMD1zlDm33NLvTto+FKy3McMBfoKzkkBMlVZvwqIccP9zvRsXEMcsODuz01IY9xo
+	 HsFx49lWBVg+ZNGC14z43ywE71Mxhi7FKD9RV8SY++7amvcdZE94EGzU8pix36lDn93I7
+	 WK7QYdB1Fq1LiCj8ZtX3G+8o4jHJ2MbvK+6HDgeMRr6QmCTdKc3XXbmsT5MqWni4ddG0u
+	 zcgC5JfgSn12xTI1Bgnz2spJtUZCl77/M/5Vvt28roxRnptaE4EiVtEo6hastAjgJkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208683;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=A+RGXs8/Ail6qHnGbLflY644jEJYQOYM38RZLvyetKE=;
-	b=xn7QhDVWY3iMNjIEIJz+lMM6lHQa5hGkw61IXCqyhxI4wPekdYcOrim7Crf7J9+ZiteG
-	 L7A6oMQyvBXUUZmRPhilFyosLgnpaGe/govBtD2y0Na28hJ3i7PBYUmYFybUmTX63F9WB
-	 tpQ4BW8z8p4jsAw8quIyl0qfy4Or4EjhDsOxU0uLmeGIlXexhpc5ewcY8bIzAvYitbR1+
-	 xdmV51Axh+OMA3P2AcNuoDUhYtfwmCjx6qdSAM0bhx5asQuMB1XKim4ew3DwCLq48uYRw
-	 wmbYey0gQ+FT28JcaQWif7DNjjH8djKsk38xz29XZDi7MG2dD9HI0SwVmW0V692AKpA==
+	bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
+	b=Sexex+g8XuZeGtt37Mhsv1MwJ/MbOzVGCJ/e7leH9aHJWtQzn+9ZtXnlrHutJXPsbuui
+	 eTieO7WVHZ68PvlkPoj66VnTQFKZP8vA15hhQ2EHlupOlB1oL8q6fsrNlBCtr1iTba/Az
+	 BaQiYW7vytFBVh4QS89UCrg1c/KlUCKtHkzNENxJTRvTuQDTjL0um7TXwUEACaiMV3j8d
+	 ygEQ1PxItOKfJQMmL91joEM7G2DyIH63b92eESe7n9ubaK/krTnCfYewd7GGkVSR+Jl2E
+	 632HsugoM0RmPR9l0QFb0bA04CwnRbDkZvQCLR2hEv3KXrdohtLe4Ql69u5DTT4TRwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ufleonBH;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5AXwlI;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE8D606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:31:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EE8D606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B021A606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B021A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ufleonBH
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e00eee27dso961557f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5AXwlI
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so12057205e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793208671; x=1793813471; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793208681; x=1793813481; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A+RGXs8/Ail6qHnGbLflY644jEJYQOYM38RZLvyetKE=;
-        b=ufleonBH+H9d/tOno1mA/pxQ9SgKTe49I8fCqrQqRsv9NChzWGdaQBtCxPwlzBVOYp
-         HEwR72xzxyezHU6WBAhtovrTrx3KqZMKdxC+/NdhAVnyda2XRk0XbVJSpDtsZYmQaSxW
-         gryas7ImdzqPFK9J66feGiF0DibWyxN/9p/uhc4OBOGZySknSPXvWFlliQw9WfFmolXa
-         6Ym4+ZsPc2TEFd0JvB+J0ZVQOmqnI7YI8y04jyEKQGD83c/vonoi/YbCtaJBhlBFuoX6
-         Ms5PyHf+Vfc1ubEUq9EUBU3fXC6okM/Ic3olgmuBrF1Y/nvoxgkYAuT1pJ0Tt/AAoePE
-         RoxA==
+        bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
+        b=Rj5AXwlIRL1sM/sCWx/9TgqY1uZioctwcdwe23Su+an66Dqioq2hXH34IGZMtMjlNZ
+         c6HbI5Xmhd+ZP7Hx+cWqoi3dAjlmxXVC7112rgscq4+HMiIJfKSx/VQEKYCCOUBqlwGC
+         jHFBJeolrICukui6tBM3wuMTuKAcFUABKr41L84uYmWOSobC1okBV45oSHMP3bsdJSiB
+         TZtr3QzQC9aLP5v8PgFq/XoD662rug3mQtnh2w0Tpn0ADA2Ad3eFdht2hOUY/8mDvavl
+         yuGhdRax/mp5lm6KtXyqMkEsnAWnfZWLE84MspzN2kgfK0YIDikLfZwBTP6ZxuSfqdmV
+         fYSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793208671; x=1793813471;
+        d=1e100.net; s=20260707; t=1793208681; x=1793813481;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A+RGXs8/Ail6qHnGbLflY644jEJYQOYM38RZLvyetKE=;
-        b=cDUfh/eixypDpWiM5kZncwx2ff/F4LGcuAQwIGm+MxxAHycQvT1iJCwWjStXvyI5GW
-         dXHpw4Um/UMhBE0bK4/lcOxICEbtXOTtC7ep7f7/vsu/DC8ODfgceQrpSvck159CntRT
-         sQurIhSlcXmyDxaIu8sddLKNnAwmNLRX5gdvLVz8bhQmNFNFlBiZJLlvVI69QelkBF4t
-         4gxReSTayECxRF0UdcPQhHaXEkHpteULxP+QOzdYbvaC1Xz2gOY1lhzr9E/BE9XdKrBB
-         8hpUfPzGIqAEe9NnvIJYiaIv4j2AqqaC2/bAUP3Uga+HQQlKA9kRklvPt5c8dp0TMLvJ
-         tbWg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/HZroItNrjxAd6cKP0HKYOVn+DprgaIat2YhdMXZ33f8unKJyuOl+Fan/T9vaHQ2k5NvcRLpZBrTk0dM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxCekOF2hR8HdVbWGbhGULHF29qAECNqwtIw/eNt0Sz/b8Tfy3
-	+Bd5e4yjg3uX1ahL9oSeGEFLJX7WJXDtK5wg8XzZH45Gz57F/REc9U1n
-X-Gm-Gg: AYBFou1IMKwboN800QQ04KtPQmss9x82n6FboDtupdLRHJzTgZ/6U4msxt/O4jI68Fs
-	fWgR7tjb7HnN+YJzkaWRSKOb/hfVjUbAI1tXXEKvjLYSy1dQmH7F+mBNvQfQtkpTts+BM9yzWPp
-	Bt0YBLEgjaqbIKE4llC/Q5pe46CJ7/gBKhbBVqYDKrQC2CQkUSroByitPBfOesXmdvsNTITqp7Y
-	yd8NiVPskH+rSZ8fQRfA8xBd+LgRU6yFQpP4VyHHNjLEiKUKhdR1kjxsVR9co/vwtJF4X694nKU
-	vHTOJHRJ1OaYkYbjALUwmsjZNZo89DoeBIEOfjYZYdSV/Yp92T9ncTw3+vfHD4QQ2Fw0PXgkPNQ
-	Xy02S2o+3MKPzbxyhShWJewLPT+mhCmsntnWX/lBh26w2WH52Hm6g0fkEdmzAuHkFKyo1nkxkan
-	ms25bqGB0B6vLoKQyj+5fHTalxZf+ZakjE6Bhpe3XJmCNTlkvQ1M64011HOBtedKA2xQoLZ1701
-	5b/rcT3uGEBmtyMSn+lvKNFxQMw1ySr2c3EBqbT/2KrDs+nlSqtc5sf2u60QyHny4KF23g2RCVb
-	2siuLy+QkzRxJRXMfFXBS3ubEM5Nk92IoaaBM/PBH4opu8auLk0lf1/pP2OVpkGAfP+2EcCUfOD
-	FyAcfjU97beFmEgDqBLv5QqySrEf1+k/scFZt3sn56EUtT8n1s3Svm6X2RQSY7QpWe9w=
-X-Received: by 2002:a5d:588a:0:b0:48e:25e1:5eb8 with SMTP id ffacd0b85a97d-48e5d58d590mr7802427f8f.3.1793208671431;
-        Wed, 28 Oct 2026 10:31:11 -0700 (PDT)
+        bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
+        b=KKnEwl5UpgufmYoZkYRjQaMJvIE+UucT9IHgjekcOuPIRm4H5oFf5jvjpFsCDxT8ig
+         +EG0q6cFGt+nGNvx1AgEXtoaPwpUE2aVbqifJpmHPhOFJf56grUOSNby8Qd7pmUCSdY8
+         7VWcAaRxH4tUS+KNFhJPSujoF1gz/HhFWJs6NQKQInFhXg4BO0/PZ+jGGV90w83lH+QI
+         Y1JLs6jfCESuxMrBr33GFByFJSv3lHHvn95UvrSZVecdJYuxTFX5gYoSsQys/xb6CPUE
+         o8TPZFImZH6H8Lj846vZ3rN8Su+S6psESd2BxQRxfwSSrvPYlAfJRf9W9KeuCE4q1Ixi
+         X+Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtB0YZWbiYr1QL2ywmdBVLrOf/cfbyGOiYwIhDk2ZIENLs7R2jJsZtjQNEBM8aYrdp+CA6n6FrtRCUNWY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIptZo5KJxksyhcrmbilKyrGx/6DPSQK5Wi5lk4xWwBKQockttL
+	DGUKJsDc7OlTiaVE86sBBCdOGrCcrSJOtv+J2xvKlASBGbvlHbwGBTat
+X-Gm-Gg: AYBFou2Ug3Yoeun7wfVlX/8n88qslywYrJ7W3z/cOtyzTMeAWUpTrTIZkLMBuOLxkM7
+	t4QQhMo7YcMRazToG9S9vOCchR/uoPCouLFt1M38G5jvQ19huRVaM2sRjgL2O/NkdYOXplio7lF
+	0ombDpmr5maD53bcKhmJPIzS4ufBveAz34seTM1t+Altb0QcrmhynZ/+j0ei/NcdghaLb4TVhFP
+	7UEliOQWluer1EInfKbMTOG5U8ITGDNWOJN7XvGmXzmTLTJIUEm/tTWHzFZcuiyCIUMkZpJgGkZ
+	iaDE9UsHnWXKs54Zoa8TBmtHUsr2iFjLr7shsReJaPCe/jU+Rgs0MQ5RgMhcVF/mO01xVxYv6mK
+	miuHL7+v94Zef1/ZyzYalhKWjUsbzI8PQ+ndeTrU6pMLyq4/YOar4eIDjZQu8FbNOh01fkofmQV
+	1qkCwmfwVyKlv6FhYDVBiyRZZ3rzFMweaVxswuATfLiAiOmyh/O5fOtyYhvDp67C5kyJaEdj5yG
+	0FdA6+gz67iF8MjVEBCyJ68FNnM27U6f97HHfvev4TmAIWc5YtWp7v97TD5DClONJvJlbu6knu+
+	Cl/D5vIDbPcuKRswi9nkUpGMq8lPpZBxpvjlBxPBnfXE4BKViIQ2Ug3lg3gXJEg3ebZT/vqhbOk
+	1AsAX7phg73FRBmWoy37xOrFMIWw01e9zmtwDEYt/70PwIQ==
+X-Received: by 2002:a05:600c:1546:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4aa86a42518mr6057825e9.2.1793208680690;
+        Wed, 28 Oct 2026 10:31:20 -0700 (PDT)
 Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39a8sm30601206f8f.11.2026.10.28.10.31.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80285b2dsm6496175e9.13.2026.10.28.10.31.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:31:10 -0700 (PDT)
+        Wed, 28 Oct 2026 10:31:19 -0700 (PDT)
 From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
 To: iav@iav.lv
 Cc: shawn.lin@rock-chips.com,
 	lpieralisi@kernel.org,
 	kwilczynski@kernel.org,
 	mani@kernel.org,
-	manivannan.sadhasivam@oss.qualcomm.com,
 	bhelgaas@google.com,
 	robh@kernel.org,
 	heiko@sntech.de,
-	dlemoal@kernel.org,
 	linux-pci@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
-Date: Wed, 28 Oct 2026 17:31:08 +0000
-Message-ID: <20261028173108.3457165-1-ehbello@gmail.com>
+Subject: Re: [PATCH RFC 0/2] PCI: rockchip-host: Retry training and hot-reset a JMB585 on RK3399
+Date: Wed, 28 Oct 2026 17:31:17 +0000
+Message-ID: <20261028173117.3457220-1-ehbello@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028-h64-tpvperl-ab-skip@iav.lv>
-References: <20260911211559.207990-1-ehbello@gmail.com> <179196286749.38040.5597453767131590054.b4-reply@b4> <20261016-h64-pcie-resume-tpvperl@iav.lv> <20261028005548.2399155-1-ehbello@gmail.com> <20261028-h64-tpvperl-ab-skip@iav.lv>
+In-Reply-To: <ff204558-dc22-4d38-b0dc-2c727f983f9f@rock-chips.com>
+References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv> <4316c1da-f7ff-4fa5-a330-512800474e45@rock-chips.com> <20261026-rockchip-pcie-shawn-reply-1@iav.lv> <ff204558-dc22-4d38-b0dc-2c727f983f9f@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,20 +109,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 05:10:00 +0000, Igor Velkov wrote:
+You said both SErrors and synchronous external aborts occur. In my logs which
+of the two you get tracks the cluster the access runs on, which might be worth
+a look before you move the hook.
 
-> Since the next version keeps the full wait on resume, it no longer
-> changes the resume path, so I'll skip the A/B and test that version
-> on Helios64 instead: boots plus s2idle cycles, results in reply to it.
+Every asynchronous SError in rockchip_pcie_rd_conf landed on CPU4 or CPU5, the
+A72s, across six boots on two different kernels. The one time the same read
+aborted synchronously it was on CPU3, an A53. They also carry different ISS:
+0xbf000002 for these config-read aborts, against 0xbf000000 for the unrelated
+runtime SErrors on this board.
 
-Thank you -- that coverage is worth a lot, but hold off a little, because the
-shape is changing again.
+That is one synchronous case, so not a law, but it is cheap for you to test:
+pin enumeration to an A53 and see whether your aborts all become synchronous.
 
-Shawn Lin has asked for a DT property for the PERST# pulse rather than a
-decision taken in the driver, matching rockchip,perst-inactive-ms and
-rockchip,s2r-perst-inactive-ms in the vendor dwc driver, and I have agreed. So
-the version to test is that one, not the probe-only patch I was about to send.
+It matters because only the synchronous form can be repaired. When it arrives
+as an SError the load has retired and there is no destination register left to
+write all-ones into, so no fixup can help.
 
-Whether the default changes or stays at PCIE_T_PVPERL_MS is still open, so I
-will put the DT snippet to set on a Helios64 in the cover letter instead of
-leaving it to guesswork.
+I prototyped the synchronous half in September: an exception-table entry
+consulted from do_sea(), with the driver substituting the all-ones the PCI core
+expects rather than only surviving. arm32 has had that for years --
+imx6q_pcie_abort_handler() in dwc/pci-imx6.c decodes the faulting instruction
+and makes a read look like all-ones, under #ifdef CONFIG_ARM -- and arm64 has
+no equivalent path. It only ever worked for me with enumeration pinned to an
+A53, which is what made me look at the cluster in the first place.
+
+Not proposing anything, and not reviving that prototype. Yours if any of it
+is useful.
