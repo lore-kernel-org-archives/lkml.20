@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199931;
-	b=qpFfmsAjbn51yY+jHB6s5jIJY/w5IjogakPj/Gb0WzPTxfk/wqPwTj8f81PgTXH5uln8
-	 7dPp8K6Lbhiu8a6GM4FbCqk/m8XYqt+tJNk8CEtqILb3oH514xHk0Prk76y4D4zrhFoDc
-	 RrPfFmjaqlqKHmnGUF02K7Rk+aGQ3J+ivLo+TYizxEeVc8QOV48qs/0FyRYfvCFXSpxLP
-	 rahK4LeegvhmtmeeTJp4oy7uuXf/ZFA1hbg9pWmUlpDARGo/CrpiiORKohvrAMVAGQ2SI
-	 6Lox8+jiz+iHnUcivM8TyTMIEp04c5/XJBxaWBuvuu8oaD+5/evqaBg0bYm9aZMffWQ==
+	t=1793199974;
+	b=GtfaJg0wS+mo7/XaAaNHapouMzxGmGJwuRlUPAuxbporYvzWFfwqhpbVbyP+B8lf2DVL
+	 Ho/teaOOWHNUN8wrOYdB02Td+5xaHgxufTEmZYfFJzKWNn4NJ7HISH7V9MyklPqfrS8Pj
+	 4aOOgvlv7igNzPOPnE7QmEv9LPVlSH1xjgHFmFBBtVAg5IqsAq4/CkRt9H69UjWjYk2RP
+	 kEOWH1t0bTtoTuqkhvLZyz+ZjwheUoZQBlImxlyayEQ+iM0bIfK3TPbU4Epa/26YCwNH2
+	 LMDyG0u7y6D9gDRvYaXXLyX0wVmIc2dP+xGrkQqk/cpu9HGSqRJ3EYaSNr7G+Szm1FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199931;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=xOA7Zl1aMTn9XJPiIuz8sT8J949CRLW1Pl2E4Q887QxYvXZhf1Ck35QtNPvElAtYWAcf
-	 BbBA8K10fZB0cyWxcukZLN932DdhV3PvlNq+eQ/zZWiQ4SGz8SB2k6z4QnJd3JUPhn6gU
-	 OGUxPdTkEQcVlC7/69MoqUzFUxA5nduLaaIjn4CIUJ/4SpwTR1xcxca75RcXhpuzp9AFr
-	 Hk9yVJaI52u/KB+kPoSgyEEx4xbSQR+QPWJYUW0RQdyN3N5r+m6V7kPncLgMoDCrovbe7
-	 OMd1hfOancHDVPUbY3XPigrhPxjvRlGzJB9/XHXsnH48uXWoH7ftr0UUifCATtPkDsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199974;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Stat-Signature:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=DvMFBOuC+lE/7TfkLR3276yFGneJeApHjnS0pvtPb9I=;
+	b=h3+mZRDBsBNEOf3I1C8bQaAGSSLDzXA+69DHmkIbsWZzqvQ28nBTSUWyKel6gd8T90d7
+	 CdQcwsYJm16Ybw8ZPA9a6XXn2jr2UDB0N/uik12t0yBzLCRFM0XodqdYs4U/fJtlNukZA
+	 TWcMdXnNkffKkTKaR8OKvv27Y0wnGa5jXWgpTlxOafsB12neIMnUxT8O6gYCXLrIO758S
+	 d18eJQgK4ihLX+hYfaGfat4mlRym9DwLguVQ77Y/MSJWaTOeVV8VJpr7bbYDRZRHB+7dr
+	 pcqvFA88eF7ELQpHanPmAd+Vbi+zerhpJXRfcGE+cZVsh0RecUdOUOQeYYuKRKt2DRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ect+WvOu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="bQY/X0Fc";
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DE8606A31A;
-	Wed, 28 Oct 2026 15:05:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F59606A320;
+	Wed, 28 Oct 2026 15:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11F59606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ect+WvOu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F071F01825;
-	Wed, 28 Oct 2026 15:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199930;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ect+WvOuOqK0f6SE1IoGuIk+likqZQGP/v1d3udBySDda4TVYqV2X2rGI3ddq/2YD
-	 puh+x7b3kY6Z/UX43Ofsi/dUmPYqrMGXgJM8yLu0UqDoIe8quo6/rVYJ1DjBXRJunS
-	 D3XQusYkB1x1v+al0+p4fwDT6gJtducfVU+QBDuvl2Ai/flFCc3HD/Wnhg9lEvHmYA
-	 JrjDJ9FXOP1ZitinSzxZFQnQLiTHl9a9R3ymiWsaMX8357HCG0fwpdCJkWTRDQ72Xw
-	 eRmwBImOwIoB/ZHP40dh9n8m7w/u/Q2YyjStbPo710dolRJOxRAeUhl7+FSKueIXQo
-	 qtdU4zOkUd9Uw==
-From: netdev-bot+sinfo@kernel.org
-To: Thomas Fourier <fourier.thomas@gmail.com>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Oz Shlomo <ozsh@nvidia.com>,
- Roi Dayan <roid@nvidia.com>, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/mlx5e: TC, Fix double free of branch in failure
-Date: Wed, 28 Oct 2026 15:05:29 +0000
-Message-ID: <179319992946.3327.16474832196958485781@kernel.org>
-In-Reply-To: <20261028145805.54595-3-fourier.thomas@gmail.com>
-References: <20261028145805.54595-3-fourier.thomas@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bQY/X0Fc
+Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id CCFB54013B;
+	Wed, 28 Oct 2026 15:06:02 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id 258312002A;
+	Wed, 28 Oct 2026 15:06:01 +0000 (UTC)
+Date: Wed, 28 Oct 2026 11:05:58 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Yury Norov <yury.norov@gmail.com>
+Subject: [PATCH] lockdep: Add #include <linux/instruction_pointer.h> to
+ lockdep.h
+Message-ID: <20261028110558.623a92d1@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +58,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 258312002A
+X-Stat-Signature: s8c6b83ep6x5c1dj3m64fsoo9umt5y8b
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+bXBQkukfq2HEdWq8kVQu/rkCQi9JTMtE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=DvMFBOuC+lE/7TfkLR3276yFGneJeApHjnS0pvtPb9I=; b=bQY/X0FcZYVYDmWSL/UjMc1Tf1fAQlXzXasVZnCzgicLvi1yEWAFmGlhH6jdjVEmlO87+4AnE54u/DpMZYM06qASd6xIyaDV/Kw5PxjaMON9yVVHUqVN9vAEbW0ttTd9Z4cKuSWf3DH4fhBK4nYyF5xIUX6uXbaqfR0sk6LtoWk=
+X-HE-Tag: 1793199961-588814
+X-HE-Meta: U2FsdGVkX19l+BcAiKgtkwVZaosQG5l7SkCdUK6vqSqvTfauv80eX+p+EZ8r3Y3z6zJlPXraK7iOb5yo9E3s0Vvxb83y3/fPdTcqv30+qLjJ3hiquHqsu3erDaEpw1Z1mrJrtqWWVW+cqj7NvjjO2+cs/3WFL204kY9scJ5jcB1kpRQpmumJGILR6+a7yGWRCzK1bo2Hxlm0Cmwl+rABVuv9/tlFU/Q+DSC5iRcTjlzybM9f3mFoG2QXXVyAsP1trhiJYB1awdYUbghmeUsGSkpI78/BaPHUscrH06Lvvw4bpL3YsFNJ3g6EtDjXDmwIX1AYv4cYEIr4+lNeMAbFKO3kkOSH4QJu/AyZR37juEM4l1BlK9C42RSuXcBE6kyUhhQK6PsOsqem6Cr3BkM3WseScv5JIji3
 
-Hi!
+From: Steven Rostedt <rostedt@goodmis.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On 32bit x86, _THIS_IP_ is not defined in asm/linkage.h. It happens to get
+included into lockdep.h via kernel.h pulling in trace_printk.h which
+includes instruction_pointer.h that has _THIS_IP_ defined when linkage.h
+does not.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+In order to remove trace_printk.h from kernel.h, have lockdep.h include
+instruction_pointer.h directly.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ include/linux/lockdep.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+index a6451ecbbe9a..c6b0168f5fc9 100644
+--- a/include/linux/lockdep.h
++++ b/include/linux/lockdep.h
+@@ -22,6 +22,7 @@ struct task_struct;
+ #include <linux/list.h>
+ #include <linux/debug_locks.h>
+ #include <linux/stacktrace.h>
++#include <linux/instruction_pointer.h> /* In case _THIS_IP_ isn't defined */
+ 
+ static inline void lockdep_copy_map(struct lockdep_map *to,
+ 				    struct lockdep_map *from)
+-- 
+2.53.0
+
