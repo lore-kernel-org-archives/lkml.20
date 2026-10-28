@@ -1,70 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219961;
-	b=ALmWiXB4XqqFPzm0S1fuF8jeYVqLhrM5VDZBDhK5ua2cdCroe/JZITwS95xXy7yIJ/Zk
-	 X57b3pPVWAZW3vUX1SO4PKA1euDPeDiRpH8joo69khm+U6b2kHtp2mjs31no+u44hjHLh
-	 xXLj2TZXb1ItBzcepNGdXjbwrgEiTSQzOUVbN7ZiSArqEzcvdH6mAhC2tugxAhA1aFDPS
-	 e+FQ8mRHYYCyQKiIgtr1gheKe/D67sECgXSoz9nyvJI5JcyDDePKs2eDb12/mE832+sGV
-	 qibljx6Gbg4BIhd49EljH3wSu7Ndv9AU6HEgL1B7QYBAV9JLjEfWT+TVAtkjBcD27PQ==
+	t=1793220060;
+	b=RPlD3d/P5w/FetID6qxntAFRnT2VZ88HNTxn87Wa/BDypFT5YsBsUK2i5LHosKiNZxvT
+	 uHHB2pLWPRkOW0Et6xmdeMC1oKmc2MHwKwJ29CDdXVdnzvLCNlB6uPFCG3N3D/DawJ/K+
+	 2s4R9CJu/jhfUKVvrakmog2Fz1QVvzhHe5jLzhhV0Rx7ia4r+UTOmnQ8yKXG2QlFqV28t
+	 nw3cPV65DUZ/2czHMMxDF9b0ZB26SmKiv42r8kFvju5EK2QDsvJ1uM5v0Arw3U0JfFPpK
+	 CzjdOKXpfy1IFsHbP9ItIsL7kTDNncHZZsw24mMA8g56UYN6nthEiz6kcwNXbG+kgTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219961;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AsqdEmF/8xgiYYNQxurq8Pu831i2D78zYIQi5P7Tf4Y=;
-	b=cBnLOM3nt2VbyeYxVWrPRuGsNcTno4CHL474/+GANZZWFn/FuIx1pSz55CnR9rJoRVjC
-	 v4e7pVl0KyMp463r9de9uZoT07NjRLpInNYpZ6QmSgoxwWwciXYnnTTxpV7sYIuVdbHHQ
-	 1vVvK6dW0mQaIi5NX4oTJxbN+kaG+0jNOsHpPxnve8bfFHKzZ+Hc/ea0yiLzTtXoKjfNc
-	 rVFRINqE/GXAJU8jZ8r738i+Z0JpxXo2jfUf0sHYIv0OIs2fv/KvRHPw5kL4bm+XWTDcK
-	 TWp3N5aeh5Zav/dIgHcjuADrAsQjv4cU2c3sLGSwm+qeMWxT6k1B3ltGtn2pYda2jyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220060;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=yoRbYSaEgyXzc6e4eII2kRWFOGhXHWDdsx8aEjPIx8k=;
+	b=sH1Qt0/laI9Ue5HsurEmHfwzuYZqVaTALVC23TOQ+fmPAFHDipxMIsdDeMtaHopOoFj1
+	 6EKPniU4PRWs0ge/HrxaG2x53CXZW06uxfSeSxzb0SmYisW73fTIOHkpsBhdNtexXNkgk
+	 cwNsNKAwdQKhwndrVhCdXTFD2Rc11m/+72rDk+VNSbzAwpDIA3JqsGROMkGxPV/b+iWru
+	 +ncsIFtZJCk3kmzEV4p0BizV49wsZE57m58ycqTFRKSh5Ruchu9px0legETmTRHInAjpK
+	 y2WRVIvh8RBR7DR6cjs72R2+MaUcognIGlh6bpHD7WenCjYwiuvDdv5atcPKz/eEcuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqx26p+E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZAKjsqk0;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81556606A31F;
-	Wed, 28 Oct 2026 20:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B34F606A31A;
+	Wed, 28 Oct 2026 20:40:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B34F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqx26p+E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396B91F01825;
-	Wed, 28 Oct 2026 20:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793219961;
-	bh=AsqdEmF/8xgiYYNQxurq8Pu831i2D78zYIQi5P7Tf4Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fqx26p+E27bygQewzuLIfxb6QTpK/NxrA49m9reuHlYzNigciYcfpcPAaRIjE/Zwf
-	 +juQW8+wbymRhgMNADixLLDfSfFAErufxe/uak5P4Wnya+Bp/RIR+lQVsF6vsYI/fd
-	 VfUEorRBkx3Cztwl82JuOnswBQ5JfeivCzJyA7ZR+DYdMe42u69sAdYd3JHCMJTNPc
-	 z+JyQfvRr3Ybt/qheGHUbQeyB+wc6jx/YEwmiV4NfGBgTrhFDjOV8fQt6YB90g/Kva
-	 C1Dd7/M7na+xkJ5LMMhZnHrB1ZHG0o9gqs5u2bE26ODIstaqBO9DT6a+oRciD9Md9i
-	 kYq6RUXDla5aw==
-From: Sasha Levin <sashal@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Wentao Zhang <wentaoz5@illinois.edu>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Chuck Wolber <chuck@wolber.net>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	kasan-dev@googlegroups.com,
-	linux-kbuild@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Marco Elver <elver@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolas Schier <nsc@kernel.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [RFC PATCH 16/20] coverage: add MC/DC measurement
-Date: Wed, 28 Oct 2026 16:39:17 -0400
-Message-ID: <20261028203918.2355157-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028191432.GA669102@ax162>
-References: <20261028120034.871983-1-sashal@kernel.org> <20261028120034.871983-17-sashal@kernel.org> <20261028191432.GA669102@ax162>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZAKjsqk0
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BAD6440E04D1;
+	Wed, 28 Oct 2026 20:40:56 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id oFQJ2xt0nLro; Wed, 28 Oct 2026 20:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793220053; bh=yoRbYSaEgyXzc6e4eII2kRWFOGhXHWDdsx8aEjPIx8k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZAKjsqk0cTygPtU/kDghBcuIGhFMCS84Awt0EwTtmQEhZF5MrJ7xcB1LO4CqxRwW6
+	 72wG9CvVgWAfABYQqRzzrnN2rbcyAV6mEYdWM6sjuqOqKc0CyDBS1La+FaLbOmZNIh
+	 svy2CJPksG7MKu9+6vPRLY0Lba59Qqxm3KKM04VwqAL5dDj3w+4JIByQKkRNdDQGX6
+	 TB1MfxRc+ENserpSVcw4M7CVJtpnZpjWyhKV4soWtzYVMG0aLwZiNblrgONB3TWvLi
+	 Di0ciOrNJbXkujeJTKYbfHj72KUaEtNZcBGgy/vfVkN8Y3ssN1ueFPpQ/sCQR6frgw
+	 aOpVH9wrEoFpP9jxpM9tZ/gQw3iaZjKFxPAMPQY2SFBAadnTDsdiePUfy/0dVjO+TV
+	 qUVp0uEX6a4TCETBbUEsuOzaTAdTfFqnevp9drgWGzWY1kEQ6BeOm0C+56/M/nglt2
+	 07WYg3/SF9T/7L7e0ye6JTTBRLvWPSt6q5tZRKaspHa8GMlmrArPtRiJfoFRzWrhgD
+	 H+84+xAUO3lpdvVsPix8lbCG3sp9GBgFaapca9c6WQqfRIUOftQyioiP3rKDxNEohA
+	 olp7mbAE9aPi/YYnHWRmekEo5P1K9PaMb3NBSIWx9F1+YHBFWTU2ePXfL5zd7OJfXq
+	 fGU5pj8pQHhMNCa0wpEib0X8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E78A740E021A;
+	Wed, 28 Oct 2026 20:40:38 +0000 (UTC)
+Date: Wed, 28 Oct 2026 13:40:34 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: s1nkhole <dedemorow@gmail.com>
+Cc: dave.hansen@intel.com, x86@kernel.org,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, hpa@zytor.com,
+	Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>,
+	Brian Gerst <brgerst@gmail.com>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/entry/32: Harden return-to-user
+Message-ID: <20261028204034.GEauJdwqPRlPoAoaYe@fat_crate.local>
+References: <ac147f25-a2d3-46b9-89c5-44a1c0e4f038@intel.com>
+ <20261028192139.32606-1-dedemorow@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,25 +86,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028192139.32606-1-dedemorow@gmail.com>
 
-On Wed, Oct 28, 2026 at 12:14:32PM -0700, Nathan Chancellor wrote:
->On Wed, Oct 28, 2026 at 07:59:40AM -0400, Sasha Levin wrote:
->> Larger decisions, and decisions the compiler can't instrument, produce
->> warnings. Starting with Clang 22 they are kept from becoming errors
->> with CONFIG_WERROR; older versions can't be used together with it.
->
->What is the reason for keeping these warnings in the build as opposed to
->just disabling them altogether? Are developers expected to address them
->and if so, how? It seems odd to keep them in the build but prevent them
->from breaking the build unless they are not intended to be acted on, in
->which case they should just be disabled outright.
+On Wed, Oct 28, 2026 at 10:21:39PM +0300, s1nkhole wrote:
+> If you have a moment: this is my first work on arch/x86, and I would like
+> to contribute something that is actually useful. Is there a small task
+> in x86/entry or in kernel hardening that you would suggest as a better
+> starting point, or a place where help with testing or review would be
+> welcome? I can build and run kernels under QEMU.
 
-They're not meant to be acted on. Clang only put them in a warning group
-(-Wpgo-coverage) in 22, so before that there was no way to turn them
-off, which is why I just left them on. I'll disable them in v2 where
-Clang allows it.
+Review and testing is always welcome. As you can see, we're drowning in
+patches. What we're not drowning in is reviewers who poke at submitted patches
+critically and ask nasty questions.
+
+And nowadays, reviewers even have help from Sashiko's LLM so doing that should
+be even easier.
+
+Thx.
 
 -- 
-Thanks,
-Sasha
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
