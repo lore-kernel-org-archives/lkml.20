@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.147.86
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217528;
-	b=5nnaSZSj5xLFmqfzmxwJUb3kBMXEM6zn3usnfqTEiDRvUBUMWMS8YhfsoyM/7w3sEZXe
-	 y3/OYoSOZAmYePeb3FI4bYARP7af8QU6Fh1hu0GkyvTWSA/BFUu92vN7XJ9CLjG5bQasj
-	 b86uWX2TomNaRtz/M7gbFmbmGvA9cFWxt5dbYLBTDQFM+Ei9kS69X3WGo9scSIYSk554H
-	 eptPuab8UNpScmcZX8HnC3FYrTkMK+STiUoza7BOer32s1MmeVdz/1GjCj6kJSMLGlU9O
-	 ufi7gcu68hWSVQNLqmsodFis0v8EqbasuaRonqvgUIfWCqp85Pk24O893isDgonrdiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217528;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=mxn1gPj22FgO4CHzh182HhTBDqh1nVgenq0MpGHWIDw=;
-	b=GCJnjyb/hfnNStV91mNUXKnQaqw8M/aD54FoB18qV1/OfraPKrxeyizjO4ZHN0ARPBKQ
-	 oK6JKEObnaTaOQ2ZwqVjvGIEeEEIXVKyoasF1d8PvfgtF82Qw12le8SMlkWCqf2qvmxsx
-	 y27ZmfvL1ZXf68XBBYA4S7v4aaJSUWLegSVsNXvsc0xjLAWe/PZxzy+tve021Z8UkpICM
-	 EQLtatngHewyHLU9hz7Wa6rJW62xjD2ko/JM2jpMdzCLq9BAtmMCflW/3Qq+1l+NnnmHZ
-	 lcHbbjgmsHS/2/TnU/gglNw7D5+TwUUiSLYC0uJarM0Fzo5ZlVJjKMqZs3YRBDfq3dw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hpe.com;
-	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=a0BBNXVP;
-	arc=none smtp.remote-ip=148.163.147.86
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793217564;
+	b=umzuRwBRiKV+/R7GHsxov5NISsb/mF2Cm+JZ4Dc7/fAT7ToEsMJDlitt0kDUXxi1E9zZ
+	 txFtHxoPWbqj1ts2ABU2aiIOosPZ2hqTnzuPwnpfwDoPPDWsw5kw5DLuh31b5RRAVD0af
+	 Fm6utMn9hGWxQzBRdmGdabEWVqAWkK44f43G70LPzke0ybncOpn8xcT5hc4N0+0PKBJOD
+	 BYlD+D7ZEZOZciIy4UeLBKkz5fbHB7/CLBj0XSB4aDawITNnN+DLLuMyNe44ibMV3DLWU
+	 fv6/E5KzzsaFH+jqQAEQ3VXTKmzD2AZvwYh/yrAO9hqo+DIg7qZhbrxbEuhQbz3UZFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KNPolz4ZvstX96ia0adxYWJ+Q8YCwfoUsBDxmY4GZ/g=;
+	b=PL+QV7wFKebglLthES8jyOz655HSbaqI+1/n6n3G1HC5oRP6a6XGt/Cq0YKoybU6jGrW
+	 B/wBPqSKNV3wCHbahAcTgyFw32KGkiNcjwYkwC9XpyRwjiao9ifqCq8xiYya+EKLmfXH5
+	 QzLUyFs9HdiVMjof2ZVhdLrzArmSt+H0rWF3ll9RWeJHlBl4niWMIRLKUPDOn+XNv31cV
+	 zdPjsPwXCcLtC/2VSmpH3SMpQ21FcMM/cx9b5Rnm33USR5m1mGn1fySpgr6MF4SzxxfJx
+	 38BnPi6kisRYKyn5GyhmTK4qCKCzNqLdFwoAf5gnKlWcDZ+R9HW4/xwdTdrys+PT5bw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gCjriWQL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69256606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69256606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED594606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED594606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=a0BBNXVP
-Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SJsbHu366361;
-	Wed, 28 Oct 2026 19:58:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps0720; bh=mx
-	n1gPj22FgO4CHzh182HhTBDqh1nVgenq0MpGHWIDw=; b=a0BBNXVP6H7afAK2Ft
-	+riufGzoGCdC7786X2z3iMQdbaH5a+QAj8mlH7PPwiGeocDTGiKl0ifSgmY7mBLS
-	msQtCHtF2loCGxBS9puCbeGBqm7wuqZ4KYNBBC7iJ2MoVQc2KZGP75VgmxdSg0jk
-	LwovtXQOthmCJyF88iOm6xoZ8XRaV+YB0zjFHgIWSXRTM8ml2FNW+CeS/F0Eu2ll
-	pH3oHeB7rToYBjExauJ3lvnegFKkKo33IzLDh5J3iJbu7t2reegleM/WndD6GNem
-	wI1bWwTHwuQVGpYitpnjjF8mrhfqFwJ/rAPuNv95ydvYgZbTITgmTheUGmNRfvqm
-	nodA==
-Received: from p1lg14880.it.hpe.com (p1lg14880.it.hpe.com [16.230.97.201])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hkqg9g57e-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 19:58:17 +0000 (GMT)
-Received: from p1lg14885.dc01.its.hpecorp.net (unknown [10.119.18.236])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by p1lg14880.it.hpe.com (Postfix) with ESMTPS id 0879C800EE5;
-	Wed, 28 Oct 2026 19:58:17 +0000 (UTC)
-Received: from swahl-home.5wahls.com (unknown [16.231.227.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by p1lg14885.dc01.its.hpecorp.net (Postfix) with ESMTPS id D2B9E801FD0;
-	Wed, 28 Oct 2026 19:58:14 +0000 (UTC)
-Date: Wed, 28 Oct 2026 14:58:12 -0500
-From: Steve Wahl <steve.wahl@hpe.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Dave Hansen <dave.hansen@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
-        x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, steve.wahl@hpe.com, justin.ernst@hpe.com,
-        kyle.meyer@hpe.com, dimitri.sivanich@hpe.com, russ.anderson@hpe.com,
-        linux-kernel@vger.kernel.org, mhiramat@kernel.org,
-        Matt Mullins <mmullins@fb.com>
-Subject: Re: [PATCH] x86: Drop KGDB support
-Message-ID: <auJT1Ld3urbqaeA0@swahl-home.5wahls.com>
-References: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net>
- <28F95BAB-6D5B-4C70-A9F2-14B752EBF022@zytor.com>
- <20261028142625.GU2668564@noisy.programming.kicks-ass.net>
- <27a7b4b6-23da-4469-9161-2ce44e8ac2a9@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gCjriWQL
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-535f598d126so8831cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:59:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793217563; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ejQVMFBVlfs2vvnbG6F1NDTUJ50vGS4/BH9hhQ6mjt9O8/l5XjKU6SOWfmoD1LbEKT
+         J92y4IK6cPd/OniRkxMJGxI44FvXcF4dDyooqdPl7iuWgP1Z0ITLa5IBaY51ipmmFH02
+         By0lK73lYv4T1w+Zk4PMomIXtx1NHg6HokbkXGMi9/eLcRo0uclp+OczZPnsmJsoNF4s
+         OdLQVAhUA2uJrD+B6TeyXD//3Wy2HVJyYyGMvwapRXqe4w2oAebM2bbSMMs4hqNWIIvH
+         sI8NmkbyxytP9P+MtSwgGW3t+JRCq2mWDMkM3AiLvh/D5vOKluD8MzCluBGG6aY9Jg8s
+         TR9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KNPolz4ZvstX96ia0adxYWJ+Q8YCwfoUsBDxmY4GZ/g=;
+        fh=M0tP/nr3g9KPL9We3QVkooe6M7h/T/WVaMmdKBwNBu8=;
+        b=NmAXdUTcMhGSd/aeSOhsFDM5H5y4ly0UsYCpUwJsaRqJ6tEXZ+aJNxsNaWQUPcYGVQ
+         2127hSwB3deBtyL7YtwVB6r+ywxyqB2gpM41zVK6iqKM0tA4o6GIBO1TVGutfvrFtG+M
+         AHsPp6B6gi+xvXdjlMYOpJUpxXBzzYEs2rulQsG3gWvBo4kDkSnzKsP1muIQtEydWqxj
+         t/V904UzxcXxPSeVcqpCJ938Z4H27VbiK2IC2uVqUBEjubEB8BF8+HWyDqN5MllOzgoF
+         2LroOWpzuev40cHCbhEjSbBP+z4uIh5mGSAxA9vt2VCQUMjRjfcMoiocr3YWzmjJlCkF
+         nQ+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793217563; x=1793822363; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KNPolz4ZvstX96ia0adxYWJ+Q8YCwfoUsBDxmY4GZ/g=;
+        b=gCjriWQLQo2QvHH5JTfWBFdwWXcomYNyjYW7ZcE4DfNTnnabubGbcuv5TLXSpg9Cgc
+         WX5X8EXcCS64I8UTPo+5tYP1xFIrho21VEn5ITbIPcwa5MlX3TNi2HEUH9xAG/uIh0p+
+         /CFb6qZJ28eo8GCSMNw6be/XK86w47lT+ZGGezFfXnuvOGdoWMuP3bexz8+YZdjw63Gg
+         BiD5nkw10JRLzR/s64bohuksvrG8P3Eqhk/p/8lpvPVBBghyvYaWQjQbi7rtyWc3Kz7B
+         pFh1x3lH1zeYVdHOjyLbVvYJgYgUnAOIrVL0E0kuocfo7/urV+TDqxqpa/APfSlLh9vL
+         GC6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793217563; x=1793822363;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KNPolz4ZvstX96ia0adxYWJ+Q8YCwfoUsBDxmY4GZ/g=;
+        b=ihU/wig3eTLbIZ+zwKtDJv7cuNJe/g2OVlQIIZTocP7jeb7OVTekrc8TJ4xV11rmkf
+         ryR52rKg+6XblpLD/FfAI8XL3yw8rYu7wT8Uk4bRU/onb2vLCb8sP3QED+vg9wzCI44n
+         zd7Xl7kzLC724Wv7ZsqpjInIemvJUPIZF7I1mlbTmlzGXKBO3xVar6k459M5jVCI423g
+         CAjNkNbgIOkCVsPH/BC/OmQVnxp39U535mjjofTpjUSTAdDlgQNEwjDvSwjI/4iM2X6B
+         yqeufQp5+vKDmH4ECeDJu4qfagEZCtMPsbtbAz5nfUwCbX3wgBZwo8dXHZbfuyEtUo2e
+         hWWA==
+X-Forwarded-Encrypted: i=1; AKwUvByj2aWy7GErzHfn1pRo7H/FPeUzudTRjCGyK9Z8LJFQngZKtx28FsMw9MUBT8B/uFstzjCLaWUtsMjnQl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+ru5Dz3e5ZbXR6YxwpL56q//ZuynkVVpVroLhYGViFzTfpDO/
+	VSbjtBiUU1IFKS8FA8AaK35Vw/Ns6lnIHcSJbSnQdyoFfldd/edpgG2qWoTzl92LXqPbMuOnbHB
+	LuyFe17JuE1fBpwpC7UgygEKy3BxJkDIavSTbrOSt
+X-Gm-Gg: AYBFou0sdndAN2UjxyMjGWx763GuhchWiRe/WQ3b/TSyhFF0VI+EMQxhyd2Zfb11mMj
+	OR+sSlTAhh1HIAG58OxtKZbBQc1LNTKzffXJeAUDhySwhXIssXcYK5lPL5O9NGb+baBakvt9GJc
+	MGH2iwePohVeu4iXW3MMtOMD0OqIXY5P//NDKQTHK6xFgGRICWVipIdPZukW+UKndjtbWdUruza
+	XC1AD9PH81UbDv5zuMEuW+3TSqTmYYdlt2Zvwv/ZDMCtTOOTY2+sw8HNgp8App/7PuqbN2km6gM
+	NA26pbZA6mV75swSEAp2xe1DnWcEtWuD89PC9iQFMFziqhyWJxezasfcp/x/80jbZwz3Qf7vKCj
+	4zcqATnrXRv+DQsMRwGtutpabR65fzEb3rWab7ebf862CRt0JWiki7j5cRWYBbSXk0A==
+X-Received: by 2002:ac8:690d:0:b0:534:b7b2:634f with SMTP id
+ d75a77b69052e-5414d92c15bmr762701cf.8.1793217562021; Wed, 28 Oct 2026
+ 12:59:22 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,94 +104,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27a7b4b6-23da-4469-9161-2ce44e8ac2a9@intel.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA3OSBTYWx0ZWRfX8+gXezlWbCQ8
- dx39el5Lb2LTwAPlZZzRaXOES96OC/yweZQsY4I1+xPtqmrCNykxHgcZiLp6oRZFnS+hYw2Fps3
- m+sQSVJz+1dDzRmGhgQ1iw4053DCiD4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA3OSBTYWx0ZWRfX27WTJ9768x1x
- haaxZbk8T/AAPF3P0dNyPG4a6K6FVqJt6akwClekFBRmRba46JJwzLxo/Jl/xJF4JcKTjdv7W2/
- BTFMlZ2TravZgFTLiM4ka245tkyVgt8K0msXM+27VJOEpJI9yPC7GWx71Syzr5VGitdSkvlzl3V
- a32X3QXQ+WdifodCGo7wEA8MFkoccz7OwyzB9dzGbZ3Qep6zdPjSPo7ycG9iBu8CHIAQhMES4wq
- fdrnNse+vpgfTk8mLhRkQRoNf3afx9gX2yyFL9Cu+Fa/qNJv71tsV2ZNVKPsUbJpDga1TCWvVUg
- nec6oSp+BWVxq9BIN54BhUmDiYC5eEC3moJq2YHAoKfOrmDW4mXPB0ABCb1C+p98eT4EQcHnkIM
- PZET9+YmpexDmj8JOKZZZel5GlXqrb4VmAeCnjj+K4iO1yxShULuTttY/OcgNLvQ9y2ECi1cPHx
- R+PWFtwKqW8PjtYZ7lw==
-X-Authority-Analysis: v=2.4 cv=D+rSufRj c=1 sm=1 tr=0 ts=6ae253d9 cx=c_pps
- a=A+SOMQ4XYIH4HgQ50p3F5Q==:117 a=A+SOMQ4XYIH4HgQ50p3F5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=gQcMVamqm3wCPoSYhaRC:22 a=RtSn8ETxjE2H05FtM2s8:22 a=FOH2dFAWAAAA:8
- a=UFJLJSR3RhnZXnddWiwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: qi1u9XgnMma0c6vVmjJ5H3o1CSRxFjyY
-X-Proofpoint-ORIG-GUID: qi1u9XgnMma0c6vVmjJ5H3o1CSRxFjyY
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1011 adultscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280079
+References: <20261028051312.1505295-1-surenb@google.com> <auHK3k-W4gfL_MhI@pedro-suse.tail5790ac.ts.net>
+ <auJO9al4lmAczLAu@pedro-suse.tail5790ac.ts.net>
+In-Reply-To: <auJO9al4lmAczLAu@pedro-suse.tail5790ac.ts.net>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 28 Oct 2026 12:59:10 -0700
+X-Gm-Features: AclHuK9-6O7OXV5NH16IYTfE9EYxAq4xHV33LgQLBVE22ks0KWFvxZhPdcny1CQ
+Message-ID: <CAJuCfpHAFXDXs4ZBrd8C=8hkQdJxcWCz+DER5BG_Ki0ndGpf9w@mail.gmail.com>
+Subject: Re: [PATCH 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
+ tearing tests
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	jannh@google.com, liam@infradead.org, willy@infradead.org, paulmck@kernel.org, 
+	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
+	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 08:10:54AM -0700, Dave Hansen wrote:
-> On 10/28/26 07:26, Peter Zijlstra wrote:
-> ...
-> > Also, when was the last time you used KGDB? I think I've tried it once,
-> > some 20 years ago, and haven't bothered since -- it was *that* good 🙂
-> 
-> I can't remember the last time I used it. I also grepped through all of
-> my stashed-away kernel configs I've been using for the past 15 or so
-> years. The only place I even see it configured in is in distro-derived
-> configs. None of my trimmed down debug configs.
-> 
-> There seems to be approximately one clear commit that shows anyone using
-> the x86 kgdb.c in the last decade:
-> 
-> 	commit 71ab8323cc357c68985a2d6fc6cfc22b1dbbc1c3
-> 	Author: Matt Mullins <mmullins@fb.com>
-> 	Date:   Fri May 31 12:47:54 2019 -0700
-> 
-> 	    x86/kgdb: Return 0 from kgdb_arch_set_breakpoint()
-> 
-> The only question for me at this point would be whether we should just
-> config it out for a couple of releases rather than removing it outright.
+On Wed, Oct 28, 2026 at 12:42=E2=80=AFPM Pedro Falcato <pfalcato@suse.de> w=
+rote:
+>
+> On Wed, Oct 28, 2026 at 10:14:19AM +0000, Pedro Falcato wrote:
+> > On Tue, Oct 27, 2026 at 10:13:12PM -0700, Suren Baghdasaryan wrote:
+> > > Pss metrics can be affected by map count even if VMA tree stays uncha=
+nged,
+> > > therefore test checking VMA tree integrity can't use them. Use Rss in=
+stead
+> > > and pre-populate the VMAs so that Rss changes if a VMA gets skipped o=
+r
+> > > double-counted.
+> > >
+> > > Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tear=
+ing tests")
+> > > Reported-by: kernel test robot <yi1.lai@intel.com>
+> > > Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@inte=
+l.com
+> > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> >
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>
+> Actually, now I'm wondering: isn't Rss also flaky if memory pressure occu=
+rs?
 
-I have never used kgdb, but kdb is a different story.  I originally
-reacted quite poorly to this patch, assuming from what was changed
-in uv_nmi.c that both kgdb and kdb were being removed.
+True. Sashiko's findings are also interesting, so I'll need to figure
+out more robust ways to test smaps_rollup. I will post an update once
+I figure it out.
+Andrew, if this test failure is causing issues in the meantime, please
+feel free to remove the ca5480fb53fa patch until I get a better
+version out.
+Thanks!
 
-I would like to see the kdb action remain in uv_nmi.c, even when
-removing kgdb.  Is there a good reason why both were removed?
-
-There have been a number of times over the past few years, on large
-cpu count systems that aren't easy to configure for VM usage, where
-I have a problem that wedges the system or leaves it unresponsive,
-and I enable kdb, reproduce the problem, enter kdb via uv_nmi, just
-to dump the stack of all processors and find out what they are
-doing, and check other things that I can get to with kdb.
-
-It's a much lighter weight tool than taking a kdump and bringing it
-up under crash, and the additional information you can gather from a
-live debugger is sometimes useful.
-
-For an example, I recently used this method to discover that at
-least one version of Intel's MPI library likes to read up
-/proc/kallsyms from each of the processes it starts, and somewhere
-north of 1000's of processors the atomic increment on opening
-kallsyms, implemented with a compare-exchange, becomes a hot lock
-and initialization that takes little time on a smaller number of
-processors, suddenly balloons to half an hour.
-
-There may be other tools I could use to get the same information,
-but certainly the existence of the uv_nmi kdb is quite useful and
-expedient.  I don't want to see the kdb action removed from
-uv_nmi.c.
-
-Thanks for consideration,
-
---> Steve Wahl
--- 
-Steve Wahl, Hewlett Packard Enterprise
+>
+> --
+> Pedro
