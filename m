@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205434;
-	b=yAs45H154L2DSiNpd6qjlNW6YVFmfvZ9dMZMEdT6Cl/r/oT5MXVewKpKBTv31C5+EqzM
-	 IN+5LnXdlg0MoZ2wyfw/Kt2JihRCyR/ALclTbKM3rbeTg7dFBjnrgKq4FqHbKJJOpxDQ3
-	 AVa2+LsnOvXvc2oFlMrIctLKZGBynkQV0kKhTPZuOpwYl3uaFONTxbllx8/fE0TeRUXVK
-	 HjjdviXD+d7sX8xq9trMqIRkGu8e1YYa84qzVdVxOSGoZ82YAOv9ZcFVuA9fnZBsjO+7X
-	 3r7/krR3RT+V/FzU4J83yjTTX/ChcV92ug39EgdFvP1OMweyAUuy+zJwerqcH4ut2jA==
+	t=1793205426;
+	b=kRkdiLxVZAbzunMBTkyORwycyOZ3pct/zdQ6CjOjvNzcl3D1VkH8FucPC7VviuAgpxUg
+	 uTPFRpxN/p7iwaOQEZFksevHiov/HyoX9ImvX57rbnIgfVzc5IPdbjLd3NB4mePqWOX5X
+	 r2Qju72YcZc7DyvTYoRNy8K+8nmVjemQD3klXetzqhgeOSSKV63dvlugy9Q59vYneKT/X
+	 e3agELiZo45FAHd2r5ab3WbImuqSpEjsltnqGMAqpPxV1QYy9vmLRb9fyyvzb9RH4uPyX
+	 NEhMJOIar2LELgLtv5QbXVVgYi7ZDj0ARseDXf9pBOR4tLcghTKK6SlxrIn2FDDU9cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205434;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205426;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yIBbdyH3VXoz5kksRGrcB3iYEpjFONN2X88/N729b7w=;
-	b=z1AWAxoGsyRN7SaiPljeJWjKmx+K1TfuSTvqUuPam2Lv9bhZK8WZB/Ba8e+NAmoF4fxM
-	 V/pQMuCBZMqDj/j1kH7BLyF4FEsxZaF2Kmn2hY16ZRd8zhNiNjglTpr0xVfmMUIqYsVdJ
-	 Wo7q9wGHY3hzbgyF+tX8kN5ejHKN9RdmsDBPrE4Tb/mIu8eZTK3exKQ/B2i97SRfQ7Et2
-	 SE7ytnXr2sNCcgrjd/jdK5/3iBbAd0E96d3BvVsEYpOgqHthpc1q3JU4C6ThMcjHVjReW
-	 9OPBFxsj/i8BxgpA8cTgo0Lz0sHccEUYIIbgURn3b5sz8N3g0yBM1/rhXzYecqPV9Rw==
+	bh=IeKCWYqKtpgcUC5RjMP5MhUXklCYoTSB6U5/g/mI5U0=;
+	b=zMPw8kfSnl1707Jdnn4kTOX36uHtsTQUzZr6UcLOEasjWhT6/VX2Sh2ZCAKP+AfPje4L
+	 ODq99q9h94P3eWVrunkscRZlxJg6vZoxpgcWg3hiGWll0a+TMyagJo0HOT6O8WUTdjtys
+	 7NJ99ZDaBHktn1nqlPYSwpZLxw5IDGi2ZjWXZ4hkc1SyjrDl1G7Rty/8oouAHdn3HwyX2
+	 pOxfqKxQyEYElwjZBUvlqArk9MmFvruK/Eokq6DPY1ljvRZ3d1vrHp3RaEBEV28QP8YmR
+	 3/CHZfrm6DYWDDMAnhWrHbVaSew31ALWWmboM9EjCP3rvItNnm1zcrHXYcZvj6WQSIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TY5pnjQW;
-	arc=none smtp.remote-ip=95.215.58.35
-Received: from mta1.migadu.com (out-35.mta1.migadu.com [95.215.58.35])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mrodQFGh;
+	arc=none smtp.remote-ip=91.218.175.35
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B0E606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:37:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B0E606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F3B606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F3B606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TY5pnjQW
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mrodQFGh
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EL4wI9r36SXGoiLZdY7tMjUY+kK/UAknqR7XBHxJ+cI=;
+DKIM-Signature: a=rsa-sha256; bh=rwAk+4Aqr+h4kiwUztmmplnKDDREVPn5UXbfGAbBQ20=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205431; v=1; x=1793810231;
- b=TY5pnjQWSIAFfWo3gOrHT9B8tGeQ7aVgHuFoIfDUfq8Qbb7F1vWh5vKG/OB16DdM5q96yY3d
- pdMnPM9uW7Gj3RPByAK7CNdGdiy1k5rdaCbaqq997FLzL7wzWJQEUkvuaL0XqyTpUgU7kYjPGx6
- eVEA1TYZPQ6Y+dqS2utLEC6M=
+ t=1793205423; v=1; x=1793810223;
+ b=mrodQFGhEoANrDKmpR/KNb3DqXnucAx0Aae+cMqDDhwXMZKWMeiTGk5u2HilJUzMzErI+MxO
+ bmp7v71FI3B+M7a1Ah6xUw3ZnzGAhNago7mZ1TQKzXyGlE4X9Sy4V9khDns74HWKBNssjWj1SSH
+ t90Wt4kgmOo7cCgK86hVnieY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 092b8aa10bf1cf43;
-	Wed, 28 Oct 2026 16:37:11 +0000
-X-Mizu-Trace-ID: 092b8aa10bf1cf43
+Received: by mta11.migadu.com with ESMTPS id 78de5ec23f4d5cb7;
+	Wed, 28 Oct 2026 16:37:03 +0000
+X-Mizu-Trace-ID: 78de5ec23f4d5cb7
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Joel Granados <joel.granados@kernel.org>
 Cc: Wen Yang <wen.yang@linux.dev>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 16/39] sysctl: store RPC sysctl bounds by value
-Date: Thu, 29 Oct 2026 00:34:55 +0800
-Message-Id: <72a22bf4aae7f5732f4ec2da349a84326e0a3bee.1793204511.git.wen.yang@linux.dev>
+Subject: [RFC PATCH 15/39] sysctl: store netfilter scalar sysctl bounds by value
+Date: Thu, 29 Oct 2026 00:34:54 +0800
+Message-Id: <364fcbdb84cf987c945fdda85f90198d9ca61bf9.1793204511.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
 References: <cover.1793204511.git.wen.yang@linux.dev>
@@ -71,271 +71,151 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Replace RPC bound pointers with numeric limits.
+Replace netfilter bound pointers with numeric limits.
 
 Suggested-by: Joel Granados <joel.granados@kernel.org>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- net/sunrpc/xprtrdma/svc_rdma.c  | 39 ++++++++++++++-------------------
- net/sunrpc/xprtrdma/transport.c | 27 +++++++++--------------
- net/sunrpc/xprtsock.c           | 26 +++++++++-------------
- 3 files changed, 36 insertions(+), 56 deletions(-)
+ net/netfilter/nf_conntrack_standalone.c | 42 +++++++++++++------------
+ net/netfilter/nf_hooks_lwtunnel.c       |  4 +--
+ 2 files changed, 24 insertions(+), 22 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma.c b/net/sunrpc/xprtrdma/svc_rdma.c
-index f67f0612b1a9..0ba54bf6bc7c 100644
---- a/net/sunrpc/xprtrdma/svc_rdma.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma.c
-@@ -53,17 +53,10 @@
- 
- /* RPC/RDMA parameters */
- unsigned int svcrdma_ord = 16;	/* historical default */
--static unsigned int min_ord = 1;
--static unsigned int max_ord = 255;
- unsigned int svcrdma_max_requests = RPCRDMA_MAX_REQUESTS;
- unsigned int svcrdma_max_bc_requests = RPCRDMA_MAX_BC_REQUESTS;
--static unsigned int min_max_requests = 4;
--static unsigned int max_max_requests = 16384;
- unsigned int svcrdma_max_req_size = RPCRDMA_DEF_INLINE_THRESH;
--static unsigned int min_max_inline = RPCRDMA_DEF_INLINE_THRESH;
--static unsigned int max_max_inline = RPCRDMA_MAX_INLINE_THRESH;
- static unsigned int svcrdma_stat_unused;
--static unsigned int zero;
- 
- struct percpu_counter svcrdma_stat_read;
- struct percpu_counter svcrdma_stat_recv;
-@@ -114,8 +107,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
+diff --git a/net/netfilter/nf_conntrack_standalone.c b/net/netfilter/nf_conntrack_standalone.c
+index 561db3aecada..65f0c3ab3f2b 100644
+--- a/net/netfilter/nf_conntrack_standalone.c
++++ b/net/netfilter/nf_conntrack_standalone.c
+@@ -647,8 +647,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(int),
  		.mode		= 0644,
  		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_max_requests,
--		.extra2		= &max_max_requests
-+		.min		= 4,
-+		.max		= 16384
- 	},
- 	{
- 		.procname	= "max_req_size",
-@@ -123,8 +116,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_max_inline,
--		.extra2		= &max_max_inline
-+		.min		= RPCRDMA_DEF_INLINE_THRESH,
-+		.max		= RPCRDMA_MAX_INLINE_THRESH
- 	},
- 	{
- 		.procname	= "max_outbound_read_requests",
-@@ -132,8 +125,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_ord,
--		.extra2		= &max_ord,
+-		.extra1		= SYSCTL_ONE,
+-		.extra2		= SYSCTL_INT_MAX,
 +		.min		= 1,
-+		.max		= 255,
++		.max		= INT_MAX,
  	},
- 
- 	{
-@@ -170,8 +163,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
+ 	[NF_SYSCTL_CT_COUNT] = {
+ 		.procname	= "nf_conntrack_count",
+@@ -669,8 +669,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2 	= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ 	[NF_SYSCTL_CT_LOG_INVALID] = {
+ 		.procname	= "nf_conntrack_log_invalid",
+@@ -678,6 +678,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= nf_conntrack_log_invalid_sysctl,
++		.min		= 0,
++		.max		= U8_MAX,
+ 	},
+ 	[NF_SYSCTL_CT_EXPECT_MAX] = {
+ 		.procname	= "nf_conntrack_expect_max",
+@@ -685,8 +687,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(int),
  		.mode		= 0644,
  		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &zero,
--		.extra2		= &zero,
-+		.min		= 0,
-+		.max		= 0,
+-		.extra1		= SYSCTL_ONE,
+-		.extra2		= SYSCTL_INT_MAX,
++		.min		= 1,
++		.max		= INT_MAX,
  	},
- 	{
- 		.procname	= "rdma_stat_rq_poll",
-@@ -179,8 +172,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
+ 	[NF_SYSCTL_CT_ACCT] = {
+ 		.procname	= "nf_conntrack_acct",
+@@ -694,8 +696,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2 	= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ #ifdef CONFIG_NF_CONNTRACK_EVENTS
+ 	[NF_SYSCTL_CT_EVENTS] = {
+@@ -704,8 +706,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_TWO,
++		.min		= 0,
++		.max		= 2,
+ 	},
+ #endif
+ #ifdef CONFIG_NF_CONNTRACK_TIMESTAMP
+@@ -715,8 +717,8 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2 	= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ #endif
+ 	[NF_SYSCTL_CT_PROTO_TIMEOUT_GENERIC] = {
+@@ -798,24 +800,24 @@ static const struct ctl_table nf_ct_sysctl_table[] = {
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2 	= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ 	[NF_SYSCTL_CT_PROTO_TCP_LIBERAL] = {
+ 		.procname       = "nf_conntrack_tcp_be_liberal",
+ 		.maxlen		= sizeof(u8),
+ 		.mode           = 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1 	= SYSCTL_ZERO,
+-		.extra2 	= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ 	[NF_SYSCTL_CT_PROTO_TCP_IGNORE_INVALID_RST] = {
+ 		.procname	= "nf_conntrack_tcp_ignore_invalid_rst",
+ 		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+ 		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE,
++		.min		= 0,
++		.max		= 1,
+ 	},
+ 	[NF_SYSCTL_CT_PROTO_TCP_MAX_RETRANS] = {
+ 		.procname	= "nf_conntrack_tcp_max_retrans",
+@@ -930,8 +932,8 @@ static struct ctl_table nf_ct_netfilter_table[] = {
+ 		.maxlen		= sizeof(int),
  		.mode		= 0644,
  		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &zero,
--		.extra2		= &zero,
-+		.min		= 0,
-+		.max		= 0,
- 	},
- 	{
- 		.procname	= "rdma_stat_rq_prod",
-@@ -188,8 +181,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &zero,
--		.extra2		= &zero,
-+		.min		= 0,
-+		.max		= 0,
- 	},
- 	{
- 		.procname	= "rdma_stat_sq_poll",
-@@ -197,8 +190,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &zero,
--		.extra2		= &zero,
-+		.min		= 0,
-+		.max		= 0,
- 	},
- 	{
- 		.procname	= "rdma_stat_sq_prod",
-@@ -206,8 +199,8 @@ static struct ctl_table svcrdma_parm_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &zero,
--		.extra2		= &zero,
-+		.min		= 0,
-+		.max		= 0,
+-		.extra1		= SYSCTL_ONE,
+-		.extra2		= SYSCTL_INT_MAX,
++		.min		= 1,
++		.max		= INT_MAX,
  	},
  };
  
-diff --git a/net/sunrpc/xprtrdma/transport.c b/net/sunrpc/xprtrdma/transport.c
-index d4e6746d8ecd..ef84dde20228 100644
---- a/net/sunrpc/xprtrdma/transport.c
-+++ b/net/sunrpc/xprtrdma/transport.c
-@@ -73,13 +73,6 @@ static struct xprt_class xprt_rdma;
+diff --git a/net/netfilter/nf_hooks_lwtunnel.c b/net/netfilter/nf_hooks_lwtunnel.c
+index 40c6fce14a63..93339b735dbb 100644
+--- a/net/netfilter/nf_hooks_lwtunnel.c
++++ b/net/netfilter/nf_hooks_lwtunnel.c
+@@ -37,8 +37,8 @@ int nf_hooks_lwtunnel_sysctl_handler(const struct ctl_table *table, int write,
+ 		.data = &proc_nf_hooks_lwtunnel_enabled,
+ 		.maxlen = sizeof(int),
+ 		.mode = table->mode,
+-		.extra1 = SYSCTL_ZERO,
+-		.extra2 = SYSCTL_ONE,
++		.min    = 0,
++		.max    = 1,
+ 	};
+ 	int ret;
  
- #if IS_ENABLED(CONFIG_SUNRPC_DEBUG)
- 
--static unsigned int min_slot_table_size = RPCRDMA_MIN_SLOT_TABLE;
--static unsigned int max_slot_table_size = RPCRDMA_MAX_SLOT_TABLE;
--static unsigned int min_inline_size = RPCRDMA_MIN_INLINE;
--static unsigned int max_inline_size = RPCRDMA_MAX_INLINE;
--static unsigned int max_padding = PAGE_SIZE;
--static unsigned int min_memreg = RPCRDMA_BOUNCEBUFFERS;
--static unsigned int max_memreg = RPCRDMA_LAST - 1;
- static unsigned int dummy;
- 
- static struct ctl_table_header *sunrpc_table_header;
-@@ -91,8 +84,8 @@ static struct ctl_table xr_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_slot_table_size,
--		.extra2		= &max_slot_table_size
-+		.min		= RPCRDMA_MIN_SLOT_TABLE,
-+		.max		= RPCRDMA_MAX_SLOT_TABLE
- 	},
- 	{
- 		.procname	= "rdma_max_inline_read",
-@@ -100,8 +93,8 @@ static struct ctl_table xr_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_inline_size,
--		.extra2		= &max_inline_size,
-+		.min		= RPCRDMA_MIN_INLINE,
-+		.max		= RPCRDMA_MAX_INLINE,
- 	},
- 	{
- 		.procname	= "rdma_max_inline_write",
-@@ -109,8 +102,8 @@ static struct ctl_table xr_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_inline_size,
--		.extra2		= &max_inline_size,
-+		.min		= RPCRDMA_MIN_INLINE,
-+		.max		= RPCRDMA_MAX_INLINE,
- 	},
- 	{
- 		.procname	= "rdma_inline_write_padding",
-@@ -118,8 +111,8 @@ static struct ctl_table xr_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= &max_padding,
-+		.min		= 0,
-+		.max		= PAGE_SIZE,
- 	},
- 	{
- 		.procname	= "rdma_memreg_strategy",
-@@ -127,8 +120,8 @@ static struct ctl_table xr_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_memreg,
--		.extra2		= &max_memreg,
-+		.min		= RPCRDMA_BOUNCEBUFFERS,
-+		.max		= RPCRDMA_LAST - 1,
- 	},
- 	{
- 		.procname	= "rdma_pad_optimize",
-diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
-index 59e36f206ccf..a15f54bf2b3c 100644
---- a/net/sunrpc/xprtsock.c
-+++ b/net/sunrpc/xprtsock.c
-@@ -88,12 +88,6 @@ static unsigned int xs_tcp_fin_timeout __read_mostly = XS_TCP_LINGER_TO;
-  * someone else's file names!
-  */
- 
--static unsigned int min_slot_table_size = RPC_MIN_SLOT_TABLE;
--static unsigned int max_slot_table_size = RPC_MAX_SLOT_TABLE;
--static unsigned int max_tcp_slot_table_limit = RPC_MAX_SLOT_TABLE_LIMIT;
--static unsigned int xprt_min_resvport_limit = RPC_MIN_RESVPORT;
--static unsigned int xprt_max_resvport_limit = RPC_MAX_RESVPORT;
--
- static struct ctl_table_header *sunrpc_table_header;
- 
- static struct xprt_class xs_local_transport;
-@@ -113,8 +107,8 @@ static struct ctl_table xs_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_slot_table_size,
--		.extra2		= &max_slot_table_size
-+		.min		= RPC_MIN_SLOT_TABLE,
-+		.max		= RPC_MAX_SLOT_TABLE
- 	},
- 	{
- 		.procname	= "tcp_slot_table_entries",
-@@ -122,8 +116,8 @@ static struct ctl_table xs_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_slot_table_size,
--		.extra2		= &max_slot_table_size
-+		.min		= RPC_MIN_SLOT_TABLE,
-+		.max		= RPC_MAX_SLOT_TABLE
- 	},
- 	{
- 		.procname	= "tcp_max_slot_table_entries",
-@@ -131,8 +125,8 @@ static struct ctl_table xs_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_slot_table_size,
--		.extra2		= &max_tcp_slot_table_limit
-+		.min		= RPC_MIN_SLOT_TABLE,
-+		.max		= RPC_MAX_SLOT_TABLE_LIMIT
- 	},
- 	{
- 		.procname	= "min_resvport",
-@@ -140,8 +134,8 @@ static struct ctl_table xs_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &xprt_min_resvport_limit,
--		.extra2		= &xprt_max_resvport_limit
-+		.min		= RPC_MIN_RESVPORT,
-+		.max		= RPC_MAX_RESVPORT
- 	},
- 	{
- 		.procname	= "max_resvport",
-@@ -149,8 +143,8 @@ static struct ctl_table xs_tunables_table[] = {
- 		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &xprt_min_resvport_limit,
--		.extra2		= &xprt_max_resvport_limit
-+		.min		= RPC_MIN_RESVPORT,
-+		.max		= RPC_MAX_RESVPORT
- 	},
- 	{
- 		.procname	= "tcp_fin_timeout",
 -- 
 2.25.1
 
