@@ -1,109 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199411;
-	b=WQpiP6DK0VuPI5gSMjp6gGpchavfGMwLV92pq3fstIrNq/330yJQE+ONRJ2g68pOwUB4
-	 TXI3fAJGrXXo5/UpELduJMMBtRwTy6Bj5/r9eSS7totDogJTWt94Qk/q4HmwW3FDQ8buS
-	 xixyWjQEArP7jsRny/rFV3QNPoeCSZoucGWkk78prsmxzHrKxwFdAfVrjUdO1O7RoBsx/
-	 nSBN048niW2kjq1oHJ5UwiwIomn1O33wvmGee/iuYmtqMqnXy8/zL/xBbJjGoy6cxWC8m
-	 F+vsm9Bx1saOP3ThI+H9v+BamL0MKOJPgNiNuRFEmh9wo/MSFwKnxtMt47omurLOY7w==
+	t=1793199434;
+	b=VRHPaT/3660wJHe/RnAEeKn45bHhWyYkUsqR4q5FYEhenLzw2f0KexOARQMZVff6ryoK
+	 60sieNxdQ/3Nnf8cxdTWkJJ7qx7qrxC7tCB294q/rfgpke/vdriknNYye8CTGiuTGAeFX
+	 3KVGkJNuusbCWez1quMdixJmxLQGNSlZzFOxiWSeR64m3LmukZqBr4Be5bYjjg5DJxYgS
+	 M+V1rFgL8jtbJ2yrndyXO+LkrWeR53m6XyZuoz/OkrkajyUmyt3J6jjVWiyo4wSGC/ufq
+	 Do2D0/Vx61H86VIk09WoMiSWd7l21L2nDF+fIwObRCI7tpQb3FrMacuWQbAbtKqVu+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199411;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=MpOZTsfE06cY+8SeYYGnBDJdlSMkcn1V3ClwKM8SQ20=;
-	b=D5R5n37rtrQCBar1CD04IY5iV3WXk6RsxXi7bu9LE24Lt/mAxt9/pTNJ6+L4KyOFDdTX
-	 tVGvTzaEdq9LlPnF7J4i2ieg0a3kSmvpLmz+J5D1yeRWfeGObjOqbbo1qgu1T7yGUvYYD
-	 m8ErnRfaTdfKCK7BktAZpiypScvjpH2Xu82GurxcD9Cz5P2WgqdoLaSm8xQA3RAxqqtaM
-	 fc9afUZ/a8rx0bJGbqvTRGI74FFY/zNi+Gf4UIUPMjwgHV6iI5j0/2ilp+azbsawu3Yd3
-	 s5F7gCf2NuggR3p+vezEg6X8KfceWuLgJYuQaeMQsak5m7O55e6jTjmrnZR63yyu5HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199434;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=CoPZ9bZ1JfxYkZSWgqFP1SNfY/PR7Bkxfv9+CJFVndE=;
+	b=CqIJlXj3KmZVZFffzY9LXcFsC00v2qYAKHy3czCtqnTMgF3cbkmmldi+NdB5Wr4b+jE9
+	 WrpdOR6NgKpKu8UhSG1QWax6i3I44Gq/pwaw1X2luKgewz16Dfpo5k3WEA5gGPqJXee/R
+	 ZIGyc0EM6jz5gG3YOhfgkMpe3gsTFWMIpha6Q+QtRwXMPJwc6T1QChF5+8Cbi4dTpDDXl
+	 30IPOGcRKrlhpzbZ072UrviYjB6bEYLO7owl1W59YIkcBnjyGcTneIZkanQ2xjqRRm7G7
+	 EDsLtvOJubIve63HiZNh3j/MD2bcX693+Tc2j9LvAORG34Opw/jrXTYSVKSojBvDwSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YkeGdScM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qxyl04Fw;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GmWdamrH;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BanYp3vc;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ly7btzAc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A283606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A283606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C56606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:57:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YkeGdScM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qxyl04Fw;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GmWdamrH;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BanYp3vc
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DD2B72201F;
-	Wed, 28 Oct 2026 14:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793199402; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MpOZTsfE06cY+8SeYYGnBDJdlSMkcn1V3ClwKM8SQ20=;
-	b=YkeGdScMThH8j6dJfiTaafkGPL/pWRQRZzh8MwlB95aWbe03eM8F4EchDHZFYTHYUiA5gi
-	pRAhAYaYll3ww50a3//at3PhRKk/ZCgaT96PMKwl8Tf4uEGa99M6BEFL5rguTBST3jsq1W
-	dx1OC5Wa09CcJLCYQSwFr85UL89omSA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793199402;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MpOZTsfE06cY+8SeYYGnBDJdlSMkcn1V3ClwKM8SQ20=;
-	b=qxyl04FwcGFuSTt3w+/QylbeygpLqKyp0tU/nbJveIloJmVMebfRpC50zhcbc2iINfD1bQ
-	ALXEhBd2J4GIAPBQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GmWdamrH;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BanYp3vc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793199401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MpOZTsfE06cY+8SeYYGnBDJdlSMkcn1V3ClwKM8SQ20=;
-	b=GmWdamrH6k3qVhqSj/koryPWzRXEnvLkZ+5ITEw95lvYt8ha24LJPv/3Sa54H8bUjPEYG3
-	awtlnuoi1BxNcIck2MW/WIAQ5gMou5xB04nAynct2jIXOG+OSBntnTpqf5FnaX/B5/Zr7z
-	VrwJ6XrN/j/X+Tznt15pufd/zKeCW+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793199401;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MpOZTsfE06cY+8SeYYGnBDJdlSMkcn1V3ClwKM8SQ20=;
-	b=BanYp3vcHbtwwoQcGofrjr2zXFMGjN5JwAW5RINqoKb0P0spLHrjBwiQkVpwudeHYBDpog
-	FyzIqjj9u8S9A/Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E194513419;
-	Wed, 28 Oct 2026 14:56:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S/aZKigN4moGFwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 14:56:40 +0000
-Date: Wed, 28 Oct 2026 14:56:39 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>, "Darrick J . Wong" <djwong@kernel.org>, 
-	Sean Smith <defendthedisabled@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/2] vfs: add provenance time (ptime)
-Message-ID: <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
-References: <20261028134728.294127-1-koray.fra@gmail.com>
- <20261028134728.294127-2-koray.fra@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ly7btzAc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9791F01829
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793199434;
+	bh=CoPZ9bZ1JfxYkZSWgqFP1SNfY/PR7Bkxfv9+CJFVndE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ly7btzAcgI8DSYXiri5X1CFDQGPjvpCFhks2uprh/Q7PSzBqDkFvR1dK8uOQizpfL
+	 Tu3G6D3UFfIiUF2r1EM4nWbCvYd4Gi1NlGNamAoeFtqJTyKkHEM8Q6rwoTg7leuusV
+	 HRpF6fu0eIGoZSfxTkVToQdBdcbTsyIP1ldj51mHTPBBZWNDO13pYIo+Xl/GQ37xL8
+	 1jZ1WJ6Izhtt35Pa2AoA4tDcYPvMvN6uAeoexnkqkztHNFE4eeDx166qtdKCvHoEo5
+	 XFjU/kHJu74S30cjZOm8APZjDSx0DrCBGsvrZt13Nylh8vI4S0r6nLI6LRdTgYepad
+	 18G7VLH6mfxJg==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3aca0bf7fd0so3770321fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:57:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYXiUdb0M3j7MrqIXyZ08i61qh/7ULMArl6NiBVQGyZE7M62Ccf3j15rK8nJ06DtVD1TKrvsLQQJOiEMY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLg2HLxgNDiWJQYELBobinsQc+6X8kXPqAWRWcvwm2ZV68TRiYA
+	Pe7vf39hqvJphvmiewFAeUfHXL5/Dm8A4Ilcu+xm/4wXl/RWjo9n2e4Y7nqf/TKrWIW+C3tD2D4
+	6JBuMhQcZaOe5ZK5jRKiU8qsE9zMNgcPACHcujBqD/Q==
+X-Received: by 2002:a05:651c:545:b0:3ac:41ca:1104 with SMTP id
+ 38308e7fff4ca-3ac9cd18eb6mr6038071fa.0.1793199432903; Wed, 28 Oct 2026
+ 07:57:12 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 09:57:11 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 09:57:11 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <179319850512.1175157.6497185322070247884@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,74 +65,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028134728.294127-2-koray.fra@gmail.com>
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,zeniv.linux.org.uk,kernel.org,suse.cz,gmail.com,vger.kernel.org];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: DD2B72201F
+References: <20261026082549.662885-1-dmanresa@gmail.com> <179319850512.1175157.6497185322070247884@gmail.com>
+Date: Wed, 28 Oct 2026 09:57:11 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Me+YxMji7N2o3iksh-1ZC_ruBsQpxh_xktbHFkeZBxDqg@mail.gmail.com>
+X-Gm-Features: AclHuK_0nUuHwOQ1NO522yTX8cvpHIe2hJ_RPxWSJ1He1R9EGj-tAd3Drrug8pY
+Message-ID: <CAMRc=Me+YxMji7N2o3iksh-1ZC_ruBsQpxh_xktbHFkeZBxDqg@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] media: ipu-bridge: survive module unload and reuse
+ the software nodes on rebind
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: linux-media@vger.kernel.org, Eduardo Ruiz Duarte <toorandom@gmail.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Hans de Goede <johannesgoede@oss.qualcomm.com>, Dan Scally <danscally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Fernando Rimoli <fernandorimoli11@gmail.com>, 
+	Sergey Lebedev <lsauz@pm.me>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 02:47:27PM +0100, koraynilay wrote:
-> Add provenance time (ptime), indicating the time when a file or
-> directory was created. This is user-settable via file_setattr() and
-> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
-> 
-> The semantics of when to preserve this new timestamp are the same as
-> mtime, the idea being that there is a correspondence like this:
-> 
-> ctime <-> btime
-> mtime <-> ptime
-> 
-> so every operation (copying, moving, ...) that currently preserves mtime
-> should also preserve ptime.
-> 
-> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
-> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
-> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
-> allow ptime to be used with the file_setattr()/file_getattr() syscalls.
+On Wed, 28 Oct 2026 15:41:45 +0100, "D. Manresa" <dmanresa@gmail.com> said:
+> Hello,
+>
+> Eduardo, Andy, Bart: an apology, and a caveat on this series that comes
+> out of your thread.
+>
+> The cover letter above says that the asymmetry underneath 2/2 is in
+> drivers/base rather than in the bridge, and ends by offering to send a
+> fix for software_node_notify() "if it should be balanced there instead".
+> I wrote that without noticing that Eduardo had already reported exactly
+> this on 11 October, with a reproducer and a splat:
+>
+>   https://lore.kernel.org/linux-media/20261011131518.48838-1-toorandom@gmail.com/
+>
+> that Andy had pointed it at the core two days later, and that Bart had
+> answered on the 15th that it looks like a bug in swnode.c and that he
+> would send a fix proposal. That was on the list I was posting to, eleven
+> days before I posted. I should have cited it instead of presenting the
+> observation as mine, and the offer at the end of my cover was redundant
+> with Bart's. Sorry for the noise.
+>
+> The analysis in that thread still holds on current mainline, for what it
+> is worth: the code it quotes predates c393ef0741d4 ("software node:
+> provide wrappers around kobject_get/put()"), so the calls now read
+> swnode_get()/swnode_put(), but both are plain passthroughs to
+> kobject_get()/kobject_put() and nothing else moved. The put in
+> software_node_notify_remove() is still outside the "if (swnode->managed)"
+> block, and dev_to_swnode() still resolves dev_fwnode(dev) and then its
+> ->secondary, which is what makes the two sides unbalanced: at device_add()
+> time a device that has no secondary fwnode yet gives NULL and
+> software_node_notify() returns before its swnode_get(), while at
+> device_del() the secondary is set, dev_to_swnode() resolves, and the
+> swnode_put() runs.
+>
+> Now the caveat, which is the part that actually matters for this series.
+>
+> 2/2 depends on that imbalance on purpose. The reuse path keeps the
+> reference that software_node_find_by_name() returns, instead of dropping
+> it, precisely so that there is something for the unmatched swnode_put()
+> to consume on the next device_del(). That is what makes the count flat
+> across a PCI remove/rescan cycle (4 -> 3 on remove, back to 4 on bind,
+> over 16 cycles) rather than losing one per cycle.
+>
+> So if the core put becomes balanced, 2/2 as posted leaks one reference
+> per remove/rescan cycle and the IPU node is never freed. Eduardo's patch
+> is in the same position for the same reason: its fwnode_handle_get()
+> before set_secondary_fwnode() has no counterpart once the core stops
+> putting what it never got. Both are compensations for one core bug, at
+> two different sites, and whichever core fix lands should take both of
+> them with it.
+>
+> They do not collide textually: Eduardo's hunk is in
+> ipu_bridge_instantiate_ivsc(), on the mei-csi device, and mine is in
+> ipu_bridge_init(), on the IPU PCI device.
+>
+> Sakari, Hans: given the above, I would rather you did not apply 2/2 as
+> it stands. 1/2 is independent of all this and can go on its own. I am
+> happy to rework 2/2 on top of whatever lands in swnode.c, or to drop it
+> if the core fix makes it unnecessary.
+>
+> Bart, if you have a proposal in a tree somewhere I can run it on the
+> Surface Pro 7+ that produced the numbers above: three sensors on IPU6
+> across PCI remove/rescan cycles, with a module that reads the node's
+> kobject reference count directly. The machine is being given away in a
+> few days, so that offer has a short fuse; after that I have no IPU6
+> hardware and someone else would have to.
 
-Random comment, but: could this be doable with xattrs instead? I'm not sure
-where I would put the xattrs code (if in userspace exclusively, or if hooking
-the VFS up with this, or if doing it on the filesystem side), but it would
-surely be less disruptive than modifying a bunch of filesystems one-by-one.
+Yes, I've sent a series[1]. So far no reviews but please leave your Tested-by
+under this thread if you could.
 
-This patch is quite simple, but changing btrfs, then ext4, xfs, etc is a
-mess, and inevitably you can't get these timestamps until you upgrade your
-filesystems.
+And yes: with the driver core change merged, the code in media should not be
+changed as it will lead to a reference leak instead.
 
--- 
-Pedro
+>
+> Assisted-by: LLM
+>
+
+Does this mean you had an agent write this email? This would explain why it's
+way too long for what it needs to say. :( I have nothing against using LLMs
+for writing code and reviews but would appreciate it if we could keep human
+interaction, well... human.
+
+Thanks,
+Bartosz
+
+[1] https://lore.kernel.org/all/20261023-swnode-dev-notify-balance-v2-0-948d920a79f6@oss.qualcomm.com/
