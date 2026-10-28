@@ -1,113 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183953;
-	b=mCjN/JnYXwq3Qh3yX6RfifRiH0Srk478c0Vql2+JScXR0L14Kht6Eo1n7Cmg+DpiMah4
-	 mOQNm0/dXJvq9o3fLJMBdapgb2H3f6imtU/hkqRSCNH5kAp0BYUMiFWzKjoPXek31gCZE
-	 raGxfyXdmK6OG/N0WRLBe3Ib5IoClgZ/kTaK3C/JDlt2Oc4vIk7JB+EEIuxtbpx9Nqvj9
-	 Uv/mUrMcHKiHZzotoaCwZsw4XCZNvE25JDMQl4/1hNAqB90FQQHKsNFoV02+bdZ1cRS7/
-	 dLCdpcFxttRrRDampKJN5b9GIWBGhUmkT3cyEV41Q6EmHZB0CveHzM4A6NbMjf1JD7Q==
+	t=1793183966;
+	b=obGxmwoKALrA/aY4ZdvnJWhDR7+6p7JF7clMUsB2sQIyLrNPQhOjtZtjIAHm75HDJicp
+	 9L8HKNxCkKFEnBjV5PIY/HHiuL8QUP/I+oHXIpwoUv9Fr56tW0UnR0HOzwXc79FOFvO6V
+	 H7FfrBX7hm7nUh+cYvGJAmVBRYAHHZj5D1FWCJIeMf92MlZ2u3mlfIwkdguluLkU7wwk6
+	 zZPTsjnd9UJ+ZfbB4IMRI2e+MtPk9xAeJciFdXZIQpbiptcvifL01lHzlSg1TlmWOE/O9
+	 +g8eEliJi/Mbwy+6plkTgXSxfBJzjVUU4apKFAG8mFolDRvscDNw6hI4j+S5kVNtiTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183953;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183966;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=wUQTjkDzyiR26kHqxoaWKUzMBK2BQSYa4Q6O+asJ7Zg=;
-	b=rXIvF2Nr4JD07rlcTvbBFbKvSi5thkCyKBLRRUCm3TZHnK4KrSnffqUZiuRcQHt17nx9
-	 Dal6FQb+ZxiATKIZpacPsUV3nXIMD+th3sstVWBlYcJXHMro4z7YG2/Yx/Z0ZN4v0ReEn
-	 I/Kme0cnooho/YW6FskZNqAjHQnrBI2vKuNU1isW+vsSGdf01gV48fnwPRHZ06PV/Rn2y
-	 oWV9mH5rMfPletOeMy2Yf+RxwRbllDAaA7k3nK7Tly6zCsaI3wkLyJ7N0n0kSr3iHKrrR
-	 b/u6aG7V0RBoDfxEp3tMhs0HixAN7dY53U6rZktD+ggzCId50b5NVcIPEV/pxBCn4Og==
+	bh=mn/WynfkmpgxKnmW+l/znlPZg7WKNwxNUfbqTYzEDX0=;
+	b=VyAsT7RCEp6qagFmplrcUGXUaSirYQz9xycKeiMsD80OT+o024rkGj7Id9KxLKerbUGx
+	 Uz2LKovSNDSmi+XgXIrpmimqRoBNXfpSkpN55TaswU1C8VTPE7ZjFxGWDIzxLABDML2J2
+	 MMlRR5h9jxiBQNDLVsqtI5OrFXMAaFwUrYRWGtckD76pCZ1hknqny8VNFzDHBXn9RU6Lx
+	 a1MAaBzDj6niUIdCs5iAGdEEOkmx5hHoxxMA7u+tu0v2D3exKU7Pc/eHcPWmnsA7y3PAo
+	 3xyQbBGc2f948rWhHVqnEgaBzNKfZrA6bAYeWEAg2pWlrbvI8312jOBD3vkSORSxt2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HLi+4NaD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="NsdhX/Mn";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pURotaX6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KW7ljU8a;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4308B60A2607
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:38:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4308B60A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48285606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48285606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HLi+4NaD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NsdhX/Mn
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SAZrkw872064
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:38:58 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pURotaX6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KW7ljU8a
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KAxj066164
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:39:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wUQTjkDzyiR26kHqxoaWKUzMBK2BQSYa4Q6O+asJ7Zg=; b=HLi+4NaDhre4kezv
-	guy4gMMrd1Yzah2t+qt9eswiqjiGzYVaqEKG2TN7DRZfLHiH3LR3XWJnJOWhTCvn
-	LhHDdX5xZwE4Zl5mM7SvUMM3DsTaPwe8q+PG5o9oYf5MMCXXL8cfsuudddXHCb0N
-	Ahb+ajDoJrDBZ0Dp6flXhCaX+Fp5B3MLGrU7aLtjdk45pUjnn8w6moIvE9xJZ4il
-	EThM4QkKGykvRjbVxwGRBZz23A0VzNOXjrBBqxc1LBOTg+m34403baZWwmfr1lCV
-	D8jTqnFLWPlSEiHT5KvzHLVy0Om5R9ZymprO/ntz4HeTXTqqxW2QrkXr0gNqGKSc
-	TcrqtQ==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkfehg0av-1
+	mn/WynfkmpgxKnmW+l/znlPZg7WKNwxNUfbqTYzEDX0=; b=pURotaX6g5sBG1XI
+	13YTbVZmx1u2XJjwxLAY0MfcmHkidFeSARAm33Ku4NHA+8aJcn9WxErb0aA1O0qS
+	1a9inQq3i//if22IjsAvilUkBSY3ANnmNZjbeUg9A+JE8eBhCxbsPNOYEaIxezBK
+	gbybw0ak0ixhW3yhIwGqQO0fq0neaTHzpRN92D7HlZIp5fpct8wIj2L9VBsG+mDK
+	T/A7nbkyVIVcEqO+xhZOFawkosEs8nBbtzeo2+yJIP4YghxekAkPzESaY1z0jd+V
+	UffA2ag1+VrLT+DMvDFl2DmS7/G8w6WQAHdgGY/7WtnNBWJBcQHeAnSZoCm7838v
+	zkjLTg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy6g3p9s-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:38:58 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso1646332c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:38:58 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:39:25 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso1114949eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:39:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793183937; x=1793788737; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793183965; x=1793788765; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wUQTjkDzyiR26kHqxoaWKUzMBK2BQSYa4Q6O+asJ7Zg=;
-        b=NsdhX/Mn4WS3FAGajOwL0w+Eopi9WVYtUryRevhTXxbn+Uiw6SWRrr/fSn7ZXxMBCL
-         lZfXMaUzPKw3gibl6i6eSOdTst5srfFgsVCDRZp+RinGr8Ijpeml+BCdWZZprISB+g8R
-         I3qV27jn+c3V46sIZsBzCIoAM7pMt/9jyoQCRQeo+6q2hddxYvf/s92RrCCBH9nmrqCG
-         zXMHJTnt3z1gW7reMRGb/HjmTJ3mJR+GnL67PKE+yvU79A6hXsgIv7bOuxQnXi+AvEYT
-         nql8c5n7s1dXK/xcpK4ZEfrMQkAZQKB+Qu/m4spOjXgZrHjrUZCPZYTupz3GzpiZh2K0
-         F1Bg==
+        bh=mn/WynfkmpgxKnmW+l/znlPZg7WKNwxNUfbqTYzEDX0=;
+        b=KW7ljU8a++nVRYRNfqcNEwUXm//+eiZFQlDpViIyyD06FcZeDNyYjvAlCh7U9EWdA5
+         49ipczpmcVziCcQeELhd64/sdS9/81U/KKAjos8z7ZqH7kxyMoHmNE/X840yPMVIRBsb
+         pzpdJaDtKBd6TLVL8NMJ2xMSgpXlJ3STNa45LWTXWruO6NXaVgUUsJ+LBEzAtWiAatF7
+         PmQKxHL/jwjrPNrCoFPQGL1kn3jxS4ldMgUdInVhF2ffEomGj6CWVuaYN8A8S8FsnOQQ
+         Ze+yijOzb26N5PLYLDdI3hee6nSlyn1H2LIOna/wGxuriBZmpbmz1fmYggh1GF2P3lsC
+         QMow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183937; x=1793788737;
+        d=1e100.net; s=20260707; t=1793183965; x=1793788765;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wUQTjkDzyiR26kHqxoaWKUzMBK2BQSYa4Q6O+asJ7Zg=;
-        b=LUWRDSBOMqHuKu9ejOx+6uTZZM/h5UTMvQIwguYHO+ZRrjjMVTa4eF84j0k1kJou4T
-         Ev6duacDSbSjZXqwVN3oX1w0djyjUoj3GItTFKR4VpxkcSSjvbRLsBVhQyDSrUAE3Zhd
-         9YLIHx9+nCHaH5gmXR2Wjld+ltqeRmdb0izZ+Z9ijn7GOl9vfHd51qUmTkSrbVGlnCda
-         qlSWOVrJrgZj4/oCiieqDYA/kzQ8EkJg6DYT60wVUO4t9sOCHDBCjqEquvOqwfI75rhW
-         bnYkdzbOBZpiYayqpih3QL+Y9ewu28ZrSv12SWztMqu6iQHhwU9vmNclAabTk4/BYrNW
-         Lkbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKjpfV9eRCSKe5trKBVodpDsXQHRwss6eKAiDUj6E17Z1MABjAkCm+8FCpZj4PfH0v9EazqrFyAlfyGi0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBbje92CpZ7dTRGm3ekAq1dFm7u7HRQCEkAht6/OZta8nbt2sR
-	RE93qTZyoSDB1Gch3TgKQpS1WV0nOuSpHCW+LiG3e38B+hhKfUigOK5voW/fdgY+4NkZrPrZrhg
-	HXvPcvuw2/twdaxpV3mZUou2nyyoxE9SKyCzv5yiNA4+MrOnBBLdyrmI68niMpRwmq1c=
-X-Gm-Gg: AYBFou29xEMwUO69Bc42H2RdW4OALgcPV89b/2IjlKwKbltNx5GCg38n+lWpQM4PqiO
-	tOOXcxka9L1qE/2EVRSSrPXAd43rRkwntuHcbHJiABrIm+iLqDEwfWxmPOoCvu8w6m7ekCDKS36
-	MZUyka44K8nuobNLE+i6/SYa8jf9v/6NF/DJp4Z05AvrIPng6QnAgchOUNoMT8kpzULrBbp94u8
-	RWKeew6TMnLfLEsqo/LnJYq1gZXJHP8jdOI6BcTRkHa7NaXPb6xTDD65sBC/xuKSYamiSNgJXHG
-	JJx732eFhZzVl/hpFCi0x0ZjGu58LrX4jreS6A/ndOOJg27oypCizLKymAZN0DnsCXpJMMCWM23
-	LOg0kwwJuCYJY38yk94NlhJx3P/b6uhZRWIMh4pyEnNOu/pn7hgihLtWaa3WtrkH8i+xTs/bmrl
-	k=
-X-Received: by 2002:a05:701b:4552:20b0:176:2095:1ac4 with SMTP id a92af1059eb24-1a6ce01d7a7mr2588370c88.18.1793183937046;
-        Wed, 28 Oct 2026 03:38:57 -0700 (PDT)
-X-Received: by 2002:a05:701b:4552:20b0:176:2095:1ac4 with SMTP id a92af1059eb24-1a6ce01d7a7mr2588322c88.18.1793183936324;
-        Wed, 28 Oct 2026 03:38:56 -0700 (PDT)
+        bh=mn/WynfkmpgxKnmW+l/znlPZg7WKNwxNUfbqTYzEDX0=;
+        b=J4TMa55fV+JzGEDEQtI1h2LSevcXlT76A3htHR/axLobmnfxUfagZZNUt4ZkuE810S
+         yYMhsfb7QQxShHiQXXZydTp41L/N++lgN51khRyz6z/A8L6vb5ghvEuDwjrMo+Z2mGoN
+         JC7qLpp3HJcz3hZpt8P3pNIDMyNFyDVdWXcYIl/oX390KAfTGBjujv0dJejhQuZ0+xU1
+         V/XM2KH6JH/7SlThPGrqyQAPleocfPhnygYtC+vWbJeIex3/ufR73wjTCWBaCtvhnkNy
+         di/ecszseJIrOHE8NGC9p5sXjyvP6RIhSZ4bKH3CZSHnI965BbbH07Ng4sSclrxX3/Gn
+         s/8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzHM5p8FsDHNzxzK+ZTK7zc3ycoYBmayaSt0RnRZBUa4gfJ8MvFEkff/A3IX8mYFc/VnkQGFWZ71+571MY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVJyOWjaiFdOb1RpRd0J6X4mzvoXhdEEjf6MqtqqKCpq3Mwze9
+	pDolY2wnR6I4LJcXAdIFa2tyubSuks2gO3iTVKVsQ9LnEwaQz7Wbirg9kRii2L4LvRwWsMdXl4H
+	V3hnMtj4mFFa0Sasu8T1sSrDVW/3FsZxI89q1c7oaifUKOpVYwQX3Ap7DYhj4sVahhLo=
+X-Gm-Gg: AYBFou1DOKHhK63TxCePcfSUvqoLIMvz3Yr2BxLZj+Qf3z3Ohs2pOvTEMk0zHSoxQJD
+	5JEg6PU1+9zKCcM2LUJj9TmhXiF40f1ZRcwmov2g+36nMNqntFTAMo9YOOyARnxSaC6rWqF4k/X
+	7npsCzv/aDinJp/N7GaW7j7ODZ2gbQ8kAGOgaOPmBc5/MTz5nU+ArAsa9IM57uz1F4g1e1MGSBm
+	sonQ0yHs1gfOS4PLaKCkX+kczl1lARweaWCN7BeFztnyOARM8fOZghxFe/QTuGP/IXNk3qfRvhM
+	QvGHECyOPIxVfjIvZuUiToUSrQmPBuVOC6f82rdJFVYxNXVzazwlDpHazuLJNcJK11KSLKoN79d
+	aZczPBALeu+XvDUo+S1a3OgpdOA4XYbnv8Gpkz40a114eWDFCtQ4UGfeRm/W15eORXAY6SttYmj
+	U=
+X-Received: by 2002:a05:701b:4659:b0:14a:5284:1bf5 with SMTP id a92af1059eb24-1a6cd967e61mr2188494c88.13.1793183964763;
+        Wed, 28 Oct 2026 03:39:24 -0700 (PDT)
+X-Received: by 2002:a05:701b:4659:b0:14a:5284:1bf5 with SMTP id a92af1059eb24-1a6cd967e61mr2188460c88.13.1793183963959;
+        Wed, 28 Oct 2026 03:39:23 -0700 (PDT)
 Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75e5c6d4fsm8340186c88.14.2026.10.28.03.38.51
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75e5c6d4fsm8340186c88.14.2026.10.28.03.39.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:38:55 -0700 (PDT)
+        Wed, 28 Oct 2026 03:39:23 -0700 (PDT)
 From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 16:08:01 +0530
-Subject: [PATCH v6 05/11] phy: qualcomm: qmp-combo: Add hardware-specific
- dp_aux_cfg2 and dp_phy_cfg1 fields
+Date: Wed, 28 Oct 2026 16:08:06 +0530
+Subject: [PATCH v6 10/11] phy: qualcomm: qmp-combo: Fix Glymur v8 DP PHY
+ init and configure sequences
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-glymur-phy-v3-v6-5-1f1d2e565a66@oss.qualcomm.com>
+Message-Id: <20261028-glymur-phy-v3-v6-10-1f1d2e565a66@oss.qualcomm.com>
 References: <20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com>
 In-Reply-To: <20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -137,196 +137,183 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
         Nabige Aala <nabige.aala@oss.qualcomm.com>,
         Jeff Roach <jeff.roach0@gmail.com>, Luke Macken <luke@phorex.org>
 X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793183900; l=6731;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793183900; l=6031;
  i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=rMsGkUOi3jW+Cmzrcyr2oF4G5Pju1fC9P/6RDgMrr7M=;
- b=NS/n33FFzjoFjq93E5+emMcssjue2oUSgMEjfJW9h61gY6Zx50LedrOacqmg/0ngni7EG3h32
- fl7l6m48L7ZDeSea5sxfPH57XyEo+FOZZJDHHJ6gZDqQdlHWyQgNysD
+ bh=BZwN2CmqTMrl6IrHSNCmymZYj0vfjwA10Su0CEgkyT8=;
+ b=XijVPy04sJ3VkRWoJGcRGgsg6PBP8+1MlxC57ktN6DudkUWB15y0KM+uxdaRt84P/YNOs8G4y
+ 2jG5yKyHX/kD5rQCNlG8ZCyoQu0r/1Fa7QrBGfY1fkP1ZjSQgZZCNx0
 X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
  pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXzJYh6Gn2qLBv
- jWG3fiWY2p+4yNrZReoyCIHTqmGZFueucmxYlFpeWTFWWk9kA6kh2AsHTyiC4Baf9AEyjd6EO28
- cFfCYuCPE9nuOFXdbnjD337MOrQDePuv+ZGrzmF3KXfOSe6qY/Bq0tASxZXi62XkrE/XttBlVvG
- cPKJ552wIpA1mXwTnIMVZtMNwXyh7PQVtg2JXq0PqFPZ3jrhHkHUC1U5YpNXHcIkIlJ9j+hzsVC
- k3fuudHJaOgWH3QHZdnmMYx+nQ7Eca71H/M6wWpqAenDnYuH9oopAGof5EsJ5GSUui3ZjjxPA1c
- ee4Ag2XPXvY6tJqQzk9XqE2m3DBCyEKpRy6C5oNpHAkxbnvsfPWVem3k1K+YSZZ/r9R5rRN1EbP
- Cs+9y8JGawFSsLhzD89qmXCFbexa8nChyPVMfdraf8nZ/CW64NxgptGlFiHKyoAGNX54e/AGng5
- pLHjiwmY7GvR7tQ65Ng==
-X-Authority-Analysis: v=2.4 cv=A/T5rKWG c=1 sm=1 tr=0 ts=6ae1d0c2 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX/+BEuUI1STM7
+ XWzBoxIanGbiEvT2aG10FzVdVFclfoKJynRFRzsrWsu+sZ9lszZNEdTP1lOaJIO5E+MrHuMHg31
+ zrp6pPjZ0pYHyUpl4S8BRqSDIbNJzVk+Pwz/7IDzf5W7+g+KYHEFvMqlCHtSuzJPgnjF1qVTTYv
+ FFfUYzLylqtu65aG7CzXp/cNxCcGvle68nDuZAvtWczu3+cP9n/9p3kqs+/p239LRPJ43tOfKQg
+ tZ1c8MeuAW52XerGp30sVT7T9YHGTG7t380pT1/YileAFG2wFrxIUlu6vAWlMyWbzj/oDIuIQod
+ cBb341gzNVJsUBtef8aIRL5AA/+8c7/TO5cViXI1Hqv6y3gw189BLWL/KtxsuOdlS5TSDgJgzOU
+ oQfkIpr5ClwOgkDHtePH3cC4n8ViIDlXbpsU/y909zbiNHzznjQpu5VZC1nkDina34zZ1ggcbZA
+ qW8oiYqpsZQsuy/zqUg==
+X-Proofpoint-GUID: L5ItXK9Gplmf0f-pKtxGLs5GZnqPahEy
+X-Proofpoint-ORIG-GUID: L5ItXK9Gplmf0f-pKtxGLs5GZnqPahEy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXyRzEHXRrUfX8
+ TokEzxoKutV+tQzhi7RSf5g0wvwZvdWEBbGCR48KkUdeReaewXagxwUN/324Ns+VRh8mx6RfH9V
+ e3dzJHkMdPv87Tnvo+0R157uJ97Tx7M=
+X-Authority-Analysis: v=2.4 cv=dKgzC+Zb c=1 sm=1 tr=0 ts=6ae1d0dd cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=mO8_gwkcAAAA:8 a=AZ7O3MIRyL_cLquugRgA:9
- a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22 a=InTEqNb8lIr1xazlwGwc:22
-X-Proofpoint-ORIG-GUID: -TW3pFWXfG04Bl1G_JJKFCqub8Le2e2W
-X-Proofpoint-GUID: -TW3pFWXfG04Bl1G_JJKFCqub8Le2e2W
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX2JZC9yoC186t
- yBLDCCFUjoSJ5BhkohFkB07q7q4oAYtoFsc7wyaflEgcb37kZOuRmu5ZabZhj3qFsp/WctoAmgL
- q/GG8dVxDr+RjVe36IvtzK3UG25JSXI=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=mO8_gwkcAAAA:8 a=ShocUR_Qg8epsXyAbykA:9
+ a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=InTEqNb8lIr1xazlwGwc:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 phishscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280042
 
 From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-Add dp_aux_cfg2 and dp_phy_cfg1 fields to qmp_phy_cfg to allow
-hardware-specific DP PHY register values to be specified per-platform
-rather than hardcoded in the configure functions.
+Update qmp_v8_dp_aux_init():
+- Add CLK_FWD_CONFIG_1 initialization (0x3f) before power-down control
+- Replace PSR_PWRDN with LANE_0_1_PWRDN and LANE_2_3_PWRDN in PD_CTL
+  to correctly power down the data lanes
+- Correct BIAS_EN_CLKBUFLR_EN value from 0x1c to 0x17
 
-Define named constants QSERDES_DP_PHY_AUX_CFG2_V456/V8 and
-QSERDES_DP_PHY_CFG1_V456/V8 for better readability and maintainability.
+Update qmp_v4_configure_dp_tx():
+- Correct default TX_EMP_POST1_LVL value from 0x20 to 0x2b
 
-Populate the new fields in all existing DP PHY cfg structures:
-- V456-based platforms (sar2130p, sc8180x, sc8280xp, x1e80100, sm8250,
-  sm8350, sm8475, sm8550, sm8650, sm8750) use V456 constants
-- Glymur (V8) uses V8 constants
+Update qmp_v8_configure_dp_phy():
+- Correct 2-lane and 4-lane driver enable values to 0x30 (was 0x10/0x34)
+- Add CLKBUF_ENABLE (0x87) programming for both TX lanes before driver
+  enable writes
+- Add TSYNC_OVRD sequence (0x03 -> 0x23 -> 0x22 -> 0x3e) and
+  LALB_RESET_TSYNC_EN_CTRL (0x0a) programming for proper TSYNC handling
+- Fix QPHY_DP_PHY_STATUS poll to check BIT(0) instead of BIT(1)
+- Replace post-lock TX_DRV_LVL/TX_EMP writes with two COM_CMN_STATUS
+  polls (BIT(0) and BIT(1)) to properly verify PLL lock completion
 
+without this fixes following can occur:
+- Link training failures or instability at higher rates (HBR2/HBR3)
+- Incorrect LFPS signaling timing, potentially breaking USB3+DP combo
+mode entry/exit
+
+[   34.109482] [drm:msm_dp_ctrl_link_train_1_2 [msm]] *ERROR* link training #2 on phy 1 failed. ret=-110
+[   34.111460] [drm:msm_dp_ctrl_setup_main_link [msm]] *ERROR* link training of LTTPR(s) failed. ret=-110
+[   34.118118] [drm:msm_dp_display_atomic_enable [msm]] *ERROR* Failed link training (rc=-104)
+[   34.118156] [drm:msm_dp_aux_isr [msm]] *ERROR* Unexpected DP AUX IRQ 0x01000000 when not busy
+
+Fixes: d10736db98d25 ("phy: qualcomm: qmp-combo: Add DP offsets and settings for Glymur platforms")
 Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 Tested-by: Jeff Roach <jeff.roach0@gmail.com> # HP OmniBook X 16 (Mahua)
 Tested-by: Luke Macken <luke@phorex.org>
 Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 37 ++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 54 ++++++++++++++++++++-----------
+ 1 file changed, 35 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 062ee4397171..2a4cc45d6daa 100644
+index 10b3efe48721..b34b892c2702 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -2500,6 +2500,14 @@ static const struct qmp_combo_lane_mapping dp_data_lanes[] = {
+@@ -3904,12 +3904,15 @@ static void qmp_v8_dp_aux_init(struct qmp_combo *qmp)
+ {
+ 	const struct qmp_phy_cfg *cfg = qmp->cfg;
  
- struct qmp_combo;
- 
-+/* DP PHY AUX_CFG2 register values for different hardware versions */
-+#define QSERDES_DP_PHY_AUX_CFG2_V456		0xa4
-+#define QSERDES_DP_PHY_AUX_CFG2_V8		0x06
+-	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_PSR_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+-	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
+-	       qmp->dp_dp_phy + QSERDES_DP_PHY_PD_CTL);
++	writel(0x3f, qmp->dp_serdes + QSERDES_V8_USB43_COM_CLK_FWD_CONFIG_1);
 +
-+/* DP PHY CFG_1 register values for different hardware versions */
-+#define QSERDES_DP_PHY_CFG1_V456		0x0f
-+#define QSERDES_DP_PHY_CFG1_V8			0x2f
++	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
++			DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
++			DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
++			qmp->dp_dp_phy + QSERDES_DP_PHY_PD_CTL);
+ 
+ 	/* Turn on BIAS current for PHY/PLL */
+-	writel(0x1c, qmp->dp_serdes + cfg->regs[QPHY_COM_BIAS_EN_CLKBUFLR_EN]);
++	writel(0x17, qmp->dp_serdes + cfg->regs[QPHY_COM_BIAS_EN_CLKBUFLR_EN]);
+ 
+ 	writel(0x00, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG0);
+ 	writel(0x13, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG1);
+@@ -3936,8 +3939,8 @@ static void qmp_v4_configure_dp_tx(struct qmp_combo *qmp)
+ 	writel(0x27, qmp->dp_tx + cfg->regs[QPHY_TX_TX_DRV_LVL]);
+ 	writel(0x27, qmp->dp_tx2 + cfg->regs[QPHY_TX_TX_DRV_LVL]);
+ 
+-	writel(0x20, qmp->dp_tx + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
+-	writel(0x20, qmp->dp_tx2 + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
++	writel(0x2b, qmp->dp_tx + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
++	writel(0x2b, qmp->dp_tx2 + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
+ 
+ 	qmp_combo_configure_dp_swing(qmp);
+ }
+@@ -4126,39 +4129,52 @@ static int qmp_v8_configure_dp_phy(struct qmp_combo *qmp)
+ 	} else if (dp_opts->lanes == 2) {
+ 		bias0_en = reverse ? 0x3f : 0x15;
+ 		bias1_en = reverse ? 0x15 : 0x3f;
+-		drvr0_en = 0x10;
+-		drvr1_en = 0x10;
++		drvr0_en = reverse ? 0x30 : 0x10;
++		drvr1_en = reverse ? 0x10 : 0x30;
+ 	} else {
+ 		bias0_en = 0x3f;
+ 		bias1_en = 0x3f;
+-		drvr0_en = 0x34;
+-		drvr1_en = 0x34;
++		drvr0_en = 0x30;
++		drvr1_en = 0x30;
+ 	}
+ 
++	writel(0x8f, qmp->dp_tx + QSERDES_V8_LALB_CLKBUF_ENABLE);
++	writel(0x87, qmp->dp_tx2 + QSERDES_V8_LALB_CLKBUF_ENABLE);
+ 	writel(drvr0_en, qmp->dp_tx + cfg->regs[QPHY_TX_HIGHZ_DRVR_EN]);
+ 	writel(bias0_en, qmp->dp_tx + cfg->regs[QPHY_TX_TRANSCEIVER_BIAS_EN]);
+ 	writel(drvr1_en, qmp->dp_tx2 + cfg->regs[QPHY_TX_HIGHZ_DRVR_EN]);
+ 	writel(bias1_en, qmp->dp_tx2 + cfg->regs[QPHY_TX_TRANSCEIVER_BIAS_EN]);
+ 
++	writel(0x03, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TSYNC_OVRD);
++	writel(0x23, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TSYNC_OVRD);
++	writel(0x22, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TSYNC_OVRD);
 +
- struct qmp_combo_offsets {
- 	u16 com;
- 	u16 txa;
-@@ -2565,6 +2573,12 @@ struct qmp_phy_cfg {
- 	int (*calibrate_dp_phy)(struct qmp_combo *qmp);
- 	void (*dp_aux_init)(struct qmp_combo *qmp);
- 
-+	/* DP PHY AUX_CFG2 register value (hardware-specific) */
-+	unsigned int dp_aux_cfg2;
++	writel(0x0a, qmp->dp_tx + QSERDES_V8_LALB_RESET_TSYNC_EN_CTRL);
++	writel(0x0a, qmp->dp_tx2 + QSERDES_V8_LALB_RESET_TSYNC_EN_CTRL);
 +
-+	/* DP PHY CFG_1 register value (hardware-specific) */
-+	unsigned int dp_phy_cfg1;
++	writel(0x3e, qmp->dp_dp_phy + QSERDES_V8_DP_PHY_TSYNC_OVRD);
 +
- 	/* Set if DP mode configuration should ignore TypeC orientation */
- 	bool dp_mode_ignore_reverse;
+ 	writel(0x08, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+ 	udelay(100);
+ 	writel(0x09, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+ 	udelay(500);
  
-@@ -2820,6 +2834,8 @@ static const struct qmp_phy_cfg sar2130p_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
+-	if (readl_poll_timeout(qmp->dp_dp_phy + cfg->regs[QPHY_DP_PHY_STATUS],
++	ret = readl_poll_timeout(qmp->dp_dp_phy + cfg->regs[QPHY_DP_PHY_STATUS],
+ 			status,
+-			((status & BIT(1)) > 0),
++			((status & BIT(0)) > 0),
+ 			500,
+-			10000))
+-		return -ETIMEDOUT;
++			10000);
++	if (ret)
++		return ret;
  
- 	.regs			= qmp_v6_usb3phy_regs_layout,
- 	.reset_list		= msm8996_usb3phy_reset_l,
-@@ -2956,6 +2972,8 @@ static const struct qmp_phy_cfg sc8180x_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
+-	writel(0x00, qmp->dp_tx + cfg->regs[QPHY_TX_TX_DRV_LVL]);
+-	writel(0x00, qmp->dp_tx2 + cfg->regs[QPHY_TX_TX_DRV_LVL]);
  
- 	.reset_list		= msm8996_usb3phy_reset_l,
- 	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
-@@ -3002,6 +3020,8 @@ static const struct qmp_phy_cfg sc8280xp_usb43dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
+-	writel(0x2b, qmp->dp_tx + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
+-	writel(0x2b, qmp->dp_tx2 + cfg->regs[QPHY_TX_TX_EMP_POST1_LVL]);
++	ret = readl_poll_timeout(qmp->dp_serdes + cfg->regs[QPHY_COM_CMN_STATUS],
++			status,
++			((status & BIT(0)) > 0),
++			500,
++			10000);
  
- 	.reset_list		= msm8996_usb3phy_reset_l,
- 	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
-@@ -3047,6 +3067,8 @@ static const struct qmp_phy_cfg x1e80100_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
+-	return 0;
++	return ret;
+ }
  
- 	.reset_list		= msm8996_usb3phy_reset_l,
- 	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
-@@ -3156,6 +3178,8 @@ static const struct qmp_phy_cfg sm8250_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.reset_list		= msm8996_usb3phy_reset_l,
- 	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
-@@ -3204,6 +3228,8 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.reset_list		= msm8996_usb3phy_reset_l,
- 	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
-@@ -3251,6 +3277,8 @@ static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.regs			= qmp_v6_usb3phy_regs_layout,
- 	.reset_list		= msm8996_usb3phy_reset_l,
-@@ -3296,6 +3324,8 @@ static const struct qmp_phy_cfg sm8550_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.regs			= qmp_v6_usb3phy_regs_layout,
- 	.reset_list		= msm8996_usb3phy_reset_l,
-@@ -3341,6 +3371,8 @@ static const struct qmp_phy_cfg sm8650_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.regs			= qmp_v6_usb3phy_regs_layout,
- 	.reset_list		= msm8996_usb3phy_reset_l,
-@@ -3386,6 +3418,8 @@ static const struct qmp_phy_cfg sm8750_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v4_configure_dp_phy,
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V456,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V456,
- 
- 	.regs			= qmp_v8_usb3phy_regs_layout,
- 	.reset_list		= msm8996_usb3phy_reset_l,
-@@ -3431,7 +3465,8 @@ static const struct qmp_phy_cfg glymur_usb3dpphy_cfg = {
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
- 	.configure_dp_clocks	= qmp_v8_configure_dp_clocks,
- 	.configure_dp_phy	= qmp_v8_configure_dp_phy,
--
-+	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V8,
-+	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V8,
- 	.dp_mode_ignore_reverse	= true,
- 
- 	.regs			= qmp_v8_n3_usb43dpphy_regs_layout,
+ static int qmp_combo_dp_configure(struct phy *phy, union phy_configure_opts *opts)
 
 -- 
 2.34.1
