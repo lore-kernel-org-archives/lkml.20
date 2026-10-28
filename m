@@ -1,53 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189381;
-	b=LZ+yVC9k8NjKHs77B6cjRjG9NPI+auJDJCuUl6ysHRWFy4qOoczgUzaAsX6mzxl5PUDS
-	 hRSWu4gF11VpXBUGTyv3vioPO4++vGrDyFvDYJ9ksPlVH0SRHoObuZyr7m/r0+JksK+bF
-	 k6gTvvVEo+avGY7oZsnr9Hi1IMFBVUsCWRg+jfzetrvcj6TNxUOQUOeQDpPNKYXKsOQxR
-	 p+vIl8ZXm4bZM/k8wb5MX5Q9K/Vlg4QdC8SpkFOSX/R6hJ+G/xQnvVMRTMC+lKyPJIL9I
-	 kqmbUNenzjLaj6Ic2EoNotT3sfH5vlYWxm2s98sRGMOXoSeUESmlyUOrIXYzvw8ccMg==
+	t=1793189397;
+	b=kJSJkY1MZ3D9pOdrkSlWPFCT1ylU1BBJpbKf3cQgsrEDDI2IJwCG7Fa0SEj0YI512Leh
+	 MMEeCcI/J4za4C1NbGbKaNuUWgAJpq+2WXb2+VfkyFSemTaIbFxCompfA7d2GwNC0CfIe
+	 Naitv06P6SvGzFS4q6iISdIDEwRjAHxGM5tX2KXP4R++6lWLVmXWtiRDL+yRd7hKr0iwL
+	 8aB0D4h10CIhtR8orBxLRx3hPSxgwjdBF0PLHlnVuRCYaasdDD8YOSY/2PZ1lIlEU9E43
+	 pysp9YIQ5SQw2j/xSU2D+5KofUhie0ORclSyonbyltbAzcPruA9E6XY4K7c9Csa+jeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189381;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=44FPlCOhpyB0hJOLZ9zbUC0W/Kn741CvEID6oPt0c9s=;
-	b=IQV3+t0Xy7ohMVBurt5EMrkU4Bv6tzLo6KmI565LhqLUTyv4jmsXr8oQ0uTjg4ZWb5jQ
-	 lPKd41fMdDW3mzDG6kXxWCT3lyz3R/qZaKF0ItGkSFeSb4S/opI1lythrzQSqt9Eq4nbJ
-	 U/FdVW4CQCXxIXcyeoh0J3sQSs+oiNl1BZ1qnph9Uqt8wmb2JA/Yp+fprAdV57sUSjrpG
-	 aPSGSekIi8qu26tJqwZ8DVE7NZAXTnTPJvBTD6JhJnyj5HXvYFf2dpmSeNpWsUAh6XUqU
-	 zCaDhQSu9YrpSUM6W+zHX0UpeKpzIHdBYUgTfynxYanNOx3hFpTDFSVhtK48KyoQOCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189397;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info;
+	bh=0HLaRvrg+jl3Zxb9AZyjzDR0FZQPetkXt6VlqhhlGEs=;
+	b=fQzRwJyuCFdHVhD9F2goKIGvkLdKJU42XrrDloyX63W70/1CPwab9hTGDIUj3qXjtfPv
+	 CV/RMdlJH2gMxWghW9fXt16lFUkKbG+GEKq8e9wf5K4qDce+C5defekSpHAczRj9otGiG
+	 RkYFTv9xLB8mitA3fjBWv589CyuYTosfLjdHwLO8FUJSKK73CASLh8iK//JCa4tZEAALw
+	 Gr6Qd3Y5v69YLJ83bqhtfG/450JJD12EIlAGwU7woKGsZwi+e3GfoFGnJ3qd+KJBhSUOs
+	 uwdt6lfjMxRDt4EOZWQY0cJzCV2xMCENJhM7tqrevysq67dA1HtV8gTOmhLzzkMs0Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OO+BPV9b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=LGyd1Str;
+	arc=none smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EC6606A31A;
-	Wed, 28 Oct 2026 12:09:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE8C606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE8C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OO+BPV9b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F4F1F01825;
-	Wed, 28 Oct 2026 12:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189380;
-	bh=44FPlCOhpyB0hJOLZ9zbUC0W/Kn741CvEID6oPt0c9s=;
-	h=Date:From:To:Cc:Subject;
-	b=OO+BPV9bly7Yefmq6IsHn+YrDijOaVxj29lqAOdowgNFQuqifWuRkpQvXfwjFwJga
-	 gC8Jht+R8nt1lUHduPJ3IZiKvtmUzeLVGfiSKqKGDF2TURi/R4xzhsKGzBSXzzfPZE
-	 YYN4W5akMSAJ/E3OS2hbvo2FLAh6lj5/wk8/ftSRTZZV/HrvtCoKtQt8W4ppdVUJZa
-	 Nf5I371acQuhWwxUvKxdpVI70JSNa1dO7yvqws7u5WjsxFXvYypDBHNoCPoTKc+WN2
-	 xHW5+oLjh6FhM0bmrV+esUbNAKi/T8crHDBRXJUFSOrPdvlpwYO4PEeKloG556QkOi
-	 6B2N/NPwDCBhw==
-Date: Wed, 28 Oct 2026 12:09:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>, Ilya Dryomov <idryomov@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Tal Zussman <tz2294@columbia.edu>, Zi Yan <ziy@nvidia.com>
-Subject: linux-next: manual merge of the ceph tree with the origin tree
-Message-ID: <auHmABrM3hZnrSVf@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=LGyd1Str
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBfSQl1071483;
+	Wed, 28 Oct 2026 12:09:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=0
+	HLaRvrg+jl3Zxb9AZyjzDR0FZQPetkXt6VlqhhlGEs=; b=LGyd1StrXhjsnDGgs
+	CIB6wNIvPza2XZIM3DWrE8u36AwPiBPWgTAN+SjVhS+KI6bLCyDycsJRG4GryZXt
+	idEPU+xLoaNQ6dOSodfYIjFoYJb9yyNaUcFUzoKiMVEWcjAQXJ5u+PoCtY4Hziq3
+	cLANp2c/G04eb8UX75s8o9ZRLAszDtTKZP8mS+vHWdI+OJfuQZ4woeAvtv6+DHrL
+	QHaJiEs9x4bP4i0JR3kvqepWQrxWGG2+Qfj7iYm+wmQM0fpMr5bv2ATnwLl/NlJX
+	DTH2gzTNymyglRLuXtmIEguBld11pgZYxZMvhwRrhv7l7kMuZnGusxiyLx1QFzPm
+	JP9Pg==
+Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hk4168exc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 12:09:39 +0000 (GMT)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.210) by
+ HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 12:09:38 +0000
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: <dri-devel@lists.freedesktop.org>, Rosen Penev <rosenp@gmail.com>
+CC: Luigi Santivetti <luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261005194127.151181-1-rosenp@gmail.com>
+References: <20261005194127.151181-1-rosenp@gmail.com>
+Subject: Re: [PATCH v2] drm/imagination: simplify pvr_fw_trace_seq_data
+Message-ID: <179318937874.184022.1740380316769591198.b4-ty@b4>
+Date: Wed, 28 Oct 2026 12:09:38 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,80 +79,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FEPWsNLghj1XOFXc"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-GUID: z1JiCtqXW1WrcZmI9mQiOc88j6aDrIzv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX02X1LANHBf17
+ vS890HkUyKOb5Tcvp16rpXbe+ONC5HRF2NeoCPyjqKRQFL9Eg76t9kh8Y1wKBXMAnMniI0+wc5u
+ 5GAx5YW+wMqONfiUgsWJf1KS4axxIAYjKCEz3E+dtLTC5ucdptIaI+jRg/J5cL9dTJikYu8Ip0F
+ /t2AN1mFxZ1JO/loMNZRan225K2rZjf/tovJ4BO68d9V8jItik244sCZn9LRVANc3BxdJ2fd+84
+ yrsTy7TEvX29kJZcsIU99TAiV+ZcV/18psJu5w4fXoyJqUe7yV8GZ74kFINZTBSrA3Dd2jLHyr1
+ vqZiiRsBwlSowgGODynn9P7QsFtbbPJSp8qIRtWwSW+0vmbrbBcVa+oWO6LHPNi+WxTektNa0Td
+ jxH4n6Cbj+KP280A1FC/+Ul2dSAOP2COwLRzoBEYEpMAVA+qULfV4T/cvGYZAkZ056xQohPyEls
+ U0xB6oNrSXRsTKdXZtQ==
+X-Authority-Analysis: v=2.4 cv=apQnmiZV c=1 sm=1 tr=0 ts=6ae1e603 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=sooSunb62akA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=zec_S3E7ITbJX9_FcKEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: z1JiCtqXW1WrcZmI9mQiOc88j6aDrIzv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX2C90W1cZXGJ1
+ hS6u0qrsD2PSfLqj98H7O3TBQPK/9ejgCnrGR8oSGGJpANGir0BX+Bjom2KL2eg/qMl6Uz1Qjbc
+ Bt7e+qkMAWeDkM3a7Js440Qo5yDAQJQ=
 
+On Mon, 05 Oct 2026 12:41:27 -0700, Rosen Penev wrote:
+> The trace buffer copy always has ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS
+> entries, so embed it in struct pvr_fw_trace_seq_data as a fixed-size
+> array instead of allocating it separately. This removes one allocation
+> and its error handling, and lets FORTIFY_SOURCE and UBSAN_BOUNDS see the
+> real size of the buffer.
+> 
+> At about 48KB, the struct needs an order-4 page allocation, which can
+> fail under memory fragmentation. Allocate it with kvzalloc_obj() so it
+> falls back to vmalloc in that case, and free it with kvfree().
+> 
+> [...]
 
---FEPWsNLghj1XOFXc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to drm-misc-next, thanks!
 
-Hi all,
+[1/1] drm/imagination: simplify pvr_fw_trace_seq_data
+      commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
 
-FIXME: Add author(s)/SOB of conflicting commits.
+Best regards,
+-- 
+Alessio Belle <alessio.belle@imgtec.com>
 
-Today's linux-next merge of the ceph tree got a conflict in:
-
-  fs/ceph/addr.c
-
-between commit:
-
-  6d1a85b306729 ("ceph: replace PagePrivate() with page_private()")
-
-=66rom the origin tree and commit:
-
-  81a949790a690 ("ceph: add ceph_folio_snap_context()")
-
-=66rom the ceph tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc fs/ceph/addr.c
-index 21d52d8498424,259e317981558..0000000000000
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@@ -65,12 -65,13 +65,13 @@@
-  	(CONGESTION_ON_THRESH(congestion_kb) -				\
-  	 (CONGESTION_ON_THRESH(congestion_kb) >> 2))
- =20
- -static int ceph_netfs_check_write_begin(struct file *file, loff_t pos, un=
-signed int len,
- +static int ceph_netfs_check_write_begin(struct file *file, uoff_t pos, un=
-signed int len,
-  					struct folio **foliop, void **_fsdata);
- =20
-- static inline struct ceph_snap_context *page_snap_context(struct page *pa=
-ge)
-+ static inline
-+ struct ceph_snap_context *ceph_folio_snap_context(const struct folio *fol=
-io)
-  {
-- 	return (void *)page_private(page);
-+ 	return folio->private;
-  }
- =20
-  /*
-
---FEPWsNLghj1XOFXc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrh5f8ACgkQJNaLcl1U
-h9DNOwf/ahUIjtxYXnRNCNuEOCBWC8JbBYqGLHZqsuSn8G7DbUh7QdyonoQviu9t
-QgMYWMYfKDbaEmotzhuxpd2x89H0r0rEbHvGrtpglH4+y9Btpw2hv2Z0HUVBKzhF
-Q7rKTCakVcVEEmub5Jml7s8XRFSpJnVm3KTpH3DzIr+uc+FxvIOG1YcNPLCrzkmL
-ao5z+Z1d4RFkMyHFzwlDew8zJww1WB5FH6blTQgGZ7tbQ+hsJFRF/b8wPdEVHZDh
-pAwc6iIkQY/Gyt5IGmmyrpjQetr3HbTy+oaNjH2MAVumsa9kg97kTweSKYas3NtS
-sJVBRWeeHZWq547MMUZyXWSGqadoFg==
-=yUkR
------END PGP SIGNATURE-----
-
---FEPWsNLghj1XOFXc--
