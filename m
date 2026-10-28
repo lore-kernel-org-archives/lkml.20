@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188206;
-	b=b0vCIAOxpZpJdjRLBbzWh3tjedBL6VUGnIuahFkD7RcqMySb4H81rZeW3w/83ibzY9gS
-	 CWQN7ZLE31optBtl/46WtW4WxsT7mEqINZ5aHPfKfR6NQIcKtIp1vd4Ov302m8mBCyaGw
-	 gV6sg0CLZVIlSol59WqK0APa1lPdZOkgg4DhWEliL50vGcvSVsjPHXwVUgfzE3oQYETxJ
-	 JTWtEFXBRyQSb3vW9TPHeb22ls8DIErIp16XQYtmWmS7dEm6ZFKaBwyctqo7UcPsnjqWe
-	 0VWnF7Nje0hzipQ24UflPmu789fuTrhd0ToBzlMFJLk0mnPXGlKcS3geT/D7E0Y09hQ==
+	t=1793188207;
+	b=Gy0BeclutnxnZml6QDORo1mvrpSXAb3WXUrRsRnRm4dSNbY/cA3UDWg7KeBX6hBmGuKW
+	 LfxXdSDuPLO8HFDImfaeN7u1xNIoukQRSGS3aIuD7lWYNC1hzUSD7c3fBqLOVvDZeLRSo
+	 5+9C/0eey4OAv0H8dzi1/GmKpskwHz8MvVdMXNQwg43rPxJtfBHYgC7gC4Eymw2qChhTV
+	 yXCR+5hVKU4cM3eVQ/G0anjnXiLl0k9+qT2nZUpsO/jkEhRtmZ0qfsb9uB+Nl74c+a5aV
+	 PKYMtiNGWbkkcZfHBJZ+cGKNUtW7WJAw599SRwqY9mL8PMYHA3D67OHX6RLlrfEZwwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188206;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=eZCjIfua1NVGQXe03RlVuUyF2WuomENUggZmCurRgP4=;
-	b=jcUxqATcxVy/ljjyKZst+MeH5EY7AJXgryfBdZYuPR8swCahiXNxhu98zYLRyjU7nRom
-	 vBpL47MdbYMZd3CysL9SlrNSuFJvwPrUb/MkqqHs+s8aoYgqWtlTnqGgnCyv/YP4FbRbo
-	 uWNwhRw8WQUKE9ZhGja6b3f0R7M6s7GFQ5t0K35Af+k/9vTEZytyhWhXrFZQW2YofWvca
-	 oDdrMVZ4PYR2mL+ChD+fkMkzpIZtiCkF+UsK/5x+YjSOP/kdl8+Cu6B7y8+Sdx3cp4Bbx
-	 i6Z/Wz8cxWbOJWP8hR8IThlzI8hljroFSi+5XOuv0mAYT+i2aONjg43kEU/YLSnOEzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188207;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=yMTEMw0kkFxlB7MDaas1Eud3c6Am0YZwhPAxvxQm0gU=;
+	b=x9kE/dgO8FYswEMuoNxzZP0pz+1iySQYWgxVVxYtxRPnHjCc1LNjpc/aktTGl9UnYsha
+	 osZZU3F4b4RfLcmn7kCX4vuqdklFubi6AEkFaDdSzfU92/X63fQ9q7oBfvEM9mh6w6z0x
+	 adkvijF2YcqdOF1+hEvIlAWX+Gbwu5LDCpZloOB53HDAFogJG8lAa2HuD6cP9CZq5DNAH
+	 ilDceSsCOWlF4h0G8P/sapu1Gphw4BVfFNK15icCd5yLS1n5kiBFFHToCMEh/o+uE6cgT
+	 HAboV4qIOHQQg3Ndsz7S0Cy7JCzVDEy3l8JVu4Ot8qJAUAnKQddo0GxcV+vdANgbwGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/3UWtxs";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0gXv8GB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB74E606A31C;
-	Wed, 28 Oct 2026 11:50:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FE0606A325;
+	Wed, 28 Oct 2026 11:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/3UWtxs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F94A1F01828;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0gXv8GB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CE41F01825;
 	Wed, 28 Oct 2026 11:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188205;
-	bh=eZCjIfua1NVGQXe03RlVuUyF2WuomENUggZmCurRgP4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=a/3UWtxsIp/ziY58P3nzikTBK4B/Rz2/DTN/lvSIhEJhilYFUwFQnG6IX3IUKU9we
-	 j9JJCAKaNsHFizWWE7frxzjuoBY4Eg9cqQGfURbT1kkb2GMHkIxvCciwthq/7I7fYq
-	 7nxeX1lLwIba+iKB4n/tdOwHneCVfP2ktReyB3hKT50LaK8AQHImtIz3f2pl55sXrb
-	 26PFs11QaE6rxaRHtJ2hdZCZyY6orwCAGc8e3EuquwtqWqdlOTkF9i9yDwIfVR5xZm
-	 nr8XDfQ1hByOb8Xbhfj72Z/8hz6ZvZVIL9sjttLIdEXb3YGrykgyGoSge/XG58oHfa
-	 adw/vHCKUA+iQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 8150D3AAA6CC;
-	Wed, 28 Oct 2026 11:50:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793188206;
+	bh=yMTEMw0kkFxlB7MDaas1Eud3c6Am0YZwhPAxvxQm0gU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m0gXv8GBPIIa/nDG+K3ewNg+78qY3cyN9imTJURo2kcQXjmuLw9L9oBlFPT8Hds0E
+	 3t/9+zVGOh+epI9UMG51uOh+dtgJBnxR1V7SH4nZycFeszBSGvA6+KFjQsB4VB7DEQ
+	 EC7gRsyrJzd/0y33tJjbJG8Cbb3UPaoVUIE99Lc5WFe05+xqpfaPQMxzMjiGrZ7aSd
+	 AaJGQoiCStXZb4YljtB2eziVPLKegMIy5LVaI5wDeYMUFx/S2MryV9x0cgMSjMTJp7
+	 MRi07+xr7/2ZmKZsNRbEaJM+wm/ViesPGO26p+ditScQmKJTvzft0cSFxiE1X5/u5V
+	 vu1ikPjASlBbQ==
+Date: Wed, 28 Oct 2026 11:50:02 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Mike Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-next@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: Missing signoff in the clk tree
+Message-ID: <0597d845-8f49-434e-b595-da20c0c46068@sirena.org.uk>
+References: <ar_0GFOb5hZfhHHx@sirena.co.uk>
+ <asOdxWlcjSP0DrB0@sirena.co.uk>
+ <6ef47587-5d3d-4561-b0be-f906fe48c8e2@sirena.org.uk>
+ <atZqw7pdZjMwahdf@sirena.co.uk>
+ <at9drMPrv1IvPovj@sirena.co.uk>
+ <CABx5tqKQs2LFNEW7ZTwFqD66Mzv7EM+fSbqWkZ8chaWfXhheOA@mail.gmail.com>
+ <at-YqCa-RGEv7IJ4@sirena.org.uk>
+ <CABx5tqJnZi9KT67RU47PLqR8tQWV-TL3Y4SrUyzWvF0B7AE68g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,43 +65,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: sched: em_ipt: validate hook value from netlink
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179318820432.674732.3698525593677079612.git-patchwork-notify@kernel.org>
-Date: Wed, 28 Oct 2026 11:50:04 +0000
-References: <20261026090717.41597-1-fangxy@xiaopeng.com>
-In-Reply-To: <20261026090717.41597-1-fangxy@xiaopeng.com>
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- eyal.birger@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- liuwb@xiaopeng.com, zhugl3@xiaopeng.com
-
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
-
-On Mon, 26 Oct 2026 17:07:17 +0800 you wrote:
-> em_ipt_change() accepts the user-provided TCA_EM_IPT_HOOK value
-> without validating its range.
-> 
-> The value is later used in check_match() as "1 << im->hook".  A hook
-> value of 32 or greater causes undefined behavior and may undermine the
-> xt match hook-mask validation.  The value is also passed to
-> nf_hook_state_init() as a hook index.
-> 
-> [...]
-
-Here is the summary with links:
-  - net: sched: em_ipt: validate hook value from netlink
-    https://git.kernel.org/netdev/net/c/94cea342e891
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Rb9cMFsGeEColCRL"
+Content-Disposition: inline
+In-Reply-To: <CABx5tqJnZi9KT67RU47PLqR8tQWV-TL3Y4SrUyzWvF0B7AE68g@mail.gmail.com>
+X-Cookie: Pushing 30 is exercise enough.
 
 
+--Rb9cMFsGeEColCRL
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Oct 26, 2026 at 07:57:40PM -0400, Brian Masney wrote:
+> On Mon, Oct 26, 2026 at 2:15=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
+rote:
+
+> > Yes, you need to tell me about it - there's a separate list of contacts
+> > for the various trees in -next since there isn't a 1:1 correspondance
+> > between them.
+
+> I fixed the clk-next tree (via clk-pile). Sorry about that and I
+> definitely see now why not to rebase the tree, especially with two
+> co-maintainers!
+
+> Let me know if there's anything else you need to do regarding the
+> contacts for next, or if this is enough. Also just a heads up that
+> Mike stepped down so you can remove him. It's now me, Jerome and
+> Stephen.
+
+Thanks, I've updated the contacts for the clk branches.
+
+--Rb9cMFsGeEColCRL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrh4WkACgkQJNaLcl1U
+h9BFowf/fMeKXoLeIa7oNVSpJwfzkPJD9RY0TzVQhNoDtSQL+clJu2C/4f7K7maZ
+gAgs6wsVqk3GqL4OotIbk/ScVkWQ3r7jNWeJbvgjmnhmdAOvbXQQLYmlm2XwIdNs
+sPOiX3Y/D5C6hy9K2naVHk1DCZnzPEyoI6DZoLEzQJz2Qv+r0RgOlPBVpEHQJMY8
+dPTyJ1pPgrqlKuu8FwFROxPz//HKpb4GUPf5P72iHR1LD1S8iW3+8IsmDnmT+keD
+TILvOtaBQ86hDWEadWQ6o4rEtX7MF9pOmaLhxBeVwcRieiqvLrFT5MYOk2xy/dcu
+9XHArpECTCMPwcaNAsOXueht+tI42w==
+=oiXS
+-----END PGP SIGNATURE-----
+
+--Rb9cMFsGeEColCRL--
