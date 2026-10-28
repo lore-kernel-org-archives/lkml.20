@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793211766;
-	b=NIZESuAgk9CDNDPUuIvzzpQAd7fYmQURqb4ZHS0tCX3FqHDfTleK0hb+cqOHL1BfPN1x
-	 cURICVtctZk/F65z4q8bBRJtkbNcQOiybzGUCCVgL+HV+CwKrnlaq49iAOl9RI1vgKQcJ
-	 PsvOnhtTV7Hob7nuz4qr9+HOYPBpPRHnl757rbnyOnHEUFz0YkP9v3vO4i34fIuSEEYEk
-	 aIfh6bP8rSUenmE0KOXX733DFp1kXZrcMpemsAz1cpu+UrYr6tdVVT8aO+SCsB6nKOfeV
-	 JPmBT6fRa0Gv0+0wLfRodp0NPavuFCo72rKe+3FLIupRxJ8uC3XqTe6IKnsdlhocb2A==
+	t=1793211814;
+	b=rBFsAlWTccXMf8/jzgWEBnMEfLs7/wJmsf18B+97o0dtsfFnE8VGcQmR3Jh/23MEQwu1
+	 bMN4jdU8Hn0vAY9jXDLdqp+MLM5TZIXXSEeiFuK7MF37ZpfREs7Uq91yL5GDcpV5/ZgQT
+	 MXl/rthC1UrY2DI1RF8kq/f3RbE8sITZx/75j7ZgnBIJGoSsLz66wP2J0V5qaV2x0DJ6A
+	 RX23TuaPQk9hwNDglvoN5rdmTPMcBa5AzZn48iO+74bsM9cPN39KN8x5m02+9Z9TSpfzM
+	 oSQPFjrOUY7m1Wp8Nh4hW+sgoQmw8eg9PZ4zvbnZTR7fKtOEDNft6Mjq/bEJ+YeONfw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211766;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=peeV4Vo4gdDreIjAw5dzjKFU+Xuke4DgFSrEFVCJoEw=;
-	b=IKSgKSaeXG58oBg4VGKkvTeYnts+p+aPo+udFg+HZlhM8iq04rtCdGnkVQe17xcOpd0a
-	 92PWBqrFNYwXS93MQmoBt6PTMh0kn1lcEf1rlggKHxaOKArab+Wmg2NZBc+2V8SbtiO/1
-	 zDKxk4bI4Qbt0+0cjYStcuZwNjyjtuqN8498YMrn0R0dyguC5X1iIUKDGxq8F+4Vg7VK4
-	 pUfB1JrYxxcnwU/9krEahhdgyPB+iVaV10mXS6iA+Hhx6QVmcER3Xya09ozc+ZsfyCTwZ
-	 bWSsfNGA3Yh81ERYVxNXKpyXa7wzGqsCf//GobMAUvq3QHKMFEca5hVCWsqY5TKX/bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cFWfkIkWfjhOSUFJOJXQEhmE0QtvF6eBs0tDviPyGsc=;
+	b=ZX++yA8Dv+YgaB0hyCa5OD9iN3AK/nG4MvCeBE0P/pEJ5dVfAZUd6jzfxLj/nWlR7Ady
+	 xQf2dREZUo0obBQgk1M2jJtuEyu6WkBd0fKyQhmzOq3d7sb/JgJ9acWG8krIWOqOxYydZ
+	 feTXn+r0E0iXdZUcIj3nBAmb8+tdcKEnkQp0OkSibq6RJjPCSSvnTCPKa2KR1iDstEa8d
+	 XDUsObx++VtjZNR7XdxuY50g0lmiyhTZrijTMkVA5zf1jYPj09wNgIlMP7/P5W02PExqq
+	 C3aFAUQyJjZ/34j+t1OOrnkukB4F6Pfsj2imheTxfbTFSCZsF9k2g8gbIITJdeUmHlw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDmhEgL4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBE2606A32F;
-	Wed, 28 Oct 2026 18:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDmhEgL4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793211766;
-	b=au92xFI7pWAiUU9htveHlGQxMCIfZuhwoMITjA/70TDYX8cchb4JIvbftMNWyWJo7Zvn
-	 00KCPxSgP2t5/8RlBdLPIKeGreaZjq+FSRvYaJM1aFJ0fW7n78+21j3pv3my95W+kgZg9
-	 bpb1Wx7E8QvFmEE7wQVHxaq89l0y6UgTJfisjfCYfxmIgLhGUWM+HzY6kpfbkGbLDQBHr
-	 seZp2ruy9SxQKa6wPeSfsm3Q5YW14kikH6Sh+bNWnpKZarC0CLvv3zin+dRDnBJLuD8P5
-	 mMyqOEcMmYae1+j8valWkXYOqFXDZrVhVQroRDdzEHjVK+FiQsh5D1AeXV1zf5cK6rw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793211766;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=peeV4Vo4gdDreIjAw5dzjKFU+Xuke4DgFSrEFVCJoEw=;
-	b=tw72681jmjzJ4uPrNT/s6XK2vk7M+3Cm0gisXvQyjy+qPf/qdNHovZKyn0Wgj149/WV1
-	 xQ6gR6TZZMfaVj3b+kccJxUzuCwfSGcnXR038HKvTF7TTTd7WsvDX82qi+G1DQHNHvoYp
-	 AqRrLexdmQsil9x3kq0s4e5ssCm5CcRCqbLuEjrOqQDhBdY0602Hzewud4KqEk2dqdAI8
-	 z08nYbucJuFCH143WEbrwbRpK8dDLrWGTfnvZWCHn7s/6FZiQBfHYvIYkWZF8mSRe0SfM
-	 MNxCHifI+MMvoNGx25TSEEFzF7ljKWHKDXhz0/0FrNJ1Wertmny9iD2l/y+CAKQgepQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cmCVmz5E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 301A01F01825;
-	Wed, 28 Oct 2026 18:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793211765;
-	bh=peeV4Vo4gdDreIjAw5dzjKFU+Xuke4DgFSrEFVCJoEw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=JDmhEgL4+NtaquzUEI7aRQ2/IOfFGFvkixG9ZLIoeKNKJQS9Vll1Y4MuCLXR4zUMu
-	 GsvdL1PPMhdC0P6mYsFGiM5yS6oNZdwdcpPDGBehX/XDF+PtP5QmylgAqgm3X2ruFK
-	 27MAvPzZPvztXuB/hgFe7UlKgMpx5c5l8L8YkWxsnF41SMrJ27zC/88x4uiIPhZ2i7
-	 9U5zFztJI9PcnE7WBZDufjp+eviYk99MSWA/WVmLYGgFXYH0AWrkpipkLKq8e9UYhg
-	 FLGgh7MGF3tyFhqRsg3rWLI1AUy1s633MgIzOJflWwY7QBDhQGHW+zc1yjSsuXI85D
-	 yKZ7+rOE9kN1w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8193645549;
-	Wed, 28 Oct 2026 18:22:44 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Wed, 28 Oct 2026 19:22:43 +0100
-Subject: [PATCH net v2] vsock/virtio: clear vqs[] to avoid a UAF on a
- failed PM restore
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A318606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:23:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A318606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cmCVmz5E
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67999045530so1187550d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:23:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793211813; cv=none;
+        d=google.com; s=arc-20260327;
+        b=STsv7EtARGxBOX5g6rECOCc3+M0oS9Ez5IOYIsdCfsd/GUmeov0OjB8g0CyX95YpTf
+         6XGrT7+lfDDLB2EaOzz+YbR6qcOsyBGchL0zBdD8e93XJXh1In22qte7V/YB8KGmHjL7
+         54qlR5QzVdWXg1uxM1yZwj73/b/a2UMzH5hfItVqKhMcAX4sDrPTZIajduKFFuKc/N1F
+         aDJKfjfeL2NE/5GuMeMUGU/kzb6831CNnJKGnj6Rz781gjH2OjzVvlsVsO7JuEDXdPma
+         Iql2KQzZi2ePC2WSkyoFSCbygws0YsKeRLIe17oPs2xUsAmFCAKvPjtDGTi1zQLiZ+A4
+         Oh0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cFWfkIkWfjhOSUFJOJXQEhmE0QtvF6eBs0tDviPyGsc=;
+        fh=EbTrF33tHafsp+GkLmtoppsND28n9i7luXg9OmPUABs=;
+        b=Rocn2IbbjF83g/ZbUEQL5TjaRaoL3f9dxLZcKi4vcfNL2KtaPhN/Xl7QBZuKjAdcAK
+         w/Dqzrwt/IQXtqE6y8p+q0CdLWHAd8z0reGDIEzgXV4O44byrdIOBWHS7+AvhBcbeu/c
+         csqXomKrBeDhCbAm5XTC2+pcLigEsA69kyDNVAlBcdMW8NvjJuA/oyrlOVH6X6nNTHHP
+         b3+A0iUvJF46ammpYWqWPu5pr0Siha883xSqsiZcCAahFL4/o1SsttvAJiLHnTDlBx1z
+         lBC+ulqKZzwA5R+q7NLtXihs26Gbtz4f0QUkbLgg7RRY+B5BHZ7HbAUl4i0WzJRTAl0M
+         KFzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793211813; x=1793816613; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cFWfkIkWfjhOSUFJOJXQEhmE0QtvF6eBs0tDviPyGsc=;
+        b=cmCVmz5EDlPgGpt7D48i7zZLLkqYO+wKOQEJCFw+CPT1V0HsVdAOe24mkft9RXoEkD
+         jPI3A5deGmYs3Q1PF3kw8R4dQ23CEIy4/U1S9qF9Ar1JXrXInpunTdMqBudL8okCjjoy
+         5f2IcaSQ8wAY9ju3+/m0NYTjPTu/ueX6EsDmnX2FcC4QUPjx2/QEKkvGtV3J6mBSoLn1
+         c3+DohN62m7thFQFl0j2MU+ok2Gf6av/sgv+lltqY/+2wDnHn7XYq7irZX+hCgsbB0iP
+         CA/YnvHkM7rIJBNzGlEN4RTUyMUBRGWhDff6qMJm3GQt/BHtf5zQNMIcn/yy9/Oe26Hk
+         1FOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793211813; x=1793816613;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cFWfkIkWfjhOSUFJOJXQEhmE0QtvF6eBs0tDviPyGsc=;
+        b=nYg4hLI0ZYuO6Vzh/xD0fvEslz+szUw+neVegvz9w415sL6to9suQLVTRfHQECgz6+
+         CDvxjbwVrBMOUiTTvviSMoTEZUW0VgSsZNSoGXu0IM1PDQB+pQf1W2nkL+xBGTrAcRwA
+         jNTBVOXx9epGeDtbSKrCS0Z9cwY8Ad4ZdA8PWWgJs1JDifYR4QdwTGDt3tTk1PY2tzL/
+         3yycmoCs8sWDvIb2xVmVVXfDnLu7VUgKL4h5buWrz5r9DrnCU1tds+zz40TzU43HJsNw
+         eFsFn1tnD3uL5OIkKfm+wR7QdEuKZC+nXKecjZc7vetEwSGUT/2mhgOcOn5vbZrUJmlr
+         XoGA==
+X-Forwarded-Encrypted: i=1; AKwUvBzm7mdFtx86bZfgurHpvJOz2nJkEi4BXSpe+A5viJm/tld6NwWqhoeHhCMPZmjoEmPGnjMDj3FXrwDqi0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYaT/Rw3YZ4U1eu+Ct2KZQb6yKqJ4BbbvzpE0AT9stGHjrnT2i
+	/YG5l3N6Y5JJ1Fj0gNwvoqw9CrnNGoYXRX8fNRZM/s3EUgRHPIjbFK0r93cwvTeSX915jaYu34T
+	JZBgDrmpXN+RBcpYXinG/kEeqdjfsVaE=
+X-Gm-Gg: AYBFou2a78/0QTKXKoQCL6S76DfIg09PYDX4bJkQK0ldaVp6iKlxVrY6bhEnyu7pLQy
+	AY6gy5oOGBg9ijSG9/OaOLwzl6IrTvZWfcUmWMTy/IgWxY8nEhAEg30Wy16nFZI2dqs4FO3M7V/
+	oDxz8RUZnxTnW7/pgwln4vpPUoQxFKlZA/2mNqoZFKXZbDRfbWcpaKdGojPVz2eSEsON4n8q8NS
+	R78s97YJqmG8eVn9ZVBsXk6gXm2sd8NE7cJRqapBVSpw7V2Qd2VShCmzDt3Ak0yn8S0JeGG+LBI
+	Adhqlj9m69pIwKrIjgTP9W3L4Ow76E37/+e5A51OgXOxDBPtV+qo+TfSvaecnEtM02t+4eE7RYr
+	Y5xCqFMaJyKvRhTl0tgdLwP8iNpiPwwnxOdN+chgGzfh0Ztyuzf/puZdSB1hs6dW22ULvMSiNcy
+	A18nU0/k42ysFOCRM=
+X-Received: by 2002:a05:690e:d0d:b0:679:9e60:346c with SMTP id
+ 956f58d0204a3-67a7baef0a5mr2432293d50.4.1793211813004; Wed, 28 Oct 2026
+ 11:23:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,206 +105,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7ZgOhhJdeQ/DorRTqZpCOtBoC
- HcX8AAu38//788gnAILXIoZEucgoY8rlIcCbGfinTG4laFUpSalCLP09omJZewT42Q8CkeH5G1
- 9OmtvqHWwjofEPrx38Q0ij9D8QpnaB9txU261Lmyez36faS//e8qEhJUzWvla1ZXSV345k/joG
- JplWb7WmnP00wAAAA==
-X-Change-ID: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-To: Stefan Hajnoczi <stefanha@redhat.com>, 
- Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: virtualization@lists.linux.dev, kvm@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793211764; l=7501;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=TgNj8sXwA7PXHtGqATFHxwV7EEQCr8JSQsDh7L4876A=;
- b=Zdt4NFAjkbfVtxe5MMNuYELF2gfYAFolbzqG3h/nBprHf9FB16x5aRJgMqVljW/VcO9aa4KHj
- dLnalk+lhNNCGEibK7RilllupwYRQfkpYaxw64b/GamfBC4tUiDf4Wc
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
-Content-Transfer-Encoding: 7bit
+References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
+ <20261012-dd-cmap-part2-clean-v12-33-3c8cc5725def@gmail.com>
+ <as4W9hToBqAvbzJ-@pathway.suse.cz> <20261027132253.5f3a461d@pumpkin>
+In-Reply-To: <20261027132253.5f3a461d@pumpkin>
+From: jim.cromie@gmail.com
+Date: Wed, 28 Oct 2026 12:23:06 -0600
+X-Gm-Features: AclHuK-4voxmbnvtymBlAumJXr1uxieHMHufYdWUINblBauYdwThefAV8akW3iU
+Message-ID: <CAJfuBxxgn8AOv_1rrAWb1xgJiPyU0faD08RuTz4kGY9RS_-v1g@mail.gmail.com>
+Subject: Re: [PATCH v12 33/40] dyndbg: Ignore additional arguments from pr_fmt
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Petr Mladek <pmladek@suse.com>, Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@net.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Steven Rostedt <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+	linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Philipp Hahn <phahn-oss@avm.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+On Tue, Oct 27, 2026 at 7:22=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Tue, 13 Oct 2026 13:33:10 +0200
+> Petr Mladek <pmladek@suse.com> wrote:
+>
+> > On Mon 2026-10-12 20:37:04, Jim Cromie via B4 Relay wrote:
+> > > From: Philipp Hahn <phahn-oss@avm.de>
+> > >
+> > > pr_fmt can be used to add a common prefix to any output from a module=
+:
+> > >     #define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+> > >
+> > > But adding additional arguments breaks dynamic debug:
+> > > > error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments=
+, but takes just 3
+> > > > |         pr_debug_ratelimited("%s", "Hello world!");
+> > > > |                                                  ^
+> > > > note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> > > > | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
+> > > > |
+> > > > error: =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA_CLS=E2=80=99 undeclar=
+ed (first use in this function)
+> > > > |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DF=
+LT, fmt)
+> > > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > I wonder what this error about undeclared macro means.
+> >
+> > > > note: in expansion of macro =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA=
+=E2=80=99
+> > > > |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));  =
+       \
+> > > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > note: in expansion of macro =E2=80=98pr_debug_ratelimited=E2=80=99
+> > > > |         pr_debug_ratelimited("%s", "Hello world!");
+> > > > |         ^~~~~~~~~~~~~~~~~~~~
+> > >
+> > > Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slu=
+rp
+> > > any additional argument, which `pr_fmt` might add.
+> > >
+> > > --- a/include/linux/dynamic_debug.h
+> > > +++ b/include/linux/dynamic_debug.h
+> > > @@ -351,7 +351,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descript=
+or,
+> > >             dump_stack();                                   \
+> > >  }
+> > >
+> > > -#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)  \
+> > > +#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)     \
+> > >     static struct _ddebug  __aligned(8)                     \
+> > >     __section("__dyndbg_descs") name =3D {                    \
+> > >             .modname =3D KBUILD_MODNAME,                      \
+> > > diff --git a/include/linux/printk.h b/include/linux/printk.h
+> > > index f594c1266bfd..5d701952e739 100644
+> > > --- a/include/linux/printk.h
+> > > +++ b/include/linux/printk.h
+> > > @@ -742,7 +742,7 @@ do {                                             =
+                       \
+> > >     static DEFINE_RATELIMIT_STATE(_rs,                              \
+> > >                                   DEFAULT_RATELIMIT_INTERVAL,       \
+> > >                                   DEFAULT_RATELIMIT_BURST);         \
+> > > -   DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
+> > > +   DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt);         \
+> >
+> > IMHO, this changes the existing behavior. The prefix added by
+> > pr_fmt() will no longer be stored in DEFINE_DYNAMIC_DEBUG_METADATA().
+> > Is this intentional, please?
+> >
+> > Anyway, if we do not longer pass pr_fmt(fmt) then we should not
+> > need to add "..." into DEFINE_DYNAMIC_DEBUG_METADATA_CLS().
+> >
+> > By other words, we newly pass just the format "fmt" without the paramet=
+es.
+> > The 4th parameter was added by pr_fmt().
+> >
+> >
+> > IMHO, the right solution is to keep pr_fmt(fmt) here and extend both
+> > BEFINE_DYNAMIC_DEBUG_METADATA() and
+> > DEFINE_DYNAMIC_DEBUG_METADATA_CLS()
+> > to accept var args. I would expect something like:
+> >
+> > #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)        \
+> > ...
+> >
+> > #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)         \
+> >       DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt,=
+ ##__VA_ARGS__)
+> >
+> >
+> > or maybe, we could "eat" the extra parameters in
+> > DEFINE_DYNAMIC_DEBUG_METADATA. It would mean to keep
+> > DEFINE_DYNAMIC_DEBUG_METADATA_CLS() as is and just add the "..." into
+> > DEFINE_DYNAMIC_DEBUG_METADATA(), aka
+> >
+> > #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)         \
+> >       DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> >
+> >
+> > Or do I miss something, please?
+>
+> Don't think that will work.
 
-virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
-clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
-reallocate them (its error path is a bare "goto out" that only unlocks
-and returns), the driver is left bound with a dangling vqs[]. The next
-virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
-passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
-use-after-free. KASAN on a guest with a virtio-vsock device on
-virtio-pci, after a restore made to fail by fault injection:
+Im not sure who youre responding to here,
+in any case I sent v13, with adjustments based on Petr's observations.
 
-  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
-  Read of size 4 at addr ... by task repro
-   virtqueue_detach_unused_buf
-   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
-   virtio_vsock_remove
-   virtio_dev_remove
-   ... unbind_store
-  Freed by task ...:
-   kfree
-   vp_del_vqs
-   virtio_vsock_freeze          <- the preceding freeze freed the vq
-  Allocated by task 1:
-   vring_create_virtqueue
-   virtio_vsock_vqs_init
-   virtio_vsock_probe           <- original allocation at probe
+here it is, in action
 
-That second virtio_vsock_vqs_del() also repeats del_vqs(), which not
-every transport tolerates. virtio-mmio's vm_del_vqs() always ends in
-free_irq(), but after the failed vm_find_vqs() the device no longer
-holds its IRQ, so on virtio-mmio the second call also warns:
+bash-5.3# history
+    1  modprobe test_dynamic_debug dyndbg=3D+p
+    2  dmesg
+    3  modprobe test_dynamic_debug_submod dyndbg=3D+pmf
+    4  dmesg
+    5  history
 
-  Trying to free already-free IRQ 51
-  WARNING: kernel/irq/manage.c:1894 at free_irq+0x23e/0x840
-   vm_del_vqs
-   virtio_vsock_vqs_del
-   virtio_vsock_remove          (or virtio_vsock_freeze)
+[    0.707538] virtme-ng-init: initialization done
+[    1.060923] clocksource: Marking clocksource tsc unstable due to
+inter CPU skew
+[    1.060929] clocksource: CPU0       4136478715 < CPU1
+4136478900 (cycles)
+[    1.060932] tsc: Marking TSC unstable due to clocksource watchdog
+[    4.703188] (udev-worker) (78) used greatest stack depth: 12376 bytes le=
+ft
+[   44.598698] dyndbg:  47 debug prints in module test_dynamic_debug
+[   44.598706] dyndbg: module: test_dynamic_debug dyndbg=3D"+p"
+[   44.599208] test_dd: init start
+[   44.599210] test_dd: do_classes 1 times:
+[   44.599212] test_dd: doing categories
+[   44.599213] test_dd: doing levels
+[   44.599214] test_dd: do_bulk 1 times:
+[   44.599215] test_dd: bulk msg 1.0
+[   44.599216] test_dd: bulk msg 1.1
+[   44.599217] test_dd: bulk msg 1.2
+[   44.599219] test_dd: bulk msg 1.3
+[   44.599220] test_dd: bulk msg 1.4
+[   44.599221] test_dd: bulk msg 1.5
+[   44.599222] test_dd: bulk msg 1.6
+[   44.599223] test_dd: bulk msg 1.7
+[   44.599224] test_dd: bulk msg 1.8
+[   44.599225] test_dd: bulk msg 1.9
+[   44.599226] test_dd: init done
+[  527.233033] dyndbg:  47 debug prints in module test_dynamic_debug_submod
+[  527.233039] dyndbg: module: test_dynamic_debug_submod dyndbg=3D"+pmf"
+[  527.233458] test_dynamic_debug_submod:test_dynamic_debug_init:
+test_dd_submod: test_dynamic_debug_init init start
+[  527.233460] test_dynamic_debug_submod:do_classes: test_dd_submod:
+do_classes do_classes 1 times:
+[  527.233461] test_dynamic_debug_submod:do_cats: test_dd_submod:
+do_cats doing categories
+[  527.233463] test_dynamic_debug_submod:do_levels: test_dd_submod:
+do_levels doing levels
+[  527.233464] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk do_bulk 1 times:
+[  527.233465] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.0
+[  527.233467] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.1
+[  527.233468] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.2
+[  527.233469] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.3
+[  527.233471] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.4
+[  527.233472] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.5
+[  527.233473] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.6
+[  527.233475] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.7
+[  527.233476] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.8
+[  527.233477] test_dynamic_debug_submod:do_bulk: test_dd_submod:
+do_bulk bulk msg 1.9
+[  527.233478] test_dynamic_debug_submod:test_dynamic_debug_init:
+test_dd_submod: test_dynamic_debug_init init done
+bash-5.3#
 
-virtio-pci's vp_del_vqs() is idempotent, so the PCI case shows only
-the use-after-free.
+NOTE that  the dynamic-prefix precedes the one added by pr_fmt,
+(the parent and submod differ, latter adds __func__,
+in both the dynamic-prefix, and the one from pr_fmt())
+This is perhaps vaguely sub-optimal, but it has been this way for ages.
 
-Clear vsock->vqs[] after del_vqs() and when virtio_find_vqs() fails in
-virtio_vsock_vqs_init(), and treat an empty vqs[] as "no virtqueues
-are live": virtio_vsock_vqs_del() then still resets the device
-(virtio_dev_remove() expects a reset device) and purges the send
-queue, but skips the detach loops and del_vqs(). find_vqs() cleans up
-after itself on failure, so skipping the second del_vqs() leaks
-nothing. Clearing the stale pointers follows virtio_blk
-commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
-failed resume").
+> Won't you end up with ".%s" fmt as the string without the extra argument.
+> So you need to keep the expansion of pr_fmt() together until is is finall=
+y
+> substituted into a printf-like call.
+> It is possible to enclose it in () so it is passed as one parameter and
+> remove them on the final expansion.
+>
+> David
+>
 
-The use-after-free was found with the help of an LLM coding assistant
-(Anthropic's Claude); the free_irq() warning on virtio-mmio was reported
-by the netdev Sashiko AI review of an earlier version of this patch.
+hi David,
 
-Testing: on a private VM with a KASAN fuzz kernel, over virtio-pci and
-over virtio-mmio (QEMU microvm). The restore allocation failure was
-forced with CONFIG_FAILSLAB steered by the fault-injection stacktrace
-filter to the virtio-vsock restore path only; a guest-root program
-drives a pm_test=devices freeze/restore cycle (so .restore returns
--ENOMEM) and then unbinds the device, or runs a second freeze/restore
-cycle. Without a fix (v7.3-rc5 based) the PCI run reports the
-slab-use-after-free above. With only the vqs[] clearing (v1 of this
-patch, on net 363c8c79220d) the MMIO runs report the free_irq warning on
-remove and on the second freeze. With this patch on the same base,
-restore still fails with -ENOMEM on both transports and neither report
-appears; the device works again after a second, successful
-freeze/restore cycle and after unbind/bind, and a normal freeze/restore
-and unbind/bind still leave a working device. A find_vqs() failure after
-some virtqueues were set up was not exercised (each restore attempt
-failed at its first allocation, before any virtqueue was set up); that
-clear is covered by code reading only. The three single-VM tests of
-tools/testing/selftests/vsock/vmtest.sh (vm_server_host_client,
-vm_client_host_server, vm_loopback; 44 vsock_test cases each) pass on
-this tree, as on net; on both kernels the host-side runs skip the SO_INQ
-cases (SO_INQ not supported by the host kernel). The ns_* tests of
-vmtest.sh were not run (they need root on the host). checkpatch.pl
---strict is clean and the fuzz-config build is warning-free. The
-reproducer needs guest root, CONFIG_FAILSLAB with
-CONFIG_FAULT_INJECTION_DEBUG_FS and
-CONFIG_FAULT_INJECTION_STACKTRACE_FILTER, and CONFIG_HIBERNATION with
-CONFIG_PM_DEBUG for pm_test; it is available on request.
+Im not sure what / who youre responding to with "
 
-Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
----
-The use-after-free was found with the help of Anthropic's Claude; the
-virtio-mmio warning comes from the netdev Sashiko review.
-
-Changes in v2:
-- Skip the detach loops and del_vqs() in virtio_vsock_vqs_del() when no
-  virtqueues are live, so the teardown after a failed restore does not
-  free virtio-mmio's IRQ a second time (Sashiko review).
-- Use an empty vqs[] as the 'no live virtqueues' marker instead of v1's
-  per-loop NULL checks, and purge the send queue before the early
-  return.
-- Commit message: cite only virtio_blk 0739c2c6a015; drop the wrong
-  virtio_rtc and virtio_console references (Sashiko review). Drop the
-  commit ID from the code comment.
-- Tested on virtio-mmio (QEMU microvm) as well as virtio-pci.
-- Drop the Assisted-by trailer (removed upstream); tool use is
-  disclosed above instead.
-- Link to v1: https://patch.msgid.link/20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de
----
- net/vmw_vsock/virtio_transport.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-index 4f9aa9c4c3aa..bba594b7fc14 100644
---- a/net/vmw_vsock/virtio_transport.c
-+++ b/net/vmw_vsock/virtio_transport.c
-@@ -714,8 +714,14 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
- 	atomic_set(&vsock->queued_replies, 0);
- 
- 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
--	if (ret < 0)
-+	if (ret < 0) {
-+		/* On failure virtio_find_vqs() can leave freed virtqueues or
-+		 * error pointers in vsock->vqs[]. Clear it: an empty vqs[]
-+		 * tells virtio_vsock_vqs_del() that no virtqueues are live.
-+		 */
-+		memset(vsock->vqs, 0, sizeof(vsock->vqs));
- 		return ret;
-+	}
- 
- 	virtio_vsock_update_guest_cid(vsock);
- 
-@@ -781,6 +787,15 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
- 	 */
- 	virtio_reset_device(vdev);
- 
-+	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
-+
-+	/* No virtqueues are live, e.g. after a failed restore: they were
-+	 * already deleted, and a second del_vqs() is not safe on every
-+	 * transport (virtio-mmio would free its IRQ again).
-+	 */
-+	if (!vsock->vqs[VSOCK_VQ_RX])
-+		return;
-+
- 	mutex_lock(&vsock->rx_lock);
- 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
- 		kfree_skb(skb);
-@@ -791,10 +806,13 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
- 		kfree_skb(skb);
- 	mutex_unlock(&vsock->tx_lock);
- 
--	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
--
- 	/* Delete virtqueues and flush outstanding callbacks if any */
- 	vdev->config->del_vqs(vdev);
-+
-+	/* The virtqueues are freed: clear the stale pointers, so that a
-+	 * virtio_vsock_vqs_del() after a failed restore skips them.
-+	 */
-+	memset(vsock->vqs, 0, sizeof(vsock->vqs));
- }
- 
- static int virtio_vsock_probe(struct virtio_device *vdev)
-
----
-base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
-change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-
-Best regards,
---  
-Jerome Mohm <jrmmhm.kernel@eldare.de>
-
-
+> >
+> > It is possible that the macros work another way. Or this depends
+> > on another change. I checked only this patch...
+> >
+> > Best Regards,
+> > Petr
+> >
+> > PS: I was curious what Sashiko says about this change and it seems
+> >     that it does not review this patchset from some reasons.
+> >
+> > >     if (DYNAMIC_DEBUG_BRANCH(descriptor) &&                         \
+> > >         __ratelimit(&_rs))                                          \
+> > >             __dynamic_pr_debug(&descriptor, pr_fmt(fmt), ##__VA_ARGS_=
+_);    \
+> >
+>
