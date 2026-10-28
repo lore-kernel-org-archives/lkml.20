@@ -1,51 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204770;
-	b=Z+3a8g05/TgCnpHAfJawEKJjnlk2GkdA+uuDx0AZgV9VDfuL+MM4eyJIgT/PsAz8I2JW
-	 PP4BCEYv01/Vf7MejpFV/ow4/7bLRKL701WtUQDZw+mo5VD18bbLFzZS1km7ZH0Uxsevv
-	 +AB1RajY5jwYxdV0zhX8TgGQb2IS1kxwCzkpMXsH1BL7CKB61SKXwu8VwhYkyh2q5c54Y
-	 DkXfxKmfsMWjfiJQDi80TRtd6uEvuTkU6OLfZwaH7+YWtWHV5ajQaMHm4HpeEO/B8vRzO
-	 FdduxLW7fm5+LsHAH5CN55sWzG0tWCR1NqFOpAQAnHkgNNSLYxkVq3gn9zpOX9cYOwA==
+	t=1793204799;
+	b=gOi5vhwOGv+jh8CPGjViTsji2AT6mgeoeavR8g1vorgPeMt1zG4Onhnzc724ttVBVjgS
+	 vbKNxGyAxULZdptaunkh3hiAu2VwBhKZE/ewGlXVg21Ju5mTooapW41sr19EVtJjeWtn1
+	 zO7AEdZlXlr1xzo2T7ARS8NMt5CrRM7dyP0YJgQ+pekESw18+9DXm0HDvK9fwlwhW8BbH
+	 Zle4pSOjFUY/wz1KSg7DA2LxGVqV5Lo9Vn/Soz0oirvC49DudUYe7abSDum4Y8TXKuweL
+	 FKfxV+yPaVLHb0twQgkhRefldtXpbmSdO4vRIaKMpkJCZAbafQfUsvU1keqtc1CCcmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204770;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=h+HIOOxJx9hUe+jm2hepdbTigAroXYRQmP3amdTNLAk=;
-	b=oR3tQpDeIBD+oFE9+VBpPzwnPZJ17IYAI9qT2zbTsAsyaApnhoKtOaKxH4gpkysc6+w9
-	 ZmdFpdUoPjDN3oDuej3lW/vLQthM/68NEUHgcChs1DvJ+jlSUA8ppdVjQ5zwVm9Dynp6s
-	 7VO3fbL/yZOIX7WjORbZNkj50wwyFAHxYpGq9gNAPZ9myYeZ3dQZISKO/nHla/OLVx9GZ
-	 iy320O36JWlQ77BNkdiEA/y/f72bCsRnGfw0Md4xVhpbJGwsk6Z82IUnL2waNGJz1lUfD
-	 LOE47HrVYo0hhiCKKrxR5vNQCpqrUb0y7QUqwTe68oMZPsmtKyfETp5td06ympmsRcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204799;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=NXzKuhwm4cRDFux95gmBv0bT4qNdveBcrf7yJCzkiUI=;
+	b=BpXPXa1dMdWdipte/zRgRHc4dXeAISeCkw74sKSWSZ/EVxHiDSzh+SX8TMbvM3gzZbGq
+	 xC1Fs1fkI8XMkXzAVY98hpapNar2t8b2UnfwMUobBQNqCylxjW6vsiZOajsr3D5W+7bcz
+	 fZ6DzV9lIf3LtfWQo9R7gTceaAXDzPJPwesPjCT9ulyiLWpPDY+eHuc9pivLo8PBoCr9I
+	 HqVh0N783zJ6n8LJYenRqjVRMFrgLTWiaaNK0rPr2Y1VOQuF+KbI1mdyQ8loHbnvMD8bQ
+	 J33jHhF4NkOboq4MLyh7ZLMREdUU2RKbBWbSLefD8LDxfTSEQpa+FoAN3YDwnYp2izg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.85
-Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC76606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XuPbLLiPtXAl47QACJO9Vzp6Txe/hdhVtczq1D4shLo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793204762; v=1; x=1793809562;
- b=pl7yDW9Zu05cYxMtG5YbemlYrBNeT01NjUaBLXzRYnTwzOGE/m/iETnqdne93AEcqAF0Z/Fz
- DNULADKI9msNuRRLJ6Fa0ruG1XzWdfhG9U9IiWrX/jAmv8kqLRfxJc9h4DzksgBnfDxu80hbJcG
- p+JoZ088qXh6Ps17vuLM9EMw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 40b3dfbd2361a10e;
-	Wed, 28 Oct 2026 16:26:01 +0000
-X-Mizu-Trace-ID: 40b3dfbd2361a10e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <56eff81f-c7d4-4c81-b087-93cf63f42e35@linux.dev>
-Date: Wed, 28 Oct 2026 09:25:52 -0700
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sQbPTln9;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 123AB606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:26:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 123AB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sQbPTln9
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C17C175D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:26:35 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D6B63F59E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:26:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793204798; bh=PExIaZTAjhGQMicvNikfB9CMe3bBt0uH+ireCrymzdQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sQbPTln9MA/E0H8wMCl4lr3aiyrhl5PX6r+xZFEVEXGun9L4kOX4MTMC2+EzlyieT
+	 QBYgrHOyyTEdSmtGeCKfVjEcCUtKxOcdBXmDoTiTI7n2AsQGuqogRWjPb6hK03loMh
+	 0/QNRbi11EZrwlfvOtlDud6+Tt+9dlrvienarvug=
+Date: Wed, 28 Oct 2026 16:26:33 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v1 09/27] drm/panthor: Skip devfreq when no OPP table is
+ present
+Message-ID: <auIiOVi13v0U8fIp@e142607>
+References: <20260922204535.2850094-1-karunika.choo@arm.com>
+ <20260922204535.2850094-10-karunika.choo@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,138 +66,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v1 5/7] selftests/bpf: don't report arena tests
- as passing with an empty body
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, john.fastabend@gmail.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- jose.marchesi@oracle.com, david.faust@oss.qualcomm.com,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261028000411.4010967-6-vineet.gupta@linux.dev>
- <bd70230bf88b570044957ec4866a4c0ad3870121a7e6c609e4d60043a13be905@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <bd70230bf88b570044957ec4866a4c0ad3870121a7e6c609e4d60043a13be905@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922204535.2850094-10-karunika.choo@arm.com>
 
-On 10/27/26 5:46 PM, bot+bpf-ci@kernel.org wrote:
->> selftests/bpf: don't report arena tests as passing with an empty body
-> TL;DR: Commit message only: it cites arena_types to justify running arena
-> kfunc tests without a cast, but the address args are __ign (ARG_IGNORE) and
-> never checked against it. Conclusion looks right; the explanation may need
-> rewording.
->
->> selftests/bpf: don't report arena tests as passing with an empty body
->>
->> Some arena tests put the __BPF_FEATURE_ADDR_SPACE_CAST guard inside the
->> function rather than around it, so without arena support the program
->> still exists, its body is empty, and __success __retval(0) is met by
->> doing nothing.  A reader sees
->>
->>    #584/1	 verifier_arena/basic_alloc1_nosleep:OK
->>
->> and concludes arena works.  That is worse than the tests which vanish
->> entirely, since nothing hints anything is missing.
->>
->> The guard was never needed to compile those bodies: without the
->> feature __arena is still btf_type_tag("arena"), which every compiler
->> accepts.  What it avoided was the load failure that follows from no
->> addr_space_cast being emitted — but only for a body that dereferences
->> an arena pointer.  The arena kfuncs take one as a plain scalar:
->>
->>    static const struct bpf_reg_types arena_types = {
->> 	  .types = { PTR_TO_ARENA, SCALAR_VALUE }
->>
->> so a test that only passes pointers to bpf_arena_{alloc,free,reserve}_pages()
->> needs no cast and runs fine.
->>
->> test_loader checks skip_reason before it opens anything, so the body no
->> longer has to be empty to stay loadable: drop all 19 in-body guards.
->> They do not all need a tag in their place, which is why 19 guards go
->> and 7 tags arrive:
->>
->>    6   dereference, so they get __skip_without_arena and report SKIP:
->>        basic_alloc1{,_nosleep}, basic_alloc2{,_nosleep}, big_alloc1,
->>        access_reserved
->>    11  never dereference, so they get no tag and run for real instead
->>        of reporting a vacuous OK
->>    2   big_alloc3 and big_alloc4, already inside the file's outer
->>        whole-program guard, so the in-body one was redundant
->>
->> The 7th tag goes on check_arena_arg_ret(), which has no guard at all
->> and is the one verifier_arena subtest that really fails under a stock
->> GCC.
->>
->> Measured on bpf-next with a stock bpf-gcc, test_progs before and after:
->>
->>    verifier_arena/basic_alloc1            OK   -> SKIP
->>    verifier_arena/basic_alloc1_nosleep    OK   -> SKIP
->>    verifier_arena/basic_alloc2            OK   -> SKIP
->>    verifier_arena/basic_alloc2_nosleep    OK   -> SKIP
->>    verifier_arena_large/big_alloc1        OK   -> SKIP
->>    verifier_arena_large/access_reserved   OK   -> SKIP
->>    verifier_arena/check_arena_arg_ret     FAIL -> SKIP
->>
->> the six that dereference stop claiming to pass, and check_arena_arg_ret
->> stops failing.  The eleven that do not dereference stay OK, having gone
->> from an empty body to actually running.
->>
->> Removing the guards exposes the arena_base() calls they were hiding.
->> The previous patch made that macro opaque to GCC's -Warray-bounds, so
->> nothing is needed here beyond the guards going away.
->>
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-> The paragraph that says "The arena kfuncs take one as a plain scalar" and
-> quotes arena_types: is that the check that actually lets these tests run
-> without an addr_space_cast?
->
-> bpf_arena_alloc_pages(), bpf_arena_free_pages() and
-> bpf_arena_reserve_pages() declare their address argument with the __ign
-> suffix in kernel/bpf/arena.c:
->
->    __bpf_kfunc void *bpf_arena_alloc_pages(void *p__map, void *addr__ign, ...)
->    __bpf_kfunc void bpf_arena_free_pages(void *p__map, void *ptr__ign, ...)
->    __bpf_kfunc int bpf_arena_reserve_pages(void *p__map, void *ptr__ign, ...)
->
-> get_kfunc_arg_type() tests the __ign suffix first and returns ARG_IGNORE:
->
->    if (is_kfunc_arg_ignore(meta->btf, &args[arg]) || is_kfunc_arg_implicit(meta, arg))
->            return ARG_IGNORE;
->
-> and check_func_arg() returns for that type before any register type check:
->
->    if (arg_type == ARG_IGNORE)
->            return 0;
->
-> arena_types is only reached through compatible_reg_types[ARG_PTR_TO_ARENA],
-> which applies to kfunc parameters named with __arena or __arena__nullable and
-> to arena-tagged global subprog arguments.  resolve_btfids adds the arena type
-> tag for KF_ARENA_ARG2 but keeps the parameter name, so the __ign rule still
-> applies.
->
-> So the conclusion that no cast is needed looks right, but the address
-> argument is not checked against { PTR_TO_ARENA, SCALAR_VALUE } at all.  The
-> same reasoning applies to the tests that no longer have a guard or a tag:
-> basic_reserve1, basic_reserve2, reserve_twice, reserve_invalid_region and
-> arena_kfuncs_under_bpf_lock in verifier_arena.c, and
-> request_partially_reserved and free_reserved in verifier_arena_large.c.
->
-> Could the paragraph cite the addr__ign/ptr__ign parameters
-> (is_kfunc_arg_ignore() -> ARG_IGNORE) instead of arena_types?
-
-Yes this will be fixed in v2.
-
-Thx,
--Vineet
-
+On Tue, Sep 22, 2026 at 09:45:03PM +0100, Karunika Choo wrote:
+> On Mali v15 AM systems, frequency scaling is handled outside panthor by
+> the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.
+> 
+> Make panthor_devfreq_init() return early when dev_pm_opp_get_opp_table()
+> returns -ENODEV, and guard the devfreq helper paths against a missing
+> devfreq instance. Also make it so that frequency can be queried even if
+> the devfreq instance is missing.
+> 
+> This keeps devfreq enabled for existing platforms while allowing v15 AM
+> systems to probe without a local devfreq setup.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 > ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40608355234
+> v1:
+> - Only skip panthor_devfreq init when OPP lookup returns -ENODEV instead
+>   of direct DT-property check.
+> - Support frequency query without devfreq.
+> 
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 31 ++++++++++++++++++-----
+>  drivers/gpu/drm/panthor/panthor_hw.h      |  6 +++++
+>  2 files changed, 30 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4afe..18c1a7e56ca08 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -12,6 +12,7 @@
+>  
+>  #include "panthor_devfreq.h"
+>  #include "panthor_device.h"
+> +#include "panthor_hw.h"
+>  
+>  /**
+>   * struct panthor_devfreq - Device frequency management
+> @@ -164,6 +165,19 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+>  	 */
+>  	table = dev_pm_opp_get_opp_table(dev);
+>  	if (IS_ERR_OR_NULL(table)) {
+> +		/*
+> +		 * On v15 GPUs, frequency scaling is handled outside of panthor
+> +		 * by the AM_GOVERNOR block, so the GPU DT node may not provide
+> +		 * an OPP table. In such cases, do not initialize devfreq for
+> +		 * panthor.
+> +		 */
+> +		if (panthor_hw_is_gen5_am(ptdev->base.dev) &&
+> +		    PTR_ERR(table) == -ENODEV) {
+> +			drmm_kfree(&ptdev->base, pdevfreq);
+> +			ptdev->devfreq = NULL;
+> +			return 0;
+> +		}
+> +
+>  		ret = devm_pm_opp_set_regulators(dev, reg_names);
+>  		if (ret && ret != -ENODEV) {
+>  			if (ret != -EPROBE_DEFER)
+> @@ -267,7 +281,7 @@ void panthor_devfreq_resume(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	panthor_devfreq_reset(pdevfreq);
+> @@ -279,7 +293,7 @@ void panthor_devfreq_suspend(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	drm_WARN_ON(&ptdev->base, devfreq_suspend_device(pdevfreq->devfreq));
+> @@ -290,7 +304,7 @@ void panthor_devfreq_record_busy(struct panthor_device *ptdev)
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  	unsigned long irqflags;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> @@ -306,7 +320,7 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev)
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  	unsigned long irqflags;
+>  
+> -	if (!pdevfreq->devfreq)
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+>  		return;
+>  
+>  	spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> @@ -319,14 +333,17 @@ void panthor_devfreq_record_idle(struct panthor_device *ptdev)
+>  
+>  unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
+>  {
+> +	int (*get_cur_freq)(struct device *dev, unsigned long *freq);
+>  	struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+>  	unsigned long freq = 0;
+>  	int ret;
+>  
+> -	if (!pdevfreq->devfreq)
+> -		return 0;
+> +	if (!pdevfreq || !pdevfreq->devfreq)
+> +		get_cur_freq = panthor_devfreq_get_cur_freq;
+> +	else
+> +		get_cur_freq = pdevfreq->devfreq->profile->get_cur_freq;
 
+You don't need the whole pointer to a function dance. You can just do:
+
+--8<-------------------------------------------
++	if (!pdevfreq || !pdevfreq->devfreq)
++		ret = panthor_devfreq_get_cur_freq(ptdev->base.dev, &freq);
++	else
++		ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
+  	if (ret)
+  		return 0;
+-->8-------------------------------------------
+
+With that,
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+>  
+> -	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
+> +	ret = get_cur_freq(ptdev->base.dev, &freq);
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+> index 48232254fef97..e5bcb908068cb 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+> @@ -101,4 +101,10 @@ static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
+>  	return ptdev->gpu_info.l2_features;
+>  }
+>  
+> +static inline bool panthor_hw_is_gen5_am(struct device *dev)
+> +{
+> +	return device_property_match_string(dev, "compatible",
+> +					    "arm,mali-gen5-am") >= 0;
+> +}
+> +
+>  #endif /* __PANTHOR_HW_H__ */
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
