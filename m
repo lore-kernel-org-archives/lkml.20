@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.33
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.31
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793154121;
-	b=PafZaXK+Yzy839g/fOfmr5XCuONHgBlB9ZbRh9NHyYlM5OGAhxWfrP0XxQNtHp0acJM1
-	 ZGoxZRJ9JArb98q0ZHizv8MQSGk705dAFMvGAAXlid4u9HFN9rpNyXQdEzYmRVNZTbD5R
-	 4EVTkDiGh3zPnsj0TiHj+br9whmSFdm3EX+x5b3t09CK4+qrrT2XPJYOVpH4bWg9/bnEq
-	 h9ZlWt5UUMQMToixRMbJyTvIn4tN0q0UZsF9roQ5Vv78t9k8z5VOFnmDtd+YqD7GFn4fZ
-	 t+x7Y+uYQfwocbmZJxQ1Ajw5iv6G0dCtuEtrtgwQYj1vowVnKcRQTGuU0Wk6sKSjrmw==
+	t=1793154116;
+	b=e+1P1KgMQ3K2gyoJKDj1RR4duZSoG1etWF8ow+Q0aS7Ha2vajyFnQ72Rc6Ix3wTmcMIt
+	 TN89gsJCUVyTDGsouUemMqF9V6AKfN2yhDQY6kg7z+8GQMQ6mwm4kJotNnnRmJR1q0Wfw
+	 MgAOglqQHYZNuM6qLAV/cNNpCx9/ybBaYZfB7he3PYr6bpKzYSjI8qTXX+SCiC/Ktf05b
+	 JARw4hzU/f6RtHQJtJXX9LTKQP0CYsx8pZXWRC8CKqdpgW9tQm6/lZK1yvYT9ragb0oQE
+	 oll1gJCjeKy1+uE3kMTMUuSvvGlsU/OqGjkGo1vXTX3AQFZ7YbOtEUz//gAiQ0YidsQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154116;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
@@ -25,59 +25,59 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8QbxAjhG2KdEaYIIFxdcLSvZ9QNujO8196zF1hdYGrI=;
-	b=eJ0fMt0L1Hu53q430QGEcPNa0+H04jwXQf6OxPHtzVgshm4rsllA1A3l5bYXGvRSHQnj
-	 QwybDBWCTYpnTGUZVStWh4AbU4p/yI4lyxGsJpu/+kqR5K6SMzPfUB3huPqHlPW0bzAkx
-	 XVeHqtfvd+cGlksjSz7GY8wWM0gyISOA4iY8lt49dMAn3074dKYh9UUQiHYhFPo5g1aaP
-	 rzYr7sbZTeFCN3bJ3ANdqsY8Zyj3qpYLdbXAOCIiNIq9nwbgD2dcwtgcT30tKpyB+gvf0
-	 yWeaH8WwedaMUZwQPHwapRPzOax2eoKZCKwiSQCCkJtg82Xr1mwvBYXOnYr4PcTMIdw==
+	bh=6c44a5KsLhJafwae6s73eGeviH/y9u1U6olPikiBPlo=;
+	b=cQP1XnYdkm3kCns0BpC2EHoXroGLGLK3OOxpB/NLE9INSuciv7utHbweM7+bKmqLKxpj
+	 7ovSrjEj8wD4JtKv06euJxxU41zWwoAAQFqGL/x37pMmFi2ZjbJaUSPKtpOcb1MgMvuXf
+	 HX/HYwnaQ9f6wWQv6M6mv7ec4ktIHATUQJPSmDf4eBtR2lhb4A7fbHLIvNENqVjp0eTeO
+	 uVVcVPbqjMfv6BDzTzVk3lGv2cgLc0GxenEarh3F1WMWqu32Of87kWHmqdjYwOJbmDwUK
+	 9aLMvJJFvO8ZeCxztSf1vzIMxz6R2/9lOTvZaSKIoF2z7hLvqIityjEdZrC8C5p+mDg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rTYOrhxO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.33
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011033.outbound.protection.outlook.com [52.101.52.33])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="HGBs9/ss";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.31
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007DD606A324;
-	Wed, 28 Oct 2026 02:22:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 007DD606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D421606A331;
+	Wed, 28 Oct 2026 02:21:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D421606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rTYOrhxO
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HGBs9/ss
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GIayGnjQY7IIZxzS9sp9CsgXcqb9Ubtm4wXcHHUzyTucGl5zPnGl1iFF9xqkTSh1lUviv/AZ2vjaUU2lSUb+Dhu/63sR93uFMG0j1rCcOMooC/V9Pg0DiWr/Tbaik/Y8tmTCzO7DLK5VSchN5Ncpfm9SPdCyYbJMG5QRiBM1xCOH3vhonlaUr7PsTWgkr7la/S4tQahS5dRsC8JGiK9t9l8S0KELYL3SxKJyFmc7gq/MhbmIW1PPm2JfWNcixMycgHLlHZYmKwCef1PcoMlFK9yFn7XkgqBNBO5UqKMvjTaKbL3hJRTUbur3EjvLlwP50eyQIydbF92OoPN8huiDSQ==
+ b=vZfaWyynltwVABQfbyS4nqvrFD59kDTU4orOTwJQCVHmXf73WGIll1i0hRm9Y2pFpayzyq5VMmgC/YR1jTubHbPD54fImPP903FcyezYKJOj/lvo8L586DmKCf5ypfDp0hfFnJSwuxiZhNdjX1ATNtagsV46k+YbFtSK2RbBfKJSHefTQYBWkVimUL23WnmMuMbfyYcDbIEMm/g3enkCKGbHf/HB68p9N4QDfuTDzNF9jcl+JJbJcei1RKPhZm7xinUL1C7CseoqHzDtkaC7+nlz6zZiXVXEwsQyaS4ONDSrR6dh9KSL5WyzG6naajTW1Ngxoxwn/iNxFOXPYrMQSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8QbxAjhG2KdEaYIIFxdcLSvZ9QNujO8196zF1hdYGrI=;
- b=FLf7j1v0sG/r0qm6niaoLTxRINR5CjAHM/F4WsafVcvgbe7VFDeuK9pg4yciN79YI60aUwlwy5dCnV+Myx2el4BgcRrahmzV5X4WZONnS9vTty5YiVgppfclGd1VlrFOATN3o6TogW8cfpqRrao7xje912e9Sz80i9ucGgMT72eJSfrgqSefc7u6RfxH/q1Dj2+WtUw5fMaIU9e1Gk3/vbm3W4ehaxCVDk4cmOouI+DdyyZpG+XEY4t2IWWKohfBU41E3k9ROAW5nVdN5e5wexK9FFvHyocJKHNKSEMyIcNPgJ7Yj9q7GUad0243c9Lils8LUo+QmE6QqOoRgLPu0g==
+ bh=6c44a5KsLhJafwae6s73eGeviH/y9u1U6olPikiBPlo=;
+ b=IRVJB5o7XHfRhmmGnJHPHHuNjOMWMVeYWAJ7eYdiEBJsFRwQTjQMOGcwBiPT7znTYdF6Q8BNKhDN/QCv9NGnhjTL94Gln2uQCVqra3vlt5BtrvuTz+m3Vtei8p5ctha6YOueX9X+VCTvFqS61GCANv1CjX4Tjt8nfBmUJn8K+ulpdCYDUBUAP0DCktFxj47A2vfcJt16VkrUQIoVVOK0vwBhLcs8MGVufp262ttdGKtlIJU7nos7XANyYE0q3L1o3ynMrY2i9H9LkajcbiuSD0Em+UQ5oYJuE8brYzkidm3zjNV2hPUJydf6QN2vAJq6449e2Fr2g96GMDRCnv695g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8QbxAjhG2KdEaYIIFxdcLSvZ9QNujO8196zF1hdYGrI=;
- b=rTYOrhxO4JYWg39xUDCJWmo/+++APPnF902lYI8e6ZkPy/q1hiZa1gflScr4miBHvJLZXj0puvD1/fJ+qzYSmlBxBtbGNLNe4wDMs2HGu3/ZfgMD7quvX3TBRkpiti7XxkM5AGSqWxYSRFeOZDoZFDCN13qtsWrHj3pKoK5ovDoqCSVD5PjQcebvk1lATMcKDIcMBTuJoxHzZGejOJxJjZTB0ojwQBLjQQcQSt7/zxCqtwmQBjmsebzaW2oAlt6/jaYAeLQ01ma9wskRR6ZrmSRuudzi4tpRuiISKCb8Lp2CaxhXJ+pn9CaC11b5JAxijojCLhNhmxZv9GQuJfI1Sw==
+ bh=6c44a5KsLhJafwae6s73eGeviH/y9u1U6olPikiBPlo=;
+ b=HGBs9/sshXQTQcMHPeYUWrYmnpe6AmWvg7egCMXuOVNHCITvaebV7Hf4tV5UwVtUyArvzauy6dmtDBmOhiQwPhLeOdm595IH2aVO02EuzaL310KFY//n+DqrsQ2wTO84rkoLtXMHO4CvWO5hvxI8122TwD6j51PFlzDvVjhsDSXtIa6ySY5dsE/0cKwIPvGtKjgUGIf88wlSYa9zMGhGIoJ20klFqCANixvH6+sYVRfuQh37So9j75bp0V8wn3p0cx4ePrL3FREljCin+A1bT+C2jeEArT695lG+vR0Lx+DjblMh73lRUSj8IJyFZDff3Qj4bjjlJ7yD5UI4LYgrzg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21) with Microsoft
+ CH2PR12MB4086.namprd12.prod.outlook.com (2603:10b6:610:7c::19) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.16; Wed, 28 Oct 2026 02:21:55 +0000
+ 15.21.546.22; Wed, 28 Oct 2026 02:21:47 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0546.016; Wed, 28 Oct 2026
- 02:21:54 +0000
+ 02:21:47 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 28 Oct 2026 11:21:06 +0900
-Subject: [PATCH v5 7/7] gpu: nova-core: add NVKV GSP_INIT schemas
+Date: Wed, 28 Oct 2026 11:21:04 +0900
+Subject: [PATCH v5 5/7] gpu: nova-core: add NVKV typed encoding
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-b4-nvkv-v5-7-ef78909b513e@nvidia.com>
+Message-Id: <20261028-b4-nvkv-v5-5-ef78909b513e@nvidia.com>
 References: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
 In-Reply-To: <20261028-b4-nvkv-v5-0-ef78909b513e@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -98,8 +98,8 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWP286CA0026.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0092.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::10) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -111,307 +111,467 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM6PR12MB4283:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc2226d7-de0f-441a-5c0d-08df349a3c0f
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH2PR12MB4086:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66d99ce1-01ab-4c6a-ce9c-08df349a3794
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|7416014|10070799003|261022105027099003|13003099007|921020|261026140227099003|11063799006|56012099006|261026121527099003|261009223027099003|10067099003|261021121427099003|261021123027099003|3023799007|18002099003|22082099003|261022075727099003|6133799003;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|23010399003|921020|11063799006|56012099006|261009223027099003|261022105027099003|261022075727099003|261026121527099003|261021121427099003|261026140227099003|10067099003|22082099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	c16lJ7hluMM/9t83nx0TuU1LTMKvGOMMXekpdC5CqZRVhZNHcGI0DYr0ZCePXwz8mTaGvA0nJMba9/QTDzwTK7wuOnHIETzbOCrJz7lJM22zsBmorZMZ+DSWxYxLbBA1gEEyk4M6MWfWywEXY+gIvF5c0PX4NfifyBuU0kXFERTP2DAnqRJd44gjSJ4MkkY18XJcSaTOJVnB0+EXurohudM2440XwOxLbwDxeYaq5OIAahUFHFOqWfpVXEeq8bkkrtnAnZ1OKOAFtaRB+U4WBsfcqLSRKfJEg4vw5mtI1BWl44dIkjXdNPpj/C1x2cYuauv9k7yqoivIYfJhxZN4s1ElMJuo301sWLAtP3F/40OGVe/HTtVTQH5qNYRZM0aatYlI4JcXep9kmA6Q3D1/QYMb8Frs9SaCDTvnsSlqRmC5dO5r3smpS06Wh/WgcVQBAvDd8mVRxRWrrglHr+ngGkiWpJaKYrG0cr68rBm/D8Y+w2Ae7/qSc4GY2xWeItQ/qbYhRmNkWYF6QHeuwjQ1IpPRqbbPVdwlroasTOR1uWePeqkXyRwJMsdbTiQ0QkR3PfELIsu7ek70KVCyKH2pr0LyQdXIgRdO7S6neZRS3f/oJgUkfLEWdZlL5fJKYW9DHCm+5wRdSDFV8stJUuazol5D3yyaSPKUX5E+Orz/FsDePmqq/jgYrTijyq44Uq2LW0QQr9GzYq82ENishjFRhA==
+	ZBdOL53VgyPIq14GtMmrkKMGQLQpLFQyLvA4Ni5OY2o9AdhWXmA1/fKYMLOZI9d+TH6kh0FSdLNtRzO31OzGmWh9VHyvqWKH73Qip0Qm6hdtwyHWDtarWlP0wc5NiULBnsa0CcyYZTlbdH7Cr7SzFSmG/xLLzTVe3YZROQOXvZxmsNVaVLNoXqhSOO2Mv3+QXNQMl0AtWfQZQETFzzanoR0CkeXTUl6VkbFRoqj1uxiUzQmR1tZZz9spdz9O7/twK+EpwjBSmi/ec+pDGAxQksvdX6m5MHtJm8ItHPNuZek8fbJdEHBe9kyzr0iPbPfDonTSr/fe0MCrssL4LGVoxox+mbANH6hQvwn5GOYJTEoCig5PdmkrGN+gW4d+F/b0yHFxAZqgTMJ/6czEzvMmuEyar0XaxYJMVrMvpqipMUz1sSdi4NVjO15hv2cezs7NoXWYocX+tTB2Fh7oTd06DTiC/mpsZXCCi6pG20dsQO2TD3jhJivsVcZod18xyG8AhEVyLANdFDNmUSYM9/H+x3SdosxKMDW5V5TGxuGJmlACM3LoiGrpVJGCb5wkfUllsoyAjc3ZFZ0Nf8xlbeXbipcow4DfLYDA5x99wMd1lEEV/cru1knkvwcJd1dnKtmjynaYpYlgcrW8YIag801WZamz/K+KJq8+QbIXlLPFwnGJiktdkvqFi6DspJHDQBjCIai8LwGF0vwStSFjktbBPQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(7416014)(10070799003)(261022105027099003)(13003099007)(921020)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(261009223027099003)(10067099003)(261021121427099003)(261021123027099003)(3023799007)(18002099003)(22082099003)(261022075727099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(23010399003)(921020)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261022075727099003)(261026121527099003)(261021121427099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MnY2dndzUkt4aVBFMFBSZEdDWmlsUGx6dGFoVisyQXV1ZTF0dVhvcHo5QlAz?=
- =?utf-8?B?WTdlOElCdmpKazZ1NllqWGZWT0Z2eEp6R0YwR0RRL1ZVM1JRRVY4VS9KRS9Y?=
- =?utf-8?B?a2gxQnBTTUVnWGlucFpBMTljUnlpWkpyQVBveXRhcGJBSEhHSUlHT3FDUGVL?=
- =?utf-8?B?M1pzNEhQSVltZlQzSmFxV3kyZGVqNWNLQ2t6VzA0ZGY5S2RFUkZWS1R5QmFz?=
- =?utf-8?B?R1lPRmZaRWNWckN6dGViUkFaUFQ0cnNQOERMdlBjb3ZYZFA0bVV2NDhqZTFw?=
- =?utf-8?B?eTNuS1VZZVVva1d0N0Q5Rlh1UkVJL1RkOHZJTkxXcmJmQlE2ZXJxb1BZZ3pD?=
- =?utf-8?B?UkRXZlBFOVkyOW1kTDRpamttRStOLzFGWlhzU1JKdW9CU3Bma1hmQTB4SGRq?=
- =?utf-8?B?cHpzSTNkMEtza3diL2Raa3ppK0l1RHQ5R1BJdVhNbk1RTlNhenhUUHRKYUZw?=
- =?utf-8?B?d1lEUWoyckd5aGdIMWlEbVlBOEhUWlVVT1pxaDBhT29sNXRNWUl5eWtoVjNr?=
- =?utf-8?B?NDdVTDI1cmYyalByUVNueDVsUVRqeTBaYlFzN0QvS051cVZLcVM4NENNbkxG?=
- =?utf-8?B?SU9pOVJtdmYzbWJOYmppZHdWRnI4eXlSam5WYmlhTVR5Ymp5dVlVVnRlU1RF?=
- =?utf-8?B?dFNxMzlhR0ZIWkVDRzVmT216aW1GMm80amRzMVJORzA3eVUrNEtUeFdwbWE3?=
- =?utf-8?B?bzBCcmFhck9wOSt6RkVtdVZKd2N2d094OENaaFFydGNXQUp4UlR1ZzZlbGhR?=
- =?utf-8?B?blY1Y25hTitDdm1zT3BFeWVFUEJTV1BYdGVWT2dUcVJ1WUpqTDF2OUpkWXVj?=
- =?utf-8?B?ZW9mcDFCVDhOYmNpTTlhakZiK0FVYWFxbmE3anRocGhDUWREMllSTGlrZVA3?=
- =?utf-8?B?Y2pXc254RTF3VGYzUVlvWDZ3d3FUMGo5N3pQbnZ4UTdvZG9ESTJ4L0lWL29X?=
- =?utf-8?B?b2VqbTNFeUwvVEZCYis3L1g4Z1BhdytkQjZhQUFaZEhQZXVoWDNCZXJNc0NO?=
- =?utf-8?B?MEY1Qm9CNFpCME54ZUhWNkxiSHp2anVlb2o1bmVVZVhmNks4bWVTVXgzVlM1?=
- =?utf-8?B?dW02MDc4alljTGc5T2xJV3MwenNncjJjSDRraFU2TE1HaEV1YzMxZ0JkeENm?=
- =?utf-8?B?dmZhWXJ6a0pvZ3Z4S3FiU3NlUndtMGM1TEtmM1VMa0xuZWJ6S2xlMVRaOHl3?=
- =?utf-8?B?WkJaQ0xocGs4Z0NZaHZBOU1wMHhTR0xIa1FjcngvdDdwcFU2bnFQTmJXK3pW?=
- =?utf-8?B?NXpsRmRQbXpnL1NoMUw1SkJteEdxRnZvRWZSZDVpR3BZS05QK3hhN3Y0N2VX?=
- =?utf-8?B?U1dZend4V3I3R04rRjlFMnJkYWR0bklzdldSUk80UTRudkhlR2VNeFZMT3Iv?=
- =?utf-8?B?aUY5Zlh0N3pPcFVNK2pMN0NGMkhFLzVyV1pweEhwUHRteUtvK0xlcVVZMGxp?=
- =?utf-8?B?VGRORnVkUkVjQXhpUGhuV3J4UTBuVVNRREFBTnZVMnVsZVZoK2dGS1pZRGd3?=
- =?utf-8?B?M2EvTmNaRXl4QzN2MFgxaHo1TENwS3VjOHl0M3hPcUNQZU9YNUgxcTBXTVlW?=
- =?utf-8?B?VmhBTll1YTBXemRjM2NLakhDeWNNbnRXWFpnOHN6aUVzTEkxeHFrSDV5eDRv?=
- =?utf-8?B?WHhsYnVMdm1LKzAwWlhyeXB1UWVrNVZyRmdFWEgyM0JUMU9xZVJldWlOTzQ1?=
- =?utf-8?B?NkNjaWxhRm9pdEVPd1U3UmdvN1BOaVJ0d1prSEx1YWxWYUc1YXZIeU1JeW1Z?=
- =?utf-8?B?TnRTYVF6MkZ5VW0vMzAyM1o4aHBmM3Nza0svOXRMYXBDZWF5RTUveUlxMURm?=
- =?utf-8?B?UG4zMEQ2Zk5CamhORlF1eEdEdUNUUHlvS3B2SG5XeE55YTN6bkxtU010Y1Vp?=
- =?utf-8?B?QWdyK2tUNFAzNnFweWloSWFQT0NsZEU0bE4rbXplbTdLVVd6RFR6QWdTcFlJ?=
- =?utf-8?B?ejZDUWl0dDl6YjhBalF5M0NMY1kyZlBCd3BHQzhidlFTR0oydXJVc1RWcHZj?=
- =?utf-8?B?MEJKRXVrVjBqTDFrZm5YQkhHTllMOHN1endOdm9hSVc2NDAzSVR2OVllY0Qv?=
- =?utf-8?B?aWl3ZzFQNWVNMWdTZys1bVJiaFlpNnk4YmMzNGZ2MXNSYTUzTGRNUUwyWjFR?=
- =?utf-8?B?NEJXWGEwdU1STWtZMGs2SVdHcHNGTnRqN0RlQy9Bd2FTeUJnTzB0WFMzazRU?=
- =?utf-8?B?THRWdlJRZGQzTGt6Vldwck41OWtvV3B3cjE0cmhrZTBpM1Vxem9BYVZRV1VE?=
- =?utf-8?B?Q0VBSU9PUlV2UDNtaUIzN3BUMHZUNUYrMlM1RlpRd0pxM3pwZnZNSmxJaEda?=
- =?utf-8?B?d0FUa0F3UWoxKy9Od2JNUytPZldUa0FKdndocjVsOWJLTzZFS1hXUXA2M3pJ?=
- =?utf-8?Q?AAg6mXvhM0kyteTf2p2XaBxD1Id0MAIqz1l/VFYrI2+K1?=
-X-MS-Exchange-AntiSpam-MessageData-1: eb3539jFW8rATA==
+	=?utf-8?B?ZHliRmEyY2VYdkZwM1FLZnpqMmJJVzIxVlZ1TS8xejMrOUE0WjlkQ0RFRlUx?=
+ =?utf-8?B?NThmTGFPU0pFR1BrSHJZOEFucjlHcVNjZHVLZ2JHQTZ3dUVndHpwMkpBNnN0?=
+ =?utf-8?B?a1V2bCt2VWpDZGRhT1NINGMyWGFtTC9QdTI4aytwSHQzcW9QczQrTVhZMEJu?=
+ =?utf-8?B?cjVUZEZXc3hvYzMxL0hVbU4xTFAyUDNjRGEzMzNLSXpPVHRBaThEM1JVa0VF?=
+ =?utf-8?B?dHhFamlwSDhsS1FyMFZ1Nk92UW16YXFqODIyU2xSUXpxeWpvWTE0UExrMk4y?=
+ =?utf-8?B?RUdCdFVBZmEwbWRhYmFiL3JFcFJHcmNxeTFBWjY0cENNU0Jma1gzQzI5ZHdq?=
+ =?utf-8?B?WGp4bzZpaXMxYkZEQTR2U1A3aEptYVZKTUlEeXRPbG5GV3FkSzQ1TVkvZ1dD?=
+ =?utf-8?B?UVZlQlE3RVNsZFRkREx4a1o0RG9CMzBLS2dzcHdTSnZzN3ArWVd3djAvbGx0?=
+ =?utf-8?B?akRwdmVuRklLUUVDbGNxQldkYmhjbmF3ckNuNFNXSkV1TVNSWnlSNFVxZjl2?=
+ =?utf-8?B?U0o4REdwdVo5V2Q4WVhBMWdaYW9qR3VRN0VjSHdYYVY5R1h5Y0xicENqQXBv?=
+ =?utf-8?B?bHN1K1FLUGw2Z3hiNjVmeVJKNzU0aDhudDhXVWxKRUJhUnlacllFeWhsaW50?=
+ =?utf-8?B?Yy9EeTJIUEhLWGk5ZEgxNktjQUZWRE16V3FhWkxqTHRhUTFvWWV4MjNHd2pV?=
+ =?utf-8?B?TWZ3UUxEUmdkeS9DTE01WUxwbGJOQWllV2lObTc0MFd0ajNxTzlKcmdLaVVo?=
+ =?utf-8?B?L29WZDdWU0QxRExOUzBnWCtQbjVINmhkUExBaC9mbjJyQjJXdGwvbldHNGp1?=
+ =?utf-8?B?TERaSXFaNys5V0xrWVdjcG5WUTFoOTViMEpJbHF6aXZHNXJIUXErdFF0eVVD?=
+ =?utf-8?B?WUxoeElZWmNFTVE1YkUvWEJiUDREZ2xQTmhYdHZubUh0OXB6dnFFZjNyeHI3?=
+ =?utf-8?B?MkIwSCtCMXdHUE00eFVobzdQL0lIUU9xeDU3c0ljY3RmL2YwenRubzZuNnli?=
+ =?utf-8?B?MGZVNXR1N3E3NHdNallRUzVKRDdnaUE2NkZPYTRHOERPSS9XKzJLeEpqRG82?=
+ =?utf-8?B?K1ZwMW00U25KUWVqRTNML08xRmNBcnEzdnJJYisxMXJjQlh3d0pMNSs1ZTZH?=
+ =?utf-8?B?a25RYmVOM1U1SXFiVXJhTCtZYWxlTUQwZ1F4SGU4VUhZd2I1dzRiTVlOMTN6?=
+ =?utf-8?B?Q0pUdXQ2Wkt3WXpLV1NDTzVpY2MvTXBCeGRXcFRrTW5uTWVQOEdMZ3BkY0pw?=
+ =?utf-8?B?S2pkS1E2SFQrYWcydkVaL1Fwai8yUGZ4T1RqYkg5bS9JRzZQOGRWVFpQVWM1?=
+ =?utf-8?B?SnhWNzMyZWtlYUR0KzBhR3lTNENrTkZoV29IRzJLaVd4dVhjQndpK1JSQU1s?=
+ =?utf-8?B?VklqU0prRlFtVWg0SWtXTWprK2pWckIwRlRWd0N2S01nQ3BCbWprZmZYcVhl?=
+ =?utf-8?B?VkNOeTRRMXJ4TVlYR1p4cHMvcXlTTG9YS1NtN0cvWmRYektkUVh2WStoZGF5?=
+ =?utf-8?B?Z0RrL0czc2NZRDBEVUNML3FzYXREZERJTXplYlo4d2ZmbFV4K0FyZTRia1F0?=
+ =?utf-8?B?czdnL1ZOZGxmRU5MRklnZzIrTTJhZnFRQWx0SmNRNlVXdXN0WVcyWTZNbVJw?=
+ =?utf-8?B?a2lCc0xVZTF5eTJMOU1uZEtoU0pzeHN6ZVFYR2xWVVdSL3NSazJuNy8yaGE3?=
+ =?utf-8?B?amcwajNwbkZ3WlVZRVlwaFFWUXlFRTk2OTRDcG9DcXBGYk9nb1cyZklCOEls?=
+ =?utf-8?B?MFN4RmNMUWlVbklUUWRWM3ZNRGNxbThwMmpKYkxiNmdsUzNoK3k4QXhaeG0y?=
+ =?utf-8?B?TkFjWURqLzhFSXp0cHFDKzZDQ2JDRzc1VzFIZEFwMkNBQVA3WCs3OVlXTWJv?=
+ =?utf-8?B?WFBqOVN2VEYweUFXL01XYlZGckk1VlFoTG1wVHN1Z2VpUjA1Q3ltaDNyRzd0?=
+ =?utf-8?B?WHNVamNoeWZmb3FDTUI0K2lZTk9WQTQ3WW4zcTRTNkpnc1dUOUxWTndXVUFw?=
+ =?utf-8?B?NUNqZFhyajNoVkd0QTVPMUNuOTVjbmErTk0xWSsrR1BXZjIzSkpTaysyMmd3?=
+ =?utf-8?B?YWNUUVNoZUFCTk1xNUEvSFd0RU1NdDJFSWFGZUg4Ym80NWpucVp1UTQ3UVFn?=
+ =?utf-8?B?Yi80bi9BR003aU9OaU9vVjRPSi9PYkMxMFE4Y2dFMHJsMnRGM0pjWlVKdGRZ?=
+ =?utf-8?B?dTNWT0ZJVzhvZ2FCdHhhY0duVTVURHlJb3RHRDBiYzRQeTBNd0tSa1JQV1dt?=
+ =?utf-8?B?OW5VWW1EQ2cwdGdhZmFnMnlqaXh0RCtpUnIvR3NPYVlYWTh4aHNDUTdVVnR4?=
+ =?utf-8?B?TmhreXZENDE5bWJ5UWlicDVFLzNOOUUzWnVBTU1lMzhzSXJXbkxTV1VIblEy?=
+ =?utf-8?Q?YC5M9j7jpUdTP1Uu/lb5Wu3QOgVhFse5zTepAJGw93mj5?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2rTTTFvDxKuhfg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc2226d7-de0f-441a-5c0d-08df349a3c0f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66d99ce1-01ab-4c6a-ce9c-08df349a3794
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:21:54.8232
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:21:47.2977
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MvL7GB8voOIo18nw28Tl4+ur4yhFrD7TWKHnbehr6HXIIIzbMqGNzr1adFU3NhgYeg1YgGwANJuh9oZmh5APkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4283
+X-MS-Exchange-CrossTenant-UserPrincipalName: XAYk1la9gBRf38Kn+5Pi4cxOiHQeXQrsDetluUq+0j+zkgok26JgWCWPaBk9KnXwHVBukrpI+UIcUFB9kLscRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4086
 
-Add the first user of NVKV encode/decode which is the request and
-response for GSP init. Later patches will support GMCAPI in `Cmdq` and
-use these messages.
+For struct-like GMCAPI messages encoding field by field manually is
+noisy. Add some type machinery and a macro to automate encoding of
+struct-like messages. The `Encodable` trait can be implemented by any
+type to say that it can be encoded into an NVKV `Encoder`. Add a simple
+`nvkv_encode!` macro that works on structs and encodes each field in
+order. Provide some base types, such as `Key` which statically
+associates an NVKV key with some value, to avoid having to make a lot of
+newtypes and implement `Encodable` on them.
 
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/fw/commands.rs | 157 ++++++++++++++++++++++++++++++-
- drivers/gpu/nova-core/gsp/nvkv.rs        |   2 -
- drivers/gpu/nova-core/gsp/nvkv/decode.rs |   1 -
- drivers/gpu/nova-core/gsp/nvkv/encode.rs |   2 +-
- 4 files changed, 157 insertions(+), 5 deletions(-)
+ drivers/gpu/nova-core/gsp/nvkv.rs        |  68 ++++++++
+ drivers/gpu/nova-core/gsp/nvkv/encode.rs | 273 +++++++++++++++++++++++++++++++
+ 2 files changed, 341 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 567c56fbbfe3..88111aec3ddb 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -4,6 +4,8 @@
- use core::ops::Range;
+diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
+index 98c5c31c3717..9d89e09e02f5 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+@@ -11,6 +11,14 @@
  
+ #![expect(unused_imports)]
+ 
++use core::{
++    marker::PhantomData,
++    ops::{
++        Deref,
++        DerefMut, //
++    }, //
++};
++
  use kernel::{
-+    alloc::ArrayVec,
-+    bitfield,
-     device,
-     pci,
-     prelude::*,
-@@ -15,7 +17,19 @@
+     bitfield,
+     num::Bounded, //
+@@ -30,6 +38,66 @@
+ /// The index of an NVKV value.
+ pub(crate) type Index = Bounded<u64, 12>;
  
- use crate::{
-     gpu::Chipset,
--    gsp::GSP_PAGE_SIZE,
-+    gsp::{
-+        nvkv::{
-+            nvkv_decode,
-+            nvkv_encode,
-+            Accumulated,
-+            Encodable,
-+            Encoder,
-+            Key,
-+            Required,
-+            TruncatingArray, //
-+        },
-+        GSP_PAGE_SIZE, //
-+    },
-     num::IntoSafeCast, //
++/// A static association between an NVKV key `KEY_ID` and the storage of its value.
++///
++/// Use with the encoder or decoder macros `nvkv_encode!` and `nvkv_decode!` to let them know how to
++/// map the value `Key<T, KEY_ID, As>` to/from encoded data. For brevity, `As` inserts an additional
++/// conversion ([`From`]) to avoid having to implement [`Encodable`] for many types. For example,
++/// enums that are easily convertible to a u32 can have `As = u32` and rely on the existing encoding
++/// for u32.
++pub(crate) struct Key<T, const KEY_ID: KeyId, As = T>(T, PhantomData<As>);
++
++impl<T, const KEY_ID: KeyId, As> Key<T, KEY_ID, As> {
++    /// The maximum size in bytes we allow to materialize on the stack while
++    /// encoding or decoding a [`Key`]. This is checked at compile time.
++    const MAX_STACK_SIZE: usize = 32;
++}
++
++impl<T, const KEY_ID: KeyId, As> From<T> for Key<T, KEY_ID, As> {
++    fn from(value: T) -> Self {
++        Self(value, PhantomData)
++    }
++}
++
++impl<'a, T, const KEY_ID: KeyId, As, const N: usize> From<&'a [T; N]> for Key<&'a [T], KEY_ID, As> {
++    fn from(value: &'a [T; N]) -> Self {
++        Self(&value[..], PhantomData)
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> Deref for Key<T, KEY_ID, As> {
++    type Target = T;
++
++    fn deref(&self) -> &Self::Target {
++        &self.0
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> DerefMut for Key<T, KEY_ID, As> {
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        &mut self.0
++    }
++}
++
++impl<T: Default, const KEY_ID: KeyId, As> Default for Key<T, KEY_ID, As> {
++    fn default() -> Self {
++        Self(T::default(), PhantomData)
++    }
++}
++
++/// A value with a specific index that encodes under the NVKV key `KEY_ID`.
++pub(crate) struct IndexedKey<T, const KEY_ID: KeyId> {
++    index: Index,
++    value: T,
++}
++
++impl<T, const KEY_ID: KeyId> IndexedKey<T, KEY_ID> {
++    /// Creates a key with the given index and value.
++    pub(crate) fn new(index: Index, value: T) -> Self {
++        Self { index, value }
++    }
++}
++
+ bitfield! {
+     /// The op word that starts each NVKV operation.
+     struct Op(u64) {
+diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+index ca4189f35feb..a9d0420d0936 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv/encode.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+@@ -8,11 +8,137 @@
+ 
+ use super::{
+     Index,
++    IndexedKey,
++    Key,
+     KeyId,
+     Op,
+     Opcode, //
  };
  
-@@ -245,3 +259,144 @@ unsafe impl AsBytes for UnloadingGuestDriver {}
- // SAFETY: This struct only contains integer types for which all bit patterns
- // are valid.
- unsafe impl FromBytes for UnloadingGuestDriver {}
-+
-+/// The host CPU architecture.
-+#[derive(Clone, Copy)]
-+enum HostArch {
-+    None = 0,
-+    X86_64 = 1,
-+    Ppc64le = 2,
-+    Arm = 3,
-+    Aarch64 = 4,
-+    Riscv64 = 5,
++/// A type that can encode itself into an [`Encoder`].
++pub(crate) trait Encodable {
++    /// Encodes `self` into `encoder`.
++    fn encode(&self, encoder: &mut Encoder) -> Result;
 +}
 +
-+// TODO[FPRI]: This is a temporary solution to be replaced with the corresponding derive macros once
-+// they land.
-+impl TryFrom<u32> for HostArch {
-+    type Error = Error;
-+
-+    fn try_from(value: u32) -> Result<Self> {
-+        match value {
-+            0 => Ok(Self::None),
-+            1 => Ok(Self::X86_64),
-+            2 => Ok(Self::Ppc64le),
-+            3 => Ok(Self::Arm),
-+            4 => Ok(Self::Aarch64),
-+            5 => Ok(Self::Riscv64),
-+            _ => Err(EINVAL),
++/// Defines a struct together with its [`Encodable`] implementation.
++///
++/// The implementation encodes each field in declaration order. Each field type must implement
++/// [`Encodable`], which is done already for types like `Key<T, KEY_ID>`.
++///
++/// Use a lifetime on the struct if its fields borrow data, for example, `Key<&'a [u8], KEY>`.
++///
++/// # Examples
++///
++/// ```
++/// nvkv_encode! {
++///     struct Request {
++///         id: Key<u32, 0x0001>,
++///         name: Key<&'static [u8], 0x0002>,
++///     }
++/// }
++/// ```
++#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(unused_macros))]
++macro_rules! nvkv_encode {
++    (
++        $(#[$attr:meta])*
++        $vis:vis struct $name:ident $(<$lt:lifetime>)? {
++            $(
++                $(#[$field_attr:meta])*
++                $field_vis:vis $field:ident : $ty:ty
++            ),* $(,)?
 +        }
-+    }
++    ) => {
++        $(#[$attr])*
++        $vis struct $name $(<$lt>)? {
++            $(
++                $(#[$field_attr])*
++                $field_vis $field: $ty,
++            )*
++        }
++
++        impl $(<$lt>)? $crate::gsp::nvkv::Encodable for $name $(<$lt>)? {
++            fn encode(&self, encoder: &mut $crate::gsp::nvkv::Encoder) -> ::kernel::error::Result {
++                $( $crate::gsp::nvkv::Encodable::encode(&self.$field, encoder)?; )*
++                Ok(())
++            }
++        }
++    };
 +}
 +
-+impl From<HostArch> for u32 {
-+    fn from(value: HostArch) -> Self {
-+        value as u32
-+    }
-+}
-+
-+nvkv_encode! {
-+    /// A GSP registry entry.
-+    struct RegKey {
-+        key_name: Key<&'static [u8], 0x3070>,
-+        key_value: Key<u32, 0x3071>,
-+    }
-+}
-+
-+impl Encodable for KVVec<RegKey> {
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<u32, KEY_ID> {
 +    fn encode(&self, encoder: &mut Encoder) -> Result {
-+        for regkey in self {
-+            regkey.encode(encoder)?;
++        encoder.encode_u32(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<u64, KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_u64(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u8], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array8(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u32], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array32(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u64], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array64(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u8; N], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array8(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u32; N], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array32(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u64; N], KEY_ID> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array64(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> Encodable for Key<T, KEY_ID, As>
++where
++    IndexedKey<As, KEY_ID>: Encodable,
++    As: From<T>,
++    T: Copy,
++{
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        const_assert!(
++            size_of::<T>() <= Self::MAX_STACK_SIZE && size_of::<As>() <= Self::MAX_STACK_SIZE,
++            "`Key` here would materialize too large a value on the stack"
++        );
++
++        IndexedKey::new(Index::new::<0>(), As::from(self.0)).encode(encoder)
++    }
++}
++
++impl<T: Encodable> Encodable for Option<T> {
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        if let Some(value) = self {
++            value.encode(encoder)?;
 +        }
 +        Ok(())
 +    }
 +}
 +
-+nvkv_encode! {
-+    /// SR-IOV virtual function information.
-+    struct VfInfo {
-+        total_vfs: Key<u32, 0x0080>,
-+        first_vf_offset: Key<u32, 0x0081>,
-+        flags: Key<u64, 0x1003>,
-+        first_bar0_address: Key<u64, 0x1050>,
-+        first_bar1_address: Key<u64, 0x1051>,
-+        first_bar2_address: Key<u64, 0x1052>,
-+    }
-+}
-+
-+nvkv_encode! {
-+    /// Payload of the `GSP_INIT` command.
-+    // TODO: expect() doesn't work here before rustc 1.97.0
-+    // https://github.com/rust-lang/rust/pull/154377
-+    #[allow(dead_code)]
-+    struct GspInitRequest {
-+        pci_device_id: Key<u32, 0x0001>,
-+        pci_sub_device_id: Key<u32, 0x0002>,
-+        pci_revision_id: Key<u32, 0x0003>,
-+        pci_config_mirror_base: Key<u32, 0x0010>,
-+        pci_config_mirror_size: Key<u32, 0x0011>,
-+        host_arch: Key<HostArch, 0x0070, u32>,
-+        bus_device_func: Key<u64, 0x1020>,
-+        regkeys: KVVec<RegKey>,
-+        vf_info: Option<VfInfo>,
-+    }
-+}
-+
-+// Decode:
-+
-+// Should decode with UnknownKeyPolicy::Ignore.
-+nvkv_decode! {
-+    /// Schema for the `GSP_INIT` response.
-+    // TODO: expect() doesn't work here before rustc 1.97.0
-+    // https://github.com/rust-lang/rust/pull/154377
-+    #[allow(dead_code)]
-+    struct GspInitResponseSchema => GspInitResponse {
-+        gpu_name: TruncatingArray<u8, { GspInitResponse::MAX_GPU_NAME_LEN }, 0x2000>,
-+        fb_regions: Accumulated<FbRegionSchema>,
-+        bar1_pde_base: Required<Key<u64, 0x1020>>,
-+        vmmu_segment_size: Key<u64, 0x1050>,
-+    }
-+}
-+
-+/// Payload of the `GSP_INIT` response.
-+// TODO: expect() doesn't work here before rustc 1.97.0
-+// https://github.com/rust-lang/rust/pull/154377
-+#[allow(dead_code)]
-+struct GspInitResponse {
-+    gpu_name: ArrayVec<u8, { Self::MAX_GPU_NAME_LEN }>,
-+    fb_regions: KVVec<FbRegion>,
-+    bar1_pde_base: u64,
-+    vmmu_segment_size: u64,
-+}
-+
-+impl GspInitResponse {
-+    const MAX_GPU_NAME_LEN: usize = 64;
-+}
-+
-+nvkv_decode! {
-+    /// Schema for one FB region of the `GSP_INIT` response.
-+    struct FbRegionSchema => FbRegion {
-+        base: Required<Key<u64, 0x1011>>,
-+        limit: Required<Key<u64, 0x1012>>,
-+        flags: Required<Key<FbRegionFlags, 0x0012, u32>>,
-+        tag: Required<Key<u32, 0x0013>>,
-+    }
-+}
-+
-+bitfield! {
-+    /// FB region attribute flags.
-+    #[derive(Default)]
-+    struct FbRegionFlags(u32) {
-+        0:0 support_compressed => bool;
-+        1:1 support_iso => bool;
-+        2:2 protected => bool;
-+    }
-+}
-+
-+/// One FB memory region.
-+struct FbRegion {
-+    base: u64,
-+    limit: u64,
-+    flags: FbRegionFlags,
-+    tag: u32,
-+}
-diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
-index 143746daf782..f81a9e60d89c 100644
---- a/drivers/gpu/nova-core/gsp/nvkv.rs
-+++ b/drivers/gpu/nova-core/gsp/nvkv.rs
-@@ -9,8 +9,6 @@
- //! speaking, the function calls will map to some struct - for example, f(GPU_NAME_STRING_KEY, 0,
- //! b"some gpu") naturally maps to storing a &str with the GPU name.
+ /// An encoder for an NVKV stream.
+ pub(crate) struct Encoder {
+     stream: KVVec<u64>,
+@@ -189,4 +315,151 @@ fn encode_all_value_kinds() -> Result {
  
--#![cfg_attr(not(CONFIG_KUNIT = "y"), expect(unused_imports))]
--
- use core::{
-     marker::PhantomData,
-     ops::{
-diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-index 534056b97708..84c0c998b2c9 100644
---- a/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-+++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-@@ -57,7 +57,6 @@
- ///     }
- /// }
- /// ```
--#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(unused_macros))]
- macro_rules! nvkv_decode {
-     // A schema which doesn't borrow from the stream. The macro uses a generic lifetime for the
-     // [`Visit`] implementation but not for the struct itself. This allows omitting the unused
-diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
-index a9d0420d0936..c6891c0441ff 100644
---- a/drivers/gpu/nova-core/gsp/nvkv/encode.rs
-+++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
-@@ -38,7 +38,6 @@ pub(crate) trait Encodable {
- ///     }
- /// }
- /// ```
--#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(unused_macros))]
- macro_rules! nvkv_encode {
-     (
-         $(#[$attr:meta])*
-@@ -65,6 +64,7 @@ fn encode(&self, encoder: &mut $crate::gsp::nvkv::Encoder) -> ::kernel::error::R
-         }
-     };
+         Ok(())
+     }
++
++    // Tests that encoding via the `nvkv_encode!` macro works correctly.
++    #[test]
++    fn encode_typed_struct() -> Result {
++        const U32_KEY: KeyId = 0x0001;
++        const U64_KEY: KeyId = 0x0002;
++        const NAME_KEY: KeyId = 0x0003;
++        const FIXED_KEY: KeyId = 0x0004;
++        const OPT_KEY: KeyId = 0x0005;
++        const INDEXED_KEY: KeyId = 0x0006;
++        const CONVERTED_KEY: KeyId = 0x0007;
++        const INNER_KEY: KeyId = 0x0008;
++
++        // A value that is encoded as the `u32` it converts to.
++        #[derive(Clone, Copy)]
++        enum TestEnum {
++            Value = 3,
++        }
++
++        impl From<TestEnum> for u32 {
++            fn from(value: TestEnum) -> Self {
++                value as u32
++            }
++        }
++
++        nvkv_encode! {
++            struct Inner {
++                x: Key<u32, INNER_KEY>,
++            }
++        }
++
++        nvkv_encode! {
++            struct TypedRequest<'a> {
++                a: Key<u32, U32_KEY>,
++                b: Key<u64, U64_KEY>,
++                name: Key<&'a [u8], NAME_KEY>,
++                fixed: Key<[u8; 4], FIXED_KEY>,
++                opt: Option<Key<u32, OPT_KEY>>,
++                indexed: IndexedKey<u32, INDEXED_KEY>,
++                converted: Key<TestEnum, CONVERTED_KEY, u32>,
++                nested: Option<Inner>,
++            }
++        }
++
++        const U32_VALUE: u32 = 0x89ab_cdef;
++        const U64_VALUE: u64 = 0x0123_4567_89ab_cdef;
++        const INDEXED_VALUE: u32 = 0x1234_5678;
++        const INNER_VALUE: u32 = 0x0bad_f00d;
++
++        let index5 = Index::new::<5>();
++        let request = TypedRequest {
++            a: U32_VALUE.into(),
++            b: U64_VALUE.into(),
++            name: b"name\0".into(),
++            fixed: [1u8, 2, 3, 4].into(),
++            opt: None,
++            indexed: IndexedKey::new(index5, INDEXED_VALUE),
++            converted: TestEnum::Value.into(),
++            nested: Some(Inner {
++                x: INNER_VALUE.into(),
++            }),
++        };
++
++        let mut encoder = Encoder::new();
++        request.encode(&mut encoder)?;
++        let encoded = encoder.finish();
++
++        // `opt` is `None` and is not encoded.
++        assert_eq!(encoded.len(), 10);
++
++        let index0 = Index::new::<0>();
++        // `a`: IMM32 with the value in the `Op`.
++        assert_eq!(
++            encoded[0],
++            Op::zeroed()
++                .with_key(U32_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Imm32)
++                .with_value(U32_VALUE)
++                .into_raw()
++        );
++        // `b`: a single-key SEQ64 followed by the value.
++        assert_eq!(
++            encoded[1],
++            Op::zeroed()
++                .with_key(U64_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Seq64)
++                .with_value(1)
++                .into_raw()
++        );
++        assert_eq!(encoded[2], U64_VALUE);
++        // `name`: ARRAY8 of 5 bytes, zero-padded to one `u64`.
++        assert_eq!(
++            encoded[3],
++            Op::zeroed()
++                .with_key(NAME_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Array8)
++                .with_value(5)
++                .into_raw()
++        );
++        assert_eq!(encoded[4], u64::from_le_bytes(*b"name\0\0\0\0"));
++        // `fixed`: ARRAY8 of 4 bytes, zero-padded to one `u64`.
++        assert_eq!(
++            encoded[5],
++            Op::zeroed()
++                .with_key(FIXED_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Array8)
++                .with_value(4)
++                .into_raw()
++        );
++        assert_eq!(encoded[6], u64::from_le_bytes([1, 2, 3, 4, 0, 0, 0, 0]));
++        // `indexed`: IMM32 with a non-zero index in the `Op`.
++        assert_eq!(
++            encoded[7],
++            Op::zeroed()
++                .with_key(INDEXED_KEY)
++                .with_index(index5)
++                .with_opcode(Opcode::Imm32)
++                .with_value(INDEXED_VALUE)
++                .into_raw()
++        );
++        // `converted`: IMM32 with the `u32` that `TestEnum::Value` converts to.
++        assert_eq!(
++            encoded[8],
++            Op::zeroed()
++                .with_key(CONVERTED_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Imm32)
++                .with_value(3)
++                .into_raw()
++        );
++        // `nested`: IMM32 with the single `u32` it contains.
++        assert_eq!(
++            encoded[9],
++            Op::zeroed()
++                .with_key(INNER_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Imm32)
++                .with_value(INNER_VALUE)
++                .into_raw()
++        );
++
++        Ok(())
++    }
  }
-+pub(crate) use nvkv_encode;
- 
- impl<const KEY_ID: KeyId> Encodable for IndexedKey<u32, KEY_ID> {
-     fn encode(&self, encoder: &mut Encoder) -> Result {
 
 -- 
 2.56.0
