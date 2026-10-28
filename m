@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793192369;
-	b=eE0IVkyIGizQ+Pe8pEIHJ0u9BApU8VeXFLV+/LISSymeOpJ6qwlNjTCmlaSgfwNtMvyO
-	 sopRxjQGFvFquoFPNbH0XOX6d0HBUE4rWcuEeTLZnkD4d0cKUOXAog8e8bZj20ClV7eOE
-	 IZz3s1QxDwdBP4aTwR+i/Yej2STbrH23Tk845ftsiX9tpIWK6R4N49en7hmwot2STyRH/
-	 Lui6AV4w8OJg6OPoNepgNt45yWQh22Kj3Ek8x8D3REXMVK7TeXP0RkSZLGaLvA5VBOxPC
-	 w3Fe8bspZMVGTIuqGf2O2VRohbfomQdUF9yw/p0Fx9KcI4ukENAEH2/gnGhD+jspnsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793192369;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/DYdoj1zKL4rwO2KREFbt2DYXMr4kfMjdDmj8SehfRU=;
-	b=axyQ0NEaBCQ5b3knfCufvoevSGTafyyk5mF5gfis1yNyIoX+XyJpKQjaJdwFqx727Qab
-	 R7iGqBu1TicShO6DoRgjcB1yL7CoK9S1ZW3qa3/LOrvah7Hyh7eVi7gSyduykAmMAhmno
-	 xEpnfBsqy2mI6zWqzTzlWCe/FRSO9+CIotqiHkbacMMQ3LdOhWwAecAVzvM0t1ZyFbWya
-	 G0iD8tyeaz/vwwXJpfzzPCM/ESbOzMS0TCXMB1xzudilPY/c1t9gs7QuQX0+Y2rwf/Jzd
-	 IwV5YSRGq5si8UzbQHdNlZS2g6guvA569mvzrEQ7HoyRBMMM+VWvzHjDWUh9HyhHL9g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ATOHtvyd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.0
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793192420;
+	b=mlRcN9oVMWBLBm1o6J3GU1Mk29pPRuQGc1NpQ93wz8c7IVVnk3acN8OlyUZVV/n/dE6T
+	 T3E8ds0bjovkL9VeEDIFWsSPw8n77tnAC4gARkEuf9CsaPzYVemOKG9uqKHeAfEOAvtTg
+	 zxkCOaL9pA131dKlrVL3wi9c5H5/zBPObb1ukeyL/7pfgefbh7wkEV2/B5rsE4qqwfqXp
+	 XG7VF4iiID1QzyeH9p4kv/KqOG9WSh3Ng2a1ExFktlvSrp0zS+kzDHRzOyizCVa+rPfJ0
+	 hPPJNCgwXPYlhcaPtoBxJoorA47+IOjNT5dPYcAVWzEaPB7jjq5UBu91nlT364+0zTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192420;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MvumFNp4ir0ZQ0AN2j9JePujNRHtA7/CNuMQF2kMQPk=;
+	b=kzU5ujY9GDin66fNSa1Q5ZzjFPBFY+IuOfDu5ILlReQXOmXwT0D1j8iUAzv00FMf8CN2
+	 xk7Udbg9GbMOxlnbr07VsmEcJE7k7x3GPccEiJKKpGGHv7Pb5htibmV4VUJIt6B8ZWkdh
+	 njOKEte57WUwB5N3U44S37tszmvStaxuoRdSHS4PvQn+Pr6uCLFgosP0AXWeuUdK7Y4k7
+	 Os48QFiAj2zlE3lB4A62lVAN7DQ5i4Gs2Eye97au3jJ834JnxilYSViQaK0TNjehmEvgq
+	 fBuW6J9Bq6YYyPgTMw3dtHXsWcQPzNgmcIe9j3egpviTT9ACVC5y1QPVhJzT53Z8I5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tbUoRIa5;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C201D606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C201D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF770606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:00:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF770606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ATOHtvyd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f4T2LjorJnXGJLwPVLp1DHGRVTrmNRqDGnCt2oOMUgtPfYBKKIY7KhNbiU8T7VvBBXim+eOsMmQDNDJPhAt2JauUNcECoaaoIn53lFx5iMvps83PyTnI3Gn/mlD2Vjbr5Ugi2/TLbuFRnmN2hot5f8b55EqyWzpkaGdWSTwY8Q06RmxgVZD+mHLh3wxDVnh6zOAbj55yfzO4gaAbkTfvErcmtGhdmxM2Yqn1ZLq8cm5mubqHdQH+8TVFahFrr29Sp7DMAFuUM9AO6G3QQWKvD0L6WXvOOUECOqA7RacZ167gNDU/ilVAhFdS6pUuFvULlA7R4toEkfVMbhpQLDlQTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/DYdoj1zKL4rwO2KREFbt2DYXMr4kfMjdDmj8SehfRU=;
- b=o9HpgwWSvPU9YPjeWVyIkmLI2ZXk3wQ9zrz21euh2pocNa70aF7qG82dvnq79sn1O9lvk3ofBh/VfUb4XSQRI2g6mMIuxvUsk/JXhiIzsiMULKADVzp0JKqkeRYDe2UCVHLuLEYMP1Xp8NHBsxYHCc9byYdBrOMBOla0x+qE1BFhono89TkHt2w0jZj4LsGmO02VqsmrLkxC7e4JtmPI/G16gj3TBrJvLtDQDQNWPI+UH+YPcNn9ypJspCKiZI9wDqv3y1zl3hE4D+a96WTQmTbgTmrpSbbGcDX9Nr4PvnTRGCgr0qH1cpNT4liYggOtbhzRHV5ouLkLZKgLQiYjvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/DYdoj1zKL4rwO2KREFbt2DYXMr4kfMjdDmj8SehfRU=;
- b=ATOHtvydFasO3ggW25UxL8hUu4/g7eZtcYdWfyfa3YsQKNeS77ALQ7Kplyk3dYlW2sf4GnQ3Im5TvfUjTKedmhr3J8gHD761MQMmGsOsjhcrsKofCCR4/WAT6L9zgL6p8pmRW2qvHawCKiuIVtk+uLEyscSYDIdDNOLnMppoIS0Z51A2qvExkqGoKFL1795Vsq2NG6izkt72Y6BNmCPjDJwrALIQw6CNwELvBs/Y4HPEI73YDSuX3VnCgCsNc+DeW8YCIKat9ezcmAf4QRgjAi3YneyxbiSSIDhUN0Bdnasr2f+EJUwvEYKA/aMeqqTpSk/fF3F+SwZ0KQXj5qQq3Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 12:59:11 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
- 12:59:11 +0000
-Date: Wed, 28 Oct 2026 09:59:10 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: fangyu.yu@linux.alibaba.com
-Cc: Ankit.Soni@amd.com, guoren@kernel.org, iommu@lists.linux.dev,
-	joerg.roedel@amd.com, joro@8bytes.org, kevin.tian@intel.com,
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com,
-	vasant.hegde@amd.com, will@kernel.org
-Subject: Re: [PATCH] iommupt/kunit: Read an exact NR_SECONDARY_PAGETABLE
- snapshot for the leak check
-Message-ID: <20261028125910.GB3040767@nvidia.com>
-References: <20261016152343.GH13920@nvidia.com>
- <20261019032455.36913-1-fangyu.yu@linux.alibaba.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019032455.36913-1-fangyu.yu@linux.alibaba.com>
-X-ClientProxiedBy: YT1PR01CA0141.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::20) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tbUoRIa5
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so8336255e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793192418; x=1793797218; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MvumFNp4ir0ZQ0AN2j9JePujNRHtA7/CNuMQF2kMQPk=;
+        b=tbUoRIa5gYIobr7aTdIk7Jmnr9LGuF4ShZZYDiWJM8abpadIdyPaY8nkF5m3n92Lm9
+         hjdYC1xbFFuBI648LSN9G6gq0shptMIMm5Mg6cqJLgu54CV+aBkED5oe9kLwC5e35Ueh
+         eEPeFhER2gMZzMDXLLQo9UqBFZHBqNGwv90hy5eUR7Q1j2DnXGlm+gVrbaTQSWvA0FEw
+         f1kmLxsnq61Z2yu43PxkN19orQMRuIM5M6sAMg2vhtfBqzymKPEDGL2tdUrcMmSRO1c2
+         fbFkAqWJAhfejNvjhaq9GFbx+pjswkDlwPHEW57D0OaNlvsOewd6U35ceJ3bR7PDYrcx
+         j45g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793192418; x=1793797218;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MvumFNp4ir0ZQ0AN2j9JePujNRHtA7/CNuMQF2kMQPk=;
+        b=hifCTFOb0W6sIMMepMcydL8WzZpr7SgAAndFG6jMtqEKRxasFmADrsD/bK1ENi4oby
+         InvCDDXyJIjBDJA/WnVVC4CTi6Gbmrxqqr/NjUclkPSgbM5wf7MUHp7u/ZmCaiy1Der4
+         ydz8QqUG7KsxuSbg19hEKiaE4vO87W+Vqk+wLDW6WYhMdFtXd5Eau4eufnrSh5MpWZab
+         8hHruIQOBv19nc481D5vaMYujyJ5cJoS5NLzYh2NAKpUqQKIr9rqcmr6h8ds6cgft6iC
+         5IhlLjrZfL7nB1j3iYnovLRPVEYIoLQC2JUM+mwh4kvPtYgMAztxJmtAAAWgFofBG5Jm
+         VmrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLd/M2irjOFt/bMsFR46xrUnbe4bs4irEFPXjugkVm1Gp4LwGADJH0UQ6cfn+as4eFhhz9E5ut/qAW0sQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICSHFSfwmNRTSXmbZkcVXmX92icKH0KyuMOJcBS8TsJNlhpcjn
+	BwBSKpCPmbWviZnTlEHgu2Fgd5rIPc68nlw1B0H3FAtn1QwzclWqRhdfl0JFPSXquxk=
+X-Gm-Gg: AYBFou0dRFRvcHxbuTST7+kQn6ipCOu43f42D+ug69ZzQhvv5Xf25IlMOEP8bUyXPH5
+	BJBj1r/yy2eWYoqL86j0e+rUugqQr4APtGajEcwpcs7+Ov4btaAD9o1XJnxB5tJ3nVXL+AnnzEA
+	g5I8qMk7bzbHjQXkB4I2JL44Lo63YKA1kqN/WvK+PRR0V0zBfAKc4Vhr8NjDkKJ5DC63sEOOrNc
+	em5QyNikuqypKpv9RJ6M8xEeeE7+D/ELBK95djk0o7fRsj1vrgsnUhGKVZCchP3wsIbYF9FoLHN
+	LIxXdjmIx4PzoHscCJHYXzsRT6hSzPJuvm6WtxOBgrtGqlvGp92XzLlPPN7+7UCmk3AAFFQgjD5
+	OB4QwiohqCxyB0M9wtZrjNRAbdkfOQh3i2LuQolnpQ6SeGYBorFIIWHaeRellMSLpdULqNlbkkx
+	JJokG3o23zwrepEED3870mQSowlSuRXkapY+lR484DTUJPJmeVNZShRzy1D8Cggh4hH7hk3Lcsj
+	geoK9K4UbGRIH/bBLbH0hyrvh94/Tj2Kt/fHYRJk0MSxm86ugzdXt7guGiOzjfxg6c82N3LV01p
+	TZU9w5d4G0G7VYascKw=
+X-Received: by 2002:a05:600c:6085:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4a996a9e304mr37363745e9.5.1793192417917;
+        Wed, 28 Oct 2026 06:00:17 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a977edc20csm39272515e9.3.2026.10.28.06.00.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 06:00:16 -0700 (PDT)
+Message-ID: <59d1e508-365a-4960-9938-d4fbc4141590@linaro.org>
+Date: Wed, 28 Oct 2026 13:00:14 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,72 +92,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SN7PR12MB7835:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3efa58a-4ff9-4372-c546-08df34f342d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|366016|261026140227099003|4143699003|11063799006|56012099006|10067099003|261022105027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	lHeoLftJDCM35lWt7RKvJ8o4JYOWcvJ5a7lcuybKjPZgzQu+ua6vnjh2JE3LjJVOl7KNMzxUjn/8x6D8HkMVsC1NsUX1YOm68/vUxgvr80obZ1MDdkRJ6K2Y4ubCpKtPAYbDH/jSauQdusP5MljRXgC+oIMur6ZlDlD9rqPQ1qU4mliX4lu1ukTrUwUT/uktBOvwb6nx+kmEwhy8PyQUDg521z61ZSLY+s1YnNmcxut9nbShdMnwxtC8xNk2jvqNCXlpa8lMfQzsew6Fqaz9bpiVA/Fquqefg3ZxJ0FAoOncG+vHaKqyrfnmtd4e4IosSH+Lg8CJodQeppGY8jArhsZZ3sm+0JXKJ9EHAOmpt5PtUmR2dldy7TXoiZHHnX7aGsnb1F4uCU6thQT03aaq4MdxMPwnyhX2nxMaajVktMnSYheaz9bsh0OdOU5S2VnNK3hD6IyurP4Zpwc9g4BWhkG3ZoMxv9iT0nq5ssvMbZC9orU5GOC3gsTtTlERg27LV6FXGzAyfn8wsrRCG2bY1zjDadG8nQmTJIWSjKstJUXvT5BfYgABZ/lojYUSn/19bJX/h4heVJHvQl9AfEut5hapnb1dHMcBIU0arXDf7TIfVaWU57CtwvjsbmM1113mhlknydnaOEFQTR6EJwIZVcMYKv4o72TXwqH8I4jb2k0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(261026140227099003)(4143699003)(11063799006)(56012099006)(10067099003)(261022105027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?lHNmD6Tlm2yVitp15eROTFlr9IKL2bjZSszyo2k5J9qXnuZTSoR0EuLTe61g?=
- =?us-ascii?Q?bqfLuwpYFgRu/voWHREH2CDH+mI9bi6kdZp82stUfhf9ucQ44mrH2pqG1zF7?=
- =?us-ascii?Q?CkRtzGaA//f8GlFrtUbCzufm5noTd0SwIDO+p7Nq64MkLWK84CcOyJHhSg3j?=
- =?us-ascii?Q?9ojstkafKlLtAZkNu8kkCfHACxwZmhaNrmu37J+mhfXaJNiwvwccUJ7LXE3X?=
- =?us-ascii?Q?4nAR8vC5MYgjDqyoVHEx41un3Jbz1dXHz12LkST/miYqdSPEYfHLMDF83R/0?=
- =?us-ascii?Q?LKzD49n8Y0U/xjIShHDz0h0WpJG6KKiLN56/oQUzgObB8B/aOmbhMoYlfQ3x?=
- =?us-ascii?Q?tdrJfzEBBT+g/vdkZLmo8SqZsrJS5aROwkNtaUPQFVUcDFeykiAD0PeJq1yx?=
- =?us-ascii?Q?q3fTU1Br0jDhn8+TzCQsKwyn7bwcDxraqgewExEv8ZrkyLnN9wj0kvoBz22C?=
- =?us-ascii?Q?sH+V5Pzb/pRHb4GX76+o0etADteDWSxR98AYxc9qaLh/zOTILScu8RinoNbu?=
- =?us-ascii?Q?hP7OQbfMldXxzNLi8A4FYVk7pgOfURCLBhF89quyun5t8O/SaTNvzypAm4qm?=
- =?us-ascii?Q?wwvL+KXFxXqZc4DL8YEghXOQeSFSgPubJcebI/BiD7769UQ9s/TyDOBcjRTm?=
- =?us-ascii?Q?SpZDbAEM06C2Nr43Zcgeg93QnlzkfHdN89eDm8i7LaqYq9RTRCA6F99mYOgm?=
- =?us-ascii?Q?Or5/RuJTV41Nf16rHr6SFFm51RYlkHMKqlrLOr3sQax3dbtPqDCYGhL+RUel?=
- =?us-ascii?Q?CyvafIAsmcbuFgm7mXKa05qEI0Re6h7NSaq0/H5isBr4IkZ8D6zcjCSOf6HK?=
- =?us-ascii?Q?ALy8vdEChB2oZB3m6ehZlq3yRFUyUi8yackDF8+n/r6b27Dwdn7dv26XR2H+?=
- =?us-ascii?Q?5A8w8j7JENpwvjBqC3xu2pwthQ/5dcETVdyarsXE+10wNK1kSy/CeeId4vFi?=
- =?us-ascii?Q?iqWtbj/R3/IzxsulO/2ndwOgIV2IVrKysYlvSIDf1BIJozoruDJpiGekZ63v?=
- =?us-ascii?Q?HahyB+PIb6wsx27KlUswFrH5n8Y4jqpumA0sramq48S7ZABlwXoQKYo7AJ4o?=
- =?us-ascii?Q?5zsrO3mYr0I7WQIZLYgIweCTQ/MDvOxlfK/DG3GpxY2+phWbUiMLfpWhQvn2?=
- =?us-ascii?Q?yFLFB4IpJeKzOTkEFCULhs2tPzyfq3n6icDbGleJBNsgdvm5Y1diGErIi/rw?=
- =?us-ascii?Q?YvntdykbqMFkQQ4mMF8pIINEMuW2hmzjScoJVKoaj+y+JkXrmAc55+nvlA4n?=
- =?us-ascii?Q?1k7DUdZeuOLmUsz8ZfHx1c6qePvWS3EuRUow+N4mLRysD/IhSCS2oOd3aNoW?=
- =?us-ascii?Q?1Sgl7l96zPutjOQovwWHRYlbMYP4kMPME5/nEcuusS0EN5vNHadS80SnNfab?=
- =?us-ascii?Q?ydF3JAqB3sTa0/GeQGX7RH1/uRR9mvxGrIkH4h0/4gyzvkLBnSWtCB31coVE?=
- =?us-ascii?Q?CjZ1qtsphNtH6xyaqoMX9bELugt9I2ibvC5/tb+t1DOVSFE/FkfD1Upj1D21?=
- =?us-ascii?Q?9NK4e+GD2segkIOzXcLaY+Rn/owKAB0V9kkaePbOKQAdCWtxrkSEIO6SFzbr?=
- =?us-ascii?Q?4MhX3YUuoqzR1NhZDHTsJcq7R4fxQZ6R6WDdHMMFuQi/nnF4ow3UDw18Z0R7?=
- =?us-ascii?Q?MNFplPMtbbjjNjaiJnsW/DlFKsmZZXqYjuDH+EhPVUhZhwFj0yplTv9+sETR?=
- =?us-ascii?Q?fG5sYgElGWJIKndgirZluCxiNTKRuS3U16JZj6A7+tESZ7px?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3efa58a-4ff9-4372-c546-08df34f342d2
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 12:59:11.3698
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qH1J+UQpaW71dWVFEPpq+b0OavIBDYOW+dt9sVPZEYtaalfQFWQrgY2QvQeI8QuR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7835
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/10] coresight: configfs: Don't assume active until
+ cscfg_mgr is set
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Qi Liu <liuqi115@huawei.com>, Junhao He <hejunhao3@huawei.com>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Yeoreum Yun <yeoreum.yun@arm.com>
+References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
+ <20261016-james-cs-multiple-per-threads-v4-1-dedf961aca0e@linaro.org>
+ <3eda6e99-291f-40b1-9fd8-13ca193b5fa4@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <3eda6e99-291f-40b1-9fd8-13ca193b5fa4@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:24:55AM +0800, fangyu.yu@linux.alibaba.com wrote:
 
-> The run fails consistently. In the example above, 14 of 21 tests
-> failed. With the proposed fix, the same command passes with 18
-> passed and 3 skipped.
+
+On 28/10/2026 10:14, Suzuki K Poulose wrote:
+> On 16/10/2026 11:46, James Clark wrote:
+>> Perf's etm_setup_aux() calls cscfg_activate_config() and dereferences
+>> cscfg_mgr, which can be done after coresight_init() has initialized the
+>> Perf PMU but before cscfg_init() has finished while the driver is still
+>> loading.
+>>
+>> Fix it by only assuming cscfg is initialized if cscfg_mgr is set.
+>>
 > 
-> 3) Could you clarify what you meant by "disabling the check on !SMP"?
+> Is this possible though ? The component drivers are dependent on the
+> coresight-core being loaded and this is not complete until the coresight
+> module has been initialised.
 
-Just 
+No component drivers are needed for this path. etm_perf_init() creates 
+the PMU regardless of whether any sources or sinks exist. Perf can use 
+perf_event_open() on it immediately (although it would fail eventually), 
+but it would be after hitting this part.
 
-if (!IS_ENABLED(CONFIG_SMP))
+> 
+> Or the other way to fix this is delay the etm_perf init after the cscfg
+> init, which clearly is the order of dependencies ?
 
-With a comment explaining it
+That's what I tried initially, and that's what Leo suggested on V3. But 
+cscfg is dependent on the core creating some sysfs files first, so the 
+init dependency is currently in the correct order.
 
-Jason
+> 
+> Cheers
+> Suzuki
+> 
+> 
+>> Fixes: a0114b4740dd ("coresight: etm-perf: Update to activate selected 
+>> configuration")
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+>> ---
+>>   drivers/hwtracing/coresight/coresight-syscfg.c | 11 ++++++++---
+>>   1 file changed, 8 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/ 
+>> hwtracing/coresight/coresight-syscfg.c
+>> index 2bfdd7b45e49..7e3c9844bc00 100644
+>> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
+>> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
+>> @@ -26,6 +26,11 @@ static DEFINE_MUTEX(cscfg_mutex);
+>>   /* only one of these */
+>>   static struct cscfg_manager *cscfg_mgr;
+>> +static enum cscfg_load_ops cscfg_get_state(void)
+>> +{
+>> +    return cscfg_mgr ? cscfg_mgr->load_state : CSCFG_UNLOAD;
+>> +}
+>> +
+>>   /* load features and configuations into the lists */
+>>   /* get name feature instance from a coresight device list of 
+>> features */
+>> @@ -581,7 +586,7 @@ int cscfg_load_config_sets(struct 
+>> cscfg_config_desc **config_descs,
+>>       int err = 0;
+>>       mutex_lock(&cscfg_mutex);
+>> -    if (cscfg_mgr->load_state != CSCFG_NONE) {
+>> +    if (cscfg_get_state() != CSCFG_NONE) {
+>>           mutex_unlock(&cscfg_mutex);
+>>           return -EBUSY;
+>>       }
+>> @@ -662,7 +667,7 @@ int cscfg_unload_config_sets(struct 
+>> cscfg_load_owner_info *owner_info)
+>>       struct cscfg_load_owner_info *load_list_item = NULL;
+>>       mutex_lock(&cscfg_mutex);
+>> -    if (cscfg_mgr->load_state != CSCFG_NONE) {
+>> +    if (cscfg_get_state() != CSCFG_NONE) {
+>>           mutex_unlock(&cscfg_mutex);
+>>           return -EBUSY;
+>>       }
+>> @@ -902,7 +907,7 @@ static int _cscfg_activate_config(unsigned long 
+>> cfg_hash)
+>>       struct cscfg_config_desc *config_desc;
+>>       int err = -EINVAL;
+>> -    if (cscfg_mgr->load_state == CSCFG_UNLOAD)
+>> +    if (cscfg_get_state() == CSCFG_UNLOAD)
+>>           return -EBUSY;
+>>       list_for_each_entry(config_desc, &cscfg_mgr->config_desc_list, 
+>> item) {
+>>
+> 
+
