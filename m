@@ -1,91 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197429;
-	b=TacoeSSVhbCc9WLqw+nlm1wCqakbawCvXBQMpTaXSSbdLr1I1DeATBzmsQCQgc9E2ww3
-	 HcBqKAetcjtNysqaG3YzIX1hCE9A5J7cgbLqGgiiv9167I+1y1Cfg+7YbimUG5/eBnFnd
-	 bebYLhn6iowWyUjMCOfhj4Eg9L2M7sKMBcQZwr0lIlCvqUsXtKxp1621c7WthqBHrstYr
-	 u7NOahtyIxbOaGNJSxmBiER7xkIy7hWuPcouGOB8P0ftNOdbPUm/JFVeFfRkjQzgs2Q8n
-	 p4NLxFemtP1DYcOQfKCnM7Sb5824Q7JB/HTWWTf4gTs1DdDlgFSy7oOqP5DQLdG6hmA==
+	t=1793197437;
+	b=IxbTkMjqgICe+0l6A19cOlDC3YMOrmXDrbNgW4sL/dXEmCU5cA0/RYdgH0exQPZLiH8G
+	 NWpNUMzshjhfeRR/nKyNdjPSBDN7phIcqYMDdS0IqasvmSfuGNPEsl2WBkL7q4njdEwCB
+	 GAO/eIkH+cM5E8XBXhzBJWPyhnH4IDi5cprY8OtxMfgbfo2znsUymgO/dhVGMVv7wDeE0
+	 oBeaK50wkBpK8bHtFchJBecsaWjA59Az6R/TxWINe55j/iITe0dx6Un0889q2JjrTh4jj
+	 /FE9T3DZbdybQrqJGeIbOqaTGzQfDsiZf0TcSHuG62A9/+bICcR98I0wwNTOJ189k/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197429;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=72nI0VUnworKyC9ySo63hS603nPN0FBwzBwYMgTAKTw=;
-	b=0rBx1J0uMyjPwTG7b0BR1F9iBBxuvBWL6S+Kzlrzd5DWmrWqreEFGTjalPpEtU9hMOCV
-	 6KJ+hdnyx5ls7BsHBICeLagha3pUiAVYaPQjFLwsMelIt31TanXSyUQNNF2xyyadkJBUY
-	 DELFh8ImHESHZs2xZyaZcrdJfuTGFgEH1oY3nKNaoYIEy2BSEH2o5sLl/iskdhJrQiH/4
-	 C4gxVYqjzlrWWIhbkwonCaEpVywjhbOwfCTSWlig6JU8SFZQF8M5O0joskckxTwX5UxvR
-	 Qb8SEWHMKG0lwfOWxICGONCIk1DXaiePkrk8nXAHEzu1UoQoDnSmPALWYc5DCFr3RNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197437;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rli+5BgvJFUYW9dxHDoQTZKNT+u6yXvrLrSJl3h0Alg=;
+	b=PlvU6Z4jjohXhkI+6zTBE7PpnqjEw9ah/74+PmrIk0XLJYVfEgCOuYGiqDr244ECi2Vw
+	 7GdtcGC0s+YqKvbT/9TaTK34Gz+QwD4yFfV0ZW0FDbTxqy0zLbs8qmhNxG7liqAEV3pAk
+	 bw/4VIQajUtDvnJxCUgG2lZWxyEtoqM1EniVINXqAoQg7jwofqfu1yFbyJk87PXFpdJcM
+	 RpCdOR+iA8zFZWkcDQAB5DWaH+Cj648knOsjfsmbnaBUE08ndfsnYQ4SKNwkKGf/sqsv4
+	 HcfGPlZyP4HdzmbTxlFrYgBFk12bkSFxoK8z9nHjRgfml+QCa3Lwplag7smag9AU82Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4kYrUet;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9Nt9lT5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAEF606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DAEF606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D693B606A322;
+	Wed, 28 Oct 2026 14:23:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4kYrUet
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e987b4a710so10348115ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:23:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197429; x=1793802229; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=72nI0VUnworKyC9ySo63hS603nPN0FBwzBwYMgTAKTw=;
-        b=e4kYrUetrjcEDDR0lWWg6jQYYYTRRReJDHjeRw01rBebuY3A4xmk/eMjhcqxiANfGg
-         gr6tertjrTZLpJiUsQ9y/dIeOtMNk3YCXOQj+eSi0wrGBgJ0Mhr0SbX6gL7a8/4Nanno
-         KmEBWupsixusUoZRps1ELLBKHTheeaVo+hbjt4G5eBAxt10pMDMd/9wFL99bQeqXHQCz
-         nVDvPExBnLqjF5/DHcS1KXZwfyA0TwA8RdMtyjOnHaPRrh4UVeyAu0OWQxt6vW5FpmBG
-         9C6JlC+yIx5i7u8r4ezh+oSEJ/MhTX4ue3EGfTWMOQOmasCp+Q1MvgUmVM/yEwDrZAFO
-         b6KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197429; x=1793802229;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=72nI0VUnworKyC9ySo63hS603nPN0FBwzBwYMgTAKTw=;
-        b=WE2NMdo/dFK91CF9wXxyf9NC/JFntcDklt/ccNmFYqU/yiTb36lsRP1CiS8duLdEtR
-         E/+M7qjJR8cJlqOMOQXAyTg2jJLD38QtzoQzbrmXSMDts65Ph+j+MlU3mQHekv0VZGQM
-         Qrk4YI1WhSgxVFhk52GW7fF0+z2VuG1DNTu2X7f1EE9cfFufLfYjPtqR+/soxyzDj3z0
-         MeuSTJ29AgQZrLr50DDb8vR6XXNZU5l55WBX0l0ArFnxSQIJarAqOK3KxRuRQNF+04C+
-         maR8bK7v/4q7pG2olXwD/VtRMcvHqDfvlrxFklWtKQzICtRyWEm24wfIQ9D3G2XmCro4
-         qKlA==
-X-Forwarded-Encrypted: i=1; AKwUvByd/sSdolm9QWrYuH9reV6Nis+Gq6/gQpDZZusZ+e0SiVSrRnfmaz98OJiHy5tuQEAg6Feqy9e5ENy6l1Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgtZhu7isSW2dD25/d1BZhec5xslmAO6gS3eetXQ1rwOdH5BUH
-	qSn7l/RA+Mut4uCRbmfVE47z/Yvyw/FPyZQxsyt4KRUnRhocwQYd+ZDY
-X-Gm-Gg: AYBFou3dJC0qNltm8R4lk1lzfbjH9xYg2sjNZ6uAYq/vgJ9X0/mcXlrMd9i+qH6yu3J
-	shi82qEBJ/LXK4HG1A+EVTBvCXeN0MlEPkD4IBpxsBw0lC72K43LOebtLRkjDHCDaQzr8nb9d7U
-	voEO9Wfokr/MPINNW9L76SjEemlfWZg0D7Khigsn1uUa4WrOF983bHTUOpwSAS3NswY4fWm5UxV
-	+uG6qWB6W7aChRuNlBpv2Gi2d0j80Y8R0os49ew8QuztvuZ0w3cwMhOCFX0dZv7hB6AthjMZ8Hb
-	WAfG3JiOeDFsnODtyUL5FY6R4nuMGmOfcCMUh27s6rDZe5an0BvGiLVeYgsmRfPikJOGX1bTr43
-	sx0TM6PlxiPABkmbZvLdkyGKe5XaA3qRbXFxHrI3vnbPpFYdNO4rKuacZxJtCZJY/ufQIZzY/yl
-	xdOBn+aH4hZfzOPZwSYX0WED5+9/CK84Og9MXtOLTAlm/Kzyl8ZFVEA34kUSrnEnKvLccQyt/AJ
-	dYBa+0wLlOiao9CAtdSiKMnz+JTV/Xz18hjg9KOm5M9L8Ej7bcBSgJUV9yx0jWKB4nHdwK2Ulz7
-	lugUSTonG+vAqo5NKBoh6rsU2QrSY3d26VXNnX+/IEyXYaeoJcJYm6WHvyph1yxjVP+d
-X-Received: by 2002:a17:903:946:b0:2e9:4f49:111c with SMTP id d9443c01a7336-2eae3fb7b62mr36528165ad.27.1793197428606;
-        Wed, 28 Oct 2026 07:23:48 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b79ff3sm23590505ad.17.2026.10.28.07.23.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:23:48 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9Nt9lT5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDD51F01825;
+	Wed, 28 Oct 2026 14:23:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793197436;
+	bh=rli+5BgvJFUYW9dxHDoQTZKNT+u6yXvrLrSJl3h0Alg=;
+	h=From:To:Cc:Subject:Date;
+	b=j9Nt9lT5mo9/hofHi2fJKrA+C/V6mmsG/lvXo8ad5VN6cyACjX+2zJSKFDbe4p3hv
+	 8nUsaYHinUQmcOQsS7XQLtczZA9CrofXr3wBXj64Nk7dHpfL501fVEUgUI9BQujcl0
+	 Xy7Wor6kezCrbBtLfdeoKDuAe+ySesP5Qf21A1xOAryYyMvXCuyCiSS/DD10RLscvD
+	 M570o+9pv/Smx8IELZI2xbpZviOZwbP1z/ag74MJNkyATkUThj1tccTzb4wVBnPyfj
+	 oStlNYdjOmR+02djFP/U/xdk5Ch7RTJZ/diT8zr1hzk5jTZXoO5P1RKzb1b/5qyewH
+	 slNsaMchTnJrA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: iwlegacy: unregister the LED if 3945 hardware registration fails
-Date: Wed, 28 Oct 2026 22:23:28 +0800
-Message-ID: <20261028142328.18560-1-enderaoelyther@gmail.com>
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andrew Davis <afd@ti.com>,
+	Francesco Valla <francesco@valla.it>,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	Yonghao Zhang <hyz3367@gmail.com>,
+	Rahul T R <r-ravikumar@ti.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Tanmay Shah <tanmay.shah@amd.com>,
+	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Marcel Hofmann <marcel.hofmann@ingenics-digital.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Rob Herring <robh@kernel.org>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [GIT PULL] remoteproc updates for v7.4
+Date: Wed, 28 Oct 2026 09:23:49 -0500
+Message-ID: <20261028142349.19495-1-andersson@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,42 +76,147 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If ieee80211_register_hw() fails during 3945 setup, later LED callbacks
-can access hardware and driver state that probe has already freed.
 
-il3945_setup_mac() registers the LED before the mac80211 hardware, but
-its registration error path does not call il_leds_exit(). The analogous
-4965 failure releases the driver and reaches its existing remove cleanup.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Unregister the 3945 LED before unwinding a failed hardware registration.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-LLM assistance was used to find the bug and review.
+are available in the Git repository at:
 
-Fixes: 5ed540aecc2a ("iwlwifi: use mac80211 throughput trigger")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: A W=1 module build with MODPOST passed. Not
-reproduced; 3945 hardware was unavailable.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+  https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git tags/rproc-v7.4
 
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
- 1 file changed, 1 insertion(+)
+for you to fetch changes up to a6e0c839f999007721d060618b6ca2134dad46a9:
 
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index f7ca182d1494..5e11f0597255 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3529,6 +3529,7 @@ il3945_setup_mac(struct il_priv *il)
- 	ret = ieee80211_register_hw(il->hw);
- 	if (ret) {
- 		IL_ERR("Failed to register hw (error %d)\n", ret);
-+		il_leds_exit(il);
- 		return ret;
- 	}
- 	il->mac80211_registered = 1;
+  remoteproc: qcom_q6v5_pas: Add QMI TMD cooling support for Shikra (2026-10-28 08:14:21 -0500)
 
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
--- 
-2.56.0
+----------------------------------------------------------------
+remoteproc updates for v7.4
 
+Add Qualcomm QMI Thermal Mitigation Device support for PAS-managed
+remote processors, with cooling device bindings and configurations for
+Hamoa, Kodiak, Lemans, Talos, Monaco, and Shikra CDSP and modem
+subsystems as applicable.
+
+Add per-power-domain proxy performance states for Hawi CDSP and update
+Hawi, Maili, and SDX75 PAS compatible bindings and the SDX75 device
+tree. Correct the Qualcomm ADSP startup timeout.
+
+Fetch auto-boot firmware only once and synchronize boot work with device
+removal. Bound ELF section header accesses, improve trace diagnostics,
+and update coredump configuration documentation.
+
+Set 48-bit DMA masks for TI K3 DSP and R5 remote processors, correct
+mailbox message types, and enable compile testing for more TI drivers.
+Fix i.MX address range boundary checks and DSP runtime PM ordering, and
+simplify mailbox notification handling.
+
+Harden Xilinx mailbox setup and teardown and avoid sending notifications
+when the transmit queue is full. Propagate STM32 optional IRQ lookup
+errors and correct the MediaTek MT8188 SCP register binding.
+
+----------------------------------------------------------------
+Andrew Davis (3):
+      remoteproc: k3: Include what we need and only what we need
+      remoteproc: k3-dsp: Fix usage of omap_mbox_message and mbox_msg_t
+      remoteproc: Add compile testing for additional TI drivers
+
+Anup Vishwakarma (1):
+      remoteproc: qcom_q6v5_adsp: Fix double jiffies conversion in adsp_start()
+
+Casey Connolly (1):
+      soc: qcom: Add QMI TMD support for remote thermal mitigation
+
+Dipa Ramesh Mantre (1):
+      remoteproc: qcom_q6v5_pas: Add QMI TMD cooling support for Shikra
+
+Francesco Valla (3):
+      remoteproc: virtio: Add vdev_to_rsc() helper
+      remoteproc: virtio: Replace kmemdup with kmemdup_array
+      remoteproc: virtio: Remove stray white space
+
+Gaurav Kohli (3):
+      dt-bindings: remoteproc: qcom,pas: add #cooling-cells property
+      remoteproc: qcom: pas: add support for TMD thermal cooling devices
+      remoteproc: qcom_q6v5_pas: enable QMI TMD cooling support
+
+HyeongJun An (1):
+      remoteproc: elf_loader: Bound the section header table
+
+Krzysztof Kozlowski (1):
+      dt-bindings: remoteproc: ti,am3352-wkup-m3: Drop redundant reset-names dependency
+
+Marcel Hofmann (1):
+      remoteproc: imx_rproc: Allow mappings ending at region boundary
+
+Mukesh Ojha (5):
+      dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi and Maili MPSS as SM8650 fallback
+      dt-bindings: remoteproc: qcom,sm8550-pas: Make SDX75 MPSS fallback to SM8650
+      arm64: dts: qcom: sdx75: Use SM8650 MPSS as fallback compatible
+      dt-bindings: remoteproc: qcom,sm8550-pas: make qcom,hawi-cdsp-pas standalone
+      remoteproc: qcom_q6v5_pas: add per-PD proxy performance states for Hawi CDSP
+
+Pengpeng Hou (1):
+      remoteproc: imx_dsp: Acquire runtime PM before adding carveouts
+
+Rahul T R (2):
+      remoteproc: k3-r5: Set a 48-bit DMA mask for remoteproc device
+      remoteproc: k3-dsp: Set a 48-bit DMA mask for remoteproc device
+
+Rob Herring (Arm) (1):
+      dt-bindings: remoteproc: Fix MT8188 SCP regs
+
+Runyu Xiao (1):
+      remoteproc: xlnx: Initialize mailbox work before requesting channels
+
+Sebastian Andrzej Siewior (2):
+      remoteproc: imx_rproc: Invoke the callback directly
+      remoteproc: Use %p for pointer formatting
+
+Tanmay Shah (2):
+      remoteproc: xlnx: Do not send new mailbox notification
+      remoteproc: xlnx: fix typecast warnings
+
+Yonghao Zhang (3):
+      remoteproc: sysfs: Fix stale coredump attribute documentation
+      remoteproc: core: Set trace buffer name for diagnostics
+      remoteproc: core: Fetch the auto-boot firmware only once
+
+bui duc phuc (1):
+      remoteproc: stm32_rproc: Propagate errors from optional IRQ lookup
+
+ .../devicetree/bindings/remoteproc/mtk,scp.yaml    |  22 +-
+ .../bindings/remoteproc/qcom,pas-common.yaml       |   9 +
+ .../bindings/remoteproc/qcom,sm8550-pas.yaml       |  31 +-
+ .../bindings/remoteproc/ti,am3352-wkup-m3.yaml     |   1 -
+ MAINTAINERS                                        |   8 +
+ arch/arm64/boot/dts/qcom/sdx75.dtsi                |   3 +-
+ drivers/remoteproc/Kconfig                         |  11 +-
+ drivers/remoteproc/imx_dsp_rproc.c                 |   7 +-
+ drivers/remoteproc/imx_rproc.c                     |  51 +-
+ drivers/remoteproc/omap_remoteproc.c               |  12 +-
+ drivers/remoteproc/qcom_q6v5_adsp.c                |   2 +-
+ drivers/remoteproc/qcom_q6v5_pas.c                 | 172 +++++-
+ drivers/remoteproc/remoteproc_core.c               |  69 +--
+ drivers/remoteproc/remoteproc_debugfs.c            |   6 +-
+ drivers/remoteproc/remoteproc_elf_loader.c         |  23 +-
+ drivers/remoteproc/remoteproc_sysfs.c              |   7 +-
+ drivers/remoteproc/remoteproc_virtio.c             |  61 +--
+ drivers/remoteproc/stm32_rproc.c                   |   2 +-
+ drivers/remoteproc/ti_k3_common.c                  |  10 +-
+ drivers/remoteproc/ti_k3_common.h                  |   4 +
+ drivers/remoteproc/ti_k3_dsp_remoteproc.c          |   7 +-
+ drivers/remoteproc/ti_k3_m4_remoteproc.c           |   4 +-
+ drivers/remoteproc/ti_k3_r5_remoteproc.c           |   9 +-
+ drivers/remoteproc/xlnx_r5_remoteproc.c            |  23 +-
+ drivers/soc/qcom/Kconfig                           |  12 +
+ drivers/soc/qcom/Makefile                          |   1 +
+ drivers/soc/qcom/qmi_tmd.c                         | 595 +++++++++++++++++++++
+ include/dt-bindings/thermal/qcom,pas.h             |  20 +
+ include/linux/omap-mailbox.h                       |   5 +-
+ include/linux/remoteproc.h                         |   4 +-
+ include/linux/soc/qcom/qmi.h                       |   1 +
+ include/linux/soc/qcom/qmi_tmd.h                   |  36 ++
+ 32 files changed, 1032 insertions(+), 196 deletions(-)
+ create mode 100644 drivers/soc/qcom/qmi_tmd.c
+ create mode 100644 include/dt-bindings/thermal/qcom,pas.h
+ create mode 100644 include/linux/soc/qcom/qmi_tmd.h
