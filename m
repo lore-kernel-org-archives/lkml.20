@@ -1,45 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184683;
-	b=qN3Ecgo/db8oRbtH1dxdrPvGXz09gLJRvXXsS1xq16aCjdQYTrpyU1g0W0oIko64P5mV
-	 dQN664Xk5WccQ+dt3IGngF94fIOQW8iDKGLCbsswPSujdy1KfIyD37Dnjk4Wx9gYMfx+a
-	 +lo3d8hBja3OK3ceVuaSaRueCbcl7ekVfRjarlOYm0MJbtHjo39vj0LpCr/ZLyznJbeSf
-	 jIzOll+alo2UoLvkCLL2LwUwXmyDXrAOpEKEPJb6wYWdVOMs/fcCRb/rJtqTTbOwNNJiV
-	 /KVVrVaxU8rrFEcIuSsduRSfR0SnvPeRFfQubeBmbHo7uepOdEKILFVD9pCDaR6+TXg==
+	t=1793184719;
+	b=RaXf21aoyRv7CrHXQY7m/w6e3b5HTMgBaNyBY2lG7y4MAXnLGiNs9QvHKDGzGysHQsO5
+	 wqa4bMdVCm00dAZDlzbqQoi9Qp7XBG63Vqmg26YyETwpM8iI3bfT3C3+iMN4hr5pOdZZ5
+	 wUXxoBKZDja6lJIFi3nV6Sgf8d88qUW+CWkmx9x2TZDHc9iiBaJAeOjbGVG/jKP5GxCkA
+	 6RbMef9OSYq7+iXH8grxXkdGwzQk47/fmf5c0f7BJhyWAkjNAgPa5y7FhtjQidYwE69f3
+	 85TfpM7c/SA5tgDR/M6BZ/kovgwQzuOXJMQDDdvJVjmMi/59Ka0cs5grRVdrXJJNzQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184683;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=T3nRekxwRytEydRWLjRP5g6gCT4cSFJaD0Z0gNrpDHg=;
-	b=p8SJlmYWXEA/LZv4vjljZnz375eN/CV0yjvxAenAGlhLcQRGuuMhEYRKmDY0dkEnFQFc
-	 668wRkumY4idfYU+L5Db3FOIQ4d83Ln+6+2Zy3feqoOlUhu581srYLOYenfBYdL5Fv2DH
-	 mCxc/X5ARs0bhm3wl1L1EQs5GF9mgqaiIv52jPBxGU0PKszh794n5iAFDNiCgZ3btWTus
-	 lxHU1i26FEfBR15e9dIfWuvkQx0Hj97tiQdtjm2qG7ip18cdqFDSylhN/+9/y0rAGsmsO
-	 y922VFuU9j9gH+jy+4uz0KPGv3IIesJ3524yTHOuHyyXvaqgGJ+A+4fNReHuWkiydrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184719;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
+	b=xOU5YS6JHc8Wt88iXtTLZ+gbOHWxyfU/ry9gOUinSl1gTNwi3WdMqH20fK/8w7Fu+0H6
+	 F5zx2s0Stdm6lOVDtnAEVacrRaWhdcoX1pKGePLWvISLtuIFTLwrYBt/4IFBhRi7kMMN3
+	 +pLlqOhVE0R4+1JN7kkhfEnfhHob9OAlncvlT2KXc5pnlgr7Wl9a8+9nIlmp0e9/JrirH
+	 STajmIzvlkt/yPhi87OJ3VQHbQgzbsveFRBv/WMI25Wo2hnySMxinrT9/06foWBMd2WCL
+	 ZVU5HKtUpfkItrpMq5XKJDDz9wN8dRUxMhhb/rmeHQthXB26x1NT2zithJLahuBkXEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGYZqcaI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7B3606A31A;
-	Wed, 28 Oct 2026 10:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246CB606A31A;
+	Wed, 28 Oct 2026 10:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGYZqcaI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5271F01825;
-	Wed, 28 Oct 2026 10:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B691F01825;
+	Wed, 28 Oct 2026 10:51:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793184682;
-	bh=T3nRekxwRytEydRWLjRP5g6gCT4cSFJaD0Z0gNrpDHg=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XGYZqcaIK8xhS5PE6Y6FYIUgoM++v2dwnNHIBYcKxlGO4714/5d7eu1uRGUFXwfMY
-	 e520e3J3MslbVEtDsHLjf165VPUuGyalxU6l5C588Bt4IG8bX/cyRVYYICIZs7qULJ
-	 aHXAKC5N/7qDbPFTUx09GVGmH95iW+eqZgEU3uS8s5uLRembdXOaCiqEkFchkOnPAz
-	 EdCwVQ3sKY6MCm+A3oqONmzkoVIH+4zlC3SJ2vTdjwgM6SudgmihgBhtPBNBEch04f
-	 cYGV7AG7o7U7oKgRlPUIznF3DCs6SM6Tsqxqg7QL+Vf+ce4o9Xnji5xoCqQa7jJiLr
-	 6evloN+AGV2ZQ==
+	s=k20260515; t=1793184718;
+	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eBRAr6GDX4kET2Ek9hYjPmzPxEQW5sR6uvgI4atic8jFUwlYMWDd8wXV59vQEJmDv
+	 AlVsHhjlRbPVmM+JsGl8xrOaYMa/vGAAwVCuT88dBN9QT0ocy0iENimUTCUqFwHUzd
+	 ZJ/bOQ9MzSg0GY8P6RrZp/Tk7FT655/GKkGHxWGmC8FVsr3NEkAZxuLIuhYNKXJq7s
+	 gtsGCJwJ0TMNg9xCqSlNtCcEP8zMBLGU0NmNcNK5ipdk004Tl8X/UpJrcNXB+ouHLi
+	 z6snhbni4tuYid2Q8J+rBnNdQbMoCFWI3RPJyEfBuFFC6QvzlP9EPVA54/9BYhrquW
+	 L6exRasHRYQtA==
+Date: Wed, 28 Oct 2026 11:51:48 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Vladimir Davydov <vdavydov.dev@gmail.com>,
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lukas Czerner <lczerner@redhat.com>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Stevens <stevensd@chromium.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	stable@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: Re: [PATCH v3 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
+Message-ID: <auHTxApiSnnlY1xt@localhost.localdomain>
+References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
+ <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,79 +79,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 3/3] phy: qcom-qusb2: describe autoresume bit
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kathiravan T <quic_kathirav@quicinc.com>, Baruch Siach <baruch@tkos.co.il>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
- Manu Gautam <mgautam@codeaurora.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <67366b4e-21d8-4094-abff-b0539bae47c3@oss.qualcomm.com>
-References: <20260920-fix-qusb2-v3-0-c273e75c9fb7@oss.qualcomm.com>
- <20260920-fix-qusb2-v3-3-c273e75c9fb7@oss.qualcomm.com>
- <67366b4e-21d8-4094-abff-b0539bae47c3@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 16:21:09 +0530
-Message-Id: <179318466919.5872.3084399469823329926.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1807; i=mani@kernel.org;
- h=from:subject:message-id; bh=7EL0+hpnNQk0OqDGz6aOvSt/kd5txw0p2t7OnssdevQ=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4dOgdj4iYrpWkk4qezNYCX3u6QoGqpdpnRqpA
- aPeVYt+/ECJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHToAAKCRBVnxHm/pHO
- 9ROOB/0ckXiLX2nwRtdpqwrl+Ly326U7T6U6K9I3rfDePZvlRXdgCdsQgHHoMBnyCexY18vCxNF
- FULGI4pYaJ3/n9fr7xOwGSai6TVW7jtMCEoGJwFmXoEMbE+iQvM2eARjNcn8Y79/IzeMGUmMRr7
- Y8ZsDCLoDhFKBiUaW4naaJmPHyYuN5GAZP7C6RnlSuqnhqIJnFk2JfwlE8BQVLF0jLaQ6+dVTND
- VDaQBA48ORyo4DTKmIEXv7lXfbeJHPEMbXir5+6mWoPrnQVxpPHI/zo531SRjtuA4ycyuPv8UQj
- Mdy3mEZH8PkaV/BcCXkzGMn7Qej2DA3xEAhM4wFNtPEB8o+r
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
 
-On 2026-10-16 12:50 +0200, Konrad Dybcio wrote:
-> On 9/20/26 3:59 PM, Dmitry Baryshkov wrote:
-> > There is a confusion regarding the autoresume bit. Some verions of the
-> > QUSB2 PHY have it in the TEST1 register, while on the others it is a
-> > part of the TEST_CTRL register. When adding support for autoresume bit,
-> > the code attempted to simplify the handling of those registers, putting
-> > both registers to the TEST1 layout entry. In the end,
-> > ipq6018_regs_layout ended up correctly definig TEST1 register at 0x98
-> > (because platforms using that layout didn't use autoresume), while
-> > msm8996_regs_layout used TEST_CTRL offset (0xb8) for the TEST1
-> > layout entry.
-> > 
-> > Update the platform data to specify the register to be used for
-> > autoresume handling, define both TEST1 and TEST_CTRL registers and merge
-> > ipq6018_regs_layout and msm8996_regs_layout which become identical
-> > afterwards.
-> > 
-> > Fixes: 891a96f65ac3 ("phy: qcom-qusb2: Add support for runtime PM")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
+On Wed, Oct 28, 2026 at 10:55:03AM +0100, David Hildenbrand (Arm) wrote:
+> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 > 
-> GPT has a concern:
+> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+> not check it. As a result, fchmod() can change the execute bits of a
+> sealed hugetlbfs memfd.
 > 
-> [P2] Preserve Shikra's autoresume behavior
+> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+> to execute bits when F_SEAL_EXEC is set.
 > 
-> shikra_phy_cfg uses msm8996_regs_layout but doesn't set
-> autoresume_disable. This adds TEST_CTRL[3] to the shared layout, so
-> runtime suspend will now toggle it for Shikra whenever the PHY mode
-> is valid. Previously, its unset autoresume_en was zero, making these
-> writes no-ops. Unless enabling autoresume on Shikra is intentional
-> and verified, preserve the old behavior by disabling it for this
-> configuration.
->
+> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+> 
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+> Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> [ david: use common helper; fixup Fixes:; check only regular files ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Sashiko raised the same concern...
- 
-> but I think that's fine since we *want* autoresume?
+Acked-by: Oscar Salvador <osalvador@suse.de>
+
+> ---
+>  fs/hugetlbfs/inode.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44ebe..02e0a65d596d 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/folio_batch.h>
+>  #include <linux/fs_parser.h>
+>  #include <linux/mman.h>
+> +#include <linux/memfd.h>
+>  #include <linux/slab.h>
+>  #include <linux/dnotify.h>
+>  #include <linux/statfs.h>
+> @@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+>  	if (error)
+>  		return error;
+>  
+> +	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
+> +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
+> +					       attr->ia_mode);
+> +		if (error)
+> +			return error;
+> +	}
+> +
+>  	trace_hugetlbfs_setattr(inode, dentry, attr);
+>  
+>  	if (ia_valid & ATTR_SIZE) {
+> 
+> -- 
+> 2.43.0
 > 
 
-That should be fine, but this side effect should be mentioned in the commit
-message.
-
-- Mani
-
+-- 
+Oscar Salvador
+SUSE Labs
