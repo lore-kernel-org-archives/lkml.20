@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194499;
-	b=vaxsS0LA1UebuSt6WLevYtgGios8g7rg/L5WY4yNYmgP1EEeMdVx5IGR8/s5nwGf6UYH
-	 xJCq67d255RpG4Pyq0kZg0OvWoN8ZJdhjwPu/B80kixqM8sE5LEFqgUMMUIbu1Fq5+qZh
-	 esgmyZUctbCj+h3QXk+jS9aJuig3YbiX7fPQw/5EilyTlBGwEldbh6pC+6kU0o1HiC4fC
-	 OJYu1Ym/9dyEJm0hJ33ic6opK6DdEDy6jxM/J7z6lY2QINUSJzEZV8Qropc8j/KG9mMES
-	 b3+QsrbwOCRnVdzx+rVDVUQ/FkfHghrys5lMZTaZcl87F+8OH9xtqT6sHluCFvejZ7Q==
+	t=1793194569;
+	b=sylmk486h1qTMpv0YmOyJqR8IQmqtK7MSZpXzan8E0KRtEt1TjZ0QyWdKPQ7NkehnN3A
+	 cH+WVe8aR/P0n8eIt7CNuPb0SVneXnxfZtpXhPtFpsc0js/VyUDbweMbKbenVOkSxpxDL
+	 oeYmlgQta3Ph2xYoN0CnOxMgIb2LSY7Wv1oTPScnNuV+COXFAOw8YE0sVg5KnhI4MHn9H
+	 M94/TbbrXQBLDKiDS9uAyCkhcIHExwWcE1wsP72d8+glIrFmGYVym1WjkcBeDNEq0wG+6
+	 qE1atjS6p1Q4YeWWtJ77hsvT8sb6T1EFAYwN8TTdILkqeoXOVlvC9ARynaCMdAXHdCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194499;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=maFM6J3tuW6aGxj4suln/5TGodXdNpTT72L7DWb+75E=;
-	b=sVYrG8/gxjo0r2JTzIp0Rp6RnhOUuCQsnGni5AzhKP2nNvXbodRBLczjIm6QL4400/nr
-	 AIxWYulELFYBm8js4BbcVJMIyRWPPPggInomxQg+3RtpUg5W1CD87aJu0A7hrpEBgfhe1
-	 BCQjxgtPz8a+UOiSk/FA00EnbDKIqEtEjEzKwzCH56aOz/IcWe3AfrvLy0Y919JdkTO3X
-	 RDkwsfMtdt84Sv+u5ntwkgsZUUamYFpdmshiNvbPQRFWnSuv48JCy22pJFoZ0zOcIuHlB
-	 FwmByrY1YMPQognJvYaNhkXgLnIflJj8VizPLXvs5FaUApJVHnhWFomATrnjU23PUPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194569;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
+	b=J+LxyfpbywBpkfJs7zQP2zf5uVcdyPq5HfgBl/PkC4Y87axjQewNlXhsi8WXHgM0x0OI
+	 xBpecMQ7HtYmIXMTdCcsZACCY112Fpu+REA1iOoDfHJr3cmt5TaigelzZxVXXiHn093IO
+	 bNoGk3IQxM1aCdIok0COb245AA/0i7rujBo3GoSepOXevolLV/CDQo6tJLRmL88jDXLXd
+	 egJQ4c6yv9WyofDJj8LRKeSAUKks3foZUNg/2wygdeYM8iPb+iuCBl7Wm+MP78TWNOXFx
+	 RJuUtmoftxw/E+d+Rf8z4vEP2DrVyLmqDp/nDG6b27T+CID5A+zZrzJAt/ecjEMYPag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lnBL5+QF;
-	arc=none smtp.remote-ip=79.135.106.31
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UaBdrW1s;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A05606A324;
-	Wed, 28 Oct 2026 13:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A05606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA77606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:36:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA77606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lnBL5+QF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793194496; x=1793453696;
-	bh=maFM6J3tuW6aGxj4suln/5TGodXdNpTT72L7DWb+75E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=lnBL5+QFQhFFZbR2BE/I5znV5WXdjgw52krlOgqBACIdB7x9Y9gF4CX8fF5LXXh4b
-	 yTAxXLDS2d3WGgZgXwtKu3CFAk3bWWPDrZBGuRV9oS9rq6P2BIxCoGsBkdBD55vBOJ
-	 NJPdMbaQRo1e4ZvPB8XQY3UcDG+h+WFwYp48cZVm4k9WVHGven7f1g3jdgTCyVZni8
-	 BZlfk7xJIEJctAkuZ9n2DxOJCj+wpvYT9P1LQeFcfrro1YW3oob+xuHZHNrGBGbo6o
-	 1yZIhTUevJq5uWSEkNDExO404vcTvSbFJOgf9AUaRd3WX8GGQekizF8s181TSDsbPQ
-	 4HwOe9El0bxcQ==
-Date: Wed, 28 Oct 2026 13:34:50 +0000
-To: Alessio Ferri <alessio.ferri@mythread.it>
-From: vit9696 <vit9696@protonmail.com>
-Cc: =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Michael Buesch <m@bues.ch>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-Subject: Re: [PATCH wireless-next v2 2/8] bcma: pmu: init PLL and resources on BCM4352/BCM4360
-Message-ID: <87C23173-4498-4D56-A143-03CA0358C4FF@protonmail.com>
-In-Reply-To: <20261028101448.7f26dd0b@fedora>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it> <20261027-bcma-ac-rev1-v2-2-b69b61c31920@mythread.it> <B511987C-C9E8-442B-89EB-6AF6E8398F38@protonmail.com> <20261028101448.7f26dd0b@fedora>
-Feedback-ID: 739018:user:proton
-X-Pm-Message-ID: 029e3bdb5cd63c89a9cf081f415d2e8d8d5d4f6c
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UaBdrW1s
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e93e2f72bfso15747495ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:36:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793194568; x=1793799368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
+        b=UaBdrW1sWlHQAcS/+N+c2Il1L+5MLovpqJX789BQ/xpzIfBFJx9z5JX2zMYe2QQ+mL
+         BKX/tIADBTZVCqJlYqKapebToVv2JtavgaGKrGpGr3LIkvQ3kUa1zAf2nn8pwpeQ+Fug
+         0SfP0X90X36ukAPwUZ2926UqpkV2VP2uH/0A3iYU0hpoLccvKo27JqIqU/V0TYqgZcZk
+         ijtf2yPDj/0eUy1u2qFu3aisyLYWvitHTjgTuFCkSARm9+0aLc4FzEO4PzXPn4ZVecjt
+         ve2BHSRNr1ITz4sMeLzRrYiBr2KHRggO1vLf98b0K4sefcg9f6WxchzBltiiDd9qIA0/
+         K9zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194568; x=1793799368;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dt3rSnBB6NYuH76zM0DgX0aBcI7Km/ORd63J5MEsc2g=;
+        b=lEEvenOk8dkgt2U9tjO5P9qTf/PjFNL4QJf/xKDYi38kJIBVihCVLn3F8fiWY912Fp
+         04G7yQGEyJQgMI8iwyA2ShrmbaIPQ21ER3pzC0SWt+9AOouISoQyEiUjSCYxpIXDe8au
+         xWjUbxrEnt0ydW0yHR6kCzUXA1Xf/2HOkAfkrx8In9a3znfeBOrRVdQBv4tmEjUZ87ba
+         ZeOO0RAB4SVvgToqsdZqvVBO5Kn5mWjX023hxrsK0CK7Z3L9IFWVF0Oi2NDCkxWJ3V5D
+         2LO/NnjbX/TXrxPzXKxtJ9qGI9vcilotxKGIjUMvCIHuVOuHbPsUHgyCejU6XkltE7vz
+         zwsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/1yJL1Fn20yO6NVl5cpx9zD7TBGdXt3IgaFGMSOC1N4KbY+F2FMIuk85OKidgzYcC825vuDjaLmB/TbM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG3+0BuhU6MUwmn5eH5XTR1hEQqL2liDoo1h0yoxKkrLQECVhl
+	OAzdCAP/ldXL3jHitPpMOQqS4iak6iiL3SuqkHpI/hduwU8aX4oPtSDjW4qb7iY6BlnWDAqwFgS
+	0ok2K5g==
+X-Received: from plwp2.prod.google.com ([2002:a17:903:2482:b0:2e8:87fd:f180])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ccc3:b0:2eb:5e:35d7
+ with SMTP id d9443c01a7336-2eb005e3608mr21355465ad.15.1793194568038; Wed, 28
+ Oct 2026 06:36:08 -0700 (PDT)
+Date: Wed, 28 Oct 2026 06:36:07 -0700
+In-Reply-To: <CAO9r8zOnf_AiBJfTJTO9jS6cYj6bUxhDoBsNdmbeP_jaQnLCkw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,240 +79,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+References: <20261027224914.1574319-1-seanjc@google.com> <20261027224914.1574319-3-seanjc@google.com>
+ <CAO9r8zOnf_AiBJfTJTO9jS6cYj6bUxhDoBsNdmbeP_jaQnLCkw@mail.gmail.com>
+Message-ID: <auH6RzFLvSmCKbXY@google.com>
+Subject: Re: [PATCH v2 2/6] KVM: x86: Reject clearing EFER.SVME via
+ KVM_SYNC_X86_SREGS if L2 is active
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.4\))
-Subject: Re: [PATCH wireless-next v2 2/8] bcma: pmu: init PLL and resources on
- BCM4352/BCM4360
-From: vit9696 <vit9696@protonmail.com>
-In-Reply-To: <20261028101448.7f26dd0b@fedora>
-Date: Wed, 28 Oct 2026 16:34:32 +0300
-Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Michael Buesch <m@bues.ch>,
- linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org
-Message-Id: <87C23173-4498-4D56-A143-03CA0358C4FF@protonmail.com>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
- <20261027-bcma-ac-rev1-v2-2-b69b61c31920@mythread.it>
- <B511987C-C9E8-442B-89EB-6AF6E8398F38@protonmail.com>
- <PI9Cjv-14HEqAnf26GqGftOIUBT5oOa_o0utCXnHdtqKa24Jazoe-KvlG3LsxR1IOqUb22h9EpaxF0OYYrnNgg==@protonmail.internalid>
- <20261028101448.7f26dd0b@fedora>
-To: Alessio Ferri <alessio.ferri@mythread.it>
-X-Mailer: Apple Mail (2.3864.700.51.1.4)
 
-Hi Alessio,
-
-I checked the other patches and e-mailed my thoughts where I saw I could pr=
-ovide some help.
-Although I do not have expertise in Broadcom hardware design, I co-maintain=
- complementary set of extensions for macOS Broadcom drivers for the purpose=
- of broader hardware compatibility and happen to have some sparse informati=
-on here and there.
-
-In general I would recommend to rely more on the open-source part of the Br=
-oadcom drivers, especially for Northstar boards, because it often contains =
-useful information.
-
-Best,
-Vitaly
-
-> On 28 Oct 2026, at 12:14, Alessio Ferri <alessio.ferri@mythread.it> wrote=
-:
+On Tue, Oct 27, 2026, Yosry Ahmed wrote:
+> On Tue, Oct 27, 2026 at 3:49=E2=80=AFPM Sean Christopherson <seanjc@googl=
+e.com> wrote:
+> >
+> > Disallow clearing EFER.SVME via KVM_SYNC_X86_SREGS if L2 is active so t=
+hat
+> > svm_set_efer() can treat yanking the vCPU out of L2 during KVM_RUN as a=
+ KVM
+> > bug.  Ideally, kvm_is_valid_sregs() itself would reject attempts to cle=
+ar
+> > SVME while L2 is active, but the risk of breaking userspace, e.g. acros=
+s
+> > save/restore, is too high.
 >=20
-> Il giorno Wed, 28 Oct 2026 00:44:31 +0000
-> vit9696 <vit9696@protonmail.com> ha scritto:
+> I am confused. This says we shouldn't disallow clearing SVME while L2
+> is active because we may break userspace..
 >=20
->> Hello,
->>=20
->> XTAL frequency on BCM4360 and BCM4352 apparently does not only depend
->> on the revision number. It is determined by bit #0 presence in
->> chipstatus. If bit #0 is set, then it is 40 MHz, otherwise it is 20
->> MHz. This logic is actually already present in the bcma driver[1],
->> and looks correct to me. FVCO frequency being 960 MHz for all BCM4360
->> and BCM4352 chips is also more or less known from the public
->> open-source part of the Broadcom driver[2].
->>=20
->> The nitpick here is that whereas PLL seems indeed to be only
->> programmed on revision 3 and newer[3] (with the code there assuming
->> 40 MHz XTAL frequency, probably because Broadcom migrated to 40 MHz
->> at a certain point for all newer chips), but there is a special case
->> for HT clk_ctl_st bit[4], i.e. backplane is running on HT clock.
->>=20
->> With this in mind I believe the patch:
->> - could handle revision 3 or newer, not just 3 in CTL2/3 logic;
->> - could bug on BCMA_CC_CHIPST_4360_XTAL_40MZ not being set in CTL2/3
->> logic;
->> - could check for CCS_HTAVAIL bit not being set in CTL2/3 logic;
->> - perhaps could calculate resulting CTL2/3 logic values in a slightly
->> cleaner way, after all si_set_bb_vcofreq_frac is open-source;
->> - perhaps could handle CTL6/14 for other revisions, si_pmu_res_init
->> is also open-source, and to me it makes little sense to ignore it.
->>=20
->> Best,
->> Vitaly
->>=20
+> > On the other hand, yanking the vCPU out of L2
+> > during save/restore is already "broken" as doing so would queue a tripl=
+e
+> > fault for L1.
 >=20
-> Hi Vitaly
-> Ok, it seems i missed it, i'll fix. In the meantime would you mind
-> looking in depth at rest of the series before i resend with this change?
+> ..and this says it's already broken.
+
+Gah, the "save/restore" part is a goof.  KVM_SYNC_X86_SREGS is already brok=
+en.
+That should read:
+
+  On the other hand, yanking the vCPU out of L2 via KVM_SYNC_X86_SREGS is
+  already "broken" as doing so would queue a triple fault for L1 (because
+  "wants_to_run" will be true).
+
+> I suspect you in the first paragraph were referring to userspace
+> restoring a vCPU not in guest mode on top of a vCPU in guest mode or
+> similar? Might be worth clarifying what exactly we don't wanna break.
 >=20
-> Best,
-> Alessio
+> >
+> > Link: https://lore.kernel.org/all/sashiko-outbox-182127@kernel.org
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  arch/x86/kvm/regs.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
+> > index 3621f1a47d37..e53496fdeb82 100644
+> > --- a/arch/x86/kvm/regs.c
+> > +++ b/arch/x86/kvm/regs.c
+> > @@ -738,6 +738,10 @@ int kvm_run_sync_regs_from_user(struct kvm_vcpu *v=
+cpu)
+> >         if (vcpu->run->kvm_dirty_regs & KVM_SYNC_X86_SREGS) {
+> >                 struct kvm_sregs sregs =3D vcpu->run->s.regs.sregs;
+> >
+> > +               if (is_guest_mode(vcpu) &&
+> > +                   (vcpu->arch.efer & EFER_SVME) && !(sregs.efer & EFE=
+R_SVME))
+> > +                       return -EINVAL;
 >=20
->> [1]
->> https://github.com/torvalds/linux/blob/8a36f53fd5ec3eff01f1b637d42cbdc38=
-21d0493/drivers/bcma/driver_chipcommon_pmu.c#L336-L342
->> [2]
->> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
-.4708/shared/hndpmu.c#L3450-L3460
->> [3]
->> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
-.4708/shared/hndpmu.c#L5142-L5143
->> [4]
->> https://github.com/RMerl/asuswrt-merlin.ng/blob/386_x/release/src-rt-6.x=
-.4708/shared/hndpmu.c#L4961C37-L4964
->>=20
->>> On 27 Oct 2026, at 02:53, Alessio Ferri <alessio.ferri@mythread.it>
->>> wrote:
->>>=20
->>> On chip rev 3:
->>>=20
->>> - program PLLCTL2/3 for a 960.0098 MHz fractional VCO from the 40
->>> MHz crystal, except on a BCM4360 strapped for USB;
->>> - set the up/down time of resource 6;
->>> - with chipstatus RSRC_INIT_MODE0 clear, program PLLCTL6/14 and set
->>> max_res_mask to 0x1ff.
->>>=20
->>> The values are those of Broadcom's driver on rev 3; other revisions
->>> are left as they are.
->>>=20
->>> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
->>> ---
->>> drivers/bcma/driver_chipcommon_pmu.c        | 41
->>> +++++++++++++++++++++++++++++
->>> include/linux/bcma/bcma_driver_chipcommon.h |  4 +++ 2 files
->>> changed, 45 insertions(+)
->>>=20
->>> diff --git a/drivers/bcma/driver_chipcommon_pmu.c
->>> b/drivers/bcma/driver_chipcommon_pmu.c index 263ef6fa1..ab2b2701d
->>> 100644 --- a/drivers/bcma/driver_chipcommon_pmu.c
->>> +++ b/drivers/bcma/driver_chipcommon_pmu.c
->>> @@ -145,6 +145,39 @@ static void bcma_pmu2_pll_init0(struct
->>> bcma_drv_cc *cc, u32 xtalfreq) /* TODO: Do we need to update OTP? */
->>> }
->>>=20
->>> +static void bcma_pmu_4360_pll_init(struct bcma_drv_cc *cc)
->>> +{
->>> + struct bcma_bus *bus =3D cc->core->bus;
->>> +
->>> + if (bus->chipinfo.rev !=3D 3)
->>> + return;
->>> + if (bus->chipinfo.id =3D=3D BCMA_CHIP_ID_BCM4360 &&
->>> +    cc->status & BCMA_CC_CHIPST_4360_MODE_USB)
->>> + return;
->>> +
->>> + /* Fractional VCO, 960.0098 MHz from a 40 MHz crystal. */
->>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL2, 0x0c31);
->>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL3, 0x100e);
->>> + bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
->>> +}
->>> +
->>> +/* Returns the max resource mask to program, 0 to leave it alone.
->>> */ +static u32 bcma_pmu_4360_resources_init(struct bcma_drv_cc *cc)
->>> +{
->>> + if (cc->core->bus->chipinfo.rev !=3D 3)
->>> + return 0;
->>> +
->>> + bcma_pmu_write32(cc, BCMA_CC_PMU_RES_TABSEL, 6);
->>> + bcma_pmu_write32(cc, BCMA_CC_PMU_RES_UPDNTM, 0x00200001);
->>> +
->>> + if (cc->status & BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0)
->>> + return 0;
->>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL6, 0x09048562);
->>> + bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL14, 0x09048562);
->>> + bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
->>> + return 0x1ff;
->>> +}
->>> +
->>> static void bcma_pmu_pll_init(struct bcma_drv_cc *cc)
->>> {
->>> struct bcma_bus *bus =3D cc->core->bus;
->>> @@ -156,6 +189,10 @@ static void bcma_pmu_pll_init(struct
->>> bcma_drv_cc *cc) xtalfreq =3D 20000;
->>> bcma_pmu2_pll_init0(cc, xtalfreq);
->>> break;
->>> + case BCMA_CHIP_ID_BCM4352:
->>> + case BCMA_CHIP_ID_BCM4360:
->>> + bcma_pmu_4360_pll_init(cc);
->>> + break;
->>> }
->>> }
->>>=20
->>> @@ -188,6 +225,10 @@ static void bcma_pmu_resources_init(struct
->>> bcma_drv_cc *cc) BCMA_RES_4314_WL_CORE_READY;
->>> max_msk =3D 0x3FFFFFFF;
->>> break;
->>> + case BCMA_CHIP_ID_BCM4352:
->>> + case BCMA_CHIP_ID_BCM4360:
->>> + max_msk =3D bcma_pmu_4360_resources_init(cc);
->>> + break;
->>> default:
->>> bcma_debug(bus, "PMU resource config unknown or not needed for
->>> device 0x%04X\n", bus->chipinfo.id);
->>> diff --git a/include/linux/bcma/bcma_driver_chipcommon.h
->>> b/include/linux/bcma/bcma_driver_chipcommon.h index
->>> 0cb6638b5..45c37b6bd 100644 ---
->>> a/include/linux/bcma/bcma_driver_chipcommon.h +++
->>> b/include/linux/bcma/bcma_driver_chipcommon.h @@ -107,6 +107,8 @@
->>> #define  BCMA_CC_CHIPST_4706_PCIE1_DISABLE BIT(5) /* PCIE1 enable
->>> strap pin */ #define  BCMA_CC_CHIPST_5357_NAND_BOOT BIT(4) /* NAND
->>> boot, valid for CC rev 38 and/or BCM5357 */ #define
->>> BCMA_CC_CHIPST_4360_XTAL_40MZ 0x00000001 +#define
->>> BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0 0x00000020 +#define
->>> BCMA_CC_CHIPST_4360_MODE_USB 0x00000100 #define BCMA_CC_JCMD 0x0030
->>> /* Rev >=3D 10 only */ #define  BCMA_CC_JCMD_START 0x80000000
->>> #define  BCMA_CC_JCMD_BUSY 0x80000000
->>> @@ -500,6 +502,8 @@
->>> #define BCMA_CC_PMU_PLL_CTL3 3
->>> #define BCMA_CC_PMU_PLL_CTL4 4
->>> #define BCMA_CC_PMU_PLL_CTL5 5
->>> +#define BCMA_CC_PMU_PLL_CTL6 6
->>> +#define BCMA_CC_PMU_PLL_CTL14 14
->>>=20
->>> #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_MASK 0x00f00000
->>> #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_SHIFT 20
->>>=20
->>> --
->>> 2.34.1
+> Do we need to check (vcpu->arch.efer & EFER_SVME)?
+>=20
+> If that's not set, we already lost, right?
 
+This is common code, i.e. runs for both VMX and SVM.  The vCPU could be in =
+L2
+via nVMX.  This could check guest_cpu_cap_has(vcpu, X86_FEATURE_SVM), but I=
+ worry
+that would be more confusing overall.
 
+> IIUC, we can't be in the middle of save/restore here. Is this intended
+> to check for the situation where userspace cleared SVME while L2 is
+> running? Or maybe L1 cleared EFER_SVME from under L2 but the shutdown
+> didn't happen yet?
 
---------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+It's intended to prevent syzkaller from abusing KVM_SYNC_X86_SREGS to trip =
+the
+KVM_BUG_ON() I want to add in the next patch.
 
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wsCpBAEBCABdBYJq4fn5CRBPsoxt7Hy0xTUUAAAAAAAcABBzYWx0QG5vdGF0
-aW9ucy5vcGVucGdwanMub3JnovhRn/wmbxLfqc36oddm5hYhBERSlkTqW1Te
-3v1Bj0+yjG3sfLTFAABgsggAhyERKvEfFf7PNdZqgt/P5OZLnhUSn441S6XN
-Rf1TMsUiAL8QQ4bWxD3G2orGt8d8//mZeHES0TMPlwFtkvjEeOVdLcybhuWP
-qYNJFOpGcPJCUP++PNbxXnlk5tVYwUJRbm4rWDkw83rNgzqZNB+znFvy8S6n
-UnvDVOIQO7gOjKuyhMBz8KSRzemFihyQ2nqImWyb/0NOh2LBQhQnrOP0jfRU
-0PvVXI2hIIxY9JOG31AwZU36vQTV28HKxh1qAympi5UkBDbJQSurqPwkh3hf
-roXUX8+knmCy4YlGKQXd8gg9dGEoFMwo+GPO14/jXcPuSM9oWzSb8LRWYEWK
-PRZooA==
-=vQFV
------END PGP SIGNATURE-----
-
-
---------d27c6f642e9989b1867bbe9df4b0f546c8df97de4e21426f979626ae4acf2340--
-
+> I suppose it makes sense for the sync to only fail if it's actually
+> changing something. Mostly just thinking out loud.
