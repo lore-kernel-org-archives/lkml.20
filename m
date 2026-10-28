@@ -1,107 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793211145;
-	b=UsfBPYBJdxxlX/ID4XU8qrlkJ5QzuQEmv3PMJZY41Kkd8RyIKT4jmqUgGjDCqfr+s2Zv
-	 VrszizxgKj1Bl5jsVuJhIi5uWYqTAC5p9H6Eyx3Oy5jF6Jvf1RidQbXDmDkgzIFkVkWwq
-	 Xsce/Ouxn1lWcUNXKoCymuDm+mBFxFq4cnxgO5IX18mUbQm3CVAtCcVHice5Ucz3lpzqS
-	 D+1vnbfT5qYW3RJHAKKjplkUelH8sHc+VpTdFq2HZepu2KfNaZGaNfwA5mr68KHnfDtMq
-	 zf7tNg41Q+f1IaLpjTCK6ZdUqFe3YJQ9bviuD+QZKF+iFaFtVIrvG4kdFiepXNEs7hg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211145;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793211161;
+	b=AycMRo1qwdjej11FxCevBIYqywmZduTwsWNCY+5iFBlGc+igHW05qhwTEoTEpMwppRbE
+	 xKzoYM/JHlLf2+v4SjNuWVd7Jo7kOcBYRjmwitN5HXaqANXGNnUKXdB04L+GWXDW3Zat1
+	 kZk8T9lehbqO8lht12RGTqSium4I1CV6ZartvuYqzutdXUe6291kvinsl6QzDGa1oIY1N
+	 SpP4meRgLYIQvEG/QLDHQ6A0JYORZjwv6eS1JyMTVqcXeiO34doO7abOBaOoQ+iXByiE4
+	 ysiqu32susDFvXsjgcPI2cYXxxJSSyaNTRDEduOkhm8fzxmvHUn54ZgBb+qgFk/oJNw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=p/wxxGxoBJyhbGLsecA52KNGsy8WsqvTWX50Wr5bw0M=;
-	b=xiNehXwXI+j9+uvA06eMVC/5kZT31kT7CJaJgrewPQlDLYMcoi1nLzLFayXy5Zhfa5Ji
-	 AjO/j/I9wekgSBco1FsQsSwhmiFo4c9lyCc4NPQ/tdG2ECqbyGCTa+BAppclOWzCvX+TF
-	 YsCfaZkgTkw7hEzzQdLWxXumejRHTuAF4dStAufw850+594lDyBpTstwYOi1OI5cWBVe6
-	 Jgprj3ICZ3q5jBZ0BckG6n08ObimEWEtd2dI+NuO1TwhUKJlPNr7fFJhvudz2heXKblVD
-	 rQIIeScXllSrIgDHu7VYbBK++SOZMGrvwhrA8myftxIYTdKSjPLvTHhaRjI2cngusrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=halThLpFR9MA/xSJWhg2nbRX5BJT0ocg9O7I/oZTep8=;
+	b=IrmtBLnu/z3Z0g9AlKJHX0/WDpPw8UIlSCM29p2dT2dD4mqdXUfD366z2gNZP5oCMC7m
+	 sWJA387mW4ArjTDt6JZwEYLzG76kV1YXV8j5kUHlXG6IDyuiJdEyLVl3ALT0+d2IUIAuG
+	 vIzg8KUsVcMHBKIj7ZOG8nzBALX+7xpnxYQppjU49X2j+M5ka65NTw6qyTt0O9Yb+2xMr
+	 GR8rq80OxJ32NXj4Ysk4grI1+loJbjCUd/N3p6Z6RXDl2NLJAeM0aQr3i79bGIJjc9qov
+	 ldl5L6hLEks9gFa3cEwpr6VsRDn+7uOxlGSDJMXTDqBOlHEZedQI/2Tfcszxv+X8gqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ALSf6WKa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjZzAV+O;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E67606A972
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:12:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E67606A972
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60BE60A3808
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A60BE60A3808
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ALSf6WKa
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67a70230712so187164d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:12:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793211144; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TIs7nEDS+xECJGYJ6N/g87xPoGfNu5+rOTXU/H8Z77w84I1oSSxJto5Mat5V46PD7Y
-         QaWkxhcyThpqDVFLl+DGVOshphMYtaQWsSgxgjbfwNziaddMxs8sbDSAOxqkjYxgGkID
-         abEXP+ZG7Akl8qZAnHfZ7bKJNFv9NQyntWeWvHWwyq3NxYfoFkRT+NMaka97Q4YtSp13
-         OMIX+sNhEELNBM41GSfCwfrtS1LNk87CITWrH5VOIK4r9khzXHU6EIqknIq048h+w0Yv
-         Fbt2DKLoacWb1dzCgCkXbn5DHUU77IHfkWDtWau1M9oafQhYwJYUrTX9zjDby3aiL9VZ
-         NVAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=p/wxxGxoBJyhbGLsecA52KNGsy8WsqvTWX50Wr5bw0M=;
-        fh=9/JNEmF3iQn3bknYJaFfJzxsHFYzAbU2QNYEnU89+H4=;
-        b=N8CpHqtqBcz5CD8JCSC25FbFLeKFUSVlX3ixUNrTT/P8RjYFBgfFpfqb2JXgATZSST
-         0dWzX9LU34CUTcpOVwsQoCYoS0kjxEVm+2dfXK+vE0FhYuM2SDIrH0uvtDU4iVXuAUWk
-         cT/31QzNqqqedcWEd3kwunhVe1NM4D+fLt7K+oTqdUcYuwTzRjVbk4clgMurtUnX6ch5
-         MktvyO/m3W+b9Ah8YBDm5VwYybfM0s2wj1kEDCctIjdQ8+D64TmjW5KxgCRRCWlHb8JZ
-         M2EePxdvt9wCDfyzDh+IGZzzv+yby5zer8j4HzTiJ7A9RtyjlQcPTmMpu55By1xqBUN/
-         URPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjZzAV+O
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1810146eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:12:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793211144; x=1793815944; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p/wxxGxoBJyhbGLsecA52KNGsy8WsqvTWX50Wr5bw0M=;
-        b=ALSf6WKanFx5JvmwlsLgV8fFdqXM6xTDgPgW9yrrFjM6/vBGqYK5MP8vdjEFd6Sd98
-         NBVXpxDxP5phBJEQbTM6ZF819Et3/utRfYgAYvVe1/7CPYGeKwjbZCJN2+eWDd+DPgOJ
-         /JYgpa/2NylgB+nTergZPvZ1EvWvqMF606I1SYcSYUg7ByrEMXm1mMsFZ652rdG5agyO
-         B7s01u4kNZ/56+zsY+mpL/w7IdzRejnSTJl0usSaFROTaNzSYew6f1rFzZzNTYa/jteU
-         Duz/k0QuEMkQ11mraTPIuGOS/qrwrzXXpBwPJitSAC/lEqMeD/uihh/wLI3vDBA6yzMf
-         CDng==
+        d=gmail.com; s=20260707; t=1793211159; x=1793815959; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=halThLpFR9MA/xSJWhg2nbRX5BJT0ocg9O7I/oZTep8=;
+        b=cjZzAV+O0Vwxp04eP7Q+6VVIoWd328QqSN8vm0N+SXrH7QFIDfkdAwNHn06soKWe86
+         f/KBcsaIL0wobkehF1Sg31pBXx3YL75y5MN8BcIL3xeJCp4IMV0ruirfbGVtHtfN4Jdo
+         THDFokqyCIpZZQDTpeQBVtEs5H9Ifgfh5+cNdW2O65MV0AVHxKFDaPFBrmttLEnE4Wvx
+         TU5y3MCosHXqGr81EhroYVxVW7MQNqZTvgB9Pzd17FThOpm1MHRjRTMA2ZCniESTabkP
+         FjhRhEbPgpZ4STMCPG8gxT8SvqlPeVMM4o5zm9SXR19t97+PswsyCrTBUmV6rSIAh/ZK
+         1N4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793211144; x=1793815944;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p/wxxGxoBJyhbGLsecA52KNGsy8WsqvTWX50Wr5bw0M=;
-        b=rRMEyPC888NlQCINtYXUFiB2U6hijWPc0eLhl7WOP6Eaex+PAwNRp7344BozU76/YM
-         QzER1Nb77A2R1Z9aDFgDt5dFLZT5slXJIVRR4hoIFxb7AIUQSduxSVZD/mFawXQEXWrx
-         ZIN4IYCKYrcHPtr24q4K/8b6CNvFOqGIw8iL1gBk/8tRl2oumAr1mNT7JNoqdcoJMcE2
-         +do3vTo2+rOuQaCIvx9Nmr7IRf3wVCBvFvd5gwZp8i2DgIv7wV48WOBkGRUvH4SYDe32
-         enc0bSuVcrgMh5SXAOwEl8Rd6os3IeIny/CYSwDdbAMVbZ4iFBvusmGilGr72d0sqQvT
-         4FXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxn8FpYUxitRKHxl/fUXBpOqmenykglZTwk+8ucfuCkReWUxSmzfoelH+L0CGLZ5BTjtrGfAG2+wAIbQpo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgQwQjTkY7wGKjJS1tv2x5iLzBzRKVQDEczLyQ4sLWvvEdPDuB
-	Ng7zvlQLCp1U4FwKR9GHaUkiHvbk5e/rQIgIKZSEhIgOjJ/QzGxqg2NMl+GvgnNxLVnKH4sBdip
-	A9an9UPLHH6txMD+F9+sUv9WSmnvq4FQ=
-X-Gm-Gg: AYBFou0J9gvZTeuElQCqvg5pHBlCH7ToU/c/10T7NaKTOTEMlpSMx2m5cHjvw0lMfT9
-	1Of/EWcFhd1PET1pMlgC3OyxC5lb5yu+X80XzUaBsL9gWkuk7tr+0dpFUGo86stGiAZOyKWIpYV
-	O57SnM+VydrzTD12NGnUYvThdH+k2vfMUYj08nS5/v8ayWmKGS89PBqAm01TUflUG+VH6KmeI3e
-	2xvy1Gp8I+u9Smj1Lc2SXiSevSeDfusON8+XHt7TWATbQrCD6u+aZL6Dhbu68zrLZ73FlFzZ0mG
-	qHfIq4UxA/aWrHISHD+/zxODtWbKynzP6a3SjW6xhy1ecnDNHd4BYF3SzVCSEymDPPo7uxAklAl
-	8VEzAyQkH2ByekcRW1Nrt907dQ+BMl/s5u7U=
-X-Received: by 2002:a05:690e:a4e:b0:675:6f06:5642 with SMTP id
- 956f58d0204a3-67a7b9945d2mr4650525d50.1.1793211144098; Wed, 28 Oct 2026
- 11:12:24 -0700 (PDT)
-Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 11:12:22 -0700
-Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 11:12:22 -0700
-From: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-In-Reply-To: <20261023-bug-word-at-a-time-zeropad-kasan-v2-1-be0ecfbae847@gmail.com>
-References: <20261023-bug-word-at-a-time-zeropad-kasan-v2-0-be0ecfbae847@gmail.com>
- <20261023-bug-word-at-a-time-zeropad-kasan-v2-1-be0ecfbae847@gmail.com>
+        d=1e100.net; s=20260707; t=1793211159; x=1793815959;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=halThLpFR9MA/xSJWhg2nbRX5BJT0ocg9O7I/oZTep8=;
+        b=iegEPIcHQhBTacxlfXB79QuIq5PDgHfbdgLDjLLoRmPYsp7LXxuBs39nCZBexhHAHy
+         rTcrhYd84MoBSIGwSg4PRNDMGaOxTrpl4nVhggbeWtVIwNmaWWcV6WVOig1eGuOtKRrF
+         iUUUJeit21xXP9iuqXS02CajIggioS/a1/6rFiYrGeVsMXv/dqOGnhPxz40sjtZMbr8Y
+         dAiOvvaG6WKMIzSzbnzOPI9q8OxOcF2BWBt8AoT85gim3lBnw3zURrT8vv8SrY5EAtbk
+         2AFOaOsfLzdzBRN6yhOeQtswgu302ElWbwttsF0t2+Ro62l71XL9X5zlGKS5yar7m0Zc
+         0zZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByj/fhM3zz1ua1nNdop62GZIdRx40FZgVZFdxtSFqBQ1Ppz51qqGa6KWeJBhggJ7ZU8DyVxHo/9uyMZzbM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWZVBCsr3Qbrq6pYWDg8UFXiDFl3Emt6S50KLeHJ7GHk18Szt3
+	x5sLHekxAG6V2Wf2SHjziT/a88me0a8o+nf0plhmKjnPt4M7HNdjMu2T
+X-Gm-Gg: AYBFou2kABAaZo0mdFLkkgdyiGz9JbDQuq60suJ+FhAqfXn+jSQ2eOfNpqoo/AhBTgr
+	UbjwK554l+6E5AWlIt0yKPqQWL/5pN6/UjRKO4X4I60YwP7VD5tazdHK7p1f2gbMR1fsVwzBMv4
+	yLMbH4OIxkO481rwBSeIkItLS7YejgbbwQpw6/Y9x/j3cKSjfeLx/LD4gxDQTBWMgVYfJaDi06O
+	3V+qaHrXBUKIfr0Pjzw8x3LBPvta0ZubhyhfOOVsWB9IQTrwqDFrZ2Ua0ptoQAgRqdvTZD0KbEk
+	8+wv7jXHAPwejO0+BGHyHr7COcJapiJdYZzTXC51vBb6E37Q1A1/0erqDMDroYzIPUsJcHE0PSU
+	zjopg7b7IyD343fdDUPBnY49Ln28FMwPkjyc0tUzBQgkXimbxrMRA9+w1Zp63WTf/GElI8FHj96
+	4an2FKS2zRioK5EC++82+6bYCmgWwhanRx27VYPqCxPp1Of5mxuaBMO7LSb60crBvg0y2QmB4Gc
+	i6dkXxTt/wcQaabtsRPw5d6QrmkpUWlX5askqctW4lZDuJ8l4hfSdPszhyEaF+m0silRUbQULZ+
+	HrOxA9gFBZ1FIa5wQwmdzMw=
+X-Received: by 2002:a05:7300:d706:b0:35c:6ffd:e91b with SMTP id 5a478bee46e88-36a2013bd0dmr5935780eec.40.1793211158462;
+        Wed, 28 Oct 2026 11:12:38 -0700 (PDT)
+Received: from unix.. ([181.229.23.179])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238da675sm8309394eec.5.2026.10.28.11.12.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:12:38 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	netfs@lists.linux.dev
+Cc: Shyam Prasad N <sprasad@microsoft.com>,
+	Steve French <stfrench@microsoft.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH netfs v1 1/2] netfs: preserve prepare_write errno on reissue
+Date: Wed, 28 Oct 2026 15:12:28 -0300
+Message-ID: <20261028181229.1408342-2-ivanrwcm25@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
+References: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,63 +103,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 28 Oct 2026 11:12:22 -0700
-X-Gm-Features: AclHuK-o5YV67AfwlA9WNsjqOxV_ScugEYWYzUg986KltKOOqPQjM_oQFfVaIog
-Message-ID: <CAPAsAGyEUL1fj2-1=NGBDDO-z47cOHmcFDFexY9T_1_1LCMQJQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] word-at-a-time: check the first byte in load_unaligned_zeropad()
-To: Qiliang Yuan <odys.yuan@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, Marco Elver <elver@google.com>, 
-	Alexander Potapenko <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Dmitry Vyukov <dvyukov@google.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-arm-kernel@lists.infradead.org, Kees Cook <kees@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	Peter Collingbourne <peter@pcc.me.uk>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Qiliang Yuan <odys.yuan@gmail.com> writes:
+prepare_write() may call netfs_prepare_write_failed() (FAILED + errno)
+before write_retry calls netfs_reissue_write().  Clearing subreq->error
+to 0 for a clean I/O reissue (82e8885bd763) then makes
+netfs_do_issue_write() terminate with 0.  The collector copies
+front->error into stream->error and mapping_set_error(), which ignores
+0, so writeback failure is silent.
 
-> load_unaligned_zeropad() reads a word that may run into an unmapped
-> page and recovers through an exception fixup. It does the word loads of
-> sized_strscpy() and of the name compare in dentry_string_cmp(), path
-> components in hash_name() and hashlen_string(), and the trailing bytes
-> in x86's csum_partial().
->
-> It is inline assembly on every architecture that implements it, so
-> KASAN and KCSAN never see these loads, while read_word_at_a_time() at
-> least checks the first byte of each word. A use-after-free or
-> out-of-bounds read of a name handed to path lookup goes unreported, and
-> so does strscpy() reading from a bad source, which the kasan_strings
-> KUnit case expects to be reported. On x86_64 with generic KASAN:
->
->   KASAN and string KUnit suites      failures
->                                   before    after
->   CONFIG_FORTIFY_SOURCE=n              1        0
->   CONFIG_FORTIFY_SOURCE=y              1        0
->
-> Check the first byte with instrument_read() at the start of
-> load_unaligned_zeropad() on every architecture, as read_word_at_a_time()
-> does. All callers only load a word whose first byte belongs to the
-> string or buffer they read, so the check does not flag their intended
-> reads past the end. Add a no-op instrument_read() for the powerpc
-> selftest that builds the header in user space.
->
-> Suggested-by: Peter Collingbourne <peter@pcc.me.uk>
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Reviewed-by: Marco Elver <elver@google.com>
-> ---
+Skip clearing error when NETFS_SREQ_FAILED is already set;
+do_issue_write() already terminates FAILED subrequests.
 
-Reviewed-by: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not check if it faced an error")
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Steve French <stfrench@microsoft.com>
+Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+---
+ fs/netfs/write_issue.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
+index b8237e1314d8..f23364116421 100644
+--- a/fs/netfs/write_issue.c
++++ b/fs/netfs/write_issue.c
+@@ -268,7 +268,9 @@ void netfs_reissue_write(struct netfs_io_stream *stream,
+ 	iov_iter_truncate(&subreq->io_iter, size);
+ 
+ 	subreq->retry_count++;
+-	subreq->error = 0;
++	/* Keep prepare_write() errno; do_issue_write() terminates FAILED. */
++	if (!test_bit(NETFS_SREQ_FAILED, &subreq->flags))
++		subreq->error = 0;
+ 	__clear_bit(NETFS_SREQ_MADE_PROGRESS, &subreq->flags);
+ 	__set_bit(NETFS_SREQ_IN_PROGRESS, &subreq->flags);
+ 	netfs_stat(&netfs_n_wh_retry_write_subreq);
+-- 
+2.43.0
+
