@@ -1,66 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194234;
-	b=4LrfyBaSxaUOoWzpF2OqfSXy5sIR47mPuBBIeom13VdweVJs7TgyetfW9Pm3t3ebjJhu
-	 1Lu5lx70yEHi0ps1ymoOG9FL7es9LzFavcMUxC/HG/IHhrhUdZB1wvOCpkJctfM06lE4k
-	 ggSV5meOtPjA/+iaMfAhJ8h1sDuwfKI/TG5egUWG7hB82Pg+oi80LzhuuIn7l7V0NyPEL
-	 Q8OepLcXe/rEj+NZKJXO2uncMvC63Zi8kbCs5N9bLbzwveZdt8ACK4OjONDS/TZC+9Bv+
-	 TwGofdbw33tnTp6HjuqBHcWNUmz3Us11TXe/rqOOsMsLxhXDJPCWVJ1aF3vaJZniy0w==
+	t=1793194236;
+	b=Y3JjpZ4x2OgKxIkBR+svBjV5l9GYif8BC7TgmNOZv8/hvytXx8D00fgFyEc6KDDAv63x
+	 bV7wMqrLIZ7FbHi2l5e9PV3Xx7S3rSD7Q/91sNAYUeLDWLnmPqwQF5Ep2hH6Q3Oma3hWV
+	 FQUcwnKvBspWgIY0c3A3zfsAZdX/8aHnny9yXGXVaVri2mcohF/NDZUnjwJdXDH7roU0t
+	 Pmr6TYjU6aYo6+X4HYFJ6Ccodw/8NgIWuKqvd5eIpm9DQRbpa0x+4RvvdiCxCT26KsGKt
+	 NWh907Z5lKkbwo3VySJp7rpQMQnFChW6SPAg/wmUjne8xyp6NbF83Z76MPxhhxaJzww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194236;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
 	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info;
-	bh=c9w2cVYOS/JtP/ygwOyGXTYQMzbvgLvIS7g/OWDgsqQ=;
-	b=rvkAOcmLpqphsx13e5lpmkijak4JVO2GJG5mPllDREiwMjNF+hA3WDB0qs+HHLCUsi+T
-	 Vq9nDB3pbIgIkUtiqBCaVJ1wV86STUQL8BHDX16FwzbH0anIVIew9loJZ10Ir42aYH1Ge
-	 +ZpIcwUc0jOPGEHcBWjtMDEQFQ60fJ87NMQ4zFN8cZyO5EI6agSYYJKgwBm4z069lvavD
-	 0XM9kGOZHgb5KmiDzOdCmPgqPS4UBE5ajlWYhgkp0R3ILOoNZCE8kpxyXwLz+lT787EGO
-	 gAXZju7R72kntG7i9KYFeiYXjzhpQmJ3k80ebiMytzHFPxOIUGuhBDyA0daBdL5Oz2A==
+	bh=kWH4kqMA2A8aiSQUqCfbxJ5YWjjJXlG3eJSHCgnDOcI=;
+	b=KENnq6vzfwFbAdnA43xpiDlBAiOnDKIhzrc5oxpZiFT9ylp4MHeJBqPEYa+epHRNKsGt
+	 BMPMklNCZPV6Ul1UNJfwNPgaf0vjz5koC6FMjEzVL4xu3K3fwTR+dzKJhovE0VFZDkdgL
+	 NT4KdoztzMtbbPNC8zQvE5Xf+VDy0Akn1KLzkKbT8WPG20XHpnF4iBds8DIdtKUD4Lf+K
+	 8XumzOLXMY1dEN8Xg2N1Sk8hsXneCEj3s61Da3JZSwDdTaAfUIsVcRd75aOn63SgDmFvq
+	 0IifXkOKZJslk2qJvch0/051xa+3uJLvKu5SNqlRymnyRd9CHyGp+z8/OW01kzznIhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=RC5bzg0t;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=AjGOvJJo;
 	arc=none smtp.remote-ip=91.207.212.86
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D270D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:30:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D270D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE671606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:30:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE671606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=RC5bzg0t
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=AjGOvJJo
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBfuHg1072890;
-	Wed, 28 Oct 2026 13:30:06 GMT
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBfMHK1071312;
+	Wed, 28 Oct 2026 13:30:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=c
-	9w2cVYOS/JtP/ygwOyGXTYQMzbvgLvIS7g/OWDgsqQ=; b=RC5bzg0trNeaNZRdt
-	v2M8fmyCJ9fQo56dRxe84dvpyyQOUq1TnFFt33g7dUdhzlm9lJpXHO98y5rE3a2L
-	dcmTOmk6/UGnmp+IK4hJkLJuWQ5eCi3TKBkt1jPjFZL+1abXCHHOB3oUfzwlq5Pl
-	PVAhOVKOcuoGNxNgC9Vu9U5hT/Mh/aTB02Efc08T8nHwS88k134zqMbryU5hhHzf
-	pxRa7Wod89ewtoj365ZUsVfRLxITNnRwUgBrFwsYXRmNjE4ax+8fJojyd4qEx9SL
-	1FnE1l9c580GMLLsnJQF258aeftGrlk1Ets3q0owCvHBU8VSPpb+mZPsMgZaODJg
-	J24wg==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=k
+	WH4kqMA2A8aiSQUqCfbxJ5YWjjJXlG3eJSHCgnDOcI=; b=AjGOvJJoNZAcY/uzl
+	HNQTPGaYHA/7NLnrLwFYVeUfsbwPNbO0JHpYvonXTRuFLG4R5LmtSKGv5V60hMAS
+	NHRj0MpwnWJW3F89UKvmp6zYi+hboPMWYbTqaq1SeJzcTgpinuOsoU1XG6SidVmn
+	mG8L1miTR+RHhEPEU4SLlbNAb6/HRktsYclR0NzQ3K+lXqXfFHvKDikEUaAkzEGg
+	nS8WhTEuiOOoMteEpiRCIhI1keTLPGdIwRn6CmCzTO2BPV0hoTQkDxSs3Vz6LXwT
+	atDWXQO6bAQ/sHHp5VbGodQN9gVSD2v8cMreExb5nI09T/siqe1hUMKYFLSjFBP8
+	8pa+g==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hk4168gkb-1
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hk4168gkd-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 13:30:06 +0000 (GMT)
+	Wed, 28 Oct 2026 13:30:09 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
- 2026 13:30:04 +0000
+ 2026 13:30:08 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Wed, 28 Oct 2026 15:29:33 +0200
-Subject: [PATCH 1/5] drm/imagination: Prepare heap config header for
- multi-arch support
+Date: Wed, 28 Oct 2026 15:29:35 +0200
+Subject: [PATCH 3/5] drm/imagination: Update RISC-V firmware header
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261028-prep-meta-fw-arch-independent-v1-1-73e116f02172@imgtec.com>
+Message-ID: <20261028-prep-meta-fw-arch-independent-v1-3-73e116f02172@imgtec.com>
 References: <20261028-prep-meta-fw-arch-independent-v1-0-73e116f02172@imgtec.com>
 In-Reply-To: <20261028-prep-meta-fw-arch-independent-v1-0-73e116f02172@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
@@ -90,219 +89,147 @@ To: Alessio Belle <alessio.belle@imgtec.com>,
 CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
         <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
         "Alexandru
- Dadu" <alexandru.dadu@imgtec.com>
+ Dadu" <alexandru.dadu@imgtec.com>,
+        Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793194203; l=7080;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793194203; l=4133;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=9eDwkLGnx8tNwuQaBx3u4oUMlcw41201/Cad9UF2XXs=;
- b=5Ei4UO/sQWxxxWwlmaJSZpmYAOs86Mg9tiEx478Ea9zU1ZhtYdnpWuEGdAalJBeV+VxcRrP3c
- xEvUHPk4POwAC0sot5gmqWZ9Ov8aeXa5ikTcEBpe3dK0DtSncGe8Dfe
+ bh=CzVnCrwojz31yUbIEpa0IDfIQGbjQOXKR+nFd2MUPLA=;
+ b=5pUAWshV3FzC3ecWLTuF054N7wbPvhT15Zyq1Liq+BcG7yuMPyMcxaqL20ToArN6upC5jfBi2
+ yzs7kA2OZp5DQgSCzJ0ao6wjSIx7e8Tk5a0PkSrp4Vn+uFDGyIJ+kfr
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-GUID: 7FDCq-Uhr5P09lYAQAvzx9tUdWrvUPHo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfX2tF729LjGxD4
- FTxuS770bnRqqFpJwUqzvlPEAZXeKf/psxlr8k5uy5zZsbtGCVeErhVMXM5VApsuHz/ZAlhedbG
- cGr/WDIj6q7PhKf2Vj6MAyiNMidNWV3d3LcGuYGguHq1py2RqmcftewYA+9dd36sFvHPwMPfqdd
- 2FIuN1xkbn9mUT7KB6z1aNWpnbR4uN6NTXynr0/66gbzzRYP0zMM/O+5+th6I6xZ2w7AOFHy+j9
- O8Jg6p+Ht2DSXDj4c64Nwt/+/BB4oLE7IzvEteZ/eg6RdPWfmNKz2hPEl+HMsLwBBDjT95ISUb7
- H1WfoAUeevqKiMoOxBxpv+cOlpTdpvUCKTjN/2d34M6UP4jCnWlqo5B3bzcOXZ9XNb4HV6N2y0/
- g7xfBykKLw8hXzP2QJgGtV+Ko/dGg7HHw5YY/JqBxRLW5c6vu0eg3nupgi3yOZJo7mutfd40PZT
- 1USbyGGWPt45yig0Qzg==
-X-Authority-Analysis: v=2.4 cv=apQnmiZV c=1 sm=1 tr=0 ts=6ae1f8de cx=c_pps
+X-Proofpoint-GUID: o14I_E_2Rh4_t7skdp8mNiGDrgS_T3KJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfX7ycPMx08/Khi
+ yTV7ofwy7iUKEN2DI41J2pv/enYuxOwTkKRPf6gdUNKWMtQBD8r4T8h/k+idhqDgb4hGqRrLJYJ
+ bFbFmy7zRDo9eTAbvB7mvs11jPBnUIVSAa6PTbg2U86+g0XcaPyIqOqnV9fh7AO72GsXxMtPRI5
+ JSMG6If3aEw0/CvAzQhexg/Fn8+Tg0TeSlXomh9XakQ7Hh9tckQbQaTW6ytzS2bISmI1zkEy974
+ OxqvQMEfsgnYB1XCo7q/52EeCoeMxaskX4p7dp9ysMMV7UdMCdBXbHM5fnzx51E5Es5DfCAB+av
+ mSBj+VV8dT3PYecjUHfHj+u4IwzDXzEulAkGrBtcTo0cNoSdZXLXUKHeKd1KMUUUBDII6mrV9AT
+ tGutfuLErjL1gF1tGtwFXVIwB9x3zT8OGuMPbX28NPdJWupDgD3AMVQDcwkofBxd9Zxelvi7xba
+ zJP8cYTqLvInm1OvO+g==
+X-Authority-Analysis: v=2.4 cv=apQnmiZV c=1 sm=1 tr=0 ts=6ae1f8e2 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=wwnLb05hCPqUNQMNHCwA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=EfI9ILzK087OCRd7xdYA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: 7FDCq-Uhr5P09lYAQAvzx9tUdWrvUPHo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfXz1Ot/0O5BUKt
- HAC0khQAB8HiT68cMmYUyw5rgXFealGkv+JyKqI7VSI0Ldmh1+PZsPxYPpDj8y2jvpGJ/nZdgfN
- r1wlKfWJIxZddXMoCK0ZhD/HpVTZZpg=
+X-Proofpoint-ORIG-GUID: o14I_E_2Rh4_t7skdp8mNiGDrgS_T3KJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MyBTYWx0ZWRfX7/1aUtz+o24x
+ YHs/D35gr6VrfaXCkbzfmXPocfgvkx376m+W6eb1G7nHtHvc+1rNHI0sc5tERjoIDhzi1qh5emN
+ 7Ln0QJCeYVXnX99MVcejH4SoMEvEtiA=
 
-Update the name of pvr_rogue_heap_config.h to pvr_heap_config.h to
-prepare it for a more generic implementation that will have memory
-sections defined for multiple GPU architectures.
-Update the multi-arch common define names to a generic format.
+From: Alessio Belle <alessio.belle@imgtec.com>
 
+Make RISC-V firmware header arch-independent. This header file contains
+definitions common to all PowerVR architectures starting from Rogue, so
+rename both the file and its contents to reflect this.
+Add a _fw_ component to the filenames of risc-v internal firmware
+headers to ensure that firmware-related files have the pvr_fw_ prefix.
+
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw.c               |  7 +++---
- drivers/gpu/drm/imagination/pvr_gem.h              |  2 +-
- .../{pvr_rogue_heap_config.h => pvr_heap_config.h} | 26 +++++++++++-----------
- drivers/gpu/drm/imagination/pvr_vm.c               | 18 +++++++--------
- 4 files changed, 26 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         | 14 +++----
+ .../gpu/drm/imagination/pvr_fw_riscv_internal.h    | 43 ++++++++++++++++++++++
+ 2 files changed, 50 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..4d5df5272f46 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -9,9 +9,8 @@
- #include "pvr_fw_startstop.h"
- #include "pvr_fw_trace.h"
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+index 0d4dd45520a9..2b24c40bc20f 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+@@ -6,10 +6,10 @@
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_mips.h"
  #include "pvr_gem.h"
-+#include "pvr_heap_config.h"
- #include "pvr_power.h"
--#include "pvr_rogue_fwif_dev_info.h"
--#include "pvr_rogue_heap_config.h"
++#define PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_fw_riscv_internal.h"
++#undef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+ #include "pvr_rogue_cr_defs.h"
+-#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+-#include "pvr_rogue_riscv_internal.h"
+-#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
  #include "pvr_vm.h"
  
- #include <drm/drm_drv.h>
-@@ -372,8 +371,8 @@ fw_sysinit_init(void *cpu_ptr, void *priv)
- 	WARN_ON(pvr_fw_object_get_dma_addr(fw_mem->fault_page_obj, 0, &fault_dma_addr));
- 	fwif_sysinit->fault_phys_addr = (u64)fault_dma_addr;
+ #include <linux/compiler.h>
+@@ -43,13 +43,13 @@ pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
  
--	fwif_sysinit->pds_exec_base = ROGUE_PDSCODEDATA_HEAP_BASE;
--	fwif_sysinit->usc_exec_base = ROGUE_USCCODE_HEAP_BASE;
-+	fwif_sysinit->pds_exec_base = PVR_PDSCODEDATA_HEAP_BASE;
-+	fwif_sysinit->usc_exec_base = PVR_USCCODE_HEAP_BASE;
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_CODE),
++				       PVR_RISCV_REGION_BOOTLDR_CODE),
+ 		       code_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN);
  
- 	pvr_fw_object_get_fw_addr(fw_mem->runtime_cfg_obj, &fwif_sysinit->runtime_cfg_fw_addr);
- 	pvr_fw_object_get_fw_addr(fw_dev->fw_trace.tracebuf_ctrl_obj,
-diff --git a/drivers/gpu/drm/imagination/pvr_gem.h b/drivers/gpu/drm/imagination/pvr_gem.h
-index 4286e047ae24..ae7af82b6f17 100644
---- a/drivers/gpu/drm/imagination/pvr_gem.h
-+++ b/drivers/gpu/drm/imagination/pvr_gem.h
-@@ -4,7 +4,7 @@
- #ifndef PVR_GEM_H
- #define PVR_GEM_H
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_DATA),
++				       PVR_RISCV_REGION_BOOTLDR_DATA),
+ 		       data_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN);
  
--#include "pvr_rogue_heap_config.h"
-+#include "pvr_heap_config.h"
- #include "pvr_rogue_meta.h"
+@@ -132,9 +132,9 @@ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
  
- #include <uapi/drm/pvr_drm.h>
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_heap_config.h b/drivers/gpu/drm/imagination/pvr_heap_config.h
-similarity index 85%
-rename from drivers/gpu/drm/imagination/pvr_rogue_heap_config.h
-rename to drivers/gpu/drm/imagination/pvr_heap_config.h
-index 5c33b342dda5..280bf1ed523b 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_heap_config.h
-+++ b/drivers/gpu/drm/imagination/pvr_heap_config.h
-@@ -1,8 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only OR MIT */
- /* Copyright (c) 2023 Imagination Technologies Ltd. */
+ 	/* RISC-V cacheability is determined by address. */
+ 	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
+ 	else
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
  
--#ifndef PVR_ROGUE_HEAP_CONFIG_H
--#define PVR_ROGUE_HEAP_CONFIG_H
-+#ifndef PVR_HEAP_CONFIG_H
-+#define PVR_HEAP_CONFIG_H
- 
- #include <linux/sizes.h>
- 
-@@ -14,7 +14,7 @@
-  * fits into this, but the firmware heap is only ever created in the
-  * kernel driver and never exposed to userspace.
-  *
-- * ROGUE_PDSCODEDATA_HEAP_BASE and ROGUE_USCCODE_HEAP_BASE will be programmed,
-+ * PVR_PDSCODEDATA_HEAP_BASE and PVR_USCCODE_HEAP_BASE will be programmed,
-  * on a global basis, into ROGUE_CR_PDS_EXEC_BASE and ROGUE_CR_USC_CODE_BASE_*
-  * respectively. Therefore if client drivers use multiple configs they must
-  * still be consistent with their definitions for these heaps.
-@@ -38,9 +38,9 @@
- /* 0x80_0000_0000 ************************************************************/
- 
- /* 0x80_0000_0000 - 0x9F_FFFF_FFFF **/
--/* 512 GiB to 640 GiB, size of 128 GiB : GENERAL_HEAP */
--#define ROGUE_GENERAL_HEAP_BASE 0x8000000000ull
--#define ROGUE_GENERAL_HEAP_SIZE SZ_128G
-+/* 512 GiB to 640 GiB, size of 128 GiB : GENERAL_HEAP **/
-+#define PVR_GENERAL_HEAP_BASE 0x8000000000ull
-+#define PVR_GENERAL_HEAP_SIZE SZ_128G
- 
- /* 0xA0_0000_0000 - 0xAF_FFFF_FFFF */
- /* 640 GiB to 704 GiB, size of 64 GiB : FREE */
-@@ -58,8 +58,8 @@
- 
- /* 0xDA_0000_0000 - 0xDA_FFFF_FFFF */
- /* 872 GiB to 876 GiB, size of 4 GiB : PDSCODEDATA_HEAP */
--#define ROGUE_PDSCODEDATA_HEAP_BASE 0xDA00000000ull
--#define ROGUE_PDSCODEDATA_HEAP_SIZE SZ_4G
-+#define PVR_PDSCODEDATA_HEAP_BASE 0xDA00000000ull
-+#define PVR_PDSCODEDATA_HEAP_SIZE SZ_4G
- 
- /* 0xDB_0000_0000 - 0xDB_FFFF_FFFF */
- /* 876 GiB to 880 GiB, size of 256 MiB (reserved 4GiB) : BRN */
-@@ -76,8 +76,8 @@
- 
- /* 0xE0_0000_0000 - 0xE0_FFFF_FFFF */
- /* 896 GiB to 900 GiB, size of 4 GiB : USCCODE_HEAP */
--#define ROGUE_USCCODE_HEAP_BASE 0xE000000000ull
--#define ROGUE_USCCODE_HEAP_SIZE SZ_4G
-+#define PVR_USCCODE_HEAP_BASE 0xE000000000ull
-+#define PVR_USCCODE_HEAP_SIZE SZ_4G
- 
- /* 0xE1_0000_0000 - 0xE1_BFFF_FFFF */
- /* 900 GiB to 903 GiB, size of 3 GiB : RESERVED */
-@@ -99,8 +99,8 @@
- 
- /* 0xF2_0000_0000 - 0xF2_001F_FFFF **/
- /* 968 GiB to 969 GiB, size of 2 MiB : VISTEST_HEAP */
--#define ROGUE_VISTEST_HEAP_BASE 0xF200000000ull
--#define ROGUE_VISTEST_HEAP_SIZE SZ_2M
-+#define PVR_VISTEST_HEAP_BASE 0xF200000000ull
-+#define PVR_VISTEST_HEAP_SIZE SZ_2M
- 
- /* 0xF2_4000_0000 - 0xF2_FFFF_FFFF */
- /* 969 GiB to 972 GiB, size of 3 GiB : FREE */
-@@ -110,4 +110,4 @@
- 
- /* 0xFF_FFFF_FFFF ************************************************************/
- 
--#endif /* PVR_ROGUE_HEAP_CONFIG_H */
-+#endif /* PVR_HEAP_CONFIG_H */
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index ceb78694cd98..ae965043237d 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -6,9 +6,9 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_gem.h"
-+#include "pvr_heap_config.h"
- #include "pvr_mmu.h"
- #include "pvr_rogue_fwif.h"
--#include "pvr_rogue_heap_config.h"
- 
- #include <drm/drm_exec.h>
- #include <drm/drm_gem.h>
-@@ -950,20 +950,20 @@ static const struct drm_pvr_static_data_area static_data_areas[] = {
-  */
- static const struct drm_pvr_heap pvr_heaps[] = {
- 	[DRM_PVR_HEAP_GENERAL] = {
--		.base = ROGUE_GENERAL_HEAP_BASE,
--		.size = ROGUE_GENERAL_HEAP_SIZE,
-+		.base = PVR_GENERAL_HEAP_BASE,
-+		.size = PVR_GENERAL_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_PDS_CODE_DATA] = {
--		.base = ROGUE_PDSCODEDATA_HEAP_BASE,
--		.size = ROGUE_PDSCODEDATA_HEAP_SIZE,
-+		.base = PVR_PDSCODEDATA_HEAP_BASE,
-+		.size = PVR_PDSCODEDATA_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_USC_CODE] = {
--		.base = ROGUE_USCCODE_HEAP_BASE,
--		.size = ROGUE_USCCODE_HEAP_SIZE,
-+		.base = PVR_USCCODE_HEAP_BASE,
-+		.size = PVR_USCCODE_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
-@@ -974,8 +974,8 @@ static const struct drm_pvr_heap pvr_heaps[] = {
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
- 	[DRM_PVR_HEAP_VIS_TEST] = {
--		.base = ROGUE_VISTEST_HEAP_BASE,
--		.size = ROGUE_VISTEST_HEAP_SIZE,
-+		.base = PVR_VISTEST_HEAP_BASE,
-+		.size = PVR_VISTEST_HEAP_SIZE,
- 		.flags = 0,
- 		.page_size_log2 = PVR_DEVICE_PAGE_SHIFT,
- 	},
+ 	return fw_addr;
+ }
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+new file mode 100644
+index 000000000000..abcbb4ef06fe
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT */
++/* Copyright (c) 2024 Imagination Technologies Ltd. */
++
++#ifndef PVR_FW_RISCV_INTERNAL_H
++#define PVR_FW_RISCV_INTERNAL_H
++
++#ifndef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#error This file may only be included if explicitly defined
++#endif
++
++#include "pvr_rogue_cr_defs.h"
++
++#include <linux/bitops.h>
++#include <linux/sizes.h>
++#include <linux/types.h>
++
++#define PVR_RISCVFW_REGION_SIZE SZ_256M
++#define PVR_RISCVFW_REGION_SHIFT __ffs(PVR_RISCVFW_REGION_SIZE)
++
++enum pvr_riscvfw_region {
++	PVR_RISCV_REGION__RESERVED_0 = 0,
++	PVR_RISCV_REGION__RESERVED_1,
++	PVR_RISCV_REGION_SOCIF,
++	PVR_RISCV_REGION__RESERVED_3,
++	PVR_RISCV_REGION__RESERVED_4,
++	PVR_RISCV_REGION_BOOTLDR_DATA,
++	PVR_RISCV_REGION_SHARED_CACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_7,
++	PVR_RISCV_REGION_COREMEM,
++	PVR_RISCV_REGION__RESERVED_9,
++	PVR_RISCV_REGION__RESERVED_A,
++	PVR_RISCV_REGION__RESERVED_B,
++	PVR_RISCV_REGION_BOOTLDR_CODE,
++	PVR_RISCV_REGION_SHARED_UNCACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_E,
++	PVR_RISCV_REGION__RESERVED_F,
++
++	PVR_RISCV_REGION__COUNT,
++};
++
++#define PVR_RISCVFW_REGION_BASE(r) ((u32)(PVR_RISCV_REGION_##r) << PVR_RISCVFW_REGION_SHIFT)
++
++#endif /* PVR_FW_RISCV_INTERNAL_H */
 
 -- 
 2.43.0
