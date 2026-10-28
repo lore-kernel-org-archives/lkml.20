@@ -1,115 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202244;
-	b=YjV4KDXpgZ8UOLvPgKoLhABWTiA7kZ0XLfpMCZVqV7qEkeZrUwN4n/j6hBcGZtYQ7fUt
-	 3b4JdwWnzD+VUGqe+oDjBbYZB+ASfq/XRizBSbps1rBc2VwawKWyCw7CgRk+Kpg+KhDZg
-	 ItBxd45hOhqoP4LyJzSZaKVGV9jYALsueKapSuqYPWwc3gJOwKqwidLJGHPKftt+CFiEH
-	 OpRbOrVlCXfRQWqB4aJcvUpuy2ZpDERkmWW9BTxZpU/O2MsKaqKncybIEdvOVINio6BK9
-	 wGXOGNhH3cFMe8o3bCuPKLqUhcjHut3fh8C/P436zT0QITEgyhSPjSqRIPfKYVrIXvA==
+	t=1793202251;
+	b=Sn9kbOyFS04QLIOJ8kyVE7h7fBnv4a5emXlh7rgxkUYZC5JTFibF9/DgFzIzRvkeDCtz
+	 BdMCfzEb/9pAqc2ho+8ItgP3LeBUpecQYteJH/QaCTBI6cppwvX7PjqPoiaRrmG0y9LmI
+	 DCysYtiPTK9E+ny1oMVEv8Xymg9ARrp7GHWvc7VesT2QkgBhvu1+lLcSmYh1ISu3ALAS6
+	 Wjqb8JJAxVBeRJazxLTWOgK63D6n+wo70icFQ8t5pWO1e8tVLocmWeaKYtWcDLDyz9Sgq
+	 HzF4D2AdfPzW8/ypC/hTZXTXIBh8OJlSHHnSfDsxjnznhefFDdBhkrylPpZK/Tidc0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202244;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-	b=XCbuLO47LElyDRcqpDqfDDMFsy+2Yxd5harjPMIm415VQIGs1VPk4EUgOtektqjMMo0m
-	 HI+9t15WvgkmP+KktSb0PW5lDW6tbaSQN9XXMCmtIZeIYUg0MkfBZhTmmQLouUI3POEJd
-	 JFDnqvtU8o0LW/HBGGqSs8UoPDGn93+in6rNO520ZZoLIwOioS+90hc3jb56s2Og+SfoL
-	 WF2uFp+SVqj3HohfsZGR9kLhkLoa+mu6perth3UvaUhBPoAOcHvsfZ/xr2XT2WMmmvVIH
-	 pBRu5TZHsAufp6snYCfOaK1ct9MvFf23fEagXkBdWczT2VNpRf9tOZUaqbSTrWGlXRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202251;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SFL+oINgrKpt7yJuv2k7gdwyOzpkOg1qfLRc60v2g2A=;
+	b=W/BKKfvEetFdEijo+okIuZDXU53bbC/Ft7v/LgqfGgv5XB49lGNqXlWr6i5BLKA+mPeq
+	 ZOhKbuLwEDDQ2DE99Mz5RMC+qRGq87JqMEUCdc74+VJtxuUyafQt00ZTwDDeUSjqhO+DV
+	 XHj00CHo6vlaOkITumRAljnbl8mEXJLHFhby+iwqxvg10Og/9qWkrzVMUeR5i2QWYr1/u
+	 sGSPNBpZvJJDFpPbYoVnNEktmPhLtkkm8nogGZS/6paGgtKDwiuu8VGQTKvjdCyIrNzQ9
+	 TxjPLDcw5ZMtGTgWiMQQDMvZwuqolB1qmINvDxWKmt29SSDJdSFM/E6bhkig63e73Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhNhf4Bj;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZPAZlXuG;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E940606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:44:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E940606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4827C606A32A;
+	Wed, 28 Oct 2026 15:44:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4827C606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhNhf4Bj
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso8747585e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793202242; x=1793807042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-        b=OhNhf4BjuSG3e/6VN6GivJmIl/+gJb/TUjJc9z+vBd7CbssvdrIGIH1vG4k+ZfuDpJ
-         p81CwXU0OCpslFV70v/D66L0u6pYrg5/WjZNwTPRpJVoE1MHqRJrAvD/nLF5sn/Rwh4T
-         BnLwDX91KamNaosDa04cISQoCfHTzRDMW2cEXoKS26/NrJaZ4w3fwAhcDoE3MmD1nBdA
-         ds3t6FTpp0UdeBAr7Lq6vbjtA8gTPoCpf9bkLKWJB0diWmPNCIrNFDiOEnDxyAU0GKFW
-         ZkpzXaupcEaw34ti0Y7HcfqGFhPINTamCbaEJya7l3ZC+xuTe6W6BPXlk1yHXA1LuRKx
-         2jLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202242; x=1793807042;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-        b=lyZXHwzVU0J4RjVeRbECEKfqvYPv6Df3zJzIw5LvXRP/8ba1AhpgP0lgoC/kEKcxqw
-         Sp8mu67lieM5kEYdhmbJO0UEboMQ9H73Tq+gvTf6S9vgdHWJoTk0qrWy8iOL8i+IVEtH
-         B0TQNRkF4NL1N3LyNYRBQwwPXY93NqYy6N8weFmrkgvEDDY2Ktp27iKJTYALgb9qFoXn
-         Q/kexgzUwgE/TS+Lm1bQ0KZyM3ysxYgueHlMGXUpzZdXMVE5nar9WQIncz33fYzz3MwN
-         Gm7FbTuSK1piQ2ST4QicKMk5XkxMSKGEeFSRNhl9DSPtVKVEkRXXO1Aj9HGv6M4eCKzP
-         RmTA==
-X-Gm-Message-State: AFq9FYL3vzXNQsWptRxwRf34lanwsxtFEnHnT8kOdNJJPZHmkO0U8wE0
-	Q3yiKuc4DWNy096LTQ1hBz28Pgcz24AczTfPR4KgjkMpFiqvGzc9TnWg
-X-Gm-Gg: AYBFou1hFnRHmYS/2HU5LMPYzQ/3n8euW6XxjGVgcKau9x9xYb0wHAUl2nr3hP+l1S0
-	OJDhBzJSnBWKA+ClR05E25GfgeefRaFkczn9MDXMnav/GWY/XuecAipfL6hShQOG3LVxAVWF1Gk
-	BVdUEG1t+Sr1mrV9NhGCeDaGWe/gKBLmQbHa0swLO/pMHK0ujcw/6W3HNeFYsO0CBYFMJ/s4IHM
-	Wwd6fXjNmaQt3x3dACOgHhrS2cHE1xUr600fVSdtx82umZzgJLtdB0g5WMiXsO7/fNJKgfxN67H
-	IFV1fAHsdLQ8cVMzrnfYGyxve66hqISv1PtRjvZ7VQwh1at5ifiYfGZ6Fe9K/YvkrXGqmxgDD35
-	8TG/kSU0Pd3MaR3a6bcquIaYSZBkSjyzULYi8c6lyT3Blq4AMwF9tHXYGCk6Snc6AjkkcIF7oNH
-	rwXFVmES710P8OnxGTWRh1tvw4Av2DKKIy1IOR7z0Ey/lV3Q6EdTXEZWt+IBgj3FtoC9uMp+9s6
-	hiKOnOieRtcGH3YUJqFeanNHI4Y6ZYWaB9mXgkRW3va47v77zVFVhgWjOBxpHKTA2eOSx3Syz28
-	Jyb7FswLCJqLv0SulRq3ayldsJc3xSLBcKoIlitkoT0msigaaC0ia7GZoFp6AqL11A==
-X-Received: by 2002:a05:600c:a48:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a9661ab4e9mr59192805e9.11.1793202242297;
-        Wed, 28 Oct 2026 08:44:02 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8c05sm37044493f8f.49.2026.10.28.08.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:44:00 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Deepak Gupta <debug@rivosinc.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/4] arm64/gcs: release GCS on failed fork
-Date: Wed, 28 Oct 2026 12:43:12 -0300
-Message-ID: <20261028154315.1272705-2-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
-References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZPAZlXuG
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFE5eH4147946;
+	Wed, 28 Oct 2026 15:44:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=SFL+oINgrKpt7yJuv
+	2k7gdwyOzpkOg1qfLRc60v2g2A=; b=ZPAZlXuGlnBmcpmB7AT8g22VNwIhyrkzL
+	UzQlKf301oIanMjRKKb0g124i5HPRTF9tMQoKZe8NAPJ9DkWxh9Wkx8jm6NxmAHR
+	uq/VC1sK/EjJ8VCVqw94MWcAR2wLmNwsqzgGrzvlC8doDtU6jLiRZo2AXCrlc5MJ
+	IpRGFl+kt8sYR+hxa63ChPwD1txfb4VSo7UbK5JYWTotkH5OTPMkbJHfzNsLlrxf
+	ErC2tC/qeo41bncE1aGiH5D9xJ/meFyq3zRZ++Qws07vdH+WLUOxnZlnAlspA1AY
+	gE3AZ5lhFiq+X258fYAzUifp5dcvQj3/sYl7DGtI+XAUa9tnI7dSw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmbt5kmk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:07 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFJuwo1784644;
+	Wed, 28 Oct 2026 15:44:07 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7xnj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:06 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFi2to19202674
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 15:44:03 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 94CB858061;
+	Wed, 28 Oct 2026 15:44:02 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 70BCF58052;
+	Wed, 28 Oct 2026 15:44:00 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.240.205])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 15:44:00 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com
+Subject: [PATCH v11 2/5] s390/pci: Improve function measurement state management
+Date: Wed, 28 Oct 2026 11:43:49 -0400
+Message-ID: <20261028154352.15108-3-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028154352.15108-1-oelghoul@linux.ibm.com>
+References: <20261028154352.15108-1-oelghoul@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,92 +96,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX6MZzm6P0VUKt
+ 9wg/bbjL4/8fsOiM6d1PVX+CdgcHzkerg/K6qaHWZkMXrzSOXLsG18ll3epPaVVdpN6JJ119y1P
+ APiQO/F/IVjKnbxJbGcLiosftYdGhntIV88DOrkFD13p9DAgvpfB1HlZq0n9/wnJ3LPfssHTr8t
+ Ss6j9CcmsYzZZ/yflEo1ZW7AeYqVKxxsM/9toHCEsdQs9JfnsGTMRmo/il18nJaEc9qFtCTzQX6
+ WPaEAQhei4jW1rbIvq26GAoAmPmLmYl8une6Dnd1kV4mg4nG+d83bnPL9jZC1jiUhUV4T5j2Bq3
+ lAJo63jcFR9yk1hZMgaot8wOO2E1gaI7BPot2kKQnTc3bHgVDyKsfFH+jiZxtGxYNe0EhQQSNO1
+ p8kQfVmHnlg5k28GyN1gRju0muYY9IVa11KW0CVuUzBHPp2eRiN+LnRRdjEWKCWZscIgxW6A7aE
+ 6X6Aq8CNdLa/rdAe/Hg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfXxstWNkGZX2A0
+ CTIDc7PBp+xmlX6AxrZFm7qnseogotWBLObGDTFVjfuVqbUdwzDFaUL2WAkueCzTmMo6GAuqFL1
+ ghnK2LBdHz33zHxmZMAZPHLzWfYeG4Q=
+X-Proofpoint-ORIG-GUID: E-em-Ome7uFfRDNW1JAu51jt_qIVmxP-
+X-Proofpoint-GUID: E-em-Ome7uFfRDNW1JAu51jt_qIVmxP-
+X-Authority-Analysis: v=2.4 cv=CeKdd7rl c=1 sm=1 tr=0 ts=6ae21847 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=cItLoxOyQSrHz8uLRusA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280062
 
-copy_thread() can map a CLONE_VM GCS and still return 0. A later
-copy_process() failure calls exit_thread(), but arm64 did not
-implement it, so the VMA stayed in the parent's mm. Wire
-HAVE_EXIT_THREAD to gcs_free().
+When a zPCI function is disabled and re-enabled, the firmware implicitly
+disables function measurement while the kernel still believes it is
+enabled, leading to a disconnect between the user-visible state and the
+actual device state.
 
-x86 already does this via exit_thread() -> shstk_free(). The separate
-x86 TLS leak is different: copy_thread() itself fails after the
-alloc, so copy_process() skips exit_thread().
+Add the statistics_on field to struct zpci_dev to track the desired FMB
+state. Introduce the functions zpci_fmb_request_on() and off(), which
+defer to zpci_fmb_enable() or disable() to perform the actual firmware
+change. This decouples the enablement or disablement step from managing
+the user's requested state.
 
-args->fn tasks inherit GCS tracking without allocating; clear it so
-a failed CLONE_VM copy_process() cannot gcs_free() the caller's
-stack. Keep that helper in process.c with the other fork helpers.
+Preserve the state in pcibios_enable_device(), pcibios_disable_device(),
+and zpci_reenable_device(), so measurement is restored automatically
+after a re-enable. New devices start with measurement on by default,
+unchanged from before.
 
-Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
-Cc: stable@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
 ---
- arch/arm64/Kconfig          |  1 +
- arch/arm64/kernel/process.c | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+)
+ arch/s390/include/asm/pci.h |  7 +++--
+ arch/s390/pci/pci.c         | 60 +++++++++++++++++++++++++++++++++----
+ arch/s390/pci/pci_debug.c   |  6 ++--
+ 3 files changed, 63 insertions(+), 10 deletions(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index cfef22aee709..3010ced4b4f2 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -177,6 +177,7 @@ config ARM64
- 	select HAVE_ARM_SMCCC
- 	select HAVE_ASM_MODVERSIONS
- 	select HAVE_EBPF_JIT
-+	select HAVE_EXIT_THREAD
- 	select HAVE_C_RECORDMCOUNT
- 	select HAVE_CMPXCHG_DOUBLE
- 	select HAVE_CMPXCHG_LOCAL
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 581f80e9b9b7..d17172e60acb 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -320,6 +320,13 @@ static int copy_thread_gcs(struct task_struct *p,
- 	return 0;
+diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
+index 88a125b92bdd..dd7a17955362 100644
+--- a/arch/s390/include/asm/pci.h
++++ b/arch/s390/include/asm/pci.h
+@@ -208,6 +208,7 @@ struct zpci_dev {
+ 	struct zpci_fmb *fmb;
+ 	u16		fmb_update;	/* update interval */
+ 	u16		fmb_length;
++	bool		statistics_on;	/* desired FMB enablement */
+ 
+ 	u8		version;
+ 	enum pci_bus_speed max_bus_speed;
+@@ -349,8 +350,10 @@ int zpci_create_parent_msi_domain(struct zpci_bus *zbus);
+ void zpci_remove_parent_msi_domain(struct zpci_bus *zbus);
+ 
+ /* FMB */
+-int zpci_fmb_enable_device(struct zpci_dev *);
+-int zpci_fmb_disable_device(struct zpci_dev *);
++int zpci_fmb_request_on(struct zpci_dev *zdev);
++int zpci_fmb_request_off(struct zpci_dev *zdev);
++int zpci_fmb_enable(struct zpci_dev *zdev);
++int zpci_fmb_disable(struct zpci_dev *zdev);
+ 
+ /* Debug */
+ int zpci_debug_init(void);
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index c055a9ad0972..5889dd227009 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -164,8 +164,44 @@ int zpci_unregister_ioat(struct zpci_dev *zdev, u8 dmaas)
+ 	return cc;
  }
  
-+static void gcs_reset_thread(struct task_struct *task)
++int zpci_fmb_request_on(struct zpci_dev *zdev)
 +{
-+	task->thread.gcs_base = 0;
-+	task->thread.gcs_size = 0;
-+	task->thread.gcspr_el0 = 0;
-+}
++	int rc;
 +
- #else
- 
- static void flush_gcs(void) { }
-@@ -328,6 +335,7 @@ static int copy_thread_gcs(struct task_struct *p,
- {
- 	return 0;
- }
-+static void gcs_reset_thread(struct task_struct *task) { }
- 
- #endif
- 
-@@ -341,6 +349,12 @@ void flush_thread(void)
- 	flush_gcs();
- }
- 
-+void exit_thread(struct task_struct *tsk)
++	lockdep_assert_held(&zdev->fmb_lock);
++
++	if (zdev->statistics_on)
++		return -EINVAL;
++
++	rc = zpci_fmb_enable(zdev);
++	if (rc)
++		return rc;
++
++	zdev->statistics_on = true;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(zpci_fmb_request_on);
++
++int zpci_fmb_request_off(struct zpci_dev *zdev)
 +{
-+	/* Failed fork after copy_thread(); deactivate_mm() does not run. */
-+	gcs_free(tsk);
-+}
++	int rc;
 +
- void arch_release_task_struct(struct task_struct *tsk)
++	lockdep_assert_held(&zdev->fmb_lock);
++
++	if (!zdev->statistics_on)
++		return -EINVAL;
++
++	rc = zpci_fmb_disable(zdev);
++	if (rc)
++		return rc;
++
++	zdev->statistics_on = false;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(zpci_fmb_request_off);
++
+ /* Modify PCI: Set PCI function measurement parameters */
+-int zpci_fmb_enable_device(struct zpci_dev *zdev)
++int zpci_fmb_enable(struct zpci_dev *zdev)
  {
- 	fpsimd_release_task(tsk);
-@@ -503,6 +517,8 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+ 	struct zpci_iommu_ctrs *ctrs;
+@@ -207,7 +243,7 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ }
  
- 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
- 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
-+		/* No user GCS alloc here; drop inherited tracking for CLONE_VM. */
-+		gcs_reset_thread(p);
+ /* Modify PCI: Disable PCI function measurement */
+-int zpci_fmb_disable_device(struct zpci_dev *zdev)
++int zpci_fmb_disable(struct zpci_dev *zdev)
+ {
+ 	u64 req = ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+ 	struct zpci_fib fib = {0};
+@@ -644,7 +680,8 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
  
- 		if (system_supports_poe())
- 			p->thread.por_el0 = POR_EL0_INIT;
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
+ 	mutex_lock(&zdev->fmb_lock);
+-	zpci_fmb_enable_device(zdev);
++	if (zdev->statistics_on)
++		zpci_fmb_enable(zdev);
+ 	mutex_unlock(&zdev->fmb_lock);
+ 
+ 	return pci_enable_resources(pdev, mask);
+@@ -655,7 +692,8 @@ void pcibios_disable_device(struct pci_dev *pdev)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
+ 	mutex_lock(&zdev->fmb_lock);
+-	zpci_fmb_disable_device(zdev);
++	if (zdev->statistics_on)
++		zpci_fmb_disable(zdev);
+ 	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
+@@ -737,8 +775,14 @@ int zpci_reenable_device(struct zpci_dev *zdev)
+ 	}
+ 
+ 	rc = zpci_iommu_register_ioat(zdev, &status);
+-	if (rc)
++	if (rc) {
+ 		zpci_disable_device(zdev);
++		return rc;
++	}
++
++	guard(mutex)(&zdev->fmb_lock);
++	if (zdev->statistics_on)
++		zpci_fmb_enable(zdev);
+ 
+ 	return rc;
+ }
+@@ -847,6 +891,12 @@ struct zpci_dev *zpci_create_device(u32 fid, u32 fh, enum zpci_state state)
+ 		goto error;
+ 	zdev->state =  state;
+ 
++	/*
++	 * Measurement is on by default for new functions, this will be honored
++	 * by pcibios_enable_device().
++	 */
++	zdev->statistics_on = true;
++
+ 	mutex_init(&zdev->state_lock);
+ 	mutex_init(&zdev->fmb_lock);
+ 	mutex_init(&zdev->kzdev_lock);
+diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
+index c7ed7bf254b5..e479763858cd 100644
+--- a/arch/s390/pci/pci_debug.c
++++ b/arch/s390/pci/pci_debug.c
+@@ -97,7 +97,7 @@ static int pci_perf_show(struct seq_file *m, void *v)
+ 		return 0;
+ 
+ 	mutex_lock(&zdev->fmb_lock);
+-	if (!zdev->fmb) {
++	if (!zdev->statistics_on || !zdev->fmb) {
+ 		mutex_unlock(&zdev->fmb_lock);
+ 		seq_puts(m, "FMB statistics disabled\n");
+ 		return 0;
+@@ -156,10 +156,10 @@ static ssize_t pci_perf_seq_write(struct file *file, const char __user *ubuf,
+ 	mutex_lock(&zdev->fmb_lock);
+ 	switch (val) {
+ 	case 0:
+-		rc = zpci_fmb_disable_device(zdev);
++		rc = zpci_fmb_request_off(zdev);
+ 		break;
+ 	case 1:
+-		rc = zpci_fmb_enable_device(zdev);
++		rc = zpci_fmb_request_on(zdev);
+ 		break;
+ 	}
+ 	mutex_unlock(&zdev->fmb_lock);
 -- 
-2.43.0
+2.56.0
 
