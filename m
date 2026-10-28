@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179308;
-	b=grDbSpMTWUqLrFmCiAgmXh1hdUJjk9KpiwhWmll0/hiegZVG/+3xevTt8VNOJ/4aOV14
-	 B9Oh8fd7Ikc4CU+rvDd0sc0Ih4nH/FTHKBv9v1OBzAAFkIwK5FosajOlE4DOxGgH+rQ2T
-	 aXygzyTV+c+zal9HBhd93yhN8Z/BQCfdNJ4lyd9wT0HnBTExD1gTW/IlRRYp7T/s+63yw
-	 8I4DP5sMBmeDs2jEO101HNyhLqdSxA3dsabQ04fRj2jcv4hJMPLlpBMWDAicaXULiuv73
-	 BKmHnEJyu8COZfl1SgKMncA9sYYIzgg3TmvPqT4B9/7I7KFQb1tDw+zl3hn5pLw0I/Q==
+	t=1793179330;
+	b=HhgqCL30tGrL4+5bSuTT6JHTa9eZYfq8NtSzapzGbOcFZQ45Kq7JEqvMwTDMNFARz8Ns
+	 1fLPzozMwcjRFBV00R8Ncf5X5malex7Rkvi/sALcQlWyDXYDmDpnpdnoB5vK/qaAnvIhd
+	 oD0Ex1kKNSuFlHEgK/29PSySK8cTPQWUtsMYaceJD0rfsQLcXyalnNqVbelqrmTCmpDDy
+	 nIAm2ZD2zkufrYjaCxsH9edPHpl/1WKZ6KSjV51K1QNvPH68kmNe8uYO7ISSyjyzO2qbu
+	 2fZcGsd3XdjDaFpVuJU+zcKB00i8zPrzYYiADrxKJ3N/+fPLTtI/gjp0d6YJBTK+Puw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=0pQyQ0CR8Ho1izzTFJRZdAq2GCxbm4EhPXXwabrY3Jw=;
-	b=BB9PvRDFZaDqHjgpmonGlqPs7zAGgkbjoljUYqyUDsr9f0NQwMJy0r23xjYMQ+oKqzwI
-	 8p9YRNJyS/Mu7hLz+GXB4l3fKdWWDQvHb4WDAzO+KkBL9AMtkAPTB6nDTmJKw+h6mNnRV
-	 SCV5zILIUrweXP+Pi9keWHNTSfurF6TmtCDQmVWTBvUvtJtVwglp6nuC0ngfvsFKcZpFw
-	 J+UKs7qLAQ6uA7hsw2xbohGAX+9ITQN6CvLeEuvGCnXbAo7a6w8kNKC8L8DJNLEs8u9cd
-	 gd20rv2fguUPWtv7IbM1n+JJJ4m9007Fp6vq3SVIL9ObshbLNTUUZ0etEhThpSVm5+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179330;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hcY+X85m3AyWpJktejWbKZDNNIF552M/3mrqBFdc59E=;
+	b=R85CMrWCpVCxnN68JkaYp9HDGvzGVkiSv284uS55vzJSrX2TMgqVroKwIYwtaNIgLcsh
+	 ZUYTICN0VrEuBgSG6NPLikSenRM+5g0CNfnR41bPi5P7BMgbBPotqIpRGzQ5Iidoh8h0M
+	 Owj/FutrjMvN6kuYfPhQDHYqY3uz7VxlQnHIMI7SE+Yiel2B1PpphLW2/fSjdUumaR1zF
+	 9XWputhuDGx9R2ytxTiktP+uvR34VRJ3Uhal8dV8r1xVELJ6a+NSwUuftFyRioJvEvBBf
+	 Dhj5LDB6RUQQ0pAfXS9Um8ALNbwmY6Pe4fmWGt8dqG7LMBmE+xaKs5/MYnTCk2SmFCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0WytBc1;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOD0WjcL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8A8606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8A8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AB2606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0WytBc1
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso330989a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:21:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793179307; x=1793784107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0pQyQ0CR8Ho1izzTFJRZdAq2GCxbm4EhPXXwabrY3Jw=;
-        b=Z0WytBc1AflicF4aFIJ20pXVYFFCEFIZk4P5rWrhd1kFjroffpXHmb/lQXia8oyxPJ
-         28AaH0r9V7PRm5sGwihh+ZMV1vfyFDPWU3q5WAo+PuXryEE0V4TUQ2ZunQn9ab1gNQGP
-         NvKMzapD62OoZkc8AKzMJ5NUqD0JIrMwAIde6GgQhnpr9ef3PqinaLT5ZuQJlM6OX7y3
-         nVQmSEIT/spK3PPonGNqYFNh47KrJIppVxiYFBupeQuXFIVja1Or+cGfrnjPKyEyjQyu
-         4xPfqPV2oLid8E5NMVZbwGrjUywI2iIQlU2/MXRIa9U50d0sgnzQ/9IgcaBmjfHHKtIM
-         6Ajw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793179307; x=1793784107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0pQyQ0CR8Ho1izzTFJRZdAq2GCxbm4EhPXXwabrY3Jw=;
-        b=jI3wJD6W6w5BHtFTqO+ibUbOzs+5AtKhGcfMBd/T2Qo97ZDls/whf/vgN2iW66xw1Z
-         EHjfTY3m+UhBm4jCcd7LW0m1i5Yn23E2/ghwsLBnQx2vDDZSkB6zA571j6ek7Qpt+Iua
-         smifsnWpmpXSVq5rWm+xLnWY1z9qowCxDtCwQKNsDqe5ZunIcW3oj93SvZaAVSOiDUNh
-         IrXVWMnqcmVZZAdRSMsn8li7ZS2r3dn1vbOkfXQ6skgl53MvDh3JqHVquYwRY2zqJcq8
-         TTYUcX1dgaRRxnvhaGV43GoXm+YodMnha/YSkajccfkSSEuJiq1FxQGPfw1FJc71VFb4
-         f9XQ==
-X-Gm-Message-State: AFq9FYJHmy/Q18nylWcKnbgwVLvhfIBP+S5qq5y8g7PotTNPeZler0Qy
-	kubrU5dph/TwuHXoj6cWMp96glNtioQpuSkn6IY0KuTH8cdb/AVp9kLv
-X-Gm-Gg: AYBFou2ymYhtyBEr/EH91nUyvRFRc5osjce2M7boMfOLyn7lHyKg+/Sa+tcA4Cff/XD
-	RUroduXKeUM3ADC9LtfjVG9jXheqBDuN6uZncG41U6DU7o/elgN3YyBzVDDQGJNj7r4gRwQdF8a
-	KBTHG0KBUzNtYBRAaJtYPt9TI9vobToCCTi2ibZKILwhaQ6gS3phqDEtAOhm4l0atKHmXhwGx3M
-	7g+rDOx0mPTQo9CRjFUlJFRv73FYeRC7Et7QMl0Hm6PaZm9dD4MgREPLavc++xeoeCnBNL0niTX
-	CbhGiPN5y1sBsDY31IcimYKL3b0igrIJqhIGMQqYculFYEjnSRhe8db6lNJ5pfXPRT4t3PjhHje
-	gJxOLx7EqOflteC4JQMwGVSwTgZh7bpff1MWyIEVMj9ssC3ispmVuUdvfLQ0TZ7ndBIHX6ma+Lb
-	IkWL86aWQpdbdRPYjgWP4Yx0cmsLRKdIPeuD8PaCkocWJc6jC9v+J7xxQYVuTo9yT5m4qNr66J7
-	kvTBotasqgTY430Y5kmQ2KXZtd6/W3GoN6KviJEjELSdVpjIS2LOdK3ecSeC4xCk1TPThBGfPy6
-	IkD/TgQTpNAT+2GB/pLvPsFJ+pt3co4LnSE7nq4TVC168KxxAH4QKPNYFMiOTsyneYnyJTLrEVW
-	M3xgV4jDVJeY=
-X-Received: by 2002:a17:90b:5863:b0:3ac:b3ff:b476 with SMTP id 98e67ed59e1d1-3ae581836a6mr1316337a91.38.1793179307335;
-        Wed, 28 Oct 2026 02:21:47 -0700 (PDT)
-Received: from localhost.localdomain ([117.88.121.65])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a27d594sm2256088a91.1.2026.10.28.02.21.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 02:21:46 -0700 (PDT)
-From: Jianping Liu <frankljpliu@gmail.com>
-To: airlied@redhat.com,
-	kraxel@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	jack@suse.cz,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	alevy@redhat.com,
-	frankjpliu@tencent.com
-Cc: linux-kernel@vger.kernel.org,
-	stable@kernel.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/qxl: Fix oops caused by missing free_irq on device teardown
-Date: Wed, 28 Oct 2026 17:21:37 +0800
-Message-ID: <20261028092137.1372286-1-frankljpliu@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOD0WjcL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8594D1F031E1
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793179329;
+	bh=hcY+X85m3AyWpJktejWbKZDNNIF552M/3mrqBFdc59E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OOD0WjcLZskXVS+6HeYpFM7vAg8qQGwTupaQ4WTW6wfMJ9HC6f79dWKlpV8d1LRxA
+	 vo7ywX+9UJ93f+fL9bTdqI/a1ufmLGXHp5WNykyzoQs3e2tTvIV6UO8raqDGYeO4jB
+	 VJsFEFZRz81rSyhPNHY+o2Y5dfksYJQoK07NNUj4miBZyLWHB/4SpViffbiOfiCgFF
+	 2j7eK4ToakgBew2gfqfZueP+ljkVVkx9owMC8Hianuji884T4HGxLrhbj7LacYggO9
+	 SM8S6T+R7YhOSm35pXJMGKYFJA6k3ZKQCUvPnV4KVGzOhZHH9hOR/STAPWCFaW3mlO
+	 Y0wNb+M8sz6rA==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c43373ae89aso95548366b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:22:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzh3eZ1cjeN62r4LHztTWXg0p6QpH82yKisiz04kTKGVbnpf3OBE/uZ/+i7NfQ0mkvyGQOJN/hnn5XwaqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7lBlIG6u8clXhUrYz4axmfS66vxspHu8xf2+Q0IwnN8UdDOOy
+	0pfv/EChPxSmrcc4FiJkHyirHmnUpCzZ5S2tiCbijcCeTtNRWByM7+XB5PAsYSpnlw24PVP/rVb
+	aTD5XO5BSN+H+D9JZNg3A/kWZ6T9RKmg=
+X-Received: by 2002:a17:907:720b:b0:c3f:a2f0:6cb with SMTP id
+ a640c23a62f3a-c49bdf2c6fcmr144196766b.18.1793179328235; Wed, 28 Oct 2026
+ 02:22:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,46 +59,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027152519.138444-1-icb@fastmail.org>
+In-Reply-To: <20261027152519.138444-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 28 Oct 2026 18:21:56 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9szApOXC1NOQ_9HfT2NnJ+Q_MQmSMdsiJicaeg0mQR3g@mail.gmail.com>
+X-Gm-Features: AclHuK-OBkk1Uz8qpQiUILz-tENYGIxIIBdIXXpbtOr2anft58LiTRlzFQxjsXU
+Message-ID: <CAKYAXd9szApOXC1NOQ_9HfT2NnJ+Q_MQmSMdsiJicaeg0mQR3g@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix use-after-free after a failed durable reconnect
+To: Ian Bridges <icb@fastmail.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Steve French <stfrench@microsoft.com>, 
+	Junyi Liu <moss80199@gmail.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jianping Liu <frankjpliu@tencent.com>
-
-After qxl.ko is unloaded, reading /proc/interrupts triggers an oops.
-qxl_irq_init() requests the PCI IRQ with the DRM device as dev_id, but
-qxl_device_fini() never frees it. The IRQ action therefore stays
-registered, and its name still points into the unloaded module.
-
-To fix the oops, free the IRQ in qxl_device_fini() with the same
-dev_id passed to request_irq().
-
-Cc: stable@kernel.org
-Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
-Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
----
- drivers/gpu/drm/qxl/qxl_kms.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/qxl/qxl_kms.c b/drivers/gpu/drm/qxl/qxl_kms.c
-index 461b7ab9ad5c..e6c3d5ebd7c4 100644
---- a/drivers/gpu/drm/qxl/qxl_kms.c
-+++ b/drivers/gpu/drm/qxl/qxl_kms.c
-@@ -284,6 +284,8 @@ int qxl_device_init(struct qxl_device *qdev,
- void qxl_device_fini(struct qxl_device *qdev)
- {
- 	int cur_idx;
-+	struct drm_device *ddev = &qdev->ddev;
-+	struct pci_dev *pdev = to_pci_dev(ddev->dev);
- 
- 	/* check if qxl_device_init() was successful (gc_work is initialized last) */
- 	if (!qdev->gc_work.func)
-@@ -306,6 +308,7 @@ void qxl_device_fini(struct qxl_device *qdev)
- 	wait_event_timeout(qdev->release_event,
- 			   atomic_read(&qdev->release_count) == 0,
- 			   HZ);
-+	free_irq(pdev->irq, ddev);
- 	flush_work(&qdev->gc_work);
- 	qxl_surf_evict(qdev);
- 	qxl_vram_evict(qdev);
--- 
-2.43.7
-
+On Wed, Oct 28, 2026 at 12:25=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
+te:
+>
+> ksmbd_reopen_durable_fd() republishes a detached durable handle in the
+> reconnecting session's file table and takes no reference for that entry.
+> If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
+> remove the volatile id.
+>
+> Two reconnects of the same handle can both take a lookup reference before
+> either attaches it. If the one that reopens first then fails and drops
+> its references first, the other request makes the final put through
+> ksmbd_put_durable_fd(). That frees the handle without removing the first
+> session's table entry, so tearing that session down writes to freed
+> memory.
+>
+>   BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [=
+ksmbd]
+>   Call Trace:
+>    __close_file_table_ids+0x14d/0x740 [ksmbd]
+>    ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
+>    ksmbd_session_destroy+0xf8/0x480 [ksmbd]
+>    ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
+>    ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
+>   Freed by task 1030:
+>    __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
+>    smb2_open+0x14eb/0xd9f0 [ksmbd]
+>
+> Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
+> lifetime") handles a final put made by the reconnecting request, but not
+> one made by another holder.
+>
+> Remove the volatile id under the file-table lock on this error path,
+> before the references are dropped, as ksmbd_close_fd() does on the
+> request_open path just above. Removal then no longer depends on which
+> holder makes the final put. The stale comment in the reconnect cleanup
+> is updated to match. A successful reconnect is unchanged.
+>
+> Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
