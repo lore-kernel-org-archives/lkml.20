@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156727;
-	b=w1wrAXuKVOYr1a77Fsfeyrl3pTBRvdaqt8jhehjYWhpyaH4bxZyVMjWF2c+fE8TYHjQe
-	 feZ9Jpq4AE62QOW7wxeeOR3kj7A8GSqOnYqadiy8QgiNprFlcINqbb2eSEoyFdTizLnLC
-	 hxM7YCGNnFIA0rz+mQq9OXq36aaKBlauVAjA0DQEvHuPVAn9yb9Ik//KABWfVvB3YBRsY
-	 f9ORoNLi2zzMkvHfBUnAdMm0JC40ts+qZPCIWFVR8Y7sI+uiHAFuxxcyjErftcNJVcLDP
-	 AaVtet5vIJZ6irVyyUOx41O3Mc6JzxckSrrlM0rpDyN7HGA3xRGv+t1DwfqoJ90ekwg==
+	t=1793156724;
+	b=sWLQA1ASputKUERpxw0wW5s7zaxU+fqboI2bK8shoJqIxk9vSXJh1E8RxE7QaHwvD3GV
+	 YsvROEwYQemOxCoWmTcCLods0rizvUSwLbnPP/5m18bIVxSnxr8VjN3qUtE8KYfWOV6T3
+	 mhUNuK8h5p5HWSXuNu7W+sqYhYAoMNnYKTp7zHInjNCielIkw7PkkNhV8SmyO6st+6XLZ
+	 r9pnrWwrsxzxYs1LrsCMlxRvGct/YOtEBn3IUoGqVF9xBr4CCdBPBlzKPZ6X3pbQbB+Kw
+	 NdHaYwKtLEXWXy8+brsDuExfDJJJW4+NvExDIaqLEuagkyHRwpzoyrBGoa3K09Q9Slw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156724;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AvcrC01525OQBRfQntsOStl5llkVzHtEkp+xwSz9Rzo=;
-	b=tTeL/rh/GIQLX8g8+Rz0V05PCzdigbK9BF493wwS84ZMIeMvuZ31Cx+XOJTLkLjYKAAX
-	 SKGWbqScDrHlMBTArKFceD4ZafyhIKtd7kC59Zr8WT1PrWv+Nu74H/yw9R2Gfdzq6HiXL
-	 LEXQLFMUvJijVvNXI7kmerkt+6OGJdv2cKLXuFWsLUlXN55773Z4eYNxnUAY0KcK/MRq8
-	 BOsWrE0TLcArq5Fxb5KstRKjqWHr2HGErW23Wq5oG29ManI1otvwQvOLpGY97msU5FqNc
-	 o0uzwDvIwYtUF2GF0ufn/S5a6zGEZETaHol/dGYUNQc5aot7hJLMSGhXWbZCiu9KLJA==
+	bh=APLAV0ZJuR/FzIwnAo/aU9jS3GkzW09H+h9WgSzD6P0=;
+	b=UvrkWVQQS5gwyR9/TODSR8t64HFRNLmVp4gELUs9m9iinRoCJr7CvOaz9rv8k5mgCbEg
+	 GiGGPdUHph54VmdZZQ/nUThF3uVzPY5EVoRpojbMk36hH33ZBB2w9h9T6z++32lqOPTWr
+	 qR/07f61Ngtnk2lUmhazZr8yFsjnsKEaxaG63rbkBdsmwbl/deDth35aGjvpu/xy8oqHF
+	 TT7mr92jXiKDLmuB9Orv5D/8eXJgu4vVkb/GbiJR7s91culYT9HRLZpw2FF6dZ2qkwjlX
+	 ufb5EGNt2i12W2NIGcuzpBmceGKrIIUTgday2BHy9pvW1EE6nAxKjQwqynx739xApCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vp8nGbG1;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jQlytz9Z;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF77A60A2607
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF77A60A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F7C606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:05:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F7C606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vp8nGbG1
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-156cbe59622so570347c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:05:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jQlytz9Z
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1931ff67a29so1255192c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:05:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156721; x=1793761521; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793156722; x=1793761522; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AvcrC01525OQBRfQntsOStl5llkVzHtEkp+xwSz9Rzo=;
-        b=vp8nGbG1lEZz7Glf0FJklJYcSKMR3wstOAehcbMrl0UsBxLCS1r5JCvwR2AzdPzckN
-         EP7hI+z0eib1vI4ToijN6BtTXUR471jNidRilEPTWQf/SAbXKvfnNqreldX2daQFprIR
-         WyYc1/kJjP/xT49YiKXYlhpKHWWKXcmyotxs39mMU/TYRcR08JmY6ozacZzwQnHt+IJu
-         ykXHd1rV3565v3mDvfQwSkdgMNyPMozgjkMHijM2QdpvobFr4w1eqK60HUbez+hmPyUi
-         OYfYGQmCIQpziJ2lL2wWdHK6we8uY1urC49Vs+Rp4Ixm2VEmeWMuQtcmB0dtAMFU4TnT
-         rz3A==
+        bh=APLAV0ZJuR/FzIwnAo/aU9jS3GkzW09H+h9WgSzD6P0=;
+        b=jQlytz9ZYZklZCP2Q3EDMBNPlfq/L/LN7hQFVY7e8jVXV3HflQn4VAtJS9iBRzA94Z
+         6P5FYHFRwWkBPhbasjIrSyNEBDaIA9ZE+m4Au3pY3TFlLVXmcEY4dLjdKafTq3gZxnMd
+         8ERb65EG0+6bPuZ21IkaCpBwrSaFKeLsIFR1lcQRy/gWCsmJsjV/8WDNoINTJDogHnzt
+         /oxePzrjRIZbtQzRN3j8CILKQwpfw+T495IsMucTQQTYt3ZzTJOGdg2MEZ0f8zFdq3Zd
+         rvEnkD8+gMkEQO1xd1FeGHEu3u9yaO9V4wREbaKWFkSXULqAz+lgsxEiPtYDdYUr1U+u
+         nhCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156721; x=1793761521;
+        d=1e100.net; s=20260707; t=1793156722; x=1793761522;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AvcrC01525OQBRfQntsOStl5llkVzHtEkp+xwSz9Rzo=;
-        b=wP3Z1OCuNV5i4JOmGlnb23MhSVjgZdMK2hCwmALtje1xsWP+JtopMw5CSVyuFqwzGb
-         DOdFVQ+zUGI58oQH5CzkOudfqXqtcEIuJtjLQ9konQn8b++quswQqrqZelHDoZGIQkBO
-         eTd7no9zuyBASM4mj4HFuYvXhJQwUAZ92mAh+tbv4nLtizjJ4qx7MK2WGVIJYTq+Wb8R
-         DpY95BVvCK48g2uq+ZI2a4TVm5mCMAgdztBkXE8vnxRiyLx8CGSkGY2HkznRy7/M0VoV
-         iPbvYc3UAJtfCkSfnD/KnV1/02Lkx0Txe6JV/UBrmn9zAHMLTbh7LZEHEid1ENAJ7D73
-         DqcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzr9Jz66So1MyUMKmMmX0AraZj6RKw5wDAqYYV+jaCjqNfDhvt2cVLohZy1GHfSdOC3VoUD7DyE4fdHp8s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoj4/Ehct0knMbLBnLZrf+9xirlbANujzuY/WaZrLNsPTn/On9
-	GwQPwK0LMCU/Fw5eAQP4IAg2WAfaMjIvLp37ff8ZCISGIgivLZUCkR0j
-X-Gm-Gg: AYBFou32MD+vizDXpsjZsprvN5uC0xp26zQAPkLvzWSgVK49EyI/0wVOnmPAyurAXxK
-	VM5Q3xlPI9/yMuXYsUOOnxZM8RV9s/Lv6UbXdJLFjM8vi6sKl5b0L6R0DV8E+29kDzs8Hftlz7/
-	BlvrHRAPl8ZmaQWl/Ocgj8J6dSp6vftj0yp6OBdTmphEwD2pVYsbd1Ad0z/TMI+uSS/hmNA4G3e
-	GyNTZ/xoDDBCafVA7yO5Nx70kEpQakLR8tI9lGcCbSX9XbMQ4BqqHE0GtKTpW4SNw2E9m5sJUGG
-	7WR9YNXNag8QfSI2y5kOVkhFIdHSH2/iFem2SE/6QksKdXfST9k6RyzOnxuV8ejU9Og2gDCYsNe
-	A2pWCEqIhSIXUQ+Cz+XZEnFWkX7CBL38EN9ZHnterkZaZfw/C4FevRo7M9myfIz18r6RQ6rkrjr
-	9H0X/djKXYQ8UkxLrcuhY+sQYrfWobW0WbIK60brV2T/RrGcVf/dk3/eXpzF4ct94FngROYfHtg
-	+tJ1S/bEp+QO9q8qiVKaN0t1HFAxJfk9V5t3j1UmgL4BoTIkqtMz/KKBBiP6iBSaVj1+/KNkkiX
-	8k3aCzfAnSpAljsRwFprrU0U3i0N0bwffm682+6eow==
-X-Received: by 2002:a05:701b:2707:b0:1a0:e3e2:22a3 with SMTP id a92af1059eb24-1a6d0d531a3mr1378775c88.31.1793156720784;
-        Tue, 27 Oct 2026 20:05:20 -0700 (PDT)
+        bh=APLAV0ZJuR/FzIwnAo/aU9jS3GkzW09H+h9WgSzD6P0=;
+        b=N+vHyYkMkSLBv+Yr04l88Ktub/fEHVZAu8FqRjwEBZ3b+HCHb4mZg841RQwhh1W0ZG
+         aMdRb3Y2RTwHjZR7pj7fYJ5v55+jhMvfzNOoA+XV4ytiyeJ3Yiw2BlTkhG6iGadD+rWS
+         8IquJyZ2KwIgFQC87ujOndT3Lz3rLklQdIuNrHhCM06rouVxFuirK8sJu3pCB4sxksvZ
+         nWFmOfhzyLXkp4gGhFzg3na7rEW848/g6SaoukLUcVWVaQK/gI9whoZvlJuQYoWxyxp0
+         fd7V4zD/ta2xyOlzir/PP3qxhhqDyf21RiG1XPLA8tUEIlL78hkmXlFTBAyUGLKfWRx+
+         wDyg==
+X-Forwarded-Encrypted: i=1; AKwUvByAFa0DIdMRUdlSlCiyvkchqqVwtp2MIGYWWScPa4m/dglCJxVwrFnaKS7T/JoiLXjIVNY6Rimd4wC4Va4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVGfzU+7OKiFDMX6T14h9gXTQIlbT9dIkXjSgagcBJrvAkOevG
+	Gdw2uzY08ekOZ4jFz/82PCUpSv7h0hGd327lIkRAKvkG2GEzNRpBUdWY
+X-Gm-Gg: AYBFou2GiB3JAyFyvgaKcB8L3sFG4VTeL8iybvfdEczLpelUm2+kHYcugVfEvN2bCii
+	PNDp9/5G8irhTbSLWJwfEHtq8DutxWWhRkaKML+0YTTPxJCn519GTg5elqJUbDe8XZv37QKfbO2
+	xjvP9YTYGxwHRAgWa8f2KVtnn06/cEX3NOKv02Dv/t1CadLN8FZblogHjjRyvx0sz4g3UM3jegw
+	tCbVZCuFKq8rOb0ceonrk0x0ijFi1hUQJ3LOEFc7Jeds1WKoVKe96u3VKLCWnMEbBGsf+w+ojUb
+	QCcb+FPWnXvEpqMbDLgHhuJbA3MCLi/4BocSubIQQt7PsRutVKBkBEmtB8nhrTLDbYcPAlmCqE0
+	7PJs4RIdy0bNg4Lf3Po6Zw1ezW8APr2fpbMRqo/DDTl5wOOBEB4Ej1NAY9k0K4kFEhz3aX8CBXd
+	++tL+EVj2fX8p3qhXiz/SPlhehuXNwyMfVqqERPqARqegxQlcOJtm93cFnE6+PUIm6goGDIeUqc
+	EkuNYH53BDBshg6r2Xm7UkTkkTXST+nsjEsVuwUxUR37N54Jl2W/fWGba8W+y2xx73h79865yq4
+	t4+gDosoFY6Qp/42qaIXsq/A9Mi11eanPZVKcdcl6gxxJ9zenjw6ThR1nan5EKQ=
+X-Received: by 2002:a05:701a:ca03:b0:151:5d01:9316 with SMTP id a92af1059eb24-1a6cca02d70mr1584749c88.23.1793156722103;
+        Tue, 27 Oct 2026 20:05:22 -0700 (PDT)
 Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm1150734c88.3.2026.10.27.20.05.19
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm1150734c88.3.2026.10.27.20.05.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 20:05:20 -0700 (PDT)
+        Tue, 27 Oct 2026 20:05:21 -0700 (PDT)
 From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
 To: hannes@cmpxchg.org,
 	yosry@kernel.org,
@@ -93,9 +93,9 @@ To: hannes@cmpxchg.org,
 Cc: rientjes@google.com,
 	willy@infradead.org,
 	senozhatsky@chromium.org
-Subject: [PATCH v2 7/8] mm: zswap: Batched zswap_compress() for storing large folios in batches.
-Date: Tue, 27 Oct 2026 20:05:02 -0700
-Message-Id: <20261028030503.17923-8-kanchanapsridhar2026@gmail.com>
+Subject: [PATCH v2 8/8] mm: zswap: Refactor and optimize zswap_store_pages() batch operations.
+Date: Tue, 27 Oct 2026 20:05:03 -0700
+Message-Id: <20261028030503.17923-9-kanchanapsridhar2026@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com>
 References: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com>
@@ -110,371 +110,427 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A new batching implementation of zswap_compress() is provided for
-compressors that do and do not support batching. This eliminates code
-duplication and facilitates code maintainability with the introduction
-of compress batching.
+This various stages of zswap_store_pages() are broken down into routines
+that work on a batch of data when a large folio is being processed:
 
-The vectorized implementation of calling the earlier zswap_compress()
-sequentially, one page at a time in zswap_store_pages(), is replaced
-with this new version of zswap_compress() that accepts multiple pages to
-compress as a batch.
+ zswap_init_entries()
+ zswap_compress()
+ zswap_tree_stores()
+ zswap_account_stores()
 
-If the compressor does not support batching, each page in the batch is
-compressed and stored sequentially.
+The struct zswap_store_context is used to pass constraints and data
+among these batching components. The resulting code is highly simplified
+and maintainable, where each of the batching sub-routines of
+zswap_store() can be optimized modularly.
 
-If the batch is compressed without errors, the compressed buffers for
-the batch are stored in zsmalloc. In case of compression errors, the
-current behavior based on whether the folio is enabled for zswap
-writeback, is preserved.
+For instance, the zswap_account_stores() now does the zswap atomics
+counter increments, getting pool references, getting objcg references
+and objcg zswap charging at the batch level.
 
-The batched zswap_compress() incorporates Herbert's suggestion for
-SG lists to represent the batch's inputs/outputs to interface with the
-crypto API [1].
+Subsequent patch series will be submitted, that implement ideas building
+upon this batching framework:
 
-The struct zswap_store_context is extended to facilitate passing
-batching related constraints and data to zswap_compress(). The code that
-allocates zsmalloc memory to store compression results is refactored
-into a new routine, zswap_update_entries(). Subsequent patches will be
-submitted to further optimize this phase by replacing zsmalloc with
-the SLUB allocator to improve zswap_store()/zswap_load() latencies.
+ 1) Replacing zsmalloc with SLUB allocator, comprising of kmem_caches
+    for a finite # of compressed size bins. This enables bulk allocation
+    of compressed buffers in a batch, that belong to the same size
+    bin. It gets rid of significant zsmalloc latency overhead (locks,
+    compressed data spanning zspages, etc.), without compromising memory
+    efficiency.
 
-[1]: https://lore.kernel.org/all/aJ7Fk6RpNc815Ivd@gondor.apana.org.au/T/#m99aea2ce3d284e6c5a3253061d97b08c4752a798
+ 2) vmscan reclaim batching of hybrid any-order folios, that will submit
+    a batch of folios to zswap_store()'s batching framework to optimize
+    storing of batches of pages from different folios, and also within
+    large folios.
 
-Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
+The batching framework introduced in this series improves zswap_store()
+latency by a lot.
+
+Performance data: usemem with 56% over-commit:
+==============================================
+Validation was done with mm-unstable as of 10-25-2026 (Baseline) and with this
+patch series. To minimize variation in the data, I made these changes to my
+performance measurement methodology:
+
+1) Reduced the number of usemem processes to 2. Each process tried to allocate
+   2400M, in a 3G cgroup memory.high budget, effectively accomplishing a 56.25%
+   over-commit.
+
+2) Increased the runtime of the workload to ~9 minutes by enabling PMD THP,
+   i.e., 2048kB mTHP folios.
+
+3) The use of PMD THP forces zswap_store()/zswap_compress() latency to be in the
+   critical path, and thus enables very reliable measurements with bpftrace.
+
+4) I used lhist() instead of hist() in bpftrace to gather latencies at a finer
+   level of granularity and accuracy.
+
+Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini.
+
+Chromebook Diagnostics reports:
+  Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+  RAM: 16GB
+
+vng setup:
+         Memory: 7G
+           Swap: 3G
+    Pinned CPUs: 2 (E-Cores: 2,3)
+
+zswap compressor:
+  ZSTD
+
+mTHP enabled:
+  2048kB (PMD THP)
+
+I used the help of an LLM to write the bpftrace data post-processing scripts
+that generate latency percentiles.
+
+vm-scalability/usemem setup:
+
+  cgroup memory.high: 3G
+  2 usemem processes, each allocates 2400M anonymous memory, reads the
+  Silesia dataset [1] from a pre-fork-allocated buffer into the 2400M,
+  writes to each unsigned long in the 2400M, sleeps for 10 sec, then
+  frees the memory and exits.
+
+    usemem -w --read-silesia -O -b 1 -s 10 -n 2 2400M
+
+ usemem metrics are reported from a single run after starting the QEMU VM.
+ Further, I have tabulated the bpftrace p50/p95/p99 latencies with these labels:
+
+ "zswap_store_higher_order":
+    zswap_store() of PMD folios.
+
+ "zswap_store_order_0":
+    zswap_store() of order-0 folios.
+
+ "zswap_batch_compress_per_page":
+    zswap_compress() per-page latency of store batches generated from PMD
+    folios.
+
+ "zswap_single_compress_per_page":
+    zswap_compress() per-page latency of order-0 folios.
+
+ ----------------------------------------------------------------------------
+ usemem                       Baseline      zswap        zswap   Change with
+ PMD THP                   mm-unstable      store     compress      compress
+                            10-25-2026   batching     batching      batching
+                                        (patch 6)    (patch 8)          %
+ ----------------------------------------------------------------------------
+ usemem process 1                6,353      7,240        7,428
+  Throughput (KB/s)
+
+ usemem process 2                6,352      7,236        7,422
+  Throughput (KB/s)
+
+ Average Throughput (KB/s)       6,353      7,238        7,425        17%
+ ----------------------------------------------------------------------------
+ usemem process 1              484,580    308,903      257,230
+  Time to free memory (usecs)
+
+ usemem process 2              518,928    438,585      446,958
+  Time to free memory (usecs)
+
+ Average Time to               501,754    373,744      352,094       -30%
+  Free Memory (usecs)
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------------
+ usemem                          Baseline        zswap        zswap       Change
+ PMD THP                      mm-unstable        store     compress         with
+ BPFTRACE                      10-25-2026     batching     batching     compress
+                                             (patch 6)    (patch 8)     batching
+						                            (ns)
+ -------------------------------------------------------------------------------
+ zswap_batch_compress_per_page (ns):
+                         p50                                 40,086        1,569
+                         p95                                 54,689      -64,505
+                         p99                                 83,248      -88,488
+ -------------------------------------------------------------------------------
+ zswap_single_compress_per_page (ns):
+                         p50       38,517       38,352       36,650       -1,867
+                         p95      119,194      121,174      133,678       14,484
+                         p99      171,736      158,601      169,010       -2,726
+ -------------------------------------------------------------------------------
+ zswap_store_higher_order (ns):
+                         p50   21,012,222   21,322,885   20,176,667     -835,556
+                         p95   25,643,500   26,204,375   24,485,000   -1,158,500
+                         p99   28,567,400   38,577,750   26,158,000   -2,409,400
+ -------------------------------------------------------------------------------
+ zswap_store_order_0 (ns):
+                         p50       37,601       36,994       37,568          -33
+                         p95      123,731      137,034      128,366        4,635
+                         p99      159,965      169,282      175,618       15,653
+ -------------------------------------------------------------------------------
+ vmstat summary:
+ -------------------------------------------------------------------------------
+ zswpin                         1,104,226      993,412    1,091,146
+ zswpout                        1,688,181    1,582,664    1,669,671
+ 2048kB-alloc                       2,500        2,505        2,500
+ 2048kB-zswpout                     1,535        1,535        1,535
+ 2048kB-swpout-fallback               927          929          875
+ -------------------------------------------------------------------------------
+
+ zswap compress batching improves on both, zswap_store() latency and
+ zswap_compress() latency wrt the baseline, pretty consistently; except for p50
+ batch compress latency which can be optimized further in subsequent
+ patches. The batching framework established in this series allows us to make
+ locking and bulk-processing improvements in each stage of zswap_store(). One of
+ the ideas that has been showing very promising results is to replace zsmalloc
+ with SLUB compressed caches and will be submitted separately. This is expected
+ to resolve the p50 batch compress latency issue since it will be directly
+ optimizing zswap_update_entries().
+
+ The speedup with zswap store batching of large folios has a propelling effect
+ on other parts of mm, especially, by enabling large folios to be swapped out
+ without splitting, as the data shows. This enables other mm components that are
+ optimized for large folios, such as munmap(), folio refcounts/mapcounts
+ updates, PTE invalidation upon freeing memory, zswap_invalidate(); which
+ benefit from xarray offsets/range continuity. As a result, subsequent large
+ folio swapouts are more likely to find contiguous swap slots, there are fewer
+ large folio splits during reclaim and the cycle continues. As the data
+ demonstrates, this directly contributes to more memory over-commit
+ opportunity.
+
+Architectural considerations for the zswap batching framework:
+==============================================================
+The zswap batching framework is designed to be hardware-agnostic.
+It can be leveraged by any hardware accelerator or software-based
+compressor.
+
+Potential future clients of the batching framework:
+===================================================
+This patch-series demonstrates the performance benefits of compression
+batching when used in zswap_store() of large folios. Compression
+batching can be used for other use cases such as batching compression in
+zram, batch compression of different folios during reclaim, kcompressd,
+file systems, etc. Decompression batching can be used to improve
+efficiency of zswap writeback (Thanks Nhat for this idea), batching
+decompressions in zram, etc.
+
+[1]: https://wanos.co/assets/silesia.tar
+
 Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
 ---
- mm/zswap.c | 271 +++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 189 insertions(+), 82 deletions(-)
+ mm/zswap.c | 178 +++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 112 insertions(+), 66 deletions(-)
 
 diff --git a/mm/zswap.c b/mm/zswap.c
-index c8890e8a9b83..4476fb4aeb5f 100644
+index 4476fb4aeb5f..2831284cfc90 100644
 --- a/mm/zswap.c
 +++ b/mm/zswap.c
-@@ -150,6 +150,7 @@ struct zswap_acomp_req {
- struct zswap_comp_ctx {
- 	struct zswap_acomp_req areq;
- 	u8 **buffers;
-+	struct sg_table *sg_table;
- };
- 
- /* Separate requests, so that decompression does not wait for compression. */
-@@ -235,9 +236,13 @@ struct zswap_entry {
- struct zswap_store_context {
- 	struct folio *folio;
- 	long folio_start;
-+	unsigned int slen;
-+	u8 nr_batch_pages;
- 	bool wb_enabled;
- 	int nid;
- 	u8 nr_pages;
-+	struct zs_pool *zs_pool;
-+	struct zswap_comp_ctx *comp_ctx;
- 	struct zswap_entry *entries[ZSWAP_MAX_BATCH_SIZE];
- };
- 
-@@ -325,6 +330,12 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx, u8 nr_buffers)
- 		kfree(acomp_ctx->comp.buffers);
- 	}
- 	acomp_ctx->comp.buffers = NULL;
-+
-+	if (acomp_ctx->comp.sg_table) {
-+		sg_free_table(acomp_ctx->comp.sg_table);
-+		kfree(acomp_ctx->comp.sg_table);
-+	}
-+	acomp_ctx->comp.sg_table = NULL;
+@@ -504,12 +504,18 @@ static int __must_check zswap_pool_tryget(struct zswap_pool *pool)
  }
  
- static struct zswap_pool *zswap_pool_create(char *compressor)
-@@ -898,6 +909,7 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 	struct zswap_pool *pool = hlist_entry(node, struct zswap_pool, node);
- 	struct crypto_acomp_ctx *acomp_ctx = per_cpu_ptr(pool->acomp_ctx, cpu);
- 	int nid = cpu_to_node(cpu);
-+	struct scatterlist *sg;
- 	int ret = -ENOMEM;
- 	u8 i;
- 
-@@ -944,6 +956,21 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 			goto req_fail;
- 	}
- 
-+	acomp_ctx->comp.sg_table = kmalloc(sizeof(*acomp_ctx->comp.sg_table), GFP_KERNEL);
-+	if (!acomp_ctx->comp.sg_table)
-+		goto req_fail;
-+
-+	if (sg_alloc_table(acomp_ctx->comp.sg_table, pool->compr_batch_size,
-+			   GFP_KERNEL))
-+		goto req_fail;
-+
-+	/*
-+	 * Statically map the per-CPU destination buffers to the per-CPU
-+	 * SG lists; crucial for performance.
-+	 */
-+	for_each_sg(acomp_ctx->comp.sg_table->sgl, sg, pool->compr_batch_size, i)
-+		sg_set_buf(sg, acomp_ctx->comp.buffers[i], PAGE_SIZE);
-+
- 	/* Skip the per-CPU request when decompression can use the stack. */
- 	if (acomp_is_async(acomp_ctx->acomp)) {
- 		ret = zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp);
-@@ -960,92 +987,161 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 	return ret;
- }
- 
--static bool zswap_compress(struct folio *folio, long index,
--			   struct zswap_entry *entry, struct zswap_pool *pool,
--			   bool wb_enabled)
-+static bool zswap_update_entries(struct zswap_store_context *zc,
-+				 u8 batch_start)
+ /* The caller must already have a reference. */
+-static void zswap_pool_get(struct zswap_pool *pool)
++static void __maybe_unused zswap_pool_get(struct zswap_pool *pool)
  {
--	struct zswap_comp_ctx *comp_ctx;
--	struct scatterlist input, output;
--	int comp_ret = 0, alloc_ret = 0;
--	unsigned int dlen = PAGE_SIZE;
-+	gfp_t gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
-+	u8 i, batch_iter, comp_batch_iter;
- 	unsigned long handle;
--	gfp_t gfp;
-+	unsigned int dlen;
- 	u8 *dst;
--	bool mapped = false;
+ 	percpu_ref_get(&pool->ref);
+ }
+ 
+-static void zswap_pool_put(struct zswap_pool *pool)
++/* The caller must already have a reference. */
++static inline void zswap_pool_get_many(struct zswap_pool *pool, u8 nr)
++{
++	percpu_ref_get_many(&pool->ref, nr);
++}
++
++static inline void zswap_pool_put(struct zswap_pool *pool)
+ {
+ 	percpu_ref_put(&pool->ref);
+ }
+@@ -1668,25 +1674,13 @@ static void shrink_worker(struct work_struct *w)
+ **********************************/
+ 
+ /*
+- * Store multiple pages in @folio, starting from the page at index @start up to
+- * the page at index @end-1.
++ * Functions called by zswap_store(), that operate on batches of pages.
+  */
+-static bool zswap_store_pages(struct zswap_store_context *zc,
+-			      long start,
+-			      long end,
+-			      struct zswap_pool *pool,
+-			      struct obj_cgroup *objcg)
++static inline void zswap_init_entries(struct zswap_store_context *zc,
++				      struct zswap_pool *pool,
++				      struct obj_cgroup *objcg)
+ {
+-	u8 i, store_fail_idx = 0;
+-	bool ret;
 -
--	comp_ctx = &raw_cpu_ptr(pool->acomp_ctx)->comp;
--	mutex_lock(&comp_ctx->areq.mutex);
+-	zc->nr_pages = end - start;
+-	zc->folio_start = start;
 -
--	dst = comp_ctx->buffers[0];
--	sg_init_table(&input, 1);
--	sg_set_folio(&input, folio, PAGE_SIZE, index * PAGE_SIZE);
+-	VM_WARN_ON_ONCE(zc->nr_pages <= 0 || zc->nr_pages > ZSWAP_MAX_BATCH_SIZE);
 -
--	sg_init_one(&output, dst, PAGE_SIZE);
--	acomp_request_set_params(comp_ctx->areq.req, &input, &output,
--				 PAGE_SIZE, dlen);
+-	if (unlikely(!zswap_entries_cache_alloc_batch(zc, GFP_KERNEL)))
+-		return false;
++	u8 i;
  
  	/*
--	 * it maybe looks a little bit silly that we send an asynchronous request,
--	 * then wait for its completion synchronously. This makes the process look
--	 * synchronous in fact.
--	 * Theoretically, acomp supports users send multiple acomp requests in one
--	 * acomp instance, then get those requests done simultaneously. but in this
--	 * case, zswap actually does store and load page by page, there is no
--	 * existing method to send the second page before the first page is done
--	 * in one thread doing zswap.
--	 * but in different threads running on different cpu, we have different
--	 * acomp instance, and compression and decompression use separate
--	 * requests, so multiple threads can do (de)compression in parallel.
-+	 * For each output SG list in @acomp_ctx->req->sg_table->sgl,
-+	 * the @sg->length should be set to either the page's compressed
-+	 * length (success), or it's negative value compression error.
+ 	 * We co-locate entry initialization as much as possible here to
+@@ -1694,9 +1688,9 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
  	 */
--	comp_ret = crypto_wait_req(crypto_acomp_compress(comp_ctx->areq.req),
--				   &comp_ctx->areq.wait);
--	dlen = comp_ctx->areq.req->dlen;
--	if (!comp_ret) {
--		if (dlen == PAGE_SIZE)
--			comp_ret = -ENOSPC;
--		else if (WARN_ON_ONCE(!dlen || dlen > PAGE_SIZE))
--			comp_ret = -EINVAL;
-+	for (comp_batch_iter = 0; comp_batch_iter < zc->nr_batch_pages;
-+	     ++comp_batch_iter) {
-+		batch_iter = batch_start + comp_batch_iter;
-+		dlen = zc->entries[batch_iter]->length;
-+		handle = zs_malloc(zc->zs_pool, dlen, gfp, zc->nid);
+ 	for (i = 0; i < zc->nr_pages; ++i) {
+ 		/*
+-		 * Set pool_idx before the xa_store() below publishes the entry, or a
+-		 * concurrent reader could resolve a stale pool_idx left by slab reuse
+-		 * to an unrelated live pool.
++		 * Set pool_idx before the xa_store() in zswap_tree_stores()
++		 * publishes the entry, or a concurrent reader could resolve a
++		 * stale pool_idx left by slab reuse to an unrelated live pool.
+ 		 */
+ 		zc->entries[i]->pool_idx = pool->idx;
+ 		zc->entries[i]->swpentry = folio_swap_entry(zc->folio,
+@@ -1706,27 +1700,17 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
+ 		zc->entries[i]->nid = zc->nid;
+ 		INIT_LIST_HEAD(&zc->entries[i]->lru);
+ 	}
++}
+ 
+-	/*
+-	 * Locking the comp_ctx mutex once per store batch results in better
+-	 * performance as compared to locking per compress batch.
+-	 */
+-	zc->comp_ctx = &raw_cpu_ptr(pool->acomp_ctx)->comp;
+-	mutex_lock(&zc->comp_ctx->areq.mutex);
+-
+-	ret = zswap_compress(zc);
+-
+-	mutex_unlock(&zc->comp_ctx->areq.mutex);
+-
+-	if (unlikely(!ret))
+-		goto compress_failed;
++static bool zswap_tree_stores(struct zswap_store_context *zc)
++{
++	struct zswap_entry *old;
++	u8 i, store_fail_idx = 0;
+ 
+ 	for (i = 0; i < zc->nr_pages; ++i) {
+-		struct zswap_entry *old, *entry = zc->entries[i];
+-
+-		old = xa_store(swap_zswap_tree(entry->swpentry),
+-			       swp_offset(entry->swpentry),
+-			       entry, GFP_KERNEL);
++		old = xa_store(swap_zswap_tree(zc->entries[i]->swpentry),
++			       swp_offset(zc->entries[i]->swpentry),
++			       zc->entries[i], GFP_KERNEL);
+ 		if (unlikely(xa_is_err(old))) {
+ 			int err = xa_err(old);
+ 
+@@ -1734,13 +1718,11 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
+ 			zswap_reject_alloc_fail++;
+ 			/*
+ 			 * Entries up to this point have been stored in the
+-			 * xarray. zswap_store() will erase them from the xarray
+-			 * and call zswap_entry_free(). Local cleanup in
+-			 * 'store_pages_failed' only needs to happen for
+-			 * entries from [@i to @nr_pages).
++			 * xarray. Local cleanup in 'tree_store_failed' needs to
++			 * erase entries up until now.
+ 			 */
+ 			store_fail_idx = i;
+-			goto store_pages_failed;
++			goto tree_store_failed;
+ 		}
+ 
+ 		/*
+@@ -1750,24 +1732,30 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
+ 		 */
+ 		if (unlikely(old))
+ 			zswap_entry_free(old);
++	}
+ 
+-		/*
+-		 * The entry is successfully compressed and stored in the tree,
+-		 * and further failures will be cleaned up in zswap_store().
+-		 * Grab refs to the pool and objcg, charge zswap memory, and
+-		 * increment zswap_stored_pages. The opposite actions will be
+-		 * performed by zswap_entry_free() when the entry is removed
+-		 * from the tree.
+-		 */
+-		zswap_pool_get(pool);
+-		if (objcg) {
+-			obj_cgroup_get(objcg);
+-			obj_cgroup_charge_zswap(objcg, entry->length);
+-		}
+-		atomic_long_inc(&zswap_stored_pages);
+-		if (unlikely(entry->length == PAGE_SIZE))
++	return true;
 +
-+		if (unlikely(IS_ERR_VALUE(handle))) {
-+			if (PTR_ERR((void *)handle) == -ENOSPC)
-+				zswap_reject_compress_poor++;
-+			else
-+				zswap_reject_alloc_fail++;
++tree_store_failed:
++	for (i = 0; i < store_fail_idx; ++i)
++		xa_erase(swap_zswap_tree(zc->entries[i]->swpentry),
++			 swp_offset(zc->entries[i]->swpentry));
++	return false;
++}
 +
-+			for (i = 0; i < comp_batch_iter; ++i)
-+				zs_free(zc->zs_pool, zc->entries[batch_start + i]->handle);
++static inline void zswap_account_stores(struct zswap_store_context *zc,
++					struct zswap_pool *pool,
++					struct obj_cgroup *objcg)
++{
++	size_t total_batch_comp_length = 0;
++	u8 i;
 +
-+			return false;
-+		}
++	for (i = 0; i < zc->nr_pages; ++i) {
++		if (unlikely(zc->entries[i]->length == PAGE_SIZE))
+ 			atomic_long_inc(&zswap_stored_incompressible_pages);
+ 
++		total_batch_comp_length += zc->entries[i]->length;
 +
-+		zc->entries[batch_iter]->handle = handle;
-+
-+		if (likely(dlen < PAGE_SIZE)) {
-+			dst = zc->comp_ctx->buffers[comp_batch_iter];
-+			zs_obj_write(zc->zs_pool, handle, dst, dlen);
-+		} else {
-+			dst = kmap_local_folio(zc->folio,
-+					(zc->folio_start + batch_iter) * PAGE_SIZE);
-+			zs_obj_write(zc->zs_pool, handle, dst, dlen);
-+			kunmap_local(dst);
-+		}
+ 		/*
+ 		 * We finish by adding the entry to the LRU while it's already
+ 		 * in xarray. This is safe because:
+@@ -1778,20 +1766,78 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
+ 		 *    The publishing order matters to prevent writeback from seeing
+ 		 *    an incoherent entry.
+ 		 */
+-		if (likely(entry->length))
+-			zswap_lru_add(entry);
++		if (likely(zc->entries[i]->length))
++			zswap_lru_add(zc->entries[i]);
  	}
  
-+	return true;
++	/*
++	 * The entry is successfully compressed and stored in the tree,
++	 * and further failures will be cleaned up in zswap_store().
++	 * For the batch, grab refs to the pool and objcg, charge zswap memory,
++	 * and increment zswap_stored_pages by @zc->nr_pages. The opposite
++	 * actions will be performed by zswap_entry_free() when the entry is
++	 * removed from the tree.
++	 */
++	zswap_pool_get_many(pool, zc->nr_pages);
++	if (objcg) {
++		obj_cgroup_get_many(objcg, zc->nr_pages);
++		obj_cgroup_charge_zswap(objcg, total_batch_comp_length);
++	}
++	atomic_long_add(zc->nr_pages, &zswap_stored_pages);
 +}
 +
 +/*
-+ * zswap_compress() batching implementation for sequential and batching
-+ * compressors.
-+ *
-+ * Description:
-+ * ============
-+ * Compress multiple @nr_pages in @folio starting from the @folio_start index
-+ * in batches of @nr_batch_pages; the latter representing the lesser of the
-+ * @nr_pages to be batch compressed and the compressor's batch size.
-+ *
-+ * @nr_pages can be in (1, ZSWAP_MAX_BATCH_SIZE] even if the compressor does not
-+ * support batching.
-+ *
-+ * If @nr_batch_pages is 1, each page is processed sequentially.
-+ *
-+ * If @nr_batch_pages is > 1, the compressor may use batching to optimize
-+ * compression.
++ * Store multiple pages in @folio, starting from the page at index @start up to
++ * the page at index @end-1.
 + */
-+static bool zswap_compress(struct zswap_store_context *zc)
++static bool zswap_store_pages(struct zswap_store_context *zc,
++			      long start,
++			      long end,
++			      struct zswap_pool *pool,
++			      struct obj_cgroup *objcg)
 +{
-+	u8 batch_start, comp_batch_iter, batch_iter;
-+	struct scatterlist *sg;
 +	bool ret;
-+	int err;
++	u8 i;
 +
- 	/*
--	 * If a page cannot be compressed into a size smaller than PAGE_SIZE,
--	 * save the content as is without a compression, to keep the LRU order
--	 * of writebacks.  If writeback is disabled, reject the page since it
--	 * only adds metadata overhead.  swap_writeout() will put the page back
--	 * to the active LRU list in the case.
-+	 * Compress the @nr_pages in @folio starting at index @folio_start
-+	 * in batches of @nr_batch_pages.
- 	 */
--	if (comp_ret) {
--		if (!wb_enabled)
--			goto unlock;
--		comp_ret = 0;
--		dlen = PAGE_SIZE;
--		dst = kmap_local_folio(folio, index * PAGE_SIZE);
--		mapped = true;
--	}
-+	for (batch_start = 0; batch_start < zc->nr_pages;
-+	     batch_start += zc->nr_batch_pages) {
-+		/*
-+		 * Send @nr_batch_pages to crypto_acomp for compression:
-+		 *
-+		 * These pages are in @folio's range of indices in the interval
-+		 *     [@folio_start + @batch_start,
-+		 *      @folio_start + @batch_start + @nr_batch_pages).
-+		 *
-+		 * @slen indicates the total source length bytes for
-+		 * @nr_batch_pages.
-+		 *
-+		 * The source folio pages in the batch are directly submitted to
-+		 * crypto_acomp via acomp_request_set_src_folio().
-+		 *
-+		 * The pool's compressor batch size is at least @nr_batch_pages,
-+		 * hence the acomp_ctx has at least @nr_batch_pages dst @buffers.
-+		 */
-+		acomp_request_set_src_folio(zc->comp_ctx->areq.req, zc->folio,
-+				(zc->folio_start + batch_start) * PAGE_SIZE,
-+				zc->slen);
++	zc->nr_pages = end - start;
++	zc->folio_start = start;
 +
-+		zc->comp_ctx->sg_table->sgl->length = zc->slen;
++	VM_WARN_ON_ONCE(zc->nr_pages <= 0 || zc->nr_pages > ZSWAP_MAX_BATCH_SIZE);
 +
-+		/*
-+		 * The per-CPU @zc->comp_ctx->sg_table scatterlists are statically
-+		 * mapped to the per-CPU dst @buffers at pool creation time.
-+		 */
-+		acomp_request_set_dst_sg(zc->comp_ctx->areq.req,
-+					 zc->comp_ctx->sg_table->sgl, zc->slen);
++	if (unlikely(!zswap_entries_cache_alloc_batch(zc, GFP_KERNEL)))
++		return false;
 +
-+		err = crypto_wait_req(crypto_acomp_compress(zc->comp_ctx->areq.req),
-+				      &zc->comp_ctx->areq.wait);
- 
--	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
--	handle = zs_malloc(pool->zs_pool, dlen, gfp, folio_nid(folio));
--	if (IS_ERR_VALUE(handle)) {
--		alloc_ret = PTR_ERR((void *)handle);
--		goto unlock;
-+		/*
-+		 * If a page cannot be compressed into a size smaller than
-+		 * PAGE_SIZE, save the content as is without a compression, to
-+		 * keep the LRU order of writebacks.  If writeback is disabled,
-+		 * reject the page since it only adds metadata overhead.
-+		 * swap_writeout() will put the page back to the active LRU list
-+		 * in the case.
-+		 *
-+		 * It is assumed that any compressor that sets the output length
-+		 * to 0 or a value >= PAGE_SIZE will also return a negative
-+		 * error status in @err; i.e, will not return a successful
-+		 * compression status in @err in this case.
-+		 */
-+		if (unlikely(err && !zc->wb_enabled))
-+			goto compress_error;
++	zswap_init_entries(zc, pool, objcg);
 +
-+		for_each_sg(zc->comp_ctx->sg_table->sgl, sg,
-+			    zc->nr_batch_pages, comp_batch_iter) {
-+			batch_iter = batch_start + comp_batch_iter;
-+			if (unlikely(sg->length <= 0 || sg->length >= PAGE_SIZE))
-+				sg->length = PAGE_SIZE;
-+
-+			zc->entries[batch_iter]->length = sg->length;
-+		}
-+
-+		ret = zswap_update_entries(zc, batch_start);
-+		if (unlikely(!ret))
-+			return false;
- 	}
- 
--	zs_obj_write(pool->zs_pool, handle, dst, dlen);
--	entry->handle = handle;
--	entry->length = dlen;
-+	return true;
- 
--unlock:
--	if (mapped)
--		kunmap_local(dst);
--	if (comp_ret == -ENOSPC || alloc_ret == -ENOSPC)
--		zswap_reject_compress_poor++;
--	else if (comp_ret)
--		zswap_reject_compress_fail++;
--	else if (alloc_ret)
--		zswap_reject_alloc_fail++;
--
--	mutex_unlock(&comp_ctx->areq.mutex);
--	return comp_ret == 0 && alloc_ret == 0;
-+compress_error:
-+	for_each_sg(zc->comp_ctx->sg_table->sgl, sg,
-+		    zc->nr_batch_pages, comp_batch_iter) {
-+		if ((int)sg->length < 0) {
-+			if ((int)sg->length == -ENOSPC)
-+				zswap_reject_compress_poor++;
-+			else
-+				zswap_reject_compress_fail++;
-+		}
-+	}
-+
-+	return false;
- }
- 
- static bool __zswap_decompress(struct zswap_entry *entry,
-@@ -1582,6 +1678,7 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
- 			      struct obj_cgroup *objcg)
- {
- 	u8 i, store_fail_idx = 0;
-+	bool ret;
- 
- 	zc->nr_pages = end - start;
- 	zc->folio_start = start;
-@@ -1596,7 +1693,6 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
- 	 * minimize potential cache misses.
- 	 */
- 	for (i = 0; i < zc->nr_pages; ++i) {
--		zc->entries[i]->handle = (unsigned long)ERR_PTR(-EINVAL);
- 		/*
- 		 * Set pool_idx before the xa_store() below publishes the entry, or a
- 		 * concurrent reader could resolve a stale pool_idx left by slab reuse
-@@ -1611,11 +1707,19 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
- 		INIT_LIST_HEAD(&zc->entries[i]->lru);
- 	}
- 
--	for (i = 0; i < zc->nr_pages; ++i) {
--		if (!zswap_compress(zc->folio, zc->folio_start + i,
--				    zc->entries[i], pool, zc->wb_enabled))
--			goto store_pages_failed;
--	}
 +	/*
 +	 * Locking the comp_ctx mutex once per store batch results in better
 +	 * performance as compared to locking per compress batch.
@@ -488,34 +544,28 @@ index c8890e8a9b83..4476fb4aeb5f 100644
 +
 +	if (unlikely(!ret))
 +		goto compress_failed;
- 
- 	for (i = 0; i < zc->nr_pages; ++i) {
- 		struct zswap_entry *old, *entry = zc->entries[i];
-@@ -1681,11 +1785,10 @@ static bool zswap_store_pages(struct zswap_store_context *zc,
++
++	ret = zswap_tree_stores(zc);
++
++	if (unlikely(!ret))
++		goto store_pages_failed;
++
++	zswap_account_stores(zc, pool, objcg);
++
  	return true;
  
  store_pages_failed:
--	for (i = store_fail_idx; i < zc->nr_pages; ++i) {
--		if (!IS_ERR_VALUE(zc->entries[i]->handle))
--			zs_free(pool->zs_pool, zc->entries[i]->handle);
--	}
-+	for (i = store_fail_idx; i < zc->nr_pages; ++i)
-+		zs_free(pool->zs_pool, zc->entries[i]->handle);
+-	for (i = store_fail_idx; i < zc->nr_pages; ++i)
++	for (i = 0; i < zc->nr_pages; ++i)
+ 		zs_free(pool->zs_pool, zc->entries[i]->handle);
  
-+compress_failed:
- 	zswap_entries_cache_free_batch(&zc->entries[store_fail_idx],
- 				       zc->nr_pages - store_fail_idx);
- 
-@@ -1757,6 +1860,10 @@ bool zswap_store(struct folio *folio)
- 	store_batch_size = (pool->compr_batch_size > 1) ?
- 			    pool->compr_batch_size : ZSWAP_MAX_BATCH_SIZE;
- 
-+	zc.nr_batch_pages = pool->compr_batch_size;
-+	zc.slen = zc.nr_batch_pages * PAGE_SIZE;
-+	zc.zs_pool = pool->zs_pool;
-+
- 	for (start = 0; start < nr_pages; start += store_batch_size) {
- 		end = min(start + store_batch_size, nr_pages);
+ compress_failed:
+-	zswap_entries_cache_free_batch(&zc->entries[store_fail_idx],
+-				       zc->nr_pages - store_fail_idx);
+-
++	zswap_entries_cache_free_batch(zc->entries, zc->nr_pages);
+ 	return false;
+ }
  
 -- 
 2.39.5
