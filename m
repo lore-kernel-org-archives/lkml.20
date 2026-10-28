@@ -1,103 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187380;
-	b=x0/l8iHsCLWop2DwnFlvg4bF9E4O2nr2x3k8nVoWGga72O8EDYUGd1isPNZJRzJS/n3c
-	 bdw/vBasluiObW3GTE8lps2YGAbhHj3otfwodACFKsRLz4nvZwqSVSzPGlQYehoPisrNS
-	 By6zNaUdzVJRD8U74FIEgns4EmsqnFS0O6BlrB3WeXLmflQwR0cWsWUTb4GsM7WKtrc5s
-	 ChdfBdmE2BHPzPA2OPxUeur3n5Yhj4KlOQanpdrm6mfO5US1cjZ2vLJjkHU2SvoHVCnF+
-	 49i1Cu499z/8lX8q72/gw9A06URImdSsdh7yMVsWl12NylgJwZx/rpSx8SJ5zQEmjig==
+	t=1793187392;
+	b=agEmeIFDxP8weM7IudnK2PKJZ4y+e5PNu0FLw/uuPACama2DrBl+jCPiYi3LD+KN+q19
+	 53tSMX1lxXsUex9RdNij8UTb+PdG7wo6GFGfS5BuhhA/YQcxr89UuLZfTVN/yJzk+YXzd
+	 ndId0Cq/wMBTdeGmz8WyvMEwblwVgRFdExeKpaghLvzZSS7tRVvIYftlCq7fmVe1lTrH3
+	 KfL49JN5xi7NzB2pR4i57i33J7d6H4dcLG7VsEnGI5ivqhlynCNHmkJisMEERD08j/PD/
+	 op9c2TZEaAtsr/HMgenKbpQQq8fOam8OAuAWp7t6+d5W59C7ztpg8x76ilPK3HeypCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187380;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BqcLJCt/Zv6v/NHtTbSxJ0dXgZEQb3K5NLkXSY+SP5Q=;
-	b=3YtUDn2EKHvqTVSRs0sH1Fdr7h8qyIzO/1ZeyZOOl3FQGOncpxKEE4lOp6mcozciCmwn
-	 yfDVHkp8f+q6t2HWomauoONOD72dErs88f01/9PnE71MMJIfVdHYVueRouRemHqVjBnlo
-	 ulzoNBZTfVQTQ/R9irl6MvtXTXGNGhZOcmr6LVeFzEk/mUTrQ7h5uXObZGnLo2XuHBKtu
-	 3l3asnmUN+rKPZE7zSEo5bqUXhO3R6kdHE+OzhqFIeZcCXIVSPOpMgyYBRGTFqot9+2V0
-	 Gm39rItbLs7Qq45EgHYK9SGFeMAZJ3ccmEDjlO7VNnjZQ7KXpIcIHppeVyamoPwfPYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187392;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KJQ5MFQyAoYK4/IEHk3nRAEzowJdeSnGgVSxIBuPHzk=;
+	b=SxAzqm0U8ewf7BEarykS5u0HtFEa7ZdkoOZKa7mtDATtPJvOcN+lcMJOLXHCFc3zv5WE
+	 zosZswSpjBNfBZ673pnelSqy/Ywd/IZMyzBX0+RXeh0lbs3T0kIcNz6RmEsLIIuLrkOsj
+	 Rl1JetMaVvUyoMOoEN+Jp9APJbb4H7tcMVJblzTJqAMUH5MZdgPjiPQIjr3KuYCD+3Pzx
+	 gSPAINYOLUP5c5YGbj6fCF0d+vdAAy6VRxl1Vf2TJ62Qmga4ehF49jK+jpacsIYg4VzdD
+	 IanekYUZW9YUpu83qQYv1dz4T/DTYPCyvgslN6Udj5ciAPMc2q3TSRVSp/cHE9s5AjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JF5UzmNd;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQEJ1Oz9;
+	arc=none smtp.remote-ip=91.218.175.89
+Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F84606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F84606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA671606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:36:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA671606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JF5UzmNd
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35b2c599f43so1854492eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:36:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793187379; x=1793792179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BqcLJCt/Zv6v/NHtTbSxJ0dXgZEQb3K5NLkXSY+SP5Q=;
-        b=JF5UzmNddHhtz2/oYUx2wKcB3EeIBY/JHtxjH5/Z5b8X1Y9wWsMOHPzWhSL1MrNX9b
-         SNEHHLtuL/8uMApI+sQoUlmCZ+onKTHMg3Pypzvj+cVgdOYxvLhy7yIpw/k+Jwp8QIJx
-         Tfl9uLSkTWLIS/kOyM2O0UMXicgTi/C1puRPBvFATpbCS3FohBEjmbRsYqTGBFIC/IU8
-         pD156d8CkJyMCCX+OIBvCFOxTug9Y+pzpD2U2XF2Pbi5+2VrhRfUMaoL9D9faXSR6YSs
-         0YTafJxXP/NOwqXtlMC37UQzeXHLUdkLgxX6uNV5RDd0mxKomGXSEldkhTpWs9xee5xU
-         Eoyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793187379; x=1793792179;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BqcLJCt/Zv6v/NHtTbSxJ0dXgZEQb3K5NLkXSY+SP5Q=;
-        b=z6Oi2sMqKt8krhcPvqL9CWyN+MQI7GDu1GJQyYz6+Gv0UfY8KTc/G5l4V5a/hn7GTY
-         rvfImMAQbFTjIeb3aJkzbNTil/6TdwmLDL1gqmLprK6Mb6XgqrxKy2CchH4M8lU+vlUe
-         mbHnUln2k0qqck5oF0jgPCPV+aUKOhvabXBe6m5alZgow8cPHsbcg6oJI9zNkAlGqoff
-         Jue2bon0PUV4pheiiKmd59OdXqu8qnG4XeJ+FboEHaTGf29tEPHFloFORb0xB5dnVLxN
-         wXHAhJ02dMAnoJwGy7PIbmoPzlMCDuzaOEBPIbLwIjZoehSU//hx+N3SWM1eQWEtNTPh
-         aPEA==
-X-Forwarded-Encrypted: i=1; AKwUvByvix+jRsXhwqxNKZ1x5RE1UHdAlwAsA+1MdH89jAH0BkSjtBdoRocRH9byTIrWEPQVLeLhkkGZnxBD5hk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOkHC1ljDRpj6sqzEreJ1QOPZ0meNXwjyyeRYnXyoS9+uaDz8B
-	qoUdRjpPvqvoAk8fdvGMGtZDFK9Pc1pkVls+Ds98yltIxQSv8mS8aPsZ
-X-Gm-Gg: AYBFou1CP+a9PiRiil3VeNEmlGZQAHoDBDp/dXG2lz63VQatYfEF4uBUJjeUg9qU4uT
-	5NEOy3s+cF+j0+BdEvfGeVtOWTXk0MZUKbdPL/gFGKK8zxxDqGlw7W5kwnwFgXJUh9Hj/Dg4swC
-	j8to9tupJm/KZzE/SwUImFKnMETNnvDO7dQVfIkdOLjacWE9olR5uwa87nVj5gQPDzspGBUSPt2
-	Sv3iK3C5Vd1TUtrpqX/WDlPucLqKWX6A96SjLnFtVWJstKwno3JNawP8gPhxQ5H8fmITnWRDixx
-	0D/NdrWmCuqomDkE7k/qhz/8B7Yf/ev7TQE2y8MU7A0QvwVeSCPpYOfCKvxUV7R6X7qtJx4Vm9v
-	V2gUzzXIGakFs+wyXQqOIhv6JQz8/yAHvKWwW3N7QCpV/hDZ58Yk+q2at+Y3wiYxGHSZ3YsqP/W
-	wmNWf8q1QTP+HubpC667rpesl9v+AQBjgihknyzH3EtBjXASFLNmSTPxORJF8A7nAa9BO6OPcPK
-	qsZMy1LsLCipnydLxfywvsQy1z7WtHTERArkHcNO6AMcsnGhiF0slFAmgeemYC7Oi3jyOCyQ1rB
-	qNkqpFvUEES+3VwP+Hlvo5lCS+sAIgTSW+aUmNIbfE56NFeFHxI=
-X-Received: by 2002:a05:693c:401a:b0:369:f05d:6c5c with SMTP id 5a478bee46e88-36a20477909mr3084505eec.28.1793187378627;
-        Wed, 28 Oct 2026 04:36:18 -0700 (PDT)
-Received: from localhost.localdomain ([103.177.252.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238d9a21sm6623522eec.4.2026.10.28.04.36.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:36:17 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: mani@kernel.org
-Cc: angelogioacchino.delregno@collabora.com,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AQEJ1Oz9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kMCNGJJYpGz5x7c10ToMLdnciTX84LaiipX1h2aokB0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793187389; v=1; x=1793792189;
+ b=AQEJ1Oz9qonlO9wnD+shAr0CZf+DRW2FBdnkeZQ/L6EDrrClmEze0FZ/gxAIb9L8FmrWN6mL
+ +0fF1JPkhKLSYWtq2Nbpmjw+mP+wG3RQ1obOsne+2356nFX6wJTXaNF59siH1W1JuCKzjzkFUwn
+ qle2y5Ay+dE2nlebMb82tqu0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0fbe3d682f9be5a6;
+	Wed, 28 Oct 2026 11:36:29 +0000
+X-Mizu-Trace-ID: 0fbe3d682f9be5a6
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>
+Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	lpieralisi@kernel.org,
-	matthias.bgg@gmail.com,
-	robh@kernel.org,
-	ryder.lee@mediatek.com,
-	sreekuttan2156239@gmail.com
-Subject: [PATCH v6] PCI: mediatek: Fix integer truncation and handle oversized resources
-Date: Wed, 28 Oct 2026 11:34:53 +0000
-Message-ID: <20261028113453.2599-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
-References: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH] mm/zswap: fix double decrement of the LRU node count on writeback
+Date: Wed, 28 Oct 2026 19:36:19 +0800
+Message-ID: <20261028113619.38752-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,127 +71,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resource_size() returns a resource_size_t, which can be 64-bit on
-64-bit architectures or 32-bit systems with LPAE/PAE enabled.
-Passing this directly to fls(), which accepts an unsigned int,
-implicitly truncates the upper bits.
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If
-the size order exceeds the range representable by this field,
-higher bits are discarded by the mask. This can leave the hardware
-translation window smaller than the OS resource, causing bus
-errors when accessing BARs in the unmapped upper region.
+Successful writeback calls zswap_entry_free(), which removes the entry
+from the LRU and decrements both the sublist and node item counts.
+shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
+to decrement the node count again.
 
-Fix this by using fls64(size) to calculate the size order without
-truncating the resource size, and return -EINVAL if the size order
-exceeds the supported range.
+The affected call path before this change is:
 
-Changelog:
+  __list_lru_walk_one()
+    shrink_memcg_cb()
+      zswap_writeback_entry()
+        zswap_entry_free()
+          zswap_lru_del()
+            list_lru_del()
+              __list_lru_del()
+                atomic_long_dec()  /* first node count decrement */
+      return LRU_REMOVED_RETRY
+    atomic_long_dec()              /* second node count decrement */
 
-- v6: Move oversized resource validation before hardware
-  initialization to avoid leaving interrupts unmasked on
-  the error path.
-- v5: Use fls64(size) instead of fls64(size - 1) and remove the
-  redundant zero-size check.
-- v4: Fix struct device pointer access (pcie->dev) for dev_err().
-  Verified build and passed Sashiko review checks.
-  [Subject: PCI: mediatek: Fix integer truncation and handle
-  oversized resources]
-- v3: Replace clamping logic with strict size validation
-  (size_order > 31 returns -EINVAL), add a zero-size check,
-  and update size calculation to fls64(size - 1).
-  [Subject: PCI: mediatek: Fix integer truncation and handle
-  oversized resources]
-- v2: Add size clamping for size_order > 31 to prevent overflowing
-  the 5-bit AHB2PCIE_SIZE() macro mask.
-  [Subject: PCI: mediatek: Fix integer truncation in fls()
-  and clamp size]
-- v1: Initial submission using fls64() to handle 64-bit resource
-  sizes and prevent integer truncation.
-  [Subject: PCI: mediatek: Fix integer truncation in fls()
-  for resource size]
+Add zswap_lru_del_nocnt() to remove the entry and update only the sublist
+count, leaving node accounting to the walker. Split data cleanup into
+__zswap_entry_free() so writeback can free the entry without performing
+another LRU deletion. Other free paths retain their existing accounting.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Fixes: 5878303c5353 ("mm/zswap: fix race between lru writeback and swapoff")
+Link: https://sashiko.dev/#/bug/linux-68d2ca49-23be-4504-9a75-b8526ec92388
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/pci/controller/pcie-mediatek.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ mm/zswap.c | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-index 3a3e91cd0c21..cc04a7b862f0 100644
---- a/drivers/pci/controller/pcie-mediatek.c
-+++ b/drivers/pci/controller/pcie-mediatek.c
-@@ -8,6 +8,7 @@
+diff --git a/mm/zswap.c b/mm/zswap.c
+index ad01c691a263..d0c98daddf2e 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -719,6 +719,22 @@ static void zswap_lru_del(struct zswap_entry *entry)
+ 	rcu_read_unlock();
+ }
+ 
++/* Like zswap_lru_del(), but does not decrement the node item count. */
++static void zswap_lru_del_nocnt(struct zswap_entry *entry)
++{
++	int nid = entry_to_nid(entry);
++	struct mem_cgroup *memcg;
++	struct list_lru_one *l;
++
++	rcu_read_lock();
++	memcg = obj_cgroup_memcg(entry->objcg);
++	l = list_lru_lock(&zswap_list_lru, nid, &memcg);
++	if (!list_empty(&entry->lru))
++		list_lru_isolate(l, &entry->lru);
++	list_lru_unlock(l);
++	rcu_read_unlock();
++}
++
+ void zswap_lruvec_state_init(struct lruvec *lruvec)
+ {
+ 	atomic_long_set(&lruvec->zswap_lruvec_state.nr_disk_swapins, 0);
+@@ -781,11 +797,10 @@ static void zswap_entry_cache_free(struct zswap_entry *entry)
+  * Carries out the common pattern of freeing an entry's zsmalloc allocation,
+  * freeing the entry itself, and decrementing the number of stored pages.
   */
+-static void zswap_entry_free(struct zswap_entry *entry)
++static void __zswap_entry_free(struct zswap_entry *entry)
+ {
+ 	struct zswap_pool *pool = zswap_entry_pool(entry);
  
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
-@@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 	const struct mtk_pcie_soc *soc = port->pcie->soc;
- 	u32 val;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
+-	zswap_lru_del(entry);
+ 	if (!WARN_ON_ONCE(!pool)) {
+ 		zs_free(pool->zs_pool, entry->handle);
+ 		zswap_pool_put(pool);
+@@ -800,6 +815,12 @@ static void zswap_entry_free(struct zswap_entry *entry)
+ 	atomic_long_dec(&zswap_stored_pages);
+ }
  
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -693,6 +696,13 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
- 	if (!mem)
- 		return -EINVAL;
- 
-+	size = resource_size(mem);
-+	size_order = fls64(size);
-+	if (size_order > 31) {
-+		dev_err(pcie->dev, "Memory resource size too large: %pa\n", &size);
-+		return -EINVAL;
-+	}
++static void zswap_entry_free(struct zswap_entry *entry)
++{
++	zswap_lru_del(entry);
++	__zswap_entry_free(entry);
++}
 +
- 	/* MT7622 platforms need to enable LTSSM and ASPM from PCIe subsys */
- 	if (pcie->base) {
- 		val = readl(pcie->base + PCIE_SYS_CFG_V2);
-@@ -754,7 +764,7 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+ /*********************************
+ * compressed storage functions
+ **********************************/
+@@ -1119,7 +1140,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	if (entry->objcg)
+ 		count_objcg_events(entry->objcg, ZSWPWB, 1);
  
- 	/* Set AHB to PCIe translation windows */
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
+-	zswap_entry_free(entry);
++	zswap_lru_del_nocnt(entry);
++	__zswap_entry_free(entry);
  
- 	val = upper_32_bits(mem->start);
-@@ -775,6 +785,8 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 	struct resource_entry *entry;
- 	u32 val, link_mask;
- 	int err;
-+	resource_size_t size;
-+	int size_order;
- 
- 	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
- 	if (entry)
-@@ -782,6 +794,13 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 	if (!mem)
- 		return -EINVAL;
- 
-+	size = resource_size(mem);
-+	size_order = fls64(size);
-+	if (size_order > 31) {
-+		dev_err(pcie->dev, "Memory resource size too large: %pa\n", &size);
-+		return -EINVAL;
-+	}
-+
- 	if (!pcie->cfg) {
- 		dev_err(pcie->dev, "EN7528: pciecfg syscon not available\n");
- 		return -EINVAL;
-@@ -830,7 +849,7 @@ static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
- 
- 	/* Set AHB to PCIe translation windows */
- 	val = lower_32_bits(mem->start) |
--	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-+	      AHB2PCIE_SIZE(size_order);
- 	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
- 
- 	val = upper_32_bits(mem->start);
+ 	/* folio is up to date */
+ 	folio_mark_uptodate(folio);
 -- 
-2.55.0
+2.53.0
 
