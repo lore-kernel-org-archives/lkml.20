@@ -1,73 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793155285;
-	b=BORNqSuYuSB503pRNCbDTjjIz0mXdyTD73U+wydGlHRUJqe0eeVWDkEcEAIpGCM4Arxg
-	 HBe2wPXHvH8yTscG0Dh1n9rxJ86hJpXlyrbOMlYjMY+Ja1psyUqVYnAIDX2wU031QK4vz
-	 6jUXWMfcpwcRtaZdaGInNY5bIX3NY9BGRyCDxwFluwiQJLKJE1EIOFpioBmHMOKraCOEM
-	 zqk1jIXy3Yp2q1Bl594MRH90I0GWoa/9HAvwD0lgEVnqQhj1JZ7Ia4tvOT7Fkkt1IOWme
-	 m/3R1CICxlJ7RUW/ATjycV3jCc3zU/+wWPvPGr+25Ezsizau/GNsWyu9jX7FgYspgvg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155285;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=QX2W0lQnijfwrGlTgWM1dFah9f2G2nTUmcOGxD8rgv0=;
-	b=tK8CwLvP5LGU+WazWRrhxbN3ZF41RusvxJq1n3CqkafcwM3wx/fKgi4D1mO0KrDyxJyg
-	 NNar2uKFD/VwbKozNljHeOHICWr/r3+HYsqa0z6yd6jawaHJRF63+TT47N66EEeGjLHPa
-	 VvqYn2eNcEGbhum+bnDNC+Ug+jOpNR4aA4/Loj7kmw4/AhTnkAPk9Z1+XxHai9F5dnUy9
-	 hg3ZIdxk8KOcgmdto123id/QLDjhSMJaWd7Tbqkv3ipQfD6O+SwsdZ40VjF1F6q3gV6Ky
-	 6+6h0YDBxB/NR5XhP/bswfl1jf8q0K1b1sGbCp3UeGkF5uLZFO/fmPPLyq8cBIrcxgw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=UNgMn3Om;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793155354;
+	b=FfVo+3g0G3OoAr0BabmILBYxF6t/aibmu/BtfJwzhxVjDEu23t8mAirAmYUsqIGo4Hya
+	 H/n+x++6EC6Ec9w0oypkrSzz5QGyUqcB4x0A47thuNks2w2ckm6A2A5I3sNgpzzN/lT2S
+	 Y/DHcS26iOrV5D1CNBOyydsNKYG1/uDqNWK5HoA3KZ9j+3ls1Ev5vQwgpSvjb7S23AOQh
+	 RskaiETOqK9GNtR9XHqg/RZR5Q7O9g1EfGEKkKV4x1+VbHvVbi2fqJ5i5KOj9HSXSb/AC
+	 p7g8RiLNzmW4fN2t9yjFc1DRWhykQaXNV84KPcbtGyRZljWwPMLzBZzforMBjm4ya3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155354;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HQL9p3RFteYJHSpyeeyXsYlloO2LuHIDKkrEoNphPtY=;
+	b=uVKo1AlPv9T60VymzCMCahZwo4T9Xi3HoR6DPrEhqwBcTN+6lf+zVlVwM+CTJBIGrsGs
+	 rQq1ZyWsfQuz8Y0IHRBbBoLgyBAS7U+I/sAwyPiDYzig9nsYE0lxRxFbgquNBDWOa7y+0
+	 xOlwfWZEnFkyH2kWWdCBF9Yv/ONqjmfwvNkKfgQqDScdEzIZv4VjboCL+J4DmdAUwrY+b
+	 67v5v4PIn2fU2OTvG7g9nHGdY0T6KbJ8Qe+FFZ/20X94S0zGIGlexUSXkgOAvQ/3oCnpW
+	 ZqO+zEyZs+SUMXAYBGT+hz8aE7VKaevVJwrxe1hd8H/CwSlv1sbfOA8Di91oBY28yUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+znapmE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.54
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010054.outbound.protection.outlook.com [52.101.193.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC2F606A32A;
-	Wed, 28 Oct 2026 02:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC2F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A8A606A31E;
+	Wed, 28 Oct 2026 02:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A8A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=UNgMn3Om
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793155280;
-	bh=QX2W0lQnijfwrGlTgWM1dFah9f2G2nTUmcOGxD8rgv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UNgMn3OmnMkYrjdQPiws9YH9jbOG+rNbqRqZCrjzrat3wJ4fheGgBDcO/Xcfpi4At
-	 PpPfMUsIc7pYHDy3ASRuE24PBlDyXMC56COPlDpVGofS9K05qrjJiUIhEkV2lwJSlc
-	 XKYtDEUVYTW/Z+QBRNSk7jglD5RxUDORnuNUZdFe4W8uI6tN3Yg9YA4KYP5l6v+XfJ
-	 1dqD2gFKnGbDw7rkI6p2gBEpretwbnqdGtslWpYrj0sqfcM++svO0cIXMY8x9KAFG1
-	 yvWPBPOQmCwzmlP54f7eOcUhtyHHd0K9UlecDQh69wS99VS8j0R3UAEnFYw+A6EbC4
-	 47UwooYXA+//Q==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jDs7N5XWTz4wTN; Wed, 28 Oct 2026 13:41:20 +1100 (AEDT)
-Date: Wed, 28 Oct 2026 13:41:14 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <auFgv_f0av-JxMjg@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-9-herve.codina@bootlin.com>
- <atrTn_I_8O6q9QUW@gractus.seuss>
- <20261023181533.0c44a57f@bootlin.com>
- <at6t-l9XYYFfS48T@gractus.seuss>
- <20261026125615.055e7214@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=d+znapmE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M/ephZvh1LCzHl4LPvVumqkfd7po3L8ii9dgTv5N/iqhz76shsnwXHLm+J4BN7F9qe30p3mBc2DMCYGbS7QmhsgeSkS/TJfkyedSRbcdT7h5/YkdhgVyYaUPkIn4Wa1vHPhZhOV166ZC3xNXPlBEDyV2iGNXGFaH6jaJQPmiB2Dkto4eazCI3psZuJBXoDcAkRaC00hvCBskD34Q5jh3Zlgw7Q3cwu6z6IVHjgYD4UOUwAjWypgX6h78G9BUPUY7i1ezSbHU/kPbnNr+b2wTGvuKWu2uzfcTwMh6X0nXn3DaBcbamghW5iXZ93beQuPOyybieNPtDCEqhrhdAFNB3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HQL9p3RFteYJHSpyeeyXsYlloO2LuHIDKkrEoNphPtY=;
+ b=OoI6uzax/Sa1Rthn1ZfbeP3mjyDtcJdnAwwE7tZoecf8IMrHja2CYx7Liy2KlxaRnrow3Bq8oep75nLXmeakZf6RACzmDNytk2xj/XKqojE0y75FRXpYwGVH8qd3Z6TOCUBBwRBgqlIBQnmQ0QnEP5jOiGTFfHkjdAtpI5j9ByTDjhUJ0nx3Xclx750aLngzw2IVrA46K2B8AW1hFJXYwF5/QiDybXQh/I3Wm/KMjC2wxX2V4rIRQdVGEjOsaate1q6jQ/+tD0HMQGBdWRs/iROBNtVAMKJmt0h/z9bYP5udyTyB3JYVuGi8KRX+j/1zS0CmZDYwvuhJDSs/c09Dww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQL9p3RFteYJHSpyeeyXsYlloO2LuHIDKkrEoNphPtY=;
+ b=d+znapmEb1KQgRCUnZ7aB/ym/gpluz99SVHRWseB0AjnMwM/rjHaqKbjcnsyQMNk9ZlZGZg/7mlALHnnZTTLj6jSEDdxKSNi1cRAZjGP4qEYJu3SaAnvjkBoImsoQh6tz3e68hJWRBkMfdJcuKYwj/bubRY/MZ3DjtUiGtNcd9l4avhLo+uZvpDL7MmRObxUcCWPuPj1wtUpALfGWfWtuIUbp/54tfx6+g/TXX051Bo5ggpVo501pw3kNWCndvFNsies1s8nnEJi31Ft+fotLMELj8C2vyqTRZ+TmsyXvzXLQ0uzcYNZAziucZlj7cqaJgz9WaGNp6Fp6WYDKdCLkw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by CH2PR12MB4278.namprd12.prod.outlook.com (2603:10b6:610:ab::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Wed, 28 Oct
+ 2026 02:42:25 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 02:42:25 +0000
+Date: Wed, 28 Oct 2026 13:42:20 +1100
+From: Balbir Singh <balbirs@nvidia.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: roman.gushchin@linux.dev, muchun.song@linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old
+ generation
+Message-ID: <auFhDMtwymMynf8j@parvat>
+References: <20261028010611.3929937-1-tjmercier@google.com>
+ <20261028010611.3929937-3-tjmercier@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028010611.3929937-3-tjmercier@google.com>
+X-ClientProxiedBy: ME3P282CA0013.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:220:80::23) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,409 +116,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lpYmQE31+ktOK+HY"
-Content-Disposition: inline
-In-Reply-To: <20261026125615.055e7214@bootlin.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|CH2PR12MB4278:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b21672b-5cc8-44fe-7850-08df349d1978
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|7416014|261026140227099003|261021121427099003|56012099006|261009223027099003|5023799004|4143699003|11063799006|261021123027099003|18002099003|22082099003|261026121527099003|10067099003|6133799003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	uuWX0HDSR+44vsbilm3jEqqNW1Ts8ar7zlr8zAfPvpL6f0NU4n5CV0w6naNs8ik90pq0XFL5wiSPIV2f7QovrplOs3Or2bbAXXkOob0FpCWudiZwlje5zbvKz7l+L+4aPNvDEUKd9r4uL7Y/ygq7WijYxT5kmwDx59zyDSZD1FkdkzMxcLpSUkgfdIQxDKOx+K9IpEQ6uKam+uHOcUwnSFLvUT41pmxHn48H5mLJt5fe5LxddJENKY3EHVvw64WBsFPueGYvvhLpdNc21nd0H6WwOvm6EnifyGm8MDHlznLp8QRIJzmbG8/cY0vXmB3PY0Sn3aQM8BekawPDq5LFowk7KnnoO7mjTAHigTHAFSgwOTxeEer8myaM5MBdXtayxe+z4MEsGRHml/A+xaB9/1M3ixhiyqLrDAjKJpGkrgSdDrEdTWVBEIJ4nxcWPtd2igKydaVklhH3ojYmqrb8Kr04H2WW7dP2qZmoIQ2G5HQH/DCLNpc19CFSgvNC/dZydAV5VTO/tsBenHFeGFsEHmi/XxdlhrLnLaHFvsKEIkTfqPqPPx2GyBQN46j7Y5X0ku07BI32P+THG6Y+OGy2I6IGP/hQfn5dArOATvKMgMb1KAy+RH35YwVi/5i7Q4udshv1yDC0ZVxbd8/o7apkrCaC7KcQNxHk1je+Gc5NoFw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(7416014)(261026140227099003)(261021121427099003)(56012099006)(261009223027099003)(5023799004)(4143699003)(11063799006)(261021123027099003)(18002099003)(22082099003)(261026121527099003)(10067099003)(6133799003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QghB/Imr3Wvc5oEyAD4m7cssR2euuSunKiQvY0U2j3Hi3nj3538Ys3MJfrvN?=
+ =?us-ascii?Q?k6aWFsYWNkrxBpn6lgpr7F1RzkEw2TtA7+G/W+8tRiIE0cqKR4XPro+gVXMy?=
+ =?us-ascii?Q?yQjBHeNyJCx4elFW3QNHwxyB3RDrcCY5/BsXMnaeg9Jx7i3eXg4rqpKGMIIo?=
+ =?us-ascii?Q?roa45xhJkXEMKTa4QZMzwDzWLr6UCYXsk2NI6EWWcHi12+xrE41ZEwDQy+k9?=
+ =?us-ascii?Q?JZNWIbGgItNmy0wjnjKO6EB9vQxKMbE/cIVqdMrXIwbO+wWnLgJaS+EaBwPV?=
+ =?us-ascii?Q?KBQXl2oKozntH0wb+r6/5NPHBmV96oBuC6DETukrGflJv+I0T3QfcI2uD9KY?=
+ =?us-ascii?Q?tnq4XcIT9ES6XTEoMfUky1F0pA7Uohz9ZK8r78NeUMHOt6Q5P51zBcUEp3Od?=
+ =?us-ascii?Q?HkBMqGT7ZlgmFEaQ2wt1ybGkYt50Fjc4uRz574iAg29Fy1ljGIR4SOMyjo8Q?=
+ =?us-ascii?Q?OyjYJwjOV1XfZjm3f36eYAf2v8oJhZ1RGLzUidom9ALgiRw5Et+rH9WzKatI?=
+ =?us-ascii?Q?3qEWhiaJNOqtJhZiq0ta2MzAYKGLIIp9H9rcisKXR2l9W/ABGtcznmsEbrm8?=
+ =?us-ascii?Q?AsFOIpEI0wRSZU3V3pMINAQaRf6PAIIp1gFiceBJ7DfvjkyAeg7mnQMJ3yTU?=
+ =?us-ascii?Q?zZD/ixxvb5TTBi+dfhXBmBkfXKKDNACeFrzO/utUN31Llac/esIkNUlR2vZ5?=
+ =?us-ascii?Q?pEKVesCn6fBZbdsv4hG1yxZ+mTRosFIkeS67QVmylBiRK+9Gc6F0P1zXfp0K?=
+ =?us-ascii?Q?C8d7aYxHOeW24FnAI4RWgEgOOvaqsQkv5g1y5Nw4Z1IBm6F9MUZF/b3JN8Nu?=
+ =?us-ascii?Q?MOwsoveKz7f3HbDoB5bAHUS7HVq8x7cE8losyTABZIp+QOphCuMn7kVwr/0f?=
+ =?us-ascii?Q?37r+LtroFMtslpivXu3M1yv8r3CJpEDLNTFohje5Rce/ojn3feuOn/ObbObe?=
+ =?us-ascii?Q?GZmFJ7oCWQ64OwyiAbd2ieYkE/hTBe606mA+4W6qSKwa/vc3qa8x4K5z6tGz?=
+ =?us-ascii?Q?gjIYT02iDLDx2mvNc1B5buNcO4TN2KZHBn8tNxAubv88xdPdmP5XOicC81ub?=
+ =?us-ascii?Q?Eek78S1kTTyB8f0K9V6t0SAIjLavdGp0ue+a13hac9msoTOJStEY2quAqxw0?=
+ =?us-ascii?Q?MixOePQAr95zna90SMnyatytnnoLePduDiiyie6mIyNyyMzSQMxJcJajkwte?=
+ =?us-ascii?Q?H/jrjSRgtP596be2EZI0NhUZS7E9iAea9Lb3dtJrOzIO13D63ofGB2oAnyIA?=
+ =?us-ascii?Q?/w3FN6sTsQYa77glwas/BXwIAzcgfqHT9AeNCvLYmOsNn2c3rEYLCRfmtEwA?=
+ =?us-ascii?Q?MZDwjCQ7FOpkmw/2OQnWkI1OFgJZ8swj9lKx0CGbj+ajzigwORnikSBNxu79?=
+ =?us-ascii?Q?gxaTmXltOYj0iCb2Nwwhm48HSjE8ol/LzRRcGIcGsU8Ey96OwJJArTwInA4b?=
+ =?us-ascii?Q?Gdruq5SS8yH/8mUAZu61hdkkhe+MZ+KXJEh7WQsBs+nr/eyMzvWGfe4N5CKP?=
+ =?us-ascii?Q?UEJFlxfoxFq8qRje3S9LHQ5VPkn00IVNQjrJWOZVTpFelekSubHxwqZAazdk?=
+ =?us-ascii?Q?XAAdcqXYw9SqHIECWWIJfzxK5P6EMCnhbPm+0FgxxTNsX/eM90gtN97zwtaA?=
+ =?us-ascii?Q?is8CgJEPKNpC1sJ0WNP84hDNXMOgTR2zhN2uqQ8hkKLtvXulW5kEcrIOPDDu?=
+ =?us-ascii?Q?8ZoCvVON+fAv8h6ja3s9nMogzUEAiz+qlN38KN2dqURe5x2OWSsmOUAEHK+T?=
+ =?us-ascii?Q?iWIOtOcKHQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b21672b-5cc8-44fe-7850-08df349d1978
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:42:25.4808
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YpBE/1KFuK7VsHKcdklkKCwQUtNHbagxm4jEzL6h9EwYhN3d6glbEMBqSoAukByOAtlYP8Ut6M1ERCOpYlwzCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4278
 
---lpYmQE31+ktOK+HY
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Oct 27, 2026 at 06:06:06PM -0700, T.J. Mercier wrote:
+> lru_gen_offline_memcg() moves an offlining memcg to the head of the old
+> generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
+> visits it first and evicts the folios it left behind.
+> 
+> Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
+> dying memory cgroup for LRU folios"), those folios are reparented to the
+> parent before lru_gen_offline_memcg() runs, and nothing can be added
+> back to the offlined memcg's lruvec afterwards. Putting an empty
+> offlined memcg at the head of the old generation no longer serves any
+> purpose and only delays reclaim from the memcgs that still have memory
+> due to additional shrink_many() iteration.
+> 
+> Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
+> like any other memcg below the reclaimable size threshold until
+> lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has no
+> other user, so remove the op and update the memcg LRU comment as well.
+> 
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> ---
+>  Documentation/mm/multigen_lru.rst |  4 +---
+>  include/linux/mmzone.h            | 14 +++-----------
+>  mm/memcontrol.c                   |  1 -
+>  mm/vmscan.c                       | 20 +-------------------
+>  4 files changed, 5 insertions(+), 34 deletions(-)
+> 
+> diff --git a/Documentation/mm/multigen_lru.rst b/Documentation/mm/multigen_lru.rst
+> index 52ed5092022f..b532ce961371 100644
+> --- a/Documentation/mm/multigen_lru.rst
+> +++ b/Documentation/mm/multigen_lru.rst
+> @@ -234,9 +234,7 @@ the active/inactive LRU (of folios):
+>  1. It has the young and the old (generations), i.e., the counterparts
+>     to the active and the inactive;
+>  2. The increment of ``max_seq`` triggers promotion, i.e., the
+> -   counterpart to activation;
+> -3. Other events trigger similar operations, e.g., offlining an memcg
+> -   triggers demotion, i.e., the counterpart to deactivation.
+> +   counterpart to activation.
+>  
+>  In terms of global reclaim, it has two distinct features:
+>  
+> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+> index 7f078ff0dd76..542e465ee7a1 100644
+> --- a/include/linux/mmzone.h
+> +++ b/include/linux/mmzone.h
+> @@ -626,12 +626,10 @@ struct lru_gen_mm_walk {
+>   * per-node memcg generation counter, whose reminder (mod MEMCG_NR_GENS) indexes
+>   * the old generation, is incremented when all its bins become empty.
+>   *
+> - * There are three operations:
+> + * There are two operations:
+>   * 1. MEMCG_LRU_TAIL, which moves a memcg to the tail of a random bin in its
+>   *    current generation (old or young) and updates its "seg" to "tail";
+> - * 2. MEMCG_LRU_OLD, which moves a memcg to the head of a random bin in the old
+> - *    generation, updates its "gen" to "old" and resets its "seg" to "default";
+> - * 3. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
+> + * 2. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
+>   *    young generation, updates its "gen" to "young" and resets its "seg" to
+>   *    "default".
+>   *
+> @@ -643,8 +641,7 @@ struct lru_gen_mm_walk {
+>   * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
+>   *    which triggers MEMCG_LRU_YOUNG;
+>   * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LRU_YOUNG;
+> - * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
+> - * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
+> + * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG.
+>   *
+>   * Notes:
+>   * 1. Memcg LRU only applies to global reclaim, and the round-robin incrementing
+> @@ -675,7 +672,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr);
+>  void lru_gen_init_memcg(struct mem_cgroup *memcg);
+>  void lru_gen_exit_memcg(struct mem_cgroup *memcg);
+>  void lru_gen_online_memcg(struct mem_cgroup *memcg);
+> -void lru_gen_offline_memcg(struct mem_cgroup *memcg);
+>  void lru_gen_release_memcg(struct mem_cgroup *memcg);
+>  void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid);
+>  bool recheck_lru_gen_max_memcg(struct mem_cgroup *memcg, int nid);
+> @@ -709,10 +705,6 @@ static inline void lru_gen_online_memcg(struct mem_cgroup *memcg)
+>  {
+>  }
+>  
+> -static inline void lru_gen_offline_memcg(struct mem_cgroup *memcg)
+> -{
+> -}
+> -
+>  static inline void lru_gen_release_memcg(struct mem_cgroup *memcg)
+>  {
+>  }
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index a05d9a8baa1b..e2ddf0680e62 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -4475,7 +4475,6 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+>  	memcg_reparent_objcgs(memcg);
+>  	reparent_shrinker_deferred(memcg);
+>  	wb_memcg_offline(memcg);
+> -	lru_gen_offline_memcg(memcg);
+>  
+>  	drain_all_stock(memcg);
+>  
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 636152d8c94d..45a2c1021f4f 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+>  enum {
+>  	MEMCG_LRU_NOP,
+>  	MEMCG_LRU_TAIL,
+> -	MEMCG_LRU_OLD,
+>  	MEMCG_LRU_YOUNG,
+>  };
+>  
+> @@ -4560,8 +4559,6 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+>  	/* see the comment on MEMCG_NR_GENS */
+>  	if (op == MEMCG_LRU_TAIL)
+>  		seg = MEMCG_LRU_TAIL;
+> -	else if (op == MEMCG_LRU_OLD)
+> -		new = get_memcg_gen(pgdat->memcg_lru.seq);
+>  	else if (op == MEMCG_LRU_YOUNG)
+>  		new = get_memcg_gen(pgdat->memcg_lru.seq + 1);
+>  	else
+> @@ -4571,11 +4568,7 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
+>  	WRITE_ONCE(lruvec->lrugen.gen, new);
+>  
+>  	hlist_nulls_del_rcu(&lruvec->lrugen.list);
+> -
+> -	if (op == MEMCG_LRU_OLD)
+> -		hlist_nulls_add_head_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
+> -	else
+> -		hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
+> +	hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
+>  
+>  	pgdat->memcg_lru.nr_memcgs[old]--;
+>  	pgdat->memcg_lru.nr_memcgs[new]++;
+> @@ -4613,17 +4606,6 @@ void lru_gen_online_memcg(struct mem_cgroup *memcg)
+>  	}
+>  }
+>  
+> -void lru_gen_offline_memcg(struct mem_cgroup *memcg)
+> -{
+> -	int nid;
+> -
+> -	for_each_node(nid) {
+> -		struct lruvec *lruvec = get_lruvec(memcg, nid);
+> -
+> -		lru_gen_rotate_memcg(lruvec, MEMCG_LRU_OLD);
+> -	}
+> -}
+> -
+>  void lru_gen_release_memcg(struct mem_cgroup *memcg)
+>  {
+>  	int gen;
 
-On Mon, Oct 26, 2026 at 12:56:15PM +0100, Herve Codina wrote:
-> Hi David,
->=20
-> On Mon, 26 Oct 2026 12:33:51 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Fri, Oct 23, 2026 at 06:15:33PM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Fri, 23 Oct 2026 14:25:29 +1100
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote: =20
-> > > > > get_node_by_phandle() allows to get a node based on its phandle v=
-alue.
-> > > > > It checks the phandle value against value available in internal n=
-ode
-> > > > > structure.
-> > > > >=20
-> > > > > This internal phandle value is updated during process_check() and=
- so,
-> > > > > get_node_by_phandle() cannot give correct results before the
-> > > > > process_check() call.
-> > > > >=20
-> > > > > Improve get_node_by_phandle() to look at node phandle properties =
-when
-> > > > > the internal phandle value is not valid.
-> > > > >=20
-> > > > > This allows to return a correct matching node even if process_che=
-ck()
-> > > > > was not called yet.   =20
-> > > >=20
-> > > > The idea is sound - it's always been kind of clunky that we need the
-> > > > process_checks() pass to fill the phandles before we can use them.
-> > > > But, there's at least one significant catch:
-> > > >=20
-> > > > [Aside: you might notice the way it's done violates the principle I
-> > > >  stated elsewhere of avoiding structures where you must know where =
-you
-> > > >  are in the flow to know which parts are populated.  My type
-> > > >  discipline has improved since I first wrote this code :)]
-> > > >=20
-> > > > We need to gracefully handle the case of malformed phandle /
-> > > > linux,phandle properties; that's actually the reason for the weird
-> > > > placement of this in checks.c.  By treating it as a "check" we hand=
-le
-> > > > this case by failing the check.  Other checks that rely on phandles
-> > > > then have the 'explicit_phandles' check as a prereq so they don't n=
-eed
-> > > > to verify this again.  We can still report errors for other checks
-> > > > that don't rely on that (which is the whole point of the checks
-> > > > mechanism).
-> > > >=20
-> > > > That's not the only way to do it, of course, but we need something =
-to
-> > > > check for that error case.  Further notes on the code.
-> > > >  =20
-> > > > > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this wi=
-ll be
-> > > > > needed to update internal phandle references before the call to
-> > > > > process_check(). Indeed, this tag allows to identify phandles and
-> > > > > internal references need to be updated based on the phandle value=
- before
-> > > > > the process_check() call.
-> > > > >=20
-> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > > ---
-> > > > >  livetree.c | 21 ++++++++++++++++++++-
-> > > > >  1 file changed, 20 insertions(+), 1 deletion(-)
-> > > > >=20
-> > > > > diff --git a/livetree.c b/livetree.c
-> > > > > index abe73de1..a9f8c5d2 100644
-> > > > > --- a/livetree.c
-> > > > > +++ b/livetree.c
-> > > > > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node =
-*tree, const char *label)
-> > > > >  	return NULL;
-> > > > >  }
-> > > > > =20
-> > > > > +static cell_t get_node_phandle_existing(struct node *node)
-> > > > > +{
-> > > > > +	struct property *prop;
-> > > > > +
-> > > > > +	if (phandle_is_valid(node->phandle))
-> > > > > +		return node->phandle;
-> > > > > +
-> > > > > +	prop =3D get_property(node, "phandle");
-> > > > > +	if (!prop) {
-> > > > > +		prop =3D get_property(node, "linux,phandle");
-> > > > > +		if (!prop)
-> > > > > +			return 0;
-> > > > > +	}
-> > > > > +
-> > > > > +	return propval_cell(prop);   =20
-> > > >=20
-> > > > In the case of a malformed property, this could SEGV. =20
-> > >=20
-> > > Ok, will update to
-> > > --- 8< ---
-> > > 	if (prop->val.len !=3D sizeof(cell_t))
-> > > 		return 0;
-> > >=20
-> > > 	return propval_cell(prop)
-> > > --- 8< ---
-> > >  =20
-> > > >  =20
-> > > > > +}
-> > > > > +
-> > > > >  struct node *get_node_by_phandle(struct node *tree, cell_t phand=
-le)
-> > > > >  {
-> > > > >  	struct node *child, *node;
-> > > > > +	cell_t tree_phandle;
-> > > > > =20
-> > > > >  	if (!phandle_is_valid(phandle)) {
-> > > > >  		assert(generate_fixups);
-> > > > >  		return NULL;
-> > > > >  	}
-> > > > > =20
-> > > > > -	if (tree->phandle =3D=3D phandle) {
-> > > > > +	tree_phandle =3D get_node_phandle_existing(tree);   =20
-> > > >=20
-> > > > This means that every time we search for a phandle, for every node
-> > > > scanned before the destination with no phandle, we do a full proper=
-ty
-> > > > scan to check that no, it still doesn't have a phandle.
-> > > >=20
-> > > > I don't care that much about dtc performance, but that's still a bit
-> > > > much to swallow.  I think we need to cache negative lookups to avoid
-> > > > that.  Happily, since there are two invalid phandle values this
-> > > > shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 t=
-o mean
-> > > > we don't know if there's a phandle, and tree->phandle =3D=3D -1 to =
-mean
-> > > > we've scanned the properties and we know there isn't one.
-> > > >=20
-> > > > In fact, caching property lookups might be the better way to do thi=
-s.
-> > > > Rather than having an explicit pass where tree->phandle is populate=
-d,
-> > > > we could have get_node_by_phandle() cache its property scan (success
-> > > > or failure) in tree->phandle.
-> > > >=20
-> > > > I think that's a more elegant approach than the current one, but we=
- do
-> > > > still need to handle the malformed property case. =20
-> > >=20
-> > > Well, get_node_phandle_existing() can be improved:
-> > > ---- 8< ----
-> > > static cell_t get_node_phandle_existing(struct node *node)
-> > > {
-> > > 	cell_t phandle1, phandle2;
-> > > 	struct property *prop1, *prop2;
-> > >=20
-> > > 	if (phandle_is_valid(node->phandle))
-> > > 		return node->phandle;
-> > > 	if (node->phandle =3D=3D ~0UL) {
-> > > 		/*
-> > > 		 * We've already looked at existing properties and no valid
-> > > 		 * phandle value were present. Avoid looking at them again
-> > > 		 * and just return the invalid phandle value.
-> > > 		 */
-> > > 		return 0;
-> > > 	}
-> > >=20
-> > > 	/* Try to get it from the 'phandle' property */
-> > > 	phandle1 =3D 0; /* Assume invalid */
-> > > 	prop1 =3D get_property(node, "phandle");
-> > > 	if (prop1) {
-> > > 		if (prop1->val.len =3D=3D sizeof(cell_t))
-> > > 			phandle1 =3D propval_cell(prop1); /* Well formed -> Get it */
-> > > 	}
-> > >=20
-> > > 	/* Try to get it from the 'linux,phandle' property */
-> > > 	phandle2 =3D 0; /* Assume invalid */
-> > > 	prop2 =3D get_property(node, "linux,phandle");
-> > > 	if (prop2) {
-> > > 		if (prop2->val.len =3D=3D sizeof(cell_t))
-> > > 			phandle2 =3D propval_cell(prop2); /* Well formed -> Get it */
-> > > 	}
-> > >=20
-> > > 	if (prop1 && prop2) {
-> > > 		/*
-> > > 		 * Both property are present. They values must be the same
-> > > 		 * and valid.
-> > > 		 */
-> > > 		if (phandle1 =3D=3D phandle2) && phandle_is_valid(phandle1)) {
-> > > 			/* Ok, Cache this correct phandle value and return it */
-> > > 			node->phandle =3D phandle1;
-> > > 			return phandle1;
-> > > 		}
-> > > 	} else if (prop1) {
-> > > 		/*
-> > > 		 * Only the 'phandle' property is present.
-> > > 		 * Check its value validity
-> > > 		 */
-> > > 		if (phandle_is_valid(phandle1)) {
-> > > 			/* Ok, Cache this correct phandle value and return it */
-> > > 			node->phandle =3D phandle1;
-> > > 			return phandle1;
-> > > 		}
-> > > 	} else if (prop2) {
-> > > 		/*
-> > > 		 * Only the 'linux,phandle' property is present.
-> > > 		 * Check its value validity
-> > > 		 */
-> > > 		if (phandle_is_valid(phandle2)) {
-> > > 			/* Ok, Cache this correct phandle value and return it */
-> > > 			node->phandle =3D phandle2;
-> > > 			return phandle2;
-> > > 		}
-> > > 	}
-> > >=20
-> > > 	/*
-> > > 	 * No valid phandle value were found. Cache this information and ret=
-urn
-> > > 	 * the invalid phandle value.
-> > > 	 */
-> > > 	node->phandle =3D=3D ~0UL;
-> > > 	return 0;
-> > > }
-> > > --- 8< ---
-> >=20
-> > That looks good to me.  But the "existing" in the name no longer says
-> > anything useful - this can be the standard way to get a node's
-> > phandle.  In fact it might be worth changing the name of the
-> > node->phandle field to make sure we don't have any stale users rather
-> > than going through the get_phandle() function.
->=20
-> Ok, I will rename node->phandle to node->phandle_ and add a comment saying
-> that phandle_ field must not be accessed directly.
-
-You can even switch it back after you've checked there are no stray
-accesses to it.
-
-> Related to existing users, I can see check_explicit_phandles() available
-> in the checks.c file.
->=20
-> check_explicit_phandles() could use the new get_node_phandle_exising() wi=
-th
-> the caching feature. The only problematic part will be
-> --- 8< ---
-> 	if (linux_phandle && phandle && (phandle !=3D linux_phandle))
-> 		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
-> 		     " properties");
-> --- 8< ---
->
-> Indeed, this check is done in get_node_phandle_existing() and the function
-> returns 0 (invalid phandle) when both properties are set with a different
-> value. A value other than 0 should be returned by get_node_phandle_existi=
-ng()
-> to identify that mismatching properties values.
->=20
-> This should not be a big deal if we introduced a new invalid phandle valu=
-e:
->   - 0:
->     Invalid value. Can be returned by get_node_phandle_existing().
->=20
->   - ~0:
->     Unresolved value (phandle value in properties) or value cached in=20
->     phandle->node_ for "mismatch 'phandle' and 'linux,phandle' properties
->     values". Can be returned by get_node_phandle_existing().
->=20
->   - (~0)-1:
->     Invalid value in properties and or value cached in phandle->node_ for=
- Invalid value.
->     Will not be returned by get_node_phandle_existing().
->     When this cached value is found, 0 will be returned.
->
-> In phandle_is_valid(), those 3 values will be checked to determine if the=
- phandle
-> value is valid or not.
-
-Alas, we can't do that.  Which phandle values are valid is long
-established from the IEEE1275 days, and we can't really change it.  I
-don't _know_ if there are existing trees out there using 0xfffffffe as
-a valid phandle, but there could be.
-
-*thinks*
-
-In some ways it would be elegant for get_node_phandle_existing() to
-report the various different error conditions separately, but I think
-the awkwardness of passing that information back to the checks is
-going to outweigh it.
-
-So, I think we're actually better off separating lookup of phandles
-=66rom validation.  So get_node_phandle_existing() (or whatever we call
-it) will return 0 if there's no valid phandle, whether that's simply
-because it's missing, or there's something malformed.  Separately
-check_explicit_phandles() will report specific types of malformed
-phandle properties.
-
-It does result in a little redudant logic, but I think it's the best
-overall approach for now.
-
-> Now last point, renaming get_node_phandle_existing().
->=20
-> get_node_phandle() already exist. It get a phandle but also if the node d=
-oesn't
-> have a phandle, it allocate a new phandle value and set node "phandle" or
-> "linux, phandle" property to this allocated value.
-
-Ah, sorry, I misunderstood what the "existing" was referring to.
-
-> IHMO, get_node_phandle() should be renamed to set_node_phandle() and
-> get_node_phandle_existing() should be renamed to get_node_phandle().
-
-Right, the existing name is bad.  But let's go with
-get_or_assign_phandle() for the existing one and get_phandle() for the
-new one.  (The "node" added no useful information and this way they're
-two new names to reduce confusion).
-
-> Does all of these make sense?
->=20
-> I so, I will try to implement that and maybe I will see other issue I mig=
-ht
-> have missed.
->=20
-> Worth noting that if you're ok to rename get_node_phandle() to
-> set_node_phandle(), I will do it in a dedicated patch. Indeed, this will
-> ensure that get_node_phandle() has been renamed everywhere (compilation
-> without failure) and so I can safely rename get_node_phandle_existing() to
-> get_node_phandle() in a next patch.
->=20
-> >=20
-> > > In get_node_by_phandle(), no change compared to my proposition and so=
- the
-> > > full function is:
-> > > --- 8< ---
-> > > struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> > > {
-> > >         struct node *child, *node;
-> > >         cell_t tree_phandle;
-> > >=20
-> > >         if (!phandle_is_valid(phandle)) {
-> > >                 assert(generate_fixups);
-> > >                 return NULL;
-> > >         }
-> > >=20
-> > >         tree_phandle =3D get_node_phandle_existing(tree);
-> > >         if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D pha=
-ndle) {
-> > >                 if (tree->deleted)
-> > >                         return NULL;
-> > >                 return tree;
-> > >         }
-> > >=20
-> > >         for_each_child(tree, child) {
-> > >                 node =3D get_node_by_phandle(child, phandle);
-> > >                 if (node)
-> > >                         return node;
-> > >         }
-> > >=20
-> > >         return NULL;
-> > > }
-> > > --- 8< ---
-> > >=20
-> > > Caching should work correctly without any other modification.
-> > >=20
-> > > I let you double-check on your side. Let me know about your opinion. =
-=20
-> >=20
-> > Yes, I think that should work.
-> >=20
->=20
-> Best regards,
-> Herv=E9
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---lpYmQE31+ktOK+HY
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrhYL8ACgkQzQJF27ox
-2Gc8xxAAm0qhmdEl/r4H+AvrqxTUYfa97hm7LpvCEusXFEcbb+KfKSxLCSb86ach
-wZIZXqPZ7aaOCqbbuJBs0LP7X3gjebYg73/p9c1OjCpNb+266VW5C+514bc1Hygz
-kW8o4X4dsrEnoIa35DJCu5c1JZ4tBrpRx8nyuL+D5+FtlMEiBgG5i1YZRwdcz4Lv
-bhfZdLg+FNNIoZ8ABdxjJ7TStPR6FMKtflPQPksZtg+btJxuXS4OccpdKlELtACl
-fECpqjQtlZu9IeW/bFAcreCTyMGNuqB/jhfMiDiIbDQSYOjrNRHUtz540aemulJ/
-j3pmz3DIKvNjiZ6MN2O1akxA5r0jKtaUGT7Xb1JEUTe/ekXbkH1FP4/4TdZnpMsw
-Rzniw0t0F8j5CS4MOC8g3u1NnHYzVUBG/qfm+BhJqXji42blouWaYuY/dCv28dR7
-Pn+HTc25lqa3ks2chBdgwG92NK8X1n4j1RXjwJ+leV68suF0tz7x27DcB6Z0YoFS
-6lkxOfaTTpP4z306AUo33l8buqNdmH7DY9jywMRNFJbITmPD7XFZxBsyI8hi1Ett
-EFPyKXOfw+p77UMFUUvHCK+WfCE8iz1wNnnb23VvTQYWczP5uQwCOfyYDt57Xuk5
-Ft29GU/GgbyDPNzGJDslgNKa6vFvMJKqIIC9plARkXiCpIDZtTI=
-=L/7v
------END PGP SIGNATURE-----
-
---lpYmQE31+ktOK+HY--
+Acked-by: Balbir Singh <balbirs@nvidia.com>
