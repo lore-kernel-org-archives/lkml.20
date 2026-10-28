@@ -1,123 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793207782;
-	b=snXkAue+E5vXOzVbSJTYBQg8aTybu+BfW7RnjNSfo7Xi2kh1lh+sGo913in81MOMoEBo
-	 YmG/o856cU1h082L4GtMPbmYbmmY3/6C7itavbPaZTQm/Ndx/7gObhzJV0wlx37xoW2tR
-	 EB1HMyZmmptQJkAaYMdxlcg8RTFQryriA3NJEjsIBqIiJYMzizGI26M7w0NlWCRNPOwd4
-	 BumJK/WtnPP/UfPzabiykf1Xl/oe9NJdr5to4WcTXwrmkeW+UsFzVe3MoTz4bSV0hlp+H
-	 Ok6rR9rA6n1sFYH5d7WkFLdUEohT0VGLtJfUtTdZliGCrP5Lc9ZIqaTD3hhzI3TI1wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207782;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=RvdKRTa71zGBb4REkTJXLVVYnsNBImkhzu+/0ATTfes=;
-	b=edYw24DVq75cc3pgNsoorqRypxPD7dxaQXL/hCkDUmpulDnGEMbab/rcPDbEaNg6QX+n
-	 MA2TrDhCUlBJd+pO24HFfQezmazEeu+JiHd1kMnhBlTdOeVWZA8jpsOnwsyHx56Qc6PUw
-	 xINZ3e/PlozmVg1VWZeEzBoMe7xluNllZpFFTHnMlYTe8ARDJEAHruPyuXGoKThEcu+MS
-	 03k632pr+hOqxkdu8joiC+hbTiHgo2U5SEzN2S7ZOfMVULP6uXcU9v9bXaZNIdv5iikJG
-	 SwNqLV5opYckwVWuxSBIv+tPZ3gq9/CQbY8maZyNYsrRujjTrcy8okLTcG7E0KDhkRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Hf1AoZ1+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c7B3cPx0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793207829;
+	b=rsjNvs1gw5szYiMXeRn25J76NXPBKngnVSWVbDb2S7p7j+2FnwGkXJTW7xRLabpetkVW
+	 fMRUkooK76Tqt30kI/eS4vwqZAawNvob1tyCPW4qEUQSwJK8UdwsRButxOPnCczzqpLtF
+	 MzIXibBNIRTOpzCFkjMZm8iOl5HD8tZt5eIulFxnpmGIqfDsGJmfiTn2Io3UHlf2N7f3z
+	 3bvy6vW5y3aEYreJtDTM24uExjHfaWBSswY4xU6mVdOw3z3tqa2zM5uNfLR1ohHkWowp3
+	 mj09ECHVB75i++FS2PEnIT4XpW7Q+JS7wmTcZN9c0k3m1VtaMkn0wIp9eKw1Imuo3UA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207829;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=05SG7gAJ008w03i9CCuLSraJDJiyVFmW6Oo7ipBrjbs=;
+	b=4EMPikBDoKCMWj8vwTaCapSZRO8Jzk3LYcDxRNl/pWCv1iP1cK7Ean50hAJfNVeWZ8RS
+	 +ndICaITPInxXuoaK0vlQHxm7BfOf7jCfP+raAgTnf1VpG2MPaGpQR8AC/T2hBqc4u6uB
+	 RoZowgULkSQUOLpJkIjInuhn4gNbfqCAm1XZE9IfC1Qnh/U8Ka8OEfhZnBW9aZlbt8SG6
+	 hUiKWs8tqHub3NzasnkF3wcPux6cstVr9Q33W6tb3wA7u2ilv6D5BZAsPHxHPmY0CYQ3R
+	 cZElWfwGyUM/fctVYAiOFLD8vNvWeLfcqirYjYRrQH46BUhUKnN8ZX+2wM+r5aPgLDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIVACHG1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7323C606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7323C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CB6606A320;
+	Wed, 28 Oct 2026 17:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Hf1AoZ1+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c7B3cPx0
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFAXJn1153211
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:16:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RvdKRTa71zGBb4REkTJXLVVYnsNBImkhzu+/0ATTfes=; b=Hf1AoZ1+GDgRnMJt
-	4Q3unm7eZ2r4YHQEr2bRWT7MNtJMIXzg1cvD20v1VVvoKGGXpUWUXOa5YxJajsDy
-	E8VTjy3oHhDyhBQLlXMHJhXhEMQVUD+77QbmptNhKTsUDCmc5/0PLj1nPfaAecD7
-	aD+OXdLOrZKoEVOtgfZDuAH+AZu9aA989VuPVv2BPKsOxeMJtcbWLVQPyPdmjWcm
-	y++fEmqehy5v7PH2LdLZeXL4qJAAH0cVqqa6jjRw50cBdZhCBaodJciBmqbH67If
-	Qkx9GFDgp6cfXTOW7gJw7Z45JWoqqwCvfz+obk9pAckBEO3Ilt36zJVva4X+Dxzq
-	QfHPdg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6be3pu1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:16:21 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ea71803effso12411675ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:16:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793207780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kwqLz1j5EoquLcUB+maambt2UgeyizI9agMNTJKsXAMS2nrHU5NNMELEsOnK07lQ7b
-         AxEkMXPDZfowL1kGPBbBL0DozW61rywdvhHBf8zNTA3mIogE2kyX4xCHrApJGkZVXH2r
-         8HxgpYV2U4je5GJmco1zCY1Qox/Cm3bJVAC1gIQU+5NzzMqLeyJuh1EBMxbbeOP3TQ8M
-         7Z93GsgY72nBFLPYrINnK3RzdrW34xBLlOSblRFsFKYRtPS6R5erep8/ILyRoQkxIlck
-         jY8JauT/o+gYkMYd0aef/rhQXYi1xpaaH7kFNdFZmZBUDlvZIJxnj4FGi6/vrgfXBhix
-         fFCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RvdKRTa71zGBb4REkTJXLVVYnsNBImkhzu+/0ATTfes=;
-        fh=DIT0/yvWeTkv03ZNRTQ8GK+ZRGh8cBtTobbtZAM6e3w=;
-        b=TeL4FRw6hv6ifX8BFj7tW6rOMMcQl8QW/G3ESQuW1LILnkWNs6j4UGIh4epiGPGOMn
-         pVsn9VcjFVFlj8wkJpTQCAvozvc04KrNNN5QOTN/LL4nGWb/QPy7+6ygGePNRxtiwYDj
-         YeA1+DgZMoRbXvj5pM0HSjFmgCSHqKDAfy+1S3R9UuBlqofIEel3iLSErN8TctWI4Nc0
-         2KzctUtKQbKd0vo6h4hK89RmJUXxueTCI9iMaSX9wBeQbB642DMUeZRHYNqAUzZqYG9Z
-         C8+H3lvMswLmNntdv6fraGEADCwau49/8/UpVwURrXtfcRDy/oHSp4P4SKe2YaEMPRJG
-         +1Dw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793207780; x=1793812580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RvdKRTa71zGBb4REkTJXLVVYnsNBImkhzu+/0ATTfes=;
-        b=c7B3cPx0Ve8xe3s49Lp68zXsVROrY6oc+vlGpqTzpDSfOdKcLHJFRtrVnA0UTpq8Ba
-         MDg1Je0WIDzx7nQoofmnWriTEsGxsWtY6YAW1/G8WUtGem6Hitbjh0sciIqsGzs94m3o
-         +ltBLML/s2bqJ9eu32TOxHR3X4UIphnUYtTomaC7ER0MH2amjuHsrg4zatW83/p9s30G
-         9HBH/F79GUXbsFd1up+geYrFmbNmFik8NssyBOR7rW1d6yd8pWpD7uMZf/vveImj9VFz
-         Rqe3N6jVrBkf1UwATIKSKAOD6F4oc5RTPfBh0CPUwYqkCFw6iOQ5EW4WnfeMeDoPYzuJ
-         WPaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207780; x=1793812580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RvdKRTa71zGBb4REkTJXLVVYnsNBImkhzu+/0ATTfes=;
-        b=uw/fTk7VsLPMPziK7fj+jUXW/aCvm0MI0nzrSN4Rk1g5xD2+hBokriG2Km2h+gg9u/
-         VOXSHXNWKdZmLePX2K+o6PMGA6LUW3PgdDoYTnBRQoo5/f6VSWbTXK8+Vz8NykW6QLfq
-         rYU8NUM/2MqrftuXj8SzC2Nv77YDP8h41Pv6wePgLxVnv3QCKQIrfiALHGnpqb0YrT7x
-         rGQXtlvQsnid9CgJ/drvfvDKDCxhq5vq9lkbNWt8ZYhvPzlZBtN8A6PgC1R7Nm1OwOYE
-         GNpQPw8bcXbxlAhgx2xvJWF6DIitvlZK8kIo/tLzoTo1JAQKTxBZhFsDinT1TafF0v5d
-         XoaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAFJTvVfRmhYk7W0EoUrI4sxSOXMhqw5ctQZfiBa4I+/zH9lUj5PVm7viBxIquhYE04+EA/o1V4rIrHxI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJInr6FVlaXlWSAlp/7YFjNRaRKH2juAaKNm+Vs03o0zd3tJ9KC
-	BquuH2jzJO0/O75ZLWKxi9Uj0mkclRJ01uFyDJ4w/jyfG/nWF4LrjfKjjhf3ZEfmVzTrqkwkYgA
-	TudFRuZziSeX944kHQm6E0Cgtyh1ZANCbpZMUI7Xi4BaWcx8suAAxRIiOKGeqJh4/XaGdZ4bRGS
-	6JR65/MQuxGcH5S2WGmW6z9bmmG94O3+WScEiOB6ZMQA==
-X-Gm-Gg: AYBFou0lOCDtVagYKL3Cb/0n6DvGhmH65nIzhkR17ACNpDDVXtcrQty6mMVGVuVjC5q
-	SEoVy9PeLRaCL527OPO6Y985EjeIJBB8ujN+zpQuqtSWBj4I7Xe5wBWcUJOoihjYvpcRHgQR4Zm
-	vwpqD7dZ1sHtlhmyKCUTosVdYkYWsAO61jU5Haf0qNlC4XvM+o4UPYukB+OA==
-X-Received: by 2002:a17:902:e94c:b0:2e9:9524:b004 with SMTP id d9443c01a7336-2eb0052c6bcmr23727475ad.59.1793207780408;
-        Wed, 28 Oct 2026 10:16:20 -0700 (PDT)
-X-Received: by 2002:a17:902:e94c:b0:2e9:9524:b004 with SMTP id
- d9443c01a7336-2eb0052c6bcmr23727325ad.59.1793207779945; Wed, 28 Oct 2026
- 10:16:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIVACHG1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A438E1F01828;
+	Wed, 28 Oct 2026 17:17:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793207828;
+	bh=05SG7gAJ008w03i9CCuLSraJDJiyVFmW6Oo7ipBrjbs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=LIVACHG1RijgMjCcG/Za6quG10uP/bwvgH9QE8LBE1Ivatgc9Gsxomr3AtpNUFPU0
+	 A+6txV+JhFA/FQ9wi7C+7pWYpZ0e+Pc7WqKMe9jkABrVblw1ZFcwlZAztCqgB1P/e3
+	 p9b8wN4tDVitUGLc/V+1hQT1NZFTVD7m3WdPU0oqKQlNmHSSGk9l9hK3CeTbNDWqSe
+	 VN3sAKFewBC6xe0t5rYtB+sbuiw5e5lDQoKvIRxdjJ0DrtoKis23WnQwx7fOelIVvL
+	 Atltab4Pstjrs4D4dYuIJSyaVZnuHq7QWlD07iE6RtqSOvkxEaO4SzTr/vUKZm0prA
+	 whzCKqWsehupA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,  tarunsahu@google.com,
+  Andrew Morton <akpm@linux-foundation.org>,  joro@8bytes.org,  Mike
+ Rapoport <rppt@kernel.org>,  Pratyush Yadav <pratyush@kernel.org>,
+  maz@kernel.org,  arnd@arndb.de,  jgg@nvidia.com,  robin.murphy@arm.com,
+  loganodell@google.com,  oupton@kernel.org,  kevin.tian@intel.com,
+  alex@shazbot.org,  dwmw2@infradead.org,  pbonzini@redhat.com,
+  seanjc@google.com,  will@kernel.org,  Alexander Graf <graf@amazon.com>,
+  Bjorn Helgaas <bhelgaas@google.com>,  baolu.lu@linux.intel.com,
+  linux-arm-kernel@lists.infradead.org,  linux-arch@vger.kernel.org,
+  sagis@google.com,  linux-mm@kvack.org,  kvmarm@lists.linux.dev,
+  iommu@lists.linux.dev,  linux-pci@vger.kernel.org,
+  kexec@lists.infradead.org,  skhawaja@google.com,  kvm@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string
+ with a 2-bit pair feature header
+In-Reply-To: <at-8vkVpN2SF3XgB@google.com> (David Matlack's message of "Mon,
+	26 Oct 2026 20:49:02 +0000")
+References: <atlKsD-aJB3mJr2j@google.com>
+	<CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
+	<atl7peoVHdP5hz7z@google.com>
+	<CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+	<CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+	<CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
+	<atpNFEFIlqAoYIwH@google.com>
+	<CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+	<attmFVIFU_mS0Y7p@google.com>
+	<CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
+	<at-8vkVpN2SF3XgB@google.com>
+Date: Wed, 28 Oct 2026 18:17:02 +0100
+Message-ID: <2vxz8q3hoicx.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,107 +82,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <1791722984-123689-1-git-send-email-shawn.lin@rock-chips.com>
-In-Reply-To: <1791722984-123689-1-git-send-email-shawn.lin@rock-chips.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 18:15:50 +0100
-X-Gm-Features: AclHuK8Lf70SdY5DFZSw3EQaOeBBl_QiZ3i-ZXevSvTPJeE55HTbxUKaxs41DMg
-Message-ID: <CAPx+jO_pCiU9qG5swLz6CExPUE55=wp0+pQ62j8wAhrvvaXAYA@mail.gmail.com>
-Subject: Re: [PATCH] mmc: core: fix wrong comments in mmc_ops.c
-To: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Shawn Lin <shawn.lin@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: dLBzajw5ZpwhQO716nB6mhx50xQNwSvK
-X-Authority-Analysis: v=2.4 cv=HeuB3SE8 c=1 sm=1 tr=0 ts=6ae22de5 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=s8YR1HE3AAAA:8 a=ZTRnR9ALD0t5UWsEksAA:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfX/hebOo3WKm6o
- FqYBcfkEH2ld+fUiwCfvC4GFY2SS4YeXPRYz/bW4LrFHq5GRaGysqLPFHoKxyl6Rk7c7+5/Tlu3
- Hr4zzajJqJiQevKy0IgjLXCzvNFklIc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfX4qJ0M2zdF2EK
- IN9aSPgpZXY8xSLGULaxr6mmPlC9qEMAvlMgTaHB5RQTjVYvj79NiZjid5hxvHhbCP/hXRywdkK
- +iveYe1WoAYuCvxe5oaNtncjWKjAVknPMbnDS8lz65E402YlRT61/fJh8lUjXcs7NVsizX46yla
- Bw6xWAxYIDfLnlpipPz3lYVFlJgrJTYmgntT2gaDBaCdg3CCHhGJBPIjuv1O7ogCXz00Og6EwpT
- PZhetjoF+lnGAz/XxK7mC5M70t4Zu/UxlNtWEkDMBjatr3cR8ag6I31OQyoSGfiuq23kggtZdxm
- yUNMaO0AQEdiugHDcZb9WQOBZJfSPq6/CdDz5zgEbl1WRe2zK8GaD68dtVMpMJriruQw2L4xtxH
- yca07LU8MainX/BkB3Z6L31D5GTmqHDZLboPASmPA9fj8rP+eDrcHEv8tjmeYOpUnSsXJFtTDEJ
- GSZph7jaWOY81iyoA5A==
-X-Proofpoint-GUID: dLBzajw5ZpwhQO716nB6mhx50xQNwSvK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280068
 
-On Sun, Oct 11, 2026 at 2:50=E2=80=AFPM Shawn Lin <shawn.lin@rock-chips.com=
-> wrote:
->
-> From: Shawn Lin <shawn.lin@linux.dev>
->
-> When seeking to use mmc_send_bus_test for eMMC HS mode tuning
-> to workaround a vendor product, issues were found with these comments:
->
-> 1. In mmc_send_adtc_data(), the comment refers to "CSR and CID",
->    but the branch handles MMC_SEND_CSD/MMC_SEND_CID, so it should say
->    "CSD and CID".
->
-> 2. In mmc_send_bus_test(), the NOTE HACK comment about reading CSD or
->    CID with the R2 response type was copied from mmc_send_adtc_data()
->    and is irrelevant here: the bus test commands do not read CSD/CID and
->    use the R1 response correctly. Drop it.
->
-> Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
+On Mon, Oct 26 2026, David Matlack wrote:
 
-Applied for next, thanks!
+> On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
+>> On Fri, Oct 23, 2026 at 9:50=E2=80=AFAM David Matlack <dmatlack@google.c=
+om> wrote:
+>
+[...]
+>> The reason I care about keeping the header compact is that we are
+>> defining a foundational kernel ABI and want to use this header across
+>> almost every serialized data structure so we can evolve them later
+>> without breaking compatibility. While some top-level structs are on
+>> sparse folios today, other serialized structs are tightly packed, and
+>> we are looking to add KHO slab support in the future where tightly
+>> packed allocations will be common.
+>
+> My intuition is we will have a small number of headers per preserved
+> file and per preserved FLB. One for the top-level struct and then
+> optionally a few more for sub-structs like arch-specific data. That is
+> why I am less worried 8 bytes per header, even if we fix the folio
+> problem.
+>
+> Maybe where our visions differ is when there are collections of
+> serialized structs, like KHO blocks. For collections I don't think the
+> elements will each have their own headers. Otherwise the elements could
+> be different sizes.
 
-Kind regards
-Uffe
+kho_block today doesn't store entry_size in the serialized payload. It
+relies on its caller to do so. With extensible structures, this can get
+messy. Sure, the owner of the kho_block_set can track the size somewhere
+in its payload, but perhaps we should store the size in
+kho_block_header_ser to begin with?
 
+Anyway, not a problem this series needs to solve, but something we
+should eventually do.
 
-> ---
->
->  drivers/mmc/core/mmc_ops.c | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
->
-> diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
-> index d59ff82f..fda728d 100644
-> --- a/drivers/mmc/core/mmc_ops.c
-> +++ b/drivers/mmc/core/mmc_ops.c
-> @@ -319,7 +319,7 @@ int mmc_send_adtc_data(struct mmc_card *card, struct =
-mmc_host *host, u32 opcode,
->
->         if (opcode =3D=3D MMC_SEND_CSD || opcode =3D=3D MMC_SEND_CID) {
->                 /*
-> -                * The spec states that CSR and CID accesses have a timeo=
-ut
-> +                * The spec states that CSD and CID accesses have a timeo=
-ut
->                  * of 64 clock cycles.
->                  */
->                 data.timeout_ns =3D 0;
-> @@ -815,11 +815,6 @@ mmc_send_bus_test(struct mmc_card *card, struct mmc_=
-host *host, u8 opcode,
->         cmd.opcode =3D opcode;
->         cmd.arg =3D 0;
->
-> -       /* NOTE HACK:  the MMC_RSP_SPI_R1 is always correct here, but we
-> -        * rely on callers to never use this with "native" calls for read=
-ing
-> -        * CSD or CID.  Native versions of those commands use the R2 type=
-,
-> -        * not R1 plus a data block.
-> -        */
->         cmd.flags =3D MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
->
->         data.blksz =3D len;
-> --
-> 2.7.4
->
+[...]
+
+--=20
+Regards,
+Pratyush Yadav
