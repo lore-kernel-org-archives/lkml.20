@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793228059;
-	b=v350+2yxNTRXkfiviqic9a1ILn3jkmIoYUfn6pI+UJ2Rpk4mq3FzAk0NoraHavgzwD5T
-	 ZWYY1ft84MCE+C6zZsHhBC4GV9FmMJuFxl5jG3/uaqbyfd9vvBvTTx4mLBAA6ikC1qRqZ
-	 xdi1OA/GBiTwbkbyKnTml2aPJwMxwBuqNTExjMimC+6P35hjZ1mQsT8vS6SZkmlwnGwty
-	 eNjV0Orvu48nVhlBC2zBOcrYl24OJfzGeLTwHxxHhR6xl27fHr5V7DD2mQPy8zQt3N6NQ
-	 v1EgsLKNyjIygvYpVuZSLWZnFVYRqyWJMtHU4SlkIrLUyJcjSffQcSnu0FPqeq4Dp3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793228059;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uq+/t+HMdlaXNj5J1t80Jzrv51On5WqbU4UwEvAO3Xk=;
-	b=vLliubn3MYXvvWsNSuXtKKW0Q/IcOsK4eanQr6tiU871EksKO/X/vpkvl4TIY/w+IgR0
-	 NAbJGxuUbL3kAtfudW5heOpbEgx7EwiLPsJKxhfxGz0jUoP/65jkHuq1jCYnLGAnBSlqu
-	 plYbwBfFMLv/0Sb96JCHHJnjOxOhbz9MlA2gigbHHFOfoE7fp4U7IsqKk7oKsybe4K29O
-	 8njUOSW8ZQESDfB7WM/AUkQDeMkZdD4BCVkb+IDnn4aEV84zWpOXpEWGwJcAD99bAHbe9
-	 50+VNozPX1byC2ALgeD8xM6HUb96/SJUGwyNrAbA3MiLpqDlpn/90QwuWmf20WL7Z/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4jjRSzV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150CB606A339;
-	Wed, 28 Oct 2026 22:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793228073;
+	b=c3rQshZ8Qf/b8TO11JPb3HKer3K5VHOvSQV/E0JO5aO4O2v79kl4fO7tcaYI1TowYs7Z
+	 179bMXli7X8b1ZRxUhB0Ep6XyEp0GTgy8lCGNL1P7R8Nh3IAUpdMmfuWfKPFXyLzt2hiV
+	 ZkgmgQBcVz0sxPC3YdeEfuQi+tVqBX3o1+KrokuuwW4DLMtqye7y7ksGLpkePwfAhOOkT
+	 1yldNDPJM5q4Bm/J2wQsYa0IR0pGMaDTDF9ZX2jEhN2d9MjFXK/Yva/a3YmD9UL5mu42o
+	 9VB14S8lp6+fND7im2wCcqxkK3te6XWFYMEjhJJnfeumoNHwLjpvsc3sBjuOHmoyboQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793228073;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=7+8g5pkqznWF0/NMUevwwS8BVQE4WdpcK06r/3WMI2Q=;
+	b=s/pzEYOf3oAKmIs4yj+r+nsfqPUpCaMlr5fjNN8sOXxNlFT+evMzJB4LX3zljuWRbP5D
+	 fKw+5bBVHs4Jwyu+S0vqP7d5Yb9UV93QSTQPJPbvuZflX5HBpaCTDLSUJ/Ew0zfQgCCVT
+	 k0nRVJLt8APxUvDX4xsPYiB7SdDowlD42p/dBDkQnkqsC9YKuLWfiTthkqXBkka5AGB6I
+	 L72tWrzA3nFOtCFsF5RqrIqAAPxhQrxfjNQmdbeaIq3uOsC1cuHxDKwD59coxkKyQgtES
+	 W89EU8ofcI9PAmZRKv4nnocc1Ed0gGlXUkooU63nwWpbFweaNiCae8lN1eH9ggTHxVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=gLE36HT9;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B39D6606A322;
+	Wed, 28 Oct 2026 22:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B39D6606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4jjRSzV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793228058;
-	b=eSVk+012Bf233/qoNBE4RNk8GmzrOx0nUXzb4gvFp2VefY/ECO/mH5e0xM7d7InC7tj7
-	 pKaTRpcSFkHfiQYfasqkShJqohNObVlLE24Py0tm8UgJ/5HEdkaOyjRCFXmNiAbR6qy2D
-	 bsNe+ZtZwUln1CknVr+3RFyt7gIUumsQYL9dYvy4qI400V9gyMcwwROEUYrLE1xXkGOrj
-	 QZoHEqyvjTMKDypxv61GHh5ymm6WwOdX5ExmFEFOyIVgEok/oq1VtOlOnQBwBdImOoLVS
-	 AtDsIPZeeBq+o0jBqssNXrZedAjrMs8CJPbkhWzCB1ZYlcNm4DJNMHF+PEJpSqV4o+g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793228058;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uq+/t+HMdlaXNj5J1t80Jzrv51On5WqbU4UwEvAO3Xk=;
-	b=nLBxnFe0cR76ufwTVzoCXNooUbWVGdKFswPj7vl3fVDycUCxvJJv92W5yNt06Pab8Y2T
-	 KDyQadryd74iu4BowSVJOdKBtn/l0rpTMRCy3aYewmGyvHDbw7yAGh+q5Os0rEnyapIpJ
-	 pLOCHVHRj0XrusvbZyjUGZtAc2+4Opv/vJItv4Kaj3JV7Aq3Ru8P9WQDHYH3js4pOVzzz
-	 M8f56eJtkPQZR8CYOAS9J1PVy40tRG08Ikw+E40BMk20mdtCVzx6yCNIaGCQ3O72A5HzA
-	 C8iJaRR+m+DVe7uE3CLcFltA5BvIiFphyppzi31BV9x/WZPgfAf4jcejet4KH6h6jPg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2A45A1F01825;
-	Wed, 28 Oct 2026 22:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793228058;
-	bh=Uq+/t+HMdlaXNj5J1t80Jzrv51On5WqbU4UwEvAO3Xk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=V4jjRSzVm0oHhIh57B+DhbjJt7l8MAUAZfdKMcrF7c+2A9oDyXFt8fGV2jlp6Y0OU
-	 q78SFZ8R7fbjtOlRWOzT93N7yXKnk+jKaVag9e0yHkQ9YG/hLmv/rMLZylqGHJm8pB
-	 eD6oHhi2lJGnXUc3z7XdnWjUu5hX1CJ1NXerTZvpxOmiGp/4ltBhozgAAHeAZQVZyC
-	 n3MXSdTNw0b/m/OELzP0vQH/VYVD4frDa9Vgiis7EzfcBfWhQ2zF1Whm2eJ0tkhJUx
-	 kM46Bw5bus8KKZdrGIduT08V3qB16B6D0Gf0dMwlc6HXdQbTUZiGBysL7Ou5UrkR9Y
-	 U9iEh5cH7CXYQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B22C1455F6;
-	Wed, 28 Oct 2026 22:54:15 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Wed, 28 Oct 2026 15:54:12 -0700
-Subject: [PATCH v2 1/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=gLE36HT9
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8C99020B7167;
+	Wed, 28 Oct 2026 15:54:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8C99020B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793228060;
+	bh=7+8g5pkqznWF0/NMUevwwS8BVQE4WdpcK06r/3WMI2Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gLE36HT9fqQt6iIgFwHM6Jc2snULgvCq/610k0O/kLWoHopT19tPWRJHNGCBFM+xH
+	 W3sVwv0LzjLVrfM07s9yuRC25LGDpu3FTfNVfyPAcwiDYYIretP+1yKw/yl1/AGUFQ
+	 nWGIybtSowGpBR8lF33xk3juu4Wuy9DWwU9Xy5J4=
+Message-ID: <49a7b3b0-5314-c028-d0e6-a46e65ed880d@linux.microsoft.com>
+Date: Wed, 28 Oct 2026 15:54:30 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,116 +53,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-freesync-plane-reset-time-v2-1-545a0f9b17df@gmail.com>
-References: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-In-Reply-To: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228055; l=3815;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=ja1BU9fsikeUf2TrYBZm4ugZRVrlmO4LmC6UBmc9kCU=;
- b=52jaZa7nAksrfqKCubKGFlIUTkSLslZ6JnrdzNfxz6/3Qjdx5UpHTyZGX4OcaDH7Zw/LHJiec
- gpzq4JEvxlXCJULbSWWJFPyJtD7xc+7qHezEzh52Gqmc7e+OULF6kcd
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Reply-To: davidralphhughes@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
+Content-Language: en-US
+To: Magnus Kulke <magnuskulke@linux.microsoft.com>,
+ linux-hyperv@vger.kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>, Magnus Kulke <magnuskulke@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <liuwe@microsoft.com>,
+ Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
+References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+On 9/30/26 05:10, Magnus Kulke wrote:
+> hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> ownership of those pages and per contract revokes root partition
+> access to them, raising a #GP on access from the L1VH root partition.
+> 
+> However, the pages remain mapped in the kernel direct map, so kernel
+> code may still access them even though the hypervisor has revoked
+> access.
+> 
+> Helpers such as "load_unaligned_zeropad()" deliberately read past the
+> end of a buffer and across page boundaries. A read into an unmapped
+> page is tolerated and triggers a #PF, for which the kernel executes
+> a fixup in the exception table.
+> 
+> If such a call steps into a page that has been deposited, the access
+> raises a #GP by the hypervisor from which the above handler cannot
+> recover and the kernel panics:
+> 
+>    Oops: general protection fault, maybe for address 0xff1100941a3dfffc
+>    RIP: 0010:csum_partial+0xe5/0x110
+> 
+> This condition will appear on L1VH system that have created L2
+> partitions (and hence deposited pages) and exercise networking code
+> paths such as csum_partial() can trigger this condition when a buffer
+> ends close to a page boundary (e.g fffc in the above example).
+> 
+> The fix is to remove the deposited pages from the direct map before
+> they are passed to the hypervisor, and restore them when the hypervisor
+> returns them again.
+> 
+> We want to avoid flushing the TLB in the loop, so we use the _noflush()
+> variant of set_direct_map_valid() when marking a deposited page invalid
+> and flush the affected page ranges in one go ourselves. In the opposite
+> direction this is not required:
+> 
+>    > If a paging-structure entry is modified to change the P flag from
+>    > 0 to 1, no invalidation is necessary. This is because no TLB entry
+>    > or paging-structure cache entry is created with information from a
+>    > paging-structure entry in which the P flag is 0.
+> 
+> (Intel SDM Vol. 3, 4.10.4.3)
+> 
+> Signed-off-by: Magnus Kulke <magnuskulke@linux.microsoft.com>
+> ---
+> Changes since v3:
+> - Batch contiguous pages in the restore path
+> - Adjusted comment about failure modes
+> 
+> Changes since v2:
+> - Checkpatch format fix
+> 
+> Changes since RFC:
+> - Handle direct-map restoration failures without returning unmapped
+>    pages to the allocator.
+> - Move freeing of withdrawn pages into the restoration helper.
+> ---
+>   drivers/hv/hv_proc.c           | 83 +++++++++++++++++++++++++++++++++-
+>   drivers/hv/mshv_root_hv_call.c |  4 +-
+>   include/asm-generic/mshyperv.h |  4 ++
+>   3 files changed, 87 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+> index 57b2c64197cb..b056051a5ac5 100644
+> --- a/drivers/hv/hv_proc.c
+> +++ b/drivers/hv/hv_proc.c
+> @@ -7,7 +7,9 @@
+>   #include <linux/cpuhotplug.h>
+>   #include <linux/minmax.h>
+>   #include <linux/export.h>
+> +#include <linux/set_memory.h>
+>   #include <asm/mshyperv.h>
+> +#include <asm/tlbflush.h>
+>   
+>   /*
+>    * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+> @@ -15,6 +17,35 @@
+>    */
+>   #define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+>   
+> +/*
+> + * Add or remove a set of physically contiguous page runs from the kernel
+> + * direct map. Once a page has been deposited the hypervisor owns it and
+> + * revokes root partition access to it.
+> + */
+> +static int hv_deposit_update_direct_map(struct page **pages, int *counts,
+> +					int num_allocations, bool valid)
+> +{
+> +	int i, err, ret = 0;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		err = set_direct_map_valid_noflush(pages[i], counts[i], valid);
+> +		if (err && !ret)
+> +			ret = err;
+> +	}
 
-dm_update_plane_state() replaces the DC plane with a newly allocated one
-whenever the plane is reset. The new plane's flip timing is zero, and
-mod_freesync_handle_preflip() runs before DC stores the new plane's
-first flip timestamp, so FreeSync takes the 32-bit microsecond timestamp
-itself as the last render time: the monotonic clock modulo about 71.6
-minutes.
+I realize I am late to the review, so if too late, please ignore.
+If the caller is going to not continue on error but will revert,
+what is the reason to keep going on error then?
 
-On a panel with below-the-range compensation (BTR), that engages BTR and
-pins the frame time at the BTR mid-point (13.447 ms on a 48-165 Hz
-panel). A panel without BTR (max refresh below twice the min) goes
-through the fixed refresh path instead and locks to its max refresh
-after six frames.
+And this function should undo it itself if there is error instead
+of forcing the caller to do it imo. It could just undo the part which
+is done.
 
-It takes a reset on every flip to keep the panel there, and color
-management changes reset the plane. DRM sets color_mgmt_changed whenever
-a color property is given a different blob, even one with the same
-contents, and KWin 6.8.1 with HDR enabled and its color accuracy setting
-at "Prefer efficiency" sets a new GAMMA_LUT blob on every commit
-(current KWin master no longer does). Plane resets for CRTC color
-changes, added by
-commit 7316c4ad2996 ("drm/amd/display: Reset planes for color management
-changes"), and later for plane color properties and colorops, made this
-reachable on every flip.
+Thanks,
+-Mukesh
 
-Copy the flip timing from the old DC plane into the new one when the
-plane stays on the same CRTC. Do it in amdgpu_dm_commit_planes() before
-the preflip, after drm_atomic_helper_wait_for_dependencies() has waited
-for the previous commit, so the copy holds that commit's flip and does
-not race with DC writing it. This covers both the BTR and the fixed
-refresh path. A plane that is newly enabled or moved to another CRTC
-still starts without history.
 
-Fixes: 180db303ff46 ("drm/amd/display: Add below the range support for FreeSync")
-Cc: stable@vger.kernel.org
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..7a0afe6d1b8a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3848,6 +3848,25 @@ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *ac
- }
- EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
- 
-+/*
-+ * FreeSync times each frame from the plane's previous flip, and a plane
-+ * reset gives the new DC plane zeroed flip timing, so copy it over. Do
-+ * this at commit time, not in atomic check: by then the previous commit
-+ * has finished writing it.
-+ */
-+static void
-+dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+			   struct drm_plane_state *old_plane_state,
-+			   struct drm_plane_state *new_plane_state)
-+{
-+	struct dc_plane_state *old_dc_plane_state =
-+		to_dm_plane_state(old_plane_state)->dc_state;
-+
-+	if (old_dc_plane_state && old_dc_plane_state != dc_plane_state &&
-+	    old_plane_state->crtc == new_plane_state->crtc)
-+		dc_plane_state->time = old_dc_plane_state->time;
-+}
-+
- static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -3952,6 +3971,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 		if (!dc_plane)
- 			continue;
- 
-+		dm_plane_inherit_flip_time(dc_plane, old_plane_state,
-+					   new_plane_state);
-+
- 		bundle->surface_updates[planes_count].surface = dc_plane;
- 		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
-
--- 
-2.56.0
-
+> +
+> +	if (valid)
+> +		return ret;
+> +
+> +	for (i = 0; i < num_allocations; ++i) {
+> +		unsigned long addr = (unsigned long)page_address(pages[i]);
+> +		unsigned long size = (unsigned long)counts[i] << PAGE_SHIFT;
+> +
+> +		flush_tlb_kernel_range(addr, addr + size);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+>   int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>   {
+> @@ -72,6 +103,10 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>   	}
+>   	num_allocations = i;
+>   
+> +	ret = hv_deposit_update_direct_map(pages, counts, num_allocations, false);
+> +	if (ret)
+> +		goto err_restore_direct_map;
+> +
+>   	local_irq_save(flags);
+>   
+>   	input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
+> @@ -90,12 +125,23 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>   	if (!hv_result_success(status)) {
+>   		hv_status_err(status, "\n");
+>   		ret = hv_result_to_errno(status);
+> -		goto err_free_allocations;
+> +		goto err_restore_direct_map;
+>   	}
+>   
+>   	ret = 0;
+>   	goto free_buf;
+>   
+> +err_restore_direct_map:
+> +	/*
+> +	 * We don't want to return pages to the allocator if weren't able to
+> +	 * mark them valid in the direct map.
+> +	 */
+> +	if (hv_deposit_update_direct_map(pages, counts, num_allocations, true)) {
+> +		WARN(1, "leaking %d page block(s) that could not be set to valid\n",
+> +		     num_allocations);
+> +		goto free_buf;
+> +	}
+> +
+>   err_free_allocations:
+>   	for (i = 0; i < num_allocations; ++i) {
+>   		base_pfn = page_to_pfn(pages[i]);
+> @@ -110,6 +156,41 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>   }
+>   EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+>   
+> +/*
+> + * Put withdrawn pages back in the direct map. Counterpart to the direct map
+> + * removal done by hv_call_deposit_pages().
+> + */
+> +void hv_restore_withdrawn_pages(const u64 *pfns, int count)
+> +{
+> +	int i, j, end, n, ret;
+> +	struct page *page;
+> +
+> +	for (i = 0; i < count; i = end) {
+> +		page = pfn_to_page(pfns[i]);
+> +		/* find consecutive runs of pfns */
+> +		for (end = i + 1; end < count; ++end) {
+> +			if (pfns[end] != pfns[end - 1] + 1)
+> +				break;
+> +		}
+> +		n = end - i;
+> +		ret = set_direct_map_valid_noflush(page, n, true);
+> +
+> +		for (j = i; j < end; ++j) {
+> +			page = pfn_to_page(pfns[j]);
+> +			/*
+> +			 * Retry individually on failed batch. We don't want
+> +			 * to return pages to the allocator that we couldn't mark
+> +			 * valid in the direct map.
+> +			 */
+> +			if (ret &&
+> +			    WARN_ON_ONCE(set_direct_map_valid_noflush(page, 1, true)))
+> +				continue;
+> +			__free_page(page);
+> +		}
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(hv_restore_withdrawn_pages);
+> +
+>   int hv_deposit_memory_node(int node, u64 partition_id,
+>   			   u64 hv_status)
+>   {
+> diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+> index cb55d4d4be2e..150a0c63ebc8 100644
+> --- a/drivers/hv/mshv_root_hv_call.c
+> +++ b/drivers/hv/mshv_root_hv_call.c
+> @@ -46,7 +46,6 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+>   	struct page *page;
+>   	u16 completed;
+>   	u64 status, withdrawn = 0;
+> -	int i;
+>   	unsigned long flags;
+>   
+>   	page = alloc_page(GFP_KERNEL);
+> @@ -69,8 +68,7 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+>   
+>   		completed = hv_repcomp(status);
+>   
+> -		for (i = 0; i < completed; i++)
+> -			__free_page(pfn_to_page(output_page->gpa_page_list[i]));
+> +		hv_restore_withdrawn_pages(output_page->gpa_page_list, completed);
+>   
+>   		if (!hv_result_success(status)) {
+>   			if (hv_result(status) == HV_STATUS_NO_RESOURCES)
+> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+> index bf601d67cecb..397c8ec0ce9a 100644
+> --- a/include/asm-generic/mshyperv.h
+> +++ b/include/asm-generic/mshyperv.h
+> @@ -346,6 +346,7 @@ static inline bool hv_parent_partition(void)
+>   bool hv_result_needs_memory(u64 status);
+>   int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
+>   int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
+> +void hv_restore_withdrawn_pages(const u64 *pfns, int count);
+>   int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
+>   int hv_call_notify_all_processors_started(void);
+>   bool hv_lp_exists(u32 lp_index);
+> @@ -364,6 +365,9 @@ static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_page
+>   {
+>   	return -EOPNOTSUPP;
+>   }
+> +
+> +static inline void hv_restore_withdrawn_pages(const u64 *pfns, int count) { }
+> +
+>   static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
+>   {
+>   	return -EOPNOTSUPP;
 
