@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793145897;
-	b=1fm9zMIyKzx1tfe93OzUcwCpjgE19apv3BxKiVXsf3az7VURYHwOFuCAOjgE9mytuuRI
-	 Nau2eVbx545xjX/C/zCVTR5vYXqus69F+0RCWPKbTlNu8fuQrjEO8/rdWt6hVn4zYoTUQ
-	 wq77EtqIGdg6V232YZQkxazUEbbeRbqTJDh7Qn8fm8UUDLW/1qEA/ynryV72gTwkSZ9Ua
-	 f5kQVfwIwR4X6Hb67iMDQNQolgqIsuKN4co7ZEd5SRuW1MMfL5qkJltealUWOt/b0/rnh
-	 vx3dISvvZjAZVkvI3Tt81ekzcMdMJ/oG7O2sVwJGBAUgSdpb8x8GbdYqb3oJOkEe5kQ==
+	t=1793145900;
+	b=PvN5pf42a/6V7SNRvZVwcrW6KjDeMiqxG9e3eOOTSLzz7pzdbXni256vZKB2rjQ3MOiC
+	 +gG661/S5nNum3D5EQxPkF6ZWf5DwpEsFFAgVpia9ODsHHE+McypjNMX4wA0qZpJzSfAs
+	 UgCek95usAgEZNqf2Cz6AAq9M0ggcM3iKx6sa08poh4O5LtrO9QKzx6Pdpp71nFlYnVsF
+	 HQ0huOm+sVcEdg2foS1dhOWEc4xO/A3Yrf3lUHtNq3fEqx1Ocuv29lXYVwB+Ql5rzTBKY
+	 X9j66SB9JJ1cIEYSnDhiRHa1SIqjzY46wGT267HjNRtvWXFjeq87R0FAEywwLMptDqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793145897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793145900;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TqZMShUwObQw8SKTj74MIhBW352zXxbZoagijRnRZsU=;
-	b=CvTIN223zpw5LmQxw72XxbRgrPK7aYcZNBWIbRcrFrVISmVpAH37y65iKM/kHyj42/Bc
-	 jPZngfWuueHlQx+gNsbE45RZPpp2pWWzmbWHa6Kc0/Hgj5hNAUj9beJrAHXGYJdsJjTws
-	 AqYzNcSzcuqgi0j0SoGwedXfV42s20B+0IPuw/S0jWCZ8A6GtLHdr6hDFPbAELd3VT2VX
-	 YVhQh+z6etXbZ7RHX8/id22IPRe0I6BRj2RCkg2DGXI2HvjL9HmoX/jkpG9gs79jbj+xZ
-	 RMvt1m7Dy206U58x9AwZJPJbKS1Mqaht7hiyDe+RvSj4rV5qTJWhX0CO4t+VBOhIK3A==
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=nnZL90A72YzliJVsFi6s6eH/Aa1SRWJrwp+wT9rrDms=;
+	b=F3ZB6PvIclwmcHqtasuzILHIcr0Y0ApDMq/yojfkA1T3/L47F2EQqluo49Sc/QKjE9ms
+	 nNtwvY3lUbPyn+Sv9XSKTmCYqaKRzMx4bVtG+n8XhTseMTK6MJpNWCVcGNRnx3RhS4cRj
+	 s9jbKc7LtKbtUYbFoVb2V8yFtLwt58Kxib9IMXPJXD7FxW7mJGIpwt3MGDZkhL1uhgQe0
+	 39+gwRnJ5yD6nlxG5DiHIgqqF4ObSesNhj+Rl7JySEjnAVFWiOGEAAtoFs3sUjo5um0/H
+	 0Cj/C/M4xjurZMWKJa+eJwWMWiCG4KfUOpk+HVTkCR5Miq2Za0B4bbRmzO3VIAVhmoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GjeFvKhQ;
-	arc=none smtp.remote-ip=95.215.58.28
-Received: from mta1.migadu.com (out-28.mta1.migadu.com [95.215.58.28])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Rnw9y2/L";
+	arc=none smtp.remote-ip=95.215.58.32
+Received: from mta1.migadu.com (out-32.mta1.migadu.com [95.215.58.32])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326FA606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:04:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326FA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1A2606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F1A2606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GjeFvKhQ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Rnw9y2/L
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kG6PSTw+cy6dHxyAq6KmUby801uCfZJf2HXQ109G+h4=;
+DKIM-Signature: a=rsa-sha256; bh=aPEyoyISxDi/yeqexwsXLjl02S+dFCLV05lgg9mFxD8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793145894; v=1; x=1793750694;
- b=GjeFvKhQQdRdbZqtb1W4VbUmEEBaYv2YNplwdRLmz4uu6BtWgTcA0rQO/SccAbWJJjBRSFHj
- IHK2icPF5/CR1rhvqvN6kYGrGpt3q6KEgJGfOYTmmU6hCxzYWx808T8EVb0bTz2WD8gSckAJBBB
- 8Ko39EIY94ugCople+C7vu2Y=
+ t=1793145898; v=1; x=1793750698;
+ b=Rnw9y2/LSq7Wi6/pF2c8eTGguYcSlZZdHfjTfa+8oJYsu3ZZvltXlaDlyLYJpoLZGa+3y0EQ
+ l9bcTMOPBshatVFmo2guMfU3KQTmYBcefXQt3HyThJ8QvuDRARW2Kn2V7TO82B1/tsSG1are0fv
+ sDsepL7S1UOZip3koOzSCkY4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 76a2d9e2e1102b84;
-	Wed, 28 Oct 2026 00:04:54 +0000
-X-Mizu-Trace-ID: 76a2d9e2e1102b84
+Received: by smtp.migadu.com with ESMTPS id 53d2ab04e0ac4bf2;
+	Wed, 28 Oct 2026 00:04:58 +0000
+X-Mizu-Trace-ID: 53d2ab04e0ac4bf2
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: bpf@vger.kernel.org
@@ -66,9 +66,9 @@ Cc: ast@kernel.org,
 	jose.marchesi@oracle.com,
 	david.faust@oss.qualcomm.com,
 	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v1 4/7] selftests/bpf: make arena_base() opaque to GCC's -Warray-bounds
-Date: Tue, 27 Oct 2026 17:04:08 -0700
-Message-ID: <20261028000411.4010967-5-vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v1 5/7] selftests/bpf: don't report arena tests as passing with an empty body
+Date: Tue, 27 Oct 2026 17:04:09 -0700
+Message-ID: <20261028000411.4010967-6-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,69 +79,406 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-arena_base() casts the map definition to the kernel's struct bpf_arena
-and reads user_vm_start out of it.  In the object file that definition
-is only the 32-byte BTF placeholder the loader rewrites, so the access
-is past the end of the object and GCC says so:
+Some arena tests put the __BPF_FEATURE_ADDR_SPACE_CAST guard inside the
+function rather than around it, so without arena support the program
+still exists, its body is empty, and __success __retval(0) is met by
+doing nothing.  A reader sees
 
-  libarena/include/bpf_arena_common.h:52:69: error: array subscript 'struct bpf_arena[0]' is partly outside array bounds of 'struct <anonymous>[1]' [-Werror=array-bounds=]
-     52 | #define arena_base(map) ((void __arena *)((struct bpf_arena *)(map))->user_vm_start)
-  progs/arena_race.c:58:30: note: in expansion of macro 'arena_base'
+  #584/1	 verifier_arena/basic_alloc1_nosleep:OK
 
-GCC is right; clang has the same warning but does not apply it to a
-member access through a cast.  With BPF_CFLAGS carrying -Werror this is
-a build failure, today, for every prog that calls arena_base() and is
-compiled by a GCC with arena support: verifier_arena.c,
-verifier_arena_large.c, verifier_arena_globals1.c,
-verifier_arena_globals2.c and arena_race.c.
+and concludes arena works.  That is worse than the tests which vanish
+entirely, since nothing hints anything is missing.
 
-Make the pointer opaque instead, which is what progs/stream.c already
-does for its own open-coded copy of the same access.  The bounds
-analysis then has nothing to reason about, and every caller is covered
-without a per-file opt-out that has to be maintained -- arena_race.c
-was added without one and broke the bpf_gcc build.
+The guard was never needed to compile those bodies: without the
+feature __arena is still btf_type_tag("arena"), which every compiler
+accepts.  What it avoided was the load failure that follows from no
+addr_space_cast being emitted — but only for a body that dereferences
+an arena pointer.  The arena kfuncs take one as a plain scalar:
 
-The barrier is behind #ifdef __clang__ so clang keeps the plain macro.
-It does not need it, and the barrier is not free: it blocks reuse of
-the map address, so each call site reloads it.  Across the five progs
-and 20 call sites that is +35 instructions under GCC
-(2528 -> 2563), about 1.4% on those objects and nothing elsewhere.
-Clang output is unchanged, bit for bit.
+  static const struct bpf_reg_types arena_types = {
+	  .types = { PTR_TO_ARENA, SCALAR_VALUE }
+
+so a test that only passes pointers to bpf_arena_{alloc,free,reserve}_pages()
+needs no cast and runs fine.
+
+test_loader checks skip_reason before it opens anything, so the body no
+longer has to be empty to stay loadable: drop all 19 in-body guards.
+They do not all need a tag in their place, which is why 19 guards go
+and 7 tags arrive:
+
+  6   dereference, so they get __skip_without_arena and report SKIP:
+      basic_alloc1{,_nosleep}, basic_alloc2{,_nosleep}, big_alloc1,
+      access_reserved
+  11  never dereference, so they get no tag and run for real instead
+      of reporting a vacuous OK
+  2   big_alloc3 and big_alloc4, already inside the file's outer
+      whole-program guard, so the in-body one was redundant
+
+The 7th tag goes on check_arena_arg_ret(), which has no guard at all
+and is the one verifier_arena subtest that really fails under a stock
+GCC.
+
+Measured on bpf-next with a stock bpf-gcc, test_progs before and after:
+
+  verifier_arena/basic_alloc1            OK   -> SKIP
+  verifier_arena/basic_alloc1_nosleep    OK   -> SKIP
+  verifier_arena/basic_alloc2            OK   -> SKIP
+  verifier_arena/basic_alloc2_nosleep    OK   -> SKIP
+  verifier_arena_large/big_alloc1        OK   -> SKIP
+  verifier_arena_large/access_reserved   OK   -> SKIP
+  verifier_arena/check_arena_arg_ret     FAIL -> SKIP
+
+the six that dereference stop claiming to pass, and check_arena_arg_ret
+stops failing.  The eleven that do not dereference stay OK, having gone
+from an empty body to actually running.
+
+Removing the guards exposes the arena_base() calls they were hiding.
+The previous patch made that macro opaque to GCC's -Warray-bounds, so
+nothing is needed here beyond the guards going away.
 
 Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- .../bpf/libarena/include/bpf_arena_common.h      | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ .../selftests/bpf/progs/verifier_arena.c      | 31 +++----------------
+ .../bpf/progs/verifier_arena_large.c          | 16 ++--------
+ 2 files changed, 7 insertions(+), 40 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-index 82aafe879fae..4f2c6050215f 100644
---- a/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-+++ b/tools/testing/selftests/bpf/libarena/include/bpf_arena_common.h
-@@ -49,7 +49,23 @@ void __arena* bpf_arena_alloc_pages(void *map, void __arena *addr, __u32 page_cn
- int bpf_arena_reserve_pages(void *map, void __arena *addr, __u32 page_cnt) __ksym __weak;
- void bpf_arena_free_pages(void *map, void __arena *ptr, __u32 page_cnt) __ksym __weak;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
+index 3b3410802825..21b66d51c61e 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
+@@ -27,9 +27,9 @@ struct {
  
-+/*
-+ * GCC's -Warray-bounds fires on the member access: the map definition the
-+ * object file carries is smaller than struct bpf_arena.  Make the pointer
-+ * opaque to it, as the open-coded form in progs/stream.c already does.
-+ * clang does not warn and does not need the barrier, which costs a reload
-+ * of the map address at every call site.
-+ */
-+#ifdef __clang__
- #define arena_base(map) ((void __arena *)((struct bpf_arena *)(map))->user_vm_start)
-+#else
-+#define arena_base(map)							\
-+({									\
-+	struct bpf_arena *__ma = (void *)(map);				\
-+	barrier_var(__ma);						\
-+	(void __arena *)__ma->user_vm_start;				\
-+})
-+#endif
+ SEC("socket")
+ __success __retval(0)
++__skip_without_arena
+ int basic_alloc1_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile int __arena *page1, *page2, *no_page;
  
- #else /* when compiled as user space code */
+ 	page1 = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+@@ -52,15 +52,14 @@ int basic_alloc1_nosleep(void *ctx)
+ 		return 6;
+ 	if (*page2 != 0 && *page2 != 2) /* use-after-free should return 0 or the stored value */
+ 		return 7;
+-#endif
+ 	return 0;
+ }
+ 
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int basic_alloc1(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile int __arena *page1, *page2, *no_page, *page3;
+ 
+ 	page1 = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+@@ -91,7 +90,6 @@ int basic_alloc1(void *ctx)
+ 		return 9;
+ 	if (*page1 != 1)
+ 		return 10;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -125,9 +123,9 @@ int free_scalar_below_arena(void *ctx)
+ 
+ SEC("socket")
+ __success __retval(0)
++__skip_without_arena
+ int basic_alloc2_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile char __arena *page1, *page2, *page3, *page4;
+ 
+ 	page1 = bpf_arena_alloc_pages(&arena, NULL, 2, NUMA_NO_NODE, 0);
+@@ -157,15 +155,14 @@ int basic_alloc2_nosleep(void *ctx)
+ 		return 7;
+ 	if (*page4 != 0)
+ 		return 8;
+-#endif
+ 	return 0;
+ }
+ 
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int basic_alloc2(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile char __arena *page1, *page2, *page3, *page4;
+ 
+ 	page1 = bpf_arena_alloc_pages(&arena, NULL, 2, NUMA_NO_NODE, 0);
+@@ -195,7 +192,6 @@ int basic_alloc2(void *ctx)
+ 		return 7;
+ 	if (*page4 != 0)
+ 		return 8;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -233,7 +229,6 @@ SEC("socket")
+ __success __retval(0)
+ int basic_reserve1_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -257,7 +252,6 @@ int basic_reserve1_nosleep(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+ 	if (page)
+ 		return 4;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -265,7 +259,6 @@ SEC("syscall")
+ __success __retval(0)
+ int basic_reserve1(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -289,7 +282,6 @@ int basic_reserve1(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+ 	if (page)
+ 		return 4;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -297,7 +289,6 @@ SEC("socket")
+ __success __retval(0)
+ int basic_reserve2_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -309,7 +300,6 @@ int basic_reserve2_nosleep(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, page, 1, NUMA_NO_NODE, 0);
+ 	if ((u64)page)
+ 		return 2;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -317,7 +307,6 @@ SEC("syscall")
+ __success __retval(0)
+ int basic_reserve2(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -329,7 +318,6 @@ int basic_reserve2(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, page, 1, NUMA_NO_NODE, 0);
+ 	if ((u64)page)
+ 		return 2;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -338,7 +326,6 @@ SEC("socket")
+ __success __retval(0)
+ int reserve_twice_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -351,7 +338,6 @@ int reserve_twice_nosleep(void *ctx)
+ 	ret = bpf_arena_reserve_pages(&arena, page, 1);
+ 	if (ret != -EBUSY)
+ 		return 2;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -359,7 +345,6 @@ SEC("syscall")
+ __success __retval(0)
+ int reserve_twice(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -372,7 +357,6 @@ int reserve_twice(void *ctx)
+ 	ret = bpf_arena_reserve_pages(&arena, page, 1);
+ 	if (ret != -EBUSY)
+ 		return 2;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -381,7 +365,6 @@ SEC("socket")
+ __success __retval(0)
+ int reserve_invalid_region_nosleep(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -403,7 +386,6 @@ int reserve_invalid_region_nosleep(void *ctx)
+ 	ret = bpf_arena_reserve_pages(&arena, page, (1ULL << 32) - 1);
+ 	if (ret != -EINVAL)
+ 		return 4;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -411,7 +393,6 @@ SEC("syscall")
+ __success __retval(0)
+ int reserve_invalid_region(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -433,7 +414,6 @@ int reserve_invalid_region(void *ctx)
+ 	ret = bpf_arena_reserve_pages(&arena, page, (1ULL << 32) - 1);
+ 	if (ret != -EINVAL)
+ 		return 4;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -478,7 +458,6 @@ SEC("syscall")
+ __success __retval(0)
+ int arena_kfuncs_under_bpf_lock(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *page;
+ 	int ret;
+ 
+@@ -503,7 +482,6 @@ int arena_kfuncs_under_bpf_lock(void *ctx)
+ 	bpf_arena_free_pages(&arena, page, 1);
+ 
+ 	bpf_spin_unlock(&arena_bpf_test_lock);
+-#endif
+ 
+ 	return 0;
+ }
+@@ -765,6 +743,7 @@ u32 __arena volatile *check_arena_arg_quals2(u32 volatile __arena *arg1, u32 __a
+ 
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int check_arena_arg_ret(void *ctx)
+ {
+ 	u32 __arena *page = bpf_arena_alloc_pages(&arena, NULL, 1, NUMA_NO_NODE, 0);
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena_large.c b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+index 34f0a0f88e12..6ef99793cac1 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena_large.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+@@ -22,9 +22,9 @@ struct {
+ 
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int big_alloc1(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile char __arena *page1, *page2, *no_page, *page3;
+ 	u64 base;
+ 
+@@ -79,16 +79,15 @@ int big_alloc1(void *ctx)
+ 		return 13;
+ 	if (*(page2 - PAGE_SIZE) != 0)
+ 		return 14;
+-#endif
+ 	return 0;
+ }
+ 
+ /* Try to access a reserved page. Behavior should be identical with accessing unallocated pages. */
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int access_reserved(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile char __arena *page;
+ 	char __arena *base;
+ 	const size_t len = 4;
+@@ -118,7 +117,6 @@ int access_reserved(void *ctx)
+ 		if (*page)
+ 			return 2 + 2 * i + 1;
+ 	}
+-#endif
+ 	return 0;
+ }
+ 
+@@ -127,7 +125,6 @@ SEC("syscall")
+ __success __retval(0)
+ int request_partially_reserved(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	volatile char __arena *page;
+ 	char __arena *base;
+ 	int ret;
+@@ -142,7 +139,6 @@ int request_partially_reserved(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, base, 5, NUMA_NO_NODE, 0);
+ 	if ((u64)page != 0ULL)
+ 		return 2;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -150,7 +146,6 @@ SEC("syscall")
+ __success __retval(0)
+ int free_reserved(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *addr;
+ 	char __arena *page;
+ 	int ret;
+@@ -177,7 +172,6 @@ int free_reserved(void *ctx)
+ 	page = bpf_arena_alloc_pages(&arena, addr + __PAGE_SIZE, 2, NUMA_NO_NODE, 0);
+ 	if (!page)
+ 		return 3;
+-#endif
+ 	return 0;
+ }
+ 
+@@ -292,7 +286,6 @@ SEC("socket")
+ __success __retval(0)
+ int big_alloc3(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *pages;
+ 	u64 i;
+ 	int err = 0;
+@@ -314,8 +307,6 @@ int big_alloc3(void *ctx)
+ 
+ 	bpf_arena_free_pages(&arena, pages, LARGE_PAGE_CNT);
+ 	return err;
+-#endif
+-	return 0;
+ }
+ 
+ /* SYSCALL programs are always sleepable. */
+@@ -323,7 +314,6 @@ SEC("syscall")
+ __success __retval(0)
+ int big_alloc4(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *pages;
+ 	u64 i;
+ 	int err = 0;
+@@ -345,8 +335,6 @@ int big_alloc4(void *ctx)
+ 
+ 	bpf_arena_free_pages(&arena, pages, LARGE_PAGE_CNT);
+ 	return err;
+-#endif
+-	return 0;
+ }
+ #else
  
 -- 
 2.53.0-Meta
