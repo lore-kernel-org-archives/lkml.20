@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793163851;
-	b=Gl9CQPJyPXPBqCRBWJjBhHGAueK3QJ3ChlgVJV3SMde67LBQsno1tfsqrQULWVMkoOWA
-	 q/kxYdYRK0n3d4M/KGWc3Sr7N2K84Ri6TqEeLO45y+U5hwUvYLEigUj7j85EMtEVpS1L/
-	 zfvnoPxcQ6wxNCmeIXetUsuuRCajp+FM++AUaEBUEb1akYMtk8erI6OqX4I0DQb8IrmIA
-	 7r0lhmOQQgQQZfvnzS7ZrEaro4ZSVNsRQN50+q28lqfyIOkxkw0YlncZBQoiKW+5QZp83
-	 rtCMsb6Uk+K4+rN7Dzo/4zixAT9vyNhiBEkDwwVrvDOZXY3AIsKh9GjYt6QNYK9Zi8g==
+	b=BOlESuGmRgb3dSFQZ5cGrkNyntcrxVbO+LgmiOc9p1xKNo2jUJQhbAHueOulDKiIKQjg
+	 BPgzy6X1zs+ffTyFjsMZCsfnMpmn/RK5y8JxeQy6Mxq2Rktx2a20nL09SqWQwgUeTkB9l
+	 6UqwsVDLWPVYtgZl9/1mnz/aQVJ8wjUpvFstqS8yOUmyg5NeqL8LIlXbB5Vq+6tSWrtMJ
+	 bKZf4IsOfjti0rTHWSZ9LcCpLwbQnR6BtYiOloR/W+XRL4CQ6F1PTDHleAWq0LXmT0/kB
+	 w77bt3hIbgD/uo/o1hfTGAgVUzazFUaZa135taw9sEBgUu4yI1ituSxQ4VTQJHxMBjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793163851;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=iN3NuJW0NrAQeJl8hnA8WPW47zZnm0NMu3n174y6fXM=;
-	b=J0NH9dMc1VEKoywC3yUsY+hDo76lMc7A+YfEKIBU2YtOU3Z2eK3TostLzODcwAc7arpR
-	 i06ry5oQo4G1EuIjGuIGLtzppb3YJc73OCoakjgi8zYZI7J+qte03yQpuqb658C2H/HnK
-	 jZ92DsFsyqMxgVEUFoyZ+kCt25Nguerf0UWuduhexIbJTDaEjgZ2DpEiKjGFTz1WhBAxm
-	 n4ZhPiCXTKzWdZ9G7+7Zo9/fAefSKkmMBl89JalCpZ0VIU76GTDT7RzcUGxWi28huLGlB
-	 aUkJdhqVPh9oSNMb5CJMY8wQU13R9Yh3iIVTeySUA/+xAiUKzu0flB70ioZTF6Kr8NQ==
+	bh=dbh6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=;
+	b=HVeV9wQz1XI/kx3bX+nHVKfqUwNK5MoCXUMqNOwC9VeJ6tw2TKVqarMg2H0KhIPiyy7/
+	 XtwUfsjz/81E9cr3JYfhLvfjT3ds9aXnPOciYJVU3tBkSyBWnoNlJIU0BoZ7xVOVk4pJc
+	 gWFbOemmEdWLfqXdqnqrQkLnmYdLc+fylKhBhtkMn29Otz8W7fnENUnYIfeBAZvuAZ4VB
+	 5fEMe+7xwbZQJgS4Rmw/wfEi3oq6c/jjco6KwNAjVdaFzQOcDKkunf0DYguTHpsNA4o9p
+	 QlOM18lpY1H1xoyLU0I09F6mryIGQJ/VQ89tb3q52tmCCa47EXlziDYE3MN365o/o4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HQ6cD0h1;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD24606A333;
-	Wed, 28 Oct 2026 05:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD24606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D19B606A337;
+	Wed, 28 Oct 2026 05:04:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D19B606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HQ6cD0h1
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iN
-	3NuJW0NrAQeJl8hnA8WPW47zZnm0NMu3n174y6fXM=; b=HQ6cD0h1/ga2mBgH7b
-	v4u6RdpotSm66iY/hFJ82F6RHdIpA2JkGmUcZx5vcHTJWp0tc+KG5k+ONejxnTlF
-	FEgVTjtCKnZiQH4jmmo4yLDISNBFGjcjj9UzjbNiO2vq+SCgthrw4cuHwC6v15Eh
-	eEimVhD5r3qe+yaxv9nQBgCzI=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=db
+	h6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=; b=VVcrQEw9lZffUHl8W9
+	sVWxUz66zEK4SYKm0Ac0ge+8zlHe4qLYQ9iRZhSUUgRtRVKD5qCGFEzE5sGHNrY3
+	7p1pmFE5JB3g1dsLQe0KfBUAWfAWBJ+7Ji7o5xoPoiNodhr2Zh2zO8z0SqlAWaxB
+	Gzg7B7+55Tm1P/88Qb6VRWBjA=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S3;
-	Wed, 28 Oct 2026 13:03:41 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S6;
+	Wed, 28 Oct 2026 13:03:44 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Michal Kazior <michal.kazior@tieto.com>,
-	Kalle Valo <kvalo@qca.qualcomm.com>,
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+	Deren Wu <deren.wu@mediatek.com>,
 	linux-wireless@vger.kernel.org,
-	ath10k@lists.infradead.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 1/4] wifi: ath10k: clear monitor interface after add failure
-Date: Wed, 28 Oct 2026 13:03:34 +0800
-Message-Id: <20261028050337.127464-2-yaojiale02@163.com>
+Subject: [PATCH 4/4] wifi: mt76: mt7925: unwind link restore failures
+Date: Wed, 28 Oct 2026 13:03:37 +0800
+Message-Id: <20261028050337.127464-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
 References: <20261028050337.127464-1-yaojiale02@163.com>
@@ -67,38 +74,84 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S3
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XF4fGw45Gw4fuF4kCrW7Jwb_yoWDCwc_CF
-	4fGwn3Zr47Ar15tF48GayxAry0yF1UXF93try2qrWrAw43XrZYk3sa934UuF97Gr18AF9x
-	CFnrXFyYvwnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0sID7UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7w2++Grhgi3cHAAA3A
+X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAw43CrWUJw47KFWkWr15Arb_yoW5Gw1rpa
+	1DKa9IkrykJw43Ja18Ga48uFnYvan5G3WUCr13Cw1rZw1kZrn5AF4qkFy3tFyUAFWku3W8
+	WFWqqrn8uwn5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joOJ5UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRC-+WrhgjCqOAAA3w
 
-ath10k_add_interface() publishes the monitor vif before recalculating the
-monitor configuration. If that operation fails, the interface addition is
-unwound but monitor_arvif still points at the vif that mac80211 will free.
+The reset recovery callback ignores failures while restoring each link in
+firmware and continues configuring the link and remaining interface. A
+failed two-command device addition can leave partial firmware state, while
+links restored earlier in the loop remain active on a partially restored
+interface.
 
-Clear the published pointer before entering the common vdev cleanup path.
+Track every attempted link and remove their firmware state if any restore
+operation fails. Stop configuring that interface after the failure.
 
-Fixes: 500ff9f9389d ("ath10k: implement chanctx API")
+Fixes: 14061994184d ("wifi: mt76: mt7925: add link handling in mt7925_vif_connect_iter")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/ath/ath10k/mac.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../net/wireless/mediatek/mt76/mt7925/mac.c   | 26 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
-index 8e604697d6c2..36b694ae6de4 100644
---- a/drivers/net/wireless/ath/ath10k/mac.c
-+++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -5875,6 +5875,7 @@ static int ath10k_add_interface(struct ieee80211_hw *hw,
- 		ret = ath10k_monitor_recalc(ar);
- 		if (ret) {
- 			ath10k_warn(ar, "failed to recalc monitor: %d\n", ret);
-+			ar->monitor_arvif = NULL;
- 			goto err_peer_delete;
- 		}
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+index 7af996abe294..7b29e147b19e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+@@ -1477,11 +1477,12 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
+ 	unsigned long valid = ieee80211_vif_is_mld(vif) ?
+ 			      mvif->valid_links : BIT(0);
++	unsigned long restored = 0;
+ 	struct mt792x_dev *dev = mvif->phy->dev;
+ 	struct ieee80211_hw *hw = mt76_hw(dev);
+ 	struct ieee80211_bss_conf *bss_conf;
+ 	struct mt792x_bss_conf *mconf;
+-	int i;
++	int i, ret;
+ 
+ 	if (vif->type == NL80211_IFTYPE_STATION)
+ 		ieee80211_disconnect(vif, true);
+@@ -1493,8 +1494,13 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 
+ 		mconf = mt792x_vif_to_link(mvif, i);
+ 
+-		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
+-					    &mvif->sta.deflink.wcid, true);
++		restored |= BIT(i);
++		ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf,
++						  &mconf->mt76,
++						 &mvif->sta.deflink.wcid, true);
++		if (ret)
++			goto rollback;
++
+ 		mt7925_mcu_set_tx(dev, bss_conf);
  	}
+ 
+@@ -1506,6 +1512,20 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 				      MT76_STA_INFO_STATE_NONE, NULL);
+ 		mt7925_mcu_uni_add_beacon_offload(dev, hw, vif, true);
+ 	}
++
++	return;
++
++rollback:
++	dev_err(dev->mt76.dev, "failed to restore link after reset: %d\n", ret);
++	for_each_set_bit(i, &restored, IEEE80211_MLD_MAX_NUM_LINKS) {
++		bss_conf = mt792x_vif_to_bss_conf(vif, i);
++		if (!bss_conf)
++			continue;
++
++		mconf = mt792x_vif_to_link(mvif, i);
++		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
++					    &mvif->sta.deflink.wcid, false);
++	}
+ }
+ 
+ /* system error recovery */
 -- 
 2.34.1
 
