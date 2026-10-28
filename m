@@ -1,68 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225453;
-	b=Nxkm99vsRwttsi1wQ5+nLJybu2z1386+AOgj8rqRlppMLZkOmoRMsDYmE7hkfn01Jlv1
-	 +V7TTOdswlg20XBaGzUpSa/JEgeXKpEOtT87Q7hFM5w15cuxa+yZqHPuPcCQ3uW9VZSFg
-	 zgoUu6GdqHAAyuSNr8oGCjnzdAgBki6OedXJ7efveixxgKNMUOFrR+/rsDHHXD5BwTR+F
-	 Lyqbw43Rti9S1RdUHFzC9akem3oDd5hTfV6Z4LocitGHbKff74My+EAeSR/0+0yN+Dr+u
-	 a7RitYhqaiUxewaREaxrq+MiQSWsJkPdtqbjNlsvA1bShZRJ1XnF2fqCvjS2lRcSJwQ==
+	t=1793225573;
+	b=gFJC5SYekTuTth9fIZBNQ9ZjQbtDx9xUAgj+LQRlSnBK/385ViouwEiBw5OlB3LfOd93
+	 xQQJUM9LIPtsrkfKZx32oR0NU6gfC/Y3lCCXd6odwPKVpeCgXgJm/+c+5efMsFdr4zD3q
+	 k8DTQEpjUy3l0BxsdYugY0LxxXBIZXbxkW6CYipgFf4MHxKPcpI2c7mrlIa1d8fbCy6kJ
+	 uNGQ7Wms3d5sI35FL+yyzxVPZ2GfwL04fGoBXLZeC/hy0dwnpAiOdWzG/yDRAVwz4zEQc
+	 su/M9EJHMKgEO6iTFqdwJ1g678/OZNosBiJdSJfCizqdXPOcLXJGB0Lq+jqgVkyQC3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225453;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Uw7j/zExF/c2pZRiZuVvXgNDofIIB3MSThco4c+4mV0=;
-	b=RqYFiBtUr6KWyFagZw27mU4mdSPEKKOoBYEv4Z+ifY0jxbK1aJsL3kdkbWzmv0f9uKcb
-	 Ib8T+qfOSGMQNXM+eV3Vazr+bN9jIfk3pI1egSW6nNn0PbkqgRBRmI1YrKd2hYtmuelkC
-	 tMLC8TPUJ4mRk1iiG0HXGTw5cre97usHwdJrgbVC+Bu1ycp9hA7TyR6RdcqOOlqZY8gkd
-	 C+1VTeUosePtN89BhWMuhAVBbx6zOn52REyUGPN7Er5B8LC61hQM29erlm+4flbCYx9vw
-	 DAggtKR2MIP6UV8Jfb3JsvnsftXIcuZlACJOKLfJfS4TvXQ4DfRAwh5Co6EpTRy8ILg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225573;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=E156o5IaTei0VRN5zZ4yWq6/WZqYeNZwAw/ChZTmR7E=;
+	b=trnhQipadNMXvpT2oxtpkpILl3ma+oye2B9qmiYqqc/otcRzQQvGtkBMtL1GVI1C1G/F
+	 JMStZ8xWQT1Hqi/HvslDJT4qIC0NJdilavdRyAXSh5ZI8AW0m817iJNBB+KGdLcaz6M0p
+	 /B0ji6V7er2uZab/F6HkspqYjloZGqCHfEllqmr2uCzO5RZvZ3i3/kgFtpUPgjv4AHMvU
+	 ktaudoqbyXuCft3cWBcnr9A8wEzT1yx7M/7FIyWQkY0SAYPOknQCdW4MvoMO/kMRDhRDB
+	 6wyhzKIDEzzmGNFpyqZws8ByjRtC4c+Eqbi2/uK3mx7yqkwMFFdwSIxqP1utgRCATcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OA78qlB7;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=AM04A4qO;
+	arc=none smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C15C606A31A;
-	Wed, 28 Oct 2026 22:10:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C15C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5AE606A323
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC5AE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OA78qlB7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793225451; x=1824761451;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=RApub2eEBqkU+xXjPQ8f3UFm0dNetKwhWeMbwHPPz0w=;
-  b=OA78qlB7GWhg1wHFfrM86PwFE4v9NvjJ2gh0u0REfLWFBlEyhMlPLrbL
-   hu32k0aqNruEtP8BBRpeobJOIKQOovFsxID/ZwpV3AAb1lwk38hoCtpdr
-   g+mfwAV86t6j2CVyeXga7dDF3p8C94Vq+R9+Vwt10ywmiE6OIggUaFeZn
-   K/oF1SK4EPYt/GxwK2kebC7ETJ1peedhLlLcorQk8E48uN5wKbAynGoII
-   08vzxBVv/ETxh6o6vC7yNRp24S/1z0lHVGOuvR9oAapCDtvF5+kRFBVlu
-   7MjBX7+oJ2Zi6YwHnUQsWM5y967FQpyhbMJwTv7TfDXzyCpDULyIq0fmi
-   w==;
-X-CSE-ConnectionGUID: GFEm/llCT1a55aXAplw3ZA==
-X-CSE-MsgGUID: GjrHW/PCS1aA9Z0NQSLmhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1839584"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1839584"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 15:10:50 -0700
-X-CSE-ConnectionGUID: BQaHHtQ7RUqlUCPqH8qDwA==
-X-CSE-MsgGUID: jpaaIzs8SAqhjf05A8SROA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5053103"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 15:10:49 -0700
-Message-ID: <2a65bf64-37bf-41e3-976b-1a51bb46935f@intel.com>
-Date: Wed, 28 Oct 2026 17:10:48 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=AM04A4qO
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b0ca1ebc8bso13014347b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:12:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793225570; x=1793830370; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E156o5IaTei0VRN5zZ4yWq6/WZqYeNZwAw/ChZTmR7E=;
+        b=AM04A4qOLrlcOVWw3KrK8YFK+PrUB0vtxwZnAtSRPUbk/FywVD1ne/k7xP0AnlzK9a
+         JBB6h67eMlNKk5kNvv7S76DvcgzLTJyVBaYr01whGdCUH2yMyrJzg3RAnFAIOe2/6up4
+         zOei7YLrH2JDFLrEze6lIJyv/1FystNvMkf+FLihXpBfNwzyqhqDaFQtUgUo1ESK5ozI
+         mWZaaBuL/4+9eFl4kGkLf0b+Nnu/zABAcuy/XxGTq8tRVwVliUbY07cLeWIGvaDS3Hla
+         Aw9QZN+5yhjK+SDlZ3z0DzUpNZRuizXCpigOginI/ZNnEcKVYDAPPzO2DvhIv1FmOz10
+         uXiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793225570; x=1793830370;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E156o5IaTei0VRN5zZ4yWq6/WZqYeNZwAw/ChZTmR7E=;
+        b=NlO/0n7aqEF2wqsqpiuj4/n7TiWH5KqZ6TaLfDP9n5u/ifQPDXPr6N+sLRs237mCRg
+         cOM6WH/rRURgmJfU4N5TOZBlvSxwosk5cMK7fvQRPht4SfyxOeQwOqBX/pXE7ELxAXOS
+         lhWTnFw9W69PRzIjYRBpoqXHbHAQpJyWuUva8Gxj9X0v15jfqPUx366rFwbDEMzIpEyr
+         cFdwlR5DnCBMjVTcdPPC+TDO9v2sRBEY/iuEVpQT4SmYzy6KYavJHY0SWvrlvwbHc/I1
+         9DbljKiJ0fNDpBxumf2Xg5qhrVphnJqArJflvj4ZUxR2MauBib/5kwmfctTrvqcLIQiT
+         GSGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHzNfcyXILBiV71ojrDz4RmGFBSoK+nXU3fpRtMOIkKq7OXcwvrDdB4JnZO2ItQWw3gNSfIOrP20DCmKo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJE6+tSmsQZ9RaY71wioLvpsGMOFbMwi1gA1kVgP2DRjPBQzXOp
+	MzBKW4Ep6HorLflQeAJ3H2Gx7VU8s0UhhMNN8Tmdcfo6BnxEcQ8OVj28Quf4RGrIgjc=
+X-Gm-Gg: AYBFou2XsA/w78fKiSK0NFMC+CfiB5vz9ENYCJBw1KabBUj7nnJagTz8vDengHGT54r
+	XQiki/+GRtlcNSY3ryHn1XcjniMCgTlinKqH7CBfPx05yNxo64U2lOpDnfRwFISASyHpeKp+mJQ
+	AOM2nHntohK2VRGWr3uggFcdvpAXLO981g+4DGTlWjboEF1mPsUlJTZCFtY633TxNyOEOb6z+qn
+	PqNaDcOFJ5xLYyCaJfuW3ViRp7PxiC4haCQLO94k2tJKua9PHDc1icoMwkRbCNLo2mtrZjgCHev
+	x5LDvuUiS0wv410JE4qKnTZb9jq0kivt/6xvisi0/xaRPsfKW2QvF0WfvLcjgMG5lluFfwBY4kp
+	0vyuERCPMsifdKJeX7Dc7/9hN/70XpEYS8HumJZf4xjQUHSKEXLKC4qDZdVWGq3tKkqLa/bDG+e
+	fW/hZQ8LzH55/Vj3s6x2kCtURki8XjgHpDiI9a0lQU7sKsMeAotWzxGQTlcf/W+LHNnTgsuabfn
+	MYBMI74da6dM8ZCs9eU+7pcMFnV/bcbyPU64mZSvPwRn9aQNCW9v59pR2XLdwe1pq/dFMFwoHiq
+	lDMVI9q9LEHJx9eS7NEBFhXjjLjC
+X-Received: by 2002:a05:690c:9e:b0:891:faab:ff1e with SMTP id 00721157ae682-8b1b595b1fdmr25465837b3.4.1793225570125;
+        Wed, 28 Oct 2026 15:12:50 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e5b40e0sm36335447b3.26.2026.10.28.15.12.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 15:12:49 -0700 (PDT)
+Date: Wed, 28 Oct 2026 18:12:45 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
+	akpm@linux-foundation.org, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm: memcontrol: fix NULL pointer deref from
+ high_work_func() on dying memcg
+Message-ID: <auJzXV3nnPZA5GSr@cmpxchg.org>
+References: <20261028183537.605854-1-tjmercier@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,90 +100,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/16] KVM: x86/pmu: Advertise PerfMon version 5 on
- Intel hosts
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
- Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
- Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
- <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-16-zide.chen@intel.com>
- <CALMp9eSvh5+PqSXVQAAMoWwvZiMCVEooxuVd-e-sM8mODoLb9A@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CALMp9eSvh5+PqSXVQAAMoWwvZiMCVEooxuVd-e-sM8mODoLb9A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028183537.605854-1-tjmercier@google.com>
 
-
-
-On 10/28/2026 4:59 PM, Jim Mattson wrote:
-> On Thu, Aug 27, 2026 at 3:48 PM Zide Chen <zide.chen@intel.com> wrote:
->>
->> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
->>
->> KVM currently caps the guest PerfMon version at 2 for all Intel
->> platforms. Now that KVM emulates the basic architectural PMU features
->> introduced in PerfMon versions 3 through 5, raise the guest PerfMon
->> version to 5. Features that require additional emulation support, e.g.
->> architectural LBR will be enabled separately.
->>
->> PerfMon versions 3 and 4 continue to be exposed as version 2 because
->> KVM cannot safely virtualize AnyThread due to cross-VM information
->> leakage. PerfMon v5 is supported because it provides the
->> AnyThread-deprecated capability, allowing KVM to indicate that
->> AnyThread is deprecated.
->>
->> When enable_mediated_pmu is disabled or in the non-Intel paths, KVM
->> retains the existing cap of version 2.
->>
->> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
->> ---
->> v2:
->> - Cap vPMU v3/v4 to v2, as AnyThread cannot be safely virtualized.
->>   (Sashiko)
->> ---
->>  arch/x86/kvm/pmu.c | 16 +++++++++++++++-
->>  1 file changed, 15 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->> index 4cb7c796daac..1a7be7d73b62 100644
->> --- a/arch/x86/kvm/pmu.c
->> +++ b/arch/x86/kvm/pmu.c
->> @@ -175,7 +175,21 @@ void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops)
->>         }
->>
->>         memcpy(&kvm_pmu_cap, &kvm_host_pmu, sizeof(kvm_host_pmu));
->> -       kvm_pmu_cap.version = min(kvm_pmu_cap.version, 2);
->> +
->> +       if (is_intel && enable_mediated_pmu) {
->> +               kvm_pmu_cap.version = min(kvm_pmu_cap.version, 5);
->> +
->> +               /*
->> +                * PMU v3/v4 has AnyThread support, which KVM cannot safely
->> +                * virtualize. Expose PMU v2 instead of advertising a partially
->> +                * functional PMU v3/v4 to guests.
->> +                */
->> +               if (kvm_pmu_cap.version == 3 || kvm_pmu_cap.version == 4)
->> +                       kvm_pmu_cap.version = 2;
+On Wed, Oct 28, 2026 at 11:35:37AM -0700, T.J. Mercier wrote:
+> When memory.high is exceeded in non-task context, try_charge_memcg()
+> schedules memcg->high_work without taking a reference on the memcg, and
+> high_work_func() invokes reclaim_high() without pinning the memcg.
 > 
-> Nit: on Intel, enable_mediated_pmu already requires host_pmu->version >= 4
-> (see intel_is_mediated_pmu_supported()), so kvm_pmu_cap.version == 3 is
-> impossible when (is_intel && enable_mediated_pmu) is true. Hence, I think this
-> can be simplified to:
+> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
+> mem_cgroup_css_free(), so high_work_func() can start or still be running
+> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
+> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
+> NULL pprev pointer.
 > 
->         if (is_intel && enable_mediated_pmu && kvm_pmu_cap.version >= 5)
->                 kvm_pmu_cap.version = 5;
->         else
->                 kvm_pmu_cap.version = min(kvm_pmu_cap.version, 2);
+> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
+> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
+> reparented to its parent in mem_cgroup_css_offline() instead of holding
+> a reference on the child until uncharged. Subsequent uncharges of those
+> objects go to the parent, which can leave the child's memory use
+> permanently above its high limit, so any later charge on the offlined
+> memcg in non-task context schedules high_work.
+> 
+> This problem was first exposed when commit e4dde56cd208 ("mm: multi-gen
+> LRU: per-node lru_gen_folio lists") introduced the memcg LRU, and was
+> later widened from kernel memory to LRU folios when
+> commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying
+> memory cgroup for LRU folios") converted LRU folios to use obj_cgroup
+> reparenting.
+> 
+> Fix this by acquiring a reference with css_tryget_online() in
+> high_work_func() before calling reclaim_high(), and by resetting
+> memory.high and swap.high to PAGE_COUNTER_MAX in
+> mem_cgroup_css_offline() so that charges via references on an offlined
+> memcg do not trigger high_work on the dead child or skip checking live
+> ancestors in try_charge_memcg().
+> 
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
+> Tainted: [B]=BAD_PAGE, [W]=WARN <- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+> Workqueue: events high_work_func
+> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+> Call Trace:
+>  <TASK>
+>  ? read_ctrl_pos+0x22f/0x3f0
+>  shrink_lruvec+0x16cb/0x1b80
+>  ? ret_from_fork_asm+0x1a/0x30
+>  ? lapic_next_event+0x15/0x20
+>  ? clockevents_program_event+0x2bb/0x6f0
+>  ? lapic_next_event+0x15/0x20
+>  ? __pfx_shrink_lruvec+0x10/0x10
+>  ? __pfx_clockevents_program_event+0x10/0x10
+>  ? _raw_spin_lock+0x84/0xe0
+>  ? __pfx__raw_spin_lock+0x10/0x10
+>  ? kasan_save_stack+0x30/0x50
+>  ? psi_group_change+0x381/0x740
+>  ? __pfx_sched_clock_cpu+0x10/0x10
+>  ? save_fpregs_to_fpstate+0xc4/0x2c0
+>  ? finish_task_switch.isra.0+0x1de/0xac0
+>  ? __schedule+0xf62/0x42c0
+>  ? __pfx___schedule+0x10/0x10
+>  ? __pfx___irq_work_queue_local+0x10/0x10
+>  ? shrink_node+0x626/0x31e0
+>  shrink_node+0x626/0x31e0
+>  ? ring_buffer_unlock_commit+0x11d/0x5c0
+>  ? kswapd_clear_hopeless+0xa0/0x150
+>  ? __pfx_shrink_node+0x10/0x10
+>  ? 0xffffffffc0000095
+>  do_try_to_free_pages+0x255/0x13b0
+>  ? ring_buffer_unlock_commit+0x11d/0x5c0
+>  ? reclaim_high+0x10a/0x1b0
+>  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+>  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+>  ? irqentry_exit+0xc6/0x670
+>  reclaim_high+0x10a/0x1b0
+>  ? __pfx_reclaim_high+0x10/0x10
+>  ? process_one_work+0x5ff/0x1030
+>  ? __pfx_high_work_func+0x10/0x10
+>  process_one_work+0x6e2/0x1030
+>  ? __pfx___schedule+0x10/0x10
+>  ? __pfx_process_one_work+0x10/0x10
+>  worker_thread+0x422/0xbb0
+>  ? __pfx_worker_thread+0x10/0x10
+>  kthread+0x2cd/0x3a0
+>  ? recalc_sigpending+0x15c/0x200
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork+0x368/0x590
+>  ? __pfx_ret_from_fork+0x10/0x10
+>  ? __switch_to+0x588/0xf50
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork_asm+0x1a/0x30
+>  </TASK>
+> 
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
 
+Hrm, yes I suppose the work itself keeps the memcg allocated, but not
+from going deep into the destruction sequence. I was briefly wondering
+whether mglru shouldn't move its callback from css_released into
+css_free, but I think your fix is more robust after all: don't send a
+barely allocated memcg down the reclaim stack.
 
-Nice simplification. You are right that version == 3 is dead code. I
-will adopt this simplified code in v3.
+The _online variant of the tryget seems somewhat unnecessary. There is
+no real harm in reclaiming an offline group - and it was the standard
+way, before reparenting, to garbage collect an offline group with
+lingering pages. With the updated Fixes, this would look odd in
+backports to kernels without reparenting. The PAGE_COUNTER_MAX reset
+would also cause reclaim_high to bail.
 
+So I wonder if css_tryget() would be simpler and just as correct. But
+no strong feelings either way:
+
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
