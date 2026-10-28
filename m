@@ -1,104 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793172771;
-	b=nY2bGWq5W0B0cZiJtUF9n/FISfCcuy07KzCzr3YWv9QobxL+ZvtvsGf6kOhfyIzpUrvc
-	 pGVwUuE12oM270escCMaKXj1hcOZRSl9478RyHq1myfRQftPq+xVwB1zUlV7e7O+i0k1t
-	 1/S3EqIO9B76j9o2dhuEfVedDyZ3ePWGjAqdSwTSLcI10xEcskkg+XPn8CqqqcbVoa9Vv
-	 B1boGL3eGjJRBDTLrBHlskFBy56dSKz9BcwFs7FcAcr8n8LhjDBrTbYC1jfh5UWPzImU0
-	 CVUu02TjJLZV4fHJb6lsR8Mcp/HtKodo1Ec/Yt1ZFhZJlXyiQIJzbv9dKm1uyYrCt5Q==
+	t=1793172898;
+	b=UZfI7dJ3FEYwW80MBoqw+APwlWQ3Mj0RV8sG4RFbg/07GcGUxEgw+JQhYlPDUsPwDeT9
+	 3WnEDPHK1nPBTRFv2nNUDLql5N9BwhCwEWl58+2ogtlxpRlwS5pgFhszs3zEox3nyx/+e
+	 KCgWTDT83o149soPmvuD2v2AkKwXzUKsnldDd+M9CCWpWriAZdywFNe3AmJG20Dh1Zdrp
+	 Cqcds1SkFLFi70UTuK56zeV8RZuqfVSU5ZXx3Edz2nlv9VIgMlz8b61WGcSbVOruNNeMN
+	 pWGyiYgwLiVDQElEIL2p2jEIRbNiuORlL9wYUWoSwOPemvIdcI0bC6GUcwCEr/u2wSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793172771;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
-	b=RfGwlyfOXaxhPuO26zubaMxMzZa7O0P7nXD2kXejQvGH9hFeVwXRqgvSiWnzVxOKnpzP
-	 wDq4vchgS7ZUQLk0wcjc2o/H/+D/LwHLe+a5OWwHsZ+uT39y+OTZ0MguTVoX+4t5FcLer
-	 70LzHM7/WIqA8R4uVaKkdU0jInrUTZvYPIaIJnHZhnsU8Io7byNBWCfiTw4biMS/thPV/
-	 BonZusTdVgVBUUOg7xAkhdCtia/0rPmigMcepBT0cArjh6sIPGcWbrHMNR2CLw2Xr1HLi
-	 ORZ49Kh7/5EkJZl/d/KSJ7MohBckmEMZm8rEtGdhMIWZPmp9xO7J7XqGY1QMfTh1Y3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793172898;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=zIStE4bF32XhyUlfFjGjXX08aOZ6FXRCskcbe+64ed0=;
+	b=mjz/1JSh2hisyO7G64wYQgeJ/AG33aVExXAi6yStyFumFfjCUJ1t/20ziH+aVUsHnQN5
+	 tAMVGPhP2WTHCQBEb7AvQ0wDkjUUUhUvkFM7t0wbQS3UTw0MbK6rZC7blWxPMXt8/diVq
+	 g4P8xn8dd5pBgKOxTnW+CZDCLlLROgkAUHLU19xpyBFLNU/qyngV15rdo6h7Z9pt4r61V
+	 Au4fjmJ7Wf6Jmm/8Fb+gZ/c545Kon5yywSEV75pCCa4lYa8v/wdp0Wmg0vzKD2rer9z2S
+	 GLfVrMXQF9j4vUveIbF2FO1vs6FApLQfNv/Pe+3LSYGC1h8KnXFGwZ1N9j68mP/LN3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jzJmEB6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLbG6QWT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=F1yVvb+2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SgB2qKBt;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IleMG95e;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B350B606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B350B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E4E606A31E;
+	Wed, 28 Oct 2026 07:34:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75E4E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jzJmEB6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLbG6QWT;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=F1yVvb+2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SgB2qKBt
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DAFCA1FB2F;
-	Wed, 28 Oct 2026 07:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793172763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
-	b=0jzJmEB6QvbuGKv1vnM2PFtVpyMbsqG00A96jcewZwkPxhoPbvCK9uWLJ2jUQU25k70Jdm
-	bxQjpNf1h9KT05nraMQ+FTW5GAHy6IT358uVW+x19Z1ntTwaBH7tBlmoww6NkB0lJu1Uay
-	ZjUqFgCx5V+sVLWkwSn43U9jHtGUaYM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793172763;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
-	b=ZLbG6QWToacLlT++K/QaWyARob2NTe0MWJaPplmvY5m6c1ChJh5FMmRUVyY1J/+OaJfxJk
-	9Z31vzWHOIT6DJAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F1yVvb+2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=SgB2qKBt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793172761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
-	b=F1yVvb+2xRt8UJKSMny32GR8Ma70Z3fAGsLr2YUNi6wWESJvJv+8tAowRqqqCOrXf2Nlfz
-	LKiPluglj5vJPWcvstE8CMxBadKoF5swMFKOYGjRm8Se3LBqmPnRaM5lEiyhQXfWZhGGrv
-	Jkw4SzBHwv4HkG7r7g+PZFXRbHplKpY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793172761;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
-	b=SgB2qKBtgqD6FIP6h72D3bnS/oY20OEDtm/8cvb4mEO6pSF42SwkNYy+1ih9n+5SaopPSY
-	b5obocv/SYtICzCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7E32B1321C;
-	Wed, 28 Oct 2026 07:32:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S6OLDhml4WqoRAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 28 Oct 2026 07:32:41 +0000
-Message-ID: <5bde0cb8-6e5a-4df7-af7d-3e67dd27130e@suse.de>
-Date: Wed, 28 Oct 2026 08:32:40 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IleMG95e
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4iJVI307019;
+	Wed, 28 Oct 2026 07:34:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=zIStE4
+	bF32XhyUlfFjGjXX08aOZ6FXRCskcbe+64ed0=; b=IleMG95evMD7Cf03cYBhVn
+	AviKOCbHZLwJbpay/iJbCYSQD21f+/+ZKY86E2HWaiwZjkGwVYKqUkldz6g5mA8Z
+	AqEPG31ACBy97v7aIeMSAvlxIPyUS3Z/z8TZXn4dPfOHDbRzRv+qaGEpm83A6w5P
+	iP5HSrfd4VMH4MekWoD80oMlVP4j+QIKxq/SHMY/Pw7XsdOQ4b82EwVCEqW7haSQ
+	+jSU9/bvAQl0oUM03asH1JR8YRZRq7VwfYKVuIMa5rsBji//ze+Nk81LyWN8k6zh
+	AtI+8MP9QmPa9RKw01ektNOah+VRS7kgu5+t91qo3v45QNqrOr+XZslq8/xuQULQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmavk1xv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 07:34:54 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4YxKk1030496;
+	Wed, 28 Oct 2026 07:34:53 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7v8h4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 07:34:53 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69S7YpCf17433034
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 07:34:52 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D63EE20043;
+	Wed, 28 Oct 2026 07:34:51 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4942F2004D;
+	Wed, 28 Oct 2026 07:34:50 +0000 (GMT)
+Received: from [9.39.21.200] (unknown [9.39.21.200])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 07:34:50 +0000 (GMT)
+Message-ID: <ab9e5404-68fc-4cda-b76c-df6ff96673b4@linux.ibm.com>
+Date: Wed, 28 Oct 2026 13:04:48 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,268 +86,153 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/udl: fail fast on stalled URB pool
-To: oushixiong1025@163.com
-Cc: Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-References: <20261028061328.395798-1-oushixiong1025@163.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261028061328.395798-1-oushixiong1025@163.com>
+Subject: Re: [PATCH 1/2] selftests/empty_mntns: fix header conflicts and
+ remove TOOLS_INCLUDES
+To: brauner@kernel.org, shuah@kernel.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261001065728.90239-1-disgoel@linux.ibm.com>
+Content-Language: en-GB
+From: Disha Goel <disgoel@linux.ibm.com>
+In-Reply-To: <20261001065728.90239-1-disgoel@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: DAFCA1FB2F
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[163.com];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[redhat.com,poorly.run,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,kylinos.cn:email]
-X-Spam-Score: -13.50
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=P8SvFSAu c=1 sm=1 tr=0 ts=6ae1a59e cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=9Dw8piptKcqqLLA35HMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 3dhOyGsKRUkpNUyWrbj4SlAIX7vNmJVs
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAyOCBTYWx0ZWRfXxPrq6w+6Jq4D
+ 8V95Tvc2gXgHFjfaI88Ab+e5wXYvrY/yjv766oKccSoS7yZ+jsSvVgHZhQULJ3opqm1ihq/4+kw
+ 3WNWrnYyFeTnyVly9GhlmCU3w8tnsyA=
+X-Proofpoint-ORIG-GUID: 3dhOyGsKRUkpNUyWrbj4SlAIX7vNmJVs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAyOCBTYWx0ZWRfX05qF7VV+23up
+ eo3qYSLvoxP37I/rH3muGDCAGOtT0N6VyzmYu6Fbz2NA9m2r7F9R2wNnEo64AHeZSEAHp5DTvcp
+ GGzgc+vpG9GbYszHpXxTRCej1F+MsKAz2wAZYGpNsrBHcAWGVdG1+Z2rTpxmhMtnzkYCXYi4U7R
+ udDjqqWJnSn8Z/RuYVz7/dolUgvDpA2is5xCeOD8W6qf3Y6JfN7mNboGJwSv3qEQfLZiYwlsQGT
+ fTtSq5d5Rx55CxQLI14qY7UJJHvnP04ixAbdWBKClJra1Zha3ChlApUxBY/62fshkj5tTwZlarG
+ oA2AqTkPb1iN7u9bXGc19JK9dXJidWBqUMPi9YlkLpmqyBJjrqwqfHu5T/tUcPyXpvBSG/QRwqG
+ WrenQvKPJOjIEmnV3DUFY8H81QqJJDVCRjnnZFANTWxHKXmUdV4ThdZ9HUlqDib/Lux8JFtVJxy
+ YKBGlfLrOqM4ioK9FiQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280028
 
-Hi
+Hi Christian,
 
-Am 28.10.26 um 07:13 schrieb oushixiong1025@163.com:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> A stalled device never returns its URBs, so every allocation waited
-> out the full timeout and stalled the display stack on each operation.
-> Flag the stall and fail fast until an URB comes back; give damage a
-> short timeout and keep the long one for modeset.
+Gentle ping on this series. Could you please review it, and if it looks
+fine, pick it up?
 
-I'm not comfortable with merging this change. It's nigh impossible to 
-test.  It could also break a working set up if there's some temporary 
-contention on the USB.
-
-Best regards
-Thomas
-
-
->
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+On 01/10/26 12:27 pm, Disha Goel wrote:
+> Including <linux/mount.h> alongside <sys/mount.h> in empty_mntns test
+> files leads to compilation errors with glibc due to conflicting enum
+> definitions of MS_RDONLY and other mount flags.
+> 
+> Additionally, passing $(TOOLS_INCLUDES) (-isystem tools/include/uapi)
+> causes tools/include/uapi/linux/types.h to be included, forcing
+> int-ll64.h definitions on architectures like PowerPC (ppc64le) that
+> use int-l64.h, resulting in type collisions with system headers.
+> 
+> Fix this by:
+> - Dropping <linux/mount.h> from the test sources in favor of
+>    <sys/mount.h> (with <linux/stat.h> included after system headers).
+> - Removing $(TOOLS_INCLUDES) from the Makefile since standard UAPI
+>    headers are already supplied via $(KHDR_INCLUDES).
+> 
+> Fixes: 32f54f2bbccf ("selftests/filesystems: add tests for empty mount namespaces")
+> Fixes: 5b8ffd63fbd9 ("selftests/filesystems: add clone3 tests for empty mount namespaces")
+> Signed-off-by: Disha Goel <disgoel@linux.ibm.com>
 > ---
->   drivers/gpu/drm/udl/udl_drv.h      | 14 +++++++++++++-
->   drivers/gpu/drm/udl/udl_main.c     | 30 +++++++++++++++++++++++++-----
->   drivers/gpu/drm/udl/udl_modeset.c  |  6 +++---
->   drivers/gpu/drm/udl/udl_transfer.c |  2 +-
->   4 files changed, 42 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_drv.h b/drivers/gpu/drm/udl/udl_drv.h
-> index 145bb95ccc48..43cff97e12f7 100644
-> --- a/drivers/gpu/drm/udl/udl_drv.h
-> +++ b/drivers/gpu/drm/udl/udl_drv.h
-> @@ -11,6 +11,7 @@
->   #ifndef UDL_DRV_H
->   #define UDL_DRV_H
+>   tools/testing/selftests/filesystems/empty_mntns/Makefile       | 2 +-
+>   .../filesystems/empty_mntns/clone3_empty_mntns_test.c          | 3 +--
+>   .../selftests/filesystems/empty_mntns/empty_mntns_test.c       | 3 +--
+>   .../selftests/filesystems/empty_mntns/overmount_chroot_test.c  | 3 +--
+>   4 files changed, 4 insertions(+), 7 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/filesystems/empty_mntns/Makefile b/tools/testing/selftests/filesystems/empty_mntns/Makefile
+> index 22e3fb915e81..8d2cb46668fc 100644
+> --- a/tools/testing/selftests/filesystems/empty_mntns/Makefile
+> +++ b/tools/testing/selftests/filesystems/empty_mntns/Makefile
+> @@ -1,6 +1,6 @@
+>   # SPDX-License-Identifier: GPL-2.0-or-later
 >   
-> +#include <linux/jiffies.h>
->   #include <linux/mm_types.h>
->   #include <linux/usb.h>
+> -CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
+> +CFLAGS += -Wall -O2 -g $(KHDR_INCLUDES)
+>   LDLIBS += -lcap
 >   
-> @@ -46,6 +47,7 @@ struct urb_list {
->   	int available;
->   	int count;
->   	size_t size;
-> +	bool wedged;
->   };
+>   TEST_GEN_PROGS := empty_mntns_test overmount_chroot_test clone3_empty_mntns_test
+> diff --git a/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c b/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
+> index 6370086f886d..de0cbd1a5ee0 100644
+> --- a/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
+> +++ b/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
+> @@ -15,14 +15,13 @@
 >   
->   struct udl_device {
-> @@ -72,7 +74,17 @@ static inline struct usb_device *udl_to_usb_device(struct udl_device *udl)
->   int udl_modeset_init(struct udl_device *udl);
->   struct drm_connector *udl_connector_init(struct drm_device *dev);
+>   #define _GNU_SOURCE
+>   #include <fcntl.h>
+> -#include <linux/mount.h>
+> -#include <linux/stat.h>
+>   #include <stdio.h>
+>   #include <string.h>
+>   #include <sys/mount.h>
+>   #include <sys/stat.h>
+>   #include <sys/types.h>
+>   #include <unistd.h>
+> +#include <linux/stat.h>
 >   
-> -struct urb *udl_get_urb(struct udl_device *udl);
-> +/*
-> + * How long to wait for a free URB before giving up.  The damage path runs
-> + * on every atomic update, so keep its timeout short: a stalled device never
-> + * returns its URBs and the wait would otherwise stall the whole display
-> + * stack on every operation.  Modeset is low-frequency and worth waiting
-> + * longer for.  Once the pool is flagged wedged, neither path blocks at all.
-> + */
-> +#define UDL_GET_URB_TIMEOUT_DAMAGE	msecs_to_jiffies(100)
-> +#define UDL_GET_URB_TIMEOUT_MODESET	msecs_to_jiffies(2000)
-> +
-> +struct urb *udl_get_urb(struct udl_device *udl, long timeout);
+>   #include "../utils.h"
+>   #include "../wrappers.h"
+> diff --git a/tools/testing/selftests/filesystems/empty_mntns/empty_mntns_test.c b/tools/testing/selftests/filesystems/empty_mntns/empty_mntns_test.c
+> index 43e296b97d84..a6a90d0b6ff9 100644
+> --- a/tools/testing/selftests/filesystems/empty_mntns/empty_mntns_test.c
+> +++ b/tools/testing/selftests/filesystems/empty_mntns/empty_mntns_test.c
+> @@ -7,8 +7,6 @@
 >   
->   int udl_submit_urb(struct udl_device *udl, struct urb *urb, size_t len);
->   void udl_sync_pending_urbs(struct udl_device *udl);
-> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-> index 17950fe3a0ec..b92cd5300030 100644
-> --- a/drivers/gpu/drm/udl/udl_main.c
-> +++ b/drivers/gpu/drm/udl/udl_main.c
-> @@ -169,6 +169,7 @@ void udl_urb_completion(struct urb *urb)
->   	spin_lock_irqsave(&udl->urbs.lock, flags);
->   	list_add_tail(&unode->entry, &udl->urbs.list);
->   	udl->urbs.available++;
-> +	udl->urbs.wedged = false;
->   	spin_unlock_irqrestore(&udl->urbs.lock, flags);
+>   #define _GNU_SOURCE
+>   #include <fcntl.h>
+> -#include <linux/mount.h>
+> -#include <linux/stat.h>
+>   #include <sched.h>
+>   #include <stdio.h>
+>   #include <string.h>
+> @@ -17,6 +15,7 @@
+>   #include <sys/types.h>
+>   #include <sys/wait.h>
+>   #include <unistd.h>
+> +#include <linux/stat.h>
 >   
->   	wake_up(&udl->urbs.sleep);
-> @@ -213,6 +214,7 @@ static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
->   	init_waitqueue_head(&udl->urbs.sleep);
->   	udl->urbs.count = 0;
->   	udl->urbs.available = 0;
-> +	udl->urbs.wedged = false;
+>   #include "../utils.h"
+>   #include "../wrappers.h"
+> diff --git a/tools/testing/selftests/filesystems/empty_mntns/overmount_chroot_test.c b/tools/testing/selftests/filesystems/empty_mntns/overmount_chroot_test.c
+> index 6e21c58258c3..574c03311245 100644
+> --- a/tools/testing/selftests/filesystems/empty_mntns/overmount_chroot_test.c
+> +++ b/tools/testing/selftests/filesystems/empty_mntns/overmount_chroot_test.c
+> @@ -18,8 +18,6 @@
 >   
->   retry:
->   	udl->urbs.size = size;
-> @@ -265,16 +267,34 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+>   #define _GNU_SOURCE
+>   #include <fcntl.h>
+> -#include <linux/mount.h>
+> -#include <linux/stat.h>
+>   #include <sched.h>
+>   #include <stdio.h>
+>   #include <string.h>
+> @@ -29,6 +27,7 @@
+>   #include <sys/types.h>
+>   #include <sys/wait.h>
+>   #include <unistd.h>
+> +#include <linux/stat.h>
 >   
->   	assert_spin_locked(&udl->urbs.lock);
->   
-> +	/* A device that stopped completing transfers will never wake us up:
-> +	 * fail fast instead of stalling callers for the full timeout on every
-> +	 * call.  Allocations for teardown (MAX_SCHEDULE_TIMEOUT) still wait,
-> +	 * since the USB core returns all URBs on disconnect.
-> +	 */
-> +	if (udl->urbs.wedged && timeout != MAX_SCHEDULE_TIMEOUT) {
-> +		if (list_empty(&udl->urbs.list))
-> +			return NULL;
-> +		goto take;
-> +	}
-> +
->   	/* Wait for an in-flight buffer to complete and get re-queued */
->   	if (!wait_event_lock_irq_timeout(udl->urbs.sleep,
->   					 !udl->urbs.count ||
->   					 !list_empty(&udl->urbs.list),
->   					 udl->urbs.lock, timeout)) {
-> -		DRM_INFO("wait for urb interrupted: available: %d\n",
-> -			 udl->urbs.available);
-> +		if (timeout == MAX_SCHEDULE_TIMEOUT) {
-> +			DRM_INFO("wait for urb interrupted: available: %d\n",
-> +				 udl->urbs.available);
-> +		} else {
-> +			udl->urbs.wedged = true;
-> +			drm_warn_ratelimited(&udl->drm,
-> +				"no URB returned within %u ms (available %d); device stalled, dropping frames\n",
-> +				jiffies_to_msecs(timeout), udl->urbs.available);
-> +		}
->   		return NULL;
->   	}
-> -
-> +take:
->   	if (!udl->urbs.count)
->   		return NULL;
->   
-> @@ -285,12 +305,12 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
->   	return unode->urb;
->   }
->   
-> -struct urb *udl_get_urb(struct udl_device *udl)
-> +struct urb *udl_get_urb(struct udl_device *udl, long timeout)
->   {
->   	struct urb *urb;
->   
->   	spin_lock_irq(&udl->urbs.lock);
-> -	urb = udl_get_urb_locked(udl, HZ * 2);
-> +	urb = udl_get_urb_locked(udl, timeout);
->   	spin_unlock_irq(&udl->urbs.lock);
->   	return urb;
->   }
-> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-> index 289711035b67..c907846048f8 100644
-> --- a/drivers/gpu/drm/udl/udl_modeset.c
-> +++ b/drivers/gpu/drm/udl/udl_modeset.c
-> @@ -218,7 +218,7 @@ static int udl_handle_damage(struct drm_framebuffer *fb,
->   		return ret;
->   	log_bpp = ret;
->   
-> -	urb = udl_get_urb(udl);
-> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_DAMAGE);
->   	if (!urb)
->   		return -ENOMEM;
->   	cmd = urb->transfer_buffer;
-> @@ -342,7 +342,7 @@ static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
->   	if (!drm_dev_enter(dev, &idx))
->   		return;
->   
-> -	urb = udl_get_urb(udl);
-> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_MODESET);
->   	if (!urb) {
->   		drm_err_ratelimited(dev, "get urb failed when enabling crtc\n");
->   		goto out;
-> @@ -377,7 +377,7 @@ static void udl_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_ato
->   	if (!drm_dev_enter(dev, &idx))
->   		return;
->   
-> -	urb = udl_get_urb(udl);
-> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_MODESET);
->   	if (!urb)
->   		goto out;
->   
-> diff --git a/drivers/gpu/drm/udl/udl_transfer.c b/drivers/gpu/drm/udl/udl_transfer.c
-> index 7d670b3a5293..bfff17bba58d 100644
-> --- a/drivers/gpu/drm/udl/udl_transfer.c
-> +++ b/drivers/gpu/drm/udl/udl_transfer.c
-> @@ -202,7 +202,7 @@ int udl_render_hline(struct udl_device *udl, int log_bpp, struct urb **urb_ptr,
->   			int ret = udl_submit_urb(udl, urb, len);
->   			if (ret)
->   				return ret;
-> -			urb = udl_get_urb(udl);
-> +			urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_DAMAGE);
->   			if (!urb)
->   				return -EAGAIN;
->   			*urb_ptr = urb;
+>   #include "../utils.h"
+>   #include "empty_mntns.h"
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Regards,
+Disha
 
