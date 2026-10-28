@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156093;
-	b=RTnikc8GNFKnnPyMomYp+Qd6s06eVjr1XgUR2oEFUNtzLMH4+toebOTarsZEm3w8/aUm
-	 6S9F5VNV2YmW5LWahpK/ypQWHjjIyAVKG3BOrb/Y18x463LldB9ltQwEAbPlPA3N/tg44
-	 eZXvkfeyej2UVuuQzmuo1M+m1bfN79KNzBwGbe3jCbN6ubEBsgX+rOie81Uj35AUAOou2
-	 PmZ4RRhSecDeuZZB4Siq9t2uhOB7zjV7mz3uzD69rk7w9T6Tm30uAbhjjXg4iZYQIc6iE
-	 Pi99n58THS8Vu0RhXb8zHO5NuGS/r1uPj+6ued1g4dDg816MK6wYanyfSTeQIU3Oa0A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156093;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=3JxJ1mJkAP6YmKqJllwbCK5BL3rqP3akD5+1IOa+bFQ=;
-	b=iTzGqlH3EG2X4veJHhrAuKxFQOY/lqElzO5tkRWFrOliBT8sCnITQJqydH7yDNOzF0AJ
-	 G/Db4VhEOhxGpqEqeJ3kQNDO4OCMJHFPiNNDmhsfQu3MbTSgCSs1mLa20L1XpaoihG3WU
-	 6Cf8jZsmJApvPZuSwLgXnTPXHm8e4C+T+wgIyHGFCPK9uIT0YN8jbaldhQB5jEVEw6NMQ
-	 UXZmpyxOSonkuQoP7aIjByqKuqDc3LgK7sTN6W593V7dbKtqr19zUNgpt1dJSmtamxH2I
-	 XdkUCHI64ymtKzkxPjXniYF4aquPKPU2NeWk1Gog5VQGG19NExML/Aa5U9TRirlbiZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bNhVfT4y;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793156161;
+	b=vFfytrzhkhpcYS6Vo78UviBt/KNPjAhAyMJokFrqjDZd7LOVq6jVluzzl+y/KNzLiWyL
+	 wTkeFPyIxUFlmyR9m6g9MX4mY9F3vQfW1nXlyqFdBC2LslhroaTonSq8Rc1ixFtNCrAIz
+	 5AX6FzhdC8lfbeeM1On71+7WNEuOM887b3ySkoJbqMW8DMER9FpnLqIGiVbUPHyJQ8xXc
+	 nnJ4ycgKEWUfq7VJr1uL271jjQ6mlL64cVWWkDGcMnb9IbpK8nNaZ5Tx/hNL5/hgFNje4
+	 xAEpR01ArcUKWOJ0NaFcXxSyrUrwZG9/BB1UktNrZxEASdjITHpryH7wXFEltFMzW+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156161;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:Date:
+	 Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CvcuC/o04UNCHXAS+1OoReklOXJrJAAy130KN43tMa8=;
+	b=dXxLoW+5TtB7rDUDoAk5GXAgw1E8pq9Ro5JlS4D52wjgAzBoOHlA+WZgdkZtqmpl07h3
+	 w9FIkgSRlBmjpYl6hWz236kyQbxmDbFIVN4bxYdE7+pmjLVwGBzmadCCRQurZshUQZwPj
+	 BtVMKSS+Im9h1F6xHIDspA2Vkvnwyhqbt2G6vb884dHHHbEfUbpPX0ZX6ihTH6FcJDU28
+	 EJAICPcMqanolt2a1IU5Jw+u2lxAMCx9V+mO72Ae/6Pi2MNEzmIgMGITkSFTuxM3m3sSl
+	 Aq5jMwYtWxwoBA6n08eUW8x27foUQzv3ZHb4oKTx/kEPSl6apyFe7FfZFhi5eSyplKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DOPpoXK+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011023.outbound.protection.outlook.com [40.107.130.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FADA606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:54:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FADA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B30E606A31D;
+	Wed, 28 Oct 2026 02:56:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B30E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bNhVfT4y
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=3JxJ1mJkAP6YmKqJllwbCK5BL3rqP3akD5+1IOa+bFQ=;
-	b=bNhVfT4y44F46JNCoeHa7HQ9DTkar8M1LnxbRMIh7jithuf9TOZMLVbLUTl/wksEzUTuui4VE
-	R8NIFIFQvN63nBQHDaD8dW9ewkumziT3EJ9WlALYFyb0pz8un/QzdgDOh8ldQ8ipUCNTfP3x0r0
-	np6BKxqbTzQidblJke+l2Ws=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jDsQw429Tz12LJd;
-	Wed, 28 Oct 2026 10:54:48 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 81296202E6;
-	Wed, 28 Oct 2026 10:54:43 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 28 Oct
- 2026 10:54:42 +0800
-Message-ID: <6a13d463-b37e-45a6-b4f8-b7a28df24df8@huawei.com>
-Date: Wed, 28 Oct 2026 10:54:42 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DOPpoXK+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kGN2WTftOZu6NhtjZzJiywqKnCeLulYc8xJ5ZmR0E6AJre/9c94/wDYh5u7yV1JPz3DLDRPGL0ordD6fLbts8wYdM3ruxwjSrBn7YmfHKCFM/eNbSU/XHJGy3Vlc9NTnDL9SMVlzz14SSz5Jx2+b+UG5kdQuognpw7PbGxJTr/9RBjEAGadPt1dxgEUZ6cIawejeJdjtv3huo7i7Ebz7ENicVZXUPo933nqzGBIVh3+6HxcwyNJ1/Rv7MnXsfCB86bL4yKgegNOJMcKdsnSFfWgwxF3GqaJxNo2NB3d/nzZvrU3G0/ANTdz/DHH/c8jS/k2Qss82ZC9HiT8uXhhAVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CvcuC/o04UNCHXAS+1OoReklOXJrJAAy130KN43tMa8=;
+ b=o8rbbV7Oe5alBvKk3t6sZJe9nl86vwDgzU+BQtaTfmGhsv+4j6XX6Y5CtPhAYGmoDk7u18k46sbGFiwDmijiBXl1xJsZwfqgpB6Uzp6/3W369Gvdn9pYua8TTaVYCXsX/OJ/0XS3Bxm8FeA0qdFY9iLKn9Gu0xZzHbgIdphCfgIBkANSOciFp9dO/PJdxzulWLnkYf5erDOb2pTmtyPuzHQ2DceE8ky8bvtz2+t5CEp4qMSidPThI5tUpvt8evkekc5tQLyho6jI5jkIvTsHMnOqElI8T/OkTssoZ0qODpCNufK99OjVwcclbgvHa1nYUamHMDVJdtHyKN8sHFxoKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CvcuC/o04UNCHXAS+1OoReklOXJrJAAy130KN43tMa8=;
+ b=DOPpoXK+DxC9RHnAZqt3UGzyAInzoNsr6v8319VSjbdJO51Uvxtw4xsl13xG1WVYJfm6I1SYKl8pI1V5QknMRAtzozazfpNKa08OqfY0WfP84NPWBqK+12VybSAOsvXoua6l4gyMYOfgiI6IElEfs13UceipfTd/jd4e6H/eRazvOtcxptPnkDoYsdo7L1MROM+kXcteu26uJ73+HfGVA1uhlFpoRvXDYmjwki7CEsG4tZhLuQV7PeyEw7pmUa0pRJEBsJhU/L2Dwf4ZoAqrX9mJPEMzb53KMTB6Ya7n9jz8nTgtoCymX7qWtspdyvejjJmlp2KD2YT3P7uz1uapAQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
+ by AS8PR04MB8849.eurprd04.prod.outlook.com (2603:10a6:20b:42c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 02:55:57 +0000
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 02:55:57 +0000
+From: shengjiu.wang@oss.nxp.com
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_asrc_dma: fix error handling for DMA channel retrieval
+Date: Wed, 28 Oct 2026 10:59:21 +0800
+Message-Id: <20261028025921.4155551-1-shengjiu.wang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0099.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d1::11) To PAXPR04MB9351.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,91 +102,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/12] arm_mpam: resctrl: Don't stop early when tearing
- down a class
-To: Ben Horgan <ben.horgan@arm.com>
-CC: <james.morse@arm.com>, <reinette.chatre@intel.com>, <fenghuay@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<dave.martin@arm.com>, <andre.przywara@arm.com>, Sashiko
-	<sashiko-bot@kernel.org>
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
- <20260917145617.2202986-13-ben.horgan@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260917145617.2202986-13-ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|AS8PR04MB8849:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd1171ec-b282-4030-9d24-08df349efd42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|366016|376014|7416014|23010399003|18002099003|261026140227099003|921020|261021121427099003|56012099006|11063799006|261021123027099003|10067099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	QID6owi4DHyjkP+xRzKIwYKJANbrVVeM/pC+zh95nYQiLEaDbRwD1Fxs0uIvA3ZAIItutj/Mbf51CZXHmvvdcrRivZqnVQgRY2jS2tAoPLMeWUm1fCZ5S9hPYJMVpoxj6Z7MgPaJ0UO+ejCkzwK6zxZy0H6MiDroQ+RaHr2SRdWJy/a/g2axWcL6u2GAfO7liD9jHBLyPiJwZfulED1IM2BLox6rrKPeJHLD6CU21el0SLZ58WV8IQLKZ9KufzfPxuDjtEzJu0tWxgbOc2jIVaLTHMZB+z+3PvFgzzYdEngcmDbd/3gkxO0Kfp9xdVORyrTB+xCuud6jfdkny6f3DUie6ctbfnr0zoZbA0vSDkQ+l8wdZk8IfaIu0sYnqRa/Rsiep0UbOC/HPLaTXThkkvhzfrZAWKH9z5RDuvA+UJbJUlul3h6CSpF8Ib15rYanNspnPUj/WwpjeHGlZTeYA6QMYOcJYR4sTe86Bazhe2rhGbR2nCraYqNkroQoAFF6TIOg/cc4+/tA3UaOQ5F1ww6LiztqBBvEAXCbfgggZbe039L0/VBhd3/NE8Kq/fQuFhKi0OThPF9jMi7e/ZUJ77B4xnkiptZfQhlVv5vCr/b7f5eM8kiuyit7T7/XGzc5kROaEnnhvdNfbIyyEAtZjB9GHDTAfeb1lK9WIFXkMhJAr5bWhN9HbY5WIG86lwKWvahscvTp8STF0AFUmcmZOQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(261026140227099003)(921020)(261021121427099003)(56012099006)(11063799006)(261021123027099003)(10067099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?E0+hJpuJEgvZm92nxJ3JGY0+X7gezmhs9ij9cfK9vmu8NQkvbSiHOPGh4myT?=
+ =?us-ascii?Q?m+jOJWpUVTqwvAl8EeanO00T6lTKdQVD1HDuUMziGmTWS/40YBsLP3im6G0E?=
+ =?us-ascii?Q?JH/dNfri8Zj44F6kemqLlOc/kKd/8Ij8Ugo7ZSMotZdmHNIdj/8NeyVpvjU4?=
+ =?us-ascii?Q?0fhf8dDcYZB4m8L1JQxhc7Om+nrJhEaJMaOU2iw0O/KUJPI6f0IeCuonBYR7?=
+ =?us-ascii?Q?keGdFduVkBu5WZu8pSqhNKW6ubTrRIx5spjlK6Z8MxSl6CJ0WZLFdE9+udDH?=
+ =?us-ascii?Q?q3loWIGL1vgCNKDRq3zbyGqyxVJ7UnIB+GrrnbM0KIBIBuZy1dxl7U5ZKKWA?=
+ =?us-ascii?Q?OzSaD4ok/thNMpqcyrmOSgJ+ODTW4Pl6oZddFm+wL1xjBraw6BHXw3ok7nHO?=
+ =?us-ascii?Q?/r8NrMuVlrdBblb9zcmMD72qLUHLdOM6iT0FTD1toisJF4l+kRuyG0ww78IJ?=
+ =?us-ascii?Q?yUP1S1HP06x0vwicmKcM6ix+w0FcRhpTbkuzarFkTqF1ndGqCMCpFKOQ90P3?=
+ =?us-ascii?Q?uxHEBIUfSfDAVfSZFA3M5EthqanN0z0GJi1w7Ui8Fo65Y2KlWhF/XisH5D2j?=
+ =?us-ascii?Q?SL3sDrX2mmke+hQA7WPdhSRCFBSBVzWe/jXWrOnlpzLxPQvMsU/rGkNS3dLd?=
+ =?us-ascii?Q?t1jU2XY4lUcx1IU0/9pHkGSzYmi4zAl8+lcDMAN9B01MD+HjpuXeLlZ5AbXn?=
+ =?us-ascii?Q?Lib+dUI/e9tayfCOItvdrMceV9R9VOzHC0hhrPw8PahJtd0EeXD/+Misua8u?=
+ =?us-ascii?Q?527r151lHD/IwjN6w0pG48lYtwxRAAaEHF47poyqMXmXHDYrl7v8aSBk5/3N?=
+ =?us-ascii?Q?rOMdxPpz+wUoBRPs6asQv/rP/M9WephT+ydPr/sqQzdofe6qWqXwXFdPCoQd?=
+ =?us-ascii?Q?Hslp77baj9la+xHMM597gt+r8SqBi91LJkpnq3VKnfL6jOFFzbuAqzVA37u5?=
+ =?us-ascii?Q?xUNA2nloUhvtioYBpVRD2SxncFmt5wsnv2rcd/aLjw+Qj1IRyDNTVVxI6Pjr?=
+ =?us-ascii?Q?TOZQDuMZQd80WjZ0canI83h1buDQdCaZM42gi2KFkjGxBJu1XnUILcQTqaFI?=
+ =?us-ascii?Q?bpeC/qALnpFHrnpjE7sMqQG986XWlvFuhbNrfnrvfUYD4zNTpVjzZ1/CAd6o?=
+ =?us-ascii?Q?Ka/OgFUe1ZB/te1IgBjkq+6kYjOOyXzz+Dg25i/LDeB5ZGHB7CU+d+JMaRu5?=
+ =?us-ascii?Q?ZJer4w7QiD9WjdZo5PdsPpZ+TSfqioGaEICvaC2LCIamTLU38H/fHNkjE1IG?=
+ =?us-ascii?Q?Lk3sFGglaeD8O0aQGIIDSnLFFy/djDH4OJNGmWWAqduttoWk6QMAbhcEuxgE?=
+ =?us-ascii?Q?FUgcHqgoaHuVAY/ytXNRlIqxPIzGs35sOq4KWZrz8blyVKTJmfcYIkrX+qIR?=
+ =?us-ascii?Q?6aKFHdpRR8ECKTVMC6V0Uve+bIqNVcWn7Sq3TxLljhuYYoarazoXj7nYgil1?=
+ =?us-ascii?Q?kXyA4jAZ2IxClTaXsJEfTU5u2S+J3R4P7tNeNBfN67wnInYqtc/Di1P08Lay?=
+ =?us-ascii?Q?3Lw6BZNMfIrplUJAj2/yr2ozgBz3X2XTrWioSCu0NBRfhDPsHdt5g4Y84kiz?=
+ =?us-ascii?Q?gCDXt3yVnz1DAiMSefS44eIwekw3s9wEXZdP0R0AQVUfcTcDn8GCOU983ofz?=
+ =?us-ascii?Q?pdtxVelBETdq8n9/n43XJn6d9HI/KORjFha9ISaSjWPbKrUEE7s3juohDQXp?=
+ =?us-ascii?Q?3/R1o4TZOU4XbayYgKLPm+LuGd7XuCTBRAr3+ZlcnuOjntr7AQ3c/RDh+4kp?=
+ =?us-ascii?Q?VpcV2GM+J9ygRa4p2nF7v7HXBzyigrsjJ1VXTd8ggj2VbqRfAr3A?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd1171ec-b282-4030-9d24-08df349efd42
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:55:57.0443
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8b8esbZHLs7B0GWurUETs0b3VJ1mv27beuuzHc2TdTlY9fju56lG3ngCbeT4gT3ieKH9OJdnGXFMc8ktDXUVaEhZKvsal107fxzTmy0XDN3zytXdaiOVtQ8Kq0hBk1My
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8849
 
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
+The original check used `if (!tmp_chan)`, which only catches NULL pointers.
+However `asrc->get_dma_channel()` returns an error pointer. The NULL check
+will always succeed, so replace it with `IS_ERR(tmp_chan)` to correctly
+detect errors.
 
-在 2026/9/17 22:56, Ben Horgan 写道:
-> An MPAM class can back more than one control and more than one
-> monitor. mpam_resctrl_teardown_class() iterates through all the controls
-> but stops if it finds a match which means classes backing more than one
-> class aren't torn down. The same for monitors, in which case the mbwu
-> counters will be leaked.
-> 
-> Stop terminating the loops early.
-> 
-> As we are already changing mpam_resctrl_teardown_class() remove the
-> misleading comment. It doesn't call resctrl_exit() and isn't required to do
-> so as the only caller does it first.
-> 
-> Fixes: fb481ec08699 ("arm_mpam: resctrl: Call resctrl_init() on platforms that can support resctrl")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
-> Changes since v1:
-> 
-> New patch
-> ---
->  drivers/resctrl/mpam_resctrl.c | 9 +--------
->  1 file changed, 1 insertion(+), 8 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 321741a702fe..9cec5843e8fa 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -1943,10 +1943,6 @@ static void mpam_resctrl_teardown_mon(struct mpam_resctrl_mon *mon, struct mpam_
->  	mon->mbwu_idx_to_mon = NULL;
->  }
->  
-> -/*
-> - * The driver is detaching an MSC from this class, if resctrl was using it,
-> - * pull on resctrl_exit().
-> - */
->  void mpam_resctrl_teardown_class(struct mpam_class *class)
->  {
->  	struct mpam_resctrl_res *res;
-> @@ -1957,17 +1953,14 @@ void mpam_resctrl_teardown_class(struct mpam_class *class)
->  	might_sleep();
->  
->  	for_each_mpam_resctrl_control(res, rid) {
-> -		if (res->class == class) {
-> +		if (res->class == class)
->  			res->class = NULL;
-> -			break;
-> -		}
->  	}
->  	for_each_mpam_resctrl_mon(mon, eventid) {
->  		if (mon->class == class) {
->  			mon->class = NULL;
->  
->  			mpam_resctrl_teardown_mon(mon, class);
+Fixes: b4136c0d69ea ("ASoC: fsl_asrc: check the second front-end DMA channel")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_asrc_dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-My LLM also found this problem.
-
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
-> -			break;
->  		}
->  	}
->  }
-
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index b417de6abebe..b39d3d76d26a 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -251,7 +251,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
+ 
+ 		/* Get DMA request of Front-End */
+ 		tmp_chan = asrc->get_dma_channel(pair, dir);
+-		if (!tmp_chan) {
++		if (IS_ERR(tmp_chan)) {
+ 			dma_release_channel(pair->dma_chan[!dir]);
+ 			pair->dma_chan[!dir] = NULL;
+ 			return -EINVAL;
 -- 
-Best regards,
-Jinjie
+2.34.1
 
