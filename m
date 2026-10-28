@@ -1,88 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171666;
-	b=xgc+v7IJBCKFl6QBenoeYARCKflQ/nyrMImfijwJbm+Pmas9Di+p2Hb16SpitcGNjKFZ
-	 S/LTcPREa58ARRT1mOFjH3EEhlhiZTJ5VQUlWTTZUeCKmfqecvAUaDIui8QAp0wswgXUq
-	 OHsGJING8YpuGvop031isiYqO6/sksM2U4z2a1mrn23yK6JA6Na21StVjHHZzQ+J9Bixc
-	 r/YCLABU4aG66DSIrTCGZl8SbNkaOQ4BpxCgZ/PWAfrdKqvi/EFXAjvq0KQDak2E3GBCX
-	 rjSBVWPA7xbrZ4baNOxXFt5YODP1ndSXZwX4O4XK9br3Ivy7ibR3ClpbXJsYSZEq0fw==
+	t=1793171675;
+	b=l0cnphUVy3sqO/mlpOm0doXHcbIQ/CcNovVJIqHc3FrmlJa1fDuio0nZhfOLaOsRZ77Y
+	 mQrUooXO41HZuB/ADG4EOugkXikf5KKkFuBYdhiiE9Xafhu7jkGvLd9idlAnv7ihhd+i8
+	 as3/Wz8a1Psw68FHDC99pEihgGg/EPsgyYCrrnX4Adsz97dNot0tLRIYNAgdracHSCiy1
+	 XiPzr9NXphLtkc5aNAyPUWTl3b2cUY3ZlDxLnvgRKk/24CTlZhfNVl6pA/eHXNWJY3cga
+	 yOE+xvc98kxI3Wnbc0KgK3AYnDA0HuIvhc++wJ8dmsKZOfR1inZVVjWXvra3SJnUyaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171666;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=vAqK6/o3m7kulnS3Xo/WbNmGpSEBQ1pj1A+/29p6vTw=;
-	b=uVjzgVTvJhtVlcF/FFVNvWDsJWsYUduYFJVJUCW1iO7eIRfratd8p/wMbFomQFFCO1qq
-	 PlK5/oyiOaOUCsZPSgjvso1yyoZhTCZc/LN0hXQgLy/N0YB8Xql2Rf61Hp4yETAPgkaAw
-	 eYW/vt2lC7P59AYK+UM9C+/RWFVCI6YdivOhTiQy+3O4/BIP2NuZudYHKjHYTw784+qRR
-	 iOsLe5w5gAwxfQzyTS16VNbtD6hlEkyuA5ExRQEKvSzYJfSXhN/uZGJRsJ3GZ0efAK7oV
-	 9Ob+Ld/ok/em0eOn8DBWJ+gjtUgQYx4mjRedo+YIYIS5PuXo5cTpWDPvrERWM3DliXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171675;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=nWvZ3TM+SO8+XPvG+XWKa0let6l7VYIlGYjlYFnH3+M=;
+	b=S0A741XspxeHuH7ny0y8Wcn8bO9E5tWEaNQXTgVztsfBO7kM8P9G43i/vUS9fft5/EDh
+	 sP1Jmg45LqH8vl8hVbAhgZHJ/NZ0WaMxTD6qjZmJrCcRyTO8sPix8iJpnLsn/hFf8+Fzg
+	 TjxJiZq8YiSed6okIWKorl3Rz4bh45qT6Y2yaw/234+MXCK/O+Fcnt4B0Vw3YV4qOg+0Q
+	 zINBpRPX8vKU4O4m0NJaV6WU577qQpf8TLmETJ2yMnJyyi95dy2Dff9UDLN3QgSUdSN9q
+	 aLUmM+W0m4GZ/kHIVN2lPWJDdmly4LHDRPAnfTEjMm+HUJZN80sDyW3R8IyIEDOXyOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ehrwSBl4;
-	arc=none smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvbBERdx;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6C0606A334
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B6C0606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF321606A322;
+	Wed, 28 Oct 2026 07:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF321606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ehrwSBl4
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6df0b02fe91so1163702eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793171665; x=1793776465; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vAqK6/o3m7kulnS3Xo/WbNmGpSEBQ1pj1A+/29p6vTw=;
-        b=ehrwSBl4TtsiLOdL3GtdzjF+qUtnhJYe8oKyoThGpy08uOT+1Y/iId4kc/qFP3aaq5
-         yhBZ/lsXEz9sbYMWm2j45wY9tI1i4xIYAXI8psgmr7YErnVvZMc24XEHF3ouSOK7DkrA
-         fAmelVVzi44n7CoV9nJVWGsCY7pmanIRu4QDBRPwnvPNr4K8IPRHr7wuLRKdiIhx8lfn
-         KxCfKQAPrdPcVjDotN2L/agom0xDMOPsHctdqsl3d6k97pEqoivNafX1ggO0WQ0Bj1n1
-         f5OVKzY4E0Y4fHK5tF6LMnNFLrmqeroIicGyMPdXm0HnM+zm9jP5dD8JMclr+2UqDrQb
-         Dw4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793171665; x=1793776465;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vAqK6/o3m7kulnS3Xo/WbNmGpSEBQ1pj1A+/29p6vTw=;
-        b=wZYqZ4ouEGwo4HL3qq3W+WjG07PP9SbaddV+faZuYk3s/iKdNYkA7H7yKzca9ZbR1n
-         lHDBEa06D2HgJYXFujo1KHpuopp8HOYirpqoY0NktQXCLxXG6NxQ5wuOTy5F4DWqlouV
-         gOaSmwZyDUlAAy9GOK4s2zKcX3IMNowF4QbhrmLCxAb/kHIKhBd0V4akHHRzbHBPl79p
-         3Gh98jY8PuOqdDXUxMBiQS+5fZUInE5W2H3auykIL2rpN32sCwy1yvRs5XCrdJYdrFNY
-         /wXJNS16eXSs3I1Qc7LKizGlaDX5CiQ9ViXPOsP3vla14TqwweBpNfh5DM6ucxfxigbW
-         BP8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzOsVvFy3zt99tD0y9L5i3CKWtvkni61LpFtpMw/o9CdR2OkcPbn56lvtoUMM0JTUTbWhU+SSzbj8beId0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0AYUF7Bco6nTLs4x6ObdgnEt3Cko0dlLjWTHK02c4R0zcdoeZ
-	qn1jpiZcu3AdHl87p4ihy0MDg54SReI4feQ2uUefHyWXjn03CK7dINXz
-X-Gm-Gg: AYBFou3DfJdKy9xbRmQN2/iWOcXfTUBsn+RmZuZ7ce+ezw4YHuxvXszUdw5Qpk4ziSx
-	OlM2KFIQKqihmid2umf6YH8I6nOOuQOq/ssFlUhCbJegPr+atpbiUnEKD3xQaoWG02Cri5H0UC2
-	343pRJ2cAlePVR/5QEKNIfB4gBl+FT2zaCalG/OuQHPrDwhSfKpfxkCTtnP6LUEHLUBmyuYLemH
-	AgLymTBjLWR415MMo0xPL4WQVhc1g9najgWYStioSEwmXsg8iyuADCgLEZcXKNF1UM6tXhSyy+j
-	3///lbifWOsd91N89E7hlYUtlBZ5op6TNhspKt2CgnMgdH6YJlr77HbSUBmExR5Y8XLU6+jAr/d
-	61X8X7dHUTCgIcgKLWl9VLwbqncak6CWZ4liV5MTxFqzovpZSB2UWiyck+QFbNv5cXMXAt7z1HH
-	CsCiIo488Yh4v5mO68k12QOz77F1PlrrU5oFdxlNtxGKAmK7XjxW1SZgKa0YI6JJ8fVGEr3AQ/r
-	5aLKQzY1o+aIP/BLTEidC5PhoFQWyvEK57vaY5MXXDSo5YZwARQoSFUSMPU9dD3l3osm7fXPxu1
-	O+ZWULqccNgTJx+t8O/TIcGgeb4UwKAfgcchISH2+23NMl3K7W0CXgpIxvo55VzNYZ4AIFD/br9
-	r1kwrFVd9G8cEUutVlK8uazTeS3H2iIY2VBPNPInFslHSQQEua+5bEIQIXogWhfQaYAHLNMG5cF
-	hbhjmtx++69qJkUBqvaYXYMrsjJF+KLo/yqcKbQkHjygLHuQQkFl52
-X-Received: by 2002:a05:6820:200d:b0:704:2628:b1ba with SMTP id 006d021491bc7-7126b0508a6mr2396619eaf.23.1793171665381;
-        Wed, 28 Oct 2026 00:14:25 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85b20216574sm924598a34.20.2026.10.28.00.14.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:14:24 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 28 Oct 2026 01:14:19 -0600
-Subject: [PATCH v2] Input: serport - defer write wakeups to a worker
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvbBERdx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793171676; x=1824707676;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=V++wtxYvvFtv+QXNQW1GugFJXMKwwFidjcD9QJCz6O8=;
+  b=kvbBERdxMHVMytsEc9n8QWO3VQ55+YlV83ooyWOkoF6DD5Q4BT1zcLRX
+   DdFkHVMXQ0/b9msUKkEtd+L+CVxXcjThMVTxzru+It0zw9zVwiI49PxuF
+   q92DG7c6Rf7n6Epe1tD+BJcbHTGQV5nHFwtHeNci5+0Xn6AyqZbk4/aUj
+   qqcELFWoCjhQ/O4HapfgHmoYYTuJd/r5bEb/ZpLqkm+yoL5y7Jp4XoYfa
+   UpSgM7v9QYrDNsyW2LwatdhqFJRdfhAYRQFY+6UqouQeJP7NSCUKaitRo
+   Wmp6sYVMSvaJ0kCjE1GMTzFeaPnYtOqsOplk16QCm0qsSja0DH4afiEDZ
+   g==;
+X-CSE-ConnectionGUID: VFME67/TRF6pg9bRjjb/NQ==
+X-CSE-MsgGUID: BSZgQfTtRl+V6zwB0OeYwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1914695"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1914695"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:14:35 -0700
+X-CSE-ConnectionGUID: EZYw30CpTfG8IRpiQz3tHw==
+X-CSE-MsgGUID: FJcdkkdcTLioWet2HjwKRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4743439"
+Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:14:29 -0700
+Message-ID: <e86c855a-bad8-4909-ae88-a7cdca2837a7@linux.intel.com>
+Date: Wed, 28 Oct 2026 15:14:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,156 +72,410 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
+ domain ids
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-11-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-11-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-submit-serport-write-wakeup-v1-v2-1-c05d96259985@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQ6CMBCFr0K6dpQWA8aV9zAsShlgVFrSH9AQ7
- m6LF3D5Ju99863MoSV07JqtzOJMjoyOQRwypgapewRqY2YiFyXPRQEuNCN5iLPJWA+LJY+wyCe
- GCWYOvGlbnudlJzvJImSy2NF7f3CvfzkSHqh8oqZGIx1CY6VWQzqRnoI/dcbCi3RwqTGQ88Z+d
- seZJ9LfOskIqjNWBedlcZHi1o+SXkdlRlZv2/YFqQSa4gABAAA=
-X-Change-ID: 20261023-submit-serport-write-wakeup-v1-1bdd1006fafa
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-UART drivers can invoke the line discipline's write_wakeup() callback with
-their port lock held. serport forwards the notification directly to the
-serio driver. I-Force's callback can transmit a queued packet through
-serio_write(), which calls back into uart_write() and tries to acquire the
-same port lock. A notification after I-Force queues a packet but before it
-sets IFORCE_XMIT_RUNNING can therefore deadlock.
+On 10/25/26 10:19, Samiullah Khawaja wrote:
+> During boot fetch the preserved state of IOMMU unit and if found then
+> restore the state.
+> 
+> - Reuse the root_table that was preserved in the previous kernel.
+> - Reclaim the domain ids of the preserved domains for each preserved
+>    devices so these are not acquired by another domain.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/iommu/intel/iommu.c      |  71 ++++++++++++------
+>   drivers/iommu/intel/iommu.h      |  14 ++++
+>   drivers/iommu/intel/liveupdate.c | 121 +++++++++++++++++++++++++++++++
+>   3 files changed, 185 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 35ec2ae0c8d5..991ad9b2456e 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -987,6 +987,8 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
+>   
+>   static void release_dmar_iommu(struct intel_iommu *iommu)
+>   {
+> +	intel_iommu_handle_drhd_restore_failure(iommu);
+> +
+>   	/*
+>   	 * All iommu domains must have been detached from the devices,
+>   	 * hence there should be no domain IDs in use.
+> @@ -1452,7 +1454,7 @@ static void intel_iommu_init_qi(struct intel_iommu *iommu)
+>    * Returns 0 when the ID is reserved, was already reserved, or cannot be
+>    * re-assigned, and a negative errno for a genuine allocation failure.
+>    */
+> -static int reserve_domain_id(struct intel_iommu *iommu, int did)
+> +int reserve_domain_id(struct intel_iommu *iommu, int did)
+>   {
+>   	int ret;
+>   
+> @@ -1743,12 +1745,16 @@ static int copy_translation_tables(struct intel_iommu *iommu)
+>   
+>   static int __init init_dmars(void)
+>   {
+> +	struct iommu_hw_ser *iommu_ser;
+>   	struct dmar_drhd_unit *drhd;
+>   	struct intel_iommu *iommu;
+>   	int ret;
+>   
+>   	for_each_iommu(iommu, drhd) {
+> +		iommu_ser = iommu_get_preserved_data(iommu->reg_phys,
+> +						     IOMMU_SER_TYPE_INTEL);
+>   		if (drhd->ignored) {
+> +			intel_iommu_handle_drhd_restore_failure(iommu);
+>   			iommu_disable_translation(iommu);
+>   			continue;
+>   		}
+> @@ -1766,7 +1772,9 @@ static int __init init_dmars(void)
+>   		}
+>   
+>   		intel_iommu_init_qi(iommu);
+> -		init_translation_status(iommu);
+> +
+> +		if (!iommu_ser)
+> +			init_translation_status(iommu);
 
-Defer the serio notification to a work item, as required for transmitting
-from a line discipline's write-wakeup path. Initialize the work disabled
-and enable it, along with TTY_DO_WRITE_WAKEUP, only when a serio driver
-with a write_wakeup() callback opens the port.
+Why skipping init_translation_status() for a preserved iommu? The final
+step of intel_iommu_init() does the following:
 
-Clear TTY_DO_WRITE_WAKEUP and disable and drain the work when that driver
-closes the port, before the serio driver and port can be torn down. This
-allows the worker to call the driver without holding serport->lock,
-breaking the lock ordering cycle with input event callbacks that write
-to the UART.
+         /* Finally, we enable the DMA remapping hardware. */
+         for_each_iommu(iommu, drhd) {
+                 if (!drhd->ignored && !translation_pre_enabled(iommu))
+                         iommu_enable_translation(iommu);
 
-Also clear TTY_DO_WRITE_WAKEUP and disable and drain the work on hangup,
-before waking the reader to unregister the serio port. The additional
-disable keeps the work disabled even if a driver opens the port while
-hangup is in progress.
+                 iommu_disable_protect_mem_regions(iommu);
+         }
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Follow Dmitry's lifecycle suggestion: initialize the work disabled and
-  enable notifications only for a serio driver with a write_wakeup callback.
-- Disable and drain the work in serio close before the driver is detached,
-  allowing the worker to call the driver without holding serport->lock.
-- Disable and drain the work in hangup before waking the reader, keeping
-  it disabled even if a driver probe races with hangup.
-- Link to v1: https://patch.msgid.link/20261023-submit-serport-write-wakeup-v1-v1-1-74e7311638a2@gmail.com
----
- drivers/input/serio/serport.c | 36 +++++++++++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 7 deletions(-)
+That touches the gcmd register of a preserved iommu.
+VTD_FLAG_TRANS_PRE_ENABLED should be set for all preserved iommu. Or
+not?
 
-diff --git a/drivers/input/serio/serport.c b/drivers/input/serio/serport.c
-index cabe3876c168..e522aa7f0fc2 100644
---- a/drivers/input/serio/serport.c
-+++ b/drivers/input/serio/serport.c
-@@ -18,6 +18,7 @@
- #include <linux/serio.h>
- #include <linux/tty.h>
- #include <linux/compat.h>
-+#include <linux/workqueue.h>
- 
- MODULE_AUTHOR("Vojtech Pavlik <vojtech@ucw.cz>");
- MODULE_DESCRIPTION("Input device TTY line discipline");
-@@ -33,6 +34,7 @@ struct serport {
- 	wait_queue_head_t wait;
- 	struct serio *serio;
- 	struct serio_device_id id;
-+	struct work_struct write_wakeup;
- 	spinlock_t lock;
- 	unsigned long flags;
- };
-@@ -54,6 +56,11 @@ static int serport_serio_open(struct serio *serio)
- 	guard(spinlock_irqsave)(&serport->lock);
- 	set_bit(SERPORT_ACTIVE, &serport->flags);
- 
-+	if (serio->drv->write_wakeup) {
-+		enable_work(&serport->write_wakeup);
-+		set_bit(TTY_DO_WRITE_WAKEUP, &serport->tty->flags);
-+	}
-+
- 	return 0;
- }
- 
-@@ -62,8 +69,20 @@ static void serport_serio_close(struct serio *serio)
- {
- 	struct serport *serport = serio->port_data;
- 
--	guard(spinlock_irqsave)(&serport->lock);
--	clear_bit(SERPORT_ACTIVE, &serport->flags);
-+	scoped_guard(spinlock_irqsave, &serport->lock)
-+		clear_bit(SERPORT_ACTIVE, &serport->flags);
-+
-+	if (serio->drv->write_wakeup) {
-+		clear_bit(TTY_DO_WRITE_WAKEUP, &serport->tty->flags);
-+		disable_work_sync(&serport->write_wakeup);
-+	}
-+}
-+
-+static void serport_write_wakeup(struct work_struct *work)
-+{
-+	struct serport *serport = container_of(work, struct serport, write_wakeup);
-+
-+	serio_drv_write_wakeup(serport->serio);
- }
- 
- /*
-@@ -85,10 +104,11 @@ static int serport_ldisc_open(struct tty_struct *tty)
- 	serport->tty = tty;
- 	spin_lock_init(&serport->lock);
- 	init_waitqueue_head(&serport->wait);
-+	INIT_WORK(&serport->write_wakeup, serport_write_wakeup);
-+	disable_work(&serport->write_wakeup);
- 
- 	tty->disc_data = serport;
- 	tty->receive_room = 256;
--	set_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
- 
- 	return 0;
- }
-@@ -239,6 +259,10 @@ static void serport_ldisc_hangup(struct tty_struct *tty)
- {
- 	struct serport *serport = tty->disc_data;
- 
-+	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
-+	/* Keep work disabled even if a driver opens the port during hangup. */
-+	disable_work_sync(&serport->write_wakeup);
-+
- 	scoped_guard(spinlock_irqsave, &serport->lock)
- 		set_bit(SERPORT_DEAD, &serport->flags);
- 
-@@ -249,10 +273,8 @@ static void serport_ldisc_write_wakeup(struct tty_struct * tty)
- {
- 	struct serport *serport = tty->disc_data;
- 
--	guard(spinlock_irqsave)(&serport->lock);
--
--	if (test_bit(SERPORT_ACTIVE, &serport->flags))
--		serio_drv_write_wakeup(serport->serio);
-+	/* A serio driver may write to the TTY, so defer the callback. */
-+	schedule_work(&serport->write_wakeup);
- }
- 
- /*
+>   
+>   		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
+>   			iommu_disable_translation(iommu);
+> @@ -1775,14 +1783,18 @@ static int __init init_dmars(void)
+>   				iommu->name);
+>   		}
+>   
+> -		/*
+> -		 * TBD:
+> -		 * we could share the same root & context tables
+> -		 * among all IOMMU's. Need to Split it later.
+> -		 */
+> -		ret = iommu_alloc_root_entry(iommu);
+> -		if (ret)
+> -			goto free_iommu;
+> +		if (iommu_ser) {
+> +			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
+> +		} else {
+> +			/*
+> +			 * TBD:
+> +			 * we could share the same root & context tables
+> +			 * among all IOMMU's. Need to Split it later.
+> +			 */
+> +			ret = iommu_alloc_root_entry(iommu);
+> +			if (ret)
+> +				goto free_iommu;
+> +		}
+>   
+>   		if (translation_pre_enabled(iommu)) {
+>   			pr_info("Translation already enabled - trying to copy translation structures\n");
+> @@ -1818,7 +1830,11 @@ static int __init init_dmars(void)
+>   	 */
+>   	for_each_active_iommu(iommu, drhd) {
+>   		iommu_flush_write_buffer(iommu);
+> -		iommu_set_root_entry(iommu);
+> +
+> +		iommu_ser = iommu_get_preserved_data(iommu->reg_phys,
+> +						     IOMMU_SER_TYPE_INTEL);
+> +		if (!iommu_ser)
+> +			iommu_set_root_entry(iommu);
+>   	}
+>   
+>   	check_tylersburg_isoch();
+> @@ -2245,17 +2261,28 @@ int dmar_parse_one_satc(struct acpi_dmar_header *hdr, void *arg)
+>   static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
+>   {
+>   	struct intel_iommu *iommu = dmaru->iommu;
+> +	struct iommu_hw_ser *iommu_ser;
+>   	int ret;
+>   
+> -	/*
+> -	 * Disable translation if already enabled prior to OS handover.
+> -	 */
+> -	if (iommu->gcmd & DMA_GCMD_TE)
+> -		iommu_disable_translation(iommu);
+> +	/* Use IOMMU HW unit MMIO base to identify the preserved state. */
+> +	iommu_ser = iommu_get_preserved_data(iommu->reg_phys,
+> +					     IOMMU_SER_TYPE_INTEL);
+> +	if (iommu_ser) {
+> +		if (dmaru->ignored)
+> +			intel_iommu_handle_drhd_restore_failure(iommu);
 
----
-base-commit: f57202d55333f750a18e21c3b3f35f48ef14a61e
-change-id: 20261023-submit-serport-write-wakeup-v1-1bdd1006fafa
+intel_iommu_add() runs during runtime ACPI hot-add, not during boot.
+It's unclear whether an preserved IOMMU can reach this path. By the time
+a hot-add event occurs, the preserved data may already be gone because
+the LUO session has ended.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+I would suggest starting from simple by not supporting IOMMUs with
+preserved state in the hot-plug case. Returning -EBUSY here would be
+enough?
 
+>   
+> -	ret = iommu_alloc_root_entry(iommu);
+> -	if (ret)
+> -		goto out;
+> +		intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
+> +	} else {
+> +		/*
+> +		 * Disable translation if already enabled prior to OS handover.
+> +		 */
+> +		if (iommu->gcmd & DMA_GCMD_TE)
+> +			iommu_disable_translation(iommu);
+> +
+> +		ret = iommu_alloc_root_entry(iommu);
+> +		if (ret)
+> +			goto out;
+> +	}
+>   
+>   	intel_svm_check(iommu);
+>   
+> @@ -2281,7 +2308,8 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
+>   	if (ret)
+>   		goto out;
+>   
+> -	iommu_set_root_entry(iommu);
+> +	if (!iommu_ser)
+> +		iommu_set_root_entry(iommu);
+>   	iommu_enable_translation(iommu);
+>   
+>   	iommu_disable_protect_mem_regions(iommu);
+> @@ -2797,7 +2825,8 @@ int __init intel_iommu_init(void)
+>   		 * to avoid unnecessary lock order splat.
+>   		 */
+>   		up_read(&dmar_global_lock);
+> -		iommu_device_register(&iommu->iommu, &intel_iommu_ops, NULL);
+> +		if (iommu_device_register(&iommu->iommu, &intel_iommu_ops, NULL))
+> +			intel_iommu_handle_drhd_restore_failure(iommu);
+>   		down_read(&dmar_global_lock);
+>   
+>   		iommu_pmu_register(iommu);
+> diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+> index 16ab103d308a..260c7a5b1240 100644
+> --- a/drivers/iommu/intel/iommu.h
+> +++ b/drivers/iommu/intel/iommu.h
+> @@ -1307,6 +1307,8 @@ static inline int iopf_for_domain_replace(struct iommu_domain *new,
+>   	return 0;
+>   }
+>   
+> +int reserve_domain_id(struct intel_iommu *iommu, int did);
+> +
+>   #ifdef CONFIG_IOMMU_LIVEUPDATE
+>   int intel_iommu_preserve_device(struct device *dev,
+>   				struct iommu_device_ser *device_ser);
+> @@ -1317,10 +1319,22 @@ int intel_iommu_preserve(struct iommu_device *iommu,
+>   void intel_iommu_unpreserve(struct iommu_device *iommu,
+>   			    struct iommu_hw_ser *iommu_ser);
+>   void clear_unpreserved_context_entries(struct intel_iommu *iommu);
+> +void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
+> +					       struct iommu_hw_ser *iommu_ser);
+> +void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu);
+>   #else
+>   static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
+>   {
+>   }
+> +
+> +static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
+> +							     struct iommu_hw_ser *iommu_ser)
+> +{
+> +}
+> +
+> +static inline void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
+> +{
+> +}
+>   #endif
+>   
+>   #ifdef CONFIG_INTEL_IOMMU_SVM
+> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
+> index f92cb774cc99..cf98b95bf8d2 100644
+> --- a/drivers/iommu/intel/liveupdate.c
+> +++ b/drivers/iommu/intel/liveupdate.c
+> @@ -272,6 +272,127 @@ static int preserve_iommu_context_tables(struct device_domain_info *info)
+>   	return 0;
+>   }
+>   
+> +static int restore_context_table(struct intel_iommu *iommu,
+> +				 struct iommu_hw_ser *ser,
+> +				 u8 bus, u8 devfn, u64 root_val)
+> +{
+> +	bool present = root_val & 1;
+> +
+> +	/*
+> +	 * The root entries of unpreserved context tables are cleared during
+> +	 * shutdown, so the preserved bitmap must match the present bits.
+> +	 */
+> +	if (is_context_table_preserved(iommu, ser, bus, devfn) != present)
+> +		return -EINVAL;
+> +
+> +	if (present)
+> +		iommu_restore_pages(root_val & VTD_PAGE_MASK);
+> +
+> +	return 0;
+> +}
+> +
+> +static int restore_iommu_context(struct intel_iommu *iommu,
+> +				 struct iommu_hw_ser *ser)
+> +{
+> +	struct root_entry *root;
+> +	int ret;
+> +	int i;
+> +
+> +	for (i = 0; i < ROOT_ENTRY_NR; i++) {
+> +		root = &iommu->root_entry[i];
+> +
+> +		ret = restore_context_table(iommu, ser, i, 0, root->lo);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (!sm_supported(iommu))
+> +			continue;
+> +
+> +		ret = restore_context_table(iommu, ser, i, 0x80, root->hi);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int _restore_used_domain_ids(struct iommu_device_ser *ser, void *arg)
+> +{
+> +	int id = ser->attachment.attachment_id;
+> +	struct iommu_hw_ser *iommu_hw_ser;
+> +	struct intel_iommu *iommu = arg;
+> +
+> +	if (WARN_ON(!ser->iommu_phys))
+> +		return 0;
+> +
+> +	iommu_hw_ser = phys_to_virt(ser->iommu_phys);
+> +	if (iommu_hw_ser->type != IOMMU_SER_TYPE_INTEL)
+> +		return 0;
+> +
+> +	/* Only allocate domain ID from associated IOMMU HW unit */
+> +	if (iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
+> +		return 0;
+
+Unlike kdump case, where out-of-range did is ignored.
+
+	/* For live update, an out-of-range did means corrupt state. */
+	if (id < 0 || id >= iommu->max_domain_id)
+		return -EINVAL;
+
+> +
+> +	return reserve_domain_id(iommu, id);
+> +}
+> +
+> +/**
+> + * intel_iommu_liveupdate_restore_root_table() - Restore root table and reclaim domain IDs
+> + * @iommu: Target IOMMU
+> + * @iommu_ser: Serialized IOMMU hardware state from previous kernel
+> + *
+> + * Restores the preserved root table and context tables for the IOMMU hardware
+> + * instance across Live Update, and reclaims all domain IDs previously allocated
+> + * to preserved devices so they are not reused.
+> + *
+> + * The preserved devices keep doing DMA through the preserved translation
+> + * tables, so a failure to restore them is fatal.
+> + */
+> +void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
+> +					       struct iommu_hw_ser *iommu_ser)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * The kernel command line might have changed across kexec, e.g.
+> +	 * intel_iommu=sm_off, so make sure the preserved tables are in the
+> +	 * format this kernel is going to use.
+> +	 */
+> +	if (iommu_ser->intel.sm_enabled != sm_supported(iommu))
+> +		panic("%s: preserved scalable mode %u does not match current %u\n",
+> +		      iommu->name, iommu_ser->intel.sm_enabled,
+> +		      sm_supported(iommu));
+
+I'm not clear on the trust model for the preserved data. What if it does
+not match the hardware's current configuration? Should we verify that
+the preserved data matches the hardware state here? Would the following
+check help detect such mismatches?
+
+	u64 rtaddr = readq(iommu->reg + DMAR_RTADDR_REG);
+	u32 gsts = readl(iommu->reg + DMAR_GSTS_REG);
+
+	if (!(gsts & DMA_GSTS_TES) ||
+	    (rtaddr & VTD_PAGE_MASK) != iommu_ser->intel.root_table ||
+	    !!(rtaddr & DMA_RTADDR_SMT) != !!iommu_ser->intel.sm_enabled)
+		panic(...);
+
+> +
+> +	iommu_restore_pages(iommu_ser->intel.root_table);
+> +	iommu->root_entry = __va(iommu_ser->intel.root_table);
+
+__va() is used here while other places use phys_to_virt(). Why?
+
+> +
+> +	ret = restore_iommu_context(iommu, iommu_ser);
+> +	if (ret)
+> +		panic("%s: failed to restore preserved context tables\n",
+> +		      iommu->name);
+> +
+> +	ret = iommu_for_each_preserved_device(_restore_used_domain_ids, iommu);
+> +	if (ret)
+> +		panic("%s: failed to reclaim preserved domain IDs: %d\n",
+> +		      iommu->name, ret);
+> +}
+> +
+> +/**
+> + * intel_iommu_handle_drhd_restore_failure() - Handle DRHD restore failure
+> + * @iommu: Target IOMMU
+> + */
+> +void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
+> +{
+> +	/*
+> +	 * The preserved devices keep doing DMA through the preserved
+> +	 * translation tables, so a failure to restore and register the IOMMU
+> +	 * is fatal.
+> +	 */
+> +	if (iommu_get_preserved_data(iommu->reg_phys, IOMMU_SER_TYPE_INTEL))
+> +		panic("%s: failed to restore IOMMU with preserved state\n",
+> +		      iommu->name);
+> +}
+> +
+>   /**
+>    * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
+>    * @dev: Target device
+
+Thanks,
+baolu
