@@ -1,63 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202678;
-	b=Jap+6bgHNsfvswVdZ8niY/oRoZB2I/rK0Mxx7A206IU0evn/W+ooRKqAkIt78VqJQ7mk
-	 Sp7nWiwMehBw0mAB/wtpWJbxqgZ4kCpYk/cuUDpGo8VzjSFqCEHaBUOxN6i2dR3djmHac
-	 gh380dLBM7VVm42zL5HCC46yp43F18f7U5XPEj9mNreM2NDYIjC+FmqajMKTSDVmRfZ6C
-	 pjEONuBchiE4TVASgpWwyFWl/wezwqUxlBi2eShZxnq3Vojr9r67b13eMwRPlJdhCmFkk
-	 WZmH3PXJa+H/Zuk3G6lOWjDGpdIGOTnPpSZs1JUGaduM+D/eWl7bJiQYknFH3ZuVYOg==
+	t=1793202696;
+	b=I+DKNk8171C+D51Tm2sayZ6KMdqEgrZ1XgFVJsycYtgbJnq2IPAi+UKV3xb89/1doj7f
+	 Ok7cPS0J2HYjI+w85KTMm4mac4S49EWjPcVr3yFtUG7zTLmR1l8F53yV7cgGgLE3OmE5s
+	 dQ8iwAIvLB4qtPmv0HCdVQih6mM31Dty7vMKBxkimZy2VU5rTdnKHKf7C+jqNsczMF8vA
+	 yB5uUBm6ztDJctGAOUHOkZF0hooV3MWUhhXvZ30kOH5AGuIqnG23fdbP/srQ+qRaHL3hd
+	 2Yd54cxaCKHtmJKIm/f1vwacI2apGIt9hyHuynvPal+gbu718pBj38/NL2ISZZjoaWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202678;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=mMPK9qYI50Gun6EbAuhVfvIshMIUGWAEDh+aFNRMKIE=;
-	b=hZ2U1UxvKBur7rGlLcVuV0hHE/Kk3qzbhGAR74atLiyFCjzV3/ZOyVvenTeRWcSIXK85
-	 DeuZEoVj6pKwu93fGDFKIa5LUVZ9aTJSRECyJksaJMDn3JLDgRUyy9bB5oqdyIw4eELsL
-	 13pRXH36K5pitvavCg69bZnoGQFxM1DhUs2ZZ0I78ok93Rd5gokEN5m3HmQZ5vRYTwiZ0
-	 Tn+seapL/9uW6QlmilWBwBlnUaDBNrijXVc0mQHTEqvfRSvCrnrbq+wyJPilSkLuhPZzx
-	 fY2gUwlS+jdm99CSfEchMDznwXGcSoNxpIhEVIm+g384WK5x3EaJfGfiX/O501P2/Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202696;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DCkxYHJcT27++FJP/Zeto/ZEYJ+1SSDdnnCZWhjVGX4=;
+	b=l61Y19RZC0DmSELNoRLeQBwwWU7WH6AWyf0gcVQtKbeWtEbzGvsiBytBAw+Pd5M272uY
+	 3fllS4y1rmF34/IjES0RLjAXwG7PB/4kW/vqYaTxoNX0gjG2aQg6m0BTkO0lxvIsJmuHq
+	 5aJUak4zzUmMBJQ4RvXjRZ9GNOUgvaV8fFogmHKlnrlNEldyZtdOPzWbyK5Jj4+nRz8Jr
+	 8ENAEvEvly2vKbr15yY3PSwd3tpkeiDOmjpLUs7QOsgfEDIEdsBrv2+daAROd2ZvVsEob
+	 Xs2O2GnTj1nY4avwDeh4biTLCb5B4uMmQW2ZwVtHMOTR8URBaK9OTJNVY+LSMlLP6Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DOfnPtvh;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4C07606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C07606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ll0JeyiH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB22606A31D;
+	Wed, 28 Oct 2026 15:51:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DOfnPtvh
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5975175D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:12 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A5BC73F673
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793202675; bh=QHIk/uWzcHH5EhNGbfwfN7gO5R91eIxjJbKUe2LX8Uc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DOfnPtvhrgcbGGM6pONSlcqpnzw08ucqeSZ0DNgKxtMWKUUGn4HUz692AnmycCPdM
-	 BNvq18ArkCcwbnFwFqnMmLC/wJjCbBXmTZI8hg77Nqrf87ii2jzpyJ7a8WWZcwAdAC
-	 SCFnJ4S6l/f6b4tX2x8PXA/G1yesjzREVsRAXptA=
-Date: Wed, 28 Oct 2026 15:51:10 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [PATCH v1 01/27] drm/panthor: Ignore -EOPNOTSUPP for
- shader-present nvmem lookup
-Message-ID: <auIZ7rtnOPVXnFHw@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-2-karunika.choo@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ll0JeyiH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90301F01825;
+	Wed, 28 Oct 2026 15:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793202696;
+	bh=DCkxYHJcT27++FJP/Zeto/ZEYJ+1SSDdnnCZWhjVGX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ll0JeyiH5l8RZnHaJ3llWRYbPwc1aeH8e9kYEPIeEiYLvBmhbl6PQqCNdC++RoRJi
+	 v8YeIdY8CERG4/daeQsuyu1oIaYq55dSk3oD2YVqucS9yzJ3Krejxn2o2Z/NV6Zvt5
+	 1oDo7x4zCuRkbOjUQWlY+LzYpB74Io4r5MtuQr6apsRw27Jv8YX6fKhHybwIHV+C8O
+	 c9ZTo44tl/N5pS7M6pGBka9JtEboDMnGQTgwqhB5rLusrn8/EKMPGk/nDeoS8pY7CF
+	 GOOsE099RTHZc8lJQSmVTzsUKRnIUTCn+kgp+PPH7dA1OZVD1R9cd2/on3k5qYN6T2
+	 uHch8LHJdP6Kg==
+Date: Wed, 28 Oct 2026 15:51:34 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Cc: ardb@kernel.org, Jason@zx2c4.com, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
+ memset()
+Message-ID: <20261028155134.GA4041913@google.com>
+References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,62 +57,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-2-karunika.choo@arm.com>
+In-Reply-To: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
 
-On Tue, Sep 22, 2026 at 09:44:55PM +0100, Karunika Choo wrote:
-> When CONFIG_NVMEM is disabled, reading the optional "shader-present"
-> nvmem cell can return -EOPNOTSUPP.
+On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:
+> aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
+> output buffer when authentication fails. But the compiler can optimize
+> that wipe away, so use memzero_explicit() instead of memset().
 > 
-> Treat this the same as the cell being absent so panthor can continue
-> probing on platforms that do not provide shader-present fuses through
-> nvmem.
+> This matches every other sensitive wipes in this file, which already
+> uses memzero_explicit() for keystream blocks, tmp buffers, ctx
+> teardowns.
 > 
-> Fixes: c40b50c3cfbe ("drm/panthor: Implement reading shader_present from nvmem")
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-I will probably pick some fixes from this series and apply them regardless.
-
-Best regards,
-Liviu
-
+> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 > ---
-> v1:
-> - Picked up R-bs from Boris and Steve
-> - Added Fixes tag
+>  lib/crypto/aes.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
->  drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 7e315708ca7ca..4c96573b649a1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -182,7 +182,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
->  					      &contents);
->  	if (!ret)
->  		ptdev->gpu_info.shader_present = contents;
-> -	else if (ret == -ENOENT)
-> +	else if (ret == -ENOENT || ret == -EOPNOTSUPP)
->  		return 0;
->  	else
->  		return dev_err_probe(ptdev->base.dev, ret,
-> --
-> 2.43.0
-> 
+> diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
+> index e1c191551736..7814ef525239 100644
+> --- a/lib/crypto/aes.c
+> +++ b/lib/crypto/aes.c
+> @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
+>  		 * Clear the inauthentic decrypted data so that callers won't
+>  		 * receive it even if they fail to correctly handle errors.
+>  		 */
+> -		memset(dst, 0, data_len);
+> +		memzero_explicit(dst, data_len);
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+This isn't for "zeroization" (making the data unavailable in ramdumps),
+though.  It's just so the caller doesn't accidentally use the
+inauthentic data, as the comment right above it states.
+
+- Eric
