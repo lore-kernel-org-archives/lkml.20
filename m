@@ -1,50 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180866;
-	b=Apenv3UhFPWFTzvQ9AdgjzMSCGVpbrluue8dT+EEqHuckiwfOPy/VuqV5eCFLQYzmXNN
-	 Lhi/fIiHPYA4k3i9s6MpMlHVjpY36m3/7XJzvE1aejG/DalzBizPGiPedpBGaq96NNtBC
-	 Z5hrq9WoKMJI0hzBM9jk/bXY6ctCDJfgoFr/p7WVrafZ0+WcWF/tDtnu994010I7xB1Lc
-	 IK2HfKdnPvTT1wAMLMSbrSFxMKtpWQHAPVSXk7VYyQcjL545whuNub68DSYXaIVtWHoIf
-	 I39lhGQLeAezA2Gj/gPSxDUrla0/7oCQgZTBDouzy7q6+2DPooN2tlAuVa8wF9xm33g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180866;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=jwu93O0r5jyG0xwNtXyzwSpYXaM7JMXv4NzJ2EU/I4g=;
-	b=NfS61kYgsP3hYYsyxiCo5L6Hq+EDa0jqNls/9a5O4cHAfKKl3lqKyBCSfzLlC+xLTZH7
-	 45s0kIwDqG8UsKRG72KhFKBf6vhWvmJMI4pD36vuTh6qistUuisY2H4Y6PFM4Qcq27jAB
-	 gaf7O52mdR4Y9S2WbCXIufTNLEa2mYhLv3oyOmrbk02NGMcMePKzmzOPqG5gMeZ/6O1Qt
-	 /4LY4x8fCtPkplYXzQqe+UZPdEkgEalxG+PBOGtRt+F6MwpP6Exp2WWzXtNKur0lh33Hi
-	 S7t95P8b4Fyy48cCtCOc6VO2bL412QDtXLhPY+arf5xKSmH4LzgDKTRP0LU0mvNI0Yw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFDE3606A31F;
-	Wed, 28 Oct 2026 09:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDE3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8AxS_CxxOFqwxQaAA--.10356S3;
-	Wed, 28 Oct 2026 17:47:29 +0800 (CST)
-Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAxHs+wxOFqB+MwAA--.11789S2;
-	Wed, 28 Oct 2026 17:47:28 +0800 (CST)
-From: wuqianhai@loongson.cn
-To: bhelgaas@google.com
-Cc: wuqianhai <wuqianhai@loongson.cn>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tzimmermann@suse.de,
-	javierm@redhat.com,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] PCI/VGA: Fix boot device detection after framebuffer relocation
-Date: Wed, 28 Oct 2026 17:46:34 +0800
-Message-Id: <20261028094634.766723-1-wuqianhai@loongson.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793180883;
+	b=f1RAqATR/eIrFl8nPsFv8hND/3Xr5murTVpvsBr4JToc62NH25sG5oUkPCwqjYlgOFHc
+	 162cchQK3CYOggfFKqw1uLY/+dd+YjPVZCmDwOnc6ZEkuaYB6/gSZqevLCUP1f8HlDPKZ
+	 4n+epa0dhnqUfeYxfLWfPvQGbShwGGfkWOMB8y4pwITL6FmC5LNPVoyEvhG0kBILt64Cf
+	 /FopD9FJ9xfj3pey0wVUdCH+fbCPwx4pNWL/tsNZs+chxgFjAqEOWP+Qp2i5XjUgof/ux
+	 2UOslGRCBHsUwrR9u/27V5iu6335aJNbVY3TTRonlq5OAfvo6IONwa157QHSPLe7EpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180883;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+	b=xvuSHRskeNzdS/LrmiPmn6TeI2+Jqg8UqrHpeOyeEzWcTfmBmObJvD1gEtMibvVN6hIS
+	 EfgF4f7xbTalc1PgCcmkeBA24nBcpC0Cqefevo56vDeT431vKnmkBBqwtV6F04Pu3VIiz
+	 Dxhfd0Gh9FQ7nH2cdqQP1i7A83dhUWytgSJRxTnx3Wk3OW0BieRn9laKu8RRnQaCPKp2l
+	 jivhajtcKh28slv+fcC6gDpVhcuYEeWjupK6logml1vSuY4Ve4OIPW9gfaYuhoHR+CaXq
+	 tXk+P87+Ezr3uYpAQgfn/VARJlmvKpEnfe7Th6ni81BepkBulUVx5DOWYcO/NRnhReQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJw6mAzl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7D8606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD7D8606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJw6mAzl
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40e30c26a4so297057666b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:48:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793180881; cv=none;
+        d=google.com; s=arc-20260327;
+        b=itDgxffIXBVmVn4G0JqOzER3xhhBbfgnYA1PWFJZkYDrGFSOk3U2YWNVBNzWXY4C1a
+         k0m3bHmoUx/39IDFma0EqaiAPtYoMK0c7tgR4OQZUVTjcOC0w4mR6El/6gfmp7ccbwhX
+         mlLWVweS+6E9mEEBCNtHq5GpTvQ6Q/UvoJQX1PUMjgvt6o4adjRPISPu59D7XKLn17Eb
+         Iscp+/q0ZHdl3LDM2EvQY0lOVqiXBoOATtCkSgH6PpK6fmHIMVj6YtjzVgzMnB6B9niP
+         O7yCR3Pwgle2T5XitR4NH9nItqmukOE+G8pt3uA4WBImr16wpGOM2RZf+zMruq7VyPue
+         Dr4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+        fh=Ol/OmYrMAhcdkkJ3yAKit5L2H9NX37LFpYWTWKKM1LY=;
+        b=D9dV+BWziKjm2XVHOFnDMEYCrTSJ0NQ2sxSF6Ek9YhWj0lAC2X8LPdxxSGIhSICJ3i
+         93hKPXy8VCigD0RPY8S7Vh4T9FTdqKc73VbQFL0moCqJL9bgYFKrEnIaORjq8LBQQYRa
+         xzgEP/doNV7H7D4BmX1K7qCtfqCMbOvyeY0uR4LzQ44aGHTg2qoeXwtgQ1lnyACIWRkz
+         pBtw4YAXAehUHfYRAh2KsKvvvbzoiJqtbq+pUbI3giTBuWb1hzzUyb/mN9zjvECrcWAN
+         zuRXcLBqbwgaIRAvNy6ZICedM5FjtHLflxa9P6s8bSvtMiaGqalzX6wOFpaVxtvap0Ov
+         iEXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793180881; x=1793785681; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+        b=zJw6mAzldYFqYZzdqrK5sVCjCWQPQmTep1dLeDCOodLgldWlrkclOGlwaZnjuK1Oum
+         TPJIIs//JWN7qNyOHlCsUAdJNutM2b52i0HJOialjxTrWs4keZvZmw3BRcoJU4Awqzjr
+         WT7ZIhJrd4c9JQzrTY2yU8wr3bsllD1F4CAiDQBfntXs5r47SzlK8X0ezxzisTf0fyLH
+         V2m79FTBz5/Q8KkYGms7kGw/9UPrH+YveHnhAh0ujkqjlAJ55dCcMHh8t8hYyve2EZ4W
+         CPhdOdeH9FP4wI1+y2tqcuYKKYhDPN/HKsHrz7f0EKP2g/ydwoE9hgBJKjkE88fNdPU0
+         JRLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180881; x=1793785681;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+        b=syDNKvOgriaarQ+PO0xfSo6hgJ5q/EyLx6WQpCvBZ2dHUDNfk6MhDr1S2kqiTyjiVn
+         WrROqD9TVEt8dIn7TwqLV5ajmpawuOk0//22WDbsRCiaKZzZtBFsc2qhhS9y8IbFQbao
+         87JC2XhV6BSnmqpBne8xed/2SB7EhOZXJyFGpU5lX/r3O5Iw09/7iVcObMrxQnYEJNU8
+         y2NC+9Q/1hleuKeYnncj0xLs0iBkLmBKJjxttGjYdkCOWuIAksvM8SpzuCtbclqT48MU
+         8vEo9aYpITa7KeFHEOv+V1NYZBGYV1FDqxa16cpuqmPhTu3iaFtGFqzKwej08looPB5I
+         Nkzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRq45mSs809NH7kGbH6TmQG+cX5a8wHaxDLGPSgHK0yOLG3H8OLG6F5tdCZUBlDJm/19Kkvc57MzdGxWE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbuk4SsYG7XejQtDYVUOxOh7lRtxm/tV5W/T5fTm6aLW9DQavQ
+	ql04v/7xtarEg89BrZ4BeiIc7RvWN/oFIKdv1Ke03FL6VKQTOBFMcTNH4sRpHobSILZ8uc1smzl
+	YbrP6JCpofFzJnbkYuia0T6IC0MoKORI=
+X-Gm-Gg: AYBFou17X7z1tgcs3HpkO6uQ9rxYU/Nt0r5DQlLJsEB2Jk7KsL+bNwDQJdahNY5GNhA
+	4MC8qdB+rlJX7GVo+AHmlP4KBrlN3TibYcxINiEqxfO8YyOPWMBTizffI/tsPF9FzjOGphYi6MN
+	hmPO8YDA2CQD8E21Cf5PBFQjlTWAiLsgetRGWrwX/Zkqrrd4iKfQE2ZdMKMyj4B/9Q1M/oWlRj0
+	neaBuGMzeDx5ib24QnMW5h78y32aBCkb2htTlr557m+bHu7vCcgPxgheuYfilzLhuHrB0WsLdf7
+	qReKhsKZlfrgf65aG8cTNF2ZnptORh/LiHaZ+QMa3w4KSpS74K5WYB83VQmLaKmjw9INHwk0iho
+	Eu1PtzLMvHUTtUx2p4rNxLEqeCwRjpR8bD1YXU1FbnYF3xX8p3QyuN62BHynjBxTo0Y+pkUteM5
+	ihOJ4gp2B6UvIeB9JFvS3FZcXezH69u1NPOukTQd/PczQpkd4KqTvojMo2xPLaVRxMCYGByeV2n
+	WTskQsHgwAnkRlSWC5Z6/Yrwg==
+X-Received: by 2002:a17:907:86a5:b0:c25:f7db:4bec with SMTP id
+ a640c23a62f3a-c49c6357d34mr69949566b.18.1793180881026; Wed, 28 Oct 2026
+ 02:48:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,69 +106,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxHs+wxOFqB+MwAA--.11789S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7uryfKrWrAF43KF1Uur4kGrX_yoW8Ar1kpF
-	Z3JF4ayFWkWr4xGrsFga4vvFyrZa1kCa4FkF4UKw1F9w13C34jya4rK3s5K34Dtrs3A3Wa
-	vF13Jw1rCFZ8GFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Eb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	XVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4kE6xkIj40Ew7xC0wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
-	JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
-	v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
-	67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2
-	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
-	Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8vJPtUUUUU==
+References: <cover.1793027261.git.d@ilvokhin.com> <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
+In-Reply-To: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 28 Oct 2026 11:47:24 +0200
+X-Gm-Features: AclHuK-8N84O0Y9k-BLOPVpeywTja7886uZe3ugxN4eM-96m__IvC7bzZgS0MkU
+Message-ID: <CAHp75Vedr5J1WJMrAkBjRSLKA_zf1kt3GD6UhjzLcy9vowxnaA@mail.gmail.com>
+Subject: Re: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
+To: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: wuqianhai <wuqianhai@loongson.cn>
+On Wed, Oct 28, 2026 at 10:20=E2=80=AFAM Dmitry Ilvokhin <d@ilvokhin.com> w=
+rote:
+>
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+>
+> Replace __attribute__((nonnull)) with __nonnull_args() to
+> standardize nonnull attribute usage across the tree and keep the
+> attribute's quirks in one place rather than open-coded at every call
+> site.
+>
+> Add spaces after the commas in the __nonnull_args() argument list to
+> follow the usual coding style (according to checkpatch).
 
-PCI resource assignment can relocate the firmware framebuffer BAR, which
-leaves the base address in screen_info stale.  The VGA arbiter then calls
-screen_info_pci_dev() from vga_is_firmware_default(), which fails to match
-the framebuffer against any PCI device's BARs.  As a result, the boot VGA
-device is not recognized and the arbiter may select the wrong default
-device.
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
-Fix this by calling screen_info_apply_fixups() in vga_arb_device_init()
-before adding the VGA devices.  This relocates lfb_base to the assigned
-BAR address so that vga_is_firmware_default() matches the boot device
-again.
-
-Tested on a LoongArch platform, with vga_is_firmware_default()
-additionally enabled for CONFIG_LOONGARCH via local changes.
-
-Fixes: 337bf13aa9ddab8ae47f2677ab75cf69ae33437b ("PCI/VGA: Replace vga_is_firmware_default() with a screen info check")
-Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
----
- drivers/pci/vgaarb.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 3e58b2c05c85..aca594651f58 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
- 	int rc;
- 	struct pci_dev *pdev;
- 
-+	/*
-+	 * PCI resource assignment may have relocated the firmware
-+	 * framebuffer BAR. Update screen_info's lfb_base so that
-+	 * vga_is_firmware_default() can match it against the boot
-+	 * device's relocated resource.
-+	 */
-+	screen_info_apply_fixups();
-+
- 	rc = misc_register(&vga_arb_device);
- 	if (rc < 0)
- 		pr_err("error %d registering device\n", rc);
--- 
-2.34.1
-
+--=20
+With Best Regards,
+Andy Shevchenko
