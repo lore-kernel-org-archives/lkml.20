@@ -1,108 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205640;
-	b=VP5wtQoLklrdZqRWt1Hzpgys2MDSvifvYaXzVPT4eb9vAK3BHfIryVdO/Aq+INsjVr2E
-	 BFuopR1/rUbtIel+z3EnyLVMYxZrj1Y1T46nVK1JJMqkUysE/kP61CNlY83s2I8lmRvEx
-	 mBNBWO0Ut2GXlWYNQk3umQAD7P3+n68DAd+m4Xcrtmk8XxTTjkygsN3W3q3iaZQy119+5
-	 w+Bk3B1OOcTsZ8YS6z/59jT4acaJiKyueFSItiW+iEl52v8PLsafz9z460dgPgjZzwiH5
-	 1du8EsZdNZpx1mt03fs415xxLhxrxChTJrXKS3t97QgAQ9GUzRfplStT/w5qmO51ptA==
+	t=1793205728;
+	b=FcFQzd9d9rTvSgwYWL/3JRYLVqwluL5FVcaMvGqAsDxd7HXhvt0B2fCNctSx32SwuFIH
+	 1H8Oty/LTBHtnCIhPoDgAuyGOQsVjslUGbsQ2W0xFcwVjYTDg8U8ILGfMMUExKBEGAuIp
+	 rTK9JKFU3ifUuDEsN7JHN4kRw1NH/WcmgOnzYHM1cNqBX5rA6DkkM5AyFbg0B0cgdgRMp
+	 p87ZyYNIeLj41hv94vDUfy4urenDSYzPfinKpjXMgoc+zdGBVDOiUVcxwt7yStnUQm7EC
+	 dLmFjGSt2kfM44XggL5XEUELHp+lYQw8drPHB/nucwTlj2PEaq2a8IDyPj/MMs+U9Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205640;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3q7TO+ZwaEbqoqmLKPrIUPjIISzIPUN3/sJr3wevERg=;
-	b=S90VIxTKkaBv601LR+m3TaMpRJ8mgm5FS2SB5f9FCVqTZKqiBSaMea8dmbWmCSVJ++tC
-	 gwCb7OTekYhhYqhKkpSca4MRjgofZFCVDHf+tfOPP6TZdNI31wpUtgXhCrxuKpp3eZeCx
-	 vHMWWkEjzm3Mi/UBIMPd0UWriAIVF7UExht0LW8iNiM0OeaDsMIzg+HqA2ogQMvsJqt6r
-	 zbASc8wheOUkq1ccXE6iHcFNVZitAtE5Ap1CmTWC0gfbn3v5RKb9j7bvutbhP+zRK/XGu
-	 tKTv8ZadNppyeATUpKz+rzpHU8v0opt6U3SpV/ktZKs0rSY/atdlxqXH9FS8SnfZZJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205728;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
+	b=OA5nTActOKyt+4ErEFn8lpLx6xcDSiSc/RRuq3g1lh1mbGxIyebVdNJeI4hs7C68mmBd
+	 tpznIOv7eSeRYQrTGKVZG++UqTFGHRKVPo+UelMIsNkHwXjs2w3KjvYuyesLGKRp3KSS2
+	 yHh6ZVLElpA1NvWjxSTPF6MfJ6rXQV1XI2MzX2ZyWzvotSb9pzE8tSmJTrXS+PU4z3oiW
+	 2L9XuSd9Ookh1fK4djF4M5+LPh+tho64SJz4oQnFP9z/M0PNtUOkiRc4UfkPv7mAxztWK
+	 3+qIgrOt78gbUD/iWgKPxFGuxAuxqwN7h4QTtU9HSDB6yRuVutNj8e/P9yoBGZTHtig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clt9BGFA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FuUKp2dV;
+	arc=none smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94B8606A31F;
-	Wed, 28 Oct 2026 16:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0587D606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0587D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clt9BGFA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8D41F01828;
-	Wed, 28 Oct 2026 16:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793205639;
-	bh=3q7TO+ZwaEbqoqmLKPrIUPjIISzIPUN3/sJr3wevERg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Clt9BGFAO6FunMnG3BktqQdCWJrcPnaMDWug57IQu444FcIO+Jk+rveBxyGhwgcTq
-	 sBOr66NhkV9nYwgROWEZ0mlY6J7+pQkg7Zsne2F/vz44/MxN3CvAW2PIi5rSBpKIOS
-	 LSOJGTlaNQGXZ48QsIltE3WLaCBNWItqzRFpDVlGuy7ix7rcKILXHjG5maKOQa579O
-	 BhjCM8yRzBr283z+Yttr5p9uT46dg0TS02/dNtFYcql+WCjF1s7+hs2FOZxTWYL7o1
-	 crnMsIepwqcSwXVN/RXEosxQ20ps8dJRqSSXL6Azj7qm77DtFK3P76ygvhEVUyHjt6
-	 uUGwz6hpLFJNg==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8F8CF198003A;
-	Wed, 28 Oct 2026 12:40:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 28 Oct 2026 12:40:34 -0400
-X-ME-Sender: <xms:eCXiaqiN7uW55pdnDLmQfMCpgqKssyEAlbg2kEo-5uT2EnxoO4ZuSw>
-    <xme:eCXialQiwOxUKOiOgRbMVzuCX901N_ygNZZlIGwGmhUSPEOO024OPL_frpYc5UvRF
-    ufzO0DZbg79qizqZNu3oZPsAJjfr-Rc3mcV7MSCwYMa2c4GY3IOmUfF>
-X-ME-Received: <xmr:eCXiakFBqwymY7_RFYo0Ad-7d64WPxU19dNbSVic6uXNgnkcXdts2JTSFpw>
-X-ME-Proxy-Cause: dmFkZTF9BSIUpdbqdcQtRDBoZ6omZu6gkWuOLh6CEtsiN9GCwL96yShYRR0sGWUfB/BAqE
-    WZ64unNfK3Oe0Pmq84aQBKzz6U4bNLPGOt0L+3it1u7lBgkGfJBxf+KgimcC8ODml/Bvs4
-    tVarhMXUh7RcWdDG/2JFwnscmJK43/IZh/RFjzDX4hQQAHQgOtEMpiD/6x6mNoabLgV1Uh
-    8N833SkC9jtVG28yAz+w/Ea9Sw7TZ1VqhdC4+mQnrllda/7izabJuHYqT4SfvoZvONJ4j5
-    MPW1Gk8oi9Trgp5oDcZSI4Pe9o74RJVHkS7lxxR8lsEZd8CIgsegB1KiHE2T7Z5xehGBqQ
-    3UynFVkTFHQUjTSucs9dm2AKKwGlYfQ+KZouD3lwtJq+CNgLVrRX8hnysY6WtAmZYn+2FA
-    UMKoGHv2nyQcjhytg8JcnhDM5D5FH8oTePRRudgezShXdD3VQZaIwdMFryvIDXfmNdG+xS
-    x3FgXxCpjM1Dnx36WNsJr9NZywtGtqeBnpNa2CcH7uZItXr/EJtDkKFaLLDYrmrMYoRZy6
-    9WMgAdXyW/auCalGZ898cnS6rzXymDqGbDfabqdqvexVbud3Xyfh83yzVJNAJb/KZJB0Dr
-    RwkvxvaWvVMVXraC6fhht0GDpCcItQ8xXgQ8CizyTFww+xm1P2qA5dskCNwg
-X-ME-Proxy: <xmx:eCXial92jNgSBQTxWlBjZMWgmR6TBvKzWaFSBoP-VAqjL0ukcNqioQ>
-    <xmx:eCXiaiF9yjc9digKd5Ya1GDuxp2814mB5aHgvCvd4OHzLNuho0A7Aw>
-    <xmx:eCXiarjoMRi8d9X-XM92nD_cnaj5ysHGPELtUq4mL-3Vs4NwrN19_g>
-    <xmx:eCXiauHvY_LuyMcaATsWdR4V2wsHPU2Pnegr0ayYJWcc1st6zamU_g>
-    <xmx:eCXiav1OXfLSRm-Vd5XTlOvlVQyXslpANnXfV-qVihMApMQBeiD5C2MX>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Oct 2026 12:40:22 -0400 (EDT)
-Date: Wed, 28 Oct 2026 16:40:21 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
-Message-ID: <auIlVgNRuGsBrRso@thinkstation>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FuUKp2dV
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1290919e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793205726; x=1793810526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
+        b=FuUKp2dVgK29EYIJoFP+0qnkReg68SnBeIYDmT25uB5/pBVCn/yqlbzX5pOEvHop4R
+         WGwzkIetRY5s60pdbY3zdgC5u3d8oDYVGAPkF2oqCwWXNEataCkyssbEoZpG50hIbWhw
+         svQdbig/ausoK0ITqRKAk/gf53tGhobN8k+No=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793205726; x=1793810526;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
+        b=iU2sgH2ZxYs9zXHl8yklhCMP2pnDzzX6T+TaQoIKLaIboEhl8MLa2d42blQ1s93Mdr
+         +5xP53CL3LFY/TwnJBvfqMgZt5soSmtI9gEesKbmkGTwAakccYxN9WHKUG6EwTHCbkEe
+         DyCDL/DzDyireR8wQBgovOe222zwSNlwmMEaKDcnIDgli6pJcZtfPYKQgUDXDD1ko1Pu
+         O79LGp0mpXOKwACWNPmdf8onpWmw5s7HjK2JiWG2xdBtD7A3OP7WSqIwfRqBs6uNG/hR
+         gXGEqnEsYoZlKyJrACjWRcD0dCLcVsJ4XbOU2LDrXiJtvZB5xGO/UFubwL9NYYLsFewf
+         /L9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBykmPtD4jPPO6wKg/tIcfYZn9HOZ/l9Xrtuvk3lzLurl9Dfjato1pGZxR4InYQhJK3oubapEjPXRvd77zo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHEizBZeQ5Ro2Htq4mxO9ADINXBRlwAt+OdH/7TjwRm7mBZ9U9
+	3W/Tf6161SGct8AqhjyRfFjbDSjcsSa6NqencBMEFuC3pX+ZCd8Yq8WDqIsRq11KXAIPcfsxGNj
+	pZutMAvPo
+X-Gm-Gg: AYBFou2gRcSrcoX4GloWsPXHZtleKmzy2eHoutMRDI5XQNsdLYJDgJpcDDAuWRdJ4So
+	/vxauqFSVqGv8BtNX+UCBqnPLyyBNf/X3MdlWrQmbnTOCvWHBkl8mcb3AesuZh+GHGzBV/yXhHb
+	hYp3XIvVEGKdI6Av297htwWT9U4GSk5Rs1qwnwFBb9JFw3p8DxYODml0Q2wN7qRCCtCb2nqi/Ye
+	ZbOtRk01pvATC6aXfJxLRwVCelNkIVJpQcN2obsphY/pn24+y5gpDZTkNIkOi92cCdSI4ale67K
+	I938sIoFVyZThX6ceB8wBHWFd/xKk3pzVTmEUmkr3DEGx0nQ7Sai0y0gBNU8RhVL7HewN5TZbXQ
+	rqeN1p7iMyEpbarU6eRrxcNNNYcvQyyIMfvsIwergAiVHhtJAS5Aj4opLSDWUty+O57XpEK99Ki
+	WmJ00Uj7WID6n4B8T3JPB9sXMVzd6Xe3bm6fGSt9Eb4HMrdKb1CaaUV28OFziWm+bbz7sgse/9n
+	HQT9t6/EUS+f50VSESQs+gVHRMVKYcARmXvqs+Iq5bqF5pT2oxJkXWBE86I1IlbuDFR7CmeeKzC
+	9Z4DPFEX8sNDy3t8Ol9ax4SlMsydH0ad/DyW8wSNaMHfBNlJekWqeeuWvAYYGIXC++oLv+fZWH6
+	6o70esXjemFETdA==
+X-Received: by 2002:a05:6512:3da6:b0:5bf:bd7e:197a with SMTP id 2adb3069b0e04-5bfcad7e2cdmr1142323e87.16.1793205726110;
+        Wed, 28 Oct 2026 09:42:06 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com. [209.85.167.54])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca47fb8csm734523e87.4.2026.10.28.09.42.05
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 09:42:05 -0700 (PDT)
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1290911e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxDsCRayvhsVDE89QKBzpCPfCp0wlgMPrBiEu5USfhxeDVpL0rYoJQWX8C38+sEe7HuA5TwoYNW8tAOCzE=@vger.kernel.org
+X-Received: by 2002:a5d:5f07:0:b0:48b:9d2:1a6a with SMTP id
+ ffacd0b85a97d-48e5d45a3c2mr6625980f8f.1.1793205267445; Wed, 28 Oct 2026
+ 09:34:27 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,49 +95,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
+ <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
+In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 28 Oct 2026 09:34:15 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
+X-Gm-Features: AclHuK_LwyJo9CN0zxlkO30oKOFraZ6PCLD3VchvtC_WbqyDogSG-WeDzg__Frs
+Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
+To: tb@a-marquet.fr
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
+	Hendrik Noack <hendrik-noack@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 12:17:24AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-> read(), write() and lseek() on a shared open file description of a regular
-> file serialize on ->f_pos_lock.  The flag that asks for it,
-> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-> too, but its struct file comes from alloc_file_pseudo() and never passes
-> through do_dentry_open(), so it does not get the flag:
-> 
->   CPU0                                CPU1
->   write(memfd, "a", 1)                write(memfd, "b", 1)
->     pos = file->f_pos  (= 0)
->                                         pos = file->f_pos  (= 0)
->     vfs_write(..., &pos)
->                                         vfs_write(..., &pos)
->     file->f_pos = pos  (= 1)
->                                         file->f_pos = pos  (= 1)
-> 
-> One of the two bytes is overwritten.  Two threads writing 100000 bytes
-> each, one at a time, to a memfd end up with a file that is far shorter than
-> 200000 bytes, while the same program on a tmpfs file never loses a byte.
-> 
-> Set the flag when the memfd is created.  As for any other regular file the
-> lock is only taken if the file is reachable in more than one way, and
-> nothing a memfd does in read or write waits for another operation on the
-> same file.  This cannot be done for all alloc_file_pseudo() files: anon
-> inode files such as eventfd are S_IFREG as well, and a blocked read holding
-> ->f_pos_lock would lock out the write that is supposed to wake it.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: minor description tweaks ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi,
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+On Tue, Oct 27, 2026 at 5:01=E2=80=AFAM Alexandre Marquet via B4 Relay
+<devnull+tb.a-marquet.fr@kernel.org> wrote:
+>
+> From: Alexandre Marquet <tb@a-marquet.fr>
+>
+> Add an entry for the eDP SEC LTL101DL02-002 panel used in
+> google-manta.
+>
+> Raw EDID dump:
+>
+> 00 ff ff ff ff ff ff 00 4c a3 0f 9c 00 00 00 00
+> 05 0e 01 03 80 21 19 78 0a 87 fe 98 57 51 8c 27
+> 21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 14 69 00 a0 a0 40 2e 60 30 20
+> 36 00 1e d6 10 00 00 19 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9e
+>
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+nit: subject doesn't quite fit the pattern of recent commits (_ vs -).
+
+
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> index 94bc54c3833a..c92985363093 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+>         EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, =
+"134WT1"),
+>         EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, =
+"LP116WHA-SPB1"),
+>
+> +       EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL10=
+1DL02-002"),
+> +
+
+It would also be good to note in the commit message where you got the
+timings from. Datasheet? Downstream code? Guessing?
+
+I had my AI agent take a look for itself. It found evidence suggesting
+the enable delay should be 97ms, not 50ms. The other ones seem to be
+OK.
+
+-Doug
