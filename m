@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189874;
-	b=WEhkFWPLZXISgitMtGi3MuXPFLGdBgGgSEPvZbriPX/f0WOfd0jWVk4idCHozDrXzQMI
-	 b9lDmV+IKm09VymrYt5bcQlMPqdLRBnEW5qLOFDYaLDsHHLI4ZL8JyFCpUpvYZmHAEfFR
-	 0WIzE90rwYddUKXYrabaGnVNwrxDr/S68KRJkcZGbl+Wsd8irVPjDgBqz6DteDQ3E0PZ+
-	 EGtap0x1IhVGrL5z0y4FVGw3kwYsKRMN6kDxhxWq3WFwRNXfe4g7Y2fB7fLeJ3053TOlu
-	 zrr914S2paMR6Kz0CY5aINHm/oproEzvSuXd2cv6kkmfzPs0UIFyrM3LBtJomUSFxtw==
+	t=1793189878;
+	b=Y47WaFcEO3GhQhlEOUT2gfmBBPBsXeJUmdsEZ1gJiEgpbniI+9WYnBxo0exMUiAso4Wu
+	 d21ERnSVbuRS1hAc6XbyYCjpCka1jrpikRLCE0OGeVHv/avrXHPT7LuQb+1lpyLtfru0X
+	 KR6ePmYtCgtH7q/zYj+cQ45isPSRvMPQgUMPN9Lh2iJMGs1qv4tKxqPFQ8nm2uE3XGTS7
+	 NL4CL7YRexoHn2EpYsSGtmXxVPByRA2nVuF0LPi0JdJ6PKvBvPJsL8yFxbeA0kLrRaXpH
+	 KBgipMaaSHDeZYuiMUrzKM6b+127CrOyOypMAHOoOb5j3uGynyk/SkcfNv4OfpHs8nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189874;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R9mbGdHGMwpMhNox9aTC4SWc+oNvjA2nA08LY5OnD6w=;
-	b=tJuZh/4kd8bdNN7xwQmJisBGU2j86VMljxMNFpYTopKAB5/jBRmK+Vt5ySO9C++dGMp0
-	 cZnEL+CIpXhUD78ovHsyFieN3LQzYWoXHuY1Tie14u9ycYaPev6Fqv8TL3clBx+tWRg17
-	 gC5Tged4fd4wLPESdnSuCXq3NRLu8xGyRVbbZFu0XE4+VPQHCHmHMthyUflFHCs28Ot9e
-	 l2fyzlLCaAK0uQHgfXetpJZ94QgP8t/W4EywIfXAQXQaX/v+CUvL3fcFXiE1VTVKAFDbp
-	 toM4RNQlRJ3m9VxFgiJuT49LCjAb0eQxXXGys3Ile/YvpJQxm1GxneYXRhZ9CowcjiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189878;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6J9Uh0hoxB/gNf641kzWbidAFl+WxrL7aoy5ugqaa8Q=;
+	b=ZKA4Td8pQ4gMx6U8Bds0Vn/Vw03fbZk5Ge6rErbQul4v6A3UDn428ceHk6XLtyh8cpIy
+	 o8YTqgjEHkujizr4bxkjKELd89/VvofWaSqrt558YJEMihveWVFh91TmfyFwWbGZj7tJ8
+	 dTdl5+g1+riRHNb+6yhhksIXGGh8noJCTVgct+pJo/XGsboKglAMmHO4l2xNpwmQ5vsKF
+	 zSFjtgKaNNMbroJVEsGsSZS1lIqMnAKLolfZLmkK1bxClpIOwrWtP+RuT4XGqEiFzYnCW
+	 N+oEPtibhEpk+kjYQzYAqTw01aOuq0F/jZ7ouorjfNsaSM3Y83NrMxz1Gy0hRv19bbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvBJUt6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=kev13gsE;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1EB606A31A;
-	Wed, 28 Oct 2026 12:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED43A606A320;
+	Wed, 28 Oct 2026 12:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED43A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvBJUt6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2911C1F01825;
-	Wed, 28 Oct 2026 12:17:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189873;
-	bh=R9mbGdHGMwpMhNox9aTC4SWc+oNvjA2nA08LY5OnD6w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nvBJUt6O5IFk0J8V4iw8AObcENqckNNYFnp3oxP2hTqyhJ6hD35Mx95tSlWe/dUDe
-	 ekWZKsXwGWDRjPSfKEz4s+TFqlwCUj+LrxuV63Dol8FmZTNwaxyCVIZ8x7zma1AFa6
-	 TT8jxbKRwFRksLAdgOTft6xbeB291wWqjaxfebrT4zyDwmhtycfJS3sZxhJ1vPhVQM
-	 IzadHdVQY9kNYAX60WLes52uD0YFmPFHiqvzYpf+oddolx+BbHNutKCyKXvqTPTNZe
-	 QpN6GASqk1ERgxEVwhzBuuynhpcb9/DIy92v4GBmYhwck3rIwiYl8ZvoK1xZdCm2mP
-	 ovYcknAuMzPtA==
-Date: Wed, 28 Oct 2026 13:17:50 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: Document Microsoft
- Surface Laptop 8th Edition
-Message-ID: <20261028-busy-alligator-from-saturn-8b96c5@quoll>
-References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
- <20261027-mahua-surface-laptop-v2-1-7dd903a12d22@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=kev13gsE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793189873; x=1793449073;
+	bh=6J9Uh0hoxB/gNf641kzWbidAFl+WxrL7aoy5ugqaa8Q=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=kev13gsEjsiAANnn9k4xFyEOJBkjr3qA5fwKcZ6CUWWOkhxgSjoGVySNILhl9g6a0
+	 xsZzreHTtD+M2gLlqtiwcQ5Mn/tN59fo+XP6wd0r3WZ/9VOysOXuJfT2T+r/c7nMwL
+	 7b3PgsB1ZSe0Vln/6T6akOLZlLlmyIiDeBXECnuBRlqq1f913Tl/mCI60VcEDYlj08
+	 RjRCeu6uYcEC8cFbTKMIe0CB7tc0VSjLezx+ak27mDZkwN5fyqOruPi9Z4bxkVQLW/
+	 XzZE9VVO9bC9bh1UmumqpbUBXI544pSbFVtL2217uWk96SxpgCin8olCClMwBoGMSj
+	 BjDYcyuj9q8Eg==
+Date: Wed, 28 Oct 2026 12:17:46 +0000
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+Message-ID: <5d886ac3-4baf-49c7-a703-7cb737ef48da@nxsw.ie>
+In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: f155534f5168fee2d99aa0a8bcd32c788bea221f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,19 +65,24 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027-mahua-surface-laptop-v2-1-7dd903a12d22@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 12:33:33AM -0700, Gopikrishna Garmidi wrote:
-> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
-> 
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On 28/10/2026 09:29, Qianhui Xu wrote:
+> This series adds camera capture support for the Qualcomm SM8750 SoC
+> (camera subsystem block with three full and two lite CSIDs, six CSIPHY,
+> three full and two lite VFEs and three CSITPGs).  It was developed on a
+> Lenovo TB322FC (Y700 Gen4 tablet) and both of its sensors (rear s5kjns,
+> front gc08a8) capture at full resolution and 30 fps with it, through
+> libcamera.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+8750 is on-list for a while.
 
-Best regards,
-Krzysztof
+https://lore.kernel.org/all/20251126-add-support-for-camss-on-sm8750-v1-0-6=
+46fee2eb720@oss.qualcomm.com
+
+Could you have a try of that and then any additional changes you propose=20
+base on top ?
+
+---
+bod
 
