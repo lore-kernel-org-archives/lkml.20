@@ -1,62 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202727;
-	b=5lekVVXQLUvD5wlfGPak3bCzUVhzYprRuSGpDVciDiVL/KEB81ANbDvjxvM6g2Z3iZVi
-	 OncAG1kHqrvJ1J/CYB24s4Cb/yn1Fpm0YUALSMk6ARydkunEXsEiCWy4+s1kpm0890ldC
-	 vmKHZo17NsxnocBOecq//S+j4FwLi9kgXo3PPyV8BVH5QQM5TQWr8qxh1Jy+96bP4t9+N
-	 Rq+Hd40Jf6bzleoWBcGqpeclvwNOhN13nmRW7rsOnFFeNNnD4EguhM23CpJSnFPMQm7B/
-	 UwxNdmLS06g/C8jKRkJ0YQfsGr2RyX+svXEMcVx9SPtB4x1ZaEBHb1mOMAHjsRhToXw==
+	t=1793202784;
+	b=iTclCs4eXTzP+3M2N1SEnGFA5AtfsgN//CPuzvJtQI3g4GHabaD7XDtVFDw1CLzmi3Kc
+	 VI4SF1n4YTWYO/3F07FYv6e9CEDRIa0bTb6lPw6I+Swfdz8bL3Ns9z4U6OUdxGZbR0W2+
+	 C1+g4yrx+227kJFt+7z85e2yUt08ZKYcE1uVDld9V45Ep29+WC6bdsUJSrrebE5GrJMQn
+	 O+TBL/NISon9FMSURHuNhfF+S4bEupinMwLc65I7m+GtywJrHj3WGMLFFkV26DiJw0MX/
+	 HL3l0at3V5Uoxly2aD1W+H6tQB5axHSQXJVjznHxjUcyR3U3N1efQkXCBXE4iOezgUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202727;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=VSOzPZuWkuVtOo5uuD2wK03YOIfxcP5VC2PCRqN7c9I=;
-	b=GCnCHMUuE0j8/jKognMPrdUejoF8YYiNEZkVOgCryjjQoc/9TYTqxmDNpjMB1JssNFcv
-	 u5MBBMez52hYU2l79iKp14BRWAEc0pBCl8ow2p67HaiwyFV8KVgA/+KfxREp4XAL0Dobj
-	 F0N/X0If+ZopdzQ4xNApEqd+6WmUipYaH/f8yOat9OGVSEyUQnOFLsCuaQ4EQfA2h1uJt
-	 zTyvZQxptqn1WLYOd0CzUb8+xRTkJY9Phch2CSA0RfGoRERNnPAfDstfX2cr3W4WIhRoo
-	 Z4xe7BdS7Y06of6DbVEK/T9qtxyEsiNhlDYKqzdqkNBZYL+CTQIeaiss/31b76DmMZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202784;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=k7/WFQgI1klt8knDT67c4NlMWlGHShn8Yjg46gYmNDw=;
+	b=oU1zsG15gJBpwkLRh1avoegP+Gx2Pdqqye5ZsZu6WAzUu/c/u7GJ/F9bspYqAXxse5C0
+	 sZUPGDO6pPqWFwh4g4RCR+Y3D2I1zvRW2QPu29pIsQHHhEWxZz7OsLalsUeAkWk3PaAQr
+	 03wgqXhzH+YlX5CTowvV87xkSRtrL9Cp0TnyUnlaXzoIF0mBmuudLaWU1MZCs5oU8sz2S
+	 EpDLBVuWzGGKe1sQP+V8RsOmP/KCym1PRwPLv6A+h1YxtuChY78QFDN46q+mFKD0iHiii
+	 PjRlfW8iNL30+TRAQ55bctFs9p0pEq1jk1b2bblx/Zhmpwc4Hl275a5O+BNu+U3JkHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kR3744yU;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8ED3606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8ED3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erX1EmWb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632F4606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kR3744yU
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E0B84175D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:52:01 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D3E8D3F673
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:52:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793202725; bh=oHHZ8DhzfXs4MUGZ9+6PoZi4Xb1MrhxkebKog/hBHfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kR3744yU4r3Pi2zMW/UQ7rB3Kk3htnqFDVKJSKLzLf3NREnovXmVelGxxzBhi/pwk
-	 GTMli4oOdmtj+7vxPvZ7whGc5LNb2rmhuKYRkrYeaLEj8QFqzbSxQFsW89uOZaD4Co
-	 /64nPpHSHDd33Lzx413Z9ySledorw5kbniy5566k=
-Date: Wed, 28 Oct 2026 15:52:00 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v1 02/27] drm/panthor: Move register access helpers out
- of panthor_device.h
-Message-ID: <auIaIHhUtJDgqmB7@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-3-karunika.choo@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erX1EmWb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1C01F01828
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793202783;
+	bh=k7/WFQgI1klt8knDT67c4NlMWlGHShn8Yjg46gYmNDw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=erX1EmWbLDv/TBzOz7qi69qbpJmkYEmfPBMT6n337TZpOdkbcLC3iMqSgLeflb0tO
+	 bAVmdLJsMnurdix/zGACsmkDXNkGxsP24mIHsaG1WqNAuOWMM5JRcKRX6cgnLkKBO1
+	 KhQbDizNlLaH+XTa4jZCLvNOPhIYLUM8LbhjW8K+C9QT+uchGEL9NQQQgg3z0i3C3z
+	 7vBK/o4KPQOiPb01AaBMHuQm1BWpJMtmvmeaXtS4Zzr67bx4PD6MaUTZhSd6nghvPN
+	 eb4s6BhzK4iGYE1S/j7HKD2pkMWmAqr6LjKJyHZS5zekxTZKFY1DN0KwZa879a0mLf
+	 i0FZ9wO7EMo/g==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab28f3e4dcso19575561fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:53:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2LvILjUzbnnjx86k0da3Ef45iJUCfINkP3K8PLPFdDRrJZFje5b19Byb8ijktVaf4zKMSKVyMF/uNzQo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqOObK0QJ2yZmxpjAi6FsUfOibZ4iQXyEN2XgVNEHr/NX3rKwy
+	v7g0TT/s+h5KqGKpidgvWhgwdMbk+GVH5YerWNSshP1V6XwlFv4W012xViEZua52cd8DAXgkDG/
+	CD7e06kibox3AuHM2CYoXBuKzoStm9ho=
+X-Received: by 2002:a05:6512:239d:b0:5bc:db13:36c2 with SMTP id
+ 2adb3069b0e04-5bfce242b44mr820163e87.21.1793202781347; Wed, 28 Oct 2026
+ 08:53:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,230 +59,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-3-karunika.choo@arm.com>
+References: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+ <20261028094659.2321491-1-zakbrightonknight@gmail.com>
+In-Reply-To: <20261028094659.2321491-1-zakbrightonknight@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 28 Oct 2026 16:52:48 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hT6aoX4tuJM+rO_5iequFc_7rEXCoaFnHoJBaH3JP4KA@mail.gmail.com>
+X-Gm-Features: AclHuK8aNoe9kkYAGuDSvO3tOIA4pVsJrn2Ir7IDfeuQDnFy6yyqcTeZIXzeJH8
+Message-ID: <CAJZ5v0hT6aoX4tuJM+rO_5iequFc_7rEXCoaFnHoJBaH3JP4KA@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: intel_pstate: Restore P-state request on
+ resume without HWP
+To: Zak Brighton Knight <zakbrightonknight@gmail.com>
+Cc: linux-pm@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Len Brown <lenb@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Doug Smythies <dsmythies@telus.net>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000cb01f9065ee88e42"
 
-On Tue, Sep 22, 2026 at 09:44:56PM +0100, Karunika Choo wrote:
-> Move register access helpers out of panthor_device.h to allow reuse by
-> other panthor drivers that will be added to enable v15 support.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+--000000000000cb01f9065ee88e42
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+On Wed, Oct 28, 2026 at 10:48=E2=80=AFAM Zak Brighton Knight
+<zakbrightonknight@gmail.com> wrote:
+>
+> On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
+> the CPUs stop using turbo after every suspend to RAM when intel_pstate
+> is in passive mode with the performance governor: they stay at the
+> 2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
+> policy limits change or the system is rebooted.
+>
+> During resume, the platform firmware sets each CPU's P-state request
+> register, MSR_IA32_PERF_CTL, to the base ratio (28).  Without
+> hardware-managed P-states (HWP), nothing in the passive mode writes it
+> again afterwards:
+>
+>  - When the nonboot CPUs go offline during suspend,
+>    intel_cpufreq_cpu_offline() bails out because cpu->suspended is
+>    set, so the cached P-state (cpu->pstate.current_pstate) and
+>    policy->cur keep the values from before suspend.
+>
+>  - When they come back online, cpufreq_set_policy() does not start the
+>    governor, because cpufreq_suspended is still set at that point.
+>
+>  - cpufreq_resume() then calls intel_pstate_resume(), which does not
+>    touch the register without HWP, and starts the governor.  The
+>    performance governor asks for policy->max, which is equal to
+>    policy->cur, so __cpufreq_driver_target() returns without calling
+>    the driver.  Even if it did, intel_cpufreq_update_pstate() would
+>    skip the write, because the requested P-state matches the cached
+>    one.
+>
+> Governors that change the request often, like schedutil, write the
+> register again shortly after resume, so they mostly hide the problem.
+> In the active mode, intel_pstate_set_policy() writes the register for
+> the nonboot CPUs when they come back online.
+>
+> Fix this by adding a ->resume() callback to intel_cpufreq that writes
+> the cached P-state back to the register when HWP is not used, before
+> calling intel_pstate_resume().  The governor of the policy is not
+> running at that point, and the write is done under the policy rwsem,
+> so it cannot race with updates of the policy limits either.
+>
+> The problem was found and root-caused, and this patch was drafted, with
+> the help of an AI coding assistant (Claude, by Anthropic) during a
+> performance review of the machine described above.
+>
+> Fixes: 4adcf2e5829f ("cpufreq: intel_pstate: Add ->offline and ->online c=
+allbacks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
 
-Best regards,
-Liviu
+This patch would correct the observed behavior with intel_pstate, but
+it has drawbacks.
 
-> ---
-> v1:
-> - Includes "panthor_device_io.h" directly in "panthor_device.h" instead
->   of peppering multiple files with the header.
-> 
->  drivers/gpu/drm/panthor/panthor_device.h    | 74 +-----------------
->  drivers/gpu/drm/panthor/panthor_device_io.h | 83 +++++++++++++++++++++
->  2 files changed, 85 insertions(+), 72 deletions(-)
->  create mode 100644 drivers/gpu/drm/panthor/panthor_device_io.h
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd414..54031c5252473 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -6,7 +6,6 @@
->  #ifndef __PANTHOR_DEVICE_H__
->  #define __PANTHOR_DEVICE_H__
-> 
-> -#include <linux/atomic.h>
->  #include <linux/io-pgtable.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/pm_runtime.h>
-> @@ -19,6 +18,8 @@
->  #include <drm/gpu_scheduler.h>
->  #include <drm/panthor_drm.h>
-> 
-> +#include "panthor_device_io.h"
-> +
->  struct panthor_csf;
->  struct panthor_csf_ctx;
->  struct panthor_device;
-> @@ -495,77 +496,6 @@ panthor_exception_is_fault(u32 exception_code)
->  const char *panthor_exception_name(struct panthor_device *ptdev,
->  				   u32 exception_code);
-> 
-> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> -{
-> -	writel(data, iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl(iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl_relaxed(iomem + reg);
-> -}
-> -
-> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> -{
-> -	gpu_write(iomem, reg, lower_32_bits(data));
-> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> -}
-> -
-> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read_relaxed(iomem, reg) |
-> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> -{
-> -	u32 lo, hi1, hi2;
-> -	do {
-> -		hi1 = gpu_read(iomem, reg + 4);
-> -		lo = gpu_read(iomem, reg);
-> -		hi2 = gpu_read(iomem, reg + 4);
-> -	} while (hi1 != hi2);
-> -	return lo | ((u64)hi2 << 32);
-> -}
-> -
-> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				     timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				       timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> -					     timeout_us)			\
-> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> -				 timeout_us, false, iomem, reg)
-> -
-> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> -					timeout_us)				\
-> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> -			  false, iomem, reg)
-> -
->  #define INT_RAWSTAT 0x0
->  #define INT_CLEAR   0x4
->  #define INT_MASK    0x8
-> diff --git a/drivers/gpu/drm/panthor/panthor_device_io.h b/drivers/gpu/drm/panthor/panthor_device_io.h
-> new file mode 100644
-> index 0000000000000..2287a0d9f86c2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_device_io.h
-> @@ -0,0 +1,83 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_DEVICE_IO_H__
-> +#define __PANTHOR_DEVICE_IO_H__
-> +
-> +#include <linux/atomic.h>
-> +#include <linux/io.h>
-> +
-> +
-> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> +{
-> +	writel(data, iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl(iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl_relaxed(iomem + reg);
-> +}
-> +
-> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> +{
-> +	gpu_write(iomem, reg, lower_32_bits(data));
-> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> +}
-> +
-> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read_relaxed(iomem, reg) |
-> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> +{
-> +	u32 lo, hi1, hi2;
-> +	do {
-> +		hi1 = gpu_read(iomem, reg + 4);
-> +		lo = gpu_read(iomem, reg);
-> +		hi2 = gpu_read(iomem, reg + 4);
-> +	} while (hi1 != hi2);
-> +	return lo | ((u64)hi2 << 32);
-> +}
-> +
-> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				     timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				       timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> +					     timeout_us)			\
-> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> +				 timeout_us, false, iomem, reg)
-> +
-> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> +					timeout_us)				\
-> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> +			  false, iomem, reg)
-> +
-> +
-> +#endif /* __PANTHOR_DEVICE_IO_H__ */
-> --
-> 2.43.0
-> 
+First, it papers over issues in the cpufreq core that may affect more
+drivers in principle.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Second, it adds IPI overhead to the resume path that is entirely
+avoidable AFAICS.
+
+The first core issue related to it that should be addressed in general
+is suspend/resume synchronization in it that is insufficient because
+the cpufreq_suspended global variable is accessed locklessly, so its
+updates are subject to reordering with respect to other operations and
+may be missed by concurrent threads running on other CPUs.
+Fortunately, this can be done in a straightforward way by replacing
+cpufreq_suspended with a per-policy "suspended" flag updated under the
+policy rwsem.
+
+Another related core issue is that policy->cur is retained after
+stopping the governor during suspend, even though it may be stale
+during the subsequent resume, which generally doesn't affect drivers
+implementing the .get() callback because of the
+cpufreq_verify_current_freq() call in cpufreq_start_governor().
+intel_pstate doesn't implement that callback though and so it allows
+the stale policy->cur to be used past the governor restart during
+resume and there may be other drivers that don't implement .get() in
+principle.
+
+After addressing the previous issue, fixing this one is a matter of
+clearing policy->cur at suspend time.
+
+The intel_pstate-specific issue, which is that
+cpu->pstate.current_pstate is retained across suspend-resume, even
+though it may be stale during resume, can also be addressed by
+clearing that field at suspend time.  Doing so doesn't require any
+special synchronization after fixing the first core issue above
+because the core will prevent the frequency from being updated and so
+there will be no other cpu->pstate.current_pstate updates till resume.
+
+So please test the attached patch (that needs to be split before
+submitting etc) and let me know if it works for you.
+
+Thanks!
+
+--000000000000cb01f9065ee88e42
+Content-Type: application/x-patch; 
+	name="cpufreq-intel-pstate-suspend-resume.patch"
+Content-Disposition: attachment; 
+	filename="cpufreq-intel-pstate-suspend-resume.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvs9ssnd0>
+X-Attachment-Id: f_mvs9ssnd0
+
+LS0tCiBkcml2ZXJzL2NwdWZyZXEvY3B1ZnJlcS5jICAgICAgfCAgIDcxICsrKysrKysrKysrKysr
+KysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2NwdWZyZXEvaW50ZWxfcHN0YXRl
+LmMgfCAgIDE0ICsrKysrKystCiBpbmNsdWRlL2xpbnV4L2NwdWZyZXEuaCAgICAgICAgfCAgICAz
+ICsKIDMgZmlsZXMgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCgot
+LS0gYS9kcml2ZXJzL2NwdWZyZXEvY3B1ZnJlcS5jCisrKyBiL2RyaXZlcnMvY3B1ZnJlcS9jcHVm
+cmVxLmMKQEAgLTY2LDkgKzY2LDYgQEAgYm9vbCBjcHVmcmVxX3N1cHBvcnRzX2ZyZXFfaW52YXJp
+YW5jZSh2bwogCXJldHVybiBzdGF0aWNfYnJhbmNoX2xpa2VseSgmY3B1ZnJlcV9mcmVxX2ludmFy
+aWFuY2UpOwogfQogCi0vKiBGbGFnIHRvIHN1c3BlbmQvcmVzdW1lIENQVUZyZXEgZ292ZXJub3Jz
+ICovCi1zdGF0aWMgYm9vbCBjcHVmcmVxX3N1c3BlbmRlZDsKLQogc3RhdGljIGlubGluZSBib29s
+IGhhc190YXJnZXQodm9pZCkKIHsKIAlyZXR1cm4gY3B1ZnJlcV9kcml2ZXItPnRhcmdldF9pbmRl
+eCB8fCBjcHVmcmVxX2RyaXZlci0+dGFyZ2V0OwpAQCAtMTk1Niw2ICsxOTUzLDE5IEBAIGludCBj
+cHVmcmVxX2dlbmVyaWNfc3VzcGVuZChzdHJ1Y3QgY3B1ZnIKIH0KIEVYUE9SVF9TWU1CT0woY3B1
+ZnJlcV9nZW5lcmljX3N1c3BlbmQpOwogCitzdGF0aWMgdm9pZCBjcHVmcmVxX3N1c3BlbmRfcG9s
+aWN5KHN0cnVjdCBjcHVmcmVxX3BvbGljeSAqcG9saWN5KQoreworCWd1YXJkKGNwdWZyZXFfcG9s
+aWN5X3dyaXRlKShwb2xpY3kpOworCisJY3B1ZnJlcV9zdG9wX2dvdmVybm9yKHBvbGljeSk7CisJ
+cG9saWN5LT5zdXNwZW5kZWQgPSB0cnVlOworCS8qCisJICogSW52YWxpZGF0ZSB0aGUgY2FjaGVk
+IGN1cnJlbnQgZnJlcXVlbmN5IHRoYXQgbWF5IGJlIHN0YWxlIHdoZW4gdGhlCisJICogZ292ZXJu
+b3IgaXMgcmVzdGFydGVkIGR1cmluZyByZXN1bWUuCisJICovCisJcG9saWN5LT5jdXIgPSAwOwor
+fQorCiAvKioKICAqIGNwdWZyZXFfc3VzcGVuZCgpIC0gU3VzcGVuZCBDUFVGcmVxIGdvdmVybm9y
+cy4KICAqCkBAIC0xOTcxLDI3ICsxOTgxLDM0IEBAIHZvaWQgY3B1ZnJlcV9zdXNwZW5kKHZvaWQp
+CiAJaWYgKCFjcHVmcmVxX2RyaXZlcikKIAkJcmV0dXJuOwogCi0JY3B1c19yZWFkX2xvY2soKTsK
+IAlpZiAoIWhhc190YXJnZXQoKSAmJiAhY3B1ZnJlcV9kcml2ZXItPnN1c3BlbmQpCi0JCWdvdG8g
+c3VzcGVuZDsKKwkJcmV0dXJuOwogCiAJcHJfZGVidWcoIiVzOiBTdXNwZW5kaW5nIEdvdmVybm9y
+c1xuIiwgX19mdW5jX18pOwogCisJZ3VhcmQoY3B1c19yZWFkX2xvY2spKCk7CisKIAlmb3JfZWFj
+aF9hY3RpdmVfcG9saWN5KHBvbGljeSkgewotCQlpZiAoaGFzX3RhcmdldCgpKSB7Ci0JCQlzY29w
+ZWRfZ3VhcmQoY3B1ZnJlcV9wb2xpY3lfd3JpdGUsIHBvbGljeSkgewotCQkJCWNwdWZyZXFfc3Rv
+cF9nb3Zlcm5vcihwb2xpY3kpOwotCQkJfQotCQl9CisJCWlmIChoYXNfdGFyZ2V0KCkpCisJCQlj
+cHVmcmVxX3N1c3BlbmRfcG9saWN5KHBvbGljeSk7CiAKIAkJaWYgKGNwdWZyZXFfZHJpdmVyLT5z
+dXNwZW5kICYmIGNwdWZyZXFfZHJpdmVyLT5zdXNwZW5kKHBvbGljeSkpCiAJCQlwcl9lcnIoIiVz
+OiBGYWlsZWQgdG8gc3VzcGVuZCBkcml2ZXI6ICVzXG4iLCBfX2Z1bmNfXywKIAkJCQljcHVmcmVx
+X2RyaXZlci0+bmFtZSk7CiAJfQorfQorCitzdGF0aWMgdm9pZCBjcHVmcmVxX3Jlc3VtZV9wb2xp
+Y3koc3RydWN0IGNwdWZyZXFfcG9saWN5ICpwb2xpY3kpCit7CisJZ3VhcmQoY3B1ZnJlcV9wb2xp
+Y3lfd3JpdGUpKHBvbGljeSk7CisKKwlpZiAoIXBvbGljeS0+c3VzcGVuZGVkKQorCQlyZXR1cm47
+CiAKLXN1c3BlbmQ6Ci0JY3B1ZnJlcV9zdXNwZW5kZWQgPSB0cnVlOwotCWNwdXNfcmVhZF91bmxv
+Y2soKTsKKwlwb2xpY3ktPnN1c3BlbmRlZCA9IGZhbHNlOworCWlmIChjcHVmcmVxX3N0YXJ0X2dv
+dmVybm9yKHBvbGljeSkpCisJCXByX2VycigiJXM6IEZhaWxlZCB0byBzdGFydCBnb3Zlcm5vciBm
+b3IgQ1BVJXUncyBwb2xpY3lcbiIsCisJCSAgICAgICBfX2Z1bmNfXywgcG9saWN5LT5jcHUpOwog
+fQogCiAvKioKQEAgLTIwMDMsMTYgKzIwMjAsMTAgQEAgc3VzcGVuZDoKIHZvaWQgY3B1ZnJlcV9y
+ZXN1bWUodm9pZCkKIHsKIAlzdHJ1Y3QgY3B1ZnJlcV9wb2xpY3kgKnBvbGljeTsKLQlpbnQgcmV0
+OwogCiAJaWYgKCFjcHVmcmVxX2RyaXZlcikKIAkJcmV0dXJuOwogCi0JaWYgKHVubGlrZWx5KCFj
+cHVmcmVxX3N1c3BlbmRlZCkpCi0JCXJldHVybjsKLQotCWNwdWZyZXFfc3VzcGVuZGVkID0gZmFs
+c2U7Ci0KIAlpZiAoIWhhc190YXJnZXQoKSAmJiAhY3B1ZnJlcV9kcml2ZXItPnJlc3VtZSkKIAkJ
+cmV0dXJuOwogCkBAIC0yMDIzLDEzICsyMDM0LDcgQEAgdm9pZCBjcHVmcmVxX3Jlc3VtZSh2b2lk
+KQogCQkJcHJfZXJyKCIlczogRmFpbGVkIHRvIHJlc3VtZSBkcml2ZXI6ICVzXG4iLCBfX2Z1bmNf
+XywKIAkJCQljcHVmcmVxX2RyaXZlci0+bmFtZSk7CiAJCX0gZWxzZSBpZiAoaGFzX3RhcmdldCgp
+KSB7Ci0JCQlzY29wZWRfZ3VhcmQoY3B1ZnJlcV9wb2xpY3lfd3JpdGUsIHBvbGljeSkgewotCQkJ
+CXJldCA9IGNwdWZyZXFfc3RhcnRfZ292ZXJub3IocG9saWN5KTsKLQkJCX0KLQotCQkJaWYgKHJl
+dCkKLQkJCQlwcl9lcnIoIiVzOiBGYWlsZWQgdG8gc3RhcnQgZ292ZXJub3IgZm9yIENQVSV1J3Mg
+cG9saWN5XG4iLAotCQkJCSAgICAgICBfX2Z1bmNfXywgcG9saWN5LT5jcHUpOworCQkJY3B1ZnJl
+cV9yZXN1bWVfcG9saWN5KHBvbGljeSk7CiAJCX0KIAl9CiB9CkBAIC0yNDE2LDggKzI0MjEsOCBA
+QCBzdGF0aWMgaW50IGNwdWZyZXFfaW5pdF9nb3Zlcm5vcihzdHJ1Y3QKIHsKIAlpbnQgcmV0Owog
+Ci0JLyogRG9uJ3Qgc3RhcnQgYW55IGdvdmVybm9yIG9wZXJhdGlvbnMgaWYgd2UgYXJlIGVudGVy
+aW5nIHN1c3BlbmQgKi8KLQlpZiAoY3B1ZnJlcV9zdXNwZW5kZWQpCisJLyogRG9uJ3Qgc3RhcnQg
+YW55IGdvdmVybm9yIG9wZXJhdGlvbnMgZm9yIHN1c3BlbmRlZCBwb2xpY2llcy4gKi8KKwlpZiAo
+cG9saWN5LT5zdXNwZW5kZWQpCiAJCXJldHVybiAwOwogCS8qCiAJICogR292ZXJub3IgbWlnaHQg
+bm90IGJlIGluaXRpYXRlZCBoZXJlIGlmIEFDUEkgX1BQQyBjaGFuZ2VkCkBAIC0yNDYwLDcgKzI0
+NjUsNyBAQCBzdGF0aWMgaW50IGNwdWZyZXFfaW5pdF9nb3Zlcm5vcihzdHJ1Y3QKIAogc3RhdGlj
+IHZvaWQgY3B1ZnJlcV9leGl0X2dvdmVybm9yKHN0cnVjdCBjcHVmcmVxX3BvbGljeSAqcG9saWN5
+KQogewotCWlmIChjcHVmcmVxX3N1c3BlbmRlZCB8fCAhcG9saWN5LT5nb3Zlcm5vcikKKwlpZiAo
+cG9saWN5LT5zdXNwZW5kZWQgfHwgIXBvbGljeS0+Z292ZXJub3IpCiAJCXJldHVybjsKIAogCXBy
+X2RlYnVnKCIlczogZm9yIENQVSAldVxuIiwgX19mdW5jX18sIHBvbGljeS0+Y3B1KTsKQEAgLTI0
+NzUsNyArMjQ4MCw3IEBAIGludCBjcHVmcmVxX3N0YXJ0X2dvdmVybm9yKHN0cnVjdCBjcHVmcmUK
+IHsKIAlpbnQgcmV0OwogCi0JaWYgKGNwdWZyZXFfc3VzcGVuZGVkKQorCWlmIChwb2xpY3ktPnN1
+c3BlbmRlZCkKIAkJcmV0dXJuIDA7CiAKIAlpZiAoIXBvbGljeS0+Z292ZXJub3IpCkBAIC0yNDk5
+LDcgKzI1MDQsNyBAQCBpbnQgY3B1ZnJlcV9zdGFydF9nb3Zlcm5vcihzdHJ1Y3QgY3B1ZnJlCiAK
+IHZvaWQgY3B1ZnJlcV9zdG9wX2dvdmVybm9yKHN0cnVjdCBjcHVmcmVxX3BvbGljeSAqcG9saWN5
+KQogewotCWlmIChjcHVmcmVxX3N1c3BlbmRlZCB8fCAhcG9saWN5LT5nb3Zlcm5vcikKKwlpZiAo
+cG9saWN5LT5zdXNwZW5kZWQgfHwgIXBvbGljeS0+Z292ZXJub3IpCiAJCXJldHVybjsKIAogCXBy
+X2RlYnVnKCIlczogZm9yIENQVSAldVxuIiwgX19mdW5jX18sIHBvbGljeS0+Y3B1KTsKQEAgLTI1
+MTAsNyArMjUxNSw3IEBAIHZvaWQgY3B1ZnJlcV9zdG9wX2dvdmVybm9yKHN0cnVjdCBjcHVmcmUK
+IAogc3RhdGljIHZvaWQgY3B1ZnJlcV9nb3Zlcm5vcl9saW1pdHMoc3RydWN0IGNwdWZyZXFfcG9s
+aWN5ICpwb2xpY3kpCiB7Ci0JaWYgKGNwdWZyZXFfc3VzcGVuZGVkIHx8ICFwb2xpY3ktPmdvdmVy
+bm9yKQorCWlmIChwb2xpY3ktPnN1c3BlbmRlZCB8fCAhcG9saWN5LT5nb3Zlcm5vcikKIAkJcmV0
+dXJuOwogCiAJcHJfZGVidWcoIiVzOiBmb3IgQ1BVICV1XG4iLCBfX2Z1bmNfXywgcG9saWN5LT5j
+cHUpOwpAQCAtMjc0Nyw3ICsyNzUyLDcgQEAgc3RhdGljIHZvaWQgY3B1ZnJlcV9wb2xpY3lfcmVm
+cmVzaChzdHJ1YwogCSAqIC0+IGFzayBkcml2ZXIgZm9yIGN1cnJlbnQgZnJlcSBhbmQgbm90aWZ5
+IGdvdmVybm9ycyBhYm91dCBhIGNoYW5nZQogCSAqLwogCWlmIChjcHVmcmVxX2RyaXZlci0+Z2V0
+ICYmIGhhc190YXJnZXQoKSAmJgotCSAgICAoY3B1ZnJlcV9zdXNwZW5kZWQgfHwgV0FSTl9PTigh
+Y3B1ZnJlcV92ZXJpZnlfY3VycmVudF9mcmVxKHBvbGljeSwgZmFsc2UpKSkpCisJICAgIChwb2xp
+Y3ktPnN1c3BlbmRlZCB8fCBXQVJOX09OKCFjcHVmcmVxX3ZlcmlmeV9jdXJyZW50X2ZyZXEocG9s
+aWN5LCBmYWxzZSkpKSkKIAkJcmV0dXJuOwogCiAJcmVmcmVzaF9mcmVxdWVuY3lfbGltaXRzKHBv
+bGljeSk7Ci0tLSBhL2RyaXZlcnMvY3B1ZnJlcS9pbnRlbF9wc3RhdGUuYworKysgYi9kcml2ZXJz
+L2NwdWZyZXEvaW50ZWxfcHN0YXRlLmMKQEAgLTMzODksMTAgKzMzODksMTIgQEAgc3RhdGljIHZv
+aWQgaW50ZWxfY3B1ZnJlcV9jcHVfZXhpdChzdHJ1YwogCiBzdGF0aWMgaW50IGludGVsX2NwdWZy
+ZXFfc3VzcGVuZChzdHJ1Y3QgY3B1ZnJlcV9wb2xpY3kgKnBvbGljeSkKIHsKKwlzdHJ1Y3QgY3B1
+ZGF0YSAqY3B1OworCiAJaW50ZWxfcHN0YXRlX3N1c3BlbmQocG9saWN5KTsKIAorCWNwdSA9IGFs
+bF9jcHVfZGF0YVtwb2xpY3ktPmNwdV07CiAJaWYgKGh3cF9hY3RpdmUpIHsKLQkJc3RydWN0IGNw
+dWRhdGEgKmNwdSA9IGFsbF9jcHVfZGF0YVtwb2xpY3ktPmNwdV07CiAJCXU2NCB2YWx1ZSA9IFJF
+QURfT05DRShjcHUtPmh3cF9yZXFfY2FjaGVkKTsKIAogCQkvKgpAQCAtMzQwMyw2ICszNDA1LDE2
+IEBAIHN0YXRpYyBpbnQgaW50ZWxfY3B1ZnJlcV9zdXNwZW5kKHN0cnVjdAogCQl2YWx1ZSAmPSB+
+SFdQX0RFU0lSRURfUEVSRih+MEwpOwogCQl3cm1zcnFfb25fY3B1KGNwdS0+Y3B1LCBNU1JfSFdQ
+X1JFUVVFU1QsIHZhbHVlKTsKIAkJV1JJVEVfT05DRShjcHUtPmh3cF9yZXFfY2FjaGVkLCB2YWx1
+ZSk7CisJfSBlbHNlIHsKKwkJLyoKKwkJICogSW52YWxpZGF0ZSB0aGUgY2FjaGVkIFAtc3RhdGUg
+dmFsdWUgdGhhdCBtYXkgYmUgc3RhbGUgd2hlbgorCQkgKiB0aGUgZ292ZXJub3IgaXMgc3RhcnRl
+ZCBhZ2FpbiBkdXJpbmcgcmVzdW1lLgorCQkgKgorCQkgKiBUaGlzIGRvZXMgbm90IHJlcXVpcmUg
+c3luY2hyb25pemF0aW9uIGJlY2F1c2UgdGhlIGNvcmUKKwkJICogcHJldmVudHMgZnJlcXVlbmN5
+IHVwZGF0ZXMgZm9yIHN1c3BlbmRlZCBwb2xpY2llcyBmcm9tCisJCSAqIG9jY3VycmluZy4KKwkJ
+ICovCisJCWNwdS0+cHN0YXRlLmN1cnJlbnRfcHN0YXRlID0gMDsKIAl9CiAKIAlyZXR1cm4gMDsK
+LS0tIGEvaW5jbHVkZS9saW51eC9jcHVmcmVxLmgKKysrIGIvaW5jbHVkZS9saW51eC9jcHVmcmVx
+LmgKQEAgLTE0OSw2ICsxNDksOSBAQCBzdHJ1Y3QgY3B1ZnJlcV9wb2xpY3kgewogCS8qIFBlbmRp
+bmcgcG9saWN5LT5taW4vbWF4IHVwZGF0ZSBmb3IgdGhlIGRyaXZlciAqLwogCWJvb2wJCQl1cGRh
+dGVfbGltaXRzOwogCisJLyogVGhlIHBvbGljeSBoYXMgYmVlbiBzdXNwZW5kZWQuICovCisJYm9v
+bAkJCXN1c3BlbmRlZDsKKwogCSAvKiBDYWNoZWQgZnJlcXVlbmN5IGxvb2t1cCBmcm9tIGNwdWZy
+ZXFfZHJpdmVyX3Jlc29sdmVfZnJlcS4gKi8KIAl1bnNpZ25lZCBpbnQgY2FjaGVkX3RhcmdldF9m
+cmVxOwogCXVuc2lnbmVkIGludCBjYWNoZWRfcmVzb2x2ZWRfaWR4Owo=
+--000000000000cb01f9065ee88e42--
