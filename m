@@ -1,116 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793195943;
-	b=PPVptqNha+EYuZgb63WfXKliSEbRDlw+jI4WhxVXdw075cbOWsHvwvDlM0za6DKTEFa7
-	 MNj4kP75X3wrtbe8G/9yiY+2dksb/c4/q0lSu2Q2ekYSps1t6OmYO8bICtYapMdCQOz2s
-	 dTdzt4BIYbBRNNbioxLMFpKMngvK+FUyOedCB1y/hioVRlCxE28apdg3bBztc2Z4xk5gP
-	 CI5eAtTUoOfYmLLNqmrDDuQlWze86atAOijv1YzUmDTlHS45EG70zbu2QONcBR/iSKiNo
-	 p+qI83SNNjN5zuctuzmoEzpHesHiHJsH679KVuJvNCL/GKPjlPl+srATp8DL7ZgWocQ==
+	t=1793195947;
+	b=0MPRfWiV/u9iwBs5uc/oh05qKRY+yUVFKVOHLJU3EvdzlzqFtwHIo3HXuScqc2H0noft
+	 dcz1n6ACqKFlEF//XwgK8lTZUBuzrRmW+r9QeBVx/tOMTFz6FusZ+VCa7IiHZ9vWnwqdu
+	 D9faGPBLqv5d1rFhDSgf2QVRxVmy8b72YJLFScMISC8mzTrd0C4c9mbroiBGwDd/w4Zkg
+	 MGBtXxGUOHbMT324H8OKS1AICuZWAYaU62gQkMZvD8Fm1zQMcXVzoUAGFCa5/wNgMNDcE
+	 3Yhkw+efGTW0T2yvbcmzNFn8aADIWQbFmgjsm9eZU/4+VEx0ixSvdJ63Po7AGHpYpGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195943;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:X-CLAM-Verdict:X-CLAM-Score:X-CLAM-Description:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b1ZsR0wZ6c1yl47fPPokbR/eZIGWlB+iwI67J2vdw0k=;
-	b=ube80upwUKdqXeWR65T06ogKvHZxDw9OemVhA9Iqw28YngyQpwhjV/frMtu9iNWAUIRM
-	 zo3rWYKAAeRkd9ba/BriGTSiCSEAFIdcSIJRJ8JBLO7xR2ByvRBd0nF7zycTimOxr5qBz
-	 0PJitXL0g5GJSUjlfrjcH/3rUtZ5lHeEKFugs/fuYFAx+X26sGdx3pt/xmamYh0Xi50zC
-	 WzTyxIvQ26Uu2dvq1OMc3GJ+4VISKJmHgLQ/6vS9LUrBwhKFguMb6CwlsG/TJ+XrC3EUJ
-	 pERs3LlZbmpZr6FX7DeLyNozJX94cew6OTtAm8FKm5nku7BWVKOEqqMb3TCiJJnPG4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MXtekahorzOsjNCbZ4FQcmlw+T18WgGmFphrz4/AcQA=;
+	b=4/lzJpf+UvgBX5G5twBvzmDcYN9HRnx5zDzMd9IFlmwIC5dzedmCe2YL3QWsyRZWZwwJ
+	 7m5TUYCXO6F1P1CKbz3tlKUsu79qd7TMjAwlf3VV7xhdSKy4uyyhlaI2d9ZixM218PPE/
+	 RDWIPJixPOjS6KZo+5OO5GpsEgvjlAUSfWZYupLtOM3RfMI7tKZSs0w0sqmFqbUhTBxlW
+	 QiVP8abEO8xp0ptucOxT2CLJPiauMQ1G/57n8t9b0hB3+xjuDpvkeC2Ua4bO2TH1BCrHj
+	 ys467SDtLr4qBAmWpb1AOKoqnYU0GPJg42xVQai7XXaIJMQrwbguxjpK/eq/E0XY7zA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=philips.com;
-	spf=pass smtp.mailfrom=bbl.ms.philips.com;
-	dkim=pass header.d=philips.com header.i=@philips.com header.a=rsa-sha256 header.s=selector1 header.b=za9ly2F6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.24
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E2x3F5bm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8A1606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D8A1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bbl.ms.philips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF2D606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EF2D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=philips.com header.i=@philips.com header.a=rsa-sha256 header.s=selector1 header.b=za9ly2F6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TZvsrI06qSHaQBBc7qfzVrN9M0wxNTLj0PYu6YEM/wBauTaS1fk3lisQUl2N8UV9LnLWgClsJjoOlBMvkYdIFj+RlYrbL5OFIRky5+Q7bJmjQ+oIZ1gb+VF7UsxohZ+eUgby7VCE4SKhvk/4QLhpnSCIj0hLpU/oztB46gnfgf2AHHmsh6wKA7jHzypbmUOFasGxkuEXOaYrQNNVE4d/3Jn5balsI2ZkUb7lWEny90R25REdAFCStl21cUUKGV8fC2x+F6n+ZGmaRzI8nATzagihfjtdfvH3OkiXmE/7CDRf26B6HgmWLTlgvHzqFDvNsVGUb5viCdV0S7dOJwcQZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b1ZsR0wZ6c1yl47fPPokbR/eZIGWlB+iwI67J2vdw0k=;
- b=HFK/4RkdNXn6xsiE+xNlv7FoRknmriwGVn3Zm2XOXI7P/LydaGt6Jw3Sgs+i/BW/oz7MYOGOVJRKH3+AldVSz5RpbDtp36PPpkQfbyH8Hm/fbgbaQQAU3Mb7DPlVBaeMsLF4zmKAUuFokTLdVuFIKeEX0ARLN4k7bn2zGHOXENXLxoBfxznNsssO+TAzSFpF0ybqXrsyMrsIA3iuu3Dt2/05HYhO2O+5JftLKQE4sGeLv+V/iU8pCvkOH7UaXBCflhq4cAG0kR5NwZC0BaytIyBlFvYPRy9gPVvLe1IG6/tdtjeygAO7gmKXlIehJKgi80tRFEmdxi92w36QRwA6yQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 3.248.88.141) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=bbl.ms.philips.com; dmarc=pass (p=reject sp=reject pct=100)
- action=none header.from=philips.com; dkim=none (message not signed); arc=none
- (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=philips.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b1ZsR0wZ6c1yl47fPPokbR/eZIGWlB+iwI67J2vdw0k=;
- b=za9ly2F6Fj9s3KQn2AxgNyFITXqQvUPWTZvhN/5sW1KrQoksdlZeI9kHvP2N4asyEFxM/0U/NLrj/7A4XYiHDUOZ/SfASIRmFUfAabfsrCGVUUgTBv1yf+VwTpy3HSBQytXrPasLcaxMhe5PifwXBMqVwWAhTqsL/0W8WNSDCQM=
-Received: from DB9PR02CA0022.eurprd02.prod.outlook.com (2603:10a6:10:1d9::27)
- by AS4PR10MB6109.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:581::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.4; Wed, 28 Oct
- 2026 13:58:41 +0000
-Received: from MAD0EPF000008B3.eurprd04.prod.outlook.com
- (2603:10a6:10:1d9:cafe::c) by DB9PR02CA0022.outlook.office365.com
- (2603:10a6:10:1d9::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
- 28 Oct 2026 13:58:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 3.248.88.141) smtp.mailfrom=bbl.ms.philips.com; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none header.from=philips.com;
-Received-SPF: Pass (protection.outlook.com: domain of bbl.ms.philips.com
- designates 3.248.88.141 as permitted sender) receiver=protection.outlook.com;
- client-ip=3.248.88.141; helo=ext-eur1.smtp.philips.com; pr=C
-Received: from ext-eur1.smtp.philips.com (3.248.88.141) by
- MAD0EPF000008B3.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 13:58:22 +0000
-Received: from smtprelay-eur1.philips.com ([130.138.84.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 256/256 bits)
-	(Client did not present a certificate)
-	by ext-eur1.smtp.philips.com with ESMTPS
-	id LvJaxnhmAtKtZM4AYxIh0E; Wed, 28 Oct 2026 14:58:22 +0100
-Received: from mail.bbl.ms.philips.com ([130.143.87.230])
-	by smtprelay-eur1.philips.com with ESMTP
-	id M4AXxaQijL551M4AXxy56J; Wed, 28 Oct 2026 14:58:22 +0100
-X-CLAM-Verdict: legit
-X-CLAM-Score: ??
-X-CLAM-Description: ??
-Received: from bbl2xvg1.bbl.ms.philips.com (bbl2xvg1.bbl.ms.philips.com [130.143.220.100])
-	by mail.bbl.ms.philips.com (Postfix) with ESMTP id C050F180394;
-	Wed, 28 Oct 2026 14:58:21 +0100 (CET)
-Received: by bbl2xvg1.bbl.ms.philips.com (Postfix, from userid 2884)
-	id BA35CFE0237; Wed, 28 Oct 2026 14:58:21 +0100 (CET)
-From: Vishal Gupta <vishal.gupta_1@philips.com>
-To: briannorris@chromium.org
-Cc: francesco@dolcini.it,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vishal Gupta <vishal.gupta_1@philips.com>
-Subject: [PATCH 1/1] wifi: mwifiex: synchronize scan cancellation state
-Date: Wed, 28 Oct 2026 14:58:18 +0100
-Message-ID: <20261028135818.4166538-1-vishal.gupta_1@philips.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E2x3F5bm
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so1791687a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:59:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793195945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mjnYJKISBjGeh/MW8K/npMWRfumyHfoycW9S5EUrpxrR3Mg6SSkz63fgQYyKHnNcMU
+         grRfOUpDxZP0ALSFet7wdFq6/m8yFWAynQU806Ol8HIP+n36BHg7DHYnfuBtWWReYEEr
+         GrW6tJQYEk2aSxaCFjq0vN4nNF6paZaE9hyurj2lpsN1AHfO3k1L61P4S/VTmuwWR5eI
+         61SEMKmxjUSHR1KS2WihxjTtVjg21QkmF+kJoo+xncrjZNo1UjbrHzZWdgI1j51PV4Dl
+         JJA5TmBwjf1MVa+ODWQO9JnjeFiFUb35HFPV4hzoZT2MyJRvstYVxcNCaVhKNnGmVkpd
+         Musw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MXtekahorzOsjNCbZ4FQcmlw+T18WgGmFphrz4/AcQA=;
+        fh=aabNxJ10tkYelJQLYS+SkjcbkVEicX83nxs4oIOkypE=;
+        b=T5qYfsriFsjzld3VL1w+Yz78kpm9jNZTFCF5IajaclCfLyiY46jJBjEjNCo8/Hs9H4
+         kYSYvb70T5V0Tbrw+z06eKVo13DLvzjHZpqNDRtR+x3Cq8KMqrG/CBGdgxCQw0sPiMOa
+         dB15EgbluO26JuVankt5Fr3wogkd27durIC2CRgCJLMRt3pcM6VwCCIAFpihJRGprTpg
+         g1eD5pQj6qUyDs1sjN299q5r/YSnQE11/KWt/3Y1jUEp55fO6z3e3baA34JdpdOjQyiX
+         E+4ZpintYqn71nYqrXOltO/KlV+Mahr0rnSLy3dqKo6mabpUWmPi02/VnkMqeC2cGKAP
+         fnxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793195945; x=1793800745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MXtekahorzOsjNCbZ4FQcmlw+T18WgGmFphrz4/AcQA=;
+        b=E2x3F5bmjlFXk8JL/xOMxF/D5cbathHTbM0OWq3OzPKEa9bbYcNFPEcFDWq9AdhI54
+         6VtevUa+KSDABfq6zjYkE4kDBtaj20gCOrSSadkmf4heMLU6QwcsijsIsYz4okz1SuuU
+         bMm49Jn+onB5EyU6HGHVpIpks/lC6Ppx9lueJM1RvBgTkhJntvNCoD3rCoF3iblNoNIc
+         GVwO7Ok5LNS2nhgn9xEaI4ELU+V0fJlW0vTZvUwpQpXCbeKkLGwas5yWxxRc1y1OAQSB
+         iRgVT9SVJhogd+bquKFUrwtdboqPiByTXs9880HKfjv65OknPoPH3j15iU5Ovet7fTp7
+         OUtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793195945; x=1793800745;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MXtekahorzOsjNCbZ4FQcmlw+T18WgGmFphrz4/AcQA=;
+        b=nCpSaGJddKrH1WdLcrFyGLXUPanOejHpOnP4kSIo2QgWg6sa2rO2bDlRmK8I8/a0C7
+         Fx/qcHy3XaBoPdZ4TbRiWz2C52KB7UQGODisyLrtEuwxKKoPIdEQMDyTLRJiC7WsDvnV
+         wFwuxsSBtZEu9TkE0wina+3NTOgWOJf2ZVkXssIOkE9aVArrPkWgbNmf7Tk3efulBg7a
+         SGTMrKCSl3Arrw6uy9cdQr7uVPruLYQygKp+23JwOlHU6oMmu0P+66OXW3WfyJceYT+n
+         w5UYXepne5Vo0mxYEHubQbt+A8X23x7rvzqohUFC2UzGZthO6T/5DlxElyyRBRiYZIdZ
+         EMjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvycWOmbI7Ic93o+f/GdO0m3PWeMrl2CxSh3KX5vE7wgCmKMb1jzVd15PvZLVbITkBcu4gGcgy4c7thMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKI21Lq5x8zVpIZGMUjYxeAy5E3tuDDGze3LWjYPYNW3en9y5jJ
+	JkzOhx0QlA8Jak332xZmUF3hy+/huuvJHRknYM/RmXc1vQGwL4wNKolZA6BpLuL7Ccy6P3ErHHk
+	hLdwh6WyHYC/cN4f5BhJ2l7Okvs5LQKU=
+X-Gm-Gg: AYBFou0gZtDhY+gal/ilrz7efyCXaoT0iYQIdNg+d9ZTdZUJrjYUM+6yI/l+m4DMNim
+	yY/59NFH5DFs+aiw8f9VxwHPxeRuNLfxFWbOEKIIhIqNw9VnVMswZ6XQAVGlJqlPbmtlTBpVrgS
+	7MTqCit5iAESujCl/QE/yF3+GYjAcWk9f+JTMXSbU/ETCDCwvuqjUJwjvtnyV9Ole7RlhEaXDMF
+	oTf8PCh0Vrsyte6JRlL7is5zUGkwz+ObedrIXCbugRA8jt7kAoKtS86vhFlNSPJDOigkKyeBXgE
+	+peee/k0NbL7THameuMWu65NobyWUcLI1alVrKBQRnv4cerCG3wc4Py6V0ilhPbwUzlL1eVtsYs
+	dpqIFahaiZyU2xFyJ3NzzeFMDss2ulIUt4PYfBrSCujSRXocRumd9wSZjZSI5oYjfGkkp7Q==
+X-Received: by 2002:a17:907:d1a:b0:c26:1648:a062 with SMTP id
+ a640c23a62f3a-c49bdf32adfmr219095866b.29.1793195944905; Wed, 28 Oct 2026
+ 06:59:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,95 +104,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008B3:EE_|AS4PR10MB6109:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: c965ab9e-e8f5-4ad1-c93d-08df34fb875c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261021121427099003|11063799006|56012099006|261021123027099003|261009223027099003|261026121527099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	N91CGk5YEZqRgB1vL65yICMRli44Zww/oATvIHXjVXg4eql5lHXZde+7Y25jRagnP9YJi/2Hn8ayRih7d0gni3XATF6h3Xg8sbwezzrODiQzFEj2aypfZEkJIg14HUjdoINnEHoomHAtFkZ2dGP7l0q9HckMSApGn9MsXScUy4q5k/smbLSlUet92RfSLXbSTOSY3IGgC+eZ+erHuOSmhe24pVl/qHBNIIyosGgYKSUKVrGExCkSmt42Ha97yJwuGvVRqzj/9GcBOYe+KJavKsmKLdjYYFGgaoTl1Y57FM6xFwuDhugy//Iuxf/1N2ymG28AdlWFrcY/aX67I0La/Se6Q1TV4Qwv/bWgG1wFKIoRNXWmAd/4VdLSjVU+qdDPeRXv5WwYO0gy/2lV81IrwNAXy0uQKaizRnyaNwkh1YS0dl6gZgAyPrpuiToaCxC9GSoXFud9zUnjRuKEbabZzpReUVTEh2MZ3WZm6l43zKrD0aZ9SoxCm39Fo3jKfFo7QIL3kN0rYWBRCf8q13Y8Z+zjC74toHvP91DPFc5IwKEJAg28II2SzSDXWBe4z/2YzjMrPyy098nrgRMSeZlrJOtjzbv9JIcTQhmvTyFAt0fiKD3BBZOiEUnxfSv+3gJi5EFW8q3w4rtlYlIlcH9GO4AhZSgB/TRU3x7U/Z5BXb6BXrgObpokU7NqbuYX0R8+GD2VnsESsl02qSXofI0ZKQ==
-X-Forefront-Antispam-Report:
-	CIP:3.248.88.141;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ext-eur1.smtp.philips.com;PTR:ext-eur1.smtp.philips.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261021121427099003)(11063799006)(56012099006)(261021123027099003)(261009223027099003)(261026121527099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1TWS/s0WtOzr+AGTLcFUo2J4cVCURuKqSm589EFKsoOkukM/Xs2rMio9vIaXxG8cbo1kWh3XdXbBkuQqTqeaQqBFdhV6a/ULQUm8moUIi4W8a8k/h6jrOakg+TN77meDyu0z28ho4zb1HXD94EP/rzj02HigMUCeS1zZJbWXYXa6y8UjH9xMNO5WxLblTYuk3/bijPmtTFQn6Gd7CKce+It0vlIdTEs8xz9QFiqJF77ka2o19c2F3vSzYcoVorLyc+7EbVA7CMGqjcPF67kt69fZ1mEzSI67acxZ8OlUE3gUHok8Bf9VIVAmIByAybrXGKOuwjFkbGZPXP1TQtkwXqwxUSH28Hf+yEguQa/TH8KY0BgLGqNrZI7MrPmDiAyncu0Qfl5yw1b+UHHXNAPcJc3FkJXZdGnpKkAvF6pDfu1uwXYOIQ9sX7Bcnn6pBBfh
-X-OriginatorOrg: philips.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 13:58:22.1380
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c965ab9e-e8f5-4ad1-c93d-08df34fb875c
-X-MS-Exchange-CrossTenant-Id: 1a407a2d-7675-4d17-8692-b3ac285306e4
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=1a407a2d-7675-4d17-8692-b3ac285306e4;Ip=[3.248.88.141];Helo=[ext-eur1.smtp.philips.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008B3.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR10MB6109
+References: <20261027-fix-mglru-kswapd-age-v1-1-b1ffdec4ae52@tencent.com> <CAMgjq7CcSxNMx9UxVjjM=W11fhd8sh3PgkHKt2kvdah3fy6kXg@mail.gmail.com>
+In-Reply-To: <CAMgjq7CcSxNMx9UxVjjM=W11fhd8sh3PgkHKt2kvdah3fy6kXg@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 28 Oct 2026 21:58:28 +0800
+X-Gm-Features: AclHuK8kNJugcrvL3BCcn11H0oNLCsIwQIynOZcysJvsIYXRWGdp-kejpft0XcE
+Message-ID: <CAMgjq7CAnUh84ZC3iR73s=1iLGJX5HMj9QqL09tiJX51MX7-sA@mail.gmail.com>
+Subject: Re: [PATCH] mm/mglru: skip oom killing for high order allocs in kswapd
+To: bingfangguo@tencent.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Read and update scan_processing under mwifiex_cmd_lock so cancellation
-cannot race with scan state changes. Skip scan completion when no scan
-was active.
+On Wed, Oct 28, 2026 at 9:56=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+>
+> On Tue, Oct 27, 2026 at 10:21=E2=80=AFAM Bingfang Guo via B4 Relay
+> <devnull+bingfangguo.tencent.com@kernel.org> wrote:
+> >
+> > From: Bingfang Guo <bingfangguo@tencent.com>
+> >
+> > We observed that when MGLRU min_ttl is set and the system is highly
+> > fragmented, high order allocations (e.g. order =3D=3D 9) will fail and =
+wake
+> > up kswapd. It can not make any progress, while pushing generations of
+> > memcgs so that they all end up younger than min_ttl_ms, repeatedly
+> > triggering the OOM killer in lru_gen_age_node(). Then the whole process
+> > repeats until all processes are killed and the kernel panics.
+> >
+> > Fix this by skipping OOM killer invocations in lru_gen_age_node() for
+> > sc->order > PAGE_ALLOC_COSTLY_ORDER, which is also what the normal
+> > allocation path will do, to fail high order allocations without OOM
+> > killing.
+> >
+> > =3D=3D=3D=3D Testing =3D=3D=3D=3D
+> >
+> > Tested on a VM with 6 cores and 6GiB of memory, HZ=3D1000, MGLRU enable=
+d,
+> > min_ttl_ms set to 1000, and a workload that fragments the memory then
+> > allocates 2M pages.
+> >
+> > Without the patch, kswapd kills all processes and panics the system eve=
+n
+> > with plenty of memory available. With the patch, allocations fail but
+> > the system remains stable.
+> >
+> > Fixes: 30d77b7eef019 ("mm/mglru: fix ineffective protection calculation=
+")
+> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> > ---
+> >  mm/vmscan.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+>
+> Thanks! Really nice catch.
+>
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index 9959ca158ce83..b32777468ead8 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -4407,6 +4407,12 @@ static void lru_gen_age_node(struct pglist_data =
+*pgdat, struct scan_control *sc)
+> >                         reclaimable =3D lruvec_is_reclaimable(lruvec, s=
+c, min_ttl);
+> >         } while ((memcg =3D mem_cgroup_iter(NULL, memcg, NULL)));
+> >
+> > +       /*
+> > +        * OOM killing won't help high order allocations. Skip and let =
+them fail.
+>
+> A nit pick, OOM definately helps for high order allocations :-D, maybe
+> something like, the OOM kill is to prevent thrashing whtn all memcgs
+> are younger than min_ttl (and maybe merge with the comment & check
+> below?), so OOM for fragmentation is definitely unwanted.
+>
+> > +        */
+> > +       if (sc->order > PAGE_ALLOC_COSTLY_ORDER)
+> > +               return;
+> > +
+> >         /*
+> >          * The main goal is to OOM kill if every generation from all me=
+mcgs is
+> >          * younger than min_ttl. However, another possibility is all me=
+mcgs are
+>
+> This patch is good to me on its own with a nit fix above.
+>
+> And checking commit 30d77b7eef019, you might need a Fixes: or maybe
+> even bring the check back which was removed in that commit?
 
-Signed-off-by: Vishal Gupta <vishal.gupta_1@philips.com>
----
- drivers/net/wireless/marvell/mwifiex/scan.c | 34 ++++++++++++---------
- 1 file changed, 20 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
-index bdd4b8465863b..c2c5738d8a3fa 100644
---- a/drivers/net/wireless/marvell/mwifiex/scan.c
-+++ b/drivers/net/wireless/marvell/mwifiex/scan.c
-@@ -2059,26 +2059,32 @@ void mwifiex_cancel_scan(struct mwifiex_adapter *adapter)
- {
- 	struct mwifiex_private *priv;
- 	int i;
-+	bool cancel = false;
- 
- 	mwifiex_cancel_pending_scan_cmd(adapter);
- 
-+	spin_lock_bh(&adapter->mwifiex_cmd_lock);
- 	if (adapter->scan_processing) {
--		spin_lock_bh(&adapter->mwifiex_cmd_lock);
- 		adapter->scan_processing = false;
--		spin_unlock_bh(&adapter->mwifiex_cmd_lock);
--		for (i = 0; i < adapter->priv_num; i++) {
--			priv = adapter->priv[i];
--			if (priv->scan_request) {
--				struct cfg80211_scan_info info = {
--					.aborted = true,
--				};
-+		cancel = true;
-+	}
-+	spin_unlock_bh(&adapter->mwifiex_cmd_lock);
- 
--				mwifiex_dbg(adapter, INFO,
--					    "info: aborting scan\n");
--				cfg80211_scan_done(priv->scan_request, &info);
--				priv->scan_request = NULL;
--				priv->scan_aborting = false;
--			}
-+	if (!cancel)
-+		return;
-+
-+	for (i = 0; i < adapter->priv_num; i++) {
-+		priv = adapter->priv[i];
-+		if (priv->scan_request) {
-+			struct cfg80211_scan_info info = {
-+				.aborted = true,
-+			};
-+
-+			mwifiex_dbg(adapter, INFO,
-+				    "info: aborting scan\n");
-+			cfg80211_scan_done(priv->scan_request, &info);
-+			priv->scan_request = NULL;
-+			priv->scan_aborting = false;
- 		}
- 	}
- }
--- 
-2.43.0
-
+Oh I noticed it's already there, please ignore this one :P
