@@ -1,55 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793221025;
-	b=FNrwkK1cbZi79+mhIu3TNQrUv6SxGUV+H4RSq/AZRDXsSpQg6KWKCb8AB1wgMhxJtuGN
-	 lgclaZMW0UZ4RniNvU9RW2hWePssAeoNpWWd+i5wprSipnmM0sDOUc3R9+Lt9BBBfcvKF
-	 jggAdoWdhOIHaeqlLh00iQBliNFCsHhqRUkfkH6fD3MXkbemEVNJVnsGWR6GpmFNZ6QN7
-	 XqqUZ8y6CIVi8N4scPrjXqmq2CakDTeIftRLBsgoNFzz7OuIR2js2wdTPMcXGoUnImTP2
-	 EYmB5ShkThj4vtF4qfBYboqnm5qrTFc9dG4q0o/LtxkMaQBEy+tfJkPT9Tlbq4HrirA==
+	b=z2SyspYeC+4REG4iP9ubkfTNmzSGdzCI07MsMlWNisH2ItOcS5C8diXKUR/DaxxVrrOE
+	 X+VA63uEh3imotxs8p2TyTgkYR8e5PFwDdCjgZUpr7zfAC95wosLSaFYtJ1dliHjhGvKD
+	 AdMdNroDb6Lxbf5wcTNtyU0B0wTF0nJreUDKIqKqzcCaKoKucgppjkTs+QPqj4yIk5bNR
+	 XqAhBE6UpLiaBV2wjY1NOPDL6jnkjpMjDhWnWS/by7AnxSJy6zqmoLejkyCMJ7w0xqDof
+	 EId3m4T2ccq5aXo+EXrCFuj65bmMonF5oO67Q85Io7j7/jKs1LGr3jDHdoiEEEPRmLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793221025;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1l/q9mD+UZ0LKwfpiCWXfsaYI4tdxarEWoloUn1RTbM=;
-	b=07iPD0F5zplOjeYSZxOLmYtW3i9L1TnotY93a7DkHY3VYSwJDUBoa7g6JNAZTnf25XyW
-	 zDxDu3YPjjffLA2EfwrszFSDRUdcgVILtymzIoBAUbPIBZdpGaigaYewDluR8iX5KOqhU
-	 6F072lpJFiuGw+p0UsqViMC3/HbWJKwnO+G7TSiRKYkTIGMi3NIFKufhbksCvzXhoW5aw
-	 8q9QEP15znHMp+XbXM+BCLWltvsIsafgjgnjHSrMD8OR0eWjaBBsPiVEpYCzIbs5vEkIg
-	 IKm7zUpOxXdEoQGrnqR6RPR7mLnEIw5mxHwLWytVasIO5OrMSZHIf+hYpNoN0t+CJqg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=YJGCZGrXuYKSbtbthGQ4UJ9HIhPS+IvzoBo7ywSwUhA=;
+	b=M6bfxEKavwxueXKBe2JbIkJ9sMqopwfMORS8ncIIBROUTUISbzYpqOa4CHnDp/ahiwdV
+	 LlCP11ju6OlgCeOA3Ib1fqvpcRv52ANNb5BWTSRuE3oyluDRwZjwCr+xF3qFm6139ShZ6
+	 0S3TGTsQc6/PDEoNgxzPHdzk03zhPdJ5islElUUGpSHBSjT0CjQQ+PpDKmldct3OnCUh0
+	 n/1Sw5tF7w/igIFlj2SgDGQC1Tp0ZnOBhlGbC1S7qTKTP7jhmPRQVdw5KAJuV+2YNv8yP
+	 l9WIiJ1TQfit/0D7TBMd8qtsxQE0IVNlmXJ30eYS3CdAhi71jt8MtKD748klUVt/9og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bAo252W2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gieqk1IT;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4075606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CAC606A320
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22CAC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bAo252W2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343421F031EF
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793221024;
-	bh=1l/q9mD+UZ0LKwfpiCWXfsaYI4tdxarEWoloUn1RTbM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bAo252W2QRAa0s7Lc6LTKanJY7VuCqKvL/jR9XT+digCiXnXgxe5eLnXt+/xNB/eX
-	 gjy38nCEHhsg0t3L/oArc3iiBY78AdM5qcvIXWUK9XwJKMkOwy9AZ58OqTvMiblN1u
-	 /YaXNQXWG6Ia2Xygw/XoeAGnHi/dzUyCye/CZ0KeMxeTNgLe6+CJ/lR/nqU9sic8nV
-	 ljX5F6nDUyALjT/gHm5plnrchivHSxJUTzl6CWXCwzriV5JPqimffxqS+w8jxRi/N0
-	 l9GsCUeVInL0lP72tfzIldZKaJEnBirPtG4i5mZo9i3jsfLlBv5xMRmto4dd7leZVz
-	 ETwHT8m8sWE9g==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93e64d52949so109769685a.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gieqk1IT
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a17a332ecso1981436eec.1
         for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:57:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxE87meajVRkgF5cvXFfsDfWb8sUdRXuCSFvjmBXNnWdmuseOclFcKDYMAbU5ll6vb/nvzRWTSgqcTyQqw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHwPfFimM+RHqcbN5i0AUG3IWhQ711+VbjM4RbDS0pDc8C3PKS
-	c/EAeXsFDwDz8rSnnuBcm99USxiWznPk5yr9ziXHeR85lnSbu0o8WIhhUz7Pt0YZBbx94gdckmU
-	DY7pBjESt9ERp7f492f5yYnCRu90tFZw=
-X-Received: by 2002:a05:620a:2849:b0:93e:5821:2c5c with SMTP id
- af79cd13be357-94408cf1bf6mr528393385a.60.1793221023470; Wed, 28 Oct 2026
- 13:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793221024; x=1793825824; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YJGCZGrXuYKSbtbthGQ4UJ9HIhPS+IvzoBo7ywSwUhA=;
+        b=Gieqk1ITl0mmOTKbPJsS8Km5XhNPy/4pHSxLDepnbhSdn+pcQzY8FMVEkbRmsgn7CL
+         rKYt9j0IxxhX0NgRwz1sDznqYEKlHd+3a8qxKlggP+IzWKfF2FbtSVsmtz+bdqMLZdo2
+         2ERIRWuaj0YYiiYcT7LAbqOK88JgCK6ST7p0dEzfnP/KH5gT8Ec59HBGBvXbQlOAcU5h
+         JQQ8BeqPv7PrbkieFXoQKZafND9MVGtjpgqW1rLMbkDGkSIHjA558gIX1dQwhgWbOOCj
+         kEJAeD4daHuqaIZ4TYUyFLLoWD/M4/fp1YIcTcPJ/2Lxg1Lj7m58YHjoErZa5n/LyyiN
+         tK5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793221024; x=1793825824;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YJGCZGrXuYKSbtbthGQ4UJ9HIhPS+IvzoBo7ywSwUhA=;
+        b=ClzNL08ojpsEc3Ndvu68WfCPCeqHijncQMxs4mNhngYME/cgTrM62z6sBZGZu1fIHC
+         /NLMpPUiBayV/uqw3eeoTdZq/VwkIF6tRh1a9RWyLtmtzVrS2iKaha0eROy+E6GekiFj
+         eVdKPlaNDcx+YeWJu4VwS+Uy+oBweSLdepxBHBHLhNUP7Nr3XUqzbTpE2/iMFrpxakhH
+         K4EM2r0hG0As1CFrRYIWfcYqQQaLoluC3zHnWDPohJOth/To9TK7Y98wGXgpW0BL8Ziy
+         XkOx5VI5HsW8FvT6/9TEJ65nMo72sXm+qtTLzgGOEGKtbbhgZLbZv9kEUQEaeM5+nWNM
+         8b+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzQI3KLtLFkheo3fCcIlOwV+ld4iC7Z3Ay+SwZVJHhRUYNFtOYNsL4hDHHwoMOl64LCg5I9566q2WTR6kQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKT1BAi20RjWtGUJH+5rClBPzRJ/FG5KApc8vIOotqJ8kosErpr
+	tZLx4ZFB+2vdavCpfdTgLOBne8pBAurHOq1Zd1y3RBUMLAk7u5zDxaNb
+X-Gm-Gg: AYBFou3z8QPfauaScxAZdijbWlhTfb1nO1wCblVeILVzpbWuADKTKb+y+BxcbR/9AC3
+	S9xW7yBOMEbY+YbpVu2PsAVFTKk6/+ebVymUc4mM/1Dcd9q9ADKbk7iNTpwI+9Vl2roYHqeG94/
+	s+1wPMNrRXJSJveGb9ITYO2sD40Xt4pRvDO7vRV4N2iXql2VP/GMhSL8KoSh4gOS30Tffz8F9Jb
+	lV5UCLEteoJOpz8Iyd0DUkQzzMZJ/wkXvu3oEn67MOqGenCUFO1NrnGEvilMQKqJQ8pTJjqp9Vc
+	U+llK5Pb3HOsvuBfgQMkPvazDAYxN1EqvYBv9a0t9frzAVjX++jyTyC8riY3pY/SIm4ZCV3JxrD
+	AsnGwakgwdxoF44qLHxVBTJwh8/S3KzSCy+jJYC4Kn4aezwznqFn62JDHB9vmSCRbg4ht4Rj8gS
+	h/c/A20BvzZQ/Z/Wz0XtageoXmxAxjEZdc9aUlEMZc3plx29HYBZJ83oP39xSN61/JOgUne+51r
+	jZn36tUjFnSUKkTkQwEDTTPnWGUNX/vPeFs5IVMI8gIUQfHnC5R1WGPxm/kEW6UWbtyfJjnzsCN
+	AEPSuAu0uL6WGajefizdBBLqo2p17bpGNCw=
+X-Received: by 2002:a05:7300:d508:b0:369:7c:bfce with SMTP id 5a478bee46e88-36a2014adcfmr7152319eec.14.1793221024030;
+        Wed, 28 Oct 2026 13:57:04 -0700 (PDT)
+Received: from localhost ([103.89.26.201])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23908542sm9812986eec.10.2026.10.28.13.57.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 13:57:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +87,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-3-tjmercier@google.com> <auHMXBwnwuRwHLmo@KASONG-MC4>
-In-Reply-To: <auHMXBwnwuRwHLmo@KASONG-MC4>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 29 Oct 2026 04:56:52 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zuGRjH+=1JxH4BYEC-vJumKjkhXPse0jW_nKEzQXXVmg@mail.gmail.com>
-X-Gm-Features: AclHuK_r9gV6TTj6VxggfDw1Rx1dq7FXiQbSIh4_WBWn2_zzCiGKkwAo5h87zro
-Message-ID: <CAGsJ_4zuGRjH+=1JxH4BYEC-vJumKjkhXPse0jW_nKEzQXXVmg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old generation
-To: Kairui Song <ryncsn@gmail.com>
-Cc: "T.J. Mercier" <tjmercier@google.com>, roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Oct 2026 02:56:58 +0600
+Message-Id: <DMGRSRF4BEVC.7QZ92MFDOJ82@gmail.com>
+Cc: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak"
+ <luka.gejak@linux.dev>, <linux-wireless@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] wifi: rtw88: allow key removal when the CAM table is
+ full
+From: "Imtiyaz Parvez" <reza1234khan1234@gmail.com>
+To: "Hungyu Lin" <dennylin0707@gmail.com>, "Shagor Khan"
+ <reza1234khan1234@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261019165103.5990-1-dennylin0707@gmail.com>
+ <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
+ <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
+ <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
+ <CAGEkeHevidTtTNj-qfy6kE_O0wRvqT=F=sG+Hy83BOkRjCUqeA@mail.gmail.com>
+ <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com>
+ <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
+ <CAGEkeHf0CLjxhGySt2axf8gXMrCcn=cEHbe1aXRW4FgcbxjyZQ@mail.gmail.com>
+In-Reply-To: <CAGEkeHf0CLjxhGySt2axf8gXMrCcn=cEHbe1aXRW4FgcbxjyZQ@mail.gmail.com>
 
-On Wed, Oct 28, 2026 at 6:43=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
->
-> On Tue, Oct 27, 2026 at 06:06:06PM +0800, T.J. Mercier wrote:
-> > lru_gen_offline_memcg() moves an offlining memcg to the head of the old
-> > generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
-> > visits it first and evicts the folios it left behind.
-> >
-> > Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-> > dying memory cgroup for LRU folios"), those folios are reparented to th=
-e
-> > parent before lru_gen_offline_memcg() runs, and nothing can be added
-> > back to the offlined memcg's lruvec afterwards. Putting an empty
-> > offlined memcg at the head of the old generation no longer serves any
-> > purpose and only delays reclaim from the memcgs that still have memory
-> > due to additional shrink_many() iteration.
-> >
-> > Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
-> > like any other memcg below the reclaimable size threshold until
-> > lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has n=
-o
-> > other user, so remove the op and update the memcg LRU comment as well.
-> >
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> > ---
-> >  Documentation/mm/multigen_lru.rst |  4 +---
-> >  include/linux/mmzone.h            | 14 +++-----------
-> >  mm/memcontrol.c                   |  1 -
-> >  mm/vmscan.c                       | 20 +-------------------
-> >  4 files changed, 5 insertions(+), 34 deletions(-)
-> >
->
-> ...
->
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index 636152d8c94d..45a2c1021f4f 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped_w=
-alk *pvmw, unsigned int nr)
-> >  enum {
-> >       MEMCG_LRU_NOP,
-> >       MEMCG_LRU_TAIL,
-> > -     MEMCG_LRU_OLD,
-> >       MEMCG_LRU_YOUNG,
-> >  };
->
-> I think there could be other usage of this LRU_OLD macro, but indeed
-> offline is the only user currently, removing it is cleaner.
+Hi Hungyu,
 
-I'm imagining an Android use case where, after LMKD or similar
-userspace killers implemented by various OEMs kill an application,
-we may want to prioritize reclaiming its memory by making it more
-likely to be scanned and reclaimed, while the killed application's
-memcg still exists - not offlined.
+> Have you had a chance to test this patch?
 
-Similarly, a foreground application might benefit from a lower
-chance of being scanned and reclaimed. This suggests that Android
-background-to-foreground transitions, or LMKD itself, could
-potentially leverage the reordering of memcg LRUs.
+Yes, sorry for the delay. I tested it on my laptop.
 
-But anyway, this is not a reason to keep
-MEMCG_LRU_OLD for now.
+Hardware: RTL8822CE 802.11ac | kernel version: 7.2.11-arch1-1
 
->
-> And everything looks good to me, thanks!
->
-> Reviewed-by: Kairui Song <kasong@tencent.com>
+I built only the rtw88 modules from the v7.2.11 source
+tree with this patch applied, and loaded them.
 
-+1
+I used it for around 2 hours with normal browsing, suspend/resume and
+reconnecting. No new warnings or errors in dmesg.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+Tested-by: Imtiyaz Parvez <reza1234khan1234@gmail.com>
+
+Thanks,
+Imtiyaz
+
