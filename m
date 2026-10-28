@@ -1,101 +1,153 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.85
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793213248;
-	b=VoTXYpgNBqS5eVCXDlhsGPid7mLsaL1S8ywrG/P6HNgzmAz26sCI+NKzeH05WOqpahMz
-	 5o32JfVh6FZ+sb2pjEyJNJDQytR03bFmDa5Yg6faDuQZweUSWVeGJz/h2A9kaENcVUcfH
-	 rTQzP+HuEQNnOcRDQmFJ7+SbR36w+5gAPYeh8b8a920M5qMh+C64cekGv3WSe8yKr7Z9O
-	 q7rh0N8F8DeqYRZErXctRN7omZpEHOeF6bmoobP4fv69XeXmjspSFgfY1GceEjIbpbCGz
-	 sbIzuIxcFCBbx+8ik6IBnDYPUmgtU/aDnZLYt/bfPybKb/Fumz0QFYosHYoxLsqalUw==
+	t=1793213389;
+	b=GOgGzehG+pqmvZ8jf+QvIgF6I1YJeHssPueXlvWM5gX5zjMY/0orBUnx4g/BdLUVfuQw
+	 7o498ff1rRHloAhhI/RMgJz2GWfkFPAldF/JTt0hEIIard66hMHqSuREZHW/7MASnOUXw
+	 VX2pg7Fz4GXGr+hq5tiDc279cHD9dQ/RD8kz9YOoFPyj0DjAx+9mqNziA6+23fthoBCH8
+	 i9O3yAGX78fxasG/qCY62D83NoP8lrjyH1vkb4UKw1J+GEqg0hQ1ksNTsXYx70n44Rmjl
+	 8w/QKuO5Q6tg2Gff69NL5LfYBbC2pv4NrayPMeQZgMxIUAjJQkPuqXJOulvum0yqKqQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213248;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MY1Ku2+QfFQ/w+5DBXT4XGQW5hbU1oOryqCY+B4XiPA=;
-	b=wnT9o46Ro4/44tgDhAEMQBjc5Z62jsTV+Qbfd/W6tGtm57I7agYQcfqgeEJzITULVZjh
-	 6brBDjP7UASb0o1FyAfU0coUH9X5bKPjs8cTysLxYl+fh0sOveuL6669mzKQ7goZR3wpv
-	 DeCWSZvF5ewJpk0xZOIaSk3fxgO7NYA4w5uSpuMykc8YXCFSn8iBpU4JVFbb0kjQkdv3y
-	 ACqQduWI+zCYFQw8cPaC+sPX3GfIrt/9c8DsCOZi7C57yW7JYIPfhCWn2G/OUHYTm+qxb
-	 3TtOAbhxBFpLBpJBnNeo16EWBCr1rbjz3m/vSsn0Np+ybrDZNQCOu6ExmA6OtlGKnVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213389;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tO8C4Qy+aaDa9wY8yiJc5V2+npxc3TZfW6EMJ1q1Ch8=;
+	b=DdwBE8jec+2eCZFso5+VYsvDuR3yOSjnm6ZexgyyuUBA6yaAO4TSvPdr7Ap1jiCIY1rV
+	 PXQkOgbumgfQ2eMMoNqBdnozWjKrFNbeVu2EveCC++WWoF/h46wTMmTgShQHG3sEUw03c
+	 9aHjoeXe5UdXxr0ZsmmC+j3UCLaOyrArkgY3Y4TAcTQrk7or6bVvm4NltlcytoX6cV9di
+	 vvqev36sjhN8i2AVVD/42sWXylPTbLJmf0InC2VwF6P2qWPVOdU/NLIaHGeGwiuk0/nTX
+	 8+hAbI5k+E0g6DUH711uUMhfm+wIdqd0ztNKrWQ8Dk9dLawaBxA5dbpTfW6eP3iGDbA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q54cUv8y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=miOrfYOF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.85
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013085.outbound.protection.outlook.com [52.103.14.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D00606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7D00606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF37606A31E;
+	Wed, 28 Oct 2026 18:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF37606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q54cUv8y
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1014455f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:47:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793213246; cv=none;
-        d=google.com; s=arc-20260327;
-        b=owx4xR4fWbGdIldVQ/miTiHm2QrUDZnmlZPMVGQaO5Bt5HFJ+hGnlNeEY4l3GivCw+
-         mMzAxYcodAnHD75rYUv9DgZVbz3S8EZAMIrFOQiiAS0aq2ODeZ3jcHpeRVgGjZ9EMQeG
-         oVf0IBoJ6yr+NcYdPgNhxxaVuUxdi1McjVWH/1nGin0y8U4yhsy9rdf+tm0fbc3UcaXI
-         0znahsKj471qUx2QXG26c6pY+Lj7eWPzKD6hy5OJLIS9c8q4xLjrNdqaFBsygC2RG0k9
-         IWfMlzkjf4+vUJyxV70HWpwSF4UJeM3M0X7MhqM2+Q2KKnjOxjAiSV1K1lYNUFWeZ8Yo
-         Z4kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MY1Ku2+QfFQ/w+5DBXT4XGQW5hbU1oOryqCY+B4XiPA=;
-        fh=eTSc1PFb7sUcm7RpV/u2NwRHGq8UlcizbHy7ovlP+zU=;
-        b=oDK7iDaBHNLyoIuuzl+sFKO7gZW5su9ArNvERIkO1c+6oFvpvMxxEnD6QlMdUvgUt6
-         +51pyR/kiyVVUsAgdfMHiLTw4HQmjK5WVBtFUBx+kGPHqBAs1B8QnR9iQO6xG2Hd+UG9
-         2jX7Jwpq1mVrQXjPiXFbSiM3cAyBnIfCoI0EbOE4UMrNR5cxXbTkkCV4kTZ2OkzFGA6t
-         z9XlENXfmbKX1Y+kOBRZsROwzTjbP/eMUcEpO1tkRjrdw7zAzyw8I4STeNTbfSoE5srr
-         F7CRrveaWfLomMC8g+Dbv6ByK+gzBmWRFTrWXh1Nh8bS8tRAWo9cqzVNDZ5XsEXkrXu3
-         ccgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793213246; x=1793818046; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MY1Ku2+QfFQ/w+5DBXT4XGQW5hbU1oOryqCY+B4XiPA=;
-        b=Q54cUv8ytuWU7OwkATBQpuhT8grr1CM1cqdHQN7n5u2vWAG3ec4RsEpKGsMZOLAvVm
-         f7OTK6IZtKC/huI1Tqi+mw95iBa4nX+kg1bC9PCYw02czMkivy5Ntfhf0tEK5B3OMaGm
-         tPNDshFSoiADTOj9RbXLKrnSFclHqf66xEVkSeiumOa1bcwmFyBdcugkvVXdCl+aWux8
-         1QRTBmoyoCEElNrPAv5RrCLbf+Z9uwYmgO1lfrH7cTrezOnGuvwzepAnViSCoVvOS3Fv
-         w6tax4x4QDOZuMRwI5rHUxpDzqIuNjvJ+EK7er1v66o+v/AzHtadcGU8BT7P41I2tJ+/
-         fGTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793213246; x=1793818046;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MY1Ku2+QfFQ/w+5DBXT4XGQW5hbU1oOryqCY+B4XiPA=;
-        b=nZw4mmoWPVTRRdhEggkCmshVdcBke4jdnKYJSMRDeitJm4uZiaIRuSLKLQ8U902A6d
-         ooyLuev0Rx2p9WHE4engYZLxw+imfHga3UJaiBDgOPRscN/0Br4bE2t+j9awQURHDWuD
-         Bz6k/plaJbccLXwpWvCIy1c5hsOKYLiJjoOjP+TEcrgd2M3HBZgxh3d/nXsUgkmoaRab
-         7SDhoHc493PtBqKIZEVQnRxEo5AU1OJOW4qQwpf/AwYPhxPdeT+4VDdxCqLZcr8/3S/w
-         Bg9n7SdQU4T6RfHkg6+M/g5K9jnBBZE+7qJnwFwaGnfqa1PJ8itJlliCWxZx8JBZvHVW
-         Tl4g==
-X-Forwarded-Encrypted: i=1; AKwUvByYBPjj41/4gx9uV8AGLjMib5JLk1MKIzwjc/cqFfs1dyEJmOWEVUXldGPp0NRefGTV3bQn9zpeWZqaXjs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKabSw90frRXnDfgiLS3gG2oe465YV64hnBymNE9KVtSZQ17DrP
-	XQjLFMEKcd550dzlpeSYwEwvsqxn2obwbcAsmoD/KJ/G8Gdp+XiJBVud7mFPY0TYh+oc6Qi0I9i
-	DyleQmx2NfCZApi+sTJiwupa7tsvFpap+YMppO8o=
-X-Gm-Gg: AYBFou3dVrIOgqm06QnJGDnjVi+DYa8fb429UQ2NBRiGGb+X/kV36f4wbJuAjxmcq0o
-	LXPPblE2NJPlpjam1JmdILnnXSjRVJE6O4u8z28zVYOjtkWCteQAbnI0qyEdP4ig+YbGRDzC0aw
-	1xUkEk24LCqCbqcpv2lVHnS7w8Cnu1V7mE/51J8LIxuO1W7ZIGdVe2HTvnIgi7KSucy0a+9yrtc
-	7VKxQonlnKQXs5GYbNoHaRCfPhJ98xDvDouscWxahQefB5EqKv3aJFI1IcL65arEkSAYy0h4dWC
-	rQ9I52N98Fv+aJl8SJqLZiJPBXd2xPs0l2O+gz9H0B2139grk2P5v8KfXgu/SKHKnd5knShAwcR
-	LZO7xRpakrq2lMORkySl7kCe9XgxaZpz0/ucwTuuZBrFnexJu0or1flpD04wRzm93OaYZfythzp
-	YuxqBIGqcZIV7peoa7QmoW5daSee+nFJ1e/qghxVvkQVv9gsLWj99e
-X-Received: by 2002:a5d:5e08:0:b0:48e:460a:bb83 with SMTP id
- ffacd0b85a97d-48e5d5e55d1mr7015815f8f.53.1793213246056; Wed, 28 Oct 2026
- 11:47:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=miOrfYOF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E/lWs+/WUIdgQl6Lk/tXXaptSUtVk+ROavKTdLD0DXnoQt1am+Z7XYMk4TLbZeANMdBmj72XpeoooVPXcjsHwmNGwXg/bA0MW/9JH/GGhXMd0jLSURGPYBV1d9ewf5rKUjjiifWCweAVgLmqpu+ua/EiJb5q4zQzRJz/akxxcHH5+gUwM4vrqQa7kQmx+QewQHHF317/Df1acQbXEBOYQDHubAFUhV2+eRC2eSXX4t+BuXWAM8ULrGFW9CqsPmzlv+u3p9WpBbbB66b2sY4cZQNkSYosdRhFhvueRK2yALLw8RCLaM9zfA7RMAWlnKzZHC/kBFCmFLiFwtkcQpM+6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tO8C4Qy+aaDa9wY8yiJc5V2+npxc3TZfW6EMJ1q1Ch8=;
+ b=NzEpIpHJgM67EXKoRVXTE3yoJvpCf2XGgGizUOQuGTxBlQqEmbRC4V4gZtDkUc9IIF+R3vM3vZNvwpJ8hnN8vIIQVnzVmFAzXV4sDrCtGwAIPXBFLvZj1VhmVltbyvIY53blX0R7Y+19VsDMf4zevpKudTcuerMCbx78ih1YNeh9ECHnZjkBUKnIS9JlCm6m0lcJ0fCE4ybNV9qrrWX/9vUxBuyqf3VDV7UAQEpANrK0d4EFQz95bRiDmTLMiA0dB4sKOkgNo6svR9iepFAZaI5HOhLZ30zX8grP7trclVH6Yfde14LUjzNLl4e03h9O3SM/Ul1F5mmtGAK8EeBe5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tO8C4Qy+aaDa9wY8yiJc5V2+npxc3TZfW6EMJ1q1Ch8=;
+ b=miOrfYOF70+VaPYHDUdtDAvQ3/xj1N0Jl8/VJma0dsasLjaCOsI9VY85ExXhYG813MKztydob49rqLfcHP+pH6RNsCzjFaifb+MRvRI2DLhIS4K97OrFioq4AeSyAmZNboFxCBi/igAwRi30QOXZEZqBdpozIaz8Hi7fiD3C/HDEqNxI83gCW02YsH5F1fTQes6ZBfDqtSQm++dXF6b7/GvID4homUEan1N2dtPIUYxn27FGKFtRRm3Oi/Sr/72xnOOzQ0WnEMn/pPL2d4/KPbB8cBkfeR7WbRKZd9ZwoNgfsLFJGniyVw1gVU9UiDW1lhJJDUsbM/1KHquRFvpLag==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by IA0PR02MB9171.namprd02.prod.outlook.com (2603:10b6:208:43b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 18:49:46 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 18:49:46 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+CC: "haiyangz@microsoft.com" <haiyangz@microsoft.com>, "wei.liu@kernel.org"
+	<wei.liu@kernel.org>, "decui@microsoft.com" <decui@microsoft.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org"
+	<kwilczynski@kernel.org>, "mani@kernel.org" <mani@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "bhelgaas@google.com"
+	<bhelgaas@google.com>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>
+Subject: RE: [PATCH v3 1/1] PCI: hv: Spread load across CPUs when selecting
+ effective affinity CPU
+Thread-Topic: [PATCH v3 1/1] PCI: hv: Spread load across CPUs when selecting
+ effective affinity CPU
+Thread-Index: AQJL0oqSHe9tk39NevHpOtvtyWIWxbY2dEuQ
+Date: Wed, 28 Oct 2026 18:49:46 +0000
+Message-ID:
+ <MN2PR02MB68636BDF288A70BDBACDC2D1D46F2@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261028155559.138833-1-mhklinux@outlook.com>
+ <20261028171348.GA560291@bhelgaas>
+In-Reply-To: <20261028171348.GA560291@bhelgaas>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|IA0PR02MB9171:EE_
+x-ms-office365-filtering-correlation-id: 511b659d-9641-43f1-c3ba-08df35243ccb
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24021099003|55001999006|13091999003|8062599012|8060799015|25010399006|37011999003|31061999003|19110799012|51005399006|15080799012|40105399003|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?C+uGQOk3C7CgcIEZdRPMpHSA/yzzyiK6kiFrQTiEIGLdlWQ6My2T5AwyX6X3?=
+ =?us-ascii?Q?JMxyRbUIvWhSRq800gm/kTd/G7k9oZomGG4EJYTGj0VHclRVJfaO60lfodTv?=
+ =?us-ascii?Q?yv777nVDEnhl8tjymSJ73XVHEHEQFgzTmF4ip4ySIfJ1qRP5VLgwWXKfRXH+?=
+ =?us-ascii?Q?4B53ahB6FjVGkCAc60+hCoGaFhgSWoFrb/rc7R9F4uV9mrkhkif3lbDDHl2s?=
+ =?us-ascii?Q?7zAIEdV+dR4VNJWjjHHum97Jj/Qll9UGXbyqLvaz4Way8oJ+YI+2k3nAZBcf?=
+ =?us-ascii?Q?JJ2Z/DI8C7pbOLMnUPeTheNCAcpigZCB+V0erwVE8A9C0+bKCxk0dsgeZepO?=
+ =?us-ascii?Q?yxKhRkiMH7dErM6k+SfczI1huPBrgMM2aVu7u4G9tYkVzUWU0O6O/dBCRH3f?=
+ =?us-ascii?Q?VQi4mfiPucFHSlXgOSPv80lvSyPLN6I8HEWIWnDuuTGp1vKWA9MN0RyDLrzV?=
+ =?us-ascii?Q?btrXR5cyIqaUwO6Bdy7G1bmeLoF+Na7AYFYyA/eBHF0B/9coIkwYorvUqseO?=
+ =?us-ascii?Q?vhydijhkZA6AZc8AS1c8IGdFk45hhjfvlSJwUaWOEraDxhmtRM1Gmect7nLY?=
+ =?us-ascii?Q?2ryyYfL8uYTeUEYpII3T9S7pgg0HTamSBkJWAHcCbU7Dx68Tr4fIvd4nJMFJ?=
+ =?us-ascii?Q?DlaucUapcgfc7LUjFZzSxffasxublpXh+r0rFndqS3aOmPktJx2lLqwdUDli?=
+ =?us-ascii?Q?dwq4vJcCftGcjeOJQV7jrkkalCo3VTiD7J+b/K1sTWTJnHueC0IvCxhVSAo4?=
+ =?us-ascii?Q?kj91CNB6nBNYavkjEo2tkD3fMpwa0YOH4iL10fA2u42rknW7WMdl4QlfY9JR?=
+ =?us-ascii?Q?mh4q9cYQjT7sY6wOW4TrXALs24LuDSWI3cFSDGa5lTiUyVx6Cb3Y5X/WrasX?=
+ =?us-ascii?Q?ST+HrfVLtrVjWz6zvyxkEd/2j/z9a89QNQet83A/Apo2siGoOCd7jDbc60iC?=
+ =?us-ascii?Q?PRCeIJsipYX5iZgAnkavOYy7XMGBmVk/bNTnI+i4swQdMkT7sBjwsxulqcR7?=
+ =?us-ascii?Q?u3wkukx0LF86X6/ZDsTx4eLCyg=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Eohi+IRyIu2JXmMf3/CBN0MwmFSNseNl+9PJoGf1ORAGRMFQ3uOzXUc2uy7W?=
+ =?us-ascii?Q?YFP/dK5UjVKPRKxxgZ+csVSHhDCLmUgJF3bvPKCCaBK2q1hGSweoNuRf4vfZ?=
+ =?us-ascii?Q?LHkM7B1iy+OnXpciTsydTQ8+eQLoN7bieFduSLXaNLGBQx+eReCbask+7wXu?=
+ =?us-ascii?Q?5xJWQ0A9BQlaB9urUsnSs7BNyJ+kUSIwpc4FJRtmB+fgf1iJ+TadFrVwn2RV?=
+ =?us-ascii?Q?yw7tUksnOuUSNutmTbRLxgSrbQbsYF7iWIgnHtS741zCf3YFO27lIrxGCEWg?=
+ =?us-ascii?Q?hYOgfRHWJ9hU9XSLgPy/FxfP4DQznRUaSF/Ir0q+8IKdaZLLM6EZ4vtx6kTy?=
+ =?us-ascii?Q?xvTnpR2uRX4c5ZN1IjDWBTXjD3ngS1dRwM5yEtT/m5980Toy1BSbRV9jyDY4?=
+ =?us-ascii?Q?JPeovLN0ZR/HkUVg1ediVzAe7LjyJwzmmZrHL+6Ij+7MrLgVoUzumgvDQ7J9?=
+ =?us-ascii?Q?fGG2PkTr1sG3/Vyq7khOvKvVFI6u2EDPPCq0tCJM9W66B7RetbfZsj96YS/5?=
+ =?us-ascii?Q?7YPoFY0BWZ1gftQAzzqW1SETS6ILXTpkfeCahABI/Pr14ipvsH0CuF5FyqZv?=
+ =?us-ascii?Q?FpE0wsUJZ+q5c/8SP2t2Ow2ZtBinJ68GOWnAp88bVIzoHUYPNUdsbj7QmYdI?=
+ =?us-ascii?Q?7UvEjznlUXQFRBMMkdSJm275BWZSZVArKXuVhB3anaBvVF2M8LBVF+2BvDWS?=
+ =?us-ascii?Q?JmxuQ9VkbQHVrScpUCOeflqP8tUqZTGwuZLI9+wSnAiaDrFBhqieeovBev7Y?=
+ =?us-ascii?Q?FjgJ4Q67m6ks0MZFaHgYK4S040VF4hYjqM7K1PSOSaV5eitOBQE1RanLXutN?=
+ =?us-ascii?Q?vsgwgvTLOaMQJOFDkijXkABPsEstvqiCMsSSzX2AhlL2DZrDcVgjOTnUC+lM?=
+ =?us-ascii?Q?NFggBPPk1GiInJIJAulb9jhPgLWxvQdtE4NS7JeQuiO5OpbHqWbBSHiQdKrO?=
+ =?us-ascii?Q?XGfjue3u0eCTavMV0jdf28NMXRMRfSg6lNm2+lA6OQvjJczox0L+0+ONXKe6?=
+ =?us-ascii?Q?E9XKP/w8X0I2NFFTPqEMm45z4XVEJMLg+6Fdq6Yuep5KFP2rxZBwacbNqHP8?=
+ =?us-ascii?Q?IM0OvRvwkjVeXNZD6xojfalwFLlg1H1jpQwG19G88wOl7msEfCvxmh83HHfl?=
+ =?us-ascii?Q?Bv3DVk2ENiNHUoT+pkV65iibdM8mqVQP4vfVxhcrgKIFG2GR0aO2v8SmbcIq?=
+ =?us-ascii?Q?xDa80eguriYI/e+nlKtCTteK4rwacJGD4G5Gx7YYTipYFnPb9AVZi65Z88Fw?=
+ =?us-ascii?Q?LhnZnVlTsqzGXZ2TK9VSwN/RNZuRnYT7yrwA9TSuYru7LcL3AttpGetpiHE1?=
+ =?us-ascii?Q?sHCHdB/wqGB8z82u41GEgVRw7JzLAYnnX9ZDMNSYhDOCTgNsJdjsnElRRodw?=
+ =?us-ascii?Q?k1caEPs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,59 +157,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028113619.38752-1-kaitao.cheng@linux.dev>
-In-Reply-To: <20261028113619.38752-1-kaitao.cheng@linux.dev>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 28 Oct 2026 11:47:15 -0700
-X-Gm-Features: AclHuK9AOn8SOZMNtF_LnCI6V3qWWsFm35NjDDUBYkIPrJA0RAhqgLPZ_tqYx2M
-Message-ID: <CAKEwX=NfFNbBwhvNpYz8iWgimFuOow8J8x1SzV_6GcC_bb=Etg@mail.gmail.com>
-Subject: Re: [PATCH] mm/zswap: fix double decrement of the LRU node count on writeback
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 511b659d-9641-43f1-c3ba-08df35243ccb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 18:49:46.4906
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR02MB9171
 
-On Wed, Oct 28, 2026 at 4:36=E2=80=AFAM Kaitao Cheng <kaitao.cheng@linux.de=
-v> wrote:
->
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->
-> Successful writeback calls zswap_entry_free(), which removes the entry
-> from the LRU and decrements both the sublist and node item counts.
-> shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
-> to decrement the node count again.
->
-> The affected call path before this change is:
->
->   __list_lru_walk_one()
->     shrink_memcg_cb()
->       zswap_writeback_entry()
->         zswap_entry_free()
->           zswap_lru_del()
->             list_lru_del()
->               __list_lru_del()
->                 atomic_long_dec()  /* first node count decrement */
->       return LRU_REMOVED_RETRY
->     atomic_long_dec()              /* second node count decrement */
->
-> Add zswap_lru_del_nocnt() to remove the entry and update only the sublist
-> count, leaving node accounting to the walker. Split data cleanup into
-> __zswap_entry_free() so writeback can free the entry without performing
-> another LRU deletion. Other free paths retain their existing accounting.
+From: Bjorn Helgaas <helgaas@kernel.org> Sent: Wednesday, October 28, 2026 =
+10:14 AM
+>=20
+> On Wed, Oct 28, 2026 at 08:55:59AM -0700, Michael Kelley wrote:
+> > In a system with multiple devices with the same configuration (such as
+> > NVMe controllers), the affinity masks are the same for all such devices=
+.
+> > Linux typicaly must select a single CPU from each mask to be the effect=
+ive
+>=20
+> s/typicaly/typically/
+>=20
+> > @@ -881,25 +1016,48 @@ static int hv_pci_vec_irq_domain_alloc(struct ir=
+q_domain  *domain,
+> >  }
+> >
+> >  /*
+> > - * Pick the first cpu as the irq affinity that can be temporarily used=
+ for
+> > + * Pick the first CPU as the irq affinity that can be temporarily used=
+ for
+>=20
+> s/irq/IRQ/ if you want to follow the majority usage in this file, also
+> below
+>=20
+> >   * composing MSI from the hypervisor. GIC will eventually set the righ=
+t
+> >   * affinity for the irq and the 'unmask' will retarget the interrupt t=
+o that
+> > - * cpu.
+> > + * CPU.
 
-What is the visible effect? Is there any effect, be it in reclaim
-dynamics or userspace counters? Can you add it to the changelog?
+Thanks. I'll fix these. My own preference is for "IRQ" anyway.
 
-I'm not against fixing it, but need to gauge the effect for
-prioritization, whether to cc stable etc. etc.
+Michael
 
 
->
-> Fixes: 5878303c5353 ("mm/zswap: fix race between lru writeback and swapof=
-f")
-> Link: https://sashiko.dev/#/bug/linux-68d2ca49-23be-4504-9a75-b8526ec9238=
-8
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
