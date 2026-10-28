@@ -1,74 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173355;
-	b=lGl8cvo0ViUR8R1t/MnAyMLMa1NSmSf5sJ5dmH5Hc1Bj9mkdJ+d4/u/YCYrnXJoOGo7t
-	 1u4tdVwEVoVs+2zah7+MwGno7c3EbrOsga59K88d5rdTDn632hLjGbY5lYBKTuCHbPPiR
-	 ofxwc+q944kBo5E7VZzu8O5KskBfcyT4X+zbC8Rit3Gi40D75F4FsDjSyREugdaGvUWYt
-	 z8tFafsyhHfeT2nX17TvRbkO8VjGQQr7xZZNEyfZRfXM9TrhEb17BvXRjkotCdoOr3+B4
-	 5/GBW6o735PM2ImHTuCmzuyXOZKEM4uCPIt4qee+smqCIpzgGqyborJFuxyqxrw0BOA==
+	t=1793173379;
+	b=4mgzpDgtQNXNqbwYLTyyoVclVeH82p/Wwp7f9fD0ddolv4Wl52BN9TY0jGXeOWAnZrzl
+	 r8weP1arfk63M687llTPsm13BE6eMvhM9G5iuLN6gy5uWRinU/pToAA3i7FGCgUEzcKPh
+	 gB2/nrXmeaZOmgYbzBZYGxkcfRaJgrHQ1pxQb7I9Bo3fRbY7org6l1+mDy8mMQ3UG6BTk
+	 i97x5sRbR1l1I+3q9S6muUWp3RGpdHmmXmH5lrqChRYwByJT0g3oZXdsdTWaLw4dfEBRw
+	 Ut/v56+0TkZK8H5X51usiYsJJ3RY9FJ0Qz+shS7g/u6VM3iPPaQM0yTEtw0O8xhB4uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173355;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Subject:Message-ID:
-	 Date:From:To:Cc:Reply-To:X-WS-Location:References:In-Reply-To:
-	 X-Mailer:X-WS-User-Origin:X-WS-User-Mbox:X-WS-LOCALE:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
-	b=4+UdI/X4YGMyyGZYWodJyZ2rVXy5LiEjyVSaGTn0/yT8zI4kbEyfsjLbJLPiuSjbvF68
-	 BkTjPcCqFmxsz0dZdBP3SpDDooiTFFfX3s0ThptIA42N4Ol330PF4HenAnDOimVGz6LJw
-	 1tmX80YfTeSXxAqQKgKHpbV7Rd/qyXGC4jPf9BozozD2LAxKgbOdd9JGSlEVgsBqwwrzL
-	 4M4nJBC98DMrW9MFaUPaDjJqE8DgRDVgyT2PErAN6a5cu9ZVPm2ID+EQPF0jasJAMBXth
-	 u8OvPQOSdUDD8o+0BahJOY2LrE8Kmux4vFHZrGmops8KudftQ7aHgui35VV97hFT/qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173379;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
+	b=f3for0DOaf0DwCM9wUeL6OaR9qR9dHV+/H8vYN1OIbHDFwr6X0xPfxnn35Ifzh+R2uKw
+	 sMCFeMta3uUS7FI71NKczwd2cV7yAcwLDfgy4mMZzfcXTD6APBKX9cm5eWbTYPVSk+GcZ
+	 +A/cW96Ktr6Ho7Pd1xmevsoXhOZdXPkZZ5ODYIEkmzDB6r0ff2v5GkX/ExwiTRXE6d9aX
+	 x4eM+RRsvSAj4Xs2Al8z9yh5QRCB8IqiO19FCeud42+ifPmxZvGDxJWxCAMS/g3Cvx7xf
+	 VhIg2WCLlq05CXvD7acaRXrTM9AjLdZSuXtW7lzfMirj6/Jw/8I1iLmIi0nqln/8xzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=snyders.xyz;
-	spf=pass smtp.mailfrom=snyders.xyz;
-	arc=none smtp.remote-ip=83.166.143.175
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FayvTxEz;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE649606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:42:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE649606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snyders.xyz
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jDzpj0jWhz2Xqw;
-	Wed, 28 Oct 2026 08:42:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=snyders.xyz;
-	s=20251118; t=1793173340;
-	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
-	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
-	b=nlXH7SRt4ZBw6LmlvyA5iRDdpgSbMG4/Z1G1ZSmxl7+38UqbjSSic2fgRgpC3dYTI
-	 /0HQDyPN71qYfVY4D36WBLZ5Y4Pm4JKvtOC0jjZoKccW2ibbN2kIWjLiPHYXhhcZNq
-	 3t8un0nZq9sowt7DiNHI3LAeh0SyzMREDsyyOIYBxcJOWzQQq1jCh3iHn/qz2epPRL
-	 DXFpnyP3EtBii+ZyIIibsFounlcLcySKPSyLe6UOZWCLnnAaAMAI3wVSZLGUBic+C+
-	 TsImNd2JIfQtOXqxQZTTziuC2mIXKNAy8JdKk9wv42f228AtHaqj94w6ZEbPNPGnlQ
-	 rGgqt5X0oBBaQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jDzph0qM7z87K;
-	Wed, 28 Oct 2026 08:42:20 +0100 (CET)
-Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
-Message-ID: <468873b2-d154-4793-93b1-82816a00e580@mail.infomaniak.com>
-Date: Wed, 28 Oct 2026 08:42:19 +0100
-From: Robin Snyders <robin@snyders.xyz>
-To: David Heidelberg <david@ixit.cz>
-Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel
- <sre@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, Joel Selvaraj <foss@joelselvaraj.com>
-Reply-To: Robin Snyders <robin@snyders.xyz>
-X-WS-Location: eJxzKUpMKykGAAfpAmU-
-References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
- <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
- <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
-In-Reply-To: <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
-X-Mailer: Infomaniak Workspace (1.3.1384)
-X-WS-User-Origin: eyJpdiI6IjhEbFU5d2JqV1RlQmJSZytpdnY1clE9PSIsInZhbHVlIjoiZENrbS9COXVReW9IT1hMaUlNS2t0UT09IiwibWFjIjoiODRmNjcwMmIxZGY5ZjVjMmEzY2M5Njc0MTAyNThmMTg5N2JjZDliMmQ5ZTZkMzk5Zjg2NTUyMzcwZjcwY2JkMCIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6IjVoNy9NZDhqdlZKYXBlS0VCRWYxSGc9PSIsInZhbHVlIjoiWGozSTVHUUNvUDdHa0xsME9FaEVkQT09IiwibWFjIjoiOTY3ZThjMTU1Y2E0NzAyNDE2ZTc3Yjk1YTViODg0MjY1N2UxOGQ5ODU3ODJjZDJjNjk3Y2M3NzkxMjQ1ZWE1MSIsInRhZyI6IiJ9
-X-WS-LOCALE: fr_FR
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFB2606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:42:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BFB2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FayvTxEz
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a595487d43so4860751fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793173377; x=1793778177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
+        b=FayvTxEzoCGYI2JOhhcXfy6nUr0vXeCrkfwoRDtJGd2QJczLQGeStgmqiNOgmuk6SH
+         nZVjgZFB5axjcUIDKnbKXCX/ha7kGMCXAosYY82t+3rDFMePkgLbW52o/kh+vsTLn89S
+         ZvqGCv4JmYbM7ZG8E5SJLyIjO5dfSLkFpu2WpBFAiazbunNpejFhR9a98HJwinloZ2jP
+         R8cWbjvSti+cChxb/XRNrTQsodlbd8vm7Siip4vfna6SyD7o6a4tOL3JwVahnhnfgkPV
+         CAfEMuPibZ8jgIdgV8fSJVn8HkwBDhhKiUy/5rQrQ9nyK8Q3+rCUw+WEP6OIsKupZB4F
+         u6AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173377; x=1793778177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
+        b=wDWzGlYPNeNXIbBMJUmwlA9ZO41vTy5uZ+eo/31etrDojhQf4xZ/3tOMmLfqtf4q4y
+         F6MF+21qTDBbuLa8Gz7DzWD9KAXzhcGsBljw91imq6aAUWqmevZVbqOsDInrv/o1GEpq
+         PeKU30ACJ65zqUdisZ5avTVXjWO9REhlckwG0MR56dpnFz/2FzrUWC+3NzyojSWr8HeM
+         WvH1DUdwV7WX10RuuDsWy0E5EuMvObb34/1c7qmaTBdO5HS6Nv4JrF55b5QWuefo1YVt
+         SDyxhkSCotE4g+qx/9TEWZOiC53Iwtq5CQ9kkZnIkfDsy/50M8HrMKm39B4RCxwUjQxT
+         Puag==
+X-Forwarded-Encrypted: i=1; AKwUvBzXIdgb1TZdD3QcBKe3XSEJs3zkBvdwuWvjmV4SJi1RhDNFgLuBypwTUMncevhbJkCRqQ71Hb4XgBCRD9o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLK4Rx1E9NUSfzgRZzeCNatjCgnO3f7G/mudmqLUl3ak8FMTWm
+	vLISNOcAnSyZ7BLddMXC99xhEFtd97zMTFUPSA9kW/jwzxVZgVM3Whst
+X-Gm-Gg: AYBFou1qNOS/ZCCLmwJk4vBoJQkabee5hobXdKVSiyjSN4/LQYeGDZnnSJ90MX9QxQ0
+	HHIgQ+0GUXNJbOQse/iJ4FSlgf9+EEg9hQpJkwD82JgzBggCo5MGNXAGEmnHUQu/ZUVVchwLodM
+	C/ZCCf8atvcOIkFzMq6X8RFDXkypI49IcCQ6B/oo7vUc+iskVY8L4ws8zrJlWBYvYQcyK2RyMBW
+	3IUNTxi/6fntnFHg6diF9mT+ExNbcZAGs5pkO/BkiYoVmSZFPYMGGqJGXjynW380O7DISCVfeBY
+	23UhB+oHxIfpTAhJM5Mh0IrnDJXkooiy0XnHrzpgCtR+hpj99gNPsCeE61deB+RlZ0fG81nbiye
+	ZKyXuiyytpALokcaWr7XI22OUqHTyXBIMs8aj0osTS2G/WdHfljpZ1Z+h8ypfNjvIrv1mAOQZup
+	2QaxaTevd2wzIyrMt37q3WxHuhC7arCzo59JQ03sMZOXKSWSY87VEY5Vrm/dlXJuLQEGxUU7PhZ
+	QnmP4bgmoPTU6SBTI+PWhb7NaG6o8xAJuLrsU5nZMMQVONm69Ixztu4kYQZgN+ZFyJwwYC8TgWo
+	p2Bwlm3S83O0yk7rwKKT0h2dUX/02HzF4RZ20q9SqLVriSEZQGG+3yeRlHM=
+X-Received: by 2002:a05:651c:4216:b0:3a3:7682:499a with SMTP id 38308e7fff4ca-3ac9cf7e931mr2804011fa.15.1793173376514;
+        Wed, 28 Oct 2026 00:42:56 -0700 (PDT)
+Received: from archlinux ([194.28.181.64])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac708be4e6sm27980561fa.4.2026.10.28.00.42.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 00:42:55 -0700 (PDT)
+From: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
+Subject: [PATCH] staging: sm750fb: make g_fbmode array const
+Date: Wed, 28 Oct 2026 09:42:51 +0200
+Message-ID: <20261028074251.12002-1-mbkchelofficialdev@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,71 +95,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
 
-On 27/10/2026 18:19, David Heidelberg wrote:
-> On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
->> +enum smb_generation {
->> +=09SMB2,
->> +=09SMB5,
->> +};
->> +
->> +#define SMB_REG_OFFSET(smb) ((smb)->gen =3D=3D SMB2 ? 0x600 : 0x100)
->> +
->
-> More and more as I look at it, this shouldn't be here, but within the dev=
-ice-tree as
-> charger@1000 {
->     reg =3D <0x1000>, <0x1600>;  # SMB2, or
->     reg =3D <0x1000>, <0x1100>;  # SMB5
-> };
->
-> But see also:
-> https://lore.kernel.org/all/eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf=
-46ibp@jzcjmje4aqc3/
->
-> I'll try to do some basic separation so we know what bits belongs into wh=
-ich blog, keep you in CC.
+Make g_fbmode array const as it is not modified after initialization.
+This fixes a checkpatch.pl warning.
 
-Hi David,
+Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
+---
+ drivers/staging/sm750fb/sm750.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for looking at this.
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 21e310274..47d2917cc 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -12,7 +12,7 @@
+ static int g_hwcursor = 1;
+ static int g_noaccel __ro_after_init;
+ static int g_nomtrr __ro_after_init;
+-static const char *g_fbmode[] = {NULL, NULL};
++static const char * const g_fbmode[] = {NULL, NULL};
+ static const char * const g_def_fbmode = "1024x768-32@60";
+ static char *g_settings;
+ static int g_dualview __ro_after_init;
+-- 
+2.56.0
 
-Agreed. Describing the second register block explicitly in the charger's
-reg property (0x1600 on SMB2, 0x1100 on SMB5) is cleaner than deriving
-its base address from the hardware generation.
-
-For v5, I plan to extend qcom,pmi8998-charger.yaml with a second reg
-entry and use that base for both the power-path status and the
-effective ICL status accesses, keeping their generation-specific
-register offsets.
-
-I'd retain a driver fallback for existing PMI8998/PM660 DTBs that only
-have one reg entry. The binding could still require both entries for new
-SMB5 descriptions. If you or Sebastian prefer a different compatibility
-approach, I'm happy to adjust.
-
-Given Dmitry's concern about shared charger/Type-C register ownership on
-SMB2 in the gen1 Type-C RFC, I'd like to coordinate v5 with your block
-split so that we don't introduce conflicting register descriptions.
-Please keep me in Cc.
-
-For reference, I also audited the current v4 SMB5 accesses on PM8150B.
-They are confined to the charger core (0x10xx), the DCDC status
-registers (reads of 0x1108 and 0x110b), the USB input/BC1.2 registers
-(0x1340-0x1380) and the watchdog/AICL registers (0x1651-0x1661).
-
-In particular, USBIN_TYPE_C_CFG at 0x1358 is part of the USB-input
-peripheral, not the dedicated Type-C port register at 0x1544. The
-current SMB5 accesses do not overlap with the dedicated Type-C port
-(0x1500) or PD PHY (0x1700) register accesses. The DCDC peripheral is
-also used by the VBUS regulator, so this is a register-level
-observation rather than a claim of exclusive peripheral ownership.
-
-I'll update the public register-ownership note to reflect the exact v4
-access paths.
-
-Thanks,
-Robin
