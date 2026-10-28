@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180549;
-	b=m148caU9yo0ib8tR76fFv7lF2ubS0RtVHoG8sbv8UrzbP6IZ6mJRqgl4+cZD0Hx/ZZZs
-	 dSAYWYOn7EJz+qg8Mxe3C4XjSN41KTDZUXjgNwqBZsZIvadnP+QlHWHBdvJ8USlCFcdSJ
-	 PEPbL824sPcHQcKopWi6FfsxUDKVz40PIsvV49T0hjXN5IYbPv2++9HJnBRF8ncYpxna6
-	 tHnM19zdig3Xpf5lnEgYNQBwbVyRX5mPehiTB7qeseSTGIP6DSzgbWYUXymoM6Ll8jobf
-	 tZGaEReJrJoE3IGt2Ww+OEROCosA4hwgGlsW261LcVwkePIE4O+dzgI3vcNVq6xXSyQ==
+	t=1793180541;
+	b=hCOY3VLlDkF9fIRWhAdDJ8PrCcQPP7U/xp5L6P6tcL9QPlV3gD6el69VZMdrd3YEGExZ
+	 1mwhv8WbHRfvEgtBXf8XgETnRmIkI6SOuhc+Mj7tC1Kz4dLQePAs35YehQfTTFvPrtnvy
+	 74buEarpdG2WiZebYh1dENwrWbmEcRNj/LxsYQT09lQiLFfYRmSgBHqGL4eIDJwwENDcX
+	 oSUrGl4T2ystMnu4x3hIkLaIqGtIcIlAncb0InU/W7nNN6T6Gn0CDyGsK7/ZNd6UCcg3K
+	 zrGt8IAfcm5WANN8l+vJJ0xvCYvr8mLdRR3fP/Bx9zEuaEXpvvu4tDROzDuIyIa87/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4XywAoxeaZzuOeDhhvc4sxnHZ3aBk4zO8y4jW5OboPk=;
-	b=xHvuKN2w2WZQTx2N7TBwhhmKmBAMGkY/bhz0+Kw8yPUZraoB/wUHwDzuEEFiqrNehohH
-	 OMfHIDP+ie9g3lXZgrssq/LwgFHXc1mhtBCmY2oCT60oYdMyLtoQ3IuVmLu51KbPimzLw
-	 5euxQHa1uQu3TBO+C8OMvIdQhyR6lJpHfo/qu0i6ofiDAmLGG1RX4+uMJ9rYYxrlhcj4g
-	 +zriBovnR+aTZcEYHm1whlWESdv8p4UMlLJHmdGOo1+2xdK9GQraSilKoPOOKpSHmjItC
-	 2itJzcItdNF5RDfaOLPUdcfJ7IqCUuiic2JfOJrba96xktsGjTHCUR8mbfGFFeNrrxA==
+	bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
+	b=CLxeFil524dNrHoQYTs71I5yg5eqFYvTIkK8KYwaSAaru31kMJQwhGZPoSRdCrk3zmBt
+	 +777YsWE1RSqaHBD1XHwdBfO38YOLN8tGI3KYIg0N/8ckIdS4pLX+bf8vp0l8tAEYRdUz
+	 QWpdx+ljPBo1ZqrzLQUNMRO50+tDXmCsOR7TMc/5yOU0X7h8Lpixe0cXlNgNPjCOAfSY4
+	 V0UvVJZfB0rifmZmOAFok3f7iLlycSZHoDzr/2GSRncIRlpmevTtXUw/kFQyE9JcIJgvI
+	 5R21q7pKkKKnIUbtn6DBvpxjwDMeFRatpGunR+asoxocL3AX1B3QOaEXttuV6RF5f/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OVNCNb3V;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nmesjHGE;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794C160A381F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794C160A381F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168E760A3803
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:42:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 168E760A3803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OVNCNb3V
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9d1114320so5243095ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:42:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nmesjHGE
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so565242a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:42:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793180548; x=1793785348; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793180540; x=1793785340; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4XywAoxeaZzuOeDhhvc4sxnHZ3aBk4zO8y4jW5OboPk=;
-        b=OVNCNb3VC4IBro7mfKF2bNXj79JAHu0IcN1sM+dVfFo7iAdz6aVwI9n99SDVQHqg6f
-         LcvDfy8Yoi3MMPBFt1J7P3LNOCSBuj7j+6ca0CYMs/UPn8ooWqJU0Gd4wIee0upP4RN0
-         4T6LOSFiqmP3gsIlds2kB+NVtyzUiDm3NNodhaSVyhkqmZDdrEPcO8ORb/Vrlt5R7mEz
-         AX7DHdQAOnmQ4X7r+p/8wsyzyCZwPm6JILQCaUEhNzBxrPUPWfyo/nHronnNZUHFmmPo
-         0xscl5eiBo00KDbhgKV0fjyU3FZHoQlWpGslX8/1/gXZWqcMSi9GKctRMImt6m5dEJtl
-         UCEg==
+        bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
+        b=nmesjHGEYZiQ2J9BFk/9WHS3lYAfpqBrhvNCLJtPIiJ8GId6lVjCmcZ04lPQBCTeJ/
+         y4FdDvU2zGihV9gXI2zlu3uVWlPjV9jleP3UCn0hohBGfM2noGP+fSLgKIzWKOt1JUdk
+         U/V6Kan5kWtR65JGLPLD52uFBqteCSDelCZzwemYdw93DwNkFyByepWcOKvsA+bGIww0
+         deptgir8o6umYNYouGOep6VD7TnfiKiChIsGKmAPQ+TpTREcpNcywZNDB+aTqoh0J+eO
+         Z104UitphoXb9PAYKAIQybUhe59hmEGMrwI5kZ2aGl9Y2NdlGJqzGWomfBPVNr8480Ne
+         O0tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180548; x=1793785348;
+        d=1e100.net; s=20260707; t=1793180540; x=1793785340;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4XywAoxeaZzuOeDhhvc4sxnHZ3aBk4zO8y4jW5OboPk=;
-        b=ahCJC9lwFBjlXCJsMpCXpcM16d/9SHASk0f6ZLd99NwafHpeuyCjs+0BKT/FRJ9f2f
-         NgqXMO2wTj/QkfhIUKxmr1OtFbTvcgtNx5wZVzk0IkaCIUXZCkwQTCEOE98KVhJA2p+P
-         wS4gFiN0GQRRdMOD0QmTXJj+mITZMMy+9amz0sNpaEj+v7MYFFfMYHYqzcPU3kna6iK+
-         kmZfAXgjT6PMC4nNYZRLWsJ5bN2dkpAPlEEJ4lFm61XhiMZg90d98gUAabNqTw4hghOC
-         P3QQT6EmTQBIox0qN97z2e6MX4F8MEXAWbB13IMQ97Pb3XMVhXa9/MDTSQwZ+2yngUPD
-         hq3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxPTBPANfGYaSSHhyVotbJ1kDH9PI3l4yDoYO35oDrCISTCRNtRL79MRSPHTXI2fMK7RVyzSD/MZNQbjsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPgKAkJzOppSLhgEiIeS8Pu/JnHTjzRVzH9EVGPlksthb1olfl
-	FOcOrq4LEsoe00tY3c2t3KK4GWe226RuADXFsiqbXNTADZOtV2XNqOGy
-X-Gm-Gg: AYBFou1e0AKZxNs81jfvHX4kVo+cbPp21YV+RwkN2SobB4qz442e0GbN1Np6cN/dfgb
-	L8hItKUdfDUYjBa79H+CkR4x7myjG4Z2Lg/8ab079RQhDUlolHWn3UH+JOTcw/NAM6bFxyL83Nz
-	DZeF+kVyZG+oXDfffolGgJX0SNaPWQdcsxCFjSPKklHa0MOniRqfuJ7KybpC++Ve8cieFtdrTeD
-	diViOVm28DmRkGCQyyzro3rLycwikoC387Hf1YOWh2cZJQb7GUYd1AuC4tKjGjZOcnMLic7yzow
-	crnm5BpRnr8Ib7kysHzNRlcDUvUrvNiD7iabjYFsBgCts7zrSjh6fXxE7CcsDvEYfgPYM/MoZym
-	ZbeKQOHSatfButo8CXuXT77YMupbVTY3s/PPx8ZWx2Z10ZW+GGB1uQhgvhL7SFv5H7ApXGwWBBB
-	Dk7DbhlPv6L9czp+WgHvaNIXqQE7sysjkUmmfU/zkG8sC7+HFf30DxW6m+KARleQ40jcprBeLqT
-	i1K9YUNYjHYKA4XR1qNjmLv8PtAmpY3VtjQYJOGFrqJDkYQLjBcDn8B4HrOcgKw5k8OJI+mL2MN
-	XDLEqSg3d6m4bFEgYxTUo0SQyHTY4veo4XNL+1jj2TcNgRnu58W6eNLbclAbsaRo5Pqv2sddKOU
-	39b824bYbzscQzKCiCDExs0fERUvMQykdnORclf+YfVc6R8U=
-X-Received: by 2002:a17:90b:4cc1:b0:3ab:2737:3395 with SMTP id 98e67ed59e1d1-3ae58299f5dmr1291309a91.42.1793180547692;
-        Wed, 28 Oct 2026 02:42:27 -0700 (PDT)
+        bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
+        b=q/l7qymm+Crw3vAQ6FBlIDnGVkGm22qq/lTNRiDwy3XQZjjVZrC8efD2Oa3Ecd37lG
+         EjXoSPPmibH86mU9sMY/7bwOcrRMjUu8PByMxm16bi1qAsQw1YdbE0x/isUpE1Cn7lVi
+         WToAu+7A4tyoJyIxByFDO8zKIyxKbaIURmEtjpsrzwniBL4L6gleuimQXGdlUfiyoVeW
+         oJ3Ez6FGn33yS/KI5Avunsw/tW9aU0zsJ+CPLwCKbxOuYXykL32BlxrxyACTIbrAA751
+         R9v0rYWOCv/13aGsgDB8yiUVQaZ2RcR4DHiEdMBu5ExA86P913jH+OmrCn/VMXs/aHQ9
+         0gYg==
+X-Forwarded-Encrypted: i=1; AKwUvBynh0+rVhWCjJ27+dpNuTXQ928HVHOpqT/zLbK3YTSi87yJZ9UdZP1BFB8vbj6eEpT1kRQgzmUeD2bMxSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFfsPYThCGkNtC08qWPuhz+Y4unuJ8rUR8IsYRGZg8vo4Cxjzf
+	gCZBOO3PCJv6uXO/xSpVOTMYonNtwpaNr2ndwopywOJ+sx+Ma9H5wRBv
+X-Gm-Gg: AYBFou2D/k2gX6rOZJ4Ngdb9qSyLLxKnIavRzL8KlTdFfhcoLdsI3QxNg8lLnB6KOiF
+	ZhRzdIoudRe3gMS/NqEMoKMCl3iMqAqIubIs97hdX8Pz7fp4TkGTXrERGSpV2l47bpyInk0cT86
+	M10stxeL3OgU4hjeLD5JBRgXoMUf/Xt2Ein6IASHMovYZQ2C3/2jy9kRto3cXK2XwiPFsAyqQ5Q
+	eorJ+1cy2W9nJGi4u55lB6sx52VRjejI0vhKHe2Q86AQSDOt2cSKS92LoxWgMjbHxPUw3/ky/7M
+	N9hhtFgC+GR7qVbsJ+n97xeoW0BK8LycePa+VS3FFirfBjRQcfACWRsAFBt8eDyJfVBRO/BqTV+
+	i3x5E7yD13IKYL8UEsd0y7TQncXXTBytELYQTo5tWfpdwYtbLf8DQLh/4YJAeEGRn/5c1NP5nB2
+	e0Dh7FgCyHpQ7eSCIppAFvMunira8GKJTRMYF0Mu6p2PvQ4Ga+l0LmAExXfP59KF+eniW3BIv9h
+	sDU67ZwcmIfj47lM2nj6CqJqud1kAi2kyEtZ+nIGTyRO7RpBAKVe/qaeiGi/IEzQjIbeGV5IuWB
+	qft7kH5wPMnxRSmffEEXAC6ANoXO3UXmmndIcDEGJazxD7CWgOXhkM5LE/EX6qajF6AJJwY/umh
+	ajrzhC21HQC4BLzC8+A+cxYPy0FiaiaxfSDQihQakSy4Tn1s=
+X-Received: by 2002:a17:90b:4b89:b0:3a7:bf13:6007 with SMTP id 98e67ed59e1d1-3ae580a902fmr1431530a91.14.1793180540329;
+        Wed, 28 Oct 2026 02:42:20 -0700 (PDT)
 Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a93b3f5sm2242377a91.5.2026.10.28.02.42.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a93b3f5sm2242377a91.5.2026.10.28.02.42.16
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 02:42:27 -0700 (PDT)
+        Wed, 28 Oct 2026 02:42:19 -0700 (PDT)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.de,
@@ -92,9 +92,9 @@ Cc: tiwai@suse.de,
 	rdunlap@infradead.org,
 	linux-doc@vger.kernel.org,
 	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v7 13/16] ALSA: virtio: fence staged capture state and recovery
-Date: Wed, 28 Oct 2026 18:41:29 +0900
-Message-ID: <20261028094132.20364-14-mynameisjune111@gmail.com>
+Subject: [PATCH v7 11/16] ALSA: virtio-snd: fix dsnoop capture with staged buffers
+Date: Wed, 28 Oct 2026 18:41:27 +0900
+Message-ID: <20261028094132.20364-12-mynameisjune111@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261028094132.20364-1-mynameisjune111@gmail.com>
 References: <20261028094132.20364-1-mynameisjune111@gmail.com>
@@ -109,461 +109,519 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A failed PREPARE can leave subsequent START or ACK paths able to queue
-requests. Device reset can also leave stale queue and pause-restart state,
-and a failed open can leave period work referring to a released runtime.
+dsnoop runs its hardware slave with stop_threshold == boundary and can
+consume the mmap capture ring without advancing the hardware application
+pointer. Staged capture currently treats every stream as a bounded
+consumer: capture_ready grows until the completion capacity check fails.
 
-Track successful device preparation under the substream lock. Require that
-state and a live virtqueue before queueing transfers. Clear preparation
-before reconfiguration and reset, stop transfers before resetting the
-device, detach outstanding buffers, clear queue pointers under their locks,
-and cancel period work before completing state cleanup. Mark all streams
-suspended so prepare re-establishes device parameters after restore.
+With a 48 kHz mono slave, 960-frame periods and a 7680-frame buffer, the
+baseline dsnoop reproduction stops after 6720 frames with -EPIPE and a
+ring_capacity rejection. Direct capture continues to work.
 
-Keep prepared capture buffers eligible for NOMMU bounce copies during
-native pause. Suppress new notifications from an inactive failed-open
-path, cancel pending period work on open failure, and guard the worker
-against an absent runtime.
+Cache the prepared boundary and recognize the free-running policy under
+the substream lock. Keep RX requests supplied in that mode, while retaining
+payload, frame alignment, counter and pointer-window checks. Sample the
+policy once per completion so validation, copying and refill agree.
+Refresh it separately in the ACK accounting and refill critical sections.
 
-Use the control-submission result to preserve the previous pause state on
-a definitive failure. Keep RESET_REQUIRED when a submitted request times
-out or is cancelled. A RELEASE_SENT pause retry waits for RX drain and
-preserves an existing XRUN so prepare performs recovery.
+On a return to bounded capture, reconstruct unread occupancy from the
+copied and acknowledged totals. If outstanding data fills the ring, the
+policy helper returns -EPIPE and preserves the cached mode and counters.
+The detecting RX, pointer or ACK path reports XRUN through its existing
+error path; this does not make sw_params fail synchronously.
+A native pause release can also detect this overflow during queue refill.
+Its trigger error leaves ALSA in PAUSED, so mark the staged capture as XRUN
+and schedule the period worker before returning the error. The worker takes
+the PCM stream lock after the pause action and wakes readers from XRUN.
+A paused ACK can reach XRUN before that worker runs. Arm synchronous stop
+before returning -EPIPE from staged ACK, and before the worker stops a
+paused stream. ALSA skips trigger(STOP) for paused streams; these paths
+must preserve the RELEASE and pending-RX cleanup needed by prepare.
+Reset cached policy state during prepare and teardown.
 
-Reset pointers, indirect state and capture counters in one locked section.
-Bound staged ACK by the position observed by ALSA. A successful partial
-read while paused can still cross ALSA's stop threshold; arm synchronous
-cleanup for that path as well as an ACK error. Remove the unused
-start_failed argument and protect suspended state updates with the lock.
+Before the pause revisions, MOTU/VZ tests with one and two vCPUs failed all
+32 shared-client captures. The candidate passed 48 capture cases and eight
+recovery diagnostics, including 70-second CPU-saturated shared captures.
+Synthetic QEMU dsnoop data matched 2160000 reference frames across 12
+files. Forced policy transitions passed KASAN/KCSAN checks. Aggressive
+KCSAN still triggered dsnoop client-threshold XRUNs with a 160 ms buffer.
+The physical tests checked frame counts and nonzero mono input; exact
+sample continuity was checked with the synthetic source.
 
-The partial paused-read reproducer failed its first prepare with -EBADFD
-on v5. Both pause modes recover and capture 48000 frames with these
-changes. Queue-failure, failed-open and virtio bus freeze/restore tests
-also completed under ARM64 QEMU with KASAN and lockdep.
+The native-pause regression reproduces -EPIPE followed by a persistent
+PAUSED state and a poll timeout with v2. With this revision, the same case
+reaches XRUN, wakes poll with POLLERR and returns -EPIPE from read.
+Prepare recovery and reopening also pass under ARM64 QEMU with KASAN
+and lockdep.
 
-This addresses the remaining Sashiko state and lifetime findings in
-patches 2-4, 7-9 and 11. The controlled XRUN comparison found the same
-client-deadline failures on v5 and the corrected kernel; it does not
-justify relaxing the capture overflow checks.
+Paused read and forward ACK errors reproduced a failing first prepare
+with v3. This revision passes 16 recovery cases across native pause and
+pause-restart with one and two vCPUs. Each prepare recovery and reopen
+captures 48,000 frames. The existing 13-case mode suite and native-pause
+regression also pass with KASAN and lockdep. No new physical-device or
+KCSAN results are claimed for this revision.
 
 Assisted-by: LLM
 Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
----
- sound/virtio/virtio_card.c    |  25 +++++++++-
- sound/virtio/virtio_pcm.c     |   2 +
- sound/virtio/virtio_pcm.h     |   2 +
- sound/virtio/virtio_pcm_msg.c |  14 ++++--
- sound/virtio/virtio_pcm_ops.c | 110 ++++++++++++++++++++++++++----------------
- 5 files changed, 106 insertions(+), 47 deletions(-)
 
-diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index df7091b..852cc27 100644
---- a/sound/virtio/virtio_card.c
-+++ b/sound/virtio/virtio_card.c
-@@ -348,6 +348,16 @@ static void virtsnd_reset_vqs(struct virtio_snd *snd)
- 	struct virtio_device *vdev = snd->vdev;
- 	unsigned int i;
+---
+diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
+--- a/sound/virtio/virtio_pcm.c
++++ b/sound/virtio/virtio_pcm.c
+@@ -338,6 +338,8 @@
+ 			paused_xrun = runtime &&
+ 				      runtime->state == SNDRV_PCM_STATE_PAUSED &&
+ 				      vss->runtime_active && vss->xfer_xrun;
++			if (paused_xrun)
++				virtsnd_pcm_capture_arm_paused_stop(vss);
+ 		}
+ 		if (paused_xrun) {
+ 			/* Wake readers without sending STOP for a paused stream. */
+diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+--- a/sound/virtio/virtio_pcm.h
++++ b/sound/virtio/virtio_pcm.h
+@@ -47,7 +47,9 @@
+  *        substream operators, including @stopped.
+  * @buffer_bytes: Current buffer size in bytes.
+  * @hw_ptr: Substream hardware pointer value in bytes [0 ... buffer_bytes).
+- * @capture_ready: Captured bytes copied but not yet acknowledged by ALSA.
++ * @capture_ready: Managed-mode bytes copied but not yet acknowledged by ALSA;
++ *                 always zero in free-running mode.
++ * @capture_boundary: ALSA boundary captured for this prepared epoch.
+  * @capture_copied_total: Monotonic bytes copied into the capture ring.
+  * @capture_acked_total: Monotonic bytes acknowledged by the capture client.
+  * @capture_pointer_seen_total: Last capture position sampled by ALSA.
+@@ -58,6 +60,7 @@
+  * @capture_staging: Capture uses request-owned payload buffers.
+  * @capture_started: Non-empty capture data was received since prepare.
+  * @capture_empty: Consecutive empty startup completions.
++ * @capture_free_running: Cached staged-capture policy, protected by @lock.
+  * @xfer_enabled: Data transfer state (0 - off, 1 - on).
+  * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
+  * @stopped: True if the substream is stopped and must be released on the device
+@@ -88,6 +91,7 @@
+ 	size_t buffer_bytes;
+ 	size_t hw_ptr;
+ 	size_t capture_ready;
++	snd_pcm_uframes_t capture_boundary;
+ 	u64 capture_copied_total;
+ 	u64 capture_acked_total;
+ 	u64 capture_pointer_seen_total;
+@@ -97,6 +101,7 @@
+ 	bool runtime_active;
+ 	bool capture_staging;
+ 	bool capture_started;
++	bool capture_free_running;
+ 	unsigned int capture_empty;
+ 	bool xfer_enabled;
+ 	bool xfer_xrun;
+@@ -115,6 +120,22 @@
+ 	wait_queue_head_t msg_empty;
+ };
  
-+	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
-+		struct virtio_pcm_substream *vss = &snd->substreams[i];
-+		struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
++/* Caller holds the PCM stream lock and vss->lock. */
++static inline void
++virtsnd_pcm_capture_arm_paused_stop(struct virtio_pcm_substream *vss)
++{
++	struct snd_pcm_runtime *runtime = vss->substream->runtime;
 +
-+		guard(spinlock_irqsave)(&queue->lock);
-+		guard(spinlock)(&vss->lock);
-+		vss->prepared = false;
-+		vss->xfer_enabled = false;
-+		vss->suspended = true;
-+	}
- 	virtio_reset_device(vdev);
- 
- 	/* Deleting a virtqueue does not unmap its outstanding descriptors. */
-@@ -364,9 +374,20 @@ static void virtsnd_reset_vqs(struct virtio_snd *snd)
- 		spin_unlock_irqrestore(&queue->lock, flags);
- 	}
- 
--	vdev->config->del_vqs(vdev);
--	for (i = 0; i < VIRTIO_SND_VQ_MAX; ++i)
-+	for (i = 0; i < VIRTIO_SND_VQ_MAX; ++i) {
-+		guard(spinlock_irqsave)(&snd->queues[i].lock);
- 		snd->queues[i].vqueue = NULL;
-+	}
-+	vdev->config->del_vqs(vdev);
-+	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
-+		struct virtio_pcm_substream *vss = &snd->substreams[i];
++	lockdep_assert_held(&vss->lock);
++	if (!runtime || runtime->state != SNDRV_PCM_STATE_PAUSED)
++		return;
 +
-+		cancel_work_sync(&vss->elapsed_period);
-+		guard(spinlock_irqsave)(&vss->lock);
-+		vss->stopped = false;
-+		vss->xfer_xrun = false;
-+		vss->pause_restart_state = VIRTSND_PCM_PAUSE_RESTART_NONE;
-+	}
++	/* ALSA skips trigger(STOP) when moving a paused stream to XRUN. */
++	vss->xfer_enabled = false;
++	vss->stopped = true;
++	runtime->stop_operating = true;
++}
++
+ /* Keep non-staged PCM notifications on schedule_work()'s normal queue. */
+ static inline bool
+ virtsnd_pcm_schedule_period_elapsed(struct virtio_pcm_substream *vss)
+@@ -128,23 +149,29 @@
+ 
+ /*
+  * ALSA may observe a subperiod tail before its period callback. Keep actual
+- * unread occupancy separate from pointer observations and notification state.
++ * unread occupancy separate from pointer observations and notification state;
++ * free-running streams account occupancy from monotonic totals instead.
+  */
+ static inline bool
+ virtsnd_pcm_capture_counters_valid(const struct virtio_pcm_substream *vss)
+ {
+-	return vss->buffer_bytes &&
+-	       vss->capture_copied_total >= vss->capture_acked_total &&
+-	       vss->capture_copied_total - vss->capture_acked_total ==
+-			(u64)vss->capture_ready &&
+-	       vss->capture_ready < vss->buffer_bytes &&
+-	       vss->capture_pointer_seen_total <= vss->capture_copied_total &&
+-	       vss->hw_ptr == vss->capture_copied_total % vss->buffer_bytes &&
+-	       (!vss->capture_callback_snapshot_active ||
+-		(vss->capture_callback_snapshot >=
+-			vss->capture_pointer_seen_total &&
+-		 vss->capture_callback_snapshot <=
+-			vss->capture_copied_total));
++	u64 outstanding;
++
++	if (!vss->buffer_bytes ||
++	    vss->capture_copied_total < vss->capture_acked_total ||
++	    vss->capture_pointer_seen_total > vss->capture_copied_total ||
++	    vss->hw_ptr != vss->capture_copied_total % vss->buffer_bytes ||
++	    (vss->capture_callback_snapshot_active &&
++	     (vss->capture_callback_snapshot < vss->capture_pointer_seen_total ||
++	      vss->capture_callback_snapshot > vss->capture_copied_total)))
++		return false;
++
++	if (vss->capture_free_running)
++		return !vss->capture_ready;
++
++	outstanding = vss->capture_copied_total - vss->capture_acked_total;
++	return outstanding == (u64)vss->capture_ready &&
++	       vss->capture_ready < vss->buffer_bytes;
  }
  
  /**
-diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
-index 8a578a5..b62c181 100644
---- a/sound/virtio/virtio_pcm.c
-+++ b/sound/virtio/virtio_pcm.c
-@@ -332,6 +332,8 @@ static void virtsnd_pcm_period_elapsed(struct work_struct *work)
+@@ -207,6 +234,9 @@
  
- 	/* Serialize the pointer snapshot with ALSA's pointer and ACK callbacks. */
- 	guard(pcm_stream_lock_irqsave)(substream);
-+	if (!substream->runtime)
-+		return;
- 	if (!snd_pcm_running(substream)) {
- 		scoped_guard(spinlock_irqsave, &vss->lock) {
- 			runtime = substream->runtime;
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
-index 7962308..1da8f09 100644
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -65,6 +65,7 @@ enum virtio_pcm_pause_restart_state {
-  * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
-  * @stopped: True if the substream is stopped and must be released on the device
-  *           side; protected by @lock.
-+ * @prepared: Device PREPARE succeeded; protected by @lock.
-  * @suspended: True if the substream is suspended and must be reconfigured on
-  *             the device side at resume.
-  * @pause_restart_state: Device-side state for opt-in pause compatibility.
-@@ -106,6 +107,7 @@ struct virtio_pcm_substream {
- 	bool xfer_enabled;
- 	bool xfer_xrun;
- 	bool stopped;
-+	bool prepared;
- 	bool suspended;
- 	enum virtio_pcm_pause_restart_state pause_restart_state;
- 	struct virtio_pcm_msg **msgs;
+ int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss);
+ 
++int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
++					    bool *free_running);
++
+ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
+ 
+ void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss);
 diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
-index e7258bc..5e0a3a5 100644
 --- a/sound/virtio/virtio_pcm_msg.c
 +++ b/sound/virtio/virtio_pcm_msg.c
-@@ -369,13 +369,13 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
-  * substream was stopped are never sent to the device, so their length must be
-  * cleared before the substream is started again.
-  *
-- * Context: Any context. Takes and releases the VirtIO substream spinlock.
-+ * Context: Caller holds the VirtIO substream spinlock.
+@@ -3,6 +3,7 @@
+  * virtio-snd: Virtio sound device
+  * Copyright (C) 2021 OpenSynergy GmbH
   */
- void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss)
- {
- 	unsigned int i;
++#include <linux/compiler.h>
+ #include <linux/limits.h>
+ #include <linux/mm.h>
+ #include <linux/overflow.h>
+@@ -384,6 +385,8 @@
+ 	vss->capture_notified_periods = 0;
+ 	vss->capture_callback_snapshot = 0;
+ 	vss->capture_callback_snapshot_active = false;
++	vss->capture_boundary = 0;
++	vss->capture_free_running = false;
+ 	vss->capture_empty = 0;
+ 	vss->capture_started = false;
+ }
+@@ -508,24 +511,54 @@
+ 	return 0;
+ }
  
--	guard(spinlock_irqsave)(&vss->lock);
-+	lockdep_assert_held(&vss->lock);
- 	for (i = 0; vss->msgs && i < vss->nmsgs; ++i)
- 		vss->msgs[i]->length = 0;
- 	vss->capture_ready = 0;
-@@ -418,6 +418,10 @@ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, unsigned long offset,
- 	bool notify = false;
- 	int rc;
- 
-+	if (!vqueue || !vss->prepared || vss->suspended)
+-/**
+- * virtsnd_pcm_capture_send() - Queue staged capture requests.
+- * @vss: VirtIO PCM substream.
+- *
+- * Queue full-period requests while the outstanding requests fit the remaining
+- * ALSA ring capacity. The final request may exceed that capacity by less than
+- * one period; completion validates the returned payload before copying it.
+- *
+- * Context: Expects the RX queue and substream spinlocks to be held by caller.
+- * Return: 0 on success, -errno on failure.
+- */
+-int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
++/* Caller holds vss->lock. */
++int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
++					    bool *free_running)
++{
++	struct snd_pcm_runtime *runtime;
++	snd_pcm_uframes_t stop_threshold;
++	u64 outstanding;
++	bool new_free_running;
++
++	if (!vss->capture_staging || !vss->runtime_active || !vss->substream)
 +		return -EBADFD;
-+	if (!bytes)
-+		return 0;
- 	start = offset / period_bytes;
- 	end = (offset + bytes - 1) / period_bytes;
- 
-@@ -562,7 +566,8 @@ static int virtsnd_pcm_capture_enqueue(struct virtio_pcm_substream *vss,
++
++	runtime = vss->substream->runtime;
++	if (!runtime || !vss->buffer_bytes || !vss->capture_boundary)
++		return -EBADFD;
++
++	/* Validate the currently committed policy before observing a transition. */
++	if (!virtsnd_pcm_capture_counters_valid(vss))
++		return -EIO;
++
++	stop_threshold = READ_ONCE(runtime->stop_threshold);
++	new_free_running = stop_threshold == vss->capture_boundary;
++	if (new_free_running != vss->capture_free_running) {
++		outstanding = vss->capture_copied_total -
++			      vss->capture_acked_total;
++		if (new_free_running) {
++			vss->capture_ready = 0;
++		} else {
++			if (outstanding >= vss->buffer_bytes)
++				return -EPIPE;
++			vss->capture_ready = outstanding;
++		}
++		vss->capture_free_running = new_free_running;
++	}
++
++	*free_running = new_free_running;
++	return 0;
++}
++
++/* Caller holds the RX queue and vss locks and has sampled the policy. */
++static int virtsnd_pcm_capture_enqueue(struct virtio_pcm_substream *vss,
++				       bool free_running)
+ {
+ 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+ 	struct virtqueue *vqueue = queue->vqueue;
+ 	unsigned long period_bytes;
+ 	size_t free_bytes;
+-	size_t request_limit;
++	size_t request_limit = vss->nmsgs;
  	unsigned int i;
  	bool added = false;
  
--	if (!vss->capture_staging || !vss->runtime_active)
-+	if (!vqueue || !vss->prepared || vss->suspended ||
-+	    !vss->capture_staging || !vss->runtime_active)
- 		return -EBADFD;
- 
+@@ -535,16 +568,17 @@
  	period_bytes = snd_pcm_lib_period_bytes(vss->substream);
-@@ -871,7 +876,8 @@ static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg,
+ 	if (!period_bytes || !vss->buffer_bytes ||
+ 	    period_bytes >= vss->buffer_bytes ||
++	    free_running != vss->capture_free_running ||
+ 	    !virtsnd_pcm_capture_counters_valid(vss) ||
+ 	    vss->msg_count > vss->nmsgs)
+ 		return -EIO;
+ 
+-	free_bytes = vss->buffer_bytes - vss->capture_ready;
+-	request_limit = free_bytes / period_bytes +
+-			!!(free_bytes % period_bytes);
+-	request_limit = min_t(size_t, request_limit, vss->nmsgs);
+-	if (vss->msg_count > request_limit)
+-		return -EIO;
++	if (!free_running) {
++		free_bytes = vss->buffer_bytes - vss->capture_ready;
++		request_limit = free_bytes / period_bytes +
++				!!(free_bytes % period_bytes);
++		request_limit = min_t(size_t, request_limit, vss->nmsgs);
++	}
+ 
+ 	for (i = 0; i < vss->nmsgs && vss->msg_count < request_limit; ++i) {
+ 		struct virtio_pcm_msg *msg = vss->msgs[i];
+@@ -585,6 +619,25 @@
+ 	return 0;
+ }
+ 
++/**
++ * virtsnd_pcm_capture_send() - Refresh policy and queue staged requests.
++ * @vss: VirtIO PCM substream.
++ *
++ * Context: Expects the RX queue and substream spinlocks to be held by caller.
++ * Return: 0 on success, -errno on failure.
++ */
++int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
++{
++	bool free_running;
++	int rc;
++
++	rc = virtsnd_pcm_capture_refresh_mode_locked(vss, &free_running);
++	if (rc)
++		return rc;
++
++	return virtsnd_pcm_capture_enqueue(vss, free_running);
++}
++
+ static int virtsnd_pcm_capture_status(const struct virtio_pcm_msg *msg,
+ 				      size_t written_bytes,
+ 				      size_t frame_bytes,
+@@ -638,6 +691,7 @@
+ 	size_t audio_bytes = 0;
+ 	size_t next_ready = 0;
+ 	u64 next_copied_total = 0;
++	bool free_running = false;
+ 	bool got_audio = false;
+ 
  	guard(spinlock)(&vss->lock);
- #ifndef CONFIG_MMU
- 	if (vss->direction == SNDRV_PCM_STREAM_CAPTURE &&
--	    vss->xfer_enabled && written_bytes > sizeof(msg->status)) {
-+	    vss->prepared && !vss->stopped &&
-+	    written_bytes > sizeof(msg->status)) {
- 		struct snd_pcm_runtime *runtime =
- 			vss->substream ? vss->substream->runtime : NULL;
- 		size_t reported_bytes = written_bytes - sizeof(msg->status);
+@@ -651,6 +705,9 @@
+ 		/* A full ring is modulo-ambiguous, so fail closed before copying. */
+ 		if (!runtime || !runtime->dma_area)
+ 			invalid_reason = "runtime";
++		else if (virtsnd_pcm_capture_refresh_mode_locked(vss,
++								 &free_running))
++			invalid_reason = "policy";
+ 		else if (!virtsnd_pcm_capture_counters_valid(vss))
+ 			invalid_reason = "counters";
+ 		else if (vss->hw_ptr !=
+@@ -660,18 +717,28 @@
+ 						    frame_bytes, &audio_bytes,
+ 						    &latency_bytes))
+ 			invalid_reason = "status";
+-		else if (audio_bytes >=
+-			 vss->buffer_bytes - vss->capture_ready)
+-			invalid_reason = "ring_capacity";
+-		else if (check_add_overflow(vss->capture_ready, audio_bytes,
+-					    &next_ready))
+-			invalid_reason = "ready_overflow";
+-		else if (next_ready >= vss->buffer_bytes)
+-			invalid_reason = "ring_full";
+ 		else if (check_add_overflow(vss->capture_copied_total,
+ 					    (u64)audio_bytes,
+ 					    &next_copied_total))
+ 			invalid_reason = "total_overflow";
++		else if (free_running && audio_bytes >= vss->buffer_bytes)
++			invalid_reason = "payload_exceeds_ring";
++		else if (!free_running &&
++			 audio_bytes >= vss->buffer_bytes - vss->capture_ready)
++			invalid_reason = "ring_capacity";
++		else if (!free_running &&
++			 check_add_overflow(vss->capture_ready, audio_bytes,
++					    &next_ready))
++			invalid_reason = "ready_overflow";
++		else if (!free_running && next_ready >= vss->buffer_bytes)
++			invalid_reason = "ring_full";
++		else if (free_running &&
++			 (next_copied_total < vss->capture_pointer_seen_total ||
++			  next_copied_total - vss->capture_pointer_seen_total >=
++			  vss->buffer_bytes))
++			invalid_reason = "pointer_window";
++		else if (free_running)
++			next_ready = 0;
+ 
+ 		if (invalid_reason) {
+ 			virtsnd_pcm_capture_xrun_locked(vss);
+@@ -713,7 +780,8 @@
+ 
+ 	msg->length = 0;
+ 	if (vss->runtime_active && vss->xfer_enabled) {
+-		if (!vss->xfer_xrun && virtsnd_pcm_capture_send(vss)) {
++		if (!vss->xfer_xrun &&
++		    virtsnd_pcm_capture_enqueue(vss, free_running)) {
+ 			dev_warn_ratelimited(&vss->snd->vdev->dev,
+ 					     "SID %u: failed to refill capture queue\n",
+ 					     vss->sid);
 diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
-index c7e85b1..0685a00 100644
 --- a/sound/virtio/virtio_pcm_ops.c
 +++ b/sound/virtio/virtio_pcm_ops.c
-@@ -128,15 +128,13 @@ static const struct virtsnd_a2v_rate g_a2v_rate_map[] = {
- };
- 
- static int virtsnd_pcm_sync_stop(struct snd_pcm_substream *substream);
-+static int virtsnd_pcm_pause_restart_sync_stop(struct snd_pcm_substream *substream);
- 
--static void virtsnd_pcm_start_failed(struct virtio_pcm_substream *vss,
--				     bool pause_restart)
-+static void virtsnd_pcm_start_failed(struct virtio_pcm_substream *vss)
- {
- 	scoped_guard(spinlock_irqsave, &vss->lock) {
- 		vss->xfer_enabled = false;
- 		vss->stopped = true;
--		if (pause_restart)
--			vss->xfer_xrun = true;
- 	}
- 	vss->substream->runtime->stop_operating = true;
- }
-@@ -170,6 +168,7 @@ virtsnd_pcm_pause_restart_send(struct virtio_pcm_substream *vss,
- 			       enum virtio_pcm_pause_restart_state success_state)
- {
- 	enum virtio_pcm_pause_restart_state state;
-+	bool uncertain;
- 	int rc;
- 
- 	if (!virtsnd_pcm_pause_restart_enabled(vss))
-@@ -196,19 +195,24 @@ virtsnd_pcm_pause_restart_send(struct virtio_pcm_substream *vss,
- 		return rc;
- 	}
- 
-+	virtsnd_ctl_msg_ref(msg);
- 	rc = virtsnd_ctl_msg_send_sync(vss->snd, msg);
-+	uncertain = virtsnd_ctl_msg_uncertain(msg, rc);
-+	virtsnd_ctl_msg_unref(msg);
- 	scoped_guard(spinlock_irqsave, &vss->lock) {
--		if (rc || vss->pause_restart_state != submitted_state) {
-+		if ((rc && uncertain) || vss->pause_restart_state != submitted_state) {
- 			vss->pause_restart_state =
- 				VIRTSND_PCM_PAUSE_RESTART_RESET_REQUIRED;
- 			if (!rc)
- 				rc = -EIO;
-+		} else if (rc) {
-+			vss->pause_restart_state = state;
- 		} else {
- 			vss->pause_restart_state = success_state;
+@@ -543,6 +543,8 @@
+ 			vss->capture_notified_periods = 0;
+ 			vss->capture_callback_snapshot = 0;
+ 			vss->capture_callback_snapshot_active = false;
++			vss->capture_boundary = 0;
++			vss->capture_free_running = false;
  		}
  	}
  
--	if (rc)
-+	if (rc && uncertain)
- 		dev_err(&vss->snd->vdev->dev,
- 			"SID %u: PCM control state is unknown; device reprobe required\n",
- 			vss->sid);
-@@ -223,7 +227,8 @@ virtsnd_pcm_pause_restart_fail(struct virtio_pcm_substream *vss,
- 	bool notify_xrun;
- 
- 	scoped_guard(spinlock_irqsave, &vss->lock) {
--		notify_xrun = !vss->xfer_xrun;
-+		notify_xrun = vss->runtime_active && vss->xfer_enabled &&
-+			      !vss->xfer_xrun;
- 		vss->xfer_enabled = false;
- 		vss->stopped = true;
- 		vss->xfer_xrun = true;
-@@ -330,6 +335,7 @@ static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
- 	struct virtio_pcm *vpcm = snd_pcm_substream_chip(substream);
- 	struct virtio_pcm_stream *vs = &vpcm->streams[substream->stream];
- 	struct virtio_pcm_substream *vss = vs->substreams[substream->number];
-+	int rc;
- 
- 	substream->runtime->hw = vss->hw;
- 	substream->private_data = vss;
-@@ -354,7 +360,10 @@ static int virtsnd_pcm_open(struct snd_pcm_substream *substream)
- 	 * an invalid state. Just in case, we do a check and try to return the
- 	 * queue to its original state, if necessary.
- 	 */
--	return virtsnd_pcm_sync_stop(substream);
-+	rc = virtsnd_pcm_sync_stop(substream);
-+	if (rc)
-+		cancel_work_sync(&vss->elapsed_period);
-+	return rc;
- }
- 
- /**
-@@ -469,6 +478,9 @@ static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
- 	bool stopped;
- 	int rc;
- 
-+	scoped_guard(spinlock_irqsave, &vss->lock)
-+		vss->prepared = false;
-+
- 	if (vss->capture_staging) {
- 		scoped_guard(spinlock_irqsave, &vss->lock) {
- 			vss->runtime_active = false;
-@@ -528,6 +540,9 @@ static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
- {
+@@ -565,6 +567,7 @@
  	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_device *vdev = vss->snd->vdev;
+ 	bool pause_restart = virtsnd_pcm_pause_restart_enabled(vss);
++	bool free_running;
+ 	int rc;
+ 	bool stopped;
  
-+	scoped_guard(spinlock_irqsave, &vss->lock)
-+		vss->prepared = false;
-+
+@@ -622,6 +625,15 @@
+ 	vss->suspended = false;
+ 	vss->msg_count = 0;
+ 	virtsnd_pcm_msg_reset(vss);
++	if (vss->capture_staging) {
++		scoped_guard(spinlock_irqsave, &vss->lock) {
++			vss->capture_boundary = substream->runtime->boundary;
++			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
++								     &free_running);
++		}
++		if (rc)
++			return rc;
++	}
+ 
+ 	memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
+ 	vss->pcm_indirect.sw_buffer_size =
+@@ -893,6 +905,13 @@
+ 			if (rc) {
+ 				vss->stopped = true;
+ 				substream->runtime->stop_operating = true;
++				if (vss->capture_staging &&
++				    vss->direction == SNDRV_PCM_STREAM_CAPTURE &&
++				    command == SNDRV_PCM_TRIGGER_PAUSE_RELEASE) {
++					/* Pause undo leaves ALSA paused; wake its readers. */
++					vss->xfer_xrun = true;
++					virtsnd_pcm_schedule_period_elapsed(vss);
++				}
+ 				return rc;
+ 			}
+ 			vss->xfer_enabled = true;
+@@ -1132,12 +1151,18 @@
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	size_t hw_ptr = 0;
+ 	u64 total;
++	bool free_running;
+ 	bool xrun;
+ 
  	if (vss->capture_staging) {
  		scoped_guard(spinlock_irqsave, &vss->lock) {
- 			vss->runtime_active = false;
-@@ -599,8 +614,6 @@ static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
- 			return -EBADFD;
- 		}
- 
--		vss->buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
--		vss->hw_ptr = 0;
- 	} else {
- 		struct snd_pcm_runtime *runtime = substream->runtime;
- 		unsigned int buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
-@@ -616,31 +629,30 @@ static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	/* ALSA prepare resets its pointers even after a suspended stream. */
--	if (vss->capture_staging)
-+	scoped_guard(spinlock_irqsave, &vss->lock) {
-+		vss->prepared = false;
-+		vss->buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
- 		vss->hw_ptr = 0;
--
--	if (!pause_restart)
--		vss->xfer_xrun = false;
--	vss->suspended = false;
--	vss->msg_count = 0;
--	virtsnd_pcm_msg_reset(vss);
--	if (vss->capture_staging) {
--		scoped_guard(spinlock_irqsave, &vss->lock) {
-+		if (!pause_restart)
-+			vss->xfer_xrun = false;
-+		vss->suspended = false;
-+		vss->msg_count = 0;
-+		virtsnd_pcm_msg_reset(vss);
-+		memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
-+		vss->pcm_indirect.sw_buffer_size = vss->buffer_bytes;
-+		vss->pcm_indirect.hw_buffer_size = vss->buffer_bytes;
-+		if (vss->capture_staging) {
- 			vss->capture_boundary = substream->runtime->boundary;
- 			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
--								     &free_running);
-+							     &free_running);
-+			if (rc)
-+				return rc;
- 		}
--		if (rc)
--			return rc;
- 	}
- 
--	memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
--	vss->pcm_indirect.sw_buffer_size =
--		vss->pcm_indirect.hw_buffer_size =
--		snd_pcm_lib_buffer_bytes(substream);
--
- 	rc = virtsnd_pcm_dev_prepare(vss);
-+	scoped_guard(spinlock_irqsave, &vss->lock)
-+		vss->prepared = !rc;
- 	if (pause_restart) {
- 		if (rc) {
- 			virtsnd_pcm_pause_restart_fail(vss, false);
-@@ -759,13 +771,23 @@ static int virtsnd_pcm_pause_restart_pause(struct virtio_pcm_substream *vss)
- 
- 	scoped_guard(spinlock_irqsave, &vss->lock) {
- 		state = vss->pause_restart_state;
--		if (state == VIRTSND_PCM_PAUSE_RESTART_RELEASE_SENT ||
--		    state == VIRTSND_PCM_PAUSE_RESTART_RELEASED)
--			return 0;
-+		if (state == VIRTSND_PCM_PAUSE_RESTART_RELEASED)
-+			return vss->xfer_xrun ? -EPIPE : 0;
- 		vss->xfer_enabled = false;
- 		vss->stopped = true;
- 	}
- 
-+	if (state == VIRTSND_PCM_PAUSE_RESTART_RELEASE_SENT) {
-+		rc = virtsnd_pcm_pause_restart_sync_stop(vss->substream);
-+		if (!rc) {
-+			guard(spinlock_irqsave)(&vss->lock);
-+			vss->stopped = true;
-+			if (vss->xfer_xrun)
-+				rc = -EPIPE;
-+		}
-+		return rc;
-+	}
-+
- 	if (state == VIRTSND_PCM_PAUSE_RESTART_RESET_REQUIRED ||
- 	    virtsnd_pcm_pause_restart_transitioning(state)) {
- 		virtsnd_pcm_pause_restart_fail(vss, true);
-@@ -813,10 +835,9 @@ static int virtsnd_pcm_pause_restart_stop(struct virtio_pcm_substream *vss,
- 	enum virtio_pcm_pause_restart_state state;
- 	int rc;
- 
--	if (suspend)
--		vss->suspended = true;
--
- 	scoped_guard(spinlock_irqsave, &vss->lock) {
-+		if (suspend)
-+			vss->suspended = true;
- 		vss->xfer_enabled = false;
- 		vss->stopped = true;
- 		state = vss->pause_restart_state;
-@@ -887,7 +908,7 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
- 
- 		scoped_guard(spinlock_irqsave, &queue->lock) {
- 			guard(spinlock)(&vss->lock);
--			if (vss->stopped) {
-+			if (vss->stopped || !vss->prepared) {
- 				substream->runtime->stop_operating = true;
- 				return -EBADFD;
- 			}
-@@ -920,17 +941,18 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
- 		msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_START,
- 						GFP_KERNEL);
- 		if (!msg) {
--			virtsnd_pcm_start_failed(vss, false);
-+			virtsnd_pcm_start_failed(vss);
- 			return -ENOMEM;
- 		}
- 
- 		rc = virtsnd_ctl_msg_send_sync(snd, msg);
- 		if (rc)
--			virtsnd_pcm_start_failed(vss, false);
-+			virtsnd_pcm_start_failed(vss);
- 
- 		return rc;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
--		vss->suspended = true;
-+		scoped_guard(spinlock_irqsave, &vss->lock)
-+			vss->suspended = true;
- 		fallthrough;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-@@ -1230,6 +1252,8 @@ static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
- 
- 	scoped_guard(spinlock_irqsave, &queue->lock) {
- 		guard(spinlock)(&vss->lock);
-+		if (!vss->prepared)
-+			return -EBADFD;
- 		transfer.indirect = vss->pcm_indirect;
- 		if (vss->stopped) {
- 			rc = -EPIPE;
-@@ -1275,7 +1299,7 @@ static int virtsnd_pcm_capture_staged_ack(struct virtio_pcm_substream *vss,
+-			xrun = vss->xfer_xrun ||
+-			       !virtsnd_pcm_capture_counters_valid(vss);
++			xrun = vss->xfer_xrun;
++			if (!xrun &&
++			    virtsnd_pcm_capture_refresh_mode_locked(vss,
++								    &free_running))
++				xrun = true;
++			if (!xrun && !virtsnd_pcm_capture_counters_valid(vss))
++				xrun = true;
+ 			if (!xrun) {
+ 				total = vss->capture_callback_snapshot_active ?
+ 					vss->capture_callback_snapshot :
+@@ -1244,14 +1269,18 @@
+ 		snd_pcm_uframes_t appl_ptr;
+ 		snd_pcm_sframes_t diff;
+ 		size_t bytes;
++		u64 outstanding;
  		u64 next_acked_total;
- 		bool free_running;
++		bool free_running;
  
--		if (!vss->runtime_active || !runtime || !runtime->control ||
-+		if (!vss->prepared || !vss->runtime_active || !runtime || !runtime->control ||
+ 		if (!vss->runtime_active || !runtime || !runtime->control ||
  		    !runtime->dma_area)
  			return -EBADFD;
  		if (vss->xfer_xrun)
-@@ -1308,7 +1332,7 @@ static int virtsnd_pcm_capture_staged_ack(struct virtio_pcm_substream *vss,
- 		     (bytes > vss->buffer_bytes || bytes > outstanding)) ||
- 		    check_add_overflow(vss->capture_acked_total, (u64)bytes,
- 				       &next_acked_total) ||
--		    next_acked_total > vss->capture_copied_total) {
-+		    next_acked_total > vss->capture_pointer_seen_total) {
+ 			return -EPIPE;
+-		if (!virtsnd_pcm_capture_counters_valid(vss)) {
++		rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
++							     &free_running);
++		if (rc || !virtsnd_pcm_capture_counters_valid(vss)) {
  			vss->xfer_xrun = true;
  			virtsnd_pcm_schedule_period_elapsed(vss);
  			return -EPIPE;
-@@ -1352,7 +1376,9 @@ static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
+@@ -1270,7 +1299,11 @@
  
- 	if (vss->capture_staging) {
- 		rc = virtsnd_pcm_capture_staged_ack(vss, runtime);
--		if (rc == -EPIPE) {
-+		if (rc == -EPIPE ||
-+		    (!rc && runtime->state == SNDRV_PCM_STATE_PAUSED &&
-+		     snd_pcm_capture_avail(runtime) >= runtime->stop_threshold)) {
- 			guard(spinlock_irqsave)(&vss->lock);
- 			virtsnd_pcm_capture_arm_paused_stop(vss);
+ 		/* ACK includes any subperiod tail already copied to the ring. */
+ 		bytes = frames_to_bytes(runtime, diff);
+-		if (bytes > vss->capture_ready ||
++		outstanding = vss->capture_copied_total -
++			      vss->capture_acked_total;
++		if ((!free_running && bytes > vss->capture_ready) ||
++		    (free_running &&
++		     (bytes > vss->buffer_bytes || bytes > outstanding)) ||
+ 		    check_add_overflow(vss->capture_acked_total, (u64)bytes,
+ 				       &next_acked_total) ||
+ 		    next_acked_total > vss->capture_copied_total) {
+@@ -1280,7 +1313,8 @@
  		}
-@@ -1361,6 +1387,8 @@ static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
+ 
+ 		vss->capture_acked_total = next_acked_total;
+-		vss->capture_ready -= bytes;
++		if (!free_running)
++			vss->capture_ready -= bytes;
+ 		vss->pcm_indirect.appl_ptr = appl_ptr;
+ 	}
+ 
+@@ -1314,8 +1348,14 @@
+ 	struct virtsnd_pcm_transfer transfer = {};
+ 	int rc;
+ 
+-	if (vss->capture_staging)
+-		return virtsnd_pcm_capture_staged_ack(vss, runtime);
++	if (vss->capture_staging) {
++		rc = virtsnd_pcm_capture_staged_ack(vss, runtime);
++		if (rc == -EPIPE) {
++			guard(spinlock_irqsave)(&vss->lock);
++			virtsnd_pcm_capture_arm_paused_stop(vss);
++		}
++		return rc;
++	}
  
  	scoped_guard(spinlock_irqsave, &queue->lock) {
  		guard(spinlock)(&vss->lock);
-+		if (!vss->prepared)
-+			return -EBADFD;
- 		transfer.indirect = vss->pcm_indirect;
- 		if (vss->stopped && runtime->state != SNDRV_PCM_STATE_DRAINING) {
- 			rc = -EPIPE;
