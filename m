@@ -1,82 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793152482;
-	b=oHAzw/jj2R24L3r82AJWN6lDsknuru6Q5trfVbo8/zsKj5ejZrmQ0pWCIXUPirDJEhtf
-	 7ftcmjTqHsuMkuolNXkJ1KuBufaZR1nuXtZRsbnnWwIN5uVfm5vFdzwd/rfkBvJuwcrgy
-	 hbC9eGjF+0FAQHgecCP1KLliAYhmtpMmkZbYgsYadNcOwWA5yqRWl+6CCaEdsG7qgzVYu
-	 OveE9HW7+yGtDJpvaXLGtDdBrnbNyAU813bX2RfBzR31yo0f0O3uACZzV46zMag8bbnCO
-	 0wAWVbymfSs9Mz3k4c/0SiEVdv09IhPo8+kmaAiYXQoaN6sqxAVxLhp4nFYFvVw69VQ==
+	t=1793152666;
+	b=IFZofuvyys8zTvjk6e/DuDWRvaakfkB7PckJLKMqCJW1WZMsOZ2J3lIedrvNl5uTiOiM
+	 8FgrklfCzU3QODUi93RiQVNYXVLQ4XU670zHIvFen4AffyUKSW79DAwps7Fz1PRUX9q2L
+	 Yf06u9sgHRCANX4uPEzMiCWIT0kia6TCqfiIEFLvlPVIanapEr58vtbphnofZDpRssTba
+	 d16Tvr14Xq51dP6cPDE5QnLOPyJAoYFc31OnYhZGJi0AIzlaVXwfm2et2ylan7LnHb094
+	 4iH3PlMijKQU0xBwLlVg6r1gInJGp1Z9++Ya2wMzT8T432kIRN42tXhPOWAGqdzhdMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793152482;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Jv0viWHQHTUEV1mDCkGnX75tF9pmsdnlVC2brICS/pY=;
-	b=o3E1+2WeI7CmKaRF3F8mz42hRfG3VNg+09LIhBnUOvbr1dX3qKvG7YogRyO01caljFck
-	 HF1SZJLcaabbcXGjDyrzJ/XhbUV9Xlj1zB4LAbgghDwjuJSVaiAGYN9gfGF6vEWCPj4iY
-	 R5qt9XyMDn8qiW27PFi0vprjfv4IUQCVFA0rK1vhj4XRaUI82dZKg4qsHDF1NSryTr4Pl
-	 akz45fXFHWAxLCsKzBX8h/G0oGS9m/v9GeoJB5spU15FbibW1aJ6egp6Z9NrYXZv4S4c/
-	 L0HIToK54biaZeWDYeo7Q5uv6PnWrwMWY7AwKLEZBwwO2YSKmTkygrZ35mDqMTA9Rqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793152666;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6o7SwbFD+3bJMNkyYaXBqBSgGd0PRrCJLtt0HA3UA2c=;
+	b=i0JoiAcQOmPYylHTKahAyFx+Y/9obRc42bbt0Ai8Wupt59loMetth5RWkLJA+fM876J/
+	 Gju/O/Cf4OSLbr/4i/Udw7ROnUysf86IIkxN9XjWqQg+uG99OpKiSIUlxIgw9TMdQiEmN
+	 VbuoY8CtmKVV/Gtlq6GS2ZKbdZ33MaBUQo3P8XkONxHrR0NZASsVUy0aQrXis+ugsTXbv
+	 6eK7Y1gE4s1sA+ySGS0lozl7120/rO7js56kVTTkM7XY3ez5crd1z3Y6ebqWcgKcitPFI
+	 UeZjyLtft9ZGQ11PJNRo5bi6vM2+o0iSLCEnFqnojPJXxga/SVmJ0XTVUJAZ9zre3HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=dPXKpcGv;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72749606A31D;
-	Wed, 28 Oct 2026 01:54:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72749606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wV1mF9RX;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C406B606A31A;
+	Wed, 28 Oct 2026 01:57:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C406B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=dPXKpcGv
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69S1sPnrD1438641, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793152465; bh=Jv0viWHQHTUEV1mDCkGnX75tF9pmsdnlVC2brICS/pY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=dPXKpcGviR5nwI9MZ4YlJHUM021OBcWcbTVpVQwqsbpNcshU4SxBJb0bn2QcKlgHG
-	 Yt1DWFnBWfDC7dGdoDfTfzfdeuNwMN/1Tbs3ojfPS9a7PMCv0d84LbNjAVO2wQZ3RI
-	 i9xpwQuL/7Av/nMDq/Z5Az8Mm9rZsr7anwLwPkwKywIkNwa0XHrng+szBWrFwB8xKx
-	 KiOd3YEkHgtvC1u0MNkG+8oseMqb7/Te1yfwgtoHzuq9I7N0QgPYxkfSSGFlOzFNvy
-	 oBzm8Vx1xXQbpKcNNQ13MDQdVI4z88VTXM518giHl7lhBxkUAgnYxDwhWBKmmJ1nSh
-	 d+xWrmN/9J7UA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69S1sPnrD1438641
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 28 Oct 2026 09:54:25 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 28 Oct 2026 09:54:24 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 28 Oct 2026 09:54:24 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Luka Gejak <luka.gejak@linux.dev>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "mehmet.fide@screeningeagle.com"
-	<mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v8 2/3] wifi: rtw88: support channel switch in AP
- mode
-Thread-Topic: [PATCH rtw-next v8 2/3] wifi: rtw88: support channel switch in
- AP mode
-Thread-Index: AQHdYVG43GUzyp7a8U+d1TEXFu+Me7cNv5wAgABaToCAApC2sP//82gAgAGdZ9A=
-Date: Wed, 28 Oct 2026 01:54:24 +0000
-Message-ID: <a0a741641b9f40248c8754c8e1e8d5fd@realtek.com>
-References: <64d3a24e0afd460db4a182bfa2214aa0@realtek.com>
- <20261027091312.1421798-1-mehmet.fide@gmail.com>
-In-Reply-To: <20261027091312.1421798-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wV1mF9RX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=wV1mF9RXJf24IFQD/AGlX5pYLe+I1FeD+e6kX2W+2ftkrDhSC+bFouhvnlonbugxYbIyza8XfPuR+
+	 ZlKMoAweQw+v2VRKmnEfG7z9Hqdnq0NwGsmn1LGFU/Ltcht+nwpA4SmvoCMplsrx+Kahxg+Imq1j4l
+	 RmvWQCOFWXSANry8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96ae1568e9b0-612f8;
+	Wed, 28 Oct 2026 09:57:34 +0800 (CST)
+X-RM-TRANSID:2ee96ae1568e9b0-612f8
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae1568c813-f1f91;
+	Wed, 28 Oct 2026 09:57:34 +0800 (CST)
+X-RM-TRANSID:2ee96ae1568c813-f1f91
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	srini@kernel.org,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tang Bin <tangbin@cmss.chinamobile.com>
+Subject: [PATCH v2] ASoC: qdsp6: q6routing: Fix memory leak on probe failure
+Date: Wed, 28 Oct 2026 09:57:31 +0800
+Message-ID: <20261028015732.1985-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <6078ca7f-a511-48d9-b5fb-a7b3339c8569@oss.qualcomm.com>
+References: <6078ca7f-a511-48d9-b5fb-a7b3339c8569@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,34 +76,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> Hi Ping-Ke,
->=20
-> > During the WoW suspend, I think AP stays on original channel and sends
-> > beacon without countdown. How does associated STA do? Will it switch to
-> > target channel and disconnect result from no beacon?
->=20
-> Yes. I tried it with mac80211_hwsim on wireless/main: the station
-> switches on its timer even when the AP goes on beaconing on the old
-> channel without the CSA element, and disconnects after the beacon
-> loss. From the code, only drivers with abort_channel_switch (iwlwifi,
-> mt7921, mt7925) abort the switch on such a beacon and stay.
->=20
-> The AP stays up during WoWLAN only with AP + station on the 8822C:
-> WoWLAN takes a station vif only, so with an AP alone rtw_ops_suspend()
-> returns 1 and cfg80211 stops the AP before suspending. I checked this
-> on an RTL8822CU during a countdown.
->=20
-> Refusing WoWLAN during a switch would not help the stations, cfg80211
-> would stop the AP as well, so I would keep v9. The resume path does
-> not run on USB, the device is unbound during suspend; an 8822CE is on
-> order, it takes two to three weeks, and I can test it when it arrives.
+routing_data is allocated with kzalloc() and stored in a global static
+pointer. If devm_snd_soc_register_component() fails, the probe function
+returns directly without freeing routing_data. Since the remove callback
+is not invoked on probe failure, this leads to a memory leak. On a probe
+retry, a new routing_data overwrites the global pointer, permanently
+losing the previous allocation.
 
-Understood. Then, AP mode continues to switch to target channel after
-the resume.
+Fix this by switching to devm_kzalloc_obj() for the allocation. This
+ensures the memory is automatically freed by the device core if probe
+fails or when the driver is unbound. Consequently, the manual kfree()
+in the remove callback is no longer needed and must be removed to avoid
+a double-free.
 
-Ping-Ke
+Fixes: e3a33673e845 ("ASoC: qdsp6: q6routing: Add q6routing driver")
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+Changes in v2:
+- Use devm_kzalloc_obj() to let the device core manage the memory
+  lifecycle, as suggested by Srinivas Kandagatla. This eliminates the
+  need for manual error handling and prevents a double-free in remove.
+
+ sound/soc/qcom/qdsp6/q6routing.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index d076c99f1..4816d4b9a 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -1209,7 +1209,7 @@ static int q6pcm_routing_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 
+-	routing_data = kzalloc_obj(*routing_data);
++	routing_data = devm_kzalloc_obj(dev, *routing_data);
+ 	if (!routing_data)
+ 		return -ENOMEM;
+ 
+@@ -1224,7 +1224,6 @@ static int q6pcm_routing_probe(struct platform_device *pdev)
+ 
+ static void q6pcm_routing_remove(struct platform_device *pdev)
+ {
+-	kfree(routing_data);
+ 	routing_data = NULL;
+ }
+ 
+-- 
+2.52.0.windows.1
 
 
 
