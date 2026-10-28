@@ -1,110 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183126;
-	b=ekRBDefC/mH4/Faudag5NbF4R4sefTTAMnXCdBALbeWTf1iqFQBMddMLyBeSUgMInwH3
-	 b8Bk2Xw8/9ZoygFDKiEyXFzsOkFcwj0uZ6e2UPlfE6xqSAuWfUnFNiurB1bQWIY9W9TZG
-	 iLkUWbqPQFO1A2aB+7UAA/tAk0v8zT0fVzonH8cMPZ/HXB2bi8L++paTJ6zSDms5TgfXv
-	 upglsqjfxFo/lgXQAcc5n/lNaQ9Dq2CMIDL2r6zUt/FnQ7uGz/g1setoHTBO0eJi3l4DV
-	 A2HV8/YBPfnaUBwguYii31HoTCsGixVrhMFBXcHKAKdGZv9S7ctix0y7GcborRWTNXA==
+	t=1793183257;
+	b=ZGUAIBASedpwyYKgPTfi9Kqz+D5EvL0SjSuSm2KYHbHNepNcdAo6eetTcfUCMQsWDlN7
+	 vAAAJYw1XKqH+imkf/WRuI+bin+3Ng3A/1L4auovr3hndRk8QjeYtPf9v/aiDNBwKP+cf
+	 z0xg2kMxYFTfMHH5PzzqlzaVYRS4PzxxrOtQBGGh5YEGHr3GT/6EXd/ickvLTFphq0D9n
+	 TyhnoolfSi+AOzB0yI253hdzfaYuAZY5SWIrJnFaRtFBATFe29OE3TCO5nk0PqBy/QL5/
+	 mZUgf7nRIx8dilA5lnJc6Tp+hcSoaXnRycXnMXPAMBE6BYs6oG7hlvUaVPjthAy4hWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183126;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=pv6qltU9ZJwrGqHAOJc4GXQkLhFZfzdGycprY/xroto=;
-	b=crQddEerpjtcFThzAz1Hs9H0CGrE3k4UAJxYnOaFdCpZ5vZERwF6f3X1s7Xatl4uIHuE
-	 SzhtpJDxcvsVsBRNi3mD9RHbcyt3xWpXBwbZVZuzaDFLYvMblK3Dcjl2vzpyN6pHhKvKs
-	 XK1lviBVIHieBqOtH9ylKj303UgPQtAaRCPNjGL2R/D8SB3kIF2K//K8hHdWS71KWtIs0
-	 c5HVg9AA7ybZdZEgwYUt7uUg0Xgthcfrnh0tGIAWdq5WnKOuFoU6LNyTk5kuDQZMtIeWk
-	 5sByfe9bjlihu7vdUDUXnxIDTyd8NsZ0kieEhRAjeAPzuJu2SWQGZQriNgsJFtcXyEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183257;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=CAsQNlvEQewVVFce1WqlpSDwej6JOKTiJP6Vd2oTTAg=;
+	b=Da4vV7X4jI9qxCqgudrvsWVoVCJO7t2XrGL0h+3VNlOWOMbMHc8JrUXrKjDb6SHS8GV4
+	 2bBTn3XIySz6LfhgsPWOqumVt2GYZlQnPzAB04qC+ePI9B/2OZo1r8kqu6wHcVJQQ2b2u
+	 9WKdnQKfFCvGdNHZipsmVDOsYKZbewiw++VUo4x0QfPOyz2ctbDVcaq31BiHBCqrPymTJ
+	 EmXQBFTzA7CBkVBRHnvjp+p+pRI3aZ2R+9MZDBtSorhqFw1IP5vqsBW3xPNCNqoJSR2yc
+	 +arASBOD7mpi1uhcBN5p1UMO0d/sG+H8tQH6fE6eZMCrGDdmygmxypxAooiJC1AExqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KNnchJWO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JDqWFqDW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Jmwex/kK";
+	arc=none smtp.remote-ip=95.215.58.45
+Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC733606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC733606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FE0606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:27:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93FE0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KNnchJWO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JDqWFqDW
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8K9Lc253430
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pv6qltU9ZJwrGqHAOJc4GXQkLhFZfzdGycprY/xroto=; b=KNnchJWOzM20typn
-	qvk8dIaJwseYSglej5+f67IZgWBKrMvqFnmpGZWwMok0sKH2+QBHuS+pg137z7O6
-	LKR/GrxUQduZ6O7+g1o/a9h0aBuXmkzFiJu0hoz5eUttEqwskRc5vNUmrGhNSfqE
-	deU2yRoPWA7qdorwZaOfVrGJ0THo4VOXzaFFfkbT3+dYTNd7lDmr0ltvkHS//+XF
-	ekeAeuJJkk7NWcBHF1ZU9Z2kOitHzdK1JqIJoqyjfkVHpD3Bb+/VE3adFCucwPej
-	2cerc+QmOTapsLS/L0tiCKtpYCmgttKqh+QLh03o9R1o8W0U+/tMZGk2zMURgblH
-	HGomnw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6be1yy4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:24 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so134950585a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793183124; x=1793787924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pv6qltU9ZJwrGqHAOJc4GXQkLhFZfzdGycprY/xroto=;
-        b=JDqWFqDW7fioWsqsPbe/+4U/DmnQZWmHobC7ig97W8pKnAP+zGAKKY80kaRXx6RdK4
-         tWESpB/Y2NwJEz4Rtrx0oiRu9LGgSH0NOUtveBGwIMnwXgoC1W7rbf4a3LMVKBvv4/+a
-         yVuNCGsFXi8pF3MLYBtWAyd02D2daSGY5pUk/Lq9Y2HAHWoOwpUKnw5UTwYCVreNA46i
-         XNqzLaXwFa07Std0tlziB+eEutClI0RJxy/Kw2tpwo9lNK/EmNuMxmBpPDL+xO4p6Dc0
-         cl/V3mhzAm/oPBTVMexQ0Nl+VoRaSTDgM8cfyJZkhd3uiuXbQC2ySwkh107giDXMkUNJ
-         rV5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183124; x=1793787924;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pv6qltU9ZJwrGqHAOJc4GXQkLhFZfzdGycprY/xroto=;
-        b=HoJ3aIKziIoyUNfJvleiOe996UFokLKipJ4piAWvUQCr5EuTSYlDSN8MwEVfZni4o9
-         hP+8Adjn5J/38jO4aPtCKGqr5Ad5qm22cxaT9dcr/dtmInztbM8SK13MF3H19L6T8nz2
-         Mg3U/dr6JSHZAXEECIywl0PugmiBR+UDINV83sM3CVZtuVnR5cOv2RvIcOG/hua/KpL+
-         JKmfJOLlcWaz4zmbqSUoe3S1JLFMk8DOgysWQbuJkol7rIdfsRBe+SrTdAq9QhaImLqF
-         mHhXbP69dlGL6MNP8uvX6XWBFdrZNnMeq+PM6ao4IaPaa3cCCaWysMterygzCFI3bf2x
-         GBlw==
-X-Forwarded-Encrypted: i=1; AKwUvByHWpcobu8IrUgApIkzbiobwlzt7vxkbIphZlrlew77ouS9l3pMeJ2qzkwMHfEFx+kfrFDQly44QFX75e4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3y6tOs1cmsarc/SvyeZ582mvw2E1rfrhKeKhhz9QYQwGwYsQY
-	vaO+QR2fKeDoaHrZuYBjxnEcIjQLM/UWxbl/ItYhAAWfqD/ILbEOvkBVGNVKTnMygbO8L/xLpkT
-	ASfd4UhCdTNSNCJaNAXcTH0hDs+3ddHmxLL8K7mZOIQWEKOIKQTGf+QeDiCrYd3VA7B8=
-X-Gm-Gg: AYBFou3Qmt4OgSSc8v/CoCPxwNIqHlTg8NnH2FdQyQRB44R6EXG8kMUm+LbVgfbSF2C
-	xbK3O58EdDtW9+Z+1z0M2goXc6iObGuJWcC8gQ+t7gT2O+PzsS6KPfjoB2cxtsjBypd4F0x+2AD
-	lR5he9a/6iiy9qnHAGEhWFh6PcY26s42Wfu+1VvBGdFTLCy0Q4CjMlur9/9EyFKlqjXgTlmlVGk
-	1F4HbaHPzCzmWDrCAiFo1HhoLYFmX6Qx9GsU231TtMQcsaqHKlw+xd6vL6Gjd8vHleYPrLxxmij
-	Hix9q+hc/zJiOfpjr5TFnlN5XBycqr9W3i1OKqrtsnxDjy3A4AdCi0EWIMwCIDFrBFVAt1cNHes
-	SzR3wJscZcIM/GCwQT1E3sCvagbDP94dzX5U7Zuu2ckU7HeNj5QzJg2MoY6VzSNCsKJ2HRsYwwa
-	c=
-X-Received: by 2002:a05:620a:4686:b0:93e:90e0:d2e3 with SMTP id af79cd13be357-94408c949ccmr235476385a.39.1793183124067;
-        Wed, 28 Oct 2026 03:25:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:4686:b0:93e:90e0:d2e3 with SMTP id af79cd13be357-94408c949ccmr235473185a.39.1793183123394;
-        Wed, 28 Oct 2026 03:25:23 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c46bd650118sm593412166b.49.2026.10.28.03.25.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 03:25:22 -0700 (PDT)
-Message-ID: <09f04f21-6200-4db3-93f3-0399259982e3@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 10:25:21 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jmwex/kK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OSNgAFP+VgQv9q7o9VlptAb+MUtYzG3jKiN7D8DtKj8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793183254; v=1; x=1793788054;
+ b=Jmwex/kK7FpuCV4bqSsS5FCwcMt+EqZgDLePJZ4dvcrpEr4L/YHoyx7QKjmO1CIocO5OCbGr
+ tkZmoFbOPWPIzOshnL3/DpTiXzlghHbrudm38WhVc3KkL5yD0mKtIroNlIaYfbth6p94x+Qcx/Q
+ vj7/M3C4X89z4qZWGeENzS/M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ee56cd7c32368443;
+	Wed, 28 Oct 2026 10:27:33 +0000
+X-Mizu-Trace-ID: ee56cd7c32368443
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,103 +56,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: qdsp6: q6routing: Fix memory leak on probe
- failure
-To: Tang Bin <tangbin@cmss.chinamobile.com>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        srini@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
-        perex@perex.cz, tiwai@suse.com
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <6078ca7f-a511-48d9-b5fb-a7b3339c8569@oss.qualcomm.com>
- <20261028015732.1985-1-tangbin@cmss.chinamobile.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261028015732.1985-1-tangbin@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: qgHguUu4hUsiTryoWv74-tfoobwKnEar
-X-Authority-Analysis: v=2.4 cv=HeuB3SE8 c=1 sm=1 tr=0 ts=6ae1cd94 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=R5C9hjxsAAAA:8 a=EUspDBNiAAAA:8 a=tTWfHTwrCVQG4aLPPI0A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfX9t5R0gRVDnPr
- FYniW1pOs/S9nlBxjPZFJ9DioZjgu6WrgOt07jetWttGiJMnV0C7Ze1mtXM0nXgH/mvyTJUT1YD
- qpun3F7OnIX+bB9tKNTmBZTc3iKoDIA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfX6OM1ocMAHoJB
- lGvQMu9vPey3E3KSE0aJKRKb5E96weSoLRR5iRi0TT3aLNnBwRBGPUYPQWceEgthpqgU9byXVLz
- 4doB6dlspz51mmtTyTVLpbZ7IN+hs3Yz2kpTMY90uXdhzJX8d06Opl+B1qtC1FHl2PKbUjIoAhr
- b5RV5+AaRKqfM/CgZC2JTbDytYCwstf0fhQifqjev6QJ4GXGUpJR71CFzF7FrHocfRUFvbZRMDw
- VOYvCpZTvi3qCK44ksRNhI2q9jRJjltr9Tf9Gd+v64D48N/f9doEuOp4ZIBvu+H9WXkxinBE0Ek
- D3mglbQCIFiZb7wMRxcPBLA3lQdQQH7GXS0Z/YX2BdQo52G1cY0c+Dtc+4YJUh98yuy3o2OUTaT
- tFipdHmZ0F1Zb3HiQu/WAs8v7F5vOH+XH9vS5RWAl6F18d2PQrKFD3RimCYjScL0dvlT4RKpBQs
- u3nafs6hwYmz0jmezpQ==
-X-Proofpoint-GUID: qgHguUu4hUsiTryoWv74-tfoobwKnEar
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280041
+Date: Wed, 28 Oct 2026 10:27:33 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Hui Zhu" <hui.zhu@linux.dev>
+Message-ID: <c652f3e6198b143fcf29f5540a769228f3d8470c@linux.dev>
+TLS-Required: No
+Subject: Re: [RFC PATCH 0/2] memcg_ext: dynamic memory.low and memory.min
+ protection
+To: "Tejun Heo" <tj@kernel.org>
+Cc: "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Song Liu" <song@kernel.org>,
+ "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>, "Michal
+ Hocko" <mhocko@kernel.org>, "Roman Gushchin" <roman.gushchin@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Muchun Song"
+ <muchun.song@linux.dev>, "JP Kobryn" <jp.kobryn@linux.dev>, "Andrew
+ Morton" <akpm@linux-foundation.org>, "Shuah Khan" <shuah@kernel.org>,
+ davem@davemloft.net, "Jakub Kicinski" <kuba@kernel.org>, "Jesper Dangaard
+ Brouer" <hawk@kernel.org>, "Stanislav Fomichev" <sdf@fomichev.me>, "KP
+ Singh" <kpsingh@kernel.org>, "Tao Chen" <chen.dylane@linux.dev>, "Mykyta
+ Yatsenko" <yatsenko@meta.com>, "Leon Hwang" <leon.hwang@linux.dev>,
+ "Anton Protopopov" <a.s.protopopov@gmail.com>, "Amery Hung"
+ <ameryhung@gmail.com>, "Tobias Klauser" <tklauser@distanz.ch>, "Eyal
+ Birger" <eyal.birger@gmail.com>, "Rong Tao" <rongtao@cestc.cn>, "Hao Luo"
+ <haoluo@google.com>, "Peter Zijlstra" <peterz@infradead.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Kees
+ Cook" <kees@kernel.org>, "Jeff Xu" <jeffxu@chromium.org>,
+ mkoutny@suse.com, "Jan Hendrik Farr" <kernel@jfarr.cc>, "Christian
+ Brauner" <brauner@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Brian Gerst" <brgerst@gmail.com>, "Masahiro Yamada"
+ <masahiroy@kernel.org>, "Willem de Bruijn" <willemb@google.com>, "Jason
+ Xing" <kerneljasonxing@gmail.com>, "Paul Chaignon"
+ <paul.chaignon@gmail.com>, "Lance Yang" <lance.yang@linux.dev>, "Jiayuan
+ Chen" <jiayuan.chen@linux.dev>, "Emil Tsalapatis" <emil@etsalapatis.com>,
+ "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Barry Song"
+ <baohua@kernel.org>, "Geliang Tang" <geliang@kernel.org>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, "Hui Zhu" <zhuhui@kylinos.cn>
+In-Reply-To: <769e80ffa618327ac03c13c4657e7229@kernel.org>
+References: <cover.1793086858.git.zhuhui@kylinos.cn>
+ <769e80ffa618327ac03c13c4657e7229@kernel.org>
+
+"Tejun Heo" <tj@kernel.org mailto:tj@kernel.org?to=3D%22Tejun%20Heo%22%20=
+%3Ctj%40kernel.org%3E > :
 
 
+>=20
+>=20Hello, Hui.
+>=20
+>=20On Tue, Oct 27, 2026 at 05:11:58PM +0800, Hui Zhu wrote:
+>=20
+>=20>=20
+>=20> Why it matters: memory.low and memory.min protect a cgroup by a fix=
+ed
+> >  threshold and have no idea whether it is using the memory. A
+> >  high-priority cgroup that holds a large working set and then goes id=
+le
+> >  keeps suppressing reclaim on its siblings, and that memory is wasted=
+.
+> >  A policy program sees the real activity - page faults, charges - and
+> >  can grant or withdraw protection as it changes.
+> >=20
+>=20This doesn't justify the changes. Why can't the same be achieved by
+> adjusting memory.low and memory.min from userspace? The arguments made
+> so far are neither convincing nor proven.
+>=20
+>=20Thanks.
+>=20
+>=20--
+> tejun
+>
 
-On 10/28/26 1:57 AM, Tang Bin wrote:
-> routing_data is allocated with kzalloc() and stored in a global static
-> pointer. If devm_snd_soc_register_component() fails, the probe function
-> returns directly without freeing routing_data. Since the remove callback
-> is not invoked on probe failure, this leads to a memory leak. On a probe
-> retry, a new routing_data overwrites the global pointer, permanently
-> losing the previous allocation.
-> 
-> Fix this by switching to devm_kzalloc_obj() for the allocation. This
-> ensures the memory is automatically freed by the device core if probe
-> fails or when the driver is unbound. Consequently, the manual kfree()
-> in the remove callback is no longer needed and must be removed to avoid
-> a double-free.
-> 
-> Fixes: e3a33673e845 ("ASoC: qdsp6: q6routing: Add q6routing driver")
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
-> ---
-lgtm,
+Hi Tejun,
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Thanks for taking a look.
 
---Srini
+You are right about that paragraph.  It describes what dynamic
+protection does rather than saying why it has to happen in the kernel,
+and at the timescale I described a userspace agent writing memory.low
+would keep up fine.  I will drop it.
 
-> Changes in v2:
-> - Use devm_kzalloc_obj() to let the device core manage the memory
->   lifecycle, as suggested by Srinivas Kandagatla. This eliminates the
->   need for manual error handling and prevents a double-free in remove.
-> 
->  sound/soc/qcom/qdsp6/q6routing.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-> index d076c99f1..4816d4b9a 100644
-> --- a/sound/soc/qcom/qdsp6/q6routing.c
-> +++ b/sound/soc/qcom/qdsp6/q6routing.c
-> @@ -1209,7 +1209,7 @@ static int q6pcm_routing_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  
-> -	routing_data = kzalloc_obj(*routing_data);
-> +	routing_data = devm_kzalloc_obj(dev, *routing_data);
->  	if (!routing_data)
->  		return -ENOMEM;
->  
-> @@ -1224,7 +1224,6 @@ static int q6pcm_routing_probe(struct platform_device *pdev)
->  
->  static void q6pcm_routing_remove(struct platform_device *pdev)
->  {
-> -	kfree(routing_data);
->  	routing_data = NULL;
->  }
->  
+Let me try to say what I was reaching for, from the code rather than
+from a benchmark - a comparison between BPF and a userspace agent would
+say at least as much about how well I wrote the agent as about the
+interface, so I am not sure it would settle much.
 
+memory.low is a request, and what reclaim honors is elow, which
+page_counter_calculate_protection() derives on each pass from the
+parent's elow, the siblings' requests and the tree's usage.  At the
+first level below the reclaim root that comes out equal to what was
+written, and there the knob is enough.  Deeper down it is capped by the
+parent's budget and shared out between siblings according to what they
+claimed and what they use, so what a cgroup wrote and what it ends up
+with can differ.  As far as I can tell none of that is visible from
+userspace: memory.low reads back the declared value, and I could not
+find anything that exports elow.
+
+Exporting elow would not help, because elow is not a property of the
+cgroup alone.  It depends on the reclaim root as well, which is why
+page_counter_calculate_protection() warns that it is not stateless and
+is only valid as part of a top-down tree iteration, and why
+mem_cgroup_protection() carries the example of a concurrent global and
+targeted reclaim driving a child's elow to zero.  A file would show
+whichever value the last reclaim happened to leave there.
+
+So the derived value seems to be usable only where it is derived,
+inside the check, and that is where low_policy() sits: it is evaluated
+per pass and is handed that pass's own inputs - the memcg, the reclaim
+target, the elow just computed, the usage - instead of being state that
+is read at the check.
+
+The other half is what a policy can key on.  memory.low has one
+dimension, bytes.  A policy program is not limited to the ctx it is
+handed; it can also use state that other BPF programs keep, so
+protection can be a function of activity rather than of size - a
+workingset refault rate, for instance.  [1] reads those counters from
+BPF and acts on them; it drives reclaim rather than answering a
+protection hook, but the signal it reads is the one such a policy would
+want.  The limit is on the output rather than the input: the hook
+returns a boolean, so it cannot grant anything memory.low cannot.
+
+I would be interested in how you see this - in particular whether the
+nested case is worth supporting at all, and if it is, whether this is
+the right shape for it.  I am happy to rework the patches, and to add a
+demonstration of one concrete policy if that would make it easier to
+judge.
+
+[1] https://github.com/teawater/memcg-async-reclaim/tree/memcg_ext_plus
+
+Thanks,
+Hui
