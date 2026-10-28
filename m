@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176218;
-	b=2haBvGSa784bN1j5MvMtESBkIeLX2cKyCzVYY7zYxvsHuaYxi+2z7ayrIfSgehfcu9CL
-	 zlMCDhOgA+vceI78T+N4ITkZR4emd2AC0soYG2mP35d9bYt23Jw53rLXdM3jpLV2dtiwC
-	 KEch0wEWVB9OamNtdhkoCU8x6XayxIkdwVK+hN9pH1O1Hz4b9FZ5ygVMqwVsr7RFhboFU
-	 hM/+tI8+AGHpzMkAPs6W1iV2pBHnzifNeHVXirIxaySOWP41wIB/io9vGJDXexz1HsPAn
-	 4TCoSp4hDNR//EDwtUaZmgJDH6F1jRXQAkucFhF4E9FWL22FMNFCXT1CXn3cw6zJt7A==
+	t=1793176249;
+	b=W4sPx+pEI9oijpQPTLUIwxx9UXHdU9F3Xa0IkgtBDyRKyiZfvQYeeayXLhdFZzz4XDlu
+	 gRm/9awlTtQA6Yw+ghmtrfYeqlx9bEeFGzcVVDN2KhnF9U5/Lm9w7p0lRmbbzB2Ubyi2S
+	 6kLC9TyXYpi6x9iwFMXsaOmCofc23rZgWeDRdJcu6IIAWAfSrCV1+YML5UfO8lwma1wU3
+	 bPP/5fDumi2kRllVdYEE68+MHzrt12pRnDJa2e42C+eWBKp0zp8mEuViq7alNdPNOHy4Z
+	 abAcXgcvBj6v/205MN6v5bYDclTV4wkXFYPHdFZ8Zz1ZA9zQby30Q9Fnft/4ZGwIc2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176218;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=tOHeyNRvmbXusJKMq6HVQABJtMt41LHGwmGBsrUeMzk=;
-	b=4i3a8w6D4wBUehCJIXufRutGVR0jbEu5yU4P5Rbe4aD416ZyF2iJhXHhLj/03gIvXsm3
-	 fbaOfAA6GUkVjEkAkWJ5796KV6iAwjRFRcSR+yr86jrbciyx10n7aeIkpWBhuGgr02IVu
-	 /8ePIFav8KtK9vJ09X1kbpdhxaCnlxyYG3VIuBauF/zNFHLphwKn5U3gngYSvWhrjGLfa
-	 0CIa5H/cl2tQihCBmQYu6s3tNhTlN4Ovs+thVpGHQ9H2LpuUqxKv167eD3zYsLb7FfwAA
-	 6B47RvnpPYg1Yof6ZdDUXHbKjtmmp4DXlyHyV4srX2hWP0uTZbExXqPwoOnzhzglrNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176249;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=F2U3kdoVG434NqHThnyunhDlyK5ZpnJvS54IwGJgLWI=;
+	b=O0BbW7mhDBSw3JlE67kfzAnpO4cYrlRxzOafjv3a3aStXy+K0f88EqvNmAAwc6s7nPkE
+	 qCjUjThO5KFIVyCHVtWyLXAngmq8aSOmsiBg4db78H3Oog33GZOJMGpH1Q7DdsLPk8LuJ
+	 IGlGNzz+9Cm1L4QCTF8LPHnz6zBCb88ROx1H46Do5T6nJ6qFiQthyf3gMHloCHkphaVXD
+	 rRa8hRR5I2IjF4DqD8I27m0zWwOsRP8C50Z4mo6meTmYAIM6a5Zuc95XSJ5V67GlmI6pZ
+	 IcF5QrdmSEAORi9U4qQwj+IgzRUjLihSgaXyuHkolcefsIKu6PkmV2iAUgtwSCPxaDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="y0T3/6nz";
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF6A606A31D;
-	Wed, 28 Oct 2026 08:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF6A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9B3606A31A;
+	Wed, 28 Oct 2026 08:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9B3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793176217; x=1824712217;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=+VrEP1WtzBFvz1LUMzocRw+T/DgCiiZIdHezI1jy7fM=;
-  b=j1IsCY3koGy0dKjExUNFNfhBSRv1crBtnNHEd9RiX8Jn10ECHMZEBpiO
-   kizUVFjMfys1CpjNshw5rBnIl7WMhltlqMy1hmY/F8FsJyyLVpvbc4enm
-   pvNyVSlhoUil3iOIz77DODXXrULt7qzWhF2jgneITDc4Nkk8mVuo2M6Gi
-   j5RRyD3ceEkaC77eIP5/8qc08hVWfVwGJXRIuve3uWjxGmfY9GPch7k3K
-   J1FkD0wRzw0CcZ3ItJUEjbMSmMbpZx+GjoWqfkdhi/BwOexMVK/qYgJzx
-   iNCRyTAHO8IcdAT77nmJzAYWzNeL6DUXTC4bAtygbRqUwYVX1IYELmcv7
-   A==;
-X-CSE-ConnectionGUID: rj9FcSVzTKuOq8bCUToACw==
-X-CSE-MsgGUID: cEOa83v5QxCi326CZ+F75A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1911571"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1911571"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:16 -0700
-X-CSE-ConnectionGUID: DUrcjuXNSSKkOJTwbdT4hg==
-X-CSE-MsgGUID: JUePD06ET02YdR9Jmycmmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6600853"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:10 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 28 Oct 2026 10:30:07 +0200 (EET)
-To: James Hilliard <james.hilliard1@gmail.com>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v4 2/5] serial: 8250: share the RX trigger conversion
- helper
-In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
-Message-ID: <805ee11d-c385-f509-456a-35205d8963b4@linux.intel.com>
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=y0T3/6nz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793176245; x=1793435445;
+	bh=F2U3kdoVG434NqHThnyunhDlyK5ZpnJvS54IwGJgLWI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=y0T3/6nzMB2YJf9eHv+Wk3JP9Ny/jchhjsbieyF9M+oXqTifXgODJZ0gdNuE4tTXN
+	 hJFFRU8ZztWZnPhQk8Ee+xu/1V7dFzL0ICACGa3sMnRd0z/s4rbh4mhKL2nOrkd7Qq
+	 WPF1IsYh7kV4VNr8bM7l3yn3Wll3Fk8Wy+xVfC4rXV+lJ0BKqn7d/MurLN0E9oiUQe
+	 xmySwg+A3hxv9jwlDZ636/5QYCRLm/WjkTvvCQJJ5zFBRTu9di9lUXUmcuNZP7HUqb
+	 AykfrzFnLP/rS89laKEcilICd8+7O7SzjLYPQ5ErqBf/5ePXtoIKDPFuEzQ8MdVA1o
+	 l1cAQvpM+7VoA==
+Date: Wed, 28 Oct 2026 08:30:43 +0000
+To: Daniel Scally <dan.scally@ideasonboard.com>
+From: Simon Kruse <simon0x+git@proton.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Fernando Rimoli <fernandorimoli11@gmail.com>, Marco Ziliani <rylos78@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov5693: Use sub-device active state
+Message-ID: <20261028083033.64922-1-simon0x+git@proton.me>
+In-Reply-To: <ff527b5c-b1cb-42a5-9b8d-f039b7a7f7f6@ideasonboard.com>
+References: <20261027074933.21921-1-simon0x+git@proton.me> <ff527b5c-b1cb-42a5-9b8d-f039b7a7f7f6@ideasonboard.com>
+Feedback-ID: 50827409:user:proton
+X-Pm-Message-ID: c821cadf69dba65970120eb9b6572e1cf167922b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,88 +64,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 27 Oct 2026, James Hilliard wrote:
+Hi Dan,
 
-> Extract the receive-trigger threshold search into serial8250_bytes_to_fcr()
-> so drivers with per-port threshold tables can use the same conversion as
-> the generic 8250 implementation.
-> 
-> Include the unsupported-table check in the helper and preserve the existing
-> nearest-lower selection and highest-encoding fallback.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250.h      | 16 ++++++++++++++++
->  drivers/tty/serial/8250/8250_port.c | 12 +-----------
->  2 files changed, 17 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-> index 21ed9c41b751..195ed58a2231 100644
-> --- a/drivers/tty/serial/8250/8250.h
-> +++ b/drivers/tty/serial/8250/8250.h
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/bits.h>
-> +#include <linux/errno.h>
->  #include <linux/serial_8250.h>
->  #include <linux/serial_core.h>
->  #include <linux/dmaengine.h>
-> @@ -73,6 +74,21 @@ struct serial8250_config {
->  	unsigned int	flags;
->  };
->  
-> +static inline int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes,
+Thanks for the review.
 
-This looks way to complicated to be inline function so I think it should 
-be kept in 8250_port and exported from there.
+On 27/10/2026 15:49, Dan Scally wrote:
+> This patch does quite a lot in one go, it would be better if it could be =
+broken down into a number
+> of smaller logical changes. You're removing here the lock from the driver=
+ and instead using the
+> default one from v4l2_ctrl_handler. That might be a fine idea, but I don'=
+t think it's necessary to
+> switch the driver to use the subdev active state right? Could it be broke=
+n out?
 
-> +					  unsigned char bytes)
-> +{
-> +	if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
-> +		return -EOPNOTSUPP;
-> +
-> +	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> +		if (bytes < rxtrig_bytes[i])
-> +			/* Use the nearest lower value */
-> +			return (i - 1) << UART_FCR_R_TRIG_SHIFT;
-> +	}
-> +
-> +	return UART_FCR_R_TRIG_11;
-> +}
-> +
->  enum uart_port_type {
->  	/* Internal 8250 only */
->  	UART_PORT_AIROHA		= 124,
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-> index 36b2b0a2c05c..c332963dc2ed 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -3018,18 +3018,8 @@ static int fcr_get_rxtrig_bytes(struct uart_8250_port *up)
->  static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
->  {
->  	const struct serial8250_config *conf_type = &uart_config[up->port.type];
-> -	int i;
->  
-> -	if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
-> -		return -EOPNOTSUPP;
-> -
-> -	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> -		if (bytes < conf_type->rxtrig_bytes[i])
-> -			/* Use the nearest lower value */
-> -			return (--i) << UART_FCR_R_TRIG_SHIFT;
-> -	}
-> -
-> -	return UART_FCR_R_TRIG_11;
-> +	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
->  }
->  
->  static int do_get_rxtrig(struct tty_port *port)
-> 
-> 
+Agreed, it is not needed. v2 keeps the driver mutex and uses it as the
+state lock, so ov5693_sensor_resume() stays as it is.
 
--- 
- i.
+> Why did this function call move to here from ov5693_sensor_init()?
+
+With the 1 s autosuspend delay, pm_runtime_resume_and_get() in
+s_stream() skips the resume callback if the sensor is still powered from
+the previous stream, so a set_fmt or set_selection made in that window
+never reaches the sensor. Marco Ziliani has since posted that fix on
+its own, with measurements on several Surface models [1], so v2 drops
+it from my patch and is based on his series.
+
+> There's a FIXME in this function that now no longer applies and can be re=
+moved.
+
+Will do.
+
+> Descending order of line length please.
+
+Will fix.
+
+[1] https://lore.kernel.org/linux-media/20261027-ov5693-fixes-v1-0-3c8ab1ae=
+104d@gmail.com/
+
+Regards,
+Simon
 
