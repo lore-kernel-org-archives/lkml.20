@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197332;
-	b=D6yYHpD+vuxhx+849e5lGifOXDEMZd9PVDfWrhDLiEYErI7Nf8CD3TuBRWvea774lnux
-	 FK5mTAs6mcKP/Pi2E7L6GobvwwmqW7XOq6b0xAGISyN2TtaBs9vAaBCw6LgW0izhK10SM
-	 gyzsK29S2X/ESaEnUhQuLTRoc4+lUTYfmn2YUJoj9cZgpBGCSN2Mk+FczH4cbiYia9CZg
-	 k+mbpCniy6cLd0xBmEuVdfa6llIkYHz5/PnZBzn7/HR7QxAeOnecpKq96AllsuXeWEFh1
-	 i0xKd+O0wwqZKNje2/8cYmUm7pVXX0xs5AVluALEoIYxvpyoB2QCJbEEqI7WXpYvCyA==
+	t=1793197356;
+	b=YuWlYHzpAwBLCEOCOxwRqbuKn/3nqfS9CL6sM2Aqz++irV/QYcc6/6Nrs0Tc9ABb2894
+	 UaYB8o6i7iOs8Naso24etex+Unm2oX/clFRckP1h1zo0wdNtVTbV1mKw6MxZwb9RvgLtl
+	 lTqMk7Ct8EcL1W40B5No9p49ORwqjm5Loi7YM5XP/64xgt7ofMeFrR2R4LgEhQw4zeXiq
+	 72iM0uPjkKN942Tl7x92ZTbDG8OhZEU8+dG/EHxM9clN4d2gmJJVPZwdQx2fOf03tv3XE
+	 oxrhbY3I2ofu69W1YXGSPIut0XlquwKgfsmi5RLN18bbTz77o9AJ0KZq5A8w1uMmo+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197356;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
-	b=MXpjJVvr7m9D2aGerdnbUXSs3xATFYfPInAfhNojT2hj27vcSiKIVih4KqV8o5iXB/13
-	 I4iqbrFARRa0A/QB3CR1Huh3qTVPBGwebAOXpNPXMRMr7RavGunWqZbX2P9d4NBAL0hgH
-	 2jO++9I92ThNpHvCbHApsZyGVN3jFwEax+prrwp9+x8IpGPlCx3dI/KLYvTLlj4FMxwyx
-	 zxmzFrKBozOKSPNlAMDxZtsaoWG340pFon8BDv+E7N/L5TCpU4ZSMt0+XnyQdCavnHThe
-	 PaDFntEcKJ+BnpVjXNIVOoQbRjMYTX5VBE5syo81w2jyGjBAyePRqFAsmHPegYsvDJg==
+	bh=XkCOJZX/WWMB9kGzP5MkxZIBGrbHKVoP2EMu7c4H2Kk=;
+	b=cvhx80ZfE+w+/J3rD07gqWWgIS5k/uvKtxpAG7SmoM6FUQ2qqmxu/+JyO57n5UnggQpI
+	 R9zBkvRmDaSJzgOcK144Mb2ZVBhwlCobgSOjM6kJrVSqieXw11yagOa1GG7M1gCueIJre
+	 IH/nW09QgA/Uf5wXx3JeUhlmgs/KqkuNN9HDn4BX52Cwf1eETGK38iEncfcIVMSMYq0xo
+	 YlRZqAn6gIlIUOH06WMtpdleRgZ+y46bfdl2oOZAAOq+MW5LJL9PfawrmuQcFwEDLIQnS
+	 9lGRWFbjwPExBWZgDv64QZ+UGivIcgG5B2ewlwgDPiU+gDVbTfC5z5NhtFqWVMDOD+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGN7imdB;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p1iUDFqo;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83572606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83572606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AFC606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6AFC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGN7imdB
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso488784a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:22:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p1iUDFqo
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso767295a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197332; x=1793802132; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793197355; x=1793802155; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
-        b=zGN7imdB9l7Z90ZT96iLtDTKw947mg/cpOB45lxUfEVaDUFTM15+26LDyBrTG8G/N4
-         XdVAT1Gs/9WdN8gWJ+tJhsk83hT4Z2zuFu5GxOpwxbEEv8vai3TPJ77IJDNnqhYiOGEm
-         WfREZDMWnLsKTdRZwPndWNaF36kJQW4qMKwndesuARyGbx/qSejFAi2ia7Mqo2+2ABKI
-         Q2aZbDqsQflidZ2Q5vMYfILZBubAtIBuouRLnYoVZm8n7CbgZe0V2JUrjwTOMREL9zFh
-         kHuJfmhVMhFC169xRuIhdGd/JPQFGpG72OrE7XC0fvWEMuvDwaIKlkDODQjzWxs6FmK/
-         vqig==
+        bh=XkCOJZX/WWMB9kGzP5MkxZIBGrbHKVoP2EMu7c4H2Kk=;
+        b=p1iUDFqocQVreW8roT9uwBqm6fySMDwgzjOCMGfn8x5G2WANMhf8m8BF++eyz91ef5
+         CFEgtqlNdqdmN2iKi3k+DBoajDIu+GKDYyVfMsetvRIHtSebreXYpWDd7ilJdfk2qfDc
+         CPd04F9Zc1qkzDu+tl2TajmsKIdBnPFxWK0GiGu/wbEDLhf5IA6WOoQYj6tp3RKJ8LuA
+         on/2ID1TXSKk8oWNqdM6upYk9J3DCwLJI/JYfistRGToKZiakbUql0ccLPKoLo9Shiyl
+         2XderNpWJ4JK0sIxJtN0+pKrQACGD57RXW1wzl/ihBqFtb4Jkw3MkxXLcpyaGL8a5tKX
+         MEfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197332; x=1793802132;
+        d=1e100.net; s=20260707; t=1793197355; x=1793802155;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gqJ0WlZJEjY1WtT7hIbPxHW5FniZwK8mIH2WvTpStXU=;
-        b=XR1/ZfuntOJm5hOZ3BhpPFGLuzrNHqiQyNo/KCQrd9YO01G2ywWtH/VwvbRqVhHKKU
-         A5gvdiIuIzbKs0sOd4szaNXM7PhdgKQ7hia7QZkg2UDu4KFmXeY1vx/Oetxnhy0tljQE
-         qBQJSedNvEjA7YShfiNMUbgLLGQr70ob4yvmuVMwYkaTARTaym3A5tlD4M+KjjsInkkL
-         0JD/L4zhl57w1MS2NXdf64WjFHN+Fx04j7djGHSTyrOIz4utbPP9us5UVoSQUBUwDJUu
-         0BfXnetYMaiopAEiTxW2u2uq0gESvnq0T0rjxtLBJL4PCOIKh9h0Y4HThTmkUJTVWgsA
-         5jhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjKi2BXNXkGkodNm785J6vm92HXy9C47h5syldQmNTxz83wSx6/TB5bpO69jaVIgSoSKCdudqb6NI+eNg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCtH/8DBHF1LLKXQsbN+hiSXxJG44MNONGfnVFYH1zeVBBUY9k
-	qRPjLBzQVh10gjFTC5WKvjxrqsKIGQOsiU3m3YdZPeSCTSmNjaC2f5UY
-X-Gm-Gg: AYBFou0CqTbuGUWTiary7zZviBSAqG7nsErEscAy/awasuaMj93fbPHDjmSxysPvBuW
-	YknYd8gJrGKlWPErZ1XX3HTsWYrqCWDQj68OPfT2E9MJwOtml4/k/hZx3uEk46UQsatGdyiLpe0
-	7cCOsnPqS7+cxfGPxO2pwol/66jG6vGa9v8p2rogiPk/Kw14CXU9tti2+ZD+F4g7GAW7p8HJhP4
-	RbaHrU2f4c2+lfib4CfzbzrtU8tU6fpoAIFMwh514HaE3/iwND3fzLi6MoUQ3bPc8riW8CyNAVL
-	lO4TK0uLnLhg/npPh60x4T7q72CA9XZCYwcdk51hDzcLqmbfG9QyaA7XbjwNJGSpz5QUPgNPZMU
-	Cg59l9p5ZI9MBucmwEz1GEk7C/z5CDfjhl9TMxM2El7scT+1XPyc3swOMaraa5NIIvcK/ut0vb8
-	aP5YR+fMiAyHAfzNXlmUpJtkn2Hc4K40zU+oLCuhf7GAbAHPHCGKrS2PVGBjTFk+sW+IM0GztSe
-	JubIbVWumV2jONFGdmZxWttLVESiGVkMxEv6czBMUTy18p1CVHXG531oIs3Mf4XXz6gPLDKf9Px
-	WtkXVtjcjump1q/9xR3L9X8GGJCtBlKLlI3ssfx+33lzcNnqihjfGNtBb+vimrgB0n/LOJTs1y5
-	FLYqI2k0yFDK2ow==
-X-Received: by 2002:a05:6a21:4784:b0:3e2:26fc:2e06 with SMTP id adf61e73a8af0-3e9023072ffmr1926419637.26.1793197331584;
-        Wed, 28 Oct 2026 07:22:11 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a7b786b4sm1271966b3a.57.2026.10.28.07.22.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:22:11 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	linux-wireless@vger.kernel.org,
+        bh=XkCOJZX/WWMB9kGzP5MkxZIBGrbHKVoP2EMu7c4H2Kk=;
+        b=NSHqtCVV7EoIL2ni82R8/MiRIN/rz1Awl9M9S0v4SQYBRX2N1V4+1d9uFFxFW6Nee1
+         EiyfLnPe9Cckdlm0IYL99LHndnh6fLFVwmfdg7Ihz7fanRzxxR36s9lwdpiQkLjryE5e
+         uvPcdUOMRlrSo6cVMfot7ouwNPchOZ1zLUCFeocF9QyX6YUYdk9wroI1XDr/lwXu0A3R
+         8ESDRy6FB9KCwBlZBTfgxhqCQP84pIxdOlbqLZSkCMZ4tsjFnemySCDMNDvo8+mfnAhF
+         eUOAkvDvSkigaQ9ePB0xBBVC9kWfbGaLNffZuD8WLU6bOc2OtDFejSh1bWdG7STbJ1Lo
+         U7Kw==
+X-Forwarded-Encrypted: i=1; AKwUvBxmgX/qJnX9v0NXT4mPbIPGYWitNOUDsI+BXh62oC4eYWw52m2yIW+T5kYeOMG8klHjsEIuOUghiCiu7cE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKbVXTUDv/LTS055jZ+v/XrDIxBaPtVpq+wOdpbHrm3H89BMD/
+	iPwRAQA6E8iXOirHc6T4ubPBhHfUf1Q7ASRcOdj9bmewelzAZ+R40jEY
+X-Gm-Gg: AYBFou3GD6SYVUfRpG3FT/D2XQlNYoAWOQjItfVg/+xpT+c+zE2rneb4hgx52v6uLS3
+	d+4dvc+CXVvRBPO3hIt02upQxJexgno3HYrr0uvqek14P9ehFgFPlLelYeA1dhmoHwTM5igP+Fa
+	YzWOumApYqHWIj1O7bqkmBxApCX/P/M75rLb74SlKEogKDGev9brY/oTTJmE0YGiPmhGBBfFBoX
+	+0ImuKVP13iWtUhaXEU7AKTXBKgDiVn4sr9735PSrTicdXTAN3P0hGUiOdTIrZVZ6f0lm3SZTat
+	0Mj0cRyDpeMHEEaiY7DeAXVOF06LvjvsbkeBN6Xct7d6BoZ+eMwHkGSFWn5QwcfH7/YsexgQyes
+	+fExnKgPl+Z0Q1i56An1TnbHg9jN6f9CzwvmBekhMZlAvZvSVlRV0cpLHA0A8GjrkoGMmnG0hKC
+	aNCUKO61C3jh2UKB8VmDG/iQqFpy+NLFDWfzWySkQf9FwEkL4S3YAl7HuHgARVRO42U5BR8IEyF
+	QQI8PpMzxPmj9INLpdC1q7e9hs8dVNYZ0s3A1MS7sCsFh2sIZv0O76YPZMLhlnyrb9TsWZ7Hq1d
+	3hClHqbLhZTDcn4I5yG9dHcZsBji
+X-Received: by 2002:a17:90b:1644:b0:3ad:6090:a17b with SMTP id 98e67ed59e1d1-3ae580ae5f8mr1548061a91.17.1793197354899;
+        Wed, 28 Oct 2026 07:22:34 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::246:47])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a900c22sm3309411a91.4.2026.10.28.07.22.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 07:22:34 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Josef Bacik <josef@toxicpanda.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
+	nbd@other.debian.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: cfg80211: preserve mesh A-MSDU lengths when adding mesh headers
-Date: Wed, 28 Oct 2026 22:21:49 +0800
-Message-ID: <20261028142149.13834-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	syzbot+a246ab421a728c78b4ad@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] nbd: don't take cpu_hotplug_lock under tx_lock on reconnect
+Date: Wed, 28 Oct 2026 21:22:29 +0700
+Message-ID: <20261028142229.24660-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,66 +100,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A malformed mesh A-MSDU subframe with a declared payload length near
-65535 bytes can pass validation against a much shorter aggregate.
+nbd_genl_reconnect_sock_cb() calls sk_set_memalloc() on the new socket
+while holding nsock->tx_lock. sk_set_memalloc() bumps the
+memalloc_socks_key static key, which takes cpu_hotplug_lock.
 
-ieee80211_amsdu_subframe_length() adds the mesh control length to the
-declared length in a u16, and ieee80211_is_valid_amsdu() stores the
-result in a u16 local. The sum therefore wraps before either walker
-compares it with the remaining aggregate length. The decomposer then
-splits and delivers the malformed aggregate instead of rejecting it.
+tx_lock is taken in the I/O path under cmd->lock and set->srcu, which
+lockdep already orders after fs_reclaim through the queue freeze and
+elevator locks. Once cpu_hotplug_lock hangs off tx_lock, any path that
+allocates memory while holding a lock taken under cpu_hotplug_lock
+closes a cycle:
 
-Keep the computed length in unsigned int in both the helper and the
-validator so oversized subframes cannot wrap.
+  WARNING: possible circular locking dependency detected
+  Chain exists of:
+    fs_reclaim --> cpu_hotplug_lock --> uevent_sock_mutex
 
-LLM assistance was used to find the bug and review.
+  -> #6 (cpu_hotplug_lock){++++}-{0:0}:
+         cpus_read_lock+0x54/0x1c8 kernel/cpu.c:490
+         static_key_slow_inc+0x1c/0x40 kernel/jump_label.c:190
+         sk_set_memalloc+0x6c/0xa0 net/core/sock.c:307
+         nbd_genl_reconnect_sock_cb+0x32c/0x72c drivers/block/nbd.c:1377
+  -> #5 (&nsock->tx_lock){+.+.}-{4:4}:
+         nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+         nbd_queue_rq+0x1f4/0xbac drivers/block/nbd.c:1207
 
-Fixes: 6e4c0d0460bd ("wifi: mac80211: add a workaround for receiving non-standard mesh A-MSDU")
-Fixes: fe4a6d2db3ba ("wifi: mac80211: implement support for yet another mesh A-MSDU format")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+The new socket isn't visible to anyone until it is installed in nsock,
+so it doesn't need tx_lock. Mark it memalloc before looking for a dead
+connection, as nbd_start_device() does, and undo it if there is no
+dead connection to replace.
+
+Reported-by: syzbot+a246ab421a728c78b4ad@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a246ab421a728c78b4ad
+Fixes: b7aa3d39385d ("nbd: add a reconfigure netlink command")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-Validation: A W=1 module build with MODPOST passed. A QEMU
-guest using the real validator and decomposer accepted both malformed
-mesh formats and emitted two frames before the change; both formats were
-rejected and no frames were emitted after it. No KASAN report is expected
-or claimed.
-A reproducer is available on request.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+Tested in x86_64 QEMU (KASAN + PROVE_LOCKING) with the syzbot C
+reproducer. Before: the circular dependency with
+&nsock->tx_lock -> cpu_hotplug_lock is reported on every run. After:
+that chain is gone. Also exercised the no-dead-connection path
+(sk_clear_memalloc()) with a second NBD_CMD_RECONFIGURE.
 
- net/wireless/util.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+With this applied, the reproducer then hits an unrelated lockdep false
+positive (reconnected sockets are not reclassified); I'm sending a
+separate fix for that.
 
-diff --git a/net/wireless/util.c b/net/wireless/util.c
-index f2464d2ce0d5..c510fc62d819 100644
---- a/net/wireless/util.c
-+++ b/net/wireless/util.c
-@@ -822,12 +822,12 @@ __ieee80211_amsdu_copy(struct sk_buff *skb, unsigned int hlen,
- 	return frame;
- }
- 
--static u16
-+static unsigned int
- ieee80211_amsdu_subframe_length(void *field, u8 mesh_flags, u8 hdr_type)
- {
- 	__le16 *field_le = field;
- 	__be16 *field_be = field;
--	u16 len;
-+	unsigned int len;
- 
- 	if (hdr_type >= 2)
- 		len = le16_to_cpu(*field_le);
-@@ -849,7 +849,7 @@ bool ieee80211_is_valid_amsdu(struct sk_buff *skb, u8 mesh_hdr)
- 		    __be16 len;
- 		    u8 mesh_flags;
- 		} hdr;
--		u16 len;
-+		unsigned int len;
- 
- 		if (sizeof(hdr) > remaining)
- 			return false;
+ drivers/block/nbd.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 218b99f9e1ef..a567c0bce90e 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -1364,6 +1364,9 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+ 		return -ENOMEM;
+ 	}
+ 
++	/* Takes cpu_hotplug_lock, so it must not nest inside tx_lock. */
++	sk_set_memalloc(sock->sk);
++
+ 	for (i = 0; i < config->num_connections; i++) {
+ 		struct nbd_sock *nsock = config->socks[i];
+ 
+@@ -1375,7 +1378,6 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+ 			mutex_unlock(&nsock->tx_lock);
+ 			continue;
+ 		}
+-		sk_set_memalloc(sock->sk);
+ 		if (nbd->tag_set.timeout)
+ 			sock->sk->sk_sndtimeo = nbd->tag_set.timeout;
+ 		atomic_inc(&config->recv_threads);
+@@ -1404,6 +1406,7 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+ 		dev_info(nbd_to_dev(nbd), "reconnected socket\n");
+ 		return 0;
+ 	}
++	sk_clear_memalloc(sock->sk);
+ 	sockfd_put(sock);
+ 	kfree(args);
+ 	return 1;
 -- 
-2.56.0
+2.43.0
 
