@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793162946;
-	b=Wi0dG3eD3+a+LqNSG0ynt0UEvTDnsHnVMSaoe0mCnEWYnB0YbXkwwSaXp/JxyhdyETU5
-	 Mfz0JZtEylPTgy/SS1dVtMyzFrXpT3KFB5SzwxC4UD6LzsSI81giI+YFF4UUbkyq36MGE
-	 bo/cNB52rI0gpAIFVzNmXgiHB/AKemGq7OmlGQEujd/WOXk3+twOvMst5/y/xj+sVqdm1
-	 c/+LWr/d3oAMOvLt26FSKPdvEOUvCnORZSUsOKCWhlHA/agSsMh5RC0s6p4KFzlKkxm3V
-	 naYLilg+3IEbbLasTtACbYo2fx2cdGFF01+nvDwCMBi6ALYC6LKoFeFeGR3V4YrUoWg==
+	t=1793162960;
+	b=YLdKcmC17KFC1xn0fwNUWOTPlnsX94pVUf66eXyfy64XL17z999HCa3GgH4kSMsK0cox
+	 xIFz/24s1Gla1oeIZjfLHATpUusnBggHArgBa9baG6btewXyx6c78Xv8wgosR/vpAVZtP
+	 LH5kVpcFaXYsSsIvT/Nudip79rS9Xp6LVskNqkLB8lKSRJjQvm5aXJFIQ2GGQAuQyMIvN
+	 e+PKp4a2f6dHlD+9T9rgCMj9a6tPCg6rK0xC9/NfLyzSmfx/IA19nRVZeOJbx0lClXwl5
+	 Mw3jtVbeCq9HnSXK8diuvyKrNHTRE7s+V8w0Um+QWd0cFkC0QtK2XXLZ8jrGGbm8LiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162960;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=0/FspPtWk32Yz6fJ9tp1ss0MflUZ+O7T2fNm7vOg7sE=;
-	b=w1udEE9nWaMy0KvEoIx6lSpDq2CFKuvYKh6iGx81IxZ5rwdolUUz6P1U6PkqcjCOBB/V
-	 qAD/CjQLn36g0gnXShIlrLIalykae/ufwqxhFLfOGMEJA1YDbJFcRVfdjrF1Hai+lfBtt
-	 H7SrfjWBgxxtxljOPH6cDAcu0zbMzqwBmrPnMrNCUzWOvW2cXC8tB1WJgr+YxsjvBdSIk
-	 YmxqapC8U/tkiAoERhYoNWSt4CPsIHkfW+pdL4ZUuhN9PITDc+l4WzPO7/O3CUn+pCHlH
-	 eU8ivyyOZn/3TiKDCNu5Nj071i0czCTlRwT//ZLGfKbhanX/HL2uVHSuinF/shUUUUw==
+	bh=seWnIYzSzE0GeAEoPpg/oh0kAurOphOg2mHhQwMN2t8=;
+	b=AKuFHcO8NhTp2T6ybzSQOuM0mOH1ax6TjqpqXgB+4W+w3o7kIsUrZbK6Pi8MBlOq5Re2
+	 2GXf2nnwiXA79d3vuQr2gLe6ehzlNknb7QXCK8ex71RfdOVI98aCfbiU+tMLPkAciGnK6
+	 EDryUJplhG9r2RzbiBs/6iw/4mO7tb15nFhU9CkXzN08xH2DqOoSoAphG1k3DOz2GYeiA
+	 n/JbVvm5qWrgWcEz0wC9mbU7pvgBUSKyJTTfpot6TDbBYyFuPorqydf1WVYYGCqlQgP02
+	 EsxBBmr8MnqV8FBX+pNx0HExol+w7LY6oTw325POWmXQTf0ZRmtGN9CnzK5rVLvzeIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="iwb0cb/r";
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=j338UtQz;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B20606A325;
-	Wed, 28 Oct 2026 04:49:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93B20606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325F8606A31A;
+	Wed, 28 Oct 2026 04:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 325F8606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iwb0cb/r
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=j338UtQz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0/
-	FspPtWk32Yz6fJ9tp1ss0MflUZ+O7T2fNm7vOg7sE=; b=iwb0cb/r11h0+dGOSC
-	02alDFGfhjYmuUVeNWnue40WjW5OLHyK+IKdaGazuz37xObiwuyBFlWLNgUo9KIC
-	n18gC+eXgTxxFxIWKiOpnIn4TVoH4kV8if3pDXpuzDTidzFTbTPS6C7rzOAInMG4
-	mn5NzNbHwgMJvSWMhQGmG4YHY=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=se
+	WnIYzSzE0GeAEoPpg/oh0kAurOphOg2mHhQwMN2t8=; b=j338UtQzqIbf2TD4+h
+	hwTooXTZUz5c4wQY4MsVVX3110poNlLqxdkbER4WYiDm2tH0Y2hRXq1/o5jskhDk
+	8jSgFE1XNRWfUgRgqm2qPjLy4wlUIRjgODrTgLulMny8gb2NFW4dZ+NeGF+nJYB5
+	Yz861hT2E8Ip6ovu14eQZWeUs=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXyGcfuFqI22BCQ--.35298S8;
-	Wed, 28 Oct 2026 12:48:36 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXyGcfuFqI22BCQ--.35298S6;
+	Wed, 28 Oct 2026 12:48:34 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Florian Fainelli <florian.fainelli@telecomint.eu>,
-	linux-watchdog@vger.kernel.org,
+To: Brad Warrum <bwarrum@linux.ibm.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Bryant G. Ly" <bryantly@linux.vnet.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Adam Reznechek <adreznec@linux.vnet.ibm.com>,
+	Steven Royer <seroyer@linux.vnet.ibm.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 6/6] watchdog: rdc321x: initialize device state before registration
-Date: Wed, 28 Oct 2026 12:48:26 +0800
-Message-Id: <20261028044828.96177-7-yaojiale02@163.com>
+Subject: [PATCH 4/6] misc: ibmvmc: initialize HMC state before device registration
+Date: Wed, 28 Oct 2026 12:48:24 +0800
+Message-Id: <20261028044828.96177-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028044828.96177-1-yaojiale02@163.com>
 References: <20261028044828.96177-1-yaojiale02@163.com>
@@ -66,57 +70,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDXXyGcfuFqI22BCQ--.35298S8
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KF47Zr4fKr4xKr18Kry8Xwb_yoW8XF17pr
-	4akasIyrWDWrW2qw47Ww1DWa4rCayIgw17AryUKw1fuFn8Gr45tFyFv3y8Ka1ktFZ3A3WU
-	tF1UtrW8uayUZw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j70eQUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQTbFmrhfqRWBgAA3F
+X-CM-TRANSID:PSgvCgDXXyGcfuFqI22BCQ--.35298S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kw4UWryxKw13CryktF4rAFb_yoW8WFykp3
+	yag3y5KrW0q3yfuw43Jw1kXFyagF18Kay09Fy3G3WxZF1kCr1qqr1DZ345AF1Fqr4q9F1j
+	qF1UGw13uayUAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wPaFWrhfqOIqwAA3W
 
-misc_register() exposes the watchdog before its lock, completion, and
-timer are initialized. A userspace operation racing probe can therefore
-use any of these objects before it is ready.
+misc_register() exposes the IBM VMC device before the HMC state and
+spinlocks are initialized. A userspace operation racing module
+initialization can therefore access an HMC through an uninitialized
+spinlock.
 
-Finish initializing the watchdog state before registering the misc
-device.
+Initialize all HMC state before registering the misc device.
 
-Fixes: b3e8f2c13ae9 ("[WATCHDOG] Add support for the built-int RDC R-321x SoC watchdog")
+Fixes: 0eca353e7ae7 ("misc: IBM Virtual Management Channel Driver (VMC)")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/watchdog/rdc321x_wdt.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/misc/ibmvmc.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/watchdog/rdc321x_wdt.c b/drivers/watchdog/rdc321x_wdt.c
-index 8955177072fa..a2520d8d5c90 100644
---- a/drivers/watchdog/rdc321x_wdt.c
-+++ b/drivers/watchdog/rdc321x_wdt.c
-@@ -233,12 +233,6 @@ static int rdc321x_wdt_probe(struct platform_device *pdev)
- 	rdc321x_wdt_device.queue = 0;
- 	rdc321x_wdt_device.default_ticks = ticks;
+diff --git a/drivers/misc/ibmvmc.c b/drivers/misc/ibmvmc.c
+index 6afef0788b90..d03aeb8dea8f 100644
+--- a/drivers/misc/ibmvmc.c
++++ b/drivers/misc/ibmvmc.c
+@@ -2366,14 +2366,6 @@ static int __init ibmvmc_module_init(void)
+ 	ibmvmc.state = ibmvmc_state_initial;
+ 	pr_info("ibmvmc: version %s\n", IBMVMC_DRIVER_VERSION);
  
--	err = misc_register(&rdc321x_wdt_misc);
--	if (err < 0) {
--		dev_err(&pdev->dev, "misc_register failed\n");
--		return err;
+-	rc = misc_register(&ibmvmc_miscdev);
+-	if (rc) {
+-		pr_err("ibmvmc: misc registration failed\n");
+-		goto misc_register_failed;
 -	}
+-	pr_info("ibmvmc: node %d:%d\n", MISC_MAJOR,
+-		ibmvmc_miscdev.minor);
 -
- 	spin_lock_init(&rdc321x_wdt_device.lock);
+ 	/* Initialize data structures */
+ 	memset(hmcs, 0, sizeof(struct ibmvmc_hmc) * MAX_HMCS);
+ 	for (i = 0; i < MAX_HMCS; i++) {
+@@ -2383,6 +2375,14 @@ static int __init ibmvmc_module_init(void)
+ 			hmcs[i].queue_outbound_msgs[j] = VMC_INVALID_BUFFER_ID;
+ 	}
  
- 	/* Reset the watchdog */
-@@ -251,6 +245,12 @@ static int rdc321x_wdt_probe(struct platform_device *pdev)
- 
- 	timer_setup(&rdc321x_wdt_device.timer, rdc321x_wdt_trigger, 0);
- 
-+	err = misc_register(&rdc321x_wdt_misc);
-+	if (err < 0) {
-+		dev_err(&pdev->dev, "misc_register failed\n");
-+		return err;
++	rc = misc_register(&ibmvmc_miscdev);
++	if (rc) {
++		pr_err("ibmvmc: misc registration failed\n");
++		goto misc_register_failed;
 +	}
++	pr_info("ibmvmc: node %d:%d\n", MISC_MAJOR,
++		ibmvmc_miscdev.minor);
 +
- 	dev_info(&pdev->dev, "watchdog init success\n");
+ 	/* Sanity check module parms */
+ 	ibmvmc_scrub_module_parms();
  
- 	return 0;
 -- 
 2.34.1
 
