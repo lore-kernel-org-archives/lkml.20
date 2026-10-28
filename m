@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793227584;
-	b=QvRPBe8CoSPsSn5uV23GztZTgef6f72gXZlXZ/wvk1YNwxhWCQzjG2GypKglvLGZgD9s
-	 aTeOVqr3qBllKgg4HjV4ERlEIICgxioEhK0AXM/CDumJ87qRyLIpQ76gnAESXbN3tMlth
-	 uD1aQuDVUS7PNhpTWzd4yVh2p76xfJWUbL1EGaj8IKmvMhCM0Ql4D4LZ4SSMhBctDNdPx
-	 MCtnndN6K+dJ9nPtQyU+RxFUPkJFzh0tYPjvxbt35ipaa4b1r7QMxPfL+Dvz6Z2eFuMW7
-	 8mAF1EU8dMI8mrJ4yyYkioslEUL45BATJrcZwiIf+n6RsBJ8I3fMPkpu2h/btFlVe3g==
+	t=1793227589;
+	b=x+eipg4z08SJiGJ/LU6k6EJtMZgLs5H+up4w71uovGmLOUbwSW5mOJZj0aZHYr1dptoC
+	 RG05p28v57UtjG/cyicgR5Y8kPfDA06kmNsh8pmB3xQVA07Qhb5W2QiaCRkEz7c1X1TCu
+	 jh5qB7qiAR8aVrRvg9dVj9GKLFjk5jUSZPgzMRxNVwZ2baosNug8RA7aAJ76M3z+ZkxFZ
+	 thm0hO1LHfyedZrH0qfTTPZ9i9Ao5ogWXX2LAJr8/V40hTA9QosMIdsby2GtH22ORc1nP
+	 me2pyr3Bdo+Ngtrpqv6aB3mHZxTkYWFmjYk/ojbZ4qpmhpeKiDcR1IpFinegHGPNlAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793227584;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793227589;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lDvLr9wt3Ne9i0tbH5Y/ikdk4b47mUFiOwr56IpVU+k=;
-	b=iDz7qU0JhXtoTwUBuqxM7ELK1jUjrIRagngE5qNDte0ZKqkVwEgADvTILpBTENp4nsTW
-	 gYHM+ozjef+BOkGlAO/E6gQJLeNDypbJ8kR947cUkzw4NTAkPBrzMfOUoEX0gz9Mwq1GB
-	 MCMfvq0mZyc0I5tsJTs0/VrPw2yVZeYZ/6eBox1Du6+KVbirZt/yTs3PsOahhweDvFwyq
-	 TJ+IuHltIfYAElXegm9FGRB37STVIExvQksHgZF8C3j6gtgBvL0v5ZqK1rG3OXJoU7qdm
-	 I6h/dV13L2N/wLHEwEShHPIemGtlUVel2X00Xwh9Kwi3riWypyAofdMmCPoAQU/06zg==
+	bh=HoCFFFx6j94whDF4LLrHCgTELwhIC59o3ORVPN/O+IQ=;
+	b=YfcFdKcGV9F8nCqC+bzt70Y3UqAuTijLp9rtpIO3pTaA4tWfHoAvUMmL68tXLlI+D6wT
+	 cNJ+st12Yn6SR5fr6YvXE3H/Uzw0pqk7YUJw5DAAQb3HOA6jiyO7U2lwXbviWUSXlBAFR
+	 VKJVoheiTvVo9JQ5pasXklwMWtyTiqHWLVbhjdHRp7i6vlAkPVAsKAJGmkT5w6SouNqF4
+	 tKzpgLtoumZw0+uwHD8SsFmKqmE8IwdnXdynF/MUs9mTqozlVZNAwmJYS3DD4RjOV643F
+	 BZLUYTaChmI99CPVho5wHgc6Y+vduRUIK9T0ss2SwnFEU/CxCSnrULR47Rt2LCOsgqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=n0Ah1al+;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUQmneGp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA108606A31A;
-	Wed, 28 Oct 2026 22:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA108606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180C606A31E;
+	Wed, 28 Oct 2026 22:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=n0Ah1al+
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 1AC6640917
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793227583; bh=lDvLr9wt3Ne9i0tbH5Y/ikdk4b47mUFiOwr56IpVU+k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=n0Ah1al+nt2oN1CYuob3LAHg8tKMmbCW15q5Kb/ntRxAoGWplGtr0u2R9dP6lRYiR
-	 US3Tk7Rta494az7CF/XV1o0fi/1ZYc6ex+8avHZc3lYuAFmGRCyg1Bbmar5cbth0gb
-	 MIwHDjNkw40k4w/IlpTVWxpzqbSchR1gj3IhmyvuieMwybnlayOpd50q4Ug/KEu6kK
-	 6sjrO796I7MUe+cgQyHqzg6BmDQTIhiSiaHLY4cnfeSy+oJW9EE0cbV0kNl0R3FCsp
-	 7K1aWjjw9Z3m7ma+fbrhDPXY7Whtur4dPFMGw9pJNdRGWE1ew0eQmXB9H8M27Ih61U
-	 P8T5zXwz0w0xQ==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 1AC6640917;
-	Wed, 28 Oct 2026 22:46:23 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Linus Torvalds <torvalds@linux-foundation.org>, Ilpo =?utf-8?Q?J=C3=A4?=
- =?utf-8?Q?rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, PDx86
- <platform-driver-x86@vger.kernel.org>, Hans de Goede <hansg@kernel.org>,
- Andy Shevchenko <andy@kernel.org>, Armin Wolf <W_Armin@gmx.de>
-Subject: Re: [GIT PULL] platform-drivers-x86 for v7.4-1
-In-Reply-To: <CAHk-=wjsj5evNKrhY-LRARUGYXnNAPqK09GHAEJ9sNLoKn4dyw@mail.gmail.com>
-References: <pdx86-pr-20261028113441-148823082@linux.intel.com>
- <CAHk-=wjk2f+Vu656fEa7FOyHHaFe+-M-GEwUQPXykaYoor6A7g@mail.gmail.com>
- <112173bf-15bb-5a6f-e3d9-73c7675de537@linux.intel.com>
- <CAHk-=wjsj5evNKrhY-LRARUGYXnNAPqK09GHAEJ9sNLoKn4dyw@mail.gmail.com>
-Date: Wed, 28 Oct 2026 16:46:22 -0600
-Message-ID: <878q3ho341.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUQmneGp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DE101F01825;
+	Wed, 28 Oct 2026 22:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793227588;
+	bh=HoCFFFx6j94whDF4LLrHCgTELwhIC59o3ORVPN/O+IQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jUQmneGpdIigvW/w7AbeLY/hh9tY8arud37Y4Nhlb0/G4MoGSBL0u1/oSWTqUcmPm
+	 UpgiNjRQ6pyZJPsoccaAe0VWO6mKQWmzg1Ou9jmLulIxQVU1c+mmYAt82PyD2iVK6n
+	 gOxSmjdZW4puagcgpdURD22VWO6ekMtvFDmpqQpuxDjhxYtQrZZBPoXASyG/PGckMR
+	 Ojrs0e5HDQIliWJObOnpsLD+MCFdQzguxF46AC0y1nFb15eCeQ2kkemPeePlz4vl7N
+	 zXzjeerV+Kq3oFjD98lOETchUnonyG1IyabHRKxg8is1EEWWmrhKgWzBLvFoZZJN7Y
+	 7eX2EYheKQBQQ==
+Date: Wed, 28 Oct 2026 15:46:27 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net v3 2/2] selftests: net: add TLS 1.2 hardware offload
+ tests
+Message-ID: <20261028154627.00c13628@kernel.org>
+In-Reply-To: <20261027171537.2317025-2-rjethwani@purestorage.com>
+References: <20261027171537.2317025-1-rjethwani@purestorage.com>
+	<20261027171537.2317025-2-rjethwani@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,25 +63,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Linus Torvalds <torvalds@linux-foundation.org> writes:
+On Tue, 27 Oct 2026 11:15:34 -0600 Rishikesh Jethwani wrote:
+> Subject: [PATCH net v3 2/2] selftests: net: add TLS 1.2 hardware offload tests
 
-> On Wed, 28 Oct 2026 at 09:26, Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com> wrote:
->>
->> Okay, thanks for the feedback. I'll try to leave more out the next time
->> and/or write it more directly to you specifically.
->
-> So yes, it should be to me in the sense that it should explain the
-> pull request, but I have actually suggested to people that what they
-> should think about as a target audience is something like lwn or
-> kernelnewbies or phoronix or similar.
-
-I'd just like to say that the improvement in the merge messages over the
-last N years have made the LWN job much easier, and they must be helpful
-for anybody else who is wondering what's going on as well.  Thanks to
-everybody who puts in that effort!
-
-jon
+does not apply, please rebase & repost
+-- 
+pw-bot: cr
