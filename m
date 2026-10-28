@@ -1,72 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164398;
-	b=jKsTP79FjHWysmcfyAT1DAa97MxSzyIh232LLvrd7bTu81ufz4WDJLrlSgQKfynlOJ0O
-	 e+i8YSx8S2PnK6w4FWrd5V8Wq/oktIa0M9f9QEc984FOlqQglaZrDuqfqEnfiKHL2zs2a
-	 wSP9kQhfLekCMgeraqV1XsBGn6rOwZHMc2k8m37UNkLXj+TnhwKIORxH3WEe4SReYfaso
-	 7ZXrhrhPAK2aAFRL4va2ROdbX08Ps7VRkRMM15mhWaZK9X/Q5o0++lLVIhDvkbvX74oYY
-	 4CksoFaBlLdfbFtgGyiRPtmNVTvkHKi5QZC2FguM94tRNabOn59s7xGw5PATcV2pEwg==
+	t=1793164399;
+	b=KPEhepwW5wQ2e4bBqFmiKXDYG4SulYCXmDz4c4y372vnDkmZcRIByuoCc0dzKP7SWG4x
+	 9x5aHK538i56lOMFputE80wUjlp+S3sG9kmfn5y+OwTBZQ96KyG1YE2v0G55ySx+YFxx5
+	 ES3/UJgvkqXnmoODi2yFyXSYY3HSSuuK6fxE0IPFnhg0XE3m7knCImO+BbK9UHYcaJfYn
+	 ONnqsxj47FN4P+40t1NSsTMsPI8g/WRnR7637VwXpihXSQsJmXUJoT8xmztGkQUjujjZF
+	 hIDXTOE4Vcuw1xJw05jbdNplYguYRhEYJgqFUqKu9cIQpy7tZyHqdU/9cj8NOCZG4GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=jGHdCexy6WO9vn70fAdnEqZgjYrf6z9TvrrdavCztqo=;
-	b=FT5O56TKD3uK7lfa7AQYWU4XmseCq+cIvewMxbR/LDRFoymWZzyJv4qPZt0NU8qcHM1l
-	 Y36clCBJBMECiwdNdAWnQ/saAwBF3YSB6VisncDSyFDmLmQCQdTyX3869FrBE2W5QADy0
-	 CfpXB92rnhkHVMW2B5sqoNIvAlOENtzcqtaea/UgAp/6imZQwYTlFkG4YiZ2P3HL7FV3x
-	 8HDB12yRMWw8zB9ifKUNuqvy/Vzp9GTlBibKyvoNw/KsiIuS3kAiuTsmSwkD1Ul8Lj/xJ
-	 YVWZFk+Y6v9zM5LDMN0GqZU9ve9BTKNph4C2FXnmPWnsvFEpPrqD688i2PH/8OQEFNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164399;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=DVH/EBIsl3QhnmFUaGRlJxxmZd3EfkXqMccMLT5dSoY=;
+	b=XJKICce24JcTakRn+jMRtww1fTcCToJIfNTZs44MYKyqhoUwT/O+pAh5kOu+9mUBcIa2
+	 OgmraB6MSxRMwtIbkNtZlhgn3zpqfQz4m2nx0VJlvZnhE5FeWXfd6KNQFwY0xnnrO1a7T
+	 DM82BeK57+o23F7pM+isyvlDr436W8cvAIWgHJ5kaItuoHVPHepHPPfv9ltK9ES5QN69j
+	 Ptuxvqx/82RXsc7bKIj8l8g2kHgQh7fAj0LUKyT1OXfnZLo2RlE82qsvo2Zo8uNQNTOKE
+	 gpO1FKq4Wy3inXBSx7tG0Ng9CodrWdeWXe96Jq/54llabfdS2oDBimzO/hSoDh20c0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--surenb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hcYwNKo8;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="mZbBC/IH";
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A29606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08A29606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B9A606A31F;
+	Wed, 28 Oct 2026 05:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B9A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hcYwNKo8
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1003369eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793164397; x=1793769197; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jGHdCexy6WO9vn70fAdnEqZgjYrf6z9TvrrdavCztqo=;
-        b=hcYwNKo8138h0FpRdipjf3QUR1G+D6Npw4/bXwM9y1EWlTJ1AmtowA668MOfypgmiF
-         Z9c/hVLG6Szdrj+YdwQZcg2wPQCR1iMVn2NUpuqryQ1rlzKZinM++QhrAbb1qdESEBWy
-         NDRrWGMIbo22NUVz5IEh+R7A9LSbfRiw0tIkb7kWBTTbNP7cthcKHo5VIkjixOc3am1L
-         9nXSCR41Q1B5l369TKOvEY+1WPOiJXLrjmOMj3fpOPrW/VnBz9p3mIWqF2aTswby175O
-         NKWFrtb0rmBs5FVgx28uvyTYhTIpn9W1PpruQ+dekt8qYUZmaeTx30X7jjUC2zcuqyI+
-         tC+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793164397; x=1793769197;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jGHdCexy6WO9vn70fAdnEqZgjYrf6z9TvrrdavCztqo=;
-        b=fl1b/3MXd2jUrpG3bu+4G4opQJ9l1xU/ycGd9wD/P//N41yCjWSFLtue02M8Ja7AuB
-         0iqv6eYdNSgEJ09zAFQ0/aVxej4B22ilT4i5qoqyt5qPqhtTTGOHksjj3KevFhYHgXRK
-         YlDuaxvSyEljz91P0iGk93gN5wYovSwuq//HUxsZbvhdGU37piKSJsJyGUBaXbB/YgLa
-         EEpq8ErCB1TnML7abG09Bd/bjrEE8Sh/HmCDnH2FrCMDT5GirjfBWM+DBF2nwy+NpvhL
-         5uhpB7FSrRTcDQTMutiP2qit2jbycoS/B4Wb7zmC+K31wfc8zZWclc58vqH8MpEJBUlZ
-         3nFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNYv5MCqADYLcOcDXJz+n9HXyLW2FkgZxeHSbR1nN2LJcZbG6mfF/Z9y9NhB+F/upWF3iOlLx5t9Z5unA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKW2Qc+lxtZXklV+SAoJajLaD3jr7mou9UW4LFJM8M+UkSyVibc
-	xpi/IWcyI34aFnSSAD6qPXxpdtXSzRYdx9Dgi0IoMmldRR+I3d/A+1uw+W8WzK539kKLwGzJkdS
-	gwxSA9Q==
-X-Received: from dlbrl12.prod.google.com ([2002:a05:7022:f50c:b0:195:e16b:fdd2])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:126:b0:16a:c6f2:60c2
- with SMTP id a92af1059eb24-1a6cd498ddemr1946287c88.12.1793164396372; Tue, 27
- Oct 2026 22:13:16 -0700 (PDT)
-Date: Tue, 27 Oct 2026 22:13:12 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mZbBC/IH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=DV
+	H/EBIsl3QhnmFUaGRlJxxmZd3EfkXqMccMLT5dSoY=; b=mZbBC/IH74kqwctlh6
+	tW+zKItZIdn0iYkGsf7wyXLdVPFqEQ+Ge77rk9ilPO3Wj+gpdzkRbjtyUIIZBCCv
+	2eK6iALrcLCS1pNq9s9yToZhTLj7JBg+r4IwG4rlkKcmR3q6E8hr/zo1BGTa5ECV
+	cbBig3wHV5iha5wVNZ1WSnU8Y=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3_3lYhOFqTkVqDQ--.14113S3;
+	Wed, 28 Oct 2026 13:12:57 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Kalle Valo <kvalo@kernel.org>,
+	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 1/5] wifi: ath11k: validate DMA buffer release TLV lengths
+Date: Wed, 28 Oct 2026 13:12:50 +0800
+Message-Id: <20261028051254.147628-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028051254.147628-1-yaojiale02@163.com>
+References: <20261028051254.147628-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,64 +65,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028051312.1505295-1-surenb@google.com>
-Subject: [PATCH 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup tearing tests
-From: Suren Baghdasaryan <surenb@google.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org, 
-	willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_3lYhOFqTkVqDQ--.14113S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF4UJr47Wr4xur1UWF17Wrg_yoW8Gry7pF
+	W8Ww17Cw1xWr4xJw1fAa1xZayYkanYgrW3KFWrt34fuF18CF15JFWYqFWYvFyrtr18tFyS
+	vF4jgr15AF1qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5R6wUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRpKhGrhhFreowAA3x
 
-Pss metrics can be affected by map count even if VMA tree stays unchanged,
-therefore test checking VMA tree integrity can't use them. Use Rss instead
-and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
-double-counted.
+The DMA buffer release parser counts nested entry and metadata TLVs, but
+does not ensure their payloads cover the structures later indexed by
+the direct buffer ring handler.  Short firmware TLVs can therefore lead
+to out-of-bounds reads when the arrays are consumed.
 
-Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tearing tests")
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@intel.com
-Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Add minimum-length policies for both nested TLV types.
+
+Fixes: 9d11b7bff950 ("ath11k: add support for spectral scan")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- tools/testing/selftests/proc/proc-maps-race.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/net/wireless/ath/ath11k/wmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
-index bf4c5073f6fc..b6d88afb252b 100644
---- a/tools/testing/selftests/proc/proc-maps-race.c
-+++ b/tools/testing/selftests/proc/proc-maps-race.c
-@@ -528,13 +528,10 @@ static bool compare_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
- 		struct smaps_rollup_stats *actual)
- {
- 	/*
--	 * Clean/dirty metrics might change but Pss-related ones
--	 * should stay constant.
-+	 * Clean/dirty metrics might change. Pss depends on map count and might
-+	 * change as well. Rss should stay constant.
- 	 */
--	if (cmp_smaps_rollup_stat(expected, actual, Pss) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_Anon) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_File) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_Shmem))
-+	if (cmp_smaps_rollup_stat(expected, actual, Rss))
- 		return true;
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 08fd6795ed9e..0d4481a09501 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -161,6 +161,10 @@ static const struct wmi_tlv_policy wmi_tlv_policies[] = {
+ 		.min_len = sizeof(struct wmi_p2p_noa_event) },
+ 	[WMI_TAG_PDEV_CSA_SWITCH_COUNT_STATUS_EVENT] = {
+ 		.min_len = sizeof(struct wmi_pdev_csa_switch_ev) },
++	[WMI_TAG_DMA_BUF_RELEASE_ENTRY] = {
++		.min_len = sizeof(struct wmi_dma_buf_release_entry) - TLV_HDR_SIZE },
++	[WMI_TAG_DMA_BUF_RELEASE_SPECTRAL_META_DATA] = {
++		.min_len = sizeof(struct wmi_dma_buf_release_meta_data) - TLV_HDR_SIZE },
+ };
  
- 	print_smaps_rollup_stats("Expected stats:", self, expected);
-@@ -759,7 +756,7 @@ FIXTURE_SETUP(proc_maps_race)
- 
- 		for (i = 0; i < mod_info->vma_count; i++) {
- 			mod_info->child_mapped_addr[i] = mmap(NULL, self->page_size * 3, prot,
--					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+					MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
- 			ASSERT_NE(mod_info->child_mapped_addr[i], MAP_FAILED);
- 			/* change protection in adjacent maps to prevent merging */
- 			prot ^= PROT_WRITE;
-
-base-commit: 39274b454e9993cea319f4ac342a8082a9ee1730
+ #define PRIMAP(_hw_mode_) \
 -- 
-2.56.0.307.g5fe7bd680c-goog
+2.34.1
 
