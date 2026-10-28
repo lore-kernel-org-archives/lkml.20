@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158861;
-	b=3YY9gy0aMdszrivUUDERBAaP820TRbgqbImVNpmEoazgXs/XFH7A6wFnGH60ISw2PVDj
-	 0Zc3qGk5whVp8GlqXSHZkZ3qM7ZVgS3PYXtMGCX6Rs736160A1rNBGpGY6BYurU/CBK4o
-	 2gbQc4i2HPJs8vpG+v3FXa0769RRIypqaZj4glTNn5IenSsjiTcg7LC94tnk9s8VB2FgJ
-	 v1v8usnZ6feQW6U4NMVlQs1xEp9ZtPb3RK8iW1FUrz5jCwvBwULIzlC7gTUzocZtbCOL8
-	 4e3Aw4Qgb892eCJitEKzVQs5jitsHvXcb5hdQZYUC7YZ+054nOLily+NDd4Ho57z+Wg==
+	t=1793158876;
+	b=UfnCpTztilGJMwzK0Z9xe1ptkWtadNrKeA4ZlOaNp3OSTYpHBcuKQ17pyZPWKl/9hKmx
+	 fLhr6zaNbyL6uAqA99EmfUj47uIuZoOdwDqyo6Fu8mDj1eQxPl8w+bXuZIspN00dmzZRO
+	 0XRJKPFTeHyUQ10DcMEbdC6Fl6llaIkIhz5d3MYyPjjG0/XB3A4h8NWEiDOuA112Asm7p
+	 FKjfrfHNeP6YMTM+uUnWzFmzkpUSWUImby/PFcR64gTmJlrtrJ3FYnogwLAHrBqaYbTcI
+	 kJL3KWgL/IfytlxN1/LuH2VX2W/+KXdZPftTg5dxsrEjWcvFKTp1HtESR+/bmseF0PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158861;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DFz26Eku7ZAlqmVMiKR0VvxuKqR6CneczdW4fGPibk8=;
-	b=TGduFYe/ZETRus50FiN6Wb6ZEEU9/uovZBjgvL1YW65rnezvCcOqyN7pfReITKF5OskH
-	 fq4jOFd9kvd0bS6yj9+NjPVjIp2pYKFAgg6DncRU88kkZBxGAQqlLGy+V487RZ1+oZtr0
-	 2YTJGl8FK+cwNbcoUTQRqgeiXiw7ukqFGg975363IZcNgHlvSesEE2e7Keng30t9ZkzbN
-	 Dequ3+AxerQkg8teSt4c6iJT4Rl37Nb8F/n94U41HAMk510WRVWN+XRFpm01bAU0T3Qul
-	 tydehugBnnMyNYi++WHckCI4nYR03blnK0ar+GYvxpGIw4+4JhVO/mnB5Eq5EefaA0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158876;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=lFOWfscv7nnPS5/K/4A8JM63NlFiokNweWuzY3uTuAg=;
+	b=u0DBnhieWIbANlamh1m4VSokb4DTasVmLmYERsZyEu8yNz704z+P4JgRBQdURl+rnZT0
+	 I1WMx04zO7bht4/B7pfaN4lnzGuI+TcBx+3SnL2oXaPtrsvhT947OLbkFBCrFpQxtjxUQ
+	 LUgiHjYA68VrO3fhztoja05o/EUqdDKe+BbjzKOD2Lj4wVXBy1uDGardSHBX3ybS2EyE9
+	 WEKx3Kam+63xdiJUNSN4W/tcFZNKpz6mvgCC+FYEqKEuI8c4TMjMuV+ee5F1ntk6EY6eB
+	 6izGDpfdLdAYoeYEny9WcHZXUwDFuaAdmqgHadQOie8eL3Gg5viDU7SvnopWu/dtb/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KI1fFyCr;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51C1606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B51C1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="LhG8xw+/";
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F78E606A321;
+	Wed, 28 Oct 2026 03:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F78E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KI1fFyCr
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso293820b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:41:00 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=LhG8xw+/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793158860; x=1793763660; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DFz26Eku7ZAlqmVMiKR0VvxuKqR6CneczdW4fGPibk8=;
-        b=KI1fFyCrQ6/xarfMSgFToJby/ICKLKjhUdNrft0pkdzl/Fp/VCteRjr7fHn+bqLLPh
-         kBFGBrlTdVT5K/lk9cGG9YnGbToV76MKL3wl85LvLnAair9FceeTHffe6gJR+3+pY2xt
-         YaHZPVdlyrV0Zv3EPGNj88rHvBzGkt+lkzF39H0GQpl195JVPBLORJHhGlY/Z6PTrp6D
-         XHwI5PXECBihqVS2w7To/hffRaMvR+GsiOsGvPldGwoxY+PGv5vrHzpJb3sicT4Zjdkh
-         ro8Okf6LIzVAH8noerCpRrlJ3yPuwWUPi+uGzgF3J78EbALrCRmVGVYdDkv7MrpYSAyO
-         c3kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793158860; x=1793763660;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DFz26Eku7ZAlqmVMiKR0VvxuKqR6CneczdW4fGPibk8=;
-        b=ZkpJJwINgi95LUHnBk9wHuq+iklnfxCGx7KULHedHkbKDZnEBSfAZcW3up2eCU4BXS
-         RDJOk74efJJvMMJnlWa75ewdJDn93tW7W1A9qdoy9La+7lxfFUUh+NF91lHEgzBBocHZ
-         AgFIKiPDzMb1++DFKykmyotzwoaH5sVoA7wtJA+ZW7734fWvgJ19nFW/kNbhAHEGCyeI
-         MbhNy3j0M0blTU8EgJAhTa6lHd1h/2coEwbh64lP5Oi56RPc3gPFHVRQ8UA8FwOLtZio
-         8dC/YDi3N8xpp9nNxOpe2udOjeC7ZSwsyOsWsupcsorKjjOpTbiG4+ZtLyAGEUscTG1S
-         xJMw==
-X-Forwarded-Encrypted: i=1; AKwUvBykRLRE37XkZerGUh9QbDhRPG7A4GbLuVZs2/3kTsU7G7BJTDLuuPQCrpCMNvBGXjIupzr7aNoqX3E5J44=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRxcgdOVu1EJy5+HcR0w/d24KrjckW/qrtRP7RwDcuoG7fjxHS
-	PuMb8jd1O9wSR8ATXxO5K1IiyiRBZY38YIaL9qJXK48TBnzUlhUQmrPO
-X-Gm-Gg: AYBFou0mdJfaxsaNssiyCuFpSn5ajbV6r8PRVZpDTC4E0z9v9RP9XN5AO1dYzw7MAdP
-	b1YlMS11QUlAc7xodqZPCDo1x9XpSuCvgR1PO4BAICASS9o3J/n0p9VnkQlyIkRnXbWqUfVWNuD
-	jA3Fj/Ogg4t0Z/UHYJubFOfSylqH/rORwiOMTW5iMZiDyKNuyOE/uL0DQn9Z3yN8hYmwgWjgmfj
-	Yl3ehuKLz7s/wOoLtmP7R/J1OWdMoSNMPNk1oBPRSsErroCPIWe/bwJWg6g0GADMTUKgbqD46l4
-	+zXefGUJITvTmpIpE3IooOyTs/rgK4YSGR5J7KzSIAzpxBTvsEBqm7HowZaJHs4718QiSQDtps3
-	7Arix3YK1Naerf7GZwSIyMdbomkbYoan0Z888ggPEzzmE5ryZVPb7/ygVDieuC7IVQwtUqaP6qQ
-	o6uPfJiKCcWXuVgnxoZG0QJw/31+PuNJ5RZKcv5bnuAF0EQq/0epoUaxzQsOeJG7jtqNNW+DeXp
-	oqeCjL/FkRqDe1Ol1ZZYufSq4dyum304AeLuGM4IlsTZIt3abbrpoSz35Wr5wLDmqb9uFfbkBK1
-	+3D3D8q3DSAEfEZxkcoNkj+5gmuxuNmKxL59/pGivB7PC4EgffwbW6QvMjMIufPzw7dY+VP9gz1
-	A3zjmvHVfuXoe2FSXwlmSeYjXgsuVai/7wOg6bYTciwEow0QNHsrEmjGGoqY/kLvZweie5Y1InA
-	dPJQ==
-X-Received: by 2002:a05:6a00:ab0d:b0:8a0:7dc4:95c0 with SMTP id d2e1a72fcca58-8a6e6b175a6mr1061341b3a.15.1793158860024;
-        Tue, 27 Oct 2026 20:41:00 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a73bf7efsm596875b3a.52.2026.10.27.20.40.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 20:40:59 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	=?UTF-8?q?Giedrius=20Statkevi=C4=8Dius?= <giedrius.statkevicius@gmail.com>,
-	Kalle Valo <kvalo@qca.qualcomm.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-gpio@vger.kernel.org (open list:GPIO SUBSYSTEM:Keyword:(devm_)?gpio_(request|free|direction|get|set))
-Subject: [PATCH ath-next v2] wifi: ath9k: don't re-request the LED GPIO in ath9k_stop()
-Date: Tue, 27 Oct 2026 20:40:57 -0700
-Message-ID: <20261028034057.114021-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=lFOWfscv7n
+	nPS5/K/4A8JM63NlFiokNweWuzY3uTuAg=; b=LhG8xw+/Xk+OLOyx10hoA3ohk9
+	8PVdnwEDhnPjMucaRFBVZ5ttLv2BZBDKb2dN6RsRppBWdlgR7K7MpcRhpHu7iUbS
+	puEKekhaop1gYII/EUdpjye6DE7nMNTBH0FjLhGDelnzl6BQPlOg07EpF1TJZrgb
+	/e49wbdiAOANJZZN4=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S2;
+	Wed, 28 Oct 2026 11:41:06 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/9] media: camss: add SM8750 support
+Date: Wed, 28 Oct 2026 11:40:56 +0800
+Message-ID: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,86 +67,103 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuF47uFWrKF1fuw1DWF47CFg_yoWrZry5pF
+	WrK3y5GrZ7Gr4Ivr1xJw18XFW3Awn3tayUGF42v34jv3y5Jr1xWr43KF1YgrWDCrWrta42
+	yr4jqrW7uF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+	wI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5GksPUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABEsN
 
-ath9k_deinit_device() frees the LED pin in ath_deinit_leds() before it
-unregisters the hw. ath9k_stop() then switches the LED pin back to an
-input with ath9k_hw_gpio_request_in(). For a SoC GPIO outside of the
-WMAC, ath9k_hw_gpio_request() takes a new descriptor through
-gpiod_get_index() at that point, and nothing releases it again. The
-next probe fails with "request GPIO12 failed:-16" and every LED update
-hits the WARN_ON() in ath9k_hw_set_gpio(). That request also runs
-under sc->sc_pcu_lock, while gpiod_get_index() and
-gpiod_set_consumer_name() may sleep.
+This series adds camera capture support for the Qualcomm SM8750 SoC
+(camera subsystem block with four CSID, six CSIPHY, three VFE and two VFE
+lite instances).  It was developed on a Lenovo TB322FC (Y700 Gen4 tablet)
+and both of its sensors (rear s5kjns, front gc08a8) capture at full
+resolution and 30 fps with it, through libcamera.
 
-The input direction was only added for symmetry with ath9k_start(); the
-suspend/resume fix that brought it back only needed the output side.
-On WMAC pins it also undoes the "LED off" level written just before it.
-Drop it, so the pin simply stays an output driven to the off level.
+The block is close to the SM8650 one, but the capture interrupts move from
+the VFE to the CSID: the VFE of this generation has no useful interrupt
+sources, and the CSID reports RDI buffer done, register update completion
+and CAMIF start-of-frame per CSI2 stream.  That drives the two structural
+changes in the series:
 
-ath9k_stop() still writes the LED pin, so free the pin after
-ieee80211_unregister_hw() instead of in ath_deinit_leds(); otherwise
-that write hits the WARN_ON() in ath9k_hw_set_gpio() on SoC GPIOs. This
-also frees the pin when the LED class device could not be registered,
-which leaked it before.
+ - camss-csid-980.c adds the CSID registers of this generation, with the
+   full and the lite variant; the full one splits the register update into
+   separate RUP and AUP commands that need an extra trigger write.
 
-Seen on a TP-Link Archer C7 v2 (QCA9558, LED on SoC GPIO 12) when
-reloading ath9k.
+ - patches 4 and 5 keep the "add the generation" and "report frame starts
+   from the CSID" parts apart.  The latter is the architectural change:
+   frame start moves to the CSID, V4L2_EVENT_FRAME_SYNC is raised from
+   there, the sequence number is only incremented on a frame start, and a
+   buffer whose frame never started is reported with
+   VB2_BUF_STATE_ERROR instead of silently being numbered.  An SOF can
+   also arrive after an as-yet unhandled completion, so the EOF and SOF
+   timestamps are compared and the completion is reported first in that
+   case.  Generations that still report frame starts through the VFE are
+   unaffected: the new vfe_hw_ops callback is only provided by the VFE
+   implementations that need it.
 
-Fixes: e34f2ff40e03 ("ath9k: bring back direction setting in ath9k_{start_stop}")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: remove ath9k_hw_gpio_free in ath_deinit_leds
- drivers/net/wireless/ath/ath9k/gpio.c | 2 --
- drivers/net/wireless/ath/ath9k/init.c | 5 +++++
- drivers/net/wireless/ath/ath9k/main.c | 4 +---
- 3 files changed, 6 insertions(+), 5 deletions(-)
+Patches 6 and 7 are generic video-node fixes the newer write master needs:
+a buffer payload has to be physically contiguous because the frame
+increment registers describe one linear range, and a start that fails
+halfway must stop the subdevices already started.
 
-diff --git a/drivers/net/wireless/ath/ath9k/gpio.c b/drivers/net/wireless/ath/ath9k/gpio.c
-index 2dbc7efdd637..d525d8ef9369 100644
---- a/drivers/net/wireless/ath/ath9k/gpio.c
-+++ b/drivers/net/wireless/ath/ath9k/gpio.c
-@@ -67,8 +67,6 @@ void ath_deinit_leds(struct ath_softc *sc)
- 
- 	ath_led_brightness(&sc->led_cdev, LED_OFF);
- 	led_classdev_unregister(&sc->led_cdev);
--
--	ath9k_hw_gpio_free(sc->sc_ah, sc->sc_ah->led_pin);
- }
- 
- void ath_init_leds(struct ath_softc *sc)
-diff --git a/drivers/net/wireless/ath/ath9k/init.c b/drivers/net/wireless/ath/ath9k/init.c
-index a7a11781d83d..d35460e352d9 100644
---- a/drivers/net/wireless/ath/ath9k/init.c
-+++ b/drivers/net/wireless/ath/ath9k/init.c
-@@ -1128,6 +1128,11 @@ void ath9k_deinit_device(struct ath_softc *sc)
- 	ath9k_deinit_debug(sc);
- 	ath9k_deinit_wow(hw);
- 	ieee80211_unregister_hw(hw);
-+
-+	/* ath9k_stop() still drives the LED pin, so release it only now */
-+	if (sc->sc_ah->led_pin >= 0)
-+		ath9k_hw_gpio_free(sc->sc_ah, sc->sc_ah->led_pin);
-+
- 	ath_rx_cleanup(sc);
- 	ath9k_deinit_softc(sc);
- }
-diff --git a/drivers/net/wireless/ath/ath9k/main.c b/drivers/net/wireless/ath/ath9k/main.c
-index 740a6fc7b067..07797cc89ee0 100644
---- a/drivers/net/wireless/ath/ath9k/main.c
-+++ b/drivers/net/wireless/ath/ath9k/main.c
-@@ -942,11 +942,9 @@ static void ath9k_stop(struct ieee80211_hw *hw, bool suspend)
- 
- 	spin_lock_bh(&sc->sc_pcu_lock);
- 
--	if (ah->led_pin >= 0) {
-+	if (ah->led_pin >= 0)
- 		ath9k_hw_set_gpio(ah, ah->led_pin,
- 				  (ah->config.led_active_high) ? 0 : 1);
--		ath9k_hw_gpio_request_in(ah, ah->led_pin, NULL);
--	}
- 
- 	ath_prepare_reset(sc);
- 
--- 
-2.56.0
+The CSIPHY 2.4.0 lane values in patch 2 are the ones the vendor CSIPHY
+2.4.0 driver uses for the two-phase variant of this PHY: address, mask and
+parameter type match for all 103 entries and the data byte for 99, the
+four remaining ones being the SKEW_CAL data bytes, which are left at the
+vendor value.  The three-phase variant of the same PHY uses a different
+address layout, so its table cannot be reused here.
+
+Not included on purpose, to keep this series reviewable: the CCI/I2C
+control path of this platform, the CSID to VFE instance pairing and the
+repeated RUP on the initial buffers.  Those are being prepared separately.
+
+Patch 9 describes the block in the SoC dtsi, so that dtbs_check exercises
+the binding together with the node; the node is left disabled and boards
+enable it on top.
+
+Qianhui Xu (9):
+  dt-bindings: media: add the Qualcomm SM8750 camera subsystem
+  media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
+  media: camss: csid: unwind the power-on path through a single error
+    label
+  media: camss: csid: add the 980 generation
+  media: camss: csid: report frame starts from CSID
+  media: camss: video: check that a buffer is DMA contiguous and add a
+    prepare hook
+  media: camss: video: stop the subdevices already started when a start
+    fails
+  media: camss: vfe: add the gen4 block and SM8750 camera subsystem
+  arm64: dts: qcom: sm8750: add the camera subsystem
+
+ .../bindings/media/qcom,sm8750-camss.yaml     | 435 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8750.dtsi          | 179 +++++++
+ drivers/media/platform/qcom/camss/Makefile    |   2 +
+ .../platform/qcom/camss/camss-csid-980.c      | 468 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csid.c    |  45 +-
+ .../media/platform/qcom/camss/camss-csid.h    |   3 +
+ .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 +++++
+ .../platform/qcom/camss/camss-vfe-gen4.c      | 212 ++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c |  69 ++-
+ drivers/media/platform/qcom/camss/camss-vfe.h |   5 +
+ .../media/platform/qcom/camss/camss-video.c   |  78 +--
+ .../media/platform/qcom/camss/camss-video.h   |   1 +
+ drivers/media/platform/qcom/camss/camss.c     | 369 ++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h     |   2 +
+ 14 files changed, 1931 insertions(+), 61 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
+ create mode 100644 drivers/media/platform/qcom/camss/camss-csid-980.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-vfe-gen4.c
 
