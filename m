@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224609;
-	b=OFcDHeV6QpJkrM39lmCOXSXV9dRN2DCXrg8QwklVicbqoQ4CUhpT9mYyO37Wog2ntbjp
-	 khgZbG2KHG5vcqFMk3IXsJTx48gA6kLiRFCM8j5QJxWa4lf2DNpxa0gTZ2Xx5qspLWv0s
-	 byO/i8HEuY32AGskilzIZ2m/AUtnbNLJGx3vWXxeoqqZzcJUgl+nsS5DxPHxHvJ3oiAWL
-	 yhBF7EtzAB66jSG9aa11s3+t+tN3uwjxsYtphZkjnQVLngxYq9Vp1r4wIX3UrlS85CIBE
-	 aVRQL+hS/LRnZZQxNTDjh6AbHF/aYaumxWt+RaZEMOGeNcTl5lb3PxHWhUAjtcn3D5w==
+	t=1793224615;
+	b=bkue0xVPYcgjdsTUDpJXNGDDCVJze8BXcvzOS/Uir02338szh5nH0/hwBswwC05hw/4z
+	 LyqVHG/r8ZLFi9+kWd58n8SVBcELVcHIjU2Eh/wcj/Wcqn6dzs3ojhK9Gu02qbdzLx8P4
+	 5HfI5/gimjUKVH6vQpQ8OvL0BZzbhIoduNiiicyDsud+gL5PhcH8ZtCzZShbndW0e4a9h
+	 ApObbd2dtJUCf+c16tzl8XOx25MO9PRu3mtltbAMhrwtHnILlULbx/a8sTMywmbsRdEeX
+	 L2q22c+SBlVCPnaYKL1/hB/mAV1+SBxMUSDlUBM8ZOXw27sRKOnDj1Iv5b4vIS9b3ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DnlXwrWqb1hDEyUbxoYJnJNM6gvMPKeTH5Yt4FRMR1M=;
-	b=MENl5TbLN4Id5C0PB4ytyl6caAdZ4nZQ1NkweAG0PKY82nDU/mvkk5tMR2RJSfDwlIA7
-	 DGcPJLMUOQoOM2GHm82W35jkCjxxyp8YGEjkKtZY36yEOmEoqyw4Zlmm2ccEc9b+T3VnT
-	 KY6UXiEme//ekUa0k3vZVotZBVTlup0Dy8FUaAT0dM4Skt2xjiSTKYrlkt47ftGtBYipi
-	 u0q2eor+bI6RT0epcDyCcuzGENhXOWVlru/O3hDjuZaHk9Ifibn1fSKKfQC9bzSEh1ymJ
-	 3X6qtk0qb9eGFcTbu2z69gFtlogpQrmdjkzg3cnwMiSjYeyzRqgtb7NPskRSb2ukBkg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bW2lanCMF0hbFl0Qeeu6eM7tY/4xixp5eARPeZmTXLQ=;
+	b=RFSRU/5fy7QWUg857iby68CPkQxXtFMQ3ccgP8g40JWqLCI/v/H31QQd59ncFyBuD/yd
+	 ykxFl53G1vUhgAcX8eGxHeJWJgz3eTLSAqG2ULavsa0RTIoFjhnaFWfQTn8cTdASG+vqN
+	 t0q1kbyizo8vx2j6drks7SZbZ1Y2y5GlYmHvOsaqMmHVDNjOcpnwxLJSQ0fyiKD8eXG0M
+	 OAJXQnTjnnVYp8s/MFcXYdIOmpwxVpUXka6nc7Tgzxuy5TvDbUWC14djFhH8sJRu4Mws0
+	 JLVVvVyNky7Nn8ftIPhCrp7KOmyQwdArAUq26sX4hrXiB0sPDFuuZxcxe4Rsq27DcyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DzMzuUOf;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S7W7ntVJ;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A3F60A3839
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A3F60A3839
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224D960A2635
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 224D960A2635
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DzMzuUOf
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a1947498bso47469eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:46 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S7W7ntVJ
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so1676505eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793224606; x=1793829406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DnlXwrWqb1hDEyUbxoYJnJNM6gvMPKeTH5Yt4FRMR1M=;
-        b=DzMzuUOfN0iUXy0VUMe+bQoZ5becFn0+cFtAWUUafnkMQ9dg1jaajtWhauuh96jE5A
-         dXocWKat1Aaa4nVcVmtVYoFMAM/n7WglQDo/D+RGhJb1fffeVcgLnnO65YM4OcsiRq2z
-         Jk0jAOAJmtHYur5UAhDslnmm6he7qIX70UmgQ=
+        d=chromium.org; s=google; t=1793224613; x=1793829413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bW2lanCMF0hbFl0Qeeu6eM7tY/4xixp5eARPeZmTXLQ=;
+        b=S7W7ntVJLj2kBn748PUQkK+evNiAMO3u3iy5nmZzWNI7xESd42ZBS9xfz59rtTls1G
+         QbB6F/skMivPcTQpv0PQcFZ0v7yLeOWertuROwxQLxQd3Q/hBGL1CbANLqjhVevGjY8j
+         E/gEW1j9thXO7WygiLTZkeYpwVZMVt0hXZlJQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224606; x=1793829406;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DnlXwrWqb1hDEyUbxoYJnJNM6gvMPKeTH5Yt4FRMR1M=;
-        b=u4GLXV3QaNow7gaFBS4y5ywTgiFNFxWT7PXYKDvOL3wS37djolO9A5tJopL4uqJspU
-         vSkl+GkbhkonRqyWAy0A8deaT5//RJ9CSRkBDQTZ3a+yXo0exHvCzdXzcJMpqAoeApHL
-         AWeQ7rZioXb1zI3E/qkRkYtw41qovXejSz8Q0wN1JG2p7R1yseSSLrnU91xLHayGjQtt
-         ByPZovo1AOqYQMJ4ENpjNcNZ54IAYzK50dUuWVbPPHpa/BLs5/+XbQe4MGNTxGbbBELR
-         1DQbMHNuQ7EfZyejpst3/glHXMS3wdDHDxvavMj7lu6R+InHZt5kFm715rb2gyRkt2cl
-         Qb0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxx0g0QJhgjDbSGlHFN20MzemDotmx4AUU1tD7OsIKd9NNxPiM4F4ZpTGgdBdYM7rol42PQ4C6+yLGWXgU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxYeNkrPtxisLAs89ig2wE5SzRIiZK+Cwu3Nuv4kWNx+57cvHZ
-	PzmVmrTEydY5BB49GvmLT305iPCu675Sx6eyIP9OeDpPaLGXBGoO75mAWamJfY2yqQ==
-X-Gm-Gg: AYBFou1BmJDgHf8WyTHP9sbSJUC8fsXmyz2g9PNeGWWCGMuv0HVQaExjYkyZmB5oUxc
-	oc973BEktff58qSljIZ2LQuwrecl2ZDFDSL6XhAnsUnomdr1U1LbBT0/RfZBvJ/+D2RJe0Qd3O7
-	WawcXDz/Y6LCHKzXeIgvSxYbbeJdlnBxK4e4hl9ZB6W24M0QV2F4i+293jAmIAITlJagoagaLNr
-	Y/P1WoS9J6k2lLeSPJUu8f1myq3LV98eGH1vGz7gFUEd+qa8J+/aGyRIeK+3vddpt1d4fUGwi3Q
-	kZ6EjKMZ4QvHR6xXDIWEYmyxcW8mB3xx+Osv0kNmjmrYFiuYCUF93Wr61yO0gxpNi+0CUl4BO8k
-	RzjYx7mOPN75IthYO/GAJY14OmBPcjbCiFISJGx/hxi6vS27ZxzBw1DU2+i0QkwedsUvEQyVC6d
-	6OXZ1R40TE1zwAEuc4SlBk8/xKRBWUwP8uaEGlLxTD6UaAvPgNoJwtdWR++vG7tq8g/vN2tWJk0
-	DPDEKmM2COCLIbbw6X3qXtl39uaJYoISvhJCK7igfiO3+WDCzmRgLRTnwDZRANUS9hgHllIjpyE
-	FdSdV4cZX0jAA1TKVLuSl1efoTA+iVniwQbtKNNtvrlPsvP7o7QY0hlsgAZ6daYSM/PLoVYCzBh
-	hgmiyhli3GHSo
-X-Received: by 2002:a05:7300:8801:b0:36a:3005:aa65 with SMTP id 5a478bee46e88-36a3005b037mr1015515eec.15.1793224605166;
-        Wed, 28 Oct 2026 14:56:45 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793224613; x=1793829413;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bW2lanCMF0hbFl0Qeeu6eM7tY/4xixp5eARPeZmTXLQ=;
+        b=OEw9+/0hMNkhT35sZuIQtBmAgk4x2/KeINPM/F9sJ65WgFTEvCvs2MMZssXh31+jY6
+         oMR4XaVNEWf9qh9Sbrs2PUCrUep0fUCVQ6um/+2kTAYeIT93Ufjtj4dlHELQ3a4Le5Y2
+         SoO1f/kgjr991/v+apZNQydXqTKykpm6CweLpufU7OHgp8KPPYhBZgWWtHyQ6A7i79xj
+         wytkzlJEXtiiDxRSBppECskCXg7/upTiEbBeH1u8xn5/gR6y36zUfzP5//g7HZz4Ycgf
+         pwNBk5FRecHMIH7EY0eIW3UmKQ6/UGct3sAwf3uTihLiotOqU8ejkh6TA6D7wPwNGexz
+         8rsg==
+X-Forwarded-Encrypted: i=1; AKwUvByViTjI4xyO2RTOLiGdu9NrdtOzPC7hfHvHGQcXhnCorltkT5gwWT5NCwYeJ7MobOS/PaWkF2xT+Ikt5bE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJclP93z0APklfVrCb3uNUZLMPDOWtjcMXqkiefWeyCcz/pGO23
+	4iwJVO6DTd5nfEZ1RqtOAXKxvpXZYHa3RL0hxbUxvN0LqySG3Qy7whPhBYJLuCYF5g==
+X-Gm-Gg: AYBFou1wKdbveC3EVWrRSef9JTbjQO6KgFLXxREPJvuTy4b1HH3Pd06jTLi7Go63+RN
+	6EaePbquTPq1/F0rXDn9utoYDANhiHpvGree3mvAY0fToEAIukbC8tY0lkTLLq/b5OeNDOU2ynP
+	wrxCP10WRNzqqHKvksOk7x1SWXLICX3JzQ6xGcbYZx1a2Mr8PrwNjvgSMptTLFTLC5ztaz/PLNo
+	YnB1NMIzbCmbdyzQpaz5w1tScryxtt5E+McqektIhLyipiwQNcFEIl7StTdRI5ufE3B5ZD3mKOe
+	WlYyx50TySXveHN32rtv+NEVlMxyW75/i6R26IqSqLts1nbc/w6AfbnlNtiWOdslx4fr4ftTSp2
+	rQQ3zYo3ryjbsmOKNd66YYv1V/YGtcl/ciXKzdziae34zB+PFZtoDLm1vfVvzmLNingFUvwQVKB
+	ZCrYIwJiXXruW+C7CSBMB4eyxkYRpNgjDL0vl8tcMWE4JOx5pleSkhpz9mQWcmlveB6lvspFSt0
+	gN4tST+5cEur0bTh/fVTpIcVPx3aogF7AMz9kTfMl1xaizE2BW+l0I434Qa6Ul9JPi3mNITyQiY
+	kAnFuoSWRMWHJhKQwF963dLhrVXT1n1xMu1D9dlK8FmI6XTNeaWqi2/zYXPolOZRxryZlWq0Wxs
+	q4szH9j2btKz1
+X-Received: by 2002:a05:7301:3a99:b0:361:39c0:c393 with SMTP id 5a478bee46e88-36a203ac704mr5128778eec.13.1793224612988;
+        Wed, 28 Oct 2026 14:56:52 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:19e7:c87:2527:4e12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:56:44 -0700 (PDT)
+        Wed, 28 Oct 2026 14:56:52 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,9 +95,9 @@ Cc: Brian Norris <briannorris@chromium.org>,
 	Saravana Kannan <saravanak@kernel.org>,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v2 07/10] fdtfactor: Add tool to split DTBs into a base DTB and overlays
-Date: Wed, 28 Oct 2026 14:46:56 -0700
-Message-ID: <20261028215600.1713475-8-dianders@chromium.org>
+Subject: [PATCH v2 10/10] fdtfactor: Add compiled FIT image factoring support
+Date: Wed, 28 Oct 2026 14:46:59 -0700
+Message-ID: <20261028215600.1713475-11-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
 In-Reply-To: <20261028215600.1713475-1-dianders@chromium.org>
 References: <20261028215600.1713475-1-dianders@chromium.org>
@@ -109,1271 +110,1327 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When shipping a single firmware or kernel image that supports many
-closely related board variants or SKUs, bundling a full compiled .dtb
-for every variant results in substantial duplication.
+Bootloaders such as depthcharge on Chromebooks and U-Boot use Flattened
+Image Tree (FIT) images to bundle a kernel image with multiple board FDT
+blobs (`fdt-1`, `fdt-2`, ...) and per-board configuration nodes.
 
-Add `fdtfactor`, a Python tool built on `pylibfdt` that takes a set of
-compiled device tree blobs (.dtb) compiled with `-@ -L` (`/__symbols__`
-and `/__local_fixups__`) and splits them into a single common
-`base.dtb` and per-board `.dtbo` overlays:
+Add `-F`/`--fit`, `--outfile`, and `--single-base-dtb` options to
+`fdtfactor` to factor a compiled FIT image directly:
 
-- Common nodes present across all input DTBs are placed in `base.dtb`,
-  with each common property assigned the value shared by at least two
-  boards that maximizes byte savings across overlays.
-- Using `/__local_fixups__`, phandle references inside property values
-  are normalized to target node paths so common properties referencing
-  common nodes match even when numeric phandles differ across input
-  DTBs.
-- Any common node that carries a phandle in any input DTB receives its
-  phandle in `base.dtb` so overlays only emit `phandle` properties on
-  newly added subnodes, matching the requirements of `libfdt`, Linux's
-  `drivers/of/overlay.c`, and coreboot's `dt_apply_overlay()`.
+- Parse non-overlay `type = "flat_dt"` nodes under `/images`,
+  decompressing their `data` blobs according to their `compression`
+  property (`none`, `lz4`, `lzma`, `xz`, `gzip`).
+- Reject FIT images containing `signature*` subnodes under `/images/*`
+  or `/configurations/*`, as modifying FDT blobs and configurations
+  would invalidate cryptographic signatures.
+- Partition the `flat_dt` blobs into compatible factor groups (by
+  compression, architecture, FDT header fields, and node-path overlap)
+  so a single FIT image containing multiple board/SoC families produces
+  a separate `fdt-base-1`, `fdt-base-2`, etc. for each family.
+- Support `--single-base-dtb` to force all `flat_dt` blobs into a single
+  base DTB regardless of node-path overlap, failing only if their FDT
+  headers, architecture, or compression differ.
+- Insert each `fdt-base-N` node into `/images`, replace each factored
+  `fdt-*` node's `data` with its compressed `.dtbo` overlay, recompute
+  any `hash*` subnode digests, and prepend `fdt-base-N` to each matching
+  configuration's `fdt` string list while preserving all other
+  configuration properties (`description`, `compatible`, etc.,
+  populating `compatible` from the board DTB's root node when omitted)
+  and any pre-existing overlay entries.
 
-Add a `fdtfactor` test suite in `tests/run_tests.sh` verifying that
-applying each generated `.dtbo` to `base.dtb` with `fdtoverlay`
-reconstructs the original DTB (verified via `dtbs_equal_unordered`,
-including across input DTBs with shifted phandle numbers).
+Add uncompressed, LZ4-compressed multi-family, signed-FIT rejection, and
+`--single-base-dtb` FIT image test cases to the `fdtfactor` test suite.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
 Changes in v2:
-- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
-- Store parsed trees directly in NodeTree with node.phandle and
-  node.fixups attributes instead of parallel dicts (David Gibson)
-- Extract phandles in a separate pass after unflattening and reject
-  legacy linux,phandle properties (David Gibson)
-- Exclude non-root common phandle nodes lacking a common symbol from
-  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
-  Gibson)
-- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
-  a dedicated fdtfactor test suite (David Gibson)
+- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
+  FIT mode in the --help description (David Gibson, Simon Glass)
+- Reject signed FIT images with signature* subnodes (Simon Glass)
+- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
+  common-prefix heuristics (Simon Glass)
+- Compare FIT group node overlap against the group's common node set
+  instead of only the first entry (Simon Glass)
+- Document in README.md that U-Boot's boot_get_fdt_fit() currently
+  requires FIT overlays to be uncompressed (Simon Glass)
 
- Makefile                           |   2 +-
- README.md                          |  43 ++
- fdtfactor                          | 814 +++++++++++++++++++++++++++++
- meson.build                        |   1 +
- tests/Makefile.tests               |   4 +-
- tests/fdtfactor_board1.dts         |  38 ++
- tests/fdtfactor_board2.dts         |  36 ++
- tests/fdtfactor_board3.dts         |  34 ++
- tests/fdtfactor_board3_shifted.dts |  34 ++
- tests/meson.build                  |   2 +-
- tests/run_tests.sh                 |  65 ++-
- tests/testutils.sh                 |   1 +
- 12 files changed, 1067 insertions(+), 7 deletions(-)
- create mode 100755 fdtfactor
- create mode 100644 tests/fdtfactor_board1.dts
- create mode 100644 tests/fdtfactor_board2.dts
- create mode 100644 tests/fdtfactor_board3.dts
- create mode 100644 tests/fdtfactor_board3_shifted.dts
+ README.md                  |  17 ++
+ fdtfactor                  | 588 +++++++++++++++++++++++++++++++++++--
+ tests/Makefile.tests       |   2 +-
+ tests/fdtfactor_lz4.its    | 109 +++++++
+ tests/fdtfactor_other1.dts |  33 +++
+ tests/fdtfactor_other2.dts |  33 +++
+ tests/fdtfactor_test.its   | 109 +++++++
+ tests/run_tests.sh         | 158 +++++++++-
+ 8 files changed, 1018 insertions(+), 31 deletions(-)
+ create mode 100644 tests/fdtfactor_lz4.its
+ create mode 100644 tests/fdtfactor_other1.dts
+ create mode 100644 tests/fdtfactor_other2.dts
+ create mode 100644 tests/fdtfactor_test.its
 
-diff --git a/Makefile b/Makefile
-index 9110d17796b0..4df5bbda9ce2 100644
---- a/Makefile
-+++ b/Makefile
-@@ -165,7 +165,7 @@ BIN += fdtget
- BIN += fdtput
- BIN += fdtoverlay
- 
--SCRIPTS = dtdiff
-+SCRIPTS = dtdiff fdtfactor
- 
- all: $(BIN) libfdt
- 
 diff --git a/README.md b/README.md
-index 8f1a5d2a4d67..446135e7c02c 100644
+index 6b5ad32f474b..17f7563cffa5 100644
 --- a/README.md
 +++ b/README.md
-@@ -91,6 +91,49 @@ $ make NO_PYTHON=1
- More work remains to support all of libfdt, including access to numeric
- values.
+@@ -108,6 +108,7 @@ Basic usage:
  
-+## fdtfactor
-+
-+`fdtfactor` is a Python tool built on `pylibfdt` that takes a set of
-+compiled device tree blobs (`.dtb`) and splits them into a single common
-+`base.dtb` and per-board `.dtbo` overlays so that applying a board's
-+`.dtbo` to `base.dtb` recreates the original board device tree while
-+reducing total storage size.
-+
-+Input `.dtb` files must be compiled with `dtc -@ -L` so that both
-+`/__symbols__` (used to resolve overlay `/__fixups__` against `base.dtb`)
-+and `/__local_fixups__` (used to identify phandle references inside
-+property values) are present.
-+
-+Basic usage:
-+
-+```
-+$ fdtfactor -o out_dir board1.dtb board2.dtb board3.dtb
-+```
-+
-+Options:
-+
-+* `-b`, `--base-dtb`: Output filename for the common base `.dtb`
-+  (default: `base.dtb`; placed in `--outdir` if specified, or the current
-+  directory otherwise).
-+* `-o`, `--outdir`: Output directory for generated `.dtbo` files and
-+  `--base-dtb` (default: alongside each input `.dtb` for `.dtbo` files,
-+  current directory for `--base-dtb`).
-+* `-s`, `--stats`: Print size savings summary.
-+
-+### TODO
-+
-+* **Targeted overlay fragments**: Add an option to emit fine-grained
-+  `/fragment@N` nodes targeting individual parent subnodes rather than
-+  placing all overlay changes under a single `/fragment@0` targeting `/`.
-+* **Multi-level overlays**: Support hierarchical overlay layers (for
-+  example, SoC base -> board family intermediate overlay -> SKU leaf
-+  overlay) when multiple boards share large sub-trees not present across
-+  all boards. As an interim step, `fdtfactor` could accept an
-+  already-generated `base.dtb` plus a subset of `.dtbo` overlays emitted
-+  by an initial pass, leaving `base.dtb` untouched while factoring out
-+  an intermediate `.dtbo` for the commonalities shared within that
-+  subset.
-+
- ## Mailing lists
+ ```
+ $ fdtfactor -o out_dir board1.dtb board2.dtb board3.dtb
++$ fdtfactor -F image.fit --outfile image.factored.fit
+ ```
  
- * The [devicetree-compiler](mailto:devicetree-compiler@vger.kernel.org)
+ Options:
+@@ -123,6 +124,22 @@ Options:
+ * `-o`, `--outdir`: Output directory for generated `.dtbo` files and
+   `--base-dtb` (default: alongside each input `.dtb` for `.dtbo` files,
+   current directory for `--base-dtb`).
++* `-F`, `--fit`: Factor `/images/fdt-*` blobs inside a compiled FIT image
++  (creating `/images/fdt-base-1`, `/images/fdt-base-2`, ... per compatible
++  board/SoC family grouped by FDT headers and `>= 50%` node-path overlap,
++  converting each `/images/fdt-N` node into a `.dtbo` overlay, updating
++  `/configurations/conf-*` `fdt` and `compatible` properties, and
++  recalculating `/images/*/hash-*` digests). Each factored base DTB and
++  `.dtbo` overlay preserves the `compression` setting of its `/images/fdt-*`
++  node (note: while bootloaders such as depthcharge decompress compressed
++  FIT overlays, U-Boot's `boot_get_fdt_fit()` currently only decompresses
++  the base DTB and requires FIT overlays to be uncompressed). Signed FIT
++  images with `signature*` subnodes are rejected because modifying FDT blobs
++  and configurations would invalidate cryptographic signatures.
++* `--outfile`: Output FIT image path when `--fit` is used (default:
++  overwrite `--fit` in place).
++* `--single-base-dtb`: Force a single `/images/fdt-base-1` across all FDTs
++  in `--fit` mode rather than grouping by node-path overlap.
+ * `-S`, `--strip-local-fixups`: Omit `/__local_fixups__` from the generated
+   `base.dtb` and final reconstructed device trees. By default, `fdtfactor`
+   preserves `/__local_fixups__` on `base.dtb` so that when `fdt_overlay_apply()`
 diff --git a/fdtfactor b/fdtfactor
-new file mode 100755
-index 000000000000..f1a5b35d5ee9
---- /dev/null
+index ab261765bb29..f07389c07d02 100755
+--- a/fdtfactor
 +++ b/fdtfactor
-@@ -0,0 +1,814 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+"""fdtfactor - Split multiple compiled .dtb files into a base .dtb and .dtbo overlays.
-+
-+Given two or more input .dtb files compiled with `dtc -@ -L` (so they include
-+`/__symbols__` and `/__local_fixups__`), `fdtfactor` extracts all nodes and
-+properties shared across the inputs into a single common `base.dtb` and emits a
-+small per-board `.dtbo` overlay for each input. Applying a board's `.dtbo` to
-+`base.dtb` (e.g., via `fdtoverlay` or `fdt_overlay_apply()`) reconstructs the
-+original board DTB.
-+"""
-+
-+import argparse
-+from collections import Counter
-+import os
-+import struct
-+import sys
-+
-+import libfdt
-+
-+
-+def _is_dtbo_overlay(fdt):
-+    """Return True if `fdt` is a `.dtbo` overlay rather than a base DTB.
-+
-+    Args:
-+        fdt: A `libfdt.FdtRo` instance to inspect.
-+
-+    Returns:
-+        True if `fdt` contains `/__fixups__` or a top-level subnode with an
-+        `__overlay__` child, False otherwise.
-+    """
-+    if fdt.subnode_offset(0, '__fixups__', quiet=libfdt.QUIET_NOTFOUND) >= 0:
-+        return True
-+    return any(
-+        fdt.subnode_offset(soff, '__overlay__', quiet=libfdt.QUIET_NOTFOUND) >= 0
-+        for soff in fdt.subnodes(0)
-+    )
-+
-+
-+class ParsedDtb:
-+    """Complete input .dtb blob with phandle-normalized tree and FDT metadata.
-+
-+    While `libfdt.NodeTree` is a generic live-tree representation of a node
-+    hierarchy (with raw byte properties and unprocessed `/__symbols__`,
-+    `/__local_fixups__`, and `phandle` properties), `ParsedDtb` wraps an entire
-+    input `.dtb` and normalizes it for cross-board comparison:
-+
-+    - Stores FDT header, memory reservation, and file-level metadata that live
-+      outside the root node tree (`boot_cpuid_phys`, `mem_rsv`, `filename`,
-+      `raw_bytes`).
-+    - Pops `/__symbols__` (parsed into `self.symbols`) and `/__local_fixups__`
-+      out of `self.root`.
-+    - Moves each node's `phandle` property out of `node.props` into
-+      `node.phandle`, and uses `/__local_fixups__` to zero out numeric phandle
-+      cells in `node.props` while recording canonical `(offset, target_path)`
-+      tuples in `node.fixups` so properties can be compared across DTBs
-+      independent of numeric phandle numbering.
-+    """
-+
-+    def __init__(self, filename):
-+        """Parse an uncompressed FDT file into a normalized NodeTree.
-+
-+        Args:
-+            filename: Path to the input .dtb file.
-+        """
-+        self.filename = filename
-+        with open(filename, 'rb') as f:
-+            raw_bytes = f.read()
-+        self.raw_bytes = raw_bytes
-+
-+        try:
-+            fdt = libfdt.FdtRo(raw_bytes)
-+            libfdt.check_err(libfdt.fdt_check_full(fdt._fdt, len(raw_bytes)))
-+        except libfdt.FdtException as exc:
-+            raise ValueError(f'{filename}: Invalid FDT blob ({exc})') from exc
-+
-+        if _is_dtbo_overlay(fdt):
-+            raise ValueError(
-+                f'{filename}: Input is already a DTB overlay (.dtbo)'
-+            )
-+
-+        self.boot_cpuid_phys = fdt.boot_cpuid_phys()
-+        self.mem_rsv = tuple(fdt.get_mem_rsv_list())
-+        self.root = libfdt.NodeTree.unflatten(fdt)
-+
-+        sym_node = self.root.children.pop('__symbols__', None)
-+        lf_root = self.root.children.pop('__local_fixups__', None)
-+        if sym_node is None or lf_root is None:
-+            raise ValueError(
-+                f'input DTB(s) lack /__symbols__ or /__local_fixups__: '
-+                f'{filename} (compile input DTBs with dtc -@ -L)'
-+            )
-+
-+        phandle_to_path = self._extract_phandles()
-+        self.symbols = self._parse_symbols(sym_node)
-+        self._apply_local_fixups(lf_root, phandle_to_path)
-+
-+    def _extract_phandles(self):
-+        """Move `phandle` properties out of `node.props`.
-+
-+        Walks `self.root` in pre-order and, for each node:
-+        - Initializes `node.phandle = None` and `node.fixups = {}`.
-+        - Pops `phandle` from `node.props` (so phandle properties are not
-+          compared as ordinary byte properties across DTBs, since `dtc` may
-+          assign different integer phandles to the same node in different
-+          boards) and stores the decoded integer in `node.phandle`.
-+        - Validates that `node.phandle` is not `0` or `0xffffffff`, and that no
-+          two nodes in the DTB share the same phandle.
-+
-+        Returns:
-+            Dict mapping each integer phandle in this DTB to its node path
-+            string (`""` for root, `"/soc/..."` for subnodes), used by
-+            `_apply_local_fixups()` to resolve numeric phandle cells to
-+            canonical target node paths.
-+        """
-+        phandle_to_path = {}
-+        for path, node in self.root.walk():
-+            node.phandle = None
-+            node.fixups = {}
-+            if 'linux,phandle' in node.props:
-+                raise ValueError(
-+                    f'{self.filename}: {path or "/"}: legacy linux,phandle '
-+                    f'property is not supported (compile with dtc -H epapr)'
-+                )
-+            if 'phandle' in node.props:
-+                node.phandle = node.get_u32('phandle')
-+                del node.props['phandle']
-+
-+            if node.phandle is not None:
-+                if node.phandle in (0, 0xffffffff):
-+                    raise ValueError(
-+                        f'{self.filename}: invalid phandle {node.phandle:#x} '
-+                        f'on {path or "/"}'
-+                    )
-+                if node.phandle in phandle_to_path:
-+                    raise ValueError(
-+                        f'{self.filename}: duplicate phandle {node.phandle:#x} '
-+                        f'on {phandle_to_path[node.phandle] or "/"} and '
-+                        f'{path or "/"}'
-+                    )
-+                phandle_to_path[node.phandle] = path
-+        return phandle_to_path
-+
-+    def _parse_symbols(self, sym_node):
-+        """Parse the popped `/__symbols__` node into a `label -> path` dict.
-+
-+        Each property on `/__symbols__` (ignoring any `phandle` property on the
-+        `/__symbols__` node itself) maps a Devicetree label name to the full
-+        path of the target node in the DTB. Root paths (`"/"`) are normalized to
-+        `""` to match `NodeTree` path conventions, and each target path is
-+        verified to exist in `self.root`.
-+
-+        Args:
-+            sym_node: The `NodeTree` for `/__symbols__` popped from `self.root`.
-+
-+        Returns:
-+            Dict mapping symbol label name (str) to normalized target node path
-+            (str, `""` for root or `"/..."` for subnodes).
-+        """
-+        symbols = {}
-+        for label in sym_node.props:
-+            if label == 'phandle':
-+                continue
-+            raw_path = sym_node.get_str(label)
-+            if not raw_path.startswith('/') or '//' in raw_path:
-+                raise ValueError(
-+                    f'{self.filename}: symbol {label!r} has malformed '
-+                    f'path {raw_path!r}'
-+                )
-+            target_path = raw_path.rstrip('/')
-+            if self.root.get_node(target_path) is None:
-+                raise ValueError(
-+                    f'{self.filename}: symbol {label!r} references '
-+                    f'missing node {target_path or "/"!r}'
-+                )
-+            symbols[label] = target_path
-+        return symbols
-+
-+    def _apply_local_fixups(self, lf_root, phandle_to_path):
-+        """Normalize phandle references in `self.root` using `/__local_fixups__`.
-+
-+        The `/__local_fixups__` tree mirrors the structure of `self.root`: each
-+        property in `/__local_fixups__` contains a list of 32-bit byte offsets
-+        where the corresponding property in `self.root` holds a phandle cell.
-+        For every such offset, this method:
-+        - Reads the 32-bit integer phandle from `target_node.props[prop_name]`
-+          and resolves it to a canonical target node path via `phandle_to_path`.
-+        - Zeros out the 4-byte phandle cell in `target_node.props[prop_name]` so
-+          property values can be compared across DTBs independent of numeric
-+          phandle numbering.
-+        - Records `((offset, target_path), ...)` in
-+          `target_node.fixups[prop_name]`.
-+
-+        Args:
-+            lf_root: The `NodeTree` for `/__local_fixups__` popped from
-+                `self.root`.
-+            phandle_to_path: Dict mapping integer phandle values to normalized
-+                node paths in `self.root`, as returned by `_extract_phandles()`.
-+        """
-+        for path, lf_node in lf_root.walk():
-+            if not lf_node.props:
-+                continue
-+            target_node = self.root.get_node(path)
-+            if target_node is None:
-+                raise ValueError(
-+                    f'{self.filename}: local fixup references missing node '
-+                    f'{path or "/"}'
-+                )
-+            for prop_name in lf_node.props:
-+                if prop_name not in target_node.props:
-+                    raise ValueError(
-+                        f'{self.filename}: local fixup references missing '
-+                        f'property {path or "/"}:{prop_name}'
-+                    )
-+                offsets = sorted(set(lf_node.get_u32_list(prop_name)))
-+                raw_prop = target_node.props[prop_name]
-+                masked = bytearray(raw_prop)
-+                targets = []
-+                for off in offsets:
-+                    if off + 4 > len(raw_prop):
-+                        raise ValueError(
-+                            f'{self.filename}: fixup offset {off} out of range '
-+                            f'on {path or "/"}:{prop_name} (len {len(raw_prop)})'
-+                        )
-+                    if targets and off < targets[-1][0] + 4:
-+                        raise ValueError(
-+                            f'{self.filename}: overlapping fixup offset {off} '
-+                            f'on {path or "/"}:{prop_name}'
-+                        )
-+                    ph = struct.unpack_from('>I', raw_prop, off)[0]
-+                    target_path = phandle_to_path.get(ph)
-+                    if target_path is None:
-+                        raise ValueError(
-+                            f'{self.filename}: unknown phandle {ph:#x} at '
-+                            f'{path or "/"}:{prop_name}+{off}'
-+                        )
-+                    masked[off:off + 4] = b'\x00\x00\x00\x00'
-+                    targets.append((off, target_path))
-+                target_node.props[prop_name] = bytes(masked)
-+                target_node.fixups[prop_name] = tuple(targets)
-+
-+
-+def select_best_candidate(candidates, path, prop_name):
-+    """Choose the `(masked_bytes, fixups)` value that maximizes overlay savings.
-+
-+    Only candidates shared by at least two input DTBs (`count > 1`) are
-+    eligible for the base DTB; a value that appears in only one DTB would add
-+    one copy to `base.dtb` to save one overlay copy (zero net savings).
-+
-+    Byte cost model per overlay occurrence:
-+    - Each FDT property carries a 12-byte structure header (`FDT_PROP` 4-byte
-+      tag + 4-byte length + 4-byte `nameoff`) plus `len(masked_bytes)` value
-+      bytes.
-+    - Each phandle fixup in an overlay adds a string entry of the form
-+      `"/fragment@0/__overlay__<path>:<prop_name>:<off>\\0"` to `/__fixups__`:
-+      22 bytes (`"/fragment@0/__overlay__"`) + `len(path)` + 1 (`":"`) +
-+      `len(prop_name)` + 1 (`":"`) + ~1-2 digits for `<off>` + 1 (`"\\0"`) +
-+      ~3 bytes amortized `/__fixups__` property overhead =
-+      `len(path) + len(prop_name) + 28` bytes.
-+
-+    Args:
-+        candidates: Sequence of `(masked_bytes, fixups)` tuples observed across
-+            input DTBs for `prop_name` on `path`.
-+        path: Normalized node path (`""` for root or `"/..."` for subnodes).
-+        prop_name: Property name string.
-+
-+    Returns:
-+        The `(masked_bytes, fixups)` tuple that yields the largest estimated
-+        byte savings when placed in `base.dtb`, or `None` if no candidate
-+        appears in at least two input DTBs.
-+    """
-+    fixup_entry_cost = len(path) + len(prop_name) + 28
-+    counts = Counter(candidates)
-+    best_val = None
-+    best_key = None
-+    for val, count in counts.items():
-+        if count <= 1:
-+            continue
-+        masked_bytes, fixups = val
-+        length = len(masked_bytes) + len(fixups) * fixup_entry_cost
-+        # Placing `val` in base.dtb adds 1 copy and removes `count` overlay
-+        # copies, saving `(count - 1) * (length + 12)` bytes across the set.
-+        key = ((count - 1) * (length + 12), count, length)
-+        if best_key is None or key > best_key:
-+            best_key = key
-+            best_val = val
-+    return best_val
-+
-+
-+def _validate_dtb_headers(dtbs):
-+    """Verify that FDT header fields and `/memreserve/` entries match across DTBs.
-+
-+    `fdt_overlay_apply()` only merges the `.dtbo` structure block into the base
-+    DTB and ignores the `.dtbo` header and `/memreserve/` block, so all DTBs
-+    sharing a base DTB must have identical `boot_cpuid_phys` and `mem_rsv`.
-+
-+    Args:
-+        dtbs: Sequence of `ParsedDtb` instances to validate.
-+    """
-+    for d in dtbs[1:]:
-+        if d.boot_cpuid_phys != dtbs[0].boot_cpuid_phys:
-+            raise ValueError(
-+                f'boot_cpuid_phys mismatch between {dtbs[0].filename} '
-+                f'({dtbs[0].boot_cpuid_phys}) and {d.filename} '
-+                f'({d.boot_cpuid_phys})'
-+            )
-+        if d.mem_rsv != dtbs[0].mem_rsv:
-+            raise ValueError(
-+                f'/memreserve/ mismatch between {dtbs[0].filename} '
-+                f'({dtbs[0].mem_rsv}) and {d.filename} ({d.mem_rsv})'
-+            )
-+
-+
-+def _find_common_nodes_and_phandles(dtbs):
-+    """Build the common `NodeTree` skeleton and assign base DTB phandles.
-+
-+    Any common node that carries a phandle in any input DTB is assigned a
-+    phandle in the base DTB so overlays never attempt to add a `phandle`
-+    property to an already-existing base DTB node. Non-root nodes that carry a
-+    phandle in some input DTB but lack a common symbol in `/__symbols__` across
-+    all input DTBs (for example, when two boards define the same node path with
-+    different label names) are excluded from `base.dtb` so overlays can create
-+    them with board-local phandles and symbols.
-+
-+    Args:
-+        dtbs: Sequence of `ParsedDtb` instances.
-+
-+    Returns:
-+        A `NodeTree` containing all common nodes with `node.phandle` set to
-+        their assigned sequential integer phandle (or `None` if the node has no
-+        phandle in any input DTB) and `node.fixups` initialized to `{}`.
-+    """
-+    common_paths = {path for path, _ in dtbs[0].root.walk()}
-+    for d in dtbs[1:]:
-+        common_paths &= {path for path, _ in d.root.walk()}
-+
-+    common_sym_targets = {
-+        path for label, path in dtbs[0].symbols.items()
-+        if all(d.symbols.get(label) == path for d in dtbs[1:])
-+    }
-+
-+    base_root = libfdt.NodeTree()
-+    next_ph = 1
-+    for path, _ in dtbs[0].root.walk():
-+        if path not in common_paths:
-+            continue
-+        if path and base_root.get_node(path.rpartition('/')[0]) is None:
-+            continue
-+        has_phandle = any(
-+            d.root.get_node(path).phandle is not None for d in dtbs
-+        )
-+        if has_phandle and path and path not in common_sym_targets:
-+            continue
-+        base_node = base_root.create_path(path)
-+        base_node.fixups = {}
-+        if has_phandle:
-+            base_node.phandle = next_ph
-+            next_ph += 1
-+        else:
-+            base_node.phandle = None
-+    return base_root
-+
-+
-+def _find_common_symbols(dtbs, base_root):
-+    """Find symbols common to all input DTBs that point to the same base node.
-+
-+    Args:
-+        dtbs: Sequence of `ParsedDtb` instances.
-+        base_root: `NodeTree` containing the common nodes for `base.dtb`.
-+
-+    Returns:
-+        Tuple of `(base_dtb_symbols, path_to_base_dtb_symbol)` where:
-+        * `base_dtb_symbols`: Dict mapping symbol label to target node path.
-+        * `path_to_base_dtb_symbol`: Dict mapping target node path to its
-+          primary symbol label in `base_dtb_symbols`.
-+    """
-+    base_dtb_symbols = {}
-+    path_to_base_dtb_symbol = {}
-+
-+    for label, chosen_path in dtbs[0].symbols.items():
-+        if not all(d.symbols.get(label) == chosen_path for d in dtbs[1:]):
-+            continue
-+        base_node = base_root.get_node(chosen_path)
-+        if base_node is None:
-+            continue
-+        base_dtb_symbols[label] = chosen_path
-+        if (base_node.phandle is not None and
-+                chosen_path not in path_to_base_dtb_symbol):
-+            path_to_base_dtb_symbol[chosen_path] = label
-+
-+    return base_dtb_symbols, path_to_base_dtb_symbol
-+
-+
-+def _build_base_tree(dtbs):
-+    """Construct the normalized `NodeTree` for the common base DTB.
-+
-+    Args:
-+        dtbs: Sequence of `ParsedDtb` instances.
-+
-+    Returns:
-+        A `NodeTree` containing all common nodes, their assigned `phandle`
-+        attributes, and their best shared `(masked_bytes, fixups)` properties.
-+    """
-+    base_root = _find_common_nodes_and_phandles(dtbs)
-+    for path, base_node in base_root.walk():
-+        dtb_nodes = [d.root.get_node(path) for d in dtbs]
-+        common_prop_names = [
-+            k for k in dtb_nodes[0].props
-+            if all(k in n.props for n in dtb_nodes[1:])
-+        ]
-+        for prop_name in common_prop_names:
-+            eligible = []
-+            for n in dtb_nodes:
-+                fixups = n.fixups.get(prop_name, ())
-+                if not all(base_root.get_node(t_path) is not None
-+                           for _, t_path in fixups):
-+                    continue
-+                eligible.append((n.props[prop_name], fixups))
-+
-+            chosen = select_best_candidate(eligible, path, prop_name)
-+            if chosen is not None:
-+                base_node.props[prop_name], base_node.fixups[prop_name] = chosen
-+
-+    return base_root
-+
-+
-+def _serialize_base_dtb(base_root, base_dtb_symbols, rsvmap, boot_cpuid_phys):
-+    """Materialize phandles, `/__symbols__`, and `/__local_fixups__` and flatten.
-+
-+    Args:
-+        base_root: Normalized `NodeTree` for the base DTB from
-+            `_build_base_tree()`.
-+        base_dtb_symbols: Dict mapping common symbol labels to target paths.
-+        rsvmap: Sequence of `(address, size)` memory reservation tuples.
-+        boot_cpuid_phys: Physical boot CPU ID for the FDT header.
-+
-+    Returns:
-+        Serialized `.dtb` `bytes` for the common base DTB.
-+    """
-+    out_root = libfdt.NodeTree()
-+    lf_entries = []
-+
-+    for path, base_node in base_root.walk():
-+        out_node = out_root.create_path(path)
-+        for prop_name, masked_bytes in base_node.props.items():
-+            fixups = base_node.fixups.get(prop_name, ())
-+            if not fixups:
-+                out_node.props[prop_name] = masked_bytes
-+            else:
-+                val = bytearray(masked_bytes)
-+                for off, t_path in fixups:
-+                    target_ph = base_root.get_node(t_path).phandle
-+                    struct.pack_into('>I', val, off, target_ph)
-+                out_node.props[prop_name] = bytes(val)
-+                lf_entries.append((path, prop_name, [off for off, _ in fixups]))
-+
-+        if base_node.phandle is not None:
-+            out_node.set_u32('phandle', base_node.phandle)
-+
-+    if base_dtb_symbols:
-+        sym_node = out_root.create_path('/__symbols__')
-+        for label, target_path in base_dtb_symbols.items():
-+            sym_node.set_str(label, target_path or '/')
-+
-+    # Always create `/__local_fixups__` on the base DTB so `fdt_overlay_apply()`
-+    # updates it with the overlay's phandle fixups when merging.
-+    lf_root = out_root.create_path('/__local_fixups__')
-+    for path, prop_name, offs in lf_entries:
-+        lf_root.create_path(path).set_u32_list(prop_name, offs)
-+
-+    return out_root.flatten(mem_rsv=rsvmap, boot_cpuid_phys=boot_cpuid_phys)
-+
-+
-+def _assign_local_phandles(dtb, base_root):
-+    """Assign sequential overlay-local phandles (`1, 2, ...`) to board-only nodes.
-+
-+    Args:
-+        dtb: `ParsedDtb` instance for the board.
-+        base_root: `NodeTree` containing the common nodes in `base.dtb`.
-+
-+    Returns:
-+        Dict mapping each board-only node path that has a phandle in `dtb` to
-+        its sequential overlay-local integer phandle (`1, 2, ...`).
-+    """
-+    local_phandles = {}
-+    next_local_ph = 1
-+    for path, node in dtb.root.walk():
-+        if node.phandle is not None and base_root.get_node(path) is None:
-+            local_phandles[path] = next_local_ph
-+            next_local_ph += 1
-+    return local_phandles
-+
-+
-+def _encode_dtbo_property(dtb_filename, path, prop_name, masked_bytes, fixups,
-+                          base_root, path_to_base_dtb_symbol, local_phandles,
-+                          ext_fixups, ov_local_fixups):
-+    """Encode a property value for `/fragment@0/__overlay__` and record fixups.
-+
-+    Args:
-+        dtb_filename: Input DTB filename (for error reporting).
-+        path: Normalized node path (`""` for root or `"/..."` for subnodes).
-+        prop_name: Property name string.
-+        masked_bytes: Normalized property bytes (with zeroed phandle cells).
-+        fixups: Tuple of `(offset, target_path)` phandle fixups for this
-+            property.
-+        base_root: `NodeTree` containing the common nodes in `base.dtb`.
-+        path_to_base_dtb_symbol: Dict mapping common node paths to their symbol
-+            labels in `base.dtb`.
-+        local_phandles: Dict mapping board-only node paths to overlay-local
-+            phandles.
-+        ext_fixups: Dict mapping target base symbol labels to lists of
-+            `/__fixups__` entry strings (mutated in place).
-+        ov_local_fixups: Dict mapping `(path, prop_name)` to lists of byte
-+            offsets for `/__local_fixups__` (mutated in place).
-+
-+    Returns:
-+        Encoded property value `bytes` with `0xffffffff` placeholders for
-+        external base references and local phandle integers for overlay-local
-+        references.
-+    """
-+    if not fixups:
-+        return masked_bytes
-+
-+    val = bytearray(masked_bytes)
-+    for off, t_path in fixups:
-+        if base_root.get_node(t_path) is not None:
-+            sym_label = path_to_base_dtb_symbol.get(t_path)
-+            if sym_label is None:
-+                raise ValueError(
-+                    f'{dtb_filename}: property {path or "/"}:{prop_name} '
-+                    f'references common base node {t_path or "/"} which lacks '
-+                    f'a common symbol in /__symbols__'
-+                )
-+            struct.pack_into('>I', val, off, 0xffffffff)
-+            entry = f'/fragment@0/__overlay__{path}:{prop_name}:{off}'
-+            ext_fixups.setdefault(sym_label, []).append(entry)
-+        else:
-+            struct.pack_into('>I', val, off, local_phandles[t_path])
-+            ov_local_fixups.setdefault((path, prop_name), []).append(off)
-+    return bytes(val)
-+
-+
-+def _build_board_dtbo(dtb, base_root, base_dtb_symbols,
-+                      path_to_base_dtb_symbol):
-+    """Construct and flatten the `.dtbo` overlay blob for a single board.
-+
-+    Args:
-+        dtb: `ParsedDtb` instance for the board.
-+        base_root: Normalized `NodeTree` for `base.dtb`.
-+        base_dtb_symbols: Dict mapping common symbol labels to target paths.
-+        path_to_base_dtb_symbol: Dict mapping common node paths to their symbol
-+            labels in `base.dtb`.
-+
-+    Returns:
-+        Serialized `.dtbo` overlay `bytes` for `dtb`.
-+    """
-+    dtbo_root = libfdt.NodeTree()
-+    frag_node = dtbo_root.create_path('/fragment@0')
-+    frag_node.set_str('target-path', '/')
-+    ov_root = frag_node.create_path('__overlay__')
-+
-+    local_phandles = _assign_local_phandles(dtb, base_root)
-+    ext_fixups = {}
-+    ov_local_fixups = {}
-+
-+    for path, node in dtb.root.walk():
-+        base_node = base_root.get_node(path)
-+        diff_props = [
-+            prop_name for prop_name, raw_val in node.props.items()
-+            if (base_node is None or
-+                base_node.props.get(prop_name) != raw_val or
-+                base_node.fixups.get(prop_name, ()) !=
-+                node.fixups.get(prop_name, ()))
-+        ]
-+        if base_node is None or diff_props:
-+            ov_node = ov_root.create_path(path)
-+            for prop_name in diff_props:
-+                ov_node.props[prop_name] = _encode_dtbo_property(
-+                    dtb.filename, path, prop_name, node.props[prop_name],
-+                    node.fixups.get(prop_name, ()), base_root,
-+                    path_to_base_dtb_symbol, local_phandles, ext_fixups,
-+                    ov_local_fixups,
-+                )
-+            if path in local_phandles:
-+                ov_node.set_u32('phandle', local_phandles[path])
-+
-+    diff_syms = [
-+        (label, t_path)
-+        for label, t_path in dtb.symbols.items()
-+        if base_dtb_symbols.get(label) != t_path
-+    ]
-+    if diff_syms:
-+        sym_node = dtbo_root.create_path('/__symbols__')
-+        for label, t_path in diff_syms:
-+            ov_root.create_path(t_path)
-+            sym_node.set_str(label, f'/fragment@0/__overlay__{t_path}')
-+
-+    if ext_fixups:
-+        fixups_node = dtbo_root.create_path('/__fixups__')
-+        for label, entries in ext_fixups.items():
-+            fixups_node.set_stringlist(label, entries)
-+
-+    if ov_local_fixups:
-+        ov_lf_root = dtbo_root.create_path(
-+            '/__local_fixups__/fragment@0/__overlay__'
-+        )
-+        for (path, prop_name), offs in ov_local_fixups.items():
-+            ov_lf_root.create_path(path).set_u32_list(prop_name, offs)
-+
-+    return dtbo_root.flatten()
-+
-+
-+def create_base_dtb_and_overlays(dtbs):
-+    """Compute the base DTB and per-board DTBO blobs from parsed DTBs.
-+
-+    Args:
-+        dtbs: Sequence of `ParsedDtb` instances (at least two).
-+
-+    Returns:
-+        Tuple of `(base_dtb_blob, dtbo_blobs)` where `base_dtb_blob` is the
-+        serialized `base.dtb` `bytes` and `dtbo_blobs` is a list of serialized
-+        `.dtbo` `bytes` corresponding 1:1 with `dtbs`.
-+    """
-+    _validate_dtb_headers(dtbs)
-+    base_root = _build_base_tree(dtbs)
-+    base_dtb_symbols, path_to_base_dtb_symbol = _find_common_symbols(
-+        dtbs, base_root
-+    )
-+    base_dtb_blob = _serialize_base_dtb(
-+        base_root, base_dtb_symbols,
-+        dtbs[0].mem_rsv, dtbs[0].boot_cpuid_phys,
-+    )
-+    dtbo_blobs = [
-+        _build_board_dtbo(
-+            d, base_root, base_dtb_symbols, path_to_base_dtb_symbol,
-+        )
-+        for d in dtbs
-+    ]
-+    return base_dtb_blob, dtbo_blobs
-+
-+
-+def get_dtbo_output_path(dtb_path, outdir):
-+    """Determine the output `.dtbo` file path for an input `.dtb` path.
-+
-+    Args:
-+        dtb_path: Path to the input `.dtb` file.
-+        outdir: Output directory path, or `None` to place the `.dtbo` alongside
-+            `dtb_path`.
-+
-+    Returns:
-+        Output `.dtbo` file path string.
-+    """
-+    dtb_dir, filename = os.path.split(dtb_path)
-+    stem = filename[:-4] if filename.endswith('.dtb') else filename
-+    target_dir = outdir if outdir is not None else dtb_dir
-+    return os.path.join(target_dir, f'{stem}.dtbo')
-+
-+
-+def parse_args(argv=None):
-+    """Parse command-line arguments.
-+
-+    Args:
-+        argv: Optional list of command-line argument strings (defaults to
-+            `sys.argv[1:]`).
-+
-+    Returns:
-+        Parsed `argparse.Namespace` instance.
-+    """
-+    parser = argparse.ArgumentParser(
-+        description=(
-+            'Split a set of compiled device tree blobs (.dtb) into a single '
-+            'common base .dtb and per-board overlay blobs (.dtbo).'
-+        )
-+    )
-+    parser.add_argument(
-+        '-b', '--base-dtb',
-+        default='base.dtb',
-+        metavar='FILENAME',
-+        help=(
-+            'Output common base .dtb filename (default: base.dtb; placed in '
-+            '--outdir if specified, or current directory otherwise)'
-+        ),
-+    )
-+    parser.add_argument(
-+        '-o', '--outdir',
-+        default=None,
-+        metavar='DIR',
-+        help=(
-+            'Output directory for generated .dtbo files and --base-dtb '
-+            '(default: alongside each input .dtb for .dtbo, current directory '
-+            'for --base-dtb)'
-+        ),
-+    )
-+    parser.add_argument(
-+        '-s', '--stats',
-+        action='store_true',
-+        help='Print size statistics summary',
-+    )
-+    parser.add_argument(
-+        'dtbs',
-+        nargs='+',
-+        metavar='DTB',
-+        help='Input .dtb files (at least two required)',
-+    )
-+    args = parser.parse_args(argv)
-+    if os.path.dirname(args.base_dtb):
-+        parser.error(
-+            '--base-dtb must be a filename without directory components; '
-+            'use -o/--outdir to specify the output directory'
-+        )
-+    if len(args.dtbs) < 2:
-+        parser.error('at least two input .dtb files are required')
-+    return args
-+
-+
-+def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs):
-+    """Print uncompressed size savings summary.
-+
-+    Args:
-+        dtbs: Sequence of input `ParsedDtb` instances.
-+        base_dtb_blob: Uncompressed base DTB `bytes`.
-+        dtbo_blobs: Sequence of uncompressed `.dtbo` overlay `bytes`.
-+    """
-+    orig_uncomp = sum(len(d.raw_bytes) for d in dtbs)
-+    base_dtb_uncomp = len(base_dtb_blob)
-+    dtbo_uncomp = sum(len(b) for b in dtbo_blobs)
-+    new_uncomp = base_dtb_uncomp + dtbo_uncomp
-+    saved_uncomp = orig_uncomp - new_uncomp
-+    pct_uncomp = (saved_uncomp / orig_uncomp * 100.0) if orig_uncomp else 0.0
-+    print(
-+        f'Uncompressed DTBs: {len(dtbs)} files ({orig_uncomp:,} B) -> '
-+        f'base {base_dtb_uncomp:,} B + {len(dtbo_blobs)} overlays '
-+        f'{dtbo_uncomp:,} B = {new_uncomp:,} B '
-+        f'(saved {saved_uncomp:,} B / {pct_uncomp:.1f}%)'
-+    )
-+
-+
-+def factor_dtb_files(args):
-+    """Factor a list of standalone .dtb files into a base .dtb and .dtbo files.
-+
-+    Args:
-+        args: Parsed `argparse.Namespace` from `parse_args()`.
-+    """
-+    input_dtb_paths = args.dtbs
-+    dtbs = [ParsedDtb(p) for p in input_dtb_paths]
-+
-+    base_dtb_path = (
-+        os.path.join(args.outdir, args.base_dtb)
-+        if args.outdir is not None
-+        else args.base_dtb
-+    )
-+
-+    input_abs_paths = {os.path.abspath(p) for p in input_dtb_paths}
-+    base_abs_path = os.path.abspath(base_dtb_path)
-+    if base_abs_path in input_abs_paths:
-+        raise ValueError(
-+            f'base DTB output path {base_dtb_path!r} collides with '
-+            f'an input DTB file'
-+        )
-+
-+    dtbo_paths = []
-+    seen_paths = {base_abs_path}
-+    for dtb_path in input_dtb_paths:
-+        out_path = get_dtbo_output_path(dtb_path, args.outdir)
-+        abs_out = os.path.abspath(out_path)
-+        if abs_out in input_abs_paths:
-+            raise ValueError(
-+                f'output path {out_path!r} collides with an input DTB file'
-+            )
-+        if abs_out in seen_paths:
-+            raise ValueError(
-+                f'output path collision on {out_path!r}; ensure input '
-+                f'files have distinct names'
-+            )
-+        seen_paths.add(abs_out)
-+        dtbo_paths.append(out_path)
-+
-+    base_dtb_blob, dtbo_blobs = create_base_dtb_and_overlays(dtbs)
-+
-+    if args.outdir:
-+        os.makedirs(args.outdir, exist_ok=True)
-+    with open(base_dtb_path, 'wb') as f:
-+        f.write(base_dtb_blob)
-+
-+    for out_path, dtbo_blob in zip(dtbo_paths, dtbo_blobs):
-+        out_dir = os.path.dirname(out_path)
-+        if out_dir:
-+            os.makedirs(out_dir, exist_ok=True)
-+        with open(out_path, 'wb') as f:
-+            f.write(dtbo_blob)
-+
-+    if args.stats:
-+        _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs)
-+
-+
-+def main(argv=None):
-+    """Run the fdtfactor command-line tool.
-+
-+    Args:
-+        argv: Optional list of command-line argument strings.
-+
-+    Returns:
-+        Integer exit status (`0` on success).
-+    """
-+    args = parse_args(argv)
-+    try:
-+        factor_dtb_files(args)
-+    except (OSError, ValueError, RuntimeError, libfdt.FdtException) as exc:
-+        sys.exit(f'Error: {exc}')
-+    return 0
-+
-+
-+if __name__ == '__main__':
-+    sys.exit(main())
-diff --git a/meson.build b/meson.build
-index 520cd35f9075..73b4687a2852 100644
---- a/meson.build
-+++ b/meson.build
-@@ -114,6 +114,7 @@ if get_option('tools') and not wheel_only
+@@ -8,16 +8,25 @@ properties shared across the inputs into a single common `base.dtb` and emits a
+ small per-board `.dtbo` overlay for each input. Applying a board's `.dtbo` to
+ `base.dtb` (e.g., via `fdtoverlay` or `fdt_overlay_apply()`) reconstructs the
+ original board DTB.
++
++Alternatively, `fdtfactor -F <image.fit>` can rewrite a compiled U-Boot /
++ChromeOS Flattened Image Tree (FIT) in place (or to `--outfile`), factoring its
++embedded `/images/fdt-*` blobs into base DTBs (`fdt-base-1`, `fdt-base-2`, ...)
++and overlays while updating `/configurations/conf-*` `fdt` and `compatible`
++properties and recalculating `/images/*/hash-*` digests.
+ """
  
-   install_data(
-     'dtdiff',
-+    'fdtfactor',
-     install_dir: get_option('bindir'),
-     install_mode: 'rwxr-xr-x',
-   )
+ import argparse
+ from collections import Counter
++import copy
+ import gzip
++import hashlib
+ import lzma
+ import os
+ import struct
+ import subprocess
+ import sys
++import zlib
+ 
+ import libfdt
+ 
+@@ -107,17 +116,24 @@ def _run_lz4(args, input_bytes, action):
+     return res.stdout
+ 
+ 
+-def decompress_blob(raw_bytes, filename=''):
++def decompress_blob(raw_bytes, filename='', comp=None):
+     """Decompress a DTB blob if compressed, returning `(raw_bytes, comp)`.
+ 
+     Args:
+-        raw_bytes: Input FDT `bytes` (compressed or uncompressed).
+-        filename: Optional filename for error reporting and extension fallback.
++        raw_bytes: Input file or property `bytes` (compressed or uncompressed).
++        filename: Optional filename or node description for error reporting and
++            extension fallback.
++        comp: Optional explicit compression type (`'none'`, `'lz4'`,
++            `'lz4_legacy'`, `'lzma'`, `'xz'`, `'gzip'`), or `None` to
++            auto-detect via `detect_compression()`.
+ 
+     Returns:
+         Tuple of `(uncompressed_bytes, resolved_compression_type)`.
+     """
+-    comp = detect_compression(raw_bytes, filename)
++    if not comp:
++        comp = detect_compression(raw_bytes, filename)
++    elif comp == 'lz4' and raw_bytes.startswith(LZ4_LEGACY_MAGIC):
++        comp = 'lz4_legacy'
+     if comp == 'none':
+         return raw_bytes, 'none'
+     if comp in ('lz4', 'lz4_legacy'):
+@@ -238,6 +254,10 @@ def _is_dtbo_overlay(fdt):
+     )
+ 
+ 
++class OverlayBlobError(ValueError):
++    """Raised when an input FDT blob is already a `.dtbo` overlay."""
++
++
+ class ParsedDtb:
+     """Complete input .dtb blob with phandle-normalized tree and FDT metadata.
+ 
+@@ -258,17 +278,24 @@ class ParsedDtb:
+       independent of numeric phandle numbering.
+     """
+ 
+-    def __init__(self, filename):
+-        """Parse an input FDT file into a normalized NodeTree.
++    def __init__(self, filename, file_bytes=None, comp=None):
++        """Parse an input FDT file or blob into a normalized NodeTree.
+ 
+         Args:
+-            filename: Path to the input .dtb (or compressed .dtb.*) file.
++            filename: File path (or display name when `file_bytes` is given).
++            file_bytes: Optional raw (compressed or uncompressed) FDT bytes; if
++                None, read from `filename`.
++            comp: Optional explicit compression algorithm name, or None to
++                auto-detect via `decompress_blob()`.
+         """
+         self.filename = filename
+-        with open(filename, 'rb') as f:
+-            file_bytes = f.read()
++        if file_bytes is None:
++            with open(filename, 'rb') as f:
++                file_bytes = f.read()
+         self.compressed_size = len(file_bytes)
+-        raw_bytes, self.compression = decompress_blob(file_bytes, filename)
++        raw_bytes, self.compression = decompress_blob(
++            file_bytes, filename, comp=comp
++        )
+         self.raw_bytes = raw_bytes
+ 
+         try:
+@@ -278,7 +305,7 @@ class ParsedDtb:
+             raise ValueError(f'{filename}: Invalid FDT blob ({exc})') from exc
+ 
+         if _is_dtbo_overlay(fdt):
+-            raise ValueError(
++            raise OverlayBlobError(
+                 f'{filename}: Input is already a DTB overlay (.dtbo)'
+             )
+ 
+@@ -849,6 +876,456 @@ def create_base_dtb_and_overlays(dtbs, strip_local_fixups=False):
+     return base_dtb_blob, dtbo_blobs
+ 
+ 
++# ---------------------------------------------------------------------------
++# Compiled FIT image factoring (targeting depthcharge / coreboot / U-Boot)
++# ---------------------------------------------------------------------------
++
++def _compute_fit_hash(algo_name, data_bytes):
++    """Compute a binary hash digest for a FIT image `hash*` subnode.
++
++    Args:
++        algo_name: Hash algorithm name (e.g., `'crc32'`, `'sha1'`, `'sha256'`).
++        data_bytes: Input `bytes` to hash.
++
++    Returns:
++        Binary hash digest `bytes`.
++    """
++    if algo_name == 'crc32':
++        return struct.pack('>I', zlib.crc32(data_bytes) & 0xffffffff)
++    h = hashlib.new(algo_name)
++    h.update(data_bytes)
++    return h.digest()
++
++
++def _update_fit_hashes(img_node):
++    """Recompute `value` properties on any FIT `hash*` subnodes of `img_node`.
++
++    Args:
++        img_node: `NodeTree` for a `/images/*` subnode whose `hash*` child
++            nodes should be updated in place from `img_node.props['data']`.
++    """
++    data_bytes = img_node.props.get('data')
++    if data_bytes is None:
++        return
++    for sub_name, sub_node in img_node.children.items():
++        if not sub_name.startswith('hash'):
++            continue
++        if 'algo' not in sub_node.props:
++            raise ValueError(
++                f'FIT hash subnode {sub_name!r} lacks an algo property'
++            )
++        algo = sub_node.get_str('algo')
++        sub_node.props['value'] = _compute_fit_hash(algo, data_bytes)
++
++
++def _is_dtb_filename_desc(desc):
++    """Return True if `desc` looks like a `.dtb` filename.
++
++    Args:
++        desc: Description string from a FIT `/images/fdt-*` node.
++
++    Returns:
++        True if `desc` has no spaces and ends with `.dtb` (optionally followed
++        by a recognized compression suffix), False otherwise.
++    """
++    if not desc or ' ' in desc:
++        return False
++    _, stem, desc_comp = split_dtb_filename(desc)
++    return os.path.basename(desc) == f'{stem}.dtb{COMP_TO_EXT[desc_comp]}'
++
++
++def group_fit_dtbs(fdt_entries):
++    """Partition FIT `flat_dt` entries into compatible factor groups.
++
++    DTBs are grouped by `(compression, arch, load, entry, boot_cpuid_phys,
++    mem_rsv)` and node-path overlap (>= 50%) against the group's common node
++    set so that a single FIT image containing multiple board/SoC families
++    produces one base DTB per family.
++
++    Args:
++        fdt_entries: Sequence of FIT `flat_dt` entry dicts from
++            `_extract_fit_fdt_entries()`.
++
++    Returns:
++        List of entry-dict lists, one per compatible group.
++    """
++    groups = []
++    for entry in fdt_entries:
++        dtb = entry['dtb']
++        header_key = (
++            dtb.compression,
++            *(entry['node'].props.get(p) for p in ('arch', 'load', 'entry')),
++            dtb.boot_cpuid_phys,
++            dtb.mem_rsv,
++        )
++        entry_nodes = {path for path, _ in dtb.root.walk()}
++
++        placed = False
++        for grp in groups:
++            if grp['key'] != header_key:
++                continue
++            common_nodes = grp['common_nodes']
++            union_len = len(entry_nodes | common_nodes)
++            overlap = (
++                len(entry_nodes & common_nodes) / union_len
++                if union_len
++                else 1.0
++            )
++            if overlap >= 0.5:
++                grp['common_nodes'] &= entry_nodes
++                grp['entries'].append(entry)
++                placed = True
++                break
++
++        if not placed:
++            groups.append({
++                'key': header_key,
++                'common_nodes': set(entry_nodes),
++                'entries': [entry],
++            })
++
++    return [grp['entries'] for grp in groups]
++
++
++def _extract_fit_fdt_entries(fit_in_path, images_node, configs_node):
++    """Extract and parse non-overlay `flat_dt` entries from `/images`.
++
++    Args:
++        fit_in_path: Input FIT image path (for error reporting).
++        images_node: `NodeTree` for the FIT `/images` node.
++        configs_node: `NodeTree` for the FIT `/configurations` node.
++
++    Returns:
++        List of dicts (`{'name', 'node', 'dtb'}`) for all non-overlay
++        `flat_dt` image subnodes.
++    """
++    if any(name.startswith('fdt-base-') for name in images_node.children):
++        raise ValueError(
++            f'{fit_in_path}: FIT image already contains fdt-base-* node(s)'
++        )
++
++    for conf_name, conf_node in configs_node.children.items():
++        for sub_name in conf_node.children:
++            if sub_name.startswith(('signature', 'hash')):
++                raise ValueError(
++                    f'{fit_in_path}: /configurations/{conf_name}/{sub_name} '
++                    f'is not supported; sign the FIT image after factoring'
++                )
++
++    fdt_entries = []
++    for img_name, img_node in images_node.children.items():
++        if ('data-offset' in img_node.props or
++                'data-position' in img_node.props):
++            raise ValueError(
++                f'{fit_in_path}: /images/{img_name} uses external data '
++                f'(data-offset/data-position), which is not supported'
++            )
++        for sub_name in img_node.children:
++            if sub_name.startswith('signature'):
++                raise ValueError(
++                    f'{fit_in_path}: /images/{img_name}/{sub_name} is not '
++                    f'supported; sign the FIT image after factoring'
++                )
++        img_type = img_node.get_str('type') if 'type' in img_node.props else ''
++        if img_type != 'flat_dt':
++            continue
++        raw_data = img_node.props.get('data')
++        if raw_data is None:
++            raise ValueError(
++                f'{fit_in_path}: /images/{img_name} lacks a data property'
++            )
++        node_label = f'{fit_in_path}:/images/{img_name}'
++        comp_prop = (
++            img_node.get_str('compression')
++            if 'compression' in img_node.props
++            else 'none'
++        ) or 'none'
++        try:
++            parsed_dtb = ParsedDtb(
++                node_label, file_bytes=raw_data, comp=comp_prop
++            )
++        except OverlayBlobError:
++            continue
++
++        fdt_entries.append({
++            'name': img_name,
++            'node': img_node,
++            'dtb': parsed_dtb,
++        })
++
++    if len(fdt_entries) < 2:
++        raise ValueError(
++            'FIT image must contain at least two non-overlay flat_dt '
++            'nodes to factor'
++        )
++
++    return fdt_entries
++
++
++def _partition_fit_fdt_entries(fdt_entries, single_base_dtb):
++    """Partition `fdt_entries` into factorable groups and validate constraints.
++
++    Args:
++        fdt_entries: List of FIT `flat_dt` entry dicts from
++            `_extract_fit_fdt_entries()`.
++        single_base_dtb: If True, require all `fdt_entries` to share a single
++            base DTB group rather than grouping by node-path overlap.
++
++    Returns:
++        List of factorable entry-dict groups (each containing at least 2
++        entries).
++    """
++    if single_base_dtb:
++        ref_entry = fdt_entries[0]
++        for entry in fdt_entries[1:]:
++            if entry['dtb'].compression != ref_entry['dtb'].compression:
++                raise ValueError(
++                    f'--single-base-dtb requires all FIT flat_dt nodes to use '
++                    f'the same compression: {ref_entry["name"]} has '
++                    f'{ref_entry["dtb"].compression!r} vs {entry["name"]} '
++                    f'{entry["dtb"].compression!r}'
++                )
++            for prop in ('arch', 'load', 'entry'):
++                if (entry['node'].props.get(prop) !=
++                        ref_entry['node'].props.get(prop)):
++                    raise ValueError(
++                        f'--single-base-dtb requires all FIT flat_dt nodes to '
++                        f'use the same {prop} property: {ref_entry["name"]} vs '
++                        f'{entry["name"]}'
++                    )
++        return [fdt_entries]
++
++    groups = group_fit_dtbs(fdt_entries)
++    factorable_groups = [g for g in groups if len(g) >= 2]
++    if not factorable_groups:
++        raise ValueError(
++            'FIT image must contain at least two compatible '
++            'flat_dt nodes to factor'
++        )
++    for g in groups:
++        if len(g) == 1:
++            print(
++                f'Note: FIT flat_dt node {g[0]["name"]} has no '
++                f'compatible peers and will be left unfactored',
++                file=sys.stderr,
++            )
++    return factorable_groups
++
++
++def _factor_fit_group(entries, base_dtb_node_name, strip_local_fixups):
++    """Factor one compatible group of FIT `flat_dt` entries.
++
++    Args:
++        entries: List of FIT `flat_dt` entry dicts in this compatible group.
++        base_dtb_node_name: Name for the new `/images/<base_dtb_node_name>`
++            node (e.g., `'fdt-base-1'`).
++        strip_local_fixups: If True, omit `/__local_fixups__` from the
++            generated base DTB.
++
++    Returns:
++        Tuple of `(base_dtb_node, stat_args)` where `base_dtb_node` is the
++        constructed `NodeTree` for `/images/<base_dtb_node_name>` and
++        `stat_args` is an argument tuple for `_print_dtb_stats()`.
++    """
++    group_dtbs = [e['dtb'] for e in entries]
++    comp = group_dtbs[0].compression
++
++    base_dtb_blob, dtbo_blobs = create_base_dtb_and_overlays(
++        group_dtbs,
++        strip_local_fixups=strip_local_fixups,
++    )
++
++    base_dtb_comp_bytes = compress_blob(
++        base_dtb_blob, comp, filename=f'/images/{base_dtb_node_name}'
++    )
++    base_dtb_node = copy.deepcopy(entries[0]['node'])
++    for prop in ('phandle', 'compatible'):
++        base_dtb_node.props.pop(prop, None)
++    base_dtb_node.children = {
++        k: v
++        for k, v in base_dtb_node.children.items()
++        if k.startswith('hash')
++    }
++    for sub_node in base_dtb_node.children.values():
++        sub_node.props.pop('phandle', None)
++    if 'description' in base_dtb_node.props:
++        base_dtb_node.set_str(
++            'description',
++            f'{base_dtb_node_name}.dtb{COMP_TO_EXT[comp]}',
++        )
++    base_dtb_node.props['data'] = base_dtb_comp_bytes
++    if 'compression' in base_dtb_node.props or comp != 'none':
++        comp_prop = 'lz4' if comp == 'lz4_legacy' else comp
++        base_dtb_node.set_str('compression', comp_prop)
++    _update_fit_hashes(base_dtb_node)
++
++    dtbo_comp_sizes = []
++    for entry, dtbo_blob in zip(entries, dtbo_blobs):
++        img_node = entry['node']
++        dtbo_comp_bytes = compress_blob(
++            dtbo_blob, comp, filename=f'/images/{entry["name"]}'
++        )
++        dtbo_comp_sizes.append(len(dtbo_comp_bytes))
++
++        if 'description' in img_node.props:
++            old_desc = img_node.get_str('description')
++            if _is_dtb_filename_desc(old_desc):
++                img_node.set_str(
++                    'description',
++                    get_dtbo_output_path(old_desc, None, comp=comp),
++                )
++
++        # Strip 'load' and 'entry' from overlay image nodes so bootloaders do
++        # not load overlays at the base FDT address and overwrite the base FDT.
++        for prop in ('load', 'entry'):
++            img_node.props.pop(prop, None)
++
++        img_node.props['data'] = dtbo_comp_bytes
++        _update_fit_hashes(img_node)
++
++    stat_args = (
++        group_dtbs,
++        base_dtb_blob,
++        dtbo_blobs,
++        comp,
++        len(base_dtb_comp_bytes),
++        dtbo_comp_sizes,
++        f'[{base_dtb_node_name}] ',
++    )
++    return base_dtb_node, stat_args
++
++
++def _update_fit_images_and_configs(images_node, configs_node,
++                                   insert_before_first, fdt_to_base_dtb):
++    """Insert `fdt-base-*` nodes into `/images` and update `/configurations`.
++
++    Args:
++        images_node: `NodeTree` for `/images` (mutated in place).
++        configs_node: `NodeTree` for `/configurations` (mutated in place).
++        insert_before_first: Dict mapping the first `fdt-*` subnode name of
++            each group to `(base_dtb_node_name, base_dtb_node)`.
++        fdt_to_base_dtb: Dict mapping each factored `fdt-*` subnode name to
++            `(base_dtb_node_name, orig_parsed_dtb)`.
++    """
++    new_images_children = {}
++    for img_name, img_node in images_node.children.items():
++        if img_name in insert_before_first:
++            b_name, b_node = insert_before_first[img_name]
++            new_images_children[b_name] = b_node
++        new_images_children[img_name] = img_node
++    images_node.children = new_images_children
++
++    for conf_name, conf_node in configs_node.children.items():
++        if 'fdt' not in conf_node.props:
++            continue
++        fdt_list = conf_node.get_stringlist('fdt')
++        if not fdt_list:
++            continue
++        primary_fdt = fdt_list[0]
++        for extra_fdt in fdt_list[1:]:
++            if extra_fdt in fdt_to_base_dtb:
++                raise ValueError(
++                    f'/configurations/{conf_name} lists factored flat_dt '
++                    f'{extra_fdt!r} after the primary FDT'
++                )
++        if primary_fdt in fdt_to_base_dtb:
++            base_dtb_name, orig_dtb = fdt_to_base_dtb[primary_fdt]
++            conf_node.set_stringlist('fdt', [base_dtb_name] + fdt_list)
++            # If the configuration omitted 'compatible' (relying on the
++            # bootloader reading root 'compatible' from fdt_list[0]), copy the
++            # board's root 'compatible' property onto the configuration node
++            # now that fdt_list[0] is the shared base DTB.
++            if 'compatible' not in conf_node.props:
++                root_compat = orig_dtb.root.props.get('compatible')
++                if root_compat is not None:
++                    conf_node.props['compatible'] = root_compat
++
++
++def factor_fit_image(fit_in_path, fit_out_path, strip_local_fixups=False,
++                     single_base_dtb=False, stats=False):
++    """Factor all `flat_dt` images in a compiled FIT image into base + overlays.
++
++    Args:
++        fit_in_path: Path to the input compiled FIT image.
++        fit_out_path: Path where the factored FIT image should be written.
++        strip_local_fixups: If True, omit `/__local_fixups__` from generated
++            base DTBs.
++        single_base_dtb: If True, force all `flat_dt` nodes into a single
++            `fdt-base-1` base DTB.
++        stats: If True, print per-group and overall FIT size savings.
++    """
++    with open(fit_in_path, 'rb') as f:
++        orig_fit_bytes = f.read()
++
++    try:
++        orig_fit_fdt = libfdt.FdtRo(orig_fit_bytes)
++        libfdt.check_err(
++            libfdt.fdt_check_full(orig_fit_fdt._fdt, len(orig_fit_bytes))
++        )
++    except libfdt.FdtException as exc:
++        raise ValueError(f'{fit_in_path}: Invalid FDT blob ({exc})') from exc
++
++    fit_root = libfdt.NodeTree.unflatten(orig_fit_fdt)
++    images_node = fit_root.children.get('images')
++    configs_node = fit_root.children.get('configurations')
++    if images_node is None or configs_node is None:
++        raise ValueError(
++            f'{fit_in_path}: FIT image must contain /images and '
++            f'/configurations nodes'
++        )
++
++    fdt_entries = _extract_fit_fdt_entries(
++        fit_in_path, images_node, configs_node
++    )
++    factorable_groups = _partition_fit_fdt_entries(
++        fdt_entries, single_base_dtb
++    )
++
++    fdt_to_base_dtb = {}
++    insert_before_first = {}
++    group_stats = []
++
++    for idx, entries in enumerate(factorable_groups, 1):
++        base_dtb_node_name = f'fdt-base-{idx}'
++        base_dtb_node, stat_args = _factor_fit_group(
++            entries, base_dtb_node_name, strip_local_fixups
++        )
++        insert_before_first[entries[0]['name']] = (
++            base_dtb_node_name, base_dtb_node
++        )
++        for entry in entries:
++            fdt_to_base_dtb[entry['name']] = (base_dtb_node_name, entry['dtb'])
++        group_stats.append(stat_args)
++
++    _update_fit_images_and_configs(
++        images_node, configs_node, insert_before_first, fdt_to_base_dtb
++    )
++
++    new_fit_bytes = fit_root.flatten(
++        mem_rsv=orig_fit_fdt.get_mem_rsv_list(),
++        boot_cpuid_phys=orig_fit_fdt.boot_cpuid_phys(),
++    )
++
++    out_dir = os.path.dirname(fit_out_path)
++    if out_dir:
++        os.makedirs(out_dir, exist_ok=True)
++    with open(fit_out_path, 'wb') as f:
++        f.write(new_fit_bytes)
++
++    if stats:
++        for stat_args in group_stats:
++            _print_dtb_stats(*stat_args)
++        fit_saved = len(orig_fit_bytes) - len(new_fit_bytes)
++        fit_pct = (
++            (fit_saved / len(orig_fit_bytes) * 100.0) if orig_fit_bytes else 0.0
++        )
++        print(
++            f'FIT image total: {len(orig_fit_bytes):,} B -> '
++            f'{len(new_fit_bytes):,} B '
++            f'(saved {fit_saved:,} B / {fit_pct:.1f}%)'
++        )
++
++
+ def get_dtbo_output_path(dtb_path, outdir, comp='none'):
+     """Determine the output `.dtbo[.comp]` file path for an input `.dtb` path.
+ 
+@@ -881,13 +1358,15 @@ def parse_args(argv=None):
+     parser = argparse.ArgumentParser(
+         description=(
+             'Split a set of compiled device tree blobs (.dtb, or compressed '
+-            '.dtb.lz4/.xz/.lzma/.gz) into a single common base .dtb and '
+-            'per-board overlay blobs (.dtbo).'
++            '.dtb.lz4/.xz/.lzma/.gz) into a common base .dtb and per-board '
++            'overlay blobs (.dtbo), or update a compiled FIT image '
++            '(-F/--fit) in-place (or to --outfile) by factoring its '
++            '/images/fdt-* blobs into base DTBs and overlays.'
+         )
+     )
+     parser.add_argument(
+         '-b', '--base-dtb',
+-        default='base.dtb',
++        default=None,
+         metavar='FILENAME',
+         help=(
+             'Output common base .dtb (or .dtb.lz4/.xz/.lzma/.gz) filename '
+@@ -914,6 +1393,23 @@ def parse_args(argv=None):
+             'for --base-dtb)'
+         ),
+     )
++    parser.add_argument(
++        '-F', '--fit',
++        default=None,
++        metavar='FIT_IMAGE',
++        help=(
++            'Input compiled FIT image (.fit / .itb) to factor (updated '
++            'in-place unless --outfile is specified)'
++        ),
++    )
++    parser.add_argument(
++        '--outfile',
++        default=None,
++        metavar='FIT_OUT',
++        help=(
++            'Output path for the factored FIT image (default: overwrite --fit)'
++        ),
++    )
+     parser.add_argument(
+         '-S', '--strip-local-fixups',
+         action='store_true',
+@@ -922,6 +1418,15 @@ def parse_args(argv=None):
+             'reconstructed device trees'
+         ),
+     )
++    parser.add_argument(
++        '--single-base-dtb',
++        action='store_true',
++        help=(
++            'Force all flat_dt nodes in a FIT image (-F/--fit) to be '
++            'factored into a single fdt-base-1 base DTB, failing only if '
++            'headers, arch, or compression differ'
++        ),
++    )
+     parser.add_argument(
+         '-s', '--stats',
+         action='store_true',
+@@ -929,26 +1434,40 @@ def parse_args(argv=None):
+     )
+     parser.add_argument(
+         'dtbs',
+-        nargs='+',
++        nargs='*',
+         metavar='DTB',
+         help=(
+-            'Input .dtb (or compressed .dtb.lz4/.xz/.lzma/.gz) files (at '
+-            'least two required)'
++            'Input .dtb (or compressed .dtb.lz4/.xz/.lzma/.gz) files (when '
++            '--fit is not used)'
+         ),
+     )
+     args = parser.parse_args(argv)
+-    if os.path.dirname(args.base_dtb):
+-        parser.error(
+-            '--base-dtb must be a filename without directory components; '
+-            'use -o/--outdir to specify the output directory'
+-        )
+-    if len(args.dtbs) < 2:
+-        parser.error('at least two input .dtb files are required')
++    if args.outfile and not args.fit:
++        parser.error('--outfile requires -F/--fit')
++    if args.single_base_dtb and not args.fit:
++        parser.error('--single-base-dtb requires -F/--fit')
++    if args.fit:
++        if (args.dtbs or args.base_dtb or args.outdir or
++                args.base_compression != 'auto'):
++            parser.error(
++                '-F/--fit cannot be combined with -b/--base-dtb, '
++                '--base-compression, -o/--outdir, or positional DTB arguments'
++            )
++    else:
++        if args.base_dtb is None:
++            args.base_dtb = 'base.dtb'
++        if os.path.dirname(args.base_dtb):
++            parser.error(
++                '--base-dtb must be a filename without directory components; '
++                'use -o/--outdir to specify the output directory'
++            )
++        if len(args.dtbs) < 2:
++            parser.error('at least two input .dtb files are required')
+     return args
+ 
+ 
+ def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs, base_dtb_comp='none',
+-                     base_dtb_csize=None, dtbo_csizes=None):
++                     base_dtb_csize=None, dtbo_csizes=None, prefix=''):
+     """Print uncompressed and compressed size savings summary.
+ 
+     Args:
+@@ -958,6 +1477,7 @@ def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs, base_dtb_comp='none',
+         base_dtb_comp: Compression format of the base DTB output.
+         base_dtb_csize: Byte size of the compressed base DTB output.
+         dtbo_csizes: Sequence of byte sizes of the compressed `.dtbo` outputs.
++        prefix: Optional line prefix (e.g., `'[fdt-base-1] '`).
+     """
+     orig_uncomp = sum(len(d.raw_bytes) for d in dtbs)
+     base_dtb_uncomp = len(base_dtb_blob)
+@@ -966,7 +1486,7 @@ def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs, base_dtb_comp='none',
+     saved_uncomp = orig_uncomp - new_uncomp
+     pct_uncomp = (saved_uncomp / orig_uncomp * 100.0) if orig_uncomp else 0.0
+     print(
+-        f'Uncompressed DTBs: {len(dtbs)} files ({orig_uncomp:,} B) -> '
++        f'{prefix}Uncompressed DTBs: {len(dtbs)} files ({orig_uncomp:,} B) -> '
+         f'base {base_dtb_uncomp:,} B + {len(dtbo_blobs)} overlays '
+         f'{dtbo_uncomp:,} B = {new_uncomp:,} B '
+         f'(saved {saved_uncomp:,} B / {pct_uncomp:.1f}%)'
+@@ -975,9 +1495,9 @@ def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs, base_dtb_comp='none',
+     if any(c != 'none' for c in all_comps):
+         comp_label = '/'.join(sorted(all_comps))
+         hdr = (
+-            f'Compressed ({comp_label}):'
++            f'{prefix}Compressed ({comp_label}):'
+             if len(all_comps) == 1
+-            else f'On-disk ({comp_label}):   '
++            else f'{prefix}On-disk ({comp_label}):   '
+         )
+         orig_comp = sum(d.compressed_size for d in dtbs)
+         dtbo_csize = sum(dtbo_csizes)
+@@ -1086,7 +1606,17 @@ def main(argv=None):
+     """
+     args = parse_args(argv)
+     try:
+-        factor_dtb_files(args)
++        if args.fit:
++            fit_out = args.outfile if args.outfile else args.fit
++            factor_fit_image(
++                args.fit,
++                fit_out,
++                strip_local_fixups=args.strip_local_fixups,
++                single_base_dtb=args.single_base_dtb,
++                stats=args.stats,
++            )
++        else:
++            factor_dtb_files(args)
+     except (OSError, ValueError, RuntimeError, libfdt.FdtException) as exc:
+         sys.exit(f'Error: {exc}')
+     return 0
 diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-index af5d309cf8a9..ea1d35cd8e4e 100644
+index 300f244f41c5..a89bcde1f038 100644
 --- a/tests/Makefile.tests
 +++ b/tests/Makefile.tests
-@@ -53,10 +53,10 @@ TESTS_DEPFILES = $(TESTS:%=%.d) \
+@@ -53,7 +53,7 @@ TESTS_DEPFILES = $(TESTS:%=%.d) \
  	$(addprefix $(TESTS_PREFIX),testutils.d)
  
  TESTS_CLEANFILES_L = $(STD_CLEANFILES) \
--	*.dtb *.test.dts *.test.dt.yaml *.dtsv1 tmp.* *.bak \
-+	*.dtb *.test.dtbo *.test.dts *.test.dt.yaml *.dtsv1 tmp.* *.bak \
- 	treegen
- TESTS_CLEANFILES = $(TESTS) $(TESTS_CLEANFILES_L:%=$(TESTS_PREFIX)%)
--TESTS_CLEANDIRS_L = fs
-+TESTS_CLEANDIRS_L = fs *.test.dir
- TESTS_CLEANDIRS = $(TESTS_CLEANDIRS_L:%=$(TESTS_PREFIX)%)
- 
- .PHONY: tests
-diff --git a/tests/fdtfactor_board1.dts b/tests/fdtfactor_board1.dts
+-	*.dtb *.test.dtbo *.test.dts *.test.dt.yaml *.dtsv1 \
++	*.dtb *.test.dtbo *.test.dts *.test.dt.yaml *.dtsv1 *.test.fit \
+ 	*.test.dtb.gz *.test.dtbo.gz *.test.dtb.xz *.test.dtbo.xz \
+ 	*.test.dtb.lzma *.test.dtbo.lzma *.test.dtb.lz4 *.test.dtbo.lz4 \
+ 	tmp.* *.bak \
+diff --git a/tests/fdtfactor_lz4.its b/tests/fdtfactor_lz4.its
 new file mode 100644
-index 000000000000..c5f4e1672d98
+index 000000000000..dc2b345d90e5
 --- /dev/null
-+++ b/tests/fdtfactor_board1.dts
-@@ -0,0 +1,38 @@
++++ b/tests/fdtfactor_lz4.its
+@@ -0,0 +1,109 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/dts-v1/;
++
++/ {
++	description = "Test LZ4 FIT image for fdtfactor";
++	#address-cells = <1>;
++
++	images {
++		kernel-1 {
++			description = "Unavailable";
++			data = /incbin/("fdtfactor_board1.test.dtb.lz4");
++			type = "kernel_noload";
++			arch = "arm64";
++			os = "linux";
++			compression = "lz4";
++			load = <0>;
++			entry = <0>;
++		};
++		fdt-1 {
++			description = "fdtfactor_board1.test.dtb.lz4";
++			data = /incbin/("fdtfactor_board1.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-2 {
++			description = "fdtfactor_board2.test.dtb.lz4";
++			data = /incbin/("fdtfactor_board2.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-3 {
++			description = "fdtfactor_board3.test.dtb.lz4";
++			data = /incbin/("fdtfactor_board3.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-4 {
++			description = "fdtfactor_other1.test.dtb.lz4";
++			data = /incbin/("fdtfactor_other1.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-5 {
++			description = "fdtfactor_other2.test.dtb.lz4";
++			data = /incbin/("fdtfactor_other2.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-ovl-1 {
++			description = "overlay_overlay_phandle.test.dtb.lz4";
++			data = /incbin/("overlay_overlay_phandle.test.dtb.lz4");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "lz4";
++		};
++	};
++	configurations {
++		default = "conf-1";
++		conf-1 {
++			description = "board-meta-1";
++			kernel = "kernel-1";
++			fdt = "fdt-1";
++			compatible = "vendor,board1", "vendor,common";
++		};
++		conf-2 {
++			description = "board-meta-2";
++			kernel = "kernel-1";
++			fdt = "fdt-2";
++		};
++		conf-3 {
++			description = "board-meta-3";
++			kernel = "kernel-1";
++			fdt = "fdt-3", "fdt-ovl-1";
++			compatible = "vendor,board3", "vendor,common";
++		};
++		conf-4 {
++			description = "board-meta-4";
++			kernel = "kernel-1";
++			fdt = "fdt-4";
++			compatible = "vendor,other1", "vendor,other";
++		};
++		conf-5 {
++			description = "board-meta-5";
++			kernel = "kernel-1";
++			fdt = "fdt-5";
++			compatible = "vendor,other2", "vendor,other";
++		};
++	};
++};
+diff --git a/tests/fdtfactor_other1.dts b/tests/fdtfactor_other1.dts
+new file mode 100644
+index 000000000000..d6257d1fd29d
+--- /dev/null
++++ b/tests/fdtfactor_other1.dts
+@@ -0,0 +1,33 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/dts-v1/;
 +
 +/memreserve/ 0xdeadbeef00000000 0x100000;
 +
 +/ {
-+	compatible = "test_fdtfactor";
-+	model = "board1";
-+	prop-int = <0xdeadbeef>;
++	compatible = "vendor,other1", "vendor,other";
++	model = "other1";
 +	#address-cells = <1>;
 +	#size-cells = <0>;
 +
-+	sn1: subnode@1 {
-+		compatible = "subnode1";
++	osn1: other-subnode@1 {
++		compatible = "other-subnode1";
 +		reg = <1>;
-+		prop-ref = <&sn1 0x10 &ssn1 0x20>;
++		prop-ref = <&osn1 0x10 &ossn1 0x20>;
 +
-+		ssn1: subsubnode {
-+			compatible = "subsubnode1", "subsubnode";
-+			prop-phandle = <&sn1>;
++		ossn1: other-subsubnode {
++			compatible = "other-subsubnode";
++			prop-int = <0x1111>;
 +		};
 +	};
 +
-+	sn2: subnode@2 {
++	osn2: other-subnode@2 {
 +		reg = <2>;
-+		prop-maybe-phandle = <&sn2>;
++		prop-phandle = <&osn2>;
 +	};
 +
-+	b1_node: board1-node {
-+		prop-str = "board1";
-+		ref-base = <&sn1>;
-+		ref-local = <&b1_node &b1_child>;
-+
-+		b1_child: child {
-+			reg = <1>;
-+		};
++	o1_node: other1-node {
++		prop-str = "other1";
++		ref-base = <&osn1>;
++		ref-self = <&o1_node>;
 +	};
 +};
-diff --git a/tests/fdtfactor_board2.dts b/tests/fdtfactor_board2.dts
+diff --git a/tests/fdtfactor_other2.dts b/tests/fdtfactor_other2.dts
 new file mode 100644
-index 000000000000..32172f755321
+index 000000000000..2d97f3595e3c
 --- /dev/null
-+++ b/tests/fdtfactor_board2.dts
-@@ -0,0 +1,36 @@
++++ b/tests/fdtfactor_other2.dts
+@@ -0,0 +1,33 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/dts-v1/;
 +
 +/memreserve/ 0xdeadbeef00000000 0x100000;
 +
 +/ {
-+	compatible = "test_fdtfactor";
-+	model = "board2";
-+	prop-int = <0xdeadbeef>;
++	compatible = "vendor,other2", "vendor,other";
++	model = "other2";
 +	#address-cells = <1>;
 +	#size-cells = <0>;
 +
-+	sn1: subnode@1 {
-+		compatible = "subnode1";
++	osn1: other-subnode@1 {
++		compatible = "other-subnode1";
 +		reg = <1>;
-+		prop-ref = <&sn1 0x10 &ssn1 0x20>;
++		prop-ref = <&osn1 0x10 &ossn1 0x20>;
 +
-+		ssn1: subsubnode {
-+			compatible = "subsubnode1", "subsubnode";
-+			prop-phandle = <&sn1>;
++		ossn1: other-subsubnode {
++			compatible = "other-subsubnode";
++			prop-int = <0x2222>;
 +		};
 +	};
 +
-+	sn2: subnode@2 {
++	osn2: other-subnode@2 {
 +		reg = <2>;
-+		prop-maybe-phandle = <&sn2>;
-+		board2-only-prop = "only-on-board2";
-+		board2-ref = <&b2_node>;
++		prop-phandle = <&osn2>;
 +	};
 +
-+	b2_node: board2-node {
-+		prop-str = "board2";
-+		ref-base = <&ssn1>;
-+		ref-self = <&b2_node>;
++	o2_node: other2-node {
++		prop-str = "other2";
++		ref-base = <&ossn1>;
++		ref-self = <&o2_node>;
 +	};
 +};
-diff --git a/tests/fdtfactor_board3.dts b/tests/fdtfactor_board3.dts
+diff --git a/tests/fdtfactor_test.its b/tests/fdtfactor_test.its
 new file mode 100644
-index 000000000000..b93dd2545a0f
+index 000000000000..bf3b9ef8c439
 --- /dev/null
-+++ b/tests/fdtfactor_board3.dts
-@@ -0,0 +1,34 @@
++++ b/tests/fdtfactor_test.its
+@@ -0,0 +1,109 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/dts-v1/;
 +
-+/memreserve/ 0xdeadbeef00000000 0x100000;
-+
 +/ {
-+	compatible = "test_fdtfactor";
-+	model = "board3";
-+	prop-int = <0x12345678>;
++	description = "Test FIT image for fdtfactor";
 +	#address-cells = <1>;
-+	#size-cells = <0>;
 +
-+	sn1: subnode@1 {
-+		compatible = "subnode1";
-+		reg = <1>;
-+		prop-ref = <&sn1 0x10 &ssn1 0x20>;
-+
-+		ssn1: subsubnode {
-+			compatible = "subsubnode1", "subsubnode";
-+			prop-phandle = <&sn2>;
++	images {
++		kernel-1 {
++			description = "Unavailable";
++			data = /incbin/("fdtfactor_board1.test.dtb");
++			type = "kernel_noload";
++			arch = "arm64";
++			os = "linux";
++			compression = "none";
++			load = <0>;
++			entry = <0>;
++		};
++		fdt-1 {
++			description = "fdtfactor_board1.test.dtb";
++			data = /incbin/("fdtfactor_board1.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-2 {
++			description = "fdtfactor_board2.test.dtb";
++			data = /incbin/("fdtfactor_board2.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-3 {
++			description = "fdtfactor_board3.test.dtb";
++			data = /incbin/("fdtfactor_board3.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-4 {
++			description = "fdtfactor_other1.test.dtb";
++			data = /incbin/("fdtfactor_other1.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-5 {
++			description = "fdtfactor_other2.test.dtb";
++			data = /incbin/("fdtfactor_other2.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
++			hash-1 {
++				algo = "sha1";
++			};
++		};
++		fdt-ovl-1 {
++			description = "overlay_overlay_phandle.test.dtb";
++			data = /incbin/("overlay_overlay_phandle.test.dtb");
++			type = "flat_dt";
++			arch = "arm64";
++			compression = "none";
 +		};
 +	};
-+
-+	sn2: subnode@2 {
-+		reg = <2>;
-+		prop-maybe-phandle = <0>;
-+	};
-+
-+	b3_node: board3-node {
-+		prop-str = "board3";
-+		ref-base = <&sn2>;
-+		ref-self = <&b3_node>;
-+	};
-+};
-diff --git a/tests/fdtfactor_board3_shifted.dts b/tests/fdtfactor_board3_shifted.dts
-new file mode 100644
-index 000000000000..3ada7bda4545
---- /dev/null
-+++ b/tests/fdtfactor_board3_shifted.dts
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/dts-v1/;
-+
-+/memreserve/ 0xdeadbeef00000000 0x100000;
-+
-+/ {
-+	compatible = "test_fdtfactor";
-+	model = "board3";
-+	prop-int = <0x12345678>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	b3_node: board3-node {
-+		prop-str = "board3";
-+		ref-self = <&b3_node>;
-+		ref-base = <&sn2>;
-+	};
-+
-+	sn1: subnode@1 {
-+		compatible = "subnode1";
-+		reg = <1>;
-+		prop-ref = <&sn1 0x10 &ssn1 0x20>;
-+
-+		ssn1: subsubnode {
-+			compatible = "subsubnode1", "subsubnode";
-+			prop-phandle = <&sn2>;
++	configurations {
++		default = "conf-1";
++		conf-1 {
++			description = "board-meta-1";
++			kernel = "kernel-1";
++			fdt = "fdt-1";
++			compatible = "vendor,board1", "vendor,common";
++		};
++		conf-2 {
++			description = "board-meta-2";
++			kernel = "kernel-1";
++			fdt = "fdt-2";
++		};
++		conf-3 {
++			description = "board-meta-3";
++			kernel = "kernel-1";
++			fdt = "fdt-3", "fdt-ovl-1";
++			compatible = "vendor,board3", "vendor,common";
++		};
++		conf-4 {
++			description = "board-meta-4";
++			kernel = "kernel-1";
++			fdt = "fdt-4";
++			compatible = "vendor,other1", "vendor,other";
++		};
++		conf-5 {
++			description = "board-meta-5";
++			kernel = "kernel-1";
++			fdt = "fdt-5";
++			compatible = "vendor,other2", "vendor,other";
 +		};
 +	};
-+
-+	sn2: subnode@2 {
-+		reg = <2>;
-+		prop-maybe-phandle = <0>;
-+	};
 +};
-diff --git a/tests/meson.build b/tests/meson.build
-index c25500606059..e469ba4cba56 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -143,7 +143,7 @@ run_test_deps = [
-   dtc_tools, treegen_dtb, tests_exe,
- ]
- if pylibfdt_enabled
--  run_test_types += 'pylibfdt'
-+  run_test_types += ['pylibfdt', 'fdtfactor']
-   run_test_deps += pylibfdt
- endif
- foreach test_type : run_test_types
 diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index e232c86aab37..e012aff2193b 100755
+index b1a8188a9264..fb95ff6fbd25 100755
 --- a/tests/run_tests.sh
 +++ b/tests/run_tests.sh
-@@ -1131,6 +1131,61 @@ pylibfdt_tests () {
-     tot_tests=$((tot_tests + $total_tests))
+@@ -1279,6 +1279,162 @@ fdtfactor_tests () {
+ 	run_test dtbs_equal_unordered fdtfactor_board1.test.dtb \
+ 	    fdtfactor_base_comp.test.dir/merged1.test.dtb
+     fi
++
++    # FIT image factoring (uncompressed and compressed, multi-group by node
++    # overlap)
++    # fdtget -t r appends a trailing newline; strip that last byte.
++    fdtget_raw () {
++	$DTGET -t r "$1" "$2" "$3" > "$4.tmp"
++	head -c $(($($STATSZ "$4.tmp") - 1)) "$4.tmp" > "$4"
++	rm -f "$4.tmp"
++    }
++    run_dtc_test -b 2 -@ -L -I dts -O dtb -o fdtfactor_other1.test.dtb \
++	"$SRCDIR/fdtfactor_other1.dts"
++    run_dtc_test -b 2 -@ -L -I dts -O dtb -o fdtfactor_other2.test.dtb \
++	"$SRCDIR/fdtfactor_other2.dts"
++    run_dtc_test -@ -I dts -O dtb -o overlay_overlay_phandle.test.dtb \
++	"$SRCDIR/overlay_overlay_phandle.dts"
++
++    run_dtc_test -i . -I dts -O dtb -o fdtfactor.test.fit \
++	"$SRCDIR/fdtfactor_test.its"
++    cp fdtfactor.test.fit fdtfactor_orig.test.fit
++    run_wrap_test $PYTHON $FDTFACTOR -s -F fdtfactor.test.fit
++    run_fdtget_test "fdt-base-1.dtb" fdtfactor.test.fit \
++	/images/fdt-base-1 description
++    run_fdtget_test "fdtfactor_board1.test.dtbo" fdtfactor.test.fit \
++	/images/fdt-1 description
++    run_fdtget_test "fdt-base-2.dtb" fdtfactor.test.fit \
++	/images/fdt-base-2 description
++    run_fdtget_test "fdtfactor_other1.test.dtbo" fdtfactor.test.fit \
++	/images/fdt-4 description
++    run_fdtget_test "fdt-base-1 fdt-1" fdtfactor.test.fit \
++	/configurations/conf-1 fdt
++    run_fdtget_test "fdt-base-1 fdt-2" fdtfactor.test.fit \
++	/configurations/conf-2 fdt
++    run_fdtget_test "fdt-base-1 fdt-3 fdt-ovl-1" fdtfactor.test.fit \
++	/configurations/conf-3 fdt
++    run_fdtget_test "fdt-base-2 fdt-4" fdtfactor.test.fit \
++	/configurations/conf-4 fdt
++    run_fdtget_test "fdt-base-2 fdt-5" fdtfactor.test.fit \
++	/configurations/conf-5 fdt
++    # conf-1 already had an explicit compatible property; conf-2 did not, so
++    # fdtfactor should populate it from fdt-2's root compatible property.
++    run_fdtget_test "vendor,board1 vendor,common" fdtfactor.test.fit \
++	/configurations/conf-1 compatible
++    run_fdtget_test "test_fdtfactor" fdtfactor.test.fit \
++	/configurations/conf-2 compatible
++    run_fdtget_test "vendor,other1 vendor,other" fdtfactor.test.fit \
++	/configurations/conf-4 compatible
++    # Verify that hash-1/value was populated for fdt-base-1, fdt-base-2, and
++    # updated for fdt-1.
++    base1_hash=$($DTGET -t bx fdtfactor.test.fit \
++	/images/fdt-base-1/hash-1 value)
++    base2_hash=$($DTGET -t bx fdtfactor.test.fit \
++	/images/fdt-base-2/hash-1 value)
++    fdt1_hash=$($DTGET -t bx fdtfactor.test.fit \
++	/images/fdt-1/hash-1 value)
++    if [ -z "$base1_hash" ] || [ -z "$base2_hash" ] || \
++       [ "$fdt1_hash" = "0 0 0 0 0 0 0 0" ]; then
++	FAIL "FIT hash-1 values were not updated"
++    fi
++    # Extract factored base DTBs and overlays from the FIT and verify all 5
++    # boards with fdtoverlay + dtbs_equal_unordered.
++    fdtget_raw fdtfactor.test.fit /images/fdt-base-1 data fit_base1.test.dtb
++    for i in 1 2 3; do
++	fdtget_raw fdtfactor.test.fit /images/fdt-${i} data \
++	    fit_fdt${i}.test.dtbo
++	run_wrap_test $FDTOVERLAY -i fit_base1.test.dtb \
++	    -o fit_merged${i}.test.dtb fit_fdt${i}.test.dtbo
++	run_test dtbs_equal_unordered fdtfactor_board${i}.test.dtb \
++	    fit_merged${i}.test.dtb
++    done
++    fdtget_raw fdtfactor.test.fit /images/fdt-base-2 data fit_base2.test.dtb
++    for i in 1 2; do
++	idx=$((i + 3))
++	fdtget_raw fdtfactor.test.fit /images/fdt-${idx} data \
++	    fit_fdt${idx}.test.dtbo
++	run_wrap_test $FDTOVERLAY -i fit_base2.test.dtb \
++	    -o fit_merged${idx}.test.dtb fit_fdt${idx}.test.dtbo
++	run_test dtbs_equal_unordered fdtfactor_other${i}.test.dtb \
++	    fit_merged${idx}.test.dtb
++    done
++
++    # --single-base-dtb forces a single fdt-base-1 across all FDTs
++    run_wrap_test $PYTHON $FDTFACTOR --single-base-dtb \
++	-F fdtfactor_orig.test.fit --outfile fdtfactor_single.test.fit
++    run_fdtget_test "fdt-base-1.dtb" fdtfactor_single.test.fit \
++	/images/fdt-base-1 description
++    run_fdtget_test "fdt-base-1 fdt-1" fdtfactor_single.test.fit \
++	/configurations/conf-1 fdt
++    run_fdtget_test "fdt-base-1 fdt-4" fdtfactor_single.test.fit \
++	/configurations/conf-4 fdt
++    fdtget_raw fdtfactor_single.test.fit /images/fdt-base-1 data \
++	fit_single_base1.test.dtb
++    for i in 1 2 3; do
++	fdtget_raw fdtfactor_single.test.fit /images/fdt-${i} data \
++	    fit_single_fdt${i}.test.dtbo
++	run_wrap_test $FDTOVERLAY -i fit_single_base1.test.dtb \
++	    -o fit_single_merged${i}.test.dtb fit_single_fdt${i}.test.dtbo
++	run_test dtbs_equal_unordered fdtfactor_board${i}.test.dtb \
++	    fit_single_merged${i}.test.dtb
++    done
++    for i in 1 2; do
++	idx=$((i + 3))
++	fdtget_raw fdtfactor_single.test.fit /images/fdt-${idx} data \
++	    fit_single_fdt${idx}.test.dtbo
++	run_wrap_test $FDTOVERLAY -i fit_single_base1.test.dtb \
++	    -o fit_single_merged${idx}.test.dtb fit_single_fdt${idx}.test.dtbo
++	run_test dtbs_equal_unordered fdtfactor_other${i}.test.dtb \
++	    fit_single_merged${idx}.test.dtb
++    done
++
++    # Verify that conflicting image properties (e.g. arch) in a group fail
++    cp fdtfactor_orig.test.fit fdtfactor_bad_arch.test.fit
++    run_wrap_test $DTPUT fdtfactor_bad_arch.test.fit /images/fdt-4 \
++	arch -ts "arm"
++    run_wrap_error_test $PYTHON $FDTFACTOR --single-base-dtb \
++	-F fdtfactor_bad_arch.test.fit
++
++    # Verify that signed FIT images (with signature* subnodes) and
++    # already-factored FIT images (containing fdt-base-*) are rejected
++    cp fdtfactor_orig.test.fit fdtfactor_signed.test.fit
++    run_wrap_test $DTPUT fdtfactor_signed.test.fit -c \
++	/configurations/conf-1/signature-1
++    run_wrap_error_test $PYTHON $FDTFACTOR -F fdtfactor_signed.test.fit
++    run_wrap_error_test $PYTHON $FDTFACTOR -F fdtfactor.test.fit
++
++    if command -v lz4 >/dev/null 2>&1; then
++	run_wrap_test lz4 -12 -q -f -m \
++	    fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb \
++	    fdtfactor_board3.test.dtb fdtfactor_other1.test.dtb \
++	    fdtfactor_other2.test.dtb overlay_overlay_phandle.test.dtb
++	run_dtc_test -i . -I dts -O dtb -o fdtfactor_lz4.test.fit \
++	    "$SRCDIR/fdtfactor_lz4.its"
++	run_wrap_test $PYTHON $FDTFACTOR -s \
++	    -F fdtfactor_lz4.test.fit --outfile fdtfactor_lz4_out.test.fit
++	run_fdtget_test "fdt-base-1.dtb.lz4" fdtfactor_lz4_out.test.fit \
++	    /images/fdt-base-1 description
++	run_fdtget_test "fdtfactor_board1.test.dtbo.lz4" \
++	    fdtfactor_lz4_out.test.fit /images/fdt-1 description
++	run_fdtget_test "fdt-base-2.dtb.lz4" fdtfactor_lz4_out.test.fit \
++	    /images/fdt-base-2 description
++	run_fdtget_test "fdtfactor_other1.test.dtbo.lz4" \
++	    fdtfactor_lz4_out.test.fit /images/fdt-4 description
++	run_fdtget_test "fdt-base-1 fdt-1" fdtfactor_lz4_out.test.fit \
++	    /configurations/conf-1 fdt
++	run_fdtget_test "fdt-base-2 fdt-4" fdtfactor_lz4_out.test.fit \
++	    /configurations/conf-4 fdt
++	fdtget_raw fdtfactor_lz4_out.test.fit /images/fdt-base-1 data \
++	    fit_lz4_base1.test.dtb.lz4
++	fdtget_raw fdtfactor_lz4_out.test.fit /images/fdt-1 data \
++	    fit_lz4_fdt1.test.dtbo.lz4
++	run_wrap_test lz4 -d -q -f --rm fit_lz4_base1.test.dtb.lz4
++	run_wrap_test lz4 -d -q -f --rm fit_lz4_fdt1.test.dtbo.lz4
++	run_wrap_test $FDTOVERLAY -i fit_lz4_base1.test.dtb \
++	    -o fit_lz4_merged1.test.dtb fit_lz4_fdt1.test.dtbo
++	run_test dtbs_equal_unordered fdtfactor_board1.test.dtb \
++	    fit_lz4_merged1.test.dtb
++    fi
  }
  
-+fdtfactor_tests () {
-+    for i in 1 2 3; do
-+	run_dtc_test -b 2 -@ -L -I dts -O dtb -o fdtfactor_board${i}.test.dtb \
-+	    "$SRCDIR/fdtfactor_board${i}.dts"
-+    done
-+
-+    # Default mode: factor 3 boards into base.dtb + .dtbo overlays and verify
-+    # that majority properties land in base.dtb and fdtoverlay reconstructs
-+    # each original DTB (including /__local_fixups__, /memreserve/, and
-+    # boot_cpuid_phys).
-+    rm -rf fdtfactor_out.test.dir
-+    run_wrap_test $PYTHON $FDTFACTOR -s -b base.test.dtb -o fdtfactor_out.test.dir \
-+	fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb fdtfactor_board3.test.dtb
-+    run_fdtget_test "deadbeef" -tx fdtfactor_out.test.dir/base.test.dtb \
-+	/ prop-int
-+    run_wrap_error_test $DTGET \
-+	fdtfactor_out.test.dir/fdtfactor_board1.test.dtbo \
-+	/fragment@0/__overlay__ prop-int
-+    for i in 1 2 3; do
-+	run_wrap_test $FDTOVERLAY -i fdtfactor_out.test.dir/base.test.dtb \
-+	    -o fdtfactor_out.test.dir/merged${i}.test.dtb \
-+	    fdtfactor_out.test.dir/fdtfactor_board${i}.test.dtbo
-+	run_test dtbs_equal_unordered fdtfactor_board${i}.test.dtb \
-+	    fdtfactor_out.test.dir/merged${i}.test.dtb
-+    done
-+
-+    # Shifted phandles: fdtfactor_board3_shifted.dts defines board3-node before
-+    # subnode@1 so all phandle numbers differ from board1 and board2; verify
-+    # that fdtfactor normalizes them via /__local_fixups__.
-+    run_dtc_test -b 2 -@ -L -I dts -O dtb -o fdtfactor_board3_shifted.test.dtb \
-+	"$SRCDIR/fdtfactor_board3_shifted.dts"
-+    rm -rf fdtfactor_shift.test.dir
-+    run_wrap_test $PYTHON $FDTFACTOR -o fdtfactor_shift.test.dir \
-+	fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb \
-+	fdtfactor_board3_shifted.test.dtb
-+    run_wrap_error_test $DTGET \
-+	fdtfactor_shift.test.dir/fdtfactor_board3_shifted.test.dtbo \
-+	/fragment@0/__overlay__/subnode@1 prop-ref
-+    run_wrap_test $FDTOVERLAY -i fdtfactor_shift.test.dir/base.dtb \
-+	-o fdtfactor_shift.test.dir/merged3.test.dtb \
-+	fdtfactor_shift.test.dir/fdtfactor_board3_shifted.test.dtbo
-+    run_test dtbs_equal_unordered fdtfactor_board3.test.dtb \
-+	fdtfactor_shift.test.dir/merged3.test.dtb
-+
-+    # Legacy linux,phandle properties (dtc -H both / -H legacy) and overlay
-+    # .dtbo inputs are rejected.
-+    run_dtc_test -H both -@ -L -I dts -O dtb \
-+	-o fdtfactor_legacy_ph.test.dtb "$SRCDIR/fdtfactor_board1.dts"
-+    run_wrap_error_test $PYTHON $FDTFACTOR -o fdtfactor_legacy.test.dir \
-+	fdtfactor_legacy_ph.test.dtb fdtfactor_board2.test.dtb
-+    run_wrap_error_test $PYTHON $FDTFACTOR -o fdtfactor_legacy.test.dir \
-+	fdtfactor_out.test.dir/fdtfactor_board1.test.dtbo \
-+	fdtfactor_board2.test.dtb
-+}
-+
  while getopts "vt:me" ARG ; do
-     case $ARG in
- 	"v")
-@@ -1151,14 +1206,15 @@ done
- if [ -z "$TESTSETS" ]; then
-     TESTSETS="libfdt utilfdt dtc dtbs_equal fdtget fdtput fdtdump fdtoverlay"
- 
--    # Test pylibfdt if the libfdt Python module is available.
-+    # Test pylibfdt and fdtfactor if the libfdt Python module is available.
-     if ! $no_python; then
--        TESTSETS="$TESTSETS pylibfdt"
-+        TESTSETS="$TESTSETS pylibfdt fdtfactor"
-     fi
+@@ -1308,7 +1464,7 @@ if [ -z "$TESTSETS" ]; then
  fi
  
  # Make sure we don't have stale blobs lying around
--rm -f *.test.dtb *.test.dts
-+rm -f *.test.dtb *.test.dtbo *.test.dts
-+rm -rf *.test.dir
- 
- for set in $TESTSETS; do
-     case $set in
-@@ -1189,6 +1245,9 @@ for set in $TESTSETS; do
-         "fdtoverlay")
- 	    fdtoverlay_tests
- 	    ;;
-+	"fdtfactor")
-+	    fdtfactor_tests
-+	    ;;
-     esac
- done
- 
-diff --git a/tests/testutils.sh b/tests/testutils.sh
-index 6b2f0d14e3e5..7f35ba8e4158 100644
---- a/tests/testutils.sh
-+++ b/tests/testutils.sh
-@@ -27,6 +27,7 @@ DTGET=${TEST_BINDIR}/fdtget
- DTPUT=${TEST_BINDIR}/fdtput
- FDTDUMP=${TEST_BINDIR}/fdtdump
- FDTOVERLAY=${TEST_BINDIR}/fdtoverlay
-+FDTFACTOR=${SRCDIR}/../fdtfactor
- 
- verbose_run () {
-     if [ -z "$QUIET_TEST" ]; then
+-rm -f *.test.dtb *.test.dtbo *.test.dts *.test.dtb.gz *.test.dtbo.gz \
++rm -f *.test.dtb *.test.dtbo *.test.dts *.test.fit *.test.dtb.gz *.test.dtbo.gz \
+     *.test.dtb.xz *.test.dtbo.xz *.test.dtb.lzma *.test.dtbo.lzma \
+     *.test.dtb.lz4 *.test.dtbo.lz4
+ rm -rf *.test.dir
 -- 
 2.56.0.313.g2479322e68-goog
 
