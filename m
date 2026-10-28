@@ -1,146 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793220953;
-	b=haHQBtL5Q6wIYEcZNIelbzoHHktdA/cY1SFnisJNgd14OSzaGaP9BgNVVeSbm+QAvnSA
-	 HNyD4j9ivUWBjFhQqosSvv52tNi3+lyYEo3DfNtelgvIGEAIvxFOEz9V0ZcDrG41SmIT3
-	 QCgvB37Y2Uplfq7dKJmv1T2ePZ3Ez77Ed2TQFFeVl769uC+n1R6kjLwpE3M5+oi83YpQS
-	 Iz1D67rlIHtIR+1rstcdiYXG6MZHVImGkJaKr/6VSeUzHYgNyb87FjpDPx23gEE5q/iVS
-	 9ZGcuFP2Kje3osaoNdFas0Th9z4P+UFtSq/lWTqKlsk0nPEDR6SgEYinmIe7SEp/lPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220953;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aGh9b+HIQur+XApSvn0UliwEBiny/gXyXyYbARqPglA=;
-	b=SDE+Px25uP4b6JKYvHcQbgbjljWKLrwMX16eAcDNOoC1k+VZgO4AyzP1O61bKfOycBEz
-	 JSqUJGy6ZcpTInB89+arogK32SyEMnI2eqJ8PJRHkXVrZSxsZbfZ/JNCZypH14gCX7UH+
-	 wws4FmBvf23kA8GBAY725KPphozHKQVq7rQ0Y1tfJqAerN3IZYUafNp2CkiPx4V9PedFY
-	 t115nDW8b+OUIDkCazR+WKlmxijmscKS4ZVaOiZamcT9vunY4dwQSGZc454R0vuXNZIWS
-	 XkMdZYcIumqCVt9f0XxBlaXBxXIBsuZyU1JgS431UDdWp2D+taRWr91pBwdwMoR8NIQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b="tlh/9Pa5";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.42
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793220997;
+	b=ZebN/+5Lj9mwc5fZrdEhqozTQKextg1NpX3Z1SolWEMfPkWMTGWucL8ClVKBh9nUUbW/
+	 LA0SBpquCtNf1KXI8eJzA+nyFNSNAIEQf21OOnBjaCWbY4cgAcqGu5yeD254M0D7e3RVP
+	 Yic3mbeI7XpaswLNLdjBpvfbJNk7kOrFUPraVqXT6b7QC5MzV00savUy0fQKkV2kR3HYL
+	 LoG9dKyftqMnD4yEcV6rQBPLVuSLU1KHdbYgy2N8OHbLqp1I2am6DIPvKFTDpUVbK94vC
+	 nfRpPJUfuijzZycd4EgKzf/6kPgLpFVTHPYpvJx0idU86M/WGtEuQ04QmJ0HNvdVvqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
+	b=Ia6qfIQNrOKFq99WP73FJ2fq68JAGtKLTJpF72LlWZiczMrduYkXHx/nE9VREBnOKQe4
+	 Y5wEkcNX6o2mb/whWKRoZ2XZM02rbmQCgQ+w7KWULLY+7//i7TEEoTrHGCSJzHf0H9xnK
+	 CpTRHMBprK1BLCAJ6/pzjAXiU7un243OUa5VWYktulV+fWusUpn7Qvj5HIul3B7s45ZW3
+	 8MsQShlRvrTusV5IDJSlr5QUMgOIK/Q4YGQlo+v+KWPtKwh90U7vhisFgHeXOjp7T8vKp
+	 iaCmU+J14gJ7rfmQ5TYrAm060jqCz8wi9qlJsnjyHbTZYKwIOlDT6/rPQMtNGBezt4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZjmXWXX;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA32606A31D;
-	Wed, 28 Oct 2026 20:55:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA32606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38F1606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A38F1606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b=tlh/9Pa5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EF4rp4Zk2VzHiOXRFKQJfY/TKcXkhTPeTChGX5wyg4SXDiY2lcqTVbyqbpajgxr4kDLboQ/PWr6taKJCd6mWEworZ5m4ucXmAaDlZNBYWFlug2hryFpFBcqCJlHBjTAoSraxUvnGd567Zg04OuO2//x11C4LsbVPTUeXAP+q0GlrlkHFhOzeuoIqSCODCldkHP6aNGMEIhxI/PsMIKugHDW92fSjFWxcPfpZzLMjnNihp6NDE7kIl+QHu6mF6TugW8SyZL63/ip2ovJfpO1w7WbmW+Borwy7OnGtQR3jcqXPQtMeBH7PDaNybhcAI9DjrEQps1Zt7Mf5DZwLQpnRBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aGh9b+HIQur+XApSvn0UliwEBiny/gXyXyYbARqPglA=;
- b=lppuZsyloXPJxBXtaOjjvgNbbQdJQqDV8ST3LaKxWiTs2oZf0Skb4iSJ5UcR3J/YW7xNIUOjPPDjhWcIWgThX1kp6mI2vzcln/P2ep9kHbp+MN6SDnejhGyV6ThScGI+i8mrZ6QqKUpSaVC1q6ykNhOfR3tuBziPY+n9KfxFNR9udFiGrWCcHqwShIuUrx3quuhaH7pp9YIxOXl4K4Kx8dAACu6932rl7fCj0gB5zIkj83RMPy8PWgULwUl1rcCyxxOvRExykk2r8RtDjH5VIkP+ABs4TFjjbtdNjz20Io2ZqEK3mDAkV2tUJlyzKLWlW2suMM9wjeNnOV97pSTi6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aGh9b+HIQur+XApSvn0UliwEBiny/gXyXyYbARqPglA=;
- b=tlh/9Pa5nCmkjom8kdndz6/7l50j2KUKSwnh6hFiZJ2vbRDLZF4pWBYW/piJGn5Wr47mrOeA7hKyimMA0lMZ2vOeQss7iJxDiadhicrpZlNWG+lBech82T2+xpL2Dt8fh0skmjCfQZXUEsOiXkb0RuHck4wSEhBs/nYBo9gq7aVPUSWnjU8bm4MQV8WiQhFeNlVP2PFER/wBR/i41PTLaYiySF+cuEDob10zaFuwk+aOtj0K9b03CX4NtLP4Levs2/qaeHsW2Qe58Q0X9V5sJjaHPmc75y6R6+hSe8G2HKC/LqQhDy5IPiwJAjateQReg7oxOd1ToQMM/Lr63JE+IQ==
-Received: from BN7PR11MB2836.namprd11.prod.outlook.com (2603:10b6:406:ad::26)
- by IA1PR11MB7386.namprd11.prod.outlook.com (2603:10b6:208:422::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 20:55:47 +0000
-Received: from BN7PR11MB2836.namprd11.prod.outlook.com
- ([fe80::ac36:7540:4e6f:8d3b]) by BN7PR11MB2836.namprd11.prod.outlook.com
- ([fe80::ac36:7540:4e6f:8d3b%4]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
- 20:55:47 +0000
-From: <Woojung.Huh@microchip.com>
-To: <cbabroski@nvidia.com>, <nb@tipi-net.de>
-CC: <UNGLinuxDriver@microchip.com>, <andrew+netdev@lunn.ch>,
-	<Bryan.Whitehead@microchip.com>, <davem@davemloft.net>,
-	<davthompson@nvidia.com>, <edumazet@kernel.org>, <kuba@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux@armlinux.org.uk>,
-	<maxime.chevallier@bootlin.com>, <netdev@vger.kernel.org>,
-	<pabeni@redhat.com>, <richardcochran@gmail.com>
-Subject: RE: [PATCH net-next v1 4/5] net: lan743x: reset the device on TX
- timeout
-Thread-Topic: [PATCH net-next v1 4/5] net: lan743x: reset the device on TX
- timeout
-Thread-Index: AQHdXLZHA83iMUWnwkGwSyu5/xJC4rcErkuAgA03wICAAZozIA==
-Date: Wed, 28 Oct 2026 20:55:47 +0000
-Message-ID:
- <BN7PR11MB2836D0C348528CFBC6738C7AE76F2@BN7PR11MB2836.namprd11.prod.outlook.com>
-References: <5cabe797885011ea204a793557d8639a@tipi-net.de>
- <20261027201413.589706-1-cbabroski@nvidia.com>
-In-Reply-To: <20261027201413.589706-1-cbabroski@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR11MB2836:EE_|IA1PR11MB7386:EE_
-x-ms-office365-filtering-correlation-id: 33822570-f182-4a9e-fc92-08df3535d777
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|22082099003|18002099003|56012099006|11063799006|4143699003|261022105027099003|261022075727099003|261026140227099003|261021135927099003|10067099003|38070700021|261028144727099003;
-x-microsoft-antispam-message-info:
- nTNzzsVH6ABogaa9ekkNcKs8M6Jp0GPOM6/MoaKvBsnigpzB3e/5SoVECvDlh/+PRZn02KceTTsBHlm9HUIdspZU6WZHuQAPnfzZVtBPO1axfNrKy6zoFKRoGuwA8E5NwpWhHQnd8XfiJmRByhmsMxSKyzqHP6swI0d/48i8GXHPRpEZl5FwlABFLKg4xViJ3Qbyr/CNayG5/JT3QZ3GF8kJo/aS7N6M5C4MEj3W+XdpHiNB2M8s+6NWTX8TLyUppSqSw5qZP2er54h/fCk6wKl4Lbd6z7aW85JUtgViiJN6tyhGP9IhX8Fgm2Mq4s7IwnNfGprIyOs3ESC7Knph+tv/Q62vQ3Npfo0ICEYLbfl3XiqsXXb4i5OZ28hvg0z/by1zp/SKDZeusBmGAGQ3l197ynZeh63MYNSCpXy1Z0+DsZvn5+H/lUkkqSC0jL0Per6Aah6Oa6N6pY9WEbMVBOi/jVYuqWoyFEPfhNUrhijegy+Tdvfdf3Deryt1gwvZjpgNuxDaGpoLiVjoqh1Er2uFCfUL+4kxiaMSdqsvLhKgmNXmSQsHqNCsEjACPO9H1sNK6NsCsy0QD1lcOKQ2IG4bUq5n/KST+tVUdQtURO1/ZZQs5R+aCW9e7ROQEBMnfpdoDRrDsZqRRfjGlHi4wzRRH6Ws861Thjs+7RvOhQLr7beMXPAjsfTp5eOjom/Oc0GQ9rzVFUNCIYCKfNj3uw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR11MB2836.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261022075727099003)(261026140227099003)(261021135927099003)(10067099003)(38070700021)(261028144727099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JqjmBNJ78xP6P2YCBMvKmI91qDsT0Xcfck4lHUdt5VMP0HmwFQ4as7hd8UNx?=
- =?us-ascii?Q?Jo6Y8ZigMz6jpYsGgly4C+ml0eMqx/NE78LWnWwkmhtBHVZoyaC5Ap0wxpU5?=
- =?us-ascii?Q?uyNKpYHLOwWE+2HmEx0HBlwrc9li+x5OnRdK82XPnPS7v71OfgFhGdm+k1hp?=
- =?us-ascii?Q?Vf8gst2RTk6wiCHYeD6aTM6yait0s0zubMaU7oO669cWklJHcULVOx3mNveO?=
- =?us-ascii?Q?PxXPuEIFuDkwMdhKaZYP61TY72HUtmcR50Piore/FHZ1AqxP1xK3japa1Yuk?=
- =?us-ascii?Q?4GmWVLS96tQe/vRSeFL4K1LzFeQCHxp417NmD/18YsNveBKQJT5r+xSJN9ci?=
- =?us-ascii?Q?Xs1KpWi9PWN/OeSqCVs6Rzf3ZLKBKouYL+7EJfG373GlOq73ujX1AFFsCHI0?=
- =?us-ascii?Q?50IWq8+qujv5McfhpOsUGWqwN3wgMZcTWRMpoGP5Cih4Mm5SkPghv5BmU7c5?=
- =?us-ascii?Q?rAEe/Zqp3ifLRT0hvKtHE8v+nfv7e/syDV74OQuTnG8kp4BibwhTaM4D1JRA?=
- =?us-ascii?Q?b39wtOhioastA2iyox73OuFXTMMvywBsC8Di/j3o6JOd+AhRKahk9xK2ApPO?=
- =?us-ascii?Q?sOjXh5jegFyjKSKHKs5gj1xFWv1igjhCO6EONDUiRnyyYzqDC5wD0MzUuBpe?=
- =?us-ascii?Q?91cCUJasjVihLo0jxtwlgFr5JjX4WuBBstVdmdszrsBxsJE0a/nv8UamJPCN?=
- =?us-ascii?Q?Q0yYuQ5hbR3cwsGQMmU8MxmBdK70aWfZkmcu1ABacFc9tKOktg0UdFHnkdiK?=
- =?us-ascii?Q?Z/Tzv5K2moPioelaUbDLbeUgO4gdOA71BR9c7Cn4y4YzB4xjVR9w6SNuXRMj?=
- =?us-ascii?Q?geV9HT5lOFst7MlQlOiYH2DUdmXAINj+/jbmB4wgqr+G7ZL2CUihOzqPa7xU?=
- =?us-ascii?Q?1zIre83Q06bG+7mJILOwu79zZ5QFOVsHPZAM6bWI9P1RpbRtNWL324/NnSOQ?=
- =?us-ascii?Q?Dts4iFjZHSs2jaUpAk6EFnVNIW3K7CW+kEyTNsU1fDII6szNI26OVWbPCUoI?=
- =?us-ascii?Q?YWmzG/U2WgK8c/FOiQzXL1qAv7N/hkNDWcyA7tFFqjovLtcd7orjwsvtMQ76?=
- =?us-ascii?Q?v3AF4oApOR49y/LyFBGD5tRIRiTMH1WFWY4mViOgdK7daqZ7KSJiwY0LMh9S?=
- =?us-ascii?Q?vPfu6zrdepoB5FufUSBzI/3xVMNnKZQFitnp+bFCk4X7tERtRvwU3P3SgeW1?=
- =?us-ascii?Q?PnXZRvymT3BpO3+bpNrzvVgq4kFviYTiJQ7wavy1WdVaBdrA/V7JFdWkEB+G?=
- =?us-ascii?Q?zbKCQj1yvkXzjinIp2qWraQwvAHFJ00v/6DoyojygptmJbhGhAO/w/tbQfcI?=
- =?us-ascii?Q?aQwKKH7BRZ6yviqrCJxxZXiX0UabAov0bF1E7L4fQ0r+mhor887H81vLJPxm?=
- =?us-ascii?Q?9Gw6X/daomjqyoVHQzMyF52FhuOIN+cpHIotbox4wWADa+Dx4ahjOEGyaDwF?=
- =?us-ascii?Q?STqHexnbS3yvBHiSxUHPfWJud0KXNZJJCFuUMgkSwhqZ6LULbryyeVzJ6ywQ?=
- =?us-ascii?Q?vahvNuFfGiS+mZO2noZNki/c+yLljqNFmT8z/wMtMDqQ9aexTt3OU4XwvbmD?=
- =?us-ascii?Q?RLMqAKHhX6/TPNCM3ABoIBbiV0OowUlzjbLcslfuXNjgvIF0k01vritcZS3b?=
- =?us-ascii?Q?EIUJeoKbZbVb2oNKIxoISHuxtPXMR5ZebDcvFDDwWMtqBcKLKuPhYIFySFs7?=
- =?us-ascii?Q?d+XKGl68ywe/dR0tRdyfm9kA7OZNZCstfp06FK/xbvPrDkBOGBtfzkT8SWU+?=
- =?us-ascii?Q?OWPiy08yIA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZjmXWXX
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so14032755e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:56:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793220995; x=1793825795; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
+        b=CZjmXWXXnX+ztXHAuvrQTkbPf+jP/sDF0PnXOpWzwXGpBsdJ1rhg3JnJMulsn1LZtc
+         wyfSr73iuW6G6lYTK5qywTRamFK65aw4EhHZpcs3YXXCMYJ182FpfQ0EHPNAOYBiFgz+
+         uV0g7eMcsfSrQBk+z2YakRjoz7OW1t+CNZ6e5KYZ7iJQkSRFeL4/v3EBLJB/nHuOxYlB
+         AEsAVqT+qXm4fLz6ZXg3F2AkmI4dzFjPtCKKf+RmgYz9Zuloc/ssDOidWLd2kUgUBnto
+         nE/cIOG6liqfC08Ld70skugGugDGff6oPpJHsQ+0uGhAbGBDKRIufj2JqR/AH3BoAL7U
+         EaGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793220995; x=1793825795;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
+        b=ph0OiHRNEZnHS4v2k3nrY1Z8sC5Rwm8AxSjVVMYFQwJI6RZpT7MfYiy91UvaPx1VSx
+         +9rky7r3W7l4WlxgZ8kIJe/8VArCDoQ7GRniVeCu/1CejkPH0LNVVdayU3UZwY+otiOq
+         4naogE5PiqZ8T2DrOLH4lgBk2m5xqWPYGWEzXaYJ+O8OKMxcICk4dsumDlRa3NErdxDy
+         3PeWaBFOFAXhf0Gt8LNfdW6E35MXlnp5gcKxGm7Js2BNP5QGRnNq9CcerPFjK0R1P/C2
+         rKx7W+s+0QQZmwBV8uiKM9MIcAkqXL25UCIkc2bqI7c/Eif1myyWPEHZUF0w1MzC7JPc
+         aR3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzKMQznhjhh4/KoeuDmcWkgtLLlI+0+2CaVynUVauXsGZAQuync5mOblvnoaetuSgJaoRFHNbNHDlo7Kv4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmbcWaociR4Scjd6v9+ir8keQd13uFEFJ10ODacvgcwd+7KTS/
+	BraQuarSYU13Y+f7ttJOiMGh3r+JbS3fTvJnEEi9weHC25jaUaaRmjrtPtyJl9vL
+X-Gm-Gg: AYBFou0L4tOwBLcUQcqJe/eq2TsGumDDh7d2mEItGSN0lkhDPHkq+kn+Ipj25QmO9y4
+	lH6l4aPARqi3sNxvcahiK4tCqDA/9G0opaBNdc3ocdIQZgL2lmarn6hl2EVyWTfJxOFHrzbODHQ
+	J3xV+wc1NzuwNOL49e9ENXXmdTgSImYKLLvsnsbW+4V5B1965y1oJ6/Tj8gEiqI983+pNucrL7p
+	OVDUj5gY2Prtykp45YXWdeHVckParc0QA92AIs6hl2m5URbyNykaX0EZN/wAJuXF/bNDPSODNFC
+	7jagCvSvjC+eJEXVx4qf1UU7fjS9043PfR7drZ9S44QmGq396jV5yZhrkqo5QjcCrL/4BBhfuBm
+	LxDNahE/OEYUm0PUIrWiXaPrS0SX3dIzKmPOZ0I9exs8xoU/iweId5emp2HJnfJFJcha27Z59DA
+	ifE+cauSX4iMKIYGIX4oScsdPXqMg+o4Kygi/qxhCB4bLxFtgkgPC0bUuTfgc/DffjUyvm+38Pk
+	oq/3xt7lX/988974oweWkCAURuX4AEEsVlHGkVd45WY+ST4EYhd02CRdplbYMR6pO11jtom9HMU
+	eOE0I0UQmBC9BsHgK0ExEjerxXd8Fcup+dJq6BggU0LmYR7HyPlMCdDN4eV5DwG+Tw==
+X-Received: by 2002:a05:600c:811b:b0:4a3:59c9:a743 with SMTP id 5b1f17b1804b1-4a967e8d5afmr77924555e9.27.1793220994832;
+        Wed, 28 Oct 2026 13:56:34 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm15896115e9.1.2026.10.28.13.56.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 13:56:34 -0700 (PDT)
+Date: Wed, 28 Oct 2026 20:56:33 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>, ardb@kernel.org,
+ Jason@zx2c4.com, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
+ memset()
+Message-ID: <20261028205633.7625d789@pumpkin>
+In-Reply-To: <20261028155134.GA4041913@google.com>
+References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
+	<20261028155134.GA4041913@google.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -150,52 +100,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR11MB2836.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33822570-f182-4a9e-fc92-08df3535d777
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 20:55:47.3785
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JmharqyVdhDnfOpyrVVzx9KY3s98eDa3txbJsl0NZIm3Xza16ohWUuuL878A8Mcr+ln0vD0YLJuh7HpBY7GtZxWw8D9WAeUjd7B8ptNpc8Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7386
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Chris & Nicolai,
+On Wed, 28 Oct 2026 15:51:34 +0000
+Eric Biggers <ebiggers@kernel.org> wrote:
 
-> > Is it ok to re-register the PTP clock on a reset the driver starts by
-> > itself?
-> >
-> > ptp_clock_unregister() makes the open /dev/ptpN return -ENODEV, and
-> > since the old index stays taken while ptp4l holds it, the reopen comes
-> > back as a different /dev/ptpN. So ptp4l has to be restarted, which is
-> > more than "set up timestamping again"...
-> >
-> > How about moving clock registration to probe instead, so it survives
-> > the reset? Then only the hw timestamping config would need to be put
-> > back.
->=20
-> It may be best to get Microchip's opinion about how this should be
-> handled. Woojung, can you answer this?
->=20
-> Makes sense that moving clock registration to probe and remove would
-> keep the PTP device valid across TX hang reset, but I'm not sure if
-> there are other consequences to PTP still being disabled and re-enabled
-> during reset.
->=20
-> I'll update the commit message to be more clear about ptp4l needing to
-> be restarted and try to run some tests to see what the effect is of
-> moving clock registration.
->=20
+> On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:
+> > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
+> > output buffer when authentication fails. But the compiler can optimize
+> > that wipe away, so use memzero_explicit() instead of memset().
+> > 
+> > This matches every other sensitive wipes in this file, which already
+> > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
+> > teardowns.
+> > 
+> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> > ---
+> >  lib/crypto/aes.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
+> > index e1c191551736..7814ef525239 100644
+> > --- a/lib/crypto/aes.c
+> > +++ b/lib/crypto/aes.c
+> > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
+> >  		 * Clear the inauthentic decrypted data so that callers won't
+> >  		 * receive it even if they fail to correctly handle errors.
+> >  		 */
+> > -		memset(dst, 0, data_len);
+> > +		memzero_explicit(dst, data_len);  
+> 
+> This isn't for "zeroization" (making the data unavailable in ramdumps),
+> though.  It's just so the caller doesn't accidentally use the
+> inauthentic data, as the comment right above it states.
 
-Because TX path is already lockup, I would say that impacted PTP traffic
-even though timestamp function still alive.
-It could look ok at workaround point of view, my opinion is keeping
-ptp_clock reg/unreg at *_open() and *_close().
+It is also a parameter so has to be zeroed anyway.
+memzero_explicit() is used to clear on-stack buffers.
 
-Also, if moving out to *_probe(), PTP clock is not initialized at *_open()
-time, module unload/load is required to reinit PTP clock.
+David
 
-Thanks
-Woojung
+> 
+> - Eric
+> 
+
