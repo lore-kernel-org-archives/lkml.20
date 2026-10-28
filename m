@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207210;
-	b=m48BMVAiVZNCrdI8AsYvkVnt6aRwS4p0lni/fLqaohBwVjSbxV5iOq56MxvcP4HO05CW
-	 VE4ODGwBc95dfpp5OFgL2oYKrJL/IEyjEHCn3PMOtfBuN9VCASN7OFF02ljipBStiDiaY
-	 u2mhH2FLpV0Na12eLrvdKHrPQhQFC2BsxAVtqnctVqY3R+5HHIiwKlAwNXMiF7nXuljs0
-	 6J05VbA+JJbXGaW/Zl0/bPOUJHFMIoOtTDiS/mO6Xvkm1khqDx/kwdodOhfAW7zXqFOK5
-	 vHVESNdZbNI/uX1EgvXVeiYHTSUT50GkQ9tW99BarwFd6Oi5AH2XrdaKszCjlxtHy+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207210;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:User-Agent:X-stable:X-Patchwork-Hint:X-KernelTest-Patch:
-	 X-KernelTest-Tree:X-KernelTest-Branch:X-KernelTest-Patches:
-	 X-KernelTest-Version:X-KernelTest-Deadline:Content-Transfer-Encoding;
-	bh=W2gmWX+TDoNPKkm6huo6mn3i68VwdlCFZWhkWWglJzM=;
-	b=sXlpNNXdy2B4valaw7gfZCLjBSJ8PV3JUcWwSVkpW9TxYjMtuZJ4FHm+juDjrkm8MUdq
-	 YOEWMzOOcZp30JpdWz2dHnTyoxO+1HaTW2Z+y7iPC3+UPZw9EmRq34oXaVQhpeC9KCvUe
-	 iCOXC2MeQIAQJkNowse9HQOVhZ0X/+Gv/81jV1rIh7CG2Ul8TH/qpt7+Z/FkArzLYw2Hb
-	 +2e3LBJPb0kBRhLK5cBSfMH8nW8yWyVaz/C8tRrBJ6S/9fzqJa9zlZ0SLiB9pKSTyMtqJ
-	 g+49an4cW42PKWedZA10loqGQTcFNpZEp78KU1G137ombFxBK7o1eSP0j6IkUT/sWbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iC3KoLUt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793207310;
+	b=GpHI4oRvu6nrkzzOEiU0oiODOkuA3gRXzX350MijypcpUDtFsfsHSpEa+iCFTnfUODuB
+	 U9kidZjirXLXhf369fvJ9wdGTwxmChg2DJscOl+URgpOajWz6KV8c9AAqjc8HBS9/DaN9
+	 rTEuMLtGjddmYodE6fJUew8AKVykCY6UUWQMhdOJbup6644UywEJjeM7vMHnbKU33f/6x
+	 nqDAIQtS/bz0x7D3zCiT3k3sVxrGxUmtf58fi1cjxFo0uYUExN32nDNRbQb+EayC3Uatg
+	 umsSR6JVU+L8kKG6nlsdUuEhDvZee/TdyzH6MjQKTtjRUj/HVdGDpTkELMLWM0+9t+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207310;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZC8KY/zVt/3XvTsa+avKtgzZjJJCkMC+z6b2LaJLjVU=;
+	b=vLqIrfhmesuk+xthLEYFH/d+XH9zKwpss6OzYHDuYwRrw/tXFWJnjXg1N0kxl7aWgJUp
+	 XTu+y1g7ZnF93t+jdqZyH//4DqfnXRrCn+5lZcE0NV76rQb8lRRE11XF+seA2GlgRxxYl
+	 NfVHt73qLsrQp5zM2zTb1V7EoQgZzbEDKZEWF+OmFuDsYUzrNsnzRS7t/LS8h20HQzRHo
+	 lyWirjrkb/WIoR3NgoV/ONLK53ViljCn1QJSj8lXUBac4wbW2fWCG6Ru75Sj02tPIbEQR
+	 /g9q7Q4w7QMerNcIYKYkHocQRUeVJ1/mLoAWGkOGhAmIJiDiI9wSksIJoOSB8ZZGW/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XcAj1j9h;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1487606A31C;
-	Wed, 28 Oct 2026 17:06:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6AD606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:08:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C6AD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iC3KoLUt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC001F01828;
-	Wed, 28 Oct 2026 17:06:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207209;
-	bh=W2gmWX+TDoNPKkm6huo6mn3i68VwdlCFZWhkWWglJzM=;
-	h=From:To:Cc:Subject:Date;
-	b=iC3KoLUtG9wI27mxp87e3LGHqfFurG03kxvfDBfhgyb6SeShjIet+Dv7ssaOlhPrB
-	 6OljlsgjHr+lR/ARURwpd/qiPgUz57O77uKmWUBDGTpcG0BxCyPHFC1sAplXNgQqJK
-	 Iw35cN5BaohiR1zSIMVyuB1o3mh1Na3Awc4HROSE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: [PATCH 7.2 00/88] 7.2.14-rc1 review
-Date: Wed, 28 Oct 2026 17:59:08 +0100
-Message-ID: <20261028165942.107695352@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XcAj1j9h
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4682977f9aso157446266b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:08:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793207309; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ShDn5ibT9MFvYfgC2ioqV7X0yz1k6v6acytYzQr8h20/VEK0MSYWGbjNrmjOSZiFqh
+         5zoJt4zam7YR8XNEmfeAkyI7nUOzKlinUDTDBnvRCGQgEdQNF2ARks4Khk6eq+ySeYgm
+         WlPA+9gUoau+kxySu3VOLhiqHxVq0CM4PoTQa1ZG95KhUywgFdPA8i/49Jqzhww3Sj2b
+         BhIF/gx7vbIIkGvvH5lOwM56J5fHzI1DjL0YUx2uO4wDLVb8ezrW2rlWH9TZe+N+8hv4
+         z2M6iZgFzzRVZiGJKw3Qel/CIdAJPI8u4UieKnFnqsknHj1uo49dXb6mwkKiRlfOG4xl
+         o2/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZC8KY/zVt/3XvTsa+avKtgzZjJJCkMC+z6b2LaJLjVU=;
+        fh=drcUEhGGXCEAuwj/vrDiqYL2uIT+sv+dTiS5KGgERw0=;
+        b=qWveh9FlMcC5Fx86R6DY7/PGwHTgrccRRNVdpbJTJ3U1bbX3h8iknZhMrRhO0CSsSE
+         JKpVjp0PJebRck3WB4CLUtZAsKKalnG28Oxa1/Gqghh6jilcgbT8eHF1c5a9fXUiB0HR
+         O5ryItV7OAcaLyKHiQk8ITrxBwcWJt5ruYaqQabF8yiZzZ0r4LZBLJwNpQeTAX4YhRpe
+         OIzdnxdBsIeTFDXdEbdCIokmEhT199h8DfmliH7Rp2JQwsynoQYnkKiR+yLu45I8Bvrw
+         ig9V+heWS0K9UXrLfndNJT+e06Cyl+WhTnvN8/swSc0z7QovLu3/TOZkdHpDKcrcBH1l
+         TTHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793207309; x=1793812109; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZC8KY/zVt/3XvTsa+avKtgzZjJJCkMC+z6b2LaJLjVU=;
+        b=XcAj1j9hpN8HsHCgNOirja2B19VT5SlGB4hhlcj3IC6RZB9nnGdILhB69EzMj6HPzc
+         uQG93WGLIAdoFML+WqWKo2V1fGB4iros8BptTbhUIoMEqfNP2aeAeCH0PbZAvgy/jGDN
+         lfGtB+buzR68az+Eegc6wWz/4+UgbjtaUA8jZapBMIt4qAzR59bOSJ4P0iHbkwl3XD9q
+         VPVP7jERB3rsdNrF4Z5Myw90tHNkC72S1MGa1u8G29e/Mr0zV0ZGzRx8IxlyeOZOTc16
+         oK4hdEFN0L1Xqb5MZrJfQi4JqAkmgzvJvbCdtWBVjTWNuCLVSB/Md/GWbTTTdjYrpYPP
+         HP2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793207309; x=1793812109;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZC8KY/zVt/3XvTsa+avKtgzZjJJCkMC+z6b2LaJLjVU=;
+        b=1tmkoeoQ480J5/t1MZ3baaUyb0BYGXltGZ6c/HMCzpoNBL8qbxkyuL5U4cOwCa7BRS
+         2iwEyv/YSRU5oGtAyqFBOohM2Q8UBALPL/T865Tt5Xi2oCF3pqKEyxtBgFimSuV0pQ9y
+         Cne06a315uuVRre0LWrzaLcz6HfWgu0S+Ya0u27zflXOBeizeQVqdwpVtiqRbijmN1PD
+         wI4/XStRvg7aTYq2nzN6wMnA+hvBzPKwvfSYHo4ETrQzB3PsXpg+qvyMK6D9n80MNfur
+         ZJz+ZEDdLilwQ2Hf588Gvd/B8wv+PUAbE/zt3YTqMDU7oAbPn+UErhT2uCstedJOmhd0
+         WeQw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCIn1R1vMGCMuj6Sgb6x703aiTwJQgSZv5y/4dSIAzRGjiRKgq2ZAeJX02togKYJv84/1hMxVfaTOv1XM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpXd5rg1EBU7x/a27VxEu/6Nd+wSO0OYRqYY2M1V5ztAZ2qcqf
+	cotX6ghyppi/pPq6Lu9Jq2qpkYAYbN0SxtzSCjEQu5OGKn35438EolDXjKzdU0TaFgfe94dweyH
+	dctXkZrHIYWosWnQY7Uf6uywk0U1jnuw=
+X-Gm-Gg: AYBFou09e/OOp6aPLVbGuiiOe0SBWNW9e/7E4WRgJh6BiJ0JfYzgavJgMYeSDwThY63
+	vftLENvn7PPYLkMm0pX1wCRpm7/cVrSHS7vl3+4QoTBjfJZP180pENz+gEqRuzlwthQQ3zf1slm
+	Qf50gJO89UgDGspDgGkiDPldaUoquKFoS0mpIPiXOXFjrh45yuwpidLbznEwMttU1j2pwbM8a9P
+	1MVcFiqW3uL8FSzso/c/V/UNI5mhU1K4S4zrpjpkBRTEESNK7kWedSZTqUuGN8TeVZaOXxoPG5J
+	5H/k6HDWvAJHNlqhRYnrsjBOnntiP2D/7q2cfEiP3UWGQxwJ0rCRvy2cltBcqzWa9ND/lEJcNvp
+	F/NLfyBXU/gteFzEzdZbLC8GWtGem6nW4OeyI
+X-Received: by 2002:a17:907:3e8d:b0:c3e:d2c7:c530 with SMTP id
+ a640c23a62f3a-c49bdedfbe1mr261186066b.12.1793207308831; Wed, 28 Oct 2026
+ 10:08:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,369 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
-X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
-X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-X-KernelTest-Branch: linux-7.2.y
-X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
-X-KernelTest-Version: 7.2.14-rc1
-X-KernelTest-Deadline: 2026-10-30T16:59+00:00
-Content-Transfer-Encoding: 8bit
-
-This is the start of the stable review cycle for the 7.2.14 release.
-There are 88 patches in this series, all will be posted as a response
-to this one.  If anyone has any issues with these being applied, please
-let me know.
-
-Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-Anything received after that time might be too late.
-
-The whole patch series can be found in one patch at:
-	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
-or in the git tree and branch at:
-	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-and the diffstat can be found below.
-
-thanks,
-
-greg k-h
-
--------------
-Pseudo-Shortlog of commits:
-
-Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-    Linux 7.2.14-rc1
-
-Christian Brauner <brauner@kernel.org>
-    signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
-
-Christian Brauner <brauner@kernel.org>
-    pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
-
-Christian Brauner <brauner@kernel.org>
-    coredump: prevent TIF_NOTIFY_SIGNAL from interrupting coredumps
-
-Christian Brauner <brauner@kernel.org>
-    exit: hang up the tty before closing the files
-
-Christian Brauner <brauner@kernel.org>
-    fork: release the files of a failed fork after sched_cancel_fork()
-
-Christian Brauner <brauner@kernel.org>
-    ptrace: refuse to change the signal mask of a user worker
-
-Christian Brauner <brauner@kernel.org>
-    signal: don't retarget shared signals in a dying thread group
-
-Christian Brauner <brauner@kernel.org>
-    signal: only SIGKILL and the freezers interrupt a coredumping task
-
-Christian Brauner <brauner@kernel.org>
-    coredump: hold RCU while releasing parked threads
-
-Aaron Ahmed <aarnahmd@amazon.com>
-    ftrace: Initialize modname and offset in print_rec()
-
-Weiming Shi <bestswngs@gmail.com>
-    asymmetric_keys: reject trust keys without IDs
-
-Srish Srinivasan <ssrish@linux.ibm.com>
-    keys/trusted_keys: return immediately after TPM unseal failure
-
-Stefano Garzarella <sgarzare@redhat.com>
-    KEYS: trusted: Fix blob allocation size in tpm2_key_decode()
-
-Adrian Martinez <adrimg3196@gmail.com>
-    KEYS: Fix key_reject_and_link() race with keyring restriction
-
-Cen Zhang <zzzccc427@gmail.com>
-    keys: Protect the read method check against type removal
-
-Kyle Zeng <kylebot@openai.com>
-    keys: make keyring indexes independent of kernel addresses
-
-Cen Zhang <zzzccc427@gmail.com>
-    keys: Protect the type name while describing a key
-
-Cen Zhang <zzzccc427@gmail.com>
-    keys: Check the authorization payload in process keyring searches
-
-Cen Zhang <zzzccc427@gmail.com>
-    keys: Avoid the owner account dereference in named keyring lookup
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring: keep the drain active when a deferred drain request is started
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring: end the drain when the drain request completes
-
-Junyeong Lee <jylee5498@gmail.com>
-    io_uring/waitid: prevent cancel reference wrap
-
-Austin Schuh <austin.linux@gmail.com>
-    io_uring/wait: wake real-time waiters from hard interrupt context
-
-Tamaki Yanagawa <ty@000ty.net>
-    io_uring/net: keep recv buffer select length within MAX_RW_COUNT
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring/poll: don't loop on HUP with multiple references
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring/timeout: don't lose a cancel as io-wq arms a timeout
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring/timeout: don't flush with the sequence behind the last flush
-
-Jens Axboe <axboe@kernel.dk>
-    io_uring/timeout: don't put a sequence target behind the last flush
-
-Juanlu Herrero <juanlu@fastmail.com>
-    io_uring/poll: avoid retry wakeup loss when dropping ownership
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: look up the file before queueing to io-wq
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/timeout: don't end a linked timeout with 1
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/timeout: no ABS update of multishot timeouts
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/net: don't retry recv on uncommitted buffers
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: don't pass restart error codes to userspace
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/openclose: keep the lock in io_pipe_fixed()
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/sqpoll: let the thread sleep on disabled rings
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/kbuf: handle index wrap in last buffer check
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/zcrx: fix buffer offsets in areas above 4GB
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/napi: don't busy poll past an expired timeout
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/napi: make stale entries time out after 60s
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/wait: no early -ETIME if min_wait finds work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/timeout: use the right clock for ABS updates
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/timeout: keep repeat count on multishot update
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/timeout: don't skip over reached sequences
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/fdinfo: fix CQE dump of CQE32 rings
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/register: keep 128b SQEs intact on resize
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/register: handle index wrap when resizing
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/register: don't wrap 32b CQEs when resizing
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: don't split 128b SQEs at the SQPOLL cap
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: drop the CQE cache if a refill fails
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/futex: allocate private hash before waiting
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/poll: drop stale double poll entry on rearm
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/wait: look at all CQ waiters on wake up
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: wake ring pollers for local task_work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/cancel: let CANCEL_ALL find parked requests
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/cancel: recognize "no timeout" on 32-bit
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/cancel: don't forget that the work was running
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: don't lose a cancel as io-wq parks a request
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/poll: don't lose a cancel as io-wq arms poll
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: let cancel find picked up hashed work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: don't exit with a creation pending
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: don't strand work when a worker exits
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: don't go to sleep on pending work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/mpscq: disable preemption while pushing
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/cancel: rearm local work wake up before sleep
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: don't lose the DEFER_TASKRUN wake up
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring: don't flood a cancelling task with task_work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: don't hide a link from cancellations
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/io-wq: don't lose the signal that ends work
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/wait: don't spin on a stuck overflow list
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/cmd: don't leave list poison in ->hash_node
-
-Josef Bacik <josef@toxicpanda.com>
-    io_uring/waitid: own the request before clearing ->head
-
-Christian Brauner <brauner@kernel.org>
-    io-wq: order the exit bit against worker creation task work
-
-Haoran Wang <haoranwangsec@gmail.com>
-    tracing/syscalls: Use copy_from_user for the faultable syscall buffer
-
-Lee Jones <lee@kernel.org>
-    tracing/histograms: Verify event_call identity when updating synth_event refcount
-
-Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-    tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
-
-Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-    tracing: Unregister field variable histograms when the command fails
-
-Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-    tracing: Save the event file instead of the compatible histogram
-
-Kyle Zeng <kylebot@openai.com>
-    tracing: Reject incomplete event filter expressions
-
-David Carlier <devnexen@gmail.com>
-    tracing: Hold trace_types_lock when resetting last boot data from readers
-
-David Carlier <devnexen@gmail.com>
-    tracing: Hold trace_types_lock when updating modules in persistent instances
-
-Sasha Levin <sashal@kernel.org>
-    tools/dma: fix building with O=
-
-Pauli Virtanen <pav@iki.fi>
-    Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
-
-Hui Su <sh_def@163.com>
-    sched/fair: Avoid overflow in place_entity()
-
-SJ Park <sj@kernel.org>
-    mm/damon/core: error damos_commit_quota_goal() for zero target_value
-
-Hongling Zeng <zenghongling@kylinos.cn>
-    ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
-
-Hongling Zeng <zenghongling@kylinos.cn>
-    ntfs: fix race between fallocate and mmap reads
-
-Kuba Piecuch <jpiecuch@google.com>
-    sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks off DSQs
-
-
--------------
-
-Diffstat:
-
- Makefile                                           |   4 +-
- crypto/asymmetric_keys/restrict.c                  |   8 +-
- fs/coredump.c                                      |  18 ++-
- fs/ntfs/file.c                                     |  32 ++--
- include/linux/io_uring_types.h                     |   5 +
- include/linux/key-type.h                           |   1 +
- include/linux/key.h                                |   5 +
- include/linux/sched.h                              |   2 +-
- include/linux/sched/signal.h                       |  27 +++-
- io_uring/cancel.c                                  |  43 ++++-
- io_uring/cancel.h                                  |   2 +
- io_uring/fdinfo.c                                  |  14 +-
- io_uring/futex.c                                   |  32 +++-
- io_uring/io-wq.c                                   | 126 +++++++++++++--
- io_uring/io_uring.c                                | 180 ++++++++++++++++-----
- io_uring/io_uring.h                                |  44 ++++-
- io_uring/kbuf.c                                    |   2 +-
- io_uring/loop.c                                    |   8 +-
- io_uring/mpscq.h                                   |  14 +-
- io_uring/napi.c                                    |   4 +-
- io_uring/net.c                                     |  26 ++-
- io_uring/openclose.c                               |  11 +-
- io_uring/poll.c                                    |  38 ++++-
- io_uring/register.c                                |  54 ++++++-
- io_uring/rw.c                                      |  18 ---
- io_uring/sqpoll.c                                  |   7 +
- io_uring/timeout.c                                 | 102 +++++++++---
- io_uring/tw.c                                      |  36 ++++-
- io_uring/uring_cmd.c                               |   2 +-
- io_uring/wait.c                                    |  48 ++++--
- io_uring/wait.h                                    |  15 ++
- io_uring/waitid.c                                  |  19 ++-
- io_uring/zcrx.c                                    |   2 +-
- kernel/exit.c                                      |   5 +-
- kernel/fork.c                                      |   9 +-
- kernel/pid_namespace.c                             |   3 +-
- kernel/ptrace.c                                    |   6 +
- kernel/sched/ext/ext.c                             |  14 +-
- kernel/sched/fair.c                                |  16 +-
- kernel/signal.c                                    |   4 +
- kernel/trace/ftrace.c                              |   4 +-
- kernel/trace/trace.c                               |  21 ++-
- kernel/trace/trace_events_filter.c                 |   6 +
- kernel/trace/trace_events_hist.c                   |  33 ++--
- kernel/trace/trace_events_synth.c                  |  10 ++
- kernel/trace/trace_synth.h                         |   1 +
- kernel/trace/trace_syscalls.c                      |   2 +-
- mm/damon/core.c                                    |  22 ++-
- mm/damon/sysfs.c                                   |  19 +++
- net/bluetooth/l2cap_core.c                         |   7 +-
- net/bluetooth/l2cap_sock.c                         |   2 +
- security/keys/key.c                                |  13 +-
- security/keys/keyctl.c                             |  15 +-
- security/keys/keyring.c                            | 150 +++++++++--------
- security/keys/process_keys.c                       |   5 +-
- security/keys/trusted-keys/trusted_tpm1.c          |   4 +-
- security/keys/trusted-keys/trusted_tpm2.c          |   2 +-
- tools/dma/Makefile                                 |   4 +-
- .../test.d/filter/event-filter-incomplete.tc       |  24 +++
- 59 files changed, 1036 insertions(+), 314 deletions(-)
-
-
+References: <20261016141208.2641974-1-e.velu@criteo.com> <atJXYHJa4jkUWJmP@kbusch-mbp>
+ <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
+ <atJeazM_rJ0uj3vt@kbusch-mbp> <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
+ <atJk_2FmzjUZYO_Z@kbusch-mbp> <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
+ <CAL2JzuwuZp0gg1D7wSn7cdgpnhotnuLP6YpPd-SrdVyqhkeiJw@mail.gmail.com>
+ <atqZmctbU0siYmVX@kbusch-mbp> <7fec6534-9e57-4041-8699-72c5950c7e2a@criteo.com>
+ <auId5RuBhMFGirJ1@kbusch-mbp>
+In-Reply-To: <auId5RuBhMFGirJ1@kbusch-mbp>
+From: Erwan Velu <erwanaliasr1@gmail.com>
+Date: Wed, 28 Oct 2026 18:08:17 +0100
+X-Gm-Features: AclHuK-5_1Gilc9_SLXAMsAbWyhTvmhD9biFKJhmkVB59sXOJbXXsUsXwUEcFRA
+Message-ID: <CAL2JzuzMo3xTMbF6LK97yf6-CB0_NGhr7sGpf69Gv3ONvZQ1KQ@mail.gmail.com>
+Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
+To: Keith Busch <kbusch@kernel.org>
+Cc: Erwan Velu <e.velu@criteo.com>, linux-nvme@lists.infradead.org, axboe@kernel.dk, 
+	hch@lst.de, sagi@grimberg.me, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mer. 28 oct. 2026 =C3=A0 17:08, Keith Busch <kbusch@kernel.org> a =C3=A9=
+crit :
+[...]
+> > Considering the performance impact for these type of device,s would you=
+ be
+> > open to a backport to stable once merged ?
+>
+> Not sure when a performance improvement is stable worthy. I'm more
+> concerned that doing this is going to expose corruption, but it's what
+> the device is asking for, so fine to introduce it, but stable is
+> questionable.
+If we consider this dangerous for this device, should we add a quirk
+for some devices that could be seen as lying?
+PS: I'm still waiting vendor's feedback on this question.
