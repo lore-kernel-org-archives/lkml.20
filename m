@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195967;
-	b=ozGcscnHbmjfyYVAZF60k8wYUFf9Hoqdg+FYoCF2xfmngUgi2q5cXFzC3hbAL9mx6UCZ
-	 iaD/yvRTEcKar6YHZY9GyiFzSM8VKgKd0WYbuo6djdMFQ7+0hHdk4u9T510EJbIsx/agE
-	 Ji+TMupyd3W44wOu+pUBFhPACs5u2xOznk44w0HKSjElQHjCUfKvWhj82/AYmTRuVG78Q
-	 hoLA4WC9Ol7Emh3O19eKy7KjGK6s+FttwM1Cqp+CZmoIDVR44W+xPvrCinAn/VXi5QBb5
-	 CiPlD+yPVq+9x4mNqpfGNLQqhtq0pzaf3jaBUy8pDEgE+PkXGWXZgd2KKnc8pQwRoCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195967;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
-	b=XrfYqnAx/XLjbWzJ8j7onrRvYuJriQIMY2Fzufs3pWZfUgG2xxpcdH9u8NRJsuHRwv/K
-	 GVeqPglTlbjFjUH/dt1mpcWrMBK9FKOvlzdJph3kpL0+LrbAQwSAEgCVLGb9gomaq84gV
-	 R2LbxYw88GQ7xnmYSZDQFgGurMlKgz/PHcKet4D4hVDdOi/vG2fzXaMRWPvm5QU2/4qBg
-	 WD62Si1ZN+YI54ij/5JcZ1+bqYAwTz6ZWhGvORU/6656celrex63oGJ1EVCGXRE6/4jrt
-	 Z1XzpgB1kyuYt98BTvVnu8iVKwUdu01Q1YQzmDlN1xbokOtpjDzEAubZF8rDMDYElFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=KWKGKeip;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793195961;
+	b=f7loqhUhhryJLm7scdrLKp23ro1sl2qBb92z2LnqQk7QBOmPZyx8sYTXYTn+ezU6LzH6
+	 JdhA47v2CkbwHvgtZUiDpKjXACdT8mvi1nT7D3ZHC0vauMj56K+ZkZF2xSbZ02iAYsYup
+	 dQLoLfqKImM1ObguB3CCUg42ywghO7J7L3m0lsnwUjHz/mhcV5q8+0assum97KdKY8Md1
+	 gtjdJvLswBGbZPF+cGY1qFMYyZE0Yl4c82zgMnI8w2/EbWohpJtLr+iDspV6k9imrGfQj
+	 SohTxD+S2n61UhfD4JoqzGjj1wL8u9ZuEaZ+TLjUOmws0RLkL9ApBAHo4bX9kSlBJdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195961;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GfCcBfLLmO22SAY14xsz1EtmDRcxQUWN4mwOV1ROs84=;
+	b=yALSK0UBVTPIFyym1kDKkOci7rCQQEmj6rs/+UVjrqveKNohy39wgkE5Ba61ioVLZpYj
+	 0xTASjNQg3RTlUUya8+gYS2RawSq39/BY5iUvkjGS13feNlcS2/oVkm+iWK0naOUYUsPv
+	 jvGSRKy2P+Ub+ZZ6+id0zGBXk94n4oYjUHcRPtxw2xqjeOr0Qrmi5yBj4eufi7NGR5oMg
+	 /yAI1Ov1o3ZRDxogHv2xT5gqRi01L1FcaJI2IpYoQ8pD5q7v7hBXx5/USPgrUVn+QU61/
+	 6IG7CRqmFO7vLv7lW2Oa4u5OGP+DJUzs8iWvs7ogceb2zO+h+24+MiCZZEyf9S+i2Ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gltsercH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.45
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E28606A331
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E28606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153AD606A31E;
+	Wed, 28 Oct 2026 13:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153AD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=KWKGKeip
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso10462535e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:59:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793195965; x=1793800765; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
-        b=KWKGKeipGePT9IJuVyxw5YsqDXc2AkjbuCxEI9jczow2/1/idGvDwiznsK9TOhdAlH
-         Zaa3SIYobCUnBJ36mnrD/PUn90mcqMCv6TIWRZMg9JRtzys4vHLb82ANdjPm+1EFBUa6
-         uh3YNsE8H4Oj9yRxgTNwaZKHDkxPWXUmZCwO0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793195965; x=1793800765;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
-        b=QhtPo0OW9SAyX/5xAVVnCKDilhPEhxfGXiaavzlUlmHjTdVH66xmo9jMmHwi2c92n6
-         LLi01nZxd+CYT8RCSk5aZDJMx9/Ui4GtWs4jT8u+/fumF8ipEnFSNWLpZWyE+Qd7smXY
-         fDrhtH47Ij9cRSHDSDNYRlJVbvT+eoZlsYzB4w9YhHE9DI2xDUs9a165BR1Pcbkra5ay
-         fNT1GBwk5xJ/pi/PO70G8N4PghdjT/eX7X548JvSwmUF0yjMQ3aKPtvHYI9RxQrMk/1J
-         TSXBKBj3ChhDtcR4KdP24Ob0iqjXHuFfKWsg+Yd5wOFtc2bzU63fbdLeqk7KyvImlWu3
-         +IWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBMIuramToCq03EqFhfTVQ6s7u7Yp+tvl7bBFbvefV8num0X6NzUJA/LH8YKbHv+eVDDCWbZymdFl5mpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrvZaL4z6rQm76AakfmejUTqiHcxJu/eEwr1fHhYdXtkfz/SUa
-	4wMxWGKf4N++BGeRsMb2a+mxdWtliMv0Yh7bz1K/OFxUOTkVuROYNdpIYEuQX+FC7rU=
-X-Gm-Gg: AYBFou1fK1NCwlKk0v8z9JgkqdCvYyBcpREyXgVwNcYreurnlRO1aLfC5kHexKOmnKx
-	pr5sgG+h3DTPKqflAWfJhRlHpY7dwQYICJ2gx3PZqzwJmL914H7joQ6AOF79MHYkTBNaUpCG818
-	roGwx6Fa2B7FC7ZH3mOjyrs3oDJW9yEEbP/6jCmMA/GWwaVARw6MIh+1sxkaM0U4ZEB05MA1w76
-	Bo+lh9QhnKBPdgQcc2YJFqNeOck13wpqmGIv2lV0kr8JB4yYPEx7B7UjN4P6/mV3FTm2TeTF3UO
-	hXghBwo8ipIhkjF+lRi7Rhlxc8EokMwBsYd8de7n+avv+n/oQoCe84hnIxZ8f+UTKvHiktbLqHZ
-	4qysuGYrbJ9D13oY2EueNiGY3zcQPQLB5dtplqFUat1FKYwChwtj0bKHK7KGWYwHnZlhQdfwXPR
-	1w0Rnv9XRXrMVSI6J1QgbKRJOZKw3GON1bWECaZeaq0swheMcpkU4BjgCl2e6ZMYAG2q2Ly1hhI
-	u6VBmSRfLJd1mJY1OhuRiIGOxjKYKJA4QA41Cbvsl+3wxqbQwNFullnySxl6gUCdT54+MlQKTN7
-	qfGIFQv3yE7jFWsO1IsNcX5biOUm8HCvHI+1zsmyH4rkVeaDxC3bBzt+Csjbnb0m/UKwHKYV1dP
-	VeoX6MPxC8TLzpWUXoO0B7Awmv+AXd8oOZbVOKAn842ILzptY
-X-Received: by 2002:a05:600c:8b28:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4a96720304cmr53194255e9.22.1793195964806;
-        Wed, 28 Oct 2026 06:59:24 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm37077165e9.4.2026.10.28.06.59.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:59:24 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>,
-	Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
-	michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [RFC PATCH 3/4] soc: st: stm32mp2-syscfg: register the STM32MP25 clock device
-Date: Wed, 28 Oct 2026 14:59:07 +0100
-Message-ID: <20261028135915.2665857-4-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
-References: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gltsercH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gi4oxw6XkO7bkdBCmuZwJdMCuZFonsBjLzRzCe8rYLWZvW9xoaoDZFcvs3cEAxaNAnXDG/14b/sn4rs1STYdEBzL1FgKc8X/nzO8e+9LdmwalIVJMCqGv1akcGNimfI2u5+Ktm1yfNaeNkkTgMierhQ8XmbABlPKFwKLNio/UICTNHfCMnqT5OU6W/PI4TwUn7s/z/6EMEsTS2V1rc1frr5zgQRtNLuGwhL0hRqxmgvrDmNjazgJpftlQ/0Ms7H4La0XHBZTplk6zbQC8q4J1HTGSRlaGAJDNCnY8wKqiSNle7jded7MTdzklVhN+lU57lnbpwK6jJkBZKOo1Kbz+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GfCcBfLLmO22SAY14xsz1EtmDRcxQUWN4mwOV1ROs84=;
+ b=xGgbtaOx5D8eWNRnYkRJg/3Y2wDgzfxnzbrMN/gYjop//xTwAF0VzdtOWshxe+qMLI/YcE2KuXV0Ve14CEIMi6Yvp3GpL8NpQ+zx4J0y5OAHdsjVDESkTuKQQx8MontwkRri8AYjh2WWRFWFNetRig1iz4lsamH3L10MMGb34HAq01LxItexJ4a3Z/mZlKi+O7hQjyFdq8wAvMoyogBOXHVIzN80ZUu++MkhiYkpVomOkANGvJXAkrAfFtMiXPiSV2/Vm4nwAk/nlcn/6cYplMXSa+Sr8RmnwJVVDn0EYIRGOerlJ2BRnIu6MKk57G7sNpVugcEpdgCtaD5k4nER1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GfCcBfLLmO22SAY14xsz1EtmDRcxQUWN4mwOV1ROs84=;
+ b=gltsercHi1cSmKEnVk4aUmcS0Xm7lfTVKeCmHZrV4dd7eAXXJnkLBZ7OrKxXHlmgGSdicmVffWnBmv0WGBYcrrNBf3bfIZsbgXALdNIy6MuIIpPReWdt5kqbVKNkZkMAV+1okPP3JUIKEVU6qiCW+S5imXPDcysvcdeWg4C4wm8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB9519.namprd12.prod.outlook.com (2603:10b6:610:27c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Wed, 28 Oct
+ 2026 13:59:18 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 13:59:17 +0000
+Message-ID: <4b49a7ab-efe2-4750-a917-cec4112916ca@amd.com>
+Date: Wed, 28 Oct 2026 14:59:11 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/3] dma-buf: keep the DMA flags in the DMABUF_DEBUG
+ copy
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>,
+ Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-2-kmehltretter@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261005064133.7305-2-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0229.namprd13.prod.outlook.com
+ (2603:10b6:208:2bf::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,81 +105,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9519:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d6cb29e-b198-492e-2c45-08df34fba7ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|261026140227099003|4143699003|11063799006|56012099006|261021123027099003|261026121527099003|261009223027099003|261021121427099003|10067099003|261022105027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	fTlXPW68xloQybTPwuzP67VPBL4+JvYOw1lVxzVxCojCCg4Gt8CUpR0JSEHtVnfRC4k4sgHMc6lyPDUHEJi6hlykydBM68aLQCcwZdTQWOl0PtWePe0HITxmQGo5DYQHfrBJMYOVWj1opV0xQYpzIpeTWpts2AFx3gBWAzSDQC5A9nLTg6EbYHyvIyWKjWMUWBQCtkHdVL24SJO4LZEgby3dGt4nbgP8mQGP29cir1R1BpShBtrRaNgMeCVwSg7/dAXxU5HhiC6hgD/WMyPOyncgiW+5+/1Fy4V3iShj1qHXC8WA82zKDAQJ6N/dEceDZCIUxTDxdIJ2h4u0ZkeDEPqGs4QE0qXbaUOqZ9Bcv/0oxBr3LXMXcfeqqhYOSZKqVSqMBnHRIlN+QIFMkmMS4mYf0vH4ytL9uHvev8Wn4msKmZmveDFBb5q0nBekQ0tLzAbP3UgHOBCuK+Z83Cz6Z4a3gxzUIQ/3bd4+TyxMOi6K9W/7n4K8vZin312r5Oo96+sdv7Ca5feGmr4nru2/oj5dZ2/PoN4gPg9LSt6iaO3Q/7G36CIyYZYQoB7/IPtkR1I2YnuevvJp/SHcA0RdvrXmU8kmyOfJnPe9S6xUaVqEXc1ia+Yw5jL1D5S1Md6Y4Cxszq98dFaMktCUZ3rCMbvUqVbkCMIyB4zPPcw1jAs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(261026140227099003)(4143699003)(11063799006)(56012099006)(261021123027099003)(261026121527099003)(261009223027099003)(261021121427099003)(10067099003)(261022105027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T3lpSFI1QzdraGV0Y3RHcW5udGRROXM5TEJRa0dUNjB2aEFteHdIOVdWRWxS?=
+ =?utf-8?B?V3pwWDJmYklnUFRTaUZTdklGL2FBVzE0MEpkL3ZrdkwvZWl0bU9FSEQ2M01D?=
+ =?utf-8?B?UFNGcnVIMlFBbTMxVmJKZVg0S1pVMGFkR0k0U1A3SkpPd2grQ0ZjeEtIV2lt?=
+ =?utf-8?B?VDRTTk4rOCtPZzlaeXFQYkhzRm5PdHQzbnlzaEk3UnJqejBzSVVXSzE1OHY4?=
+ =?utf-8?B?Skt3cVVveWZQQzJGajMrbWlxVTRobC81ZEhNMExGZjVYbEJRb3dvRDljeWNk?=
+ =?utf-8?B?bjZZRGwzTExWMkhMbW1iSW5ZcEplL2I1NmdvZmtCZ0VHWFE4Z3hXQi9zQkNu?=
+ =?utf-8?B?SlFYc0N4NnZBNnp4bnZhWWFXRWw3VVVxdkhJSmFIeEVXaU01bVd3cWlEdmpW?=
+ =?utf-8?B?Y0poNWZoVmRJaFc3L1Z0QXEzTVFLL2FmUzBKd1BKSU9HQVA4aG1jbUpWQTd6?=
+ =?utf-8?B?S29JSyszTEdrQjh6c3EwcEZnSnpMc0NxWmlPTndMSHpvVGFBMVFaWkNEUWhk?=
+ =?utf-8?B?Ynk4a04zS1duUnpmRlFjcHZPNnV6aUJkdWY3UUxnZGFOSHFhOEJUc1l3QmhR?=
+ =?utf-8?B?SzE4OERRTHVLbFVQbEVyejVvWWtQbjRhQnc3SjNMVGpqUU1ENkZ2VzE3M2VY?=
+ =?utf-8?B?Z0xRdER6R3IyOXhVRHhTR29aNG9taVVlaEl3dzM4YWhaWDUraXVONzRBclpi?=
+ =?utf-8?B?SFBHZEJzMEJUcmlRMFNSNWY2SG9nSGRKNlJMdGRWUlJuTExWeEMvQnhUUDdU?=
+ =?utf-8?B?RWxDQ3g3TVpMZ1lveWdidmVoMkFETjE3VjZWdlg3dnc4S1JZRmFqQUEzcXNk?=
+ =?utf-8?B?VitMOVpzS3ZhcDJKL3ViYXQ0RnhjUXF2YUNPRy9VK2dGTkl6MUhFVVVyekxk?=
+ =?utf-8?B?VjVnZFZSdGVkMmNkNHIwajBqRUN5OW9VNFhESUhHS0E5N2NaWkFOd01iTnhV?=
+ =?utf-8?B?RjUzeE8xT3k3NXZLRGplbUpiMlVua0hkTklEQnRqamxUR2FtMEZqczk4MHBv?=
+ =?utf-8?B?Vnc1NFpGUjVJM1RQNis3VW43cGJQZVpGS043UVF1c2YzZUx3ajBjdGFyb2I0?=
+ =?utf-8?B?MEE4U1A3UmdGeVhrWDA5ZkJ1V280YWt2WmFjUjUrNG5wdFZuV3VVTWczcEtC?=
+ =?utf-8?B?dVZOb0lZUDdXK3NKTlhJVy9YQ29INExDYjVXYVAxWWNtMUpPWWZkZU5JSkZo?=
+ =?utf-8?B?cG93djFvbkJBeGNub3ZtSGhnalNOUitvZXNadDhyc2NlcjNFSjNRT01QYUxa?=
+ =?utf-8?B?dUlWK0V6T3dMdkptdkN5Z3BmT2FLaVJsSENDWWdGNXdlTWtWZGpZTUlYTlZN?=
+ =?utf-8?B?SmkycW1tM3FwMjJ4R2plYmVRU0JqUXNkZ0FBK21mYnRNeGVLSmZGanBsNlpO?=
+ =?utf-8?B?UDBZNkNJN2Z2NzY3UC9TTGhkRldyT09KNjhJVkIzb1hWV2s5MTh1d2puOEkv?=
+ =?utf-8?B?TkNoNStxOTF6ZmhyQm5naWFCZ1NMRVZJV0ZnTHB2WnIxREx1V2VMT2hvVFJ3?=
+ =?utf-8?B?dnJxUitvZURkZFlSMlhHTUtPNFAvRGh4WnlsbVQ0ZDFsRExNSVpyNUlQbm5J?=
+ =?utf-8?B?YU5XU0FsbG1PcnJwZXMvRGxJVGIyWXZUSWEyWkpLdWZVU3lERGpKaHAxYWZH?=
+ =?utf-8?B?bFNCbGZ3WGQ3QnIralFQMkNKdjJMb2ZrWU0wSWlFTVZML3VCYzhJQTdZY1h3?=
+ =?utf-8?B?TnBNU3hXVmpNNXRKNjJraFU1b2pwM3NoQXdEbTZwaEZRU2NmVTBvekN3cXln?=
+ =?utf-8?B?UVRHM3dxVUJKaWJIQmNMZEwzcC9hbkJ2U0lVTXZXS01aYnl6VmF6RlpTOUQ1?=
+ =?utf-8?B?MGQ5K2RSRFdidmpYWTNENFRReStMelljK3ArNUhjSUNTZU1TTHZic203OWVx?=
+ =?utf-8?B?Z2ZEbUU1WlBqSGVZVDR1LzdBMlJWSndhOWNOQ0tJUE56dFNpYmljTlY1dThC?=
+ =?utf-8?B?VVkzbmdiTVJJaFZONDU4VW1iQVBwTHF0YTdOMFVpTENJS1dkV3VqQXdIcTZm?=
+ =?utf-8?B?eW00SXFsajhKMnIwcUdKSjNCZUdLdE5WVGh4ZCs2alJPeUd0UjR6eCsxR2Qx?=
+ =?utf-8?B?M2JrMmVxYUN6MEgzY2YzeWprenVxZ0kxcVltQlpzOTRDemYwaWtjWTJQdWpO?=
+ =?utf-8?B?TTE1elluSnp4UFdrSzdhZGtaSXJXRVBlK3h5Ty9CK3N1alNWZDVSL2s1Vk9H?=
+ =?utf-8?B?SlFwTDhkcE1INHJUcStQWVUydTJtNEYwR0xOM2FPWG5MUStIUjk1cFFBSTFT?=
+ =?utf-8?B?ZENMK0k2Q3hrSi9NS0pVQnppcjBHZUFHamY1UmQ2bUhGUE1NWEhhL0M5NXZV?=
+ =?utf-8?Q?Wold6EyMreW1gtPPMF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6cb29e-b198-492e-2c45-08df34fba7ec
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 13:59:17.2314
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vCfY+T0vBSut8tNwvAJRIQJzueMdMztti0kx6YMLpMOrfr3ADgVrTtT1Ca1wA/0Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9519
 
-The STM32MP25 SYSCFG provides the LTDC pixel clock mux, whose driver is
-an auxiliary driver since the SYSCFG node is bound to this driver.
+On 10/5/26 08:41, Karl Mehltretter wrote:
+> With DMABUF_DEBUG, dma_buf_map_attachment() hands the importer a copy
+> of the sg_table that keeps only sg_dma_address() and sg_dma_len(). The
+> dma_flags (SG_DMA_BUS_ADDRESS, SG_DMA_SWIOTLB) are dropped.
+> 
+> The flags describe the DMA side of an entry, which is the side
+> importers may use. Copy them as well.
+> 
+> This is not a bug fix. No importer reads the flags today. Their only
+> readers are dma-iommu, dma-direct and iommu_map_sg(), which are not
+> supposed to see an importer's copy at all. The warn mode added in the
+> next patch keeps its marker in dma_flags and lets importers that do
+> get there continue. They should then see the same flags as without
+> DMABUF_DEBUG.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Create the auxiliary device for the clock driver on STM32MP25.
+I've reviewed the patch and pushed it to drm-misc-fixes.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+Sorry for the delay,
+Christian.
 
- drivers/soc/st/Kconfig           |  1 +
- drivers/soc/st/stm32mp2-syscfg.c | 28 ++++++++++++++++++++++++++--
- 2 files changed, 27 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-index 2a9d6a77be45..62bbe8c63238 100644
---- a/drivers/soc/st/Kconfig
-+++ b/drivers/soc/st/Kconfig
-@@ -5,6 +5,7 @@ config SOC_STM32MP2
- 	tristate "STM32MP2 SoC family support"
- 	depends on ARCH_STM32 || COMPILE_TEST
- 	default ARCH_STM32 && ARM64
-+	select AUXILIARY_BUS
- 	select SOC_BUS
- 	help
- 	  If you say yes here, you get support for the ST STM32MP2 family
-diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-index 770321a4a6f7..300a949744c5 100644
---- a/drivers/soc/st/stm32mp2-syscfg.c
-+++ b/drivers/soc/st/stm32mp2-syscfg.c
-@@ -3,18 +3,42 @@
-  * Copyright 2026 Marek Vasut
-  */
- 
-+#include <linux/auxiliary_bus.h>
- #include <linux/module.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
-+
-+struct stm32mp2_syscfg_data {
-+	bool has_clk;
-+};
- 
- static int stm32mp2_syscfg_probe(struct platform_device *pdev)
- {
--	return devm_of_platform_populate(&pdev->dev);
-+	const struct stm32mp2_syscfg_data *data;
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	ret = devm_of_platform_populate(dev);
-+	if (ret)
-+		return ret;
-+
-+	data = device_get_match_data(dev);
-+	if (data && data->has_clk &&
-+	    !devm_auxiliary_device_create(dev, "clk", NULL))
-+		return dev_err_probe(dev, -ENODEV,
-+				     "failed to register the clock device\n");
-+
-+	return 0;
- }
- 
-+static const struct stm32mp2_syscfg_data stm32mp25_syscfg_data = {
-+	.has_clk = true,
-+};
-+
- static const struct of_device_id stm32mp2_syscfg_ids[] = {
- 	{ .compatible = "st,stm32mp23-syscfg" },
--	{ .compatible = "st,stm32mp25-syscfg" },
-+	{ .compatible = "st,stm32mp25-syscfg", .data = &stm32mp25_syscfg_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
--- 
-2.43.0
+> ---
+> 
+> Notes:
+>     Built alone on x86_64 with NEED_SG_DMA_FLAGS=y (dma-buf.o, W=1). The
+>     KUnit test in patch 3 checks the flags in the copy. It passes on x86_64
+>     under QEMU in strict and in warn mode.
+> 
+>  drivers/dma-buf/dma-buf.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef..b3d311acb883 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -904,6 +904,10 @@ static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>  		sg_assign_page(to_sg, NULL);
+>  		sg_dma_address(to_sg) = sg_dma_address(from_sg);
+>  		sg_dma_len(to_sg) = sg_dma_len(from_sg);
+> +#ifdef CONFIG_NEED_SG_DMA_FLAGS
+> +		/* the flags describe the DMA side, e.g. SG_DMA_BUS_ADDRESS */
+> +		to_sg->dma_flags = from_sg->dma_flags;
+> +#endif
+>  		to_sg = sg_next(to_sg);
+>  	}
+>  
 
