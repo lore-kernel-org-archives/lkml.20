@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793197133;
-	b=P/NBSk8Mopft+VeETdCn2VslJUDrOYmyhMsKmu2kOhxMoFEppqjifJLb3NLXJfjt6qSB
-	 7SwXGfkxALe14tlUfirFEu4Od/C62kK3+CGN2AcDYS8APT3VFPNYdr2qcjJ41y6U3/5YQ
-	 0+t3VWzHX+Sxou7KQ1GHNN7MIowQ+Zf2FzGflQUxkfYkJUBao4+fp2kGzzxyRqJrknfWl
-	 yj0UODtfHJTch7IxAHBEG/enSOF0r8Lp7Feh6dNnljNhNXXmxEQFJ1tVlsEK2+H1sqfet
-	 t5pDky2tsJ61LeD31puVtwBbsClLag2ivFp98aRkeTkqhZVjQWRhF7w7K/Cs82kkqNA==
+	b=hnhkvUXUfexIZRzl2sC3gSfvkkrmuWTW5Whp9EacohKR/fhQ/VYpGUnqpkKsH1mKSpDQ
+	 oQvgQOuOig5Dxi/kY7rhV5kcvBTdniL7ATgNvbrm0ob7kKqik/hvGACuIqjXL+uSjj4AH
+	 R+8O2MMz2sLlM9VBfSqZdZiMappFzt6d9SNf07rdhr9i/W7yDEsVoNAknMA5zypnWx1A8
+	 XCZw71iAhZlxXBZdsU0t8FSHlXXgv4L0+lO2I4ERbccA5TSx7FhwvL68e5IaDnkT889sa
+	 NF/nRTIrJMjIq3/amKSukhFB1B1GL1wkXQLA608hsl9sdBzIIw9qlOzpd6hy9/z21kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793197133;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nFEfZnQ59TpCZnJvhgBJzEp+yfYh6wGlCUPMkB3MYBc=;
-	b=4LnySkJiitdszBrXdC2PGFPgCMsn10MLbOvgeVvIW5Y6LodbwF5/Moxp4YU3LSbJrRSw
-	 zwdruCcLZS7EqOsN2arNjIvmBWNcVUuN/Al3PyC2NT4F0TxWVG+hKz/sD4jsbD3r1kNCF
-	 W7LwOgpFrzwkWz+Ydq+abWO+cts/Qp4MIRlDhNwB2lJTAtJq5aLVv+WjUFwkVK8Y27gv5
-	 S6N/6veBcqGCZJSrJA6NUk2zRwfNDthg1L0fMhRSqYxeIwqZRuLosIAsiA2s11gRIaoZP
-	 3W4PCr8Jp/Zk906jvQnUuUTBkukcIjGIRQRA39h8iBb0IZ0mOIfY8/gQPHvd3i2/nMA==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7zT6r2/0HYw2IYnOZSrhi4CsyKbR6spU4l7qokveRvw=;
+	b=gZFj5yKKPKWSKQeg5nDOv/6spvyv3GCmtmK0V/gMvJ4VLTTWLBKRHIXne3Y2uG0/sQcl
+	 jZOy8vB7Hy/IMOXViJ9XkENOmWeHy218AfmUb9a17RyRw76AKlthiSFuWCm4GMQZjx71s
+	 muDAZDS9frQPYoQasexRzJ4odlncsFCx0T8qI1g/Lg5lypaVUciNUuQ20B9RS0vmysY9v
+	 oRW9uFP53WFL6AjPhAcASnNFbk9MGzepwWmjPLTZDXQdTB0AcAnJQsBHsxoZOW/ZRxcxa
+	 FUof3aVKBL8t7NxCe3klpCwXGNyzjh8CcFQYs57CNYmmJBy7zsZk5AduGbsYK+5p+/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjLQz0ze;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aa+S8nAm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20798606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20798606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8C5606A31C;
+	Wed, 28 Oct 2026 14:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RjLQz0ze
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso452737a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:18:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197132; x=1793801932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nFEfZnQ59TpCZnJvhgBJzEp+yfYh6wGlCUPMkB3MYBc=;
-        b=RjLQz0zek60zgNWMOUzt+E2a1xXdBEOiVCxWA/FFoRh3FoUS4+hOiT2HP3gcy8Kvux
-         PrLGVghaH9/X5IesZxXXelQwMBw23TpKdfAm5H5CNTED6rtMXS+MDaFBoWDcEriTyU3X
-         421a2sdHC6BR37TyAyTU1M26ctJlzFHYvxKFbVxnoaER08bJLunZh9kh3b/UY+IjdsFU
-         DmrPpA2BejTH1SQtFJYaUTx43Wre9yYyVqDjcLyp3PH58lMGu1ve46GKjhzXVXJg9pGj
-         PuhME+NL8nnXJW/SI/NbjncgvmKw4C3+eKf9NogEbuvwpeYA430D9zLKqfjca6lcV5AW
-         mAkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197132; x=1793801932;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nFEfZnQ59TpCZnJvhgBJzEp+yfYh6wGlCUPMkB3MYBc=;
-        b=0WQldWuD+re6V/GRiohq0ClTIrZviul98vCwxUibmMeclwZ1Tsq7zhdaxxP0UN/0+w
-         k8QwKnOoZP6Bh35peR7ZZ05kp4NCAt1jmaMDuY0Cc0AuTZxTolGsuDh33o+Cnk8myK0X
-         qFaAmyEhHFNTSwqlExDKlThnrp0KquVN4ozSot3dg0jmr2i9Sn/qfoTJ8bKizkFRwGUP
-         j+B19pfW+by4VaKLv7WNhs88U1G7cAJdr2cCpE8yCZS2PgtNrTq+gLm1ymcgX94cqNDd
-         tmPmjamvrdGFA414AeCzvstxTU5IpgYuQ/Wxy0dV3vVNO3Fx5IBVxtbuGKRc3Y+bYJGt
-         IZ/w==
-X-Forwarded-Encrypted: i=1; AKwUvBy5zBCJY6GpXamf2UV5UEYEwNxUCzxdglBRsIk97WGBIeO1iBVS6t21+vl0KC6D/j7oHnoagYotlFsN1g4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxaROElWGeqXW/0rym+LpdyYnQ+gZmS3yHuOLjZnzIfr7uzToM
-	hUMfO0azpGFJqQLkRlwUXODHLLx9+lEgi40n94/42ym57MIaKojGzwlq
-X-Gm-Gg: AYBFou1PpsQlBcOSTnaypM0j940aRIvkjv3Jf2qkyA0Sey404SDnF6F+BnkBRMaKgqM
-	Uykc3HCQfeXV9z4g0QpdW5PRLn3upcI3ogv47DGNr2Dvd7pmEUSZ0mlO7U9jaJV75sQi6Rw0iPC
-	Raypyejvzj3jnAMNl2R/s3tPAAvfYkknfzOzeRAuimg+UqL14yi4UlyfGOcH+84zeqJS+HxxoXl
-	LjF1t0/3jv4ELn2q6oKTrRx1iqU9RByCMgiY4c9GENjbgLwov52GBBbI93Sth5F0LD+ZomHNbve
-	AD0NfVAGJIv2ioZhohB8L5yBnqnehUwZxGsxrvZHahZiFEQSJZcc3Kpi8BD70mbGwaLqpI3rm4w
-	gOA30af8Jyze2aqx9d5taGQSMZHkFLtGVtZpvvNTzbvLbpEMwOkwapV12MdAFD7ld+vVtQ0eWOW
-	2r0kYyY4InoWRbippHk0IH5QW2pTXEM5I7n9PeCzkOaUqTPIRXBivTyb88nJKc0FIXYcW21lT3m
-	WeD1HH68IV+PMMlDPv0/7sBBnO/MimjpdZ67rzjBaiGzqYtzoG5AiydfPWqEJSYtF03Qsj0rCfF
-	RH8msMt1fZIDMoLzGE9dEiDLmehwJEloSGpuSxK5D4ucFhGX8QJ9KMuRxgbACgt+Q3wy
-X-Received: by 2002:a17:90b:2fcd:b0:39d:efa9:cd1a with SMTP id 98e67ed59e1d1-3ae57e07d0cmr1867914a91.4.1793197132116;
-        Wed, 28 Oct 2026 07:18:52 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a0482e9sm3437223a91.0.2026.10.28.07.18.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:18:51 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Linmao Li <lilinmao@kylinos.cn>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/4] wifi: nxpwifi: stop AP TX after preparing channel switch
-Date: Wed, 28 Oct 2026 22:18:17 +0800
-Message-ID: <20261028141819.7556-3-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028141819.7556-1-enderaoelyther@gmail.com>
-References: <20261028141819.7556-1-enderaoelyther@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aa+S8nAm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664341F031E3;
+	Wed, 28 Oct 2026 14:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793197132;
+	bh=7zT6r2/0HYw2IYnOZSrhi4CsyKbR6spU4l7qokveRvw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Aa+S8nAmF6cp8cavrrgCbo21gFzv0UVHPltSxr6+6hXj+WM5yGotkbYMtsRGU4lEQ
+	 yJ8ECcaCEe8jMFn6xaiFy/42//6sVxf9mQXAYgOKJzzS7NROJtdeyF8pe72zj6+LeF
+	 E7d6DKhrLJWkOYUvDQFBYPdHfKKMFFABz9oCtpeZXX3v6pu/RyLbiRLO05h+ZqRISI
+	 4xJXtesI+3ItC68/+2DGEDSlXhC5JlO6Frmcicv7tblewnmRqxJKZpQrexlsckl8Rw
+	 NkVocWiBw+gzGd3WeAKWW+zNZl4vY1SIoBy35wOT12rGvH/mNVQogrxTN0pY/InwMq
+	 P1j0TnQ5jZeIA==
+Message-ID: <e562bc1a-4ca3-4f90-a95a-3f228abc28b5@kernel.org>
+Date: Wed, 28 Oct 2026 15:18:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,69 +51,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] powerpc/dts: Add Device Tree for WatchGuard Firebox
+ T30
+To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, sashiko-bot@kernel.org
+References: <20261028141309.134256-1-lefteris.koutrakis@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028141309.134256-1-lefteris.koutrakis@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A channel-switch request can leave AP traffic stopped if installing the
-CSA management IEs fails or the driver's work wrapper refuses the request.
-The driver disables carrier and the TX queues before programming the IEs,
-and the wrapper silently drops work during removal, command timeout or
-suspend.
+On 28/10/2026 15:13, Lefteris Koutrakis wrote:
 
-Prepare the CSA IEs before stopping traffic. Queue the switch directly
-with wiphy_delayed_work_queue(), since the driver's wrapper can silently
-discard it after the IEs are installed and traffic is stopped. The wiphy
-mutex serializes the callback and worker with AP-stop cancellation.
+Please write commit messages.
 
-LLM assistance was used to find the bug and review.
+> ---
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: A W=1 module build with MODPOST passed. Not
-reproduced; IW61x hardware was unavailable.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+And changelogs.
 
- drivers/net/wireless/nxp/nxpwifi/cfg80211.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+>  arch/powerpc/boot/dts/fsl/Makefile        |  1 +
+>  arch/powerpc/boot/dts/fsl/firebox-t30.dts | 23 ++++-------------------
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
-index 384ba69dd058..0f7720df0304 100644
---- a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
-@@ -3115,12 +3115,6 @@ nxpwifi_cfg80211_channel_switch(struct wiphy *wiphy, struct net_device *dev,
- 				       &priv->dfs_chandef))
- 		return -EINVAL;
- 
--	if (params->block_tx) {
--		netif_carrier_off(priv->netdev);
--		nxpwifi_stop_net_dev_queue(priv->netdev, priv->adapter);
--		priv->uap_stop_tx = true;
--	}
--
- 	ret = nxpwifi_del_mgmt_ies(priv);
- 	if (ret)
- 		nxpwifi_dbg(priv->adapter, ERROR,
-@@ -3137,11 +3131,16 @@ nxpwifi_cfg80211_channel_switch(struct wiphy *wiphy, struct net_device *dev,
- 	memcpy(&priv->ap_update_info.beacon, &params->beacon_after,
- 	       sizeof(priv->ap_update_info.beacon));
- 
-+	if (params->block_tx) {
-+		netif_carrier_off(priv->netdev);
-+		nxpwifi_stop_net_dev_queue(priv->netdev, priv->adapter);
-+		priv->uap_stop_tx = true;
-+	}
-+
- 	chsw_msec = max(params->count * priv->bss_cfg.beacon_period, 100);
- 
--	nxpwifi_queue_delayed_wiphy_work(priv->adapter,
--					 &priv->dfs_chan_sw_work,
--					 msecs_to_jiffies(chsw_msec));
-+	wiphy_delayed_work_queue(wiphy, &priv->dfs_chan_sw_work,
-+				 msecs_to_jiffies(chsw_msec));
- 
- done:
- 	return ret;
--- 
-2.56.0
+You did not add any DTS here.
 
+Best regards,
+Krzysztof
