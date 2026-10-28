@@ -1,72 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225058;
-	b=g0fv+3dpYMJzPnXbUts3n3zyQkAvo66q18hhz/Rjk9dodMbudQtbZkuIyk+m3kCYJy5x
-	 C6VgS79Xt2ikttkWaJMV6SvJWDqdruFWsU3S0ONlqKMHsDmru90gytURNPUyK91BdayXz
-	 L1inqoE9VckO9L8tH+pHfpDqCiyUgtW7zDsRBmBJS0xjXvKU6VBAbtrw+W4Fzsv4QUNBv
-	 hmwvnLR15x/CyGgTet1qhi1BQ1YXXko7g45MHw/Ij+N3e2wGs7CV4/YM35uUxOlKJMeiT
-	 J3Jwi16zjCNKBkGkrRZCWjRxy1jxEeQCupHggOaA6Q0wR1Se3Q0m83pUTgxUj29br+w==
+	t=1793225070;
+	b=zzrPBXPHG8wxS7N25pRSjXKndhGk5OC5gyQGBzGREv//RMiXhqihALzl16Hf+yXy0GcJ
+	 OaovDx79ueYpjdxyTsLRoQMudDqqXeVupNLqZCHts5fq6j4x2WYnzyrH9ZoYAFodXMh7e
+	 6/51NDdFOElbaFy7x3IoanlYmjAZH1deVfRiY1RG65bnH6CG+LsbhDuqSlG/eMxDUliCd
+	 OF1JnXa1Wi8UdkwZiD10V3GsbPGwL60W5SLcMxU4z+beBBGdevcyxWDo/TJpyetBazh6s
+	 Uqd3MniNRXP1qcCW72i7Tr1BOqLsiE0fjYMCYXQzvv3EaDTigKqcqtwJ+hTWGxGUtYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225070;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
-	b=vd4u5T4qebs59nduxmt+0bDGncBMc8slt4pW5xlqdjnn5/YPVsVhZqfmG6H+zDhYY+ul
-	 yXI6VcHcwpe8/wzupQEDJf3itYmXFaLGNcsriCaCQQDdJVn0azlsEAiXVoX+yH8E2n+cy
-	 tjftspCtwLuVhEnJOCT/Y2Z6GTDJxcix0B/lnW/bM7SQI7TuOkvj9YBueDUqPhVjFD/XS
-	 c4tHimQMrMSSb08m4xqZ4i2Isfz18TzkCAggctxKCqOhgLM8lhFXi5b76+oYphwS5xOe7
-	 t1aYG99bW0b1TVwDcSK3dahrOinyS9cMB5iOaqKhaghZDeawq0j3phZtvsWXVomgfJw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yvSpU1RmCwpqp69YfdVcFdLUU7Lktr8hu4x+f1G9b+A=;
+	b=UiLoaR+51XNsj1Lyix8ul3Ks4N+V4oM00X6Mzcv4voy/DuwFq0zKcnb62BNhQ0egebqX
+	 f+PbhUDx+hn27saTtpfPjBCQ/YOtt451TRjuD2lsnxIOiaYgA8RwnuHADEi4caO741bVD
+	 6sACNQmmE8X31yVvydyu7MJRnOfvdOAQdbl8UAUXtr9Y9UtIAujcBKRyJ5Gjs9vskTeYh
+	 iv6USCYUbncJRVJ0gZIcCnqiyExE+I0mAEgEkQFowmkxSwjbR5PeDQTXv6/FYoNJsOZIE
+	 xjsqad5Xqlj6WGcGftd50iJD9YqOzTaPrIJJREgya3T+ZReijUEZk0JYVF8rZP7Vobg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JXiNs34e;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Q0YhmiXe;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E330F606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:04:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E330F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064EF606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 064EF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JXiNs34e
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a26fe9521so135724eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:04:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Q0YhmiXe
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c40f29667e6so179704666b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:04:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793225057; x=1793829857; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
-        b=JXiNs34e6Fk2LnWdvPRxIcmtr/wjGDbl6nP72wE/PEuHVJh/k1DCD2LNDrXuc8458n
-         HqQ7QY318sUg5Q9qHAlH8A7JF0LwkHD/Abu5JeWDFy9H2xhShvMxhIHV3KxFHSV2hteu
-         mI0Ra0Xnxdios7GXMnNnQtKhQDTjqeCJtkpZY1sID+Byh4C8SSbdzQyxfCkvBrYgXH4r
-         UxH5u+jJn12DyLXz/LySrVtj3nEmvIF6Fn/KDsFulPwrYqpSCTiLr8MHjRGiFOXnEsS9
-         jPXGMIqk40mxOXpjFE3Y0EQXUd9Tu0QF9yQWtNh5lY2jcTwdo0XrTEl13d3OYNUfNPQG
-         XSIQ==
+        d=chromium.org; s=google; t=1793225068; x=1793829868; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yvSpU1RmCwpqp69YfdVcFdLUU7Lktr8hu4x+f1G9b+A=;
+        b=Q0YhmiXetW5QCf+YSFiyTdcBPSjkIiTxOipGKLiMyzRRNz/97kMOXarCCByGwkZ2P1
+         joR1lPkpQWJLdqWOpJt5n6vrnqBmFJYUumLW3zI+NrJw0D515lV3EjGpuydKEDeAfjIx
+         rPw2vMizUNwmLcBM2qbHmP1uSBcatWoO9ropc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793225057; x=1793829857;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1793225068; x=1793829868;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
-        b=n0q0hJxztOpNSFNESj+wQMQz1YTfsCBCpqWeTjW2dpH6lnZVu3zgG+PeaYjltswRGa
-         y9E15eXN9gTcUpgiIH3LUaCbaOgKs1fOB9JQvqT1BAs/+Gwt5dhE6YcvGkpqWF1pkouQ
-         OHKP1faxqLIcisvsQBKk+BVkMf/rBtX9YHWebDIul8jkInGItieAo1sov90va0d01hC/
-         y2clqU7SLfKsPCfr02KNXqolXwx3mDAczhNsP1xuohIf0/n06tyYRIuB8y+2FO7veK2X
-         HfVVKFWcPkwAWTvF5zObGDuuNUDd7Mqu2qe+D0M+UgZrnaAl8BJ2qF7MQf2X15WE5Fzl
-         fZ7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwmWlIZVC+ClnWCLq5HyC2v4uRb04NAPFDOpiNxAlBi0zVKMEwAt8kj7YK8hDytFXMgzYD9jmjbElp/s50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLf+1MdjvYAuohjlhhajwfK1gaxsDkcmmE98U0scJwJgo5ZV0NF
-	jhw4wUQGUrAkNJLNyi+X60A1uCJyEcXEcNhckJY5069s1RIBBpQVgGiKEXgw6xtFW1jXPf4ofrG
-	YqSskowMEuSxQhw==
-X-Received: from dlf41.prod.google.com ([2002:a05:7022:429:b0:164:47f8:a96a])
- (user=scollyer job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2083:10b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1a944179045mr1067825c88.12.1793225056530;
- Wed, 28 Oct 2026 15:04:16 -0700 (PDT)
-Date: Wed, 28 Oct 2026 15:04:14 -0700
+        bh=yvSpU1RmCwpqp69YfdVcFdLUU7Lktr8hu4x+f1G9b+A=;
+        b=ohHv7rc+OxvxZxZmi72e1oyqcuEEoIvNMsE/mvJFCCp2j99lLJocVCZ282EEExFJPg
+         Apt1rG7WEob+s/PbrC95dC6FKnTodpzS/3y0BaIKwhZ/4UgxzBV9mMm16ovzxgnhMNcF
+         5/gfcbGvvjQSUWIIscHHYBq8Vo8Uj87+hH3XF2et6sO9KkRBe1aTqdgPcacAQYNPmXX/
+         HXEAmmoqtYo/WLW6GbQ16rnDbB+ypYWoHWNOZvGXvbXPkRCtHNbRCetmfK42BKTRpzjB
+         NSoLyuWDh4fBhLrXxlQXSGHJHRyT3aYUp8ZywcdOb7uZmLOvU6B8WaMPQtVGAbJWMooI
+         59fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhOqm7vHh2NCQlqw/SZEPclB5gsXdBAogTDZdqHPaRGfsdCVdqE4eJyvRiNXWk80/y3t7v+5iBYe8roe8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDNTuIvCUEBannpFTsfXuT/19KjZv0eMTy14gQf4SFzScCbtgn
+	UQJSsSKqaPIYwIRI13T5gr6jyGPd9ClASx4ZJj+qqcARpgHYV9Xvu+jIPzyfe2J3GdK30BK77JV
+	GBeiq+joN
+X-Gm-Gg: AYBFou3siTMUvqMTB7ogTyJZfzOJUhx3swaoZCODugr1vdWdps8hV+cwIO+VUSOrKdt
+	O3fVZfhnFHJD4Uoi6NKt5VmVIVL5rC1htMYg4RCc0O2Bx0zgltAx0XWfimw1e8s1goxajVJjH2A
+	6tjoWvMoIBQ6Z9Tgz2H1zgsJn4b8w1p8eszKWzTTgWvR5D0OFUXX2u5wYK+GH+6utknQnM3PqHG
+	jTHkYCVtOw2G2D/a60dCLHyF38EkOSYQhW4sFEoNRjwNKPuifvPw8SM8zMlGCp4qxwHwY1A2otK
+	sB0pn1A5HOBo9r/P374x37AIvN3EDEigIdknmcY0DSnuOIkxV774nB8Pk4Wp3t7jl/djlhITFn6
+	4TEtvBNCvMroaNCuiADzjaEZ04VUgzcT/3LyYuESmDKpCEx/cBVhDTa9SZ8qwlX+zozEBK2iLHP
+	Sdis8kChboj0rYD4ScqT6mHRLOzbjBUG3EP9+H+3QlhfCgVmkgk2bXT6z0BYJAIe1hiFyIhnBhg
+	/nQK2Bfma+K4YopphYSNdbdqQLcjwy+K4HicBOeD8vmEh83eVB3nk9//2GL7qH1FxUKjIAj+zm0
+	bGyYRkDo7g/Kf8otfOOnFxIazJVdi4lIFkKTq/6U//35WjgPVzXoiOOCuQGkN9vzG01q
+X-Received: by 2002:a17:907:2d10:b0:c31:91f9:60b7 with SMTP id a640c23a62f3a-c49bdf43869mr336755266b.34.1793225068366;
+        Wed, 28 Oct 2026 15:04:28 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm333387566b.23.2026.10.28.15.04.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 15:04:28 -0700 (PDT)
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so2589961a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:04:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz5ZKQXymP4lQk/qBkIAP14PmPUI+FvJh/13qzdpIT8oe+UADBB+bxub6bO/CO+9Esp9WMhEUCnmzPAacg=@vger.kernel.org
+X-Received: by 2002:a05:6000:1862:b0:48b:d9:cb52 with SMTP id
+ ffacd0b85a97d-48e5d2f0870mr9207532f8f.27.1793224645061; Wed, 28 Oct 2026
+ 14:57:25 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,128 +93,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261028220414.1414481-1-scollyer@google.com>
-Subject: [PATCH v2] platform/chrome: cros_ec_ishtp: report EC_HOST_EVENT_PANIC
- to userspace
-From: Scott Collyer <scollyer@google.com>
-To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Scott Collyer <scollyer@google.com>
+MIME-Version: 1.0
+References: <20261015182221.2931742-1-dianders@chromium.org> <CAFLszTjB-wcxTEKVNo-z0PctkhqavGEh+eiRyiPsMZBPkQbHtw@mail.gmail.com>
+In-Reply-To: <CAFLszTjB-wcxTEKVNo-z0PctkhqavGEh+eiRyiPsMZBPkQbHtw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 28 Oct 2026 14:57:12 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WKNgv4s6sjwhmFGsdwWT0hoH7aeT10yFukfGgKJG7Otw@mail.gmail.com>
+X-Gm-Features: AclHuK9JLI1NV3Vu1fFwtBgddt7vzex8tSoFo5s_xXqgH3jZvlT38aEpTZKBlME
+Message-ID: <CAD=FV=WKNgv4s6sjwhmFGsdwWT0hoH7aeT10yFukfGgKJG7Otw@mail.gmail.com>
+Subject: Re: [PATCH 0/4] fdtfactor: Introduce fdtfactor to auto-factor overlays
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	linux-kernel@vger.kernel.org, Devicetree@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When the ISH firmware encounters a fatal exception, it resets and sends
-EC_HOST_EVENT_PANIC over the ISHTP MKBP channel. Register an
-event_notifier callback in cros_ec_ishtp to log the panic, invoke the
-panic_notifier chain, and emit an ERROR=PANIC uevent so userspace crash
-collectors can capture the panic dump and handle recovery.
+Hi Simon,
 
-Signed-off-by: Scott Collyer <scollyer@google.com>
----
-Changes in v2:
-- Move EC_HOST_EVENT_PANIC handling from cros_ec.c into an event_notifier
-  in cros_ec_ishtp.c as suggested by Tzung-Bi Shih.
-- Drop kernel_restart() and instead invoke panic_notifier and emit an
-  ERROR=PANIC uevent so userspace can collect the crash and handle
-  recovery without forcing a kernel reboot.
+On Mon, Oct 26, 2026 at 8:31=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
+e:
+>
+> Hi Doug,
+>
+> On 2026-10-15T18:21:33, Douglas Anderson <dianders@chromium.org> wrote:
+>
+> > The fdtfactor tool can either work directly on a set of compiled device=
+tree
+> > files or it can work on FIT (flattened image tree) file. The idea is th=
+at
+> > you'd create the FIT file containing all of the duplicated devicetree
+> > files and then fdtfactor would "optimize" them.
+>
+> This is an excellent idea. I have been thinking about something like
+> this for some years but then when Chen-Yu Tsai wrote something which
+> used the kernel build (Linux 17c31aded9a1 scripts/make_fit: Support
+> decomposing DTBs) I forgot about it all. So thanks for taking it on!
+>
+> Ths script's post-processing of a finished FIT only works for a narrow
+> set of images. Apart from signatures nodes (where I think it should
+> error), it also rejects FITs with external data[1], which mkimage -E
+> produces and binman[2] uses a lot. Of course, mkimage does support
+> making the data internal, so it's easy enough to work around, but also
+> likely easy enough to support in this tool once the initial version is
+> in.
 
- drivers/platform/chrome/cros_ec_ishtp.c | 43 ++++++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+Sure, if you want to make additional improvements that'd be cool.
+Keeping it out of here since this patch series is already giant
+enough. ;-)
 
-diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
-index 3766cef81fe8..ea7d4c61ffc2 100644
---- a/drivers/platform/chrome/cros_ec_ishtp.c
-+++ b/drivers/platform/chrome/cros_ec_ishtp.c
-@@ -8,7 +8,9 @@
- // (ISH-TP).
- 
- #include <linux/delay.h>
-+#include <linux/kobject.h>
- #include <linux/module.h>
-+#include <linux/notifier.h>
- #include <linux/pci.h>
- #include <linux/platform_data/cros_ec_commands.h>
- #include <linux/platform_data/cros_ec_proto.h>
-@@ -117,6 +119,7 @@ struct response_info {
-  * @work_ishtp_reset: Work queue reset handling.
-  * @work_ec_evt: Work queue for EC events.
-  * @ec_dev: CrOS EC MFD device.
-+ * @notifier: Notifier block for CrOS EC events.
-  *
-  * This structure is used to store per client data.
-  */
-@@ -133,6 +136,7 @@ struct ishtp_cl_data {
- 	struct work_struct work_ishtp_reset;
- 	struct work_struct work_ec_evt;
- 	struct cros_ec_device *ec_dev;
-+	struct notifier_block notifier;
- };
- 
- /**
-@@ -538,10 +542,32 @@ static int cros_ec_pkt_xfer_ish(struct cros_ec_device *ec_dev,
- 	return rv;
- }
- 
-+static int cros_ec_ishtp_event(struct notifier_block *nb,
-+			       unsigned long queued_during_suspend,
-+			       void *data)
-+{
-+	struct ishtp_cl_data *client_data =
-+		container_of(nb, struct ishtp_cl_data, notifier);
-+	struct cros_ec_device *ec_dev = data;
-+	u32 host_event = cros_ec_get_host_event(ec_dev);
-+
-+	if (host_event & EC_HOST_EVENT_MASK(EC_HOST_EVENT_PANIC)) {
-+		static const char * const panic_env[] = { "ERROR=PANIC", NULL };
-+
-+		dev_emerg(cl_data_to_dev(client_data), "CrOS ISH Panic Reported\n");
-+		blocking_notifier_call_chain(&ec_dev->panic_notifier, 0, ec_dev);
-+		kobject_uevent_env(&ec_dev->dev->kobj, KOBJ_CHANGE, (char **)panic_env);
-+		return NOTIFY_OK;
-+	}
-+
-+	return NOTIFY_DONE;
-+}
-+
- static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
- {
- 	struct cros_ec_device *ec_dev;
- 	struct device *dev = cl_data_to_dev(client_data);
-+	int rv;
- 
- 	ec_dev = cros_ec_device_alloc(dev);
- 	if (!ec_dev)
-@@ -555,7 +581,20 @@ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
- 	ec_dev->pkt_xfer = cros_ec_pkt_xfer_ish;
- 	ec_dev->phys_name = dev_name(dev);
- 
--	return cros_ec_register(ec_dev);
-+	rv = cros_ec_register(ec_dev);
-+	if (rv)
-+		return rv;
-+
-+	client_data->notifier.notifier_call = cros_ec_ishtp_event;
-+	rv = blocking_notifier_chain_register(&ec_dev->event_notifier,
-+					      &client_data->notifier);
-+	if (rv) {
-+		dev_warn(dev, "failed to setup event notifier: %d\n", rv);
-+		cros_ec_unregister(ec_dev);
-+		return rv;
-+	}
-+
-+	return 0;
- }
- 
- static void reset_handler(struct work_struct *work)
-@@ -665,6 +704,8 @@ static void cros_ec_ishtp_remove(struct ishtp_cl_device *cl_device)
- 	struct ishtp_cl	*cros_ish_cl = ishtp_get_drvdata(cl_device);
- 	struct ishtp_cl_data *client_data = ishtp_get_client_data(cros_ish_cl);
- 
-+	blocking_notifier_chain_unregister(&client_data->ec_dev->event_notifier,
-+					   &client_data->notifier);
- 	cancel_work_sync(&client_data->work_ishtp_reset);
- 	cancel_work_sync(&client_data->work_ec_evt);
- 	cros_ec_unregister(client_data->ec_dev);
--- 
-2.56.0.313.g2479322e68-goog
+
+> As an aside, this would be a great feature to add to binman - trivial
+> once your script is applied.
+>
+> > Add 3-board test cases covering default mode and `--strip-local-fixups`
+> > to the `fdtoverlay` test suite.
+>
+> Please can you move the tests from all three patches out of
+> fdtoverlay_tests() into a separate fdtfactor test set? Then they can
+> be run on their own with run_tests.sh -t and skipped cleanly when
+> Python or lz4 is not available.
+
+Done.
+
+
+> > 3. Better savings than just a simple partitioning, like between SoC and
+> >    boards.
+>
+> It would be worth including numbers for a plain SoC/board split on
+> trogdor compared with fdtfactor. The whole set compressed with a
+> large-window compressor would also help (as David suggests). That
+> would show how much of the 87.5% comes from the factoring itself.
+
+I decided not to do this on trogdor. Trying to make the trogdor base
+SoC compile as its own base dtb seems like it would be a lot of
+trouble. Maybe I'm wrong and it wouldn't be too bad, but instead I did
+something even better (at least, in my opinion).
+
+Instead, I ran fdtfactor on the downstream Pixel 10 devicetree files.
+Those _are_ already using a play SoC/board split. I'll include details
+and numbers in the cover letter of v2.
+
+As I responded to David, I'm not sure I can test the large window
+compressor since device tree files are compressed separately.
+
+-Doug
