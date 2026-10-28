@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195963;
-	b=iGOkNuy2cTXmO2v0O2vEcAlsLbskNdGDyeb5RRi8I5sqgU9a1txx0uJVSFde6pcShxTj
-	 kVYIG4swb0qYuSKM7I3uRCg4f2Cn3i+rYhsnUs4y48wa/huVZzKNYW17NLDYBO0UMgxdQ
-	 XkhVPu8Bck6a9Gia/PJmZJvUEKtNeZ7xHOQy/JY2wS8YUxfp4Hi4fxWXrFfK7M1Dod6av
-	 utMYt4rk+IgrhYPlRbMiv57vR5iBaRzB3mYT3EIEETbKUxwHfiuSNhZgqVsnzwan4PHW6
-	 H4Vwa7GS/DAj22W794C/c4R2o2oKtbp0ahLGkPZUy3gQ0QjKl9+42SIagsCRQXDKpig==
+	t=1793195961;
+	b=Cok0xv5pWJT9sFDDjr9Ia0BwFyLs7XKXrjqUV+AFGihm6aI3fQT3N/DvQqcM6rBv19A/
+	 PZ1WnELFRNu4RV2NYYp2JNcnqUh02SNhr9Hz2uXsrvMOpL75e4GYopp0FYjjf6mvE/5nq
+	 6rPOA1pbKFUZ7YDJu2DOsM3/lqzsPHiYx2nkt9yyQbjpBixhiVBILbFRVmH75+vpGbUEK
+	 R/OADhjkcQQtTWjPBO+9n8Jh99hrpYE4QyzdEi5b5fGSefC/AQtEhe5V/glWxrgqRJaqk
+	 O8cpemkTKSBBdQujZG2ox82Xzr7gZNFLGza3tTc2+eyu4T3jhRfInI0A5QQJEP+mIHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195961;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=z4XBdpqyVTDx7Yqi6vugAln2ZDQbNUBV/V/PeOlv9P0=;
-	b=x67H1RldvVF9X4j+m/J9gBdqpLAMtn4u9Qun8W72MqrD54n0Rv/YTMoFpDFgNEsI7uVY
-	 ghDGlhMMkoz0ldt2mGN8Uh0spy+iKopYysS3iIQTcJ42DKTVRXCpzgK8ciI14G5mR6X22
-	 tqNh2BkZxtrW95I23pqmgSADT6B1S9I5tZqc9WahvUTCpgiT6JBk+QyyAEBaMYvhRyfjt
-	 0XMTVuHY9s+w46YqINV2iv8kynO8uXPuEci4pMVwLRzNMjfDSEd6EfCaxTJoKGSx53fIN
-	 ycjEOmQHx1QypjpolISeSp2+VjeJeO0vbZEKgqDWueYBnDVkWUHnVPxJ2RwzaIgvicQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lYHXTOOweh1eE7Y7hm8o0zEk1wPirsbRKfDAC2lJjM8=;
+	b=lIKtNfbIsljg/Cnkt/107K6EQHAxcXDaZVVmfecagr25HmxY5KWX07XEjxERBMjPLLe9
+	 dsU7HnjAX2cOXH7x6oYLYzUjIjondFU6UlWw8e8qPr0nXRY9GT3xy56b1o4oFC6CfDMDo
+	 orW9PDMvrvnPJ5uZ1FOitUCtk/GIUsPwe9cfrFhsBwjlqDNp4WStIWtQzCPPqIHAzWE1x
+	 j6xpoly7HDr5EkBPvc6zP0h6dT8nbnBlsWNqbQM0lA8KXzEDFfabTmKj9BCyBHQBKovCf
+	 plUcYU71sfuFMIxvGpmfFn0NYLvvK963zUD3Hg3k6dvxu2ryVtJOBXTOORMbsS2kRtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amarulasolutions.com;
 	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=O5bU2g9t;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=d135ZkWZ;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC754606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC754606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB448606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB448606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=O5bU2g9t
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so12455615e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:59:22 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=d135ZkWZ
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso7647665e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793195961; x=1793800761; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z4XBdpqyVTDx7Yqi6vugAln2ZDQbNUBV/V/PeOlv9P0=;
-        b=O5bU2g9tAGNtcs25PP8o1bBqkcYL6qOuNmVDzlOrm87nuMneZEF0AQ1LOooHitR0XO
-         NlDUWUMYi8rw7IvS2iRXP6iiGvbvHoy7zfPfiTj2eoW+Yt+Q68akRV2z/MSka2+UEDmJ
-         WOFML2hZCOgjd8LDCFtVeXiz+9cXMUDmXRtYY=
+        d=amarulasolutions.com; s=google; t=1793195959; x=1793800759; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lYHXTOOweh1eE7Y7hm8o0zEk1wPirsbRKfDAC2lJjM8=;
+        b=d135ZkWZ0M6ftIv8qzLvPuqcdeM5tiOBVyUBSN3wwckCuVNuqXSnhL2Buf1IoYHKIu
+         B6jnFQVFZiphxcWZz+Dx9fEfUWyZZoC0l0rG/AdsZ7VIwPMfLuM8Gll06pKM5n7gO2Jz
+         3fx14VVhccXZZwEV6t81TRS5U8smBXLzBV/8Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793195961; x=1793800761;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z4XBdpqyVTDx7Yqi6vugAln2ZDQbNUBV/V/PeOlv9P0=;
-        b=nMJE7bFmQpMU9GRWmhQ2Jv7pTG5DFLJ+MZKFDBdPtkANjqG+NuIqU7ocCxyy2czrHQ
-         2JPM1QE416hckPlHhctuRJcKrGG0WX9tVZwuXqa//ovMyyj/VfR39bN23PvFrSjbWIcD
-         20Yr6G3eObdhgGZoxFJC7ieSKEBmXxUp+kC8H04g8SJEVkGYBjI0E5+0mPu1Ji/fmzRx
-         5rA02Sh0kTORv5EB9dKAMQahqodH1VZjfMc25x3gbe1GIPRu4Wt5y166hy+BSoq8cOmh
-         1lRpotxziUTJGAQalDNSCkVtM1E0lUJewmlHs1y5+GtpXm5Unb1jPCvqFsVx0CZ4T5Jc
-         w+mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeiGPdMen6e37fm/xx8PrFIJgcX3ebjYrWMWa0Gw2XAWFCvix6J+eRyN8kexHXSwIpjbPRE/joewYqLOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5isPKIli6o/sbN6T+rGiLFOLz6Lbow9Yo0zeuLsA2Daj1QBVt
-	wH5VB33CH25HnpYfE6rgScAD0VTi++sWvIP/havocEiKG6glNaBbFnU3u5xpq8S1f2Q=
-X-Gm-Gg: AYBFou3YwFQT0Lor49PNu0IQeaTgXAHKBYiKk1ZVCoV4IPevTx5xffUz9uPs+efRaMp
-	Nuk09MBtqSrC74QQJ1iHm7jmS7ZuF9xSZjngZ6jLYQh0IewDi1DbHu3hr3pMbSO3zmAfeR0MnDN
-	sPK67g0fKr00xZZaTQwDwXmLniNFECeaz4fyuhKMtji2qBiy63CG0XYYTH7GhCD/fqPzha/hByB
-	c7/2nGI4UjhpYy49pWtVQ7UqirjXb3gXaPRPOj6LcaVgq86XGazv/eSYznirdy+KRcuP6feG07T
-	aRh1Xo5hNGNCpUJBgOvc1jJ6C4j6Kx6FOECCgW01D3N7jOTdz0aP/obR5S5f6jwWonbUToU3bVQ
-	e+qtU6H+UUSlleuiFQ64RXCSjYgJFWpkhN58+t9vXiyI3oo4YfBOOhSWJ9XgJvn8R9ytMuey/DE
-	nkd/X/9tP57AgAnQOxVYv6ZRXqFIW+0QZX10T+S2pYgU0AxAm/5gHk5O6DjmSZQ2rwm282jqsRI
-	FrFTRZYwb0lICxpEAh6+15tN/z7Ca9RCGD5dX/SA24DhmYnIzdVpWjna3H09F3IIWkzEliUWim9
-	uNx4uGYd0iaHzRaPDSGtXH40wR/oV+X9B4cHW2ls9L9Bqd7CAKZpQzz1B52I2PBKiHi5+GsKy50
-	hEF9OXQ4/M4klCg2AeshjY8zZ+p3SIbRgGtuyU7/jhjKhyvfRRw==
-X-Received: by 2002:a05:600c:8b05:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4a965ec95ebmr53037705e9.9.1793195961149;
-        Wed, 28 Oct 2026 06:59:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793195959; x=1793800759;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lYHXTOOweh1eE7Y7hm8o0zEk1wPirsbRKfDAC2lJjM8=;
+        b=pbBRo1SyFO27b54c5dRHLWe0Snv3d2YKaVSuYrHzv1rmoL8wyDf8Uax4W2QgvcS+ce
+         lN0ffncU9hk9gWOFJ10Pn+8dV01dp0aUxzO4/D2n7s3YbXMdX0EmhU2bQSLA6vhx7U7s
+         ZA5WNX0U5kE48QQ3Vzyt61WBeyF1l4/6ApVdvFbzkdsE0byicOI7mZ3rVzFX+y7Eysot
+         +zO+UEVfvxrvgtEHY7rHxrHHXOLW9tIRoD94TRdxieJPqOeLDbO89FE6h9TailtKJiso
+         QjUbgxFBSyr6GDMuSQyccddYPk6mcuU4/PGrw4OCbRXw0hCpHrq/CbjB0S4MJ8elZeiL
+         uUJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBEgDv3f3tR0FpJoF6y9Jz15/klqMkmGMT+nGANxeNRqeSRa2qeALmwc67HOgoJdvPE6oQbWCsGU4CuqI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAk4zwTxUYLiJfKTxpitJ5QY+tZ750DidXflLujigd4zoMmsgB
+	ulOb2NU1nTE0+9VaWPmWLcUTbyOZ2tz25L1xyRmgQHgqU2UWWwWF0b7Qxt/PUBXW0pg=
+X-Gm-Gg: AYBFou0nGEJLdT9T0p36I1tRD2ptc5As/EMV4aLkVXi90dEr9wnEo97VfaPpHcsDyaf
+	KxlrFcOyNzDHW5WZSc6I7h9aE0u1JUr1QhrvCggtzcfR5zSwimk09T97Iwkz8npGB2FG823pwDl
+	stVsq2QSm5z1y/l6e1tVz6M5FaMRpCGn+ia5nUs+TK0mj1F3NUkWZmRQP+PZYnipYlC90sY2zc0
+	mGyc16PzDpjSmMw/qvevTv/EYfLCFcOZ2dU7orsFdJgo4aRBmuYBJw5lJUX70POqCJhiQnpbCFn
+	JuwNdrpTncPP45ytFENKYF+liIFx5tjMym/qzbvvwxl519/yYsQfY7v+VXc8RpxYiYPOo0+vfsB
+	lqwIsPc1/Sf5h9055ZhTToJyY6Zfr23kjPVSQw0M65xvNa9975zZgaR1Dxv2vBdTtx/THbPoiLv
+	o67z34k0YVb1ee7Bo45gnQ4MDSFzhntCr4ynKicWo3J5lp7OX5U6VRoIF1CVSKVgz6w/2IMWFzo
+	B/FDK68qAlwuiFSJ0T+xri8PvajCUKZbUDPiVjl05Zmipxj2KLT02vZfcPIwdLPm7LSbr4wGHWh
+	O9r2SlzMpVpjaa3w+7+k1cUJmcMpGdHliGz88NEkkJlyQTRqEBnjwUql6BUF88k64cqm8jXfLTV
+	aMeOTipDEK/tNpwBcfJlSU7TzblbPckd+J2ug26YS3L/T+RwiKJh7E+KeRgmektPScfQtmQ==
+X-Received: by 2002:a05:600c:3510:b0:4a9:18f4:925e with SMTP id 5b1f17b1804b1-4a966774dc4mr52485205e9.18.1793195959170;
+        Wed, 28 Oct 2026 06:59:19 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm37077165e9.4.2026.10.28.06.59.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm37077165e9.4.2026.10.28.06.59.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:59:20 -0700 (PDT)
+        Wed, 28 Oct 2026 06:59:18 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Stephen Boyd <sboyd@kernel.org>
@@ -86,20 +85,22 @@ Cc: Marek Vasut <marex@nabladev.com>,
 	Yannick Fertre <yannick.fertre@foss.st.com>,
 	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
 	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com
-Subject: [RFC PATCH 1/4] arm64: dts: st: fix the Engicam RMM RGB display pixel clock
-Date: Wed, 28 Oct 2026 14:59:05 +0100
-Message-ID: <20261028135915.2665857-2-dario.binacchi@amarulasolutions.com>
+Subject: [RFC PATCH 0/4] Select the STM32MP25 LTDC pixel clock source for the RGB output
+Date: Wed, 28 Oct 2026 14:59:04 +0100
+Message-ID: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
-References: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,46 +112,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On STM32MP255/257 the LTDC "lcd" clock is a fixed placeholder, since
-with the LVDS output the pixel clock comes from the LVDS PHY. With the
-RGB output the pixel clock is instead the LTDC kernel clock
-(ck_ker_ltdc). Since no consumer references it, the clock is turned off
-by clk_disable_unused() and its rate is never set. As a result, the LTDC
-does not run and every commit times out:
+On STM32MP25 the LTDC pixel clock is selected in the SYSCFG
+DISPLAYCLKCR register among the DSI byte lane clock, the LVDS PHY pixel
+clock (reset value) and the LTDC kernel clock. The SYSCFG node is
+already described as provider of this clock, which the LTDC references
+as "ref" clock, but no driver registers it, so the RGB (DPI) output
+can't work.
 
-  [CRTC:42:crtc-0] vblank wait timed out
-  [drm] *ERROR* flip_done timed out
+This series adds a driver for this mux, probed as an auxiliary device
+of the STM32MP2 SYSCFG driver, and selects the pixel clock source on the
+Engicam MicroGEA-STM32MP257D-RMM display overlays. Patch 1 is an
+independent fix for the RGB display overlay.
 
-Use ck_ker_ltdc as "lcd" clock for the RGB panel overlay.
+Tested on the Engicam MicroGEA-STM32MP257D-RMM board with both the RGB
+(Rocktech RK050HR345-CT106A) and the LVDS (Ampire AM-1280800W8TZQW-T00H)
+displays.
 
-Fixes: bc7b07bda4e0 ("arm64: dts: st: support Engicam MicroGEA-STM32MP257D-RMM board")
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+I am sending it as RFC since I am not sure about:
+
+- the mux parents are referenced by their global names. Should they
+  rather be described by clocks/clock-names in the SYSCFG binding?
+  Moreover, no driver registers "txbyteclk" yet.
+
+- the pixel clock source is selected in the board devicetree by
+  assigned-clock-parents. Should the LTDC driver rather select it
+  according to its output (RGB, LVDS or DSI)?
+
+
+Dario Binacchi (4):
+  arm64: dts: st: fix the Engicam RMM RGB display pixel clock
+  clk: stm32: add STM32MP25 SYSCFG clock driver
+  soc: st: stm32mp2-syscfg: register the STM32MP25 clock device
+  arm64: dts: st: select the Engicam RMM display pixel clock source
+
+ ...gea-rmm-overlay-am-1280800w8tzqw-t00h.dtso |   3 +
+ ...icrogea-rmm-overlay-rk050hr345-ct106a.dtso |   5 +
+ drivers/clk/stm32/Kconfig                     |  12 ++
+ drivers/clk/stm32/Makefile                    |   1 +
+ drivers/clk/stm32/clk-stm32mp25-syscfg.c      | 111 ++++++++++++++++++
+ drivers/soc/st/Kconfig                        |   1 +
+ drivers/soc/st/stm32mp2-syscfg.c              |  28 ++++-
+ 7 files changed, 159 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/clk/stm32/clk-stm32mp25-syscfg.c
+
 ---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+branch: stm32mp25-ltdc-pixclk
 
- ...2mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
-index f89641bdb23b..7be955be58ed 100644
---- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
-@@ -10,6 +10,7 @@
- /dts-v1/;
- /plugin/;
- 
-+#include <dt-bindings/clock/st,stm32mp25-rcc.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- 
-@@ -35,6 +36,8 @@ touchscreen@38 {
- };
- 
- &ltdc {
-+	/* RGB output: the pixel clock is the LTDC kernel clock */
-+	clocks = <&rcc CK_KER_LTDC>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&ltdc_pins_a>;
- 	pinctrl-1 = <&ltdc_sleep_pins_a>;
 -- 
 2.43.0
 
