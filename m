@@ -1,137 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150521;
-	b=H85kjxV5d1Ge7iuM3tFAexXDHbli702tPhiHDWTQ1W16RsIsj6xvYqr9iwsXU5+MP0cN
-	 7tBqfttdswpWx4PF8faJBCCCACBcUF21O8a6w85+4dXCoDnwHT6XPGM4/Y+JbDPq4OrKJ
-	 ntZAh2iLVDtLyAYRhUUeawlRu3eG8jKH40q2qy8dx+f76lbmHrcZVni9KLXrYBUnPHupT
-	 bIfUZPr6QNhKw3O6ze49SCz3EZchCr8cGD7uRKWZ6ZYVOKil5KlM3du4UZG2u+OWnlIL+
-	 aJTMkItBkuqdXEnRFCEfe9EgZ2amP4PjeaIp4Ht/NvwMv6Qxv8TdbYiiGGFrRSC7SoA==
+	t=1793150785;
+	b=WJdZmQTyB/098fDVBppjJ1ChRJjp9HowAX9GHSdVXX9xRv7oS4M+sCaYVfc0gPILagHI
+	 ExWKjHngulPeDeY74YtUIixq/r4fqeBfKZIerF35svh23jpDX4ykQF/aZ0vQQcskDczbX
+	 t0reqgoBHVq/XOdB/P0A83jItnGfwN4LB+BoeW/PDL7Hig5cVXlLJ9dpx6NDFP+BJ6HFW
+	 gVLduoBONIQJ7T+e4gLESLyVwnGoga1cB8a8uXvqfilvozxXiw8v5ViYO+jONqAPov1Ua
+	 GbZbKRmgRpC1Em9Q8IrB7T9YGTooYGFqoTidBjQwkARu0HdDDNgl1CE66/wsUvL3Txw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150521;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=4cR+Jnw2vZTLedug2NT9bT/PNYuUzdhU9pnjK8Gk3b4=;
-	b=okD5YRAnns9NcuAuNdgmy+J64z3uRqBaDe3MNFlcakgDzEVfgvB6EGDZtk+6vy34GuXJ
-	 A1ApljX9RQbtRWkSXDBNiCHMk/2EwGkUq1jocsEL3fzT3xql9uszUSclg6FGD3KIEzLCl
-	 Z0bs2A0sY9kBZ2WPBezfVrYtxlUna4JqxBa9W9mndxo+PmuD6KaO99dYEFZZPwgeD7hhJ
-	 yQbB3V9Rjosj/4aah0mD5VPrjTiNc6xTgDNVd1J004oSI6JISDa6mC5phaXlb7R0Iq3Da
-	 Xdp8pOst4C4YOEqBTVQY4nIpNEz+bJlhoFBoec2dsWaGaE+DDWXJxpMYctG8mviHQeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150785;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+	b=40Ii5wuHU0kiicoRlHASgxfq56EuqK8uGrJeYK3tQ5jNVFO8eqRAnBT9iwgVt/1Vm7WH
+	 EOzQX46RKVwgfg3dvhG22C+OfaeHO6JbQTcOxC6QPRHApX1V5fWy4wStN+uAb5WSYZVzp
+	 AB9q8rW29V0O8M52bocZ1GaKImKlEXudXS2oLLSxP+Nk3lfeu+cuHb/Z8s6536ZMqWrN4
+	 PiEWkSFt8077lszk9hsNYL1MnUFKhda0eWfF/sfd3s3eAbIXoS6+tguStANUKUipDwJC6
+	 sH7ejHA1oD0vgOTVLtxqZzKpGL/18g9ASDq3xax86vSQVzQiDZrYvuJgnXXb6PtSOGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=IuANCG5d;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ASgV40z7;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00292606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00292606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB82D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB82D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=IuANCG5d;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ASgV40z7
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 10196EC01C4
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:21:59 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 27 Oct 2026 21:21:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793150518;
-	 x=1793236918; bh=4cR+Jnw2vZTLedug2NT9bT/PNYuUzdhU9pnjK8Gk3b4=; b=
-	IuANCG5dx2AuLSzGWT1IlW0LpNdHwVHudaxvydOEnc3KSoJ/qoMeuRTBcuHevylW
-	xUbQw+3IqU+mSDopyXhKpLMSyZdaIQYBWsp91BtQLJ6ivce7R1cuF7LYQVlluKOM
-	55TmLfhzJ/XgFzpWKbku9XBEEHXvbqRJ5vOSHONPiAFeVL8JucBr1JOA/VFwvjKS
-	w11r6SsVd0monzWXTSSRu9aCd1MnbVsYTMZQxq4e7JYEQg0XE3VlNJOsuLd4+Ahu
-	M2i0unzEJI77CglJFd3yELGpyxcNPO6lBajkV1sZOKnC3Pk/qgxAH53X7FyqVsbo
-	jkTWgUXOP8IFrAx0YIZ2Zg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793150518; x=
-	1793236918; bh=4cR+Jnw2vZTLedug2NT9bT/PNYuUzdhU9pnjK8Gk3b4=; b=A
-	SgV40z7r6xfOgnty139gvV4mch5EP3LpzWKZnR0DqUM4+khkf+60HFQqKimBZ41O
-	GpWenOjpJF06vWXJx6ne53P/sdpYna3Yh9kYveLMWrgn873gdVS2BPYroWQPhcxQ
-	j8FQ/TYUcJyq1VEohzGMzcv/D5F9bKLVFzIGeGnwytFhspGcAad8f7oc6bXYjpg3
-	1KZoPk5Y3HhjR0aN8sdnG6UAFbI98LFbZxfR31UoaDOWQ8AvKGLa+kRa/mXHpIUp
-	RiAUDg4gSiO+zFjhCN9FDe+hrXJ9Cgl3iBmIcbzWpOWfT+LuuadMSvQcN3RGDqus
-	BADMJIzTu3vtT/xhem48w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793150518; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:JlG7/+rVfYjOSBgmCM+ra+XMMWM6T2ucC1WWXxEcheLzXnc
-	7TZWBCUBaPh/fOi92ZzxHZZv8ylxrCUAeh3Zv9EyUinAzXtbEFxcgDuKWgdU2gbT
-	UjmBzs7BEL48YAxF48XR43AdukkNuBQz7u68V+FcsE2Gzv1xR0u4gXtfH7W7Wjs+
-	b3z3rPp0Dkxj3LBlAibffGnMaYDLIdsEMQNlEiNvWBGRZoyIUQP3J4d3O0YeZU0V
-	unZA6EO4aGUuODrho8Z6+2hewBwdb3lBA57Ln2Qt03D0PxFR7gtiS2SRvcNFRfFU
-	7Ig0m2LMdUuidCUOic0uwnaW6pcyQQSYVqGiiyA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:bLZaW/+c77h1LhtpnAtMkoSIjWiZ2pBNMO0v3iO12fE=:4cR+Jnw2vZTLedug2NT9bT/PNYuUzdhU9pnjK8Gk3b4=;
-X-ME-Sender: <xms:NU7havTQm7CONmk_vTIxyQr2bggizao4KrnCTHOZ-DkioGzPn_0_Cg>
-    <xme:NU7hanuN5n0amtHDXTfCLVNahO5-mo9vXcMLvteA_LdixJ2JqjfE2OXpSqZAoRDw9
-    9zB2o5kCwdI5nC3rzACzyLVfBUMdUUkzLm9ZMp9wz4XqggaUQ>
-X-ME-Received: <xmr:NU7hap4Rmoc1y1NiVdhky5AhS2soreP5Mn4L00ThsQUenIhtq7rJNcu1pb49HmmEVaVYZMSVJiGWZtrqfBzV2zNcfOaCUTc66JS2LcokcUPuk2veGHDtkWAnPBE>
-X-ME-Proxy-Cause: dmFkZTExjEu5Z4ShUEEPbIUBi9jvlntQl3xywqhol0VilT1H3riwx+R5F5xJP13Eevy37Q
-    0i2tM3JNLjjIE4RnafdrKckgTZgF7WVXIi2BOm3qqKixBS/Irug73Tiau0YR/vN5tre4hn
-    maQ7bdbQdERoqsBHTuky/6kPN1uRRdMEQp7qfaGblPSG+4EBzlUBu4KVifRQGZl+JiSvgw
-    9mSbn8dIqXi2WXNiWFaTJHHZ4Jih2f4J8Zf8XQJs9Or+djBfP7qo+n/CcBwnndgEEsWDvn
-    dde2XKLK1ANi3gu15BOxuI5tGRXcf4I/n59a/Jk8KMuRhC+UWXSiv/46euNQ6JSTIIAimv
-    7jcAW/tdVBGXJXklC1RRPUglHq4hH5Bc64PIl28tFEzC6NIzPjSltWekhutJo/tT2majGT
-    sswf9kF/mQ7bfD6GGD2BLOWWsUXcYZgnu4j4D7tHPb/zynsKGK6m+AhMOPYjmUzMOzh5dT
-    b4rWxbMHiL5nnjAdO5ldN4zD++TlD1rdyXqAHwBHPTOIS8FN/SKiiEb38SpBdbZorRtZ3g
-    6HKFrjuDJITZTWSsi/aiCUAXSktyenMIc8kN6yeNsZHz8HdWRAJlXYnV78lUl5wNp4dJzJ
-    K2wtUluCHNuU9Ak5O20DPSdgweZAMliMgfRfP/R4THeQWT2Cq5n/XeaklCLw
-X-ME-Proxy: <xmx:NU7hamKsy46mFaILnzutP5LNXCeEcEkH7ASldNGwyMSr1vsmEA_XLQ>
-    <xmx:NU7hajRmT8qLJPv58aR7XoaIN4e0ZQloPg1Re3nCph4Fgy5gL4tmng>
-    <xmx:NU7hapoTY0a-MqM5sQVzrhTvHncNfTKm3VeNlXgeqpDve-iSMPWQrg>
-    <xmx:NU7hahb9D81m8XEdG4qqwPK-ysKtigp5k8VzEshrenjpsUJ67MPPlQ>
-    <xmx:Nk7hairIFIEEI4qphXaATaK3ls9tH3EoMbCthRQcYtN9uyTpEesD-K0G>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 21:21:52 -0400 (EDT)
-Message-ID: <5de6de037706e45ba88939e8f36e7dae48005e6c.camel@themaw.net>
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-From: Ian Kent <raven@themaw.net>
-To: Krystian Kaniewski <krystianmkaniewski@gmail.com>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich	 <dakr@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner	 <brauner@kernel.org>, Jan
- Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,  Peter Zijlstra
- <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
- Axboe <axboe@kernel.dk>, 	driver-core@lists.linux.dev,
- autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Date: Wed, 28 Oct 2026 09:21:48 +0800
-In-Reply-To: <083c2bb0-85b6-480e-afcb-bd2f386f2ddd@gmail.com>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-	 <cover.1792577179.git.krystianmkaniewski@gmail.com>
-	 <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
-	 <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
-	 <083c2bb0-85b6-480e-afcb-bd2f386f2ddd@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso3562635e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:26:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793150783; x=1793755583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+        b=wD6nmJjkfOYRuScAAjWuroVnw8/yb8cS2myqAQz8AU6cn6hJkgnYxaQpjxl6D9mRMJ
+         ZcFMgRHJ5n73SPLY5hE3oPlainPIQ32aabs5/Mxinv4xNdV0R/0GdT810Kwqc9Wy/EnQ
+         qrMdqyCIlZXQ+Rux1I0L6w7iCGx6F7GJGDyF7v9+KHClhIml6bdDHOIBYwd3mJhMybRo
+         zOIVMSncRPdj2Na19D+2eikNW36sXxRY/PmjRoU1FI9D299oP4KeSoVGJa3t8mtHK8cc
+         E9J6Oj1RDgUTrpn8i3Pnmg/qojF1p5V0l2cjZOyAKigv9Z0dMRnemAUvzY9fLpGiM58T
+         bY6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793150783; x=1793755583;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+        b=Gm6RvHEU88fntAofH16mvo3rs8tb+kGY8M/woVpOmb8G+LHhtlpbFhP5h+4kihVhF9
+         SDFc93seqeQ7ZpxhWe+lSZh4HsX/RvEt+GwLP5vfu+tpCYSO/xqo7x7QV8PB8pQKjdiF
+         CVme9defkeXx3I21THqyjxiMYSwolry/oFHopX197wvFTu9ZgtxlUjAS3VmuNJk4StTM
+         RyJa8+fFHndR98fSvLheEr82guPW82QsHdLxvUPwEEwHSxyrQ9F0CSnus9oADtjYd/u8
+         740Sl7i92jKDcgrVJAVYEINI/tI/sjjapDzgly19VxOHLp0H19r3/YiIYhwFzd59shfC
+         IP5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzml8klIHdUPfut0WMdoMVIfbNAJsQtDNHnMGzzOSOzILUsyxibbfzySseYXeSRSEYhVLaM6ksaQVhajdE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3F4Gd6MFP08hzb5GvIAwem4iAO7fJ6q8CzvV6Voze/bI4b3Li
+	2jSt2Kdw1111hDgKwrNDgH+JqO+oHnRODHsKHeBlunlL2EW0vUw1tKs=
+X-Gm-Gg: AYBFou3qLWU5bTQgzaHoSz1gixs15Hoe5ZWI33T11YwVy+ZpeZKv08Z2HXpwFpOfyjW
+	Qx7o8sD8Ec67Q1ew3RkUbVfaFjvIEm/D6+GYxpO/VW+A7nfe0Uc3LbgKNvEDNjzItT2U8OonfZD
+	q13iprr+k2naKlugoextb8fXdyrErI5FXPBFt4BmJn4jjtes5YBkOwdscwjeP5xspegKqp0KL4E
+	LY7ThYEQyl1vGgdv/NiSw+3ePC0DAKH+/H+63xJXTxL0QkEYWaZ6Nuaq1+NVTrJbvg3Zz+vcB++
+	rStusONds8ss5DhEtMpRso75iYj+ZVarXEnSAw06GPsrS9FRWOWD/ACbMQDg9z1ycbulcUDYn9r
+	Y4UnVmTqRsCxjkGsjaen/gaJLn5mrbFu+3P9AOYFp6lVhPfh6jKGgSntchl54ZcWEyloGA3RGzK
+	OHKwJp7xUbZdPSZmCIlan388qQyPPUI9hEcSeZrUlbE9fstsGBNOdYHwrEk0tLS835uV9RLwQms
+	5odpaewlnB8iOUw1kvSEaQxrhA9QfxF0hjjQ8MwURBXTvV0MzhqBx+KA6n+pIrp8FHAZFRJ2hrT
+	q4tv9M5HO6o=
+X-Received: by 2002:a05:600c:190a:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4a966586d1bmr13640805e9.12.1793150783182;
+        Tue, 27 Oct 2026 18:26:23 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c9f150fsm7935155e9.10.2026.10.27.18.26.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 18:26:22 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	linux-wireless@vger.kernel.org
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 wireless] wifi: nxpwifi: validate scan response TLV sizes before indexed access
+Date: Wed, 28 Oct 2026 01:26:20 +0000
+Message-ID: <20261028012620.3762590-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261025181531.3744345-1-tristan@talencesecurity.com>
+References: <20261025181531.3744345-1-tristan@talencesecurity.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -141,95 +102,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-27 at 01:57 +0100, Krystian Kaniewski wrote:
-> Hi Ian,
->=20
-Thanks for replying, ;)
+The scan response handler indexes into TSF and channel-band TLV arrays
+using a loop counter derived from the number of BSS entries, but never
+checks whether the TLV data is large enough. A firmware response with
+fewer TLV entries than BSS entries leads to reads past the TLV buffer.
 
-> On Tue, 2026-10-27 at 07:11 +0800, Ian Kent wrote:
-> > Commit 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev
-> > in resume_store") looks like it's been around for a while so I
-> > assume the reproducer should work on 7.2.12?
->=20
-> Yes. That commit entered v6.5-rc1, so 7.2.12 contains the relevant
-> code.
->=20
-> I used the unmodified C reproducer linked from the syzbot report:
->=20
-> https://syzkaller.appspot.com/text?tag=3DReproC&x=3D11c0f4c9580000
->=20
-> I also used the configuration provided with the report:
->=20
-> https://syzkaller.appspot.com/text?tag=3DKernelConfig&x=3D7d012d9c67977ee=
-4
->=20
-> > What should I expect, a hang, it doesn't.
->=20
-> A permanent hang is not expected. The result to look for is this
-> lockdep warning in dmesg:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARNING: possible circular loc=
-king dependency detected
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &pipe->mutex --> &of->mutex --=
-> &sbi->pipe_mutex
->=20
-> The reproducer records the first dependency by splicing into the
-> cgroup v1 devices.deny file. It records the opposite dependencies
-> through a normal write to /sys/power/resume. These operations use
-> different lock instances, so the exact reproducer reports a possible
-> cycle rather than deadlocking.
->=20
-> The write waits for an autofs daemon that never replies, but the C
-> wrapper kills the blocked child after five seconds and starts another
-> iteration. In my test the warning appeared in the first iteration.
->=20
-> The test needs lockdep and CONFIG_PROVE_LOCKING, the cgroup v1
-> devices
-> controller, autofs, and working hibernation support. It must also run
-> as root. Without lockdep, the program can appear to do nothing
-> useful.
+Add bounds checks that verify each indexed access falls within the
+TLV's declared length before dereferencing.
 
-Ok, I'll check on those, not sure about hibernation support in my
-VM ...
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+  - Fix From:/Signed-off-by: email mismatch.
+  - Add missing Cc: recipients (Francesco Dolcini).
+  - No code changes.
 
->=20
-> > Also it looks to me like the reproducer is trying exploit an
-> > invalid request similar to what I described earlier
->=20
-> Whether the string identifies a usable resume device is separate from
-> the autofs request. resume_store() first passes it to lookup_bdev(),
-> which performs a pathname lookup before the numeric fallback.
->=20
-> The reproducer changes its current directory to the root of a
-> detached
-> indirect autofs mount. It then opens /sys/power/resume using an
-> absolute path and writes the relative name
-> "0x0000000004000921".
->=20
-> The resulting lookup is therefore:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <autofs root>/0x00000000040009=
-21
->=20
-> For autofs, this is an ordinary lookup of a new immediate child of
-> the
-> indirect mount root, so it is a normal mount trigger. There is no
-> autofs mount under /sys/power.
+ drivers/net/wireless/nxp/nxpwifi/scan.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-Right, enabling the autofs pr-debug logging and looking at the
-reproducer verified the exection flow for me. I didn't see a
-lockdep splat but my environment is probably not quite right.
-I'll check what I can and see if I can reproduce.
+diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
+index 67d7ff2f10c59..a8d3387320af4 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/scan.c
++++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
+@@ -1999,12 +1999,22 @@ int nxpwifi_ret_802_11_scan(struct nxpwifi_private *priv,
+ 		 * was received.
+ 		 */
+ 		if (tsf_tlv)
+-			memcpy(&fw_tsf, &tsf_tlv->tsf_data[idx * TSF_DATA_SIZE],
+-			       sizeof(fw_tsf));
++			if ((idx + 1) * TSF_DATA_SIZE <=
++			    le16_to_cpu(tsf_tlv->header.len))
++				memcpy(&fw_tsf,
++				       &tsf_tlv->tsf_data[idx *
++							  TSF_DATA_SIZE],
++				       sizeof(fw_tsf));
+ 
+ 		if (chan_band_tlv) {
+-			chan_band = &chan_band_tlv->chan_band_param[idx];
+-			radio_type = &chan_band->radio_type;
++			if ((idx + 1) * sizeof(*chan_band) <=
++			    le16_to_cpu(chan_band_tlv->header.len)) {
++				chan_band =
++					&chan_band_tlv->chan_band_param[idx];
++				radio_type = &chan_band->radio_type;
++			} else {
++				radio_type = NULL;
++			}
+ 		} else {
+ 			radio_type = NULL;
+ 		}
+-- 
+2.47.3
 
->=20
-> In parallel, I am preparing a revised patch following Tejun's
-> suggestion. It disables splice for writable opens of
-> /sys/power/resume and gives its of->mutex a separate lockdep class.
->=20
-> If you send your autofs change, I can run the same reproducer against
-> it and check both the request and the lockdep warning.
->=20
-> Thanks,
-> Krystian
