@@ -1,89 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221344;
-	b=4cn0d2VlZvoxoNGhMcuiN+ucJlQG3GYhxkEwQfeC52OGiHMzkeSDDr1zbkAnpEAAcZah
-	 ZTvQNSi2Pj/jvrAM7ZLb920ultWbqbZ41Hy6S/yDb2/9N7JIbhugsiCN5dXj9m5AeQLr7
-	 LvDW5XHxyAGkEdHxzTb+/GY8pU0E0LAUMTgS9yKjYFn/xAnGd6yzMPffZOTts1uJVGCfO
-	 B+GqV6cSn7G0y1Y9ytQN/+pyw4a9PmXuzmRyCejG5IxaB3Qt4dHqFCjVUx772AOxjejz/
-	 a0RZY39IzkoXw7YkhVj84w1is8z1PxIPoW1ZUDDGmIzsYn2JiJYzfv4Nlw1OsT+BifA==
+	t=1793221466;
+	b=W3x6307wpM52xo28NQQPpzni0mfJa6tHpDLuKooXLUxr5objUemX2I9n4jkDBjNZ5vYI
+	 5rv+bR8rRQBidu3pk3SEw70DFW2R9Cg78ubqf6lKVvxnHzgYow44VlUmNUIIQunV04F2z
+	 p8XM5xMPTPDeWdFI2Qo9sQYcSi4vVw1QPMBPO0/FGgKlCIuz/zOTqi+IJAMtJdgunFtOG
+	 pEhvpxgiFwXXvXGGTqg9A+Mr3hLPE7C5hv3py7j2Et4YCbbQ8OvPgbkIfPOcLUznLKjul
+	 32eC6zDxTVoE+mlpgPJrH5tnFf26dANB8qb4hCqxn/IwDa+8tq9ZnE6Me0o+Nwn52Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221344;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
-	b=uiCZA+CwEPK54SMj3Uw2uk5J7PCMniqnVIF2+JkNndur6ARZvAv0dU3eAaTLs318MEfs
-	 s+8R5kfua/UDsgSlsb4nr7igxU/dpZFqtH0bQmcrpWese9uq+mwiEbAhXB1BzV8vMPYS/
-	 hwaLiAKpnERaRQ3D2eNgkEZr4pEe/fjOFK4jivAcJWDg3CKwVfY1Ivduuw6qZWc8UO+wh
-	 yp/dtQZsR9+s5S4xPMPKN/Cn5yklFSZVq72t6fqn5ZvoJtxEsK7NslZ3H0+I5NJp35DRg
-	 L3ywf0WDm4tlnXgE/TzGxGaWxk+ZoZVOv0Izoz7ObmAagw7InAW+wIxaoe/ZNX5+LRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221466;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=nQlwCq7l7ZSqCYPBLdBGqEjchNlsUXYVT1C1dmxvQG4=;
+	b=TGBD8hsmKjP6Klw8DSHyf2uao3hMrUfe8ZQ+F7EfEXwob5je5Qbi/SRvM2eksFmrVAv3
+	 k1p8PKsvghzqpilo7sCK536Z0odmxK5yzCQQDZI4pdACCan6deGi7ubb4sWxCD3hfzeaS
+	 rpzdwjn9dEXkBhdGTlSF+Ye8W89WA7KrDwnjea0TTN6kY7+ujgOo9J6Tryy99XXsAIMvg
+	 Y4xLRsD73svPPOgDZocwyWcTrckQWrn9t5iE1ge5ftMh/ySDN5enFvR5wZfH8ofKJCvWe
+	 BLSsnRfWZsPh3eRKOcWENptCubPPxlxP1vHLzClzvsUwQ0VMZJYEiD9bhMX85c1TiOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I6VdWccZ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=tgKSYjRf;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD7B606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:02:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD7B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED59606A31A;
+	Wed, 28 Oct 2026 21:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED59606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I6VdWccZ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so9445755e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:02:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793221342; x=1793826142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
-        b=I6VdWccZ34lFN1zBZ8fGVTwa71nz0eMGoWRNeR4BOOYTn8XzzMG9EfeUPufPOHIQTw
-         bV97F0O5NwU3ZzBmswKA/4FuspwNXjHXzBVQWZv0xk79EPSIe37YNZu36QYkoJjbUOs/
-         uE/x7IdQlT1h7Md7hl8S/UAHKX2Ff7iEe3eSbMdddPVBcg2isAGv7gvgEEtf+DVjVs1z
-         K1F8qGnruWVGGHMhOzoEjICpjsYCtbr7Iw/8gjcE2iM5Nxn2keJaBQdxWCmjvwj/NRFw
-         fGeSWRCd3IJdtg8L9WoeEBxWDokcTpFMyiYakPzwTyoubMcCsHi56R+NZGCVh/qTQ7cG
-         YZHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793221342; x=1793826142;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KJq5x4qtFdwftlwjCSnZ3dvBtK7oZVw0oOvZEW6vsM0=;
-        b=1AWZPVfDfcAD9veqw02aSQYyrUcLamKqexw5Jnr3Kjfv4fVDRALKyapwSNpAYh6Je/
-         jPqFnIMlLzXyO64pI83HFk3ZcglfdsCDn1p++6v/JFnNlicCLsTEKeULAjR3UBJo0rrI
-         OXzZPiNAF83m0YPDxuE4ZwY8ay9vdKooyC5MNATKgJqo1ieAWRkf409hYPqUXXzdm0Tc
-         HkTqX3SI8Bv/Cn10Ic0pJl/Jsg0rj44kKBKb3o/WuWt9zG7hAhOsX3iVUTA84tlxFsex
-         4u3IlbwH5wV7zzeZHQsFsa1AyUbuLmweV8+GsXYmYDIIIoQCmFlI+GUDVq1znby/jHCE
-         b6yw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmUaTtdkPlyM1jh/dhCJNV6u2fEjxpMXv2HOnHMJJFqoS/HzaQZm2FQaRhJ91bTTguVoAH+i6V1rtwfX4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO7bzUUaSMnEJinXeQz1g7fYePqI6IpapftcEVSUfUm94cTH3Z
-	ZPmhZxaz4SQMJqWcJkwUczM70SUL7dA3zQA+Pf7cAg9VT+YMg5ttHPcEwMEnqsEIMEDeTQ9nuxa
-	sILpM/ntAjA==
-X-Gm-Gg: AYBFou0/hs9txNyN2HaJ37hz88TvgHDAiJC59REAq+RzNKm9BaGYcUezIMjiJTAE31c
-	ctB6zDn9vlxariKjOyKwHdjy219PXBRGN3msLYXsxM8aezzh48JBq0PrEAKqhsjBrWWjMJ/bG0X
-	0RufMPf7PX34Zn5iDX0b3lqdUeJKKdklpTzPw6/xDbdPIKsPZNZ6hdlZnPUiazDSKygaHDyIQli
-	r6iVsHvUk7wJbp1NYNUbrWNhdl8SuhOn9Q573i3MnGupFiErKZeRcxG5+KFBhrMcW54+IxAhMgN
-	Jj+OSrU1sR1KdqCFpjfc72voVl3xAtgbbjNd45yBMcoEtwcSMc6DftklGTA5i9P9UUYB+YX61v7
-	8n3GOjLay5qo07hhhMjz8vBgZHT92hdurgR13p21XBBGDm7498ldPGkMbx/bFQfJPDXIx2NG5Ss
-	YEGyrtsFyu3zSMl/AmZ2GVqMHn9nX54EwMa6wyeEm0GJhbpqTsZ4GZiWlOW/yQPr50LsDVTtC8i
-	w6PdKIBVguUvhGEODLFsvU6pPkJj74QFQ5nerrdNbQjc4Ma5ruL1uRjFPia+6du7NOToMJ4kZhv
-	EWKPo/NdazEe/x1Upq0w8Q==
-X-Received: by 2002:a05:600c:1d0a:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4a9678c28ffmr80849565e9.22.1793221341733;
-        Wed, 28 Oct 2026 14:02:21 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57a010basm2292120a91.3.2026.10.28.14.02.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:02:20 -0700 (PDT)
-Message-ID: <4de45a85-6db2-48ce-826a-90dee4e44a5a@suse.com>
-Date: Thu, 29 Oct 2026 07:32:15 +1030
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=tgKSYjRf
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 48CFC14C2D6;
+	Wed, 28 Oct 2026 22:04:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793221456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nQlwCq7l7ZSqCYPBLdBGqEjchNlsUXYVT1C1dmxvQG4=;
+	b=tgKSYjRf89HgLOvPe6URrKmUypjyhwG5+lzp97At6k2jZHRIA4M7LUQfGXsHsKuK6s1hMb
+	rkEmV7y6BfIg/pVvaVXxAkOjMtck/6CBFadxcMUwODqlPUpdDMTN6wALVWssSm+zc5Ijbb
+	nf9Fo8hfcok7cHA8DfZzCHWB5Xkok1Z7+jdfb3mXZTtaYVvGAdTAnMy/3YdCOKE0q45CHt
+	vOV5np0gCPxFNtzg16zWGNeRdPS7VA+UpiDvtXjWANC0mhfNJscfFyHoecfUfHOh7pT/sN
+	t4oH9/sWchDWhNF6JXtuxX3D7mU3U1P0SlMAl+rUHaL5CYoxxsKDfazcyFcYlA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 0620b481;
+	Wed, 28 Oct 2026 21:04:11 +0000 (UTC)
+Date: Thu, 29 Oct 2026 06:03:56 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] 9p/xen: validate the response size from the backend
+Message-ID: <auJjPAJxzvz1uBvS@codewreck.org>
+References: <20261005125640.274054-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,127 +72,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] btrfs: account partially completed discards
-To: luca.stefani.ge1@gmail.com, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
- <20261028-b4-btrfs-fitrim-interruption-v1-1-bf5c53738b3a@gmail.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261028-b4-btrfs-fitrim-interruption-v1-1-bf5c53738b3a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005125640.274054-1-yhlee@isslab.korea.ac.kr>
 
-
-
-在 2026/10/29 04:25, Luca Stefani via B4 Relay 写道:
-> From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Yehyeong Lee wrote on Mon, Oct 05, 2026 at 09:56:38PM +0900:
+> p9_xen_response() takes the length of an incoming response from the ring
+> -- the first field of the 9p header, which the Xen transport reuses as
+> its framing header -- and uses it to advance the consumer index, but
+> never checks that it is at least the header size or no larger than the
+> number of bytes the backend has actually produced.
 > 
-> A discard can complete part of a range before a later chunk is interrupted
-> or fails. btrfs_issue_discard() reports the bytes already discarded, but
-> its callers only accumulate those bytes when the entire operation succeeds.
+> A malicious or buggy backend can post a response whose size is smaller
+> than the header (for example 0). The consumer index then never advances,
+> so the response work re-reads the same ring contents instead of making
+> progress. In testing this raced with the teardown that the malformed
+> reply triggers and dereferenced a freed p9_client:
 > 
-> Link: https://lore.kernel.org/20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me/
-
-I don't think this link tag adds any value.
-
-This series is going a completely different, and more sane fix than that 
-LLM generated one.
-
-Otherwise looks good to me.
-
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-
-Thanks,
-Qu
-
-
-> Signed-off-by: Luca Stefani <luca.stefani.ge1@gmail.com>
-> ---
->   fs/btrfs/extent-tree.c      | 5 ++---
->   fs/btrfs/free-space-cache.c | 5 ++---
->   2 files changed, 4 insertions(+), 6 deletions(-)
+>   9pfs 9pfs-0: Wrong req tag=ffff
+>   BUG: kernel NULL pointer dereference, address: 0000000000000060
+>   #PF: supervisor read access in kernel mode
+>   #PF: error_code(0x0000) - not-present page
+>   PGD 0 P4D 0
+>   Oops: Oops: 0000 [#1] SMP NOPTI
+>   CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0-rc5 #6 PREEMPT(lazy)
+>   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+>   Workqueue: events p9_xen_response
+>   RIP: 0010:idr_find+0x4/0x10
+>   RSP: 0018:ffffbf5d80063de8 EFLAGS: 00010202
+>   RAX: 0000000000000001 RBX: ffffa229c21195a0 RCX: ffffa229c2400000
+>   RDX: ffffa229c11c2200 RSI: 000000000000ffff RDI: 0000000000000050
+>   RBP: 000000000000ffff R08: 3fffffffffffdfff R09: ffffffffffffffff
+>   R10: 3fffffffffffdfff R11: ffffffff87a60e80 R12: 0000000000000050
+>   R13: 0000000000000000 R14: 000000000000ffff R15: 0000000000100000
+>   FS:  0000000000000000(0000) GS:ffffa22a7661c000(0000) knlGS:0000000000000000
+>   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   CR2: 0000000000000060 CR3: 000000003ac34002 CR4: 0000000000770ef0
+>   PKRU: 55555554
+>   Call Trace:
+>    <TASK>
+>    p9_tag_lookup+0x2b/0x90
+>    p9_xen_response+0x17c/0x2e0
+>    process_one_work+0x16a/0x3a0
+>    worker_thread+0x172/0x2e0
+>    kthread+0xdd/0x110
+>    ret_from_fork+0x18b/0x240
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+>   Modules linked in:
+>   CR2: 0000000000000060
+>   ---[ end trace 0000000000000000 ]---
 > 
-> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-> index 9b0a5c6b96f3..242db255cf1c 100644
-> --- a/fs/btrfs/extent-tree.c
-> +++ b/fs/btrfs/extent-tree.c
-> @@ -1463,6 +1463,7 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
->   				continue;
->   
->   			ret = do_discard_extent(stripe, &bytes);
-> +			discarded_bytes += bytes;
->   			if (ret) {
->   				/*
->   				 * Keep going if discard is not supported by the
-> @@ -1471,8 +1472,6 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
->   				if (ret != -EOPNOTSUPP)
->   					break;
->   				ret = 0;
-> -			} else {
-> -				discarded_bytes += bytes;
->   			}
->   		}
->   		kfree(stripes);
-> @@ -6703,6 +6702,7 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
->   
->   		ret = btrfs_issue_discard(device->bdev, start, len,
->   					  &bytes);
-> +		*trimmed += bytes;
->   		if (!ret)
->   			btrfs_set_extent_bit(&device->alloc_state, start,
->   					     start + bytes - 1, CHUNK_TRIMMED, NULL);
-> @@ -6712,7 +6712,6 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
->   			break;
->   
->   		start += len;
-> -		*trimmed += bytes;
->   		trim_len += len;
->   		if (trim_len >= BTRFS_MAX_TRIM_LENGTH) {
->   			*ret_next_pos = start;
-> diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
-> index bff6e5b372d6..a85806bcf87a 100644
-> --- a/fs/btrfs/free-space-cache.c
-> +++ b/fs/btrfs/free-space-cache.c
-> @@ -2415,10 +2415,9 @@ static int do_trimming(struct btrfs_block_group *block_group,
->   	spin_unlock(&space_info->lock);
->   
->   	ret = btrfs_discard_extent(fs_info, start, bytes, &trimmed, false);
-> -	if (!ret) {
-> -		*total_trimmed += trimmed;
-> +	*total_trimmed += trimmed;
-> +	if (!ret)
->   		trim_state = BTRFS_TRIM_STATE_TRIMMED;
-> -	}
->   
->   	if (reserved_start < start)
->   		__btrfs_add_free_space(block_group, reserved_start,
+> Reject a response whose size is outside [sizeof(header), queued] before
+> using it, matching the validation the backend already applies to
+> incoming requests.
 > 
+> Fixes: f66c72bea129 ("xen/9pfs: receive responses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
+Thanks, picked up
+
+-- 
+Dominique Martinet | Asmadeus
