@@ -1,75 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209059;
-	b=omoNAKqwY/PA90riIAIB/XCfjCFqz5zYzNXl/1b3Pq6QwYioiIzHC2qmgfuCFHSpOZ0Z
-	 ZWv6rCzBy4MaMsX23dCeBbNUl557h21ZYWB+JgU2dDX3JPqsNHLbivAJRqRgb9MsM2+Eu
-	 4luZz5Zzc/xc7TxOMEczCbri1mEx6z4MPUPVT1jr3g8J19XjdrdXmcWG9IX4jyHNcrEXD
-	 A5nFu1OqlNqjqKhlAjWra3SslPN4WaTJbsyS/YPk8fV9oOLP+e7vXreRuUkRgJccrCIwI
-	 1wuLtXyOdo2ccx2/RV8Xa0PdYbU7V4pBPTXseeoSgAkfiSGmJ3IzpFQH4YKLS1wQJ1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-	b=rSeX2kDigBvR8EAyEdMrOt3llfQxrtsJqcKbaxI+5N/r8wmBP/+wUwxkuU6UxuKWlexs
-	 7TQ1BwfU/KYEWpnFIQX3A55yYNCnodNvQP5m+uneI5kCewcCj2xbhgsvvv3S7PriXLjlg
-	 gKkGEmOld+jPdVzyO9J6iClggNOta60O/0T+XZykUL6Gq3tKkwcwZWbJmhkkuuo/YFlZu
-	 vRLm16r3renDW83Y/D8KLqwN2KPatJM1vuGkfC+W2cDGhkm42uEFH8kTpOgg+kn1jWzMn
-	 88MVkPZ9ZsxPu6XAJdb5L/cuKrvD4GWRjJVjTbFxfqmg9NlYVkNHMLiBkbEmeMyEa6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K8iv/qok";
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793209041;
+	b=KxxFpww+RX+svAEFbLhsn/BUkLNjtdSyDHbsZPCi1mwsdlsQp4RqsMjgdH3duhguJ303
+	 voe/U1aiYzvTzKPTKiQc4B+8IWhLMNNN09EaQmPHWxbBuB9s9zKhxr1+uedQzi3euD0iz
+	 oVPOCYBN3GTsoTiDyMrgkQuiU9QP2wXI5UjNrm4e0Cb0e9UvAnIOYoFmlMhTSr/IAlh4R
+	 KdVSe+0PmnEuZN+z6yHa20cCDDB5TpzxDUki7BglA7K+k0YAlHZcEILmF/SaMybc3qZdP
+	 Spada4eNxAiGHW/OSDFBf1HcadGKgFz3JbY8DYGW8zTTL+G1RhBlZs4z1+GLXALINFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209041;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fVaK4ADZfTpFy0KBC1SZQYE5drO916vj+ZhMklXVOv8=;
+	b=M/Zm+uVfCZ95ZQtDqyEM/vz1W1qEYaOIghuryDLMJBbXBbs8W9mmNIsC/yyygc1PA3GJ
+	 ixxNPJdxrNvq6qRaVZwhvYCpL+VF60LNA993cuh8bOXLfuUhSVv3sUFS90jHTPCgTQnLN
+	 n/7UFqHntpbIXdFK2Cz6KICCXyRWivHGHFxe0/lcvgzet8nXTdWSfgSOjJiaQTMyp37FO
+	 xT4HH+ssYQ6t41Xl9ELmt8HAf5DkDpxV8i0Ne+TZo96Bplxg83r2ddGl0+DSQlfHYKVX2
+	 2H0Urj/+fJf3xyNeY8KS72mJ4qj7r4EKdKIQvtX5yZRMN2+WDO5TK4NYAS5NYYDZYsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FVRPzWeM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.56
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010056.outbound.protection.outlook.com [52.101.56.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036D360A3835
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 036D360A3835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED32606A33F;
+	Wed, 28 Oct 2026 17:37:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED32606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K8iv/qok
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso1761688b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793209058; x=1793813858; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-        b=K8iv/qokqLcqmosxHF8uwyg869NLyQAd2klYldeDFNTuErcIAIQklXhEcLDF3cAFSI
-         yiamH0AHc0D8T+jPua1OXBPPjJ8rzTy8CxbuXwNti5LTXVHl6Hr8K4IGLsk7BSlZ3TVZ
-         A90BKQAghjbUvuHXi4wJvbSTb9OJ/JLoa4T8bGmpazXopDRJW3JwXhKtXAACo2EB4caC
-         kZ1uw1E2R3+oii9u3oirvbMDSJHMayzSztPbr76VU/enXTOyKVT7Je9j8qnvdVDiY1UG
-         9hEJ2CnnUzP2n4djSjMJ7Z4jlp7nylVquRfCQJDXLWs7SROf6w6abh+nUUSG0aw3gClN
-         oU7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793209058; x=1793813858;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-        b=fhP7Yy/v+WyWNimzG6u3e8zl2IR5UQF2W7MZ7T5HAQrFxVpB5JZ7/ra6XOa9ZA3bqG
-         T3qCE+X/ycBk2lEXQYUfHiOK4R7/1zlh0+bnwgiPG/5YuLBVGARUjn7xcprN6lUdbl6E
-         x5zoGZB8X5+IJeZfUj7X0YE2E64GzVmSb0zSC4qTBNuo8uRSlC0MqHyMgWjY1RoCgf5b
-         SbDEW7QpOWbwWRcrip0cgwD2ITJTVVX/yoJqBiC+t/xqdE8zkBegnDtso7PIL0Jylx30
-         7aBGr3TEGl09IhiZ0TQmxe4sWMGCoc5lpU+R4d3hn+uIG1bAwXCYM3+yy5lbk/NUk8cG
-         vFhA==
-X-Forwarded-Encrypted: i=1; AKwUvBy5iLy5v8w0miH9eQDiwFt4sqSXvcDN8yCxX+oSE585WNB8FXv5/m+pWkPyuck6ArDp9rKde70xILabm2k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7FWaw3g8L5FDPgV/4izkqiZj+fBfpDeubr3Dg00ozuJNLyYOr
-	bgnBhwlDJoo1hzANAaKdenuaAzMwkyMvWGepJUHkU7azbMc+xb5/IDLAPl87Ym8c/83iK2wWBd5
-	gCWakOQ==
-X-Received: from pfbfj6.prod.google.com ([2002:a05:6a00:3a06:b0:89d:3267:4348])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2386:b0:892:a8f1:c53d
- with SMTP id d2e1a72fcca58-8a6e6ff38aamr2448185b3a.22.1793209058009; Wed, 28
- Oct 2026 10:37:38 -0700 (PDT)
-Date: Wed, 28 Oct 2026 10:37:37 -0700
-In-Reply-To: <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FVRPzWeM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oui9qd4DjopTKlt0/zG/NfXXT2K7Nf608mRjc+O+QHBnRCXGnt0Y5S3++8fre1aUU2rJnV35XU8+w/0owRjabF+bi5P16gjRnTn7hKXUVYaBs9cEfHEwO4LuezTrEWS0X6DRAC9a9jbQHC/YYuwE6sBbI6n51VVc+O9MzNYKY8IXdEQcQ9JsjXn4Gy1KIDMqssUTLW03a81aemBUmmexmnKovgF61lftW03kxBIau8QzTkbrAOg/hKa+s2yXxkZRLqoH8tKBzN4Oa8+Sj2XP5jBWlvxqWFHILyz7LKlXungUWNGIgyeTLmSwHoYcvacqHMAHWuxjhxxY7hYN96eA7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fVaK4ADZfTpFy0KBC1SZQYE5drO916vj+ZhMklXVOv8=;
+ b=ZdXQ0uOGil9mSgmHuCGvyEynq9vIsktNGI4yDESk6++j7CYftBelSaL7sWRl6jvGdhoA+09ABhjWhESiNcY+lgkducPyXdRY6z9nTXeWjdOCq6xdJGG46CtOJ8sVXPKTFWq/bfNu3oJBxCgWdEc3HHMkdBsrkfQ6tPV/8holCz3D6yExPAmkrUQamhXLTQLhoYXpUtvu4GulzdDBcge0c96oG+x9OIAtnnX/adzb2FSYMyedFPX5vy+F0VUBeJ/0/AXSiD8yd3HsWBcjWRMRhC1Traj8SLSZTNFHf9tB2cW3//7NwuqijnOPEllf3ke+Vs/aUTHqC8yua7Wfyf5Xlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fVaK4ADZfTpFy0KBC1SZQYE5drO916vj+ZhMklXVOv8=;
+ b=FVRPzWeMxCDls4h4XCIDNqGLGyD9/Gl2suZFQIRmgiHd9IxTv8q/oCsqKoFtpdXvkEmSMlkoYbe5jsIj28PrWVoFqxErSB9sIX9oFBWHOMGOiG4m0Ck/tGIpCRzXsUHHOfPhh+gGW9BebQL8UHxmtlH1jSZYO/Vdgs/RTwqlD/KboGV4J8p65AndCKDMazkxYqVzD6QrUGyDJ2m9ZKhSkkst3bAFJeQEIHwSTHVX8rR8phKdmjmgF00safpdwPg/VY22SSz6oRM7JLi+JeuV7kJG4zvjHrRHJnuoy8U82NQCdUbLt2u4ebdgQBxV/BS59S5Bt/OZ5YuBri/G2OtRUw==
+Received: from PH5P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::12)
+ by SJ2PR12MB7824.namprd12.prod.outlook.com (2603:10b6:a03:4c4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 17:37:15 +0000
+Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
+ (2603:10b6:510:34a:cafe::62) by PH5P220CA0007.outlook.office365.com
+ (2603:10b6:510:34a::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Wed, 28
+ Oct 2026 17:37:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 17:37:14 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
+ 2026 10:36:50 -0700
+Received: from nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
+ 2026 10:36:48 -0700
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley
+	<joel@jms.id.au>
+CC: <devicetree@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>, Jacky Huang <jackyhuang@nvidia.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+	<billy_tsai@aspeedtech.com>
+Subject: [PATCH v2 6/8] ARM: dts: aspeed: inventec: Declare SPI NOR flashes on boards
+Date: Thu, 29 Oct 2026 02:36:13 +0900
+Message-ID: <fe591a336ef3e4aced8dcf8df9f14c4899b0b217.1793179064.git.jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793179064.git.jackyhuang@nvidia.com>
+References: <cover.1793179064.git.jackyhuang@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,88 +116,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026102314-CVE-2026-99082-e5b1@gregkh> <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
-Message-ID: <auIy4UZMGxLhBCAn@google.com>
-Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
- commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO cache")
-From: Sean Christopherson <seanjc@google.com>
-To: Sami Farin <lkml20261027@mifar.in>, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org, kimjw04271234@gmail.com, 
-	pbonzini@redhat.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|SJ2PR12MB7824:EE_
+X-MS-Office365-Filtering-Correlation-Id: 570083b4-f68f-4b59-f51b-08df351a1ab3
+X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|11063799006|261009223027099003|56012099006|261021121427099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ nLJMtpNl0Tpo4DJqgrjrO6lAsOUl+cI2dJA/AWcLvLzaSXwIVSVvAeMHidV0NpwisXjCI8AXL4RYbByaBuZ0ZqQzJxs0N7bS4iKZdmP5/tS2TOfgdZKIT6UAUclt1LkBeb0WvahFh3SlXec1SJFC+tjfM73L2RQRqXfHhAU5N2l/J5KmOYU5db57uBUCJ/hU4XZHfDB+zdf1MPdpPa5tvw02aLajs3MwrPr62baP8WwQ658lCcvB5K+831NbResnOdkj7UXtHFnaU6ygEA8DJjszNxrU0ROMBlBhm7H5WP3APfG/dFNH9AuIwhul4tN29kvW1fEWeC7vrL6Ev8gmBDG8gztegAUTKbRMtoTUnsXmDRimmXm4zCECm3ce/rvN1GaKNw3vib88GeMhVLriliqbiSJ1Y1SFCpxK5NEVXLvLxfrrmTHQiS4vkZnCvoLUacci4lbeFNyrhlr8Xey7+t5rMM/hxQj/ae40d3KWbQH6eCRfUdfE6pOd5At3FzRJ5vQMDsg5fWsi0Wzj7p85wJ/rK7nhpmhQ2wtNqyrlQRAgEPW1Nddz0FK4MAjMYtvYcBvg+vqhOchKY/7/GT9u1LuCmbfugkZ94JMeB/OluKqn6Y+PQVMVfIBGK1F9CBLI0kMFcOzH0lJqYTXWbmuqYttAIt4S/dkl5d+q3ZINZ+xicIxyyGRQ60q8EMP35fqhERTKR023IIu862yM6ykAuA==
+X-Forefront-Antispam-Report:
+ CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(11063799006)(261009223027099003)(56012099006)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ svcLh3ujUUqTjyOo2iOVCHaOLd2c/G34uEq2wGv9mLnMRDitspS+73fDKnL49ilVNYhMIR0UXXCMFbnETxh8/+mfX+WvfUZBNf9iXo4PMLtKVjtVIeaLoKRIXqmlwT7sx0g6UWUnYvrHvMSdxMB/c+WckI+9QljFjXsqERHXMgEfs4+G+srM/iENEeWvfuOK6IEKdXbiT/qUghpQLRA3ofaBVwPWJb4oW2Rvkrs0iUz3X0qduJvfbKEBP5tbjWG62OIGW3I1ozhVvdXANdSu9cNoHnXRpViH1vzfieJmY8HLuWcK/ZjphVLRjaNAfi+4hly1+JtYdglTk/Seu8jlJUTtnLHxySIdhTwZdnV6S2ZPtkAUn7RvfYalRf5cmpMJNIARtsu3IWPq21jdyxwEyYV6fV2F+EJJyo9w7cmJbI0io6d+DdQq5XciC9nXlq/g
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 17:37:14.1841
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 570083b4-f68f-4b59-f51b-08df351a1ab3
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7824
 
-On Tue, Oct 27, 2026, Sami Farin wrote:
-> On Fri, Oct 23, 2026 at 14:45:15 +0200, Greg Kroah-Hartman wrote:
-> > From: Greg Kroah-Hartman <gregkh@kernel.org>
-> >=20
-> > Description
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >=20
-> > In the Linux kernel, the following vulnerability has been resolved:
-> >=20
-> > KVM: x86: Use active memslots for the per-vCPU MMIO cache
->=20
-> Hi all,
->=20
-> (Disclaimer: I am an end user, not a kernel developer. I used an LLM to h=
-elp
-> triage and trace the issue, but the findings, traces, and tests below are=
- verified.)
->=20
-> I hit a guest boot hang after updating my host from 6.18.57 to 6.18.58 (F=
-edora 44).
-> Windows 11 guests using OVMF with Secure Boot and SMM (-machine q35,smm=
-=3Don) hang
-> indefinitely at the TianoCore splash screen, pegging the host vCPU core a=
-t 100%.
->=20
-> The issue bisects/points directly to commit b3e6212dea2e ("KVM: x86: Use =
-active
-> memslots for the per-vCPU MMIO cache"), which was backported into 6.18.58=
- and is
-> also present in 7.3-rc kvm/queue.
+Declare jedec,spi-nor flash nodes with the properties previously
+inherited from aspeed-g6.dtsi stubs. Keep status = "okay" so these
+boards stay enabled while the SoC stubs still exist.
 
-...
+Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
+---
+ arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-starscream.dts | 6 ++++++
+ .../boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts    | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-> ########### patch 1
->     The proper upstream fix requires tagging the per-vCPU MMIO cache with=
- the address space ID (as_id) alongside the generation counter.
->     The Flaw in Commit b3e6212dea2e:
->     The commit attempted to fix stale MMIO cache validation in SMM by che=
-cking kvm_vcpu_memslots(vcpu)->generation. However, its commit message reli=
-ed on an incorrect assumption:
->         "Memslot generations are unique across address spaces, so the gen=
-eration also distinguishes the normal and SMM views."
->     In KVM, each address space maintains an independent struct kvm_memslo=
-ts with its own generation counter initialized to 0. They are not unique ac=
-ross address spaces. During early VM boot, address space 0 (Normal) and add=
-ress space 1 (SMM) frequently have identical generation numbers.
->     Because struct kvm_vcpu_arch only stores a single GVA, GFN, and gener=
-ation counter without an address space identifier:
->         An MMIO access cached in SMM (e.g., GFN 0xFED40000 with gen =3D 4=
-) matches in normal mode where gen is also 4.
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-starscream.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-starscream.dts
+index ec82af94e..0bb3c6ab7 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-starscream.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-starscream.dts
+@@ -81,6 +81,8 @@ &mac3 {
+ &fmc {
+ 	status = "okay";
+ 	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc";
+@@ -91,6 +93,8 @@ flash@0 {
+ 	};
+ 
+ 	flash@1 {
++		compatible = "jedec,spi-nor";
++		reg = <1>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc2";
+@@ -106,6 +110,8 @@ &spi1 {
+ 	pinctrl-0 = <&pinctrl_spi1_default>;
+ 
+ 	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bios";
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
+index 45ee0f2cc..35f28799f 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
+@@ -64,6 +64,8 @@ &fmc {
+ 	status = "okay";
+ 
+ 	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc";
+@@ -74,6 +76,8 @@ flash@0 {
+ 	};
+ 
+ 	flash@1 {
++		compatible = "jedec,spi-nor";
++		reg = <1>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bmc2";
+@@ -89,6 +93,8 @@ &spi1 {
+ 	pinctrl-0 = <&pinctrl_spi1_default>;
+ 
+ 	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
+ 		status = "okay";
+ 		m25p,fast-read;
+ 		label = "bios";
+-- 
+2.43.0
 
-Hmm, this isn't adding up for me.  It should be impossible for the generati=
-on to
-be '4' for SMM, because SMM is supposed to use odd-numbered generations.  F=
-rom
-kvm_swap_active_memslots():
-
-	/*
-	 * Generations must be unique even across address spaces.  We do not need
-	 * a global counter for that, instead the generation space is evenly split
-	 * across address spaces.  For example, with two address spaces, address
-	 * space 0 will use generations 0, 2, 4, ... while address space 1 will
-	 * use generations 1, 3, 5, ...
-	 */
-	gen +=3D kvm_arch_nr_memslot_as_ids(kvm);=20
-
-So while both of the suggested fixes seem reasonable, they _should_ be unne=
-cessary.
-
-Paolo, at PUCK I verbally said we could go with the one-line fix, but I'd p=
-refer
-to hold off until we can figure out why the generations collide in the firs=
-t place.
