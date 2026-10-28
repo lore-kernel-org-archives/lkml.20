@@ -1,50 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198595;
-	b=yb4cDgg1Fw7Yv8IYrlVqlFqrS1eTkiFlJjDdZvz+2bw/vbDd5sfQEgA8N80rtJSb0JH+
-	 xUjFFI7CAPhdiHnm5ppexPsYJpgCySWV/PWG47D7VQXfprAPw//n+3uITsXso4SE8yRwg
-	 vtQ6aqgd8n0HdJaELD8KtOa7XbzlW/ty+jjJf5CkbqhPGSVsroPNJ/mSAjzofqF5WKZ1g
-	 c7qMOiNHViKxOFYOsdB3DXp/nMKgrFtOIHk8KaR4ckmEgPOUp2ypYY8kbXbWhaF2RpkQN
-	 hayHwORLRnJj9qJXrBptiC7f5U1YQ7pdSsckO3DYlHogm8OZtqQU4H4Uh90Cspb08EA==
+	t=1793198612;
+	b=cqTGEflMdEbNjKF3d4DDAudnFEmupjHgIlKRR6hVXTqzRdGfC/jrFBHUnPgN0kMNGe+q
+	 lECerKdgwIcxLpVplkhAT7/6AWXyUh5QtUxGY1XNP+3jLdzk/3/hfGpJ3sgqSO0f9RnO6
+	 dYfXPRuD7e17y8RH7qu5utqGWw2RbgJIqO2v5L+i5Y8Ieh0AOTrv+E/9UeJq0hH0DrQUo
+	 243lnB3eiUEjwA1W5UjMiXxOxVIM+Jm+v7ZI27j5L7wcZgVHFct9dDLmu4XfSeXqRssgT
+	 CTHoKzPga+dsUjp8r5wtd/QfkGApJj5nHWCsuYqN5c0391a2EfK5fl7ZuCWDMb91+/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198595;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=Iew3CyqRE2BB2lmlDEMJ24EaaybNUYl1ymLtS7Q4+P4=;
-	b=nYG9WpXNGvnioa36R6rU7hm3vbiemyB/ztw1gKlOYvpWM5F1SVo9ztVUrDw7omm6BFUK
-	 12P1a5rqt8TCzcT7I3q/9GSSkQ/igxguosMxWw3Xx+mkGeEaV6C+Gjv46dBe87B7x9jxg
-	 FaOCVQPQxwuZVXeTaOuB3vGq7NVNyhVPQT0dOPwEBIOdZ+oP42+yp0LtjCrYPmUwrdpup
-	 YpQRebr6QXeek2drlwrM1h8Mzg5dY0+rhJ8d6Q7+H1vNTt2qm9i9r0rqQjTCIyl1UqLae
-	 3pDZoHzrA2FL5glho7vToEBdosaOzEccMLV4qoGl6cc9rk2xUvlK0ntqchID0/WZk9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198612;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=H6tjSBgw3xheuMGJGlzZ0ILAkEjbb5VS0pewsmgtvPZk1qBjowa+EGkBbVQMWd6R5+3I
+	 7CtlevlsCxK2zi3jAFrVuOJc8OXubMOjuBNqiVg/h094HTldoCDZb7iuTM5m42nP91+m5
+	 UKZmZRdVUpcHu6YdsIFF94lEzYIs8+XqJ+f2Rvs8TysStzG+cTdLywNp+KOPLWEJMCgVm
+	 fpRfGBE+tNppwGCiZl5nSdDUU4v+QP3mByQO8BTp7UcKJr3dd/lGHII+ptHv0jhKTlRyf
+	 r67AlH7Q3r90GaVS8ddLre+tGeFQxw9op7Xt1KVwm7eDtLQlLj13eZ14iz+D1gHYaPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oP9sRGHx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FC3606A31A;
-	Wed, 28 Oct 2026 14:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oP9sRGHx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA1E1F01825;
-	Wed, 28 Oct 2026 14:43:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793198594;
-	bh=Iew3CyqRE2BB2lmlDEMJ24EaaybNUYl1ymLtS7Q4+P4=;
-	h=Date:From:To:Cc:Subject;
-	b=oP9sRGHxLfkNLKO+4xtJ1HwpDR7R3YpaOHJysiTONwsv2WrX3qGrY2bYIGFzicrMP
-	 AjwPiGNfGfBySLATVqQrkB2ipfUsLvQvWJdZ1hPG9aLPR8ih/avpQ9x7cv/WZzWVdR
-	 4aayy3RpiSX+Qc7lwJQhP+JbvSayhp7A/LXWnacLLRYRlkAdGClKAAJ2nnjeNhqxGh
-	 RoHPNCiavS33YWbw/md+rusIhkW7SFUG7tELS8qN978Dc+TE4OWDY2jKDUN6CZ2sge
-	 Xc5RNO6fAfV/7DfdaznqUCQvCIixTCNhgGLcnW4kjIUqa0C3m18nmMfFXloS7diSx1
-	 P9ifOLdRe6Uuw==
-Date: Wed, 28 Oct 2026 14:43:11 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Oct 28
-Message-ID: <auIJ_zR_Ojt8avG7@sirena.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2371606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2371606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 5CB2268BFE; Wed, 28 Oct 2026 15:43:28 +0100 (CET)
+Date: Wed, 28 Oct 2026 15:43:28 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: martin.nvme.dev@gmail.com
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Hannes Reinecke <hare@kernel.org>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Martin Belanger <martin.belanger@dell.com>
+Subject: Re: [PATCH v2 1/2] nvme-tcp: start error recovery when read_sock
+ fails
+Message-ID: <20261028144328.GA14099@lst.de>
+References: <20261027-nvme-tcp-ctrlrec-fixes-v2-0-9656395ebcf2@gmail.com> <20261027-nvme-tcp-ctrlrec-fixes-v2-1-9656395ebcf2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,70 +51,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="70GZv1w6EOM4G7nH"
-Content-Disposition: inline
-
-
---70GZv1w6EOM4G7nH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261027-nvme-tcp-ctrlrec-fixes-v2-1-9656395ebcf2@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Hi all,
+Looks good:
 
-Changes since 20261027:
-
-The ceph tree acquired a conflict with the origin tree.
-
-The amdgpu tree acquired a conflict with the origin tree.
-
-Non-merge commits (relative to Linus' tree): 3219
-
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 434 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---70GZv1w6EOM4G7nH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriCf8ACgkQJNaLcl1U
-h9ClzQf/aCzroPZ9lLrXc1dCAv4qBWCoMSXIUYtwg84R1GqOtlzFJY/p8XKVe1Ez
-ofJ9/O/Rxvm8KiqAOIm/z581jwNz+bz17u4Glz3TQ3Xrq/g+jGeB4FiPMvidqErB
-xWX/SwGBe6YDlIUIUP0Wg0io9faJgIYYf3UpkPnjCYnhDejqsaJjgMbCHvnGka/B
-bvZCndT8xoN1Ch0I8Sd6buO1T1FCG4QsAi7F2EuStmaqtKxseYR2/mA2vVby5Z71
-Ml8u2lI1pwqVRiU9zFuZTebrCkGgC3fQky4A5fKy0OtFY4CrQzMFt5bsBS7MD20A
-U2senFgQv7NO4x0cTSq3zneUAMV2qg==
-=20ck
------END PGP SIGNATURE-----
-
---70GZv1w6EOM4G7nH--
+Reviewed-by: Christoph Hellwig <hch@lst.de>
