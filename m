@@ -1,112 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188103;
-	b=le+6zhapN0eZKlbfvuazVJcMOwId2iDhtH1Z6dOZQ4ATmV8sflGVEnYbGzLQgkE00m1s
-	 PzsS56aH49AyN+88ASyK27c4q1DdkYLvHkeJu0hB09uYhTeUzERW7JVDYe7Y1w73OktSw
-	 pY13iklzUi5tNILQ6pRur3pchWSSqq6s3kKV13PlPm+VD33vDynD3cT5UwoN9V7y5N162
-	 uJ25B8exUrQjFEb0eHk0eV+qAOnYe2MxmhMdPCv3Vqwz5CWFzQZOZCYnwIbkZEzglPgNh
-	 soYxqGj7NhdvoLammzXHTpAIypWu7x8f32/pCv9DINdVLjGox4nFh01e8JzD8DZqVwg==
+	t=1793188111;
+	b=FAkjt7oLJY9wJH+Qoe3AQVqmMgMwrRXN/PLYGb6q2PDHxjD86VHC5OweIQ+fh72TeOM3
+	 oGN0d1Qrmt/KLlEzNfUj9HjzHOEkIOJBFPXVMysmGjFIWSw3lI2mqzHtgSx3Mg5n6swGA
+	 NAodqzvnQtUiGr04rrEzH6RXW5I7fbpwQfJ7s/aS+SRzPQXH9my8luFrkQ5z89jzc9FL8
+	 f3Z8Rt1zldcu2welyGpsA+oCUqrBRZqCmwmHcJglwZBgjp+an/Oy5Zfd+mp+znSijDLJF
+	 3oDR7i0HLiz7NKHRNO2wnxbg0jJa9MYtxZSCzZgDp1YzUSvNUk7siCJ/6VwwNghMFuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188103;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=1FNdw/vxGAA0wQbj4L4Ts+BO20TKyzwdbY/j2gmRfqI=;
-	b=VP4Rn0Aak6agx0QtOeRhaGarbuqbqwwSLBMjBVU/rB/+MwyY54X/1UD58aQmHc1jtffu
-	 XlkFbe9imuMAe/xLdPIStlRNZlEjmTsan2KZN2kjsPDmiS19RflwyU6O6wdwRhwe9P5tJ
-	 QKCRzAxL23uxWetFkoidYBsPE8zaiPYns1LVAB+xHbvJUZzsNq2WoTv7uN/74UDeRjfvS
-	 xYr055FB0Qomi/dmXzCfUWlZ0Gf2oWeab9HNr2V9XeOG5Oyn3sdQFnjYUVU7c5BwtNR/A
-	 WQAGnDZND3nQ0YZkLNYGukdaUOR+6sFx/MKcJogUtsjbWHTWIza25jkzBgXUovlzV2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188111;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=zUA7wsdwkDcXAmf5trYXKJIaPx0Jsdm4yykZkgY8SWs=;
+	b=vTj2p57z1BXyBcwL09gUJakRmWQDfwMS/5Bd+FcZe+21jeQGGGWcbWcFsWas6QMWM9u6
+	 hgC2bFXCLhBULPLC1Tpf4IvEUQS1YxpQiGxd5QpYZRThryc2rwqK6OeZY+RwnbVefQmMb
+	 NcC0ejUoifzru6pEPXoJTsTSs4ym4p8vHZ/uH3rAkgI7yYGtL6b/WPohUDVQLNzoI7mWT
+	 pMq7ci84gbZdyS6EQNp8+MjAjVDz04ExZtxuAI/UpFEdAFQ7Y8ei3AwaZ752KSzjok0eA
+	 Na49O214cpLZw4zLgwwmk/XPAMhamzvAQr+9yCIajpUpF1wDPpj0sLHFxj4XcFyxpFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L4Emxa5D;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="GgRDZ/9G";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQwwUKwt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA184606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA184606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12EF606A325;
+	Wed, 28 Oct 2026 11:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L4Emxa5D;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GgRDZ/9G
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe2Qf4154745
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1FNdw/vxGAA0wQbj4L4Ts+BO20TKyzwdbY/j2gmRfqI=; b=L4Emxa5DBOXtcr0X
-	V1mSC+aXb56oY4X8irE/w57Sb9Tcdd9lMVxLWy12E6T77nFgHBaPdMY005QTSsLx
-	OzW8qiAlhLD8APxBJsLSmhhjxDfo1EaGms3MTArWWi4JR/5bVbkNtwwtxOPcKv/G
-	JGzOeSHppmIT/+t+CV3etW34EUBiicIkIfV5lrZZYXmLVfZ6mEwqg4+pEauHPl82
-	lg2SC5BUKhlVFbdM3PG99/asSwlON8rkfVDHXaOazLXi5g1BNqDfXzKpRT8uDNI4
-	Zy0q9mENbQLZU1CjjS6s7kqdkNTk/EnzQXDsYl1JCONDguOeCco9efi1iMjI/PWk
-	kFtlFg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp0mq2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:48:21 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e9d52f684fso8482485ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793188101; x=1793792901; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1FNdw/vxGAA0wQbj4L4Ts+BO20TKyzwdbY/j2gmRfqI=;
-        b=GgRDZ/9GgrCN5AEGroEEriMf6yOsgg0hO4lo2DeRamL3UWQWAkQCMTLU97xlRqk1Z0
-         QVIEtkX0VCzIiSIax+ROheHgEPWwNS7L9S3opRmFN+yLdLjOQDLEAL0G7Xt5zErYhhzq
-         4yaqRE5qmNci4uxi0j5aGmfApQ92e8/rE5CzFTkXhabLBdRXtCfmvkg1uECU1oWWtNZ/
-         KUTnc4xHKscl6jVhCQ1P7uCWHZDLawqiSUfFVg/yRGX6d2tUkptYpVddGS0SEpRgs0d4
-         vLfuDVBQYrIkE/sqtOgZx/dltwjOtEOWy5OPiRfnKwvEZ0cJDgiRFJNdVPL6SL9NDvm0
-         aq9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793188101; x=1793792901;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1FNdw/vxGAA0wQbj4L4Ts+BO20TKyzwdbY/j2gmRfqI=;
-        b=Bi5Ec5rvSyZrE9JDVfpy9LwcPjwO5G/0FeYnYFCCTZwLXLT8RvF5Ytt/9sbsAbGPWK
-         oxZ0UNFgltSppGQSwnfun9njLX2h1I/49zIYxvC0Ofi5c54TLnNhxq5xFpjJMFzpTYCd
-         pKKuImyNj6mv3Gldv+6jCC+4alCMz6vtrJgSC0qgUyhmIImt8BjjHBzD4CSklNhIgVh0
-         QAhIj8VeDSNJHJfxzWq3jra979ll4+ctBvEI4KpUfCZ3HU3sKRxXNfWXb3gQKCEBK705
-         HXkvyVTxSp9bXF1zVug3wA+/qSq+3PJjMbL8Od4ttT3DMVrnrJSQ2bYBt7igA+ryNouN
-         R2Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfyP8Ypz8poXV1yGq4E3ffxPgf7hIxgHrIwL+mVsnFPnFKxnjn5RhSTxsHXH5RgWEIlfP79BKM0g4F+Rg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/6ytkV8Q47jSLeUIwEODNV9pPDZrsqMTklP1/ehZbWAU5ujDh
-	hOBF5eZ2Uz5FwOlVOgibI7AtyHmibig705hLu0ZsPVrjVxcNY+qVmAqqS6X4WELSsz8SwOyndgH
-	1YdyAgd+Y8kk0z5Gnl5tjfU44EV57Rcq954wU7jXeDdrlSrJrXRL4ZovhHS2v1NYPE8s=
-X-Gm-Gg: AYBFou1naG38gw9/4tcu5+UvJH7rslnvwo+5E/b/mYQxbfy+hnVAXLzZJKE8Q+d4opC
-	9Mxq+ItzF/N5FYlsvjK2LIn60ANece98NMP/K43LWQEzBTXSnOCLuzuZ2lNQa4Sj0KnQWbnQKYS
-	3TMyCgTf2ls38UqrN9ztjsjAvcJFkGfGnBJVLUH3pfTQslu73dNFdr9FwUOUxwfCdgwnKokD3nC
-	SLObbrUdgtUeTIHRY5tGP9SpMh3rT0kWSF7J5tiOL3u0+E5agdD4tm1XUYcWorzT3zfslX+/Hym
-	lmvJVLYbP2XfhgQFmQzW3E3IatJAXvcm6aYpVLFFsIPKR0HYI1nze3qomTw9wQexmcBh8F1I67O
-	I+H0YVsAQ9dEEmelH5V/olVCWTNn+AxCTt+YJS1seTnSULZ5ouc8+Oe+gVzchMf0o+zJqsTe7jt
-	T0nm8ZM7kCrWyL7xvGzAhJenkAJmMZ
-X-Received: by 2002:a17:902:d4c1:b0:2e6:dcce:8227 with SMTP id d9443c01a7336-2eb00577f35mr20660415ad.37.1793188100469;
-        Wed, 28 Oct 2026 04:48:20 -0700 (PDT)
-X-Received: by 2002:a17:902:d4c1:b0:2e6:dcce:8227 with SMTP id d9443c01a7336-2eb00577f35mr20659985ad.37.1793188099702;
-        Wed, 28 Oct 2026 04:48:19 -0700 (PDT)
-Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c37551sm21207715ad.51.2026.10.28.04.48.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:48:19 -0700 (PDT)
-From: Yin Li <yin.li@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 19:45:45 +0800
-Subject: [PATCH v4 5/6] arm_mpam: Add device tree support for MSC probing
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQwwUKwt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E411F01825;
+	Wed, 28 Oct 2026 11:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793188110;
+	bh=zUA7wsdwkDcXAmf5trYXKJIaPx0Jsdm4yykZkgY8SWs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UQwwUKwtNDl0F0ynm4pREwo76+FnDiRNAtZIUrH/qRV/yf5r83ielPCY5XlGZC8f6
+	 o3sYmWHTou7jHUObwehWBNQAEvo4QVA8Mj92AVnKWLtY2QGpWwjogCdSl3576LjKVX
+	 hxbMct6TL4Hyq6QhX6Y3ILaAJIAUBz0VD2eNA8HzYZ9mTMVcGY13uONovW4yN6Kx4X
+	 c5cnXiNS63MU2RrWA4mH3IjwHIZEHk87PbrJYEPpLrngn+v1/Py3XGlO3bcVicCDh1
+	 kzI7MiA25w158CL3UBUamf4nGDSRYPm8+7PEQLu9zyqmwrp3fnlfcnb4s1HJCJmlSl
+	 h3qKP7qbF1V2Q==
+Date: Wed, 28 Oct 2026 11:48:25 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
+Message-ID: <20261028-imported-pistachio-unicorn-2ecfec@sudeepholla>
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+ <20261005-s2idle_state-v1-2-3c402c66f388@oss.qualcomm.com>
+ <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
+ <CAPx+jO-T_0KT3GytYu8w6QvrhXFQNZQzR496RL=McU6rnMtnPA@mail.gmail.com>
+ <20261009-frisky-rottweiler-from-avalon-6c409e@sudeepholla>
+ <CAPx+jO-_aY5pMnWyy1hAs1WRmfW33vc317jdtBsEXYBoHsPfxA@mail.gmail.com>
+ <20261009-skilled-mature-bittern-2206fc@sudeepholla>
+ <CAPx+jO87gkTumF=Tg=UPWpJO6O-CRF4njT2KxQ3f=4nF5m7GiQ@mail.gmail.com>
+ <20261014-prudent-mini-duck-377cb6@sudeepholla>
+ <CAPx+jO_BOwbKeRytBezm+piLhb8Z5N2eQO=LRwBQoSZ3kXOpwQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,427 +76,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-mpam-resctrl-dt-knp-support-v4-5-bdda1e445cba@oss.qualcomm.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
-To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
-        Drew Fustini <fustini@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793188048; l=10837;
- i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
- bh=uaetMfuq262X0JDVCjdTX6V48x+0AYDuDdfQGlqBv/U=;
- b=1Xb/M1uNtL15668CzuhskQ8rTIFlFwe+W22UrYP6snpad4imUcZh6KTjbf+yhD8qWI1ZGYhtH
- Auug4GCoXsWDcsvFFJBMgM0wU+yup5doidz7xkhAhhZc4ZKtcjL4Czd
-X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
- pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
-X-Proofpoint-GUID: YGqYtahLzdrXwM3kJyLyY9LbCvoNxMtA
-X-Proofpoint-ORIG-GUID: YGqYtahLzdrXwM3kJyLyY9LbCvoNxMtA
-X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae1e105 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=-Bf8dWPtDk6FBw2lJ3EA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX5fmJy5MjhkxZ
- 91fQMKdUOMCs7+T7OcVe2Py3G1csGRt5WJOhjFk49IGUJlZ6vdoVMn2C6GKt0TJylFPp0lcdHzf
- 0h7OXPIp+omV3IRQ3rYnYjeRg+juM5/jhSp/B/EbL8XypcY4PUc6brM7VMdcwg7chAHePOM1cgg
- ZjEy/Z7MLXtirXQwG6k1j9Ii5OLaCox6QFnwOxvZf0mFbEnjeqw9Ifk4CBBYBrN3eq7G6xlMGH9
- sM3mhT/8p2H6BffCVOI4xksvvnSKDsH4gOLlv0CKlTM4HSy2xXibB6F/swj5WPMMWHPBAoH8tP3
- iNnD3bw0a7DbHCQUcAIxCBVGSzhlpoGw9jJTylxJMOH4jTEv4nn67K9VakHmShO3HvZKVnb01VS
- HR+Bl0mv1KuXnccAyEX/cPG7VcREzivaWcFqoIyHX8FLWluty80uXVIMpUPdgVz1wHYE9Tscew0
- mnCL89wZ6+NiSCgqXgw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX9vxtNh3f7T6w
- /4fU772fyV4iSyt3LXOpCyZKNPIOTua6vw3lFTHv5PzhU+KdQpNCAZQ1sOZbLbKxlXjVaRcr3ho
- Z9KcJnDb6EiZLEu7gXvX02Lr+zDvZ/s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280046
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO_BOwbKeRytBezm+piLhb8Z5N2eQO=LRwBQoSZ3kXOpwQ@mail.gmail.com>
 
-From: James Morse <james.morse@arm.com>
+On Wed, Oct 28, 2026 at 11:59:58AM +0100, Ulf Hansson wrote:
+> On Wed, Oct 14, 2026 at 9:12 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> >
+> > On Tue, Oct 13, 2026 at 12:11:36PM +0200, Ulf Hansson wrote:
+> > > On Fri, Oct 9, 2026 at 5:27 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> > > >
+> > > > On Fri, Oct 09, 2026 at 04:26:38PM +0200, Ulf Hansson wrote:
+> >
+> > [...]
+> >
+> > > > > If that's the case, besides that the cluster PM domain topology must
+> > > > > be modelled accordingly, the display device should be hooked up to the
+> > > > > cluster PM domain it belongs to.
+> > > > >
+> > > >
+> > > > Ah, I thought that's the way the whole domain-idle was modelled as we
+> > > > started this OSI discussion a decade ago with an example of CPU clusters
+> > > > sharing power domains with some other devices. I am surprised if that is
+> > > > not the case already 🙁.
+> > >
+> > > It works fine today, I was just trying to explain how it works,
+> > > considering the use case that you brought up.
+> > >
+> >
+> > Ah OK, good to hear. For once, it sounded like that's not the case. My bad.
+> >
+> > > >
+> > > > > Beyond that, it's the corresponding display driver that becomes
+> > > > > responsible for what should happen during system suspend. If the
+> > > > > screen needs to stay on it may need to call device_set_awake_path()
+> > > > > for the display device - unless it's a decision for user space that
+> > > > > can control the behaviour for the display device via its sysfs node.
+> > > > > If things are managed accordingly, genpd_finish_suspend() may decide
+> > > > > to keep the corresponding PM domain powered on during system suspend.
+> > > > >
+> > > >
+> > > > But the s2idle and s2ram anyways suspends all the devices, so they need
+> > > > to vote in for the power domains to be turned off. If they are supposed
+> > > > to stay on, the system enters the state it can based on the other votes.
+> > > >
+> > > > > The above said, $subject patch doesn't change any of this. It only
+> > > > > allows us to use more states (deeper), which are limited to system
+> > > > > suspend (s2idle).
+> > > > >
+> > > >
+> > > > Still not convinced, if all devices are plugged in to the power domain
+> > > > hierarchy correctly and the domain-idle states represent or carries
+> > > > the entire system power domain topology, we shouldn't need this extra
+> > > > information. Having it make cause issues when it conflicts with the
+> > > > topology information IMO.
+> > >
+> > > No, it's still not sufficient to model the power domain hierarchy correctly.
+> > >
+> > > These "system states" are special since they require additional
+> > > coordination in FW/HW, to take into account votes not directly
+> > > controlled by Linux.
+> > >
+> >
+> > But if Linux doesn't control, some other entity would vote and until then
+> > the system shouldn't enter that state. Without knowing that it is system
+> > state, will the kernel be unable to choose that state as it hidden vote
+> > is invisible/not tracked ? I trying to understand why if Linux chooses
+> > that system level state as part of idle loop, the platform can't downgrade
+> > if all the voting requirements are not met. I am struggling with that
+> > and want to make sure we are not working around a broken firmware.
+> 
+> For OSI, all the FW would be able to do is to return an error. But
+> that doesn't prevent Linux from trying the same idle state again and
+> again.
+> 
 
-The MPAM driver currently discovers MSCs only via ACPI. Add a device
-tree path so MSCs can be probed on DT-based platforms: parse MSC nodes
-from the device tree, compute cache-id and affinity from the cache
-nodes and create the RIS entries.
+Now I understood the requirement much better. The core issue with OSI is
+that it fails unless the platform downgrades special system states to
+non-system states during routine CPUIdle paths.
 
-Signed-off-by: James Morse <james.morse@arm.com>
-[ Yin Li: drop the ACPI-only stub of mpam_get_cpumask_from_cache_id();
-  use of_node_get() for the cache parent to avoid a refcount underflow;
-  reject out-of-range ris_idx after of_property_read_reg() before
-  narrowing to u8; use u32 instead of unsigned long for cache-id values
-  and compare against ~0U; fix mpam_dt_create_foundling_msc() to iterate
-  MSC child nodes rather than creating a device for the cache node itself ]
-Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
----
- drivers/resctrl/mpam_devices.c  | 250 +++++++++++++++++++++++++++++++++++++---
- drivers/resctrl/mpam_internal.h |   2 +-
- 2 files changed, 234 insertions(+), 18 deletions(-)
+This leaves us with two directions for OSI:
+1. Firmware Resolution: Handle state transitions entirely in firmware.
+2. OS Intervention: Enforce the handling via the OS.
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 0f984fcbcae9..091c8ba2e974 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -22,6 +22,9 @@
- #include <linux/lockdep.h>
- #include <linux/mailbox_client.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/printk.h>
- #include <linux/property.h>
-@@ -263,6 +266,171 @@ static void mpam_free_garbage(void)
- 	}
- }
- 
-+/* Called recursively to walk the list of caches from a particular CPU */
-+static void __mpam_get_cpumask_from_cache_id(int cpu, struct device_node *cache_node,
-+					     u32 cache_id,
-+					     u32 cache_level,
-+					     cpumask_t *affinity)
-+{
-+	int err;
-+	u32 iter_level;
-+	u32 iter_cache_id;
-+	struct device_node *iter_node __free(device_node) = of_find_next_cache_node(cache_node);
-+
-+	if (!iter_node)
-+		return;
-+
-+	err = of_property_read_u32(iter_node, "cache-level", &iter_level);
-+	if (err)
-+		return;
-+
-+	/*
-+	 * get_cpu_cacheinfo_id() isn't ready until sometime
-+	 * during device_initcall(). Use cache_of_calculate_id().
-+	 */
-+	iter_cache_id = cache_of_calculate_id(iter_node);
-+	if (iter_cache_id == ~0U)
-+		return;
-+
-+	if (iter_level == cache_level && iter_cache_id == cache_id)
-+		cpumask_set_cpu(cpu, affinity);
-+
-+	if (iter_level < cache_level)
-+		__mpam_get_cpumask_from_cache_id(cpu, iter_node, cache_id,
-+						 cache_level, affinity);
-+}
-+
-+/*
-+ * The cacheinfo structures are only populated when CPUs are online.
-+ * This helper walks the device tree to include offline CPUs too.
-+ */
-+int mpam_get_cpumask_from_cache_id(u32 cache_id, u32 cache_level,
-+				   cpumask_t *affinity)
-+{
-+	int cpu;
-+
-+	if (!acpi_disabled)
-+		return acpi_pptt_get_cpumask_from_cache_id(cache_id, affinity);
-+
-+	for_each_possible_cpu(cpu) {
-+		struct device_node *cpu_node __free(device_node) = of_get_cpu_node(cpu, NULL);
-+		if (!cpu_node) {
-+			pr_err("Failed to find cpu%d device node\n", cpu);
-+			return -ENOENT;
-+		}
-+
-+		__mpam_get_cpumask_from_cache_id(cpu, cpu_node, cache_id,
-+						 cache_level, affinity);
-+	}
-+
-+	return 0;
-+}
-+
-+static int get_cpumask_from_cache(struct device_node *cache,
-+				  cpumask_t *affinity)
-+{
-+	int err;
-+	u32 cache_level;
-+	u32 cache_id;
-+
-+	err = of_property_read_u32(cache, "cache-level", &cache_level);
-+	if (err) {
-+		pr_err("Failed to read cache-level from cache node\n");
-+		return -ENOENT;
-+	}
-+
-+	cache_id = cache_of_calculate_id(cache);
-+	if (cache_id == ~0U) {
-+		pr_err("Failed to calculate cache-id from cache node\n");
-+		return -ENOENT;
-+	}
-+
-+	return mpam_get_cpumask_from_cache_id(cache_id, cache_level, affinity);
-+}
-+
-+static int mpam_dt_count_msc(void)
-+{
-+	int count = 0;
-+	struct device_node *np;
-+
-+	for_each_compatible_node(np, NULL, "arm,mpam-msc") {
-+		if (of_device_is_available(np))
-+			count++;
-+	}
-+
-+	return count;
-+}
-+
-+static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
-+				  u8 ris_idx)
-+{
-+	int err = 0;
-+	u32 level = 0;
-+	u32 cache_id;
-+	struct device *dev = &msc->pdev->dev;
-+	struct device_node *cache __free(device_node) = NULL;
-+	struct device_node *parent __free(device_node) = of_get_parent(np);
-+
-+	if (of_device_is_compatible(np, "arm,mpam-cache")) {
-+		cache = of_parse_phandle(np, "arm,mpam-device", 0);
-+		if (!cache) {
-+			dev_err_once(dev, "Failed to read phandle\n");
-+			return -EINVAL;
-+		}
-+	} else if (of_device_is_compatible(parent, "cache")) {
-+		cache = of_node_get(parent);
-+	} else {
-+		/* For now, only caches are supported */
-+		cache = NULL;
-+		return err;
-+	}
-+
-+	err = of_property_read_u32(cache, "cache-level", &level);
-+	if (err) {
-+		dev_err_once(dev, "Failed to read cache-level\n");
-+		return err;
-+	}
-+
-+	cache_id = cache_of_calculate_id(cache);
-+	if (cache_id == ~0U) {
-+		dev_err_once(dev, "Failed to calculate cache-id\n");
-+		return -ENOENT;
-+	}
-+
-+	return mpam_ris_create(msc, ris_idx, MPAM_CLASS_CACHE, level, cache_id);
-+}
-+
-+static int mpam_dt_parse_resources(struct mpam_msc *msc, void *ignored)
-+{
-+	u64 ris_idx = 0;
-+	int err, num_ris = 0;
-+	struct device_node *np;
-+
-+	np = msc->pdev->dev.of_node;
-+	for_each_available_child_of_node_scoped(np, iter) {
-+		err = of_property_read_reg(iter, 0, &ris_idx, NULL);
-+		if (!err) {
-+			/*
-+			 * ris_idx is read as u64 but indexes a 4-bit RIS selector
-+			 * (0..MPAM_MSC_MAX_NUM_RIS). Reject out-of-range values here,
-+			 * before it is narrowed to u8, so a large value cannot be
-+			 * truncated into a valid-looking index.
-+			 */
-+			if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
-+				return -EINVAL;
-+			num_ris++;
-+			err = mpam_dt_parse_resource(msc, iter, ris_idx);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
-+	if (!num_ris)
-+		err = mpam_dt_parse_resource(msc, np, 0);
-+
-+	return err;
-+}
-+
- /*
-  * Once mpam is enabled, new requestors cannot further reduce the available
-  * partid. Assert that the size is fixed, and new requestors will be turned
-@@ -629,16 +797,6 @@ mpam_vmsc_find(struct mpam_component *comp, struct mpam_msc *msc)
- 	return mpam_vmsc_alloc(comp, msc);
- }
- 
--/*
-- * The cacheinfo structures are only populated when CPUs are online.
-- * This helper walks the acpi tables to include offline CPUs too.
-- */
--int mpam_get_cpumask_from_cache_id(unsigned long cache_id, u32 cache_level,
--				   cpumask_t *affinity)
--{
--	return acpi_pptt_get_cpumask_from_cache_id(cache_id, affinity);
--}
--
- /*
-  * cpumask_of_node() only knows about online CPUs. This can't tell us whether
-  * a class is represented on all possible CPUs.
-@@ -2394,15 +2552,34 @@ static int mpam_msc_setup_error_irq(struct mpam_msc *msc)
-  */
- static void update_msc_accessibility(struct mpam_msc *msc)
- {
-+	struct device *dev = &msc->pdev->dev;
-+	struct device_node *parent;
- 	u32 affinity_id;
- 	int err;
- 
--	err = device_property_read_u32(&msc->pdev->dev, "cpu_affinity",
--				       &affinity_id);
--	if (err)
-+	if (!acpi_disabled) {
-+		err = device_property_read_u32(&msc->pdev->dev, "cpu_affinity",
-+					       &affinity_id);
-+		if (err)
-+			cpumask_copy(&msc->accessibility, cpu_possible_mask);
-+		else
-+			acpi_pptt_get_cpus_from_container(affinity_id,
-+							  &msc->accessibility);
-+
-+		return;
-+	}
-+
-+	/* Where an MSC can be accessed from depends on the path to of_node. */
-+	parent = of_get_parent(msc->pdev->dev.of_node);
-+	if (parent == of_root) {
- 		cpumask_copy(&msc->accessibility, cpu_possible_mask);
--	else
--		acpi_pptt_get_cpus_from_container(affinity_id, &msc->accessibility);
-+	} else {
-+		if (of_device_is_compatible(parent, "cache"))
-+			get_cpumask_from_cache(parent, &msc->accessibility);
-+		else
-+			dev_err_once(dev, "Cannot determine accessibility of MSC.\n");
-+	}
-+	of_node_put(parent);
- }
- 
- /*
-@@ -2563,7 +2740,10 @@ static int mpam_msc_drv_probe(struct platform_device *pdev)
- 		return PTR_ERR(msc);
- 
- 	/* Create RIS entries described by firmware */
--	err = acpi_mpam_parse_resources(msc, plat_data);
-+	if (!acpi_disabled)
-+		err = acpi_mpam_parse_resources(msc, plat_data);
-+	else
-+		err = mpam_dt_parse_resources(msc, plat_data);
- 	if (err) {
- 		mpam_msc_drv_remove(pdev);
- 		return err;
-@@ -2576,15 +2756,45 @@ static int mpam_msc_drv_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct of_device_id mpam_of_match[] = {
-+	{ .compatible = "arm,mpam-msc", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, mpam_of_match);
-+
- static struct platform_driver mpam_msc_driver = {
- 	.driver = {
- 		.name = "mpam_msc",
- 		.suppress_bind_attrs = true,
-+		.of_match_table = of_match_ptr(mpam_of_match),
- 	},
- 	.probe = mpam_msc_drv_probe,
- 	.remove = mpam_msc_drv_remove,
- };
- 
-+/*
-+ * MSCs that are declared by the firmware as being part of a cache may not
-+ * be created automatically as platform devices, since there is no
-+ * dedicated cache driver.
-+ *
-+ * Deal with theo MSCs here.
-+ */
-+static void mpam_dt_create_foundling_msc(void)
-+{
-+	for_each_compatible_node_scoped(cache, NULL, "cache") {
-+		for_each_child_of_node_scoped(cache, child) {
-+			if (!of_match_node(mpam_of_match, child))
-+				continue;
-+			if (!of_device_is_available(child))
-+				continue;
-+			if (of_node_check_flag(child, OF_POPULATED))
-+				continue;
-+			if (!of_platform_device_create(child, NULL, NULL))
-+				pr_err("Failed to create MSC device for %pOF\n", child);
-+		}
-+	}
-+}
-+
- /* Any of these features mean the BWA_WD field is valid. */
- static bool mpam_has_bwa_wd_feature(struct mpam_props *props)
- {
-@@ -3457,12 +3667,18 @@ static int __init mpam_msc_driver_init(void)
- 
- 	init_srcu_struct(&mpam_srcu);
- 
--	fw_num_msc = acpi_mpam_count_msc();
-+	if (!acpi_disabled)
-+		fw_num_msc = acpi_mpam_count_msc();
-+	else
-+		fw_num_msc = mpam_dt_count_msc();
- 	if (fw_num_msc <= 0) {
- 		pr_err("No MSC devices found in firmware\n");
- 		return -EINVAL;
- 	}
- 
-+	if (acpi_disabled)
-+		mpam_dt_create_foundling_msc();
-+
- 	return platform_driver_register(&mpam_msc_driver);
- }
- 
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index 1f86cc158100..cd122f308eab 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -519,7 +519,7 @@ int mpam_msmon_read(struct mpam_component *comp, struct mon_cfg *ctx,
- 		    enum mpam_device_features, u64 *val);
- void mpam_msmon_reset_mbwu(struct mpam_component *comp, struct mon_cfg *ctx);
- 
--int mpam_get_cpumask_from_cache_id(unsigned long cache_id, u32 cache_level,
-+int mpam_get_cpumask_from_cache_id(u32 cache_id, u32 cache_level,
- 				   cpumask_t *affinity);
- 
- #ifdef CONFIG_RESCTRL_FS
+Though I personally prefer (1), I don't have strong arguments against (2)
+now that you made me understand the requirement. Sorry for taking time,
+but mentally I was assuming (1) even for OSI until your above response.
+
+Since PC mode relies on the firmware to manage these states natively, this
+binding isn't required for it. Therefore, Could we restrict this specific
+binding exclusively to OSI implementations ?
 
 -- 
-2.34.1
-
+Regards,
+Sudeep
