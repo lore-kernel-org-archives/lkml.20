@@ -1,53 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218171;
-	b=R5e/rx9I7EM4YpRNqe5tuDkFnf3Iy1DP3Q7p3LxBrmIALw7tl9ZR1ScUD2tviXrVXnHq
-	 Ax2zryUGn4w+UBLi+jxufU4KkQ/rY6x4tTuhEQMeQ/Rb5VP5jekcmR8ZaaTs4a6aX2fR1
-	 1LwQEUKUXVUKfuh26eVytgOMFH9Oedm8uw6ps6Rl9Sz0xQdpNxKul2n9JfXljBN8stXnM
-	 59LhdLYznwzsQIZSr2AdjamscLW/OUnL1O8huKr/1FZQsJHIZA9mIs/zGB/cVqFqye51a
-	 D7EMxyHwANA0nTQyCwjg2m5FSMq9wklkk5hK4h4BM3H1ztBGLdz5cfuuGe+DU5rv4jQ==
+	t=1793218170;
+	b=lUmm0rsnGGTCLxn2cieIimxHdYu25zyOJuzEDoFCPqSHPtuUxdQ8etV4e0fJEUEJ+tmG
+	 NDVnq/5CuqiwxKPGvXdTI3KfQD0OAdENDRbYI3fzY8m+z7qkHsQWCuP8elsLmwy31IPGL
+	 tce7d1Pikiw6TnIaCWoTizGU0Zzl763tuRqIbQtLAnrPBUmsHyW/UTaZyAfzV34DDfMJM
+	 VBkF1stJ/c2ZNTCRh00wf0xUHyAbokcSfjRTAXwDnTYIK+nf+nOz+l/Q0wWO9KFShzC2y
+	 w9FFzty5Ul3dxaEXRaLdGGoNHN82edMLO2Etpzdck7n/imdu3btJHdXSrgCP7d5UjnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218171;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mnMiENV9iiGt5Ln0FNczg1dR/kUQWH9k/F5fEuPMClk=;
-	b=zuvrGEHhw8B02Rjh5vYzlFzCk0XveTv9E4Bn8HExKmG6gpOxkdK43HlrpdEH9BQC/FE0
-	 TK3oALwS+LjXOMMBAGiV/n9y47vL7kFGgMW9ewXwYGgbmo18TKoXr5c0i1d/2SdeVAsIU
-	 X9JCyiRfHIvKybQUzRshI6OBpd/l7pcaMXeitfSj2OUZ349vjudtLt5Zy3L6PA4pgnf8Q
-	 1yeYA1zN0yllhfFOI+oYYx2mHunwdj84vaZ7qnWK3NfLCgomjbJXYVcjbNxnWQ+GYC06d
-	 MenmOEAZuIR4Drc1nL2B79TzrpY6O7C7yuPsZQR0G2aMmxvTZY7Yk90GA/GBf80N6CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218170;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:
+	 X-Original-From:X-Mailer:Received:To:Subject:Message-Id:Content-Type:
+	 From:Mime-Version:X-B4-Tracking:X-Change-Id:Cc:Date:
+	 X-Lms-Return-Path;
+	bh=P9v5gomtHM+UM7ktgSnN33eoEYmTkj5Bo7NGWriI0nc=;
+	b=VInwQsLPkjjpMcNs1TzlqyS+sPYq6T5pRP9E4IYervuG3gYcGVDET1wUMaEZYTBdD9VL
+	 gXQRytXXX0c70wD3GeuA+Gqib2EC7bAAb/MORHjJtyEFdkryI74yVpiQkEf393OAobz26
+	 EgWtT7+tx/Zb9PeE8KrusYJSCiE34+wbxwRbgIkEph/12fmjs6iiXFrokZA6aGqJYWPyR
+	 TbY4NBx6JqpA8vm6UlOmgCqps1UmKHdjjQdQ9SrF30C588G8FUrJiANEKzPNuPXTRq7Pa
+	 1N2o/ufefOI9BNeTQ4kiVWlMgYeFDlh6/X5nDugX4w4/PL9PlZxgt9/0+9AU9Vu/h/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTSD4Zo2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=XcC1dZxC;
+	arc=none smtp.remote-ip=71.18.227.4
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE0760A380C;
-	Wed, 28 Oct 2026 20:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB9E60A2616
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB9E60A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTSD4Zo2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F051F031E3;
-	Wed, 28 Oct 2026 20:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218171;
-	bh=mnMiENV9iiGt5Ln0FNczg1dR/kUQWH9k/F5fEuPMClk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oTSD4Zo2w9t8c3fEkQn+OjxBiMTcap9YffNtM9g68PkMRPpqe3StRXHBW/HCV8Sp3
-	 bCGJv5xTjZ9rwEbCfGa0OLYOyTiqYBpTf8dkRm1Fhfa6OiCvM7WWv+N8tcriAV3FTa
-	 vekLoxcxqxeqApO82N/gWA1+KgMdnQAq1INkupPZP1WksJjUKbt8JBQSlgGvH4Zl0V
-	 6owXpV3jVX9MKCZo7fs1vlaMl4Tcug+FcDphL0CPagufhTjj3JLAMUP6cYmIKUasvg
-	 EIk5ZUCGN540Ic5IdysaJnlzaMFOYgZXNjfzDR9+4KWcTg6z1YpQHQkgpzJxdMaxRJ
-	 nhvURshNGgeSw==
-Date: Wed, 28 Oct 2026 10:09:30 -1000
-Message-ID: <75384a99148fbd477e003453718b1717@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com, alexei.starovoitov@gmail.com
-Subject: Re: [PATCH 4/5] blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
-In-Reply-To: <20261028143534.135968-5-cui.tao@linux.dev>
-References: <20261028143534.135968-1-cui.tao@linux.dev> <20261028143534.135968-5-cui.tao@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=XcC1dZxC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793218163; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=P9v5gomtHM+UM7ktgSnN33eoEYmTkj5Bo7NGWriI0nc=;
+ b=XcC1dZxCpezEigz/exLwbpTt8YPBE+Iw/METqBr+UwNl/EN9xKZPS4RNCbkoy6tJHOsW4O
+ InmVNrqPI7y71335YRnjoi2b2BwTtVGeYjEFEvv9PGT6Gwb0f7Xxhm02fdZGsB2zlZdxsR
+ WUXpCpxVPdCAJWWiImlnN1jI4hSq/JAHkhCSZTZD/rnG9ygUlVegrw4JKidogVrrxkomkP
+ docqjpylhzbnadVymLeKCPWBYdlhj/GD2xKkkYthzcKYdLEKETi7YUuQODUa+iq3JXz6OM
+ auUYmiKHH9+em/jGWdmvqztCpGBhz/nmOsFizlAT8grHU+nLyjdKgXahmiAULA==
+Content-Transfer-Encoding: 7bit
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Mailer: b4 0.16.0
+Received: from [127.0.1.1] ([111.42.148.156]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 04:09:20 +0800
+To: "Namjae Jeon" <linkinjeon@kernel.org>, 
+	"Hyunchul Lee" <hyc.lee@gmail.com>
+Subject: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
+Message-Id: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+From: "Shengzhuo Wei" <me@cherr.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,30 +62,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAG1W4moC/yXMwQ6CMAwA0F8hPduELQODv2I8dKPTapxknWJC+ HcHHt/lLaCchRVOzQKZP6LyShXm0EC4UboyylgNtrW9ae2A3mEqUdFLedKEc5bCnsIDZ5KCo+t 6E6lzYThCPabMUb77f778rW9/51C2FNb1B/jXAemBAAAA
+X-Change-Id: 20261029-b4-ntfs-bitmap-writeback-wait-d4561fa54c97
+Cc: <ntfs@lists.linux.dev>, <linux-kernel@vger.kernel.org>, 
+	<linux-fsdevel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 29 Oct 2026 04:09:18 +0800
+X-Lms-Return-Path: <lba+26ae25671+5f788d+vger.kernel.org+me@cherr.cc>
 
-Hello, Tao.
+The bitmap update paths lock their page cache folios before modifying
+them, but the folio lock does not wait for an earlier writeback to
+finish.  Writeback can release the lock while its BIO still references
+the folio memory, allowing bitmap changes to race with that I/O and
+expose partially updated contents to it.
 
-On Wed, Oct 28, 2026 at 10:35:33PM +0800, Tao Cui wrote:
->  		u64 vdone, vtime, usage_us;
->  		u32 hw_active, hw_inuse;
->
-> +		nr_active++;
+Wait for existing writeback after locking each folio and before
+modifying it in ntfs_attr_set(), both bitmap setter loops, the cluster
+allocator, and the two MFT bitmap allocation paths.  This follows the
+lock-then-wait sequence already used for attribute and raw MFT updates.
 
-nr_active is counted even when the tracepoint is disabled.
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+The change was checked against the existing attribute/MFT waits and
+the iomap completion path.  Existing base and patched NTFS object
+builds with W=1 and CONFIG_WERROR=y complete without warnings.  No
+runtime reproduction or filesystem stress test was performed.
+---
+ fs/ntfs/attrib.c   | 2 ++
+ fs/ntfs/bitmap.c   | 4 ++++
+ fs/ntfs/lcnalloc.c | 2 ++
+ fs/ntfs/mft.c      | 4 ++++
+ 4 files changed, 12 insertions(+)
 
-> +	/*
-> +	 * Everything the tick reports is final here: busy_level was just
-> +	 * computed, cur_period hasn't changed, nr_active and usage_us_sum are
-> +	 * complete, and vrate and period_us still hold the values this period
-> +	 * ran in. usage is wall time over wall time, summed over iocgs, and is
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index fce7144d7bef..b460d2223314 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -2332,6 +2332,8 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
+ 		attr_len = min_t(size_t, (size_t)cnt, folio_size(folio) - offset);
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		addr = kmap_local_folio(folio, offset);
+ 		memset(addr, val, attr_len);
+ 		kunmap_local(addr);
+diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
+index af86fb1c199b..057b315789ec 100644
+--- a/fs/ntfs/bitmap.c
++++ b/fs/ntfs/bitmap.c
+@@ -213,6 +213,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+ 	}
+ 
+ 	folio_lock(folio);
++	if (folio_test_writeback(folio))
++		folio_wait_writeback(folio);
+ 	kaddr = kmap_local_folio(folio, 0);
+ 
+ 	/* Set @pos to the position of the byte containing @start_bit. */
+@@ -277,6 +279,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+ 		}
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		kaddr = kmap_local_folio(folio, 0);
+ 		/*
+ 		 * Depending on @value, modify all remaining whole bytes in the
+diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
+index 3ebcac4c2864..aac8627a9283 100644
+--- a/fs/ntfs/lcnalloc.c
++++ b/fs/ntfs/lcnalloc.c
+@@ -348,6 +348,8 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
+ 		}
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		buf = kmap_local_folio(folio, 0) + pg_off;
+ 		ntfs_debug("Before inner while loop: buf_size %i, lcn 0x%llx, bmp_pos 0x%llx, need_writeback %i.",
+ 				buf_size, lcn, bmp_pos, need_writeback);
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 89288b794348..b8aa8b0891dc 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -1206,6 +1206,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
+ 				return PTR_ERR(folio);
+ 			}
+ 			folio_lock(folio);
++			if (folio_test_writeback(folio))
++				folio_wait_writeback(folio);
+ 			buf = (u8 *)kmap_local_folio(folio, 0) + folio_ofs;
+ 			bit = data_pos & 7;
+ 			data_pos &= ~7ull;
+@@ -1402,6 +1404,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 
+ 	down_write(&vol->lcnbmp_lock);
+ 	folio_lock(folio);
++	if (folio_test_writeback(folio))
++		folio_wait_writeback(folio);
+ 	b = (u8 *)kmap_local_folio(folio, 0) + (ll & ~PAGE_MASK);
+ 	tb = 1 << (lcn & 7ull);
+ 	/*
 
-An io.cost.qos write in the middle of a period changes both period_us
-and vrate.
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261029-b4-ntfs-bitmap-writeback-wait-d4561fa54c97
 
-Thanks.
-
---
-tejun
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
