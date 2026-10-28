@@ -1,110 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171861;
-	b=hoD8HcK0/jwTeHnG9L0kFzJAar5hp/R8B95DI79dIE4aVqmXzrZpbpO126ZUsbcuM2Oe
-	 Px5ZejAvoaBGawsLVPvbqdDBdDz4wgFcVNdk5zQ21kgcNZiVR1PBlgifWkzqu+DSslkwp
-	 evywvNRUFwAxYRaFUvD+Q71p7vgI5xCQkhoNzoSDrGOBIJRT9Fmqzjby4pF8BtdKptMTv
-	 JvR3jNe32/qS52I8uTJ5vhd3GF+nYoB/sLY+mFnLZ++z+8Maq85bHGechuey177G2+m6F
-	 LAmXks5j2nSEYSD/GHXcB82rgjrtqUZ5TMuaeGyDb7YBcZhSTxFlDaxBWtaunY27Yag==
+	t=1793171853;
+	b=RX9KyiLfQKsT2WO+Ey+qCJUv6HKLXFlPreLH+4fLeUv8NS2HX6arGZT6EcsYlsSQS9PY
+	 1WaNGg28oItLTJjP4bnjKMG5PA0vqK1wuW5hDWaZQI/htJyXrMKhwQm4Gb1RRhIG3icVH
+	 LHksGNz/rQkD8H2whxbFPOhrRte7JMVN/g72M7QVkEeU/MX2shkvPN/wVuljqnkpgtpMU
+	 WV3BEJXNc4qLMFlkTKYbeWQw0LKw4GLwiCCnFQcUjNCkAlwRTS+8FaQYgEAgdXplaHlr5
+	 In61uKx5iTGvtuneSsc4O2V/MENynpZMF2EOW9RLSMrSvmeiBmOuCeSkPvNhyfTWsrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171861;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
-	b=HQTJdXYn7DGV2VvoGpwthl/h1E5TZXzgq/zt7fqX5MKLP7bAQyvxTeH+EyexKEl/bu43
-	 3SS4h5U82Ng/7E+9D5AFksOU5/HDe8vly1RkJpSbQequwU5h8f2xqunXT5dtRO+xnwdJ6
-	 fNLP26zWppGylqO1yOFVYAMGuawdeji1K1XX3OpkcwaX3JesKWuPIk2S26En3RcQ0NwfO
-	 Ah2Gc7OBMqLh6Bm70aEAdoEPSiEW1GgXCiCebvbUOizOKRVT6qtWzg6RdMpQm/HXkeGCC
-	 Q81AwaID6iocqDB8/MuAeKWomxXnVHI36iaRvDoo7JiLOOXF4NL0WWmEPIgsok281DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171853;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=nquMCr1WWqc3g25x4aH4wcYWjEl8Qlo/bCJtAzPywf0=;
+	b=TcX6DvQW5lR8Ld5XLqFbjDq9hAbCqy36VQ7Scle6Cp63Wh8n11+ZeUqdWb5dh5CFkbPU
+	 W2kVbFPbN2pPKqSyNYFeBqtn/2Dpj5J/kwX1AzUMhFT3/PewOeFuRMR+4Zrj58g+g/EZ6
+	 T96SFBwcCRlzl4RSTP151D/QrolsHNjmzCAbzVuH6LMx62H3D7zfYV4j4cdmfiPYIk8EY
+	 i1f5BJz3F7+a9+oUcVv+ZIiO3jJH6XWvTKYm6AZddcdcGV7zVTfaKw7Tng6LZLquY5MB2
+	 rtq3r4aX7CADEq8a/cP4wRflmSsYEF+zMQmcEV45J9ZCEnm192XAyDgdEOMm8ER2/dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mXYTeY1D;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Twv5BmZv;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69DF606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:17:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E69DF606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F26606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F26606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mXYTeY1D
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d05d51553so3878905e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:17:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793171859; x=1793776659; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
-        b=mXYTeY1DFU0B3UNUDpGvH1++9XqRCHBN2c55fDs3gaMOQO47WsY0IeKIoXEOK7phre
-         qDRnMs8ytOMr0qtfMOSb8TiEdkTuTi3zrvIo29YjRcHCIyNVRu5jvmrnw+c/7+ZTnZdu
-         g+m+dlrewe4oGQ7cM44EPt9kdHQxTNGMX2vBj7nmA41j8BZlObfZrV/xzfLKEfzFF9JV
-         zX00cy7U2P/7MMHvf57mTP9FPWSpdqrAGPOP7VFbEtS+I5HsiFc5gBOTKp40co7SyViU
-         LmvhwSbNkcVsBfy3XytO1tE7SOLtX0a18awiJgg9Nhufe0Sw0QKxI65RIMv39zTiKOBc
-         rFDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793171859; x=1793776659;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
-        b=OhSGLLrRyXI/VXJwrKGEtvVbgxyxFRqXE/kqOeWiMnm0D72QF6RLDLTRDPl4TXCAjU
-         zda6s3DQyh1VZdYK+5ceYhhM6k8H3wly5p6ibbZp9YdabvK7fa46Mnp4wTpzc7ehtMMm
-         mQ9ECfh3MFUh5/nUQumanhzQ7UCKPkAtbrg5q/xybm0PX5pZtiIJZvGc7T6jeYp4uhv3
-         lX8Bjl3yrg82kso+s8a4UwkgfAlNV2UWGBoCQ0+0/hDpmpE4daM1GyJmB0MlpI5SMSsJ
-         VXPZJwQ7BvmjBcsksoHrMSEgXrdGrjGTZJRA2r1tpAwHmcqaI1StxOuKynatlVldk/u7
-         e77g==
-X-Forwarded-Encrypted: i=1; AKwUvBwneB35xxIG+7+1j7HwsT8SUxUK3unbsciwydmqdl6QXHKSd8ZJC8mvJTrHuVFWPrXNyGnKn3J/ZfAEYbU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZtU7Zlhd0rGlZb/NupwSHAOR/p20/AVc2Z8KUR3KYuLOI5yL5
-	t/OBgQNbH4q4++YxpC645Z49y8CRkGWUhuq1pC+rLqbSwFVF/ataSEwA7hTRLMhrams=
-X-Gm-Gg: AYBFou3l3PfMxRXcXtZ+I9eHem1RuZeL06kHoqxtJkFcYY8MsIEa+/CA/g18c/iFJ/2
-	qTnZTPstKe7ws/3Tq1tquQx4iWDoKE8aPikFowVv0yBcuchsAnoQFrk1KRabi9H7GMFiQ5RmEfK
-	EXiApIuop9Ho2yg564OMREy6i/FWt3D5EcuLt7wcrm2Up1G+PK6JslLn3MJ77lqLTxxdPwZK+ac
-	ArXK+xYodvd1fy7zz9KqBef+zk9qKmGFHJUSgejMJlpJyUry3wXOZGHZcBDe37mHN+C4azETMy6
-	JufilAkza+vnFAjlbkmBzQiDKJKH9U0H8Q/LWt4Jwqwwy5dE34YfFr6nq6Zj4MDDzbewr1RXP+S
-	Xn3ZBvM0j/uXTWjklcHi4Z5VL0DRIyidOtojgZpZ8GD0AyQJVyuwbjYj18qKl7iaQr80xPQym4u
-	5E3PZXPK4ajO+6zjg8a3uSQhfFoPdCEwzuERtjCykMpiIhnel8ND1vgJRqmagORvd4i0w7bY4sy
-	oyO5Wt+3C9RDzp1C3V8DGlOKxDF/OCaIlLCqDA2FS4fZMKsslLJ1WgEVWyXZKsoNhXI2qsbHeTy
-	Xd7c2GSkFHWEvwSCirEdDrifCGGoX2EuvmzPCCzueT5yofnr2op8Q9QiwKFImGf1JdA5c1YiOHw
-	jylMB9npQa6+Wzyg=
-X-Received: by 2002:a05:600c:198e:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a967ba8856mr25106675e9.33.1793171859280;
-        Wed, 28 Oct 2026 00:17:39 -0700 (PDT)
-Received: from localhost (p200300f65f19a904c16506b94501b867.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c165:6b9:4501:b867])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a97bf5d7cdsm20719315e9.3.2026.10.28.00.17.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:17:38 -0700 (PDT)
-Date: Wed, 28 Oct 2026 08:17:37 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: gaohan@iscas.ac.cn
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, 
-	Inochi Amaoto <inochiama@gmail.com>, Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
-	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 07/18] pinctrl: zhihe: add A210 support
-Message-ID: <auGhPHjanNTkkzG-@monoceros>
-References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
- <20261027-a210-scmi-v1-7-74d58ce85bd8@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Twv5BmZv
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B8EFAC4FECA;
+	Wed, 28 Oct 2026 07:18:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C0F1360769;
+	Wed, 28 Oct 2026 07:17:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B30F11032906B;
+	Wed, 28 Oct 2026 08:17:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793171848; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=nquMCr1WWqc3g25x4aH4wcYWjEl8Qlo/bCJtAzPywf0=;
+	b=Twv5BmZvgqoD/QGqoEOSQhAhVHQ3nPsNe4D6eC3nrSg8jO1LgjrhfYxZ5/l9fAGN42EYsz
+	2T3MlCJy66fl0iP/cX42IOrdHihZFjqJ278/1hQLEYMYZkMABQ7TfVcJD/LsIEBE6+qIC2
+	tzdPbOQaUKsUrRu/+OI0hE36f2Lrr3AL+XlzUk62oPNJ97HrFHXOV/Q1NrNTWIiUT6GhQ/
+	I0WkmbxZG46CK0iB1bGfx53h9kVLTEYMLpBDRa90MYcuv1q81btalbtAboOMmWJAcl1WDW
+	24fCmzrQLrK+lLRzh+ZZHMXELGfIKfkDe8Ne7SzvBOfo066t1s9Ogf3E78CTWg==
+Message-ID: <b3216356-fab0-42c0-8a5c-552ca4c5d46a@bootlin.com>
+Date: Wed, 28 Oct 2026 08:17:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,45 +62,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bf4vux6swhzzilrx"
-Content-Disposition: inline
-In-Reply-To: <20261027-a210-scmi-v1-7-74d58ce85bd8@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] selftests: drv-net: devmem: Skip when hugetlbfs isn't
+ supported
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Bobby Eshleman <bobbyeshleman@meta.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Breno Leitao <leitao@debian.org>,
+ thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20261021090852.996899-1-maxime.chevallier@bootlin.com>
+ <20261023105258.2a6349f9@kernel.org>
+ <ce8f0d43-0078-41e7-a5d2-cf31c6dc97fb@bootlin.com>
+ <20261027141555.47156425@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261027141555.47156425@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---bf4vux6swhzzilrx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH RFC 07/18] pinctrl: zhihe: add A210 support
-MIME-Version: 1.0
 
-Hello,
+On 10/27/26 22:15, Jakub Kicinski wrote:
+> On Mon, 26 Oct 2026 10:38:50 +0100 Maxime Chevallier wrote:
+>> On 10/23/26 19:52, Jakub Kicinski wrote:
+>>> On Wed, 21 Oct 2026 11:08:51 +0200 Maxime Chevallier wrote:  
+>>>> The devmem selftest requires accessing /proc/sys/vm/nr_hugepages,
+>>>> which is only available when hugetlbfs is supported. This isn't the
+>>>> case on all CPU architectures, for example it isn't supported on ARM
+>>>> 32-bits on cores that don't support LPAE.
+>>>>
+>>>> On these devices, the devmem kselftest doesn't skip gracefully  
+>>>
+>>> We don't require graceful skipping. If anything IMO hiding the stack
+>>> traces isn't great.
+>>>
+>>> If the check is extraneous and makes us fail some tests which don't
+>>> actually require huge pages please make that clear in the commit
+>>> message. Otherwise the net benefit of the changes is unclear.  
+>>
+>> hugetlbfs isn't required for devmem AFAICS, but the blamed commit
+>> moved the access to nr_hugepages before the actual "is devmem
+>> actually supported" test.
+>>
+>> I don't expect the full test suite to gracefully run/skip for devmem
+>> on these arm32 platforms TBH, it's likely that devmem is only something
+>> that's been used on platforms that support hugetlbfs anyways, but
+>> strictly speaking both features are unrelated.
+> 
+> For max clarity I should have simply asked - does it make any test which
+> previously failed pass on any of your platforms? (incl. some WIP
+> patches that'd add devmem support) That's basically the criteria 
+> I think we should use.
 
-On Tue, Oct 27, 2026 at 11:36:58PM +0800, Han Gao via B4 Relay wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+I see, then we can drop that patch. It would go from a "file not found"
+python exception trace to a skip. This is a nice criteria for me to follow,
+I'll move on to other tests :)
 
-Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h>
-already provides of_device_id without introducing a lot of unneeded
-build dependencies.
-
-Best regards
-Uwe
-
---bf4vux6swhzzilrx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhoY0ACgkQj4D7WH0S
-/k4lEQf/aQompiZrE8lzHamk+WXWr2kv9iqPDmKByLu358ny9EKvV3eNOG0y3m2B
-hMQ9inmxBjyfz0TMb3NkQtmXVKnu41A8A6mcl3B97akrhcvKxPDgsn8FWhhNJiBs
-s0jrcYuMILEssk5h7k5Ah8fEdVAXbDTp88j/afUmb9QfOZxjaW+SXfLYigacUFT0
-U8Hy6rX3B+GESX5uvdxOY69bn4dHt7Qwr56FksGQtIi7Y9DbyRhhMRnwCy4pCLnw
-ZD9t3GwAHwOm1fdsdqP0zLsJPukoZPNmbT58FjRf45TfYHmOSulG5O3oszd4ElAw
-wrbitVSdlgy1G4VvYAZKJRQLV5gF2Q==
-=JnXH
------END PGP SIGNATURE-----
-
---bf4vux6swhzzilrx--
+Maxime
