@@ -1,53 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187571;
-	b=R2SeZ5mOnJBoQKJ+NqO3dqlDTJilS97rfIcsepuku6Tr7Ttpok5e2a9OfrX2MXq5u91p
-	 nxHVT8JLa8t+LPDDF8cdHz961chIz5bYB/dygmygSd92b4YHxAoRTuI1KMWTmfhxrJFQe
-	 y0Q7IBZx8PQA5II2PoqDpwT0hX1YW2dh9YS5y5n0W31fsaL6nvkfzDctVwlRD/BnC9hIP
-	 IY/y1nqQlmXbsDUp51lhSQ8ao4uN6WrPgKE39rlZWZMCIVBEJ6eY5nrywAVwwKslz7kkV
-	 UAetxD5PVAdmRNHnbrHHRRoUOkeS+y9S9faRoG3zhHC/Kji8fBXBu42m0NYBix3IyVg==
+	t=1793187659;
+	b=RIqlyxSJujfFwNyAq40ARDV0S+CH1W57LDgoRmv6eHlD+4GEs5x+o5wYLWzbrkHDuheq
+	 IFerlYxZyEyXsjZw2BSxmwwucYl8DHbJMcVadbxSn8wcwFYKsaUOlzQFObbsJ1HZV79n2
+	 MHbZ2KdweckSaxxKeBFI4r5OH+UOlKkGiKd59Zqxrgy4rgJc3tQ6rwTicmL4Z8ydA2tMY
+	 GK6CuilTD6bFgBjnGCFoI4Fb0n+ozbNCfznm3x5XQT+FtsdKzs1FjOuyPdZC6V77X++oM
+	 dPFbLby9UZ1whIZ6M1yH1PZGdeockC2H4OObVZPBOTfsHi2YJ0WlWO4YAK+VApqGU5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187571;
-	h=DMARC-Filter:DKIM-Signature:To:Cc:Date:Mime-Version:References:
-	 X-Original-From:From:Content-Type:Subject:Message-Id:X-Mailer:
-	 In-Reply-To:X-Lms-Return-Path:Content-Transfer-Encoding;
-	bh=N8AoCKZvvK133MhCYQj3502MyrqrutxmSZ+xIyFehZg=;
-	b=0sLyrTIE9nzK8F3h+8uxgX7fRnKXteLgN9dkUtg6ySh/4LXEmFqV+JzaVYjKOtICvzMW
-	 pq8vlS7wDkUMQVax7Ga1BpB2OzKUJiWEMmkWz7TzarbSZLE3WEa2JYFq2t2GGrGblWh7u
-	 hM+cnbzHNgqwUD9hM79XG6DSQb0XF/bTMSEtXAyBasqgQJQJ8EsF/JmFypPocPmVLb0Jm
-	 IjECCWu6luv2U4+r1/M52ju1rb2oxvsOFHWRXojwMtuAzFXY/3OZ5T65ZSgPVPNRQ7Vma
-	 qflrfZ/r4gkA53ExDGhzVLLqMh3oaRutZt7rEzUqfqPivPwpbk7zPegtupUeKvU07mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187659;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=Jlnfz7M1ITZw2qIEVKqbY+WjiMkAWf1Tu97ZUZ93IN0=;
+	b=wGvvJ7/j9XGMwhfpGhv0MQtlJN6t3KHirj0fDxG/SpwIMovA2bF7iTF6u5IFMn9iBdi6
+	 u8d5MIvTtaRn48n7mVdNu1eCi3QhwNqdpCkB+aGoHsIA8owzfQZCicwMJALNswPibwhWQ
+	 GuI4InQHiINYNjx/rs1Cm9CYfmkbD7d0kSE2KlMWqNQbX9GJ2j2+Ta/O5L7dFpALwLIef
+	 cz75UEY9QMqp1isuWb+PB1J6nvAdPIfnNAW7xqZ+oLtVKpPY7RVUSd2ywNJMuUnc7DmBc
+	 YKb0beieRgj2bAm+7igA15O94DpYHLWPcsj6f26HfGFQm/YbzJo/GAP8T8n/JgiQxWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=S4sijXbp;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiZ+2Gl5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DA1606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63DA1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C898606A31C;
+	Wed, 28 Oct 2026 11:40:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=S4sijXbp
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793187564; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=N8AoCKZvvK133MhCYQj3502MyrqrutxmSZ+xIyFehZg=;
- b=S4sijXbpLGH7GkiCwJoSQnxQXYhxhUYwlvouJtkWPTMFB1XswAaCy0Lu4sQONm0G8Pb42g
- OHxgK06Wo32cD/DGWJ/o2tOvvBnmUnEnPLom3toy3mQ1XS3b43T1YATWV1QhBdV//EUS6C
- xksmSQ6EX0eVgjK4+pJgObuIdqinaIPJ62Vm1hz8EAxxucthvOEnQ+xZzsDMg1Z+qW7f4x
- ZRlC9l0xzS1RYAMSRZI69Z3tQnnR1VFT4tYe8a6kE8Y5nB7ap9GKf1BpH5WpsCM+6JwHoO
- uDPNMEzRajAtgfjTWZ0YYr1wa94xML4Kzpp5JowrQQFBvLry8PsBzAb+vYHk9Q==
-To: "Damien Le Moal" <dlemoal@kernel.org>, 
-	"Niklas Cassel" <cassel@kernel.org>
-Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>, <stable@vger.kernel.org>
-Date: Wed, 28 Oct 2026 19:39:03 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiZ+2Gl5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41CA1F01825;
+	Wed, 28 Oct 2026 11:40:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187659;
+	bh=Jlnfz7M1ITZw2qIEVKqbY+WjiMkAWf1Tu97ZUZ93IN0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=PiZ+2Gl5kc0jJSeKMLoj7fOmlVIOFgswoanYFqn1DWdsQBEuhQPix9JVy9oWukGPG
+	 +F4YsgXNS1WGjwV30hoP8na9F/N7Eb7122WwInn552HizyxxW3YaCESCfroMU6yjAm
+	 VSLYDm5acEbC8X+0g/aR2w/YcyxdJoeMZDvuNVvBD2N8xDX/JIOe5gr86tQJIXfRoq
+	 39Z0YQ1Uj9IsiFhECBTs0uTCctxqUM5+Y5krqY7Am0KOxTRvkUfV1a6g8jHytioWqL
+	 s93d076CkgIdrXOUk2WhEjj/95/4ACkRiIc76P4JQh7Skxr0Cekil6YVf24aF8v9MO
+	 VTNrBK9m2sErA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Andrew Morton
+ <akpm@linux-foundation.org>,  Johannes Weiner <hannes@cmpxchg.org>,
+  Michal Hocko <mhocko@kernel.org>,  Qi Zheng <qi.zheng@linux.dev>,
+  Shakeel Butt <shakeel.butt@linux.dev>,  Lorenzo Stoakes <ljs@kernel.org>,
+  Kairui Song <kasong@tencent.com>,  Barry Song <baohua@kernel.org>,  Axel
+ Rasmussen <axelrasmussen@google.com>,  Yuanchu Xie <yuanchu@google.com>,
+  Wei Xu <weixugc@google.com>,  Baoquan He <baoquan.he@linux.dev>,  Baolin
+ Wang <baolin.wang@linux.alibaba.com>,  "Liam R. Howlett"
+ <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>,  Mike Rapoport
+ <rppt@kernel.org>,  Suren Baghdasaryan <surenb@google.com>,  Michal Hocko
+ <mhocko@suse.com>,  Kees Cook <kees@kernel.org>,  Peter Zijlstra
+ <peterz@infradead.org>,  Jann Horn <jannh@google.com>,  Pedro Falcato
+ <pfalcato@suse.de>,  Hugh Dickins <hughd@google.com>,  Pasha Tatashin
+ <pasha.tatashin@soleen.com>,  "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>,  Jan Kara <jack@suse.cz>,  Zi Yan <ziy@nvidia.com>,
+  Lance Yang <lance.yang@linux.dev>,  Rik van Riel <riel@surriel.com>,
+  Harry Yoo <harry@kernel.org>,  Alistair Popple <apopple@nvidia.com>,
+  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>,  Usama Arif <usama.arif@linux.dev>,  Kiryl
+ Shutsemau <kas@kernel.org>,  Matthew Brost <matthew.brost@intel.com>,
+  John Hubbard <jhubbard@nvidia.com>,  Peter Xu <peterx@redhat.com>,  Will
+ Deacon <will@kernel.org>,  "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+  Nick Piggin <npiggin@gmail.com>,  Oscar Salvador <osalvador@suse.de>,
+  Minchan Kim <minchan@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+  Xu Xin <xu.xin@linux.dev>,  Chengming Zhou <chengming.zhou@linux.dev>,
+  Chris Li <chrisl@kernel.org>,  Kemeng Shi <shikemeng@huaweicloud.com>,
+  Nhat Pham <nphamcs@gmail.com>,  Youngjun Park <youngjun.park@lge.com>,
+  Gregory Price <gourry@gourry.net>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Ying Huang
+ <ying.huang@linux.alibaba.com>,  Jason Gunthorpe <jgg@ziepe.ca>,
+  linux-mm@kvack.org,  linux-kernel@vger.kernel.org,
+  kexec@lists.infradead.org,  linux-fsdevel@vger.kernel.org,
+  linux-arch@vger.kernel.org,  linux-cxl@vger.kernel.org,  Chris Mason
+ <mason@kernel.org>,  stable@vger.kernel.org
+Subject: Re: [PATCH 20/46] mm/gup: fix clearing folios in memfd_pin_folios()
+In-Reply-To: <ec55c760-f099-48e1-900b-9f8e2e5315da@kernel.org> (David
+	Hildenbrand's message of "Tue, 27 Oct 2026 20:20:43 +0100")
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+	<20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org>
+	<2vxzbj8fp4sn.fsf@kernel.org>
+	<ec55c760-f099-48e1-900b-9f8e2e5315da@kernel.org>
+Date: Wed, 28 Oct 2026 12:40:48 +0100
+Message-ID: <2vxzld7injcv.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,100 +93,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027090809.94126-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v2] ata: libata-scsi: reject data-in commands with a data-out buffer
-Message-Id: <20261028113903.19569-1-zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261027090809.94126-1-zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26ae1deeb+e964b8+vger.kernel.org+zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain
 
-ata_scsi_rbuf_fill() copies simulated data-in replies to the SCSI
-scatterlist without checking the request direction. SG_IO can supply a
-data-in CDB with DMA_TO_DEVICE, in which case the pages may have been
-pinned without write access. In the reported case, copying the reply
-into the shared zero page caused a kernel page fault.
+On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
 
-Translated commands can reach the same kind of mismatch. In particular,
-the ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers rewrite
-the receive buffer, including when the device aborts the command.
-Checking the direction only in ata_scsi_rbuf_fill() leaves those paths
-unprotected.
+> On 10/27/26 16:00, Pratyush Yadav wrote:
+>> On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+>> 
+>>> From: Chris Mason <mason@kernel.org>
+>>>
+>>> memfd_pin_folios() pins folios obtained directly from the page cache
+>>> without checking whether they are uptodate. However, shmem fallocate()
+>>> can leave newly allocated folios uncleared and not uptodate. Callers
+>>> such as udmabuf can then expose uninitialized memory to userspace.
+>>>
+>>> Clear non-uptodate folios and mark them uptodate under the folio lock
+>>> before returning them to the caller.
+>>>
+>>> Fix generated by an LLM and sent by Chris Mason in private.
+>>>
+>>> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Chris Mason <mason@kernel.org>
+>>> [ david: simplify description and comment ]
+>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>> ---
+>>>  mm/gup.c | 14 ++++++++++++++
+>>>  1 file changed, 14 insertions(+)
+>>>
+>>> diff --git a/mm/gup.c b/mm/gup.c
+>>> index efc9aa2654625..47e7ae152cdf1 100644
+>>> --- a/mm/gup.c
+>>> +++ b/mm/gup.c
+>>> @@ -3516,6 +3516,20 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
+>>>  					goto err;
+>>>  				}
+>>>  
+>>> +				/*
+>>> +				 * fallocate() can leave folios in the
+>>> +				 * page cache that were never cleared.
+>>> +				 */
+>>> +				if (!folio_test_uptodate(folio)) {
+>>> +					folio_lock(folio);
+>>> +					if (!folio_test_uptodate(folio)) {
+>>> +						folio_zero_range(folio, 0, folio_size(folio));
+>>> +						flush_dcache_folio(folio);
+>>> +						folio_mark_uptodate(folio);
+>>> +					}
+>>> +					folio_unlock(folio);
+>>> +				}
+>>> +
+>> 
+>> Nit: this logic is repeated in a couple places in shmem.c and in
+>> memfd_luo.c. Perhaps it deserves a helper?
+>> 
+>> Anyway, sounds like an important fix so don't make my nitpick stop you
+>> from landing this if you don't want to bother.
+>
+> Thanks! yeah, I had the same thought when trying to improve this. We should have
+> an easier way to just not hand out unzeroed folios outside of shmem core
+> functions in the first place ...
 
-Reject DMA_TO_DEVICE requests in the simulated-command path. After
-translation, reject a DMA_TO_DEVICE request whose ATA taskfile performs
-a data-in transfer, before issuing it to the device. Return ILLEGAL
-REQUEST / INVALID FIELD IN CDB for both cases.
+Normally this should use shmem_read_folio() to get all the folios, which
+does zero the folios before handing them out. I guess memfd_pin_folios()
+uses filemap_get_folios_contig() for performance reasons. It does the
+lookup under RCU and doesn't need to take the folio lock. Perhaps we
+need a shmem_get_folios_contig()?
 
-The original reproducer panicked in ata_scsi_rbuf_fill() on all four
-runs with the unpatched kernel. With this patch applied, it completed
-without a crash. A diagnostic run confirmed CHECK CONDITION with
-ILLEGAL REQUEST / INVALID FIELD IN CDB.
-
-Built an x86_64 defconfig kernel from the current Linus tree and booted it
-in QEMU with an ata_piix disk. Normal INQUIRY and READ(10) SG_IO requests
-succeeded. Each command declared as SG_DXFER_TO_DEV returned CHECK
-CONDITION with ILLEGAL REQUEST / INVALID FIELD IN CDB. No kernel
-warnings or oopses appeared. ZBC IN and GET PHYSICAL ELEMENT STATUS
-were checked by code inspection; the test disk does not support them.
-
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
-Changes since v1:
-  - Rebase on Linus' tree and use INVALID_FIELD_IN_CDB with the current
-    ata_scsi_set_sense() signature.
-  - Reject mismatched translated data-in commands before issuing them,
-    as suggested by Niklas Cassel.
-  - Remove the deprecated Assisted-by trailer.
-
- drivers/ata/libata-scsi.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index a61fb0331..a5170a36a 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
- 
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+				   INVALID_FIELD_IN_CDB);
-+		goto done;
-+	}
-+
- 	return ata_scsi_qc_issue(ap, qc);
- 
- done:
-@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+				   INVALID_FIELD_IN_CDB);
-+		return;
-+	}
-+
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
 -- 
-2.39.5 (Apple Git-154)
+Regards,
+Pratyush Yadav
