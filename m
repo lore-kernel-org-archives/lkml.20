@@ -1,105 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193510;
-	b=dehlMYa9CCJSbKojZCemiFSGgeO7gru6bMkf3uuksF3x0KbbUnzdkIDiBYhMsvRKh5Yf
-	 KNqhGPBb56luOX3BBupuRMO2xNAHCyHxIqLWmyf9enD8ByBMd0oAfRdDTs49eEGn9ZmGD
-	 u+UIno1WUQb/w0LHhZH/eW/+wkQa1xlSYgPUY/aE3Upnh62OELzGhHWNmKqdFukoREZjX
-	 GpdrpZKlGWJEMRmpYvXhpfpchucpwQxy3jum4ci138TpTjYFr7uT4SWQoOpPHXoOz1Hmq
-	 be0H+L4to1rMcPx4zH4o2ecHIQy4EGM8DZjEXUj4wZVV9BSg0Rnm8gI27OmPEpdKsWg==
+	t=1793193553;
+	b=hbfee/45axk5FccL6fgz5m35o71CLUH44NIw5S3QnfgEd6/3cQEx2bLNUR6/KH/feDV/
+	 uPMbjqeFr9OxSYwVj+uzCCEYwHgs0mCTWLAG4BYJvYOMxikXmVEx/b+aDQkODqqYTHi3M
+	 T3Pbe5btVyuqtcKrR8/FSkPV98BX0hPt851yHe3M5sIg3AVIKT7o9ms8RcqTU0ef78GgM
+	 LyvLswyuBjbWxlO2ORwWRTKi8jPFlEw3riBx97bI/nBK2IOE0ydJNgiL+wpYXUqZjeYT8
+	 TBiEZpDNM5P298ypE+nrtyH+LiLmcicEpyRzKNEZP57mUkfNbclj7y5jn0DO890icRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
-	b=EOYhX5mTHRhKU98z2YPfPDw5+cN2GOi45+oR/SZMA8+ApNCbxiQudBLLilDTxFOtilnE
-	 +bhuwJuDXa6YYaMCOHO9AT28Pl6aZNuiiOBFJT0lk2aUeogJa5CmQk6Gfa1q7UYaDD/Qn
-	 bQQkNV1MXfcAiMCs4M0suUNZ5BI1bGFs6f4HxUpph+Kb1aYYOhOBhJ0ueJdv0MLVwQnBz
-	 riWJVGXD7dxk/NBJQB/pGn6Yw0vMSWUwq9oEda4/p2TIEq6QaOjXc6L5z7siCgLLj9DXo
-	 RvVfmHFrmiEV4Vrs/hRDnpn6haQp15TiU5iRasSVYNcdFX0hiSIZOlEpZcfXje5jBOA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
+	b=H5lwLy8M4jO+LSPY6Gu7frWLw0aHY7gW8eBgIRrEtFaU2gBiCGmVjmk6Gzhe52GDKhCY
+	 PahoF1Q2KNZW6mWwSGfKx/gPKB4FpmeI1XXoNjT4/702Nb4caUqsB0frD8rssIhFyzbdW
+	 RbHLvTmdBTrQp7ME95Rz8qd47j22CH/p/RDTxApTXkf9RAp1pdA8SB90ztIKJdQYzzFga
+	 M5WaXc7S62Jgnl/fhp6CsGStR5ifMw4hx1wRvk7tmogYTwAEHRVGVMzDMw4VWNy/Nm/my
+	 88jDLP8wm7rbskom4FePWoJo9Dpb8kEUGC7nlbU+TlAyOclEabT1QpySxWgQTE2637A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b="S/IOAVK5";
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HJc0yrtO;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4A8606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F4A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66F4606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D66F4606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=S/IOAVK5
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c315869241fso144245466b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HJc0yrtO
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so8910425e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:19:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793193508; x=1793798308; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
-        b=S/IOAVK5NUZB6jNW20LHKneCPb6S2Yl9leksYecZxq+Psh7/11rrrfs5fNHSNKUM6j
-         Mz2IWVix+DIDm+i61KeOl0eZNNx5gozogDUbexZP5WbclHgovPfaT/KnTJhSYnXIrxrt
-         MMkAq6UXgAKl3fuQGpmxEABY38c1XHiBlnlMk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793193508; x=1793798308;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1793193551; x=1793798351; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
-        b=x4wKSUtXO0LSUHkGpeUNAew4jelvMIc6+naBr+qWailUC008XATe5//vkkA8rYceCV
-         WsIrdPP49JvOdV7UVlhpeGl8dXhLt4/oZBpC91IK2xoWEeVrDPW/pvamI2wQ39j5KbqT
-         01IWP+J8vmRPphWUA7VNfupfs1/4qT55rh3bLHA0EvSFo9Z2+qyw1y3bi4543MenBI6e
-         t48W6KoakCHlqHgB5xFeAht9UpSEbn3e4oxnnbGyU4AoZaPL5Ctm/UDpkKk3Z4CxqHhK
-         0+zeQ5GuvzABpnRilpMcUQYB1RGFY3vLSYco2W87N0HSHTdAll+jx468MaF3DPa/fTsM
-         5jzw==
-X-Forwarded-Encrypted: i=1; AKwUvBz03zFtGuNeN5KqyhyzrovBieeXS/AN+Vpy6DY8XQR+G2kLTTQfPPUs+JVEoE6Si2uBycryT7kxjCwqKNI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs1i32upwjwxp3WA5PLQzqhtpln9pKEQ1lXuKbo5FD17eTT1eL
-	D/AJfRrJu6NK5mtVT41MK6K5BPRcIXBj+cV80tgrHvCn/omgaGVoqwdIRA3PhArSn1s=
-X-Gm-Gg: AYBFou16xj2Vaaml2m/8JQey2+zg3ABZGYsK3hgScAwoLyp+VTtUVbfXNI6zMgtQ994
-	E/zlZf3/92E+SuGn7SuQuo4R3wEdeaFVtreiWZe94s2285/mWoFouubJjpROQqnXeqje4ZVmVYb
-	QCQRAym61Ia3KELC1zpwzmChh1+cWo6LcZ2haI4050QY+fK+AsatSb9TzE3jl0UczXb89w4KZJm
-	3l0U45HBRxEj42BjhD5Dn4EMRJMVuOjgPrmQ87uTXcEKiBg7OM+jyJ1EZJWavstRXzQN2Q0aB43
-	z4BFzhwBkH4/mOcr2+u+MIJoKCyis+5hNuXgfSD2rJXsv9hCki7neAHmU5vJcd5D2evUKzRPsfp
-	AYLJLty9XieRMSI3yFgb8jzQb83FSInoABpTEg1iyL8gBSnG8Beu6cJmDhGf5TBdpiZLYoVfvxZ
-	pGiMaX+8x8+7Ohe/8N8ddlQDGwGDHev64uB6gi3jKfBy8DToFOkDL1sZqt0NNqV5oArdssxdWpu
-	j9qXb4YpPnF8k0rBx73pThxdyI5cHDVbZ/6UrjgtzsksFCuCtukvq8JVtImqf5Me5fEIF7ISk91
-	OLscPaAFJGuLwZA008nQ644NBM28Zx0jH+uzigOAZEgH+v1GhMbU4zIpkLC6X+x9w8EVatP9nkS
-	ED2hGLvy6f94ldDc/CngUrZDfrQppll1KpTA5CMRvUkYGguS+
-X-Received: by 2002:a17:907:80d:b0:c45:b99:f282 with SMTP id a640c23a62f3a-c49bdda6ee2mr203173666b.7.1793193508300;
-        Wed, 28 Oct 2026 06:18:28 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd650a56sm602252766b.50.2026.10.28.06.18.26
+        bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
+        b=HJc0yrtOqjbAhVJPBUbe68xiHKHMVyPjwJWvrg+NEZOLFpaJeUngo/PBOA1K7ON2HG
+         oFPSx4moojlAeVt1txdMMJV6jLvVl505T46EqDmNVJsHNvxSjc+XOJwrIkjCe0lH6PjN
+         NU1CFiKsHXVeBgkhvGafZf4I9Bg0KJvUnHl9drGWppuWe/aQsRX0QOhSs0Lqm8umemQ9
+         l1qDgN24sBTzU/iji5UPLufHdNi/kX8RxXJMoxZlgjG/Y71WGMEuN+Tc5ldsVTV7hhqz
+         V0yEXHS+//ciVFEMAxArCIwvkxVxY/Rak1Z/WKBFXCORbY2Ige0jJ46gglet1WUX1Esn
+         xRrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793193551; x=1793798351;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
+        b=Udi6KT09cHXHbHgdMxLAIDLFGk6/0HEjNd+XhFZxSn8g9DAyf4mV1bBceoLGsaRpHv
+         YW9MmlEvcX/fozw7g/4+z00/blZJZWxHM8Z8Drqk+PINH8rgnGvxvexratL6iwXBkrZh
+         5nDqe0R4lcQoz8u3ADhMjQBXdcNi2zL9SkID/Pg8SMILiixQmoUobt0RrBEux3oJDELL
+         7rvX25aT7XOHZH7NC61eOaHzqZCH56BrcAxDQ9o82IBlvcnnvd9mjNyl9l4HiX0EajIY
+         IaLf0fxwMLTr7mnnIScVsuUGGlloPma7aTBgoJ098lWOYWXZKKUhS/09BW3zjsgZK6Dn
+         mgqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVyJAbg0MrggIU6QRzyJ4Wz6wJduhudsUF++IrFvjohxMQ1EnuRMswfeJH/RAsva0uyy5vC16Jjn89Icc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEM6DFDe5MCynSRpxqfElgsNdbe4dZ2FJKlN5fu1JYAXbts5np
+	xWYk9W17e1nV/ZrWRPg5SCze/ADEy51n24y+MFnewRyXDKeh0pTTOwzYPpjXoB7gViA=
+X-Gm-Gg: AYBFou2HP3Z+w6j6IXnK4Wqp0DnPk5Sdh6Mv9+tboOwjsBkNvDGsZTchLYlu5P/1n8J
+	91IPESOjwngLdVjGn4p9DyDUK8qeKWWOlybvdl0dwVEPlAeqzIh4NTHPyZEkKwimeRBPpM0obXe
+	b1BK9H3tTwsCAuHbxvw/XoLWKS/qgi5LP2o+8F/lTUlKkkCMs6Id6NUmayCqaVE11macDGvWBNF
+	QAH+QMi3pxG1uNm2C3jyacyYT2ZTDE1mMdyHHc6kdQN76stA8Ev9s9tIbnUtBlTKrI41uzq8iov
+	EiQd1Q1cd1WY9PHGupa6qzqV5PvlzHPDWUBINwIj++HqLzUKDFTbPoOizj5HSkMaHEKkl8OM6pY
+	nynUOD292Ir3XmOq4YeZcvhTr2/gTpSfxjLoCNrQfALWf7cq0jJ6vRCUJ/ziidvnBRYSEJmIB8M
+	bW4GsJPEHf4WiiMXEpeQyukF0p/8m6pRQ0A/X7VNZ6N0STUT1x5YnlVeFta4sh8DDnLd/ooL3Cs
+	P0vNZTYbya184aBLAYhBP1T4ZQRoc8H6c2BiZCwdQD0hWXOIg45VU3+jB3xX8aIa0DyXC02GnpH
+	Ap7Fq5eN1PnSfgOdtc0nO74l3up3RlYy6wiXK4bPAf0D7tQ77Y8AY1w55tWwkZHPeA==
+X-Received: by 2002:a05:600c:870f:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4a967f84822mr55295305e9.30.1793193551156;
+        Wed, 28 Oct 2026 06:19:11 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a996aa0ff3sm19869395e9.1.2026.10.28.06.19.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:18:27 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Daniel Stone <daniels@collabora.com>,
-	David Airlie <airlied@gmail.com>,
-	Leandro Ribeiro <leandro.ribeiro@collabora.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Pekka Paalanen <pekka.paalanen@collabora.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH] drm/stm: ltdc: create blend mode property
-Date: Wed, 28 Oct 2026 14:18:18 +0100
-Message-ID: <20261028131823.2649142-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 28 Oct 2026 06:19:10 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Wed, 28 Oct 2026 14:19:04 +0100
+Subject: [PATCH v4 1/3] dt-bindings: iio: add: document the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,41 +93,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-topic-sm8x50-iio-max34417-adc-v4-1-d4baaf3ee903@linaro.org>
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
+In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3235;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=HnCShVki22tZbqn46h/iPHVXxPadylCsM2+tjvBCgiQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq4fZKRr6JwY/iebIoucSTFldZ3DdxsAChjXroki8b
+ gzEYQHWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauH2SgAKCRB33NvayMhJ0TI6D/
+ 91xB3UKBAZq/XHax44a6GmhnSkgTvPW2KdvhExSgE3/JMSRo8U5cpfscUo4l7cZuc5gfJRnGy1Z2P6
+ z53UJtXg7+yU4JRHSabvXrrqAniLrdpq0izvrGal37xWtMfJcY4eVWVKGeCnK/XzJo3ovwOZhwTUtY
+ DGcA1NpxGls0xBEvUeC1uZ8Qd5dYHl/nNXmWWuIEqM02wZwyYa3F9dKcjFOy+83gG5fwU8Jj+qtaKp
+ ZgkyDIZhWhsAi3EB4bpGu3PA7BFXlqMlJ4Hm9doyCTpWhWSBZj3R2SsbiK2p40x317cEymQl3tsx92
+ OvumhoIMMPRcAQRqa7+udpdtvR9UuS6cKq80uKHcFVIvD4JjL/Xgk5NbmpN0XkLFc6sC7pJe10oShn
+ hhDJAa+z3zJcRDj7zwf3Hu4LBoaCAqLDr/xueeWLx2SraAl6R8YL+J9I2HhrjiUS1cde7G8G1cjsxz
+ PzaLr4rYcMThg2zcDVN3ICIG1j1NX7Y2gmh6A1wdRVCCKBUM+z9cgj6df9D2Lwu/BEOSwQKSidP7xg
+ cLGvVRbJ8EF8gUPPQ3mBOal76wccdkeBLCppyMpQzvnAQK1WdYzRst0bPwLmKLhgw1/CyzHcFwebXp
+ oq4xfz6w5POzO32DNiH2DBI8TSCVLAp3j58xeZmqgWBNwlh/krYrYnk7tBRw==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-After commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-format with alpha exposed") we get warnings at boot:
+Document the Analog Devices MAX34417 Four-Channel High Dynamic Range Power
+Accumulator used to monitor power consumption of portable systems.
 
-stm32-display 48010000.display-controller: [drm] [PLANE:37:plane-0] pixel format with alpha exposed but blend mode not setup. Please fix.
-
-The LTDC blends the pixel formats with alpha by straight alpha, the
-only mode implemented in the driver. Create the blend mode property
-with DRM_MODE_BLEND_COVERAGE only.
-
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
+ .../devicetree/bindings/iio/adc/adi,max34417.yaml  | 103 +++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
 
- drivers/gpu/drm/stm/ltdc.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 5311e0b3e8dc..3b6e680c1c61 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1642,6 +1642,7 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
- 	drm_plane_helper_add(plane, &ltdc_plane_helper_funcs);
- 
- 	drm_plane_create_alpha_property(plane);
-+	drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
- 
- 	drm_dbg_driver(plane->dev, "plane:%d created\n", plane->base.id);
- 
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-branch: stm32-ltdc-blend-mode
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml b/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml
+new file mode 100644
+index 000000000000..700bc3ca7d7c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml
+@@ -0,0 +1,103 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/adi,max34417.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices MAX34417 Four-Channel High Dynamic Range Power Accumulator
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description: |
++  The MAX34417 is a specialized current and voltage monitor used to determine
++  power consumption of portable systems. The device has a very wide dynamic
++  range (20,000:1) that allows for the accurate measurement of power in such
++  systems. The device is configured and monitored with a standard I2C/SMBus
++  serial interface. The unidirectional current sensor offers precision
++  high-side operation with a low full-scale sense voltage.
++
++  Specifications about the device can be found at:
++  https://www.analog.com/media/en/technical-documentation/data-sheets/max34417.pdf
++
++properties:
++  compatible:
++    const: adi,max34417
++
++  reg:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++  vdd-supply: true
++  vio-supply: true
++
++patternProperties:
++  "^channel@[0-3]$":
++    $ref: adc.yaml
++    type: object
++    description:
++      Represents the internal channels of the sensor.
++
++    properties:
++      reg:
++        items:
++          - minimum: 0
++            maximum: 3
++
++      shunt-resistor-micro-ohms:
++        description:
++          Value in micro Ohms of the shunt resistor connected between the RS+ and RS- inputs.
++        minimum: 1000
++        maximum: 100000
++        default: 1000
++
++    required:
++      - reg
++
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vio-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        sensor@10 {
++              compatible = "adi,max34417";
++              reg = <0x10>;
++
++              vdd-supply = <&max34417_vdd>;
++              vio-supply = <&max34417_vio>;
++
++              #address-cells = <1>;
++              #size-cells = <0>;
++
++              channel@0 {
++                  reg = <0>;
++                  label = "ch0";
++                  shunt-resistor-micro-ohms = <5000>;
++              };
++
++              channel@1 {
++                  reg = <1>;
++                  label = "ch1";
++             };
++
++              channel@2 {
++                  reg = <2>;
++             };
++        };
++    };
 
 -- 
-2.43.0
+2.34.1
 
