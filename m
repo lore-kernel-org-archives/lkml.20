@@ -1,78 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793228532;
-	b=qeXsDVe30vd4uP28A6JfSRRrjUt7Xb3mlTcmp/VWG/lIWAuHdaCQjEZ2h9IggMZLT4he
-	 U9boiF+cBRVWY4WJgFdqAsYglyVWJDIFFcHbsACcCX+b1xDo93H7HDpWTJr6268+TRhrQ
-	 LO5KjPtK8/rncfHEVUDll8Rxpt1ILPi3JmpwPbqElYGGzpyDFJ5X5km2ayQOpp+vqP0Fh
-	 5TUMje1i4nLQCbzbJpLuYA0nUHouZWb9U8KzkCRDHRznw2s7ObYZ2zEbBTiRdP+V5R3PV
-	 lYUnHGPDX1rmpQTV4HIwLwl0KeUuKWMOkwHni4CEKa7aNJp0d3XRGLYQBZQnDE9DHNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793228532;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x9PhEZroZ7s6qQbU4UDDHXsyI0SUTC2fQaTTCcL595k=;
-	b=iCr/cVnMwehG2T4YgnPDAcMvPtVmRilw8Gs77/IHhA49RrMCvk9+uJ6LJCFSaXD+1lvE
-	 H/V0Bu8kQTksEYVrt7iHvwl0qe5Hgs3aG8NIlh1zA3XwpYFijpQyQBwOXbtcwoWue1hKW
-	 7ALgNBuhBXOhzzvre6qsh27Q/NLjKlQWkVBjVA1CJHMsu8/Zi8DtuZAhYMqG0hhwLWDzD
-	 aF7cdC2HIjpJg22OYSs+8P8O4UbzFNJjjKzndRWhYztBl1vyeIR/2wzkLE6w7V75fzDRg
-	 3+ESqHZgqHZIebM4UFMloGF1LdjrvNEF/QMYHDF6oYUT5h+YarM4WQbzyMhAAaQdgrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es5pmGVO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793228651;
+	b=y2Dh+5W2RSltEGMYtnam2f6//h+eZck1D6cvokMbnQYFVrRVQ2EEy5ANmFylt4d3NtOK
+	 1L4CDyaiZDnVLxBpF/htjJVteY5L3tc4D+W04BRk0S7LeBwxC/dpDmeoG97LaWIEWKk4I
+	 4IwRHPtXghqR9DuoyBCh/Xit2kGX5abY2Bvh1Dsd+Mv7aOJqxaWjGtrAJu7Cc0rfLRTEK
+	 E3/tGmR5KWqzJkP5ASGKMBErLpA/9izpN8rWpfWse7SresvE5Va5UOu9sMLY5tUEAT7tT
+	 STRHRGjlJggAkTHIxzBhilA/wCj/5oJEO4K4F+Tklxg6tM2xfanvrcyd2TjktVfA7qw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793228651;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=yWahGggqBAzZZ1F2MkgON1x5Ts+WaoFBXhlIZHQR+vo=;
+	b=GYPFdaOHHyBPsk3oj2z036n7oBGopUi4Q9K/pcx+6DWyk2aQORuMeNj6bZWeGwyAEGlE
+	 zUga9BdE9hRMnQbVDAPTdn34//OAWuAwdOKZTSgxDvO92Tz6kVIxXtdGoP/VsE3h+ZevY
+	 lqdZes0zh518QUbOVZLg3jEOZxdyZ3Wzs5u6m+kuD8CotsTcITLJrLJWxwaAlXtpMj0hV
+	 6Udt3aJfEVaJjt9YkljcGCyjVWcxbQQ3tUpwz0VkZuHrSB/EEM/0wammSwI0df5vAV+OC
+	 umfDCDGS6hswLGOcU7N2LvWW7P5olG7Jm+XFE+mBfkKK6q68CAPme/E2pqdWQjY677g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNqOZbIU;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80465606A31A;
-	Wed, 28 Oct 2026 23:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E51606A31A;
+	Wed, 28 Oct 2026 23:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es5pmGVO
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793228532;
-	b=zK1yFaOEcGOG+TVK2haXDS8YcMRvOoJx5yo1ua6/Aio1f19k07grIJfnciPE3PXZPfte
-	 GEU/TIYo9H7/WqCY+PBZFErugA3Cvow/m1MQ8ozfxlLa76ZrkMH8wsS/puzkrSB81eaVP
-	 mIA9lkrN7nV5HwsehuDZ0lO0HJhHhz1Tutql77p6l8QD3q+3s8tFDXCYzWKBfC60CYBLC
-	 jRuDfJkzcvkuwV8Pe0bz1oFRojf5LLKcPWjjRwLo/matbtXkzfv7E/gTSOnQfgopqRx3k
-	 WoNV29wH4XDpQXXNNTQFghMfO4mzLWkkBApYcfK+4bB3lgip5Ym/WSlEvW7r5556DLw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793228532;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x9PhEZroZ7s6qQbU4UDDHXsyI0SUTC2fQaTTCcL595k=;
-	b=hPXSRThHkVxc4S4bEhl+ByRLDvazCyHyJqKQKC7H7CmfEcYpDPkxz4/3T1iC/W7V93ac
-	 OrJWCslyHWk2+rb2E4/6QXyMfFzN/k/GvCiNBiczIXdq9wgrnN+/Ie1Kdt/tknTOtGfp5
-	 +UHTD62m0uSnyhp23COqlXRuYd/tikQOIEKtVGZytbeMErPnD5235ec5x5JrSHGo+uNW4
-	 SGAZTe7s7hJVE+6y1eU6QjD/prTnLCUV6CRdxK1M+lASjWsGvke2pzaQIilYqeeDPok/h
-	 0Jb/GA6zMGnnInniwGFEDoEVoAy1ZUeJNTw9J8w9K/2gGrN6aT8MihyJlBq/J+9deSw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 921DA1F01825;
-	Wed, 28 Oct 2026 23:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNqOZbIU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C601F01825;
+	Wed, 28 Oct 2026 23:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793228532;
-	bh=x9PhEZroZ7s6qQbU4UDDHXsyI0SUTC2fQaTTCcL595k=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=es5pmGVO9hlHoqYn5bFIApN86T0Bva+Y7j2gwnn0UWcgX83OvLNkkzFfmgctWW+UC
-	 EiI0TazmpyLHaU7M5T7IONhoEekLNIiq5WYwIt4nb+35jAYiik6VcQWFgpHAwRfTyt
-	 Fp2AegJIupTduKFBLbrFg2qQHQfwkKzAm7q9lUMioGikrnipE36M0Bj6xk8F2B5c1c
-	 GsAGo0ei5z7azfTT2wOyE41PeH6ApcMzbHibXT/81MRDohleDF2Jr2X/gA2pUg3PO7
-	 dsJZFFQX76x3QvpBoBFc7mnnkKL/OLj90vp3c8F9j/wWPodT0jWVyLEU2tehfle82G
-	 wz3gEbxW2vrxw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E4866455F9;
-	Wed, 28 Oct 2026 23:02:10 +0000 (UTC)
-From: Xuheng Li via B4 Relay <devnull+xuheng.cs.columbia.edu@kernel.org>
-Date: Wed, 28 Oct 2026 23:02:10 +0000
-Subject: [PATCH] KVM: arm64: Add an ISB after mapping a hyp fixmap slot
+	s=k20260515; t=1793228650;
+	bh=yWahGggqBAzZZ1F2MkgON1x5Ts+WaoFBXhlIZHQR+vo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=KNqOZbIURlmWF8VcvD8mRkm1HnRRbtmWbwKy9abPnYENuciE+fk/k3MTfo8pGyvte
+	 LaYii0YidCo1CDVUe0bSDPr2vH04VR7ZmXl7uZx2kSW2QqRZkoVhbfeXgPXdhLv1xq
+	 w2NCKn2T0TwUdIT4NGGIbJsCXvAZE84LeeL5q9GmqESxWLvFq3bUx+7M7wMjX67c5k
+	 d+/lSbFJGE6+yBAemzswM6MQIdkH40nSa2pHPYGfvOoJNA4FEyebvRTs9fm/U3tZCM
+	 Sj2+s9T/YkNbmY9izzYzRDl54rzQiuF8p++cz6VnsHux8HFu+jOFJEfQA+vhy2bhRi
+	 xVBiqrGRlIHBA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Alexander Viro
+ <viro@zeniv.linux.org.uk>,  Christian Brauner <brauner@kernel.org>,  Jan
+ Kara <jack@suse.cz>,  "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+  Hugh Dickins <hughd@google.com>,  Baolin Wang
+ <baolin.wang@linux.alibaba.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,  Zi
+ Yan <ziy@nvidia.com>,  "Liam R. Howlett" <liam@infradead.org>,  Nico Pache
+ <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,  Dev Jain
+ <dev.jain@arm.com>,  Barry Song <baohua@kernel.org>,  Lance Yang
+ <lance.yang@linux.dev>,  Usama Arif <usama.arif@linux.dev>,  Kiryl
+ Shutsemau <kas@kernel.org>,  Mike Rapoport <rppt@kernel.org>,  Matthew
+ Brost <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
+  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,  Alistair Popple
+ <apopple@nvidia.com>,  Kairui Song <kasong@tencent.com>,  Qi Zheng
+ <qi.zheng@linux.dev>,  Shakeel Butt <shakeel.butt@linux.dev>,  Axel
+ Rasmussen <axelrasmussen@google.com>,  Yuanchu Xie <yuanchu@google.com>,
+  Wei Xu <weixugc@google.com>,  Baoquan He <baoquan.he@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>,
+  Lorenzo Stoakes <ljs@kernel.org>,  linux-fsdevel@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-mm@kvack.org,
+  kexec@lists.infradead.org
+Subject: Re: [PATCH 1/3] mm/memfd_luo: don't use memfd_pin_folios()
+In-Reply-To: <179321872100.1775665.6881420026761127422.b4-review@b4> (Pasha
+	Tatashin's message of "Wed, 28 Oct 2026 16:18:41 -0400")
+References: <20261027173031.763213-1-pratyush@kernel.org>
+	<20261027173031.763213-2-pratyush@kernel.org>
+	<179321872100.1775665.6881420026761127422.b4-review@b4>
+Date: Thu, 29 Oct 2026 00:04:03 +0100
+Message-ID: <2vxz4ie5o2ak.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,83 +81,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-fixmap-isb-v1-1-6c9f0f9cb810@cs.columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyML3bTMitzEAt3M4iTd5GTLFHMz01Rj86RkJaCGgqJUoCzYsOjY2lo
- AeJvqclwAAAA=
-X-Change-ID: 20261028-fixmap-isb-cc9d765e37bc
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
-Cc: Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Xuheng Li <xuheng@cs.columbia.edu>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228530; l=1807;
- i=xuheng@cs.columbia.edu; s=20261028; h=from:subject:message-id;
- bh=MRI3I7XYX2g8m/5nRZspzMo8wXyH7lpxeGQhbbi2qGg=;
- b=QsMY43bA+fBdaVPVPnbfW9T26X1m6bDnOE7uREQ34isPF0d5YMF7mQSstVSg6VOotubIGaW9A
- r5yGUIqIiLpB2fu5VZSh8xzoazibgmP2GJdt7mXdoCFHaXbfoEdnjGO
-X-Developer-Key: i=xuheng@cs.columbia.edu; a=ed25519;
- pk=L1HVV+goqxYmEMO/OXakL6uf9isSpgk2QrLlFqyZ2Qs=
-X-Endpoint-Received: by B4 Relay for xuheng@cs.columbia.edu/20261028 with
- auth_id=1349
-X-Original-From: Xuheng Li <xuheng@cs.columbia.edu>
-Reply-To: xuheng@cs.columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-From: Xuheng Li <xuheng@cs.columbia.edu>
+On Wed, Oct 28 2026, Pasha Tatashin wrote:
 
-fixmap_map_slot() installs a valid PTE for the CPU's fixmap slot (or
-the fixblock slot) and issues a DSB ISHST before returning the slot's
-VA, which the caller then accesses.  It does not issue an ISB.
+>> memfd_luo takes a snapshot of the folios in the file's mapping. To make
+>> sure the snapshot does not go out of sync, it pins the folios in the
+>> file via memfd_pin_folios(). The pinning also migrates the folios out of
+>> MIGRATE_MOVABLE to make sure doesn't land in KHO boot memory or in a CMA
+>> region.
+>> 
+>> memfd_pin_folios() does not lock the folios. So it can race with
+>> shmem_writeout(). A folio returned by memfd_pin_folios() might already
+>> be in swap cache. This happens to work but is fragile. memfd_luo looks
+>> at folio flags and index on a folio that isn't in the memfd's page
+>> cache.
+>> 
+>> In addition, memfd_pin_folios() needs the caller to allocate an array of
+>> folios. memfd_luo does not really need that since it will vmalloc
+>> folios_ser and store the information there anyway. The folios array is
+>> unnecessary overhead.
+>> 
+>> Finally, memfd_pin_folios() fills in holes in the memfd. This makes
+>> preserving sparse memfds very expensive in both compute and memory.
+>> While this patch doesn't yet stop filling in the holes, it sets up the
+>> infrastructure to make it simpler.
+>
+> +1, this is problematic and should be resolved. In some setups, VMMs 
+> leave holes for PCI/IO space; with the current approach, single memfd 
+> preservation does not work for such use cases.
 
-The DSB guarantees that the PTE write has completed, but without a
-context synchronization event the architecture does not guarantee that
-a later access on the same CPU uses the new entry: its translation may
-have been performed speculatively while the slot was still invalid, in
-which case the access takes a translation fault.  At EL2 that fault
-ends in hyp_panic().  The clear side, fixmap_clear_slot(), already ends
-with an ISB.
+Yep, agreed. There are a couple parts to this. First is this patch. Next
+is KHO xarray. The patchset is ready, I'll send it after -rc1.
 
-A litmus test of the same shape (map the slot, DSB ISHST, load through
-it) faulted on a Cortex-A72 in 2 out of 100M runs.  Arm's herd7 model
-with -variant vmsa also allows the fault, and forbids it once the ISB
-is added.
+I think I will move this patch to that series and then make the series
+also support holes.
 
-Add the missing ISB.  This covers both hyp_fixmap_map() and
-hyp_fixblock_map(), which share fixmap_map_slot().
+>
+>> Fix all this by walking the page cache directly using shmem_get_folio()
+>> with SGP_CACHE. This returns a locked folio with an elevated refcount.
+>> memfd_luo holds that reference until the memfd is unpreserved. This
+>> blocks compaction, migration, etc.
+>> 
+>> There is still a need to migrate folios out of MIGRATE_MOVABLE page
+>> blocks. This is because those might be CMA or KHO scratch. memfd_luo
+>> will hold a longterm reference to the folios so it will block migration
+>> in that pageblock. Introduce memfd_luo_migrate_folio() to do this.
+>> 
+>> Also factor out folio unpreservation logic into memfd_luo_put_folios()
+>> and use it from memfd_luo_unpreserve_folios() and from error paths in
+>> memfd_luo_preserve_folios().
+>> 
+>> Since shmem_get_folio() always returns uptodate folios, drop the folio
+>> zeroing logic.
+>> 
+>> This change also improves preservation performance, shown in the table
+>> below.
+>> 
+>> |------------------+----------+------------+-------|
+>> | memfd            | baseline | this patch | delta |
+>> |------------------+----------+------------+-------|
+>> | 4K pages, 32 GiB | 748 ms   | 600 ms     |  -20% |
+>> | THP, 4 GiB       | 0.59 ms  | 0.59 ms    |    0% |
+>> | THP, 16 GiB      | 2.99 ms  | 2.61 ms    |  -13% |
+>> | THP, 32 GiB      | 4.83 ms  | 5.21 ms    |   +8% |
+>> | sparse, 32 GiB   | 8695 ms  | 7269 ms    |  -16% |
+>> |------------------+----------+------------+-------|
+>
+> For THP 16 GiB / 32 GiB, the -13% / +8% swings look like high run-to-run 
+> variance. However, maybe not: is it because vmalloc_array() is 
+> overallocating memory for folios_ser?
 
-Fixes: aa6948f82f0b ("KVM: arm64: Add per-cpu fixmap infrastructure at EL2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
----
- arch/arm64/kvm/hyp/nvhe/mm.c | 1 +
- 1 file changed, 1 insertion(+)
+Could be, I only did a handful of runs. But I also reckon this is
+vmalloc_array() over-allocating. It over-allocated before this patch
+too, for the folios array, but that allocation was half as big since
+folios_ser is 16 bytes each.
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/mm.c b/arch/arm64/kvm/hyp/nvhe/mm.c
-index b95d98cfe..83b74c522 100644
---- a/arch/arm64/kvm/hyp/nvhe/mm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mm.c
-@@ -316,6 +316,7 @@ static void *fixmap_map_slot(struct hyp_fixmap_slot *slot, phys_addr_t phys)
- 	pte |= kvm_phys_to_pte(phys) | KVM_PTE_VALID;
- 	WRITE_ONCE(*ptep, pte);
- 	dsb(ishst);
-+	isb();
- 
- 	return (void *)slot->addr;
- }
+>
+> Also, could you clarify what "sparse, 32 GiB" means in this benchmark? 
+> Was the memfd completely unfaulted before preserve (so preserve faults 
+> in all 4K pages), or partially populated?
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261028-fixmap-isb-cc9d765e37bc
+It was completely unfaulted. Size was set via ftruncate() and then
+preserved. So it is the worse case of "sparse".
 
-Best regards,
+[...]
+>> @@ -113,99 +213,77 @@ static int memfd_luo_preserve_folios(struct file *file,
+>>  	 * Guess the number of folios based on inode size. Real number might end
+>>  	 * up being smaller if there are higher order folios.
+>>  	 */
+>> -	max_folios = PAGE_ALIGN(size) / PAGE_SIZE;
+>> -	folios = kvmalloc_objs(*folios, max_folios);
+>> -	if (!folios)
+>> +	end = DIV_ROUND_UP_ULL(size, PAGE_SIZE);
+>> +	max_folios = end;
+>> +	folios_ser = vmalloc_array(max_folios, sizeof(*folios_ser));
+>> +	if (!folios_ser)
+>>  		return -ENOMEM;
+>
+> I bet in practice memfds almost always contain folios of the same size, 
+> so why not estimate the folios_ser size based on the first folio's 
+> order, and only if that ends up being too small, vrealloc() to match the 
+> maximum possible remaining size?
+
+That's a good idea! But I think the switch to KHO Xarray will remove the
+need for this.
+
+>
+> It would be a different change though.
+>
+[...]
+>> +
+>> +		if (unlikely(!folio_is_longterm_pinnable(folio))) {
+>> +			folio_unlock(folio);
+>> +			err = memfd_luo_migrate_folio(folio);
+>> +			/* Someone else might have it isolated, retry a bit. */
+>> +			if (err == -EBUSY && ++busy_retries < MEMFD_LUO_MIGRATE_RETRIES)
+>> +				continue;
+>> +			if (err)
+>> +				goto err_restore;
+>> +			continue;
+>>  		}
+>
+> Nit:
+>
+> I would suggest adding another helper, memfd_luo_get_folio(inode, index, 
+> &folio), that wraps:
+>
+> - shmem_get_folio()
+> - The !folio_is_longterm_pinnable() migration retry loop logic
+>
+> I think this would make the final code a bit more manageable.
+
+Sounds good, will do.
+
+>
+> Other than that the patch looks alright, feel free to add
+> Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> Once the nit is addressed.
+
+Thanks!
+
+I think the MM side might take some time to gather reviews so I will
+send this out as part of a liveupdate-only series. This patch is useful
+on its own anyway.
+
 -- 
-Xuheng Li <xuheng@cs.columbia.edu>
-
-
+Regards,
+Pratyush Yadav
