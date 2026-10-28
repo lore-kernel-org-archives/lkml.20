@@ -1,75 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150110;
-	b=0MwSRTR7lZkXTWUIDZIsnv9ZclnQddDYm4b4L8i6XrrSuqkqeRlMMkLEfQI+NiqI2tsd
-	 Zcjc/Qg+JnbaNPQbw9W1kEEjgzJNgopXy+ndcJ5sibEpca/0MEln53S9bvpc0pSBrzybq
-	 gIRd9u5JtD03tSFqeAbN9NCBT7cWU2Ls/sQIH76DJyL98enxVytvtoUMrYd3kEJsNNJxW
-	 8RBOhHnx5R6AqKS1yvkinFdkM1XziSxir5Go49daOBur5mmA0EoW6x6aRpwP8hgFwNGEO
-	 dv83bjT59HY5jpkMP27sYlCLKuFVIujFLu0AROJ9LoSSD102ga0XdTV7OfK2vatAYRw==
+	t=1793150188;
+	b=cvBvwv7lxZaGHvfvko0pkjgpcwQKNxON6O7kz5F7dulmGt4GcRzBhbNgq6l4b7XooTuy
+	 88MLUb18hOdc6hPq7M+jgbhyDuozdLqruxHHu/qQQrEtN50FDcJn3djO2WA/kuNAdA7y3
+	 i/j3dfLS8mmbA5pGT+k8jI0GwgiJJKVL0T2v6BtbmQWznM5XDvnXoi7NhWb5LR29Km4QK
+	 OS+oxmypjwVMGtgBXhKYf/7HPHHtVG3JIF/0kRyP/V11CVpNvG9kD5gEGFk4cZdoxJdSk
+	 bUhDHJFqHHeVjD8vJmpI9om7J6nloTjkygnY1ouUTftIFaUvmXZ7bd5YU8Yiu/e9OHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150110;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bm7wec5B1UFJK2Enj5zENUBnAS6DiTmj+CBBwH6eJIY=;
-	b=38daqK/+aQAJtIHqO5kglGmsHWJS5PbUMhGQortuPahF2s+Pz6aUEtNV4cBcLjWuS6C4
-	 yCwN7KMxsB8V9jp56NjqZnhw7X1+tCzy02yoYOp6T8V5DsgrPY8qDd25kfo/uTf8Lpex6
-	 hy2BIAWUhBzcIhy21tGnxofwPMXx2I7IQF8w7pKi4Jbj2g5X68pBik6mMZVXoRSjwinJe
-	 rI8ef0V3PZRPYHV0Be02PhNZzIhakoGhuqKpWk4JHOF8miuOM4D2HOxuLsKWhLRutVKZC
-	 koUPDG7y+0+mXKhkdRsHdDjVvjeSztEp1xeow8uI1beo47S2LIXfJ91sywTIxbpztlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150188;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=b+REZnCfFDdefm9jnJVSHPmWlkqHTOnFekI0S/9L5S4=;
+	b=pIBkKkhpUX7RmHXTirEvmzEEVQrDHfN3FsAlhHS4BwW1q5jk4rzlKQlVOYRmT7/POFpx
+	 iAtLWYJldK+1xwioWCbYa8UKi0GddAemaJl4LyNAjwv0zbnRiwhvPFnZAoY2JIaiZ+Slz
+	 z12A0j2x3v3w9WSzHJ/fyrFvZHjm5RO1Pteb7qKr0/TYEh4IhwWld9SZOHn2LgrltxBO3
+	 yIUpFQAUVvobHq8YpMFO/wBXXM+Q2vim6PcRf7zJEtY14DV8+DklgJcmrUenV3Wz6guZi
+	 9gNkfw3QYmx9PEscXmfmg54zm2FV5tLCSXKsOyGz0bsOJYOij591FFt4oINwfLnKVIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=QWCEa5r6;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=OHNvGusE;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF97F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF97F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E30606A31A;
+	Wed, 28 Oct 2026 01:16:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E30606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=QWCEa5r6
-Received: from macsyma.thunk.org ([104.133.198.41])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69S1ENuL016217
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 21:14:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1793150069; bh=bm7wec5B1UFJK2Enj5zENUBnAS6DiTmj+CBBwH6eJIY=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=QWCEa5r6aHnQVDNXR26SZ1h5zufpgEkvKqpUqIXTkQq5YbtavWp5uXTRxqh7u4ucN
-	 5WZxNprEspfbmtUVcSg9evG1NB/veAHJql0TU9SSNsdoBrUT1diZGb3Y3Z59CNQTjc
-	 3drrpsVmiGadf2cYndUxZgbIiExpy+GzfIOJBovWkBTKSKcwel2d2dFAnY8WWt3EV/
-	 ELfTsRZ72+Mg+53LkySENxC2Xbh1mNp5PXFdmWIVAEhkzqGGUVfBdyHLdAJHddGEne
-	 rIXFXXpimKsi5sjTRYOZqcPc8l1dT3mAmcGBKgZQ2Ar5yL+KI4pGLVwFGLd74ByGrY
-	 cnMMzeLteGG7w==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 9FF442321DDD; Tue, 27 Oct 2026 21:14:22 -0400 (EDT)
-Date: Tue, 27 Oct 2026 21:14:22 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-        workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <auFH8o9FbxprB40A@mit.edu>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
- <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
- <20261027122346.GA2133989@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=OHNvGusE
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0C44F148E28;
+	Wed, 28 Oct 2026 02:16:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793150183; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=b+REZnCfFDdefm9jnJVSHPmWlkqHTOnFekI0S/9L5S4=;
+	b=OHNvGusEtM6K3h6Z0yNFqbB49cR1kbiI70swtRDWeuc3Ke0YpIwKvELrBgFEuXM5BfHGtT
+	uKsfHi/SBUegnadBVM7sl2zc72DgL8sS65JjKMbLmEREhJmqXARDzM18QjnYVb8jAmm5N8
+	25qMwO49OF2TPyytIdVAlinNc/DFSjWVxCd+eoZC2X1b07emIk0wEtqQ8av5t0A44OshPK
+	YEILFNCM5flsHNCfsEIeet9Br9fIwfoAGjrftxz+F5T57ivLOdX+PKw0wtoP+wuS2E9RDO
+	iGE+po2Z+lobkZEi8KBa9Cs7XtoQl5tdu4TTG1i/rkY2c86VQs87T8CBKQOBOQ==
+Message-ID: <86c89435-581b-44dd-9308-f77332944b7f@cjdns.fr>
+Date: Wed, 28 Oct 2026 02:16:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,57 +55,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027122346.GA2133989@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2 net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530:
+ add econet,en751221
+To: Rob Herring <robh@kernel.org>, netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
+ arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
+ sean.wang@mediatek.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
+References: <20260915174643.253660-7-cjd@cjdns.fr>
+ <178967820050.22033.18093714968849770785@kernel.org>
+ <20260924154955.GA337010-robh@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260924154955.GA337010-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 27, 2026 at 02:23:46PM -0500, Laurent Pinchart wrote:
-> > The problem boils down to how to present work that touches multiple
-> > target trees, and where some parts depend on other work that is
-> > not yet finished. Do you post it as single series, so people get an
-> > overview? Do you split it in multiple small series (which may still
-> > have interdependencies), so everybody looses context?
-> 
-> There's no one-size-fits-them-all solution to this problem. What I want
-> in those cases is information provided by the person posting the patches
-> about the dependencies and where to find them. I think there's value in
-> specifying that information in a machine-parseable way.
 
-The problem is that "one size fits all" and "machine-parseable way"
-are in tension with one another.  One approach might be that the
-patche series fragments might be sent to different subsystem mailing
-lists and reiewers, but the cover letter might include a pointer to a
-unified git branch which has all of the patches touching all of the
-different pieces.
+On 24/09/2026 17:49, Rob Herring wrote:
+> On Thu, Sep 17, 2026 at 08:50:00PM +0000, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 7 potential
+>> issue(s) to consider:
+[...]
+>> The analogous MT7621 case does not collide because the SoC root uses
+>> mediatek,mt7621-soc.  Since the SoC compatible is already released, would a
+>> distinct string for the switch, e.g. econet,en751221-mcm-switch, work here?
+> This needs to be addressed.
 
-Another approach might be to post it as a single series, but different
-mailing lists and reviewers get cc'ed on the various patches in that
-series --- and everyone gets cc'ed on the cover letter which also has
-a pointer to the unified git branch.
 
-A lot of this really depends on whether you are asking for reviews, or
-whether you are asking people to apply the patch series in their
-subsystem trees.  In the case where there are a large number of
-interdependencies, they probably can't do that via patch series
-anyway, and it might be easier just to get relevant ack'ed by and then
-send to Linus with an explanation that you've gotten acks from all of
-the relevant reviewers.
+Thanks for the note and sorry for the delay. I've just sent v3 with it 
+changed to econet,en751221-gswitch. I did not see any standard for this 
+and the name gswitch is intuitive for owners of the EN751221 chip 
+because switch appears where the chip name has "G" in it, and it 
+provides gigabit ports.
 
-In truth, this case is actually pretty rare.  The more common case is
-where there is a single set of changes that multiple patch series
-might depend upon.  For example, there might be an set of iomap
-changes which will go on one branch, and then various file systems
-(xfs, ext4, btrfs, etc.) might pull in that common dependency branch
-with the iomap changes, and then put their ext4 changes on top of
-those.
 
-In that case, what's important is not just the base commit id, but an
-explanation of where to find that base commit.  Normally that just
-goes in the cover letter, in human readable form, because I don't
-think we have a lot of automation that tries to deal with that, as a
-subsystem maintianer, reading the cover letter is just fine from my
-perspective.  But if someone wants to propsoe extending the base
-commit with a repo and branch or tag where the commit can be found, I
-guess we could do that.
+Thanks,
 
-       	      	       	      		     	   - Ted
+Caleb
+
+
+>
+> Rob
