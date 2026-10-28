@@ -1,71 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164568;
-	b=x5Zka2GQtq1W/l7rmU3/AeWZ65aSo2YJWjK2rDhyg/R2ZVvWVEZkbB70KRrvN9tfUOXp
-	 chomtbY+Rz2x644HEro4MCfp3Bo1LndDygjjm2ZZWpem83e93SYhBJQ3P5RDjqQeJgFhN
-	 KvJA6VoAeKuQ73EiT3HgxoJmo68kr+/91F7H62s28+6XR4gV4wlH7AnptcWRC4fSXqkvC
-	 O/UUaa3Op15Xa0UYOArwq4Tu5WnAroxfBmcR/5KWWDV5kQPa3j8e5jNfukxLnPDU4cBEq
-	 MtS/puScpzib79v1EYd/dYxcH0r33fjyAMvIwoTGPthljvao2FFYFq7O6YKSef8TziA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164568;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=5Ir5Ptx6wxJj62zqcl/rkwae7e8ti3xBH2DQczC7hUI=;
-	b=jBhmRPpIwiobo47u52b5DoHQBSudQleSuX3zaNmj8w+jDRStcO14xRmr5rs9j5vdVFEG
-	 G1WFCnkZgW0jXNlpxVgTGxlJOw8wRt92mn1MiqMP274IMJDo0HTOUbQMMvTZ/eil0xpw8
-	 TKH9YauoFHU35d67EbmoSXzL0NgJ2+Wc7p92udnGg72sWqF7+NIXTzHEWg8lyjsSqTdNp
-	 IKJlgrD4zNqtWh4GdzcrTLwCW2isGm32C9Qp/O/mTgWF3YROqZHh0/f0cEr8hlBBJC96a
-	 QJpr+C2cXeP8vq3tqCnvKhIfdzwCY4R43dyMPrDmDYJhkppbaCR3GQPxkv0fujg5UFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I601Xg6+;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793164663;
+	b=ooIibAn+o2Vg4uRHeUgVrunp3yZr9tBxCP7bB6I1BmT2VnsUm9u88FTVgPlIxOLtd+5X
+	 ZKIYzHmZG0jrShcxcqhJBNiACFotfhBxJyFY9LQ+HcSihn8iulRVz/4+WsRRc87UmW15V
+	 gNx0WcmPKL3tAA/OeJMVmXjJkP22z3pyhluwhZI7HK3UxDvAO5Vxx63Ujz7B1OTSf7f7u
+	 BC6FTRM49SIyPG1r+22ePsiXO+jpT1MJKRrBf20ZZXSHKns+gevwxp27a2q/IxWx8jagg
+	 tnDebJXCb/D7HOxe1AfFHGWXbFvIgsb2m09Zeg7GB5SyR5Tdamjg00D0VpmFigH5a3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GDKL8ACSPYbMdc5hsGwzwbLgkI4rfLvSaTomsxOJ7Rk=;
+	b=u0+CvDUovARPCogSuKp51RngXTgdaS241bHB472NqHsS81I5ivVACPDeKEvAh1/jQBLD
+	 Ffsz0CQJNRZCUVJ4EqtwP0UC163PtbLIMGWfhO+8b1ZB3Ft8Z+bpGVutsE7r4chWkqtID
+	 9ykD9IcyoZmsWLeTL00LnXJ5J4IQCCaVy0QEJxUA8zJEGMFa0x0oKLtO62tSDQycWaYpy
+	 ZPCdQA0G0Vp0w0TmkQeeK38OfTWYfY6Cs6d9GnnOMde3P83d8U2jMGepoAiK6RG8Z5rUv
+	 QUwS355xCersyF3D2MqMk26I045BV4eQgJgb4EZbsAjGhs4Y73isIeWPsL5MoVAXuZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PrPg0WvR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91512606A31E;
-	Wed, 28 Oct 2026 05:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91512606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665E0606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:17:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 665E0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I601Xg6+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=5I
-	r5Ptx6wxJj62zqcl/rkwae7e8ti3xBH2DQczC7hUI=; b=I601Xg6+bor4TeG2lk
-	DzsD1Hrt0PyijJH9C8Y5NgiYNZ2SkTQIHCQ/nVVi+gfJ1SvqABfzQkRC261aqF1d
-	OfAwSvp5DbD/wUl++A5jAD9l8VDlSH5l9v2zY7MdT9PiTRHAmdT/AB8QaMAH+n8e
-	iRlCLvX6q6Y8ucetmZowjxDVQ=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3N956hOFq5V9qDQ--.31027S2;
-	Wed, 28 Oct 2026 13:13:31 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Armen Baloyan <armenx.baloyan@intel.com>,
-	Jay Freyensee <james.p.freyensee@intel.com>,
-	Anthony Knapp <anthony.j.knapp@intel.com>,
-	Ming Lin <ming.l@ssi.samsung.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Max Gurtovoy <maxg@mellanox.com>,
-	Steve Wise <larrystevenwise@gmail.com>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Israel Rukshin <israelr@nvidia.com>,
-	Aurelien Aptel <aaptel@nvidia.com>,
-	James Smart <james.smart@broadcom.com>,
-	Hannes Reinecke <hare@suse.de>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] nvmet: serialize port attribute updates with enable
-Date: Wed, 28 Oct 2026 13:13:29 +0800
-Message-Id: <20261028051329.149005-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PrPg0WvR
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5383c97c8cfso131441cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:17:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793164661; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b7WL5FhfTNTZ7dSzXLpVQ8Fs/ZagFiRSm94SFJQf5XCbuFw9117EY6UJM8k/liaO4w
+         VuGT2RNiV8y/ptDwSTPFAOO+mIdX+FfMte/ekojPjeuo5+4HmNSjEgP3wQKJJjUp8c53
+         YyRSk0qbju5FR3PsY0IMQBon7C5gXu/kSWQoFOM+AT1v5YXRL2sYCjmyBcpZC5Zp1Xtr
+         fKUg4P/8hitkw/6X+VPu1sXg/h+bUd9I/gCoqGqzCuRfC/e2fqIJ3qBYH0yUlRX2EJ0i
+         ehZiEiak3L1ClqvUGPJSrLj10jhs8l6NGqaCBYPH5m+lyc67RotU7bxQwP5P/E5yKctx
+         u68g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GDKL8ACSPYbMdc5hsGwzwbLgkI4rfLvSaTomsxOJ7Rk=;
+        fh=k0dLcksPVcLLgTPguP1bki816XsXBBe/fV9uA3SsHd8=;
+        b=YCUQFFCCQVUjCF3ubEwqzGhqIw1qAiYZ1xXh4RjP8hQIM8hk7VhBKzqVs9RHOx+aE2
+         mmHSaHKeSbJcuKLHIrmfg/Wm3R1PRR9TLt1bntUUj/BUB84hJrjqDdQd59PNFJy/7K1b
+         rWXhISEtd3L0QESTWVU3uN84SV/gaOqJZbUB3aWNbWcc9imFRjV2nBndUMlcrLMBTT5c
+         LALYLlvYpu2exXhv4T+5Uh/Tp3L8+l2B9y95kHg8dYOu2a3YbFeEjZ+S6KZ6NM+FXBz1
+         nSvblw1njI+mRa8t+3U5IJPvqonz9Cq5ZRI0HNo1ZgQk9nzosz4uN3P9CMT54gh6FeAy
+         Ctfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793164661; x=1793769461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GDKL8ACSPYbMdc5hsGwzwbLgkI4rfLvSaTomsxOJ7Rk=;
+        b=PrPg0WvRGNowNnmJ9Tl+sbouNPGk+kTYr7QdNR5OqCATTtnCAwxJupDZoq14GryW4z
+         Z4L1IpM6YAEBIJ0DtG6xP8/7Ptpp/pfvVSrCAVuUzxeBvU2vWt5cSgYVxoT6Js3ubd6x
+         tS7AVvnIxJyDkdYUsItAe0Lef02E8BUwxWO2SZLiKAXfht7i40mUljOtrRt+2IkYx09V
+         eMShmD/80+/vXy9VvbaHwrsUM7tNIacuun2EeQ4IJqmbrPsfiXneVOJrc08fo8ojSJFE
+         ILjz71g4fybCH2hTXaG/dvERW/BZYfufaZHrdS2RNtMBBFrNkV/ZBqTmZSRiGGHGsdbY
+         DtnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793164661; x=1793769461;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GDKL8ACSPYbMdc5hsGwzwbLgkI4rfLvSaTomsxOJ7Rk=;
+        b=075CeYiGPduOe5hlP78TVULAv0pMOtTRycucuMOxoFfcOgvODLjiiUzi25yGp5MTZh
+         S0qzNx1SU/jpfXkKnv6Jm577r/mcje9Qlbm62aFcKD/e9geqJLQFor+/QqbJyJUAA/Y/
+         Xj0FV8BrwSZxENYyPzgBu0bxGpP+15H9mmDRjeP1+oSjb4YMqPujtZOCw18fIaW6+h7t
+         Z8aqrEK/NLeSllWpTCDpO4Zfz8oGracLpRbX2+tyCxObQocQrnDeeF1GxKwwHGu/oGpq
+         c6vWulIwvjjyAZ5aP+Jz0GzmgQ90gpmLYuQrE2nImjftsU7WBKr2PYkF/SgNUy0zoPuR
+         nq8g==
+X-Forwarded-Encrypted: i=1; AKwUvBy79znT7HQFKRE5N9gu8DBHY76w/f+OJGzYN1Zpin2PHfivHBEeZPto0ZByyekFoYiEhXfQGL6r+LOShlE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLA6NhI30xwtCzWKG6rQIh49E4PR5GnSh1Ua4I1pkzHgGy0ZvhI
+	yW7+8mReX5DaH98X8jsgTyRBfoqeMAYJ8Zd1Pg+rJ1nnF4JHO7Moka9qycPaKUaSx3HZjvDIJVQ
+	RTtSvMBy3lV2a489EL262RQ1+hZ/CY3EoVTnEwUz9
+X-Gm-Gg: AYBFou3qfHPPTPV0ZlcZVgUCAbZ0HsLBSAT82FzUjqav/UN4Lc4nY12GG1LxqDTZofT
+	Lg8YyUkac8u5v53JgBXeME2/1Gfus7UwrPuD6Aos8GpSKKI/Tiy+oVHqkYkVazatRzf9h8xGrwM
+	DxFOATav/pWIuAH7nKEZqzLJAIEJQ+hvmF7ro0WZk1TIYLrpSGG3hl8NVl0yKG5qXOT5OBAfF/2
+	Dj/vjl28KgY6A9UWymI4k+Vo+ykdth78zR18Sycg5/nz4DqdwOio1MTNKeEMBQIu3MPWvlMQqu4
+	4IFNt1UMX+CnzFzEhOuE9jXCA0WoO1gdfFEwrHE8icL5u0YqwD9soRjqh+C+iFcEUK59Owy1Qki
+	zIw4sXj3amRUXwsqdZ86ebp1kD0bx6ofrlu+q8eI0MHOLjbZ5da8YLjRI
+X-Received: by 2002:a05:622a:4119:b0:535:84ef:2e26 with SMTP id
+ d75a77b69052e-53ff3cb02b4mr6485831cf.7.1793164660595; Tue, 27 Oct 2026
+ 22:17:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,398 +104,404 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3N956hOFq5V9qDQ--.31027S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Kw4rZFyUuFyxJr4fZw47urg_yoWktw4xpF
-	sxXFy5tr9rKrWIkrnayrWqkry5Cwn7ArZ5X3yUG3sFyw1Fyry3Jws8CasIvFyDtrn2grW5
-	Gr4kGFs3ZayYyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jf0eQUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xtSjGrhhHsUTwAA3F
+References: <202610271934.fd287c3f-lkp@intel.com> <CAJuCfpG67sV5Vhn1DnAWTV2xZVptOCdmH3iEnUEvYs9GRPbOeg@mail.gmail.com>
+In-Reply-To: <CAJuCfpG67sV5Vhn1DnAWTV2xZVptOCdmH3iEnUEvYs9GRPbOeg@mail.gmail.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 27 Oct 2026 22:17:28 -0700
+X-Gm-Features: AclHuK86VLRen4xrSLePLZdR0AyyfK7lbNEkSzdjf0kj7NdStnby2nfNoH9JMbE
+Message-ID: <CAJuCfpHEDeyWYUp73Va9Gmobpeg0r9vXEFkCtJunGsQSh=gXpA@mail.gmail.com>
+Subject: Re: [linus:master] [selftests/proc] ca5480fb53: kselftests.proc.proc-maps-race.fail
+To: kernel test robot <yi1.lai@intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Port configfs stores check port->enabled before updating address and
-transport parameters, but the check and update are not serialized with
-nvmet_enable_port().  A concurrent enable can therefore consume a
-partially updated address or validate one value and publish another.
+On Tue, Oct 27, 2026 at 9:52=E2=80=AFAM Suren Baghdasaryan <surenb@google.c=
+om> wrote:
+>
+> On Tue, Oct 27, 2026 at 5:31=E2=80=AFAM kernel test robot <yi1.lai@intel.=
+com> wrote:
+> >
+> >
+> >
+> > Hello,
+> >
+> > kernel test robot noticed "kselftests.proc.proc-maps-race.fail" on:
+> >
+> > commit: ca5480fb53fa73cb5816b696b103826daedab1ca ("selftests/proc: add =
+/proc/pid/smaps_rollup tearing tests") https://git.kernel.org/cgit/linux/ke=
+rnel/git/torvalds/linux.git master
+> >
+> > [test failed on linux-next/master f1ac44c32cba88ad65dcecd4a279661d14e93=
+651]
+> >
+> > in testcase: kselftests
+> > version: kselftests-x86_64-d6d3455d8751-1_20261013
+> > with following parameters:
+> >
+> >   group: proc
+> >
+> >
+> > config: x86_64-rhel-9.4-kselftests
+> > compiler: gcc-14
+> > test machine: 36 threads 1 sockets Intel(R) Core(TM) i9-9980XE CPU @ 3.=
+00GHz (Skylake) with 32G memory
+> >
+> > (please refer to attached dmesg/kmsg for entire log/backtrace)
+> >
+> >
+> > If you fix the issue in a separate patch/commit (i.e. not just a new ve=
+rsion of the same patch/commit), kindly add following tags
+> > | Reported-by: kernel test robot <yi1.lai@intel.com>
+> > | Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@inte=
+l.com
+> >
+> >
+> > KERNEL SELFTESTS: linux_headers_dir is /usr/src/linux-headers-x86_64-rh=
+el-9.4-kselftests-ca5480fb53fa73cb5816b696b103826daedab1ca
+> > 2026-10-26 14:37:46 sed -i s/default_timeout=3D45/default_timeout=3D300=
+/ kselftest/runner.sh
+> > 2026-10-26 14:37:46 make -j36 TARGETS=3Dproc run_tests
+> >   CC       fd-001-lookup
+> >   CC       fd-002-posix-eq
+> >   CC       fd-003-kthread
+> >   CC       proc-2-is-kthread
+> >   CC       proc-loadavg-001
+> >   CC       proc-maps-race
+> >   CC       proc-net-dev-lseek
+> >   CC       proc-empty-vm
+> >   CC       proc-self-map-files-001
+> >   CC       proc-pid-vm
+> >   CC       proc-self-map-files-002
+> >   CC       proc-self-isnt-kthread
+> >   CC       proc-self-syscall
+> >   CC       proc-self-wchan
+> >   CC       proc-subset-pid
+> >   CC       proc-uptime-001
+> >   CC       proc-uptime-002
+> >   CC       read
+> >   CC       proc-tid0
+> >   CC       self
+> >   CC       setns-dcache
+> >   CC       setns-sysvipc
+> >   CC       thread-self
+> >   CC       proc-multiple-procfs
+> >   CC       proc-fsconfig-hidepid
+> >   CC       proc-pidns
+> > # timeout set to 300
+> > # selftests: proc: fd-001-lookup
+> > ok 1 selftests: proc: fd-001-lookup
+> > # timeout set to 300
+> > # selftests: proc: fd-002-posix-eq
+> > ok 2 selftests: proc: fd-002-posix-eq
+> > # timeout set to 300
+> > # selftests: proc: fd-003-kthread
+> > ok 3 selftests: proc: fd-003-kthread
+> > # timeout set to 300
+> > # selftests: proc: proc-2-is-kthread
+> > ok 4 selftests: proc: proc-2-is-kthread
+> > # timeout set to 300
+> > # selftests: proc: proc-loadavg-001
+> > ok 5 selftests: proc: proc-loadavg-001
+> > # timeout set to 300
+> > # selftests: proc: proc-maps-race
+> > # TAP version 13
+> > # 1..6
+> > # # Starting 6 tests from 2 test cases.
+> > # #  RUN           proc_maps_race.maps.test_maps_tearing_from_split ...
+> > # #            OK  proc_maps_race.maps.test_maps_tearing_from_split
+> > # ok 1 proc_maps_race.maps.test_maps_tearing_from_split
+> > # #  RUN           proc_maps_race.maps.test_maps_tearing_from_resize ..=
+.
+> > # #            OK  proc_maps_race.maps.test_maps_tearing_from_resize
+> > # ok 2 proc_maps_race.maps.test_maps_tearing_from_resize
+> > # #  RUN           proc_maps_race.maps.test_maps_tearing_from_remap ...
+> > # #            OK  proc_maps_race.maps.test_maps_tearing_from_remap
+> > # ok 3 proc_maps_race.maps.test_maps_tearing_from_remap
+> > # #  RUN           proc_maps_race.smaps.test_maps_tearing_from_split ..=
+.
+> > # Expected stats:                                                      =
+       Rss 892 kB
+> > #                                                              Pss 82 k=
+B
+> > #                                                        Pss_Dirty 82 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 24 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 860 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 892 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # Actual stats:                                                        =
+     Rss 892 kB
+> > #                                                              Pss 81 k=
+B
+>
+> Hmm. RSS is staying the same but PSS is changing. I think I must
+> filter out PSS stats in this comparison because they depend on page
+> mapcount and might change even if VMA tree is stable. I will update
+> the test to exclude that metric and will post the fixup later today.
 
-Hold nvmet_config_sem for writing across each enabled check and update.
-Parse independent input values before taking the semaphore so invalid
-input does not unnecessarily block configuration users.
+Andrew, David,
+I posted a fix at
+https://lore.kernel.org/all/20261028051312.1505295-1-surenb@google.com/.
+Could you please take it as a hotfix?
+Thanks,
+Suren.
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
-Fixes: 0d5ee2b2ab4f ("nvmet-rdma: support max(16KB, PAGE_SIZE) inline data")
-Fixes: ca2b221d89a8 ("nvmet: introduce new max queue size configuration entry")
-Fixes: 0a5a94648627 ("nvmet: introduce new mdts configuration entry")
-Fixes: ea52ac1c6605 ("nvmet: add metadata/T10-PI support")
-Fixes: 3f123494db72 ("nvmet: make TCP sectype settable via configfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/nvme/target/configfs.c | 222 ++++++++++++++++++---------------
- 1 file changed, 124 insertions(+), 98 deletions(-)
-
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 8aea64d279c4..8d70cb8ac796 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -83,9 +83,6 @@ static ssize_t nvmet_addr_adrfam_store(struct config_item *item,
- 	struct nvmet_port *port = to_nvmet_port(item);
- 	int i;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
- 	for (i = 1; i < ARRAY_SIZE(nvmet_addr_family); i++) {
- 		if (sysfs_streq(page, nvmet_addr_family[i].name))
- 			goto found;
-@@ -95,7 +92,11 @@ static ssize_t nvmet_addr_adrfam_store(struct config_item *item,
- 	return -EINVAL;
- 
- found:
--	port->disc_addr.adrfam = nvmet_addr_family[i].type;
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->disc_addr.adrfam = nvmet_addr_family[i].type;
-+	}
- 	return count;
- }
- 
-@@ -120,10 +121,11 @@ static ssize_t nvmet_addr_portid_store(struct config_item *item,
- 		return -EINVAL;
- 	}
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
--	port->disc_addr.portid = cpu_to_le16(portid);
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->disc_addr.portid = cpu_to_le16(portid);
-+	}
- 	return count;
- }
- 
-@@ -141,17 +143,21 @@ static ssize_t nvmet_addr_traddr_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
-+	char traddr[NVMF_TRADDR_SIZE + 1];
- 
- 	if (count > NVMF_TRADDR_SIZE) {
- 		pr_err("Invalid value '%s' for traddr\n", page);
- 		return -EINVAL;
- 	}
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
--	if (sscanf(page, "%s\n", port->disc_addr.traddr) != 1)
-+	if (sscanf(page, "%s\n", traddr) != 1)
- 		return -EINVAL;
-+
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		strscpy(port->disc_addr.traddr, traddr);
-+	}
- 	return count;
- }
- 
-@@ -186,12 +192,8 @@ static ssize_t nvmet_addr_treq_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
--	u8 treq = nvmet_port_disc_addr_treq_mask(port);
- 	int i;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
- 	for (i = 0; i < ARRAY_SIZE(nvmet_addr_treq); i++) {
- 		if (sysfs_streq(page, nvmet_addr_treq[i].name))
- 			goto found;
-@@ -201,22 +203,29 @@ static ssize_t nvmet_addr_treq_store(struct config_item *item,
- 	return -EINVAL;
- 
- found:
--	if (port->disc_addr.trtype == NVMF_TRTYPE_TCP &&
--	    port->disc_addr.tsas.tcp.sectype == NVMF_TCP_SECTYPE_TLS13) {
--		switch (nvmet_addr_treq[i].type) {
--		case NVMF_TREQ_NOT_SPECIFIED:
--			pr_debug("treq '%s' not allowed for TLS1.3\n",
--				 nvmet_addr_treq[i].name);
--			return -EINVAL;
--		case NVMF_TREQ_NOT_REQUIRED:
--			pr_warn("Allow non-TLS connections while TLS1.3 is enabled\n");
--			break;
--		default:
--			break;
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		u8 treq;
-+
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		treq = nvmet_port_disc_addr_treq_mask(port);
-+		if (port->disc_addr.trtype == NVMF_TRTYPE_TCP &&
-+		    port->disc_addr.tsas.tcp.sectype == NVMF_TCP_SECTYPE_TLS13) {
-+			switch (nvmet_addr_treq[i].type) {
-+			case NVMF_TREQ_NOT_SPECIFIED:
-+				pr_debug("treq '%s' not allowed for TLS1.3\n",
-+					 nvmet_addr_treq[i].name);
-+				return -EINVAL;
-+			case NVMF_TREQ_NOT_REQUIRED:
-+				pr_warn("Allow non-TLS connections while TLS1.3 is enabled\n");
-+				break;
-+			default:
-+				break;
-+			}
- 		}
-+		treq |= nvmet_addr_treq[i].type;
-+		port->disc_addr.treq = treq;
- 	}
--	treq |= nvmet_addr_treq[i].type;
--	port->disc_addr.treq = treq;
- 	return count;
- }
- 
-@@ -234,16 +243,20 @@ static ssize_t nvmet_addr_trsvcid_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
-+	char trsvcid[NVMF_TRSVCID_SIZE + 1];
- 
- 	if (count > NVMF_TRSVCID_SIZE) {
- 		pr_err("Invalid value '%s' for trsvcid\n", page);
- 		return -EINVAL;
- 	}
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
--	if (sscanf(page, "%s\n", port->disc_addr.trsvcid) != 1)
-+	if (sscanf(page, "%s\n", trsvcid) != 1)
- 		return -EINVAL;
-+
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		strscpy(port->disc_addr.trsvcid, trsvcid);
-+	}
- 	return count;
- }
- 
-@@ -261,15 +274,18 @@ static ssize_t nvmet_param_inline_data_size_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
--	int ret;
-+	int ret, inline_data_size;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--	ret = kstrtoint(page, 0, &port->inline_data_size);
-+	ret = kstrtoint(page, 0, &inline_data_size);
- 	if (ret) {
- 		pr_err("Invalid value '%s' for inline_data_size\n", page);
- 		return -EINVAL;
- 	}
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->inline_data_size = inline_data_size;
-+	}
- 	return count;
- }
- 
-@@ -287,15 +303,18 @@ static ssize_t nvmet_param_max_queue_size_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
--	int ret;
-+	int ret, max_queue_size;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--	ret = kstrtoint(page, 0, &port->max_queue_size);
-+	ret = kstrtoint(page, 0, &max_queue_size);
- 	if (ret) {
- 		pr_err("Invalid value '%s' for max_queue_size\n", page);
- 		return -EINVAL;
- 	}
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->max_queue_size = max_queue_size;
-+	}
- 	return count;
- }
- 
-@@ -314,15 +333,17 @@ static ssize_t nvmet_param_mdts_store(struct config_item *item,
- 	struct nvmet_port *port = to_nvmet_port(item);
- 	int ret, mdts;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
- 	ret = kstrtoint(page, 0, &mdts);
- 	if (ret || mdts < 0 || mdts > NVMET_MAX_MDTS) {
- 		pr_err("Invalid value '%s' for mdts, should be 0-%d\n",
- 		       page, NVMET_MAX_MDTS);
- 		return -EINVAL;
- 	}
--	port->mdts = mdts;
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->mdts = mdts;
-+	}
- 	return count;
- }
- 
-@@ -346,10 +367,11 @@ static ssize_t nvmet_param_pi_enable_store(struct config_item *item,
- 	if (kstrtobool(page, &val))
- 		return -EINVAL;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
--	port->pi_enable = val;
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		port->pi_enable = val;
-+	}
- 	return count;
- }
- 
-@@ -389,9 +411,6 @@ static ssize_t nvmet_addr_trtype_store(struct config_item *item,
- 	struct nvmet_port *port = to_nvmet_port(item);
- 	int i;
- 
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
- 	for (i = 0; i < ARRAY_SIZE(nvmet_transport); i++) {
- 		if (sysfs_streq(page, nvmet_transport[i].name))
- 			goto found;
-@@ -401,12 +420,16 @@ static ssize_t nvmet_addr_trtype_store(struct config_item *item,
- 	return -EINVAL;
- 
- found:
--	memset(&port->disc_addr.tsas, 0, NVMF_TSAS_SIZE);
--	port->disc_addr.trtype = nvmet_transport[i].type;
--	if (port->disc_addr.trtype == NVMF_TRTYPE_RDMA)
--		nvmet_port_init_tsas_rdma(port);
--	else if (port->disc_addr.trtype == NVMF_TRTYPE_TCP)
--		nvmet_port_init_tsas_tcp(port, NVMF_TCP_SECTYPE_NONE);
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+		memset(&port->disc_addr.tsas, 0, NVMF_TSAS_SIZE);
-+		port->disc_addr.trtype = nvmet_transport[i].type;
-+		if (port->disc_addr.trtype == NVMF_TRTYPE_RDMA)
-+			nvmet_port_init_tsas_rdma(port);
-+		else if (port->disc_addr.trtype == NVMF_TRTYPE_TCP)
-+			nvmet_port_init_tsas_tcp(port, NVMF_TCP_SECTYPE_NONE);
-+	}
- 	return count;
- }
- 
-@@ -468,52 +491,55 @@ static ssize_t nvmet_addr_tsas_store(struct config_item *item,
- 		const char *page, size_t count)
- {
- 	struct nvmet_port *port = to_nvmet_port(item);
--	u8 treq = nvmet_port_disc_addr_treq_mask(port);
--	u8 sectype, qptype;
--
--	if (nvmet_is_port_enabled(port, __func__))
--		return -EACCES;
--
--	if (port->disc_addr.trtype == NVMF_TRTYPE_RDMA) {
--		qptype = nvmet_addr_tsas_rdma_store(page);
--		if (qptype == port->disc_addr.tsas.rdma.qptype)
--			return count;
--	} else if (port->disc_addr.trtype == NVMF_TRTYPE_TCP) {
--		sectype = nvmet_addr_tsas_tcp_store(page);
--		if (sectype != NVMF_TCP_SECTYPE_INVALID)
--			goto found;
--	}
- 
--	pr_err("Invalid value '%s' for tsas\n", page);
--	return -EINVAL;
-+	scoped_guard(rwsem_write, &nvmet_config_sem) {
-+		u8 treq = nvmet_port_disc_addr_treq_mask(port);
-+		u8 sectype, qptype;
-+
-+		if (nvmet_is_port_enabled(port, __func__))
-+			return -EACCES;
-+
-+		if (port->disc_addr.trtype == NVMF_TRTYPE_RDMA) {
-+			qptype = nvmet_addr_tsas_rdma_store(page);
-+			if (qptype == port->disc_addr.tsas.rdma.qptype)
-+				return count;
-+		} else if (port->disc_addr.trtype == NVMF_TRTYPE_TCP) {
-+			sectype = nvmet_addr_tsas_tcp_store(page);
-+			if (sectype != NVMF_TCP_SECTYPE_INVALID)
-+				goto found;
-+		}
-+
-+		pr_err("Invalid value '%s' for tsas\n", page);
-+		return -EINVAL;
- 
- found:
--	if (sectype == NVMF_TCP_SECTYPE_TLS13) {
--		if (!IS_ENABLED(CONFIG_NVME_TARGET_TCP_TLS)) {
--			pr_err("TLS is not supported\n");
--			return -EINVAL;
--		}
--		if (!port->keyring) {
--			pr_err("TLS keyring not configured\n");
--			return -EINVAL;
-+		if (sectype == NVMF_TCP_SECTYPE_TLS13) {
-+			if (!IS_ENABLED(CONFIG_NVME_TARGET_TCP_TLS)) {
-+				pr_err("TLS is not supported\n");
-+				return -EINVAL;
-+			}
-+			if (!port->keyring) {
-+				pr_err("TLS keyring not configured\n");
-+				return -EINVAL;
-+			}
- 		}
--	}
- 
--	nvmet_port_init_tsas_tcp(port, sectype);
--	/*
--	 * If TLS is enabled TREQ should be set to 'required' per default
--	 */
--	if (sectype == NVMF_TCP_SECTYPE_TLS13) {
--		u8 sc = nvmet_port_disc_addr_treq_secure_channel(port);
--
--		if (sc == NVMF_TREQ_NOT_SPECIFIED)
--			treq |= NVMF_TREQ_REQUIRED;
--		else
--			treq |= sc;
--	} else {
--		treq |= NVMF_TREQ_NOT_SPECIFIED;
-+		nvmet_port_init_tsas_tcp(port, sectype);
-+		/*
-+		 * If TLS is enabled TREQ should be set to 'required' per default
-+		 */
-+		if (sectype == NVMF_TCP_SECTYPE_TLS13) {
-+			u8 sc = nvmet_port_disc_addr_treq_secure_channel(port);
-+
-+			if (sc == NVMF_TREQ_NOT_SPECIFIED)
-+				treq |= NVMF_TREQ_REQUIRED;
-+			else
-+				treq |= sc;
-+		} else {
-+			treq |= NVMF_TREQ_NOT_SPECIFIED;
-+		}
-+		port->disc_addr.treq = treq;
- 	}
--	port->disc_addr.treq = treq;
- 	return count;
- }
- 
--- 
-2.34.1
-
+>
+> > #                                                        Pss_Dirty 81 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 24 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 860 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 892 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # # proc-maps-race.c:961:test_maps_tearing_from_split:Expected 0 (0) !=
+=3D compare_smaps_rollup(self, &orig_stats, &stats) (0) # # test_maps_teari=
+ng_from_split: Test terminated by timeout
+> > # #          FAIL  proc_maps_race.smaps.test_maps_tearing_from_split
+> > # not ok 4 proc_maps_race.smaps.test_maps_tearing_from_split
+> > # #  RUN           proc_maps_race.smaps.test_maps_tearing_from_resize .=
+..
+> > # Expected stats:                                                      =
+       Rss 956 kB
+> > #                                                              Pss 83 k=
+B
+> > #                                                        Pss_Dirty 83 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 26 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 924 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 956 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # Actual stats:                                                        =
+     Rss 956 kB
+> > #                                                              Pss 83 k=
+B
+> > #                                                        Pss_Dirty 83 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 25 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 924 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 956 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # # proc-maps-race.c:1050:test_maps_tearing_from_resize:Expected 0 (0) =
+!=3D compare_smaps_rollup(self, &orig_stats, &stats) (0) # # test_maps_tear=
+ing_from_resize: Test terminated by timeout
+> > # #          FAIL  proc_maps_race.smaps.test_maps_tearing_from_resize
+> > # not ok 5 proc_maps_race.smaps.test_maps_tearing_from_resize
+> > # #  RUN           proc_maps_race.smaps.test_maps_tearing_from_remap ..=
+.
+> > # Expected stats:                                                      =
+       Rss 956 kB
+> > #                                                              Pss 84 k=
+B
+> > #                                                        Pss_Dirty 84 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 26 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 924 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 956 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # Actual stats:                                                        =
+     Rss 956 kB
+> > #                                                              Pss 83 k=
+B
+> > #                                                        Pss_Dirty 83 k=
+B
+> > #                                                         Pss_Anon 54 k=
+B
+> > #                                                         Pss_File 26 k=
+B
+> > #                                                        Pss_Shmem 3 kB
+> > #                                                     Shared_Clean 0 kB
+> > #                                                     Shared_Dirty 924 =
+kB
+> > #                                                    Private_Clean 0 kB
+> > #                                                    Private_Dirty 32 k=
+B
+> > #                                                       Referenced 956 =
+kB
+> > #                                                        Anonymous 120 =
+kB
+> > #                                                              KSM 0 kB
+> > #                                                         LazyFree 0 kB
+> > #                                                    AnonHugePages 0 kB
+> > #                                                   ShmemPmdMapped 0 kB
+> > #                                                    FilePmdMapped 0 kB
+> > #                                                   Shared_Hugetlb 0 kB
+> > #                                                  Private_Hugetlb 0 kB
+> > #                                                             Swap 0 kB
+> > #                                                          SwapPss 0 kB
+> > #                                                           Locked 0 kB
+> > # # proc-maps-race.c:1141:test_maps_tearing_from_remap:Expected 0 (0) !=
+=3D compare_smaps_rollup(self, &orig_stats, &stats) (0) # # test_maps_teari=
+ng_from_remap: Test terminated by timeout
+> > # #          FAIL  proc_maps_race.smaps.test_maps_tearing_from_remap
+> > # not ok 6 proc_maps_race.smaps.test_maps_tearing_from_remap
+> > # # FAILED: 3 / 6 tests passed.
+> > # # Totals: pass:3 fail:3 xfail:0 xpass:0 skip:0 error:0 not ok 6 selft=
+ests: proc: proc-maps-race # exit=3D1 # timeout set to 300 # selftests: pro=
+c: proc-net-dev-lseek ok 7 selftests: proc: proc-net-dev-lseek # timeout se=
+t to 300 # selftests: proc: proc-empty-vm # protection_key_support: error: =
+rv -1, errno 28 not ok 8 selftests: proc: proc-empty-vm # exit=3D1 # timeou=
+t set to 300 # selftests: proc: proc-pid-vm ok 9 selftests: proc: proc-pid-=
+vm # timeout set to 300 # selftests: proc: proc-self-map-files-001 ok 10 se=
+lftests: proc: proc-self-map-files-001 # timeout set to 300 # selftests: pr=
+oc: proc-self-map-files-002 ok 11 selftests: proc: proc-self-map-files-002 =
+# timeout set to 300 # selftests: proc: proc-self-isnt-kthread ok 12 selfte=
+sts: proc: proc-self-isnt-kthread # timeout set to 300 # selftests: proc: p=
+roc-self-syscall ok 13 selftests: proc: proc-self-syscall # timeout set to =
+300 # selftests: proc: proc-self-wchan ok 14 selftests: proc: proc-self-wch=
+an # timeout set to 300 # selftests: proc: proc-subset-pid ok 15 selftests:=
+ proc: proc-subset-pid # timeout set to 300 # selftests: proc: proc-tid0 ok=
+ 16 selftests: proc: proc-tid0 # timeout set to 300 # selftests: proc: proc=
+-uptime-001 ok 17 selftests: proc: proc-uptime-001 # timeout set to 300 # s=
+elftests: proc: proc-uptime-002 ok 18 selftests: proc: proc-uptime-002 # ti=
+meout set to 300 # selftests: proc: read ok 19 selftests: proc: read # time=
+out set to 300 # selftests: proc: self ok 20 selftests: proc: self # timeou=
+t set to 300 # selftests: proc: setns-dcache ok 21 selftests: proc: setns-d=
+cache # timeout set to 300 # selftests: proc: setns-sysvipc ok 22 selftests=
+: proc: setns-sysvipc # timeout set to 300 # selftests: proc: thread-self o=
+k 23 selftests: proc: thread-self # timeout set to 300 # selftests: proc: p=
+roc-multiple-procfs ok 24 selftests: proc: proc-multiple-procfs # timeout s=
+et to 300 # selftests: proc: proc-fsconfig-hidepid ok 25 selftests: proc: p=
+roc-fsconfig-hidepid # timeout set to 300 # selftests: proc: proc-pidns # T=
+AP version 13 # 1..6 # # Starting 6 tests from 1 test cases.
+> > # #  RUN           ns.pidns_mount_string_path ...
+> > # #            OK  ns.pidns_mount_string_path
+> > # ok 1 ns.pidns_mount_string_path
+> > # #  RUN           ns.pidns_fsconfig_string_path ...
+> > # #            OK  ns.pidns_fsconfig_string_path
+> > # ok 2 ns.pidns_fsconfig_string_path
+> > # #  RUN           ns.pidns_fsconfig_fd ...
+> > # #            OK  ns.pidns_fsconfig_fd
+> > # ok 3 ns.pidns_fsconfig_fd
+> > # #  RUN           ns.pidns_reconfigure_remount ...
+> > # #            OK  ns.pidns_reconfigure_remount
+> > # ok 4 ns.pidns_reconfigure_remount
+> > # #  RUN           ns.pidns_reconfigure_fsconfig_string_path ...
+> > # #            OK  ns.pidns_reconfigure_fsconfig_string_path
+> > # ok 5 ns.pidns_reconfigure_fsconfig_string_path
+> > # #  RUN           ns.pidns_reconfigure_fsconfig_fd ...
+> > # #            OK  ns.pidns_reconfigure_fsconfig_fd
+> > # ok 6 ns.pidns_reconfigure_fsconfig_fd
+> > # # PASSED: 6 / 6 tests passed.
+> > # # Totals: pass:6 fail:0 xfail:0 xpass:0 skip:0 error:0 ok 26 selftest=
+s: proc: proc-pidns
+> >
+> >
+> > The kernel config and materials to reproduce are available at:
+> > https://download.01.org/0day-ci/archive/20261027/202610271934.fd287c3f-=
+lkp@intel.com
+> >
+> >
+> > --
+> > 0-DAY CI Kernel Test Service
+> > https://github.com/intel/lkp-tests/wiki
+> >
