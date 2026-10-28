@@ -1,62 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225879;
-	b=VG2zZ9twHFD2VPDijOLFe6eELctwgOoqzgBmguINdJMfmMRd69tabW8HUQoVYM0mRnL1
-	 zDzHU6Vs/KSt2Uyi9DR1ZKC4k4NgMjSj8aqrPL/R8Jb+3tXmGevFKUOTnTBmOQhmm8i5H
-	 65V6Q9uL+cj40A0HC/rkJs1lkuUOQUAO9KxxEN6ZkO1/F7QJPGVRiZsbxVI1/QVJGrVyC
-	 DplLGwQLIBjdZxJxL57zERT8TW5aToC9yyY8x2u6BZ3XMKZXTohNvIvACeN5sjilieyEG
-	 Q+A7UN8UWHSvFPF6TrMEcA0NoqSREzx7Svf7nHYyK1lrTM4wD0ctnA4VwcREMyS50gA==
+	t=1793225893;
+	b=E3hq7FIGuqmAUHcPffvZlegj2vKghbPGHKlzOUL9Nx41nHQCDyt3P1DY4TWzNAUIeThd
+	 qc1tHslLBmdgVxmbkMwGEAehe58Quy1Yq+2MA0SqhK2fKKn+ClZJKEz2NW9UsuHu5lSX3
+	 w9ZsBv5RDX98fo0fK9FT4tYKCAumS1Wgwfxvp6CG/kLOWfIb6Q8gY4HM+aWxIEkAc15cY
+	 8dwyLI/BvpyhQ5jG9WdgHCQIY4YRHPtMN78tcqgCvuuQIVEugm/wJqWCsdN7qnutfHvYX
+	 xrfuCZnBoBlSAoly51p9TCmrSfTvaZrcJdCRaV9BZA4kDIOKaHf7sy06p9qS/OKb2wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225879;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dpSWS7Ui06hAkpcNHbyDS5vZBaaQrLDiEklt5UkbYFg=;
-	b=FcoYX6fooPTrnPeNp3YVGYaTQ+ZfCrxdqKkn/O0xgOvfL3ghyWWbqUPDcY2ZpNZXnzul
-	 3jr9/vUa5hjbqunuPpjthDuxcqoV3SRZXltn3rpUrBuJagtWkup7GAPaVlfOXD/nJSmoG
-	 wlYkmrjZbSPvXIdhCRYcqAmwrgVlJEYSZIHH3yB1MEb7KxNPIwsRO0NG5kmkhOA+ba59e
-	 +hyHoPsKBG3mKI+ndvGs/e7VvE+dNBJn5+fkk5kvZZ+2wUqyOSv5ZWYEaI9rR9HTlLe8e
-	 PxJcCMvolmsKAQb8Cg+vMZTCZys9w8gHZLiVkQFWzzBsSQvcJY6blQNs5fn50ji4FmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225893;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=zdrXXSLELVsSwHMVPbcUtO/5ayyZxJyxQiN0TcFmn/A=;
+	b=bU1K+gi07OSPjCKjyHd++OqtUtKfiVP/NAi2XJqp/cevOo/jPeXIIfWZz/wWRU+77FoH
+	 U77iCyXFjiHfItXm3BOdL6raHOhONqB5CCf76NLTMkB3uPPyItsjwVt/pjxuHkvXffX6c
+	 nR+eAlW6Zg7BORUXzVu+XSl38aEowFvorWvjLZS2WjWyVCmuG/+LGPf+KVbNRlaX7KcI4
+	 Jak1Dwqdv+jBqp5SCU3UU/24GK2sXJoTcObnUhVetX6gVpr64NZIQ7qcr/t5qpTH3CLuX
+	 EbhmFKuZO2MoNXQyZUd0TBigGKXwjvpQAWnxXCdnZdc8uV1ddvjVDETA2XQYaMu5Htg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BX8B97Hi;
-	arc=none smtp.remote-ip=95.215.58.16
-Received: from mta1.migadu.com (out-16.mta1.migadu.com [95.215.58.16])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--halg.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R0rY2M8Z;
+	arc=none smtp.remote-ip=209.85.218.72
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F061C606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F061C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0910606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0910606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--halg.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BX8B97Hi
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VbaNcvUi+j2V6eONn/0BAQOhapdmIMHXd3ZJF4C31UQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793225876; v=1; x=1793830676;
- b=BX8B97Hi7wNu7DjxSnBywnPU+HKyUFgEUY6o0EcB6QN632dfmrfbTfsR9rILE36huILNYGUj
- ZKEuC520hgLHtN1EbPAA0oexgnAxZDbjINlsxeHbvZlxa0oV3q0vPIP9b7JTua4a5d1iHbsFyJB
- Lox1/rz76dT4ZyGXvx5zFT60=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c3003cbc5a0837a4;
-	Wed, 28 Oct 2026 22:17:55 +0000
-X-Mizu-Trace-ID: c3003cbc5a0837a4
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 15:17:50 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com, akpm@linux-foundation.org, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm: memcontrol: fix NULL pointer deref from
- high_work_func() on dying memcg
-Message-ID: <auJyok6AZtRqNtt4@linux.dev>
-References: <20261028183537.605854-1-tjmercier@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R0rY2M8Z
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c40bbd26f74so121751766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:18:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793225891; x=1793830691; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zdrXXSLELVsSwHMVPbcUtO/5ayyZxJyxQiN0TcFmn/A=;
+        b=R0rY2M8ZBUpsVK5bvV77N25RxUNl/lUiEIl/l/IxVInBY6WYxjElllaIF5TS+q6dcU
+         z0XpP3NNHCu9S89x/gTlWHBVP7dA9wWeYXTc0glEmrZPaKSnw3haEyProTm/RxyhTpeK
+         bgJtiEw+QO4eJlE6D3wwySmvlU8Tg8ja0ActR9YXpRuTwOQRSDKukk9jzd1pAT0O/7jf
+         GRxAUBTrmV4J3lwkf2Ay5hI5EI/MZtN14zKbwi3wSxtgUnXQSNSy/BenMyQTitov8cer
+         jS1iH/9a990RSGgwDGJWTSCO26h5zi3DAFhRsB6P7SX8T1pnUzd5RmcSiJnQAh79zmm+
+         naQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793225891; x=1793830691;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zdrXXSLELVsSwHMVPbcUtO/5ayyZxJyxQiN0TcFmn/A=;
+        b=X3fN0JEPC7hX4zWoxUR8efXRqX3kzNu90i5H5jFIRZIc4mFa/V+58XxGe1Bm4uwr+3
+         sOo5nuiFuNwoMfh40Y6HUD9733KvpY5bwNjnkDk9Wx91vAzlHOCW8rcfS7YnEPsqZy+J
+         bZPe8FP7SzpcMpa60TeAWIuUp94lxrwDUKTXiJwUFTgQ0TGNe72YZLws38/YGkJAqWaa
+         S8T2G2bNiYUFtAc0x/jrwknYm/4270AZel3ZiRAJyP72hMiqF5tX0qjOkVbOT7VUHMQJ
+         uEYmR+NXT0iWPg/TJycZZomCLoGMhKPCmIKDQ14t1kza41knv98gaPfv3Ug3b9UMtU3s
+         URyw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6g5nZDOxLY/dcXO++0NykWbwctvonXhQtF1uxuffE3RfliKnfvV1S15tmQ92FIOXJ6y7zsdrNXU0vR7k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDs/Mj0PL0XWKgBUbuhxLeJCHN4OPD4maKy2xFJGpL71w+C9Df
+	CD8LeyMxGdpAl5yio03M96zQH3KCUcHWNrNLpFzUnGBAQGvmgF+cKsJnMu24TAZJA4+pnc7RXQ=
+	=
+X-Received: from educ16.prod.google.com ([2002:a05:6402:1010:b0:6b4:1882:2675])
+ (user=halg job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:608e:b0:c46:8b87:c1f4
+ with SMTP id a640c23a62f3a-c49bded259fmr314393966b.20.1793225890525; Wed, 28
+ Oct 2026 15:18:10 -0700 (PDT)
+Date: Wed, 28 Oct 2026 22:16:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,139 +75,204 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028183537.605854-1-tjmercier@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028221705.3915340-1-halg@google.com>
+Subject: [PATCH 0/8] userns: per-namespace capability bounding set and opt-in
+ netns loopback
+From: "Hallgrimur H. Gunnarsson" <halg@google.com>
+To: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Jan Kara <jack@suse.cz>, James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jann Horn <jannh@google.com>, 
+	"=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
+	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-api@vger.kernel.org, containers@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Hallgrimur H. Gunnarsson" <halg@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 11:35:37AM -0700, T.J. Mercier wrote:
-> When memory.high is exceeded in non-task context, try_charge_memcg()
-> schedules memcg->high_work without taking a reference on the memcg, and
-> high_work_func() invokes reclaim_high() without pinning the memcg.
-> 
-> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-> mem_cgroup_css_free(), so high_work_func() can start or still be running
-> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
-> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
-> NULL pprev pointer.
-> 
-> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
-> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
-> reparented to its parent in mem_cgroup_css_offline() instead of holding
-> a reference on the child until uncharged. Subsequent uncharges of those
-> objects go to the parent, which can leave the child's memory use
-> permanently above its high limit, so any later charge on the offlined
-> memcg in non-task context schedules high_work.
-> 
-> This problem was first exposed when commit e4dde56cd208 ("mm: multi-gen
-> LRU: per-node lru_gen_folio lists") introduced the memcg LRU, and was
-> later widened from kernel memory to LRU folios when
-> commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying
-> memory cgroup for LRU folios") converted LRU folios to use obj_cgroup
-> reparenting.
-> 
-> Fix this by acquiring a reference with css_tryget_online() in
-> high_work_func() before calling reclaim_high(), and by resetting
-> memory.high and swap.high to PAGE_COUNTER_MAX in
-> mem_cgroup_css_offline() so that charges via references on an offlined
-> memcg do not trigger high_work on the dead child or skip checking live
-> ancestors in try_charge_memcg().
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
-> Tainted: [B]=BAD_PAGE, [W]=WARN <- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Workqueue: events high_work_func
-> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-> Call Trace:
->  <TASK>
->  ? read_ctrl_pos+0x22f/0x3f0
->  shrink_lruvec+0x16cb/0x1b80
->  ? ret_from_fork_asm+0x1a/0x30
->  ? lapic_next_event+0x15/0x20
->  ? clockevents_program_event+0x2bb/0x6f0
->  ? lapic_next_event+0x15/0x20
->  ? __pfx_shrink_lruvec+0x10/0x10
->  ? __pfx_clockevents_program_event+0x10/0x10
->  ? _raw_spin_lock+0x84/0xe0
->  ? __pfx__raw_spin_lock+0x10/0x10
->  ? kasan_save_stack+0x30/0x50
->  ? psi_group_change+0x381/0x740
->  ? __pfx_sched_clock_cpu+0x10/0x10
->  ? save_fpregs_to_fpstate+0xc4/0x2c0
->  ? finish_task_switch.isra.0+0x1de/0xac0
->  ? __schedule+0xf62/0x42c0
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx___irq_work_queue_local+0x10/0x10
->  ? shrink_node+0x626/0x31e0
->  shrink_node+0x626/0x31e0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? kswapd_clear_hopeless+0xa0/0x150
->  ? __pfx_shrink_node+0x10/0x10
->  ? 0xffffffffc0000095
->  do_try_to_free_pages+0x255/0x13b0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? reclaim_high+0x10a/0x1b0
->  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
->  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
->  ? irqentry_exit+0xc6/0x670
->  reclaim_high+0x10a/0x1b0
->  ? __pfx_reclaim_high+0x10/0x10
->  ? process_one_work+0x5ff/0x1030
->  ? __pfx_high_work_func+0x10/0x10
->  process_one_work+0x6e2/0x1030
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx_process_one_work+0x10/0x10
->  worker_thread+0x422/0xbb0
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0x2cd/0x3a0
->  ? recalc_sigpending+0x15c/0x200
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x368/0x590
->  ? __pfx_ret_from_fork+0x10/0x10
->  ? __switch_to+0x588/0xf50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> ---
-> Changes since V1 (https://lore.kernel.org/all/20261023222313.3979455-1-tjmercier@google.com/)
-> - Switch to Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
->   from Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
->   per Muchun Song.
-> - Reorder and update commit message content to describe reparenting
->   separately from the commits that exposed and then widened the problem.
-> - Trim the backtrace a bit.
-> 
->  mm/memcontrol.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index a05d9a8baa1b..84f4a8fd4d16 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
->  	struct mem_cgroup *memcg;
->  
->  	memcg = container_of(work, struct mem_cgroup, high_work);
-> +	if (!css_tryget_online(&memcg->css))
-> +		return;
->  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+When an unprivileged process creates a new user namespace, it is granted
+a full set of capabilities (CAP_FULL_SET) scoped to that namespace.
+While these capabilities are isolated to the namespace, they allow
+unprivileged local users to reach deep kernel subsystems (most notably
+networking configuration and raw sockets via CAP_NET_ADMIN and
+CAP_NET_RAW) that historically assumed a trusted caller and have
+accounted for a large share of local privilege escalation
+vulnerabilities.
 
-The patch is correct but I think there are two very specific subtleties which
-the commit message is not very explicit about.
+Many workloads and sandboxes use unprivileged user namespaces strictly
+for basic UID/GID, mount, PID, or network isolation and never need
+high-risk capabilities like CAP_NET_ADMIN or CAP_NET_RAW. Likewise,
+system administrators often want a host-wide policy ceiling restricting
+which capabilities unprivileged user namespaces may acquire, without
+disabling unprivileged user namespaces altogether.
 
-First, I was wondering shouldn't we take reference before schedule_work() and
-why this is safe. This is safe due to cancel_work_sync() in the
-mem_cgroup_css_free() which will not free memcg until this there is no high
-worker.
+Prior work by Jonathan Calmels [1] proposed addressing this via a sixth
+per-thread capability set (cap_userns) alongside a global sysctl mask.
+During that discussion [1, 2], feedback (e.g. from Casey Schaufler)
+suggested that rather than adding another per-thread capability set and
+prctl() interface, capability restrictions could be integrated directly
+into struct user_namespace and configured via clone3(). At the same
+time, as noted in [1], a clone3() flag alone is not sufficient for
+administrators who need to enforce a host-wide ceiling on unprivileged
+user namespaces without modifying every userspace callsite.
 
-Second, cgroup core calls css_free() after percpu_ref_exit(). So, is it safe to
-call css_tryget_online() on such css->refcnt. Yes css_tryget_online() is safe
-but css_tryget() is not safe.
+This series combines both pieces of feedback: it embeds a capability
+bounding set (cap_bset) directly into struct user_namespace, reusing
+the existing task cap_bset, cap_permitted, and cap_effective sets on
+namespace entry, and provides both a system-wide sysctl ceiling for
+unprivileged user namespaces and a CLONE_NEWUSER_BSET flag for
+voluntary per-namespace restriction via clone3().
+
+In addition, because restricting CAP_NET_ADMIN at user namespace
+creation time prevents userspace from bringing up the loopback
+interface in new network namespaces, the series first introduces
+an opt-in flag to automatically enable loopback on network namespace
+creation:
+
+1. Opt-in loopback activation on netns creation (Patch 1)
+
+  New network namespaces start with the loopback interface (lo) DOWN by
+  default, requiring CAP_NET_ADMIN over the owning user namespace to
+  bring it up. To block external network access while preserving
+  localhost networking, sandboxes commonly create an isolated network
+  namespace with only the loopback interface enabled.
+
+  However, requiring a sandbox to hold CAP_NET_ADMIN in a new user
+  namespace solely to bring loopback up conflicts with reducing the
+  CAP_NET_ADMIN attack surface. Today, an unprivileged sandbox must
+  start with CAP_NET_ADMIN to bring loopback up, drop it, and then
+  block CAP_NET_ADMIN from being regained in nested user namespaces
+  (e.g. via seccomp or max_user_namespaces limits). Conversely, when
+  CAP_NET_ADMIN is restricted at user namespace creation time (via the
+  sysctl ceiling or CLONE_NEWUSER_BSET introduced in Patches 2-3, or
+  via LSMs such as Landlock), tasks inside the new namespace never
+  acquire CAP_NET_ADMIN and cannot bring loopback up from userspace,
+  breaking localhost networking for unprivileged sandboxes.
+
+  Introduce the CLONE_NEWNET_LOOPBACK flag for clone3() and the
+  corresponding UNSHARE_NEWNET_LOOPBACK flag for unshare(), which imply
+  CLONE_NEWNET and automatically bring the loopback device up in
+  copy_net_ns() before returning the new network namespace. Making this
+  an explicit opt-in preserves default network namespace semantics
+  while allowing unprivileged sandboxes to create an isolated network
+  namespace with functional localhost networking without ever holding
+  CAP_NET_ADMIN.
+
+2. Per-user-namespace capability bounding set & sysctl ceiling (Patch 2)
+
+  Add cap_bset to struct user_namespace (initialized to CAP_FULL_SET in
+  init_user_ns) and introduce a system-wide sysctl ceiling for
+  unprivileged users at:
+    /proc/sys/kernel/unprivileged_userns_caps_allowed
+  (defaulting to CAP_FULL_SET).
+
+  When a new user namespace is created:
+  - Privileged creators (holding CAP_SYS_ADMIN in the parent user
+    namespace) inherit cap_bset from the parent user namespace.
+  - Unprivileged creators (lacking CAP_SYS_ADMIN in the parent user
+    namespace) have the child namespace's bounding set constrained by
+    the sysctl ceiling combined with any effective capabilities the
+    creator already holds in the parent namespace:
+        child_bset = parent_bset & (sysctl_ceiling | creator_effective)
+    Allowing the creator to retain capabilities it already holds in the
+    parent namespace ensures that a process granted a specific
+    capability (e.g. CAP_NET_ADMIN) does not lose it when creating a
+    nested user namespace.
+
+  When a task enters a user namespace via clone()/unshare() or
+  setns(), its cap_bset, cap_permitted, and cap_effective sets are
+  clamped to user_ns->cap_bset. In addition, cap_capable_helper() is
+  updated so that implicit capabilities granted to the parent-namespace
+  owner of a user namespace are likewise bounded by the owned
+  namespace's cap_bset.
+
+3. Per-namespace restriction via clone3() (Patch 3)
+
+  Introduce CLONE_NEWUSER_BSET and add cap_bset to struct clone_args.
+  When specified alongside CLONE_NEWUSER, the new user namespace's
+  bounding set is further intersected with the requested cap_bset mask,
+  allowing container runtimes and sandboxes to drop unneeded capabilities
+  from a user namespace at creation time even when permitted by the
+  global sysctl.
+
+4. Introspection via NS_USER_GET_INFO (Patch 4)
+
+  While tasks inside a user namespace see their initial ceiling in
+  /proc/<pid>/status (CapBnd), threads may subsequently drop
+  individual capabilities from their per-thread bounding set. Add
+  an extensible NS_USER_GET_INFO ioctl on userns file descriptors
+  to allow userspace to directly query a user namespace's cap_bset.
+
+5. Selftests (Patches 5-8)
+
+  Add kselftest suites covering CLONE_NEWNET_LOOPBACK, the sysctl
+  ceiling, creator capability retention, nested monotonicity,
+  parent-owner bounding, CLONE_NEWUSER_BSET and NS_USER_GET_INFO.
+
+[1] https://lore.kernel.org/all/20240609104355.442002-1-jcalmels@3xx0.net/
+[2] https://lwn.net/Articles/978846/
+
+Note on tree routing:
+
+While Patch 1 (CLONE_NEWNET_LOOPBACK) touches net/core/net_namespace.c,
+most of its changes add clone3()/unshare() flag plumbing in
+include/uapi/linux/sched.h, kernel/fork.c, and kernel/nsproxy.c, which
+Patch 3 (CLONE_NEWUSER_BSET) builds directly on top of. To avoid
+merge conflicts in kernel/fork.c and include/uapi/linux/sched.h, it
+may be simplest to route the entire series through a single tree, e.g.
+a namespace branch in vfs.git with Acked-by from the netdev and
+capabilities/credentials maintainers, or whichever tree the maintainers
+prefer.
+
+Hallgrimur H. Gunnarsson (8):
+  net: introduce CLONE_NEWNET_LOOPBACK to auto-enable loopback
+  userns: introduce capability bounding set for user namespaces
+  userns: allow restricting capability bounding set via clone3()
+  nsfs: add NS_USER_GET_INFO ioctl to inspect user namespace
+    capabilities
+  selftests/net: add test suite for CLONE_NEWNET_LOOPBACK
+  selftests/capabilities: tests for user namespace capability bounding
+    set
+  selftests/capabilities: add clone3() tests for CLONE_NEWUSER_BSET
+  selftests/nsfs: add tests for NS_USER_GET_INFO ioctl
+
+ Documentation/admin-guide/sysctl/kernel.rst   |  37 ++
+ fs/nsfs.c                                     |  29 +
+ include/linux/cred.h                          |   3 +-
+ include/linux/sched/task.h                    |   1 +
+ include/linux/user_namespace.h                |  20 +-
+ include/uapi/linux/nsfs.h                     |  17 +
+ include/uapi/linux/sched.h                    |   9 +
+ kernel/cred.c                                 |  10 +-
+ kernel/fork.c                                 |  38 +-
+ kernel/nsproxy.c                              |   9 +
+ kernel/user.c                                 |   1 +
+ kernel/user_namespace.c                       | 100 +++-
+ net/core/net_namespace.c                      |  11 +
+ security/commoncap.c                          |   8 +-
+ .../testing/selftests/capabilities/.gitignore |   1 +
+ tools/testing/selftests/capabilities/Makefile |   2 +-
+ .../capabilities/userns_bounding_set_test.c   | 566 ++++++++++++++++++
+ .../selftests/clone3/clone3_selftests.h       |   1 +
+ .../selftests/filesystems/nsfs/.gitignore     |   1 +
+ .../selftests/filesystems/nsfs/Makefile       |   4 +-
+ .../selftests/filesystems/nsfs/userns.c       | 120 ++++
+ tools/testing/selftests/net/.gitignore        |   1 +
+ tools/testing/selftests/net/Makefile          |   1 +
+ tools/testing/selftests/net/loopback_netns.c  | 103 ++++
+ 24 files changed, 1069 insertions(+), 24 deletions(-)
+ create mode 100644 tools/testing/selftests/capabilities/userns_bounding_set_test.c
+ create mode 100644 tools/testing/selftests/filesystems/nsfs/userns.c
+ create mode 100644 tools/testing/selftests/net/loopback_netns.c
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.56.0.313.g2479322e68-goog
 
