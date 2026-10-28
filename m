@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225563;
-	b=uwVcU39O7mH8+dHGDFjXRNSFI8GHsU6JN9qyxE/oZmSYTg6qe6XvWMecoqRm7X9PsdLa
-	 o8rdqDmzbFmfz1BsxfCIeQIhc8m6l/57f0qKOemCi8a6tN2yO9vkJVfgAFb4jA+KCQY+U
-	 6KBgpGEMKpO9XwxHhSltHMOYgcMPE7WX6aLnO0z9HfOoGZcJRGcsdhX93qchGr2jVXQJ8
-	 8D/irc7qJf3vo+T13DEb/XyPDxmlEzNtvcoJv8vfDBaQUMAHWBHuD/vzuC8zj5HUMA3XF
-	 eRWy2/d8S76AtfbNrLg5y5thsKTTapwWU+5ew3KrIcD6pLEp2oOqEWERoAm64tq6Obg==
+	t=1793225824;
+	b=DcoxXI7xJjOoSzIim8NVkITtXehcE+MGqjnCri5EaJzvmUgVT/zp2vVgyM0VWUZWzGeA
+	 fO7LBfWaWYs1mIhJ0sZwdiYO0RTS4u8O6HED2IJjiu8vwEq7G/NZOyWrjq2BSLHh68xh2
+	 2P4Bcsyxj7lKKiXNgf0+/dmHE7bjJivp1F2NjJMb0jFFMeAS9ar1DtVYE2xZnr1cbicRs
+	 7RGulA4erM7Ufqp17rdAFtQRJ+prUjFbBjF9NyRVcLN7C2hHJ1REZQEOPF7sqhfUB01HG
+	 ezJ9dxP2QjHNqPYQ1sbhs4uLKggSeuB2kfZbgA95C/FNCLT+ETwzMajMEr0wrhZgq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225563;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=M3Ck9eyVD75IOnRETh1mD4sLHe0E+TueuPB6Ea2RtIc=;
-	b=nn4Om45Lt2POMQjvXbOI1F8Bw5FMnIFmkGeCtpFOEWPVHJd9RlPPYU2vvHsn7j3H6W4b
-	 AElNhZNgWax0MfibVe7vnl06sjH+BGdZdG8OpAvpkd486+ErwLgB/KUPWqnNuSx3jsp4g
-	 2Hwe3EctpWDalZU4dqIBVbQBR9BnWCdA2Sdz1FVX8KqbsM1RNE3C7H3T7BHYGQrf4JZTg
-	 BR0X/RlrNgoEP5p1XStsgIsx+k6gY78MTbXq59LqrI2N3rtAlqMySM94BTDWTlXX5KYoZ
-	 8a4te8gSmevDfWtE2Qk4mrCD5pPMhBngPP3ahPybQwjmE7VTHaaNegZ0RnbTj/lOKzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225824;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=AIOYJkWwbEOOkbiH4WpG1xz2/8Lkxz/T8mPLVYlLKnY=;
+	b=HuQN3LbE11xVlAAGwsdzDBvIJ52pbcAKurj4D0mrdmX9jHoeqjtumvlhp7fQjxBvrW1O
+	 RVQLX1kX6sQR6WR8vYSlyDWMh1T8U6xSF9kna+eP7fPPHLhJcJ62pVE+XtkAys26Pp/od
+	 7ojw48IlyEwgoQX0BNF35tpmkSRPHUczPNtaJ+amKKECbNRFTZMBAn7OSWI14diFSUomK
+	 HEJ9DV4iC6LkC2aHqOH3+lXPLmvv/5U0Ymxn6a+HQLNhi2n8Xul23so6coI3pq3z9Z+yF
+	 b8YOCVv2/TP5Z+3cv99XrDa8jF70bzV4O3oqrvSUXV6kYkN2TlJgwh8RN8h7r8YrgSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxe3tKZD;
-	arc=none smtp.remote-ip=95.215.58.147
-Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Ms1SYUza;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BE5606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:12:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02BE5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08A9606A31C;
+	Wed, 28 Oct 2026 22:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08A9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxe3tKZD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Y+Decs/7/+vp1xu4bxl9QSBsBoAQltojViXKsaLAsUQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793225556; v=1; x=1793830356;
- b=uxe3tKZD3rgWKDBrvKJdhzEHdVT5FOsyiurK82BE0r3CCx1NjDF/Ox1X/7UzJ8TiRg2H1mXH
- 6Riy7L0RQ/c+7UjW6euETgs66c3dk35K34lojEdkGxNygQxZ4pUbDHssGUd+TrbPpk8TYp+k90y
- NUsJ+/PWqNgYmINEprxnYf3s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c8b5232d2f55aa01;
-	Wed, 28 Oct 2026 22:12:36 +0000
-X-Mizu-Trace-ID: c8b5232d2f55aa01
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6b9f70ca-86a5-465f-af09-2df49ee11628@linux.dev>
-Date: Wed, 28 Oct 2026 22:12:31 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Ms1SYUza
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 155EF10BBEA;
+	Wed, 28 Oct 2026 23:16:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793225811;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=AIOYJkWwbEOOkbiH4WpG1xz2/8Lkxz/T8mPLVYlLKnY=;
+	b=Ms1SYUzaEvtxsqJTPN28S5O+IA2XTkNAs091NLwFWs8H3ASD0N50hIahpi5OXUIf5OJ3ku
+	evesGvygvdHfGEi0kdLyoxL2RKBSaMXHiJtaPTDW0UXA7KZ/xfIPzhZyoxS7F2v/yMa7UW
+	LHNi3JMkmwYPL1dM7CN72wyWt3pxZzPMqhlK4xr0cJmECL7DFTkUu7iI3RhV91d0y9aaJO
+	191pTaJie8uRKxSS1B68SF8YbBWfbkumePY7/V1WsCG4fe95RKSEJvzPe4eIH9DR8CC4OI
+	fPIjFkof2skBkywO2qDtec94sfHjCsk8px9cjd6FzsPky5I04ZwxygmI4dulSA==
+Date: Wed, 28 Oct 2026 23:16:47 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
+Message-ID: <auJ0T2vTCe4Jhomj@duo.ucw.cz>
+References: <20261028170459.200466217@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +67,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before
- it is applied
-To: Linkui Xiao <xiaolinkui@126.com>, anthony.l.nguyen@intel.com,
- przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
- stable@vger.kernel.org
-References: <20261028090455.2291659-1-xiaolinkui@126.com>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20261028090455.2291659-1-xiaolinkui@126.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="9ogCmrLrndZmYNnj"
+Content-Disposition: inline
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 28/10/2026 09:04, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> e1000e_config_hwtstamp() stores the requested configuration in
-> adapter->hwtstamp_config right after the rx filter has been
-> translated, but the two register writes that follow are verified by
-> reading the registers back and each of them can fail with -EAGAIN.
-> 
-> When one of them does, the driver is left holding a configuration the
-> hardware never accepted:
-> 
->   - e1000e_hwtstamp_get() hands it back to user space, so an
->     application that reads the configuration back is told that
->     hardware time stamping is in effect while it is not;
-> 
->   - e1000e_systim_reset() re-applies it after every reset, including
->     the ones the watchdog triggers, and keeps failing;
-> 
->   - e1000_watchdog() starts polling TSYNCRXCTL_VALID for the cached rx
->     filter, and e1000_xmit_frame() still parks skbs that ask for a Tx
->     time stamp because it only looks at FLAG_HAS_HW_TIMESTAMP, so they
->     are eventually dropped by e1000e_tx_hwtstamp_work() with a
->     "clearing Tx timestamp hang" warning.
-> 
-> Cache the configuration only once both registers have been verified,
-> so that adapter->hwtstamp_config always describes what the hardware
-> is programmed with.
-> 
-> Fixes: 62d7e3a2d006 ("e1000e: Validate hwtstamp_config completely before applying it")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->   drivers/net/ethernet/intel/e1000e/netdev.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-> index 35f5590228eb..7ae33273734f 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -3715,8 +3715,6 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
->   		return -ERANGE;
->   	}
->   
-> -	adapter->hwtstamp_config = *config;
-> -
->   	/* enable/disable Tx h/w time stamping */
->   	regval = er32(TSYNCTXCTL);
->   	regval &= ~E1000_TSYNCTXCTL_ENABLED;
-> @@ -3763,6 +3761,8 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
->   	er32(RXSTMPH);
->   	er32(TXSTMPH);
->   
-> +	adapter->hwtstamp_config = *config;
-> +
->   	return 0;
->   }
->   
 
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+--9ogCmrLrndZmYNnj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi!
+
+> This is the start of the stable review cycle for the 6.1.191 release.
+> There are 1887 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+We get build failure in Bluetooth (we probably see the other reported
+bugs, too, I did not check):
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/17550762421
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3000620758
+
+Best regards,
+									Pavel
+
+
+net/bluetooth/mgmt.c: In function 'set_mesh_sync':
+3514
+18:36:58
+net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function '__struct_size'; did you mean 'struct_size'? [-Werror=implicit-function-declaration]
+3515
+18:36:58
+ 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
+3516
+18:36:58
+      |                                    ^~~~~~~~~~~~~
+3517
+18:36:58
+./include/linux/minmax.h:92:27: note: in definition of macro '__careful_cmp_once'
+3518
+18:36:58
+   92 |         __auto_type ux = (x); __auto_type uy = (y);     \
+3519
+18:36:58
+      |                           ^
+3520
+18:36:58
+./include/linux/minmax.h:105:25: note: in expansion of macro '__careful_cmp'
+3521
+18:36:58
+  105 | #define min(x, y)       __careful_cmp(min, x, y)
+3522
+18:36:58
+      |                         ^~~~~~~~~~~~~
+3523
+18:36:58
+net/bluetooth/mgmt.c:2188:32: note: in expansion of macro 'min'
+3524
+18:36:58
+ 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
+3525
+18:36:58
+      |                                ^~~
+
+--9ogCmrLrndZmYNnj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauJ0TwAKCRAw5/Bqldv6
+8lNxAKCNwro5vRWYmGRoD7hzhrUD9bvdcwCggV4vp62bwTvnZs4qwPmR+wYsufE=
+=SIkp
+-----END PGP SIGNATURE-----
+
+--9ogCmrLrndZmYNnj--
