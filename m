@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191958;
-	b=F/LyhBl9i8xLpdtXMNJcBb41BMg5xJzrwl7wteoOwk/mp64TGkwQj/E0ZALmwYH3aqOA
-	 plyPnjLy8D9aQ91Y4YUv+hUFi/FqQ5P3z89GB4HtyQbHP2lRBmYJwjuuWxCLMnB/vTPbw
-	 e4eJnYmN66QkvCmMrIxQW7o+tvIQTOXyR2xk37A2xbLulmjknf9FTMlZaWtsDOnAjNvXI
-	 SSWRIefYo6aXya4UcHQYOofNmjEq859qIPTfEQFkRCwXHJsbPH0UpUCRJV/mlFQ7RHkYN
-	 wQUYmfZ31CCTAtd9LiyeEtv66/4CphmAotleAtcHjol4fWNP53mY207D1BXzD/ruAlA==
+	t=1793192036;
+	b=0pktj1wT5p2qEtY1E79xCI7vCMNdYRv1YEoWqNtCiTFqYCzEfRgOS7vkrnIpaMYSp/vE
+	 m9sNblb8yvBWvNWbPa9yeW0nOLfMLCw0xjGjOYHekblaBcvPUI4VI+3Co8W1Ltbe9BbHZ
+	 Tmtffl6F5Clzo2DIdTrmG9P0K4LLUr0LQBfEnuD9mEMdK+t/NlqaON69UgenelmHqMH4s
+	 atXD1YzASx7wE2ygqcj4nzVY9xMbxt0VZ56OKt6WyssSPuylnfs58/CQfYf0un9yYpsEb
+	 gmp9PJeUHQ80YpWzz7ToB9INOZDpgMyUAQRAni7+iX1U60ZTnkaDRZnmTTuvfrLoA6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192036;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xKPX+HyNrE2o41R0rPagiIf/0OMnYW+RxTq37JWlHDY=;
-	b=S1apWQypoU9QiCXVvFAQQa38zjtg6SWHE/MP58LljNgHGEY24SN+ubCS6/IgQRawNV3P
-	 kxOXbAMseE0S250ID+p3HHyEtkCoRbGP9c1BSsqoD2kNdh1SAWY1mNb3mB+Zr5vvq3ejf
-	 4Al5VGT3ZlLSOFGVaaWUYZ4Pxf6La2HAaADisr6eF7zOeqNYOukaXIQYDds0Ogn2Dyb8e
-	 LrSuzWm4eXzifo0xf72+Ze6khzNoGAWrqyBkyIfMxmb2VwsgsX34PSyBSK2LeBGisoOiy
-	 7niJUPHpDw2qhLuSrDhy6kNeB702RH0TgcKCEvS4BqzuS8+XCFNDoFcsKhkp8FbBjxA==
+	bh=CoqnDBMQTsk58UNlKztcKSz5PUsrNRLKuBrZ2TG0xS8=;
+	b=RtgmWcTOypPaA0BnKE2cdx3tBPabTnRr+oum73ZKUIjwxECLOFME1GGi+BTsNlso2Wiz
+	 9PuAnp804pvK2CHBwMQlbiK9FuBjUF8Lt6aNHJpu9dhIVpmAc/Uf6R0vuSaKb11v5aL9p
+	 Pve81vZYg23tlIfn8xqxbJ3LIybJxVZGfEH1nKq9soQ+jauUELQSvQaW/+DqbEWBWlYbc
+	 hwDhp81XBigl7ertE4xsgiQvJXY3timj1MuYxk6PxCdUsDEbyRucGIKFK5yed9MGS9/lx
+	 HRDsBho7Ce3dQi2985mjw2nuXnzDR3NcMSCqtBJ4JULAxNqeRMfaD/eAH7yGjhszKZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys7bH84T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbYojVpw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5A9606A323;
-	Wed, 28 Oct 2026 12:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E33606A31A;
+	Wed, 28 Oct 2026 12:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys7bH84T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921991F01829;
-	Wed, 28 Oct 2026 12:52:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbYojVpw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D5E1F01825;
+	Wed, 28 Oct 2026 12:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793191957;
-	bh=xKPX+HyNrE2o41R0rPagiIf/0OMnYW+RxTq37JWlHDY=;
+	s=k20260515; t=1793192035;
+	bh=CoqnDBMQTsk58UNlKztcKSz5PUsrNRLKuBrZ2TG0xS8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ys7bH84TfY2+Th8LW8ogM+4ITkYkvYGmgZGhj8+rhHps7rD1VoH9WJWcuCISkHzwT
-	 k7n+my4sk052mCljCEszfqRqPGuMAjCbB6Y8F7uZdqi0qRcool2WA1I4hYYQaX2USq
-	 o/8dT2yLJdgvpa6OVC/uZ57D1NqCtflonohxZsGJ9XV6dBUrhcG7ihy8HNinM8OQlF
-	 2ZnxrtD5cwVLECw5W9MSvzVV3x+UBigp6WjdTWn+4QAHnnrjVg9phKQKpxlwGeFjYx
-	 1TMkIGvuMhqI7LTLfZYzhvR6cO0juTKG00kJZJiYhHwXefvwYs+1qKpT/3y3BZV4W3
-	 1DvY8F9LNlc6A==
-Date: Wed, 28 Oct 2026 13:52:34 +0100
+	b=lbYojVpwFCtzoYluCp+Uy7IweQJrFCnHFJXzGezGtPVZJdbeAMLrOTZlSXPvkqEn5
+	 f2si0SWQLpQzQPJIXaEG+qIdAR0vofxLGns6UkEYX7uVkhxMlUYJ93GfmT/z2IPyfG
+	 YMOpRXr7Ui/DpzZ4iuD8Pa0sLcMsebGhWadpl4Ir6GfvV1MRwbNLQ3W+GNYV9yQgoh
+	 WVdjcyHufxYRLJlrf6vxzTOecxNRgxJSBk7lUgktp1u8VJuCNIDJLQmIZ5ZQp2HtP3
+	 idC7zg1w8xFmfhqc81lfAUuPZBiDD/XWeXkGiggg9PkabJH4L/NsQOs/Wxa+XiTO4R
+	 Nz5koAADfhEzQ==
+Date: Wed, 28 Oct 2026 13:53:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Amir Hanip <killdeath104@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
-Message-ID: <20261028-impossible-thundering-scorpion-cfcafd@quoll>
-References: <20261027205146.16384-1-killdeath104@gmail.com>
- <20261027205146.16384-2-killdeath104@gmail.com>
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] dt-bindings: media: add the Qualcomm SM8750
+ camera subsystem
+Message-ID: <20261028-easygoing-sepia-mastodon-c09f32@quoll>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261028093003.722745-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,18 +64,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027205146.16384-2-killdeath104@gmail.com>
+In-Reply-To: <20261028093003.722745-2-xiaqinghuan@mail.ustc.edu.cn>
 
-On Wed, Oct 28, 2026 at 03:51:45AM +0700, Amir Hanip wrote:
-> Add compatible for Xiaomi Poco M3 codename citrus, which is
-> based on Snapdragon 662 (SM6115) SoC.
+On Wed, Oct 28, 2026 at 05:29:55PM +0800, Qianhui Xu wrote:
+> SM8750 has six CSIPHY instances, three full and two lite CSIDs, and
+> three full plus two lite VFEs behind one camera subsystem.  Document the
+> node with the register ranges, clocks, interconnects, power domains and
+> the sub-block layout of that SoC.
 > 
-> Signed-off-by: Amir Hanip <killdeath104@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+What happened with:
+https://lore.kernel.org/all/20260721-add-support-for-camss-on-sm8750-v6-2-a5f841061d18@oss.qualcomm.com/
+? That's a v6....
 
 Best regards,
 Krzysztof
