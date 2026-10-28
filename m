@@ -1,112 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793169970;
-	b=NIzZlvpD0p5MSPEynL7W78Xz7ecYtgPeBImHp2lhjSlB4OIWu0AxDSt4QSUYqD6CCI5v
-	 /efeDoGxHXbPd7tVXFWSDHPHFq+EBo+uIkqfaMhdYEhKOdbwnelCSGLteduQ8vg96pLKn
-	 yOskedfaSKwJ0V5pYFiTacjgAfKLHwaFkgPsssvhJVqsaYsv/vLSSL5hf7aDx/PIHju1T
-	 moExBSoOKcd6pBDzOT64B2Wf2v7+vSxmC95w3Tlo5lkFOVcbUFn2LldHrZ/bfrzFzzMcX
-	 FpdFcOnzw+ZosBEwOwL8fzDAm5gnm0w/NGyOcSosthretoBXJ6RN1SGEom5nTIaEYtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793169970;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=fNZLE6g13OUkRAJQh2g053ezFujOCllvGhTaZvGIa/w=;
-	b=gij9qQnWfB65FX9l2lcrwyfYrEFF2VcOrbgRrrB1Dupo78qP7Gf8P/kUHJ+pMHwaHSzn
-	 QAdqCAFYyk+xOPCWV5hSPFRNZIRFYqQ6MMsrEoov2zpfNWSjU79KcX2EKNfcPEy8L31vl
-	 VpnG6clncTM5IZlggu2FPIUBTkwoFv3RrxsWNHaQKm9yxwug/0UpgCK9yYrP2/3mDTItJ
-	 P+sVXkL05Ior2E4dJ8D7H7Tadw8VjpeB8dJroIWI/oC/gMNwmypWi3+Qo7pjnqiHh3q14
-	 X9RHZGid4kLi5ixQ6w4Fw8i7UYPjd6NyQuefVA5fqXCn4rzhLckd4ylUOtDJPapuf/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pj8oBhJu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JOtYqReV;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.125
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793170087;
+	b=fyQJpjn1PvpvmuSFUaWJHmzhN5CF/D4+KTQ7T8zBqKSzjJyyAxeyurBLjpZX7dYvWL7q
+	 H+wKO0OvzL4Hs7IU6o58i4MjXRFPj8aeIxgCbKjoGwKELkHzloyGx9KEgyyQ4o56NnQUc
+	 8vc9Q+BBANWEVJh+UN0ajgfskp95bXWATAHuwn92Ld/N5suHkW6U9vUVYcaIuN5uc/ehN
+	 DGqjBI/tskZ0mTkJ6mEUgkbFBfKIUfHzN7X34QehBNNi6YYNxp0BS1QGh/oh1Ic/UvHZ/
+	 TWC70/RLXFSsuBO7MbaqBDpInclswN4+ljUvXYdM/8s5NpctTHx+wwiKX/bzhdJPG3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793170087;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Authentication-Results-Original:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:CC:References:Content-Language:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-CodeTwo-MessageID:
+	 X-CodeTwoProcessed:X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lsAT2PbpBYge1+hSiSeKhuFBIjYprkumtKIZ80iZevY=;
+	b=Vh2oV5IsVOb12PwtCA5Iv+MqVz+Q+NAK1iO3mfCbpj+1ckYO+748BsbXlZoMubLz3Ii9
+	 rMIQ0ZkXB+VMj2OeHQXG4L7H70F4WKfDlJR010gmRyNjWU7Hm3cwoaL34f4GDhjFxpYxb
+	 1hczWKARa8Wh0qaeyb1T1WwDE3irNSN2/a+Iz1e+O1aT8BLYTLpQhvd1KO7EBviz5he+8
+	 Ldyui0QrhPkweyMXshLANaIolk2vAt170WXTlLZdREEuUi1dOmRWQFQecybRj9xXcg+bW
+	 A8wTr1COhmsBQcwxIqmNa/CPriLXrzMcr0cB2BSq7SV0i20cstD6/Lh+kkHt6G8kIew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=topic.nl;
+	spf=pass smtp.mailfrom=topic.nl;
+	dkim=pass header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b="aoEA/6J7";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.125
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020125.outbound.protection.outlook.com [52.101.69.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848AD606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 848AD606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C43606A31A;
+	Wed, 28 Oct 2026 06:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C43606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=topic.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=topic.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pj8oBhJu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JOtYqReV
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4PdCP046821
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:46:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fNZLE6g13OUkRAJQh2g053ezFujOCllvGhTaZvGIa/w=; b=pj8oBhJu5/ZZdJ8l
-	7/EDThTPLYP62orXP4P+P0oHUtcizPruNpd7yDYEjYC1Xjc14Qi8TVta2MnWxuiC
-	qYYDom8iBLuGmwWxoI896XGYg9uLN/MfT4+rbs4K2fTKmDcJMdbNs0BnZBCMCbkN
-	rIsMN3/Lbf1mAFH8H+BXX5YrrWsAEKkUDhG0lDTJh4McYSEROYyfKIaOtLBhStVV
-	jbnEJdr5TVlEGVFIC9c9JUxarsabDxzuVnad5LjEIUBQkxV5Q72yczyR63rTy2e7
-	zN9ZuJkCoTRpbB2Gc8H3FTh2ji3PDn1kgRdiPqj/qYPBxv8/zKMoRmpSbpTGDw2X
-	+E0vrg==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk82trts6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:46:08 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-483ee5899ffso84201fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793169968; x=1793774768; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fNZLE6g13OUkRAJQh2g053ezFujOCllvGhTaZvGIa/w=;
-        b=JOtYqReV/qd2xHLsz7dwtm1b9BiKx0rni9s/vQOU3DrmApDpg+QjHSYtHVrOdfKuJw
-         jjQ/0oisew66WHwkQB3bJGkjgJA68oEuDqCwrFY6qU0PTLyEGzq8AdXdQqlD0GOZZB5g
-         pkN+e5n5lS7cr/05tH1ZsCTZ43rFKndjl4SKsm2OirZCKIntczoYFfecWV+qpDAOhjNE
-         zv7zjAyjVpYjJK292dkwSgIgGhlhq8X15tBWp1BpH0hWB+U0egStd8+V0YEQXRLI1Y9t
-         h5loDLmbfAVo3jnmitFTgYSl3BpqDZRJiKh27JSw2FInWQ0CCaYtwYhUKmKYDT7M5Mao
-         QbQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793169968; x=1793774768;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fNZLE6g13OUkRAJQh2g053ezFujOCllvGhTaZvGIa/w=;
-        b=V+7VttC8iyG2dFiT0wcNCWEZRAviXz8rTZnSS/j+8SlPZ2ykwvSpIy7wWJbIL/dmng
-         d2XxTHkgQVkR7AzwTQtFpWQ56+cuNkQuPp35if5zy1m0MISFBy7ej4Fsjy7g0ib0IMmS
-         nMA2FALmcGtJDy4gFlnKnnxU5KItirAjCTwRZOGx2NloHwVt7uB4nFelaQTzTZwIi5QO
-         oJ9btJAwAZeo07HgRM/tbzsZqjaUQmm7jF/+mfOCXU7I1b7wF7/V4UaZXR/uVkJCxrfj
-         8XEeb3SpcjWt1SGYIaWf+qCFkaz3ABDNi+/MfaisQpT4l1Ba3ewWqdxSNwkgEMBHHnDN
-         0AFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzG02AzYRGBDlW2bE4AG1vDFRJxVnWyJbv9ZF39cGCrvCEorHa6DO6bRKxNdJ+CX9IX6gOnDTQsDRVG2l0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUooIE9uWJZery9m5xi1+VmDS4LkptU1A2dGfPsm3UiKeAtOVb
-	QJoEx2bW3tAq7jBDb69IK6D/CXwjpuuCHtyy4b5WM5BfkTugtp+976bX0A6NzzQ/fKkJDWted7m
-	zQXEti6bgPmCNRFaRPqhBSc4F4eb5TBkTeRbAufuTXskiZx5uyD9C9x5DQb4iIfJ63pPzVSW0uL
-	8=
-X-Gm-Gg: AYBFou3nOXHH3e5H0qL9EV+tVqAT+/sTdj2KNOC0m3LvuTDkbxfFWri889OmP7HUPme
-	ipJ3rijJRe1IUoflm7sOcCpvxYJl9D+GEth+k9v25ZoelicxVpi8x6GK6sBnZA2POYhaHggfYo4
-	v4KV4miHXXLBItYdUUP4H+UBEBsj9Zl2xboret/CRx0eCEgyWfOup7oYt5jdqB3yilnKdIOLjFI
-	XxW6BQ7JVpr0zAi1DY1sbDuWxIILHbwQiUM6QdOJYNgseevZXyKhBkNMkcpfZVcIk+KYz2cAUfU
-	RE60SCye2loG2/0sibhX9LABHNzHHgZjK122QjratDV/TicDxdBXyqYvG+9noMtOCxjiSD78Cle
-	Rm1YTn0QYh9Ww8IyWVlDNvb2ULdeDipSzov+9/i91IMaC//oTr6IX+8gmiwG29tLAoEq1eFaJdY
-	ZShjN8OCaTTstcnzKuBy2T
-X-Received: by 2002:a05:6830:67fb:b0:843:7bb5:28ad with SMTP id 46e09a7af769-85abf097011mr1938749a34.2.1793169967806;
-        Tue, 27 Oct 2026 23:46:07 -0700 (PDT)
-X-Received: by 2002:a05:6830:67fb:b0:843:7bb5:28ad with SMTP id 46e09a7af769-85abf097011mr1938729a34.2.1793169967375;
-        Tue, 27 Oct 2026 23:46:07 -0700 (PDT)
-Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85b1fd30d98sm860727a34.14.2026.10.27.23.46.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 23:46:06 -0700 (PDT)
-From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 23:45:51 -0700
-Subject: [PATCH bluez 2/2] obexd/bluetooth: Clean up redundant code
+	dkim=pass (2048-bit key, unprotected) header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=aoEA/6J7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KOEyNusvPat4wEGujr32+AfGmV06XiZAjVbxkVaZX0FqTbe0DbG3oT8/nP7CqWusJUODNgAHOakHPJfYzKs+p7UK1LQXE98C1dCF/9AmLUrKF6WrRI+psFSsPiP1UBZZGQ3ThaBsNsYiLL4o6JtCFF9I7Isc1HnoglFNXJ+U46BUt04xTj+OrV1/5dOLiES9LJnzgR0XxXr5hIbfQkgVw3ENhbCm3xjkIm6QO2GYJNHXNpKnS5IdoNc/G6r7eobqA3x+3FaWAfnr0KuXmW5LGwuk4PhIiNWQu06s/JWvu4rV/6t4GRYOVolVyDQCDpG6wTek0XSkY32mBOfLvqnKPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lsAT2PbpBYge1+hSiSeKhuFBIjYprkumtKIZ80iZevY=;
+ b=pCh1aMNVBCVK02Jz4GipeSTFv2VJmOjSJ7IQYGuvnwS9hYqFuFNnxVbDK9gqJMuycfMeH2nBUFy+pDX+zBU25yu2j2cgogAuvW/JlyGR0zZRNWuNvxWe1BPtDWBK69VMuHmcr3MsBQDNpMzAy9XcpBWYN6iaeDDIzSneAdtz/QcZhwd/MTFwCwbsqjJ5ihvBpwcL/SqcHCgaigzO0OAGCFENozm3WPni4hQFDUylW5Qiccbj96BCCjLz9YewQIZdi6gLDfp4bDdBIhsCNq+p9CWT1vnRadTTr0y5tbrIO2weJcIOqc7ZIB5aakVxizCfkQgaQHw1xH45iBawFThiEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.93.157.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=topic.nl; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=topic.nl;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=topic.nl; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lsAT2PbpBYge1+hSiSeKhuFBIjYprkumtKIZ80iZevY=;
+ b=aoEA/6J7oiuLAuFBt79zDi6oTucCiRy4Az4qbZhKgX9R+oWuKRUfwkJFsAdziPrg3gOaoiNFEulOC5PtyIKJv7uZk21/m7J+QwTxpiERdjNhj3k/iD1BRzEB6HENTHU22OZubA5xsJQZLIqHd8lQmOzISuJnnGaYK2bLqTZtcr4dsJqSF0in8pPofuhaWEYxoDD6OmPgfjGxnoleClbBHqfm8vg3aWLtjMevAemaqB6L/GZwf0pqXQsvqbDGOD2obo0kKk5tuxxocIAKdm7ywAIaoFZhn6cNMYelxkRkj49nXOJAxSN+uCNsWAQTWZwlnkkd9DKNSyXpdFsC5mXbUw==
+Received: from WA2PEPF000008C7.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d8::694)
+ by MA9PR04MB121114.eurprd04.prod.outlook.com (2603:10a6:250:116::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 06:48:00 +0000
+Received: from WA1PEPF00009B39.eurprd05.prod.outlook.com (2603:10a6:1d8::116)
+ by WA2PEPF000008C7.outlook.office365.com (2603:10a6:1d8::694) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22
+ via Frontend Transport; Wed, 28 Oct 2026 06:48:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.93.157.195) smtp.mailfrom=topic.nl; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=topic.nl;
+Received-SPF: Pass (protection.outlook.com: domain of topic.nl designates
+ 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
+ pr=C
+Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
+ WA1PEPF00009B39.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 06:48:00 +0000
+Received: from AS8PR07CU003.outbound.protection.outlook.com (40.93.65.49) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Wed, 28 Oct 2026 06:47:59 +0000
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=topic.nl;
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24) by PR3PR04MB7387.eurprd04.prod.outlook.com
+ (2603:10a6:102:91::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 06:47:56 +0000
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224]) by VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 06:47:56 +0000
+Message-ID: <e3d1e19a-fb81-4925-a674-60429d398456@topic.nl>
+Date: Wed, 28 Oct 2026 07:47:54 +0100
+User-Agent: Mozilla Thunderbird
+From: Mike Looijmans <mike.looijmans@topic.nl>
+Subject: Re: [PATCH v2 2/6] iio: adc: ti-ads1298: fix power-up and clock
+ handling
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
+ <20261024231335.280955-3-stephanbrrs8@gmail.com>
+ <184780c8-6d87-4983-8399-6e509a250cfc@topic.nl>
+ <20261028021915.29695-1-stephanbrrs8@gmail.com>
+Content-Language: nl, en-US
+Organization: TOPIC
+In-Reply-To: <20261028021915.29695-1-stephanbrrs8@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR01CA0014.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:540::19) To VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,121 +138,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fix_obex-v1-2-3d91aed181b6@oss.qualcomm.com>
-References: <20261027-fix_obex-v1-0-3d91aed181b6@oss.qualcomm.com>
-In-Reply-To: <20261027-fix_obex-v1-0-3d91aed181b6@oss.qualcomm.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Zijun Hu <zijun.hu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: XsKwpaoTqMwXX5xKalsz5zMAJV64FYoY
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAyNiBTYWx0ZWRfX6ZXY4GXg5oLC
- 90n9vR30qZa7XMO4eEPAGD7G2LfIIe6kNJXU7ENyqw3GLe3kvZ0J2yWtI3xnYeWMjIotAHuwkVU
- VvepzbQjLIT3OqDEw4sFY94MnM3wCms=
-X-Authority-Analysis: v=2.4 cv=Tr1zFzXh c=1 sm=1 tr=0 ts=6ae19a30 cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=bBOUa_hTYMcDMAnvo84A:9 a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
-X-Proofpoint-ORIG-GUID: XsKwpaoTqMwXX5xKalsz5zMAJV64FYoY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAyNiBTYWx0ZWRfX1JqlbLaiw/W9
- dPm6sRfhNKEORgkYtAhv1sz7UFpx9AWZz0b1xwybsyiojPKfpILox/2eDJm15EZmdu6qTdEQAkW
- ufenoqERybYeV6QhgYUtLS/ZiWEKf0RyWUOm5d0yvVbrO0GaO2aFKsz/KEv2S9LL7mTFWx59owv
- R3AdEys76ZSY5ISDnPCAclpTxtLCZmzSmXYs9J2sccGUxLfKM0eoFO4VweSWe6ltYcFO9Kn80Hs
- Sik4QutSxR1PHUtc3Kzde7MemlGv3xLNspnLhIHsoyk86FlJTgcz4XbmBcD91c9ChvnFw4rlT+/
- NkayL7VXVWEyn1gq5vXXD3TuIUOqwibdKvh+VcMGH2M1dPH4faH2KQgCVhfIuW+jOLzbNeyF3VJ
- ItZRJAUR54O/zHvL0YOxtZy8+b6tmCIDhFH92o2VWZ56znXokDzaq90a8aL47vSQEi3zWNix/Q9
- rRoaf0LEEiAkdeUbVcA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1015 phishscore=0
- impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280026
+X-MS-TrafficTypeDiagnostic:
+	VI0PR04MB12030:EE_|PR3PR04MB7387:EE_|WA1PEPF00009B39:EE_|MA9PR04MB121114:EE_
+X-MS-Office365-Filtering-Correlation-Id: 085bd268-568b-4998-0564-08df34bf685e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|261021121427099003|261026140227099003|4143699003|261022075727099003|261022105027099003|261021135927099003|10067099003|261021123027099003|22082099003|261026121527099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 3KKc48CXZmHUmB6OtnlwRdLAYKNuzSVaGSlzLtjTBWkscsW9qKiOscZq8v6CrbhZM9dZvrGgtxucUDkOllCS0UPHTwwTQ8Rk4FeEwooGLe0BTQ9LId8iF1TSaXokB58Zm3k82r2naxUMM4J+P5pcvXXAEaN+SczxryDzkF0nbV3aqK6lTtMuMID8nhiDX/Pac57m0Uem3twrp4O1KJQ7aU5GmKS4HI+lRqOn9ziVCnvFSzy9HKpEjlO5yvRf4YhWSs49ranhA29zXHwP5/1UMGe9x0GcCEuAD3DYZpsrwX6NP9RFU2h+Dr5zPj0w/sbvsNrYjZ1xwa9sflyEvPvvF6h6SjzRDE2iEgDdwSgmsu9xtwFN8UgjGWAC1qiCZP/sAju8qOJ4RTQfG49ravQLJn+dtZgXk5U1Z+IgqOvvXo8EDZJ6rXpM0UCLvxcwSf8bPFRJgAdYDv7tNNiOjPUZlcAyaGqEAbrcmMqwkn9BfCoyqlEiJCXXWtOF6CRhlDKkguloSWck2X4bO/c6sT4jsXSvd3lHPtfWi9rPP1lFRZfLx0gwNWdZe3J6GshxilgKRL8Rz7hI4YpRqLBmBQ16tqyx3adJQgfvKwX7h/+7wvfS6Pm7LPyp1eTRlFX4jrTnL3HhvXykhiQLQhkAFYzfk2dJbgA4EnFqVsHie7U1jSk=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12030.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(261021121427099003)(261026140227099003)(4143699003)(261022075727099003)(261022105027099003)(261021135927099003)(10067099003)(261021123027099003)(22082099003)(261026121527099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: Gnf/r6HNpsmlEXZ/PfzYCzsjyYzygOvrLuw5ImDivuzq+gaFVqr/GS3n7nfPJ/BjsbGmela1hivhQe2hnWvqCypBACcaY1/d0dKLgAkrDsvHmp5HHBMTvWx53aWNNFt+H6qA+vJL8t/pOnxtd1kbGf4bbf0DoB4O8oMsYJMb/sztpU4BihSxLfHqTrpJQVH/me3m9iEBzE7w5amQSqHfZFZ5YfGup5u4t+YESm8iFTp/2PbEGR7JqCyPh+HwF9y5zMAIv6DldXwqEsbiZqKPef/4eK7P30yNT63qxTnGY6Z2jVtv5bSRqhxT/VuWOM0eeWLLMO2yaTNarl/SRxcDfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7387
+X-CodeTwo-MessageID: 3e973979-80e4-4fa7-95e4-95a853ae6420.20261028064759@westeu11-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ WA1PEPF00009B39.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	e934ba1f-f4b7-4dce-76b2-08df34bf65c5
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|35042699022|23010399003|1800799024|376014|36860700016|14060799003|82310400026|261026140227099003|261021123027099003|4143699003|261022075727099003|56012099006|261021135927099003|261022105027099003|261021121427099003|10067099003|261026121527099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	4ZMZZzOjywdvKSLzNyvgAdhpGjTfQohCqg2Be+dJTWkVQGHUt9xXmAkHspf5XTYFPXqy8lSE9kUppUkOCygOl08Tbghv8LOErJjssF3/WGuBYuIf2zB0mXUHvo70xBhtVGhYmO0OSD0uJgUExaczSfGvJz9xkXnYkDasxIDu77cKeXldccKpxAUShFnizFY3FbprUwFaGUdQQumwhTS6MiC7I7ij4nrJjwn4AW8MXh3mF9LIwh8obTr7m7c2MZOwPIlyR+P3U1h4evKpmJeSSbfjuBkjtkV2bzgDssPc/rVllIW9wu9yJj8pQenJy3oO8yHem/6wKr16idTUBBTu58UBCBiJVhTb/BRc3AEN6xU0KOEoQBn4cqMz1UIloVYoDRIMLE14n23ehqBCitnYh33Ql8+WKyJU5vBlx3R03Y2YeAN6A/4vVvosdzJcRCZKqZUQVbqY83JZZm8phXub8/Eb334RcA8IWcsW93crpSeem0jYwekyY0ujFuISg5XLjqd/k8yUWD6booHcSZpEhfyP6Q3Q0CeVhZ4huAq/M4g1zlVxOGlpBROboswPF6BLdh4pYZiGjpYYUqzlP5dA32JcDc6XfulE6MXGBT9NB1ubxBCoPl/RtDy1vJu11pqe93AbRHhVJQGwF+j+SivUsUvADrybdjo8Ocg9Ud+TzoePdaSigBdMxCJPWxbYc8cXXkUt1Yy35Ahc+1zcdQH/UQ==
+X-Forefront-Antispam-Report:
+	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(7416014)(35042699022)(23010399003)(1800799024)(376014)(36860700016)(14060799003)(82310400026)(261026140227099003)(261021123027099003)(4143699003)(261022075727099003)(56012099006)(261021135927099003)(261022105027099003)(261021121427099003)(10067099003)(261026121527099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	BuPU3YFex5zUdyaakRDfrg34LHM6HLKFh7mognSeV9iAhdDBp1rfsLK7TVwvrNrHWjHi9wcQz18EeVdcB8EG6Cni4kt2MyM7/zZdlszSLnGDQ2ukPvPZYjfVQpwwVZX/0ciKM9HAHuHreddJrkyH9dj/oWt6OsYlUC3SL4yD6SME8361j8LxIDG8OYxjDH4qgkcOIlppRfbvukNiRRQA7qLQsGiL669qCo3HbdLZFr6nrI80RgDGlpiVPAZV8KxG2ZxNRZDVuGNanCG+GsMLLPR+hP3oMOAgYMG+pgIZNAjb10B/B7t9Vi9sZLmHjuWqu1erCWZxwiqUnDcJi7it2a7HwsFmiarL7NMRgVNks8gvDkZlxRmvWQNv/QnQoh1QgUe7xeyClf7J8g+xns8waia1zk0e6I+1TFf+ujcxUmvW1kwJ/XcS2w096t84wSG1
+X-OriginatorOrg: topic.nl
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 06:48:00.0840
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 085bd268-568b-4998-0564-08df34bf685e
+X-MS-Exchange-CrossTenant-Id: 449607a5-3517-482d-8d16-41dd868cbda3
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=449607a5-3517-482d-8d16-41dd868cbda3;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	WA1PEPF00009B39.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB121114
 
-register_profile() already frees profile->path and sets it to NULL when
-it fails, so the same cleanup in name_acquired() does nothing, and the
-error message always prints a NULL path. Drop the cleanup and print the
-profile UUID instead.
+On 10/28/26 03:19, Stephan Costa Barros wrote:
+> Hi Mike,
+>
+> On Mon, Oct 26, 2026 at 07:27:22AM +0100, Mike Looijmans wrote:
+>> On 25-10-2026 01:13, Stephan Costa Barros wrote:
+>>> - The datasheet powers up the supplies first, then the clock, then
+>>>     waits t_POR =3D 2^18 clock cycles (128 ms at 2.048 MHz) before the
+>>>     reset. The driver enabled an external clock and the vref supply
+>>>     before AVDD, reset right away, and did not wait for the 150 ms
+>>>     start-up of the internal reference. Follow the datasheet. Probe tak=
+es
+>>>     about 280 ms longer.
+>> The driver followed the correct procedure: Keep reset asserted until the
+>> power is enabled.
+>>
+>> We've seen the chips misbehave when the power supplies ramp up
+>> erratically. Keeping them in reset until the power supplies are stable
+>> solves that issue, if a reset signal is available. The driver is based
+>> on real experience with these chips.
+> Thanks, that experience is what I lack here.
+>
+> The patch keeps that: RESET is still requested asserted before anything
+> is enabled, and released only after AVDD, VREF and the clock are on.
+> What changes is that AVDD now comes before the clock and VREF, and that
+> the driver waits t_POR before releasing RESET. "reset right away" meant
+> releasing it without that wait; I'll reword it.
+Ah, okay.
+> Is AVDD before the clock fine with you? Section 11.1 asks to keep all
+> digital inputs, CLK included, low until the supplies are stable.
 
-Also drop the trailing return in void functions.
+That sounds solid, better than it was.
 
-Assisted-by: Claude:claude-sonnet-5-5
----
- obexd/plugins/bluetooth.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/obexd/plugins/bluetooth.c b/obexd/plugins/bluetooth.c
-index b70090971119..0aeb1becdf32 100644
---- a/obexd/plugins/bluetooth.c
-+++ b/obexd/plugins/bluetooth.c
-@@ -88,17 +88,16 @@ done:
- 	if (obex_server_new_connection(server, io, omtu, imtu, stream) < 0)
- 		g_io_channel_shutdown(io, TRUE, NULL);
- 
- 	return;
- 
- drop:
- 	error("%s", err->message);
- 	g_io_channel_shutdown(io, TRUE, NULL);
--	return;
- }
- 
- static DBusMessage *invalid_args(DBusMessage *msg)
- {
- 	return g_dbus_create_error(msg, "org.bluez.Error.InvalidArguments",
- 					"Invalid arguments in method call");
- }
- 
-@@ -324,22 +323,19 @@ static void name_acquired(DBusConnection *conn, void *user_data)
- 	bluez_available = TRUE;
- 
- 	for (l = profiles; l; l = l->next) {
- 		struct bluetooth_profile *profile = l->data;
- 
- 		if (profile->path != NULL)
- 			continue;
- 
--		if (register_profile(profile) < 0) {
--			error("bluetooth: Failed to register profile %s",
--							profile->path);
--			g_free(profile->path);
--			profile->path = NULL;
--		}
-+		if (register_profile(profile) < 0)
-+			error("bluetooth: Failed to register profile UUID %s",
-+			      profile->uuid);
- 	}
- }
- 
- static void name_released(DBusConnection *conn, void *user_data)
- {
- 	GSList *l;
- 
- 	DBG("org.bluez disappeared");
-@@ -479,14 +475,15 @@ static void bluetooth_exit_cb(gboolean at_unregister)
- 
- 	obex_transport_driver_unregister(&driver);
- }
- 
- static int bluetooth_init(void)
- {
- 	return logind_register(bluetooth_init_cb, bluetooth_exit_cb);
- }
-+
- static void bluetooth_exit(void)
- {
--	return logind_unregister(bluetooth_init_cb, bluetooth_exit_cb);
-+	logind_unregister(bluetooth_init_cb, bluetooth_exit_cb);
- }
- 
- OBEX_PLUGIN_DEFINE(bluetooth, bluetooth_init, bluetooth_exit)
+>> There is no need to wait for the internal reference startup. The
+>> internal reference only affects the ADC performance, it isn't required
+>> for digital communication. By the time userspace gets to use the driver,
+>> those 150 ms will have passed already.
+> Agreed, I'll drop that wait.
+>
+>> We actually have 8 (or more) of these chips on a single board. If it
+>> takes 8x 280 ms extra to boot such a board, it will fail to meet medical
+>> specs (reboot in 5 seconds).
+> Understood. Without the reference wait it is t_POR alone, 128 ms per
+> chip at 2.048 MHz, still about 1 s for 8 chips probed one after another.
 
--- 
-2.34.1
+Which is still unreasonably long.
+
+We modelled this into the power supply.
+
+The 8 chips all share their power supplies, so the first to switch on will=
+=20
+need the delay, but the others don't. So if you put a delay on the power=20
+supply, only whatever device triggers it first will have to wait. All devic=
+es=20
+that use that power supply will wait in parallel. And if the supply is on a=
+t=20
+boot, there'll be no delay.
+
+
+>> The ADS1298 datasheet says "18" clock cycles, not "2^18". Quite a
+>> difference. We would definitely have noticed if the reset timeout was
+>> that far off.
+> I read 2^18 in the current revision, SBAS459K (August 2015), Table 38:
+> "t_POR, Wait after power up until reset, MIN 2^18 t_CLK", with the note
+> "When using an external clock, t_POR timing does not start until CLK is
+> valid". Its revision history lists "Changed power-up reset wait time in
+> Table 38", so older revisions may differ. The 18 t_CLK in Figure 105 is
+> the wait after the reset pulse, which the driver already does. The
+> ADS1299 datasheet (SBAS499C, Table 30) gives 2^18 t_CLK as well.
+
+Oh, you're quite right, I stand corrected. Don't recall it, it's been a whi=
+le=20
+since I worked on that project.
+
+
+> That said, I have not seen the missing wait cause a failure on hardware.
+> On my board the supplies are up long before the driver probes, so t_POR
+> has passed by then, and that may be the case on yours too. Does the
+> driver switch the supplies on your boards, or are they on from boot?
+
+The AVDD is separate and shared, the DVDD is just always on (also powers th=
+e=20
+CPU and a bunch of IO banks).
+
+But what I said before applies, the delay should be in the power supply. Th=
+en=20
+all devices sharing that supply can wait in parallel.
+
+
+
+>
+> In v3 the supply order, the t_POR wait and the clock rate become
+> separate patches, as Jonathan asked, so each can be judged on its own.
+>
+> Regards,
+> Stephan
+
+Mike.
+
+
 
