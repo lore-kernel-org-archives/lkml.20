@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.62.254.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793175642;
-	b=H16WUMOihT8+sN0DkxIzlbz0A+hvAFOf0LKoQ6s6IjWSYW9+9BoBfuPOsQVgZjcMsckr
-	 vTY2oqHHnKljQfZ0nSn/ePFVknWMMyjXHCgam0Bq9i4WFRNryEo0oTA2DZniXSkwq4h8C
-	 HtPlJACMDaSfWbCn7I+fNRtfHlM/Z8uhmqUfk9/0tRF80oMAzOOo3SWVYUrBZ+p5PIwSJ
-	 FrCfbE+0F6kbwltYfp4q48ArYjpsa3Z+hUi1bvFsMGjNptnHN7ffy/vVIaVXBrRQrj26b
-	 AfypeYyhBDVYjAEYaxVoKt7MMJt5kIJ1M42Xv6Q4wMkgiRKf95AMq4tsiM1oKFw0ZyQ==
+	b=zGj2Lj8DVacl0kxbP1fg01XPqIf+wESd7lMY3jWkZHU7p909J0LjWDY7qMSUZKlZFNBe
+	 eLRW20Icbuj3T3OJu/vNZ6N0QWU/eckdQErCx5j94MZR0GF1y7W3bFlcG15yptlcZAinB
+	 HhcENOOQtvLrZmPMmuU3fbnNgu4t+klA02ShVo4k7zzRSSac4E1sDVWcJALO8iXjocrKS
+	 phuKLT/atWW9Aeij53QsFkQGiL6xGlfOdn5YZNZIvOQ4jm/Z/6/OuTXADU83BMfdxHC4u
+	 jps7Y4regoIbjgL0fJA5W3+GMntphj8a3pu2dLeuhdfli88RpNKoMeD0J1+DcH2zYNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793175642;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dWJJn/15+ghgzzIGKgM3IMULkpSh/eugDFHemmlBRb4=;
-	b=TsWSCUWpSSpMrYiGkzS4az08umU0W1q3VwgNvgMLJdIo/B8G6vkTd4ZCw/hmiUut+Ogx
-	 UUp4srkjbTdnMCS5vbmow3u4N8VFk1KEbRlgkYlbc7Tx9wOOufY7aSwP94Ls7/9jeA8q2
-	 /dGSRzdfvK9D1i+YK+tKuf+o8JjwhSYQyj24sq6q/oykbL/tDRKM9uQHdMojWy/QqoWwz
-	 kbEyPtgQkd38lmtrWf9E0a4hCCZckSu5YZYar03t1qJowJDoYKU84jVFaMH9nOLjGOYhn
-	 enx/IGtQrdSal2jWZ1cHebJ1d2D8f92HV2u8uD+KVdvWzB2XIM41G69Tk5sfblYAY5g==
+	bh=SMf0dV4x3xb+DslLmuw7FBFheVT29/cwuNdKSpo2QkE=;
+	b=hTTcoCDID99rcsAHk7+nfhTtBpISZJib3mqSA6QO4wN4LKglRSuMrO0gkbDjiGKlO9WH
+	 EnA1LbZ05KVT301CwrMS+qFQNhgQLxHiZnLCIshGB3+QQHQt31TKYVX4dSleFGlMTQMOL
+	 tzYVhVeyhnfZXeEqSE+yjE4A0hwT3BRRNTJAT7OjYbLYSe0tXQLPnJv0j4TFvBA64biCY
+	 74REikzsYVGpbIxbKLlNGvNPWuZdgTj5JLJmiIvn6PEE/pKbGb2Wi5GXDa2aFbdrl47SM
+	 YtESztRNipfhJVNrxReVRsJH7grrYwQwxTulkQSJRz9lSfzFP6IynDsUQIsIbaiK+MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ilvokhin.com;
 	spf=pass smtp.mailfrom=ilvokhin.com;
-	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=DeIiv9WX;
+	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=iyuSnZld;
 	arc=none smtp.remote-ip=178.62.254.231
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB3D606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F7C606A325;
 	Wed, 28 Oct 2026 08:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDB3D606A324
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2F7C606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=DeIiv9WX
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=iyuSnZld
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1793175634;
-	bh=dWJJn/15+ghgzzIGKgM3IMULkpSh/eugDFHemmlBRb4=;
+	s=mail; t=1793175633;
+	bh=SMf0dV4x3xb+DslLmuw7FBFheVT29/cwuNdKSpo2QkE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DeIiv9WXQV3gD55AucY67CXV5GytqfXEJkOIlH/p1vvpmEBa02wb0CiZ7FetKO8kp
-	 vKMP3WYwznobDJIR52jidVzMPZfhGDf6UWW8grvqXfGJ9aPtokciLL67F0nlp74wpP
-	 VCbSuHZCHz4d69J6NRvoiFKB6uqBPcC0poA2OXFs=
+	b=iyuSnZldpZjUpO/QwNk+P5YouZek0N2mycnUxbkQccvDC4YJ19S4/mULi0aeehza5
+	 68UlH00B7Uiw50tvUL0mmPirCWsysK2dNqpdy84iHfp+1EmJSSkCPH4nrPYKSc8ftb
+	 VX/gnIntc+RIw7VOplejxDi+mip28Hr6aXN6ETg8=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
 	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id DF86BFBCE8;
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 65638FBCE4;
 	Wed, 28 Oct 2026 08:20:33 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
@@ -84,9 +84,9 @@ Cc: amd-gfx@lists.freedesktop.org,
 	linux-doc@vger.kernel.org,
 	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
 	Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 02/10] string: Switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:41 +0000
-Message-ID: <f0d7b2f0dce916f4cde3dd466a5b51a4b88fbdd8.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 01/10] docs: xforms_lists: support __nonnull_args()
+Date: Wed, 28 Oct 2026 08:19:40 +0000
+Message-ID: <fd33c32bb1f1cf80721887b6e9bfa49749e03d20.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -101,34 +101,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-nonnull") added the macro __nonnull_args() to wrap raw compiler
-attribute.
+Avoid kernel-doc warnings by supporting __nonnull_args()
+as a function transform.
 
-Replace __attribute__((nonnull)) with __nonnull_args() to
-standardize nonnull attribute usage across the tree and keep the
-attribute's quirks in one place rather than open-coded at every call
-site.
+This is a preparatory change for the treewide migration from
+__attribute__((nonnull)) to __nonnull_args() macro.
 
-Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- include/linux/string.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/lib/python/kdoc/xforms_lists.py | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/string.h b/include/linux/string.h
-index 6cb5cdd01158..1f1cb73514e1 100644
---- a/include/linux/string.h
-+++ b/include/linux/string.h
-@@ -587,7 +587,7 @@ static inline bool strstarts(const char *str, const char *prefix)
-  * Returns:
-  * True if @str ends with @suffix. False in all other cases.
-  */
--static inline bool __attribute__((nonnull(1, 2)))
-+static inline bool __nonnull_args(1, 2)
- strends(const char *str, const char *suffix)
- {
- 	unsigned int str_len = strlen(str), suffix_len = strlen(suffix);
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index 320f977c5bac..a8c47ede8637 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -108,6 +108,7 @@ class CTransforms:
+         (CMatch("__attribute__"), ""),
+         (CMatch("STATIC_IFN_KUNIT"), ""),
+         (CMatch("INLINE_IFN_KUNIT"), ""),
++        (CMatch("__nonnull_args"), ""),
+ 
+         #
+         # HACK: this is similar to process_export() hack. It is meant to
 -- 
 2.53.0-Meta
 
