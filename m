@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196201;
-	b=0Rbm94lSoZ2uWviWoIn/oJ5bXxeDO4dBVPBfzBouCJE/8sQ80l77gbCRq02BoyAgBUv9
-	 JKIRBqMjMitL7NV58o6z/KRqdYfAmqiK3w5jB1bwiL8oKOr9Axg2w3mQoqqfMPo7TKtby
-	 kU5DESfrk836Q7mgR0XTJJ3RShvc/xPvHIuPccE/igfiRDdBOebAMFKDhfcCDsfp/NU0L
-	 n/+eYjHGqrtXm9p/7AGaAWMe1oOeSsC86gn2HDL7akhNfjrispd/n1JQo1cwZ25ry+6J9
-	 CqbcSxWRho9TyEOFKo0QXXGQONbCocVPhSAh4I4jV/jiTkkxwWHP8QPXsU03Te26b4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196201;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=IMQLUPm/67qUcr0JLF2vtMs9Hk5VtkMsbxTot7/xi9Q=;
-	b=PJOh56XubLkI4TmDzvRUMMMkn7S5Jx6/nd63Sytmgz2s+c2MisOymM6uyTKmJ0GEC1o/
-	 4o+psr3O/L+wHl0XAUmJL4iaeKxPy6nrger5EFBKJ0lujcAW9F/UIQdOHrroUU5ovNDCS
-	 47yuJf6K4GWkIAvkWI5vd/9hTZcdgahlmwz3fKSphGdrjAD6RmA+CKR8Di1CYb659sRon
-	 6ngMfDooIMVhXjuhO2q0Fwc9EP4/1DHf1rlq+CcAGCW0FeWL00+ZpOMPicPTIHvgPbIYE
-	 mrlpKPqPufUIfiSsJ3phXgOohhGahlASH//LkaVzXjIUlET8WOeqRPAXRPVC5rCj9ag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hL/RI1Rv";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793196221;
+	b=0N3uH0wcg7kGKXBSFg8Esx3FV4cNYKMr3FfrDDJI8Tpvp91vbKSuSVym5/14K2qNu6yR
+	 uTIvUziOwNBgkUqwAg6ZJEGKsRhyoCi0MOjSa/4m04WyUI95cuwDrO6BTQ3BW7AvvzKhh
+	 ci1ROed2iq4n7aHdzMOmm9DpAQjkaRmFh/4YpWVlSbH73M+0gDdxw1yh0AQ89UHbFjQrS
+	 HG55WLSG1iXAOTchoPbQU4WtRXi9b4n/GWskEjw6dUUWUK6F1XxaLCq2Y4TcrG6Rw0rBu
+	 b6Uova/LuJlKFbWToAjc+Q9yi/Rfr1h4k6NVdwE1tqY1NjQFpFystF7wX68aV0tpxWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196221;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cpfmEgae6k5vFKgQGlkHKShN8Dis45x4arKxMEWCmng=;
+	b=fhkau8yB6RLJEi8mzTMohn3zNCH4OhpL05GSiIlo9yhCd8p9buzpB9ydGSdWi4Uf4on1
+	 GRbTQA9Rn8PyqWB6uXhB+NXYnbpnUnED8XqkYLcoD1RU/n3eVWJneP1MpirPkGlu1Euii
+	 Jo+FpfbgK5TmKmhtuSTQUrqjPTXAjhUHsyJdMyAtLc0X9sqsnwQa1Movy+o3La7CWcSze
+	 LaHdNkLu2xwNmN0RHIJKP06ADsBnVgvVktC7HOcsadcXsU8ouB0axnaTbsx2sgBGVyMs3
+	 9UsuvooXRZ5y45sdvnO1BefyMTgH4+MovPmiRIuIX7k9aQH/9utJ2ZQeRzopIDr/iTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AasyhHij;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE966606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:03:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF64606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:03:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF64606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hL/RI1Rv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53601F01825;
-	Wed, 28 Oct 2026 14:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793196200;
-	bh=IMQLUPm/67qUcr0JLF2vtMs9Hk5VtkMsbxTot7/xi9Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=hL/RI1RvRG8d7lA0UDIveNAv1zkuZqXJNVB8amjJb/jpad9fkMhvPK3gdmGxt6p0s
-	 jpHSUDbxDVVMABGR7O34IDXeDnf0zchzM7T/AiyZx3BRtvVBjunyRrNVBhzd4WvRjr
-	 4FNBLU7GFbWLSrXG19FFFTsDNLCtAoUxRsIM3Pg0oAYox/OyI528kRnOpd4KWYGi7e
-	 Mae0FOnR+jP0IYktREnfGvCJiwjmeAnFAsIPgn3pCJqkmSgE6U2q1Fj44HazvtTkVO
-	 fwrhanAniFFdYTIa5UO/Q91pJuoFzm3ck+WoNob3zkYnMOfzhOeoWNFK8REMSKTXwa
-	 7yYFxyCzJTZ3g==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: <akpm@linux-foundation.org>,  <david@kernel.org>,  <ljs@kernel.org>,
-  <liam@infradead.org>,  <vbabka@kernel.org>,  <rppt@kernel.org>,
-  <surenb@google.com>,  <mhocko@suse.com>,  <baoquan.he@linux.dev>,
-  <pasha.tatashin@soleen.com>,  <pratyush@kernel.org>,  <graf@amazon.com>,
-  <linux-mm@kvack.org>,  <linux-kernel@vger.kernel.org>,
-  <kexec@lists.infradead.org>
-Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
- fixed-address CMA area
-In-Reply-To: <20261014145731.3431527-2-radhey.shyam.pandey@amd.com> (Radhey
-	Shyam Pandey's message of "Wed, 14 Oct 2026 20:27:30 +0530")
-References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
-	<20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
-Date: Wed, 28 Oct 2026 15:03:16 +0100
-Message-ID: <2vxzh5i5orbv.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AasyhHij
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so12581a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:03:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793196219; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GMAC6OT3m4/dx81jKsn7+vVHw9QMdM8Zy+iE3E0JVtrLRxYFYDFwrRWk8CGx3hV0GL
+         S0qyhfEhVudYjAGPbA+UKuZdc0hR6eO7XJLBtjACXhfsOkOY0Ebk65/5J1PRHVHfCsSu
+         wnArZe8Bkqpq9YsTuqp5M/IkEjlZ9r2wkNGY8rWO6svF5kJbfykYKnhljHVaORdW2H0S
+         kI9/R1NfcB/wuFHcWEnVREIrdH5hMhjUMd0yw/rpuBPiGFbQIWIvcD1NywEyQoh6IoU+
+         GKyCXFn7synVtyquSVnvqG0x1sTNYF2OoAS7S56Y9eZ0xuOCvGvs6YcAP7D5+uup0XRB
+         huGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cpfmEgae6k5vFKgQGlkHKShN8Dis45x4arKxMEWCmng=;
+        fh=BUjTU3EDQHUuaF6O+EyLCof/mCn3a6b5MP0wVgTJM6A=;
+        b=huJxVmPPqoiuXxs/DuRBxL6frVY2PasyfQMoviM+q1es+nRhqHDcOYNE9oH+Agy0AA
+         euAqIRcO1Cbssq2rSpjXd9+1vT9JNEv49g2LUBeomyVOZ14ix6FMBOQsyQQ1jFMKIVJ/
+         WeK2zGWc+dXMulkxlII07f+2rj2nL2QmrBk+Mn75pwtCvMF9o+S4b2+mxmXi/R1xGRb4
+         6TeasxpjXzNDXjmP0RHiq3Zn5TGHCQsc2oKjTZin5Pp/76ceUDeZqWNVo2urhtpFCMWx
+         9TwGnC44vqFJMmHkt13+rCWLMPqQETU+NoyHkB/zLnvjEVA/wVUrb30+K98Gk+v2/YXx
+         oOWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793196219; x=1793801019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpfmEgae6k5vFKgQGlkHKShN8Dis45x4arKxMEWCmng=;
+        b=AasyhHijWVk27KSw4bkqXndC0Gp7CW1gh1AhPX2N92gr2mrkRmJuGDb0L7bVj8b64e
+         wT0EotOdOLXslQlqgiJpmeBBFVY5t6M+EtSu0V+TNCuBfD/cmznWrh1hpPEevRmmuMGZ
+         7NIEvPfg0vmawLiM/PrwrCOF7w1WQgIMbMkJgWcDoKSV8eygtbko2vPGoSFoWhlDczUa
+         RpOF8Jxh63Rb6NFfYp3xzrxLQ3n5SQgyhO9wkyy0HhQf5m0Y1ybVtZxAVFyoBoJFSKIU
+         hWJ59SW4mWNysqYSTGEs+1TVvmecn7CJev96N0Umq4zX01pKKvnY7vKCa4PZGpiKv+zn
+         fFeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793196219; x=1793801019;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpfmEgae6k5vFKgQGlkHKShN8Dis45x4arKxMEWCmng=;
+        b=FIl91TKrsIyXrkHLaR6B+WFdw8k4CkfF04tJHHqbbCNSSym0jLrz2vt+m3OWlaAOKk
+         EpbDSfBj5AK47GjN9x7dk5OHOsTDuipxR1RD+WJGCDKuh1Kd+iT5ibGqSaUMXmEikWo/
+         QKw8k1oSOgw6FIP7wOCo+excWRp0Gru8dw8zoUihm3EBF0Pc3wIYqniu9wGTdfvqZtOD
+         SDFpesjT4mc8trbECCyXezHwG+jfNiCHuqH3Z/mIIJeJQiZCvSp/eVsmcT4rcDNZXIk+
+         d2JAXRd9J7z6CkKYAVamDwt3YaPDrZ6gzWRPcrn86bJ6Tzh874yKN+qfDw50VjpONMyd
+         +4uA==
+X-Forwarded-Encrypted: i=1; AKwUvBxqfnJwWdP+SR5R+/b1C4pLdESD5tyC0H3LCrz7umO7dBF8ytcUTWvLRM1L1NNH45aHL/CZi6OTwPBkvfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/9UTqkETt7rttuJz+l7PHPt79GrG5mLeJ59oheHzBcpcknD3O
+	YU9iBXqxHxMKs9d+l+s7lzJMxHdsqwk4uzxhiB6k8C7TtwYUbqQhWnyqwE/CT2Ire9QdKrVdjhQ
+	S0t7uIT0uInqbeEoaP1P/u0On5ja3MIeX0memmxf8
+X-Gm-Gg: AYBFou2gu8o+FQlb8vOUuEfZK9l7UTj2qns45Tm0g0CY7efXNBo0NGutR5HG2+XRD39
+	Ulw2FChB3PplSQ31mwcB47uU4dJAiyE5cT5r/rhtaDiG99EM6CqONAqpnsratyDFW/iOuArbY1Y
+	w7gFi+eGLYEVFFyhCEFKv7ucHsd9WmBn4mE013pK1n77RGuU7qx4EZMoz1k12eZ5gq8qoKoUYTp
+	YzKBCcFZgwC0AlWFaKzDH6Dmh4OtKKtUNA0J4BxMenqgH5bNv5AF6iJHJ8P/M7wQPpC+b0pn1RE
+	QKO7vU4IEfBEzTGPggu1UCu6WBe8au7BtD3QH5ybweo3HfD/ta+4uUbjsl2XTIMSdDEjCgusCRG
+	zlZT7OYGKLXn6gGYs14jXpl54od54N8ED3UuB
+X-Received: by 2002:a05:6402:115a:b0:6a6:7dff:61ab with SMTP id
+ 4fb4d7f45d1cf-6b49c132c7dmr60883a12.15.1793196218894; Wed, 28 Oct 2026
+ 07:03:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,175 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-2-zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-2-zide.chen@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 28 Oct 2026 07:03:26 -0700
+X-Gm-Features: AclHuK_ME3QwLivxpHyWL8t1qkaUd-6BovWGILM73O3fpD9S6gvRlw9IFhopxcQ
+Message-ID: <CALMp9eRwgCs9PGPbfC=WA7Jg9TQMZUU1V+2YbJE+XC9ndrR45g@mail.gmail.com>
+Subject: Re: [PATCH v2 01/16] KVM: x86/pmu: Remove redundant Perf Global
+ Status MSR bit definitions
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
-
-> kexec_alloc_contig() picks the destination of the next kernel out of the
-> default CMA area, and the next kernel then runs from there in place
-> instead of being copied out. That is only safe if the area will not exist
-> at the same address in the kernel being loaded.
+On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
+te:
 >
-> For an area whose base came from the device tree, it will. The loaded
-> kernel parses the same description, declares the range it is executing
-> from as a shared-dma-pool, and cma_activate_area() releases the pages
-> holding its own image to the page allocator.
+> IA32_PERF_GLOBAL_STATUS and its SET/RESET counterparts share bit
+> definitions with perf_event.h, which is the canonical home for Intel
+> PMU bit definitions (e.g., PERFEVTSEL, FIXED_CTR_CTRL, GLOBAL_STATUS).
+> Drop the duplicate definitions from msr-index.h and update KVM code to
+> use the macros from perf_event.h.
 >
-> Distinguish the two cases. An area placed by cma_declare_contiguous_nid()
-> without a fixed base lands wherever this kernel found room, and the next
-> kernel repeats that search against its own memblock state, so it cannot
-> collide. Record the difference as CMA_FIXED_BASE and refuse to use such
-> an area for the payload, which leaves kexec_locate_mem_hole() to fall
-> back to the memblock hole search as it did before CMA placement existed.
+> Drop the comment as well, since the macros now match the MSR
+> naming.
 >
-> This is what makes the KEXEC_FILE_NO_CMA flag unnecessary on platforms
-> that describe their CMA pools in the device tree.
+> No functional change intended.
 >
-> Tested on a AMD Versal AI Edge Series Gen 2 VEK385 Evaluation Kit whose
-> device tree declares three CMA pools, the first of which is
-> linux,cma-default:
->
->   cma_reserved@800000000     4 GiB at 0x800000000    (default)
->   cma_reserved@50000000000   6 GiB at 0x50000000000
->   cma_reserved@60000000000   4 GiB at 0x60000000000
->
-> All three have a fixed base, so kexec_alloc_contig() declines the default
-> area and kexec_locate_mem_hole() falls through to the memblock search,
-> which places the Image segment at 0x9c00000 size 0x1de0000. The kernel
-> that boots from it reports its image as [0x09c00000-0x0b9e0000] and
-> 14680064K cma-reserved, i.e. all three pools still present and none of
-> them overlapping the running kernel.
->
-> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> ---
->  include/linux/cma.h | 10 ++++++++++
->  kernel/kexec_file.c | 12 ++++++++++++
->  mm/cma.c            | 16 ++++++++++++++++
->  mm/cma.h            |  2 ++
->  4 files changed, 40 insertions(+)
->
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1..2fe66377e5d3 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
->  extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
->  
->  extern void cma_reserve_pages_on_error(struct cma *cma);
-> +
-> +#ifdef CONFIG_CMA
-> +bool cma_has_fixed_base(const struct cma *cma);
-> +#else
-> +static inline bool cma_has_fixed_base(const struct cma *cma)
-> +{
-> +	return false;
-> +}
-> +#endif
-> +
->  #endif
-> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-> index b668ce8d68ee..10e770bcee0b 100644
-> --- a/kernel/kexec_file.c
-> +++ b/kernel/kexec_file.c
-> @@ -28,6 +28,7 @@
->  #include <linux/vmalloc.h>
->  #include <linux/dma-map-ops.h>
->  #include <linux/kexec_handover.h>
-> +#include <linux/cma.h>
->  #include "kexec_internal.h"
->  
->  #ifdef CONFIG_KEXEC_SIG
-> @@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
->  static int kexec_alloc_contig(struct kexec_buf *kbuf)
->  {
->  	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
-> +	struct cma *cma;
->  	unsigned long mem;
->  	struct page *p;
->  
-> @@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
->  	if (kbuf->image->type == KEXEC_TYPE_CRASH)
->  		return -EPERM;
->  
-> +	/*
-> +	 * The next kernel runs from here rather than being copied out, so it
-> +	 * would declare this area again from the same description and release
-> +	 * the pages holding its own image to the page allocator. Only an area
-> +	 * this kernel placed itself is safe to use.
-> +	 */
-> +	cma = dev_get_cma_area(NULL);
-> +	if (!cma || cma_has_fixed_base(cma))
-> +		return -EOPNOTSUPP;
-> +
->  	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
->  	if (!p)
->  		return -ENOMEM;
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261d..1f4d3d48a3bb 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
->  }
->  EXPORT_SYMBOL_GPL(cma_get_name);
->  
-> +/**
-> + * cma_has_fixed_base() - was the area placed at an address it did not choose?
-> + * @cma: Contiguous memory region
-> + *
-> + * Such an area is described outside the kernel, typically by a device tree
-> + * reserved-memory node, and so lands at the same address in every kernel
-> + * booted with that description.
-> + */
-> +bool cma_has_fixed_base(const struct cma *cma)
-> +{
-> +	return test_bit(CMA_FIXED_BASE, &cma->flags);
-> +}
-> +
->  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
->  					     unsigned int align_order)
->  {
-> @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
->  	cma->ranges[0].count = cma->count;
->  	cma->nranges = 1;
->  	cma->nid = NUMA_NO_NODE;
-> +	set_bit(CMA_FIXED_BASE, &cma->flags);
->  
->  	*res_cma = cma;
->  
-> @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
->  	}
->  
->  	(*res_cma)->nid = nid;
-> +	if (!fixed)
-> +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
-
-Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
-and then you clear it later. Wouldn't it be better to just pass the
-fixed boolean to cma_init_reserved_mem()?
-
-With that fixed,
-
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-
->  	*basep = base;
->  
->  	return 0;
-> diff --git a/mm/cma.h b/mm/cma.h
-> index 68e574b0f951..1bab24033284 100644
-> --- a/mm/cma.h
-> +++ b/mm/cma.h
-> @@ -80,6 +80,8 @@ enum cma_flags {
->  	CMA_ZONES_VALID,
->  	CMA_ZONES_INVALID,
->  	CMA_ACTIVATED,
-> +	/* Base address was dictated by the caller, not picked by CMA. */
-> +	CMA_FIXED_BASE,
->  };
->  
->  extern struct cma cma_areas[MAX_CMA_AREAS];
-
--- 
-Regards,
-Pratyush Yadav
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Jim Mattson <jmattson@google.com>
