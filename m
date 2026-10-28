@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.236.127.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179939;
-	b=YFy6o8NdD0Z+msHpqskU4b96W3dW9L6m6GeuYJyC6Ghq2DpUeOEJBy+OO8F6jg19gHu3
-	 CTpb13RHcKrhrNUKaFvR29hxOwZQrNZNucwH7B0VgyB75bqnZgbluHUdbkFyCWJwe8kb+
-	 u5wfT6+Jkej1c2qabYADdMfoiiLF1P281um4iFRfRME33VJVDRLuIq2ix8L3qFoU/n3Fh
-	 PNbeNv9hmOylTR2Kcad8hVMhRT5XX4/z8hUEmHA2ilrHcV8umiZrO3fi2gv/QErz/M+Eu
-	 CvVdynNcQLPNvwrLjTAMfnpEHCtARuJQslbVPY4Sg2JEXTQew8tyl7yaHvIYok6/2Dw==
+	t=1793179951;
+	b=hZUU2wx6+EU//pLzVn5T2SRAmj4SysHPK6Peyhs1970Fo8ez0seEYxehm32+4NNCFq82
+	 vL+8zSc4evWtopgKy7tCszdnWCyHlys5B74WY/Hz+QmgKiL66C57iaRbDIbVCdath8KVw
+	 nmOtwLDczCoZvlacabP9DkLzsotc0hTZOIB35B2fKb1v8ISPyl83ZgeEnGLctYmlAo/6K
+	 8xDrL/2yefvSteUkGwuCmQa2IXWO5PuF/Ql8/G4bNfCteuRXdv1LmBVG50mTlgC1mqQTT
+	 U1DQ8eXb/VEXM04qhlrLGLvBww/QUvp+c8CzkPz0NQUqc64TMUDhkaZwZCzjcvlhS4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179939;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=dgRvAAs+iyfQ3xtuuwMg/qvfxKYNvDAq9ZIFiXETCAU=;
-	b=tDgsOmlBFFMvi6O6cNtRWoZ0OtHZw/ggnTmL0+QxrIeAYAdm6tAY+Ud+rXsL/qSZqQUT
-	 Mcgxp83Em621YPBbLUzUEtTS2U63/MJPeG3nJDqZPddipQkWsYQesgK+dVAKgn7q19mPl
-	 abdGy/ymbO5ELIDKgKY4wixDbLThNi4FNvi42LxdivJydsvoAxJhIOKIUzKASW4IXMqSe
-	 OQskNl0omP55k8HBWQkWK9+7LX+iXV5gNjsY+2iHNN89tkFTIzJYsc8AtDDq1UYPtJ+vR
-	 l6y95Z4QZIyWU4cIcz9WDoT9pm0n8QMfvP5JGKFW9tMDynK9iEb+YS3ESx/IQn+NYTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179951;
+	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
+	 Subject:X-Priority:X-Mailer:X-Originating-IP:MIME-Version:Received:
+	 From:Date:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=wlKGhN30yI3ecWAgwszvzQSKsIaTJhOnsCcGTF+gRkI=;
+	b=pKeIDlRxVUXHyGiX5euYgNVwLNTndY0Ve0Az1XJAfrwGzw56VLmMuCLl9owzQLNTRKUk
+	 TZeV158tm4qxiS31O87K8MYjDATCudtCEuNegMsUTxA2oYrskDYPsnF1a8tGgVw13PqdC
+	 0FbBH+L2dVBlEWNcNfxC0F7HABBW+OlZijdNmdunfjn+s4XCnMu+QP1EFPkpgq4lk/f01
+	 QirOpc7i6u43c9SfakqOomgXy7AKBR4H9Ye8yX1FEnVrKm7X+AiC7lgde3yKw2TIKQqbv
+	 UEA5WtmduafqK97oAbr05v7I5fI1EumeDSj3+uox9oRTMenXBxUQJI1HNIdsk7Bz78Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=PIDJJGgA;
-	arc=none smtp.remote-ip=220.197.31.8
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	dmarc=pass header.from=hdu.edu.cn;
+	spf=pass smtp.mailfrom=hdu.edu.cn;
+	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=YRR0JGwf;
+	arc=none smtp.remote-ip=115.236.127.221
+Received: from mail-m127221.xmail.ntesmail.com (mail-m127221.xmail.ntesmail.com [115.236.127.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291F5606A31C;
-	Wed, 28 Oct 2026 09:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 291F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D7F606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:32:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D7F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=PIDJJGgA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dg
-	RvAAs+iyfQ3xtuuwMg/qvfxKYNvDAq9ZIFiXETCAU=; b=PIDJJGgAqta+hyodIm
-	xPFZEYgJnJ0StM8s9r3ulHDt6cvYWtSgDp/b5PeGlTVYCrzMZBiI/+h8ynlmWC1x
-	stGCYMwqlsGJP8phLhLG32yX4sXk5MytUaQyu27/4ujolS7aL8YSMMQC/JivsPzP
-	oVtEUTuUGiHfrbiOYB75GLd6I=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3l97nwOFq+UpZBw--.58427S2;
-	Wed, 28 Oct 2026 17:31:19 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH iwl-net] e1000e: close and reattach the netdev when e1000e_pm_thaw() fails
-Date: Wed, 28 Oct 2026 17:31:17 +0800
-Message-Id: <20261028093117.2313438-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=YRR0JGwf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <ANIAPQCBLHZReocA2eIWZ4rb.1.1793179941502.Hmail.242270054@hdu.edu.cn>
+To: zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+	daniel@ffwll.ch, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, security@kernel.org
+Subject: =?UTF-8?B?TlVMTCBUVE0gYmFja2luZyBpbiB0aGUgUFJJTUUgaW1wb3J0IGNhbGxiYWNr?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,72 +53,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3l97nwOFq+UpZBw--.58427S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy7trWxWw4DGw4xGFW3KFg_yoW5Jw1rp3
-	yUuas8ArsYqrW7Ww17Xa1jyF98Wa1kA345CF12kwsY9rZ8X34j9r4rKay7Cr4xCrWrJ3yY
-	qrn8Z348uayDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULVysUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlQd8U2rhwOcPAwAA3d
+Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail ( [127.0.0.1] ) ; Wed, 28 Oct 2026 17:32:21 +0800 (GMT+08:00)
+From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
+Date: Wed, 28 Oct 2026 17:32:21 +0800 (GMT+08:00)
+X-HM-Tid: 0aa181da3922d45akusy52daf49710b61
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUhXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTB9OVkwdSE0aS0tJH0NCHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlPQkxVSE
+	lMTUNVT1VKT0tCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=YRR0JGwf3yGXoUFOpF+ZSqGNzr+p3ua6cNqdR4Wu3/wdAfmaWrvD1xu2xEjYoYgjYmbsQcWjFdaa6bfEz0zo+liEgbFkxF1MfVrZ+qdp7BX5i+qbhoOnMDLq4/ze7rEaGtX5Hwsu2ncjpP7KtwSxu5uUCxwAAOw7kKVMdq3Acow=; c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1;
+	bh=wlKGhN30yI3ecWAgwszvzQSKsIaTJhOnsCcGTF+gRkI=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
-
-e1000e_pm_thaw() re-requests the interrupts that e1000e_pm_freeze()
-released and jumps to the err_irq label when e1000_request_irq()
-fails, which skips netif_device_attach(). The netdev is therefore left
-detached while the interface is still IFF_UP: e1000e_down() stopped
-the transmit queue and no interrupt is registered, but __dev_open()
-refuses to open a netdev that is not present, so the interface can be
-brought down and never up again. e1000e_pm_freeze() keeps it in that
-state as well, since it only tears the interface down when the device
-was present.
-
-Attaching the netdev unconditionally is not enough. The driver uses
-netif_device_present() as the marker for "the interrupts are
-registered" - both e1000e_pm_freeze() and e1000e_close() rely on it to
-decide whether e1000_free_irq() has to be called - so attaching an
-interface whose e1000_request_irq() failed would make the next
-teardown call free_irq() on a line that has no handler of ours
-registered and trip the "Trying to free already-free IRQ" warning.
-
-Close the interface while the netdev is still detached instead, so
-that e1000e_close() skips the hardware and interrupt teardown, and
-attach the netdev right afterwards. The interface is then in a
-consistent state: the rings are released, NAPI is disabled, no
-interrupt is registered and user space can bring it up again, which
-requests the interrupts from e1000e_open().
-
-Fixes: 2800209994f8 ("e1000e: Refactor PM flows")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- drivers/net/ethernet/intel/e1000e/netdev.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 7ae33273734f..6da613025a1a 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -6911,7 +6911,19 @@ static int e1000e_pm_thaw(struct device *dev)
- 	}
- 
- 	netif_device_attach(netdev);
-+	rtnl_unlock();
-+
-+	return rc;
-+
- err_irq:
-+	/* The interrupts could not be restored, so the interface cannot
-+	 * be used. Close it while the netdev is still detached, which
-+	 * makes e1000e_close() skip the hardware and interrupt teardown,
-+	 * and attach the netdev afterwards so that it can be brought up
-+	 * again.
-+	 */
-+	dev_close(netdev);
-+	netif_device_attach(netdev);
- 	rtnl_unlock();
- 
- 	return rc;
--- 
-2.25.1
-
+CgpIZWxsbywKCkdQVC02LUx1bmEgYXNzaXN0ZWQgd2l0aCB0aGUgaW5pdGlhbCBhbmFseXNpcyBh
+bmQgZHJhZnRpbmcgdGhlIHByb3Bvc2VkIGZpeC4KSSBhbSByZXNwb25zaWJsZSBmb3IgdGhpcyBy
+ZXBvcnQuCgpJIGZvdW5kIGEgTlVMTC1wb2ludGVyIHBhZ2UgZmF1bHQgaW4gdm13X2dlbV9vYmpl
+Y3RfZ2V0X3NnX3RhYmxlKCkgZHVyaW5nIGEKUFJJTUUgZmQtdG8taGFuZGxlIGltcG9ydCBpbiB0
+aGUgTGludXggNy4xLjUgZnV6eiBzZXR1cC4gVGhlIGNhbGxiYWNrCmFzc3VtZXMgdGhhdCB0aGUg
+R0VNIG9iamVjdCBoYXMgYSB2YWxpZCBUVE0gdHJhbnNsYXRpb24gdGFibGUsIGJ1dCB0aGUgY3Jh
+c2hpbmcKb2JqZWN0IGhhcyBgYm8tPnR0bSA9PSBOVUxMYC4KClRoZSBjcmFzaCBleGNlcnB0IGlz
+OgoKICBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6IDAwMDAw
+MDAwMDAwMDAwODgKICAjUEY6IHN1cGVydmlzb3IgcmVhZCBhY2Nlc3MgaW4ga2VybmVsIG1vZGUK
+ICBSSVA6IHZtd19nZW1fb2JqZWN0X2dldF9zZ190YWJsZSsweDJmLzB4YTAKICBDUjI6IDAwMDAw
+MDAwMDAwMDAwODgKICBSQlA6IDAwMDAwMDAwMDAwMDAwMDAKICBDb2RlOiAuLi4gPDRjPiA4YiBh
+NSA4OCAwMCAwMCAwMCAuLi4KICBDYWxsIFRyYWNlOgogICAgdm13X2dlbV9vYmplY3RfZ2V0X3Nn
+X3RhYmxlCiAgICBkcm1fZ2VtX21hcF9kbWFfYnVmCiAgICBkbWFfYnVmX21hcF9hdHRhY2htZW50
+CiAgICBkbWFfYnVmX21hcF9hdHRhY2htZW50X3VubG9ja2VkCiAgICBkcm1fZ2VtX3ByaW1lX2lt
+cG9ydF9kZXYKICAgIGRybV9nZW1fcHJpbWVfZmRfdG9faGFuZGxlCiAgICB2bXdfcHJpbWVfZmRf
+dG9faGFuZGxlCiAgICBkcm1fcHJpbWVfZmRfdG9faGFuZGxlX2lvY3RsCiAgICBkcm1faW9jdGwK
+ICAgIHZtd191bmxvY2tlZF9pb2N0bAogICAgX194NjRfc3lzX2lvY3RsCgpUaGUgZmF1bHRpbmcg
+aW5zdHJ1Y3Rpb24gcmVhZHMgYFtSQlAgKyAweDg4XWA7IHRoZSByZWNvcmRlZCBSQlAgaXMgemVy
+bywgc28KdGhlIGF0dGVtcHRlZCByZWFkIGlzIGZyb20gYWRkcmVzcyAweDg4LiBJbiBgc3RydWN0
+IHZtd190dG1fdHRgLCBgZG1hX3R0bWAgaXMKdGhlIGZpcnN0IG1lbWJlci4gVGhlcmVmb3JlIGBj
+b250YWluZXJfb2YoYm8tPnR0bSwgc3RydWN0IHZtd190dG1fdHQsCmRtYV90dG0pYCBldmFsdWF0
+ZXMgdG8gYSBOVUxMLWJhc2VkIGB2bXdfdHRgIHdoZW4gYGJvLT50dG1gIGlzIE5VTEwuIFRoZSBu
+ZXh0CnNvdXJjZSBhY2Nlc3MsIGB2bXdfdHQtPnZzZ3Quc2d0YCwgcmVhZHMgYSBtZW1iZXIgYXQg
+b2Zmc2V0IDB4ODgsIG1hdGNoaW5nIHRoZQpmYXVsdCBhZGRyZXNzIGFuZCB0aGUgaW5zdHJ1Y3Rp
+b24gaW4gdGhlIGxvZy4KClRoZSBjcmFzaCBpcyByZWFjaGVkIHRocm91Z2ggdGhlc2Ugc3RlcHM6
+CgogIDEuIFVzZXJzcGFjZSBpc3N1ZXMgRFJNX0lPQ1RMX1BSSU1FX0ZEX1RPX0hBTkRMRSB3aXRo
+IHRoZSBleHBvcnRlZCBkbWEtYnVmIGZkLgogIDIuIHZtd19wcmltZV9mZF90b19oYW5kbGUoKSBl
+bnRlcnMgZHJtX2dlbV9wcmltZV9mZF90b19oYW5kbGUoKSBhbmQKICAgICBkcm1fZ2VtX3ByaW1l
+X2ltcG9ydF9kZXYoKSB0byBhdHRhY2gvbWFwIHRoZSBkbWEtYnVmIGZvciB0aGlzIERSTSBkZXZp
+Y2UuCiAgMy4gZG1hX2J1Zl9tYXBfYXR0YWNobWVudCgpIGludm9rZXMgdGhlIGRtYS1idWYgbWFw
+IGNhbGxiYWNrOwogICAgIGRybV9nZW1fbWFwX2RtYV9idWYoKSBvYnRhaW5zIHRoZSBleHBvcnRp
+bmcgR0VNIG9iamVjdCBhbmQgY2FsbHMgaXRzCiAgICAgZ2V0X3NnX3RhYmxlIG9wZXJhdGlvbi4K
+ICA0LiBUaGUgdm13Z2Z4IGdldF9zZ190YWJsZSBjYWxsYmFjaywgdm13X2dlbV9vYmplY3RfZ2V0
+X3NnX3RhYmxlKCksIG9idGFpbnMKICAgICB0aGUgVFRNIEJPIGFuZCBkZXJpdmVzIHZtd190dCBm
+cm9tIGJvLT50dG0gd2l0aG91dCBjaGVja2luZyBpdC4KICA1LiBTaW5jZSBiby0+dHRtIGlzIE5V
+TEwgaW4gdGhlIGNyYXNoaW5nIHN0YXRlLCB2bXdfdHQgaXMgTlVMTDsgcmVhZGluZwogICAgIHZt
+d190dC0+dnNndC5zZ3QgYWNjZXNzZXMgTlVMTCArIDB4ODggYW5kIHJhaXNlcyB0aGUgcGFnZSBm
+YXVsdC4KClRoZSBjb3JyZXNwb25kaW5nIHNvdXJjZS1sZXZlbCBjYWxsIHBhdGggaXM6CgogIF9f
+eDY0X3N5c19pb2N0bAogICAgLT4gdm13X3VubG9ja2VkX2lvY3RsKCkKICAgIC0+IGRybV9pb2N0
+bCgpCiAgICAtPiBkcm1fcHJpbWVfZmRfdG9faGFuZGxlX2lvY3RsKCkKICAgIC0+IHZtd19wcmlt
+ZV9mZF90b19oYW5kbGUoKQogICAgLT4gZHJtX2dlbV9wcmltZV9mZF90b19oYW5kbGUoKQogICAg
+LT4gZHJtX2dlbV9wcmltZV9pbXBvcnRfZGV2KCkKICAgIC0+IGRtYV9idWZfbWFwX2F0dGFjaG1l
+bnQoKQogICAgLT4gZHJtX2dlbV9tYXBfZG1hX2J1ZigpCiAgICAtPiB2bXdfZ2VtX29iamVjdF9n
+ZXRfc2dfdGFibGUoKQogICAgLT4gY29udGFpbmVyX29mKGJvLT50dG0sIHN0cnVjdCB2bXdfdHRt
+X3R0LCBkbWFfdHRtKQogICAgLT4gdm13X3R0LT52c2d0LnNndCAgLyogTlVMTCArIDB4ODggcmVh
+ZCAqLwoKVGhlIHJlcHJvZHVjZXIgY3JlYXRlcyBhIGR1bWIgR0VNIG9iamVjdCwgZXhwb3J0cyBp
+dCBhcyBhIFBSSU1FIGZkLCBhbmQgdGhlbgppbXBvcnRzIHRoYXQgZmQgd2l0aCBEUk1fSU9DVExf
+UFJJTUVfRkRfVE9fSEFORExFLiBBIHRlc3RlZCBzb3VyY2UgcmVwcm9kdWNlcgppcyBhdmFpbGFi
+bGUgYW5kIGNhbiBiZSBwcm92aWRlZCBwcml2YXRlbHkgdG8gdGhlIG1haW50YWluZXJzLgoKVGhl
+IHBhdGNoIGJlbG93IGNoZWNrcyBgYm8tPnR0bWAgYmVmb3JlIHVzaW5nIGl0IHdpdGggY29udGFp
+bmVyX29mKCkgYW5kCnJldHVybnMgLUVJTlZBTCB0aHJvdWdoIHRoZSBEUk0gUFJJTUUgZXJyb3Ig
+cGF0aCB3aGVuIHRoZSBiYWNraW5nIGlzIGFic2VudC4KVGhpcyBpcyBjb25maXJtZWQgaW4gdGhl
+IHN0YXRlZCBRRU1VIHJ1bjsgaXQgaGFzIG5vdCBiZWVuIHZlcmlmaWVkIG9uCnBoeXNpY2FsIFZN
+d2FyZSBoYXJkd2FyZS4gVGhlIHBhdGNoIHBhc3NlcyBgZ2l0IGFwcGx5IC0tY2hlY2tgOyBydW50
+aW1lCnJlZ3Jlc3Npb24gdGVzdGluZyBoYXMgbm90IHlldCBiZWVuIHBlcmZvcm1lZC4KCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9nZW0uYyBiL2RyaXZlcnMvZ3B1
+L2RybS92bXdnZngvdm13Z2Z4X2dlbS5jCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13
+Z2Z4X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2dlbS5jCkBAIC03
+MCw4ICs3MCwxMiBAQCBzdGF0aWMgc3RydWN0IHNnX3RhYmxlICp2bXdfZ2VtX29iamVjdF9nZXRf
+c2dfdGFibGUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopCiBzdGF0aWMgc3RydWN0IHNnX3Rh
+YmxlICp2bXdfZ2VtX29iamVjdF9nZXRfc2dfdGFibGUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
+YmopCiB7CiAgc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibyA9IGRybV9nZW1fdHRtX29mX2dl
+bShvYmopOwotIHN0cnVjdCB2bXdfdHRtX3R0ICp2bXdfdHQgPQotICAgY29udGFpbmVyX29mKGJv
+LT50dG0sIHN0cnVjdCB2bXdfdHRtX3R0LCBkbWFfdHRtKTsKKyBzdHJ1Y3Qgdm13X3R0bV90dCAq
+dm13X3R0OworCisgaWYgKHVubGlrZWx5KCFiby0+dHRtKSkKKyAgIHJldHVybiBFUlJfUFRSKC1F
+SU5WQUwpOworCisgdm13X3R0ID0gY29udGFpbmVyX29mKGJvLT50dG0sIHN0cnVjdCB2bXdfdHRt
+X3R0LCBkbWFfdHRtKTsKIAogIGlmICh2bXdfdHQtPnZzZ3Quc2d0KQogICAgcmV0dXJuIHZtd190
+dC0+dnNndC5zZ3Q7CgpSZWdhcmRzLApZdWhhbmcgUGFuCjI0MjI3MDA1NEBoZHUuZWR1LmNuCgo=
