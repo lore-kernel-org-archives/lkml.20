@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173662;
-	b=471prQqFV8pjSdq7Wo6WW45YFFQfkmnUZvUDxlwOhPVHx/i0kcD3SsBFVj1twsPwPxYL
-	 44sjfmURfC8p9SNhcAtjYmAPBAhO2s5zmLOeEdg5TUkPWT7WouRwc742biiwiPdf18fvg
-	 m/Ng2vDBPy4yylmu/br3nD5rHeEmiDIK8pXnhvCFOQCWq5aUylVlz3LW1Weuj6KwMP7Yo
-	 rqcqQPiaEEnvjpfH6XrFyme6e1UqSKB0MuyAH8bEirb0tijN5W/zVbNZGKVdePrGNUc6j
-	 20tIv98onsOksNyjh+KwN/6AWxA8hsbYc+tzAAyCec7G30/lAUoKMOX2Q8QBMYA9vLQ==
+	t=1793173691;
+	b=yGD3wh0GTUsMLO6etv0LqHbgoekLsP9hb3YevS5yUuzSr+FBxbUQToQUOD2PjSMlX7ac
+	 q7MV+jxaxwlp70RCPo4/6ay908ihklMeYVlUKlDRKKUV/8cfoq+HGS5KAQxb/sdKbMcuT
+	 zJhWpTWwUH10JqFdh5YiMzhsjeJIzMYVF5Y0ctDhFv+IrPfKOIGjOmZpjt6MZAvItsurC
+	 TP2Fr+0KhXfCV8VKG2zo9FfqDrbT9vVKqale9XqLbkc6Pg0P/VFCz/YPwQsXBv36W3306
+	 O07KZ/0bQspSAKgkxphe+7ZlZsRfHOzPXC15vOZv2GweOOnt8mgNfqRzsWv0eliZ0VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173662;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=AuAv2eYPoMaDiX95eQHdX4lkmF9eQuCjw5mck6WOBR4=;
-	b=x2uxlLXX2WGs96qoR/1taDOjNUeUVRQhOiicloKS7QjZ7YcYFRM+2zMvz68N+pdA/RhL
-	 IoTpgb7fSZPioL1OI319oQClXcrGchZWq1ZF/IH0F2ccPbAZyn+H6UaaZ5Qmbgsh0xc92
-	 NOUPbqlF6+3UaegFK9/3IWeRs4fOpOgS0SjX1AMsuuoLGnc7PEAdDzrksrUs4PPKB3KaW
-	 QwfPYjvhe+5L5WbPVP57RLUY7DHzBeSAqtGyAxugO2Z7hCuni0Olte6rPBGis2iA5cQaQ
-	 2AtQY289N2hgg5OCkDNKeSFtEo9Lw1tNYRyYZZ1QaO/Rt+k0Tp1H023moLMJmc5/O0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173691;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dStZLAdYSepSAwN9IhU7KtYdNu5D8XvgIKxNBjeJlZE=;
+	b=tJhK9QLuj144EMB6MDPjviryf8ryPaJlbL/mnvMqGRHwqPOD/cyoxsU2y8apPxFpNRX/
+	 sr121JZQoh5COnXvN3FN5LcjJH481RehL+4u0iYWYuqBjFMVhgk6o8GX52AS/yd41tQpV
+	 DVTJmLZjjFNU8eApAU1USAbbWE/VQ0AAJKdXxfSQfoV5zudTdVt0gkBRoH84qFkGxx9MT
+	 sdDB/9QuWCBRu+z3o96ERNFTefHtjCp7VrPiWJ7hE0HeYx9rkdX6dCzHhvbzUY0qlFVWR
+	 ILFPW02I7lRbik/i4RJYuscW2XUFTKkWGwz6I+FBI8pz6bAJUQtr50vEIJUsRciQCBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RjgAH1HD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v6oD0L1W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RjgAH1HD;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v6oD0L1W;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AzUL/bSu";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC31E606A31A;
-	Wed, 28 Oct 2026 07:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC31E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D7A606A31A;
+	Wed, 28 Oct 2026 07:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RjgAH1HD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v6oD0L1W;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RjgAH1HD;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v6oD0L1W
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0523C22117;
-	Wed, 28 Oct 2026 07:47:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793173660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AuAv2eYPoMaDiX95eQHdX4lkmF9eQuCjw5mck6WOBR4=;
-	b=RjgAH1HDC/B870RWG0V2P7cQe4kWercx/7wdbVAvXc3ksy5Eikwea8Jroh6KS21YGR5nMX
-	ol8+xNxJ53882viH/Cep2etKR54YuUMQjl35QsiqxdT+W/7pa/MXhNTl1NdWpSNAoEDAzJ
-	PjWcdWPhorTsFXh9OvnarYZ5VIp2uV8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793173660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AuAv2eYPoMaDiX95eQHdX4lkmF9eQuCjw5mck6WOBR4=;
-	b=v6oD0L1WZjDPXrrNYwvqHafspqBdpHEIcN2GE7aOEDvFdZ/QuBb+2c362FF8DJthHoa4sy
-	CiFXrm/qsmWEzlBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793173660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AuAv2eYPoMaDiX95eQHdX4lkmF9eQuCjw5mck6WOBR4=;
-	b=RjgAH1HDC/B870RWG0V2P7cQe4kWercx/7wdbVAvXc3ksy5Eikwea8Jroh6KS21YGR5nMX
-	ol8+xNxJ53882viH/Cep2etKR54YuUMQjl35QsiqxdT+W/7pa/MXhNTl1NdWpSNAoEDAzJ
-	PjWcdWPhorTsFXh9OvnarYZ5VIp2uV8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793173660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AuAv2eYPoMaDiX95eQHdX4lkmF9eQuCjw5mck6WOBR4=;
-	b=v6oD0L1WZjDPXrrNYwvqHafspqBdpHEIcN2GE7aOEDvFdZ/QuBb+2c362FF8DJthHoa4sy
-	CiFXrm/qsmWEzlBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 622511321C;
-	Wed, 28 Oct 2026 07:47:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8GAICJuo4WoRVAAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 28 Oct 2026 07:47:39 +0000
-Message-ID: <f424d050-fa3f-4ad6-b7ca-92acff3b21dd@suse.de>
-Date: Wed, 28 Oct 2026 08:47:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AzUL/bSu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1071F01825;
+	Wed, 28 Oct 2026 07:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793173689;
+	bh=dStZLAdYSepSAwN9IhU7KtYdNu5D8XvgIKxNBjeJlZE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AzUL/bSuc22lql9pAow+vEkDsAHyexxPhEcJHe00gRIXy/Kkzq12BqNZaSE2UM78r
+	 Szn7su5uMg2jTEoEnCUXg+vAcbWzjWkVVM8FvkZoLyuOaObEideYpVkLHb7fmsldR5
+	 YYY7ltzUNJxLKyVqWqcmaGJ2mSqDIqj3lFy23kGAI1uzGNnOuQ7410NoOCwwPVySjp
+	 5mrSjcFb3KLbyXH+Xpv3J8whdfCTddBIRnXl7ZJV2OBdgvqkHlC2jeZn4VBN7zCc7a
+	 izW5OPOeFkoj8TjRGRKpUhF/jwSuME0hNvU3ukhiQYuzOucmeFScJz6ACs6fuYUNE4
+	 7CRY2OIG8SA4Q==
+Message-ID: <48ed164f-d146-45a9-bee7-ed6b74693ff4@kernel.org>
+Date: Wed, 28 Oct 2026 08:48:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,85 +52,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] nvme-tcp: validate the TLS handshake timeout
-To: Yingjie Wang <1075151112@qq.com>, linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
- kch@nvidia.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793103202.git.1075151112@qq.com>
- <tencent_02EC3FD2E750D09B95ACA70091EE65DE0906@qq.com>
+Subject: Re: [PATCH v4 0/2] power: supply: qcom_smbx: add SMB5 support
+To: David Heidelberg <david@ixit.cz>, robin@snyders.xyz,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+ <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <tencent_02EC3FD2E750D09B95ACA70091EE65DE0906@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	FREEMAIL_TO(0.00)[qq.com,lists.infradead.org];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[qq.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,qq.com:email]
-X-Spam-Score: -13.29
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/27/26 1:13 PM, Yingjie Wang wrote:
-> tls_handshake_timeout is writable but stored as a signed int. Multiplying
-> the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
+On 16/09/2026 15:37, David Heidelberg wrote:
+>> change-id: 20260811-submit-qcom-smbx-send-v1-69acefa61977
+>> prerequisite-patch-id: 3d8a9cf43b5e5eac64a60aeec5e9c90880bcf792
+>> prerequisite-patch-id: de3e3b494f9644596cfa4cafc362ca0b48288c45
+>> prerequisite-patch-id: d5e22a0fe7cd55374f60d7c2cb14ed3df8f94e0b
+>> prerequisite-patch-id: 9eafa41402e97d6a3e5369bec46df4e9db3d2af6
+>> prerequisite-patch-id: 5638b901cd10773fa9485605f84b25a1dd826a84
+>>
+>> Best regards,
 > 
-> With HZ=1000, setting it to 2147484 overflows both multiplications. If
-> the handshake request is accepted and its completion remains pending,
-> schedule_timeout() reports a wrong timeout value with a stack dump and
-> returns zero. The handshake then fails immediately with -ETIMEDOUT,
-> while the handshake agent was given about 24.9 days. Negative values
-> such as -1 have the same kernel-side effect.
-> 
-> Store the parameter as an unsigned int and reject values that cannot be
-> represented both by tls_handshake_args::ta_timeout_ms and by a safe
-> jiffies delay. Take one snapshot so a concurrent parameter update cannot
-> give the handshake agent and completion wait different timeouts.
-> Document the accepted range for built-in use.
-> 
-> wait_for_completion_interruptible_timeout() returns the remaining
-> jiffies as a long after a successful completion. Keep that result in a
-> long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
-> systems.
-> 
-> Negative and oversized values now fail with -EINVAL. Keep zero valid,
-> preserving the existing immediate-timeout behavior.
-> 
-> Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> ---
->   .../admin-guide/kernel-parameters.txt         |  5 +++
->   drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
->   2 files changed, 31 insertions(+), 8 deletions(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+> Tested-by: David Heidelberg <david@ixit.cz>  # SMB2 (Pixel 3, Mi 8, OP 6 / 6T)
 
-Cheers,
+You cannot test a binding, so this is not applicable to 50% of the
+patches here. Why you cannot just reply to the patch where this tag is
+applicable?
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Best regards,
+Krzysztof
