@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181416;
-	b=vyloZtLU4C4eKLokysramI7IUqzYzYRdkFsc5D55JB01gs13gXklqUiVMZzp5EBGt+Ur
-	 SiTlJyJzR4hJMh1koS8KnuDVYbtH59MKeRI+WbTF5Fv6vrZzmMVEDA42VrPuz3B0YrBZ0
-	 lCL17dS6Ie+JItI65xJI6MuP6vhMyaKNxGszSN6efFipwMnjjXAdjXooHNFvETPROk8eB
-	 4k8ue1Yf9RbQbePSzRSS/SF65mIJEf4/drMT9d8S3BtFqC+5v0+rOjVRPALP8ABOV2UFA
-	 0k31j0/jRdMM2pbS3HhrDTzmJpj2pLkI5rp1iFQDFW9P02IYcZBajIRlw6vUmqsK+cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181416;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=fBVhEWu9nfuqFZTQHurOtPzvVYkt3WEwnKrb2ymcoTk=;
-	b=qdFS/bPDG/tfDSkuTTczi7JFPiKgpt/DFoSt6NlzeJ4Qk6d2+ALc9BfJyGIq8OaXkAHv
-	 J36Eb3quhEc5lOSuzMpQ9fp/d0tLbEK455rEkYN5jDiUV9QjNWV9Zc6C3x3+qZPvrxlKi
-	 Zt7pUqB606WxtxB/wpgPAvywNV3greeNEQdFzKpeeUU05bwKN5yfBYzXxHadB46h5idj3
-	 A1ecmso+0GyvKx9N3OR+bQCNlPlwl5npqu4S7gFA7PC9ky0yC1R5B9k2FoztrGm+tzqxA
-	 /msT5sDOx5mdMn8dW9yzl0dnTHSL+R7iwgRxyOhokSdH7sS9KZQGmLeryW1L9vHgy2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnuvrBYU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793181419;
+	b=XI4u8Fif+bOgzyHajbcl0S/73ree9upM37jwbQMyfxWF5yu2teJA+zSGpXVfWT6Kdttk
+	 lzT8c7r21J/EsLC5U6vt4fyYuJwNAalLlrS8w4ZH8UVPYiXb/7m2ACi1m/g8W497pOQmy
+	 lsrJdI77ecfych3e4Hdbp7WQ5vr83THtpmuVgVreeroSMEgbTDGVeNHFXK5SFpUTG5uBd
+	 1mjJBkrDTTK3rXyZJznF1NabMLJIEx76O3QcK2uVxHU5vuJ7A7XGSds+KbBfzKsQqCQT4
+	 8+2QuR7O1VXlqEWDg3b1Lrkq6WtNtgU2+fcrhB/EL8PnrOKRdDt13VEaJJumsV+eMvA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181419;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=a6VquXVuy5Rn9GUpP2B3hYMvofEzquSuBwCkA3bH58M=;
+	b=v/ArmaRRDLsN98bO3X4sOTJKSGdswuMmXnLovn9QWUQrlGdM7TX6OFN8TDZlbM7bVoV5
+	 Ea9s5j3ZZFZ2N9vAH/GrzQntHxUJJtDH+oeBOqEmsvk7OtoJ7AgHe50WXawj8BjJFaqfs
+	 5PA67CsQ65Ma+U/S3CmYoKOXHQ3ROeMMq+cTe6/4ieW3GDIuwSj5ZKzNBbHud+Z3GlWoJ
+	 J0LLpbCwwQTqDDe+gDVVl/DNPQ6eXNMJVqX5IxzAP0j1HJdnXeLn5cW2mtSEqSAQ82kWq
+	 fhHx5KzxTCLmmeWK2SzBVOrS9m2Qf4hPLSMf4uCtpYFX22e6T2iRKxtUCKmMjDIDYDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CMLP3jdS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795B1606A31A;
-	Wed, 28 Oct 2026 09:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B22606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B22606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnuvrBYU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F8F1F01828;
-	Wed, 28 Oct 2026 09:56:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181416;
-	bh=fBVhEWu9nfuqFZTQHurOtPzvVYkt3WEwnKrb2ymcoTk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BnuvrBYUBhtuVudpLVQFk7PTkGc1/2OHBORTKrrdUPdhyyLTA+aEAFCQYcKtVsqpq
-	 JyeJUGzh0K9NYkWa1FeM/X/0fw+efw5OHCwcktCgxNrZZXOvOvgU+zU/C4cRREShNE
-	 yQQBbF0QlOATqnnD0cXbnSfnREofEE/T0eX2KY3pRTpuDfCD915Y23fkcVQhPITddk
-	 3MI2Kf7CEVUuU4AJVd4AaMeARN99dDGPGgd1nz4sNveyeRSIZr/QJ65dhUWebuOTPm
-	 hBCASdPeTl7vqkF1rcwl7TKhrB3aFt6aXQerIW+szxb60QiDAxTGOPsbLpRAubdySg
-	 6znWiHu38tJxg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 10:55:10 +0100
-Subject: [PATCH v3 12/15] mm/shmem: preserve allocation errors when
- swapping in large entries
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CMLP3jdS
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0a28a720aso7446197b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:56:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793181418; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TtSvE7Qd+4XkD28VbWQQ3Y+u26eHjA+TUObfs+IJDQ8ciPkBSIR7cIxnQpT/+/HvKB
+         yjsqdLA2vKU36iNDIF0CPyuYMwzpaH8GABNAJlAIbHcXQNeOrZt+1SBIiICjejsmpIfK
+         xiXPdaW15BR981iDyPlBpz14Xc2rLqbuBab2LvCUy7q3WPr1dfgB8qkaHrUWd7jnQmsB
+         oMfdYeVxupvuqqGTSi0MZg6w7oIG+3dEjBz4umztOc91k/px/VIUNTyCU69/TKvWfNk2
+         BcUncUfwYTPLqoIV3jjl/VmvQUxh06RepvKY/QBFMmUxUPmUweJtQxHhksJI0lDC2oiP
+         q3GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=a6VquXVuy5Rn9GUpP2B3hYMvofEzquSuBwCkA3bH58M=;
+        fh=KommeWBUMn2Fu5gGDNIpmBZ8MHgzN35FKjEuDdOv+nY=;
+        b=py73vjtnggWa7uUPvfNZpNqjy/aEIF5Z4gDcx0p/qEzcxCQ9JGf61P+AFiQ0rAgRfm
+         +62e8moDbaWJM8CnhONEdrUz+cs6neRwq9MjnvYAVz15s2OIydK1TYSOljTAD/8+rQYr
+         QAtJF09uYcluNdsOiA3UE7nPldlLWuGv/KUe5WqBRE1Q+GfktkbycQtAD53k3P9tTZ1p
+         QkNMRqlVb/eHYWWr7LrBb+gkrWdgk9dAY+2rcU9IKzrq5dRkSfrdjiEFv/GOVtqDp0YN
+         dBitJ+ECLIbEREsqDyIp/zD92tLlU32ClLoHnFbHFcbYNgatXQB/EzDxIUnOervdADZC
+         DEdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793181418; x=1793786218; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a6VquXVuy5Rn9GUpP2B3hYMvofEzquSuBwCkA3bH58M=;
+        b=CMLP3jdSANHWS50nZgDA+1WI/PAOcQyDpNF6QkdN+gmdfDVz6NU0mSpKiLoLJpK/M/
+         o9eM7cEA19z9y9HnU3kL3roYfDQ0x7kshoW/Gqc+n5b+eDKpk23vndMOxiqDHEBcSNT4
+         dC+/tToh0yS7EkbYtHO3SPeRL0oROZCponZ0S9nqNYAS8tqXxctEDjTE65L65B+mIr6v
+         G281ujnLO0rZU+91WH3uffJGddKQiJx+z2TRcVnvFbMtW2aoapz8He58TSa4FKEwdZnZ
+         ERb9JiG+XxDws3S/L5h4wX1blZwLpRNhJq5hP9JCLQTNolO4JyGWMuFiIrgzcMb7iN8/
+         auGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793181418; x=1793786218;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a6VquXVuy5Rn9GUpP2B3hYMvofEzquSuBwCkA3bH58M=;
+        b=AcG3emNhVKqw2EFp6G54ozZHeVQKtlLVY294/PW13oAMZttMKmxbuQmynYkzHuh8wI
+         9LllNIrK4KqEsvPGkhpunPG6tqhrn3Ykjvl3s/PWJpFwMbbxO6uFlmQPxAgXsnsZ7meh
+         yQrac1FcW7+VVtkJX/y7kCzIibb4AuX6oPYfLgN463v5ujyrpMYG7ctRnNRYy5JEjnWT
+         TITicQk5xZTI75gfub5URhu33K66pp3CNxbYdHXihj+N3xwGJOv/s1UgcbdLO6BBjYri
+         og47IHiBOc+zbTG0oN6dIJeaIdMcCe/S4PhXrBrBIxGXcjCqKFvMcEVf3NC2rSg/K9YQ
+         o59w==
+X-Forwarded-Encrypted: i=1; AKwUvBxinnD3Lmn+hA113znrG8vQrLI/ywYvuGOSjjseC/USq8eOfg6Nse8qNVlQkjqLbIofre2J9vQ0Yg1pQg8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGoaTWIaNSFQq7Jqba4YehTaFtXv/feqbNy4mvClIHG/qjati6
+	fDEpKctogk9WjTFhoywwt4curzJMG8Z7LBsjf3q4oKC8Ls5oNdO8eoqbb3eV9W280YT/JczahX1
+	8/GW4MtEQl4XvI7e6l3C6AOfxVpefeOQ=
+X-Gm-Gg: AYBFou1uLNqcA66T6q1+vU9uII750HPYSCg+M27Vp7MOzSqDisXmnm8/FdaTwM5+tEw
+	PDRhsWR5fZKC5Sl0fRDwgwUYo1z/7AlUmC1GEBfaxJeplkS9rytdKs0ARFj6eqINCurBu0o++Rb
+	18jBbXUe853F4dBmRmDEu1jud/sOBG9vmDDfvUpYA0ILRTpMGwLpamD6DUJimO2aDVLOqcHivp0
+	VAT1l8lPuwHoyxb5yfxNjxEOPipBpN+LB33T5FcWvKwncdbaHxsMBAs0RlSdQ3QmHqdak4q59Yx
+	NZst0MFeT6FInX70Wqw/eIhMesWxhPsCADRydl+d7GQAgl/c7wjCkYevqzwwhhku06sU/U8Er5F
+	C6P5Zp+sCfqKEB44eYlgoOBv7UpUd6VEWVEwCd0+BxrMUV4zWwD5uXddCcBbiW7EFAvdMoSnu6G
+	AtoGCicfQyBNsJZklHaMqjzKKSkgaHEGk2GB5AevwHY3D7QNZF003wzQx2HAKSj9d+NMRtP2OR/
+	dJJ
+X-Received: by 2002:a05:690c:e04c:20b0:88f:73b0:fa87 with SMTP id
+ 00721157ae682-8b1b5a4cbd6mr10598727b3.11.1793181418386; Wed, 28 Oct 2026
+ 02:56:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,83 +106,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_shmem-v3-12-4ce3baf2db4b@kernel.org>
-References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
-In-Reply-To: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1547; i=david@kernel.org;
- h=from:subject:message-id; bh=4yVKTbJ/EVLH2SOhJr916+b19DoqdwAsmSvxp0HdkpE=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmuqMu2y/ehinHT12ZFezdr10RHv3XUbr0t9D9bnk
- m1tfBbQUcrCIMbBICumyBIUfN/g5ct1tdVufMwwc1iZQIYwcHEKwERaZBj+h1zZd2pVrdKq//NY
- xWZNiEgx+ucawuTzgW239SHxP5MePWL4p/fu7+SNXUE8P4rW/s1/bm/NvCzr7pEpCb/uJfMeysg
- y4gMA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <20261027202230.3539646-1-florian.fainelli@broadcom.com> <20261027202230.3539646-5-florian.fainelli@broadcom.com>
+In-Reply-To: <20261027202230.3539646-5-florian.fainelli@broadcom.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Wed, 28 Oct 2026 10:56:47 +0100
+X-Gm-Features: AclHuK-sjCMqSTI129BU5xI2mRkdCU8HcsLbGdxa3fy32DUQkYzbgOpiZBy8qP8
+Message-ID: <CAOiHx=kWKpYjZce3Ndo3ux8PHBKkZEop2bcBfCn04U8H5tx_ug@mail.gmail.com>
+Subject: Re: [PATCH net 4/5] net: dsa: b53: reject conflicting mirror destinations
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Russell King <linux@armlinux.org.uk>, 
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-shmem_swapin_folio() adjusts swap to the requested slot within a large
-swap entry before allocating a folio. If allocation or charging fails,
-the error path compares this adjusted value with the original entry
-still stored in the XArray in shmem_confirm_swap().
+On Tue, Oct 27, 2026 at 9:22=E2=80=AFPM Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+>
+> The mirror capture control register selects one destination for all
+> ingress and egress mirror sources. Adding a rule for a different capture
+> port currently overwrites that field and silently redirects all existing
+> mirror rules.
+>
+> Read the capture control before changing any source masks and reject a
+> different destination while mirroring is enabled. Return an extack which
+> describes the hardware limitation, and propagate a failed capture-control
+> read rather than making the decision from uninitialized data.
+>
+> Clear the capture-port field when the final source is removed so a later
+> rule can select a new destination.
+>
+> Fixes: ed3af5fd08eb ("net: dsa: b53: Add support for port mirroring")
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 
-Unless the index is at the start of the entry, this turns -ENOMEM into
--EEXIST even though nothing changed.
-
-The caller retries -EEXIST, so persistent allocation failures can leave
-the task spinning instead of returning the error.
-
-Restore swap to index_entry on allocation failure so the existing error
-path checks the original entry. This preserves the allocation error if
-the entry is unchanged and still retries if it changed concurrently.
-
-Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
-Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/shmem.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 59907556369f..da2f5cd37eee 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2552,6 +2552,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 			else
- 				error = -ENOMEM;
- 			folio = NULL;
-+			/* Make sure to validate the original value. */
-+			swap = index_entry;
- 			goto failed;
- 		}
- 		if (fault_type) {
-
--- 
-2.43.0
-
+Reviewed-by: Jonas Gorski <jonas.gorski@gmail.com>
