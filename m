@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195216;
-	b=l+8JoR2oE4e53zfdfOLP8dDW32lrJ5mpQSNE2anuJ4bEn+CqW++l9vM15gtXPRKHgzLK
-	 arnPhGkinhTFxojTHy+u4mht32gfxMM7uuRPBquu7HeYZXBSAPk+3sd/TQBH1KxYyB3xs
-	 s8kfvwc1RiCJAE/fRvfZOBtpHa7/p4UWlsEYZsx9T45Bgp2wk6jc3ZWJ1rxn3HDH9V49I
-	 lvXvHQ0+3imcocMsnVdPYyr2JfO2Kt12nor4CaB55yFlbKdNP2YA0Tf0pytYRin3258Ki
-	 9XBZDlXGsCZYx0Q/MML06FGSKmhl7bnYTwsbSRe8PQWzRTgpaB7lpWveRVfVcYSxY/Q==
+	t=1793195220;
+	b=XbfUX7anNJYYbnic5c8ewWz49OTxx+pB79MnEXsFQwzvF/zktZRBHvJlRc4voSwZkb7C
+	 sB+9Dbh+0ct6j2QNodl0WDfa0afgeckHO+BcjMslIXEN0qaxzGt3V4xY/De1+gmFdt40s
+	 qNuihsKQ3QyTUgbxDrjyt+jiu5Rz5CcLbAcXoIgeRePFlX8TVrRrZV3mvEDelOkCqbxcP
+	 jZcCRGxUtAxf/E7CytqbA+IvGgN8L3DuNWLD4PNBy0ovgXvzz7iF0eSIVTwpmbqVkE2DU
+	 wwq7wabCPgO+Wt3xVhNlo3vFubLHA2xXR2+IzsMINXvAsVoKPMPcrqSXZQRj49hiVyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195220;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gKFUBdSy6v7/SpB0ZQpz0JziViW1zO3RHjALuxOoURI=;
-	b=Q56tExgmLDYFR9d/B8X6AKy7nNogPGMpr4hC6GCbMfEx4LAmmVpr3w2gsFHKVI5QvVvZ
-	 PYPHQjQJG3m6xk0LidLGAWLvshShAaD57475dKCXgeNhwgGXYtPDyIwvNhyqV2/y/orPA
-	 7iSovcwo9rT2L2V6VTvIUHpUrf7vkrXca346eDXaHoAFPhsi6jA5eSDnalXlLnjKx75rj
-	 U8YqNiQHx1IP9tCYA0se+T+2Pm0w4vdvY3ip9KYGMTtnIfp6BhSyBt5HX7Z5ms8zhYvpA
-	 NRJF5VsE1qKWjpbe1hBB3tmmGTQIjTfsyOVAnJV35uz183QLbLlYyJrdoe0sFqVq4dw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dyFRVqblmLXE8qjlBr7bz/X+uC/PuqAiTQQAhFFS2yY=;
+	b=zrSnmTymXaUR+jaPi54sEQjk/8tXV06C98g0Eolf85jVWC8Gy2ytwB0WMpnr1p8vAouY
+	 njeECVzropWSrGcmKCzTOM3CHqBuk5Df+vcDqtdEnvFhS0krJQgeMeucCR6toXtWEGlZu
+	 VXoMp+f/CRHX3js/2wt9sco5mDYBSQ1Gz8WgsblTU5c3mTYDmzS9dhooleZxA6iejRno5
+	 E36qtCJfZPBLHU23DCAo3wotm23qM4trhTLB0Q/l5TZwU5B/tPcK9G80ysiWzNuXVsR4y
+	 bfGr8325n9SqWPfDFOXcOKMCcHP340wtJGK4oVbbuogQic17nUaS60mNOxm9ybLr5jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySZ8Gku6;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a4jhljGj;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9847C606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:46:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9847C606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED0B606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:46:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED0B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySZ8Gku6
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso588460a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:46:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a4jhljGj
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e96502e447so8554215ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793195215; x=1793800015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gKFUBdSy6v7/SpB0ZQpz0JziViW1zO3RHjALuxOoURI=;
-        b=ySZ8Gku6JZsRKF/ZXOTFrtFCgptbD8XVG9rj3ueJGlb80x03uOkIGq5aO6M8NPj0BP
-         yNlRhvBVMUFYF9fOTLx3i7OBp6RKuOrNgyoEhgU0GoigGfRiLJ1VlCqwHiKpna3NaSLu
-         7WAxhtQK0psi264P5RMsP0WtgLDYQ7Za0pOPIgnjb1kxdO500dbIPHcWiJlBUUSliShp
-         UGAlYc46JxL7/Y7Vi8M/Q5lcP4MRYX49/X+EPVOGuPPPMo5lldfAIHB98BHSkOb11WWa
-         rLuBVh7PoyKZFAP2mRfdWeU3rv/GqYaWMpL23fi7phQKaECo147WvY0RMKx6gTKXvMbE
-         38rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793195215; x=1793800015;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793195219; x=1793800019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gKFUBdSy6v7/SpB0ZQpz0JziViW1zO3RHjALuxOoURI=;
-        b=NPaTia8RTgu2y6zxXtLFLMUj7srtLW70Ltp4fpPk0eEB1JwWEIXSQlrXQyH/cDVrvR
-         vcd0UIHgc5SsBp0IRSA8xEHa4Zf7/3pwxVhotN5MKZu4B2cEoHWWLy5STNydLl8+EqCd
-         lYR/Fd8TB3jabpZnPzBs6DxlthkG8r4qOVj1oSvEqtnWEzTWtHzpsITWTWZdROo6wLsT
-         zHrfDiRFrY+LglC8wP6Q6wSDSrKsRxqjeYbEPcB/X8/bSvSWwEspzlsPjCCBnXGx2X0m
-         dy/s8xdA8yFIJMp8hF62Gpb9Okto3SRqmGQlDvk1t345wKks5TrzOCIOgAPOWHvZrmCR
-         ycKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBBhljbgzhilUWg1UzXWzvgnRcROgPp4TZqHjmyUsfgqqmTw3TwWWA+6sr+5QWL2HcdreV1LDppHHkvGE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTryRroCt7mnIruuqcwYN/LSbhjbF7UXRhBt/HcuNiZuaLSr0g
-	UdJXZUmyKZdlv7SsI6GuI7MV6RhNe2xUXMeFRcLYXtCmbIckOdP7s3/R
-X-Gm-Gg: AYBFou3LzEWEbKs4wRutSPVrR0pzNsaMC1YctnbpCzcjHe5PAbf3ygtGIOWCikeNSl0
-	YhD3sAtl3rwIATJ+n/zQZc1jpGsY33qnFDIW7sRz9kd0uhXu25u715tcre8MtzolTKe1BEdZFit
-	g8NCtYcPBWWS+Cs0WWwIJLBIE2enC309+/MmkHJ+sLkOXgvouxXNDMA6tUaUmCN6tjnJKtbiLTM
-	bmqSBVseVr3KxRwH4ayKZ6dftq0sv6YMz1MdmxUVtqtSyJ0C3mZ0YKdGxeued5PcB8QcSyrqP5v
-	2cWa4CLcHfeZldgJtSFRUgDYUD1T+HLQveUrw9EvipJeOceZDfFT6zILmuuMcCFyDnhiygVPy9A
-	dhDcsG05NK3xXfj9eNrX62TO1CW+jI0kFiFFzU/B68eEVdB93DblZWfUXRvgGoxwheGYllo35jG
-	DOnh/Ek/OukDpga9iiN009CyjlNCr8mXiUdR6QNQclcFo6vrHU1Jfhvcvk0ed7X3GbkSVIAqt3M
-	+Yug8AFurXcgoe6df9ksnL458hitvkzPBaip1gFfxYluiGtptREkZXecdbVGTpeK2hbJjTJoi9O
-	3+sGAk2/exNaSE3YjS2K0OoQmFa9S0VuTuZSgfdK6/XJoA==
-X-Received: by 2002:a17:90b:4ccc:b0:3a4:9a7a:360 with SMTP id 98e67ed59e1d1-3ae58100a06mr1891992a91.29.1793195214929;
-        Wed, 28 Oct 2026 06:46:54 -0700 (PDT)
+        bh=dyFRVqblmLXE8qjlBr7bz/X+uC/PuqAiTQQAhFFS2yY=;
+        b=a4jhljGjGqD002ZO0lyzkQzZnIKwkHH6WfRExDEerDrtJQB+nHAaXAwii5m9MUcbS+
+         iWYcRyreRd6SAzQbiAzjKNxLyR9IZtxcguhjgNNUj2dpYHUF2MZpL783e65D0c3Hcn6Y
+         m/649M54fzbmRETfUYO5tq+n5zCSzVJyWLNbBwbLQvjEgUa7dB/oYoPqQhPGi2WmXavP
+         Z6mbH4lbUj9ScWJQBDxy9KzYIdde9FxuWHE8O7ono+gJ7zbK4Aj/9Ms6ZMUdu/vmmyr7
+         gnpW29bn7ep9rAacbDLvbiT90lhXOU4nWTU37mpdCzGV3FV6paNrTCEMI/LDuRGz7IkM
+         H4Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793195219; x=1793800019;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dyFRVqblmLXE8qjlBr7bz/X+uC/PuqAiTQQAhFFS2yY=;
+        b=lkguTA5Wwa4A8WJr9yt2/l4ehiiXvgmJgb/3EeXYdA1UnLo4ZDDxt/bBcOGIMsMfdl
+         XsqHYxNpBPx2k3Eg5GCZTbtvgtPCYpWG8ca3nKcgIKB11cVZZCgagxUD0LIbOutMnP4G
+         Gq5t5fEpQixDfLpBkX5FkDOsYIRqgOgcCxTeiISTuJWL3/IBUBNe1rR7nutZog2xBLAP
+         kfAKomTcGDs5HqUNRbfp6Os1xv4m/DjyTKFgV8bnYeVSXLO39CTP2BjmKa2zHxH/lziu
+         SryXB4gynEcXtfuRDuvAqS0NJqQZBXySboLxd7isSvxLAsd2t97FwFl9ocb8/NMtDLXB
+         48mw==
+X-Forwarded-Encrypted: i=1; AKwUvBxnuGyqpUgQGYNZz4OW+JEPTMunJ8NBOK3TsSto1KiU/VOI16QQNKc/9iU7LGa1Qdnu8XTJdqTxg5vmjkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDi9GjanLkT85y9omS3VXZ/wQjKTkSpx5pqlB2t/7yOa4g/ySC
+	T34mcHR85est0e0Zy0aZ3XxNZZxIL0VNZyjfWVTDKUUb5MmZuhshD7vk
+X-Gm-Gg: AYBFou1DVsDONTeEuyQUNDdPeahyp6bC5NG4+S25M/qJr419M9Fydpaw6hFIxmWE72z
+	9wl37i0ZRk5oAZrBR7GqFbjLKig5tpHRVUqcdU1fn9NSCthIC5RwvFj+b1YzyFFSkNMvHSD4P1o
+	luI3NbRie28puvRwGI3Edl1DSAYznGu2ksI3fr+THfXyKjhtCOrLitwIkTihdlxtxbVgYf6xvqy
+	wCiY/imxc/uQMe0VxNIv8dm+OH7QkhK848aMpE5MiIN59ktby9gV+4buJxW2M/wsP6DuNa53f7R
+	qOQwegyk2uUg6HyB3Hr54jy4hHtQXpf2uJjz/5DqeedeonAVV3/HaURPBJT9CK7izyBV9PDx4xp
+	w1yokuchk1mjaUbMrqDubADfAKBRXTN93sKPUW5QRBOuoDHY6MccypmZvtufKnaPtYCiNaBmpNK
+	CuAhmiotOA3PN7R4mDuIZiQ3YbpSfTkYQ4tWFeE658J2Hm4mo59M84oJp2AMKzqDUFMI7tIJXjW
+	VoppgD9j42TxOyweMiRAou73sfWnF7JwCtC3xvunqSm4sdpWGY9RmdrkbdZAYL+JD9u0dPkfqT3
+	/Qzzrp/L8kTGt0N6xxwU5EfzbuenkQLsrlpOuzLeF3NGTQ==
+X-Received: by 2002:a17:903:40c6:b0:2d6:e9f3:9305 with SMTP id d9443c01a7336-2eb0012ec15mr23435175ad.5.1793195219458;
+        Wed, 28 Oct 2026 06:46:59 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ca1bb2sm22014585ad.68.2026.10.28.06.46.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ca1bb2sm22014585ad.68.2026.10.28.06.46.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:46:54 -0700 (PDT)
+        Wed, 28 Oct 2026 06:46:58 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 To: vbabka@kernel.org,
 	harry@kernel.org
@@ -92,10 +93,12 @@ Cc: urezki@gmail.com,
 	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	zhanxusheng@xiaomi.com
-Subject: [PATCH 1/2] mm/slab: restore the rcutree. prefix of the kvfree_rcu parameters
-Date: Wed, 28 Oct 2026 21:46:46 +0800
-Message-ID: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
+Subject: [PATCH 2/2] mm/slab: don't queue the page cache work under krcp->lock
+Date: Wed, 28 Oct 2026 21:46:47 +0800
+Message-ID: <20261028134647.3176080-2-zhanxusheng1024@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
+References: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,35 +112,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-The move of kvfree_rcu() to mm/slab_common.c dropped the "rcutree."
-MODULE_PARAM_PREFIX, so rcu_min_cached_objs and
-rcu_delay_page_cache_fill_msec became slab_common.* and the documented
-rcutree.* names are silently ignored.  Restore the prefix; the
-slab_common.* names, never documented, stop working.
+run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
+callers that may hold more, such as set_cpus_allowed_force() under
+pi_lock, so it kicks the refill work from an hrtimer.  Under memory
+pressure it instead queues the work with a delay of
+rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
+queues it at once, taking pool->lock under krcp->lock.
 
-Fixes: bbe658d65802 ("mm/slab: Move kvfree_rcu() into SLAB")
+With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
+pi_lock after a drop_caches makes lockdep report:
+
+  Chain exists of:
+    &pool->lock --> &p->pi_lock --> krc.lock
+
+Use the hrtimer when the delay is 0.
+
+Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
 Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- mm/slab_common.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/slab_common.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 01c64ef661e7..3729aa7a6156 100644
+index 3729aa7a6156..ef5ff0a20249 100644
 --- a/mm/slab_common.c
 +++ b/mm/slab_common.c
-@@ -1373,6 +1373,10 @@ void __init kvfree_rcu_init(void)
-  * per-CPU. Object size is equal to one page. This value
-  * can be changed at boot time.
-  */
-+/* These used to be rcutree parameters; keep their documented names. */
-+#undef MODULE_PARAM_PREFIX
-+#define MODULE_PARAM_PREFIX "rcutree."
-+
- static int rcu_min_cached_objs = 5;
- module_param(rcu_min_cached_objs, int, 0444);
+@@ -1987,7 +1987,13 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
  
-
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+ 	if (rcu_scheduler_active == RCU_SCHEDULER_RUNNING &&
+ 			!atomic_xchg(&krcp->work_in_progress, 1)) {
+-		if (atomic_read(&krcp->backoff_page_cache_fill)) {
++		/*
++		 * A zero delay would queue the work right here, under
++		 * krcp->lock and possibly the caller's pi_lock, so let the
++		 * hrtimer do it.
++		 */
++		if (atomic_read(&krcp->backoff_page_cache_fill) &&
++		    rcu_delay_page_cache_fill_msec) {
+ 			queue_delayed_work(rcu_reclaim_wq,
+ 				&krcp->page_cache_work,
+ 					msecs_to_jiffies(rcu_delay_page_cache_fill_msec));
 -- 
 2.43.0
 
