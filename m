@@ -1,101 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204427;
-	b=0ofKbcOolOO/Ssu4Y77GXUlJqDtF1wUPFk7QYISP8rYxEVW1vmGX32razPWP5dYiaLFx
-	 QpYhpwEHvAgIOdIHh3p2BG0i72jWiXynTHNqCxl9U1ahM/kxuj2UAhBgUOwALZY2i0oJ9
-	 oj7oodU5VIEn2++IaaLDkH6KpnHM2LSou3TYPhcDEVccHgW7e92YcRKhP6aJdcaTZh9gB
-	 mqCv9Dl4Lh3HBChmy8Fifti8lrMeYbApQQITTrLr70LhhHtNHDHpl4iGgiK9bfkCh7mdZ
-	 beV6bOrlG0WsEcymPFABzFbLJJ6XWwy78NJZ+36wOlwlcI5uZ93PyLk35wRL1+bMMsg==
+	t=1793204454;
+	b=NTa9LDnXO5OATM42dMg7uCemHymay/GW4c7EJuuoPMvuiZQXRZPc97uMJNiChwwPtUeS
+	 BVALJTh3yOhc8kZeB6CUg9YOOg8c2rUf1Hkf27F2bmN3vsrlAt7U/H6VNf+DNob9XzhiD
+	 Fo6gli9+zo4RLFi3fJhuIWS/QuaLoEFhnp9i6rFHbKVoda4atjRb5p65RziDWh3hCPuiV
+	 tafaZKsqmzSqZq6jOPXiwQ7NylBhcl3Wz6kH1hnwK1T1FXl/IXko/ray+n+dm2BfaiIkF
+	 msmABc47TOD5tzlKpdDEr+KGtxcCEfMRHRyVbMz7cv+PXi7jXBOMuiBxbeepNfOGRUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204427;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FZdcGTA+h9AzAtOd+lzkuRzpxRIrjwh4ypxudX3fFDw=;
-	b=fj2bPCUFEreXOxWCMT1LTzI7cDAHKLTNQ82zQvFWwz5hkNZfKTL8UrouadFQfQk0Gt3X
-	 aUHmxZ2PWnpJi8L1ufn0nU4iTNWVJiKzrSKR6DePAaLuJlPNtUU9rsKt1wqKXdf6BtXmz
-	 udyGFLSpl7YBlKmOzlTL6O4OG4zVOtLXI3+9w6K3np6wPYnqcpCP7LcpLFwg/J11MPXQx
-	 /fjzxTrUWp3dp2+dDdmEalv4lJNNkTZ+OlHKy9BKo2MYreKkdD8Jl3gUfrrZVhT2LFiyD
-	 fOPJGGh/mWjd8AatfgCZGK2BkAZ9MyJdLdFnJtoEVBUjcvwNJQ0Cth/4scs4yCox2iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204454;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=VkZXgtMJfiRq9ygNsFfLdTTnwNqVhzL2+tUPgXTRlD4=;
+	b=LsS+FPhViWLB00801CEntaQfVrQEimlA+qPHVi568eogtNvLtmm82kzuDxncKcpzOfib
+	 gj7d4kFy4f5hb/qY21YyTAdQ0XsUqrRdrBvKvIANK19H8tRXh5FVBWB4DrNz3dWUh4SeL
+	 le4yJUFpBXoIWRRGUpG5udz3qSjSVD7SSltzcRXJrTcNn5OoPzyjOoxXrnEyddgYwWD1O
+	 JYB+H+XpxewLXBuDcHBnLHRrmLV/Nu6d7u3DG1pVryTyNQIXfJBKFM9g8/NiI4fKUzHnZ
+	 rQeDYhDphCHvF/ci4WPVGY8BJAHMdMOysx4v3Wtf8mu3IIy0szmnw3OS0BF8xv9ONOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IkJOWe9L;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1FA606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:20:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B1FA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L2vcahMV;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5924606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:20:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5924606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IkJOWe9L
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so728161a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:20:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793204427; x=1793809227; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FZdcGTA+h9AzAtOd+lzkuRzpxRIrjwh4ypxudX3fFDw=;
-        b=IkJOWe9LXiYi6YrZWYxZvByX69tYEA/DXQLsTgxvpkUztYbWU2F9Sc1srt8hZperJY
-         +hQ1N5s/eqYMRffh18Gz7oL5caxYc+/ohalRNG/KR179e8czPzyO/Zi/cz6gdaEshlw1
-         fmH6wyShcHNqF2gj/2ZFYgb9OL+OBeWjUe1EHGXrsX9AesZ/9rDPoweVF70aGIy1PlfZ
-         xzypz6E2+fLrrCGpuSRjjkIFzhIogfVTJQqZHKZXjsMAleWvc1jKnD7GjarrQw0Nat8m
-         vsNld7X9rug5nYpAHC4oPewkVF6V63YAI42cVp2QT5xR+pDUUxe5udhEoQQjtWctSeXY
-         HGzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793204427; x=1793809227;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FZdcGTA+h9AzAtOd+lzkuRzpxRIrjwh4ypxudX3fFDw=;
-        b=dnjEf/t3Z7s1oY1QY08EAIdZpRSChGfUQvfJY3nQBffVaic/OVgUAPoHjS/s98rBer
-         R7FJfuc2JCOyKfCY6lRkoL9eyqVe8cE/ozwN0uJWGpvJ3gPvjyQMEjurbTufFo4uyei/
-         OpUnVXWQnUwSpDKSb8Qkjwf8oiQ7ruDUKjD5QTh84bPfwcJ4YrBiVLy2z5bVQ9t1t8zF
-         u00ZvimgMSe9V/hi1uGkwSGVjHLiGlLrIwbnHTwzg8R2AVZp7vvpHgJvugcn9fgWzWI2
-         uauJlSZEjUzfM4GsnID7H60YaWUuF5RVnY1bt3xmmsqcpZmu+pi/Xyzb0lcebkZ8Lq9W
-         jpbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxxEAAWEuJabXg/BzFQp0OAsPaQ0IgGRVDj9eqJE5+lGX/A3F794s7oaRwYz9K1sq6QXRcp1qyRx6t/k/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLmUhelPxZHejAm7sE7y9abh2Ti4wnCeKcfxSF7QS5TMCSPHIf
-	uxyu1TwgB7M/XqMk6w+o2N7UBLKhYRutDw/aT9zFhHelniKjgNL70QDzavyifOGezf9P5ZspSK+
-	t4/jT6w==
-X-Gm-Gg: AYBFou0HIC5eRRTAIX33DOWk+t9juup6WPtBns+KqNjEq/MrjI6Rn7N4x3CASG1nnlM
-	lW/Ka0/9A6a3bkCtUpHvuwCxYlPRDGc8fQWL4CJyO1PZcp0A/cDHXgNK3sD4OxLw2cqQf6coD1t
-	ilzmQu1MCp5ul44KQbG4dKnQ7zW0NzXLxdWNoU4pjsU6G7TKJRl6yAGJIXaMMWtNtuT0kwr1Bh3
-	ILA5OgheCSJmJRrq5dGawAQDe+A8kwPgM/C4TUpD2gq9CDWXz1cu3CahiOjWcGua92bQz1Osoe1
-	WHsDcDBh6THZcjYjQLRwhSBrvF+nG+xMANJDcu6NmHk/pGpE/N9lYgNEtFpzhtamFVFkguZNWDE
-	DkD+NhRF0oAh4Y0W/Mp5C72uFcl9C/Laggv86iBGAimzxzqFmiqUPAMUdcv+UqMOB1xWACghea/
-	dcK/DrmW/Pr9OKsP5pIbQh4DePw/TyUQQHQP2FtykyoxsCPWneOGi0onJhd2BZKIujI51VT3ZvF
-	hdHQkp87HX4xcRBPoxxiBmwMirCGH3XE4qaaOhg2L1WPwt5Hz8YB9lbMOM2f3StYWkO+DqM951Z
-	PBlndvu3LnLuRh4wTk9zjQeCyZxE8+tyndwPWzESEtJKubb4XUgwXK/Gx5PK2KyUDwEJKM5gFdr
-	CATCHdgqVWrZ3KE1MgUJQHwgF0kv2n9NSYZl84nf17+VPDZJmY8mRnzbme/+VkD9n3KPeayTzFD
-	3WM4+nBk+deQ==
-X-Received: by 2002:a17:90b:5348:b0:3ac:9d14:fe9f with SMTP id 98e67ed59e1d1-3ae5822fc89mr2136829a91.31.1793204425804;
-        Wed, 28 Oct 2026 09:20:25 -0700 (PDT)
-Received: from google.com (129.119.127.34.bc.googleusercontent.com. [34.127.119.129])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9426ffsm148140a91.7.2026.10.28.09.20.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:20:21 -0700 (PDT)
-Date: Wed, 28 Oct 2026 16:20:18 +0000
-From: Benson Leung <bleung@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
-	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Benson Leung <bleung@chromium.org>, akuchynski@chromium.org,
-	abhishekpandit@google.com
-Subject: Re: [PATCH 13/19] usb: typec: anx7411: zero on-stack alt mode
- descriptors
-Message-ID: <auIgwsOrGy21YpEV@google.com>
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
- <20261027-llm-usb-v1-13-b9751ddb9c7c@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L2vcahMV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6231175D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:20:49 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BB7C83F59E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793204453; bh=JUCTRiFueu+szCLQK3JTp4IoCOCN1BVL0JwNcbelPxg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L2vcahMVlfP6t1NzqC62G91LsGRIu3U1ueiJNI0HbwXeITqGEl+6CZvkWXRklfbLq
+	 LtiDp6hS9wyfvPTB2aZGD7+uAV4HkX52RrRPfqp+Fv550Or1OW7hffTVhaoHnXBe+C
+	 QH53RokDK5e0KSmZ+Lw3xGLGJkcRCho9RSw8OV/8=
+Date: Wed, 28 Oct 2026 16:20:47 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v1 08/27] drm/panthor: Add Mali v15 hardware support
+Message-ID: <auIg3-hRQlv7YeHP@e142607>
+References: <20260922204535.2850094-1-karunika.choo@arm.com>
+ <20260922204535.2850094-9-karunika.choo@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,101 +67,392 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="prbgZGmxhdo1sNWP"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027-llm-usb-v1-13-b9751ddb9c7c@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922204535.2850094-9-karunika.choo@arm.com>
 
-
---prbgZGmxhdo1sNWP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 27, 2026 at 03:57:53PM +0100, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> typec_port_register_altmodes() and anx7411_typec_register_altmode() fill a
-> struct typec_altmode_desc on the stack member by member: svid, vdo, mode.
-> typec_register_altmode() reads three more members:
->=20
->  - inactive: a port alternate mode is registered with active =3D !inactiv=
-e.
->    If the byte of stack garbage is not 0, the mode starts disabled and
->    typec_altmode_enter() refuses it with -EPERM until somebody writes to
->    the "active" attribute of the port;
->  - mode_selection: the DisplayPort and Thunderbolt drivers enter the mode
->    on their own only if it is false. For the partner alternate modes of
->    anx7411, garbage there means that the mode is never entered;
->  - roles: decides what supported_roles of the port alternate mode shows.
->=20
-> typec_port_register_altmodes() is what tcpm and anx7411 register the
-> alternate modes of their ports with.
-> CONFIG_INIT_STACK_ALL_ZERO=3Dy hides the problem.
->=20
-> Fixes: 183b194d8fb6 ("usb: typec: Make active on port altmode writable")
-> Fixes: be727d400066 ("usb: typec: Introduce mode_selection bit")
-> Fixes: 7b458a4c5d73 ("usb: typec: Add typec_port_register_altmodes()")
-> Cc: stable <stable@kernel.org>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Cc: Benson Leung <bleung@chromium.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-Reviewed-by: Benson Leung <bleung@chromium.org>
-
-Adding abhishekpandit@google.com and abhishekpandit@google.com as a FYI.
-I think we've run into this class of failure before when we were developing
-mode selection.
-
-
+On Tue, Sep 22, 2026 at 09:45:02PM +0100, Karunika Choo wrote:
+> Add the panthor hardware description for Mali v15 GPUs and hook it into
+> device matching.
+> 
+> This includes the v15 register map and product identification needed to
+> populate the GPU information exposed by the driver and its uAPI.
+> 
+> Add compatibility string for v15 GPUs.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 > ---
->  drivers/usb/typec/anx7411.c | 2 +-
->  drivers/usb/typec/class.c   | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
-> index 06c25af094b3..ac122ab3175a 100644
-> --- a/drivers/usb/typec/anx7411.c
-> +++ b/drivers/usb/typec/anx7411.c
-> @@ -552,7 +552,7 @@ static int anx7411_typec_register_altmode(struct anx7=
-411_data *ctx,
->  					  int svid, int vdo)
+> v1:
+> - make COHERENCY_FEATURES register read use cached gpu_info values.
+> - Added Mali-G2 name variants and NX aware model identification.
+> - fix premature reading of l2_features gpu_info field during
+>   panthor_hw_info_init().
+> - build as_present using GENMASK.
+> 
+>  drivers/gpu/drm/panthor/panthor_drv.c         |  1 +
+>  drivers/gpu/drm/panthor/panthor_fw.c          |  1 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c         |  3 +-
+>  .../drm/panthor/panthor_gpu_discover_regs.h   | 25 +++++
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  1 +
+>  drivers/gpu/drm/panthor/panthor_heap.c        |  3 +-
+>  drivers/gpu/drm/panthor/panthor_hw.c          | 98 ++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_hw.h          | 13 +++
+>  include/uapi/drm/panthor_drm.h                | 10 +-
+>  9 files changed, 147 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 8cdba0c1a14b9..3fe9f96f7755e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1886,6 +1886,7 @@ static const struct of_device_id dt_match[] = {
+>  	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
+>  	{ .compatible = "rockchip,rk3588-mali" },
+>  	{ .compatible = "arm,mali-valhall-csf" },
+> +	{ .compatible = "arm,mali-gen5-am" },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 679ea1d233d53..1449d9a66302e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1563,3 +1563,4 @@ MODULE_FIRMWARE("arm/mali/arch11.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch12.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch13.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch14.8/mali_csffw.bin");
+> +MODULE_FIRMWARE("arm/mali/arch15.8/mali_csffw.bin");
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index d6534fabc682e..e6e970e9b59d3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -499,8 +499,7 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+>  	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+>  	 * ACE protocol has never been supported for command stream frontend GPUs.
+>  	 */
+> -	if ((gpu_read(ptdev->gpu->iomem, GPU_COHERENCY_FEATURES) &
+> -		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+> +	if ((ptdev->gpu_info.coherency_features & GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+>  		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+>  		return 0;
+>  	}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> index e6bfe1fe2c68a..c4d0cb2fca92d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> @@ -16,4 +16,29 @@
+>  #define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
+>  #define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
+>  
+> +#define DISCOVER_REVIDR					0x8
+> +#define DISCOVER_GPU_FEATURES				0x20
+> +#define   GPU_FEATURES_VARIABLE_RATE_SHADING		BIT(0)
+> +#define   GPU_FEATURES_SIMD_STATE			BIT(1)
+> +#define   GPU_FEATURES_CROSS_STREAM_SYNC		BIT(3)
+> +#define   GPU_FEATURES_NX				BIT(4)
+> +#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+> +#define   GPU_FEATURES_LD_LEA_TENSOR_INSTRUCTIONS	BIT(6)
+
+Either these macros need a new prefix to prevent clashing with the definitions in panthor_gpu_regs.h, or
+the two declarations should be unified.
+
+> +#define DISCOVER_MCU_FEATURES				0x40
+> +#define DISCOVER_PRFCNT_FEATURES			0x50
+> +#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
+> +#define DISCOVER_DOORBELL_FEATURES			0x60
+> +#define DISCOVER_MEM_FEATURES				0x100
+> +#define DISCOVER_MMU_FEATURES				0x108
+> +#define   MMU_FEATURES_AS_COUNT(x)			(((x) & GENMASK(23, 16)) >> 16)
+> +#define DISCOVER_AMBA_FEATURES				0x120
+> +
+> +#define DISCOVER_L2_FEATURES				0x128
+> +#define DISCOVER_TILER_FEATURES				0x200
+> +#define DISCOVER_CORE_FEATURES				0x300
+> +#define DISCOVER_THREAD_FEATURES			0x320
+> +#define DISCOVER_THREAD_MAX_THREADS			0x330
+> +#define DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY		0x334
+> +#define DISCOVER_TEXTURE_FEATURES			0x360
+> +
+>  #endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> index 753df87009901..60819c4ace428 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> @@ -65,6 +65,7 @@
+>  
+>  #define GPU_FEATURES					0x60
+>  #define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
+> +#define   GPU_FEATURES_NX				BIT(4)
+>  #define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+>  
+>  #define GPU_TIMESTAMP_OFFSET				0x88
+> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+> index 99311abdf1e91..afb7d68abc874 100644
+> --- a/drivers/gpu/drm/panthor/panthor_heap.c
+> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
+> @@ -11,6 +11,7 @@
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_heap.h"
+> +#include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+>  
+>  /*
+> @@ -105,7 +106,7 @@ struct panthor_heap_pool {
+>  
+>  static int panthor_heap_ctx_stride(struct panthor_device *ptdev)
 >  {
->  	struct device *dev =3D &ctx->spi_client->dev;
-> -	struct typec_altmode_desc desc;
-> +	struct typec_altmode_desc desc =3D {};
->  	int err;
->  	int i;
-> =20
-> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
-> index 54c7810b563b..9d9703c70820 100644
-> --- a/drivers/usb/typec/class.c
-> +++ b/drivers/usb/typec/class.c
-> @@ -2684,7 +2684,7 @@ void typec_port_register_altmodes(struct typec_port=
- *port,
->  	struct typec_altmode **altmodes, size_t n)
+> -	u32 l2_features = ptdev->gpu_info.l2_features;
+> +	u64 l2_features = panthor_hw_get_l2_features(ptdev);
+>  	u32 gpu_cache_line_size = GPU_L2_FEATURES_LINE_SIZE(l2_features);
+>  
+>  	return ALIGN(HEAP_CONTEXT_SIZE, gpu_cache_line_size);
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 13090ff6db7b5..9d539f5f80158 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0 or MIT
+>  /* Copyright 2025 ARM Limited. All rights reserved. */
+>  
+> +#include <linux/bits.h>
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/platform_device.h>
+>  
+> @@ -74,6 +75,29 @@ static struct panthor_hw panthor_hw_arch_v14 = {
+>  	},
+>  };
+>  
+> +static struct panthor_hw panthor_hw_arch_v15 = {
+> +	.ops = {
+> +		.soft_reset = panthor_pwr_reset_soft,
+> +		.l2_power_off = panthor_pwr_l2_power_off,
+> +		.l2_power_on = panthor_pwr_l2_power_on,
+> +	},
+> +	.regs = {
+> +		.gpu_control = {
+> +			.offset = 0x3000,
+> +		},
+> +		.mcu_control = {
+> +			.offset = 0x3100,
+> +		},
+> +		.pwr_control = {
+> +			.offset = 0x3800,
+> +		},
+> +		.mmu_as_control = {
+> +			.offset = 0x2800,
+> +			.stride = 0x80,
+> +		},
+> +	},
+> +};
+> +
+>  static struct panthor_hw_entry panthor_hw_match[] = {
+>  	{
+>  		.arch_min = 10,
+> @@ -85,6 +109,11 @@ static struct panthor_hw_entry panthor_hw_match[] = {
+>  		.arch_max = 14,
+>  		.hwdev = &panthor_hw_arch_v14,
+>  	},
+> +	{
+> +		.arch_min = 15,
+> +		.arch_max = 15,
+> +		.hwdev = &panthor_hw_arch_v15,
+> +	}
+>  };
+>  
+>  static int panthor_hw_set_power_tracing(struct device *dev, void *data)
+> @@ -152,8 +181,11 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  						gpu_id->prod_major);
+>  	const bool ray_intersection = !!(ptdev->gpu_info.gpu_features &
+>  					 GPU_FEATURES_RAY_INTERSECTION);
+> +	const bool neural_present = !!(ptdev->gpu_info.gpu_features &
+> +				       GPU_FEATURES_NX);
+>  	const u8 shader_core_count = hweight64(ptdev->gpu_info.shader_present);
+>  
+> +
+>  	switch (product_id) {
+>  	case GPU_PROD_ID_MAKE(10, 2):
+>  		return "Mali-G710";
+> @@ -196,6 +228,18 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
+>  		return "Mali-G1-Premium";
+>  	case GPU_PROD_ID_MAKE(14, 3):
+>  		return "Mali-G1-Pro";
+> +	case GPU_PROD_ID_MAKE(15, 0):
+> +		return "Mali-G2-Ultra-NX";
+> +	case GPU_PROD_ID_MAKE(15, 1):
+> +		if (neural_present)
+> +			return "Mali-G2-Premium-NX";
+> +
+> +		return "Mali-G2-Premium";
+> +	case GPU_PROD_ID_MAKE(15, 3):
+> +		if (neural_present)
+> +			return "Mali-G2-Pro-NX";
+> +
+> +		return "Mali-G2-Pro";
+>  	}
+>  
+>  	return "(Unknown Mali GPU)";
+> @@ -219,7 +263,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+>  	return 0;
+>  }
+>  
+> -static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +static void panthor_gpu_info_v10_init(struct panthor_device *ptdev)
 >  {
->  	struct fwnode_handle *child;
-> -	struct typec_altmode_desc desc;
-> +	struct typec_altmode_desc desc =3D {};
->  	struct typec_altmode *alt;
->  	size_t index =3D 0;
->  	u16 svid;
->=20
-> --=20
-> 2.56.0
->=20
+>  	unsigned int i;
+>  
+> @@ -260,12 +304,55 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+>  		ptdev->gpu_info.tiler_present = gpu_read64(gpu_iomem, GPU_TILER_PRESENT);
+>  		ptdev->gpu_info.l2_present = gpu_read64(gpu_iomem, GPU_L2_PRESENT);
+>  	}
+> +}
+> +
+> +static void panthor_gpu_info_v15_init(struct panthor_device *ptdev)
+> +{
+> +	void __iomem *pwr_iomem = ptdev->iomem + ptdev->hw->regs.pwr_control.offset;
+> +	u64 texture_features;
+> +
+> +	ptdev->gpu_info.gpu_rev_wide = gpu_read64(ptdev->iomem, DISCOVER_REVIDR);
+> +	ptdev->gpu_info.l2_features_wide = gpu_read64(ptdev->iomem, DISCOVER_L2_FEATURES);
+> +
+> +	texture_features = gpu_read64(ptdev->iomem, DISCOVER_TEXTURE_FEATURES);
+> +	ptdev->gpu_info.texture_features[0] = lower_32_bits(texture_features);
+> +	ptdev->gpu_info.texture_features[1] = upper_32_bits(texture_features);
+> +
+> +	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, DISCOVER_THREAD_FEATURES);
+> +	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, DISCOVER_THREAD_MAX_THREADS);
+> +	ptdev->gpu_info.thread_num_active_granularity =
+> +		gpu_read(ptdev->iomem, DISCOVER_THREAD_NUM_ACTIVE_GRANULARITY);
+> +
+> +	/* The upper 32-bits of following registers do not contain any information (yet) */
+> +	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, DISCOVER_GPU_FEATURES);
+> +	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, DISCOVER_MEM_FEATURES);
+> +	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, DISCOVER_MMU_FEATURES);
+> +	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, DISCOVER_AMBA_FEATURES);
+> +	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, DISCOVER_TILER_FEATURES);
+> +	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, DISCOVER_CORE_FEATURES);
+> +
+> +	/* AS_PRESENT register removed on v15+ create virtual mask from MMU_FEATURES.AS_COUNT */
+> +	ptdev->gpu_info.as_present = GENMASK(
+> +		MMU_FEATURES_AS_COUNT(ptdev->gpu_info.mmu_features) - 1, 0);
+> +
+> +	ptdev->gpu_info.l2_present = gpu_read64(pwr_iomem, PWR_L2_PRESENT);
+> +	ptdev->gpu_info.tiler_present = gpu_read64(pwr_iomem, PWR_TILER_PRESENT);
+> +	ptdev->gpu_info.shader_present = gpu_read64(pwr_iomem, PWR_SHADER_PRESENT);
+> +}
+> +
+> +static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		panthor_gpu_info_v15_init(ptdev);
+> +	else
+> +		panthor_gpu_info_v10_init(ptdev);
+>  
+>  	return overload_shader_present(ptdev);
+>  }
+>  
+>  static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  {
+> +	u64 l2_features;
+>  	u32 major, minor, status;
+>  	int ret;
+>  
+> @@ -273,18 +360,23 @@ static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	l2_features = ptdev->gpu_info.l2_features;
+> +
+>  	major = ptdev->gpu_id.ver_major;
+>  	minor = ptdev->gpu_id.ver_minor;
+>  	status = ptdev->gpu_id.ver_status;
+>  
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		l2_features = ptdev->gpu_info.l2_features_wide;
+> +
 
---prbgZGmxhdo1sNWP
-Content-Type: application/pgp-signature; name=signature.asc
+You've already used `panthor_hw_get_l2_features()` function in `panthor_heap_ctx_stride()`,
+why not use it here a few lines before and remove these lines?
 
------BEGIN PGP SIGNATURE-----
+>  	drm_info(&ptdev->base,
+>  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+>  		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
+>  		 major, minor, status);
+>  
+>  	drm_info(&ptdev->base,
+> -		 "Features: L2:%#x Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> -		 ptdev->gpu_info.l2_features,
+> +		 "Features: L2:%#llx Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> +		 l2_features,
+>  		 ptdev->gpu_info.tiler_features,
+>  		 ptdev->gpu_info.mem_features,
+>  		 ptdev->gpu_info.mmu_features,
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+> index 68627f0df7f95..48232254fef97 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+> @@ -88,4 +88,17 @@ static inline bool panthor_hw_has_pwr_ctrl(struct panthor_device *ptdev)
+>  	return ptdev->gpu_id.arch_major >= 14;
+>  }
+>  
+> +static inline bool panthor_hw_has_gpu_discover(struct panthor_device *ptdev)
+> +{
+> +	return ptdev->gpu_id.arch_major >= 15;
+> +}
+> +
+> +static inline u64 panthor_hw_get_l2_features(struct panthor_device *ptdev)
+> +{
+> +	if (panthor_hw_has_gpu_discover(ptdev))
+> +		return ptdev->gpu_info.l2_features_wide;
+> +
+> +	return ptdev->gpu_info.l2_features;
+> +}
+> +
+>  #endif /* __PANTHOR_HW_H__ */
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index 843a0b40e1d36..5c75dda5f0ae7 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -371,8 +371,8 @@ struct drm_panthor_gpu_info {
+>  	/** @core_features: Used to discriminate core variants when they exist. */
+>  	__u32 core_features;
+>  
+> -	/** @pad: MBZ. */
+> -	__u32 pad;
+> +	/** @thread_num_active_granularity: Granularity of number of active threads */
+> +	__u32 thread_num_active_granularity;
+>  
+>  	/** @gpu_features: Bitmask describing supported GPU-wide features */
+>  	__u64 gpu_features;
+> @@ -389,6 +389,12 @@ struct drm_panthor_gpu_info {
+>  #define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
+>  #define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
+> +
+> +	/** @gpu_rev_wide: 64-bit GPU revision for v15 onwards */
+> +	__u64 gpu_rev_wide;
+> +
+> +	/** @l2_features_wide: 64-bit L2_FEATURES for v15 onwards */
+> +	__u64 l2_features_wide;
+>  };
+>  
+>  /**
+> -- 
+> 2.43.0
+> 
 
-iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCauIgwQAKCRBzbaomhzOw
-wvDXAQCijNyaOvUNYvxjFwj4hTq8dNFCv3FIfnTaPq1BCKalkgEAoOTH5PljgX6F
-XKdrI7ljHCJrJ1XGW7uTurd6OGKHMw0=
-=SMJA
------END PGP SIGNATURE-----
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
---prbgZGmxhdo1sNWP--
+Best regards,
+Liviu
+
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
