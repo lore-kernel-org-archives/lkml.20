@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191885;
-	b=RSkQE63pG0gclo9Eev0PxV89ssnHz/BaTMQBD3qWwbQrvt5ifQCRgTyWGw4EnjBbJ9yx
-	 YwAsHDlC4Dkg8PpwkCtbNpOVWfMG0j8NvHsHft45rMTxcN14OtHzpo4bmHX7NhgzBAt2E
-	 JfkgFW2JiKpNLs4I8UUpcYpuLq24BF7+e8A+El03EJ9t+z814WnfYPj5x4uH3+p0x+/bx
-	 EAe8oS3CfJ0qqnaVtoa7C9Gwry17v9xdZOYzxHaCXcoALQBYok140uv1xpAbU34b6Y7Xz
-	 oOM3FaPs2Hd1mBXabDPuyMVJgKztlMuWEx0DaUbZ1Wph1u1zt2vkc7E9qtOwFnCjF5Q==
+	t=1793191881;
+	b=GXS1i+wmc9glAcC8w/fDntipyI+kDu3qF1pTsqhGjWvMSyxXy8PBfrcVh4b73DeluMfq
+	 3KKvVtVIfFtI6rKibhPN2/LHMJwDv5NadNzXkMaLGoq0p/rwywUx0ZJN2tGdkRlFZw25j
+	 jXqCR09kZHLjYYCjbqwPNuC5aR3j+tDeADTdhe2iV4UPhfFgvQF7MqTWs6lEg+fnOYfBQ
+	 8Y7Tdgt1RciAuQK3OZwJqw8NKSuF6hdNL4zMdoevxvbD/DF1xoe+dm8kjo6PEOzFnnMnt
+	 7lk8gzmrJBD+j0exCmWkdRlyolYL4DpHrIXbK4mH3ixDPyDXL7mI9qHF/SwJDlRx5Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191885;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=s0XP6uW8MmixUr9jsf8Tb2B/Wg2M26cG7tQ+NNPFLuU=;
-	b=1ywxNA7XtOXn5RE2/ftlOztD2Xk4AB3Cbg9G+0AajLj5L8xpL6YQ8WZNI1CIr1rsi4AY
-	 I+BmyYz0rxmETJfwfyyVK2Y21RPCyGtsbGPtaDL9Zn5QhFCBCzSAjarD4oxJm+q1Q0gV7
-	 Ow/M/tM6+LCaE1MmiGEoZ6WRDYzOUAw1kYQ8/JwRJGaxaYEsf3zvUeXEVYrfM2+Ty5Pbn
-	 MnmtJjbMMPBEfa/XH2+ig8Gw5whiIqg8JFyz9U+YD7tjI0/tg2UXdYB3Il36XAd8HgAbA
-	 dP9cYRHLKWBEllZrfJtsS/2qAHNAQXE78YRrag+5TNA4esaA5zUc0QVYCRecmYAEqEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191881;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PF9hqOY7SlmHr6Mu13sbIIqaN/HmWKK+iSj3xcxtqik=;
+	b=rCQz3/uq5h+04efzX0Z/F67gMagb2fwmFuiiOGZe2+UAjlleYGvAbANR6hK6o9I5YKw8
+	 0djovnguZdIAh58j58iyQ6bDLvW0KtIDg86wpTvGq4qZ4LiHfnrHJZntSad1YpteOJcp8
+	 nFwWSMpnd2unxRNBmEZL1G5fIIdUJtpZATFwmYkS6w4z3u8ZEigSnz95U92LgL1tfC/Lx
+	 L8XAdcbOLj5D9VwVW4jf/6Cqep6yHVQrOOtc/ijC4uQRXb8jeizmI/opDXn6LA3WlHOly
+	 NA1dNsw5CItH48SEjNOrKy/VcsmY6jqXPPIaNeGel2h1izeGpWUKDSXMVboRTW/mhMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+L8aNdd;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOpHduCW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4321A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4321A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66566606A31E;
+	Wed, 28 Oct 2026 12:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+L8aNdd
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e3b22e971so475978f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:51:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793191883; x=1793796683; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s0XP6uW8MmixUr9jsf8Tb2B/Wg2M26cG7tQ+NNPFLuU=;
-        b=f+L8aNddZQEeJdv6b8IJt8lhhCSsElJW3lzvNZM3weSOuWfVzaLUh+YJr4FPGa7oDY
-         xyRx5+77beG1ihlm2bCnIgQBIb9HPMkWIExtTPHIpZy55VujxhK+pMTwiGFhesm2xfrM
-         EDKJU9r9ojSZrWK9Ym14lMtDl9jnbge0dtYDg4oH2JPbxsV6pdD9CEtnDF9cqZ/P4yjK
-         Z1ad3t6wk7cwGblzie1AOWPZHXojyvzLqzw1kywzia/oYXNQE+AmcIz6xstK1m+JziWO
-         pK4LzJP+QvfnvzpnOFXZ+MXDHRfZ6vRW8MhnPx++8551Pkvhht8lPgfqnlVz7tCjLcFN
-         W8LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793191883; x=1793796683;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s0XP6uW8MmixUr9jsf8Tb2B/Wg2M26cG7tQ+NNPFLuU=;
-        b=xekWAlfobiLY9orrEFQqEBPJ7bSqKLD3xRA4Y6qTbNaGkHLqAmYcKJWvb/QxYXJLdY
-         UWUEXRsnCjLWpZZkffaxpZO+INbaSX87ZvVuAB7KxfQ+eukiHfx+SNrIRRanCRe9wa76
-         4UxCtPg/dteDkhxF8SuqwZPF4DMSpGveUhg+/0ZAyQeEJa/elCymr31cUXeSZBj3FwBo
-         V71pN7xyGNchmvrDaFkvorh4QMfXqFCchmQMC90zqdIRiV853qtllMNHp5e/lupX4MA/
-         uGT6pSlGVvbFfltC4FNf+OXD1yqVuNscDyx5ww8R33dFUQ9vaLi7S7eQAerNMNq48V5O
-         PhWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPgs+NjKHLbwfrbwvLUKVMWgdQ0pL3m5S8yilEyIv/A4yDqMa9UlSuz+W36oJnN0E5McRIY3Vo9i70d1E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkwbv1uswgBsRC3LoIL0GmBnUWzmxmj8tNqVURsP1OmV1q0QUv
-	wxQpgp3i7rGxFObOK8T49xvxxB8jBcQTDgi395ldmHkq3y3QD3leedVx
-X-Gm-Gg: AYBFou0wQljD0j49bgetYIEGVHCdrJE6F39zlV5SDJdiriG4stuIQvYXAj68EBNJHa/
-	rwMWDfOd5JnrIuxh6wREGo2MYZwcXr5gen4DRYbXP8BwcNRSTB7EHlYXHgqLFLlpOwp0dbVcexK
-	uYmQ3UWAfRHqibBPp+KKXMJlqf7HdgPUYAig2FZJJ2CEc0zz5ZzbCflaK8CXR4Rl0TSV/vXc7YQ
-	wLOCCK8nSQT14T/Ho5qdDFsLXGljrD3Z5YqQDF8vx8zVTfgbtDeaxErduFAjWDaqYxh1i66gHCw
-	PJfg/29QCV2sLQOsyc55yIqMOdjMBuJL+hIeG6eLPfXl5pS918+YFD09654LhsQeirgbdb2LIqt
-	fBWP0HYERCszgoJ6TndbVMMRNEngeEMeGpzhWFZx5soTr7BKDdiaDuBnulFdJaIoREgCzFL+2ls
-	KsMiGO/XsHkSC2BnPwcdLDNb5h/0AbxXFuRI0Ck3MqfXX24Mai1NFgM7cqmG2DlR4gw+y6f/XDR
-	iL2tcm7ksN2imFD977WkW0/2QV6nSsKzTSKtOGmYiOrHtG0pXQSL7APpJdOKRL5PMyBffLMssLi
-	DhO360/R12Im5l/e+NNwhxF/OEqp9ZLzm5kmqzb7jmZtz0DNKMFINPDa4TOs7xun2+A=
-X-Received: by 2002:a5d:5d86:0:b0:48d:dc6f:219a with SMTP id ffacd0b85a97d-48e5d5c8acdmr5836626f8f.27.1793191882643;
-        Wed, 28 Oct 2026 05:51:22 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:6bf5:6c0a:cf99:c9f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39b3sm29275016f8f.10.2026.10.28.05.51.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 05:51:21 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 28 Oct 2026 12:51:19 +0000
-Subject: [PATCH v25 02/11] mmc: renesas_sdhi: Clean up whitespace and add
- OF table sentinels
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOpHduCW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000A51F01825;
+	Wed, 28 Oct 2026 12:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793191881;
+	bh=PF9hqOY7SlmHr6Mu13sbIIqaN/HmWKK+iSj3xcxtqik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AOpHduCWZ0pL+wQdwiF5zWiQ38s36anq3OoP27DBHDx50y1QhIMeNOezKqpwqi+ur
+	 IXsIwrFPDu0Ejmq42RHm2jpkX1yW1I6OZ+exlAFmKx6tPRrSJy57ymtNZgWJPVfqlh
+	 Bu1kghbNdHXOuk8bz85smbLnZU8bFaY3QH7ey4Je1ID2+YOmMYybNInq29/+j1uwc8
+	 bsp0YbWCAbCaWSHu6UJUQ6j0ZvMj+24Y6cIIji+h8lq9X9RgIvsBHydUrAprq26Kr1
+	 +rPLMJHaiwinKOyAxG/+6PHtL7UN8OcwiCbEnerqaloZic8ly09FrQe0HvdDQDvsA8
+	 HL/goimzwSY8A==
+Date: Wed, 28 Oct 2026 13:51:16 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Chaotian Jing <chaotian.jing@mediatek.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wenbin Mei <wenbin.mei@mediatek.com>, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: mmc: mtk-sd: Document support for
+ Airoha AN7581 SoC
+Message-ID: <20261028-academic-blue-earwig-72d3d1@quoll>
+References: <20261027144002.10606-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,123 +62,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-rzg3l_sdhi-v25-2-57f16691c2ed@bp.renesas.com>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-In-Reply-To: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793191879; l=3511;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=ioJxuBexvCNAq5ne1/6uz2TU/X1kO9zeCLe3w5wnhKM=;
- b=gkmbnF3wah90mBQtXFW+AwM0YRLWlrsfuVSECYoDovWyMTVKZKO07fMpRW2npa4SU7kwP6IMH
- o4IcC5VRAZIBwa91q2mqaCv0PdC4gzEBMl4bnTlZhssOKrDaJR/DyiR
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027144002.10606-1-ansuelsmth@gmail.com>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Tue, Oct 27, 2026 at 03:40:00PM +0100, Christian Marangi wrote:
+> Add dedicated compatible for Airoha AN7581 SoC integrated MMC controller.
+> The MMC controller is based on the MT7988 with the difference that it does
+> have a single clock controlling it.
+> 
+> Add the dedicated compatible to describe the 2 register requirement and
+> permit to define only 2 clock (the main one and a fixed clock for HS)
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+> Changes v2:
+> - Also add compatible to restrict clock-names for source and hclk
+>  Documentation/devicetree/bindings/mmc/mtk-sd.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-Clean up coding style inconsistencies across the Renesas SDHI host driver
-files. Remove redundant internal spacing in the struct definitions and
-static initializers to enforce a single space separator or uniform tabs,
-aligning the code with standard kernel formatting guidelines.
+Your driver part suggests it's fully compatible with other variant. Why
+not expressing it with fallback?
 
-While at it, add a "Sentinel." comment block to the empty terminating
-entries of the Open Firmware (OF) device matching tables to improve
-code readability and explicitly mark the table boundaries.
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v24->v25:
- * Restored struct of_default_cfg.
-v23->v24:
- * No change.
-v22->v23:
- * No change.
-v21->v22:
- * No change.
-v20->v21:
- * No change.
-v19->v20:
- * No change.
-v18->v19:
- * Updated commit description.
-v17->v18:
- * Merged patch#4 and #5
- * Updated commit description
- * Annotate the empty sentinel entries in the OF match tables with a
-   "Sentinel." comment for clarity.
- * Retained the tag as it is trivial cleanups.
-v1->v17:
- * No change.
----
- drivers/mmc/host/renesas_sdhi.h               | 2 +-
- drivers/mmc/host/renesas_sdhi_internal_dmac.c | 6 +++---
- drivers/mmc/host/renesas_sdhi_sys_dmac.c      | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/mmc/host/renesas_sdhi.h b/drivers/mmc/host/renesas_sdhi.h
-index afc36a407c2c..09bf9b24a8c3 100644
---- a/drivers/mmc/host/renesas_sdhi.h
-+++ b/drivers/mmc/host/renesas_sdhi.h
-@@ -25,7 +25,7 @@ struct renesas_sdhi_scc {
- 
- struct renesas_sdhi_of_data {
- 	unsigned long tmio_flags;
--	u32	      tmio_ocr_mask;
-+	u32 tmio_ocr_mask;
- 	unsigned long capabilities;
- 	unsigned long capabilities2;
- 	enum dma_slave_buswidth dma_buswidth;
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index 033d8cd92726..45e0d8f5c64d 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -270,8 +270,8 @@ static const struct renesas_sdhi_of_data_with_quirks of_rcar_gen3_nohs400_compat
- };
- 
- static const struct renesas_sdhi_of_data_with_quirks of_rza2_compatible = {
--	.of_data	= &of_data_rza2,
--	.quirks		= &sdhi_quirks_fixed_addr,
-+	.of_data = &of_data_rza2,
-+	.quirks = &sdhi_quirks_fixed_addr,
- };
- 
- static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
-@@ -292,7 +292,7 @@ static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,rzg2l-sdhi", .data = &of_rzg2l_compatible, },
- 	{ .compatible = "renesas,rcar-gen3-sdhi", .data = &of_rcar_gen3_compatible, },
- 	{ .compatible = "renesas,rcar-gen4-sdhi", .data = &of_rcar_gen3_compatible, },
--	{},
-+	{ /* Sentinel. */ }
- };
- MODULE_DEVICE_TABLE(of, renesas_sdhi_internal_dmac_of_match);
- 
-diff --git a/drivers/mmc/host/renesas_sdhi_sys_dmac.c b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-index c7df4da9e865..615bbc86930d 100644
---- a/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-@@ -88,7 +88,7 @@ static const struct of_device_id renesas_sdhi_sys_dmac_of_match[] = {
- 	{ .compatible = "renesas,rcar-gen1-sdhi", .data = &of_rcar_gen1_compatible, },
- 	{ .compatible = "renesas,rcar-gen2-sdhi", .data = &of_rcar_gen2_compatible, },
- 	{ .compatible = "renesas,sdhi-shmobile" },
--	{},
-+	{ /* Sentinel. */ }
- };
- MODULE_DEVICE_TABLE(of, renesas_sdhi_sys_dmac_of_match);
- 
-
--- 
-2.43.0
+Best regards,
+Krzysztof
 
