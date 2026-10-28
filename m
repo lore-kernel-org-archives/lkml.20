@@ -1,92 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793206396;
-	b=SdFNJpvwRCYIk/W2kC6uTbas+Z2Qne3eYIE4wxcGa2QlwR17w3JC9Bf0gzEzSrKZ29io
-	 DAXMnYq/acRpMdZA9veADUdwW7Y5zb1Yl/+VtRUioRYE4y26v2EC3RH9jgLSgtNW7emfK
-	 9XC2opVkBhrMhcTzVIiSCA6BS3ygPj49qokPblEVePdvBuym60IjkKG8Wyya0KHzI+z1Q
-	 x1D2UENJ6OjDVhCUr0Nadk25W95D4t/Ezf7GY8Qf/zpcKLzt8lKFIajRsZY4i7i138T2X
-	 NP/gli0d54w7z3FTJP6jQq7mRjgmaf1NPqs7LZsjZ1hZsR8aZvTb1k4srwHNWOfUTiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206396;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=K5TWKz7RV8cwGX4HOv20x/LbLk5RU/Ay8Qs1dXwMpIg=;
-	b=3Gn3xArfqrTpNAb63e7J62nLksg2EQeohNn/xxQWHhecBKjNdC64vwF6azayELwPSMLj
-	 HN49xyaWjO3/Gk+cEy5AN7bR9qwERxn+QKWX0iNLV05GULU1wgZyLCDLRSQHIJfFjp5IR
-	 EhzXegPCSW2HywM7cPLyp7IT1m0doJoHYbtlmA760ZQ6baFMtMKTzxdbXUhYTQ1hxjOsd
-	 Uq/LLuKrvNz2MlqKh9IOavdwnm/HfyD8tL9UDvvIyjnji+52b3ZfnkRJ4OFdqfKr6QBhJ
-	 TAjOoXbrJ9FP4nwl6XEiGOh6BV+mrXoQloz6kb1fl68unjHmcVM3bS31aIc0LNp8FJg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="j/sGziHE";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.25
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793206438;
+	b=Jzd8Icwb57aD/LVpGsREw5gry+doO7h4HbNMqbXwhVBWTxzylSB8UooftZ/M1OObRVlV
+	 K+eXiYkf6c51DQ+gOT9LLRv3Khd2gUbtW1sLtC1KghvUkRBy1eabW67y+PP8kHBuoH2mQ
+	 6GHzA16UXGrI84xT64Tf+fGZjA2oeR/3zt6P2OFuzdMwqc5zSn2xG8kSBCbL+SUeDohvg
+	 9hDRw71OtK1ZLFskVsc96/r07og29la2dayPQ5voKyqcwqmDs5xXGFLtg+CEe4VQt+s8K
+	 dufgH4mQOx/lzh7zbitp9/7I6PdR6BbrR9ZEzYiVr6Sbrh9M7YP6yaq6BdrpNNEmFWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206438;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=jQ5eyf1zl1dztY8G8GNDjIbe5i6XtlGMZ8AEehh0sP8=;
+	b=fOh7SW0NWvuFUo7NF+vH4SvfhfglDRPAcfnRoQ/O4tWc2RETkc0YG2wlPLrQHt6LiOsg
+	 b/21PKZJBl2IAGwAmGNwNsMbj+3hdCvJvtPA6lOTS8Ha7QzCapAxYN4/HOElGEru/9E7c
+	 CG/mj5JIDf2SfOvFl8vhbhkx+cyNp4LO5vJgHqFmR7lWOyMeB9J3VpKq6oSQTlGQ1vfQj
+	 yBkalq634lTuZ0A2fPUoL/WCgkIn9PCA6iLOFx6+cCEyN8jeSRPv4cHZSf9FxU4sqdf6m
+	 96u53jD3U40mm0WIuUVgCnqFXlCVJtbhhY+tuhugEZCvLjNWwQmCSlFLTuId91pT3AA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=XDq4mZkF;
+	arc=none smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD35606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:53:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD35606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645BE606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:53:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 645BE606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=j/sGziHE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t+mS2UI5VMQiCdQO1B/BNIP+CcsctZZAAIv6H4HWfE3SVetf4MGXNy+63U21Fj8KPu5ArWTUg2mPBz6FIPasGT2LU2DXJYtj+GA4aL56pwWtLunBBs4qzj4BUoAMrcWpSfEDRYcdyUy7CzsraJD8Vuxjd7CwQKGpzTUv0NWKxPeI92TmGDVBdK5nzAS+tVJCooyZGH1Y7EwQtbVC/irfYoDz9Bp2XZjZMij2TGF1qrLSd9Kvz2BnkFu1f6iFlXVdhnVwqst3lQPWa8TGrHz2LV5O1AO2Zsw8bPKFYg22LM1LfNT0+tAB5qc0D75tJXOl/XiZsxTqgMIOjAwTD9Whrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K5TWKz7RV8cwGX4HOv20x/LbLk5RU/Ay8Qs1dXwMpIg=;
- b=KBmOwr8xOiXLCuKyGFTnlDzthWlrSFzkqs/EdHj6FioT5Cd9rNIgOOizjDAyjF3z0ZFu+NBEJzmYaIYUMteYvv2fWHMbY71Pbr46pDpoTxIzRJ70iAC4xlj7aGFkmiVVJ+t2oZtCSaEGadH+hBzZoEcbCUAexFYUDHuTjnAHPwFpi7ycXVH3VbNLHh+IIm+ytSREccpXLR5v1gU7vg5JEmomegXz1IVez+NTasIgUDjIWhrZ9NLzkwiQ5UkeOn58akjlHkDnuwRGnCm0Z6ZVrdBkHlkZPoueQiAMKaq2DGX3KOf0dwNNUKbIyz8SRGViDxRJdE7/HxsJ62Us1ppbKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K5TWKz7RV8cwGX4HOv20x/LbLk5RU/Ay8Qs1dXwMpIg=;
- b=j/sGziHEU8JHExpRi2QG5oExNm9TsnZ89B4iasIiez8ppUiSDQ4Ssu1F+W40PZTirJKH3agHl5U/x2Tl4joNypnjfAHmUWOu3d3oCsxn+GSEicjVCVcw4NcExkswX50VZGQKIQkoqtU0UhQ0LcEAMYqUhuzrw5XVTF4Ldhb16X6pCDibjG0MMNry34yEsaXUzzvk5YsWQJY4XGVICNXWV47mWxXwbNGQtBfZ+ayeBiWhF+dHrOm5h1F8bTyP3XFACRGYTLz6A3T6jqnjG6YbMOkNpZwWLcKDG1Jb3C/lOxSHr/PO1h8k/ee1JaxvBaXXlgrw/+yDART2qiCyvpU/+w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by DS0PR12MB7677.namprd12.prod.outlook.com (2603:10b6:8:136::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 16:53:11 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 16:53:11 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH sched_ext/for-7.4-fixes] sched_ext: Avoid unnecessary IMMED reenqueues on idle CPUs
-Date: Wed, 28 Oct 2026 17:52:58 +0100
-Message-ID: <20261028165258.3723153-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0326.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:eb::19) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=XDq4mZkF
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso341105137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:53:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1793206436; x=1793811236; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jQ5eyf1zl1dztY8G8GNDjIbe5i6XtlGMZ8AEehh0sP8=;
+        b=XDq4mZkFFwWiuClm+CVqUYc4wMUeEj61wwTEJ2ZEwdKAAZOVs4mAkia9/oOPQEGvZ7
+         0CPllEZOpo+2Vx7NH/qeJyuqrXNeGxLOX9kPYs9EQ9wuoJxqmE3014fXKocl5hQCZSSq
+         jYT4HKvnmSRh02d1ht2QsIKl81mDMWNV+vmtqq/q3kRlDKFLvoFwvUwOFm0i3nE1GCkQ
+         0TjmSaJ0QDxHwSaQMTz0/I03VsYupX2JpKIJaxwXOjS22DLQQPY2UaMVlL2DtL/m4NnR
+         nHVimsjgnDDTHtl7ghN+41KfpsxRYFoCjEcPBdzS03ioSJ55NDDAbq0L5U9RWlFtVa5Q
+         rq3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793206436; x=1793811236;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jQ5eyf1zl1dztY8G8GNDjIbe5i6XtlGMZ8AEehh0sP8=;
+        b=max25XnORNOA5qGDIRm/X701kjL03WtUUrtKtK3+6tI0RtVOGKL/lMM/BNLZGyb340
+         BXN1LdDN6SVRsx+F8bhP0zDKkAe1vi0KADMmrHIRb5Qbs13/n/usb/M2X+KUujlbq8RB
+         4nf8czIZ6z3YjQzgijUvyjSPill7i9Cl/4AAkLLchEPnKeQLaYFdSAYG43U3p+G7FSck
+         O8/xunvA08xW7W0qpEEYU61Ri88Dmv3OWiz3aN8e0qVsx3kCtVaL2fc930IFCx9kAndP
+         wc4oHQUIymo7IAk8kQYyklBIzsjJW/oaeILTUe6Wwg1OyzPpIfgvFmy2h9AIm+eRNvPz
+         6yqw==
+X-Forwarded-Encrypted: i=1; AKwUvByUFfjM09vIAlyL/TE3jaWqENpu9lh+vKXHx86p8stSAThflgOTsLxnuXtilKfPxdDud3ujsGRPFE6ycdE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrHFdMe1ndXy6UORMNInMBCR+cQ21LXEZOObKkdJw9irzZdXfg
+	wyL42+viJT0orpsGKkMuYSMgiUwu/hJgU4Xz9PlraJZxSM0SEPRYFMM1/plcrvYeFVA=
+X-Gm-Gg: AYBFou35RUdRqnuOMNZFWx+gHl53yV7XjyT9tzOq0HfuTyHDNmil8WWkTNNhQUtgJv3
+	EBZ9Qha2Um3xaOjW4V6OReoofBjjo3E+Ds/QBsCBJi3bTAiXs8XnZeIMslvsrlBAmFTkE99pr4h
+	OZ8CrSa+YuunO+6WBJkqxd8AwyJMRk2oGomI2guSnCAlxxeHg4vVyWW3gh5PIc1+/fcX8tssaiF
+	8P52lalRXy7+N5Rcd7Z/8yoU4OsVenXMw6PVpeOXBgx3Bt/ui9mHnqQ6E1PyQKR9J7qGlPqkb9n
+	e9Yx9cHjurVPJkxlqX5NvHopKBDfTDSU2iXq3z1RL4hM37kD5OjgGV7P4XGYfgl7LJy06Ypb1UE
+	07TDa8hBd3kgEaE7MVPoGfKrMLGEk6fbVhAQrc4nyqL+7nQ+VJeaqCsZljHUQhaa9CQmmqk7gzZ
+	1109pG/BlAUA40OSJ8h3yOWuhxISygO0TUrRLL2wRqw9hVgjQSjqedBgCJNYnQgEd0YGH0aOs/d
+	XnRi/lEMslUNCh+1gBLDNMbL93XKktQZMI+SUXcyJCeMP5x27iSzs6l+0XtBG0gXbz5h9aFN5ip
+	umjoQU1+qB/7UegELDTXPJ1P0LvaZc7prIzSWn6iRKWXiz5LjllJIUJ31lJjVxhRyKTipxKoNP9
+	rAW9y+AsSK6GheeXpLE0b/VgWy8qEBA==
+X-Received: by 2002:a05:6102:3e8d:b0:7cb:bb33:8412 with SMTP id ada2fe7eead31-7d03a5063b4mr1453208137.10.1793206435862;
+        Wed, 28 Oct 2026 09:53:55 -0700 (PDT)
+Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259db2d3sm6495987241.6.2026.10.28.09.53.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:53:54 -0700 (PDT)
+Date: Wed, 28 Oct 2026 12:53:47 -0400
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
+ accessing shmem state
+Message-ID: <auIoDgHmzpGH6cOl@google.com>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,176 +126,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS0PR12MB7677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82eb0ac9-3d3b-48c7-6ecc-08df3513f353
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|18002099003|56012099006|11063799006|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261021123027099003|10067099003|261021121427099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	geojjay4pWi5XXGUArZxESIcVWQsp3j3i3AxSdUte2dZwWWmrRZsuUTXzlT90OxMuijbGUs9OPVTKhTe6ydg4minMREvA5AV9sQ4D5sdVNlRyEsFKMcXK8WsOr02iMobdr7NCE6BTPSlNMob+Ru49l4YN/EptCVi2UGrE932YCFd8lwE4VVexqDJK+gFtD6VZYrOJ/LkTTz7x52WZCPmPxhP3y9Ba77wQJROfIF5pSIMutbZjxn/4DC0dzBQ1lLCHFlHPEvHiDOZ0oEvzu9fKJw1MXs7y19HmOnZUUloOirgwa44RC/YnNpzQYNif9KiM4dWDiI5ko21JcgQdEqSlbGQAUKkr/xMAPrXi4P5qbhyzCekJGEXasG57wPZGkFp5dUlxiH3WUlBgr5hqNduZhPdEoIN6jvy8LMZcypHUhC55vEizsEwbYg3pz1KaYeWPv0PDx8Jo8GUn0AwDDnWcomNPchrQdxCIAPae7yAiNkHomdrqls6r5HDfT8Hk24JoZzXRSnxvkhlCB4X75Gs+DSYDla9voGQ96gGetX94H+1ObhXsDQEofGYTrl/xkqW5WXSLJ5sHjQau91oBNF9ffkwpADdbB331XKxCDhSK/PYJS2zeIqP+6I3R70NA4QgYUIrdptU4CLqXs1GiDH7RkJnUf2hfrokD6ylZNBoxnc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003)(261021121427099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ki3xdGzQmHUVrA47ltwDnXTBPBcljKITY3n2XGTExWCKLj+XDSdIy+wXHlhF?=
- =?us-ascii?Q?OQ0A8i09aAgCZXMeTtgRQvdP2MkXKbmqKzrd61dWbvRjRL7KiIIDd+RSVgCb?=
- =?us-ascii?Q?p14vKQ7+EYWm3UmIc+affII+R4R3k5Ym8PZxdwT+1KvC0wDJeL6MGgr0szDH?=
- =?us-ascii?Q?l7z7CoqvAyIEFFXxAJ6XgcbFpI/5w+i6g/geUWgl2FC18oa7IUExWw1N9tUn?=
- =?us-ascii?Q?G10Yx27GX2+SJabYcoGaNVvorc2IYW67hxqzMZ/JMLPxhUUoHBk5i7mdcGxN?=
- =?us-ascii?Q?whpVTldycZTbPdOtXcoWTnyb8sj/FXSTLeTz9+zlHEa447uLTJviSuV0GyzH?=
- =?us-ascii?Q?83z/75fMXFkbQYXUAxLJca10Rt6Lr7ZGBwWQFDEE2V9Sg6nwRCOVuQyBVrO1?=
- =?us-ascii?Q?cpTqp1FBZrqbU5Ee7WAJG6vYGElpA4+qo7Y02eJWhE8ve4j+Dh/Cp+4zdgDe?=
- =?us-ascii?Q?gs2ATV52D4ajBvLnc4lMsfho92gTJKVtZ9VyKaK7YLA/QM0TZZVFrRChobqt?=
- =?us-ascii?Q?vTPwsBMVsHJdcZVW3heqyCaZff1H6s6g8oFzzGyzuLy41zmtrsmSNr8SJwKV?=
- =?us-ascii?Q?r9j7R6LCI3KBwfSEul6zkMewTJLZkr4830WSF1yUhMFoyIUgnj8BmRnpXxV6?=
- =?us-ascii?Q?xr0mpzsjrFMpHC531kiYjVnySq8o4Z5uh6bVwlIuJQ31hB6dtZo0h3B4E+Z1?=
- =?us-ascii?Q?DgsddwMy7HcuFRWJ96F0gHfn7jIimtPJgySE1gbahDmEy8CAJrm70HYx6BWM?=
- =?us-ascii?Q?gA6mWkEyQq2Xa07pnP25ux6lf4g2kjOzp4c9DVx7HD+ajlZfToXeKsyUROtj?=
- =?us-ascii?Q?za220zfTTKMcWM+xkqhbUOujzE6oxaHdlc5W+LhOZmKHECMKBOHqsl0zx7AO?=
- =?us-ascii?Q?WsNZy3NUjPkM1GDBbwngOSWDz1GTSiUiyRDCJihpTrb5c2cxiHf+i6PLGzEe?=
- =?us-ascii?Q?cg/mZFpV5NF6LaoHxeHZ9qPbHui0o4rwPMaBeMgJ9zI5by1773FwfT6wsV4C?=
- =?us-ascii?Q?fvcoGF47VnZealfn0MYLH+p3k5phFrBUMerF1F/JUENSRBltiWjBTF0qmFjo?=
- =?us-ascii?Q?pfd2Vf32SiIP083YUMlb3qvPnLzi2tp03nvb5hrnwp+bbRp80EExCmgCoCUj?=
- =?us-ascii?Q?Ql8HwSfot+6S/YqsLkH6hm0hhP4rpiQrK2YS3Ed8QtnIFRy8FJ+1Ck12f229?=
- =?us-ascii?Q?hA9b1fpeglk/qxyP8VukGyci/GX7Nw4siTIEF1Mg4AjKcBE8NVThdBWQxPTL?=
- =?us-ascii?Q?Q9MUK3XufAJoK+atPGVw+q/1YF4W1siFa9suZU2xZMA4eYoUhMl4KH0FnUsm?=
- =?us-ascii?Q?0yxxUcrhevzqU/CcnY8esaV8ZS3BQD8SholiBi1Lb3MhRZrU94mTbZObSO6A?=
- =?us-ascii?Q?VMS0XrjGDjh58nW7l8QKqCU6onxZj9djoGKLB/TLwve5n9ExwbS6MsH7IPYx?=
- =?us-ascii?Q?R5UY5nuTaoky9COaAPM5LmQ4G1vGrwghVP5Ed23hmzceaH9PhoHdLJJkDzul?=
- =?us-ascii?Q?TxJXTFEkA6vPFOJtMA56ituGGNle+FVsE6tMBVh43FrthXp3Dx1v77YOZEX+?=
- =?us-ascii?Q?SwjLUvRBqXVmk1SInPIE1ZpsXPYT/NBY0Wfx/+lv7q0hsiAMLr8KUObXT9ZD?=
- =?us-ascii?Q?Z3MHkZIhTRXUzGQIF3y7EaCgeYHYI3XcMaZiwj8DpGQIJ319b7YS8H/yQEKA?=
- =?us-ascii?Q?aV/UtS9IDOCsXgSbyUuDeAmrj98dKMeUUqhKzQ4sGJKgAB7e?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82eb0ac9-3d3b-48c7-6ecc-08df3513f353
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 16:53:11.4849
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 958En7zwZZBeta6k9oriosCdTYjLui7h3FEV+3cBjr6bHLSnGhocSOExAUzCgetBbg3HXJyJ9qe0mZO0Ox5OGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7677
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
 
-When two IMMED tasks wake on an idle CPU, the kernel can unnecessarily
-send both back to BPF instead of keeping the first task ready to run.
+On 10-27 00:17, David Hildenbrand (Arm) wrote:
+> shmem_file() only checks a file's backing mapping. That mapping can belong
+> to another file, as with a Coda file backed by a tmpfs container after
+> mmap(). It does not establish that file_inode(file) is a shmem inode.
+> 
+> Seal handling and memfd preservation use this check before accessing
+> shmem inode state, so they can access an inode of the wrong type.
+> 
+> Add file_inode_is_shmem() to check the inode's file operations in both
+> paths. This identifies regular shmem inodes, including those used by
+> memfds and ordinary tmpfs files, independently of wrapper file operations.
+> 
+> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  include/linux/shmem_fs.h | 6 ++++++
+>  mm/memfd.c               | 8 +++++---
+>  mm/memfd_luo.c           | 2 +-
+>  mm/shmem.c               | 5 +++++
+>  4 files changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+> index a7c7a96a7cbf9..2ceca7993e4f5 100644
+> --- a/include/linux/shmem_fs.h
+> +++ b/include/linux/shmem_fs.h
+> @@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+>  		unsigned long len, unsigned long pgoff, unsigned long flags);
+>  extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+>  #ifdef CONFIG_SHMEM
+> +bool file_inode_is_shmem(const struct inode *inode);
+>  bool shmem_mapping(const struct address_space *mapping);
+>  #else
+> +static inline bool file_inode_is_shmem(const struct inode *inode)
+> +{
+> +	return false;
+> +}
+> +
+>  static inline bool shmem_mapping(const struct address_space *mapping)
+>  {
+>  	return false;
+> diff --git a/mm/memfd.c b/mm/memfd.c
+> index 0f6fff004f5e4..7d2da23157003 100644
+> --- a/mm/memfd.c
+> +++ b/mm/memfd.c
+> @@ -211,12 +211,14 @@ static int memfd_wait_for_pins(struct address_space *mapping)
+>  
+>  static unsigned int *memfd_file_seals_ptr(struct file *file)
+>  {
+> -	if (shmem_file(file))
+> -		return &SHMEM_I(file_inode(file))->seals;
+> +	struct inode *inode = file_inode(file);
+> +
+> +	if (file_inode_is_shmem(inode))
+> +		return &SHMEM_I(inode)->seals;
+>  
+>  #ifdef CONFIG_HUGETLBFS
+>  	if (is_file_hugepages(file))
+> -		return &HUGETLBFS_I(file_inode(file))->seals;
+> +		return &HUGETLBFS_I(inode)->seals;
+>  #endif
+>  
+>  	return NULL;
+> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+> index 59de210bee5f9..c0811407ce397 100644
+> --- a/mm/memfd_luo.c
+> +++ b/mm/memfd_luo.c
+> @@ -582,7 +582,7 @@ static bool memfd_luo_can_preserve(struct liveupdate_file_handler *handler,
+>  {
+>  	struct inode *inode = file_inode(file);
+>  
+> -	return shmem_file(file) && !inode->i_nlink;
+> +	return file_inode_is_shmem(inode) && !inode->i_nlink;
+>  }
 
-The first wakeup inserts a task into the local DSQ and raises
-rq->next_class to ext before the CPU leaves idle. The second insertion
-queues a reenqueue scan. rq_is_open() sees next_class == ext and reports
-the CPU unavailable, although it is still idle. The scan then reenqueues
-the head along with the task behind it, losing a placement that could
-have been honored on the next pick.
+Yeah, file_ is not needed, otherwise:
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
 
-Keep the local DSQ head through the reenqueue scan when the CPU is idle
-and, if core scheduling is enabled, its cookie matches. Skipped tasks
-still consume the first position, so skipping the head because of
-pending migration or scheduler ownership can't let a later IMMED task
-stay queued even though it cannot run next.
-
-A local reproducer runs in a four-vCPU virtme-ng guest: two futex
-waiters pinned to CPU 0 are woken together from CPU 2, and the BPF
-scheduler inserts their wakeups into the local DSQ with SCX_ENQ_IMMED.
-Across 10000 pairs, kernel instrumentation counts 9776 unnecessary head
-reenqueues while the CPU is idle and next_class is ext. With this fix,
-this count is zero (IMMED tasks behind the head still return to BPF).
-
-An additional reproducer exercises the same problem with core scheduling
-enabled: it uses a 1 ms kernel mutex hold, a weighted-vruntime BPF
-scheduler with SCX_OPS_ENQ_BLOCKED and SCX_OPS_ALWAYS_ENQ_IMMED,
-distinct owner and waiter core cookies, and an additional futex wakeup
-stream targeting the waiter CPU. Over 2000 measured trials per case, the
-mutex waiter receives 154 IMMED reenqueues with a same-CPU owner and 187
-with a cross-CPU owner. Both counts drop to zero with this fix.
-
-Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")
-Reported-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/r/1548cc9309a6e0894e358262e0b3d4ee@kernel.org
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
- kernel/sched/ext/ext.c | 35 +++++++++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 1b098728676f3..ba45fd017afcd 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -429,6 +429,12 @@ static struct scx_dispatch_q *bypass_enq_target_dsq(struct scx_sched *sch, struc
- 	return dsq;
- }
- 
-+static struct task_struct *first_local_task(struct rq *rq)
-+{
-+	return list_first_entry_or_null(&rq->scx.local_dsq.list,
-+					struct task_struct, scx.dsq_list.node);
-+}
-+
- /**
-  * rq_is_open - Is the rq available for immediate execution of an SCX task?
-  * @rq: rq to test
-@@ -461,6 +467,18 @@ static bool rq_is_open(struct rq *rq, u64 enq_flags)
- 	 * @rq is either picking, in transition to, or running an SCX task.
- 	 */
- 
-+	/*
-+	 * A local insertion can raise next_class to ext while the donor is
-+	 * still idle, including after proxy_resched_idle(). The local DSQ head
-+	 * is next to run if its cookie matches, so keep it through IMMED reenq.
-+	 */
-+	if (rq->donor == rq->idle) {
-+		struct task_struct *first = first_local_task(rq);
-+
-+		if (first && sched_cpu_cookie_match(rq, first))
-+			return true;
-+	}
-+
- 	/*
- 	 * If we're in the dispatch path holding rq lock, $donor may or may not
- 	 * be ready depending on whether the on-going dispatch decides to extend
-@@ -3909,12 +3927,6 @@ static void kick_sync_wait_bal_cb(struct rq *rq)
- 		goto retry;
- }
- 
--static struct task_struct *first_local_task(struct rq *rq)
--{
--	return list_first_entry_or_null(&rq->scx.local_dsq.list,
--					struct task_struct, scx.dsq_list.node);
--}
--
- /*
-  * Run dispatch for a pick. The follow-up work is queued by do_pick_task_scx()
-  * once the pick is final.
-@@ -5197,6 +5209,9 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 		u32 reason;
- 
- 		/*
-+		 * Skipped tasks still consume the first position in the DSQ. Set
-+		 * NOT_FIRST on every path that skips local_task_should_reenq().
-+		 *
- 		 * If @p is being migrated, @p's current CPU may not agree with
- 		 * its allowed CPUs and the migration_cpu_stop is about to
- 		 * deactivate and re-activate @p anyway. Skip re-enqueueing.
-@@ -5207,11 +5222,15 @@ static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
- 		 * the current local DSQ for running tasks and thus are not
- 		 * visible to the BPF scheduler.
- 		 */
--		if (p->migration_pending)
-+		if (p->migration_pending) {
-+			reenq_flags |= SCX_REENQ_TSR_NOT_FIRST;
- 			continue;
-+		}
- 
--		if (!scx_is_descendant(task_sch, sch))
-+		if (!scx_is_descendant(task_sch, sch)) {
-+			reenq_flags |= SCX_REENQ_TSR_NOT_FIRST;
- 			continue;
-+		}
- 
- 		if (!local_task_should_reenq(rq, p, &reenq_flags, &reason))
- 			continue;
--- 
-2.56.0
-
+>  
+>  static unsigned long memfd_luo_get_id(struct file *file)
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index fadf23f9e21ed..0d41aac125df9 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -275,6 +275,11 @@ static const struct vm_operations_struct shmem_vm_ops;
+>  static const struct vm_operations_struct shmem_anon_vm_ops;
+>  static struct file_system_type shmem_fs_type;
+>  
+> +bool file_inode_is_shmem(const struct inode *inode)
+> +{
+> +	return inode->i_fop == &shmem_file_operations;
+> +}
+> +
+>  bool shmem_mapping(const struct address_space *mapping)
+>  {
+>  	return mapping->a_ops == &shmem_aops;
+> 
+> -- 
+> 2.43.0
+> 
