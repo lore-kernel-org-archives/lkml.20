@@ -1,45 +1,42 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158876;
-	b=NK4V/MAwczYB55P/ZEFYiSp+VihWE/BaMbuXf3yMuqbnF8sbaX6pMgJ+wv+uSj7YWT4l
-	 wjAzzO3VdaLsbHYtE6iy1YsV7KQqs05SueJQlS8lqkfa0edbb+r0ENd3+NOYwkDHD56s+
-	 NQLtPfKdZSc8ed0elGXYIRv98r+tvHaSObi/2qabgMF5qVgiytzVBH6CC5PYl9zgpv+0g
-	 x5Y2gDsB56ZavilfP64gspQKr82iWTYH6a2TlqzP+NUQqfP/HJq3J8WR8j/1W4oJr03pJ
-	 XvrlCOmIeaZ3DPpdPph/6Ilhl5+kMyt+qbu4gcNDNRcSe1DxfWwYMNu/rKJbt8UyB+Q==
+	t=1793158881;
+	b=IaRTlBRTFpzk7M+RdnYL0X4Ia7x0jDRAx343cCjEguixjWDkcXeflmsgYXw1XoHCntIm
+	 yBM5lE+khAj7AjMl+UwdA9+VKQHgc21QwmeeP9qJXCrTDOqtLMPhK5pcC9tBx4h66U02j
+	 wuKf6CUteaXJPWZab0JwqD7Hm4+2yPsIfYkuPwAeUvkqEKzdwUkvcXdQcyv+qqSYmyCmG
+	 227jMfPwsiXURirBv0hfCiyK7ZAexQJPIgjg1EhdzBm0wewitfSpaqjtDwxjLKBmG/SoH
+	 JTt7KLDc0uOAUXpbqRIIdS3EbJzf5pRPK9pAmXt2FWzOnUCewMYa7nb1eOAOs9tOt2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158881;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQrsYr7WgxM=;
-	b=nyjevDto5Ypmb45gmPnx0s27v/Kq7xqxVMIJM/vK0nFbDkYGhoDiIuHIMzqVA9V67O9E
-	 lzxr6B2Nas11OTCtjuMuSXIaHqo+zOAjdMbrutKD0cbhkV12e7pASld/iyOtUUZx8payn
-	 krEx3kqCvqWcKk3XnS2wfyC/GPavw3cor55uiC2kMOKe1RSAw1HFmwi18OoDbc9z7YDo9
-	 1zGDKLDsqP86adI2FMFOS89jn1fL21DTUZqzTAz/5QyaeKVBSWw0F/c9r1m6gwuHUBkNq
-	 cWK240zutlTNBTXMP9Pism+40OnB3zM0gkGjM3h2E9BBU4gxlmc4xMOQqXz0tH7Xsvg==
+	bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h+KEtTPrrU=;
+	b=MLdaHh/LwF8TQh0YqHn/sBIaPiPyO2tPjP9YXZ72s3NbAAa3chveHoJw1Sg3SQfDj0P2
+	 VBcaov+3CgM3n4CYeQeebBAnpIlnhWhcNKzxfn5o70iMuPBqMcvKSPly5HdnEUWM5SMRM
+	 qxTlV48AUmmSo/w8h4hEyAiXZl3hpRfDDkvD9WLvJe6knoUqBuX/JbLqhC/t+x4iPibaB
+	 87ZvHUr10Rlq8fbUIrytj8ygsMlclfROsK8y6WMhn5LUGMCb/j9d65DKUSbp4zvns74O6
+	 RqgMM4RANMFsbh4YTvPrcboP5I9/vg1T8VTBuYuSTLQZzbPOt1KluncwGxhtMCy7bdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=N8e1JqDC;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F67A606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F75F606A31F;
 	Wed, 28 Oct 2026 03:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F67A606A31D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F75F606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=N8e1JqDC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQ
-	rsYr7WgxM=; b=N8e1JqDCeTHR7WBcIYi/fISZScmuHiHKDbVwWnMFPAiUgeP+4S
-	923xCdrkb1ImE2gLj6fvZo7ZxgdDrmVbOd30GIU5RFJkLExuqjlrgRsoKBqlTHxJ
-	DFUpF/D2Y7Df/1C7MZEwmis7h5snX90Z8antp2tVBbKqWjEvNlgYCjgYU=
+	Content-Transfer-Encoding; bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h
+	+KEtTPrrU=; b=xwMxOjUqR1AnTXxiqQTQTJMaxrpvIyDNp2xP3PiSv6K+gIdVzC
+	iWVgaLOV8Fm4K9RVAp3RzTWCoqvI4edug05LFaDup05cBe7ACi+mRdFidKAdR8Q1
+	eFTtjH92pbz1Q07LUdpc+or+LF2SSm4bLBuS04AewTNUfjbat5TJUK4hY=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S4;
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S5;
 	Wed, 28 Oct 2026 11:41:08 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
@@ -54,9 +51,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Wed, 28 Oct 2026 11:40:58 +0800
-Message-ID: <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 3/9] media: camss: csid: unwind the power-on path through a single error label
+Date: Wed, 28 Oct 2026 11:40:59 +0800
+Message-ID: <20261028034105.326535-4-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -70,13 +67,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw1UKFWrAF4fuFWfGFykKrg_yoWfAF4xpa
-	10yr18Cr92yFnIgFsaqrn2yr1rKF9aqrs8Z3WUtryrt3W0va1UXr45Kr9rKFZrZF1UJFy2
-	gr1qvF15ur4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxZFyDXr18ur18Gry7tF43Wrg_yoW5GF1kpr
+	W5JrW7Ar4FqF109rs2ya12qFy5GrZ5Wa47JF17Ca4Ivw1Fka4xtr48GryYgFykKrZ8Aa1a
+	vrZxtF4UZF1YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
@@ -87,208 +84,98 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxtw1UKFWrAF4fuFWfGFykKrg_yoWfAF4xpa
 	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
 	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
 	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IU5WrW7UUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABGsP
+	cSsGvfC2KfnxnUUI43ZEXa7IU8tCztUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABHsO
 
-SM8750 uses the CSIPHY 2.4.0 CSI PHY.  The block keeps the register layout
-already handled by csiphy_ops_3ph_1_0 (four data lanes at a 0x400 stride,
-clock lane at 0xc00, common block at +0x1000), so the generation-2 lane
-programming sequence applies unchanged, but the per-lane values differ from
-the 2.3.0 block used on SM8550/SM8650:
+csid_set_power() repeats the same cleanup sequence in every error branch
+and gets it wrong in the first one: when pm_runtime_resume_and_get()
+fails, the parent device reference taken by parent_dev_ops->get() is
+never dropped, so a failing power-on leaks it and the matching VFE stays
+powered.
 
-  - the lane register 0x0000 default is 0x8c instead of 0x8e,
-  - every lane gains the four SKEW_CAL registers
-    (0x0094/0x005c/0x0060/0x0064),
-  - the common status block sits at 0x138 instead of 0xb0.
-
-Add lane_regs_sm8750[] with those values, report CAMSS_8750 as a
-generation-2 PHY, and select the new table together with the 0x138
-common status offset in csiphy_init().
-
-The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask and
-parameter type are identical for all 103 entries, and the data byte is
-identical for 99.  The four remaining entries are the SKEW_CAL data bytes
-of the four lanes (0x005c and its per-lane copies), which are 0x00 here,
-i.e. the vendor value.  This SoC wires the PHY in two-phase mode; the
-three-phase variant of the same PHY (csiphy_3ph_v2_4_0_reg, 72 entries)
-uses a different address layout, so its table cannot be reused.  The
-0x138 common status offset is where the vendor parameter block of this
-generation points its status register window (0x1000 + 0x138).
-
-These settings are the ones the CSIPHY runs with on a Lenovo TB322FC
-(SM8750), where both the rear s5kjns and the front gc08a8 sensor stream
-at full resolution and 30 fps.  Enabling the SKEW_CAL data byte of the
-four lanes (0x005c = 0x54) instead of leaving it at the vendor value was
-also measured on that device: 90 frames with each setting, no error
-reported, 30.26 fps and 53.81 vs 53.78 frame time deviation, i.e. no
-measurable difference, so the vendor value is kept.
+Replace the four open-coded unwind blocks with gotos to a shared label
+chain and route the pm_runtime failure through the parent put as well.
+No functional change on the success path.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 2 files changed, 125 insertions(+)
+ .../media/platform/qcom/camss/camss-csid.c    | 45 +++++++++----------
+ 1 file changed, 20 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index dac8d2ecf..9cf22ff17 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -804,6 +804,123 @@ csiphy_lane_regs lane_regs_sm8650[] = {
- 	{0x0c10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
- };
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 48459b46a..592c1dfc9 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
  
-+/* GEN2 2.4.0 2PH 4 lane DPHY mode */
-+static const struct
-+csiphy_lane_regs lane_regs_sm8750[] = {
-+	/* LN 0 */
-+	{0x0094, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x00A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0090, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0098, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0030, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0000, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0038, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x003C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0020, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0008, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0010, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 2 */
-+	{0x0494, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x04A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0490, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0498, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0430, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0400, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0438, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x042C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0434, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x041C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0414, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x043C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0404, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0420, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0408, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0410, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x045C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0460, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0464, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 4 */
-+	{0x0894, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x08A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0890, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0898, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0830, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0838, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x082C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0834, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x081C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0814, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x083C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0804, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0820, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0808, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0810, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x085C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0860, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0864, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 6 */
-+	{0x0C94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0CA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C00, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C38, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0C10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C5C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C60, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C64, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN CLK */
-+	{0x0E94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0EA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E28, 0x04, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E00, 0x80, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E0C, 0xFF, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E38, 0x1F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0E10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+};
-+
- /* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
- static const struct
- csiphy_lane_regs lane_regs_x1e80100[] = {
-@@ -1139,6 +1256,7 @@ static bool csiphy_is_gen2(u32 version)
- 	case CAMSS_845:
- 	case CAMSS_8550:
- 	case CAMSS_8650:
-+	case CAMSS_8750:
- 	case CAMSS_8775P:
- 	case CAMSS_X1E80100:
- 		ret = true;
-@@ -1259,6 +1377,12 @@ static int csiphy_init(struct csiphy_device *csiphy)
- 		regs->lane_regs = &lane_regs_sa8775p[0];
- 		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
- 		break;
-+	case CAMSS_8750:
-+		regs->lane_regs = &lane_regs_sm8750[0];
-+		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8750);
-+		regs->offset = 0x1000;
-+		regs->common_status_offset = 0x138;
-+		break;
- 	default:
- 		break;
+ 		ret = pm_runtime_resume_and_get(dev);
+ 		if (ret < 0)
+-			return ret;
++			goto put_parent;
+ 
+ 		ret = regulator_bulk_enable(csid->num_supplies,
+ 					    csid->supplies);
+-		if (ret < 0) {
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto put_pm;
+ 
+ 		ret = csid_set_clock_rates(csid);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_regulators;
+ 
+ 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_regulators;
+ 
+ 		csid->phy.need_vc_update = true;
+ 
+ 		enable_irq(csid->irq);
+ 
+ 		ret = csid->res->hw_ops->reset(csid);
+-		if (ret < 0) {
+-			disable_irq(csid->irq);
+-			camss_disable_clocks(csid->nclocks, csid->clock);
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_clocks;
+ 
+ 		csid->res->hw_ops->hw_version(csid);
+ 	} else {
+@@ -746,6 +730,17 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
  	}
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8a..ef45eea00 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -95,6 +95,7 @@ enum camss_version {
- 	CAMSS_845,
- 	CAMSS_8550,
- 	CAMSS_8650,
-+	CAMSS_8750,
- 	CAMSS_8775P,
- 	CAMSS_X1E80100,
- };
+ 
+ 	return ret;
++
++disable_clocks:
++	disable_irq(csid->irq);
++	camss_disable_clocks(csid->nclocks, csid->clock);
++disable_regulators:
++	regulator_bulk_disable(csid->num_supplies, csid->supplies);
++put_pm:
++	pm_runtime_put_sync(dev);
++put_parent:
++	csid->res->parent_dev_ops->put(camss, csid->id);
++	return ret;
+ }
+ 
+ /*
 
