@@ -1,86 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200404;
-	b=SBqbou63YsEwHrUj6brzkEtD+/9zwo4K1ysy3FJsEPfg8T2oHkgiCurbrk5JWBE5WO+E
-	 xDUHklZaKAtR2IPXB7TA95tLA0TTgYFazIY+xQn3JwMIrCMH4CRmUuSZyo1YXmBITILqK
-	 ffH5qi7YdlgXkck0vS1CkwHgyxhh24upFez05NpAsYr39bd82SXJGYFPtDMCIa2pqiR2z
-	 xTpCkwGyRkAI9Lf3Waimlz9BFCbmgFB/CTbU+gENzMb8TK8xopifAic7Y6A4mnlKBlElb
-	 9qbEqOVfEty/x+ampKczDXQzi1IxwF6p72CVCNOPVs9PGsBIdf0HQvJPuz6EiCynfRg==
+	t=1793200426;
+	b=r4/gWUPWkf3+0UFmZDCk9deIT1d4HgYMqM+/iuBAcOjmLJUlwAUNkVVxh1kNAi4cfi4K
+	 IcsMbQMN1ryvctQwUEqGG1l3B4FL6VAvJvZ+GPNucDo+63diOgNPN2cxi4oSUKTlMEr10
+	 +Mf3wvauu+Ykqm0DGRQBEoYU5vqPHIoDDR0hkikWMAgzaSReZozhJ0kB4TMyQJ5PC6pZv
+	 ipQlGKOUI/2ExnRWd4B/1NMtV25tx6VRXuXaYJsTxZ/yu839YNlfVnoxLHwEVVo6GOJjF
+	 ec7bTcnkkA8BBwZbuP/yd1BsK3P44u0MNtbL54JRxqBIXSEakIqUVvFwBPvELodameg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200404;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3imGrkEpHkRRFSltzD9nwj900Qui8XtxzswH1nxg748=;
-	b=wMZFjvXUu4pfjWiHD0EMYh9X/F9ArbvC6jEWg7/+TwzT21C6NuCOKgcVQE+ih49Xo1Az
-	 XZ8etGi35+yCXHdPNbDXlW7Nmb46jOQBm1WhdlQk6i5HdsOyMllLgB2N2PP1k967RNssO
-	 0LxJL60D/+Mmgh4xoc4fA2mOwJSgR37O442+xKCc55EkUVlON9rtg53+FkZe5M0qcQuVM
-	 xmA5wZpBCspuy22yAiNTtSxfSEWoSWfDh78eWunJo0IZf9VVrDvN1pjGO4ntYVteuoRP3
-	 f/9OFTqRzisyF5jYWb7wZheyBwLBLaAYzmRQZSk3AMEcQX7Ixz7dlm+qfO7Tto/Joag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200426;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=8gYlA1iTRLblzGqs2OMzSFmtPPkUAEBHAeWmIZX5fXo=;
+	b=2MybRsSHvudtWhwbBhdFSoHPZa7qkpvzM9dUDK9/SE8saT8ed4PS1Vd1WYE5GJz6VzbR
+	 bxqc1BOpAdlH8lV5p/0Ne1SVjfee5tVyC9ZlVI5s1NXDYdX7PwkLEZ9fDoQOb8KpL5Rj5
+	 sQbMK8mSSZ30M5G8ObrPOWqOiQ3Qz6uf4KWtZFI2CN4m4eBI9WBk2P7CqhzsubkhwIGC3
+	 ZF4mDVT9njTYytfWp+zKXg+xLoi+LMFVB4NvE4S/WLCfrLKjlbel4/ALzvqopGiaD2v4D
+	 KtnYUBdEhckTljDAk0ZHhSkR88Bkz9ygQvZpBx1p1Su0eSfS499VemvgYq1EjzCq4GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="ZgDL/Nzd";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eapZM1IJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204B3606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:13:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204B3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B99606A31A;
+	Wed, 28 Oct 2026 15:13:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZgDL/Nzd
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A263D40E04D4;
-	Wed, 28 Oct 2026 15:13:20 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id PN37A0igGQJR; Wed, 28 Oct 2026 15:13:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793200397; bh=3imGrkEpHkRRFSltzD9nwj900Qui8XtxzswH1nxg748=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZgDL/NzdjfjcID7q6Un7LHdLo5v4QtGZunYdgEtimMn5nectyejEi2phvkYOVTRr+
-	 X3GDSw4Bb2yjzV/O+o8+g1RbnblWQ6teLJ4VxqFdxAi4vLIyssJ/J8g5TH6/5afH9t
-	 U55k8+ZCMGC6mfytYVdMeRdBslAAYegc6OocXV6hu7XLMjfLevW4Ha9REXYIvYI2We
-	 KIHE0KeZByp7xz4LTsEXKA0xPZya0y2WnpCeq5xbYNdPEwvJ+gaCXprzC+atFUsLso
-	 xilfumHoqEEgYOU0Spy3JraRVAj5lmo4tM3hymr7kP/oJyefDWvGF97szsa4NNFjVf
-	 JS2LnnR7Oo2Dm6Gy6+E2fvAU5id58CrNooWEH7Z2U+Ww3iyUyC6OgIjfNVruxrcGK+
-	 2y68BZ0OzeM539hJ/H3IaNA4caWb2AGaCLvPKoz0InGBU5dcXWTSS0vf0GodHeeKhA
-	 cQr0It+PAjeuV1mZhduJL6WOteYQ9ZCS0geEwFyXbmpEF5xtgUyN/8NZ0AEP+bij6q
-	 WeJ5WK77dIo58MUL9jOxjWVd+nwd64gifdgqk2slOT/Uo1LebHMbME1EkuQRAjv/C/
-	 IBZRa1mGtS2C1IQc4SYbnNgJZnkIVhTeSgy0Zar0UylGfGwMcFVNcDgbzTnrb6/Qih
-	 coBRoAVVkHrnuTQ2TY6Za6os=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C445A40E04CF;
-	Wed, 28 Oct 2026 15:13:01 +0000 (UTC)
-Date: Wed, 28 Oct 2026 08:12:58 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev
-Subject: Re: [PATCH v1] x86/vmware: Fix i386 high-bandwidth hypercall
- arguments
-Message-ID: <20261028151258.GAauIQ-vbIjX2xuQXd@fat_crate.local>
-References: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
- <CABQX2QMNetg9iYRRsQmeM3+1tnC94ccWM=450wMZL_sUbqAJtA@mail.gmail.com>
- <20261028060042.GCauGPirK7ePNeTGF0@fat_crate.local>
- <CABQX2QP=cpMfFTdmxdQr6uVnJSF5uVQj7F6bdGwpdb1BT_UtJQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eapZM1IJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F02C1F01825;
+	Wed, 28 Oct 2026 15:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793200425;
+	bh=8gYlA1iTRLblzGqs2OMzSFmtPPkUAEBHAeWmIZX5fXo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eapZM1IJxGuPA37zaOIrNBarZ23YKu3WE3YUsgJ3m59XFeX2CWJLV2N57Qgb6x/vE
+	 OlqFq9XNkNtsVgXcwmupqYHUmTZczCoyoQt6hu2+6VlEqPsaWcwY6CgcpKJua52+67
+	 22S3SSlnSc6M8/Zhm2KEnkxOTFXRbx2YGlKWGUf/qhkiE9kHNgaYjGcMqtW75jZO4h
+	 FHUWmylK6589YaIeYe64AEOL6ZhcqkPvQA5cSreVr8iaCUD+zcI+nizXqR6o4ny5mn
+	 wcZvX2Gj+DbcTLI5xM1KA2Me516W5u8x34w5hzVk1IFdT0ljRXg3uUUak8dGCWrD9J
+	 XWR+Xk+75hcyA==
+Date: Wed, 28 Oct 2026 15:13:41 +0000
+From: Lee Jones <lee@kernel.org>
+To: =?iso-8859-1?Q?Fl=E1vio?= Amieiro <flavio@amieiro.net>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] leds: is31f132xx: Add support for is31fl3206
+Message-ID: <20261028151341.GE3605912@google.com>
+References: <20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net>
+ <20261013-add-is31fl3206-support-v3-2-66a762a3c12f@amieiro.net>
+ <179198370454.839288.5327794631276643738@kernel.org>
+ <87bj8noj35.fsf@berlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,34 +62,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CABQX2QP=cpMfFTdmxdQr6uVnJSF5uVQj7F6bdGwpdb1BT_UtJQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87bj8noj35.fsf@berlin>
 
-On Wed, Oct 28, 2026 at 08:02:52AM -0400, Zack Rusin wrote:
-> I haven't seen this. I need to update my kernel setup to fetch those
-> muted Sashiko reports. Anyway, both are valid but they're preexisting
-> issues in vmwgfx. I was planning to rip out most of that code in
-> vmwgfx but I can provide fixes for these two. We could land them via
-> your tree if you need them as a prerequisite for landing the above,
-> I'll just make sure nothing touches that code via the drm tree while
-> the changes are staged in yours. Or I can send out the vmwgfx fixes to
-> dri-devel and land them in parallel via the regular drm tree. Let me
-> know what you prefer.
+On Tue, 20 Oct 2026, Flávio Amieiro wrote:
 
-Oh, I was actually only pointing them out and they're not really
-a prerequisite.
+> Lee Jones <lee@kernel.org> writes:
+> 
+> > --- checkpatch.pl (1 issue) ---
+> > Line 172: WARNING: DT compatible string "issi,is31fl3206" appears un-documented -- check ./Documentation/devicetree/bindings/
+> >
+> > This true, or is it documented in this set?
+> >
+> 
+> It is documented in the first patch in the series[1].
+> 
+> 
+> >
+> > New for() loops should initiate the variable.
+> >
+> >   for (int i = 0; ...
+> >
+> 
+> I will make sure to initialize the variable in the loop for any new code
+> I add in v4. Some of this code, though, was old code that simply moved
+> around (and by changing the approach in v4 it might not move anymore).
+> 
+> Should I add a patch to the series to fix this in portions of the code I
+> move to another place?
+> 
+> If it is helpful, I can also change this in the entire file, just let me
+> know if this is welcome as a patch in this series or if it better to
+> send it in a different one.
+> 
+> >
+> > Spaces around '+' please.
+> >
+> 
+> This is the same as the for loops: I'll make sure to take this into
+> consideration for code added in v4.
+> 
+> >
+> > I detest pointers to functions at the device driver level.
+> >
+> > Please find another way to do this.
+> >
+> 
+> I'll find another approach for this but, since this is my first patch,
+> maybe it's better to align on it before sending in a new version
+> unnecessarily to the list.
 
-I thought you guys should see this if you haven't and perhaps take a look at
-fixing them or documenting them, as this is our main modus operandi right now,
-in the age of AI-finds-bugs-in-code.
+Sorry, I don't have the time to learn about your device.
 
-But ripping them out is the best fix anyway! :)
-
-Thx.
+Have a think about other ways you can support what you're trying to do,
+then attempt to find a solid precedent for it.  You can submit
+subsequent attempts "unnecessarily", no one is going to get mad.
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Lee Jones
