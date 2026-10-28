@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187666;
-	b=0UZhj+RVlmIV4Ww9UA1f1k9k4Ks3fznNxh9Wjw6zrBT11tC3L8XflA+ZzM63iGq3rQfr
-	 zfASPanm4uZryCprBT7n9ZNUhDwE3c3pWcEk0QJjXK5E7RBaz0W/PMCHjMkncmAsC0ha8
-	 msApFQ4o+klxqPPn5Oc687cMTOX1cPDlmb83nLlY0bpLEErFHTiRaf9rOyEJp2AP7NZ9B
-	 5uAQVo6g5X3y1cdSa+07aTPd+jOXLO8Lp/4wkIQrV5a8qbnp1vjNyw8LxN3aALbVWnxtd
-	 uq+gtHwkrbokk2c3jVCgDBIL+UCyx0ohs5ll7TMroAmG3oYiA8zu/UeRzd88+1PXYzA==
+	t=1793187690;
+	b=3BIOTfCoy7efCL2/dKeR8Ps++V9ZsBz7gQfVpmKgYnpT1YiSs18JBW2KbnozCAuuFyjQ
+	 1nomLhpD0oZ9aBhRVlrKzorSYUcnIPGYkOgVGHXow0JEunmnd+6QwbZs0vIS3PW04YhGS
+	 OXInTZDaoMZzVczPxPflvfgavinLVYi4/vC5gXqukwM+BZmnXx3J+/C0gaBl12j82dyv3
+	 SSYMwdHaVFOgVUdKv+CuoUAvngtuZxxzNT/xHUnQ7LWvfziSAaYui85Sg2buKiQVGC64e
+	 ysixqidZrg0Z9DxBd0B9A6JsL47gNNk4kmCNOjHEQHnEMvqdt01f+2dRzC2Pk+3nsxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187666;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=kjcppBvneVUnosD6YCMOCH1CcIfDUQwbnxYvHz1mwTk=;
-	b=qrnJygIG3ZlyZBJbMNjHpJPtyvl9/e9ejcCvKsIEME4Z9BXsruhNSw1Cqeq0788hhoG+
-	 izSRkqFKMHlplCyPLa7D5BCnNrVjDADdHpj9y5Rqk/4mG4WKEbmoVlw51sZU1hLwuTz8m
-	 z3cSvuZjob1gzkyWDhFABtHRv34oe2q9c6rXm8YbdSlCJY9GyNkMJX8ZUcTGSkVp3aJqL
-	 rytCCIH/9kxCKTkUYSfex5IgAcx449/mlEAxGY6dt+c3KPqnf9Psol3rFkvp2EeO5LoxP
-	 NuqJN7GY5zYO3jGT2TikHDUfpEB5+iEmrMN7ANys9KxAeWs92J5sS6kj/kqiFdw3sXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187690;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
+	b=sjPkBqBgZremlpqnqvd/9ecz6mhKIiMVQkgQdoZ77SlPaj/SRuXVCsGaew5ijvmYfcI9
+	 7r0lZ4XyquVYMq3e/IdE7hLVMpyvRZ+s+lUG7xHp2h7ZC32s49bR0KwZsFYnEq9lsvuBv
+	 iAxh0c3ijCS2/7bHUbEfzOPWruTogYpDC9yqcwq7vFmlf3kTHoemKxLBH0IZzzp+d8mzP
+	 4fBs2vmcq0hNmxhUS8PbGeAq1yVmLsqVdIsNmmshgEwaS1oRDUx38iCZ3igASxtxpigcq
+	 MFjDYdGNvJInSkbmcWxrgmg2t7CqbsU4VPrF1M8m8/579oyi3KidPuIY5kDJDFf2SSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=yhQODFCH;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB06606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB06606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E21E606A31A;
+	Wed, 28 Oct 2026 11:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=yhQODFCH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793187663; x=1793446863;
-	bh=kjcppBvneVUnosD6YCMOCH1CcIfDUQwbnxYvHz1mwTk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=yhQODFCHoG/Zs+xTob40nVOQztXZEZQkDQc4Ilkm0Lau1HLwJAkWp1NQS6rK+Ovte
-	 cAkx8H3m6yGS0088HimK1MT37IVm5vQzUumd0E3Eu/lWbAU6q+5fvtPVP9EF6HEigt
-	 dzcNUmhBM8M+9KwbAidb2b7egEJamDWe6WMMB+Mlybn/gkzhiOa/UTdzIuduIRjMKS
-	 loxaHMbjpJVqI01XtaSTPdI5ZF51TmuQi+YZARh5qXh7tOawE6Bbc2HeiRC92FzFAb
-	 5R9IGbeDURH/eOEiiCk+Tz5A+OwBY5+Zj5pU/OQwe3gEp9Dxzvf4nZ/0sGj8DX5VGV
-	 mqnibZPNuuvZQ==
-Date: Wed, 28 Oct 2026 11:40:57 +0000
-To: Alessio Ferri <alessio.ferri@mythread.it>
-From: vit9696 <vit9696@protonmail.com>
-Cc: =?utf-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Michael Buesch <m@bues.ch>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-Subject: Re: [PATCH wireless-next v2 3/8] bcma: pcie2: request HT on BCM4352/BCM4360
-Message-ID: <26B3AF24-FF4C-41A8-8546-8B79FC9C30F2@protonmail.com>
-In-Reply-To: <20261027-bcma-ac-rev1-v2-3-b69b61c31920@mythread.it>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it> <20261027-bcma-ac-rev1-v2-3-b69b61c31920@mythread.it>
-Feedback-ID: 739018:user:proton
-X-Pm-Message-ID: 973b6d359f0330cff6e88fcc469cb72ab6e04dff
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADB41F01825;
+	Wed, 28 Oct 2026 11:41:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187689;
+	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hUWdC9ii38YmtM4niQrcVuKM0MmLcS6Ymm/DpSbDM+uxAsUb9gym7iZ+LqjHT36YM
+	 uRRpINPqxTjQD1OYZX7hZdDA2FmQ01u1OGxpwXwGh62crNj8RdX31Y+QvcF+Qe3Bqm
+	 i3tx2Ar4D7q5eSfau6OEXjHP6DRwiRXMbcVo01NpfLhpqTM+HY4h4KST1dKFQrNQPo
+	 bLKfNqNrf+ETVHb0gT6RzsCE+qbBEZN9TLSn/4Mdo+daIGLKGYRlWVLgVVHsLZYpYW
+	 Wy9BAURW+S1OHFfq8kVrQchPE/H0KgLjNsKe9WV+MeBBjzXWWL47H58kNqZzsnWPdK
+	 I0stxpRbXUVEg==
+Date: Wed, 28 Oct 2026 12:41:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce
+ IRQ with AER IRQ on R-Car Gen5
+Message-ID: <20261028-valiant-boar-of-competence-febbdb@quoll>
+References: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,92 +62,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------209afb9dac3de2b60d6fa79bd37326ece29f70325493df9df586b7d21c049eb5"; charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------209afb9dac3de2b60d6fa79bd37326ece29f70325493df9df586b7d21c049eb5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.4\))
-Subject: Re: [PATCH wireless-next v2 3/8] bcma: pcie2: request HT on
- BCM4352/BCM4360
-From: vit9696 <vit9696@protonmail.com>
-In-Reply-To: <20261027-bcma-ac-rev1-v2-3-b69b61c31920@mythread.it>
-Date: Wed, 28 Oct 2026 14:40:42 +0300
-Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Michael Buesch <m@bues.ch>,
- linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org
-Message-Id: <26B3AF24-FF4C-41A8-8546-8B79FC9C30F2@protonmail.com>
-References: <20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it>
- <FT2bVQ2Rzcgu0W0TZd0Sd8RgwhkBuaExs_HgYjV94PesWAEd2s_Vuzn51cocstE9Mv4PuU0tydZIdyIEdBmz_g==@protonmail.internalid>
- <20261027-bcma-ac-rev1-v2-3-b69b61c31920@mythread.it>
-To: Alessio Ferri <alessio.ferri@mythread.it>
-X-Mailer: Apple Mail (2.3864.700.51.1.4)
+On Mon, Oct 26, 2026 at 11:44:18PM +0100, Marek Vasut wrote:
+> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
+> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
+> controller.
+> 
+> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
+> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
+> an AER interrupt, but to retain binding backward compatibility, this
+> interrupt is kept optional and added in a separate patchset.
+> 
+> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-This should apply for all revisions below 4, not just 3 as per open-source =
-Broadcom driver[1].
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Best,
-Vitaly
-
-[1] https://github.com/RMerl/asuswrt-merlin.ng/blob/ca72a61f8bc5ef920e29d63=
-d53d9864262208f0c/release/src-rt-5.02axhnd.675x/bcmdrivers/broadcom/net/wl/=
-impl69/main/src/shared/hndpmu.c#L2059-L2067
-
-> On 27 Oct 2026, at 02:53, Alessio Ferri <alessio.ferri@mythread.it> wrote=
-:
->=20
-> Set HAVEHTREQ in the PCIe2 core's clock control on chip rev 3, as
-> Broadcom's driver does.
->=20
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> ---
-> drivers/bcma/driver_pcie2.c | 3 +++
-> 1 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/bcma/driver_pcie2.c b/drivers/bcma/driver_pcie2.c
-> index cf889fc62..fd8fab982 100644
-> --- a/drivers/bcma/driver_pcie2.c
-> +++ b/drivers/bcma/driver_pcie2.c
-> @@ -170,6 +170,9 @@ void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie=
-2)
-> case BCMA_CHIP_ID_BCM4360:
-> case BCMA_CHIP_ID_BCM4352:
-> pcie2->reqsize =3D 1024;
-> + if (ci->rev =3D=3D 3)
-> + pcie2_set32(pcie2, BCMA_CLKCTLST,
-> +    BCMA_CLKCTLST_HAVEHTREQ);
-> break;
-> default:
-> pcie2->reqsize =3D 128;
->=20
-> --
-> 2.34.1
->=20
-
-
---------209afb9dac3de2b60d6fa79bd37326ece29f70325493df9df586b7d21c049eb5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wsCpBAEBCABdBYJq4d9HCRBPsoxt7Hy0xTUUAAAAAAAcABBzYWx0QG5vdGF0
-aW9ucy5vcGVucGdwanMub3JnbSggtVt6+6vJGc3SA9EVqxYhBERSlkTqW1Te
-3v1Bj0+yjG3sfLTFAADPAwf/e/zi3nOhbhBwicBIwGC5UAnxxaNyKtvivKGT
-LJ0Z8qVHkQAdXtb33aIVz81eWN6+13BKdFF+mx0zKtRqWCSLSxRpQEj0tQOU
-CulrSR04b8pwu9OxfqNr+3Dmk0OGo+sLpTnNOEpvhZcg8HFFRJ2BeZvE8Ltd
-1GC7FWMm3eOLfzP+OPQaM3+X/axcmFpKJ4QAhFwPJmyBorETY2otYAx6CtlU
-Agmf2IxS92ygY2jl8QsTpQ38GNgq5j3kQ1NiwZ4p0IM3aUeXz+fgVA4N9zIt
-g7JDZ/WGvsTjSHghhzQKc8T7dZg3yT9jo/u+HB9QrFYjNFhN6yuzRbMqek5J
-moetCA==
-=qiOy
------END PGP SIGNATURE-----
-
-
---------209afb9dac3de2b60d6fa79bd37326ece29f70325493df9df586b7d21c049eb5--
+Best regards,
+Krzysztof
 
