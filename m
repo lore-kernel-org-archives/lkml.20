@@ -1,124 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150098;
-	b=Nd7g6p6SW1cEFqmBR1gHQ36gHJ430zxRiM9GA9y9VprPUALTQMLhmZgTmpqLkTaN37jD
-	 q5RpPOhN9HFMbc0lIdIJ9he4BboCEjZSYWODq9NArSCjpqnwViYyEGVzLOVlXKvbu6lDY
-	 RWb5g9AACkn2Cf4a+cgKVtPcDqnDGLQYIog2dQd7WbSV4xXwLLcv2TYGyotBdpyGPMRHW
-	 3rl2a96+lnkR9kX7COf6+pPDJCeSnGDr3VVsIapxEznPhAOh7QGaUMZ/avaMFI4rxjzk9
-	 3C0rNYpbaTrjBra2YxGpIYD8CqTNg8ZwR83mw+EyvZZ/T+ZcRj5R64cMu+quWIJjDBg==
+	t=1793150110;
+	b=0MwSRTR7lZkXTWUIDZIsnv9ZclnQddDYm4b4L8i6XrrSuqkqeRlMMkLEfQI+NiqI2tsd
+	 Zcjc/Qg+JnbaNPQbw9W1kEEjgzJNgopXy+ndcJ5sibEpca/0MEln53S9bvpc0pSBrzybq
+	 gIRd9u5JtD03tSFqeAbN9NCBT7cWU2Ls/sQIH76DJyL98enxVytvtoUMrYd3kEJsNNJxW
+	 8RBOhHnx5R6AqKS1yvkinFdkM1XziSxir5Go49daOBur5mmA0EoW6x6aRpwP8hgFwNGEO
+	 dv83bjT59HY5jpkMP27sYlCLKuFVIujFLu0AROJ9LoSSD102ga0XdTV7OfK2vatAYRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150098;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=xZH3utzkTV32x5e3Qo7yc9QKlSSV4XGUFUs3fU/VUmE=;
-	b=zY9dPOKn+vZjImMbHo2P2mqFRX4UdGXIZXD7p8beqDVrxBBMysQqiKPftkXlQm/YiQHu
-	 xIfINf6IdvFX2whKfliDjdgxSU024hb0OGpufhJrtqMP5E8CsIU+23TaeanvJ15iCttsm
-	 UxTSA4af0DUWQrBv1RC5CbfNCnr2hoWBtAKbO+HJrOU5LGb+/VD6FBwSk9tmRFAeuN2RR
-	 kRyXICHj7im8qu1T2sPggSBsvZWO90+NGz58Ft16cAJcUapp/vYTjCHRI5Cp0iR3+3meY
-	 Bn/mUHd22z40LmK2kii004oEuYgFHdMpdCIhca9ilG6F+/RmX05HUldUzEApYGlZK4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150110;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bm7wec5B1UFJK2Enj5zENUBnAS6DiTmj+CBBwH6eJIY=;
+	b=38daqK/+aQAJtIHqO5kglGmsHWJS5PbUMhGQortuPahF2s+Pz6aUEtNV4cBcLjWuS6C4
+	 yCwN7KMxsB8V9jp56NjqZnhw7X1+tCzy02yoYOp6T8V5DsgrPY8qDd25kfo/uTf8Lpex6
+	 hy2BIAWUhBzcIhy21tGnxofwPMXx2I7IQF8w7pKi4Jbj2g5X68pBik6mMZVXoRSjwinJe
+	 rI8ef0V3PZRPYHV0Be02PhNZzIhakoGhuqKpWk4JHOF8miuOM4D2HOxuLsKWhLRutVKZC
+	 koUPDG7y+0+mXKhkdRsHdDjVvjeSztEp1xeow8uI1beo47S2LIXfJ91sywTIxbpztlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+vSERIw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B9tDXsVO;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=QWCEa5r6;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B59606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:14:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B59606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF97F606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:15:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF97F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+vSERIw;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B9tDXsVO
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S0jAHr657963
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:14:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=xZH3utzkTV32x5e3Qo7yc9QK
-	lSSV4XGUFUs3fU/VUmE=; b=Y+vSERIwAKZcDLiMG2qxIfjdEWYbo7A036dCT/dE
-	aug6zLuixgg+G0du54YZ8eLh8j66I4gk97XD2Ju3GXe/VsAKA8AAaZVJ/chcsu/K
-	p42DyppHFHITrha/JroAmgpwDTajQrLTqrooMQJ7isegPzIfFy3yurB8Atna+/yE
-	EXksK+X1LX10lKWuk6ROl+RyAxWROTJ2xjulw3WW2oEeG6Z6BSTu+esvkUgu53mJ
-	5rnShGoN69TvP34c2p/SPVl/we9HgIejyQi5KgvmgnPSxIzfIzb+sWcJi40Vjwi4
-	C4tSe5W3pLHP/99fEgyQYWgcD8A4+GePfqYNBnId0E2vBg==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjyjpsr02-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:14:56 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-98bcae867a1so156176241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:14:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793150095; x=1793754895; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xZH3utzkTV32x5e3Qo7yc9QKlSSV4XGUFUs3fU/VUmE=;
-        b=B9tDXsVONULLDF5WYRYfJK9qYeI4SlhRKhYVgV3s6LuhhiS3sGeoQQyCjp30bdFovb
-         2JNYDAzhf28p4RVWvPBstDRtdLf4qAYRWB7km0oR/6jtxwDiqWrTP1iKOf0tJqNB+bSO
-         xNu2K2To/oQsaIFUkwMIUrbkezjT/QTxR9XiT0BytDoQ0ON4VAX4zezgYaTvGdwrmEbo
-         JWGPam0YikiOy2iK5qnI+21Xi6zt10KMxETlCo8DCpPoroyMJZHzLaXGbcF4Osi6+nCW
-         ynMyPmy1lyePaPjmZYeZVT4kW2jv6jBF3cGtJMzsQq+uXWxIMYrPnpwR5xcptyDPUEMK
-         d3IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793150095; x=1793754895;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xZH3utzkTV32x5e3Qo7yc9QKlSSV4XGUFUs3fU/VUmE=;
-        b=Y0F8wHTtVGODK0+Z2cVhUYu/9pM2TasRCsAIm2wFE6JezlgQvbvdMVt5pbQ4eahmPc
-         xm+Bi5BZZrYlWyfO5nVGlmSmnuOa2AEKNatveYznQ3X4QJ8fjwhlUW1DDM796rH7pQAG
-         zXZlaUvpP+QleyrZl9/mFN0EfnllBkTMscVYpR/QI8Uejl5BTlcH2hTUc25cTbSFefyK
-         +QMD2qzbpZ5ZzxeS8d83r2aj7Riaw0GDUruhkn45g6eH3aF3ewB9CwZ6/mqelaVlqb/X
-         nMratGtImygUja6wHNx27QXMCEd05vn3qA/iiKTr3w1jEoVBxlApLTZnH2RFgTDPG6EJ
-         jAUg==
-X-Forwarded-Encrypted: i=1; AKwUvByTGgba5UxfvQMCWl53EtrCF3N+AnRDmr2g/yeo3XJ4WT40Hf6eHV7z3HOg0NAKYPwLyKXQnpTKZCkA8Ng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIP5EMhbwjyq53ixSV+SedS/cR9EP9EWMrFZffxYO9SXTV9CEEa
-	RrHAkB5dHzFYIxGyjc5oJLz1U/9/zg8KguIVHxVsyY821IY/jmoeAt4U/4TQgtVdJjP+bwGlZ3M
-	LOMUPn28WT/spXfCrc0HOEHi7cd+SeCXBUUOD8mEjH3lMcoRq9qHtZTfhzmA+Ka5Ukcc=
-X-Gm-Gg: AYBFou3FRsALde6pdZ4EAEAQLuX6CvWDWVbFkOwt6byAyaiO1YSZAW/5EbxIJLQwb10
-	gtqLrWFGZt8Z9LzPwvP1+8xoRiF5w0hiQiXqZAoCicitwoqsG4XcUz5VLqq6ksXaCix6ZxO4SZY
-	+k2mSFAmkEGCmmhh9jqJ8Ipz3tgoGlpSx+Oi80r187A6mLlCLnd2k+Y48cEE2Bb0OcO54cIwLWL
-	rF7BZxQNAtbqeLoChVu6jBArloZnu/2dhrGqzM6GAIk4FSUNpzCFMWWAe3d07dwV5wG7ABVOcNu
-	K7VomCylsBKvd2J3rcMPK/PsXkBazly+xX+FwwlkoVpPdUe35aJ8YPVBej9fgjFYXAq1AwaZ1vT
-	XSqmmxDxZY+bRPDWawqrFlsL6b4mk6PBIBbsYUZR3YljTZtFE4teoEakOvYew2wDjV+jLqdHqSq
-	9GFf7oHuZvLUdh92ZCN1w90KZAJ6DdhSfPPE6X+8C4Akhcaqb+yZ+hKiayh6r6UA==
-X-Received: by 2002:a05:6102:5688:b0:7cc:ccb:ce5a with SMTP id ada2fe7eead31-7d03a5c5b97mr394314137.28.1793150095446;
-        Tue, 27 Oct 2026 18:14:55 -0700 (PDT)
-X-Received: by 2002:a05:6102:5688:b0:7cc:ccb:ce5a with SMTP id ada2fe7eead31-7d03a5c5b97mr394300137.28.1793150094940;
-        Tue, 27 Oct 2026 18:14:54 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac709f3d9esm27236441fa.26.2026.10.27.18.14.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 18:14:52 -0700 (PDT)
-Date: Wed, 28 Oct 2026 03:14:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org,
-        Jianfeng Liu <liujianfeng1994@gmail.com>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 5/6] drm/msm: Convert map helper to use dma-address
-Message-ID: <wxfx4nhwdx6dud4ahy3rfz3btfto4t2zor2pjbotlqpglvwolx@jhnm65bzecnq>
-References: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
- <20261027230452.130031-6-robin.clark@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=QWCEa5r6
+Received: from macsyma.thunk.org ([104.133.198.41])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69S1ENuL016217
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 21:14:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1793150069; bh=bm7wec5B1UFJK2Enj5zENUBnAS6DiTmj+CBBwH6eJIY=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=QWCEa5r6aHnQVDNXR26SZ1h5zufpgEkvKqpUqIXTkQq5YbtavWp5uXTRxqh7u4ucN
+	 5WZxNprEspfbmtUVcSg9evG1NB/veAHJql0TU9SSNsdoBrUT1diZGb3Y3Z59CNQTjc
+	 3drrpsVmiGadf2cYndUxZgbIiExpy+GzfIOJBovWkBTKSKcwel2d2dFAnY8WWt3EV/
+	 ELfTsRZ72+Mg+53LkySENxC2Xbh1mNp5PXFdmWIVAEhkzqGGUVfBdyHLdAJHddGEne
+	 rIXFXXpimKsi5sjTRYOZqcPc8l1dT3mAmcGBKgZQ2Ar5yL+KI4pGLVwFGLd74ByGrY
+	 cnMMzeLteGG7w==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 9FF442321DDD; Tue, 27 Oct 2026 21:14:22 -0400 (EDT)
+Date: Tue, 27 Oct 2026 21:14:22 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+        workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <auFH8o9FbxprB40A@mit.edu>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+ <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
+ <20261027122346.GA2133989@killaraus.ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,88 +81,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027230452.130031-6-robin.clark@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAwNCBTYWx0ZWRfX4Sbpk9DWHUq6
- Uxsj8phwhNKnQdfnLTPwQShvFIrmsmtDpluYcD0HdSgeT6IxFkA5JkbFl32S+m6CAjBe7Jzfi4g
- zOf6SJpPiX41sLyCtJoxYI2Y5WMTyZWAK5fHNXXFk9GRuNKrKDghoKfA5dm3e7dr67dv+G5yzOg
- Ko2WYbegQ5XpDu0hlQbdydil/+wPrfIbavf9q+6Ttui+bzlhBYXd1opEhUeX2Hu+6VndgIeeidM
- c+8k6dR+j9/orb1dOiXBMZ0LQp5H4RlvobYN4G2pCr/sm24UtRH/oNdClR7WBFMqCGx0uyhm7mE
- HUgbl7kVGXhqyer7Zv2HnN9Tp1445WzZ9kG9UHnl2K1FYKgUa2lm/VG7aG800D8yg2rrKQ1tqVv
- FnBPQD/D46RHSijp/9tZDXYfIIKQU5fW5W+AeNFoxi7kEyaZQEjQgx8b5Z1aTmnA56RWtaNbLtW
- I/1lb6m1Rqv3x67zqbQ==
-X-Proofpoint-ORIG-GUID: gdyzQqpHJjBnN1PzvPly0pGOVfA8PQuo
-X-Proofpoint-GUID: gdyzQqpHJjBnN1PzvPly0pGOVfA8PQuo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAwNCBTYWx0ZWRfX4WaP3wM8Kia1
- /m0P2PZiiPPZBNIfzyj8x1AeJzhqyE4JGL02NDUkZh/V+fqsYvqsWUV2mhLvU3ZMwsDLxpiX8ui
- J/3/rHKEevHAqzx+CzwO1twZS62u7z8=
-X-Authority-Analysis: v=2.4 cv=JodkP84C c=1 sm=1 tr=0 ts=6ae14c90 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=Uw3JNNrttYxbrt0Y1o4A:9 a=CjuIK1q_8ugA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280004
+In-Reply-To: <20261027122346.GA2133989@killaraus.ideasonboard.com>
 
-On Tue, Oct 27, 2026 at 04:04:48PM -0700, Rob Clark wrote:
-> Now that we have everything unified in one path, switch over to using
-> dma addresses for setting up the mapping.  This avoids issues with
-> CONFIG_DMABUF_DEBUG stripping the pages from the sgt.
+On Tue, Oct 27, 2026 at 02:23:46PM -0500, Laurent Pinchart wrote:
+> > The problem boils down to how to present work that touches multiple
+> > target trees, and where some parts depend on other work that is
+> > not yet finished. Do you post it as single series, so people get an
+> > overview? Do you split it in multiple small series (which may still
+> > have interdependencies), so everybody looses context?
 > 
-> Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_iommu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+> There's no one-size-fits-them-all solution to this problem. What I want
+> in those cases is information provided by the person posting the patches
+> about the dependencies and where to find them. I think there's value in
+> specifying that information in a machine-parseable way.
 
-This commit seems to break GPU on db410c (which uses qcom_iommu).
+The problem is that "one size fits all" and "machine-parseable way"
+are in tension with one another.  One approach might be that the
+patche series fragments might be sent to different subsystem mailing
+lists and reiewers, but the cover letter might include a pointer to a
+unified git branch which has all of the patches touching all of the
+different pieces.
 
-[  104.954564] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
-to idle!
-[  104.954932] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
-*ERROR* gpu hw init failed: -22
-[  105.958559] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
-to idle!
-[  109.082571] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
-to idle!
-[  109.082670] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
-*ERROR* gpu hw init failed: -22
-[  110.086572] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
-to idle!
-[  111.098576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
-to idle!
-[  111.098674] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
-*ERROR* gpu hw init failed: -22
-c[  112.102576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for
-GPU to idle!
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index 479e5450a4dc..c2950d32c507 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -153,9 +153,9 @@ __do_map(unsigned long pgsize_bitmap, u64 iova, struct sg_table *sgt, size_t off
->  	u64 addr = iova;
->  	unsigned int i;
->  
-> -	for_each_sgtable_sg (sgt, sg, i) {
-> -		size_t size = sg->length;
-> -		phys_addr_t phys = sg_phys(sg);
-> +	for_each_sgtable_dma_sg (sgt, sg, i) {
-> +		size_t size = sg_dma_len(sg);
-> +		phys_addr_t phys = sg_dma_address(sg);
->  
->  		if (!len)
->  			break;
-> -- 
-> 2.56.0
-> 
+Another approach might be to post it as a single series, but different
+mailing lists and reviewers get cc'ed on the various patches in that
+series --- and everyone gets cc'ed on the cover letter which also has
+a pointer to the unified git branch.
 
--- 
-With best wishes
-Dmitry
+A lot of this really depends on whether you are asking for reviews, or
+whether you are asking people to apply the patch series in their
+subsystem trees.  In the case where there are a large number of
+interdependencies, they probably can't do that via patch series
+anyway, and it might be easier just to get relevant ack'ed by and then
+send to Linus with an explanation that you've gotten acks from all of
+the relevant reviewers.
+
+In truth, this case is actually pretty rare.  The more common case is
+where there is a single set of changes that multiple patch series
+might depend upon.  For example, there might be an set of iomap
+changes which will go on one branch, and then various file systems
+(xfs, ext4, btrfs, etc.) might pull in that common dependency branch
+with the iomap changes, and then put their ext4 changes on top of
+those.
+
+In that case, what's important is not just the base commit id, but an
+explanation of where to find that base commit.  Normally that just
+goes in the cover letter, in human readable form, because I don't
+think we have a lot of automation that tries to deal with that, as a
+subsystem maintianer, reading the cover letter is just fine from my
+perspective.  But if someone wants to propsoe extending the base
+commit with a repo and branch or tag where the commit can be found, I
+guess we could do that.
+
+       	      	       	      		     	   - Ted
