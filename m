@@ -1,80 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176887;
-	b=D2ii0UMZjlk0PWHnp3GjNF0cIPpTxAyjXWhzrwi4WBKsTvGV0dRWO7ONKyeik+BXZbas
-	 MgM/mx8emnL3KfkGxBUmqDzPRCaGMm+TXLdDsb3CU4NchqJFHzq72XefozkxxGkvuRgBy
-	 uWLcw27dqFKBMqO6ChO6GZkN7+znfwb8XojhAZK0lk44DsMqhsEpWkJPFm3ZS9A/QkSge
-	 blHDwnW0OLRTt9PAjUHGTzc2NbHrTTAcHmQ15kHttzgaq6R+CtEILjH6Py00wo/mPkj7k
-	 lot968Ong8d1v/pNchyJ3HQryAKmGx6T57GZMkcR3wwFf/A+Z6eqHkesAsil1Rkw7MA==
+	t=1793176912;
+	b=a6QV/Pz+7riGwYYYLfCd4jxv7Uq3gXwwaPD+kFXujzSusVNDDReuxS6rDh6IRuzpByYL
+	 d1yO4h83VTX/CU4FwXagnbp3JYOMXhDdl5CtYSPdiOlvlBEBRH0i3n6d+O/5eVMIv1UAG
+	 NpGUyIJe3i+4lRoyznCSiiinIqVpXL68gm9c0bgGyG9oqiYuepLm+ouVfdgkCE7i6mbgI
+	 a5hAW1YuWljJA+TFG5YQERTDOCVdeFfMT5ogTZBLidwsOmuMGl5K09UGTh+HzcxoOHI8o
+	 TVBegf5SVc50B/Fn//Sd7nigCUuTVKsmi1SdooWWZjPE0qo2GEbeCHea29CuQ3+XWuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176887;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=JzDymCFq2m8GeSdsBCaxEaw3VPeIifTesv3xlvlZRsU=;
-	b=mxBEGgJPDDhSspXmqtRRFjPhAeksJLp5GWRhMITIQpsFKbxoZ3AbDRGXxO9ZT4jG8xBe
-	 XWzbn2VS5G4IF8bfMrrOurElm/ZRQp1v05qnwMnlK1JVc8z1RVwCfgjtJ3vCiYMKASx4y
-	 MH/tKZC1R8TOsN92JzSSbGvbXARtijjS2Zlw2NfaZD7AagHpg1FMJKD1APJDoRs3DnDaT
-	 77l4EtPrgmm7KiXeAUZnYwBI4Vq/5R0wbcuLMihUYs7AQYV4wBVDhNaYfAlX4Mw9l72Om
-	 6RcIhUNXQUDHfq6I6v0X44BQ7u56tLdLN6t2GZhXZxyKD37kUn+3M3xiTfsvmv7iqfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176912;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=nogWIJdqnyhUp205Hb8BnlBTxvvqLFuP2b+cCj7ngm8=;
+	b=o9IeWBwk4Z3r9FTNmNFyTrsVEfJmI/a5VstRk2jT1Xn+HwQUB/S9cITh7CvRngQhpaNM
+	 HgSjuSgecyRyePRTyJm540sxD478Sm59k6pXSdUvIsjhLBP3F5Ucy3LRLuRBbkaLNUtc/
+	 LbNqZyLxwBOJrsKNks2sQHsSJUjtQx96UjPBT3beschP2xOCXmdZK3twheeh1bmINx85I
+	 fRcsrMFETOzb4+Ch7cFjCf5lZ56eTBbxyGQnGbA+rx4aaO/PpyC3Wn+lLej/lMJACTtat
+	 6jpcj1h8b4ioCZqcSX1whqzFPUVLytYOPaeLGXSzyD56HcYSWZEbvHtgQc//sqOodvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ds8tqWhZ;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aT4KyCjn;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6640606A31F;
-	Wed, 28 Oct 2026 08:41:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6640606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C80D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C80D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ds8tqWhZ
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 9B850C4FECC;
-	Wed, 28 Oct 2026 08:42:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9625560769;
-	Wed, 28 Oct 2026 08:41:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 520A6103290C7;
-	Wed, 28 Oct 2026 09:41:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793176878; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=JzDymCFq2m8GeSdsBCaxEaw3VPeIifTesv3xlvlZRsU=;
-	b=Ds8tqWhZvvYFmQ+UpQMgKqBwdgMFv9QoHA/ftwXysGUxeBcTFREOWKznS5/c87oSvnOHU4
-	jFYoM0ROX3OjPEL1iA2sz26jjx+UnRyS5ZxoYTZfwNVF2KDMZrv38/OTfn8bmp1HWBlSUR
-	GMvEQYPSS65vW3kcXoe7Ym/X9j11KtKDR3N1ZNfhL/RYlXpTR4yEk6nROGu7sTsCyNcG7E
-	Hb+DreDaSxkBpIhF/Tj75HwfqY1SSnuzMrC9iJeYT6JGYtOyF+V+wCwZc2zpKMTbuDfSam
-	O2kCKVOdIgXHF5i+ozcApN8ug2WMsKJDuVeiCqZSfwYRDlUwUZfXNHSEdup61g==
-Date: Wed, 28 Oct 2026 09:41:10 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <20261028094110.2a8133a2@bootlin.com>
-In-Reply-To: <auFgv_f0av-JxMjg@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-9-herve.codina@bootlin.com>
-	<atrTn_I_8O6q9QUW@gractus.seuss>
-	<20261023181533.0c44a57f@bootlin.com>
-	<at6t-l9XYYFfS48T@gractus.seuss>
-	<20261026125615.055e7214@bootlin.com>
-	<auFgv_f0av-JxMjg@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aT4KyCjn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=nogWIJdqnyhUp205Hb8BnlBTxvvqLFuP2b+cCj7ngm8=;
+	b=aT4KyCjnEBnbSEGadIphawaeMYs2LhBEC0W9YJwrPFzxMbvg0YE7qzJQByA73l
+	FKY1roAYU3Jsb9pFiLxqBLjauQfQU4K+956Vq/ukWNPT+3rDpssgtouobp4k8059
+	GGJPj3yKAyptQj5qMHPnDu146JWBirWmTJGSicD2QgJkA=
+Received: from [IPV6:2409:8900:1a83:1c7d:c982:2c1e:474c:2013] (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnf8wzteFqWg_6DA--.60292S2;
+	Wed, 28 Oct 2026 16:41:25 +0800 (CST)
+Message-ID: <100b8d52-f829-46c2-82a4-3516dca07b56@163.com>
+Date: Wed, 28 Oct 2026 16:41:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,108 +54,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ntfs: keep the file size on a failed initialized-size
+ extension
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, zhongling0719@126.com
+References: <20261028080656.1027283-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261028080656.1027283-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:_____wDnf8wzteFqWg_6DA--.60292S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWkKrWxAFy3JF4DXF45trb_yoW8Gw13pr
+	9F9rZIkrs5C34kWrna9w1vqw4Fq3Z7Kw4UGF98uFn2yFykGr1qgF40yrW8uFWktrZ3t3y5
+	tF4DWrW7A34vvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxEfwUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6haNWGrhtTbVGAAA3s
 
-Hi David,
 
-On Wed, 28 Oct 2026 13:41:14 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
 
-...
-
-> > 
-> > Ok, I will rename node->phandle to node->phandle_ and add a comment saying
-> > that phandle_ field must not be accessed directly.  
+在 2026/10/28 16:06, Hongling Zeng 写道:
+> ntfs_extend_initialized_size() only extends the initialized size and
+> never changes the data size, but on a failure it calls
+> truncate_setsize() with the old initialized size, which shrinks the
+> VFS size down to it and drops the page cache beyond that point.
 > 
-> You can even switch it back after you've checked there are no stray
-> accesses to it.
+> None of the callers rolls the shrunk size back.  A buffered write
+> into a hole has nothing to roll back - the data size never changed -
+> so the file keeps the shrunk size even though the data size on disk
+> is intact.  The mmap and named stream callers return without any
+> rollback either.
+> 
+> The sizes did not change, so nothing needs the shrink.  Remove it.
+> 
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/inode.c | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 206db4e99ef1..ac13e8776909 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -2599,8 +2599,6 @@ int ntfs_extend_initialized_size(struct inode *vi, const loff_t offset,
+>   	mutex_lock(&mrec_ni->mrec_lock);
+>   	err = ntfs_attr_set_initialized_size(ni, new_size);
+>   	mutex_unlock(&mrec_ni->mrec_lock);
+> -	if (err)
+> -		truncate_setsize(vi, old_init_size);
+>   out:
+>   	filemap_invalidate_unlock(vi->i_mapping);
+>   	return err;
 
-If I switch it back, why talking about renaming?
+Looks good to me.
 
-Of course, I will do this renaming locally to be sure that I handle all
-users but in the end no commit will rename this field.
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-> 
-> > Related to existing users, I can see check_explicit_phandles() available
-> > in the checks.c file.
-> > 
-> > check_explicit_phandles() could use the new get_node_phandle_exising() with
-> > the caching feature. The only problematic part will be
-> > --- 8< ---
-> > 	if (linux_phandle && phandle && (phandle != linux_phandle))
-> > 		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
-> > 		     " properties");
-> > --- 8< ---
-> >
-> > Indeed, this check is done in get_node_phandle_existing() and the function
-> > returns 0 (invalid phandle) when both properties are set with a different
-> > value. A value other than 0 should be returned by get_node_phandle_existing()
-> > to identify that mismatching properties values.
-> > 
-> > This should not be a big deal if we introduced a new invalid phandle value:
-> >   - 0:
-> >     Invalid value. Can be returned by get_node_phandle_existing().
-> > 
-> >   - ~0:
-> >     Unresolved value (phandle value in properties) or value cached in 
-> >     phandle->node_ for "mismatch 'phandle' and 'linux,phandle' properties
-> >     values". Can be returned by get_node_phandle_existing().
-> > 
-> >   - (~0)-1:
-> >     Invalid value in properties and or value cached in phandle->node_ for Invalid value.
-> >     Will not be returned by get_node_phandle_existing().
-> >     When this cached value is found, 0 will be returned.
-> >
-> > In phandle_is_valid(), those 3 values will be checked to determine if the phandle
-> > value is valid or not.  
-> 
-> Alas, we can't do that.  Which phandle values are valid is long
-> established from the IEEE1275 days, and we can't really change it.  I
-> don't _know_ if there are existing trees out there using 0xfffffffe as
-> a valid phandle, but there could be.
-
-Ok.
-
-> 
-> *thinks*
-> 
-> In some ways it would be elegant for get_node_phandle_existing() to
-> report the various different error conditions separately, but I think
-> the awkwardness of passing that information back to the checks is
-> going to outweigh it.
-> 
-> So, I think we're actually better off separating lookup of phandles
-> from validation.  So get_node_phandle_existing() (or whatever we call
-> it) will return 0 if there's no valid phandle, whether that's simply
-> because it's missing, or there's something malformed.  Separately
-> check_explicit_phandles() will report specific types of malformed
-> phandle properties.
-> 
-> It does result in a little redudant logic, but I think it's the best
-> overall approach for now.
-
-Right. Ok on my side to have this redundancy.
-
-> 
-> > Now last point, renaming get_node_phandle_existing().
-> > 
-> > get_node_phandle() already exist. It get a phandle but also if the node doesn't
-> > have a phandle, it allocate a new phandle value and set node "phandle" or
-> > "linux, phandle" property to this allocated value.  
-> 
-> Ah, sorry, I misunderstood what the "existing" was referring to.
-> 
-> > IHMO, get_node_phandle() should be renamed to set_node_phandle() and
-> > get_node_phandle_existing() should be renamed to get_node_phandle().  
-> 
-> Right, the existing name is bad.  But let's go with
-> get_or_assign_phandle() for the existing one and get_phandle() for the
-> new one.  (The "node" added no useful information and this way they're
-> two new names to reduce confusion).
-
-Ok, will use those names.
-
-Best regards,
-Hervé
