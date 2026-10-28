@@ -1,84 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793167273;
-	b=y9WdsOlp4ZHxUVHVmuEdq6DA5Jd5Bz91DeSXv3t1NdNM16uJsgeyeWKYHqWd7zz+kls9
-	 Beil5CBNCkVdkjkWNAxpYESt2qiO5pWByQcBf2tqnQ2B/N544Wxk2JRYPfW1KbClQdBtT
-	 gZQp60ITf4L80fxSvvg/FgC+5u4DvKiV5GTNKEbxtHFg8374DcxkP8R5pZdVqUb9NRuMm
-	 sk9VQZLIUtofArIh6YisyNe2TtxsQlIZJl4q8n39ms1A0W7fx4iN7odpIeWfCOP9BxhEN
-	 nF+OITydlYs31Wp7oHNATPaHYVs0sVNgpE9C8UKfBW0praa0NQACnuuTcO3KGZbUlKQ==
+	t=1793167268;
+	b=v0DUhjj5M6s4OL8IKZNeORF2OCNG2biAc5vds5Tpaz79EHkdCs6Do/ncI+9x4X2LJSfC
+	 UiaW9eQTbRC1VADVq2wd7gi6E+CnwrMrGv/zd1bkM0bow74OxPYhf6Rr44O6MxcE6Janl
+	 pqhhVPp5M0+qFfA/b5W4nG4+DotpJiM0SLqyXhHLwbCNVE2bpzHL/3NrX42O0RjWhTZIU
+	 GSC+bPRivulcQuivVSiiP25P82CPFJPCBoYo9D5ZQ7iRDG6EWKPJhf2vf1GKZ8NmjhL0b
+	 C+Bfb8Fa6NLEvZmnjm6JymdKqOccHwao5HIfUF+nQDUXIjI9FsMfzAqN+gAaN/gHjtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793167273;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=StQGvmW5dHLeZF+Vv+JIk9DEZOtfvNHFy4b+UUnTT8E=;
-	b=z9e51av0kfbSQEe1CMGBsH6NB3GzIPyAbfmfsKQTLM8rMmwe0mFabdzley+NBePytR48
-	 nHOgCCqIaMEZ74eNiwLkl5BraadpvQjrgHNVoXs9MkGB0Wj/MewYy3wzwTMrzckZA+HxA
-	 ykJWac3uBIf1zxEQwSnxbs7wPbmGWMOHn66daF6VCg5cE0QpLjFv1WkVQQdIv/u8Q7/UA
-	 deIW+gXbnu2/c0yic5o2+dYeICu47AqUglyn/t/a/qxR3jDH38kh7ocqosMWD7WDbASqA
-	 Aosxpzule+BjXesGqhlaGWq7NGW1v9s3MgbLw1CxNoF9r6ydhsu7o8CfoIx6XWtW96g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793167268;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=zkmSvQgjRgfEVY/JcC5npmQaLTOybEfeuFjCjVVR/VM=;
+	b=sZeQYraiVbZC30Dib5FJZA7n1i8Bqy+VYogLArwzOoDUyNpmSKEb+MPCkZG8LpHjlv+m
+	 p2v2MJqHr2eyPG7UzcGwo4yuxc5ekZixccGzuHfldDU7eb7usMz54ZcFjEnGl1AI4KlWI
+	 +7/VGT6VfVhzHx+OFbTW+7Iglpoao3ehM/P2crHoJJTpQTGgq0KqldRxLR3ePe4tmPbrZ
+	 6Y54fB7Zed+9wpwxYpkNYAIEohmBYhV34fGtVBMphw+4aV7VHt6eQHD4D7gABPu59qs/r
+	 JZRUvBhrjZLmCbWHlfBsSxfhK9Dz8dPhv5KLHmb+g8dsCygGV76cPkKzhi93/cYPcGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Da4zzXf3;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=LZBD9eVh;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EA0606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84EA0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394B2606A31A;
+	Wed, 28 Oct 2026 06:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 394B2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Da4zzXf3
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BD4D540E040C;
-	Wed, 28 Oct 2026 06:01:04 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 2D_q4lpLQLMK; Wed, 28 Oct 2026 06:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793167261; bh=StQGvmW5dHLeZF+Vv+JIk9DEZOtfvNHFy4b+UUnTT8E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Da4zzXf3iJuEucJqmcEj+hezNaO8/B3DiVQ0cnTB5YJnrPdfTmHmxdxqrRbPbG1Ql
-	 vUbTtVGcNEGwFcUe8YB4qlW56/D1j7NBBILTfbdTbNzufyiTShYDxA+6UkBACH4/CB
-	 lld/XEuX9T4wHFI8osFB7Rmh4YoQ/x8p30Lfma8yXQ2ModJt0McAOet/FvZ1hweqUM
-	 ikAA7cowsWywEhdPfChzfN7soMJjhchMYb1N9Q/YbDRiwa+l3xq8NNxH3vo1ARWiw5
-	 xl0xmKPd7R3M8G6vCddFP0RFh0Al/AB3ejKzfpmrXnTFQ0MwRc9pEUgyWrKC1qb/nz
-	 1jEK8fAm9h4u2ybJsVq+o4b5dsj5ERs53OoaY4RTXRm/up525lBk+6C3F6zanWqK+Z
-	 d7DYSYWQ61evsjB9BwsxXOZrrdkb9ewjovzq0E29fAFt24QIyQFDVUs7aURfeoBRxo
-	 sMOyf5amfs6eoGZ+eqLuiScylHWpikLxLpRXOPquQZRd4aaj3d8kcZ1PCe+gOYqZ47
-	 5Ohuu2s/vM/FHRuV52ATuZUfjTnMgrRUcHddFrjSxkB9R5iMareOJDZD5YOtLeslVi
-	 1HN1UIrI0FM0Y5Ktvtr9rMljtv0BXQYoB0TuWrnfn23w6Em42NZ2I/SblBgwhVhYyy
-	 VMPxCRxj2fh7qnvjWhteZB+4=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8CD2A40E021A;
-	Wed, 28 Oct 2026 06:00:45 +0000 (UTC)
-Date: Tue, 27 Oct 2026 23:00:42 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev
-Subject: Re: [PATCH v1] x86/vmware: Fix i386 high-bandwidth hypercall
- arguments
-Message-ID: <20261028060042.GCauGPirK7ePNeTGF0@fat_crate.local>
-References: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
- <CABQX2QMNetg9iYRRsQmeM3+1tnC94ccWM=450wMZL_sUbqAJtA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=LZBD9eVh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=zkmSvQgjRgfEVY/JcC5npmQaLTOybEfeuFjCjVVR/VM=; b=
+	LZBD9eVh3RmQ+5OxYlgMEjDgxOOtbTfuqZvFCDsVF58NoXpJjpOBc/yC94b7zu2G8wLNQLAcoRIaA
+	YAkG/AU+F735JOwyrd+hSPK/9EIcCqGBruwp3I6T0IuR+uodK+iXGfk5iwCjiJ6VK9LHB7nsSv5Km
+	g8/zNJ0URhufRyRrLiaj6MI4MT9ZQ/sUJEyc3/cBWkd/w/0J1J8mjjYBxu+CFNEHG0pvT995gH5pM
+	IMkiIz5q6dsLvunYQ+fpLlqYRvc+d3QhjSKti8ziy3KwPT9jFqKXVNL77vYcVz0klXj6VYDnqyCVW
+	03OQwE6Ukw2flgbiXCEvpnQyZ7ehtWDKDQ==;
+Received: from [58.29.145.179] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xLwiT-00CYlo-3x; Wed, 28 Oct 2026 07:00:54 +0100
+From: Changwoo Min <changwoo@igalia.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	david.dai@linux.dev,
+	Gavin Guo <gavinguo@igalia.com>,
+	bpf@vger.kernel.org,
+	sched-ext@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	changwoo@igalia.com,
+	kernel-dev@igalia.com
+Subject: [PATCH bpf-next 0/3] selftests/bpf: libarena: Add ordered-walk and lockless-peek support to the rbtree
+Date: Wed, 28 Oct 2026 15:00:43 +0900
+Message-ID: <20261028060046.549097-1-changwoo@igalia.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,28 +78,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CABQX2QMNetg9iYRRsQmeM3+1tnC94ccWM=450wMZL_sUbqAJtA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 11:34:23PM -0400, Zack Rusin wrote:
-> Gentle ping on this one. It's a stable fix for the i386 high-bandwidth
-> hypercalls (vmwgfx uses them), Maaz reviewed it, and it still applies
-> cleanly to v7.3. The hypercall cleanup series I'm about to post moves
-> this assembly out of line and is based on it, so it would help to know
-> whether it's queued or needs changes.
+A sched_ext scheduler can build a task queue on libarena's rbtree, keyed
+by vtime, in place of a vtime-ordered DSQ. Such a queue needs three things
+the tree lacks. This series adds them:
 
-Sashiko complains about some pre-existing issues:
+- Serve equal keys in insertion order, as vtime-ordered DSQs do (1/3).
+- Cache the leftmost node and the node count, so that other CPUs can
+  peek at the head and the length without the writer's lock, like
+  scx_bpf_dsq_peek() and scx_bpf_dsq_nr_queued(). Add rb_init() and
+  rb_fini() for a tree embedded in another object (2/3).
+- Add rb_next(), so that a consumer can walk past tasks it cannot run
+  in key order (3/3).
 
-https://sashiko.dev/#/patchset/4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin%40broadcom.com
+Each patch adds selftests, which run with:
 
-Please address them: if valid, you should see about fixing them, if not,
-explain why they don't need to be fixed.
+  $> ./test_progs -t 'libarena/test_rbtree*'
 
-Thx.
+Changwoo Min (3):
+  selftests/bpf: libarena: Order equal rbtree keys FIFO
+  selftests/bpf: libarena: Cache the rbtree's leftmost node and count
+  selftests/bpf: libarena: Add rb_next()
 
+ .../bpf/libarena/include/libarena/rbtree.h    |  82 ++++-
+ .../bpf/libarena/selftests/test_rbtree.bpf.c  | 300 ++++++++++++++++++
+ .../selftests/bpf/libarena/src/rbtree.bpf.c   | 138 ++++++--
+ 3 files changed, 493 insertions(+), 27 deletions(-)
+
+
+base-commit: 4169c9c90532df9585c0a2ae513337a58f5e59ab
 -- 
-Regards/Gruss,
-    Boris.
+2.56.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
