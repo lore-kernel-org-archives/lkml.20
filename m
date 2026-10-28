@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224597;
-	b=ZgziY/kuHV3f4/FX5pLPZrmnJs0mZajl/uOlX+UvrwyjtPxAxJxjraRq0QZ9dzmL05Ti
-	 9xII2nbPAJQSK3nCd5wTPhGRcX+KhIJRqQYD2enNA89xM3ffD5mHczNyezWGkkOYu9HTA
-	 QcLDNvPWOyAMgKvMdfl6W9ImSFZ1y4/rJY4xXxL6/nMRT8XxcwBl302BuO0q3lLr/0y7w
-	 EJIv5/0IUXPyVLcfWEjrO4hSqM0MR0BgDIVRcPaVFdyjXdXeE6BEtXJ8RY3Ar0skJxmPL
-	 Yju2xvzYH57qAOlWo9XVA8Nl27BH0RwUhvo7qqDsFTc0UMd+Aei/Kfz+M4fIj4TAsrQ==
+	t=1793224589;
+	b=IE+91yorM7wbn1OPjkuzGZQSJgI1A/i45lsBPBGSujvHpsUQFYt/51kLaMwEDl8w+Ips
+	 2XZKFbJTGsDZaMZqwLpzD4TbDOjcW35y+0HkkqDdHATDwCYtVfc1kJ9X6aG1HrbjOybeT
+	 w4OGdNQ05tiyVU1Gw4ne/ocRURNgWz/HkihjkM1tVTTJNXThBKAE/Brt5UGSl4MDamB/0
+	 s7CP264+X7RDDvCOqfoG2IuOoI6JhH5JEe44YKyvDWFvYQPovbfQzxko50ClJeffQkBCz
+	 5NvWdYRmEG6GStTMtJrWsAFqKBZWRJbWj/UU1CXjIs6hMA5EgByRtT5NozIchT5Wu4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224589;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wGgB/ijUDwBxHekK4j1T2Y6PnrD7TnIyhzZKvUfUubQ=;
-	b=HCM9o40bcIatKLOoAXyH7+z3XUQMNFPfomH/x7lmFGeymiOvAsXrK1RDvmzMkuXpCIz9
-	 Jhp5whcwNRNB8x1MkgTedOPkfUPCG28uRApcj0VXwuc8KqV/q6fum1l1bvDElBOPi5I5X
-	 tF8zTlDPE34Fev4lR2X8bJ0z3fq98ryU3wpftMdVnx2ykqxv+ujoce1F8mrH1BwR5UcVV
-	 GL3sJHOIXF+zsYVj5vCH9WDHFuOcih63/dMoLhLLlU2rgFIcQQpBCYFWV3F86WFhWUu02
-	 e8m2hvXbO189Uw2FoaX4QXd1S5AyJewq2PBq4ebVzfP39gDdThCSzDizaujiIqJ+G7w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+	b=d4+nrB4PMp/wgCetl9Ad7shBh41wCwpmikZdhAmcaxnBRzJR1rpMwUZJ+FXCce0YOYEj
+	 2YTpAfYPC0qB74qo5cx4YGQJT+0ZNmSEg9mAmMhHk1YHnUQLHhMZqhP1ZUygcN+8Q5ruT
+	 TGmyioiuPDHBXXLFwzCaNxzTFp/gkVISpoKWpdjeeu2lucgG08ZiWN0DAZtccHtRLDj+J
+	 k3TBu0WWdP3qFJPvegZ2uzgKHj5bh4IaqDupGNLQRpZ3sSnIZbyeq12MalaP5KgHY9HNC
+	 p2feITQuOavuhiuDBaF4uaacn8WsCpeDgAQG1E1qNmDwkhBy/0/JRu2E/7wC6l0PPog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ivtdJ4rZ;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D22560A2638
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D22560A2638
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130B960A2606
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130B960A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ivtdJ4rZ
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-369f33df08eso2755014eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:36 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a17a332ecso2050066eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793224596; x=1793829396; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wGgB/ijUDwBxHekK4j1T2Y6PnrD7TnIyhzZKvUfUubQ=;
-        b=ivtdJ4rZr4dfQ2s9Ibo+4/l8uRFNhFiYrI+7GFNKCeucZXc6S+2AFQpKaZeDvNGPOx
-         iKji4CeYJS8aqAlj13P/1IuWko7mlKMIsHXD5Je1d1+ZTKzDru4v43/N/n78WviRWCmA
-         LrP8ei//GGqj3zZJT0/UBnp+SeTvKQEbxzp5s=
+        d=chromium.org; s=google; t=1793224587; x=1793829387; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+        b=Dam7nWgrXb7+KZguosSLcJIwgRURctcRj9WnpX4bkBxB1Ar/mIxd6vrzjvqFMun7F6
+         7GHpXOlrzYP6rs3eplIgnny4CLTWS8rRVWLP06F71rdP8syr+EVZ6LJm0luVzagNjbGy
+         xmzexiLS9ysGJ1l2/yiVsqqB0CoElpoLWuTcM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224596; x=1793829396;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wGgB/ijUDwBxHekK4j1T2Y6PnrD7TnIyhzZKvUfUubQ=;
-        b=qy4/xKyxvDqDJcmokjjF25Ekx60KXgzK/8sJJmqeMANm1FQzZwQBR+3b7ZWOhkdWq2
-         NOiduZbwASywG4XjFVcWPUfPPHVmq1FjmG07JJcLCE/03GYB2ScBbO/4M0A/TTDSrMvD
-         chznICBPmmoupQ3Yg2T6sKHmH056/8qgE71OED++BAGlBEnC61gxojaEwyElDL6+tEmx
-         k71uXL+9j9Ehp0qIrLxWvKvvInGZQz9/dS5ToDNofVPPBMTluhZIsw0BdnoxxnN/g1T3
-         xl8RgQWj/SaiGIDpiQWPt4r2ADE4Ze8YNOr4QEBe6qiKT6jxyV6iwdDJkdYgmGBXmOk1
-         oFUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwlD9e7qH9K3JyF+zDQimGuqaglFeOLZ6anoEaLOQ54hLilbgY75A0Unv3tLLjAy3CdqlY+zLAZDN4k4/c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIN4JNGgOsiO7Y8w6z4+nwfnWLt86HnZL3jCP1Q3s0eC33T7Zxd
-	Z8KlX0RTSLlLDddO2L+jo9/CuV9YU2e+V51ehaA+f7+j0On3xeuGesaBz1j16ihxnQ==
-X-Gm-Gg: AYBFou1X175M9Heev94GfkbHrneRDhrBHXOZc7CzP7J8vb0s1zNs0pAfuywSvJAAGlm
-	UsfZEDcc5DNPA+9oYXtil9xR5seF2YRTniIrS9cbNZGe9N7qfDsLyvi9/7ILsoTrqqhmweh/LF5
-	CGP45REV7YzHA933wc4aBTkw9JdpjcMM/+3iYVboq6JMuIu6awOL//W/VtqarfVETHigARn4UzM
-	oTZWOW+4kAvw0BT7N3kG1es1fwhNbZN9NaRRZnBC9H0WrBqtEs4HXdRsiwj/N5IKZrHD1fnMRSy
-	AcYYcUACg0/jLTgRkiVi2A5eOSm5Wjlj3zY69zyxlHdDyrdS4r7cS4K/qfOT3mB7Hmw4EjdVwPp
-	7du2E227Uv++De4AhdfZju0X7rytywkfAILyGcek7f8ZUL6kPTq6C8QcmlanBtvMNogtr2TZy/+
-	ozXh8krzKfzEPhZaphM1YshFfipJgOu6F9IuUFao8C/mvpqw4xu3xtKzyO2AV1Y+ApFvjzrcQWY
-	O+n/wFLEdhjnhNuESxRi/0MQnaecz/kCBYuh81cge07TvIBv/p4ykEPJPpYSaR2xyz+s4tZJxsV
-	X1g1vwcuAhOjahErc4+kNapirvYxPrB9jNsNPtJ0XMFmOclb4vcIViddbXwbIFEhx5/phcNykPP
-	P3P42BX+9V+FlGvuJ3bP4CAE5Wo/GWo9EHQ==
-X-Received: by 2002:a05:7300:680e:b0:35e:f4ac:5f8e with SMTP id 5a478bee46e88-36a1fd4cbecmr4361952eec.0.1793224595280;
-        Wed, 28 Oct 2026 14:56:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793224587; x=1793829387;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+        b=BrbcBOr0g80JgHD1Am50jC3NMFIG3ygEB4IaEESVcxPq9a22Tqd7cPBX3IeaLN/4hj
+         Gr4nJ/we+0eGqznaVeJQ2VXDENLMgtNzX81l5ZJkrLXsiJE1/69Eh0vfJT+hDNFxny66
+         C+ghHldXtNyKntfYAgH5fKoZo1t/6gaLcygNeGCTmQNCzMY7SW/2PtPYkD8SaO8qsm7Z
+         q62WL0KPhA7KXeEbYWaT6wLpeMi8HN0VL0cN1HIsjII3HgNCvq3cOhhKzEin+WYvfcpx
+         EmOFsR8ts4e0Oygzs6FnlhfYz9AnWO79okUgZ1xU1hXdsur+0tJ48h6KRtYG0NYNMT4T
+         7Tpw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0p5z3I3xC7T2Ujz+SQHJHATPzjr3etvszxEmkA9EjvqOwSRitqPLRGWWESN4IXCTzTNWolqxfoNqvo1g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAJ/KbYkQQlzb6dJ420fIL4vTG+hWCEUe0Q5y4KW5j3TYw40/R
+	IMZACJxJPXQ8oQUB67VsgG2uvm3Tt54XMzPzeUMlFjMR8rNgSdQ0NihITRU3WPvcfw==
+X-Gm-Gg: AYBFou0MnLQtD3yf4ncolGQs2vfknfAWcEQNLcvz1tWGiIzta1iF1hdGhSout1R612L
+	1VEEmy/GJzOxtL/FNzkCokEAwTK8pSztsgObdTWjq8eKzYOZpUnb9PvE7aBwNUzyszWh2li3dJB
+	mDQURsHS+MeH9Jt5CAkKTXcsM8h1+Ov8GgSS4aYiFMS5ff9Xj2VLueVpp2OwSUKlNOjLHnAGExR
+	RgwidDLv6gct8qeK2loKEQNFc2rhy1k1x5fD+hj8IdcXSNweEwMW3zDRnP7p6N0/NuwmLvUxgSY
+	90w4EBjgI4/YPDyvxgGLZsjHKCVWRyrPjfLLtxhe9IyWeINIT0qCj1VlYyG0z4WHROGD6SCr6FQ
+	2gXc5iq0hHHzG9kmC/LrOyBp6yllyNXi8tOFO6ogq9E1npXwPOjE5VJ9BjHI6Lt5kSb25vA6lSX
+	Pd7kHWU+c+RM4TO+6oqL0CbmdXhTQeFDLX/oerxJUCa8AUG9q7GXgoi+N7bZqWLZ7c0o/bL77mr
+	1sgP4MJD2CJ50oFDwDuqfBejzH1c9vYasSTxIiwPYKg0e57Frx/jCeMpskqClZUctsDknE12FAo
+	20m7vUQuMxmSW7j2/OM08DLcmAY0deUb60oWZUFiW5xHnx+HdPTGLmyXdBr3QbgU6PEXwDtfiNZ
+	kwbQeAjWH1hAA
+X-Received: by 2002:a05:7300:8aa0:b0:36a:168a:96c4 with SMTP id 5a478bee46e88-36a1ffc56efmr5102572eec.1.1793224587050;
+        Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:19e7:c87:2527:4e12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:56:33 -0700 (PDT)
+        Wed, 28 Oct 2026 14:56:26 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,12 +94,10 @@ Cc: Brian Norris <briannorris@chromium.org>,
 	Saravana Kannan <saravanak@kernel.org>,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v2 03/10] pylibfdt: Add NodeTree live tree representation
-Date: Wed, 28 Oct 2026 14:46:52 -0700
-Message-ID: <20261028215600.1713475-4-dianders@chromium.org>
+Subject: [PATCH v2 00/10] fdtfactor: Introduce fdtfactor to auto-factor overlays
+Date: Wed, 28 Oct 2026 14:46:49 -0700
+Message-ID: <20261028215600.1713475-1-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-In-Reply-To: <20261028215600.1713475-1-dianders@chromium.org>
-References: <20261028215600.1713475-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,391 +107,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add `NodeTree`, an in-memory live tree representation of a devicetree
-node and its subtree, to `pylibfdt`:
 
-- `NodeTree.unflatten(fdt, offset=0)` builds a `NodeTree` hierarchy from
-  an `FdtRo` instance.
-- `NodeTree.flatten(mem_rsv=(), boot_cpuid_phys=0)` serializes a root
-  `NodeTree` back into a packed FDT blob via `FdtSw`.
-- `get_node()`, `create_path()`, and `walk()` provide path lookup,
-  intermediate node creation, and pre-order traversal.
-- `get_str()`, `set_str()`, `get_stringlist()`, `set_stringlist()`,
-  `get_u32()`, `set_u32()`, `get_u32_list()`, and `set_u32_list()`
-  provide typed property access and mutation (updating
-  `Property.as_str()` and `Property.as_stringlist()` so empty `b''`
-  properties raise `ValueError` or return `[]` rather than
-  `IndexError`).
+Devicetree overlays exist at both the source level (via `/include/` and
+`.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
+applied to a "base" `.dtb` at runtime to add or modify nodes).
 
-Add unit tests in `tests/pylibfdt_tests.py` covering `NodeTree`
-unflatten/flatten round-tripping and helper methods.
+Binary `.dtbo` overlays were created by transcribing source-level
+overlay semantics to `.dtb` blobs to serve two main use cases:
 
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+1. Supporting add-on boards (like "hats" on a dev board), where a base
+   board's `.dtb` is combined with an add-on board's `.dtbo` at boot or
+   runtime (a use case that Hervé Codina's upcoming "addons" work aims
+   to model more cleanly).
+
+2. Allowing constrained bootloaders or firmware images to support a
+   "family" of similar boards in a space-efficient way without shipping
+   a full `.dtb` for every variant. In upstream Linux, for example,
+   there are 47 distinct sc7180-trogdor boards supported. At the source
+   level these boards share common `.dtsi` files, but we still compile
+   (and ship) 47 separate full `.dtb` blobs. Binary devicetree overlays
+   can make this much more efficient by factoring the common bits into a
+   single base `.dtb` and representing each of the 47 boards as a small
+   `.dtbo` overlay.
+
+Even though `.dtbo` overlay semantics are a natural fit for case #2
+(since they derive from source-level `.dts` overlays, which were
+designed for board/SoC families), upstream Linux has mostly reserved
+compiled `.dtso` -> `.dtbo` overlays for case #1. Many Android phones
+attempt to use `.dtso` overlays for case #2 by describing the SoC as the
+base devicetree and describing boards in `.dtso` overlays, but forcing
+the binary base/overlay split into the source files has drawbacks: there
+is still lots of duplication between board overlays, and upstream
+reception towards structuring board source files this way has been
+lukewarm [1].
+
+This patch series introduces a tool to decouple binary `.dtbo`
+generation from `.dts` source structure. The idea (suggested by Konrad
+Dybcio at LPC) is to continue to represent all the boards in a family as
+normal standalone device trees in source code (using `.dtsi` includes as
+makes sense for human readability). Then, after building the full `.dtb`
+blobs, `fdtfactor` automatically factors them into a common base `.dtb`
+and a set of per-board `.dtbo` overlays.
+
+This tool has quite a few advantages over other solutions:
+1. No change to the way device trees are stored / arranged upstream.
+2. No need to deal with some of the awkwardness / limitations of
+   overlays.
+3. Better savings than just a simple partitioning, like between SoC and
+   boards.
+
+I've used this tool to reduce sc7180-trogdor device tree files (which
+are stored lz4 compressed) from 1.71 MB to 213 KB, an 87.5% savings.
+
+To compare against the manual SoC-base + board-overlay split used by
+downstream Android kernels, I also tested `fdtfactor -S` on the
+downstream Pixel 10 family device trees (29 physical hardware board
+variants: 27 phone variants across Pixel 10, Pixel 10 Pro, and Pixel 10
+Pro XL plus 2 socketed dev board variants) by combining the downstream
+base + overlays into full board DTBs and re-factoring them with
+`fdtfactor -S`:
+
+* Just B0 silicon (29 boards):
+  - Full unfactored DTBs (29 `.dtb`s): 26.30 MB uncompressed (5.28 MB
+    lz4)
+  - Downstream manual SoC base (`lga-b0.dtb`) + 29 board `.dtbo`s:
+    8.06 MB uncompressed (1.66 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 `base.dtb` + 29 `.dtbo`s):
+    3.27 MB uncompressed (668 KB lz4) -- 2.48x smaller than the manual
+    SoC split (and 3.68x smaller across the 27 phone boards alone, where
+    average overlay size drops from 252 KB to 44 KB uncompressed, or
+    52 KB to 9.1 KB lz4).
+
+* Both A0 and B0 SoC steppings:
+  In practice, phone Proto boards (8 variants) only ever use A0 silicon,
+  phone EVT1.1+ boards (15 variants) only ever use B0 silicon, and only
+  phone EVT1 boards (4 variants) and the socketed dev boards (2
+  variants) can have either A0 or B0 silicon -- giving 35 realistic
+  (board, stepping) combinations (14 A0 + 21 B0), compared to 58 for a
+  naive 29 x 2 cross-product:
+  - Full unfactored DTBs (35 `.dtb`s): 31.71 MB uncompressed (6.37 MB
+    lz4)
+  - Downstream manual split (2 SoC bases `lga-a0.dtb` + `lga-b0.dtb` +
+    29 board `.dtbo`s): 8.78 MB uncompressed (1.79 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 shared `base.dtb` + 35
+    `.dtbo`s): 4.00 MB uncompressed (855 KB lz4). This could likely be
+    improved more with multiple levels of overlays, but we're already
+    2x smaller than what downstream is doing today.
+
+NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
+an optimization. On Android phones like Pixel 10, the bootloader logic
+bakes in the need for overlays. Specifically, if we want to be able to
+build a single image that supports multiple boards and have the
+bootloader auto-construct the right devicetree, we need the boards to be
+represented by overlays. This fdtfactor tool can make that a reality.
+
+The fdtfactor tool can either work directly on a set of compiled
+devicetree files or it can work on a FIT (flattened image tree) file.
+The idea is that you'd create the FIT file containing all of the
+duplicated devicetree files and then fdtfactor would "optimize" them.
+
+Before introducing `fdtfactor` itself, the series starts with a few
+preparatory patches: adding Python iterators and a `NodeTree` live-tree
+abstraction to `pylibfdt`, and teaching `libfdt`'s `fdt_overlay_apply()`
+to update `/__local_fixups__` on the base tree so overlays can be
+applied in multiple stages.
+
+I'll freely admit that the patches in this series were pretty heavily
+vibe coded. I'll not pretend that I have a deep understanding of the
+intricacies of how overlays are implemented. That being said:
+* I've spent quite a bit of time reviewing the code from a high-level
+  perspective: confirming that functions are well documented, well
+  structured, and make sense.
+* I believe that what the tool is doing and how the tool is used make
+  sense.
+* I have had quite a number of internal "the AI reviews the AI" rounds
+  to the point of diminishing returns.
+At this point, I'm not embarrassed to put my name behind this. While I
+won't promise that there are zero cases of the AI doing something really
+stupid, I'd be willing to bet that the end result is better (and cleaner
+/ better structured) than what I would have coded up if I had spent a
+few weeks doing this on my own.
+
+[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
+
+v1: https://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
 
 Changes in v2:
+- New patch fixing FdtSw.as_fdt() buffer resize when < 4 bytes remain
+- New patch adding FdtRo.subnodes(), FdtRo.properties(), and
+  FdtRo.get_mem_rsv_list()
 - Split NodeTree live tree representation out of fdtfactor into
   pylibfdt (David Gibson)
+- New patch factoring out overlay_parse_fixup_entry() and
+  overlay_split_fragment_path() helpers in libfdt/fdt_overlay.c
+- New patch tightening fixup offset parsing and generalizing
+  overlay_split_fragment_path() for non-NUL-terminated paths in
+  libfdt/fdt_overlay.c
+- New patch updating base /__local_fixups__ in libfdt
+  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
+  (David Gibson)
+- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
+- Store parsed trees directly in NodeTree with node.phandle and
+  node.fixups attributes instead of parallel dicts (David Gibson)
+- Extract phandles in a separate pass after unflattening and reject
+  legacy linux,phandle properties (David Gibson)
+- Exclude non-root common phandle nodes lacking a common symbol from
+  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
+  Gibson)
+- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
+  a dedicated fdtfactor test suite (David Gibson)
+- Split -S/--strip-local-fixups into a separate opt-in patch (David
+  Gibson)
+- Add --base-compression to explicitly control base.dtb compression
+  while documenting auto-detection from --base-dtb's filename suffix
+  (David Gibson)
+- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
+  (Simon Glass)
+- Drop "tests: Fix Python test environment setup in meson.build"
+  (applied upstream by David Gibson)
+- Clarify source-level (.dts/.dtsi) vs. binary-level (.dtb/.dtbo)
+  overlay history in cover letter (David Gibson)
+- Add Pixel 10 (Tensor G5) base + overlay comparison numbers to cover
+  letter (Simon Glass)
+- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
+  FIT mode in the --help description (David Gibson, Simon Glass)
+- Reject signed FIT images with signature* subnodes (Simon Glass)
+- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
+  common-prefix heuristics (Simon Glass)
+- Compare FIT group node overlap against the group's common node set
+  instead of only the first entry (Simon Glass)
+- Document in README.md that U-Boot's boot_get_fdt_fit() currently
+  requires FIT overlays to be uncompressed (Simon Glass)
 
- pylibfdt/libfdt.i       | 262 +++++++++++++++++++++++++++++++++++++++-
- tests/pylibfdt_tests.py |  54 +++++++++
- 2 files changed, 315 insertions(+), 1 deletion(-)
+Douglas Anderson (10):
+  pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full
+  pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
+  pylibfdt: Add NodeTree live tree representation
+  libfdt: overlay: Factor out fixup and fragment path parsing helpers
+  libfdt: overlay: Prepare fixup and fragment path helpers for reuse
+  libfdt: overlay: Update base /__local_fixups__ on apply
+  fdtfactor: Add tool to split DTBs into a base DTB and overlays
+  fdtfactor: Add -S/--strip-local-fixups option
+  fdtfactor: Support compressed DTB inputs and outputs
+  fdtfactor: Add compiled FIT image factoring support
 
-diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-index 0db7110b4a38..f511c61746e3 100644
---- a/pylibfdt/libfdt.i
-+++ b/pylibfdt/libfdt.i
-@@ -929,7 +929,7 @@ class Property(bytearray):
- 
-     def as_str(self):
-         """Unicode is supported by decoding from UTF-8"""
--        if self[-1] != 0:
-+        if not self or self[-1] != 0:
-             raise ValueError('Property lacks nul termination')
-         if 0 in self[:-1]:
-             raise ValueError('Property contains embedded nul characters')
-@@ -937,6 +937,8 @@ class Property(bytearray):
- 
-     def as_stringlist(self):
-         """Unicode is supported by decoding from UTF-8"""
-+        if not self:
-+            return []
-         if self[-1] != 0:
-             raise ValueError('Property lacks nul termination')
-         parts = self[:-1].split(b'\x00')
-@@ -1210,6 +1212,264 @@ class NodeAdder():
- 
-     def __exit__(self, type, value, traceback):
-         self._fdt.end_node()
-+
-+
-+class NodeTree:
-+    """In-memory live tree representation of a devicetree node and its subtree.
-+
-+    Attributes:
-+        props: Dict mapping property name (str) to raw property value (bytes).
-+        children: Dict mapping child node name (str) to child NodeTree.
-+    """
-+
-+    def __init__(self):
-+        self.props = {}
-+        self.children = {}
-+
-+    @classmethod
-+    def unflatten(cls, fdt, offset=0):
-+        """Unflatten an FdtRo subtree starting at `offset` into a NodeTree.
-+
-+        Args:
-+            fdt: An `FdtRo` (or `Fdt`) instance.
-+            offset: Starting node offset (default 0 for the root node).
-+
-+        Returns:
-+            A `NodeTree` representing the node at `offset` and its descendants.
-+        """
-+        node = cls()
-+        for prop in fdt.properties(offset):
-+            node.props[prop.name] = bytes(prop)
-+        for suboff in fdt.subnodes(offset):
-+            node.children[fdt.get_name(suboff)] = cls.unflatten(fdt, suboff)
-+        return node
-+
-+    def _flatten_subtree(self, sw, name):
-+        """Recursively write this NodeTree and its children into an FdtSw.
-+
-+        Args:
-+            sw: An `FdtSw` sequential-write instance.
-+            name: Node name for this subtree (empty string `''` for root).
-+        """
-+        with sw.add_node(name):
-+            for prop_name, val in self.props.items():
-+                sw.property(prop_name, bytes(val))
-+            for child_name, child_node in self.children.items():
-+                child_node._flatten_subtree(sw, child_name)
-+
-+    def flatten(self, mem_rsv=(), boot_cpuid_phys=0):
-+        """Serialize this root NodeTree into a packed FDT byte string.
-+
-+        Args:
-+            mem_rsv: Iterable of (address, size) tuples for the FDT memory
-+                reservation block.
-+            boot_cpuid_phys: Physical boot CPU ID for the FDT header.
-+
-+        Returns:
-+            Serialized FDT blob as `bytes`.
-+        """
-+        sw = FdtSw()
-+        for addr, size in mem_rsv:
-+            sw.add_reservemap_entry(addr, size)
-+        sw.finish_reservemap()
-+        self._flatten_subtree(sw, '')
-+        fdt = sw.as_fdt()
-+        fdt_set_boot_cpuid_phys(fdt._fdt, boot_cpuid_phys)
-+        fdt.pack()
-+        return bytes(fdt.as_bytearray())
-+
-+    def get_node(self, path):
-+        """Look up a descendant NodeTree by path without modifying the tree.
-+
-+        Follows the slash-separated node names in `path` starting from `self`
-+        (leading, trailing, and repeated `'/'` characters are ignored, so
-+        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically, and `''` or
-+        `'/'` returns `self`). If any component along `path` is not present in
-+        `children`, returns `None`.
-+
-+        Args:
-+            path: Slash-separated node path starting from `self` (e.g.
-+                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-+
-+        Returns:
-+            The `NodeTree` at `path`, or `None` if not found.
-+        """
-+        node = self
-+        for part in path.split('/'):
-+            if not part:
-+                continue
-+            node = node.children.get(part)
-+            if node is None:
-+                return None
-+        return node
-+
-+    def create_path(self, path):
-+        """Return the descendant NodeTree at `path`, creating missing nodes.
-+
-+        Looks up a child or deeper descendant `NodeTree` by following the
-+        slash-separated node names in `path` starting from `self` (leading,
-+        trailing, and repeated `'/'` characters are ignored, so
-+        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically). If any
-+        node along `path` does not exist yet in `children`, a new empty
-+        `NodeTree` is created for it automatically (similar to `mkdir -p`).
-+        Passing `''` or `'/'` returns `self`.
-+
-+        Example:
-+            root = NodeTree()
-+            # Automatically creates root.children['soc'] and
-+            # root.children['soc'].children['i2c@4000'], and returns the
-+            # 'i2c@4000' NodeTree.
-+            i2c = root.create_path('/soc/i2c@4000')
-+            i2c.set_str('status', 'okay')
-+
-+        Args:
-+            path: Slash-separated node path starting from `self` (e.g.
-+                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-+
-+        Returns:
-+            The `NodeTree` instance at `path`.
-+        """
-+        node = self
-+        for part in path.split('/'):
-+            if not part:
-+                continue
-+            if part not in node.children:
-+                node.children[part] = type(self)()
-+            node = node.children[part]
-+        return node
-+
-+    def walk(self, path=''):
-+        """Yield `(path, node)` pairs for this subtree in pre-order.
-+
-+        Args:
-+            path: Path prefix for `self` (defaults to `''` for the root node,
-+                producing paths like `''`, `'/soc'`, `'/soc/i2c@4000'`).
-+
-+        Yields:
-+            Tuple of `(path, node)` for `self` followed recursively by each
-+            descendant `NodeTree`.
-+        """
-+        prefix = path.rstrip('/')
-+        yield path, self
-+        for name, child in self.children.items():
-+            yield from child.walk(f'{prefix}/{name}')
-+
-+    def get_str(self, name):
-+        """Return property `name` decoded as a NUL-terminated UTF-8 string.
-+
-+        Args:
-+            name: Property name to look up in `self.props`.
-+
-+        Returns:
-+            Decoded string value (without the trailing NUL byte).
-+
-+        Raises:
-+            KeyError: If `name` is not in `self.props`.
-+            ValueError: If the property value is not a single NUL-terminated
-+                UTF-8 string.
-+        """
-+        return Property(name, self.props[name]).as_str()
-+
-+    def set_str(self, name, val):
-+        """Set property `name` to a NUL-terminated UTF-8 string.
-+
-+        Args:
-+            name: Property name to set in `self.props`.
-+            val: String value to encode as UTF-8 with a trailing NUL byte.
-+
-+        Raises:
-+            ValueError: If `val` contains embedded NUL characters.
-+        """
-+        if '\x00' in val:
-+            raise ValueError('String value contains embedded nul characters')
-+        self.props[name] = val.encode('utf-8') + b'\x00'
-+
-+    def get_stringlist(self, name):
-+        """Return property `name` decoded as a list of NUL-separated strings.
-+
-+        Args:
-+            name: Property name to look up in `self.props`.
-+
-+        Returns:
-+            List of decoded UTF-8 strings (`[]` if the property is empty).
-+
-+        Raises:
-+            KeyError: If `name` is not in `self.props`.
-+            ValueError: If a non-empty property lacks NUL termination.
-+        """
-+        return Property(name, self.props[name]).as_stringlist()
-+
-+    def set_stringlist(self, name, vals):
-+        """Set property `name` to a NUL-separated list of UTF-8 strings.
-+
-+        Args:
-+            name: Property name to set in `self.props`.
-+            vals: Iterable of strings to encode as NUL-terminated UTF-8.
-+
-+        Raises:
-+            ValueError: If any string in `vals` contains embedded NUL
-+                characters.
-+        """
-+        vals = list(vals)
-+        if any('\x00' in v for v in vals):
-+            raise ValueError('String value contains embedded nul characters')
-+        self.props[name] = b''.join(v.encode('utf-8') + b'\x00' for v in vals)
-+
-+    def get_u32(self, name):
-+        """Return property `name` decoded as a single big-endian uint32 cell.
-+
-+        Args:
-+            name: Property name to look up in `self.props`.
-+
-+        Returns:
-+            Integer value of the 32-bit cell.
-+
-+        Raises:
-+            KeyError: If `name` is not in `self.props`.
-+            ValueError: If the property length is not 4 bytes.
-+        """
-+        raw = self.props[name]
-+        if len(raw) != 4:
-+            raise ValueError(f'Property {name!r} length {len(raw)} != 4')
-+        return Property(name, raw).as_uint32()
-+
-+    def set_u32(self, name, val):
-+        """Set property `name` to a single big-endian uint32 cell.
-+
-+        Args:
-+            name: Property name to set in `self.props`.
-+            val: Unsigned 32-bit integer value.
-+        """
-+        self.props[name] = struct.pack('>I', val)
-+
-+    def get_u32_list(self, name):
-+        """Return property `name` decoded as a list of big-endian uint32 cells.
-+
-+        Args:
-+            name: Property name to look up in `self.props`.
-+
-+        Returns:
-+            List of 32-bit unsigned integers.
-+
-+        Raises:
-+            KeyError: If `name` is not in `self.props`.
-+            ValueError: If the property length is not a multiple of 4 bytes.
-+        """
-+        raw = self.props[name]
-+        if len(raw) % 4 != 0:
-+            raise ValueError(
-+                f'Property {name!r} length {len(raw)} is not a multiple of 4'
-+            )
-+        return Property(name, raw).as_uint32_list()
-+
-+    def set_u32_list(self, name, vals):
-+        """Set property `name` to a sequence of big-endian uint32 cells.
-+
-+        Args:
-+            name: Property name to set in `self.props`.
-+            vals: Sequence of unsigned 32-bit integer values.
-+        """
-+        self.props[name] = struct.pack(f'>{len(vals)}I', *vals)
- %}
- 
- %rename(fdt_property) fdt_property_func;
-diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-index 2a0509c7802e..569eb698a86f 100644
---- a/tests/pylibfdt_tests.py
-+++ b/tests/pylibfdt_tests.py
-@@ -697,6 +697,60 @@ class PyLibfdtRoTests(unittest.TestCase):
-         self.assertEqual(b'this is a placeholder string\0string2\0',
-                          self.fdt.getprop(node, 'placeholder'))
- 
-+    def testNodeTreeRoundTrip(self):
-+        """Test unflattening and flattening a tree via NodeTree"""
-+        tree = libfdt.NodeTree.unflatten(self.fdt)
-+        rsvmap = self.fdt.get_mem_rsv_list()
-+        cpuid = self.fdt.boot_cpuid_phys()
-+        blob = tree.flatten(rsvmap, cpuid)
-+
-+        fdt2 = libfdt.FdtRo(blob)
-+        self.assertEqual(rsvmap, fdt2.get_mem_rsv_list())
-+        self.assertEqual(cpuid, fdt2.boot_cpuid_phys())
-+
-+        tree2 = libfdt.NodeTree.unflatten(fdt2)
-+        nodes1 = [(path, n.props, list(n.children.keys()))
-+                  for path, n in tree.walk()]
-+        nodes2 = [(path, n.props, list(n.children.keys()))
-+                  for path, n in tree2.walk()]
-+        self.assertEqual(nodes1, nodes2)
-+
-+    def testNodeTreeHelpers(self):
-+        """Test NodeTree navigation and typed property helpers"""
-+        root = libfdt.NodeTree()
-+        self.assertIs(root, root.get_node(''))
-+        self.assertIs(root, root.get_node('/'))
-+        self.assertIsNone(root.get_node('/soc/i2c@4000'))
-+
-+        i2c = root.create_path('/soc/i2c@4000')
-+        self.assertIs(i2c, root.get_node('/soc/i2c@4000'))
-+        self.assertIs(i2c, root.get_node('soc/i2c@4000'))
-+        self.assertEqual(['', '/soc', '/soc/i2c@4000'],
-+                         [path for path, _ in root.walk()])
-+        self.assertEqual(['/', '/soc', '/soc/i2c@4000'],
-+                         [path for path, _ in root.walk('/')])
-+
-+        i2c.set_str('status', 'okay')
-+        self.assertEqual('okay', i2c.get_str('status'))
-+        with self.assertRaises(ValueError):
-+            i2c.set_str('status', 'ok\x00ay')
-+
-+        i2c.set_stringlist('compatible', ['vendor,i2c', 'generic,i2c'])
-+        self.assertEqual(['vendor,i2c', 'generic,i2c'],
-+                         i2c.get_stringlist('compatible'))
-+        with self.assertRaises(ValueError):
-+            i2c.set_stringlist('compatible', ['vendor\x00,i2c'])
-+        i2c.set_stringlist('empty-list', [])
-+        self.assertEqual([], i2c.get_stringlist('empty-list'))
-+        with self.assertRaises(ValueError):
-+            i2c.get_str('empty-list')
-+
-+        i2c.set_u32('#address-cells', 1)
-+        self.assertEqual(1, i2c.get_u32('#address-cells'))
-+
-+        i2c.set_u32_list('reg', [0x4000, 0x100])
-+        self.assertEqual([0x4000, 0x100], i2c.get_u32_list('reg'))
-+
- 
- if __name__ == "__main__":
-     unittest.main()
+ Makefile                           |    2 +-
+ README.md                          |   74 ++
+ fdtfactor                          | 1626 ++++++++++++++++++++++++++++
+ libfdt/fdt_overlay.c               |  847 +++++++++++++--
+ meson.build                        |    1 +
+ pylibfdt/libfdt.i                  |  310 +++++-
+ tests/Makefile.tests               |    7 +-
+ tests/fdtfactor_board1.dts         |   38 +
+ tests/fdtfactor_board2.dts         |   36 +
+ tests/fdtfactor_board3.dts         |   34 +
+ tests/fdtfactor_board3_shifted.dts |   34 +
+ tests/fdtfactor_lz4.its            |  109 ++
+ tests/fdtfactor_other1.dts         |   33 +
+ tests/fdtfactor_other2.dts         |   33 +
+ tests/fdtfactor_test.its           |  109 ++
+ tests/meson.build                  |    2 +-
+ tests/pylibfdt_tests.py            |   80 ++
+ tests/run_tests.sh                 |  337 +++++-
+ tests/testutils.sh                 |    1 +
+ 19 files changed, 3629 insertions(+), 84 deletions(-)
+ create mode 100755 fdtfactor
+ create mode 100644 tests/fdtfactor_board1.dts
+ create mode 100644 tests/fdtfactor_board2.dts
+ create mode 100644 tests/fdtfactor_board3.dts
+ create mode 100644 tests/fdtfactor_board3_shifted.dts
+ create mode 100644 tests/fdtfactor_lz4.its
+ create mode 100644 tests/fdtfactor_other1.dts
+ create mode 100644 tests/fdtfactor_other2.dts
+ create mode 100644 tests/fdtfactor_test.its
+
 -- 
 2.56.0.313.g2479322e68-goog
 
