@@ -1,45 +1,102 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793192267;
-	b=B+2WccIO/R1pDwteDtys9L1ACkLKg+ddZ27T9PMW3Ydd630ed2yw1hIkaDijhyvJixDP
-	 Rg/fT8C7Vyv1/m8M/BAPLsWlmvRN3PZXV9aAkNi51NgyXXNFRc/Gs+rZHB41LXxvkcCwd
-	 wwVNKteTQEKmRCvyKh7hSUFpjxAAnTn0YEmMZkqTUoMGV88xQZhKNbiAG7ZA2R+GWKT/6
-	 B0rNXJ3uJHIRvvwADw9e0BG+r0C6WBgkfsVyqjZLwnbk9tOvthV3oiID0S2f4ovNBp865
-	 N8RePltVhfPPE2aKNgiu2pDkn+SRHJyn7yeQPGRlVfb/ehN+QQ72nTxWnNdUBrsmSaQ==
+	t=1793192302;
+	b=274fvcQqhSN0W7BlikL9lQRfikOpWD5017GL23LDW3pxDXQ7X8DITr8hjTqhebnVMyMY
+	 r0I+BeP27dbmil88eXS7UuxbD6TA98UGDV3AaSv+C0iK0JzWE7m32uSOQjYo473VqAnrP
+	 xquRgIwFFHZyZ/HBG3cXIudjBalMkMHygLFd9TeDUmYdevCSeOxxI+2jGcYYORvXm10FS
+	 q2S4IEuycRDLbgex5zh/7HXeyZ9sr36bTyEL5+HKXF8nr3GuFCIykNnqapxI7U53fohpJ
+	 DhqHd+Kv6//c0UUrBPaNEdNdQE+R2Ks6ci01Ux6okXwLvTIS7pT9yXL7TVPN/nKGM/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793192267;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=HUM8sXQdO7ct4Idv1B7IM4lRnALIhIQ2wSPtdzHuJ28=;
-	b=hQQKP533A+rJgKXxcgAJ4L3AZpVV96qNgr+a1cNeoAwp9Zr/Xx/h3FqpIMS56Sdd1Z94
-	 8MLlIU5ciO03q0cWr91AggDuzt6nz1y80jtWXZRFNHKXCcGclA5V0151IWvnyeGTw+krE
-	 b0I4VQXOGWnw2cdvjVidcXx7LvCtofG9bRpGhEViYgkjhV+2tbi2HOZ53azuckziRhx0U
-	 22gTYwssigQoBhBEvhE90u76CI/WDo8Qp0wwR2R6yTTolH37ormzVMxjYY2G9Lzus/Gv2
-	 u08petdHDuwZCGjBZYf568Bm0PjeXO8K3ap6l+E4fz7Z93ctMilYsueC6OJuxwgPxgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192302;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iXP09owLdg7hATVHqSaJqY6i6epL8PW7s9/R3d4KX90=;
+	b=HbNwiIqwp1WjtErNB/re9/A146w0OhbXok4VHYzsioyRqz5R5Zv4bYaO+DoKWJ0VTmNO
+	 qJM+knarrb/HPlHoaqq9HlLrMxrFAf32LcTSxiWl13eYpMESn1j+3qJghWdeAvKRFCcNw
+	 jvTvi1dbcv8VZwSuZNCKvI6MAftVKRpolWnSOG3Oj+6Vo17Bu35iT2fdsNOL/bm2nSHsb
+	 fP2KHbL+xV1/w4YDK01wpZDab+uPs4t+EzZH/tSe+dsJUIli2vzbPAhxm/sb6enxZNBSN
+	 BnjOH/c8d8YiC/vjws1qah4x2gm29bAS+AbgcbbeigfTAQgr66n4jmLz9hTRuJ5fNUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMPlekMB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMw9vBWY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4B9606A31A;
-	Wed, 28 Oct 2026 12:57:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B42606A325;
+	Wed, 28 Oct 2026 12:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMPlekMB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DDE01F01825;
-	Wed, 28 Oct 2026 12:57:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMw9vBWY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256601F01828;
+	Wed, 28 Oct 2026 12:58:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793192267;
-	bh=HUM8sXQdO7ct4Idv1B7IM4lRnALIhIQ2wSPtdzHuJ28=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=GMPlekMBzDJfFhFnZ7ijAVGh64wncgseUdJ5kCVSYiWXGKkQPoi82lyQC9zENv25/
-	 h8LVmqr5cgaEWmbKBtZGc6I7F78DmQdNlrOP11tnG1BW5W+ewbLuJRHpVogmSZlwWT
-	 ImSD5HMofBACYkTYf5TvDmcraocK55BGzRUMrnhvcg7tK/EWkOLDAuUvOQbLWlWEqu
-	 /cG1kzLAODwg2zB5fFs5PxZJRq5JZ8UUlgn+b8/8w1EzQLItZV94g/PSECi0b9GEoG
-	 Cd4P0wB2BBSZamSygLrWYSMI+2oz1Amk5lnFHeD0HTYc6i1XEqwN4/1mbWWQcOIg46
-	 9e69PMZXfmIWg==
-Content-Type: multipart/mixed; boundary="===============5912671814999648148=="
+	s=k20260515; t=1793192301;
+	bh=iXP09owLdg7hATVHqSaJqY6i6epL8PW7s9/R3d4KX90=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gMw9vBWYeungNCPvsmM8I0lEpRDakT4R3OeAfcy2KhbQ2ePQpy0+u+MU0z1nPw2dp
+	 Z1rOKoS03rdLa8ZS9juT1EOjfldfguEgJj2VSAkA5WWsVNgnsx2owXZYcWHOnokx6E
+	 VBVBpNl84QwjwDL0wR8U/RSALkuOKSU6gmgz20QpCHZ72sfMXMACd6Flq02aGtQoaF
+	 lSwaqb1bcUk0PghM3/D+Aagkdlz3tswOsJVH+nYEjLx9RDl/1QiCxNozEezr+Ac8Cg
+	 SNc/clX7BFRxIap6Q6GkQTAypGZBr0XpeKP3WDzbLSMCIMeyGUi42RwZRKbMaNbKK2
+	 Ari79aZH/M9zA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 12518198003A;
+	Wed, 28 Oct 2026 08:58:13 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 28 Oct 2026 08:58:18 -0400
+X-ME-Sender: <xms:ZfHhajboqn9P0xW85zuAddF0nx8dlDuQUrV58UHPtQhzLeQsMDA4gA>
+    <xme:ZfHhakv5j3ouTanGOIjSriPza_df_KyJpB9QzO5YuJlGrXwv9dpajG1s8C5WnWLC_
+    O-NxUfTiWqdLdmQy6LLp7VShIr3QqdWHSTXAsU6S4HBLRaTjDjjp-jZ>
+X-ME-Received: <xmr:ZfHhakuuFZEXhBnX_oGzdquszg_2jwsx2zTCBVxREgT92m5qC06ro0-D7o0>
+X-ME-Proxy-Cause: dmFkZTEF1K52P+kaoE+JlHf2K3zEGis9UvTdecijTo2/OHf4X3NA2RLlSL8l/5NYHn4tY4
+    QD3mVKhRVCsogVVGnIRJQ8fh065hN6V7rh05cHd1D3T1Oo9p35G3spAqIogpqrAcWXGb2+
+    4OjD2iFBYrk37D/8UhFOtrlL0EnAxrNmuh/eEPHf8B4sMC12AsOTAqn4aC81lF51glNO8i
+    yQKytqn+ywGH1kzh7+JYq3/esC0d1GqO4AO3qemMBFJEPRBtvUY96xMCSiwFz7G9wusDfA
+    opmuy4GESkD7OWq7IIaD2pYT4TsEnQrhQSb/VkqeZfR/tLHBwfWfS8ohfVSXue6cuq/Zmi
+    jv1cOIxgVP1T9tBH4KypCqN4L2fHVypU2jct1/cAteq+LOOum4mt5YzJrj4LcyOJrAEaQq
+    nn1SnjzAGu/R82NpBLBYVX44VPvoPpLgyblYX3+KBoZdds0WfExBACoLBTw6Jhg3VaSLCZ
+    nMVqcNY47gAQk0oxuy21nOhoCEL1pEHjT1XRxtwhrJt0voPgZkF5WGAm+H+24WW4TKOKie
+    C7UPf79Cq8Xwe4vMWfGCF9/szbNkGjhhHTIiTKl7t+RhZrb7Ujq8HxgLlV70Q8+8wF7wDW
+    EV4B/ciE5dO79FS9Qw1JZzAlKFtX17zMOh43xKrqWFl9lQkN2Hr/S9II6KdA
+X-ME-Proxy: <xmx:ZfHhaj0EhgGzTyF7Yn2aM8yxgEvznp9jb4uYCCrDAFrBzhBBKtffzQ>
+    <xmx:ZfHhahPXpaTkmiO79erz_RGECyWxQToXTev2-Z1GsHgjK-rat3m_Fg>
+    <xmx:ZfHhao632dMkB5mr72t3RGVOIqHYAG96rb0k8K83Fe7lZGj6ltCV_g>
+    <xmx:ZfHhaobOiMP2b_fAnFaGtdoPLkBX11hiSEE3wepMgYIb_qDVNDsK1A>
+    <xmx:ZfHhauLIDQzXGC63U1sLUWFciB7G7jQvDGTpzAnQYCpAy_6B3FAkXMnk>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 08:58:12 -0400 (EDT)
+Date: Wed, 28 Oct 2026 12:58:11 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Muchun Song <muchun.song@linux.dev>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Matthew Wilcox <willy@infradead.org>, Usama Arif <usamaarif642@gmail.com>, 
+	Frank van der Linden <fvdl@google.com>, Oscar Salvador <osalvador@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@suse.cz>, 
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>, 
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <auHxIORufMbldrBr@thinkstation>
+References: <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+ <auCZFckDfBMrlfxV@thinkstation>
+ <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
+ <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
+ <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
+ <auDkbDlgSZxqlk2G@thinkstation>
+ <7cb3dd91-f518-49b6-b311-9ec807b3c63b@linux.dev>
+ <20261028080635.GD2668804@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,176 +106,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <2775a286c1858223177c92a3bcf151e59f7cadec170a1bb3d4029f731935a68d@mail.kernel.org>
-In-Reply-To: <20261028121859.994-1-yangsongsen@insta360.com>
-References: <20261028121859.994-1-yangsongsen@insta360.com>
-Subject: Re: [PATCH bpf] bpf: Always hold RCU read lock around perf callchain in __bpf_get_stack()
-From: bot+bpf-ci@kernel.org
-To: yangsongsen@insta360.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
-Cc: martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,emil@etsalapatis.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 28 Oct 2026 12:57:46 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028080635.GD2668804@noisy.programming.kicks-ass.net>
 
---===============5912671814999648148==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Oct 28, 2026 at 09:06:35AM +0100, Peter Zijlstra wrote:
+> On Wed, Oct 28, 2026 at 10:38:22AM +0800, Muchun Song wrote:
+> > 
+> > 
+> > On 2026/10/28 01:51, Kiryl Shutsemau wrote:
+> > > On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
+> > > > Therefore, I am kind of leaning towards removing the RO protection
+> > > > and restoring RW permissions to solve the race.
+> > > Okay, what about this:
+> > > 
+> > >  From e23ab850837b53cc79d57d58f1cfb4266e745c3d Mon Sep 17 00:00:00 2001
+> > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > > Date: Tue, 27 Oct 2026 17:23:47 +0000
+> > > Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
+> > > 
+> > > page_ref_add_unless_zero() reads the refcount and then updates it with
+> > > a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
+> > > scanner, can read a non-zero refcount from a page that is then freed
+> > > and reused as a hugetlb tail page.  If HVO remaps its struct page to
+> > > the shared tail page in between, the cmpxchg writes to read-only
+> > > vmemmap:
+> > > 
+> > >      CPU0 (lockless get)               CPU1
+> > >      c = atomic_read(&page->_refcount)
+> > >                                        page freed
+> > >                                        page allocated as a hugetlb tail
+> > >                                        HVO remaps the struct page RO
+> > >      try_cmpxchg(&page->_refcount, &c, c + 1)
+> > >        -> write fault on read-only vmemmap
+> > > 
+> > > The refcount is zero by then and the compare fails, but LOCK CMPXCHG on
+> > > x86 writes anyway.  The kernel oopses when hugetlb pages are allocated
+> > 
+> > Is this an X86-specific issue? If not, I suggest a more generic
+> > description.
+> 
+> AFAICT most architectures that implement single compare-and-swap
+> instructions are affected, with the possible exception of s390.
+> 
+> That is, sparc, arm64-lse, riscv-Zacas, loonarch-amocas, openrisc (and
+> ia64 for those people keeping the out-of-tree port alive) all require
+> write protection to begin cmpxchg.
+> 
+> All the LL/SC architectures should be fine, they'll never get to the SC
+> part.
 
-> bpf: Always hold RCU read lock around perf callchain in __bpf_get_stack()
+Only architectures with HVO matter here: x86-64, riscv and loongarch.
+arm64 has had it disabled since 060a2c92d1b6.
 
-TL;DR:
-- Commit message only: other sleepable program types may also hit this, not
-  just syscall programs
-- Fixes: tag may need to point to 1e6c62a88215
-- Changelog overstates the impact; it looks like only a lockdep warning, not a
-  buffer lifetime problem
+riscv and loongarch implement atomic_fetch_add_unless() with LL/SC only,
+no CAS variant, so they see the zero at the load. That leaves x86.
 
-> bpf: Always hold RCU read lock around perf callchain in __bpf_get_stack()
->
-> __bpf_get_stack() only takes rcu_read_lock() around get_perf_callchain()
-> when may_fault is true, assuming that non-faultable callers already run
-> inside an RCU read-side critical section.
->
-> That assumption does not hold for BPF_PROG_TYPE_SYSCALL programs. They
-> are always sleepable and bpf_prog_test_run_syscall() only holds
-> rcu_read_lock_trace() while running them, yet through
-> tracing_prog_func_proto() they are given the non-sleepable
-> bpf_get_stack_raw_tp() helper, which calls __bpf_get_stack() with
-> may_fault == false. get_callchain_entry() then does
-> rcu_dereference(callchain_cpus_entries) without rcu_read_lock() held,
-> and lockdep complains:
->
->   WARNING: suspicious RCU usage
->   kernel/events/callchain.c:163 suspicious rcu_dereference_check() usage!
->   1 lock held by repro:
->    #0: (rcu_tasks_trace_srcu_struct){....}-{0:0}, at: bpf_prog_test_run_syscall
->   Call Trace:
->    lockdep_rcu_suspicious
->    get_callchain_entry
->    get_perf_callchain
->    __bpf_get_stack
->    bpf_get_stack_raw_tp
->    bpf_prog_test_run_syscall
->    __sys_bpf
->
-> The callchain buffers are freed with call_rcu(), and an RCU Tasks Trace
-> read-side section does not imply a normal RCU read-side section, so
-> holding rcu_read_lock_trace() alone is not what get_callchain_entry()
-> expects.
->
-> Take rcu_read_lock() unconditionally. Nesting it inside an existing RCU
-> read-side critical section is cheap and harmless, as suggested by Andrii
-> in an earlier discussion.
->
-> bpf_get_stackid() is not affected: sleepable programs cannot use
-> BPF_MAP_TYPE_STACK_TRACE maps, so syscall programs cannot reach it.
->
-> Testing: on top of bpf/master at commit c8a8a68d3ab4 ("bpf: Don't re-sort
-> subprog_info[] for every new subprogram"), x86_64 under QEMU TCG with
-> CONFIG_PROVE_RCU=y (syzbot config with KASAN/KCOV/modules disabled), the
-> syzbot C reproducer
-> triggers the splat above without this patch and does not with it. A
-> minimal BPF_PROG_TYPE_SYSCALL program calling bpf_get_stack() was also
-> run via BPF_PROG_TEST_RUN: it warns before, and returns 0 without a
-> warning after. BPF selftests were not run.
+I will make the commit message arch-agnostic anyway.
 
-[ ... ]
-
-> Fixes: 79a7f8bdb159 ("bpf: Introduce bpf_sys_bpf() helper and program type.")
-> Reported-by: syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=72a43cdb78469f7fbad1
-> Link: https://lore.kernel.org/all/CAEf4BzYN33yQhO-tsF8pUWDMZoiLAXkV+Z1oP6fJkByocYcjpw@mail.gmail.com/
-> Signed-off-by: Songsen Yang <yangsongsen@insta360.com>
-
-The changelog says "That assumption does not hold for
-BPF_PROG_TYPE_SYSCALL programs".  Are syscall programs the only ones
-affected?
-
-For BPF_FUNC_get_stack, tracing_prog_func_proto() falls through to
-raw_tp_prog_func_proto(), which returns the non-faultable proto whatever
-prog->sleepable is:
-
-kernel/trace/bpf_trace.c:raw_tp_prog_func_proto() {
-    ...
-    case BPF_FUNC_get_stack:
-        return &bpf_get_stack_proto_raw_tp;
-    ...
-}
-
-Only kprobe_prog_func_proto() switches to bpf_get_stack_sleepable_proto.
-So the same path looks reachable from other contexts that hold only
-rcu_read_lock_trace() or rcu_read_lock_tasks_trace():
-
-  - sleepable fentry/fexit/fmod_ret/iter programs, which enter through
-    __bpf_prog_enter_sleepable() (rcu_read_lock_trace() plus
-    migrate_disable())
-  - sleepable LSM programs, since bpf_lsm_func_proto() also defaults to
-    tracing_prog_func_proto()
-  - sleepable raw tracepoint programs, through __bpf_trace_run()
-    (rcu_read_lock_tasks_trace() plus migrate_disable())
-  - sleepable tracepoint programs, through trace_call_bpf_faultable()
-    and bpf_get_stack_tp()
-  - bpf_wq callbacks, through bpf_wq_work(), which holds only
-    rcu_read_lock_trace()
-
-Could the changelog mention these, with syscall programs as the example
-that reproduces it?  The same applies to the bpf_get_stackid() paragraph,
-which holds for all sleepable programs because map_needs_no_rcu() does not
-list BPF_MAP_TYPE_STACK_TRACE.
-
-On the Fixes: tag, 79a7f8bdb159 ("bpf: Introduce bpf_sys_bpf() helper and
-program type.") is the first commit where syscall programs reach this path,
-but the broken assumption is older.  At 1e6c62a88215 ("bpf: Introduce
-sleepable BPF programs"), __bpf_prog_enter_sleepable() was just
-rcu_read_lock_trace(), and sleepable fentry/fexit/fmod_ret and LSM programs
-could already reach bpf_get_stack_proto_raw_tp through
-tracing_prog_func_proto().  get_callchain_entry() was already using
-rcu_dereference() then.  The rcu_read_lock_trace() in
-bpf_prog_test_run_syscall() came later, from 87b7b5335e69 ("bpf: Add
-missing bpf_read_[un]lock_trace() for syscall program").
-
-Should the Fixes: tag point to (or also include) 1e6c62a88215 ("bpf:
-Introduce sleepable BPF programs")?  With only the current tag, stable
-tooling would leave out v5.10.y through v5.13.y, which have sleepable
-tracing and LSM programs but no syscall programs.
-
-The changelog also says "The callchain buffers are freed with call_rcu(),
-and an RCU Tasks Trace read-side section does not imply a normal RCU
-read-side section, so holding rcu_read_lock_trace() alone is not what
-get_callchain_entry() expects."  Is this an accurate description of the
-exposure?
-
-__bpf_get_stack() already calls preempt_disable() before
-get_perf_callchain().  The changelog of b1a47b2708d4 ("bpf: Disable
-preemption in __bpf_get_stack") says:
-
-    preempt_disable() also subsumes the buffer-lifetime guarantee the
-    rcu_read_lock() provided, since a preempt-disabled section is an RCU
-    read-side critical section for the callchain buffers' call_rcu()
-    reclaim.
-
-In addition, a program that calls bpf_get_stack() holds a callchain buffer
-reference for its lifetime:
-
-check_helper_call()
-    get_callchain_buffers()
-    env->prog->has_callchain_buf = true;
-
-__bpf_prog_put_noref()
-    if (aux->prog->has_callchain_buf)
-        put_callchain_buffers();
-
-so release_callchain_buffers() and its call_rcu() should not run while the
-program is executing.
-
-If that is right, the problem here is the rcu_dereference() check in
-get_callchain_entry() not seeing rcu_read_lock_held(), and not a buffer
-lifetime problem.  Could the changelog say that the impact is a lockdep
-warning?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40688373762
---===============5912671814999648148==--
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
