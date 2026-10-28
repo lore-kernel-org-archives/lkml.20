@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793208830;
-	b=yYy205276/pV46PoW0wzHJ5w2xQKYXkvPc+Z+v5OUEBotMRllubyWLec7YPxWKdD7/wC
-	 He3y14/7VO8VidRYVOxe/SkawtbNBLWBj4ERN1r0DKCBCn27KxXdBlxgGvs3oNbO+BeVA
-	 IUzRQO/S/Sb+kwFH+H6K3q2vO1BtWj+rmLtz9em3On+WKbGRozery+YYJpqOSfD0JC5O1
-	 4leYjg7i01+O/VjMj7xINM9NmAwNyEsEics1le+wylbG1fdpimWAyetNEV62UAqOyc6Gr
-	 Ap1O2sqBSQhwUA4T6NwgVaLQ5sJfMI/xNYijp1wEkS6r171Vt0BU7MXIRLt53CDaJJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208830;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
-	b=G7CkB3LTf6xS0Q5TCht/Sa7IIeOSFb1zy2gxqpVLXIKrMSdTRO9V28hwJcujxv5LvUHI
-	 Ue4WP+rOcHlR/8aY/uWNF2S7CscpoBSr9EOwnrodn8A/4scickQpeUIhTTKyvX7I9drf9
-	 lgr9jXYVEdA/Agnho2FC7lLvIwRArjLSpp7gmDNMMfqG6WTHxKk5rbfzesehjaF7p3vC7
-	 vGCGbn26yxUPCfIt3BtDLakxNFd6Elxo6/1ByfjJhz4JKL3rJnK+6BXeuxFxKuhccVSnn
-	 KVEW5j1EZs4f9e8vzR/fIlMdGn25cYaMZDFL32WnWQae9ip5BNYoHfEOB8HZJvjSjcA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hHWgMcjy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793208886;
+	b=XBCBKCOCw05Yoi6Umn1iG8VlQ5N8+rY1Oh8JqrFUqdA9MnLv7D78bSYTIqYDo8CYg76k
+	 QH1Sbywuv7w2LdNG5tdEpeMK+uO/3W5afRLzUiP3LpOU7rl0hkli55SoNuMuYlWXSz2UP
+	 TBr7YebLV8FB2462qJsMjfB1OlNYcu9wzhHFI5QBlK98y+9qewb4iE7sTXKI+y06FyGtu
+	 WnG7PnVMMWsbeARc6kP8vTzvExdE91sQa9OAZA/zA8QVkZTRhko1d/2/a8/WNusGjR5l2
+	 DL94ubEVY8rNJp3KmF8maybF8hqKwDyBEvWYkDDrGrUcibeqp6JDc4xTEOScOVV6lkQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208886;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Z8flGgLCDZXbO2V4x4lmH9yUfLyn0i0Q2d4UVX084Co=;
+	b=BD7Ds38aL70Extpzt0F90MxII87Iq7ETl4A+i7eENhaOSSytOTYaw86H+5FY6AhwCNf1
+	 S196Yv53kzMpqBwsZ7leuTWRTqqQTFNxO5qx92ne3wyhmnyLNlF+oUgJ0GiqbtN1jvqD+
+	 dixuLU9iYf+5MGoTtjNQZ/PIvGgoKmxlh6sSazV317K/h0zbv7dcNCxvxTqZMnVaTGQGL
+	 vWu6rLy0OCKk+AyoLZNiOl+gqH5TpmtotoD/GkJzHdcSyslKE1n6KmCGYHnPw3mCJoeFm
+	 iTjjWuPBeMVIATA4a/RC4pURx4I69ns6qsHEurDzzX58iwsW5eflrFgUskxnx0IPQtQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVkMwS0i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8724606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8724606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1BF606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hHWgMcjy
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso943a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:33:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793208828; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dfOBhqp7uPMxw5CKalYHF6juD8z+czXgJWv17TF8a96+wd8JmjNz0UwCi/7aQHl+LE
-         FFaRqIherskQw8t6EM9IUA+hxlJPe6YBU1cKeAvrMgAepfj7qXGfBCDrrhdDi0aog6CN
-         o9C0/91v+lv3RyEJwXuk14r8GiYHDVOZ9a3tcA9JuKzO/+fvMro1oK7j5rBfLqrtScNm
-         731tgPRDRytDUFEcXIFHCZUp8HUOhTs90fIsQhmmG3aNNipgAXoj5qIjzIkU7EQSso+K
-         1XB48v5CwegUD3OCERG8YKlGIcNYZFntgpiUwOa6HQqlR/bPWybby0B0MNQ0XZZrp1Vr
-         07bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
-        fh=9bCgr+WQwAb6yCOEHneQhmWijvmydC4pRXx/H6niqTo=;
-        b=MiPdBodoEG7yr1ge7ebbRHo+zLMx+cPLZ8P4QEsdHRzxntgSRPLVEYdAPGi+4Z+alv
-         cPHvoZVTpOEpGd2pzlpqrNZH4Wm3hDpWtmMW1yU4TUsm2ym1szH7HwB4X6NuQJvAlk2I
-         7wHDHm4rQ5iiBafBG91V/1k9wTBUBVXf4do8ufF2uA2qpg/2WkRgDbUu9vQyDgMolllI
-         DO0ClhK2VY2UiWExWVfDAmg86ZS153lBA94RBScETawZylK1+s0V9Av82hM758ic02qO
-         9tUMp/dM6S9HBtfARKtRQo51tIbpJLzrpyWOv/eTI08F7BpVKk19+6teZVr9X6JSQC39
-         rjlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793208828; x=1793813628; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
-        b=hHWgMcjyEXEFs94F0opmrR2osT29gnRS0Wcbon1pb9d0qNq2KamffAiJQABDUWT+t+
-         bs1tvpNgwt5Ay4A2BPCuvL+699P5FICIWki9EUnEg6NFcXvWyyhjassWjYurneMOLorv
-         632UmjTXENyTpYhAJUOFyvfZEYGE2B0txXFIubn5n+MSPMn96EzmvgP9rpnchfyYONCx
-         hSpZLCfLyOG28ATlnQ6uP83+tZLAq+GjSvG1ozkh1OMVWY1W36x/yfZIaFMd4pKdZffZ
-         YOxnluTIs1peo/YCOQPxwu3qvKsu+upCyvRTaj72DRybLzdZLSKN9qwvGvz7i6TD2Ogf
-         vrjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793208828; x=1793813628;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
-        b=1UkbfzVJIqwUw0bIT1p4mL5yR2Vgv0jLaZi6a250tkcJhV7bCB5OgWhz1nzU9Fimm7
-         CNNprtJBZIH6mgfLvsj/oATS+JcIOdBl/MNszszvTE5AXaZw9PzzVqq1yCROusQca6x7
-         Gi2zCdNavMHdBnq2XfctGxmGAt/s8tsKXgXm2v2gOruKZJcwfp4GJHoC6qCBaqL0FuuH
-         2L1Wiy4wGgAz5ciYLhKk/0ciRKUrsXBRcQkgKyRTKCxaOispqrl9L+mga0CuRO8Igabl
-         DytUGzu87TGO5dNOaOzcsNBT5tGyxv0GmrouYjnM1YqnJBTVJ7kR2v7FJcnbISYlFpMC
-         NbpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzttiOQDyqORBczAPt9G0wPAIvAKJaesrL/W388uuEOlETMzwMQKGE3+Fk7ij/D5g/DuJMDSA49XeDby+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQG8y3mDxAzp/8dodiN6JTVdVluw8NJo567Lz3+I1Yw9MV8wEw
-	pVV5t6JdQT+f28ThxNQkJ5hCK3UDUe1pXL+ks4YFD67tse5XMQa5AXD+4J5fAPkJ+XmPikYdeGC
-	pj545rVNk5ZnbaMwdDLo+gyYycBEkmSNSwvED0CYH
-X-Gm-Gg: AYBFou2PVch+kPC3mgQuOY+ww/mai8vpqYIPAjM5IT6DUPEJUWfDBYZDPyhACsxxDku
-	mqLxHRDTLF1de9HIyw4o5b2/ofYJIOsN1/nStzJLzChqWkmAQXDMX+BzJTtcqOFfeyYqkw2+xWs
-	Kef9wTbNTs2QT/EDvnekYCS4/2LePnOBkaBDTL3qr6CqPKl/g6Ose7XAtl2GOSZ+0wiJvnFiWA5
-	/Yj6ol6gPNJJPMs4VvMIwROn8B1Gq0+iJJyI5I7BS+BhXkO9fcEe3WFkC0WQIZfvfjbEtAdEHRZ
-	gzj/rkCclJk5ZGsPS4BDmxGO/zMXmy5hoQnEithO+5eJPD8CCewJqc5Q0Sppq4KU01pBbEenzm6
-	6c7TZ7R0yJDeF4imA5iwjsnPxEhRkhiS57uvCNvdaMtylVdiddEboLpaUUQ==
-X-Received: by 2002:a05:6402:a204:10b0:6b4:9221:8932 with SMTP id
- 4fb4d7f45d1cf-6b4b10d3756mr7408a12.10.1793208827782; Wed, 28 Oct 2026
- 10:33:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVkMwS0i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E288B1F01825;
+	Wed, 28 Oct 2026 17:34:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793208885;
+	bh=Z8flGgLCDZXbO2V4x4lmH9yUfLyn0i0Q2d4UVX084Co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FVkMwS0i9gFLnjZmbALjT4X5TtDyAro1eVMx+qWzl/LukXvRXHHz37drdsan6B6WL
+	 kFDIDAt6LDChf8EXGQzoChXsJep1VYmeAkl7voyQm38178kRQAivV8zUbdhS2JBOyF
+	 mtF/x+1zYCWcgu3nN5QgjFfOJG3Fy9cbg3YNhkTZKJNsl72+iQrCRQayeZmNeZPweC
+	 JbUhtXKZsfxQmX5oA+bx6KFVM29fUrpIHLhs8MFnPki6y4dWav/ErWg1+vkgB/1QQt
+	 3sRUo4tPlnkTwZM+jt4ei6lAiaPSEHmSRFYrPiKls85hPFylUzDvJC9t8sEa95BtcZ
+	 OmWxx3ULD/jMQ==
+Date: Wed, 28 Oct 2026 17:34:43 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+Cc: linux-f2fs-devel@lists.sourceforge.net, Chao Yu <chao@kernel.org>,
+	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>, linux-kernel@vger.kernel.org,
+	Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v8 00/15] f2fs: support & optimize large
+ folios for writable files
+Message-ID: <auIyM-RmQE3rx1XL@google.com>
+References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +65,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-8-zide.chen@intel.com>
-In-Reply-To: <20260827223755.143247-8-zide.chen@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 28 Oct 2026 10:33:35 -0700
-X-Gm-Features: AclHuK-cshc-ua1x23QeiEhM2iv4YfYaUSv2c6vItBjWJCU_Q1Z7ZQY_OtyF72s
-Message-ID: <CALMp9eRrgBXxFtNLOw0KAjFu_L9ofar_oiJA9WSJk82w75w+bw@mail.gmail.com>
-Subject: Re: [PATCH v2 07/16] KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
 
-On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
-te:
->
-> kvm_host_pmu holds the unadulterated host PMU capabilities, which
-> can be used to compare against guest capabilities to determine whether
-> certain MSRs should be intercepted by KVM.
->
-> Exposing it directly avoids the need to introduce per-field accessors,
-> which would add boilerplate without hiding any implementation detail
-> worth encapsulating.
->
-> Opportunistically, fix typo "Unadultered" in the comment.
->
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+Hi Nanzhe,
+
+I applied this series on top of the latest mainline having page private patches
+where I had to clean up some conflicts. Could you please check dev-test branch?
+
+Thanks,
+
+On 10/28, Nanzhe Zhao wrote:
+> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> 
+> This series supports large folios for most readable/writable files
+> in buffered I/O paths, including normal files, block-layer encrypted
+> files, and atomic files except for inline-data files, compressed files,
+> and quota files.
+> 
+> It also extends f2fs_folio_state to coexist with f2fs page-private
+> flags and to handle large folio write path and partial truncate of
+> large folios correctly.  A valid large folio always carries a
+> f2fs_folio_state at its folio->private in the current implementation.
+> 
+> Benchmark details can be found in the RFC v2 cover letter:
+> https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+> 
+> Changes in v8:
+> - 01/15: add a sanity check in f2fs_folio_has_ffs(): if a large folio
+>   carries non-pointer private data (PAGE_PRIVATE_NOT_POINTER), report
+>   it with f2fs_bug_on() and return false instead of casting the value
+>   to a struct f2fs_folio_state pointer.
+> - 03/15: cache sbi before dropping read_pages_pending, so
+>   f2fs_finish_read_bio() no longer uses F2FS_F_SB(folio) after a sync
+>   reader has been woken up and may have released the folio.
+> - 05/15: clear the dirty bits of the whole folio on success, otherwise
+>   post-EOF subpages (e.g. fill_zero() with FALLOC_FL_KEEP_SIZE, or a
+>   block migration beyond EOF) keep the folio redirtied forever;
+>   - recheck cp_error after f2fs_balance_fs() or the trylock_op() backoff
+>     dropped the folio lock, and drop the folio instead of writing on a
+>     filesystem which can no longer checkpoint;
+>   - reset the per-folio submitted counter for each dirty range.
+> - 07/15: since the whole valid range below will be marked dirty, a large
+>   folio whose subpage was invalidated by a racing collapse/insert/punch
+>   hole is not usable; after folio_lock(), unlock it and return
+>   VM_FAULT_NOPAGE (-EFAULT) so the faulting access is retried instead
+>   of dirtying the stale subpages.
+> - 08/15: keep PAGE_PRIVATE_GCING on a failed GC write which redirties
+>   the folio, and clear it only when no dirty subpage is left; mark the
+>   target subpage dirty in f2fs_defragment_range() and
+>   f2fs_migrate_blocks(); and submit the cached bio before unlocking a
+>   large folio in move_data_page() to avoid an AB-BA deadlock with
+>   WB_SYNC_ALL.
+> - 15/15: make redirty_blocks() large-folio aware: allocate the
+>   f2fs_folio_state and mark the cluster range dirty.  This is mainly
+>   for the chattr +c (FS_IOC_SETFLAGS) case, where the compression flag
+>   is set on an inode that keeps using large folios until it is evicted;
+>   since F2FS_IOC_COMPRESS_FILE is already rejected for large-folio
+>   mappings, this hint state is only reachable through chattr +c.
+>   Without this, F2FS_IOC_DECOMPRESS_FILE and
+>   F2FS_IOC_RELEASE_COMPRESS_BLOCKS would find no dirty range and
+>   silently skip the rewrite.
+> 
+> Many thanks to Chao for the detailed v7 review; several of the fixes
+> above are folded in from his suggestions.
+> 
+> Changes in v7:
+> - 01/15: realloc the f2fs_folio_state in f2fs_get_lock_data_folio() if
+>   it was released while the folio was unlocked.
+> - 04/15: on an atomic buffered write repeat if folio was unlocked, check the 
+> COW block before reserving it again, so inc_atomic_write_cnt() is not called twice.
+> - 08/15: clear PAGE_PRIVATE_GCING if large folio has no dirty sub pages
+>  when f2fs_trylock_op() fails before any write is submitted in f2fs_do_write_data_page().
+> 
+> No other functional changes.
+> 
+> Changes in v6:
+> - Rebased onto the f2fs dev branch (fd106ada4dee).
+> - v5 12/16 ("f2fs: wait for folio writeback before ffs_detach_free")
+>   is dropped, because the lkp warning reported by [1] was caused by a
+>   write_pages_pending leak on the GC truncate path.
+> 
+> - Improve large-folio support in the f2fs_do_write_data_page() path used
+>   by GC:
+>   - 05/15: use __folio_start_writeback(folio, folio_test_dirty(folio))
+>     in both the IPU and OPU paths, so a single-subpage GC write does not
+>     clear PAGECACHE_TAG_TOWRITE while other subpages are still dirty [3].
+>   - 05/15: add f2fs_ffs_put_write_pending() as the common writeback
+>     completion helper; do_write_block() only ends writeback for order-0
+>     folios.
+>   - 08/15: move the write_pages_pending increment from move_data_page()
+>     into f2fs_do_write_data_page(), take it only after
+>     __folio_start_writeback(), and drop it on every error path.
+>     move_data_page() no longer adjusts write_pages_pending or clears
+>     gcing on error [1].
+> 
+> - 02/15: compute bio_offset/bio_len against the folio actually added to
+>   the bio [5].
+> 
+> - 05/15, 06/15: fix the order-0 dirty accounting leak in the cp_error
+>   path [2].
+> 
+> - 10/15: allocate ffs before f2fs_truncate_read_extent() [4].
+> 
+> - 11/15: move the existing truncated-page handling into
+>   f2fs_clear_truncated_page_state() and reuse it for the subpage-aware
+>   large-folio writeback path, including the -ENOENT/NULL_ADDR case [2].
+> 
+> Link to v5: [6]
+> 
+> Many thanks to Chao, Daeho and Jaegeuk for the reviews, and to the
+> kernel test robot for the report.
+> 
+> [1] https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
+> [2] https://lore.kernel.org/r/6be679d1-d8ab-41b3-9975-1f1bcd552579@kernel.org
+> [3] https://lore.kernel.org/r/fc101bc7-6ece-4a30-9e19-9b32376489a8@kernel.org
+> [4] https://lore.kernel.org/r/36220ef3-5b00-4aa1-ad11-60b10857a886@kernel.org
+> [5] https://lore.kernel.org/r/atA8dsZ35E6wTMD6@google.com
+> [6] https://lore.kernel.org/r/20261014064445.2835813-1-zhaonanzhe@xiaomi.com/
+> 
+> Nanzhe Zhao (15):
+>   f2fs: extend folio state for large folio write path
+>   f2fs: carry subpage offset and count in write IO
+>   f2fs: support regular file buffered writes on large folios
+>   f2fs: support atomic file large folios buffered write
+>   f2fs: support large folio writeback
+>   f2fs: account large folio dirty data at block granularity
+>   f2fs: prepare mmap write faults for large folios
+>   f2fs: make GC migration large-folio aware
+>   f2fs: optimize small block size large folio read
+>   f2fs: support partial uptodate large folio read
+>   f2fs: handle partial truncate of large folio dirty subpages
+>   f2fs: fix zeroing paths for large folios
+>   f2fs: handle block cloning within the same large folio
+>   f2fs: allow large folio support to writeable files
+>   f2fs: make compressed files compatible with large folio
+> 
+>  Documentation/filesystems/f2fs.rst |   10 +
+>  fs/f2fs/checkpoint.c               |   40 +-
+>  fs/f2fs/compress.c                 |    7 +-
+>  fs/f2fs/data.c                     | 1550 +++++++++++++++++++++++++---
+>  fs/f2fs/dir.c                      |    2 +-
+>  fs/f2fs/f2fs.h                     |  182 +++-
+>  fs/f2fs/file.c                     |  269 +++--
+>  fs/f2fs/gc.c                       |   51 +-
+>  fs/f2fs/inline.c                   |    3 +-
+>  fs/f2fs/inode.c                    |    4 +-
+>  fs/f2fs/namei.c                    |    1 +
+>  fs/f2fs/node.c                     |    2 +-
+>  fs/f2fs/segment.c                  |   13 +-
+>  13 files changed, 1869 insertions(+), 265 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
