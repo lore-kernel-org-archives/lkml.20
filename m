@@ -1,95 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180728;
-	b=ffh9/B1AkT4vGky80uLRYIZ2rDb33y+3LHdoaDpRRtLIwpNRNsbd15jM7kW7B2lSILIe
-	 fddHxr2Zmwtc0atXraiFaPV0Ygvk3PmouqepGxD+xP3wvzW6qtllzj5WLLumZqB3fRbag
-	 VbRuuBfKIoqDBSzoPmwp+UAkwmc3Rfzy9mL5zEP7lUs2LMxImoMs5OCDnJCVzpvaWRjHS
-	 96B58QA1BGxnWOgvkQx6QUO530P/bbyo5KX0u9lo70YPnknWlIIppT+cG09DQfzV/F49d
-	 TVlhZzB6eUNpL1K9pThmZZvzEAK3jCHt966Su98dIO4PEq+VkqtM36CZ3z7sFocMddA==
+	t=1793180730;
+	b=lyTAdEn8eMtNeNePsq+NoZza94+8sWSvwzs1VYU3pr+J1md0/cPMtyHJXEMxkPoYnkXX
+	 o5WtXWNDG5KHKKav0En66068zOE2iB4Qdo60EabZQoecPwal6ewqcDr+amN4bY+UzM0js
+	 RDEJmB0u9Yj1Fgl66ZGJUl/VJtVqIZvbopJZ5ekyf/0bVtAIVDOOQZ2gG7g8J+9Eg2o7v
+	 sEJnkTwJqiuJYIcwMZzpI5YDXYxMv+FUk/rHvbC3ngGhRACB2P0u+HbE41Q3wDuxeR0Wt
+	 5Mq5ZO8Jyipyv/6vUyJ1gJWe7CKrPPpdHChLhSZrciOXGFf8U6KeCdQJIcPGsmPwkUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180728;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
-	b=46zk/4hJYOj5+Zf2TKpPm9OJCkRzk0UHI/LuRNtvHrFaPwCGKFDXUy1NPBbbaM4xhIKI
-	 NLGOBpaHKOB1SvK7kP6Z5Ci0U8bkhI/gns/+NZfeHcsNcL/5jL0tEc7L7P+ylR6x0APfx
-	 D8+0inazoMJI/Gze9Kch3iMBBpr1M5jUpoijqefvHTiZV3JbXwBLblFl30F5nSP0qERkO
-	 b099b3X0kbenpTnTcnkDAlX5gNMPGt6+/3rvbrs65WdDg2brWNl+l4WtqJ9XON24/kZoK
-	 XBV59OP7naSSTvgnfbr1FIfkV7dK7EWJPWZf3JLAPPLfdeoebE1DP3iiQmaFK4bVVbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180730;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=frZTF27BrC8OiZme1Pa+xrXgh3Yf15FRXkfaOwaG0nE=;
+	b=D9Dl7JgvSSgZQC+aUytbZg/qeuMf5UTrhlrsw2EWS+Oicr0wShib1yL7HB64rfiHOhkZ
+	 t17ZbPA4Uu9lsI7NomEw5K3/jHx0uSNDky7xluOTt+KE3BxdtEAM7w5U6cFWTp881DlcV
+	 ISHS2lu995oVw/+tHVNeq+QWgC2a8X027Q5x0jeR9Z9Ef+AyTlUnMJRmU76fSBJ07jOf7
+	 ufCkGg9aIt/fTcHVmiann5PdzGPKdr9idwMg1F7KAFk3woiEU838rV+s7zPFxA9DnP37N
+	 pwz45RZo5bJigPiBiCu/7AIbx0Uj7EZmdFYiJu3x33BH5hazOhPWrqJBCFfrErnDHLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uMHotoVx;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OT2NoEHf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZQIUI73f;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB5A606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB5A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9A2606A329
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC9A2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uMHotoVx
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48bbb06e746so350751f8f.3
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OT2NoEHf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZQIUI73f
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8hBLc3768103
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	frZTF27BrC8OiZme1Pa+xrXgh3Yf15FRXkfaOwaG0nE=; b=OT2NoEHfUeGVmwyH
+	U63Kk+O2Q8YOKu5iv1yrYdawHbzUNuj4ZlXWUVxQkf8UktylD6+tgmLkogYnVGkv
+	SzmmcHdadMAEL8hy+6Sbv0cFrHntyULgGPzMVAYZQ3mlgiwkI+TT19x3At/wsZY9
+	7a0kQeFLrYcTN9Bz58nLSHaTkB3HY7pCws/bKcEYaikejWNh6lfNYYR0iCWXUd5q
+	m49ZmqtOTrmDCpPMZPCspXzJrRtE6ktQMBWTPRe+OVTI9JNXs+yM/jFUvl7/VpA8
+	0SW9hnhLQNaJuQLlbhOYlt1TP+sxTbKUlofaLaDqSia9cmOE2pPFxfNZgB8AWF8l
+	ucnsqw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp079v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:45:28 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf7856ffso157652285a.3
         for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:45:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793180727; x=1793785527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
-        b=uMHotoVxO0t/VdyZy3UkWFC6sTzuIAYKwc55rVuXbV4v3la+IpZqUGhWOhsfYtjJkK
-         NhRSNsOLElwRX4WuJVY64Fd+Dhgv1nnH5JdOpTJgPJe7P9IW06fWoZ73t5iGcZinZZMS
-         YJjcbYiD8hVx/SQOw5UrO2DfcFdRGMt12Q4g2DbixQfB4WfsFjDmpt+XlZGKCQPVK57l
-         ES2qO3tXbiV004udPcGaHlamvbjOjNELbwPtTkSZrRuEaBUMoZufJHTJcSA9z2EtVL/+
-         6F0gbnuWZnw4409iFY7jAUfCGcDHfCzZoLVUBQl8PUzthI8okuQDMr2nLKvFf3rnZMXs
-         yxAQ==
+        d=oss.qualcomm.com; s=google; t=1793180728; x=1793785528; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=frZTF27BrC8OiZme1Pa+xrXgh3Yf15FRXkfaOwaG0nE=;
+        b=ZQIUI73fPosffKzurOlfXPUeZJXdJiJCiiz1DLdhiC/zBeMvLRVTlk+eHJzJL//yon
+         x1/YP1eAUBTCqu1GDNbQcv6Z4uBzZSpqY+P7gNaM+nkfF7pHv/ZzmOQSnLKM9s2Q5jxk
+         R8aXA+VPZpOkUghSMJf9AkyRWkn86/ukDmc0XmB7Hd3nMnqIFtyJJLZhVinfHj3S5XwI
+         MG42PHn1Vk1WYet2BT0tUJCeBEpVuNQ93zfYFupF+u5VJekXNR3LUGscEhMeAQvmaXq2
+         KfzAlfIJKXem9za20A1Il7cqgHCGSac9zsu5fMtdNitrOGIFIcYi2v/GTlR8EJ7lu2ey
+         PMqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180727; x=1793785527;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nQSVue22JfuRfe7QbPCCWytdcMKPPahjBQIzR2I7fRE=;
-        b=Ys1QLHKKSeHKwmtjJcRVhLE5fgw9SXk5AljHzsUbv138SP3HZWaTGB2L4oOMIyDciN
-         PmevTlVkn8OoUE3rjNysVnqrZA+3M7DBEqvbxSkGRzd9x1pJxVeKD8W1V+1Bxjv7pucV
-         Af2swYzk8opBqdmU1Scwt4hVk7ezTeQzqWu8wuPY9P6Z56+jMMYdPzeqWdTzLXxI4lZB
-         ekjrlD7uCKi1Sc+EXRsRod2ABoz+8dvt3ynk7x9n6bCzc3RixCHzX4oQ9O5Tl2d6JDPv
-         cy90y/tF3/V0++pp7IZA4A1cqvo11dNLZle26bvbeJ7HuJ0uzfYqHcZ12pjXzCAEwYyc
-         uXTA==
-X-Gm-Message-State: AFq9FYKH+TCdDBrbJaddn8URKwnUHTQ1+NKZfRZ3G01J3OCptaHBqSzo
-	ATjdNm6yk5P/s70cRA+TT3GlGJia5ESfTm8H4gzPGi+cOmo84UIQC+2cVJc1NFSl
-X-Gm-Gg: AYBFou36EOJp/nIUC3QhVNM5t6Pr0ofUaNgKKeAlxyqVInqAbXbdRBIU/RaIugUuyYT
-	9KY+3UYoH/9lbL87KPss6UlJd98sKRv1eyFj7BTSla25QC0afxaVly0chC3PVf3WoyLVJukmX7R
-	C+/Wrn6bidXnBRxtuDZL2n10RzitDtIsrKbjnzoA7ht77fpfBv3ZigXYyq79A+CrpuMsEaAmZcO
-	Xg1g2gLXpNwdM306C2nqSlGikwBR7mqelkPKEawpZqC3+DmpM00l5J3wF/klsDNaK9Psyqsa656
-	g+F60X78n8sYxVuxc2T1WjVMENT5z0oHdiPjE44Ioxf3dsKGGIis+SZ7ZrBDJOqU98t3uzhQs5P
-	TwDDVw+DYqSPHne9h7TAFWtCxcRJbt+cD2i1uALVpZ3BaY1JABV0HtGBzTXF5/AK7TmdhyJW/yX
-	633ycKhLqizm9k+JAbO6BjNQ5Q2JZQAJgNtG8yLV/0MA7ZXfVjEfe774oxYkGSNIa/uifZo0eoY
-	nkJYiuxQCAlsy7/I/cKVtZ/PtIGXQPzy1miaewPB15Xvrhp1Qijs6lQ/fMg5YBU82hmO4lV3IWs
-	JgbBdWTUwYWOKjnA/3J7c7NlQCCpcC9z3u44kDG15Z4SQfWDTM4EdYKBeHA3mHNHc8El/rv+NRt
-	6C2NteLvNDRiajVGkNckgvOU0TVX4pVmBoo8WKl3CXi5tXuk=
-X-Received: by 2002:a05:6000:46d4:b0:48e:dee:52bc with SMTP id ffacd0b85a97d-48e5d324c1fmr3314620f8f.0.1793180726495;
-        Wed, 28 Oct 2026 02:45:26 -0700 (PDT)
-Received: from GLaDOS.station ([187.13.215.88])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3da7sm28827539f8f.20.2026.10.28.02.45.24
+        d=1e100.net; s=20260707; t=1793180728; x=1793785528;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=frZTF27BrC8OiZme1Pa+xrXgh3Yf15FRXkfaOwaG0nE=;
+        b=nFXmGP4625nJAQlpLaZn/Q+wmrrkpg0m9AH9Gg0zCO6AuaNUs8heygn+dmMhRtfcY5
+         OyLTiItH5ohKH+UAs8hJevjlfMNKkrxD2GyjXuxtnI7AtvsjP/OSNjdvqvRYj7sG/foP
+         h22UatX1xirOLFxE1+aBxjmIgZAmzi4DUek1e9Vh9XaLSS93g9GcREorCDhJnKayUF6N
+         AhSjut+NIio+swNPOhkTJI3KAe85bqdTvH3uN7/MIDUXW5EwM4TJRGsXlxwe73aF8QJf
+         GWTszLVzDOWwECZqI9LqaIkA35y2O6WV1mHLXTRADfCHBcdQ8A79L2lz6RQ7aANEWkiS
+         Oejg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPzvlRIPmcRkOKKB9k7aN7dU7+vmI4fSJwBmkluC3Bt/gZlEjDRoEioAKzBJn026w7IcbOZ7cpTmh/W2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDeMLWhWuqFYbdBouwX/BREcVeU7FMyw4uHXGh0f+1SuduHRNA
+	U4wqKZ7+bzCe3X93vgT5La6JHTDLcfnpziBtIrET+QBh5JAKofvw2RvXePTeF2M/0+OAQDJ3JAn
+	nNS3K2+aBJH61zHARx5jh2WTJ/koDtzyKFrWq7590iyTXRteNTiMMSe0s3qWK3Svy3LU=
+X-Gm-Gg: AYBFou3uuFhtbdkZiQEEV3k8Wj/I0FFtnn0YijYA0K/nP+cGi8GWDwMJsLNBLuPisxj
+	QS3thBU2Ez6WBvtpwapGJXgEfHQJJh5P4T0pxfo0JlRzwcgHfMHMafiVQAc0ZtUuKVqSUUkiGns
+	7rNTXMTInVvBUq1FEuxO8jMUd98UUSlaYAQ1iVblwu4xtNz40UUT3E59ztAaO0FRRRwuKePqTve
+	oRJqJmb7kvEnnbJP1ZjcGHQ10y4iEtYCYVvleVc3jkQ9sxSeMwyV9sXaF9GlMf25NypmpiBq6JW
+	nP601XO3UELLmOpHf+wU2/MT+tSWa4G5Cqf6nFzTWiTTNKoq4tyweVew0x/JSsb/u0KFrw01Qew
+	odSH/Q5eGbVbSnoboCCWK+DxGS3w4+u8XhzT6CjSxIk5zNvhhxQx3abkAZHm07vO65g==
+X-Received: by 2002:a05:620a:2724:b0:93e:c35b:2332 with SMTP id af79cd13be357-94408d39620mr210233685a.73.1793180727674;
+        Wed, 28 Oct 2026 02:45:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:2724:b0:93e:c35b:2332 with SMTP id af79cd13be357-94408d39620mr210230885a.73.1793180727022;
+        Wed, 28 Oct 2026 02:45:27 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a979412e04sm37684805e9.14.2026.10.28.02.45.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 28 Oct 2026 02:45:25 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org
-Subject: [PATCH v1 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
-Date: Wed, 28 Oct 2026 10:45:04 +0100
-Message-ID: <20261028094504.4256-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+Date: Wed, 28 Oct 2026 11:45:24 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
+ domains
+Message-ID: <ujudp6c5upvgghpckgxdajjzvtyxffgk3advnkrqhencgglikg@6cva4nuxtvqs>
+References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
+ <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
+ <e255ml7kf2pyjnw4k3ssi3jp4hkovw7x62cln6n3xbf7tz5q7y@ijqwv75233a6>
+ <CAFEp6-3YP29y5JYp+6Cw3T7bGEJHjfGD9mYsiQXGaTSegsMWXQ@mail.gmail.com>
+ <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
+ <76mvypefoe6l5c26xdycrxcyrtkpxmnybi6bm5xyudqqcbawg6@5dzvmwkhqk2e>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,110 +134,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <76mvypefoe6l5c26xdycrxcyrtkpxmnybi6bm5xyudqqcbawg6@5dzvmwkhqk2e>
+X-Proofpoint-GUID: 3Y64R7JxIt53ezJSi9dGjHkpFgnyAPtN
+X-Proofpoint-ORIG-GUID: 3Y64R7JxIt53ezJSi9dGjHkpFgnyAPtN
+X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae1c438 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CaYS8H3vlbMVu9Z9StYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAzOCBTYWx0ZWRfX16UQ4VgOo0Dw
+ kW1C3dnNXx8n6ScWhxn+6hqiAXkbIwo03XR8IxR4ifS77Ht8L93eSAXKrUxmyhTvpk9zXOQoxDy
+ hPOUEuDhrK+NH+3kg2/GWx2q8p9ukwJR/SVuTftOXHHYSLhYloEHI4xbFvQGgGtH1qq89CCgHkh
+ ArD0MhEZ6QPZ41uqrOzATeB8v/poMbryWm5XFq8DiPhF611P/bKHgjSc3hQPRyXgHr8S3fgI1O/
+ mbL1aKHz5EH6HEkEPkXTEIHaPWJ9QP2H+t8s4Jw6Zi9UJaLARWfFek0PHDnZZh2SAnLOm/JDYCR
+ fedEudeok7JfU/SVUMfr7wDLQgwzzbodqp2S/fVEvg+zPHZ3cIpJaSGNyJe9w6MlVu6ZKg21hu+
+ m+oTrmEQ/0pZTsfEvLFQGY6rZO9IGJmgXFUwJl9Kga241JRsP3yBuw9xS+q952GnMbfVQFBfK2k
+ cPRiUTLjAZKajZSwNYg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAzOCBTYWx0ZWRfX0ght+dERWqR9
+ 6JBza8vxm9SHL8DK4wnPzkan3vOScOvo6L80JUR1yL0dLoGiubrsQqx+KW+pxEvLH2CQPTqthWU
+ 81YCL7D/zjcb/A4hxZkUSxXCAY0344w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280038
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On 26-10-28 04:29:31, Manivannan Sadhasivam wrote:
+> On Tue, Oct 20, 2026 at 03:41:54PM +0300, Abel Vesa wrote:
+> > On 26-10-14 14:09:04, Loic Poulain wrote:
+> > > On Wed, Oct 14, 2026 at 1:59 PM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> > > >
+> > > > On 26-10-12 14:58:43, Jagadeesh Kona wrote:
+> > > > >
+> > > > >
+> > > > > On 10/12/2026 1:29 AM, Abel Vesa wrote:
+> > > > > > When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
+> > > > > > gets stuck off when powering back on, preventing the system from resuming.
+> > > > > >
+> > > > > > Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
+> > > > > > state across suspend and allow the system to resume.
+> > > > > >
+> > > > > > Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
+> > > > > > Assisted-by: LLM
+> > > > > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > > > > ---
+> > > > > >  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
+> > > > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > > > >
+> > > > >
+> > > > >
+> > > > > Hi Abel,
+> > > > >
+> > > > > Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
+> > > > > collapses.
+> > > > >
+> > > > > For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
+> > > > > the below changes from PCIE side helped to power ON the GDSC properly without any issue.
+> > > > >
+> > > > > https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+> > > > > https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
+> > > > >
+> > > > > Can you please try if above changes are helping on Eliza also?
+> > > >
+> > > > Thanks for the hint. Mani's patch (v2) is already upstream, so just enabling
+> > > > CONFIG_HOTPLUG_PCI_PCIE did the trick.
+> > > >
+> > > > Suspend/resume works fine now on Eliza, so this patch can be ignored then.
+> > > 
+> > > So should the retention configuration above be conditional on
+> > > CONFIG_HOTPLUG_PCI_PCIE, or should we simply depend on
+> > > CONFIG_HOTPLUG_PCI_PCIE?
+> > 
+> > None. I think QCOM_PCIE should select it.
+> 
+> Nope. It should be selected by defconfig [1].
+> 
+> Just to clarify on how the hotplug support is fixing this issue. Once we enable
+> the hotplug driver, the Root Port will be allowed to enter D3Hot during suspend,
+> which is a pre-requisite for powering off the PCIe devices and the controller.
+> So once all the conditions are satisfied, the controller and devices will be
+> powered off. So even if the PCIe GDSC gets powered off at the end of suspend, it
+> won't affect PCIe devices as they already lost their power. So we don't need
+> GDSC retention.
+> 
+> But that being said, if any of the PCIe devices support wakeup like WOL from
+> D3Hot, then we do not power off the controller and devices. In that case, GDSC
+> retention would be required to keep the controller/device state intact. You can
+> reproduce this issue by enabling wakeup for the PCIe device from sysfs and
+> attempt suspend.
 
-The optional reset control is deasserted without a delay, and probe then
-proceeds directly to the first I2C register access. Since reset-gpio
-initializes its line asserted, this provides no guaranteed minimum reset
-pulse width or recovery interval before communication starts.
+Thanks for explaining it.
 
-Table 66 of the ST33KTPM-IDevID datasheet specifies a minimum reset pulse
-width of 1 ms and up to 50 ms from reset release before the first command.
-Choose a 2 ms assertion interval to provide margin above the minimum and
-wait 50 ms after deassertion, before initializing the I2C guard times.
+> 
+> So to cleanly fix this issue, we need the PCIe controller driver to signal
+> retention state to the GDSC driver or the GDSC driver has to figure this on its
 
-Associate these timings with the existing st,st33ktpm2xi2c compatible using
-match data. Apply the delays only when a reset control is present. Preserve
-the existing deassert-only sequence and the behavior of devices without
-timing data or a reset control, without adding Device Tree properties.
-
-Link: https://www.st.com/resource/en/datasheet/st33ktpm-idevid.pdf
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- drivers/char/tpm/tpm_tis_i2c.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
-index cde0b093ed58..8bcbc84815fd 100644
---- a/drivers/char/tpm/tpm_tis_i2c.c
-+++ b/drivers/char/tpm/tpm_tis_i2c.c
-@@ -12,6 +12,8 @@
- 
- #include <linux/i2c.h>
- #include <linux/crc-ccitt.h>
-+#include <linux/delay.h>
-+#include <linux/property.h>
- #include <linux/reset.h>
- #include "tpm_tis_core.h"
- 
-@@ -55,6 +57,11 @@
- #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
- #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
- 
-+struct tpm_tis_i2c_reset_timings {
-+	unsigned int assert_us;
-+	unsigned int deassert_us;
-+};
-+
- struct tpm_tis_i2c_phy {
- 	struct tpm_tis_data priv;
- 	struct i2c_client *i2c_client;
-@@ -330,6 +337,7 @@ static const struct tpm_tis_phy_ops tpm_i2c_phy_ops = {
- 
- static int tpm_tis_i2c_probe(struct i2c_client *dev)
- {
-+	const struct tpm_tis_i2c_reset_timings *timings;
- 	struct tpm_tis_i2c_phy *phy;
- 	struct reset_control *reset;
- 	const u8 crc_enable = 1;
-@@ -347,17 +355,25 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
- 
- 	set_bit(TPM_TIS_DEFAULT_CANCELLATION, &phy->priv.flags);
- 	phy->i2c_client = dev;
-+	timings = device_get_match_data(&dev->dev);
- 
- 	reset = devm_reset_control_get_optional_exclusive(&dev->dev, NULL);
- 	if (IS_ERR(reset))
- 		return dev_err_probe(&dev->dev, PTR_ERR(reset),
- 				     "failed to get reset control\n");
- 
-+	/* Allow an already asserted reset to meet its minimum pulse width. */
-+	if (reset && timings)
-+		fsleep(timings->assert_us);
-+
- 	ret = reset_control_deassert(reset);
- 	if (ret)
- 		return dev_err_probe(&dev->dev, ret,
- 				     "failed to deassert reset\n");
- 
-+	if (reset && timings)
-+		fsleep(timings->deassert_us);
-+
- 	/* must precede all communication with the tpm */
- 	ret = tpm_tis_i2c_init_guard_time(phy);
- 	if (ret)
-@@ -393,9 +409,19 @@ static const struct i2c_device_id tpm_tis_i2c_id[] = {
- MODULE_DEVICE_TABLE(i2c, tpm_tis_i2c_id);
- 
- #ifdef CONFIG_OF
-+/*
-+ * ST33KTPM-IDevID datasheet DS15011, table 66: tWL >= 1 ms and
-+ * tCMD <= 50 ms. Allow 2 ms for tWL to provide margin above the minimum.
-+ */
-+static const struct tpm_tis_i2c_reset_timings st33ktpm2xi2c_reset_timings = {
-+	.assert_us = 2000,
-+	.deassert_us = 50000,
-+};
-+
- static const struct of_device_id of_tis_i2c_match[] = {
- 	{ .compatible = "infineon,slb9673", },
- 	{ .compatible = "nuvoton,npct75x", },
-+	{ .compatible = "st,st33ktpm2xi2c", .data = &st33ktpm2xi2c_reset_timings },
- 	{ .compatible = "tcg,tpm-tis-i2c", },
- 	{}
- };
--- 
-2.47.3
+So until we have a solution for controling the GDSC retention from PCIe
+all the way through provider, what do you think should be the stop gap
+solution?
 
