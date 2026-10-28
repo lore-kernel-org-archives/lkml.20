@@ -1,102 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208352;
-	b=nCdMwELYfSQj34xVe+Yfju/ZCNsYXXuADSSbXtwsGZ/+ZLpLVZUEG70w4hYcYiOc7606
-	 QqSnjereUUr/JwsQWki5iR8xnW1EWka8c8rTiYLbdILqh/je4sP31Hd02GsbYpeczdVF5
-	 NyHdQbaWsO0hOEK1L4tVNYLx4+Zk3Mr2NB32WA86on+QcujGdokPaHaIkZmP5+UJTGYQ8
-	 bjJtjg6ewfk5f7GXhX97NRTY5MwdpNZk3GZELk5yQEnRadLFSYMGyjkjYLh1Cj7ozgQ/U
-	 ZQ3VNCo3HmZZOlczqmQjNNC3fSfuzxqmWW3uhnM38O0ME21JoDPPhadiOHs1Lex2fxA==
+	t=1793208379;
+	b=5e1qVAj1FfS17J9CZTBlmYKYeh6NBibQLtcQWTiwOwPMrcysTlL9RYYTH4bRjktEcM+G
+	 zrdKUC2BEgSknXBL/2n7936yTo/UMfZg/assDfYksoMv6UjOaS80tXpyWOAxKxpdtVIWl
+	 LdQ8j7e1jdNwyYN3Qr5xEtmy8sq4BJLJjJd7bzKwlAIeHILswdJ/BNcB+GPeHfaUR8/97
+	 rn7TkGat8Oe7gtic5K5wTFiPuNiPLen8UEU8FJO7qjBUbIGPr7dYC52qJ3n0j3sM51iSx
+	 T6qFpAwAYkh56B4ClLGPR37g1JRUXqrvm+0+bp5d+4Mnx3y01Vp5KtPJyN06V8TUXJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208352;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=96REoSpqeOFESJkk5pNQFSDJAOzVBOi/GV9/PTsQSbc=;
-	b=Qcf1KG3L05rmp3l5JQQWKVz1p08lY/kWGDAoN3mmJli+Shyy0qolKdVqMMwl+YcgUY2A
-	 CZlShqUFfg343XAskrwH59HH81Z588xfP7w7tmQ8/jenJ++N9+kdzGewBEqlphlLge7zI
-	 h/XqSvBqvt0b/vPPzo36M6XC2htauMme7lqkUOsneEt17y5+scuEoZDFy8SaMsuiAyP1D
-	 eSvDOaOmCrYEBZjh0f31wPoPgWgzzJdRsY/hJJUcJwZMtXxIra+DfGzmpMhS19gPsv7uB
-	 FuLoCLeH6dxUNELvCA/Mzk5x8c3DyQTvYcAliUevFJXEo8eV24C30VkSmi1YQczc5qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208379;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=GEJKe1d+4X4wVLIgCq1iUH0EnoS9cT5q0+W0Fv5/iSM=;
+	b=jnN/hyFW47R7fbJwdSLiaOW1Uom85ifhoQbZmKzs3hUATiip4/SfwmF9Q6QjQdqUfKfT
+	 LlqCFffxZPkx3pQ6ssrHNhBXdtKFsySYP9L/5SBIvXToz8jGt5/WHFhCT7G92Mo36BWwQ
+	 cAvybNU1ToErSbgppEsNWt58kqK/0vGa5ANi48mmOjBKmMPFdJpyNKLPwi0cY6wG070lh
+	 +rA3152wDkrZ0Y7QUL0pni79vs3S+pJOflnYOIM6zmKVnmAaRGWLa5KUYguKc0z2VmQKz
+	 XqnVJxBE4m316zB5SpdJgkbwZwcUqXJDRGgjj0cRXGK1B652ZbIACz4s/+KfxOiO5BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BEqxhsK5;
-	arc=none smtp.remote-ip=209.85.215.228
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIR8NzH3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EAB606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68EAB606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362DB606A31C;
+	Wed, 28 Oct 2026 17:26:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BEqxhsK5
-Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso627006a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793208351; x=1793813151;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=96REoSpqeOFESJkk5pNQFSDJAOzVBOi/GV9/PTsQSbc=;
-        b=HSNOglTC0o5Sen10yFvdXv/mmb41wS36IYfaoCdXbxMDOGIvMOizMKkP0MOt5qkXt0
-         Um7MwTyQ62eOV1GRc1RmA7krYSSDk/VmflAXgKYy+ZNB2U4+kRXcEPORqsh7Lax339mZ
-         qwVV67BzKXDGesJKZFY+TthhH6mui1NhwLYyEDe9e4uvbC24iPQ+s8SQY/UPAgcdsh1S
-         jeI8OEutzv6kK43j+5suqmPaKhCl2QjRIJmhSj5ctB+7/AY075Rym0nLer61ccbF9MO8
-         4WdVwSqfm+m1yqBa2ec7ZACavNnXNRFHTTJY8YtZL/PiQgfAf6SA2l8M6A9BbMxii7t1
-         f7VA==
-X-Forwarded-Encrypted: i=1; AKwUvBzANaE8hnxpTtHhuZdCS+rijJCUARL1b3NEn1iE44IJBNZ8BSlJgogyjmbs+01lRAEyTCrICSN1aoTc2J4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2fMgbnC70uw7EBV1bBKYZKV/wmHSlnTxbQqk4NMWnIN42vSwT
-	gkauW3DRZP2xlOcBcpVwzIF7hpCHUwHPTKD+cYNxTkNry49a7pabP3G1KGL89BaCd5nt32gaCfa
-	8Kt2Ork9jqSk+wR9OUfaq41IDhmXr97jLCrN3PDI2+OIFZBGjoJPg7NybVuDo06eBbSZxcB2tM/
-	/o/R1Qdx6iTSSErAIfLiRZ4jEAIZAjuz7BQ9gmuyKYlHl5xaTLfP1zW0CKbAdv9SfXDQby78cav
-	190Zjcs2zLrFISQ+9wspEuX
-X-Gm-Gg: AYBFou0imBsIk1ibLGmyDPMVpEcmr3HomiJnVj8ingdfzKjHp1139sB1Epcg5zlRryR
-	3mjLsG7UzNkSqNIMOmyn6VyYdcsjtBEVZVQdhPoHzuw8olPLBbMhQfh86CH9ttatbiD08M8paxg
-	5xpq0a2fhWblr4k2ppXRopLDfkV65ztTti6j9y56IZZRhnalV3xCIQ4k8Sd4VSFbRuJU7mTnGuJ
-	SwSujUI4AI6aK0aIk4IyQSSXI7ERTglXJbeTeh/PjPQw/nppuXbeJnClen3GQZ1fMIbHzzhCY2b
-	Pd2PiWEupMPr16Im91WIpko+Y9b2OzMCAbw7N/gzle/vAWb6VIRrJLeCkcGJYZ7t8582vHNk29s
-	n4Ecf+IM7BYcg2KRA5aEl/9n5+Cq+HrdHJSmnZu48kWyrDOcB04T2rSHGjpGiFCdYnnKUjGJxLD
-	FO4fPhohnf4NSfsrCKPgZ5SuI4qRelqP846I9zlAIuba0=
-X-Received: by 2002:a17:90b:53ce:b0:3a8:a1f6:3b32 with SMTP id 98e67ed59e1d1-3ae58241dc1mr2108728a91.38.1793208350653;
-        Wed, 28 Oct 2026 10:25:50 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e5e5305sm172968a91.1.2026.10.28.10.25.50
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 28 Oct 2026 10:25:50 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91c01778cefso25944196d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:25:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793208349; x=1793813149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=96REoSpqeOFESJkk5pNQFSDJAOzVBOi/GV9/PTsQSbc=;
-        b=BEqxhsK59jMeZ/P+vbogXmNyK1TQYJ+V6OPYr4knROJEUV/HUo+dCwUbfPFtke0PMb
-         NTlHEpsAKTULD6ZGvNrkaGP7xPgCqggrsbRb5Kor6R0gkRNIbEi+RwrdgwFVYwqgwzsa
-         Ce1EZQpGNyszstAkAZw5/TiAvlXgVn/1w23/w=
-X-Forwarded-Encrypted: i=1; AKwUvBzHeVkPYGt/d5C0UDN+/kgxIWXbr2KbzBjRVXcFT+DnI1Bvle7EhO1JI6JGDe4d++H+OmyCWl3LYlUSkNs=@vger.kernel.org
-X-Received: by 2002:ad4:5cad:0:b0:91c:7c57:728d with SMTP id 6a1803df08f44-91c7d1c01c7mr50546596d6.37.1793208348990;
-        Wed, 28 Oct 2026 10:25:48 -0700 (PDT)
-X-Received: by 2002:ad4:5cad:0:b0:91c:7c57:728d with SMTP id 6a1803df08f44-91c7d1c01c7mr50546116d6.37.1793208348296;
-        Wed, 28 Oct 2026 10:25:48 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c69e721eesm71446646d6.11.2026.10.28.10.25.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 10:25:47 -0700 (PDT)
-Message-ID: <2f230d17-88ab-4456-89fc-b567c9147d6d@broadcom.com>
-Date: Wed, 28 Oct 2026 10:25:45 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIR8NzH3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D757E1F01828;
+	Wed, 28 Oct 2026 17:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793208378;
+	bh=GEJKe1d+4X4wVLIgCq1iUH0EnoS9cT5q0+W0Fv5/iSM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=DIR8NzH3XozMmdHifampAct7beSoysEmzx8aQUwEgeTKe4FcxWI3uwS08cYram5GH
+	 JjTZE9gkvd0Ym2ZUS1wUo8OpWhcb0D4iplXIapvrGl+WxS/sJm9Ony47cR6B4OOgel
+	 wp+4GhB5fy9OYwRrAE5EMGaM5fXcpqPaL+njHvV4CuEIaL97mc7AVo7heyq4nZk9Kc
+	 tfE97izn8wjhqOnJ/xG6LpDgy5DXgEZH8Zphnz8E1Mn4A1HqdYIYy9U2cVWFm32nDz
+	 cK6KhmDJaK4/oD57vnyUniYbNpQ/cy2T9gI4th0LEYdJaNQHFzMJcvVzSWnxG+LHis
+	 +5AbTTwSdh6Ag==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id A1655CE0B56; Wed, 28 Oct 2026 10:26:18 -0700 (PDT)
+Date: Wed, 28 Oct 2026 10:26:18 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Gary Guo <gary@garyguo.net>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>, rcu@vger.kernel.org,
+	lkmm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard
+ pointers before stopping
+Message-ID: <eb59edbb-c6e8-49c6-a426-c55cdb792853@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261027163811.2470569-1-parri.andrea@gmail.com>
+ <20261027163811.2470569-2-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +72,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/2] net: bcmgenet: restore the Tx coalescing
- setting when the rings are rebuilt
-To: Nicolai Buchwitz <nb@tipi-net.de>, Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Justin Chen <justin.chen@broadcom.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022-nb-genet-fini-dma-net-v3-0-6e9fc89c0156@tipi-net.de>
- <20261022-nb-genet-fini-dma-net-v3-2-6e9fc89c0156@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261022-nb-genet-fini-dma-net-v3-2-6e9fc89c0156@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027163811.2470569-2-parri.andrea@gmail.com>
 
-On 10/22/26 01:54, Nicolai Buchwitz wrote:
-> bcmgenet_set_coalesce() writes tx_max_coalesced_frames straight into
-> DMA_MBUF_DONE_THRESH and keeps no copy of it, while
-> bcmgenet_init_tx_ring() programs a fixed 1. An ifdown and ifup or a resume
-> then puts the Tx coalescing back to one frame per interrupt.
+On Tue, Oct 27, 2026 at 05:38:03PM +0100, Andrea Parri wrote:
+> hazptrtorture can hang at shutdown when deferral is enabled, as in the
+> PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
+> never returns, until kvm.sh kills QEMU:
 > 
-> Rx keeps its value per ring and reapplies it on init. Do the same for Tx.
+>     [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
+>     [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
+>     [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
+>     [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
 > 
-> Fixes: 2f9130709d2c ("net: bcmgenet: Implement TX coalescing control knobs")
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+>     Summary: Potential hang (QEMU killed)
+>     !!! PID 1393523 hung at 1980 vs. 1800 seconds
+> 
+> hazptr_torture_cleanup() stops the do_pending kthread first, then the
+> writer, then the readers.  Once torture_must_stop(), do_pending makes
+> one last pass and leaves its loop, but unless stutter_will_wait(), that
+> pass releases the deferred hazard pointers of a single CPU.
+> 
+> Readers can also still defer after that pass, from the iteration they
+> are in when torture_must_stop() becomes true.  Readers that have left
+> their loop hold no hazard pointer, so the writer waits on one of the 25
+> deferred hazard pointers above (reldefer - relundefer) that nothing
+> releases.
+> 
+> Stop the readers before do_pending, and do_pending before the writer.
+> do_pending still leaves its loop at torture_must_stop(), and now
+> releases the deferred hazard pointers of all CPUs once
+> torture_kthread_stopping() returns, that is, once
+> hazptr_torture_cleanup() stops it, after the readers.  The writer can
+> still wait in ->sync(), but only until then.
+> 
+> This should be safe because readers defer only from their own loop,
+> which they have left once torture_stop_kthread() returns for them, and
+> the hazptr_torture_acquire() IPI runs synchronously within that loop.
+> The readers do not need the writer to stop: they leave their loop at
+> torture_must_stop(), after at most one stutter_wait().
+> 
+> do_pending keeps the torture_must_stop() check before its sleep.  A
+> kthread_stop() that comes after that check and before the sleep starts
+> still delays do_pending's exit by a full kthread_do_pending_ms sleep,
+> however long that is.  With the readers stopped first, this happens
+> only if do_pending passed the check before the test began stopping and
+> had not yet gone to sleep when kthread_stop() came, after all the
+> readers had stopped.
+> 
+> With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
+> with "End of test: SUCCESS" and with as many hazard pointers released
+> from the pending lists as were deferred (reldefer: 983727 relundefer
+> 983727).
+> 
+> The hang was found with the help of an LLM.
+> 
+> Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Again, thank you!
 
+Please see the question below.
+
+							Thanx, Paul
+
+> ---
+>  kernel/rcu/hazptrtorture.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+> index 7c8b5899fb011..c46083a8af093 100644
+> --- a/kernel/rcu/hazptrtorture.c
+> +++ b/kernel/rcu/hazptrtorture.c
+> @@ -560,6 +560,9 @@ static int hazptr_torture_do_pending(void *arg)
+>  		// Omit stutter_wait() because this function needs to do cleanup.
+>  	} while (!torture_must_stop());
+
+The torture_must_stop() function expands to this condition:
+
+	torture_must_stop_irq() || kthread_should_stop()
+
+The torture_must_stop_irq() function expands to this condition:
+
+	READ_ONCE(fullstop) != FULLSTOP_DONTSTOP
+
+And the fullstop variable is set to FULLSTOP_RMMOD by
+torture_cleanup_begin() (unless it has already been set to
+FULLSTOP_SHUTDOWN).
+
+And torture_cleanup_begin() is invoked by hazptr_torture_cleanup()
+right at the beginning, before reaching any of the calls to
+torture_stop_kthread().
+
+So doesn't the above torture_must_stop() instead need to be
+kthread_should_stop()?
+
+As it is, hazptr_torture_do_pending() will still stop before the
+hazptr_torture_reader() instances do, correct?
+
+Or am I missing something subtle here?
+
+>  	torture_kthread_stopping("hazptr_torture_do_pending");
+> +	/* The readers have stopped, so nothing new can be deferred. */
+> +	for_each_possible_cpu(cpu)
+> +		hazptr_torture_do_one_pending(cpu, &rand);
+>  	return 0;
+>  }
+>  
+> @@ -773,9 +776,7 @@ hazptr_torture_cleanup(void)
+>  		return;
+>  	}
+>  
+> -	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+>  	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
+> -	torture_stop_kthread(hazptr_torture_writer, writer_task);
+>  
+>  	if (reader_tasks) {
+>  		for (i = 0; i < nrealreaders; i++)
+> @@ -785,6 +786,14 @@ hazptr_torture_cleanup(void)
+>  		reader_tasks = NULL;
+>  	}
+>  
+> +	/*
+> +	 * Stop the writer only after do_pending, and do_pending only after
+> +	 * the readers: the writer may be waiting on hazard pointers that
+> +	 * readers deferred, which do_pending releases once they stopped.
+> +	 */
+> +	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> +	torture_stop_kthread(hazptr_torture_writer, writer_task);
+> +
+>  	torture_stop_kthread(hazptr_torture_stats, stats_task);
+>  
+>  	/* Do torture-type-specific cleanup operations.  */
+> -- 
+> 2.53.0
+> 
