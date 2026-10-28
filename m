@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199705;
-	b=IQ6jEJdyU9JbLe+SRon586GdsIozDKJ7bHSnwBQsttqZBgPGT8TpciLOMD7BksiLM7OW
-	 L5p1tOG+7mrceoscjAyNrBiNinbfvmdhHyuPBjrSutO5R6wtfYDqqX4I7PKZlzB+adS7d
-	 l4i3TShh8qiZRBX8SGJ1ezyBDIcDIiWcW8Gu5GVDjU0YaajTCf8l4ZfKngQ/wocihs0Cx
-	 szBwJOST9RM/3BeQ7CS4pSiMPlKCWl+xAMeJDKHl7T3bnwIOGKcy+cXla7/P2BFWDHlx5
-	 j1nVNlAraZ2AjFQTTkBEBYN75AAbMV/KbL27cX9QrNdGdTyIbwdjyWYXuVa2ub14JRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199705;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.217.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793199834;
+	b=mRK1Ck5vgKQ6gBzvctQCWyWL8ixC2xCYJGN5QJ/I1yUHYVfE8E7U6mXU8EiAnwBv6uMp
+	 8MH6m1lVXXbDiwQhoYESXA7CIT/V8s5PEzXCrOemPbYrlf4fMY1kgdPGM3d3HfiaehwfT
+	 i+rDnja8FHvUcmiiELXPdbBMC4wIZv8XAXx7mIFohzc12Bp0eVchJZnNZ+fb+2edVOYqf
+	 sxxJNxN/Yud2df5fhMB4BOIjA64Ni3TFci/gOfuzyQxnc26EpEIlpB4CX5Z/rXfdijbER
+	 KoHkl+fGh0FY/puXORONQ4jElMvV6Of8zM5njknoA8GCtXWWMJWzdoETmDHWykBqalw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199834;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=31f6k6Qk+dLIN5aIDYfqU1+fJxCFB196QGT96yn9g4U=;
-	b=EsfulgbdqNfcAWGLXpiYMd27yOdGo0h42ETIq7F+ybzVhGFdoru4rfbt5Wwz8LUgWO+i
-	 P2BYHK7h1fqokdMx1GM+r1XmxQ88lyOBX8YNhyPgF9Ak75dBLCw8pVDsrw1hkkfV1u84l
-	 Xx8NV5r1TV/CJrMSiEn3hZ48jdcjnNxY00G0CIrpUwcwE+h3Vst9jq5nmCf2A74EHi+Ju
-	 PP9GoqBB+UH1RO+qLDOhCEVjluEJWN6zO2zoO9mWQuh+JzCWOQShKdaeJ7TiDUDj2LgH9
-	 ojMMGk+Q6SwYXZMBYfJ4xx6TxbEh1XTUJkypPpzfL0j7sQWQc/aCPjk94WVuGSpybbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=awGn2E34n5xBoC2fXIOuNMr+45oeRxGM6R0LvPLWK+U=;
+	b=N6pEccZ6WbpBFpwqSGHRyWyLYjy0hK3Pcu1lQZn9pXVEPh8BtCqctzv0dYOmNmiXnCud
+	 f64YTZvIb/SG6fBdzbRyyks0obQT4D6At9c5p/mdIT2pl7WOmVBvPz0wJxgp5v2JSZEW+
+	 mCmCDIp7Of98fz1ccUNT/Owj3nBRNN/PuMKaedHWTgqt75uk8Ffu3rBF1iYC+6WvjFAMc
+	 wwYOmAzdYVb95L/B6wfVNZGZrQyCJZEdTVlStY49thNpuQffaXanc2hIQPaV6w9qTc3sB
+	 L5uwhbAi9fqf296TJBmNezr+5Kso4RsWbK7gl+e07/RZBKh92FSwdc2SfxhlLyM/l/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r3sNAAXt;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EkYI916C;
+	arc=fail smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13F9606A32F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B13F9606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DB3606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:03:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3DB3606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r3sNAAXt
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c5b7d5865so140892f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:01:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EkYI916C
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7ce645a1c6aso654632137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:03:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793199833; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZeGD3TaeDlUd4Mfdg85msuwmf4Fj2RWDKwhXvAVE5Si+/z3NvJHtyOc9k+CUDyPAiV
+         PZ7tlWURBNCptrKeukXlnnjmqFTd/BJfdz65orbp2nKrB8SZD9Q93Jng+16usB4CH/Qp
+         PimGMsywdqMhfXf6ZcsdqmNpYAfFaljcaWubCKIAthU2TSXR3EGRuyIJWSXTeLSiocMP
+         DEwmULMdYp1VZyowqmqFeE0C8Dyp3tPg9u4UOeX1C6ei9MgLSJ4yhTzoecliwg7g4XvT
+         2Tl/6j+aeiBLyrkWA2EfShYBzmMt4fnx8i8q/Go1UkEEGWvT6QT48O1TtVAURk5jNO6e
+         UuPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=awGn2E34n5xBoC2fXIOuNMr+45oeRxGM6R0LvPLWK+U=;
+        fh=0tP7HjgAIN7VByCaKfxcmxgmbcd7n8tSCrOTGmLxl68=;
+        b=qTmH+/xj7Y/4O2PJd4O7koUuGg4vz/V9LHm5F/oSEHzlu3FtMkRnHZavMtSsAlKkkZ
+         +ENgqkF+XB/n7NzPKg9QHxwyLGiOrvlLtZqTZBP5gf9XrPT+d0Xg5E0s88rhh4G9Utql
+         lyE0/TTJ18uyQqlUjFNbklv5jI7/OcKp72yk5jIRrJnlSRQ/xTJlr67C0ktbyywiqJha
+         w5osY70gVvZ5a5FHXOarAOkkeowUAS2Qhfbizg6QtB7EM4KYDDFcDVggTdSQ+wYfrOjC
+         keiHKMLgAWlTOADe4gzGrgPBePO/0I3sw/9Te2yShhlu3Y2sweO92hEO9QJk49nmCxPr
+         BlHQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793199703; x=1793804503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31f6k6Qk+dLIN5aIDYfqU1+fJxCFB196QGT96yn9g4U=;
-        b=r3sNAAXtYs2FC/jtFhBxipQFUpM3FslY8spcfNfWA01UUVWzD4GMailvz4SifQgLun
-         UL3i8TTTAPERxcZFH76u9T0+NR6kZvfr3FiyZk+MnlGSm0Vy+0Cec5oV8UoIvIjnwNnr
-         lBB/Z3n8RQua4T+hRhIotsduSdFQP50yFF2JUnTNMPWz+B+mVzKXGkm0FM/veDc6MMMw
-         qPjz0pzYx4OXlKUfucUgj6eNHDHneT7BrQk/0xME3zo7vZZbucRFlHwweMmoYrB3Pb0u
-         fT44eTdA1Jved3FeIKDE5uZkNasdxhW2M9Cpd9EPlbQgDKCtPWXKvNDL4/vkCiHpY1k4
-         Lx8g==
+        d=gmail.com; s=20260707; t=1793199833; x=1793804633; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=awGn2E34n5xBoC2fXIOuNMr+45oeRxGM6R0LvPLWK+U=;
+        b=EkYI916CHi0fFZPKq292wFAojURC9kUkHh3E1HebbsISBU7zAaxiLCNI24BRX3vVTY
+         CYpvCFCHIXWLXGdmnExv+ndV1HAqmdnCtG3d9VLbyhcRzIMoYglufAxq8VNzXnJ1YjQx
+         Lf0Mw7IO3eCMsrMq24ws6r1MLH6tvKT2/xoOcHZ/+1uTYUI2Z8edhmsbyAA+S/1t2UEv
+         nlUzMBMPQn3WIo99fBLzpXFv7VcYIKDqTvlIuKliXZ9+8pVhIP2W8HFhFsJMA7TXK84y
+         rteW56FlFqMmhtM3OfnGfe7nqIOua+WfefzyXDDw+T7Igy0mRVaDxricG7nYWbfz3yCT
+         qwFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793199703; x=1793804503;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=31f6k6Qk+dLIN5aIDYfqU1+fJxCFB196QGT96yn9g4U=;
-        b=f7eMw0cVQz1vH079RkgBN4kUauhJGqxDHJcYhsrv9mZdh9KbFp2bETrYnBcAFk1lfF
-         GjP704eFVIc8jXZykRcUYvRa//+Gs18Vt1JyYuQgQygJI8NJAUSdcG2n95YRAYh4t3+2
-         C9xpFhXkGPYINNSYBF+CGO7raDMbG0nozep3h+VR3g4CcgSMBQYVvc70+plgHD7UAM1d
-         mn5UDYIi9wSIswhtE27pdHBnHBIKJBzKSOdMo+UaxcoVNRaBXArisqFy+AA1wNpUyMI2
-         9BFpIb/iPAvQ4bcmD1a0FhEPmnp1TK+t9utkIOfup9lMTZnXyJEHfHL5GrpcoX6tMYuC
-         ITGg==
-X-Forwarded-Encrypted: i=1; AKwUvByaqEaEFsKOcRmkmGZw+j6q7IFgDAcWgJFrB5WeUYbP9dKC4omuLG3V0JPI7r4+RLxI0upnEGczEMuqfBg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJk+dF1k0pb51oHCRRmp28mk7lU1e+yyv5OBAMFE/kSoDFYkLGU
-	R1XGM5Ecnc/aUPFh9giKtQGBoRBHCJLmE4mlse4h3I1/usWdeTnASCyc
-X-Gm-Gg: AYBFou0i6d+WSvg3gcFODHd9/e45KJBPvymxJdTiydui8jSpcA7twESnNsEIRw+khja
-	rgbmZ9Gucrs8j/esbk54W3alzGxdfPz4mHnG1q6Gy5OQSnvdVR9r4qaBscsTzumJ3AImgTv5DqS
-	5T7E8w2hQso60uRqW1gh5kOx2wKgCVav87I0hmWeh8ewpX5eMunWPRlpZH0UoBDpcSsLRWwARQP
-	wrPoiJXnDxt7KYT29+S7OXomi1TlLx8yrMieecpOfzUQyla2ppwx7kSYk7SaII5hJ86vrLwfcbh
-	xvgagZuQig+GJJKNFGKqFKK9Ys2dZe2jO4bbf4P2D/lN/UgGOOzhiTCflWX86cVpz0dkbhnDkfp
-	DMmKGDSA/FBnBuHTUh6U7ciJNbBjLLGpdGYPFNN0gW0jjDrNHi9z6tsEG3SdGXxrHNZkYJio5h1
-	zOGwEK6+0tjMZkmQwplDSK7yznyePMn4hNuNIorZCD6MtzomVrg3uKfSw18rC3jRMHCiZK5bAst
-	XWaZD79bI7xh3RvTlFPhI00O3x54/XaOLjVCFZOI6FCFk5pV2S3Pu3FSrADA9IcRfJm377VhSSQ
-	9EbrWDyiNU/qJagdB+rZ/CFJC/FEgjVDROVVeQ3VlD6shf8PiwkIOuaAsQrYP7diCD3YRlU4065
-	MFPowLZdl0kiMovu8xT92x9ZAgfPrj9VX3wenuX29KOg=
-X-Received: by 2002:a5d:4584:0:b0:48a:f41d:83c with SMTP id ffacd0b85a97d-48e5d2cfc69mr4811478f8f.0.1793199702768;
-        Wed, 28 Oct 2026 08:01:42 -0700 (PDT)
-Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4bc5sm28951293f8f.34.2026.10.28.08.01.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:01:42 -0700 (PDT)
-From: Thomas Fourier <fourier.thomas@gmail.com>
-To: 
-Cc: Thomas Fourier <fourier.thomas@gmail.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Oz Shlomo <ozsh@nvidia.com>,
-	Roi Dayan <roid@nvidia.com>,
-	netdev@vger.kernel.org (open list:MELLANOX ETHERNET DRIVER (mlx5e)),
-	linux-rdma@vger.kernel.org (open list:MELLANOX MLX5 core VPI driver),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net/mlx5e: TC, Fix double free of branch in failure
-Date: Wed, 28 Oct 2026 15:57:02 +0100
-Message-ID: <20261028145805.54595-3-fourier.thomas@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793199833; x=1793804633;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=awGn2E34n5xBoC2fXIOuNMr+45oeRxGM6R0LvPLWK+U=;
+        b=2CmwIbUhKcLinXIVurB+vBHT+dWX3h7rG2CCYECZqjCxdu+LKuCv8qxrjZTvP+Gl3u
+         72gM9G+xLXZuoP7c2YV68W2mM2F2f5FNpF6/VIsrB1DSdurwQjaOpvVf3DncqycMnrhn
+         s8RPudbq6+bWrleZgVnCXN/g6dbSCAWXjp/YEEughQ51jWun09/DmyaywOf72XWLzTkh
+         0Y/Naq4+r4H4L4MxFaITozt4zV8lsrr3Stib9n+q30I1P59J+v4nSJsndRevmLkQlv/T
+         MEnFNBjwbVoQ9I6mOg6sVZthORe+3M7Gb8wCdZPWYmJRBklAeeBAZjRQceSdzOIsaIVj
+         f7Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2WebKVpJMPgwgv+Iysnu5730u/cmccCSjVwJd27dknCkssYDgnqtKBo8u5LDfMcK2DmZL0CSzQYDovdQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1kZ+BZIpSodB9nNBCUhvl6q6S/NgUfo/SpBdVVPkclQ5YZGHl
+	//tOQyYY1prRhrrZOfS6kiXTgugyZJ3Y6G7/hxeIMtgpAJUb68IvwxY0wDDk4wRR8g263rVVQf/
+	IGdfGifIZamJfMSHfQpV5guF7L5mRBzFzRp8j
+X-Gm-Gg: AYBFou3QE95FeCvCLIhHMnS0Ijd5brdLttCQxlc/UgnGUWVrMUqO+w06WR3RhpDS9la
+	HTldazZz6iHqc1xRK562LcoIDV51TM/p00jownJvjLcVfKa7hbh6WeIEVcr0l5f0Ildb4RyJuTn
+	vhaWwARBI3XhTRsDesFnCKadZ3dAfWDpLEmWuH3zUWjqJrYIi3ZT+VffvEND+8NvAbCj9teQLB9
+	i+kBJQtXS+w+OhG7lzIeeWYxdP9jsTmfjbBYrXEGawbp8x2aaO0avo54Abs3FcDmx7D9dGFD9ya
+	dxlyh0Olqz2NXQ0OkEIoezSlSIEusUMwU4u/atjUDuWDZpgAvTobxHknKxERMhdt+2KH9n0raL/
+	WRqeqhrs1nMbQNfh2PXcIvnlYccrxDto6fLq16C62RBTEjx8nD2dBjkHPygf55WjvKNLyrqlZpM
+	xUHUOlu4aTbF32PXiLb0rXpcNIOwUYyA==
+X-Received: by 2002:a05:6102:448f:b0:7cb:bb33:8413 with SMTP id
+ ada2fe7eead31-7d03a417ec3mr1297169137.9.1793199832560; Wed, 28 Oct 2026
+ 08:03:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,36 +105,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-3-lizhe.67@bytedance.com>
+In-Reply-To: <20261028041253.74839-3-lizhe.67@bytedance.com>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Wed, 28 Oct 2026 11:03:40 -0400
+X-Gm-Features: AclHuK_0y881Zt-9WzkHkMimi_VBCkr1qyy4N5JRQ7yKOQQhsOVN3bLe2ggK2js
+Message-ID: <CAN+CAwPM=-sRDypP0+ZxX8_CziBRjXbxKEE3UZGLzkmOWrajNg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] sched/numa: do not feed tiering promotions into
+ task placement stats
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, bsegall@google.com, david@kernel.org, 
+	dietmar.eggemann@arm.com, gourry@gourry.net, juri.lelli@redhat.com, 
+	kprateek.nayak@amd.com, ljs@kernel.org, mgorman@suse.de, mingo@redhat.com, 
+	peterz@infradead.org, riel@redhat.com, rostedt@goodmis.org, 
+	vincent.guittot@linaro.org, vschneid@redhat.com, ziy@nvidia.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When allocating the false branch fails in parse_branch_ctrl(), the
-already allocated true branch is freed but attr->branch_true is left
-pointing to it. The caller parse_tc_actions() fails the flow, and
-free_flow_post_acts(), mlx5_free_flow_attr_actions() which calls again
-free_branch_attr() on attr->branch_true.
+On Wed, Oct 28, 2026 at 12:14=E2=80=AFAM Li Zhe <lizhe.67@bytedance.com> wr=
+ote:
+>
+> NUMA balancing has separate mode bits for normal task placement and
+> memory tiering. In memory-tiering-only mode, NUMA hinting faults on
+> slow-tier pages are used to detect hot pages and promote them to a top
+> tier. They are not normal task-placement faults.
+>
+> For slow-tier folios, memory tiering reuses the folio last-cpupid field
+> to store access-time metadata. numa_migrate_check() therefore cannot
+> return a real cpupid for those faults. Before this change, it returned th=
+e
+> same all-ones last_cpupid value that normal AutoNUMA uses for a first or
+> unknown access.
+>
+> That can make a memory-tiering-only promotion look like an ordinary first
+> private AutoNUMA fault. After a successful promotion, do_numa_page()
+> reports the target top-tier node to task_numa_fault(), so the existing
+> slow-node skip no longer applies. task_numa_fault() then accounts the
+> fault in p->numa_faults and p->numa_faults_locality, and
+> task_numa_placement() can consume that sample to update normal task
+> placement state even though normal NUMA balancing is disabled. In other
+> words, hot-page promotion feedback can leak into the CPU placement
+> heuristic.
 
-Clear the pointer after freeing it.
+Hi Zhe,
 
-This bug is theoretical and was compile tested only.
+Thanks for the revision. To me, this looks more like a fix than an
+optimization, since there really is incorrect NUMA balancing behavior
+happening that could be visible in userspace (unintended
+task-placement and related accounting). On the other hand patch 3/3
+doesn't seem like a fix to me despite the name, since this one would
+mitigate the incorrect behavior.
 
-Fixes: f86488cb4685 ("net/mlx5e: TC, initialize branch flow attributes")
-Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en_tc.c | 1 +
- 1 file changed, 1 insertion(+)
+How about we pull this one out of the series and submit it
+independently with an appropriate Fixes: tag and cc:stable, and
+discuss 1 and 3 later on? Unfortunately this is also not a great time
+to submit new features or behaviors as we are in the middle of a large
+merge window, and there are a bunch of fixes that maintainers might be
+busy looking into : -(
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index b290beb4369a..c40c7b55a54d 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -4005,6 +4005,7 @@ parse_branch_ctrl(struct flow_action_entry *act, struct mlx5e_tc_act *tc_act,
- 
- err_branch_false:
- 	free_branch_attr(flow, attr->branch_true);
-+	attr->branch_true = NULL;
- out_err:
- 	return err;
- }
--- 
-2.53.0
+Regardless, thank you for the fix, Zhe! I don't have a strong
+preference on the ordering of this against pghot, but if other folks
+are concerned that this could create more churn, I think it would be
+reasonable to wait for patches 1 and 3 after we discuss with Bharata.
 
+I hope you have a great day : -)
+Joshua
