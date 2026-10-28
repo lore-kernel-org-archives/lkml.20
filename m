@@ -1,124 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793177496;
-	b=rJ2SMbPzATH8AtLoFkqbsItbeBT9qffvN7MeXFqhsJrzPx63BvMeWWR/dt9vmf9qx3A9
-	 JfXO9xEe4n2U/kT9DDspVr+6kWXUQdZnVA2G4nFm1Wxe3PnkWAP0MXVo0v4kmu+XSUxDM
-	 WHywr1K9hr4B4+hfMZOcXZ7qrmO1YNUi6Yvd5w+jpj7KU45CRpswi41Jm5k0gGSQlHANm
-	 azMCYfo9sLk3l2je31OI0UbizEpZG03ynvQVfS6wkrtOtFXx6O0w8zS7CXwyZTWE/xUvh
-	 3ePhE4X58kXjUyHPumw7EwmDN2hMHr29GC0UUA7U4DedrbPCaWTUzDHrzADrvQ+aOvg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793177504;
+	b=s1fmUiJ9R4WyyaAb3M4DDW+WO0nlQDbcvDes9vr02f/rQCCU8UJ9NITBIzkGkotIeSFg
+	 TkQf90+evLLb9/tBCK7nUthrZuHV5c83zoqIawEVU2gk926oxOuBIzFjoi/pksmowzVyK
+	 PnEu6IjQC915ehKrm+CPfGbO1P7sD4jTWbngHEVz96jzrZxc4YLyGbGlrwWMqguZA6rPf
+	 dRj+GJ1JpGnfNGhh5vwIJ2Ui7UUUmT9W+NGWiqfda7L7T5tg1if6jNRksFu72MQpcorR+
+	 e8V/cjEplPIdEIJu83v4nRy9BnjMW3rVv1TxkaoRK7bbAvZrtekUX0PARuzK0A8txGw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177496;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dtaLCG5DfHiNQ60mEm2A+W71f2WlufqY+/mbeyVW/yk=;
-	b=gBJy+1W2RbgHk04JrIVOeClJAlaLwdW7VWorTIkUcCldtKUPgcWYEX105ywlphmNLj8J
-	 7u01wIrsCbGByV3MTbC3nq3GYoFmIqcjL5Co861pS/zKBwShQa71rpXG+R749gCE3+acG
-	 XbViMAok//aWi39g+QxQcDjMtpjvE103vjfcuwpR/n66qUAqHijC7c7tmkcHxTHNX5WBj
-	 aGV4lGUPRde2PTW9QTd280ztBFRwwFzu7CHcCbH5AbGr+ChP17vHjCtG5eZlmVTfBQ+PB
-	 CJx3JAnqCsQGHbV6n1aW1TfAy9CqNhzKY24yDHcH+CyBWF0+giHpXfjrHZ521SnN/6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177504;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+	b=3iHXuwYMUUSB8s/pXwbmzO8FIpGjHCnHfWSSNTubKrEZT5fuwg+wIfTj07M3QMPrzuQL
+	 9l/RmbzJ+eom2r/jA74byd4PHrMUMaTWOGct+ipBT8AwSIWmsANyI5vhrOmxIT6BYd6Wz
+	 NIFmqmqnJV4IDkHlprPHnwXlKHBFabPMMQC9KQ6xt9wEpXpXqEBD1xPWikPsBWKd/kqa7
+	 BPQPNfxQLy/PyI9c8ObXLGBt39jYYz2455lPpP0fU7JPRHeYDUVfpX6wfuGSPbDmT+gYU
+	 60mT/PwkFo1mYhg91/ZDHwDccq6KbQR32M5ch/JLB8IYweQEHe2do1L2qASeqS4b5vg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DQ0SBYvN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IGGA5y1W;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQP1Ay8w;
+	arc=fail smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E7A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E7A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C33A606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C33A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DQ0SBYvN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IGGA5y1W
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KnJo1101710
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dtaLCG5DfHiNQ60mEm2A+W71f2WlufqY+/mbeyVW/yk=; b=DQ0SBYvNc/aXtTL5
-	TSUsoM0rjgb0k4pGqQql6KcsnnkVgAi9bbYntJp7F14v7JAFIArMfr22V8XBt7wc
-	P9JPKEXKaWmGV6bf1cmpQFe8vhsNhJidk3xwr3Q+HGAqGU4HEO2Z7ZUZ8MEGtVjl
-	IdfkGoDW95nYuDT1xjQZiEFTkuO+LFMR23Dqf7Do/d0cLtz2ecuz86U2/mUJRrNo
-	ZpKMcL14UjgJtGRuxDhadN0Ro/vpYdpfgvfgKToel+2bBCm+ZyJFt7N3eQYAeMFC
-	QwFBUNdJlflvTsIISrxVY6GoMJ4jLGK74LO0X5FeaqArHdo/J03KZ3zFMgD/rjo5
-	ANAXgQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdf7r3er-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:51:34 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5352436cd78so8704981cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:51:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793177493; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQP1Ay8w
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5fb79ce82so4496485ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:51:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793177504; cv=none;
         d=google.com; s=arc-20260327;
-        b=cvPx6yhP6UsiL7qAr9j79BKe8mHQMOJBB2cdlhQa0lZZFSPE7lPndM6CzmvbX2Zl30
-         Ct+C+9qkEHPD3/jj15csnFIGSbsYvRtigSxMKFEoeFEGA1PG3cqpyPYyJJxIGIG81x7n
-         CRB2TKmYUMQ3HjpO4xdAlTHyWxkBEuPNbGQT3T1QcEFMkcA2h0/kNU6euZ8otA7ZBDkW
-         FQN1A8QItbqhYTEWAbORBnWJnOtZdR+Pk8jUmyuzctK+DvYtKhLVStCgnkvIvvGmyjGT
-         pmg5ljL68He8Dh6Q/5U0Rw8zIsMsltAM1+TQr6dA6B4QPdWIibvVDcNk7PrUKaANyL2l
-         cl5w==
+        b=ewpTBK8TglLNc5SU0DqpGcaUAbNleunT9EnQ1DkBA1T+5ZMBYi+jxcXkCKyv23IhSd
+         +/6zHeWG5EACGFrgu/c48SSgMexWsUk0VUxgNQR8DMG92uuPaasxVCdIjGuZhgrahzI/
+         qEaelmt58/aZCNI4cgJkA7fbJvhj4TIjA4T/V+BcqIrnzgeXuLAmAEiTee3nFa2uB4Ur
+         c6GdlZy2Ak/0Pcpy2jmZ1Jpvx/aOhR/dx6PcTMtP2Go2I6ZzyXcsiLVl97yGcBA8+Xnm
+         NVB747YEQnyr0LK3XMAts99Czb7mfmvkRZlVLKtFTgqCzF80Gh+fEA9B9sZhXyRYGJn8
+         rwHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dtaLCG5DfHiNQ60mEm2A+W71f2WlufqY+/mbeyVW/yk=;
-        fh=5vOTmVGPYukYjRjF8J+mJYuNMplXrELPktYyp0addik=;
-        b=nh17uo9AeSxI44j3iQFD+TGmf6R1Wafj8+G8EHH7KPH0imZyfzIwQVx3wcyKWNxXxK
-         +GaU5/n71sk5w4VyNFWQLq6h1fNu+5dE0zQj6dLJJ2zmnz4jyA2EMLtSoTu/9qRq5xi+
-         eP0y6d/Q9KWPDtd4gcd4v87yylrMKFLiswKn2J8AvsuO5WFp5Q+mtjFDaa6OwLzvqI47
-         CsTYO+9Y8j1IWwbZTkwN0gpg61Uu0cGY5EWe3r/GUit1FbCionWswn0Uy8t71hfr3LIi
-         nOkfsF9Sw1rNb9ciVCWhzCJxAxrQiTjkCfV2occGjg2kjtpexcuyjSPGkIMG8LX6pMas
-         1Ysw==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        fh=lPTFoaVvZMwzQdhWSfjCqRGY6sh77HT+UicoCJ5IxZc=;
+        b=fV0YiSfDvf/+znUppA230E4OUCHYUufVN0GRXJYG2uxoRhAt0W8fSZ0w5EcoK/r3Lc
+         lI0+tAVMzgkkg2ZJn/udWXDinqvFFj4d3km6snmOUl+jrrNZDsxQSqHM/MLIDlYV4IMx
+         L2Hn3id8pcbkD54AnONUT8ur9LNby2pZ5Cgl5ixsg3zvxAFtsa/EiLw2p4Y1plztHqma
+         Un/mTOt7QqnQEK3JIodpwRMXXIJ0gcKqIxIQIoe3rq96G4WFWyeps6RbI9t3mTWuqz/V
+         XbRsx5697ID3JrPmtCb8SYgDC/oOBpYYF16fJT8/m9HrS+JrWlTnwM3OqB4si14NXs0Y
+         6p3A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793177493; x=1793782293; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dtaLCG5DfHiNQ60mEm2A+W71f2WlufqY+/mbeyVW/yk=;
-        b=IGGA5y1WWStMTA//0BJ7KBsYvaAyHOdJthFY3eAJj05vH9P67RLvlO9sVnIFAqU0Kx
-         6X/GjBMNnRENZP5taihp00zfQUUXpaisXfFJa9PrC3o2/Vv2oxKwUCKhLZZMMk/eSldr
-         YzXct9ufFFuDXhBCPtywXVM13b4yxPt76pIKHsUKk4lD+o1yLvWSYdh0XOlYZlWBUycW
-         KIifbpbZIcU5Jnfwf4vadZ68XSsJUIpnCaFiJSKsKeTFB2+Daw7fXG3TcX3IYfFO1dxx
-         qr4uF1CD/aMt+lOnStwNuY7qKQVEl6pn/AjS/o4qzrXgR/TsGzM2bA86Ii94cYguxWNO
-         hmXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793177493; x=1793782293;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793177504; x=1793782304; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dtaLCG5DfHiNQ60mEm2A+W71f2WlufqY+/mbeyVW/yk=;
-        b=NnDo3RWeRgfzB/Tr3zT7LG3T9f/q0/aQdQvuWAtDj0DGGLxucfvAR0WpQCzVpwiXW8
-         QGeuA1mOoaPB2Iv6TpF5rwRZPIFNHw+h1kviIKT8E+0RCuwbxvlbjsxTA8zLdp0sDU7z
-         oZ/PmTGl8I7fkK69UGUs3ZJqZqNdv0sYa/ZnzoNkgrCVsppluqSV4C4lnvLcm7CtjyAZ
-         zA0DWnvksqkAqfpyZbvVDgalFfBUzEbIWnbE1VOkES2AoD/zgMqwR3F/N5ywC/Itn+ul
-         FWjW9/FuPf95YCKnc5Hb0DHwrunnHwtiK5O71wkMlj1Rk3/n9Y64mo9gfL+ydWAU/29W
-         LXEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzIrV9bjIGVMm1gX2mDxqKgAbdfhpQg/cxeTW5+f1FCMROo8/MdTVbvJqwUhgYpxykOGgXyvrBCLw4DBpw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsKYGxBs+cX6usir30vQqkjYaRMojb6cQTgI5no8BQHSHTNLDV
-	UhXhoZyV0zF+vtnGpHc9NA2OYaOiOm18vNiVo8nIwGhmwQFAR7r3MW0AMEAnVj+X49Z8Eu/7/sT
-	0BwtgYZy6voj1S0RGXIcaTevcOPEQ6UwqGkjvv0kWUQHgWw39rte3eQGrl7AhqiAz+TouE8rfNx
-	lE1p5Zcx9bYKEmsihBr7YXYZpmflpgpQnG5luxU2dNfg==
-X-Gm-Gg: AYBFou2mXZ2kJQUabApKgnrf8E/7gtwdPz2UuXBLi8kzzjQRaTMtezkIqOxSh/TmirT
-	tuLXbOA+uZAmUloV5X/ivAL/koiMEJ2Q1X5emKPmZuzln1YDRNDnyb1hg/QREPaV4ZhmM7SGfE2
-	jM13gFAEBBTTGi4HHC1I+FUVqiwbVOXFEwUFLXbqhJ4N86/Mh+yBVVdGmFvUqHVURLXfKz7Bgrm
-	Lf4Z5nWbaJuLHh39S9iYa+uBuIo+bUWX8sH40eVwFWzLEZ1xFUG+WH4+msK/gfdYitACgNDo1Q=
-X-Received: by 2002:a05:622a:489:b0:535:c88:8f1 with SMTP id d75a77b69052e-53fcbce2f2amr29596421cf.41.1793177493426;
-        Wed, 28 Oct 2026 01:51:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:489:b0:535:c88:8f1 with SMTP id
- d75a77b69052e-53fcbce2f2amr29596061cf.41.1793177492903; Wed, 28 Oct 2026
- 01:51:32 -0700 (PDT)
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        b=ZQP1Ay8wd6LeEZqlcy8Mzgpc1cJNvzlAcc9GY/nFpF5MJMCMiwbItrR7g8j5zdKbNB
+         wuJbcNsp1LhPspb1Fu0Gn7zIVq7+3UwMcfqXzriyCRfYQfJfkNvM9R+qBq6YY4YfHEyQ
+         +R4GAOtt1KZm6VjJWrUezRrss7HHXtxOD3OB8CY5XS/a1U1rQZ8hprmaJQ8ArM9z/u+3
+         sQiQcUyvZoUefKgbj5nZkSIa9WQRX+ZKqcVhejOQZRpUiixmZD6lpNQHimMVl4iDyQfX
+         zYIqS6PP6U+jBLjL7Eu3pKqMko7NbZRBZo0cMWD15/YCPzUSfiiUIb61XTd7pAmQ8yo9
+         GBYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793177504; x=1793782304;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        b=Rxt+vH1u/mYPIcPYzD+0DKW2phTsS/92X997P3Nsx6O6ciU9eqqXleTcjlj7zrKcvr
+         lvQpQoYg9Xgtj9Zgumv0quG9puhJ25gaNqGa9pvMAuv/8NLguxK4GtIPo0MMw+0fQW4U
+         t2qVt2WrYl2EwB1kd37WHEDaC7D3bnYO/4Yr777hX0AnlaYwHcAfMOK66sQY2I5mMJ02
+         HmuAmMF9N0DPON5EI5Zaj0Em7AsuzOckhidWf6m+RMrTy/5JbKW84IctH+9joVNKAato
+         m2VJdh++Hf6+MSPEela8M5F7JdClMN1G4Idtj0X+MGPOkdy+lDJtkW5Atvd61966qfAx
+         OrYw==
+X-Forwarded-Encrypted: i=1; AKwUvBycRJ/rbmvRAYfySRDuwwrwgQ4dnNGgAQMUKqX8fnERTRnH9Bfgq/YyV3jLqDUGcRurmXWXTE2qdbgX5tI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCPpK8EMaQE0stqnJgQFs29pyzP+UIp/czsrgAU+XV22Cns3yf
+	m3PWlFCqjPZzd/m63wHDNZMMXC8cxHxWjT3N6H158C4Vjurkah5acmNBAJA2USbfWDy6Q/L/dvW
+	SAo/kKCKFLp0NffGsbMAG23t22Uz08uc=
+X-Gm-Gg: AYBFou0kFN5Ax60HAJMc5OjAScdNx6jGZCsAwi0cWHG3bCjJUfXL2tFSHpG9vT0m+4c
+	BBsDAlIA1xW9bMtCOpp3iqznnvVZTRWCcN+N/HBJCe2lmcfA8dCDoOUn/4QvgjF6svQ0S0yJpZD
+	xB5ax3qdliS9XWUSDs+l5cK2O0q25zjbZEY8SjYBZD5NDvtU7VOeGCWCeXL8a69fAJ0zZZDx3B6
+	8NrWdxXmQjpbMxOciOIepctGUWPfvB850BIPRCoiE28aZbv+PDZ8sNoJz/SuNovKPLeU2+jS4Gs
+	hmHQ5qcNxvdSTn3k2sNi/aEab9BxnvgpmJ/w3Yi6OI52fMWwCBKFU9LXYeimCjB/xfW7XJOzRrE
+	AXAbMtoFEmQ6II7Z0CZmYPtun9lEFIPIH/lovCb1wv0UJNdJfud0s2iLD
+X-Received: by 2002:a17:902:d546:b0:2e8:486d:fa00 with SMTP id
+ d9443c01a7336-2eb00374563mr16912315ad.29.1793177503597; Wed, 28 Oct 2026
+ 01:51:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,125 +103,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027171055.1796482-1-peter.hunt@opengear.com>
-In-Reply-To: <20261027171055.1796482-1-peter.hunt@opengear.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 09:51:22 +0100
-X-Gm-Features: AclHuK_7Qt0TADKGY1nMybB1djOqh4oQ5S7n5wDRc9mHEYJzanegY_rRJPAb_Us
-Message-ID: <CAFEp6-2GiTaDb3GVE8BCSmQuONOVmiTvY=tv+Ji_keXcFZWPhA@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: wwan: mhi_wwan_ctrl: send a DTR drop before
- it can be coalesced
-To: Peter Hunt <peter.hunt@opengear.com>
-Cc: netdev@vger.kernel.org, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Daniele Palmas <dnlplm@gmail.com>,
-        linux-kernel@vger.kernel.org
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+In-Reply-To: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Date: Wed, 28 Oct 2026 09:51:32 +0100
+X-Gm-Features: AclHuK-W7tQ9BUgY6zXhq61ZHhZ-QvaVHjA4WXgAGEYQXLZpdA0nUbFDuHHyB6w
+Message-ID: <CAO0HQ0UE5BtevPHHfV9mQo5HoqzxzDDjAkj9e=pD_0AaXmSYFQ@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+To: zhiwei.liang@zliang.me
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Qu Wenruo <wqu@suse.com>, 
+	Filipe Manana <fdmanana@suse.com>, Robbie Ko <robbieko@synology.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=M4bYuCws c=1 sm=1 tr=0 ts=6ae1b796 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=6MsIef5sYUtYhJpA:21 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=t2vznHeBAAAA:8 a=EUspDBNiAAAA:8 a=ziOM4HdDeOLMJrtgq5cA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=V_BghkRpYkFyHJIZkSH6:22
-X-Proofpoint-GUID: 1t3ULiGX4ilmP257X8s32prmWGjVktc0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAzNSBTYWx0ZWRfX2eICNvv1wQFr
- QC/KcEuPjusuGswLET38nCE5FdBki/9LvK15XBc66eZVbnga7xDdH39IahZVSZTjveOxC2dtf1C
- pEepSNzyHdFNEXw+EHYMru1xiaCeN1c=
-X-Proofpoint-ORIG-GUID: 1t3ULiGX4ilmP257X8s32prmWGjVktc0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAzNSBTYWx0ZWRfX9tOBzt6SYrXj
- AAmuPQzv7QDsqmgZDcOU0vwngLH3anY5jAOMOjFHWmvZvv6dN46KL50ybyBnAeChZz5GoEcx+ky
- ofx+gtKBg+PDKZ40nBfDmM3zNvRWSo5KZgvMqPLe0xu8h617PFhJSBx1KSzImqLcFab7P6HY9Io
- sWMOotc2K9eCm/3JjPRSxoAswAt/ncNr/pXk8TJp9ZdZx8DmvWjZTpAoCNQe7I37m+UEoyfCowK
- nkRv7chKsz9KwJu7rCsPisD7tc7bMob6NLEZ+MvDM3OyHc88cmxSLn+0y+dij5eokK8iqhtnPSp
- 2ITkKiOH6kpiGqBg0fd4yA+1UZdzhCwwJcPPbaLI4vFriroae1JSvKU6quItkQbpGGeNJd8sQTM
- IyrHAattbtlzsh6fUq6CkI1A8lDbPRfDf27hVKYE1/occrBh9e5GOE76NUVnFikKYDQYx1590k0
- yYnZngU5Q2JfyCXddtw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 malwarescore=0
- bulkscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280035
 
-On Tue, Oct 27, 2026 at 6:11=E2=80=AFPM Peter Hunt <peter.hunt@opengear.com=
-> wrote:
+On Wed, 28 Oct 2026 at 07:57, Zhiwei Liang via B4 Relay
+<devnull+zhiwei.liang.zliang.me@kernel.org> wrote:
 >
-> DTR/RTS changes are sent from a work item that only sends the latest
-> state, so a drop followed quickly by a raise, for example TIOCMBIC then
-> TIOCMBIS or a quick close and reopen, can reach the modem as just the
-> raise. A drop matters on its own, a modem set to AT&D2 hangs up on it.
+> From: Zhiwei Liang <zhiwei.liang@zliang.me>
 >
-> Flush the work when DTR goes low so the drop is sent before ->dtr_rts()
-> returns, and flush it in stop() so any pending state is sent before the
-> channel is stopped. A drop that hits a full UL ring is still retried
-> with whatever state is latest by then.
+> When a suspend starts during FITRIM, fstrim can fail with:
 >
-> Fixes: d509edf90bc6 ("net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_=
-CTRL channel")
-> Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Peter Hunt <peter.hunt@opengear.com>
+>   fstrim: /: FITRIM ioctl failed: Unknown error 512
+>
+> On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+> fstrim.service runs were in progress when an automatic suspend started.
+> All three failed this way and left the filesystem untrimmed.
+>
+> Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+> loops"), the trim loops return -ERESTARTSYS when
+> btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+> to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+> properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
+>
+> -ERESTARTSYS is only valid while a signal is pending, because only the
+> signal handling on syscall exit turns it into a restart. But
+> freeze_processes() first sets pm_freezing, which makes freezing() true
+> for every user task. Then it walks the task list and sends each task a
+> fake signal. The trim loops check btrfs_trim_interrupted() after every
+> extent. If a check falls in this window, the loop returns -ERESTARTSYS
+> with no signal pending. Nothing restarts the syscall. On that laptop,
+> with a few thousand threads, freezing user space took 2 to 5 ms in each
+> of the three suspends above, and all three runs hit this window.
+>
+> Make btrfs_trim_interrupted() treat a freeze as an interruption only
+> once the fake signal has arrived, i.e. when
+> freezing(current) && signal_pending(current). freeze_processes() sends
+> that signal in the same call. The trim loop stops at the next check
+> after it, so suspend is not delayed.
+Looking at how ext4 handles this scenario it seems to me they don't set
+the error code to -ERESTARTSYS and (from a quick glance) return the
+bytes discarded to the caller.
+And like before they continue the discard (which will skip/fail again) until
+there's nothing to be done.
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-
+I don't know what the intention of btrfs: handle user interrupt
+properly in btrfs_trim_fs()
+was, maybe we should just swallow the ERESTARTSYS case in those scenarios.
+>
+> The restarted syscall re-reads struct fstrim_range from user memory.
+> When the device phase is interrupted, btrfs_trim_fs() has already stored
+> the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+> the struct back unconditionally. The restart is then asked to trim
+> [start, start + trimmed) instead of the requested range, or fails with
+> -EINVAL when nothing was counted yet. Skip the copy_to_user() for
+> -ERESTARTSYS. In all other cases the partial count is still copied back.
+>
+> Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+> during a trim leaked errno 512, and 10 of 10 restarts after a
+> device-phase interruption failed with -EINVAL. With the patch, all 30
+> runs restarted and trimmed the full amount.
+>
+> Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+> CC: stable@vger.kernel.org # 5.15+
+> Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
 > ---
-> v2: Only handle the DTR drop, by flushing the work when DTR goes low,
->     and flush it in stop() as well (Loic Poulain). Drop the port list
->     and resend on a late IP_CTRL bind, which is only reachable by
->     unbinding and rebinding mhi_wwan_dtr through sysfs.
-> v1: https://lore.kernel.org/all/20261023174113.2388353-1-peter.hunt@openg=
-ear.com/
+>  fs/btrfs/free-space-cache.h | 3 ++-
+>  fs/btrfs/ioctl.c            | 7 +++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
 >
-> Tested on a Sierra EM9291 (CM8100): back-to-back DTR drop+raise and
-> close+reopen now always send the drop, bursts of 10,000 DTR changes,
-> HUPCL, teardown and lock stress tests.
+> diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+> index e22443598b..cba2f5fd6b 100644
+> --- a/fs/btrfs/free-space-cache.h
+> +++ b/fs/btrfs/free-space-cache.h
+> @@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
 >
->  drivers/net/wwan/mhi_wwan_ctrl.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/drivers/net/wwan/mhi_wwan_ctrl.c b/drivers/net/wwan/mhi_wwan=
-_ctrl.c
-> index e3c207588956..772319927867 100644
-> --- a/drivers/net/wwan/mhi_wwan_ctrl.c
-> +++ b/drivers/net/wwan/mhi_wwan_ctrl.c
-> @@ -209,9 +209,17 @@ static void mhi_wwan_ctrl_dtr_work(struct work_struc=
-t *work)
->  static void mhi_wwan_ctrl_dtr_rts(struct wwan_port *port, unsigned int m=
-dmbits)
+>  static inline bool btrfs_trim_interrupted(void)
 >  {
->         struct mhi_wwan_dev *mhiwwan =3D wwan_port_get_drvdata(port);
-> +       bool drop =3D (READ_ONCE(mhiwwan->dtr_mdmbits) & TIOCM_DTR) &&
-> +                   !(mdmbits & TIOCM_DTR);
+> -       return fatal_signal_pending(current) || freezing(current);
+> +       return fatal_signal_pending(current) ||
+> +              (freezing(current) && signal_pending(current));
+>  }
 >
->         WRITE_ONCE(mhiwwan->dtr_mdmbits, mdmbits);
->         schedule_delayed_work(&mhiwwan->dtr_work, 0);
-> +
-> +       /* A DTR drop matters on its own, e.g. to hang up a modem set to =
-AT&D2,
-> +        * so send it now rather than let a following raise coalesce it a=
-way
+>  /*
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index ac070c745b..b02c59cbb0 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+>         range.minlen = max(range.minlen, minlen);
+>         ret = btrfs_trim_fs(fs_info, &range);
+>
+> +       /*
+> +        * A restart re-reads the range from user space, so do not clobber it
+> +        * with the partial len the rerun would otherwise take as its input.
 > +        */
-> +       if (drop)
-> +               flush_delayed_work(&mhiwwan->dtr_work);
->  }
->
->  static int mhi_wwan_ctrl_start(struct wwan_port *port)
-> @@ -246,6 +254,9 @@ static void mhi_wwan_ctrl_stop(struct wwan_port *port=
-)
->
->         cancel_work_sync(&mhiwwan->rx_refill);
->
-> +       /* Send any pending DTR/RTS state before the channel stops */
-> +       flush_delayed_work(&mhiwwan->dtr_work);
+> +       if (ret == -ERESTARTSYS)
+> +               return ret;
 > +
->         mhi_unprepare_from_transfer(mhiwwan->mhi_dev);
->  }
+>         if (copy_to_user(arg, &range, sizeof(range)))
+>                 return -EFAULT;
 >
+>
+> ---
+> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+> change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+>
+> Best regards,
 > --
-> 2.43.0
+> Zhiwei Liang <zhiwei.liang@zliang.me>
+>
 >
