@@ -1,67 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209577;
-	b=YyUBiwGEjqB0sjXSMe/F7ZyM4tIiGWOONgoOMgHOrTR8v14CJzRLkwnRV+BiFhjNjTvj
-	 ghantPgfEZXqyO2PPxPvjeFw5dL5/iy/xh/lvepuDc7aolZzn1epJmAlaEZGLMAoBZNvR
-	 IYqtdNW35Ku7xEnTgMePMe3Bg6pMfQHZmyEvZjiROB92+G9bQDHF/fy29O5lmJs9uZI6b
-	 /YNhPWnU+XfT4ZKjiyhH2Y77o+u4l6U7eRdEuNx1ZgCZZuKp+P942rFn9xuXzb3ZN8q5N
-	 QiOrhwPBmjaX2lNr9OuIRjfp9tMy0mCfjNAq8d3ts/TzCAbjG5vVm7wcryrEGyDAJog==
+	t=1793209592;
+	b=FVQTqMNJnoxV9ejflngs10POvWsgZZA3XwtRzJddfmeysP9t+EQbXv4kXabcqI96Grp6
+	 YHL8deEmGkubaMVVYwsJ6bP42YaY65s5z+lH0vtGRKyx+bAo7PNZozDelvP4L9UNMuCo5
+	 KSDzxYPZVSJJ48JOc9BNKMBZg4GvmZPHO21OP3AjJdaPvBCz20+JrCvKjhI6Hej3yT4xi
+	 yH5pG8hJ4ryTyURO+1BrfYYmMkMVJxb6AcRvejmdbhLBsYyfi0CHpQpPLyI8todi9pmyo
+	 N+2XC0OsN8mVwhYAsJY7F1z1w6M9YN/DRvCbyA9yJaMXz5tliUNRvEy98MzOnYwRCrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209577;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=un6PEbsCXrKJCD8T9XZ4ZY/mJef0LDqJ9J/ZAe775Z4=;
-	b=GcKVJu4RJU2lrjagspx68rvy2MtT232L+nIPmJYQBmovTc0LMkOqVR/EWUF6VI94V+fL
-	 sif7poH6ccRsjFi4DeUNETLNrFT7536UFACQCIIMWR6HhnA348TA2F+X6+efztr6AiYC0
-	 FT+hqvYV2ypiAtUc9MdoH6jtz/oVsWQwfA0MY5bwx8qLqi8Fm2vYuYMXrQVuCwjZD7RDq
-	 v5w1J8wcdSe2w2JjqBg+c8hfu6NAS+Fx5Nbw28BWamEUNW7qXhFFlHaa4sEdBClxPkSql
-	 9OwiKYp/1n2A6sCEpbDXWfyf0zwR8QFPtitq0wxXq/tOk1LaJe7vdaWZ8gpXV0a2+5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209592;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OE8OEA2joPPITRGS+av4AQ4EjtvJjhIqiZj/74OJ5qU=;
+	b=x3HkpRH4FpYJuDMDO4EPbSU1x74aNaFNr3srOjUAJe5x2qkinRBUD5KqJi+4IvlgbURW
+	 X5iaPKtpiLQZwshqv0z3iJvurxUQ5dbN91LcETTY+pbZ+aPBkNoGt9yS+ZAaCU/IBO8Le
+	 ahDeX6AJNORcMEdMvFKV3tj5zgO2wSqDWXg2vvp6DN2EhyVCQMFbKY39nL7Jm5rpaPNvL
+	 wuqkd9yq/N6DquBYTmOAIq1PyTWkt696lXNacntuFrQ4KjWKIw3NedTXVjgotAwev+dRZ
+	 lrprvsAI28B8kFkAY58bDNy3zOr/BM4PHcx88A4iY5fnfxA8dGzVU2RWyHDFRqvTvkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=siv4XylN;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kBqzdIXa;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79DB606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E79DB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E66B606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:46:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E66B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=siv4XylN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=un6PEbsCXrKJCD8T9XZ4ZY/mJef0LDqJ9J/ZAe775Z4=; t=1793209576; x=1794073576; 
-	b=siv4XylNS3QsGLcvU6hq+dka46eqdMPeStFBTMdphbUDKe06skGmliF1wVgt7kQTc2yGxiU0FJP
-	qIwitdgFulRr7Cv2jN6Rlz8xAz333XiVezEPm7Np0ZkQPqqt5pcc3d9RPW1RuPv4kC/lkaDSeaS/s
-	H602mCWIybMT3xm6BQmaz7lbtIDseWM1XEDcrU6d8B2XmupyHBQOWUFdgXq4svHjMiIJs+WykEBNN
-	3Nm1ufmYNnUKIaQPsfTBx08UTbg/pYAHsxK8rFFs/RZCfC7gij12qHiDfS9Qh9BcXkHCysf6Y1Od2
-	teUyH+Zw/p1WOzjFhnpDNVEXKzVlljJt18Tg==;
-Received: from mail-dl1-f45.google.com ([74.125.82.45])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xM7j5-00HVMX-O6
-	for linux-kernel@vger.kernel.org;
-	Wed, 28 Oct 2026 13:46:15 -0400
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-170135e43c7so144825c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:46:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwA4DsvxXjUmuPT05CSc/V+FhejF5FeBZCWP8A/MVrIa76UtCC7+MvwLYCQqHEZ8hneB/cIOigFilZwKr8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD+Eg1xTLuo/+QGepMjT6IxaY5FbnD0xigiNaREarcRnYKH/G7
-	bW1AFg0bMj0NvKAjefh7Nj+zIefCi/Aw2dGoikAuoynTZY8VNhWm7TRo+sYZKdRKKtvNy2UHnB1
-	qef9d9B5+DxYOi954EjV9dHC34Ni6HA0=
-X-Received: by 2002:a05:7022:ea8b:b0:1a2:a5b1:884f with SMTP id
- a92af1059eb24-1a6ce2fec4amr3945144c88.31.1793209574611; Wed, 28 Oct 2026
- 10:46:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kBqzdIXa
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-369f126a526so1127098eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:46:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793209591; x=1793814391; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OE8OEA2joPPITRGS+av4AQ4EjtvJjhIqiZj/74OJ5qU=;
+        b=kBqzdIXavLytvf9SYHCm/pkmonafEAIJbPTG5Ma0NNLs54dl5g/RNtnT6qbXe5+Z1G
+         xYYSptCzJX1ERFY0T4kQfZb6V4hhJghI2eBDNhVGe6RdyQVQ6VSZU7gZ0HQ0V4Z/E9Wy
+         iSnTXB7XwvSfxsKJsEEAYXlvl+uXEc/0R+oaYN3lalgR8MGQ98A5Qb80JP0VvXHUWqmn
+         /SyOPMVSxn7fkIElA+z9Aoc0jLCkkJ/y8PtKPgz8sXeoHaf2lcWG/dUzDlttHZUEo/lw
+         e21s6ac8uABLM4qYXO0nzCF3i41Ivy/XErOcywbIjZpabFjX3cTCiKNrTwlhz5m+GCiu
+         C8kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793209591; x=1793814391;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OE8OEA2joPPITRGS+av4AQ4EjtvJjhIqiZj/74OJ5qU=;
+        b=En5Ikt/wuBxaqteE+FukqgPEp3PwDLuMIj7GGE1xsPCTjc68AEduCYmCptRhD4kMbf
+         DPH6476e5VelDDdPM8wkDISDOUx33vRHYWUNpJBgZquFudqokJxKGTDqPpTq7kxb7el3
+         F+p00GVG1g4XAJlo97NYdfLA68x+mDj4J7g3vtyYIXbjlns6AcBTlSer3leeduk+Ws+2
+         YdHMZleZxvmvMVkKEQH4Iv7OIdX4BkMub0kgkOXmrNLXTsFl/udXS2UZwaD6Q+pc60op
+         sJM9WUPykFJ1cTOp1O1np1QKkvf4CLJNEL/QWO3wkX0Zr49hM7A35HV0IT9TMFbtcElh
+         G0/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ3EhvhGStFVJ7uqxf21seEYYkHEUGjaDCXZ9qxxFVfCRa2UdgLMGuGekDfBDgixmTpqwXqniraL3gYCA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeWecRtK5kFU42b+CKGwuMX2FJpNVrBknZYnkj9JXOOD4TOjQ4
+	KVeK5R9QqA6paJ/vnk0+MGVivCIr8d5ajH2ToPzM6bfVqN3Q6K+OxVM6
+X-Gm-Gg: AYBFou2I3Y0fTKGCzcPDh2ZZHu9EwHpIhhTNrAODYw6f7leqEnX/eHa2/2TUW6Fgccu
+	XgwowX9qjKeP0aI19Ybf8JOeBG9euQRdHNKzSidc5hdwVQ0VQDgHZiYicP+cg+dWma1LOZiC0cH
+	UCSxgIbLbUiBTUDuxyCtmC9GqD0f9tDuQQR8fLZVf7EhNHkZ+TcM96DGDLx9OY/DcWKuOrtg1lu
+	Lj2wmOgYUf/QUAqrTQn5YACtDwoLQEDOFEjdfntjUaKQxZIckjeu5WoBFpW2Wsb5xCZeQkWCEHi
+	MGh5z4h74BvzPY64KvRy2adc5xfi57tyiRgGhdkwbOl3cubwwCiJqqjhwQWhm+pVMQ7Dd3UVsVT
+	Z9+93puoZZffF6J19PS/7q7xrnWdPg/hbz3GZUKMKqibXUb5PYFv04XrNgfmwczCfnZL3brlD5h
+	ef/KdHzFpVUujo/4lZ6hXzgDkRwh+nZDXFWkpKaHp5tIVwuGIMvl3ibE6Cpp28qjhsB0zVdyVbt
+	WJmlNcmtbxEumc99OaehucJ10tSIixKcXZakljP02QFgTpR8YyQzHNaEbJXDDMSks+k8u7vGZmR
+	t+wHBNxqHr47KkvqeWijlt4zIdzS0Z5Zt5A0i5jO8VeiHgZgBL5T9d7xwxME50s+0qWG
+X-Received: by 2002:a05:693c:2411:b0:36a:1bd4:628a with SMTP id 5a478bee46e88-36a203abe0bmr4120169eec.9.1793209590886;
+        Wed, 28 Oct 2026 10:46:30 -0700 (PDT)
+Received: from toolbx (2607-8700-5500-3d9a-0000-0000-0000-0003.16clouds.com. [2607:8700:5500:3d9a::3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a237be80csm17883633eec.2.2026.10.28.10.46.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:46:30 -0700 (PDT)
+From: ZiAo Wang <ziaowang2007@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	linux-kernel@vger.kernel.org,
+	Ho Jie Feng <hjf3108@gmail.com>,
+	ZiAo Wang <ziaowang2007@gmail.com>
+Subject: [PATCH v2 0/2] Add support for Valkyrie USB LCD displays
+Date: Thu, 29 Oct 2026 01:44:23 +0800
+Message-ID: <20261028174425.21704-1-ziaowang2007@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,93 +100,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027025055.842038-1-nickolai@csail.mit.edu> <auIGv1WkQnEw6VRd@redhat.com>
-In-Reply-To: <auIGv1WkQnEw6VRd@redhat.com>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Wed, 28 Oct 2026 13:46:03 -0400
-X-Gmail-Original-Message-ID: <CADGQE7EusFrrSoBnhXhdE20tZJrp1EDe=2623mS8vEMY9hn53A@mail.gmail.com>
-X-Gm-Features: AclHuK__dG-fto1aFKuDLQOh0r61gdgXIsPC-Alk15uTIRMSgbj-XH6A-kAkg8U
-Message-ID: <CADGQE7EusFrrSoBnhXhdE20tZJrp1EDe=2623mS8vEMY9hn53A@mail.gmail.com>
-Subject: Re: [PATCH v1] signal: fix endless loop in complete_signal() during a
- non-leader exec
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Christian Brauner <brauner@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, "Eric W. Biederman" <ebiederm@xmission.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 10:29=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wr=
-ote:
->
-> On 10/26, Nickolai Zeldovich wrote:
-> >
-> > The curr_target walk uses next_thread(), which wraps from the last
-> > thread to ->group_leader on the assumption that the leader is first on
-> > signal->thread_head. de_thread() makes the exec'ing thread, the last
-> > one, the leader before release_task() unlinks the old leader, so a walk
-> > that starts at the old leader stays on the new one if that thread
-> > blocks the signal, and never gets back to curr_target.
->
-> ...
->
-> > --- a/kernel/signal.c
-> > +++ b/kernel/signal.c
-> > @@ -990,7 +990,10 @@ static void complete_signal(int sig, struct task_s=
-truct *p, enum pid_type type)
-> >                */
-> >               t =3D signal->curr_target;
-> >               while (!wants_signal(sig, t)) {
-> > -                     t =3D next_thread(t);
-> > +                     /* during de_thread() the leader may not be first=
- */
-> > +                     t =3D __next_thread(t) ?:
-> > +                         list_first_entry(&signal->thread_head,
-> > +                                          struct task_struct, thread_n=
-ode);
->
-> I think we should fix (and simplify) next_thread() instead. How about
->
->         --- a/include/linux/sched/signal.h
->         +++ b/include/linux/sched/signal.h
->         @@ -764,7 +764,7 @@ static inline struct task_struct *__next_thre=
-ad(struct task_struct *p)
->
->          static inline struct task_struct *next_thread(struct task_struct=
- *p)
->          {
->         -       return __next_thread(p) ?: p->group_leader;
->         +       return list_next_entry_circular(p, &p->thread_node, threa=
-d_node);
->          }
->
-> ?
+Hi,
 
-This seems plausible (presumably with &p->signal->thread_head as the
-head), though I think it ends up being a more involved fix.
+This series adds a DRM/KMS driver for Valkyrie USB LCD displays.
 
-One thing that would break is cgroup_attach_task() and
-cgroup_migrate(): they call while_each_thread() while holding
-css_set_lock but not tasklist_lock or siglock.  If cgroup.procs is
-written with the pid of a zombie leader that its parent meanwhile
-reaps, the walk starts at a task that is already off thread_head,
-which is now empty, and next_thread() returns the list head as a task.
-(Confirmed as an oops in qemu.)
+Vendor website here:
+https://www.my-valkyrie.com
 
-One option might be to have next_thread do:
+This driver is devloped from scratch via black-box analysis on
+vendor software. Currently only supports two variants, I'm sure
+there are more variants, but I don't have them.
 
-  return __next_thread(p) ?:
-    list_first_or_null_rcu(&p->signal->thread_head,
-      struct task_struct, thread_node) ?:
-      p->group_leader;
+The devices use a vendor-specific USB protocol. The driver exposes
+them as standard DRM outputs and converts XRGB8888 framebuffer data
+to UYVY, the only format device accepts.
 
-or convert the cgroup walks to for_each_thread().
+Patch 1 was authored by Ho Jie Feng and provides the XRGB8888-to-UYVY
+conversion helper used by the driver. It was previously posted but
+was not merged because it lacked an in-tree user. It is included
+here without changes to the original code, with my Signed-off-by
+added as the submitter. Ho Jie Feng is CC'd on this series.
 
-Also, since check_unsafe_exec() walks under rcu_read_lock() alone,
-should next_thread() keep a single READ_ONCE() of ->next, as
-__next_thread() does, instead of list_next_entry_circular()'s two
-plain loads?
+Original posting:
+https://lore.kernel.org/lkml/20261019154820.68659-2-hjf3108@gmail.com/
 
-Happy to send a revised patch along any of these lines, or also feel
-free to take it over if that'd be easier for you.
+Patch 2 adds the Valkyrie DRM driver.
 
-Nickolai.
+I wish merging this series through the DRM tree.
+
+I tested both supported variants on physical hardware using the
+Sway compositor and verified that rendering, suspend, and reset
+work correctly on all of them.
+
+Thanks,
+ZiAo Wang
+
+Ho Jie Feng (1):
+  drm/format-helper: Add XRGB8888 to UYVY conversion
+
+ZiAo Wang (1):
+  drm/tiny: Add driver for Valkyrie USB LCD displays
+
+ MAINTAINERS                           |    7 +
+ drivers/gpu/drm/drm_format_helper.c   |   73 ++
+ drivers/gpu/drm/drm_format_internal.h |   21 +
+ drivers/gpu/drm/tiny/Kconfig          |   15 +
+ drivers/gpu/drm/tiny/Makefile         |    1 +
+ drivers/gpu/drm/tiny/valkyrie-lcd.c   | 1416 +++++++++++++++++++++++++
+ include/drm/drm_format_helper.h       |    4 +
+ 7 files changed, 1537 insertions(+)
+ create mode 100644 drivers/gpu/drm/tiny/valkyrie-lcd.c
+
+
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+-- 
+2.56.0
+
