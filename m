@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793183470;
-	b=BCA91G+9aVn9KTBRSk+8FvMptWXeWALGSha7oXG3Pd9GXhcHgYgLapQwMZIIqIWUYgqW
-	 pu2apx4R1y/+z4cZWbAz6rxF2+5aOtcp+dRX6OycCCGC+QwmbexvnhUbFab+Uu2wKDsiR
-	 HNb83bHlDXRKorCHMvGI08C3ieoazlsjToL1iKXYg97WsuzkvlL2YIerJ44BRZ58J2Nz0
-	 bhqrPP1Oq4uyzxLFcOrO9RF4AQYU8O+otDQxv1vUotJHuSDsWruNYHNROyyZoIRzLYLMW
-	 jk4QISaUM4QX3CjNddFkVOhq/+3TVQYyu0YvZLxoCmz+/sU1lYrgNfxHPE7JzFWvFfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=oE4zr86kPILxpiB8futg3dpZoDXp8ShiMIQyNahT2v2eLlIZZUit5ttC96FUi9KyBurO
+	 Y9BH3eBJINWBk+a+jtkhwTW+Hq4PnKtddMqdytXrUTCJ4fUxssqh+rVOlNzDpOjU9Dk9R
+	 8fruW7S01eSE8xBSrHJFQhRDoEDxrk+9geU87z7rtwD0lRLxzMt8Mx8vEqNpnMa+vox+c
+	 B1MCwk4IhW07fxypicsXnAooeBvLiRspoQa9iYq0OtR3SQ34f9TSWcPGAPkWN326pU4Q2
+	 /xG6ukgn80wfEIE/GHiy9BhDKyjR4MhPhvdOYBTE8188waG2YQ9SSEnWWGsHVQCrPxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793183470;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
-	b=FUevgE3qhJ3YF4vY5NiyNSTsAjC+2ODxg3MCjRSTd+YjJ4Dij5IUCylmxWg36eOVy/WB
-	 6TWFxVyxYZzAlJwI6xNaC2oGq2iSjmuaJZdwPzUZCEfBiSCTAJBUueFJg4Bv4zyvcibJg
-	 cNv30hHT0C9HYBFo9ohExPGB3KwF11qgKSkvP2mxMVMDLMIUKWovsypnIX1dxWU8TG/ju
-	 eZX9AUQVHWZQUwLswNpHD/fwBmsLKJJxxHAJouPjYoPc06eOFM24MVfS1ME8A/R/MCtjI
-	 LgRTC7Mc5XyO1ZOrc9cJ+JtoLvACgwc1VRB0SroFAzBTNFacKjwE6OEoloEPatllNkw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=imedKiikY/nJ9ieNEErDb82QaTr2XE4LPwGTpWh9iBQ=;
+	b=JVlcLuDUrnWpmH0Awdx1MUtuvxkmS0YX+jxXcMLNoMRfdpLPs/TTM37NLJrOaT5xmcW8
+	 6zw7CQ9vkFKjhjNq8tBYdfZNU5Y5E78dAsTQ46mILzjWgXUl44j5Z5PTK+mdnckeADNZY
+	 IC9nUJ0IYexxS95hS6nEr+uP89cYvbLnRfx3CHYM4fNWdw+cUI6e/bNA2UKzfBJoZG9xI
+	 CAqe0SZrxY/Knf8DwTvzxXJB4+QFVMKrvycIJl8AG7lLdrNMkUR+NsL3pGY3flvZIJOM+
+	 u9kVIR9nHjcvj/ff3Bctml+pg3LYdWkJgLN41xs4avMhsE8vzurdC2IM+RDzYJM7EkA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="acd/2w7M";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F89606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50F89606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAC3606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BAC3606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so6222185e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:09 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=acd/2w7M
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b10ac6ab7bso6371707b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793183469; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M8HtjVW+D5stej8aAIt/DifHo1zGYLHo+CMystA2d7y4zZ4uM6OpdltxILv7gYokcw
+         3zxg0lecmUJ/5di77a50cHDdw84R0T56HEZVByIXaAaDP5fX41ROmiXDgZQWnhpPOAvF
+         c45Q4L0jSk65pmAI2zKynbN/MvdLy3D9y37za0mUg1RLFIVfKu6HLhi7shNwo+tJwaEq
+         neKkuQN/pd9oGAkAUN6CcBobJfK5VFsUeuroMk6hOyfarIl5g3tANBD37KG7rqp3CaDL
+         JRY8OLqGgVggzrp4F06zsn5viWSlrUJbNi3W/tFyv4XowbpZIdvxnfwkl7ajhPQ7rpkE
+         ySVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=imedKiikY/nJ9ieNEErDb82QaTr2XE4LPwGTpWh9iBQ=;
+        fh=EPdBPW0wxw0rRm9mlKGvl+FTzJBlaxLFRI+2dGavmvE=;
+        b=sPu2jRp1kRIbKZWm37GAbQr6Ht+FFCNyI5I8nZ7ZbAdGU95vVpanQqEP+/S7eVPcom
+         /NkqDT+DZRuhgJKGpwjKnlhebCfs9ltYIRriYSxdlCvGZgL5R5b+0k4OATEX24+6PRe7
+         C1QK+qTkwe7ZShwUE5Wf6lTvJa4pVmLRbFwaws7FzgmEeMLZkQsi7iOb2Wtm7MUGAdt+
+         EnjLFsHIMBq5Y9N80hOjBAXTfAGDdoQnz+yKa+Mssjq3joamm0xCC5vjn0nnHsqdzUX/
+         9UgM/N0vhiuf3Rq/MJXItgIu7mDqtVSiGfEr9oLd1XiDyB7PYk1y54cgEtxBEhCNUNfB
+         p46w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793183468; x=1793788268; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793183469; x=1793788269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
-        b=wF2X2R7YzgOGqqkrWOJGYWNH//5VT3msW5jN0tuiRxlDW3pDuT5rM/B9QT5Q8QJf0h
-         vfF9XXVy369N6QGZVc3IQh4ul38PMO81wHB9elDwMEaun6m36pHNQwO9sPVUMTcBsJ5g
-         U2yIy0Fe/BTH2NDJHTQglJw49MsR9xrN8kepGMvwUN0n7ekkdN73bxD9iIgVlojCpoPf
-         pLTQdp6qc/dfYGs55FUymgISy+CM5gJ5svCBCrdnIjxtMnTy+CfWUojNKRXyUtqcIVUi
-         GwyKZ7Et9qKtkBo4A38e+snBl06h9rl/hTAJ4F0bGJmSVXfWD7YnU94p7H8BMXgVzVpp
-         XQGQ==
+        bh=imedKiikY/nJ9ieNEErDb82QaTr2XE4LPwGTpWh9iBQ=;
+        b=acd/2w7MTsRZz2fFWnc39WSDc2rQa1UN77+0V71vGBIvU1BtdTJxa4P/P7EZr2AcY7
+         Nwv7xwu0bGsj7QtSi5UsT8dbx5Wue8cf4bxRWlypcKhjIYbFwp46OBkIOBbwE9TWOaJO
+         WYnQJ0snsSlcoyioYnXSIK+CdCtLMbq6jHCzWYUuLO9TzTkTDEHIFZ7lVeW6RfyJEaH1
+         bPTI01p8rtEzyTmI81cFhoA7TM6Yppegg99Lsod3LSXmBgaItToTEJTZB8Ov35iECfKA
+         eaTQXWObo9yF2TtcrzLzhMh4JFdL22+KcUWsK8amtIcyVf8B8fR6wUfsvGq1yj/w43/b
+         JJTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183468; x=1793788268;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793183469; x=1793788269;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
-        b=TUdbMdMlT5FM4EaCrFRAaiFMoQ4mGFfJ0bxZ0yo93H5EkWB5pWvDbNcrA7LFhDVW0e
-         hbUkzAtScOWL2uIpnLoDrSIZ4oXenl8JbQX8xE2e10eTfN02Oj2CjHjXBWCfA7xY5Fod
-         ZUznq2aMVIbgTS93UkRIwMA9TLdmIL6z5Tgmmuv8rlCWcFqu6/fC0le3TO70G6ydskLX
-         LbaGA/ugH+P1eKMEzlm5u5+wxl2Bl8EKgPhxXmtN/bnOcjP2iWylJRNkRwaASiLs0+/b
-         meig6KHnJMuKTXqtHT01wgA0JeP1uUTUxJNz0Or/EvxB26aCtG6jYXEU9lISLeEjSiGu
-         TdeA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVdURC7NLWdiYZuxtv8IqBYj4PguxMrgQMmfyXclVeFJwKzMkE5kBW0aDNf/GYfF+2O/M1b0unL4ypLbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjrsr5ttIAU47odHjOQ0SY1U/a2Vgkz74cWrLA7/rd3oJGAACj
-	6oXEBiTardTcfUv3hWDVg2dZGi1fVaklksRliW+pctguOb7eKFDIwJsL
-X-Gm-Gg: AYBFou009h70fViTsGzysBuEPWEaZBDcuDp/D/36N/oOL/h7h8IQe+JPNVTWJDTBNfU
-	j7sJxUYsgr3Fm6jYtkCf0T6psQjRG86qg1oDlxWNZFEaKP9oHa8ifBUaZj3HpTlA3hGE5Y5Cwaq
-	NlL2lcmvdBG05PwakYlPE+7EfYjMFBoAoL7xSdlw8nlDZeI456w6Alhk9t7ASUqfozEso0dxUkn
-	NrmEru/5OurSLYO5rYA0OK/h7kmOcsX90d/+eCsQPbjD/S+o+Z6hyCFaNP9CVe9JgOp0oRN/yY7
-	ptA1dyZrOw0H6hoQtghGrElZjbfC6eENwM8VqO0X5HB1BESAiGcE8tPOfUMcrPidonAoFHMYkBh
-	nb09fSsinYqQgWqjB7oDeCcMavCKwfMXHSK0xgXlVldqLeBz0jPncAh8IutiSudoXbZk9QebbbV
-	AtIgzkEX4NG7oyAaZQBtIdmZfxPA7JGAKhDiNbEYysS+lZdaphtZVLoaI0+H9j2kSWBWFHOHTMi
-	knRxKEFQac46SYvKErcDXpyFs+vtT3VEzJIPZuSkA2b+cUjvFKoumRAebsMBzClNtHXdh4jjgSf
-	ZYr63pyfJTOLyif9mtOyu/d+kUOTkBOBfleG/5z7zxE487iRGUr3NWL4HpCrvrO1jw==
-X-Received: by 2002:a05:600c:37c3:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4a96695f317mr37325365e9.13.1793183467424;
-        Wed, 28 Oct 2026 03:31:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm26676045f8f.43.2026.10.28.03.31.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:31:06 -0700 (PDT)
-Date: Wed, 28 Oct 2026 10:31:05 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, David Laight
- <David.Laight@aculab.com>, Victor Chernyakin
- <chernyakin.victor.j@outlook.com>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] iio: prepare iio_format_value to handle
- higher-precision IIO_VAL_DECIMAL64_* formats
-Message-ID: <20261028103105.0053c079@pumpkin>
-In-Reply-To: <auGuGfSqa-D9sceB@ashevche-desk.local>
-References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<25g6fr7y4bmd6bzomvlvoejtps7wzbnbuuxxipmcrnozujno2l@klcfyrmqsifd>
-	<auGuGfSqa-D9sceB@ashevche-desk.local>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=imedKiikY/nJ9ieNEErDb82QaTr2XE4LPwGTpWh9iBQ=;
+        b=Gjk6n2pjYayVcST23UU3VX3rMmUV2KdBoynC+jq4iGEPBAsw+eBvUGCiBzlNUOvqK7
+         XXXuGS7VSxKyDD9y9qfEISHFuxWsB5/YfEw5fMyIvxS6croGm67UWCxAlu5ZYJ6eFFbQ
+         JUMBzjZLQ5q6wh+zTHV2XMvHL8lXNDAexAgry4ddiMQM89aEO8OybPZPgZKCsgTytJqp
+         eGPdDjR+Y6GGJ5rkipa090I9aCi1KEzFVYWQp8glX1N1e0B9m1oM3N0w0FQieJz4U4zF
+         xW6vxO9X7YounvgozeKfrkwkL2dNx76hQLJDOEA1rtXuHVc2YyL9Iz3A+1Q+U9O0cs5B
+         ZG3w==
+X-Forwarded-Encrypted: i=1; AKwUvBz5QJ34E2Yv9Gqph4uiNkUel5Zo3GuqH7LWsa6qItsnxYhpXZYBtf2LRURWA5MpyAutxJlYpHdN7inbUkk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9l8G/9/Cc2mdKe/7i+jtPcJWSf7mXHRGWDxrt6aGripbe45WB
+	sM2huNDRnQgFlShhrXLnMLASFwa2F6P/iWUIch5QeUKuzHC/dDpQaMUQrhTBh0hYvQrzj+8qypB
+	PCY0Rkp/Dd2vbVUTxZDouL61Dluhh36A=
+X-Gm-Gg: AYBFou3zZY3xI7BH91ool216f+Mj7QLpynro0eKHOCNyBpCim0Xz7yyO58M1JbdVM7B
+	WxvzZvgWySIixgAAWYF2ZTfW1kBqt/nz9vERPKezppGQCT+awMaa/ebgYtJOUc0wd63osi3HIYT
+	/W43OFSMv6TYa7Yl2d0IP5zLGQWtukIzxp42iQUzeTqUu1HAouR9dvmK+f2RcAeze/6AA6fDRXP
+	/L75HCRoW2wn70GAIiBOhocOUPWEq5B0OC/kPB5NfTUzO63O4wz7r8wK89/ocdiUy4BOdz8jRBw
+	pdSOj2Vc+EWSakD/lAln9mgdojGiThON+6nZO9OmUvN5rptXHFxkUgPb5J5hfyxcLPAumcyZCIO
+	wgyOdqTKfesIELfnA8wGwYsQMGOF6GbZWtYfH/rl1RzZLOVifVMYHNIpNtA9te1nAlFMas3+WSf
+	M8oYrDAAmkasU2o0naGb9tee+bBClbvFwwZNMO0lewpNoMuu7IdUVgNy3IlA6ihYwooDzpFkjTx
+	Vdd
+X-Received: by 2002:a05:690c:6605:b0:8b0:c5bc:e87c with SMTP id
+ 00721157ae682-8b1b5a56bf7mr12401287b3.6.1793183468970; Wed, 28 Oct 2026
+ 03:31:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,93 +106,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261028000912.2081659-1-florian.fainelli@broadcom.com>
+In-Reply-To: <20261028000912.2081659-1-florian.fainelli@broadcom.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Wed, 28 Oct 2026 11:30:57 +0100
+X-Gm-Features: AclHuK_B_4dhiY1uBiy_8fsXbNuV7k79HWgTMcm0LExCnPUWVLwnCuYV7EcZt78
+Message-ID: <CAOiHx=kKX0YWEkyp-HBahae_krDCXLAjO6kLPi1gJzpf7EOfMw@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: dsa: b53: Enable IGMP and MLD control packet
+ CPU copies
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Vivien Didelot <vivien.didelot@gmail.com>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 28 Oct 2026 10:11:05 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Wed, Oct 28, 2026 at 1:10=E2=80=AFAM Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+>
+> IGMPv2 reports and MLDv1 reports are addressed to the multicast group
+> itself. Once the first listener is installed in the ARL table, subsequent
+> reports can follow that entry without reaching the CPU. The bridge then
+> fails to learn additional listeners, although static MDB forwarding works=
+.
+>
+> Enable the high-level protocol classifiers so that IGMP and MLD control
+> packets are copied to the CPU independently of the multicast ARL lookup.
+> Retain normal L2 forwarding by clearing the CPU-only forwarding modes,
+> and preserve unrelated protocol-control fields.
+>
+> Handle the BCM5395's 16-bit register and different classifier fields
+> separately from the 32-bit layout on the BCM531xx, BCM5301x and newer
+> integrated RoboSwitch families, including BCM7445, BCM7278 and BCM4908.
+> Export the helper and call it from bcm_sf2_sw_setup() as well, since SF2
+> uses its own setup operation instead of b53_setup(). This also restores
+> the classifiers after the switch reset on resume. Leave older devices
+> with different IGMP controls untouched, and propagate register access
+> failures during setup.
+>
+> The SF2 setup integration and BCM4908 chip gate were updated with
+> assistance from OpenAI Codex in response to review feedback.
+>
+> Fixes: 5d65b64a3d97 ("net: dsa: b53: Add support for MDB")
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+> Changes in v2:
+>
+> - export the helper and call it from bcm_sf2.c as well as spotted by
+>   Sashiko
+>
+>  drivers/net/dsa/b53/b53_common.c | 52 ++++++++++++++++++++++++++++++++
+>  drivers/net/dsa/b53/b53_priv.h   |  1 +
+>  drivers/net/dsa/b53/b53_regs.h   | 17 +++++++++++
+>  drivers/net/dsa/bcm_sf2.c        |  5 +++
+>  4 files changed, 75 insertions(+)
+>
+> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_c=
+ommon.c
+> index 0880310c9ce3..51784432d266 100644
+> --- a/drivers/net/dsa/b53/b53_common.c
+> +++ b/drivers/net/dsa/b53/b53_common.c
+> @@ -836,6 +836,54 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int p=
+ort)
+>  }
+>  EXPORT_SYMBOL(b53_brcm_hdr_setup);
+>
+> +int b53_enable_mcast_snooping(struct b53_device *dev)
+> +{
+> +       u32 val;
+> +       u16 val16;
+> +       int ret;
 
-> On Tue, Oct 27, 2026 at 03:56:35PM -0300, Rodrigo Alencar wrote:
-> > On 26/10/26 11:51, Victor Chernyakin wrote:  
-> 
-> +Cc: David Laight
-> 
-> ...
-> 
-> > > +/*
-> > > + * Regular abs(LLONG_MIN) causes signed overflow, which is undefined
-> > > + * behavior. This variant avoids that by performing the computation in an
-> > > + * unsigned type, for which negation is always well-defined.
-> > > + */
-> > > +static inline u64 abs_s64_no_overflow(s64 x)
-> > > +{
-> > > +	return x < 0 ? -(u64)x : (u64)x;
-> > > +}  
-> > 
-> > I think I've seen Andy doing mentions to a needed 'safe' abs() a couple of times.
-> > Don't we have something in the tree already? if not, Why not adding a
-> > 'unsigned' abs function to math.h? something like:  
-> 
-> Or maybe something clever using the s64/u64 domain for all.
-> Let's gather David Laight's opinion.
+I'm surprised to be the first to say that, but ... reverse christmas
+tree? Or is this not a thing anymore?
 
-Well, it might be UB, but that is probably mostly related to '1s compliment'
-and 'sign overpunch' number schemes.
-So, in practise (u64)(x < 0 ? -x : x) probably always gives the right answer.
-The kernel is also compiled with -Wno-strict-overflow which also stops the
-compiler doing unexpected things.
-OTOH clang is know for 'silently just throwing away code' if it detects UB
-behaviour, so code that is fine with variables can get miscompiled for
-constants.
-(All not helped by it being undefined behaviour, not undefined result.
-And the 'behaviour' bit really being 'might trap'.)
+> +
+> +       /* BCM5395 has a narrower register and a single IGMP classifier.
+> +        * Its ICMPv6 classifier also covers MLD.
+> +        */
+> +       if (dev->chip_id =3D=3D BCM5395_DEVICE_ID) {
+> +               ret =3D b53_read16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, =
+&val16);
+> +               if (ret)
+> +                       return ret;
+> +
+> +               val16 |=3D HL_PRTC_IGMP_IP_EN_5395 | HL_PRTC_ICMPV6_EN;
+> +               val16 &=3D ~(HL_PRTC_IGMP_FWD_MODE_5395 |
+> +                          HL_PRTC_ICMPV6_FWD_MODE);
+> +
+> +               return b53_write16(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL,
+> +                                  val16);
+> +       }
+> +
+> +       /* Older switches use different IGMP controls, not HL_PRTC_CTRL. =
+*/
+> +       if (!is531x5(dev) && !is5301x(dev) && !is58xx(dev) &&
+> +           dev->chip_id !=3D BCM4908_DEVICE_ID)
+> +               return 0;
 
-This should work for all types (except s128 - not used in the kernel):
-#define abs(x) ((x) >= 0 ? (x) : (u64)-((x) + 1) + 1)
-or maybe the equivalent:
-#define abs(x) ((x) >= 0 ? (x) : -((x) + 1) + 1ull)
-which will generate the correct bit-pattern for s128.
+I would move this to top, and probably check for those that don't have
+it. Basically go from oldest to newest generation code wise.
 
-The negate is always well defined and its result in non-negative.
+> +
+> +       ret =3D b53_read32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, &val);
+> +       if (ret)
+> +               return ret;
+> +
+> +       /* IGMPv2 and MLDv1 reports use the group's destination MAC. Once
+> +        * the first listener is offloaded, ordinary multicast forwarding
+> +        * can keep subsequent reports from reaching the bridge CPU.
+> +        * Copy control traffic to the CPU independently of the ARL looku=
+p,
+> +        * retaining L2 forwarding rather than selecting CPU-only traps.
+> +        */
 
-gcc and clang also realise that the (u64) cast always zero extends
-so can be optimised away for 32bit values (especially relevant for
-32bit compiles).
-Note that optimisation may not happen (I've not checked) if you use
-a real function with an s64 argument.
-(Which also has a downside if code passes a very large unsigned value.)
+Should this comment be also in the 5395 case? Feels like it would apply to =
+both.
 
-Oh, and the compilers realise the '+ 1' cancel out and throw them away.
+> +       val |=3D HL_PRTC_IGMP_RPTLVE_EN | HL_PRTC_IGMP_QRY_EN |
+> +              HL_PRTC_IGMP_UKN_EN | HL_PRTC_MLD_RPTDONE_EN |
+> +              HL_PRTC_MLD_QRY_EN;
 
-David
+I would also break out the "Copy control" part and move it here, to
+make it more obvious that these bits control this, and clearer that 0
+means copy to CPU instead of trap to CPU.
 
-> 
-> > /**
-> >  * uabs - return absolute value of an argument as an unsigned type
-> >  * @x: the value.
-> >  *
-> >  * Unlike abs(), the result is well defined when @x is the minimum value of
-> >  * a signed type, since the negation is done in the unsigned domain.
-> >  *
-> >  * Return: an absolute value of @x, as the unsigned counterpart of its type.
-> >  */
-> > #define uabs(x)	__uabs_choose_expr(x, long long,			\
-> > 		__uabs_choose_expr(x, long,				\
-> > 		__uabs_choose_expr(x, int,				\
-> > 		__uabs_choose_expr(x, short,				\
-> > 		__uabs_choose_expr(x, char,				\
-> > 		__builtin_choose_expr(					\
-> > 			__builtin_types_compatible_p(typeof(x), char),	\
-> > 			({ signed char __x = (x);			\
-> > 			   (unsigned char)(__x < 0 ? -(unsigned char)__x :	\
-> > 						     (unsigned char)__x); }),	\
-> > 			((void)0)))))))
-> > 
-> > #define __uabs_choose_expr(x, type, other) __builtin_choose_expr(	\
-> > 	__builtin_types_compatible_p(typeof(x),   signed type) ||	\
-> > 	__builtin_types_compatible_p(typeof(x), unsigned type),		\
-> > 	({ signed type __x = (x);					\
-> > 	   (unsigned type)(__x < 0 ? -(unsigned type)__x :		\
-> > 				     (unsigned type)__x); }), other)  
-> 
+> +       val &=3D ~(HL_PRTC_IGMP_RPTLVE_FWD_MODE | HL_PRTC_IGMP_QRY_FWD_MO=
+DE |
+> +                HL_PRTC_IGMP_UKN_FWD_MODE | HL_PRTC_MLD_RPTDONE_FWD_MODE=
+ |
+> +                HL_PRTC_MLD_QRY_FWD_MODE);
+> +
+> +       return b53_write32(dev, B53_MGMT_PAGE, B53_HL_PRTC_CTRL, val);
+> +}
+> +EXPORT_SYMBOL(b53_enable_mcast_snooping);
+> +
+>  static void b53_enable_cpu_port(struct b53_device *dev, int port)
+>  {
+>         u8 port_ctrl;
+> @@ -1334,6 +1382,10 @@ static int b53_setup(struct dsa_switch *ds)
+>                         b53_disable_port(ds, port);
+>         }
+>
+> +       ret =3D b53_enable_mcast_snooping(dev);
+> +       if (ret)
+> +               return ret;
+> +
+>         return b53_setup_devlink_resources(ds);
+>  }
 
+(snip)
+
+Best regards,
+Jonas
