@@ -1,62 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188870;
-	b=TRBthGMgYkSj1ycBg7rM6q3qebq5NDb3bQwEru/sXPdTUTVj/T4SkiWs+/LJATMEH1on
-	 8j7u1D9COVuS07T3vAhPiBiU8YzLCm7pscdj4lna6JP01L5zF4R2Hs4w07wcxAheRewyp
-	 0qrOpy3aYIc8XsNr6i9yF2oPo05xaLrGk7JbRCCT81fAMvcBKZYj6M44Gn0u64Veou6/V
-	 FQhFK6roh1AFBy8Lrmn1kmnM7c0RaXWDybeEDsUwNfBVNm+SwP/XYfIb/++IdXqH476Hz
-	 uJmh+ScEhMl6teWvWiMPhJgrbZwyimMSSzSMs33QKWTC4l7sQovS4KO6vkYhUCmjlLw==
+	t=1793188866;
+	b=qmw85513bTx8py3ct3dJy9Wez/qb9KsChFffEOZeY9XK40ivZHh1CQNK2e6FEeV+saYO
+	 ZQ5yAX105qTtFNioXfajfOVKjjtzafe7R4Rfs2tm4Jfhx3IYwP9U01SyWj9sC9a//nLHb
+	 /4Q756DhQpBIdMCZl93ow5G+bC0YT4w4QBbXeIpRBeLmWStvkM2RZFh95DGEmS1R2wKnF
+	 R1oysbWWlF7sIBlinun4a02/eHSOB+UQIb5NRdSSQOLW8WaSNgB7xFI3kOprUG/r6MLR8
+	 S+iwJMfjY8eu3BBL+SQDJJMDg8kizhN9c3g2/DWNIS/7KlEXSVUehOGq7HOIujOIa2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188866;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UkBaLAlMUwHRb5nWDne6IbjsAhmk89ydx5e4BpR6msI=;
-	b=uY2VAytgfZI83srfzMyW5+5h96h54mLy35vYgvFH7A1ILqF8FH8JWC+8C6HRdO5A1BvP
-	 dR7YJGcNLvoQYx8dAEhP0vR2BGADwhe85ZsVIZWOfh8OhjCh7l5CVk+IY/25xvg7145pf
-	 AY23oggotQkclvUXQtqpL8yDxRDsz8hn89QmZr8STRi1MY5GqpmSeMJMj4Poj6tFzCaoO
-	 g5XHJ6SQe4Zox+saGTcMZMUNlySRVR0NOlX6c4Z/sN7LAjhxv89Bja+wYZQSJrd0sq8IP
-	 AgDYB5PwwA1I7gnCMla+YPE9tPb4Tf/HurqAczFQHBvCJQh87Vk2TVJKjPWlrkEZdJQ==
+	bh=UF8/PcdXGDq0AIjk8iqXFNbnAyEDR8M0kB8dn6KRodE=;
+	b=h0L4jigIyfnrtqt3oY2ZGntq/Tcj4eRRZTZ+JHBmQbrpYgEo6PgVhNhiAEOctcTTpqJL
+	 8fnPniFfeii1Gk8NfT4jtJmRLodE24f56tim6IVio0PnCHRCZy1GxUiBSBi6rGlx/DZKc
+	 z8Tq1O9OYSA57bgbZFbvh/4N0ct0TY00VCM1IhitdRBtM5UPYiK/6CiotReUIfOMNyIUM
+	 sbSYVF5QlKsYuu2CnriIK4WlpM6rSMUGjwFZWH/12DStk1nRhhCwXE2zTuNHyA1zgb5ZJ
+	 S+cjNdBYyQqS44naFWWB+HzChfr8QSF2Fm1xw0PxSWijqQQMRLgEonf1HO8bWExT3Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/cTFDs4";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Unhx+WO0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C233560A2608;
-	Wed, 28 Oct 2026 12:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7E0606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/cTFDs4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029AA1F031E3;
-	Wed, 28 Oct 2026 12:01:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Unhx+WO0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684081F031E1;
+	Wed, 28 Oct 2026 12:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188869;
-	bh=UkBaLAlMUwHRb5nWDne6IbjsAhmk89ydx5e4BpR6msI=;
+	s=k20260515; t=1793188865;
+	bh=UF8/PcdXGDq0AIjk8iqXFNbnAyEDR8M0kB8dn6KRodE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c/cTFDs4jT+dpKsQIzPFDJx60GvmWD+qOQT+P4Pywqnu1LRdZSP9mseFWmdoq6jLD
-	 j5WWBtWXOQTKO1bOKaiDnEnBOfiCWGIN2QxTSovjrtvh5TkmdpMfWGJnoGdJl/ZIjr
-	 od2LocISPA9xjNViolBn0QM4E73z5xAiamQQkinfZp4fD53zCgF0HkMkB9v8p5Fo+A
-	 TIS9CH1/tIvVzZZrJbduhC/gGrfL/AfypW27ocC1vcscq0mM4+vsXrofFCJDQ6MsJ7
-	 Ex3pcEewgdq423oeTNzIvgh6ddZhTHRPSltcDmqrS27zBNxh2nZiykMPuCIJSSCPih
-	 al/Q3yNIcDFDw==
+	b=Unhx+WO0D2UlbtQD/OkS5ahg15A95+tnXTHzM7ff9T8zcLduLKl1shPxYtDnsz72G
+	 GOswm/4ueBm8s3s5mQkUPf4X0Iaa0F34HC3Esplo3iJ+1FV60BiXUygA7EastBF6wD
+	 CPfgu+QCCWT/3GEJKnBTmXbZ7zlrctjon/sySjSKqW1Qg9gxliDtzAc8frxcuH35Pf
+	 Q+8pdeqQHPPmjxvZGFj3aRILt61Fo4bPOK8zn/ZXM8o5y63Zv3q9kwDLsgAzDdEjlZ
+	 uilxkI8ETChfUBDZ1zeUm8iQ6wyMCpxJuWd2jE8s2KoJAbkg/QYk9DK/ZNlrhK7RoR
+	 BLtyzBxylugdw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Borislav Petkov <bp@alien8.de>,
-	Chuck Wolber <chuck@wolber.net>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	kvm@vger.kernel.org,
+Cc: Chuck Wolber <chuck@wolber.net>,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	x86@kernel.org
-Subject: [RFC PATCH 10/20] x86/sev: Use non-instrumented bitops in the GHCB accessors
-Date: Wed, 28 Oct 2026 07:59:34 -0400
-Message-ID: <20261028120034.871983-11-sashal@kernel.org>
+	Thomas Gleixner <tglx@kernel.org>
+Subject: [RFC PATCH 08/20] rseq: Always inline the empty rseq_note_user_irq_entry() stub
+Date: Wed, 28 Oct 2026 07:59:32 -0400
+Message-ID: <20261028120034.871983-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028120034.871983-1-sashal@kernel.org>
 References: <20261028120034.871983-1-sashal@kernel.org>
@@ -71,48 +64,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GHCB accessors are used from noinstr code, such as
-__sev_es_nmi_complete(), but use test_bit() and __set_bit(), which
-call the KASAN and KCSAN checks. arch/x86/coco/sev/Makefile disables
-KASAN and KCSAN for noinstr.o, which turns those checks into empty
-stubs, but they still have to be inlined. Instrumentation such as gcov
-can prevent that and leave calls to kasan_check_write() behind in
-noinstr code.
+rseq_note_user_irq_entry() is called from noinstr entry code. The
+CONFIG_RSEQ version is __always_inline, but the !CONFIG_RSEQ stub is a
+plain static inline function, which the compiler won't inline into
+noinstr code when building with code coverage instrumentation.
 
-Use the arch_ bitops, which aren't instrumented, as is done elsewhere
-for noinstr code.
+Make the stub __always_inline as well.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/svm.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/rseq_entry.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
-index 83fd49b26a4b1..9881c702a8f01 100644
---- a/arch/x86/include/asm/svm.h
-+++ b/arch/x86/include/asm/svm.h
-@@ -674,8 +674,8 @@ static inline void __unused_size_checks(void)
- #define DEFINE_GHCB_ACCESSORS(field)						\
- 	static __always_inline bool ghcb_##field##_is_valid(const struct ghcb *ghcb) \
- 	{									\
--		return test_bit(GHCB_BITMAP_IDX(field),				\
--				(unsigned long *)&ghcb->save.valid_bitmap);	\
-+		return arch_test_bit(GHCB_BITMAP_IDX(field),			\
-+				     (unsigned long *)&ghcb->save.valid_bitmap); \
- 	}									\
- 										\
- 	static __always_inline u64 ghcb_get_##field(struct ghcb *ghcb)		\
-@@ -690,8 +690,8 @@ static inline void __unused_size_checks(void)
- 										\
- 	static __always_inline void ghcb_set_##field(struct ghcb *ghcb, u64 value) \
- 	{									\
--		__set_bit(GHCB_BITMAP_IDX(field),				\
--			  (unsigned long *)&ghcb->save.valid_bitmap);		\
-+		arch___set_bit(GHCB_BITMAP_IDX(field),				\
-+			       (unsigned long *)&ghcb->save.valid_bitmap);	\
- 		ghcb->save.field = value;					\
- 	}
- 
+diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
+index 31ce349ed42ce..e31f9e625d03d 100644
+--- a/include/linux/rseq_entry.h
++++ b/include/linux/rseq_entry.h
+@@ -759,7 +759,7 @@ static __always_inline void rseq_debug_syscall_return(struct pt_regs *regs)
+ 		__rseq_debug_syscall_return(regs);
+ }
+ #else /* CONFIG_RSEQ */
+-static inline void rseq_note_user_irq_entry(void) { }
++static __always_inline void rseq_note_user_irq_entry(void) { }
+ static inline bool rseq_exit_to_user_mode_restart(struct pt_regs *regs, unsigned long ti_work)
+ {
+ 	return false;
 -- 
 2.53.0
 
