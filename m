@@ -1,63 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793227397;
-	b=uOqHmHBcBhpMkdBL6/TGnKGWKZPdcLkGXfI+pxVclEU20h+JpTq37qwLogreu1BFUm+w
-	 Ip23NL6UpqYjq+GLKuVkis+TpAF6WSvRhsxW9/8LRrr+vZr19kDbnErKDYjN8XYNrJSB8
-	 iKjZIlO6VmG4449FCGmXpJNDsZQjGXT1RZtpO3B5PHNuMWTsg011ChBwGJfqD7hirS4GI
-	 EAVTrOIyASzUQBCzKaFv+cmHsfuAretDTOYhsbbPEpfxKyfnX3o/E1GAA7C6awaNCwK/y
-	 Wf1r0K7mhQx2ZkT3cYLwJSfroxZ0RKQogfg3a5ah/62B38QFksVRKEy6gznIhlg7bsg==
+	t=1793227406;
+	b=uIVWH2uskvvfQRDcxpd6AmzsRcsX+jAH8A3mq9falUM30/QkT/oiDdPx8q9mpk2iWZ6d
+	 D2fR+/hbCqtN6ksc/8znBxfZPK6jBA/Y/Fyi8lzrcZAU15eJJFAArejG7Z/szholvDHmO
+	 r+D94AQRNA7+P9wwXY/X7xYxDIq7oO6k0rJ0z9UD2sVcdMr1x/GO8V7f8HrsuOut+OBl5
+	 CfDVT5vHealZafvuDzOAmYyrHXIJMrzQeNybDnnD2/xxTn/whTcdfwekWGYGGgGa2mCR/
+	 2KMrqRayDbnD9PezQHHge1NWRAae2UaYdPm3tZTYRuObmdAQdvxx1bqiT3mOzVl1syA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793227397;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793227406;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=eqVVJFeJnbQ+zzZ8jfFA+lZorIfCEgmpfZFGduBn4xA=;
-	b=uBuQ3zRWjfnZpkIx1QaHsE4knPHg9sJSk8q3J5U7AaiA4DX5U2SNUoStloi8XnDia0V4
-	 zbySPczyT3HoZ1lPLOC3yhNLZk2+flrKJtr6KOrlj88tN4DfZiWdr5FNa70pgL4eYZeT8
-	 r2jklcCBG227DZnHPmKQzYgjIpN7YF6MnBqlhRgCfmUilDMgd6c6f44yNLG5JtczuMQ+y
-	 xZj/A/7OYA2vJ53gQ2Rjso4Z/xPDMUjHN9jE0pkuqg7EYNAIedJRXa8VR9TtVKOrMX57G
-	 Kt0tOYxv9tv3L5A9jAfbxi7TMH1Rq2qdasLT3XNdC+U+I4DdWbNwmPK21fxyOuqjTJg==
+	bh=yECpefA28/MXqj384Qufm+rtjJRCtVDFYCVrS7mE970=;
+	b=vSNVc6Z4KzOghiRweJ74QWASwJ+H9p5HVlIFMzMY2PGKTtpq8OX1KM2KpwSYVpMHKCpx
+	 eU1sTU7dFhQHH7j5VAYh1bsx7YJeTXMn4cBHd/s3fb8X+c7HoE5M3CkU7/MoZMTBWxXkm
+	 iCCqXyolbe7V26E8uJGoESSBudoN9SG1r0C32NCmbfeBcudOIpzYoFoNdn7cR6F1cm2IA
+	 yGtOccsEaKLvBpEhC8JtWSlDn4n0CDcVy2l1JSxobUo+bV78hfi+6wY4ythT6Oy5jQOAN
+	 kQkTDP6b/hdfchoJE+/3XIUsCHrzIHfDZTW6wZeksSc68wdRgFanJ0xfJDeKwzOClIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2yzSQh9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQp4S+Vq;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FAD606A31C;
-	Wed, 28 Oct 2026 22:43:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54DA606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54DA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2yzSQh9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2DBA1F01825;
-	Wed, 28 Oct 2026 22:43:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793227396;
-	bh=eqVVJFeJnbQ+zzZ8jfFA+lZorIfCEgmpfZFGduBn4xA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=b2yzSQh9/ObulIP0c9ObMSCqk3LxNuMxg1pcROA+zuHuRKwc9T9NOJQakpG3rvWWy
-	 7q2b1HcedbNjPL6H2wPG+Vsm5+0iEU3AFpy7qX77REOc7s6AiPbyp2fjHHocU713dS
-	 usc7RgtrBobb7x7ZmIUUAPAcaxnmF+pXBkL38Uy1cbFwoSK1Ng4z9e9XC7e1fAp4AD
-	 cOaHSykhfyb00xXAV8W3dqM81vrOgZo9RInEpZyLfdyQrBOJI/5suhvF1KripuFVUv
-	 nfMriYZJeHVs/g0r5C76VDdEptiR2ozQBxc664UdXHQMDvxP/LlkhpePqdUojF6ui6
-	 TSBJpqWWJxNmA==
-Date: Wed, 28 Oct 2026 15:43:15 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>, Chris Arges <carges@cloudflare.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Phil Sutter
- <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>, Eugenio =?UTF-8?B?UMOp?=
- =?UTF-8?B?cmV6?= <eperezma@redhat.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- virtualization@lists.linux.dev, Max Krasnyansky <maxk@qualcomm.com>, Rusty
- Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
-Message-ID: <20261028154315.4b9f3077@kernel.org>
-In-Reply-To: <20261025094449-mutt-send-email-mst@kernel.org>
-References: <cover.1792768096.git.mst@redhat.com>
-	<20261025094449-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQp4S+Vq
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93cbc3ab2fdso74203985a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:43:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793227405; x=1793832205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yECpefA28/MXqj384Qufm+rtjJRCtVDFYCVrS7mE970=;
+        b=lQp4S+VqbSlQwdzBwvFGFKLSCJ33FEcbI1/XWwziY202gcLj+wWke+uOTIsLXFcZEZ
+         OgF+l4vw4UYlH6RpbYRfsqyTouyxsFPjHes0lycbvwj3HxE0UFQS8UQokqfwjsXub8fk
+         AWevC0K4eg9MhctNn/xfll6H056bR2tWkwr1dKUP9Ms/AtLrCZdwBMtvToPp1kMYZ2uh
+         o6uwv4sqkR665mDVdxrs2tNh5SJ8exG8q+xqo410R3uDb14KVPEFTU52sT0+/qqFvHCK
+         kuUEYlU7KJhLVIcRL31RF80b+imUNo7+il5ClzD6V1b2QebCqGuLUX9KC8vm1HMF+n6/
+         T56Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793227405; x=1793832205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yECpefA28/MXqj384Qufm+rtjJRCtVDFYCVrS7mE970=;
+        b=jv45zz1Cx1GacM77qRbPM8uoBBYWzdenaW4RzeNe1vvcz1JMrx84yLYlpu3ZCDyEH7
+         UfAKEPDrZ1hx8Jn+wb+nNC6vRXBJyeuwGxBF+s3Ew8jZ4tV+oxlN2c9Q+dq0evW+dtop
+         0SYNQwYUAehWwViGjGUe4nYYUYUIZ4xpWOMORKzmQ1XiBlTG2/15d04tasN0XmXdn8l6
+         vCUDePohBgyo+qKT45HCri8chpki8kVla3YZ5N11wUK6YYBsekyP3phwSx6wMY//iB0t
+         s8B8E9bNZ8aGhthPArGhNxUOWDRsYfus7L00Q4HycS6saPPH10gs432OSTJhN9ZmMBxz
+         g49Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx2umC1oRdVlJS2gpgfS+99DArirYwpjcJGSFLIPPys7Sy9LkjG+dWZJO7Di/Z/pnX+Fn0/2eeG7O/v83g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxN4ISfVkC5jHTspTN0CMzvzShSCM84A5n+lgelIryMuAapuL1
+	UUQgcoChoULJXADwZk+lZJ0agWBEKHmAVif8stKPKCngLPO0R8/YzIx8pbIS4w==
+X-Gm-Gg: AYBFou0QM4c2km9QpRuyt5vikRuuQYoEotZSnSIJyX4eJqjKgt7lcNKGeIolCNT5OFx
+	+g9jmLE6oxxsC0saK/wDnigW2dkqeabOJEjCi3K83KBHdCrsB35q7W60snN7PreAzCDGYsyTaEB
+	aq1j1Fgw55wHwVttEwkIxcBWZ/dRphbbyOB0GSIflhKGMQlxz5DD3BT1jGe8XbsnP79UzBPwoCo
+	FazaRp4rw7YUFqUXPzhbvzHOA7UQfefAP7YdEB6fQGpqx6kqPi/sIFh2kkTEPaCG9jGwr1HtJfH
+	DVszxGcoxjhGFlFDrZYgWWhx3LcWfFUrTdHN7HC5gqByRApTgY6G41Uq9x0JW5FgWQVboSNWSbc
+	NOUNMWTOB50qpH9BP/WdwaSUQNL5CtBIGlz2PTpIiBn7B04J0mHOKed+EOAC5LOOP047vBgki78
+	2vQ6iSNdzXPZba9Xk5YsDaLa5U91hvvoGjlt9h3lUso3V9fvj0iNo377rxvK6vrRXJSxarUjXjR
+	e2Tsyy3xpBPYAMadssuB1Sr+TyFbIXLrGsa1UUr3bL1Yzc+IKVBY3owUM9NDUjI7wNkj/FxPAsw
+	rVxOP9n7f5nlFtQ7zL+0ecPwEqp0mo1YrQIivL1W5gOUn+eNrXxs7+0sifFLaRAIpKTZKpZUVJH
+	H5SP7Iy/J9r824yoigTQqLC1/8b7u/3stse1ZX9ptlkdFOp6/wFI=
+X-Received: by 2002:a05:620a:26a1:b0:93e:c12c:fbc8 with SMTP id af79cd13be357-94408d361damr565214385a.68.1793227404758;
+        Wed, 28 Oct 2026 15:43:24 -0700 (PDT)
+Received: from paul-white-HP-Pavilion-Laptop-15-cs1xxx.mynetworksettings.com ([2600:4040:ad65:1c00:b8:5aeb:4bda:886])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0787d96sm1370085685a.28.2026.10.28.15.43.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 15:43:24 -0700 (PDT)
+From: Paul White <paul.white.kernel@gmail.com>
+To: anup@brainfault.org,
+	atish.patra@linux.dev,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul White <paul.white.kernel@gmail.com>
+Subject: [PATCH v2 0/2] KVM: riscv: Unify and optimize FP register loops
+Date: Wed, 28 Oct 2026 18:43:07 -0400
+Message-ID: <cover.1793223506.git.paul.white.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +103,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 09:50:24 -0400 Michael S. Tsirkin wrote:
-> > Apologies for reposting so frequently, I know netdev bot will be unhappy
-> > with that.  But Paulos's report made a lot of publicity, there is a lot
-> > of people looking into this, so I feel there's value in defending
-> > against all this class of issues sooner rather than later.
-> > 
-> > The issues were mostly found by code inspection, but all reproduced by
-> > me in a VM.  
-> 
-> Ok, I looked at netdev bot review, and there's another issue.
-> 
-> If a tunnel inner packet happens to have a valid header at
-> inner_nh_offset, it will pass all checks, but the transport header can
-> in fact overlap e.g. the real TCP header and checksum will overwrite
-> that.
+The change to both patches in this series is a 
+structural/architectural one. Both functions set_reg and get_reg use 
+identical code to locate the register the application specified in the 
+token even though they do different things with that location 
+information: the set_reg function adds data the application requested 
+to send to that identified location  (in the copy_from_user function) 
+while the get_reg function retrieves what data is at that identified 
+location and sends it to the application (using the copy_to_user 
+function). Everything else is the same. That is the only difference 
+between the code. 
 
-Sorry for boring process stuff but FWIW the last patch also does not
-apply?
+Therefore I was able to apply the same solution to both of the 
+function's finding-the-requested-register parts (which is everything 
+up until the final if statement) which were filled with redundancy. 
+The solution I came up with is to create local variables for the 
+entire function for all the variables of the original code that would 
+be different, depending on the floating point type. Then once I ask 
+whether it is a double floating point or single floating point mode, I 
+assign the aforementioned variables to the values they should have for 
+that mode so that when I go through the if statements that ask whether 
+the requested register number is a status control register or data 
+register, I only have to go through it once because the respective 
+floating point values/addresses would have been assigned to the 
+aforementioned local variables, so the whole code kind of changes or 
+is tailored to the floating point type. 
+
+This architectural change/solution will make the cpu execute the code 
+faster (as the cpu will have less decisions to make and the bare-metal 
+math used to figure out the address of the register is executed faster 
+by the cpu than looking up object properties and array indexes), is 
+more maintainable, and is more readable.
+
+---
+v2: 
+  - Both patches had the same flawed line of code. The checking if the 
+    token's size was 32 or 64 bits line allowed token's with mismatched 
+    sizes & types to pass. I fixed this by checking it had the right 
+    size for its type by replacing the u32/u64 parts with a 
+    mode-dependent local variable, byte_offset. 
+
+Paul White (2):
+  KVM: riscv: Eliminate redundancy in get_reg function via pointers
+  KVM: riscv: Eliminate redundancy in set_reg function via pointers
+
+ arch/riscv/kvm/vcpu_fp.c | 124 +++++++++++++++++++++++----------------
+ 1 file changed, 72 insertions(+), 52 deletions(-)
+
 -- 
-pw-bot: cr
+2.53.0
+
