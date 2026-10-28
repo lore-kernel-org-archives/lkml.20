@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187213;
-	b=5ZLPvkPzJCb6dyPFv0dpZnhJ/1KcNq+D8E9es4+ecEyawWWeF2SNgTa3LERE7MY5E+Ha
-	 oSHLdKVsCWA6ezcd7FTcen5hiBGHmyyweMQel9d3jUpeIlkf7F3E32UToSPUF4gFP5/U8
-	 +s0AfiOPlv0fC+tYfYuonIZMWXf9s7QAj2J7JyVXVsZZfS480acKp146EDFT9QLSZaz4h
-	 4hBb4IDbC6snKZ8/+17msale5DonMfmU4CJmPlxWwY9BFkuOwAI0nPfoLyvis2S5CYOIP
-	 ferDuKS0Q4emj0DBi+52iGPXdwPNpgmbVRWi1+PsY/mfqoJTvQaL/aDr+FZNi9xdAmg==
+	t=1793187218;
+	b=Yykg6XT8FUxbpT9niBXgAUFo9CxaRxr1axvXHc/0cetqd6bYj72wvRDZJTRZ5NXKbwe5
+	 2vtrDdjrHvZ8RJanxwMPij3FShQ0Mil35rYNVVsE292QKZm9a2Zgibr7h5Ws69neofyD2
+	 eXA42SaE+vzvgS1MTDgz+KJLZ+9I+QCJb+RRoCuSWHx8LSQTVvCkvkU3VtexWsrFld2pF
+	 Ovz9f3r7if3045fsOy4d1S7ycBXxb2jpun23+M8KO1jkfYA/wCgEEyujN6+Sqoll2m53O
+	 cn9V90RH48J+aGIf1q0IGAyDdQfU6kjG1b81wnL9YS7OERpy3glr+yR5o1tqfyzAZRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187218;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=I8Qx+rwY6H3jQ6L89yvvvHh+9fiYuKQUWmXchJSlClg=;
-	b=zhI1W+q2qHAaJbaeDW2Qapl+N6HKkeoRQXC74PpAVzZZc0G+SKyNw5S8A2IjMzgDvU5j
-	 mE2WtddKV/vIFej3msYbKCDbIA3+0FpRKsDX50BTVh6MFMiwWTGXkbdlsAa9MorEw2MH7
-	 0pdxwOkqheupIRJhCSG0z9r1mxIh2EDYPUKhFcggV4HY/gVnGfazHMk6P6Ld4pMmbGlvR
-	 gV2P24ihE7+menkwKZMVDEgAep0x8juLhengsFAQwc1Jq2pGmmRLk+IwjNa+3Lj9GQxvP
-	 d/gOsOLZZewZ18JR1MOW+dj2Kvax6koASOXIz1siUKajwO921RL1b1E7SNvMyXhlahg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DYyWO7IFZ8NnMGxqJk1c136n4piizJJ+e+oNjZmZUYM=;
+	b=AvuzeV52mZlHghOlpQTXG6CIqLqxzzzT5TBLY9xJdr6I1qElOAtIWDKT7DoIqqDQonbk
+	 pS2eg+6kGTfLDL0DW4Y3D8SDO77YbR4zFFdRqTk24RXV5xmZTzIoQFrGv87/PrANzL1pD
+	 Vt8agtI4xORspnD7AkBHC+XufZl/HLZpUO4txTkdmqxFoPCnP9Crwl/YiifOMfr8fFnuL
+	 J6bTbDpnWTFyOaLzEydAhBMOQ5989CxO5Im6F9MUk2Qv3Tw1hgmDLFzq9g3fu90n7RX4Q
+	 sVEbpyTjMiAWtIm/EVglKBrMlwvBp4s1G/zdCEyH4S2/5pzgDczasnDStFKVfYUVLLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dcYKIC6l;
-	arc=none smtp.remote-ip=91.218.175.32
-Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QgDHCjFr;
+	arc=none smtp.remote-ip=91.218.175.39
+Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4B3606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4B3606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95594606A327
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95594606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dcYKIC6l
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QgDHCjFr
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uj6DpQ+dYHugok4ARQkYXSn+IV5soWPeKjdz94Jwpd0=;
+DKIM-Signature: a=rsa-sha256; bh=MsFjm2rc5UIeYKXjIXqxPFWcyN0aWeNxJ6c8Yz/3Cjg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793187209; v=1; x=1793792009;
- b=dcYKIC6lUcS1vobgg/rKKtcTKJh2je3fA4ESE5C9StvQp4g1Q5nDtijXXaa3vuKczCjMUXjK
- 4nEfNccXRaZbNCV8gPRGC7Gj6CmDVYzgXNWnBLDZgEO8JyIvM+W4Trv9jMDPJPczdnN2H2OwMWR
- OMHD3l4lkrbm7KnTFyb4v6Yc=
+ t=1793187215; v=1; x=1793792015;
+ b=QgDHCjFrIxFsL9bpcPCU43RgNEfGTTyMJrC4qYryNHZsTsg3j/VBMyczw9H3xNCT12Kbi8ym
+ 7UWLI0/wSshcrWD4Dx+EK8wR8AxhR0ICil8EpBDaO5hJ4RLbyl0Jg3ekPkdfa4rDZJESOv02jrB
+ F5O0VLEPFUjdmYGA86IJ/Fm0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 33cbc6c67f81e8a8;
-	Wed, 28 Oct 2026 11:33:29 +0000
-X-Mizu-Trace-ID: 33cbc6c67f81e8a8
+Received: by smtp.migadu.com with ESMTPS id 1b8b82fa4a673740;
+	Wed, 28 Oct 2026 11:33:35 +0000
+X-Mizu-Trace-ID: 1b8b82fa4a673740
 X-Migadu-Flow: FLOW_OUT
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Muchun Song <muchun.song@linux.dev>,
@@ -61,10 +62,12 @@ Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH 0/3] Subject: mm/hugetlb: fix CMA handling and surplus allocation accounting
-Date: Wed, 28 Oct 2026 19:33:16 +0800
-Message-ID: <20261028113319.38544-1-kaitao.cheng@linux.dev>
+Subject: [PATCH 1/3] mm/hugetlb_cma: fix incorrect hugetlb_cma_size assignment on malformed input
+Date: Wed, 28 Oct 2026 19:33:17 +0800
+Message-ID: <20261028113319.38544-2-kaitao.cheng@linux.dev>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261028113319.38544-1-kaitao.cheng@linux.dev>
+References: <20261028113319.38544-1-kaitao.cheng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,31 +81,38 @@ Content-Transfer-Encoding: 8bit
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-This series fixes three independent HugeTLB issues reported by Sashiko,
-covering CMA parameter parsing, CMA allocation state preservation, and
-NR_HUGETLB accounting on allocation rollback.
+When hugetlb_cma contains a global size after node-specific entries,
+cmdline_parse_hugetlb_cma() enters the global branch and reparses the
+original parameter string. For hugetlb_cma=1:2G,4G, this interprets the
+initial node ID as a one-byte global size and clears the 2 GiB reservation
+recorded for node 1.
 
-Patch 1 rejects a global hugetlb_cma size following node-specific entries.
-This prevents malformed input from overwriting valid per-node reservations
-with an incorrectly parsed global size.
+Global and node-specific formats cannot be mixed. Return -EINVAL when a
+global entry follows a node-specific entry, before updating any settings.
+This preserves the valid prefix, so the example retains node 1's 2 GiB
+reservation and reports the malformed option.
 
-Patch 2 preserves the CMA flag when a folio is returned to the HugeTLB
-pool after vmemmap restoration fails. This ensures that a subsequent free
-releases the CMA allocation correctly instead of leaving its bitmap set.
+Fixes: 38e719ab2673 ("hugetlb: support node specified when using cma for gigantic hugepages")
+Closes: https://sashiko.dev/#/bug/linux-10f40d3e-3feb-4622-9da8-1fedecb2d0e2
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ mm/hugetlb_cma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Patch 3 fixes NR_HUGETLB accounting when unused surplus folios are freed
-during allocation or reservation cleanup.
-
-Kaitao Cheng (3):
-  mm/hugetlb_cma: fix incorrect hugetlb_cma_size assignment on malformed
-    input
-  mm/hugetlb: preserve CMA flag when returning folios to the pool
-  mm/hugetlb: fix NR_HUGETLB accounting for unused surplus folios
-
- mm/hugetlb.c     | 13 +++++++++++--
- mm/hugetlb_cma.c |  3 +++
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index 95fd2d190f0d..8e6b20341fc4 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -167,6 +167,9 @@ static int __init cmdline_parse_hugetlb_cma(char *p)
+ 		} else {
+ 			char *next;
+ 
++			if (s != p)
++				return -EINVAL;
++
+ 			tmp = memparse(p, &next);
+ 			if (*next == '%') {
+ 				if (tmp > 100) {
 -- 
 2.53.0
 
