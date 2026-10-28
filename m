@@ -1,102 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173592;
-	b=p4DZrZaG0xNMiMeS9/xRzrm/6ILT0nGEjCXk7YgY7wJ5wUmzDvWohb4QqhhOmDvJPr2I
-	 XmQp8Z2HsyVh2SH67BgObZfu3CoWYSyWgydue7BKI45lW93f4NFvHmgI4JbXIz8mYce11
-	 G647CHvQR97ogs6w7MFxlqyDFjuP6cnFhHAa3OBkhaqEHUd5bVvTn0NGNLWq59CCxIPLR
-	 Oju84xYl2g/N1uk8cJ6NIXu7lidK7OUVg+DkD/troiGCPKV0yjsykCGoUp5d6ULONT29p
-	 TfqCBoiqyMLrLK1uXmVXtbEmGK8cm50Z9W8EKlGbOrGoucWJVr+hKaP2KdL7vxTX3Yg==
+	t=1793173648;
+	b=gF0LvjXyl2iJD4ZjPkc6c+194ZFVLeQjF7w28N5cDOE6BC5b30nUmmSBcM+rC2IeqvaF
+	 nXOrYDw1sO4FJkWdqaNbIPW5xcb2vM5ZKx2y95kwkbo6/g7BV67vSy9LlYZVmBIl6kYOk
+	 QpPPRt9arkLfOIDRbDciMxuwidqmiL50s8v1DEkN/71z0gYJ6Vfm0anlb9FczKhTIw5wp
+	 fCr+q8iVNY7gH2FA9fLa3Z8w+d2/ikjxIx8Dn8VPR2DR8a7G0xVwp38KdA1nADtQVNXLm
+	 zC+Bbub7DXhGm7yR99Cr/6l6tm5W5g7NcieB36jEmJmYiE2Xy6W8Kluz5sqHJTf1BvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173592;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=+PJnSNTrmxPeA9orCMWN5NCcF6tLy6nOdSExP0yLuh8=;
-	b=MHIKXaOIv0661qKY+9rsQc11z+3Bdeh7NvKMtLe/Wo7Cayn7NiSweTFg7YCtpx/IG/3H
-	 0BmnmeMhnl6NIlnwVeD7ey81Rb6JNlvSsUGys5l4JNbrQW7EVOZ03V9Y/dciLwzX5uz52
-	 lWGo0H/2D29T7IsXVkUqEzXz5HKBq2iCW6xfGl6sdjqU2ii/2M+tfJNrswwDILEYj1qLn
-	 cd9ZoADXbwAFefAee7j+vGlFotS7FpPR2+1EQLK1DBfanVsJlA36OKPQ9hcT668du3/Cy
-	 dP5nYBOKf06bpMegoAonmp37ptZ78rF+tWW+GzN51TUrfLhBFWnmKAJ4SPDdvZkZhyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+	b=YU/JEAuUPvaajIgOAzD6o+SUFSExkzO/oTGGjQeXEEemUc++tXS9ubhMgB2L2yDl4K0+
+	 cVE/qi5tX05QdhgekmZCzjsM7bHmCWtZBCtHQ6IIAtU0CNjFi1duVRnX15BA/lpFfIzKz
+	 vPKmai8ewnJlDG+zC7vuJN/ScQMVstTciQqghr8Voz/wYhO45pq5ECCbhLx609eUYBPi6
+	 MbPMyP2vHajH+uwCWMl26zmunaX5BU/G6snoeUDgjbn2ti5M8Jr5qvifacuY7WNBIqDtr
+	 uNP4hAxpmKYw6GUAz7U+/4C/68fqBJpHtV1Tgn/AK6JtX5Ey3lFPO3mpJGLtokiQtLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="pv/4dL8P";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EnI3bEkR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="pv/4dL8P";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EnI3bEkR;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA1F606A31A;
-	Wed, 28 Oct 2026 07:46:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BA1F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B63606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B63606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pv/4dL8P;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EnI3bEkR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pv/4dL8P;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EnI3bEkR
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 24E3B21DE5;
-	Wed, 28 Oct 2026 07:46:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793173590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+PJnSNTrmxPeA9orCMWN5NCcF6tLy6nOdSExP0yLuh8=;
-	b=pv/4dL8PmjU1xzr1ZL1OjrLb/pKoOn7qiqmEWDyNGRUm89geEP/Jl9IBDqcx1RFg8/dbX+
-	W4zYNhJQUBIyJ0VjjoQJS+CTDNzYPZMEcQC6MDsYP8kXjkwidrYTS+0vW8H8xiw0uG9DVf
-	9Up66gVu+5Byeqyf8OaRwHiI6uSSQJI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793173590;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+PJnSNTrmxPeA9orCMWN5NCcF6tLy6nOdSExP0yLuh8=;
-	b=EnI3bEkR58T6f0F/S/gcyPejIy4YZWkgcbGLpGTlbzvs2NIJze8PTGfhnwRA2Hn4MuVfZA
-	ZxrFy2SmqgL8j4Bw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793173590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+PJnSNTrmxPeA9orCMWN5NCcF6tLy6nOdSExP0yLuh8=;
-	b=pv/4dL8PmjU1xzr1ZL1OjrLb/pKoOn7qiqmEWDyNGRUm89geEP/Jl9IBDqcx1RFg8/dbX+
-	W4zYNhJQUBIyJ0VjjoQJS+CTDNzYPZMEcQC6MDsYP8kXjkwidrYTS+0vW8H8xiw0uG9DVf
-	9Up66gVu+5Byeqyf8OaRwHiI6uSSQJI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793173590;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+PJnSNTrmxPeA9orCMWN5NCcF6tLy6nOdSExP0yLuh8=;
-	b=EnI3bEkR58T6f0F/S/gcyPejIy4YZWkgcbGLpGTlbzvs2NIJze8PTGfhnwRA2Hn4MuVfZA
-	ZxrFy2SmqgL8j4Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A0D791321C;
-	Wed, 28 Oct 2026 07:46:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4cfkF1Wo4WoiUwAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 28 Oct 2026 07:46:29 +0000
-Message-ID: <f4f29df1-2daa-4093-9af5-9f4542ec0e58@suse.de>
-Date: Wed, 28 Oct 2026 08:46:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so394799a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:47:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793173648; x=1793778448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+        b=Fvuj5PzMLnp511zUOuXtW31L3gHSh9Oxmyc4svNtGfRUcaoB9SyzBMYNXrIyReUD8R
+         Whghg1MpP6ft4GuJiOnRvlfr6lvlXmDN9YG6M4RcQva1FVa07hw2SJ7cAYVMOwUNMeq3
+         kh5rreu+mGVhbp4ng8GL/xeiP0UdZT4oBVoJyV66/46Cgxxy3YR/EPb4yrULEfa1DwX5
+         +bwlDpN6ntqqPY9dV6ceqJMrW/uGjUyvpA/w5Dy5PFaJKtQQ0GNPrZBjoF5/yIuLBqeD
+         pJ1AGvboT+IMFxKUjVJE66tLc4mO3VSbzw3IRtfIOHFwYRYek9V6l+RJ6YnZ52pj7iBI
+         7hmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173648; x=1793778448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+        b=csXzlfO1fU3o0JRuw3I+/gVRFzbpfRGUPwweIIjLX3BsEikjoBZIbbnzwJVTXdLiPP
+         ktvIz/z6OALtqO6RYhrAqtK+MCZx/Fj6hZZxQsUZBobSdXgUbtO/QVL345JnIp1V/joN
+         L1tRf/fgo3+UvV+MomG6GVrSwQwNnS22R0cQlooip0Vp70pBnRORG5AsPouUn3C0XidJ
+         ghqTovQQ+jS3i/48ldSVlVndx6xZ8D98CeWeTIwR4l+RePlkEZLcIqFT3D+DHl1eyQBp
+         Z3uL9OX+vBfjuVRbH6O7uXP3IPXA4c/DDQktAZg13FIWn/8ZaRbrpF7/SjwzrLA0uD9d
+         IdvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6WT10n9BT0mC3vLO0vo41Tsh0VVekiPymXs9xlSvItpr49/KjxSW5TGRJKgMZ7QpyzT0/5YduOsRfrVs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYYwgoTb+qb1OCNdFIpr810PpE126zzpjV1+0rttHPnA4h2tld
+	5dBRp2uOKhm0jwhOurwGkRCIkDQPm5KS68AhiJ7xme/UNf86Rsm/xbgP/CNvh2enX7o=
+X-Gm-Gg: AYBFou31gCFKVtvaD/HdoG+MvWZaJoqnn6Rg65LD94Fuc7OTS2xcVZlAF7phpKyrl0u
+	dTRsV9lb1PQCRewQYT2Brf6SgJM5ZNHyU7FrM7oiLrd1/R75dcjzkK4mD5bVFOgL/GeAGRfiUUP
+	RELdIS23Y1Y3yUZICKZA3qboKcb9xYoCeiiqezpQfmo1ThbVDJC5E/xDu+Gi7HkcX0EgHBSd3DF
+	XWd4rFEPkHzl2a7KMKfucOyPRAzm9b5OcwnJOTGCVzyd6aM2f97OYXlBhM+J9u8623h0c6yfaZ+
+	KqXLFP6XEdp0lHmifjhG2BGmt1qcHWOS+fFXI1yPxDD2JSK7ced5OL/4i6UsWNuyQe57ziGXaP0
+	nq/Nm3QdE/PHuctYBmb1h04rsAfNyK+StC3zFd/py/BuhJyMIviK/07AjA5l6ZSm668hJlZpu4t
+	zJQZewSrz/T0I7VLEpDYrUG4D8+oNWJEgNkPj/LIP37BcTY6/SZ6MWv5b/3qp/hAy7bDxI//kHv
+	znwNTRnsp8kXosRwnIpeD593xw4Wk1FUq422VP/WUbezbM5l3kLIEnMPfeBLNfH+Xg4nC/k2YC5
+	mtJ5Oj1PVZkZhpmYLBoVT4cgwL9Z
+X-Received: by 2002:a17:90b:510f:b0:3ac:adce:60b5 with SMTP id 98e67ed59e1d1-3ae580ae38emr1000839a91.14.1793173647649;
+        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a27f7c7sm1941127a91.2.2026.10.28.00.47.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH] tracing: Avoid undefined shifts for zero histogram map size
+Date: Wed, 28 Oct 2026 16:44:54 +0900
+Message-ID: <20261028074610.2212374-1-jaewon8868@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,81 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] nvmet-tcp: validate the TLS handshake timeout
-To: Yingjie Wang <1075151112@qq.com>, linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
- kch@nvidia.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793103202.git.1075151112@qq.com>
- <tencent_092ACB939828E092E004E81FE5F32E68CA05@qq.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <tencent_092ACB939828E092E004E81FE5F32E68CA05@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	FREEMAIL_TO(0.00)[qq.com,lists.infradead.org];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[qq.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.29
 
-On 10/27/26 1:13 PM, Yingjie Wang wrote:
-> tls_handshake_timeout is writable but stored as a signed int. Multiplying
-> the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
-> 
-> With HZ=1000, setting it to 2147484 overflows both multiplications. If
-> the handshake request is accepted and remains pending, the timer wheel
-> treats the jiffies delay as already expired and queues the timeout work
-> on its next advance, while the handshake agent was given about 24.9
-> days. Negative values such as -1 cause the same immediate kernel-side
-> timeout.
-> 
-> Store the parameter as an unsigned int and reject values that cannot be
-> represented both by tls_handshake_args::ta_timeout_ms and by a safe
-> jiffies delay. Take one snapshot so a concurrent parameter update cannot
-> give the handshake agent and delayed work different timeouts. Document
-> the accepted range for built-in use.
-> 
-> Negative and oversized values now fail with -EINVAL. Keep zero valid,
-> preserving the existing immediate-timeout behavior.
-> 
-> Fixes: 675b453e0241 ("nvmet-tcp: enable TLS handshake upcall")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> ---
->   .../admin-guide/kernel-parameters.txt         |  5 ++++
->   drivers/nvme/target/tcp.c                     | 26 ++++++++++++++++---
->   2 files changed, 27 insertions(+), 4 deletions(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reject size=0 before calling roundup_pow_of_two().
 
-Cheers,
+include/linux/log2.h documents roundup_pow_of_two() as:
 
-Hannes
+  - the result is undefined when n == 0
+
+With CONFIG_UBSAN_SHIFT=y, a size=0 histogram trigger reports:
+
+  UBSAN: shift-out-of-bounds in include/linux/log2.h
+  shift exponent 64 is too large for 64-bit type 'long unsigned int'
+
+Tested on x86_64 QEMU: size=0 is rejected without UBSAN warnings,
+and the histogram modifier and parser tests pass.
+
+Fixes: 7ef224d1d0e3 ("tracing: Add 'hist' event trigger command")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+---
+ kernel/trace/trace_events_hist.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f39fa8942673..3de794c7f5b2 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1430,6 +1430,11 @@ static int parse_map_size(char *str)
+ 	if (ret)
+ 		goto out;
+ 
++	if (!size) {
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	map_bits = ilog2(roundup_pow_of_two(size));
+ 	if (map_bits < TRACING_MAP_BITS_MIN ||
+ 	    map_bits > TRACING_MAP_BITS_MAX)
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.43.0
+
