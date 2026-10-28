@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219045;
-	b=Uh5440HzQEuDpInhZH+00H0DCGYFURtL5A6LpXeXoIZJgwXRfEjZbQN8evb8xisu42rh
-	 xFO15ed7mIMB4evmnglrcaHb5IuLNr6z7PuB9p3pgE4YGN5WEiFNh92CtBgHaH6RVAzx/
-	 oiZrMbXGqHlC8SBSzXmQVbqis89Yy6jFpMuoM29IjiHjTO20ZljO0Nt1V3Ly+4OdCDtUE
-	 pvpG+iAoTMelN2GVb8t65TF/DOtew3AuH5jDD+tY/M43SHfwOGGTPTRT4k8HBh2u27M74
-	 1FIE8HS7OwcX6rvkIPtKEU6xo2JIWyX/unAYy1/JMj2jnRq6xKQX7m59/QGaUg2pczg==
+	t=1793219047;
+	b=nl33En/DbS0Lp72K0Yi2Zn31XFrKKq96t6Y7BdeO2tsq9sg1LxUmV9pENtHnJpDdKaZf
+	 CssbSDYX4asN50Iq1uF8miZOC33+OTJeHVAA5ejnwcz22loP824tEig2hztQ1bYSlyqBt
+	 aW2qnX/TTTESejlVUSlilCvstTIWEY1KF07XoyFHAoKBLpHD2GZFW+1duMqs1cV7jtxcE
+	 prVbIc+2y0zhdEyOrFP72ZMAyvgE0NHmK7azKazdaGS79AYIYqkjuvy4MyHlrOw2ZhIsA
+	 EZZXyzD842T4GXKk+QfZaWpWHb5+UT5R2qK1YhyIrjLc6yl4sysfCEstvt5Us47OYLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219045;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yau+cqWHppsEyJegcQgqY8UAEBWteAU0el19tRPccxs=;
-	b=zuh85aeVZ5VqqjgWlHyv91wKZpZLxPepIhnxMvRGn/sYtSkmQ+uSSvF0N4/yclhICmx7
-	 IWwz8oN7eeYrCSfrK/5zLkYHGNS6HUZbdbDc7XNIOlhIoanrIeCW1YKL3HUWXVdwmKMYx
-	 JtG3zW4RFUlZTLXDGxlrcdHz96QILpGRSN+PIBiPhWFBYPXW0fP5QQJWWZ12qMutQlPLj
-	 /GnWnCWeOIdhsmC2pufr+A8oVphgzUOTLvE066DRaEJIRhcDFQDzJ2/KOlBrL+EiMuinc
-	 +wj5e6I85l1ypR2SMyHZYBC2QjZSyQQFGybSs6YoZ577UlV1j0D6nDLkwbJT2Zs+swg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
+	b=wKa/DGH+t4Bu9WVbsRfEDWAs4h1xOBugz5tlf3LazWgCN56FQTDj9oDOjn2ATdsLVTnc
+	 GybJ1+6T12AOUH3lPAW0/xYqVG95MVHt3VKB7msOkypEwsJ61c6BLLBNEPQG53+4v6ncg
+	 kuSLuBDsity2ZA/5JY4agng327AtN7kesf1N3keYTvILdw3ECyBMNTMvlfvkL+eoW+lVu
+	 oLnZ6yI0utIv9Uejouo9QyE7AYbslkwrHVFvIubGvTOOI42a/VYNevEkTkOJrxUKiXuQN
+	 KD5aR1Uc2XYCQv2R1Nliz1KGQFevgNkzdXS6j/tCe7Q40ffx3mdfw91gkzxS/d68prw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nq/PeQua";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="apIzO/FL";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3021606A31A;
-	Wed, 28 Oct 2026 20:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD025606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:24:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD025606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nq/PeQua
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80431F01825;
-	Wed, 28 Oct 2026 20:24:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793219044;
-	bh=Yau+cqWHppsEyJegcQgqY8UAEBWteAU0el19tRPccxs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Nq/PeQuakKtfuNJ2QuBKQEP2sN6Eee1W4DcK47HblxoeLWHqcjxzkRw/x6fCdJgVh
-	 gpQ0EwuwR6Mikl/ZclzpqvirJnPWo3fLFkb+8/bx2o4gPMfTALAfGq+UPq2ElBpWBi
-	 doGAQYMwMznYYHXQKlXUzMhXRwPMpEg0FHWxJ9L4sV+N0iW8lfKC2KkS8MLzJXv4+l
-	 zSxwL+ki31gF78XSZ+iU8CnE2ude9mnrGv4pnRIdGj9H8fsZTXa9U76E6UlM/YWPjg
-	 GxnGBv3GbkqvbJkEvAHdQWjAU2PZc8v54jj/pRxf/XnvwAdxRuP79nsTOqC8ZzMOeV
-	 pRGrPIjSjyzRA==
-Date: Wed, 28 Oct 2026 13:24:00 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
-	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi
- indirect call!
-Message-ID: <20261028202400.GA835963@ax162>
-References: <202610290223.iOEGeDs2-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=apIzO/FL
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so15872185e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:24:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793219045; x=1793823845; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
+        b=apIzO/FLOIPEPyIQkW/EQOtJrZIBvmNI7vSesQpObzJ/kDpba9EGoD4T0k5TLlc181
+         0kXlmFAp56SVfPFL1kLdPKR4f2B+BRrUslAmh3XfWufk1Fz0R8M1IJCBxkhHREtkD+WG
+         LCdDG8bhnGcuRLHKtA8Y12TW8DcnlEZwaJtoYDyddQoafRj8VPtbu2HI9HSl+jTMo6L3
+         4mrmKgltCTm4etvn4GMrOmZfhQXwtmk4GdiyOmA2LoD32RcIM+ruzwDhNDTv51XJ3VJI
+         /PsQsjLABk+gmp0wznLa0iM8ZKncdgktyGSTwKEYlLe8CgK4cEc+8ZA0gSjh9Kwp++jl
+         2fIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793219045; x=1793823845;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5lS3F0Cpg++YyxcvMj5RtcnTaD4p5NTHQ0SzmxT4UpE=;
+        b=mqXMvm9ju4cxEbTUIQRCY6ODt4ZeYa4FeQxuXBuYwbG+RM/tG2qYQ/PaQRVOB6y5S6
+         BQaJ/lNNE4U3wYVDdbMdgYqMPBTbsvM2pMTS1WJHi7WiqcObIoPGNrrAIeQYx5gomjCv
+         5OQPo+Yf+leVo1oTAiA/OcurfWowyKJv66GPXCj1NMa0qp75h24JqkUM1joG2a7Gft5K
+         yhyDv8L0E/XcB3MhHpXO4ggv3YjshBmGqx5lSYbK0whRG4MuIcblDW6m7NhiHISSx2Nj
+         Z84ZG6iuYpGR+H4eTixF19PyhT1KQa937zEgHGkk4lOUxsEu4n/5uXohDHAXk7feZQtS
+         ExGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRPUX9YKj1x8AhIqORP3fGkoezSBRdbOwziLGvVcwyLTlqqj1wecH7VkLHGl6JFutV4T5kvx7195R+dUc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk+gF+Ui4OiPoj1mVTiIhXWY9Gh2NZnSQvOo1lnLwIC0tRzWiG
+	XyDBIkBN6eIPOAtjNzl1PNcvFSmxHePU6ENEcba2zA6Eo3Trk45V51Dheui2hZTafA8=
+X-Gm-Gg: AYBFou3znlBYExYPgFuoUk5FBlYW0SVV9DbUZcdvxhik+aVLDG3m3NrFWQlDP5vPMT4
+	GF7HAaTxvlYdVIXzE8+wDh6FV7WAp6xZgXRevS7U9Yeiem/eG9MRpDwGB4Y9f+aC6ttQRaSiV1+
+	Bm0zqwssDxmY+/V9q3dFDCAyUXPcCWAxczApomWxvhAzcCBVmEWBchlGYY0WxmHjEy36CDjAl8N
+	dCTjvvNrXXrB2RzolGL3YokvdNHuhyEMoAM3UHqDA77rVkRY0ZcZCG+RxUstchL1FnP5LqFPAoE
+	lDcxy2w083W026wUCJbn5P/qoQ13OWIv8fKHDuaF7qdSrcdsRv7Q8W3Ptepn4KnZljO5rXsDqiU
+	LgzzN+cDQWn/tiOdrxJzkmK5LBLvtA0TIN5RLJlsfZUCxP8l4/HZkhSfZ6QNxvq4tnPChPR/tPz
+	RgD2hSrMnfUfNCEJstAeRLHvHK1yfDiNJGUBHEHBRagWJar9Fb8NSxwPT1NqYDdm6Yvjfi2fFF/
+	Qh1v5z/2ozahFxSdP9XsfPqZpGjJSUZBb6CT//xHnyz5unlc73nkB0Sya+BUjluYh5RcX8qkzax
+	WRdBihVc7YACmVQjjHxc97IdcK82G0GPdlwUOUleFYn2Jd0dOvZK6b4Or3h4fCSm2MsFO2gYc3P
+	FO6J1FljpTVk6RhXpVRRnt0ymhT1eYfBu
+X-Received: by 2002:a05:600c:350b:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4a966c41721mr72974675e9.20.1793219045017;
+        Wed, 28 Oct 2026 13:24:05 -0700 (PDT)
+Received: from irdv-jinli.dev.purestorage.com ([208.88.158.129])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee57589sm17498015e9.2.2026.10.28.13.24.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 13:24:04 -0700 (PDT)
+From: Jingyi Li <jinli@purestorage.com>
+To: vinicius.gomes@intel.com
+Cc: steve.wahl@hpe.com,
+	dave.jiang@intel.com,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	fenghuay@nvidia.com,
+	xueshuai@linux.alibaba.com,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jingyi Li <jinli@purestorage.com>
+Subject: Re: [PATCH 0/6] dmaengine: idxd: More error handling fixes
+Date: Wed, 28 Oct 2026 20:24:00 +0000
+Message-ID: <20261028202400.1144290-1-jinli@purestorage.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
+References: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,49 +105,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610290223.iOEGeDs2-lkp@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 03:10:30AM +0800, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> commit: 7a097aba725501c399b5e93d0199aa3a2f6e9c88 clocksource/drivers/timer-mediatek: Convert to OF probing
-> date:   2 weeks ago
-> config: x86_64-buildonly-randconfig-1001-20261028 (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/config)
-> compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610290223.iOEGeDs2-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
-> 
-> All warnings (new ones prefixed by >>):
-> 
-> >> vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
+Hi Vinicius,
 
-This warning occurs as a result of the above change because
-of_device_get_match_data() returns NULL when CONFIG_OF is disabled,
-which results in LLVM dropping the kCFI setup since it knows that there
-is no valid target for this call. Adding a check for a NULL timer_init
-avoids the warning, which would probably be more robust anyways since
-of_device_get_match_data() could return NULL even with CONFIG_OF=y?
+We hit the bug fixed by 1/6 and 2/6 in a kdump crash kernel on
+systems with DSA: idxd probe fails at device reset ("Device is
+HALTED!"), the error path oopses in destroy_workqueue() on a NULL
+idxd->wq, and no dump is saved. With slub_debug, the duplicate frees
+in idxd_free() are also reported.
 
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-index 842d6ee4259e..33bf4c97bb77 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -353,6 +353,8 @@ static int mtk_timer_probe(struct platform_device *pdev)
- 	int (*timer_init)(struct platform_device *pdev);
- 
- 	timer_init = of_device_get_match_data(&pdev->dev);
-+	if (!timer_init)
-+		return -ENODEV;
- 	return timer_init(pdev);
- }
- 
--- 
-Cheers,
-Nathan
+Testing: I applied patches 1-3 of this series on top of 6.18.57 and
+tested on 10 systems with DSA, triggering kdump with idxd loaded in
+the crash kernel, with and without slub_debug=FZPU. Unpatched: 10/10
+oopses in destroy_workqueue(), 0/10 dumps saved. With patches 1-3:
+10/10 dumps saved in both configurations, no oopses, warnings or
+slub reports.
+
+The failure here is at device reset, before idxd_setup_internals(),
+so it exercises 1/6 and the idxd_free() part of 2/6; for 3/6 it only
+shows no regression on this path.
+
+Could 1-3 carry Cc: stable? The commits named in the Fixes: tags have
+been backported to stable kernels (we hit this on 6.18.57). Also,
+from reading the code, 1/6 alone only covers the case where idxd->wq
+was never allocated: with only 1/6, a failure after
+idxd_setup_internals() still destroys the wq twice (once in the
+unwind, once in the release callback), which 3/6 fixes by removing
+the early destroy. So 1/6 and 3/6 should be backported together.
+(Our kdump failure doesn't reach that path, so I haven't reproduced
+it.)
+
+For patches 1-3:
+Tested-by: Jingyi Li <jinli@purestorage.com>
+
+I sent an overlapping series [2] before finding this one; I've asked
+for it to be dropped in favor of this.
+
+[2] https://lore.kernel.org/r/20261028003708.834341-1-jinli@purestorage.com
+
+Thanks,
+Jingyi
