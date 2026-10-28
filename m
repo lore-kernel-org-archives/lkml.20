@@ -1,102 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206505;
-	b=ylXsUhgPbhA/VFvXWl71k/UzSujAUwwiZB/bCkt9KpiIkaEmtNHrq4IdDy9HSkipVPyR
-	 ePslsZN5JaqEf6zvXQbirvlLDpG9wfDlpijfVbIeaWk/6U1isgSZmO1MJRm84cpY512l6
-	 7qMctTG87Q/jgaiBSO1vh0amXl2EgvQW4Sr6dx5n+LYiLJiLFRRWl4kgR8a0CeKSygoMd
-	 ebd5YM5ySwxbfYVS9zOFWDHBx2F+Hwp7EtVAt4rlehmsh39bJ7/lY1LHaTCU9N51oE5X7
-	 LcfTx22nV9Eo7WKduOjk4ZH8eqxXDahcazXO5+hAMjhco2llTT/JCU+adPrJyuyMKpA==
+	t=1793206517;
+	b=ki9NWzcYocS+qNjb3YRyWTNVvgOCtA0Bbsgrbx82sXVMWvwKA5IrTTPr2z1go3M/kKM1
+	 +M1AFC06OvCOtW2QYmwVAhV4yivu6zwDfkXhW7dDPAHm75mUIRQC2AWjlXzRKAuG4zJs4
+	 NgyEfqVhXPutRGDEgqYa3+fyucUMfFhBZ3JdDPzCgYSlLCv7rBSqTUvuDxSdJbuPQ/aqK
+	 ac/7PycI20FOVrad9Nja5z+kHHHZEKFqPdq2KOckfV/IIRn9UDnzlrCDXpApgBKlD9Kbg
+	 56iHq1f1nDBg3vnH/Fk5j5ZMfdumOBauymN0Se1ioIdu4x7uEPvE5hpIub/P1hrs1lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206505;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
-	b=A1p+2ry7VeDqlIx6YZLvlHzr1aJilra9/BzfPFZsdfR+AOKNyvnV2wzgja4KeqMwECV5
-	 V9PHDh4qMMqbPm25PmjTkur8aDJsQJz7nBHmrucpyTDi3xAyb7bsrBXWwbUW+5fMzUWK5
-	 /n7v2kjIBMxST4K+FCZzt/YW9Kq+qRRR7vwUCMKy5Q+/RLgb0uYewo64NVAvn5sHFYW1E
-	 X6ZUyrtf2YJoJoco5IeoUxXZzz5rPcRoV7qQsiUVWkfDruiS0QZ2eOBmHkp7MrGatgJ+A
-	 kpw/7ogY+gEmU4kMSOH7A9yCixHvnxX5Xh5A2C07Q+JV0lQX6Zr+GeDyNZdkopxoInA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206517;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Z0ZhwvuKB4zpYCGY+1GjLRRMsHPTa5Lvp91s/JwcgmI=;
+	b=SCpP3ifNZJiN17nWV9T+DQGVnHgOCvreLSUd/m4t6P1pjqX07LpRQXhpZV3PHHBXI5Yc
+	 PWWo3ayz45CctdyZhK7RVZ16u2ej3K8BS4agKNyVyuHMdQE4tpJIxnI/+P1kI/U5XQn8e
+	 UooPCxye7gzWmjJ7P6fo/Q0H6r/+O0EZwobQI/rM4ZkYA3TYvkz1N5nHaexIYL3qHuNwl
+	 cp1NxOLjl0cm+BBWAHFmJVnQ7X+rWjTi4KM7CytajVAVgRKrUNCBQtbyj1yc8ZSjRKtaz
+	 xFLnGS8+v0hjt3MiO6n8rALTVi064mk+A++g1IMOOLH0uol2Cik3ncK/7MH1NTjZrVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smartx.com;
-	spf=pass smtp.mailfrom=smartx.com;
-	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c5vSMU4O;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JlFpwLKt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613B3606A333
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613B3606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF64F606A31C;
+	Wed, 28 Oct 2026 16:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c5vSMU4O
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2122343eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:55:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1793206503; x=1793811303; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
-        b=c5vSMU4OlFpJofx8pyh53OYoKfiY201bp+bkEJXfqn7e+hktJysWEkZucR6HjEPfBB
-         LDhg+3CBKTEqrpKe0VQPdo4WxW4U+n39wNy2ru5bquFNadzoWRfv182qfvJWGxU/OvIZ
-         Vlhp2/P2q8Ljb/HU5UwFLFl4gmfZ5zEcABDGS/p0ws+ULgk7GO4NX4vn8H2AYSvd29Zs
-         NXpI+6s24H6auqF5CJaqN32/AbZ4vmJcySvMQndnUHPoouAxBLXAs6QwEua6iarUbB3v
-         XK+zJ3YN9uqzQhZVCkV798LASYaWoLBTboPr79DJqitpYzdW9NJx5kIyyZ8lqwjqNQtz
-         VogA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206503; x=1793811303;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W+LCJYqpb1jh4biWPzp+yPqPTS1QJK29Y+x/nsyx6zk=;
-        b=En1Bdl1iJYq7MkNnmpW3ORXyMDFibdUTlUny/NhPs0hIutUYHMT/qN58jW9y/XJHdD
-         uxssa1B3hwC9Mo7eohJnnV64yiSycyr+kpeT793IXabRhtnMaiY2QEeIJRBfGpSJ1c7T
-         HWNXEpZFa78yZZUs28ismm9y5sP1nKszB/GMz8NvV5U1Q/DcIySnVMxFkjmt9l3Wa+mi
-         NQDszsl0VzIKOkrVPBGHbZzwkHllNHqSB2bZwcpt4tVXoQWuEnLI1mZulYkhtN9VtNmh
-         GrrAfxoHtTy/UuNjRfh47PDvfIzG5txU4tA3PYxS0sIsnDGEzzaB5zXYy5xs2herixwq
-         +/fg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2uTLrJ1VfPtHY6ykCDHltVujJLjRt1Gtw7AW4Nb7RXEAwanH57j5Lu8VeckxvEpjvSYl21u4s1vq5+no=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaqaOs/nnVgY0Xw8VD9RabG4Zv2j/2vE26MApoooJMAt725Yhk
-	g2KGTCTX3abncC2BJbunu8jsYsKvbtjcJmTb+maDGzGLGxiwNKc8sNmOmIY341Clw254wmCBZK/
-	fIESkG4nsd4OCGNYMPsJN8bOCsPuv1bR8jLkBKCkL5QOBbjKRPV3yRjJ5rlg=
-X-Gm-Gg: AYBFou1dlJMQye3iHXy0cE/0oYFUWVmTXaPOItJpdwVwdmdbP//Yo/jk5b6dI5dt5B3
-	m1Me/DjHtt0c/4llAfKsij+c+P6e/eAxqPIGcjrW6aHeomm+YS546y8ViWPZRcHIQTpjqoR4IC3
-	XIFYPbkHev3hdmCDsHHyyjrtgG3+WfRgEr9Wys1+kE2dxVZFBGLPeLUfWiTc/0zuKkfG9j95/oE
-	WtsGhLf9vibHpUs48HkorLFaNQTud5L/ML3yKTqLww3l7Vyj1TLrmo/9QnBKwcRKHTSNKit22Lh
-	gcFUrhkdAoG9/b7nXJWSbfZarbTzNkMq3j7JuDygvTW9Z1TXFSzTK/egyqiIwfqImxT46k1J1TI
-	hSuwxQhxJgh7A2Q9Ymb9xchP9jb8O3tpRfW38R9Zs3fdwDaU6MzG51vjhdVJsq+bDxf+1puuMjS
-	Q3SrI4kUcd7HWx50Q4vl+aIpE3jonqx+vtXVMHC+D8mlw/Z1ERxkYkaC91G6VGO1zpyMSI2GoHH
-	7FHwxkdX7MlnKQKXi3SvDG/ekAahL7GyIl6vIY+G6amGhqbdYHfBo6TCcAJ2B4itCK3RplfTLKw
-	L2WBj+RQkhKeZkNufOxO5Z7bM/GRVKHWHeE92wzX5sI=
-X-Received: by 2002:a05:7300:a210:b0:366:83dd:4704 with SMTP id 5a478bee46e88-36a2014b145mr4102794eec.17.1793206502537;
-        Wed, 28 Oct 2026 09:55:02 -0700 (PDT)
-Received: from localhost.localdomain ([23.148.204.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238d9a21sm8603125eec.4.2026.10.28.09.54.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:55:01 -0700 (PDT)
-From: Wang Zhan <wang.zhan@smartx.com>
-To: netdev@vger.kernel.org,
-	Yingjie Wang <x-professor@outlook.com>
-Cc: Wang Zhan <wang.zhan@smartx.com>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] net: preserve rps_default_mask on failed writes
-Date: Thu, 29 Oct 2026 00:54:40 +0800
-Message-ID: <20261028165440.1093223-1-wang.zhan@smartx.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <7fc32d133404c078352f0b8fbcc80a67861bf2c3.1793199118.git.x-professor@outlook.com>
-References: <cover.1793199118.git.x-professor@outlook.com> <7fc32d133404c078352f0b8fbcc80a67861bf2c3.1793199118.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JlFpwLKt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17B221F01383;
+	Wed, 28 Oct 2026 16:55:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793206516;
+	bh=Z0ZhwvuKB4zpYCGY+1GjLRRMsHPTa5Lvp91s/JwcgmI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JlFpwLKtSX2o0aWLZ/b3/7yIjMHRAOr+vEDpShfZy+KAUEpwP/sw3ESKIkAG8yW/h
+	 oOEG45gGP2A4Frdj40SEV1yFHzWd11p2LHszSy4mETnk8ASvOgXY2SLhjbhAee6ST/
+	 XxgWsEetfuCismwQo2ooCFRZXgJNelrESZk3Pplm9mfLTgS6JDiI2tadgjYICpwTtX
+	 NUaI3lEP+vBi4W4HMuS7/p0vFAysdqyoMbljlYLFvjTjKA/id1O7lADhvEzcESivIW
+	 gRcMJodBiNE93JgviyRdy7Sqv8JZ0fLti6a45kGshVZVGtE6RF7QWHxX7vONNVIcGQ
+	 BghLRGm4Q4Twg==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 781C0198004A;
+	Wed, 28 Oct 2026 12:55:00 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 28 Oct 2026 12:55:10 -0400
+X-ME-Sender: <xms:4yjiajSARqw8PioWyLkupEeXct9Ss2qs5djqP4hQga51zyA5CclqhA>
+    <xme:4yjiaqF5uBuDkSDsDBVun3Nduxg_VIy8zCU5JbQmuyrxWrYRMrJ2uEtcy7Twvuij6
+    U9QyXXC7AkQ-_yXBOAoKFfx8gFyBSvVJ-PR_hzb6Szh6PHnzb9Cl-os>
+X-ME-Received: <xmr:4yjiaj-3U1reClXYJMR86x_214YB-E7NPJqkmAmytXP6g94Td4_LNsXyLGU>
+X-ME-Proxy-Cause: dmFkZTEH/JXmOVrY1taDCoPaJq3IVEd1uOJXsXXF/9Hj9n77Aoo8DF/Z2+y6VwUMjdyxL/
+    vNcNxlWPOrzJjnTTnhU/i8mG2RaecFzcvs1d/58U+81UT2rrSqZcuXVcmJPvN+85Vxmst6
+    M+xIX1By265vICLgVpWMTiDzp4SikoR94mt5KoeDHe0EMSHOdb4HjYnJ2gFn6Jl/jXpTbW
+    1cj1cjuHzE0QOe4Vj87hxPzVA7/e5WKQO7i7HlZnpcOqFBH4nZCcHIT12UXxL8WeWRxmIl
+    5Im68ywTuP3WqKspjS2QQUDWVpnJdjOhauD/wAZQybXH1dmkgbh8FRIT9xxu5hpwJaaomC
+    mvUYquwQCKDqfI6kfvDJMybmqBz7q/9PFZ6wxnj0QM2XOrQem1LihDgZxlgfmoxJzYIsWu
+    xbnrF8t8WIJ5hEFFFVA/MpFaq7kGfFEDtPj7c/5lR+6uEB6MT88r5l0hakRGsn+Sd9HUTl
+    b3RB3DDyj5tujdg60fA6EJQdbrWiA2uBzz55umormQ0ogMeP6OGN8c56LXAD6GGQ/PaZmQ
+    IQISuPc1mDylIDH5VLMmYpcJ31tdiRrFvBKWYGWu+h5ifZZ2RLfDnGQTfxhGSfZR7jcFMW
+    MFdExhcE3jnb1xzwCCOxlhc/jz01DYKk67mV4yzeBryfzQ34jWvPrzhEgeUA
+X-ME-Proxy: <xmx:4yjiaoFcaoyZWpIYKFY3v7C-Oj28kP3zeTCZgSy395wYH63piXPgLw>
+    <xmx:4yjiaphEdO-ptGAYs-gU575cuvwMxFSx7cAsAFR3lQSHx_aSFaRWEw>
+    <xmx:4yjiakFOsCpyaRjuMMuHroAjcH_Safa5KEzD4ud7UwmaX0IzR-ZYTw>
+    <xmx:4yjiat29K8iz33MgZzunPtVmpyVngsMlLqflnxkPJ89YD8mgu21FZg>
+    <xmx:5CjiavpckMmHMDqrTmPU1G6w75v7E6SF6dz-jOjzrFV-Ljvs7_smwbqv>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 12:54:58 -0400 (EDT)
+Date: Wed, 28 Oct 2026 16:54:57 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
+Message-ID: <auIniV8YSpA4_oxg@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,36 +112,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
 
-On Wed, 28 Oct 2026 14:52:09 +0000 Yingjie Wang wrote:
-> rps_default_mask_sysctl() passes the live per-netns mask to
-> cpumask_parse(). bitmap_parse() stores chunks as it scans from right to
-> left, so a later error can leave lower chunks changed.
-> rps_cpumask_housekeeping() also intersects its input in place before
-> returning -EINVAL when no housekeeping CPUs remain.
->
-> Consequently, a failed write changes both the value read from the sysctl
-> and the default copied to RX queues created later. On a four-CPU VM,
-> after setting the mask to 1, writing zz,00000003 failed with EOVERFLOW
-> but changed the mask to 3. Writing a mask containing only isolated CPUs
-> failed with EINVAL but changed it to 0. No kernel modification or error
-> injection was needed to reproduce either case.
->
-> Parse and validate a temporary mask, then replace the live pointer only
-> after both steps succeed. Readers access and consume the pointer while
-> holding the same mutex, so the replaced mask can be freed after dropping
-> the mutex.
->
-> The rps_default_mask selftest failed on the base kernel and passed with
-> the fix. The fixed kernel also kept the mask at 1 for the overflow and
-> housekeeping failure cases, while valid writes of 2 and 0 still
-> succeeded.
->
-> The issue was found while fuzzing sysctl write error paths.
->
-> Fixes: 605cfa1b1090 ("net: introduce default_rps_mask netns attribute")
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+On Tue, Oct 27, 2026 at 12:17:25AM +0100, David Hildenbrand (Arm) wrote:
+> invalidate_inode_pages2_range() skips a folio which no longer belongs to
+> the mapping by the time it has got the folio lock, on the assumption
+> that somebody else has removed it from the page cache. But the folio may
+> have been replaced, and then there is a new folio with the same data at
+> that index.
+> 
+> For most cases, like folio migration, that is impossible. However,
+> collapse_file() only checks the refcount of the old folios, under the
+> i_pages lock, and relies on their folio locks from there on. That works for
+> users which repeat the lookup when they find folio->mapping changed.
+> The following scenario is, however, possible:
+> 
+>   CPU0 pwrite(O_DIRECT)               CPU1 collapse_file()
+>   kiocb_invalidate_pages()
+>                                       read the folio (old data), lock it
+>                                       refcount check
+>   the write completes                 copy to new_folio
+>   kiocb_invalidate_post_direct_write()
+>     find_get_entries() -> old folio
+>     folio_lock() ...                  xas_store(new_folio)
+>                                       folio->mapping = NULL
+>                                       folio_unlock(folio)
+>     folio->mapping != mapping
+>       -> continue
 
-Reviewed-by: Wang Zhan <wang.zhan@smartx.com>
-Tested-by: Wang Zhan <wang.zhan@smartx.com>
+The diagram reads as if the folio lock should have closed the race. It
+might be clearer with CPU0's folio_lock() after CPU1's folio_unlock(),
+since the reference taken after the refcount check is what matters:
+
+  CPU0 pwrite(O_DIRECT)               CPU1 collapse_file()
+  kiocb_invalidate_pages()
+                                      read the folio (old data), lock it
+                                      refcount check
+  the write completes                 copy to new_folio
+  kiocb_invalidate_post_direct_write()
+    find_get_entries() -> old folio
+                                      xas_store(new_folio)
+                                      folio->mapping = NULL
+                                      folio_unlock(folio)
+    folio_lock()
+    folio->mapping != mapping
+      -> continue
+
+> In that scenario, the collapsed folio with the data from before the write
+> stays in the page cache after the write has returned.
+> 
+> This used to be impossible, as khugepaged only collapsed files that nobody
+> had open for writing.
+> 
+> Restart the lookup at that index, like shmem_undo_range() does. The same
+> problem seems to exist in truncate_inode_pages_range() as well when
+> truncate_inode_folio() fails, so handle it there as well.
+> 
+> Fixes: 1b6444331beb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/truncate.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index 733d2713a875a..6d8c0ec4623fe 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -499,7 +499,15 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>  			folio_lock(folio);
+>  			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+>  			folio_wait_writeback(folio);
+> -			truncate_inode_folio(mapping, folio);
+> +			if (truncate_inode_folio(mapping, folio)) {
+> +				folio_unlock(folio);
+> +				/*
+> +				 * Folio might have been replaced: look it up
+> +				 * again.
+> +				 */
+> +				index = indices[i];
+> +				break;
+> +			}
+>  			folio_unlock(folio);
+>  		}
+>  		truncate_folio_batch_exceptionals(mapping, &fbatch, indices);
+
+This hunk looks unneeded to me: its second loop restarts from start
+until find_get_entries() finds nothing, so the new folio gets truncated
+on a later round. Or am I missing a case?
+
+> @@ -760,7 +768,12 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+>  			folio_lock(folio);
+>  			if (unlikely(folio->mapping != mapping)) {
+>  				folio_unlock(folio);
+> -				continue;
+> +				/*
+> +				 * Folio might have been replaced: look up
+> +				 * again.
+> +				 */
+> +				index = indices[i];
+> +				break;
+>  			}
+>  			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+>  			folio_wait_writeback(folio);
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
