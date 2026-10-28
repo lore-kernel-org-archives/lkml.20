@@ -1,117 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203449;
-	b=yeLvAehEZ7JG0lWlQgVWsq7BIz14z8651mRhDlxSVHuBb7+C52duIiTvO75Jr8WDM7d8
-	 lS5NxecINUJucE8SoxInlvuz+jpQ50sTal4QSeBY78BYmdk43uwXPg1ILLuJNHtZi4GVE
-	 NGxHhWqUwPXjkbELlbhGKh7yk265BD9u7xq/gEdLKu8hyaNY+ZWrnAdDvCmMXPWKY+EfN
-	 UZ/tSAhIWNhei1hUhmqtCR/MUWSu03zhCvUYE/UVPmqn5P5/xdni9sRQS8P6kIf3ve7Ef
-	 kLQ7bNbTLcmKWhNaxVWiU6JVDjmUzNq1CpKKV95HFPOxvCumBsGswz4g7hPy7MMBJjw==
+	t=1793203470;
+	b=UAf6HVUHPsD9KIxJD6b0Bz6i5Px6vFxe3rQhxCrVDneB4HOmIzrC4v/zGjqNwQColbem
+	 jBl0dzB7ESx37Ygiqwju+s/2J566sqHsci1824HBIITjXstSV92h9j5iUiAofiYLgODZ1
+	 uRVvhcsGKl16KjnjpFrFHFFFPVGtcp9jFGBozeIIlDhwSYPJpu7xLxE4NgWpydg6rdwKw
+	 lDcz04C3tAd5Vdq3cHFLlzKFkETvdBuy5HlsU6g08SVkBgrSVCmrgLmB8pvpZ7XOWtJLc
+	 VvQL1cnmxRxoPizJ6K9s/hnvy7M8a7k9q5xI6ZKbWsSTSX2Nc6p1F0AhMr9wFWK4ldA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203449;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
-	b=FMSnbyLYTA3W+WKtMxg3dPbirVuf8ptvsQg0GlA9Dr4hlBO3CndRSGd9JFxpv5ehE7nR
-	 dIlz/3ru9GCC93otUGH3QVFWP1TMvv/HVKSybwAQFuyeEO3czKZYIg7qnbCvh8Ae+EoiE
-	 Ux5rUt5iRKxEiM9h8Dj/UtVFx7PYh5GLcE3o+YM92cZvQq5wIbc9GXEHrPCr0tvHaW+mA
-	 V70BcYHFvQLetmUZiMYp+k4uonJZHl/xbnIfkQ3gjgzx589XaLiPla/jkd0EUSkulWD4L
-	 NpROweGpjXz+uLnRePDD5e9Zj/z2CMVfGTywUlC3NPkK2xlQwrtJ2UvUdVztZZwq+1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203470;
+	h=DMARC-Filter:DKIM-Signature:X-B4-Tracking:Content-Type:Received:
+	 X-Change-Id:Mime-Version:X-Original-From:From:Subject:Date:Message-Id:
+	 X-Mailer:X-Lms-Return-Path:To:Cc:Content-Transfer-Encoding;
+	bh=vXNF6Bzv4Y//zIOSrBv1uEGQDZqbWWmh+iIAzb9peio=;
+	b=yZyFfiJowTCEjalKb5y02hrTDxKmm4U4LHduGrgrFOzJmImSU4kyjsDDx/tiYBWvshL1
+	 MIeRyopXLA0pClwf4wQ/PSaywzSDGkFW8GWXFlNu2/xw//TqULRjToeusbLFSoHiwBOpK
+	 7uQ+ICfxr/mkugMy4iEPu2CDYDhpYr0+iq4jwAX/nHqaZhqrexqHg+Oji7Xx5mcYLE+NR
+	 DrHze8VhdrpimDEDq/I8t6lO5CP99aQBCZ0xEIl0uf8jc+kw9oRhfG2bfho5Ji+rVGhRW
+	 Kg2dzDZip/B0HUBZ3e45CET8e63GAGq+SEM0goo7IOAJkToYvlWyMVfrLvLkN/Ri++g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h7w/6mjk";
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=k+XjCVTZ;
+	arc=none smtp.remote-ip=71.18.227.5
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3386606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3386606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523CA606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 523CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h7w/6mjk
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so2150212e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:04:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793203448; x=1793808248; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
-        b=h7w/6mjk6+6kpdKforROPrJX+UDA63yf6nVts44aIrSXJJDyONSXYHDrGBuI1KOZ3h
-         0GakPDtGQJ9AX5Yms9cJyOljn/cP6nLUH/BmSGtMjmj9Hnu7FJ6nSdn6V59f5/OuWqYs
-         TGq/8hmQ0Hoqoo+pLKrhtcng01yYB+b7azWGX4l7IoRFQFewVB6GQBDGGOarGsrR1qQb
-         DlcV7TFre0T6I6/A0qDwyCVc89uhVesfZjRVenTMQfNAufO6WUEdgQWnfborHpREF/SL
-         znFx4+xOEhqvA5Qmz9AuntimIS0MGiMsgWK5uZJWFUNTWwMfS81dSK+TBz8jLyrfPwa3
-         obMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793203448; x=1793808248;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
-        b=WIBAsfp2nZQH4Hs64ictg8sunAcSpp7od/Gk7HGVBbvstq0Fu8TYF91IB74zT0hEAK
-         UoBoOJeBA50iFz5ikMm9wQXb7NIMj7fbQCy2rikpnE/W4Czdwhe3nGWXmOzCW0zOscrU
-         +i9s6aaihYEXRUUgLI9e4etOwP0asG6/4HYBYKpuAWKIfL3GZ8Xa3Awb38FqLgAL0MIx
-         gnH8QGaqUMhfMn8YdsXxkJUcTPwNE4A+8dwfsPXrNkqhyK10fEqfung8uJI77Mk+5fP5
-         LQ1py0o1LDlV2xHe+EvrzjBG6Kw5LUN91eCXpfCrPmTMv8twgHVm8Rdx5xzCOz8TdEmw
-         tCMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxcF5oB/v184EFPmUM1d2roX13WnXxb0280MBvdoQGLCpULgOzuur1rjOju1pp+k4xwRCF10khbVgPZmQk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhOibEUmBJfNhON52/wrW1HkJqMOzBPyWhv8Y03vQxW3OyA9lq
-	FkMFpkaF+vMqwrz2/Id5zGUx4BHKTETbWs4lE+duh88X/EJ6FKQRbSMu
-X-Gm-Gg: AYBFou3oRUzDXWyoRJ4iwhW4Ws1YRcEaczUROHhL+dbM6SsqlHTzJq6caI4y0r/rhyP
-	qJJQcHJXQ/XDJo59M3fVO/RYOqZpR+xxwN+zhHFcyQXCeY+1oNrPPr5C3dzhuvbfabJDFk1wSLr
-	DAX3XKbK0XcMBMPGRojwgveG3ubgnnfcJFR2wHixIjIWYt5gqr1uE/9cRDq2HAdie3MzfUoHJ+9
-	fC30BWPezYiBdgTkiV85bbNCdDpAbO283ugXITB8QWIJRbpJZpUq8cOiRHvDnrXd6ZuKK4IgqGZ
-	xuc5F8THnra/ib6G3WubLEZniwn/nYCXY8qherlhSFxqBmskRmGmuHfrwR2XCH0KxZUQKd2Zq9S
-	yGS5wnwO64eTiKva+6jKwCeTyvhfgdgRGKsL+gPaMXKZvJVigs4KSRhxWZ44Nyf7fSu+uNn0uU5
-	wVZQ9rP0ibEtMjpHjJuat60ck214aH2sZzX7SHUhxOhuy2UFYZjEiG/Gk+ambWo0+LRoM3urpRS
-	z1LTDsj2zHunxO7Bjk70UEBHqNt6GWrDgjqG2LaYtwSv685g+9pGZLxDZfSqbx1dHzVngsv3b2e
-	2tQsB7DTAB42y88XsoWK1dSO9EKj23333XlziwDOMkzcB2sn+bFxMjRL3RwSGwBgKSVRdF82LAS
-	cEQ==
-X-Received: by 2002:ac5:cd4f:0:b0:5cd:4fdc:4c30 with SMTP id 71dfb90a1353d-5ec3ea67966mr1617819e0c.8.1793203447486;
-        Wed, 28 Oct 2026 09:04:07 -0700 (PDT)
-Received: from localhost.localdomain ([190.177.146.128])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259db2d3sm6354565241.6.2026.10.28.09.04.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:04:06 -0700 (PDT)
-From: Cristian Papa <pcristian292@gmail.com>
-To: cjd@cjdns.fr
-Cc: netdev@vger.kernel.org,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	linux@armlinux.org.uk,
-	arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com,
-	dqfext@gmail.com,
-	sean.wang@mediatek.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v3 0/7] net: dsa: mt7530: support EcoNet EN751221
-Date: Wed, 28 Oct 2026 13:03:53 -0300
-Message-ID: <20261028160353.4239-1-pcristian292@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028011317.1557238-1-cjd@cjdns.fr>
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=k+XjCVTZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793203456; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=vXNF6Bzv4Y//zIOSrBv1uEGQDZqbWWmh+iIAzb9peio=;
+ b=k+XjCVTZMsD65B7ZTc0HCmk2D832CnzhnQcnl/1q+07jnBdiNUbxeG4paFJVLu1C+XBgqs
+ u6ICnoOdAMYkmyV0f+NzSMLkm8FLRBTHvxMsTvOg3lXBIvKNYsCacaZqV8WJaw5r10dXk4
+ t2V4S8sI3GvbXN2k7P5luFCzshlyty0XppRaYMlAQFkhI6AcuFmuFTDfFAKntT/BIbcn2f
+ MBeqs/6xHwajvdV8Y3kMgKI64rivY4YDsqL7bogdf98pI9jygF8SdDQLUY4A7XedXYTFUG
+ aeo0LAdGvo1kGjKUOeA24jrIsovMtgbLZPe+tc1wIv6jbPAxRvVhBKC6ayjnUg==
+X-B4-Tracking: v=1; b=H4sIAPoc4moC/yXMQQqDMBBG4avIrDtggor0KqULk/xpp5QYMloE8 e6N7fJbvLeTogiUrs1OBR9RmVOFuTTkn1N6gCVUk23tYFo7sus4S4iRC9RPbzC2PCekhU3ofQd rRgyBap8Lomy/9+3+t67uBb+cQzqOL89qKll9AAAA
+Content-Type: text/plain; charset=UTF-8
+Received: from [127.0.1.1] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 00:04:14 +0800
+X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,49 +55,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HID: pidff: bound the unit exponent rescaling loop
+Date: Thu, 29 Oct 2026 00:04:11 +0800
+Message-Id: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
+X-Mailer: b4 0.16.0
+X-Lms-Return-Path: <lba+26ae21cff+6dea84+vger.kernel.org+me@cherr.cc>
+To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
+	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
+	"Paul Dino Jones" <paul@spacefreak18.xyz>
+Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Content-Transfer-Encoding: 7bit
 
-Hi Caleb,
+pidff_rescale_time() walks the device-provided unit exponent one step
+at a time, allowing extreme values to cause billions of iterations
+while ff->mutex is held. In a UHID test with an INT_MIN exponent,
+EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
 
-I tested v3 on a TP-Link Archer XR500v v1 (EN7526G: on-die switch plus the
-MCM gigabit switch).
+Stop rescaling once scaled_time becomes zero, since further
+multiplication or division by 10 cannot change the result. The u32
+value becomes zero within 32 multiplications by 10, and the u16
+input within 5 divisions. This bounds the loops while preserving
+their results for all exponents, including wraparound.
 
-Setup: OpenWrt with kernel 6.18.44. I took the four mt7530 files from
-econet_eth at 3a8bcd2e6398 (they contain every line added by 1/7, 3/7,
-4/7, 5/7 and 7/7 of v3) and booted from RAM over TFTP, nothing written to
-flash.
+Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+ drivers/hid/usbhid/hid-pidff.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-With the DT from en751221g.dtsi in openwrt#25330 (MCM "econet,en751221",
-no "mediatek,mcm", dsa,member <0 1> on the on-die switch and <0 0> on the
-MCM):
+diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
+index 22951b7ecd17..1a2fffcf204e 100644
+--- a/drivers/hid/usbhid/hid-pidff.c
++++ b/drivers/hid/usbhid/hid-pidff.c
+@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_field *field)
+ 	int exponent = field->unit_exponent;
+ 
+ 	pr_debug("time field exponent: %d\n", exponent);
+-	for (; exponent < FF_TIME_EXPONENT; exponent++)
++	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
+ 		scaled_time *= 10;
+-	for (; exponent > FF_TIME_EXPONENT; exponent--)
++	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
+ 		scaled_time /= 10;
+ 
+ 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
 
-- 18/18 boots: all 10 TRGMII lanes found a window, no "calibration
-  failed", "TRGMII inter-switch link initialized", DSA tree set up, ping
-  over lan4.
-- The chosen taps were stable across boots (+/-1): SoC->MCM 15-22,
-  MCM->SoC 27-29. In the SoC->MCM direction the window always starts at
-  tap 0.
-- 6 of those boots ran iperf3 for 6 s each way through lan4: 0 RX CRC
-  errors on on-die port 5 (~1.05M frames) and on MCM port 6 (~1.29M
-  frames). In 4 of 10 boots MCM port 6 already had 1 CRC error before any
-  traffic, probably from the calibration; it did not grow.
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
 
-Following the binding in 6/7, the MCM does not come up on this board:
-
-- "econet,en751221-gswitch": mt7530-mdio.c in 7/7 still matches
-  "econet,en751221", so nothing probes the MCM and there are no LAN
-  ports.
-- "mediatek,mcm", which the binding requires for -gswitch: the probe
-  fails with "Couldn't get our reset line", since nothing provides an
-  "mcm" reset yet (the TODO in en751221g.dtsi).
-
-So I think 7/7 should match the new compatible, and the binding should not
-require "mediatek,mcm" while there is no "mcm" reset for the EN751221.
-
-Not covered yet: cold boots, and the other LAN ports beyond link-up on
-lan3/lan4. I'm happy to give a Tested-by once the compatible strings line
-up, and to rerun anything you'd like; the full boot logs are available.
-
-Thanks,
-Cristian
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
