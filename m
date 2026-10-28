@@ -1,80 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793146831;
-	b=UyaUX1UTlP6Ox+aD0FaMBk0rGv0JW6LvknNBEQrj9IjU1sPAu+5xJPuBBZQhy8bDK2dB
-	 Plwc2URPGKO+YttX7+1WwyDWxbBZhso6iFIeeObRKFDGbjspx+M3e5hEdTtw4hWYyl+QC
-	 WazzLEdyhS/zpaP/Cfeh8YIStilrCkm4F0zjPHMKCTzzNGBVLvvvdJiEapAGI5nlZZGUm
-	 VPT9gaze7Ac/1i2DQM0ECzLg41xXKMpXye/qkfndYvucM6qci4V7V+9hLD7HANHd+qrSi
-	 tyJSj9oOm0JmyXqnlvTU25Qii2JUIRvASHf4S7i2ECdkwuWHfrD7VKJbuPLWgo3SGKA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793147019;
+	b=MlV2L77bc/g0KaPm9IGoInACM7o2OTLyWGF+CGft6gqOrhcnv+rtzJ5NrLd27ydDUls9
+	 lVfKJVnrZDy7lRrn9EH2ngGVrjcAFIGURP6WHmRWIV2JeorXdWq+XVQkOWnxC8lx7Hw4m
+	 ZGrtvBQ+7eXddXC+oKC7xX2Qy2VObmsAPq+JevQ5NRy+hcP3ZP1n8c5W3V+ob3k/vB/Kc
+	 lZJwoagLjyWUsyH2QL9RrU9ii/zBa8tY/k+1Yv1G5vS6/HcHE1HwsegGOtkjJajnjvL+l
+	 h+/dHERNrP3YxZt4eHK5REMZ3/fDYlkBsDsI+gs0bpK5L/0nBIqRcWpueHjlyUMN/VQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793146831;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=SbSFMWMcTFtBtAC17/dwYk0aEIoGCNywrR+jlOIm7Tk=;
-	b=4RYFZiCy6MQ0vgYMBp5sFU/DpvKfkcnPvsgoxg2JuLA720uY0vo7n2jj0RENDv4Ofk2X
-	 Wsfwn7AfKvMrzvnZ7bTi5mKVat0UrggDX2TJWT9Uum87RgIcM+oNgJv1CNS1GLzFcRUGZ
-	 rpd+JLtEJDtMZ2m0v69saS1exrpDhUFOgrB4OxrZK5MrlufrgTXb6amDZomVH8xg3wWGi
-	 UUI84qiTcJuaH6ky+TRNTS8K9htxqpuzuwzu3B2Z+Pl6W9xPS9RCYV1vxt05fzOK78nS2
-	 RVXyiSMZH8W01Ty49c5cK8MB3NBLYpabvDCxqvjNF2khBqlzI4u+fLusiKKdGvU0VhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147019;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=q+kS/Y2rR6fuaKmpLXLUb9l2wfeJNFpsSAfgHh9ud6I=;
+	b=DWcgTV1LY2zMeKBeLJRwn3YydeA/FstCl75n27RuTLjKacX2vW1iR2sLPUhxeXcg8btm
+	 7Deo9QVpO3hjRJptvxof/KIlWWJ7hH4QFmGBB9kqdIp6uA0oyocsoLg4SCqZ3VMitOEEr
+	 rarIMqvRmpFE/KlCRMfBtKKZT/UNaXbUX8NPNg8Y96dp1E/VtTydTWw2hbuOM097VhWw/
+	 GUCdvAwJpmHE+OGoODlhu4feVegetIueeeDQA5nSEOplk9LwYqk6YSvDEZ39ImnqYXWPn
+	 wVXZ8A7/HfO6Xl1NNGKNa/VV9aLOaGmjYc6qPVGW276n1OklBb5acbxLim1OnYBY2uA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bemRSK3Y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA76606A31A;
-	Wed, 28 Oct 2026 00:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bemRSK3Y
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793146830;
-	b=D+Vw5pVNMkCI4vNaKypRmkOSO+orDgAbc5698jAIRxz1oHxbS0b7gSkEsO08jXBCgMNg
-	 BgVTaGrozMaHWLnRNVBJSesJl4QqwsblWicedBnwWdN1JMTQCkwg1pegEb+N2ZxDFKmBR
-	 T8gPA0afyhtFdED9CEojC6U26Cj1moPV8qN1V9DVBxJr+gxLiJzCGxr7XavvPy4x+4esW
-	 1M/osrAXqFVKpIHtXBYn9C0lAxzLQgqoF4HMJQ7QlG+zHVho5fGbTO8b/Uct4DwmgQpS1
-	 GraEshW3sEo5ui7NHzZrrRzU59YRc9J9pnZXEAEogSezAtIqozWQkrJ8Ws3uGojTokw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793146830;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=SbSFMWMcTFtBtAC17/dwYk0aEIoGCNywrR+jlOIm7Tk=;
-	b=13xaSV1v9tvdM0h4B/MVUBWy9VYh9qTnqYnwSy4cL8hvcZFeahTHkUuIDp7Zh9E+y1au
-	 TTtrg7FdHOk3rnufuzzZSrB9EJ/QL1+Vsdax/HB9U1H5uLTa3QjW9gnutqEq7FLn/VU8W
-	 HWO59emIfe5QauWRUcFpg9OGPsNiqs4rWa5+9xWmBICAYCVzn0EOonFZkbufBCUEvWxAN
-	 eaE6g43X+r/LJJ3zU+pvKQG3Gfg69FLbAtFmG312L2Dbq4M9wXe+NahHU1z8DLXqqSc60
-	 HojZZYGepgFrVK0x3O89xeh8SY0MXGOdOpT5toBY+1pdUE+1637qSJ7d80jKnMwX10Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UZdHgaFB;
+	arc=fail smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BC87C1F01829;
-	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793146830;
-	bh=SbSFMWMcTFtBtAC17/dwYk0aEIoGCNywrR+jlOIm7Tk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=bemRSK3YFz/m+5SiA1C4lxY171SzE1i+l8zopXijYO82S6L1T65Lj5+daqnActrvP
-	 kNfqsO+m3w4NlVb4Svajhoxrsr0ytxPSyzKpZeYdkhkq0mZbWIPqKvNS2O9/lzw+Pl
-	 KoXLvnBhR7sOPbp7U3hcRrS3STwa3YWb+20Tj/J6Jq9jCSGw2senAqVxnzMsAdjaKV
-	 YCbguvtHW5ljlwkiswiVnt0WMOq9RBAR373Tf1H4sZUCmTrpv9n916HjyDy/W3k7dR
-	 SnQTf4C6FnwOL98Eodb0cHsLpw0kdvMJOpOCpHfimq2i8XupDxNdHKCDbGLmb2MHs1
-	 ZQDdaJu+NrUWg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1C613452F9;
-	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
-From: Jez Ng via B4 Relay <devnull+jez.sfcompute.com@kernel.org>
-Subject: [PATCH 0/2] thermal: intel: hfi: Stop hardware writing to freed
- memory after kexec
-Date: Wed, 28 Oct 2026 00:14:44 +0000
-Message-Id: <20261028-hfi-kexec-v1-0-956234dcfb2b@sfcompute.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936BB606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 936BB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UZdHgaFB
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6dde81a6820so412165eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:23:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793147017; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dF2jCeAaI5QPWpXibzjDGdYe0JjqislEHUfRcGMPpLM0rW7saonUg1LDPSgI+ckzd8
+         jBZ6BzK6dul013C65+SexHbDT6d/uBFeW56+CGp5aI/Gvi1C+tobuFZJV4jJW5hgPvlm
+         5SusJXZioaq5I4nuSMNm7ub6C7tbszhaILvrnseB9az8IFCPiSIrpHGfkYSguNYIqGAh
+         gW7JTRK7HdKk+BVKo9wWYgngQOksVG7TL6n4tbb/I98jWb3UMuQcfCpEQHdNpIa7DKA/
+         zoxsOIFv2ZXhepJBVZpsE8R4PKIrCf8VssaCIF+4BdlAK3DCQR++axnkfZslMyXssfcL
+         wteA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q+kS/Y2rR6fuaKmpLXLUb9l2wfeJNFpsSAfgHh9ud6I=;
+        fh=t7k0J9/6lg1FJHUGLLjO2tv3Q1dCDeBqUwQ4wed3i7g=;
+        b=REKjCSxZZG5ob0wwDmeekEedEJaZFYTwC+C3RF9X5ko+14B0v5849+qqBEFBEOkTl5
+         vLjsnTBxSPMn01U0ESm+1Jd9NrWvCiCPZBMKSy5xxdpVXV/PPk9IVWFcnmM/uB/azfb9
+         xw3i3MyQnwWI9B9Oou8SRclfxYlxLFSuw1QeDe4v7oVjKUmMNNSst5p65jvab1/V7/aN
+         g1PaJNdV6LDZ1STiQXxEL6s8LiejvIXMRwJeDea6SkyrX76KOp4ZM125WXEc4ZZiNRBi
+         m9hMsB+i+CwH9+k2+RDXB+6DR4w4tps6XCtrMsiSiXS0U+RJ4ECTZKY9cfXL6FYFrDRd
+         iK4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793147017; x=1793751817; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q+kS/Y2rR6fuaKmpLXLUb9l2wfeJNFpsSAfgHh9ud6I=;
+        b=UZdHgaFBEqku8HdYlRJ6qbXEIg7YyzvhQZMaCBWicTqzFZGCBQipinLkWMuZ6jbCff
+         /FBFimeCjWZPIY4Po4eU80ab95WbA5Y5v5OR+4846cKmu4rhKmOVa0uMLcGC/t5yVQyv
+         nkyr/bYL9WJea96dNa/RPEuA48caxicvXIveMVHgMbhh2mwQVB96GDhIRqels5LtLhdF
+         QqEDp/0Qnvk2tqtN8THw5tp+gomI8qJ+rbA/5cTLz2QVdfwa5VY5POItjZqXCbFgoCRq
+         AJYDr3WTjD38A7BKGcOZ4Wvy+oa4tOkGQBfmp4T2P+f6mTGFPlK0TyjcvsYBtJs4uQGE
+         DSkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793147017; x=1793751817;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q+kS/Y2rR6fuaKmpLXLUb9l2wfeJNFpsSAfgHh9ud6I=;
+        b=fRCBL6MiMhm2x8QxQs/1xChMlDkL0IY3xC5GUY3U1WJKlxcWaAFWJl4mg+ysU1mWyM
+         ccPUKKdcVpwM+GOvS6FBDXSCSDeor9498IL/n170CTKvpI1FOHf8/x+hF/AgFJm1f4Nu
+         diFYtmIrSAznL8yzWJ6ZPorCOdMFMk/DVx0n8e6D4zxeqgeRFHhIxfk5qa1M/ETav18e
+         gfylUGx2WFptJnWuS69qG13yguDDAlbhvQuqM5/T0UjjZ0RS+oAUzdH8DgH2PnJ4yjfe
+         BMJ/iVUH7wuRSrDtrI8aw37VzFbmarAYsTJNjx6g8gPdjFHCKt4kpP0MhcueBtARG++V
+         zS/w==
+X-Forwarded-Encrypted: i=1; AKwUvBys61xBM7FDWwULsWCW21O5Fq8vTXtil0Aml80Yzohm3RaCM33ctmZ9w54TRHMhOHBA9DnNh38oLwB9fd0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2KFiWpnXdy6U5VhY2ob29NQOwhxBn+jGfQ5X5kl8tPi2aeJj/
+	svL0mHmhF51tx1jk6bvuiFLHwaXOL+ylbVd6dgK1+4TditEIWRbSFnlUXqaH+SS1R/0/0Sh/0iE
+	zht9ysZH/WBWhFKDMHlYMi4sPSjemOxWl2V4c9GhC
+X-Gm-Gg: AYBFou2uDwVaQikPySIlgsWeIL8DkCPfM3jOTFsF9pIp2CQf8UF7Uq06pD59WtqM1NY
+	VgyMrUo85ScmQ4QOralH3XrRTax8G4bEliiAUVA4SSh9WKjGMKvxo4KzKkWoPQt009D0mW5o0oo
+	VifaXNmfKVJbhi0LUpe1DAZBBYK4j75RkYDxB9d+ymYAX1hiMvHNaSOFD1B/YrpMEHLignNykph
+	s65Xp2BNqgGW2zUbwVhmwzauOLblqZUkgR2rMhycySjoRWBAJ0ya08RF3Y8AQRSjPaCmFFMFUK4
+	D8OsNSCaXkS0D3pMSodYsRtw/RJGaSyKYvl3F9vW6/onLAQpNSn0CjUJUn6Fp7Sy5cOnoJqZae3
+	lBEkfIdFpyGK6P/mqLhCiEj40p7VJ1BH511ycJpXEMuqbrAkfu1RFUWclEyNQs2XGa7IiqOHj37
+	dEkbZxRZ20/Q9CDuDqxm0hqap/wLWQLEeLYXR3ubzmGHn1MmTHM6Z8R3HiQKjcxtxo9gP0jRs39
+	K7JQWD2NQ==
+X-Received: by 2002:a05:6820:f02a:b0:709:d804:88c4 with SMTP id
+ 006d021491bc7-713f05d151fmr475759eaf.89.1793147017029; Tue, 27 Oct 2026
+ 17:23:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,100 +106,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHQ+4WoC/yXM0QpAMBiG4VvRf2zFwuRW5MDmGz+FNqTk3g2HT
- 729F3k4hqcqusjhYM/LHJDGEZmhnXsI7oJJJrJIE6nEYFlMOGEElMm0snmZaVDoVwfL5/eqm99
- +1yPM9g7ovh/8KbM0bQAAAA==
-X-Change-ID: 20261027-hfi-kexec-e7c4b7f584be
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Ricardo Neri <ricardo.neri-calderon@linux.intel.com>, 
- Len Brown <len.brown@intel.com>, 
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Andrew James <ajames@sfcompute.com>, 
- John Ranzie <jranzie@sfcompute.com>, Jez Ng <jez@sfcompute.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793146828; l=3133;
- i=jez@sfcompute.com; s=20261027; h=from:subject:message-id;
- bh=Q35Ngjcsidz/Av1fy+wnmQitU+ZbicSO+I9WZ2tM750=;
- b=+KBJozgnpPCuPVlgyuw7GVpttKhbd1B1UkcoLr6T/hB4ZH/VHKiVtKh4xfpgpVlldAaF4QLbE
- skjnuMuefbkAJwSab7sOmc4GTCkzw9naIBsm5wI5dSRTTzxrJWHK8qE
-X-Developer-Key: i=jez@sfcompute.com; a=ed25519;
- pk=e8QxvBomwv96udVoo4EZvgPDtnl1YbPysb3vNdKi8JA=
-X-Endpoint-Received: by B4 Relay for jez@sfcompute.com/20261027 with
- auth_id=1337
-X-Original-From: Jez Ng <jez@sfcompute.com>
-Reply-To: jez@sfcompute.com
+References: <20261027221209.1560865-1-seanjc@google.com> <20261027221209.1560865-10-seanjc@google.com>
+In-Reply-To: <20261027221209.1560865-10-seanjc@google.com>
+From: James Houghton <jthoughton@google.com>
+Date: Tue, 27 Oct 2026 17:22:58 -0700
+X-Gm-Features: AclHuK8RRqKY_lCjk0ArS-oHYaPKalWvy9KfBfqSoDe2ANJo4dTrcc5mcvnFu40
+Message-ID: <CADrL8HXL0HCHbp_vLgcDGR8F462qT_DN5A3CvVBZW06xxE1gmw@mail.gmail.com>
+Subject: Re: [PATCH v3 09/15] KVM: Pre-check uaccesses in KVM's APIs to
+ read/write guest memory
+To: Sean Christopherson <seanjc@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
+	Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-HFI hardware writes updates to a table at a physical address the kernel
-programs. Nothing disables HFI on shutdown, and since commit b33f3d2677b8
-("thermal: intel: hfi: Enable HFI only when required") a kernel that
-starts without thermal netlink clients does not touch HFI at all. So
-after a kexec, hardware keeps writing into the previous kernel's table,
-which the new kernel treats as free memory.
+On Tue, Oct 27, 2026 at 3:12=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Add a check on whether or not doing a user access is ok in KVM's APIs for
+> accessing guest memory, *before* doing memslot lookup/validation, so that
+> buggy KVM accesses to guest memory more likely to fail noisily.  Because
 
-We hit this on dual-socket Sapphire Rapids hosts (Xeon Platinum 8462Y+)
-that boot a Debian 6.1 kernel and kexec into a 7.0 kernel. The new
-kernel crashed in find_inode_fast() when the inode hash table landed on
-one of the old table pages. Reading MSR 0x17d0 on the running 7.0
-kernel showed both packages still pointing at the 6.1 kernel's tables,
-and the corruption had the HFI table layout: a timestamp, a changed
-flag, then one row per CPU.
+"to guest memory [are] more likely"
 
-Patch 1 disables HFI in a syscore shutdown callback, which covers
-reboot, power off and kexec, and keeps it disabled afterwards: on kexec,
-user space runs until machine_shutdown(), so a new thermal netlink
-client could otherwise enable HFI again. Patch 2 makes a starting kernel
-disable HFI if the previous kernel left it enabled. Patch 2 can only
-narrow the window: hardware can still write between kernel start and
-the moment the package's first CPU reaches the thermal online callback,
-which was about 30 seconds into boot on these hosts.
+> KVM installs dummy/empty memslots early in VM destruction, bugs in the VM
+> teardown path will fail on the memslot checks without getting to the WARN=
+s
+> buried in kvm_copy_{to,from}_user() and friends.
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-This is the kexec counterpart of the hibernation corruption fixed by
-commit 97566d09fd02 ("thermal: intel: hfi: Add syscore callbacks for
-system-wide PM"), which disables HFI for suspend and hibernation but not
-for shutdown.
+One somewhat minor comment below. Feel free to add:
 
-Tested on one of the hosts above with both patches applied to this base,
-alternating 100 kexecs (kexec_file_load + reboot(LINUX_REBOOT_CMD_KEXEC))
-between the patched kernel and an unpatched 7.0 kernel. Before each
-kexec, a thermal netlink subscriber enabled HFI on both packages. All
-100 passed:
+Reviewed-by: James Houghton <jthoughton@google.com>
 
- - Patch 1: after each of the 50 kexecs out of the patched kernel, the
-   unpatched kernel read HW_FEEDBACK_CONFIG = 0 on both packages.
+> ---
+>  virt/kvm/kvm_main.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+>
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 1058b864d427..d8b914b76f90 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -3298,6 +3298,11 @@ static int next_segment(unsigned long len, int off=
+set)
+>                 return len;
+>  }
+>
+> +static bool kvm_is_guest_access_ok(struct kvm *kvm, int offset, int len,=
+ int size)
 
- - Patch 2: after each of the 50 kexecs into the patched kernel, it
-   logged "HFI left enabled on package N, disabled" for both packages
-   and read HW_FEEDBACK_CONFIG = 0.
+Hrm... I think you at least want `len` and `size` to be `unsigned
+long`, and you probably want `offset` to be `unsigned int` or
+`unsigned long`. The *_cached() functions are the interesting ones in
+this case; I've left a note below at the first callsite.
 
-A test-only 5 second sleep after the shutdown callback, with a thermal
-netlink client subscribing during it, showed that patch 1 keeps HFI
-disabled. Without the hfi_shutdown_done check, the next kernel found HFI
-enabled again.
+> +{
+> +       return kvm_can_do_uaccess(kvm) && !WARN_ON_ONCE(offset + len > si=
+ze);
+> +}
+> +
+>  /* Copy @len bytes from guest memory at '(@gfn * PAGE_SIZE) + @offset' t=
+o @data */
+>  static int __kvm_read_guest_page(struct kvm *kvm, struct kvm_memory_slot=
+ *slot,
+>                                  gfn_t gfn, void *data, int offset, int l=
+en)
+> @@ -3305,7 +3310,7 @@ static int __kvm_read_guest_page(struct kvm *kvm, s=
+truct kvm_memory_slot *slot,
+>         int r;
+>         unsigned long addr;
+>
+> -       if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
+> +       if (!kvm_is_guest_access_ok(kvm, offset, len, PAGE_SIZE))
+>                 return -EFAULT;
+>
+>         addr =3D gfn_to_hva_memslot_prot(slot, gfn, NULL);
+> @@ -3381,7 +3386,7 @@ static int __kvm_read_guest_atomic(struct kvm *kvm,=
+ struct kvm_memory_slot *slot
+>         int r;
+>         unsigned long addr;
+>
+> -       if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
+> +       if (!kvm_is_guest_access_ok(kvm, offset, len, PAGE_SIZE))
+>                 return -EFAULT;
+>
+>         addr =3D gfn_to_hva_memslot_prot(slot, gfn, NULL);
+> @@ -3414,7 +3419,7 @@ static int __kvm_write_guest_page(struct kvm *kvm,
+>         int r;
+>         unsigned long addr;
+>
+> -       if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
+> +       if (!kvm_is_guest_access_ok(kvm, offset, len, PAGE_SIZE))
+>                 return -EFAULT;
+>
+>         addr =3D gfn_to_hva_memslot(memslot, gfn);
+> @@ -3544,7 +3549,7 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, =
+struct gfn_to_hva_cache *ghc,
+>         int r;
+>         gpa_t gpa =3D ghc->gpa + offset;
+>
+> -       if (WARN_ON_ONCE(len + offset > ghc->len))
+> +       if (!kvm_is_guest_access_ok(kvm, offset, len, ghc->len))
 
-Thanks to Andrew James and John Ranzie for reviewing.
-
-The investigation and testing were done via Opus 5.5, as were the
-drafting of the patches and changelogs. I reviewed all of it.
-
----
-Jez Ng (2):
-      thermal: intel: hfi: Disable HFI on shutdown and kexec
-      thermal: intel: hfi: Disable HFI left enabled by a previous kernel
-
- drivers/thermal/intel/intel_hfi.c | 71 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 8 deletions(-)
----
-base-commit: 70f331d89564126fdcaaa37f25194fe391d8f3fa
-change-id: 20261027-hfi-kexec-e7c4b7f584be
-
-Best regards,
---  
-Jez Ng <jez@sfcompute.com>
+Currently, this truncates `len` and `ghc->len` from `unsigned long` to
+`int`, and it will change `offset` from `unsigned int` to `int`.
 
 
+>                 return -EINVAL;
+>
+>         if (slots->generation !=3D ghc->generation) {
+> @@ -3582,7 +3587,7 @@ int kvm_read_guest_offset_cached(struct kvm *kvm, s=
+truct gfn_to_hva_cache *ghc,
+>         int r;
+>         gpa_t gpa =3D ghc->gpa + offset;
+>
+> -       if (WARN_ON_ONCE(len + offset > ghc->len))
+> +       if (!kvm_is_guest_access_ok(kvm, offset, len, ghc->len))
+>                 return -EINVAL;
+>
+>         if (slots->generation !=3D ghc->generation) {
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
