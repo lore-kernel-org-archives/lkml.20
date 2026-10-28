@@ -1,50 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.91.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187728;
-	b=ESAtsDedXZzWy6mGXucsl7L6uWYMqszxDIkOCsEu+LPdn4RY8Q4zUOBeJHDQh32Pl/Sr
-	 zZapdbGAPaS/FzYVz2ai70kACHwVrvyBTYkcWEgIgBwc1cevU6jjUBjJJNNjWggv2u4o5
-	 g8detiBNBrMtgfJJpumEbBHl2pWH0BCxp+mRjfo0L64Ulo3kYls2Ch42wRqtLLO9Iv0AW
-	 ZNGwSbP0kfV23gPTOvRx/hGJ4aXdo5eV55QwHtsHm3Mq/CkSortSDvhM95CZevCPcXx7G
-	 NWIWwND9O8r7hptTcKDiMk1lVUIgTi1cV9a5lvBReQR9EbinrAu1TFdilUZS8uKD5cw==
+	t=1793187800;
+	b=wE+siD9OzMgVSqQ90p7S+iMWQWRZ8vwPW69r6/yZ2wptyKxo6pNymc+6BN/DIR1O2BHk
+	 xKtft0qfukOU7MTcBR8ihLABv8hsmtEpwPWdWfrwacUYDyZfDhNpJdewVW0pRqfrJJiLH
+	 83Ih5NM5qoYFOcMLkzI4q53gNnKSYGoJazEqEH5bkUEU5F7mAmPsRvL4c2dSKkkeLqzpY
+	 knT6dGEBvWWFZ+sNU7Wf4x219yBiXFWvY0fsCbbSj9sEzJnltQRphrU/blLFy6thovd3z
+	 Yxryey5JCasZ3PIUIRCnArxvi9uH2HNKyMC9OKCIj9bQeSIk/00WBXhjQyvp+XGl4Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187728;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1lj6/7yqKyEZQh/75Ouy2KxxOTyJUOrJdS5Tm8BiFW4=;
-	b=PAM/6+8LtSz3JlEIwZmoxj6wKxj5Q0kXR7RVBXKNSFG0LNXup7WdXn5E1jxa33jg1gAY
-	 kYxnXKHdc6ODvBCNDo37cEGv10XKp9s/5KGCRKGDgJJLeOxEjI0zSJGiK36iVd3BZu+IO
-	 Q9fP/b4bFgyswDkv14vajX8ltDAz0K3ZSbuTKmBM2C6jbYrShCuJv0W+SPUW2Rsh9LEPJ
-	 HsVmFrpV9R+LR/klGyumG9+t7Qs5fRLEtEzxQ4naRx6rOkRvOHASrIak3slQqugKpxvqh
-	 +HqgJF7KV1xDtkWbC1+DQJbXD/zOtyGfCe7Ih/K3JNaXYG63/nr/lIn2S6Al9RV3Ewg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187800;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 mail-alias-created-date:Received:From:Subject:To:Cc:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-JNJ;
+	bh=OsuVkeafblGpTsXYut7m1aN/nlY5ZzIRjoB1MM1Rhx8=;
+	b=hFEL8Y3rObzP1o/GNFOLYGZCJUI/tqoQVtSd4LXKutaszWNKnY0De15s78xqGO3dFa11
+	 AR/B6oyk+7D8wNMIO2pkoq5/dexUepS+sAHcxsXteLCVbD3mXcqByUIGi2BkAvUxMtKUA
+	 Iq4pUqWEsuQ0kgsUdlDkkF/L8HaAjfaMObTecQAh0c4eyJONNPeFq0LxYBfJ87oZMkYen
+	 PDgeN8rEzw+MsvwjgDayudg9fuB7I0BmcxgeMsixEGTFiLnhTUIsZPrcSQU8GyAelKvnD
+	 WAoqxm7Mq0iwcCX0pRdfDbrUMUKu30AgBqgI6sUzge16gMFgdXrt3knnmapHzEWCvJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AZknOMeO;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=none header.from=manyhobbies.com;
+	spf=pass smtp.mailfrom=manyhobbies.com;
+	dkim=pass header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=hwNbtXvn;
+	arc=none smtp.remote-ip=57.103.91.221
+Received: from outbound.ci.icloud.com (ci-2003i-snip4-11.eps.apple.com [57.103.91.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C177606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C177606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36490606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36490606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=manyhobbies.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manyhobbies.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AZknOMeO
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EF3A4F1;
-	Wed, 28 Oct 2026 12:39:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793187592;
-	bh=Rsw2IDjWS22qxc49wx+UxcDu6FoabmR4PaoHgFRbUhI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AZknOMeOj+3yO8Q00UR3u69hCTdB7OXi4xmSamQpnyRDdok74NZGOQup/vXPVWaju
-	 fcZtuqO7zNTRBRDrddUYkBVcbgc88T5WGRUSjYXvlF/Pxw5mlPNEU7atW59XuiW4h2
-	 qmjbURehHXOLGZnJo3Yx6YMFmVywEosKpqHsfmhY=
-Message-ID: <1d50c475-9ab4-47de-b62d-0610454c9d42@ideasonboard.com>
-Date: Wed, 28 Oct 2026 13:42:01 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=hwNbtXvn
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with ESMTPS id 6C1051800820;
+	Wed, 28 Oct 2026 11:43:18 +0000 (UTC)
+X-ICL-RepId: 01a18252-5d6d-7bd6-91d2-692952ce09ab
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAUMGWQZeD04dXwVcEhVdRUcMWkVWH3kVUgNOA10SWxFWHhkIXR0ZHldQWgpcCVEXUQ9eDkFeWhdeTUUID0kZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1UGV0UXwRQElAdQENUBF9QVBFXUAtaBUkKSQtaAFMERglWC1wEXAdeCEkBWwRZB0gLQANZDl0DRQxLB1l3BlMeQBBcD1UCVwMXG1wACUtGCUkdDg5CGEYfVCdXAloKWx4=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manyhobbies.com; s=sig1; t=1793187799; x=1824723799; bh=OsuVkeafblGpTsXYut7m1aN/nlY5ZzIRjoB1MM1Rhx8=; h=From:Subject:To:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=hwNbtXvnnR59r7qgS5h1p3fS16aD5jzIeyH6FfM/P0jckDlcg/ea2roFPOaOUG3J/sb081LehV5wvctDZ/JiMRzjuh8SU/TYry5D2bxTyoPyNIiVFQNdgFJDsGrAy5E0jl6a3Ka7FE4sxX8B0I2kBApvKwhZzSkSlqogs/WjPtNceikWDst1iRwoB3qmZw4xPH1EzPUwPoPnJoTCjz0XIpvAam6R2m/B8cJZr1W5fmag0lxrjvkDJDxJIDfBOLgUQDYUPYfQpK0na1nRpHwaj5tJ4QU3NTx4UyOPY6VSvkOIKY2b9BuD0skdqxmIXQB+5RYx+6gfh73l9TCDfnDoOg==
+mail-alias-created-date: 1780273699991
+Received: from claude-agent.manyhobbies.internal (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with ESMTPSA id 9048C1800839;
+	Wed, 28 Oct 2026 11:43:17 +0000 (UTC)
+From: Tam Do <tam.do@manyhobbies.com>
+Subject: [PATCH v3] mmc: sunxi: reset the controller after an update-clock
+ timeout
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>,
+    Jernej Skrabec <jernej.skrabec@gmail.com>,
+    Samuel Holland <samuel@sholland.org>,
+    linux-mmc@vger.kernel.org,
+    linux-sunxi@lists.linux.dev,
+    linux-arm-kernel@lists.infradead.org,
+    linux-kernel@vger.kernel.org
+Date: Wed, 28 Oct 2026 11:43:06 +0000
+Message-ID: <179318778660.81375.11263258280496155344@manyhobbies.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,89 +67,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/13] drm/bridge: tc358762: Various small fixes
-To: dri-devel@lists.freedesktop.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Marek Vasut <marex@denx.de>
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andreas Kemnade <andreas@kemnade.info>
-References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX9v7vwJCZUAQh
+ cJY9YliLJf5Sj7s8z0lAbLqgy4FCJ+wmLCJ1GwC5QAur6kNEf4/BFfS6/FFWLkZxtGHz9NTkVeD
+ vBCi1Iwab93fOTroBByohOYlMa98l/5Lu9VqV4CjwBEyizskLbu9OaCmeohQoNAlf+KTJRCrBpS
+ C6zZRoQ8wGLqR7sCw6RI/3aPA2hMx6dq32DuMb36aKZe0uJiB3CHuNwS7zx2wuCc0b9Nb0oJgyt
+ DxqZQ95bkDKbBrgjyFQag6cf2O6JytdZKdd+ksQoMHocnZw2HWcROlehudyeOiPCJgyhu1Rh7LB
+ luZ+La2Hc5IEZRt92uJjS8ig8/Fvh/f2BdEVv1eMwoeo96eaIeGc1YBiF8r4+0=
+X-Authority-Info-Out: v=2.4 cv=L74QguT8 c=1 sm=1 tr=0 ts=6ae1dfd7
+ cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
+ a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=w2OPf45SAAAA:8
+ a=1tvfc1y3xX-o4uWKYHEA:9 a=QEXdDO2ut3YA:10 a=-iXIJKm6ftRzmWoHelNS:22
+X-Proofpoint-ORIG-GUID: VSrRne3TfcgmffBp2ODlyHQ9fNAP35cV
+X-Proofpoint-GUID: VSrRne3TfcgmffBp2ODlyHQ9fNAP35cV
+X-JNJ: AAAAAAABnZTtDZq/p55h04EW18ZZXuIli9DAQsyjrV651gPUhYbhFPONnpN4Q2l1D7zh4h
+ jrNXs/YFjDA6Bc66K1KHPplaC618Obo/QKJfRxNwzx/llyrxopXKzk1QMlJXTmC6A3JH9k
+ KOx0wC755kgtChPDKOkD9zfVh+aDbg/8iZRUD+HUldRc8IeOy+5ggKT8k8h25lj7JoAmtH
+ 5H4qEAbxEbogSP4abWSsRcR8/WqdHkjdpZqnu0QqctC9bGgWbopMNVbWXujObrwRBrGStb
+ h+uaGM7Nmre1ZIFromtNOwQkx3WddvxeN4berUVREtE0sz2y6nez4cGg5QLIpT6mnBGD6u
+ xS8LQcpp79ORU7urxKHgmCvgE7bw+0EhEFUeGipD1TFkyWEev345KJNNPKdJBiehBK1n9C
+ /n92+exJYEQDOIkxBay5BNga3YfW+uvtnYwWRsyXYEazHgyWLBHMvgZaGydwF9HtKg0bAF
+ uT2Ik9ZvHmkzzc1ce87Jf1QhSB1UUDFXrDwem6m3YPHaAbRJD8D3SaGt1JI+PRj5ydU3uT
+ ZcwLfbKQhMAVCIwYba4d07PJammAtKU+L/8wcdXtkI8XHWEtrykhPPY6JSI8bBG43vy8dG
+ kgjGdm182S0/9AhzDp0EpZ+xz0JQ1zDIVUwzfgu45ct6ZTMZoN76K928XsckRATN/C7P4H
+ eQ6nGpkmiWsppNeCnkTVH8vAYzxH770OPo9qF8UY+rA9hNt3oWLnD0J4XRQgnLc8uryHcQ
+ eGrAv6ruAjklRXg5/oms1LvE0Wih++CTw5ICWVI+aXA/n5UdJ5OHty52H0WVISDW+4tvIR
+ 8UXEmk+0s8R9TbBZwivGJHkJM7sL/CMUw/3PyopCouOgQJGHUHtX7rF6BOkrehGdJeHF7i
+ Pw/hyjOUML+QMhsnl/CEY3+q5fBreUcdfZcC9BdHNGNYkXCtQp2SI5gbHnJaN4RmfuvbOY
+ QHeDN6QPjXJymQGLcYGpMal4OZdbWCFn5tq4ptVr56UlSvCkdtadjJMTiCUjuSCVQMtHX8
+ uGAIIQBbAfuLBBxm8Ush/yw8SWT0Sn/gCtp5gf3Vzq+d+lP6WdMQ54FNDt2ZQvOPSUrHGs
+ ueoY29CwlXH1ikSbY+qDWtqlVtMFTJXXrLPxH95vdJJM5w6JKXNF3PVImepC/+D4g65U8D
+ qJhfo8VQlnloXhUlt5dfAGAsaYgJL4EOEDWxqFFYbUZJRC0aTLVbKOx3c1Vgfe4MnTv/75
+ G9owgtAxXrjrA60wSpoul5PyOywNJy4nUrGbARfutKqiBVB+kokHxYBilZDL9ZdGseisPB
+ V4Hyvm1XM=
 
-Hi all,
+If the clock-update command times out it stays pending in the
+controller, and every later clock update times out as well, so the
+card cannot be initialised until the next probe.
 
-Ping for reviews or tested-bys.
+This happens on an R16 board whose SDIO Wi-Fi holds DAT0 busy while
+its supply comes up during the first clock update.
 
-  Tomi
+Reset the controller on timeout so the next attempt can succeed. This
+runs sunxi_mmc_init_host() with the interrupt enabled for the first
+time, so write REG_IMASK from sdio_imask under host->lock, as
+sunxi_mmc_enable_sdio_irq() updates both under that lock.
 
-On 15/10/2026 14:15, Tomi Valkeinen wrote:
-> While trying to get Raspberry Pi display v1.1 working on Beagleboard
-> platforms, I noticed various small issues with the tc358762 driver.
-> 
-> The series also contains a patch to fix the timings in the
-> powertip,ph800480t013-idf02 panel. The combination of tc358762 +
-> ph800480t013 is used in the Raspberry Pi display module, so it makes
-> sense to fix them together.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
-> Changes in v5:
-> - Rebase on v7.3-rc7 to remove a minor patch context conflict
-> - Link to v4: https://patch.msgid.link/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com
-> 
-> Changes in v4:
-> - Rebased on latest upstream, fixing the minor compilation issues that it
->    brought
-> - Added R-b tags
-> - Link to v3: https://lore.kernel.org/r/20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com
-> 
-> Changes in v3:
-> - Add missing #include <linux/bitfield.h>
-> - New patch: "drm/panel-simple: Fix powertip,ph800480t013-idf02 timings"
-> - Link to v2: https://lore.kernel.org/r/20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com
-> 
-> Changes in v2:
-> - Always enable VTG. There should be no downside, and it fixes unstable
->    hsync
-> - Add four new patches at the end
-> - Extend the patch desc in "Drop SPICMR write" a bit
-> - Link to v1: https://lore.kernel.org/r/20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com
-> 
-> ---
-> Tomi Valkeinen (13):
->        drm/bridge: tc358762: Clean up register defines
->        drm/bridge: tc358762: Improve SYSCTRL register defines
->        drm/bridge: tc358762: Improve LCDCTRL defines
->        drm/bridge: tc358762: Configure SYSCTRL first
->        drm/bridge: tc358762: Drop SPICMR write
->        drm/bridge: tc358762: Improve DPI enable handling
->        drm/bridge: tc358762: Update comment about the number of lanes
->        drm/bridge: tc358762: Support VTG
->        drm/bridge: tc358762: Fix sync polarities
->        drm/bridge: tc358762: Move tc358762_init() into tc358762_enable()
->        drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
->        drm/bridge: tc358762: Set DE_POL and DCLK_POL properly
->        drm/panel-simple: Fix powertip,ph800480t013-idf02 timings
-> 
->   drivers/gpu/drm/bridge/tc358762.c    | 203 +++++++++++++++++++++++------------
->   drivers/gpu/drm/panel/panel-simple.c |  14 +--
->   2 files changed, 144 insertions(+), 73 deletions(-)
-> ---
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> change-id: 20260326-tc358762-fixes-6f666500da9e
-> 
-> Best regards,
-> --
-> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> 
+Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tam Do <tam.do@manyhobbies.com>
+---
+v3: take host->lock only around the REG_IMASK write in
+    sunxi_mmc_init_host(), not across the reset; v2 polled the reset on
+    jiffies with interrupts off. The return value stays unchecked, as in
+    sunxi_mmc_runtime_resume(): if the reset itself times out the
+    controller is wedged either way.
+v2: held host->lock across the reset (not posted)
+v1: https://lore.kernel.org/all/179307312104.39863.12372814163472848752@manyhobbies.com/
+
+ drivers/mmc/host/sunxi-mmc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index fe4c0f6d73f3..55313780d06d 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -322,6 +322,7 @@ static int sunxi_mmc_reset_host(struct sunxi_mmc_host *host)
+ 
+ static int sunxi_mmc_init_host(struct sunxi_mmc_host *host)
+ {
++	unsigned long flags;
+ 	u32 rval;
+ 
+ 	if (sunxi_mmc_reset_host(host))
+@@ -336,7 +337,9 @@ static int sunxi_mmc_init_host(struct sunxi_mmc_host *host)
+ 	/* Maximum timeout value */
+ 	mmc_writel(host, REG_TMOUT, 0xffffffff);
+ 	/* Unmask SDIO interrupt if needed */
++	spin_lock_irqsave(&host->lock, flags);
+ 	mmc_writel(host, REG_IMASK, host->sdio_imask);
++	spin_unlock_irqrestore(&host->lock, flags);
+ 	/* Clear all pending interrupts */
+ 	mmc_writel(host, REG_RINTR, 0xffffffff);
+ 	/* Debug register? undocumented */
+@@ -688,6 +691,7 @@ static int sunxi_mmc_oclk_onoff(struct sunxi_mmc_host *host, u32 oclk_en)
+ 
+ 	if (rval & SDXC_START) {
+ 		dev_err(mmc_dev(host->mmc), "fatal err update clk timeout\n");
++		sunxi_mmc_init_host(host);
+ 		return -EIO;
+ 	}
+ 
+-- 
+2.39.5
 
