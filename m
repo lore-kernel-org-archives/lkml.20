@@ -1,99 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793177781;
-	b=Au1XH4ij+fJaMOPYWdaoGFnXFk1oEAYjKCZJtLKYouSXdJJORRMtTUae45M6q8EEmiV6
-	 ONmWisd7bM91fTrs9MVdFfS0g0oWWQzL8oBR9UKACjGGiaEbbaC/j4Vds01pZX19E9U59
-	 5XbXfBOlM6EFc1y/UAWvRRe+7VWu5I/3KMU+oUHS1ZjazC8g5QEJg/QITOQ3pIDJJMiVD
-	 Z2RjhsROu7/3xZMfM+3YK49wtm1huuGHioOpPcp8faL+mqnu28QPPA8vfVpUVZON4RISE
-	 VQSjrofgxgIyhPbQK60Qkefa7eVwV0zQdAOVgOZryi9/qYqS7lwaJPBWm0c6TPVnC8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ZZQo695rVLd/9P8OSYiw403iPH4b0i2xMXdXOpikEz8=;
-	b=YF7tq5nj7qyQPA0xOvczflPkvq1WJXCUHhd0IurmlRd4kEea1AVCEby+P8sXMEoYm/MM
-	 um/iZg67f0L3OL/a+AOVpmDbAnCiYuUygGw/CCF5r/DYHSvv2pn87tJzgh9+hovMEjl1w
-	 bmRBQGyw5pRjJ8zef/IGqLAeVuwFLGPGf7b4oj/ccvsUNE279LkIG4ZM6z/s9gRUI4RC1
-	 dBSZLt6opQ4Au+iTzsWvqXRicGSLIpPFD3ZJwqu/gpA0wJlYbYyx7FDqQ4LNIBG41Ti+h
-	 i78vUsak+XPn/AdjIgWan8lVF/ZautbyQ51v+oJYU7EUZV+zcj4wvOw+Gm9nnMwgYlA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mruVMPJ/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793177783;
+	b=00IurpS7PZRdcjp/BPr86K9KoScWusM7jRwcm6UGTLly/ce5nnMuHTKYFy8mal3tbb9+
+	 DC1lnDUBUeRGAkLjbWWVSmg6cDKin92W/EXFtJxcChjgxe8HpX29bHDu8qjAGVjXt9bgP
+	 0ODRZhZ+Sf7YiWje0/1/0t1CA+RnvVSzckIjywpLvq5aKKi4ABpU5Vv8xxYFx/gz3lxsl
+	 Iia0vPQQvkKxqXQIEtfJHMkukKKB4kRcbhl1ZC8tPcZ692DwmfDLLYkd0Xt7hgmohVYeW
+	 ArepxEbbJTjANonru5UG6HN4OZgrfQ7J+3Q+uTLisIJtOQ1J26b69krWhuv41ATXSLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177783;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Udd4b3hqYW73jXGQP/nuGmi+H6DeMLECfO5utI+4rqM=;
+	b=krhUt9GbzP0ik44wQD45plc58+xSuL0ZeLnVKgPSmtkHdfoABWLjdWEXYEYC8WsPn7j1
+	 BEsm0qj6f08XNb1Y3eU2SSbn9JyJ9g9LlwpAFChybU8/E4xaNm/qC91vBLNRgYDflM6/B
+	 4GN/E1IaTDXsf6cqjbb4NL1ujOzczv43Ehqi6IR56k5/VWGQ2W0V+BVvma/T5L96+KVN2
+	 94YgdLjNakgMMEAQzXGbf9N9S2Ehq5ogLrTNxsEXWaPfR9I/lMEuvPmlVcIaveqI9bKmE
+	 +LCrbuWlg20V8fVui4/jZ51o1NTaKoil1cXq7s/34bThKamoFAwTJkVqFpoABTgiClA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FW6MF8pa;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1400B606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1400B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1124E606A327;
+	Wed, 28 Oct 2026 08:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1124E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mruVMPJ/
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6acbdf8e70dso144358a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:56:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793177779; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RpiCFqFSEnSfF1w2X4unWmixH5/qolgiO5j4c5q6ZfppFw5rfCpD4wfdIr3LHOd+q0
-         6ScEVTgMJ8u7Pi6uW72u3K56sa02hZDJz+t94J9HzK1Rp3vlaAgfI6keerq/GHK0QS4T
-         2B79fOkrG0D0/lxvmVcrZxVkbSi3KV1Z4VykAYbD7WoANC1YGppOGYswIKfyKrVrnKKC
-         bqQdThN6JX9S8of7RblkpA+XYPGXnDHEjQ5epNSPJUDmAHnao2hq0pN/nmZao1uo+ilq
-         LXOo/TLnwOh90ww2VBY/UbBoF7CwCGEdvPQWuY+sqx+0kd0mJknonzEmpCbLpiPvKwZN
-         oIMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZZQo695rVLd/9P8OSYiw403iPH4b0i2xMXdXOpikEz8=;
-        fh=1ncn4xPmJuShd6JnqR6cPRXQS9XI/30vtJXPmFBc2ss=;
-        b=eaf3q8Y8/V6bVCp/WeljgNcaTSgBAq1q+sR7L6nT7Nwuwlxw7HjR2v3j2hnD+lKu2s
-         ZzXr+6ppJA17X4ox96u5cCyPaYc+h65B0/AWcLxLdADNfkMQ7j/AOhvmZQ+VAx7Bj4Ih
-         LRzbDeYLOq4ao/hMemkiSK2ZqaFfNqWlcVgG8wNGG9VBow75aeY1FeksJV35bSKtHVP5
-         c1qydrhaCPJDVVI/ePDBabUB4CXba5EAnbu0oNEI8K9JGA+wuNbHlIijiaPbcPz+2AiZ
-         ySWyZzuI17OccmuzP7P5EjVFv32N0osnROMS9/VJGDv3wlZidMS1PF/+6YBBqAEWpbat
-         7aDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793177779; x=1793782579; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZQo695rVLd/9P8OSYiw403iPH4b0i2xMXdXOpikEz8=;
-        b=mruVMPJ/9OpbsKV1VDevagR40Axv0wmAtsiJf0F5Lzs3d6b9TnCUMU8i/r++T5oRdV
-         8XDmcKovaWNTcKRPxiqTONWZ07h5jLkjB10BeAiccbaM0fHVDzm4/FzpOEDTNQLlV8/T
-         a0Cm+alaI3p+pOSafXohx3DX5FpPRwJ33jPVh8TOqiLJz4WDSxcASwh3A2Wo0+9Eh8Kp
-         GSuuTSO6aGerjRdr3dbq3arqUDmiZyWlQhfQ5XmvYhkpaMFWrBhNhM4eGhjojUT4cPJr
-         Adw+UdNpq158nHVlr7efmydS/d60bpNI6ObgblDxYAf0UyP7gfHUTtcKsod5860oXiiv
-         GEAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793177779; x=1793782579;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZZQo695rVLd/9P8OSYiw403iPH4b0i2xMXdXOpikEz8=;
-        b=lrURZDz6I04OfijnBHl5o92ZGhNYuaDJZn3riukfLtpYNC7/WZvhr6T8jqVYAyt05Y
-         +tokxt691Ml0FvHEZceTmt/CXtNFcAJ79mMPVtV4lvGPlulyDfG1iz500x/hjd9Hv9Z1
-         RXM45AxoJWVMdbkIyjiiNPuKEspmBbdGAlcDjJtJ2Rf5kB4ZObJF0nBC/2acEGWA3QLT
-         0Nq9MvskqOBC9rl6YAzk6ONzymrHOVIDhgSQNWG21kBLi0Bz7dMSWtLynlxBSlgnhsst
-         12osxTKkjk/tg6rYIh/YIU/VqUZ13wLptkb4Ipi93DvWT9GTOcKb8uGSKn5UeXR3PDQe
-         XkCA==
-X-Forwarded-Encrypted: i=1; AKwUvByfiokOtsWTLfxbZ4vECph5TI6fZFxtvaBkRJv4kXJmIEi/fLPU7fIObS9mX0QdlfjYmprnsPxl7icWTZc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzgUPKgxuyAp20OU1Z8yyoGFE0JKig5ltd6tqtLTqxxIwEildY
-	jyEQLYKlxy02+nDwa+CksOARV4+vHSYKYa+PRG7uiFMo2Nar13e7hZxNvb8WaPbdzepCVtl6wu1
-	3WARAqS59av4mnpdAf+RV0mwVDaZJYaE=
-X-Gm-Gg: AYBFou0XIWjWfoqcd0Wv5/TBdMDyw8qMi7QBaiHMxk4emcaai2nMuAe/TZDy/oFJvX1
-	K0x2ICy3EQIVLh3SqiuyapWXZjyxuwQuu4UYlaI89554FD6SXAv25BSZnUcIKzywambXTNkGD+B
-	wRQLtQfO4TodVvrAIxNpsD7WLY2R1wvpyhijRmgLBVigL9I8pJZvFSGpAQUSDpVkNtEv4DVTNzE
-	rsTzvnDRXZ6C9RovkEMFzFJXt/grUqPVTogjvCkv7mMd650XOnSVQLYe2fPAk99jW9AnmZlVjzo
-	2gC0v4pfHMrNTHdYoCb6LFL3UwD8cxuo4XohFYWy95/8VR1Cljsa5974jj5s3FS1jo1J4HIez6u
-	3K03iUDQFMs9Gfvs5zrwqDNupkHrXz+mPCWzSQDbRVzEvPYX2KGkcRqLTZQ==
-X-Received: by 2002:a05:6402:a6d2:10b0:6b1:da27:34cb with SMTP id
- 4fb4d7f45d1cf-6b49cbce701mr976968a12.2.1793177778791; Wed, 28 Oct 2026
- 01:56:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FW6MF8pa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793177782; x=1824713782;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+FW67hCHNVW/28PUiBcTZ5ylUucOB/eNbJlsjZQ+VNY=;
+  b=FW6MF8pasdZ6xh19NVXN6f13ChjUl3Xrw7zbHZQrht2vSiZYic8IXhlK
+   k37hms0rd78/VcF/MvbZtdAm8Anj6cKrCjVmSK36CGvVUV/mitNXJYjgs
+   gVWtaUaab6EuE920fJgCeoWJnCGVUW3iGfYWUHnIA6UcMaxlH6XJ5w8Uy
+   8KP/1P7N77hswqSwNsWbFYrvh7bNZnJhp8m53WDh/NBAjLoC5sxR5hQAo
+   bS2lOH3e4BWLyBsBpdk49+gQHmPcB0i4kpe2+izkJXTGJUvnSK9cVyCjB
+   2Ui7u/jZGlxkSek5JVukLa6k0VegCN0TC7iVZ5MsP0J4QlftA1PHrgsie
+   Q==;
+X-CSE-ConnectionGUID: YiXLnzqqSq2vJJEVV+vu+A==
+X-CSE-MsgGUID: GMKH+kkqRBucmtqW7ay6hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1779024"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1779024"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:56:20 -0700
+X-CSE-ConnectionGUID: 3iD4nZurQWyZoQy5b0BrYw==
+X-CSE-MsgGUID: pCxkqi9iRbeXb6W3eJ57QA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4718097"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:56:16 -0700
+Date: Wed, 28 Oct 2026 10:56:12 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v4 1/5] serial: 8250_dw: select port setup through
+ platform data
+Message-ID: <auG4rIHPQZXKOd6j@ashevche-desk.local>
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
+ <20261027-submit-h616-uart-fifo-v1-v4-1-d37e018fd0a6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,35 +88,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <25254818.ouqheUzb2q@diego> <20261021024239.GA3667411-robh@kernel.org>
- <3435698.oiGErgHkdL@diego> <850be915-d42b-427e-a036-907b9364f9d2@collabora.com>
-In-Reply-To: <850be915-d42b-427e-a036-907b9364f9d2@collabora.com>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Wed, 28 Oct 2026 16:56:06 +0800
-X-Gm-Features: AclHuK9Sjf7k3U-KBE-ExwCBQXl-_hQw7npOFvb6IJVRf4k6WS3oRrSiOtSkTyI
-Message-ID: <CAPwA33J1nud++bYV1JnPJqvA+ocz5H1=DnyJy3HGX4np6JxaEw@mail.gmail.com>
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guochun Huang <hero.huang@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-1-d37e018fd0a6@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Michael,
+On Tue, Oct 27, 2026 at 05:05:29PM -0600, James Hilliard wrote:
+> Select feature discovery and DMA attachment through a platform-data setup
+> callback. The generic callback probes the optional registers and attaches
+> DMA when a FIFO size is available. Integrations with a fixed configuration
+> can supply their own setup before the port is registered.
+> 
+> Replace skip_autocfg with the Octeon setup selection. On 64-bit builds,
+> Octeon continues to skip optional-register probing while retaining its DMA
+> setup; on 32-bit builds it retains the generic setup. Keep generic setup
+> for devices without matched platform data as well.
 
-I have just started drafting the code changes and comments following
-the discussion above
-(including your comments on patches 3 and 5 in v6), so it will
-probably take one to two weeks.
+...
 
-Best regards,
+> +static void dw8250_setup_dma(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
 
-Jason
+> +	/* DMA setup requires a FIFO. */
+
+The style of the single-line comment in this file is without period at the end.
+
+> +	if (!p->fifosize)
+> +		return;
+> +
+> +	data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
+> +	data->data.dma.txconf.dst_maxburst = p->fifosize / 4;
+> +	up->dma = &data->data.dma;
+> +}
+
+...
+
+> +static void dw8250_octeon_setup(struct uart_port *p)
+> +{
+
+> +	if (!IS_ENABLED(CONFIG_64BIT))
+> +		dw8250_setup_port(p);
+
+I believe the Cavium OCTEON  is 64-bit only platform, so you can just drop this
+conditional altogether.
+
+> +	dw8250_setup_dma(p);
+> +}
+
+With this being done, you can kill the entire helper ad use dw8250_setup_dma()
+directly in dw8250_octeon_3860_data.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
