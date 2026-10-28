@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188876;
-	b=ul8elwxlm6c3/AC7VLE44a6JywSRqQXrhWP8ubB5++ZnyPFrBf+1Gf1U9vaI/SpJK7RB
-	 qYafligQpEapZprUA6akbnrDb0JT3yj8K+KvMm9wXJ7fXmr9WJcZow86M2P6JwqMGFT+x
-	 FCSkkSRSL2dIGlIJde9amD/XVMFsahHsulmmfxT8mr0ylS8e1eE5mvs20pu0ZUrflblLk
-	 hYKN2T5XuWrzWY36L4AUGxFuk0vhKvRvcfq3CaDPpF8lW3Hk5YNmIWbQH3ewCtoHFaP85
-	 YV7Wz3UFmwZaENzz2TMeFXs7+jCYWGZDTZ3XqN21/EATGUfmGSh9MrFvfVpxuis7TeQ==
+	t=1793188871;
+	b=NFizqzs+pEj6r3pu9i6YGOorUc13xri4Orka63wuYi4F3q1QlMY1O8oBEzCQQ21KNBmz
+	 vdIKibS4g+oKBRWWYyKC5KuTL8BOIazkKgYSHdgl6qtSrhVQQoYFO4gG3y2dhJD5WtBKN
+	 rNpo4r7Tgby+q7WmC132ZgFZNeGSNBLaVfSNog8IXX/2EJpj/o4hi6wQzVhxrJNjMCbZ2
+	 9Wi/hQluAqUvPaLspoEzfNmWl4+k4e3UPGWd1sxtP6gfbx9U1oT0DNTPle1fz61Scg3fS
+	 N08FMSAE/nITev5pfzMf0mApDl0dd8r1xqd5fZuUoiCpmVAvEl2pFqsYYr8sayVLcHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=w78hgx36qeDHkysHaTIEABwBhJjJACJ9wwYhJIydxFc=;
-	b=lEJtYBsIZTnIuU6a51auUjwrGa7xXd5fgPginJalPeYrxIQQGYJptSlvVxfR2o9WKbrw
-	 7Rs1s/HXOOmuYpQjbjnultUXBVta3etJO2kIvol0Sqou+BuFy4ASR4+R7LOmLLR1H7dhg
-	 AMdQhmRbdraPspPZouwmIyugJzCNoES4SqIDe2KI0esu/KENjZmuIbvyZnhzEx++lAL6T
-	 yUV/iyKrgo72mO4AKYuF4S6Y0a/+HznPdS2l8xrltDhFzdYcGZHsbXLrX5kJnzI4DzSnq
-	 aWXbGOsLdUi6oK2CgQGShNKEIMTD5FpOmMG1MMrX3EMoPWRp8PZULPPKdJW3VcHCj7A==
+	bh=XtupJ6UZXnlPn2/VxZzc4oZhDO4DobFJyxmiPhQBJMk=;
+	b=EC5H/KLaj1G6hndT7AHy96TWPuCStln7T2fzdj8qAELlVWMYv/wf3ej5+cySuuF/7rpU
+	 vlNk5F7uOe+H1l0LUnI1nnF9A6NPElM9A+BUH5NYQhaX6PVr/bhHcUkfdNo9tWHKZstvF
+	 xS/fZi3oh5EW6R5OUFYvZ6xoE5M15k5npp/1mAxi7Eo/yMzjDrc8JXa803AAtjuYhwreZ
+	 bcX9/rBLGiBwANnyNELXVKEUV7HPasco2OWzJcFX/DILU9wA4nlcWTb2z7TFzTYtICt3b
+	 I0ZQRNBu1fn9MAzNiPUTmYDUquAGcZNmfOjwFoBR5Dx83ca+4vg8S8DMngN8GM3BgqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pog3K1cg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7LNya5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007AA60A380C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A9B606A330;
+	Wed, 28 Oct 2026 12:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pog3K1cg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC7D1F031EB;
-	Wed, 28 Oct 2026 12:01:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ah7LNya5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BCE1F01828;
+	Wed, 28 Oct 2026 12:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188875;
-	bh=w78hgx36qeDHkysHaTIEABwBhJjJACJ9wwYhJIydxFc=;
+	s=k20260515; t=1793188871;
+	bh=XtupJ6UZXnlPn2/VxZzc4oZhDO4DobFJyxmiPhQBJMk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pog3K1cgUJq2IoZK3Q2A39yFiFnP10+sEWzQLBgw4s4TLtMIzwhaePaCrPF03XtS3
-	 VY7eBgXmGQDzXLpcRWKLgDhOx21mZf2Xlr8Ed+8MY73VUNuVHc6LIEWnBl721KhTnI
-	 Y+Auit3ojfqI2N1L4Mor87DxMcx18/NY2RKCBJ/eJqScGETTFtshKtk7C2u/KN3gjJ
-	 aA7c+nymIZT9Pf/HkZKq4L690gWwDlnmLXkXMmEWApAaz50MREfGV/QB8xmmoXCP0T
-	 mWiiWIQ2Hb1tu9wp9YyhSfljw3ETqvTXgJunUFeUqREuOzEARGvxi7SOZ7zcHhbM+u
-	 heD0XlPdtnsUg==
+	b=Ah7LNya5iCpiXZThOZBU7pvepMOWnTKLiZiMA/DC0BgJ+Hl6ZLhHSISpUXhPHs1a8
+	 Q/6cnKVYyii2M9R6sFwm0JYzdTrNHul/lw/Wayj3QWjoQHv837iY7VKwZMRBOOgKZW
+	 c0mNnCtWMOHX96S8/iyXAY5L0ci7sGDis4BL0QkeU027T+TI2Sd8b5U/62Wz+uYXsN
+	 RQqeZJpzEK2sIPK9R3Ry+bVf33aP4SW+zm25Y2tkOc2HSQsu80x2q2aEv3TjygKDBK
+	 rEyCxSpYuM8vbVoqkh81iqCsJ/Ra26uRpfQ6WqlRRSaYf5D+29pHPnTi/Vt7RlJrZg
+	 lffRks2ohNhuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
+Cc: Bill Wendling <morbo@google.com>,
 	Chuck Wolber <chuck@wolber.net>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	llvm@lists.linux.dev,
 	Marco Elver <elver@google.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	x86@kernel.org
-Subject: [RFC PATCH 13/20] x86/entry: Stop excluding the entry code from KCOV
-Date: Wed, 28 Oct 2026 07:59:37 -0400
-Message-ID: <20261028120034.871983-14-sashal@kernel.org>
+	Thomas Gleixner <tglx@kernel.org>
+Subject: [RFC PATCH 11/20] objtool: Detect code coverage instrumentation in noinstr code
+Date: Wed, 28 Oct 2026 07:59:35 -0400
+Message-ID: <20261028120034.871983-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028120034.871983-1-sashal@kernel.org>
 References: <20261028120034.871983-1-sashal@kernel.org>
@@ -69,62 +69,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The x86 entry code has been excluded from KCOV since commit 20355e5f73a7
-("x86/entry: Exclude low level entry code from sanitizing"), when
-noinstr couldn't keep KCOV out of noinstr functions.
+gcov and Clang's source-based code coverage update their counters
+inline, rather than by calling into a runtime like KCOV does, so
+coverage instrumentation in noinstr code goes unnoticed by the noinstr
+validation of call destinations.
 
-Since commit 540540d06e9d ("kcov: add __no_sanitize_coverage to fix
-noinstr for all architectures"), noinstr implies __no_sanitize_coverage,
-and on x86 objtool removes any KCOV call left in noinstr code. KCOV
-instruments the code after inlining, so __always_inline helpers don't
-carry it into noinstr functions either. What remains instrumentable in
-arch/x86/entry/ is the system call dispatch and the ptrace system call
-hooks, which run in task context.
-
-Drop the exclusion, so that noinstr alone keeps KCOV out of the x86
-entry code, like it does for the other coverage implementations. A
-traced read(-1) now reports 18 instead of 12 PCs, the additional ones
-being the system call dispatch.
-
-The generic entry code has to stay excluded, but for a different reason
-than its Makefile gives: parts of the interrupt exit code, such as
-irqentry_exit_cond_resched(), run after leaving hardirq context, where
-KCOV adds their coverage to the trace of the interrupted task. Without
-the exclusion, they show up in the traces of system calls interrupted
-by the timer. Document that instead.
+Flag instructions in noinstr code, outside of instrumentation_begin()
+and instrumentation_end() sections, that reference coverage counters:
+GCC's __gcov<N>.* counters (including the MC/DC counters), Clang's gcov
+__llvm_gcov_ctr* counters, and the __llvm_prf_cnts and __llvm_prf_bits
+sections of Clang's source-based code coverage.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/entry/Makefile | 1 -
- kernel/entry/Makefile   | 3 +++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ tools/objtool/check.c | 53 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/arch/x86/entry/Makefile b/arch/x86/entry/Makefile
-index 83b4762d6ecba..cd24c28358f97 100644
---- a/arch/x86/entry/Makefile
-+++ b/arch/x86/entry/Makefile
-@@ -5,7 +5,6 @@
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 464f6c9d9ff0b..6382d2a44ef2b 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -4,6 +4,7 @@
+  */
  
- KASAN_SANITIZE := n
- UBSAN_SANITIZE := n
--KCOV_INSTRUMENT := n
+ #define _GNU_SOURCE /* memmem() */
++#include <ctype.h>
+ #include <fnmatch.h>
+ #include <string.h>
+ #include <stdlib.h>
+@@ -3507,6 +3508,52 @@ static inline bool noinstr_call_dest(struct objtool_file *file,
+ 	return false;
+ }
  
- CFLAGS_REMOVE_syscall_32.o	= $(CC_FLAGS_FTRACE)
- CFLAGS_REMOVE_syscall_64.o	= $(CC_FLAGS_FTRACE)
-diff --git a/kernel/entry/Makefile b/kernel/entry/Makefile
-index f220bae86b123..2c837b7513c71 100644
---- a/kernel/entry/Makefile
-+++ b/kernel/entry/Makefile
-@@ -4,6 +4,9 @@
- # as long as these things cannot be disabled per function.
- KASAN_SANITIZE := n
- UBSAN_SANITIZE := n
++/*
++ * Code coverage instrumentation (gcov, Clang's source-based coverage) updates
++ * its counters inline rather than through calls, so it can't be caught by
++ * checking the call destinations of noinstr code.
++ */
++static bool is_coverage_counter(struct symbol *sym)
++{
++	if (!strcmp(sym->sec->name, "__llvm_prf_cnts") ||
++	    !strcmp(sym->sec->name, "__llvm_prf_bits"))
++		return true;
 +
-+# Parts of the interrupt exit code run after leaving hardirq context, where KCOV
-+# would add their coverage to the trace of the interrupted task.
- KCOV_INSTRUMENT := n
++	return (strstarts(sym->name, "__gcov") && isdigit((unsigned char)sym->name[6])) ||
++	       strstarts(sym->name, "__llvm_gcov_ctr");
++}
++
++static bool insn_updates_coverage(struct objtool_file *file,
++				  struct instruction *insn)
++{
++	struct symbol *sym;
++	struct reloc *reloc;
++
++	for (reloc = insn_reloc(file, insn);
++	     reloc;
++	     reloc = find_reloc_by_dest_range(file->elf, insn->sec,
++					      reloc_offset(reloc) + 1,
++					      insn->offset + insn->len -
++					      (reloc_offset(reloc) + 1))) {
++
++		sym = reloc->sym;
++		if (!sym->sec)
++			continue;
++
++		if (is_sec_sym(sym)) {
++			sym = find_symbol_containing(sym->sec,
++						     arch_insn_adjusted_addend(insn, reloc));
++			if (!sym)
++				sym = reloc->sym;
++		}
++
++		if (is_coverage_counter(sym))
++			return true;
++	}
++
++	return false;
++}
++
+ static int validate_call(struct objtool_file *file,
+ 			 struct instruction *insn,
+ 			 struct insn_state *state)
+@@ -3680,6 +3727,12 @@ static int validate_insn(struct objtool_file *file, struct symbol *func,
+ 	if (statep->noinstr)
+ 		statep->instr += insn->instr;
  
- # Branch profiling isn't noinstr-safe
++	if (statep->noinstr && statep->instr <= 0 &&
++	    insn_updates_coverage(file, insn)) {
++		WARN_INSN(insn, "coverage counter update in .noinstr.text section");
++		return 1;
++	}
++
+ 	if (insn->hint) {
+ 		if (insn->restore) {
+ 			struct instruction *save_insn, *i;
 -- 
 2.53.0
 
