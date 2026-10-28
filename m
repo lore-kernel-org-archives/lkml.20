@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180306;
-	b=2sD4io6cR9j2KozvFbws5kVnxp4owAGNLNUk2NYWMBDt2Nra3n3duQMy6e6+k8QHfihq
-	 0pfYhxtU928xewpZQh1v/eQIyzDqmpQ2mj2SAo0E+1RfPzGCTZN021i9gLwh4vaMMHr4e
-	 NpEa+ItRwOf8UwJ0oPjTVPJaBhoPpOaiks+rBdDUIdtSUdmwO4JCFl6UCtVXEsgNRU9wm
-	 /TRyE95Ez0EA9nkpOjRAt1ArXRsrP0LLcgdqWQ3vwi4RN/GqI8LAGLBWTBsWjkrIlYkmy
-	 Gg+/Nb6I+5zQdbsH15E/IIGoa1Jnk6NWEt5yEgZ9BlDcOBrf+vQoH1dS3qb6/I3tJ9g==
+	t=1793180312;
+	b=YOdx3BAYKd0x2SkWndTSa4XK7od6sLBNgwP8kCIIM8Kvc411JXCxDBUQWNRn5HM6XXmh
+	 rT6MX9YU3a4YPUau3II5vfj6D0agP9Fwb3nXeJl/UmYtVM9AqyeunGpi+IrWyKJOmvQ1h
+	 8QpPFE+iHqOgNr56ES+LD1LvKzVJxo/IFLFiSrOpGA9TFdnD1OxQmLr6f6s/gALTpTPb7
+	 sXg8lRKslKkaITddnIB1pqup0abhZzHmwKaX1bDOpBObY1hTn18vZ6lRKVfsQGmCzN5t+
+	 ClVSZKJVHP2T20s3pkly94hHtwf3gubHfDAsB99b78aYUkB6MolwcfDcKgqduGPWPkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180306;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=wOpo207OEwIctZbL0yPki45XtYqA5r1JdptjDpx6mIo=;
-	b=rlSjeCOZ3O7JARyOu3vWbgw21DvwBXyCd9HhmiC0GYP8KCKpXOx5gGpcKG3E9gIGSwMJ
-	 4Vm6Ta3/fCvA/hu8HI/SSBJl5XtvQ4J9HEwkaURuLHNbD8e+VXOMW3OB4dbYxLFDKOVMk
-	 5LeBTu1ZY9u0RAMPsnch5DR3Xzf9hVqI3Qx05EIJnslnt520wOWTO4ckyOCt1Cdjrjk9u
-	 3J99E2IRD4IuzxOINXWtf4LYPZMd0MehsrpBSH4wmQyprtR8hwH9GcmChPHXStwYcJq6K
-	 /ll0u5uOu/i/GNn2Yft00uYCkXWVhIgnn7yPLvJWnIFBL60jzQ09KhVOOSrL8+TuFeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180312;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
+	b=fwJlgYrXkmddcjHLJveYoaHXYV30yQDSWE2PQo9G6AKqr+GFperrNG7iqnbQX+mAuKsL
+	 2N4Im+zCHFf50pmAm/5jiFaW2kaNwc8SK53gBCeV4Vaivx/LbwDqw0QRzn7hk3aBkuCen
+	 nd2y2qOHyBk4SI7BGxgXMBzaN0vzHCBuOsVwytW5spPU1/r6SVnCSDj0zfFBQbYOZWeRp
+	 OucTs9FHQBNvykWbkZeCyP7apqTEd0KKXWJt1etpeTOswHE6WwFPnqrHpSlrwf/n8RW8c
+	 NUk3JUpE7cjg0i5RX9gDNIPfHPXspHW0V79wS10NCDcVkSbhFK7vRkL8z1q1T86phfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTz4ccFy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="px198/PW";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDD8606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F68C606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F68C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTz4ccFy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9041F031EB
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793180305;
-	bh=wOpo207OEwIctZbL0yPki45XtYqA5r1JdptjDpx6mIo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=fTz4ccFygFqrLoGtnIUHOqwYAG6fYE83eAzaKKKFTGrFdbqiyeG/xOdDlpbWljBj5
-	 5V6xdBINwYU5kocYciXsQsl86nG4vrMADyaBoGICOH5SM52l6lMFMVsUuePcwpd0nk
-	 dqsLjl1bgVEXkSKvvBlyt/4fvoEGoZPymlRX6HulIa2tbiCQvsXUeYPp4K3IUVrqRU
-	 pYkgAmPxiymSttYf90sD3iHqe3+rcjhblkBwBr3nhPmk5/7ostKSP2aFHP8Aoo6ME5
-	 BA5mvwUjZk8wNBLra4DsKT3qmgjZC2uJF2DNqeQ9/eHo66ETgnyVIkVrdJ4CTpoy8c
-	 oOvJG1pWVoFTA==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab46699a09so5071091fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:38:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByIznh+a9Y4scJb0LuLT6i0/zLj9sEdFkxefwoF2NGXqHVCRgPPwkt4WOptoS5n8ivrka+5ZkMfg9HhCtE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfDj8f8pIxnNxbklwR1qAh+dS4tD2TnnMgOKPZxbbNkvwOUO+C
-	gFC1JapUjeAl9XUS8XwAM23tIAaJjtCRrzFpET82syVbfA0frReek/WcsPoJlCHnhOfVjkXsocx
-	cHDe/lmbqpHyDpXnV5RuLMyCBHlV0vKp+m0IknLOZ+g==
-X-Received: by 2002:a05:651c:1593:b0:3a6:95a:52a6 with SMTP id
- 38308e7fff4ca-3ac9cf82d06mr3952511fa.20.1793180304502; Wed, 28 Oct 2026
- 02:38:24 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 05:38:23 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 05:38:23 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261024-samsung-kp-v4-1-e21253295e68@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=px198/PW
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso4773525e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:38:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793180310; x=1793785110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
+        b=px198/PWpqiPIx8ytXkwsSbiuXzKqx9E8mO1xgR5CVTiCae/63ysQ6DDuOzgjIoXkz
+         7gAbPY/AIRYo6NOUedPy2tE2taSO1QtzfS3FYWOmwzJAdFY4d9Xqx1IEZeh40Xdfrqcy
+         u800PidSOgsYIZPxSFGEt+zNzczp9WENRdMrB8Np1w+sC9Mk/FPQjVBEHU4kh9QpBiyh
+         3Vb26fQbhmMzz+f0Psg8pvN0/qjJj+fH+TeTtY6TpJh1lzp3LajYUgET48cMsB7SYOJr
+         nhLN6stWREYjE8UWBew0RNsBZAwWumrlrLfXrpVDL42mp29limr+baqIrQLc5r9zXNC4
+         FkMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180310; x=1793785110;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pzUmwNzwamyMVOA6MAa5bFlqwFID1JSnlpUPYtQh5+I=;
+        b=aLeYLab959r0UYiYlPDmEFlyYxdNgJlLLM2mZe8ATRi0H62bsYozvHKwWvdihAut2l
+         v8FQTqmvkbhWXlnbYpcbU4cjTlikPrs+kkmZeljED+r/z57ukgjiQFx+WaQ5l4QqLQw0
+         9/CVALs7ypaHeVXnqPUvj6Mi4sM41FQEZ/SdPuVvXrwBKlEz9ttKebkfQ91suDwTXnrI
+         bKRfT3OBdQYqMtdfDGxNZze5vTQFW0MVg5RWWP5175uUe6M4y6k3fy+Ig5AUhHLZ6D8R
+         3W0No1y0v7sZAu6uTT1Tpqtf0Hc1V3rynhQkFfdVo4yhGIm5Rq2EOtSKQkF4FyNLsr34
+         fu8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxKOE6535m/MQVcEtH/xjd5fW+f1PAXQQy0OWCLp+6CdJXSIWJx8NA6gPvEzIXNjDoUIpq3NyyldlOfHuo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnMTmfCRqqXNGFbkipr8EZImBgCuQ1fgMEBk1YOi9/KcwYsomg
+	on4CkMYCnggbkF+PHIQTHbTg7UX5ZPvQn93SJzl1xmTIAVFkrftC5gLC2+FOnu4jDkY=
+X-Gm-Gg: AYBFou3X3NXDCLpRgzqLnr8wsDx9+uYx0vtW/mFD/oLnM18xeg5Qtq5rnG3lscn1cqF
+	oFqpt7gS8TxCTn8voZG3tmX+/DbFCp3ugnU769vgM8/PXGUGlpCNjPj9FGxP5CEo86rifH2dr3K
+	u+xZmwCMBpPvLDQDcQ/2vqFCyz2DsT4lulXlJDtNmTRBhEWHWsePjpcJjfqdhJU5XfIN6NMNTFa
+	M4Z/Pzmaz95RxLzr2Qo29mxrBo/X3y4qFTxSGhSDGNu2eoixklydppRDXJKaCrfEUGvY0ouab3r
+	6GNmfG/CoQJpsUSIP7N7LTn6OZfPqi0C6EJAErgnui8Ku49yMMD8jE46Yd3G5D259XmBc2hnL/c
+	/yER2MEuTvs7s2hRDy8PDH5fCsJ7m4p4n55H/e/mORWXo2A0/JpFJN5OMojRoA3sKmhL6ixcUUJ
+	nkQAslrSRvnrzV+4VRstlxsE0LM2p3jX0tAJsJZJh80/HDcV5BLBrhHgablZEWjLV/ILi9oXjuc
+	TOVNvcdyS/CVPjC261pB8/d+hoN3I5voHGvtlcdR4441RJKszfNtp6mZnAxdYCoxifqNAAuq/YI
+	yj7vGZ5+wm1N1Eeed40F0XNYXbjQ9cMsQA==
+X-Received: by 2002:a05:600c:6089:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a967ca24ecmr34100865e9.32.1793180309742;
+        Wed, 28 Oct 2026 02:38:29 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c42b3c1sm35187485e9.6.2026.10.28.02.38.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 02:38:29 -0700 (PDT)
+Message-ID: <97df111f-edf4-4ce6-8ccd-9cccc730006c@linaro.org>
+Date: Wed, 28 Oct 2026 09:38:28 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,33 +92,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com> <20261024-samsung-kp-v4-1-e21253295e68@gmail.com>
-Date: Wed, 28 Oct 2026 05:38:23 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mf9fcYRZcqGnNeg+sz4bo8n7AngbWkb8jPBXKwzUqpE5g@mail.gmail.com>
-X-Gm-Features: AclHuK-0IY-K4Sj4xF2g0AMS5-uqQjH_1YFYYyMfdx08al6vG1--BGlVHEhA67A
-Message-ID: <CAMRc=Mf9fcYRZcqGnNeg+sz4bo8n7AngbWkb8jPBXKwzUqpE5g@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] mfd: wm831x: Support software nodes for DCDC regulators
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
-	linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Russell King <linux@armlinux.org.uk>, 
-	Mark Brown <broonie@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>, Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] perf/core: Return errors from
+ perf_report_aux_output_id()
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Mike Leach <mike.leach@arm.com>,
+ Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>
+References: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
+ <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
+ <254599ef-ace5-423b-bc31-56150909d96f@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <254599ef-ace5-423b-bc31-56150909d96f@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 06:03:12 +0100, Dmitry Torokhov
-<dmitry.torokhov@gmail.com> said:
-> Allow passing software nodes to wm831x DCDC regulators via PMIC platform
-> data. This is useful for non-DT/non-ACPI platforms that want to
-> associate device properties (like DVS GPIOs) with the regulator devices
-> using software nodes.
->
-> Add software node pointers to the PMIC platform data and have the MFD
-> core assign them to the buckv cells.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+On 05/10/2026 16:46, Suzuki K Poulose wrote:
+> Hi Peter, Arnaldo, Mark, Ingo et al
+> 
+> 
+> 
+> On 01/10/2026 15:21, James Clark wrote:
+>> It's useful to know if this failed or not so a retry can be attempted
+>> later. Return the error code or success.
+>>
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+>> ---
+>>   include/linux/perf_event.h | 2 +-
+>>   kernel/events/core.c       | 6 ++++--
+>>   2 files changed, 5 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+>> index 48d851fbd8ea..01d318a4de50 100644
+>> --- a/include/linux/perf_event.h
+>> +++ b/include/linux/perf_event.h
+>> @@ -1896,7 +1896,7 @@ static inline struct fasync_struct 
+>> **perf_event_fasync(struct perf_event *event)
+>>   }
+>>   extern void perf_event_addr_filters_sync(struct perf_event *event);
+>> -extern void perf_report_aux_output_id(struct perf_event *event, u64 
+>> hw_id);
+>> +extern int perf_report_aux_output_id(struct perf_event *event, u64 
+>> hw_id);
+> 
+> This looks a trivial change with minor impact. Are you happy for me to
+> pull this via the coresight tree ? Please could I have an Ack on this ?
+> 
+> 
+> Cheers
+> Suzuki
+
+Gentle ping, thanks.
+
+>>   extern int perf_output_begin(struct perf_output_handle *handle,
+>>                    struct perf_sample_data *data,
+>> diff --git a/kernel/events/core.c b/kernel/events/core.c
+>> index d7f3e2c2ecb1..232da3b6f393 100644
+>> --- a/kernel/events/core.c
+>> +++ b/kernel/events/core.c
+>> @@ -10563,7 +10563,7 @@ static void perf_log_itrace_start(struct 
+>> perf_event *event)
+>>       perf_output_end(&handle);
+>>   }
+>> -void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
+>> +int perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
+>>   {
+>>       struct perf_output_handle handle;
+>>       struct perf_sample_data sample;
+>> @@ -10585,12 +10585,14 @@ void perf_report_aux_output_id(struct 
+>> perf_event *event, u64 hw_id)
+>>       ret = perf_output_begin(&handle, &sample, event, rec.header.size);
+>>       if (ret)
+>> -        return;
+>> +        return ret;
+>>       perf_output_put(&handle, rec);
+>>       perf_event__output_id_sample(event, &handle, &sample);
+>>       perf_output_end(&handle);
+>> +
+>> +    return 0;
+>>   }
+>>   EXPORT_SYMBOL_GPL(perf_report_aux_output_id);
+>>
+> 
+
