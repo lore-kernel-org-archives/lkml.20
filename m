@@ -1,126 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793168510;
-	b=KM4h8BD4d3fJSY1ozWYgBs2KApLUBwQ2Na+WnV5yDuB8rh7kBOAZAPf8qZxUNSljnFyt
-	 8aU4CW9IkRViCy7cj4yX9VC49Ta+r/Z7aeoxvVJTIbhcky4fHE79PbFWArKlQIqOtvXCf
-	 5KHmmoC20F/GjFWVApSDkDXBYiCsdveUj56HqPdSw5yIw0pB5PhjzHH9aa0ocdp3AQLTs
-	 VXN9JgbQsKW94uuBNQAwpGb+89yqAWOpM3po1Z21LAI3nTrJZzVg30DBJVMUEyXtjWSNh
-	 669FhMoNXtvkrn0NifdcYp86jH+hyFpBXND/7uOIKMFE6WEV1ME0tcSPYJAncSOJoYA==
+	t=1793168574;
+	b=BoPt/JgEC/4M7p/axUU/trV9XRgxxkmhz8/gvi2vLnBpgVW3HsrcrU03onqLXU2AOT/N
+	 Hc7A/BWH+MBVsn1U/mITbWTeQ0HZEu+OXZdPFIM2NsvT761Eq7KHRSs4vfUCViGS5NMdD
+	 zCGXk4nJI+XoGKK8Sfeucf0+EefBDDHXaRYG4np16wpO2h+1f8qJKu2o18dBfJYt59on8
+	 fJ6td7A9+6l3SRjdFPR69Hse68+6Il9UBDZwe2rWPyV5XWfpRWGf+Bzjx6zbXJKdG8j3L
+	 bWi56qmNtfMLURII1KaLrYi0vBTf8JxpDrD5EEUWrRHwxCLdvqkEsDETgf1W4p2Nu9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793168510;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=sG9Xj1OZVI1nTkH7YcZt+Jc0eaj5QNvufoqH8/wgxTY=;
-	b=3ax3vQgE9sVM4d/KQQO4v+2ctEhabU30+FjuUzQrcCjhWC8Dnwd4M9kfTeN68r3ZqiZV
-	 u8JW5ZCXr4A1wdwF0pZPAMextGlGRMxeWe+GU1c7RTNBHBOKMEguwk/62QhtIHOiHwzdL
-	 yO5kmkwpOF+nUW0zat/IgdhPjdw5sNRFVTuzjUzrixro8wZIcEUxmVw/GJK8Zr+Y8GBNn
-	 kDgzs1Meji1qwlmXE7EvQ05RWz3zRaijClNIC9bpUIH38hCAv2+x/zqO2S41rxZHcZY/f
-	 3HQBj1URgcxurn7gVu7sOAWRelWHUhX8tkjrT0bl3jFXlYOQ/WArOBseDWuhEVfUrTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793168574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:X-Mailer;
+	bh=SulABahkU3rLao+I7j5g0Ph09Yg6H2vGeWdscwhFpIs=;
+	b=QA3qYy1u2h0CXt4q/dlWZrc+waPOLECGwWnDMQZEpDQMmoS0Zf9TH0q+VXq9GlkRY6i4
+	 M9sNaBnJiZpHJ0jxTs/DMWGKCPhZc5TLMcC1r3aSKT4PuO45RYuSAJmrpSAf8aYp9ecPx
+	 kns9ABrx6WkuMlDb163J0n1e+hyPq5MExtjXor4PAmix/fC7TAjr+5Yz3N/Y+eN3koIuW
+	 jvDsckB8zFBRm0h5FmobDR8zanYMZQjhZphoEnFXxRSx0HYcbiwVB/cp9n2DTyAzcUKj6
+	 rjGd9SEZ6YRJzTv0eAmW6J4yCS2s4WH/ZylyZF1LF6HNKcGVonTJESaNvhT0brJQfWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RGRCJdyq;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZE2ux5mK;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bk++MV6k;
+	arc=none smtp.remote-ip=74.125.228.8
+Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D296606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D296606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EBE606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8EBE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RGRCJdyq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZE2ux5mK
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S6AAiT326589
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:21:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=sG9Xj1OZVI1nTkH7YcZt+Jc0
-	eaj5QNvufoqH8/wgxTY=; b=RGRCJdyqidppeH5y1UWkTK7cqkfH7Ky9Hx/ccd47
-	Lnnk/+X89OuXV4QsYlpHNhta9YMeZRyqHzxhYfDOe4sdVNVIKHogj/BD0IBKu49D
-	gYK+9K6xQegHz7NBVAQB6Ne4nMd87z/smpPRZ6sr5MASz0pSJY1OUwh03urjLeWX
-	LFJOmSc9x31D47tRusH6y392NtJ76nj9OJ0TDd5HRvm0Zi6+fCWZqDOY5keXmQUV
-	BoGfUbaS0lUsIGwKKljqKXPwjmQLjAc10Is5OLCjsy7Pe44cjzBwSDMbwLy42s2Q
-	qI9/AgiV1vRoWorSAwP6neZNRLg+Jscrta8Rm7PZu+oQfw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhw8160-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:21:49 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-351788121cfso508245eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:21:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bk++MV6k
+Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cd3da0e82daso132426a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:22:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793168509; x=1793773309; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sG9Xj1OZVI1nTkH7YcZt+Jc0eaj5QNvufoqH8/wgxTY=;
-        b=ZE2ux5mK8+z5PYn1nhZBhysEmOjrRE06QDGHFZpR4RzKxHFkjMifS9C4TWvcwwBoOC
-         vTHgUEwaEKtJGhE2KrLJ7bD8Mn1gguddB5yNST+4l4XHIObcVVg8sR8LRHwAoQxGrXe2
-         YOf/utWNelE0iWIMLJwHVD85+7r7KuW2sD5l9CB3xU+C5Is9ERxkK5/iYrHk/DDtBAzG
-         xo0TVXopvi7hLtS5EuGgIos5nE2kE2QpP9K77MP9XZA7FdCbKjgPYmQZ3+7Z6zJ4P4e1
-         v/lL0dRLNVSG/RqMue9I1IjilL0a4dVNdSvtfMPN1z6G3BzurHLRp5z/jMV55MkwvwHE
-         fvBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793168509; x=1793773309;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793168573; x=1793773373; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sG9Xj1OZVI1nTkH7YcZt+Jc0eaj5QNvufoqH8/wgxTY=;
-        b=JAtmW+8tQLEI18lutAnoElnYoR1muWXWVukFIfjON83m51+ExA46kBHN+sSZJs3E19
-         2CJdYF4mvR+9CZLKekRQP16nZSQFc2pFUJCuuMW7ZkW41746KoMNhC/49knRzdyqp/2C
-         T0C6uQ7GHilZb5lrdFtfmdMJrXnuwwLHntos6Zv8Tj9gRfCuV6aNupwvZyFATnra1BWu
-         4Bnq4WBwFSIqeOG1TzorO8uDelCNuc+ej0vZ0Ug+gyuA8fDDPm1KRaNJlcnHmvBCOu8t
-         ZdtQrqUP+gh07N4CgN6HvlGszD11cdbURiHPdBloNis5UdwbQkh2IdSnbl3/r6g+NKTc
-         qpGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyqqegHPHekql56s5jWLBFsJcRG6PiMVIfGRNzIC4lr8sU/QLyKnWyWDXbMsoiF1EsyNUQq0CX2r1lK9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYAOpRWYxXXhR6DGgXpZaGWpsNIRCtI3XiOoPpGc+mHMUdUtvk
-	oLXgHm7P4k0/gLAE0mVIpoB7G+LHLsve2DZp4nVmXRp+XI7cmkySIoiHPUcZg//GvH02Ze429rU
-	YWwLsXIgGgC1zEHdeVx2qUhgXljgBJWRCF4CH/RFYHNAkqbv6bbSvd30XzVXUFA1Vke0=
-X-Gm-Gg: AYBFou33979ZG1OX6NBH3UuXUf/qAKJH4CGXFilGotUJA+MJFN8N/os11Mq2A3UgcLi
-	IDa5NBVelboEmktvDlNPNdE2v1F1HN9xi2j7uUORxmaNLFu4oGC9IknViUsviYXUnmBKDq1b4VR
-	IovUVMdRTT0/JsMSfOXMvnJsBOQ0xph/yOz+nmBZ4s1KDOU2IpM6KiyGAwtUOAHhMrMlSourEAx
-	cypGyuRbbAy+XhlXUP857g8IXHYCF7MgQZkLieJw7pq8q6p8rkMrRhDYj7Q/hG90/3fNW8y7XOV
-	LNuzG8dqSUT6oNnH1Hl6TXY1NgFu76ec1Yl2DyaXgmh5LhPWUcoU92OqNSm9sWuqFGt47cmDcdL
-	8AGpw4rs11uLvHkdPq/26Pwa5Nqx2KGz25fEatrObxlDrRqrxmEJn5crRDmtS+V0gRms0s1TxWj
-	w+Wkavnw==
-X-Received: by 2002:a05:7301:fc01:b0:369:fa8b:d725 with SMTP id 5a478bee46e88-36a204a51c8mr2161098eec.35.1793168509018;
-        Tue, 27 Oct 2026 23:21:49 -0700 (PDT)
-X-Received: by 2002:a05:7301:fc01:b0:369:fa8b:d725 with SMTP id 5a478bee46e88-36a204a51c8mr2161055eec.35.1793168508453;
-        Tue, 27 Oct 2026 23:21:48 -0700 (PDT)
-Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm3397103eec.0.2026.10.27.23.21.42
+        bh=SulABahkU3rLao+I7j5g0Ph09Yg6H2vGeWdscwhFpIs=;
+        b=Bk++MV6kwfBaTPsFQ9sPW6xVdQXu8QHBLNBmXn+4O5/4UZqCRMXj2JVrOkA0O73ASK
+         UjmfdxIzc591iBllQHPYUS8Ru4hTCYR2k7f5FbUeYKYAjjWddLDzfKFvfFG/tE/iWG7G
+         kdIkEkNgFScyzvf90nJziUXX66iSajGdCM9mpd1XJS5P5JjZVERSO9upDyUKUGCpPLP2
+         l+BaJE36fU2n6FPqKPUz+fXH1HGgGhfJnC4i6Crg0DJFPEcI9WG6MYtV7KFaBPtMBx4t
+         kcnIOMBDqZr88IhosTjC1ODmw/JZP7bnUSLnYqZJEQovxNIYaDtF8V7sVJ5vOpLE1xCB
+         MJIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793168573; x=1793773373;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SulABahkU3rLao+I7j5g0Ph09Yg6H2vGeWdscwhFpIs=;
+        b=yh1juCYBzaze0Uc3iX75vox0ZAUSiLpIFq9a1gLkxAt01HupK0nK7Xf8OlkoQrxRgX
+         lQoS7UETPR6jhQixpMfytaVpc7lfJdqcq4vwlPjdlPPzsoPsG0mcFmnlCh7qkw5pUP71
+         mkmtT4l2fsYopuHl+fsHsKbWMEvWhv2FETdros6Yq96zBmEUv5pTTaQMu+nNfFUtSM1r
+         cLPKSMGTHH9ehloAjR3Z5jDJ/Qru2tWZwKD9CLGSEpWosoVAWAtKVOaDVuvVGO9nSrDT
+         BUfEKdYvG4Us/ftD1oSvzIn0pTndtzB9spI5nke4JH8OTQJbUIsGoRDMafFpYnWDZdHF
+         hJuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnuzaxesm0ruZrggG49NbL8BU18Gl8d3YQ4ETfNPYQSZfYlZRl/brr8RwTMkEl5EGLkiQdQXAvpTQonPE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOc+MYqtHsUVnGCGDfVgfxchuTdpRiTa673IX0+03uGm+rEwM+
+	o+tACuYZRO8Fobsdg3RQyrYkTyW4udMr98CS5VSvRb+eqtnoT+NbcfrfoQNy89Z+FDI=
+X-Gm-Gg: AYBFou2q/iDgRv5QDFyNBet+M/Zp3p59f5mjmpbA8pFN4f+KPjIBYGKs98oBVrvhdME
+	6ZcHgPRqMgtWaD7uvAVnYlyZ104QGYyArkTvR4xwf4F2jcjehO1gL3pLsWf8bnivnz2YF/f9H2U
+	eAVu4XdkQrb5MFdCJPH+k9+lcllDxgECjupaVJxIq8qd2PAnPgYeazTCOA2XwBHomglIRSAkkqN
+	NMhDTyquQO+Yaj6PmUt9d00IZB/nTWF0J1j168EaUrdthWjYOIxTll4UUxiuFmUD8scXMZ0aGFn
+	cPezBisU+uXObHj+fLSdhRw8t3i9585/fYgDphMoMlTLAb38c/5pGV3xF6oO2LT8CuCeVwkeuPS
+	g3sA3iaE0J/jjUx8057L31aRTAoNX2zWf5C6mCRCq95Gm+q8v+q4+n+FApVF60jkCKsfkvYgn6f
+	UysEx536gKMIhfBRoDCDFhixNWCrUYXQWQTkqbtYUPczXgKrcDcxMTg2pRXWFEssVxa3Dnd1uvr
+	H5guVYLwOjRbKi16u0j0dRbkTINdaUo5MMzfp7xd+DCLRk1vsBuG78Os1qcpwyFP7VdBUPr5W9a
+	r9y3ij/acX2qXune8M3w
+X-Received: by 2002:a17:90b:55ce:b0:3ac:9d83:8861 with SMTP id 98e67ed59e1d1-3ae5832af4dmr1018817a91.67.1793168573088;
+        Tue, 27 Oct 2026 23:22:53 -0700 (PDT)
+Received: from hhost ([120.231.212.153])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a27f7c7sm1558410a91.2.2026.10.27.23.22.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 23:21:47 -0700 (PDT)
-Date: Wed, 28 Oct 2026 11:51:40 +0530
-From: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com
-Subject: Re: [PATCH 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
- support
-Message-ID: <auGUdP/IZnAEui89@hu-anantiwa-hyd.qualcomm.com>
-References: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
- <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
- <fa143c9a-722a-402e-84fa-a127494b3f5c@kernel.org>
+        Tue, 27 Oct 2026 23:22:52 -0700 (PDT)
+Date: Wed, 28 Oct 2026 14:22:42 +0800
+From: Xingyuan Mo <hdthky0@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	"open list:NETFILTER" <netfilter-devel@vger.kernel.org>,
+	"open list:NETFILTER" <coreteam@netfilter.org>,
+	"open list:NETWORKING [GENERAL]" <netdev@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Cc: Xingyuan Mo <hdthky0@gmail.com>
+Subject: [PATCH nf] netfilter: nf_tables: fix flow rule leak in nft_delrule()
+ error path
+Message-ID: <20261028062204.1079089-1-hdthky0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,43 +105,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fa143c9a-722a-402e-84fa-a127494b3f5c@kernel.org>
-X-Proofpoint-GUID: 5suYf_Eqjhctx3bvQ23emnNtJ2K-qUWX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAyNSBTYWx0ZWRfX26/PZnbkgXw0
- xT18u5BeAFjzV/LOp55NRBSLPcyBdI9+x9ALx6peEJQpTBqeVObeaG5bKBEeDLX+2dqa18HmpAj
- fxb5YbRU5nSY7iOvC/k9sgNeeh+KcX0=
-X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae1947d cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=eYwbJGcMLBrUiUMk08gA:9 a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: 5suYf_Eqjhctx3bvQ23emnNtJ2K-qUWX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAyNSBTYWx0ZWRfX2Jt1k1UEUaVP
- v6MkjeIFpJDtDiIfxkWN9uKwCnk1L0ke8UxYhLKYqKsO/2ybgLzXNJQkd6actfSHV14gWKEZpMM
- NqNNn0rkHov0A/06LCv6MLYk0EVQRxOcT08CXH/iyTYMSUK4moZcqM31mHKkpz3O6Gz+OS8IJFU
- RAsRf4pQeTh/Mwfg56mlpize+Tjb2Fb+b3D9bwBOSww6aP6cfVag2/HjRxIiz0PhwCvg5uB/ahc
- TKvfasgG28jcSBzf7RahgEQLlIO3KPUx5BLpjw+V3XDzotdTD8uaUbNtX783gGnDDaFtq/35X7c
- FakPI1YvyUpUeVIy7eNJgx7EzERwDn8Jv+aiwNwxgDyOS2lbAr1Tm9dsUE/jE16Wrkd2X4A0v6/
- JKHtto1Vw2ZqidjhLttf6zQ51I9BQtq6xoQRmuHYR2sMae4APOyHNL2gTxcNsB34zpDGk94vyyV
- 5Vf+xb5+6KrNEcaRJbw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
- phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280025
+X-Mailer: git-send-email 2.43.0
 
-On Thu, Oct 22, 2026 at 12:48:05PM +0200, Krzysztof Kozlowski wrote:
-> On 21/10/2026 17:17, Anand Tiwari wrote:
-> > Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
-> > available, used by the Talos Lyra EVK LVDS panel overlay backlight.
-> 
-> We do not have Talos vendor, you sure you did not miss dependencies?
-> 
-> Best regards,
-> Krzysztof
+On the nf_tables_delrule_deactivate() failure path, nft_trans_destroy()
+frees the transaction but not the attached HW offload flow rule. Destroy
+the flow after the transaction to avoid memory leak.
 
-Qualcomm is the vendor. I'll update the commit message in the next 
-revision.
+Fixes: 63b48c73ff56 ("netfilter: nf_tables_offload: undo updates if transaction fails")
+Assisted-by: opencode:deepseek-v4
+Signed-off-by: Xingyuan Mo <hdthky0@gmail.com>
+---
+ net/netfilter/nf_tables_api.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index 59ac623e6805..ec56ea8c8436 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -752,7 +752,7 @@ static struct nft_trans *nft_trans_rule_add(struct nft_ctx *ctx, int msg_type,
+ 
+ static int nft_delrule(struct nft_ctx *ctx, struct nft_rule *rule)
+ {
+-	struct nft_flow_rule *flow;
++	struct nft_flow_rule *flow = NULL;
+ 	struct nft_trans *trans;
+ 	int err;
+ 
+@@ -773,6 +773,8 @@ static int nft_delrule(struct nft_ctx *ctx, struct nft_rule *rule)
+ 	err = nf_tables_delrule_deactivate(ctx, rule);
+ 	if (err < 0) {
+ 		nft_trans_destroy(trans);
++		if (flow)
++			nft_flow_rule_destroy(flow);
+ 		return err;
+ 	}
+ 	nft_rule_expr_deactivate(ctx, rule, NFT_TRANS_PREPARE);
+-- 
+2.43.0
+
