@@ -1,59 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199982;
-	b=kOJnotXaOIXeZ0T4bgWDCDrxsdnAbvOZ62rvlmVrddGFRawLLGKUWZYZWsjnhrL5ri+j
-	 gKOWAYEV3z2Rq9mIWravZUZ8Qwlq0GyI06gjLqjvy+Szh9Q0C06xSn5XWKsyjlr85oOOo
-	 63xuxCDPzR15qR4CkZ66YcM2PU5YR1gzx1l0synyvET+JQlAQJwWGD0QTXOVyf6sA4rV6
-	 TffzGNVP3QmzmusHq33oCXbVj0Wx6J0DbC7iyT2mEGenhKtzKQ+xE3MIK7JU434X1I8aU
-	 Jw6bNXlxXB/YaNOcArZYjqJ9xnIbqg0g0RLdeiWbs8bND6xF5n2JTv8UFU2wv2Z4F+Q==
+	t=1793200001;
+	b=XSk0shgCOnSQ/x3nzLIAbwHtzntE69Ul+wDWlUylv0OOAMT2Ivcfng9MCT8/7rF1mKkw
+	 UrENJ0HggittvNfttWcLxEJGNONcHnFeshNldR/nsexHcH2KD3iS+oQZ5ftuhoeTig4qG
+	 wk+7GSz0lCT69Z7Rl3vVGiirLgCRFxhlDaQLnNmG+/HmY4WKAU1z+TQ6SkqAjnANQJ7tO
+	 TBKflkSwwpS7WCf4NQNX65shJkGFrNrEaJBsY8oqf0MOQmPfHQAU5YBW3l0C6JEbmGDlC
+	 eWnXzUypZCgI+6DOTZXMeSTD2RpjcFvOjMcCGfAjTjtslGkdpvJ0tjGyce2on/3sEBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199982;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jc1NHj5NVrt4/jNwGZiFo0SWS3JKZ9BEwEfYFaPbfCE=;
-	b=oUu5UfEy+kMfcNjffPhOX6/NrDRLO0b9tDwaE1aQNEp6IDQu9BIlQPdTtdOxp+A4MpSC
-	 GFAhyRH3yxISjcw25d7lqbT/uYH8mcRfINdMIwEqPCQv0EHeVoMOyXti8IP99wzzxVJCN
-	 ZD79rR/s3HjSLreIuVo8yKUsyJhZsOnc+RrHx1J/s4Jrrg/mtw/ZYH54POo35q/RgjseL
-	 eIdxtu6EFC8cqkmBqy/nyggFvRmywyDRK8InROBo2QNqU/6TcPG0PV/QHSMs95zGcnTfn
-	 wZxqtRPOYBUGOufpLL6QCWguxs76VYGmWGRTt2nMCEq1F+azmyeIFCpw8SsTe6+Vsgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200001;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version;
+	bh=n/akRagARDR+fJNDGCNVlhTugTuQn/VjpXfX2Yd9MwA=;
+	b=NItmCV7OfhpcyuEVGKUfTfoNmK0lt30vkmtmwxuDL0URT1GHypfq3mLsAsY1I2HPMq2R
+	 Jjg2YbXst3nqEzKCIL/WfF1/2jlS1zaIv9SGMWFv1kEl0z4Xi0cCX1K6UUUhCTJo2QgnT
+	 Ow4wUrtwxvkwhyfvvGZVHHiw4HzXUPJo6lpj8nEV58dTs2bZYXgoV5ogOqlH3tnfJYgd+
+	 4KoYJMD9m6mTw9mBq9jndcg0f4+isHitLFsnLh5gCG9I2StGFaesX1mKGPRhKwt9lRipU
+	 Y+/QxqOn3glmce2vfusLEqh3IMgHkRSAN3zGiToBuMOOOT7nUupv8g66tKiDP4jwIow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSMN0kNU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=VdMneMI8;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC74D606A337;
-	Wed, 28 Oct 2026 15:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDE9606A32E;
+	Wed, 28 Oct 2026 15:06:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CDE9606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSMN0kNU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D741F01825;
-	Wed, 28 Oct 2026 15:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199981;
-	bh=jc1NHj5NVrt4/jNwGZiFo0SWS3JKZ9BEwEfYFaPbfCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nSMN0kNUmbsSHdv9awMBVCH6qjwWaKvcGUVUjLsuOukkXyE8GaNWdnrlzGSOWPUxx
-	 nIsSj6zS3F7QsXpgAgCtNpKWs3qPXOfWQaHXjI7q8Xy8+AoZLdOW+kb2R2ariJ14KF
-	 kh39GIVq+tFgQWcEXC77GFJzfx3q8MIhkGL8UJIK+0HbuqXpIEj0zsOIpanmvlIs+I
-	 XY1CLvSbmqKiZpQM9NT3GWGDqEiJMlgHH68ERZ6/KUve1IBluVECVEYyQ6usMhvjLF
-	 1k28ca39gz7anWHNTGkRQgyVUEHbN5YlUmHfrgIOGLQXh3xkTgFAB5SyTFIhCpCTuz
-	 s2VKrE5jIpz0Q==
-Date: Wed, 28 Oct 2026 15:06:19 +0000
-From: Harry Yoo <harry@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>, 
-	GONG Ruiqi <gongruiqi@huaweicloud.com>, Jan Kiszka <jan.kiszka@siemens.com>, 
-	Kieran Bingham <kbingham@kernel.org>, Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, 
-	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH 0/8] mm/slab: Support selecting slab hardening features
- at boot
-Message-ID: <auIN44CnAyzvR_Ll@thinkstation>
-References: <cover.1793086056.git.chris@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=VdMneMI8
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBdEXx271934;
+	Wed, 28 Oct 2026 08:06:15 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=n/akRagARDR+fJNDGCNVlhTugTuQn/VjpXfX2
+	Yd9MwA=; b=VdMneMI8O6wlNE0BYQWv2NoN0sywdAR3S3qF8UBQ8uoKgjLfzXI36
+	RMZoTPIpxHlgSe6OFVIofncfkaP6dZg/yjYK+MHsXD9WsedwgWQsgbiUgX/Fx8PR
+	qLZHqFn8ZseF9U+0o/daa6VpHQbi6IRGKq00BWh8A0tlTUGbn0arN/jSorQdkR4e
+	yyNWRof6oFLsVTSYAOG9elDCeBd2Mu2fsBvPhQbT24uswO4mzB+LjIZMOBHtWJFX
+	aPIw7LPrE/wCSUg4UEXrkJNKyLCqxM7GTBVm2z8UJTrCOEzqzZjhohl43rFyap+B
+	vBTE/TFyyrgyySC4gpZbsk2RDm8SU0WYw==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hjtuxtajc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Wed, 28 Oct 2026 08:06:14 -0700 (PDT)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Wed, 28 Oct
+ 2026 15:06:13 +0000
+From: Ruben Hakobyan <hruben@meta.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+        <virtualization@lists.linux.dev>,
+        Alexander Duyck
+	<alexander.h.duyck@linux.intel.com>,
+        David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Gary Guo
+	<gary@garyguo.net>,
+        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
+	<bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas
+ Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Andrew Morton
+	<akpm@linux-foundation.org>,
+        <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual buffers
+Date: Wed, 28 Oct 2026 08:06:04 -0700
+Message-ID: <20261028150604.201665-1-hruben@meta.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027151329-mutt-send-email-mst@kernel.org>
+References: <20261027151329-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,40 +93,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: ZfxisLPKC3cRY4cfMcbSSv6NtTSdYeJP
+X-Proofpoint-ORIG-GUID: ZfxisLPKC3cRY4cfMcbSSv6NtTSdYeJP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX3uw6g7EPuwTM
+ DibcRf8vVekPYTCzK4F1FwprinlUAm2GvLCsElTH9/XLSPG76R1GpMh9dqJMzeKzG13H734fbyK
+ cdgB5LvW5bK3FGvBO7w1K+oDLVN64AnUFIydsatNvMejfQn89d6vFGdCWFE5g4ibvNnwzSBRx+s
+ 4rihRJuV5LVx21l+s+z/w8dDR4vPznXi5VyrZmbWBEnD6FRFtN/K3sBZHdqSpRu1JdWgDoIl7Rn
+ gB8rJg7ZMM0EwHJ6X08zQmvftSozabHDdCfdy0b2jD97rWVQGfIXrQFQjnhXyjWMIVns7i9Rixa
+ YC/URyFdURSsyrY/2XsShIEF2npHlQB8vLiT3jQpuDsu3ZwNZT9gd8URJsD14ejifRJk3C8K4Hd
+ KT7kIVJQQzB43NAjWK2n+oIQz0M7WC61UNDDLCQkbnAoOeZv5czGcu9BEtoRVq/GbNrP4oTfx7l
+ UlkmkQaACkJQuuh+Zeg==
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ae20f66 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=8elwO82fXORLTBIkMd32:22 a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=QyXUC8HyAAAA:8
+ a=phoES-eJUOR2wqcIftMA:9 a=zY0JdQc1-4EAyPf5TuXT:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX2yMZgPBxzOCj
+ mzZQH+ps0TPtroxNBzRJXHfpA529N1imxSDKw8IIWlYm8hu0fgoGAaSevkp9noOq9P8X+jxaP2A
+ eYzBB2S6JV1g34zNFsbiVhxf3LlXoxM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
 
-Hi Chris!
+On Tue, Oct 27, 2026 at 7:17 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> On Tue, Oct 27, 2026 at 07:39:57AM -0700, Ruben Hakobyan wrote:
+> > On Tue, Oct 27, 2026 at 12:40 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > On Tue, Oct 27, 2026 at 05:32:04AM -0700, Ruben Hakobyan wrote:
+> > > > On Tue, Oct 27, 2026 at 10:35 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > > > On Tue, Oct 27, 2026 at 02:26:33AM -0700, Ruben Hakobyan wrote:
+> > > > > > On Mon, Oct 26, 2026 at 11:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > > > > > The virtio_balloon driver reports a scatter-gather list of free pages
+> > > > > > > to the VMM so it may discard unused pages.
+> > > > > > >
+> > > > > > > For an arm64 kernel with 64 KiB pages, the default reporting and
+> > > > > > > allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+> > > > > > > report contains a sufficient number of large entries, we will end up
+> > > > > > > with a descriptor chain that represents over 4 GiB of memory. This
+> > > > > > > violates virtio spec, which says:
+> > > > > > >         Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+> > > > > > >
+> > > > > > > Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
+> > > > > > >
+> > > > > > > Submit each reported page as a separate virtqueue buffer instead of one
+> > > > > > > buffer with an sg list of all pages.  This also avoids indirect
+> > > > > > > descriptor allocation (kmalloc in the reporting path).
+> > > > > > >
+> > > > > > > To avoid multiple buffers causing interrupt storms, keep callbacks
+> > > > > > > disabled while we wait for an event.
+> > > > > > >
+> > > > > > > TODO: as an alternative, keep using virtqueue_enable_cb_delayed
+> > > > > > > but add buffers after there's space in the ring.
+> > > > > > >
+> > > > > > > Note: if the virtqueue is broken, wait_event on
+> > > > > > > virtqueue_get_buf hangs.  This is a pre-existing issue:
+> > > > > > > the old single-buffer code had the same hang.
+> > > > > > >
+> > > > > > > Reported-by: Ruben Hakobyan <hruben@meta.com>
+> > > > > > > Cc: Ruben Hakobyan <hruben@meta.com>
+> > > > > > > Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+> > > > > > > Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> > > > > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > > > > > ---
+> > > > > > >
+> > > > > > > Notes (changelog):
+> > > > > > >     changes since v1:
+> > > > > > >         keep callbacks disabled while draining: get_buf re-arms the used
+> > > > > > >         event for the next buffer, reintroducing an interrupt per page.
+> > > > > > >         Disable the reporting vq callbacks at probe, and only arm the
+> > > > > > >         delayed callback to wait.
+> > > > > > >
+> > > > > >
+> > > > > > Thanks for the patches! I think sashiko-bot found some issues on broken
+> > > > > > queues in the first patch that are worth looking into for correctness.
+> > > > >
+> > > > > Surprise removal of the balloon? Nope, it's a pre-existing issue that
+> > > > > it's broken.  Besides it's not really practical, no one removes
+> > > > > the balloon - no need.
+> > > >
+> > > > Fair point about that. But I meant the broken queue check.
+> > > > In virtqueue_enable_cb_delayed() there is:
+> > > > ```
+> > > > /*
+> > > >  * When the device is broken there is no point in polling used->idx,
+> > > >  * the backend will never update it. Return true to let callers
+> > > >  * exit their cleanup loops instead of spinning forever.
+> > > >  */
+> > > > if (unlikely(vq->broken))
+> > > >     return true;
+> > > > ```
+> > > >
+> > > > But virtqueue_enable_cb_delayed_max() doesn't have this. So I was just
+> > > > thinking the same reasoning should apply here?
+> > >
+> > > It's broken there, too.  E.g. what is the "cleanup loop" in balloon?
+> >
+> > The loop in virtballoon_free_page_report():
+> > ```
+> > wait_event(vb->acked, ({
+> >     for (;;) {
+> >         virtqueue_disable_cb(vq);
+> >         while (virtqueue_get_buf(vq, &unused))
+> >             i++;
+> >
+> >         /* Stop waiting if device used all that we added. */
+> >         if (i >= nents)
+> >             break;
+> >
+> >         if (virtqueue_enable_cb_delayed_max(vq))
+> >             break;
+> >     }
+> >     i >= nents;
+> > }));
+> > ```
+> >
+> > For a broken queue, you could exit the for loop early and avoid busy looping.
+> > It still hangs, but I think it can sleep rather than busy loop?
+> >
+> > Anyway, I'm not sure how practical a broken queue is, so I don't have a
+> > strong opinion.
+>
+> Maybe add the broken queue check explicitly then, then it does
+> not need to hang:
+>
+> if (virtqueue_is_broken(vq))
+>         i = nents;
+>
 
-On Tue, Oct 27, 2026 at 03:35:16PM +0800, Chris Down wrote:
-> Slab hardening settings are currently all build time choices. This means
-> that, unfortunately, hosts with different requirements end up needing
-> separate kernel images. Let's allow those hosts to use one image and
-> select each policy at boot instead.
-> 
-> This series adds four new boot parameters that default to their values
-> from CONFIG_*:
-> 
->   slab_freelist_hardened=
->   slab_freelist_random=
->   slab_buckets=
->   kmalloc_partition=
+Ah yeah, indeed that would avoid the hang on the broken queue.
 
-If we end up supporting boot-time parameters for hardening,
-I think it should be all enabled (or disabled) by:
+>
+> but the issue is what if queue gets broken while we are waiting.
+>
 
-  slab_hardening=none|light|full
-  # please feel free to suggest bertter names
+Hmm, yeah I see. I guess that's already outside of scope here.
 
-none: "Turn of all of them to maximize performance"
+>
+> > >
+> > > > >
+> > > > > > Other than that, I tested the "normal path" on QEMU and Cloud Hypervisor,
+> > > > > > both on 4 KiB and 64 KiB guests, and this works correctly.
+> > > > >
+> > > > > Thanks a lot! Can you pls confirm whether the performance is about the
+> > > > > same/better/worse?
+> > > >
+> > > > >From my tests on QEMU, CPU time was about the same as my original patch
+> > > > and unmodified Linux.
+> > > >
+> > > > To bring a concrete example, with these patches it took ~437 ms of CPU to
+> > > > reclaim a whole 8 GiB with 4 KiB pages (vs ~434 ms on unmodified Linux).
+> > >
+> > > OK so that's just noise, there's no difference.
+> > >
+> > > >
+> > > > With 64 KiB pages, it averaged 121 ms CPU (vs ~112 ms with my original
+> > > > patch).
+> > >
+> > > Is this measurable, or also noise?
+> > >
+> > > >
+> > > > (I tested this on Nvidia Grace)
+> > >
+> > >
+> > > Thanks!
+> >
+> > Thanks, yeah I agree and my point was that performance looks on par.
+> > I just wanted to share some concrete numbers of what I've tested.
+>
+> Thanks a lot!
 
-light: "I'm willying to sacrifice _some_ memory and CPU for security"
+Thanks again for the patches and for looking into this!
 
-full: "I'm willying to sacrifice more overhead for security
+>
+> > >
+> > > > >
+> > > > > --
+> > > > > MST
+> > > > >
+> > >
 
-IMHO more fine-grained knob for each feature doesn't make much sense.
-
--- 
-Cheers,
-Harry / Hyeonggon
