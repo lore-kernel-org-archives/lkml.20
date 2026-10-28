@@ -1,81 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188654;
-	b=R3Cl6SgppH6KmJEvSpJnFteGWz6C9xBPjypnBBbVLEiT9e/D59bCTNd5lhsSuYGtpuG5
-	 i6N+izSDIh+n56QuksHBXRL2gbNwTNJeQvXlvEIW+OZAb55JMHD89RjZpTOawnPKt7/2o
-	 fM6YZDHnYm1NtRsEKj36PcCURIvSVzoIUSS6FdQOnOTWgGxzXYZkToPQCKvT32kRdRxRY
-	 9xf5T+9gem0GymqbiYljMVb1CfYfCh3UZKK1fPkGWGOqzc5So2++dXplcpSmis6ltjG/u
-	 8ksY19eb7a/mw/d/j8FP4YXmhqB5VaUCLlXLbr+XWi4CqQv0AV1Yqw0J0Cgyu6iZnUw==
+	t=1793188649;
+	b=BLopQbroO85SFP2TwN1b+kWqKd+zhxV9O0Wx/GeXShQ+0P6UHUYf+v/mMI9QUuWd94HM
+	 oFDgzjhS7wLJe4j55W4wji1m52jkI+97+ovq25HfgtqQKMfRAwtXpIE/HR3U0gzbMmipu
+	 XcwPFMFR0cpHfCtE7J4BHj6/6rwX9DS6UwnRQmfVGp9v8oc/pdLqUGwkqWrHsUA75e4Xn
+	 zy5w4HtEo6ZnyTro5ojOSa+HZ53OIx0zIyodSxASEWv6SBBXWCnfMle9zP15x0mVVLPwC
+	 FuI1aBd4ZwacZZlSJqyTKIawx2x/ib+0+8HuiY/DpbTowQQFMzSquHliJ2rqLnO2Ibw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188654;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=EUWmyH0L3M1rdBOiDGe7PflzUNySgm/d4or5r8adSxw=;
-	b=uKkof+lV3EqNa7/FCQtA8C3q1y0LohnCS4TOFWxUg8yzzpz7jmzuuHOfUbhww958laaw
-	 nb6y7lJxG2LcVrPkZQbBDW9m5RfNpMrY2eRi3dEyq0fUsvesHf4lLzwJocAOECdhoC4QP
-	 eykhsNmSMn4zOh9/C5SOY3JipLazssxVCdnIjlQcU2OCXLzLFw8u4eUBP7d2cuMSoqXW8
-	 2EqBCAWLVmYACYB8vOmyBQjJ51rykkVxlRMdvEFctPMGrLDHZDg7umf5lTa07Q4F9uFrS
-	 ErptLHfYFxTBYE+IwTocNTRCv0nibtoXUeJYln8IqMcQsgx3qRm4qB7siaKqJeuS5AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188649;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dE3bjK6V6q7+0Kp3at70qUH5wNVpLQIy6nIGWt4NgU4=;
+	b=2i4MvmvLGZqKRYL5DFXeFrwRbZXKGK/sgnIPOuQnCZEHa4HTGWYAG0V8SBwYXA+AvWTu
+	 MlVwFhgjTqHVaJCNW58SsQYo429kPdCVyMW7WYzzG8lrG20MZJyFgkKienAaTH+sHRNBI
+	 XudsbrW1YzGNoduxK+GbGTogQp31HchrNSbbXkVpf2JXOpOGl7slvEZOGdyZPWh5NUbKb
+	 zH3+KmfnjpV6nKg26ll7UdyjnUYiQAZbRrjrKn3mzqZ4UQJ6YiCGdM455/Qf7l3ExDEt9
+	 rzf+egtsS33QQ4AkcCZEjtlPVdY9WW+6chrud/LOie9yuPyf+ohqXvw69P01fFLAAyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=D30ramIb;
-	arc=none smtp.remote-ip=203.205.221.221
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B13C606A320;
-	Wed, 28 Oct 2026 11:57:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B13C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WqLjdv2z;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD00E606A31A;
+	Wed, 28 Oct 2026 11:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD00E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=D30ramIb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793188644; bh=EUWmyH0L3M1rdBOiDGe7PflzUNySgm/d4or5r8adSxw=;
-	h=From:To:Cc:Subject:Date;
-	b=D30ramIbEEL9kQRJdtPDmcp0oT+cVZ5u2KgTIX13sevS6ZbOef5KXjIRpglo4jqyr
-	 KH1PBmel0CMcSikudZ7Ls4O/EiUCe4HFuz53SzOOsrKbPScrs4ewfyzU9isiXL9IMk
-	 Fb0eSJaV3SFsrBe+65mzyHKW2V377xahTixabjmU=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:7875:da97:7462:bbd3])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id E54BDCF4; Wed, 28 Oct 2026 19:57:20 +0800
-X-QQ-mid: xmsmtpt1793188640tna7ungbm
-Message-ID: <tencent_8B4F08A2DD4BB093ED7FAECFFD20272B3C07@qq.com>
-X-QQ-XMAILINFO: NZRRnjJGoaJhS44706EhUqftyAdPe1qMAnqQWIHtxtjft8PNtxqNEVP4CucgYg
-	 4hRKUhow7VPlmAMn7yKU9nBwrkzlc1j6SOLu/6JHN/vm6QrZMQSrSzgODx7Mx6oeHVq7DVwfrQFd
-	 iH35gyI0PENb+vTshtYJ2HkmGqHamSaB+vgsAcjozmkGB1E4BMhZIvgA4QunV9bHYDF0HXSULVWu
-	 QTZUKSPYiitGIZNTLfVES8Jm6fwx66rs4TqaJonCUMJTzISeeg3ASVzmlziJG43hItx95Gykj0hu
-	 xO/QCL1QJhkPUWQeGKb7t+19bHqVqAOz4dy19q9Kq0dE7+OTDuOm78uo7BdIr6riR8YHIkyC644D
-	 +UVD/cW+mH2lkQHzHEoOYtkAaiJ8ui+Ewl7yXM66TXP8ngAB0BOrkQmtZt7rSkr6hvlSpgEVThZJ
-	 Cj2K7iOqzWWehch7toNoh5Mk9Clct+adluSUqgRdBw8flghjusT41HHDmODj8Ymvw4/sv4wSOis8
-	 BWJHgRkm9y8B7Pwtztk64UtD3zEn1b+vET8PqAWTw8gfi/e3ZRVfqKRnFokz8C8/bhHUROExzU1u
-	 XIsn22J6/v1oJnhXKHtijkYDATbUJcIeonGB8RWXaF5FmhPgailXIxo4HvtTPfmWLHzz5T7o36Z0
-	 s0h2E/WyF8w3a4N51Krq0/5JS6bSw6d3thWRB5hqU0N4bN9PQgXxkgK0jTk3XLKooaxEZp5uENvy
-	 XfANxUL1rXKRdTpxNgbfSzYeaHJ4WOCOZp9+xzHCWTi19cX26UHh3XzwWARB5oZoVSVVARhc5o7S
-	 ASsBdL642qvYouDC1TM5er6S5OWMlElSk+nIi38hy/Gaxjzu5YUv5f0fHYdfiQ69PtCPfUEjEjNa
-	 TbRz59S6tklGN4HQhUF8in1BT0tpk88WKyuq5yo3+eKA92Of2/go/XCo1NCosABf+L3RFH/0cm6G
-	 NeKSfSe6z1BTGbLqI3XJ+Tbnaz3zttlQ0RAKYn5J1YrtFrUf0KsqmCS4MlMY2ISE9IXjBGWQoPaD
-	 SnnXJJT5YIKoaN2Sd7Bo3Fb83vViSbCucb1bnwGRjolRW1GvTTWwg9fV38goKcEJTj/w1cm/NXrD
-	 AqrS8q
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Yingjie Wang <1075151112@qq.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	hare@suse.de,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] nvme-tcp: validate TLS handshake timeout parameters
-Date: Wed, 28 Oct 2026 19:57:18 +0800
-X-OQ-MSGID: <cover.1793188633.git.1075151112@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WqLjdv2z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WqLjdv2zompj8IeLPNY5GQXZVtfO7iHJdcfU3VXaMtFA9w6GYUDqhOIoCs84LU+14+Q0gKEU7sDEc
+	 +krNQJ1Ud97ZlWRr5xNb8ER4vT1WBaTdPD60DYJ3mBkRifDLu6wi3YF4atGTD9QQp77JT1Au+CbGQG
+	 kE2BBfoITL5X+sSw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae1e31fee2-2e1b7;
+	Wed, 28 Oct 2026 19:57:25 +0800 (CST)
+X-RM-TRANSID:2ee66ae1e31fee2-2e1b7
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[112.23.104.16])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ae1e3230cc-3de32;
+	Wed, 28 Oct 2026 19:57:25 +0800 (CST)
+X-RM-TRANSID:2ee46ae1e3230cc-3de32
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kuniyu@google.com,
+	xeb@mail.ru,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com
+Subject: [PATCH net] ip6_gre: fix changelink conflict checks for L2 tunnels
+Date: Wed, 28 Oct 2026 19:57:10 +0800
+Message-ID: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,63 +77,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The NVMe/TCP host and target expose writable tls_handshake_timeout
-parameters as signed integers. Both paths multiply the value by
-MSEC_PER_SEC and HZ before converting the results to unsigned timeout
-types. Large positive and negative values can therefore give the
-handshake agent and the kernel different, unintended timeouts.
+ip6gre_changelink_common() calls ip6gre_tunnel_locate(), which only
+looks for ARPHRD_IP6GRE devices. The same changelink helper also handles
+ip6gretap and ip6erspan devices.
 
-On an HZ=1000 kernel, setting the parameter to 2147484 overflows both
-multiplications. On the target, an accepted pending request can queue the
-timeout work on the next timer-wheel advance while the handshake agent
-was given about 24.9 days. On the host, schedule_timeout() can report a
-wrong timeout value with a stack dump and fail the handshake immediately.
+This lets an L2 tunnel change its parameters to match another L2 tunnel,
+since the duplicate check looks for an L3 device instead. Incoming
+packets can then be delivered to the wrong interface. An L3 tunnel with
+matching parameters can also make a valid L2 update fail with EEXIST.
 
-Make each parameter unsigned and reject values that do not fit both the
-handshake agent's millisecond field and a safe jiffies delay. Read the
-parameter once per handshake so the two timeout mechanisms use the same
-value. Also keep the host completion-wait result in a long: a successful
-wait can return more than INT_MAX remaining jiffies for an accepted
-timeout.
+Use ip6gre_tunnel_find() with dev->type, as the newlink paths do.
 
-The exact v3 series was built as a complete x86-64 kernel. Both changed
-objects also built with W=1 for x86-64 and i386, and the i386 objects had
-no 64-bit division helper dependency.
+Found while comparing the duplicate checks in newlink and changelink.
+Confirmed with ip link commands. For example, with an IPv6 underlay
+named under already configured:
 
-On an x86-64 HZ=1000 KASAN/UBSAN QEMU guest, both parameters rejected -1
-and 4294968 without changing the current value, accepted 0, 4294967 and
-the former overflow trigger, and exercised the target listener and host
-/dev/nvme-fabrics paths without a kernel diagnostic. The expected
-handshake failure was -ESRCH because tlshd was deliberately not running.
+  ip link add tap1 type ip6gretap local fd26:106::1 \
+      remote fd26:106::2 key 100 dev under
+  ip link add tap2 type ip6gretap local fd26:106::1 \
+      remote fd26:106::2 key 200 dev under
+  ip link set tap1 up
+  ip link set tap2 up
+  ip link set tap2 type ip6gretap key 100
 
-A focused in-kernel completion test used an already completed completion
-and a 2147484-second timeout. The wait returned 2147484000 remaining
-jiffies, greater than INT_MAX, and the v3 result mapping returned success.
+Before the fix, the last command succeeds and received frames move from
+tap1 to tap2. After the fix, it fails with EEXIST and tap2 is unchanged.
 
-Changes since v2:
-- clarify which documented timeout belongs to the NVMe/TCP host and
-  target, as suggested by Randy Dunlap;
-- add Hannes Reinecke's Reviewed-by tags to both patches;
-- rebase from aaedcff90148 to nvme-7.4 commit 9afc1b71d963.
+Tested with standalone namespace tests in UML, with three runs each for
+ip6gretap and ip6erspan, and with L3 GRE IPv4/IPv6 traffic and normal
+tunnel updates. Full x86_64 W=1 builds with adjusted configurations
+completed before and after with no new diagnostics.
 
-v2: https://lists.infradead.org/pipermail/linux-nvme/2026-October/066922.html
-Documentation review: https://lists.infradead.org/pipermail/linux-nvme/2026-October/066933.html
-Target review: https://lists.infradead.org/pipermail/linux-nvme/2026-October/066956.html
-Host review: https://lists.infradead.org/pipermail/linux-nvme/2026-October/066957.html
+Fixes: c12b395a4664 ("gre: Support GRE over IPv6")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+Runtime and build tests used net 7076f684d513. The target file is
+identical at the current base.
 
-Yingjie Wang (2):
-  nvmet-tcp: validate the TLS handshake timeout
-  nvme-tcp: validate the TLS handshake timeout
+Kernel selftests were not run.
 
- .../admin-guide/kernel-parameters.txt         | 10 ++++++
- drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
- drivers/nvme/target/tcp.c                     | 26 +++++++++++---
- 3 files changed, 58 insertions(+), 12 deletions(-)
+The allmodconfig- and allyesconfig-derived builds had WERROR,
+KASAN and KCSAN off. The allyesconfig-derived build also had
+KUNIT_ALL_TESTS, MCTP_TEST and MCTP_TRANSPORT_USBLIB_TEST off
+to avoid an existing MCTP test assertion. olddefconfig dropped
+IWLWIFI_KUNIT_TESTS when KUNIT_ALL_TESTS was disabled.
 
+ net/ipv6/ip6_gre.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: 9afc1b71d963090e2f2aa5b2f390957823ae943b
--- 
-2.43.0
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index b5d6ed8f0c369..df490798355de 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -2055,7 +2055,7 @@ ip6gre_changelink_common(struct net_device *dev, struct nlattr *tb[],
+ 
+ 	ip6gre_netlink_parms(data, p_p);
+ 
+-	t = ip6gre_tunnel_locate(net, p_p, 0);
++	t = ip6gre_tunnel_find(net, p_p, dev->type);
+ 
+ 	if (t) {
+ 		if (t->dev != dev)
+
+base-commit: 5d7f3375cd574fc83f0cd30839b21455c0e79ae2
+
 
