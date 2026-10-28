@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179288;
-	b=iv33dS9UOEo8NPu32mzT5or2kDrdDNBX9XS5fDhDSQE2EWy19YjnsZ+5zAeq3jChfQZy
-	 kdGQ29U6AdR8t5jd509mkAVsM3yKzV1YU/Sgw0T+2gYgK2i6hobqiW+irZtPFzEqTAhRB
-	 AD6Z0aPT5Q5Ky/5VdwU4y8FI3Kf/ldOlSYbOixZXP/7fqWHkYGLi0icXRrYKgdgXIsuXp
-	 Mef+X3nvg5vQblyFLkqtTgweZCE6VBkvH8H/0owA5fBfUfvMKcchQ+YuK/GivslTOKJNi
-	 iSFZdGn5scBwUt6IOR6FTATZOqxOm9woaE3IkltAujGZzx/6ZRxPzFdqcl2+WOnCQtw==
+	t=1793179309;
+	b=E3LEo5cGU87v6OjgGQ09ICW4fLBNSZZubtUmq1t/0NNynQRWqFp6SI2c0XrHXf2/6Czf
+	 ursy7/95Ogn5OegDQJNvmVPxmKkmr1xnfqT0BhCJnKn6wlGQyvB9DlRrpyMVFIP/aUkW4
+	 Y3pKfq6nKpjppJj9bAlPR+kQqseJTxekbLZkE49m/zsd1RzT9co0RG8UQf4P2ZdkGbTgl
+	 48a3ZlldsNSWfJPCu/NHrShWJowyHS34pFF8OwU+HFr3DKDtUTJ4fVfCFENymypoBD3ir
+	 rYqZrVeIruqatRfdFH+SvDaymZ9nBY7S7iEOPvsudy6e68F9TsGhW9NbLrl2xb4vOEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179288;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179309;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LBfBGw+jhPwOk155E35xBmFE2LfARI5TcyAeAxeY6y0=;
-	b=kIZmdcuQqHf/QOrrl14IzXNqD3cFcPySMMZ7fCE7RSQxpAGbJ+2DI/ItmOv8yPK+gMao
-	 t1Hb5h8Yuu8PBjQb1hG0VqOr0cVtYODTdVxvzebV39x1J5xJRims/qRiiytw3hnmzaR8G
-	 i6ujvelRx+e5AV18UYsULzk/dg5ncG+jDveDYnya3MuBmDV5xduPdwWFWs0J8jvun3ghc
-	 t+ie1QEKm5nwYO5MlEHg8jON+T0XcXUNDZhSqvVjQtW8/FLUJ/IF3vEXfu2PD1MItrCAD
-	 VdB/nO1SDlbPsDxhNr3PTt42SL/fYFTpoaboduCKbRCh8LNYm90vTNAGkbtJZ90HpWQ==
+	bh=o0fsosZOYp7Iltbse45HXED8tfR0ddHeSh5Nzos0Djo=;
+	b=VkNHeE6yAMM26FXYM46MaKhkhfwQvp+E63JgzQ69qEfvzcAJF2LuHszbj3h40rrlfVyx
+	 rY51gVvYwZ7gp4Y8MMRguGhuoRFUltNdhUBGFdxLbpf6dmMMtx1XR9O/T/Z3HBvT/DWOF
+	 cbxnPZpdykIZCZZrO2Co94CWZ1R+KXqr/lYeov5A17S2e2oJ/OM0bPubpOuI1HL3QZV1G
+	 Rml+/zkdCF4+825i/cN8dkVIoL8weVAIE726p/EtH9Xal9C7cdwyvrTLJmi+RBqxBq3A6
+	 FnIR7DmyaMTIQBDb7oGMYh0eGybxxyO7qNqbXEHPf2mbzXSCExltRMHiGI0yNo4f2+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPMPkiN6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMpQNTls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94573606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FCA606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPMPkiN6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C451F031E4
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMpQNTls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154BC1F01825
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793179288;
-	bh=LBfBGw+jhPwOk155E35xBmFE2LfARI5TcyAeAxeY6y0=;
+	s=k20260515; t=1793179309;
+	bh=o0fsosZOYp7Iltbse45HXED8tfR0ddHeSh5Nzos0Djo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IPMPkiN60y8evtarV7sNotj3qh8KcX33sta+hU0d3hnUiJ74McIZtPkEPpAzwXOyn
-	 2zdjLgHRN6OgbUnNGgY0Ui1PJLZ2AMM3GZLBKsLy0Z25Jys7+9LpikI2KZIxDBgO8k
-	 pNcRDqQP5vleQhSS8qQ1uEJCyIKq5JS0w1+cy8Ql+89fq8QpFYbQaPIkk3Y49xkVsc
-	 jKXbfu6qvfwiIu0HsbLM6NNdj9keLfGuuaroLejSxDhFKL6sa5V7D7n7Bvm6URO3eq
-	 xqkji7YoirVaUgeiNuJHm1rng/p/kOPk/7YoFmaxBQlLS6QA1SADhwcx1b3zwoWFyU
-	 kn/OPn/DAz77Q==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c445c95d553so92779466b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:21:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzi+K7IbqEhGprOVhorVhixarUzR/yHMG49Grh1nogvUXQrE41FnneSM8HyXqEcnnT8CihEj5ZRptMNqZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+Yuess5zWl3PVqiNreOe3oKAoW1M3dye+mQ7336vixUckVqI8
-	W7KcH1FTVSojrqfDE4U+Z+PDcgHS0VM29N2yTK7IJ5v7inBEsfK/c5ebF7agbmGPc5Mg1AeZrjA
-	pd2K0xSA1Y5dVDWIdW5ZcZgM3SMvfI3E=
-X-Received: by 2002:a17:906:f59b:b0:c35:d50a:1352 with SMTP id
- a640c23a62f3a-c49bdeaafbcmr140045666b.11.1793179287106; Wed, 28 Oct 2026
- 02:21:27 -0700 (PDT)
+	b=AMpQNTlsTq80HIOtpUOXTa0Euc7qWviHRsrqMz4YhJmCw+N+QgsYsclBq+Cg/oYz8
+	 aBStRRUNeRJRl/K1QmlPKrNZhNfaoqGIZol6TYp/KIaFa7ztdflULOvarlhLW+I3jf
+	 OUtKZOkbzVYUpEy+hMi0dNyAeBkHnHTCaUpyDyKwJD3Q1Z0JTNnm3rCITGICZVkDoC
+	 vfB8fyDFr8MWho5VUG6k3jXj1wsytBs8ONDQSghinoZ/4m1SLXC20ienV7Xl+3UNS3
+	 LJVmTlcahChCNSCmWDDDkuOuQXWUqtm4sSS/vStfRni0Dd5SPJlLpbZsFSnjMTQe8+
+	 rQ60exy7zRHAA==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c498fa2f365so87975966b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:21:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8uJpF6BLir0DqF5DxhajPKN/Oq5QT/gMdL95HNYZlpxqs59RiYwxWuDzF1EXUWdXmM0WsnIWa7UX4ZNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVQCMso29Ar0xPvstp6wl8FGHBfUgJvjSiu4kM724tlm236FFb
+	8YlA871SG82yOTm04cD9zBjvAAZw2H/Bvj4clV3iABq2JaFtofkLf/DfJ6ugpSq5eWcGGd6R0HZ
+	mi4V4YyNvBWFoVQeFPEODyOttgQTNPvA=
+X-Received: by 2002:a17:907:7211:b0:c2e:4e08:19ab with SMTP id
+ a640c23a62f3a-c49bdf37143mr126307266b.16.1793179307707; Wed, 28 Oct 2026
+ 02:21:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,77 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <TYZPR02MB6959DA97FC41F99C5DBD9CE8E6602@TYZPR02MB6959.apcprd02.prod.outlook.com>
-In-Reply-To: <TYZPR02MB6959DA97FC41F99C5DBD9CE8E6602@TYZPR02MB6959.apcprd02.prod.outlook.com>
+References: <20261027152135.138259-1-icb@fastmail.org>
+In-Reply-To: <20261027152135.138259-1-icb@fastmail.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 28 Oct 2026 18:21:13 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-9XjA3ZP0uLGqNqBFZO0KsiFnqRS56yivzUoiKi=jZ1w@mail.gmail.com>
-X-Gm-Features: AclHuK_81ZzGJH9Q0r2nE9GovJSixXCHhmTzLOLXm4AR3OTOH1s_q91L-fStTFo
-Message-ID: <CAKYAXd-9XjA3ZP0uLGqNqBFZO0KsiFnqRS56yivzUoiKi=jZ1w@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] ksmbd: fix named-pipe reply loss and operation races
-To: wangzhaolong633@gmail.com
+Date: Wed, 28 Oct 2026 18:21:35 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8nvApw4QPvHFT_M3V8BMS07bH20MFQmi=u+H-qmH_hGQ@mail.gmail.com>
+X-Gm-Features: AclHuK97M9BYzX6VPIeWldyUJ41r1miiCZlAMSB4h7QWCrhli_kFhVXJLOrMVoc
+Message-ID: <CAKYAXd8nvApw4QPvHFT_M3V8BMS07bH20MFQmi=u+H-qmH_hGQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP
+To: Ian Bridges <icb@fastmail.org>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Steve French <stfrench@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 11:43=E2=80=AFPM Wang Zhaolong
-<wangzhaolong3@outlook.com> wrote:
+On Wed, Oct 28, 2026 at 12:21=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
+te:
 >
-> This is a candidate v4 of the named-pipe fix series, based on mainline
-> 7d37252fc49a. Patch 1 is unchanged from v3. Patch 2 addresses the cached
-> TRANSCEIVE input-acceptance problem reported in review and reports
-> BUFFER_OVERFLOW for a positive pipe READ that leaves unread reply bytes.
+> A compound request can place SESSION_SETUP after another command. That
+> earlier command leaves a reference to its session in work->sess.
+> smb2_sess_setup() then overwrites work->sess with the session it looks up
+> or creates, and the dispatcher later puts work->sess only once. The
+> inherited reference is never dropped. That leaks the session, together
+> with its setup connection and socket, and every repeat of the compound
+> leaks another.
 >
-> The first problem is that RPC IPC replies are matched only by the pipe
-> handle. Concurrent operations can interfere with reply delivery, and
-> CLOSE can release the handle before another operation finishes. Patch 1
-> adds per-pipe serialization and lifetime, checks teardown after locking,
-> and clears pipe state on logoff. Existing mainline foreign-handle checks
-> and STATUS_FILE_CLOSED behavior are preserved.
+>   unreferenced object (size 512):
+>     __kmalloc_cache_noprof+0x32c/0x3a0
+>     ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
+>     smb2_sess_setup+0xda4/0x6280 [ksmbd]
+>     handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
 >
-> Patch 2 retains the original IPC reply allocation with an offset. READ
-> and TRANSCEIVE return only bytes that fit and retain the suffix until it
-> is successfully pinned in a response. Closing, logging off or disconnecti=
-ng
-> releases the cached reply.
+> Save the inherited session on entry. After the request has been
+> processed, release it once, but only when smb2_sess_setup() has replaced
+> work->sess with its own session or cleared it. Do this after
+> ksmbd_conn_unlock() so the put does not run under srv_mutex. An error pat=
+h
+> may instead leave the inherited session in work->sess. Keep it there, so
+> the dispatcher still puts it and the error response is still signed or
+> encrypted with it as before.
 >
-> In v3, TRANSCEIVE with cached data sent a userspace WRITE before returnin=
-g
-> older cached bytes. Mountd's RETURN_READY fast path can acknowledge that
-> WRITE without accepting its input. A later transaction can then return an
-> old reply while skipping its own input. Merely returning the cache withou=
-t
-> the WRITE would also silently ignore the current transaction's input.
->
-> V4 instead rejects TRANSCEIVE with STATUS_PIPE_BUSY before any IPC when
-> cached unread data exists. It does not accept input or consume output.
-> The client can drain through READ and explicitly resubmit. The no-cache
-> path still uses one combined IOCTL IPC. There is no new kernel RPC queue,
-> extra whole-reply copy, IPC ABI change, timeout, quota or production limi=
-t.
->
-> MS-FSCC section 2.3.48 lists PIPE_BUSY for unread pipe data; native Wine
-> and ReactOS behavior also supports this rejection. This remains a proposa=
-l
-> for the SMB2 path, not a claim of a fresh Windows remote-SMB2 oracle or a
-> universal MUST. No new per-pipe mode selection is introduced.
->
-> Changes in v4:
-> - Reject cached TRANSCEIVE with PIPE_BUSY and a standard SMB2 error reply
->   before IPC, preserving the cache and offset.
-> - Remove the cached TRANSCEIVE WRITE/ACK path.
-> - Set BUFFER_OVERFLOW only after a successful positive-length READ leaves
->   a suffix of the same cached reply; exact final drain returns success.
-> - Preserve the zero-length READ no-op and pin-before-consume ordering.
->
-> Bugzilla references:
->   222196: short PIPE_TRANSCEIVE output loses unread RPC reply bytes
->   222197: same-pipe RPC replies can reach the wrong request
->
-> Wang Zhaolong (2):
->   ksmbd: avoid races between named-pipe operations
->   ksmbd: fix named-pipe reply loss with small output buffers
-Applied them to #ksmbd-for-next.
+> Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
 Thanks!
