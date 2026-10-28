@@ -1,97 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793222513;
-	b=Tq1Fw/iIviEJuJQgaIj6FeTTlHSttyPEl91Hw6sQ3dL6ALNx2MEafYlQvm2a5MLblFyz
-	 U4NissjTyMHR41iDXylTInHfz5b+mKd93VuXMOa35mdDIP5N8kKeoXk3RlE6VE+ZJ4gvH
-	 O1nQ0Mh59fzHbpvamLgD1s3xQxdDtFJZ2HTM8zzrbn2Cz+T8W4Q+yiRJPeb/DTE03v7g/
-	 0YiGKnQl3J/o4zNMQxgnmPUoV0SodVW9IXdncWrEZp3ouUJiFVUngMY/F07Mp+t4Q5B5z
-	 rhF8/evnN19Ga2jSaye/4us6RWrnGPKi8hwLJTHOndF6JhwEbos7IBCFOOoIzVhJQwA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222513;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.132
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793222533;
+	b=y5uk+f2iXB0ecfDKZ4HRTzWvOIF1XxOxGIPFYfAj1hInRRl0/deaBGMRov04AuNzevfy
+	 qg7MPkbdfygMf5pLuv7o0OHjvA0tgcXQDvQp78ATV0u+B0RRpwfm6q+R+m1kwWo3JnDRi
+	 5mjnroD1ddGqjMyh1BbUF6+cYFYuoaj8G5VwC5xatvt3wNSRcsoWlZTAFWJIvhcWhJCdZ
+	 LDc5QyKLCEL88suGDZozR80wkFJEUoxfCEmDKtVppW+mEScUiivyvxYA6/auZJZIoN+RS
+	 cejE6OjVMuRY9qE0Pz2/hbJdOGleARfa1RT3qTVfTPILerfcnykd7smmf0Z0SJE/lxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222533;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=qarja5PXnP73rFVRv7cQGeplA1yMmhkrsY1Jqb9V5Ug=;
-	b=ezu8Y9ZcnoCGCW0wftx59AIkLeHe9JK8jCpxJMrTgZAZjHetMPVz1hKnctrt/fYtiKNv
-	 nbjrWNhmdmYtk1ufe/U0xxsL++myf5gc4Ke4txx3WMATi410KyUw4Epb8wH5oyDeUsobs
-	 p6lv50xBUzSxkdgflcNaE7O4TxUwc81pUG/UdjYsj9BL+K98kiVHyfS7bij5LEEv79Yrg
-	 CBAv51nKX11o2GqVOcaFQK2VqcmPCb2L9S3VYtSljBhuZNBui+58OFaR+S+78xSHkUzVb
-	 WzPrdAW614fINSc8hVxQVPneOfgoN1NJYYpmpyNw+RRQOOtbJDWnUnsaoi3maugEdsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
+	b=0iEEyOBwAFGOe7vx25uB1FZJYBKmekOXi8+Ucf23QwSmahtOEC22HPF+L7kFOA2AN3gm
+	 816HCLEw8p1EVYHsBnhxTaMc+fonYjdBGsHcvHuo4CadrmOlrLGU2BW3j0R1prGK9lHDG
+	 biTHNPnJz+LWtwu3bo9hlkS/UT+IQ1YG9QEEVcTtNBO1uV8PHEIUrbgNz1c+PZvk0HBtW
+	 skI60w4JevCnB0ylbiaGkfhsCpxthkzHuuPQTmviW5JhP4zwJHXt8G/SCTb+vjWYOfGbC
+	 K8dpu+qDcyLsrjvRS2VERSXFLDlmO/c4rSNRoGzac7CGrJgxXSEdQlhjnq8Ygs8qt3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMVnz7L5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hr0QV9XD;
+	arc=none smtp.remote-ip=74.125.229.132
+Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5AA606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE5AA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06C1606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A06C1606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMVnz7L5
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c63449320so15287536d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:21:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793222512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DBm/HI1HSkUtV4Hq1Tw5zsDFlTNoAfD2x/iQyV3RqYiqKtR+Ev2MGlaHwut4YKrhBu
-         Lv5rizqqIgJPRDK38X/udfmY1FInRUvsVgqn0naCxYKl7ckQXK1Uhvv0ucTIqbTLt6/W
-         +rDZRoF9OSI5v/+Y4JRxsGpA6bRArAAqP51nE8zq2BeMrMycrnlfOf2nY5FqPOMLMSoc
-         ozG/BN2TG/nsUWh8xMXtd7yDs7pA/iKUSSXHEuNmcAEomoKeAKgdiP3Q68Ed+SNjgX3k
-         OtzcKsCJRhWZ/FDrxtWYWO9wJZgvbo/AmsFuChoBlYCRHNXup/tpLuQe/YKJ0/s4+yiP
-         hZ1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=qarja5PXnP73rFVRv7cQGeplA1yMmhkrsY1Jqb9V5Ug=;
-        fh=I116VO7ojVFq/QbhT9P7xG+xWljCRTATXb/jX6ubj5g=;
-        b=WDyZMJGRfTVtSIDyjFImNLfYdM29+InplPDLGezl1JzwCnQVT5CCWCKEOCFGV4CYFj
-         Jb32xFNC1Z6v3SYDEvix97vL0AeTslpZ2w9yaRc04DvTbpQhrZY/iJHJ1nX8LV6sb0Xn
-         60WanwBWQFT21lb92vpjY+IFO/v2e3GeF46E2zhueJRLY/Uj+G4ly5Oylk/RrbPdxQcd
-         JEL0LQg0Me2uQIk9cDIuVPBwx6q5Z/2x6obqt6BeGsYrCMjwS0wR01xaH11JYpwMKGZV
-         Nq94TTLeztzBu2yCZxj9GLl2chTxEOWa8njIp97dQf9uog6ROhbQmJyzrMW41DXAa/cU
-         a7PA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hr0QV9XD
+Received: by mail-dl2-f4.google.com with SMTP id a92af1059eb24-1922a6f0d23so303595c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793222512; x=1793827312; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qarja5PXnP73rFVRv7cQGeplA1yMmhkrsY1Jqb9V5Ug=;
-        b=gMVnz7L5ieqJUx2OQeFTamuf2oJLu2mqxfBqwqa8rUOK1RCdR4MO0jhKH2dgQaVc7M
-         tLeKVp7cKr46dhqXP41zMdWqApWe04qAJTvDRREy0satsiRCM9WypgSIMJz2dS4d/lqt
-         VXwzK0tNV0OGsTi0ClKGxAyQ5czqwqUt6QMHn8IUpJDGkAx3A9A/ettXv5XQKOSgfHpp
-         ZM/e9bWihZCv4V9GTO0F/wrX7eUI8bQmUCO65vQjKB8/IiEcIInlEs2IoQzQJdqBF6u1
-         bxXKbYqIhRRl7bqJEv6RaDZyduf2WCjRNJ+8lh4Y5hPgY6nE5Xd4E+wWTae+4nMkSplL
-         ujRw==
+        d=gmail.com; s=20260707; t=1793222532; x=1793827332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
+        b=hr0QV9XD1SS73k8nOo/XPZODLSu9M1wD+obtp/bS8eiJLGS3MqmodtWAxb3X8eVpzX
+         CoEcuZI4AZm4vfAUxoro2OPAVScaXOEE9gmNSIYjTAsAuxydgW8yYvT9x66r0Zni+eCL
+         8xwBV2nTyItvK7oJCwZzgpuvjsE1ntUxa5So1LzhbEchVj0SKzdouo2Khycp3HLwTgBK
+         0dafDTQFWwqgPBwBIHCdZCoRDk/TNYYjdZy1Tuj1CTgIwAQfANz67wIzuL8ErsFhPVgk
+         xnzjqk/vbOaFiGtCYlNaYA5H0le1eoFd+lFw2vKGhQJ3GZWsEp8sMKLMXU0VWP1xVfPP
+         odRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222512; x=1793827312;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qarja5PXnP73rFVRv7cQGeplA1yMmhkrsY1Jqb9V5Ug=;
-        b=e2nmdM81iirqWEMNk/nb+e+r8hbNDQjsaKHu4KQLvimCFjSs7nf3NY9EfBknas+gSp
-         VFG8SAZbv4oq8XO5NNeuSe8BEIHz4dSigHhy1riKVEvMjYsDlP1/3RcXgvfFVmIZ797q
-         XGN6fECWFtZGKwPzXnPKg1/YbLfSlBb5qC7Suo8ZWm1uD8UdEHNM2nWM29lw0mf25K42
-         hQLQdQsMudZUE3xe0qE3/q8wmPVaxgBHAnfZ9Jr2s99j8wkcBIkEsO+cz9sCp/aOWSn+
-         M7IOvbXcdo4eL0lRxcN+d3gST2jLqkebLxqToDkLDCPJN8a9iWCqKWV45YmHjqEP7q2y
-         C/tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjifOUIxG6IrsoHQzKbVK3ziXbDlXis0E8fgzRavqD8NODU4zQ0N+G6efHw5s4szD1NiGg1zo18JAnVmg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPTJVr9cI9IyrcR8NmjwDkKThhjEnu52zet0q7+GPEfFmTyCwv
-	Wxy8g6GidqqHs54BhH8yYrC0KDQN70p4H+wNEPbUiuPxQmgb47dOefoG60ZE5pIWkvzHMjoW2d/
-	vzgqaUoFC7HWzRFBSiDd1EYrp8iBihbNDm9aXGuhcUw==
-X-Gm-Gg: AYBFou39yM/EmHTgGdq6gwLWdFoEQxNKZxg72JD51SoKCwZK5fQqEo+A7JBYSkEVvDW
-	Utm7MkTEkMBEqlP/XEiY+OjPSDn1umTyrRmAklog3z3aBC6SSOMRMqRCn7KU/8qOQarh7dBkzDC
-	bC5157w/77CuEAXcDhcFVJYMmOij6TjjOsLqIUEMAboswfSdT99AFPr7GJkmQc0F6Umgst5cqab
-	mEABbI8KTDhyXeWa4O+08RluIxJakIcop44ct8kG43qk3EG9iXGFSQQH8DW6V6auXtYaHA0oqx8
-	auOHMN4EcCeO7oyJ3krm2137Q8ah88pBkZygA8ZJw7EZRhFXjULmbqXlXBqNgr+fiU49EFdkqpj
-	AAnOd1op7vwojeD8dSo5u75hXCpZXVhOvaj2WIt730g6bHzc=
-X-Received: by 2002:ad4:5c61:0:b0:91c:75df:6512 with SMTP id
- 6a1803df08f44-91c7d1d2830mr61812056d6.45.1793222511553; Wed, 28 Oct 2026
- 14:21:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793222532; x=1793827332;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pDKBmS6WYnfb6Q8TXF/5+aSfNtslksEYbf4eTsPewHM=;
+        b=dmnHngHGW/RWwtzNDVFCyMsztp9POAJ/oqOBmUOKm5zYTuk7sNEeR9jsBPca/N6b21
+         qwCiFofR7giLxrLMDVkGzJynU3HHJBUBAoSkmMBhyxbL23qNNzt7dvoKgmuYOvxsplkb
+         HtMMDuoIQvuh7uzYgA322AunVuaWM8FtpYLa8eKAjYUk4mcYx5fbhl6+OiB2hp/1hdrx
+         8H8XTMs4dRz/AV2J0B4cHDRNbSG4d0v3Rw5LCfVEaWwtf5mWu9upEtsoUoIp2LMSHull
+         IR3TivW3qbtfuL7W52Yr2FlsGfFVv1R3sx5U65qnguqE6ZMPaxIliJuWYlAJqWah6yKl
+         BTGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlBSZGjY6IvI+HqVgsdMfZf7Bxqkle2yllItBkINzbu1cm4EqhMNJz9bk+qan3LQcvWbc1HpsHysORm9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwNjGRv5aTFLUtM9/jBqNetLY2ew6hNijJ/+WC8Sv5/Vv1EYHn
+	N93nz3J609AzvEIpoYFbLZskYd8D6oIjLXL7pAt8bufujY0emsF6CKvJIDqG8Ipe
+X-Gm-Gg: AYBFou3KwTi3y8xnFGXezRUcIipbNeE3GczUyP/W49R5Sr1OcGxhTjplpaS8W2Q8Ni7
+	t/9rX+EqQQYXVAp90x4RarC5EBLZ0yey5NVC6UwCD/uh9UAZWE6gw+UQi4UOP/xQYUzNKxQjO5J
+	rbEj8tkTUFddAA1uqFQSQfYMrngyKUTRM4N8jms014iCr2+6vfisBje5VkWcZeaZY6AaMfnwK97
+	Hps64O9U3bV9l6xhKkPYkdNV7V0AV9LJqvWxp06V5lABDaCnBulYSwP0DrmYBY8oKezhOyDDWkS
+	02RM3RSbUklL4eaUmLqePow+xpsA6h79e8lpnMz8uQIAjUEqgmjs8b7GWA9H2VznBUEK14dM91i
+	NcMtOGa4RK6YK0FYlwydmGJKENuNp31Otdi00/ub2ZNA3TpNV1xG1kVMYr4+Ab7oTWhIeu2PctS
+	/AADp6qBAL+N+aw0LAoiX6IWlhED4kptzv4mPDc0wpwsxkxp3HuLGTjQLOf2D78bRKeNVdft1Vj
+	4Ga4+TOCD9wBihKoUYj2wqjVo85wLDkY/dSCFul89iOZSN6X3LLRCJzY3oy496TlftUqBMEUEZo
+	YyOhC0gcelLSy0MTzvuPpGuLB9WCoWRjX018LcIIdgt2TxzDFNp4vod1
+X-Received: by 2002:a05:7022:5f0b:b0:14a:a6dc:9ca6 with SMTP id a92af1059eb24-1a6c7c35fdamr4297952c88.3.1793222531698;
+        Wed, 28 Oct 2026 14:22:11 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm7147776c88.3.2026.10.28.14.22.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 14:22:09 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: hirofumi@mail.parknet.co.jp
+Cc: brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] fat: fix parent link count when replacing a sibling directory
+Date: Wed, 28 Oct 2026 21:16:25 +0000
+Message-ID: <20261028211626.26103-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,101 +96,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Mahir Faisal <mahirfaisalantiq33@gmail.com>
-Date: Thu, 29 Oct 2026 03:21:40 +0600
-X-Gm-Features: AclHuK-SBa0LZAObr8ICal18-r-5HSSQlJ2zHc2E4EIOPab0xbGreYw338udJMw
-Message-ID: <CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@mail.gmail.com>
-Subject: lenovo-ymc: Yoga 7 14IRL8 keyboard backlight stays on in tablet mode;
- EC expects VPC 0x2A with posture data
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Rong Zhang <i@rong.moe>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+vfat_rename() and do_msdos_rename() adjust parent link counts only when
+updating the dotdot entry for a move between different parents. Replacing
+an existing empty directory in the same parent also removes a
+subdirectory, but leaves the parent's link count unchanged.
 
-On a Lenovo Yoga 7 14IRL8 the keyboard backlight stays on when the
-laptop is folded into tablet/tent/stand mode under Linux, while on
-Windows it turns off. I traced the difference to a VPC command that
-the Windows YMC service sends on every posture change and that Linux
-does not send. Details below; I'd appreciate your view on whether
-lenovo-ymc/ideapad-laptop should send it.
+For example, renaming one of two sibling directories over the other
+leaves the parent with four links instead of three. stat and ls report
+the stale count, and find -links 3 does not match the parent.
 
-System
-------
-  Model:  Lenovo Yoga 7 14IRL8 (DMI product name: 82YL)
-  BIOS:   LHCN30WW (latest)
-  Kernel: 7.2.11-300.fc45.x86_64 (Fedora)
+Drop the parent's link count for this case after the source entry has
+been removed successfully. Leave cross-parent renames, regular files
+and the existing error paths unchanged.
 
-Symptom
--------
-When folded, the EC disables the keyboard (no input reaches a VT) and
-SW_TABLET_MODE is reported correctly by lenovo-ymc. The keyboard
-backlight, however, stays at its previous level. Writes through
-KBLC (via the ideapad-laptop kbd_backlight LED / UPower) are stored in
-the EC (KBLS reads back the new value) but are not applied while
-folded, so there is no way to turn the backlight off without
-unfolding.
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/fat/namei_msdos.c | 2 ++
+ fs/fat/namei_vfat.c  | 2 ++
+ 2 files changed, 4 insertions(+)
 
-The BIOS changelog suggests this is meant to be EC-driven. LHCN10WW,
-"EC Notification":
-  "Fix the issue of keyboard backlight is on when turn on in notebook
-   mode and change NoteBook mode to Yoga mode."
+diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+index c7500c2859e0..570dd75dd275 100644
+--- a/fs/fat/namei_msdos.c
++++ b/fs/fat/namei_msdos.c
+@@ -565,6 +565,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+ 		(void)sync_inode_metadata(old_dir, 1);
+ 
+ 	if (new_inode) {
++		if (is_dir && old_dir == new_dir)
++			drop_nlink(old_dir);
+ 		drop_nlink(new_inode);
+ 		if (is_dir)
+ 			drop_nlink(new_inode);
+diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+index ff7652bf0410..d7e2df5bf7e5 100644
+--- a/fs/fat/namei_vfat.c
++++ b/fs/fat/namei_vfat.c
+@@ -1011,6 +1011,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 	vfat_update_dir_metadata(old_dir, &ts);
+ 
+ 	if (new_inode) {
++		if (is_dir && old_dir == new_dir)
++			drop_nlink(old_dir);
+ 		drop_nlink(new_inode);
+ 		if (is_dir)
+ 			drop_nlink(new_inode);
+-- 
+2.43.0
 
-The DSDT contains no tablet-mode handling in KBLC, and _Q1B only does
-Notify (WMIY, 0xD0). WMIY.WMAB just returns PCMD.
-
-What Windows does
------------------
-The "Lenovo Yoga Mode Control" package (YMC.exe 3.0.1.5, bound to
-ACPI\YMC2017) sends IOCTL 0x831020C0 to \\.\EnergyDrv with a 12-byte
-buffer {0x0C, 1, X}. EnergyDrv is AcpiVpc.sys from "Lenovo Energy
-Management". Its handler for that IOCTL maps function 0x0C to VPC
-command 0x2A (VPCCMD_W_YMC) and issues it through VPCW with X as the
-data byte, using the same VDAT/VCMD sequence as write_ec_cmd().
-
-Values of X observed in YMC.exe:
-  0x0A  service start
-  0x08  posture != laptop (tent/stand/tablet)
-  0x09  posture == laptop
-  0x0B  service stop
-
-Current Linux behaviour
------------------------
-ideapad_laptop_trigger_ec() sends VPCCMD_W_YMC with data 1, and only
-for models in ymc_ec_trigger_quirk_dmi_table. Booting with
-ideapad_laptop.ymc_ec_trigger=1 on this machine has no effect on the
-backlight.
-
-Test
-----
-Using acpi_call against \_SB.PC00.LPCB.H_EC.VPC0, with VPCW 0 <data>
-followed by VPCW 1 0x2a, then polling VPCR 1 until 0:
-
-  data 0x0A, then fold      -> no change, backlight stays on
-  fold, then data 0x08      -> EC turns the keyboard backlight off
-  unfold, then data 0x09    -> keyboard and backlight work normally
-
-I'm currently running a small userspace daemon that sends 0x0A at
-start, then 0x08/0x09 on each SW_TABLET_MODE change. It has worked
-reliably so far.
-
-Suggestion
-----------
-On a YMC event, send VPCCMD_W_YMC with 0x08 when the reported posture
-is anything other than laptop and 0x09 for laptop, instead of 1. This
-might also be worth doing outside the quirk table, since it matches
-what the Windows driver does on every model it supports. I can't tell
-whether data 1 is still needed on the models already in the quirk
-table (Yoga 7 14ARB7 / 14ACN6) for event re-arming, so someone with
-that hardware would need to check.
-
-I can provide an acpidump, the disassembly excerpts, or test patches
-on this machine.
-
-Disclosure: AI assistance was used to troubleshoot the issue and draft
-this email.
-
-Thanks,
-Mahir
