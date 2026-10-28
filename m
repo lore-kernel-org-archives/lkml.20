@@ -1,69 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203131;
-	b=PBzcEnMMPn0HbMzoFVD+pzdSJTgox9FjF4IBoue/mNP8EnyLOw1mk/tBWeU0Y3e6zIoA
-	 hDLlhPTURN+OzxJb47w2ZbxkX/dG1c8liBO5LZB+ei1wxln/SerKtlVb+0IYagKrWBD6N
-	 T/O1RJKwge95XXm8h9PrADzXQT/ll3MPRQ+JwE8kKysKx1zHDfmkRJi7Vy+YVFAYBFcny
-	 0ZzJDwoSBYqXCwDZkCL79uB5jjwQNdDliza1inNdWHZqwlUm2IWey33J6d4wKQFOzV7ok
-	 LxzOjXvTMF8N+SGtoYLUeviYcLEbxdbimY8P93jyu0ncu8Ml4+V0KhVUs0YVn0rPhCQ==
+	t=1793203142;
+	b=rgawM0GL2kU0SmO5umGOnIfEmIL12N/T2mExWxUue+9jqd8T8ZzgaFxYZtRYwiUzB4Gt
+	 Sq+nAqEPRueE63ZdH/MGqIvyDpM2qE8B0yMKOk7DVuPV8wPEk3zKxMtcnujceBK/q5v8d
+	 CvchCzyvN4D7VpVErCXwdycsEmh0xR3cm/zzA8uMcoC9zlzlrPu0JPPto21TSCj9bRgr3
+	 r9whK8+biZL4uRl7Ip2ZLKnd7B2pMEFkkC1WPR5Zw8/NymAzwnxRHUZNIW4Jv8JDoukL9
+	 Vb4gjytBnd5/suir6IXp4ypO1IrvxJT7gC7z0xrf7TSyKMUtP5pykwFEaJQVZ3DBMqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203131;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=KaGhgSwdPewaNyyalbhvVyRytdZ/XV116s7GiJ25PBY=;
-	b=0JpuKUpnKkLbKwkd3OlTj7oYeBm14cB7eDixNht0IrIUuBTX1gxxDPw7ZAqqpvzzqaCv
-	 r4IX75jEvDeAr4zmEw24K4sLAANe3XStkM2IPWn1ueZ2lnwtR8ssKfsOeydfhR348hj0N
-	 EufJPiXZxEJKf0Io/Vn36ZRFZ6eAe3Y5ldSkYLbzVsBa5S/KpgsVrBpdPupwTDqjQe+qr
-	 LPh/4XhMMvniF/YUXX1n3vvv2M8a5wtnoGBQofFnN85OBb6XzlTnVy7TdjHjjaVz4s5MH
-	 hXyKacdE5HIUr4LllrxXFGqrIevku2kvlOm7b8qBsf0V6i8fUovURxgB9Q4GnA6uvzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203142;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=YWgUeaJf2DWMtO5OtY26DD5OBKRMrb2ceBSKZznY9xE=;
+	b=x8hMsAyzLLw6aYRZ8c00JEJYtckl/7pEGMqXs4KOX//sBYQQZiHKNgiICAFgdhFMiZoI
+	 Kz5MLS1o/j3C3gjLLMft1AsKK3whhSJSB7OdDlCMdZCUhmvP/5TASJYohQXx7gH/NhdNo
+	 O/lNXAZTQvFLgbrnrct9OdeqdwWq5fwZZ7fanONtfQ9a5Xq6fGxyUp75C1Ir8HkyCFCR8
+	 kELSq7vxTXaS1B97HZ/eYp6GSzW7iGEfVzhhro48Ut43N0UftiL3ZPwrW/6x41ievXZhK
+	 3jttlViv4I5HdHrBO8bjlscztiOcwtTtR5eEPxvF2Ze78Q2JPhz6kxFauAkJ5Wc70Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEMpD7ND;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Zht6+AaE;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3290606A31C;
-	Wed, 28 Oct 2026 15:58:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F33A606A31A;
+	Wed, 28 Oct 2026 15:58:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F33A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEMpD7ND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10BFD1F01829;
-	Wed, 28 Oct 2026 15:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793203130;
-	bh=KaGhgSwdPewaNyyalbhvVyRytdZ/XV116s7GiJ25PBY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NEMpD7NDcOeDg9hzGOPnRl+r1niBLIFDT/DjEKwwaniyFSVPAABrBHPbJv1gdTZ8M
-	 OsW9WMoqFBWpwIyff+FsoFuy054ytujvh60x9IH0B+L9RI4emy/7PGukkD5whnQ9i+
-	 64XPhQzcp+Ee6Av1JPNQKqJsAefBUMGaHhNqGpFo5JxQ8AJq9YD5mq6XGJmx1Fk+d5
-	 eNqx9K/Xfcc/M7ktJ//3C0gpB6z+e1InXfFIPD0O5ZfEPKZ6Rzn7vNdsBOnztLezg/
-	 dpN+WU99gp+MynU9j88tn5hKgUx7JPkAT7bPY7lvTpfjLnLat4R427gcmJ8f0H6f3K
-	 fERqz8DA0AqZQ==
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Zht6+AaE
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 38CBFC4FED4;
+	Wed, 28 Oct 2026 15:59:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E23460769;
+	Wed, 28 Oct 2026 15:58:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61D961032900F;
+	Wed, 28 Oct 2026 16:58:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793203136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=YWgUeaJf2DWMtO5OtY26DD5OBKRMrb2ceBSKZznY9xE=;
+	b=Zht6+AaER41P+Lha/RQ/9DJXbsWHeq/QU5VFVtJMx+aB6DD2N3gOMRfQylUcsQf56bNEz+
+	/kGU72iv9w51JO/ZVWQnj5zzu/KFHUI/j8u5elvtcO9A16JYZT3qIy1LK1DM1pVUnkRQO9
+	4pR4tAh97HCyCes68zeInNj/FC14llaIEQzisSDV/yVVkzce7P1QNdNXaE+NlcFwzGCqdR
+	rIo9u2eEs8+2UnJyWg70WYFc7eEwiYTAbNkysVPCOwp9qDSPL5pr9v2geGQjXUKw5LYToC
+	Sj1+MyIdz9GAdC017kOBfigdc0c4MMPEPXKXaseuwvg4SCsXH4hTl2cVfQsVlw==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+Subject: [PATCH 0/4] irqchip: add EyeQ5 PCIe MSI controller
 Date: Wed, 28 Oct 2026 16:58:47 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/2] tick/nohz: Add a policy dependency for full
- dynticks
-Message-ID: <auIbt5JAC2cHw5jr@localhost.localdomain>
-References: <cover.1792242566.git.peng_wang@linux.alibaba.com>
- <58bc33cb018a2651e9cc3fc02baad7de4d543705.1792242566.git.peng_wang@linux.alibaba.com>
- <att2hiYaaHTIkzG9@localhost.localdomain>
- <atuMJiJEwbzGjiu4@MacBook-Pro.local>
+Message-Id: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,100 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <atuMJiJEwbzGjiu4@MacBook-Pro.local>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyML3dTK1ELT+NziTF0Ls8REwxRTSwMzCxMloPqCotS0zAqwWdGxEH5
+ xaVJWanIJyACl2loAfC1UJ20AAAA=
+X-Change-ID: 20261028-eyeq5_msi-86aa1d590684
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Le Sat, Oct 24, 2026 at 12:32:38AM +0800, Peng Wang a écrit :
-> On Fri, Oct 23, 2026 at 05:00:22PM +0200, Frederic Weisbecker wrote:
-> > Le Sat, Oct 17, 2026 at 09:13:41PM +0800, Peng Wang a 殂rit :
-> > > Cloud hosts may pin vCPU threads one-to-one to host CPUs. At full
-> > > allocation this includes the housekeeping CPUs, which always retain
-> > > their non-idle tick. Operators want comparable performance for otherwise
-> > > equivalent vCPUs. Retaining the non-idle tick on nohz_full CPUs as well
-> > > avoids one placement-dependent difference in host tick interference.
-> > > With spare capacity, selected CPUs may stop the tick to reduce host
-> > > scheduler-tick interference with vCPUs.
-> > > 
-> > > Allocation changes as VMs are created or destroyed while other VMs
-> > > remain running. A vCPU thread may be the only runnable task in either
-> > > state, so existing tick dependencies do not express this policy.
-> > 
-> > I'm not sure I understand correctly what you are trying to solve.
-> > Are you saying that you want to keep the tick running when there
-> > is more than one vCPU per CPU? Because the scheduler already takes
-> > care of that.
-> 
-> Hi Frederic,
-> 
-> No. We pin vCPU threads one-to-one to host CPUs, without
-> oversubscription. By "full allocation" I meant that all allocatable
-> host CPUs are in use, including CPUs outside the nohz_full set.
-> 
-> For example, on an eight-CPU host booted with isolcpus=nohz,1-7,
-> CPU0 is outside the nohz_full set:
-> 
-> - With eight pinned vCPUs, CPU0 retains its non-idle tick while
->   CPUs1-7 may stop theirs. Retaining the tick on CPUs1-7 too avoids
->   this placement-dependent difference in tick interference between
->   otherwise equivalent vCPUs.
-> 
-> - With seven or fewer pinned vCPUs, we can leave CPU0 without a
->   vCPU and keep them on CPUs1-7. We can then allow tick suppression
->   on CPUs1-7, subject to the existing dependencies. This gives
->   these vCPUs a common tick policy while reducing host tick
->   interference.
-> 
-> If the vCPU on CPU0 is released while the other seven remain
-> running, we allow CPUs1-7 to suppress their ticks. If a new vCPU
-> is later assigned to CPU0, we retain the ticks on CPUs1-7 again
-> to avoid the difference in tick interference.
-> 
-> Throughout these transitions, CPU1 can still have its original
-> pinned vCPU thread as its only runnable task. Its runnable task
-> count does not change merely because CPU0 gains or loses a vCPU,
-> so the scheduler's existing tick dependency cannot express this
-> allocation policy.
+Hello,
 
-Ok now I understand what you want to do, I just don't understand why.
-Why it matters to turn off nohz_full on all CPUs when vCPUs run on housekeeping?
+This series adds support for the MSI controller present in the
+Mobileye EyeQ5 PCIe ports.
 
-> > > Add a per-CPU POLICY dependency within the boot-time nohz_full set.
-> > > Permission defaults to enabled. The policy can be changed without
-> > > taking CPUs offline. Revoking permission uses the existing asynchronous
-> > > kick; granting it leaves all other dependencies effective. Preserve
-> > > POLICY across CPU hotplug and report it in tick_stop tracing.
-> > > 
-> > > Idle tick suppression, nohz_full membership, context tracking, RCU
-> > > offloading and housekeeping configuration are unchanged.
-> > 
-> > This still keeps the overhead of nohz_full even if the tick stays on, right?
-> > (RCU nocb, kernel <-> user overhead, etc...). Isn't it a problem for you?
-> 
-> Yes. Our setup uses only the nohz flag of isolcpus, without
-> additional housekeeping affinity tuning. Context tracking and
-> RCU callback offloading remain enabled when the tick is kept
-> running.
-> 
-> We have observed a performance benefit from this nohz_full setup
-> with our database workload running on pinned vCPUs.
+Although the driver uses the standard MSI library, the EyeQ5 hardware
+has several specific features. First, each PCIe port has its own MSI
+controller, which snoops the MSI write TLPs that the port receives. A
+port supports a maximum of 4 MSI vectors, and the memory-region
+property gives the base address of the doorbell window. In addition,
+the GCSR mode selects the role: in root complex mode the driver
+registers a PCI MSI parent, while in endpoint mode it registers a
+platform MSI parent. The last specific point is that the driver uses
+the snooper domain as a chained controller on one GIC interrupt.
 
-Do you mean that your database runs better when hosts CPUs are in nohz_full?
-But how does this new interface help? Ie: why is it worse to have all CPUs in
-nohz_full except the housekeeping rather than shutting down nohz_full
-altogether?
+The series adds the binding document, the irqchip driver, the EyeQ5
+DTS changes, and the MAINTAINERS entry. In particular, the DTS changes
+add the two MSI controllers to the EyeQ5 SoC.
 
-Or to put it another way: why is it better to have either:
+I tested the series with two EyeQ5 SoCs connected by a PCIe link, with
+one SoC acting as the host and the other as the endpoint. The
+pci_endpoint_test kselftest passed the MSIX_TEST, MSI_TEST, and
+DOORBELL_TEST cases.
 
-- all vCPUs on nohz_full host CPUs
-or
-- all vCPUs on ticking CPUs
+Grégory
 
-And why does it hurt to have a single vCPU running on a ticking CPU.
+Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+---
+Gregory CLEMENT (4):
+      dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
+      irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI controller driver
+      MIPS: dts: eyeq5: add MSI controllers
+      MAINTAINERS: add EyeQ5 MSI controller entry
 
-Thanks.
+ .../interrupt-controller/mobileye,eyeq5-msi.yaml   | 120 ++++++
+ MAINTAINERS                                        |   2 +
+ arch/mips/Kconfig                                  |   1 +
+ arch/mips/boot/dts/mobileye/eyeq5.dtsi             |  30 ++
+ drivers/irqchip/Kconfig                            |   5 +
+ drivers/irqchip/Makefile                           |   1 +
+ drivers/irqchip/irq-eyeq5-msi.c                    | 474 +++++++++++++++++++++
+ 7 files changed, 633 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261028-eyeq5_msi-86aa1d590684
 
--- 
-Frederic Weisbecker
-SUSE Labs
+Best regards,
+--  
+Grégory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
