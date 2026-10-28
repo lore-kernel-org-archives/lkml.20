@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190269;
-	b=aDNN63YTMnAXyehCn+euPHezCnpeIr8tSscS6Qf9ZAktlmvVOyRacxrKfUZiJt/OThHN
-	 D7EjMPhcBxO9PDv2jeaYUB1kUwe1QJoZElMbfonPXgt08jDxxPxtIs/Iq5VvI16u6+Sof
-	 SSzqwB1lEY9792+musEFvElLgtp7xNhcY8JI5KYjUgmWL+iCthN7gOk+O3hCr/qRUt+Xa
-	 hu/1Hlx1p+iT9LkCfMY4BsX8h1D9NvrHsC2MT3sSD/pBDrBRt3hWclwPM5vTpS61PUr3F
-	 YLrLb6A0WXp8mo03sdwwds8DfDrNuYylGLseInMy2us65o6+T+bilBUqEFt8vqs3g2g==
+	t=1793190281;
+	b=sCzyAQDHgs3Oo5fFT8qz6Vl9rJJjAXteboX22NOC8Me/8kBecZpjuEbk+0685o176+Xo
+	 QPl3PsOdEGANRsboBkTZ7zHz4KxFOvXqHesLtkgly2EoWyH9natjUj2Fx26lf7zdCD9Zc
+	 KwAzAwOUyMQwAiLnmKl7zjODHkJZSimaS4ZZ0PlM4ihUiDFhVubzNimnnRaBAs86L4/n4
+	 /VO+UzGoEoyef9JSFu9sDH/Blv8NoZQPBxfehr48I1TM7G66rS+fkYiR64Z8FQSFEXTXF
+	 jmgnVo25cgW4n59qydRdNQlqy+PTuZBuDUXWqXEak+vKW9iMVAn8GrzD5YU/tBZABzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190269;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VkwsenjxlICO21oX9qWYCdyTytlg9Dgl3JAZ7Fjkr0A=;
-	b=BGp6T2gYarRAfIopo1VH0MV2Sc79Mk/IAaBhsQxnbJGfWPYDE9a6hl1u0pn13/TNcg1O
-	 lqw1EKF72W6a1BzPGVVcfkOz4WIA9zN1w3ZUZAT1TUkIkCrAwx4qat3Dp41e9/fAqHQZX
-	 Nox4YBEiZ7b44hZ7hJsgWlbrywoaP0f4ph1IN19tPeD0PFdQRL1MzilEsKhZVxpuj056B
-	 VlofzA60aCqfnQ1Htib45Fh+Vw2V6drQEUyquzRAje3706WacnLtx6ZsNCwDFfv+poim8
-	 Pf2p5G96DqnepOtm/XkmkKvKB1w95ZRspZ+L1+0uHAKO6be6c9GlL7kpof9IFea+Nzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190281;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ibet2l01uL0sQicQdCocbPY75uZsHOIF+psw9/xynio=;
+	b=w4EK/bGDj6bhpfWzV38J1n1LY7YUFk18qISUphjU6VUb2O5PTokmuo75biLwgyE/6nK9
+	 FO1HVWbInbjKCH1I6AfAdC8nYiEjKm82aa3UwuKKAEnRKkgQXz03hungAz+0DtgNQUCra
+	 pu1/4ZfJ8+/7E3dZOBCDd2PU70yPra7iZ3ZxIVSTa/gf9Dn8WlGk+qTf5BaNmrVvej6cv
+	 +zanAFhlUhLTbEJ+d4Rk39HQ6NrIxSXpi+9KTPzvXVCHWyQtUyKO+7j3PFzKcv/zZ95xK
+	 KTh0LYgOSuNZtQh0N5oBQACLAXS2CTb4ZeaFteAKGYTPwbTfbkAk+JlCcnPRuK/5tbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VqD55CmN;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bAZgREak;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82C560A2602;
-	Wed, 28 Oct 2026 12:24:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A82C560A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491F0606A31A;
+	Wed, 28 Oct 2026 12:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VqD55CmN
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBiKoq1346117;
-	Wed, 28 Oct 2026 12:24:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Vkwsen
-	jxlICO21oX9qWYCdyTytlg9Dgl3JAZ7Fjkr0A=; b=VqD55CmNZhEUkFsrDnbPdo
-	8UAEjI7NbhOJpC7y0GcPygnXVjOpA/SgQ2rK4xb4Z4v9hjdKUWWEPEoCGNRoQoEl
-	7PgIOC+Gh60Y4iCM2ds7kBAsSc5loUcGFSZ4i5UeYg6NVP7PqpVgRxZpoFAAmXC9
-	G5hGTWtoDkrpddfaIQUwfDbNVihKdBpAHGlM0KfSgcuUv3P4gawjIpJF3DHQwv8C
-	nTjkfytbCe2w8ZnyN6fjsYn8hwmF0f+Y7d8y2pTh/E8KyFd2XkFrLQy9uy/AB9oT
-	Id8yi/oaCbnFIVmr+PCRTDgjmqL2CzXdMIALkYanu8SkIxzIol3+qGR/Zx/jt3/A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm644md2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:24:27 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBnwMq1501920;
-	Wed, 28 Oct 2026 12:24:27 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7w4d4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:24:27 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SCONMJ53412186
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 12:24:23 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7CBE520043;
-	Wed, 28 Oct 2026 12:24:23 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 434FB20040;
-	Wed, 28 Oct 2026 12:24:23 +0000 (GMT)
-Received: from [0.0.0.0] (unknown [9.111.73.9])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 12:24:23 +0000 (GMT)
-Message-ID: <044018d6-3348-4e44-841a-7eecca8a6b66@linux.ibm.com>
-Date: Wed, 28 Oct 2026 13:24:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bAZgREak
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1542D1F01825;
+	Wed, 28 Oct 2026 12:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793190280;
+	bh=Ibet2l01uL0sQicQdCocbPY75uZsHOIF+psw9/xynio=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bAZgREakVNGDMGcWK3OmAo3sl1hOc83HbRKPh43NKg9qSIyiV4YxIrtEQGMuFbOBO
+	 8M2zB/rURAySlyxcZm83t9OKx7skQD+7TUP5oF6jge6Fv1/J3rKCmLsrOwTBuuJ0eZ
+	 snab6WFgeImiOR6PlhXM4oT7xitIkpI9B6Xal0zodVzKxuWUsU6UMEMkyQY11t5Wyt
+	 rj7B+JdG2nuDkQIhFQO51D/M9uoTg3x7p+33iRhT5YEEex7nb63mGvS2RLMn1fhhQo
+	 XZxjcZyuJwgwwDGWMqnGaU43bZwQic+jeV3XdmUIsMDBPAHBRy3HBq8iePO3WNEfTJ
+	 4XpkKliuUUK1A==
+Date: Wed, 28 Oct 2026 13:24:37 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Moteen Shah <m-shah@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, nm@ti.com, 
+	ssantosh@kernel.org, u-kumar1@ti.com, gehariprasath@ti.com, vigneshr@ti.com, 
+	afd@ti.com, a-limaye@ti.com, y-abhilashchandra@ti.com, johan@kernel.org, 
+	kees@kernel.org, jm@ti.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: soc: ti: Document the
+ ti,tda54-mcu-scm-conf binding
+Message-ID: <20261028-inventive-screeching-bettong-9f4240@quoll>
+References: <20261027083700.1964371-1-m-shah@ti.com>
+ <20261027083700.1964371-2-m-shah@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,62 +61,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/10] s390/nospec-branch: Serialize text patching with
- text_mutex
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20261027143030.3154657-1-hca@linux.ibm.com>
- <20261027143030.3154657-8-hca@linux.ibm.com>
-Content-Language: en-US
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-In-Reply-To: <20261027143030.3154657-8-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX3P0rNuW378PH
- 1xtwBfQYPVKkc4MZTokgRnYtjXdug7r6Ki9D9qO7TxisSMMs76qjoMAktCbhs87t29WO8NhhUuB
- SeY1SPFVYsSPYdHNwF2wroOMZhC3Q7s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfXywYMWRYPrOIr
- brQpOfqVv3+TNxP2pjztnIYjJmJCKjabQMHWp1DyntFnnFkM4RGHcGZAzGDVABBo5EaQh5bFsZP
- NrzY6KramC0yeovR1qK+qiJuthvZ3y1JVUO2QnvIaN6uuvACkRRRD4x6yoFDZy9SKQrafrD3qyo
- V9FCrisSMWg28jzkqY2JqX1uPKLbKyaOdQnuxV/X0n/69Btg3k6jXePVEqbyF9Nl4f2omL/UexC
- 5J8Gh95r5YZtk9F3VqypGMq+kiVAiFjSeys69/0DHtSb8oVBI3QZv/MSss3pyeAzDZO4KrDYEAr
- EJiZGWDKPt2g8uvDH2OnM/cuianHg1rVSJzP4FQPPtKGI0DDzOYYxi452L0mcm0RhyJTuG2x06p
- j7cvwmXR5oRStAT3pnTXudmy5nnBDcTrdDHVRZPAaWjocBxAYSnVGZE5GIlDz49yxAGybRxYfQr
- SlmWXsZdTNbds+vunbw==
-X-Proofpoint-ORIG-GUID: hXjVeIlDBR8nsDYsbBD9GThvKFxfXtFR
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae1e97b cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=Wg7rNa81uObU55Q5iCsA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-GUID: hXjVeIlDBR8nsDYsbBD9GThvKFxfXtFR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280048
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027083700.1964371-2-m-shah@ti.com>
 
-
-
-On 10/27/26 15:30, Heiko Carstens wrote:
-> Acquire text_mutex inside __nospec_revert() around the patching loop.
+On Tue, Oct 27, 2026 at 02:06:58PM +0530, Moteen Shah wrote:
+> TDA54's MCU domain exposes a shared scm_conf syscon region that other
+> peripherals, including chipid, access into rather than owning a
+> dedicated register window. Rather than a bare fallback entry in the
+> generic syscon compatible list, give it a dedicated binding
+> describing the region and the proxy/claim/lock arbitration scheme
+> that gates write access to a subset of its registers.
 > 
-> Serialization is not required for __nospec_revert(), however this is
-> part of larger series where at the end s390_kernel_write() requires
-> that callers hold text_mutex.
+
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+> Some of the claimable registers are gate clock controls, so also
+> document the required "#clock-cells" property that lets the node be
+> referenced directly as a clock provider for those gates. The clock
+> specifier selects the ePWM time-base gate by instance number.
 > 
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> Co-developed-by: Aniket Limaye <a-limaye@ti.com>
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> Signed-off-by: Moteen Shah <m-shah@ti.com>
 > ---
->   arch/s390/kernel/nospec-branch.c | 2 ++
->   1 file changed, 2 insertions(+)
+>  .../soc/ti/ti,tda54-mcu-scm-conf.yaml         | 78 +++++++++++++++++++
+>  1 file changed, 78 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+> new file mode 100644
+> index 0000000000000..111cbb739b5f1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/ti/ti,tda54-mcu-scm-conf.yaml
+> @@ -0,0 +1,78 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/ti/ti,tda54-mcu-scm-conf.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments TDA54 SoC MCU Domain System Control Module Configuration registers
+> +
+> +maintainers:
+> +  - Aniket Limaye <a-limaye@ti.com>
+> +  - Moteen Shah <m-shah@ti.com>
+> +
+> +description: |
+> +  The TDA54 SoC's MCU domain exposes a System Control Module configuration
+> +  register region (scm_conf) containing miscellaneous control and status
+> +  registers for MCU domain peripherals, including the JTAGID/device
+> +  identification registers, boot configuration and status registers, and
+> +  device feature registers.
+> +
+> +  A subset of these registers is write-protected by a proxy/claim scheme:
+> +  each register is mirrored across 8 proxy regions, and a host must unlock
+> +  via LOCK_KICK. Any proxy other than proxy-0 must also claim a register
+> +  through its CLAIM register before writing through that proxy. Proxy-0 is
+> +  the default access proxy: its claim bits are tied low, so it needs no
+> +  claim and can write any register that is not claimed by another proxy.
+> +  For example: Proxy0's CLAIM0 register sits at offset 0x3100, while the
+> +  same register mirrored at ProxyN sits at N * 0x4000 + 0x3100.
+> +
+> +  Each of the 8 proxy regions also has its own fault status and
+> +  interrupt registers, but a fault can only be handled through proxy-0.
+> +  Hence, interrupt/fault handling is not described by this binding.
+> +
+> +  Some of the claimable registers are gate clock controls (e.g. the
+> +  ehrpwm_tbclk gates). This node is the clock provider for those gates;
+> +  writes to them are still routed through the proxy claim scheme described
+> +  above.
+> +
+> +properties:
+> +  compatible:
+> +    const: ti,tda54-mcu-scm-conf
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  ti,proxy-id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 7
+> +    description:
+> +      Proxy region (0-7) through which this node's clients access
+> +      claimable registers and their fault status registers.
 
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+I don't get the need of this property. You have a one, specific device, so
+why the proxy id would vary per board?
+
+It also looks like re-implementing access controllers.
+
+Best regards,
+Krzysztof
 
