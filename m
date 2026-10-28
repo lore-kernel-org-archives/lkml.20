@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179284;
-	b=WpncNzA7el7pEx3gLKyvpvLpyBCflW6ILus9SwmsEUpV5QYu83yOlmx6wdT5E+3qvVEP
-	 A7mXY3hpKWdRJFVFh2v+/uA8yEun1kwSO4Gm5xniQlYSfmzqQRv6kuL3vC0V7tCYBD6s1
-	 d5woW61mOyOMiGZ9ZAG8arMJgvgA/S0cj8p0JAQb9scNAgvn30gJqz2r6pMVvqQcJvCZg
-	 1nsn07wcaxtLabQ7LCZO0IDbp84hY0LJxJw9UIg9bO74iMiXGqLI7GujXzJ3g5xUQs3gJ
-	 as5mHC7M8LykeEQOpRYLcUjZTzIf1CJRKSDxb/Qo5B/mCBiznQzSDp+hD8HOI9xdR2Q==
+	t=1793179288;
+	b=iv33dS9UOEo8NPu32mzT5or2kDrdDNBX9XS5fDhDSQE2EWy19YjnsZ+5zAeq3jChfQZy
+	 kdGQ29U6AdR8t5jd509mkAVsM3yKzV1YU/Sgw0T+2gYgK2i6hobqiW+irZtPFzEqTAhRB
+	 AD6Z0aPT5Q5Ky/5VdwU4y8FI3Kf/ldOlSYbOixZXP/7fqWHkYGLi0icXRrYKgdgXIsuXp
+	 Mef+X3nvg5vQblyFLkqtTgweZCE6VBkvH8H/0owA5fBfUfvMKcchQ+YuK/GivslTOKJNi
+	 iSFZdGn5scBwUt6IOR6FTATZOqxOm9woaE3IkltAujGZzx/6ZRxPzFdqcl2+WOnCQtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179288;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=pWHDga10kmW0MDLVIkUsOtMHzTyMjmDGEDdz+Zojs0I=;
-	b=i5dJau96R6Tt540nxsb2zR2E0Yu1e50kroK6z46T56fTqX+sfJqa/5HnnIFnoug+1jCv
-	 PSyLJHijKI5hneubtm+iLzd29FftZSgZDnBMa9Qqpg7j7oA/1uFN8cp+X09Kpr7/LP8gD
-	 dO2VTBgTBpzjdkhKjRqDRKguuLU5mn5FxqfwJ1CXW+2MQPp/Zom2vEUX+DgoBc7fV5yql
-	 02TS3uoO2Tg3Q4UFpKVPFhY51mguDdpUoCP4zr+x4jeUfYoQgvSaNANn5gp/T5ovORRNY
-	 NqDTYUg+QhozG6GPd04D3jGD3xL2oatPr7WZ31EOtpqvpHZaHvPlQgW7OXzrNvh1OPA==
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=LBfBGw+jhPwOk155E35xBmFE2LfARI5TcyAeAxeY6y0=;
+	b=kIZmdcuQqHf/QOrrl14IzXNqD3cFcPySMMZ7fCE7RSQxpAGbJ+2DI/ItmOv8yPK+gMao
+	 t1Hb5h8Yuu8PBjQb1hG0VqOr0cVtYODTdVxvzebV39x1J5xJRims/qRiiytw3hnmzaR8G
+	 i6ujvelRx+e5AV18UYsULzk/dg5ncG+jDveDYnya3MuBmDV5xduPdwWFWs0J8jvun3ghc
+	 t+ie1QEKm5nwYO5MlEHg8jON+T0XcXUNDZhSqvVjQtW8/FLUJ/IF3vEXfu2PD1MItrCAD
+	 VdB/nO1SDlbPsDxhNr3PTt42SL/fYFTpoaboduCKbRCh8LNYm90vTNAGkbtJZ90HpWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxEvsllx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPMPkiN6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B13606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94573606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxEvsllx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E131F031E2
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPMPkiN6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C451F031E4
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:21:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793179283;
-	bh=pWHDga10kmW0MDLVIkUsOtMHzTyMjmDGEDdz+Zojs0I=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=gxEvsllxhpcnF3kbhzLtmLzCn82LqKIT1LuX/PaT+Xo7aIB7Rjy8Dv3ELHG/xSQU3
-	 HQ/S4VH23pajim3H64XGlq8oO5FQpwG31H4kifzpCWOVryqeS6Q4HofbCOhDbf2u1U
-	 CNphw1+5RFMs60ENl07TfsuMb+CAz1KvGcg/cVrApat5gURqy9do5FBFjKofU36IuJ
-	 DryZa8N1vHgWaZpIFRXiHdV/rqZGpa2ybDeHf+XFscGFzPtyhGIZV2FzLSP0/mWISh
-	 Ml3oUu0k7jq59UINbUASNTxqNiYVtfJu2eCqklHJJsAJWciZYfzpVbCe6sHftgKGVt
-	 xZEkVA3BuniKQ==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a772ec8389so5087451fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:21:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzWC+mhoSGHcEFr2SJR/WGcBNKNoqXk5+ij736E/fxvK1WXPmX5UiYL1OCujgV4D6bJPnJ+hlLyf+/Cv+s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNfO2khysNaLbYDiwPTtFI0dii+j633A9zLG4d1QqtmHNWMjxC
-	K9Lsukjw31zhHbLf3QIZrGT6fAonm9FkfENcG/0CTDzjLjnMXliY6nR2wdVp7lOXv0KuuCrvi12
-	OFVXLNx+5NgcsMea/JcMIyN3jKA4ddqnxqZ9J7GvV2w==
-X-Received: by 2002:a05:651c:31c4:b0:3ac:42be:7e50 with SMTP id
- 38308e7fff4ca-3ac9cf5b3b5mr3472451fa.14.1793179282092; Wed, 28 Oct 2026
- 02:21:22 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 04:21:20 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 04:21:20 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261028034057.114021-1-rosenp@gmail.com>
+	s=k20260515; t=1793179288;
+	bh=LBfBGw+jhPwOk155E35xBmFE2LfARI5TcyAeAxeY6y0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IPMPkiN60y8evtarV7sNotj3qh8KcX33sta+hU0d3hnUiJ74McIZtPkEPpAzwXOyn
+	 2zdjLgHRN6OgbUnNGgY0Ui1PJLZ2AMM3GZLBKsLy0Z25Jys7+9LpikI2KZIxDBgO8k
+	 pNcRDqQP5vleQhSS8qQ1uEJCyIKq5JS0w1+cy8Ql+89fq8QpFYbQaPIkk3Y49xkVsc
+	 jKXbfu6qvfwiIu0HsbLM6NNdj9keLfGuuaroLejSxDhFKL6sa5V7D7n7Bvm6URO3eq
+	 xqkji7YoirVaUgeiNuJHm1rng/p/kOPk/7YoFmaxBQlLS6QA1SADhwcx1b3zwoWFyU
+	 kn/OPn/DAz77Q==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c445c95d553so92779466b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:21:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzi+K7IbqEhGprOVhorVhixarUzR/yHMG49Grh1nogvUXQrE41FnneSM8HyXqEcnnT8CihEj5ZRptMNqZo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+Yuess5zWl3PVqiNreOe3oKAoW1M3dye+mQ7336vixUckVqI8
+	W7KcH1FTVSojrqfDE4U+Z+PDcgHS0VM29N2yTK7IJ5v7inBEsfK/c5ebF7agbmGPc5Mg1AeZrjA
+	pd2K0xSA1Y5dVDWIdW5ZcZgM3SMvfI3E=
+X-Received: by 2002:a17:906:f59b:b0:c35:d50a:1352 with SMTP id
+ a640c23a62f3a-c49bdeaafbcmr140045666b.11.1793179287106; Wed, 28 Oct 2026
+ 02:21:27 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,47 +59,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028034057.114021-1-rosenp@gmail.com>
-Date: Wed, 28 Oct 2026 04:21:20 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MeG89HjLc42yK0-f6mWx8E96n6xA4wZ9CKyBa3Kgnn2ZQ@mail.gmail.com>
-X-Gm-Features: AclHuK89EM60jjCdfR0SjAa3kzZ0tIN6wpR4VeQqwEqNXM9tUVvgV4iLumJ-xvw
-Message-ID: <CAMRc=MeG89HjLc42yK0-f6mWx8E96n6xA4wZ9CKyBa3Kgnn2ZQ@mail.gmail.com>
-Subject: Re: [PATCH ath-next v2] wifi: ath9k: don't re-request the LED GPIO in ath9k_stop()
-To: Rosen Penev <rosenp@gmail.com>
-Cc: =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@toke.dk>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	=?UTF-8?Q?Giedrius_Statkevi=C4=8Dius?= <giedrius.statkevicius@gmail.com>, 
-	Kalle Valo <kvalo@qca.qualcomm.com>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:GPIO SUBSYSTEM:Keyword:(devm_)?gpio_(request|free|direction|get|set)" <linux-gpio@vger.kernel.org>, linux-wireless@vger.kernel.org
+References: <TYZPR02MB6959DA97FC41F99C5DBD9CE8E6602@TYZPR02MB6959.apcprd02.prod.outlook.com>
+In-Reply-To: <TYZPR02MB6959DA97FC41F99C5DBD9CE8E6602@TYZPR02MB6959.apcprd02.prod.outlook.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 28 Oct 2026 18:21:13 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-9XjA3ZP0uLGqNqBFZO0KsiFnqRS56yivzUoiKi=jZ1w@mail.gmail.com>
+X-Gm-Features: AclHuK_81ZzGJH9Q0r2nE9GovJSixXCHhmTzLOLXm4AR3OTOH1s_q91L-fStTFo
+Message-ID: <CAKYAXd-9XjA3ZP0uLGqNqBFZO0KsiFnqRS56yivzUoiKi=jZ1w@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] ksmbd: fix named-pipe reply loss and operation races
+To: wangzhaolong633@gmail.com
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 28 Oct 2026 04:40:57 +0100, Rosen Penev <rosenp@gmail.com> said:
-> ath9k_deinit_device() frees the LED pin in ath_deinit_leds() before it
-> unregisters the hw. ath9k_stop() then switches the LED pin back to an
-> input with ath9k_hw_gpio_request_in(). For a SoC GPIO outside of the
-> WMAC, ath9k_hw_gpio_request() takes a new descriptor through
-> gpiod_get_index() at that point, and nothing releases it again. The
-> next probe fails with "request GPIO12 failed:-16" and every LED update
-> hits the WARN_ON() in ath9k_hw_set_gpio(). That request also runs
-> under sc->sc_pcu_lock, while gpiod_get_index() and
-> gpiod_set_consumer_name() may sleep.
+On Tue, Oct 27, 2026 at 11:43=E2=80=AFPM Wang Zhaolong
+<wangzhaolong3@outlook.com> wrote:
 >
-> The input direction was only added for symmetry with ath9k_start(); the
-> suspend/resume fix that brought it back only needed the output side.
-> On WMAC pins it also undoes the "LED off" level written just before it.
-> Drop it, so the pin simply stays an output driven to the off level.
+> This is a candidate v4 of the named-pipe fix series, based on mainline
+> 7d37252fc49a. Patch 1 is unchanged from v3. Patch 2 addresses the cached
+> TRANSCEIVE input-acceptance problem reported in review and reports
+> BUFFER_OVERFLOW for a positive pipe READ that leaves unread reply bytes.
 >
-> ath9k_stop() still writes the LED pin, so free the pin after
-> ieee80211_unregister_hw() instead of in ath_deinit_leds(); otherwise
-> that write hits the WARN_ON() in ath9k_hw_set_gpio() on SoC GPIOs. This
-> also frees the pin when the LED class device could not be registered,
-> which leaked it before.
+> The first problem is that RPC IPC replies are matched only by the pipe
+> handle. Concurrent operations can interfere with reply delivery, and
+> CLOSE can release the handle before another operation finishes. Patch 1
+> adds per-pipe serialization and lifetime, checks teardown after locking,
+> and clears pipe state on logoff. Existing mainline foreign-handle checks
+> and STATUS_FILE_CLOSED behavior are preserved.
 >
-> Seen on a TP-Link Archer C7 v2 (QCA9558, LED on SoC GPIO 12) when
-> reloading ath9k.
+> Patch 2 retains the original IPC reply allocation with an offset. READ
+> and TRANSCEIVE return only bytes that fit and retain the suffix until it
+> is successfully pinned in a response. Closing, logging off or disconnecti=
+ng
+> releases the cached reply.
 >
-> Fixes: e34f2ff40e03 ("ath9k: bring back direction setting in ath9k_{start_stop}")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
-
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> In v3, TRANSCEIVE with cached data sent a userspace WRITE before returnin=
+g
+> older cached bytes. Mountd's RETURN_READY fast path can acknowledge that
+> WRITE without accepting its input. A later transaction can then return an
+> old reply while skipping its own input. Merely returning the cache withou=
+t
+> the WRITE would also silently ignore the current transaction's input.
+>
+> V4 instead rejects TRANSCEIVE with STATUS_PIPE_BUSY before any IPC when
+> cached unread data exists. It does not accept input or consume output.
+> The client can drain through READ and explicitly resubmit. The no-cache
+> path still uses one combined IOCTL IPC. There is no new kernel RPC queue,
+> extra whole-reply copy, IPC ABI change, timeout, quota or production limi=
+t.
+>
+> MS-FSCC section 2.3.48 lists PIPE_BUSY for unread pipe data; native Wine
+> and ReactOS behavior also supports this rejection. This remains a proposa=
+l
+> for the SMB2 path, not a claim of a fresh Windows remote-SMB2 oracle or a
+> universal MUST. No new per-pipe mode selection is introduced.
+>
+> Changes in v4:
+> - Reject cached TRANSCEIVE with PIPE_BUSY and a standard SMB2 error reply
+>   before IPC, preserving the cache and offset.
+> - Remove the cached TRANSCEIVE WRITE/ACK path.
+> - Set BUFFER_OVERFLOW only after a successful positive-length READ leaves
+>   a suffix of the same cached reply; exact final drain returns success.
+> - Preserve the zero-length READ no-op and pin-before-consume ordering.
+>
+> Bugzilla references:
+>   222196: short PIPE_TRANSCEIVE output loses unread RPC reply bytes
+>   222197: same-pipe RPC replies can reach the wrong request
+>
+> Wang Zhaolong (2):
+>   ksmbd: avoid races between named-pipe operations
+>   ksmbd: fix named-pipe reply loss with small output buffers
+Applied them to #ksmbd-for-next.
+Thanks!
