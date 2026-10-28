@@ -1,112 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209470;
-	b=cgLUE2LBjiXQvwvYs6lAs3SvpXLGjfw2ilky68JA7qMTz395zqK4Bh/j1+5Gyy1wsHv0
-	 taUukwIVlXFGqHsV8sobDUSQLLgZH8Z/vj0JmBy9u9SvJJhec79xLKpDsJhRoewmo7ia0
-	 56daflCXYuz73FXg8mzcK5GPNiSx0vX3mIM5K4umatm+sjkrMmdui8bwRY1FW6mJ8q6Kj
-	 u1xATUOR1A5moBK4JAxW3a7PZDQ4MOKE8GKGzvTuJgkMDFHSobJLXpCjIniTx1mtSPFXB
-	 zapAdXocfnSY654tTmzGuYu8fETjg7MmK9BSWtDSUOLzZKf012Ezu5n/5d9KTer3Pvw==
+	t=1793209478;
+	b=Oen4RtLsjNqDv2+UzxEz+y9vpuz91gSw/F/gUrhVLJqWDsqHyFtmHA6KA8Ou2pIWOcr1
+	 KKgPC+zBc0llPnXEMBJmt0NtuokwUR+xnwtqxc0xU1C1rt853GS09atmSh4NfFUK0DHMi
+	 a3UjNhFM+rsewkZNMz56yyszSGUz0XmHbAFdIs4RygYbAX4bAwveg+bULcCTz8CSQoIaz
+	 4WPiTJBaW9AQbRU0hzwWHX/9pBghcahFQAEJpye7hM7h7u1Y4M7eJC3N6JsGT/SCfchw2
+	 gxaT8Xqg+zctKtmEZGhYef2cQyj447aDqTVXDg1Z6z/ncsU3gAebVtFvwIitiOX1tOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209470;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
-	b=F0DNvg9hGHIcE0/RqkDNuUwafoY6S8Cn10F9TzyNKu7ntBPqRxXdiXZMpxG5VUhpuxvS
-	 x6R7wzFNgaTDoQljS1qrrkJQIEFAU4PMF9U+++13H9lr3XLKsLRd4qXYz3B68koH4fhUh
-	 /tEche94znFtNRImN9T8pdc0JOLskMc6Drk2zehnDms4WFrToEcRsq11vMEjenKAFMjQw
-	 7uErSyC2CD2KoEgeRysThvKlfqDVAoBeP7s1FizLKgdtnpvF1qWAVIZkopTQ2bsHz07+f
-	 P75xwtyxamGdusztrVBlggaY23Jj3xZjKikQLLNIKElaWXYsgT3DykXF4/x80UNsiyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209478;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=66yvyzKGWV0Rnaw20Py7KQmgiWDmOfwJtXa0VXFTngk=;
+	b=KZGItsOtAfETFVgV+T+zokgL5ouixUI9cG2pbTqMVsXnfLRY+nfikpIo+1UBbmcM2uKu
+	 IuQE1chigrBzSgzkPbOXGPszAldXtxRgjfi6U67WT0M0HF6cgal45USPv32vqLqoX5dcr
+	 mwuB3SW/URTuZwDx5Ij4/uKMBmOKs0/ynOSlp7BwDBLoxW61EvtES413d5aD5VLbwym12
+	 MeWAYGVqtstbrlmgMEbCJndK00HvHrJ3yJ/tlcxUSdlEl78k9nrf6mcgUmHFfAu9oC8KN
+	 COewD6F8l9LU7cuV6ekpZhNVrrXeSGpwLq0VVUnEA2kBkuoIHsObZrJFAw+YJJUuLzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=iJy5kuJI;
-	arc=none smtp.remote-ip=209.85.222.52
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O3Dj+Vdx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E381606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E381606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B606E606A321;
+	Wed, 28 Oct 2026 17:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=iJy5kuJI
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-990a39ba4fbso369337241.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:44:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793209469; x=1793814269; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
-        b=iJy5kuJIKEFoVGXIv0G1W+lcBvi4+8Xg3Up72eyRWsM34ppCddP5ilpekezxnMXx54
-         wNVtglNWl1Juw56jX8SNwQS7WZKs9Y2X61a375wMFfYgiH4i03Atn7I+ij8S+kLhqtfT
-         l07FNZinyoqAk6s+eVtDRNFkKCg8ONt5X560obpxpG2ZC7VnPvjzuP7bhaeVMMRQaZQf
-         bnvIZGVN+qVBNlncKqiFZBQ2j+79seozjiyPSZgLY1TuGDnPTDoB10ATDbxfyjixqlJz
-         vdOfv2Qybh76j3dxSW1ILlTknOlei2s6oL7+i6Y7LDLEJWeTZKkbkP+obWZ+cP33y8/P
-         9s8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793209469; x=1793814269;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=s56cw49H74YOeay3n+CLmJxr96H3PjfrjsaPdtr6E80=;
-        b=Mnc1FfNJwfzDLyQUPh7ZcsMORar2EbEX+Yag13LcvAwi5ICfwcy6uqudel9csj2vpZ
-         Y/cXJhSA5eKSiE+rGb5QgodaQ5bgVfzRIBAqottzpaFnlcjFuQ2JBmUBfgry4eoJmymq
-         EHzT5mzxEryoR9YaZImMTkXf28FwTx8CWM1qsc+4FwmUP8cSBenSI0caKGwHRWJ+Pstc
-         Aa2rT5f4SjXt89M16ErKAF3CZGyYUWsEu+olEYqz4jpvmq8EQEpxd5anojOKq3mIpEVW
-         Eyjke4avYMPbOdEM+RDvICwLuY55/PFLiztJaZDYWCrzCq5dfvkSrLdjoMYA82JoBGbq
-         6SjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLryY2RTdQqCQwFNieUtwO7diYtkIW7Jknd99mkxJmCBNziEm+T9IVkaL8r6oFqUi4ternPrSqH386xRQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwIN0i+btOk6dFFB4WBu/jX8PXOXa5JrENqtMAcYUYX3U8xBe6
-	CCiTQ7cmbEgPrnC5Nr6hTijSyvJdQGSITk2FfClnCquriaG9D70+SRZjwdJb52PCvTM=
-X-Gm-Gg: AYBFou3qIAid8X+wQpQZ+5CUjseWKABkR9YD+cAqizrL+DAnsJ2iF6XKBz4KZ33VKnN
-	KAwTnDZFBX0gBwlyGN6iYQGVa9HAsfCn++F95jQjL0YLBLw1chSgAot7CZVTZ8ZRKDpg04PmOW3
-	e1qoQ7I/AYKHnf8VFwUR+jnv+r2AHQG1nsuRwkoPI0MKroYkU8R0mquEqrO0+WIePWiGYBEno9/
-	uFG2CH4crIf2JyU92ffsuCg1VHlgtBWe2rcMjVsef/+5h2M8KZIDJAhSwZcmklpVpelw68pjgGy
-	XkBe1BygOIW2mKyvQhlSRVHCShs/deXTpSFeVyH2gMqsbnsurRoh5aTPnd043wz+0XJXfIBYxAv
-	xiP7JkVDbhoudVHmvQ5ZJSUbU2TuIqrWT5wtfKcF2OIhXLnecsai1vBT9v4wvfeeKnqOqI7IlNM
-	+mMSU+acuWzLL5y78vG4Vhoh4w3kBKLKb9zy6jTqdHvFOYBLRNdF3VCNVHSh2bJSglas07A7bKM
-	7SuVCr0Py5l4pXEiorDGheOnm0dxc6MOC94WtH+TY0/6Vkglwr8fNgmKQUHxNCpduGLEyroO/MT
-	7fmV4FQ76HlgKmN16rGlzUDzwTvstwEv6t5zoyltPFdCPuDhyrWHbJmustJ4o7XPIsdZl+PUE4q
-	9zU2OsiScQW3cdmV+teZcJ7kirSqEgDK4
-X-Received: by 2002:a05:6102:3e8d:b0:7a5:7282:1994 with SMTP id ada2fe7eead31-7d03a50a85cmr1269510137.7.1793209468986;
-        Wed, 28 Oct 2026 10:44:28 -0700 (PDT)
-Received: from google.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99125931983sm6616412241.2.2026.10.28.10.44.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:44:28 -0700 (PDT)
-Date: Wed, 28 Oct 2026 13:44:27 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: David Matlack <dmatlack@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>, 
-	joro@8bytes.org, Mike Rapoport <rppt@kernel.org>, maz@kernel.org, arnd@arndb.de, 
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org, 
-	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, 
-	seanjc@google.com, will@kernel.org, Alexander Graf <graf@amazon.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, linux-arm-kernel@lists.infradead.org, 
-	linux-arch@vger.kernel.org, sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
-	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-Message-ID: <auIvjVmWnsVPN_9g@google.com>
-References: <atl7peoVHdP5hz7z@google.com>
- <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
- <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
- <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
- <atpNFEFIlqAoYIwH@google.com>
- <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
- <attmFVIFU_mS0Y7p@google.com>
- <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
- <at-8vkVpN2SF3XgB@google.com>
- <2vxz8q3hoicx.fsf@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O3Dj+Vdx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10AF91F01828;
+	Wed, 28 Oct 2026 17:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793209477;
+	bh=66yvyzKGWV0Rnaw20Py7KQmgiWDmOfwJtXa0VXFTngk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O3Dj+VdxXo+Ts/bq6KRaQd906XkJk40DLCInEnKnWHgRUCUznX4+qvH5EgSksxljR
+	 9YJFtIQJe7bjWfroru1/Ji4eZSfk6aWnBJ4FQmpv+9GBX9MVIWCSKXzxEO9bHM53s2
+	 6PbnlF8gEiHu/7CGXGqY5CYxsf7YBqtiMKmxRwVE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Daniil Stas <daniil.stas@posteo.net>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Chris Healy <cphealy@gmail.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	"Nobuhiro Iwamatsu (CIP)" <nobuhiro.iwamatsu.x90@mail.toshiba>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 485/516] hwmon: (drivetemp) Fix driver producing garbage data when SCSI errors occur
+Date: Wed, 28 Oct 2026 18:00:37 +0100
+Message-ID: <20261028170014.967212572@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
+References: <20261028170003.522232767@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,59 +71,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2vxz8q3hoicx.fsf@kernel.org>
 
-On 10-28 18:17, Pratyush Yadav wrote:
-> On Mon, Oct 26 2026, David Matlack wrote:
-> 
-> > On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
-> >> On Fri, Oct 23, 2026 at 9:50 AM David Matlack <dmatlack@google.com> wrote:
-> >
-> [...]
-> >> The reason I care about keeping the header compact is that we are
-> >> defining a foundational kernel ABI and want to use this header across
-> >> almost every serialized data structure so we can evolve them later
-> >> without breaking compatibility. While some top-level structs are on
-> >> sparse folios today, other serialized structs are tightly packed, and
-> >> we are looking to add KHO slab support in the future where tightly
-> >> packed allocations will be common.
-> >
-> > My intuition is we will have a small number of headers per preserved
-> > file and per preserved FLB. One for the top-level struct and then
-> > optionally a few more for sub-structs like arch-specific data. That is
-> > why I am less worried 8 bytes per header, even if we fix the folio
-> > problem.
-> >
-> > Maybe where our visions differ is when there are collections of
-> > serialized structs, like KHO blocks. For collections I don't think the
-> > elements will each have their own headers. Otherwise the elements could
-> > be different sizes.
-> 
-> kho_block today doesn't store entry_size in the serialized payload. It
-> relies on its caller to do so. With extensible structures, this can get
-> messy. Sure, the owner of the kho_block_set can track the size somewhere
-> in its payload, but perhaps we should store the size in
-> kho_block_header_ser to begin with?
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-I agree, and we will discuss versioned vs. owned serialized data 
-structures separately. With this series, we establish a common 
-framework: size/feature flags and accessors, and we update most of our 
-serialized structs to include them. All "shared" structs (e.g., KHO, 
-FLB, radix-tree, block_sets, etc.) should have their own versioning.
+------------------
 
-kho_block_header_ser should have this header. 
+From: Daniil Stas <daniil.stas@posteo.net>
 
-Pasha
+commit 82163d63ae7a4c36142cd252388737205bb7e4b9 upstream.
 
-> 
-> Anyway, not a problem this series needs to solve, but something we
-> should eventually do.
-> 
-> [...]
-> 
-> -- 
-> Regards,
-> Pratyush Yadav
+scsi_execute_cmd() function can return both negative (linux codes) and
+positive (scsi_cmnd result field) error codes.
+
+Currently the driver just passes error codes of scsi_execute_cmd() to
+hwmon core, which is incorrect because hwmon only checks for negative
+error codes. This leads to hwmon reporting uninitialized data to
+userspace in case of SCSI errors (for example if the disk drive was
+disconnected).
+
+This patch checks scsi_execute_cmd() output and returns -EIO if it's
+error code is positive.
+
+Fixes: 5b46903d8bf37 ("hwmon: Driver for disk and solid state drives with temperature sensors")
+Signed-off-by: Daniil Stas <daniil.stas@posteo.net>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Chris Healy <cphealy@gmail.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Martin K. Petersen <martin.petersen@oracle.com>
+Cc: Bart Van Assche <bvanassche@acm.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-ide@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Link: https://lore.kernel.org/r/20250105213618.531691-1-daniil.stas@posteo.net
+[groeck: Avoid inline variable declaration for portability]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hwmon/drivetemp.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hwmon/drivetemp.c b/drivers/hwmon/drivetemp.c
+index 00303af82a777..098d30e210636 100644
+--- a/drivers/hwmon/drivetemp.c
++++ b/drivers/hwmon/drivetemp.c
+@@ -165,6 +165,7 @@ static int drivetemp_scsi_command(struct drivetemp_data *st,
+ {
+ 	u8 scsi_cmd[MAX_COMMAND_SIZE];
+ 	int data_dir;
++	int err;
+ 
+ 	memset(scsi_cmd, 0, sizeof(scsi_cmd));
+ 	scsi_cmd[0] = ATA_16;
+@@ -192,9 +193,12 @@ static int drivetemp_scsi_command(struct drivetemp_data *st,
+ 	scsi_cmd[12] = lba_high;
+ 	scsi_cmd[14] = ata_command;
+ 
+-	return scsi_execute_req(st->sdev, scsi_cmd, data_dir,
+-				st->smartdata, ATA_SECT_SIZE, NULL, HZ, 5,
+-				NULL);
++	err = scsi_execute_req(st->sdev, scsi_cmd, data_dir,
++			       st->smartdata, ATA_SECT_SIZE, NULL, HZ, 5,
++			       NULL);
++	if (err > 0)
++		err = -EIO;
++	return err;
+ }
+ 
+ static int drivetemp_ata_command(struct drivetemp_data *st, u8 feature,
+-- 
+2.53.0
+
+
+
