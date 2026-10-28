@@ -1,92 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197451;
-	b=YryWrOYnkbzglBlZQ8jNb5SyRLryXAq2LJqGrd+PaveHHoQrXnuKxRWlk6AULEdkCacQ
-	 IwQQ37S3GDKFUYgT5xyhOv+rsVB89BJRVnXHAmJET7WC7RB9Y+91b+6cxHyJwj+CMArA6
-	 6GPkDi1uzejhkZpQToOQvJ74HYtC3XtZ3SmHn4rf0TI5cVp+OnJffZeytn+y8LqOCiWn1
-	 WOIP/2lGw5C095cNhpTspvCmcw+YUGBX7TfuWvXxR0Gb1E/jsNZ1rziLEEfPy4GWyx8lE
-	 voyu1L6Q1w+Md2eWJP+YDQMw6oorjIfhh6UmcVE86sYtaag+EA7XrPBPQvgvRsDG8qA==
+	t=1793197445;
+	b=CvVDJg9MENn7xocYJZbYoQujb+EMQUaY7N/MuNPCjTbk6WA4uxRUNAT6bk9WFne/gb2u
+	 Cudy3GrcefVrCpXTFaqWMkc2eGaqN8ZP0wTbNSmdKWlGIrFScUpQMLSsGkkv9jDuK2vqb
+	 7SqDAYTBe1c2gTtozjsQfoX1xJ4XndZC8OcxNjqsIFRXbtz1guDGnX1tVk+jA1aQtOF+3
+	 dVyIxSn0yx+jfISsWAOBSketmm8ll3JjtAbmZK8SIi2xICaGToAJ1msceNQ38IhDYc/a9
+	 upRzBQD52sNzBRw/de2eJRGhwn3GjVpi3vEVfMaeOVnihMPPrW3p0azjbtokHpqBpRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197451;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
-	b=BQV3gBbTGwnrZ3+TI3fmKWyKoHxKw0kJGu4BKKxq8Msev5U3I4Z6q3ctCfNKfRy1w0AO
-	 FaAd2DjnQEIAjyzKgs7LgyQdRsJEyIpEmIdhx0tpPos53FzsVQZDRggHSzwEjPpTKNNTn
-	 aAoqBiulCodSkqX/65r21dUMC3tLk1hT9owzskl6Reot2wC8vO0PHaY+fPw+RzccemjTW
-	 EgFT42QY9zVZgALq+JXWq2zBMrtciIGkQPNqR23ZdasOw/uCcCvvxtyPZzIxrEjX2M2Mg
-	 A0qnG/SkY5eS7UzXf3fr+m58jjQY8v2hqfEvkcniM6KAinMIrBZr9ik0fh1sHS3vp3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197445;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=/PT46a5OQHjLVPNOL9vrXw1V6oTcz8SAwynmCtaEe1c=;
+	b=ntkUOAwqNGZDGK5Vp6sI3Q8oM6NsDEEz9xFSV8qQqmp4yhFEmL3d3GqQr5TuKDqC7O4T
+	 jamRnddVmGWJd/7k4tzq978BsLz6e8T2twr+5gjP9xX/9D8g4UAPCf+KslPfXVQRPgWb/
+	 BhJBz/atnunZhOJU5Gxxfgsxx6EuAoScoziQlNiEWpIgO6/uFCFnlsOz9NQZbxLwd4cb6
+	 5lz3FHAdlxGrwfV4BxDGHHGOZIhR+gQbvhZk3hmsnLNjVVVCxrDZaTk17v2HJOJQVaatN
+	 Kmi2TYjYRngVYs9l+wgXVYUR3cZ9h89tsIAVkxgQYEFt1gtitXLC8iGlWtJu9Lx4YJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zK61OYZt;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DKvWZxwz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yhpd7nZe;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DKvWZxwz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yhpd7nZe;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE9E60A2638
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:24:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE9E60A2638
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CCF60A2619;
+	Wed, 28 Oct 2026 14:24:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CCF60A2619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zK61OYZt
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so921501a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:24:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197450; x=1793802250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
-        b=zK61OYZtAVgUCp/JFTqhE9re+jZLYZst9EUpWbl9zk1eujT9d1ZBBnpgroXqL8alrm
-         vCTMNJvWzRGWLgH8nl5dawueHJAUKLpWjikU19XJIrKTlivQVSU/9cqQd1arr4n7P1AZ
-         r1GE4hTVEZw2UCNNl3ou1VHlgCqsKQRZt7sLBq3y//fQM6dBIPV0Py0Ebb2ApHw0qHLM
-         Fw9HSxv+D1xui+An2+t5y3LLkjyd7E+thRSu7wQ0DX7TfdApyBv0+cUMb2Zn0ot/wXxA
-         wToMV59t3vLN0Vw/t6CaCZ1B33Fv9QMyV2aeHMlnmDZnHRe6D8v6vQ1CemQhX4tcmpJf
-         7txQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197450; x=1793802250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=660T/j6szyMYX2cJqw9EXFv5X7NWkuG7benZxmM9Szs=;
-        b=PGgkH//dVAtgaDnNvtCDhyaBLxLLUUw4ybNK0VskkbCa+rI6VYtBuiJ8pvdfe5W/Zy
-         tOrQnCJ6QRrBv50zKotILX8X1jdiQy+E+3KME+dVF/8c8rU/lWd1S1Kwh5oGFfJ9PuFp
-         Y+ysyznVG5sqvvsz+tRS8PSbLwor951f5TAOLMSMVzVKQspzKTxT+Pqc1I8GP4GT17I3
-         oeEDgEhQMrlA8jjwTHdnqJ6gB9IZxx9gQIJd2qExt6AKyw06mYRcrDbErGKlIt51Osk4
-         wVUdIlovE/yQG2YEEOsihG+IQMcUztHD+IkPtRkMM5U/cGZyBU2Z2dAj25Z3UWIAFq7h
-         uSQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhzrsAPdRDee59phgF+Giz8AWbEEbsUnzTww5uHFg8WcRDXFGlHhpC/M1Vo4akDYdSzU5KMdANmSXGDQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9+SlVpiZNST+rH+zqNEAJbh3kGAh+OCkh6+gLlJJVxbSoRFzY
-	/F52GO74+oBL9RSPorQJ+TaCYTkzdEIys5YfvXM9deIiV61Dp9iKY6We
-X-Gm-Gg: AYBFou2of8XHMq+4cdq6qVXOvX1OuZ6BIVA9cAPIKY5mdl3rIqjV4bQDKKcwK5KQGn9
-	RFDywM2R1fJ5gHerdshy9HgcNipvGdjOebakS4L4jEhf8vtXlD49i74wLV0xE/uG4QKEo7QQrNS
-	ersW/tU0hgR0abdvdTlrswgg8eDUPOpLQB68i1pItpVcjRUF5mJdgZUpjXDA7UkNUX8B3CDsJ6w
-	hRFnK/CrpVZ1EvQE1JSYnaIij31t5KH21zgDqSmLPeNn6/K6l6MsrkNFnisJj/0/xAKkUye8vZU
-	dMeiK5E29Zgxvf+1xL6YMer3hqaB9zHmRHTEHVECAg1SWPYcEVqNWogvozf0aeMrVJJ8zRNgC8w
-	UI2BTQLVfkTtzJmhoxDwtRM56glWg9FLKZVEXbiQpp49W8Y6sUsfE7QAIvbLQ32cjcm4AWk3WJT
-	Rm6jHkbNUggTftiV4T6OSPBBbaQqtTuwVbrXaJMNvz2yA2Cj0Qf9JPnY3ut+Y299QRB4XJX4Q0j
-	b6H9ATeJ8WomZoVKCZeiDgIIP3BfGvpF5CvOyYYnVbJQ0XbKR5tgoWgWcOByxC3sTWhxiReFS/K
-	+UkKjjshuX4CG4ffYBv9249iCthXWkXMTSx3lJziOsf9eZHYguF3jwtZDRkOyHw4tjiO
-X-Received: by 2002:a17:90b:4a4b:b0:3aa:6b5d:a02e with SMTP id 98e67ed59e1d1-3ae58318a19mr1972701a91.54.1793197449365;
-        Wed, 28 Oct 2026 07:24:09 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a48c2d3sm3324593a91.5.2026.10.28.07.24.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:24:09 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: stable@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5.10.y] wifi: mac80211: shut down RX BA session timer on teardown
-Date: Wed, 28 Oct 2026 22:23:49 +0800
-Message-ID: <20261028142349.19894-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DKvWZxwz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yhpd7nZe;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DKvWZxwz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yhpd7nZe
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 93661220FB;
+	Wed, 28 Oct 2026 14:24:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793197442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/PT46a5OQHjLVPNOL9vrXw1V6oTcz8SAwynmCtaEe1c=;
+	b=DKvWZxwzDkJbXDy0P6+jx85xmx9QUxpVMKD/2y0AEWF1zrDPHC+zE6BZYMiDslmjxbaOe5
+	RX+yalO8CLnYWAJblkPgZiv1gJ6jIBh2rkE3iBxHULAqetrV5cZSxrEId6nnp+Bo+kJSfu
+	ZFKdr2Dquf8m14DTOwaE3S/CEVPzFWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793197442;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/PT46a5OQHjLVPNOL9vrXw1V6oTcz8SAwynmCtaEe1c=;
+	b=yhpd7nZezvjAErq4Q29OG2O8kgwoRgVCaV++xl/JvxbNR1vYV8GeDPbPUdHp8QQ6TIvJHm
+	IgiohLDKGqycfkAQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DKvWZxwz;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yhpd7nZe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793197442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/PT46a5OQHjLVPNOL9vrXw1V6oTcz8SAwynmCtaEe1c=;
+	b=DKvWZxwzDkJbXDy0P6+jx85xmx9QUxpVMKD/2y0AEWF1zrDPHC+zE6BZYMiDslmjxbaOe5
+	RX+yalO8CLnYWAJblkPgZiv1gJ6jIBh2rkE3iBxHULAqetrV5cZSxrEId6nnp+Bo+kJSfu
+	ZFKdr2Dquf8m14DTOwaE3S/CEVPzFWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793197442;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/PT46a5OQHjLVPNOL9vrXw1V6oTcz8SAwynmCtaEe1c=;
+	b=yhpd7nZezvjAErq4Q29OG2O8kgwoRgVCaV++xl/JvxbNR1vYV8GeDPbPUdHp8QQ6TIvJHm
+	IgiohLDKGqycfkAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1CD781342D;
+	Wed, 28 Oct 2026 14:24:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3PfsOIEF4mqHcwAAD6G6ig
+	(envelope-from <hare@suse.de>); Wed, 28 Oct 2026 14:24:02 +0000
+Message-ID: <ebb1aa06-60cf-415c-9001-0d8267db81c0@suse.de>
+Date: Wed, 28 Oct 2026 15:24:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,87 +108,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC net-next v2 5/5] selftests/tls: add KeyUpdate tests
+To: martin.nvme.dev@gmail.com, John Fastabend <john.fastabend@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Martin Belanger <martin.belanger@dell.com>
+References: <20261028-keyupdate-rfc-v2-0-eb5143b4c487@gmail.com>
+ <20261028-keyupdate-rfc-v2-5-eb5143b4c487@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261028-keyupdate-rfc-v2-5-eb5143b4c487@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 93661220FB
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,queasysnail.net,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.00
 
-commit e588e83e5c7a0f6d7a77dbbb58927c8c8cfd598e upstream.
+On 10/28/26 2:52 PM, Martin Belanger via B4 Relay wrote:
+> From: Martin Belanger <martin.belanger@dell.com>
+> 
+> Test the in-kernel KeyUpdate on a bidirectional connection with both
+> traffic secrets registered on each socket:
+> 
+> - registration errors: wrong length, missing key, TLS 1.2, SM4, the
+>    RX secret before the TX secret, and a secret that does not give the
+>    installed key;
+> - KeyUpdates in both directions with data around them;
+> - a data record, a KeyUpdate and another data record queued before
+>    the first read;
+> - update_requested: the peer answers before its next data, and a
+>    second request waits for the answer;
+> - splice() across a KeyUpdate;
+> - a key installed with TLS_TX removes the registered secrets;
+> - after a key installed with TLS_RX, a new update_requested is
+>    accepted;
+> - TLS_TX_KEY_UPDATE on a shut down socket does not raise SIGPIPE;
+> - more than 8 KeyUpdates in one second, and an invalid
+>    request_update value, end the connection.
+> 
+> The keys are derived from the secrets with HKDF-Expand-Label, with the
+> HMAC of the kernel through AF_ALG.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+> ---
+>   tools/testing/selftests/net/config |   4 +
+>   tools/testing/selftests/net/tls.c  | 412 +++++++++++++++++++++++++++++++++++++
+>   2 files changed, 416 insertions(+)
+> 
 
-Tearing down an RX BA session while a BlockAckReq frame is being
-processed can rearm the session timer after teardown deletes it. A later
-expiry then accesses the freed tid_rx state.
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Cheers,
 
-___ieee80211_stop_rx_ba_session() uses del_timer_sync() before RCU
-readers have finished with tid_rx. del_timer_sync() does not prevent a
-concurrent ieee80211_rx_h_ctrl() reader from calling mod_timer()
-afterward.
+Hannes
 
-Mark tid_rx removed under reorder_lock before deleting the timers, and
-serialize the BAR removed check and mod_timer() call with the same lock.
-
-This differs from the upstream commit, which uses timer_shutdown_sync()
-instead. Linux 5.10 does not provide that helper.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: a87f736d942c ("mac80211: use RCU for RX aggregation")
-Cc: stable@vger.kernel.org # 5.10.x
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: A W=1 module build with MODPOST passed on v5.10.272,
-with no diagnostics beyond the baseline. A forced QEMU/KASAN interleaving
-changed 9 use-after-free reports to 0 and produced no lockdep or
-atomic-sleep splats. Natural race frequency was not measured. A reproducer
-is available on request.
-Sparse C=2 and targeted Smatch introduced no new diagnostics.
-
-The affected files are identical in v5.10.270 and v5.10.272.
-Equivalent fixes are present in 6.6.160, 6.12.113, 6.18.56 and 7.2.10;
-adapted 5.15.y and 6.1.y backports were queued when reviewed.
-
- net/mac80211/agg-rx.c | 5 ++---
- net/mac80211/rx.c     | 5 +++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/net/mac80211/agg-rx.c b/net/mac80211/agg-rx.c
-index 6ef8ded4ec76..b23ff9793fac 100644
---- a/net/mac80211/agg-rx.c
-+++ b/net/mac80211/agg-rx.c
-@@ -103,12 +103,11 @@ void ___ieee80211_stop_rx_ba_session(struct sta_info *sta, u16 tid,
- 	if (!tid_rx)
- 		return;
- 
--	del_timer_sync(&tid_rx->session_timer);
--
--	/* make sure ieee80211_sta_reorder_release() doesn't re-arm the timer */
-+	/* Prevent BAR and reorder release from rearming the timers. */
- 	spin_lock_bh(&tid_rx->reorder_lock);
- 	tid_rx->removed = true;
- 	spin_unlock_bh(&tid_rx->reorder_lock);
-+	del_timer_sync(&tid_rx->session_timer);
- 	del_timer_sync(&tid_rx->reorder_timer);
- 
- 	call_rcu(&tid_rx->rcu_head, ieee80211_free_tid_rx);
-diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
-index 8ec630a4d069..c7504dff7b4b 100644
---- a/net/mac80211/rx.c
-+++ b/net/mac80211/rx.c
-@@ -3101,12 +3101,13 @@ ieee80211_rx_h_ctrl(struct ieee80211_rx_data *rx, struct sk_buff_head *frames)
- 		event.u.ba.ssn = start_seq_num;
- 		event.u.ba.sta = &rx->sta->sta;
- 
-+		spin_lock(&tid_agg_rx->reorder_lock);
-+
- 		/* reset session timer */
--		if (tid_agg_rx->timeout)
-+		if (tid_agg_rx->timeout && !tid_agg_rx->removed)
- 			mod_timer(&tid_agg_rx->session_timer,
- 				  TU_TO_EXP_TIME(tid_agg_rx->timeout));
- 
--		spin_lock(&tid_agg_rx->reorder_lock);
- 		/* release stored frames up to start of BAR */
- 		ieee80211_release_reorder_frames(rx->sdata, tid_agg_rx,
- 						 start_seq_num, frames);
-
-base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
 -- 
-2.56.0
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
