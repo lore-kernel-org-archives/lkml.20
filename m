@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179344;
-	b=URMQ24dasmdiTMtFF7KmKSnyZx5p1J7CVUZcL7V5FLDMxSt1pqEC+0x75s1aTA5ioSK5
-	 UP3kt82q3pUEnk8jPbBBMmr5OixXE6qTLMMLJ7Ni3RXWHKlooijId2YpIhEoo18q1ZX0b
-	 N7lxm8GaeCM+fAN3/KxZodiNOADNdNYIPNemzeLAQ5gKWWXQVD+nhhC5RuaKIHI2TiGQw
-	 9nR1pPtGVrJmy0TMGbFXrYXByB0j9EWQFUIcSmbH1BvjfoAXN4NxMDOFU+g/NJRV8g0r5
-	 QJ8f1s8oDogMCZ1GhpEGwXYqXsSohKDvfjezrxr7o75bI293zdFW3lZtMc0YysEfScQ==
+	t=1793179361;
+	b=4zf+jkPLWNoAej/nMD046sV05i5LPi8xxQT23qY2WC+rZJIRI0itqhOIczkmUWunsel+
+	 /W5/MyCxX/NcNclMdVZeR0mePyQ1syTPh0F3sDYdoQC00vlFwkyVNQ31ehWMHdyf4uYrk
+	 gLAnRDynhr566wLqTgkM2mQNAVaBMVOHnaQsxjQKRNeoln+Ss3N3eDIGhYhuSC4239KmQ
+	 1f5/U0Zz9ut+RPXxvVyYts55yxcFvy6nvymV4cfRbGdRrmRynelV+2lzUxd0PI4iteHdj
+	 xSpsgWB9zqAaKIMdBgXI7CYvtQ67wYypzbS+8J9VHVmcKc5QG3wUQ7KQgb4NEIS4EMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179344;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=E+YCM5bjA5bWVsmy2H/KDlpYbRIIKtbo2lnh36vInrU=;
-	b=DpOhBAs9YDj2kdbs3DKkiRPFmgxzKe0FX+oMTqKby7KW0PVcu8DTgZsgzbpGY5Ii5RFx
-	 NtC8c17s+j8RC0nKfLcNH/AOxkUAgRIv65+9KX/CeyzniqBIFFoEonTwTYeX50VLMCMyF
-	 TWg43qDEOZUS/y4VzBz1RVLRCMr0voKw39Bbg7DLZX+JjHpT4uznnFY/m3+AfJyMKmenp
-	 B0hjYORWXdge8Y7fxFgZYyild/HEh7B6c72QFlJ4NrZCNLns+VvJGVCqROm+UUhGLHSVm
-	 lI7OfHEdAKa+PU6GLTI8IIZjZu/scsUzuMWdO1MiN4uLF/X5Mvcc5VHfkTZufOdBSmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179361;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=19+eeBNUAmZsCt2+Qrg/7Sbo4WI/mza3DkIk/V28yOY=;
+	b=qHbzqVQiqIq8EYfahza5LLnasPmY++cZtwxKvCoIsqJ/jjL7Kjw61YG6nJKap2xu6aF3
+	 vFnzX0N3ZCzkPf/HXpD9j3jaW3PP02cU4cigdoiJB7w+EycTMps6hpEKPzGXsZizKtSut
+	 oCw0V6TJ+M34EXB7RDNqFVL4KhLytAbWcDQyEYpCLtjVNyU5cy9RpD/OE3KX0xqobMoS7
+	 uWKI7Y5TIQBqDR0TFwq68DJ+Oj0lFWTJLzgCb4SoovNuD+1zz5CT8FFlJMzslVQsC91D2
+	 72+GzPbJFQrV6eCD1hzB0s5JrVT1kEOM7fx128k8mO9xGqQTPbmucKKo7p2Gl7VcLHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lIylgfas;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14B3606A31D;
-	Wed, 28 Oct 2026 09:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A14B3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 0efc6234d2b111f19a56ed5b684f684d-20261028
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:86e7db5b-4852-4942-97b3-0eb42640d1af,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ce3dac4351f476495faf6e51ac462211,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0efc6234d2b111f19a56ed5b684f684d-20261028
-X-User: lijiayi@kylinos.cn
-Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lijiayi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 874095675; Wed, 28 Oct 2026 17:22:12 +0800
-From: Jiayi Li <lijiayi@kylinos.cn>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] usb: uas: wait for pending commands before unbinding
-Date: Wed, 28 Oct 2026 17:21:53 +0800
-Message-Id: <20261028092153.1481202-1-lijiayi@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <5230664a-9666-4196-a798-260da5aa8e8e@suse.com>
-References: <5230664a-9666-4196-a798-260da5aa8e8e@suse.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD3606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:22:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABD3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lIylgfas
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=19+eeBNUAmZsCt2+Qrg/7Sbo4WI/mza3DkIk/V28yOY=; b=lIylgfasTg8t/IItuyhwBrv/fB
+	/4sNk03XSfF6USkHcPx8bZKwXJIeumxCTcGs+TXJzqxC50h70ysZYcuO9ofVhC/LUQc+BjG35niuQ
+	qDqPF+on48KHV7Subkl4fNh4Tu66m38083S+mgE+RSbC8KE4xE7qtqo0ryIeVH80EuvIghn1Ap/cH
+	Au9lESXy22yGwQ6bxQYMzyMDL6MNhdH2ikYhhmVfmiIohHlHZR5zuTm9eZIka8TNal6GN8XmVGSHu
+	BX/0poDpfjaOGf0Hu01qwF6AIbbJaqMM/d06MxY70QEqNK+npiKrJ5BW5MhICivuKzWq50+7aqvg6
+	vSTUIBFg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLzrX-00000002SNf-4BwT;
+	Wed, 28 Oct 2026 09:22:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 89D9730120E; Wed, 28 Oct 2026 10:22:27 +0100 (CET)
+Date: Wed, 28 Oct 2026 10:22:27 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, albin_yang@163.com,
+	albinwyang@tencent.com, bsegall@google.com, chen.yu@linux.dev,
+	dietmar.eggemann@arm.com, juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com,
+	rostedt@goodmis.org, vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
+ blocked donors
+Message-ID: <20261028092227.GH2668804@noisy.programming.kicks-ass.net>
+References: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
+ <20261026133831.4111227-1-albin_yang@163.com>
+ <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
+ <auA7AQ_S9iwPHr4d@scheduler.schedules>
+ <4ac4564e-08fb-4639-a89e-a2ad54cee3f7@amd.com>
+ <auBEeDRRFKZOGlZA@scheduler.schedules>
+ <f23a6e77-58ef-46bc-b8bf-d9f043bcfa57@amd.com>
+ <20261027120945.GN2668564@noisy.programming.kicks-ass.net>
+ <auCU65gKjdeUOoLl@scheduler.schedules>
+ <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,38 +80,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
 
-Hi,
+On Wed, Oct 28, 2026 at 09:10:00AM +0530, K Prateek Nayak wrote:
+> On 10/27/2026 5:43 PM, Kayra Cizmeci wrote:
+> >>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> >>> index 04b62c16fa8c..d5758b78b741 100644
+> >>> --- a/kernel/sched/core.c
+> >>> +++ b/kernel/sched/core.c
+> >>> @@ -3956,6 +3956,8 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
+> >>>  		 * it should preempt the task that is current now.
+> >>>  		 */
+> >>>  		wakeup_preempt(rq, p, wake_flags | WF_TTWU_RQ);
+> >>> +		/* Start accounting wait time. */
+> >>> +		sched_info_enqueue(rq, p);
+> >>>  	}
+> >>>  	ttwu_do_wakeup(p);
+> >>>  	return 1;
+> >>
+> >> So the normal wakeup path goes through enqueue_task() which gets the
+> >> sched_info_enqueue() callback there. But yes, ttwu_runnable() does not
+> >> go through that, and needs this additional call.
+> >>
+> >> There is one more site in ttwu() that also doesn't go through
+> >> enqueue_task() and that is the p==current thing at the top.
+> > 
+> > The counter already measures how much time a task waits for CPU,
+> > curr is already is at the CPU so we don't need a call from there.
+> > 
+> > Or not?
+> 
+> Yup! on_cpu / task_current() gets dealt at sched_info_switch()
+> which will enqueue the signal if the task is preempted.
 
-On Wed, 28 Oct 2026 at 09:48:15 +0100, Oliver Neukum wrote:
-> Why? What is it waiting for? And why do you think we can skip
-> that wait safely?
-
-The wait is not skipped; it is deferred until after the command
-cleanup.
-
-uas_scan_work() calls scsi_scan_host(). In the synchronous scan path,
-it may be blocked in scsi_execute_cmd() waiting for the current scan
-command, such as INQUIRY or REPORT LUNS, to complete.
-
-On a physical disconnect, USB core disables the interface before
-calling uas_disconnect(). The status URB may then complete with
--ESHUTDOWN, and uas_stat_cmplt() exits without clearing
-COMMAND_INFLIGHT or completing the SCSI command.
-
-Waiting for scan_work before reaching that cleanup can leave the scan
-waiting for SCSI timeout/EH instead.
-
-The first cancel_work() only prevents scan_work from starting if it is
-still pending. If scan_work is already running, disconnect proceeds to
-cancel the URBs and call uas_zap_pending(), which completes the
-remaining command with DID_NO_CONNECT.
-
-The existing cancel_work_sync() is then called after that cleanup and
-before scsi_remove_host() and resource release. Therefore the running
-scan is still synchronized; the wait is moved after the operation
-which allows the scan command to finish, rather than omitted.
-
-Thanks,
-Jiayi
+Can we record this in a comment; so that the people who come after us
+(most likely our older selves) aren't left wondering ;-)
