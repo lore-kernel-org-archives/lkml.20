@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188864;
-	b=v3LXaGfgCg1Emfq1l27+e35r/TzfeTukLPsluEcEPMbkrhrmqfk+b0pEWOuaO93G3ftv
-	 6oKLjyHLdtcwz7fiicITi5U5qW4ZIijpXrl+801iE6yymb770FAN3QUJrSBj3bdOhggEr
-	 lr7mRMI1CUxhn475rQuY4SadmVuzQof4ZOvaOI2x5KJc7P5MhynmwI5jGAK3hPMJp6Km7
-	 gjuBVO4NS0e+rtxIMLsMW8r7zGs8LEaGnczix5T5X51VWSLKcmaxdZHEipPaUEjX/Hu46
-	 wk0o9SjuuiSQ9W1PZ5n0xvWUdgR0rXb+RGWZfVCKdp/NOM+jBIsAlEikUyADJa6Lx9Q==
+	t=1793188890;
+	b=SDQv6cskBml8yVMRNzMFYAD+Zqd3gT8mfxggoVxgfdINho54/1vWfiwXwmA5EA5vOSkI
+	 2WjhxLNgSy4qxOlcpdNeFO3On2YKGZq3BXvO/AOYmytzUy6/aktXULAk2Ckt0i8Vwes2O
+	 xdEmWVhFfEt7YXyXraRm1pUhjwfaK4QtQTTPDhjYdqibzP+R8ys63nRLC5UK25mNrnmjp
+	 0U/XHA7SSLz7vi0Aa9+eV2WVVo5GjYQZ5RGtZe6cmUEuHlrEjLHnDPlA1KB5mtThkwNB9
+	 xOVREh75gI+NK/esHQzjvQysCPEzp5Z298cuiBpFMNcOGFkBQxhjCvD6Mse0AFEY2JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188890;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jk9ja6pFw9H/pCHElM4lvoPR4YQqjz4WLvOdv5tiqaQ=;
-	b=J7zDXrjTKJyrYQ9NHuUxe6W2w9bNlFC3+MwN9WE0f91PoiynV93Gt3uTa475+T/fruwl
-	 GnCbwr8+HOxMJZrDGuYaq57d61TK1twUBz4Axzrm4yObL/qf2YCoJiWb5PdBGzn7u88yg
-	 h7yUtqtP7nJ5l00r4IVdWM6e8ncKqkFV2XZlG7WLgIEeNPx+g8JzoZpE8eG8kwThq3/2P
-	 SpYB3VXeD6jW95lj+RfW/9QFstewPJuj//fXPg01XEFJPj2RD7y3U8hYTYYJWUT18ffOy
-	 NxiBvj6CmMCpFMqFVet2QC/fSkdk9kGo8s7W0mo4wsCBpPf9f74qZooMjtnqdsnvGtg==
+	bh=uxccL6q+3ml/NhUFxZF9z4TZe/C5k0ibIGYFrtRTsV4=;
+	b=NOmd/sXJdE7S2M6ikhuHC7msHrgKUIif9wrJ9JSuYoyy7PhIWAHo9kTdKaG0PBFl3KZX
+	 JXibxXKEZq2NXTfY8l59uiFqULyBAWQDNqoGFgyozB3R8f+9JoKCWKuiZNHcWKFDpkjgt
+	 7sSHgnUftWbdsP6Q17Yo2K/T/vQkpAGTYjr0+H0BzgWbl9IlBhY9bhA5QeAbIMwIvrJxk
+	 H9+vHIzwmwHfvmqq2jsijpt6m44ZxkiDUzlkjgSaCM9kkeVHJ34yIWjDDGMuIHzehNNfS
+	 lbCRuYDSsvBas8aRBGte9yGQX/lVF1Wv7IZCpxfw1EjO1/L4cO6xNS4t5N+Vxl5f1JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlIlvS+n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=by9OLef7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087A560A2607;
-	Wed, 28 Oct 2026 12:01:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D61760A262E;
+	Wed, 28 Oct 2026 12:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlIlvS+n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101701F031E1;
-	Wed, 28 Oct 2026 12:01:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=by9OLef7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB001F031E5;
+	Wed, 28 Oct 2026 12:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188863;
-	bh=Jk9ja6pFw9H/pCHElM4lvoPR4YQqjz4WLvOdv5tiqaQ=;
+	s=k20260515; t=1793188889;
+	bh=uxccL6q+3ml/NhUFxZF9z4TZe/C5k0ibIGYFrtRTsV4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GlIlvS+nCmTyRK81bC41UjhM9uVuS8DejAY6k/QTqC7ezPRmPda3WlizVtl7f0zjq
-	 HHqQO1uION0a2cc616A+VJfdfvvUzpXqP8kazgMtKsnGxOTT2abo0NcwwSa0ACcEGN
-	 otHXu46M62u+FAJNzoZjs8L/qqs8sLFysVcbG1WcTtrC5TUPv2YAwwvlsvUO/YwWuQ
-	 RCojZfieOsFTHc9AN9XHvdADkENP9zH2AebOPaKEqwX7lRhAx2EhTjhfsYgORADFmi
-	 QPTQSQuecHXCvjD4nOQpUvBYgai4ycG5bacRpjqbaeXrGiSQI9RIAd9eWhJs0H1zWn
-	 tZmoJCgzR/TxA==
+	b=by9OLef7Wg1yLp9jCTCiVqjBlH7DKHghM3k8z5arZN5D0H8yz0vdhtTPQmM6b/2GN
+	 AUUrmzJQlR1pZdzapg52OyMsEXs+xNHFPWXDd7Fz1GBrpch8wUv7QTzZ/daE/rgoC0
+	 Yv8zY0qcDdlJv7xU+joniVr9WbcbKr0iTF8enh1Djiveoup4Ky+3BltKn9dGFAnSL1
+	 8p6j/cmP89bJgrsB8znrNxXgQzGHCIs2koKd0YLm0ThfLDfJ29NknQKQzMA1UA6/FG
+	 ooeGGpXk/07JHGvDnoavZkD6NIoh7pr4jhsW6HVxeP4E3toa3x3Jn/T+UL4p2zs8rh
+	 2l4D/G813QzHw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Chuck Wolber <chuck@wolber.net>,
-	Ian Rogers <irogers@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	linux-perf-users@vger.kernel.org,
+Cc: Chuck Wolber <chuck@wolber.net>,
+	Julian Braha <julianbraha@gmail.com>,
+	linux-kbuild@vger.kernel.org,
 	Marco Elver <elver@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@kernel.org>
-Subject: [RFC PATCH 07/20] perf: Always inline the empty perf_lopwr_cb() stub
-Date: Wed, 28 Oct 2026 07:59:31 -0400
-Message-ID: <20261028120034.871983-8-sashal@kernel.org>
+Subject: [RFC PATCH 18/20] kconfig: add CC_HAS_CONDITION_COVERAGE for MC/DC support detection
+Date: Wed, 28 Oct 2026 07:59:42 -0400
+Message-ID: <20261028120034.871983-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028120034.871983-1-sashal@kernel.org>
 References: <20261028120034.871983-1-sashal@kernel.org>
@@ -73,33 +67,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-perf_lopwr_cb() is called from the noinstr acpi_idle_do_entry(). The
-x86 implementation is __always_inline, but the empty fallback is a
-plain static inline function, which the compiler won't inline into
-noinstr code when building with code coverage instrumentation:
-
-  vmlinux.o: warning: objtool: acpi_idle_do_entry+0x4: call to perf_lopwr_cb() leaves .noinstr.text section
-
-Make the stub __always_inline as well.
+Add a Kconfig symbol to detect compiler support for -fcondition-coverage,
+which enables MC/DC (Modified Condition/Decision Coverage) instrumentation.
+This flag is available since GCC 14.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/perf_event.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ scripts/Kconfig.toolchain | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index eb3f7bab498ca..dcda92526b78c 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -2137,7 +2137,7 @@ typedef int (perf_snapshot_branch_stack_t)(struct perf_branch_entry *entries,
- DECLARE_STATIC_CALL(perf_snapshot_branch_stack, perf_snapshot_branch_stack_t);
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 4b962831d62af..f66b6efacee6c 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -144,6 +144,9 @@ config CC_HAS_ASSUME
+ config CC_HAS_NO_PROFILE_FN_ATTR
+ 	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
  
- #ifndef PERF_NEEDS_LOPWR_CB
--static inline void perf_lopwr_cb(bool mode)
-+static __always_inline void perf_lopwr_cb(bool mode)
- {
- }
- #endif
++config CC_HAS_CONDITION_COVERAGE
++	def_bool $(cc-option,-fcondition-coverage)
++
+ config CC_OPT_ZERO_INIT_PADDING_BITS
+ 	def_string "$(cc-option-str,-fzero-init-padding-bits=all)"
+ 
 -- 
 2.53.0
 
