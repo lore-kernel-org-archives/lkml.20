@@ -1,108 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793198829;
-	b=BQvGZ7sw1QlD8iXQTRB0lEjgHDFdSL5ukz3VuxYgbwxB1IWDdUMykAVHhdc6DIi2l9/G
-	 QcU8cns0z9eyJiw/bXYLzuS2nxclQvUzCj+yRTO+81zXX/xNn93b7e/xfu9q3Q7QEa5kM
-	 LxLcDQgMQjEPpNREvwTJsW/WvCtLbybUFnJv03dm8EmKZCeP/u9LYug21ptVVTO2iWom8
-	 xUVDjhtXl5kAz2d7DJ2sbHElsIgdRkilQjAyW+EoS2QPgvF9cDQrCEh5NIp3iH1HNhDmH
-	 nRUQRQbpTTjjzR8vQv6pZs3gjDHe+Jh/5hKDFrvF/2+HUMa+EBcZmPElaUVfUo8oA/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198829;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YnQpgqv+bMLUajh4jBwRU7UNKutTmSKWzKUiT159mpA=;
-	b=a4mb5bgZPfH0QzxMZtZs0CU61POJm5zhh05hxjLn8+v/9GI+RmrwzBMq+lhyPCI537S1
-	 oXfE1cDu7qRGh16INEltVeLRkFpc3y+fiJJl+mIvMrEbLgj2cmEZrk1nSUsThHnxbBfMD
-	 aerpD4pZdzsdzG+A1nAkLnAFtbJX85vz6RPw0dCdHlZY8QsJWbQEwElxTgrp8rbY6nEeX
-	 btBTRZAx71oCdOmgNnrplY+AIKwsuoruTqOf3sRbdOoUQqZrUCaY42FzswVPgv5/0g+Rd
-	 dsxPIh7cAeOzBkhJ3KXGeEb06CHotlq7ARm5NCpXl6Lq9nebDyy/7O1vOH/JSJ+gmdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jvvN8tk0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.55
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012055.outbound.protection.outlook.com [52.101.66.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28762606A31C;
-	Wed, 28 Oct 2026 14:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28762606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793198845;
+	b=E4Gafks59fu8I4drC43GKyqwHly+TaV4CazxV6ejvKXh2YeoN5gdctYcMP0UYoDE4kWc
+	 ZYbwIza4+WZ+p+Bd6EbZU8tKpIEljiCPicN9VMCPjU4VtgnAOmkIJTQDqgQYUF1l3SP1x
+	 OHR011Wr3mImBO9WSbd8hBSPN2K6yP9f4W4qix6aS7B5mS4VdE+q4aN5tN2qW3gjcg8BC
+	 i87WsBMSXmwSgM0FadnNKamZMSRjosskTzPq/vJ/eTRjZKOrf/mX2Wl6VTjTktMaJS2+Y
+	 Y5Os9XEMxX0KendufyCZzzYdxxw/LOBxnOHnIBQNUK2i1Re8Y6lpRdUAogfMJRCQyig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198845;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bkdqYhvgTV3TxfzYF2JwGYAKi+AJ0WqJz3A5EIXwgoA=;
+	b=H0YrLpVeQoF+HOIMt72oG1QSHUJxgRr4fUbTNuVBsxtw+O9gx+6E91Sn8HLDRZjExODq
+	 sTJhLYOJczbPZ6T2U0jK7Tcoj0DSIGzIN5jkMunogeDaWa3HrkzOmpw9OOrWLICV5I3+P
+	 d9i3LSxTmsRnSKzVa8Zvm78BDpvoPCkL3oYy5tcYolElW+PYXJnxKBm76qMMPqYtSQoIa
+	 raqJtHeubxynnrKBnO5Me6TTc9cxeVXkumgt+mYFNKPkyw5pQjG9hq0V8Jd1kMzJ2r6bG
+	 WhjrlvqtmtDjbsdI7fuApl1eiCzkfTLx8qLLebbk/J/SQuI0xHkCLCZ/0LmHiQ/BF/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j1P+R26b;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02D2F606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D2F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jvvN8tk0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gZS4LmBMxNRwT0A4CG6G+8r2GFEJ84MVv7tm3RZyrsmnW+tliQhu6wN7WJzhj1K4hMAIBjr79XassfzomyTjOT+9Pk2igZdlyTXUNzS1Mj3E62R5WosMKP3nzjUVYrto3Isf/Fboe8QLCHRAipkaTYFKgBkecsLP90CnpIIt3zvN3e4EiBTf281tG8iCXjEzVzMPU6zd8eo+T7fwpgxiZ22yJGmaNds0n0huxCxk1OH5VelZ2djygZ5zGnZ5bN+uwfvPG8DoYqY0Npgs24DC4pa1at1Vpq555mTcyGD2ggDQ+IUBVnq+kPaASI45ZVh7ZnJPr71CwVEejRq7eBSBrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YnQpgqv+bMLUajh4jBwRU7UNKutTmSKWzKUiT159mpA=;
- b=wReMaCQNpIyHfYERzPUIUrVodRJonj+IyzoxD9z3dlGHHuVDSu2WFu3AnGvFu4N+11JQZ2HgCKxG4DpaKo7VUjmtyFo3yTnEFfTt9YcyG46NON77dduCjMzo7HW3uTWksATZoXuDLpejw6Hs4J3kClV0Ku094LqlRBrNlwCIFicQWUUHXL7ZGBRXcwssr4hp+6oGZvyGTaxkvVm9YU4jn1ONbiX1mCi7LeQo55QIaRAfefWK1qR6FP4jP9cz8Ctlx8eXTu4DzJvbMzuOEvqQOw1Z74aKTTYdrU6MB5RqkXsesZLAM1T8rGiepI416NwoFrUSO/T1tBMx1lMkRNgkEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YnQpgqv+bMLUajh4jBwRU7UNKutTmSKWzKUiT159mpA=;
- b=jvvN8tk0iEO6y4OOzzbG49msvIJpYtDCgnTRWDXL8GSPx/du6DZbNtIxfg5JINK8mW0qx45+5NZm0o+2dlguaF5rSybOqwAQfmdqUj25eZDSsv6yCQG4V6aiS1L+aFgko1jWu2t1kTxijkejFUffJDSycfG310+1T2qC8tgpeJ45lz+E81Ipi2UMA1ahN4k9CQgNvwl01jhcCWYtzcKA59TKJ7c4dqmhtZicwjgflcyBKJQVi2/BuAPSm7ciNsTsyFfThk9n5Tqi5bRkYO7JWyFdQuGHsff88ffrnJHloLR1eQQYeGvb8JCGQ2LcLMROns9Ri4scgwh9KgezgtGMTA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV1PR04MB059377.eurprd04.prod.outlook.com (2603:10a6:150:808::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 14:47:06 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 14:47:05 +0000
-Date: Wed, 28 Oct 2026 09:46:55 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
- filter control
-Message-ID: <auIK38HPyv7PmDJF@SMW015318>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
- <ate-aNmqsyXCAIX8@lizhi-Precision-Tower-5810>
- <64f604a7-7e70-4a0d-8164-28c5d7b1e509@renesas.com>
- <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
- <f4b8a714-dab8-45d4-b98f-717d010806de@renesas.com>
- <auC06gqa5lGtKPjj@SMW015318>
- <7dea4022-20d8-493b-b560-ee635deb7cbc@renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7dea4022-20d8-493b-b560-ee635deb7cbc@renesas.com>
-X-ClientProxiedBy: DS1P223CA0019.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:8:44e::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j1P+R26b
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B39DB16A3;
+	Wed, 28 Oct 2026 07:47:19 -0700 (PDT)
+Received: from [10.2.198.93] (e142334-100.cambridge.arm.com [10.2.198.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07F623F59E;
+	Wed, 28 Oct 2026 07:47:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793198842; bh=2tVTu6ii/9taQ5GtfJNHTPR+6ACyTcaIodAIeyi7TGs=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=j1P+R26bOcMrWaELyp34i/98r/7w5fTQNChzqPiga/JISr1nqJbQ4We0hNbuuGjeg
+	 H7q9ehNQUB9jRxE/zRbk8EwMca6V4wgsOh8Vc07XAcrDrwfztI1Xy5prVAm2QnY6hp
+	 MU+LeurmQsJGVowuIdkIJnizoG00o5i3osTC7nBE=
+Message-ID: <b6f0d10a-d098-43cc-b923-0245af5f51f0@arm.com>
+Date: Wed, 28 Oct 2026 14:47:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,183 +53,398 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB059377:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b297fa7-3160-4377-43b3-08df350255a9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|366016|1800799024|376014|23010399003|6133799003|22082099003|18002099003|261026140227099003|3023799007|10067099003|261021123027099003|261021121427099003|56012099006|11063799006|4143699003|261009223027099003|261022105027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	WK5bez78ljbAnmV16l0MwlBIcBDuX9YrlJpJpYbaYS55KOb/SwZkDCURC3bsXnTX/25+5edGo+Yu7J9/L/XI30lED1upowMmMETh6nzjyNgmTvMsLdguX6ibjTqFfF/wNxblRMYzwd1DYuLp5HDTXQ02DawP2JR8QtKsNd+bVivG3rE9S+0oqpva14qAXUOLNOzwI/0BbKxmkP6jOs/mGutxE6ZQpexHNef2+xvVwlVsGW95WcFZegQptZK2tv8C6e+dLT1kgXUZLok5ysS+LMhkabRouwoV9pasJyVuvm3znzglxhylstR7cXLlFCs3eBsAci766MD1Z89a/C9+1Dd9Rm5cfw3f1ZWsJaYbiSa4qZqcBllnhisSrvjiPsier84ti+CDu2DrBV+w4xA1PpDcR4QJCSCuytfVCI8nV3s/nqb07mULaTWcPvmKfyPA11dQcYHZioboxtqmHrsie+IkQUmBBFTPoBPPa6t1hczLtvTWhylnyM+EYbrgBnUie1w22/WoesTfu9xudAxiFxm7Ufbv1Mk9b6LiW8E1xm/PsUK4U9jHqYHy0kEIWkL1m6dpxP2Txz74uP+9X/e2EZJbBx+KMAYTUBXHAm2rYtUMpPDkn+asIBLArSInLcUtWqCm28yVQN4J5kyi2RjrAKXoIaaHWqMZOowb93o+Z+c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(366016)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(261026140227099003)(3023799007)(10067099003)(261021123027099003)(261021121427099003)(56012099006)(11063799006)(4143699003)(261009223027099003)(261022105027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bzGWDRab1dJ/Yom7oqpNz2haNmkPafBmNNeZnVkr9DKkVwmGr0mlHuSnf6cq?=
- =?us-ascii?Q?n6zGnnGF2Sf01sMCd344GSKssow0k4PQT3LYjxoAhuEbUS5J2wSJ//GG2XgF?=
- =?us-ascii?Q?yz/B7wEBtFNQ/unrE1PZlChQruKUk8XDz91wQ3exBs2UcUWkb4Fv4IUiiGTQ?=
- =?us-ascii?Q?NYBpYlZ+ufrlxyLv7P7TvnSKqDL1PMlmLiIwFheiFth5pKuFlfhK4EwE3yF3?=
- =?us-ascii?Q?SWiyMTjntOh/irWm+m7bf3Mjf3ZCok+Hxuteb5+YYfHGH0Y+1WHwHBVGvP9j?=
- =?us-ascii?Q?5XP3XrqCFVYEkGwc4c4eOKSV6BFAFN2TL3nv1/Dv1J6PA4dxJnGmsaCMlmYK?=
- =?us-ascii?Q?OPO/l/NuEwsg7fhQ8GCL/2X2rLQeKxObK991jhn9lKGWJ3YW0pbWmH/OSpme?=
- =?us-ascii?Q?z5lkxoc6UDzD365g7kwlL2Fx214tXkkruM+Q0y7rtHoNPydMx/rmC0+yQpdV?=
- =?us-ascii?Q?QxFHqnM5ZQi54A3LaixEApU45IfCGEetnMlIFNTrSa162g1douDWe6P+7JEq?=
- =?us-ascii?Q?qtcBkUtZwy/HC8gY59ioxkKfoyzIb5HvfkYToDAMjB5azdkYKbC1S2YLSm6C?=
- =?us-ascii?Q?eWMOVTqNYCky/ac/Kx7/wdAJJ5xwf3OoW1mHDDJ/sVEwNYZnMmpNbokjsZxM?=
- =?us-ascii?Q?W240XvcbbIMK8fYqljcR83NbEcyDpPkNmGWav21FcWW+cdK31r3UAD/2gTwS?=
- =?us-ascii?Q?sERBW0xnvrwQbH8tmz41ZjQIQeHTWQpwwXA8fqbvcge/Mm1HWyCcMZ2S35eL?=
- =?us-ascii?Q?VR7u0Fg2g8aUuyKlVnyPRr+WobNEO93RQEsq587FfdJB+SrDWUr7W/2b1G+l?=
- =?us-ascii?Q?++44WYKRWSvDXsAeA6pqhy7gqZs3/ny1ls3LgATVg120encq6dnJ4m+tjYIB?=
- =?us-ascii?Q?CHBGaaV2L3E4OHi7TUbxvB6JnDv0Iiz6wBdjZ2x2khrEOb7EPxksiWtFBGr9?=
- =?us-ascii?Q?nbdVgTrDN4cL+AOIvuK3vVOIMGXkz/jAItZQyiFFvbweVbHQzylbIodrsthk?=
- =?us-ascii?Q?/gmM/7FXgRnBuT3u5JsHEIs1bZMkvPlsV4xULxKI1BO+JEbeku9MmEtm2Kd8?=
- =?us-ascii?Q?rBClXjzVAwFiEod8wqazGmctTUiMv/E3zPGu6K2K8MULVqrvGILhZlXzLTc2?=
- =?us-ascii?Q?tb00pRsquHErqPh2I7flSplRYyikUJmpU30SpUC9sH6N8J5gIHk3U5zY9adp?=
- =?us-ascii?Q?FP4f+Cg9DwGUHim9/fog9l4FDlvKZCSQai532c2Ezeyvz63d6dLDBl6v8zhI?=
- =?us-ascii?Q?CBnStEl+hZ/LTNM7qlZ1++QF3OSouKT5//J3dy3VH5OFZPh74cF09rjgTtTE?=
- =?us-ascii?Q?2JRKNLVtabvbgg9a4KNuMAEpwZxJ+45CTh9H8OJQQAvzAJE9vcDOe7uiAEfx?=
- =?us-ascii?Q?u4vnsS9qXo/jZhMA+JHmlcH/+5EvzQfz0UrNrRQa7R7BAqX6RZMwpT1AG1VH?=
- =?us-ascii?Q?yRB3xRtqtkLNQNanFU1Y8caqzR3fAxSFhVDZM6ruY5NJxK5tKmnJPrmTn13u?=
- =?us-ascii?Q?guGE25e/zaXxqhwSPKsiu1ADwG6vJOZtOhOSVSuISsiCXylPFneMjqzRr3eJ?=
- =?us-ascii?Q?NyJ1PUduR+RbTxMQiXIed8rjV48D1QYKFGuSN0mQu4CGWQIEcvvr/XLAkdFk?=
- =?us-ascii?Q?6jlmJm017Xlu6WqdkZNrsqLxmN8b2Gz/cK+TI+wP2RZOJFEtSS1o1N+0oJq3?=
- =?us-ascii?Q?7dSk46+Uj4idN3Tz9WbAchvixzH/bQHBRts5n42BSC8jBjVkxRN5ClUn1k5F?=
- =?us-ascii?Q?0Wcm4hE4hD2LtEVgq2VSONyUFfPRF2wWmZOHrEhD/KpQgd0J8k3V?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b297fa7-3160-4377-43b3-08df350255a9
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:47:05.5053
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +hoGA6u7QMGk325mGaQczYHC3k4CnHi7L+phkVEGOQGsnSR9A0j9PXFqRed/JaN4k4FFR2NZ2WKjDL/w0j2Y98vSOYc9ZVsaqMw42xrpH4os45kWFBAsaQncR6sMALsy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB059377
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: tlbflush: Don't broadcast if mm was only active
+ on local cpu
+To: Linu Cherian <linu.cherian@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Yang Shi <yang@os.amperecomputing.com>, Mark Rutland <mark.rutland@arm.com>,
+ Huang Ying <ying.huang@linux.alibaba.com>
+References: <20260523134710.3827956-1-linu.cherian@arm.com>
+From: Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <20260523134710.3827956-1-linu.cherian@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 11:10:07AM +0000, Diogo Ivo wrote:
-> On 10/27/2026 2:27 PM, Frank Li wrote:
-> > On Tue, Oct 27, 2026 at 10:34:54AM +0000, Diogo Ivo wrote:
-> > > On 10/26/2026 8:33 PM, Frank Li wrote:
-> > > > On Mon, Oct 26, 2026 at 04:21:06PM +0000, Diogo Ivo wrote:
-> > > > > Hi Frank,
-> > > > >
-> > > > > On 10/20/2026 8:18 PM, Frank Li wrote:
-> > > > > > On Tue, Oct 20, 2026 at 10:36:26AM +0100, Diogo Ivo wrote:
-> > > > > > > The analog noise filter for the input terminals (I3C_SDA, I3C_SCL) of
-> > > > > > > the Renesas I3C controller is controlled through the SYS_I3C_CFG
-> > > > > > > register of the system controller. Document the
-> > > > > > > renesas,analog-noise-filter property, which references the system
-> > > > > > > controller together with the offset of the SYS_I3C_CFG register and
-> > > > > > > the state of the filter: 1 enables the filter and 0 bypasses it.
-> > > > > > >
-> > > > > > > The property is optional: device trees not providing it keep the
-> > > > > > > filter at its reset value.
-> > > > > > >
-> > > > > > > Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> > > > > > > ---
-> > > > > > >     .../devicetree/bindings/i3c/renesas,i3c.yaml          | 19 +++++++++++++++++++
-> > > > > > >     1 file changed, 19 insertions(+)
-> > > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-> > > > > > > index 08fcea89a015..381807844351 100644
-> > > > > > > --- a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-> > > > > > > @@ -96,6 +96,25 @@ properties:
-> > > > > > >           - const: presetn
-> > > > > > >           - const: tresetn
-> > > > > > >
-> > > > > > > +  renesas,analog-noise-filter:
-> > > > > > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > > > >
-> > > > > > I don't like this syscon property, look like it is one kind pad propterty.
-> > > > > > Is it possible model as pinctrl?
-> > > > >
-> > > > > On the RZ/G3L and RZ/G3S this filter is not controlled on the pin
-> > > > > controller's address space but in the SYSC address space (hence the
-> > > > > need for the sysc phandle).
-> > > > >
-> > > > > There are a few factors weighing against modeling this as pinctrl.
-> > > > >
-> > > > > The first is that the physical pads used by I3C are multiplexed between it
-> > > > > and for example RIIC3, so we are not filtering the pad but the internal path
-> > > > > of the I3C IP. The pinctrl does indeed have some controls for the pad's
-> > > > > digital filters, that apply to whatever block is multiplexed to the pad.
-> > > > >
-> > > > > Besides this, even if it were moved to pinctrl we would still need the sysc
-> > > > > reference, as the pfc driver would need a way to reference the sysc address
-> > > > > space.
-> > > >
-> > > > System allows multi pinctrl devices. your syscon can work as pinctrl provider
-> > > >
-> > > > pinctrl-0 = <&your nomral pinctrl>, <&syscon i3c ... > ;
-> > > >
-> > > > The key problem is if model is resonable. Syscon is simple, but have not
-> > > > good abstract.
-> > >
-> > > Doing this in pinctrl is feasible, especially since the pinctrl driver on
-> > > G3L already has a reference to syscon for clone channels. The question
-> > > really is if this is what makes the most sense, as again we are not really
-> > > controlling an external pin but something inside the IP
-> > > block,
-> >
-> > I don't think so. Generally, PAD some property, like pull up/down, driver
-> > strength, some include glitch filter (capacitor or schmitter trigger),
-> >
-> > 'renesas,analog-noise-filter' like adjust some capacitor at PAD, only
-> > controler signal (register) is not in your pinctrl region.
-> >
-> > There are not analog-noise in side SOC's digtial part (Or we can't care it).
-> > Analog sigal generally existed in PHY and PAD.
->
-> On the RZ/G3L the analog filter is located after the pinmux, at the input of
-> each I2C/I3C block. Each I2C and I3C block in G3L has a single
-> register bit that controls if the analog filter is enabled for that specific
-> block (so we have SYS_I2C0_CFG, SYS_I2C1_CFG, ..., SYS_I3C_CFG)
-> each with a single bit that controls if the filter is enabled or not.
->
-> However, for the I2C blocks they can be multiplexed to dozens of pads, and
-> these pads don't each contain an i2c analog filter. Rather, the signal
-> passes first by the external pad and pinmux and then it reaches the intended
-> I2C or I3C IP block, where the analog filter is then located. For example,
-> the P2_0 and P2_1 pads can be multiplexed between I3C and RIIC3, and each of
-> these blocks then has its filter at the input of the IP block, and a single
-> bit in the SYS register controls the filter for SDA and SCL together.
+On 23/05/2026 2:47 pm, Linu Cherian wrote:
+> From: Ryan Roberts <ryan.roberts@arm.com>
+> 
+> There are 3 variants of tlb flush that invalidate user mappings:
+> flush_tlb_mm(), flush_tlb_page() and __flush_tlb_range(). All of these
+> would previously unconditionally broadcast their tlbis to all cpus in
+> the inner shareable domain.
+> 
+> But this is a waste of effort if we can prove that the mm for which we
+> are flushing the mappings has only ever been active on the local cpu. In
+> that case, it is safe to avoid the broadcast and simply invalidate the
+> current cpu.
+> 
+> So let's track in mm_context_t::active_cpu either the mm has never been
+> active on any cpu, has been active on more than 1 cpu, or has been
+> active on precisely 1 cpu - and in that case, which one. We update this
+> when switching context, being careful to ensure that it gets updated
+> *before* installing the mm's pgtables. On the reader side, we ensure we
+> read *after* the previous write(s) to the pgtable(s) that necessitated
+> the tlb flush have completed. This guarrantees that if a cpu that is
+> doing a tlb flush sees it's own id in active_cpu, then the old pgtable
+> entry cannot have been seen by any other cpu and we can flush only the
+> local cpu.
+> 
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Tested-by: Huang Ying <ying.huang@linux.alibaba.com>
+> [linu.cherian@arm.com: Adapted for v7.1 flush tlb API changes]
+> Signed-off-by: Linu Cherian <linu.cherian@arm.com>
+> ---
+> Changelog from RFC v1:
+> - Adapted for v7.1 flush tlb API changes
+>   No changes in core logic
+> - Collected Rb and Tb tags
+> - lat_mmap benchmark showed dsb(ishst) performs better than dsb(ish),
+>   hence retained dsb(ishst) in flush_tlb_user_pre	
+> 
+> 
+> Testing with 7.1-rc4 :
+> +-----------------------+---------------------------------------------------+-------------+
+> | Benchmark             | Result Class                                      |  Improvement|  
+> +=======================+===================================================+=============+
+> | perf/syscall          | fork (ops/sec)                                    |   (I) 3.25% |
+> +-----------------------+---------------------------------------------------+-------------+
+> | pts/memtier-benchmark | Protocol: Redis Clients: 100 Ratio: 1:5 (Ops/sec) |   (I) 2.70% |
+> | 			| Protocol: Redis Clients: 100 Ratio: 5:1 (Ops/sec) |   (I) 2.13% |
+> +-----------------------+---------------------------------------------------+-------------+
 
-The location in hardware is not important. What's most consider is choose/use
-which software model to descript your hardware.
+I tested this patch using a synthetic Firecracker benchmark on a 192-CPU
+arm64 host, with Linux v7.3 on both the host and guests. Each worker
+repeatedly creates a fresh 1-vCPU microVM, boots Ubuntu, verifies an echo
+response over the serial console, and shuts the guest down, waiting for
+Firecracker to exit before starting the next VM. Each guest has 256 MiB of
+RAM, with two VM slots per workload CPU.
 
-> Then,
-> there is the problem that if we model this with pinctrl with a pad property
-> then pinconf would not know which block's SYS register to write without
-> coupling to pinmux. In this specific case of P2_0 and P2_1 pads without
-> coupling pinconf and pinmux we could not determine whether we should write
-> to SYS_I3C_CFG or SYS_I2C3_CFG.
+With 4 KiB guests, the unpatched workload stops scaling between 64 and 96
+CPUs: throughput falls from approximately 68 to 65 completed lifecycles/s
+despite the additional CPUs.
 
-coupling pinconf and pinmux is quite common. I remember pinctrl framework
-already consider that.
+Applying the patch to the guest substantially improves throughput at higher
+concurrency. At 128 workload CPUs, I measured:
 
+  Guest pages  Unpatched  Guest patched only  Host patched only
+  -----------  ---------  ------------------  -----------------
+  4 KiB        73.83/s    108.55/s (+47.0%)    74.09/s (+0.4%)
+  64 KiB       86.46/s    105.04/s (+21.5%)    90.15/s (+4.3%)
 
->
-> Then there is also the precedent of i2c-analog-filter being a controller
-> node property rather than a pad/pinctrl property.
->
-> For these reasons I believe that pinctrl is not the best way to model the
-> I2C/I3C analog filters but please do let me know your thoughts.
+The host uses 4 KiB pages throughout. The host-only difference with 4 KiB
+guests is small enough that I would regard it as essentially unchanged.
 
-But syscon is also not good, which basic have not any abstaction.
+I have not observed any functional regressions during these tests.
 
-Frank
->
-> Geert, DT maintainers, do you have any preferences on what the best way to
-> model this is?
->
-> Best regards,
-> Diogo
->
->
-> > Frank
-> >
-> > > so I'm still not fully convinced. Are there more opinions on this?
->
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+
+> 
+>  arch/arm64/include/asm/mmu.h         |  12 +++
+>  arch/arm64/include/asm/mmu_context.h |   2 +
+>  arch/arm64/include/asm/tlbflush.h    | 127 +++++++++++++++++++++------
+>  arch/arm64/mm/context.c              |  30 ++++++-
+>  4 files changed, 141 insertions(+), 30 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/mmu.h b/arch/arm64/include/asm/mmu.h
+> index 5e1211c540ab..0002101c1f21 100644
+> --- a/arch/arm64/include/asm/mmu.h
+> +++ b/arch/arm64/include/asm/mmu.h
+> @@ -16,6 +16,17 @@
+>  #include <linux/refcount.h>
+>  #include <asm/cpufeature.h>
+>  
+> +/*
+> + * Sentinal values for mm_context_t::active_cpu. ACTIVE_CPU_NONE indicates the
+> + * mm has never been active on any CPU. ACTIVE_CPU_MULTIPLE indicates the mm
+> + * has been active on multiple CPUs. Any other value is the ID of the single
+> + * CPU that the mm has been active on.
+> + */
+> +enum active_cpu {
+> +	ACTIVE_CPU_NONE = UINT_MAX,
+> +	ACTIVE_CPU_MULTIPLE = UINT_MAX - 1,
+> +};
+> +
+>  typedef struct {
+>  	atomic64_t	id;
+>  #ifdef CONFIG_COMPAT
+> @@ -25,6 +36,7 @@ typedef struct {
+>  	void		*vdso;
+>  	unsigned long	flags;
+>  	u8		pkey_allocation_map;
+> +	unsigned int	active_cpu;
+>  } mm_context_t;
+>  
+>  /*
+> diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
+> index 803b68758152..101cae0c7262 100644
+> --- a/arch/arm64/include/asm/mmu_context.h
+> +++ b/arch/arm64/include/asm/mmu_context.h
+> @@ -172,6 +172,8 @@ init_new_context(struct task_struct *tsk, struct mm_struct *mm)
+>  	/* pkey 0 is the default, so always reserve it. */
+>  	mm->context.pkey_allocation_map = BIT(0);
+>  
+> +	WRITE_ONCE(mm->context.active_cpu, ACTIVE_CPU_NONE);
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
+> index c0bf5b398041..1f75bce4fa0d 100644
+> --- a/arch/arm64/include/asm/tlbflush.h
+> +++ b/arch/arm64/include/asm/tlbflush.h
+> @@ -164,6 +164,12 @@ static inline void sme_dvmsync_batch(struct arch_tlbflush_unmap_batch *batch)
+>  
+>  typedef void (*tlbi_op)(u64 arg);
+>  
+> +static __always_inline void vae1(u64 arg)
+> +{
+> +	__tlbi(vae1, arg);
+> +	__tlbi_user(vae1, arg);
+> +}
+> +
+>  static __always_inline void vae1is(u64 arg)
+>  {
+>  	__tlbi(vae1is, arg);
+> @@ -308,6 +314,74 @@ static inline void __tlbi_sync_s1ish_hyp(void)
+>  	__repeat_tlbi_sync(vale2is, 0);
+>  }
+>  
+> +typedef unsigned __bitwise tlbf_t;
+> +
+> +/* No special behaviour. */
+> +#define TLBF_NONE		((__force tlbf_t)0)
+> +
+> +/* Invalidate tlb entries only, leaving the page table walk cache intact. */
+> +#define TLBF_NOWALKCACHE	((__force tlbf_t)BIT(0))
+> +
+> +/* Skip the trailing dsb after issuing tlbi. */
+> +#define TLBF_NOSYNC		((__force tlbf_t)BIT(1))
+> +
+> +/* Suppress tlb notifier callbacks for this flush operation. */
+> +#define TLBF_NONOTIFY		((__force tlbf_t)BIT(2))
+> +
+> +/* Perform the tlbi locally without broadcasting to other CPUs. */
+> +#define TLBF_NOBROADCAST	((__force tlbf_t)BIT(3))
+> +
+> +/*
+> + * Determines whether the user tlbi invalidation can be performed only on the
+> + * local CPU or whether it needs to be broadcast. (Returns true for local).
+> + * Additionally issues appropriate barrier to ensure prior pgtable updates are
+> + * visible to the table walker. Must be paired with flush_tlb_user_post().
+> + */
+> +static inline bool flush_tlb_user_pre(struct mm_struct *mm, tlbf_t flags)
+> +{
+> +	unsigned int self, active;
+> +	bool local;
+> +
+> +	migrate_disable();
+> +
+> +	if (flags & TLBF_NOBROADCAST) {
+> +		dsb(nshst);
+> +		return true;
+> +	}
+> +
+> +	self = smp_processor_id();
+> +
+> +	/*
+> +	 * The load of mm->context.active_cpu must not be reordered before the
+> +	 * store to the pgtable that necessitated this flush. This ensures that
+> +	 * if the value read is our cpu id, then no other cpu can have seen the
+> +	 * old pgtable value and therefore does not need this old value to be
+> +	 * flushed from its tlb. But we don't want to upgrade the dsb(ishst),
+> +	 * needed to make the pgtable updates visible to the walker, to a
+> +	 * dsb(ish) by default. So speculatively load without a barrier and if
+> +	 * it indicates our cpu id, then upgrade the barrier and re-load.
+> +	 */
+> +	active = READ_ONCE(mm->context.active_cpu);
+> +	if (active == self) {
+> +		dsb(ish);
+> +		active = READ_ONCE(mm->context.active_cpu);
+> +	} else {
+> +		dsb(ishst);
+> +	}
+> +
+> +	local = active == self;
+> +	if (!local)
+> +		migrate_enable();
+> +
+> +	return local;
+> +}
+> +
+> +static inline void flush_tlb_user_post(bool local)
+> +{
+> +	if (local)
+> +		migrate_enable();
+> +}
+> +
+>  /*
+>   *	TLB Invalidation
+>   *	================
+> @@ -408,12 +482,20 @@ static inline void flush_tlb_all(void)
+>  static inline void flush_tlb_mm(struct mm_struct *mm)
+>  {
+>  	unsigned long asid;
+> +	bool local;
+>  
+> -	dsb(ishst);
+> +	local = flush_tlb_user_pre(mm, TLBF_NONE);
+>  	asid = __TLBI_VADDR(0, ASID(mm));
+> -	__tlbi(aside1is, asid);
+> -	__tlbi_user(aside1is, asid);
+> -	__tlbi_sync_s1ish(mm);
+> +	if (local) {
+> +		__tlbi(aside1, asid);
+> +		__tlbi_user(aside1, asid);
+> +		dsb(nsh);
+> +	} else {
+> +		__tlbi(aside1is, asid);
+> +		__tlbi_user(aside1is, asid);
+> +		__tlbi_sync_s1ish(mm);
+> +	}
+> +	flush_tlb_user_post(local);
+>  	mmu_notifier_arch_invalidate_secondary_tlbs(mm, 0, -1UL);
+>  }
+>  
+> @@ -475,6 +557,12 @@ static inline void arch_tlbbatch_flush(struct arch_tlbflush_unmap_batch *batch)
+>   *    operations can only span an even number of pages. We save this for last to
+>   *    ensure 64KB start alignment is maintained for the LPA2 case.
+>   */
+> +static __always_inline void rvae1(u64 arg)
+> +{
+> +	__tlbi(rvae1, arg);
+> +	__tlbi_user(rvae1, arg);
+> +}
+> +
+>  static __always_inline void rvae1is(u64 arg)
+>  {
+>  	__tlbi(rvae1is, arg);
+> @@ -573,23 +661,6 @@ static inline bool __flush_tlb_range_limit_excess(unsigned long pages,
+>  	return pages >= (MAX_DVM_OPS * stride) >> PAGE_SHIFT;
+>  }
+>  
+> -typedef unsigned __bitwise tlbf_t;
+> -
+> -/* No special behaviour. */
+> -#define TLBF_NONE		((__force tlbf_t)0)
+> -
+> -/* Invalidate tlb entries only, leaving the page table walk cache intact. */
+> -#define TLBF_NOWALKCACHE	((__force tlbf_t)BIT(0))
+> -
+> -/* Skip the trailing dsb after issuing tlbi. */
+> -#define TLBF_NOSYNC		((__force tlbf_t)BIT(1))
+> -
+> -/* Suppress tlb notifier callbacks for this flush operation. */
+> -#define TLBF_NONOTIFY		((__force tlbf_t)BIT(2))
+> -
+> -/* Perform the tlbi locally without broadcasting to other CPUs. */
+> -#define TLBF_NOBROADCAST	((__force tlbf_t)BIT(3))
+> -
+>  static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+>  					unsigned long start, unsigned long end,
+>  					unsigned long stride, int tlb_level,
+> @@ -597,6 +668,7 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+>  {
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	unsigned long asid, pages;
+> +	bool local;
+>  
+>  	pages = (end - start) >> PAGE_SHIFT;
+>  
+> @@ -605,10 +677,9 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+>  		return;
+>  	}
+>  
+> -	if (!(flags & TLBF_NOBROADCAST))
+> -		dsb(ishst);
+> -	else
+> -		dsb(nshst);
+> +	local = flush_tlb_user_pre(mm, flags);
+> +	if (local && !(flags & TLBF_NOBROADCAST))
+> +		flags |= TLBF_NOBROADCAST;
+>  
+>  	asid = ASID(mm);
+>  
+> @@ -622,8 +693,8 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+>  					asid, tlb_level);
+>  		break;
+>  	case TLBF_NOBROADCAST:
+> -		/* Combination unused */
+> -		BUG();
+> +		__flush_s1_tlb_range_op(vae1, start, pages, stride,
+> +					asid, tlb_level);
+>  		break;
+>  	case TLBF_NOWALKCACHE | TLBF_NOBROADCAST:
+>  		__flush_s1_tlb_range_op(vale1, start, pages, stride,
+> @@ -640,6 +711,8 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+>  		else
+>  			dsb(nsh);
+>  	}
+> +
+> +	flush_tlb_user_post(local);
+>  }
+>  
+>  static inline void __flush_tlb_range(struct vm_area_struct *vma,
+> diff --git a/arch/arm64/mm/context.c b/arch/arm64/mm/context.c
+> index 0f4a28b87469..f34ed78393e0 100644
+> --- a/arch/arm64/mm/context.c
+> +++ b/arch/arm64/mm/context.c
+> @@ -214,9 +214,10 @@ static u64 new_context(struct mm_struct *mm)
+>  
+>  void check_and_switch_context(struct mm_struct *mm)
+>  {
+> -	unsigned long flags;
+> -	unsigned int cpu;
+> +	unsigned int cpu = smp_processor_id();
+>  	u64 asid, old_active_asid;
+> +	unsigned int active;
+> +	unsigned long flags;
+>  
+>  	if (system_supports_cnp())
+>  		cpu_set_reserved_ttbr0();
+> @@ -251,7 +252,6 @@ void check_and_switch_context(struct mm_struct *mm)
+>  		atomic64_set(&mm->context.id, asid);
+>  	}
+>  
+> -	cpu = smp_processor_id();
+>  	if (cpumask_test_and_clear_cpu(cpu, &tlb_flush_pending))
+>  		local_flush_tlb_all();
+>  
+> @@ -262,6 +262,30 @@ void check_and_switch_context(struct mm_struct *mm)
+>  
+>  	arm64_apply_bp_hardening();
+>  
+> +	/*
+> +	 * Update mm->context.active_cpu in such a manner that we avoid cmpxchg
+> +	 * and dsb unless we definitely need it. If initially ACTIVE_CPU_NONE
+> +	 * then we are the first cpu to run so set it to our id. If initially
+> +	 * any id other than ours, we are the second cpu to run so set it to
+> +	 * ACTIVE_CPU_MULTIPLE. If we update the value then we must issue
+> +	 * dsb(ishst) to ensure stores to mm->context.active_cpu are ordered
+> +	 * against the TTBR0 write in cpu_switch_mm()/uaccess_enable(); the
+> +	 * store must be visible to another cpu before this cpu could have
+> +	 * populated any TLB entries based on the pgtables that will be
+> +	 * installed.
+> +	 */
+> +	active = READ_ONCE(mm->context.active_cpu);
+> +	if (active != cpu && active != ACTIVE_CPU_MULTIPLE) {
+> +		if (active == ACTIVE_CPU_NONE)
+> +			active = cmpxchg_relaxed(&mm->context.active_cpu,
+> +						 ACTIVE_CPU_NONE, cpu);
+> +
+> +		if (active != ACTIVE_CPU_NONE)
+> +			WRITE_ONCE(mm->context.active_cpu, ACTIVE_CPU_MULTIPLE);
+> +
+> +		dsb(ishst);
+> +	}
+> +
+>  	/*
+>  	 * Defer TTBR0_EL1 setting for user threads to uaccess_enable() when
+>  	 * emulating PAN.
+
