@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793145905;
-	b=vKZK394eTPkCAma6NTfzssG3XxKzxort8XTd3k2PYXP3Opw632Qn9iDVyt68WYgf57rS
-	 FpR7U9ky+MivAlm38nr8j/BLL/5EVs1us0HCeO9Dab7//EFJ4h186Jji8bfp//AZIJgJ2
-	 GR2T0bvBR7WhMcWWljWGHw+0JMX+pi4kF3dhwGZybrlehU0w/gGcQm44kQEfb9Y6MdUx9
-	 ii0jMaATv9SX6pjM4eDoSE2z2KGcEPa6jWCJrrCUtlNev92x9bkcSIf9J0j3/DPI8H6Ta
-	 2eEIQGxM7fn0oI9IZvf+8RZ6AttLlUVMtJTr074i0gg2xvKccecOs76tWfLDQVv70CA==
+	t=1793145910;
+	b=gS+CYmpLRX7gZhBpTwnVdS0tFWwfixpbnoeSta1FakU5cgCzQzW0iYbRASdQ177cvjIO
+	 T0y2GmGHxPih0T597XBScW0xNGHXyYJ9K8e4iBXIeCjDPBADOiBF2CMlxeirE6Evd4am3
+	 vFOMINA+WHjFgpimKeLrG/IU00FzTeICF9Xfm8zdmVPGuXlySL4PG66+1nI08LtGXJ73Y
+	 5KcOfBphH9zdefzHk97OK6noWCTUPulzxFnh1C+/1nxBkbZpR5nhVt0u6qRJHcVtf836E
+	 mMiwNdE+QkkPRwk3LQ+LchvITmzz2nIC1KqxmfVeRrXlJoXYAHxxIyyfE0zcFtGez6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793145905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793145910;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ah4gzw5OiHfYj57lOarZOXCU6RfDPS1zY+caCBQQGnA=;
-	b=f//sSc4Z+Mcp98fKxEdmBWU2EpyMFyCFFcunaLSAlJE6xuJkOOLGnxFOHz80sBRcQSRv
-	 EKLNA3aAQyTSGCZPFXyROej66av1oRcclL3V/c9ycDlhNQKc+SZoKg0U2eBAwZxJWdh1S
-	 yTbOHvZ82y991r0dwbIOAapAUIiqOHRV/gFbpyllQqrdAAtHjNOwV6Vu4WfBN1V097tm9
-	 1qQvxhmdjjXuQ7WBP6P7VYC6ciaAjC2gT0aA+6YaOfEWSnRU5Iejd5i+C8LwiE7rQLAEG
-	 rtxFao7zqaB06AWoPMeARoXsPE5rrQnrI7ifUvOPlRvVOVhoGabcEZlbu5wsCRznwmg==
+	bh=LpfshKx9r3VUKJpK4IAmx+D8pUxvMc3zcV//VOwsUHM=;
+	b=Buf7Kyk2LcNFhA1Xt96ip0xPxoJx46Jywl6UjaCApU7VQzQ8y+I7/lRehbhFsZDm2rMX
+	 BNgFm2/6QeAkMzm3Qcg9iLv8w/AiBsL5nF0Yz9Y3ooqfoZh7B5hF7pDUdLpe5hOg1zfXt
+	 2NJ06MHN5bzwIF4kw8UmTVX/143fOEqxtHalbSSF1MbxH1p4zxKsZa0tOL9DRHv9EvTJS
+	 ILrenp8Slki48ZZC13/A8k1jeGZwpS8jZeue+s1Sj+s3znquF5kW1+WqjRRFB8OWX6s4d
+	 1YIPb5f8hsergrOo7drRxjBMCC3BfBiJ2ce9MPPh6lbWNXXzGHNXpy+oJN0jhFYXcKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TwGC2TzJ;
-	arc=none smtp.remote-ip=91.218.175.13
-Received: from mta0.migadu.com (out-13.mta0.migadu.com [91.218.175.13])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xnxQuqcG;
+	arc=none smtp.remote-ip=91.218.175.20
+Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC83606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:05:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC83606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8A6606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE8A6606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TwGC2TzJ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xnxQuqcG
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=psa7zx1Xe6yGIkcQOpjXlYI3zz/TQ9U0VkcLjx2WVoI=;
+DKIM-Signature: a=rsa-sha256; bh=6brww2x3JHuxuisQJDKfBncVXg9MZoFkRgEqMdU4ia4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793145902; v=1; x=1793750702;
- b=TwGC2TzJdfwSNEmrRrDbN7E/YKUglZXDJk93kXtg8RHIHAsB5m6nJKHM5O2fwADzREZrrYNI
- EoFK+ZeF5WsLxVfkw1cRmFH0xwWGSJoPMOgfP1kzmrkGczu+YNoLm68CPpmEy8THreaVszS5E2e
- AckDE179ZO0DtezqI8nkMtZI=
+ t=1793145908; v=1; x=1793750708;
+ b=xnxQuqcGadBwoNNE48/S8+/zSI5my4sFZDsbB1gTDc+hTwL1Aajqtu+S8DO1DO4gYvJX1yA+
+ KCh3P2v3+/f30j6hExe+5qG553f8Hvbvsgg1tKDs1Lq98XErLqVgoAoPO2U9zCyDklPemIqOF+Y
+ mYJaV7+1IrvDnqgzTCK3vjOY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 84ceb785ec4e11b7;
-	Wed, 28 Oct 2026 00:05:02 +0000
-X-Mizu-Trace-ID: 84ceb785ec4e11b7
+Received: by smtp.migadu.com with ESMTPS id c17dda34776e8be8;
+	Wed, 28 Oct 2026 00:05:06 +0000
+X-Mizu-Trace-ID: c17dda34776e8be8
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: bpf@vger.kernel.org
@@ -66,9 +66,9 @@ Cc: ast@kernel.org,
 	jose.marchesi@oracle.com,
 	david.faust@oss.qualcomm.com,
 	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v1 6/7] selftests/bpf: cast explicitly in the arena subprog and callback faults
-Date: Tue, 27 Oct 2026 17:04:10 -0700
-Message-ID: <20261028000411.4010967-7-vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v1 7/7] selftests/bpf: write the mixed arena/scalar ALU tests in asm
+Date: Tue, 27 Oct 2026 17:04:11 -0700
+Message-ID: <20261028000411.4010967-8-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,108 +81,169 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Four stream tests fail with BPF_GCC:
+They fail to build with BPF_GCC:
 
-  test_stream_arena_fault_address:FAIL:stream__open_and_load unexpected error: -13
-  #479 stream_oversize:FAIL
-  #480 stream_partial_read:FAIL
-  #482 stream_syscall:FAIL
+  progs/verifier_arena.c:566:5: error: optimization may eliminate reads and/or writes to register variables [-Werror=volatile-register-var]
 
-They call stream__open_and_load(), which loads every program in the object,
-and two of those do not verify:
+for
 
-  #481/11 stream_success/stream_arena_subprog_fault:FAIL
-  #481/12 stream_success/stream_arena_callback_fault:FAIL
+  volatile register __u64 reg asm("r3");
 
-Both dereference an arena pointer and leave the cast to the compiler:
+GCC means it: with the warning silenced it drops both scalar accesses,
+leaving nothing that uses r3 as a scalar:
 
-  int __arena *addr = (int __arena *)0xdeadbeef;
-  *addr = 1;
+  call	7
+  if w0 == 0 goto .L136
+  r9 = arena ll;r3 = 0;r3 = addr_space_cast(r3, 0, 1);
+  .L136:
+  r0 = 0
+  exit
 
-Without arena support __arena is only btf_type_tag("arena"), so no
-addr_space_cast is emitted and the store is to a scalar, which the
-verifier rejects.  GCC splits it into byte stores, 0xdeadbeef not
-being aligned:
+`reg = 1ULL << 32' and `reg += 1' are both gone.  The tests need one
+instruction reached with r3 live as a scalar on one path and as an
+arena pointer on the other; what is left gives the verifier no reason
+to reject anything, so the __failure expectation would not hold.  A
+local register variable is not guaranteed to survive a helper call
+either, which GCC is also entitled to act on.
 
-  r2=3735928559 ll
-  *(u8*)(r2+0)=1            <- plain store, no cast
+Nothing here needs a compiler to allocate registers, so write the
+whole body in asm like mixed_arena_stack_atomic below, which tests the
+same shape.  Both compilers then emit the same sequence, with the
+branch landing on the shared ALU op:
 
-Their siblings in the same file do not rely on the compiler; they use
-bpf_addr_space_cast(), which emits the instruction byte by byte and
-works anywhere.  Do the same here.
+  call 7
+  r6=r0
+  r3=1
+  r3<<=32
+  if w6==0 goto 4          <- lands on r3+=1
+  r9=0 ll
+  r3=0
+  r3 = addr_space_cast(r3, 0, 1)
+  r3+=1                    <- scalar on one path, arena pointer on the other
+  r0=0
+  exit
 
-The address space has to come off the local as well.  Left on, a
-compiler that supports arenas casts a second time for the
-dereference, on a pointer the explicit cast has already converted:
+Take __load_if_JITed() from the sibling while here.  A program binding
+an arena map is rejected in check_map_prog_compatibility() with "JIT is
+required to use arena" during map resolution, before do_check() can
+reach the shared instruction, so without a JIT these would fail on the
+wrong message rather than skip.
 
-  r2 = addr_space_cast(r2, 0, 1)
-  r3 = addr_space_cast(r2, 0, 1)
-  *(u32*)(r3+0)=1
-
-With it off, GCC with and without arena support and clang all emit the
-same thing, which is what the test wants:
-
-  r2 = addr_space_cast(r2, 0, 1)
-  *(u32*)(r2+0)=1
-
-What these two assert is the fault report, not how the pointer was
-produced, so nothing they were testing is lost.
-
-Measured on bpf-next with a stock bpf-gcc, test_progs before and after.
-Fifteen results go FAIL -> OK -- every test that loads this object, not
-just the arena ones:
-
-  stream_arena_fault_address             stream_oversize
-  stream_fd        stream_fd/blocking    stream_partial_read
-  stream_fd/edge   stream_fd/empty       stream_success
-  stream_fd/hup    stream_fd/nmi_epoll   stream_success/stream_arena_callback_fault
-  stream_fd/open   stream_fd/nonblock    stream_success/stream_arena_subprog_fault
-                                         stream_syscall
-
-and the five stream_arena_fault_address subtests become visible for the
-first time (read, write, xchg, cmpxchg and load_acquire faults).
+Not exercised by a stock bpf-gcc, which compiles both tests out with the
+rest of the arena block; the build failure above needs a compiler that
+has arena support.  Under clang the rewrite is not a no-op either: the
+pre-image spilled r3 to the stack and did the shared ALU op on r1
+reloaded from it, so the test was not exercising one register live as
+both a scalar and an arena pointer.
 
 Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- tools/testing/selftests/bpf/progs/stream.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../selftests/bpf/progs/verifier_arena.c      | 85 ++++++++++---------
+ 1 file changed, 45 insertions(+), 40 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/stream.c b/tools/testing/selftests/bpf/progs/stream.c
-index 1ae015c4e6b4..dc56779cac06 100644
---- a/tools/testing/selftests/bpf/progs/stream.c
-+++ b/tools/testing/selftests/bpf/progs/stream.c
-@@ -5,7 +5,6 @@
- #include <bpf/bpf_helpers.h>
- #include "bpf_misc.h"
- #include "bpf_experimental.h"
--#include <bpf_arena_common.h>
- 
- struct arr_elem {
- 	struct bpf_res_spin_lock lock;
-@@ -381,9 +380,10 @@ int stream_arena_cmpxchg_fault(void *ctx)
- 
- static __noinline void subprog(void)
- {
--	int __arena *addr = (int __arena *)0xdeadbeef;
-+	int *addr = (int *)0xdeadbeef;
- 
- 	arena_ptr = &arena;
-+	bpf_addr_space_cast(addr, 0, 1);
- 	*addr = 1;
- }
- 
-@@ -404,9 +404,10 @@ int stream_arena_subprog_fault(void *ctx)
- 
- static __noinline int timer_cb(void *map, int *key, struct bpf_timer *timer)
- {
--	int __arena *addr = (int __arena *)0xdeadbeef;
-+	int *addr = (int *)0xdeadbeef;
- 
- 	arena_ptr = &arena;
-+	bpf_addr_space_cast(addr, 0, 1);
- 	*addr = 1;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
+index 21b66d51c61e..b84d8f1e0b39 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
+@@ -539,53 +539,58 @@ int arena_ptr_add_arena_ptr(void *ctx)
  	return 0;
  }
+ 
++/*
++ * The r9 load is never read; it is there so libbpf records the arena map
++ * as used, which is what lets the verifier accept addr_space_cast at all.
++ */
+ SEC("syscall")
+ __failure __msg("same insn cannot be used with and without arena pointer")
+-int mixed_arena_scalar_alu64_scalar_first(void *ctx)
+-{
+-	volatile register __u64 reg asm("r3");
+-	__u32 pick_arena = bpf_get_prandom_u32();
+-
+-	reg = 1ULL << 32;
+-
+-	if (pick_arena) {
+-		asm volatile (
+-			"r9 = %[arena] ll;"
+-			"%[reg] = 0;"
+-			"%[reg] = addr_space_cast(%[reg], 0x0, 0x1);"
+-			: [reg] "=r"(reg)
+-			: __imm_addr(arena)
+-			: "r9"
+-		);
+-	}
+-
+-	reg += 1;
+-
+-	return 0;
++__load_if_JITed()
++__naked void mixed_arena_scalar_alu64_scalar_first(void)
++{
++	asm volatile ("					\
++	call %[bpf_get_prandom_u32];			\
++	r6 = r0;					\
++	r3 = 1;						\
++	r3 <<= 32;					\
++	if w6 == 0 goto 1f;				\
++	r9 = %[arena] ll;				\
++	r3 = 0;						\
++	r3 = addr_space_cast(r3, 0, 1);			\
++1:	r3 += 1;					\
++	r0 = 0;						\
++	exit;						\
++"	:
++	: __imm_addr(arena),
++	  __imm(bpf_get_prandom_u32)
++	: __clobber_all);
+ }
+ 
++/*
++ * The r9 load is never read; it is there so libbpf records the arena map
++ * as used, which is what lets the verifier accept addr_space_cast at all.
++ */
+ SEC("syscall")
+ __failure __msg("same insn cannot be used with and without arena pointer")
+-int mixed_arena_scalar_alu64_arena_first(void *ctx)
++__load_if_JITed()
++__naked void mixed_arena_scalar_alu64_arena_first(void)
+ {
+-	volatile register __u64 reg asm("r3");
+-	__u32 pick_scalar = bpf_get_prandom_u32();
+-
+-	asm volatile (
+-		"r9 = %[arena] ll;"
+-		"%[reg] = 0;"
+-		"%[reg] = addr_space_cast(%[reg], 0x0, 0x1);"
+-		: [reg] "=r"(reg)
+-		: __imm_addr(arena)
+-		: "r9"
+-	);
+-
+-	if (pick_scalar)
+-		reg = 1ULL << 32;
+-
+-	reg += 1;
+-
+-	return 0;
++	asm volatile ("					\
++	call %[bpf_get_prandom_u32];			\
++	r6 = r0;					\
++	r9 = %[arena] ll;				\
++	r3 = 0;						\
++	r3 = addr_space_cast(r3, 0, 1);			\
++	if w6 == 0 goto 1f;				\
++	r3 = 1;						\
++	r3 <<= 32;					\
++1:	r3 += 1;					\
++	r0 = 0;						\
++	exit;						\
++"	:
++	: __imm_addr(arena),
++	  __imm(bpf_get_prandom_u32)
++	: __clobber_all);
+ }
+ 
+ SEC("syscall")
 -- 
 2.53.0-Meta
 
