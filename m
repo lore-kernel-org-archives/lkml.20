@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793145837;
-	b=yiD01fB8/yUhk8wkX5yX/RfDfLpog/oT/E8CXEl3iZGtchHOw9f1DKlv6Zf4hVe8jnh6
-	 U7lPYz2F/kZ0fUYjWlPz0TZWOPqNQn0o6yE41S13ieQVYXjhJtKT6UAvzzrQd+krMKyen
-	 7ia++8SZAREqGx1gaZJgnJ1+yRzz6WlJfnloBy6BtZ6ZGihwXV2gMq9DUzB9KPp7qyEeM
-	 RtQVCXmcq6dLZWJ172udaFDPM07stVzJ6o222DFjtVBqVWUN+pi+Jnee9ZON/NbycKAik
-	 q34/eoyPxFGDyd0XRq+a6HEMihUHJ7Qt1Gj1vvo2b8CF3HKRwPacMtugkwqqs5qtwyQ==
+	t=1793145870;
+	b=zxnk7Ih055yLALvgdJdy/rolWWiprM8SX3lq8yZjqFCaQ0z8xzxEcWLZjV7GE1P2O9/Q
+	 gG0E8hw/+DIVtPMPnvt/35G/ODIpU2EbMy5PXndvT0UTc+LRzlye2tWnq+YX974X6sVDK
+	 htIPpXwf9tdVa0sPK6r0P54zQohkAMVfdFanq9Kj+1M7nJL6SfkZpNVgBGQkdqW3cScrr
+	 DXcdao+L2sfvY4dltcWiCyA3CS1DmJjMlJwik0Ag/5yqaTGJ/7XaTLLXiOjlW5yKJ89mL
+	 T/eBXU138Ar32JNLOrOwEgl4CU+mbFQKcsJNeHCB1/E71GpUjYEqbTj3MqLq+KwBL0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793145837;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
-	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WvXEqGRjy1Mu33I1k+nm3uATPGEt8p/jdpqF1L/3xoE=;
-	b=eDiQtHlmg413Ta4T7YFNHRaBufa2pHawn7prpvM9E5qawkB9nJDFBYsb2vBBgnkzpziN
-	 nKI/006CPzEOwb96xaps8s9fgoeSkoZtuGcQFOrGn40flQkWmBwwPRG+dN7I0ICujXGwh
-	 +GQKKPuW9BkZoY5Rvftsmed6TbvUNYuIxjx5mnBK0HwmiTRRx/pG96BbR5BmaFnrWgpzg
-	 VPk+uYwMs8xNeRcX5RJMC8VZylHqK9sNzgfDljfjFCZWQPnWBludN01PPb4AXozJtSlHH
-	 IzhbmCIg95FOkQZCjmyJ2a6PmKYMOLgM5ZI4wb2gm3rC/nccNErhmigFolYmup8G1Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793145870;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=d7xxkmrhVlvt5/TRl88Hkz9V8i0VIv+XKRzCGOfjkEU=;
+	b=aK6Tiad0Ckb6FdJ1sdC9Lh9X+nh/cwhu1zOO6s7LOmStPiOP1YzNugsH76UK1CdeGUUn
+	 841YqGiFKCFB2tw3L2HPe9JfQZxDI7vAdJLOhT1N/cQrn3L7d6dQJafga5gcJFRv8b/9X
+	 SUPjos/DurRekqLafKTqkMABH/m001SB51NtWCNpdGaVEGHb+fvtXQC0QLx9jsyqTGHHw
+	 KKkLxryD3UxtQXO0HtxuAlTWfzlAWKjC4xnbYmZM7SdXfRx7AfeU6s2/XGVAUdOeoL0tw
+	 bwo2fc+4dNQBhsZOk3TnLzEfP0vOnJwLWVDP163Og/tcV3hSK0iJ9zFpmWFnGtUTCqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=b7LPm4Gu;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pOKdUupy;
+	arc=none smtp.remote-ip=95.215.58.6
+Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945AD606A324;
-	Wed, 28 Oct 2026 00:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 945AD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6210E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:04:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6210E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=b7LPm4Gu
-Received: from ehlo.thunderbird.net (ENVISION-AE.edge1.SanJose1.Level3.net [4.79.220.182])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69S02uXc1276671
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Tue, 27 Oct 2026 17:02:57 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69S02uXc1276671
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1793145779;
-	bh=WvXEqGRjy1Mu33I1k+nm3uATPGEt8p/jdpqF1L/3xoE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=b7LPm4Gur56cBs7NJiNICXo+rpEuSFoWjieLVGMg9VXmA/dYHqYKgNgLWtqWI+SJU
-	 L2MUuwJuSpPldjvlx7pRM52/EjKfclnno03JFD1nO1E6Oj/iWXLk3aWR6RLQnPxa4T
-	 C87ERt8txMPBKeOyqay8a54xTESCAsoQYupS/vlvR8X/C4jrejkG5JaGZDrLMs1t6a
-	 6ZPlrvyxxH3iDfAARuYkY9exrA6acZ/0noVRYSTGEg/rj/e8z+fZCbI1bcx2aUStNk
-	 g0uzq/NOqvdFo1HUmJHCwJs28DFJmtv0J2xkfQiqNkfKEoRWH1mJSj4qzYwacZAgwl
-	 pF/YTrguO6NNA==
-Date: Tue, 27 Oct 2026 17:02:52 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Nicolas Schier <nsc@kernel.org>,
-        =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
-CC: Nathan Chancellor <nathan@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Andy Lutomirski <luto@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Nam Cao <namcao@linutronix.de>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        =?ISO-8859-1?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>
-Subject: Re: [PATCH] vDSO, kbuild: Provide vDSO debug variants at runtime
-User-Agent: K-9 Mail for Android
-In-Reply-To: <179313256476.2881498.3865128683953782646.b4-reply@b4>
-References: <20260708-vdso-sysfs-v1-1-fcd93385006d@linutronix.de> <179313256476.2881498.3865128683953782646.b4-reply@b4>
-Message-ID: <A0A4758F-BCDF-4C76-A51B-3ADBB5CAC8DD@zytor.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pOKdUupy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+pomd5tsjWCxsXfslLB6Fa2ZM+55T6NDsvVY+vukgfs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793145866; v=1; x=1793750666;
+ b=pOKdUupya+uss2HGmXEkPlbWOA9oOuNBpjGuxbRwrKWN+C3ga1LN2RGwHLsC5jQzSQFcQ0Zg
+ vaOpiDcP0Gt9Tm9zWkF4IkDaNGWwwFyD6Owf4D2euNzaINz9+JBNQzZgWDtUg4zmJ8fP7iqvllV
+ XgpwqC1GVzMSx78hLKsw02UY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 774be511d486f9d5;
+	Wed, 28 Oct 2026 00:04:26 +0000
+X-Mizu-Trace-ID: 774be511d486f9d5
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	jose.marchesi@oracle.com,
+	david.faust@oss.qualcomm.com,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v1 0/7] selftests/bpf: cleanup bpf-gcc runs
+Date: Tue, 27 Oct 2026 17:04:04 -0700
+Message-ID: <20261028000411.4010967-1-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,56 +79,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On October 27, 2026 1:22:44 PM PDT, Nicolas Schier <nsc@kernel=2Eorg> wrote=
-:
->On 2026-07-08 15:56 +0200, Thomas Wei=C3=9Fschuh wrote:
->> Finding the debug version of the vDSO is not trivial as there is no com=
-mon
->> scheme where it is placed=2E That's especially problematic for CI testi=
-ng=2E
->>=20
->> The vDSO futex unlock mechanism requires for testing to have access to =
-the
->> inner labels of the unlock assembly, which are only accessible via the
->> debug so=2E
->>=20
->> Also for general debugging purposes it's convenient to have access to t=
-he
->> debug vDSO at a well defined place=2E
->>=20
->> The files are placed in /sys/kernel/vdso_debug=2Etar=2Exz=2E They use t=
-he
->> regular 'make vdso_install' layout, including build-id symlinks to find
->> the correct file for each process=2E
->>=20
->> The design is kept close to the ones of the similar IKCONFIG and IKHEAD=
-ERS=2E
->>=20
->> On x86 the x32 vDSO is derived from the x86_64 one, necessitating an
->> explicit dependency to avoid errors due to concurrent builds=2E
->>=20
->> Suggested-by: Thomas Gleixner <tglx@kernel=2Eorg>
->> Link: https://lore=2Ekernel=2Eorg/lkml/20260602090536=2E045586688@kerne=
-l=2Eorg/
->> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas=2Eweissschuh@linutronix=2E=
-de>
->> ---
->>  Makefile            | 33 ++++++++++++++++++++++++++++++++-
->>  arch/x86/Makefile   |  3 +++
->>  init/Kconfig        | 10 ++++++++++
->>  kernel/Makefile     |  1 +
->>  kernel/vdso_debug=2Ec | 43 +++++++++++++++++++++++++++++++++++++++++++
->>  5 files changed, 89 insertions(+), 1 deletion(-)
->>=20
->
->This seems to have fallen through the cracks; shall it be considered for
->kbuild-7=2E5?
->
+This series came out of testing a still in-works __arena support for
+BPF_GCC and anomalies seen in the A/B reports.
 
-A thought: most tools support compressed separate debug information=2E Wou=
-ld it make more sense to have the vdso images with separate, compressed deb=
-ug data in a subdirectory?
+BPF_GCC selftest builds reports a number of things that are not true.
+ - Tests the compiler cannot build do not appear at all, so the
+   report is silent about them
+ - Others are compiled down to an empty body and report OK despite
+   not even been executed
+ - Two programs that fail to verify take four unrelated tests down with
+   them, because everything in that object is loaded together.
+ - Unconditional gating on __clang__ when newer GCC support for those
+   is coming online.
+
+Only 7/7 needs the in-works arena support to be exercised at all; the
+rest are measured below with a stock bpf-gcc.  Nothing in the series
+changes what clang emits.
+
+What each patch does, and what it measurably changes. Numbers are
+test_progs on bpf-next with a stock bpf-gcc, before and after:
+
+ 1/7: Gate the callx tests on a CAN_USE_CALLX macro that accepts a GCC
+      defining __BPF_FEATURE_CALLX, in addition to clang.
+   -> 76 subtests run that were absent from the report entirely,
+      75 OK and one @unpriv SKIP, no failures. The two dummy
+      placeholders retire; callx_rodata_lskel SKIP -> OK.
+
+ 2/7: Move clang-only warning flags out of GCC builds.
+
+ 3/7: Add a __skip_without_arena tag, and give each
+      #if __BPF_FEATURE_ADDR_SPACE_CAST guard an #else with a dummy
+      carrying it, so a compiler that cannot build those tests says
+      so instead of staying silent.
+   -> 6 subtests newly visible, all SKIP; arena_kfunc_jit OK -> SKIP,
+      every subtest it has being one of them.
+
+ 4/7: Make arena_base() opaque to GCC's -Warray-bounds, which fires
+      because the macro reads a member of struct bpf_arena through the
+      much smaller map definition.  A build failure today for any GCC
+      with arena support, and for everyone once 5/7 drops the guards
+      that were hiding those calls.  Behind #ifdef __clang__, since
+      clang does not warn and the barrier is not free.
+   -> no verdict change.  +35 instructions over 20 call sites in five
+      progs under GCC; clang output unchanged, bit for bit.
+
+ 5/7: Put __skip_without_arena on the tests whose body dereferences an
+      arena pointer -- and only those; drop the in-body guards.
+   -> 6 OK -> SKIP, check_arena_arg_ret FAIL -> SKIP, and
+      verifier_arena itself FAIL -> OK.  The 11 that never dereference
+      stay OK, having gone from an empty body to actually running.
+
+ 6/7: Cast explicitly with bpf_addr_space_cast() in the arena subprog
+      and callback faults, instead of leaving it to the compiler, as
+      the sibling tests in the same file already do.
+   -> 15 FAIL -> OK, every test that loads that object rather than
+      just the arena ones, and 5 subtests newly visible.
+
+ 7/7: Replace a volatile register variable GCC is entitled to optimise
+      away with the asm the mixed arena/scalar ALU tests actually need.
+   -> not exercised by a stock bpf-gcc, which compiles both out with
+      the rest of the arena block.
+
+Totals for the series.  Nothing regresses:
+
+  FAIL  473 -> 457        OK -> FAIL regressions:  0
+  OK   7027 -> 7115
+  SKIP  761 ->  775
+
+Those numbers were taken on a revision that suppressed the warning
+per-file instead of carrying 4/7; the series as posted was re-run and
+gave the same result, which is what 4/7 changing no verdict predicts.
+
+Two things worth re-iterating explicitly:
+
+ - 1/7 needs a GCC defining __BPF_FEATURE_CALLX, in bleeding-edge
+   but not released yet.
+
+ - 7/7, need a GCC with arena support; that work is coming along
+   but not yet ready for public review.
+
+Vineet Gupta (7):
+  selftests/bpf: Build callx tests with GCC that defines
+    __BPF_FEATURE_CALLX
+  selftests/bpf: don't pass clang-only warning flags to GCC
+  selftests/bpf: report SKIP for arena tests a compiler cannot build
+  selftests/bpf: make arena_base() opaque to GCC's -Warray-bounds
+  selftests/bpf: don't report arena tests as passing with an empty body
+  selftests/bpf: cast explicitly in the arena subprog and callback
+    faults
+  selftests/bpf: write the mixed arena/scalar ALU tests in asm
+
+ tools/testing/selftests/bpf/Makefile          |   8 +-
+ .../testing/selftests/bpf/Makefile.buildvars  |   6 +-
+ .../bpf/libarena/include/bpf_arena_common.h   |  16 +++
+ .../bpf/prog_tests/callx_rodata_lskel.c       |   2 +-
+ .../selftests/bpf/progs/arena_kfunc_jit.c     |   9 ++
+ tools/testing/selftests/bpf/progs/bpf_misc.h  |  21 +++
+ .../selftests/bpf/progs/callx_rodata.c        |   4 +-
+ .../bpf/progs/compute_live_registers.c        |  10 ++
+ tools/testing/selftests/bpf/progs/stream.c    |   7 +-
+ .../selftests/bpf/progs/verifier_arena.c      | 125 +++++++++---------
+ .../bpf/progs/verifier_arena_large.c          |  24 ++--
+ .../selftests/bpf/progs/verifier_callx.c      |   5 +-
+ .../bpf/progs/verifier_callx_rodata.c         |   5 +-
+ .../selftests/bpf/progs/verifier_ldsx.c       |   9 ++
+ .../selftests/bpf/progs/verifier_zext.c       |   9 ++
+ 15 files changed, 163 insertions(+), 97 deletions(-)
+
+-- 
+2.53.0-Meta
+
