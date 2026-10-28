@@ -1,132 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.255.225.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208929;
-	b=hYOe6XiuNCE6NYYDport6+Vsi2dKnSmuLrzgEqJOpUMNzslQHB6sMuo/Py4Ai/Aiv8/1
-	 Nxricc+K8O0knjQdvSAR1Xy7m2/sORmN6E+DbbMrhP9NK/MZg0l05SNodxUbvL+npg1GP
-	 1RF1GKhpdZqVfcWY5RjLfMkM4yyVbasMV/8QSHRhq5Iyilb4CA0QlxziObc2FrRGGM5MN
-	 JYzu9ZSo5zp2XfFaZTQd+PvTUGI+3dEeD+Bepuf0QRWqVQVf4iQIX8/PKCZ25xfA68zjH
-	 Zuw3a106XSNX1viyKHIpP3Zj1WK0+lJzdFcmhkpdQqaQLye6Z2wpcX8kDcBkre6PgCA==
+	t=1793208939;
+	b=OMrn4eraH7E3b15xctLoFC6Ywhtt2TEoE650zCHvfatVVG7hc1RUDA2xBA2qVonMuTrY
+	 7sAcV1dIhmqa5JyABieNAFgX9QmeqAkdBJc36FM8UCgtS/SyurznhqNb+F/vC4egGslhv
+	 Fw+IkeM+U+28FLUGDQm8u6AH1wdnpkVSHNdMfxjnAP3tge7x9djffNQyYc5c9pXhcX4cH
+	 HuLrhvY/AilNp14ojhNHySHsXsoUUjj1HBujimzaWZTCDcx6Sqo7U7f3S56odDgYCBA3A
+	 waDHvlbW6DJW4yXOT/6joSGcedafG6X9h+iutcwOu5FBsaaGBWcTKDU+DvQaBOmIMuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208929;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ThreatScanner-Verdict:X-IPAS-Result:IronPort-PHdr:
-	 IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:X-Talos-MUID:
-	 X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=trN9sfkyUF5lmYW35ov02jIT/bOiVDmYEcGexehOUmk=;
-	b=S7lKRkTfvD2uHxRbUE9u0yAwiinBZiiX2R0Jh8W583IXVs3eBqwzh3+/+NsOG7noSVKM
-	 3iUBcRAkmL45eKvnyrKe0krwvKemSPj7phF5aolJGUsDnV8vXF361j2GC36QutuYZ/Z75
-	 1DVvm+2VeOvkStxtfUv5iQlnHCPnbGcoAa6msrT/lV2hLATO7r178FV+vgLtndkxt332N
-	 6G9wAQzz4vcXDo4zMBQ7LoM1V8fYJkwWGXzzH1uH0/CTYB5+hFsWdUIqu1Bf0QeN9hIkH
-	 U0S3yxsfi0ByGCYUHqRp7EAQa0B+8AwE/bGhpgUlEHyznygq59P7q4ELrUfXWX6VexA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=JYCogINmtcWvhGsimc1XH47DC7tqKp3oabGA83x3w+g=;
+	b=be6dPSxO44pMXMhmTEJrBosT7tV3+n+1WKS4Ue+TTV5qcmKe+mTp6EsE9hy3+1Brqjy/
+	 B/D+WSnQJo+Uf4FDj7MHIIqpJBKBDp8BLChKLHxuCa7g40JmdYFsPGlUJVOBqVOkyz1Ow
+	 CaRKL4Wd/jtl85CReHhCw6kWXFZsN+BK6N3Pi1muznkDZ29H9VOk/rpJxdPo2jVbwQkwE
+	 rTzOpxvYbvqjQMuLTxuSf4gv3jgnQTdg08JHvtFaCGsCfwftLfUtcq5rQPUIHlX7M+xNr
+	 X3zaEjiRzhuqocQpAIpEty0Sp4Db1mCwTnB95gvOaKf11H3ZJbe+xxfT5fHSt2CzP3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pobox.sk;
-	spf=pass smtp.mailfrom=pobox.sk;
-	dkim=pass header.d=pobox.sk header.i=@pobox.sk header.a=rsa-sha256 header.s=mail header.b=GbOyvRmX;
-	arc=none smtp.remote-ip=46.255.225.202
-Received: from gmmr-1.centrum.cz (gmmr-1.centrum.cz [46.255.225.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=W9kYJmzN;
+	arc=none smtp.remote-ip=209.85.210.230
+Received: from mail-pf1-f230.google.com (mail-pf1-f230.google.com [209.85.210.230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61573606A31D;
-	Wed, 28 Oct 2026 17:35:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61573606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pobox.sk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.sk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10786606A338
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10786606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=pobox.sk header.i=@pobox.sk header.a=rsa-sha256 header.s=mail header.b=GbOyvRmX
-Received: from gmmr-1.centrum.cz (localhost [127.0.0.1])
-	by gmmr-1.centrum.cz (Postfix) with ESMTP id D902B2BCA9;
-	Wed, 28 Oct 2026 18:35:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.sk; s=mail;
-	t=1793208921; bh=trN9sfkyUF5lmYW35ov02jIT/bOiVDmYEcGexehOUmk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GbOyvRmXT7iGVTGGmsXavM/uamnqXgLIEZUA7lQP8KpeUE+YusCBAy1arlS313Age
-	 TfbjDkNSWmmSAG30+dz8vQVdtm8znObYN000HLpWcyCY3buKTGrF8dB/rXQjmbl5mV
-	 g7P2RL7uxGzui3UkXeE572CAD9zOtLiOjUfptBms=
-Received: from antispam96.centrum.cz (antispam96.cent [10.30.208.96])
-	by gmmr-1.centrum.cz (Postfix) with ESMTP id D74D72326A;
-	Wed, 28 Oct 2026 18:35:21 +0100 (CET)
-X-CSE-ConnectionGUID: n1+mL73WTAW4rAObaix9Fw==
-X-CSE-MsgGUID: wfnk4Q5QShOOUQYpmpBZbA==
-X-ThreatScanner-Verdict: Negative
-X-IPAS-Result: =?us-ascii?q?A2GtAADsMeJq/0vj/y5aHAEBAQEBAQcBARIBAQQEAQFJg?=
- =?us-ascii?q?TUFAQELAQGDSoFslk9VhSWMcWGEAoZOgX4PAQEBAQEBAQEBCUQNBAEBAwQ4D?=
- =?us-ascii?q?4Q3Ao4dJzYHDgECBAMCAwEBAQEBAQEBAQEBCwEBBgEBAQEBAQYGAQKBHYYJR?=
- =?us-ascii?q?g1JAQEBiTsHBIIIAYEkgSYBAQEBAQEBAQEBAQEdAg1+AQUyAUYQCw0LLhBGB?=
- =?us-ascii?q?hODA4I5AToUtiKBNBoCZdx/FoE0gW4GFYE4AYheAYUDdoR9ggtEhEA+iwgEg?=
- =?us-ascii?q?iKBDJZGUngcA1ksAUsKNQwzckMDgSlLBTdlEj8hHSgeOQI4BgUSIBEZQUNbR?=
- =?us-ascii?q?FWBB11wOylgAQIfJx8tFYF2AoJRgSMHVgIBSUEOB0VTCSVDEkckIggSCQETG?=
- =?us-ascii?q?i4LgRo1RSZBFRhYCxoFGkgIAgsCDHYoERATHiAmMgQDdz03FRkEkwCEOBDJM?=
- =?us-ascii?q?QeEIYRzhy+WGoE3gicBlAwDkm6ZCIwQgXqbOYFuAYIPTYMmATQSQBmXRskoe?=
- =?us-ascii?q?gEBOwcCBw8ChyqIcoILgUwBAQ?=
-IronPort-PHdr: A9a23:6BAuhhbo1XpHbbUnyWmFs9n/LTG714qcDmcuAnoPtbtCf+yZ8oj4O
- wSHvLMx1wGPBd+Qsqwd07GempujcFJDyK7JiGoFfp1IWk1NouQttCtkLei7TGbWF7rUVRE8B
- 9lIT1R//nu2YgB/Ecf6YEDO8DXptWZBUhrwOhBoKevrB4Xck9q41/yo+53Ufg5EmCexbal9I
- Ri4rAjdrNUajZVtJqosyxbFv2dEdupLzm50OFyfmArx6ci38JN/6Spbpugv99RHUaX0fqQ4S
- aJXATE7OG0r58PlqAfOQxKX6nUTSmsZnQNEDhbK4h/nRpv+vTf0ueR72CmBIM35Vqs0Vii47
- 6dqUxDnliEKPCMk/W7Ni8xwiKVboA+9pxF63oXZbp2ZOOZ4c6jAZt4RW3ZPUdhNWCxAGoO8b
- pUAD+wdPeZDsoLxo0ICoQaiCQWwAe/izCJDiH3r0q0gy+kvHwHI0hI+EtwTs3rUotr6O7sPX
- u66zqbF1inDYvBQ3DTj9ITEbgwtreyKULltccTR004vFwbdg1uOrozlOima1v8QuGaF6OpgU
- +KvhHQ6qwFqvDev3Nonh47Vho4P1lDE8iN5wIYvKt2lU050f8SkHYBItyGdLIR2RcwjT3tzu
- CY507ALv4OwcycWxpo93RHfd+CHfJaS4hLlTOucITh2iXJndb+/gxu//0euxvDyW8e701tHq
- jRIn8XQu30R1RHd5MmKR+V580mh2TiC0x3f5+5YLE40laTWN5wsz7gtnZQdtkTDGzX5mETwj
- KKOdUUr5PKo6+L5bbXivJOcMJV0ig74P68zmcK/Gfw1PwcPUmSB5+ix1L3u8VfnTLlUjPA6i
- KvUvZDCKcgGpaO0ABVZ3psi5hu9FTuqzdoVkHsdIF5YeB+Ki47kMEzULv/iF/ewmVGsnS9ux
- /DBI7LuHI3ALmPGkLf9ZbZ97FNcyBYrwdBf+Z1UDrYBLer8Wk/0rdDYFRo5MxCsw+r6FNlxz
- J8RVnyJAq+FKqPSrFqI6vgzLOiNfIMVuTD9JOY55/P2gnI0mEURcbep0JYXcny0AOpqLkeDb
- XfugtoNCWIKsRA/TOzuhl2CSzlTZ3OqUqIg/D07FIWmDYHDRo+3nbyBxzm0HodNa2BeDVCDC
- nDodoqeV/cXayKeOtVhnSAcVbi9V48h0gmjtAnhxLV6NefU/DYXuo/52Nhz/eLTkA89+SRuD
- 8uBy2GNU310nmQQSj8q26B/olJyx0yf0ah/gPxXC8Zf6O5KUgsiL57T0/R6C8zuWgLGZtqJT
- FemQtO7ATA+V94xwMEBY1x7G9q8ihDOxDSqA7ALmLyRHpA08bzT32L3J8ljz3bKzq4hj0MpQ
- sdXL22pmrZ/9xTPB47Oi0iZk6eqdaIB3C/C7WuCw2uOvFtGXw50T6rFRmsfa1DIrdT2+EzCV
- aWiCbc5PQtbz86NNK9KZsfujVVcS/fvINLebHmplGeqGRmI3q+MbJbte2gF0yjREFULkwMS/
- XaDLQUwHiivrGzAAjJyCV/hZVvg/vR7qHyhVE870xmHYVV42bSt9RAZneecS+sd3r8coCkvs
- i16Elnul+7RXuaHpAcpXA6MYNc05lsC98kJrQNwOIetKeg2mlkdfixruEDjkRl0XNZui88v+
- U8tyQNpYZ6f1lNIaiiVx9ikJvvLLW/y9Q20ZrT+wlbU18bQ4aRZu6dwkEnqoAz8ThlqyH5gy
- dQAliLEvv33
-IronPort-Data: A9a23:T/1O9q/qhuqfU6JW4iEtDrUDh3+TJUtcMsCJ2f8bNWPcYEJGY0x3y
- 2FMC2HQb6rbZGf2c9Bwa9i18UNSupeHx9AwS1A6riBEQiMRo6IpJzg4wmQcnc+2BpeeJK6yx
- 5xGMrEsFOhtEDmE4EvrauG/xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOdRbrRA2LBVOCvT/
- 4mtyyHjEAX9gWAtajhEs/7rRC5H5ZwehhtJ4zTSWtgU5Dcyp1FNZLoDKKe4KWfPQ4U8NoaSW
- +bZwbilyXjS9hErB8nNuu6TnpoiH9Y+lSDX4pZnc/DKbipq/0Te4Y5nXBYoUnq7vh3S9zxH4
- I4U6cHvE1dB0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQecXMISk/YuN6f/+6hY85mj8Uzfef0adZ3VnFIlVk1DN4pRNXYRrnSvIce1zo2mtpTGLDVd
- aL1axIzMlKaPkAJYA1ITs1j9AurriCXnzlwtBSJoqw36nXIwRZZyL/nN8qTYd/iqcB9xxfA/
- TqaoDqoav0cHMORzznZyy+Vve/ouh7CaZoXDJeK/Nc/1TV/wURWUnX6T2CTp/O1oki0V5RZI
- kkZkgIyqqs/3FCsTdS7Ux7QiHqFuAMMHtldCes37CmTxafOpQWUHG4JSnhGctNOnMs3QyE6k
- 0CIhd7tCCd0mKOaRGjb9bqOqz62fy8PIgc/iTQsEVVDuYS+5ttp0VSQE76PDZKIszE8Ihmoq
- xjikcT0r+x7YRIjv0ljwW36vg==
-IronPort-HdrOrdr: A9a23:+28iKKH4AHumQkxNpLqE5ceALOsnbusQ8zAXPo5KJiC9Vvbo8v
- xG+85rsSMc6QxhOk3I9urrBEDtex7hHNtOkO4s1NSZLWrbUQmTTb2KhLGKq1bd8m/FltK1vp
- 0PT0ERMrHNMWQ=
-X-Talos-CUID: 9a23:P8OIeG18Ufh80rlcj1sKCLxfHJlmd1mCl0jsCnDkE09OQrSUWQ6+5/Yx
-X-Talos-MUID: =?us-ascii?q?9a23=3AcBOOYQ06ax5BqArLUXiVqjdx8jUj/KqoCxw0zKw?=
- =?us-ascii?q?9u+6jCBVBIzKFpga9a9py?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.27,183,1787004000"; 
-   d="scan'208";a="190304769"
-Received: from unknown (HELO gm-smtp10.centrum.cz) ([46.255.227.75])
-  by antispam96.centrum.cz with ESMTP; 28 Oct 2026 18:35:21 +0100
-Received: from blackbox (188-167-137-159.dynamic.chello.sk [188.167.137.159])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gm-smtp10.centrum.cz (Postfix) with ESMTPSA id 6E45B101612D5;
-	Wed, 28 Oct 2026 18:35:21 +0100 (CET)
-Date: Wed, 28 Oct 2026 18:35:12 +0100
-From: Tomas Tonhauser <t.tonhauser@pobox.sk>
-To: Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@toke.dk>
-Cc: linux-wireless@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] wifi: ath9k: clear destination mask for
- non-aggregate frames
-Message-ID: <auIyUEqdQIOJqEWp@blackbox>
-References: <20261003192957.761090-1-t.tonhauser@pobox.sk>
- <87mrs9v3aa.fsf@toke.dk>
- <atufwCYLtoF3UaMk@blackbox>
- <87jyn7pk5v.fsf@toke.dk>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=W9kYJmzN
+Received: by mail-pf1-f230.google.com with SMTP id d2e1a72fcca58-8a06454116eso714203b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:35:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793208937; x=1793813737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JYCogINmtcWvhGsimc1XH47DC7tqKp3oabGA83x3w+g=;
+        b=W9kYJmzNZ6+VEHFF4uCs4IopDL0cDTwKqhohe/BFStkIvGA+lKvHXgRnYFlOyHIeiU
+         UwWpHRzH1PPIYMktEDcnayYTyfAYdcVQmgQv5uesmZqdqUboRzOc11W5ZFMlV7MbxSuw
+         +QZByXxtQ/EhgN2u22PSiexC4ZRU4lWuSmD7t70MIrbDVXGG9Stm1tGAOv0c/TQrb/H/
+         JKkRQlV1UpbqWqb1+pGoN1dxAzuNmWlkqxXMbZFPtu6Am+F3R4Lrc6yVcN3ucYKvYx2n
+         NpyJ9IbSSh6ccLTQ6nvGVgTqR0bynCKkTzB0L7W3UypUlfm4cAKLrray5sPVFJoWct0u
+         TdVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208937; x=1793813737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JYCogINmtcWvhGsimc1XH47DC7tqKp3oabGA83x3w+g=;
+        b=JUQ75ErrNECEX8aXRu+Hy0/BXcvPPs0T4tlJk8jD3mHj0ISH6jAx6vS2FsG9eJKzjT
+         5RyUMeqaKI0GgjT3QD+x0PPtWghjjarBjwqQ8Isl8ygrEqfTWKpfaGDVLZTe5cpt7LoQ
+         H2X+g6oRGIl9cFrRszDvSJdk9KnEGxU+nb++x3wMvUieszu3ZOTA+vO8OV9n5Fjhgex4
+         WcMMK8KnrRujKMiGb8Yn598tlm1JPgqnlHOd9w8nTpF54fxgKW/LZljlOC7shc1y3ktt
+         Z6HNHiEY3ElvrgpT+l0Sn/VmF8PgwzGrRf8iOwb7rh42dz4QpYIoV+zGI9HmjPtRhADZ
+         8JTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtc6cN5Obba9AqO6MhVJIgMa2MGU4NO4kJI9UMU5pPQ3DTC7Ek5fSk8MvsbmTvCWf2X6pD0fPyeTTd9fI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOZ937/YKzkj9tE8uQddpDHs+XZxNnRdIOw/xVNepah0r20zZd
+	8bnchJN8ZHeVPnXplBK494li4NgMN+ojAQVv4Wc06HQKb0CJiUWfpgMde1L0WS0M9RLC7Mw0ZzU
+	82Bga1n/9WNzhgQh1F2159VGmlR8XFIA4R4aF
+X-Gm-Gg: AYBFou16aRcvvLj0j7XuuIREPMbmDQ4eJGmLPBJFritH/n0EygiBcRKzHplQp6PmrFY
+	v5bU3net/E2b2W0kqjH5qIdn4m0+jZI7AzCxVvoALNwLsC3FDQZB4U4Pr+QTa489D+Ba0Cz3abk
+	OIkNIgS6nzSBJYMxlqNj0J3m4SG/nFjJtAcFjLdRO6x5oLBf5h4BgfzpKVxqmg+gs7DCT5NzZiC
+	vBR8m9w+5dPhGtji8KWiJpt5jof/MZBOxZJDeXDFfa1INRPrSMNvAK14Jrc/IPGh0Qy7grtaBx4
+	Nl/BKj1azh0gwKrRWMR52/Lzktl/wKlhhTDQKuaNsno2PydnvyKbIbBsd3bjKkjWylMv9g5S9Y3
+	Hu4tW/8RKtJMNH3fxO1x5dWENMexbL86CF2c=
+X-Received: by 2002:a05:6a20:9145:b0:3e2:26fc:2e1c with SMTP id adf61e73a8af0-3e902343126mr2499850637.39.1793208937368;
+        Wed, 28 Oct 2026 10:35:37 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.129])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cd8ccc4f975sm188208a12.4.2026.10.28.10.35.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:35:37 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 7983A401D3;
+	Wed, 28 Oct 2026 11:35:36 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 741D0DCDF71; Wed, 28 Oct 2026 11:35:36 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rishikesh Jethwani <rjethwani@purestorage.com>
+Subject: [PATCH net v3 0/2] kcm: reject the combination of KCM and TLS
+Date: Wed, 28 Oct 2026 11:35:31 -0600
+Message-ID: <20261028173533.2658096-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,18 +112,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87jyn7pk5v.fsf@toke.dk>
 
-On Sat, Oct 24, 2026 at 10:39:08AM +0200, Toke Høiland-Jørgensen wrote:
-> Alright, sounds good!
+KCM's data_ready callback calls the lower socket's read_sock() inline,
+from softirq. With kTLS RX that is tls_sw_read_sock(), which can sleep.
+v2 deferred KCM parsing to a workqueue whenever read_sock() is not
+tcp_read_sock(), and reworked the strparser workqueue to go with it. As
+suggested in review [1], v3 instead rejects the combination, as was
+done for sockmap in commit 460e6486617c ("tls: reject the combination
+of TLS and sockmap"). It has never worked with kTLS RX: before commit
+662fbcec32f4 ("net/tls: implement ->read_sock()") KCM parsed TLS
+ciphertext as messages, and since then it sleeps in atomic context.
 
-v2 is out, as a two-patch series:
-https://lore.kernel.org/linux-wireless/20261028171652.1125692-1-t.tonhauser@pobox.sk/T/
+Patch 1 makes kcm_attach() refuse sockets that have any ULP, and
+tls_init() refuse sockets attached to KCM. Patch 2 adds tls selftests
+for both orders.
 
-Tomas
+Patch 1 changes user-visible behaviour and is tagged for stable. Its
+message calls out the errno change and the one refused setup that
+previously passed data: TLS TX-only, in either order.
 
-> 
-> -Toke
+On the new sock flag: patch 1 adds SOCK_KCM to enum sock_flags, which
+leaves one free sk_flags bit on 32-bit. I looked at the alternatives
+first:
+
+ - sk_user_data alone cannot be the marker. sunrpc and nvme-tcp set it
+   on sockets that tlshd later upgrades to TLS, so it is already set
+   when tls_init() runs and tls_init() cannot reject on it.
+
+ - A new SK_USER_DATA_KCM tag, alongside SK_USER_DATA_PSOCK, is not
+   safe. The tags live in the low bits of the stored pointer, and bit 3
+   is not free: reuseport_array stores &array->ptrs[index] | NOCOPY |
+   BPF, where ptrs[] holds 8-byte pointers, so every odd index has bit 3
+   set and widening SK_USER_DATA_PTRMASK would corrupt it. It would also
+   need masking at each of KCM's raw sk_user_data reads.
+
+ - There is precedent for a flag owned by one subsystem: SOCK_XDP
+   (commit e4a2a3048ed9) is set only by tun.
+
+If you'd rather not spend an sk_flags bit on this, the alternative I
+would implement is a bool in struct tcp_sock under
+IS_ENABLED(CONFIG_AF_KCM), like is_mptcp and syn_smc. KCM only attaches
+TCP sockets and the TLS ULP is TCP-only, so both checks can use
+tcp_sk(). Happy to respin that way.
+
+Changes in v3:
+ - Reject KCM and ULPs in both orders instead of deferring KCM parsing
+   to a workqueue.
+ - Drop the strparser workqueue patch; it is no longer needed for this
+   fix and may be posted to net-next separately.
+ - Add selftests.
+
+v1: https://lore.kernel.org/netdev/20261013033920.2069285-1-rjethwani@purestorage.com/
+v2: https://lore.kernel.org/netdev/20261016025059.289202-1-rjethwani@purestorage.com/
+
+[1] https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
+
+Rishikesh Jethwani (2):
+  kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
+  selftests: tls: test that TLS and KCM are mutually exclusive
+
+ include/net/sock.h                 |   1 +
+ net/kcm/kcmsock.c                  |  12 +++
+ net/tls/tls_main.c                 |   6 ++
+ tools/testing/selftests/net/config |   1 +
+ tools/testing/selftests/net/tls.c  | 144 +++++++++++++++++++++++++++++
+ 5 files changed, 164 insertions(+)
+
+-- 
+2.50.1
+
