@@ -1,75 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194026;
-	b=cItWFQzva02xNqPNdk6F/cpodKVHx/wNd0Q3s506KEYVNmpuDhacBK6FJX6NJPjYsVnk
-	 VcXAus5meqFlWO1FgDjDQcClYGQy5V+/vTRh8UM0hv1HOpF7C3i9/RY4komXqfngbpYtg
-	 6nKtj0DC6584hd9e1ubR3xIIH1+UF5bAfXoQm08yF1bv6y6Z9ZKx14JUeQfvdPytmJOPk
-	 rPZYVaPIe3iRpAgkzSUVKQXQY2e0E2pVlXmb7+m9PCOZxNaZv3NRQj1HNG7lWNtru30s7
-	 7ATT/yCroIWfUbA6UduRG+0ccVkBNdT86uurhc1tMh90n3/M94cTTAe7XVTczWx9XTQ==
+	t=1793194029;
+	b=vSLetMjLG1/pYx08WIoXearC9YsPplD0Pm7/s+0VWn1NGfFXcVsrOd42CcPtvtLWauCc
+	 O3yv9PETCptp4rxoXLjkYkeujBNpZgYm9wo/5ec4VQ4F1T1h7tplgdsoYB2AiUFywOOPb
+	 otx21vZcJXA70IppBVZ/5QiIzfaLXYJDJRsp03Up+MhKk1Bmc9FI6CHxjQHLXrLBAbFfL
+	 lov+l2Q16Tc2bOes0jTVL1tlKGkFjPiwV/bBXHMvD8QRtId7MCRSTUUQ6mDhjfitTeqW3
+	 AMwyTsj8ACLEP5KSSmQyazFHaYNPBHg/5aqm4hCTgNBc9f+Mytwl52kKlp2PWXJvwhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194026;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=tf7OmJ6aFCP7UVyB60ZS3JuIzhVsrK4m0LoABXWpn+s=;
-	b=1eRxaN9erviVVsNoBEquV5Cls8Eh8A6zXfl+J4Sth0f9ZX40XHAi+HugwbN0OtxcodMo
-	 xf+mPZw9b1D9brJMCQGKB9puHSjiFdjwF9d3TNqDOJtI/3ptcTUxjTrSqT++RSR7B91F1
-	 vf8J/aaNye1eIYZ7SBWh+qJWaCWQmctbEc05Z/Dhc1ZZs8ZIX6K6VfkXhEzkFlOoxwV57
-	 Oy3kBBCYWxbpUek0m2sc3Mctes7nxU6oKUzQ/KRbCU1CQmZMOgXO4GcwUQJjkNojlKvIb
-	 LGH21MnpP+5/E5KQSel7UkX/kQpUvUpv7m4SwKoM2uEgSKkKmJ9dF0axU5Gyem4R2KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194029;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vMqr/WjxL59z6An2wy+k/P9BR2xahkEslL3Eehl7UL8=;
+	b=Scx+rPvtCsbLw6r3mH5kMdgWyYWac2QjBp4+csHlbRTr3V+J8SWa7EowbepAWICCEQWS
+	 m42JjsGVfdLSGDkxql9oMtqbKd7rUeZldSdqg6di4C5LqBvFQoRAx9zsKmf3OLqzRKfnV
+	 AdShQ6sfLUyTGh3it1aDxPHSh4JlvfU1vZ+fvSesbClzfhvaWC1v02CmQ66RZL+fga4/4
+	 oBwWI5tCDophVNPr7gNP4B5fhws1Vfdu6CA9uyo/Gn8Mfy0OzYSoBzKpbkspytVgWmpsF
+	 MVXc3O33eZi0ACmNVDBQ+2G1XFzyaxH33PB9dcv4Vs3MIAvfyu6U1p+/+KKO8n4snIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k4DHAWk9;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfIqenX2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B9B606A33E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28B9B606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03DD60A2605;
+	Wed, 28 Oct 2026 13:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k4DHAWk9
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so857266b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:27:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793194025; x=1793798825; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tf7OmJ6aFCP7UVyB60ZS3JuIzhVsrK4m0LoABXWpn+s=;
-        b=k4DHAWk9rRyub8viRoyNE9VSCSdkCB4ff4ukkRKe4H5HSWa5/qjQVOAN9iJdQT+ay5
-         +4YlXlNRC8uBxHAj22ar9dlt8Hbbe7Aqicyg78J5WblqaQlqyr8LZ8sLHaaNQ4Tk4kWc
-         44SG2L86XEI6OhfiP0zupGDtzsLFdhmhUuAs7s+eOkWCK5B7aoG6HB5fMjZhtidHCwka
-         4nvlmMgXsiSfOeCYeJrMJnbs0cVcJMMmUVdclQu9RfsY95gldO/N77oHn94yrDcn1rzj
-         YdmkWvlADrWo9FTYZcbSMc3JN4cWiXcRbFavwL40Kue3c93j3/oTf1hGoig2sWEeNDF2
-         MzjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793194025; x=1793798825;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tf7OmJ6aFCP7UVyB60ZS3JuIzhVsrK4m0LoABXWpn+s=;
-        b=eTV3jL4Vw/XgVcE2X1RjsCgoJuK8RT4AC9LopS4E6uj2/5D0yKh4YWf2bYdbCg2bG9
-         OFWqc/vP0++XmjTAfCyemDpEAAT47DMZieebtqB1Fqi9KE5yUejoqACNulEVUNYdsNFG
-         28N39YifUvugivVwrqT1YOGON9i+yDkmTVy53Ypj4OV2vFf+CYU0ynV5+T9Be7qNk0Gq
-         TVccvVZoLBbk087LGKyEl7d23hZuK8RpJFYsxFXaTIjpyYGG4QCTR3c/fr41NvK6OL3P
-         nBPSHAHFme7wvI3ASsa6tYbQLCaUgUM9F9vThnuh1WAyXaHUD4RfpZpIKqbKkV5+dY2k
-         Pzzw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9W2JXwiiTvS+L6xqUWxO8ZmzPeei+sbVMvxrSVKMhWawXEIcd9mE4cU8HybtbTcPxrdbz+IKnK99eky4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmEOa4+G4bZ3AjmNZUs+jN//Xi0hzIOKQOczNTktgZxrC/227c
-	e+4Y4TuMwdaE66984K+KUCZ3BmNyZS+m6UHfNO5Il6J0q9Br64zTeg+pA9VAKyCtrqCN8kszOEa
-	XGh2JmUf+7vjD8A==
-X-Received: from pfbbd40.prod.google.com ([2002:a05:6a00:27a8:b0:8a7:b2ee:e219])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:9e48:b0:3dd:a195:dd55 with SMTP id adf61e73a8af0-3e9023e52c4mr2092511637.55.1793194025273;
- Wed, 28 Oct 2026 06:27:05 -0700 (PDT)
-Date: Wed, 28 Oct 2026 06:26:53 -0700
-In-Reply-To: <20261028132657.1416783-1-jmattson@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfIqenX2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BF01F01442;
+	Wed, 28 Oct 2026 13:27:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793194028;
+	bh=vMqr/WjxL59z6An2wy+k/P9BR2xahkEslL3Eehl7UL8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kfIqenX2jebi6Y6d0XS41GtrBbatL7qSLdFVtoC/FGiRJ05BvyTM6EDe6XbdulFRZ
+	 Ghg4UjZF9eSFAX/6GBn4L16vH080cVeCyRi/IiNnXzUKKm+vr7iaDC9pG+uI/aY0Vt
+	 WHZnd+zZ3V7tpmdJFFwWDstRuCS8r4LTbCQ3o3gKxUyxWgO7E+ZSg4N7X/mA0poib4
+	 XlxzLkEZpdG3FOU39lHwTnfgYsU+7w8FC3aXrAdnmggp053X3iVOAgZri4cbEJ3xn4
+	 2u9W9R1ft+SswQiSCEw9ZbK8oHXM1kQb8A2dtN+XPWv39YyBFtfoxnC79wqY3wIIej
+	 GZr0TE428Y/Lg==
+Date: Wed, 28 Oct 2026 14:27:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
+	devicetree@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
+	linux-arm-kernel@lists.infradead.org, Mariano Marciello <mmarciello@google.com>, 
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org, 
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
+Message-ID: <20261028-literate-pony-of-valor-3209fb@quoll>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,45 +65,163 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028132657.1416783-1-jmattson@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028132657.1416783-2-jmattson@google.com>
-Subject: [PATCH 2/2] KVM: SVM: Set NMI_VECTOR in event_inj in svm_inject_nmi()
-From: Jim Mattson <jmattson@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Jim Mattson <jmattson@google.com>, Yosry Ahmed <yosry@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
 
-Include NMI_VECTOR (2) in svm->vmcb->control.event_inj when injecting an
-NMI in svm_inject_nmi(), matching vmx_inject_nmi().
+On Mon, Oct 26, 2026 at 02:43:41PM -0700, Brian Norris wrote:
+> The Central Power Manager (CPM) is a co-processor on the Google Tensor
+> SoCs, as used on Pixel phones. CPM supports power-management and a
+> number of other features.
+> 
+> The Application Processor communicates with CPM over a pair of mailbox
+> channels (the "MailBox Array" (MBA)). CPM provides clock, power-domain,
+> reset, interrupt services, and more.
+> 
+> It's difficult to support all of these services within a single driver,
+> in part because it's a lot of code to manage, but also because there can
+> be complex relationships between the individual services. For example,
+> clocks may have dependencies on power-domains. Instead, the CPM driver
+> only handles some basic initialization, and otherwise creates child
+> auxiliary_bus devices to handle each service. It also provides an API
+> wrapper around the mailbox protocol, so clients don't have to worry
+> about some of the details. This API assumes all users are children of
+> the CPM device.
+> 
+> Implementation note about the "session" handling: the mailbox API
+> doesn't provide any timeouts or guarantees about a response message, but
+> CPM clients would like an (optional) timeout. So there's a little bit of
+> complexity around reference-counting a "session" (i.e., outstanding
+> request still waiting on a response), as that session may outlive the
+> client's timeout.
+> 
+> Quick note about hardware queueing: this is implemented in our mailbox
+> driver by allowing clients to request the "same" channel multiple times.
+> A client is expected to keep requesting the channel until it sees
+> -EBUSY, meaning we've requested all of them. We then utilize those
+> channels in a round-robin fashion.
+> 
+> Because it may be useful both for reviewers familiar with the downstream
+> Linux support for these devices, or for future developers looking at
+> adapting/improving/adding further features later on, it's worth noting
+> some major deviations from the downstream drivers:
+> 
+>  * This driver doesn't contain much of the queueing complexity from the
+>    downstream driver. The mailbox driver was significantly rewritten
+>    beneath us, to support most of the queueing there, and thus exposes a
+>    simpler API to us.
+> 
+>  * No session pool; we just allocate sessions on-demand, enough to
+>    handle timeouts while a response is still pending.
+> 
+>  * Use auxiliary_bus, with CPM services represented as child devices on
+>    this bus. Downstream services tended to be a bunch of artificial
+>    platform devices, with fake-mailbox phandles to the CPM "interface"
+>    node. This is an atypical device tree structure, and most of those
+>    platform devices came from device nodes that were less for describing
+>    the hardware, and more for describing how we wanted software to look.
+>    So far, I haven't found services that don't work as child auxiliary
+>    devices. If we later have examples that need some combination of both
+>    iomem resources and CPM resources (and so may need to live on the
+>    platform bus), I'm sure we can add support for non-child (e.g.,
+>    phandle) interface methods.
+> 
+>  * Add devm_* client helpers, to make it easier for clients to clean up
+>    properly. (Hint: most downstream clients did not clean up properly.)
+> 
+>  * Reduce the surface area of exposed (EXPORTed, or header definitions)
+>    protocol details, such as goog_mba_q_*() methods. Many such details
+>    aren't used outside the CPM driver, so it's probably best to keep
+>    them local until proven otherwise.
+> 
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+> Based on a WIP mailbox API from:
+> 
+>   https://lore.kernel.org/all/20261023165211.v2.4.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid/
+>   [PATCH v2 4/4] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+> 
+> which is part of this series:
+> 
+>   https://lore.kernel.org/all/20261023235408.3063350-1-dianders@chromium.org/
+>   [PATCH v2 0/4] mailbox: Improve the mbox core then introduce the goog-mba driver
+> 
+> That API consists of:
+> 
+>  1) a header (<linux/mailbox/goog-mba-message.h>), which so far seems
+>     typical and uncontroversial and
+> 
+>  2) a strategy for supporting hardware queueing -- where the current
+>     proposal is described in the commit message. I suppose this strategy
+>     could still change, although it was discussed at length in v1 of
+>     that series.
+> 
+> Anyway, this patch should not be accepted until the above series is
+> settled.
+> 
+>  drivers/soc/Kconfig                       |   1 +
+>  drivers/soc/Makefile                      |   1 +
+>  drivers/soc/google/Kconfig                |  13 +
+>  drivers/soc/google/Makefile               |   3 +
+>  drivers/soc/google/google-cpm-mba-trace.h | 214 +++++
+>  drivers/soc/google/google-cpm-mba.c       | 964 ++++++++++++++++++++++
+>  drivers/soc/google/google-cpm-mba.h       |  30 +
+>  include/soc/google/goog_cpm_service_ids.h |  84 ++
 
-Although hardware ignores EVENTINJ.VECTOR on VMRUN when TYPE is NMI (APM
-Vol. 2, "Event Injection"), omitting NMI_VECTOR causes
-svm_get_entry_info() to report vector 0 instead of 2 to the kvm_entry
-tracepoint, and causes svm_cancel_injection() to copy an exit_int_info
-value with vector 0 into the active VMCB.
+Keep naming consistent. You use everywhere hyphens, so here as well.
 
-Fixes: 95ba82731374 ("KVM: SVM: Add NMI injection support")
-Signed-off-by: Jim Mattson <jmattson@google.com>
----
- arch/x86/kvm/svm/svm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  include/soc/google/google-cpm-mba.h       | 147 ++++
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 136069dfcd44..41e85702b380 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3914,7 +3914,7 @@ static void svm_inject_nmi(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 
--	svm->vmcb->control.event_inj = SVM_EVTINJ_VALID | SVM_EVTINJ_TYPE_NMI;
-+	svm->vmcb->control.event_inj = SVM_EVTINJ_VALID | SVM_EVTINJ_TYPE_NMI | NMI_VECTOR;
- 
- 	if (svm->nmi_l1_to_l2)
- 		return;
--- 
-2.56.0.307.g5fe7bd680c-goog
+
+>  9 files changed, 1457 insertions(+)
+>  create mode 100644 drivers/soc/google/Kconfig
+>  create mode 100644 drivers/soc/google/Makefile
+>  create mode 100644 drivers/soc/google/google-cpm-mba-trace.h
+>  create mode 100644 drivers/soc/google/google-cpm-mba.c
+>  create mode 100644 drivers/soc/google/google-cpm-mba.h
+>  create mode 100644 include/soc/google/goog_cpm_service_ids.h
+>  create mode 100644 include/soc/google/google-cpm-mba.h
+> 
+> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+> index 483cbdcae153..fbe6460424c7 100644
+> --- a/drivers/soc/Kconfig
+> +++ b/drivers/soc/Kconfig
+> @@ -10,6 +10,7 @@ source "drivers/soc/canaan/Kconfig"
+>  source "drivers/soc/cirrus/Kconfig"
+>  source "drivers/soc/fsl/Kconfig"
+>  source "drivers/soc/fujitsu/Kconfig"
+> +source "drivers/soc/google/Kconfig"
+>  source "drivers/soc/hisilicon/Kconfig"
+>  source "drivers/soc/imx/Kconfig"
+>  source "drivers/soc/ixp4xx/Kconfig"
+> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+> index 5a3efd68355c..6241e543dad7 100644
+> --- a/drivers/soc/Makefile
+> +++ b/drivers/soc/Makefile
+> @@ -14,6 +14,7 @@ obj-$(CONFIG_MACH_DOVE)		+= dove/
+>  obj-y				+= fsl/
+>  obj-y				+= fujitsu/
+>  obj-$(CONFIG_ARCH_GEMINI)	+= gemini/
+> +obj-y				+= google/
+>  obj-y				+= hisilicon/
+>  obj-y				+= imx/
+>  obj-y				+= ixp4xx/
+> diff --git a/drivers/soc/google/Kconfig b/drivers/soc/google/Kconfig
+> new file mode 100644
+> index 000000000000..9cd04be63b23
+> --- /dev/null
+> +++ b/drivers/soc/google/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config GOOGLE_CPM_MBA
+> +	tristate "Google Tensor CPM MailBox Array Interface"
+> +	depends on ARCH_GOOGLE || COMPILE_TEST
+> +	depends on MAILBOX
+
+Can it be compile tested without mailbox?
+
+Best regards,
+Krzysztof
 
