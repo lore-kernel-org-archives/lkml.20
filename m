@@ -1,68 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793167276;
-	b=oUhAm0U/BPvSW+zegpPxz0FL6mUpalYqifD1VrIJj2KyKuJYIoGXZWfkKDIQBUzLj9Ba
-	 SxMVBajCL05zLWCemo/iCfGt6KzUQKBFNstZWxDqof7DMQEWN91x5TgxLo4bNws8aJfg2
-	 9UKA2Y4qKUAGl0wTrO/Y/2wAkWDiB/AfIKY8GdltP8n8Q1/i62OWSlrn73EmlD4n5ml1H
-	 Pdnwq+HR2Yu6bFG7CxAz1Qj7/GSB1cFrZdLsRpjoNXD/cDsC1gaib61Ny3NbsnDnAczu5
-	 L0jKiSeaxVXA3gjKIiOae0JcYf0wjbC651UhNMg5PN4KQXHfCOkL9CxitqUfysv4a+w==
+	t=1793167273;
+	b=y9WdsOlp4ZHxUVHVmuEdq6DA5Jd5Bz91DeSXv3t1NdNM16uJsgeyeWKYHqWd7zz+kls9
+	 Beil5CBNCkVdkjkWNAxpYESt2qiO5pWByQcBf2tqnQ2B/N544Wxk2JRYPfW1KbClQdBtT
+	 gZQp60ITf4L80fxSvvg/FgC+5u4DvKiV5GTNKEbxtHFg8374DcxkP8R5pZdVqUb9NRuMm
+	 sk9VQZLIUtofArIh6YisyNe2TtxsQlIZJl4q8n39ms1A0W7fx4iN7odpIeWfCOP9BxhEN
+	 nF+OITydlYs31Wp7oHNATPaHYVs0sVNgpE9C8UKfBW0praa0NQACnuuTcO3KGZbUlKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793167276;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=tvkOawm83twhdq4JidzmKHuTlWLmlEYfP/MMxte24Rk=;
-	b=jBB0GISOV0zF9XzDkYmGUlAhYLFMOsiCRp0i6k9aOZ1Xle6pcB6HqvRanMeJ4RWgPNY1
-	 pcfu9hvMCp24eUuk+vOINlx/ksgbQW7hzPADEkfcUkmvclkXzX59i33dfuZXTqG9yhWiX
-	 BGIpF5uCOXJyWT3avKNzDWH5fbrkmCanHeShHZyr53D6zHaKWbJL46aiwbeSqfL9ULMcQ
-	 HMys23TgpFI5kqgcrE5/eTW8817QW5vi5aVkhDlK3HrRPvUPYVaWyi/uwxGoHYR2P38G8
-	 taW0bkjw0da77itXmsLjiZL5sRUjYhxZVRD4f6fjkMlOwM5NBJ/HZ9AYiOjT+eJUqEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793167273;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=StQGvmW5dHLeZF+Vv+JIk9DEZOtfvNHFy4b+UUnTT8E=;
+	b=z9e51av0kfbSQEe1CMGBsH6NB3GzIPyAbfmfsKQTLM8rMmwe0mFabdzley+NBePytR48
+	 nHOgCCqIaMEZ74eNiwLkl5BraadpvQjrgHNVoXs9MkGB0Wj/MewYy3wzwTMrzckZA+HxA
+	 ykJWac3uBIf1zxEQwSnxbs7wPbmGWMOHn66daF6VCg5cE0QpLjFv1WkVQQdIv/u8Q7/UA
+	 deIW+gXbnu2/c0yic5o2+dYeICu47AqUglyn/t/a/qxR3jDH38kh7ocqosMWD7WDbASqA
+	 Aosxpzule+BjXesGqhlaGWq7NGW1v9s3MgbLw1CxNoF9r6ydhsu7o8CfoIx6XWtW96g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dkNmkqCu;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Da4zzXf3;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81677606A337;
-	Wed, 28 Oct 2026 06:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81677606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EA0606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:01:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84EA0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dkNmkqCu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793167276; x=1824703276;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=xcZ4y1GP1fQheOF1G99rgsos9gP/L78+S0Brp4SO91k=;
-  b=dkNmkqCupe+tZPdZsxG1sCkpjyLIdRZUdkABJUYkH0hUk99j43f7qsN5
-   fVB9m0JfRhA7ghCvJlti0e3rNjfKpv+Zz1wzNtPlmPl5A8/N7zzAP6hD2
-   /GrNYnW1a9N1yrvvP5t3UqerCKF8q8Y1tHXja2XLdLaZd+esxN84/0kyy
-   PNNxWG/WCZQ/+TsPnGzp7I68wHul3J9xvduVj+UX1buN3WUJVhl+dPTUw
-   b3QPox/q+cX5PlrxiXfgBbH4XMaDHQFQocy2sndEhuahstb+l2kMdOYAi
-   /mau4FTjH/Y8gNZZBiH7Hzt0G9SbY+sgevf5Cno9i1WQHBzg3KZw6PPyd
-   Q==;
-X-CSE-ConnectionGUID: jpGMIX7HR0OVm33R/6+ESg==
-X-CSE-MsgGUID: 5x76ERtqQqqY+B1aDQ467Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1895267"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1895267"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 23:01:15 -0700
-X-CSE-ConnectionGUID: DK3b5CDgSpaAXOpwgte17A==
-X-CSE-MsgGUID: drqn8nbQTyy8nKZrCPM9ew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="5101961"
-Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 23:01:10 -0700
-Message-ID: <9e0c1aee-5a4c-4e93-ab26-f7e59b268f2d@linux.intel.com>
-Date: Wed, 28 Oct 2026 14:01:08 +0800
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Da4zzXf3
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BD4D540E040C;
+	Wed, 28 Oct 2026 06:01:04 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 2D_q4lpLQLMK; Wed, 28 Oct 2026 06:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793167261; bh=StQGvmW5dHLeZF+Vv+JIk9DEZOtfvNHFy4b+UUnTT8E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Da4zzXf3iJuEucJqmcEj+hezNaO8/B3DiVQ0cnTB5YJnrPdfTmHmxdxqrRbPbG1Ql
+	 vUbTtVGcNEGwFcUe8YB4qlW56/D1j7NBBILTfbdTbNzufyiTShYDxA+6UkBACH4/CB
+	 lld/XEuX9T4wHFI8osFB7Rmh4YoQ/x8p30Lfma8yXQ2ModJt0McAOet/FvZ1hweqUM
+	 ikAA7cowsWywEhdPfChzfN7soMJjhchMYb1N9Q/YbDRiwa+l3xq8NNxH3vo1ARWiw5
+	 xl0xmKPd7R3M8G6vCddFP0RFh0Al/AB3ejKzfpmrXnTFQ0MwRc9pEUgyWrKC1qb/nz
+	 1jEK8fAm9h4u2ybJsVq+o4b5dsj5ERs53OoaY4RTXRm/up525lBk+6C3F6zanWqK+Z
+	 d7DYSYWQ61evsjB9BwsxXOZrrdkb9ewjovzq0E29fAFt24QIyQFDVUs7aURfeoBRxo
+	 sMOyf5amfs6eoGZ+eqLuiScylHWpikLxLpRXOPquQZRd4aaj3d8kcZ1PCe+gOYqZ47
+	 5Ohuu2s/vM/FHRuV52ATuZUfjTnMgrRUcHddFrjSxkB9R5iMareOJDZD5YOtLeslVi
+	 1HN1UIrI0FM0Y5Ktvtr9rMljtv0BXQYoB0TuWrnfn23w6Em42NZ2I/SblBgwhVhYyy
+	 VMPxCRxj2fh7qnvjWhteZB+4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8CD2A40E021A;
+	Wed, 28 Oct 2026 06:00:45 +0000 (UTC)
+Date: Tue, 27 Oct 2026 23:00:42 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev
+Subject: Re: [PATCH v1] x86/vmware: Fix i386 high-bandwidth hypercall
+ arguments
+Message-ID: <20261028060042.GCauGPirK7ePNeTGF0@fat_crate.local>
+References: <4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin@broadcom.com>
+ <CABQX2QMNetg9iYRRsQmeM3+1tnC94ccWM=450wMZL_sUbqAJtA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,128 +88,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 09/18] iommu/vt-d: Combine disable_dmar_iommu() and
- free_dmar_iommu()
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-10-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261025021930.674647-10-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CABQX2QMNetg9iYRRsQmeM3+1tnC94ccWM=450wMZL_sUbqAJtA@mail.gmail.com>
 
-On 10/25/26 10:19, Samiullah Khawaja wrote:
-> Every caller of disable_dmar_iommu() immediately follows it with a call
-> to free_dmar_iommu(). Combine the two helpers into release_dmar_iommu()
-> and simplify the teardown and error paths in init_dmars(),
-> intel_iommu_add(), and dmar_iommu_hotplug().
-> 
-> Also drop the early return when
-> WARN_ON(!ida_is_empty(&iommu->domain_ida)) triggers so translation is
-> still disabled before freeing the IOMMU resources.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-> ---
->   drivers/iommu/intel/iommu.c | 30 ++++++++++--------------------
->   1 file changed, 10 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 23a1da351ddf..35ec2ae0c8d5 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -985,21 +985,17 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
->   	raw_spin_unlock_irqrestore(&iommu->register_lock, flag);
->   }
->   
-> -static void disable_dmar_iommu(struct intel_iommu *iommu)
-> +static void release_dmar_iommu(struct intel_iommu *iommu)
->   {
->   	/*
->   	 * All iommu domains must have been detached from the devices,
->   	 * hence there should be no domain IDs in use.
->   	 */
-> -	if (WARN_ON(!ida_is_empty(&iommu->domain_ida)))
-> -		return;
-> +	WARN_ON(!ida_is_empty(&iommu->domain_ida));
->   
->   	if (iommu->gcmd & DMA_GCMD_TE)
->   		iommu_disable_translation(iommu);
-> -}
->   
-> -static void free_dmar_iommu(struct intel_iommu *iommu)
-> -{
->   	if (iommu->copied_tables) {
->   		bitmap_free(iommu->copied_tables);
->   		iommu->copied_tables = NULL;
-> @@ -1867,10 +1863,8 @@ static int __init init_dmars(void)
->   	return 0;
->   
->   free_iommu:
-> -	for_each_active_iommu(iommu, drhd) {
-> -		disable_dmar_iommu(iommu);
-> -		free_dmar_iommu(iommu);
-> -	}
-> +	for_each_active_iommu(iommu, drhd)
-> +		release_dmar_iommu(iommu);
->   
->   	return ret;
->   }
-> @@ -2280,12 +2274,12 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->   	if (ecap_prs(iommu->ecap)) {
->   		ret = intel_iommu_enable_prq(iommu);
->   		if (ret)
-> -			goto disable_iommu;
-> +			goto out;
->   	}
->   
->   	ret = dmar_set_interrupt(iommu);
->   	if (ret)
-> -		goto disable_iommu;
-> +		goto out;
->   
->   	iommu_set_root_entry(iommu);
->   	iommu_enable_translation(iommu);
-> @@ -2293,10 +2287,8 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->   	iommu_disable_protect_mem_regions(iommu);
->   	return 0;
->   
-> -disable_iommu:
-> -	disable_dmar_iommu(iommu);
->   out:
-> -	free_dmar_iommu(iommu);
-> +	release_dmar_iommu(iommu);
->   	return ret;
->   }
->   
-> @@ -2310,12 +2302,10 @@ int dmar_iommu_hotplug(struct dmar_drhd_unit *dmaru, bool insert)
->   	if (iommu == NULL)
->   		return -EINVAL;
->   
-> -	if (insert) {
-> +	if (insert)
->   		ret = intel_iommu_add(dmaru);
-> -	} else {
-> -		disable_dmar_iommu(iommu);
-> -		free_dmar_iommu(iommu);
-> -	}
-> +	else
-> +		release_dmar_iommu(iommu);
->   
->   	return ret;
->   }
+On Tue, Oct 20, 2026 at 11:34:23PM -0400, Zack Rusin wrote:
+> Gentle ping on this one. It's a stable fix for the i386 high-bandwidth
+> hypercalls (vmwgfx uses them), Maaz reviewed it, and it still applies
+> cleanly to v7.3. The hypercall cleanup series I'm about to post moves
+> this assembly out of line and is based on it, so it would help to know
+> whether it's queued or needs changes.
 
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Sashiko complains about some pre-existing issues:
+
+https://sashiko.dev/#/patchset/4ab10678a8f50053934b62b56af81f881c1d3798.1788414669.git.zack.rusin%40broadcom.com
+
+Please address them: if valid, you should see about fixing them, if not,
+explain why they don't need to be fixed.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
