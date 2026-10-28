@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221887;
-	b=ddPje/wFAPgot2HvCWMaiD0630wzOQvwqgkhz42GEvhUC4slXrXGajcDNklSTI0yQpTl
-	 WwhsKj3fg2IYg1pkw1XCWfgyy8RHYJBWY4BjjITUiZnksVpVX4teXcCeys9Zz2RW73rWL
-	 AtYy+jtTVHPhgqAIMt9HQt+RVzHjBpBnb54p4BmBAcUHb0XCedOZMhhBm/x5IzZHZ06gw
-	 R4mxfT4OgWN65wQRezw5JlJV8CfgvAnsFEmy/59R3+rQzEfpEsZOmbfpOs95vjdMqjmyt
-	 3RQ2J8zTRJn3mfWMPaykA8sA6qp3JxbKrLsd/5+I+WNJb1whuSFpaLjKfLJ2SM/3dHA==
+	t=1793221954;
+	b=GVSW96EVcLn9rwRERdazDtdlxuUI3TnoQI2IH2t2tbqzUdORsCF7nnscG30RBGb0eAd8
+	 AHhPNv0YJoRPP6/1WiQRnkOjsd0/vCjhojUv9HN3E8Z6mAP2bpAFnxKig2GXrhlaflfY1
+	 uq0aetXrxmoB9cej4Ff4wAVFkeNduxPmrMdWKTqRmafwFpt7uPaMymZp7xAeFnEtFQK+1
+	 36c3QkOmYGwbGtqkIP0M6u4UhlxA+M7uOHBScevu3vjRE6ilevsajWfvhERWBGToE9Fy3
+	 /g4m5dUCoP3TXRDkSIU9+qmbOMg/x/sYdCL2NtbkKWMTi3rJxLCkD7rJaUSHHFrDpcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221887;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2T2ryu8CYGBb/tgqfVT9uEsdD2RyXJuHuC2cnmKBcaE=;
-	b=EnCgP3TssPNMoSKNEH5DtmSGCbwFAM29kTiJv+nE+HnAw4IumJdNlJONLWg2/KEtr5wJ
-	 oWLK7ipkm9TxEfb0Oe97jk/FJgc3bSJXMfTVwllp2DNn/tJ4MF9d6iXR/FBIzY71qZQEy
-	 WVCuXJVq7X0GjzvSdbGMiFcBTsLGGmgt64uA+ku+puLDTuU36d50suSUmujk4HZXsjbgD
-	 eXyE930+vVdeNnJnpeD6wazlqLAw+cU8xTWrkCXBhJGFewWde2VBHgiKf82eNRlz1+lAY
-	 7qpN7djGyXNteZdZvvpT5/ZMmdCKyFKyLZXHW9tqN0f0EzrMDZqa8GN/81RsqUNRDng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=82VJuvmKc1OoqFuJLY+l5up9uTowgLJIPwv+wCQN7vo=;
+	b=GWFtek3x1dbolP5BGMpBPw4xLVUspmPURslmi0yfvGMF2S8Z3qZYVLr66OXdXSzQ5jyR
+	 x0UOgT7fYoChftzbnfoxguA+Q1J+I2MI+ob6xiBtCgFGIgd84MYvUE+vSqZo/qye556Ys
+	 AJIEct3i8+3K9xZVuEb8v5kdkIEGtKbDpesidDNLKZDvRnwcur1V9l12VQeARoB070JFC
+	 aB2YupmD0mDBdKyZ0bUtY9tJl5/nDdsocLGWPWi+CqPglaNvu7mHMgpXzugHcDwtA4piW
+	 DkqkeAOIZKMVGcaE8InimUO+4Oj9KOcHqyZaRWe525V3rHbINOZGLMWHRp6/ltvgS+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kIvE1Av/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCtW4bL8;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBF1606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FA5606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32FA5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIvE1Av/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B13C1F01825
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793221887;
-	bh=2T2ryu8CYGBb/tgqfVT9uEsdD2RyXJuHuC2cnmKBcaE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kIvE1Av/NonADig4ues3OMWwzmxsWyNeBhYPhdsQL5Yc5BL1YXObcZTr1qaF3e5ga
-	 dszFsqLr0ZRvrDM1FuSyNUyoV71ayuuKa3+vu2X5iasPuSZrzMyirfRIfuayvnhBF/
-	 NMoE2sNALjgYz+YqfbqEiZ+gLdBOk35crImYyNQ9bkRu9KZhv7hFFtEOZyTUnWVYDh
-	 37gsGkGUTMWclDWhNrbCjPF0V2u0TwpumujohEzJyZE+CpZMOVJRLnX4vMbsQ2Iz8g
-	 gKWPFlP4nqLmSSFIvwhUyZ6/5awb5oYMOgvY5W14PBNquzH4csFPyZaMDQ3MnIgecS
-	 rEIPPcuuD6+Tg==
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f2049ea7aso94443285a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:11:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByOAWoltxyE2cbxAeBarVD9kfrcSpmTTWJobkuuq9R19RIKA7vytdr0b1WGa/Cg6HbylNAZoeFIbikLOiA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFXPeKH5BZw+Tm3j4sCpM+ceuyjBbPQpi8D8Kx0pi743k0iFux
-	8YUNDzjwuPjb5SFmN6E6OqJrabYxEmgOJGBS3b+GJOScPIIzohWmOlq5ZWa9WiqP4HEQ7pQWaE1
-	yw3PktrHr31PnTsjqyGLkexE30DC9sgs=
-X-Received: by 2002:a05:620a:2a12:b0:93f:43a4:a48c with SMTP id
- af79cd13be357-94408cb191dmr541635185a.45.1793221886373; Wed, 28 Oct 2026
- 14:11:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCtW4bL8
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2af4c8d00so408293c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793221953; x=1793826753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=82VJuvmKc1OoqFuJLY+l5up9uTowgLJIPwv+wCQN7vo=;
+        b=jCtW4bL8ViyeaPeGnkvFW0Tzyl2oJjwAx+AaO1JohvbXzWXa5Tl400aetJxSp2/g2b
+         F7QGxATCzvbMzO4Tpnf2AdjeNhF06hg2rmS7jnCt4rJimBqjGXl26MNBvjCLzyKyirrn
+         M3z2JoBV6xqTH+c8Z2rtkdhWnvQd/TRWi6abLIIr1uivkt7TyVpsm5LRqzqFWqjwXzZl
+         H8SkJ7c5uHdqj2q4/Hb0f/dRHQgiRR4176TkgCVBMk9fq6Ii4sQG1e2ua58o81Uxw7vY
+         I6uxnJ3BpOh2sdYuxyqjC1lGzpc5vcgTAJYtQU11zPzAu4op2oMg+ue7HUvb/ttxyMMZ
+         m0sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793221953; x=1793826753;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=82VJuvmKc1OoqFuJLY+l5up9uTowgLJIPwv+wCQN7vo=;
+        b=q9VrDMRZamQVgIWaP7s3JqWQb9ZlzUXlO+Jus5i1N8pt/Sk2aoqGnhCM0Y+masDEc3
+         hejUJdqN43iUETCCiRrJqJjP3SuQtD6HEaYZuZmWR1FcZIzDpuaCMc0KCODixabouQzY
+         iUC/nz299wq5DWAdLgASnWKGEwGOQJnYQmvSazI9lWXBsBLFtfFmXukZE4Hli9BnTN17
+         0SM2la3sd2ndlkY4P15T7hVpq2lKA3I6oRqjshGk2p2sQ9s7un1H/hJeJof6+0B/34rz
+         EA7yz/3eSaZW5FMr+xa03EBVxyrgSSNt9mO4WCMmnDV/GJItR8uWGPKv0Q7ePNQdNesE
+         +jlA==
+X-Forwarded-Encrypted: i=1; AKwUvBzlKgdeow5eeoT7E6L488k59OFbyEXoRG5QefYlcC6JPULwbnVpiOEMkuDDXiMV25pnHFl2U2E3m6bOO4w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLjIRSRipkQVFZoqTbe6ZBWBB5U+7/VTug2FgYgyBz+zfUcevV
+	f3IrEf8WzrvXXxwQOsmzCfk8FU707v1XS1U7R0gBTY0Mowdpp0m5ynMy
+X-Gm-Gg: AYBFou0BOvqy5bv8dgZ2DTN15ZxYffUy7jcqUv/ZYEekC7VGo7l4yTHnBnTFP8J40c/
+	al5g7U4Lh9DWyo+HYg7Ugr7l3OiLKxk+kJdGbieHZJeHuWeTiKfiPFwkjT7KQXmcCoAZ7eoQS+C
+	AjwwqUYs0a7pXZZzk1SHQld3J3vrSFA8fifmRBeoKcLqzKB1hWwF/PqskTwv2n7pBxDeqy96rDL
+	zeCuD9xrCT+2h/7N7XaSSrRSP9GVt1efzO6Id3kYsK+abCFLRF8mAjX3eJ01nFLg8PSuq4uA93C
+	oEyj/OTZuiUehkA4/CGieMKqvctLPEyooh+vzSAUiokxPLGbnkaCIoi4jAaX9wGLp0WxLyfxF9o
+	diCeFyRNF04tYoQS1GrF8lAN5m6y30UL8FXp6++5BOiFtRrrgttIldINp59Ok44W558b+1dJEb8
+	pj6Yl0mQF3OE9nwauTS0UtGD1lyOESJSiKdUn3xzCVb8MfRpcGNWnBiVxihUzLyXzWQnRsIvrnz
+	j3TB5IXnzh+CU0T16fp/jVcKBNblyCZEfAlmR7YIAkosmR6BAvyrSaiLJyTdwr085Wxzr9neASu
+	8A2T0y/+7sqIRqv2Xry+Gjw6S64IgrrAK5yfszTKdopGPvW3yYaKGZ8Q
+X-Received: by 2002:a05:7023:88c:b0:143:2984:6518 with SMTP id a92af1059eb24-1a6ce209cdbmr5369225c88.39.1793221953208;
+        Wed, 28 Oct 2026 14:12:33 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm7126375c88.3.2026.10.28.14.12.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 14:12:32 -0700 (PDT)
+Message-ID: <f09f94df-c5e7-45d5-86a6-50be145f6655@gmail.com>
+Date: Wed, 28 Oct 2026 14:12:30 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,131 +92,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org> <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
- <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org> <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
- <auHve-G8bboW77IZ@pedro-suse.tail5790ac.ts.net>
-In-Reply-To: <auHve-G8bboW77IZ@pedro-suse.tail5790ac.ts.net>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 29 Oct 2026 05:11:13 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xD_EU9sBZmJRb3ET3zfxnOnXJvZB1p_3pTLV=Y4xHPMw@mail.gmail.com>
-X-Gm-Features: AclHuK-GiN_SNdh0TbEQNxyVeAnkfKV91o-Gzvz83ZLTf2wxKLZGDZHJQeX3iwc
-Message-ID: <CAGsJ_4xD_EU9sBZmJRb3ET3zfxnOnXJvZB1p_3pTLV=Y4xHPMw@mail.gmail.com>
-Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
-	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261028170459.200466217@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 8:55=E2=80=AFPM Pedro Falcato <pfalcato@suse.de> wr=
-ote:
->
-> On Wed, Oct 28, 2026 at 03:48:09AM +0800, Barry Song wrote:
-> > On Wed, Oct 28, 2026 at 3:07=E2=80=AFAM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> > >
-> > > On 10/27/26 11:38, Pedro Falcato wrote:
-> > > > On Tue, Oct 27, 2026 at 12:17:22AM +0100, David Hildenbrand (Arm) w=
-rote:
-> > > >> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-> > > >> mmap_lock. A concurrent brk() can leave the child with a stale mm-=
->brk
-> > > >> and newer heap mappings, causing later brk() requests to fail.
-> > > >>
-> > > >> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can s=
-imilarly
-> > > >> cause inconsistencies.
-> > > >>
-> > > >> As a simple and robust fix, grab the parent's mmap_lock earlier. T=
-his
-> > > >> way we don't need to update individual mm fields in dup_mmap() and
-> > > >> keep missing ones. Stop updating the 4 existing members (total_vm,=
- data_vm,
-> > > >> exec_vm, stack_vm), as that is now no longer required.
-> > > >>
-> > > >> Keep releasing the parent's mmap_lock in dup_mmap(), before
-> > > >> userfaultfd completion, to avoid moving the userfaultfd handling i=
-nto the
-> > > >> caller. This should get cleaned up later.
-> > > >>
-> > > >> Move uprobe_start_dup_mmap() to preserve the lock ordering.
-> > > >>
-> > > >> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > > >> Cc: stable@vger.kernel.org
-> > > >> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> > > >> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > > >
-> > > > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> > > >
-> > > > FWIW, strictly speaking malloc() isn't usable in a forked
-> > > > (multi-threaded) child, but glibc/musl provide this in a best-effor=
-t way.
-> > >
-> > > Yeah, I'm more concerned about other things that can race ... :)
-> >
-> > Regarding the race with memcpy(mm, oldmm, sizeof(*mm)), we
-> > still have one [1] even after this patch.
-> >
-> > That is, copying mm_struct can happen concurrently with
-> > lru_gen_del_mm(). However, this race doesn't seem harmful.
-> > I might be missing something here though.
->
-> I don't think it's harmful as well. mm_init() reinitializes those fields.
->
-> Though I hate that memcpy. I think that ideally we copy by member and
-> data_race() benign races, like what is done in vm_area_init_from().
+On 10/28/26 09:34, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.191 release.
+> There are 1887 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 17:02:34 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Yes. I was suggesting something like using data_race() to
-silence the warning[1], but applying it to memcpy() also
-seems a bit too drastic.
+The ARM 32-bit kernel fails to build with:
 
-Another option is to copy members one by one, skipping those
-that don't need to be copied. However, that would make the
-code quite lengthy, and the copying might also be slower?
+In file included from arch/arm/probes/uprobes/core.c:9:
+./include/linux/highmem.h: In function 'memcpy_from_folio':
+./include/linux/highmem.h:427:21: error: implicit declaration of 
+function 'folio_test_highmem'; did you mean 'folio_test_hugetlb'? 
+[-Werror=implicit-function-declaration]
+   427 |                 if (folio_test_highmem(folio) &&
+       |                     ^~~~~~~~~~~~~~~~~~
+       |                     folio_test_hugetlb
+cc1: some warnings being treated as errors
+host-make[6]: *** [scripts/Makefile.build:250: 
+arch/arm/probes/uprobes/core.o] Error 1
+host-make[5]: *** [scripts/Makefile.build:503: arch/arm/probes/uprobes] 
+Error 2
+host-make[5]: *** Waiting for unfinished jobs....
+   AS      arch/arm/lib/csumpartial.o
+   CC      lib/math/lcm.o
+   CC      drivers/video/console/dummycon.o
+   CC      sound/core/control.o
+host-make[4]: *** [scripts/Makefile.build:503: arch/arm/probes] Error 2
+host-make[4]: *** Waiting for unfinished jobs...
 
->
-> Anyway, KCSAN reports aren't the most serious thing in the world, so this=
- can
-> (should?) be cleaned up later.
-
-Yep, I don't think there are any blockers for this patch. I had
-actually given my Reviewed-by tag before raising this race.
-
-David discussed races between memcpy() of mm_struct
-and other operations. I recalled another related case, so I
-posted it here. Hopefully, I'm not just making noise.
-
-[1] https://lore.kernel.org/linux-mm/CAGsJ_4xnM66UZ-n55AHW4UHn+PSCP7G-gGUHU=
-fSt6MRZGeRnfw@mail.gmail.com/
-
-Best Regards
-Barry
+this is due to 341d4e6294d9 ("highmem: add memcpy_to_folio() and 
+memcpy_from_folio()"). We would need to also back port 00cdf76012ab 
+("("mm: add memcpy_from_file_folio()")
+-- 
+Florian
