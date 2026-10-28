@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206055;
-	b=4yDASZ/WUv1BPgbh09lBovywyXD/KFq07L24kpat2ig2k68kMMxPsPrC1JJSfLOV1GVn
-	 Qo5Kn2Vuf7qjSCw7Wm5GaaaZMHsdPkieqR1wACvdrXkI/zk7xF1tVPD83+u4WP/mFpZVi
-	 w5cNqswzoJspDpfc66g6y7fEoxDoKacPzpbiF5TVDKNUlcZc6oX1xjIAqzL1Qr70bRlzA
-	 v2DbAsZWTppknBniB+8FjqRGVePqjow3e6tdxqLOubopfkGnOJKBl7QBYE3qgWIF3e/Yr
-	 +LMRiKIgNENdhtHBRYqrH6hYG+2pUn8hpiyQoQ/1sgb6D6BTe4YzBgVugFc74IT9qDg==
+	t=1793206060;
+	b=X3QTOQ/0Mwl5R7sX5Umta2f4TRidbwMujZ/lG1bLFOSYkjKRbgSdxOASn/WghS1Jy6rp
+	 3YOUndMCFppTA3CzWQTecB1nm9Hkf8/yosKVV8OuhBONKJYqnEjWvjUpqwCNiNfImX7XF
+	 UDtA80G8Thcbdp6p1dhx4+1PcuYeMjAc6m7JWctIPiUh6cCn/UwNnbzaz1HcP44qKK1rZ
+	 OyJTNEmLPCWPEIELsCLbPoJO1zuMRFPhb7WU7XyYGGY1/6kYBw4D2xYhD/fll1LPerRu0
+	 HteLw2eLP/56/lP8f/k31lhHX0kuJ/UmI7C1OKFhzGsGzCdv/6Ryz+xytyBBy3A2nYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206060;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
-	b=p3IwYRix17xdZ2QkXiEI0KkwoWAZDSO/f5tcc4dMHjFu2do3cAZCeolqMj2Uu3CyJsBQ
-	 pZf3kXr6h+t6bBjKbl3tbuIEPBTGBnnTvw8Tm+6l0i0bDdMJkA7+nvsZxO+PG9skLzgWY
-	 yPMrtV/j+7LfhR4SVmjCs5ebmhGTe0rXLh2MqOzRldmT2I2QhN+rGmSjiE4xYB6QJgtDh
-	 GhCBkZ042ABv/twHo4t5oLeOuBBptkJ38+1Kh4TCPW6tc+f4QHl/s/H+ZHAHblBXO07Yx
-	 t00B3hL4VMiJg/VNhM6lknh3VpkqIh2Gw5BM/uwdldG7ASrOVetuOxvOFlukkf0Q/Jg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YP63UdSvRgH+U6RYpSmgw00Aw6otHrAc8+AYLP+kjNM=;
+	b=zPmBINrSmSjlA4b7y8ShvysOS9OTvHK3P1idSsq706FZvN/Tp4vJ3kh+OZ/wYG5/fr8L
+	 G9uApctuMEewUGwWGrZvgZs7cdwmYqWhWmeSiwdzfw/uOyr/FWZ6EzlGRJK6xcwgk+ubY
+	 jJRinu+B2v5fJYupzTEQHXy2oYMrFK6LMdfwK530H9Mi2BC3ErRths1klmMJ92Fc9v6+s
+	 tdCk3hfEmcp8VblCwwd9H517ZBsiyJC1yOAJ9ox8REaSQn1HuMeKBOmxCZuu8rIXLdH8r
+	 drOOPyYhJhMrpUlUDQjvfOpI+lfIBs2rZaEDlEBvauoLlSmy4Tyhrr33FHWzmAW6lNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tZqd/5Zc";
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrwSVVTC;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDC6606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:47:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DDC6606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3400A60A2616
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3400A60A2616
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tZqd/5Zc
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so521729a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:47:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrwSVVTC
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8246b13cbso10312715ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:47:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793206054; x=1793810854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
-        b=tZqd/5ZctCbxMs1eSeArkxV/6Yk8QYOU200v8aPUBd4k+sUr0zgoPNPHCiY9a31ngD
-         gns6UZwWrMJNXTVzKhcVhZMb6F9fvMWXjAUgyuqPUB8GdNC/uij/msuxHgxXGDXrKgly
-         CSHMSlmpjfyrrOANMGrLr8oaAAMetCgfX7vA5SmknjqRrvTHz3YTSlaJSAKd22Az96/b
-         1CFbWwIGFdEurhKh4wzON/31ndk2aAcs113W4EE4HC3oXaI2QHAWCOOB/d4cjPgVhxEY
-         AzxcmEQ/BbfzcZtH7PfgjPvaeYWCVY70q7VB9lCRG3LeLPN60Zc4HPF3kXaUs5OWSW4j
-         uFSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206054; x=1793810854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793206058; x=1793810858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
-        b=OLO6lnag4v9FAgBO3vAGcz/KN2imEbJym4xgy8xc5fDiJy2ZetmDsOeqzqACom1Bfd
-         IXzw7QT7R+h0v8xW8mGCPgkhnlKyLnKNvEQiN7cwoPcnUSvzB5AdgFrF9cG/QpjNa54q
-         xxAccOfPrI5g1u86AxVSmk89t1myrUr6FYjTDOVa1o5AWs8jky5FeKov12wSvtZQoaet
-         yUQEn6XOuSsVv4keXAh0ScL4QUZdfE0AF39ilhp8GW2bWqII72cSvjOIk5ptwiuk5Cgp
-         UimcAmeA8t7ir9rU3Vzf8opabVvikx1lnuJrH5S9gX/8gcwkDcs9WHIdqKr9+/PzM/b+
-         3R4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwrbUXrfem8epYs28j8IwwPcCHB8IhCnHoKGspEjP2um95ASyMptlW6alMTt1zuwJRElkO3ARv67xzx+co=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZhVOgrVTeLmhISgDXfFcgDzX2WP62qrdhKl/ncby2cO2S+57/
-	jFYYBirZCtqeuTY2GJSPC+CTgDNv5cfo5looOPMNnj361oNFG+zsPxab
-X-Gm-Gg: AYBFou16V6dRafHEd9QvdVxezdSI+uSjUSNMGicC9FSBqVqiV4mY2ytyzwRTevnUmoH
-	O9MlrUVft4ASyeg4w1jFIXIJQ84d0F+OyhpuURIw4GvNnpfqFmo63/GkcWg0PYkkorkhGNEc9Gn
-	DZiBjJ2PqdSSoA44lgw5bjLD1DdXXKi6AQD9W5jzOmp1cnAjc4xMnHO4S2dj73r/rEqSFz23bUw
-	ivrU7sowShcBQYKnK690gvwKZ2Fc13j4GpJ7fFNkFJxSrh+uRcdoId0o+H9k4PHmrhVlVa75pF8
-	u+9TW8HhluRP82h630okUAmlZujczicoDFB7kYYyTqtiLB/PiPbUJgPELpp0HNAi5rBZ4+NyopP
-	1k5Nbz9vLg7B6T5tSOwe0JnpyyvjJVL5P+A54ZkJyByPx7X2QFEa0RILzzfKPIsYjlO7UipMJIS
-	HOz7fRG8zYSnZcELjMmRWtMY7zgfN1ccp7Mle+TByM4tm7k312FEqod3rXvLWe7i9CMFIdQ0P9y
-	V82mbyYmcPrZVh+B9z00GBb7W+9aUz4Va8OBiXBvk9RnQVIiTAvhy6LrAzArfpIg2R8354b/yVL
-	EoWlWW3ca23T7ENZ5G50LbzDjKurwaKx8A7oWsg5JLkDIO2yKT8z8ODXMWOt5D0cG5Zf
-X-Received: by 2002:a17:90b:4d05:b0:3a7:f4d:b23d with SMTP id 98e67ed59e1d1-3ae5821f346mr2159561a91.52.1793206054280;
-        Wed, 28 Oct 2026 09:47:34 -0700 (PDT)
+        bh=YP63UdSvRgH+U6RYpSmgw00Aw6otHrAc8+AYLP+kjNM=;
+        b=lrwSVVTCr+mmD5txpvh2KaucEm5yJlU6dn9ubOt13fw4aLxcMETtY2fvTnkU0A7tgY
+         KVawglfKWWyeSYXUAytG9qQczSoMLxjfa3dhx8tlwMcYUlL2aH6VclwO4y1zYczieI2p
+         Q0Z+FDJ9Sgo2enla6/lk2VAkXYrhQcCrxzME/E0xhasyOvpzQEg1IMCuy+3BcUKtH36l
+         EqK0J23H57eMQYKm7iTLG/oaHHyuhswjOv3/x366f+gX7/gfgfGT2XL2wLUO8QYeKNiN
+         oEyv2AavkdEI1P327WzfaWwbP3j/bHeNVfnTcerzpcRRjaI0t5TpwCBSzEoklHz/QfEG
+         fSuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793206058; x=1793810858;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YP63UdSvRgH+U6RYpSmgw00Aw6otHrAc8+AYLP+kjNM=;
+        b=w6HsQvY0tGkPJSfky1Z9PbrwwWsCMuKqV3RljgcAk4PmwedXHd/7EfuzvpraBfoeva
+         l5ZJyih/VEr9YmgV6+dqo+0g97MKy45z8NyS/fG173fgh4nS1JGsrGldT5NTmezfoqJU
+         pF5kwR0XFW6Uw2FPu3eqSkgTjAx53FT9MrP1gUUF/c4l6Opx+TWHX8bIyuONp2mkSRpO
+         bxAO7+ptC2gFl4RNBlOu8SrOnDG7tXahOFyc8ilitmw+K/m9QDDCxom9tt9oF+n4ljPA
+         GCLGCr1pb+tuxbLJYsav07DVGhuHGGmcxbG4K2noKCqLplEt9pRFqZXbGtnCXRsF+llh
+         FM1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzxwl1t+YZMJ3MOzJywX5tjvh8rLkK2ZU3dQuDt07v2mwsiwexNOu02aFhQUJKmoXjOHAr40zrj2AFtUWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPfFKuduxrTriZzE63xdVpNddn1oZvHUUu/DdfDt3o+76e56MM
+	knDcnKYj+BV04Ncx4O7fq8BN2B3ukUFEAirHdUlQchNt+4rEgVax/ZbH
+X-Gm-Gg: AYBFou0Gd+AH6JDPWi/UcVxv+r8HauYTjthvRTMSrQTwOQuttKsFiIX42NhbYC18ToA
+	qb8+uifMmHRqn2G7hycq0WRpH1ZzaCS4PWNuKnP00OHhCdAL1LnClse5Ww+gdg79f0W44bA86uD
+	abeL1D2L+U487bqeYIx6izP+FRbn9vBsQleKM7sZMEhFnJTbvZm8LvMw0AU3DrZbJBRITjUCLFV
+	tl3XIcB1NQVXMkeNO0p8kifX6bk9qM/kLzBZrz/JW0igvugyJ/1abc9KWlumiA7MkAGQZ8p5tKL
+	H3EWUExtHLHG4jexUSyGGCw00BnDxqAysPojxRRr5Jj8eJrJ5z+DN1Usbs0Kzs0JtXnYcLw4g44
+	/0C81v2cogbNv/P1pkWeavtZLXmUP8TgwyBqZRzEqv553MtUnq8NouynVSjFsLLrtUr9QRgU8OY
+	ovmzGPjEvvKcr4KJOYWZ7KK/DDpqd1cLyqIqTkKTlxvMUIfbYqEGhtZ2jf8N0Njm8LMc0PhaHw5
+	sMCnpZOpRe5rd5xFZAt0AWDWSqPqHvde8b/AHLrG3JesbdFbIJi2GMjH3xWlb9V9J5TpVxYLhji
+	jLUp7YHLGlYk7TWXotjE7LiAb6SVNB1T+dHRf2qXoGBsNQ==
+X-Received: by 2002:a17:90b:48c6:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3ae5836cbd4mr2201584a91.63.1793206058606;
+        Wed, 28 Oct 2026 09:47:38 -0700 (PDT)
 Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c5b77sm2173048a91.3.2026.10.28.09.47.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c5b77sm2173048a91.3.2026.10.28.09.47.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:47:33 -0700 (PDT)
+        Wed, 28 Oct 2026 09:47:38 -0700 (PDT)
 From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
 To: Nikolay Aleksandrov <razor@blackwall.org>
 Cc: Ido Schimmel <idosch@nvidia.com>,
@@ -84,10 +85,12 @@ Cc: Ido Schimmel <idosch@nvidia.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Subject: [PATCH net v2 0/2] bridge: cfm: correct CC receive monitoring transitions
-Date: Thu, 29 Oct 2026 01:47:28 +0900
-Message-ID: <20261028164730.253238-1-pocj8ur4in@gmail.com>
+Subject: [PATCH net v2 2/2] bridge: cfm: ignore CCM while CC is disabled
+Date: Thu, 29 Oct 2026 01:47:30 +0900
+Message-ID: <20261028164730.253238-3-pocj8ur4in@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261028164730.253238-1-pocj8ur4in@gmail.com>
+References: <20261028164730.253238-1-pocj8ur4in@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,36 +102,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two CC transition bugs affect CFM receive monitoring. When CC is
-re-enabled with a new interval, the first RX check uses the previous
-interval. After CC is disabled, a received CCM can still change peer
-status even when its RX work cannot be queued.
+A valid CCM received after CC is disabled can clear the peer defect
+and restart its RX timer. Cancelling pending work does not stop a later
+receive from queuing it again. Even with RX work disabled, that receive
+can still update peer status and notify userspace.
 
-Patch 1 stores the new CC configuration before enabling peer RX work.
-Patch 2 keeps RX work disabled while CC is off and skips CCM status
-processing during that time.
+Keep RX work disabled until CC is explicitly enabled, and skip CCM
+processing while CC is disabled. This prevents a later CCM from changing
+peer status or restarting RX monitoring.
 
-The v1 submission covered the RX work restart. This revision also
-addresses the two review findings. The interval fix is a separate
-patch because it has a distinct failure condition.
-
-The combined series passed 8 CC interval/transition checks and 3 CCM
-status checks under ARM64 QEMU/KVM with bridge/veth. The CCM status
-test failed 2 of its 3 checks on the v1 image as expected.
-
-Baek Kyu, Kim (2):
-  bridge: cfm: Store the new CC configuration before enabling peers
-  bridge: cfm: ignore CCM while CC is disabled
-
- net/bridge/br_cfm.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
+Fixes: dc32cbb3dbd7 ("bridge: cfm: Kernel space implementation of CFM. CCM frame RX added.")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
 ---
-v1: https://lkml.iu.edu/2610.3/01364.html
-v2:
-  - Add the CC enable interval fix as patch 1/2.
-  - Skip CCM status updates while CC is disabled in patch 2/2.
-  - Retain the RX work disable/enable fix from v1 in patch 2/2.
+On ARM64 QEMU/KVM with bridge/veth, a valid CCM after the disable ACK
+cleared the peer defect on v1 but left it set on the combined v2 kernel.
+Re-enabling CC allowed a valid CCM to clear the defect. All 3 status
+checks passed on v2; 2 failed on v1 as expected.
 
+ net/bridge/br_cfm.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/net/bridge/br_cfm.c b/net/bridge/br_cfm.c
+index 28b40dbf4073..115cccf1d327 100644
+--- a/net/bridge/br_cfm.c
++++ b/net/bridge/br_cfm.c
+@@ -150,12 +150,13 @@ static void cc_peer_enable(struct br_cfm_peer_mep *peer_mep)
+ 	memset(&peer_mep->cc_status, 0, sizeof(peer_mep->cc_status));
+ 	peer_mep->ccm_rx_count_miss = 0;
+ 
++	enable_delayed_work(&peer_mep->ccm_rx_dwork);
+ 	ccm_rx_timer_start(peer_mep);
+ }
+ 
+ static void cc_peer_disable(struct br_cfm_peer_mep *peer_mep)
+ {
+-	cancel_delayed_work_sync(&peer_mep->ccm_rx_dwork);
++	disable_delayed_work_sync(&peer_mep->ccm_rx_dwork);
+ }
+ 
+ static struct sk_buff *ccm_frame_build(struct br_cfm_mep *mep,
+@@ -414,6 +415,9 @@ int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
+ 
+ 	if (hdr->opcode == BR_CFM_OPCODE_CCM) {
+ 		/* CCM PDU received. */
++		if (!READ_ONCE(mep->cc_config.enable))
++			return 1;
++
+ 		/* MA ID is after common header + sequence number + MEP ID */
+ 		maid = skb_header_pointer(skb,
+ 					  CFM_CCM_PDU_MAID_OFFSET,
+@@ -699,6 +703,8 @@ int br_cfm_cc_peer_mep_add(struct net_bridge *br, const u32 instance,
+ 	peer_mep->mepid = mepid;
+ 	peer_mep->mep = mep;
+ 	INIT_DELAYED_WORK(&peer_mep->ccm_rx_dwork, ccm_rx_work_expired);
++	/* Keep RX work disabled until CC is enabled. */
++	disable_delayed_work(&peer_mep->ccm_rx_dwork);
+ 
+ 	if (mep->cc_config.enable)
+ 		cc_peer_enable(peer_mep);
 -- 
 2.55.0
+
