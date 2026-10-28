@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793147755;
-	b=j1QAE5aeayY8SlGVApP6HlU1MjjxJRbrLI2bCQsgRer/WxeQasEx/t1S8GYzm6OZYlgE
-	 4WMAAs1b2Rvh8YhAcYYAFDt/PjNRcpe8Bdpct6YRwdFTdtOyJsW8EsO4pLYpLNGsVCXpl
-	 rwbGcNWFNp7QVL1Tx616BI317ZOW7IrFMubVdZEJ6Mj8MjAyKze5oYrW2eCLIbhVp31dK
-	 cMAFggJPLcZzf/mSjbSYAC7Ws0dSUJHdTmz/D4wcmzhGWWNPg3bqEBI8ezj4dGDeKdx3O
-	 MXjAkh16ZdFzlQOh/pSCZtBuBRFcl/ZignnYTrpoCboEQ/kEd5cIAKl3viDg76rk/NA==
+	t=1793147832;
+	b=vV789GirLsBvSx8TTTNQiO8j2oGUn56AUk1F8LWKIA1Oy3tSARkYutM027H4E3pe/HLd
+	 EsTWO5K1CcBs5l8Rn8Bqe2EI8myjturqCWc9TrqWUmSeq9/5MLYWSV+fF8dHEXrTdLzy2
+	 ER7DA4MA+h5UUUvz7m8LBq+wPKioyuUEGzEaHPY7gykHTN6SB1USnoLygtecNzHWRkjm6
+	 nzqFuFe7ll0ETBecMaCme6xN4FvLzq5+pTzeozCZYKLnnXGB/sPL3YtxF0DW4P1if0txc
+	 b6eXUkWP90N1Mjbnk//AFdx1xl/0PUSpkWdY3DrW6ZKJGwxjkDzTrGvcd2SUpN3WH+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793147755;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=cag5nXIwM3E+6Pw08u6YEdxlW7mBvpMjszv78kEPRWs=;
-	b=Ets7kG8+9NWMnEsIFWjXyZscLfLqmRB8RBvK693lyvDmcSmZqXZS0aIF/B43o+Fh6lsg
-	 YIskaThenWa+s8qOJ3NGTzqRYWzV/7v5fXTFa79KcKlYmmV/+8//2RLLT9kaADKXwOp5W
-	 rCfC/Q5zFlQlunAezfzGDJA91CyN8+Urj1479aF7YR7hB702vyULt8SZ8wYjWZNSsWAP1
-	 fTzdg/mT7ace3RfqD4h1FCEuiRGoZHx8z8DRiFYF8RyvfAN9yM+G72ybEq8IbO8oofz6/
-	 GuXjhYhvvv4wKuaapgqqZyVN7SL7osxn9GTVsJi2lvt3lZR+MIvx3V+VqXb1sz1uxWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147832;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8PIwpydXKouR1joEe6jH+BAljrr4d+wB8gTbjsqTGKM=;
+	b=fu5JEE6oQBeR0uE8f9dNlSoYz4d+ChLo5Ia/969NeKPvwypCC8GtIokhC45iPCORhG20
+	 WzrZwPXL3KLxzL+dnTk/ZqiRo3whlZ94XBCK1vAFrBAo7P8dbrJEQ2eweLOKGmtTP4HZo
+	 jc074JZ9+HHsHz6mmPVtSuw9Dvav5L4MqdGvho1Y/LMx8Xa/KvaDlUtXQztlKYYTRMfxG
+	 of2OYvltWrs8z99UM+/De7wcDDc3zF5XC7mmS4CJ/y0L2VxZ2fFli4Pp+2Pn2m1vkcffY
+	 lPTDU+g+2eKt8L9Kft7/x5sxqL96Sn1iNl9SL/idyUr3GoOLC2z2PmAB6ubXC+ntORA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oMkuALfG;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.134
+Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D9B606A31A;
-	Wed, 28 Oct 2026 00:35:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D9B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oMkuALfG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=cag5nXIwM3E+6Pw08u6YEdxlW7mBvpMjszv78kEPRWs=; b=oMkuALfGXj2DGZ83Vxhmntw3fN
-	YdA1BTq6dkMElpqRvc2fS0D5m3hb5JIumXNTDnxWJ4sYyL7+/jxCNTI5prsW85sB5YHgWTIyJ9GLH
-	K1Ihb2ZZDHuEuZg+qHTb5omyPbhTx0Vb4CmJ+ZAORrCMyOKO88P/RngfRyYYBWfy91Rv1TrBqFElB
-	rQaUzAAHoCgKjsYWj7+24g8vI2haVaDSy6xUFayEoYEFXtxiA7BUqhiNEZA5klA3bgoD8L6oacPYV
-	08xQfYIOoh3tAFBUFECjzZ2kjSjQgxkssS51hEuC6L4UFDiwDYLAa4lNyswp1efJhz2oXxuivvrVQ
-	tngftWoQ==;
-Received: from 186-249-144-144.shared.desktop.com.br ([186.249.144.144] helo=[127.0.1.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xLrdu-00CLTP-5q; Wed, 28 Oct 2026 01:35:50 +0100
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-Date: Tue, 27 Oct 2026 21:36:56 -0300
-Subject: [PATCH] HID: playstation: ratelimit input CRC check failed
- messages
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA727606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA727606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g6I0fGip7xLh8Q6oBq2a1cjMBbrnu+NWJFLuMFktGCs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793147828; v=1; x=1793752628;
+ b=a2y5PhjbmhP0ymGssWONsODfmaMtFLqpWuuqugLyHIlOajiJRhEINCBJK+bgJXCL1lIkazc+
+ sTmSKOibPsVt1M7x/gwZUlZaPJ1/oLU+SFB9+dGzrEcSBCr0o+Y+F3lB7/UzXJ6AJjnrhDbfG1B
+ QoSZ1ncmOsZiKIXzjyiC7N0Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 54179253e2ede412;
+	Wed, 28 Oct 2026 00:37:08 +0000
+X-Mizu-Trace-ID: 54179253e2ede412
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5ebe0445-a111-49a5-b9cf-0185d3c3f67b@linux.dev>
+Date: Wed, 28 Oct 2026 08:36:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,112 +55,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-hid-playstation-ratelimit-input-crc-error-v1-1-68812542f898@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAKdD4WoC/x2NQQqDMBAAvyJ7dsHsQVu/UnoIyaYuaAybtbSIf
- 2/ocWCYOaGyCleYuxOU31Jlzw1c30FYfH4xSmwMNNDoBppwkYhl9d9q3pqL6o1X2cRQcjkMgwZ
- k1V2RxnSbXHLhHglarygn+fxfj+d1/QAqktRBewAAAA==
-X-Change-ID: 20261027-hid-playstation-ratelimit-input-crc-error-26f871f1c9d2
-To: Roderick Colenbrander <roderick.colenbrander@sony.com>, 
- Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: kernel-dev@igalia.com, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Mauricio Faria de Oliveira <mfo@igalia.com>
-X-Mailer: b4 0.14.2
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@linux.dev, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
+ <583dc515-855c-48d6-aefb-abaef26b2564@linux.dev>
+ <CAPx+jO_+P-ksGzbYp9Aky7etMyKtTUvtAZJZJpauw03Y8zP0Lg@mail.gmail.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <CAPx+jO_+P-ksGzbYp9Aky7etMyKtTUvtAZJZJpauw03Y8zP0Lg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The kernel log of a Steam Deck was mostly filled with CRC check errors
-from what is apparently a bogus controller, with 8174 messages in <200
-seconds, averaging ~43 messages/second:
+在 2026/10/28 星期三 3:46, Ulf Hansson 写道:
+> On Tue, Oct 27, 2026 at 4:02 PM Shawn Lin <shawn.lin@linux.dev> wrote:
+>>
+>> Hi
+>>
+>> 在 2026/10/27 星期二 22:40, Ulf Hansson 写道:
+>>> From: Kamal Dasu <kamal.dasu@broadcom.com>
+>>>
+>>> keep-power-in-suspend is currently documented as SDIO-only, but the
+>>> requirement it describes -- preserving card power across a
+>>> suspend/resume cycle -- applies just as well to any card type. Drop
+>>> the SDIO-only restriction so eMMC and SD platforms can use it too.
+>>>
+>>
+>> I don't see how SD could use it from the following patches. Perhaps we
+>> should still be more strict here to say SDIO and eMMC only, unless
+>> SD part is implemented later.
+> 
+> I didn't have the bandwidth to implement this for SD at this very
+> moment, but the idea is to add it for SD too.
+> 
 
-    $ cat dmesg-pstore.202610250608-0 \
-      | grep -c "input CRC's check failed"
-    8174
+SDIO devices have a clear wake-on-host requirement, so keeping power on
+is reasonable. eMMC and SD are passively accessed devices, making this a
+pseudo-requirement under system freeze conditions until Broadcom chips
+changed the situation for eMMC.
 
-    $ cat dmesg-pstore.202610250608-0 \
-      | grep -m1 "input CRC's check failed"
-    <3>[    8.715455] playstation 0005:054C:05C4.0006:
-                      DualShock4 input CRC's check failed
+However, for the SD part, I doubt such a need exists. It would require
+dedicated ROM code support, and unlike eMMC, SD is not used as primary
+storage. Worse still, unlike eMMC and SDIO devices which are soldered
+down, vendors typically have an AVL to certify board-mounted components,
+while SD cards can be freely swapped. The compatibility of off-the-shelf
+SD cards is relatively poor, so I question whether there is a real-world
+scenario for SD cards here. If there is no such scenario, this is dead
+code.
 
-    $ tac dmesg-pstore.202610250608-0 \
-      | grep -m1 "input CRC's check failed"
-    <3>[  196.187459] playstation 0005:054C:05C4.0006:
-                      DualShock4 input CRC's check failed
+> That said, I was also thinking that maybe it would make sense to add a
+> sysfs node to allow the behavior to be controlled by userspace.
+> Thoughts?
+> 
 
-    $ echo $((8174 / (196-8)))
-    43
+Sure, regarding the sysfs node you mentioned, we already have
+mmc_caps2_set() exposed to userspace, and we can add
+MMC_CAP2_RESET_AT_RESUME support there
 
-Let's ratelimit the input CRC check failed messages for the exceptional,
-high-frequency error case, which doesn't impact the occasional, low-freq
-error case (as ratelimiting does not trigger) or the non-error case.
-
-CRC check failed messages for driver-initiated requests are kept as is.
-
-Testing with a UHID driver to synthetically reproduce input CRC check
-errors (generated by an LLM) shows that it reduces the duplicate lines
-and still provides useful information (number of errors/same message).
-
-For example, triggering such error every 25ms (40 times/second), prints
-10 messages and silently counts another 187 in 5 seconds, ie, 197 / 5 =
-39.4 times/second (aligned with the synthetic reproducer's rate):
-
-    [    9.554184] playstation ...: Registered DualShock4 controller ...
-    [   10.053936] playstation ...: DualShock4 input CRC's check failed
-    [   10.078162] playstation ...: DualShock4 input CRC's check failed
-    [   10.103447] playstation ...: DualShock4 input CRC's check failed
-    [   10.128739] playstation ...: DualShock4 input CRC's check failed
-    [   10.154016] playstation ...: DualShock4 input CRC's check failed
-    [   10.179198] playstation ...: DualShock4 input CRC's check failed
-    [   10.204474] playstation ...: DualShock4 input CRC's check failed
-    [   10.229762] playstation ...: DualShock4 input CRC's check failed
-    [   10.254904] playstation ...: DualShock4 input CRC's check failed
-    [   10.280441] playstation ...: DualShock4 input CRC's check failed
-    [   15.070695] dualshock4_parse_report: 187 callbacks suppressed
-    ...
-
-This reduces the space consumed in the kernel log during 5 seconds from
-~200 lines to only 11 lines (5.5%).
-
-Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
----
- drivers/hid/hid-playstation.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-playstation.c b/drivers/hid/hid-playstation.c
-index f9dc9378cf777d33aab3cdb87302c6e48f406d2f..b053037a3f0b95b6986c7e53e787e005676ed565 100644
---- a/drivers/hid/hid-playstation.c
-+++ b/drivers/hid/hid-playstation.c
-@@ -824,6 +824,7 @@ static int ps_get_report(struct hid_device *hdev, u8 report_id, u8 *buf,
- 		u32 report_crc = get_unaligned_le32(&buf[crc_offset]);
- 
- 		if (!ps_check_crc32(PS_FEATURE_CRC32_SEED, buf, crc_offset, report_crc)) {
-+			/* hid_err_ratelimited() not used on driver-initiated requests */
- 			hid_err(hdev, "CRC check failed for reportID=%d\n", report_id);
- 			return -EILSEQ;
- 		}
-@@ -1459,7 +1460,7 @@ static int dualsense_parse_report(struct ps_device *ps_dev, struct hid_report *r
- 		u32 report_crc = get_unaligned_le32(&data[size - 4]);
- 
- 		if (!ps_check_crc32(PS_INPUT_CRC32_SEED, data, size - 4, report_crc)) {
--			hid_err(hdev, "DualSense input CRC's check failed\n");
-+			hid_err_ratelimited(hdev, "DualSense input CRC's check failed\n");
- 			return -EILSEQ;
- 		}
- 
-@@ -2425,7 +2426,7 @@ static int dualshock4_parse_report(struct ps_device *ps_dev, struct hid_report *
- 
- 		/* Last 4 bytes of input report contains CRC. */
- 		if (!ps_check_crc32(PS_INPUT_CRC32_SEED, data, size - 4, report_crc)) {
--			hid_err(hdev, "DualShock4 input CRC's check failed\n");
-+			hid_err_ratelimited(hdev, "DualShock4 input CRC's check failed\n");
- 			return -EILSEQ;
- 		}
- 
-
----
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
-change-id: 20261027-hid-playstation-ratelimit-input-crc-error-26f871f1c9d2
-
-Best regards,
--- 
-Mauricio Faria de Oliveira <mfo@igalia.com>
+>>
+>>> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>> ---
+>>>    .../devicetree/bindings/mmc/mmc-controller-common.yaml          | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> index 8b9b3b036129..2fc8e06d5ec9 100644
+>>> --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> @@ -301,7 +301,7 @@ properties:
+>>>      keep-power-in-suspend:
+>>>        $ref: /schemas/types.yaml#/definitions/flag
+>>>        description:
+>>> -      SDIO only. Preserves card power during a suspend/resume cycle.
+>>> +      Preserves card power during a suspend/resume cycle.
+>>>
+>>>      wakeup-source:
+>>>        $ref: /schemas/types.yaml#/definitions/flag
+>>
+> 
+> Kind regards
+> Uffe
 
