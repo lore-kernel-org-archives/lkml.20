@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164073;
-	b=a33XFmCrqYEWCJh33UsojRJuvxl/wTbnx6AaYMVCUpKousddzQedJ1wecImXk9xNc24u
-	 l7jsw1Sf2ArJW/CEoUra8t85W3LhEXDRBab0cWNWJzuMtPBSMRplwzW4x5voAFeOL55MP
-	 c5lYEUZshk23CZCboEu/ZVWeoO22BhcmVDlmmlAKQrXhdXGF7vuzUWbvsadzBffuPzW4+
-	 dnDfTq38NFbsjr8XCRsawRvUXKcU7Lof5Vuv8feS3z9YASvAnn6b/kJHRgo5m9tRfxn3W
-	 cZF2VipykYSR4R9aUmoJR+HCTE8hguOzS0zmVeTHae/cRzXsf3viSDShgaupjS4mMqA==
+	t=1793164075;
+	b=K/hHFVZrGRVTNKEvQbkXW+2P8inGJdYCTtWDkHNplLlnWHAVS1IC6V8WTG9ewCcqa/yi
+	 1qJM2zpK88qIPF9b/ROANxmsMAh4WxgJPycCN6p93XHOVBg5fTbykXX9n0AthF1/8fE4i
+	 lwk7xUAh1LSISK4XTHo0m9POOydnymetG3pH+OrQFVB3oGA34qWCllgdiVuDC17QfNJUH
+	 tLeShtNtPjpPDsIVk//j1s6X4lQX4+r+wwgUsjLAGTJttMB2P8CcPz0R/n3x30qO7Q7aM
+	 fNoj9l+/DdaAbBS412k7t08zRqjm3ANOdmsBYxK58zk+EWnq9IMLg9V0auYyKEpnYtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164073;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=MEd5yoolpftLGplkK7bcv5qF6vsCs9gM+M90KSk629c=;
-	b=ItvyeuIQN9XXtUxWzCdqUTxJ6hlV1efn76a8icDgKATz0FMzRKsy0Y+iPJC8P9uc1deX
-	 UfBsviBmbE89wJjGMsdJpHisbII+YnGFq5Y7Xh7/y1jFsL3Bv+AiSMbzJ5zZhuebe2r00
-	 cuUG/9+nux8+fkjkWi7IUiFqVCD5ljlhYI3FMiuvtPnPDALraBDbyxa51/5XJh+9kgpkk
-	 6IzKCshx8X+fMOkqllNcfrtEJ3C5GKmqZ+aLNoJWYwQuTVWEsDtDrPdo2t7y9ZEmR1gSt
-	 fcHqMPg3Y+mobkglIhfqagBNyr3vtj3LmQyo+kifucMwCUEE7nzRG/7k9n2NcXPlvug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164075;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=bUXd6wCGkdy3sUL1jP3fBL2bNrVaPeuZ1kav6MQ03xQ=;
+	b=G8O/asYTlvffd89jN9khDY4VMeh16mOcL7Ncbg2H/ek1WK22rI7+lpNL92k/PDJE+9/w
+	 /oM71PGFI4T/nLCTVJU+PXYYGAFNjtWdZDinjko4+LyY57kCsA6J1MCaX8lEWHZcItvl+
+	 MRhvZuJfPNb/5AiBegJpAlwwRnPZq7/qVeeWUYXVfru7AST1mC0/wwsCbvFgQPSlKJpa+
+	 iPpAI60SQC1vu/5rf2a5b0MYcPGU4WUmdKluRrEt0QG4xEPmv4FiZdczUWj3UfyXG7AMp
+	 SOc+29FRc9jfJrkQRHWKh5Uj0H8GQ8roN3sDAy+HJHWDGJGqyiX479l1xXpYiHy6lPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=D0zYKSbl;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nOzYcQ4q;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF9F606A31E;
-	Wed, 28 Oct 2026 05:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FF9F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09993606A32A;
+	Wed, 28 Oct 2026 05:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09993606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=D0zYKSbl
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nOzYcQ4q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ME
-	d5yoolpftLGplkK7bcv5qF6vsCs9gM+M90KSk629c=; b=D0zYKSbl6lJIdDjoPi
-	WX2V+iILXVyAhyf2nw2o54mhE2BbIC0pW5ZJ3j88y45R4S0TEH3Y+F0vTiC+j1UI
-	qMlo6/gbCvF9W3qPoQ5rQ6+QX/9ISVcCxwJOnMfKWBVYp27WnPAZscbhnP21/iZI
-	UlJcJZkE2aO0cRcxvolz9fqZs=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bU
+	Xd6wCGkdy3sUL1jP3fBL2bNrVaPeuZ1kav6MQ03xQ=; b=nOzYcQ4qMVtVeZi2Pt
+	cReMe+ncj9l3Cnb8pfwXcxRBscn3+ASfglv3RjT9Y4wDGCp80brrZn44/1DTuEdn
+	VPxlee0+VnZ0DFi1S3L3RLUaX8mVRav2mfcgDWGdsP8OozxxHdVtMh2PfuP4UZKN
+	Sc05LEkm2MJ9x/MoM5J9xCdq8=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDn31cMg+FqswGRDQ--.35366S2;
-	Wed, 28 Oct 2026 13:07:25 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnt9XTguFq0hNpDQ--.19760S2;
+	Wed, 28 Oct 2026 13:06:28 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Deren Wu <deren.wu@mediatek.com>,
-	Nelson Yu <nelson.yu@mediatek.com>,
-	Mingyen Hsieh <mingyen.hsieh@mediatek.com>,
-	Rong Yan <rong.yan@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+To: Ban Tao <fengzheng923@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Joao Schim <joao@schimsalabim.eu>,
+	linux-sound@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH 0/3] wifi: mt76: validate mt792x firmware TLV payloads
-Date: Wed, 28 Oct 2026 13:07:19 +0800
-Message-Id: <20261028050722.135598-1-yaojiale02@163.com>
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ASoC: sunxi: sun50i-dmic: resume device for control access
+Date: Wed, 28 Oct 2026 13:06:26 +0800
+Message-Id: <20261028050626.133421-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,32 +71,101 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn31cMg+FqswGRDQ--.35366S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtr43Ary5Wr17Zw1rGryDWrg_yoWfAwc_Zr
-	yvyryqqw48GFyUtay2kr12krW8t3y8ZF1kZFyrtry5AryUAr1UuFn7Xrs8CFn2kF4Iyry5
-	KrnrWrW8JwnagjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbIPfJUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg32MWrhgw33qQAA3f
+X-CM-TRANSID:_____wDnt9XTguFq0hNpDQ--.19760S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF43ur13Kr1DWF4DGF18AFb_yoWrGF45pF
+	1fJF43tFs5Jw4F93ZFyr48Xr13CrZ3KF4kA3yIy3y7Cr1xGw1IgF9Fv34rCFZ0krZ0kFsr
+	Ar1jv34Sg3Zaka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8AwsUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xToI2rhgtTr5QAA3j
 
-The mt7921 and mt7925 firmware event parsers validate some outer skb
-lengths, but several paths still trust type-specific lengths before
-reading fixed fields. Malformed responses can make the drivers read past
-a TLV payload, and a zero-length mt7925 capability TLV can stop progress
-through the response.
+The capture volume controls use regmap directly while runtime PM may
+have suspended the DMIC and disabled its clocks. Since the regmap has no
+cache, reading or writing a control while suspended accesses unpowered
+hardware.
 
-Validate the fixed and type-specific payload extents before consuming
-NIC capability and debug message data. Each patch covers one independent
-parser and can be applied separately.
+Use control callbacks which resume the device around the regmap access
+and release the runtime PM reference afterwards.
 
-Jiale Yao (3):
-  wifi: mt76: mt7921: validate NIC capability payload lengths
-  wifi: mt76: mt7925: validate debug message lengths
-  wifi: mt76: mt7925: validate NIC capability payload lengths
+Fixes: 9a8cadddd930 ("ASoC: sunxi: DMIC: Add controls for adjusting the mic gains")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ sound/soc/sunxi/sun50i-dmic.c | 59 +++++++++++++++++++++++++++--------
+ 1 file changed, 46 insertions(+), 13 deletions(-)
 
- .../net/wireless/mediatek/mt76/mt7921/mcu.c   | 41 +++++++++---
- .../net/wireless/mediatek/mt76/mt7925/mcu.c   | 67 ++++++++++++++++---
- 2 files changed, 90 insertions(+), 18 deletions(-)
-
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+index 5c784b1f6846..a5f70db856b9 100644
+--- a/sound/soc/sunxi/sun50i-dmic.c
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -286,22 +286,55 @@ MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
+ 
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(sun50i_dmic_vol_scale, -12000, 75, 1);
+ 
+-static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
++static int sun50i_dmic_get_volsw(struct snd_kcontrol *kcontrol,
++				 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	int ret;
+ 
+-        SOC_DOUBLE_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
+-                       SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
+-                       0xFF, 0, sun50i_dmic_vol_scale),
+-        SOC_DOUBLE_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
+-                       SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
+-                       0xFF, 0, sun50i_dmic_vol_scale),
+-        SOC_DOUBLE_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
+-                       SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
+-                       0xFF, 0, sun50i_dmic_vol_scale),
+-        SOC_DOUBLE_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
+-                       SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
+-                       0xFF, 0, sun50i_dmic_vol_scale),
++	ret = pm_runtime_resume_and_get(component->dev);
++	if (ret < 0)
++		return ret;
+ 
++	ret = snd_soc_get_volsw(kcontrol, ucontrol);
++	pm_runtime_put(component->dev);
+ 
++	return ret;
++}
++
++static int sun50i_dmic_put_volsw(struct snd_kcontrol *kcontrol,
++				 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(component->dev);
++	if (ret < 0)
++		return ret;
++
++	ret = snd_soc_put_volsw(kcontrol, ucontrol);
++	pm_runtime_put(component->dev);
++
++	return ret;
++}
++
++static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
++	SOC_DOUBLE_EXT_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
++			   SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
++			   0xFF, 0, sun50i_dmic_get_volsw, sun50i_dmic_put_volsw,
++			   sun50i_dmic_vol_scale),
++	SOC_DOUBLE_EXT_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
++			   SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
++			   0xFF, 0, sun50i_dmic_get_volsw, sun50i_dmic_put_volsw,
++			   sun50i_dmic_vol_scale),
++	SOC_DOUBLE_EXT_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
++			   SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
++			   0xFF, 0, sun50i_dmic_get_volsw, sun50i_dmic_put_volsw,
++			   sun50i_dmic_vol_scale),
++	SOC_DOUBLE_EXT_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
++			   SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
++			   0xFF, 0, sun50i_dmic_get_volsw, sun50i_dmic_put_volsw,
++			   sun50i_dmic_vol_scale),
+ };
+ 
+ static const struct snd_soc_component_driver sun50i_dmic_component = {
 -- 
 2.34.1
 
