@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793201765;
-	b=eW3v19hFDBvf7/7hMuZeiPSOtFOGBjjB9TizYBySq1aS648CRhuqAXQQ8P3PCY3jb6zW
-	 GNAQZhNn0XiPH2GXVrduj7e75T8eS95m14KzqLI8FaRRC0AHrLbDL119j4QBq7hN+p9II
-	 oXmjBwKB5yb1TvYsqX3L3oQpv8IcQzRJ8PwGcIXiIyaWz/1YjCHXb4xwwxFbSZIlAonih
-	 KPIjn45z7SVwG1EE+6in8I/4p+r3zNXL9PVk/7tjTROL/qb23jQTfNSWJQUbWLdjTT4PO
-	 VTEQsAIil92A8V7BmaLdhK2vfRpg3WtXyolqVvkimCd/ZXZ+qtoSeIK0MzlWmHQpsQQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201765;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793201831;
+	b=2MsTS254ed3ihBJD6T54HYNNmuoskhB1h33BI/SqXE0T+OdB63MRXtdhXbrX0I5jEwUe
+	 nwICkQfaapy0DkGPdyHBDFoXSYxCa7i67z9eQ0X5CcofP9+BG3JKyqLdcDWd6MN+dF3d3
+	 BxzGSGGVish0USiVU1QlV2/hIR7hUBQfiH5e38DAxJKlZwLLYA3YgFFZHn3P6GkQlRQ2s
+	 D3ppQ7ZISCdjaZsgYEGpYL+r/2iDef9TpVdXNPtDaKoA+uhIbdy2PupcIpdmQ5Wl7D4dd
+	 ZRd7R2A9kIm2mAG4NL9GbLfxiPdqJKJEq+AkvwpTOKyCW+fA3PD3qSlFX3q0k0vbWsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201831;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IMDYK1ZjnbIiPQHcJc7SpOjyQ4Wy/ZaG15fuBEkM+6c=;
-	b=EyTOvff56Fk6Q1nHEj+MH8EIwZhpQU6RudcWNUtNcKfwj0LBi6dONHpgF7+qeWueNYdx
-	 iKRerBKyi0cSv6opxaVuOgnc1dzim1jHA5qJELy6gdnH242nLOM9rmxYrkuo86WWA4EM5
-	 fJ2217oPNk8tdo+RAjN0fn1264gHDbe+lUGY8mK3mRj19olDhUz3ckd4p7s2we0yqgreR
-	 fM3HkOj96z5POCeCW7g8wBmQNPa18A3HtTtOLg4G6sG7RDSNd6KDuZ33BUSOqdXdVlrDi
-	 D5/8qdfUPWJD0mFi05E+XD51JV5+F2QgxZbwurotbIcXPnKkQlF5ME5LRqw9YbGJ/EQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iyuv9E6o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=I16DQdy1VOVFDjvuWwKEez1vFW63gYQh2CVkwH7X+QY=;
+	b=FmKfVmrzwtdu226VFPVLOQBgxhIV7nZHcDqw+zSISnh08dhvPq+0Ha343RbzWwQMmVXH
+	 uugccY6uyjGfcyoLi0ddhOTQTedEaY6w9FngandwmR0IF4Ha94H79mSQvQKZIwRH8rKJV
+	 Jt5EbjPZJSbAWNa0wr35umdQWFKeR5Y9FQuhzOfstG667tsTgGcda2ssP70Pmn98C1p+i
+	 RY5bZL6iYyVgH86wTdge/n2EmVj4E8zgHZxJsasK/zow6Nqi1OceUs/Lph497U3FMvEhV
+	 VL31libDpIom7bAy4eVxVmPu8Bayu/uwmxbZDFUaLSeJwrc4oyS1pOvf38N+A2oIOyw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nK/pIe0n";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334A2606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 334A2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B28606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18B28606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iyuv9E6o
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-535f598d126so291861cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:36:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793201764; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LzZtgnRMpvr+ey85T96iPVIJ0jLNXI2LRelOkOtuend2ctwztqWyrIOW4pUNQJZTjn
-         cYm4WKGAmAfHh9XIUwxc+tyc+y5pVaCJT+Lrx5G2+R7wcrzpp7/aC0xPCPk2CUA9kOdc
-         NBA69zUTzbguyYs5fX7TbOQFovS2sWjZ14H6hydmr+C7sar2Tqp6kmKU/14xRveGbfv6
-         0lZKweTbOy59RqIwls34H1GDlPvlIIvDRr4s/JaAkpqnUdgOPt25bo8Tj1+6qT9+KJoT
-         r/h+rSE++TKOz/uc9g1b7HAD4YIhtzafgxxFX+FtxYrM2vp9hqsT6IpeiZlmL6AHH4ca
-         ckww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IMDYK1ZjnbIiPQHcJc7SpOjyQ4Wy/ZaG15fuBEkM+6c=;
-        fh=aNQ9zQ9AW8wFY46BRQY4U8baks5TEroZpdPhOeoakRo=;
-        b=i0UQUxm2ndZhmP7R9J+abfuaO+zmy0WU/dBW2xO+FIVbj1aauWfCnvJbPwLadWJznn
-         xdEZduXr6rOzhR/woqCd3QNeCxzoMBtB4U2Psx/1q+JVvKF4/7r8TYs4wa/ZUGcA59Si
-         ThclTDo5s7595UwKrOGnuigc6eZNd0mh7MTIk304uXfLLNIB9+rVp1fWHjJcWzAdIZTJ
-         PjIUu6mWSOx2rJYfhwSFq+yGxhbjg/oQGikG53czXzB72Q6Q4SuqBIuS1R22l/8a8/65
-         006VArbYOmm/KcwE/WN9Vd/uH2R2MOrUhN8Xhppc3hQX6I+ZN4CA069ySON6QMRqlJ6h
-         Hpgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nK/pIe0n
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso11731555e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793201764; x=1793806564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IMDYK1ZjnbIiPQHcJc7SpOjyQ4Wy/ZaG15fuBEkM+6c=;
-        b=iyuv9E6ogXiaYB/Kf9bGMjc5uDovw1VYZpmRLrRXT+kN2fxJMnJdnor+qZvLAhWzf5
-         5ZpgEidLwgoDr/m7PqAQNgkvMJs1jQGMfEjgDsfaqWJdA0ll7UHpSzdRyuFyqOtcPvQf
-         74bwXpyLamSNVYlWo12Hkt8sY/BkzbtDkw3FeAjFHel30AzWVvD9K5nLau0ciJ6j7CSK
-         ZH4qBM8JvT2aPZPJYm3XwzxSYHZi04WkjIZrQEfBjgxa7Wsg9Sh5hAk/6QBMmPYkwRlc
-         e+Xy3nhgo0JAgGmpn+QnHGzm1VxXA8IyWASy4/EEGYKtjCnWmnqGfUf8AjkGoqR/opbF
-         W1VA==
+        d=gmail.com; s=20260707; t=1793201828; x=1793806628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I16DQdy1VOVFDjvuWwKEez1vFW63gYQh2CVkwH7X+QY=;
+        b=nK/pIe0ngKCTRN/P1vJMMYdC0biISm21apL8jvlyy9pwKohheWIn0VP19j9NaYf9VB
+         aaZighpNrdbOYCFbqpgnbqGvf6UFH5RUZ+ELVZzGky9IXVnL3dmD3WfriJ/bwaM3WJxn
+         Xl/mF+2oOwYJgBIhhwSvt0mgLyrXPeiMOtFB/JTqQxNcroTlRIYmOTGdglhjzolFs4pk
+         2bPuhD4sezlbufFtuyV/1oZ0n8qdrhqCRszW24TsEl12LeD1l9QYDBT0C6k4I6JoZEGC
+         atIVdwUswECGGlxuVgQFbWzQZCHYhNASNDa5DX4Soyw1WFYeSTo+Yij2BT3yf/HBDv33
+         ZMJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793201764; x=1793806564;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IMDYK1ZjnbIiPQHcJc7SpOjyQ4Wy/ZaG15fuBEkM+6c=;
-        b=uoQjN3fGimGcgthNWA/znMD6rnummRSYILtiQqHFV0yoGEyLFfYF/wCz1aDcwv7Nwe
-         n9Sli5KjcQCKZedr3BlQsSkaOBSVp78pWh67H/vBQ0sRQY+oQJwCjRlKYGFI6C1DL3xr
-         G7KttTavtAKUtJTyZpW6pvn3cIJ4rwjuAXzRzjvxnv82P+aXTYqcYH6SvhIWv4gjrb11
-         TwrI+TJVW0CXPcSCS+4EKb4Bb7pEd+2MwWwVXJacqwhrFtRv1LLKk4FlkFR5qR8QEv1r
-         mZkPi5uSf050ToWOwuZA4NJFDPp4S3qxv4eXaXEPUYM+gf9EL8PpSL7KtcurBrPCf+UU
-         5qhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzugcUIiR+R+NpTUeUju0jFZhOCxVdBdjmXeCcy4LC3CaPXfBw3VgG942vOXT6AMZ+E5vEKXNo4CRrAFaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFYVY5qN+0TARH/iKcpDxpTz2lWoizKc1MVIpFOrw68bzwvhCz
-	HO1x5kg9cULWrD6vRukXMXb4EldRHI4jHSy/cueVOmEcZOXHgg0vIgmimmQgPL65LZgniHHM6FU
-	HPwncrS+AyyJdisdbbm8xrincJH+t/KjSnsKT15UD
-X-Gm-Gg: AYBFou1hWXn8VK2HgL2LXqsOrfzxFXxmL5kbaHEfhiciTBVVatQtQYerQPPQbYa3Z70
-	KmA1F6+GRUcq1qwSmrVmEXS+Q0mHEM9/ShXjyjOPaF2M42JqX4yuZ3GTMw4lq6LeUXDpKFXNBk0
-	xXLga+k4a5WHMCeDMeeActWUtkEgVHurxncq7gI+JA4sDdbebT61raQCq+Xo/g+jevqYT9j9ddM
-	o5efZD02yEyMevlI0uonWmswotasOEBDFkUTrZBSXnjE6wrEe0+oDfxQRD3kzBHi/xUfH9HOEB1
-	KXYitGVTtkdc5KMes/AMtuWa7R4b7oYcioa8hfOs0yn5OyzDBBuWuZkQwODABQgVLj26ZObjoa2
-	qP6CuLEGTvAC9ykcUvNYlsBWPEDQgIpDedmtuYTXEubP/JLWQC0K3gSiekbs=
-X-Received: by 2002:a05:622a:22a9:b0:536:97c0:dcd0 with SMTP id
- d75a77b69052e-53fc2aa1fa2mr21345071cf.4.1793201763129; Wed, 28 Oct 2026
- 08:36:03 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793201828; x=1793806628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I16DQdy1VOVFDjvuWwKEez1vFW63gYQh2CVkwH7X+QY=;
+        b=NJxB7YtGVSp4cwZ2PHs5Ad2Z/csJIN/WO/FcCBnuw+aKo1uZeylIznuaEzE1rzZXs/
+         RcUCDi35c+CDfvq+NQPeNDxDyZ7AylfKmHWYJJpfp58Pj+1BiruKqixAiBNJZJjcWuLK
+         Ha3KtZ0NYSXtwPfbimOCEC8yL719v2CrpHuhrXAWAuDnYgP2+5l8RcbO7IIcVCdXGdlA
+         HciB6fyh3qDxVq2qd1J/j7Wve+Dfoi4Li5wtso4z6tHiylfwRNCunj/p1CHymp7nrNbR
+         pl/T/7X7BDA3VbB5aExnEM5bWnCRvGsKSpKEyvHrGwSkNtHBnnober0cqoDi6fkW0FjN
+         H+iQ==
+X-Gm-Message-State: AFq9FYLyQ71UqtII5IJigbDPsogd8ZpJbt27BTcAsD4zw6icQokE3GOK
+	VsfJkrbF0ahq8oVTlPOF85P7/mqcBkYYSZmX6EhgRFh3PGj/+gDxrinC
+X-Gm-Gg: AYBFou2k0LZRSzOhEGxnN6TbyhVKV0zwddoZs9v/NSF9nxXR+VolrV7kJVXiovn+lLy
+	YElf1pMvRIMvWncXLKGfsPWrBxm9zsniJID1iwG4juiXTHgVGjwaOUXUVWr8bjs1mWPHJcnCA0f
+	tOyUXLifH0JUN1h0CllWel2xv8w99JxezXuCU8T92avEKZTywFeqJPyqkzl4TKVUK7Q0YWIEhcu
+	v2IG42XIu34nduPtj7Apo/BjYQeJF4T/i08jTw/HWvo8L2ktVWi93thXp/9Vye+jZM9PcN/hyVv
+	GLLvxxtydTcMAmsATCCUqAcRTk+uSH3PysDPYPkg6x4jEDmswmOXo8DCNaYXyxT6dnMPbd5txZJ
+	dn/5ZYGfPsmbVhH9qqfEdmBE1HjEt1I2YIXOGaMoJ09DHeMb/3NGfOsJCEgjqfC/WgDrH4fI/sM
+	DUoACWDvKF3YhuhCqhmfPy1F4y06xWJ4aM2eS4F1opJIGG8ne2EcFeknohEgqDdhXt1iu+HnBzE
+	XHyFh7wCq8Xj/H7JZmmK6I5sehEq4aY1Q2agtmoZ4qb6PSCnxD5F+eZTiXMVHHDv2AIQZX0VlL6
+	OFCP8bz4fVVsZTdd0zIkPTozfGcGNal7ULZkx3GNy68QkcrTSBt5XMuSRHt/ZsDg+I6D3U73AEf
+	0+j2TXkfGWaWc0xrQdTmhGIcY1k0kkvbXYB8lFM9NKiD4BNOYDo61IIdf8oQXo5sVvoioMblUZD
+	nQVPnD/mlVWPJjs84=
+X-Received: by 2002:a05:600c:5397:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4a967babdb6mr57832025e9.31.1793201828288;
+        Wed, 28 Oct 2026 08:37:08 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a969e61f9bsm35488335e9.2.2026.10.28.08.37.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 08:37:07 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH v4] powerpc/dts: Add Device Tree for WatchGuard Firebox T30
+Date: Wed, 28 Oct 2026 11:37:02 -0400
+Message-ID: <20261028153702.4287-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,162 +105,423 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com> <20261027223847.652884-5-irogers@google.com>
- <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
-In-Reply-To: <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 28 Oct 2026 08:35:50 -0700
-X-Gm-Features: AclHuK8Z1SdNi4k8-UQceLsnqDJD6d9aTo0cl8IQ7vlO1Fmucv2n8goL0VFX4iw
-Message-ID: <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/9] cpufreq: governor: Initialize kobj_type release
- callback statically
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Zhihao Cheng <chengzhihao1@huawei.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, 
-	Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, llvm@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 4:39=E2=80=AFAM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Tue, Oct 27, 2026 at 11:39=E2=80=AFPM Ian Rogers <irogers@google.com> =
-wrote:
-> >
-> > Export cpufreq_dbs_data_release() and set .kobj_type.release statically
-> > in the ondemand and conservative governors so their gov_attr_set
-> > kobjects have a valid release callback statically initialized, matching
-> > cpufreq_governor_dbs. Remove the redundant runtime assignment in
-> > cpufreq_dbs_governor_init().
-> >
-> > This prepares for annotating struct kobj_type::release with
-> > __must_init.
-> >
-> > Signed-off-by: Ian Rogers <irogers@google.com>
->
-> Do you want stuff to be picked up by maintainers, or do you want to
-> route it yourself?
+Add initial support for the WatchGuard Firebox T30 board based on the
+PowerPC architecture, updating the fsl Makefile and adding the new DTS
+file.
 
-Hi Rafael,
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ arch/powerpc/boot/dts/fsl/Makefile        |   1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts | 378 ++++++++++++++++++++++
+ 2 files changed, 379 insertions(+)
+ create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+---
 
-Just a quick note: I agree with Zhongqiu's feedback and the commit
-message needs a fix.
+v4:
+- Removed duplicate firebox-t30.dtb entry from fsl/Makefile.
+- Fixed invalid TPM compatible string to "atmel,at97sc3204t".
+- Dropped redundant SoC properties and malformed interrupts in sdhc/spi0.
+- Removed unsupported properties (rx/tx internal delays, gpio-controller).
+- Wrapped commit message to 75 columns and added Signed-off-by.
 
-Regarding merging the patches, the issue with maintainers picking up
-fixes is that the series will break the clang/llvm build without them.
-So the maintainers need to either merge the patches (and the series be
-rebased on top of them) or merge the series as a unit. Perhaps since
-the patches align, merge conflicts won't happen, so maintainers
-merging and landing the series is okay. I don't have the experience to
-know.
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+index d2cc8e1f0..ebbf301e1 100644
+--- a/arch/powerpc/boot/dts/fsl/Makefile
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -3,6 +3,7 @@
+ dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(src)/%.dts,%.dtb, $(wildcard $(src)/*.dts))
+ 
+ # MPC85xx platforms
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+ dtb-$(CONFIG_BSC9131_RDB) += bsc9131rdb.dtb
+ dtb-$(CONFIG_BSC9132_QDS) += bsc9132qds.dtb
+ dtb-$(CONFIG_C293_PCIE) += c293pcie.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+new file mode 100644
+index 000000000..318430a57
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -0,0 +1,378 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-node/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "atmel,at97sc3204t";
++				reg = <0x29>;
++			};
++		};
++
++
++		spi0: spi@7000 {
++
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "p1020si-post.dtsi"
+-- 
+2.53.0
 
-Thanks,
-Ian
-
-> > ---
-> >  drivers/cpufreq/cpufreq_conservative.c | 5 ++++-
-> >  drivers/cpufreq/cpufreq_governor.c     | 4 ++--
-> >  drivers/cpufreq/cpufreq_governor.h     | 1 +
-> >  drivers/cpufreq/cpufreq_ondemand.c     | 5 ++++-
-> >  4 files changed, 11 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq/c=
-pufreq_conservative.c
-> > index 02bfd46543e9..146a2353b1a2 100644
-> > --- a/drivers/cpufreq/cpufreq_conservative.c
-> > +++ b/drivers/cpufreq/cpufreq_conservative.c
-> > @@ -318,7 +318,10 @@ static void cs_limits(struct cpufreq_policy *polic=
-y)
-> >
-> >  static struct dbs_governor cs_governor =3D {
-> >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("conservative"),
-> > -       .kobj_type =3D { .default_groups =3D cs_groups },
-> > +       .kobj_type =3D {
-> > +               .release =3D cpufreq_dbs_data_release,
-> > +               .default_groups =3D cs_groups,
-> > +       },
-> >         .gov_dbs_update =3D cs_dbs_update,
-> >         .alloc =3D cs_alloc,
-> >         .free =3D cs_free,
-> > diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufr=
-eq_governor.c
-> > index f3bd3dbe7c41..f8b5aca09b6b 100644
-> > --- a/drivers/cpufreq/cpufreq_governor.c
-> > +++ b/drivers/cpufreq/cpufreq_governor.c
-> > @@ -419,7 +419,7 @@ static void free_policy_dbs_info(struct policy_dbs_=
-info *policy_dbs,
-> >         gov->free(policy_dbs);
-> >  }
-> >
-> > -static void cpufreq_dbs_data_release(struct kobject *kobj)
-> > +void cpufreq_dbs_data_release(struct kobject *kobj)
-> >  {
-> >         struct dbs_data *dbs_data =3D to_dbs_data(to_gov_attr_set(kobj)=
-);
-> >         struct dbs_governor *gov =3D dbs_data->gov;
-> > @@ -427,6 +427,7 @@ static void cpufreq_dbs_data_release(struct kobject=
- *kobj)
-> >         gov->exit(dbs_data);
-> >         kfree(dbs_data);
-> >  }
-> > +EXPORT_SYMBOL_GPL(cpufreq_dbs_data_release);
-> >
-> >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy)
-> >  {
-> > @@ -488,7 +489,6 @@ int cpufreq_dbs_governor_init(struct cpufreq_policy=
- *policy)
-> >         policy->governor_data =3D policy_dbs;
-> >
-> >         gov->kobj_type.sysfs_ops =3D &governor_sysfs_ops;
-> > -       gov->kobj_type.release =3D cpufreq_dbs_data_release;
-> >         ret =3D kobject_init_and_add(&dbs_data->attr_set.kobj, &gov->ko=
-bj_type,
-> >                                    get_governor_parent_kobj(policy),
-> >                                    "%s", gov->gov.name);
-> > diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpufr=
-eq_governor.h
-> > index 806d8fb4dff1..1026712bb79b 100644
-> > --- a/drivers/cpufreq/cpufreq_governor.h
-> > +++ b/drivers/cpufreq/cpufreq_governor.h
-> > @@ -150,6 +150,7 @@ static inline struct dbs_governor *dbs_governor_of(=
-struct cpufreq_policy *policy
-> >  }
-> >
-> >  /* Governor callback routines */
-> > +void cpufreq_dbs_data_release(struct kobject *kobj);
-> >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy);
-> >  void cpufreq_dbs_governor_exit(struct cpufreq_policy *policy);
-> >  int cpufreq_dbs_governor_start(struct cpufreq_policy *policy);
-> > diff --git a/drivers/cpufreq/cpufreq_ondemand.c b/drivers/cpufreq/cpufr=
-eq_ondemand.c
-> > index 9942dbb38dae..7386d043c665 100644
-> > --- a/drivers/cpufreq/cpufreq_ondemand.c
-> > +++ b/drivers/cpufreq/cpufreq_ondemand.c
-> > @@ -374,7 +374,10 @@ static struct od_ops od_ops =3D {
-> >
-> >  static struct dbs_governor od_dbs_gov =3D {
-> >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("ondemand"),
-> > -       .kobj_type =3D { .default_groups =3D od_groups },
-> > +       .kobj_type =3D {
-> > +               .release =3D cpufreq_dbs_data_release,
-> > +               .default_groups =3D od_groups,
-> > +       },
-> >         .gov_dbs_update =3D od_dbs_update,
-> >         .alloc =3D od_alloc,
-> >         .free =3D od_free,
-> > --
-> > 2.56.0.313.g2479322e68-goog
-> >
-> >
