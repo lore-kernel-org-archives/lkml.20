@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793223842;
-	b=m1jJQoHrB9R9SU3wFPGFwzH+0WiHsurVjZOSub1hy4T8r2eDbvHCnJp+5R7bST5FyDqu
-	 nGGuk58VrABhRrvYcD3xsDOPTVgK8fvd3IPI7NBM1yhxepfCWioI2wBZozojHBTOyZkbA
-	 IDI7lzjHURVLPhnmuIR5nAUcPDTQcf6JWC9O9I6g30r/EK0aqUVH5mjhnJpXMu2Rdxblb
-	 VkfChABNfbE6KtTEy4rhV97pRkfAgvde7qIcQifDuGxZKQ7/hIEQFByZzoY4wrNAYTM1P
-	 ThikmuBGQIRAgn5+mRpYC7cF4fb0YHo2SSq70gkLlgh502lDmuoekbX7DMLiy3DFbsQ==
+	t=1793223875;
+	b=SMTya967Lns4OeekgrYA5etSkaoNPRETuBPusPB45ibDChtzFQ8m2wukgKRtSDWFG3kc
+	 ps53ZQ2PwO1iWWjswMN3p3s+hlev+PuuzTSQIK/mKtsRdCVbTtJqX/K8a+rpDZDaOIYL2
+	 ZF5OhuHhIrJjP7fc54FPVd6wRzIoj64kpacBVjNFiZ/mShMZBP/jrb0SG1ejhdx6pi6tO
+	 O93s9tzZzex3cbn1VD6m1tQU1VdzuZszdyLIaur9pYbOKze+tPDztvBSz5EfY/16870pa
+	 hsINK+6xmadm5jFin93glJWj46TI+NKm6B3eOucbE9B24EG2Vn8jCB4jL73HWBfDkUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793223842;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=75mp9zfOiQdzPd/pZTfE9rnp4feuOSyWnL8j0FSv1Hk=;
-	b=V8S3j95uiFuAZDaY73P+Z1O81CVBOQVxpVzNFkAArHxUwMOu9GQjmWXBPXkOM9ie4XAJ
-	 b3mG/+I9sh3RMlJmvKkAe1Z6AMLbfxLTLaSIbAN+zwhactGi+cOyKNmG2TJpCAC/SHLhD
-	 X8WRDTetXTIlU4KLBwHa1kP/ENJZn7obcTtUScgag7hpYcsbkYRpEQscyHBJJ+ASMqqfN
-	 YU5w7hkqpfhwNDJ1X2TJ6vnxllCH14M9fE76+oyToH5/BBtYNKooUSjnwOh8ONwbogtzK
-	 VU2PJObIGXsYMK1v/WNRF4hAAUzLJVoJzp1LA4YvgEWsWmNbs0Sdnfiv8m6n4PR40Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793223875;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HEBfEZTvPdCXEEvsAcOQQKFGERWjbxwXe7HCgplumek=;
+	b=eVVJU9dgDQjxJ7ItFVSPttB/hcsJFvtPC93Qo6FBhIdyNHlOD4kVpqyN0jftIe0z3bp3
+	 vW3R+DjakKUngutSVt63NQ9cA7s2f3YoPmNbTvTm74u4sb3/Kv9KY4cTmeEwC9Ps8hyFW
+	 3FwhukI1X2K0b6vE9fGvmGQaBYVTcd4JhHdfUYKH2LHqrZ1P1Jl+oKw8uYnXsR9657Bh4
+	 HG8HlnepovQaimkNMx0E/1Jrs3fpaueWw1xdIbqowIye6r0ZzGgQDT4DPvP9qkLVwpw+E
+	 N+Wc6zE8iwssdtNNQf7L4T8b2RUD3t0PjWaxNQ0q/6CfiQDl/wqQPgNn3p5+JodGnrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7L28ldM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="XgaZ6u/+";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19BA606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21C3606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:44:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D21C3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7L28ldM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225751F01828
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793223842;
-	bh=75mp9zfOiQdzPd/pZTfE9rnp4feuOSyWnL8j0FSv1Hk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=m7L28ldMVJG0SOofXWBXl1mYdhTrpZFD+XCin/EAjQDKodlrDw4gqa1ZXKJ6aWkoK
-	 hyQaGvqChEtQgCcFB3tsf7ZKgcV1r5uBx2fDT8P2O9uA0qLyIZK8u71o3VmSOeVuBJ
-	 dNGVudG5dm4SO4+AMAjEQA34c/cV1N6OqYafN5un+qVozZ753Z/4KB3VLr4lHH2vL2
-	 3hRlt7+lZD2pezqZpKNigqB5jtzQaSAZO8lePQrSB9ox3zbv/tA4hHoMQdhfoNk0ee
-	 /U0CcIcdNDylHFU5Y4PAP2ehoXZTnH+7Dd6GCFg7La9BumE4CZR8FPYF+7DHu13anP
-	 9u1oNcj6YMqkw==
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91b8306b9f8so20937416d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:44:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByUyfbsRU4Uwzhb4X4UITA9D6Z/2VkSmrHseIAX+Zzc/mkz6qHKglBQg93/I1yfxRw7f5hoWZr25fADWjk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqGDy2qY9p7vLyzIafKIe4C/8BK6lgFM3arIpsCSAv1LngjtwN
-	4tccJbdxPWv/RjufN0R1XD0kiSdR1Vmp1c0BKYpoXFOs58Q9bio9T0u7H/ZBLr7kmJFf4jsmxCU
-	Wa5RkTtlyxr1ywktlENCZ6pDHeExa7sA=
-X-Received: by 2002:a05:620a:459f:b0:93e:5060:f929 with SMTP id
- af79cd13be357-94408cf36e2mr560100685a.19.1793223841403; Wed, 28 Oct 2026
- 14:44:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=XgaZ6u/+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793223873;
+	bh=Qh2/y58GjNmfgNfLzXxQQQycPDPiBmIAsENzNFzOtmM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XgaZ6u/+qg+wZnzhUdgMaGYQEJojXomCpAheWyEyY0TWE42dHMXpYs08vJadlyxLh
+	 fO53a49IwboAtbVeyrkZZJJCAqCLiYdt9iSNer45oU9ovf58TeLVt6cfcQiEIqRRn8
+	 lBkf9sHPCb9bPYlqUf4qc4sQyCJbRMj1Uxr7MlIoLdd3tLKHesIOwZ+uJIDKgKC3S6
+	 H+qLtimEk+tGAtvYGYOeBrfSLUlpEnp04GsxrYZrBB15RlE8wBH0ri+3+OErrRG9g4
+	 sVmfszSPBxWoBjKARHw8qAxx/jWMyri1UUJa3y3jrtIEjD9q5iXzmhP9gHfGXi+WTi
+	 gpXr3JeDowJIg==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 92BFC17E04C7;
+	Wed, 28 Oct 2026 22:44:32 +0100 (CET)
+Message-ID: <8b1b7d8d-9656-4b3b-9f83-1526c8110ab7@collabora.com>
+Date: Wed, 28 Oct 2026 23:44:32 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,33 +61,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017002441.716615-1-song@kernel.org> <20261017002441.716615-2-song@kernel.org>
- <at_1V3XcGM_D1bY1@jpoimboe>
-In-Reply-To: <at_1V3XcGM_D1bY1@jpoimboe>
-From: Song Liu <song@kernel.org>
-Date: Wed, 28 Oct 2026 14:43:50 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW7EqPazLJmRDoB4RUyA6FgB2Ki_oZDzW1KXdMhm+114Rw@mail.gmail.com>
-X-Gm-Features: AclHuK-GjaP7ao4nI71C2Y8yIDK34mvBUk0VSFTRP4lxAJhnYpv80j_vMXIPBKQ
-Message-ID: <CAPhsuW7EqPazLJmRDoB4RUyA6FgB2Ki_oZDzW1KXdMhm+114Rw@mail.gmail.com>
-Subject: Re: [PATCH 01/11] klp-build: Fix dependent patches in a series
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	jikos@kernel.org, mbenes@suse.cz, pmladek@suse.com, joe.lawrence@redhat.com, 
-	shuah@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+ <20261014-vc4-common-scramb-v3-6-c68d58d959a2@collabora.com>
+ <45ea1610-360f-4f6b-9ea6-30b28fbe8514@igalia.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <45ea1610-360f-4f6b-9ea6-30b28fbe8514@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Josh,
+Hi Maíra,
 
-Thanks for the thorough review!
+On 10/27/26 3:35 PM, Maíra Canal wrote:
+> Hi Cristian,
+> 
+> On 13/10/26 22:03, Cristian Ciocaltea wrote:
+>> Replace driver local scrambling logic with the newly introduced common
+>> HDMI 2.0 scrambling support:
+>>
+>> - Advertise source-side scrambling capability by setting supported HDMI
+>>    version based on the variant's max_pixel_clock.
+>>
+>> - Provide minimal .scrambler_{enable,disable} connector callbacks that
+>>    only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
+>>    sink-side SCDC programming and periodic status monitoring to
+>>    drm_connector_hdmi_{enable,disable}_scrambling().
+>>
+>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>>    the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
+>>    which internally calls drm_connector_hdmi_sync_scdc() to trigger a
+>>    CRTC reset on reconnection.
+>>
+>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>>    flag, now tracked by the common drm_connector_hdmi layer, as well as
+>>    the now unused output_{bpc,color_format} driver data members.
+>>
+>> No functional change intended.
+>>
+>> Acked-by: Maxime Ripard <mripard@kernel.org>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>   drivers/gpu/drm/vc4/vc4_hdmi.c | 230 +++++------------------------------------
+>>   drivers/gpu/drm/vc4/vc4_hdmi.h |  21 ----
+>>   2 files changed, 28 insertions(+), 223 deletions(-)
+>>
+> 
+> [...]
+> 
+>>   +    /*
+>> +     * Since we don't know the state of the controller and its
+>> +     * display (if any), let's assume it's always enabled.
+>> +     * drm_connector_hdmi_disable_scrambling() will thus run at boot,
+>> +     * make sure it's disabled, and avoid any inconsistency.
+>> +     */
+>> +    connector->hdmi.scrambler_enabled = drm_connector_hdmi_scrambler_supported(connector);
+>> +
+> 
+> I'm okay merging this series to drm-misc-next, but I believe that
+> Sashiko's report has a point about this chunk. If the display if off or
+> disconnected, the boot-time disable would never run. Could you please
+> take a look at it?
 
-All these comments make sense. I will send v2 soon.
+Thanks for checking this out!
 
-Song
+I initially overlooked Sashiko's finding, as it only complains about a
+theoretical display flicker - the conditions required to hit it are quite
+narrow, all of which must hold at once:
 
-On Mon, Oct 26, 2026 at 6:43=E2=80=AFPM Josh Poimboeuf <jpoimboe@kernel.org=
-> wrote:
->
-> On Fri, Oct 16, 2026 at 05:24:31PM -0700, Song Liu wrote:
-> > fix_patches() refreshes each patch on its own against the original
-> > source: it applies the patch, copies the patched files, and reverts it.
+- an HDMI 2.0-capable source, so RPi 0..3 are out
+- nothing active at boot, so that vc4_crtc_disable_at_boot() bails out early and
+  no boot-time disable runs
+- a sink advertising SCDC + scrambling (i.e. 4k60-capable) which nevertheless
+  gets a first modeset with a mode that does not need scrambling - pretty
+  unusual, since the preferred mode is normally the highest supported one
+
+Eventually the reset's disable leg clears the flag, so it's a single flicker and
+the state self-corrects from then on.
+
+Other than this one-time glitch, the driver conversion should preserve the
+original behaviour.  The thing is that vc4 kind of abuses the common API, since
+normally connector->hdmi.scrambler_enabled is not supposed to be flipped
+manually.
+
+Regardless, I think we can handle this by making drm_connector_hdmi_sync_scdc()
+rely on the committed connector state rather than on the current source-side
+scrambler status, i.e. conn_state->hdmi.scrambler_needed, which is computed
+during atomic check and correctly describes the active mode.
+
+> Also, while greping the code, one thing caught my attention:
+> drm_connector_hdmi_disable_scrambling() is called at
+> vc4_crtc_disable_at_boot() before drm_dev_register(). Does that mean
+> that connector->status might be connector_status_unknown at that point?
+> I'm concerned due to the last if-block in
+> drm_connector_hdmi_disable_scrambling(). Am I mistaken?
+
+You're not mistaken: connector->status is expected to indicate
+connector_status_unknown, while connector->display_info should be empty as well,
+since no EDID has been read yet.  Hence, the sink-side SCDC writes are skipped -
+only the source-side clear and the flag reset happen.
+
+That is indeed a behavioral difference, as the pre-conversion
+vc4_hdmi_disable_scrambling() had no such guards and issued the SCDC writes
+unconditionally:
+
+- with no display connected, the old code poked a non-existent sink and the I2C
+  transfer simply NAK'ed, so skipping it is arguably better
+
+- with a display connected and SCDC scrambling pre-enabled, the old code did
+  clear the sink's scrambling, while the new one doesn't - if the first kernel
+  modeset then picks a mode below 340 MHz, the sink could in theory be left
+  trying to descramble unscrambled data
+
+The second case also seems unlikely, as HDMI 2.0 sinks are expected to reset the
+SCDC configuration when the connection is lost, while scrambling should be
+disabled by default until the source enables it via SCDC.
+
+A more realistic risk is the sink's state being left with scrambling enabled by
+the board firmware before the kernel boots.  Probability-wise it needs the same
+unlikely ingredient: the first kernel modeset picking a non-scrambled mode while
+the firmware had a scrambled one.  The usual outcome is the same preferred 4k60
+mode being selected, so enable_scrambling() reprograms the sink as needed.
+
+Rather than issuing the SCDC writes blindly at boot, which would mean DDC
+traffic towards a possibly absent sink, we should reset the sink status from
+drm_connector_hdmi_enable_scrambling() when the committed state requires no
+scrambling.  At that point the sink has been probed and its capabilities parsed,
+so the operation is safe:
+
+-       if (!conn_state->hdmi.scrambler_needed)
++       if (!conn_state->hdmi.scrambler_needed) {
++           drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
++
++           if (config & SCDC_SCRAMBLING_ENABLE)
++                   drm_scdc_set_scrambling(connector, false);
++
++           if (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40)
++                  drm_scdc_set_high_tmds_clock_ratio(connector, false);
++
+            return 0;
++       }
+
+I'm going to test both fixes and send them out as a separate series, so we're
+not blocking on it.
+
+Regards,
+Cristian
