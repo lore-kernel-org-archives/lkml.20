@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206146;
-	b=SasyXT6AzyqpnaZf/ZVN4BMQdzZeJAXO2G8bI0DLBWYZkp44wOOgOj1pUGLtk7QAO1AA
-	 4VpYYZ53uZ3j5TqFUi95krF4mxIP+Tt1/GalFVm81SUo9zwzuwuHpih8mpY7RLUMPsNDX
-	 RUAxwlTR1Ki20gg2P2rigpUvQEaHQep2EyHpyVl2zg9LOtM/agyJLD863O/1cWHKSfKD0
-	 GG9B6clIOqRwUkv91W3YXWc+qEabhYEb7Q/CEIochcZ05cyzcuHaJqkfOPye66/xrUPWa
-	 BQEZH+JsmZcF/4B9ardA+mTtmszDkU3fMphZ/XPpy60Lt5cXH4+T2HQjWzpokrVkyXQ==
+	t=1793206155;
+	b=Wdmgvgxxq4M70PX3IqGDuYDktaVp53DovSsfE6ZI7pQ4smS8VaszMeAw3ua2jDvY6Jbd
+	 k/WRyfWPFPrHW+HzzOm9awrgJzr/Ax7hHsI2AQrAzPrsOwghf99rfFo7m/s2n9VWcFsAE
+	 lZWeuYHZ/fTlpH3+3q1TuFsJ8395eMZpfj1j8gKQVUjiS5o9bM1fKUzeuej2SbdIIjUm0
+	 4Avt32PimCB2oMPh5srHnoKppie8RYGVAV4k0mZCkzRn0OmHwtXTLYfqTtnx4hajcEKSx
+	 xXa1HTaBm6JWIJTD4nojSQIh1Ag/4aH35IJu3L6dKRJ7FyF/Et4gf2jaTviRr7EnpYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206146;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bPGnqj476W51o96a41GpUOz+m064X7NdtLBauz/YZI8=;
-	b=OXrBHbgazfx5jUdLgpjuxo014hWl2+Rtre3tFTSccRnG8sVddNHgguijcgT+PiSrxZqr
-	 zENdNEPnITl/LFv4h+cwb3ysJOV5OBLAgh2tQ6MBxWFdD0pTAI2JVLec0QeMEQuO+MRwG
-	 ft3B87dKGc6MAwvvqEJGhAoD+DlmYUZdszQJnziz0vDUpoAlXDacol9gVhquSwBviTu+I
-	 InoBAweM15C0w4IwDYbDU0WUJ24h1ZRuW25BrQBvh6fjvPUDVCpHqkkCr6zpC8ics+0SQ
-	 9tutgMUD6V+v+ah5BTKxlNQQAxmf5I4fwcQM70cTcYmY/DHcxx+muHa9dmhyzHBspJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206155;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=nSZsANMCsxetn0hkNJF20DbdMUkrz7cvjEhPpMT6+4k=;
+	b=BbGRjaErTgTmQG1TOAMHtvL/LRyKLAR+y6WzGrk9Z1pxjEvUU3NOpwW/jApZITpX8Q0e
+	 cxn3UeOFB5vknUkILNCFnHXLsxPaTirKuCc0nep3UE9PSdoUYWI1qD5QS2+fnHTYVMFUk
+	 Bsb0GC1+4j3vXMSSXcFv3Qu/4qri42HRY434EU2w8+otAWGXq7Qd6zTiAc+Q/J7zPhiol
+	 dCJS9MrHWNXMKjOqep/P+g6Fj2HrVwLCqv1cgRNGVUp2ASzlHNCqCTOFI7p2dhhxHIE99
+	 wwpVZifPkDHPz9ifmTJxgCI5AAh3CHxOWXaflpDQpk0/PdjSVsJgNO+5UInnGo5B1Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pPL0syhD;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906D1606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906D1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pPL0syhD
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-89f639ba307so516942b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:49:06 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58BD0606A31D;
+	Wed, 28 Oct 2026 16:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58BD0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793206146; x=1793810946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bPGnqj476W51o96a41GpUOz+m064X7NdtLBauz/YZI8=;
-        b=pPL0syhDCCSdazXfGgSI2dyJxkO5p9di+w0MefHsimK1asQnLWHbnYAxC5112ldbke
-         dCX9NnT3kiwrDcq2lJnOC+kZ/TjKN30wfMhRim9j4yYWDj61i0BCth4vuLLo0FcSxe+f
-         SsspOYRVLKPubjNVmnSND8NaDL2o7N7WsO8+lgZCrws8nlTUW/wW70KRFu0sncNEJdmj
-         8BbUFt4cMzYlnCAjH6iI1JhwZHbYUyl74/xf0CPNb1XcIfKDDPOvX3lmtrcpArGOiX33
-         Fa894hJjgcBLcJKgMOLLYuiUQtAm7W+iiiyP+ZKQ7KRWURSFk6ytX0dAa87qSOj3CjFG
-         KrLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206146; x=1793810946;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bPGnqj476W51o96a41GpUOz+m064X7NdtLBauz/YZI8=;
-        b=aBTt7lQduJdayb59Vy2E9tnjFD0YavuMWzCyWHMrkKpO04C9q07if0g9N4/ImBb0dW
-         L0jrsPchmcKZj9/X5Q/NhCe8+nJCszqPwb1IgQY5oN63Ik2H/rYbVKUGb67I59gHgZn3
-         BzI12fFqBWC7QXZbLM2md2MFSPqClGLXpMQ23lZZLUH3adv1KaDNAkG1Nyx8NQU9IRUv
-         IDMsr+6zJp6/xegjzREXG46CQERWurr/6pXAQt259iUsYObMM8a02ZWUTYrDNHoON+BG
-         abFZVVj/brMge/phbFOZo6Qmm9mIHSeyH1NDJgGyjIBnn0NXlkqyw1Xgdzd5b1amjX6D
-         VC7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzN/ArtxCIyka/N2DVspDS0TVFbXzz+3q9iLueWqq/3TsyEeP0bO+xpYBlq1DzWweYqLecZqhhrs1FQnJ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5Cl8qAmbtl+224b9VXwKoqZZ5ZSEZnw6JXGkE5fJI++F+P3hy
-	ePHVJdVilxP1QNPuEvtsKD9YCqDV18/uJmPvfTvkkJM7Zx2rLTEWKzE=
-X-Gm-Gg: AYBFou2/7vyyHhc6dIXO+h10D4VSp5XImwloXO0UdkewqjVKZqq3PhCM7Fyhy05HkLt
-	VfLMfKwWoAlC8e7gJ+wVbsEV/FJtAgLg6TiycGe4/YPjbw5pKQdYprd6vdXA5nGa1DSikBZs27C
-	CbNRzLVQZlFkc1gSsqo8/waadmH4Iu43ycqVZjIVGxeoH5FjuX2MORZTUlc1c17HzLoZmEzlhYA
-	iFUB9drqiq6OB/5qdoD/oapkj3q+a/3vmA8x2Ke2+3pzTniyhre0CcrvGTcHjqFbN5ImMvYP6C0
-	Y5fARYvaXjSf3SgARVhjMmO2gx0pJ7EwCGwGHxXCIgzp07YItKpLTINDNTAwMEovZsCW2Yxx8k6
-	q+r15aiNs19AzcQR7R5kkWMSO0P5rLaNviekpSVXc1pz0Uelc6mao24i/xbHWoL8Ri481cTLcJp
-	geavAo6xqrZlzaOQTpFyFL1qD3YkXpX09s4iWhm2i8U/AAyIvUN1kQTyA1ZvEY0zPEYFdRfvOA0
-	DIJI0lqmFPQ1DCYEKQfdh4btpUg7jQMFxYEI5CRbmG+9S1E/okPvGKeLtmPzYRubUCPYcMoKCg=
-X-Received: by 2002:a05:6a00:8d0:b0:89e:8915:24a2 with SMTP id d2e1a72fcca58-8a6e83ab378mr2214831b3a.29.1793206145602;
-        Wed, 28 Oct 2026 09:49:05 -0700 (PDT)
-Received: from [127.0.1.1] ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a5f64edbsm1453505b3a.12.2026.10.28.09.49.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:49:05 -0700 (PDT)
-Message-ID: <6ae22781.b5b34ff4.243b64.342c@mx.google.com>
-Date: Wed, 28 Oct 2026 09:49:05 -0700 (PDT)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com,
- syzbot+b547ffac63b636628299@syzkaller.appspotmail.com
-Subject: Re: [PATCH] jfs: fix out-of-bounds write in add_missing_indices()
-In-Reply-To: <20261028163000.30-1-szwyb123@gmail.com>
-References: <20261028163000.30-1-szwyb123@gmail.com>
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=nSZsANMCsx
+	etn0hkNJF20DbdMUkrz7cvjEhPpMT6+4k=; b=eLxIWl1LQZMs//g1qpklQxIaDk
+	imf4T/KjStRHVboe9eTMhAP9OqNkw+b5bzzAFpod27vSSGPqo537deAw/87A1tLN
+	+tBnwJcawZjon2spPObYls6X+BajzbhsV0F2Ft7EMDntcxJlDeyzEnqZy+y9iSqg
+	2dj6LQgbWk7TIvZbk=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.26])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCmzQN_J+Jqguf1AA--.57595S2;
+	Thu, 29 Oct 2026 00:49:04 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: linux-wireless@vger.kernel.org,
+	libertas-dev@lists.infradead.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: libertas_tf: fix NULL pointer dereference in if_usb_receive()
+Date: Thu, 29 Oct 2026 00:49:02 +0800
+Message-Id: <20261028164902.8136-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,44 +59,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCmzQN_J+Jqguf1AA--.57595S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWryDCF18JF43AFyrZF17GFg_yoW5AFyDpF
+	W7Ar17CrZ5Jr4jyanrArs7Zr1rXa10yayfGF1jkw4fZrs8Ww1ruryrWw4agFs8ZrWrAa4x
+	tFWqqrW2gFWDCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r1l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUsCzuDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2riD9MOGgAAsL
 
-While looking at the syzbot report this patch was written for, I found
-two more open reports that look like the same bug:
+if_usb_receive() takes the receive skb from cardp->rx_skb and
+immediately dereferences skb->data to get at the packet header:
 
-  general protection fault in smack_inode_getattr
-    https://syzkaller.appspot.com/bug?extid=ce678add490179a73d5a
+	__le32 *pkt = (__le32 *) skb->data;
 
-  general protection fault in smack_inode_permission
-    https://syzkaller.appspot.com/bug?extid=fc1d5d9a7ebabbc27458
+That happens before the URB status or the skb itself is validated.
+cardp->rx_skb can already be NULL when the callback runs, because
+__if_usb_submit_rx_urb() frees the freshly allocated skb and clears
+cardp->rx_skb when usb_submit_urb() fails:
 
-The second one is still being hit in the current tree, and its console
-output has the jfs_readdir() "Dtree error" lines for ino 2 right before
-the fault.  Both reports die in smk_of_inode() on a crafted
-inode->i_security, and both show the same damage: only the upper 32 bits
-of the pointer were replaced, by 0x0000000c, so the low half of the
-original pointer is still there.
+	kfree_skb(skb);
+	cardp->rx_skb = NULL;
 
-That is one 4-byte store at i_security + 4.  For the inline dtree root
-the slot entries are 32 bytes with the index field at offset 28, so with
-_dtroot at 728 and the embedded inode at 1048 in struct jfs_inode_info, a
-write to slot[11].index lands on i_security + 4, and the value stored
-there is the directory's next_index, 12 in both reports.  The only code
-that stores next_index through an unchecked slot index is
-add_missing_indices(), when a corrupted stbl[] entry points past the nine
-slots the root page has.
+The submission fails with -EBUSY while the previous rx_urb is still
+queued on the endpoint, or with -ENODEV once the device is no longer
+configured.  usb_fill_bulk_urb() has already installed if_usb_receive()
+as the completion handler of that still queued URB, so when
+usb_kill_urb() from if_usb_free() later hands the URB back with
+-ENOENT and a zero actual_length, the callback runs with skb == NULL
+and faults on skb->data:
 
-I checked this on a SMACK enabled build with the reproducer from the
-first report: without the fix it dies in smack_inode_permission from
-ksys_umount() with i_security = 0x0000000c27a22900, the same damage as
-the two reports above; with the patch the entry is rejected with -EIO and
-the directory scan finishes.
+	general protection fault, probably for non-canonical address
+	0xdffffc0000000019: 0000 [#1] SMP KASAN
+	KASAN: null-ptr-deref in range [0x00000000000000c8-0x00000000000000cf]
+	RIP: 0010:if_usb_receive+0xd6/0x3a0
+	...
+	Call Trace:
+	 __usb_hcd_giveback_urb
+	 usb_giveback_urb_bh
+	 ...
+	 usb_kill_urb
+	 if_usb_free
+	 if_usb_probe
 
-So one fix should cover all three reports.  I will add the Closes: tags
-for them, and Cc the matching syzbot addresses, in v2 once this version
-has been reviewed.
+Compute pkt only in the branch that actually consumes the payload,
+after the URB status and the skb have been validated, so a callback
+without a valid skb leaves through the existing retry path.  The
+handling of a non-zero status with a non-empty payload is untouched,
+which keeps the current recovery after transient errors.
 
-Thanks,
-Wang Yibo
+Fixes: c305a19a0d0a47ac59a58865a4a63be65b1bf7c8 ("libertas_tf: usb specific functions")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/net/wireless/marvell/libertas_tf/if_usb.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/marvell/libertas_tf/if_usb.c b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
+index b85c6d783bf7..bca2912a1909 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/if_usb.c
++++ b/drivers/net/wireless/marvell/libertas_tf/if_usb.c
+@@ -625,7 +625,7 @@ static void if_usb_receive(struct urb *urb)
+ 	int recvlength = urb->actual_length;
+ 	uint8_t *recvbuff = NULL;
+ 	uint32_t recvtype = 0;
+-	__le32 *pkt = (__le32 *) skb->data;
++	__le32 *pkt = NULL;
+ 
+ 	lbtf_deb_enter(LBTF_DEB_USB);
+ 
+@@ -637,6 +637,12 @@ static void if_usb_receive(struct urb *urb)
+ 			goto setup_for_next;
+ 		}
+ 
++		if (!skb) {
++			lbtf_deb_usbd(&cardp->udev->dev, "RX URB without skb\n");
++			goto setup_for_next;
++		}
++
++		pkt = (__le32 *)skb->data;
+ 		recvbuff = skb->data;
+ 		recvtype = le32_to_cpu(pkt[0]);
+ 		lbtf_deb_usbd(&cardp->udev->dev,
+-- 
+2.34.1
 
