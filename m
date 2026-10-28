@@ -1,84 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200006;
-	b=YCzdDVW6yHpuMOYF80LdkVXWYnvN7EGdBHoUJ8wAsBYy95Z2A2e+BQ01cGNcsUCzFJM3
-	 Uokr6mjcHbTBDPWgLpep35qDTk4gQzUktui2V+i1mKN8e0AUSQTx4XYgkRvIliYO3tO/e
-	 Kpx8Rl/pwdqEdv6AaU8nHHrvWEa9uoK03w0G1ha73k0hT/1N7vm8e4LYS1rUkhBis8YcQ
-	 NFxmqLvT9odFsXraoPHPv9u7prdm5MBY+amE59XNVOx9Mfusui/T9S7mYve8pp/x1dXKI
-	 Su6/qQUbAXS2hFrT+Ry4GyzOAtnEazXJ7noc8wIbguE6+5HpsO2nhoMdbdmYI4z/FcQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200006;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=uiKZSIRSJQHNOWvR2widT0bS7uJgKV2tb0eLJFvK53A=;
-	b=zojsEJEwHmPF5eS+JQiNw+PCMBz4hDdAZDhHyMDaDsVSxu89yOXqH+rWY/Xch4PxHN+S
-	 LLA8J5kYn0PjOOz/RA+viN5+H7Vh9akQZedAMRCFPLBPhRntX7zV+LPEdanqJ6ytIIarX
-	 5BLZSN+pdu59BFsf+7aMRXDvryzOSjV8IJweAFLi8WJFbCp6bvCa98OMTX1QmrvZ0kOnT
-	 SvpTwzh0rxCYxvXswFV5fU20x7qcAtiVAxsAfNxp7g/yFeTRXs1gr+OiuUXHv9DL5f9yY
-	 OVoF218NqEsZEfTFYv4dRq5fDsFuOWlZJ4gA+NQVx/UscbK/zE4APORYUoF4hUnzxVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XAFXYumc;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793200065;
+	b=CYC6iKFThyYaHn4Ge7s/iVCR7YaCDtUbSPMD1eOgrtWnuqR1H2OgbtW+0LvsTBAC0t+D
+	 n/ws+rTJU/j6Wkla33N5qHmJwDnKsxcuCYI7u7YUGvO/8cM+4EtBwRZEQxUDJ6PtsLOB6
+	 EvmaqDB3CjwRlZMKWoWRzD7R7hRDJrihfLKBpiawn85iJg80kqttc1Ea6bODutXT0UbjQ
+	 P95cTkMBSVd8l342IcavreVnI4md+fLC+nZfQ0WJY8XZ49B+F4Sbkm8F1alVHH2rNAdUC
+	 BmLbKCjTp6887X+SQZcjO5lbNC445KQlrjvakOpERXhBFlXVc3+aQ0D2ahbeUYy00Sg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200065;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
+	b=kUfPKD9N8JsEzteZMivvvdDzf3zXRWtYsswEIFz7tGe8i6YvGS+EvIEswmJuAv2FQuKj
+	 jDk2nAQFNVpbHif/QCl/Ut8pEI8I2u8AwCK5xQzBLaNZjyhUnxs686F0PFBOfQk2y2Y2Z
+	 zrNev8Qorr47mgg9DJYH7xURnqKpp1UVKfeBfrgA6csKmEJcdVXwTkj3CIip7+xx8WUlE
+	 BarPjhfEyU3cgtS6vN5H7vSes0zRrhVWWznU3PRti261RQ6NOQJwrYvxKGNtle+hgqI9u
+	 9+ZwAcSbBdXeyEsk2vuUvE5jqEzeXLyWRjPUtHhzcN4S69x1q032bAY7dO/8Ahf5/cg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vifpnpje;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.69
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61163606A324;
-	Wed, 28 Oct 2026 15:06:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61163606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66735606A31C;
+	Wed, 28 Oct 2026 15:07:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66735606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XAFXYumc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793200006; x=1824736006;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=naqtRwRoGxWxoGIhlK1a+9b9wgqXNXI30ZCs1V+Zn5Y=;
-  b=XAFXYumc4C8aiRXRfFpYG/ftR6t0E9/tQUt4qjLvvtOzcUmTuproTli5
-   5UX/V5GbnS+k/eWjfPdpvp+ELZssRQXFCGDFXJNJ6G6QTRxg8bKiq/CXe
-   6yj7JluUA+ewhCEOer9Lt+XcjHFYxEjHjqkRLVVD8+XvNujlDcCPIxOOF
-   j/7EB6XqnCz/ilN4ywPs/kQnuU9GswXb5MEA5DRnUPE+phfQ5vYhxezG5
-   sTE26Jp6cfED/ekNfKIMFIlpew6fqXOhwgWZSKSVRlvaOs2JJtioO6zey
-   AeIFLOmUBpYmnKKyL0O0a7Y9GlE+nUJTlv2engU5Mtz3/UOlpxBnjgVQZ
-   g==;
-X-CSE-ConnectionGUID: 2rF8vrreQ3Sw0GX/9sdN7A==
-X-CSE-MsgGUID: /LoDobtzSR+thEVNaeTifw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1804390"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1804390"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 08:06:45 -0700
-X-CSE-ConnectionGUID: OJt4tI4USrKqWLznSqxlAA==
-X-CSE-MsgGUID: Bfc+8r4kQzWFjDJBoAZGGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4852135"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 08:06:41 -0700
-Date: Wed, 28 Oct 2026 17:06:39 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com
-Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <auIPfwQII72aqyWA@ashevche-desk.local>
-References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
- <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vifpnpje
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TfVzv3BsYv+cMW3PRSkOf1Njedbwru5Zj9GiLJJFTQEf0v0SrwVNcABD7YZ0ZLWdXGhznIXU2CS4opoDPGgNMVHwSs4dIkdKvHsTWyBA/buYQCsyq6eJHlzL3+cIvQPiY2CTB9Kl2O0VzWzZ8q7HM+AAZORNMvvZN7VmDTb4jP0fLr2ihIQqb5YKelXpxQIrcn/xFld5f6/IBKqfL2V6HFunbcPHeXMj1eUu6z2BpoFfoeMojKi/iljlKtWy+3qP8Xyw+DxVTj8LaezOHgoOuT+UVkPe2b+S/iPkXEarDayI3WwDuGGiX4weYnxm2J+hR/bp4BGtUmjzkNIRKRuwjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
+ b=yrI8FnnON59cLE3bP/Eivfp5oxoNBRYPKn4TyI7/DWDuhdKG2bQGYHVgmwAqhi7gO++QJZYUiDmB2tVfBeMzYKDY7nIoVGlj4aC9jFdkHP0Hk7MGM7F5nArOsvp6Xn4ywtrRB1JclplObDXViSrTrSwOKDRsnS30UcKnqjUQIWHxrKRPx9ANPprKy//FQBvMCwVLQhrx/F1/tSMWZ3B0CDCVu0U7cBMS5PAV2tVkDKX08JPU1Hp3hgbjRUiGcEZYguHNl2U/xOy/EMIhXKUPkhCK2j3F2C5hKsNGDP2ONsujVi4spTVMAG0vHuobIlfpVdWumX+Uf9FFI6U+YXCHWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
+ b=VifpnpjeGjktoAsk73evyZFQ6yD5n/6E6sdHlC7rZveCM/kNLaOeziJoxtCgyLhIFuibKI2TOCaKhOTIFSySY8e1mySkKvpmKSNPOE1F4DcAx8CKKArwoXlOrY95KFJwvQ+MmqN3HPgulVNj+e+OjlFDJqTvxO3ERw+djzJdPgKr3NIWEP5oXaXenOGoETkUlmVxVcVqmX28XhRx+eAzkL9Pd0SdVRiPpW0T7m0D/O6gGOm1BxhJd5LBKVo+b/yJxgy4I4aAOy69G3BKNkXQsxbLguQAdWrBDEkA934GTAYRunebeempB2cYywfpjkLVPH/2mbHfXJ5WPWoF9o+e4A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB6799.eurprd04.prod.outlook.com (2603:10a6:803:130::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 15:07:41 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 15:07:40 +0000
+Date: Wed, 28 Oct 2026 10:07:30 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jingyi Li <jinli@purestorage.com>
+Cc: vkoul@kernel.org, vinicius.gomes@intel.com, dave.jiang@intel.com,
+	xueshuai@linux.alibaba.com, fenghuay@nvidia.com,
+	Frank.Li@kernel.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: idxd: fix destroy of NULL or already
+ destroyed workqueue
+Message-ID: <auIPstOq38cnQsiA@SMW015318>
+References: <20261028003708.834341-1-jinli@purestorage.com>
+ <20261028003708.834341-3-jinli@purestorage.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028003708.834341-3-jinli@purestorage.com>
+X-ClientProxiedBy: SJ0PR03CA0365.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,278 +99,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB6799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ec706d7-5ee1-429e-340d-08df35053588
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|261026140227099003|11063799006|4143699003|261021123027099003|261009223027099003|261022105027099003|261022075727099003|10067099003|261021121427099003|56012099006|22082099003|261026121527099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	5OmOER5IPDEyus6YG8ZrDUmunR1j6kI5CUP0IeRvF5XCTM1JSasXD0Yq3pBHOwHuqMVTntLBd8mqXlVbaWXOsfaZFab4pTiwgrXViWT45MvNZhsJYUdRKMcwSPTg+BV/BSCsF8ZG8D5+M/WZX+KHvRoOUu7F2Kv4atUrpCtUiQ8YmUnBshlULhLMaOQy9QCmQTSw29iluWgdMHVj8dR+zxPdZy7KauttVmF7lhCBg+JQGceWjrL9m8nzL/sbP3P/2rg0EqLfjjJi3wSfyPBVeIa77/HTWn4yz0k4RMyBG8sOLX2vtBhjr/WZIiO7f98QL1GCGhCvzrOyuwatFzQRMQ+ahQUpOe0/DABpGRqpEkSomsN/RNpkL3iQOUIknoaARbGBN4eOl6pQDv51pq79V5O5q/EjTIsSDgeXo1TZx9/QmgkJElX92WQBC6Emo50HYqn6HFRu3gUZ7mblgn9oAEPmMJrgYpUSwlexp9kNRwSlagpT16n4WR0DN5xz4Ja0jroGrgYp3z59RnrmKGaM8HGvKgmMHdJ0FUVCKq1F+L8qSfkSjJx5DCHhv4g8yIsFmaXrFmcSQigrvVmhDlDjp3zDFIefYGLm9zStq7u3ZcLcpzSAoQbAtaQQnuhZDm6X
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(261026140227099003)(11063799006)(4143699003)(261021123027099003)(261009223027099003)(261022105027099003)(261022075727099003)(10067099003)(261021121427099003)(56012099006)(22082099003)(261026121527099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?WIvrRtKaP+plZTeo+ZbQURwFdOGIonSgpo4ju7CsSmodc9dVEw12FKye5FDc?=
+ =?us-ascii?Q?Oh4wF7Rg3TaOKFeJJnMjbwrfLy9OvmkWQqORnBRIyzM5/HnOoYcHLcweB/qN?=
+ =?us-ascii?Q?fOGUSXoUm6ICIATq8iqPCXKVcrEUYyFn4DkJ1FL9uX3/Abk+NJDo1t/Cj1z6?=
+ =?us-ascii?Q?IGoRUx8gVQMkYxJ8n91Rs9/04BxD9RTvaxZ+gKjsTiNi6YLSzpgRqvleIMfU?=
+ =?us-ascii?Q?0zzcrPcy0Y0xSLlMqXSFH3SDIawJENBpsDMz9YoW2inAdjIPzJr/7yQJwY6z?=
+ =?us-ascii?Q?2SMgUPgBx3ZOBZ9wbgLvqFRoo3DFFfB835sFn45xoYRCtWE/upddyy0oB3uG?=
+ =?us-ascii?Q?fHYKgJHqHtCUjy1IXdnqB9svl+PB59/ARqPMtcS8EpKZb2nwop9kH4oaCkDP?=
+ =?us-ascii?Q?7YEJvigH31jbqpAvWWUnMSqQdKcaSTAN7rfSjbIY7QxBJU4CaPoHNuH0sAXH?=
+ =?us-ascii?Q?IrOwyV7EW0EKbOFtInYeOVIXQnWfacM6U56lwPtXzWb8rrftNEg5QJeMPHc+?=
+ =?us-ascii?Q?FMXtSH7bAoYMPGPLRMI4UXccSnOCq1+g3AybC+6Pl38Ghv2cwl5BJtepIk92?=
+ =?us-ascii?Q?vHqoXzz0LbbjWaaS1RT7uoptqdKRQfe2B7kpGxsh86yFGMKC7wPqmjFHg+w1?=
+ =?us-ascii?Q?dMCSmCBl8URt8OATvke8PS5pxBVBGDZQjg7jGj913xz1IrcMAGev1nC++wMT?=
+ =?us-ascii?Q?04/Ryuka+pfgrhSZ9lh4SW6q5ogmu4MXnZXBr2eOKgQUrF+6D556SOQAkSPT?=
+ =?us-ascii?Q?8vuvAnjF8iaVcW7asNbdBCGBvAh7LDFlsA/PlA9VK65ywCv9eYBKxdEtbch6?=
+ =?us-ascii?Q?HNbKkI1PeVHGMo/4KJ9HNpqGTyk/DcjHbrkLij7md1bfdWfz14zBGWsroMjZ?=
+ =?us-ascii?Q?tIuyJaN1iJ568P+fFKlRgjg1muR/TEjci9fAexAlJQ0tjsvaURCfmgwDH/XX?=
+ =?us-ascii?Q?jdtbxEc+iQiLiw8OmS35XSyaQ6dAsOzlQPN5LGHlsRtAujyUfLzPPjYzEaM8?=
+ =?us-ascii?Q?5IPYsQggtqkLPa8OCiJffLAWTlInbroHxnFKyU5EisOPM3+yFwu4U6bxTGA/?=
+ =?us-ascii?Q?7dHLkBZZhY9ASy99EyfS0Y/fuBriIFv/NhBw3sXuONof5CE9TgyXtAJypfVW?=
+ =?us-ascii?Q?fcRIlSMYbVuJt6BNqXmwOBJdTXowWB0izxybfcn4dHD3V70k9GhBjsEjYV3H?=
+ =?us-ascii?Q?+QuE/e/aDmxel+dsCmWIsbcy28kosD7EcV6gz8+/qtPfW3KM8ObXNvNPOCrP?=
+ =?us-ascii?Q?tHj2VJrMk9nJoibjL6qcTGFv3y1JuAlilUKncMl37iPox/P7c+XVcUIth6q7?=
+ =?us-ascii?Q?JzKNZi3OnD1L14ix4d4jTNSivJUesDzQTdNSLqPT+5UeEMXHvK2Vpz0AYmhH?=
+ =?us-ascii?Q?LfVf3LLJUFFU8x5UVrkJyzW3W3hokDBteWGL25otiu8wPme7LrL92lCdOA0t?=
+ =?us-ascii?Q?WM3qZ6iHPKmuKx3xVsQThBcLp9LOB+qJSY6G3Eyaf291FlEpn639xdulFqtX?=
+ =?us-ascii?Q?nmaA+sGET/maqdPbG/BgxK0cM5CRxXDztuWKa677gpUXe34v+FZmKl3V2t0c?=
+ =?us-ascii?Q?d4TxNTo7i3Mklelsd1vWj0/fKbNSDKadQBE9SzvyTxWo7bFnzUKGMsahDLG7?=
+ =?us-ascii?Q?/iKeucaZqT2n4ERPPQS3bwXU8x+zj1unLfVwAn9NBFBdHzLrF1c8ICSVDBMi?=
+ =?us-ascii?Q?1J7IvQQwJfA8H5e4R8GiHCLg7iciihOdGiLSBPy+8pZ7y1XHk/XzHEQUTJrb?=
+ =?us-ascii?Q?1hJB1jJXnlFKU3Dt8Xpyfj6BfNCECbRlP4ncyKfRR6gZsF5/5vuF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec706d7-5ee1-429e-340d-08df35053588
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:07:40.1231
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ajImWbgOyoaIwi698bmWe7AxsAfxOv+R+fmWd8EV7DONjPeMI2BBl15+Oqg7PDaW151Fnf/0sEDc1hnCnx+4usmRbXsyN3A1MvovuO0bT6rFIQ0vvtEXoU5gVu+ENX5f
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6799
 
-On Wed, Oct 28, 2026 at 02:19:06PM +0100, Neil Armstrong wrote:
-> The MAX34417 is a specialized current and voltage monitor used to
-> determine power consumption of portable systems. The driver support
-> getting the channels voltage, average power, accumulated average
-> power and energy over an I2C/SMBUS serial interface.
-> 
-> The MAX34417 datasheet only specified on how to calculate the
-> accumulated average power, but with the Sample Per Second rate
-> we can easily get accumulated Energy in mJ.
-> 
-> By default the IIO driver only supports single-shot Voltage
-> and Power sensing, but the accumulation can be enabled by
-> enabling the Energy IIO channel which then enables the
-> Continuous Accumulation Mode.
-> 
-> The counter is common to all channels, so when reading a single
-> channel we will copy all accumulators to registers, so in order
-> to permit reading individual channels we must accumulate the
-> other channels in the driver when Continuous Accumulation Mode
-> is enabled.
+On Wed, Oct 28, 2026 at 12:37:07AM +0000, Jingyi Li wrote:
+> [You don't often get email from jinli@purestorage.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> idxd_conf_device_release() unconditionally calls
+> destroy_workqueue(idxd->wq). This is wrong in two cases:
+>
+>  - If idxd_probe() fails before idxd_setup_internals() has created the
+>    workqueue, for example when the device reports HALTED after reset,
+>    idxd->wq is still NULL and the final put_device() in the probe error
+>    path oopses:
+>
+>    BUG: kernel NULL pointer dereference, address: 00000000000000d0
+>    RIP: 0010:destroy_workqueue+0xe/0x300
+>    Call Trace:
+>     <TASK>
+>     idxd_conf_device_release+0x15/0x90 [idxd]
+>     device_release+0x3c/0x90
+>     kobject_put+0x7e/0x1e0
+>     idxd_pci_probe_alloc+0x300/0x15e0 [idxd]
+>     local_pci_probe+0x22/0x60
+>     pci_device_probe+0xd4/0x260
+>
+>  - idxd_cleanup_internals() and the err_evl path of
+>    idxd_setup_internals() destroy the workqueue but leave idxd->wq
+>    pointing to it, so the release callback destroys it a second time.
+>
+> Clear idxd->wq after the early destroys and skip the destroy in the
+> release callback when there is no workqueue.
+>
+> We hit the NULL case in a kdump crash kernel, where the DSA device
+> fails to reset and the oops kills the crash kernel before the dump is
+> saved.
+>
+> Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jingyi Li <jinli@purestorage.com>
+> ---
 
-...
+This one better than
+https://lore.kernel.org/dmaengine/20261012-wt-idxd-fixes-v1-1-30a35a445077@intel.com/
 
-> +#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
-> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
-> +#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Add unit suffix. The comment versus MILLI multiplier is quite confusing.
-What I read, it's milli-Ohms by value.
-
-...
-
-> +struct max34417_data {
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	struct mutex lock;
-> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
-> +	const char *input_label[MAX34417_CHANNEL_COUNT];
-> +	bool cam_mode;
-
-Don't you have 4-byte gap here in some cases? Can you confirm the layout
-with `pahole`? On top you can check binary size by running `bloat-o-meter`.
-
-> +	u64 acc_power[MAX34417_CHANNEL_COUNT];
-> +	u64 acc_count[MAX34417_CHANNEL_COUNT];
-> +};
-
-...
-
-> +static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case MAX34417_DID_REG:
-> +		return false;
-> +	default:
-> +	/* MAX34417_CONTROL_REG field OVF is volatile */
-
-Why not add a case instead of a comment?
-
-> +		return true;
-> +	}
-> +}
-
-...
-
-> +static int max34417_reset_smm(struct max34417_data *max34417)
-> +{
-> +	int rc;
-> +
-> +	/* Set SMM=0 to re-init the SMM mode */
-> +	rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
-> +			       MAX34417_CONTROL_SMM);
-
-With
-
-	struct regmap *map = max34417->regmap;
-
-this becomes a single line
-
-	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_SMM);
-
-Use this trick elsewhere where appropriate.
-
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Reset accumulators after setting SMM=0 */
-> +	return regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +}
-
-...
-
-> +	*val = lower_32_bits(power);
-> +	*val2 = upper_32_bits(power);
-
-Have you included wordpart.h?
-
-...
-
-> +static int max34417_read_label(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       char *label)
-> +{
-> +	struct max34417_data *max34417 = iio_priv(indio_dev);
-> +	const char *input_label = max34417->input_label[chan->channel];
-> +
-> +	if (input_label) {
-> +		switch (chan->type) {
-> +		case IIO_VOLTAGE:
-> +			return sysfs_emit(label, "%s-voltage\n", input_label);
-
-sysfs.h for sysfs_emit().
-
-> +		case IIO_POWER:
-> +			return sysfs_emit(label, "%s-power\n", input_label);
-> +		case IIO_ENERGY:
-> +			return sysfs_emit(label, "%s-energy\n", input_label);
-> +		default:
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	switch (chan->type) {
-> +	case IIO_VOLTAGE:
-> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
-> +	case IIO_POWER:
-> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
-> +	case IIO_ENERGY:
-> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
-> +	default:
-> +		return 0;
-> +	}
-> +}
-
-...
-
-> +static unsigned int max34417_calc_input_correction(u32 rsense_microOhm)
-
-rsense_uOhm is shorter
-
-> +{
-> +	/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
-
-Comment in this form is almost useless. Rather explain that we except
-the result in the certain units or something like this.
-
-> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_microOhm;
-> +}
-
-...
-
-> +static int max34417_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct max34417_data *max34417;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-
-*map is shorter
-
-> +	int rc;
-> +
-> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	rc = devm_regulator_get_enable(dev, "vdd");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
-> +
-> +	rc = devm_regulator_get_enable(dev, "vio");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
-> +
-> +	max34417 = iio_priv(indio_dev);
-> +	max34417->regmap = regmap;
-> +	max34417->indio_dev = indio_dev;
-> +
-> +	rc = devm_mutex_init(dev, &max34417->lock);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Set default input correction for all channels */
-> +	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
-> +		max34417->input_correction[i] =
-> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
-> +
-> +	device_for_each_child_node_scoped(dev, node) {
-> +		u32 rsense_microOhm, index;
-
-rsense_uOhm
-
-> +		rc = fwnode_property_read_u32(node, "reg", &index);
-> +		if (rc)
-> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
-> +					     node);
-> +
-> +		if (index >= MAX34417_CHANNEL_COUNT)
-> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
-
--ECHRNG
-
-> +					     index, node);
-> +
-> +		if (fwnode_property_present(node, "label")) {
-> +			rc = fwnode_property_read_string(node, "label",
-> +							 &max34417->input_label[index]);
-> +			if (rc)
-> +				return dev_err_probe(dev, rc,
-> +						"failure reading label property of %pfwP\n",
-> +						node);
-> +		}
-> +
-> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
-> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
-> +						      &rsense_microOhm);
-> +			if (rc)
-> +				return dev_err_probe(dev, rc,
-> +						"failure reading shunt property of %pfwP\n",
-> +						node);
-> +
-> +			if (rsense_microOhm < MAX34417_MIN_RSENSE ||
-> +			    rsense_microOhm > MAX34417_MAX_RSENSE)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid shunt value %d of %pfwP\n",
-> +						     rsense_microOhm, node);
-> +
-> +			max34417->input_correction[index] =
-> +				max34417_calc_input_correction(rsense_microOhm);
-> +		}
-> +	}
-> +
-> +	indio_dev->channels = max34417_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
-> +	indio_dev->name = "max34417";
-> +	indio_dev->info = &max34417_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	/*
-> +	 * Reset mode and set accumulator width to Wide
-> +	 *
-> +	 * The MAX34407 variant could be supported by setting the
-> +	 * MAX34417_CONTROL_MODE field to 0 and handling a smaller
-> +	 * accumulator width.
-> +	 */
-> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
-
-You have local variable for regmap, use it.
-
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "Error writing control register\n");
-> +
-> +	/* Reset the accumulators */
-> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+>  drivers/dma/idxd/init.c  | 2 ++
+>  drivers/dma/idxd/sysfs.c | 3 ++-
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+> index 1577d22b299c..5962cacef060 100644
+> --- a/drivers/dma/idxd/init.c
+> +++ b/drivers/dma/idxd/init.c
+> @@ -389,6 +389,7 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
+>         idxd_clean_engines(idxd);
+>         idxd_clean_wqs(idxd);
+>         destroy_workqueue(idxd->wq);
+> +       idxd->wq = NULL;
+>  }
+>
+>  static int idxd_init_evl(struct idxd_device *idxd)
+> @@ -460,6 +461,7 @@ static int idxd_setup_internals(struct idxd_device *idxd)
+>
+>   err_evl:
+>         destroy_workqueue(idxd->wq);
+> +       idxd->wq = NULL;
+>   err_wkq_create:
+>         idxd_clean_groups(idxd);
+>   err_group:
+> diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
+> index 6d251095c350..d5ffc641c856 100644
+> --- a/drivers/dma/idxd/sysfs.c
+> +++ b/drivers/dma/idxd/sysfs.c
+> @@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
+>  {
+>         struct idxd_device *idxd = confdev_to_idxd(dev);
+>
+> -       destroy_workqueue(idxd->wq);
+> +       if (idxd->wq)
+> +               destroy_workqueue(idxd->wq);
+>         kfree(idxd->groups);
+>         bitmap_free(idxd->wq_enable_map);
+>         kfree(idxd->wqs);
+> --
+> 2.43.0
+>
