@@ -1,78 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191960;
-	b=UEGT8L6ZGMx7sdZ2LSezy7Pp9FmuXmFLMy0KtNEHlu71QAT6Fg0luD+gNHbwUlTPp1uh
-	 9l6x/V0B4x2JaXoiYWZU/e6UbCD3iyiSQCNfTZA5/8Gnftlf4fxHdlfEnRKUNNv9fmHV5
-	 9t5gbfSbAdQGLkKVLhg7Yt2mA2RMtv66ws3cwqJKMeD0oHej3QzD8SLuXmSjjGtw5eEGh
-	 EyDGeUElkunHhyxXlJ7nehCHSSEQPXxswULbPXTIIoGvzS20g6CeH/OqgH1hzri/Gzhvw
-	 y0Y3h20VvZAbvfQ3+yaLkacq+084yfabBAsi/CEQ79y3hFCfVaQ0nWxpMOfRQKqgB0g==
+	t=1793191958;
+	b=F/LyhBl9i8xLpdtXMNJcBb41BMg5xJzrwl7wteoOwk/mp64TGkwQj/E0ZALmwYH3aqOA
+	 plyPnjLy8D9aQ91Y4YUv+hUFi/FqQ5P3z89GB4HtyQbHP2lRBmYJwjuuWxCLMnB/vTPbw
+	 e4eJnYmN66QkvCmMrIxQW7o+tvIQTOXyR2xk37A2xbLulmjknf9FTMlZaWtsDOnAjNvXI
+	 SSWRIefYo6aXya4UcHQYOofNmjEq859qIPTfEQFkRCwXHJsbPH0UpUCRJV/mlFQ7RHkYN
+	 wQUYmfZ31CCTAtd9LiyeEtv66/4CphmAotleAtcHjol4fWNP53mY207D1BXzD/ruAlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191960;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=UxofiOisVb0N9dpx3KqX3cKPnOOU4k70NQb6001fjTA=;
-	b=YhxhI5TkODWB949XD+F/6SkJuALtQ2NSnJWnH45g2uhMbOinRAOxNOyPdvCK3/TwgfmJ
-	 yA2e7uhTesOSYF/EhnlH0Nnk6+NVtIv4PbpNu1YpTwdRWIZ36Z0jXGBlM2f2u+ZawN+Ie
-	 gH2t5GrL0I95lKaqRNepF+o3w+2QM5AI/ka6NAfMl2x1WOatlpQ/Mjn990YIbwV/PiPCG
-	 r9FXMAqneQqdcvcw9ZaUkJenOozle+EbA1HX880w1naMKcsE4zj6aiIme/XScQLJQZITi
-	 Qis1FwRWHa9H82zJPY9miatO1miV6O1Q/o9BN+hxRk4ZhGk8dqP+Ml5dx3yEakH5xQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191958;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xKPX+HyNrE2o41R0rPagiIf/0OMnYW+RxTq37JWlHDY=;
+	b=S1apWQypoU9QiCXVvFAQQa38zjtg6SWHE/MP58LljNgHGEY24SN+ubCS6/IgQRawNV3P
+	 kxOXbAMseE0S250ID+p3HHyEtkCoRbGP9c1BSsqoD2kNdh1SAWY1mNb3mB+Zr5vvq3ejf
+	 4Al5VGT3ZlLSOFGVaaWUYZ4Pxf6La2HAaADisr6eF7zOeqNYOukaXIQYDds0Ogn2Dyb8e
+	 LrSuzWm4eXzifo0xf72+Ze6khzNoGAWrqyBkyIfMxmb2VwsgsX34PSyBSK2LeBGisoOiy
+	 7niJUPHpDw2qhLuSrDhy6kNeB702RH0TgcKCEvS4BqzuS8+XCFNDoFcsKhkp8FbBjxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+OWXR4l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys7bH84T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4226606A31C;
-	Wed, 28 Oct 2026 12:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5A9606A323;
+	Wed, 28 Oct 2026 12:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+OWXR4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442AF1F031E0;
-	Wed, 28 Oct 2026 12:52:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys7bH84T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921991F01829;
+	Wed, 28 Oct 2026 12:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793191959;
-	bh=UxofiOisVb0N9dpx3KqX3cKPnOOU4k70NQb6001fjTA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=i+OWXR4lxfk4bHfMZ5sEYDr5qwuwhsEkYDq5GYE8eLtBQ751L7g+UJ+9oKt3gtt7w
-	 7/Z/9Hzmp/e7bFxSVBfNMUK9zUdCphxlmmFTq3d6GHmj1FnERjGCldQ78VBi6B6h/h
-	 wlXWanmG8aBQ1plWgZTM+lJni4pNz+PLpD24AByvlg9TBlZp9QYrwfRsBUqZO5Qyiy
-	 raWFVN8CAMdCDoNVVIBPiCBB7xm6gsUl5Cs7WR80QRzUk6JXdjMyQ/9hLKV9AnjYMD
-	 Br4am5wJuQ8fb6own0X8Kp99w8H7/lTTCxMxzovCFxDjGMc3tN5IFjVm5tQ1/ooFOF
-	 EB0Mxwb2uOO6w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xM38v-000000087PU-0G2H;
-	Wed, 28 Oct 2026 12:52:37 +0000
-Date: Wed, 28 Oct 2026 12:52:36 +0000
-Message-ID: <86mrryxa0b.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	kernel-team@android.com,
-	linux-kernel@vger.kernel.org,
-	Oculytic <oculytic@gmail.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 3/3] KVM: arm64: Disable host PMU counters for protected guests
-In-Reply-To: <20261028110739.2366566-4-fuad.tabba@linux.dev>
-References: <20261028110739.2366566-1-fuad.tabba@linux.dev>
-	<20261028110739.2366566-4-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1793191957;
+	bh=xKPX+HyNrE2o41R0rPagiIf/0OMnYW+RxTq37JWlHDY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ys7bH84TfY2+Th8LW8ogM+4ITkYkvYGmgZGhj8+rhHps7rD1VoH9WJWcuCISkHzwT
+	 k7n+my4sk052mCljCEszfqRqPGuMAjCbB6Y8F7uZdqi0qRcool2WA1I4hYYQaX2USq
+	 o/8dT2yLJdgvpa6OVC/uZ57D1NqCtflonohxZsGJ9XV6dBUrhcG7ihy8HNinM8OQlF
+	 2ZnxrtD5cwVLECw5W9MSvzVV3x+UBigp6WjdTWn+4QAHnnrjVg9phKQKpxlwGeFjYx
+	 1TMkIGvuMhqI7LTLfZYzhvR6cO0juTKG00kJZJiYhHwXefvwYs+1qKpT/3y3BZV4W3
+	 1DvY8F9LNlc6A==
+Date: Wed, 28 Oct 2026 13:52:34 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Amir Hanip <killdeath104@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
+Message-ID: <20261028-impossible-thundering-scorpion-cfcafd@quoll>
+References: <20261027205146.16384-1-killdeath104@gmail.com>
+ <20261027205146.16384-2-killdeath104@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,64 +58,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, kernel-team@android.com, linux-kernel@vger.kernel.org, oculytic@gmail.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027205146.16384-2-killdeath104@gmail.com>
 
-On Wed, 28 Oct 2026 11:07:39 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Wed, Oct 28, 2026 at 03:51:45AM +0700, Amir Hanip wrote:
+> Add compatible for Xiaomi Poco M3 codename citrus, which is
+> based on Snapdragon 662 (SM6115) SoC.
 > 
-> A protected guest has no PMU, and EL2 clears MDCR_EL2.HPME for it.
-> However, HPME has no effect, since __pkvm_vcpu_load() sets HPMN to cover
-> every event counter, and HPME never covers the cycle or instruction
-> counter. The counters the host has enabled therefore keep counting the
-> guest.
-> 
-> Stop them in the world switch while a protected guest runs, reading
-> PMCNTENSET_EL0 rather than trusting the host-controlled events mask.
-> Gate this on system_supports_pmuv3(), as __activate_traps_common() does
-> for PMUSERENR_EL0.
-> 
-> Side channels are outside pKVM's threat model, so this is hardening
-> rather than a fix.
-> 
-> Reported-by: Oculytic <oculytic@gmail.com>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Amir Hanip <killdeath104@gmail.com>
 > ---
->  arch/arm64/kvm/hyp/nvhe/switch.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/switch.c b/arch/arm64/kvm/hyp/nvhe/switch.c
-> index 91e1edf40bcd2..f602154ab49b5 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/switch.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/switch.c
-> @@ -175,6 +175,26 @@ static void __pmu_switch_to_host(struct kvm_vcpu *vcpu)
->  #define __pmu_switch_to_host(v)		do {} while (0)
->  #endif
->  
-> +static u64 __pmu_stop_host_counters(struct kvm_vcpu *vcpu)
-> +{
-> +	u64 pmcnten;
-> +
-> +	if (!vcpu_is_protected(vcpu) || !system_supports_pmuv3())
-> +		return 0;
-> +
-> +	pmcnten = read_sysreg(pmcntenset_el0);
-> +	if (pmcnten)
-> +		write_sysreg(pmcnten, pmcntenclr_el0);
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-It feels a bit odd to change the individual counter enables, rather
-than just use PMCR_EL0.E, which is designed for this purpose.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-It probably doesn't change much, but it'd certainly make the intent a
-bit more obvious. Or am I missing something?
+Best regards,
+Krzysztof
 
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
