@@ -1,103 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208683;
-	b=tUqyW/vEG7MQeKsC8HgND9qvK9e+mH4tIZs/UUtS+ev8wCiEYGw6P0O5u9kFn/Rk2bal
-	 RwjvzvMD1zlDm33NLvTto+FKy3McMBfoKzkkBMlVZvwqIccP9zvRsXEMcsODuz01IY9xo
-	 HsFx49lWBVg+ZNGC14z43ywE71Mxhi7FKD9RV8SY++7amvcdZE94EGzU8pix36lDn93I7
-	 WK7QYdB1Fq1LiCj8ZtX3G+8o4jHJ2MbvK+6HDgeMRr6QmCTdKc3XXbmsT5MqWni4ddG0u
-	 zcgC5JfgSn12xTI1Bgnz2spJtUZCl77/M/5Vvt28roxRnptaE4EiVtEo6hastAjgJkA==
+	t=1793208810;
+	b=jV/a6NlKadLVh1sxrSg5Oc89XTikw+f/nw19APApSepTopskuwJyDhyvhKgTFot3lZuV
+	 D7tEMg6pKWXLouvvQdNGSt9znXqsjlbnlVnNaPPC46E3kFVruIVZl8zMpfqR7UmRvwtmq
+	 2CoZn0jQ1om2T+Jf2OXuxz/G9NhyqKDmM5jR3ZAV7fGe+DboTz04teiF4DfSNu9eEHXMq
+	 HXDpJg6PDZ6FE2N4XU0lLOx1KgUa+5PEHWbnzZxccKqK6OMlBscTdLEoSe7UdQ8xcGkuv
+	 GAyXeDHYTYARt3pP34vMtyGDeKkyeCKL+wouHFw3B/oiNk1+mh+uwxEsO60If8Gk0tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208683;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
-	b=Sexex+g8XuZeGtt37Mhsv1MwJ/MbOzVGCJ/e7leH9aHJWtQzn+9ZtXnlrHutJXPsbuui
-	 eTieO7WVHZ68PvlkPoj66VnTQFKZP8vA15hhQ2EHlupOlB1oL8q6fsrNlBCtr1iTba/Az
-	 BaQiYW7vytFBVh4QS89UCrg1c/KlUCKtHkzNENxJTRvTuQDTjL0um7TXwUEACaiMV3j8d
-	 ygEQ1PxItOKfJQMmL91joEM7G2DyIH63b92eESe7n9ubaK/krTnCfYewd7GGkVSR+Jl2E
-	 632HsugoM0RmPR9l0QFb0bA04CwnRbDkZvQCLR2hEv3KXrdohtLe4Ql69u5DTT4TRwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208810;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=O9rfZ0Jd16n3nkrrXaqreL+BHcitQpk1LeDPhsNkX+I=;
+	b=Ki7XTqThxxspuWmGhjyTQTW49wqdEZlqlqXEYnYZuQx6fzSe0JQ6qNdRjKATdfcEpQ6L
+	 lZlCgkTEwij45/yyOMOSXO/jJVt8RkR496Qpn0DptpQ3HWkfrzwlZkFG6+dUWjM+oU16r
+	 oh36A+IXQ4KwamkNY2pj2JngjhDwztKuVsE+71rHk7jrh+NW4ZLZ6QxmLiz6ctcnc/h99
+	 oBHSztg916qYyRq06UYZVfVHjw65loePW8ZgA5v/q5K5uOgkEQQtRJZEoWfOi4VeoL69V
+	 qdWLKkSdTckkLsqFii9z80kc+Q78S2H9MLMdszhqr8rQqxdjTQH4oXVCeHIzFO3KnQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5AXwlI;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YlQYXeA+;
+	arc=none smtp.remote-ip=95.215.58.98
+Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B021A606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B021A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8648A606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8648A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5AXwlI
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so12057205e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793208681; x=1793813481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
-        b=Rj5AXwlIRL1sM/sCWx/9TgqY1uZioctwcdwe23Su+an66Dqioq2hXH34IGZMtMjlNZ
-         c6HbI5Xmhd+ZP7Hx+cWqoi3dAjlmxXVC7112rgscq4+HMiIJfKSx/VQEKYCCOUBqlwGC
-         jHFBJeolrICukui6tBM3wuMTuKAcFUABKr41L84uYmWOSobC1okBV45oSHMP3bsdJSiB
-         TZtr3QzQC9aLP5v8PgFq/XoD662rug3mQtnh2w0Tpn0ADA2Ad3eFdht2hOUY/8mDvavl
-         yuGhdRax/mp5lm6KtXyqMkEsnAWnfZWLE84MspzN2kgfK0YIDikLfZwBTP6ZxuSfqdmV
-         fYSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793208681; x=1793813481;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tTbN8QdJzbNFg7HFB2EoFWXNNo+FJ0ZvprR3p/0DA4Q=;
-        b=KKnEwl5UpgufmYoZkYRjQaMJvIE+UucT9IHgjekcOuPIRm4H5oFf5jvjpFsCDxT8ig
-         +EG0q6cFGt+nGNvx1AgEXtoaPwpUE2aVbqifJpmHPhOFJf56grUOSNby8Qd7pmUCSdY8
-         7VWcAaRxH4tUS+KNFhJPSujoF1gz/HhFWJs6NQKQInFhXg4BO0/PZ+jGGV90w83lH+QI
-         Y1JLs6jfCESuxMrBr33GFByFJSv3lHHvn95UvrSZVecdJYuxTFX5gYoSsQys/xb6CPUE
-         o8TPZFImZH6H8Lj846vZ3rN8Su+S6psESd2BxQRxfwSSrvPYlAfJRf9W9KeuCE4q1Ixi
-         X+Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtB0YZWbiYr1QL2ywmdBVLrOf/cfbyGOiYwIhDk2ZIENLs7R2jJsZtjQNEBM8aYrdp+CA6n6FrtRCUNWY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIptZo5KJxksyhcrmbilKyrGx/6DPSQK5Wi5lk4xWwBKQockttL
-	DGUKJsDc7OlTiaVE86sBBCdOGrCcrSJOtv+J2xvKlASBGbvlHbwGBTat
-X-Gm-Gg: AYBFou2Ug3Yoeun7wfVlX/8n88qslywYrJ7W3z/cOtyzTMeAWUpTrTIZkLMBuOLxkM7
-	t4QQhMo7YcMRazToG9S9vOCchR/uoPCouLFt1M38G5jvQ19huRVaM2sRjgL2O/NkdYOXplio7lF
-	0ombDpmr5maD53bcKhmJPIzS4ufBveAz34seTM1t+Altb0QcrmhynZ/+j0ei/NcdghaLb4TVhFP
-	7UEliOQWluer1EInfKbMTOG5U8ITGDNWOJN7XvGmXzmTLTJIUEm/tTWHzFZcuiyCIUMkZpJgGkZ
-	iaDE9UsHnWXKs54Zoa8TBmtHUsr2iFjLr7shsReJaPCe/jU+Rgs0MQ5RgMhcVF/mO01xVxYv6mK
-	miuHL7+v94Zef1/ZyzYalhKWjUsbzI8PQ+ndeTrU6pMLyq4/YOar4eIDjZQu8FbNOh01fkofmQV
-	1qkCwmfwVyKlv6FhYDVBiyRZZ3rzFMweaVxswuATfLiAiOmyh/O5fOtyYhvDp67C5kyJaEdj5yG
-	0FdA6+gz67iF8MjVEBCyJ68FNnM27U6f97HHfvev4TmAIWc5YtWp7v97TD5DClONJvJlbu6knu+
-	Cl/D5vIDbPcuKRswi9nkUpGMq8lPpZBxpvjlBxPBnfXE4BKViIQ2Ug3lg3gXJEg3ebZT/vqhbOk
-	1AsAX7phg73FRBmWoy37xOrFMIWw01e9zmtwDEYt/70PwIQ==
-X-Received: by 2002:a05:600c:1546:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4aa86a42518mr6057825e9.2.1793208680690;
-        Wed, 28 Oct 2026 10:31:20 -0700 (PDT)
-Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80285b2dsm6496175e9.13.2026.10.28.10.31.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:31:19 -0700 (PDT)
-From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-To: iav@iav.lv
-Cc: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	bhelgaas@google.com,
-	robh@kernel.org,
-	heiko@sntech.de,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YlQYXeA+
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yzH4AdgVGm2MfoIvt0cfXKSp7A6q9PsvkvtvOKVlIks=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793208805; v=1; x=1793813605;
+ b=YlQYXeA+FXvQn5/0qo5wxwK/k+KnPMXUywJ4MFyb6BAqWttR1hy6yZgF5zoj/j89osbfrcs4
+ zRbbaGPdVZFCoXMknnt/NmtLzy6b153fddpB9QRprhrcDKsOfgB2dzz5DVWOdVshuibQOFpCm+X
+ auN1YCpLlsSNM+u4yf8UZDtI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6625fb773fa39b9a;
+	Wed, 28 Oct 2026 17:33:25 +0000
+X-Mizu-Trace-ID: 6625fb773fa39b9a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] PCI: rockchip-host: Retry training and hot-reset a JMB585 on RK3399
-Date: Wed, 28 Oct 2026 17:31:17 +0000
-Message-ID: <20261028173117.3457220-1-ehbello@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <ff204558-dc22-4d38-b0dc-2c727f983f9f@rock-chips.com>
-References: <20261024-rockchip-pcie-resume-v1-0-58e54a5cf5f1@iav.lv> <4316c1da-f7ff-4fa5-a330-512800474e45@rock-chips.com> <20261026-rockchip-pcie-shawn-reply-1@iav.lv> <ff204558-dc22-4d38-b0dc-2c727f983f9f@rock-chips.com>
+Subject: [PATCH 0/2] KVM: arm64: vgic-its: LPI pending-state fixes for DISCARD and CLEAR
+Date: Wed, 28 Oct 2026 17:33:17 +0000
+Message-ID: <20261028173319.1807811-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,30 +76,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-You said both SErrors and synchronous external aborts occur. In my logs which
-of the two you get tracks the cluster the access runs on, which might be worth
-a look before you move the hook.
+Hi folks,
 
-Every asynchronous SError in rockchip_pcie_rd_conf landed on CPU4 or CPU5, the
-A72s, across six boots on two different kernels. The one time the same read
-aborted synchronously it was on CPU3, an A53. They also carry different ISS:
-0xbf000002 for these config-read aborts, against 0xbf000000 for the unrelated
-runtime SErrors on this board.
+Two follow-ups to my DISCARD fix [1], for LPI pending state that KVM
+keeps after the guest has removed it. Hopefully in time for the next
+fixes pull.
 
-That is one synchronous case, so not a law, but it is cheap for you to test:
-pin enumeration to an A53 and see whether your aborts all become synchronous.
+The first closes a window in that fix in which the guest can still take
+the LPI it discarded.
 
-It matters because only the synchronous form can be repaired. When it arrives
-as an SError the load has retired and there is no destination register left to
-write all-ones into, so no fixup can help.
+The second does for CLEAR what that fix did for DISCARD. Without it,
+the guest can take an LPI that it has cleared, and a racing CLEAR can
+trip the WARN_ON() in vgic_v3_compute_lr().
 
-I prototyped the synchronous half in September: an exception-table entry
-consulted from do_sea(), with the driver substituting the all-ones the PCI core
-expects rather than only surviving. arm32 has had that for years --
-imx6q_pcie_abort_handler() in dwc/pci-imx6.c decodes the faulting instruction
-and makes a read look like all-ones, under #ifdef CONFIG_ARM -- and arm64 has
-no equivalent path. It only ever worked for me with enumeration pinned to an
-A53, which is what made me look at the cluster in the first place.
+In my reproducer, the guest takes the LPI after the CLEAR in every run
+without the second, and doesn't in any run with it.
 
-Not proposing anything, and not reviving that prototype. Yours if any of it
-is useful.
+Based on kvm-arm64/cross-vcpu-sync as merged in kvmarm/fixes, which both
+patches build on (e99ff76f4a02b; also applies to kvmarm/fixes
+79f3724ca8913).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20261013081646.933312-3-fuad.tabba@linux.dev/
+
+Fuad Tabba (2):
+  KVM: arm64: vgic-its: Clear an unqueued LPI before dropping its lock
+  KVM: arm64: vgic-its: Remove the pending state of a cleared LPI
+
+ arch/arm64/kvm/vgic/vgic-its.c | 65 ++++++++++++++++++----------------
+ 1 file changed, 35 insertions(+), 30 deletions(-)
+
+
+base-commit: e99ff76f4a02be8542e2c3ecc8843d7339a0200d
+-- 
+2.47.3
+
