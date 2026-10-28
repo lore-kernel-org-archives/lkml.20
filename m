@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216228;
-	b=WtNMFkfzgSBXwEzXr4F/66uLyN3ki/phcdPcGapCsv85DRpp4/4pHSv6xLVSymT8qRPy
-	 TrfUH8CMiHKfPAqMC2McUMJDzUsl8jFVrGTD/jnJ0gnvZ4twPS7oMxvM9kh9YUpW/Q/H4
-	 B0YMXEApFqG8nuwIEB3qaTwTw/oIepLm2C7A3swpkscqUrSWVh3ZBb3QXF/H7Fu2pKkGZ
-	 phbpU8papLimzb+fD2CGAaLzQB7wWwR0Y98JNuGe+NDwngKfPz6Sg/Mga/FAEw1WDnDN9
-	 BIoau7t3I3T7tCmgm5F7A4jnz+LAgTu+4sGzmhkX4jh9yAcsWVQ0hxSjqJY++G3u/Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216228;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2yS6B1fdODzUh4XgV3Cebo3LhVzp5X0snjiUXq/0jiU=;
-	b=OYS5NnqIU4zeDZYwr8Z1hxRImQnkUT3miqGITx+9WpwyDndu8xmghEzzarNB3cMqwM0r
-	 kYBgX/AwJXqrv7nqz8Hy15zEg4JiXi4gyU0AAjoAPDlhhjq7bzTOIRU8aAnvbuSECTEWz
-	 KUC7PC/TSTZg67POCeJCyAShw3UjwiFuv0TlAd1lCkOnWhbvQ7VLKzfI+scVsOmYssJE7
-	 E0dEdd42qYL3UHjpCvUavpl0pjhzA+Mbkl199ZFYJxZRBpP0j6wH7a2xoTAzLpRqUC67h
-	 87AauqTYbNH0cK+/C43Sv1xOlTrPQVgy5puCNXfjBYcP+7h6bfW3OLU/zNsOfxGNf7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kUTQlOEa;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793216261;
+	b=zQU9E6OMbYYqOgHywCtnjFjcrgPdhFo8zmfKmtQqGQnYAPU1svxqX+Xu7XpJo2WU70ML
+	 dw03PaTUIZ1TOqKCPbbsgaZT4Xmolh+UiwC7UrAgTQ4y6Wlp2pCHmZGZSt5vE6Rd0kYqV
+	 aaaA4Fp0UCwHyB+2rBu7z55GhAgzgWpfzjDqQ45l7tC0e6buAwn9NL+1V/sz7iXGxscjf
+	 n3YzT44oK0RD879aCGhc9YF1XcyWz4JEYOByv+PNhoFGHOyORkpHonC3dw9A3VciTv8La
+	 Z3nmNOBhZSZZLC0RBptxeN23IncMtpMP7v2aN7WDZD5EfVAkA1TMSjkWumyBKYWvMmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216261;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CEXAY6FI854zgRGoF4r4PjZbyhjQOwJWATqvlH3EHFI=;
+	b=NheG3oU9ioAW99nXpJQZ5w+1ZeBLBW8TGFiQNioUojlwsOu71mYWvv2oi7jiSZ3FT/h/
+	 goZo1AF93WJUrykwzWuOCgD0OT31CRHHiXJCWb5j2oBlp6kncTLMb8jcc45fhKrIenwog
+	 e7+SGTCJ7wwd+HRZWE00ZKGc/2yneuAsDTMfA7V/ouN3TfPiHgzK7kwo2Q9wEsn6Tj8uj
+	 dSVsps0rzWjee/0r75Z+YTlt0j2LiRAjhMcXLpbYVtayYIUBEcB9KDVE9OJP38AqnO1h9
+	 aDUiqStHkRcJfoLAolDkDTIoh3BEP2QmPld49lIRdXpYGJWFXgBcRz8OhViJ/tq3qfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pu+9aDKu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA48B606A31A;
+	Wed, 28 Oct 2026 19:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pu+9aDKu
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793216260;
+	b=Xhn6akBEiNMAHh4Yq6UkWqc5ejCCWHZaK+2G4w6M5Dr3TDIaazMKubJozbGIDOaVhg3y
+	 gDwYtVFsSdMVn/W+JU7Hgsso9PuTQRw76x3ZbawV0KUvtgFbvLjs8UckU/2mY4NwThEx8
+	 +u88uNc+kBdBFAjqnW+vvQTDKcfVg2BFj/VvOFP59LF41dUv6i+oqy/2Oi73ySH7rsGUo
+	 PukeniKmYWmOvtbML6QJ+F9kupbQUC0kU+8O3xeecR25B8RqbFONVc7w5fh0FRM9bfzpp
+	 zuwFHxiVmcxheK4si01VQu0+FiiPIncpscSDesakguRKnqK9yiAbJOuEWatBRgrJnwA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793216260;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CEXAY6FI854zgRGoF4r4PjZbyhjQOwJWATqvlH3EHFI=;
+	b=IYlVxOhNMdGn5eK9TeoSJV0KfrO0KLLBokWCuDFVM3Rr+q99gqzpKbzylGGtF1nrvsQl
+	 xhnNPlXlesgo6ahpK1FXQftBE0VXTAvjsRNh7mtflU2iUCcy1M8TwuQv/UY9ejfqQagwB
+	 CnbANp66NHvRndxvs6Lzzd31N1apDIFfbjjv3/E/OdRC9kJyeO99g2ULoYkxkBEODPJOF
+	 c6rfcwoXJ1G14bF1iyuZMky+sykMdLkSrQnHpVND/3b2YiSkyzyQ99VaHZ9UvFjD4VdJ6
+	 xl6UmZHhppO1uyD+5DM/XNX/Xy2/eNiX8n+QN4TBtAOfCKE2PruJekxTcJYZUdtumvQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43112606A33C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43112606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kUTQlOEa
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e46e449e8so850820f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793216225; x=1793821025; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2yS6B1fdODzUh4XgV3Cebo3LhVzp5X0snjiUXq/0jiU=;
-        b=kUTQlOEaEk4kKhvJEXcdd8ICHwy9lwjwxfP+jr0bFV9BQmeknLAEhDf/8mfHtqmy2r
-         DsykJtGs9CyKxc77xokx9OZQXDgQIf23IM6rGMadOb1W7uqhF6ptzScJCZNQTGZDc+dn
-         syHiN3JyCIq7lApRCP1A64puUwwsAZL3wu0bBJe7XdoVSv4GBT133LQ2eSpJy5/CPs97
-         /BDrW2oGQE0MORQnqMOIY+zWb5n/lD6bSAG46kb0DBH9CmAMRGltBg1XfW/7yivMClub
-         TOrpK079S79OgF6g0rlOA9nT81DTHaPniu5KlqkwxTW+r0M7CH+p7VM24yhxmUDwGTvq
-         8txA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793216225; x=1793821025;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2yS6B1fdODzUh4XgV3Cebo3LhVzp5X0snjiUXq/0jiU=;
-        b=ofpZUUnccBHIeUaOxj7Q63o8oAo39DLiKfcPW15HwaIY1RZVr6t5Kwmh9dSDZH9G1i
-         It6Zld5Nzr0/dO4JuOONAgmeofu3G33Wo42+gF5EL3Lz0QYT6faidFFp3c+0EbmG1SbW
-         Iy1fPsheZ12zr/BNVX4fTr2H4fkxBsYfTZ0+ecEXY2hhDth8E8jz22FILmNuRPbyK4Rl
-         bszoO4ZBMcxZYs0k1hbQu6xiI0s0QEQvjLmSGDnoikDJEW8PHflwhA5ISnXZJsRewv2Q
-         vLuQqaGB6ne+MWiZf3zOuIXvLOTpQNc2u2rkxZ+0dQpOD7cLgfUnJcOZofCP755RzhI7
-         ud+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzedpaeh4TESuAL28qdjsNwQyLy0dokEa0HROlru1Rd8kZ3mgUbJXNyAa5xWkUypkZ/N95Pr609r6re3JI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7J5+AxOSBgTMkb8q20F0RxmmXu5qdguI75DaQ4EEhfhFu2Bk1
-	uVogYXr+HV1P/ny0pBuKIvXb1DNHN2nqNTNW6XxC+4T/Tzemr+31nLNO
-X-Gm-Gg: AYBFou1XShleiAMsMgHwcWPmo5QIi5JSUGRjdKU65+rqDf9+sPLWIx0nX0ATf24Q/PR
-	1MXlJ6wRa6V2RXkSxg85eH2hcJoyFXUzku+Nv9psD4F5VGjftSz+PbwAZIjOsttItMwsEQJU1Cx
-	7iOagV1PEWv9stwj8NYuZ1sCcmYSmH/eT54oYiEmHX1TpBxQH4AKAg54VpokrYqaXz6Gb/OeiyN
-	FVreTuOagD0c6jyq3aYtDhf4LZQKnSgH9uFzI/u95ATVFmtWYQ1viUH4hNwnxZwAF3mNst3txiH
-	IPkMQ3fZHQdW5rYUBtklK1vnc2yBv1IIUMYqVqfWsfZmjyHlmIe4+Vri43hBKMXpGOKJz0b5ZWz
-	vfNVXI4e9cs96FT3lxCqZa9oR3un4V8UHKA1S8snLGTjV/DqwS9xv0Xt40XUbYT9B86hTegTPVR
-	11esjca6hVc+Ll/jz16QRy0HRYi+pK8kn3os7bmJ3webCS+CAbUpK5M+d60Bx+O1wCAhCzu28wu
-	xDYQ5NVdsLnJskgGh9PWLELQ0+80U5lQk9yNsJzrUD57UbH/Hc/1YoU1+rJLVRq5H2+Ej6Zn5W9
-	cIVEoC/xlJNkff3v3TURWEFFv/stC1kAv5qAr9Z8EnhUuy32vQl2rxB47fXUsZHCyGLlIQItiil
-	eFthZh3E0AH+PwNBW9tcO8QFyORTRdK3WCI9IpETzYRGh5LF1+kOk6nJFY4xHvrj7WgrdhSW2/A
-	Ls7NsokJJZUr5cz+RrfMNCTYtmibDeqgwQ0KWTI6xPLw1yrIIPqXAhKWhN4Q==
-X-Received: by 2002:a5d:5f52:0:b0:48c:4658:602b with SMTP id ffacd0b85a97d-48e5d2e7375mr8599298f8f.10.1793216225566;
-        Wed, 28 Oct 2026 12:37:05 -0700 (PDT)
-Received: from longitude (2a02-8434-fda5-4201-3fca-2040-fad6-74df.rev.sfr.net. [2a02:8434:fda5:4201:3fca:2040:fad6:74df])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3418sm27004611f8f.41.2026.10.28.12.37.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 12:37:05 -0700 (PDT)
-From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-To: mhiramat@kernel.org
-Cc: rostedt@goodmis.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] tools/bootconfig: Quote command strings when applying ftrace settings
-Date: Wed, 28 Oct 2026 20:36:24 +0100
-Message-ID: <97454eceb5d56bf956740b8998972767bcfe6c70.1793216183.git.edumucelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793216183.git.edumucelli@gmail.com>
-References: <cover.1793216183.git.edumucelli@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 685491F031E0;
+	Wed, 28 Oct 2026 19:37:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793216260;
+	bh=CEXAY6FI854zgRGoF4r4PjZbyhjQOwJWATqvlH3EHFI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Pu+9aDKuz4XXOghLkOmuqDfiPa380a+YRg5JgbbjKWbLtly/sWI49ei7MEVhv4diT
+	 iwQUnCaI8/IWnR0S/CCsxy99IQ1fyku4tpiL6QYG7j8QfAFMJno7MgXcRb8hpaDKOB
+	 gn6SIaqM2YupjVKNR5yWeyeDGuwMMF7/tKZ8/LqaVeazg7yquqCLuVf8OkvhResXuT
+	 CSp4r+qLgWZRyiiErslsyMummKX/76vMkazXMuC1f49weDF4GzXB+DRXJ3GE2Hv2Ys
+	 stU4wexex9UP7zoutS2M/Y4TVDH0UHf0W+nRsmXIcrfGzdF+OnAPq/UY7XzpgoKWrf
+	 N4TJonVKSLMQw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D72C64557F;
+	Wed, 28 Oct 2026 19:37:38 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Wed, 28 Oct 2026 14:37:39 -0500
+Subject: [PATCH ath-next 2/2] wifi: ath11k: advertise a spatial stream for
+ every chain
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,47 +83,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-b4-ath11k-qcn907x-caps-v1-2-c7daa6f1c02c@gmail.com>
+References: <20261028-b4-ath11k-qcn907x-caps-v1-0-c7daa6f1c02c@gmail.com>
+In-Reply-To: <20261028-b4-ath11k-qcn907x-caps-v1-0-c7daa6f1c02c@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793216257; l=6123;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=8Uwxeg8UHngxATx0eZ4/cEVXGxe0+dvdWqlppGkOKfE=;
+ b=ZpPF/FYUsE/MwMmiwn21IqxNMU7TLlxzf60JrTgfkhg3KzaxYjeAko1eP8rwUFmfscY2HG2LA
+ K+MZiwC6CuqCnjVGY6jAs5SbSp7SkkO2Al2v0MgLbV/u8y2ybDyDW1H
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-run_cmd() passes its command string to eval using an unquoted $*. The
-shell performs field splitting and pathname expansion before eval can
-parse the quotes in that string.
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-For example, an event filter prev_comm == "a  b" is applied as
-prev_comm == "a b". A literal "*" surrounded by spaces inside a filter
-can also expand to filenames in the current directory. The printed
-command still contains the intended string, so --apply changes the
-settings even though the preview looks correct.
+ath11k counts stream i as supported only when bit i of the radio's
+chainmask is set: in the HT RX MCS mask (ath11k_create_ht_cap()), the
+VHT MCS maps (ath11k_create_vht_cap()) and the HE MCS maps
+(ath11k_mac_set_hemcsmap()). A chainmask need not be contiguous. The
+QCN9072 in an Arista C-360 reports 0x5, chains 0 and 2: it has two
+chains, and ar->num_tx_chains and ar->num_rx_chains say so, but bit 1
+is clear, so its HT, VHT and HE capabilities offer one stream ("2
+streams: not supported" in iw phy, on 2.4, 5 and 6 GHz) and it
+associates as a 1x1 client.
 
-Quote "$*" when passing it to eval to preserve the command string. This
-fixes both per-event filters and histogram actions.
+A radio can use as many streams as it has chains, whichever chains
+they are. Count the streams up to ar->num_tx_chains and
+ar->num_rx_chains, the chainmasks' weights, and take TX STBC away when
+there is one TX chain rather than when the shifted TX chainmask is at
+most 1. The rate-cap chainmasks that only fed these tests go. This also
+ends the HE RX map's use of tx_chain_mask_shift for the RX chainmask.
 
-Fixes: 7e66ef0046cc ("tools/bootconfig: Add a script to generate ftrace shell-command from bootconfig")
-Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+With this the QCN9072 shows HT MCS 0-15 and two VHT and HE streams on
+every band, and as a client on 5 GHz at 40 MHz it associated at
+HE-MCS 10, 2 streams, and ran 310 Mbit/s down and 438 up to a local
+server. Contiguous chainmasks get the same capabilities as before: the
+IPQ8074's radios (0xf, and 0xf0 shifted by 4) are unchanged.
+
+Tested-on: QCN9074 hw1.0 PCI fw_version 0x250affff (vendor build)
+Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Fixes: ebf82988f844 ("wifi: ath11k: generate rx and tx mcs maps for supported HE mcs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 ---
-I tested this with hand-written configs in a temporary tracefs instance
-on my Ubuntu machine, running kernel 7.0.0-38-generic, with recording
-disabled. I checked both event filters and histogram action filters.
-The original helper collapsed repeated spaces and expanded a literal *
-into filenames. With the fix, the strings were preserved. Ordinary
-string and numeric filters worked in both versions.
+ drivers/net/wireless/ath/ath11k/mac.c | 38 ++++++++++++-----------------------
+ 1 file changed, 13 insertions(+), 25 deletions(-)
 
- tools/bootconfig/scripts/bconf2ftrace.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/bootconfig/scripts/bconf2ftrace.sh b/tools/bootconfig/scripts/bconf2ftrace.sh
-index 7745c97e7abd..ea7b17d0d4d7 100755
---- a/tools/bootconfig/scripts/bconf2ftrace.sh
-+++ b/tools/bootconfig/scripts/bconf2ftrace.sh
-@@ -41,7 +41,7 @@ fi
- run_cmd() { # command
- 	echo "$*"
- 	if [ x"$APPLY" != x ]; then # apply command
--		eval $*
-+		eval "$*"
- 	fi
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index af01ef1cf4c9..62c3a6a7cd20 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -5556,7 +5556,7 @@ static int ath11k_mac_op_conf_tx(struct ieee80211_hw *hw,
  }
  
+ static struct ieee80211_sta_ht_cap
+-ath11k_create_ht_cap(struct ath11k *ar, u32 ar_ht_cap, u32 rate_cap_rx_chainmask)
++ath11k_create_ht_cap(struct ath11k *ar, u32 ar_ht_cap)
+ {
+ 	int i;
+ 	struct ieee80211_sta_ht_cap ht_cap = {};
+@@ -5611,10 +5611,9 @@ ath11k_create_ht_cap(struct ath11k *ar, u32 ar_ht_cap, u32 rate_cap_rx_chainmask
+ 	if (ar_vht_cap & WMI_VHT_CAP_MAX_MPDU_LEN_MASK)
+ 		ht_cap.cap |= IEEE80211_HT_CAP_MAX_AMSDU;
+ 
+-	for (i = 0; i < ar->num_rx_chains; i++) {
+-		if (rate_cap_rx_chainmask & BIT(i))
+-			ht_cap.mcs.rx_mask[i] = 0xFF;
+-	}
++	/* a stream for every chain, whichever chains the chainmask names */
++	for (i = 0; i < ar->num_rx_chains; i++)
++		ht_cap.mcs.rx_mask[i] = 0xFF;
+ 
+ 	ht_cap.mcs.tx_params |= IEEE80211_HT_MCS_TX_DEFINED;
+ 
+@@ -5723,8 +5722,7 @@ static void ath11k_set_vht_txbf_cap(struct ath11k *ar, u32 *vht_cap)
+ }
+ 
+ static struct ieee80211_sta_vht_cap
+-ath11k_create_vht_cap(struct ath11k *ar, u32 rate_cap_tx_chainmask,
+-		      u32 rate_cap_rx_chainmask)
++ath11k_create_vht_cap(struct ath11k *ar)
+ {
+ 	struct ieee80211_sta_vht_cap vht_cap = {};
+ 	u16 txmcs_map, rxmcs_map;
+@@ -5742,18 +5740,18 @@ ath11k_create_vht_cap(struct ath11k *ar, u32 rate_cap_tx_chainmask,
+ 	rxmcs_map = 0;
+ 	txmcs_map = 0;
+ 	for (i = 0; i < 8; i++) {
+-		if (i < ar->num_tx_chains && rate_cap_tx_chainmask & BIT(i))
++		if (i < ar->num_tx_chains)
+ 			txmcs_map |= IEEE80211_VHT_MCS_SUPPORT_0_9 << (i * 2);
+ 		else
+ 			txmcs_map |= IEEE80211_VHT_MCS_NOT_SUPPORTED << (i * 2);
+ 
+-		if (i < ar->num_rx_chains && rate_cap_rx_chainmask & BIT(i))
++		if (i < ar->num_rx_chains)
+ 			rxmcs_map |= IEEE80211_VHT_MCS_SUPPORT_0_9 << (i * 2);
+ 		else
+ 			rxmcs_map |= IEEE80211_VHT_MCS_NOT_SUPPORTED << (i * 2);
+ 	}
+ 
+-	if (rate_cap_tx_chainmask <= 1)
++	if (ar->num_tx_chains <= 1)
+ 		vht_cap.cap &= ~IEEE80211_VHT_CAP_TXSTBC;
+ 
+ 	vht_cap.vht_mcs.rx_mcs_map = cpu_to_le16(rxmcs_map);
+@@ -5767,20 +5765,14 @@ static void ath11k_mac_setup_ht_vht_cap(struct ath11k *ar,
+ 					u32 *ht_cap_info)
+ {
+ 	struct ieee80211_supported_band *band;
+-	u32 rate_cap_tx_chainmask;
+-	u32 rate_cap_rx_chainmask;
+ 	u32 ht_cap;
+ 
+-	rate_cap_tx_chainmask = ar->cfg_tx_chainmask >> cap->tx_chain_mask_shift;
+-	rate_cap_rx_chainmask = ar->cfg_rx_chainmask >> cap->rx_chain_mask_shift;
+-
+ 	if (cap->supported_bands & WMI_HOST_WLAN_2G_CAP) {
+ 		band = &ar->mac.sbands[NL80211_BAND_2GHZ];
+ 		ht_cap = cap->band[NL80211_BAND_2GHZ].ht_cap_info;
+ 		if (ht_cap_info)
+ 			*ht_cap_info = ht_cap;
+-		band->ht_cap = ath11k_create_ht_cap(ar, ht_cap,
+-						    rate_cap_rx_chainmask);
++		band->ht_cap = ath11k_create_ht_cap(ar, ht_cap);
+ 	}
+ 
+ 	/* A 6 GHz capable radio may cover 5 GHz as well, as a QCN9074 does:
+@@ -5793,10 +5785,8 @@ static void ath11k_mac_setup_ht_vht_cap(struct ath11k *ar,
+ 		ht_cap = cap->band[NL80211_BAND_5GHZ].ht_cap_info;
+ 		if (ht_cap_info)
+ 			*ht_cap_info = ht_cap;
+-		band->ht_cap = ath11k_create_ht_cap(ar, ht_cap,
+-						    rate_cap_rx_chainmask);
+-		band->vht_cap = ath11k_create_vht_cap(ar, rate_cap_tx_chainmask,
+-						      rate_cap_rx_chainmask);
++		band->ht_cap = ath11k_create_ht_cap(ar, ht_cap);
++		band->vht_cap = ath11k_create_vht_cap(ar);
+ 	}
+ }
+ 
+@@ -5949,14 +5939,12 @@ static void ath11k_mac_set_hemcsmap(struct ath11k *ar,
+ 	rxmcs_map = 0;
+ 	txmcs_map = 0;
+ 	for (i = 0; i < 8; i++) {
+-		if (i < ar->num_tx_chains &&
+-		    (ar->cfg_tx_chainmask >> cap->tx_chain_mask_shift) & BIT(i))
++		if (i < ar->num_tx_chains)
+ 			txmcs_map |= IEEE80211_HE_MCS_SUPPORT_0_11 << (i * 2);
+ 		else
+ 			txmcs_map |= IEEE80211_HE_MCS_NOT_SUPPORTED << (i * 2);
+ 
+-		if (i < ar->num_rx_chains &&
+-		    (ar->cfg_rx_chainmask >> cap->tx_chain_mask_shift) & BIT(i))
++		if (i < ar->num_rx_chains)
+ 			rxmcs_map |= IEEE80211_HE_MCS_SUPPORT_0_11 << (i * 2);
+ 		else
+ 			rxmcs_map |= IEEE80211_HE_MCS_NOT_SUPPORTED << (i * 2);
+
 -- 
-2.53.0
+2.43.0
+
 
