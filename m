@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188888;
-	b=qVJTr7Lff1Se3N6Vlz4uTh0TqT95rHQuXV/dTHkxJ3rDlNJGFglZxkGkIRYj2EiEJ2Xx
-	 Fjha8PoQ/kBugDtvntn+vyJIgBMqnB8x9xmq5DlcGudwgNL3pWevQPUnTaTS9II2c4lqo
-	 F684spTG+6QkzPU2jBq0YGUTTMt2YT3VSGQ7QYxSPRnjPOT3vVJw9W4YtoeS/yUjZhN+R
-	 0l9FwSBxsNifWjI9HJQpmN9R4ASJkpquRVfFrFb2VFuFz9OB2oTghg9K4aL90Y2Fu2VBk
-	 nnhmVx5ExNXuzby28BuMZ73XbvlymJqNaxmToVDeWhdbIPt+7zU7ncGIP3XxBIAkFdg==
+	t=1793188864;
+	b=v3LXaGfgCg1Emfq1l27+e35r/TzfeTukLPsluEcEPMbkrhrmqfk+b0pEWOuaO93G3ftv
+	 6oKLjyHLdtcwz7fiicITi5U5qW4ZIijpXrl+801iE6yymb770FAN3QUJrSBj3bdOhggEr
+	 lr7mRMI1CUxhn475rQuY4SadmVuzQof4ZOvaOI2x5KJc7P5MhynmwI5jGAK3hPMJp6Km7
+	 gjuBVO4NS0e+rtxIMLsMW8r7zGs8LEaGnczix5T5X51VWSLKcmaxdZHEipPaUEjX/Hu46
+	 wk0o9SjuuiSQ9W1PZ5n0xvWUdgR0rXb+RGWZfVCKdp/NOM+jBIsAlEikUyADJa6Lx9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188864;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3FMP9N5qxp2Dx+DZWbFS4IIf2RBtBdVEHLLPzTwmg4w=;
-	b=zp5Ai4WjKTQRExAWgPIwNaDJRkv3OjcCStXnML49v/FVc4Y8pq/XvEL3Fxe8vZiFPmRB
-	 i0NB02EZKVY0BJ+arbmqTnlXWu79v6TgaMCnVY87u7s69AgHPA6uVusEZFc/17g5T5Qnw
-	 upV1ic5GBNNiuuoVtYt7PER5ARkmiXkhz0Uyd9IEJ1zs4T2uw7SP8BcuOt0JlzDqVZuMV
-	 m3QorbOUTK56Hyun7RpKn4zky/Sn4Qb/ETbdanM64T+K3m0AAlWhbysy5496NfXtBG8Jf
-	 zm1GpEEcbNUeg0RAkxRR28mitWES5KPvcr1Gcp1LdCyzzyTW9XclCTkXrys+dy239zQ==
+	bh=Jk9ja6pFw9H/pCHElM4lvoPR4YQqjz4WLvOdv5tiqaQ=;
+	b=J7zDXrjTKJyrYQ9NHuUxe6W2w9bNlFC3+MwN9WE0f91PoiynV93Gt3uTa475+T/fruwl
+	 GnCbwr8+HOxMJZrDGuYaq57d61TK1twUBz4Axzrm4yObL/qf2YCoJiWb5PdBGzn7u88yg
+	 h7yUtqtP7nJ5l00r4IVdWM6e8ncKqkFV2XZlG7WLgIEeNPx+g8JzoZpE8eG8kwThq3/2P
+	 SpYB3VXeD6jW95lj+RfW/9QFstewPJuj//fXPg01XEFJPj2RD7y3U8hYTYYJWUT18ffOy
+	 NxiBvj6CmMCpFMqFVet2QC/fSkdk9kGo8s7W0mo4wsCBpPf9f74qZooMjtnqdsnvGtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFBprhih;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlIlvS+n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AB460A261A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087A560A2607;
+	Wed, 28 Oct 2026 12:01:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFBprhih
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0681F031E3;
-	Wed, 28 Oct 2026 12:01:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlIlvS+n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101701F031E1;
+	Wed, 28 Oct 2026 12:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188887;
-	bh=3FMP9N5qxp2Dx+DZWbFS4IIf2RBtBdVEHLLPzTwmg4w=;
+	s=k20260515; t=1793188863;
+	bh=Jk9ja6pFw9H/pCHElM4lvoPR4YQqjz4WLvOdv5tiqaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WFBprhihVMmJrS+RFx2Xj9jfyV4lf1NZdzhQsMKTKml/va0xd/+Jzgd2GytCTSKEk
-	 BgghE+UUD/HaUDZYHjv0o44MU66cGDHZM9zIB2rBnYHtu83UWt1BHs4Loh6SjAVanX
-	 jBAepXAzI4JjC5h8bseEcQ8jPvdkr2YdnM7UCF/OzEYN2dMGCNBXiTFhsq9QoE0X+f
-	 qaQ/3vk289GnlGDXconKSrfw8kIQrcLJYCYP1+itHlyUEixPKvGvIl6w3xgXvWA5Xr
-	 8K/6zuVU1/h+6W0Ak6bmzricNeqUgalMDZ3cj4PuV9f19L/Y/6m4B3+U4deeDvnle4
-	 1DOWgqurfi9ow==
+	b=GlIlvS+nCmTyRK81bC41UjhM9uVuS8DejAY6k/QTqC7ezPRmPda3WlizVtl7f0zjq
+	 HHqQO1uION0a2cc616A+VJfdfvvUzpXqP8kazgMtKsnGxOTT2abo0NcwwSa0ACcEGN
+	 otHXu46M62u+FAJNzoZjs8L/qqs8sLFysVcbG1WcTtrC5TUPv2YAwwvlsvUO/YwWuQ
+	 RCojZfieOsFTHc9AN9XHvdADkENP9zH2AebOPaKEqwX7lRhAx2EhTjhfsYgORADFmi
+	 QPTQSQuecHXCvjD4nOQpUvBYgai4ycG5bacRpjqbaeXrGiSQI9RIAd9eWhJs0H1zWn
+	 tZmoJCgzR/TxA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
 	Chuck Wolber <chuck@wolber.net>,
-	Frantisek Hrbata <fhrbata@redhat.com>,
+	Ian Rogers <irogers@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	linux-perf-users@vger.kernel.org,
 	Marco Elver <elver@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Namhyung Kim <namhyung@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@kernel.org>
-Subject: [RFC PATCH 17/20] gcov: fix gcov_info_add() merge semantics for IOR counters
-Date: Wed, 28 Oct 2026 07:59:41 -0400
-Message-ID: <20261028120034.871983-18-sashal@kernel.org>
+Subject: [RFC PATCH 07/20] perf: Always inline the empty perf_lopwr_cb() stub
+Date: Wed, 28 Oct 2026 07:59:31 -0400
+Message-ID: <20261028120034.871983-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028120034.871983-1-sashal@kernel.org>
 References: <20261028120034.871983-1-sashal@kernel.org>
@@ -66,73 +73,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gcov_info_add() unconditionally uses += to merge all counter types.
-This is wrong for counters that use IOR merge semantics (bitwise OR),
-such as GCOV_COUNTER_IOR and GCC 14's GCOV_COUNTER_CONDS (MC/DC
-condition coverage). These counters store bitsets that must be merged
-with |=, not accumulated with +=.
+perf_lopwr_cb() is called from the noinstr acpi_idle_do_entry(). The
+x86 implementation is __always_inline, but the empty fallback is a
+plain static inline function, which the compiler won't inline into
+noinstr code when building with code coverage instrumentation:
 
-Detect IOR merge semantics by comparing the merge function pointer
-against __gcov_merge_ior, matching how GCC's own libgcov identifies
-merge semantics. This fixes the pre-existing bug for GCOV_COUNTER_IOR
-and also enables correct merging for MC/DC condition coverage data.
+  vmlinux.o: warning: objtool: acpi_idle_do_entry+0x4: call to perf_lopwr_cb() leaves .noinstr.text section
 
-Fixes: 5f41ea0386a5 ("gcov: add support for gcc 4.7 gcov format")
+Make the stub __always_inline as well.
+
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/coverage/gcov/gcc_4_7.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ include/linux/perf_event.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/coverage/gcov/gcc_4_7.c b/kernel/coverage/gcov/gcc_4_7.c
-index 8fa22ababd943..923cfb34966b2 100644
---- a/kernel/coverage/gcov/gcc_4_7.c
-+++ b/kernel/coverage/gcov/gcc_4_7.c
-@@ -18,6 +18,8 @@
- #include <linux/mm.h>
- #include "gcov.h"
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index eb3f7bab498ca..dcda92526b78c 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -2137,7 +2137,7 @@ typedef int (perf_snapshot_branch_stack_t)(struct perf_branch_entry *entries,
+ DECLARE_STATIC_CALL(perf_snapshot_branch_stack, perf_snapshot_branch_stack_t);
  
-+extern void __gcov_merge_ior(gcov_type *, unsigned int);
-+
- #if (__GNUC__ >= 15)
- #define GCOV_COUNTERS			10
- #elif (__GNUC__ >= 14)
-@@ -187,6 +189,15 @@ static int counter_active(struct gcov_info *info, unsigned int type)
- 	return info->merge[type] ? 1 : 0;
- }
- 
-+/*
-+ * Determine whether a counter uses IOR merge semantics (bitwise OR of
-+ * bitsets). Used for condition coverage (MC/DC) and other IOR-based counters.
-+ */
-+static bool counter_is_ior(struct gcov_info *info, unsigned int type)
-+{
-+	return info->merge[type] == __gcov_merge_ior;
-+}
-+
- /* Determine number of active counters. Based on gcc magic. */
- static unsigned int num_counter_active(struct gcov_info *info)
+ #ifndef PERF_NEEDS_LOPWR_CB
+-static inline void perf_lopwr_cb(bool mode)
++static __always_inline void perf_lopwr_cb(bool mode)
  {
-@@ -259,9 +270,17 @@ void gcov_info_add(struct gcov_info *dst, struct gcov_info *src)
- 			if (!counter_active(src, ct_idx))
- 				continue;
- 
--			for (val_idx = 0; val_idx < sci_ptr->num; val_idx++)
--				dci_ptr->values[val_idx] +=
--					sci_ptr->values[val_idx];
-+			if (counter_is_ior(src, ct_idx)) {
-+				for (val_idx = 0; val_idx < sci_ptr->num;
-+				     val_idx++)
-+					dci_ptr->values[val_idx] |=
-+						sci_ptr->values[val_idx];
-+			} else {
-+				for (val_idx = 0; val_idx < sci_ptr->num;
-+				     val_idx++)
-+					dci_ptr->values[val_idx] +=
-+						sci_ptr->values[val_idx];
-+			}
- 
- 			dci_ptr++;
- 			sci_ptr++;
+ }
+ #endif
 -- 
 2.53.0
 
