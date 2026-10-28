@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205494;
-	b=MSCX90Oq2IW9IeON4x4wjF0xwHLjb1I+zzVY7ljHuM267Zm0rQDHFwTGVnrT/BsqeCyf
-	 AApckHJH4SZzdnHpiuIcpJ99G0dVaqmjSxJxpS1xoZPIn+hV4NITxuKe4A0vgGkEDQBob
-	 SoT6f1uCTb1neCHAjCxAilRlF95tQVAWwR38juYPcAlWJ+0j37Yq6DIwqYWnYS/Amh/Ba
-	 ubHp2bI2TuwnQIhnefM5h/vf0RgzgCzdAkis9g979vimTe7ASgZ4Gn2mSM25+R7PD+Gwq
-	 u4EhYU42XaBm9tJq0IWjfQd8Aoufi9a0ffoRgGxcNXzfyD7RkylM0WLLoNrhblKErQQ==
+	t=1793205499;
+	b=s6UmNm7oBxdXYC/lso1A2KQOK51g4oCzRkbcgW9yK6jhaAeNvnVuTyBa9Do7POFuwVCg
+	 CoiPMewXQU5uaeiJwvV6/OdB0Hj0QtqEEgHCUje6wQc9niTzNRcpEneTOijk9nmzWg4dh
+	 FV+xDzeO3pSXdG6tONkkXqDjVpQgPUFx0GSqqNQaCk7Ew1TOvaSAd4fJr6+CVBuqBKTfs
+	 vUMXeIxPDfubFm/rt5XP4Xrwv40tnm9GNojR/A5Yg5dXKPkHjUzlK76KBd097Nv9ep9Bh
+	 83TsL5627v/mmz10iNOlCHTEc5YplDgLRCUjjkopC2aRXZOiHh+F10fUlJcgFLngnMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205499;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=k45btPpoPPAfXP+T8H453Z0s1Gx2waUlVpnJY+SlxMw=;
-	b=Uo50O2rQw6MjPyCNLBYwEf1uhK5KLo/88e6djJz2JWcLTyZAWOgbdrKWz9Q36kZySOeF
-	 Ab34ODM8d2Uwfr/X06KoLtou+TlhW9Jdjlt6LdR8AR3I9nzPNNqigSakXqe7w10txsIDl
-	 pJM4qEbIHUnP5YoEfaF4jMp+MbsmG2veuEYZv4EYcOTxUqGD2MZllSupm63Os6q5YpHVs
-	 Vlf7DIHrdb+96NfZVhGop5w4JdSj9fBhATyChc/QGeKSkHD+GLVCwZnAgLafj6FmJ4huX
-	 ups6quJ2bmWcCctI30F4/HGpA5WNE/LfsdphU8cUn8SKnnmqQPVJLOfwTPm8PdJZl9Q==
+	bh=q/yPObRt5zVBAII9+ZZTUNXsR06tsFo0w7KfsGM1A88=;
+	b=swhmoqQ+eKtAGJKuU0webHGe1L+ugo3+Y4krpEiYKwzqkkMDgYxbdQVqSNerp2KzAZep
+	 dJ3Dkzy3qDIkoRg9pID5cwuJpT9g7SFU3OBXtmSUBOggzpeSpgTShD2Ovl30RHWHzOHBU
+	 ptSQuBuMHvEZi76X1EfyPb3UHKRXr5O1NNyLgWsWZPji+Cuc4dpNy3lO2/dI6N3QOqRm6
+	 G3fpST+32KhOJzrQROJlhTf7WYNr4KCKkbT8YXNcFjCGNvwNcufHXtpTCbBBAaBVxNME1
+	 vjmA/ZJdR63usPN21EnpiQCOAxwwf6eE8ueigfCKZrM/A6HwAAwjgE2L4T7X/hWaFYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fokztu5J;
-	arc=none smtp.remote-ip=95.215.58.89
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UQlbGC7Y;
+	arc=none smtp.remote-ip=95.215.58.96
+Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E12606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9E12606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A81D606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A81D606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fokztu5J
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UQlbGC7Y
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3cURYU/aPwB24MzaGvmD0/Fj4ugDjHSMtf1DfSpb7k8=;
+DKIM-Signature: a=rsa-sha256; bh=320+BugzpC8voU+V1P5P2T6+2q3QIeNzL936J/xqo3k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205491; v=1; x=1793810291;
- b=fokztu5JOc/IINlk2ijilmmGNep5adRAmseemb2OveMtNed9PQFecMdrcQ2EpgcwiafRsaif
- grZufJd5OM+PQCbCb5Dulk67x1CcjB5xLz505ETK8PO4iugz5Z1KH+F6SZLeqlsrfnyWQHA9rab
- ttdkQX0QPHHAk6rWmDm4tEtM=
+ t=1793205496; v=1; x=1793810296;
+ b=UQlbGC7YfK68m611rqlIPH1AnvQCZocm4hPJc3/N8no2ltbQzuEfN2HwPRqH1/pP27u7YMsn
+ 5Cc7xMP6cD9bGI/mI2y1wvk3F+qFmFTeRJ19ytRaY2siZo8IQ0h7ulaDhQCL4Fwb4KFUk1KhjUn
+ PME4FRp+c6lrwEnw5JiLsxlo=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 84313478321dd2a5;
-	Wed, 28 Oct 2026 16:38:11 +0000
-X-Mizu-Trace-ID: 84313478321dd2a5
+Received: by mta11.migadu.com with ESMTPS id f3ecffc990eefc09;
+	Wed, 28 Oct 2026 16:38:16 +0000
+X-Mizu-Trace-ID: f3ecffc990eefc09
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Joel Granados <joel.granados@kernel.org>
 Cc: Wen Yang <wen.yang@linux.dev>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 28/39] net: refresh fragment and remaining dynamic sysctl bounds
-Date: Thu, 29 Oct 2026 00:35:07 +0800
-Message-Id: <7f73097867aefe32de84aa588eb4f20866fb431c.1793204511.git.wen.yang@linux.dev>
+Subject: [RFC PATCH 29/39] neighbour: derive sysctl ownership independently of bounds
+Date: Thu, 29 Oct 2026 00:35:08 +0800
+Message-Id: <f3291a063bfa2506f6597c2e626303821148f423.1793204511.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
 References: <cover.1793204511.git.wen.yang@linux.dev>
@@ -71,316 +71,237 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Refresh fragment sibling thresholds and use numeric Phonet bounds.
+Derive neighbour parameters from backing storage instead of extra pointers.
 
 Suggested-by: Joel Granados <joel.granados@kernel.org>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- net/ieee802154/6lowpan/reassembly.c     | 27 +++++++++++++++++----
- net/ipv4/ip_fragment.c                  | 31 +++++++++++++++++++------
- net/ipv6/netfilter/nf_conntrack_reasm.c | 27 +++++++++++++++++----
- net/ipv6/reassembly.c                   | 27 +++++++++++++++++----
- net/phonet/sysctl.c                     |  6 ++---
- 5 files changed, 92 insertions(+), 26 deletions(-)
+ include/net/neighbour.h |   3 ++
+ net/core/neighbour.c    | 101 ++++++++++++++++++++++++----------------
+ 2 files changed, 64 insertions(+), 40 deletions(-)
 
-diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
-index a2167f76ecc3..00b328378d19 100644
---- a/net/ieee802154/6lowpan/reassembly.c
-+++ b/net/ieee802154/6lowpan/reassembly.c
-@@ -10,7 +10,6 @@
- #define pr_fmt(fmt) "6LoWPAN: " fmt
+diff --git a/include/net/neighbour.h b/include/net/neighbour.h
+index 79a5a548a129..316e34e97fcc 100644
+--- a/include/net/neighbour.h
++++ b/include/net/neighbour.h
+@@ -420,6 +420,9 @@ void *neigh_seq_start(struct seq_file *, loff_t *, struct neigh_table *,
+ void *neigh_seq_next(struct seq_file *, void *, loff_t *);
+ void neigh_seq_stop(struct seq_file *, void *);
  
- #include <linux/net.h>
--#include <linux/limits.h>
- #include <linux/list.h>
- #include <linux/netdevice.h>
- #include <linux/random.h>
-@@ -327,12 +326,32 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
++/* For neighbour parameter entries, whose data points into parms->data. */
++struct neigh_parms *neigh_sysctl_parms(const struct ctl_table *ctl);
++
+ int neigh_proc_dointvec(const struct ctl_table *ctl, int write,
+ 			void *buffer, size_t *lenp, loff_t *ppos);
+ int neigh_proc_dointvec_jiffies(const struct ctl_table *ctl, int write,
+diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+index d6e9c7c59a89..ab2559500134 100644
+--- a/net/core/neighbour.c
++++ b/net/core/neighbour.c
+@@ -3627,16 +3627,14 @@ void neigh_app_ns(struct neighbour *n)
+ }
  
  #ifdef CONFIG_SYSCTL
+-static int unres_qlen_max = INT_MAX / SKB_TRUESIZE(ETH_FRAME_LEN);
+-
+ static int proc_unres_qlen(const struct ctl_table *ctl, int write,
+ 			   void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	int size, ret;
+ 	struct ctl_table tmp = *ctl;
  
-+static int lowpan_frags_high_thresh_handler(const struct ctl_table *table,
-+					    int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, high_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = READ_ONCE(fqdir->low_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
-+static int lowpan_frags_low_thresh_handler(const struct ctl_table *table,
-+					   int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, low_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.max = READ_ONCE(fqdir->high_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
- static struct ctl_table lowpan_frags_ns_ctl_table[] = {
- 	{
- 		.procname	= "6lowpanfrag_high_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= lowpan_frags_high_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -340,7 +359,7 @@ static struct ctl_table lowpan_frags_ns_ctl_table[] = {
- 		.procname	= "6lowpanfrag_low_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= lowpan_frags_low_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -385,9 +404,7 @@ static int __net_init lowpan_frags_ns_sysctl_register(struct net *net)
+-	tmp.extra1 = SYSCTL_ZERO;
+-	tmp.extra2 = &unres_qlen_max;
++	tmp.min = 0;
++	tmp.max = INT_MAX / SKB_TRUESIZE(ETH_FRAME_LEN);
+ 	tmp.data = &size;
+ 
+ 	size = *(int *)ctl->data / SKB_TRUESIZE(ETH_FRAME_LEN);
+@@ -3666,8 +3664,8 @@ static void neigh_copy_dflt_parms(struct net *net, struct neigh_parms *p,
+ 
+ static void neigh_proc_update(const struct ctl_table *ctl, int write)
+ {
+-	struct net_device *dev = ctl->extra1;
+-	struct neigh_parms *p = ctl->extra2;
++	struct neigh_parms *p = neigh_sysctl_parms(ctl);
++	struct net_device *dev = p->dev;
+ 	struct net *net = neigh_parms_net(p);
+ 	int index = (int *) ctl->data - p->data;
+ 
+@@ -3688,8 +3686,8 @@ static int neigh_proc_dointvec_zero_intmax(const struct ctl_table *ctl, int writ
+ 	struct ctl_table tmp = *ctl;
+ 	int ret;
+ 
+-	tmp.extra1 = SYSCTL_ZERO;
+-	tmp.extra2 = SYSCTL_INT_MAX;
++	tmp.min = 0;
++	tmp.max = INT_MAX;
+ 
+ 	ret = proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
+ 	neigh_proc_update(ctl, write);
+@@ -3700,13 +3698,10 @@ static int neigh_proc_dointvec_ms_jiffies_positive(const struct ctl_table *ctl,
+ 						   void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	struct ctl_table tmp = *ctl;
+-	int ret, min, max;
+-
+-	min = msecs_to_jiffies(NTBL_PARM_MS_MIN);
+-	max = msecs_to_jiffies(NTBL_PARM_MS_MAX);
++	int ret;
+ 
+-	tmp.extra1 = &min;
+-	tmp.extra2 = &max;
++	tmp.min = msecs_to_jiffies(NTBL_PARM_MS_MIN);
++	tmp.max = msecs_to_jiffies(NTBL_PARM_MS_MAX);
+ 
+ 	ret = proc_dointvec_ms_jiffies_minmax(&tmp, write, buffer, lenp, ppos);
+ 	neigh_proc_update(ctl, write);
+@@ -3764,7 +3759,7 @@ static int neigh_proc_base_reachable_time(const struct ctl_table *ctl, int write
+ 					  void *buffer, size_t *lenp,
+ 					  loff_t *ppos)
+ {
+-	struct neigh_parms *p = ctl->extra2;
++	struct neigh_parms *p = neigh_sysctl_parms(ctl);
+ 	int ret;
+ 
+ 	if (strcmp(ctl->procname, "base_reachable_time") == 0)
+@@ -3784,35 +3779,31 @@ static int neigh_proc_base_reachable_time(const struct ctl_table *ctl, int write
+ 	return ret;
+ }
+ 
+-#define NEIGH_PARMS_DATA_OFFSET(index)	\
+-	(&((struct neigh_parms *) 0)->data[index])
+-
+-#define NEIGH_SYSCTL_ENTRY(attr, data_attr, name, mval, proc) \
++#define NEIGH_SYSCTL_ENTRY(attr, name, mval, proc) \
+ 	[NEIGH_VAR_ ## attr] = { \
+ 		.procname	= name, \
+-		.data		= NEIGH_PARMS_DATA_OFFSET(NEIGH_VAR_ ## data_attr), \
+ 		.maxlen		= sizeof(int), \
+ 		.mode		= mval, \
+ 		.proc_handler	= proc, \
  	}
  
- 	table[0].data	= &ieee802154_lowpan->fqdir->high_thresh;
--	table[0].extra1	= &ieee802154_lowpan->fqdir->low_thresh;
- 	table[1].data	= &ieee802154_lowpan->fqdir->low_thresh;
--	table[1].extra2	= &ieee802154_lowpan->fqdir->high_thresh;
- 	table[2].data	= &ieee802154_lowpan->fqdir->timeout;
+ #define NEIGH_SYSCTL_ZERO_INTMAX_ENTRY(attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, attr, name, 0644, neigh_proc_dointvec_zero_intmax)
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_zero_intmax)
  
- 	hdr = register_net_sysctl_sz(net, "net/ieee802154/6lowpan", table,
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 75bc675e5579..c01df071240a 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -24,7 +24,6 @@
- #define pr_fmt(fmt) "IPv4: " fmt
+ #define NEIGH_SYSCTL_JIFFIES_ENTRY(attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, attr, name, 0644, neigh_proc_dointvec_jiffies)
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_jiffies)
  
- #include <linux/compiler.h>
--#include <linux/limits.h>
- #include <linux/module.h>
- #include <linux/types.h>
- #include <linux/mm.h>
-@@ -544,14 +543,33 @@ struct sk_buff *ip_check_defrag(struct net *net, struct sk_buff *skb, u32 user)
- EXPORT_SYMBOL(ip_check_defrag);
+ #define NEIGH_SYSCTL_USERHZ_JIFFIES_ENTRY(attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, attr, name, 0644, neigh_proc_dointvec_userhz_jiffies)
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_userhz_jiffies)
  
- #ifdef CONFIG_SYSCTL
--static int dist_min;
-+
-+static int ip4_frags_high_thresh_handler(const struct ctl_table *table,
-+					 int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, high_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = READ_ONCE(fqdir->low_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
-+static int ip4_frags_low_thresh_handler(const struct ctl_table *table,
-+					int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, low_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.max = READ_ONCE(fqdir->high_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
+ #define NEIGH_SYSCTL_MS_JIFFIES_POSITIVE_ENTRY(attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, attr, name, 0644, neigh_proc_dointvec_ms_jiffies_positive)
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_ms_jiffies_positive)
  
- static struct ctl_table ip4_frags_ns_ctl_table[] = {
- 	{
- 		.procname	= "ipfrag_high_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= ip4_frags_high_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -559,7 +577,7 @@ static struct ctl_table ip4_frags_ns_ctl_table[] = {
- 		.procname	= "ipfrag_low_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= ip4_frags_low_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -574,7 +592,8 @@ static struct ctl_table ip4_frags_ns_ctl_table[] = {
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
- 		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &dist_min,
-+		.min		= 0,
-+		.max		= INT_MAX,
+-#define NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(attr, data_attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, data_attr, name, 0644, neigh_proc_dointvec_ms_jiffies)
++#define NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(attr, name) \
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_ms_jiffies)
+ 
+-#define NEIGH_SYSCTL_UNRES_QLEN_REUSED_ENTRY(attr, data_attr, name) \
+-	NEIGH_SYSCTL_ENTRY(attr, data_attr, name, 0644, neigh_proc_dointvec_unres_qlen)
++#define NEIGH_SYSCTL_UNRES_QLEN_REUSED_ENTRY(attr, name) \
++	NEIGH_SYSCTL_ENTRY(attr, name, 0644, neigh_proc_dointvec_unres_qlen)
+ 
+ static struct neigh_sysctl_table {
+ 	struct ctl_table_header *sysctl_header;
+@@ -3834,9 +3825,9 @@ static struct neigh_sysctl_table {
+ 		NEIGH_SYSCTL_USERHZ_JIFFIES_ENTRY(ANYCAST_DELAY, "anycast_delay"),
+ 		NEIGH_SYSCTL_USERHZ_JIFFIES_ENTRY(PROXY_DELAY, "proxy_delay"),
+ 		NEIGH_SYSCTL_USERHZ_JIFFIES_ENTRY(LOCKTIME, "locktime"),
+-		NEIGH_SYSCTL_UNRES_QLEN_REUSED_ENTRY(QUEUE_LEN, QUEUE_LEN_BYTES, "unres_qlen"),
+-		NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(RETRANS_TIME_MS, RETRANS_TIME, "retrans_time_ms"),
+-		NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(BASE_REACHABLE_TIME_MS, BASE_REACHABLE_TIME, "base_reachable_time_ms"),
++		NEIGH_SYSCTL_UNRES_QLEN_REUSED_ENTRY(QUEUE_LEN, "unres_qlen"),
++		NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(RETRANS_TIME_MS, "retrans_time_ms"),
++		NEIGH_SYSCTL_MS_JIFFIES_REUSED_ENTRY(BASE_REACHABLE_TIME_MS, "base_reachable_time_ms"),
+ 		[NEIGH_VAR_GC_INTERVAL] = {
+ 			.procname	= "gc_interval",
+ 			.maxlen		= sizeof(int),
+@@ -3847,29 +3838,61 @@ static struct neigh_sysctl_table {
+ 			.procname	= "gc_thresh1",
+ 			.maxlen		= sizeof(int),
+ 			.mode		= 0644,
+-			.extra1		= SYSCTL_ZERO,
+-			.extra2		= SYSCTL_INT_MAX,
++			.min		= 0,
++			.max		= INT_MAX,
+ 			.proc_handler	= proc_dointvec_minmax,
+ 		},
+ 		[NEIGH_VAR_GC_THRESH2] = {
+ 			.procname	= "gc_thresh2",
+ 			.maxlen		= sizeof(int),
+ 			.mode		= 0644,
+-			.extra1		= SYSCTL_ZERO,
+-			.extra2		= SYSCTL_INT_MAX,
++			.min		= 0,
++			.max		= INT_MAX,
+ 			.proc_handler	= proc_dointvec_minmax,
+ 		},
+ 		[NEIGH_VAR_GC_THRESH3] = {
+ 			.procname	= "gc_thresh3",
+ 			.maxlen		= sizeof(int),
+ 			.mode		= 0644,
+-			.extra1		= SYSCTL_ZERO,
+-			.extra2		= SYSCTL_INT_MAX,
++			.min		= 0,
++			.max		= INT_MAX,
+ 			.proc_handler	= proc_dointvec_minmax,
+ 		},
  	},
  };
  
-@@ -603,9 +622,7 @@ static int __net_init ip4_frags_ns_ctl_register(struct net *net)
++static unsigned int neigh_sysctl_data_index(unsigned int index)
++{
++	switch (index) {
++	case NEIGH_VAR_QUEUE_LEN:
++		return NEIGH_VAR_QUEUE_LEN_BYTES;
++	case NEIGH_VAR_RETRANS_TIME_MS:
++		return NEIGH_VAR_RETRANS_TIME;
++	case NEIGH_VAR_BASE_REACHABLE_TIME_MS:
++		return NEIGH_VAR_BASE_REACHABLE_TIME;
++	default:
++		return index;
++	}
++}
++
++struct neigh_parms *neigh_sysctl_parms(const struct ctl_table *ctl)
++{
++	unsigned int i;
++
++	/* The aliases use the same storage as their non-millisecond entries.
++	 * Keep data pointing at that storage, including for ndisc handlers.
++	 */
++	for (i = 0; i < NEIGH_VAR_GC_INTERVAL; i++) {
++		if (!strcmp(ctl->procname,
++			    neigh_sysctl_template.neigh_vars[i].procname))
++			return (struct neigh_parms *)
++				((char *)ctl->data - offsetof(struct neigh_parms, data) -
++				 neigh_sysctl_data_index(i) * sizeof(int));
++	}
++	return NULL;
++}
++EXPORT_SYMBOL(neigh_sysctl_parms);
++
+ int neigh_sysctl_register(struct net_device *dev, struct neigh_parms *p,
+ 			  proc_handler *handler)
+ {
+@@ -3885,9 +3908,7 @@ int neigh_sysctl_register(struct net_device *dev, struct neigh_parms *p,
+ 		goto err;
  
+ 	for (i = 0; i < NEIGH_VAR_GC_INTERVAL; i++) {
+-		t->neigh_vars[i].data += (long) p;
+-		t->neigh_vars[i].extra1 = dev;
+-		t->neigh_vars[i].extra2 = p;
++		t->neigh_vars[i].data = &p->data[neigh_sysctl_data_index(i)];
  	}
- 	table[0].data	= &net->ipv4.fqdir->high_thresh;
--	table[0].extra1	= &net->ipv4.fqdir->low_thresh;
- 	table[1].data	= &net->ipv4.fqdir->low_thresh;
--	table[1].extra2	= &net->ipv4.fqdir->high_thresh;
- 	table[2].data	= &net->ipv4.fqdir->timeout;
- 	table[3].data	= &net->ipv4.fqdir->max_dist;
  
-diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
-index 1f3ba85f6dca..4cb69dc14b11 100644
---- a/net/ipv6/netfilter/nf_conntrack_reasm.c
-+++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
-@@ -13,7 +13,6 @@
- #define pr_fmt(fmt) "IPv6-nf: " fmt
- 
- #include <linux/errno.h>
--#include <linux/limits.h>
- #include <linux/types.h>
- #include <linux/string.h>
- #include <linux/net.h>
-@@ -44,6 +43,26 @@ static struct nft_ct_frag6_pernet *nf_frag_pernet(struct net *net)
- 
- #ifdef CONFIG_SYSCTL
- 
-+static int nf_ct_frag6_high_thresh_handler(const struct ctl_table *table,
-+					   int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, high_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = READ_ONCE(fqdir->low_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
-+static int nf_ct_frag6_low_thresh_handler(const struct ctl_table *table,
-+					  int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, low_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.max = READ_ONCE(fqdir->high_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
- static struct ctl_table nf_ct_frag6_sysctl_table[] = {
- 	{
- 		.procname	= "nf_conntrack_frag6_timeout",
-@@ -55,7 +74,7 @@ static struct ctl_table nf_ct_frag6_sysctl_table[] = {
- 		.procname	= "nf_conntrack_frag6_low_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= nf_ct_frag6_low_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -63,7 +82,7 @@ static struct ctl_table nf_ct_frag6_sysctl_table[] = {
- 		.procname	= "nf_conntrack_frag6_high_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= nf_ct_frag6_high_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -87,9 +106,7 @@ static int nf_ct_frag6_sysctl_register(struct net *net)
- 
- 	table[0].data	= &nf_frag->fqdir->timeout;
- 	table[1].data	= &nf_frag->fqdir->low_thresh;
--	table[1].extra2	= &nf_frag->fqdir->high_thresh;
- 	table[2].data	= &nf_frag->fqdir->high_thresh;
--	table[2].extra1	= &nf_frag->fqdir->low_thresh;
- 
- 	hdr = register_net_sysctl_sz(net, "net/netfilter", table,
- 				     ARRAY_SIZE(nf_ct_frag6_sysctl_table));
-diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
-index 70c845385744..99b819f0cbf5 100644
---- a/net/ipv6/reassembly.c
-+++ b/net/ipv6/reassembly.c
-@@ -26,7 +26,6 @@
- #define pr_fmt(fmt) "IPv6: " fmt
- 
- #include <linux/errno.h>
--#include <linux/limits.h>
- #include <linux/types.h>
- #include <linux/string.h>
- #include <linux/socket.h>
-@@ -422,12 +421,32 @@ static const struct inet6_protocol frag_protocol = {
- 
- #ifdef CONFIG_SYSCTL
- 
-+static int ip6_frags_high_thresh_handler(const struct ctl_table *table,
-+					 int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, high_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.min = READ_ONCE(fqdir->low_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
-+static int ip6_frags_low_thresh_handler(const struct ctl_table *table,
-+					int write, void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	struct fqdir *fqdir = container_of(table->data, struct fqdir, low_thresh);
-+	struct ctl_table tmp = *table;
-+
-+	tmp.max = READ_ONCE(fqdir->high_thresh);
-+	return proc_doulongvec_minmax(&tmp, write, buffer, lenp, ppos);
-+}
-+
- static struct ctl_table ip6_frags_ns_ctl_table[] = {
- 	{
- 		.procname	= "ip6frag_high_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= ip6_frags_high_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -435,7 +454,7 @@ static struct ctl_table ip6_frags_ns_ctl_table[] = {
- 		.procname	= "ip6frag_low_thresh",
- 		.maxlen		= sizeof(unsigned long),
- 		.mode		= 0644,
--		.proc_handler	= proc_doulongvec_minmax,
-+		.proc_handler	= ip6_frags_low_thresh_handler,
- 		.min		= 0,
- 		.max		= ULONG_MAX,
- 	},
-@@ -472,9 +491,7 @@ static int __net_init ip6_frags_ns_sysctl_register(struct net *net)
- 
- 	}
- 	table[0].data	= &net->ipv6.fqdir->high_thresh;
--	table[0].extra1	= &net->ipv6.fqdir->low_thresh;
- 	table[1].data	= &net->ipv6.fqdir->low_thresh;
--	table[1].extra2	= &net->ipv6.fqdir->high_thresh;
- 	table[2].data	= &net->ipv6.fqdir->timeout;
- 
- 	hdr = register_net_sysctl_sz(net, "net/ipv6", table,
-diff --git a/net/phonet/sysctl.c b/net/phonet/sysctl.c
-index 463a74a27d3e..fe2893b07e2a 100644
---- a/net/phonet/sysctl.c
-+++ b/net/phonet/sysctl.c
-@@ -22,8 +22,6 @@
- #define DYNAMIC_PORT_MAX	0x7f
- 
- static DEFINE_SEQLOCK(local_port_range_lock);
--static int local_port_range_min[2] = {0, 0};
--static int local_port_range_max[2] = {1023, 1023};
- static int local_port_range[2] = {DYNAMIC_PORT_MIN, DYNAMIC_PORT_MAX};
- static struct ctl_table_header *phonet_table_hrd;
- 
-@@ -57,8 +55,8 @@ static int proc_local_port_range(const struct ctl_table *table, int write,
- 		.data = &range,
- 		.maxlen = sizeof(range),
- 		.mode = table->mode,
--		.extra1 = &local_port_range_min,
--		.extra2 = &local_port_range_max,
-+		.min = 0,
-+		.max = 1023,
- 	};
- 
- 	ret = proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
+ 	neigh_vars_size = ARRAY_SIZE(t->neigh_vars);
 -- 
 2.25.1
 
