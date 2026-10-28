@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793178585;
-	b=mTksBWwk4eGvJFq6Gd1DVDBKisMxYnpxaHwrqrQQkbeh2+DUtahrwPtqp4aN3aoyyyCN
-	 ZetJ8szPHhgmmyOjmqmR+xJvKM02QaXohpFaZhYc8bdISkhMCaarjLGOUVfjH/YCZd25I
-	 Wm4pxztOq/r+JvSUzh8Miwys49gekuGatPiAFzczF31awqAZxkdLsfw04lXI6Cgsr5UWW
-	 4+I1Y4vEl5xjrJIvklmcIg6+Lc19IWU9z0UGJsdGcwQDovJQedUZ+ygqYzDvCY2mboW0c
-	 HcJ1tUu2CxfQ7ssx3sF5v5E5R5fOAU3Z1q/ROBuwhn44hTzO2qpIn23/Rw4kiB+hlkQ==
+	t=1793178599;
+	b=Q9xxfsA1Usl4SCYIgqOfYA2Cfzf8NcNvq3Tczj48Vcq7xK0vKxi9OPPKPI8/9eTYmi/p
+	 +kOkRWcJ9xprioMN4ULmhKn3LTMsmWGhaYdotwkpb3Y/jDQXOfT6Ti6uKonYbmejVsNkw
+	 yuyQYOnM5MOKHEJLSs7H5QHcT2IRWqRprGIG+Wr9acNt9b3xmkXjXh1Q3rjo/YgmRoBUw
+	 zSAQubc/DKr+caeaApJOtKpe0iTx4sIrq0W+7c5HaZDSoJnESeLcUmkZdFjL1iihrQ19E
+	 njCjbte+iF5j8WlvPyJUQ1BM8k/5BXbhtgbfnT2oVNCr1M155hnUmLE1WWgyYOgwAMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=X5gxbQQkcGFQMG1g4awPky4j5Q7AWCJEpP8DpLUAuiI=;
-	b=VMiSFPrDDXNIGe3kHE8AiRDptkSSSfc/tucXA7HImMBbzl6XeG4D1O0VYQJYr9CtA4AE
-	 0LZp+IXD3EKKJMlF+XrulAgfqFruSKk7wlK51suiDniDdMXYVjos349cm+oiAd5iUHjEN
-	 WDhIia49DUOmWowN5T+hsX0wld338SW+89Af2vTUaIlNvxdc2PSWV94p2NaK3ro4biyQG
-	 Eq+wG3kvz6Y8h7RJXgumS0TdLioMXg+TE0C5uMm4OJoXKJLtMqT+3edjjNPFkQTShePzy
-	 xr9SurVmExaDXaHVSp6ve36THWunGL7DbBuOeZbrnkhTp588fr5axoEJUNBa4W/cHWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178599;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bLZSl7G53VjRTMzaR+4ybREso2p4MLSxqwNzQhyf3As=;
+	b=nuGYCQbCmQBoRwLptFc7Du8bvY1hngiyb5bOoNHOa1kWmqoi5kCxu31zJ1iYEeo+AjGQ
+	 F6aSwAdJXcFyubpKDPX4kJePeW+Wys+k8FVCHUkRYKymOGZKekxHwzsmES2mCftKC4eBr
+	 FHqcBKX0pDLgtcYPUOzjzVRhKjT5rsXzDHfq/ugtM9QyvlaF5+SdskZ/sQuRcxdA0Tomb
+	 0be3+tuetWjeISKNbiv9AFUZF33MmmefmZS6xbf0vHZaw12XYFd025n/6i6B+8ZVqKxkt
+	 TrGMR86Z3wJ9zq91qdNb3osj71cZQdQw8FlaWtcQ0/ZP7v2E4CLCrlm0o6nSfWwIj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fQtkwQmz;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQLvv5Vy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88981606A33E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88981606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29E2606A31D;
+	Wed, 28 Oct 2026 09:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fQtkwQmz
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c434376dbebso128648066b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793178583; x=1793783383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X5gxbQQkcGFQMG1g4awPky4j5Q7AWCJEpP8DpLUAuiI=;
-        b=fQtkwQmz4GnG18Og4wEd4Yug7pBolWQgQe70w/QqgRxHbjfK90XW8FYNR56TkHekRU
-         I4eXIGDG9rmvHHivn/OPB6F80hO2ilMnzq8wUgys1AHVtxHDhNUDLwjQSVSNECRHKpWi
-         iS+tzLvu8tZLZZgXuIFnKFH9jwXKXIYAnOvBM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793178583; x=1793783383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X5gxbQQkcGFQMG1g4awPky4j5Q7AWCJEpP8DpLUAuiI=;
-        b=IarH6g7a3kOj88SoHTAdUmEUu46FO+VFOJEC1XeNXVd+wti3tRLHUssRNyvtt2GZnI
-         wSzMS9xEPY4Y3lMwjnztvXS89RALQVPmQgP3xp86ah3OiOM0hgBvNXkQj5I6y96/U+JV
-         tDutUyNvFiWwYihn2jvlsGyXQhhbOTMz9epham3kF6Q8ZepiYYnsi+afFlDAZ4OHhKj4
-         yDZEzIFiqoHb8o8c+hi0jqj1LfslvUK8M7lI3IfLUhwkMaXNzRRnuWtbrVMGKsQUMYI/
-         0bViKldV3xKrMx/pFiho0biVUKYKt/H7JIzPQDpbief8iDqpWpfORu4ORG2yCqnodrEV
-         fXWw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0V6kEfDK14zEAwuBEn8XqchNiuK+K1305oDEh5YQHQPpEVoyiQT2ibg67C12G/RtCyQY3qPbpSO1VgTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY5GBPRjhAzJ0NhYcZYkFYiTGWG1krM11Wye18g2awqG7mPV8i
-	SoKlrQBz6vSBZ7JWteF25mI0ZuYoJPRcZ6BOXJ01oAnmupGZh2mQNiASEP1iHtpKUg==
-X-Gm-Gg: AYBFou1F9I6yQn0cHusgGRg864HEGU20HItWujN0Nb4QFyMwhV9KDUEBnNk5I1vMYDB
-	YefK6kM7xrGg0CaxZ3o/v9XdMdU1+Bmua6+fH8xt96UvV9W5ozxWabi0d+Fc3ByM+JebPzqpeBd
-	Xxt2F9bUQfmn2oXKOYE7XPwmXsZjIO4yNzyU7R8iyd6/W7fi+qrlPot06MN17aJBD0CfJy76rRk
-	udvkORUirLEgaMsVp60ssi+WAQ4K2WVQIRiJb7a024IkPpyq3Idt0UHdswI4o6fRf0kw5XKVx0Y
-	wjdOHqqQaSn8XxLNPAJBjsaROlhJv0+d9ulU826ooKe5sHUrFqfH81YtH50IPVJYoVGowxXvxQ1
-	xZu8KEOMnsM7SIGv/y6ByR5NeqreM7gKdfcgBiOvZs5AmRGrHeTdKmJ9AUJB0YUvNuAQqrm5hjQ
-	KmOZ3amESR7tin4OGAbFvkgMhxKb/6Fu+HMDCdLsZldfFOx+aOOrqZY/5QSDe3Pvd30UvHlCBp4
-	fDVzftU+/gfDwYGp22MtcS/UbVe+MQOCorROoHgPOgfB+JN+yEG+Sv7hgzXjrOo2FG6QdKhhmJ4
-	o9YbQtpps3fGf8oyrsWhQijXEyRuJV7QYskjkNS3I8kyad0labjOEcipT0UmywKnHVJ8l0GC
-X-Received: by 2002:a17:906:9fce:b0:c32:465f:826d with SMTP id a640c23a62f3a-c49c63455d4mr65200366b.17.1793178582975;
-        Wed, 28 Oct 2026 02:09:42 -0700 (PDT)
-Received: from localhost (103.45.147.34.bc.googleusercontent.com. [34.147.45.103])
-        by smtp.gmail.com with UTF8SMTPSA id a640c23a62f3a-c49a530f520sm255582266b.23.2026.10.28.02.09.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 02:09:42 -0700 (PDT)
-From: Andrei Kuchynski <akuchynski@chromium.org>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Jameson Thies <jthies@google.com>,
-	Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Andrei Kuchynski <akuchynski@chromium.org>
-Subject: [PATCH v3 2/2] platform/chrome: cros_ec_typec: Reorder altmode registration
-Date: Wed, 28 Oct 2026 09:09:32 +0000
-Message-ID: <20261028090932.27053-3-akuchynski@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261028090932.27053-1-akuchynski@chromium.org>
-References: <20261028090932.27053-1-akuchynski@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQLvv5Vy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CEF1F01825;
+	Wed, 28 Oct 2026 09:09:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793178598;
+	bh=bLZSl7G53VjRTMzaR+4ybREso2p4MLSxqwNzQhyf3As=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IQLvv5VyEW9W822k4mht+xeLq3S4XizAu+yULPQZsw/IVShZGFw4v2DipYDdBsIDM
+	 ZuO9nCZm9CpX8w5ml0a91JdjeCai4IiV9QbHxDf8RJ5flGZR1CGm3IoGtSym8UApk4
+	 Csg/F36qW6LxKG3+BIRu5428gBcRYr7WkphITq9nSu15oEzQk7PBodVhHzdvwyKAsU
+	 L0DDpJRkU7kCsCA8XIudNovrwViAworRTX8BBm8mzz3lW+kK0r+b10tnjOyJB2Z4jA
+	 ml2WMykb/ecw+qvzqKMXuJLLemM/U4ijkpfsw/rwxPj03zXiSs2jn466I+8Fyr4hbl
+	 WjWlEy8zwut6w==
+Date: Wed, 28 Oct 2026 09:09:42 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 09/46] mm/rmap: handle device-exclusive entries in
+ folio_referenced_one()
+Message-ID: <auG7p94aT3SynuWy@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-9-6f74bec9a5bb@kernel.org>
+ <e32a19c4-76c4-40ba-83a4-781333af7b0a@arm.com>
+ <f5b90920-5923-45a6-be2b-f558801781c5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,60 +86,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f5b90920-5923-45a6-be2b-f558801781c5@kernel.org>
 
-By default, alternate mode priorities are set in registration order, with
-the last mode registered taking precedence. Changing the registration order
-of alternate modes prioritizes DisplayPort over Thunderbolt.
+On Wed, Oct 28, 2026 at 09:08:04AM +0100, David Hildenbrand (Arm) wrote:
+> >> -		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
+> >> +		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
+> >> +		    pte_present(pteval)) {
+> >>  			if (lru_gen_look_around(&pvmw, nr))
+> >>  				referenced++;
+> >>  		} else if (pvmw.pte) {
+> >> -			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
+> >> +			bool young = false;
+> >> +
+> >> +			/*
+> >> +			 * PFN swap PTEs, such as device-exclusive ones, that
+> >
+> > You mean "PFN softleaf PTEs"? Better expressed as "softleaf PTEs embedding a PFN" ...
+>
+> Lorenzo raised this off-list as well; I'm using the existing text we use
+> elsewhere for consistency.
+>
+> This needs a cleanup that adjusts all of them :)
 
-Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
----
- drivers/platform/chrome/cros_ec_typec.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+*like a proud dad of his softleaf name :P*
 
-diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
-index 89d29ef040879..11d9589422eeb 100644
---- a/drivers/platform/chrome/cros_ec_typec.c
-+++ b/drivers/platform/chrome/cros_ec_typec.c
-@@ -406,16 +406,10 @@ static int cros_typec_register_port_altmodes(struct cros_typec_data *typec,
- 	struct typec_altmode_desc desc;
- 	struct typec_altmode *amode;
- 
--	/* All PD capable CrOS devices are assumed to support DP altmode. */
--	memset(&desc, 0, sizeof(desc));
--	desc.svid = USB_TYPEC_DP_SID;
--	desc.mode = USB_TYPEC_DP_MODE;
--	desc.vdo = DP_PORT_VDO;
--	amode = cros_typec_register_displayport(port, &desc,
--						typec->ap_driven_altmode);
--	if (IS_ERR(amode))
--		return PTR_ERR(amode);
--	port->port_altmode[CROS_EC_ALTMODE_DP] = amode;
-+	/*
-+	 * Alternate modes registered later take precedence. Register DisplayPort
-+	 * after Thunderbolt to prioritize DisplayPort over Thunderbolt.
-+	 */
- 
- 	/*
- 	 * Register TBT compatibility alt mode. The EC will not enter the mode
-@@ -433,6 +427,17 @@ static int cros_typec_register_port_altmodes(struct cros_typec_data *typec,
- 		port->port_altmode[CROS_EC_ALTMODE_TBT] = amode;
- 	}
- 
-+	/* All PD capable CrOS devices are assumed to support DP altmode. */
-+	memset(&desc, 0, sizeof(desc));
-+	desc.svid = USB_TYPEC_DP_SID;
-+	desc.mode = USB_TYPEC_DP_MODE;
-+	desc.vdo = DP_PORT_VDO;
-+	amode = cros_typec_register_displayport(port, &desc,
-+						typec->ap_driven_altmode);
-+	if (IS_ERR(amode))
-+		return PTR_ERR(amode);
-+	port->port_altmode[CROS_EC_ALTMODE_DP] = amode;
-+
- 	port->state.alt = NULL;
- 	port->state.mode = TYPEC_STATE_USB;
- 	port->state.data = NULL;
--- 
-2.56.0.385.gac671c819a-goog
+Yeah, agreed, not a big deal, and easier for me to just do a bigger pass
+finishing off what I started :P
 
+--
+Cheers, Lorenzo
