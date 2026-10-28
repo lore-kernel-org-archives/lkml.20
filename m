@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793147222;
-	b=vZ3tMNs4lDHZtyomi2ocOCZpWFEYI0PQbymJM/I5Fj3OSDOXexcMk9WIUHrzJ2jJJxd4
-	 1YcqfiyUS5enTeGx3VZgO3gAYjNgiluZwa8Lz/H5XM5H8X6rsdM5Y92RmfkMfYUFdB+mv
-	 UJSuq5xevhN1ROGQn5fBooUFUnyMPTJnSrO1em9MoIXFI8qwtekmENkDpZNHwg3vrmRzK
-	 fM7piXlHP7uztMTjJ7/yOeHngB2nZPZWzoa2btCVafTkRMJtOFqwmocMHXJcql71xnhKw
-	 CQOJQrURJ7E5LIqIzEfRHARaHoD5X3qx5x2eK3VgQtTNtNf/cYx+Y1+sDjMjDTKOjzQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793147222;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793147231;
+	b=G8KTa8ndOg7OZtcoBE74meJlil/sjHVBzSXSFY4Xq+iOsvSPVw0BFXsho676X63npPpg
+	 Qx+m+56vEK4n7hy3WHHvYxW9nIAiN177jY+Ua6+blRtH4ayv1dtY1Gk0FXobGeYx6Mpx9
+	 tylXR0er0wnkQKW9x7xsj92jycRhGkzRg+zmfKOaKPaKGvTS8TbfcVKVScQ7NUTupU2Z3
+	 kEx1H6cXd8ZZDA4pyrqij/09NEUnzK6qxCrfqiX1oqromK5VPtvMApXQGhRbXzEwOk2+o
+	 fIGH6RrdWw2vPAUJ/04dgG9LweBdMrHJNzIKRVihebr7wbbdjDD23r9rsNp7wqOj3RA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147231;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=As6DCk5gwdp2PSifV5pr1LlxEWAa0J6A8jGIhs6cf0E=;
-	b=DL1MGpCibAYmZ8Wf9Z6Mp1J+YUbu7NV2uQ9jsX3hATV53VA9b52WaX8GcoWNY0v6gi6d
-	 fqoI6gKUUbdY9KKjk0nCS49IqurKon+ZMAP8fQpI2VHh9IbN6CSAFw/AM0LLAB5nSRS0U
-	 tgjsZKgphlC5PF2pS9sepieqy79Oef2/14jv6ZxhpuyWG2EDQeorosD1pN6vYSZHOiMLv
-	 2TcATbXeEshb7DFYR4XXCt7VkQYBJH1r5qd6X/s3NgaaDekD51lS313V9rXc/QuLmvWwu
-	 6Mt89jyeiASgBCs3RX3Z/kFX51z5NtR7cCDv+xIaYNQKGM8zzKnph4aShRjk3KPT4wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MdGXHYOI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
+	b=oMQRgzVfFnxM0NAPhvkpYBT+XXuHbXLxwQr78oEd++e1ga1PQGDsZgfqPuqivHguWFL8
+	 5Eg9yKyAq9gqIabZnj59Ue4C+35lHN3943zy4do/ruaYH5/HWH9TujxpQPqeQtaBOIhrQ
+	 CAlH1MXjBqUkXBdmDdEmaRJUyOW8BE1tMLfkVu3Quu6i3pCQCiUvGEnnmRJxVykuJ5rAp
+	 g53XsVfhDmN4BPNmXZxmB/sr3B5PjNgvZPuVZqr4ke7+1ViQCYELBYhYeG68W38P6s9LB
+	 RgZ+HvV3QPgVcZeUuOWyT4DDLJU+3VM8gl+ZhXYvDMBrjxQbC8M6NqcNpbGT7BOiJ/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lfNtr6Pi;
+	arc=none smtp.remote-ip=209.85.217.48
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED28D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:27:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED28D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC32606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:27:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AC32606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MdGXHYOI
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-843a4ca671eso235129a34.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:27:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793147221; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EHb9THUiCDX6j6H2sHhCEDky4J8uR5NX0Hstjs6E34jl1lTloQ50We4OSugw91M3op
-         RqW4OS4Qa5rx66P7GLPOcVrtE6CiA00xN8TeMTVUy6Ek3sWSGciqHwmXCTy1x0p05oIe
-         1wA9V9ooZxDBdXBmwEDwD8zhmGXzpEjrGE+QC8uWdeaXqetPKP+GxwsxDnIQFt635r8U
-         S+IPkWujjN6Q9itEx41eIc1wIx0A06c5IIWPQE51/e1cLsLrdHSvBW0LvML2a682IP3D
-         f7kzEm7IXtkQbD5TJH60pI8ox8MMPf899AUpCrgbwF3yMsivA1OpY6wLYnpMedLD+z3g
-         rXxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=As6DCk5gwdp2PSifV5pr1LlxEWAa0J6A8jGIhs6cf0E=;
-        fh=if4hwDporG/gpqJxADOt38HU5fdwSRXt2ax0IiyYWtc=;
-        b=fGIwgSIDDwuWu/NHtVnpyPtpQP+K6MUBcaLy//yxz/kmGCWf5WCH4B5l3KVqOOblZw
-         RdE5NDpDz9p56xc43gjO6mhFjt2dfrfv/b4T+biwkTSvTDVTY3g2Hg0un4j2qjUS5UU4
-         ZSmIR5jKPuEEnkm+IaSI43EYXG48hJBwIF0xWTZBziU4qYaLKtAp2iScMrtWdMaKwTI1
-         Xnl5UiGYxrfqXNZhvE/uzJykmbrBxW+HuCBT4J3B85yHcXCFLfpdUPBLDSR64sjPYWvP
-         CukDgfm6f+mpllkocp9tD09tA0jqafT5jodQY5XEx04D6LSoPDDOdhpCRdwTtzO2STHY
-         aIVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lfNtr6Pi
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7cc1cf48a39so154059137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:27:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793147221; x=1793752021; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=As6DCk5gwdp2PSifV5pr1LlxEWAa0J6A8jGIhs6cf0E=;
-        b=MdGXHYOILDckeXuAUyH/Vk4wrEtmpanm61KqhMl0MQiPrdWJh2uW6MreM5CiOpDhrC
-         vBgzTGgeKNr0fKVYpY+s+r/AsCQJ4hde/luBJ2/RF4Xrxwm0Pgw5IdE0OfNTqvQPcNuD
-         b2+BXdKw6kPMxWo+mfi/5dLQNMu/w0YROhYFyW55sEDi7TWfU4GMduhH/ovlWO5Li+Lr
-         0hbKXaiWZAIb9DbX4/lhRJS+T3TpUqnU1fw275TKcGBUGluBhVMyDWKMFcn7uCeYKRUZ
-         Iit3TdmDQ0vXDWegWNcREmk2YwR42ij/6liK7noMDxBP1CwD1RV/DB5pgvgGwvLc3blb
-         STRg==
+        d=gmail.com; s=20260707; t=1793147230; x=1793752030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
+        b=lfNtr6PiSAH1oHY9TFG7Lfa//lNYlxmMmDU6PmWLKQDnxVvzY3UUWMy36t8HTC2xKm
+         q1wDGsnVJnFiQ4a8xNHlXxFcBaVp4txTtaYEoXxuUDCmHu6XaUVi5qWpTDPTSJLXOUwS
+         VNGhguFxZmVnSp5HDKkXTR98FIc2w+kyeiQY83wVB1qQLgQU/unb3ou5RJ4QmTq4LTaQ
+         Gv8M+JTndU0V/hQ7/zJuXk1I8h4MENi3BLNVKTMsjWHJtVYWhg6qsxVpDad+gnlu7hpV
+         FAtWYn/e6h+Ab73Q+//7vMt2r0jQGaobQMNyV/cqNkDUJaEGiB1/6Oa/nKH5J2wlyxpl
+         +IKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793147221; x=1793752021;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=As6DCk5gwdp2PSifV5pr1LlxEWAa0J6A8jGIhs6cf0E=;
-        b=CVHUEZ/lZbLiB4ejw+I4RKiUpNrTCPqpL0b9KpdTbfVmUmFHZDUl1ikB2Hzq+QObY/
-         IKFhqteVDvsQqRWBZkgz+pZiMYJdDO590/XDb+ZzZO9r4pVFr09ZaawWg1UcRJUJUNW/
-         6lrnvwKuxQxKGGoPDoxXcbvhQK+fmaPCjOKKHp5SOjfiTOGndQ5ln1RHzn3bUhIbaX9z
-         Bn4r0rU52FrhA6smflUfAL/LCYvgKDnqneEWIi50p9L0/bmReHzjRCL60D6BOsRdBGJh
-         cmTG9ffA+aTRqggVo5PuGZk2bK1BjddYICg5mwIM9nY1i8u2Sp5n3STq4uq60PpMcQ2O
-         bANQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJpeoYnN/mk446z/8d+8LlS9YKy3ZgkqCOqnBCT4HG/6Qt/28k/CckHz7PILB6WJdh8LgJlZ4tsrFk8GY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwUEFsKkOLa+YdYbCBFN6b+det2rwtVPT7c7gjai/COJAS5o+s
-	CLc83rWbOTWj8fs2GAy2SPSxORe6fjiuMT6+6BzsoWvJPDqAqLVnvP89sI6hCRiu/hP3XrxC+Th
-	8BFGem9PvpgpgAotFx56S2MW1JLsz6R8VLDqJjpiz
-X-Gm-Gg: AYBFou3wrPxLUblK5A1CbVUPx7do/32EQlv1VWXE34Eiwnwwkh9dMflguM1yXaJLata
-	zqJGOaK/QMcU8il1AirZV84a365GXezls/hhhTb4IrMdC1DH7rEdZ5+nR1Lat+0ZIU2yZsPqBF4
-	mFWtkIN9B/RLlkIc5+7Y1aygCuNaGGA0xSf2AUzs/4D1Vyt2XYPtm4kUSU5ML1clelOPmgmw4Db
-	YFf9elqTVKytqwDMYobPnDd5kvJXBxXZNRzoE0p0nvE53QlVSNJtqFnx7PTj3Bvvr4NxtE4zWK5
-	ZFBA4x2/anmlw+7ZtP6zuyQMKOkfrdOqgpaAtv73a0aK3anEDjWZJlzklvJfs5exjr89I9p91eE
-	WSuudSYEefW7/G+Muozp/z/KRRlLO+XMjpmSiuUm0LnFs1C9YOsFYjSLICc76ESLwHwDcPqq682
-	/cA4SJ9UtDw52afHXJ8u4ZDHSIomHfOojiKB44bVAh80zOqDoz1ifufiStFxnvm3BzygZNkV+29
-	rGOfwBJ
-X-Received: by 2002:a05:6830:230f:b0:7fa:5c68:d053 with SMTP id
- 46e09a7af769-85ac14a8d6emr843028a34.29.1793147220374; Tue, 27 Oct 2026
- 17:27:00 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793147230; x=1793752030;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SbDo/FtxogKJkv2z+Ra3BUUKwOLYjP3PXcdhiKWABBE=;
+        b=CMgtxVOGZU4t08rx1lOMiFkwVXjpCfjJSm2WhTv80jS0ZzLbyC7LFP7oyBL3s/Cf31
+         Bm/BuqRYzzdVVFKXOc6i9geGKBda0dMoM8bfeEf0mJLz+bNIDEsjkL01zeK7fIpp4QfP
+         Ks7Iy8/0t/mZyv27SGzXISA6AJpPZ3aspRAoJAohe9poUrCOUcsP/EmNzEEy64tEQjge
+         n8Z7mf2crwuJjVG3zfP6jx/mUvbTM1tsL6Ud5/X1nCcxofqhrj9ZYhGZFyM8U//Zj9AX
+         gkYIkBa8FRvMGYhZhxtzDXD6zasRLejx5gAiWMC5H1Cj5LBpew1q57Qb3laxmb9TqwlH
+         WP1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByMOXaGRd96q2pncLFIJfkao3PhWOXG2pXu8K4N3umqpl7ejeIMo239lM9m8TrcpHzyXW0bn5IZUiq5FYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrrfpIeuVXCxhV/MrV+HgFHn0ylfuBCgnxIA1zhfSWgPXFTKIT
+	HQa3B40AxKOVtMpl+jQ8+uCT2E5OXSJUBdGymXRhoY1eEFeu7l+/Dthq
+X-Gm-Gg: AYBFou1dZX64GZWFBDb9mgpMF3lvEtie0wMdKyDvch1VaaU/lJf73HowXIJgh9EFy7S
+	+hKApGlG8b47SPl58qJSGhOM/McXy/WXqAZSfPxkd4plLKo3nQsvzpNxJTtckRMoZcKMZGnuq5M
+	4CJEuoSCdMOTrMyISm61sVxpCkwz2vnYPRYDP/movhptvr6yO/KqLs28L2lGJdtokpfgHaJdDzm
+	rIxhUKgKMOHzhh5PAdHT4tyY52hCB/x8pNTKkffU19GIO1oGw0MwqqBtaspyxlASql8Y2gTKhWu
+	oBtW1hdKsVG4HZprgiwPdVBtApvJ2+kqbvkpapjztXT/xC8WgrRKiIjaks3SG0h6r1N2nbfAeRk
+	yQRPXWPvJwlYYTsxxq5dIMKbIZPC0zbHG/GI3uYMORerbtivPJYf9yL2txqRU7o5O8gbB3xrT/P
+	am6AqC1M12SAnyILyJA//7KnsoYaDHZOtMwksTykcRQumCqqhJbcXSLAHHyRQQu7NcrOUc+8Npm
+	muEmMr11DpbxUaR5Q7B992BuIMrZ3xICofsLVca59AcHMIcW32VmDIlBgrKIZ8ePyaGz+Tb/vz1
+	zWJPMlG8rQw=
+X-Received: by 2002:a05:6102:f8b:b0:7c8:3b8c:82ba with SMTP id ada2fe7eead31-7d03a5ee504mr404653137.32.1793147230250;
+        Tue, 27 Oct 2026 17:27:10 -0700 (PDT)
+Received: from bridge.. ([2804:14d:ba6b:8339:260a:a9d6:ce02:aaa8])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3c3b00fsm4156770137.5.2026.10.27.17.27.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 17:27:09 -0700 (PDT)
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	hare@kernel.org,
+	sgogte@purestorage.com,
+	wagi@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Subject: [PATCH] nvme-tcp: fix NULL queue->ctrl dereference on reconnect
+Date: Tue, 27 Oct 2026 21:26:54 -0300
+Message-ID: <20261028002654.1077190-1-christian.aurichzm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,58 +101,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027221209.1560865-1-seanjc@google.com> <20261027221209.1560865-9-seanjc@google.com>
-In-Reply-To: <20261027221209.1560865-9-seanjc@google.com>
-From: James Houghton <jthoughton@google.com>
-Date: Tue, 27 Oct 2026 17:26:21 -0700
-X-Gm-Features: AclHuK9X9-tagkcZtNpeYN6-ZH2xFAn91vEZn2rqSYOeh808Aib4fY8cPgUneqg
-Message-ID: <CADrL8HVtDucwUSnZVb63pQPmo9YJksSTu+E9dDYgB2sLQ_N-ZQ@mail.gmail.com>
-Subject: Re: [PATCH v3 08/15] KVM: WARN and reject guest-based uaccess if VM
- is dying
-To: Sean Christopherson <seanjc@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
-	Chris Mason <mason@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 3:12=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> WARN and reject user accesses to guest memory if the associated VM is dyi=
-ng
-> even if the current address space happens to be the correct address space=
-.
-> Accessing guest memory after the last reference to the VM has been put ma=
-y
-> be "fine" from a safety perspective, but it's still a KVM bug.
->
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+Since commit 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation
+and startup"), a reconnect that gets more I/O queues than before grows
+the tag set before the new queues are allocated. queue->ctrl is only
+set by nvme_tcp_alloc_queue(), so I/O submitted in between reaches
+nvme_tcp_queue_rq() on a queue that was never allocated and
+dereferences a NULL queue->ctrl:
 
-Reviewed-by: James Houghton <jthoughton@google.com>
+  BUG: kernel NULL pointer dereference, address: 00000000000002ac
+  RIP: 0010:nvme_tcp_queue_rq+0x33/0x3b0
 
-> ---
->  include/linux/kvm_host.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-> index f3f59bdf7e18..ba8ea62b7304 100644
-> --- a/include/linux/kvm_host.h
-> +++ b/include/linux/kvm_host.h
-> @@ -1355,7 +1355,8 @@ int kvm_gfn_to_hva_cache_init(struct kvm *kvm, stru=
-ct gfn_to_hva_cache *ghc,
->
->  static __always_inline __must_check bool kvm_can_do_uaccess(struct kvm *=
-kvm)
->  {
-> -       return !WARN_ON_ONCE(current->mm !=3D kvm->mm);
-> +       return !WARN_ON_ONCE(current->mm !=3D kvm->mm ||
-> +                            !refcount_read(&kvm->users_count));
->  }
->
->  #define BUILD_KVM_COPY_USER_WRAPPER(fn, to_user, from_user)             =
-               \
-> --
-> 2.56.0.307.g5fe7bd680c-goog
->
+Add nvme_tcp_init_queue() for the queue fields that do not depend on
+the connection (ctrl, pf_cache_lock and both digests) and call it for
+every queue when allocating the controller. Such requests are then
+requeued like on any other queue that is not live.
+
+Fixes: 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation and startup")
+Suggested-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+---
+Keith suggested the helper when applying "nvme-tcp: fix request PDU
+size when header digest is enabled". Based on nvme-7.4 (9afc1b71d963)
+with that patch on top.
+
+Reproduced in QEMU with nvmet-tcp over loopback and
+CONFIG_NVME_MULTIPATH=n: connect with attr_qid_max=2, keep direct reads
+running on the CPUs that map to the new hw queues, then raise
+attr_qid_max to 4. Before the patch the host oopsed as above within two
+tries in each of three boots; after it, 8 of 8 tries went live. Digest
+I/O, the 2 to 4 queue grow and 30 resets under I/O also pass, and the
+grow and reset runs are clean with lockdep enabled.
+
+ drivers/nvme/host/tcp.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 191e5811d25e..46816a9fb2bf 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -1977,6 +1977,22 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ 	return ret;
+ }
+ 
++/*
++ * The I/O tag set is allocated, and grown on reconnect, before the queues are
++ * connected, so blk-mq can initialize requests on a queue, and dispatch to it,
++ * before nvme_tcp_alloc_queue() has run for it. Set up the fields that do not
++ * depend on the connection once, when allocating the controller.
++ */
++static void nvme_tcp_init_queue(struct nvme_tcp_ctrl *ctrl, int qid)
++{
++	struct nvme_tcp_queue *queue = &ctrl->queues[qid];
++
++	queue->ctrl = ctrl;
++	mutex_init(&queue->pf_cache_lock);
++	queue->hdr_digest = ctrl->ctrl.opts->hdr_digest;
++	queue->data_digest = ctrl->ctrl.opts->data_digest;
++}
++
+ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ 				key_serial_t pskid)
+ {
+@@ -1986,7 +2002,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ 	struct file *sock_file;
+ 
+ 	mutex_init(&queue->queue_lock);
+-	queue->ctrl = ctrl;
+ 	init_llist_head(&queue->req_list);
+ 	INIT_LIST_HEAD(&queue->send_list);
+ 	mutex_init(&queue->send_mutex);
+@@ -2079,8 +2094,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ 		}
+ 	}
+ 
+-	queue->data_digest = nctrl->opts->data_digest;
+-
+ 	rcv_pdu_size = sizeof(struct nvme_tcp_rsp_pdu) +
+ 			nvme_tcp_hdgst_len(queue);
+ 	queue->pdu = kmalloc(rcv_pdu_size, GFP_KERNEL);
+@@ -3225,16 +3238,8 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 		goto out_free_ctrl;
+ 	}
+ 
+-	/*
+-	 * The I/O tag set is allocated before the I/O queues, and initializing
+-	 * its requests already allocates the PDUs from the page frag caches of
+-	 * the queues, sized by their header digest setting, so set up the
+-	 * locks and hdr_digest here.
+-	 */
+-	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
+-		mutex_init(&ctrl->queues[i].pf_cache_lock);
+-		ctrl->queues[i].hdr_digest = opts->hdr_digest;
+-	}
++	for (i = 0; i < ctrl->ctrl.queue_count; i++)
++		nvme_tcp_init_queue(ctrl, i);
+ 
+ 	ctrl->net = get_net(current->nsproxy->net_ns);
+ 
+-- 
+2.43.0
+
