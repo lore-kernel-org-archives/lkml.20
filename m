@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179113;
-	b=embSjPC6VrACyBWN+UnLkYvmlXcCjkjy6a8/Y1z04YySQDvy5rUPFHZhl3O0A+6a/smr
-	 7ZJhDhf9P+tekmKTzoQpsWl7tSlLLcirpRExlUeW9eUO8vJ3VXrvIDrfBgnlH1JpAZPGt
-	 XqVBFoYkiAxn2Dcm9y9SEZ5YinRWk+22BRlkI78QNDijVEpomu4yhRDt1iDp0Ek+yZqKm
-	 9LlRxIxxB/XhfPlRItuvudyDRmqnsRyRTWH/W1fFb60RHup+tLdiQykyYck9nSOMCSi1v
-	 QwsQY0IsG7i+EZuws5OHdk5ajT4P6ObA9afXbxaJjhr4GOFAgTX+WQroazcx3GbMzwQ==
+	t=1793179193;
+	b=Wk0W0QhCGmkHNM5yfoktoCvbytXbrAYUJK+HmfH4e8LB3d0dsipqMq7FkC5TfZb94yOK
+	 u6bwIvX4sEsf+Dc2w+44uyyj6v651X+hmtodQzIx/OMgT9jv6sIX2FKmxAVa1h6iGnWeg
+	 nZ2uhK9XnYx+MIV88FV4c5sfmQ9EkpEPjWbTIqyTBJGkY3zZdYS2DG2JAOXyFfoudv109
+	 FLTK55P80xUtffEb4tPYFqnbcMuNybBKJ7g4NZAa2uXujZAIcM1AhyPqrnJbGlagZ6EU0
+	 XsKdjhDZlAgx1N9HoDpna8DzO9MLy6Au9mAMBIQXzPB0t7hPARQcXYU10WAhOksh1Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179113;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=l7lrYcEGz7yh1S6DURIldpkH4Iej6k+y8xqTeXsmih8=;
-	b=kzY6BWlI3wFPxnCCQwVhD06hYX+c92PlthzbTTLh2z+igCKRgEiMWViBd3CY/06opLyX
-	 5o3wRwZ1bG0i3kL0nTmmwudSlSZ+/KMdEJrw2WHiRyWUtJwzWMhbyfCH5EfFmpapaK7BU
-	 usl41dTPeHrUGPiCV9xP1pFvasU/wjrGzR9gfH1+uzXcgzOxbcpm4CcFCwOY8PkXPzTlj
-	 rFlpvLBGJeSpOP3MkPUUPVR5j0jLdRWYmxG7DE2doonJjRhfoM+GXj24wI0TaqH9rPITF
-	 T34+/1cilMN/+ZfdSweGiImacVDZEpyAQkHtwSt9FYIssWbbHitFjIZiyLMn2UO5wKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179193;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dIQYEI2EXBN3ZRTF+vP2Ww75sjtd+SHDiG1ARLFc8yU=;
+	b=sRwF/sFzLjTWxoaIEmRZgMVqiNXr4AKRpgy+R1a5fI9VhjLKdh6J3SB0fhCtKmffWsTz
+	 RjpXn60nX9xhuUyNqJrQmJRg5SLl4lkyQt4flb8edSPVIDv8BIHAKy8TObP3QKWfRKtTC
+	 xZMlonByR5rd8cyCWpT37iix/+0IZVjclygFqg8AXzazqjrCkhrknZJXqYD6Hg1K/p6Xx
+	 vbyIMh1sbc+QEaYFyXr4RKNfPRiSeIrWbfSpjusz5sb2CF1+62bYVrASWD81/SXkxFpSP
+	 vVZWyqcunILqofNT2dOWNyHsvJ8imtP/SS/uOAOE9NDNuJI7HWcsYXsTKAW+vtq56jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XM6ZOwO4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EE3606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14EE3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so1389344b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:18:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793179112; x=1793783912;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l7lrYcEGz7yh1S6DURIldpkH4Iej6k+y8xqTeXsmih8=;
-        b=fOMYYtDfjUKoWCxwoo/lDi3iDm+ybhHKd7EeRws947UPyZVua/EIuPT4xKOsiQwE64
-         e2zVp7gIzDH86YsCZax/BnAJnj5sB3nCL+QDruyzO4TpYa6hyN5fTbNF3vTrksuR0DVT
-         oTMRuX7nvN/3+zaq9obh6iEv3ViCjQywoG4fL92PHcqPopHb9BHZrnBJz3N2rLo4Xr1o
-         ZWPtyGHQPh9JGleRIIgP/uApoIOMCg5zkqW8qGuMiIJKLRvJQgeR9ZKMMkqHRNS+tzv1
-         OV9YAJQVuY/oYoaHtsQaVcjF+gY6rRnSMWwRiifzhKkPEpimb1W2+aFO0xCnhTquKqEQ
-         UqWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxxbRI+whYHwyGtblM5mDYzC8HWzpywEvhQcateSjrnuIZsN9mB4PCBsXJhuBTvEOdMd6ubC5eOnyGXc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL01SP7I6TYvHucUGwAIe4WfLPzrNB2Fsn2j0w+h+LL5FmLbSRt
-	cbqW+bzx2QNbQW2KwO2O42Cfga+E+CVXhKd+I3kOVThIYFRbrAEh0eXVAVQHyojjub9Zw0nENpc
-	6Zn9RNgpZ+XtCfCGPbyRXq1bhJHh7VWzbbOltkviDYUNEN5mKiHUT2hsAV2w=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BE7606A31A;
+	Wed, 28 Oct 2026 09:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XM6ZOwO4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A155B1F01825;
+	Wed, 28 Oct 2026 09:19:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793179193;
+	bh=dIQYEI2EXBN3ZRTF+vP2Ww75sjtd+SHDiG1ARLFc8yU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XM6ZOwO4JL0qURt+r1Tt40S78pKBud1WZEdBrmgnRYO1IHQx0nw0QpogbIOKyGmPe
+	 Km3z6nNDakO14FRuEqVD6fltowQlZ7IgPD5kjEDVcYIT1DkJWmyClJk0abCib41owt
+	 ySqTJ4L0jCS75jvustKWciug4KaYB90KVfbHVKFjON78MKKpMEI32cl6UGp/XSzUII
+	 Kt+zseF0qDmtZCYGqCVS+eiWZXxUj2/KE/n3JtTF2FAHW9dMBKdWWQ6H/zFUAAGvXn
+	 mIlgh8GMe/IxdPt8AUsOnaUV6MHtzeNJ/Fh2zHVde2ypPbt8fSQBCXfsZPFDK7ZnEF
+	 8MYy195BPQYgA==
+Date: Wed, 28 Oct 2026 09:19:46 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, jannh@google.com, 
+	liam@infradead.org, willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
+	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
+	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
+ tearing tests
+Message-ID: <auG-BfTvZo1Ejxmm@gremlin>
+References: <20261028051312.1505295-1-surenb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,117 +60,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c133:b0:55b:fcf7:61f8 with SMTP id
- 5614622812f47-56383598cfamr956832b6e.40.1793179112073; Wed, 28 Oct 2026
- 02:18:32 -0700 (PDT)
-Date: Wed, 28 Oct 2026 02:18:32 -0700
-In-Reply-To: <20261027221209.1560865-1-seanjc@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae1bde8.f0fe5aea.79aa1.00a0.GAE@google.com>
-Subject: [syzbot ci] Re: KVM: Fix+harden against bad uaccess using dying VM
-From: syzbot ci <syzbot+ci372bc25d95b65291@syzkaller.appspotmail.com>
-To: jmattson@google.com, jthoughton@google.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	maddy@linux.ibm.com, mason@kernel.org, npiggin@gmail.com, pbonzini@redhat.com, 
-	seanjc@google.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028051312.1505295-1-surenb@google.com>
 
-syzbot ci has tested the following series
+On Tue, Oct 27, 2026 at 10:13:12PM -0700, Suren Baghdasaryan wrote:
+> Pss metrics can be affected by map count even if VMA tree stays unchanged,
+> therefore test checking VMA tree integrity can't use them. Use Rss instead
+> and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
+> double-counted.
+>
+> Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tearing tests")
+> Reported-by: kernel test robot <yi1.lai@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@intel.com
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-[v3] KVM: Fix+harden against bad uaccess using dying VM
-https://lore.kernel.org/all/20261027221209.1560865-1-seanjc@google.com
-* [PATCH v3 01/15] KVM: Reject user accesses to guest memory if current->mm != kvm->mm
-* [PATCH v3 02/15] KVM: nVMX: Don't force a full nested VM-Exit when destroying a vCPU
-* [PATCH v3 03/15] KVM: PPC: Flush/zap all memslots on kvm_arch_flush_shadow_all()
-* [PATCH v3 04/15] KVM: x86: Unmap VMAs for KVM-internal memslots when the memslot is freed
-* [PATCH v3 05/15] KVM: Disallow setting memslots when the VM is being destroyed
-* [PATCH v3 06/15] KVM: Destroy memslots immediately after mmu_notifiers are unregistered
-* [PATCH v3 07/15] KVM: WARN if KVM attempts to do guest-related uaccess with "wrong" process
-* [PATCH v3 08/15] KVM: WARN and reject guest-based uaccess if VM is dying
-* [PATCH v3 09/15] KVM: Pre-check uaccesses in KVM's APIs to read/write guest memory
-* [PATCH v3 10/15] KVM: VMX: Explicility free vmcs01, not the current VMCS, in vCPU free paths
-* [PATCH v3 11/15] KVM: nVMX: Don't explicitly VMCLEAR+free() vmcs01's shadow VMCS when freeing vCPU
-* [PATCH v3 12/15] KVM: nVMX: Cancel the nested VMX Preemption Timer's hrtimer in free_nested()
-* [PATCH v3 13/15] KVM: VMX: Explicitly remove dying vCPUs from the PI wakeup list
-* [PATCH v3 14/15] KVM: nVMX: Don't switch to vmcs01 when freeing a vCPU
-* [PATCH v3 15/15] KVM: nVMX: Don't load+put the vCPU when freeing nested state for a dying vCPU
+Seems sensible, I gather in general PSS is a less than ideal measure in these
+stats anyway :)
 
-and found the following issue:
-WARNING in vt_vcpu_pi_remove_from_wakeup_list
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Full report is available here:
-https://ci.syzbot.org/series/c648fc23-f4c2-4346-93cd-b717ef38b27c
+> ---
+>  tools/testing/selftests/proc/proc-maps-race.c | 11 ++++-------
+>  1 file changed, 4 insertions(+), 7 deletions(-)
+>
+> diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
+> index bf4c5073f6fc..b6d88afb252b 100644
+> --- a/tools/testing/selftests/proc/proc-maps-race.c
+> +++ b/tools/testing/selftests/proc/proc-maps-race.c
+> @@ -528,13 +528,10 @@ static bool compare_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
+>  		struct smaps_rollup_stats *actual)
+>  {
+>  	/*
+> -	 * Clean/dirty metrics might change but Pss-related ones
+> -	 * should stay constant.
+> +	 * Clean/dirty metrics might change. Pss depends on map count and might
+> +	 * change as well. Rss should stay constant.
+>  	 */
+> -	if (cmp_smaps_rollup_stat(expected, actual, Pss) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_Anon) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_File) &&
+> -	    cmp_smaps_rollup_stat(expected, actual, Pss_Shmem))
+> +	if (cmp_smaps_rollup_stat(expected, actual, Rss))
+>  		return true;
+>
+>  	print_smaps_rollup_stats("Expected stats:", self, expected);
+> @@ -759,7 +756,7 @@ FIXTURE_SETUP(proc_maps_race)
+>
+>  		for (i = 0; i < mod_info->vma_count; i++) {
+>  			mod_info->child_mapped_addr[i] = mmap(NULL, self->page_size * 3, prot,
+> -					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +					MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
+>  			ASSERT_NE(mod_info->child_mapped_addr[i], MAP_FAILED);
+>  			/* change protection in adjacent maps to prevent merging */
+>  			prot ^= PROT_WRITE;
+>
+> base-commit: 39274b454e9993cea319f4ac342a8082a9ee1730
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
 
-***
-
-WARNING in vt_vcpu_pi_remove_from_wakeup_list
-
-tree:      kvm-next
-URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
-base:      7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/e4ed6c4f-9b58-4549-9ac6-525add47e472/config
-syz repro: https://ci.syzbot.org/findings/320f356a-c5e9-41ff-b8f5-3f0866e300b7/syz_repro
-
-------------[ cut here ]------------
-refcount_read(&vcpu->kvm->users_count)
-WARNING: arch/x86/kvm/vmx/posted_intr.c:154 at vt_vcpu_pi_remove_from_wakeup_list+0x142/0x1f0 arch/x86/kvm/vmx/posted_intr.c:154, CPU#1: syz.2.19/5870
-Modules linked in:
-CPU: 1 UID: 0 PID: 5870 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:vt_vcpu_pi_remove_from_wakeup_list+0x142/0x1f0 arch/x86/kvm/vmx/posted_intr.c:154
-Code: 48 85 db 74 2d e8 ee 1b 64 00 eb 0c e8 e7 1b 64 00 eb 05 e8 e0 1b 64 00 5b 41 5e 41 5f 5d e9 c5 b5 87 0a cc e8 cf 1b 64 00 90 <0f> 0b 90 e9 2b ff ff ff e8 c1 1b 64 00 e8 ac 60 cf ff eb da 44 89
-RSP: 0018:ffffc900037cf8c8 EFLAGS: 00010293
-RAX: ffffffff816404a1 RBX: ffff88816ada8000 RCX: ffff888110eb0000
-RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000000
-RBP: 0000000000000003 R08: ffff88810fb01f83 R09: 1ffff11021f603f0
-R10: dffffc0000000000 R11: ffffed1021f603f1 R12: dffffc0000000000
-R13: 00000000fffffff8 R14: ffff88810fb01f80 R15: dffffc0000000000
-FS:  00007f9e487ab6c0(0000) GS:ffff8882a7cbf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f07a7ed4870 CR3: 000000010eea9000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- vmx_vcpu_free+0x28/0x400 arch/x86/kvm/vmx/vmx.c:7517
- kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9556
- kvm_vm_ioctl_create_vcpu+0x76f/0x9f0 virt/kvm/kvm_main.c:4384
- kvm_vm_ioctl+0x442/0xcb0 virt/kvm/kvm_main.c:5294
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9e4799f1eb
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f9e487aaed0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f9e4799f1eb
-RDX: 0000000000000003 RSI: 000000000000ae41 RDI: 0000000000000085
-RBP: 00007f9e47a36b20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000200000c00000 R11: 0000000000000246 R12: 00000000000004ce
-R13: 0000200000c00000 R14: 0000200000001040 R15: 00007ffeb7342be8
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+--
+Cheers, Lorenzo
