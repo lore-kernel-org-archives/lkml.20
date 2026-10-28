@@ -1,124 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193153;
-	b=BdB/Z4txmtP81ygSui0bJwP8dlGbpK3J7yf3OmkDaX0b7OIvVfZ94HzyFRNrHEaF8FXj
-	 5XVJfKylarjYy++uonjEK4JTt2HNDvxW+f9j+fPdfecwJhiMW0ZHkbMb+je0Od88cHBVW
-	 ODrO8BOsC6ZZ6LiJ2m5qT5IS4/dyphzpH62yGMVtZw/WxSeXM7/v3Bo3t12Z+Iw1hYi5c
-	 8vFS/Vw/k6G2DuOk0gX7FpzeqRimYk5j5/Azg0SOR6w3IzBemROh8dqdxyeLIbP4V2wxQ
-	 il+mmgC4AtgL9g+fmd6SWCcXeRsR64UpgQAXUXF/ZRTxR4dewNlAQZClZAwIwqaCapw==
+	t=1793193198;
+	b=HN/zl7gCHCSbcQEDPKNVPikLiGvmMSSngFKgWacwB82edC1WJZ4NqTUJyiyg6Kwdyr4U
+	 WJJ+E20s1H+8OrlvUQSbJzbCMPXfDkjtTncoAYEicxVhegVDg477W7slAlHU9z4l5wW+m
+	 8zRpH3+wR24oRtXZq7mU4phNEh4Qik28av/nnhFt1h9eov4Uuf52sU3XlOKijl631SZG7
+	 OukL1cJx4xi6Af/J7WOeBnleEoJZzHi6DcSBPSvFjSdjlFtV0bhdZubnnP6fBTN4odnuH
+	 8owmkqcXa+tdUXtN7q6V6C8wuJ9jN4X2r8KvxqepLwyIK+pa1hIJ/qp+0VNyMt9590Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193153;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=mHGE9nXbxuB8GQ9t8LPv8LBGWevl1d8ukNIHXAQHhiw=;
-	b=JKl/++xRqO35QHG2g67Qd2SPxlBx535bj+Mzi1iOYXBrn7isdNbBBQMudKBUZiINOkyh
-	 pMWD7vZUL2bQmvo7uIaboClTGot3Ebhqm8Nm1xC0fKtqM3dRvT799IV/QH52A9LtZXM3e
-	 dkvUYnUSFgojC3faXYE0jZOi3cenfjqyXKRgl5tkKd1qeV4Pf959pDTOQKHFXrWFsMGxE
-	 LOVRnnV4RtO2NMOl4VXCw9knRSeapfi0o9xpA5drCtYEu1cpdirLEZTOHt/ITeuYhoJmK
-	 Knt30+IlQe+P1FcH2+X6vE3napIjBTVeIDF7s0/ZwmhY5kOhcwN4mVHIwvuBq7oP8XQ==
+	bh=dOD5XrVmD6y96EgRoiJnai2L/0L+uuMS0Loaa0UEtIU=;
+	b=yWtQu/QaM7PtAisvtA1EIhTpzz7hh4Vo533ftOYd3LX8tI3B/PLfMulbYZHo7TNUKyx0
+	 1+jbbPBC3IOTkiJJe7PkObH/+8yYxyDurq3HsFoVbFp7xLdCQy6/0se1de0IRCd919sf3
+	 a3amYu1LN8rtAfTDUUNNBfC56OP5PU6d7xZ/G1H2QdkxdgP8OzomNfn0/f1lxZ1p0CFrU
+	 A+4SI3ObuBi+aKfit/nfQjOr1TK+8/OKjrjcixaXZB3vkWea5KmJcmwvWyjeWXW8QrjAA
+	 XU1qHILQY/RQLITKKUOqRI6vo9wT+TL0mc5YmmTIS8Fjzmu9IEbwiFqdiZvW7zzKWbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fGEzUaEr;
-	arc=none smtp.remote-ip=91.218.175.17
-Received: from mta0.migadu.com (out-17.mta0.migadu.com [91.218.175.17])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLTSWpg0;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D700A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:12:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D700A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D03606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:13:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9D03606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fGEzUaEr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mHGE9nXbxuB8GQ9t8LPv8LBGWevl1d8ukNIHXAQHhiw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793193149; v=1; x=1793797949;
- b=fGEzUaEr8w61+lFUJkekZQi4IchHFI1oGuTpYnywD4uq7NYgtMIB4KLVEQTX9tu3L0+pzd7X
- uJGPjUqkyRJ7/LGJdP9Yu5YYeiFDulf+ETYGKM/YTzW7aaDU7ISl7xwUjOV6DayGav6115xQZ23
- 2+9Gu5zJq6L2EXkbbQRvZNpM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id db747fb4ed3da529;
-	Wed, 28 Oct 2026 13:12:28 +0000
-X-Mizu-Trace-ID: db747fb4ed3da529
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 11/46] mm/huge_memory: properly handle refcounted PUD mappings on fork
-Date: Wed, 28 Oct 2026 21:12:21 +0800
-Message-ID: <20261028131221.42261-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLTSWpg0
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c43fbcb4393so143678366b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793193196; x=1793797996; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dOD5XrVmD6y96EgRoiJnai2L/0L+uuMS0Loaa0UEtIU=;
+        b=TLTSWpg0QcRD6pnmJMdorrNNTPYQWxfuLalj6YWlBuppGwMYXh5fjlY86FNeDGDPhb
+         m56OgCQ/yhTZBSXXAiJSpuquO5oQMWdsxhmDpxUAv6liWDwFoUlr3HCJR0QoFE2K9cO3
+         ieYw7hr8gnwhk6LVH1UVXhlGffImDvPGbzgTcS3cuH2Qv82F5SP3CleD34rP/RM84cxQ
+         7a+4Ff9EcJTIu6DK+yWr8G2A79lfS6tr5qidoFRJ4fEXddgTWPx4GEkUhio5QWEf7FPE
+         XQJEA//9k78sH19Y085uutoB2etxx60iQWIHzg+/Bj7KlO986+4VgdoW54n0FiBaJKKi
+         uwjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793193196; x=1793797996;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dOD5XrVmD6y96EgRoiJnai2L/0L+uuMS0Loaa0UEtIU=;
+        b=XZADAxag74U/TmAtmh+BAsDXAabGreXG2ChmN0Zz/0jLOaYtJROpCyDq0YsWdqqRXf
+         7qfnkolsTqiO1GUVIwEuWUPSLWfX4HQ0Ve3hucINLDPMRWBw8BdY1JE8lIb/lr4sKhcb
+         BPVNULJAAUqD2/KCxd+xMdATYDLXApps/fqwOKQfjYB7g9PAvWURHGYkiuI7X08ht/UX
+         m4yYK+MWdiLzUwdnhKyZZHusNPq0SHGr4YTJDTy5ABW2ylxNIxajdppPVRmZoI8oqZvB
+         uXfxlXT9oPM5lw6izHn0VPMIOJQv8PfN348mb22wvX0WQU6rRMi4X8Z4Z1dazV/mMe6G
+         d85w==
+X-Forwarded-Encrypted: i=1; AKwUvBwJFAxmg19jymlcStKqMs9j9Hz6cFMa8AWWIwfxniu9hI1iE93uumqE2S6iLmJklDCkZ+RKQTptMYWfP30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnjR7675d5BsjuCsTWKAc9gmdQA/WW2vhlivl2t+GJXCRVr9Ax
+	OIkaiVbJq8ilmyLM1wu+NKr6mXEZKnKP14JMzrKqxIbnabja+VFsUvWNRNPQOZwU
+X-Gm-Gg: AYBFou2FHvYiYMarZy/1jG3V2OyRN86Vs+v7D929ETxSKkgbwRHVZH6wiBiiVsQuaDR
+	zM3ZX8D5IItto4DL32n92THLvZnWgxbHoK80uhAjXDSmE7xWwkhpS6LGR3j2N7IUHx6ZrUY4bfE
+	UZaoHQRsKguJXCMKYajuARmuEikiVHCg7XSCUX5onaGNOc95jMbLr0vP6eTIe8/wWpnB4zTX6mY
+	L/DlzQYeQas9wXfwgzILPP4YSVb6rcNfKNMaQFTx4i/82XGjY/vrCLU6ZGYG0XXPWpWH/XRWph0
+	V3YJZ4rPbjmazWRc6eoptxp81mEr/pwiArjl5k9GJHkNu09W7r9S24M3waTt2koFzNLems+VCg0
+	bHF9nhzKU/UaxTsy6Xkrl/V4Cb5uXtbd6RaaPMzjbzd6u4kYJ7LnukkR6vK6Z4ELTGu3QDM7fB0
+	sRiWPMsEnbJivW0s7AoQrz3WCren0yvaqvb0j8lCtNp88aIOvh+Wy2lFTwScRPbTKAHhnLaBtjC
+	t5ijPEU05r9sKq9S1EGmeG4fPvEQa0XErFu2JmSzScGRJcx0eQ7CXIAyO9S0KgGN5Cu7c52uXjb
+	Z2DMh2gClNzaRe/QAuixrfxB8Fzri+Oo
+X-Received: by 2002:a17:907:5c3:b0:c36:a4b4:b1ed with SMTP id a640c23a62f3a-c49bdf2b4ebmr204254166b.11.1793193196093;
+        Wed, 28 Oct 2026 06:13:16 -0700 (PDT)
+Received: from [10.0.0.21] ([188.146.170.115])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd798391sm601342666b.71.2026.10.28.06.13.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 06:13:15 -0700 (PDT)
+Message-ID: <0d584595-4479-4116-a52b-710e01f20bb3@gmail.com>
+Date: Wed, 28 Oct 2026 14:13:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,27 +92,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iio: chemical: add SGP41 driver
+To: Jonathan Cameron <jic23@kernel.org>,
+ Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Akshat Chandra <notmissinge@gmail.com>, linux-iio@vger.kernel.org,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>
+References: <20260831151235.64076-1-notmissinge@gmail.com>
+ <20260831232157.27037a5e@systembl0wer> <20260904042215.0e21cf29@jic23-huawei>
+Content-Language: en-US
+From: Lukasz Kulga <lukasz.kulga@gmail.com>
+In-Reply-To: <20260904042215.0e21cf29@jic23-huawei>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+On 9/4/26 05:22, Jonathan Cameron wrote:
+> Whilst it should be a separate patch, the route here to use
+> trivial-devices might make sense.  Only thing that might be
+> worth documenting would be vdd-supply.
+> 
+> I'm would be looking for description in the cover letter of how this
+> is different from, and not suited to extension of another drive
+> such as the sgp40 (obviously there are more channels on one than
+> the other so it isn't trivial!)
+> 
+> Jonathan
 
-On Tue, Oct 27, 2026 at 12:17:31AM +0100, David Hildenbrand (Arm) wrote:
->copy_huge_pud() copies device-DAX entries without taking a folio reference
->or updating mapcounts and the child's RSS.
->
->For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
->forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
->huge PUDs are then copied without accounting for the new mappings.
->Unmapping them in the child decrements accounting that was never added.
->
->Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
->reference and add the child's PUD rmap and RSS accounting before installing
->the copied entry. Pass src and dst VMAs consistently instead of src and
->dst MM. Move the TODO.
->
->Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
->Cc: stable@vger.kernel.org
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Hi Akshat,
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+I'd like to pick up SGP41 support, taking the approach Jonathan
+suggested above and extending the sgp40 driver rather than adding
+a separate one. I have SGP40 and SGP41 boards on the way for
+testing.
+
+Unless you already have a v2 close to ready, I plan to post a
+series in the next few weeks and will Cc you on it. Your review
+and testing would be very welcome.
+
+Thanks,
+Lukasz Kulga
