@@ -1,49 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188157;
-	b=Z04L1qeq2JtMKOtNVnLgyV17lsFQDL98dAt7gTH7HJjFFpgBd9lSYVBV4rKknKTLp5em
-	 lgjppPEOByrJhw6uFrGCcmHRX2uCoJeY0FzlUhj276Kx/69bdsm/Lpz7SEzk56PugfFaQ
-	 2Ynog+c5hjILg/Ez3xu3iA5W8SIie0916ij8dQ8EjI/l1fD7Mm6R0llJ4VwDszramym5z
-	 EatCESPF1A4kJQKXLkLVkFObKLNRsOiKnEDjFW1aLRmo4F8PMFob1sucRpgirmuPpmJz3
-	 gV1YpoZahevIv4fkLdQpX7hqOZ98Js5kixhZUvz0oHTTUlLL2oHbtiMH6tqmcugEdRg==
+	t=1793188180;
+	b=V+SDayN63C4f6eh2IZoh9O+HCIVawHdSSXmjULoNxHGf3st7AdmHaA5u5fWKbnRxZmu0
+	 EUQROUcrvHVlrh7YrBhixUdMRlwsmFWOHGOLdr0HNY0xSjPUBHxMkJpCsukE6+bL/9m9B
+	 zallJyz4Js3ZcMiqtg9kEeCaSeYOG/+ni9qXeDwmi+a38a9aNm5f1OPf7eV5wO9bzThj4
+	 z/HKtNyLhYFQ4ToRbwfXAWX0B2Qi508pBelo9UQrQJ3kOxserMB54LEvOpX8NOYxS0q+p
+	 5vYTwF34OOtPI6H1/swzarLJuXtAdlY/SUwerS01yz6O26pUqvaMMIapDPsN2yU+5bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188157;
-	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
-	 Subject:X-Priority:X-Mailer:X-Originating-IP:MIME-Version:Received:
-	 From:Date:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=HW1cRM+/8/4aOaG8BOtkLla4CpvN2SZPj37SR2pxNxg=;
-	b=mSIuy3fLJhla2le4+9l++H95W0FXXwhEAQqt1Gp1RNWzR3VvQR+71x0QAEKuTev+joxr
-	 qFJlL5m+uTd/CTjiggX13Zc717Xpx3wiS5CY++YLtZY66JFgqaf9gm0e2AlnCyXBL+x+I
-	 vY9HpbFF3VLqiWdI2ci0UhLAtAWf4I01ZFZaSW36BFwwkkluLwV8Y2hTYgIsly1aRg5er
-	 BKNGtKfsI/31STjWj+lD2ffNZ8yBAZ+1POeCuRC22KxOjj9qiNmOXkGLZKaXL4Uy1kQAs
-	 5miInEYcX4bY+EATIVY1Df/cp/GPw3N/n3Gr41UFjFCNXymdIe5KahaEV3YU8RfNz0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188180;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wUNv98EbFI1fTZW5mIt8qGC/wZtQV9k6nB12ordxF6s=;
+	b=Nb4zMsDiFkzzsChNhCouZ61xeUA5aLvSqIiUP7sLIu+0IMGDWKhgQyZN8jxnFDmG/Af0
+	 Bv2KmShjxb5931RyH+bxFih7Vnx/tUFNPLAR7otquyoEPhs1OJqc936KRRlQT6zkzAL3U
+	 OqiZZS3JCh6SOSsuD5jm8OpQwDLOqLudpCWg+S65eeHSBSMjXJIWqywVptMbwCu7NNpPW
+	 y2IfBwkDFQul99A06C9Do5svFYx+Lve0A1oque03/aE7U4o+SewBlkHuz+jgWPcZO1oCv
+	 TQSrayImAVxjLsEkDGQNjL4VVpY8xX5Xw5XoC1WJyBDXtC+96L71nQqkcpEWjTx/ToQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hdu.edu.cn;
-	spf=pass smtp.mailfrom=hdu.edu.cn;
-	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=IAszxEV9;
-	arc=none smtp.remote-ip=154.81.10.80
-Received: from mail-m1080.netease.com (mail-m1080.netease.com [154.81.10.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bWmuQN3C;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BB1606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:49:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5BB1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E315E606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E315E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=IAszxEV9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AEIA0AB-LKtSXDTFfmaW4Kox.1.1793188150804.Hmail.242270054@hdu.edu.cn>
-To: airlied@redhat.com, kraxel@redhat.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bWmuQN3C
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so1761171a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:49:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793188178; x=1793792978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wUNv98EbFI1fTZW5mIt8qGC/wZtQV9k6nB12ordxF6s=;
+        b=bWmuQN3C779hTz7jeshV4Z2+r2ffaEYlaP/mfnLuoQ6xGRpTcfd7nF6niTd1Sih+G6
+         3hdzv31hQ3yLRfE4Rnhetv7GfXpop647xnSzhl69Ga4EcDHHRo+oNMqfVtD0niaUPmc6
+         9Au3TY1pGMQl+B/TYgihPSp7Q27hZfWuKyGchtD2mYrM7ncMUK56LPubJK3Hz4qKyKAF
+         bg/h/o21qjLhWDVRYJkLcFaiaAJXjS3324WJP+Ntjjn9f4JVmkTgKTVy5oJbmT4HSM6r
+         lhKTserNDncdUsn1nsCoLNULGT0w2OUY6xPLIzM9mHawK7/xjf7c6NJC6vepDAqpC62w
+         7mhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793188178; x=1793792978;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wUNv98EbFI1fTZW5mIt8qGC/wZtQV9k6nB12ordxF6s=;
+        b=p2+0tfKE+NYcTs8eFUb+9o+1oH6RfFYM26MaZVzTe5tV9AsEG+h0wKbSMBBY/RTCVc
+         9ZZ27BUYj7RLRPVECvfb98celmZYLOnBJGaHS+v22pzIb8LTI4iIdmLPtg7VfZoBDszb
+         UKEXDh+QAC8TQxLfRtQY9x8xft3TEWlkn3a933b/VAXEMs0zzycDh98eiQKLgGtC5FTJ
+         Jl6LUikN7xQ/oHN9gdFQoVHSOT6qIUySM8SGWAdz3cs/XLa+cYFqVAJdBYTFlmzbyQXO
+         3XxCCUgPc8Mp36EsllOecwmTDM1PbTtukWFmwwgYxelZ2a4LwARXmYPVKp9f4EeZClEK
+         kzOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIw2Dud6+SbfvwGLU//hwOrWyKKOZoS0Ec43C1kbDLS1hnvvbH39VEUCbtYsCsjMr6171d4id6LGozLzM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3esmxuXtQdnDggIRSqNPnY7frVxg8Ddtip1iOo7NcKut+lV7m
+	gUcOQQmU07PKtzUqdx6BoNBVBOyUyjbUqcOSMSmI0t/AAes1KJoWLCoJyLXg24jzJu21Uw==
+X-Gm-Gg: AYBFou13t1k4nRjtNU48A0fvRoIbbgGOWMBYftca0951bMaXnTnpe5mLMWl07kuWOJ9
+	LcQchx+iKk91GoZfU1oNL5f18BGCZudl9SCkcx1mhn6XVpKdvF4SxZyardQFbRArj8ZhEDj336o
+	4mWcAt+4QNQWPv0dRn26Iox3Hwa8A39lfRhEXVrqdEy44TxerrYYcpZPby6ZJwi7dFL3iQblYg2
+	Bf2wJi4dOxvNnnKuUEhU3BbRmCrCysB1qZfEWmfTTX6dKrXwXRdL9SrrfY/aixk6cesZ5RUE+UG
+	P/UnHxEm/ZwyccfKp1Juyn8Fup6G7rPRLLdFIuPDjCCiZdza7ZjbUKcQHYlz33qyV/MTO08t08u
+	OcNsx2Doz+JUajmEmHfyd3F2GopMhKgwnobcxEt9cw4vEkHQTObQyFO4qx9DLI3FeNmcdcYHPib
+	UiB6OIsOx1XfNeAPIKrgGwFqnNkOgrUeAoB3KbKBO0wfJt7Bvc4mdto8pnXW1y2ALRz26bNvEDJ
+	HBvhN2BLolPxaTByHGP5wHWGWrRw/McONZYVdOyrUExEkkzdCGs44gCaQtBvhfcSgVqzh0G4T7Z
+	BfHdO5Mu/U4+hhfQyL/CGg==
+X-Received: by 2002:a05:6402:2b91:b0:6b4:16fb:b9be with SMTP id 4fb4d7f45d1cf-6b49cb8e213mr1235720a12.37.1793188177856;
+        Wed, 28 Oct 2026 04:49:37 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:8::])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b49644bcd7sm1355360a12.33.2026.10.28.04.49.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:49:36 -0700 (PDT)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Jinqian Yang <yangjinqian1@huawei.com>,
+	Andrew Preece <apreece@meta.com>,
+	regressions@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?ZHJtL3F4bDogemVyby1pbml0aWFsaXplIHJlbGVhc2Ugb2JqZWN0cw==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+Subject: [PATCH net v2] bnxt_en: Don't keep MSI-X vectors added before FW reserves them
+Date: Wed, 28 Oct 2026 04:49:33 -0700
+Message-ID: <20261028114933.256298-1-vlad.wing@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,121 +107,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail ( [127.0.0.1] ) ; Wed, 28 Oct 2026 19:49:10 +0800 (GMT+08:00)
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Date: Wed, 28 Oct 2026 19:49:10 +0800 (GMT+08:00)
-X-HM-Tid: 0aa18255b2fad45akusyefe39ad210ecd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTRpDVkNISUNPGUNISkNDQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlLVUtVS1
-	VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=IAszxEV9w4pGN/PPzdD1i8eDJ88Q6G1Ph9ahjMhNl3vbCdW34V9X767KMOmNO+QzMlfBdS5SSeo1/k8TlZia5coqmvPAbtm489uEoll4gFzAypJR+KK/iNE0GloA5FiHk7SJQDi9GO0AqtI5pxsVrYCPVkW15kW7Ps3IdfPQysA=; c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1;
-	bh=HW1cRM+/8/4aOaG8BOtkLla4CpvN2SZPj37SR2pxNxg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-CgpIZWxsbywKCkkgd291bGQgbGlrZSB0byByZXBvcnQgYSByZXByb2R1Y2libGUga2VybmVsIE5V
-TEwgcG9pbnRlciBkZXJlZmVyZW5jZSBpbiB0aGUKUVhMIERSTSBkcml2ZXIncyByZWxlYXNlL2Zl
-bmNlIGNsZWFudXAgcGF0aC4gSSByZXByb2R1Y2VkIGl0IG9uIGEgTGludXgKNy4xLjUtYmFzZWQg
-eDg2XzY0IGtlcm5lbCBpbiBRRU1VLgoKU3VtbWFyeQo9PT09PT09CgpBIHVzZXJzcGFjZSBEUk1f
-SU9DVExfUVhMX0VYRUNCVUZGRVIgcmVxdWVzdCBjYW4gbWFrZSBxeGxfcHJvY2Vzc19zaW5nbGVf
-Y29tbWFuZCgpCmFsbG9jYXRlIGEgcXhsX3JlbGVhc2UgYW5kIHRoZW4gZmFpbCB3aGlsZSBsb29r
-aW5nIHVwIGEgcmVsb2NhdGlvbidzIEdFTSBoYW5kbGUuClRoZSBlcnJvciBwYXRoIGNhbGxzIHF4
-bF9yZWxlYXNlX2ZyZWUoKSBiZWZvcmUgZG1hX2ZlbmNlX2luaXQoKSBoYXMgcnVuLiBJbiB0aGUK
-YWZmZWN0ZWQgY29kZSwgcXhsX3JlbGVhc2VfYWxsb2MoKSBhbGxvY2F0ZXMgdGhlIG9iamVjdCB3
-aXRoIGttYWxsb2MoKSBhbmQgb25seQppbml0aWFsaXplcyBzZWxlY3RlZCBmaWVsZHMuIHF4bF9y
-ZWxlYXNlX2ZyZWUoKSB0aGVuIGNhbGxzCmRtYV9mZW5jZV93YXNfaW5pdGlhbGl6ZWQoKSwgd2hp
-Y2ggcmVhZHMgdGhlIHVuaW5pdGlhbGl6ZWQgZmVuY2UgZmxhZ3MuIFdoZW4KdGhlIHN0YWxlIElO
-SVRJQUxJWkVEIGJpdCBpcyBzZXQsIGNsZWFudXAgdHJlYXRzIHRoZSBmZW5jZSBhcyBpbml0aWFs
-aXplZCBhbmQKY2FsbHMgZG1hX2ZlbmNlX3NpZ25hbCgpLiBUaGUgZmVuY2UgbG9jayBzZWxlY3Rp
-b24gY2FuIHRoZW4gcmV0dXJuIHRoZQp1bmluaXRpYWxpemVkIE5VTEwgZXh0ZXJuX2xvY2ssIGxl
-YWRpbmcgdG8gYSBOVUxMIGRlcmVmZXJlbmNlIGluCl9yYXdfc3Bpbl9sb2NrX2lycXNhdmUoKS4K
-ClRyaWdnZXIgYW5kIGNhbGwgcGF0aAo9PT09PT09PT09PT09PT09PT09PT0KClRoZSByZXByb2R1
-Y2luZyB1c2Vyc3BhY2Ugc2VxdWVuY2Ugb3BlbnMgL2Rldi9kcmkvY2FyZDAsIGlzc3VlcwpEUk1f
-SU9DVExfUVhMX0FMTE9DLCB0aGVuIGlzc3VlcyBEUk1fSU9DVExfUVhMX0VYRUNCVUZGRVIgd2l0
-aCBhIFFYTF9DTURfRFJBVwpjb21tYW5kIGFuZCBhIEJPIHJlbG9jYXRpb24gd2hvc2Ugc3JjX2hh
-bmRsZSBkb2VzIG5vdCBleGlzdCAodGhlIHRlc3QgdXNlZAoweGRlYWRiZWVmKS4gVGhlIGNvbW1h
-bmQgYW5kIHJlbG9jYXRpb24gbGVuZ3Rocy90eXBlcyBhcmUgb3RoZXJ3aXNlIHZhbGlkLgpUaGUg
-aW52YWxpZCBoYW5kbGUgbWFrZXMgdGhlIEdFTSBsb29rdXAgcmV0dXJuIC1FSU5WQUwgYW5kIHRh
-a2VzIHRoZSBub3JtYWwKZXJyb3ItY2xlYW51cCBwYXRoOgoKICBpb2N0bChEUk1fSU9DVExfUVhM
-X0VYRUNCVUZGRVIpCiAgICAtPiBxeGxfZXhlY2J1ZmZlcl9pb2N0bCgpCiAgICAtPiBxeGxfcHJv
-Y2Vzc19zaW5nbGVfY29tbWFuZCgpCiAgICAtPiBxeGxfYWxsb2NfcmVsZWFzZV9yZXNlcnZlZCgp
-CiAgICAtPiBxeGxod19oYW5kbGVfdG9fYm8oKSBbaW52YWxpZCBHRU0gaGFuZGxlLCByZXR1cm5z
-IC1FSU5WQUxdCiAgICAtPiBxeGxfcmVsZWFzZV9mcmVlKCkgW2JlZm9yZSBkbWFfZmVuY2VfaW5p
-dCgpXQogICAgLT4gZG1hX2ZlbmNlX3dhc19pbml0aWFsaXplZCgpIFtyZWFkcyB1bmluaXRpYWxp
-emVkIGZsYWdzXQogICAgLT4gZG1hX2ZlbmNlX3NpZ25hbCgpCiAgICAtPiBkbWFfZmVuY2Vfc3Bp
-bmxvY2soKSBbc2VsZWN0cyBOVUxMIGV4dGVybl9sb2NrXQogICAgLT4gX3Jhd19zcGluX2xvY2tf
-aXJxc2F2ZShOVUxMKQoKUmVsZXZhbnQgc291cmNlIGNvZGUKPT09PT09PT09PT09PT09PT09PT0K
-CnF4bF9yZWxlYXNlX2FsbG9jKCkgYWxsb2NhdGVzIHRoZSByZWxlYXNlIHdpdGgga21hbGxvYygp
-IGFuZCBpbml0aWFsaXplcyBvbmx5CnNlbGVjdGVkIGZpZWxkczsgdGhlIGVtYmVkZGVkIGRtYV9m
-ZW5jZSBzdGF0ZSBpcyBub3QgemVyb2VkOgoKICByZWxlYXNlID0ga21hbGxvYyhzaXplLCBHRlBf
-S0VSTkVMKTsKICBpZiAoIXJlbGVhc2UpCiAgICAgICAgICByZXR1cm4gLUVOT01FTTsKICByZWxl
-YXNlLT5iYXNlLm9wcyA9IE5VTEw7CiAgcmVsZWFzZS0+dHlwZSA9IHR5cGU7CiAgcmVsZWFzZS0+
-cmVsZWFzZV9vZmZzZXQgPSAwOwogIHJlbGVhc2UtPnN1cmZhY2VfcmVsZWFzZV9pZCA9IDA7CiAg
-SU5JVF9MSVNUX0hFQUQoJnJlbGVhc2UtPmJvcyk7CgpJbiBxeGxfcHJvY2Vzc19zaW5nbGVfY29t
-bWFuZCgpLCBhIG1pc3NpbmcgR0VNIGhhbmRsZSBtYWtlcwpxeGxod19oYW5kbGVfdG9fYm8oKSBy
-ZXR1cm4gLUVJTlZBTC4gVGhlIGNhbGxlciBqdW1wcyB0byBjbGVhbnVwIGJlZm9yZSByZWFjaGlu
-ZwpxeGxfcmVsZWFzZV9mZW5jZV9idWZmZXJfb2JqZWN0cygpLCB0aGUgbGF0ZXIgY29kZSBwYXRo
-IHRoYXQgY2FuIGluaXRpYWxpemUgdGhlCmZlbmNlIHdpdGggZG1hX2ZlbmNlX2luaXQoKToKCiAg
-cmV0ID0gcXhsaHdfaGFuZGxlX3RvX2JvKGZpbGVfcHJpdiwgcmVsb2Muc3JjX2hhbmRsZSwgcmVs
-ZWFzZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgJnJlbG9jX2luZm9baV0uc3JjX2JvKTsK
-ICBpZiAocmV0KQogICAgICAgICAgZ290byBvdXRfZnJlZV9ib3M7CgogIC4uLgogIHF4bF9yZWxl
-YXNlX2ZlbmNlX2J1ZmZlcl9vYmplY3RzKHJlbGVhc2UpOwoKb3V0X2ZyZWVfYm9zOgpvdXRfZnJl
-ZV9yZWxlYXNlOgogIGlmIChyZXQpCiAgICAgICAgICBxeGxfcmVsZWFzZV9mcmVlKHFkZXYsIHJl
-bGVhc2UpOwoKVGhlIGxvb2t1cCByZXR1cm5zIC1FSU5WQUwgd2hlbiBkcm1fZ2VtX29iamVjdF9s
-b29rdXAoKSBjYW5ub3QgZmluZCB0aGUgaGFuZGxlOgoKICBnb2JqID0gZHJtX2dlbV9vYmplY3Rf
-bG9va3VwKGZpbGVfcHJpdiwgaGFuZGxlKTsKICBpZiAoIWdvYmopCiAgICAgICAgICByZXR1cm4g
-LUVJTlZBTDsKClRoZSBjbGVhbnVwIGRlY2lzaW9uIGlzIHRoZSBjcml0aWNhbCBidWcuIGRtYV9m
-ZW5jZV93YXNfaW5pdGlhbGl6ZWQoKSB0ZXN0cwpvbmx5IGEgYml0IGluIGZlbmNlLT5mbGFncywg
-YW5kIHF4bF9yZWxlYXNlX2ZyZWUoKSB1c2VzIHRoYXQgcmVzdWx0IHRvIGRlY2lkZQp3aGV0aGVy
-IHRvIHNpZ25hbCB0aGUgZmVuY2U6CgogIGlmIChkbWFfZmVuY2Vfd2FzX2luaXRpYWxpemVkKCZy
-ZWxlYXNlLT5iYXNlKSkgewogICAgICAgICAgcXhsX3JlbGVhc2VfZnJlZV9saXN0KHJlbGVhc2Up
-OwogICAgICAgICAgZG1hX2ZlbmNlX3NpZ25hbCgmcmVsZWFzZS0+YmFzZSk7CiAgICAgICAgICBk
-bWFfZmVuY2VfcHV0KCZyZWxlYXNlLT5iYXNlKTsKICB9IGVsc2UgewogICAgICAgICAgcXhsX3Jl
-bGVhc2VfZnJlZV9saXN0KHJlbGVhc2UpOwogICAgICAgICAga2ZyZWUocmVsZWFzZSk7CiAgfQoK
-VGhlIGhlbHBlciBpdHNlbGYgaXMgb25seSBhIGJpdCB0ZXN0OyBpdHMga2VybmVsIGNvbW1lbnQg
-c2F5cyB0aGlzIGlzIHZhbGlkCm9ubHkgd2hlbiB0aGUgZmVuY2UgYmFja2luZyBtZW1vcnkgd2Fz
-IHplcm8taW5pdGlhbGl6ZWQ6CgogIHJldHVybiBmZW5jZSAmJgogICAgICAgICB0ZXN0X2JpdChE
-TUFfRkVOQ0VfRkxBR19JTklUSUFMSVpFRF9CSVQsICZmZW5jZS0+ZmxhZ3MpOwoKT25jZSBkbWFf
-ZmVuY2Vfc2lnbmFsKCkgcnVucywgaXQgb2J0YWlucyB0aGUgbG9jayBmcm9tIHRoZSBmZW5jZSBm
-aWVsZHM6CgogIHJldHVybiB0ZXN0X2JpdChETUFfRkVOQ0VfRkxBR19JTkxJTkVfTE9DS19CSVQs
-ICZmZW5jZS0+ZmxhZ3MpID8KICAgICAgICAgJmZlbmNlLT5pbmxpbmVfbG9jayA6IGZlbmNlLT5l
-eHRlcm5fbG9jazsKCkluIHRoZSByZXByb2R1Y2luZyBydW4sIHN0YWxlIGZsYWdzIG1hZGUgdGhl
-IGZpcnN0IGJyYW5jaCBydW4gYWx0aG91Z2ggdGhlCmZlbmNlIGhhZCBuZXZlciBiZWVuIGluaXRp
-YWxpemVkLiBJdHMgZXh0ZXJuX2xvY2sgd2FzIE5VTEwsIHNvCmRtYV9mZW5jZV9zaWduYWwoKSBy
-ZWFjaGVkIHRoZSBOVUxMIGxvY2sgb3BlcmF0aW9uIGluIHRoZSBjcmFzaCB0cmFjZS4KClRoZSBy
-ZWxldmFudCB1c2Vyc3BhY2Ugb3BlcmF0aW9ucyB3ZXJlOgoKICBvcGVuYXQoQVRfRkRDV0QsICIv
-ZGV2L2RyaS9jYXJkMCIsIE9fUkRXUikKICBpb2N0bChmZCwgRFJNX0lPQ1RMX1FYTF9BTExPQywg
-Li4uKQogIGlvY3RsKGZkLCBEUk1fSU9DVExfUVhMX0VYRUNCVUZGRVIsIC4uLikKCkNyYXNoIGV2
-aWRlbmNlCj09PT09PT09PT09PT09CgpJbW1lZGlhdGVseSBiZWZvcmUgdGhlIGZhaWx1cmUsIHRo
-ZSBkaWFnbm9zdGljIHZhbHVlcyB3ZXJlOgoKICByZWxlYXNlPWZmMTEwMDAxMDBhM2ZiNDAgYmFz
-ZT1mZjExMDAwMTAwYTNmYjQwCiAgb3BzPTAwMDAwMDAwMDAwMDAwMDAgZmxhZ3M9MQogIGV4dGVy
-bl9sb2NrPTAwMDAwMDAwMDAwMDAwMDAgc2VsZWN0ZWRfbG9jaz0wMDAwMDAwMDAwMDAwMDAwCiAg
-cWRldl9sb2NrPWZmMTEwMDAxMDE1NWYyZjAKClRoZSBrZXJuZWwgcmVwb3J0ZWQ6CgogIEJVRzog
-a2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSwgYWRkcmVzczogMDAwMDAwMDAwMDAwMDAw
-MAogICNQRjogc3VwZXJ2aXNvciB3cml0ZSBhY2Nlc3MgaW4ga2VybmVsIG1vZGUKICBSSVA6IF9y
-YXdfc3Bpbl9sb2NrX2lycXNhdmUrMHg3My8weGMwCiAgQ1IyOiAwMDAwMDAwMDAwMDAwMDAwCiAg
-Q2FsbCBUcmFjZToKICAgIGRtYV9mZW5jZV9zaWduYWwKICAgIHF4bF9yZWxlYXNlX2ZyZWUKICAg
-IHF4bF9leGVjYnVmZmVyX2lvY3RsCiAgICBkcm1faW9jdGxfa2VybmVsCiAgICBkcm1faW9jdGwK
-ICAgIF9feDY0X3N5c19pb2N0bAoKVGhpcyBpcyBhIGtlcm5lbCBPb3BzLCBub3QgbWVyZWx5IGFu
-IGlvY3RsIHJldHVybmluZyBhbiBlcnJvci4gUmVwbGFjaW5nIHRoZQpyZWxlYXNlIGFsbG9jYXRp
-b24gd2l0aCBremFsbG9jKCkgaW4gbXkgUUVNVSB0ZXN0IGNhdXNlZCB0aGUgc2FtZSBpbnZhbGlk
-CmhhbmRsZSByZXF1ZXN0IHRvIHJldHVybiAtRUlOVkFMIHdpdGhvdXQgdGhlIE5VTEwgZGVyZWZl
-cmVuY2UuIEkgaGF2ZSBub3QKdmVyaWZpZWQgdGhpcyByZXByb2R1Y2VyIG9uIHBoeXNpY2FsIFFY
-TCBoYXJkd2FyZS4KClByb3Bvc2VkIGZpeAo9PT09PT09PT09PT0KClRoZSBmb2xsb3dpbmcgY2hh
-bmdlIHplcm8taW5pdGlhbGl6ZXMgdGhlIHJlbGVhc2Ugb2JqZWN0IHNvIHRoYXQgdGhlCnByZS1p
-bml0aWFsaXphdGlvbiBjbGVhbnVwIHBhdGggY2Fubm90IG1pc3Rha2Ugc3RhbGUgZmVuY2UgZmxh
-Z3MgZm9yIGFuCmluaXRpYWxpemVkIGRtYV9mZW5jZToKCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9x
-eGwvcXhsX3JlbGVhc2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF9yZWxlYXNlLmMK
-QEAgLTkxLDggKzkxLDggQEAgcXhsX3JlbGVhc2VfYWxsb2Moc3RydWN0IHF4bF9kZXZpY2UgKnFk
-ZXYsIGludCB0eXBlLAogICAgICAgIGludCBoYW5kbGU7CiAgICAgICAgc2l6ZV90IHNpemUgPSBz
-aXplb2YoKnJlbGVhc2UpOwogCi0gICAgICAgcmVsZWFzZSA9IGttYWxsb2Moc2l6ZSwgR0ZQX0tF
-Uk5FTCk7CisgICAgICAgcmVsZWFzZSA9IGt6YWxsb2Moc2l6ZSwgR0ZQX0tFUk5FTCk7CiAgICAg
-ICAgaWYgKCFyZWxlYXNlKSB7CiAgICAgICAgICAgICAgICBEUk1fRVJST1IoIk91dCBvZiBtZW1v
-cnlcbiIpOwogICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07CgpHUFQtNi1MdW5hIGFzc2lz
-dGVkIHdpdGggdGhlIGluaXRpYWwgYW5hbHlzaXMgYW5kIGRyYWZ0aW5nIHRoaXMgcHJvcG9zZWQg
-Zml4LgpJIGFtIHJlc3BvbnNpYmxlIGZvciB0aGUgcmVwb3J0IGFuZCBpdHMgdGVjaG5pY2FsIGNs
-YWltcy4gSSBjYW4gcHJvdmlkZSB0aGUKY29tcGxldGUgcmVwcm9kdWNlciBhbmQgZnVsbCBrZXJu
-ZWwgbG9nIGRpcmVjdGx5IGlmIG5lZWRlZC4KClJlZ2FyZHMsCgpZdWhhbmcgUGFuCjI0MjI3MDA1
-NEBoZHUuZWR1LmNuCgo=
+When dynamic MSI-X is supported, bnxt_check_rings() grows the MSI-X
+vectors with bnxt_change_msix() once FW says the new rings would fit,
+and keeps them.  FW only reserves the extra IRQs later, when
+bnxt_reserve_rings() calls __bnxt_reserve_rings().  The MSI-X table
+entries beyond the function's reserved IRQs are not backed until then:
+the MSI message written when the new vectors are activated is lost, and
+the entries read back as zero.  After FW reserves them they are live but
+still zero, so the NQ rings bound to them signal address 0 and every
+completion on those rings is lost.  The next ring change (for example
+ethtool -G) then times out freeing each of those rings and the TX
+watchdog fires:
+
+  bnxt_en 0002:01:00.0 eth0: Resp cmpl intr err msg: 0x51
+  bnxt_en 0002:01:00.0 eth0: hwrm_ring_free type 1 failed. rc:fffffff0 err:0
+  ...
+  bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 17: transmit queue 18 timed out 5716 ms
+
+On x86 this is hidden: GENERIC_IRQ_RESERVATION_MODE makes the PCI MSI
+domains MSI_FLAG_MUST_REACTIVATE, so the message is composed and written
+again when the IRQ is requested, after FW has reserved the vector.
+Since commit 0d6a7c417983 ("irqchip/gic-v3-its: Enable dynamic MSI-X
+allocation"), arm64 GICv3 systems take the dynamic path as well, but
+write the message only once, at allocation.  On an NVIDIA Grace system
+with a BCM57508, raising the channel count from 18 to 32 left MSI-X
+entries 18-31 all zero, and the 14 rings using them lost their
+interrupts.
+
+Keep the allocation in bnxt_check_rings() as a check that enough vectors
+are available, but free the new vectors again right away when FW manages
+IRQ reservations (BNXT_NEW_RM).  bnxt_reserve_rings() then allocates
+them after __bnxt_reserve_rings() has reserved them.  Without
+BNXT_NEW_RM there is no IRQ reservation and bnxt_reserve_rings() does
+not grow the vectors, so keep the current behaviour there.
+
+In bnxt_reserve_rings(), size that allocation from the rings FW actually
+reserved (bnxt_get_num_msix()) instead of the count computed before the
+reservation, so that a partial grant does not activate unreserved
+entries either, at least while no RoCE driver is registered.
+
+The allocation can now fail after FW has committed the reservation.  A
+later open would then find nothing to reserve and return before growing
+the vectors, and bnxt_request_irq() would use irq_tbl[] entries past
+bp->total_irqs, which still hold the freed virqs.  Grow the vectors in
+that case as well, and clear irq_tbl[].vector when trimming.
+
+Fixes: 2d51eb0bd81c ("bnxt_en: Add MSIX check in bnxt_check_rings()")
+Reported-by: Andrew Preece <apreece@meta.com>
+Closes: https://lore.kernel.org/all/20261022193620.2152038-1-vlad.wing@gmail.com/
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+---
+Changes in v2:
+- Size the bnxt_reserve_rings() allocation from what FW reserved
+  (bnxt_get_num_msix()), so a partial grant does not activate
+  unreserved entries while no RoCE driver is registered (Sashiko).
+  With RoCE registered, __bnxt_reserve_rings() can still keep more L2
+  rings than the grant covers; that accounting predates this patch.
+- Grow the vectors in bnxt_reserve_rings() even when no reservation
+  is needed, and clear irq_tbl[].vector on trim, so a failed allocation
+  after the FW reservation no longer leaves stale virqs behind
+  (Sashiko).
+- Only free the probed vectors when BNXT_NEW_RM is set; reword the
+  comment.
+
+v1: https://lore.kernel.org/all/20261023121321.2127263-1-vlad.wing@gmail.com/
+
+Tested on an NVIDIA Grace system (GICv3 ITS, ACPI) with a BCM57508,
+FW 230.0.165.3: the boot-time channel change (18 -> 32) followed by a
+ring resize no longer loses completions.  With instrumentation, MSI-X
+entries 18-31 read back as all zero after bnxt_check_rings() allocated
+them, and read back correctly once bnxt_reserve_rings() allocated them
+after the FW reservation.
+
+This conflicts with the "bnxt_en: Ring accounting fixes" series on
+net-next, which also changes the dynamic MSI-X path in
+bnxt_reserve_rings().
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 34 ++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 0682060b048ce..55b11c7684313 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -11524,6 +11524,7 @@ static int bnxt_change_msix(struct bnxt *bp, int total)
+ 		map.index = i - 1;
+ 		map.virq = bp->irq_tbl[i - 1].vector;
+ 		pci_msix_free_irq(bp->pdev, map);
++		bp->irq_tbl[i - 1].vector = 0;
+ 		bp->total_irqs--;
+ 	}
+ 	return bp->total_irqs;
+@@ -11701,8 +11702,23 @@ int bnxt_reserve_rings(struct bnxt *bp, bool irq_re_init)
+ 	int irqs_required;
+ 	int rc;
+ 
+-	if (!bnxt_need_reserve_rings(bp))
++	if (!bnxt_need_reserve_rings(bp)) {
++		/* FW may already hold the reservation from an earlier
++		 * reservation that was not followed by growing the dynamic
++		 * MSI-X vectors, e.g. because the allocation failed.
++		 */
++		if (irq_re_init && BNXT_NEW_RM(bp) && bp->irq_tbl &&
++		    pci_msix_can_alloc_dyn(bp->pdev)) {
++			irqs_required = bnxt_get_num_msix(bp);
++			if (irqs_required > bp->total_irqs &&
++			    bnxt_change_msix(bp, irqs_required) != irqs_required) {
++				netdev_err(bp->dev, "Unable to allocate %d MSIX vectors, maximum available %d\n",
++					   irqs_required, bp->total_irqs);
++				return -ENOSPC;
++			}
++		}
+ 		return 0;
++	}
+ 
+ 	if (BNXT_NEW_RM(bp) && !bnxt_ulp_registered(edev)) {
+ 		int ulp_msix = bnxt_get_avail_msix(bp, bp->ulp_num_msix_want);
+@@ -11728,6 +11744,10 @@ int bnxt_reserve_rings(struct bnxt *bp, bool irq_re_init)
+ 			rc = bnxt_init_int_mode(bp);
+ 		bnxt_ulp_irq_restart(bp, rc);
+ 	} else if (irq_change && !rc) {
++		/* Size the vectors from what FW actually reserved, which
++		 * can be less than what was requested.
++		 */
++		irqs_required = bnxt_get_num_msix(bp);
+ 		if (bnxt_change_msix(bp, irqs_required) != irqs_required)
+ 			rc = -ENOSPC;
+ 	}
+@@ -15093,6 +15113,7 @@ int bnxt_check_rings(struct bnxt *bp, int tx, int rx, bool sh, int tcs,
+ 			hwr.cp = min_t(int, hwr.cp, bnxt_get_max_func_irqs(bp));
+ 		}
+ 		if (hwr.cp > bp->total_irqs) {
++			int old_total = bp->total_irqs;
+ 			int total_msix = bnxt_change_msix(bp, hwr.cp);
+ 
+ 			if (total_msix < hwr.cp) {
+@@ -15100,6 +15121,17 @@ int bnxt_check_rings(struct bnxt *bp, int tx, int rx, bool sh, int tcs,
+ 					    hwr.cp, total_msix);
+ 				rc = -ENOSPC;
+ 			}
++			/* FW has not reserved the new vectors yet, and writes to
++			 * MSI-X table entries beyond the reserved IRQs don't
++			 * stick (seen on BCM57508).  Free them again;
++			 * bnxt_reserve_rings() allocates them after
++			 * __bnxt_reserve_rings().  Without the new resource
++			 * manager there is no IRQ reservation and
++			 * bnxt_reserve_rings() does not grow the vectors, so
++			 * keep them.
++			 */
++			if (BNXT_NEW_RM(bp))
++				bnxt_change_msix(bp, old_total);
+ 		}
+ 	}
+ 	return rc;
