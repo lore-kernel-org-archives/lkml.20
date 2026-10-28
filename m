@@ -1,64 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203123;
-	b=n9ViXTvakYBnclp95HZyGgQb2RrJfRd4IdTL0MPNDyu9ZHcDL/6+pDo+l13JCXbAVErr
-	 gD7MzaEo+OBrtMhQLqqY1K3kAniKWI41fVQREjRE5L/uTVMmqxhKpieL5P7YuT6hieft5
-	 Dlji5Voa6y4EX5pYIM4CNwNzqS3IOoJ+do/zkOLYgU9T8xtb2MFustNZLHUcg4J2/lndl
-	 jUHMk10q7RXmF+3635AZzWCsAhgT0iJgCS3d7UuFllnmI3ZRa3bUD5jk/2gRVn47UOvAk
-	 veEbNf19TrTICUqURUWoAFFcCr8OU+yQoUfj6q2VmddFibjzk3Oejdez/3y00n+RaNA==
+	t=1793203140;
+	b=swDGXbffnzkVpTD1QRaCAmcZqcsr0oqXsSumUE6oZB+4rojbbzXXpKyZUGPEV04zxFi8
+	 EIRWnMKoRT4llr4u45Wp3Rodq7pnI9Ymd8m3A7bp/zAxlPYeLiTavjhFWxkumrBnAomX0
+	 jqqAvDOJuciDtriYnt+zERBTqowmJwxDxm2sjfT5UScR/aHV8HB7Y8nosoO5ASrKYI9f2
+	 ceezcqKuLXNLK0SNSCrN+b7Rh8s3S/H16uSt64lPIRwZVT3iuciPWt7uZCOwp9Akzd+Av
+	 gcVZoCX8zPPXfmd8f86l+LyJL3TzVPittiM4CxETqm20H4gJbD8Q/xBHk6vDDE+QASg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203123;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=nOONwU78cN5zctmEGX7d2JRidsB9/jGXaj/BA5JG6KA=;
-	b=aNI7CxXcRcJ9xoXuogAFV9+n3E0gU+0nY80LkjmSSe6wMiVxiaDMmUVctxLpdEqMJnm+
-	 ZyB7jSc59Msam7Uau3wVsF02YALCs6VP8nsf0qQj4tXFaBHZwvHzCN1GORtg1vLHKdt57
-	 YSin5wvx7bouNB+P7/ymsrWR1ZQ/P1nfq90v8bwKH7Y+nIRR5jnC4V7MIT1jk1s3RR2Yl
-	 mCxM5wcpM0bl6OTZu4peJaw+L/dUB97hriY94DwhdFWkFxSrFMNTYe4mGvgLK4lF4uRK2
-	 zLS+9tSzLfled+vQKHZ84sBztWSg034F6TCO3ugwjZ0U0K+bNZBxXIuXoiLRfZ4tQpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203140;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=xZM+6q50K9EVTq33XWXLbwM2IHgwD8amyn3g+mdBYz0=;
+	b=MA4Ky1+2FXLQJAWAvfId4PYh5sq0OB1j+fNeHCIjj+v2HVXfVBZgaXAMQoUcXD3tNlvb
+	 xXIo9aD5p1bDHLZBkIwL8Qzqo/iDoHXQ8suRbFoOVT6V1W+HDxZinXpoifkcHLSJNvcFo
+	 oujwoEAXomarsxAW5mHo5/l/icdR+10GOsnmSI9IINAV9H39XGp2uvr1kcIunVr6R8x1p
+	 wxkE46f96FcNE5Mlp3T5ztbmTWK9fqgs1b9snqQhWLrjMt2nHOK53EtLUCmMWOugrYWSn
+	 d46XWluJLzYRsSXjCsfA/20Q93/mOgapNTZ9n9iLUDZJ6zveCi/VLALVt0LdOlY0jEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uYlY4Uh4;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB03E606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB03E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FNS7dRrs;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BBA606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:58:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3BBA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uYlY4Uh4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 252B8175D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:58:39 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0AA743F673
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:58:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793203122; bh=LqMVoiCpP/7b83Vo3Et5H75tfBu+HMQvKifhWWwQWHs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uYlY4Uh4jnlAWKdoN9P59gsGZzFYI6dAx+dB+2bk+FjaM2QN+MM/m7xaaepTcjqRZ
-	 CF5JDH4tV/r8C9KvPjoRynYv1OaI/bMWkJmhoii6Hhf/cUMP/EYHbKQ5NO7Yvz0Mhw
-	 dmuyMO4rDgDTBM9l/tmedYHPi2guANz+DQ2QK5fI=
-Date: Wed, 28 Oct 2026 15:58:37 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH v1 04/27] drm/panthor: Add 64-bit GPU_ID decoding for v15
- GPUs
-Message-ID: <auIbraVb0PKxFmPm@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-5-karunika.choo@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FNS7dRrs
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc758830601so806191a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:58:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793203139; x=1793807939; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xZM+6q50K9EVTq33XWXLbwM2IHgwD8amyn3g+mdBYz0=;
+        b=FNS7dRrsO7vAoMUGi+/AOQHv8b9N6CXKx4+RBXmu0pMb/G4320m4w/vIZxp4y2h3Po
+         Lxmy+vW7bjSjwoXUCgojyI1Rwjhpp0F2gB+xXMXYUgUGVzb8Vr2Eb2jHhzdeUJrnVX3O
+         IIiP+DWWw6garY0zXyCEgbNtp3ex3fccPi0e4B4v3DlfI//cDdpphz6rXjadipK+wI6E
+         RXaDUlqBsaPhfUmcalX75Fmfl4ElvHbGEvUUIMSe7wRpI321XMCS9Ma0sjXuKjvkW6sl
+         rpHHWmhaW2sySP5oSFShvRlijHze5Gc0F6f+yqd3p7ot+iGSchESYtG1bYi6UAeb0GjN
+         jrwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793203139; x=1793807939;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xZM+6q50K9EVTq33XWXLbwM2IHgwD8amyn3g+mdBYz0=;
+        b=riXoGXeWp8Yhssl6kc1U8UqP93K5Xq2YkhaMhfMDjNVdqG32WBLFxPi6ZZ+oi71nyI
+         z3cnjaeujBQAPt0ZRin+dhdxjmqy73UztrBIY5OSyNoAF3Uahln7CDcXYuRaaRiusOCW
+         alhOgQjsftnWeiwojz95rwzqX1r4ZDUw342KS1xiMn93IX/0NQ0ATCG4XZmWpcREvI0U
+         a6EbB1jOazhJ2AAse/HfNbcqYhjJmssCpvNsNKYCKfv5aK97FS3L36kzJSp9t9CwrcZh
+         hoL9a7kSBuvoXp9cz9HJ7c2fHnh5K/wAFBRY2/uupxg4UVlHD+IR6/Gwn39GxdkVDaVN
+         P5Gg==
+X-Forwarded-Encrypted: i=1; AKwUvByWMDk2F88uKkoVgyQneYDW1ka1OvB6T9Ndim0mFABPFBXZrA9ty1jFBxFGk6sEQJ40cDE5ISmlfTgg+TY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJ4YBWmffQ5hf2HHKDUEWjyCkSpFofvif2LtThDfV50BEfMvGh
+	aIJt6SK4SLqzHmFq8O96g5qn4VsWaIICUYkO7ohvkxnqZijm5IWC3fuy
+X-Gm-Gg: AYBFou2lL3sRZKyxz7quo1qKpXFqbL2hC0dZKw0EbhsgJpjWOeOy0qWMjTua2KLRcHU
+	v3JLtHzYqTGBzmzNWobdDPUWSxFXu9b14y81lpwFhdJw4FFkVeV4kbNvl+z5aYTwtwUjQDNDQG8
+	F1hGn6rpm0nzoMFrGjzO2ed+WSsqntf3J291KDIILWIIKztvdDYjtgZfLjGk+4DxBEX+QbIdADl
+	4/arIVIfP6jY1cunAQWQVO2Ft3Q6O1U1hhJkP3XhPksjbMFDbGtt6gCynjy+pdX+oAEOflQTvxm
+	INqSl8YftgiDDyyXo36mJDiTAAtxP2kIicCDvvvBUDnSWpDP2H4HEOf3Fb+KcSMHbtZrLuQ+vYD
+	WwmNAiZg337bOaknUYoVAiEQ0mf5VkQqLP7iIdArCF6R8915BUUjvBme2q8dZGlGHDK9A1UzYAb
+	4xqUQqiQXTPIDbesdvpfUkSze5F4TAtAbMdHt68XbTxjWS2eEMomwHURFgK2DhL27Q68J5VH5tb
+	FNKTxBU45vt7Z7jYhxBT5GhbK7tMQ/v6418nMtPxZvzBOuei+OQwpvQ4rbgNZBsJ3JEh9kqFjxN
+	aw8O+8CXFfHtNhp6EdY4GXsbKPAhwWV2CqM4Bx72Mhopv1yy2t3n6aAGnN5WTYPIjXKG+AHHrRE
+	i2n1tA7wYcYxxU5XI85jiVb6SxN6boo5JrlaGR+7nasoc80C+iCaH8uB0
+X-Received: by 2002:a05:6a20:488:b0:3e2:83bb:a608 with SMTP id adf61e73a8af0-3e902092342mr2324485637.2.1793203139084;
+        Wed, 28 Oct 2026 08:58:59 -0700 (PDT)
+Received: from localhost ([153.61.198.247])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5baf4sm1482399b3a.1.2026.10.28.08.58.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 08:58:58 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 28 Oct 2026 15:58:57 +0000
+Message-Id: <DMGLGKYOLXFA.12EJEMVN58Y5P@gmail.com>
+Cc: <cgroups@vger.kernel.org>, <linux-block@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>, <andrii@kernel.org>,
+ <eddyz87@gmail.com>, <daniel@iogearbox.net>,
+ <linux-kselftest@vger.kernel.org>, <cuitao@kylinos.cn>,
+ <ameryhung@gmail.com>
+Subject: Re: [RFC PATCH v11 0/5] blk-iocost: BPF struct_ops cost model
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Tao Cui" <cui.tao@linux.dev>, <tj@kernel.org>, <josef@toxicopanda.com>,
+ <axboe@kernel.dk>
+In-Reply-To: <20261028143534.135968-1-cui.tao@linux.dev>
+References: <20261028143534.135968-1-cui.tao@linux.dev>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,163 +104,445 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-5-karunika.choo@arm.com>
 
-On Tue, Sep 22, 2026 at 09:44:58PM +0100, Karunika Choo wrote:
-> Mali v15 exposes a 64-bit GPU_ID register with a different field layout
-> from earlier GPUs.
-> 
-> Add the register definitions and decoding helpers for the new format,
-> read GPU_WIDE_ID when the compatibility value indicates a v15 GPU, and
-> populate both the cached GPU_ID fields and the uAPI gpu_wide_id field.
-> 
-> This allows userspace and the driver to identify v15 GPUs correctly.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+On Wed, Oct 28, 2026 at 07:35 AM Tao Cui <cui.tao@linux.dev> wrote:
+> The cgroup callbacks are bound to the iocg policy lifetime and pair
+> up exactly: iocg_init() is delivered from ioc_pd_online(), which
+> blkg_create() only calls after the blkg has been inserted into the
+> radix tree and the queue's blkg list, and on attach to every cgroup
+> which is already online on the device; iocg_free() is delivered at
+> detach to the cgroups which still exist then and at pd_free() time
+> for the rest, gated per iocg on a delivered flag.  The attach and
+> detach walks go over q->blkg_list under q->blkcg_mutex and
+> q->queue_lock, the same locking blkg creation and destruction use.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Who needs iocg_init() and iocg_free()?
+Both example models keep their state in BPF_MAP_TYPE_CGRP_STORAGE.
+The only user of the callbacks is a pair of counters in the selftest.
 
-Best regards,
-Liviu
+One struct_ops map is bound to one device. So the cgroup storage of
+a model is per (cgroup, device) already.
+The blkg holds the blkcg css until blkg_free_workfn(). The storage is
+freed with the cgroup or with the map. So it outlives the iocg.
 
-> ---
-> v1:
-> - Decode selected GPU_ID format after checking compatibility value.
-> - Document GPU_DISCOVER and GPU_CONTROL register offset differences
->   between GPUs.
-> - Fix mask generation in panthor_gpu_discover_regs.h
-> 
->  .../drm/panthor/panthor_gpu_discover_regs.h   | 19 +++++++++
->  drivers/gpu/drm/panthor/panthor_hw.c          | 42 +++++++++++++++----
->  include/uapi/drm/panthor_drm.h                | 13 ++++++
->  3 files changed, 65 insertions(+), 9 deletions(-)
->  create mode 100644 drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-> new file mode 100644
-> index 0000000000000..e6bfe1fe2c68a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
-> @@ -0,0 +1,19 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_GPU_DISCOVER_REGS_H__
-> +#define __PANTHOR_GPU_DISCOVER_REGS_H__
-> +
-> +#include <linux/bits.h>
-> +
-> +#define GPU_WIDE_ID					0x0
-> +#define   GPU_WIDE_COMPAT				0xF
-> +#define   GPU_WIDE_ARCH_MAJOR(x)			(((x) & GENMASK_U64(63, 56)) >> 56)
-> +#define   GPU_WIDE_ARCH_MINOR(x)			(((x) & GENMASK_U64(55, 48)) >> 48)
-> +#define   GPU_WIDE_ARCH_REV(x)				(((x) & GENMASK_U64(47, 40)) >> 40)
-> +#define   GPU_WIDE_PROD_MAJOR(x)			(((x) & GENMASK_U64(39, 32)) >> 32)
-> +#define   GPU_WIDE_VER_MAJOR(x)				(((x) & GENMASK_U64(23, 16)) >> 16)
-> +#define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
-> +#define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
-> +
-> +#endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 2143e57d48106..40012ba7e23ca 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -8,6 +8,7 @@
->  
->  #include "panthor_device.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_discover_regs.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_pwr.h"
-> @@ -296,18 +297,41 @@ static int panthor_hw_bind_device(struct panthor_device *ptdev)
->  static int panthor_hw_gpu_id_init(struct panthor_device *ptdev)
->  {
->  	struct panthor_gpu_id *gpu_id = &ptdev->gpu_id;
-> -	ptdev->gpu_info.gpu_id = gpu_read(ptdev->iomem, GPU_ID);
-> +	u32 gpu_id32 = gpu_read(ptdev->iomem, GPU_ID);
->  
-> -	if (!ptdev->gpu_info.gpu_id)
-> +	if (!gpu_id32)
->  		return -ENXIO;
->  
-> -	gpu_id->arch_major = GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id);
-> -	gpu_id->arch_minor = GPU_ARCH_MINOR(ptdev->gpu_info.gpu_id);
-> -	gpu_id->arch_rev = GPU_ARCH_REV(ptdev->gpu_info.gpu_id);
-> -	gpu_id->prod_major = GPU_PROD_MAJOR(ptdev->gpu_info.gpu_id);
-> -	gpu_id->ver_major = GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
-> -	gpu_id->ver_minor = GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
-> -	gpu_id->ver_status = GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
-> +	if (GPU_ARCH_MAJOR(gpu_id32) == GPU_WIDE_COMPAT) {
-> +		/*
-> +		 * GPU_DISCOVER register block always starts at offset zero,
-> +		 * so does the GPU_CONTROL register block on pre-v15 GPUs.
-> +		 */
-> +		void __iomem *discover = ptdev->iomem;
-> +		u64 gpu_id64 = gpu_read64(discover, GPU_WIDE_ID);
-> +		if (!gpu_id64)
-> +			return -ENXIO;
-> +
-> +		ptdev->gpu_info.gpu_wide_id = gpu_id64;
-> +
-> +		gpu_id->arch_major = GPU_WIDE_ARCH_MAJOR(gpu_id64);
-> +		gpu_id->arch_minor = GPU_WIDE_ARCH_MINOR(gpu_id64);
-> +		gpu_id->arch_rev = GPU_WIDE_ARCH_REV(gpu_id64);
-> +		gpu_id->prod_major = GPU_WIDE_PROD_MAJOR(gpu_id64);
-> +		gpu_id->ver_major = GPU_WIDE_VER_MAJOR(gpu_id64);
-> +		gpu_id->ver_minor = GPU_WIDE_VER_MINOR(gpu_id64);
-> +		gpu_id->ver_status = GPU_WIDE_VER_STATUS(gpu_id64);
-> +	} else {
-> +		ptdev->gpu_info.gpu_id = gpu_id32;
-> +
-> +		gpu_id->arch_major = GPU_ARCH_MAJOR(gpu_id32);
-> +		gpu_id->arch_minor = GPU_ARCH_MINOR(gpu_id32);
-> +		gpu_id->arch_rev = GPU_ARCH_REV(gpu_id32);
-> +		gpu_id->prod_major = GPU_PROD_MAJOR(gpu_id32);
-> +		gpu_id->ver_major = GPU_VER_MAJOR(gpu_id32);
-> +		gpu_id->ver_minor = GPU_VER_MINOR(gpu_id32);
-> +		gpu_id->ver_status = GPU_VER_STATUS(gpu_id32);
-> +	}
->  
->  	return 0;
->  }
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index a2ff0f4ec6915..843a0b40e1d36 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -376,6 +376,19 @@ struct drm_panthor_gpu_info {
->  
->  	/** @gpu_features: Bitmask describing supported GPU-wide features */
->  	__u64 gpu_features;
-> +
-> +	/**
-> +	 * @gpu_wide_id: 64-bit GPU ID for v15 and later GPUs. @gpu_id is 0 when
-> +	 * this is populated.
-> +	 */
-> +	__u64 gpu_wide_id;
-> +#define DRM_PANTHOR_WIDE_ARCH_MAJOR(x)		(((x) >> 56) & 0xff)
-> +#define DRM_PANTHOR_WIDE_ARCH_MINOR(x)		(((x) >> 48) & 0xff)
-> +#define DRM_PANTHOR_WIDE_ARCH_REV(x)		(((x) >> 40) & 0xff)
-> +#define DRM_PANTHOR_WIDE_PRODUCT_MAJOR(x)	(((x) >> 32) & 0xff)
-> +#define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
-> +#define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
-> +#define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
->  };
->  
->  /**
-> -- 
-> 2.43.0
-> 
+The v11 changelog says that calc_cost() can run before iocg_init().
+So a model has to create its state in calc_cost() anyway.
+iocg_init() runs under queue_lock and ioc->lock. An allocation there
+is not better than in calc_cost().
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+v8, v9, v10 and v11 all reworked the pairing of these two callbacks.
+
+Lets drop them. A struct_ops can get new members later, when a model
+needs them.
+I'd like to hear from Tejun whether such a model is planned.
+
+Without the callbacks there is no walk of q->blkg_list:
+
+  what                v11                          without callbacks
+  ------------------  ---------------------------  ------------------
+  attach takes        freeze, rq_qos_mutex,        freeze,
+                      quiesce, blkcg_mutex,        rq_qos_mutex,
+                      queue_lock, ioc->lock        ioc->lock
+  detach takes        rq_qos_mutex, queue_lock,    rq_qos_mutex,
+                      ioc->lock to check, then     ioc->lock
+                      freeze and the same again,
+                      quiesce, blkcg_mutex,
+                      queue_lock, ioc->lock
+  state per iocg      bpf_iocg_inited              none
+  hooks in            ioc_pd_online(),             none
+                      ioc_pd_free()
+  teardown            ioc_bpf_detach(),            ioc_detach_model()
+                      ioc_bpf_eject()
+
+calc_cost() runs under rcu_read_lock(). bpf_map_put() frees a struct_ops
+map after an RCU gp. So detach doesn't need to freeze the queue.
+The rest fits into blk-iocost.c and patch 1 is not needed.
+
+The diff keeps the map reference, the owning link and the
+model=linear/bpf switch. It has no docs, no selftests and no tracepoint.
+
+Something like this (compile tested only):
+
+diff --git a/block/Kconfig b/block/Kconfig
+index 70e4a66..26badf5 100644
+--- a/block/Kconfig
++++ b/block/Kconfig
+@@ -161,6 +161,10 @@ config BLK_CGROUP_IOCOST
+ 	distributes IO capacity between different groups based on
+ 	their share of the overall weight distribution.
+
++config BLK_CGROUP_IOCOST_BPF
++	def_bool y
++	depends on BLK_CGROUP_IOCOST && BPF_SYSCALL && BPF_JIT && DEBUG_INFO_BTF
++
+ config BLK_CGROUP_IOPRIO
+ 	bool "Cgroup I/O controller for assigning an I/O priority class"
+ 	depends on BLK_CGROUP
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index a81488c..5e65bf4 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -178,8 +178,12 @@
+ #include <linux/time64.h>
+ #include <linux/parser.h>
+ #include <linux/sched/signal.h>
++#include <linux/bpf.h>
++#include <linux/bpf_verifier.h>
++#include <linux/btf.h>
+ #include <asm/local.h>
+ #include <asm/local64.h>
++#include "blk.h"
+ #include "blk-rq-qos.h"
+ #include "blk-stat.h"
+ #include "blk-wbt.h"
+@@ -404,6 +408,22 @@ struct ioc_pcpu_stat {
+ 	u64				last_rq_wait_ns;
+ };
+
++enum {
++	IOCOST_COST_F_MERGE	= 1 << 0,	/* called from the merge path */
++};
++
++/* bpf cost model of one device */
++struct iocost_model_ops {
++	/* whole disk, in the encoding of new_decode_dev() */
++	dev_t dev;
++
++	/* used by the completion path instead of LCOEF_[RW]PAGE */
++	u64 read_vtime_per_page;
++	u64 write_vtime_per_page;
++
++	u64 (*calc_cost)(struct bio *bio, u64 model_flags);
++};
++
+ /* per device */
+ struct ioc {
+ 	struct rq_qos			rqos;
+@@ -447,6 +467,12 @@ struct ioc {
+ 	int				autop_idx;
+ 	bool				user_qos_params:1;
+ 	bool				user_cost_model:1;
++
++	/* holds a reference on the struct_ops map, NULL if none is attached */
++	const struct iocost_model_ops	*attached;
++	struct bpf_link			*attached_link;
++	/* either NULL (linear) or ->attached */
++	const struct iocost_model_ops __rcu *model;
+ };
+
+ struct iocg_pcpu_stat {
+@@ -669,6 +695,13 @@ static struct ioc *q_to_ioc(struct request_queue *q)
+ 	return rqos_to_ioc(rq_qos_id(q, RQ_QOS_COST));
+ }
+
++static const struct iocost_model_ops *ioc_model(struct ioc *ioc)
++{
++	if (!IS_ENABLED(CONFIG_BLK_CGROUP_IOCOST_BPF))
++		return NULL;
++	return rcu_dereference_check(ioc->model, lockdep_is_held(&ioc->lock));
++}
++
+ static const char __maybe_unused *ioc_name(struct ioc *ioc)
+ {
+ 	struct gendisk *disk = ioc->rqos.disk;
+@@ -806,7 +839,7 @@ static int ioc_autop_idx(struct ioc *ioc, struct gendisk *disk)
+ 		return AUTOP_SSD_DFL;
+
+ 	/* if user is overriding anything, maintain what was there */
+-	if (ioc->user_qos_params || ioc->user_cost_model)
++	if (ioc->user_qos_params || ioc->user_cost_model || ioc_model(ioc))
+ 		return idx;
+
+ 	/* step up/down based on the vrate */
+@@ -2586,8 +2619,16 @@ out:
+
+ static u64 calc_vtime_cost(struct bio *bio, struct ioc_gq *iocg, bool is_merge)
+ {
++	const struct iocost_model_ops *model;
+ 	u64 cost;
+
++	guard(rcu)();
++	model = ioc_model(iocg->ioc);
++	if (model) {
++		cost = model->calc_cost(bio, is_merge ? IOCOST_COST_F_MERGE : 0);
++		return min(cost, VTIME_PER_SEC);
++	}
++
+ 	calc_vtime_cost_builtin(bio, iocg, is_merge, &cost);
+ 	return cost;
+ }
+@@ -2612,8 +2653,16 @@ static void calc_size_vtime_cost_builtin(struct request *rq, struct ioc *ioc,
+
+ static u64 calc_size_vtime_cost(struct request *rq, struct ioc *ioc)
+ {
++	const struct iocost_model_ops *model;
+ 	u64 cost;
+
++	guard(rcu)();
++	model = ioc_model(ioc);
++	if (model)
++		return (blk_rq_stats_sectors(rq) >> IOC_SECT_TO_PAGE_SHIFT) *
++			(req_op(rq) == REQ_OP_READ ? model->read_vtime_per_page :
++						     model->write_vtime_per_page);
++
+ 	calc_size_vtime_cost_builtin(rq, ioc, &cost);
+ 	return cost;
+ }
+@@ -2908,10 +2957,33 @@ static void ioc_rqos_queue_depth_changed(struct rq_qos *rqos)
+ 	spin_unlock_irq(&ioc->lock);
+ }
+
++/* Called by .unreg and by device removal, whichever is first. */
++static void ioc_detach_model(struct ioc *ioc)
++{
++#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
++	const struct iocost_model_ops *ops = ioc->attached;
++
++	lockdep_assert_held(&ioc->rqos.disk->queue->rq_qos_mutex);
++
++	if (!ops)
++		return;
++
++	spin_lock_irq(&ioc->lock);
++	rcu_assign_pointer(ioc->model, NULL);
++	ioc->attached = NULL;
++	ioc->attached_link = NULL;
++	spin_unlock_irq(&ioc->lock);
++
++	/* calc_cost() can still run. The map is freed after an RCU gp. */
++	bpf_struct_ops_put(ops);
++#endif
++}
++
+ static void ioc_rqos_exit(struct rq_qos *rqos)
+ {
+ 	struct ioc *ioc = rqos_to_ioc(rqos);
+
++	ioc_detach_model(ioc);
+ 	blkcg_deactivate_policy(rqos->disk, &blkcg_policy_iocost);
+
+ 	spin_lock_irq(&ioc->lock);
+@@ -3458,11 +3530,12 @@ static u64 ioc_cost_model_prfill(struct seq_file *sf,
+ 		return 0;
+
+ 	spin_lock_irq(&ioc->lock);
+-	seq_printf(sf, "%s ctrl=%s model=linear "
++	seq_printf(sf, "%s ctrl=%s model=%s "
+ 		   "rbps=%llu rseqiops=%llu rrandiops=%llu "
+ 		   "wbps=%llu wseqiops=%llu wrandiops=%llu "
+ 		   "flushiops=%llu\n",
+ 		   dname, ioc->user_cost_model ? "user" : "auto",
++		   ioc_model(ioc) ? "bpf" : "linear",
+ 		   u[I_LCOEF_RBPS], u[I_LCOEF_RSEQIOPS], u[I_LCOEF_RRANDIOPS],
+ 		   u[I_LCOEF_WBPS], u[I_LCOEF_WSEQIOPS], u[I_LCOEF_WRANDIOPS],
+ 		   u[I_LCOEF_FLUSHIOPS]);
+@@ -3499,6 +3572,7 @@ static const match_table_t i_lcoef_tokens = {
+ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+ 				    size_t nbytes, loff_t off)
+ {
++	const struct iocost_model_ops *model;
+ 	struct blkg_conf_ctx ctx;
+ 	struct request_queue *q;
+ 	unsigned int memflags;
+@@ -3535,6 +3609,7 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+ 	spin_lock_irq(&ioc->lock);
+ 	memcpy(u, ioc->params.i_lcoefs, sizeof(u));
+ 	user = ioc->user_cost_model;
++	model = ioc_model(ioc);
+
+ 	ret = -EINVAL;
+
+@@ -3559,7 +3634,11 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+ 			continue;
+ 		case COST_MODEL:
+ 			match_strlcpy(buf, &args[0], sizeof(buf));
+-			if (strcmp(buf, "linear"))
++			if (!strcmp(buf, "linear"))
++				model = NULL;
++			else if (!strcmp(buf, "bpf") && ioc->attached)
++				model = ioc->attached;
++			else
+ 				goto unlock;
+ 			continue;
+ 		}
+@@ -3579,6 +3658,7 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+ 	} else {
+ 		ioc->user_cost_model = false;
+ 	}
++	rcu_assign_pointer(ioc->model, model);
+ 	ioc_refresh_params(ioc, true);
+
+ 	ret = 0;
+@@ -3626,6 +3706,158 @@ static struct blkcg_policy blkcg_policy_iocost = {
+ 	.pd_stat_fn	= ioc_pd_stat,
+ };
+
++#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
++static int ioc_bpf_reg(void *kdata, struct bpf_link *link)
++{
++	struct iocost_model_ops *ops = kdata;
++	struct block_device *bdev;
++	struct request_queue *q;
++	unsigned int memflags;
++	struct ioc *ioc;
++	int ret;
++
++	bdev = blkdev_get_no_open(new_decode_dev(ops->dev), false);
++	if (!bdev)
++		return -ENODEV;
++
++	q = bdev_get_queue(bdev);
++	if (bdev_is_partition(bdev) || !queue_is_mq(q)) {
++		blkdev_put_no_open(bdev);
++		return -EOPNOTSUPP;
++	}
++
++	/* the order of ioc_qos_write() */
++	memflags = blk_mq_freeze_queue(q);
++	mutex_lock(&q->rq_qos_mutex);
++
++	ret = -ENODEV;
++	if (!disk_live(bdev->bd_disk))
++		goto out;
++
++	ioc = q_to_ioc(q);
++	if (!ioc) {
++		ret = blk_iocost_init(bdev->bd_disk);
++		if (ret)
++			goto out;
++		ioc = q_to_ioc(q);
++	}
++
++	ret = -EBUSY;
++	if (ioc->attached || !bpf_struct_ops_get(ops))
++		goto out;
++
++	spin_lock_irq(&ioc->lock);
++	ioc->attached = ops;
++	ioc->attached_link = link;
++	rcu_assign_pointer(ioc->model, ops);
++	spin_unlock_irq(&ioc->lock);
++	ret = 0;
++out:
++	mutex_unlock(&q->rq_qos_mutex);
++	blk_mq_unfreeze_queue(q, memflags);
++	blkdev_put_no_open(bdev);
++	return ret;
++}
++
++static void ioc_bpf_unreg(void *kdata, struct bpf_link *link)
++{
++	struct iocost_model_ops *ops = kdata;
++	struct block_device *bdev;
++	struct request_queue *q;
++	struct ioc *ioc;
++
++	/* del_gendisk() is in progress or done. ioc_rqos_exit() detaches. */
++	bdev = blkdev_get_no_open(new_decode_dev(ops->dev), false);
++	if (!bdev)
++		return;
++
++	q = bdev_get_queue(bdev);
++	mutex_lock(&q->rq_qos_mutex);
++	ioc = q_to_ioc(q);
++	/* the dev_t can belong to another disk and another model by now */
++	if (ioc && ioc->attached == ops && ioc->attached_link == link)
++		ioc_detach_model(ioc);
++	mutex_unlock(&q->rq_qos_mutex);
++	blkdev_put_no_open(bdev);
++}
++
++static int ioc_bpf_init(struct btf *btf)
++{
++	return 0;
++}
++
++static int ioc_bpf_check_member(const struct btf_type *t,
++				const struct btf_member *member,
++				const struct bpf_prog *prog)
++{
++	return prog->sleepable ? -EINVAL : 0;
++}
++
++static int ioc_bpf_init_member(const struct btf_type *t,
++			       const struct btf_member *member,
++			       void *kdata, const void *udata)
++{
++	const struct iocost_model_ops *uops = udata;
++	struct iocost_model_ops *ops = kdata;
++
++	switch (__btf_member_bit_offset(t, member) / 8) {
++	case offsetof(struct iocost_model_ops, dev):
++		ops->dev = uops->dev;
++		return 1;
++	case offsetof(struct iocost_model_ops, read_vtime_per_page):
++		ops->read_vtime_per_page = uops->read_vtime_per_page;
++		return 1;
++	case offsetof(struct iocost_model_ops, write_vtime_per_page):
++		ops->write_vtime_per_page = uops->write_vtime_per_page;
++		return 1;
++	}
++	return 0;
++}
++
++static int ioc_bpf_validate(void *kdata)
++{
++	struct iocost_model_ops *ops = kdata;
++
++	if (!ops->dev || !ops->calc_cost ||
++	    !ops->read_vtime_per_page || !ops->write_vtime_per_page)
++		return -EINVAL;
++	return 0;
++}
++
++static u64 ioc_bpf_calc_cost_stub(struct bio *bio, u64 model_flags)
++{
++	return 0;
++}
++
++static struct iocost_model_ops ioc_bpf_stubs = {
++	.calc_cost	= ioc_bpf_calc_cost_stub,
++};
++
++static const struct bpf_verifier_ops ioc_bpf_verifier_ops = {
++	.get_func_proto		= bpf_base_func_proto,
++	.is_valid_access	= bpf_tracing_btf_ctx_access,
++};
++
++static struct bpf_struct_ops ioc_bpf_struct_ops = {
++	.verifier_ops	= &ioc_bpf_verifier_ops,
++	.init		= ioc_bpf_init,
++	.check_member	= ioc_bpf_check_member,
++	.init_member	= ioc_bpf_init_member,
++	.validate	= ioc_bpf_validate,
++	.reg		= ioc_bpf_reg,
++	.unreg		= ioc_bpf_unreg,
++	.cfi_stubs	= &ioc_bpf_stubs,
++	.name		= "iocost_model_ops",
++	.owner		= THIS_MODULE,
++};
++
++static int __init ioc_bpf_struct_ops_init(void)
++{
++	return register_bpf_struct_ops(&ioc_bpf_struct_ops, iocost_model_ops);
++}
++late_initcall(ioc_bpf_struct_ops_init);
++#endif
++
+ static int __init ioc_init(void)
+ {
+ 	return blkcg_policy_register(&blkcg_policy_iocost);
+
+>  3/5: selftests with two example models (the full builtin linear
+>       HDD formula at double cost, and a multi-stream sequentiality
+>       model) plus a runner and the selftest kernel config entries
+>  4/5: add an iocost_ioc_tick tracepoint emitting the per-period
+>       controller state, so model quality can be evaluated without
+>       drgn (existing events are state-change driven and silent in
+>       steady state)
+
+Also progs/iocost_model.c in patch 3 has SEC("tp_btf/iocost_ioc_tick").
+Patch 4 adds this tracepoint. At patch 3 iocost_model__load() fails.
+Swap the two patches.
+
+pw-bot: cr
