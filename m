@@ -1,109 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793154744;
-	b=MoCzA+bCowYNEyLCXy4tmSsK7y/7gKDtew+lKnmSj6g8x7C03B8tguXsuItRyhysjPG3
-	 aw0yRTVP0U04CsOGKyPZ5CZhVN9OPksGZG7LUB2MiMITVdGx9M2EE/6fKvbRQdneE+6ay
-	 lCPq0BKY8cmm4mB+uLp04iPmFl6GG92Csz34cxt2lHoPDT0V/zhhFSoPMynmGzI74GHNx
-	 qk8SQjxtJgGGsnTHSfq3eGOIkxTQY37kOejx1wVoOJjzWG3NwtCEbfKmTmT7J7QpaT5cZ
-	 XTSlh/D13yhFVJnxJSirJsa8S+pWXri2nXqqmChW58ZXzNG/5hCrBgoV3U5J61PL83Q==
+	t=1793154997;
+	b=HDuFNJRyFvgEKFPibdOwzHPNnqJnGMvtPZUSeNSGXMXObvghUC8Wk/TMiLVeAhxBf1r5
+	 uaYEScofXk764D3x78T9edpduG2em2jRYiqesXdrvcp3SDjeuQz5GC/l0LEOeAvr44yWI
+	 5vRc0zCHuVhwckNpHe5MB+XOuLMo3Jd5wzgyc0skbbivA2HJaIufUZcyIBRjisSSdGNyL
+	 dnzuYF1xMOyLCkcY9DWRAoHvB6LGgiVvTOBt4ZeEP3WlVMlrqKGe/ujHwuVuKrHp7z0hy
+	 TVfA9g9IvyAlBKO/Zudm1NL5uKgwu3RUH+jMJ62AlI5QpvEQ4I6YT7sjeAiX4h6I+vw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154744;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LCZc55SguUaUW/Qc9mttlPQidAeltmeG/JhdLNIZoHs=;
-	b=v0f58XVrO9QhNzDxLkH0xiInOkkJw9grFeTBKApOQ782ccE2lFTL3QVGrfvag7LE4nwp
-	 h1QY846BCPoQdBPduV4c4DXnh51tyl6uQ/yOA5d11NQCTN0YQZDTcWVo0DvXAlWpZtKu1
-	 kWbM6TNRyxYmeIqjaYl+gc7vyOioQX2qpHQzVPTRqIXD+QqnXK5gg3D0qIsbJ3S8j8/w3
-	 eersPUXvzHuYhKbFginsccN3pFMa0xc4B7QaJ+f6sd7nqlicK9jGiJ8EHMZVE9dHvyvdw
-	 3KaDuMXtbMI63X9o274g1gCCv5u8vvqXwK3OdWo0f3UKzFA/xNQ9ApoJ/klNk1ej39g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
+	b=HniRmpN8BNnQg4kWQODxyQ7Eg9R5lscxTr/sR1VAVyeGwIlo/A2INx8Hm6/3+enFPI56
+	 HzgbhFVmHqd63v+JvIGqyEAFq5VFgQIFVBXiDdinDrEo/FW3so90ZVi/cwX8I+MwHyHUD
+	 sXCve3GHaVoGEhajZKiqZkOG8G/WUB9lDSoUR9EsFkqq/gDPyZH6MBfzzvzuh548MaYHY
+	 86eN5gixn2Lfi7dKvFfTZoeO2Get54MQUFJW3P9UVv4RB7AY1NpxOLuciHNXLUYgqHwjz
+	 X1YHVQXmG/Qii2aKvIHGCI0ow7t0++mR/4ghp7qOSvibNWZISBmmvIq4IXl9GIj6mOA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SUWw6oyi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.28
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011028.outbound.protection.outlook.com [52.101.57.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzFZ9jOz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F1F606A31A;
-	Wed, 28 Oct 2026 02:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91F1F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB884606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB884606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SUWw6oyi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iWG7cVHhjDwUtacFag2q3t38dOB6LdV9/mTjySYTfSaQay88HHZSmz8dD+5f0reXRuDN2Kum9i98jmn8O7vrijlABmnCZmR8eO6Fqa3RhLOtjzrF0Mq1S2QqG1L+26Y4SiQa2UNGzPHDgWEuL6pDZ5/mTQaLsElBuOA9fRqS9hYmjwPlB+Gr+vqP6TvZ7viIOJOSi+nnHU8/2AvOJpdwUW2NgcyzCZivw2QlNukCyvLrtNSs5w/6UgijWYBF6HzYGlaJwSqlNvOFmeO4b9lE/v4SEUZzfkfNrxYLVAG9Jxyr8EuUDRWr2GUVEO4DU+8ohyyngHQLn8UzTGryUlef6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LCZc55SguUaUW/Qc9mttlPQidAeltmeG/JhdLNIZoHs=;
- b=Bxs+kzkGQWVE5MFrOQvbFkJVcEX0163rIfW1KffzOsZDwiwp1rU5tp0148OUfbsPQKPamJsQN8h78qdxn0DXTKMDyDxL8Z1FiylDLYt3EF/NJwxJIz5FivpYYcsm1J4Y4H4862iQbULU3cwKYkAr8cUzBV1cF0ICoWvqsek92HH0Okm6dauxWkoSzo89uGw8ocUY6JHgmI3ib6/OvmpN9tN1ruvGKVNixrcgGgjRY3LSHVZxAQE2IQw68tJcT0q/qW5lZ+C55k8o8/EA4jUFOS50hV7BMcbT+dBuk/WzEnKeS0C0FdyqTrb8mB27lwAGqAvxyOXctrLcqt9xyB4DUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LCZc55SguUaUW/Qc9mttlPQidAeltmeG/JhdLNIZoHs=;
- b=SUWw6oyiPpbC0McCCnEJpDiVIjQvlM2bLdhAYLuz862kYhUIvWz5w5PmSoDFAhuIvsX0R7WCksjkIgb3oFuCxOHlCU3pT4h6aCR97YohOg6r7crGFSrDGDk7axd1HIOotqG49SLmo0YL4vfM+D4StA8cMHLFthUtgRy9y4cdN7AvtB0/aCaym6PBuCl2K0UgM7SMKPsTl3v7vBJW54G2Rc36yez9ZmTvYdX77ctYu9cKjB2bFvLMDN/ruE0ZZLvDBYgdNQw2xIofqlm31VyrN2f5R/GwQPcB4hMlTln95yAirw6QMbR4M3Mwef8ANgysb+GsGPkk8IEhwcF2qc+u6w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
- by LV9PR12MB9783.namprd12.prod.outlook.com (2603:10b6:408:2e8::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 02:32:20 +0000
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 02:32:20 +0000
-Date: Wed, 28 Oct 2026 13:32:14 +1100
-From: Balbir Singh <balbirs@nvidia.com>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: roman.gushchin@linux.dev, muchun.song@linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/vmscan: remove redundant !mem_cgroup_online()
- checks
-Message-ID: <auFerm6kHxeuPFpR@parvat>
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-2-tjmercier@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028010611.3929937-2-tjmercier@google.com>
-X-ClientProxiedBy: ME0P300CA0013.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:220:20f::11) To CH3PR12MB9730.namprd12.prod.outlook.com
- (2603:10b6:610:253::9)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzFZ9jOz
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfa686881fso465374e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:36:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793154995; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HH5ErwUo4Uxygx1lKL8b2asYw0oMB2ZJKvTCPB2390kB6fVf1KZLtumMEGmPv7J9la
+         rhDYXMRJD5/lLArqryKWBPvJTUjFTEc407T5qLLZsYiTH5+fOncxd0XuI6Lpeec30fcL
+         eL6yjjr4kK8ClLIyfZjWBlOcWG1PkUoHxVm7uvdisJz/iUsIrZITMw+6Vmskymf80T37
+         uwu1AjSEn7POtV7W0b4uK8tGmE3Iov+xIyWB3UaUJTgFtagHxPoFJ3v7B+KVBVNLyX0z
+         6isfWCOA1pTGPfGpe5hCXsJp/DMBOCZYR7ggg2wgUyzz+bmR60oGtTrPoed/wUtKbAls
+         mgQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
+        fh=LrttzmAFJF/BOu7lBOolixfPM1wKOZU0Cvv06/eb6I8=;
+        b=f5eE7X7fJlX1F4vxgJEOrXf1TWHDC0DEgNpHdEjNCjKthpg3SFOzp/mCySSBnkjibr
+         EwK8BcGFJeROmQ17zP7YNJwVft5oEsR4Z52UY1vDmOv8PlRk14ILjtlsqxwNZgtDzzcJ
+         yc8Q+uSqZp+CAsbsYsvBpj48rPs94Dka9jZoFhKB82rnSlaIXcZvTWmsrSA8iQfG3Cnn
+         jdI3vezKRcbIN2cFGQ7fjnjaOmBpKiGbWNlEKaFlsZZKRPqTuUWc5i5eDZW1vwQ8Uu2r
+         1vd0W0qgSEOZ9dlKow0aUuEmor/bBC0zOFdkU9bcvG8byNJ8eQfRL5Eu4jdQqMsYqiew
+         h1QQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793154995; x=1793759795; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
+        b=rzFZ9jOz7i2ac77OXVlgf1fvPX9Ab3WmJDWVqROiaTpFbXiDNBhs5VZxiGMMLKN3aj
+         dZa/DN0xBMih0J3m4+GpEVZWTxGuXNcj/m7F/gquHRukMYpL1nNLgQYb6KbBimGqxDQ2
+         InsKa5HhiU6xOKyejzeIDhnSehEDGXeR+GdxApvUmyMxcdQahu/aRY2KnFj6wfeVfSBf
+         qkhyxOeAk4dDN1CZdDgG/ESvL5hIlRRUskU346lY4CwGRbQs8+xG+/8IMgbosuBU1F5h
+         DcoWZzLhrEFKGytxqHCZa6CWJGdEyAS7zMeeUV1RZQJ6y74+pp8M+GBOcFpNaEMW/KVl
+         vaQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793154995; x=1793759795;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j0tvYwZc9wTvJehA1eVV42/5EkP6AzjWS58ZC5zewLc=;
+        b=cagfNB+rwzrtyCIf5hrjtk3gVUAIoZjfP2XOiNXl4hbU+6KnvPeQ3hwh+Gz3y59Auj
+         sMLv6XXC+1E4XwmgY8Bx8TFm7KY+H5gI2q95spdSaiil2u5p8F6Kkx9kiiCiNIe9Hh84
+         357ZFaismtKc680WTcc6unItk1Q8104eo1/uTwyf7Nk96XTILSYu4i4TfydKjYkmy0WC
+         JYexE1gnMjV80TGBmprsn9i5he6mxryALBUtmtG8wizMyEL7nGvNn8uiJn8IN4ivIpwY
+         P7uiKihjtNpvxMH/dhB+IEFn8qcHHDwZqfmBfrYYwC7zWOKvPH5l9SGjEyzVjdVsTSDH
+         9Lgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrLBbWgnk0re4woN6SHY11uZVHh16FqdGTyx8mbXHXMUELC5hncr36xhxZR98iV/q2ardEr598pEPSb6o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAZKATv46GqTr0yBjNs+MrB5FUDNcda4seiX1mlGFP85Xq5MSe
+	tjXe55C4sMwPa+GtNFXpIrQZKam02LC96n5kYRpsGZrFvN1XlWFk8azUw8dRMF+TO76cLDwaQpP
+	i+R2SCHjCDSZ9gB0R3klX+btWZBuWd8c=
+X-Gm-Gg: AYBFou1V1AuEeKC8vohZwUsDj+TxhqWQ2Zt1wmBdz7w465D6AMxLL+N4DXnrXePz4d5
+	oJoKCukhqI+CoEaRmfMJ1WFcbzTkz6E63a+OddUouawrAlaZaK5BF+U2SqJKvD8DnidifaJKRah
+	+ao224QElN5NGM44764hG4JwLSdp8XwCFasaCegjwl/27iauPcxP7SV18DHkIyob7w8USNOLemX
+	6jUJXt4VyRXESX8VAwgr43etK2XHG8hEsvyVb9d8jtyZ9AHztW0IR4JE0rdzuaZ1nnRW+DbgGR8
+	BBjLCDU/TA64RWJeQqRP5zEhD0AoOes71WD6Y+XwkvR9oioP2WzeRvhxBy09TsNkG0IKMzbuh7p
+	GGN1KI52bvY8LTIVhhihlrJ1ZRPxbphcT+uMYzLzR974E0mvnttczidOopJwF2fGg+4zsBnJmW6
+	Z+uOQY4abcF6suCvwA
+X-Received: by 2002:ac2:4bcc:0:b0:5bf:bfa7:cd33 with SMTP id
+ 2adb3069b0e04-5bfcacc8d0fmr434647e87.8.1793154994755; Tue, 27 Oct 2026
+ 19:36:34 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,186 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|LV9PR12MB9783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 312bd075-e986-4a2b-42d8-08df349bb0a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|261026140227099003|4143699003|261021123027099003|56012099006|10067099003|261021121427099003|261009223027099003|5023799004|261022105027099003|261022075727099003|11063799006|22082099003|261026121527099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yc3J0loBpKnz60GZRVOcKcHuuM4jmSKTiZZJGkKT4vMqYq51gs4WiN2MaPY6L9naU6nKrVLPUU9wi00IRlcNnp1+FBMTnPi0WUab994u8ktQwwKLhX0ViyyX1plPK9Vw8Rhjjgo8LBNEN/w43S7+wD8m3pIj1DBU7IEwY8NJ2m4c20J2MGxlkuzClbnsW2PGRTmH6HFbYrTThARJqtFcVM/WFwnSYOITLiJOHvxyDJ7P4ROY65U+Y8H9g3LNKyg/U1JC+z8n79q9uc+TiUJBRdpDP3R1q3Ps6SMRvf6RHQGK8PlyGqcQz4TxPIsMvtD2NmCUwBrw1gjAZaEDempp+YTewXMncqSMwjFuzmFbMBkfpNOhKAor9ryATt0Mctl3oHMRVbvlPAboGIXb1Pwo2LTukLV889/R/bL2nXW2mkwR7uKuLiNPmMT31rsvYF7dI3SQdBH+VJzp4Lp5Z69WNPI/DJVoxWN9IzU8pGgAQBXk0OsOr43TtxwOUFrm252c4IKKKQeKd0PoBG8pSapwGDTR75DUIM1TTNG9d1lYLT8njuRIuBrR5rzMykGuD88nwykutLewV4WEVBF6+vuUaSZhouDWsK/zFj/gsWaXE+hv8Mb/w0W7PBzS4aul7CdXxBkHgfTW64X0qr4VJWwBEgynYufd+rUMLe6HTRxWsgc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(261026140227099003)(4143699003)(261021123027099003)(56012099006)(10067099003)(261021121427099003)(261009223027099003)(5023799004)(261022105027099003)(261022075727099003)(11063799006)(22082099003)(261026121527099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?J8iYXGtzg6flsA7DkCusBD9kMvLGCDYWSdtGP/FLKDcL7HedLGQ8C1/LzikG?=
- =?us-ascii?Q?PbhsDkI4/In+O6lugcFi2FA11XqaiuSDP0aKtiVofCuTQ+G8rl9XnTGoGUOk?=
- =?us-ascii?Q?rc+ok4NfyzVvGsQtXpQm2VSg20zw/O7N758V9ulMCyf13OXdEjQI82dduKPn?=
- =?us-ascii?Q?FJ4i9XtvHWCBQOVFjB44dY8G1RPei8K3rEUJIIniwWK/SvuA0Mbk6Az7HdcO?=
- =?us-ascii?Q?X0sbiL7550XVykoKp6A1Kjh/FyzNgtCT46A1ZUB1SaAMSrWe5uwUNGj9eGUz?=
- =?us-ascii?Q?wEsqltJG3nhylPGlNJPAiOYz7o9quFCrHBZBcmLaUTIQh7EwDgj+7JFoVGPs?=
- =?us-ascii?Q?G7MrXCty0LwNKxzrK9FN+Ha9/Fj2p9eKpsURbUEOZUONPVrFYF/D+NLEMLMC?=
- =?us-ascii?Q?R21jr4iEP5yhMNLQKobe4Wram6pPL1ctdIdHfSlciY8cL5NhWbXDVLbZZg88?=
- =?us-ascii?Q?0FcLfRuBYen0rY0Z8RqHXWEhuVkvk9uwXJYH05cV1Nc8sRy8CTDNFUoe5Lrq?=
- =?us-ascii?Q?yyB7SHy5vKIWePQOY91bdHEI9rtmD4nXWVex+04Dct9HkFy0xB9ipWPaCHDc?=
- =?us-ascii?Q?3alcoUHl8CUendNswdR7K+cwZKvGGWFmfv9awRE4noIyvuVDH9RyyeeHjyk6?=
- =?us-ascii?Q?UY05ozBEKhz1BrNzsAWjoG44ybYzncQE/tdzsikBrW6qjPX7Gc/fzmcbAUsq?=
- =?us-ascii?Q?D3WAEPVj/5Bdg+17L/yADfSAGfTip8i8c7iTnI2vHyzpImWTi9G8+vdU1Rst?=
- =?us-ascii?Q?fVMpdcVKlhG+qVE8Cm1K1hFqIwNQgw31yu9f4F3isPSfeRYn4B54IgHNmvgY?=
- =?us-ascii?Q?FTF6tLYBu1CmbTWyJ6GrKYD7vD/DMykFGtwy3d/mzJ1xvR+WbG1hf7xtswhB?=
- =?us-ascii?Q?rBapoI14it33LEyBK++dyfsqM7A8HXrZ9UnjvZnR3Tj7SRPzAC/0jfUmoHKN?=
- =?us-ascii?Q?1Cufe9oWs3o/bLtU1ajZSzBJUBktpCzgA6KjyANyh32XrqoEoTgQ5S1goSiK?=
- =?us-ascii?Q?3UTyQQv9d8yB/6sPat2paTvCwR23TTR8E7JKxS4nnq8utllc4Bx/SRw3cthr?=
- =?us-ascii?Q?tQ0FnzYwT2jYb8s8FZDQjnqXlgkWXxGCio1aac9e99pUzee8/G8RFn0Ys5nV?=
- =?us-ascii?Q?3+RafaN1dx3hjyTpxkjfdYqZ65acXgMweYyvOq6OpIirl/cXwZcXWhVJ88r2?=
- =?us-ascii?Q?rEb/fvguB+lZfy4jsTogvlOBbxs1/MuWDC7m6e5jTeZBQzn7iRppI42mB1LM?=
- =?us-ascii?Q?K1j7K6SwZPfRztFKGL7CJX7dNwzAMa9UihfakIFVQBExO3F7gEh9wTHGZJI9?=
- =?us-ascii?Q?+mGFo+6juteXakn2O91zhKBB6otw+PBTDq5KEIvLNgYfzvBopEQVkTylXWjY?=
- =?us-ascii?Q?Excb1A1t0RgKC72JgdOlqRw8X01k3O+LOgmMRKpZLs69HuLdCVwL9qHh+yh5?=
- =?us-ascii?Q?1Q1Xa7Z8jmTfTx+O1cGDDhRgqQcxgYKMH5E2/WlMno6A0D4OWoJRJiyJz6zB?=
- =?us-ascii?Q?kpjH5PJ5Ei1uScB83xMGNrQcszrjAIR5u5vw8n6bLw95jZGcV2PhGZZmTFnb?=
- =?us-ascii?Q?NnZ5de4Xjd0TqsUVi8fEH5AN0MNYK3wOGab0uN4In7NaWpHgZjf+pdQF5MSS?=
- =?us-ascii?Q?/MlHk2K3Ta0gHlcTr/aZSBJS+THUF6WLebaQPV5Lb2avn5v7xVICD/HWZ65Q?=
- =?us-ascii?Q?FUJiVvj6uXwtO05HaEGZz/fHZ3Mz3UxxDLoH/AeLVJdBOMk8G4r2B1PXDcSY?=
- =?us-ascii?Q?2vbMn5Mrkg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 312bd075-e986-4a2b-42d8-08df349bb0a8
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 02:32:19.9121
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +Qcn4vW8pZZw8Tz9JtCEsc3HKlrYGrXnH3mtpNzXT5edgGOeLVTU5g02QMqQcvZYM5tqZpCcA2tKlkWAB3cnQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9783
+References: <20261019230159.834954-1-mrwillporter@gmail.com>
+ <at-dpPOGs2zD2fuL@khmer.arcnet> <CAMZ8TExJThTMZVvbDMVdtXSB-edGAsAnmKYtAtM1CCw0pDvNGw@mail.gmail.com>
+ <auEyD23PT_kpJsrJ@khmer.arcnet>
+In-Reply-To: <auEyD23PT_kpJsrJ@khmer.arcnet>
+From: Will Porter <mrwillporter@gmail.com>
+Date: Tue, 27 Oct 2026 21:36:23 -0500
+X-Gm-Features: AclHuK-MYfRR2Ytpzl3UFpBwLNrsz8gDJW_Gm_bBh87oewtYdi1oUomSx4Y7hwY
+Message-ID: <CAMZ8TEw=rmc=H3L60j-o_wa0fNc9eOhG7ZY0SdttFf+p-qUfkQ@mail.gmail.com>
+Subject: Re: [PATCH 0/5] ALSA: usb-audio: Audient iD14 MkI vendor controls
+To: Christian Ruppert <arc@gmx.li>
+Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Neil Andrews <neil@androos.io>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 06:06:05PM -0700, T.J. Mercier wrote:
-> Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-> dying memory cgroup for LRU folios") and commit 0e0ac326c511 ("memcg:
-> move LRU size accounting on reparenting instead of copying it"),
-> mem_cgroup_css_offline() reparents all LRU folios to the parent memcg
-> and zeroes the child's lrugen->nr_pages and lru_zone_size before the
-> memcg is offlined. Nothing can repopulate the offlined memcg's lruvec
-> afterwards. A folio that is off the LRU during reparenting looks up its
-> lruvec through its objcg, which now points to the parent so it is put
-> back on the parent's LRU.
-> 
-> As a result, lruvec_lru_size() and lruvec_evictable_size() are always 0
-> when !mem_cgroup_online(memcg) is true, making the offlined memcg special
-> cases in get_scan_count(), lruvec_is_sizable(), and shrink_one() dead
-> code. Remove them.
-> 
-> With the get_nr_to_scan() special case removed, an offlined memcg that
-> still has stale effective protection now has
-> apply_proportional_protection() applied like get_scan_count() does, so
-> the MGLRU and traditional LRU behavior is now the same.
-> 
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> ---
->  include/linux/mmzone.h |  8 ++++----
->  mm/vmscan.c            | 28 +++++-----------------------
->  2 files changed, 9 insertions(+), 27 deletions(-)
-> 
-> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> index 3b96d6c7123b..7f078ff0dd76 100644
-> --- a/include/linux/mmzone.h
-> +++ b/include/linux/mmzone.h
-> @@ -638,10 +638,10 @@ struct lru_gen_mm_walk {
->   * The events that trigger the above operations are:
->   * 1. The first attempt to reclaim a memcg below low, which triggers
->   *    MEMCG_LRU_TAIL;
-> - * 2. The first attempt to reclaim a memcg offlined or below reclaimable size
-> - *    threshold, which triggers MEMCG_LRU_TAIL;
-> - * 3. The second attempt to reclaim a memcg offlined or below reclaimable size
-> - *    threshold, which triggers MEMCG_LRU_YOUNG;
-> + * 2. The first attempt to reclaim a memcg below reclaimable size threshold,
-> + *    which triggers MEMCG_LRU_TAIL;
-> + * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
-> + *    which triggers MEMCG_LRU_YOUNG;
->   * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LRU_YOUNG;
->   * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
->   * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 9959ca158ce8..636152d8c94d 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -2754,13 +2754,6 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
->  		scan = apply_proportional_protection(memcg, sc, lruvec_size);
->  		scan >>= sc->priority;
->  
-> -		/*
-> -		 * If the cgroup's already been deleted, make sure to
-> -		 * scrape out the remaining cache.
-> -		 */
-> -		if (!scan && !mem_cgroup_online(memcg))
-> -			scan = min(lruvec_size, SWAP_CLUSTER_MAX);
-> -
->  		switch (scan_balance) {
->  		case SCAN_EQUAL:
->  			/* Scan lists relative to size */
-> @@ -2769,14 +2762,8 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
->  			/*
->  			 * Scan types proportional to swappiness and
->  			 * their relative recent reclaim efficiency.
-> -			 * Make sure we don't miss the last page on
-> -			 * the offlined memory cgroups because of a
-> -			 * round-off error.
->  			 */
-> -			scan = mem_cgroup_online(memcg) ?
-> -			       div64_u64(scan * fraction[file], denominator) :
-> -			       DIV64_U64_ROUND_UP(scan * fraction[file],
-> -						  denominator);
-> +			scan = div64_u64(scan * fraction[file], denominator);
->  			break;
->  		case SCAN_FILE:
->  		case SCAN_ANON:
-> @@ -4355,12 +4342,11 @@ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
->  {
->  	unsigned long total;
->  	int swappiness = get_swappiness(lruvec, sc);
-> -	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
->  
->  	total = lruvec_evictable_size(lruvec, swappiness);
->  
->  	/* whether the size is big enough to be helpful */
-> -	return mem_cgroup_online(memcg) ? (total >> sc->priority) : total;
-> +	return total >> sc->priority;
->  }
->  
->  static bool lruvec_is_reclaimable(struct lruvec *lruvec, struct scan_control *sc,
-> @@ -5199,10 +5185,6 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
->  
->  	evictable = lruvec_evictable_size(lruvec, swappiness);
->  
-> -	/* try to scrape all its memory if this memcg was deleted */
-> -	if (!mem_cgroup_online(memcg))
-> -		return evictable;
-> -
->  	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
->  	nr_to_scan >>= sc->priority;
->  
-> @@ -5325,13 +5307,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
->  
->  	flush_reclaim_state(sc);
->  
-> -	if (need_rotate && mem_cgroup_online(memcg))
-> +	if (need_rotate)
->  		return MEMCG_LRU_YOUNG;
->  
-> -	if (!need_rotate && lruvec_is_sizable(lruvec, sc))
-> +	if (lruvec_is_sizable(lruvec, sc))
->  		return 0;
->  
-> -	/* one retry if offlined or too small */
-> +	/* one retry if too small */
->  	return READ_ONCE(lruvec->lrugen.seg) != MEMCG_LRU_TAIL ?
->  	       MEMCG_LRU_TAIL : MEMCG_LRU_YOUNG;
->  }
-> -- 
+Hi Christian,
 
-In some of the places do you want to consider adding a VM_WARN_ON_ONCE
-for memcg_online not being true?
+On Wed, Oct 28, 2026 at 12:21:51AM +0100, Christian Ruppert wrote:
+> BTW: the mixer matrix seems to be identical also for the EVO8 so
+> chances are it's the same for most audient devices and we could
+> simply use a width and height parameter to generate it in a loop.
 
-Acked-by: Balbir Singh <balbirs@nvidia.com>
+That sounds good to me. On the iD14 it would be 14 inputs by 4
+outputs.
+
+> My view of the WO implementation would be to add three flags: cache,
+> init and force_write:
+
+These look right to me. As per-control flags, you could set init on the
+EVO matrix, and for the iD14 entries, could we set it only on the
+write-only controls? The matrix, routing and readable monitor controls
+keep their values across a replug on mains power, so I'd leave those
+untouched at probe. Would each entry also carry its init value? On the
+iD14 most start at off or the first item, but optical mode starts at
+S/PDIF.
+
+I'd keep force_write on the cached write-only controls, as a precaution
+against a reset that leaves the card registered. I haven't seen that
+on the iD14: the resets I've seen re-enumerate it and run probe again.
+For the readable controls, skipping an unchanged write seems fine to me.
+
+> - The intent of the control types was to associate unit/selector
+>   pairs with data types. I would add a new ctype for each
+>   unit/selector pair [...]
+> - I don't have a preference between explicit control names and the
+>   basename/suffix system the EVO driver currently uses. If you prefer
+>   we can simply replace the basename with a full name and remove the
+>   flags field in the controls.
+
+Yes, full names would make the iD14 table easier to check. And
+one ctype per unit/selector pair is fine with me.
+
+> - The boost switch writing 0x0 for 0dB gain and 0x0a00 for 10dB gain
+>   looks suspiciously like a volume control between 0dB and 10dB *
+>   256steps/dB. Does this control only accept these two values or can
+>   we simply implement it as a standard volume type controlling a mic
+>   pre-amp?
+
+Your guess was correct! The device answers no RANGE request for it, so
+I tried intermediate values with a loopback cable: 0x0100, 0x0280 and
+0x0500 gave +1, +2.5 and +5 dB on both mic inputs, each tested
+successfully within 0.01 dB of nominal. I didn't test outside 0..+10 dB
+though.
+
+Even so, I'd like to keep it as a switch in this series, because the
+iD14's documentation describes a fixed +10 dB boost. Your max-for-true,
+min-for-false boolean would fit that, with 0 and 0x0a00. A 0..10 dB
+volume could follow as its own patch if people want it later. Does that
+sound reasonable?
+
+> - We definitely need a new snd_evo_type entry and get/set functions
+>   for enums, up to you to define those in the most suitable manner
+>   for the id14.
+
+OK, I'll write the enum type with the iD14 tables.
+
+> Sure, error management is always good to have. [...] Also, for the
+> controls I checked, the EVO cleanly rejects out-of-range writes but
+> if the id14 doesn't we should add those checks as well.
+
+I haven't tested whether the iD14 rejects them. Could the generic put
+handlers reject values outside each control's writable ALSA range with
+-EINVAL, before converting them to device values? That would cover
+both devices.
+
+> I would definitely prefer to list both of us as maintainers.
+
+Okay, let's do that.
+
+> I suggest I submit an RFC with the generic part that you can apply
+> locally to work against (and potentially adjust) before you submit
+> everything in a final series which, if everything goes well, I only
+> need to retest and tag.
+
+That works for me. I'll carry your rename and generic patches in the
+final series, with your authorship and Signed-off-by kept and mine
+added, followed by the iD14 patches. Are your four fixes still going in
+separately first? And could you include the base commit in the RFC?
+
+Thanks,
+Will
