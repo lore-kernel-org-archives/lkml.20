@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183502;
-	b=n9nwy56qRV2nb5CUhRZHiB/vFtqBQ/VnIGFRdPg6Wxbg4tWyMknEc77HcuRyXsiP2dLJ
-	 agFU1JXNQRQYiMQe8qQ3rWkIp1VC6s2jTqhN4vor0Higpi6XUCTgtc07GnwR/srvD78Cb
-	 a0x4jU4lUgZcQxlyB5B7Txv3INbDsbMTjqdcscXe/Ic7VB245myhOim4zHmA8NERFZF4j
-	 mXbRuUapYNaqUdFHFoRLa1kaJFIBs9ZEXhi6vwPCYtu1CSQtHGuAMMAklMRYi9YaTe03K
-	 1/LYjpxvj3GFKz9q5jqrQYw7G05bbGG6IegDQhOBmjnhSThseMVSzZLZ+10u2/5Im9g==
+	t=1793183535;
+	b=scgyB2wa6CnVno7CZpdAxp0tIm4jt1gE2qU7Ep6HdspKGoUPwLDABOp5wwFQyceFmSkK
+	 qsXYPbjlC3UCK0yGzYIzEc9A9TUJlOtiNO6/UyNUrzbhrUeyUHC9W7dywoR5pDunSEa0C
+	 u0bF9i9ULvBtKWZTeMsR0EO0/0TOLAP3AbkrV555lku9T2rYttBNXwXqffYa1qUXOzbUw
+	 Zf8vEyIk2AORMLVa+hR4LNGN3xSB7lXvSkrItFALhvndto235XjGjcdpGD+kAsc+sT3e2
+	 RvtScYOOQcJ6YTBKlNJsQl5lQC/R3AUMG/NKveOQ8P04HBpT6YT40X2oxV8cwY/NSYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183502;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=PfEI1YUa/HhHcLyCA1iZ77nrn1ZFqkyErvh1cXMHDSs=;
-	b=02+V28doLTNa+gf8jkIRjqjvogINqgTaatBzY0bUJ4NEtIg8kT/SmeHAFSOhqm73WQWz
-	 ZgVSPgbzeay91h/Z9tPrdow2AIE2ehwJEL/O1hLtmk1/F35OHNVxcOhZ1vjGey4Rn5Yu7
-	 fS00udrAJUXVdjtNzSXZ14miN7UnDGgdLqYRDoxC0guuOM7DZyBNAu980mXEiNeC+YY2F
-	 N068r0eC7wDPgfulKcts1lDceJ2l61MXWY//l1IGLZcL6rFx3JvBEDupgJbP3PVIf7T4i
-	 6Prd6LAYoA/+RHEbzJDWXJpaPdI5DvDbxgGZd8fSi/9ouAKdsyYh8UWhOW0shp9SnYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183535;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=imlfzvrCRMQxeaQQncu4VyU/9UrFX8jx/rWPamL1cMI=;
+	b=i6qbF7TzTs0NnB6XsuSIbIjyKeOQbzL7Xenz8gJY9ucxu2UkrVTE4W2eVI1itq5GHuBT
+	 QY3w2TS8zkO5odmy7sqJwiXWtjpgWB6VQtoh1YMCP9dFZwXX30cIWTzRJP37Ri/sFxD8H
+	 ASssiWlbEIT7GTFAwe0N5Yt1CLW+8rxjmWBLHyu3+qF5udhm4IXPoJ0hED3xcHU4ZCFGW
+	 D3YhzGN5nCp4yt0ilM3dHLR7QKhQ/SVhX9xnjIHZiFjt5H9UQjgI6bS3MtZ/WmvPrkiIz
+	 nUJXX9jgr43KavzCX3Uq/Mg0Mzu8EVru717g1zYAbXZED4BD4HjVTVxdUlFzqqw+X5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MY8Bz2nL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050C5606A31A;
-	Wed, 28 Oct 2026 10:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MY8Bz2nL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8751F01828;
-	Wed, 28 Oct 2026 10:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793183501;
-	bh=PfEI1YUa/HhHcLyCA1iZ77nrn1ZFqkyErvh1cXMHDSs=;
-	h=From:To:Cc:Subject:Date;
-	b=MY8Bz2nL+PTd899FTbwG4Iy8SvwsF4kA8O4XR35dIlvoxnDhGB6PtSq5MXfdjNsEi
-	 JVkPv97O0vBR06J+Rv1kaowstEbGljr7XhCjORwOtYfUd9la54cosiY8NWbfPeW0AY
-	 xygn4yLlSnIdBP/ftYfrNemp6xcRdJQ/Wbdpaa8vdK7k6wN2AJjt654yqcMXmkwOwz
-	 o3V1bYMQeYoL03D2vpS2TICjHzDSa/zRI5Yv2hT6ETvW6cTyzlzy6XRcCIZKkQCf0i
-	 Si/Fi0gcHq31Rqe0lE92gnC3xSuX804jh3A4TqkVAP54u6Iv3pnsFOt/XDwi4/Yadn
-	 cJ/uMcMiduZ1Q==
-From: Philipp Stanner <phasta@kernel.org>
-To: Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: etnaviv@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51D28606A31A;
+	Wed, 28 Oct 2026 10:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D28606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=imlfzvrCRM
+	QxeaQQncu4VyU/9UrFX8jx/rWPamL1cMI=; b=Zx8Ben1E6JpTne+GJnM5n72U0X
+	ELj39p1SHTMntK+mKrmajzSC3TahVBNWK0ncdyFaLokUln2wKw7fw5cycLPMQnjg
+	RBkJydtm7IOuOhIb6CTwP0IsD2t7PH0G83nwWaz1Xb3h/HPcNSSQhq974i4K9UX6
+	HRPgcZUwAamloghds=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmiwEfz+FqVU30AA--.58458S2;
+	Wed, 28 Oct 2026 18:32:00 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 1/2] drm/etnaviv: etnaviv_fence: Put base class first
-Date: Wed, 28 Oct 2026 11:31:29 +0100
-Message-ID: <20261028103129.1036380-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] ALSA: usx2y: Initialize idle URBs before submitting streams
+Date: Wed, 28 Oct 2026 18:31:58 +0800
+Message-Id: <20261028103158.22996-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,35 +59,95 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkBmiwEfz+FqVU30AA--.58458S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF1kWw4xZFW8Gr15CryxAFb_yoW5ZFyxpF
+	Zav345KFZ7JF1Fvw4UAw1YvryFya1kCayUKFy0ka13Arn8JF1Fka40yF1FgrW8trWkCw4x
+	ArsrtrWag3y5A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8qZX5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUAD2rgwMGjhQAAsl
 
-struct etnaviv_fence contains a struct dma_fence, which is its base
-class. The base class should always be the first member of a class.
+usb_stream_start() submits the first two capture and playback URBs and
+only afterwards assigns sk->idle_inurb, sk->idle_outurb,
+sk->completed_inurb and sk->completed_outurb to the remaining two URBs
+of each direction.
 
-This allows for removing a deprecated callback in a subsequent patch.
+A transfer can complete as soon as usb_submit_urb() has been called, so
+the completion handler i_capture_start() or i_playback_start() may run
+before those pointers are set.  While the stream is still being
+synchronized (state below usb_stream_sync1), stream_start() then calls
+playback_prep_freqn(sk, sk->idle_outurb) with sk->idle_outurb still
+NULL, and the packet descriptors are written through that NULL pointer:
 
-Make struct dma_fence base the first member of struct etnaviv_fence.
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000018: 0000 [#1] SMP KASAN
+  KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
+  RIP: 0010:playback_prep_freqn+0x11c/0x4a0 sound/usb/usx2y/usb_stream.c:33
+  Call Trace:
+   <IRQ>
+   stream_start+0x5dc/0x8d0 sound/usb/usx2y/usb_stream.c:596
+   i_capture_start+0x3da/0x710 sound/usb/usx2y/usb_stream.c:654
+   __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
+   usb_giveback_urb_bh+0x20b/0x530 drivers/usb/core/hcd.c:1691
+   tasklet_hi_action+0xa/0x20 kernel/softirq.c:994
+   handle_softirqs+0x16f/0x440 kernel/softirq.c:645
+   </IRQ>
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+The four URBs referenced by these pointers are allocated long before and
+do not depend on any transfer state, so assign them before the submit
+loop.  Keeping the assignment inside the retry path also restores a
+well-defined URB rotation when the start frame mismatch handling kills
+and resubmits the streams.
+
+Fixes: 030a07e441296c372f946cd4065b5d831d8dc40c ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/usb/usx2y/usb_stream.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index 5c23182f4d33..e51a310c8d70 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -1148,8 +1148,8 @@ int etnaviv_gpu_debugfs(struct etnaviv_gpu *gpu, struct seq_file *m)
+diff --git a/sound/usb/usx2y/usb_stream.c b/sound/usb/usx2y/usb_stream.c
+index 3122cf653273..7d621280fba3 100644
+--- a/sound/usb/usx2y/usb_stream.c
++++ b/sound/usb/usx2y/usb_stream.c
+@@ -682,6 +682,10 @@ int usb_stream_start(struct usb_stream_kernel *sk)
+ 	s->sync_packet = -1;
+ 	s->inpacket_head = -1;
+ 	sk->iso_frame_balance = 0;
++	sk->idle_inurb = sk->inurb[USB_STREAM_NURBS - 2];
++	sk->idle_outurb = sk->outurb[USB_STREAM_NURBS - 2];
++	sk->completed_inurb = sk->inurb[USB_STREAM_NURBS - 1];
++	sk->completed_outurb = sk->outurb[USB_STREAM_NURBS - 1];
+ 	++try;
+ 	for (u = 0; u < 2; u++) {
+ 		struct urb *inurb = sk->inurb[u];
+@@ -739,11 +743,6 @@ int usb_stream_start(struct usb_stream_kernel *sk)
+ 		return -EFAULT;
+ 	}
  
- /* fence object management */
- struct etnaviv_fence {
--	struct etnaviv_gpu *gpu;
- 	struct dma_fence base;
-+	struct etnaviv_gpu *gpu;
- };
- 
- static inline struct etnaviv_fence *to_etnaviv_fence(struct dma_fence *fence)
-
-base-commit: 731ba09867520c047c7de53f92e384808e0b638e
+-	sk->idle_inurb = sk->inurb[USB_STREAM_NURBS - 2];
+-	sk->idle_outurb = sk->outurb[USB_STREAM_NURBS - 2];
+-	sk->completed_inurb = sk->inurb[USB_STREAM_NURBS - 1];
+-	sk->completed_outurb = sk->outurb[USB_STREAM_NURBS - 1];
+-
+ /* wait, check */
+ 	{
+ 		int wait_ms = 3000;
 -- 
-2.56.0
+2.34.1
 
