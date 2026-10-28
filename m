@@ -1,68 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221466;
-	b=W3x6307wpM52xo28NQQPpzni0mfJa6tHpDLuKooXLUxr5objUemX2I9n4jkDBjNZ5vYI
-	 5rv+bR8rRQBidu3pk3SEw70DFW2R9Cg78ubqf6lKVvxnHzgYow44VlUmNUIIQunV04F2z
-	 p8XM5xMPTPDeWdFI2Qo9sQYcSi4vVw1QPMBPO0/FGgKlCIuz/zOTqi+IJAMtJdgunFtOG
-	 pEhvpxgiFwXXvXGGTqg9A+Mr3hLPE7C5hv3py7j2Et4YCbbQ8OvPgbkIfPOcLUznLKjul
-	 32eC6zDxTVoE+mlpgPJrH5tnFf26dANB8qb4hCqxn/IwDa+8tq9ZnE6Me0o+Nwn52Ag==
+	t=1793221477;
+	b=ae5/TTMiMFcsCoMee3PuoGxSVSMPw+1W7LS3wg6cep1gMYGoeplaDQff5teitgRhcsvm
+	 VmunYy4I9HEp5QIl7k/Gm5i4gB5N4kXIMZ15vNUUPBovgUXNK+jqCPWgia0Ka5F+hafSG
+	 eSG+tyrSm3IxwpAjnYMT50VhvpHE3wyi6dRqNAlks0HqpMqNlGiwlEuhP4YQopN6hMPtF
+	 T3JSGWo3ZrjZul7B0efcAUIrUbIxNYSFOhdCG9Smgffd51b+fFg+NfI5jfAcGSSNAeL5Q
+	 Z46kxDRTHuOYDx6Ir2aWPQRjHq+ydPlT/9bJwxtzWgNf6f1hBnleId9x5OyRgeilJyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221466;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=nQlwCq7l7ZSqCYPBLdBGqEjchNlsUXYVT1C1dmxvQG4=;
-	b=TGBD8hsmKjP6Klw8DSHyf2uao3hMrUfe8ZQ+F7EfEXwob5je5Qbi/SRvM2eksFmrVAv3
-	 k1p8PKsvghzqpilo7sCK536Z0odmxK5yzCQQDZI4pdACCan6deGi7ubb4sWxCD3hfzeaS
-	 rpzdwjn9dEXkBhdGTlSF+Ye8W89WA7KrDwnjea0TTN6kY7+ujgOo9J6Tryy99XXsAIMvg
-	 Y4xLRsD73svPPOgDZocwyWcTrckQWrn9t5iE1ge5ftMh/ySDN5enFvR5wZfH8ofKJCvWe
-	 BLSsnRfWZsPh3eRKOcWENptCubPPxlxP1vHLzClzvsUwQ0VMZJYEiD9bhMX85c1TiOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221477;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=xdQrfkFhosIRmS2TBqm8mdJ/rffuErfIkgzT+1USxTI=;
+	b=PdamE/nPM1BBIOeHKWhz8/iW//0WJ+H6ZykfIz257T4mJXKEqejlaoTGBVwdxXOI781n
+	 GMcwpoga9KFbet6OwFpTkgNbHTnXwYIrw+TAoieLSNxUrZF2x51as8jJflce+7uv6pm5E
+	 PnBF/1qwkoSTe3qir16ArFsZqs/i52OSjNBQeYsGWSdm5s7VCxIfVLV3qusLAX4DWuFl5
+	 17o+Fm6+YnxXWrKM+4casJkp9yBNqKQQOqIiJI6PmCaniZV6Uk8aBZeVsMgmqCu5db3LO
+	 j2lM5Qn+myilmbHQ9KbyKLUoVWy8ofwmo4Xvx061XHfgwO/MyG5xLLULA5KdoBzESkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=tgKSYjRf;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abSLiHSC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED59606A31A;
-	Wed, 28 Oct 2026 21:04:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED59606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A7C606A31E;
+	Wed, 28 Oct 2026 21:04:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=tgKSYjRf
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 48CFC14C2D6;
-	Wed, 28 Oct 2026 22:04:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1793221456;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nQlwCq7l7ZSqCYPBLdBGqEjchNlsUXYVT1C1dmxvQG4=;
-	b=tgKSYjRf89HgLOvPe6URrKmUypjyhwG5+lzp97At6k2jZHRIA4M7LUQfGXsHsKuK6s1hMb
-	rkEmV7y6BfIg/pVvaVXxAkOjMtck/6CBFadxcMUwODqlPUpdDMTN6wALVWssSm+zc5Ijbb
-	nf9Fo8hfcok7cHA8DfZzCHWB5Xkok1Z7+jdfb3mXZTtaYVvGAdTAnMy/3YdCOKE0q45CHt
-	vOV5np0gCPxFNtzg16zWGNeRdPS7VA+UpiDvtXjWANC0mhfNJscfFyHoecfUfHOh7pT/sN
-	t4oH9/sWchDWhNF6JXtuxX3D7mU3U1P0SlMAl+rUHaL5CYoxxsKDfazcyFcYlA==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 0620b481;
-	Wed, 28 Oct 2026 21:04:11 +0000 (UTC)
-Date: Thu, 29 Oct 2026 06:03:56 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] 9p/xen: validate the response size from the backend
-Message-ID: <auJjPAJxzvz1uBvS@codewreck.org>
-References: <20261005125640.274054-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abSLiHSC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AD61F031E0;
+	Wed, 28 Oct 2026 21:04:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793221477;
+	bh=xdQrfkFhosIRmS2TBqm8mdJ/rffuErfIkgzT+1USxTI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=abSLiHSCaHOXvXGxNHr9btOIwh2pPi6KL8O4aRKei9+CfVz5xYcpl/gSDAY1AqcH2
+	 iYUJ13d3p+CdQuizpvNh6x8isL/gjYM4ai32h0X5E+04YX+1YZVR6OgkwCrzHI3HMF
+	 lX4Fa70aaDs9DPO0Z1vqzf0yBBiJ97emHKJWIgqkeL2Wqy202CJTFvxJONtPirNk73
+	 7USlqQ3qahMZ4K88eM8FzCxEKFuCSBQb+i1fEoH2u/RtQjvaa83+JvbO5SsVynVR7o
+	 +EGgnNwDqM7C87oIiJf4K8LS36L/W4MwxPxk+2f5wR7JkmYjOGvizyqElxPMnztMKI
+	 itxTUwfOF1Gbg==
+From: Sasha Levin <sashal@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>,
+	Sean Christopherson <seanjc@google.com>
+Cc: patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	Paul Durrant <paul@xen.org>,
+	pbonzini@redhat.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.6] KVM: x86/xen: Prevent runstate times from becoming negative
+Date: Wed, 28 Oct 2026 17:04:34 -0400
+Message-ID: <20261028210434.2386138-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
+References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-127-sashal@kernel.org> <atkdzsPJgcu123DO@google.com> <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,66 +68,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005125640.274054-1-yhlee@isslab.korea.ac.kr>
+Content-Transfer-Encoding: 8bit
 
-Yehyeong Lee wrote on Mon, Oct 05, 2026 at 09:56:38PM +0900:
-> p9_xen_response() takes the length of an incoming response from the ring
-> -- the first field of the 9p header, which the Xen transport reuses as
-> its framing header -- and uses it to advance the consumer index, but
-> never checks that it is at least the header size or no larger than the
-> number of bytes the backend has actually produced.
-> 
-> A malicious or buggy backend can post a response whose size is smaller
-> than the header (for example 0). The consumer index then never advances,
-> so the response work re-reads the same ring contents instead of making
-> progress. In testing this raced with the teardown that the malformed
-> reply triggers and dereferenced a freed p9_client:
-> 
->   9pfs 9pfs-0: Wrong req tag=ffff
->   BUG: kernel NULL pointer dereference, address: 0000000000000060
->   #PF: supervisor read access in kernel mode
->   #PF: error_code(0x0000) - not-present page
->   PGD 0 P4D 0
->   Oops: Oops: 0000 [#1] SMP NOPTI
->   CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0-rc5 #6 PREEMPT(lazy)
->   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
->   Workqueue: events p9_xen_response
->   RIP: 0010:idr_find+0x4/0x10
->   RSP: 0018:ffffbf5d80063de8 EFLAGS: 00010202
->   RAX: 0000000000000001 RBX: ffffa229c21195a0 RCX: ffffa229c2400000
->   RDX: ffffa229c11c2200 RSI: 000000000000ffff RDI: 0000000000000050
->   RBP: 000000000000ffff R08: 3fffffffffffdfff R09: ffffffffffffffff
->   R10: 3fffffffffffdfff R11: ffffffff87a60e80 R12: 0000000000000050
->   R13: 0000000000000000 R14: 000000000000ffff R15: 0000000000100000
->   FS:  0000000000000000(0000) GS:ffffa22a7661c000(0000) knlGS:0000000000000000
->   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->   CR2: 0000000000000060 CR3: 000000003ac34002 CR4: 0000000000770ef0
->   PKRU: 55555554
->   Call Trace:
->    <TASK>
->    p9_tag_lookup+0x2b/0x90
->    p9_xen_response+0x17c/0x2e0
->    process_one_work+0x16a/0x3a0
->    worker_thread+0x172/0x2e0
->    kthread+0xdd/0x110
->    ret_from_fork+0x18b/0x240
->    ret_from_fork_asm+0x1a/0x30
->    </TASK>
->   Modules linked in:
->   CR2: 0000000000000060
->   ---[ end trace 0000000000000000 ]---
-> 
-> Reject a response whose size is outside [sizeof(header), queued] before
-> using it, matching the validation the backend already applies to
-> incoming requests.
-> 
-> Fixes: f66c72bea129 ("xen/9pfs: receive responses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+On Wed, Oct 21, 2026 at 10:01:53PM +0100, David Woodhouse wrote:
+>Backporting this one to LTS kernels doesn't help anyone. The risk is
+>low, but the benefit is lower.
 
-Thanks, picked up
+Dropped, thanks.
 
 -- 
-Dominique Martinet | Asmadeus
+Thanks,
+Sasha
