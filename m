@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173114;
-	b=THcurs7/KFQozKArMELwHq+VUvfIUZu3rw6hVUXT3ja9tUE1G7wDKvdaO97AwRKDRbu9
-	 6R2Gzusu82FyGdEk0HrXWe78eHxQ4Ns9H8wkmdwVo09TbF6d3o0RmeEhJZm1G9IV3Je22
-	 UkVbg3H/GBEHC648xHQU2XhFUPyhRxUBtsh4GmtJnFBRW4MZ12yYG9vWNo3+paeeuKoix
-	 BwmeYTbxc2w4CyBzEmSLJjZ24CZ1pjjRXcz5WoRceO/vg4JwjagNl9U8URY0JPqi/TMVA
-	 unXndV/ptoD8GL6nePtcYe/g1t1jrlt3szbXAXKEYaV9lEJkhywdlNO+7vAyaGfQeKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173114;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=iLWVqNA5ql0MHsthh1YnLfVO5+ygJTfilKNO3lm7vcc=;
-	b=EoucQU/ikBWWo8dMXXsbrD+jqIyX/qREvPxsT9R2lmU5POgUJys4smHSfUdcOGIdW/zO
-	 aizYJdWKUr2qpDgbf6CPRbCvuMg2h/suMPCuUnxzeu3N1W+TaXZyx6N4PVSHTbys7NCG2
-	 MOWY11u8+3CXv/g3qx+qhXDmBSeVJSYHazSccFsa1+/rL82wZt0hTSgbUC9qqMm63hUiO
-	 /uT0VJhQ+k/hMHOzbz4H5Z+hhYwW1nq4BDgJNS1rFN1/pabACUQAQVVtcKX9u+6RZv8j4
-	 T7Nc5FKdGV/DnUUjK2X4z+nB2zfkfr5a02xxv8XIbFBT4QTooSH2aaFF9qWBUDSgQbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=j52neKj9;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793173124;
+	b=Aah/tM4D1gkRMXcQClR72oH25B27jgYN19yUa92MIuRTDj7ppuyGMSRBfDG2IPdlmTX3
+	 +gkZlSd5nxdfuf+bnIvvp489UBX37WiKLiE2/vDo2lXZTxMhIWDngP7qMchQFJr09F8Lo
+	 KXGJ9AFWvKPAcdep+Zn3gN5pPMQ15kW+Z0vOQOjw6XyWIOdFg2L4GF3aQN71b0sy1FLf1
+	 DPwZ0HXOIN0Bwz/vI0tCZ7wEEfQhyx7AXSsuX99A6JYst6seCDlbD/DDn4lVEw4OajtGr
+	 ON8QQkGdR2zNnvsiipChhsyleKETRJfuTibd1aVnZauzbWVV0eHJTJjLSA3dI9Fbe4Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173124;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Z7MG1enuoki8MLFbTcKPNbIF1r1YUl7PKsWNYhZD0wk=;
+	b=wGe9abr4GlnpuDoPTSSwuRBQZBTymCvMMIX/TKZ2GBKlcoS/Zquz6b3mIcPeJ2Wvm4+W
+	 MDkcKD8n60UfU+ZSHbMinO1PQq4Y1+I4hLP54NNhI8fBSUuY60MlyJC9lCfWa76A4ktja
+	 GLL8LZNhJ132QGBqmQlQUPgyLbtgvg6qNKb8ItplY3oIRlOu/OjpC/rEggogLISAgMPSW
+	 OdLzraXZMmVt5SVHOiemAw/RCcJelxbPS7yOZi55GOYyvmOzVpx6C47hNvdL7B8VksKOK
+	 6+BX53LzHggeA2L49J/K3mZm9ayZJ4fqh4Jdsi3D6j8vY4835xGGokAPDmXjl1uHLNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zklaNDR5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22A1606A31D;
-	Wed, 28 Oct 2026 07:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B22A1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E5A606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E5A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=j52neKj9
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 36B701D15;
-	Wed, 28 Oct 2026 07:39:19 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=j52neKj9;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 8FAE6213E;
-	Wed, 28 Oct 2026 07:38:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zklaNDR5
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c43373ae89aso81401466b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:38:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793173123; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SRvPnnYCUJJO4XdfojA71yk7JLW5PuwyXsuQjhpDfhcwzBqy3U5PABlR70lcxWA5Z/
+         w6wG60pkWLEbGiFQ5dBRS/TA/9fV4YaWzyVAFiDlmbeskd6/89334/7nZ7Da80ss1V7L
+         JLfHmd/bGeEFcXZTtGoPo3Ry/TFUzG6mJLwnvrxa7C/sSWIlgoKZDCSXproZ6ooo9VoB
+         kQtKkGWED7+RAmmLq88t3eLM5qIlMyB8zZSEcxJ3S21U6JqdA3jJdww4CaYyquJjcbYx
+         sKCcKOoneyF/PQWPiU/Czc9HgBVkfvWJp6r0c7z+Y+ksmXtSyAVzQfbIF1hjMWt5mA6c
+         tS9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z7MG1enuoki8MLFbTcKPNbIF1r1YUl7PKsWNYhZD0wk=;
+        fh=upR2VSk5bskvJRXUbm1KY9W1uKb0f49P2kfdWlE4tD4=;
+        b=DVljOMuN5KsNlI5stRVEryuvTHuCcwnKqcsPiaMq0gr6iYxdDg56DFEqgyoUSj+ehi
+         QaIPpYaOBJw1P6FoP3pKCyuCtypDCNd0txg0UQKQSVYqvhTB2tv0PVEdQEFygXC/k289
+         Sw3kLSA/qeNf3+KkYaY9gQFKT+PkZdVHtraeeFpICUGTlDqxuJnzLpjjV2M8SRSxko2Q
+         JqbC2pg1+XklCHqqBb8dJVLMZeUbzlWBUnhrbGB1kZyI0lG6c5b6HpI/VH5iJnJrhl6w
+         QoQO/M3UWf6nJoZW7RB8bEk5VOdz7ZkOCtpwzRhBmPY0rx88zkNBqtYdcxzCoARG+xto
+         mReQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1793173111;
-	bh=iLWVqNA5ql0MHsthh1YnLfVO5+ygJTfilKNO3lm7vcc=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=j52neKj9uCMT3oMcgq70s+qx+B3cl5SEOPUWE/Gl5clZYiXSJM7u4jk5+1CPLiw+Z
-	 sSOCrHVy6eB+1Obn1p04eSTC/vyVydt4qEoSXKLKY65yVAToaJvH/QRW1uxZ9YDXKb
-	 FXaDD1+2gBPeXCGiXtk0G/7TY6gtRS8IDrutgAJI=
-Received: from [192.168.95.128] (172.30.20.183) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 28 Oct 2026 10:38:30 +0300
-Message-ID: <644d8241-eca6-41aa-b6bc-1ab4a1594da4@paragon-software.com>
-Date: Wed, 28 Oct 2026 08:38:28 +0100
+        d=gmail.com; s=20260707; t=1793173123; x=1793777923; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z7MG1enuoki8MLFbTcKPNbIF1r1YUl7PKsWNYhZD0wk=;
+        b=zklaNDR5CX5KpN3HuGoYhIyGZYuSEuP05buHr5SZEdsCFMrjreIo9qb3BmjVgwO8CZ
+         gD9l+cpnqzVJrP1ItqA1uQKdDP6DA+IO5K1u6bZHclNbZGPKdbCI3UJSXFaxe96fJTBr
+         55pEopCUZHL4egHDIXBn16EMalOL78//B96Ut3lxfUgAUtQaCjNyFdJtRUp9eNbtzfDF
+         9LOv25/WL4hEqcUaZwQGNEdLSjt0AhgUO5v3lbFjej7Xb7GY9DrYkNToLes0HDW+Wu5d
+         iy7EyUuqS5JgOaZ5YUfbUr4no4xKW6q/BVbiVWc2cKSzAk47ZS9KKtf91Hiap3/x2WVH
+         8oMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173123; x=1793777923;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z7MG1enuoki8MLFbTcKPNbIF1r1YUl7PKsWNYhZD0wk=;
+        b=fzmcmjqhbNWV1ZhFUETUUKWaIMqKqyTd/EPWezuaTheiJhZelOGffYbaIINSoxx7pB
+         lpeUrOGn0uZeDZCzFXIjSoMC2ngENjXK9pJNkh5YdymmXCELHuY51rlmrqJG5BRkfBxY
+         6qZ/mIBoYO3gIYiwPy7okSMQ9BhLB4/I0JAV3zJRxIBzMnsTsArVvdyZ+JCiw4gOTWHz
+         TyPCRYxSHT27piKAUe8u4WrqukaKKJ+vEGvEsO73ePcUaborw0rxf1Zgow4b+yuMlJV2
+         cdmQFpowEMzBonyI23SV+/VxZtGGW2pYXHBjxkV2Mm84rI38ws62sNXEZLP6cJ2vRpM0
+         HS9A==
+X-Forwarded-Encrypted: i=1; AKwUvBwEWeKVs8nJeXt0MdoV9LzFpDPnnp/dcn9K2LbpAp6RMA14KssmY8Nd9H4B39l/c0gVL6Hxls79W7DMaFE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFw/P1mob56/b6+3uCNZkW1wF7c3hRsJ8nLWBnfpj/azNe9RWH
+	qDtnuCI//w7wDzOiNbKuZ48XmUnnUs33JZEDbRcGSVO9la81jUyDt3ADsDa4R+4y/F3RykwupkF
+	hnTwsMfRekXWWY5SZ1toKha8c0O/NYiM=
+X-Gm-Gg: AYBFou1Ncu9K77CospIimwwx2lpnpQJwU9PI2DiFBG55Nij7f3TbyQiVD9S0P/pcu8F
+	Feu1mWhpjrvTadvb5w4kY0OdnXwvtKpePOemOEkKAqLz0L69uPWQhmiTRtzWGwdPcmY1qAUZQGB
+	7D6Dr8UzMuLYBwIYV95aeax3RwjFBLspXlzSmx2BiS6MHH8cwwfx8/b9mDNNrlnIrk/k4zEksg2
+	SVFGJLa6YcZi6yzon0uckSCkc2uDyFuQ+xnWp9MyreBN9BuX1QepZR1BzCzVuI+E9ZnSrcEBQ1s
+	atJo7zjikLtKweQbfa14umJVxtMq2EJTNBLqvUfcO4cIRlrqqbWSVU86Ia064zZTQ6sXCnQZ92C
+	ytkEY7GfOh7J16TW8Cch5sRTl7SodnR1NT41DrR2kUBHijOvU+cuW0Q9QHkdtzyB1uFdX/cQSg5
+	882r2ftnGqFz7T8Rg=
+X-Received: by 2002:a17:907:d90:b0:c40:aa04:18d0 with SMTP id
+ a640c23a62f3a-c49bdf0b830mr127577966b.17.1793173122715; Wed, 28 Oct 2026
+ 00:38:42 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,169 +105,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: bound DeleteAttribute asize against rec->used
- in do_action
-To: Hyeontae Lee <wonju345@naver.com>, <ntfs3@lists.linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260803052145.71949-1-wonju345@naver.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260803052145.71949-1-wonju345@naver.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
+ <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
+ <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
+ <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
+ <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
+ <CAMgjq7CN7qTes+OXvCfsgPOnbtyY7YPytTEP3zZJTBxrGZ5JnA@mail.gmail.com>
+ <12081d266e4846f23faacfc65c7be7da4ed013a9.camel@surriel.com>
+ <CAMgjq7Cjt==BxXPNw5HjiA0hjxhfzWn=9gDQ+2x-rdrEQBWTeg@mail.gmail.com> <340025b7e3bdc6d905da2cd052ccbbda63a58ac0.camel@surriel.com>
+In-Reply-To: <340025b7e3bdc6d905da2cd052ccbbda63a58ac0.camel@surriel.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 28 Oct 2026 15:38:06 +0800
+X-Gm-Features: AclHuK-mX8ixSikBppmP8XVxk2jjNDTFYKjV7_1Dyl2RLvPqe5fDdGLjEWtahao
+Message-ID: <CAMgjq7BQ-K-ZDmP_ZW-2+t+OQWWKEZP4ynoNk5C7NaWq+PP3Eg@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Rik van Riel <riel@surriel.com>
+Cc: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/3/26 07:21, Hyeontae Lee wrote:
+On Mon, Oct 26, 2026 at 11:59=E2=80=AFPM Rik van Riel <riel@surriel.com> wr=
+ote:
+>
+> On Sun, 2026-10-25 at 12:21 +0800, Kairui Song wrote:
+> > Rik van Riel <riel@surriel.com> =E4=BA=8E 2026=E5=B9=B410=E6=9C=8825=E6=
+=97=A5=E5=91=A8=E6=97=A5 02:16=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > On Sat, 2026-10-24 at 23:50 +0800, Kairui Song wrote:
+> > > > On Sat, Oct 24, 2026 at 4:03=E2=80=AFAM Rik van Riel <riel@surriel.=
+com>
+> > > > wrote:
+> > > > >
+> > > > > In my mind, we have vswap sitting as kind
+> > > > > of a swap VFS between the rest of the system
+> > > > > and the swap devices:
+> > > > >
+> > > > > +-------+     +------------+
+> > > > > > vswap |-----| swap cache |
+> > > > > +---+---+     +------------+
+> > > > >     |
+> > > > >     +----------+-----------+
+> > > > >     |          |           |
+> > > > > +---+---+  +---+---+   +---+---+
+> > > > > > swap  |  | zswap |   | zram  |
+> > > > > > file  |  |       |   |       |
+> > > > > +-------+  +-------+   +-------+
+> > > > >
+> >
+> > > However, having swapoff remove all data from the swap
+> > > cache, after mapping the memory back into userspace
+> > > page tables, seems like it would be fairly easy to do.
+> > >
+> > > Does that meet the needs of your use case?
+> >
+> > Right, it's nothing hard, as long as we don't add mandatory new
+> > layers. For very high bandwidth swap devices, a mandatory indirection
+> > layer is pure overhead.
+>
+> Don't we need a swap cache lookup regardless, to
+> make sure the data we want to swap into the
+> process is not already present in memory?
+>
+> At that point, it shouldn't matter whether we
+> get the backing swap location from the swap
+> cache lookup data structure, or from the
+> page tables?
+>
+> We have the page table lookup, and the swap
+> cache lookup. That is two lookups, regardless
+> of whether there is indirection, or not.
+>
+> Am I missing something?
 
-> In do_action()'s DeleteAttribute case (fslog.c:3316), attr is
-> Add2Ptr(rec, roff) with roff taken from the on-disk lrh->record_off, and
-> asize = le32_to_cpu(attr->size) is read straight out of the MFT record:
->
-> 	asize = le32_to_cpu(attr->size);
-> 	used  = le32_to_cpu(rec->used);
->
-> 	if (!check_if_attr(rec, lrh))
-> 		goto dirty_vol;
-> 	...
-> 	memmove(attr, Add2Ptr(attr, asize), used - asize - roff);
->
-> check_if_attr() (fslog.c:2869) walks the attribute chain from
-> rec->attr_off and returns o == ro.  Its loop breaks on ATTR_END, so ro may
-> legitimately equal the offset of the ATTR_END marker; that is exactly how
-> CreateAttribute appends to a record.  But check_file_record()'s walk
-> (fslog.c:2831) also stops at ATTR_END, so check_attr() never inspects the
-> bytes there.  When roff is the ATTR_END offset, those never-validated bytes
-> are what gets read as attr->size, and used - asize - roff underflows.
->
-> The read itself is also unbounded: roff is a u16 and attr->size is
-> dereferenced at fslog.c:3317, before check_if_attr() has constrained roff
-> at all, so it can be up to ~64K past a record_size-sized object.
->
-> Commit 0ca0485e4b2e ("fs/ntfs3: validate rec->used in journal-replay file
-> record check") added at fslog.c:2844
->
-> 	if (used < PtrOffset(rec, attr) + sizeof(attr->type))
-> 		return false;
->
-> and its changelog names this very memmove.  It bounds rec->used against the
-> ATTR_END offset; it does not bound asize.  With record_size 0x400,
-> attr_off 0x38, a valid three-attribute chain ending in ATTR_END at 0x158
-> and used 0x160, a record whose four bytes at 0x15c read 0x100 gives
->
-> 	used - asize - roff = 0x160 - 0x100 - 0x158 = 0xffffff08
->
-> i.e. a ~4 GiB memmove whose source and destination both run off the end of
-> rec, a kmalloc(sbi->record_size) object (record.c:105).
->
-> The equivalent non-replay path already refuses this.  mi_remove_attr()
-> performs the same removal and starts with (record.c:548):
->
-> 	if (aoff + asize > used)
-> 		return false;
->
-> Apply the same bound, spelled as a subtraction to match the neighbouring
-> cases, and move the attr->size read after check_if_attr() so that the
-> header is known to lie inside the record before it is dereferenced.
-> Requiring roff + SIZEOF_RESIDENT <= used rejects the ATTR_END offset
-> without rejecting any real attribute: for an attribute the walk validated,
-> roff + asize <= off(ATTR_END) <= used - 4, and any attribute a
-> DeleteAttribute record can legitimately name carries a full resident
-> header, so roff + SIZEOF_RESIDENT <= roff + asize <= used - 4.
-> check_attr() itself imposes no lower bound on asize, so a crafted
-> sub-header asize can still pass the first test; the second test then
-> bounds it and the memmove stays inside the record.
->
-> Reproduced by mounting a crafted image on v7.2-rc5, which already contains
-> 0ca0485e4b2e, under KASAN.  The image is an ordinary mkfs.ntfs volume with
-> four bytes of one MFT record changed and a crafted $LogFile:
->
->    BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x3211/0x83c0
->    Read of size 4294967048 at addr ffff888002423258 by task mount/66
->
->    CPU: 1 UID: 0 PID: 66 Comm: mount Not tainted 7.2.0-rc5 #3
->    Call Trace:
->     kasan_report+0xce/0x100
->     kasan_check_range+0x105/0x1b0
->     __asan_memmove+0x23/0x60
->     do_action.isra.0+0x3211/0x83c0
->     log_replay+0x920a/0xd300
->     ntfs_loadlog_and_replay+0x3ef/0x510
->     ntfs_fill_super+0x1d23/0x4550
->     get_tree_bdev_flags+0x2ef/0x550
->     vfs_get_tree+0x82/0x2f0
->     fc_mount+0x10/0x1b0
->     path_mount+0x517/0x1df0
->     __x64_sys_mount+0x20b/0x270
->     do_syscall_64+0xf9/0x540
->     entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->    Allocated by task 66:
->     __kasan_kmalloc+0x8f/0xa0
->     __kmalloc_noprof+0x1b4/0x460
->     mi_init+0x81/0x110
->     mi_get+0x6a/0x220
->     do_action.isra.0+0x1dbf/0x83c0
->     log_replay+0x920a/0xd300
->     ntfs_loadlog_and_replay+0x3ef/0x510
->     ntfs_fill_super+0x1d23/0x4550
->
->    The buggy address belongs to the object at ffff888002423000
->     which belongs to the cache kmalloc-1k of size 1024
->    The buggy address is located 600 bytes inside of
->     allocated 1024-byte region [ffff888002423000, ffff888002423400)
->
-> KASAN reports the source side because __asan_memmove()
-> (mm/kasan/shadow.c:94) validates src before dest and returns without
-> copying.  Both ends are out of bounds, and on a kernel built without
-> KASAN the copy is performed.
->
-> rec->used is also left at used - asize by fslog.c:3323 before the memmove,
-> so the record stays inconsistent even when the copy is suppressed; the same
-> mount goes on to report "ino=1a, mi_enum_attr" and marks the volume dirty.
->
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Hyeontae Lee <wonju345@naver.com>
-> ---
->   fs/ntfs3/fslog.c | 15 +++++++++++++--
->   1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index f038c799e7ac..f415785c60f9 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -3314,10 +3314,21 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
->   		break;
->   
->   	case DeleteAttribute:
-> -		asize = le32_to_cpu(attr->size);
->   		used = le32_to_cpu(rec->used);
->   
-> -		if (!check_if_attr(rec, lrh))
-> +		/*
-> +		 * check_if_attr() accepts a record_off that points at the
-> +		 * ATTR_END marker, which is how CreateAttribute appends.  The
-> +		 * bytes there are not an attribute and check_attr() never
-> +		 * validated them, so refuse an offset that cannot hold a
-> +		 * resident header before reading attr->size, and then bound it
-> +		 * as mi_remove_attr() does.
-> +		 */
-> +		if (!check_if_attr(rec, lrh) || roff + SIZEOF_RESIDENT > used)
-> +			goto dirty_vol;
-> +
-> +		asize = le32_to_cpu(attr->size);
-> +		if (asize > used - roff)
->   			goto dirty_vol;
->   
->   		rec->used = cpu_to_le32(used - asize);
+It involves more than just the swap cache. It includes book keeping in
+cgroup accounting, statistics, allocation, device info reading, etc..
+And swap cache is blazing fast nowadays so that isn't the problem
+here.
 
-Hello,
+We used to need to bypass the swap cache for similar reason, but we no
+longer do that since the swap cache is flatten now:
+https://lore.kernel.org/linux-mm/20251125-swap-table-p2-v3-7-33f54f707a5c@t=
+encent.com/
 
-Your patch was applied, thanks.
-
-Regards,
-Konstantin
-
+Other parts I mentioned do not have zero overhead so keeping the layer
+thin seems like the best approach.
