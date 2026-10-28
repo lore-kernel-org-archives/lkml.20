@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208273;
-	b=5VbdxlDW+zO8mEZHZfdAeN2LYSaB/11HimPRLJoHfwqMK5bPWO6MBtMGQk6avFF475ev
-	 10qlP8K9yUKLyzAdqYg1bKCHlTgPWDoJy0VLaq6MYnojE5Up46gbw4pixGSs2Jd25b7La
-	 yuJ7P5yVg/4/VGDcxCTeGZKeyEZV79g9CgIj0XVWC7D7sRfzcnaDV/8kJ0hlERrSiUHxK
-	 sx+Xnvjnp0PULp60UF6CrjJRPWhAGWYKz/r7xxvAUAuibGK/rR3O/v85qkYGkb3FyVSCM
-	 ygDgbxFb/zbD1QSvqa2wGist+huGJacqhhx5GL/Xduj134qgHJYIxqKhPyzUCdzeygg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208273;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=eH7NkV0R55RFUS/3R48NH80ZCM5ZPdcxrzgR8cBwN1w=;
-	b=fybELU+S8Y3bdPgnBq4kyfnbq0ntlU3/GlZ1nzg1789xz3yyOEWGgI9sO/cOfBH3Z6Jy
-	 kTcJ2jmxLHLo6Gr4ZE8ZuAVNCBLpX/yFJ1dKI9XASfoXUW9BQb2Bc4o8727fQOm+EHxKT
-	 NrrIv/4Tj0RDrlvXJc1Y/QImk/ceupv8CVqVNIU2PHMCNKh8uauN5smtUBrFy33KL9cEC
-	 VEPvvq9LaXWQ/PjB+eUwDCsefRnGFzGkCSWETjLQJahCnwIuK0AI9gHLWzrLBmw5Z4kNs
-	 i3XLPuF+/GfSBbhl/Yvz+5qAvlOpLrmZbxMu4et91XxSHm2amhPSReeSioqmfMgpdTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DHnrWWXd;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793208282;
+	b=AsQpIMqBFXSqQZ5aQ9e2hg/nwNeSjTXQu5fk1yCBnsuZicYH6apvPS8Zvc73WUhleAz8
+	 oM5L537WE7GiuHrZmgjWrNMzNse+v7RwXxKypYi14sedIDJdWnMI+7IKZo/ABi1zxTRms
+	 ggK18lC+CtieFLLfjepw/6wa/6pL+TWwPERNhyXCFbOTJfLhDh+d0Ek3ftyp9K64xAUck
+	 mXUZvNXfvbCEjHTUvRsaB+TId2Wu8H3F91SAXZUS6B6bJRSlEsLpv1Lvicdqr9N3JJHir
+	 eSN5IBpfCyYNHsj1FVIR6gZZSvNCWp9ertvZkFf1B6A8TTejz3XvRj5TNYlQcw1Af6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208282;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xyXQkDiJLA3YYqZszI0OfYQ8KLsTyrFUAC1H8iKGZm8=;
+	b=EU8qynWgCQV2xIcFn2yRYDPCj2IK9ymXfdK2kk/jC5Atste+ivoaX9Ait5sxnX4gxm2s
+	 NBBLoWM7FT4MkR9IXb8BArLbqYOyc1S79QNMtQWRfdymhat5M28lbNVVn/gMAzfPlDaYw
+	 Ihc3fH52FgQdiT2LuAPFwQoVP8xIb1U+LjByBNqDfTaBtVTeIOPwlUQElTkupiw9fLFNE
+	 7e1pQlCjDv4eEZr6vQsm471ieXXxGISYU/RjMzh4rgGNcjD5kzm4e752RHmqYZ9Z3W6OT
+	 Wb7UOOAXql/98oWgNfyQTUFq7BdIY9i9xb7LxzDPwC7qDDAkVcB+mvXtECiEb+olNdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YTEmwqKv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9E0606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:24:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A9E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85929606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85929606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DHnrWWXd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793208271; x=1824744271;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=q+A7n6B0D9P/iULjXHA3ItLVVm9Rb0ZtxeZH8/sxmTU=;
-  b=DHnrWWXd4r710VQjDqxULgQnK9r+e5AMObnHI3OGeFqj8LEYsvIsARwa
-   FEWLEO0h9Wc9JxaxBZVrwMn7wu81ysquDdMP4JfX/x5ZNmK/Y7IZJkcjw
-   KwGW3693AslkcB1mkuf0H+FY0kWl2rcPYqQDyQszVb4RdCkWfAzohYjFb
-   xu0DI8GxqItRW/x8QDfdlu4BzH/K8ci1SXPW9Xp3TFguo1jOLrAk6RWQr
-   dePHa4FVkxTUhPPJ7YVXOHPwg3dQnV4Q+fJIqKeGmwCN3vVO9ByVCLqc1
-   MLNcQYjGPmi+0rocwF7z+j/49Idw3st+b5O2/gwvprUHJ1HW2E46BJL4O
-   A==;
-X-CSE-ConnectionGUID: heFXIkdzQVOYAtPgqshZow==
-X-CSE-MsgGUID: AaxwU7VQTTG6tm5Mkud4LQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1941077"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1941077"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:24:30 -0700
-X-CSE-ConnectionGUID: 1lcKzMECQnOt5PTeph0HQQ==
-X-CSE-MsgGUID: R5o1uH+cTY+uAVQ3Sz3/cA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5425749"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.146])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 10:24:27 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ville
- =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dmytro Malovanyi
- <dmitrymalovanyy@gmail.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH] drm/dp: Keep base enhanced framing cap from extended
- DPCD caps
-In-Reply-To: <20261028162941.62762-1-dmitrymalovanyy@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261028162941.62762-1-dmitrymalovanyy@gmail.com>
-Date: Wed, 28 Oct 2026 19:24:25 +0200
-Message-ID: <77b574384ed695f8ea06a2ed142907e7d5f118d6@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YTEmwqKv
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1846bc43c28so1455407c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:24:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793208282; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KNsJKBjkC5fmPfrMmssJsU8YdKEeI81hZXcOv7J6XogRmL8WYV2eEhnhaEzTLQgpT8
+         6/GHrOjXMblyE1XD8GyX1CRhrLa8c0su7q6ujJe0Tei/qz/6uUeuREH0r3W44IKI+T3z
+         IAnn8ySzUL0LWW1g2agZ1FUcd2mEjLRWzERaZJGuevXmJPnHS6OpKCzGNkU11ctGr5DF
+         NGIqGmcnXh5McAa/4oT6nC3C+kT5FITv4Nk/OeJmZP0ydu+zOH16OT63qNt1m/J4+nNm
+         rEc+twgNeraiRABzAgrPHDIUQUM/FxA58HGqluBtBRWDzAfYBNvh5hU/16w9YJGm8H6x
+         aejA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xyXQkDiJLA3YYqZszI0OfYQ8KLsTyrFUAC1H8iKGZm8=;
+        fh=pe9BdMX9hrnL3iAgvcLofjmi0xRUqesGnF8KVtVJ1wI=;
+        b=Zh5Fp3yggm4ve0T7LDwhHxKLdwS4s7nj0xOWuu8q/Cs//WqYC4czTzIG+snjs9HcZl
+         RzvWCitrbmiEZVE+Tfmgr31r98lr7eJJVlhQSqojZWUrfus6yJey6rm5LzqQkcA81Jz/
+         LiOCc+dOMr5ijXYts1Q86w5ZHFWlqYEVgrXlBZgjXTBdIAzBATN8ozVP92XxW6XRfZbh
+         0m/9Mi06m9+B/Ir32kcjOR72Nr62krJDDym2MMAbXZs79VNRVIB8nF+wSpMZg0RLREdf
+         VJ2lZiSDc62dyTSm342AE6gao/CpdPR0nJ0+oaRUUD3nHjc9w6irqpzk02o3l3kugcxy
+         85jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793208282; x=1793813082; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xyXQkDiJLA3YYqZszI0OfYQ8KLsTyrFUAC1H8iKGZm8=;
+        b=YTEmwqKvUSdnC+hS4b0vibOxIpmGakM3GonBTipKjmgXAv02ptb1Vy8uP+4aUMBPns
+         gZNosqX3uAXrNbcVQ8R9hdrBtd3oSu13hrmentv85sdRt33GEt/KoljlvKtg47NP/Gt6
+         AhwUwVhxCmN0lKLj30d45Ypyo+T0SOx/hytd7VYgp+RromGQBh6bOr4sl1ec9H9aPPZd
+         zNxKiJQ2yUaILf9HYEMWLXSrH3c8SJZ412vkomzSiqQiIESjeTooAznhU3TUiQlkczP8
+         qFKV/bpX+B9T8G7m+G5/evMF641ACRS1xaFwPNKNFPNhiI/zMD6BE/r9ssZ5f6gTi54J
+         0QVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208282; x=1793813082;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xyXQkDiJLA3YYqZszI0OfYQ8KLsTyrFUAC1H8iKGZm8=;
+        b=EHTygSL0rlf1M1+m4aq9MHh8adhparP3V5FHUkft1QmMUwLI/DOSiirBCrtAG8XjYd
+         kurP9Mk0XhS1uOLITelq+JPgN2SG+NgEKjdufK4FjmpSMBR8I1+8cygxhtQp/rGDByM7
+         dFqo8pfPO5gPVlkW1xhMaCa4qrblevUCgRDGapyWyyWQZhhOE6NwdPqT0FyJfrA4gQJM
+         VDqvVTwpelnBRtYzRUqCcHymyLv2Hw0942Kirv5GtwSpaakYf5/HKWPiA1oWJLPwUjlW
+         VI97H8kEAwrtU09O0I8R5GUFt889RfxlrqktPmwO4J8orz6gNvZeivrlPA7mEPm+NYV4
+         z/Lw==
+X-Forwarded-Encrypted: i=1; AKwUvByejVVpYHEV/KdETSNyLxpGX2nsgU2jBNcaNumDCoLuBn3zEBZBfkpMaxalWUnvhi7y3iPawq/TuR0dj6s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIq9XXcHmOaAm+Y0ddZVuXmz56FP6CVcvNZeH0QYqdJQIJk+ood
+	maWsYyxAlZ1FU68ugM2mkJmDpynAvCbqaa3MIVS0w43i4dW/PqF0RuCFJxT4J5Ux08kEaC1v4HS
+	gmeigTgYfH56KdzMdV/h4hNfyXsMTxXGy2Up9PIHG
+X-Gm-Gg: AYBFou3N8aRBAE9oa+b+lR65Jqz4oGJ2civ7+STCDEus+ik44DSNnsH8HKAOJUU2FFL
+	mgHSN4NMCqowKyDxLLfxgmtKW+sNMedXt99K0s8J5DHzzgOKN6mPBGGTlBBB7hR7rb32/92Q2xr
+	ZZgwhAwgBDjaJe21mNvFjX0HlJa45cg1hgoA9SQdFXo3iV70FhoN5EtheF5P2WmP62PlkGMD3iu
+	sgQH4fsSBlKgmYGR9WM2nEUneHtnwYz0MmLMooj+vVfwD444SsQeoHVrDwOvcvNJfALg0KhxjwR
+	fcgp0YyOrdRXMdgstY9oqEfhnSK5T5KgW/YWafAIan+xFiHuTxIGGbPJH7zXlOyzVEJxcYefvGw
+	gd9KpM1EFZy+wtDC00Eyro93llyHIWluT9FVyuw==
+X-Received: by 2002:a05:701b:2813:b0:143:6525:f9f6 with SMTP id
+ a92af1059eb24-1a6cd3a1575mr3454907c88.13.1793208280541; Wed, 28 Oct 2026
+ 10:24:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,96 +104,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <atlKsD-aJB3mJr2j@google.com> <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
+ <atl7peoVHdP5hz7z@google.com> <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+ <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+ <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
+ <atpNFEFIlqAoYIwH@google.com> <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+ <attmFVIFU_mS0Y7p@google.com> <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
+ <at-8vkVpN2SF3XgB@google.com> <2vxz8q3hoicx.fsf@kernel.org>
+In-Reply-To: <2vxz8q3hoicx.fsf@kernel.org>
+From: David Matlack <dmatlack@google.com>
+Date: Wed, 28 Oct 2026 10:24:10 -0700
+X-Gm-Features: AclHuK8mtDBrFSk6j3m-QjfmBC0Hg3WdAbJ_jeR4OTytlWOkEsZuDbAniPHpdm0
+Message-ID: <CALzav=eG5j2n5omO2Mxqw8xA4sZLduxdbBYFcnHpPn0PDpt9Hg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, tarunsahu@google.com, 
+	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, maz@kernel.org, arnd@arndb.de, jgg@nvidia.com, 
+	robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org, 
+	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org, 
+	pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 28 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
-> Some sinks set DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT and advertise
-> DP_ENHANCED_FRAME_CAP in the base receiver caps, but clear it in the
-> extended receiver caps at 0x2200. drm_dp_read_extended_dpcd_caps()
-> replaces the base caps with the extended ones, so the link is trained
-> without enhanced framing.
+On Wed, Oct 28, 2026 at 10:17=E2=80=AFAM Pratyush Yadav <pratyush@kernel.or=
+g> wrote:
 >
-> The Xiaomi Monitor A24i (P24FBA-RAGL) is one such sink:
+> On Mon, Oct 26 2026, David Matlack wrote:
 >
->   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
->   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+> > On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
+> >> On Fri, Oct 23, 2026 at 9:50=E2=80=AFAM David Matlack <dmatlack@google=
+.com> wrote:
+> >
+> [...]
+> >> The reason I care about keeping the header compact is that we are
+> >> defining a foundational kernel ABI and want to use this header across
+> >> almost every serialized data structure so we can evolve them later
+> >> without breaking compatibility. While some top-level structs are on
+> >> sparse folios today, other serialized structs are tightly packed, and
+> >> we are looking to add KHO slab support in the future where tightly
+> >> packed allocations will be common.
+> >
+> > My intuition is we will have a small number of headers per preserved
+> > file and per preserved FLB. One for the top-level struct and then
+> > optionally a few more for sub-structs like arch-specific data. That is
+> > why I am less worried 8 bytes per header, even if we fix the folio
+> > problem.
+> >
+> > Maybe where our visions differ is when there are collections of
+> > serialized structs, like KHO blocks. For collections I don't think the
+> > elements will each have their own headers. Otherwise the elements could
+> > be different sizes.
 >
-> Without enhanced framing all lanes train (0x202-0x204: 77 77 81), but
-> the sink never syncs to the stream (SINK_STATUS 0x205: 00) and shows
-> "No signal" until it is power cycled. The same monitor works on macOS.
->
-> DP 1.4 section 2.9.3.1, as quoted in the commit that added extended
-> caps support, says the extended caps match the base caps except for
-> DPCD_REV, MAX_LINK_RATE and DOWN_STREAM_PORT_PRESENT. Keep the base
-> value of DP_ENHANCED_FRAME_CAP.
+> kho_block today doesn't store entry_size in the serialized payload. It
+> relies on its caller to do so. With extensible structures, this can get
+> messy. Sure, the owner of the kho_block_set can track the size somewhere
+> in its payload, but perhaps we should store the size in
+> kho_block_header_ser to begin with?
 
-Thanks for the patch and explanation, refreshing clarity.
++1000
 
-The display is obviously being silly.
+KHO block should track the entry size automatically and not rely on
+the caller. Otherwise every caller is going to have to store the entry
+size in the struct that owns the KHO block, like I had to do in the
+PCI v10 series :(
 
-Additionally, a DPRX with DPCD r1.2+ must indicate support for enhanced
-framing. The display is also in violation of the spec.
-
-That said, the spec kind of says to use enhanced framing for DPRX with
-DPCD r1.2+. It's subtle, but it doesn't say check the capability
-anymore, just the DPCD revision. That's my reading of DP v1.1a, v1.2a,
-v1.3, v1.4a and v2.1a anyway.
-
-So I guess that might be the more appropriate fix, really. Even if it's
-slightly more work.
-
-I think drm_dp_enhanced_frame_cap() should probably be:
-
-static inline bool
-drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-{
-	return dpcd[DP_DPCD_REV] >= 0x12 || dpcd[DP_DPCD_REV] >= 0x11 &&
-		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
-}
-
-And the remaining direct references to DP_ENHANCED_FRAME_CAP should be
-migrated to use drm_dp_enhanced_frame_cap().
-
-> With this change the link uses enhanced framing (0x101: 84) and the
-> sink syncs (0x205: 03).
->
-> Tested on i915 (Arrow Lake-U) through a USB4 dock.
->
-> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
-> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index e623ccb4c..205b6cc89 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -1219,6 +1219,9 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
->  
->  	drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
->  
-> +	/* Keep the base enhanced framing cap if the extended caps drop it */
-> +	dpcd_ext[DP_MAX_LANE_COUNT] |= dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP;
-
-One of the main reasons I don't like this is that we have the logging
-for the base and extended caps, and this sneaks in a change without it
-being present in the logs.
-
-And having the decision in drm_dp_enhanced_frame_cap() is explicit and
-same for everyone.
-
-BR,
-Jani.
-
-> +
->  	memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
->  
->  	return 0;
->
-> base-commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
-
--- 
-Jani Nikula, Intel
+> Anyway, not a problem this series needs to solve, but something we
+> should eventually do.
