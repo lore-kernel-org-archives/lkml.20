@@ -1,51 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793162009;
-	b=XWmFWTwdmQ1tAxMBMOEUpTIyIMGU8lBs7aaGvzbE8ox8FCGw1JaGDz+EnNrmEoqdKa8b
-	 /fi43z5GmUJHzSHlXKvuRG7qQ4hPDHevmMiZV2OOfMMQKln/kemyvVJMFJLsl52dVYx2T
-	 xdVsrW/B9El9bArsITVbBroi7bZeaCKBNtfpuNYQHkfcd5mn5TH2430wi7ep2SSXiLarU
-	 vlKQCwX0Bdsi1fsIicH/50LAUxUETIN0F4OzDCwMgzQfoQ0sVpIbCMPa2P5wngq3/Tqc6
-	 BKs2Omfvc1oIRIPTmSSuURuL6SXJ6FLxzI25KJAcP6W58kcvXePl3aCWAD0s9PfXqrQ==
+	t=1793162025;
+	b=lgxxukpRMkJw7sGoDQr6snRYY2QH9NbAxcGYFUX7MVbP3d2q8Xzls3q+Qfm8l0N9geEG
+	 XPpg60AsVJSh26saHkYu2K9Kgci4zxtYZ0flU5w0xYv5zUYWaEWXUtxYHlyORwxqlDMs9
+	 UhImPD4P4c0zO++OtTCPPCSfkB0/mJ/+QTdcRMUiG13PK2hRXnfj8xyp4apLV51LKWdoL
+	 NC4R1CsL2Ab2O0+GhVwhR54Ah9V0JkUU8Z1KLK3ZqBYEaGAvOzGUjSSy50FhlRrwnfK6t
+	 O+f4dumLIhfiLM4rac/OiT5fXhN8BDacLlSGsviHj87Svzy6tIcsgMmbuBrmW8X+dSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162009;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hoaYYE9clIuJ0Ig445chvZt4nolRKxe5BT9MRTh3Egg=;
-	b=kWpL5q1nz4MwyhY65cg4NLfVbV3tAMn8mHc9P+8cChY3j7TXvbm9BHHIvlzoeEa1Yl8w
-	 ULJc8XzjDp8qmX4Y+XDWbCyhKfPoAya/WD+U/r/op3xl6JKNl2wYpWJwjhgsSb/80Mio+
-	 T54Be4mLH10lX7YaPRcnHHyJjGZZf5c1Y/1o/w5NnTm5Zyk3UpFqWb8tFpFNSWWdeJGfV
-	 QlIaCuEyKyhjxcyVloib9Yq0DEbmpP2f/GtOEixfjHw0QJLFMOAqiUgevpMIZL43Czu2f
-	 5kzCkQ00ZraYzRm9SEaK9uwsIMsSuGuyG0ctKMab88goxnrKddOjz68/QUSKPV9IGTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162025;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=wT66TGIvpZCHrHHE05hEIvqStnKLFFiHYFABNX90Gc0=;
+	b=HAL5zy9cc282BQCgIstUEcWXppMSqtfL3GvysO4tPn1UISHAT931l/Z/9CcMM+03y5eu
+	 NAwSNr9tgxYVNmOJSzSKWTNXwcOX6GuIQX+lj9FdpZPGO3ztJ1AhLaWapxposnKBntQ8u
+	 256hlJNpzmMEb3R0r+Itls+eHQ5UVFCZY58kPZl630bcC7nDVswKY94gh7IqiWgyLFIkO
+	 z5kBPCk6pw0WiN8/j02WRJNeOkF3je34e9VJthGSzTEk+T2KKiR4uw1dyCTWW4KSgLpyq
+	 VOq2KFff7UGZUw0b8uukMfI749id0k1uIgEWVnMyOcTZP6TnYyuvp5MWUAyAhiHYk2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.53
-Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887CF606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 887CF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T4efCo2Hap6aPJgKK/ehUGhK0yIt+mn0LCQnSmlQd0s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793162000; v=1; x=1793766800;
- b=WeW0dcEyzkw6mTIdVt2Z06iHEedOA9csfafpNxIqlvgXWGNleOMk4G5+xIqtxnfY0oJlEGQo
- 3RIOLo03odtO32V/gvt274JFHEpf0OAsY2K6WgJh+s2w2M9H9KOLel/juzZL0FcuRQ3OjvRdcI0
- 9UEAxWdkfJdjVzGrmw7+tycY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bee4a2cb7972e2c2;
-	Wed, 28 Oct 2026 04:33:20 +0000
-X-Mizu-Trace-ID: bee4a2cb7972e2c2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fa0f07af-e8d7-44b0-b1e7-ad325d75ac34@linux.dev>
-Date: Wed, 28 Oct 2026 12:32:54 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF29606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:33:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF29606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f2040e10d8so542863b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:33:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793162024; x=1793766824;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wT66TGIvpZCHrHHE05hEIvqStnKLFFiHYFABNX90Gc0=;
+        b=16cYzNxHiNOlBRv3X8MTW50yQ5byjQlvJ0iFgo8yrq6/AE0yixaofpc52/MrhuAGU+
+         wt3KO31TWrs7vYuYcFswgj1yKbJsJU8FdcDZmaJLj3J7MD19gLAx55E4pj1mV+MUdWdh
+         fx5VwSQxR+ouJhDCLB59s+O/SQ59ZMnC7iuTF9SFNs8+UoSwLrS9cZa1nZWw48mtdSfl
+         DpqUT1bA8xT4Dt9KkbgO2XKYLdMjHM6OEwHNMCgpx4dANz8aQvjLdBakNLVVKyRPOOVP
+         9VUh/1XWZlZCB3JVbtBkbZz5AfHvX13RfEtnstsIAXGdh1LR/+1dpL5zVgIMVFJdyBLk
+         Q8xA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3DHikkYMo7wVUrw1LUeeeek/Da8vFiwvQCe2+7yaH2vkjytN74bz8OcSUfy7LZj9y6P4E70MCgTuXch0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHZ+iujmVSFMBd0mst22UAwM7eeoM10NOvI/MXoIA3yPvOR79R
+	5a4uyNanj8M+8uSVGKiT9JvZCOPGUshc4LNzrV+Hnyin1ZC77CH+ddDbrDLcqZXpc92ITlMZelb
+	23o+R3H32BzTOWcDL9Tp5s5BSggMOO1tQ6kubjL0gF0haZdODIhEPyOFXf/k=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,97 +58,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 32/46] mm/memory_hotplug: avoid races in
- pfn_to_online_page() with dying pgmap
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
- qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
- kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
- baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
- peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
- pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
- jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
- apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
- matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
- will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
- osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
- xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
- gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, josef@toxicpanda.com
-References: <20261027-fixes_core-v1-32-6f74bec9a5bb@kernel.org>
- <20261027121307.40431-1-lance.yang@linux.dev>
- <87e3d64e-8b25-4d51-a984-7ab8a58f785d@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <87e3d64e-8b25-4d51-a984-7ab8a58f785d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:c133:b0:4f5:41f:fdba with SMTP id
+ 5614622812f47-56382c82ccamr833659b6e.20.1793162023919; Tue, 27 Oct 2026
+ 21:33:43 -0700 (PDT)
+Date: Tue, 27 Oct 2026 21:33:43 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae17b27.6200f071.51519.0f5e.GAE@google.com>
+Subject: [syzbot] Monthly overlayfs report (Oct 2026)
+From: syzbot <syzbot+list5b4fe76f3e4e41f927af@syzkaller.appspotmail.com>
+To: amir73il@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, miklos@szeredi.hu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello overlayfs maintainers/developers,
 
+This is a 31-day syzbot report for the overlayfs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/overlayfs
 
-On 2026/10/28 03:41, David Hildenbrand (Arm) wrote:
->> LLM stumbled upon a possible race in kpage_read() ...
->>
->> Say the reader passes pfn_section_valid() for a device PFN in a section
->> shared with online RAM, gets preempted, and resumes after
->> pgmap_array_delete(). We'd then find no pgmap and return pfn_to_page(pfn),
->> even though the subsection is no longer valid ...
-> 
-> I think that's similar to our pfn_to_online_page() vs. memory offlining races,
-> just slightly different. Getting these races down to 0 is pretty hard.
-> 
-> This patch here tries to do better and arguably almost looks like a cleanup.
-> 
-> I wouldn't worry about that one for now; it's extremely unlikely to hit. And it'
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 4 issues are still open and 38 have already been fixed.
+There are also 3 low-priority issues.
 
-Ack.
+Some of the still happening issues:
 
->>
->> Could we take the memory hotplug read lock in kpage_read(), covering both
->> the lookup and the metadata reads? We can drop it before put_user(), once
->> we're done with the page.
->>
->> Maybe along these lines?
->>
->> ---8<---
->> diff --git a/fs/proc/page.c b/fs/proc/page.c
->> index 6aa99e42ec22..12bed36d76dc 100644
->> --- a/fs/proc/page.c
->> +++ b/fs/proc/page.c
->> @@ -12,6 +12,7 @@
->>   #include <linux/hugetlb.h>
->>   #include <linux/memremap.h>
->>   #include <linux/memcontrol.h>
->> +#include <linux/memory_hotplug.h>
->>   #include <linux/mmu_notifier.h>
->>   #include <linux/page_idle.h>
->>   #include <linux/kernel-page-flags.h>
->> @@ -77,6 +78,8 @@ static ssize_t kpage_read(struct file *file, char __user *buf,
->>   	count = min_t(unsigned long, count, (max_dump_pfn * KPMSIZE) - src);
->>
->>   	while (count > 0) {
->> +		/* Prevent memory removal while inspecting the memmap. */
->> +		get_online_mems();
-> get_online_mems() is the big hammer we try to avoid (or ideally remove at some
-> point). And it's most pfn_to_online_page() users that are affected.
-> 
-> A seqcount in pfn_to_online_page() could detect concurrent pgmap removal and
-> retry from the start. But I'd rather delay something like that.
+Ref Crashes Repro Title
+<1> 276     Yes   possible deadlock in __d_alloc_parallel
+                  https://syzkaller.appspot.com/bug?extid=52aa59fd5e3cd8a19dd7
+<2> 74      No    possible deadlock in pipe_lock (6)
+                  https://syzkaller.appspot.com/bug?extid=603e6f91a1f6c5af8c02
+<3> 69      No    possible deadlock in iterate_dir (4)
+                  https://syzkaller.appspot.com/bug?extid=7c4b3d05083880a09cdd
 
-Fair enough, let's leave it alone for now given how unlikely it is to hit :)
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> Thanks for taking a look! (Can I convince you to review some of the THP fixes?
-> pleeeeaaasseee :) )
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-Of coursssssssse! I'm already looking through the THP fixes :D
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-Cheers, Lance
-
+You may send multiple commands in a single email message.
