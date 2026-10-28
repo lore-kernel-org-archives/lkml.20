@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793228059;
-	b=l//0yb2Wz7bNa87puiITTXfrHCTBIh9kQLoRYriQuK8OrwucPCNi+vb1aQwKn+jcdXVY
-	 IcG+0tn8c1wSMq0UuSPFiQZ8wdEeoEAbCIBcOSkkFNUkyMVarkXzc2jH/E/NWCzJlNVB/
-	 pNWMl01c9SkLxNzYZqOfGoNcb6U/PDN3coYNRuWtiKIHzYAepM5SMYZmXG3TBEaH5O1tX
-	 1XPxEQpr7XctHRF/0h18o/m4WalUWPWWHSDXjh+p/fmiY+3AUBEw2TmfkwVXdryMBVzGn
-	 tnchpx0WBVoRNikCCA0YOPrtGrfpmBQN1bjue75IA6V3QTdKINTmgYTUUHB5Fcf2hxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793228059;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=91VEYxrWpgwa4M+36Qjxp4NGzpInmkS9xDZHy4gVHAA=;
-	b=xhf0cubn2pIgO1A7FS+2IMR9ExHe5iTg5JgyggKS84KLUa6aWyTFmEWDfZWq3woEUG2i
-	 vxuMt0uBb8E5qZAPxamAnfmACgXcmFfWqAfiwUeA04LttQu2wVHyc3zjwOdyVOkKNJMZR
-	 QXjzleSwX+I1VOeLUtmTOQFlRdDmRxYENlxNYkB5frQHHoj92lCUxs7+oXEB0C1q+II1q
-	 G286w315p9WW27lrMsyz+ZsNp7A3dgF5f3hs/HNjd9LPjlaeXVntDfcjsOkANUixkljlP
-	 QDS/l2yrT56PSYlDT9N1vziwZaMpZacQvFSsPLFvSMg2sh6Bal5bubxMlOOu3zaUyrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ik/Lxj1E";
-	arc=fail smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C44606A33D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ik/Lxj1E
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793228059;
-	b=fSMnSYf+LCzrgPlrIQwijd5F0dMaXEdXK2v7c/B4NEq23i2/FrZyUW/8a9/XNFa/HaDo
-	 4aDz/AQMvzyqWBrSAARHyRSk2mkVuxS/egNe16n6cbcNh+MgnLPJDAXo7aW3plLP0Y7BD
-	 ptHl2PSW5473uPEEBmZRhiFgMiD8REG0cQwErX3NFEUnD2IN/yhyUWxPrAsVcURVsdX1l
-	 rF+BK8E7dxVOeX05MKAEJYNEeWv1OhNZY0msQsIx/TcCwJGpd07mp80/EEt9dVHKcbJC9
-	 eVpoQDiSeqdRCJ+zMtfo8omyHDsf9u2FJhMkdtDwsXia6CNTPPm1a54Nl8wRujCoP+Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793228059;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=91VEYxrWpgwa4M+36Qjxp4NGzpInmkS9xDZHy4gVHAA=;
-	b=GywoqSIBMvK5lO50y3uU12cSFA3R1IhPVIYOp+TuJPA4bgP6Bf31W3ZSXxkikzeu+qG/
-	 3o5XAEDX9Qs8tu3YQYuoKq4bV2WZW3tFiRrnLtyHlAL/7tmime9N1q5E1TIWG6mvXIPQ5
-	 zdjCuJ+/XxiAw1zzXcmU9hTb6J36O1kS5Hhqe1wdwPZ/bgqI9UPQJTLL4hRK/SmuxKi5m
-	 AfGSiAluSTIy/1TdXM6I+hT0SVDoCIRFDO8zCqWs3gaqRUUbj4ZWe5wPg1aVvbFec6C2X
-	 P0KQx1ZzjFsKOjYTNbi4WoNlgrN26PO1lrwQHL7uuIUPVk7YU7u2nQWea2FUxq8eOXg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793228087;
+	b=A2admKmKAKSydHMq8ugrHmwfPqH8glxGmVShS/n6q6VimyVNuMmvB4XSUOh6FOPy3foy
+	 CoPpzk+A6Yjcgd5HowiX/hmbqS5b9khkAHuW4CNFZIndxH5rRFewhUqj6gRxA4dz5QPhc
+	 0dUgelqKots4sGnI4V3FtMw0Vi2bzzfTXo8S5itHi+MzmiA5Wn74PdBU/Ox3IMYTyYhT+
+	 LAq0n4UccW50uCIPTP9IumlJLhtWL2zLzsv4354S7AAxROwEnJ08tm0YhMtOy9wcGgILx
+	 F1girdat7uvEqFm66v0M9kcIlTetjU7zvCBOVFvx17bWk8kkVoEbnu7XEiaPu37Ysxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793228087;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=jmFCGmNACFlPFrISnOMUVqVZ/JE+SOakAXip1lWiLl8=;
+	b=MJ++BEc+VFTPt3DaUgfUNcauLb2kP3wTBvngkAT7TS2NO2ZLk+8RiNSK/aj4flJHfAhH
+	 OuSuCvHnvm4KY6L4HR4+GC+naUhvvMElqni2myKNWjoA+i9RamKrZQAi6atXWqahywBO9
+	 Ug/9qiaLJ5HimgnrwDbeMGJRm1nUoU2gI/30DCvT5hndP+mB+luEfLvdBzaV7turOl0J/
+	 VP2p5i+ZLxfnVoZI6xzN5vy/GvU+zeqe3rS25j64gb6wcVwU0kk9eVskNThKnKtlbvDWZ
+	 u28OG4zbbACF6/yGT4VEQUkrPSg3O48KAI54wwVULxWLEad+uqX7bDyRLnn1WKN1Owg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=GlNWKs5A;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 38B191F031ED;
-	Wed, 28 Oct 2026 22:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793228059;
-	bh=91VEYxrWpgwa4M+36Qjxp4NGzpInmkS9xDZHy4gVHAA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ik/Lxj1E1jIDMKadn6GpSBfe4IVsTCYFP2J3karEWXd5ZOVq3eGmArkpVznwy75Zi
-	 TPg/H86EjBBtbT6v0c9fhUTbReAlgMMO3FuCqOuHSEYM0zQ4OGgT1zuYDK39JWa9T1
-	 NY6gyNtKTbENjHf720I+q3RtGT34B092LHdvh3VhX9k18xaokOerjBEm9kEfkq4bAR
-	 UkwnN2en0g3cse4FljsjD20eXbzZ04Rqiil9D2/VuGrPYj1Ilm4O3Q2i5OAHY2pdGY
-	 xeHCW3VoiXg020oQHQHBV6umS/BoF4k2Nvv5+lo+VbU7jnusIOzzqH+CtrEo+2nUF2
-	 Dv0ycf1R8xyRg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BC8F745600;
-	Wed, 28 Oct 2026 22:54:15 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Wed, 28 Oct 2026 15:54:13 -0700
-Subject: [PATCH v2 2/2] drm/amd/display: Test FreeSync flip timing across
- plane resets
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A59606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A59606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=GlNWKs5A
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D493440258
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793228078;
+	bh=jmFCGmNACFlPFrISnOMUVqVZ/JE+SOakAXip1lWiLl8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=GlNWKs5AA3HFd9yDKNvf8szc4/4ln6F/ZFFj2KISUp6T5GVyxC7XD+jRjP0xgMw14
+	 QQRylVsAjSy44xPODa9nZuyrQ52PiEiDzvRpP2d0jrtay8H/oFlpjI4lix0QF97LU4
+	 Npp53lDoniSjudT8cQEz7UjAx+C6037Do7xWboqTRECefr+ndBzBBJAWrA2wm70cH9
+	 P+EijXweqgJGKqQ4gTWXuFZnrMTXUSiFfoVySB3FXVMfgL28wVv65uO7hNdyygIyhG
+	 0JoDD+kTcghDvtwgDJxZebBdvoKO6k8SaZTTMjwuQEuCfTLZDF1I4Jbi38aO0KLnTf
+	 5F3u656VXa0f/WMpiaweu34ZlilEvjB7VYPoKEquL/+DdhQGcuv0ca5ZFTsrBS53oK
+	 nJQd3GtvmZf14xy0EBp91lFDwe1Fy/GRVTN7xBh/f0f+ixy62ExkgfGPohT4kEJXAD
+	 bwIxIoJf2J4VGli2wvLFIathAnGWKdcj4BmQX/MjQxoWJezxIdckhhp1nWp9b83vvH
+	 sZvSvv5epr8NbIh6Ixpo4pUmIKcHh19va7EAFX2KuFpos/hVVZzDv6jm+XaKlPW3MQ
+	 MvoiIF+96KdFIWe4i8reGAew8azyRoYMSCC9hKr9QQ/LcvBIQ5JGuwkoEZPUE9qUaZ
+	 coPB14Ww6u2J2eNn866FdudI=
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-6798c4b8894so1928949d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:54:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793228077; x=1793832877;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jmFCGmNACFlPFrISnOMUVqVZ/JE+SOakAXip1lWiLl8=;
+        b=esU+VoHDWxH/o8fJkAuS5Nh9rK4Jt3M/3xLhZ4fmxhXE9PulkrWjse9w/izDdg/BtQ
+         2UVP7PKpEIrAQGeUp/xQaBXTZF0thp2UEr/Ze4CvATzRkLz/f7+ttFUUOZGtRnHxSa4V
+         9geIwnB4ruRuaylmYlk4qBoACP1b31fWpjHBnkK4iZZhmAvV2L847tIAw7HyDZ8DoFLs
+         TqJTrBJ/qlEqFUXSSoqR0HiAR3PL35LlgNZ1eIxtqREXlCMrOuJ6MiyX9c6PF6mBfdnr
+         mwolgTLc2s0z4j5h3+Lno0F6Zbdg+kponMIz5IxrLcchPYWeUK6Xa92ASVo+/TXW0y7t
+         v3kw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6ECuzXTvnYDFvbOYkFjuSE4Q8WN8TzaSOMFu2KyxNgQmalaelkbgJNcpEhyxvRAhPEQfcVnri4KD5mSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnPRVZLzIhQoA19pyhIPLELWbt3MknQYN+z4U62saiYjG+3cdX
+	LgarfTGZSVVxHcHvPRWDiEYga/47SPSOLl9pi4s592zrPYwVCrLhEanQuPvUsQ24kl5Xz6qJAnz
+	yqCHcF40PlO5JL2LQYGsDjZR6Q97wgvQifeOvycjqAsMuexaeQGQt6ZhYu0XvkeDGKmc5C/daxg
+	7ockrC9w==
+X-Gm-Gg: AYBFou2mApi7BVQBKdCi4uP1M08puaQYnhTtZtG0Y83cvGtJ4Y79kBiLOHnuUiLCeai
+	wKyaft44w6QsnLCfu1STQ2neauvHu/nltGefIRseOzbGu9Qlgy5NhFsV8LrZT7oYz3ca2z2ONy9
+	wYLme0HkHFCILyD8KqqPi2lAXYZM02cfvO40OrZnAWEdQph2uhdY4lKrq5dOXvozRHQxivHjMFn
+	zUpc0LnecAVIzDNzDg0+851aoL01oxucPKZLEOci+b3dKkowfNyKheIhwxD52mbCpadCjJKN/dK
+	3LTwlIPZ6gUP3eA+WhHhb5zMM1T72Rc948EcpAOn943tqXjHv5z7x3JK0x7+9M9WTlyVCKN8fy2
+	qfdErZMCy7Wq7N45TWL0O0KSfC+6IRrAwWfZSwg/ACslvXfY2SgQ/lT3D5wQ2+ojSTXttvNgI/G
+	RHYhxcN26TpQ+n+Cn3epA1bZm6TR05lg==
+X-Received: by 2002:a53:a78c:0:b0:679:5bea:d3e9 with SMTP id 956f58d0204a3-67a7bcbb663mr2324413d50.55.1793228077243;
+        Wed, 28 Oct 2026 15:54:37 -0700 (PDT)
+X-Received: by 2002:a53:a78c:0:b0:679:5bea:d3e9 with SMTP id 956f58d0204a3-67a7bcbb663mr2324396d50.55.1793228076692;
+        Wed, 28 Oct 2026 15:54:36 -0700 (PDT)
+Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
+        by smtp.googlemail.com with ESMTPSA id 956f58d0204a3-67a7a07e163sm2391204d50.8.2026.10.28.15.54.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 15:54:36 -0700 (PDT)
+Message-ID: <fcab58a3-1a8e-4bac-a96a-1c2f60742d1e@canonical.com>
+Date: Wed, 28 Oct 2026 15:54:34 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,300 +103,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-freesync-plane-reset-time-v2-2-545a0f9b17df@gmail.com>
-References: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-In-Reply-To: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228055; l=10330;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=VwlawnVubKUzbzuNwhR+l0VX7d4WCNEFb37QZO4Cefs=;
- b=kua4b85fKrdZFATWOhGFy0r+pX8S2KzHTivHv8lGW49+y8+lD0jlLVGrMqjnrTHQNLGQmo7u/
- gXDH95Px61ACH+aWWywohmjYOn9YEkOP/ioIpoU7KVI4/W5444XFYF9
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Reply-To: davidralphhughes@gmail.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] apparmor: handle diff-encoded states in leftmatch_fb()
+To: =?UTF-8?Q?Patrick_Gr=C3=B6ssing?= <invarianztheorem@posteo.com>
+Cc: apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>,
+ stable@vger.kernel.org
+References: <20261026133600.11252-1-invarianztheorem@posteo.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20261026133600.11252-1-invarianztheorem@posteo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+On 10/26/26 06:36, Patrick Grössing wrote:
+> leftmatch_fb(), used by aa_dfa_leftmatch() and therefore by find_attach()
+> to match profile attachments, open-codes the DFA transition and treats the
+> default transition as final:
+> 
+> 	if (check[pos] == state)
+> 		state = next[pos];
+> 	else
+> 		state = def[state];
+> 
+> For a state flagged MATCH_FLAG_DIFF_ENCODE the default state must instead
+> be tried again with the same input character, which is what match_char()
+> does for every other matcher. apparmor_parser emits differentially encoded
+> DFAs by default when the kernel advertises policy/diff_encode, so larger
+> attachment patterns end in a non-accepting state and the exec silently
+> stays unconfined. No conflict is detected, so nothing is audited.
+> 
+> One visible victim is Ubuntu's firefox profile, whose attachment
+> 
+>    /{usr/lib/firefox{,-esr,-beta,-devedition,-nightly},opt/firefox}/firefox{,-esr,-bin}
+> 
+> never matches. Firefox then runs unconfined, is moved to unprivileged_userns
+> and is denied CAP_SYS_ADMIN, losing its user namespace sandbox. The same
+> profile compiled with -O no-diff-encode attaches.
+> 
+> Use match_char() in both branches of leftmatch_fb().
+> 
+> Fixes: 21f606610502 ("apparmor: improve overlapping domain attachment resolution")
+> Cc: stable@vger.kernel.org
+> Link: https://gitlab.com/apparmor/apparmor-kernel/-/issues/8
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2172229
+> Signed-off-by: Patrick Grössing <invarianztheorem@posteo.com>
 
-KUnit can't call amdgpu_dm_commit_planes(), so test the flip timing
-copy through dm_plane_inherit_flip_time(), exposed to KUnit here. Test
-that a plane reset on the same CRTC keeps its flip timing, and that a
-newly enabled plane or one moved to another CRTC starts over.
+thank you for the patch, unfortunately this issue has already been addressed
+by daa9ef365c0ed apparmor: convert duplicated dfa transitions to match_char()
 
-Also flip a reset plane one 60 Hz frame after its last flip on a
-48-165 Hz panel with BTR. With the inherited timing BTR stays off;
-without it FreeSync engages BTR.
 
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 188 +++++++++++++++++++++
- 3 files changed, 193 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7a0afe6d1b8a..b655a3333b7b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3854,7 +3854,7 @@ EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
-  * this at commit time, not in atomic check: by then the previous commit
-  * has finished writing it.
-  */
--static void
-+STATIC_IFN_KUNIT void
- dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
- 			   struct drm_plane_state *old_plane_state,
- 			   struct drm_plane_state *new_plane_state)
-@@ -3866,6 +3866,7 @@ dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
- 	    old_plane_state->crtc == new_plane_state->crtc)
- 		dc_plane_state->time = old_dc_plane_state->time;
- }
-+EXPORT_IF_KUNIT(dm_plane_inherit_flip_time);
- 
- static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				    struct drm_device *dev,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 594d275918d5..18dce8244af1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1266,6 +1266,9 @@ int dm_update_plane_state(struct dc *dc,
- 			  bool enable,
- 			  bool *lock_and_validation_needed,
- 			  bool *is_top_most_overlay);
-+void dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+				struct drm_plane_state *old_plane_state,
-+				struct drm_plane_state *new_plane_state);
- int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			   struct drm_atomic_commit *state);
- void amdgpu_dm_mod_power_update_streams(struct drm_atomic_commit *state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index a497cce332bb..eb1ce999ed83 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -34,6 +34,7 @@
- #include "atom.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_audio.h"
-+#include "amdgpu_dm_freesync.h"
- #include "amdgpu_dm_hdcp.h"
- #include "amdgpu_dm_mst_types.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
-@@ -3271,6 +3272,188 @@ static void dm_test_update_plane_state_detached(struct kunit *test)
- 	KUNIT_EXPECT_NULL(test, new_plane_state->dc_state);
- }
- 
-+/* Tests for dm_plane_inherit_flip_time() */
-+
-+struct dm_test_flip_time_ctx {
-+	struct dm_plane_state *old_plane_state;
-+	struct dm_plane_state *new_plane_state;
-+	struct dc_plane_state *dc_plane_state;
-+};
-+
-+/*
-+ * A plane reset on one CRTC: the old DC plane has FreeSync flip history and
-+ * the new one is freshly created.
-+ */
-+static struct dm_test_flip_time_ctx *
-+dm_test_flip_time_ctx_alloc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx;
-+	struct dc_plane_state *old_dc;
-+	struct drm_crtc *crtc;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
-+	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
-+	ctx->dc_plane_state = kunit_kzalloc(test, sizeof(*ctx->dc_plane_state),
-+					    GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_plane_state);
-+	old_dc = kunit_kzalloc(test, sizeof(*old_dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_dc);
-+	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc);
-+
-+	old_dc->time.time_elapsed_in_us[0] = 16667;
-+	old_dc->time.index = 1;
-+	old_dc->time.prev_update_time_in_us = 1234567;
-+	ctx->old_plane_state->dc_state = old_dc;
-+	ctx->old_plane_state->base.crtc = crtc;
-+	ctx->new_plane_state->base.crtc = crtc;
-+
-+	return ctx;
-+}
-+
-+static void dm_test_flip_time_inherit(struct dm_test_flip_time_ctx *ctx)
-+{
-+	dm_plane_inherit_flip_time(ctx->dc_plane_state,
-+				   &ctx->old_plane_state->base,
-+				   &ctx->new_plane_state->base);
-+}
-+
-+/**
-+ * dm_test_flip_time_same_crtc - Test a reset plane keeps its flip history
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_same_crtc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ctx->dc_plane_state->time,
-+			   &ctx->old_plane_state->dc_state->time,
-+			   sizeof(ctx->dc_plane_state->time));
-+}
-+
-+/**
-+ * dm_test_flip_time_crtc_changed - Test a plane moved between CRTCs starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_crtc_changed(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+	struct drm_crtc *other_crtc;
-+
-+	other_crtc = kunit_kzalloc(test, sizeof(*other_crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, other_crtc);
-+	ctx->new_plane_state->base.crtc = other_crtc;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_NULL(test, memchr_inv(time, 0, sizeof(*time)));
-+}
-+
-+/**
-+ * dm_test_flip_time_no_old_dc_state - Test a newly enabled plane starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_no_old_dc_state(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+
-+	ctx->old_plane_state->dc_state = NULL;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_NULL(test, memchr_inv(time, 0, sizeof(*time)));
-+}
-+
-+/*
-+ * Flip the reset plane one 60 Hz frame after the old plane's last flip on a
-+ * 48-165 Hz panel with below-the-range compensation, and report whether
-+ * FreeSync engaged BTR.
-+ */
-+static bool dm_test_flip_time_btr_active(struct kunit *test,
-+					 struct dm_test_flip_time_ctx *ctx)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_crtc_state *crtc_state;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	u32 flip_time_in_us;
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
-+	adev->dm.adev = adev;
-+	/* Only pre-AI flips dereference the module, so a stub will do. */
-+	adev->family = AMDGPU_FAMILY_NV;
-+	adev->dm.freesync_module = kunit_kzalloc(test, sizeof(struct mod_freesync),
-+						 GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, adev->dm.freesync_module);
-+
-+	/* 165 Hz nominal */
-+	stream->ctx = dm_kunit_alloc_dc_with_ctx(test)->ctx;
-+	stream->timing.pix_clk_100hz = 4083750;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+
-+	crtc_state->base.crtc = &acrtc->base;
-+	crtc_state->base.vrr_enabled = true;
-+	crtc_state->stream = stream;
-+	crtc_state->vrr_supported = true;
-+	crtc_state->freesync_config.min_refresh_in_uhz = 48000000;
-+	crtc_state->freesync_config.max_refresh_in_uhz = 165000000;
-+	crtc_state->freesync_config.btr = true;
-+
-+	amdgpu_dm_update_stream_irq_parameters(&adev->dm, crtc_state);
-+
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	KUNIT_ASSERT_EQ(test, (int)vrr->state, (int)VRR_STATE_ACTIVE_VARIABLE);
-+	KUNIT_ASSERT_TRUE(test, vrr->btr.btr_enabled);
-+	KUNIT_ASSERT_FALSE(test, vrr->btr.btr_active);
-+
-+	flip_time_in_us =
-+		ctx->old_plane_state->dc_state->time.prev_update_time_in_us + 16667;
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, crtc_state, stream,
-+						  ctx->dc_plane_state,
-+						  flip_time_in_us);
-+
-+	return vrr->btr.btr_active;
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_inherited - Test a reset plane's next flip stays out of BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_inherited(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_FALSE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_no_history - Test a plane without flip history enters BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_no_history(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	KUNIT_EXPECT_TRUE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
- /**
-  * dm_test_mod_power_update_streams_empty - Test an empty commit updates no streams
-  * @test: The KUnit test context
-@@ -5361,6 +5544,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
- 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
- 	KUNIT_CASE(dm_test_update_plane_state_detached),
-+	KUNIT_CASE(dm_test_flip_time_same_crtc),
-+	KUNIT_CASE(dm_test_flip_time_crtc_changed),
-+	KUNIT_CASE(dm_test_flip_time_no_old_dc_state),
-+	KUNIT_CASE(dm_test_flip_time_btr_inherited),
-+	KUNIT_CASE(dm_test_flip_time_btr_no_history),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_no_modeset),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_enable),
-
--- 
-2.56.0
-
+> ---
+> Tested on a kernel built from Ubuntu linux 7.0.0-38.38 (upstream 7.0.14):
+> with this patch the diff-encoded reproducer profile from the GitLab issue
+> attaches, and the stock Ubuntu firefox profile attaches to
+> /usr/lib/firefox/firefox-bin (all processes "firefox (unconfined)", no
+> unprivileged_userns denials). Without it both stay unconfined, also on the
+> stock 7.0.0-38-generic kernel. Compile-tested with W=1.
+> Based on apparmor-next as of 2026-10-26.
+> 
+>   security/apparmor/match.c | 16 +++++-----------
+>   1 file changed, 5 insertions(+), 11 deletions(-)
+> 
+> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
+> index 7713484..796126d 100644
+> --- a/security/apparmor/match.c
+> +++ b/security/apparmor/match.c
+> @@ -751,7 +751,7 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
+>   	u32 *base = BASE_TABLE(dfa);
+>   	u32 *next = NEXT_TABLE(dfa);
+>   	u32 *check = CHECK_TABLE(dfa);
+> -	aa_state_t state = start, pos;
+> +	aa_state_t state = start;
+>   
+>   	AA_BUG(!dfa);
+>   	AA_BUG(!str);
+> @@ -769,13 +769,10 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
+>   		/* default is direct to next state */
+>   		while (*str) {
+>   			unsigned int adjust;
+> +			u8 c = equiv[(u8) *str++];
+>   
+>   			wb->history[wb->pos] = state;
+> -			pos = base_idx(base[state]) + equiv[(u8) *str++];
+> -			if (check[pos] == state)
+> -				state = next[pos];
+> -			else
+> -				state = def[state];
+> +			match_char(state, def, base, next, check, c);
+>   			if (is_loop(wb, state, &adjust)) {
+>   				state = aa_dfa_match(dfa, state, str);
+>   				*count -= adjust;
+> @@ -788,13 +785,10 @@ static aa_state_t leftmatch_fb(const struct aa_dfa *dfa, aa_state_t start,
+>   		/* default is direct to next state */
+>   		while (*str) {
+>   			unsigned int adjust;
+> +			u8 c = (u8) *str++;
+>   
+>   			wb->history[wb->pos] = state;
+> -			pos = base_idx(base[state]) + (u8) *str++;
+> -			if (check[pos] == state)
+> -				state = next[pos];
+> -			else
+> -				state = def[state];
+> +			match_char(state, def, base, next, check, c);
+>   			if (is_loop(wb, state, &adjust)) {
+>   				state = aa_dfa_match(dfa, state, str);
+>   				*count -= adjust;
 
