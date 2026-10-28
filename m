@@ -1,61 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215509;
-	b=f4JL9fmCnGiZp/8FByhV375Q9uaYc5YrqwN+UFbtQiOWxx6sxu/MdQNP5z2frAaSBwwZ
-	 VzncSx/58ajFuhIuSNB5iKzAAsJZhEHbJamzzBjjAtjFNe3vVE0A3lUIMN4qS6TGNTDa3
-	 Il+qbYBqigk9aXk+mLSceYkz/0g4/Q6h7Muyo9U/+qJRk7ZOBJpVLoGShVf6Bexnx43LX
-	 yqFh4Kl8MWHJJ9EA8BQLkTMvYvLYFoodLqFMeFg+qUvUzaBS46omHZaWsjQl5Kf/1r0yk
-	 41yDYwrlTdnAblgZPeuHHrF9QNGh9bfntZHHYm17l1DSaVaxk/uWcNV7qYujCPVUYtg==
+	t=1793215563;
+	b=c44lFWMDw5v6bN/+uvfNZ9AKMKEIwKmF/L7cQG4/iBP9jFQRaUY6N3NqlnuweaSkro12
+	 oVLbNaz4K1mtU4O7ob6yu+EGZgPo2lznUDZEMrR+BKfwYM0+YHYERsQh6aq7d7QtIv5ZB
+	 8uzEcFbTFLLYx5ZSZ96/b7VmKyrSjMPpzl+6SVJCWSgBu6wpm6MP4YpFwPfmIwMLbOZxD
+	 eYHyxlu5ny/DX+4duHwFRrXXbt0LMJG7ETobdEj1POvNXirAaZYpJBb/ORtC0X8EOMkbS
+	 78z90cLDBzkzARA8cjixwCrWgUQpNCkGl/Ra5BbWYJt54424emI4AahVxMvD1myVr7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215509;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=VWovsz25VQacJNQe16TtvfA1PaAlLh1xywDVn8vnffg=;
-	b=CYNjNiz701hWAEnlnqOucLTrpOtSCEeGvEIls3nF12/0DE1vWxsDz8ilV7I4yXkIWKLj
-	 ikYxaShNXT1Udn1kWpigEn2WtUdAkg7h6xM2P7qgVf+jEsgvRiwW5BEC09wl5PBDuNH4f
-	 McNy5z/ds6Pk2/eNmoT7BVdRmriqb2n5mdw654FmnhLi3pbq07QJjsvDjFquOw3iezbEQ
-	 ZvPTV5xlFlrQy5CIsdACxvyq+DH34c7Md9Wp6T3gBDrSu3D9tP1Ibc/nEWiknt6moh66k
-	 UnnEJSkMkEzWdWePTUtSvxmueMFxHO/JDYCWrID9swRtDZ0usUO9FJ9hlVaMMI3L/NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215563;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 Content-ID;
+	bh=x40zcwNsOo99UMks8dPee79Xtw7w7m5iS/T+vZL8Cjo=;
+	b=cADCpS1+rr2/bRKXZpZUElJwJ5qs4muQj5zvuu6eAHfdwN4hi+Ge84+3h25iCI1COtNV
+	 84d4P+H3EvnAFdLHnE70qWihxy0ujTN2pzefvpxABtrenFepOWyx4agIDuyvuSPUPTBF8
+	 vm/M+o55/DudSWGK7HBrPvUizj91wfvO+roaCtWuKR1LqFxuE/JFykuqQ7w+8M7wo3Xig
+	 SXbtGdN4ivJ3xNGUA07PGHouvpSDvZh3T4Sr4Acn6M7ykslD3X9m5+AyGYLX/eXBWSiFE
+	 1sfNToiT+pR2a1+srwMo29/HlbSiKXJKb5tbxrmZVRX2HNeM4Kal9kamU3rbxhZjSMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9hlITfa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7vADVV1;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B603606A31C;
-	Wed, 28 Oct 2026 19:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F06606A31F;
+	Wed, 28 Oct 2026 19:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6F06606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9hlITfa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9392D1F031E0;
-	Wed, 28 Oct 2026 19:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793215509;
-	bh=VWovsz25VQacJNQe16TtvfA1PaAlLh1xywDVn8vnffg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=V9hlITfawAG8Bwa7m5mAF7v0k8OX8N/+O8Og3osnROdQ6j8I97EIwuS48nFZSx25c
-	 yhjhpU5rh0C0Z/DmJyYnWUO0OiO+mlZs9UEiAiUufMDwbykBy3yNmAL/4iGtdDvF/W
-	 12UiTWCN8GhYbsHUF0OGDev7Rk/28MjyQAyCSwi/2W9Q4jV9Nd/Ggu3RFEKAAK267f
-	 0ZPiKxER/1KpQIE2ftg09ys652VqX/Qkv1CemWQz9LhiJH6k8wO+RcD6vf6AKkltlh
-	 J6yf92mCFlduzbG9qX5z/yysqABc09dLkUUwSmZkufyv9bcgtiMj8SV+p+MiV5WR6N
-	 W6r9p5MOwLZ0g==
-Subject: Re: [PATCH net] net: ethernet: ti: cpts: drop stale events before the
- misc IRQ can fire
-From: netdev-bot+sashiko@kernel.org
-To: alan.tseng.cs@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, s-vadapalli@ti.com, rogerq@kernel.org,
- richardcochran@gmail.com, grygorii.strashko@ti.com,
- linux-omap@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 28 Oct 2026 19:25:08 +0000
-Message-ID: <179321550813.3134.2116221670679603156@kernel.org>
-In-Reply-To: <20261026072314.663980-1-alan.tseng.cs@gmail.com>
-References: <20261026072314.663980-1-alan.tseng.cs@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7vADVV1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793215563; x=1824751563;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=0vmobdU3Bgl+1bOq1yR5rUg/eZZZm3tYqjKeGLnaHQQ=;
+  b=I7vADVV1tI2NFfX09SCntxieKuS/0j+6PN70WSDiWtEsvnbA05P9G2SK
+   5NuZ3gdE7tdZWBR102pLXSjXTuM77bjsKyA5WAj1bpa/G9KmGqDoO+3Me
+   g22+/4dBc9tHCcNmmlz5GZWtKzakbvPCE5vSGldT4CNg2k3SYpI5X0ik+
+   xl0cN4h/d2HDhaNel6eJAgmbt/oAF40S83DnmVJSSxbVvGu57SV6D33x0
+   HTwsOJuv8z3bLMkaqF5h1lqfB/5M0VDuvkff9Vmy5rlpH0F5j/82tk6M1
+   j/1Yz5dNwzDfVFG8bl6utzOkr39pTYUf6T/IGLhhFmN6D9yWvnnDTLCur
+   A==;
+X-CSE-ConnectionGUID: aVSZK0Y1TAeqxQ8z+M0ALQ==
+X-CSE-MsgGUID: ifSe74UFRZu4UF6zo24kxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1828989"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1828989"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 12:26:02 -0700
+X-CSE-ConnectionGUID: FWlL+jMMRVKtxSG7KlBmtg==
+X-CSE-MsgGUID: fyNB0DwFTCaARC+vMjq4Ow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4859075"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 12:26:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 28 Oct 2026 21:25:56 +0200 (EET)
+To: Linus Torvalds <torvalds@linux-foundation.org>
+cc: LKML <linux-kernel@vger.kernel.org>, 
+    PDx86 <platform-driver-x86@vger.kernel.org>, 
+    Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+    Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [GIT PULL] platform-drivers-x86 for v7.4-1
+In-Reply-To: <CAHk-=wjk2f+Vu656fEa7FOyHHaFe+-M-GEwUQPXykaYoor6A7g@mail.gmail.com>
+Message-ID: <112173bf-15bb-5a6f-e3d9-73c7675de537@linux.intel.com>
+References: <pdx86-pr-20261028113441-148823082@linux.intel.com> <CAHk-=wjk2f+Vu656fEa7FOyHHaFe+-M-GEwUQPXykaYoor6A7g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,118 +81,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/mixed; BOUNDARY="8323328-1097250158-1793214583=:1157"
+Content-ID: <5b3108f2-7ff5-0f91-1683-502b3eaa9b22@linux.intel.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+--8323328-1097250158-1793214583=:1157
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <830ee9eb-6bcf-22f9-da91-f801ec466447@linux.intel.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Wed, 28 Oct 2026, Linus Torvalds wrote:
 
-- [High] The fix narrows the window but leaves the NULL-pointer write in
-  cpts_fifo_read() reachable.
+> On Tue, 27 Oct 2026 at 23:59, Ilpo J=E4rvinen
+> <ilpo.jarvinen@linux.intel.com> wrote:
+> >
+> > Highlights:
+>=20
+> Please, people - give a *summary*.
+>=20
+> Not 150 lines that just re-organizes the shortlog with some editing.
+>=20
+> It's not a "Highlight" if it just repeats every small detail. That's
+> just a "list". And it certainly isn't informative.
+>=20
+> I - and others who read merge commits - want to know the big picture.
+> Not every driver detail. If I wanted to know the exact details of what
+> happened in some particular driver, I would be reading the commits for
+> that driver. That's not what the merge is about. The merge is about
+> bigger issues than to see things like this:
+>=20
+>     - intel/pmt:
+>        - Block mmap when read_telem() callback is present
+>=20
+> and that's just one example of a *lot* of "this is not a big picture
+> issue, it's a small detail in one particular driver".
+>=20
+> I suspect one thing that is actually a "bigger picture" issue is that
+>=20
+>  - ACPI: video: Remove CONFIG_X86 dependency as WMI now supports non-X86
+>                archs
+>=20
+> which is something that people might find interesting in general.
+>=20
+> On the whole, I think 90% of that list should have been written along
+> the lines of
+>=20
+>  "Usual updates for laptop quirks from HP, ASUS, Acer and Dell:
+>     - new model names and recent CPU support
+>     - more special button / function key handling
+>     - battery and hardware monitoring quirks"
+>=20
+> or something.
+>=20
+> Please *help* me write usable merge messages that are actually
+> informative and not just a "data dump". For the data dump, we have the
+> details in the git history.
 
---
+Okay, thanks for the feedback. I'll try to leave more out the next time
+and/or write it more directly to you specifically.
 
-net: ethernet: ti: cpts: drop stale events before the misc IRQ can fire
+So far I've mainly written these from the perspective if one has the=20
+relevant HW or is using a driver, whether the change might be of interest=
+=20
+to such an user or not (it certainly didn't have everything even if I=20
+can believe you can easily get that feeling).
 
-After a kexec, the previous kernel can leave a misc IRQ pending. That IRQ
-can run cpts_fifo_read() before cpts_register() has set up the event
-pool. This patch masks the CPTS interrupt and drains the CPTS event FIFO
-in cpts_create() to avoid that. CPTS_EN is deliberately left set.
+I understand in platform drivers case many of those changes would be of=20
+zero interested to you, and same could be said of anyone else. HP owner=20
+won't be interested in any Dell changes, nor even those HP changes not=20
+relevant for one's device, etc.
 
-> diff --git a/drivers/net/ethernet/ti/cpts.c b/drivers/net/ethernet/ti/cpts.c
-> index 2ba4c8795d605..3cc908ac90e2b 100644
-> --- a/drivers/net/ethernet/ti/cpts.c
-> +++ b/drivers/net/ethernet/ti/cpts.c
+=2E..But I don't *have to* keep doing it like that. :-)
 
-[ ... ]
-
-> @@ -779,6 +780,17 @@ struct cpts *cpts_create(struct device *dev, void __iomem *regs,
->  	if (ret)
->  		return ERR_PTR(ret);
->  
-> +	/* After a kexec the CPTS may still be running from the previous
-> +	 * kernel, with its interrupt enabled and events in the FIFO. The misc
-> +	 * IRQ is requested before cpts_register() sets up the event pool, so
-> +	 * mask the interrupt and drop the stale events now.
-> +	 */
-> +	cpts_write32(cpts, 0, int_enable);
-> +	for (i = 0; i < CPTS_FIFO_DEPTH; i++) {
-> +		if (cpts_fifo_pop(cpts, &high, &low))
-> +			break;
-> +	}
-
-[Severity: High]
-Does this close the window completely, or only make it smaller?
-
-CPTS_EN stays set, so the CPTS can keep queueing events after this loop
-finishes. cpts->pool and cpts->events are still zeroed from devm_kzalloc().
-Only cpts_register() initializes them, and it runs later from ndo_open.
-
-A fair amount of work happens between cpts_create() and the misc IRQ
-request. In cpsw_new.c:cpsw_probe():
-
-    cpsw_init_common()        <- calls cpts_create()
-    ...
-    cpsw_create_ports()
-    ...
-    devm_request_irq(dev, cpsw->misc_irq, cpsw_misc_interrupt, ...)
-
-In cpsw.c:cpsw_probe() the same window also covers register_netdev() and
-cpsw_probe_dual_emac().
-
-Several things could add new events to the FIFO in that window:
-
- - half-rollover and rollover events from the free-running counter
-   (CPTS_EV_HALF / CPTS_EV_ROLL)
- - HW_TS_PUSH events, if the previous kernel left HWx_TS_PUSH_EN set
- - RX/TX timestamp events, if the previous kernel left port timestamping
-   enabled
-
-Port timestamping is only cleared by cpsw_soft_reset() in ndo_open, and
-cpsw has no .shutdown handler. So after a kexec, a peer that sends PTP
-event frames would keep generating RX events.
-
-The commit message notes that the interrupt may already be latched. If
-it is delivered when devm_request_irq() runs, the handler does:
-
-cpsw_misc_interrupt()
-  cpts_misc_interrupt()
-    cpts_fifo_read()
-      cpts_fifo_pop()
-
-cpts_fifo_pop() tests intstat_raw & TS_PEND_RAW, so writing 0 to
-int_enable does not stop the pop. Then in cpts_fifo_read():
-
-		if (list_empty(&cpts->pool) && cpts_purge_events(cpts)) {
-			dev_warn(cpts->dev, "cpts: event pool empty\n");
-			break;
-		}
-
-		event = list_first_entry(&cpts->pool, struct cpts_event, list);
-		event->high = hi;
-
-On a zeroed list_head, list_empty() returns false, because NULL is not
-equal to &cpts->pool. list_first_entry() then gives
-container_of(NULL, struct cpts_event, list), so the write to event->high
-lands near address 0 in hardirq context.
-
-Isn't that the same oops the commit message describes?
-
-Would it be more robust to make the handler safe to run before
-cpts_register()? One option is to move INIT_LIST_HEAD(&cpts->events) and
-INIT_LIST_HEAD(&cpts->pool) into cpts_create(). Another is to have
-cpts_misc_interrupt() return early until registration has happened.
-Either would replace the drain approach rather than extend it.
-
->  	cpts->cc.read = cpts_systim_read;
->  	cpts->cc.mask = CLOCKSOURCE_MASK(32);
->  	cpts->info = cpts_info;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026072314.663980-1-alan.tseng.cs%40gmail.com
+--=20
+ i.
+--8323328-1097250158-1793214583=:1157--
