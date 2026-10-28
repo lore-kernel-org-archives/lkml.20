@@ -1,63 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158180;
-	b=BWwRpECWe+4vmIolqnY5R16BewBYbDrYWP1kqBxyziUyRezOS1Kw7joSC3WIGW3GbLfA
-	 sr0f6D8UWQyrUiEVHwpxbT26O4PY03Itw/2DGdb16+S8q0wVPOPoZa9LfCcfKEwB5vYNg
-	 7yeUIVQPAAb06mbRwqvVDbfPvqGIshZupkxw+TdkvTWWSsSeAq2Beh5CE3XyU899GNBid
-	 1bIucOUVwm0e+zxF5iQu2PzvZLNx2fhBqNtn0BvrkoonScDK+FXB+hCueHVEQIlJLG7DQ
-	 n8q6ngkVngAi5cAtuCLwpcTF8wkL16BuDuNyk4NnWbF5DIJT3EFUdwTCv7ck5XxUIDw==
+	t=1793158302;
+	b=OFD6qwndWfWooIPjXMqANCExoVZ4AmA9PlXqGd94xTq0OfZsJgNzJVqmFo6814U+5Yyl
+	 dMPeOZ8fBlcyzZ63W1YXvbWZ9IH2NQFtl2PYTxK9hK81LyhdrU74ZKJFjN0BV7MjbeBk/
+	 DG3dd7VaQMkzzbfnqN+26jrYdM17xysAlmqzeKxMUmJT1QnwBKFcTO0INU5o3rWGwv0ef
+	 vz5+LZ95Oy0BSCsXK0uhE1kKv3AvPvgzwvpxQtOQFvRwDqqyW2mxP0uS5jJgQvJ/hfPsD
+	 OOg8JsffaevY3cZjeR/rNtHzgCtfQy82lHO/7hIx3fxyyutloQ1EmqBBmeFUFVN7s3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158180;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=vEj7FK67g3rIaaz5Lq/NNY45PcOS57ENcFCjo3BtHwA=;
-	b=4PU6XQ7kbs1sKe4a9kDftX149iiLnhgk9+oktAjq28SDurPj564pSKhnF0yaRMlieQpF
-	 0Xya8pzBMhz+bI3NjfAU2TBzf0JVMkzYNocghkf7kX0qo/Jr41bWKvsswrlsyVwv1qEte
-	 0SpKj3CBcHB0IgIzJj6AXGArS7aUqYNqlJGBwvHQaODb9ut8gYcq6nE/EcB5F1Zh0F0dI
-	 aMqi+hHds5yT9lllVADDPRJvkYxyI8bZgcT73pEOwwsoGv9bA571QRY/u3JLNTuxb02cw
-	 EgBQqSm2txhE1/f8VMTY1Z0ZdsedFeH8au14okRglVGpjameCuzSiK6LPUkXQgRi5VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158302;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pAM/k5pso5Rh97rJEUAxgzfJJtw2xRFXFv7FuWc2YG8=;
+	b=O2UMpOpaEelP82RYEQ+eV5nHqT2rOy8o3r3OcUBpI0WGExmZ/3ki6u5Zkq0e6ttV3pqD
+	 jkCyaCZRZ/MxMwcw2GJ4x1tuJc8ONFShGXgvO00aHz8oCBCr+AYw8HBLUEbCNWQ9ZkDeX
+	 sBLzuREH1ZYkVBlDrbI87o+RL5DZFVxRDaFYb3qfLsXgA9LXIh/ITZr78LLHCnfwDVKH4
+	 i7JXlce1Iv+zZ3hje7fs07SLwrRRMqQADhiwQTS30zc/nzFO+p6+r5DBeboiyOnSl18Hh
+	 XeZVOaUGHxwGMWaVpNcrEcLnt/w4t7k0Tw+nPru0jxk9LvtUIr6o7QOHnkqCCe6YtYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6BjhZcd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TKtjJ26A;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6386C606A31A;
-	Wed, 28 Oct 2026 03:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22188606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22188606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6BjhZcd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948061F01825;
-	Wed, 28 Oct 2026 03:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793158180;
-	bh=vEj7FK67g3rIaaz5Lq/NNY45PcOS57ENcFCjo3BtHwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d6BjhZcdkiF7NzVN/VdODtDgSYU2T3vnRqqnNrciDnvB4d7eKRegdXZ2loH+5vPv+
-	 Czm1V91BEUUCCmC7iAvk92u2RC2Ba+IQNpCkPBHAxYEH9pERkkrZbW/LJtdynShcHV
-	 2UFg33kCflug53Ch2Rr7Y7iQIJH4DUZLk+QEuKOGaK0+73a66xuakEAO+9rtB8bgGk
-	 SRQA3101JBL9pJEd0MwT4sWO6h2cp69nn+ycpVBWv9xlY/vs8z93mlar3Nfi0C6u0Z
-	 ielLuh7Edi9767f2xt5OnZxaLLB0fqCVUsIk2WRMl3NB1vQRa7CSiNgwtkExD9jsfz
-	 edQKopALHlMNw==
-Date: Wed, 28 Oct 2026 04:29:31 +0100
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TKtjJ26A
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e47347279so331258f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:31:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793158300; x=1793763100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pAM/k5pso5Rh97rJEUAxgzfJJtw2xRFXFv7FuWc2YG8=;
+        b=TKtjJ26AyrOIvKgM9gSHFzJVttQbAz7K1tgJp45DycwwDWK02uZU6yUuN5GwZynQ2B
+         ae0frFGOWjd309EoPcVd5OgqfbszpyuiYp5YrQrQG70TRaTJmHZC2TK8Z/FbQ7nptU32
+         EcuTWSVYgfBHwyhMfr6qwDHMO9yMpAGpb1USH8bRFoIFUhF8aFBuDidcxuuU7/D2JMJs
+         DdlXYlVBr1mCxKadUP++/8uDXOaWn4yyxoWoC6coD6uBtOFgSUfCOIBlTZdnTJ/geT/7
+         Uy4dBpgUnPpx7rU6540gzKpyiG+bcPgbcYfUqiL3thAuUeGv8n054uxHYrnTHF1BhVGU
+         CbyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793158300; x=1793763100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pAM/k5pso5Rh97rJEUAxgzfJJtw2xRFXFv7FuWc2YG8=;
+        b=BK379Re+Z5DdMZETSQ/JVKXCw21HZWutTBIfK0SYGL/dtgkP9u6kQ82dFWSsQ/6ilv
+         1PEnXHa0HH6CBOI2zO7M4FBg7pf+51dvE+Qch4wkKwclT6BfYHyVefadinN+vJjjsCSh
+         gNzdO3vLSiVR37Yk86oQ99H44MAsyas2TzY3U47/bbYKVS/0xVHKbppH2hTOmoCTKNuk
+         +x/Oviq2ujVFq+lPMpqcdmpzjZCCNJEGl7X24ofI3GkuVWd2kkd9XaV2/sR766yWY915
+         O4cW9gZ8PMSXZmXGijciGSzsRlZSZamlg1CLx67cvg6W9Z33L97HUdViZq1u7EQzmmRs
+         4bFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzbZuOkOUw9Fwdz55mWOpLtV5B9gzRBXgVdj3n1Vdhvm7w8i3fAtT/wZwK9eveHUZOO0jm6Cl+PRJlq7t8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBzkRwRIZPWaA0WB8S2g8s+Vp2Up90OZZUapR/xSgc05EZgqKb
+	mdHKpDpt8nGkyx5/HvJZjIygpMJnhPaMRO3CWYK/anEKQGfnbZZWJB0D
+X-Gm-Gg: AYBFou2sGQFhSaLIl6jQs4VNUQ/3XU4O/dZo9+vR3yZ7Skwi0zqfgnEJS/DRzwHY4Bj
+	C0DaWelSnW2u3t4tZfMB6r2rAHPsYnlXq6Kxbt7FO5bp3KwSt/7+zyBooH7RjwEDBilHVXeKQ4N
+	eHgqjIAPUnWRw2bWGzI4Wig+/7m6JaQ/6VHAKv5WzEMoDRo6dIRfGZPK5VFJpUQLE4GiB5y9Q8z
+	KRhDvzMdFtII5iHHPsWqvK7lrgilP1zMviXWd35ajK+ot9vXzDoTZ1INFKO9Gge4fPUEdZxuR/9
+	n27KRpD4Xr3huoVyDvOmG6gE4dwno2jBaIawjqSHTJ2NQvFjWK7SiDuidjlLGuPQaq3ENXxYbVN
+	zRQBBvLGPC9wdfS1RKhrx40wqjWAth4PMBB/XMxbtiaBMkEq2tDLdcxZ/Umo/CFdVctzFtVadGm
+	2/pB3FZlecmxpQvqnMe9CIul0PcOMU4WOyt3J28X0bBWevZl3qc1OITSKK6h/0QyWy3MKD65xjF
+	pQvrG36PJQgnYll8iUm6uNChx4hKCPoj1runRM0R08C0MZLYuSO/6SMVeuxR3r7l4tr0oFUqTE+
+	CsEUVpEwzyyjSaFbquQDGrSCqPpbvjzO+Cg9yGxf1CMblo2S+n2Us0coTEAsuBPFjOyT3yv35MV
+	65ziy+Um2fa+wJT47bPggHXUpdx14Yz1UO8xKuZTQI0DxgEiNOYn281Gd0abE3W7jQzpEKydLQH
+	IZwPeb0oG5T9p4hNmgyeoiZSBWSN1kZOO6BWQYvHkHCSmzLVBL4xuSdg==
+X-Received: by 2002:adf:e011:0:10b0:487:930:8acc with SMTP id ffacd0b85a97d-48e5d5c275bmr1961357f8f.16.1793158300262;
+        Tue, 27 Oct 2026 20:31:40 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a45b-7d01-5035-b393-698f-53f0.310.pool.telefonica.de. [2a02:3100:a45b:7d01:5035:b393:698f:53f0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfd8dsm24290569f8f.56.2026.10.27.20.31.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 20:31:39 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Hongyan Xia <hongyan.xia@transsion.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-eliza: Use retention for PCIe power
- domains
-Message-ID: <76mvypefoe6l5c26xdycrxcyrtkpxmnybi6bm5xyudqqcbawg6@5dzvmwkhqk2e>
-References: <20261011-eliza-pcie-gdsc-retention-v1-1-9349dba7e0b6@oss.qualcomm.com>
- <273f7f8c-e24d-4322-a418-4fd5ed84b0bd@oss.qualcomm.com>
- <e255ml7kf2pyjnw4k3ssi3jp4hkovw7x62cln6n3xbf7tz5q7y@ijqwv75233a6>
- <CAFEp6-3YP29y5JYp+6Cw3T7bGEJHjfGD9mYsiQXGaTSegsMWXQ@mail.gmail.com>
- <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
+Subject: [RFC PATCH v2 00/13] entry: Classify very early hardirq entry and return-tail callbacks
+Date: Wed, 28 Oct 2026 04:31:14 +0100
+Message-Id: <20261028033127.82193-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,81 +129,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <hmslxyt7kj3w2lyniw5sup2dcjfvsndckwhrrrk2v5ofpry6zz@nrjflylnt77j>
 
-On Tue, Oct 20, 2026 at 03:41:54PM +0300, Abel Vesa wrote:
-> On 26-10-14 14:09:04, Loic Poulain wrote:
-> > On Wed, Oct 14, 2026 at 1:59 PM Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
-> > >
-> > > On 26-10-12 14:58:43, Jagadeesh Kona wrote:
-> > > >
-> > > >
-> > > > On 10/12/2026 1:29 AM, Abel Vesa wrote:
-> > > > > When resuming from system suspend on Eliza CQS EVK, gcc_pcie_0_gdsc
-> > > > > gets stuck off when powering back on, preventing the system from resuming.
-> > > > >
-> > > > > Use retention for all four PCIe GDSCs, as on SM8550, to preserve their
-> > > > > state across suspend and allow the system to resume.
-> > > > >
-> > > > > Fixes: 3d356ab4a1ec ("clk: qcom: Add support for Global clock controller on Eliza")
-> > > > > Assisted-by: LLM
-> > > > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > > > > ---
-> > > > >  drivers/clk/qcom/gcc-eliza.c | 8 ++++----
-> > > > >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > > > >
-> > > >
-> > > >
-> > > > Hi Abel,
-> > > >
-> > > > Using PWRSTS_RET_ON keeps the GDSC forever ON after first enable and the GDSC never
-> > > > collapses.
-> > > >
-> > > > For similar issue on Lemans (pcie_0_gdsc gets stuck off when powering back on), picking
-> > > > the below changes from PCIE side helped to power ON the GDSC properly without any issue.
-> > > >
-> > > > https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
-> > > > https://lore.kernel.org/all/20260729071514.859778-1-manivannan.sadhasivam@oss.qualcomm.com/
-> > > >
-> > > > Can you please try if above changes are helping on Eliza also?
-> > >
-> > > Thanks for the hint. Mani's patch (v2) is already upstream, so just enabling
-> > > CONFIG_HOTPLUG_PCI_PCIE did the trick.
-> > >
-> > > Suspend/resume works fine now on Eliza, so this patch can be ignored then.
-> > 
-> > So should the retention configuration above be conditional on
-> > CONFIG_HOTPLUG_PCI_PCIE, or should we simply depend on
-> > CONFIG_HOTPLUG_PCI_PCIE?
-> 
-> None. I think QCOM_PCIE should select it.
+Tracing still needs a transition recursion allowance because a callback can
+run after architectural hardirq entry but before generic entry updates
+preempt_count(). Steven asked whether HARDIRQ_OFFSET could be installed
+early enough for those callbacks to observe hardirq context. This RFC
+implements that contract for arm64.
 
-Nope. It should be selected by defconfig [1].
+arm64 must first distinguish ordinary interrupts from pseudo-NMIs. For an
+ordinary interrupt, stage the raw preempt-count addition and establish
+lockdep state immediately after that decision and before instrumentable
+entry work. Keep time, tick, RCU and IRQ accounting at the existing generic
+boundary. With DEBUG_PREEMPT and without separate reschedule bits, an
+already-negative count preserves the legacy DEBUG_LOCKS_WARN_ON() oops short
+circuit, attempts deferred reporting at the instrumentable finish, and skips
+post-add bookkeeping and the matching subtraction when rejected.
 
-Just to clarify on how the hotplug support is fixing this issue. Once we enable
-the hotplug driver, the Root Port will be allowed to enter D3Hot during suspend,
-which is a pre-requisite for powering off the PCIe devices and the controller.
-So once all the conditions are satisfied, the controller and devices will be
-powered off. So even if the PCIe GDSC gets powered off at the end of suspend, it
-won't affect PCIe devices as they already lost their power. So we don't need
-GDSC retention.
+The exit side has a second gap. Keep any applied hardirq count and lockdep
+classification through traceable generic exit work, then remove them before
+a possible schedule. Carry ordinary-hardirq provenance through that schedule
+in a compact three-state byte, keeping irqentry_state_t two bytes wide, and
+restore a classification-only tail around architecture tracing, deferred
+hrtimer work, IRQ-on preparation and context-tracking preparation. The tail
+does not repeat RCU, tick or IRQ accounting.
 
-But that being said, if any of the PCIe devices support wakeup like WOL from
-D3Hot, then we do not power off the controller and devices. In that case, GDSC
-retention would be required to keep the controller/device state intact. You can
-reproduce this issue by enabling wakeup for the PCIe device from sysfs and
-attempt suspend.
+This is a design RFC, not a merge-ready proposal. The questions are:
 
-So to cleanly fix this issue, we need the PCIe controller driver to signal
-retention state to the GDSC driver or the GDSC driver has to figure this on its
-own and configure retention accordingly.
+  - Should generic entry expose separate raw-update and bookkeeping phases?
+  - Are preempt-count and lockdep state sufficient for the return tail?
+  - Is arm64 a suitable first user of this contract?
 
-- Mani
+The series is based on d135ab453a74 ("Merge tag 'backlight-next-7.4' of
+git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight"). Patches 1
+and 2 include two arm64 noinstr inlining prerequisites so the series
+applies directly to mainline:
 
-[1]  https://lore.kernel.org/all/20260728-hotplug_pci-v1-1-d1f38cfb9122@oss.qualcomm.com/
+  - "arm64: Always inline raw preempt count updates"
+    provenance: https://lore.kernel.org/all/c3a90368dd6c096af9d918e036a27728696fb8a4.1786603168.git.hongyan.xia@transsion.com/
+  - "arm64: percpu: Annotate __kern_my_cpu_offset() as '__always_inline'"
+    provenance: https://lore.kernel.org/r/20260918161407.2300-12-will@kernel.org
 
+The first is the relevant hunk extracted from Hongyan Xia's larger posted
+RFC. The second is a current-mainline rebase of Will Deacon's posted patch.
+They preserve the authorship and links of the original submissions.
+
+Repository: https://github.com/kmehltretter82/linux
+
+  prerequisites: steve-early-hardirq-arm64-prereqs-v2-20261027
+                 8bdce63fa17d
+  generic core:  steve-early-hardirq-core-v2-folded-20261027
+                 8651af55ecbc
+  arm64 RFC:     steve-early-hardirq-arm64-rfc-v2-folded-20261027
+                 56016d197e1b
+
+The transition recursion slots remain unchanged. A separate
+recursion-lifetime series keeps the task recursion bit inside one
+preemption-disabled interval. A development-only patch removed the slots
+for a matched experiment. Neither that removal nor the lifetime series is
+part of this RFC.
+
+All three kernels in the experiment contained this early-hardirq series.
+On a native 16-vCPU Google Axion system, matched arm64 debug kernels
+completed 100 deterministic ftrace callback and IPI overlaps per cell:
+
+                                done  litmus  mixed  collisions
+  Slots kept, lifetime fix   100/100       0      0           0
+  Slots removed, no fix      100/100      33     60          13
+  Slots removed, lifetime    100/100       0      0           0
+
+The litmus and mixed columns count ftrace recursion records. The collisions
+column counts transition-sensitive scheduler and return-tail records.
+Complete dmesg captures were clean in all three cells.
+
+The second cell is a counterexample to removing the slots without the
+lifetime fix in the tested path. The third supports the combined design on
+this machine. It does not establish every architecture-specific early-entry
+interval, so this RFC retains the slots and keeps the lifetime work
+separate.
+
+Before this rebase, the patch-identical tree was validated across a
+nine-cell cross-architecture W=1 full-link matrix: RISC-V 64, i386,
+powerpc64le, arm64, x86-64 and ARM32 with GCC 13.3 and Clang/LLD 18.1.3. It
+also passed 600-second arm64 SMP8 and RISC-V SMP14 stress gates, a RISC-V
+AIA/IMSIC SMP1/SMP2/SMP8 gate under QEMU 11.1.50, and a focused four-row
+DEBUG_PREEMPT staged-add oops oracle with 403 of 403 locking selftests.
+
+An ARM64 PREEMPT_RT SMP4 build passed targeted return-tail tasklet and
+forced-thread timer closure tests, three SMP2 priority-masked pseudo-NMI
+return runs, and an SMP1 NO_HZ_IDLE and RCU_EQS_DEBUG return gate with 386
+Startirq-to-Endirq intervals and 1,229 IRQ-disable/enable pairs. All
+patches remain unchanged according to git range-diff after the rebase.
+
+Changes since v1:
+
+  - rebase onto d135ab453a74 and include the two arm64 noinstr inlining
+    prerequisites as patches 1 and 2 so the series applies directly to
+    mainline
+  - keep the recursion-lifetime change in a separate series
+  - carry a scoped hardirq-entry cookie across staged count updates so
+    !HAS_SEPARATE_PREEMPT_RESCHED_BITS && DEBUG_PREEMPT configurations
+    preserve the legacy DEBUG_LOCKS_WARN_ON() oops decision and skip
+    post-add work and teardown when rejected
+  - encode ordinary-hardirq provenance and staged-count application in a
+    three-state byte so irqentry_state_t remains two bytes wide
+  - fully initialize the arm64 EL1 debug entry state before provenance is
+    added
+  - retain irqentry_exit_pcpu_adjust() ordering across the return tail
+  - accept and test nonzero nested lockdep hardirq depth in the tail
+  - add a matched native test of the separate recursion-lifetime work and
+  - tighten the contract and documentation wording
+
+v1: https://lore.kernel.org/all/20261022051654.79224-1-kmehltretter@gmail.com/
+
+Assisted-by: LLM
+
+Hongyan Xia (1):
+  arm64: Always inline raw preempt count updates
+
+Karl Mehltretter (11):
+  sched: Split preempt-count bookkeeping from raw updates
+  lockdep: Use raw access for pinned hardirq state
+  entry: Add the pre-counted ordinary-hardirq entry/exit contract
+  entry: Skip inactive IRQ-return reschedule calls
+  context_tracking: Split IRQ-exit preparation from the EQS transition
+  lockdep: Prepare IRQ-on state from a hardirq return tail
+  entry: Carry ordinary-hardirq provenance through kernel return
+  entry: Classify ordinary hardirq return-tail work as hardirq context
+  arm64: Use the pre-counted hardirq lifecycle
+  Documentation: entry: Describe the pre-counted hardirq lifecycle
+  locking/selftest: Exercise hardirq return-tail preparation
+
+Will Deacon (1):
+  arm64: percpu: Annotate __kern_my_cpu_offset() as '__always_inline'
+
+ Documentation/core-api/entry.rst     |  89 +++++++++++--
+ arch/arm64/include/asm/percpu.h      |   2 +-
+ arch/arm64/include/asm/preempt.h     |   6 +-
+ arch/arm64/kernel/entry-common.c     |  34 +++--
+ include/linux/context_tracking_irq.h |  32 ++++-
+ include/linux/hardirq.h              |  33 +++++
+ include/linux/interrupt.h            |   2 +-
+ include/linux/irq-entry-common.h     | 130 +++++++++++++++++--
+ include/linux/irqentry_hardirq.h     |  81 ++++++++++++
+ include/linux/irqflags.h             |  14 ++-
+ kernel/context_tracking.c            |  78 +++++++++---
+ kernel/entry/common.c                |  45 ++++++-
+ kernel/locking/lockdep.c             |  49 +++++---
+ kernel/sched/core.c                  | 101 +++++++++++++--
+ kernel/softirq.c                     | 181 +++++++++++++++++++++++----
+ lib/locking-selftest.c               |  53 ++++++++
+ 16 files changed, 828 insertions(+), 102 deletions(-)
+ create mode 100644 include/linux/irqentry_hardirq.h
+
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-மணிவண்ணன் சதாசிவம்
+2.39.5 (Apple Git-154)
