@@ -1,53 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218167;
-	b=HhiiRcvrWbpl4b0ENP46wOrIGFUhWZVmWsuQqdKYK7ZdVEj5lNi7DtbtVwksqnQF30XM
-	 wsf6ffW4j0UpFLPyAiBULHpTF5xh8w1CdPiP3Dkj9sLqBdron5+PVe0aMwTMxM1iEFxpo
-	 HEMzQGdD0ZvzLvITgd0CVuFTdpKHuuNla0awV7Pb0mL+ZLvBvZWzbi1NAbXvYqQToTi2h
-	 ydEAoeA77OIm+fE4n2jgG+mFK8yv6R35j2nWvWvfzVtGwuOdVbDSbKoA9pzLoiZz//ek7
-	 asUJ9d6BqVRQLd2nZQDrPzWcbFjvvlAEuo7m62ao8gsIwvfHEzUhdP+KQK7gQiMNqwQ==
+	t=1793218170;
+	b=Dn/vkiQtRqk1NwG1B+EEq8YZRJylmodEg6zVtPceww5Mb2UKZEkxQylnL5cf/jIqD2Ep
+	 4+N2syeFELGJQSqHqOs3+Xriw1//N7r7+TKQrGCR8rj361sOgufBXKLn6Cb+lEe+OjBUR
+	 U6X8YIbxXPCJkCw8f2Kek5aBTG/AmEKPLQCtKnrVcsbnc/06+bo/JKzG/jKI30Bv9N/ka
+	 dwSaTKsLrrXizsslbHftY3kTsGw87tXg/vF3pT+yEBwPgqL2ldI+gGzGb7ulBWXWUXd9O
+	 qO1etKMrnAOGB+c6S1Fa/HaYn0Qcb/bA/aBrfZ4mA6hRUh1THRQrn6LKKHZe4Tvw4mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218170;
 	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=HLLTx977/XiNs5a/nHogEoQbG0b+A1UTK+BJ10ry0Is=;
-	b=5kUypYoBL017wsyL+lxe/hXCFQOOVrPEcKHIwmtzm/zruEdHuaC9kCGioASImPd7qeBy
-	 YQt18jpTEaMguw5OGYJsjMzBdUS03+GGcPppynGBG5BF30mIyBC7TkinQBuni1XOfUbDT
-	 eq/I9gGGRtdzYhIicoWoj/5Z6CZrE/9+pgzq3Cl75qDVzEzywwuE4TYHtUzdNvfl5kFZB
-	 0rWJTcKRbt19U9VwRGcJ/LiiZWMtNcmA0/oei1P99ra8qe6V3u4er8IoX8BCl1JlTy2uu
-	 82OIE2c1Pz6kp+emcV2STYziZQ/8IEOiLyQ0ZxK33Fwwy+Eqqfuj8df79+W5v8K8xtg==
+	bh=A0SoP+W2Ylzai32YncZqgehMd2spWJOL4Ra8zJeBLMc=;
+	b=O8k1Cad0vc9VyfZrnsADeq2Oi+YxRmr15eyPSXYb89yeyHrsdWCzFX/Ttd+bc/MSt44d
+	 PaNpA4ySY+TCIAE1nOm9xhgfNrqm0SsxCe/gQ2CngDZUJc9FZA1XGyRnedAMZ6j+3oZgc
+	 0T/7yKxygNDQPrqQO5Lb0ienHikaqWL4vanRLS0H9aE+iIRAJgjK+rqoj+wg8xuXR8Yqr
+	 ncnX1OQxzS1xYWjzqORydDZ+4ebi3FNR+cWDqUMQqRNK8f3icZt5eQvndEHkp2dmznuPC
+	 evlzAX6VKxCSYykw3nuXDKl7QGi9neVyhitWJnj4wfVjRbDsSFnMUva2rzw+XiZotLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gbXKN/L1";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1ED606A32C;
-	Wed, 28 Oct 2026 20:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbXKN/L1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FFD1F01825;
-	Wed, 28 Oct 2026 20:09:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F06060A2631;
+	Wed, 28 Oct 2026 20:09:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3CAC1F031E2;
+	Wed, 28 Oct 2026 20:09:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218166;
-	bh=HLLTx977/XiNs5a/nHogEoQbG0b+A1UTK+BJ10ry0Is=;
+	s=k20260515; t=1793218170;
+	bh=A0SoP+W2Ylzai32YncZqgehMd2spWJOL4Ra8zJeBLMc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gbXKN/L1PsBmJ2qqjKTiwBhecF+1mm/ymT4VrmUx4Q2qfqSRmLXAvgk+1bka0X6V0
-	 t26KXeeeDDVMdxXHeGkAcbHu++dpPLLODvT+lqHGkVHWqcKYHhAJpFPY6Ug/x3KIFN
-	 gtiuAUYCvvAITBhDJhm+6rB6JxKpl3Mbpj/dlN6aL6QqXOv5lBJ1x+V+xzg4ndxmkU
-	 ZUYhBZs54nV5pUEyAxaC0Oxlzfm7ZCngS+B24RFVLsYIjzkRKV43Eu4I5I9ZE27WPC
-	 MdUiss/2Mb4ZObXGLPDFyqOdG6qV//NFyzd9+6/68asdHgb/E6ATE8Th3d0aoqjLbG
-	 vXU1YdS8Jwgyw==
-Date: Wed, 28 Oct 2026 10:09:25 -1000
-Message-ID: <07deddf44be391f58d6c3f2e4843582b@kernel.org>
+	b=VGy58csZN31r8aoABGjrMS2S8VmwRqqyzOjc+yh6KtZj6Qb5kvGENOJfz5MKyZac0
+	 +96HIAVZJAFeZJ6zoZU3i7udNRXHp9sPOPWd5mK/M7XTWKpC+Ov/TW51gu6uX0u0IQ
+	 gQBxNRU9IeP3Phe59HrsUBj+npbiuTycUJfFW20GyKRX0Tb0kA5CPekQhaFIb+HyMG
+	 9HVfO+hC9fwiOQOjBUwa1Dx4vQ8qFfvyNYKtXKhPy95ScSfQliyU1ihruvcsCNbm3g
+	 A4KrSsQBbSYXVmop1yhEEaDOue97Hz3deALG4jRfiyVOkczASwgmF22h4u5DbtRXsV
+	 kOGE0Mk3Fi6yw==
+Date: Wed, 28 Oct 2026 10:09:29 -1000
+Message-ID: <b69d96a507aec382c279d62cfb038fa9@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Tao Cui <cui.tao@linux.dev>
 Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com, alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v11 0/5] blk-iocost: BPF struct_ops cost model
-In-Reply-To: <20261028143534.135968-1-cui.tao@linux.dev>
-References: <20261028143534.135968-1-cui.tao@linux.dev>
+Subject: Re: [PATCH 3/5] selftests/bpf: add iocost cost model test
+In-Reply-To: <20261028143534.135968-4-cui.tao@linux.dev>
+References: <20261028143534.135968-1-cui.tao@linux.dev> <20261028143534.135968-4-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,11 +59,75 @@ Content-Transfer-Encoding: 7bit
 
 Hello, Tao.
 
-Besides the restructuring agreed in my reply to Alexei, dropping
-iocg_init()/iocg_free() and moving everything into blk-iocost.c, the
-series still has problems, which I replied to on the patches. The cover
-letter is still long and narrates mechanics, and it still carries the
-v9 and v10 changelogs.
+On Wed, Oct 28, 2026 at 10:35:32PM +0800, Tao Cui wrote:
+> +static bool iocost_bpf_supported(void)
+> +{
+> +	FILE *f;
+> +	char line[128];
+> +	bool any = false, on = false;
+> ...
+> +		if (strstr(line, "CONFIG_"))
+> +			any = true;
+> ...
+> +	return on;
+
+any is set but never read, so every test skips without /proc/config.gz.
+
+> +	/* isolate the configfs and cgroup mounts from the host */
+> +	if (unshare(CLONE_NEWNS)) {
+
+unshare(CLONE_NEWNS) alone doesn't make the mounts private, so the
+configfs mount propagates to the host, one more per test.
+
+> +	ASSERT_OK(configfs_write("/sys/fs/cgroup/cgroup.subtree_control",
+> +				 "+io"), "subtree_io");
+> +	if (!ASSERT_OK(cgroup_mkdir("/sys/fs/cgroup/iocost_pairing"),
+
+The "+io" write to the root cgroup's cgroup.subtree_control is never
+reverted, the cgroups are created directly under /sys/fs/cgroup and
+test_progs stays in the root cgroup. cgroup_helpers handles all of this.
+
+> +	err = iocost_model__attach(skel);
+> +	if (err == -EOPNOTSUPP || err == -ENODEV) {
+> ...
+> +		test__skip();
+
+-ENODEV and -EOPNOTSUPP from attaching to the test's own null_blk device
+are failures, not skips. The same goes for
+serial_test_iocost_model_streams().
+
+> +		ASSERT_GT(skel->bss->iocg_inits, 0, "pair_init");
+
+This passes on the root blkg alone, so it doesn't show that the test
+cgroup got iocg_init(). The same goes for eject_had_inits and
+pair_init_again.
+
+> +		/*
+> +		 * detach implicitly by closing the link fd instead of
+> +		 * calling bpf_link__destroy() explicitly: the release
+> +		 * path must detach the model just like the explicit
+> +		 * call does
+> +		 */
+> +		lfd = bpf_link__fd(skel->links.iocost_2x);
+> +		bpf_link__disconnect(skel->links.iocost_2x);
+> +		close(lfd);
+> +		skel->links.iocost_2x = NULL;
+
+This leaks libbpf's link struct. The reason in the comment doesn't hold
+either. bpf_link__destroy() on a struct_ops link does the same close().
+
+> +void serial_test_iocost_model_streams(void)
+> ...
+> +	if (ASSERT_OK(err, "attach")) {
+> +		err = readback_model(dev, model, sizeof(model));
+> +		if (ASSERT_OK(err, "readback"))
+> +			ASSERT_STREQ(model, "bpf", "model_bpf");
+> +
+> +		bpf_link__destroy(skel->links.iocost_ms);
+
+The test never enables the controller, so iocost_ms's calc_cost() never
+runs. The multi-stream results in the cover letter aren't exercised by
+the test.
 
 Thanks.
 
