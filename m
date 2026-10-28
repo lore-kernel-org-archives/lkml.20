@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156713;
-	b=I7RULCWr95QSYSIGD10YLIGygyCPcUFuz8A3o4aOLEH8GxIqEu+7283+wKUL9GhCgnqa
-	 M0wHN7xP3ugugrZyKdf2x3yTPgGEqk9w7JLwNAtUbeATu1Q89EMsPX2OVHUyZyJcsrhGZ
-	 iozElGLglHHu6r+gq4mC8FzwigaYa4eclbxQTn9JX3EBVb7W2KPkAlDOJfLKbl2TkT3Rt
-	 JEh68/FpMpeCel/UJvyvMmBzUuKXwZ4OaSYi5Zj/sufkQAgw97UvTUx3pUArQBP9xHdoW
-	 QFD8E/zJ8a6UbptFxQ+McWy/Sj661i/Vq5YxEFgOHqyYOs10/CsXqJTg3ossGKfLJNg==
+	t=1793156702;
+	b=Jh/QGu3NALsEyv/ULX7nhpLqyr+49F1ARvLSr5ZHow7ovwK0joVTgL/K9fTkI6fT33tI
+	 gLrAcrx7N+74KPJ3sVJqMuikEH6DZsf3KkTlTucSAm8lzVHDpsuKSVLh5AUOSbf1il25Y
+	 0KXhGCm4ki94mOZQzHeDjGdfxn19f3R5+OnaXwA0Zxrsz6O/ZlOvnAzP37mOitVA//eIr
+	 L6md9qImYXNBEPrdpxwPT4YTbni3AXHVuTYAl3XW9rFeG6UwGWevdTUHei5AQI0pQkSOC
+	 f+Vbc29T+C2ku9wP0NHC00+YZ+6OQYsJQ11xqlGB/nnXZCan1BlTwHYjsF616KFApZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156713;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NH6LLO5d9K04QGTJQAsM95fgRxp71QEQs7Ta+RyYI+A=;
-	b=vJzWIR4OvnejFoYdCm8if01azydnOno4X/0pPUPVWFgeblIEvExEvtvWjluf55wt3PQ6
-	 3EwzGR6lEll0H66VltJM84uMIY7xOhcX5c8C3UT8cNn/kH6Sf+YTkplFxnz+f4dxj5oir
-	 s8ma2hTcG6iERLqLgnNx7MY/xMzG/TNkrUIOm9391oZ8EFUyKxxclT19StHJ8PlzzykmC
-	 Xpu14sNFMJRJNYLUhLzjFgY1cJqva64DuPAhLOzzUpuOMd3vjW6Irh7jV5EY7h+ws2fDw
-	 FqV9kxT99b3AJqvej4u+Ox8Seq17Eh9+9WOYIG5WPuarhEM3mo5VhWP1i+R8BgSTn4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156702;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=QmKBIsPj275zjC+RHeRaYLF2SPXRKuXi+F+O6Y1Ma/A=;
+	b=M/9aXjp9sScGT5el3Kg1Bm6ekEekgaC4muieVSf9z9pYq6TWg7n0h7d0l/mu/ScHlYPq
+	 vn22SpcBmsigqUYQov9rpGZGjNn5H90O4KJJRRa19pnUDFyhVOwjTeSBQfeD20cU6/sFx
+	 pP4gfKNkBaNbTomF8EfOGR5JfIpsvCR5dnAkL2dzjZTOfk41xPbtFRyT6vGo4DfzWVlQk
+	 DA1qfsPFz4a6X0huVeoByJeuxRfSM4Ycooc7jke4FpmVzdsYL+Wzt4tnofT/UUkOr6aUp
+	 hG1jG3KOppXrVl3U96fZX2O+AuYzmLzYSm34oa0YNG6Xu0stN1t3KQqjG16g71ddZvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SKptKz+t;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QQ1aOpqD;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAC3606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:05:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DAC3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CE0606A31A;
+	Wed, 28 Oct 2026 03:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4CE0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SKptKz+t
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1507455eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:05:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156712; x=1793761512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NH6LLO5d9K04QGTJQAsM95fgRxp71QEQs7Ta+RyYI+A=;
-        b=SKptKz+thfwzeL5VgN+FrCyCuv5Bp3y4tMY7sQ05aaOvheU6PBvH4IrCVNjOH0qUsG
-         2gu6Z1LAkHAAB1Y8SkAbPZfsUU4G2vUcLSi+N5MZrdp/q2PTywsbSWBiTmf8JyzBo915
-         Bl6lXVEtjc3AlkswP+lT2rgAvnp2H8g8MUsziK20M+4sOTjZowM5DqBDUoma1bAWbSai
-         80aY46Oeew4+sVNKsaNzkpw4sGTO8cS4l00LtHT7+ehTI3d3wsnAwdrX6dY1MsGRetPm
-         x3RPjdCVwXhFz8wcGliz662+4QfSyZkLEEDeaKM0/NyNivTl87g3evHPTV7XBgpf5/5M
-         rzfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156712; x=1793761512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NH6LLO5d9K04QGTJQAsM95fgRxp71QEQs7Ta+RyYI+A=;
-        b=C5DsXUCb3b3u3S1ZLZrcu3p5mYhDGmhWF8QU0PeGhhXvRrrvj0a2b7uX0fwD5mZDdv
-         JzKRqU+yPSBbd9C0pXX02ogsGxi/YiWoysj9ONG9kpFr1qmKi9uiKxAoJgiNLRkZ0uha
-         9YEUHKTj4sRPVHDADm1NZz1JATwjZRpx+MFys35wYk8Gb4opUES8fyiwUMv5Xngyp5Rb
-         j+jkrRQ3wma5zqXISd0Qo5/13Uh0rI4aDqFUYlXzB8r3Fus9v5jYWjRaF+sA/nttTdFD
-         dCxcX84LlbbZ0S+wCKsK0ZD6E8Ke2d46mO0da/7AEA9TBpxY64hYdbRA/w57HpFiAGTm
-         p0aw==
-X-Forwarded-Encrypted: i=1; AKwUvByXSLMOo2gMqjN5D02rQyhKkfJ50SSbu+cUlvmvpmmzBsXKLnHMEbnWwPGeseeK8tCyidWON4Jb2caG5lY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfs5iYD5f1NPjNr+/sfMsdDwQj24hQT5dSrPjCaLl5raZlMofh
-	BbZIvNep0Y5CfO9Cs1p4ER193B0ios8ddkqXtJjddPK5mhZvEwmXD7LQ
-X-Gm-Gg: AYBFou2VqhNdLDwmYqxYeKYEXtt+PkzR21kBkKMS22VpYgEN++j3S8HUzr5ILplU2Qm
-	IJFz+7y8mDw96/K4IKdI5NjV2yymMkhMp89L7eUitwsLZCUzM1G5NOrYtiCPXT5UZhnWHwfVL3B
-	5IcRyPCDc67hvMbMDuOBvLescK3WbYblmnzhS6xT0KK7pJuKT606m4upHXzLHCP5ES0jJNuhXgZ
-	daUTNoODwAkoSjY81VnMyrkCu8X21F7H1/t2Z4YKrUNB/CBYHalq2v7nVy1BYevayk9nPybLl4C
-	3Cv1sfeEz2nF4q/z5bic9r/9r8RhHxb0/ZwxLa/SxDpBKpynQPxpZ/dFHSAiwgUuqswHSHHBFW/
-	cCCN9lFglJ0tOWo+A8NQgmVrEJG2tg/VvNlYYvuv1GWcOs//mKkJw0PeOfdGoH7+t95f/s78Pdp
-	Q0X8RuUen8UStnOptuXpRRqIJiBfI+7MLCouZ1dBm2Gv5TEXcOlNgx2deVpEFNP11IozTlIGPeR
-	RayITkGQBwwmjSMnA99Qzf99zwQuV0WpiKtdO3gYBcu2ILZ8jZMVuvHabrIq4QU0FDgQtb3cYdf
-	uLAUgxESJkkyEGHEh2XG4zWPxQWf66CMT/D09neBgw==
-X-Received: by 2002:a05:7022:286:10b0:143:868a:20c1 with SMTP id a92af1059eb24-1a6cfa0e858mr1429965c88.46.1793156712194;
-        Tue, 27 Oct 2026 20:05:12 -0700 (PDT)
-Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75a37093esm1150734c88.3.2026.10.27.20.05.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 20:05:11 -0700 (PDT)
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-To: hannes@cmpxchg.org,
-	yosry@kernel.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kanchanapsridhar2026@gmail.com,
-	linux-kernel@vger.kernel.org
-Cc: rientjes@google.com,
-	willy@infradead.org,
-	senozhatsky@chromium.org
-Subject: [PATCH v2 1/8] crypto: acomp - Define a unit_size in struct acomp_req to enable batching. mm: zswap: Set the unit size for zswap to PAGE_SIZE.
-Date: Tue, 27 Oct 2026 20:04:56 -0700
-Message-Id: <20261028030503.17923-2-kanchanapsridhar2026@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com>
-References: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=QQ1aOpqD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=QmKBIsPj275zjC+RHeRaYLF2SPXRKuXi+F+O6Y1Ma/A=;
+	b=QQ1aOpqDWE8FU3TPOhW+MfG6j6+N0eoK3n+xE4A/cpC2NORjs2103GBylGScI5
+	q8c0cxRwAm6kYho2xTHspJS4gAcZRiDhhuVMJ/CBYYkW7Kvn3hy/IMDIL5HpB68D
+	/SsVO2fsRmuU7tlU/QFtZKHwEc8PRZPRLuLQieOhufzIw=
+Message-ID: <e89439cb-b4cc-44ca-99bd-977e4d659e47@163.com>
+Date: Wed, 28 Oct 2026 11:04:11 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,136 +51,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/16] PCI: dwc: Add pcie_cap field and caching helper
+To: Shawn Lin <shawn.lin@rock-chips.com>, bhelgaas@google.com,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ jingoohan1@gmail.com
+Cc: imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261027122827.2725643-1-18255117159@163.com>
+ <20261027122827.2725643-2-18255117159@163.com>
+ <80f85ae9-7162-4940-8dec-690bc00098b4@rock-chips.com>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <80f85ae9-7162-4940-8dec-690bc00098b4@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgDnL4srZuFqgH73CA--.31342S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF1rtF48GFWUGF4rAF4kXrb_yoW7Kw15p3
+	yUtF1akFs8JrWav3W2v3W3JF1a9as3JFW7Jwn3Gw13Zr9xur1xKFy0yrWYkF17Crs2gw1j
+	9r4jqa4xCrs8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UuwZcUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7A23W2rhZi2d5QAA31
 
-We add a new @unit_size data member to struct acomp_req along with a
-helper function acomp_request_set_unit_size() for kernel modules to set
-the unit size to use while breaking down the request's src/dst
-scatterlists.
 
-An acomp_alg can implement batching by using the @req->unit_size to
-break down the SG lists passed in via @req->dst and/or @req->src, to
-submit individual @req->slen/@req->unit_size compress jobs or
-@req->dlen/@req->unit_size decompress jobs, for batch compression and
-batch decompression respectively.
 
-In case of batch compression, the folio's pages for the batch can be
-retrieved from the @req->src scatterlist by using a struct sg_page_iter
-after determining the number of pages as @req->slen/@req->unit_size.
+On 10/27/26 21:12, Shawn Lin wrote:
+> Hi Hans,
+> 
+> 在 2026/10/27 星期二 20:28, Hans Zhang 写道:
+>> The DWC PCIe core and its platform drivers repeatedly call
+>> dw_pcie_find_capability(pci, PCI_CAP_ID_EXP) to obtain the offset of the
+>> PCI Express Capability structure. Besides being verbose, that performs a
+>> DBI read every time, including in paths that run repeatedly such as link
+>> up polling, suspend/resume and interrupt handlers.
+>>
+>> Add a pcie_cap field to struct dw_pcie and a helper
+>> dw_pcie_get_pcie_cap() that performs the lookup on first use and caches
+>> the result for the subsequent calls.
+>>
+>> The lookup is deliberately done lazily, at the first place that needs the
+>> offset, instead of at a fixed point during controller initialization.
+>> This guarantees that the DBI read happens exactly when the open coded
+>> dw_pcie_find_capability() call it replaces used to happen, so no DBI
+>> access can be made before the controller clocks, resets and power are
+> 
+> 
+> With the controller inaccessible (clocks/power gated), what a DBI
+> read returns is platform dependent, most integrations just hang the
+> accessing CPU, like Rockchip's SoCs, others might return zero or
+> garbage. Zero self-heals as the commit message describes, but a garbage 
+> non-zero lookup would now be cached indefinitely, so every later caller
+> would use a bogus offset?
+> 
+> Perhaps the "TX Interface Progression Detection Features" of dwc IP
+> could help return a dedicated value? I don't know, so I need to check
+> it internally. I will get back to you later.
 
-Please note that acomp_request_set_callback() sets the @req->unit_size
-to 0.
+Hi,
 
-In zswap_acomp_req_init(), after the call to
-zswap_set_acomp_req_callback(), we set the unit size for zswap to
-PAGE_SIZE.
+Thanks for the review.
 
-      acomp_request_set_unit_size(areq->req, PAGE_SIZE);
 
-Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
-Co-developed-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
-Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
----
- include/crypto/acompress.h | 49 ++++++++++++++++++++++++++++++++++++++
- mm/zswap.c                 |  6 +++++
- 2 files changed, 55 insertions(+)
+You are right that the cache must not turn a bogus value into a permanent
+one. Some details and one change in v5:
 
-diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
-index 5d5358dfab73..6462fc46f4ec 100644
---- a/include/crypto/acompress.h
-+++ b/include/crypto/acompress.h
-@@ -79,6 +79,7 @@ struct acomp_req_chain {
-  * @dvirt:	Destination virtual address
-  * @slen:	Size of the input buffer
-  * @dlen:	Size of the output buffer and number of bytes produced
-+ * @unit_size:	Unit size for the request for use in batching
-  * @chain:	Private API code data, do not use
-  * @__ctx:	Start of private context data
-  */
-@@ -94,6 +95,7 @@ struct acomp_req {
- 	};
- 	unsigned int slen;
- 	unsigned int dlen;
-+	unsigned int unit_size;
- 
- 	struct acomp_req_chain chain;
- 
-@@ -329,9 +331,56 @@ static inline void acomp_request_set_callback(struct acomp_req *req,
- {
- 	flgs &= ~CRYPTO_ACOMP_REQ_PRIVATE;
- 	flgs |= req->base.flags & CRYPTO_ACOMP_REQ_PRIVATE;
-+	req->unit_size = 0;
- 	crypto_request_set_callback(&req->base, flgs, cmpl, data);
- }
- 
-+/**
-+ * acomp_request_set_unit_size() -- Sets the unit size for the request.
-+ *
-+ * This is a helper function that enables batching for zswap, IPComp, etc.
-+ * It allows multiple independent compression (or decompression) operations to
-+ * be submitted in a single request's SG lists, where each SG list ("segment")
-+ * is processed independently. The unit size helps derive segments from a
-+ * single request. crypto_acomp does not expect the segments to be related in
-+ * any way.
-+ *
-+ * Example usage model:
-+ *
-+ * A module such as zswap that's configured to use a batching compressor, can
-+ * accomplish batch compression of "nr_pages" with crypto_acomp by creating an
-+ * output SG table for the batch, initialized to contain "nr_pages" SG
-+ * lists. Each scatterlist is mapped to the nth destination buffer for the
-+ * batch. Depending on whether the @req is used for batch compress/decompress,
-+ * zswap must set the @req's source/destination length to be
-+ * "nr_pages * @req->unit_size" respectively.
-+ *
-+ * An acomp_alg can implement batch compression by using the @req->unit_size
-+ * to break down the SG lists passed in via @req->dst to submit individual
-+ * "@req->slen/@req->unit_size" compress jobs to be processed as a batch.
-+ *
-+ * Similarly, zswap can implement batch decompression by passing an
-+ * SG table with "nr_pages" SG lists via @req->src to process
-+ * "@req->dlen/@req->unit_size" decompress jobs as a batch.
-+ *
-+ * This API must be called after acomp_request_set_callback(),
-+ * which sets @req->unit_size to 0. This makes it easy for users of
-+ * crypto_acomp to rely on a default of not opting in to batching.
-+ * Users such as zswap opt in to batching by defining @req->unit_size
-+ * to a non-zero value for use by acomp_algs supporting batching.
-+ *
-+ * @du would be PAGE_SIZE for zswap, it could be the MTU for IPsec.
-+ *
-+ * @req:	asynchronous compress/decompress request
-+ * @du:		data unit size of the input/output buffer scatterlist.
-+ */
-+static inline void acomp_request_set_unit_size(struct acomp_req *req,
-+					       unsigned int du)
-+{
-+	req->unit_size = du;
-+}
-+
-+
- /**
-  * acomp_request_set_params() -- Sets request parameters
-  *
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ad01c691a263..e1d57a7d9595 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -826,6 +826,12 @@ static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
- 	crypto_init_wait(&areq->wait);
- 	zswap_set_acomp_req_callback(areq->req, &areq->wait);
- 
-+	/*
-+	 * This should be called after acomp_request_set_callback(),
-+	 * which initializes req->unit_size to 0.
-+	 */
-+	acomp_request_set_unit_size(areq->req, PAGE_SIZE);
-+
- 	mutex_init(&areq->mutex);
- 	return 0;
- }
--- 
-2.39.5
+- dw_pcie_get_pcie_cap() is only called at the sites that previously
+   called dw_pcie_find_capability() directly, so this series does not add
+   or move a DBI access. It does not try to fix the "DBI accessed while
+   the controller is inaccessible" problem; that behavior is platform
+   specific and pre-existing.
+- dw_pcie_find_capability() already rejects offsets below the standard
+   header, unaligned offsets, and entries whose capability ID is not
+   PCI_CAP_ID_EXP, so a bogus value has to look like a valid capability
+   entry to be returned at all.
+- To make sure that a transient bogus read cannot stick anyway, v5 only
+   caches the offset after the capability ID has been read back at that
+   offset. If the read-back does not confirm PCI_CAP_ID_EXP, the offset is
+   still used for the current access (same as the open coded search
+   before), but it is not cached, and the next call searches again - the
+   same self-healing behavior as the zero/not-found case.
+
+If the DWC IP has a reliable way to tell whether the core is accessible
+(the "TX Interface Progression Detection" feature you mentioned), that
+would be even better than validating the value. I would be glad to use it
+if you can share the details; it probably deserves a separate patch so
+that all DBI accesses can be guarded, not only this lookup.
+
+Best regards,
+Hans
+
+> 
+> 
+>> enabled. This matters for endpoint controllers such as qcom-ep and
+>> tegra194, where DBI is only accessible after PERST# is deasserted, and it
+>> also means platform drivers do not have to call the helper from a
+>> specific callback at the right time.
+>>
+>> The cached value is accessed with READ_ONCE()/WRITE_ONCE(), because the
+>> first lookup may be triggered from different contexts, for example the
+>> qcom-ep global IRQ and PERST# IRQ handlers. A concurrent lookup stores
+>> the same value, so this race is benign.
+>>
+>> A return value of 0 means that the capability is not present. This
+>> cannot happen on real DWC hardware, where the PCI Express Capability is
+>> mandatory, so a negative result is not cached separately: it only causes
+>> the search to be repeated, which does not affect correctness.
+>>
+>> Signed-off-by: Hans Zhang <18255117159@163.com>
+>> ---
+>>   drivers/pci/controller/dwc/pcie-designware.h | 34 ++++++++++++++++++++
+>>   1 file changed, 34 insertions(+)
+>>
+>> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/ 
+>> pci/controller/dwc/pcie-designware.h
+>> index 0735ae940924..fa31e8b763bc 100644
+>> --- a/drivers/pci/controller/dwc/pcie-designware.h
+>> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+>> @@ -592,6 +592,8 @@ struct dw_pcie {
+>>        * use_parent_dt_ranges to true to avoid this warning.
+>>        */
+>>       bool            use_parent_dt_ranges;
+>> +
+>> +    u8            pcie_cap;    /* Offset of PCI_CAP_ID_EXP */
+>>   };
+>>   #define to_dw_pcie_from_pp(port) container_of((port), struct 
+>> dw_pcie, pp)
+>> @@ -830,6 +832,38 @@ static inline void dw_pcie_dbi_ro_wr_dis(struct 
+>> dw_pcie *pci)
+>>       dw_pcie_writel_dbi(pci, reg, val);
+>>   }
+>> +/**
+>> + * dw_pcie_get_pcie_cap() - Return the PCIe Capability offset
+>> + * @pci: DWC instance
+>> + *
+>> + * The offset of the PCI Express Capability structure is read once from
+>> + * the DBI configuration space on the first call and cached in
+>> + * @pci->pcie_cap for the subsequent ones.
+>> + *
+>> + * The lookup is done lazily at the first place that actually needs the
+>> + * offset, so the DBI read happens exactly when it used to happen before
+>> + * caching was introduced, i.e. never before the controller's clocks,
+>> + * resets and power are enabled.
+>> + *
+>> + * DWC PCIe controllers always implement the PCI Express Capability, 
+>> so a
+>> + * return value of 0 means that the hardware is not usable. Callers that
+>> + * check the returned offset keep working, and the (never expected)
+>> + * lookup is simply repeated on the next call.
+>> + *
+>> + * Return: the cached offset, or 0 if the capability is not present.
+>> + */
+>> +static inline u8 dw_pcie_get_pcie_cap(struct dw_pcie *pci)
+>> +{
+>> +    u8 cap = READ_ONCE(pci->pcie_cap);
+>> +
+>> +    if (!cap) {
+>> +        cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
+>> +        WRITE_ONCE(pci->pcie_cap, cap);
+>> +    }
+>> +
+>> +    return cap;
+>> +}
+>> +
+>>   static inline int dw_pcie_start_link(struct dw_pcie *pci)
+>>   {
+>>       if (pci->ops && pci->ops->start_link)
 
