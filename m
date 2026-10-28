@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.211.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220261;
-	b=q1d81OwFVSr8wtr6OD7vWYsjGCcQw1upEA8jIPlykjUSlPV3Q9lT9ItwDf+LwlHOORX+
-	 aKqbFCv64GLz8NUSZ3pgX3dJMTtMea06rxIOaQduqXa5Nq6/QqwOnay5FapLTxd8Pi9qv
-	 M/cLGX8YnycePYhCjuELB+4pp8TErNWKRor3sRtJcNru861FpVXbVdXVE3RF9KyvIE575
-	 GFS1a+Fq+7EE2Ou8lRv4xd7qmoVG3Y8OibyN6h5p5Bp+xnPKie9WpxMdr13HbrKbk2w7i
-	 AO94VRGVvB+MybBs6XWwlb/0Bp5PWT8DrhFmPWR/0RnklDLninVsc+Li3DHgZxTrknQ==
+	t=1793220323;
+	b=HmMG3zWQU7LSm+vkF++XkCYzK5eIQIxf9FNzdnevevcRBe8MZaZyKUh3zyKp1HOpqcSx
+	 ShNxBYLCwvlWZubStiZUs/H+bcT14v+D35OTsKNYulcuIdq23kqJ+haKLNv2+ICoSv68E
+	 8x54Hf69Ze7A4Yx+qmT+h2MmR7ljvDAnPVNT5tYcSZVPYACo24KB6G59ZTClsOydDnl9f
+	 UdhDJxnX3pjxmejgGZJHEL6yHVolXmcN8Xw3mdlHbZvgo/FU4zbUeZu5zpspavYmoApfj
+	 9LZeoPvE4qCAG3uH1+CICDdjC5EF3ydpYAbfCkiAsXFLR0teuE/Pp9hd58CSb0ysuGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220261;
-	h=DMARC-Filter:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g+Rym2cDLBRRDNbSlQFoptvg30+FcJygQ4+cHMDKrAI=;
-	b=Vxqd06/toVt1LJ6jRGXTACatDphnF7o9e85dW3tM7YQ1FAVhKC3kJLJKXRk/+w74r/9H
-	 qijzKf8vfj6iQSt3y4dcV3q+6ZNOGN7M6uAXKOyTqhOFmzqcW0kd8VQv8NyPFweYBVaGV
-	 f+ngOjdn467nuxdMWt2BfnHMfbBqPNsaTlvKnaYhQRWZkXf5oLw63lugrgs59CBgpe74B
-	 iRBu/UVDeVBzW/iNAqphErAM/dziQR456wWnnA1qgaEl6IkEdvX7EsJqB79sRmkJ8rG7f
-	 sYpshvUi51PabS0NkC4tR53Tu/RUV+XQtRLcJoIDvEfioq+pdMBteXvQT85jKK+8EQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220323;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xhSU0Ll/YflHcbTsaPvMuTReTRNyw9O7ljUv0SFKW4A=;
+	b=aTUX0v/02eGl0431wE2Jq/0tTOQ11B6atodGQUtW5Z8jMIwtxdPyCdZ1sKSvMC90PJEm
+	 Fjuu7eIjzjy2MdU0Tu0XqdHKJiXoSeaxq5nqt1CMvJvuXlLvhgrRHRw9NiCHFrhVkQcAW
+	 QXkU9Bm3AalR5iRdwNOu0BKNjDRU6AKahPE/zp1naNHKF37usHYP52L60/+F2ygqlANOd
+	 CC2BECo01ZSlUzkhEs69Kh3CNmnGbp7GyKmrHDgb1tM2+jzyjRDXlmNF6230u1JibWgbq
+	 mzZv5qSgx5496UNcnDMZTrVV26LEW3IOTlk7USlfGvOIpIGwiET1/SVCkFZEQGagQ7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=librecast.net;
-	spf=pass smtp.mailfrom=librecast.net;
-	arc=none smtp.remote-ip=185.128.211.58
-Received: from bregans-1.gladserv.net (bregans-1.gladserv.net [185.128.211.58])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=uwiMqCzW;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD85A606A31A;
-	Wed, 28 Oct 2026 20:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD85A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
-Date: Wed, 28 Oct 2026 21:44:11 +0100
-From: Brett A C Sheffield <bacs@librecast.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
-Message-ID: <auJem0IIOw9Ibiw-@karahi.librecast.net>
-References: <20261028170459.200466217@linuxfoundation.org>
- <auJTCcqMDEmAS7Q_@karahi.librecast.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391E1606A31E;
+	Wed, 28 Oct 2026 20:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 391E1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=uwiMqCzW
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=xhSU0Ll/YflHcbTsaPvMuTReTRNyw9O7ljUv0SFKW4A=; b=uwiMqCzWxlSLOyvJWx1EpAyUkI
+	8btbBfprVdCDyHYW3PydxYRJfRc+kFnuoObOoozn1rwW58Vj2BVWhqh0F+wlp8xlwih90BYwI51Em
+	K1iI2tMdxPVFIWoitj5UhzFd4b/5QNlPTbdXz9zJMTATbRVGeZUbYvxryNKsjaEpApTR2/Y1wym5S
+	RWkAgUP9MihkaliXEWdKo6u9MyrEOFdwTO3LSL1qUppz7BzJah7zzT1oZKKj6Mf9SU1NRxYMWkfbQ
+	WLJ0+6zjDTz5RuWWZ/Qmx/h26GtaT+lmVMT47+gjluaxiNFrhSxl9AUI43A4wXxL3uIkD/jLlvX82
+	Gvlz4IVw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMAW5-00000007wax-2Fqn;
+	Wed, 28 Oct 2026 20:45:01 +0000
+Message-ID: <cce30180-c1c4-4b10-b681-8944057bc698@infradead.org>
+Date: Wed, 28 Oct 2026 13:44:59 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,59 +58,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auJTCcqMDEmAS7Q_@karahi.librecast.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] treewide: switch to __nonnull_args() macro
+To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft
+ <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+References: <cover.1793027261.git.d@ilvokhin.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-28 20:54, Brett A C Sheffield wrote:
-> On 2026-10-28 17:34, Greg Kroah-Hartman wrote:
-> > This is the start of the stable review cycle for the 6.1.191 release.
-> > There are 1887 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
+
+
+On 10/28/26 1:19 AM, Dmitry Ilvokhin wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the __nonnull_args() macro to wrap the raw compiler
+> attribute, keeping the attribute's quirks in one place rather than
+> open-coded at every call site.
 > 
-> Build failure on amd64 with amdgpu:
+> This series replaces the remaining open-coded __attribute__((nonnull))
+> users with __nonnull_args() to standardize nonnull attribute usage
+> across the tree.
 > 
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn315.o
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn316.o
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn32.o
->   LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
->   AR      drivers/gpu/built-in.a
->   AR      drivers/built-in.a
-> make: *** [Makefile:2040: .] Error 2
+> Each patch can be applied separately by the respective maintainers. The
+> only dependency is kernel-doc: the string and lib/list_sort patches need
+> patch 1 ("docs: xforms_lists: support __nonnull_args()") in the same
+> release, otherwise strends() and list_sort() drop out of the generated
+> documentation.
 > 
-> No time to bisect just now but will try to have a look tomorrow.
+> Latest Sparse release could not properly parse __nonnull_args() without
+> arguments. Fix was proposed [1] and merged, but until updated version of
+> Sparse will reach wide masses it might trip on __nonnull_args() without
+> arguments.
+> 
+> There are few more instances of __attribute__((nonnull)) usages left in
+> the tools subdirectory, they are perf related copied files and can
+> (should?) be updated separately after this patchset lands.
+> 
+> Build-tested allmodconfig with GCC 11.5.0 and clang 22.1.8.
 
-Fortunately it was a build failure, so I just left that running:
+What ARCH(es)?
 
-git bisect start
-# status: waiting for both 'good' and 'bad' commits
-# bad: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
-git bisect bad adc8e434cf08c73b0f02dab2c15319315f07172f
-# status: waiting for 'good' commit(s), 'bad' commit known
-# good: [85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e] Linux 6.12.114
-git bisect good 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
-# good: [0e1dbd1409918dbd331cd9c382ce64736dcf3272] ksmbd: fill in FileSysIdentifier in FS_POSIX_INFORMATION
-git bisect good 0e1dbd1409918dbd331cd9c382ce64736dcf3272
-# good: [617f27c3fa85742e9d468a2145e3676af6b2498d] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
-git bisect good 617f27c3fa85742e9d468a2145e3676af6b2498d
-# good: [1476a3a7d286ad7763025337f20bb841b24c72ea] io_uring: don't pass restart error codes to userspace
-git bisect good 1476a3a7d286ad7763025337f20bb841b24c72ea
-# good: [be00113e49ff42c2c007993dd05cf4bdd1c2bfeb] keys: Protect the type name while describing a key
-git bisect good be00113e49ff42c2c007993dd05cf4bdd1c2bfeb
-# good: [6270098a65994bdf26b736b2ad6614e5b9078ad6] coredump: hold RCU while releasing parked threads
-git bisect good 6270098a65994bdf26b736b2ad6614e5b9078ad6
-# good: [41af0a793777ede3f1839bcd8abae92a5c901fe4] fork: release the files of a failed fork after sched_cancel_fork()
-git bisect good 41af0a793777ede3f1839bcd8abae92a5c901fe4
-# good: [6da107042aaa43b05f4c16bee65afc2e9b5f7561] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
-git bisect good 6da107042aaa43b05f4c16bee65afc2e9b5f7561
-# good: [da1419eb5d34caf39c1f3abad5b95a601a35114f] fanotify: Fix crash in fanotify_init(2)
-git bisect good da1419eb5d34caf39c1f3abad5b95a601a35114f
-# first 'bad' commit: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
+Did you mean to use such an "old" version of GCC?
 
+thanks.
+
+> 
+> [1]: https://lore.kernel.org/all/20261019175633.415493-19-bvanassche@acm.org/
+> 
+> Dmitry Ilvokhin (10):
+>   docs: xforms_lists: support __nonnull_args()
+>   string: Switch to __nonnull_args() macro
+>   lib/list_sort: Switch to __nonnull_args() macro
+>   xarray: switch to __nonnull_args() macro
+>   drm/i915: switch to __nonnull_args() macro
+>   drm/amdgpu: switch to __nonnull_args() macro
+>   drm/gem: Switch to __nonnull_args() macro
+>   leds: pwm: Switch to __nonnull_args() macro
+>   soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
+>   checkpatch: suggest nonnull attribute conversion
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 2 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+>  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+>  drivers/leds/leds-pwm.c                    | 2 +-
+>  drivers/soc/aspeed/aspeed-lpc-snoop.c      | 4 ++--
+>  include/drm/drm_gem.h                      | 2 +-
+>  include/linux/list_sort.h                  | 4 ++--
+>  include/linux/string.h                     | 2 +-
+>  include/linux/xarray.h                     | 4 ++--
+>  lib/list_sort.c                            | 6 +++---
+>  scripts/checkpatch.pl                      | 3 +++
+>  tools/include/linux/compiler.h             | 4 ++++
+>  tools/lib/python/kdoc/xforms_lists.py      | 1 +
+>  13 files changed, 25 insertions(+), 17 deletions(-)
+> 
+> 
+> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 
 -- 
-Brett Sheffield (he/him)
-Librecast - Decentralising the Internet with Multicast
-https://librecast.net/
-https://blog.brettsheffield.com/
+~Randy
+
