@@ -1,67 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206580;
-	b=rvnYJLW3tZ7zooImtVO12pKGrmaiISMNAAi+47v2rsK3PFzJleLezIAw216AehG/OWU1
-	 z+QUGWDUVtA2RMhHiPH/3RLs9x220OMCVG84dDah1y6tqGuLCBT3IpXbTMfUrCcWfPNO6
-	 obcGMN3HbbzoyYDj46AfXqo9kFUZeAB99M7JEpnnkVjm7oUny0Oik6hGAU3v9uLas8b/V
-	 MgAgiccr1rwfewZl1+P0x1djhx+Hj6zu/ydkNGfxtGNO2oKdndeDLicGJIsrntPpSdmsy
-	 vfK4AJRywf9x1TK/sUeMcu1KZgkUgsrYfH5Z+WrvYMeD7GAdrv0PctyFqbkmdRFtuMw==
+	t=1793206582;
+	b=y3FbwWgS8ZOzwW/JHDMy+kA7UPvl+Uq7u0sCn2rcEvLY70/6Zz59SkYayCpCq9cN3oNi
+	 U+x1booAo7Nal5M6yeL5zAgEE+4JhezHMi0h884F/poykFrGg60IsJ+Dyh9/3CtvC2lo2
+	 Klb2m634fKc8vNBX/MBokvxX1B5LNUxaaGCxQgcxQePfImrWBJZRJqhPuvC1RjXht1wnX
+	 Sp5JHLxwvp73lsWTo+wLT0LPL+sfe44JbIZsX7iGgEbqDkfJxYcHunG6FuL+4WPcO0xT4
+	 J5RqmBur2iDgnTqMP17ssGjJpPbROWz3h4YTebk2MD6jzkRfSZMfcONQHe8ZkmRu3zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206582;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7WmdMPjJ2NrxzGe7d5uluyZgYPehQw5MUFdjLbKyP8Q=;
-	b=0fRwLUs/ou2axZ8mcknxUeFJzCEA8sNYqQFUxy0k14qpbJrj0LSmHytSOe7DttTjpfVG
-	 GP+OPNHnNCN08I7TPtnXFoH2aReWQkIVLkQQEvDDWzX1/FuwpZCX2OgDK7D5J0LeDlp4l
-	 He2/v77ljkwoGrFOybFhNl2+yC1l1dSKbYPZZT/XdTr9o0P90CxYVSRJz0biIxe1Gg319
-	 dLZ1ds76KPIgABlW3otd65/T2+uEK79trNt82rXFE0YyjhEoxZH4RJMFRZvj42ERZdHjj
-	 yO2wZOOYBI+UlRxtIix3UZQCPJFpsfDi8EWs69Y22A3lPtmQmk6/BJKuGxJhLQrkY9g==
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=rzJicRcq/LEo/5iPbNSnsuGf+eqlRhROCAd2vQPKMkw=;
+	b=YqrPrCSIWxAyX/+BM+E1UiiI3bjFnCFLTtZyxzy2Cut7eiWKMsXYXDlBQFkVB2g2NRhg
+	 IVQcmREL8xaUp3SbIHG5bd/km8hWIMjzhxEPmJAfLYwpaEuw9HScYDotbdKnhqUifVMJh
+	 qKYezPLRLpHpefdJQRdFLRXD3QfS6P3yEzFw+05KxifdGUI+eS6b4ruLnYusKWUPU+1ct
+	 KNus45GMAiFqyiE4Il97zYkPK1x/h5iYXmW36eGeM2GXY2dHEc88Cj2V7QQu2JR65xF1X
+	 zJZr4MAMgkmKvxXq2fXSQph3KY/GrMDsU9G6Rx44blUSLRq4pYAeJjnWQF2L7llVOcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duo7yyJf;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CVW101s4;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57984606A31C;
-	Wed, 28 Oct 2026 16:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57984606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EE6606A324;
+	Wed, 28 Oct 2026 16:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86EE6606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=duo7yyJf
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SF9xOZ2542978;
-	Wed, 28 Oct 2026 16:55:39 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CVW101s4
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFA2fd599950;
+	Wed, 28 Oct 2026 16:55:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=7WmdMPjJ2Nr
-	xzGe7d5uluyZgYPehQw5MUFdjLbKyP8Q=; b=duo7yyJfD/fQH6Wr9/R1cUfQ8EG
-	xZVrwJK5u21sZZ6Q5b0AV5uM4H6/IOlAke8uTWNKxbV7/6v+sG5G7cyBkF5HPcap
-	TiLBuh9Yy1Jn+oyCdlDFryZ0Fps93PA9z9EYBypekEglSrsj/mIzNZ0HKcpc74L9
-	MaJ/fTcZJAIgQ+R1AO2wAJN7uZ/35a9/jIECjs5nRDBkYIgaWBZeXuP9Upo6cN4H
-	ZeKgvGtiqH6DlB9IXOzqSHYuVrSy0BTXHG3R07wuO5MABXGKDS7Ry84zbsKf3r0Z
-	wj6WrEMahYqI7CliJubVneCdVu1/TMXKqXs3lEKVWDtPLnugmizHtOwE9Mg==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=rzJicRcq/LE
+	o/5iPbNSnsuGf+eqlRhROCAd2vQPKMkw=; b=CVW101s40DPrhLcjaF4PK9zPf5k
+	H7eH9bRsIbWqInMG+endV71bNjCpGbvX+1M+YHEMK6jjZbw/2sdpd8vCyQ3+BQQW
+	1Uhv2iVe5FsUTKTdLhpLzCH6F2YQiDREnCuz2BE6XiPVjiDCjHQHGfkgHpzpqhkg
+	a1RdFd/+SjbbnNcmk8RwS9VNTxrIUA94TJ9IroNfr3waBEiXqvzuM6llG77rIH46
+	aro7lxnoNa5K0T8w0wPcOLOv9r5W6KnovETJCiydobXPpNncLeiV8zuyasX3a6y2
+	q8jXi347yNn0F/93cC+vPvL3OBn83VmZnD8qjHAK4lDUbqAzkU2qDbZx0lg==
 Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkkehrgev-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6f93krv-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 16:55:38 +0000 (GMT)
+	Wed, 28 Oct 2026 16:55:37 +0000 (GMT)
 Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SGtYEX1881526;
-	Wed, 28 Oct 2026 16:55:35 GMT
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SGtYoC1881524;
+	Wed, 28 Oct 2026 16:55:34 GMT
 Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69SGtZMD1881554
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69SGtYPS1881493
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 16:55:35 +0000 (GMT)
+	Wed, 28 Oct 2026 16:55:34 +0000 (GMT)
 Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
-	id 3BD0624B5A; Wed, 28 Oct 2026 22:25:33 +0530 (+0530)
+	id 2F70A24AD0; Wed, 28 Oct 2026 22:25:33 +0530 (+0530)
 From: Anup Patel <anup.patel@oss.qualcomm.com>
 To: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
         Alexandre Ghiti <alex@ghiti.fr>,
@@ -81,11 +81,10 @@ Cc: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
         Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
         Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>,
         linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        Susheng Yang <yang.susheng@zte.com.cn>
-Subject: [PATCH v11 6/9] perf: RISC-V: support callchains with SSE delivery
-Date: Wed, 28 Oct 2026 22:25:28 +0530
-Message-ID: <20261028165531.940336-7-anup.patel@oss.qualcomm.com>
+        linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: [PATCH v11 3/9] riscv: sse: mask events during shutdown and kexec
+Date: Wed, 28 Oct 2026 22:25:25 +0530
+Message-ID: <20261028165531.940336-4-anup.patel@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
 References: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
@@ -102,269 +101,209 @@ Content-Transfer-Encoding: 8bit
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: 6xShqfkFfh8v9YvfQrlOIUVUh-Q0zUGQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX0pmetC6uT463
- 7DnnQ85MyHaoT3/LavgdSdYNQsxN5OmEwJdp5VG5p0sXodOR+0MacgOJs3R5j3ufaJ9XtkX6vKd
- jA3vgx9VPudYVJ1OxmSbufQnT5zZElvVf2hJh+uj37cqpzrQRw6CRhXB/qUZ1wsCWhZHX1u6qNL
- AArv1YjMs0ybhnIEoBjBs6o12Orn/THJPnRkU/wa0ns0x+GHZ/EtscpS70c4Dg2pu0Esg5qie22
- tlAB+tS2uTZ5odfV+r0vmvX7sKX/wAe/50omSQWzMuA6KNURSoiXGmy9IFDcyTot+3fLzGrv/9B
- jDdwNRbwfJGWCf/KqoFUZgiuwSlUpoUMDSIL26FziR2qdqNulEXYMTZFW0DqNV4dsvBzZPqJqJF
- cJG1Xb7oLO50atlfT1GBWXImtl0g3yQUvG1uLuvjjEmf0jyUWkyCFzuctC5pKmW3by5Axoe2Jdk
- tHV/YeHNcg9X7iglFCw==
-X-Proofpoint-GUID: 6xShqfkFfh8v9YvfQrlOIUVUh-Q0zUGQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX0v7nfO9VCYhg
- /iHSEjY2rJw1v4dFc4/pKs+5uhvDmmHhiaoNfZ6LuWo7dK/avyZvtywW6Sxz7CoH/2y/vSdd5ct
- 97p/MCDhRNqUj2S5HGrb61bIxpq06gY=
-X-Authority-Analysis: v=2.4 cv=bYv+w+PB c=1 sm=1 tr=0 ts=6ae2290a cx=c_pps
+X-Authority-Analysis: v=2.4 cv=frhJ914f c=1 sm=1 tr=0 ts=6ae2290a cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=968KyxNXAAAA:8 a=1RTuLK3dAAAA:8
- a=oUB1ajNOr_kzCuKrLyYA:9 a=kRpfLKi8w9umh8uBmg1i:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=968KyxNXAAAA:8 a=EUspDBNiAAAA:8
+ a=A1KMLtFEN3waitHq4QkA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX8W1yP1aNhOTw
+ 5vY04HBexRxbAs2pxDAsGONDv+6/zg9+xf2kRRNpuOYjh/Nujzb5HzfGJg3AII25011B+QcbSw8
+ aL1VEJC462WlVMRhNaQXUM3MoTXOxuU=
+X-Proofpoint-GUID: UriRaUMSKL_CAWC5xzAysYLaMIX53FvR
+X-Proofpoint-ORIG-GUID: UriRaUMSKL_CAWC5xzAysYLaMIX53FvR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2NyBTYWx0ZWRfX27TpkGqlZA0e
+ PZCWO4xjsscw5ZtW9aUtHFgv3SBwGWGL0kvodQduJp5Tm2s2h/9SqAtaozDDiAcsR60NdVSgccU
+ QqHSShUeIN8jbdJBnNzLEt5C7KZJGI+U69lHrmRg+OQVE7MrSXy7oNuC6jxMbzo0kSG5SIxc52z
+ ViR//oEm2j5fCerWutgUBph3sYhXZFXaiRLMsqkB8HGyIrUqPwaxisfO7mFeZQ67Kbc7poR8pQE
+ QLSRlKFFguUJkqph5lYHAKFxaXeIUHmF8I+r+AEW4I+92xyemtqojTYPkgch8CjyuiiSq98VhIc
+ J7CsTN94KOFgpnBfFLAg8hGIw+PsTzMt1LwBklslhkyvJ6uoii1P0VDH4XZkDKD63hY6Hifn2zb
+ BHmcZeoq7GVt+RoYflnJUq1mcT9FDeC6FUIJ+MeAXGGkAdUPPcziZSwt6cVtl21rgOfZzn0l8Jk
+ 8VDnnEGchitaNfUlqqw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
- phishscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1011 suspectscore=0 adultscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280067
 
 From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 
-PMU overflow delivery through SSE enters Linux with a synthetic supervisor
-context on a dedicated event stack. The perf unwinder must use the context
-interrupted by the overflow rather than treating the SSE handler frame as
-the sampled frame.
+SSE delivery is independent of normal S-mode interrupts. Firmware may also
+retain an event registration until Linux explicitly unregisters it. A hart
+must therefore stop accepting SSE events before Linux stops servicing the
+registered handler.
 
-Use the interrupted pt_regs published by the RISC-V SSE entry path. Walk a
-kernel callchain only when the interrupted PC, SP, and frame pointer are
-consistent with the current task stack. For sensitive entry windows and
-IRQ stacks whose bounds cannot be proven, retain the interrupted PC without
-following an unsafe frame chain.
+Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
+and crash shutdown paths. This prevents firmware from entering Linux-owned
+handler state after the corresponding CPU or kernel context is no longer
+valid.
 
-User callchains continue through the existing nofault RISC-V user unwinder.
-If hstatus.SPV says the interrupted context was a guest, do not interpret
-the guest stack through the host address space.
+A crash kernel cannot identify or take ownership of registrations
+inherited from the crashed kernel. Reject a later normal kexec while such
+SSE state may still exist, rather than transferring unknown firmware state
+to another kernel.
 
-DWARF callchains additionally copy a raw user stack. The generic
-arch_perf_out_copy_user() implementation can take an exception-table
-handled fault when a source page is not resident. Repeated nested faults
-from the SSE handler can corrupt the interrupted kernel context under load.
-
-Provide an SSE-specific RISC-V copy path. Verify that the active page table
-belongs to current, use fast-only GUP to acquire each resident source page
-without falling back to a faulting slow path, and copy through the kernel
-mapping while holding the page reference. Stop at the first unavailable
-page and preserve perf's existing truncated-user-stack semantics. Keep the
-generic in-atomic user copy unchanged outside an SSE handler.
-
-Susheng Yang reported this failure with perf callchain workloads.
-
-Reported-by: Susheng Yang <yang.susheng@zte.com.cn>
 Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Reviewed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
 ---
- arch/riscv/include/asm/perf_event.h |  10 ++
- arch/riscv/kernel/perf_callchain.c  | 142 ++++++++++++++++++++++++++++
- 2 files changed, 152 insertions(+)
+ arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
+ arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
+ arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
+ 3 files changed, 46 insertions(+)
 
-diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
-index bcc928fd3785..ddc404794751 100644
---- a/arch/riscv/include/asm/perf_event.h
-+++ b/arch/riscv/include/asm/perf_event.h
-@@ -18,6 +18,16 @@
- 	(regs)->sp = current_stack_pointer; \
- 	(regs)->status = SR_PP; \
- }
-+
-+#ifdef CONFIG_RISCV_SBI_SSE
-+/*
-+ * Raw user-stack sampling can run in the NMI-like SSE context. Route it
-+ * through an implementation that does not fault on a non-resident page.
-+ */
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n);
-+#define arch_perf_out_copy_user riscv_perf_out_copy_user
-+#endif
- #endif
+diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
+index 738df176ff6f..24e7affae70b 100644
+--- a/arch/riscv/kernel/machine_kexec.c
++++ b/arch/riscv/kernel/machine_kexec.c
+@@ -14,10 +14,13 @@
+ #include <asm/set_memory.h>	/* For set_memory_x() */
+ #include <linux/compiler.h>	/* For unreachable() */
+ #include <linux/cpu.h>		/* For cpu_down() */
++#include <linux/crash_dump.h>
+ #include <linux/reboot.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
  
- #endif /* _ASM_RISCV_PERF_EVENT_H */
-diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
-index b465bc9eb870..ec75689c7aec 100644
---- a/arch/riscv/kernel/perf_callchain.c
-+++ b/arch/riscv/kernel/perf_callchain.c
-@@ -1,9 +1,15 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (C) 2019 Hangzhou C-SKY Microsystems co.,ltd. */
- 
-+#include <linux/kallsyms.h>
-+#include <linux/mm.h>
- #include <linux/perf_event.h>
-+#include <linux/sched/task_stack.h>
-+#include <linux/thread_info.h>
- #include <linux/uaccess.h>
- 
-+#include <asm/csr.h>
 +#include <asm/sse.h>
- #include <asm/stacktrace.h>
- 
- static bool fill_callchain(void *entry, unsigned long pc)
-@@ -11,6 +17,128 @@ static bool fill_callchain(void *entry, unsigned long pc)
- 	return perf_callchain_store(entry, pc) == 0;
- }
- 
-+#ifdef CONFIG_RISCV_SBI_SSE
-+static bool sse_addr_on_task_stack(unsigned long addr, unsigned long size)
-+{
-+	unsigned long end = addr + size;
-+	unsigned long stack;
-+
-+	if (end < addr)
-+		return false;
-+
-+	stack = (unsigned long)task_stack_page(current);
-+	if (addr >= stack && end <= stack + THREAD_SIZE)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool sse_kernel_regs_safe(struct pt_regs *regs)
-+{
-+	unsigned long fp = frame_pointer(regs);
-+	unsigned long pc = instruction_pointer(regs);
-+	unsigned long sp = user_stack_pointer(regs);
-+
-+	if (!__kernel_text_address(pc))
-+		return false;
-+	if (!sse_addr_on_task_stack(sp, sizeof(unsigned long)))
-+		return false;
-+	if (fp < sizeof(struct stackframe))
-+		return false;
-+
-+	return sse_addr_on_task_stack(fp - sizeof(struct stackframe),
-+				      sizeof(struct stackframe));
-+}
-+
-+static bool sse_callchain_is_guest(const struct riscv_sse_interrupted_context *context)
-+{
-+	return context && (context->hstatus & HSTATUS_SPV);
-+}
-+
-+static bool sse_callchain_kernel(struct perf_callchain_entry_ctx *entry,
-+				 struct pt_regs *regs)
-+{
-+	const struct riscv_sse_interrupted_context *context;
-+	unsigned long pc;
-+
-+	context = riscv_sse_get_interrupted_context();
-+	if (!context || context->regs != regs)
-+		return false;
-+
-+	/* A guest stack cannot be walked using the host kernel address space. */
-+	if (sse_callchain_is_guest(context))
-+		return true;
-+
-+	if (user_mode(regs))
-+		return true;
-+
-+	if (sse_kernel_regs_safe(regs)) {
-+		walk_stackframe(NULL, regs, fill_callchain, entry);
-+		return true;
-+	}
-+
-+	/*
-+	 * Keep the sample useful for sensitive entry paths and IRQ stacks. The
-+	 * generic walker does not take explicit IRQ stack bounds, and its
-+	 * THREAD_SIZE alignment assumption fails for non-vmapped IRQ stacks.
-+	 * Conservatively avoid walking IRQ stacks in every configuration.
-+	 */
-+	pc = instruction_pointer(regs);
-+	if (__kernel_text_address(pc))
-+		perf_callchain_store(entry, pc);
-+
-+	return true;
-+}
-+
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n)
-+{
-+	unsigned long addr = (unsigned long)src;
-+	unsigned long copied = 0;
-+
-+	/* Keep the generic fast path unchanged outside an SSE handler. */
-+	if (!riscv_sse_get_interrupted_context()) {
-+		unsigned long ret;
-+
-+		pagefault_disable();
-+		ret = __copy_from_user_inatomic(dst, src, n);
-+		pagefault_enable();
-+		return ret;
-+	}
-+
-+	if (!access_ok(src, n))
-+		return n;
-+
-+	/* Do not sample user memory through an unrelated active page table. */
-+	if (!current->mm ||
-+	    (csr_read(CSR_SATP) & SATP_PPN) != virt_to_pfn(current->mm->pgd))
-+		return n;
-+
-+	while (copied < n) {
-+		unsigned long offset = offset_in_page(addr);
-+		unsigned long chunk = min(n - copied, PAGE_SIZE - offset);
-+		struct page *page;
-+
-+		/*
-+		 * Fast-only GUP cannot fault. This follows perf_virt_to_phys():
-+		 * local interrupts remain disabled throughout SSE processing, so a
-+		 * concurrent unmap cannot complete its TLB teardown before this
-+		 * temporary reference is put.
-+		 */
-+		if (!get_user_page_fast_only(addr, 0, &page))
-+			break;
-+
-+		memcpy((char *)dst + copied,
-+		       (char *)page_address(page) + offset, chunk);
-+		put_page(page);
-+		addr += chunk;
-+		copied += chunk;
-+	}
-+
-+	return n - copied;
-+}
-+#endif
 +
  /*
-  * This will be called when the target is in user mode
-  * This function will only be called when we use
-@@ -28,6 +156,15 @@ static bool fill_callchain(void *entry, unsigned long pc)
- void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 			 struct pt_regs *regs)
+  * machine_kexec_prepare - Initialize kexec
+  *
+@@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
+ 	unsigned int control_code_buffer_sz = 0;
+ 	int i = 0;
+ 
++	/* A crash kernel cannot tear down registrations inherited from firmware. */
++	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
++	    riscv_sse_available()) {
++		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
++		return -EOPNOTSUPP;
++	}
++
+ 	/* Find the Flattened Device Tree and save its physical address */
+ 	for (i = 0; i < image->nr_segments; i++) {
+ 		if (image->segment[i].memsz <= sizeof(fdt))
+@@ -127,6 +137,7 @@ void
+ machine_crash_shutdown(struct pt_regs *regs)
  {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	const struct riscv_sse_interrupted_context *context;
+ 	local_irq_disable();
++	riscv_sse_mask_current_hart();
+ 
+ 	/* shutdown non-crashing cpus */
+ 	crash_smp_send_stop();
+diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
+index 14eb08a6db85..fdab37e7ae52 100644
+--- a/arch/riscv/kernel/reset.c
++++ b/arch/riscv/kernel/reset.c
+@@ -6,6 +6,20 @@
+ #include <linux/efi.h>
+ #include <linux/reboot.h>
+ #include <linux/pm.h>
++#include <linux/smp.h>
 +
-+	context = riscv_sse_get_interrupted_context();
-+	/* A guest stack cannot be walked using the host address space. */
-+	if (sse_callchain_is_guest(context))
-+		return;
++#include <asm/sse.h>
++
++#ifndef CONFIG_SMP
++void __noreturn panic_smp_self_stop(void)
++{
++	riscv_sse_mask_current_hart();
++	local_irq_disable();
++
++	for (;;)
++		cpu_relax();
++}
 +#endif
-+
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
-@@ -39,6 +176,11 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 			   struct pt_regs *regs)
+ 
+ static void __noreturn default_power_off(void)
  {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	if (sse_callchain_kernel(entry, regs))
-+		return;
-+#endif
+@@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
+ 
+ void machine_restart(char *cmd)
+ {
++	riscv_sse_mask_current_hart();
 +
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
+ 	/*
+ 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
+ 	 */
+@@ -30,12 +46,14 @@ void machine_restart(char *cmd)
+ 
+ void machine_halt(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
+ 
+ void machine_power_off(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
+diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
+index eddbc3ad06c9..9ad38df48271 100644
+--- a/arch/riscv/kernel/smp.c
++++ b/arch/riscv/kernel/smp.c
+@@ -22,10 +22,13 @@
+ #include <linux/irq.h>
+ #include <linux/irq_work.h>
+ #include <linux/nmi.h>
++#include <linux/panic.h>
+ 
+ #include <asm/tlbflush.h>
+ #include <asm/cacheflush.h>
+ #include <asm/cpu_ops.h>
++#include <asm/sbi.h>
++#include <asm/sse.h>
+ 
+ enum ipi_message_type {
+ 	IPI_RESCHEDULE,
+@@ -78,8 +81,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
+ 	return -ENOENT;
+ }
+ 
++void __noreturn panic_smp_self_stop(void)
++{
++	riscv_sse_mask_current_hart();
++	local_irq_disable();
++
++	for (;;)
++		cpu_relax();
++}
++
+ static void ipi_stop(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	set_cpu_online(smp_processor_id(), false);
+ 	while (1)
+ 		wait_for_interrupt();
+@@ -90,6 +103,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
+ 
+ static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
+ {
++	riscv_sse_mask_current_hart();
+ 	crash_save_cpu(regs, cpu);
+ 
+ 	atomic_dec(&waiting_for_crash_ipi);
+@@ -253,6 +267,8 @@ void smp_send_stop(void)
+ {
+ 	unsigned long timeout;
+ 
++	riscv_sse_mask_current_hart();
++
+ 	if (num_online_cpus() > 1) {
+ 		cpumask_t mask;
+ 
+@@ -300,6 +316,7 @@ void crash_smp_send_stop(void)
  		return;
+ 
+ 	cpus_stopped = 1;
++	riscv_sse_mask_current_hart();
+ 
+ 	/*
+ 	 * If this cpu is the only one alive at this point in time, online or
 -- 
 2.43.0
 
