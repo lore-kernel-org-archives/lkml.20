@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221755;
-	b=W7k2X17T1YNrH7EaY+bK9wbJS18Rwtvrb53wbNVfB7AphjuBPRbZpgCsWMIqE1Gi2CY+
-	 YK9wNxDj2GKLNapXNA7w1z8J7yn4Qq8jvYuRiHhQHGcdcg1BK3BS2xYsBLloHiPOq4uMD
-	 QooYI0fZLyVQOE7afAFK38007woIFV9fI4aggGf6pSexdF/lwJ6Hc+HnVVYQwRDLTe5Bg
-	 2YXSadRjb0R7R7/oNws1cD1Mw5LsLn3Zps1d/+/QGq46hAI/7CBWp84/1rTepYPl0ZFEA
-	 fSSVqJboO4OhMRrYalDnwELAiFR8JaH/7WVO/d/QNnQEajZ75qfB5iTIGBLMzgS2YEw==
+	t=1793221825;
+	b=Wtd1CEaWsu32AeKroZiGRsxhCJshElBjYcbWTugw7HSWJ8S0jFEFQn5kmNKOvcVlaiuh
+	 hBdv+x2PZfF6BB+OLve3TOkgeSFySpb8tztu6NTq2Ph/NXQW5jpPZdYdsFofeZVnqv0d1
+	 KRdJVxZJTSWbVBUwIdq9VtPJ5EmUTBWiAUi92jXJzNOT0aRNWuHTL5DBUbmGxWFqA29Ez
+	 VNzmRPgaWJLcPl6vGgHSszvw02KYBhQLcBel1DKk09NEj7lU5d2/Stt8f6H3a5j9b1wAn
+	 FmXT6aZLbZOwvn3o3z3lASp33jkcGdRb4MY3TDoqnvIab9LlCEnLZyNiMsj7rXa81cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221825;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=b9Ue7Amy9dAWOngMe9Pw0Kk0KAocM2Q9voQibH/OirU=;
-	b=XmA+ybCu7J276unUmNYDIMqxgZeeXcXvLZT9Kor3AkPdD+7VJRR1j4KPr2JXruylXtul
-	 Zxiv5UcLDaC+AsR0HgbJ/DvDON+vDnuK1RnJ8vT7cgoVMC5oy3smvR8QDtnuTknAxTCax
-	 RCTUDvfVvbDEeHwjYaQBT+zr7zB4Y4skbax+I91bZPr45PEqoJynSThtHGpUFWV1AwxDA
-	 RjVxtqG9LPjcPO3CkJ4VVONjje1Tl3aIhrHLrQ87ZXyK9BTB9wxRRPDqsjtEQr9zOTUmU
-	 iorLB/eGspP4UZ6XU8B5rm07hjEX13vffgJ7tmvivYEmNI6pp+Sl4B3iO0ag4VjGhfA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=yeuwwk7tF/cWkQUi8sGp6aOSUkSEkLoVE/SS46FQgj4=;
+	b=iaGmZIYh5NcMwKVrUbdaG8wLDcJFm+BfdTFudMhhLUE7wMojklb0tD5WfIHF6R/K7gzb
+	 pXNHIhm6s0mAF8Rp0/5L/VsoDKwRyTfrU/U2MwbJYrt7VwZgOSwpdKqtLfHSCNd80otcR
+	 mGbDTJXbbrIZXniOh5vw9Xo5ylOJVX4cFbUhq5A4XsiJHvQot6ofqCV66ew5oW+F2S4/B
+	 15J9PuMBDB9ddG4B8qFsOe9275/bTxe8azJ+FC1x9lPmU3BFzlNpYZT8cTxeHHlK3hE4S
+	 7lZVTuISBTbdxqqJVYezPZYwdH1g3wp3qIm/w7p5aflFAeOYriMF4vyC3ktToFgmAag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lYpPdQMK;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=aJ2SRxkW;
+	arc=none smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85121606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:09:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85121606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBF3606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:10:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBF3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lYpPdQMK
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso11210695e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:09:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=aJ2SRxkW
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8ad98c3fb15so13586007b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:10:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793221753; x=1793826553; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b9Ue7Amy9dAWOngMe9Pw0Kk0KAocM2Q9voQibH/OirU=;
-        b=lYpPdQMKb567K7Gcw8lAVZu0HbfmVC9X/z1iRKMq1P1CbFM1/B9/PYj70+JtzadMVC
-         7yKjRdneV3HesBPbPtayTidUfKDRj8zK/78nrBfD3dKsaMZjIT/1DQSpIWw7S/w1MQD5
-         VdhxflrOnAtV+3nZybKuumlrxFIQWiXyFzXNmLfgd9QLtlpnlnvTQrfDzAORBh4UCQ6c
-         I/QrPcCBFIoPijM5QjZlw72+qdNiLjjg1ZsJiJmRne+Gy3orRQFo5gdRr2JC3NatTnyG
-         f376m6J2Cq9qIGSEmgBkmM9RzAva2Uv+2O4yO3s1ord3aGepQOBRO1jtCUVSEYqrZMJN
-         AqGg==
+        d=cmpxchg.org; s=google; t=1793221822; x=1793826622; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yeuwwk7tF/cWkQUi8sGp6aOSUkSEkLoVE/SS46FQgj4=;
+        b=aJ2SRxkWshSG0bzEXBj7FrKM9gKPaxttpVt5FZA7KPWHyPHvoBUHQiR2EHAIM4XCDb
+         7G4zwi6ATb7eWGGx5y+8OuCrgZ4IxB9u/9qzecIKAblPZRhxaw/+KNEQ53zkluyRCrDG
+         srJbzcVLTpstEv09Pn8EWc8J5HyXR5CzxNYoTnwWoqNuwRzo1qIAScyloWcdhh1zfsmA
+         /dC//9u0c9U62/FdKDZA6//zflKgD88sRiLHv3AjdxKwenUJxROZYTyZm1QzWD6KLM3F
+         hUKA6txuCsoaB+w5AWJFpYudhIZrO07R5oaUEV0/QkucWXQmb6RugAoOPi0Cj+520zXP
+         F4Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793221753; x=1793826553;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b9Ue7Amy9dAWOngMe9Pw0Kk0KAocM2Q9voQibH/OirU=;
-        b=b4h5X30KZbwE9Yu5bFU9ubi+NIkDVUCCRm13mzjVllcw6KBQel0aYxKPDm6ND9Zz96
-         ZEgehtKcoTsfWT2ug8r+0FcZgyCYu2EpgW9syMeZ10Gd9h2MAxhTvZYSoUXRlYp0FwJp
-         a7PZdcu6pg+/sLuILc/nEqHNqNvtXHaIbg8qXB7M5omlaImlQwbBPioZQp2xY2gggrr5
-         S9V4LMqNqlTVFJ2xkvez4b2aCj/JXXNInnULyDwPCCNp4s/cjXSCoUzRRHAfe5k500EL
-         a7aPMNfPx/g/1ISJT4avw86+BvYUxAlGuAnOJdFmeABVqx0nT9PcfAAyL9D0QNw5s9uf
-         tR+A==
-X-Forwarded-Encrypted: i=1; AKwUvBybdK3DbcR1VE2sIadQzNSgXn7P394JivD4TtDTwt0hBjZ5TpAb4/IUM2W1OcCxXa4GG23QTGUtJ0/5AdQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIo9fg8B+eyui3W0IpX0cFvITN8s6SiSGubB8F8vX4I35uzh6a
-	4oJ6lz2O/UDw/pL7aWlZz9UKuwkZyQUjvxcpB+DfctU3axBMlJl9bXBdEKNBJezv
-X-Gm-Gg: AYBFou17guTiFxfVREl7QiDgX3qlc6lb7EIarOv+p/uNxyG/vN98x1L/W/oCbERvRTx
-	A4oYQ0tf21Pe1CHAoRzRteawuO5rhWrdp5cNsmBt2L1giZARHUPKX0c39w3BtVZueXzjVWy6T8c
-	MVG+6imFi/cp6SKWyh+fEITWomJq0m82xPi/VDZvvsiRJxeIEWKKggAIk7wkndtlKmoCPQZTP+a
-	6A4eN+ED1X+7/AAKioY7QWj1SBp3cpePdgzC878oaFPrfUdoxm3yCqI4/wWJVHsobbv0HDCNXIt
-	Qp1Mhu2M2rcd3Coqfgu2HgKiHtgOwmaqjpDGTw3VnnKxNVDiLjCG3uKDYu6rP9yIUBQoykmbKa/
-	ap3TAaJzVDpWGuUAnHxM8iuoQzJRh4Z4j3XW60jXuahgiOzvnrd7T7/myt8INtJGRV54Jc7dExq
-	uHgk4qf+sZfSfsrbg0CfaF+MagI7Km3CTQb/wUTzm1KPWV8gimewekFSsdUBMWTvIsAQzkmmN/1
-	O+QHx+l5Fk6PHW0YCzJuQNC6HMWC9+ibuL1JSGg3iV3AJ4mOx5Ux4G8VS8e/qukeVaVB+AQi4rY
-	pblKqmXvJ7CHj20wItZp9MWY23LekZDFg5Mbdu6C2T42wh4E45BJrMPNKpyBre2hxg==
-X-Received: by 2002:a05:600c:524c:b0:4a4:7a8d:c736 with SMTP id 5b1f17b1804b1-4a9661ab662mr83304295e9.9.1793221752843;
-        Wed, 28 Oct 2026 14:09:12 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f7f52e2sm20027845e9.9.2026.10.28.14.09.12
+        d=1e100.net; s=20260707; t=1793221822; x=1793826622;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yeuwwk7tF/cWkQUi8sGp6aOSUkSEkLoVE/SS46FQgj4=;
+        b=rLUfywgjhXatGo/vuOyRIGQLfd5BTvNL39tfIO0zi/VSBCBcLnwXNXiY9rtDHie++l
+         biJvGDN46+UgWrFU2cn90KviFVcrNOPmKMJOhvt0/0hB4w6XzOHEKcLJm+mT2IADmyfo
+         6KS0aPyF6RUb3DNldxWBvWT6BjmrbIRgJHAUV0SuvTFGhH9+0yWn048G9X/LSkoB7+9v
+         o7NkjvQEzwadl9tXLIFlensdvIm79+61TMmzOaCtqz+t3jiSFgTzfIqd913m83o1aMGZ
+         RLbt2HZvPZkXyNQCdALT5UcGaici9jDCB/dGXOmWWXXno7lBIRzD2cSOsOuib0mAsRGF
+         7TpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ3j8NnKmaTXYHQAHqYUIZuHbv84Cl4MMiZXZOTnoe7WoWUrC/ITUvzLm09DyBP5lt8f2ZVebaTyfAsc8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZVnzf9SE/7QNyE/cLvDIOi1Z195sFePWB2DuTH1cHRPQt2E+I
+	p/hmJwiD6GpcKTxnr7f6SXQaZMOEtxWksKCnzXSLQHl6vA0VPThj72phfoHnfdaRHoA=
+X-Gm-Gg: AYBFou2ZirqMdQQdsS4rWorD7IZQOwN1Wg4+clDw+PPmVwUTZHjT720mDuWwLfzKAyb
+	BpAUfUDBGW8pnk8NwrbdxBSr3dl65AozKkLXcveEwGYOngfnSFe9Xmr588LqZD9xKAaobenO5ZC
+	xW6gB6wOSWyEi99MWTqc4DSwwF98n+SowDZ/v9maybQZEoBK2CrvqEOsNPznEBXK2rr88ugVGXT
+	vEgRtxaM/CfOXVAazrAiHua4uGNq9Vk2qk+rdvIyLOuuo7US53e9fEpFlx0WJ7yIpTCGxLGwZWX
+	c2ipqzMcKoWeuxiZdA30ewLpjC2p1awLAQw/569D1GE5WNzMwiom+HNBIQkoN11fRjH9cswVjf4
+	44KaGZtRoSwrtDvHvtTMe3J0DoHbsbZ1mP5j/tiB3Rh8/DZRTUrEOExubzOHoFut0gTPKhxVSnb
+	4DF6aC6PvPTG19Oq0JLZ3IGb8/sP+RVn03UDhywPAqDpN7vNr8mbi3htbg8/sp++ldn/So5/cd8
+	w0Km3tmCmZ3sHIW3l7hVD/vlDa8K3BGaMFlrGbRe+MJGvWWtl+0VthLo/Xg1CiWV3PUzzjXTrZg
+	zArR2ooLFZNfKse9zdDdO1JhMlYf
+X-Received: by 2002:a05:690c:87:b0:8b1:7072:a61b with SMTP id 00721157ae682-8b1b5c1bb37mr34067887b3.22.1793221822309;
+        Wed, 28 Oct 2026 14:10:22 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e61d044sm35031947b3.39.2026.10.28.14.10.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:09:12 -0700 (PDT)
-Date: Wed, 28 Oct 2026 21:09:11 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: wen.yang@linux.dev
-Cc: Joel Granados <joel.granados@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 01/39] sysctl: replace overloaded extra pointers
- with typed bounds and context
-Message-ID: <20261028210911.30a8100d@pumpkin>
-In-Reply-To: <fec089bb7a3ea62a5e2006cf578b1efec2df4aff.1793204511.git.wen.yang@linux.dev>
-References: <cover.1793204511.git.wen.yang@linux.dev>
-	<fec089bb7a3ea62a5e2006cf578b1efec2df4aff.1793204511.git.wen.yang@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 28 Oct 2026 14:10:21 -0700 (PDT)
+Date: Wed, 28 Oct 2026 17:10:21 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH] mm/zswap: fix double decrement of the LRU node count on
+ writeback
+Message-ID: <auJkvb-Lq0M5Enkz@cmpxchg.org>
+References: <20261028113619.38752-1-kaitao.cheng@linux.dev>
+ <CAO9r8zP15iW3ECW2Bs0rfyZrifeisDunLa6qJC43M1RcE16wWQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,102 +105,721 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9r8zP15iW3ECW2Bs0rfyZrifeisDunLa6qJC43M1RcE16wWQ@mail.gmail.com>
 
-On Thu, 29 Oct 2026 00:34:40 +0800
-wen.yang@linux.dev wrote:
+On Wed, Oct 28, 2026 at 12:22:43PM -0700, Yosry Ahmed wrote:
+> On Wed, Oct 28, 2026 at 4:36 AM Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+> >
+> > From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> >
+> > Successful writeback calls zswap_entry_free(), which removes the entry
+> > from the LRU and decrements both the sublist and node item counts.
+> > shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
+> > to decrement the node count again.
+> 
+> I wonder if we have a valid use case for adding LRU_REMOVED_COUNTED or
+> LRU_DELETED instead to simply avoid the decrement.
 
-> To: Joel Granados <joel.granados@kernel.org>
-> Cc: Wen Yang <wen.yang@linux.dev>,  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-> Subject: [RFC PATCH 01/39] sysctl: replace overloaded extra pointers with typed bounds and context
-> Date: Thu, 29 Oct 2026 00:34:40 +0800
-> 
-> From: Wen Yang <wen.yang@linux.dev>
-> 
-> struct ctl_table has two untyped misc pointers, extra1 and extra2, whose
-> meaning depends on the handler that reads them. In-tree use has grown to
-> cover at least seven unrelated jobs: a fixed bound, a bound read through a
-> pointer on every call, an object or namespace pointer, a small integer
-> cookie encoded into the pointer, a lock signal, NULL standing for "no
-> bound", and a value the core itself casts to unsigned int while validating
-> a u8 range. Nothing in the entry says which job applies, so readers and
-> writers have to infer it from the handler, and the core itself gets it
-> wrong where it treats extra1 as an unsigned int.
-> 
-> The overloading is also a memory-safety hazard. An entry that stores
-> handler context in data cannot be handed to a standard handler without
-> first restoring the real storage, because proc_dointvec() writes through
-> data. Every call site has to remember the restore, and one that forgets
-> turns a user-supplied integer into a write over a kernel pointer. nf_log
-> reaches the same problem from the other side: it replaces data with a
-> local buffer inside a single handler, so data means two things within one
-> function.
-> 
-> Replace both jobs with two fields that cannot be confused:
-> 
->   - min/max hold numeric bounds by value. Signed handlers read them as
->     signed longs; an absent endpoint is the type limit, not NULL, so zero
->     stays a real bound. A range that changes at run time is refreshed
->     before every call instead of being snapshotted at registration.
-> 
->   - priv holds handler context. The core never reads it, standard handlers
->     never touch it, and registration rejects it on a standard handler so
->     context cannot be silently ignored. data and maxlen keep the meaning
->     their handler gives them, including proc_dostring() name lengths and
->     proc_do_large_bitmap() bit counts.
-> 
-> The range converters read min/max whenever extra1 and extra2 are both
-> clear, and keep reading the pointers while they are set. That lets callers
-> migrate one subsystem at a time without renaming handlers or adding a
-> parallel API: the existing proc_*_minmax entry points keep their names and
-> gain numeric semantics as entries drop their extras. Entries that already
-> relied on NULL meaning "no bound" now state their type limits explicitly,
-> so their behaviour does not change and the meaning of zero stays
-> unambiguous.
-> 
-> This patch is the refactor itself. The next patch converts the debug test
-> module to numeric bounds as the first user, and the KUnit suite after it
-> makes the contract executable; everything after those is migration of
-> existing users and adds no new semantics: fixed bounds become numeric
-> values, run-time bounds are refreshed per call, context moves off data, and
-> the extra pointers and the compatibility read are removed once the last
-> user is gone. Owners that can still be recovered from data keep using
-> container_of(); priv is only for entries where no derivation exists.
-> 
-> Replacing the two pointers with unsigned long min/max follows Eric
-> Biederman's suggestion; priv is added here because the same pair of fields
-> also carries handler context, which a numeric bound cannot express.
-> 
-> Suggested-by: Eric W. Biederman <ebiederm@xmission.com>
-> Suggested-by: Joel Granados <joel.granados@kernel.org>
-> Signed-off-by: Wen Yang <wen.yang@linux.dev>
-...
-> 
-> diff --git a/arch/powerpc/platforms/pseries/mobility.c b/arch/powerpc/platforms/pseries/mobility.c
-> index b5c2abd12432..294897f3fbb5 100644
-> --- a/arch/powerpc/platforms/pseries/mobility.c
-> +++ b/arch/powerpc/platforms/pseries/mobility.c
-> @@ -10,6 +10,7 @@
->  #define pr_fmt(fmt) "mobility: " fmt
->  
->  #include <linux/cpu.h>
-> +#include <linux/limits.h>
->  #include <linux/kernel.h>
->  #include <linux/kobject.h>
->  #include <linux/nmi.h>
-> @@ -61,6 +62,8 @@ static const struct ctl_table nmi_wd_lpm_factor_ctl_table[] = {
->  		.maxlen		= sizeof(int),
->  		.mode		= 0644,
->  		.proc_handler	= proc_douintvec_minmax,
-> +		.min		= 0,
-> +		.max		= UINT_MAX,
->  	},
+It bugs me that it's the walker, not the callback, that adjusts the
+count. That composes poorly with the normal list manipulation API.
 
-You could save a lot of churn by not adding the '.min = 0' line
-and making the function treat the 'silly' case where both min and max
-are zero as meaning 'no upper bound'.
+How about pushing the accounting into the isolation callback, which
+can then simply use __list_lru_del()?
 
-As well as saving a lot of diffs, it will be less error prone.
+The tradeoff is that more things need to be passed into the isolation
+callback, but that seems reasonable. It does make the change noisy,
+however, and we might want something like Kaitao's change as a
+backportable fix first regardless.
 
-David
+Thoughts?
+
+---
+
+diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
+index b0c797523bc2..157256e52dd0 100644
+--- a/drivers/android/binder/page_range.rs
++++ b/drivers/android/binder/page_range.rs
+@@ -24,7 +24,7 @@
+ use kernel::{
+     bindings,
+     error::Result,
+-    ffi::{c_ulong, c_void},
++    ffi::{c_int, c_ulong, c_void},
+     mm::{virt, Mm, MmWithUser},
+     new_mutex, new_spinlock,
+     page::{Page, PAGE_SHIFT, PAGE_SIZE},
+@@ -684,8 +684,10 @@ fn drop(self: Pin<&mut Self>) {
+ /// Called by the shrinker.
+ #[no_mangle]
+ unsafe extern "C" fn rust_shrink_free_page(
++    lru: *mut bindings::list_lru,
++    l: *mut bindings::list_lru_one,
+     item: *mut bindings::list_head,
+-    lru: *mut bindings::list_lru_one,
++    nid: c_int,
+     _cb_arg: *mut c_void,
+ ) -> bindings::lru_status {
+     // Fields that should survive after unlocking the lru lock.
+@@ -728,7 +730,7 @@ fn drop(self: Pin<&mut Self>) {
+         };
+ 
+         // SAFETY: The item is in this lru list, so it's okay to remove it.
+-        unsafe { bindings::list_lru_isolate(lru, item) };
++        unsafe { bindings::__list_lru_del(lru, l, item, nid) };
+ 
+         // SAFETY: Both pointers are in bounds of the same allocation.
+         page_index = unsafe { info.offset_from(inner.pages) } as usize;
+@@ -746,7 +748,7 @@ fn drop(self: Pin<&mut Self>) {
+     }
+ 
+     // SAFETY: The lru lock is locked when this method is called.
+-    unsafe { bindings::spin_unlock(&raw mut (*lru).lock) };
++    unsafe { bindings::spin_unlock(&raw mut (*l).lock) };
+ 
+     if let Some(vma) = check_vma(&vma_read, range_ptr) {
+         let user_page_addr = vma_addr + (page_index << PAGE_SHIFT);
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 1bf37023fed6..2e858c05e30b 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -345,13 +345,14 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+ 	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
+ }
+ 
+-static enum lru_status take_one_from_lru(struct list_head *item,
+-					 struct list_lru_one *list,
++static enum lru_status take_one_from_lru(struct list_lru *lru,
++					 struct list_lru_one *l,
++					 struct list_head *item, int nid,
+ 					 void *cb_arg)
+ {
+ 	struct page **out_page = cb_arg;
+ 	struct page *p = container_of(item, struct page, lru);
+-	list_lru_isolate(list, item);
++	__list_lru_del(lru, l, item, nid);
+ 
+ 	*out_page = p;
+ 	return LRU_REMOVED;
+@@ -387,13 +388,14 @@ static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
+ 	spin_unlock(&shrinker_lock);
+ }
+ 
+-static enum lru_status pool_move_to_dispose_list(struct list_head *item,
+-						 struct list_lru_one *list,
++static enum lru_status pool_move_to_dispose_list(struct list_lru *lru,
++						 struct list_lru_one *l,
++						 struct list_head *item, int nid,
+ 						 void *cb_arg)
+ {
+ 	struct list_head *dispose = cb_arg;
+ 
+-	list_lru_isolate_move(list, item, dispose);
++	__list_lru_move(lru, l, item, nid, dispose);
+ 
+ 	return LRU_REMOVED;
+ }
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 37d021d22a7d..ce8063c2f5a6 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -556,24 +556,26 @@ static void d_shrink_add(struct dentry *dentry, struct list_head *list)
+  * LRU lists entirely, while shrink_move moves it to the indicated
+  * private list.
+  */
+-static void d_lru_isolate(struct list_lru_one *lru, struct dentry *dentry)
++static void d_lru_isolate(struct list_lru *lru, struct list_lru_one *l,
++			  struct dentry *dentry, int nid)
+ {
+ 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
+ 	dentry->d_flags &= ~DCACHE_LRU_LIST;
+ 	this_cpu_dec(nr_dentry_unused);
+ 	if (d_is_negative(dentry))
+ 		this_cpu_dec(nr_dentry_negative);
+-	list_lru_isolate(lru, &dentry->d_lru);
++	__list_lru_del(lru, l, &dentry->d_lru, nid);
+ }
+ 
+-static void d_lru_shrink_move(struct list_lru_one *lru, struct dentry *dentry,
++static void d_lru_shrink_move(struct list_lru *lru, struct list_lru_one *l,
++			      struct dentry *dentry, int nid,
+ 			      struct list_head *list)
+ {
+ 	D_FLAG_VERIFY(dentry, DCACHE_LRU_LIST);
+ 	dentry->d_flags |= DCACHE_SHRINK_LIST;
+ 	if (d_is_negative(dentry))
+ 		this_cpu_dec(nr_dentry_negative);
+-	list_lru_isolate_move(lru, &dentry->d_lru, list);
++	__list_lru_move(lru, l, &dentry->d_lru, nid, list);
+ }
+ 
+ static void ___d_drop(struct dentry *dentry)
+@@ -1308,8 +1310,8 @@ void shrink_dentry_list(struct list_head *list)
+ }
+ EXPORT_SYMBOL(shrink_dentry_list);
+ 
+-static enum lru_status dentry_lru_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++static enum lru_status dentry_lru_isolate(struct list_lru *lru,
++		struct list_lru_one *l, struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
+@@ -1329,7 +1331,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
+ 	 * another pass through the LRU.
+ 	 */
+ 	if (dentry->d_lockref.count) {
+-		d_lru_isolate(lru, dentry);
++		d_lru_isolate(lru, l, dentry, nid);
+ 		spin_unlock(&dentry->d_lock);
+ 		return LRU_REMOVED;
+ 	}
+@@ -1360,7 +1362,7 @@ static enum lru_status dentry_lru_isolate(struct list_head *item,
+ 		return LRU_ROTATE;
+ 	}
+ 
+-	d_lru_shrink_move(lru, dentry, freeable);
++	d_lru_shrink_move(lru, l, dentry, nid, freeable);
+ 	spin_unlock(&dentry->d_lock);
+ 
+ 	return LRU_REMOVED;
+@@ -1389,8 +1391,8 @@ long prune_dcache_sb(struct super_block *sb, struct shrink_control *sc)
+ 	return freed;
+ }
+ 
+-static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++static enum lru_status dentry_lru_isolate_shrink(struct list_lru *lru,
++		struct list_lru_one *l, struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct dentry	*dentry = container_of(item, struct dentry, d_lru);
+@@ -1403,7 +1405,7 @@ static enum lru_status dentry_lru_isolate_shrink(struct list_head *item,
+ 	if (!spin_trylock(&dentry->d_lock))
+ 		return LRU_SKIP;
+ 
+-	d_lru_shrink_move(lru, dentry, freeable);
++	d_lru_shrink_move(lru, l, dentry, nid, freeable);
+ 	spin_unlock(&dentry->d_lock);
+ 
+ 	return LRU_REMOVED;
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index b2984fb7b35c..c8afe8236805 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -148,8 +148,8 @@ static void gfs2_qd_list_dispose(struct list_head *list)
+ }
+ 
+ 
+-static enum lru_status gfs2_qd_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++static enum lru_status gfs2_qd_isolate(struct list_lru *lru,
++		struct list_lru_one *l, struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct gfs2_quota_data *qd =
+@@ -162,7 +162,7 @@ static enum lru_status gfs2_qd_isolate(struct list_head *item,
+ 	status = LRU_SKIP;
+ 	if (qd->qd_lockref.count == 0) {
+ 		lockref_mark_dead(&qd->qd_lockref);
+-		list_lru_isolate_move(lru, &qd->qd_lru, dispose);
++		__list_lru_move(lru, l, &qd->qd_lru, nid, dispose);
+ 		status = LRU_REMOVED;
+ 	}
+ 
+diff --git a/fs/inode.c b/fs/inode.c
+index 1cb6293b237a..675f4a8b9d95 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -929,8 +929,8 @@ EXPORT_SYMBOL_GPL(evict_inodes);
+  * LRU does not have strict ordering. Hence we don't want to reclaim inodes
+  * with this flag set because they are the inodes that are out of order.
+  */
+-static enum lru_status inode_lru_isolate(struct list_head *item,
+-		struct list_lru_one *lru, void *arg)
++static enum lru_status inode_lru_isolate(struct list_lru *lru,
++		struct list_lru_one *l, struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *freeable = arg;
+ 	struct inode	*inode = container_of(item, struct inode, i_lru);
+@@ -951,7 +951,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 	if (icount_read(inode) ||
+ 	    (inode_state_read(inode) & ~I_REFERENCED) ||
+ 	    !mapping_shrinkable(&inode->i_data)) {
+-		list_lru_isolate(lru, &inode->i_lru);
++		__list_lru_del(lru, l, &inode->i_lru, nid);
+ 		spin_unlock(&inode->i_lock);
+ 		this_cpu_dec(nr_unused);
+ 		return LRU_REMOVED;
+@@ -974,7 +974,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 
+ 		inode_pin_lru_isolating(inode);
+ 		spin_unlock(&inode->i_lock);
+-		spin_unlock(&lru->lock);
++		spin_unlock(&l->lock);
+ 		reap = invalidate_mapping_pages(&inode->i_data, 0, -1);
+ 		if (current_is_kswapd())
+ 			__count_vm_events(KSWAPD_INODESTEAL, reap);
+@@ -987,7 +987,7 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 
+ 	WARN_ON(inode_state_read(inode) & I_NEW);
+ 	inode_state_set(inode, I_FREEING);
+-	list_lru_isolate_move(lru, &inode->i_lru, freeable);
++	__list_lru_move(lru, l, &inode->i_lru, nid, freeable);
+ 	spin_unlock(&inode->i_lock);
+ 
+ 	this_cpu_dec(nr_unused);
+diff --git a/fs/nfs/nfs42xattr.c b/fs/nfs/nfs42xattr.c
+index 37d79400e5f4..17eb14b40830 100644
+--- a/fs/nfs/nfs42xattr.c
++++ b/fs/nfs/nfs42xattr.c
+@@ -801,8 +801,8 @@ static struct shrinker *nfs4_xattr_entry_shrinker;
+ static struct shrinker *nfs4_xattr_large_entry_shrinker;
+ 
+ static enum lru_status
+-cache_lru_isolate(struct list_head *item,
+-	struct list_lru_one *lru, void *arg)
++cache_lru_isolate(struct list_lru *lru, struct list_lru_one *l,
++	struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct inode *inode;
+@@ -827,7 +827,7 @@ cache_lru_isolate(struct list_head *item,
+ 	cache->inode = NULL;
+ 	NFS_I(inode)->xattr_cache = NULL;
+ 	NFS_I(inode)->cache_validity &= ~NFS_INO_INVALID_XATTR;
+-	list_lru_isolate(lru, &cache->lru);
++	__list_lru_del(lru, l, &cache->lru, nid);
+ 
+ 	spin_unlock(&inode->i_lock);
+ 
+@@ -866,8 +866,8 @@ nfs4_xattr_cache_count(struct shrinker *shrink, struct shrink_control *sc)
+ }
+ 
+ static enum lru_status
+-entry_lru_isolate(struct list_head *item,
+-	struct list_lru_one *lru, void *arg)
++entry_lru_isolate(struct list_lru *lru, struct list_lru_one *l,
++	struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *dispose = arg;
+ 	struct nfs4_xattr_bucket *bucket;
+@@ -896,7 +896,7 @@ entry_lru_isolate(struct list_head *item,
+ 
+ 		hlist_del_init(&entry->hnode);
+ 		atomic_long_dec(&cache->nent);
+-		list_lru_isolate(lru, &entry->lru);
++		__list_lru_del(lru, l, &entry->lru, nid);
+ 
+ 		spin_unlock(&bucket->lock);
+ 	} else {
+@@ -907,7 +907,7 @@ entry_lru_isolate(struct list_head *item,
+ 		kref_get(&entry->ref);
+ 
+ 		cache->listxattr = NULL;
+-		list_lru_isolate(lru, &entry->lru);
++		__list_lru_del(lru, l, &entry->lru, nid);
+ 
+ 		spin_unlock(&cache->listxattr_lock);
+ 	}
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index 17a94e6fcb15..6b9165e5c3c5 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -509,8 +509,10 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
+ 
+ /**
+  * nfsd_file_lru_cb - Examine an entry on the LRU list
+- * @item: LRU entry to examine
+  * @lru: controlling LRU
++ * @l: locked sublist of @lru that holds @item
++ * @item: LRU entry to examine
++ * @nid: node id of @l
+  * @arg: dispose list
+  *
+  * Return values:
+@@ -519,8 +521,8 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
+  *   %LRU_SKIP: @item cannot be evicted
+  */
+ static enum lru_status
+-nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+-		 void *arg)
++nfsd_file_lru_cb(struct list_lru *lru, struct list_lru_one *l,
++		 struct list_head *item, int nid, void *arg)
+ {
+ 	struct list_head *head = arg;
+ 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
+@@ -554,7 +556,7 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+ 
+ 	/* Refcount went to zero. Unhash it and queue it to the dispose list */
+ 	nfsd_file_unhash(nf);
+-	list_lru_isolate(lru, &nf->nf_lru);
++	__list_lru_del(lru, l, &nf->nf_lru, nid);
+ 	list_add(&nf->nf_gc, head);
+ 	this_cpu_inc(nfsd_file_evictions);
+ 	trace_nfsd_file_gc_disposed(nf);
+@@ -562,8 +564,8 @@ nfsd_file_lru_cb(struct list_head *item, struct list_lru_one *lru,
+ }
+ 
+ static enum lru_status
+-nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
+-		 void *arg)
++nfsd_file_gc_cb(struct list_lru *lru, struct list_lru_one *l,
++		 struct list_head *item, int nid, void *arg)
+ {
+ 	struct nfsd_file *nf = list_entry(item, struct nfsd_file, nf_lru);
+ 
+@@ -576,7 +578,7 @@ nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
+ 		trace_nfsd_file_gc_aged(nf);
+ 		return LRU_ROTATE;
+ 	}
+-	return nfsd_file_lru_cb(item, lru, arg);
++	return nfsd_file_lru_cb(lru, l, item, nid, arg);
+ }
+ 
+ static void
+diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
+index 6c93b4f5629c..436aca8f6619 100644
+--- a/fs/xfs/xfs_buf.c
++++ b/fs/xfs/xfs_buf.c
+@@ -1467,8 +1467,10 @@ __xfs_buf_mark_corrupt(
+  */
+ static enum lru_status
+ xfs_buftarg_drain_rele(
++	struct list_lru		*lru,
++	struct list_lru_one	*l,
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	int			nid,
+ 	void			*arg)
+ 
+ {
+@@ -1485,7 +1487,7 @@ xfs_buftarg_drain_rele(
+ 	}
+ 
+ 	xfs_buf_kill(bp);
+-	list_lru_isolate_move(lru, item, dispose);
++	__list_lru_move(lru, l, item, nid, dispose);
+ 	spin_unlock(&bp->b_lockref.lock);
+ 	return LRU_REMOVED;
+ }
+@@ -1560,8 +1562,10 @@ xfs_buftarg_drain(
+ 
+ static enum lru_status
+ xfs_buftarg_isolate(
++	struct list_lru		*lru,
++	struct list_lru_one	*l,
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	int			nid,
+ 	void			*arg)
+ {
+ 	struct xfs_buf		*bp = container_of(item, struct xfs_buf, b_lru);
+@@ -1581,7 +1585,7 @@ xfs_buftarg_isolate(
+ 	 * yet.
+ 	 */
+ 	if (bp->b_lockref.count > 0) {
+-		list_lru_isolate(lru, &bp->b_lru);
++		__list_lru_del(lru, l, &bp->b_lru, nid);
+ 		spin_unlock(&bp->b_lockref.lock);
+ 		return LRU_REMOVED;
+ 	}
+@@ -1597,7 +1601,7 @@ xfs_buftarg_isolate(
+ 	}
+ 
+ 	xfs_buf_kill(bp);
+-	list_lru_isolate_move(lru, item, dispose);
++	__list_lru_move(lru, l, item, nid, dispose);
+ 	spin_unlock(&bp->b_lockref.lock);
+ 	return LRU_REMOVED;
+ }
+diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
+index dd5011f578a6..3933dd222509 100644
+--- a/fs/xfs/xfs_qm.c
++++ b/fs/xfs/xfs_qm.c
+@@ -411,10 +411,12 @@ struct xfs_qm_isolate {
+ 
+ static enum lru_status
+ xfs_qm_dquot_isolate(
++	struct list_lru		*lru,
++	struct list_lru_one	*l,
+ 	struct list_head	*item,
+-	struct list_lru_one	*lru,
++	int			nid,
+ 	void			*arg)
+-		__releases(&lru->lock) __acquires(&lru->lock)
++		__releases(&l->lock) __acquires(&l->lock)
+ {
+ 	struct xfs_dquot	*dqp = container_of(item,
+ 						struct xfs_dquot, q_lru);
+@@ -450,7 +452,7 @@ xfs_qm_dquot_isolate(
+ 		XFS_STATS_INC(dqp->q_mount, xs_qm_dqwants);
+ 
+ 		trace_xfs_dqreclaim_want(dqp);
+-		list_lru_isolate(lru, &dqp->q_lru);
++		__list_lru_del(lru, l, &dqp->q_lru, nid);
+ 		XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
+ 		return LRU_REMOVED;
+ 	}
+@@ -473,7 +475,7 @@ xfs_qm_dquot_isolate(
+ 	lockref_mark_dead(&dqp->q_lockref);
+ 	spin_unlock(&dqp->q_lockref.lock);
+ 
+-	list_lru_isolate_move(lru, &dqp->q_lru, &isol->dispose);
++	__list_lru_move(lru, l, &dqp->q_lru, nid, &isol->dispose);
+ 	XFS_STATS_DEC(dqp->q_mount, xs_qm_dquot_unused);
+ 	trace_xfs_dqreclaim_done(dqp);
+ 	XFS_STATS_INC(dqp->q_mount, xs_qm_dqreclaims);
+diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
+index a450fffe1550..f6d94474a4c7 100644
+--- a/include/linux/list_lru.h
++++ b/include/linux/list_lru.h
+@@ -150,6 +150,15 @@ bool __list_lru_add(struct list_lru *lru, struct list_lru_one *l,
+ bool __list_lru_del(struct list_lru *lru, struct list_lru_one *l,
+ 		struct list_head *item, int nid);
+ 
++/* Take @item off the locked sublist @l and put it on a private list @head */
++static inline void __list_lru_move(struct list_lru *lru, struct list_lru_one *l,
++				   struct list_head *item, int nid,
++				   struct list_head *head)
++{
++	__list_lru_del(lru, l, item, nid);
++	list_add(item, head);
++}
++
+ /**
+  * list_lru_add: add an element to the lru list's tail
+  * @lru: the lru pointer
+@@ -271,12 +280,9 @@ static inline unsigned long list_lru_count(struct list_lru *lru)
+ 	return count;
+ }
+ 
+-void list_lru_isolate(struct list_lru_one *list, struct list_head *item);
+-void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
+-			   struct list_head *head);
+-
+-typedef enum lru_status (*list_lru_walk_cb)(struct list_head *item,
+-		struct list_lru_one *list, void *cb_arg);
++typedef enum lru_status (*list_lru_walk_cb)(struct list_lru *lru,
++		struct list_lru_one *l, struct list_head *item, int nid,
++		void *cb_arg);
+ 
+ /**
+  * list_lru_walk_one: walk a @lru, isolating and disposing freeable items.
+@@ -289,11 +295,14 @@ typedef enum lru_status (*list_lru_walk_cb)(struct list_head *item,
+  * @nr_to_walk: how many items to scan.
+  *
+  * This function will scan all elements in a particular @lru, calling the
+- * @isolate callback for each of those items, along with the current list
+- * spinlock and a caller-provided opaque. The @isolate callback can choose to
++ * @isolate callback for each of those items, along with the locked sublist
++ * and a caller-provided opaque. The @isolate callback can choose to
+  * drop the lock internally, but *must* return with the lock held. The callback
+  * will return an enum lru_status telling the @lru infrastructure what to
+- * do with the object being scanned.
++ * do with the object being scanned. A callback that takes the item off
++ * the lru does so with __list_lru_del() or __list_lru_move(), or with
++ * list_lru_del() once it has dropped the lock, and returns LRU_REMOVED
++ * or LRU_REMOVED_RETRY.
+  *
+  * Please note that @nr_to_walk does not mean how many objects will be freed,
+  * just how many objects will be scanned.
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e8684..87722e1a7eee 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4638,8 +4638,9 @@ static bool thp_underused(struct folio *folio)
+ 	return false;
+ }
+ 
+-static enum lru_status deferred_split_isolate(struct list_head *item,
+-					      struct list_lru_one *lru,
++static enum lru_status deferred_split_isolate(struct list_lru *lru,
++					      struct list_lru_one *l,
++					      struct list_head *item, int nid,
+ 					      void *cb_arg)
+ {
+ 	struct folio *folio = container_of(item, struct folio, _deferred_list);
+@@ -4649,7 +4650,7 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
+ 	if (!folio_try_get(folio))
+ 		return LRU_SKIP;
+ 
+-	list_lru_isolate_move(lru, item, freeable);
++	__list_lru_move(lru, l, item, nid, freeable);
+ 	return LRU_REMOVED;
+ }
+ 
+diff --git a/mm/list_lru.c b/mm/list_lru.c
+index d1d256822ccc..9469117aa424 100644
+--- a/mm/list_lru.c
++++ b/mm/list_lru.c
+@@ -218,6 +218,7 @@ bool __list_lru_del(struct list_lru *lru, struct list_lru_one *l,
+ 	}
+ 	return false;
+ }
++EXPORT_SYMBOL_GPL(__list_lru_del);
+ 
+ /* The caller must ensure the memcg lifetime. */
+ bool list_lru_add(struct list_lru *lru, struct list_head *item, int nid,
+@@ -291,21 +292,6 @@ bool list_lru_del_obj(struct list_lru *lru, struct list_head *item)
+ }
+ EXPORT_SYMBOL_GPL(list_lru_del_obj);
+ 
+-void list_lru_isolate(struct list_lru_one *list, struct list_head *item)
+-{
+-	list_del_init(item);
+-	list->nr_items--;
+-}
+-EXPORT_SYMBOL_GPL(list_lru_isolate);
+-
+-void list_lru_isolate_move(struct list_lru_one *list, struct list_head *item,
+-			   struct list_head *head)
+-{
+-	list_move(item, head);
+-	list->nr_items--;
+-}
+-EXPORT_SYMBOL_GPL(list_lru_isolate_move);
+-
+ unsigned long list_lru_count_one(struct list_lru *lru,
+ 				 int nid, struct mem_cgroup *memcg)
+ {
+@@ -338,7 +324,6 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
+ 		    list_lru_walk_cb isolate, void *cb_arg,
+ 		    unsigned long *nr_to_walk, bool irq_off)
+ {
+-	struct list_lru_node *nlru = &lru->node[nid];
+ 	struct list_lru_one *l = NULL;
+ 	struct list_head *item, *n;
+ 	unsigned long isolated = 0;
+@@ -359,7 +344,7 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
+ 			break;
+ 		--*nr_to_walk;
+ 
+-		ret = isolate(item, l, cb_arg);
++		ret = isolate(lru, l, item, nid, cb_arg);
+ 		switch (ret) {
+ 		/*
+ 		 * LRU_RETRY, LRU_REMOVED_RETRY and LRU_STOP will drop the lru
+@@ -371,7 +356,6 @@ __list_lru_walk_one(struct list_lru *lru, int nid, struct mem_cgroup *memcg,
+ 			fallthrough;
+ 		case LRU_REMOVED:
+ 			isolated++;
+-			atomic_long_dec(&nlru->nr_items);
+ 			if (ret == LRU_REMOVED_RETRY)
+ 				goto restart;
+ 			break;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 3c0c7edd2020..e4c1d9dfcfa2 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -852,8 +852,9 @@ struct shmem_unused_huge_scan {
+ 	struct shrink_control *sc;
+ };
+ 
+-static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
+-						 struct list_lru_one *lru,
++static enum lru_status shmem_unused_huge_isolate(struct list_lru *lru,
++						 struct list_lru_one *l,
++						 struct list_head *item, int nid,
+ 						 void *arg)
+ {
+ 	struct shmem_unused_huge_scan *scan = arg;
+@@ -874,14 +875,14 @@ static enum lru_status shmem_unused_huge_isolate(struct list_head *item,
+ 	inode = igrab(&info->vfs_inode);
+ 	/* inode is about to be evicted */
+ 	if (!inode) {
+-		list_lru_isolate(lru, item);
++		__list_lru_del(lru, l, item, nid);
+ 		objcg = shmem_get_and_clear_objcg(info);
+ 		spin_unlock(&info->lock);
+ 		obj_cgroup_put(objcg);
+ 		return LRU_REMOVED;
+ 	}
+ 
+-	list_lru_isolate(lru, item);
++	__list_lru_del(lru, l, item, nid);
+ 	objcg = shmem_get_and_clear_objcg(info);
+ 	set_shmem_unused_huge_isolated(info);
+ 	list_add_tail(&info->shrinklist, &scan->list);
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 1504f91cdca5..c5d5690bda9f 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -706,9 +706,10 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
+ 	return nodes - max_nodes;
+ }
+ 
+-static enum lru_status shadow_lru_isolate(struct list_head *item,
+-					  struct list_lru_one *lru,
+-					  void *arg) __must_hold(lru->lock)
++static enum lru_status shadow_lru_isolate(struct list_lru *lru,
++					  struct list_lru_one *l,
++					  struct list_head *item, int nid,
++					  void *arg) __must_hold(l->lock)
+ {
+ 	struct xa_node *node = container_of(item, struct xa_node, private_list);
+ 	struct address_space *mapping;
+@@ -717,20 +718,20 @@ static enum lru_status shadow_lru_isolate(struct list_head *item,
+ 	/*
+ 	 * Page cache insertions and deletions synchronously maintain
+ 	 * the shadow node LRU under the i_pages lock and the
+-	 * &lru->lock. Because the page cache tree is emptied before
+-	 * the inode can be destroyed, holding the &lru->lock pins any
++	 * &l->lock. Because the page cache tree is emptied before
++	 * the inode can be destroyed, holding the &l->lock pins any
+ 	 * address_space that has nodes on the LRU.
+ 	 *
+ 	 * We can then safely transition to the i_pages lock to
+ 	 * pin only the address_space of the particular node we want
+-	 * to reclaim, take the node off-LRU, and drop the &lru->lock.
++	 * to reclaim, take the node off-LRU, and drop the &l->lock.
+ 	 */
+ 
+ 	mapping = container_of(node->array, struct address_space, i_pages);
+ 
+ 	/* Coming from the list, invert the lock order */
+ 	if (!xa_trylock(&mapping->i_pages)) {
+-		spin_unlock_irq(&lru->lock);
++		spin_unlock_irq(&l->lock);
+ 		ret = LRU_RETRY;
+ 		goto out;
+ 	}
+@@ -739,16 +740,16 @@ static enum lru_status shadow_lru_isolate(struct list_head *item,
+ 	if (mapping->host != NULL) {
+ 		if (!spin_trylock(&mapping->host->i_lock)) {
+ 			xa_unlock(&mapping->i_pages);
+-			spin_unlock_irq(&lru->lock);
++			spin_unlock_irq(&l->lock);
+ 			ret = LRU_RETRY;
+ 			goto out;
+ 		}
+ 	}
+ 
+-	list_lru_isolate(lru, item);
++	__list_lru_del(lru, l, item, nid);
+ 	__dec_node_page_state(virt_to_page(node), WORKINGSET_NODES);
+ 
+-	spin_unlock(&lru->lock);
++	spin_unlock(&l->lock);
+ 
+ 	/*
+ 	 * The nodes should only contain one or more shadow entries,
+diff --git a/mm/zswap.c b/mm/zswap.c
+index ad01c691a263..72eae0745b62 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1177,8 +1177,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+  *    can expect from writeback. We scale down the number of objects available
+  *    for reclaim by this ratio.
+  */
+-static enum lru_status shrink_memcg_cb(struct list_head *item, struct list_lru_one *l,
+-				       void *arg)
++static enum lru_status shrink_memcg_cb(struct list_lru *lru, struct list_lru_one *l,
++				       struct list_head *item, int nid, void *arg)
+ {
+ 	struct zswap_entry *entry = container_of(item, struct zswap_entry, lru);
+ 	bool *encountered_page_in_swapcache = (bool *)arg;
+-- 
+2.56.0
