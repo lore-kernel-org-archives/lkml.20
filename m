@@ -1,102 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208087;
-	b=ZIigNwzAVkA/CLO2atTZ6jwET0VDjTVZGtMUR7Hgr8swr3Lssz3DbGPJGfRwuYB52e4z
-	 rx4AghnmuhtsylABRtwUnK/4hychl74v1i2uv+eE5655GMlFoJSXF6Sws/OCsR4a/GhUu
-	 /3LSg20iaHhHar5RjG1546Sr7daGFcH/8EoHfST4FpneVg2K8FwYg9hnuPuqCvG5Ya4JQ
-	 41M9cYb1cY7NQGOrUdAaod02rmoy7RNC92TmTmBXRoCBYnUeXYeB+KANCgvM1i8m9qZmY
-	 ZvzI2xSzYFNVH8V+baxTrbCi8Gqmrse5mtAERqaeP5j4NQBjEINZTyR5S5CIhMtVXeQ==
+	t=1793208107;
+	b=d4U0imr/MWQnaR7A4R8rCAibe3jNvdF80vV9tYi/uwwWkbMoiKYQz5TxySShHC4zur5a
+	 M3+2G8quUwTBsx1ixiobM89BTcdbWF96oO1OmFb1iQOxSInLKnBZmQ7gBt5qCMg7TlPRZ
+	 X1IXEm5aNgtnPiYyQrhw5GGcgN+y6zpcSu0UEcFN9F/ilkML3yGqkliVY+fFLEFunCoZn
+	 DI+YZTRYRgs9a9HE8gHTsdsGBCRG6jeXl9DPy0VF7nZdtHqNJxe2tUA8o+CuUeoaghU42
+	 PG0qjsPTJM3VouRFG4oSOh8wBkDnXOw4WIw5V/VbWkIsRb+O44FR30Ts5tNIu6BPdaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208087;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
-	b=ZMBx8HKnuiu/bsQyg3RZTXhMR2vhLkEM2COcstRQkQH6Z/8pPTsFboerpj6G6a9k3UpC
-	 pef3RpPH2KDW4+5TBnUYUfYp2h+Qbda23knT/rLryRB8llIZjoj5U8qjCsOiV0Nj8hwqC
-	 9cdEfQdKRjPp05fM3ajdGLPBkgwKQljmVSKaNwnlrFyw3+AffDfVZV/YIqUP2wHv9j3S3
-	 i/GTfjS+mQFjEak+NYwCCgkWjmJSIKlU65S05sVZSM8X6bW2CmyMgNJ2MaLHcH8ZiAqXp
-	 t/ui3TcAUatlpjppmkoLwpQZ3yktQRdOrb49ImXDPntd+Hn90g5ZiEjNslQDX2dsgqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208107;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=6tw1/IKvQRm7RH6uU3JHi893MfeaI2rkP9wXHgR/3Zg=;
+	b=3YnnYNBv1UHwjBT2eNfzQupNQ2AXqKuZ8Jne8Mz4ix0kABI/S3HaIq0/qGika/qUGSdS
+	 lCwYjt3fQGjKXnJN4A+jB7GluehG/ioM91V07qV3V4h6kkDjeIdAlD4pEf2Cnow07+zBm
+	 vS9zFjpFlx/V4SJntU7Ykjj9R3IfSQTXeF+Wooie+SDW54N9d17CIJEX7dtHGaTXkKtzX
+	 h2Dth3jR9Nnv7M5Own2Iw8LApZ15qeNUDrl3yUSJxIpJhIY0kRbqGq7N1GmN7iQ/TOvLr
+	 bJsJ0eiTU6bsT8XRCLnlsRHNYrahrMs6xJVN1rSBn0JF2NcYeIQwkaOfhQTdz5g1SxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=SQlFBLtW;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qMfKC5XB;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17096606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17096606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F208606A31A;
+	Wed, 28 Oct 2026 17:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F208606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=SQlFBLtW
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6774639a8a4so1186407d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:21:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793208086; x=1793812886; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
-        b=SQlFBLtWetvrAOGwtD51xhjKHJMBmuVVhKXJUHggsefbsTBeA9lSUtBHLEvFQVQpwk
-         5rxgza6m/fEullx3LCe/5EOf9NitilOHi/ZmD+JZoZrLhue8TEStDNUqIv6MnHIQn4BL
-         ASJwtOkabzww4BdFogItYgHjFyEYahE+mlqAedNSjHJcjtmSyL93pQIFRzgVKyVw/q9Q
-         81abU0Nq7hvVg258F3rlDeN1MY2edyUC5XbswXKuXMO7fBepqm0oxBuoEywcY0tTHB7W
-         viLo1aeiP6zlrKoB9h1bFeSUMb6NEqE315HFQ0S5k0SQT/BxI3ijsPyYAnSyXqISjRVX
-         A9cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793208086; x=1793812886;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
-        b=fozAMYWuEr62m2/zlKRlunad5iNr/T0d8gFCB641zB5Qg/dYE5tuGKSE2P8VN6unwS
-         Bd4VKERwNnUuur4+3oUEFdCYp21RGXBC6i7saBe6glNbCc+xTTI2OPEGcqEhrb9WvdlE
-         Vq85gGCw5R/8p7+7h+dcNP7dYxl7kNMYrtHX9j0HSSrNR65pXsIckKpEp4uWA0ZzR/+g
-         3+rjiFfr+tDvVz3jWR2yKO1vSIudTOq68TQzr15Ynf34gEPlWUfHsXYIJCHO/1EtxLxR
-         7Z2W2Uhr/i3oBy2RzThqbLAHZ3lcFJEVrgHzoii0c5jZk5V8n1lMWqEUA+PMenCELn9C
-         DlsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfzPATpo7Kw5uvuvBpepykhsQW+YPmeT4weL3cVV8rT9NnFyeFhgcmOd421RksxoEQHseK9Je92DCHE3U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIB4mepE5/cs5Eh3ut0SIl+W30Nwmi/1BJuNTuRkSup3ywhAuZT
-	cHcQEHNryICYGybB2k/z9fFpJf8JkCeV68HrJV2rXFp09yM3/SBZsTYgmXvL3P+u+p8=
-X-Gm-Gg: AYBFou33uzP6M9/VopzUWw30BYSoZrLA8bXreBIgtvbVBFqcXKrrG/UNDaiwFa4bhRy
-	462BxQJfyQw5RMDWAJUf6a1t5RihrCEPGzn4keMFgJ668SpFyIOFtc/si2xKSMYq3/6Z1oNaXD5
-	Q4m19KF1JjSBrum44NAuiMMuQq7NGwV81UTH3hlnTkR9RfeuwI8Ba565Xkw5JdD14EIx2XbFkKC
-	pV4e63F3ghhAWKQHfMkn9IYCdxEC31VX3WFL3VqfEtpF6gOCIfL7L1Wwl2wY8dK1+XjvOjOpUGu
-	FObdij3rzPM61K5bGAGMt0xaofQzO8cOAh9TN7yucZGJjehdWzPgMMWESxiXUCanOFCN1UQZfvE
-	4Dq7LIkYJsvp4RAW/TrplxRJTcvDANjQCCMw4D0nxzHH9NC1d8GybnWdrZNRA1NimeNA/TPseoh
-	ptX7Kygib9dXhTwdJzIIbQWJBvusg/sBPI5kjINZrGnqcnLs+zTj7SlRSqP9F7b0T1IJOUYhNft
-	ifjalRomZBpV5Rmhpq6uB6J0eAeOYiawYP67+FeJQruVEh7k83EtqDitN1dS61UJRcGphuixCHI
-	plEFFKE+Ff0teqsYdWM71t9MgJDT
-X-Received: by 2002:a05:690e:1183:b0:678:fa71:301c with SMTP id 956f58d0204a3-67a7b992b9amr1910178d50.7.1793208085931;
-        Wed, 28 Oct 2026 10:21:25 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a0c31cfsm2144554d50.9.2026.10.28.10.21.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:21:25 -0700 (PDT)
-Date: Wed, 28 Oct 2026 13:21:24 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Salvatore Dipietro <dipiets@amazon.it>
-Cc: abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
-	blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
-	david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
-	djwong@kernel.org, hch@infradead.org, hch@lst.de,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-xfs@vger.kernel.org,
-	matt@readmodwrite.com, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	vbabka@kernel.org, willy@infradead.org, ziy@nvidia.com
-Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking
- requests reserve access
-Message-ID: <auIvFBlNU5N_PVyd@cmpxchg.org>
-References: <arFBr22V60BMmVpl@cmpxchg.org>
- <20261027150002.318916-1-dipiets@amazon.it>
- <auISZ5w318zwUZuc@cmpxchg.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qMfKC5XB
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jFDgB5DFjzMlCD;
+	Wed, 28 Oct 2026 18:21:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793208102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6tw1/IKvQRm7RH6uU3JHi893MfeaI2rkP9wXHgR/3Zg=;
+	b=qMfKC5XBxBrGNvDI8EHB/8VZ1xeKXDCNpLZ2olAVS0ACrohTp90eSyDMXXm883fO2SdIzJ
+	1znkCrET61MFuWhuiQkNtXv1Enarvbi5COCBWqR41arnl2BzENfH4eFmumbuTsb9kvhpe1
+	hO+Kig/j52an61Rj6JH0abqGAAZ/5CDRChPyCIC04NqDUyf6sVeLTRSxh6Ty39144ly+TA
+	3K/eZ0e6EAd49P0c0V0TtRAxkS+iyDZs0zw/9WUrfrE0V0zdfmvFT9WFIYr1l4a3ZI16q1
+	9YxG6ciwiTRXYATqb5EbfayLke4JqWxU1DXV5E6hkaJMobhP0FNykERKK1PKug==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Alex Elder <elder@riscstar.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Koichiro Den <den@valinux.co.jp>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Rob Herring <robh@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 1/2] PCI: dwc: rcar-gen4: Replace pe_rst GPIO PERST with GPIO reset aux driver
+Date: Wed, 28 Oct 2026 18:21:08 +0100
+Message-ID: <20261028172133.20903-1-marek.vasut+renesas@mailbox.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,30 +91,326 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auISZ5w318zwUZuc@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: odfpnsetw339jyxm6kjtatmjh8o3gowi
+X-MBO-RS-ID: 6b39a3b04a49b99ec66
 
-On Wed, Oct 28, 2026 at 11:19:08AM -0400, Johannes Weiner wrote:
-> On Tue, Oct 27, 2026 at 03:00:02PM +0000, Salvatore Dipietro wrote:
-> > 
-> > Hi Johannes,
-> > 
-> > Vlastimil asked that v6 of my page_alloc patch [1] not go to mainline
-> > before these two patches land, so Andrew parked v6 at the tail of
-> > mm-unstable and dropped its Cc: stable until then.
-> > 
-> > Are you still planning to work on 1/2 and 2/2, and if so, do you have
-> > a rough ETA? Or would you rather post them as a separate series as
-> > they are? If anything is needed on my side to move them forward, I'm
-> > happy to help.
-> > 
-> > For what it's worth, I ran both stacked under v6 on v7.3-rc1 and saw
-> > no performance difference on my benchmark with or without them.
-> > 
-> > [1] https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/
-> 
-> I'll work on this today, will have patches before EOD. Sorry for
-> dropping this.
+There is currently one user of core DWC PCIe struct gpio_desc *pe_rst
+field, which is R-Car Gen4 driver. This driver already does convoluted
+handling of both GPIO controlled PERST# and reset controller controlled
+PERST#. Simplify the situation using reset GPIO aux driver.
 
-https://lore.kernel.org/all/20261028171719.2043421-1-hannes@cmpxchg.org/
+First, eliminate the pe_rst GPIO from DWC core, so it is not in the
+way, this is the easy top half of this patch.
+
+Second, deal with the resets using reset GPIO aux driver in the R-Car
+Gen4 PCIe driver. The R-Car Gen4 PCIe driver currently handles two
+variants of DT description which can be passed to it:
+
+1) Combined mandatory PCIe core resets and optional GPIO PERST#:
+   pciec@nnn {
+       compatible = "renesas,r8a779g0-pcie", "renesas,rcar-gen4-pcie";
+       ...
+       resets = <&reset 624>, <&reset 1121>;
+       reset-names = "pwr", "core";
+       reset-gpios = <&gpio2 2 GPIO_ACTIVE_LOW>; // This is GPIO PERST#
+       ...
+   };
+   The PCIe core resets are requested already in pcie-designware.c
+   dw_pcie_get_resets(), but the reset-gpios GPIO PERST# has to be
+   handled later, in R-Car Gen4 PCIe driver host .init callback,
+   to avoid interference with the core dw_pcie_get_resets(). The
+   GPIO PERST# has to be requested by index since there is no
+   reset-names entry for it, using the first unused reset index.
+
+2) Separate mandatory PCIe core resets and optional reset controller PERST#:
+   pciec@nnn {
+       compatible = "renesas,r8a78000-pcie4", "renesas,rcar-gen5-pcie4";
+       ...
+       resets = <&reset 345>;
+       reset-names = "pwr";
+       ...
+       pciec40_rp: pci@0,0 {
+           compatible = "pciclass,0604";
+           ...
+           resets = <&reset 815>; // This is reset controller PERST#
+           reset-names = "perst";
+       };
+   };
+   The PCIe core resets are requested already in pcie-designware.c
+   dw_pcie_get_resets(), and root port reset controller PERST# used
+   to be handled in rcar_gen4_pcie_get_resources(), but now the root
+   port reset controller PERST# has to be handled later, in R-Car Gen4
+   PCIe driver host .init callback, to avoid interference with the core
+   dw_pcie_get_resets().
+
+Ultimately, this simplifies both the core and the R-Car Gen4 PCIe driver.
+
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Alex Elder <elder@riscstar.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Jingoo Han <jingoohan1@gmail.com>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Randolph Lin <randolph@andestech.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sherry Sun <sherry.sun@nxp.com>
+Cc: Siddharth Vadapalli <s-vadapalli@ti.com>
+Cc: Vidya Sagar <vidyas@nvidia.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Wilfred Mallawa <wilfred.mallawa@wdc.com>
+Cc: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+NOTE: Thanks Bartosz for helping me figure the GPIO reset aux driver out
+---
+ drivers/pci/controller/dwc/Kconfig           |   1 +
+ drivers/pci/controller/dwc/pcie-designware.c |   4 -
+ drivers/pci/controller/dwc/pcie-designware.h |   1 -
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c  | 107 ++++++++++++++-----
+ 4 files changed, 83 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+index 0a0d56fcf0ac9..d65cf1e9d842b 100644
+--- a/drivers/pci/controller/dwc/Kconfig
++++ b/drivers/pci/controller/dwc/Kconfig
+@@ -350,6 +350,7 @@ config PCIE_RCAR_GEN4_HOST
+ 	depends on PCI_MSI
+ 	select PCIE_DW_HOST
+ 	select PCIE_RCAR_GEN4
++	select RESET_GPIO
+ 	help
+ 	  Say Y here if you want PCIe controller (host mode) on R-Car Gen4 SoCs.
+ 	  To compile this driver as a module, choose M here: the module will be
+diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
+index 12f102f48d5d5..b09c01853d807 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.c
++++ b/drivers/pci/controller/dwc/pcie-designware.c
+@@ -104,10 +104,6 @@ static int dw_pcie_get_resets(struct dw_pcie *pci)
+ 	if (ret)
+ 		return ret;
+ 
+-	pci->pe_rst = devm_gpiod_get_optional(pci->dev, "reset", GPIOD_OUT_HIGH);
+-	if (IS_ERR(pci->pe_rst))
+-		return PTR_ERR(pci->pe_rst);
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index 6d788aa000117..9dc86b66e415d 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -575,7 +575,6 @@ struct dw_pcie {
+ 	struct clk_bulk_data	core_clks[DW_PCIE_NUM_CORE_CLKS];
+ 	struct reset_control_bulk_data	app_rsts[DW_PCIE_NUM_APP_RSTS];
+ 	struct reset_control_bulk_data	core_rsts[DW_PCIE_NUM_CORE_RSTS];
+-	struct gpio_desc		*pe_rst;
+ 	bool			suspended;
+ 	struct debugfs_info	*debugfs;
+ 	enum			dw_pcie_device_mode mode;
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index fceecbd16355c..d3bf01485e11d 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -401,7 +401,6 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
+ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+ {
+ 	struct device *dev = rcar->dw.dev;
+-	struct device_node *root_port;
+ 
+ 	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
+ 	if (IS_ERR(rcar->phy_base)) {
+@@ -411,18 +410,8 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+ 			return PTR_ERR(rcar->phy);
+ 	}
+ 
+-	root_port = of_get_next_available_child(dev->of_node, NULL);
+-	if (root_port) {
+-		rcar->perst = of_reset_control_get_optional_exclusive(root_port, "perst");
+-		of_node_put(root_port);
+-		if (IS_ERR(rcar->perst))
+-			return dev_err_probe(dev, PTR_ERR(rcar->perst), "Failed to get PERST#\n");
+-	}
+-
+ 	/* Renesas-specific registers */
+ 	rcar->base = devm_platform_ioremap_resource_byname(rcar->pdev, "app");
+-	if (IS_ERR(rcar->base))
+-		reset_control_put(rcar->perst);
+ 
+ 	return PTR_ERR_OR_ZERO(rcar->base);
+ }
+@@ -594,19 +583,84 @@ static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
+ 	return 0;
+ }
+ 
++static int rcar_gen4_pcie_host_perst_get(struct dw_pcie *dw)
++{
++	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
++	struct device_node *root_port;
++	struct device *dev = dw->dev;
++	struct reset_control *perst;
++	int index;
++
++	/*
++	 * Handle two forms of DT which can be passed to this driver:
++	 *
++	 * 1) Combined mandatory PCIe core resets and optional GPIO PERST#:
++	 *    pciec@nnn {
++	 *        compatible = "renesas,r8a779g0-pcie", "renesas,rcar-gen4-pcie";
++	 *        ...
++	 *        resets = <&reset 624>, <&reset 1121>;
++	 *        reset-names = "pwr", "core";
++	 *        reset-gpios = <&gpio2 2 GPIO_ACTIVE_LOW>; // This is GPIO PERST#
++	 *        ...
++	 *    };
++	 *    The PCIe core resets are requested already in pcie-designware.c
++	 *    dw_pcie_get_resets(), but the reset-gpios GPIO PERST# has to be
++	 *    handled at this point here. The GPIO PERST# has to be requested
++	 *    by index since there is no reset-names entry for it, using the
++	 *    first unused reset index.
++	 *
++	 * 2) Separate mandatory PCIe core resets and optional reset controller PERST#:
++	 *    pciec@nnn {
++	 *        compatible = "renesas,r8a78000-pcie4", "renesas,rcar-gen5-pcie4";
++	 *        ...
++	 *        resets = <&reset 345>;
++	 *        reset-names = "pwr";
++	 *        ...
++	 *        pciec40_rp: pci@0,0 {
++	 *            compatible = "pciclass,0604";
++	 *            ...
++	 *            resets = <&reset 815>; // This is reset controller PERST#
++	 *            reset-names = "perst";
++	 *        };
++	 *    };
++	 *    The PCIe core resets are requested already in pcie-designware.c
++	 *    dw_pcie_get_resets(), but the root port reset controller PERST#
++	 *    has to be handled at this point here using subnode request.
++	 */
++	index = reset_control_get_count(dev);
++	if (index < 0)
++		return index;
++
++	/* Attempt to request GPIO PERST# in PCIe controller node. */
++	perst = of_reset_control_get_exclusive_by_index(dev->of_node, index);
++	if (!IS_ERR(perst))
++		goto exit;
++
++	/* No GPIO reset, test for root port subnode. */
++	root_port = of_get_next_available_child(dev->of_node, NULL);
++	if (!root_port)
++		return dev_err_probe(dev, -EINVAL, "Failed to get PERST# in root port\n");
++
++	/* Attempt to request reset controller PERST# in root port subnode. */
++	perst = of_reset_control_get_optional_exclusive(root_port, "perst");
++	of_node_put(root_port);
++	if (IS_ERR(perst))
++		return dev_err_probe(dev, PTR_ERR(perst), "Failed to get PERST#\n");
++
++exit:
++	rcar->perst = perst;
++	return 0;
++}
++
+ static void rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
+ {
+ 	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+ 	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+ 
+-	if (dw->pe_rst) {
+-		gpiod_set_value_cansleep(dw->pe_rst, assert);
+-	} else {
+-		if (assert)
+-			reset_control_assert(rcar->perst);
+-		else
+-			reset_control_deassert(rcar->perst);
+-	}
++	if (assert)
++		reset_control_assert(rcar->perst);
++	else
++		reset_control_deassert(rcar->perst);
+ }
+ 
+ /* Host mode */
+@@ -616,6 +670,10 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ 	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+ 	int ret;
+ 
++	ret = rcar_gen4_pcie_host_perst_get(dw);
++	if (ret)
++		return ret;
++
+ 	if (pp->bridge)
+ 		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
+ 
+@@ -623,7 +681,7 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ 
+ 	ret = rcar->drvdata->init(rcar);
+ 	if (ret)
+-		return ret;
++		goto err_init;
+ 
+ 	/*
+ 	 * According to the section 3.5.7.2 "RC Mode" in DWC PCIe Dual Mode
+@@ -646,6 +704,8 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ 
+ err:
+ 	rcar->drvdata->deinit(rcar);
++err_init:
++	reset_control_put(rcar->perst);
+ 	return ret;
+ }
+ 
+@@ -656,6 +716,7 @@ static void rcar_gen4_pcie_host_deinit(struct dw_pcie_rp *pp)
+ 
+ 	rcar_gen4_pcie_host_perst_assert(pp, true);
+ 	rcar->drvdata->deinit(rcar);
++	reset_control_put(rcar->perst);
+ }
+ 
+ static const struct dw_pcie_host_ops rcar_gen4_pcie_host_ops = {
+@@ -830,7 +891,7 @@ static int rcar_gen4_pcie_probe(struct platform_device *pdev)
+ 
+ 	err = rcar_gen4_pcie_prepare(rcar);
+ 	if (err)
+-		goto err_prepare;
++		return err;
+ 
+ 	err = rcar_gen4_add_dw_pcie(rcar);
+ 	if (err)
+@@ -841,9 +902,6 @@ static int rcar_gen4_pcie_probe(struct platform_device *pdev)
+ err_unprepare:
+ 	rcar_gen4_pcie_unprepare(rcar);
+ 
+-err_prepare:
+-	reset_control_put(rcar->perst);
+-
+ 	return err;
+ }
+ 
+@@ -867,7 +925,6 @@ static void rcar_gen4_pcie_remove(struct platform_device *pdev)
+ 
+ 	rcar_gen4_remove_dw_pcie(rcar);
+ 	rcar_gen4_pcie_unprepare(rcar);
+-	reset_control_put(rcar->perst);
+ }
+ 
+ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
+-- 
+2.53.0
+
