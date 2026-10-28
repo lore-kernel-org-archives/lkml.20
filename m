@@ -1,112 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220357;
-	b=jPLXbJ9uw+lM2z7uOIE2wJkY50rk/YroGXfFpwiTLfqzjgfBPgwjgtS+px4UZ2ORFjnP
-	 LG/SVNCGVOsZODY6uWLsoplneoBDbFXQ9lb7rm9BRd1hTRgBh+CGZnJeyaH3OIiz3hPGp
-	 ffD9eBy8fRyJKLsMGeOPmkROwDWaThplk/8+asizQrwDe6tPR+BX+GThcg2/Uo1OICEdg
-	 PQdfyv8/zFY5GUeCki/q2zIArrJrV71rZRBzqem7J7EXN7zplivOkl0h29LZbIZs7HuaA
-	 KrByAhf0JZ70z6Mls+WqP6o03A06E2ebPcpO1OcHYXIP2aT7g45+ofeSHENcsiBZsQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220357;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793220406;
+	b=rRv+nzOn1iqaMm3Zs70avUPWllE0kmwI710c021U2g5HD6GpdYgWHBCvP0l1S36lLqnN
+	 +KO1uDLZRXNN/JHr9au8bB2HNMV98uTq0w4jP5XaF0oVPjkuNFsgP+htk0bsKCNtrrZL2
+	 EK3JYPemdZHhap4pDlMPNeFuqD1ZInH22OV2yoHZasG6CdS36EiWRwCG4zqoEszOUt3Z2
+	 aohiRQh3EVTwpZJRIuCX3QwX2FSiJgym5q1exVQscAIlga2WtXxB23/33u6XqbsYA/1jX
+	 VcFenmEtOZfW8uTG9WGhpg4UY9WKvDXqLQKdlxfFA1fMYvzHe90xWHmNQEBccxOnxrQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220406;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EP6xULgbpkKbbLO4g2dHiDHxnCrHcDloPLKgANcrRB8=;
-	b=CYF8O+z31BCU89JoHG91dSSC4qUnATHPev+a1pPhy3ohzbEjoRULVkVXab0AVWT7klVp
-	 2uH6rY7Z5u/Wvwks35C4P8dpeT6LZyyCFwkRnfpBfZHIGGGYH2BPCpy2xVMJFYfVQFl8v
-	 EzIJeV6nghcl03yitrc60aoWPmOq8LO9rOzCxOPAo9JyOdtW4OlLjblF9LuAUa85pOOwa
-	 gbznedvMQpvzXRywr1wt/jXgXyuK9mEzWC5QLt8kkMVJ4CdITckl5sjJADMT1F3R5cRaS
-	 dnuD9kwXIkS9uxOddpXfxdnNw5/Ydjm/JQQWXSIXy+fQ9ir++sRGHMozweUnclJ6K0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cx5URFdN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="MLBUDz7/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Rz38guSqw9A9IjGcPuREorv84P/3M9Qr8+PiPPZMAA4=;
+	b=5UjZDZv7BLdarxDiYFHbJ+G0NeHAcNRwc5YqcT3Y/kSB4f0aYZ2j2d2ZdLg+ugAcma0e
+	 iQStoZwc+OWS8r5spVG087eAghVVI7T/0kcBa/FVe+RJ5cN3FntGB6K2mE7pk/kGG5GiU
+	 KC82HQeHBnl/eQI3pp8lBkzEH7XjCx7c3+8dXC+N9M/iXIUJD4SHxyJMLoxeBnYeCSVav
+	 D54f2jAr9wte6WX1Auv4er+5UPkh9NcCMkyEREg5tH/xoZ7HIQ9u9aaOdBXwHOPqNcfP1
+	 zmHBeUZzSLGzFoTzlhAErdyqXJaZEil5KvV7LZsn3HhX9K8qrvGrezv0E3Jy7SIZTkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Gph/jV+T";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.7
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011007.outbound.protection.outlook.com [52.101.57.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBEB606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBEB606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE292606A31F;
+	Wed, 28 Oct 2026 20:46:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE292606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cx5URFdN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MLBUDz7/
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SIPhwP400515
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:45:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EP6xULgbpkKbbLO4g2dHiDHxnCrHcDloPLKgANcrRB8=; b=Cx5URFdN2cNg87ly
-	4km/gBAr1vP3quNlgWTQUPHqp2DGyuTrdh0UZgUkt5DIzUaMfRxl6IhNHdmXgJz2
-	/ONVKUl2soONKkTL5RHtlwVtqpyqgjfTITcZz3wJPLUS5/PpGUq7nq4+TrKg0p9q
-	gawfFjdx5BXN69YzmZC+vKWk+tu4ip2Th7eE61AM1yWZj6XBZLaEUsTwIdSuwATU
-	2C4pbO4wkG4ngEpdKdYo93Mtf87/H6L63Mcvvj+Tj+qFHxByQV5an0NMn+73J2t5
-	yfqimq4AqZ8KpgdZijXWcUEzy3zqZNwaHOR88K9oyaYm9zG93wxH4JAUnNQmfsQF
-	f+SPYw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtnhwkb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:45:56 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so3252014eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793220356; x=1793825156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EP6xULgbpkKbbLO4g2dHiDHxnCrHcDloPLKgANcrRB8=;
-        b=MLBUDz7/Pmfc+g+B8cJgfY8zWPI+XTENqaffLdASkjakYxFd1inwaCa11NsKdOk8YW
-         1ATH13bu0D1o9/Sd9TzD3kZBqHKqjOufTDovfppAnid0ujMMTR9EIHOKZUz7C3EIb/bE
-         bMHe6oO5eefsG/oP7JCgoTJGQ5GSbKTtAJpEnhS+9Ykc9YLLCpVJoU+CGr3Obu0Upvjy
-         0xD1vuZC7vPjYfdi1SrGEZ5nwmyJLPLEGOzsEv2Xj/kJ5AZsFA0yZHuP8T6niHgUBBMn
-         2/Qm3H/gP9jbDKU3Vh8rxO+7Jt3QepMVFBR4un4fLRaF3BCEtnaVHr8CtlFY3r4gnKiw
-         PvDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793220356; x=1793825156;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EP6xULgbpkKbbLO4g2dHiDHxnCrHcDloPLKgANcrRB8=;
-        b=juMaVTkrHZsCMC5CkjH0PDV+YHWKLyWCjO1XOcunKe3POQF5/oO3fbMkZQj4XoT0JA
-         /66c5oHfsG3LqyrbBdDfA10/KuM0RIep1shJIc+gYbsVYndp2/N+xX/8Z0+ddtlAi6rp
-         71QJze/NPLjsfepJA2HiPMapUGZUqu9j2EGQV+WBVjLFuKDEaLLe6o2/J4CjxeRcj8Kv
-         ln671vQr5MSwu5Ivn22EHz7/7bc1X6YjReaq3bp8EdhgvHVLshbNdYYjJY3nvWvQgLAt
-         NoBSQkbxJXYtxcHERnweSkArZIhmrJT94Svn93tDeXBWKbTp2ZLebitxXwNBadIyPVLQ
-         DfjA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAqhhMAPmlQGXarMZuIy1mXkxqmL6jb+7F21cpkXyUiaGXnXwb6HEJhD60vhztfCFG3Mml7JakXFbMdJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWIeG/C4ZVhoe4vi5/5hKribbGROAIcdDgKequi/5kTeadyEAV
-	NFbjVqosjhSL03kDSzfoMT2lbC8nhYQSnW4dXg+PH7yQVKWU6DllWCB0O23dsopzE38P/T5zP9C
-	3ou8R3fHQn+rp+Hi0AeDzpmnf3r3cGQduyL17UzV0YujKbXikef6UqGO6PUbki4uFlbg=
-X-Gm-Gg: AYBFou2EPirkSAOsLLTLFblCUByxaUKo9HU/bl39OP335NDM2YQy9rIZqNwP+zcmwH1
-	gsQQXFy8WGFF+wRegTGFKWYwHiF1ZU/Yj3ECoo4trJMH+GEoYNKgzCfGINXSo5lif70S+Vuer6U
-	Zyj5wkuzkxMpHkJpr++3GcD3FaRBSi3cAuU35D6OpY2AIpKpofhiA4guDkAyTo5N8OqXy/nuZMP
-	9qxfwyLb2+TXwnqaw6ggArVX8QztKOOD45OVZ5v3RXDhPVHBlUp1TOJEj00j/BHeEKJ5seqDRcs
-	xwgFPlluq5JMcCgsX3yqkwQ/Q/1Udbwli03L6I/s9KICQdn3qDBfd7CLvZeBfCsz0QeKzWKJsGw
-	7R0euYcAvpWblyg5et+GwMgPmX5q6wFXegesoVUz7kxTVnrNNa1V8A3I0vhsg343Vxnubdd3CPL
-	aF89EUCSWVDXsByS5HdLeEYbV7EhNyjEQ=
-X-Received: by 2002:a05:701b:240f:b0:16b:fdbf:4a9c with SMTP id a92af1059eb24-1a6cd7799damr3970910c88.23.1793220355804;
-        Wed, 28 Oct 2026 13:45:55 -0700 (PDT)
-X-Received: by 2002:a05:701b:240f:b0:16b:fdbf:4a9c with SMTP id a92af1059eb24-1a6cd7799damr3970883c88.23.1793220354960;
-        Wed, 28 Oct 2026 13:45:54 -0700 (PDT)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75f7fb28csm10326914c88.18.2026.10.28.13.45.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 13:45:54 -0700 (PDT)
-Message-ID: <1cb79561-39bd-481c-88d5-a05135f5dee7@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 13:45:53 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Gph/jV+T
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nfFxRm1ZDYnf33NJwu8UDxdqeMBXFwnyjC8LYrnKgeSIXF8vZDCWlQspjRooCZxBYYAPVaS/PFoONpd8kiHnYfXRCpw5IlNmi/FzX5QjF6NFx/zZdO7oqdpCDmSEhn7lI54hUZw3wdQRwp/DMqO9gzfR7IrRtScqc+jCMIriwoxoXILH47kssOPgZNL5qgrC4kJLLbTLPG5OXSaXpyQ8d/PwL6P9qpnG8YXvqviPIDCSoKjouEFUPvhqZMnJWkDDAonUoeG9EvGv7K3vuX6+FvFRH72Nye3X9tY2WWZ8B+mtAj7OY4NJhvBWjDD82tLFXGpauA23OZkHn5FoUyzN8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rz38guSqw9A9IjGcPuREorv84P/3M9Qr8+PiPPZMAA4=;
+ b=pxuPeu4YgTa8z9Ad2BKwye/tkwfa2dGVVN3ulRzwz1PUEyQrBrRL6pFGk5i3ugnD5PRgtHjL0fFqtJFrvEwqriRJadsGdh/raoR2wUYDKDBvQgifG9X1GU5znT8Li1H09BifLj5lTiShJ4gvY3NjQGqDTDzRsMpOk9dX/tJ+KcYMl3otfaxwnVOtVn9uZaEGDQD9f/XK/nRb3eYo6bQocOQShjV9FHYTzTGACR8WHsMkne1Le1oz9xZqY99I1+TafDKwiHSpOQmHVRySnZOwnA8KDhCcNJN0RFj37Lb3/5h9IuV2jAVe+l4ic4ApE/yiVbiq04gjZzgXrGQG5+k3VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rz38guSqw9A9IjGcPuREorv84P/3M9Qr8+PiPPZMAA4=;
+ b=Gph/jV+ToCjDdJYpEfZ9xDdVYCksGNOGPyfD8VDHuSGAae3CyTNkgKRQ/V+VhP+L8expTPJ2V4XbxerEl7jwuCqnNtK/PX5z1GEBlutLdN7nFVIpTjFjZNs1Q4KWgSUCm7Mo1Kp8RD3z1IMc07POKoBIy2fctE8XIpF8Tr4emdI=
+Received: from PH0PR07CA0034.namprd07.prod.outlook.com (2603:10b6:510:e::9) by
+ CYYPR12MB8853.namprd12.prod.outlook.com (2603:10b6:930:cb::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.22; Wed, 28 Oct 2026 20:46:40 +0000
+Received: from SJ1PEPF000026C4.namprd04.prod.outlook.com
+ (2603:10b6:510:e:cafe::98) by PH0PR07CA0034.outlook.office365.com
+ (2603:10b6:510:e::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 20:46:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C4.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 20:46:37 +0000
+Received: from [10.236.178.151] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 15:46:32 -0500
+Message-ID: <de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com>
+Date: Wed, 28 Oct 2026 15:46:32 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,78 +99,163 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] phy: qcom-mipi-csi2: Add support for single
- power-domain SoCs
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <ZW6-XDf5dgEFD66QI7ZA8WIK_alWTQD2RWolsXjlSql7pO5IUj9PM1T95LMfBd2Y3zKxRhDXXde1R4asZWzgKw==@protonmail.internalid>
- <20261028052047.2738893-1-anusha.nandi@oss.qualcomm.com>
- <58599b61-a56b-4d6b-b09f-03d813a64c1c@kernel.org>
+Subject: Re: [PATCH v2] cxl/core: Create einj_types when EINJ becomes
+ available
+To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
+	<dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, Dave Jiang
+	<dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, Vishal
+ Verma <vishal.l.verma@intel.com>
+CC: Dan Williams <djbw@kernel.org>, Ira Weiny <ira.weiny@kernel.org>, Li Ming
+	<ming.li@zohomail.com>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
+ <20261028084934.1735010-1-yangyongxin@kylinos.cn>
 Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <58599b61-a56b-4d6b-b09f-03d813a64c1c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: YvsySaGddUoce_3NpmTMrY2ogSt6PfGO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX1jQ+wcPZ9hZT
- 8nN2ZXa4mUtq0OuraLhQ+RxM9hEXMx/EOlgT9L3R0QUiwkbejttzMGQ0oqRRmEoV3DaxBU2vKu+
- Zz7P3Va3+29P7cpbIG89Ie1b3CcMLc31PwTVo9e3jyieH4tA7IgowlIPMOo2R2B86LOB5GPX4mG
- I/c57d4BqYt1Hak+lxU4pXHbmycc7Snkgcm9Ii6rbHlf8kUGeEBUCZGyY+MfT20psT31RouAqzV
- ziRymcwMn6Cki3PvAhu0cAKj8UPMZHbPesWe2OuSGTM0T5RFZsbkNjp46eGCbTyCkgADlK6eFny
- f70IxIRFJZiqQiAdScohF4xJOV8eaj+CWp0ogVNvOQ5Wn0po/A5IXrBJNTVU4FeWEid5Qnzkxc0
- Jj1RApFiN/Zko8NeJ84NMc9uOxG/zXcY4HTU6xCT5GTQ+pzDQHTvSU1dLiRyOytVqvwTyufRoAJ
- ZVYWenMaQIPdAApMGlg==
-X-Authority-Analysis: v=2.4 cv=c/A+0h9l c=1 sm=1 tr=0 ts=6ae25f04 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=GEq5pLaLegoqB_85s88A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: YvsySaGddUoce_3NpmTMrY2ogSt6PfGO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX93pgz0XVJmH7
- rWKNHcK36NpgtYEJJVE7Uo62qD9CTln0FX7DiacYH23RTuonRw+8LIRhqXw5VQWAjgEumS1TnOI
- UNYzXi1hPdTI39LIxB1c157nh2EwHCk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280082
+From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
+In-Reply-To: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C4:EE_|CYYPR12MB8853:EE_
+X-MS-Office365-Filtering-Correlation-Id: e423914f-45b5-4e70-1d48-08df35348fcb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|376014|23010399003|1800799024|36860700016|261026121527099003|11063799006|4143699003|56012099006|261021121427099003|261009223027099003|261022075727099003|261022105027099003|261021135927099003|10067099003|18002099003|22082099003|3023799007|261028144727099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	o/KyU1WUseddj54MINBtd51GPmuiMbb14kgiapMYAk/tW7cVaoAATeKrJf1VkE1UkiC75a2kmoQbnRdxrhLtbNz/IcPqqgsX58PowEV3b3kagBNFTNBQTBzqvRiLPtIt8GzjzIwaVhf7kZlJBQZ1ZETJyc6HfsaVJt/r16ONguOXpLY1Ctst8WR2q+MTTJ/VeG4xTniaoSUHjRKyFzV4iEkrckNZFtOxlwhMxj27PITnZB3/mY9EzppS4SmjShAsfYJPMWKh2cDUfDgCkLnGlqB6NK3MMq+/yRMGNx5vhTj/nXDR/jNXPN+wbclbsVG5ufKuPNmkOPK5f5qqGNH8Sf/tQg/81p1K6danAIex/dLEQuTSAj6B8dz0YEHL4EnCG1Og2olyV9WL2MmjvnlX8O4LOvVrCeCpF9IBZsS797kXLbeB3wj2eHwpclkHbMfXobYq/nf6SnE0GtxfN0yBs3f9XSaNL3Cb16N0ZVSXhn/v3Ad4VLo8eDb1KjhzDdNolztG2TAP7+Q4oHqtniZtAZUZJHQ8pIEVhruUm3FXfH46Hz+iyqTkhhvR73EWFvVOxC0KRba6h+SP5bv+5jinVPVbZFOb9EPo6Zfir7Na3mM47KOriyaKdURuLLqB2xDTq1OuH2Is3GXChwrV8rmD1ClGpjB9X8O6XcZlS6fUfUpAVf9c6b/pg5HKq5ofKplGPsHBIied2TDGNSQ9CACt3Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(23010399003)(1800799024)(36860700016)(261026121527099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021135927099003)(10067099003)(18002099003)(22082099003)(3023799007)(261028144727099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dB89aqm36a8Xks5UDtKj9ozXLH/oizmoyYgxaJrRbrOQ2+lCTIUwkMBiO1dj7aMTMT9vTh7pEzm7+CpfG8WD7BdbTv9GEGQ0oDxrmQiI7yqqpLnK3C1nWXCgtEBSqqZR/uE+81fxfkF2v4tzx0zJb7rAhReq53+M0usyd/hYFn64TW6Mdji8KlMpZkteFFrg7Onqr2h/Xa6qEE2+9eGYoZ6i1/6vfvhPs9KSt/7G54v9u4jl6s8BiCAn21lQUh6FeXGbrYB1SmKEFeTVCDueBY2AjOPjN2ChdndROQ0FTCZFIWW0LBWKbtEhsfFyV300TYlk3nodkayY8Xurx0YHZQVOiL14odqfmZ3H2vORHlg1wi3Jv/ugo7rVFC9U+Fg7XqCFKiO2NJAIin21OZDU8e1ZxQtVurdTJ3q6AwsL/4syrf2ms0fPHbMpg465hW8H
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 20:46:37.6238
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e423914f-45b5-4e70-1d48-08df35348fcb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8853
 
-Good catch, yes. I'd dropped the NULL-list check for the
-multi-genpd case too, when it should only have been loosened for the
-single-genpd case this patch actually touches. Applied.
+On 10/28/2026 3:49 AM, Yongxin Yang wrote:
+> From: Yang Yongxin <yangyongxin@kylinos.cn>
+> 
+> The einj_types file under the CXL debugfs directory is never created.
+> 
+> cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+> from einj_init() at module_init level. When cxl_core_init() evaluates
+> einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
+> yet, so the value is always false and the debugfs_create_file("einj_types")
+> call below it is never reached. Users have no way to discover which CXL
+> error types the platform supports from debugfs.
+> 
+> Create the file from both places that can know EINJ is up: cxl_core_init(),
+> which covers the case where cxl_core is a module and einj has already been
+> initialized by the time the module is loaded, and the dport probe path,
+> which covers the built-in case. The dport probe path can run concurrently
+> for different parent ports, each holding only its own device lock, so
+> serialize the check and the create to avoid a duplicate
+> debugfs_create_file() attempt that would only fail with -EEXIST.
+> 
+> Note that this is still a partial fix: an RCH platform returns early from
+> devm_cxl_enumerate_ports() before any dport is added, so einj_types does
+> not appear there. Fixing that requires moving cxl_core_init() after EINJ
+> is probed, or creating the file from cxl_acpi_probe(), both of which are
+> out of scope here.
 
-Regards,
-Anusha
+I'm not a fan of having to write a value to einj_inject to see what values are
+possible to write to einj_inject. Maybe if it was changed to reading einj_inject
+creating einj_types it would be better, but I think I'd rather see the file created
+in cxl_acpi_probe() as a fix.
 
-On 10/28/2026 2:58 AM, Bryan O'Donoghue wrote:
-> On 28/10/2026 05:20, Anusha Arun Nandi wrote:
->> -    if (ret < 0 || csi2phy->pd_list == NULL) {
->> -        if (ret == 0)
->> -            ret = -ENODEV;
->> +    if (ret < 0)
->>           return dev_err_probe(dev, ret, "Failed to attach power-
->> domain list\n");
->> -    }
-> 
-> Shouldn't this be
-> 
-> if (ret < 0 || ( csi2phy->soc_cfg->num_genpds > 1 && csi2phy->pd_list ==
-> NULL) {
-> 
-> i.e. you are dropping the NULL check for the case of multiple power-
-> domains.
-> 
-> ---
-> bod
+I was able to make a quick mock up using your fix here and it wasn't that bad:
 
+diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
+index 0c21dc03a6..4017500ef4 100644
+--- a/drivers/cxl/acpi.c
++++ b/drivers/cxl/acpi.c
+@@ -974,6 +974,8 @@
+ 	if (rc < 0)
+ 		return rc;
+ 
++	cxl_debugfs_einj_add_types();
++
+ 	/* In case PCI is scanned before ACPI re-trigger memdev attach */
+ 	cxl_bus_rescan();
+ 	return 0;
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index f3705ea44d..0b75792a9a 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -811,6 +811,20 @@
+ 
+ DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
+ 
++static struct dentry *cxl_debugfs;
++static struct dentry *einj_types_dentry;
++
++static DEFINE_MUTEX(einj_types_lock);
++void cxl_debugfs_einj_add_types(void)
++{
++	guard(mutex)(&einj_types_lock);
++	if (!einj_types_dentry && einj_cxl_is_initialized())
++		einj_types_dentry = debugfs_create_file("einj_types", 0400,
++							cxl_debugfs, NULL,
++							&einj_cxl_available_error_type_fops);
++}
++EXPORT_SYMBOL_FOR_MODULES(cxl_debugfs_einj_add_types, "cxl_acpi");
++
+ static int cxl_einj_inject(void *data, u64 type)
+ {
+ 	struct cxl_dport *dport = data;
+@@ -2589,8 +2603,6 @@
+ };
+ EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
+ 
+-static struct dentry *cxl_debugfs;
+-
+ struct dentry *cxl_debugfs_create_dir(const char *dir)
+ {
+ 	return debugfs_create_dir(dir, cxl_debugfs);
+@@ -2603,10 +2615,6 @@
+ 
+ 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+ 
+-	if (einj_cxl_is_initialized())
+-		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+-				    &einj_cxl_available_error_type_fops);
++	cxl_debugfs_einj_add_types();
+
+ 	cxl_mbox_init();
+ 
+ 	rc = cxl_memdev_init();
+diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+index baa6df2d36..40be8ea938 100644
+--- a/drivers/cxl/cxl.h
++++ b/drivers/cxl/cxl.h
+@@ -956,4 +956,5 @@
+ 
+ u16 cxl_gpf_get_dvsec(struct device *dev);
+ 
++void cxl_debugfs_einj_add_types(void);
+ #endif /* __CXL_H__ */
+
+---
+
+I only did some quick compile testing with a few common configs and didn't see any errors,
+so take it with a grain of salt. The only issue I see with it at the moment is the debugfs
+init is now partially decoupled from the cxl_core module, but I think that's just a
+maintainability issue instead of a technical one.
+
+You may also be able to get away with removing the locking in cxl_debugfs_einj_add_types()
+since cxl_acpi doesn't force async probe, but I left it there just in case.
+
+Thanks,
+Ben
