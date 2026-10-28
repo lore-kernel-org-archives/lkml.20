@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176589;
-	b=NzptJqyElTRP/IJ7MoHv/5uU5NlhoWd5shNDx9qPkWxOAA2lxlTIXrlbenEhzFGOheRG
-	 RmSTyVAVvJ+m7bBCFDjdc/mOUEtWFSlS0w5lFYrzM7lvej8k1Nmz48a2krXkvv4tFLGdd
-	 Q1GIDpzcS369lEO/C9Vk+mbr/EhmKG1WRJTaRjfforrdPkx7asOSJ6u1Nljr3850rbkbV
-	 nl/A5cWqMGUubW3nA6DBYbzWI4J36pRNDP55Q7OITrZ2uhNJvYDvzMCxTEvI3MAGcSJ0j
-	 htvf9PsgjLejO2qvahXJScK7RpWLzEGrkCvC6HPxwZFGbgsA6mguC6X3ih8A+LV2JUw==
+	t=1793176669;
+	b=dTwbsA6W7NoYoYcIL7z/3CNMseJ67ov5eC6URvR51ZmXKgM+LgiSYACz1IIAuNd7pj1o
+	 N+ewYmcaoJ9rIJ/82asbPueLnShWpfCzzxxcacXOdTOgeCT1CSE8VpJPs3GStRmL8lGTr
+	 5sRUmnYAivBkm4HIdWJmgITJB7nFstUubzmlm9wBHPvWNGIKYwYMAvqTuU/pmxPVsZwNO
+	 4RwxCndL1J6auJ2FyltIhEUeScXwzKRoUDReiZoG5D1ELhd9lKf8cd8VPvR3rR2T+0y9F
+	 6q7nMsf9PTqAK2uulwjfdrlEIK28ke2VdtD7rZKUi3uodwXNX1HPY8Ltyr1/iM/2G3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176669;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=5SoDZH5y48If1elxYBxox/ESd5HONTLAzfzat25FiII=;
-	b=jkbcWgtGeHcbXl5nk2ZIukkcyG8J1XizYLXsbHyjhhCMyhGdSMs8z3MsUBnDN53ywCB0
-	 ggWD3VDz8hGe0dc/qhU9T3xPtBH16NjV4r5CyWgc+71NMMc8K2a1dXNhC6CxdY1O6Om/3
-	 sZtRA8a8hPyi35/yQWfU0Q6gKmsnWlvURmVa6WKoBWUBMolMRZhm5Is9T58hAt4/ulDxS
-	 LhfOkUMAC5HgRlo78RsM3olJZ/pngOV6iYA+GLepfCzUvUdH346vdUrlzzbdsjkM9MWLg
-	 ht6khwFVi25QLWZ8MHbK1I08ssyTCh94Ctf0huELmXIqoOw+o/0MHW6B/X45E320T7A==
+	bh=1wbs7cHydDEQXXO5KItG+AMA3doDxVoVAxLbCzDRe70=;
+	b=ESZkGTm6bp8FDnoVjqNN3xHQ6L7RQJSK/oI6996f+/prWPmd1+4MCC5jppKSAgaAYyYb
+	 0Pz9daicOMewS9kjTBOJ1sIQGzvBp6/U1CxhV0VM2GP381Scdm/JK3j1I3fEYsVeulev1
+	 GCtcexFEhTZWz97ultRFuB0p6C8q++8adMW8b8v5/vKV0IvMIK0W0g5tApPNcp0Z+2j4W
+	 546y+bQPoVKsHZpmj+1wm3+65H8E+U9SxG2p3FNBNN2yElz8QJynoLqhQE5G9OI09iREN
+	 mFicm7HIPBoxODcunRrtVbSjpIks6TXbAiwnDpODMS9sIa2+zqno8jpZWychJIB6yyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gscrHbez;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ppjq6uci;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB25606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FEB606A31A;
+	Wed, 28 Oct 2026 08:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gscrHbez
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53CB1F01825;
-	Wed, 28 Oct 2026 08:36:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ppjq6uci
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCC61F01825;
+	Wed, 28 Oct 2026 08:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793176588;
-	bh=5SoDZH5y48If1elxYBxox/ESd5HONTLAzfzat25FiII=;
+	s=k20260515; t=1793176668;
+	bh=1wbs7cHydDEQXXO5KItG+AMA3doDxVoVAxLbCzDRe70=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gscrHbezavwEXPMK6kRtD1Li4ys3C9HLDDcREx2x3C4ZU+hKrPPb5KQNBUEbdLlQY
-	 ik7pQY48RPsjcXmvEgt4f+rB/CJC2AhN0emliAY8OEThJ8U+DhCWrmYwCva3eDua9L
-	 nTih5IXDxDPGSjm7+mS7lb5Ho6Juj3DaFaQKnqQP1nA3O9YLfBRLAPChxvSOP+FN8A
-	 FLx31mhQFZsIrw43VTDsVQ88/sugKAsqdT2CYk5TMXIuaPB607YtcnDUSHfA5XkZyB
-	 kf5WlT2HMzWa9ZMBYA19s+VfZ1A6JWgDbQVwQx/5/PLbla8SPSwRNr5rOgqzi/FG64
-	 6Tc8/f/0pzpjA==
-Message-ID: <c829f231-3d0f-4f23-9668-06a419a45921@kernel.org>
-Date: Wed, 28 Oct 2026 09:36:22 +0100
+	b=Ppjq6ucixIquylI1RXa0glpRlIx0VRokubeu3+Rd9Zd3zOXS9VnLl/cf7El20ued2
+	 LHGK6Xk9IQaRqA1ZpE5lW55bE8uTquQAGIOd9nbpx+msITLI5rBfXXBi6zLH41Zeqc
+	 PQVQTbbhTl+Xu3JKPXDUPG5SFtltCsZNT5zDz5R5fMPIh9kI/s6nMR6wCLH/WBSttZ
+	 Jd5uHYmnCRco+nGQQ0WjggVO4uKe9cQrI20/3HnGRX8jkvjhI3JLTfX7mJMkM07Cdu
+	 F2b+fzMNBq2vYgLkkqQ8IJadCUPcQEYgH5F/oqVQGjN5I00CKnmk+1zKvUPVkVo3LC
+	 m4OYLuMKXTIMQ==
+Message-ID: <5e980194-d892-4b68-80fe-612c910c29d7@kernel.org>
+Date: Wed, 28 Oct 2026 09:37:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,18 +52,19 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-new] mm/migrate: move NR_KERNEL_FILE_PAGES on
- cross-node migration
-To: Ridong Chen <ridong.chen@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Boris Burkov <boris@bur.io>, Shakeel Butt <shakeel.butt@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Shivank Garg <shivankg@amd.com>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261027043214.2248986-1-ridong.chen@linux.dev>
+Subject: Re: [PATCH v3 0/8] mm: fix allocator races with memory hotplug
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, kernel-team@meta.com,
+ akpm@linux-foundation.org, mhocko@suse.com, rientjes@google.com,
+ shakeel.butt@linux.dev, rostedt@goodmis.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, muchun.song@linux.dev, osalvador@suse.de,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ mgorman@techsingularity.net, anshuman.khandual@arm.com,
+ Bessel.Wang@huawei.com, jiang.liu@huawei.com
+References: <20261021023940.1940971-1-gourry@gourry.net>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,86 +111,34 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261027043214.2248986-1-ridong.chen@linux.dev>
+In-Reply-To: <20261021023940.1940971-1-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 05:32, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
+On 10/21/26 04:39, Gregory Price (Meta) wrote:
+> Eight fixes for allocator paths that can act on state another CPU is
+> updating: zonelists rebuilt by memory hotplug, and the pagesets of a
+> zone that offlining empties.
 > 
-> NR_KERNEL_FILE_PAGES counts page cache folios of mappings flagged
-> AS_KERNEL_FILE (currently the btrfs btree inode).  It is a per-node
-> counter: filemap_add_folio() adds to folio_pgdat() of the new folio and
-> filemap_unaccount_folio() subtracts from folio_pgdat() of the folio
-> being removed.
+> I've packaged these together because they're all related to hotplug.
 > 
-> __folio_migrate_mapping() does not move it when such a folio is
-> migrated to another node, so the source node keeps the count forever
-> and the destination node underflows once the folio is freed.  btree
-> folios are migratable through btree_migrate_folio(), so demotion,
-> DAMON-based migration (DAMOS_MIGRATE_{HOT,COLD}) or memory offlining
-> all hit this.
+> *** Backport note - Patches 5-7 build on patch 1: without it, their
+>     retry is compiled out when CONFIG_MEMORY_HOTREMOVE=n.
 > 
-> Reproducer, on a QEMU guest with two memory tiers (node0 is DRAM with
-> all CPUs, node1 is a CPU-less slower node described via HMAT) and
-> /sys/kernel/mm/numa/demotion_enabled set:
+> Most of these race conditions stem from zonelists being re-ordered
+> in-place at runtime during hotplug.  The result is a mixture of failed
+> allocations, NULL dereferences, incorrect placement (GFP_KERNEL in
+> ZONE_MOVABLE), node misplacement, or incorrectly allowing hugetlb /
+> contig allocations on a node/zone otherwise not eligible.
 > 
->   1. mount a btrfs and create 20000 empty files, so that btree folios
->      are cached on node0;
->   2. echo 2G > /sys/devices/system/node/node0/reclaim, which demotes
->      them to node1;
->   3. umount and drop caches.
-> 
-> nr_kernel_file_pages in /sys/devices/system/node/nodeN/vmstat after
-> each step:
-> 
->                   without this patch     with this patch
->                    node0     node1       node0     node1
->   1. cached         1868         0        1868         0
->   2. demoted        1868         0          36      1832
->   3. dropped        1832         0 (*)       0         0
-> 
->   (*) the counter has underflowed to -1832; negative values read as 0.
-> 
-> The global value in /proc/vmstat is 0 after step 3 in both cases.
-> 
-> Move it together with the other node-keyed page cache counters.  It is
-> a node-only counter, so use the node accessor, matching how it is
-> accounted elsewhere.  Interrupts are disabled here, as for the zone
-> counters below.
-> 
-> This was pointed out by Shivank while reviewing the NR_FILE_THPS fix
-> for the same function.
-> 
-> Fixes: e3a9ac4e866e ("mm: add vmstat for kernel_file pages")
-> Suggested-by: Shivank Garg <shivankg@amd.com>
-> Assisted-by: LLM
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/migrate.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 99e3026e3126..f829c5017c96 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -705,6 +705,12 @@ static int __folio_migrate_mapping(struct address_space *mapping,
->  			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
->  			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
->  		}
-> +		if (test_bit(AS_KERNEL_FILE, &mapping->flags)) {
-> +			__mod_node_page_state(oldzone->zone_pgdat,
-> +					      NR_KERNEL_FILE_PAGES, -nr);
-> +			__mod_node_page_state(newzone->zone_pgdat,
-> +					      NR_KERNEL_FILE_PAGES, nr);
-> +		}
->  #ifdef CONFIG_SWAP
->  		if (folio_test_swapcache(folio)) {
->  			mod_lruvec_state(old_lruvec, NR_SWAPCACHE, -nr);
+> Most of these are incredibly narrow race conditions, but since the most
+> likely impacted machines are VMs with memory hotplug, the narrow
+> condition can more easily occur when a vCPU takes a long interrupt / VM
+> exit of some kind.  I've made all of these race conditions
+> deterministics with a kprobe reproduction module described below.
 
-Today I learned about NR_KERNEL_FILE_PAGES :D
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+What's the status of this? "memory hotplug" caught my attention, but then then
+is all page_alloc material :)
 
 -- 
 Cheers,
