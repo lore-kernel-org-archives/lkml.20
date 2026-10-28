@@ -1,169 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793197166;
-	b=08rXgNG8NHfxLYKd5IZ/9sRplgVi5G4e6C7bG97ulA6DnfEMSu7w0h4fyup2f9QjhklR
-	 yF5K5vgVQXSlqTaUhjtYg36Q9AbnHd0nu4Xs6I2b6kdLg2PpZkg+UKBF1y9+cHdF9gPYH
-	 wT3pyw4FFN0kzb+sq2QO8mO6+t9qlGjkx+d662EuMur9mKKuL9t3GgZ/JPMz1S4xye9iV
-	 RzkGa4UY1kqGqQy03JK+ImLTLEU+vFmTKjv+nzI4VYfPKwSI0XEkffVKfCrWhHDFBnCGG
-	 R4ydfgAdlJ9HPcDnHOb6qWqBBy6rfQWwaU/P/4bbIFR2edaAgF/kfSpa7nVz+pLFEBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197166;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
-	b=eGgVzNRSFfgC4mMwzuB7ESonijOdcavj1grDxG4m68Qo6nfBznn+fMuQ04HZpYZCzWaF
-	 trB/B1bNDeMuv+Joyr/eogFkQOY7/MgYqnxVFXjIdcsDsydqSG1In0j9LSoTksetGXOhy
-	 jyRoAZdmzk28iRpB2rW8Li5oHWg1LjZGdTPu/UlNE5NXb2BjHI8HX/ZPcrrfjgz7NmlZw
-	 19dMoM2nKH6iLt+6pmwxvdqs5IEZU0LUpdICPg13O6GnzjXibkG1S2mgAFBvBhvYjZJLS
-	 Cxa3am2KOEUr5ZyPHwcEeaKwwVDEx56EhxaVWfc0gydc26LixPJUKc7DSc0jY+vAt8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7tRupHG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.33
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793197178;
+	b=2BIFEHVHoiESuJ7qn6BtBRoXNNlWBPgI27VhCcISZeNvdu+qwDTVj+HvW0qyUOL/PYYA
+	 TDpebpiatAcWIRMPphqBQ74Phj7Nr0hoGi5t2VNOmnv0Nivbsbl23VkUQzFiylCyijrd6
+	 Mu9muJXT0ldcNJfltou4WkHe/K6tb3WxuuE0jabox2KB6GV5myitG2TTo6kA2ykNaWcov
+	 jJDWHzxXBAAgfDM7OaUQHeMyBmnLJYvMqrzvE0ev7J3QXC3CJ/q5l4yxPXyYHhCWvF9BI
+	 r01MmMm4KF/AANowPRiOklx8x1YDyoGXhV0A7L0F3J47A5cBji5n10br/jFtvc7gneQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197178;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=IE1dQwsn2jE0gasxRrr5PsQumz7V2Y62yt7VQg4tzAA=;
+	b=oSNwF4Usw9b3XPyiMhhR+VSEHKwD+rq0TTUwpCXVcc0SeZIcZ0qSbNG2GMDhxhkczXvf
+	 2oVBUfV1P2FH6tr7Jd7XDodjxyUPOjBJ7v58G8Cl6Iy8rLN46Jz8gkmKiSbHeM2GwpAWE
+	 Duu5Jvr49snYPvl7J0p083Tw8V1Afxr56np5UdybKi1cEPdIGI9JAn7Mm/rLIss6uvW1t
+	 V+bfW4IVY9Qkyf7fWnLW9Byd8DrAKewGSD0oc/WUdSBFvA0VfsKzmgdVTg58ExQ+w6Ibk
+	 2Htg97hznBNcqJwME6oeg6jDW0i8BVyJAQpKKg+kuScCAB6keI+DD1d4lmlw/rwRUwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jBJ+2C0C;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="wpfC6k/h";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jBJ+2C0C;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="wpfC6k/h";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7862360A2604
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7862360A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE27606A321;
+	Wed, 28 Oct 2026 14:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BE27606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=K7tRupHG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cKB4eKbRjH8P066G9rcmIGoDL8O/wfcjlL5GulEq80weJ5DgrpDLmB1OgkyOEIKy3f4Ay9+Bo5vdn7qfKSvTIbSpWm6UckXM4A+vFrK1FnZucPFIp0yLB3BM5AXsLH7GaA5LksKEllss/b9T9kiMgmrFtA38TxmPEFMM99JJjt2QjO9MsMhkPowrXvnVDqMflaf6lZSS728HWaOw17JAcVqIznLoBao9WC0ayADCaycW0d63o2CSf7+rLh7dDjr49q1yU0ixazBMhtpT86YdUJlK0k2cy9IjTZo/E8PrAgCU2vUL/wUfbpyvENYO2rnxaDb4nBplKuHd8oKNz6QbHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
- b=hjqGd2R4vqCYFv8rtBjYZNMLOzq/DXcQ2s6k9imQdctRIZIMl4q8/AAvKY1+SnuUoI3EzNSs+6a8G7IgDZJ636s8VxTnTjx20aKuv6SSp8fTPm5GnWcBa2HwgHQAdSHrRKM8zmDubywaYh5g5SL93RpR0KvvdkpXYeNAuKuPL9YwK4/nEPpPbDNuVqVGGLRSR3tZSlIehIKYPOpRYec/WdfY5PThbYCENi3zUn3Xwx3vdUs2h1UFaWZWOidBhy9JDBdN7bEVLzBkDelR4idROefChsJakpd9x+g8EgeKEdFa4gVl6yMhsmcQVv7YyWC+f6ykSWDYJtzzGRDlrreu8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=402DHg2gWrnziKcvELGyUogx/pxVdZr183tfFQx6Fto=;
- b=K7tRupHGjzzfY+Z0nKx0q5/XytfoiS6pcHMdZR8v0Cm4AFmKKw9EnI5iYHQ8RjMnNkRchvVwv+V7s9ZGhz4/rWxdQXEsH+aSI1KgP5p4ZvcqRTr4pI73p65gnbDHKHf+9ihLadaDFd0K3d7a3EmBqVlTzfTDAO5UGsVH4Q+EYowrbIe7+1p8dsUSSIQGSFtEE/bIbnCpfdPekYMRemTlio/XNKdX17c76xbUcmIG0fWDbhLvsLlknXCDYsdv/821BP0na5xMtQmz8kLdt0+QfT/Ip5C/Qgx9KH10RiywQ6C0X5AQRjlu16mtY+vOEYX0yPs/9aquPo2NTY5Lhl7lYQ==
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com (2603:10b6:a03:47d::17)
- by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 14:19:17 +0000
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b]) by SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b%5]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
- 14:19:17 +0000
-From: Shameer Kolothum Thodi <skolothumtho@nvidia.com>
-To: Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
-	"joro@8bytes.org" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
-	"rafael@kernel.org" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>
-CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Gavin Shan <gshan@redhat.com>, Vikram Sethi <vsethi@nvidia.com>, Anshuman
- Khandual <anshuman.khandual@arm.com>, Shanker Donthineni
-	<sdonthineni@nvidia.com>, Mostafa Saleh <smostafa@google.com>,
-	"rppt@kernel.org" <rppt@kernel.org>, Thomas Huth <thuth@redhat.com>, Marc
- Zyngier <maz@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
-	"kas@kernel.org" <kas@kernel.org>, Kohei Enju <enju.kohei@fujitsu.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, Ard Biesheuvel <ardb@kernel.org>,
-	James Morse <james.morse@arm.com>, Steven Price <steven.price@arm.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>, Omar Sandoval <osandov@fb.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Jinjie Ruan
-	<ruanjinjie@huawei.com>, Sam Edwards <cfsworks@gmail.com>, Douglas Anderson
-	<dianders@chromium.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
-	Chen-Yu Tsai <wenst@chromium.org>, Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Pranjal Shrivastava
-	<praan@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>, "driver-core@lists.linux.dev"
-	<driver-core@lists.linux.dev>, Sonang Patel <sonangp@nvidia.com>, Ankit
- Agrawal <ankita@nvidia.com>
-Subject: RE: [PATCH v1 7/8] iommu: Park TDISP T=0 devices in the blocking
- domain
-Thread-Topic: [PATCH v1 7/8] iommu: Park TDISP T=0 devices in the blocking
- domain
-Thread-Index: AQHdQNVJsIEcU7+R30ubkYzGNAOtD7cTTLzw
-Date: Wed, 28 Oct 2026 14:19:17 +0000
-Message-ID:
- <SJ0PR12MB8614232EFC74C584CB44AD28AB6F2@SJ0PR12MB8614.namprd12.prod.outlook.com>
-References: <cover.1789010941.git.nicolinc@nvidia.com>
- <0d57c59aa3cae891e9d3e07e939e13918a4e99a0.1789010941.git.nicolinc@nvidia.com>
-In-Reply-To:
- <0d57c59aa3cae891e9d3e07e939e13918a4e99a0.1789010941.git.nicolinc@nvidia.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB8614:EE_|MN2PR12MB4078:EE_
-x-ms-office365-filtering-correlation-id: ddae15b1-f915-43e5-a6a2-08df34fe735e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|921020|38070700021|11063799006|4143699003|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261021135927099003|261022075727099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- SNL/2U+6LZBx4p/dsDH3aXNOUU/lDzNxuxXiuc4q9h35CztBAQ7z7VHsR/QpIU4kHfER99bR4MMMj4A2Swpl2iJ08MbaUXiEaMA93FUy5JyYYTkElDGOlJs/bVkdHZHudTCE9ejgNGXcIxz7DyZfj821CgK+E0fxrgKIBhcJaBfu9rvlEcssxtkqriG1IfWMpN/r4mnE5woZE/KOm9ajILt46KPu7yH3TuESiRnrY2YDqMcOrKdirmfhEh6Yl4EkmhNTWVq/o5aYQwEdJcFipgy84qyTdLzowhDIie2gmv93Id2oqbc/5C8FhdzfkISslgIqFaulJI4kcRmN35bZ5jY5XDNSKuBiiGTJryvPatd7BJZbkqT4/2EuqIbKoXT4esq5+YWd0dVfkwWv6Gqz0wLcWtJs+uJAvgWJnO1NcwC8hMclEi6/qoUg2fk9ZXUZw7dJuVbF3xHOQkWnOaS9ebnSpbke2HrjLA9pcV6X3NX52HXJRgWj4cYGUxf9cTP8t7xtudCaAVNKhEWC1qSBtOVa1S97xkbcZ1j81yuENBka+jD5mn/mak5KummFRLYLQtVNjgzTTdXUU9JMYjjobD0sYJVVqf3skr2hzhT9q30BOuPspdxsSwirzPXa+I5xj1ifhAuV/Daxb/rGL67SbykTVRctY4WguBMajLUf9qcx/y57w17beF/nf29qrTTkE5AIJQRiYB/OCuIqI3X1ave/RarWNw8pkZ7YaU6EOEq5Up6MiePeKy2/cfqXALw0
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB8614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(921020)(38070700021)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261021135927099003)(261022075727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?pbFRXyOCu76o/P4zz5umYHVPrY/XeQ1BFg/ACkkgCfNIf0okHI2RUpGTCoZU?=
- =?us-ascii?Q?BmMOSgdr5d3tN88bR726LU9d5qY6BXEZNR5vRTDpRYaDSc+v87UuypqZbK2j?=
- =?us-ascii?Q?d36VsMdGdG0JFu+eujggxlRPpcpgFsTg+2J/Vn9gfFTjTs+fiP14F6J78MUZ?=
- =?us-ascii?Q?Hw4w1Z5o9qqVcQGqM7FPcQAZM1EcRq0YrWCNzT8W6asuZQNdyrkPPRa8xrHl?=
- =?us-ascii?Q?VtCbuUv9h6VeovzZWejoMEC7oGnn8p8Xs4kGItc7Zrs2LL8ihCROCFN8gRF5?=
- =?us-ascii?Q?dOYPjzt3J/N49aCTeND5xGjlAud8cct0HV8M+RjvkUNV572XRL7ActDr9X13?=
- =?us-ascii?Q?QHDOcjq7yKP2f0D6y+uKxWvj8Ncg+lMYAPCCwT4haGCLmsF/TiADojAptqZH?=
- =?us-ascii?Q?fCMqRg7n6Z5ufAKIkWhxjGcjwYpOpVbDfPjpfiDeeRc4WINAJA9chAxaj84K?=
- =?us-ascii?Q?88hCeDuueBYVt2qfaNC0FtnnxE/9WSoQGUcyDZjZLX1nltAVTXwcedLo5mD4?=
- =?us-ascii?Q?IzuQBK+wqQXdx4k8n01NFYrvxJxvMQ6ht50fj5zQDtzeYXgcN8WRqkwkvhAv?=
- =?us-ascii?Q?1EHEWQajjW0TyIfJswODpzNpqX3coQlXmOYxJ+W1dfev3QeAs7Zn/0cz+taO?=
- =?us-ascii?Q?At0R2He2sSlZuHOAR6oyo6kOQunRROsDtvUftacLwcx3XbI5RZwaA56L25/E?=
- =?us-ascii?Q?K9mQRlFB/Wr88hZeUBgbhT/tB/aDmzeVGOPWXO/w+9t9KCPKWKrZdxkgXsor?=
- =?us-ascii?Q?tEwKVxMv9s5KMPEarrnP+FNs3xKBC0D2ylAQ0PFY0spJgAbXIe3Z77ZOO/xv?=
- =?us-ascii?Q?IRKIyAmUbwlyCQwZTE8SRTsAYz8UhofD5YYohBDMS0EqD3tsJBR1ZCFZzSZL?=
- =?us-ascii?Q?B9aEn+GoQy1VY7XQgvrJXJ/92FYJKj1pD6UnhGi+Cv2T/uzkcfKvAz84RfXj?=
- =?us-ascii?Q?lz6caxTiWUAjpW+68Bm2KY9CVbMERArExgCdHuYKfzjK8GmZfLwUQUCcJF7j?=
- =?us-ascii?Q?qoV5rvnhPGTSabmYDj7sleOto9T5yO1I8n7ogsRHBBcm0FTWzw0WLyACI3mi?=
- =?us-ascii?Q?VxfFjqapESJtjD93BtQrbBEA/gqG7nUgSm4jWZOQJZvAWWWGkw+vljFJ/cEQ?=
- =?us-ascii?Q?r12BzeUB2jFlH0lSeyFlNl7jU8+mCoNt+mmx8Ufgz2KIQt288NR7feK/uQd0?=
- =?us-ascii?Q?hMUk3rdeOo9yFKI03FyqTwt0B6uaWvCZZ1Z745fJVQpPnFmo3XENZcNWN7WQ?=
- =?us-ascii?Q?v1kRRmOC011ZkPckRTQTbgT5bmF34AlU3wwWrwrccsOG0uNMmeqngm8+cIBG?=
- =?us-ascii?Q?5gn5RIRIIfvfaduG16raYytYqiSQ/hc8x7CBbzucdAbHbPvN6F+YDKDkE95u?=
- =?us-ascii?Q?uBTT3T71L0Fv9q3v98L1cTudFOpI5hyMjIfBMycJrjf3owahMGzsRnghyiL7?=
- =?us-ascii?Q?2CbjPFOXK3CACdD5pgjIKAMMOPC8xELa9mBXUPN63yv+hFrHyguYHUGU02H3?=
- =?us-ascii?Q?fUkRPj1bZrC49MAi7QV22Y0gO0MadA+yBfbhwAPY0sgi2QRhCQpPSib1dlVv?=
- =?us-ascii?Q?EnLKjGRwwMVIIivZJugIf7B7aWgSx1+tYFTjP1meWCl8LpSSMVWtTu1y3S8V?=
- =?us-ascii?Q?inI3z/m9A21LxEajbRzT5qWcoz41/6oRce5VZ0RJlCTp5LkkjcYW0ManVLjw?=
- =?us-ascii?Q?i0IcDFHAMOkq3C1L+rRkLNUjJNmXQQ7xeTQlRtV81c5d37WNmfbiaETQ/y9+?=
- =?us-ascii?Q?421fd+eo8A=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jBJ+2C0C;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wpfC6k/h;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jBJ+2C0C;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wpfC6k/h
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3504222132;
+	Wed, 28 Oct 2026 14:19:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793197175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IE1dQwsn2jE0gasxRrr5PsQumz7V2Y62yt7VQg4tzAA=;
+	b=jBJ+2C0CA+qyDkA0CB561g20ng/HzIXP8LicitMnPnmkVQx109zC5tZ7+5aKPEhsLeisdE
+	jK5yhq4ickEqFV1X2ltoMA4ix94r2PKrrwNisrfZPSCHWfRRpgQeSz2GEPxuXQSHO3GCVp
+	XXasBcH/Buv10rv+VSJ+/jdcrD7sC8A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793197175;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IE1dQwsn2jE0gasxRrr5PsQumz7V2Y62yt7VQg4tzAA=;
+	b=wpfC6k/hOGuRFig+KmkT9a8yH5KF3FrFuiKJ+5fGuWA20iGoMR8OXaSKyNLq5t7ueSZ+am
+	hrcNIHe58AkzyIBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793197175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IE1dQwsn2jE0gasxRrr5PsQumz7V2Y62yt7VQg4tzAA=;
+	b=jBJ+2C0CA+qyDkA0CB561g20ng/HzIXP8LicitMnPnmkVQx109zC5tZ7+5aKPEhsLeisdE
+	jK5yhq4ickEqFV1X2ltoMA4ix94r2PKrrwNisrfZPSCHWfRRpgQeSz2GEPxuXQSHO3GCVp
+	XXasBcH/Buv10rv+VSJ+/jdcrD7sC8A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793197175;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IE1dQwsn2jE0gasxRrr5PsQumz7V2Y62yt7VQg4tzAA=;
+	b=wpfC6k/hOGuRFig+KmkT9a8yH5KF3FrFuiKJ+5fGuWA20iGoMR8OXaSKyNLq5t7ueSZ+am
+	hrcNIHe58AkzyIBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 859FF1342F;
+	Wed, 28 Oct 2026 14:19:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id j3khFXYE4mrGbgAAD6G6ig
+	(envelope-from <hare@suse.de>); Wed, 28 Oct 2026 14:19:34 +0000
+Message-ID: <b50b1b89-9a8c-4527-9a6f-e213952853d7@suse.de>
+Date: Wed, 28 Oct 2026 15:19:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -173,140 +106,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddae15b1-f915-43e5-a6a2-08df34fe735e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 14:19:17.1619
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JscbrpawtEr55MYsvM2Wyh5SXfI+iX4hs4nlG0WL+Asce+hgn4s2GuyVfCR1XfDCGvW7P7V5coInl4/xmGnpGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC net-next v2 3/5] tls: update the RX key when a
+ KeyUpdate is received
+To: martin.nvme.dev@gmail.com, John Fastabend <john.fastabend@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>,
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Martin Belanger <martin.belanger@dell.com>
+References: <20261028-keyupdate-rfc-v2-0-eb5143b4c487@gmail.com>
+ <20261028-keyupdate-rfc-v2-3-eb5143b4c487@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261028-keyupdate-rfc-v2-3-eb5143b4c487@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,queasysnail.net,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.79
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-
-
-> -----Original Message-----
-> From: Nicolin Chen <nicolinc@nvidia.com>
-> Sent: 10 September 2026 04:33
-> To: Jason Gunthorpe <jgg@nvidia.com>; Catalin Marinas
-> <catalin.marinas@arm.com>; Will Deacon <will@kernel.org>;
-> joro@8bytes.org; Robin Murphy <robin.murphy@arm.com>;
-> rafael@kernel.org; Danilo Krummrich <dakr@kernel.org>; Marek Szyprowski
-> <m.szyprowski@samsung.com>; aneesh.kumar@kernel.org
-> Cc: Mark Rutland <mark.rutland@arm.com>; Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org>; Suzuki K Poulose
-> <suzuki.poulose@arm.com>; Gavin Shan <gshan@redhat.com>; Vikram Sethi
-> <vsethi@nvidia.com>; Anshuman Khandual
-> <anshuman.khandual@arm.com>; Shanker Donthineni
-> <sdonthineni@nvidia.com>; Mostafa Saleh <smostafa@google.com>;
-> rppt@kernel.org; Thomas Huth <thuth@redhat.com>; Marc Zyngier
-> <maz@kernel.org>; Ryan Roberts <ryan.roberts@arm.com>; kas@kernel.org;
-> Kohei Enju <enju.kohei@fujitsu.com>; Shaopeng Tan
-> <tan.shaopeng@jp.fujitsu.com>; Ard Biesheuvel <ardb@kernel.org>; James
-> Morse <james.morse@arm.com>; Steven Price <steven.price@arm.com>;
-> Sang-Heon Jeon <ekffu200098@gmail.com>; Omar Sandoval
-> <osandov@fb.com>; Andrew Morton <akpm@linux-foundation.org>; Jinjie
-> Ruan <ruanjinjie@huawei.com>; Sam Edwards <cfsworks@gmail.com>;
-> Douglas Anderson <dianders@chromium.org>; Florian Fainelli
-> <florian.fainelli@broadcom.com>; Chen-Yu Tsai <wenst@chromium.org>;
-> Huacai Chen <chenhuacai@kernel.org>; Thomas Zimmermann
-> <tzimmermann@suse.de>; Pranjal Shrivastava <praan@google.com>; Ashish
-> Mhetre <amhetre@nvidia.com>; Shameer Kolothum Thodi
-> <skolothumtho@nvidia.com>; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; iommu@lists.linux.dev; driver-core@lists.linux.de=
-v;
-> Sonang Patel <sonangp@nvidia.com>; Ankit Agrawal <ankita@nvidia.com>
-> Subject: [PATCH v1 7/8] iommu: Park TDISP T=3D0 devices in the blocking
-> domain
->=20
-> A TDISP T=3D0 device stays associated with its guest T=3D1 vIOMMU, yet do=
-esn't
-> use that IOMMU for DMA translation. Instead, park its guest-visible strea=
-m
-> in the driver's blocking domain.
->=20
-> Linux's model requires a device to either use T=3D0 or T=3D1. Aside from =
-MSI,
-> it cannot use T=3D0 for normal DMA once moved into T=3D1 mode, since the =
-device
-> will have IOVA's that are not valid in T=3D0.
->=20
-> Select the blocking domain before normal default-domain policy is applied=
-.
->=20
-> Direct-map reserved regions are still fine, because the T=3D0 stream alwa=
-ys
-> goes to an identity mapping. Skip them here, as recording the request wou=
-ld
-> only refuse the device its blocking domain.
->=20
-> Reject sysfs domain changes, driver-managed group attachment, and any
-> PASID
-> attachments that would install a translating domain. The state is uniform
-> across each group because all devices on a confidential IOMMU start in T=
-=3D0.
->=20
-> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+On 10/28/26 2:52 PM, Martin Belanger via B4 Relay wrote:
+> From: Martin Belanger <martin.belanger@dell.com>
+> 
+> When a KeyUpdate arrives, kTLS blocks reads with -EKEYEXPIRED until
+> the user installs the next key. A kernel user such as nvme-tcp or
+> sunrpc never does, so the connection stalls.
+> 
+> For a socket with a registered RX secret, derive the next key and
+> install it when the KeyUpdate is decrypted. The record is not passed to
+> the user, so recvmsg(), splice() and read_sock() go on to the next
+> record. Without a registered secret the behavior is unchanged.
+> 
+> A KeyUpdate that is not alone in its record, has a wrong length or an
+> invalid request_update value ends the connection, as RFC 9846 section
+> 4.7.3 requires. So does a peer that sends more than 8 KeyUpdates in one
+> second, the same limit as GnuTLS.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
 > ---
->  drivers/iommu/iommu.c | 49
-> ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 48 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index 7ac6569af6773..d6b00e0373f5c 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -1238,6 +1238,14 @@ static int
-> iommu_create_device_direct_mappings(struct iommu_domain *domain,
->  	unsigned long pg_size;
->  	int ret =3D 0;
->=20
-> +	/*
-> +	 * The direct-map reserved regions are still fine because the T=3D0 str=
-eam
-> +	 * always goes to an identity mapping. Skip them: recording the
-> request
-> +	 * would only refuse the device its blocking domain.
-> +	 */
-> +	if (iommu_using_t0_stream(dev))
-> +		return 0;
+>   include/net/tls.h       |   7 +++
+>   net/tls/Makefile        |   3 +-
+>   net/tls/tls.h           |   2 +
+>   net/tls/tls_keyupdate.c | 150 ++++++++++++++++++++++++++++++++++++++++++++++++
+>   net/tls/tls_sw.c        |  43 ++++++++++++--
+>   5 files changed, 198 insertions(+), 7 deletions(-)
+> 
+> diff --git a/include/net/tls.h b/include/net/tls.h
+> index aacc6d12226e..a5bc28a7d1f5 100644
+> --- a/include/net/tls.h
+> +++ b/include/net/tls.h
+> @@ -63,6 +63,11 @@ struct tls_rec;
+>   
+>   #define TLS_HANDSHAKE_KEYUPDATE		24	/* rfc8446 B.3: Key update */
+>   
+> +/* KeyUpdate: msg_type, 24-bit length, request_update (RFC 9846 4.7.3) */
+> +#define TLS_KEYUPDATE_MSG_SIZE		5
+> +#define TLS_KEY_UPDATE_NOT_REQUESTED	0
+> +#define TLS_KEY_UPDATE_REQUESTED	1
 > +
->  	pg_size =3D domain->pgsize_bitmap ? 1UL << __ffs(domain-
-> >pgsize_bitmap) : 0;
->=20
->  	if (WARN_ON_ONCE(iommu_is_dma_domain(domain) && !pg_size))
-> @@ -1790,11 +1798,22 @@ __iommu_group_alloc_default_domain(struct
-> iommu_group *group, int req_type)
->  static struct iommu_domain *
->  iommu_group_alloc_default_domain(struct iommu_group *group, int
-> req_type)
->  {
-> -	const struct iommu_ops *ops =3D
-> dev_iommu_ops(iommu_group_first_dev(group));
-> +	struct device *first =3D iommu_group_first_dev(group);
-> +	const struct iommu_ops *ops =3D dev_iommu_ops(first);
->  	struct iommu_domain *dom;
->=20
->  	lockdep_assert_held(&group->mutex);
->=20
-> +	/*
-> +	 * When in T=3D0 mode the T=3D1 vIOMMU must always be set to
-> BLOCKED to
-> +	 * release control of ATS.
+>   #define TLS_AAD_SPACE_SIZE		13
+>   
+>   /* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
+> @@ -142,6 +147,8 @@ struct tls_sw_context_rx {
+>   	u8 zc_capable:1;
+>   	u8 reader_contended:1;
+>   	bool key_update_pending;
+> +	u8 key_update_count;		/* received in this window */
+> +	unsigned long key_update_window;	/* jiffies */
+>   
+>   	struct tls_strparser strp;
+>   
+> diff --git a/net/tls/Makefile b/net/tls/Makefile
+> index 6edcf1271b75..ce8ac6a59f8c 100644
+> --- a/net/tls/Makefile
+> +++ b/net/tls/Makefile
+> @@ -7,6 +7,7 @@ CFLAGS_trace.o := -I$(src)
+>   
+>   obj-$(CONFIG_TLS) += tls.o
+>   
+> -tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o
+> +tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o \
+> +	 tls_keyupdate.o
+>   
+>   tls-$(CONFIG_TLS_DEVICE) += tls_device.o tls_device_fallback.o
+> diff --git a/net/tls/tls.h b/net/tls/tls.h
+> index b2061f6bf065..63ece8074985 100644
+> --- a/net/tls/tls.h
+> +++ b/net/tls/tls.h
+> @@ -149,6 +149,8 @@ int init_prot_info(struct tls_prot_info *prot,
+>   		   const struct tls_cipher_desc *cipher_desc);
+>   int tls_hkdf_expand_label(const u8 *secret, size_t secret_len,
+>   			  const char *label, u8 *out, size_t out_len);
+> +int tls_keyupdate_rekey(struct sock *sk, int tx);
+> +int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb);
+>   int tls_set_sw_offload(struct sock *sk, int tx,
+>   		       struct tls_crypto_info *new_crypto_info);
+>   void tls_update_rx_zc_capable(struct tls_context *tls_ctx);
+> diff --git a/net/tls/tls_keyupdate.c b/net/tls/tls_keyupdate.c
+> new file mode 100644
+> index 000000000000..543bf57599c7
+> --- /dev/null
+> +++ b/net/tls/tls_keyupdate.c
+> @@ -0,0 +1,150 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/* Copyright (c) 2026 Dell Technologies Inc. or its subsidiaries.
+> + *
+> + * TLS 1.3 KeyUpdate, RFC 9846 sections 4.7.3 and 7.2.
+> + *
+> + * A TLS 1.3 peer can change the key of the direction it sends in at any
+> + * time. It sends a KeyUpdate message, then encrypts all later records
+> + * with the next key. A sender must also change its key before the key
+> + * has protected too many records (section 5.5).
+> + *
+> + * The next key is derived from the application traffic secret, not from
+> + * the current key. User space gives the kernel only the key and IV, so
+> + * the kernel cannot derive the next key on its own. Without the secret,
+> + * a received KeyUpdate goes to the application, and the kernel stops
+> + * decrypting until the application installs the next key with TLS_RX.
+> + *
+> + * With TLS_TX_TRAFFIC_SECRET or TLS_RX_TRAFFIC_SECRET, user space also
+> + * gives the kernel the secret of that direction. The kernel then handles
+> + * KeyUpdate itself. This file derives and installs the next key, and
+> + * processes a received KeyUpdate. tls_sw.c sends KeyUpdate messages.
+> + */
+> +
+> +#include <linux/jiffies.h>
+> +#include <linux/skbuff.h>
+> +#include <net/strparser.h>
+> +#include <net/tls.h>
+> +
+> +#include "tls.h"
+> +
+> +/* A peer that sends more KeyUpdates than this in one second ends the
+> + * connection. Each one costs three HMACs and a new key, and carries no
+> + * data.
+> + */
+> +#define TLS_KEYUPDATE_RX_MAX_PER_SEC	8
+> +
+> +/**
+> + * tls_keyupdate_rekey - install the next key of one direction
+> + * @sk: socket
+> + * @tx: non-zero for the transmit direction
+> + *
+> + * Derive the next application traffic secret from the registered one,
+> + * then its key and IV, and install them. The record sequence number
+> + * restarts at zero.
+> + *
+> + * Return: 0 on success, or a negative errno. On error the installed key
+> + * and the registered secret do not change.
+> + */
+> +int tls_keyupdate_rekey(struct sock *sk, int tx)
+> +{
+> +	struct tls_context *ctx = tls_get_ctx(sk);
+> +	struct tls_traffic_secret *secret;
+> +	const struct tls_cipher_desc *cipher_desc;
+> +	u8 iv[TLS_MAX_SALT_SIZE + TLS_MAX_IV_SIZE];
+> +	u8 next[TLS_MAX_TRAFFIC_SECRET_SIZE];
+> +	union tls_crypto_context tmp = {};
+> +	struct tls_crypto_info *info = &tmp.info;
+> +	int rc;
+> +
+> +	secret = tx ? &ctx->tx_secret : &ctx->rx_secret;
+> +	cipher_desc = get_cipher_desc(ctx->prot_info.cipher_type);
+> +	if (!cipher_desc || !secret->len ||
+> +	    cipher_desc->salt + cipher_desc->iv > sizeof(iv))
+> +		return -EINVAL;
+> +
+> +	/* version and cipher_type; the rest of tmp stays zero */
+> +	*info = tx ? ctx->crypto_send.info : ctx->crypto_recv.info;
+> +
+> +	rc = tls_hkdf_expand_label(secret->data, secret->len, "traffic upd",
+> +				   next, secret->len);
+> +	if (rc)
+> +		goto out;
+> +
+> +	rc = tls_hkdf_expand_label(next, secret->len, "key",
+> +				   crypto_info_key(info, cipher_desc),
+> +				   cipher_desc->key);
+> +	if (rc)
+> +		goto out;
+> +
+> +	rc = tls_hkdf_expand_label(next, secret->len, "iv", iv,
+> +				   cipher_desc->salt + cipher_desc->iv);
+> +	if (rc)
+> +		goto out;
+> +
+> +	memcpy(crypto_info_salt(info, cipher_desc), iv, cipher_desc->salt);
+> +	memcpy(crypto_info_iv(info, cipher_desc), iv + cipher_desc->salt,
+> +	       cipher_desc->iv);
+> +
+> +	rc = tls_set_sw_offload(sk, tx, info);
+> +	if (rc)
+> +		goto out;
+> +
+> +	memcpy(secret->data, next, secret->len);
+> +
+> +out:
+> +	memzero_explicit(next, sizeof(next));
+> +	memzero_explicit(iv, sizeof(iv));
+> +	memzero_explicit(&tmp, sizeof(tmp));
+> +
+> +	return rc;
+> +}
+> +
+> +/**
+> + * tls_keyupdate_rx - process a received KeyUpdate
+> + * @sk: socket
+> + * @skb: the decrypted record, which starts with a KeyUpdate message
+> + *
+> + * Called with the socket locked, for a direction with a registered
+> + * secret. The caller does not pass the record to the user.
+> + *
+> + * Return: 0 on success, or a negative errno if the connection must end.
+> + */
+> +int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb)
+> +{
+> +	struct tls_context *ctx = tls_get_ctx(sk);
+> +	struct tls_sw_context_rx *rx_ctx = tls_sw_ctx_rx(ctx);
+> +	const struct strp_msg *rxm = strp_msg(skb);
+> +	u8 msg[TLS_KEYUPDATE_MSG_SIZE];
+> +	int rc;
+> +
+> +	/* A KeyUpdate must end its record (section 5.1). Another message
+> +	 * in the same record is not supported.
 > +	 */
-> +	if (iommu_using_t0_stream(first)) {
-> +		if (!ops->blocked_domain)
-> +			return ERR_PTR(-EINVAL);
-> +		return ops->blocked_domain;
+> +	if (rxm->full_len != sizeof(msg) ||
+> +	    skb_copy_bits(skb, rxm->offset, msg, sizeof(msg)))
+> +		return -EBADMSG;
+> +
+> +	/* msg_type, a 24-bit length of 1, then request_update */
+> +	if (msg[1] || msg[2] || msg[3] != 1)
+> +		return -EBADMSG;
+> +	if (msg[4] != TLS_KEY_UPDATE_NOT_REQUESTED &&
+> +	    msg[4] != TLS_KEY_UPDATE_REQUESTED)
+> +		return -EBADMSG;
+> +
+> +	if (!rx_ctx->key_update_count ||
+> +	    time_after(jiffies, rx_ctx->key_update_window + HZ)) {
+> +		rx_ctx->key_update_window = jiffies;
+> +		rx_ctx->key_update_count = 0;
+> +	}
+> +	if (++rx_ctx->key_update_count > TLS_KEYUPDATE_RX_MAX_PER_SEC)
 
-How is MSI allocation handled for T=3D0 devices? The ITS calls
-iommu_dma_prepare_msi(), which appears to return -EOPNOTSUPP
-for the blocked domain. Is that intentional?
+Hmm. I see the rationale, but the actual number falls a bit out of
+thin air. And closing the connection with no indiation is bound
+to confuse users.
+Please add a WARN_ON() statemen there such that the admin is informed,
+and I _think_ we could just leave the connection running instead of
+closing.
 
-Thanks,
-Shameer
+Cheers,
 
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
