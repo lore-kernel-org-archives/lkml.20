@@ -1,80 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209690;
-	b=ipKSYgpT9sFXzJqM6nnzNjZwJjH0+0R/bsa4X1tPr2KyDmrO6euCrZn+p8SHTqEnLNnU
-	 6w7HggmQ5V4Mwn33ACyHEq5mYRTLhJOjVQ7pKiVlmzf4z0QJ6dZVV3dQKbSqlmUhLfb5H
-	 gYd5clZniEIeDYsfzJ2GMOamkmXSZdS86wVBcse76rm+Fxl3wB5ZfoaFT7AwDG95oiBzC
-	 wPZfZLzVUz+QzWpnoutFQNu0pDiu5mZf15WDMPE5NFSyBeURpTvgiFGUX23u75UvHvE6U
-	 vffb/ewwLpuRwkh4+iluxXv2giqqnLVUV9EQdspNtBzGfi5oOi+1h3JyKC/fjQJJjzw==
+	t=1793209697;
+	b=QMVdnOZDiRy35xeIHTBKC/0KH1N57wEls/DCmTrcwhG2myMnCyBgGDtcMzfLqRa1Nsr6
+	 VceWvv/FKeoUf7UVfBObpB7GvBCMPRrulrrAB0bJAsaUrhuC8rIOm/svLMV83wS4IPTHT
+	 shvduCxL+VLgfR0756E7ZerBIDD6uMcejSsgwIvLQYCMcFXvWLji5Xp1y2A02dshJbKVk
+	 dSlSh1CR1+aIiqPPhRalvPg7dnJZ4tagPlNcPEoseECFqtHVjmfwsUlyY45Vl9rfCypZk
+	 1C0hYsgJ5Q0dnN5rT5JuUK5kXzlJSm9V1SnaMz8t3RGWUxlkAGb2lwoNRCi8w3sUXbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209690;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/Wv2oduyHCB3bINkvbXDumOCP+2XIPoe6lycT40yGmU=;
-	b=lF1VmTJqzC4AWQCxfU4gdoaeIPn1nMudFvzBt+bCLvJfq+uj480GOOmE0OE9sm8tEr8H
-	 PvXTyXHy+Qyf5pu4PMPqB73XYEA6vsd/bztnzO0StIs/wGPL2+MaLhFoQzed6Jv/kPEC9
-	 r7gkGf1fKLHrn5zRG6Q+U0nZEGH1E8JzhAkYhu8V5T09nW1375Hm5BtwnBtTUenY6D+Us
-	 sXGQVG3/cti6Xw8hezgBS8O+KYYM3ORNIkzcL90g2+5ls978GcPd7ldQubBakQlL0VRdk
-	 5qpWiyRXhaYTtjnlzHUqo52Zvwk/ISUrsqcFZs5ShJ5YHBNQPN+D2HeFaIgbn/E2Yng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209697;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:User-Agent:X-stable:X-Patchwork-Hint:X-KernelTest-Patch:
+	 X-KernelTest-Tree:X-KernelTest-Branch:X-KernelTest-Patches:
+	 X-KernelTest-Version:X-KernelTest-Deadline:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=a2Yz2B2zEDhVdlLWMtPCQoyUy4ZjwPyY+6DplsMbzCk=;
+	b=DgnB0co+tuNdKtU6nWMNp7Iu4STc+KMBfvAnB++1t8JbDT59SofG/VYjndekkd5mNfFH
+	 pSh8I3RWjrrjcEa2+vPzg4ZKy13vp2ASaxiGWMoUHlPylK9hKqNSqGLIo1dn/Yc5eAOdu
+	 /QA76ihQqIJouQhzMv8rW2ZtZP2lc9FeybNQIUpXO/WDobxou72mIJg1PRuySqm6hk1Fq
+	 XUGr1HrmiAicqDgWgFzNq5uPef98goOGx7k87VBsGStxPdbzbiAVrXS6wdExDlu5TcNSq
+	 R80334oqLOrCx49QjWC0fv/XmwQkV5j6D0JHLiK9HOHyl8lKfA+K/Vxqo+WQX5A9eLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ded5COZ7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x6Ega2Ra;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4455606A31E;
-	Wed, 28 Oct 2026 17:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25532606A31C;
+	Wed, 28 Oct 2026 17:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ded5COZ7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8996F1F01828;
-	Wed, 28 Oct 2026 17:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793209689;
-	bh=/Wv2oduyHCB3bINkvbXDumOCP+2XIPoe6lycT40yGmU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ded5COZ7NK1LzkY5zjgze165QjBxccKnZt8HKG45T+ir/wGv+XVL4qTFMgnqrqSOl
-	 L1HGKA+Fq5Yfn383MT9I0SC7m7tmCLqA6V3sO7toYVKVSu51xZ/A/DzG6kI6oHsfe3
-	 JSqLPvahttWSBHqyRmT13u6BB42i4DocncHMis9Aa3PotPzDx5DTCf7PB1VPOJXgF0
-	 s91q6oskyk4rpFa2vweOrbaaoTN+XNUVJYbsparmFsIjHZ+mkutEwZCATAltmh2HEb
-	 QNc8bTZoZCK4qOdqlfHsFZwsBsk4ZcPmjD5NlR4xudHffk1l9IY+jvfi3g7NaDRZbS
-	 XRsCIz6O09PUw==
-Date: Wed, 28 Oct 2026 17:48:00 +0000
-From: Conor Dooley <conor@kernel.org>
-To: gaohan@iscas.ac.cn
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 00/18] riscv: add initial Zhihe A210 support using
- SCMI clocks and resets
-Message-ID: <20261028-shrivel-wrath-b50d6b12c259@spud>
-References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x6Ega2Ra
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7531F01828;
+	Wed, 28 Oct 2026 17:48:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793209696;
+	bh=a2Yz2B2zEDhVdlLWMtPCQoyUy4ZjwPyY+6DplsMbzCk=;
+	h=From:To:Cc:Subject:Date;
+	b=x6Ega2RawE4T8O67eFlR/AmDu2J22YujavPhn/pqfefOctheqDVebt6r77TnSykFS
+	 1Ai71QYx+5kXIAiFeBA+4WXAZrjNoumrqPtEQPyGIiHm96F5aedG19iz5zQBNITNEy
+	 lnRKncWojV5y3Jmh5mhaLssBXyEZRRfAWnfoA33s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: [PATCH 6.18 000/109] 6.18.60-rc1 review
+Date: Wed, 28 Oct 2026 17:59:44 +0100
+Message-ID: <20261028165942.357251485@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,171 +73,456 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RV8O/JhgCogw9BKb"
-Content-Disposition: inline
-In-Reply-To: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
+X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
+X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+X-KernelTest-Branch: linux-6.18.y
+X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
+X-KernelTest-Version: 6.18.60-rc1
+X-KernelTest-Deadline: 2026-10-30T16:59+00:00
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---RV8O/JhgCogw9BKb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This is the start of the stable review cycle for the 6.18.60 release.
+There are 109 patches in this series, all will be posted as a response
+to this one.  If anyone has any issues with these being applied, please
+let me know.
 
-On Tue, Oct 27, 2026 at 11:36:51PM +0800, Han Gao via B4 Relay wrote:
-> This adds initial support for the Zhihe A210 SoC and the Melon Pi V1
-> and V2 boards. It replaces the earlier series [1]. The way clocks and
-> resets are handled changed completely, so I am posting it as a new RFC
-> rather than as v2.
->=20
-> The A210 has eight RISC-V cores in two clusters, four C908 and four
-> C920, plus an E902 management core. In [1] Linux drove the clock and
-> reset registers directly. Review pointed out that those blocks were not
-> modelled properly, and they are also used by the E902 firmware, which
-> owns the power, PMIC and CPU DVFS sequencing. This series leaves those
-> registers to the firmware and uses the standard SCMI clock and reset
-> protocols instead.
->=20
-> I also looked at RPMI before settling on SCMI. The firmware has to
-> provide reset domains for the UARTs and pad controllers and sensors for
-> thermal management, and RPMI has no ratified protocol for either yet.
-> SCMI covers everything the firmware exposes today: clock, reset, power
-> domain, performance, voltage, sensor and system power. Linux, U-Boot
-> and EDK2 already have SCMI clients, so on the Linux side only the
-> mailbox transport is new. RPMI support in U-Boot is also still being
-> debated [8].
+Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+Anything received after that time might be too late.
 
-FWIW, this is perfectly fine by me - makes no difference to me if people
-want to support SCMI or RPMI on their platform.
-But I want to know what the story is going to be in terms of a) vendor
-provided firmware and b) upstream opensbi support for this.
+The whole patch series can be found in one patch at:
+	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
+or in the git tree and branch at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+and the diffstat can be found below.
 
-Will opensbi actually add SCMI support into the project, or will this
-method force people to use random downstream firmware indefinitely for
-this platform? That's especially true if the vendors are not behind this
-effort and will not be providing SCMI capable firmware with the board,
-or in their BSP for people that integrate the A210 SoC, forcing people
-to re-image their boards to run mainline.
+thanks,
 
-Cheers,
-Conor.
+greg k-h
 
->=20
-> The SCMI related changes compared to [1]:
->=20
-> - The native clock and reset drivers and their bindings are gone.
-> - A new mailbox driver for the AP to E902 doorbell. One channel carries
->   SCMI requests, the other carries notifications from the firmware. The
->   shared memory lives in the AON SRAM.
-> - arm_scmi transports can be built on RISC-V.
-> - New dt-bindings headers for the SCMI clock and reset IDs exported by
->   the firmware. Only the IDs used here are defined for now. More will
->   be appended later without renumbering the existing ones.
-> - Each UART has separate APB and serial resets, so the UARTs get a
->   "zhihe,a210-uart" compatible with two resets, as Philipp suggested.
-> - The pin controllers take their pad resets from SCMI.
->=20
-> Other changes since [1]: the pinctrl binding explains the SDIO pad names
-> and the shared SDIO mux bit, pin nodes are ordered as pins, function,
-> then configuration, and the defconfig commit explains why ten 8250
-> ports are needed.
->=20
-> The series covers the mailbox, the pin controller, the UARTs and the
-> bindings and device trees around them. It is based on v7.3 and boots on
-> a Melon Pi V2 to a shell on the UART console with all eight CPUs online.
-> I would mostly like feedback on the SCMI approach and the ID headers
-> before sending the rest of the platform.
->=20
-> The E902 firmware is a Zephyr based SCMI server [2]. The rest of the
-> boot chain is coreboot [3], OpenSBI [4] and EDK2 [5][6]. The complete
-> Linux tree with the remaining peripherals is at [7].
->=20
-> [1] https://lore.kernel.org/r/20261022-a210-init-v1-0-5e438f972d24@iscas.=
-ac.cn
-> [2] https://github.com/RevySR/zephyr/tree/xuantie/scmi
-> [3] https://github.com/revyos/coreboot/tree/a210/scmi
-> [4] https://github.com/revyos/opensbi/tree/a210/scmi
-> [5] https://github.com/revyos/edk2/tree/a210/scmi
-> [6] https://github.com/revyos/ruyiedk2/tree/a210/scmi
-> [7] https://github.com/RevySR/linux/tree/a210/scmi-bootchain-v7.3
-> [8] https://lists.u-boot-project.org/pipermail/u-boot/2026-October/635007=
-=2Ehtml
->=20
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
-> Han Gao (10):
->       firmware: arm_scmi: Allow SCMI transports on RISC-V
->       dt-bindings: mailbox: add the A210 AP to E902 doorbell
->       mailbox: add A210 AP to E902 doorbell support
->       dt-bindings: timer: add Zhihe A210 CLINT
->       dt-bindings: firmware: add A210 SCMI clock and reset IDs
->       dt-bindings: serial: snps-dw-apb-uart: add Zhihe A210 UART
->       riscv: dts: zhihe: add A210 module memory
->       riscv: dts: zhihe: add Melon Pi V1 and V2
->       riscv: defconfig: enable A210 support
->       MAINTAINERS: add Zhihe A210
->=20
-> Zhiguo Zhu (8):
->       dt-bindings: vendor-prefixes: add Zhihe
->       riscv: add Zhihe A210 support
->       dt-bindings: pinctrl: add Zhihe A210 pin controller
->       pinctrl: zhihe: add A210 support
->       dt-bindings: interrupt-controller: add Zhihe A210 PLIC
->       dt-bindings: riscv: add Melon Pi V1 and V2
->       riscv: dts: zhihe: add A210 core support
->       riscv: dts: zhihe: add A210 UARTs
->=20
->  .../interrupt-controller/sifive,plic-1.0.0.yaml    |    1 +
->  .../bindings/mailbox/zhihe,a210-ap-mailbox.yaml    |   76 ++
->  .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       |  211 ++++
->  Documentation/devicetree/bindings/riscv/zhihe.yaml |   27 +
->  .../bindings/serial/snps-dw-apb-uart.yaml          |    5 +-
->  .../devicetree/bindings/timer/sifive,clint.yaml    |    1 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
->  MAINTAINERS                                        |   14 +
->  arch/riscv/Kconfig.socs                            |   10 +
->  arch/riscv/boot/dts/Makefile                       |    1 +
->  arch/riscv/boot/dts/zhihe/Makefile                 |    2 +
->  arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi |   55 +
->  arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts      |    9 +
->  arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts      |    9 +
->  arch/riscv/boot/dts/zhihe/a210-som.dtsi            |   11 +
->  arch/riscv/boot/dts/zhihe/a210.dtsi                |  619 ++++++++++
->  arch/riscv/configs/defconfig                       |   10 +
->  drivers/firmware/arm_scmi/Kconfig                  |    2 +-
->  drivers/mailbox/Kconfig                            |    9 +
->  drivers/mailbox/Makefile                           |    2 +
->  drivers/mailbox/mailbox-a210.c                     |  205 ++++
->  drivers/pinctrl/Kconfig                            |   14 +
->  drivers/pinctrl/Makefile                           |    1 +
->  drivers/pinctrl/pinctrl-a210.c                     | 1212 ++++++++++++++=
-++++++
->  include/dt-bindings/clock/zhihe,a210-scmi.h        |   15 +
->  include/dt-bindings/reset/zhihe,a210-scmi.h        |   13 +
->  26 files changed, 2534 insertions(+), 2 deletions(-)
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261027-a210-scmi-ec32fdc246a6
->=20
-> Best regards,
-> -- =20
-> Han Gao <gaohan@iscas.ac.cn>
->=20
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+-------------
+Pseudo-Shortlog of commits:
 
---RV8O/JhgCogw9BKb
-Content-Type: application/pgp-signature; name=signature.asc
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+    Linux 6.18.60-rc1
 
------BEGIN PGP SIGNATURE-----
+Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+    ACPI: scan: Avoid registering platform devices with resource overlaps
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauI1TQAKCRB4tDGHoIJi
-0kURAQCUCYGbEMJ2NtTgInuo3iF5HLvfVD/KWlN1F3WR+DiNPwD+M0vPtUSR3sBM
-RMtElB8aaZ7S8AQB/fwplFhnSj58zg0=
-=p4sC
------END PGP SIGNATURE-----
+Christian Brauner <brauner@kernel.org>
+    signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
 
---RV8O/JhgCogw9BKb--
+Christian Brauner <brauner@kernel.org>
+    pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
+
+Christian Brauner <brauner@kernel.org>
+    exit: hang up the tty before closing the files
+
+Christian Brauner <brauner@kernel.org>
+    fork: release the files of a failed fork after sched_cancel_fork()
+
+Christian Brauner <brauner@kernel.org>
+    ptrace: refuse to change the signal mask of a user worker
+
+Christian Brauner <brauner@kernel.org>
+    signal: don't retarget shared signals in a dying thread group
+
+Christian Brauner <brauner@kernel.org>
+    signal: only SIGKILL and the freezers interrupt a coredumping task
+
+Christian Brauner <brauner@kernel.org>
+    coredump: hold RCU while releasing parked threads
+
+Aaron Ahmed <aarnahmd@amazon.com>
+    ftrace: Initialize modname and offset in print_rec()
+
+Weiming Shi <bestswngs@gmail.com>
+    asymmetric_keys: reject trust keys without IDs
+
+Srish Srinivasan <ssrish@linux.ibm.com>
+    keys/trusted_keys: return immediately after TPM unseal failure
+
+Stefano Garzarella <sgarzare@redhat.com>
+    KEYS: trusted: Fix blob allocation size in tpm2_key_decode()
+
+Adrian Martinez <adrimg3196@gmail.com>
+    KEYS: Fix key_reject_and_link() race with keyring restriction
+
+Cen Zhang <zzzccc427@gmail.com>
+    keys: Protect the read method check against type removal
+
+Kyle Zeng <kylebot@openai.com>
+    keys: make keyring indexes independent of kernel addresses
+
+Cen Zhang <zzzccc427@gmail.com>
+    keys: Protect the type name while describing a key
+
+Cen Zhang <zzzccc427@gmail.com>
+    keys: Check the authorization payload in process keyring searches
+
+Cen Zhang <zzzccc427@gmail.com>
+    keys: Avoid the owner account dereference in named keyring lookup
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring: keep the drain active when a deferred drain request is started
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring: end the drain when the drain request completes
+
+Junyeong Lee <jylee5498@gmail.com>
+    io_uring/waitid: prevent cancel reference wrap
+
+Austin Schuh <austin.linux@gmail.com>
+    io_uring/wait: wake real-time waiters from hard interrupt context
+
+Tamaki Yanagawa <ty@000ty.net>
+    io_uring/net: keep recv buffer select length within MAX_RW_COUNT
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring/poll: don't loop on HUP with multiple references
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring/timeout: don't lose a cancel as io-wq arms a timeout
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring/timeout: don't flush with the sequence behind the last flush
+
+Jens Axboe <axboe@kernel.dk>
+    io_uring/timeout: don't put a sequence target behind the last flush
+
+Juanlu Herrero <juanlu@fastmail.com>
+    io_uring/poll: avoid retry wakeup loss when dropping ownership
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: look up the file before queueing to io-wq
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/timeout: don't end a linked timeout with 1
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/timeout: no ABS update of multishot timeouts
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/net: don't retry recv on uncommitted buffers
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: don't pass restart error codes to userspace
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/openclose: keep the lock in io_pipe_fixed()
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/sqpoll: let the thread sleep on disabled rings
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/kbuf: handle index wrap in last buffer check
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/zcrx: fix buffer offsets in areas above 4GB
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/napi: don't busy poll past an expired timeout
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/napi: make stale entries time out after 60s
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/wait: no early -ETIME if min_wait finds work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/timeout: keep repeat count on multishot update
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/timeout: don't skip over reached sequences
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/fdinfo: fix CQE dump of CQE32 rings
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/register: handle index wrap when resizing
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/register: don't wrap 32b CQEs when resizing
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: drop the CQE cache if a refill fails
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/futex: allocate private hash before waiting
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/poll: drop stale double poll entry on rearm
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/wait: look at all CQ waiters on wake up
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: wake ring pollers for local task_work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/cancel: let CANCEL_ALL find parked requests
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/cancel: recognize "no timeout" on 32-bit
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/cancel: don't forget that the work was running
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: don't lose a cancel as io-wq parks a request
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/poll: don't lose a cancel as io-wq arms poll
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: let cancel find picked up hashed work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: don't exit with a creation pending
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: don't strand work when a worker exits
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: don't go to sleep on pending work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring: don't flood a cancelling task with task_work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: don't hide a link from cancellations
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/io-wq: don't lose the signal that ends work
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/wait: don't spin on a stuck overflow list
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/cmd: don't leave list poison in ->hash_node
+
+Josef Bacik <josef@toxicpanda.com>
+    io_uring/waitid: own the request before clearing ->head
+
+Christian Brauner <brauner@kernel.org>
+    io-wq: order the exit bit against worker creation task work
+
+Zihan Xi <zihanx@nebusec.ai>
+    net: gso: limit recursive IP-in-IP segmentation
+
+Lee Jones <lee@kernel.org>
+    tracing/histograms: Verify event_call identity when updating synth_event refcount
+
+Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+    tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
+
+Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+    tracing: Unregister field variable histograms when the command fails
+
+Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+    tracing: Save the event file instead of the compatible histogram
+
+Kyle Zeng <kylebot@openai.com>
+    tracing: Reject incomplete event filter expressions
+
+David Carlier <devnexen@gmail.com>
+    tracing: Hold trace_types_lock when resetting last boot data from readers
+
+David Carlier <devnexen@gmail.com>
+    tracing: Hold trace_types_lock when updating modules in persistent instances
+
+Pauli Virtanen <pav@iki.fi>
+    Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+
+Jonas Köppeler <j.koeppeler@tu-berlin.de>
+    net_sched: codel: fix stale state for empty flows in fq_codel
+
+SJ Park <sj@kernel.org>
+    mm/damon/core: error damos_commit_quota_goal() for zero target_value
+
+Damien Le Moal <dlemoal@kernel.org>
+    block: avoid potential deadlock on zone revalidation failure
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: don't free an incoming SABM skb left on the listener's queue
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: bring up the link of the preferred route passed over by a connect request
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: send unacknowledged I frames again when a link is re-established
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: clear the circuits of a neighbour that restarts the link
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: send a private copy of each I frame
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: don't accept frames on a device that is going down
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: wait for ax25_send_frame() before detaching the connections of a device
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: read the connection's ax25_dev only once when walking ax25_list
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: don't create two connections for the same link in ax25_send_frame()
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: process received frames and send with the socket locked
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: serialise the transmission of I frames on a connection
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: restart the link of a neighbour created over a live AX.25 connection
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: clear through routes when a neighbour is removed from the tables
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    netrom: fix nr_node leak when nr_del_node() removes the last route
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    netrom: clear nr_neigh->ax25 under the routing lock in nr_link_failed()
+
+Junjie Cao <junjie.cao@intel.com>
+    netrom: fix reference count leak in nr_rt_device_down
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    netrom: look up and update routes in one critical section
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    netrom: use a single lock for the node and neighbour lists
+
+Mashiro Chen <mashiro.chen@mailbox.org>
+    net: ax25: fix integer overflow in ax25_rx_fragment()
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    ax25: check frame length in ax25_decode() and ax25_rx_iframe()
+
+Ashutosh Desai <ashutoshdesai993@gmail.com>
+    ax25: fix OOB read after address header strip in ax25_rcv()
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    netrom: bound fragment reassembly in nr_queue_rx_frame()
+
+Mashiro Chen <mashiro.chen@mailbox.org>
+    net: netrom: validate source address in nr_find_socket()
+
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+    netrom: require full NET/ROM headers in nr_route_frame()
+
+Stanislav Fort <disclosure@aisle.com>
+    netrom: linearize and validate lengths in nr_rx_frame()
+
+Bernard Pidoux <bernard.f6bvp@gmail.com>
+    rose: clear stale N(R)/N(S) before (re)transmitting a data frame
+
+Larysa Zaremba <larysa.zaremba@intel.com>
+    ice: change XDP RxQ frag_size from DMA write length to xdp.frame_sz
+
+Larysa Zaremba <larysa.zaremba@intel.com>
+    ice: fix rxq info registering in mbuf packets
+
+Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+    ACPI: scan: Register platform devices for fixed event buttons
+
+Joseph Qi <joseph.qi@linux.alibaba.com>
+    eventfs: fix SRCU read lock leak in eventfs_iterate()
+
+
+-------------
+
+Diffstat:
+
+ Makefile                                           |   4 +-
+ block/blk-zoned.c                                  |  37 +-
+ block/blk.h                                        |   4 +-
+ block/genhd.c                                      |   2 +-
+ crypto/asymmetric_keys/restrict.c                  |   8 +-
+ drivers/acpi/acpi_platform.c                       |  75 +++-
+ drivers/acpi/scan.c                                |   4 +
+ drivers/net/ethernet/intel/ice/ice_base.c          |  33 +-
+ drivers/net/ethernet/intel/ice/ice_ethtool.c       |   1 +
+ drivers/net/ethernet/intel/ice/ice_txrx.c          |   4 +-
+ drivers/net/ethernet/intel/ice/ice_xsk.c           |   3 +
+ fs/coredump.c                                      |  16 +-
+ fs/tracefs/event_inode.c                           |   6 +-
+ include/linux/io_uring_types.h                     |   5 +
+ include/linux/key-type.h                           |   1 +
+ include/linux/key.h                                |   5 +
+ include/linux/sched.h                              |   2 +-
+ include/linux/sched/signal.h                       |  27 +-
+ include/net/ax25.h                                 |   6 +
+ include/net/codel_impl.h                           |   1 +
+ include/net/gso.h                                  |   8 +
+ include/net/netrom.h                               |  18 +-
+ include/net/rose.h                                 |   5 +
+ io_uring/cancel.c                                  |  29 +-
+ io_uring/cancel.h                                  |   2 +
+ io_uring/fdinfo.c                                  |  14 +-
+ io_uring/futex.c                                   |  32 +-
+ io_uring/io-wq.c                                   | 126 ++++++-
+ io_uring/io_uring.c                                | 231 ++++++++++---
+ io_uring/io_uring.h                                |  44 ++-
+ io_uring/kbuf.c                                    |   2 +-
+ io_uring/napi.c                                    |   4 +-
+ io_uring/net.c                                     |  26 +-
+ io_uring/openclose.c                               |  11 +-
+ io_uring/poll.c                                    |  38 +-
+ io_uring/register.c                                |  20 +-
+ io_uring/rw.c                                      |  18 -
+ io_uring/sqpoll.c                                  |   7 +
+ io_uring/timeout.c                                 |  91 +++--
+ io_uring/uring_cmd.c                               |   2 +-
+ io_uring/waitid.c                                  |  19 +-
+ io_uring/zcrx.c                                    |   2 +-
+ kernel/exit.c                                      |   5 +-
+ kernel/fork.c                                      |   9 +-
+ kernel/pid_namespace.c                             |   3 +-
+ kernel/ptrace.c                                    |   6 +
+ kernel/signal.c                                    |   4 +
+ kernel/trace/ftrace.c                              |   4 +-
+ kernel/trace/trace.c                               |  21 +-
+ kernel/trace/trace_events_filter.c                 |   6 +
+ kernel/trace/trace_events_hist.c                   |  33 +-
+ kernel/trace/trace_events_synth.c                  |  10 +
+ kernel/trace/trace_synth.h                         |   1 +
+ mm/damon/core.c                                    |  22 +-
+ mm/damon/sysfs.c                                   |  19 +
+ net/ax25/af_ax25.c                                 |  81 ++++-
+ net/ax25/ax25_ds_in.c                              |   2 +
+ net/ax25/ax25_in.c                                 |  55 ++-
+ net/ax25/ax25_out.c                                | 121 +++++--
+ net/ax25/ax25_std_in.c                             |   8 +
+ net/ax25/ax25_subr.c                               |  44 ++-
+ net/bluetooth/l2cap_core.c                         |   7 +-
+ net/bluetooth/l2cap_sock.c                         |   2 +
+ net/core/gso.c                                     |   1 +
+ net/ipv4/af_inet.c                                 |   3 +
+ net/ipv6/ip6_offload.c                             |   4 +
+ net/netrom/af_netrom.c                             |  33 +-
+ net/netrom/nr_in.c                                 |  26 ++
+ net/netrom/nr_route.c                              | 383 +++++++++++----------
+ net/rose/af_rose.c                                 |   5 +
+ net/rose/rose_in.c                                 |  31 ++
+ net/rose/rose_link.c                               |  42 +++
+ net/rose/rose_loopback.c                           |   2 +-
+ net/rose/rose_out.c                                |   1 +
+ net/rose/rose_route.c                              | 119 ++++++-
+ security/keys/key.c                                |  13 +-
+ security/keys/keyctl.c                             |  15 +-
+ security/keys/keyring.c                            | 150 ++++----
+ security/keys/process_keys.c                       |   5 +-
+ security/keys/trusted-keys/trusted_tpm1.c          |   4 +-
+ security/keys/trusted-keys/trusted_tpm2.c          |   2 +-
+ .../test.d/filter/event-filter-incomplete.tc       |  24 ++
+ 82 files changed, 1722 insertions(+), 597 deletions(-)
+
+
