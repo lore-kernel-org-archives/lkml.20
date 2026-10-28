@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204987;
-	b=PWkBlHSSRqlK9S+Cwt1Xw4y88/Ej1vxER9YZDATzCXxO6Psy3DA4+nFUDJdRK1NyULLY
-	 uqNt8hYleMVGZVk4QmnPxoVETyIjqWJaoD8iB9SQy/SUpeO18UDjR5gSd2LmCaC9HBgSA
-	 yBmOto//s0QZq3x2tmzqiaZCw513FvzP2uqME2IvxxkZtX/lUIXGvkpbILbgz0QGAcWRn
-	 3owfCtRD6ukNiG7zYxtdGpOx0Rb8dnwm76xMG8yUrTjqvT7KtmFCCtX6NKDEuc3Di2dhN
-	 mUCnG2kiJVIbxBRzAUnQeEBnrKWuDe2FIhr6ZLY44kpXf4vpU9sdmIuNRN4ZIw0AWhg==
+	t=1793205057;
+	b=evvRGinyG3JQyQre7BmeorVmN5CaCDN0Kadv7f6sW/szRFm0L5u4z82jMeEBXOnLxAxK
+	 z6nGQaa9J6LUS/6ShAqLcmXiD2l/OWN5aKVegeI3xypvpaHZy1uIX6pfkQb/p9X92cnrT
+	 N77TR9p/dS9//OryJpUYPnURWYZzeigCNGB61r+sRpRgyGQUdlprb0iw9WNARHCxfwv5t
+	 Pj55BRvY24HBzasGkeqE6OQwWSYl6XfKpDY7YLVvQIreseZi6uGZnE4ea+5eDSweAOH2O
+	 /k8SfcfYE08QCUMTAsTBulKvL5oTBWYxXyRrY2G9vi9PUXi5xNOpnWcAYJxNHXy6DBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gJQN1372r+5iUBD7obTGjY7/PAv9KAvuyEMPwJZ9IXA=;
-	b=lpy1vMPr3CqF/E3vimPD7bj5ke/RRYRuo7Y5dkNyO2pJxns8Io+Q82YXMgZ1rQqee94w
-	 ZM9Y4NXcaBS8STRyat3IVkNqiLUxsGwoHtEHxOmjetreQi0eFJiSf0IQyRbwd0iE3tfXD
-	 XvnRlx2+KyUGcsZb9KJxVHqrDslC6UgxnHRbPBWwbRyocN/B7OScYELfQmHHuV7HRMzXI
-	 k9YP2pqYS1UwxQJnMh3Wf4GMY5kXlG4gbfBwhnUkw8eVfOkUs8qXygG24ykmCW67TxHut
-	 +tkS8k+Q6Vp6MQQPIR4zoqhgsqhEbiNGNg34MOqg7J6mmPbB+12i2YrZzZKjUS+rEcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205057;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=hNMH20UxlTLKtx2w8JK0igQhygr0c2opzIkwVuCodCE=;
+	b=AJYA4MU/zPTuBIM752CBz1GM28mdtX/EOeIV8OUW0FY70eUg9Z7IEA715cP7PnypICWl
+	 SkAWh6Cj4F5QSu5DCPuDGNpbA5GLikErATjmEQWLAlXP2P+k4c1xgeqx7mnv+BTz/t3Yy
+	 BS3BrvAgNli4ZnX9SIHeiAvDctY1JLEFRkJ0eV04/xAwE8IVtHADRK8xi6y3E25BUsqKh
+	 j6Z0C6DC9DVBaF24Tx10NaSiIRY9lqn3eE2gl9JcjEoZKY67J1VjtSNzoJcSCNLh9N+qr
+	 XwcP5WxVXCjBtfAKmEETtYzfzuEJtXnqsgV2Df/eGvgxgMSwlD0pGoUCpkOJk8TcSFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQNGnpWc;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yrjCyv1p;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0224F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:29:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0224F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C05606A31F;
+	Wed, 28 Oct 2026 16:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C05606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQNGnpWc
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so2048844a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793204985; x=1793809785; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gJQN1372r+5iUBD7obTGjY7/PAv9KAvuyEMPwJZ9IXA=;
-        b=GQNGnpWcoHd9r7ztcQs461+NGEAlK3sHGJdV7Hb1uvUyA7TDkr5t0AIR5H1XDib9qe
-         o4hW+5WGM2G653F43+5Q9qstez1OHOHIEpzFYMmZyjRaDc6HJ//xnQMwHyt6/6c/P7Wo
-         Q9Ui0rf5ZwGZrV9eEdEUx//fHJh0N1wa3pa59HQGITmUu7fiEHdA3+Va+rAPoDZcH9A4
-         WZksxjtGxfFzB53DLlrH/kk6RhuPPEim9yJmuVrsKA2EWShwBDBS3yYUASOB0iyJ6y8V
-         Ha3oykvKGrAvrTcXM1cpcLRZrvK3ELZ3WIr2BECV9awXx0hOxvIw8dSsIDAzUTiW4Myg
-         iyEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793204985; x=1793809785;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gJQN1372r+5iUBD7obTGjY7/PAv9KAvuyEMPwJZ9IXA=;
-        b=1hIrTJpRkuRUXRQajO9CZQ5JAcQsxjE48wZx1cMiVtSU/p6y7AtQPXBWRb+cHN/XMw
-         0YsvbX2wSptKyWMt/ceNSkJB+9wIvkKK91XvpAUAFb47N6wHSBUH1glWWLcaWar8hxTG
-         HwDCtAcgiEsaS48uA/lN8POtG3zGV2n791S5Bbg4PZxAURhIPlWt1LLCHr1SCvKcglpi
-         y6CZ3lHdoXOIQ3riba0EyXY0V3rzSHAvgQQ4u7Lh/yLPPo3fk1JpEKku3GCFT6x+fQbJ
-         JQb+ngWccPMWDbelegk54ZxlX1yIbEYdJPIAXyRE3P9ZvLxOqUUR6RZ4gg7tVng2TWvh
-         SiBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxojpDxqBrciB5UV9uYTggGQ/LeE42ozSZ+kGoSLxcTTaoPW4HBZA/wdDQxlSrrF3o6hCqL85w6AqyTKEs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUMmul8VaslmAWxuwScV5mrB/v+esg/9yPdTisOTarAh4jMkh7
-	Du8SVMthijhx8An9uFx2TKOj4RGVkq0B4NOUD0h7FthEpmDx5fXMg5TH
-X-Gm-Gg: AYBFou17pRBi1p2/NF05DWrGDVN2U0Kc5iurBZRJbooAaZ40asePXnCIHZuRsNiUZro
-	5gZm0/o/lsL89RVn7kv2Wt4COZZXNVA8kKmNvQnhlqMbAfCnp4/MZRDdcPqwYMFuJeIKdwhhSS0
-	w9uVdGpgMwZgFuZL4CBy3Sx0GMdgr5UdQQpdXCbA3izInWQezcVJWXAio5cwQZfg98R0v700Wcf
-	fe9xlvMZDkWif/ojo5jbisq3fA7cF01ui3AOnRHnIfLZfzCo9RFssQRK/MTSVCJwVAyX5eARHYx
-	veF4kaorYgbFtmjXm2mhvNBFOy6AZAx1mQUrJMkOm1jlqpaAKl2YaKFgUSkEe7pUoY9ecnrt08a
-	k4AVhAFnEkFXC5GOGPW6HYwP8yJi6+bywi6icJHc326SL6kAte0P6yoWqRVc7Npgz5wube67e5C
-	tVWvZHV30sv3eJ3q6E+6pdxpjmjm+YCtYPjGgamUiG2N2m1GTvO3xnDgTaJljaRZvgsUs8A3ps6
-	Azri6s796x4D7duNotdHsSkpVJ4Jf3BIu7GpAIzqiuB8FgV+Mi/jWqUyUIjNorcJ3Nc5TqYU4yh
-	ICZZelALbatIUolj24PuElPHqx029k7RfVvDQ65GDVYWemZ4USkpyAyN963PA0Zg
-X-Received: by 2002:a05:6402:234b:b0:6b4:1701:569c with SMTP id 4fb4d7f45d1cf-6b49cb594d2mr2127015a12.3.1793204984885;
-        Wed, 28 Oct 2026 09:29:44 -0700 (PDT)
-Received: from localhost.localdomain ([46.205.195.0])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b496435babsm1655823a12.28.2026.10.28.09.29.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 09:29:42 -0700 (PDT)
-From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH] drm/dp: Keep base enhanced framing cap from extended DPCD caps
-Date: Wed, 28 Oct 2026 17:29:41 +0100
-Message-ID: <20261028162941.62762-1-dmitrymalovanyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yrjCyv1p
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 6E3A112015E;
+	Wed, 28 Oct 2026 16:30:54 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 919F62F;
+	Wed, 28 Oct 2026 16:30:52 +0000 (UTC)
+Date: Wed, 28 Oct 2026 12:30:51 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Masami Hiramatsu <mhiramat@kernel.org>, Yury Norov
+ <yury.norov@gmail.com>
+Subject: Re: [PATCH] lockdep: Add #include <linux/instruction_pointer.h> to
+ lockdep.h
+Message-ID: <20261028123051.0c65e19f@gandalf.local.home>
+In-Reply-To: <auIZQDojrrv43MrA@yury>
+References: <20261028110558.623a92d1@gandalf.local.home>
+	<auIRtQjGjb0yeYCX@yury>
+	<20261028114528.137acd81@gandalf.local.home>
+	<auIZQDojrrv43MrA@yury>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,57 +65,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: zjwdpqaui9tzif6o5ku6q47r3edfwjmn
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 919F62F
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+EaWfig7TWSU0HuK/DKFjRR2aY4trQpqk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hNMH20UxlTLKtx2w8JK0igQhygr0c2opzIkwVuCodCE=; b=yrjCyv1pOhRGaxalJO+lehXPGKx2inxYkzVPP/F93E6M6jO8KrPzaoLHcA+/S1Iy0x/oqfw9n2HOA6AS6rxqshhpcMZreyYzPK3Vm112wfpsb54nIVBB+SyK/8C/sYOH9lC501R59Xgc57nxv+apwf/+5vrhZGFgyigP6YmWNRo=
+X-HE-Tag: 1793205052-708848
+X-HE-Meta: U2FsdGVkX192w1Z+UlGfnSX3sGOJmcvBaWTShSNsM3XaiK0rGWlRHYHpMjKrUaZMHyZjH322HpooMWlKYCfR0lhTx1RcD0ibnIavKdZn2iQ2YRJJpVNNWpfo+62IgyYaEPVm5IrVL5KxDMeF6pF6KZ45+uOuTs3OpJQENSMCsJB8URIymHPNNaMWMDNcLBQLkVgXc4Z93aYJefu/PYvOXNUfraNdvF9eFgj46/fJGc10UpGhaKn4EWGqtUBwyghChgWAPZ4JlT7b/iwW3HWWFc80SO1c3Fi/Iwk3KubtwYZEmMJxvwWeKb7F1MhfZO7LeexQDne/t0EBtKlijUxFwToTra+bZ1pz6LTbFeiaiaCTxhtSnOjOAA==
 
-Some sinks set DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT and advertise
-DP_ENHANCED_FRAME_CAP in the base receiver caps, but clear it in the
-extended receiver caps at 0x2200. drm_dp_read_extended_dpcd_caps()
-replaces the base caps with the extended ones, so the link is trained
-without enhanced framing.
+On Wed, 28 Oct 2026 11:48:16 -0400
+Yury Norov <ynorov@nvidia.com> wrote:
 
-The Xiaomi Monitor A24i (P24FBA-RAGL) is one such sink:
+> > Peter, can you give me an Acked-by on this patch and then I can add it to
+> > my series to remove trace_printk.h from kernel.h as that depends on this
+> > patch.  
+> 
+> Steven, can you share a link to the series?
 
-  base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
-  extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+I just applied my last series:
 
-Without enhanced framing all lanes train (0x202-0x204: 77 77 81), but
-the sink never syncs to the stream (SINK_STATUS 0x205: 00) and shows
-"No signal" until it is power cycled. The same monitor works on macOS.
+  https://lore.kernel.org/linux-trace-kernel/20260625104007.041432666@kernel.org/
 
-DP 1.4 section 2.9.3.1, as quoted in the commit that added extended
-caps support, says the extended caps match the base caps except for
-DPCD_REV, MAX_LINK_RATE and DOWN_STREAM_PORT_PRESENT. Keep the base
-value of DP_ENHANCED_FRAME_CAP.
-
-With this change the link uses enhanced framing (0x101: 84) and the
-sink syncs (0x205: 03).
-
-Tested on i915 (Arrow Lake-U) through a USB4 dock.
-
-Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
-Cc: stable@vger.kernel.org
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
-Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index e623ccb4c..205b6cc89 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -1219,6 +1219,9 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
- 
- 	drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
- 
-+	/* Keep the base enhanced framing cap if the extended caps drop it */
-+	dpcd_ext[DP_MAX_LANE_COUNT] |= dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP;
-+
- 	memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
- 
- 	return 0;
-
-base-commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
--- 
-2.50.1 (Apple Git-155)
-
+-- Steve
