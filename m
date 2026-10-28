@@ -1,56 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210093;
-	b=TSk/N4o73U7OQA6kv+Byga2cKv8mHMxLzQ3DvRqimF98yfTmy71uLTwETtb/bSPA6CZP
-	 KuK133dFuHeLVqgHCxR6W1msyxiLEW5FEuG2A0rMXZQIXvbIl1KbZ0BsrOgd8osFBnm5Q
-	 OJtD9rtxBGl95T0WRbHBDa+Ncrqb1kcZIAS6dbyJa4E63HDse5rH11HIdAu4L1qKTtTtv
-	 dQFptozLXb6DqO7P8Qws7av7+LKHKDXUik7gu7lLbVxw3Vk2dMjC0JpsgvFgMvHw4SLnj
-	 ZMTggUNG9WTG+z8AicudkF+kHpA0wPY5Hjc0E644l73MG5iTJetKcaBYuABmoaClv2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210093;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v6lgge4WdsOVmOEXha6YU4EWcAVpqL0HGPQBV5WSBkY=;
-	b=lSOtuMtu8WbYTMtY/UFXdR20W+0caNbAGyXOsqMn/lv0RvvBJHj9E7nh221RJkU4aBDx
-	 wX/MzaIdsG97vWodOzSzp7cpvi285sw37S4EQ41OvcZeDh7vF3PtdEcLuFp65jvpIR2Wt
-	 /EMie3IabC4Tji1ZEjSGTWrJ8GxEPOx0wErnkm+dACt5L8oxV8apXVfyIfJhtO2M8TAgI
-	 /DA5LHYWfQzYm76s4u8jHMgcesR/qXUu1Ll2D2v0fkDlz/gubQ1Y2LYejVWO4T7xEd+5d
-	 wmzYBQA49aTc8cXI5s/ypiE7UsPuGxbRkLzl+Pl7aqV54x6QnPsYfsx/swGg9x3MMmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khWkVIOI;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793210151;
+	b=0pW9BsOOjCL1H1a6gL/ExHdcUoZMegfaoGp48XL5cd1bGCh0F//GRBIeHUXaFjnlsfER
+	 RMQfblS32iGZQa4TQWCqfIyzAoFIYepM5hGL01XkTHG0SFHcPAaRpm48EdLwA7DOWIv2a
+	 CqbQPZRl16LPyEMp8OryrfOsWgANUAXpBXcH5SHQVnTc8Vr5irZ0HvHaR/QEBnVJFJX5X
+	 nV4gKRD1T6S978IG82p34ybXSa3Ilrlk2Q1q5KaZy7ZFZRmZWi6jMwFY81hLZvKY+lynW
+	 1ZTqcOQkD/A4dQXlP16bUwioQDL4jsBEuEzrdZpo3JBL+v5tARu+WMOWMm3Ykr+7LrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210151;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yVEY6mnRFZ2IK2UMOXQoNDcDcdPm/HNq0wlvqqtWByo=;
+	b=izWZBEOb9uxMDowgnOoB7u3WGkM6sOBT0H0WI+MeKD/Ka/YSfXBFWxK9VvC+HJD44fs0
+	 6HbYTkWsCWWvHbnsKJWj0ud6MLqtYo9NKPauPEQ7vU1Y3T9QC8gbD9uHzC6ZLcd6oPlcl
+	 /kyOfnA8fk4DEkV8LUM53f7rHzAL8x/ZSW5T6Jdt2KljBJSlwL1lFIqcm0XdEhDHRiwnp
+	 q5HTCVQ4O5h6LkcwG4g8I6w/c1mrx6Qn5/aPeLk6AF+7iaV0nrAWzRqVvFDKZOxbrjBza
+	 6lXcwc7NOr8Ourcj7n0ciLV/mxcITomNA0Zc2oyKJnPygr0t2pQVKgTSdV1XAS7vezQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSb1uLp8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C45606A32C;
-	Wed, 28 Oct 2026 17:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC8F606A325;
+	Wed, 28 Oct 2026 17:55:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khWkVIOI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8A01F01828;
-	Wed, 28 Oct 2026 17:54:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSb1uLp8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793210151;
+	b=acOBkZhTEuQEOmIdJUTIq5yUzZ+VmlPwt3Hgg8zoVjx8YyN7QxBlwxKm0OwnYoSnVO8h
+	 YZgCmaHYED7xaleNZs28SZKYfM2yoyT61ZimwZzbw9GAYnIJ6508ZR0ZjwreTeEohmkjT
+	 R09yzUJ5hG5q5RmZWw45ea8fcprNJl/CowuWlC1GQx/WF9zSlDOpRB63GDEs/OuFi19Pw
+	 CDmqO9jzomc0XZgdNfqrRNGw/8DFKDodHpQ9cRDVoBqtPW8mNO7Pl0X1Pi446bIZ/FaJY
+	 WMDrrwWZS7dNrfsLtAgrA3+GUCathmrPxNFElLsWPTVbrSrEFJ3hnLn+JycpzQo5JMQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793210151;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yVEY6mnRFZ2IK2UMOXQoNDcDcdPm/HNq0wlvqqtWByo=;
+	b=K7d0jGQSxkMKEjW/AZto4cOI28FqYD3+Y5RXBUJ9Efl25Nh5lvw3GHQF7aVeJzYdfla/
+	 Iec/J/AE6cU2EUoMlmjhZFA//8pmAjMBroKHQmSym2u/SJop0vXJN0WZvQxFKmFNZ4t58
+	 ysjjHW7yXd6QbzkWWzA+AgDyWSLkt+OyH3/GbqzaR8ZduQ6++lJ8HW5zeV33UmQglZ831
+	 k3i5R2E0FwSU5bDx+FwBLReO2J8DTuw+Brx3n84rTYOuYE/Cw4/ZZN38q9IuTNVsUrnNP
+	 6pZkL9T/an1x5BtKj83/7wpDcHAbL2xljcbRXFJ8xcJoGqD6iLlZyJ1eJQqEGJEfk4A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DE3361F01829;
+	Wed, 28 Oct 2026 17:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793210092;
-	bh=v6lgge4WdsOVmOEXha6YU4EWcAVpqL0HGPQBV5WSBkY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=khWkVIOIxNRfDHMWRxAQtKPepjJau1mWH1tfNKVk66Ch1Lv9J7cPoDH51yRVQkwQe
-	 lm9acNXE11ARvqj46A/Jyhi7EbsCe7jxWNp+QA+oIQecZm/cowX6xbtuw2ZcnMLeZW
-	 F66i8Mn634THVYeZ8kW0a7P38yefWynfUloLYRA+QdcLjo8wWma67XNK0XQZydnh42
-	 /vDm0n3McPffCVHg9YW7z8haJZkTA8RlJPH1/umGHKF2jPmhag50YsXMCtLexT4VbV
-	 Ii/RzfMxlGoN8SWgNRUNR0nsu7SeT0M1r10FoZv6ArCr77yMxsJQbPadK4R3ESzy4a
-	 4ho1RTRTgtRxw==
-Date: Wed, 28 Oct 2026 17:54:47 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	maple-tree@lists.infradead.org, Chris Mason <mason@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/4] maple_tree: Update internal warning and bug_on code
-Message-ID: <auImniguGIVq6c_L@gremlin>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-4-liam@infradead.org>
+	s=k20260515; t=1793210151;
+	bh=yVEY6mnRFZ2IK2UMOXQoNDcDcdPm/HNq0wlvqqtWByo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=GSb1uLp8BiuH9yo/BxS27wd2Spgb2cZUf+/Q6AssZ7JWg6DzeoNym94O95gKJqkEL
+	 JUNM7ygvQu6gxc/JK7G0YOMtplbyhbfnhKrXRf6dKb7gh/G+/uu638ssvj8RicL53n
+	 MLDpjTL1ZtE1HhCPyxtoNi8uIrgTFSvjNfVMQF235nNzTDyh1GQRRG3cuhskR5KGMn
+	 3diz0IyWhpS61yAwMJs8bS7EA0IKyvpABgrpkPXIrjrW1A7KpoSjvjgw6akbUvMUoU
+	 vDvUimday/kXbw16YZdN40J3WU1vgrX4WUzi/52gQlJP2eftDcV+7XDtpxhshjm/xs
+	 +AaVKSEpyKlAQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6A2A7454E3;
+	Wed, 28 Oct 2026 17:55:50 +0000 (UTC)
+From: Luca Stefani via B4 Relay <devnull+luca.stefani.ge1.gmail.com@kernel.org>
+Date: Wed, 28 Oct 2026 18:55:49 +0100
+Subject: [PATCH 1/2] btrfs: account partially completed discards
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,209 +82,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028154218.1668182-4-liam@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-b4-btrfs-fitrim-interruption-v1-1-bf5c53738b3a@gmail.com>
+References: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+In-Reply-To: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>, 
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793210149; l=2358;
+ i=luca.stefani.ge1@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=F8Pv6qkXxT7wewljV2XNrswlKdtAJgpfaMISGxrcbhU=;
+ b=+2gdX7sfz1h0qgzIpAuAL6fcd6qg9uioKN7l5daPZivzQYYj9AoiKdo6Wa+usHadZ3K6F0llM
+ pY2vmhhMZxWBC3D/CtV6lD9mGMraSPSEUdx6NAn3kupD90Dn+Tp9bOZ
+X-Developer-Key: i=luca.stefani.ge1@gmail.com; a=ed25519;
+ pk=0OIKU9oiaC0ALN4kqvw7ZbPFXqsBLvWm7MhEDYv3PyI=
+X-Endpoint-Received: by B4 Relay for luca.stefani.ge1@gmail.com/20261028
+ with auth_id=1347
+X-Original-From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Reply-To: luca.stefani.ge1@gmail.com
+Content-Transfer-Encoding: 7bit
 
-ma
- On Wed, Oct 28, 2026 at 11:42:17AM -0400, Liam R. Howlett (Google) wrote:
-> When CONFIG_DEBUG_MAPLE_TREE is set, call the WARN_ON_ONCE() after the
-> custom information is dumped about the tree.  Without using the kernel's
-> WARN_ON calls, syzbot will not catch issues detected by this code.
+From: Luca Stefani <luca.stefani.ge1@gmail.com>
 
-Mega nit but commit message doesn't mention the BUG_ON() bits :)
+A discard can complete part of a range before a later chunk is interrupted
+or fails. btrfs_issue_discard() reports the bytes already discarded, but
+its callers only accumulate those bytes when the entire operation succeeds.
 
->
-> Update the non-debug code to call WARN_ON_ONCE() as well.
->
-> Cc: <stable@vger.kernel.org>
-> Reported-by: Lorenzo Stoakes <ljs@kernel.org>
-> Fixes: bf857ddd21d0b ("maple_tree: move debug check to __mas_set_range()")
+Link: https://lore.kernel.org/20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me/
+Signed-off-by: Luca Stefani <luca.stefani.ge1@gmail.com>
+---
+ fs/btrfs/extent-tree.c      | 5 ++---
+ fs/btrfs/free-space-cache.c | 5 ++---
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-LLM overlord says bf857ddd21d0b only moved it, and f0a1f866aba1 actually
-implemented it.
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index 9b0a5c6b96f3..242db255cf1c 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -1463,6 +1463,7 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
+ 				continue;
+ 
+ 			ret = do_discard_extent(stripe, &bytes);
++			discarded_bytes += bytes;
+ 			if (ret) {
+ 				/*
+ 				 * Keep going if discard is not supported by the
+@@ -1471,8 +1472,6 @@ int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
+ 				if (ret != -EOPNOTSUPP)
+ 					break;
+ 				ret = 0;
+-			} else {
+-				discarded_bytes += bytes;
+ 			}
+ 		}
+ 		kfree(stripes);
+@@ -6703,6 +6702,7 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+ 
+ 		ret = btrfs_issue_discard(device->bdev, start, len,
+ 					  &bytes);
++		*trimmed += bytes;
+ 		if (!ret)
+ 			btrfs_set_extent_bit(&device->alloc_state, start,
+ 					     start + bytes - 1, CHUNK_TRIMMED, NULL);
+@@ -6712,7 +6712,6 @@ static int btrfs_trim_free_extents_throttle(struct btrfs_device *device,
+ 			break;
+ 
+ 		start += len;
+-		*trimmed += bytes;
+ 		trim_len += len;
+ 		if (trim_len >= BTRFS_MAX_TRIM_LENGTH) {
+ 			*ret_next_pos = start;
+diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
+index bff6e5b372d6..a85806bcf87a 100644
+--- a/fs/btrfs/free-space-cache.c
++++ b/fs/btrfs/free-space-cache.c
+@@ -2415,10 +2415,9 @@ static int do_trimming(struct btrfs_block_group *block_group,
+ 	spin_unlock(&space_info->lock);
+ 
+ 	ret = btrfs_discard_extent(fs_info, start, bytes, &trimmed, false);
+-	if (!ret) {
+-		*total_trimmed += trimmed;
++	*total_trimmed += trimmed;
++	if (!ret)
+ 		trim_state = BTRFS_TRIM_STATE_TRIMMED;
+-	}
+ 
+ 	if (reserved_start < start)
+ 		__btrfs_add_free_space(block_group, reserved_start,
 
-> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+-- 
+2.56.0
 
-Looks sensible to me from kernel perspective, but LLM overlord tells me this
-changes the userland tests from asserting on dump_stack() to just printing
-something out on WARN_ON().
 
-(BUG_ON() is OK, it asserts already).
-
-However we really do need this for the kernel so CONFIG_DEBUG_MAPLE_TREE
-triggers syzbot and such, so maybe the userland bit can be a follow-up?
-
-On that basis:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Or... maybe just respin with something actually, can fix it by updating the
-shared maple tree testing header to make warn do something like this
-(schlopped, apologies):
-
-diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
-index 2a1e9a8594a2..112052e7201f 100644
---- a/tools/testing/shared/maple-shared.h
-+++ b/tools/testing/shared/maple-shared.h
-@@ -10,6 +10,30 @@
- #include <time.h>
- #include "linux/init.h"
-
-+/*
-+ * The tools/include/asm/bug.h WARN*() family only prints a message and
-+ * carries on.  Nothing in the maple tree or VMA tests expects a warning, so
-+ * treat one as a failure and abort at the site.
-+ */
-+#undef WARN
-+#undef WARN_ON
-+#undef WARN_ON_ONCE
-+#undef WARN_ONCE
-+
-+#define WARN(condition, format...) ({					\
-+	int __ret_warn_on = !!(condition);				\
-+	if (unlikely(__ret_warn_on)) {					\
-+		fprintf(stderr, "WARN at %s:%d: ", __FILE__, __LINE__);	\
-+		fprintf(stderr, format);				\
-+		abort();						\
-+	}								\
-+	unlikely(__ret_warn_on);					\
-+})
-+
-+#define WARN_ON(condition)	WARN(condition, "%s\n", #condition)
-+#define WARN_ON_ONCE(condition)	WARN_ON(condition)
-+#define WARN_ONCE(condition, format...)	WARN(condition, format)
-
-> ---
->  include/linux/maple_tree.h | 54 +++++++++++++++++++++-----------------
->  1 file changed, 30 insertions(+), 24 deletions(-)
->
-> diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
-> index e30e57f5f3df9..0f96f1f19eb95 100644
-> --- a/include/linux/maple_tree.h
-> +++ b/include/linux/maple_tree.h
-> @@ -680,7 +680,7 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
-> @@ -696,7 +696,7 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
-> @@ -713,62 +713,68 @@ void mt_cache_shrink(void);
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> +		BUG_ON(1);						\
->  	} else {							\
->  		atomic_inc(&maple_tree_tests_passed);			\
->  	}								\
->  } while (0)
->
->  #define MT_WARN_ON(__tree, __x)  ({					\
-> +	static bool __warned;						\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (!__warned) {						\
-> +		__warned = true;					\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mt_dump(__tree, mt_dump_hex);				\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
->
->  #define MAS_WARN_ON(__mas, __x) ({					\
-> +	static bool __warned;						\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (!__warned) {						\
-> +		__warned = true;					\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mas_dump(__mas);					\
->  		mt_dump((__mas)->tree, mt_dump_hex);			\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
->
->  #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
-> +	static bool __warned;						\
->  	int ret = !!(__x);						\
->  	atomic_inc(&maple_tree_tests_run);				\
-> -	if (ret) {							\
-> -		pr_info("WARN at %s:%d (%u)\n",				\
-> -		__func__, __LINE__, __x);				\
-> +	if (!ret) {							\
-> +		atomic_inc(&maple_tree_tests_passed);			\
-> +	} else if (!__warned) {						\
-> +		__warned = true;					\
-> +		pr_info("WARN at %s:%d\n",				\
-> +		__func__, __LINE__);					\
->  		mas_wr_dump(__wrmas);					\
->  		mas_dump((__wrmas)->mas);				\
->  		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
->  		pr_info("Pass: %u Run:%u\n",				\
->  			atomic_read(&maple_tree_tests_passed),		\
->  			atomic_read(&maple_tree_tests_run));		\
-> -		dump_stack();						\
-> -	} else {							\
-> -		atomic_inc(&maple_tree_tests_passed);			\
-> +		WARN_ON(1);						\
->  	}								\
->  	unlikely(ret);							\
->  })
-> @@ -776,9 +782,9 @@ void mt_cache_shrink(void);
->  #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
->  #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
->  #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
-> -#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
-> -#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
-> -#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
-> +#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
-> +#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
-> +#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
->  #endif /* CONFIG_DEBUG_MAPLE_TREE */
->
->  /**
-> --
-> 2.47.3
->
-
---
-Cheers, Lorenzo
