@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793159861;
-	b=f1XqszroFqT8U7ByHzmKeYMW7nwXwEEalP7RjNx0qE3HQfwI75DYOVvSeSZoSAXK+V4/
-	 2TVBKZvF+f+eJM133JyFnhQNHO/2f/Rm+Q5hgK4o5BgYL/a5doiu4RNQ8t5VSwf3ADS20
-	 WzPpnT4c3NvTboZqPmgmSKH5jP7lI1TNIpE4qTuejHSQb3SD6xrAerFn3QcCkVOQiotjy
-	 0A2bW3mqDAxchRC+q5WnoFj2//GmmwTKxecysDsS4O703KiGnrkBk2m1jV5RsB/UPqok8
-	 DSB40cp5oq8Ql/rqTJ1N14w1o0qBQgycf1weQwFvdB3d5J2ZaX0bHjwDjvovM4QDqlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793159861;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LdDS6KYDzJ/oVKmzl6A3jbAlVTd7hn4RSeZTrpSGhHg=;
-	b=ws3NiYllQ8jkLc0YJ3BZY3sC08hlkH1V+IHbDrIzXTJ5qLn2ekEo6xEs+pr+7YreCnTc
-	 zNzYUFTQ8zA4XfSZOXr+7bUdXzpBSY9PKPpyemUYzEM1snt/Nyr6yMQc9DYpdQDTZdPgd
-	 SJiPH57VhqI+VMOV1ixN3nTDR4DZAD61vvWTViG5fqBkhlnULnJVlmr40x7gecTFBFvNn
-	 DEAko2hiZ9tVEPJOZYSIrNztxmX592dPDai8kj6bRW2+0rE0nzGMTuqcsD41E0N0T/Lgj
-	 Ikrf7ux/SKp/V5gXjOaMeZuG5pYA1SuG+Ngn2uzBdVV2Lhx62gL+yYP0n5rb9de5sjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gpgg/EGp";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793159864;
+	b=NhYOCc/A1ATssrS7Mzz/8EQhNM6MrFOVP3nJh5MxyQ+FZ0Ml0CpzTulrrt4hlcvn1Dgu
+	 C3XOJ3+MZc0ptS5n3M/0S3yWhJU4BsY2MrPLEFoDhduR1NEbdabVaejDrf4klrWlCFWyc
+	 I4bLJzPWs4DqK9brIVlO+N7f5LV9hp6fLIPEX0YHfCAF77gy7z1ZMh+DJYP7djuT/L69e
+	 S/zuHBV8e32FPNaAeZyiu0RquDg06paqjS7oi8PsSMeeki5AOSQBRMVU9gM8H9kmxXf+9
+	 gYLkJty5BeTz3DGDzdq2hytbQrcDTRNx6FUKy+LqxsS3eb7TsOBOJM7KHTG9bhHjkOQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793159864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NMXrGQL+HMAYYOepT9QRjy9INGR/r2c4dPSHBgR+Ovg=;
+	b=3pWq/ie+06LxKRuQmjUnzTXfKZHcwhfkpevU+7XpulFN6ev9jD7UAGr7+88wDMgCH9C0
+	 ZVgVnss+7YsjhjhluHrYho9rXDF+kVF2u0KD/C76kBl+TwJKEHD5TJ7ZJOi1h+nb6yZau
+	 8mvzG4lrjcjRS6UnPf7E/yvx8xt5KKQ/pttLS95LVNgaD0HlmY548JIayUxp+4C3h9aTK
+	 7CubH9uB1NEO7ITKfBoXa/A47h61+PqTvJ4ypD/n23gAVke9owzRYsKIw8K7EZNpGkvl2
+	 TVsAL1fbvhlpKPug09baDrs741AjYpNw6WMNL8Dm2R418o1WtBeL+10bNqpoibZ6lvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=amacapital.net;
+	spf=pass smtp.mailfrom=amacapital.net;
+	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="gaw+DbF/";
+	arc=fail smtp.remote-ip=209.85.167.41
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8B7606A31A;
-	Wed, 28 Oct 2026 03:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED88F606A33A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED88F606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpgg/EGp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2653A1F01825;
-	Wed, 28 Oct 2026 03:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793159860;
-	bh=LdDS6KYDzJ/oVKmzl6A3jbAlVTd7hn4RSeZTrpSGhHg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gpgg/EGpmMB723mqPbY7OOOD1P6n3seyd1glrnnLY6rthjzqY1DgUgusvwQAjciPF
-	 ta8jtdzZOpVqswtk2X6LHHe1tvBt4jFO3232KrP6zKEjcz3cYkfD28BAv6QfINDs4V
-	 Imjit55qhCaOmZfWBHawCdBqjJairX0nN5q3v5AG8r0UcfebOzqg4PxA93Z8H947Pq
-	 P2ctZNafyDrElhLE8jzkFMm4LBwllgzFiWIbPY41LzlkkB37uXMsHWJBkhuktWuDdt
-	 EvclwypcDjrUVOnyTJ6sx/QEKKee683CNuQInHDiIB5raIXqgTeJEydjGKGm9Adwqa
-	 5ady9t6KH4VxA==
-Message-ID: <sashiko-outbox-187457@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 10/13] entry: Classify ordinary hardirq
- return-tail work as hardirq context
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261028033127.82193-11-kmehltretter@gmail.com>
-References: <20261028033127.82193-1-kmehltretter@gmail.com>
- <20261028033127.82193-11-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 03:57:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gaw+DbF/
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso527096e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:57:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793159862; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BM1h5JBAjnBxEyeMFWIRLOpxJCm4eftEDTP5qaTsVQB6ty/OVzJrISA8rJ4JNhPVHN
+         6b0gXUf8XuFUB0/TilsomAXgRPxKEaqH0VANB3F2wRA4Vh9quOveDeIGyhA0DZD9XzL0
+         2evr/O8ZaIf212jZfGUoWXEu3/dihwCwJBokJeBIM9vT5k9ml62KRxNs7DHOJIV6ilkk
+         l4d+bS1e5tf2KguvYxWKZUsMEWCcYfcqWty672gMmKPv4wfqXNiFnf78yHzdaaLAVd2r
+         drSDGtBREu5OAo20xEKB6FOHRjDs8Tpred/fo3j2EECxYDXOeyDoJE4IcWUWOBknTix7
+         Q5nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NMXrGQL+HMAYYOepT9QRjy9INGR/r2c4dPSHBgR+Ovg=;
+        fh=1E3V58qTHHcYET/Lo3hcCzxQN15g3Zpo/vsrPs6xslg=;
+        b=k5IitRAyShy0IiOCpAEfZj9H9hpxrLAcwh2b9/K497gRNmFMTg3wsotQF1PWzXzXZ+
+         wW/DRG+HbU7N7VEOYmcAQ2V4SBLNYXTDvuFjZb9UV/bQkjfRHACJVsIVO6f8+erRskwu
+         0L0GCf6720DtiMF/QSBouFYlB5sGdN6w5dcZtCOnjRskOhCpF6arErRNA8A5YbOuRtbB
+         bpEyOWgN/TLr6Qpg/i7sOXj0AqIYI7xo50Xb7x+K8AuRnUv2SGbq4tts8qGrc/NODjSy
+         PtaM+CIICdtuPekFmepbZnAirWrQTatLzt6tJOx7iHaUNf4Te3O09I1XDnbAEqPhl2Ye
+         WBRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1793159862; x=1793764662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NMXrGQL+HMAYYOepT9QRjy9INGR/r2c4dPSHBgR+Ovg=;
+        b=gaw+DbF/nmUl3kDK8zxqfHwK29AhYno3poVrvFH+EON0nOKHPGtXEaQesZpl7p8ajG
+         rkw2MBoTDlVJnO4hjaG3tIMKVF54uRl+Xz7QQn7JMuY1VBhMdKJ7mibQ4552uDCP/oGP
+         JeFeUyzddTGiWDdLWwCE5G94LI1vdM747u+BzTfDchR41u8JzfXm/7h04TVnIyj4mIXF
+         u1/+E3queoRBnMH0CPGHAK9YTOywC0B3ujvaPAuaIqqwuPGJ4qG/P7s0H5G7gQ8JfYu8
+         /fnyjHcpNRJeD8oX7PgoslrLmdSDr9Q/7hgYIxQ24YorJuyT/zXhUfP/YyOFF8f6zopi
+         /xoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793159862; x=1793764662;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NMXrGQL+HMAYYOepT9QRjy9INGR/r2c4dPSHBgR+Ovg=;
+        b=FF5b3MGFI0ZpOngx7TY5Ocy/cVCbkMooIQQqC3BvKr5+iSIxdtVxtJ0OZbROUcQjOI
+         Z85+Rdc6/dXWNa2eUBzVnNPUiB+S6ud5zFMDzoG9Uz3ECyzLfbweewbQdJ76y6qdQrYq
+         YlT36f8GJrXq1yD+OMJkiHLhxYgjnoqHQ8QLsOeZJFx39BfvLak95DThRnYlxEFpJXgj
+         y/qJUBPyBfDyTOMVm8R+woyZ1n5XEJ3KlOkNCeDJMkxrUy55sDaIxWk9//EC9S2YlX/y
+         MBj3otBupfFGLplwplm9zvkt0F4oz6vuL66ftsu0tUw/TsjeKhDPW2efaPgrUPj0QraO
+         BiaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByiD+uaiNXzML4UNJcwsteljwStGcBQnRSCuuF0bnugz/We2Ks0cBxJGTlZh89OLqKd5Icid9XLZ9CJaIs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJZ2tAy9cMxTNSZWgU05SrUIxTkKYrWoVcHS5Yyzt7MjJEx+fq
+	PxiThsuQ7oXvx1eyyzm4EkXdYeS3nXOIYp5szYLyTXLLyx5zMOv+RqUsrictzjieEZeSN9qVlmF
+	k3dYjVYJi2AMGcaqpp3DxzAXMvnzAqjlMqUvG4tAt
+X-Gm-Gg: AYBFou05D18R841hemRNqiBRESOXho8Mkmp3SN11IArkpqjLaaPxuIyG9MNK0e/kEbz
+	gtusEScOeNyB9J52JXuVfvfPHRgPrclZBRCTELScA7duW5C4+DuQh2rqve9zXmBn0jQ4yPKXIYw
+	g8ATjTwa6x8KdgcLXSWvbQGtlCdGgxUp2JIzY/EutiJNa2JacldInMsUI4JwAn7cYCdfzk89HAB
+	ztPP5kr+tl4oJDM2CJOpPrymWesqLun5nDtbU4rIRr0hC5fJOScFn8coYfuooMAutPDTOKMw3WZ
+	ljyZgwQKF1ozPdTkVAp2ZGiW1qn8CeVDrMVE3Hapsyngcx1eiVG7hwSQV0tzPnT9d6rbOdFZr8d
+	xPvF65ktj4kAF6mJtLNJ0MuJYcf66cAL7sQ==
+X-Received: by 2002:a05:6512:39cd:b0:5bf:c619:b088 with SMTP id
+ 2adb3069b0e04-5bfcad172c1mr381529e87.20.1793159861277; Tue, 27 Oct 2026
+ 20:57:41 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,252 +103,156 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261026220546.3114241-1-skhawaja@google.com> <CALCETrXNEWQNPjtuHnTfVFOafeJ7APXq288Cq16Q5adDNYx9+A@mail.gmail.com>
+ <auEksxfAi9lHFXmT@google.com>
+In-Reply-To: <auEksxfAi9lHFXmT@google.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Tue, 27 Oct 2026 20:57:29 -0700
+X-Gm-Features: AclHuK-ukwGAOGBSGCB4Bz_ycZfHCvtj9w2gkhhBJhRypC_kHO1bNXVuIJcmKsM
+Message-ID: <CALCETrXDY2e8x2kdr-FQvFLs-Y7FwNozXGDvqqM6yvVA7QLV3g@mail.gmail.com>
+Subject: Re: [PATCH 0/2] mm/memfd: add F_SEAL_PUNCH_HOLE
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
+	Alexander Aring <alex.aring@gmail.com>, Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>, 
+	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-api@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] entry: irqentry_exit_to_kernel_mode_after_preempt() breaks preempt=
-irqsoff
-- [Medium] softirq: irqentry_hardirq_tail_exit() repeats wakeups with wake_=
-flags =3D 0
-- [Medium] entry: irqentry_hardirq_tail_exit() wakes softirq threads after =
-preempt check
---
+On Tue, Oct 27, 2026 at 3:55=E2=80=AFPM Samiullah Khawaja <skhawaja@google.=
+com> wrote:
+>
+> On Mon, Oct 26, 2026 at 03:46:34PM -0700, Andy Lutomirski wrote:
+> >On Mon, Oct 26, 2026 at 3:06=E2=80=AFPM Samiullah Khawaja <skhawaja@goog=
+le.com> wrote:
+> >>
+> >> This series introduces F_SEAL_PUNCH_HOLE, a new memfd seal that preven=
+ts
+> >> holes from being punched into a shmem or hugetlbfs memfd while leaving
+> >> the file fully writable.
+> >>
+> >> Background
+> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>
+> >> Drivers such as udmabuf and iommufd (via IOMMU_IOAS_MAP_FILE) use
+> >> memfd_pin_folios() to pin the folios backing a memfd and hand them to =
+a
+> >> device for DMA. Pinning keeps those folios allocated, but it does not
+> >> keep them in the file. If userspace later calls
+> >> fallocate(FALLOC_FL_PUNCH_HOLE) or madvise(MADV_REMOVE) on the range,
+> >> the folios are dropped from the page cache while the device continues
+> >> to use them. The pin holder is never notified, and from that point on
+> >> the device and the file silently diverge.
+> >>
+> >> The existing seals only partially address this. F_SEAL_SHRINK prevents
+> >> pages from being dropped by truncation, which is why udmabuf requires
+> >> it. Hole punching, however, is only blocked by F_SEAL_WRITE and
+> >> F_SEAL_FUTURE_WRITE, and both of those also forbid writes. That makes
+> >> them unusable for memory that must stay writable, such as guest RAM or
+> >> DMA buffers, and udmabuf explicitly rejects memfds that carry them.
+> >>
+> >> Proposal
+> >> =3D=3D=3D=3D=3D=3D=3D=3D
+> >>
+> >> F_SEAL_PUNCH_HOLE fills this gap. Once it is set,
+> >> fallocate(FALLOC_FL_PUNCH_HOLE) and madvise(MADV_REMOVE) fail with
+> >> -EPERM, while reads, writes and resizing are unaffected. Combined with
+> >> F_SEAL_SHRINK, it guarantees that userspace cannot remove pages from
+> >> the memfd while the memfd remains writable.
+> >
+> >How does this solve the problem?  F_SEAL is about a userspace
+> >contract, and if there are existing users of the APIs in question, it
+> >makes very little sense to start making those users fail because they
+> >haven't taken the appropriate seal.
+>
+> It doesn't change any existing behaviour, nothing starts failing for
+> users that don't set the seal, and drivers wouldn't require it. It's
+> opt-in. Userspace that wants the guarantee seals the memfd, and a kernel
+> user that pins it can check for the seal and rely on the pages staying
+> in the file. For example, the iommufd live update path could skip
+> verifying the pinned pages at preserve time when the seal is present,
+> and do the full check otherwise.
 
-commit d2af631b0f352ba4a12e0eb8fa80f5ff66476c74
-Author: Karl Mehltretter <kmehltretter@gmail.com>
+Can you clarify the API you're proposing and the issue?  It seems to
+me like the user is expected to preserve HWPT state by creating a
+memfd, then using some new API to tell the driver to "persist" its
+state into the memfd (possibly by binding its existing state as folios
+into the memfd)?  And userspace is supposed to seal the memfd against
+growing and shrinking but not against writes?
 
-entry: Classify ordinary hardirq return-tail work as hardirq context
+What if the user writes to the file?  What if the user populates
+pages/folios into the file before using it to preserve HWPT?  What if
+the user mmaps the file?
 
-This commit stages a fresh hardirq-count attempt and restores lockdep
-classification across traceable return-tail work on return from ordinary
-hardirqs. It adds irqentry_hardirq_tail_enter() and
-irqentry_hardirq_tail_exit() around the post-preemption return tail so
-return-tail callbacks run as hardirq context.
+Have I understood this correctly at all?  Why does memfd make sense?
+If the goal is to attach a bunch of pre-existing pages to a file so
+that the page preservation machinery can preserve them, wouldn't it
+make more sense to have a handoverfd mechanism where the kernel can
+make a handoverfd that stores its purpose and logically represents
+some pages but does *not* allow read or write or fallocate or any
+other user operation that actually acts on the data or its memory
+layout?
 
-> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-c=
-ommon.h
-> index 6f649f6613312..f51aafc1b49fd 100644
-> --- a/include/linux/irq-entry-common.h
-> +++ b/include/linux/irq-entry-common.h
-> @@ -383,6 +383,32 @@ irqentry_hardirq_count_state_set(irqentry_state_t *s=
-tate,
->  		IRQENTRY_HARDIRQ_APPLIED : IRQENTRY_HARDIRQ_REJECTED;
->  }
-> =20
-> +/**
-> + * irqentry_hardirq_tail_enter - Stage ordinary-hardirq return-tail state
-> + * @state: Pointer to state returned by the matching irqentry_hardirq_en=
-ter()
-> + *
-> + * Make a fresh staged hardirq-count attempt and establish the lockdep
-> + * classification which traceable return-tail work needs. Accounting, RC=
-U and
-> + * tick handling belong to the completed interrupt and must not be repea=
-ted
-> + * here.
-> + */
-> +static __always_inline void
-> +irqentry_hardirq_tail_enter(irqentry_state_t *state)
-> +{
-> +	struct irqentry_hardirq_cookie cookie;
-> +
-> +	if (!state->hardirq)
-> +		return;
-> +
-> +	cookie =3D irqentry_hardirq_count_start();
-> +	lockdep_hardirq_enter();
-> +
-> +	instrumentation_begin();
-> +	irqentry_hardirq_count_finish(cookie);
-> +	instrumentation_end();
-> +	irqentry_hardirq_count_state_set(state, cookie);
-> +}
+>
+> https://lore.kernel.org/all/arVYa_90j0oN1hnu@google.com/
+> >
+> >Would it make more sense for the drivers in question to set some flag
+> >(refcount?) on the file to block hole punching?  Or perhaps to have
+> >the hole punch code notice that it's trying to punch out a folio that
+> >is pinned or otherwise referenced and to refuse to do it?
+>
+> The pins already keep the memory alive while it's used for DMA; the
+> problem is only that the page silently stops being part of the file.
+> Refusing to punch pinned folios on every file would change behaviour for
+> existing users: fallocate() would start failing whenever a page is
+> pinned, even briefly by O_DIRECT. A flag set on the file by long-term
+> pinners would avoid the short-term case, but it would still make punches
+> start failing for existing users of those drivers, which is why I went
+> for an opt-in seal.
 
-[ ... ]
+Wait a moment here.  Given my comments above, I'm not sure this is
+relevant to this patchset, but...
 
-> @@ -543,6 +574,31 @@ static __always_inline void irqentry_hrtimer_rearm_d=
-eferred(void)
->  static __always_inline void
->  irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentr=
-y_state_t state)
->  {
-> +	struct ct_irq_exit_state ct_state =3D { };
-> +
-> +	if (state.hardirq) {
-> +		if (!regs_irqs_disabled(regs)) {
-> +			instrumentation_begin();
-> +			hrtimer_rearm_deferred();
-> +			/* Tell the tracer that the return will enable IRQs. */
-> +			trace_hardirqs_on_prepare();
-> +			lockdep_hardirqs_on_prepare_irqtail();
-> +			instrumentation_end();
-> +		}
-> +
-> +		if (state.exit_rcu)
-> +			ct_state =3D ct_irq_exit_prepare();
-> +
-> +		irqentry_hardirq_tail_exit(irqentry_hardirq_count_state(state));
+As far as I know, right now, a program can open a file, register some
+of its pages with io_uring or RDMA, and then use io_uring or RDMA to
+write to those pages later.
 
-[Severity: High]
-Does ordering trace_hardirqs_on_prepare() before irqentry_hardirq_tail_exit=
-()
-cause a regression for the preemptirqsoff tracer when returning to
-preemptible, IRQ-enabled kernel mode?
+And another program can open that same file and use fallocate to punch a ho=
+le.
 
-In irqentry_exit_to_kernel_mode(), irqentry_hardirq_tail_enter() stages
-HARDIRQ_OFFSET in preempt_count() and calls:
+And then the first program thinks it's reading into the file, and it
+ends up not reading into the file.  Which makes the hole punch
+operation rather different from the write-zeros operation that it's
+supposed to be a fancy version of.
 
-irqentry_hardirq_count_finish()
-  preempt_latency_start(HARDIRQ_OFFSET)
-    trace_preempt_off()
+Now this doesn't sound like a security problem per se, since the
+offending hole-puncher needed write access (admittedly that write
+access is only needed at hole punch time, not in the indefinite future
+when weird behavior happens).  But this whole sequence seems highly
+suspect to me.
 
-Next, when !regs_irqs_disabled(regs),
-irqentry_exit_to_kernel_mode_after_preempt() calls trace_hardirqs_on_prepar=
-e()
-while HARDIRQ_OFFSET is still set in preempt_count(). In
-kernel/trace/trace_irqsoff.c:
+Are you *sure* it wouldn't make sense for a GUP'd or similar reference
+(whether pinned or not) to *actually preserve that folio's status as
+part of the file*?  Or maybe for there to be an extra pin bit to do
+this?  Because the current behavior is pretty strange.  And I'm not at
+all convinced that anyone would really object if the kernel prevents
+hole-punching a range with an active GUP, especially if this behavior
+is restricted to writable GUPs.
 
-void tracer_hardirqs_on(unsigned long a0, unsigned long a1)
-{
-	if (!preempt_trace(preempt_count()) && irq_trace())
-		stop_critical_timing(a0, a1);
-}
+I admit that truncate seems slightly different in the sense that it
+seems more likely that someone would be annoyed by an inability to
+truncate a file.  But still, truncate does have the same issue.  Maybe
+extending a file could notice that there is still a folio covering the
+newly extended range and stick that back into the file?  Seems messy.
 
-When the preemptirqsoff tracer is active (both CONFIG_IRQSOFF_TRACER and
-CONFIG_PREEMPT_TRACER enabled, so trace_type has both TRACER_IRQS_OFF and
-TRACER_PREEMPT_OFF), preempt_trace(preempt_count()) evaluates to true becau=
-se
-preempt_count() contains HARDIRQ_OFFSET. As a result, tracer_hardirqs_on()
-skips stop_critical_timing(), while trace_hardirqs_on_prepare() still clears
-tracing_irq_cpu.
-
-Immediately after that, irqentry_hardirq_tail_exit() calls:
-
-irqentry_hardirq_exit_prepare()
-  irqentry_hardirq_count_sub_prepare()
-    preempt_latency_stop(HARDIRQ_OFFSET)
-      trace_preempt_on()
-        tracer_preempt_on()
-
-In kernel/trace/trace_irqsoff.c:
-
-void tracer_preempt_on(unsigned long a0, unsigned long a1)
-{
-	if (preempt_trace(preempt_count()) && !irq_trace())
-		stop_critical_timing(a0, a1);
-}
-
-Because hardware interrupts remain disabled at the CPU until the exception
-return instruction, irqs_disabled() is still true, so irq_trace() evaluates=
- to
-true and tracer_preempt_on() also skips stop_critical_timing().
-
-Finally, irqentry_hardirq_exit_finish() removes HARDIRQ_OFFSET via
-__preempt_count_sub(HARDIRQ_OFFSET). Won't this leave per_cpu(tracing_cpu, =
-cpu)
-stuck active after returning to preemptible, IRQ-enabled kernel execution, =
-as
-well as emitting extra preempt_disable, irq_enable, and preempt_enable trace
-events in inverted order?
-
-> diff --git a/kernel/softirq.c b/kernel/softirq.c
-> index 169c559832501..85b167db37c29 100644
-> --- a/kernel/softirq.c
-> +++ b/kernel/softirq.c
-> @@ -837,6 +837,27 @@ irq_exit_wake_late_softirqs(unsigned int wake_flags)
->  		irq_exit_wake_ksoftirqd();
->  }
-> =20
-> +/**
-> + * irqentry_hardirq_tail_exit - Close work and remove return-tail state
-> + * @cookie: Staged hardirq-count cookie from irqentry_hardirq_tail_enter=
-()
-> + *
-> + * Run every instrumentable teardown operation, including the final work=
-er
-> + * closure, before conditionally removing any applied raw hardirq count =
-and
-> + * ending lockdep nesting.
-> + */
-> +void noinstr
-> +irqentry_hardirq_tail_exit(struct irqentry_hardirq_cookie cookie)
-> +{
-> +	bool do_sub;
-> +
-> +	instrumentation_begin();
-> +	do_sub =3D irqentry_hardirq_exit_prepare(cookie);
-> +	irq_exit_wake_late_softirqs(0);
-> +	instrumentation_end();
-> +
-> +	irqentry_hardirq_exit_finish(do_sub);
-> +}
-
-[Severity: Medium]
-Can passing a hardcoded 0 to irq_exit_wake_late_softirqs(0) in
-irqentry_hardirq_tail_exit() cause redundant wake_up_process() calls for
-ksoftirqd and ktimerd?
-
-During the earlier main hardirq exit in irq_exit_rcu_preempt_counted_prepar=
-e(),
-__irq_exit_rcu(true) records IRQ_EXIT_WAKE_KSOFTIRQD and IRQ_EXIT_WAKE_KTIM=
-ERD
-in wake_flags so irq_exit_wake_late_softirqs(wake_flags) avoids waking those
-threads a second time. However, local_softirq_pending() or
-local_timers_pending_force_th() remains non-zero until the woken thread
-actually runs on the CPU and clears the pending bits.
-
-If irqentry_exit_to_kernel_mode_preempt() does not switch to the worker thr=
-ead
-(for example, on any interrupt from an RCU-idle context where state.exit_rc=
-u is
-true, when the interrupted kernel context has preemption disabled, when
-regs_irqs_disabled(regs) is true, or when current has higher priority),
-irqentry_hardirq_tail_exit() runs with those pending bits still set:
-
-irq_exit_wake_late_softirqs(0)
-  if (!ksoftirqd_wake_requested)
-      ksoftirqd_wake_requested =3D irq_exit_wake_ksoftirqd();
-  if (!ktimerd_wake_requested)
-      ktimerd_wake_requested =3D irq_exit_wake_timersd();
-
-Because wake_flags is 0, won't this call wakeup_softirqd() or wake_timersd()
-a second time even when no return-tail callback raised new work, and do so
-after trace_hardirqs_on_prepare(), ct_irq_exit_prepare(), and
-irqentry_hardirq_exit_prepare() have already completed?
-
-[Severity: Medium]
-What happens if a return-tail callback raises softirq or forced-thread timer
-work while returning to a preemptible kernel context?
-
-In irqentry_exit_to_kernel_mode():
-
-	instrumentation_begin();
-	irqentry_exit_to_kernel_mode_preempt(regs, state);
-	instrumentation_end();
-
-	irqentry_hardirq_tail_enter(&state);
-	irqentry_exit_to_kernel_mode_after_preempt(regs, state);
-
-the preemption check in irqentry_exit_to_kernel_mode_preempt() runs before =
-the
-hardirq return tail is entered.
-
-If a callback inside the return tail (such as during hrtimer_rearm_deferred=
-(),
-trace_hardirqs_on_prepare(), lockdep_hardirqs_on_prepare_irqtail(), or
-irqentry_hardirq_exit_prepare()) raises softirq or timer work,
-irq_exit_wake_late_softirqs(0) in irqentry_hardirq_tail_exit() wakes ksofti=
-rqd
-or ktimerd while HARDIRQ_OFFSET is still set in preempt_count(), setting
-need_resched() on current. Immediately afterwards,
-irqentry_hardirq_exit_finish() drops HARDIRQ_OFFSET via
-__preempt_count_sub(HARDIRQ_OFFSET) without checking for rescheduling.
-
-Could this return to a preemptible kernel task with need_resched() set and
-miss preempting for the newly woken worker thread (including a higher-prior=
-ity
-SCHED_FIFO ktimerd/ksoftirqd under PREEMPT_RT or force_irqthreads)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028033127.8219=
-3-1-kmehltretter@gmail.com?part=3D10
+Andy Lutomirski
+AMA Capital Management, LLC
