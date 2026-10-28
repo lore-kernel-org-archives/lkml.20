@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.166
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793210153;
-	b=p8UKx00jphAmYlrBTWHkBVqCz1xt3CgKMl3oiLt+6qMPhSLDe0L/t6ln5IY/0XFUSoWu
-	 BhvawRDzUe8mAfPU1axEvYNAVizbVZWkSykMOjUlefNx3FNXSziwRSjzwO9fU+zGozQ8Y
-	 9+DdpQA9k5Xe2ghaQIY8jcgXtfclGzg+/v9YHlPmvHYLyZM3uCW1jpV3bYGJxnDJY6Wq/
-	 QxNgc/MTfsmJDCI/+dxEFqYm4BtyVZSY9D/P6uNzzlfirXbJtpV/fBUyCvJRbA7bnneem
-	 eyxSwvAOgihPD+z42gjSYr5SP+jS5WjaFQmpWgbQ8AmyJO2J4Qf2O0PN1wMTkUl/ysA==
+	t=1793210151;
+	b=cgnzjEchJD2nji0pcunohMYhwnbiYa9AlCrPbYLcMja2cjdqAQ0le8dTtz32CzP70IrH
+	 bq/7xjmgQFJvjtKHE+xOwRuEvL3eoyEI6JqNFgA1tHec+Z79QtH4oQ9D3s8dDMhGu5a4e
+	 i0aOjkPemFPKJTaY46+RfXKGuIQ+zYeUEWDq+jTYAjAAeU/WI8dB8+AKMEdgyhdwIgBDS
+	 QwnBGBPysQZjFn3JYCdzoOiUnqu+roQEtVWqA4+stIt/tIPQ3E8uwycy5890++RNKaYWE
+	 16vgnRuu8Xqlf6Z+xKBbmu97bMJt1JHjsU3VzvT7/9OuYt/Rin4RnPGW47tvLlIb5+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210153;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
-	b=pvXZXJci5VGUjsHowr4nQ5UPzqW+tzykgDPUeSZEBap+EG7/blGOUPfpX8zQbyrrlBqC
-	 r/SRztBA0jbU3rG+vcMvYtZvOdz4q08v896/kQ2i2PPh/TNxKPXhbbnls/RLLENVpNWFT
-	 0MbGfDDEmlAb73m/OT9/XgEnjlFYElHTkNB2zsP5y2ytmG0Vjz7OxhZPYmC1XtRgCRItq
-	 dpke7OsgSpPXwiCJ3BGJEGjbLSK4F4Cr5ozIFkshckqcO8MYg8HFJ7ds5PCenABeg/iqI
-	 iE9RxUVAmEwVCLA9tmafHqnrLRCeLSrc+KY+chsmsXmjMgiX6r/J9TtVRWjKJdkCVhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210151;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=rG5HB4Vnp00eGJo61jUBKAU/ra9VKyOht09dVZrL3So=;
+	b=vvQR99q4Jf5P03ohMCZeYyhxdTgdDfztFi6JqL9jilHeFJYwXoe4Dl0/YQu0WYq1k1O9
+	 P7R7Z7SMrB24xh8pjx9/5jOULMT7Pfj5CQObubfRJjHwOcIb48K67Usiezghlok04Dlbk
+	 a8K+Un9DxZY6yQs+DBRPqMGX3LO2f9OlWwXGE/3ZkvpQC3K31F4zda0+a4r+LSO194Alv
+	 sfiChvAA2Bu2E19PBhWCcOJa4ZCxs7W7v/PKD4CQqj8DdsG4FUvCQs7KU4lWUivbgL55f
+	 kLbE+Feoy0XZ98uXC4LGvCVtHSFquaG2np35s0sqGetBr3xNZk4Ujc5dFUQlQ0QaP/g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=oYzKOgow;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.166
-Received: from mail-200166.simplelogin.co (mail-200166.simplelogin.co [176.119.200.166])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/nG83c/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F97606A31A;
+	Wed, 28 Oct 2026 17:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/nG83c/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793210151;
+	b=IzR5RpRbQiiMrAJ+pgzkhc63nOa61vqw6mN6nKg17284AHZAvR3FrnEpXtRTwiAP47El
+	 PLjgUWTm5VzwqDdgXy9krJrPbDM505oDim0K8wIia9Gn8pFzXRBZVQC8Qz4jdGuNdIYSR
+	 l0eBYqimowxTCj8GMeVvtPKgMHpiF93lvZYg/rN29RNR/SRjxeVhOhw6r+0pV/I61SSDp
+	 2km0HMa1vqHqCMMz8qqqaT31YqpZUNCxdJ0lqRigZnw4/G3/JYBKjSzdNmVgXObDnAZpf
+	 c3BjSFMEBmJxDEbML5Jvxb+0vDne4hBLVjOlXEnHHWKqqL/AnkOamwATGbjgDFjTm7g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793210151;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=rG5HB4Vnp00eGJo61jUBKAU/ra9VKyOht09dVZrL3So=;
+	b=PvnURWxxxhOZDMiknE3l2aCXAyQU+NOvgkxlDdOpjWN2/9PzWMCKYKwepqEVoq40Pu/a
+	 Mqa/3013666NKZNGG/X9kGIUT7K4MOdLthIOxFq8GO+fc4p0nQLlbUc2OTAuyWPbatQkp
+	 nP1c0DWoKb46rvL3p7VrqdTrLY6uZl1wBJx+4n4fbE6bmXSb2ElBruIIO+9vSnLrPaQVm
+	 ohkHqP7TDYQlvaNutF3n9mbenoGc+q8dNEx4u/8LfHMlNehP9L7yudGH97XmhP/gNcnFQ
+	 oWh/OiDv3PmFAb9Dbbog+OyLWipglXOz0NSdnbAlYafY0nZ4cmyCIC1DCCG9HPr5yKw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D5460A2605
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D5460A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=oYzKOgow
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793210146;
-	cv=none; b=UC0eApm5dIZwWLlFOhahU4En3V6504bc3d+Ld4YrJKT7Mvm7cGBnhu/+j4gcA8Ms7e5X3Y9Ycj0qKSDac+qJ7XT8UL4hWOf+ilk8wJUn6lxiCbH9xfntICQGSGXSrtb3Zkgv//9HKW6N0QPhLids/601Z/fVtY9TzO8hxD7fUNyQRHQFCgO7eTtGdzBOe0mB3tB6X/PYFNvHgLenCb3oKRXDUEIzT9C+izFe0dMca3Th0qB1Az63GxfsZw23JxCcRoEyBrq48w1hu+0CFRieeZ69UJqzBHVXOEqruw7UAAfgMABtQtBgkrwaJ3fmH9VZ34NsVpUahgQZ7QDNmDeO2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793210146; c=relaxed/simple;
-	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=devQZawep+mcr0bC8QBq2v/TQdEOe92b1LEsB6dE1JQZIcotXbooZcZR5T1HgFaU8463yJ4Jp/DeROm+9YGVjsk9CNwkX7gPbtTCK+iCqo7bVXPWrm19rBiqy6tnn1/+Ra6s14SGBtSCnHQnq2UwdzG1AuCT1kv+zDusW/OlUd+75TXMpiGUpumX298/yRAWbEdQe8PU9KkXv1wmAOXiML9TCTiW9E346g9e+7Lv5mH/6iQRufy5SgLMqcbjvGLnMmD19sGJ3pV9bhT0Cykgbvoy+EmLpOKtbNioeD5ZLcwIo23um+Icnz+urkA1Y8zaFUKWMtBJnUsBiLPBEwHWuw==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1793210146;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
-	b=oYzKOgowLD3u3eP2GABrI/IrDqcF1DMga26D88/cif3KN4lxtaKsToGpY7RQhIanEImtDH
-	TRQr4DdXUPQCcJr0UMBNqLuG9BZSjTJvTTOpOBHCrGvfsKQWjJKNNojjOcBriX54k+j+1j
-	0lxL+DNNMP9t3JmldQ7l+hknT7/ijsU=
-Date: Wed, 28 Oct 2026 17:55:35 +0000
-Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
- in recvmsg
-In-Reply-To: <4dfb9200-8bd1-4806-90d8-892529b79962@rbox.co>
+	by smtp.kernel.org (Postfix) with ESMTPS id C249A1F01828;
+	Wed, 28 Oct 2026 17:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793210151;
+	bh=rG5HB4Vnp00eGJo61jUBKAU/ra9VKyOht09dVZrL3So=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=U/nG83c/uWI+0EBdiDZZx8xwAE3WGY/QXwQggx1N88xs39leVTv69vJs5AxxxguAZ
+	 BVVdB0nNwqj4dJQnTHbIeVrsN/+8RXb5IOZk4HtqGkEJTOWZRWI+r2WVwxJ9o+bMzl
+	 4ns8NTvXcQzpAlxfQXakG3HPGqtx+e5WZ5kgOCllBPT+8/tnS/FP1o41Sz+asZd0Kq
+	 gFhRxCrhkzhJDFfsXKMj6TR14O+VbtNPGG7iJQozwwlJ4SGmWtu6xLrvTQtATUHw2Z
+	 kURYANEtBKuFcl1tlpmBC3K5Hh71SjKli/FI2Qo/GrboNoGDefZnSERci4Gzeu6JM0
+	 F0qtztISKGriA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 532A645523;
+	Wed, 28 Oct 2026 17:55:50 +0000 (UTC)
+From: Luca Stefani via B4 Relay <devnull+luca.stefani.ge1.gmail.com@kernel.org>
+Subject: [PATCH 0/2] btrfs: don't expose ERESTARTSYS to userspace
+Date: Wed, 28 Oct 2026 18:55:48 +0100
+Message-Id: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,57 +83,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
- <bobbyeshleman@meta.com>,Michal Luczaj <mhal@rbox.co>
-Cc: "David S. Miller" <davem@davemloft.net>,Eric Dumazet
- <edumazet@google.com>,Jakub Kicinski <kuba@kernel.org>,Paolo Abeni
- <pabeni@redhat.com>,Simon Horman
- <horms@kernel.org>,bobby.eshleman@bytedance.com,"Michael S. Tsirkin"
- <mst@redhat.com>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179321014563.7.16847274233062903088.1728128549@eldare.de>
-References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
- <ar4gvlZL1JyPycg1@sgarzare-redhat>
- <4dfb9200-8bd1-4806-90d8-892529b79962@rbox.co>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1728128585
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNwQrCMBBEf6Xs2cUkVA3+inhI0o1dwbRsUimU/
+ ruJnjy+YebNBpmEKcO120DozZmnVEEfOgijSw9CHiqDUeaslbHoe/RFYsbIRfiFnAqJLHOpQ+y
+ to8vJKh2dgqqYhSKvX/3t/uO8+CeF0pyt4V0m9OJSGFsUpoHW499Ba8C+fwD6eobCqgAAAA==
+X-Change-ID: 20261028-b4-btrfs-fitrim-interruption-48ae75801fa0
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>, 
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Zhiwei Liang <zhiwei.liang@zliang.me>, Qu Wenruo <wqu@suse.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793210149; l=774;
+ i=luca.stefani.ge1@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=LP4DYsLlDaDdL3BoYv5vWPMKYJ6s1RRwL4P6KPDAzyQ=;
+ b=uIUbdgWZ2fNLrejSX67UdUxqI1ETM6ecJqN4cAjl7NEPosiANqjvj85RUUh0BRBtDgpo9orL2
+ allb0rgwTrPDbujmi1NtLaPeza3YnHEno2ybDI1XYTb4fsRsDDDnXbk
+X-Developer-Key: i=luca.stefani.ge1@gmail.com; a=ed25519;
+ pk=0OIKU9oiaC0ALN4kqvw7ZbPFXqsBLvWm7MhEDYv3PyI=
+X-Endpoint-Received: by B4 Relay for luca.stefani.ge1@gmail.com/20261028
+ with auth_id=1347
+X-Original-From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Reply-To: luca.stefani.ge1@gmail.com
 
-On 10/5/26 09:59, Michal Luczaj wrote:
-> I took a look at v2 and I don't really have any functional comments. Well=
-,
-> besides the use of READ_ONCE, but that's probably something we need to
-> tackle separately?
+trim can expose -ERESTARTSYS when the trim loops gets interrupted by
+a freezer request.
 
-Thanks for looking. Yes, I'd keep it separate. As far as I can see, the
-virtio_transport_common.c writers of vsk->peer_shutdown run under
-lock_sock() from virtio_transport_recv_pkt(); its WRITE_ONCE() is there
-for the lockless vsock_poll(). The writes outside lock_sock() are in the
-reset paths: virtio_vsock_reset_sock() (sk->sk_state, sk->sk_err),
-vhost_vsock_reset_orphans() (those plus peer_shutdown and SOCK_DONE) and
-vmci_transport_handle_detach(). Both wait loops read these fields; the
-state check is new in v3. The native vsock_connectible_wait_data() reads
-sk_err the same plain way, so I'd rather annotate both paths together in
-one patch than only the sockmap copy. Did you have other accesses in
-mind?
+Preserve byte counts of partially completed discards.
+Consume cancellation at btrfs_trim_fs(), and report partial progress.
 
-> A single-patch v2 addresses not only the original bug, but also sashiko's
-> complains about the pre-existing issues (making the subject stale?), but =
-I
-> didn't know if you'd rather have all of that stuffed together, so I
-> refrained from commenting to avoid confusing the author.
+Link: https://lore.kernel.org/20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me/
+---
+Luca Stefani (2):
+      btrfs: account partially completed discards
+      btrfs: don't report failure when trim is interrupted
 
-Good point, thanks. v3 is a two-patch series: 1/2 keeps the subject and is
-the lock release with the wait loop it needs, 2/2 handles the len =3D=3D 0,
-MSG_ERRQUEUE and MSG_OOB reads. It also addresses the Medium and Low
-netdev Sashiko comments on v2; the pre-existing ingress_skb case will be a
-separate patch.
+ fs/btrfs/extent-tree.c      | 10 ++++------
+ fs/btrfs/free-space-cache.c |  5 ++---
+ 2 files changed, 6 insertions(+), 9 deletions(-)
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261028-b4-btrfs-fitrim-interruption-48ae75801fa0
 
-Bobby, since the vsock sockmap support is yours, a look at v3 would be very
-welcome whenever you find the time.
+Best regards,
+--  
+Luca Stefani <luca.stefani.ge1@gmail.com>
 
-Thanks,
-Jerome
 
