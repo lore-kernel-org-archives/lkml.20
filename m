@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196303;
-	b=Z4XV/P3G+WbNJBRCWWmaee5ucHmzFLklAHlEbtgTNYnKJdhHrqiMTIHpx4sYrX/jaP/6
-	 wGNFv5clCc+wF+FwUDsSUTTPGVM9ronFGhoBLnbnNaEwOg8+FXgElkozeFamxlG9Q5xk4
-	 Vpbl1fknGo5V9Ukk7dBPSmTg5i5iaLbxqFad4pFsJ95J6kqY9tL3JKj2jzEO+35FoX7tx
-	 o2jFvXBKNq/KuUvXEmkQ/gL3g57KZgZdJActv6yO2AFbTHiFEkj7rLjohCUfCZ4rJmhJ6
-	 FgljbeLr/BlXcgLPEYurPhH3R2zs6RVUcOgqX6IOzTaMhqJQ0chxTvrDxc7dWU4cGfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196303;
-	h=DMARC-Filter:DKIM-Signature:To:From:Date:X-Original-From:Message-Id:
-	 Mime-Version:X-Lms-Return-Path:X-Mailer:Subject:
-	 Content-Transfer-Encoding:Content-Type:Cc;
-	bh=swgirEIYnIaEZi3MwmLVcinGiwqWd0Ak1rTDVMUomLY=;
-	b=EGq8E8/wmx795QGUmwk8nn74n5aZQXV94boozRGuyx4tRSjvyqpFVjVxOIwznx/QmHVA
-	 p2yWYNy5JniB2AyELxgtBmNhHtFd6GbLAQchGgGwbR+BrPlX0yQakmmO103dVRyv/yiy9
-	 jyEvGnftgwPMV/7XiFjEHQMGUZbaJB81rFF4sLKJxP01tYXdXo2J4jtZqrD12xoKabKtT
-	 wwg2gnL+BuVeCBkFZomUfQ3y1U+ovzjYJlUHroXKVC88xtsueR1Rw80btyCKwpwegsULj
-	 DmxlZQbQmTxGBw1drnaQE4g12sPVwHkX7erQNPMLkRVBASmBjxrfupf96GgmBRmgZzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=iu+3Q0Df;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793196314;
+	b=H3yOTOQligiiSF0wCPsU5JjiUTy5vMW5k1nwowUAlViwoIHKlBMFR2GMRwAMY27qEIdm
+	 83SwcRwayW1ffDGE62VgPfRXOSabuS2OgbyLvgvpFCAVx+ADzgnBt8ocXxbaHhwy6yT6q
+	 RXF1xK00fYCpqslYTSJwd8F3Zd9rwYtmfGGuH2FZkh6fEZllFilCykdpTMkweVaBZ6QkC
+	 BU5Jx9HhnLpxbe5jFIKeaf2RgvMB5G9KLZGjaoxFVf4wTIAxMStI44n7tCiIHFS9vlZAJ
+	 /msyI+wB9fHYjOMbC+k4p70OmnCE9tAnU56T37bWUyOzbo13ikqVw75UdS5rua8fuZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196314;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cGXU/zFPh/QfHX0K0nlme8hTRMwERinrVSJ748v2N7c=;
+	b=3axxHDPkbiB/Zna403a400gc2pWKYKaN24MOlP08BzsQTHrLno52C8F1JvplOYSsOC9L
+	 SFB5CJnl8GnsflCHARwI86PND6kh97iwbVgD0GbikyeHtIkxSzMZE4xeRdEZxf0/ZDfqm
+	 e2wChigcRqGlwIvfdpXbiqwBK2eCok3jsDq2oBoIiJ4E/CLvzgOoJD8qMCCAf4QJgVJLD
+	 eDpiCabBZcR9wVoybI24IjTw7QxyyFZqhPM2j7upIvaLqqdzIESXKNlov8GRLHxGPJ96H
+	 yEO67nnAZmRRVTe2tIkuQ5Sd8kYwEmX3bvjeVJqcszfwii7vz4T0heAMewx4GXmyoOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yhh+Ujbn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E152E606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:05:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E152E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A98606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:05:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A98606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=iu+3Q0Df
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793196297; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=swgirEIYnIaEZi3MwmLVcinGiwqWd0Ak1rTDVMUomLY=;
- b=iu+3Q0DfiyGPYbLj+ew26pgUbHlli1un2dGJ0ea0GTXwy0W66naeUMThkSxOOtbeBLIi8v
- k2G0lSETxBp3997bmiDeWlCFez4b9itoLXSHsm2XzuL6o6+PdU5AKjwRmBiM5QVFhrj3QO
- nwWwa4aWrLCeJQt6yWD/UVBIgEo71yLxn/taolukZr5P6W1WmJjeNENdoTwnIjBtPzmcEq
- s7VdKXuPwwC7hQQmn43NV9cy4i8ab6puDusNPWQj3bJB5cY1DFnTlw7xf5ampqdV11mQlW
- lDyQoEugFGFE8FxXp3frAggpnIwjvopnP53j5DTK2FTVowsk+KNqFT6bUCQwkQ==
-To: "Damien Le Moal" <dlemoal@kernel.org>, 
-	"Niklas Cassel" <cassel@kernel.org>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Date: Wed, 28 Oct 2026 22:04:32 +0800
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Message-Id: <20261028140432.20489-1-zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yhh+Ujbn
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso13606a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:05:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793196313; cv=none;
+        d=google.com; s=arc-20260327;
+        b=chQ4YLGjOiDzU6ciT/4xrWuu+2Bqzf5m51/KV8zvay9yTvtnAEzyYhaqV0MJqQOL6G
+         9Ug39KxdSuW/4o7Me1x+U6Nxel2Zo468A8o9FMIkplOtjBD1yOngs5m+vK6NSL7ktLsr
+         xCZJQ/pv/xuz245HlGivhbx37GObPJGWURz1l0ndRqS8T3FyeB76bD1oUkpSrydaaLRQ
+         bGH+SFIMPLKodDSSHlcDPTZbK9Tu+kknjXV8veHuKpX2MTkWtf9qiNjXUw0ETpwe225+
+         kv109haurEt5uzgstcFmiK0c68h6hwgSVqhcTEnNg+0gvLHoX7IxsqmqjsMv6d5XjPND
+         DRYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cGXU/zFPh/QfHX0K0nlme8hTRMwERinrVSJ748v2N7c=;
+        fh=afclie44otyX7ozztYOig5ZIss1pFCbN6xFzCLfwcBk=;
+        b=jgZ1ZiUEioq6CFXsSPuKpxXwdaehpZHKkdOqFg4F/M4h9O7vfO9s304geWQXnt6QQh
+         rVdWqn0Bj1suHPKmd4zaqiuAuyyn1Q+BU9iqG1bDYQy/aSFCr1dLDY0VLHm2lZptO8np
+         Rc1+feWv1PaMIPKyvvQcKXNseQYYoqHggFq2/tDQ3DL89UgwI2UeeySj0CL18ZqyLNaK
+         llyusveWAUPBK3+NCKL+YYqOCSdINi7eLYGk/GMmtuS5mh1bVo0CQ1noxhJLWRXJMIKd
+         z/G0vGjOVvecyiwGZuA+6V1WJ1Lspcq4iwPstVYuZuydHv/gDVf+ANPKPYFfNvnf9vnF
+         qQow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793196313; x=1793801113; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cGXU/zFPh/QfHX0K0nlme8hTRMwERinrVSJ748v2N7c=;
+        b=Yhh+UjbnvCWZnvqiAgMqv2HtaYmX1l+fS5ejvIu+T8UA7oXrydYu9XNxu2r7wnadza
+         1apF9YZ5+ObXvlh+6hV04yhVS1Fw3h+X/jIEzuMaQC/F66OG0SG7zMWzzOEr6hyN68mA
+         3ifLYbZqAkBA6SIFgWNbxNs5s2gEN30IJBRAjewx+vKPu22SIPjd/GN8pPfGjWjore3X
+         s0MpB/YJ2h01VHF7/nP2Tjey6sJCI8NqzrM5CAEqotlAdwpSjsTEfeORoE3w5Mu3rN1s
+         IgOPlNzPbm885eFmPaCeksTUwLZBDYi5qzM/wwHP7x73q8rk5zJn1OpsW5HjpyNAUhoG
+         lzXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793196313; x=1793801113;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cGXU/zFPh/QfHX0K0nlme8hTRMwERinrVSJ748v2N7c=;
+        b=OIh7Rb08Zv20tQkZ3XKX7FdYUUPddcwDJJ+IonxkFHnsL3n4AYkBj2pu+lBr+lVSU4
+         Vfzw82tp7ZLLNK2T7k4kj42/teKYxrYqrzxk6gq9riL1f2nEm0uEjHMluRH/XXH0ssqp
+         SNPcW+NfSea3pArTWslyBVOz48Eb0w4lkzDRBfgMbe3eY1MIIGgXRpL6c+VyBJVxOzeb
+         6UVtmqSMyzjyDCVi3beqN9LqahyT824AlPwE/d5gwZT5GWJ8vfC/g1n+eFNRWM/EJgfx
+         mOjPQkSyBVS4a2mmBj44HeQ8TifRVCy2bmsOgf2tXnBLSpojZKngXTAH6Q3jKttT1Cjg
+         5C4w==
+X-Forwarded-Encrypted: i=1; AKwUvBw1xa5BtjmAOoyY+x/cjLDpMnlTZ9pBNADl9x+8uzS6sa5MtGX3nd6joY6BrcrcNcyoDthp/rEdGbTWSuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOU17jyIIKWqBSTO8pt6cuIhAPuZOrKWuKIog2hi4vDIplSYTo
+	ezofL1m1SS9VVzu5vCRdW8pUru4BucDAlF6x5b8MN6hwyNSsHnUhm3p+ca76Wu9M0ySo6vVREYS
+	DzSAQVbjwgG3oEfJ2w9KiUQbqzJkHtMzBHKPffHFl
+X-Gm-Gg: AYBFou2FIzcTHf9rjag76n/ao0v44gCyMadip5TQucjYXR9ktZFwTqTrYQ6kNzJ0gse
+	ll570O57I4aYQKZwtCDV3bB6qy1gljjmWUto3krO7xvKSEAAA5bhOGCt0n0ph6sr0jdzMH6DxKg
+	dt2OFR87IKHO4L9hryXkSb89BZGTPXytFCfisHiR6pYNxzeTDsRh8stLfqB/zUJ1HJfsXAO6aag
+	gRjhd1yPUmQTX+hZpu/5Mt4bUdhSGVF+d1DQkbShPYlRi9YX0+ZQuv3HSeCPP+WtjnCQA97/fBW
+	gZsDMfzM/yY87KjU/EDDpoWYoJ/eCb2HRtvVbKwNvz20j8fAtBd+56dbu8fdysmQ8IFqyBh2FYm
+	KmMq8/lwVIs/gU9gg8Erz/CIgt6Raqjmgso85
+X-Received: by 2002:aa7:d80a:0:b0:6b4:6725:f2c6 with SMTP id
+ 4fb4d7f45d1cf-6b49c12b944mr57975a12.13.1793196312136; Wed, 28 Oct 2026
+ 07:05:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,73 +103,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ae20107+60a674+vger.kernel.org+zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Subject: [PATCH] ata: libata-scsi: reject non-PIO protocols for READ/WRITE MULTIPLE
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@BYTEDANCE.COM>
+MIME-Version: 1.0
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-3-zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-3-zide.chen@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 28 Oct 2026 07:04:59 -0700
+X-Gm-Features: AclHuK_P_Tsz05675NXoOMY2lyrRrl7vfF0oUfpnX6EhSHO04vGfW7E2mOJpauI
+Message-ID: <CALMp9eQWU5Nn5QS=4hEbgL-HD43pMmYQfb9y1vnBJnCcrHXLVQ@mail.gmail.com>
+Subject: Re: [PATCH v2 02/16] KVM: x86/pmu: Rename all_valid_pmc_idx to pmc_exists
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhao Gongyi <zhaogongyi@BYTEDANCE.COM>
-
-The commands recognized by is_multi_taskfile() are ATA READ/WRITE
-MULTIPLE variants, which transfer data using PIO. ata_scsi_pass_thru()
-validates the MULTIPLE_COUNT field for these commands, but accepts any
-protocol selected by the ATA PASS-THROUGH CDB.
-
-This allows userspace, for example, to combine WRITE MULTIPLE with the
-DMA protocol. With a QEMU PIIX disk, the device enters its PIO data phase
-and waits with DRQ asserted while the host waits for DMA completion. The
-request remains active until the user-selected command timeout. Since
-the disk has a single tag, filesystem writeback and later SG_IO requests
-block behind it.
-
-Require the protocol to map to ATA_PROT_PIO when is_multi_taskfile()
-recognizes the command. Reject any other protocol as an invalid CDB
-field before issuing the taskfile. Keep the check local to the existing
-READ/WRITE MULTIPLE handling so pass-through behavior for other ATA
-commands is unchanged.
-
-Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@BYTEDANCE.COM>
----
-Tested on a QEMU PIIX disk with 16-sector transfers and a multiple count
-of 16:
-
-- WRITE MULTIPLE with DMA was rejected with ILLEGAL REQUEST/INVALID
-  FIELD IN CDB and a field pointer of 1.
-- READ MULTIPLE with DMA was rejected with the same sense data.
-- WRITE MULTIPLE with PIO data-out completed successfully.
-- READ MULTIPLE with PIO data-in completed successfully and returned the
-  8192 bytes written by the preceding command.
-
-Both invalid commands completed in less than 1 ms. No ATA timeout or
-hung-task warning was reported, and subsequent I/O remained responsive.
-The modified libata-scsi.o also builds successfully.
-
- drivers/ata/libata-scsi.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 115b75a313..31d822d78e 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	if (is_multi_taskfile(tf)) {
- 		unsigned int multi_count = 1 << (cdb[1] >> 5);
- 
-+		if (tf->protocol != ATA_PROT_PIO) {
-+			fp = 1 + cdb_offset;
-+			goto invalid_fld;
-+		}
-+
- 		if (!dev->multi_count) {
- 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
- 			return 1;
-
-base-commit: 69be770908ae57354a41d7e1cc99ab46278d2e86
--- 
-2.39.5 (Apple Git-154)
+On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
+te:
+>
+> all_valid_pmc_idx is a bitmap of valid PMC indices, not an index
+> itself; rename it to pmc_exists to better reflect what it holds and
+> keep the name consistent with other fields in the same struct.
+>
+> No functional change intended.
+>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Jim Mattson <jmattson@google.com>
