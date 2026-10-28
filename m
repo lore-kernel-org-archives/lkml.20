@@ -1,124 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199861;
-	b=AWG2cMrqLitWjnCzYBariI668yaBqtYGGoIY8GkKQ3EqlVGmppM29eH522a8vDWxaXgw
-	 tT0EckbGqavNmAhPpsqn5xpQ5Q/iOeFrf2KlYJMZzAtry3EfzubDcXMvWkAt4Qh+w51oZ
-	 XCb4qTDxuikUgQMId9WmRvHxcqr0VBYi2dpceackuke1Coo4WNFP4NC5rwit/jKh6PH2O
-	 iwx++eFzdUyedMWd2/w7t3PZezwdOiO8NpQfPXfExnuQkG9UsR3UchboVCir2DRrCgbAk
-	 jeZKWp3KU2UO5iR7GbaVB4M6s718xh0v+iN6UgwI+Np9FT5FdK9UsDcR0BP46kweStQ==
+	t=1793199862;
+	b=JhMzo8uD0L5RFbHx/SwkMhGrjB/wZ22SfdmMtHrREsNLsg3ymch9k9R4ujCD7off2p97
+	 54R/uUTVHphS86enCb/d5KI3wsUs3VjMtOT8RAxbHKEVSa8Y96+1bpF2fnz0FbzF5vfjZ
+	 Xyn9nP+8uH2aoTspSSP6Q6mcGdNU4ESiIP54MRfutmeZ5VrT1UgVTkT12i4CmmDq3NAcy
+	 Q7i5wSNXpXFLGXfxZ2BEwXwOw4UOqEbMyBlI/4KZD6wBW08WF0ojBfBJIvun9zmaUUPyz
+	 rqIJdjXDunAaZGDbvUcirGv1o4PKA0d001mMBMFD8pGluW2hz4lkbhTXj7Mvnx7h84A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199861;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=77xhCh2ORMf6NIfM90rhR5yS555x+O+M+p2I+XHyw1I=;
-	b=Y97IMBdcy00KQ7aFBx8ZUVn2aoAAikfZyob0eUKGR4tKufg5pbVU+XWVDbXPxCblgGSW
-	 zpGSwJHUMd8KmEsfzWzoIBxepTMFyKqfGPmHXULYnZsC/jBdb+f8ZGZvNF4ssoQ76RBVp
-	 40v108vdAQwOTg64ISsJzTjbl70N3w4Wf0ke3269QHMj59vLPT4K2pAuRNYmPxr41m0do
-	 TEmTXMPwlPAxvb0J0+SZiiug+XfZRio5fp/umCS81F5yd2GCEjmb3IxLyGJWsh6oAnIYk
-	 snyzlZo9NSsbJfzilLk2n6pfc/y8POG0j49zbJKlW6LjWNrPGeNiUzMRFi8Fr3VTZhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199862;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=2Pak5tnRuTRRR5lgI3SQ+wNVW+vIb8vrbTpuoRT98Po=;
+	b=w6jtuHqfLfsg9fDUdl8VdiRdWCuoma0hqst9lSC9oRiT4Xl4fKx4UKamMKDJDCt/1XxL
+	 m1/G0BUs1oNHaSk2r9HxcYm//tge2mcY4qfPQ+ECgRNf9/1tAdUI6nDZSfGpZmCwZDs6y
+	 AYPzOCEanmTc3zCVpuYzh7fIvWJ1+dWO0q1Qs4u5P8bn0rmXUAdZQnAq9eLouX8YHxhkc
+	 TnWJXvQbDEEqBl5+ThGIWwoC1EtVWgmNbWPbirkYIZkCQosanzU/AT0AUyZXGlbkJ5k8D
+	 4Qj/cHVOugAyqwZAuQ78iGkEC/fxAMaU1P1tohESwngm/Wg+WqkidiXJQeVY5ZBls2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DOaintvD;
-	arc=none smtp.remote-ip=91.218.175.108
-Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=sYN7Wb4W;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594B6606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:04:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 594B6606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AFD60A261B;
+	Wed, 28 Oct 2026 15:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39AFD60A261B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DOaintvD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=77xhCh2ORMf6NIfM90rhR5yS555x+O+M+p2I+XHyw1I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793199857; v=1; x=1793804657;
- b=DOaintvDCkIU/aM4mbDkTUbB7KXdOwz/1W14lJYmnPjR1UglE6lkfhl7iisk2fyDHg/P6GP3
- 5jciE740/d15e8va8jnQE3dPdseWY1LxdNQxUpMbCZtLmWnGJY0gb3M1wALTIAly7eJpWAaE9h7
- sOj/QiLSS8wumYpDbu7phDXs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d7967b914a90b8c6;
-	Wed, 28 Oct 2026 15:04:16 +0000
-X-Mizu-Trace-ID: d7967b914a90b8c6
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	josef@toxicpanda.com
-Subject: Re: [PATCH 12/46] mm/huge_memory: fix livelock on device private folio
-Date: Wed, 28 Oct 2026 23:04:10 +0800
-Message-ID: <20261028150410.47065-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261027-fixes_core-v1-12-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-12-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=sYN7Wb4W
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 923E7161DCC;
+	Wed, 28 Oct 2026 16:04:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793199857; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=2Pak5tnRuTRRR5lgI3SQ+wNVW+vIb8vrbTpuoRT98Po=;
+	b=sYN7Wb4W+yUTIRGpnInR+C9sIBvUi21SE2TULkltVcRLjMFYLQChN1xOKUe5DSzQ9aQP8p
+	sqwWe+gBK2LjIM+o4yq4j44QgOpPnHtC6f49TkFrnJEdPTSF1ON/dUUrdgKy+nMSgmSB6L
+	lLC48jrjJFDPSDjIUyU9it2XAwOMFVX2PXRDUIcC2TTJNqfljXiAzlicnGLPj0T5OdO8eS
+	VOtmeUnKaajXekF9RTwjMyY9d7BOpOv4N73nSAY/1L/xfgwVQk8HkWBwzD9tPS/g181uRr
+	QYBOMqLrqZ+0EWyMkCXKyMjtAI+AQ0cTRl/dZ8K3w5INT2SeLIwi5XbBQ5dT4A==
+Message-ID: <8ebdebe0-a8a2-4e35-9ef6-41999547e2aa@cjdns.fr>
+Date: Wed, 28 Oct 2026 16:04:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,36 +55,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 5/7] net: dsa: mediatek: support MDIO switch downstream
+ of MMIO switch
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-6-cjd@cjdns.fr>
+ <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
+ <acf55987-e96d-407f-a4a7-1c78178a0c7a@cjdns.fr>
+ <bdde8389-008a-430a-8d0d-14edcb4050b4@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <bdde8389-008a-430a-8d0d-14edcb4050b4@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
-On Tue, Oct 27, 2026 at 12:17:32AM +0100, David Hildenbrand (Arm) wrote:
->From: Josef Bacik <josef@toxicpanda.com>
->
->If do_huge_pmd_device_private() cannot lock the folio, it simply returns
->to try again on the next fault.
->
->Just like we did in commit b570f37a2ce4 ("mm: Fix a hmm_range_fault()
->livelock / starvation problem"), let's wait for the softleaf entry,
->which will drop the PTL and wait until the folio was unlocked. This is
->precisely what we do in do_swap_page() with device-private folios. This
->avoids possibly livelocking.
->
->Update softleaf_entry_wait_on_locked() documentation to clarify that
->device-private entries wait until the folio is unlocked.
->
->There seems to be no compelling reason to backport this to stable
->kernels unless we actually see problems there.
->
->Fix generated by an LLM and sent by Josef Bacik in private.
->
->Fixes: 4964099163d0 ("mm/memory/fault: add THP fault handling for zone device private pages")
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->[ david: simplify patch description, fixup softleaf_entry_wait_on_locked description]
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+On 28/10/2026 13:50, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 12:59:23PM +0100, Caleb James DeLisle wrote:
+>> On 28/10/2026 03:20, Andrew Lunn wrote:
+>>> On Wed, Oct 28, 2026 at 01:13:15AM +0000, Caleb James DeLisle wrote:
+>>>> The MT7530 / MT7531 can connect via either MDIO or MMIO. In MMIO mode
+>>>> the switch provides its own MDIO bus which connects to its integrated
+>>>> PHYs, but also can be connected to other things, such as another
+>>>> switch.
+>>>>
+>>>> If the MDIO bus contains another switch, then the upstream switch
+>>>> will register but it will not setup the DSA tree because the
+>>>> downstream switch is missing. Without the complete DSA tree,
+>>>> mt753x_setup() will not be called on the switch and therefore
+>>>> mt7530_setup_mdio() is never called so the downstream switch never
+>>>> registers.
+>>>>
+>>>> Update mt7530_setup_mdio() so that it can be called multiple times,
+>>>> export the symbol, and call it again after dsa_register_switch()
+>>>> from mt7988_probe().
+>>> I would suggest just moving it to probe. Don't also have it in setup.
+>>> KISS.
+>>
+>> I don't think there's a way to do that which will work. And I guess I need
+>> to add a few comments to explain why. Basically when dsa_register_switch()
+>> is called, one of three things can happen:
+>>
+>> 1. return error (often without calling mt753x_setup), typically this is
+>> EPROBE_DEFER because the ethernet driver is not there yet.
+>>
+>> 2. return 0 without calling mt753x_setup (because not all switches in the
+>> tree are yet probed)
+>>
+>> 3. call mt753x_setup, complete setup, and return 0
+>>
+>>
+>> In case 1, mt7530_setup_mdio must not be called, because it would be setting
+>> up an MDIO on a driver that's about to get deleted.
+> Which is fine, because when the probe fails, you unregister the MDIO
+> bus. That should work. The second time around, you do have the netdev,
+> and it should work.
 
-Nice work!
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+When I tried doing this it did not work. The first issue is that 
+mt7530_setup_mdio() uses a static int and increments it to make its ID. 
+And normally this would create higher numbered busses but still work, 
+however from what I remember there's something (not mt7530) that 
+searches for mt7530-0 anyway and is unable to find it. I don't remember 
+now what was doing it but I remember thinking I would need a global ID 
+generator with reuse of released IDs.
+
+
+Furthermore, I think I'd have to test all of the PHYs that are 
+downstream of this switch because this is the first time we would 
+actually be asking them actually register and unregister multiple times 
+each startup, so if there are bugs, then they're kinda my bugs.
+
+
+So if this is a requirement, then I think this patchset will need to go 
+on the back burner and that support would probably be its own 
+patch/patchset. So please let me know how you're feeling on this because 
+I don't want to put too much time into the rest of this patchset if it 
+is going to have to get shelved for a while anyway.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> It is not great, you are doing extra work, but many DSA drivers are
+> structured like this, the MDIO bus is registered in probe. The bus is
+> scanned, PHY are found, and then the probe fails, and the PHYs are all
+> thrown away etc.
+>
+> Hanging one switch off another switch like this using MDIO, kind of
+> pushes you in this direction. Typical DSA setups don't do this, there
+> is one MDIO bus which all switches hang off, sometimes with a
+> multiplexor to make one MDIO bus act like many.
+>
+> Something to look at which might be interesting, Vladimir had some
+> patches which allowed for partial switch topologies, where you could
+> take a switch in a DSA setup off line. Maybe there is something in
+> those patches which help, you can bring the switches up independently?
+>
+> 	    Andrew
