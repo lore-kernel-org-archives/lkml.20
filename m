@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793223075;
-	b=upOsb6G2tmuBsIa8U0PgFb1RiEdJUpvdUk2IvVcpfrqrWpxSMUIeGjy03efBmtiuS4kM
-	 o2DPDKDVbHzasU2MWMMBhYLgxPKMHep5v/uoumKst7GDKK8u7mxxgm98t9ZmdnWOcObI1
-	 prgCY69naSTxWezQCJmCZfSdW1VD+J/1Q0fV7gsSurliWl4szf5QOZB0Txh7WiGUuHOd/
-	 ihzela6UTebumApgLGur1RamUIz3nRrXJYSZ7les+mMSAPa9kTigrQO7Xr6wwSZ3ScFCq
-	 gxm5ITmdH9OXWFF6Ml/jjty82ER7LsEg7xAyMkLNgrM8ERVrVa0R5wTprZ+XhxWrXbg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793223075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=m9aGBk6K2DSuOberChSpAVT1aDTSA07rsVsWjJsLd/k=;
-	b=XJnzPtQgDYRisjfLoAaABNXIX4a66RYKXhoJBD/FFXx7xtwPLCqaFN8l52sZj9KF1Epa
-	 yYqQWnlRuFa76JmGR8ChLYlsCHldjIBLobxT2hHmWs8dWuJ37TcRubjX81L2/CBcmNLhB
-	 js8gsOJJ5th/CWIPRsXowSyGBWb9KMmUVrDtSUcMAeYL8xYcnt0igefNbxGWiFRaAjBJm
-	 +MZ1A/d6AsX3Qhf+RjuSFA6i8+t1i/aItsvD0Xnu8CCzwTZEa7QbRCeqRMr2bfrHsKljc
-	 Ylps1eqLTG7ZwIJTOPvV237TtPqvtwMK2wN8R81YeQKe5ICLjgv7ndy1b4maiX7BqQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KxnevNTj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793223134;
+	b=icx1U7ayq5Q6RSE7/l1P2XM5H/DymE31MYMbrJzZmZ1F2x6aUs5Y6ZUuoBfYqrFk3PsG
+	 i2I56QrY/vkIh9bJT/+PrjLnMGOTlSK9QR76hLWwtYsMmH0tLS4Gq7czuitQqQGLdcrr/
+	 Sc1MWHkUB+Zso/K0ACW+bGTF/tffZ3/BO1Z9qkvGnUhTEtAwtwLao+iiOEU+pkxe4Nn+s
+	 NHSxZTDQ3iWOvme+ou/cGJhnYKRwwKS2JGY33hvkGBZRsGeB6Gd2/qy0q0l8MNEyIH3S5
+	 yd0JM2dq3R7feIVBrE7r1BYGvikBynhIp7gyPE9Wrf2pEf/2dbToAoV78p53AA9nfbQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793223134;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Rspamd-Queue-Id;
+	bh=ZjJ7bo2bYbaGsM9AuVaQry78Zr+tMnEnT/BbAjQIBhk=;
+	b=y8iN948YbSi5npQe3BH6/aN1bH9i4moj1egso1qHjCQ/cI9HPIUyDF3PiRjhxvrjEPLt
+	 RC01M433zlnswPosOiu1AI4kUZhsmcNAQ21Woq6x8g0zf2/HesywmOq9ns4gFIbzITTdJ
+	 goxbhbf02Ljxm5mkl3fbAcdJx7oRuT1BH5dLHAPLjsxt6+fyLfk5aShmER92TwH8hgba5
+	 kRMi1Lya23C2maL0zML4/Y5tuyUDMAk1H694CTPeA5sRwwx8NoJ1AcXWaneTzjzCyz6qy
+	 U4vWGoGoTkF9GLtMFPJDRBjtoCFeXTFIM7ymgWEC9jKTVn7MSFK5rI2oa8VxQt9eS3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amieiro.net;
+	spf=pass smtp.mailfrom=amieiro.net;
+	dkim=pass header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=ug6W10ZX;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA89B606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA89B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CAF606A322;
+	Wed, 28 Oct 2026 21:32:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25CAF606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KxnevNTj
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337c7b9937so103401cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:31:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793223074; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Tjjz/49SmMI+16Z/X9dAJzMnNlw08eEeS544Lr9+ttavMCSKpHsll8ykPBvDG9fRis
-         GdJeQbwD6Nm3NynyIr4xHNr4YsSiP4uyc4A0UIRD8TWr9xQ+l+KfUOMTcvHFYRL1CVJG
-         4dxRIQNx38s9f2m+EHKKng6CgirLhIOyNcv3WFkoio+PU0Py7jcaDPToS8Hn0QbbALOq
-         2mjwjSJTnBXmBCDJwGeQ1tJOESU2t+qRPqiKMP8J0KjJ5KmsbBvpdVe0bUauNZ5jVv7b
-         zGaqWPXQ1egCrV5DsJTNqaFDjOKmaN1vxxG9he/q4XYG4LbcsGb+FXOSS32HfuyNs7BY
-         eGQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m9aGBk6K2DSuOberChSpAVT1aDTSA07rsVsWjJsLd/k=;
-        fh=/O1kNsLfPbZ6LkI6dVfZrfw5iOvx+YqHETiKT6ZAbyU=;
-        b=FmagV7RjCoTesA6kGGW8yNuKjydFNO4DeA90Z5P5pr/yxn4ldzinKUsabwjz/ZleQH
-         IDDkHrPnG4Nwkf9l42T+21vLNbfwkQxRXQCfGGJZRrLuuqQrdi3zpR5IuHdooSQryE1v
-         XDo35jLlD9x7gFNRC0NQpVgy6Wnm+WyxHENAkDUG0dvyWI3Cqx5ZEedKv6RcySVHeIOj
-         aEutpJlIKSXKe+4Sf0bSqnJerA5dRrFCAryZ/5RW8i0v5jUQV2Ae+iVmdZLRO2rWPa8F
-         gQrg6gGKLkmDG4FipWJjSjd6vf1shr4CFpNE1TFm9P8eTAotWQ4Cd7lYjJrshFfglkz3
-         ZNnQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793223074; x=1793827874; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m9aGBk6K2DSuOberChSpAVT1aDTSA07rsVsWjJsLd/k=;
-        b=KxnevNTj/Uo39hOYU9x4XfAk6dE3AJmJkt+SatwvUfWdhsIvPxmCMoRH179LZITk/y
-         +Gnm/CnMBUnTzrfQvPy8Je5uu5L/mQGq8uCPvBUymwEbcYN62BnG+y384dOP9hmzd8kl
-         zQ89mQhRYKiwdigwuA+X8mMaOWRROEKagXKA/xd5wmPCDwiwe1wMqwaKKjae6ah1QQbH
-         5xXKLOxxg81hhfm7P2ixWeKj0WSANMeui9NFd5OD0UKuYhBewklud4dG08+bsXzLof3Q
-         5TyvHb44WsN8Lf296rUvSEy7gjB382rd07fI+sxxmzeTqShvAirRs1lWx7AjhiltakCE
-         UQlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793223074; x=1793827874;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m9aGBk6K2DSuOberChSpAVT1aDTSA07rsVsWjJsLd/k=;
-        b=oDAZXJVinlildUoggotJhdt74AAUzs3LR6wzVjGfZ26BcsYXettRP3cR89H+lm8dCT
-         crGSA15K2nTqOYXwCpploupPo3coNcoEQbSJKenCeciAMKOP5QSLD/MNA7P7GQ2Zs6vx
-         S7n4c081uAFewyXVMUz9nVEAkQsEQ/KYGZavWintHM4JSyuwd+RNjoVqP9S7/4SxDy8q
-         5MVCKpnWyARRE8l5oQSoEjXKkEbMqoB38h3D+1sUkebCR33oArS7st3txQaOgDpJo1FS
-         om/Xbnxi96K4Um2T9GWcPfKcb+vFWwLdW9ZRHQ8+vWJyk3PKWY7mT4AAUbKkCthZ4d3B
-         Unmw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFHIs7N4HdWLyIqmAdhWmbtBefBxxt483T/TRR+bOpBgnSPdwzqnrZe55O27BpDAEkFMwb7hAPWKem6KY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEj7UPUADhMzWM0oMECXRkndlaoJz0rw8zDeqA0AbpOvLreN6L
-	hvVrZ/1c+uiz29pe/UKk1kYiX+1YA6NHS23xj4ZHFX6BIPNEEXiKbAUdBOfC2BHKk9JqfS7fCSk
-	KNUdtBugF0szROmHyT+HRq0GEepjLHIIEEXsMjheY
-X-Gm-Gg: AYBFou1poQHPcUaTC/J8Ex7ZND30saXI6rLeIbgQx1fbCLMTtwILVzczX8gvpPisfWn
-	KVmV7BcdpPLAp4uE4LOtUMFBB8VvtrLK+m8dTNN+WX6JvVOEX4Zqc6n/5WKUnzjUNPKbnB+sohq
-	DHaiUnKq7EGe8Gq2LEu8NIaoZK01ss4CtRRPW4rMo5MB6mvPvd+W5Fs/Aj8xO29i/+LGXwFNj13
-	PcbN9EH+Pvgox572T/3iFNAAesJRwcNIJV507ZVRmvqVGdht+J7haz/cRWamOl9ufWapL6VMJAb
-	A43RgOjyI7IVeJqZ18lAM5ykd1IW22PbIcIYe5yWWeyi2C7pbaLMhgMKzxlP0K81fvXT9hCzse4
-	puTI49Fz/+jEE46/tMSfUPlwAZXsXeUQci5it
-X-Received: by 2002:a05:622a:5148:b0:535:9aa3:5ebb with SMTP id
- d75a77b69052e-5414de19e54mr2522771cf.8.1793223073074; Wed, 28 Oct 2026
- 14:31:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=ug6W10ZX
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jFLD975gmz8vJ5;
+	Wed, 28 Oct 2026 22:32:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1793223130;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZjJ7bo2bYbaGsM9AuVaQry78Zr+tMnEnT/BbAjQIBhk=;
+	b=ug6W10ZX0wBiGGlWSA0naYtkLQ5wHLjBCJa1fEQWlhCkcqZgYTD8p7Z59plXjW0v+zdL5J
+	zZJhm+T9BgdGKs2ROjS3nzThXLUZ/dNy2e36O1rrJukPGk7vjWue6KEs4GmTw5pbK/7Q8R
+	SWObj+PmNTyRA0dlx/DjxZzY5nrDl7NhSQONrW0KmU5RaTw7fupaCJI+nKsYs6TylE1fR2
+	BXKTtqlb4vUJsH3kAceoX/OLW+CMaDWqBW4r+k2qS4yhpr9C/BR7dLaihYCvVvY630PWMn
+	V6wk8mSg8VMJoZXUCffGN8PUAFTba0gLU97sQZp8HAhfGba3fLtixC3YXkjH2Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: Flavio Amieiro <flavio@amieiro.net>
+Date: Wed, 28 Oct 2026 18:31:02 -0300
+Subject: [PATCH v4 2/2] leds: is31f132xx: Add support for is31fl3206
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +67,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-14-zide.chen@intel.com>
-In-Reply-To: <20260827223755.143247-14-zide.chen@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 28 Oct 2026 14:30:57 -0700
-X-Gm-Features: AclHuK8H03wGGLJIEjVfGl3dt9B41jEIn0rRjkJzd1wAnJ56AQXBqQQWHoy01b4
-Message-ID: <CALMp9eQGRJXgw0xsFMt9rf4+Dmb2_WH4_LguuC2So3a=5mX+0w@mail.gmail.com>
-Subject: Re: [PATCH v2 13/16] KVM: x86/pmu: Factor out fixed counter control
- bit calculation
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-add-is31fl3206-support-v4-2-e331cee9fcb3@amieiro.net>
+References: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
+In-Reply-To: <20261028-add-is31fl3206-support-v4-0-e331cee9fcb3@amieiro.net>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Flavio Amieiro <flavio@amieiro.net>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4217; i=flavio@amieiro.net;
+ h=from:subject:message-id; bh=ggF/uBK1szjdzvd7JCaF71GxNXOUJv6pNasXUmRFO58=;
+ b=owGbwMvMwCX2bmrBFGnZ5lDG02pJDFmPMo8lLFrycMqHK1KGf5qFzya8MrfmCVG0ZTEysb92I
+ JCrbVZcRykLgxgXg6yYIgtLGUuZd/vB5t3TVkvCzGFlAhnCwMUpABPR1mP4Z+TVqzb5/fSaes5n
+ 363WL+MMeyH/xKPvSc2lNeGHFn61tmFkeOpxOib+QX+W4KTCRw8Vt226c3PyHJGuh/wfjnqn/Fx
+ 0kRUA
+X-Developer-Key: i=flavio@amieiro.net; a=openpgp;
+ fpr=047604764B87C183BB96AB19EE9570941B1D8355
+X-Rspamd-Queue-Id: 4jFLD975gmz8vJ5
 
-On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
-te:
->
-> Rename intel_pmu_enable_fixed_counter_bits() to
-> intel_pmu_fixed_ctrl_bits() and have it return the computed fixed
-> counter control mask instead of updating fixed_ctr_ctrl_rsvd directly.
->
-> Accumulate the desired fixed counter control bits during PMU setup and
-> apply them once in intel_pmu_refresh().
->
-> Move the helper next to intel_pmu_set_msr() so it can also be reused
-> there, which will be needed for upcoming ANYTHREAD_DEPRECATION
-> emulation.
->
-> No functional change intended.
->
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+This chip has a different layout for the LED Control Register when
+compared to the other variants. This register contains the enable bit
+(in the highest nibble) but also the current control (in the lowest
+nibble).
+
+According to the datasheet, a value of 010000 (0x10) in the register
+enables an LED with the output current set to maximum.
+
+This commit adds support for this IC allowing the chipdef to define an
+offset for the enable bits inside the LED Control Register.
+
+The limitation that already existed for other variants is still in
+this one: all LEDs are enabled and set with maximum current, letting
+brightness be controlled by the PWM registers.
+
+Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
+---
+ drivers/leds/leds-is31fl32xx.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
+index 285085d27453..586713ff7d98 100644
+--- a/drivers/leds/leds-is31fl32xx.c
++++ b/drivers/leds/leds-is31fl32xx.c
+@@ -77,6 +77,7 @@ struct is31fl32xx_priv {
+  * @pwm_registers_reversed: : true if PWM registers count down instead of up
+  * @led_control_register_base : address of first LED control register (optional)
+  * @enable_bits_per_led_control_register: number of LEDs enable bits in each
++ * @enable_bits_offset_in_led_control_reg: offset of the enable bit in the LED Control Register
+  * @brightness_steps    : number of brightness steps supported by the chip
+  * @reset_func          : pointer to reset function
+  * @sw_shutdown_func    : pointer to software shutdown function
+@@ -88,6 +89,12 @@ struct is31fl32xx_priv {
+  * necessary registers to a known initialization state. This is needed
+  * for chips that do not have a @reset_reg.
+  *
++ * @enable_bit_offset_in_led_control_reg determines the offset of the
++ * enable bits from the least significant bit of the LED control
++ * register. This is needed for chips that have a LED Control Register
++ * that control more than simply the enable/disable state of the
++ * channel such as the IS31FL3206.
++ *
+  * @enable_bits_per_led_control_register must be >=1 if
+  * @led_control_register_base != %IS31FL32XX_REG_NONE.
+  */
+@@ -103,6 +110,7 @@ struct is31fl32xx_chipdef {
+ 	bool	pwm_registers_reversed;
+ 	u8	led_control_register_base;
+ 	u8	enable_bits_per_led_control_register;
++	u8	enable_bits_offset_in_led_control_reg;
+ 	u16	brightness_steps;
+ 	int (*reset_func)(struct is31fl32xx_priv *priv);
+ 	int (*sw_shutdown_func)(struct is31fl32xx_priv *priv, bool enable);
+@@ -351,6 +359,7 @@ static int is31fl32xx_init_regs(struct is31fl32xx_priv *priv)
+ 	if (cdef->led_control_register_base != IS31FL32XX_REG_NONE) {
+ 		u8 value =
+ 		    GENMASK(cdef->enable_bits_per_led_control_register-1, 0);
++		value = value << cdef->enable_bits_offset_in_led_control_reg;
+ 		u8 num_regs = cdef->channels /
+ 				cdef->enable_bits_per_led_control_register;
+ 		int i;
+@@ -552,7 +561,22 @@ static const struct is31fl32xx_chipdef is31fl3293_cdef = {
+ 	.sw_shutdown_func			= is31fl3293_software_shutdown,
+ };
+ 
++static const struct is31fl32xx_chipdef is31fl3206_cdef = {
++	.channels				= 12,
++	.shutdown_reg				= 0x00,
++	.pwm_update_reg			= 0x13,
++	.global_control_reg			= 0x26,
++	.reset_reg				= 0x2f,
++	.output_frequency_setting_reg		= 0x27,
++	.pwm_register_base			= 0x04,
++	.led_control_register_base		= 0x17,
++	.enable_bits_per_led_control_register	= 1,
++	.enable_bits_offset_in_led_control_reg	= 4,
++	.brightness_steps			= 256,
++};
++
+ static const struct of_device_id of_is31fl32xx_match[] = {
++	{ .compatible = "issi,is31fl3206",  .data = &is31fl3206_cdef, },
+ 	{ .compatible = "issi,is31fl3293",  .data = &is31fl3293_cdef, },
+ 	{ .compatible = "issi,is31fl3236",  .data = &is31fl3236_cdef, },
+ 	{ .compatible = "issi,is31fl3236a", .data = &is31fl3236a_cdef, },
+@@ -616,6 +640,7 @@ static void is31fl32xx_remove(struct i2c_client *client)
+  * even though it is not used for DeviceTree based instantiation.
+  */
+ static const struct i2c_device_id is31fl32xx_id[] = {
++	{ .name = "is31fl3206" },
+ 	{ .name = "is31fl3293" },
+ 	{ .name = "is31fl3236" },
+ 	{ .name = "is31fl3236a" },
+
+-- 
+2.53.0
+
