@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171853;
-	b=RX9KyiLfQKsT2WO+Ey+qCJUv6HKLXFlPreLH+4fLeUv8NS2HX6arGZT6EcsYlsSQS9PY
-	 1WaNGg28oItLTJjP4bnjKMG5PA0vqK1wuW5hDWaZQI/htJyXrMKhwQm4Gb1RRhIG3icVH
-	 LHksGNz/rQkD8H2whxbFPOhrRte7JMVN/g72M7QVkEeU/MX2shkvPN/wVuljqnkpgtpMU
-	 WV3BEJXNc4qLMFlkTKYbeWQw0LKw4GLwiCCnFQcUjNCkAlwRTS+8FaQYgEAgdXplaHlr5
-	 In61uKx5iTGvtuneSsc4O2V/MENynpZMF2EOW9RLSMrSvmeiBmOuCeSkPvNhyfTWsrg==
+	t=1793171966;
+	b=W8Q4tXeOH+fHRPdSDxtjfXr894BKPRxZ92y3JinDMpaFUDCencYeppttjaVco9MC6etF
+	 XIvr0aJwwfE5sUV56p6f4wpyk2TC6J7GbUBY1nueTNWOLfH07fDnfeOmLl9yMig+ehtVh
+	 71Lg8BGWoBOpP33jq4sFOktpxM8u1ZjUaRZFehkaeq2fz0Vjon45W7Z3VKjLago4Tripc
+	 hvRJe3BuwIgO58tnbHCebdr53lgEGPXGVldJU1+s/zNKifCwf/kbuj49UjLrY56b/sAkD
+	 BKNt9IB2ntnqyVsInOmqg7W6McdHZJzLOo4rYR7Wrb/PCrqDNBIxyzNCzJmOaLY7g2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171853;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=nquMCr1WWqc3g25x4aH4wcYWjEl8Qlo/bCJtAzPywf0=;
-	b=TcX6DvQW5lR8Ld5XLqFbjDq9hAbCqy36VQ7Scle6Cp63Wh8n11+ZeUqdWb5dh5CFkbPU
-	 W2kVbFPbN2pPKqSyNYFeBqtn/2Dpj5J/kwX1AzUMhFT3/PewOeFuRMR+4Zrj58g+g/EZ6
-	 T96SFBwcCRlzl4RSTP151D/QrolsHNjmzCAbzVuH6LMx62H3D7zfYV4j4cdmfiPYIk8EY
-	 i1f5BJz3F7+a9+oUcVv+ZIiO3jJH6XWvTKYm6AZddcdcGV7zVTfaKw7Tng6LZLquY5MB2
-	 rtq3r4aX7CADEq8a/cP4wRflmSsYEF+zMQmcEV45J9ZCEnm192XAyDgdEOMm8ER2/dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171966;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9c5BIqCQwqEMe6raAgV29X4TaWw6HZHTzcW1OPzCR4E=;
+	b=hBVUOxABHawQG7YUZbwIXq/TGNVo+IA8ha4fFKefQsxwdBpd7gjh1rouxqQBabDqS0SM
+	 YuAy8uyjrKS+H/3qR2JW1/OYGTpwZ39ncHCIuhbaxr8qIh9WBKZhiVL8d+1JGjvV2P7aE
+	 XK3tG8+NEIWTD2cHGTXQCNis12HB1t08/nmsaqd+D1YFW9sz4TAX4MkS4Y4Bo487rKpOT
+	 3CDHkb74Oo1zItCwikQ+JWWPYVc9qP/uZjQxPoB//Vrik1FV5M3DCzjtdH5DCwDSAeH1P
+	 UuIcSNn9ERpbm+ek75zBcHHIz5Joy3ycGj41Hda6wlVjwhloKFCd59pCxRSiQR+81cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Twv5BmZv;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xQJwAQP1;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F26606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F26606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99FC606A321;
+	Wed, 28 Oct 2026 07:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D99FC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Twv5BmZv
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id B8EFAC4FECA;
-	Wed, 28 Oct 2026 07:18:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C0F1360769;
-	Wed, 28 Oct 2026 07:17:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B30F11032906B;
-	Wed, 28 Oct 2026 08:17:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793171848; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=nquMCr1WWqc3g25x4aH4wcYWjEl8Qlo/bCJtAzPywf0=;
-	b=Twv5BmZvgqoD/QGqoEOSQhAhVHQ3nPsNe4D6eC3nrSg8jO1LgjrhfYxZ5/l9fAGN42EYsz
-	2T3MlCJy66fl0iP/cX42IOrdHihZFjqJ278/1hQLEYMYZkMABQ7TfVcJD/LsIEBE6+qIC2
-	tzdPbOQaUKsUrRu/+OI0hE36f2Lrr3AL+XlzUk62oPNJ97HrFHXOV/Q1NrNTWIiUT6GhQ/
-	I0WkmbxZG46CK0iB1bGfx53h9kVLTEYMLpBDRa90MYcuv1q81btalbtAboOMmWJAcl1WDW
-	24fCmzrQLrK+lLRzh+ZZHMXELGfIKfkDe8Ne7SzvBOfo066t1s9Ogf3E78CTWg==
-Message-ID: <b3216356-fab0-42c0-8a5c-552ca4c5d46a@bootlin.com>
-Date: Wed, 28 Oct 2026 08:17:22 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xQJwAQP1
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793171961; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=9c5BIqCQwqEMe6raAgV29X4TaWw6HZHTzcW1OPzCR4E=;
+	b=xQJwAQP1TD+NW4r/VPs+A986lrSYc6h4nFDc+ILVUSR4LMTyvuGAb2WIZbQulAOHb9j8Gygni32IDavNOBkcUIrYJcY9lITjwBxeTaS6ouWsLjNZjbah8wAisegiahXt0xUOWItvH7bqhO/HIz/WZB+jpHRfxNQKwG/dv8A8v7w=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R321e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDg7jlb_1793171960;
+Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XDg7jlb_1793171960 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 28 Oct 2026 15:19:21 +0800
+From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+To: jgg@ziepe.ca
+Cc: alex@shazbot.org,
+	iommu@lists.linux.dev,
+	joro@8bytes.org,
+	kevin.tian@intel.com,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robin.murphy@arm.com,
+	will@kernel.org
+Subject: [PATCH v5 3/3] iommufd: Add IOMMU_IOAS_RESERVE_IOVAS ioctl
+Date: Wed, 28 Oct 2026 15:19:06 +0800
+Message-ID: <20261028071906.2325378-4-guanghuifeng@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261028071906.2325378-1-guanghuifeng@linux.alibaba.com>
+References: <20261027183418.GJ1685504@ziepe.ca>
+ <20261028071906.2325378-1-guanghuifeng@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,65 +68,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] selftests: drv-net: devmem: Skip when hugetlbfs isn't
- supported
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Bobby Eshleman <bobbyeshleman@meta.com>, Stanislav Fomichev
- <sdf@fomichev.me>, Breno Leitao <leitao@debian.org>,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261021090852.996899-1-maxime.chevallier@bootlin.com>
- <20261023105258.2a6349f9@kernel.org>
- <ce8f0d43-0078-41e7-a5d2-cf31c6dc97fb@bootlin.com>
- <20261027141555.47156425@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261027141555.47156425@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+Add an ioctl allowing userspace to reserve IOVA ranges in an IOAS,
+creating a restriction on the address space: reserved ranges are
+excluded from IOMMU_IOAS_IOVA_RANGES and rejected by mapping
+operations.
 
+This completes the opt-in flow for the kernel's reservation
+recommendations: userspace queries IOMMU_GET_RECOMMENDED_RESERVATIONS
+for a device, decides which ranges to honour, and feeds them back
+through this ioctl so the kernel enforces them on its behalf.  Both
+steps are optional; nothing changes for userspace that does not use
+them.
 
-On 10/27/26 22:15, Jakub Kicinski wrote:
-> On Mon, 26 Oct 2026 10:38:50 +0100 Maxime Chevallier wrote:
->> On 10/23/26 19:52, Jakub Kicinski wrote:
->>> On Wed, 21 Oct 2026 11:08:51 +0200 Maxime Chevallier wrote:  
->>>> The devmem selftest requires accessing /proc/sys/vm/nr_hugepages,
->>>> which is only available when hugetlbfs is supported. This isn't the
->>>> case on all CPU architectures, for example it isn't supported on ARM
->>>> 32-bits on cores that don't support LPAE.
->>>>
->>>> On these devices, the devmem kselftest doesn't skip gracefully  
->>>
->>> We don't require graceful skipping. If anything IMO hiding the stack
->>> traces isn't great.
->>>
->>> If the check is extraneous and makes us fail some tests which don't
->>> actually require huge pages please make that clear in the commit
->>> message. Otherwise the net benefit of the changes is unclear.  
->>
->> hugetlbfs isn't required for devmem AFAICS, but the blamed commit
->> moved the access to nr_hugepages before the actual "is devmem
->> actually supported" test.
->>
->> I don't expect the full test suite to gracefully run/skip for devmem
->> on these arm32 platforms TBH, it's likely that devmem is only something
->> that's been used on platforms that support hugetlbfs anyways, but
->> strictly speaking both features are unrelated.
-> 
-> For max clarity I should have simply asked - does it make any test which
-> previously failed pass on any of your platforms? (incl. some WIP
-> patches that'd add devmem support) That's basically the criteria 
-> I think we should use.
+The semantics mirror the existing internal users of
+iopt_reserve_iova(): ranges conflicting with existing mappings or
+allowed IOVAs fail with -EADDRINUSE, and overlapping reservations are
+permitted so that recommendations queried for several devices behind
+the same host bridge can each be reserved independently.  User
+reservations carry a NULL owner and live until the IOAS is destroyed;
+accordingly the NULL-owner cleanup in iopt_destroy_table() is no
+longer conditional on CONFIG_IOMMUFD_TEST, since production userspace
+can now create such reservations.
 
-I see, then we can drop that patch. It would go from a "file not found"
-python exception trace to a skip. This is a nice criteria for me to follow,
-I'll move on to other tests :)
+On failure the leading ranges already inserted stay reserved; because
+overlaps are permitted, retrying the whole call is idempotent.
 
-Maxime
+Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+---
+ drivers/iommu/iommufd/io_pagetable.c    |  7 +++-
+ drivers/iommu/iommufd/ioas.c            | 49 +++++++++++++++++++++++++
+ drivers/iommu/iommufd/iommufd_private.h |  1 +
+ drivers/iommu/iommufd/main.c            |  3 ++
+ include/uapi/linux/iommufd.h            | 33 +++++++++++++++++
+ 5 files changed, 91 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
+index 5ac736cf5bb5..9a10daf6491e 100644
+--- a/drivers/iommu/iommufd/io_pagetable.c
++++ b/drivers/iommu/iommufd/io_pagetable.c
+@@ -1036,8 +1036,11 @@ void iopt_destroy_table(struct io_pagetable *iopt)
+ {
+ 	struct interval_tree_node *node;
+ 
+-	if (IS_ENABLED(CONFIG_IOMMUFD_TEST))
+-		iopt_remove_reserved_iova(iopt, NULL);
++	/*
++	 * Reservations made by userspace through IOMMU_IOAS_RESERVE_IOVAS
++	 * carry a NULL owner and live until the IOAS is destroyed.
++	 */
++	iopt_remove_reserved_iova(iopt, NULL);
+ 
+ 	while ((node = interval_tree_iter_first(&iopt->allowed_itree, 0,
+ 						ULONG_MAX))) {
+diff --git a/drivers/iommu/iommufd/ioas.c b/drivers/iommu/iommufd/ioas.c
+index 8fb5271a9506..e1ded7e8c5ee 100644
+--- a/drivers/iommu/iommufd/ioas.c
++++ b/drivers/iommu/iommufd/ioas.c
+@@ -183,6 +183,55 @@ int iommufd_ioas_allow_iovas(struct iommufd_ucmd *ucmd)
+ 	return rc;
+ }
+ 
++int iommufd_ioas_reserve_iovas(struct iommufd_ucmd *ucmd)
++{
++	struct iommu_ioas_reserve_iovas *cmd = ucmd->cmd;
++	struct iommu_iova_range __user *ranges;
++	struct iommufd_ioas *ioas;
++	u32 i;
++	int rc;
++
++	if (cmd->flags)
++		return -EOPNOTSUPP;
++
++	ioas = iommufd_get_ioas(ucmd->ictx, cmd->ioas_id);
++	if (IS_ERR(ioas))
++		return PTR_ERR(ioas);
++
++	ranges = u64_to_user_ptr(cmd->ranges);
++
++	down_write(&ioas->iopt.iova_rwsem);
++	for (i = 0; i < cmd->num_ranges; i++) {
++		struct iommu_iova_range range;
++
++		rc = copy_from_user(&range, &ranges[i], sizeof(range));
++		if (rc) {
++			rc = -EFAULT;
++			goto out_unlock;
++		}
++		if (range.last < range.start) {
++			rc = -EINVAL;
++			goto out_unlock;
++		}
++
++		rc = iopt_reserve_iova(&ioas->iopt, range.start, range.last,
++				       NULL);
++		if (rc)
++			goto out_unlock;
++	}
++	up_write(&ioas->iopt.iova_rwsem);
++
++	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
++
++	iommufd_put_object(ucmd->ictx, &ioas->obj);
++	return rc;
++
++out_unlock:
++	up_write(&ioas->iopt.iova_rwsem);
++	iommufd_put_object(ucmd->ictx, &ioas->obj);
++	return rc;
++}
++
+ static int conv_iommu_prot(u32 map_flags)
+ {
+ 	/*
+diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+index 8016c3efca78..361223372cf3 100644
+--- a/drivers/iommu/iommufd/iommufd_private.h
++++ b/drivers/iommu/iommufd/iommufd_private.h
+@@ -356,6 +356,7 @@ int iommufd_ioas_map(struct iommufd_ucmd *ucmd);
+ int iommufd_ioas_map_file(struct iommufd_ucmd *ucmd);
+ int iommufd_ioas_change_process(struct iommufd_ucmd *ucmd);
+ int iommufd_ioas_copy(struct iommufd_ucmd *ucmd);
++int iommufd_ioas_reserve_iovas(struct iommufd_ucmd *ucmd);
+ int iommufd_ioas_unmap(struct iommufd_ucmd *ucmd);
+ #ifdef CONFIG_IOMMUFD_NOIOMMU
+ int iommufd_ioas_noiommu_get_pa(struct iommufd_ucmd *ucmd);
+diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
+index 85f8ea154218..ea03a2078a37 100644
+--- a/drivers/iommu/iommufd/main.c
++++ b/drivers/iommu/iommufd/main.c
+@@ -447,6 +447,7 @@ union ucmd_buffer {
+ 	struct iommu_ioas_noiommu_get_pa noiommu_get_pa;
+ 	struct iommu_ioas_iova_ranges iova_ranges;
+ 	struct iommu_ioas_map map;
++	struct iommu_ioas_reserve_iovas ioas_reserve_iovas;
+ 	struct iommu_ioas_unmap unmap;
+ 	struct iommu_option option;
+ 	struct iommu_recommended_reservations recommended_reservations;
+@@ -509,6 +510,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
+ 		 struct iommu_ioas_map_file, iova),
+ 	IOCTL_OP(IOMMU_IOAS_NOIOMMU_GET_PA, iommufd_ioas_noiommu_get_pa, struct iommu_ioas_noiommu_get_pa,
+ 		 out_phys),
++	IOCTL_OP(IOMMU_IOAS_RESERVE_IOVAS, iommufd_ioas_reserve_iovas,
++		 struct iommu_ioas_reserve_iovas, ranges),
+ 	IOCTL_OP(IOMMU_IOAS_UNMAP, iommufd_ioas_unmap, struct iommu_ioas_unmap,
+ 		 length),
+ 	IOCTL_OP(IOMMU_OPTION, iommufd_option, struct iommu_option, val64),
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index 45ba7bd7abd5..75d2421c0f80 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -59,6 +59,7 @@ enum {
+ 	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
+ 	IOMMUFD_CMD_IOAS_NOIOMMU_GET_PA = 0x95,
+ 	IOMMUFD_CMD_GET_RECOMMENDED_RESERVATIONS = 0x96,
++	IOMMUFD_CMD_IOAS_RESERVE_IOVAS = 0x97,
+ };
+ 
+ /**
+@@ -1436,4 +1437,36 @@ struct iommu_recommended_reservations {
+ };
+ #define IOMMU_GET_RECOMMENDED_RESERVATIONS \
+ 	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_GET_RECOMMENDED_RESERVATIONS)
++
++/**
++ * struct iommu_ioas_reserve_iovas - ioctl(IOMMU_IOAS_RESERVE_IOVAS)
++ * @size: sizeof(struct iommu_ioas_reserve_iovas)
++ * @flags: Must be 0
++ * @ioas_id: IOAS ID to reserve ranges in
++ * @num_ranges: Number of ranges in the input array
++ * @ranges: Pointer to the input array of struct iommu_iova_range
++ *
++ * Reserve IOVA ranges in an IOAS, excluding them from mapping and from
++ * IOMMU_IOAS_IOVA_RANGES.  Intended for opting into the ranges
++ * reported by IOMMU_GET_RECOMMENDED_RESERVATIONS.
++ *
++ * Reserve before mapping: a range overlapping an existing mapping or
++ * an allowed IOVA range fails with -EADDRINUSE.  Overlapping
++ * reservations are permitted, so ranges recommended for multiple
++ * devices (e.g. behind the same host bridge) can each be reserved.
++ * A range with last < start fails with -EINVAL.  Ranges are processed
++ * in order and earlier ranges stay reserved on failure; retrying the
++ * whole call is safe.  Reservations live until the IOAS is destroyed.
++ *
++ * Return: 0 on success, negative errno on failure.
++ */
++struct iommu_ioas_reserve_iovas {
++	__u32 size;
++	__u32 flags;
++	__u32 ioas_id;
++	__u32 num_ranges;
++	__aligned_u64 ranges;
++};
++#define IOMMU_IOAS_RESERVE_IOVAS \
++	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_IOAS_RESERVE_IOVAS)
+ #endif
+-- 
+2.43.7
+
