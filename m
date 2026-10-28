@@ -1,85 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195016;
-	b=qAO3dH58GiQZjBGKZOStcCYHvjNWgfRPT/7n9yTxg7Tx6U7LcEVCTIQrvQEG9d4+y6sB
-	 JuxjEzS7DhFwyl8c4sDtWkhjGTLDKW6f2eAvw6tesVy3Ixh4xQkLDVHDMKKXm96Bm7i0w
-	 aIgfPiSrKOMLa/eWPc/0IT295+f+jY7KUbzFW0djAKghBl0lsF1e7Rzsfw5Ca69evQXU1
-	 D+e4PseKW3IexEbre+IH+ZvYoMaZjle4Y6pe/p73iCpSG4WNCnTJbV15HyJSTo442NnK1
-	 MiXBa2URvF1K4gUZqjuqkF7wz7znh2yier7JPY5cxNaf0DUN3AkAohGCDV1Rg7g6Wgg==
+	t=1793195028;
+	b=IxP8KX0xUZ+0E2Ubl2zS+P3v0D6qSLyvXzoQHA+pGPjbXCt/4TP/mxmkU8p6D8PPHoJF
+	 GEoxJUzWfd5yBE6c3XPk84I8JCdvTY59YEIVaaKZ1tumnYOLYSmxzbc7RfStLSX1jiamP
+	 a+mcya6/yUb7qsk+obLerNcYgk+X6ZkhbozK3EwLFiFO16FB66YlRPrFLY48c8HNbAEtT
+	 Tm+X64ftcXSDq1kGSBoeg4wz3r6VW0uM5TQrjn0tFumAdKCjbBNXpwlaz/H5PoFHKeG3s
+	 JPB0Ol4gjC5VmVUD4xO5Fl3Pyh9fkgzfAE8QAIknnaC/uG+5/8I5Swy0c09suCtf4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195016;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=6Gj9UHjLoMrPL2uz849IcayELirXOaA9Tos3l7jEBBQ=;
-	b=xDdKomRjV9vPFYZM1Nt5KzNEgQAMgBiMvtkkC0EFKelirm42mm3/4qHqgqd3hFbQcYaS
-	 2LoskpjlROF9vNxcPDGusYX5au4aOrAAafJNFPXzDWY9knR/TrDmStHRL+HsLWm2onxnz
-	 h/NlpK5LfilE5sZesXf3zTnP+Qy2QEd65JiXHJ2ygqjoUqOoBz7+PoyToiMUSj73FVW+C
-	 6h0WlxLzbgcj0p+61/DKrXqRl+1QIeQGm+JRy95qMOUzu+P6dYc49zHUBpyhDqnavvLG3
-	 tyd8bb+Gzfkn4ecG3jAjQC9w1/dowk2Ppd2zNTZS/IOx6T0BtSMY94TE9Dyt+X9LjQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195028;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=GJ7fWzZjQROjVjwVm1/ePM5BAWjfsgHtzb1qQaFNnSY=;
+	b=zTfsQyI/6zqsTBvRSF8ZNfRsbTvw+U/DUFd8wehwDVqmTJ56KmOxvH7HPxwv81CNmxKj
+	 5REFPyu84Iqtk2BKNE6p+mSMShXK5kh+DKeFObmkpe6fk1ZSaSC5Q51AIFVn2hM0iqu61
+	 EyD9wWZFvUVXWRBEKZpAwoEK3G7AqIWLI2qC4vBWw2clkmRwxAxNIE4NOs0jBbKapaP51
+	 JbrmNxK+J1fj9qA5xVbLiR8o4mt0EdkQx7B9CHrhdV2lIs60LmpHPEPD9QP+XpjClVT3I
+	 +cmv/ogYRhkz19iojWAaV47TxELOA45NMdviefjxvqMKnbRuQsUpPklw2ON8B/PpoyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HVVEhi73;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jZS+7kqk;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59ED606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B59ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFB3606A31A;
+	Wed, 28 Oct 2026 13:43:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFB3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HVVEhi73
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f30660e69so70781185a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:43:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793195015; x=1793799815; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6Gj9UHjLoMrPL2uz849IcayELirXOaA9Tos3l7jEBBQ=;
-        b=HVVEhi73Zw+0mogbFKg3aDGWs54ZNII4WAy8ievCls5hptFQ4pnBZSHRye+LIGmiFW
-         Qbzp4V+0JHM7wHVgsogIEiuQvur3QHaIXzzJEc1T2VDZA58obWj8wsqMD2qGVPdf3JLS
-         7PP9Fiyxk/HtZLX67/3kgap35UeW3d9gr+SCA/a8hISUfaDZ82tmWwZwPhcqjJ0ZVpRa
-         l0Fa/gUTAYpoJATCiGnWRIKvQacWYmAyG/qZ4ha4BEYHoPusft4vGugLqwdG9vKgfmxt
-         yJxcmZm7U30EQknUKcWXPRpDFAyzj3nmbrIfxT4jVuTZnT8eVsOWaoVIdMFt/Boteo+1
-         tx4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793195015; x=1793799815;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Gj9UHjLoMrPL2uz849IcayELirXOaA9Tos3l7jEBBQ=;
-        b=lE3QZ6IDyTXbExPvj7CUAnnuz2eWBszuVayvTwXA/wPmhiDJv5PmTyP9y0+N2s+Kje
-         st1BjcYlk8SBAhvYUaZWMKHBcYWkM6Yp/+SJcQjJCL5OItUmCuNkOuYgK+tnYrXGV/hP
-         dbKNSwWeOljmRZwi3bvKNLJKCJMlyqAd9FEy3p8ps35+I35Frx9xJPk0bWkMYXBATITH
-         j/XfEfWbUeq66Zy2qe8aH80+uPOSxq/ge7kzVVX1A9ZnvMd9ddzYhRMdU67HTscoc6Va
-         KhQ+n8R3wPH1ziJCE+vNa7tBvYEecf7ANVuiBOdMEED7Gg56N5Kv1ElrcXq/jMmYqmbN
-         3rjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxa+3jMsOHmVn5LZ+MBzxorBuGigfgw6XA+j6nnOwZ1bzAHEG2hv5ez0hSAKMrUnwU8kFJIjASP+hd/GQE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6z8yOEBqymAC7bmzu28cRX335eGjm3dos6ZfqmgwXV2zvGdOS
-	w/ZhtLHScdGG7jGaSQUJcftvqjzlYQjRemJrBp95Jn0kezaNAIxGX6ErxT0F9rDLbYM=
-X-Gm-Gg: AYBFou3FSpQsf8NYF30lMWQ61NRYonMMbtJ6cRCTEGttRKVMjMeM/o1nzYTPF/2lttQ
-	yD2HT5RXrx546LS/LCgS2b7Xako98QLUP6CWu4adwth2lMeYKF/Anr5T9/SxNvG2h2JYqg7Ffs6
-	NLFKOjp4+Vi26pqXafSb+jjsFTSFWij2nkawxho2iRRCoOuuAc6F7Cmo9tzkl61ao5o18kl/U4o
-	HzH6KlqJ6KRcxfowoJjhCwuqKjtUhkq+wPHdR+DDtT2M/apK7oIXiEBuYofMc9K8Tq6cK8pvgcs
-	Y54117zNP4EEKDMgdfhek5o2HhVZ0Q+IJGqnv7eyzDqci6ELuyqdP1l+5pXoeIJJyyT1sk1zXRP
-	Nm2GQWVi8jBWJYPpV9ZEU09mw/ll5ceg/HHDikShG6IU/0OVdt0WZHnpiqA/zrDKsV4Vez/QCuT
-	v8dWKnU54X+dRwXnJ7vLcUpdYJuAcpmHAFTocmbpcE/kW5ACI7kpbSBuSNJMvBus0bcWZStR4l4
-	FTi+EeAPY1SWuKm7HPUFNjUi67R5TBn2ng71GDHHnJUZlvvvHglJXWgbmh1xKt1gOQ2MT3KAglM
-	enGAeUNmKiG+Tl5aJDOJo0CdW0Iavsi6KowR0FC6f/Exp6HkNCcUMpHPm1n6v4oK3d0vUKpgGsm
-	Z
-X-Received: by 2002:a05:620a:4044:b0:940:f53d:5eb with SMTP id af79cd13be357-94408ccad65mr342537085a.35.1793195014674;
-        Wed, 28 Oct 2026 06:43:34 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6bff7sm131382856d6.5.2026.10.28.06.43.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:43:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=jZS+7kqk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=GJ7fWzZjQROjVjwVm1/ePM5BAWjfsgHtzb1qQaFNnSY=; b=jZS+7kqkMi+fNXrvDjv3tLDSre
+	w8xWeW6sM3Q2m6EyR/FUAOgfMDnZUYj794ggPD0S049iNqz/IKyDCXwdQ/erTz/cmgyA5lYru3W+D
+	yAWZT2MaY6hUogPe9iUmcnK7xjP5w5YSBH5o3djZcs+FV52ZuqO4uEcpDMUN+sdhKnAeTTRg/JMlr
+	yl7lj01jmMUsLvoubKYrPat6lEf5UIszuMBfHFwMhnYSzvkArj5rQPH2X0aAup43/OnEuqSTJXfL1
+	1G8C0ZY67nEngXxDOlNNia8PcbMJ1MUhVRkPjduSBmWrrWQbzuASXl+zssbI+R3R08H3Wlhytbj0l
+	nxotNjIg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xM3wO-002HWv-0S;
+	Wed, 28 Oct 2026 13:43:44 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 28 Oct 2026 06:35:30 -0700
+Subject: [PATCH v2] mailbox: pcc: Complete the transfer when the platform
+ flags an error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,37 +65,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 1/7] selftests/mm: add MADV_COLD and MADV_PAGEOUT
- contract tests
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, 
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
- mhocko@suse.com, shuah@kernel.org
-In-Reply-To: <726ac203-7ee1-41d1-a9f3-7322c7528971@arm.com>
-References: <20261019171206.3331374-1-gourry@gourry.net>
- <20261019171206.3331374-2-gourry@gourry.net>
- <726ac203-7ee1-41d1-a9f3-7322c7528971@arm.com>
-Date: Wed, 28 Oct 2026 09:43:33 -0400
-Message-Id: <179319501336.2032926.1556159871121015337.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Message-Id: <20261028-pcc_error_txdone-v2-1-4ca7ba3e45c9@debian.org>
+X-B4-Tracking: v=1; b=H4sIACf64WoC/33NQQ6DIBBA0auQWUsD1FB15T0aYwQGnQ2YwRgb4
+ 92beoBu/+L9EwoyYYFOnMC4U6GcoBOmEuCXKc0oKUAnwChjtTIvuXo/InPmcTtCTijbOtaNt1p
+ Za6ESsDJGOm7yPVQCFipb5s992PWv/sF2LbU0sfHRuacNreoDOprSI/MMw3VdX8gRL3mxAAAA
+X-Change-ID: 20261027-pcc_error_txdone-94f48c610666
+To: Sudeep Holla <sudeep.holla@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel-team@meta.com, stable@vger.kernel.org, 
+ Michael van der Westhuizen <rmikey@meta.com>, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3443; i=leitao@debian.org;
+ h=from:subject:message-id; bh=OUVAYiBxG/JtOW7bltAxN/aVOspjsMK+9JAaRy9VCqQ=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4fwM1m2m/NqqTPukd69I5GFS8N9nToFJgJfl3
+ 6uqnxkAXN6JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauH8DAAKCRA1o5Of/Hh3
+ bWYHD/9miD71JkvzDNVdcdLHgWW08e8NM6J1bMnJOMc1vA+XNu72QXjLemFovjtkv867H4ZkfSA
+ WERNtqHVl2AVKCcL3qxyyhUrbZ++FiYMiZCNioTpA4FJgyOfsP495nmhAtNLbzcILrL01No7K2S
+ rDf9kR8HiHUGpwitfG0Ye/ET3g5wfsU7XcjuZFGTVr1VXnBxv3NRJS+GAW16/aGlDdsgJBX4MpW
+ saAw96iW9IGwVjFXFlxfSNnCxbkcBZ6+qrJOd0C1C+0aKln4MGadvg3QEC/Q5fORECwI+BGE0bJ
+ UhXp/8rQ71mpg4Gpg4BWZXqIeDBCzLZittBlXXkOkkUNiIOyAGYn8OsUFHA9WiSwdZPWFqcfXSt
+ TWEkFqFmdhUQJchdz3OkqHiAjNqXjddlkM0lFz8BHhr6IQyIgyl/WnhYzTI3pjC41HZsR38vUxj
+ GIRkSganp3In+qDpkA/wVkVltn/8I/sTZ506rk009IJKi3W5NGHhPwXscJThg18eXi2/HHGsSZk
+ YV1IFPJdZwpv0bCC/yqAacgEhzqbFXtd7/YR4Yc1mFX5e8s6dk7VQJ15CZnCvwJgngkFgQN5Blr
+ qw8pkwbBa2g5M9LA1ba2nCuS1EJhksH2f/9G1D3nRhWPpL1AISLXIEqP5DTNczjh5bnd83nFctL
+ YQkSHku52BB9AGg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On 2026-10-28 16:52 +0530, Sarthak Sharma wrote:
-> 
-> > v3: Dropped Sarthak's Reviewed-by from v2 1/8 and 2/8, which are folded
-> > here, since this patch now adds main() with the CPU pinning and the
-> > one-time reclaim check, and the swapped-page tests fail rather than skip.
-> Thanks for changing the name of the selftest. Adding the swap check once
-> in main() also looks good.
-> 
-> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> 
+A single error reported by the platform stops all later traffic on a
+PCC channel whose client relies on the controller to complete
+transfers, such as the SCMI PCC transport. Every later request on the
+channel times out.
 
-Thank you for the reviews!
+When the platform completes a command and sets a bit in the Error
+Status register, pcc_mbox_irq() acks the platform interrupt, clears the
+error and returns IRQ_NONE without calling mbox_chan_txdone().
 
--- 
-~Gregory
+No other interrupt arrives for that transfer, so the mailbox core keeps
+it as the active request and holds back every later message.
+
+The chan_in_use flag also stays set, so on a shared interrupt line the
+next interrupt raised for another subspace passes the checks in
+pcc_mbox_irq(), since Command Complete is still set, and runs the
+success path on the failed transfer.
+
+Log the error and fall through to the completion code, which clears
+chan_in_use before calling mbox_chan_txdone(). Skip
+mbox_chan_received_data() on error, as the shared memory holds no valid
+response, and complete the transfer with -EIO rather than the helper's
+return value, which is a positive acpi_status when the register read
+fails.
+
+Falling through also runs pcc_chan_acknowledge() after an error. It
+only acts on responder subspaces, where the platform notification is
+now acknowledged but not passed to the client.
+
+Clients that wait for the rx callback still time out on the failed
+transfer, but the channel works again afterwards.
+
+Fixes: 9c753f7c953c ("mailbox: pcc: Mark Tx as complete in PCC IRQ handler")
+Cc: stable@vger.kernel.org
+Suggested-by: Michael van der Westhuizen <rmikey@meta.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Fall through to the completion code on error (Sudeep)
+- pcc_chan_acknowledge() now also runs after an error, which only
+  affects responder subspaces
+- Link to v1: https://patch.msgid.link/20261027-pcc_error_txdone-v1-1-2f8cfbb36d90@debian.org
+---
+ drivers/mailbox/pcc.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
+index 14dc4a187bfc67..0d36aa511a9d02 100644
+--- a/drivers/mailbox/pcc.c
++++ b/drivers/mailbox/pcc.c
+@@ -315,6 +315,7 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
+ {
+ 	struct pcc_chan_info *pchan;
+ 	struct mbox_chan *chan = p;
++	int ret;
+ 
+ 	pchan = chan->con_priv;
+ 
+@@ -333,8 +334,11 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
+ 	if (!pcc_mbox_cmd_complete_check(pchan))
+ 		return IRQ_NONE;
+ 
+-	if (pcc_mbox_error_check_and_clear(pchan))
+-		return IRQ_NONE;
++	ret = pcc_mbox_error_check_and_clear(pchan);
++	if (ret)
++		dev_err_ratelimited(chan->mbox->dev,
++				    "PCC subspace %td: transfer error %d\n",
++				    pchan - chan_info, ret);
+ 
+ 	/*
+ 	 * Clear this flag after updating the interrupt ack register and before
+@@ -343,8 +347,9 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
+ 	 * the lockless update observed by the send and interrupt paths.
+ 	 */
+ 	WRITE_ONCE(pchan->chan_in_use, false);
+-	mbox_chan_received_data(chan, NULL);
+-	mbox_chan_txdone(chan, 0);
++	if (!ret)
++		mbox_chan_received_data(chan, NULL);
++	mbox_chan_txdone(chan, ret ? -EIO : 0);
+ 
+ 	pcc_chan_acknowledge(pchan);
+ 
+
+---
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+change-id: 20261027-pcc_error_txdone-94f48c610666
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
