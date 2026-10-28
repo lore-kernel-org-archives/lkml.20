@@ -1,59 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203160;
-	b=tlyyfJ1Tzz9T/3mDID2/QGXRu80p1NuzzFgf4+dxPdUIYSIQL61Oz4TS28m745/bNZmD
-	 RZDkypepQ19Ked2/VgHLuWtGoMQgS+jCqa/wdhmAAfIGuaH924L78bUaCzGxq2VlREpGm
-	 BMJfvLuk9lNdHhGYlaV5+ptSBL+Kbve1cw02EMddcfzFWR/JdEj3tfzhxBczjZRIkZqdc
-	 oaLVk+Z1WcCPPmrv+vy2jIcWb5Hna/F6KKCfxwZEW9nZq8KSW6dtH0GvsS7f+wKOF7lw3
-	 LrxFjDa0oLzyfMcMxXVRm3MtOQsvweTWKjS5WaDZEcSG1GSKIDfbiE5oA9cVsv73qRw==
+	t=1793203165;
+	b=g6JRA02wLnP2z9LsH4Vz+PgKVMKPHiSn58i1+lNHdBMi1jvXcNP112gtg+8YtgiYGI5V
+	 FkjPDo1Be+HD/IN6IliwsFwb7YTIpKp6yFTA2oYrR99/98QH5Uugcrvv9rAfiYeNS9Cb/
+	 2aDWDCOqLlQnCG6gKmWwKJMelCaZQ4f/sJEJg2/NWMDau0691NNvUlj4QYglDo/o+Wle/
+	 UGI2Rco+goqsZmDC3FF2fCTCHwLltcOdJQPhBijvBYmDtgrBGXapcc/EZWeYlLN4SlioR
+	 C/A4nC745iHB78Me5w2ZYb0yt4CbRj/7KM14hMLW8iGxsRyPH3Rz49F83XgFy8UEIvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203160;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=MhUn9SLMDvTSo1qywxdO5rcMk1YuaorqfFbsqqRGaZ8=;
-	b=z8qt6pjprjhQfpM3lUQHPtlUuBP6llxtHKCNrnYWqPCg6rtQOOet080AbTyvszAwm2Vi
-	 PpMkAAkI2GRJCs78bxBkXI1b0iYgNtl6VeKKK8mK06L4yZCUpL4lt/NiNMQ/1Qye/kS1L
-	 ZpZJyg0kF/yJvloz3t1QaQHKgG2Ee2Qykq7QOyxHzc7YQwJk3Ds8aIvilIT287Y/bagjS
-	 hzgVrwesOeHX5uw16NQfoY3TgPD77DDVhME2D6YBAv1O+9Op3RDl8XS3yIvFjg7pCWFUw
-	 8KUBykxtJoI7GZBEsYenwB8A24kFG3bluMY9Gg+m1uvu2nPNBjhCjtSL4sLu0JXVMcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203165;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yVrRn+kNyHMN16qkTjjCdFdFIshmK/rzY5bBip8I5Z0=;
+	b=122lpQK9TvlXmclutnsRAvZJEUSVcInilSe94haRQjWSKSTJTqUpR9ooMooeWLUQYi+p
+	 qLNR/2QRtRBezpwT53LYASXsn//KT03PnP9NUQ5ChZUbIxq4sXE2mUsHn/4cJ3FVT/v+L
+	 uFortng0HecrLT5mlN0MnrsANa2Quw2f0XYaKwRm58n0IOhYVfKaxi6NjVOg5Lk3NjNtO
+	 muhtWm3t3ddVaJ1rqRbx+6En9UXYWyXz83PAaFGr3cSHGwqwv34FzFOO7jEvrw5sJdtyO
+	 fc/Gq1lEmoWIijNS5B50SJ20PKUR5KsmaLaCS46UwZ0KaorWLOITtqqIJexZ86DGb0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=vJGBdXOm;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=haEwZa92;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F51860A2624
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F51860A2624
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 99C09606A324;
+	Wed, 28 Oct 2026 15:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=vJGBdXOm
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 28DEC4E41361
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:59:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EB97160769;
-	Wed, 28 Oct 2026 15:59:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3861E103290E9;
-	Wed, 28 Oct 2026 16:59:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793203156; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MhUn9SLMDvTSo1qywxdO5rcMk1YuaorqfFbsqqRGaZ8=;
-	b=vJGBdXOm37kBdRiyQE7zcYoo7+7rB6fwpHTiiYwL4zDSeVjIiM8Gvoij0Ekvr1ZT6fu7MX
-	mLeu33Jv/ztW2xdwF3pTynPrgLA92NGRXeKnn1PvDz+KvugigZb8aURpSE9CW3G3U1sXfc
-	oyuOsg1bYR2yrbDDJB0JcQlX/j1eYD56n92k9vVSAusgDmg+uokOF7hu6WC1eJ2DiASaq+
-	30VLdFwaM8eMmzYk37P43LGz08P5k1+iRd1sNAysXFfHpAYypy5kLq+PVyU823DLQOmV++
-	PdTYCqIaSmWiVvecjkM2IuX3aALZyonGBLXeDb83nLoHcV9AIrWyugiUlwxZVA==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-Date: Wed, 28 Oct 2026 16:58:51 +0100
-Subject: [PATCH 4/4] MAINTAINERS: add EyeQ5 MSI controller entry
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=haEwZa92
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A21A11F01829;
+	Wed, 28 Oct 2026 15:59:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793203165;
+	bh=yVrRn+kNyHMN16qkTjjCdFdFIshmK/rzY5bBip8I5Z0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=haEwZa927ysjydVPPZvQacM6MQzUQamA8aF+y/8oZE1NXqZ5v6mecBENbp0DIN5O7
+	 dixNmuuLzrhsRhKvn6jagAqSBHBR7wDWR3HRAQrOEykAzgNm5NgqGK4BIihFa5PrE8
+	 0eZe7qMiSCTgtvrSgwapjuHUy71kSSIjPNqbIdsnlhih/7ob5CdXGbRbmsy2p39Oz7
+	 2R7bXKbCteqlv0sJIBt8rYNaWAicnVLm5JP9GHOlEjIrbfIpppXSAuHLkl9u4T9yyJ
+	 B/7ilsOgRpnLLCoLHCN7WDH32TPmT7YgjVSnz/EwPDi6p/ZWEIX0UMEOC7iOuqFfn+
+	 ldNZmUV8ncjMg==
+Date: Wed, 28 Oct 2026 17:59:21 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Kees Cook <kees@kernel.org>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Anastasia Eskova <anastasia.eskova@ibm.com>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390/cert_store: Hold the keyring->sem while
+ invalidating keys
+Message-ID: <auIb2VIyDPqcgSgS@kernel.org>
+References: <20261024144229.1546151-1-jarkko@kernel.org>
+ <20261028153419.8417E3b-hca@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,51 +65,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261028-eyeq5_msi-v1-4-c464752fb55f@bootlin.com>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
-In-Reply-To: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028153419.8417E3b-hca@linux.ibm.com>
 
-Add the EyeQ5 MSI controller binding document and driver.
+On Wed, Oct 28, 2026 at 04:34:19PM +0100, Heiko Carstens wrote:
+> On Sat, Oct 24, 2026 at 05:42:25PM +0300, Jarkko Sakkinen wrote:
+> > invalidate_keyring_keys() does not hold keyring->sem while calling
+> > keyring_read(), which is contrary to what keyring assumes from its callers,
+> > and can lead to reoccuring bugs.
+> > 
+> > KEY_FLAG_KEEP alone does not e.g.,  protect from  the following call path:
+> > 
+> > 1. keyctl_keyring_move()
+> > 2. key_move()
+> > 3. __key_unlink()
+> > 
+> > Address the issue by guarding the critical section.
+> > 
+> > Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > ---
+> > This came up as a side product while working on assoc_array to
+> > rhashtable migration and going through various callers of the keyring.
+> > It's made by me but please keep in mind that I don't even have a
+> > toolchain for s390 setup so it is based only on reading code and I have
+> > not even compiled this.
+> > 
+> > Just wanted to clarify the background for this fix as I'm not a regular
+> > contributor over here. If for any reason it turned out to be false
+> > positive, I'm fine with that too.
+> 
+> It is not a false positive. There seem to be more bugs in the code.
+> I'll take your patch and create a series with other fixes.
 
-Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+OK, great :-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 782389bd5cd3d..737a9fe66a3de 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18348,12 +18348,14 @@ M:	Gregory CLEMENT <gregory.clement@bootlin.com>
- M:	Théo Lebrun <theo.lebrun@bootlin.com>
- L:	linux-mips@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
- F:	Documentation/devicetree/bindings/mips/mobileye.yaml
- F:	Documentation/devicetree/bindings/soc/mobileye/
- F:	arch/mips/boot/dts/mobileye/
- F:	arch/mips/configs/eyeq*_defconfig
- F:	arch/mips/mobileye/board-epm5.its.S
- F:	drivers/clk/clk-eyeq.c
-+F:	drivers/irqchip/irq-eyeq5-msi.c
- F:	drivers/phy/phy-eyeq5-eth.c
- F:	drivers/pinctrl/pinctrl-eyeq5.c
- F:	drivers/reset/reset-eyeq.c
+> 
+> Thanks a lot!
 
--- 
-2.53.0
+You're welcome!
 
+Br, Jarkko
