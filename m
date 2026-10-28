@@ -1,89 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191894;
-	b=1goouu1ptLTjQzw1RpuycTWT2JXWahyqsElq0wpX5lFPwkcEfZ+Tlv45KS6A5StVAngC
-	 A9q5c3N93tgEO4kr+wQIY1RmJIPxWBkeqhRpY+wKsDq6kVaCk/3+4SkIih3C2vewEfe86
-	 ocAuN04fORDOn5QswxNH+r/nktdK9/yMi3uH9L5VtaHiSJgsm0CuSS6JBtPeD2E+l2aDb
-	 j5e0CLkqlnn44wBGqN9tqv2vmE2VOIQpoecSMZsnfZ4wyFNo3Aef78EdEJGoD+vDE71Hj
-	 tppkC212wQlk2UHb781CxhRTvnRoOop+yq+1mXXSAouJo/IlgW0uX7iIPLz9OJia/ug==
+	t=1793191902;
+	b=Vv4bFM1cIsiCYPPzyPpCVvuqcJbJFzXOD2v+VGvYUpuu6IruGamJuH/sSNsQ6A49OtzR
+	 lIksqrgNw3IV/SLMQbnYcsOIJ/WxCv83JFIHZoDKlavnZH+8lDsb9ym8TXivQktfKoxTI
+	 rHM8I6SMKU4w4XqyhAr4WzMnqTkBChUe6aO5GMpZe7qiKH47iixi9cT/u+LcK0yqJV5dv
+	 op6/XPfxBYxqNlJl/GDwoYU+OrXEsvEwwoU6o8WPxPNLgt09Npv6fPll/fzhlt6d7kb9R
+	 uLh665EwfpmqnUeYbMVWvDasBWT3GTKIZHe2ebQ+sISxIKm11qhVaaPBvSuASswNNdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191894;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=58mU3YE1A8ySMdmeUGmqkV/ZZ/o0/aVwbVzGIHclv1c=;
-	b=KO8yAor0wbje61DKEen3wOHWvagLDdO2iZL9u9hSI+1ygCwPkEg8E5m1V19NCrE+clYy
-	 gLm+QE9BQI4KffhV37WymVsXM7SUe3iCMkCMZZ4KpQbmFTii5E0jUBhFlouqMy4yqZ7bd
-	 A8OeGfVVpXtQZ8f7SU+fPO43Mf7daD6uJvfTLEgr9NIYsM6i4TyTPu7ZMEjESt4iPkvSu
-	 WNEwoM809T8dh4GGv64umXl8QIFxTrMyfAs0U5+Rqto81SED5xoSNs88y7d3qubzHUy1+
-	 xYn1SSp0sMbaUBYIYChMnZUQXPozio3mdDGw8d++lianLYWyUzSByU/QUAdnGfftH4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191902;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4QgwrBI3wl14x9XOc2FYaDf/AYjSUgDXY7fYshPzgk4=;
+	b=0BHjkiUeWX+/dYBmjQ3a8AxCOELeT20+EGzenT2RDAhGvF7ixhYfcNxHlj/Yn83ResJJ
+	 4VE8V4lj88hc2qWMgPo/drEMoXZsUWDEIzoAdhH/w//NH+UjcYi2kCvti4jpW7xQkjtWg
+	 fANZSmPuosTxU1Pj4b4TozpTRXgtM7VKPKkc8OyCXnIw3vSwhCObNOmTKszuTmSDdmsyt
+	 93Gd7HKdz5xl+q1+vodUQHmv0ihYlP4GWwHS8Y8fVVUZq2Pp/PE5Ao3SItlQ+HAhwPrqu
+	 OXInyhtbcR4NTn8T04G9TfZzTRfmk/IluM1/BomA3fbt0CTtDhX/b80wWpqIq6byVrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cxv0F5G+;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G6e+/v8+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C83606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:51:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6C83606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3127D60A2639
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:51:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cxv0F5G+
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e00eee27dso681126f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:51:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793191892; x=1793796692; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=58mU3YE1A8ySMdmeUGmqkV/ZZ/o0/aVwbVzGIHclv1c=;
-        b=Cxv0F5G+jXvHhAayNWRctdZCvgaTHYI7gEQ0bpvPR4tVX0JbRzaa/stQxFjqLVyDZq
-         dVq5zYYk67wQJOV4Vm42Ajt0Oq9zH8SAIWqL/DyH8Xz3CsmoYtjnCD4YrUoSiyn3oyQW
-         PO/q+P33m3PonZ3LotTCOCRocp1tZWNUdlBUaOYh4vz4pZNr+MYsEkVQ94T6Td7lNSGQ
-         Oqg2yXtCOuq6RDfPKelMuVsoEANnthgRjaHoJchsgr/+6fjmTsZhRx03y3qvbUagednU
-         tPjRfup1kbyNE7opiQpLOzpFkiQmuILdP2b3BP4dg0FXxoK1f/v4vmzxf4gRnY1HNoaQ
-         U8iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793191892; x=1793796692;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=58mU3YE1A8ySMdmeUGmqkV/ZZ/o0/aVwbVzGIHclv1c=;
-        b=ZhTUYrOX9Zv0xocbvu+5Qkogo6CK+DzJBOWsFHNBgkJliaE/webjwfh0HqQo54axl/
-         fbRns3JhqnmSq2DfaAbd0/rfsgwKeUbT71ikkz36Xu1rJSVHMxAry7irs+giJ3PE4RuD
-         Mtl6gOPCXdjAM87ejVLturMz8RdCNDQJD7FEkHQ0N1DP0mRLhO6tijOMGaKqfzXFSmjH
-         zjVGMKuMJKVl3PUpRgwvC7NJOsGeCCiJkU2AlM6/MWfH4x/7/iI/2MTDoZSpCbZv3rft
-         lOVscXZuvg4pg8DrWQNCsee5tXBg7c7+gWQbg74Ib2cJWy9P6l1LA75kAuSiOdhGzVuY
-         58JA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDj8H0b/DhsHvugT6LddFy3cQN070itOLGdC3gubqpHsJZPWVfzHB7m7Y0VrXU4w384g4HFLzB3Wl99v0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe4RpF0fNSIwUGv6F1q9Lpbe0Y8dq6pbZw/MIsim/wJCdY5RqB
-	YA5W87G/anu3cV2wTayWqoIjAvYxo6QzxFEcU/tu4RmpaXW0jMpD3oIo
-X-Gm-Gg: AYBFou37k1OKp3wIg7W0/4tzw5bBsARqg4SZBWseXBkZiwU6+FxkDAMS+CaplhoS3iT
-	+Gakh7AJwKn0jgyoiv0xLXOU2whBnatNj7gsQmm2JaTd2kS2pbzasesIoltzYYjYcaKkyj/Y2mj
-	f0nm2sQsQwz/+1SL2b/3yG8eJ+2Q7kf8wO/cc3mKLycUZA1uYW3MLvIJLGd+p74123Y0repI/2x
-	pTmrdvWtd28ZtcL+ARjFbN2ha+0P8EDlQ8VIFl2ZXqykvuUoKH8H5iSoKicsCHSqiukQF1j5UF+
-	5AAgB/C3K+f9LIAvQ5EkXB8M9Ag4kmqotxVTUUqiQwStdgvF0zs03fPFGACJH+X3duHzreW1+nA
-	b9CUhWTz67YyrP/DUZeoEiEleD7w0oerWpQmnfabCIVsNfM6Cwu7C7y/je4Q1vRfICIhiWHN9V3
-	xKK/O/zbYYzFW3N6aUQYtAmAOOEsxIZ1AiTnfFSSiDPNO2aVdgCGeMdiOibI6SdLNreUXsXmupB
-	xCRrlYplHykzwhMCyqRXAAssdXu7x/7AHUUpRfqSPUnHFuSgsnIUKLHPj7nVhiTf6Ijitg/v7uI
-	KBzTBLFMiljJbIv5dAKXyAuH7YHNXfsAY+/556UbkaHc9ixWZsLahVDbO8FHSgmM6Uo=
-X-Received: by 2002:a05:6000:3102:b0:487:13f:f612 with SMTP id ffacd0b85a97d-48e5d5d802fmr5596555f8f.37.1793191892168;
-        Wed, 28 Oct 2026 05:51:32 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:6bf5:6c0a:cf99:c9f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39b3sm29275016f8f.10.2026.10.28.05.51.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 05:51:31 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 28 Oct 2026 12:51:27 +0000
-Subject: [PATCH v25 10/11] mmc: renesas_sdhi: Add write32_hook for
- CTL_SD_CARD_CLK_CTL register writes
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6e+/v8+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE061F01408;
+	Wed, 28 Oct 2026 12:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793191901;
+	bh=4QgwrBI3wl14x9XOc2FYaDf/AYjSUgDXY7fYshPzgk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G6e+/v8+7X7ISVE1kgLO/YqSfIvA554wZmped1YsiYXV4t81Yjj1CceWPNX7BOC7z
+	 bu3QYyRt1I6CPSN++xNN9QYxRn1UgtEksiBa1gT14qfjq1Fji9eDHEMIM6nSasVjuZ
+	 Rzv/BAIXHSHt8XTq8dbc1fjAHuUwtHlVwmkPvI+OAZTsrchiufcCe1hIIp0rVf6JSo
+	 mHDKau0cRwejmYJwxEzkA1DjQ8FZKSA4pT8+nCtDMeFNNNp+ld1HL2uX2W6DF3dKcm
+	 maw2JYZpW3wzKrwm+O9Mht18o8tuMigApl4lMuyuuQqjQhqv284+kWZqNJPGDyd3Mh
+	 VB4SvDgmkKuow==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 4DD9C198003A;
+	Wed, 28 Oct 2026 08:51:36 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Wed, 28 Oct 2026 08:51:39 -0400
+X-ME-Sender: <xms:1-_hak0yawTSG6VO74TCldACfwO3HdoRCjQRlREmV1hoRQIc6vOvTQ>
+    <xme:1-_haocqEnrkyUwta2xwErVYeOCIiW5FNRHeoU_NJK3aFAcFRdNyp4NGkHaTm-Ut_
+    OVC30F-b8kah9WafQmmwmUefq4HTVmMliQXuVTtM3ELLUaCAln8Jehe>
+X-ME-Received: <xmr:1-_hamDkh6Epwxm7nIAHt5kwV7S078xkEeZemQLhpsgILXOro2ZsRQ6ToOE>
+X-ME-Proxy-Cause: dmFkZTGE3qyaXVxGyol57PkJZIGWeoKTYQuEzvLABDKdQ+sPhlAGnOjiWdxNbmqxYTkZLW
+    FPOtYF3Mh0BXDufsWNqeP+u1K424UqG0/E7TmpbHb4ukX06jB/9APetf2z9qWTvS6jlpNt
+    FE2AszEFmluzvuiHX6sDb96WV7WyIkQ9Nc9fBCcK2tbCWlZqLQhKyX185ZeAMIDLHF02yX
+    uYcUC2c4r7nNyrceOdZs0exaSF/Yx51DoG06ot6xyfmEvG2un6aO42EF7PMSI5dOAz1uGR
+    HlAySkWe21xaQAcJ1lXFnIC872ASFxKh3j8Zst097HloApiGG/3LCYe70+lEIIl2aUdwZ8
+    oEbpxq/mZKn5r0FGv210ENmig5Au9zdHfgIRCQyt5mMx0vsXbIiQU0EJcagVIfmnzTnICv
+    61YSQBzN1RClpB5jCEd+NIwi7RP38LtABLc3FOislqtD+SJOEDVNxHYfByu7inVkbxTbsW
+    NsDUe4ovMvC2eJ4tRR3yKdzvI8x/BbZBTi6DVZC2JrsQGarSRxqLTUzlFuw/eMbCp7cvWa
+    YlQPjVsYsSBvRnaAucwl0RhZiK8lajB2LICICvdG/Gd6vfKftiBz7Ttubhodhk+Msv9Bg+
+    DwANTLTEo/rKYBRyHGSJ7MyTNqd0LJKKtulcG83ksjGE4F7mVZLZjlXk+t7w
+X-ME-Proxy: <xmx:1-_hag2rZ-ERMvifHFoFYhVm1jTki2folsDUc64gKMMgL_JvZ0hVVw>
+    <xmx:1-_hahNmWBD1bTvVYoE8UCnoS_073bpJvvgkcIwaMjiVsDkrsflSJg>
+    <xmx:1-_havY5Dr_j3lDt7rmUk1dHnpoCwGYymU5Iy_jUlBz1c3h1roCwOQ>
+    <xmx:1-_haj1HgrRVJSrCm5vQRdVYVZIBRhxIC9bths7jdKhz3FwI-08w1Q>
+    <xmx:1-_hamtCvEwO8JyxD2zmga0K7GCLxU15ZgDVmaDefvMsn9KlsBeJ-ggS>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 08:51:35 -0400 (EDT)
+Date: Wed, 28 Oct 2026 12:51:33 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, 
+	ljs@kernel.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com
+Subject: Re: [PATCH] selftests/mm: skip collapse_compound_extreme() on THP
+ allocation failure
+Message-ID: <auHvwK_vtQYtx_Ui@thinkstation>
+References: <20261028100119.11340-1-zenghui.yu@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,127 +90,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-rzg3l_sdhi-v25-10-57f16691c2ed@bp.renesas.com>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-In-Reply-To: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793191879; l=3693;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=ltWOzQvnXnaIZzBe/fnpRtSR9lOqq9Os7KYKzujgEKw=;
- b=/gBzy0L2P6XiAi0r9ZxYLEERTAZkDff5ULocuimlZsTKkG2n7ba8hs/euuypHKf0FdLK17Omi
- 3yeK/f6kiHYCk4b98wHwfG7nArdFyebiNldvD+asBE2Fp3NDdeoVdUB
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028100119.11340-1-zenghui.yu@linux.dev>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Wed, Oct 28, 2026 at 06:01:19PM +0800, Zenghui Yu wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> 
+> collapse_compound_extreme() needs hpage_pmd_nr PMD-order allocations in a
+> row, and it kills the whole test binary via ksft_exit_fail_msg() as soon as
+> one of them fails.
+> 
+> Gating the case by PMD size (commit b36bec6a01b1) -- the current workaround
 
-Add a write32_hook, analogous to the existing write16_hook, so that
-sd_ctrl_write32() can wait for the SD bus to become idle before
-certain 32-bit register writes.
+Nit: checkpatch wants the full form:
 
-renesas_sdhi_write32_hook() checks whether the target register is
-CTL_SD_CARD_CLK_CTL and, if so, waits for TMIO_STAT_SCLKDIVEN via
-renesas_sdhi_wait_idle() before the write proceeds. Other registers
-are unaffected. As with write16_hook, the write is skipped if the
-hook returns a non-zero error.
+  commit b36bec6a01b1 ("selftests/mm: skip collapse_compound_extreme() where the PMD is too large")
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v24->v25:
- * Updated comit description.
- * Updated tmio_mmc_host_probe() to set write32_hook() to NULL if
-   TMIO_MMC_HAS_IDLE_WAIT is not defined.
-v23->v24:
- * No change.
-v23:
- * New patch.
----
- drivers/mmc/host/renesas_sdhi_core.c | 9 +++++++++
- drivers/mmc/host/tmio_mmc.h          | 7 +++++++
- drivers/mmc/host/tmio_mmc_core.c     | 4 +++-
- 3 files changed, 19 insertions(+), 1 deletion(-)
+Otherwise looks good. Thanks for chasing it.
 
-diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/renesas_sdhi_core.c
-index e897328d5b70..cb41f38ec80e 100644
---- a/drivers/mmc/host/renesas_sdhi_core.c
-+++ b/drivers/mmc/host/renesas_sdhi_core.c
-@@ -965,6 +965,14 @@ static int renesas_sdhi_write16_hook(struct tmio_mmc_host *host, int addr)
- 	return 0;
- }
- 
-+static int renesas_sdhi_write32_hook(struct tmio_mmc_host *host, int addr)
-+{
-+	if (addr == CTL_SD_CARD_CLK_CTL)
-+		return renesas_sdhi_wait_idle(host, TMIO_STAT_SCLKDIVEN);
-+
-+	return 0;
-+}
-+
- static int renesas_sdhi_multi_io_quirk(struct mmc_card *card,
- 				       unsigned int direction, int blk_size)
- {
-@@ -1199,6 +1207,7 @@ int renesas_sdhi_probe(struct platform_device *pdev,
- 	}
- 
- 	host->write16_hook = renesas_sdhi_write16_hook;
-+	host->write32_hook = renesas_sdhi_write32_hook;
- 	host->clk_enable = renesas_sdhi_clk_enable;
- 	host->clk_disable = renesas_sdhi_clk_disable;
- 	host->set_clock = renesas_sdhi_set_clock;
-diff --git a/drivers/mmc/host/tmio_mmc.h b/drivers/mmc/host/tmio_mmc.h
-index 3ab8c0d8a2bd..e29a2fe06ef6 100644
---- a/drivers/mmc/host/tmio_mmc.h
-+++ b/drivers/mmc/host/tmio_mmc.h
-@@ -189,6 +189,7 @@ struct tmio_mmc_host {
- 	int (*multi_io_quirk)(struct mmc_card *card,
- 			      unsigned int direction, int blk_size);
- 	int (*write16_hook)(struct tmio_mmc_host *host, int addr);
-+	int (*write32_hook)(struct tmio_mmc_host *host, int addr);
- 	void (*reset)(struct tmio_mmc_host *host, bool preserve);
- 	bool (*check_retune)(struct tmio_mmc_host *host, struct mmc_request *mrq);
- 	void (*fixup_request)(struct tmio_mmc_host *host, struct mmc_request *mrq);
-@@ -283,6 +284,12 @@ static inline void sd_ctrl_write32_as_16_and_16(struct tmio_mmc_host *host,
- 
- static inline void sd_ctrl_write32(struct tmio_mmc_host *host, int addr, u32 val)
- {
-+	/* If there is a hook and it returns non-zero then there
-+	 * is an error and the write should be skipped
-+	 */
-+	if (host->write32_hook && host->write32_hook(host, addr))
-+		return;
-+
- 	iowrite32(val, host->ctl + (addr << host->bus_shift));
- }
- 
-diff --git a/drivers/mmc/host/tmio_mmc_core.c b/drivers/mmc/host/tmio_mmc_core.c
-index 4116c4d29c63..4fe98b437121 100644
---- a/drivers/mmc/host/tmio_mmc_core.c
-+++ b/drivers/mmc/host/tmio_mmc_core.c
-@@ -1169,8 +1169,10 @@ int tmio_mmc_host_probe(struct tmio_mmc_host *_host)
- 	if (mmc->f_min == 0)
- 		return -EINVAL;
- 
--	if (!(pdata->flags & TMIO_MMC_HAS_IDLE_WAIT))
-+	if (!(pdata->flags & TMIO_MMC_HAS_IDLE_WAIT)) {
- 		_host->write16_hook = NULL;
-+		_host->write32_hook = NULL;
-+	}
- 
- 	if (pdata->flags & TMIO_MMC_USE_BUSY_TIMEOUT && !_host->get_timeout_cycles)
- 		_host->get_timeout_cycles = tmio_mmc_get_timeout_cycles;
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
