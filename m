@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793231850;
-	b=p15XB8orlYV4yjEnECBBAwayj38PmNjJPuPAYfCA7TzFMYYnV1D5tlWe30O87sIbAk48
-	 M8hFUx1bhgiF3ggKn/IxQTH8B252CUSFwSA1IMwFo4Td6AaYbjbW65EKZseLFQBq54w2m
-	 HUVg7i94doOEsp0ARBuKJY12mR2YAYh7LAmcRge9DPoxd07uKUm2HXk0bJCG8HJ/tCO7Z
-	 BB48y90FBH6f5iGG2MPj+2UzuU92bIrLXIk1Rz2qaZ0aFpPmIlb4Y4zYPvIPBiK2L3HoB
-	 J3NJOwf8KthJuBVxEU56h/ct5RqR/7tu7BAPg5aPgWjt+bPl2IEmqeDF07eKiG0IlJw==
+	t=1793231893;
+	b=hfPocCVPfKC5y8vhf03wLRqpDzcVqD1oxzuqGINjglGAAvsmwu5jb/fL+jwZtcradAu7
+	 kDh2NCTyDa4qDxnMK9y/S6FpxXWC0ia1HP7MKhyNFPAgBPb/jnL0r/Bo2MrFnOasURmIl
+	 dDKTX4oTchlRVHeCE/hLVnK/QX67/6NaKV8NgVvs6w9TR5Q0w5gXy6dlqASdwD3tR+laB
+	 uk0C1wXg32f9WPFy6xvZAhjejSVJf7Ca5gsIA4LoWhi9lSZ6/GIIRhVl0xmE1bUwLhzyj
+	 n152pBEDajT1efhUsA5lDiC1jx5po09iuulp4LJyKMaVimXCYqCRiNjXqOqObbq/Jig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793231850;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wy9CJ/y0JguXD4knEC3K+vSUhevvAsn5QvrIqf5UXXk=;
-	b=uhV6tHY4VSjXN8PjUm4z29REBHnEGgTAnnPMIiJXbIQwct3ngGs+ul51uCghqd1QodUu
-	 YLKYdhOiq+UPzQDAVUZoIlwMvmpsAFqUttS4vTALVi9UwrO75Pox0J2PRMWBu6SNr1FA9
-	 xZKpdq/2cNcMTL4YvLK5DB9C9Im1wgsRbc0lGdV4deno0p60Dn6ZDFk/DYfjvmazymesn
-	 Fv6P3zpij6fnva+oQH/szImVsjc87ZP4PK2kkgvd+P68I7sY5ODaMZo9+mDjW4vC5mtkK
-	 jZ30rW7LPsTFEn7icEQ5EdJUMLBihO9SXHCUpIBPUDYWNxJ422MMytbYjKEvtRyMDzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793231893;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bnrI5z48giTBpUWcqK7pPuvlc0Wx2KKMmU5dejUop0Q=;
+	b=GHtVEnQzDE2mxw3t7b+I/Dc+QIGrCp/xI4hUkCGIn4xySbMVFX7uGSbfOyoBXp4cojr5
+	 UBAlaYlbgLcocCOu0XEUoUSQl0arCFxjiKd294P0Bjy68evVBKLdG2riWRqvv6Pz9WOKw
+	 zcF80xrgvK927p9m3Owl0ep5u1lGDZxiJ4lbJeDYtgOVLtZkFxb8evkj3FWwF+64kb16D
+	 gO5SUkYHRUEwAtMVZ8VxxtFtY/PrQR5b//rj07OI0a0T7MrhBXr4fAxntMWTFyMrYkyvn
+	 3zp1XRW2nl/dh5veye//siMDRQvHIcNIPAtaLN+zBe24iBk7WPyTPEPC2cAHVp3wpow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.74
-Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7EDLGRw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB51606A31A;
-	Wed, 28 Oct 2026 23:57:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FB51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07946176|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00518608-0.0160223-0.978792;FP=7180752150399191531|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jrnSxiR_1793231833;
-Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jrnSxiR_1793231833 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 07:57:18 +0800
-From: Tina Zhang <zhang_wei@open-hieco.net>
-To: x86@kernel.org
-Cc: puwen@hygon.cn,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	linux-kernel@vger.kernel.org,
-	yangzhen@hygon.cn,
-	dengqiming@hygon.cn,
-	Tina Zhang <zhang_wei@open-hieco.net>,
-	stable@vger.kernel.org
-Subject: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
-Date: Thu, 29 Oct 2026 07:57:12 +0800
-Message-ID: <20261028235712.383977-1-zhang_wei@open-hieco.net>
-X-Mailer: git-send-email 2.43.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3FA606A31A;
+	Wed, 28 Oct 2026 23:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7EDLGRw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0421F01825;
+	Wed, 28 Oct 2026 23:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793231893;
+	bh=bnrI5z48giTBpUWcqK7pPuvlc0Wx2KKMmU5dejUop0Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=K7EDLGRwjHjvtAv2lwMgY+1zn41qCMQDJ6TYGDCpuRRhorZtbVCdwIGpFT6k8+e2r
+	 Wf6sd1uO+EN6RRknM6P/Z5+2d/pyGElHYfxavugtopH3UHU7iKIpIPt9MjWHaEr8xo
+	 ucC8HY0dxcmVrTSdkaOt0j5bX8/e+7eL+Wb3bl7Igf3V2cpFep7on/DF2NlGRK7MFG
+	 RHazaEmuUV6a98HJAQr0E5Kgw3sAYXhsyTLziqSj+vy7TRUN3Lzmax6iitYv79502z
+	 qOQRR0WNvXeEch7eimXFq0coGCHoWiKZAWYt1yXTbY95SdOkw7uRWydntzUIgVd/Yt
+	 NZNLouJ7E+DJg==
+Date: Wed, 28 Oct 2026 16:58:12 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Justin Iurman <justin.iurman@gmail.com>, Shuah Khan
+ <shuah@kernel.org>, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH 0/3] net: ioam6: makes IOAM insertion transparent to
+ IPv6 ECMP
+Message-ID: <20261028165812.1b40d1d4@kernel.org>
+In-Reply-To: <auGryXdPv2mx0qlp@fedora>
+References: <20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn>
+	<auGryXdPv2mx0qlp@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,108 +64,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The XSAVES malfunction described in AMD Erratum 1386 also affects
-certain Hygon Family 18h processors. Under specific conditions, XSAVES
-may fail to save XMM register state, allowing stale register values to
-reappear after the state is restored.
+On Wed, 28 Oct 2026 16:01:13 +0800 Hangbin Liu wrote:
+> On Wed, Oct 28, 2026 at 01:45:28PM +0800, Hangbin Liu wrote:
+> > This series makes IOAM insertion transparent to IPv6 ECMP, as required
+> > by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
+> > along the same path as the identical packet without them.  
+> 
+> Sorry, forgot to add target repo "net". I will add it in next version.
 
-None of the affected processors enumerate supervisor XSAVE state
-components. XSAVEC is therefore equivalent for their enabled state
-components and is not affected by the erratum.
+CI bot says:
 
-Family 18h models 00h through 06h and model 10h are affected. Other
-Family 18h models contain the fix in hardware.
+The new selftest added alongside this series (tools/testing/selftests/net/ioam6_ecmp.sh)
+is failing in our CI on the "Transit input ECMP with/without IOAM" scenario:
 
-For the following model and stepping combinations, the minimum
-microcode revisions containing the fix are:
+  TEST: Transit input ECMP with/without IOAM (diverged on seed 1: without IOAM via
+        link A, with IOAM via link B)   [FAIL]
+  TEST: Transit input ECMP with/without IOAM (seed 2..12)                [ OK ]
+  TEST: Encapsulating node re-lookup ECMP with/without IOAM (seed 1..12) [ OK ]
 
-  Model  Stepping  Microcode
-  04h    0         0x9040000f
-  04h    1         0x9041000f
-  06h    0         0x9060000f
-  06h    1         0x9061000f
-  10h    0         0x91000004
-
-These are the only known steppings for those models.
-
-Disable XSAVES on affected processors unless a matching model and
-stepping entry identifies a sufficiently recent microcode revision
-containing the fix. This allows the x86 FPU code to use XSAVEC
-instead.
-
-Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
-Tested-by: Qiming Deng <dengqiming@hygon.cn>
-Reviewed-by: Zhen Yang <yangzhen@hygon.cn>
-Cc: stable@vger.kernel.org
----
- arch/x86/kernel/cpu/hygon.c | 40 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
-
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index ec51c2b9a257..0967b0f181dc 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -10,6 +10,7 @@
- 
- #include <asm/apic.h>
- #include <asm/cpu.h>
-+#include <asm/cpu_device_id.h>
- #include <asm/cpuid/api.h>
- #include <asm/smp.h>
- #include <asm/numa.h>
-@@ -170,11 +171,50 @@ static void early_init_hygon(struct cpuinfo_x86 *c)
- 	set_cpu_cap(c, X86_FEATURE_VMMCALL);
- }
- 
-+#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
-+	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
-+			    step, step, ucode)
-+
-+static const struct x86_cpu_id erratum_1386_microcode[] = {
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
-+	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
-+	{}
-+};
-+
-+static void fix_erratum_1386(struct cpuinfo_x86 *c)
-+{
-+	/*
-+	 * Affected processors enumerate no supervisor XSAVE state components,
-+	 * so XSAVEC is equivalent and is not affected by Erratum 1386.
-+	 * Disable XSAVES unless the microcode is known to contain the fix.
-+	 */
-+	if (c->x86 != 0x18)
-+		return;
-+
-+	/* Models affected by Erratum 1386. */
-+	switch (c->x86_model) {
-+	case 0x00 ... 0x06:
-+	case 0x10:
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	if (x86_match_min_microcode_rev(erratum_1386_microcode))
-+		return;
-+
-+	clear_cpu_cap(c, X86_FEATURE_XSAVES);
-+}
-+
- static void init_hygon(struct cpuinfo_x86 *c)
- {
- 	u64 vm_cr;
- 
- 	early_init_hygon(c);
-+	fix_erratum_1386(c);
- 
- 	set_cpu_cap(c, X86_FEATURE_REP_GOOD);
- 
--- 
-2.43.7
-
+11 of the 12 "transit input" seeds pass, and the whole "encapsulating node re-lookup"
+scenario passes on all seeds, so this looks like an edge case in the Hop-by-Hop
+nexthdr-recovery logic used for the policy-0 multipath hash, rather than a test
+infra/flake issue. Could you take a look at whether the recovered "virtual" nexthdr
+(or the padding/option-length walk used to compute it) is correct for all IOAM option
+layouts/trace sizes, since one specific packet still ends up hashed to a different ECMP
+sibling than the equivalent packet without IOAM?
