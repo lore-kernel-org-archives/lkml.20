@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793178934;
-	b=XK0XZnYBvwe9RQ6RJHLkOrfYO7LsGW2TUHuAh8xEgelqEgBGp5xJMCF5uxO+MviszkD0
-	 GbXTPwcE+QrRxHe0iV0akd9JRQW7CcDw2B0KvWKnz18UcLT1FfKYG5lrZv4rOlznTO36o
-	 PpX4smt7dKNb9z/qH5PS7CE+s95VIbCwEneVkIOA4P8YIfORg7YNUXAIwUfqHqSSPsVHZ
-	 cJiMM8/eBvpQaoqJq6LOer/+3g3tIp7ixYTjdZPhn02fNxlmChWmc0D/BSBzFwFAZyR2X
-	 0T4Pc1smmcFfr9omrft7pzXU6hfr2nEQdcofLdExyYPcyUuPNZMFpUAH2Z9qaF/OGvQ==
+	t=1793178966;
+	b=5MzVIa0uw3wTn3A0yJp2dCUq4y2MaUkL0o0ld5qTaHPoBR0GoveGpTmSyQHAnRwz8dVW
+	 1dowUuA38EZ3WZX6glzmW5mXhh/4oxFYXwYr1CB63S6CVw9gMEd+btQR1b0Im7WcInyGx
+	 bt153FC2tPu9tW8wbYkDurdWUlI8RKppxL9oA1Namk+6oczvq8X3tKnv4VW7oHvxnlAy/
+	 lQHsY4SaUt2ZGBksX+QdIAtm4AzuhBQpqAQtbezU1Qv0CYyX4QI7qWyRVJo1Hl3Ze2bXZ
+	 WHaZIhHDrAmKVyih94mJHW5/iiDm96aD9gaexZjI2APXi64Htl5MCMA2JvuX5t8cyAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178934;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I1C7i6DuYb7E6K3Eqi0DOqtEEo5Hk8J4ZA/IyWGExvo=;
-	b=WSSSts/hmB2przNz8uPyZ6O7iQ/+HYg/z1L8ZzvJ2Vlt+rQ7ih8aQArTk/lkVSqbY00n
-	 oNt0pcyISGZBDxNUlJgaKS/QmA3Y5R9k2wZA/I1ZupE4tk/PV/6yJZRfm8mCpOMSPiKz+
-	 Iv3BCGfmo3O+HPnb3puURZ82/Xdf/AYLvpITO3rm1IUQnQy709xWm1m5AB+7vftKbsTyC
-	 5uzd3qnc6CpUeN+9P1pHgaQzZPkie8QuvwnCthpkiSM455S94PAozYimjwacmAypKiou3
-	 /FaFcnQerfv90O+Muu6uQpom0LyvSok5vuWKbKWNQziNgK9Wmb4mjOCDokT6kpKI+tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178966;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZWOWC2oU8I/gHy0HNXFlxQ+f1tLC07XbRG3QM6aF9YY=;
+	b=Sey1mIr7uY/f97M37sic0yKxrTzvZ8MKH/wvWtax/TW3cHccxRsRG3imrwUAmiUFBxrQ
+	 EqKPgsbqrEQHz9WgFxwjZ/Bu2Fd9kvgS1dW4LIAUrbZzpeeVGOffDYUntGVmZihxKE+0D
+	 RhbzycCtRj9eWjEPeek49zUDvKQaoRL3DcY6hvdtikH+ig60N5wsAJFt7OO8HEddGC+PS
+	 VqBmE2oWPopKtLOXjicgzn/R9/EjVFVx264MbKynUvK/ny7BgM362GsswYsoAKHjwBiLy
+	 vUUvR4sk1PZYCzWl79DD2GXT0nk4X243djaXhcDxWOgq6RHlWv2OJF8YOHSSvztx7JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=svKQGSw1;
-	arc=none smtp.remote-ip=91.218.175.20
-Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TUdpTYRC;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F6D606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:15:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43F6D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973F0606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 973F0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=svKQGSw1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m2ZmEY3hXzZpQIXkrfFsWiW7gYoWc6I8jskd+uCIP7Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793178931; v=1; x=1793783731;
- b=svKQGSw1i7Qj6EedIgpZVtziaqSOU2AwsfqaZxihuT92z77DNHhcJQ1Sdcw3fIu9LJlA/M+k
- AP+PRAoy27bvOTHpB/aIkrD83STXJ+z9D+7V2raiLWWYOTWjRJlE3Vd3ixIASxThDKKlXYowxY1
- 63i0HEM72vuhB5GiUZkGjnq0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f93630efbef79496;
-	Wed, 28 Oct 2026 09:15:19 +0000
-X-Mizu-Trace-ID: f93630efbef79496
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4c9741cf-ac62-41d4-9c7a-7d5ceea4a8e1@linux.dev>
-Date: Wed, 28 Oct 2026 17:15:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TUdpTYRC
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b060ec084so411144f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:16:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793178964; x=1793783764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZWOWC2oU8I/gHy0HNXFlxQ+f1tLC07XbRG3QM6aF9YY=;
+        b=TUdpTYRC0c2kpSct0A9kP6oB1jRC6Y92VWORrairzKIKM47BVWuRgYMSb68Pzg3U4l
+         2rqGst5n0UUmhLzMZpKUscGNJq70R3iHL/aHhjd+2+BDz0YiFiXTorxgPbu+DX8whN5a
+         s2sr6Oq0kj+7gs2B21iFWyiWIJmy7sjHzFKnlI45zucI8/zfi3m4B7RpUxLBPb9orqwL
+         sCdoTGUwWx+jyjA/8z7YJhW36lILioN7NGj8smV53MZFh4vFIBHibWG57KQpXDRVWQ+3
+         Oy8Et2T3AIO9UOxxeAx4Uwp7GJme0XDRPrgPXtymFMxTByRh1Ozz9po3lDjCOjQ0lmfU
+         F8Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793178964; x=1793783764;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZWOWC2oU8I/gHy0HNXFlxQ+f1tLC07XbRG3QM6aF9YY=;
+        b=LJ7cIyjBi8CuoW9Gy35mW4/ZUcqy0dBXBvcuOUcFlKHJCB+184fsoIcORcNHqLA/ew
+         yXNMdUa0kEtaxWAL/zlw4+PbQr3bRVpr0NUzcMButOurCtvK8wve7pqS3PxKUd/is0E4
+         A2O7ualBsCYEdwclwbMpCI2PwfG92yjYVwbe6qPnEI4up8p1Z4eabQ8mlqy25QByVgYj
+         armOj8qwoseafOlW28wZ5nJt2exzmt2iycA9YnBzWaG/WxMNtG9lwLhyuzz72lgee7A9
+         ktjhWWitqu2cts3pUA/X8beAHUOldt3roise+3xefXzcVZSnL0ZyKQW46PxuVJ8dd/VS
+         ENyw==
+X-Forwarded-Encrypted: i=1; AKwUvByk+vCg9mI8mosMX5ZZN8L9N8UAvCSR50TiChGeBRaWktLN+kzIcra7cL6bp7Un2IvBf+N5mktgI74Ovfc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1NEoxQzIB659ZwRT0PtBzf4ru7Jfk7GpaHw9RCkEuMhappPH7
+	HMIkNzpal3lYljAPm07HwS/0HHy06hvNEuPPSIAoBs6EkEWxRkkRm/3jJAugQxqOeTg=
+X-Gm-Gg: AYBFou1LNfxpt88+hOET+aXw9Dn0+52vvPjvS6j9rUFJ8ZK2ziJRJ96TUTR7CQecNP0
+	Yo5xPY9DGbmSebza6yRSi2x5ofGiFhqIWN6UUaAPs4/khi/1IIe1g4lILDVuZayWRI/A2TTkCEq
+	pu2MrHrtqaU+KT//U1KMbjC1YaZo/dOm8g8UbLCv6LWEgFBYdDv5CRrgqIr9dZSHnA3AT5jV82N
+	V4WWJrSVbvdEidBtaQcdZ5xRZ5EAGzZejHRPyQ2jyKqzfTvRww7sg2bm81zPQZF8ORutL4FbjUk
+	dMU0SYQIEPNt7kQar2UjLN+oZbxeMj9rbeD1OAt+LW/kyetk/NXOlXHGJqME28z7roWAc/+Ydra
+	HHwXJiXO7are2AjczgXCFUT9JJYZ4Qrp29kc6IgFK5R9/XqkAZaEsoIwelpBHYHAZErTvrmytts
+	CluQLQWeaQ7Vz6uk3KmO4C/kGJrMfY0CMoTBqatnWXsm16SGvyS7fciBjDUcKLaUXrEMqzROCbf
+	Im0wGNq4BAiyQL0sHDsrDKpnMIRVAxGgttTN4oUIT+7wLd15X7hc5AFWa9bsXkT+vDbaV4Tnapv
+	pw/3Qq9GCuIsTzP8jyvNpYa0MuzaKWHYog==
+X-Received: by 2002:a05:600c:83c3:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4a965be61cfmr33902465e9.11.1793178963871;
+        Wed, 28 Oct 2026 02:16:03 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm21781175e9.3.2026.10.28.02.16.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 02:16:03 -0700 (PDT)
+Message-ID: <75e0cdca-4bcf-443f-924d-c6397d616ad5@linaro.org>
+Date: Wed, 28 Oct 2026 09:16:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,259 +93,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
-To: Yilei Zheng <trilith.zheng@gmail.com>,
- Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Dan Williams
- <djbw@kernel.org>, David Hildenbrand <david@kernel.org>,
- Oscar Salvador <osalvador@suse.de>, Pankaj Gupta <pankaj.gupta@amd.com>,
- linux-mm@kvack.org, nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-cxl@vger.kernel.org,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Mike Rapoport <rppt@kernel.org>, Ira Weiny <iweiny@kernel.org>,
- Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>
-References: <20260903122128.12264-1-songmuchun@bytedance.com>
- <20260903122128.12264-4-songmuchun@bytedance.com>
- <20261027065723.66564-1-trilith.zheng@gmail.com>
+Subject: Re: [PATCH 1/9] coresight: cpu-debug: Fix PM usage counter leak in
+ debug_enable_func()
+To: Leo Yan <leo.yan@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@arm.com>, Yeoreum Yun <yeoreum.yun@arm.com>,
+ coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
+ <20261027-james-cs-sashiko-easy-fixes-1-v1-1-db43c4668644@linaro.org>
+ <20261027180805.GA9176@e132581.arm.com>
 Content-Language: en-US
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261027065723.66564-1-trilith.zheng@gmail.com>
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261027180805.GA9176@e132581.arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 2026/10/27 14:57, Yilei Zheng wrote:
-> Hi Muchun,
+On 27/10/2026 18:08, Leo Yan wrote:
+> On Tue, Oct 27, 2026 at 02:55:47PM +0000, James Clark wrote:
+>> pm_runtime_get_sync() increments the usage counter even when it fails,
+>> but the failing CPU isn't added to the rollback mask, so its reference
+>> is never dropped. Use pm_runtime_resume_and_get() which drops the
+>> reference itself on failure.
+>>
+>> Fixes: 2227b7c74634 ("coresight: add support for CPU debug module")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://sashiko.dev/#/bug/linux-2ff60e6d-33ac-4a69-9c62-63eb482f1913
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+> 
+> This duplicates with:
+> https://lore.kernel.org/linux-arm-kernel/20260911-b4-coresight-runtime-pm-failures-v1-1-acdf49756e11@qti.qualcomm.com/#r
+> 
+> I'd prefer to pick up that patch, as it has fixed all drivers in the
+> CoreSight directory.
+> 
+> Thanks,
+> Leo
 
-Hi,
-
->
-> I have been testing this series for microVMs that mount a read-only
-> rootfs over virtio-pmem with FS-DAX. In this setup, most file data is
-> accessed through read/write rather than mmap, so most PFNs never need
-> private writable metadata. This optimization is very useful for
-> reducing guest memory overhead and running more VMs on a host.
-
-Thank you very much for the test, so in your scenario, this is also
-the behavior of your real workload (mainly read/write-based, rather
-than mmap), right?
-
->
-> While testing, I ran into two issues, both in patch 3, including a
-> crash when initializing the shared template page during probe, and the
-> 128 MiB alignment check preventing our 2 MiB-aligned rootfs images from
-> using the optimization, even though the check can be relaxed without
-> changing the registration or teardown paths. I have included a patch
-> for both at the end of this email.
->
->
-> First, regarding the shared template initialization in
-> memmap_init_zone_device():
->
->> @@ -1133,6 +1134,15 @@ void __ref memmap_init_zone_device(struct zone *zone,
->>   	if (!nr_pages)
->>   		return;
->>   
->> +	if (pgmap_vmemmap_optimizable(pgmap)) {
->> +		struct page *page = page_address(pgmap->vmemmap_shared_page);
->> +
->> +		for (int i = 0; i < PAGE_SIZE / sizeof(struct page); i++)
->> +			__init_zone_device_page(page + i, start_pfn + i,
->> +						ZONE_DEVICE, nid, pgmap);
->> +		goto pageblock_init;
->> +	}
-> pgmap->vmemmap_shared_page is allocated from normal kernel memory
-> (direct map). It is just a template buffer, not a real struct page
-> inside the vmemmap space, so passing it to __init_zone_device_page()
-> causes page_to_pfn(page) to compute an invalid, out-of-bounds PFN.
-
-Yes, when I first wrote this code, I felt it wasn't very elegant.
-But I wanted to share my ideas as early as possible.
-
->
-> I first hit this when backporting the series to a 6.6.117 guest kernel,
-> where set_pageblock_migratetype() uses that invalid PFN and crashes
-> during device probe.
->
-> On your base commit (next-20260902), a normal boot does not crash
-> because pageblock init was moved to the end of the function. However,
-> set_page_count() still calls page_to_pfn(page) inside the page_ref_set
-> tracepoint. Booting with CONFIG_DEBUG_PAGE_REF=y and
-> trace_event=page_ref:page_ref_set triggers the same NULL pointer
-> dereference during probe:
->
->    BUG: kernel NULL pointer dereference, address: 0000000000000008
->    #PF: supervisor read access in kernel mode
->    #PF: error_code(0x0000) - not-present page
->    Call Trace:
->     trace_event_raw_event_page_ref_set+0x4e/0xa0
->     __init_zone_device_page+0x98/0xd0
->     memmap_init_zone_device+0x1c3/0x2e0
-
-Very detailed analysis. I hadn't considered the potential issues
-with set_page_count() before.
-
->
-> To fix this, I added init_fsdax_page_template() to initialize the
-> template fields (ZONE_DEVICE links, Reserved flag, pgmap, and refcount/
-> mapcount via atomic_set()) directly without calling page_to_pfn(). It
-> also preserves the WANT_PAGE_VIRTUAL handling from __init_single_page(),
-> since patch 1 enables this optimization on LoongArch where KFENCE
-> selects WANT_PAGE_VIRTUAL. I only have x86-64 to test on, so please let
-> me know if that part looks right to you.
-
-To be fair, it does fix the issue, but it's not very clean.
-I might do some code cleanup first to solve this more gracefully.
-I want to move the initialization to where the template page is
-allocated, similar to what section-based vmemmap optimization
-does.
-
->
->
-> Second, regarding the alignment check in
-> pgmap_vmemmap_shared_page_alloc():
->
->> The initial implementation is deliberately limited to a single
->> memory-block-aligned range. That is not a fundamental requirement, but keeps
->> the registration and teardown paths simple; support for multiple ranges or
->> less strict alignment can be added later.
-> ...
->> +	if (pgmap->nr_range != 1 ||
->> +	    !IS_ALIGNED(range->start | range_len(range), MIN_MEMORY_BLOCK_SIZE))
->> +		return 0;
-> After fixing the crash above, the optimization still did not take
-> effect for my 130 MiB test rootfs image. Because MIN_MEMORY_BLOCK_SIZE
-> is 128 MiB on x86-64, the 130 MiB device failed this check and fell
-> back to allocating all 520 vmemmap pages.
-
-Right. It is a deliberate decision in v1. It can be improved.
-
->
-> In our microVM setup, rootfs images are sized to fit the filesystem and
-> aligned to 2 MiB rather than 128 MiB. In fact, 2 MiB (SUBSECTION_SIZE)
-> is already the native alignment for FS-DAX (via memremap_compat_align())
-> and for ZONE_DEVICE vmemmap population and teardown. To keep those paths
-> simple, we only need to make sure a shared vmemmap page never crosses a
-> pgmap boundary, which 2 MiB alignment already guarantees on 4K-page
-> kernels.
->
-> So I relaxed the check from MIN_MEMORY_BLOCK_SIZE to SUBSECTION_SIZE.
-> I also added an alignment check on (PAGE_SIZE / sizeof(struct page))
-> PFNs, so the same boundary guarantee holds on large page kernels,
-> where one vmemmap page covers more than 2 MiB of device memory (such
-> as 16K/64K pages on LoongArch).
->
->
-> With both changes applied on next-20260902 (QEMU x86-64), probing with
-> CONFIG_DEBUG_PAGE_REF=y and trace_event=page_ref:page_ref_set works
-> cleanly. The 130 MiB test device now uses one shared vmemmap backing
-> page instead of 520 private pages, and DAX faults materialize private
-> metadata on demand as expected. Mounting two 2 MiB-aligned virtio-pmem
-> devices side by side also works properly, and unbinding/rebinding either
-> device does not affect the other.
->
-> If these changes look good to you, could you fold them into patch 3 for
-> v2? (Note that the patch is against v1 and still uses the
-> PGMAP_VMEMMAP_OPTIMIZATION flag.)
-
-Thanks for the analysis and suggestions. However, the reason I
-haven't sent out v2 yet is that I've been trying to refactor the
-vmemmap optimization logic to make FS_DAX support cleaner. I think
-I'll probably do some code refactoring first.
-
->
-> I also noticed that next-20261023 has refactored
-> memmap_init_zone_device() to use zone_device_page_init_from_template().
-
-Yeah, this is another case that makes page initialization look less
-elegant.
-
-> The mm/mm_init.c change will need to be adapted when rebasing the
-> series, while the mm/memremap.c change should remain applicable. I am
-> happy to help retest v2.
-
-I'cc you next time if you'd like to help me test.
-
-Thanks,
-Muchun
-
->
-> Signed-off-by: Yilei Zheng <trilith.zheng@gmail.com>
-> ---
->   mm/memremap.c |   10 +++++++++-
->   mm/mm_init.c  |   29 +++++++++++++++++++++++++++--
->   2 files changed, 36 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index a53d09b..34d8d89 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -93,8 +93,16 @@ static int pgmap_vmemmap_shared_page_alloc(struct dev_pagemap *pgmap, int nid)
->   	    !(pgmap->flags & PGMAP_VMEMMAP_OPTIMIZATION))
->   		return 0;
->   
-> +	/*
-> +	 * Subsections can be populated and removed independently, but a
-> +	 * shared vmemmap page must never span across different pgmaps
-> +	 * (which can exceed a subsection on large-page kernels). Check
-> +	 * both boundaries instead of requiring a full memory block.
-> +	 */
->   	if (pgmap->nr_range != 1 ||
-> -	    !IS_ALIGNED(range->start | range_len(range), MIN_MEMORY_BLOCK_SIZE))
-> +	    !IS_ALIGNED(range->start | range_len(range), SUBSECTION_SIZE) ||
-> +	    !IS_ALIGNED(PHYS_PFN(range->start | range_len(range)),
-> +			PAGE_SIZE / sizeof(struct page)))
->   		return 0;
->   
->   	pgmap->vmemmap_shared_page = alloc_pages_node(nid, GFP_KERNEL, 0);
-> diff --git a/mm/mm_init.c b/mm/mm_init.c
-> index 7dd03b8..1c3e269 100644
-> --- a/mm/mm_init.c
-> +++ b/mm/mm_init.c
-> @@ -1030,6 +1030,31 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
->   	}
->   }
->   
-> +/*
-> + * Initialize struct page slots in the shared backing page. Because this
-> + * page is a direct-map template buffer rather than a real vmemmap entry,
-> + * set_page_count() must not be used here as its tracepoint calls
-> + * page_to_pfn(). Keep the initialized state in sync with
-> + * __init_single_page() and __init_zone_device_page().
-> + */
-> +static void __ref init_fsdax_page_template(struct page *page,
-> +					   unsigned long pfn, int nid,
-> +					   struct dev_pagemap *pgmap)
-> +{
-> +	mm_zero_struct_page(page);
-> +	set_page_links(page, ZONE_DEVICE, nid, pfn);
-> +#ifdef WANT_PAGE_VIRTUAL
-> +	if (!is_highmem_idx(ZONE_DEVICE))
-> +		set_page_address(page, __va(pfn << PAGE_SHIFT));
-> +#endif
-> +	atomic_set(&page->_refcount, 0);
-> +	atomic_set(&page->_mapcount, -1);
-> +	page_cpupid_reset_last(page);
-> +	page_kasan_tag_reset(page);
-> +	__SetPageReserved(page);
-> +	page_folio(page)->pgmap = pgmap;
-> +}
-> +
->   static void zone_device_page_init_from_template(struct page *page,
->   		unsigned long pfn, struct page *template)
->   {
-> @@ -1138,7 +1163,7 @@ void __ref memmap_init_zone_device(struct zone *zone,
->   		struct page *page = page_address(pgmap->vmemmap_shared_page);
->   
->   		for (int i = 0; i < PAGE_SIZE / sizeof(struct page); i++)
-> -			__init_zone_device_page(page + i, start_pfn + i,
-> -						ZONE_DEVICE, nid, pgmap);
-> +			init_fsdax_page_template(page + i, start_pfn + i,
-> +						 nid, pgmap);
->   		goto pageblock_init;
->   	}
+Yep we should drop this one
 
