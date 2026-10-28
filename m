@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211482;
-	b=E2pKLfGLf3IphuoC6rBRjoN7CF2pWA81V6YA4sxpPtl94ppeXCsztt2galcipJu3edUW
-	 VQH5IX43Zm+3rMZcUYGc3TsoqnZyHKab6WNxabDp/gtmfDowGHYFJZVPIexWwpCjf4QhF
-	 uu9c5WHiL1QwCRiiqlUWH/teO1IrJTnZybXdIQWI833qkDWXBd7n98wPopvXNt2H8poa4
-	 Ista8OWjC8H4GM4kX4KE33DwiLOFdvnvEsIT+9aBPzu9bHuwg5RinlNyrt8SdI34Xcdho
-	 6C68JLSvW4vK7mULCHyEqTbDrWmSHCqGmM5Ws1ymHjt9o7g6vjrS7LwacKgM93bjdaA==
+	t=1793211495;
+	b=4dw3gdCNqyviCyjGuxl3yeuuZ2yWWidcSkdDJbLa1iBSSkmKWzVrIpOaSKhblAZcaGom
+	 Lx21cAHqB5qZuSZyxYdu8NwqaMP78/UW9JuupmnkFkf5eZ3w5zKLrsQGwz6mW+nWQcBqj
+	 81/tytJdZp7KznCYBFhtEBRqBVQQkIqLfOzGPgAWHFOfL7LnvqxVCOPzHmQXM90+9EruF
+	 +AnmaBIui8tNsQgcpmuAQVR+ZHk6mmesbrJlPF+PPu1rod5jbBQXz5HhK1AR0DXKLHDrP
+	 es3WLLNJRzl+gzL5P3thBYTNW/MRBSrt1o8Cf5hB5RNcE3w32G7mhoghT0NoDOrD0Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211482;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
-	b=CWv/ctAmDQa0ziTKqhRXMwOCAKLm+31iqf7hbfmfZpGBu3r338cfI0kdc9NIH1DUFBY9
-	 bcJJ61SFmh9qO81XYNk2B5ZF6nwB/IXJaMC7PN38ah9Eem9agjshaFtQh0y5i5YgTPxMv
-	 CC/Av27Fu/JnEoKh/ITWNxXome6/+S9EPB2b67sjSGeCTEClsOINlDfcPQleoePIMNcfn
-	 yWikFZFgh72AfhoSWIt/ESy658BYIQm9luL00tf3cgeT4RugeMLvEj+iUvaASh308iNx2
-	 qG7ofCkoROnTkYoPmtsgs4I6DII9ygjacCk/LmTqwUJL/M2817jmFwdKeDMVKDTFjOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211495;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0oiry0ZaDpBozgKs3Yn0AN+r5C81GF5EHZ1wjFVYL/k=;
+	b=4V6998nKKYuyuhZJ+ZMdI9s6bUxRaICMa2pdnRu3R6Wp1dIfd5pAIqEa6NJEwBimFuRp
+	 AD6QSUeHgpoikuhVn9MOmH6wGpbBxcSGlA/FZl8NHaG0qkR+rt/Idu78Avb4L1AvWGQaa
+	 lGe2cQaRRP6Qa0mIBh/i5HPqIhfyzQXmfxxt9UnMeo9srm/GytzzKdGY2okLx1k3rdncP
+	 xnweaDeHkYrp4ksE6r7fTeQ8elsTIvf2QHKnUTdCyu7P9lMUnyKXN8pbWOdGvbhhcy5eO
+	 g2ToG6OR9rIXD1M2maVxDvmT4OfjRGJKbN+LPCRDIlSlzwSYbn8Wt65p1tR3+KEfT/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ImiggEzz;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l;
+	arc=none smtp.remote-ip=91.218.175.122
+Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E270606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E270606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19000606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19000606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ImiggEzz
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15dd124bbe7so2332966c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:18:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793211481; x=1793816281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
-        b=ImiggEzzD5JTc7iM9iw0b1H1AR46v9uOSW3+27hSXXar4QF0Tu4z5ufm7jLhaJcep0
-         XoSxroyZjtoB8mC6lpib7j1vsOnTyZKfjCTOpAJvIwJo0U8SR6KSwD+z0RStxA3PBX+c
-         9WnqrtBsyoy3ov57hsdu2z0wydsnjqfMfc6nIknMOnT4eG07mV6lwqUIuhSKoQpJahOU
-         HR5TH4eAVXfLc3zUnlaGiJWL+Zbdy0WjbZYY4gHRVLYp8+H5FiA726GY9M/07AcVOQ8U
-         h/P3FDOArUMS1lG7yrSSQCEPfj+NIqMvF8MTIjL98QiBW4I6eZMBfy666i9llm60eFh0
-         ylZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793211481; x=1793816281;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
-        b=B4FAu1U7GfNgkv8GD5qfZICBAZ/ofL3tUvIoJ8WVZpTJd0vz06valzWqaxA7FOBpj2
-         1U/i75HbCBNjIlWu8krh5TnLBBMJp/d8tyMfOEtsBksYbU3uTHdnpmv6TtrfaeVygEjb
-         2Ex/H0eRPDnpOrunMsUXyDb4mwceJVR3Nl0bF+MFF3SPhHxYnlrr6OcKjTA3kVOeAGVs
-         Ra7k5y/5vpvQqXXsQfqp9SLOqfUUQzYSXELx0tGtym/s3i+80Q4HDztX2kDW8asSyXWR
-         LK4CGgT69d8ug7pUaGfCVA4XByQROaT3YU4UkgWwh+Qb3qHVqry9UOle15XuGY7OhuV7
-         JKdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxgcuzhUnFqH/x/i7v2kWKJ30t0acd9cDc4wt6t1wp0Jj9tCoK1eSoQDadE2DD8kSc3Mk7NNhsHrtXUPL4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsIlXvQGj4DjUt0KoUrBc3bauQMg9wXFCwraurJ3YMsj1YSaQ9
-	tLw4kt8ACMnGv2tuBaG0dMBUA5lA3ZfiGr9BQ0Ki0JHd9BgPD4VsrZ8O
-X-Gm-Gg: AYBFou1LOzSUXUcRlpFdDUK952e7oiFHbQCX1ZXPjYiYq1nxZHOfFI00MwWxJhD5/5P
-	p89zcA3b4MVw4zdX8yi7bbf9qmre8nRd/2aJJi7xtRDvI663PHrcRHz/uzKRrye4ep6jm38r/NZ
-	/WPidf6I1DowJrasmAcqEP85w8apLNQcLpAxY5YhBO6XY6P2eG26CTlQDjFu64qKc3E+C0KJR4v
-	+8blY4BPfENgn2uHY8Y8lRWWx3WNPuhYngIup/zjqJwd0JozgSEktjLe4QHTJ6DuePraYa4lfpy
-	+agN2IO6O4HFYEeJTtZVKxuZW0Vtefw3rOBrkzu9w+MQuwBtZt4Q/Q9ncwIH93l+2GHtbVCeKDP
-	t/GMla257br4DbtxvC59enTXJgjSyHVZ9BSXw91PRT9LHtfFh4t2lGbuPm/N8Jik/Xg2ZJgUVRY
-	h7/KP2U7jwnR3B1e3ZKn/QaPrE0z9Sh52DfAXDK4lvVpkK0jQ/EymvGKlG8gWPmRkGbTP+0Sc1l
-	apG24d1tN0OdDwAoVmvIFLk+Edg9O6U1IoUnlAjqS2GE6i6EVAEAZB/z28UvMPfGvLiLnoMNkDR
-	XAcaxIY01BKpnpTxH3wBbF9Q7SrVjYwO74icAgskmtCLWpf+XnlVVqSMmZXsWdydv5UJjgTbAxD
-	UOMe5KJfiPJBHbGlw
-X-Received: by 2002:a05:7022:ed07:b0:144:de98:eec1 with SMTP id a92af1059eb24-1a6cc90e818mr4693122c88.11.1793211481229;
-        Wed, 28 Oct 2026 11:18:01 -0700 (PDT)
-Received: from localhost.localdomain ([136.126.251.209])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75fdc1031sm7441623c88.19.2026.10.28.11.17.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:18:00 -0700 (PDT)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Henry Zhang <henryzhang62@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/vc4: dsi: Serialize register writes through the DMA workaround
-Date: Wed, 28 Oct 2026 11:17:17 -0700
-Message-ID: <20261028181720.3476629-1-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FzSLDoLL3l9c7gMzSXMHTUPkCis4CHxPNrJyJmMFlpk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793211490; v=1; x=1793816290;
+ b=gU0j6S5lCSGrqFK3BVUBPVUpoJjMru/bTOQUq6k4s8hYE7pyHyjgIVQVNpixe8IGEYsHiSTo
+ Sa9tQgmS5tlXViRJaa2x65+OMlfI5V623xi1qnOcoJVUKz1oQgC6LPcveWygQ0GXNgY6TXjxYXu
+ B7nX71X6/VXlzdJeHTaUT5fQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ad5a2eaaa496885;
+	Wed, 28 Oct 2026 18:18:10 +0000
+X-Mizu-Trace-ID: 5ad5a2eaaa496885
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 11:18:08 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] ipc/sem: account enlarged sops arrays to memcg
+Message-ID: <auI8CyIxjbLEMeEZ@linux.dev>
+References: <cover.1793207025.git.x-professor@outlook.com>
+ <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,80 +71,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
 
-DSI1 on BCM2835/6/7 cannot take register writes from the ARM, so
-dsi_dma_workaround_write() stores the value in the single coherent
-buffer reg_dma_mem and has the DMA engine copy it to the register.
-Nothing serializes these writes. The threaded interrupt handler writes
-INT_STAT through the same buffer while process context may be
-programming the block (in a transfer, in its timeout path or in the
-bridge callbacks), so one write can overwrite the buffer before the DMA
-of the other has run, and the wrong value lands in a register.
+On Wed, Oct 28, 2026 at 05:03:57PM +0000, Yingjie Wang wrote:
+> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
+> do_semtimedop()") removed accounting based on the assumption that sops
+> arrays would remain small, describing a maximum cost of two pages.
+> 
+> SEMOPM is a UAPI default that can be changed when rebuilding the kernel.
+> It must not also define the accounting policy, since changing that default
+> would enlarge the unaccounted range.
+> 
+> Keep the historical small-array range unaccounted with a fixed internal
+> threshold of 1000 operations, and use GFP_KERNEL_ACCOUNT when the actual
+> nsops exceeds it. Requests within that range retain the existing allocation
+> behavior, while larger user-controlled arrays are charged to the caller's
+> memory cgroup.
+> 
+> Commit 50ec499b9a43 ("sysctl: allow change system v ipc sysctls inside ipc
+> namespace") later made the per-namespace limit tunable by IPC namespace
+> owners without capabilities in the initial user namespace.
+> 
+> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
+> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  ipc/sem.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index 5ec41de7e85b2..a8c9807175520 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -176,6 +176,7 @@ static int sysvipc_sem_proc_show(struct seq_file *s, void *it);
+>  
+>  #define SEMMSL_FAST	256 /* 512 bytes on stack */
+>  #define SEMOPM_FAST	64  /* ~ 372 bytes on stack */
+> +#define SEMOPM_NOACCOUNT	1000 /* ~ 2 pages for struct sembuf */
+>  
+>  /*
+>   * Switching from the mode suitable for simple ops
+> @@ -2234,7 +2235,10 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
+>  		return -EINVAL;
+>  
+>  	if (nsops > SEMOPM_FAST) {
+> -		sops = kvmalloc_objs(*sops, nsops);
+> +		gfp_t gfp = nsops > SEMOPM_NOACCOUNT ?
 
-Take a mutex around the buffer write and the DMA. The writes already
-sleep, which is why the handler runs in a thread on this port.
-
-Fixes: 4078f5757144 ("drm/vc4: Add DSI driver")
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
----
-Sashiko pointed this out in its review of my vc4 DSI series [1]. The
-race is older than the series and not limited to its timeout path, so
-I am sending the fix on its own. It applies to drm-misc-next and on top
-of the series.
-
-Compile-tested only (arm64 defconfig, DRM_VC4=m, W=1); I have no
-BCM2835/6/7 board with a DSI1 panel to run it on.
-
-[1] https://sashiko.dev/#/patchset/20261028164539.3471833-1-henryzhang62@gmail.com?part=5
-
- drivers/gpu/drm/vc4/vc4_dsi.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 5ed3c35ee..b81b46829 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -25,6 +25,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
- #include <linux/io.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/platform_device.h>
-@@ -562,6 +563,11 @@ struct vc4_dsi {
- 	struct dma_chan *reg_dma_chan;
- 	dma_addr_t reg_dma_paddr;
- 	u32 *reg_dma_mem;
-+	/*
-+	 * Serializes the register writes through the DMA workaround, which
-+	 * all share the single reg_dma_mem buffer.
-+	 */
-+	struct mutex reg_dma_lock;
- 	dma_addr_t reg_paddr;
- 
- 	const struct vc4_dsi_variant *variant;
-@@ -625,6 +631,8 @@ dsi_dma_workaround_write(struct vc4_dsi *dsi, u32 offset, u32 val)
- 		return;
- 	}
- 
-+	guard(mutex)(&dsi->reg_dma_lock);
-+
- 	*dsi->reg_dma_mem = val;
- 
- 	tx = chan->device->device_prep_dma_memcpy(chan,
-@@ -1667,6 +1675,10 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
- 	if (dsi->variant->broken_axi_workaround) {
- 		dma_cap_mask_t dma_mask;
- 
-+		ret = devm_mutex_init(dev, &dsi->reg_dma_lock);
-+		if (ret)
-+			return ret;
-+
- 		dsi->reg_dma_mem = dma_alloc_coherent(dev, 4,
- 						      &dsi->reg_dma_paddr,
- 						      GFP_KERNEL);
--- 
-2.47.3
+Instead of making this conditional, can you just GFP_KERNEL_ACCOUNT
+unconditionally and benchmark it. The kmem accounting has changed a lot since
+that patch. If the performance impact is fine then we should just use
+GFP_KERNEL_ACCOUNT.
 
