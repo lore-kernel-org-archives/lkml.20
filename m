@@ -1,146 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202110;
-	b=AJ6emJdizp6zrx2If9Knqu+esWDnb4hV1KN49YySxOYh7o1Xn8Iy0O7D8kjM+40uRFGR
-	 swdTT9Cw7zY/dAVVJZgODNkrZ9BbSRuU5CiwjjL0np5+jtRcwB8lQD9yqfnq8zlne5M9o
-	 4unY5UiU19zDC3qECrS1my/dN9zV+DpTMiWyfKTga4WVlzbCYLpKNfqNz3x1Sor68zRH3
-	 1K3knLyoT8LIv5P3KQ2HjnC/04xvNWMOLotofJyZaPNY0mJ6GrBJuwyi6CZ+/+u/k+wi/
-	 KymQtvv9Oc29VBA4RD623lPY+/Kduqy4VeTsKi6hu2LDOktwzKHvhqYkalHjDvWvcyg==
+	t=1793202164;
+	b=vS5KUOAcmw6OKkMBYQHr6d/4tICJ5H6jSCYMahwLX99LBNzQkL4lFxCp+kJLzMrMcjKV
+	 phGVixCxLKBte7xjbHPgDnawaiJgfYJGUu09PcnmsMGdlC+W86aw1GrM0uwVHof0t9PyI
+	 +HzFGBFJ/4ETfyGmhe0a8aUs53YqPeSICvbPGZwYzQ/1oVOl6Py61/4JN423NjFSLyKfe
+	 CGTZWcQXx2Nd9g2eaqFdPCdg50U0BrYCyftDDuj24dJFsISvIYsdCaZAf2dnahZYM2Y9W
+	 Y3CHtztItV2Iy/D05nWu+y+d8x0QmUIUKR1efqQTqQtpKtDX4vMqAPIOGroNOXzjtlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202110;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nBjRxj9zvpUWBYieU8XuvaoHIUe7KPpEifpHAoXCHno=;
-	b=MKpqlgqu5p0kln4IhldowzqSA7ZF8lzRTYglNzq9s+HFf4rWmEngbDeVXrptp6h5BeDp
-	 SVXIo49S1g5CJ81FAnXxvWpn/sxBqgfIscSEPCsCUJiArnY/oMbb66PL9QBsSJLRL7KkJ
-	 HKaUgWNqnnm5/R/iYeTsVJh5SgUF4C1+WbYpCxbygPZ+vfj8PPk1/oyiLW9NWNJKDXKRz
-	 1vx4Mu5mFr2LbTM0oDFa2D0mn7AhikmQiDXnFwQMKpFGZLgBioLb5kNwg3+9sBNfvKcGh
-	 d8B+6HIzbkL1h0lR2qmhyRYmuEL4O2O8ud8b4y2oWsqi/ciTEvbvbmb6ZVkYAKxxzWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202164;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=;
+	b=xl3Dtf0MFA57/XPYC+ZuayD849rcLRcxMpE5oLB9mv3K4kDnm/hCeZ/3RpEcT1K8HYO7
+	 Nk8yP6cEjMoV4LGKJZ4hBDgFV/lhNOxYEnvcs5eYdOsZ4/JWlgvD3VBFTITsh/wuHcure
+	 lWf/p/VKtq9CqK70GQzV98j+qMQy7VOFkhgwWsFbj/25U2BaC6qa/5OlnNVMVtBwb4L6F
+	 d3WA0X1yrRcZqeo8FrkehipRXy96jXfmPOkvyohcjvf34HQo5HVc1o8q2J/+cyPk4O+HT
+	 kzPSmZNPqzzce1KUemM/yaOdhpcEyBghg5DRyaytPStjc7Grm4rzfbONvLwZWSjRR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=FVpzlnAS;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wlvapL51;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BDF60A260F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9BDF60A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217F1606A31A;
+	Wed, 28 Oct 2026 15:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 217F1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=FVpzlnAS;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wlvapL51
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id DF28BEC0308
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:41:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 28 Oct 2026 11:41:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793202103;
-	 x=1793288503; bh=nBjRxj9zvpUWBYieU8XuvaoHIUe7KPpEifpHAoXCHno=; b=
-	FVpzlnASFLIgMhSAokz5WxVtPsXYnzyL9VnakQ8d785I6sUIh7B0i9rGgfOl3zgb
-	M9jrNUXFhfDxhrEQue4mWL9J+3weVIsSZKD2AGScxN5owyVbl1DZpO85rvel7/I1
-	BrCf7L/aLiNX412JCoddPsLufqWg3OMixQuGeRzZyBWjClhmqJnoCzaYeWflH51U
-	J6sXRjylQK7nL5GuERS71vGqHQNJ+Yqamnzd+oSarhdumxuQi+rbbT0F732Ua9pU
-	qj0PnA57KvJR1l/yHwfFl42HmXtRB8xA0o7xfHrF9K/1w2LTGFk3th4uvLF2NRoI
-	6OvRTENrsvHfV/fOaq6IZA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793202103; x=
-	1793288503; bh=nBjRxj9zvpUWBYieU8XuvaoHIUe7KPpEifpHAoXCHno=; b=w
-	lvapL51zA89BkW/sxkEZw9DFwV94KnZk/BZ0+s+RpDfinhDwGrIxfgTjm84TXUq0
-	sWkRA+oMDT31Ri/WVn8qQaI1ww+DXqgMR6OWYUWgY6Bj76QpG9xPyU5MgoUfQrLk
-	5i+DpSuunDtFApEt15d4BHepQ1+ktFsQVrq94aIDqx9l720XFlp35pDOcjHBUKzG
-	vYsn/VbyHB6YA4+WufAjQ3At7PXrs+VbzrTKSuq9gmZAOI1+P4zqW324+H4X1Qd7
-	qJM1SHpXZXECNI2OEPRPpw7IIwLuXqkbxtWruqtBC0DTPV7dxjJLcUh2XuV7Hdp1
-	KbJC/IRzA6C0BvQy7zukQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793202103; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:te+m61e2oR4DmsEVULWWB2va/0c+RC3GG+PBFvHfRi5Rp9W
-	zBuxFz02vmRvg5X5MphM1FQ8cZB/MltS80iLAGm1RzoyFjatn1eRjUQS9fqUSxit
-	h+sY4roi11MRge9l9YcZz25pOvULSze695N6XfkS/1chfsKDqlykOSgat+lsDd4q
-	at/Tf877sidVKd3anYAYwxfexSA+nxTDOmt1orA0LQghmEXzKmioNPxGafcIqaDy
-	EBOg7I8Qdj4Q5W9mBq2JcGAtJ96jDBGXBSd8zt+sOxaYqYZnFqXnr91P8T+YmMBW
-	whtcadq4k6bXnadoFoNJhOUaNR5uS2asuPYTjDg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LbaJFfvktga4aPohWhLRqD5XDHeLFbrHeHEX9cs/bjY=:Ao+SYeV4Fwst0FguSJhVXFa1iUPte2lvw40dXbYdsA4=;
-X-ME-Sender: <xms:thfiaihfluVol6rg-FGWHMORXsY4fsgyeqW5UIQf30ztzcl-5MrAyw>
-    <xme:thfiajx914QKVKWi3mzbHIFcfGf3figU7XmgBTJBHcIdX99RRnSo789w9MaRXjYot
-    xJZzZlGL92cnyOwa2gstAKHtKiSDtTO_R9KDhdHH3Fa2LiB3rjdIUw>
-X-ME-Received: <xmr:thfiai9qWdMYuGf8NueSZAhPm39FP8IZ9nuMGulKASzToUqclmalSPRg73aZYA>
-X-ME-Proxy-Cause: dmFkZTGpkGeIHBa7luaXBdHEkLteeYnKFNz5z7xJ/WgARwQ/bjfzIr6g9EFyMFBeIIt/3H
-    dae+QqGnTr2u2vKK2rCOBCOcBLdyoqXayi6/RfPxoNfJSSMj6iuaGmWTBooZlKMbL6o6Hu
-    dPpxxoi5wXr3tlAqnVWkvTk/5lsu0ZkbhnRYCNCpQNIpMTa8ycE7RedAyqJvgXv1BwuwFP
-    D/qnUhITaiyi1RMk4C49tPO38F4cpfnoREJ/bR3Kl4ysaGYlAj2skuA2XPgiueCFEIQamF
-    D5+QtLIcs27z8qWkd6OVDwEm8bue7gaDNmrCJAAIcdOt/A42TK64KNVVzmQG35jP6W0Ob2
-    9tMrsRBiApamE6nyVJld0CmaDkJduyQtAIM6HvPcMYKsbYiBwREblVe203pddCh3RV1ECf
-    D1RKRCgPAuSey2qObDDuJeW/VCh4Ma/I2TwGczA1C6XUtLgLQb8Go3gj0T3zOic9pP97lX
-    d9i/mIPFZ+Whm2zjUbM7nGMS3bNpBYwDrsg/nzD6ORrtn34d6482FloFrVjBqMAY2cSYya
-    t/I0FSQbvE6/bRSMozKwuLnpEdoD0U9FFDDEQmE+gvCxDv9LQuBywaajkqHrhUnYcEklc3
-    oDaKdXAkZTDVzzh10hEb9ghYD72MwkCLEzhs6E96QiKhhjg/KbBDhQRsPxpg
-X-ME-Proxy: <xmx:thfiajIGaz02nZq9ogfRr7EslNQisxspDEtEpply8CYGFCtG5LkFxw>
-    <xmx:thfiau7RDDvJT57OJPQn2HyP4je_8qFPdv-lyJ_t0ZgmOD5QhHJsxw>
-    <xmx:thfiagumjOsbvnn57Q0RPFk_Fio4VF5ZYBfD__Le5uT9m-ctfLTeYw>
-    <xmx:thfiakZPCUYo1I8CgmGMJbZiVr2ckMXPWSvv6P36oqJrKS32uCkelQ>
-    <xmx:txfial_gUUZpbUA7gcB8NhEWr_8iNpjXDJtLY4_FEa73WN0qEBiwKIVP>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Oct 2026 11:41:40 -0400 (EDT)
-Date: Wed, 28 Oct 2026 09:41:39 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, Armin Wolf <W_Armin@gmx.de>, David Lechner
- <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, Luis
- Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Daniel
- Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron
- Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Bradley Morgan <brads@mainlining.org>,
- Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
- Richard Weinberger <richard@nod.at>, Thierry Reding
- <thierry.reding@kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261028094139.12ea7c16@shazbot.org>
-In-Reply-To: <auILBqh9Ccv7ztid@monoceros>
-References: <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
-	<9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
-	<2026092321-province-yearly-44aa@gregkh>
-	<arOfHEsGGglNse7T@monoceros>
-	<2026092348-victory-erased-0e5a@gregkh>
-	<20261023181326.0dc2f7ed@shazbot.org>
-	<2026102437-vista-unsoiled-b089@gregkh>
-	<at34UOuYv3NtX36R@monoceros>
-	<20261026225950.GD1685504@ziepe.ca>
-	<2026102849-turkey-series-ac07@gregkh>
-	<auILBqh9Ccv7ztid@monoceros>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=; b=c6nOvNagGiPK6iup26/tck9kCe
+	3qJUrqx6Y3DNuOkd9NZqOEI5hODGWh1m+NVdWg2qHfoxsJqewa+oVpWoN3CzUeYGC31N8QOgfODOH
+	M7Wj+B9GiX/RtW+bPBLvhJprj2enTyiiyWe6tyD6l9NQhnQ4pR77gRQKrHf+VKAihmvbKlwTNHUGa
+	DSYE/OY60xdhHqBIt4qTtVLfhIIHA3CC4VcD4H39UjI/Dj6FB4RgUzdfFdpwTPw+a2XIw4VpxtYry
+	J57km11XeLfupsYV6AlGbXU2wo6M90P7Tg9VTmnvY0nSfhiIpNOoO24x8/UCYdLqiD0AqOaTIZHB+
+	GMM5fvew==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xM5nW-00000007Qnq-1ssv;
+	Wed, 28 Oct 2026 15:42:42 +0000
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] maple_tree: Fix rcu reader NULL dereference after the tree is emptied
+Date: Wed, 28 Oct 2026 11:42:15 -0400
+Message-ID: <20261028154218.1668182-2-liam@infradead.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028154218.1668182-1-liam@infradead.org>
+References: <20261028154218.1668182-1-liam@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -150,68 +75,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 15:50:44 +0100
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
+RCU readers may hit a NULL dereference if the tree is emptied while the
+walker is restarted from a dead node.  Avoid the NULL dereference by
+checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
+set the maple state limits correctly.
 
-> On Wed, Oct 28, 2026 at 02:45:18PM +0100, Greg Kroah-Hartman wrote:
-> > On Mon, Oct 26, 2026 at 07:59:50PM -0300, Jason Gunthorpe wrote: =20
-> > > On Sun, Oct 25, 2026 at 01:48:04PM +0100, Uwe Kleine-K=C3=B6nig wrote:
-> > >  =20
-> > > > The more I think about this taint, the more I believe the commit sh=
-ould
-> > > > be reverted and replaced by a some stop gaps for driver_override. (=
-Be it
-> > > > a taint or better yet
-> > > > https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a30=
-8.1790612298.git.u.kleine-koenig@baylibre.com/
-> > > > .) =20
-> > >=20
-> > > I also think this patch is way too broad and should be reverted until
-> > > something better is designed. =20
-> >=20
-> > Fair enough, I've sent a revert for now, will get it merged before -rc1
-> > is out. =20
->=20
-> \o/, thanks
->=20
-> > I'll rework this for a later release, thanks. =20
->=20
-> Please look at the series behind the link above before investing time
-> here. I think most of the ideas are already implemented there. If you
-> voice your preferences there, I can rework accordingly and rebase on top
-> of your revert.
+Initial fix was generated by LLM and sent by Chris Mason in private.
 
-=46rom a vfio perspective, the concern with the linked series is that
-driver_override always taints.  That's the same regression we have
-here; vfio use cases rely on driver_override.  Introducing a driver
-flag that allows a driver to opt-in to declare support for
-driver_override, but then taints if it actually generates a match is
-contradictory.
+Cc: <stable@vger.kernel.org>
+Fixes: fff4a58cc00b ("maple_tree: introduce mas_next_slot() interface")
+Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+---
+ lib/maple_tree.c | 110 +++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 83 insertions(+), 27 deletions(-)
 
-I had been working on a series that allowed match to return a match
-type classification, for example 1 as a static match (for
-compatibility), 2 for a dynamic match, and 3 for a driver_override
-match.  Anything other than a static match that reaches driver probe
-generates a taint.  Also note that generating a match doesn't
-necessarily result in a driver probe callback, in at least one flow we
-haven't even tested that the device isn't already bound to a driver.
+diff --git a/lib/maple_tree.c b/lib/maple_tree.c
+index 0b0036c9f8489..22812ed49be5a 100644
+--- a/lib/maple_tree.c
++++ b/lib/maple_tree.c
+@@ -3891,14 +3891,54 @@ static __always_inline void mas_rewalk(struct ma_state *mas, unsigned long index
+ 		goto retry;
+ }
+ 
+-static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
+-		struct maple_node *node, const unsigned long index)
++/*
++ * mas_next_no_node() - Finish a next walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ *
++ * The arrival here is either because there is a root value or nothing.  Either
++ * way, the next entry is nothing.  So set the limits and overwrite the status.
++ *
++ * Return: NULL
++ */
++static inline void *mas_next_no_node(struct ma_state *mas)
+ {
+-	if (unlikely(ma_dead_node(node))) {
+-		mas_rewalk(mas, index);
+-		return true;
++	if (mas_is_ptr(mas))
++		mas->index = 1;
++	else
++		mas->index = 0;
++
++	mas->last = ULONG_MAX;
++	mas->status = ma_none;
++	return NULL;
++}
++
++/*
++ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ * @min: The lowest index to return
++ *
++ * The arrival here is either because there is a root value or nothing.  With
++ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
++ * sits at 0, before the saved index: stop on it as mas_prev_setup() does.
++ *
++ * Return: The root entry if @min allows it, NULL otherwise.  A node if the
++ * root changed again since the walk; the caller restarts.
++ */
++static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long min)
++{
++	mas->index = 0;
++	if (mas_is_none(mas)) {
++		mas->last = ULONG_MAX;
++		return NULL;
+ 	}
+-	return false;
++
++	mas->last = 0;
++	if (min)
++		return NULL;
++
++	return mas_root(mas);
+ }
+ 
+ /*
+@@ -4006,14 +4046,14 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->min <= min) {
+ 		pivot = mas_safe_min(mas, pivots, mas->offset);
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot <= min)
+ 			goto underflow;
+@@ -4028,10 +4068,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 		if (mas->index <= min)
+ 			goto underflow;
+ 
+-		if (mas_prev_node(mas, min)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_prev_node(mas, min))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
+ 			return NULL;
+@@ -4045,8 +4083,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mas_slot(mas, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (likely(entry))
+ 		return entry;
+@@ -4063,6 +4101,17 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ underflow:
+ 	mas->status = ma_underflow;
+ 	return NULL;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	entry = mas_prev_no_node(mas, min);
++	if (unlikely(xa_is_node(entry))) /* The root changed again */
++		goto dead;
++
++	return entry;
+ }
+ 
+ /*
+@@ -4176,8 +4225,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->max >= max) {
+ 		if (likely(mas->offset < mas->end))
+@@ -4185,8 +4234,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 		else
+ 			pivot = mas->max;
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
+ 			mas->status = ma_overflow;
+@@ -4208,10 +4257,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 			return NULL;
+ 		}
+ 
+-		if (mas_next_node(mas, node, max)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_next_node(mas, node, max))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
+ 			return NULL;
+@@ -4226,8 +4273,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mt_slot(mas->tree, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (entry)
+ 		return entry;
+@@ -4244,6 +4291,13 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 	}
+ 
+ 	return entry;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	return mas_next_no_node(mas);
+ }
+ 
+ /*
+@@ -5450,7 +5504,9 @@ void *mas_find(struct ma_state *mas, unsigned long max)
+ 	/* Retries on dead nodes handled by mas_next_slot */
+ 	entry = mas_next_slot(mas, max, false);
+ 	/* Ignore overflow */
+-	mas->status = ma_active;
++	if (mas_is_overflow(mas))
++		mas->status = ma_active;
++
+ 	return entry;
+ }
+ EXPORT_SYMBOL_GPL(mas_find);
+-- 
+2.47.3
 
-The bus level match function can filter and downgrade the
-classification, for example PCI has an override_only flag in its match
-ID.  vfio-pci and variant drivers thereof make use of this to avoid
-becoming the default driver for devices.  A driver_override that
-matches the override_only match ID in the driver table can be demoted
-to a static match and avoid tainting.
-
-I'm not sure I understand the rationale for focusing only on
-driver_override though, new_id has just as much ability to generate
-bogus driver matches.  It's also racy to use new_id if you're trying to
-get a specific device bound to a driver, which is why driver_override
-was invented.  So we end up placing barriers to the use of the
-interface that we've now long recommended as the better alternative to
-new_id, while leaving the gaps in new_id wide open.  Thanks,
-
-Alex
