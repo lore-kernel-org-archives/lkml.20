@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793159315;
-	b=zDBU4aa5y0rQL5FCjfBcsdFRbAlLADXXGo67Cexf741qc7CrC5Dr4sxAGmPPwb+0R/sV
-	 NLArHxVJcfR9aIeteD3x5AZABkyd2R5rv8AW+oL/Mj4+I6Xx22IGbHolrlkIoD4U5LLDU
-	 nvREQAojgKdnwiS33AsXa0O+VRFaWOfpeRJ1UAjkThuUVJaK/Od0sX02PAD8GT9YazrWr
-	 im6ZmRhlEqTbhSq620KJbOS9Q4XWrAJDDb7GDPdR3/YzeU9u4e0So7Nq2liONxnA4rliH
-	 Ja+sxVOBfn6JskgDxDomdo7xFOJOl0RFNuO4Vvh9nVO8wLQLWt+1GgC38lIx6Bi7+Cg==
+	t=1793159477;
+	b=vYo/ltzD66FXCPQFkyd5PUBZ76aPiLJAF2T5TIkvpszN8GGZAA8x901LEZZ68AutMdnM
+	 RJmm0lEy53x4J0orKXU1Dxkixs78rCdVsblYV7zKQW7/QdPScWgeLdj79SQLMKfY99dd8
+	 +Fkk3QSCei6U0kIGLMtp78GQi7Qe2/pridocE7fNALomOP2vYtBSk2xV2PNClblHfHmGx
+	 4iEXarKK3ULI60PE/48cdC1mKbFsk7QIM4ojTBJwmN0tKVEPY87Bla8dbYiG65OjVR6aT
+	 Q+ygRBvsoWnC7+/RI+WZh8rPu5Qp4J0nLRymWYeuPVhkX0fmNGDiF/T4hFHhupDq7OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793159315;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3h4MR3nL0t1nE+6n7GmokQaxXbH8Uo4p7Mg0kpMK6ZA=;
-	b=uDr+ciPzbqlqhqtgVyAEIJJU/SbTu1wZP/ANkiW9dmdfFGBRlNTdcOzrxa5uZvPR4YDz
-	 tAC9VJwXJhhrABVVW1oDVFYkpaFUW+ekypo2B+QxhZytYyO7PVB8zgLbxwWxlIh892AVL
-	 Tk4R/Yobfj3qQ1pB9xRga9uYXcxldX0/KeS4uUBrYZJrQo4TfgH5qpY9ynMMZF6OPN+m7
-	 nXOIJ6mpESHMjA8IVgMxtgedJPhB/O68yodm1qy+zjE5os+Jt1+PuBYdyVCCfSUqlW/fK
-	 +TgbIXDTudnm6LkFrCDxMer/qGjljhgZJEELD3GRQQTWEB/YKE5VmIJ+6L5R7P12ZgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793159477;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8qtZEtNk142TpRoxmSCaOn+jQTO7rPmHhdimqqTaAXo=;
+	b=3TCSSnhRRn8+uy9Nj+x0XY9GGsNIqD3AScMtrbKl1VehQRpb2DD+UoQ1vCZrSuYf09af
+	 Idp5/eK8Yp4fUJhf79rqzl4QRoUp8t9M9lSE1DapPWFzIpgTVkK4AsUpAEiVF4c8aqOVA
+	 74Yu5DFyb7Aqmr5ld80EK5eLx78zmgZoNzi51lpCkvnX9E6ii23GIDKMZZF71260Ob0CU
+	 6MXLlYgfJJgChU3b+ZpmUuq/M+bYXMhIIU59K407+DvyxB0/hE9UzveFLdh1FLvbNIVgK
+	 Lrjw5jRveQYKHL2lr8p9xsyQmT4LZwiYtF7iS72fZVd5OpZZYpHzaK6hS+G6zUBsD+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=V75mUkL6;
-	arc=none smtp.remote-ip=202.108.3.163
-Received: from mail3-163.sinamail.sina.com.cn (mail3-163.sinamail.sina.com.cn [202.108.3.163])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSmRGO7a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A7D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:48:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A7D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC99606A31E;
+	Wed, 28 Oct 2026 03:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=V75mUkL6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793159313;
-	bh=3h4MR3nL0t1nE+6n7GmokQaxXbH8Uo4p7Mg0kpMK6ZA=;
-	h=From:Subject:Date:Message-ID;
-	b=V75mUkL6tdsjJLGN4MAReBFbwERUG9W6DgDKXOPgXULqecvBNNO5vNHPVohuAE0Y7
-	 H45V7t5Ya1kNupYRPON/VzsdzQlUqhHXkjPkt9PbmpZczyt6fdIuRjwt5dRKwhycpA
-	 nB8EV+z2DJmM/sZWx24EkE5rlt3Ta2mcP8cmrQKA=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AE17084000020FF; Wed, 28 Oct 2026 11:48:22 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 7979926292288
-X-SMAIL-UIID: 6A993DD84A59491AB923A54801FD0B37-20261028-114822-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+2fcec0eca7f4cade53b2@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] kernel BUG in remove_inode_hugepages (2)
-Date: Wed, 28 Oct 2026 11:48:20 +0800
-Message-ID: <20261028034820.267112-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6adf3170.a6443767.132891.0077.GAE@google.com>
-References: <6adf3170.a6443767.132891.0077.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSmRGO7a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F8B1F01825;
+	Wed, 28 Oct 2026 03:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793159476;
+	bh=8qtZEtNk142TpRoxmSCaOn+jQTO7rPmHhdimqqTaAXo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SSmRGO7a82I4IO8/3OJJvX18J7Fo8K3qy0ns7b0Xn3KGY4vSVBLt4BkWCLEtWiMbY
+	 c96aLiKZOUBqdyZ74ebhIIrS9vS2t7iBHZeCupcCkrXzNNg6DpPL9EsonKT92HOt0M
+	 0F06Ci1A1lPyU9KQ9keT4vh1Qh64pdN+GYLpJUl6wICF6kCVAclRZbsVySiNHW6z4G
+	 Yrz0IPYqI4/9M0MQ352ez71rnD71xoEsqDjl/RtDZ1n+f1ORkdmHCItOzO2ER9qtkQ
+	 sQVWdgyG54KuAHCbUzAO8MIQFvRFULY3T564zdNsVFyIQ4pgGTyM+VVdDC2LgS5ziM
+	 lZ8v+8J2yh7bQ==
+Message-ID: <sashiko-outbox-187447@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2 06/13] entry: Skip inactive IRQ-return reschedule
+ calls
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261028033127.82193-7-kmehltretter@gmail.com>
+References: <20261028033127.82193-1-kmehltretter@gmail.com>
+ <20261028033127.82193-7-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 03:51:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,159 +60,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Edward Aadm Davis <eadavis@sina.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] entry: missing __always_inline on irqentry_exit_to_kernel_mode_p=
+reempt()
+--
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 9ba46df34488
+commit b2284e95ad33bdfe152568730c196eaa50875e40
+Author: Karl Mehltretter <kmehltretter@gmail.com>
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 6656807ce437..166183b7ee36 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -382,6 +382,7 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 					struct folio *folio, pgoff_t index)
- {
- 	struct hugetlb_vma_lock *vma_lock;
-+	struct resv_map *resv_map;
- 	unsigned long pfn = folio_pfn(folio);
- 	struct vm_area_struct *vma;
- 	unsigned long v_start;
-@@ -394,6 +395,7 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 	i_mmap_lock_write(mapping);
- retry:
- 	vma_lock = NULL;
-+	resv_map = NULL;
- 	mapping_rmap_tree_foreach(vma, mapping, start, end - 1) {
- 		v_start = vma_offset_start(vma, start);
- 		v_end = vma_offset_end(vma, end);
-@@ -402,15 +404,21 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 			continue;
- 
- 		if (!hugetlb_vma_trylock_write(vma)) {
--			vma_lock = vma->vm_private_data;
--			/*
--			 * If we can not get vma lock, we need to drop
--			 * immap_sema and take locks in order.  First,
--			 * take a ref on the vma_lock structure so that
--			 * we can be guaranteed it will not go away when
--			 * dropping immap_sema.
--			 */
--			kref_get(&vma_lock->refs);
-+			if (vma->vm_flags & VM_MAYSHARE) {
-+				vma_lock = vma->vm_private_data;
-+				/*
-+				 * If we can not get vma lock, we need to drop
-+				 * immap_sema and take locks in order.  First,
-+				 * take a ref on the vma_lock structure so that
-+				 * we can be guaranteed it will not go away when
-+				 * dropping immap_sema.
-+				 */
-+				kref_get(&vma_lock->refs);
-+			} else {
-+				resv_map = vma_resv_map(vma);
-+				kref_get(&resv_map->refs);
-+			}
-+
- 			break;
- 		}
- 
-@@ -421,25 +429,28 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 
- 	i_mmap_unlock_write(mapping);
- 
--	if (vma_lock) {
-+	if (vma_lock || resv_map) {
- 		/*
- 		 * Wait on vma_lock.  We know it is still valid as we have
- 		 * a reference.  We must 'open code' vma locking as we do
- 		 * not know if vma_lock is still attached to vma.
- 		 */
--		down_write(&vma_lock->rw_sema);
-+		hugetlb_vma_lock_write(vma);
- 		i_mmap_lock_write(mapping);
- 
--		vma = vma_lock->vma;
--		if (!vma) {
--			/*
--			 * If lock is no longer attached to vma, then just
--			 * unlock, drop our reference and retry looking for
--			 * other vmas.
--			 */
--			up_write(&vma_lock->rw_sema);
--			kref_put(&vma_lock->refs, hugetlb_vma_lock_release);
--			goto retry;
-+		if (vma_lock) {
-+			vma = vma_lock->vma;
-+			if (!vma) {
-+				/*
-+				 * If lock is no longer attached to vma, then
-+				 * just unlock, drop our reference and retry
-+				 * looking for other vmas.
-+				 */
-+				up_write(&vma_lock->rw_sema);
-+				kref_put(&vma_lock->refs,
-+					 hugetlb_vma_lock_release);
-+				goto retry;
-+			}
- 		}
- 
- 		/*
-@@ -452,7 +463,10 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 			unmap_hugepage_range(vma, v_start, v_end, NULL,
- 					     ZAP_FLAG_DROP_MARKER);
- 
--		kref_put(&vma_lock->refs, hugetlb_vma_lock_release);
-+		if (vma_lock)
-+			kref_put(&vma_lock->refs, hugetlb_vma_lock_release);
-+		else
-+			kref_put(&resv_map->refs, resv_map_release);
- 		hugetlb_vma_unlock_write(vma);
- 
- 		goto retry;
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 80a5a03e9cee..f980191c651b 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -268,6 +268,7 @@ void hugetlb_vma_unlock_read(struct vm_area_struct *vma);
- void hugetlb_vma_lock_write(struct vm_area_struct *vma);
- void hugetlb_vma_unlock_write(struct vm_area_struct *vma);
- int hugetlb_vma_trylock_write(struct vm_area_struct *vma);
-+struct resv_map *vma_resv_map(struct vm_area_struct *vma);
- void hugetlb_vma_assert_locked(struct vm_area_struct *vma);
- void hugetlb_vma_lock_release(struct kref *kref);
- long hugetlb_change_protection(struct vm_area_struct *vma,
-@@ -392,6 +393,11 @@ static inline int is_hugepage_only_range(struct mm_struct *mm,
- 	return 0;
- }
- 
-+static inline struct resv_map *vma_resv_map(struct vm_area_struct *vma)
-+{
-+	return NULL;
-+}
-+
- #ifdef CONFIG_USERFAULTFD
- static inline int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
- 					   struct vm_area_struct *dst_vma,
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index b017ae1dfd6f..def6aebc44fd 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -134,7 +134,6 @@ static int __huge_pmd_unshare(struct mmu_gather *tlb,
- 		bool check_locks);
- static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end, bool take_locks);
--static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
- 
- static inline bool subpool_is_free(struct hugepage_subpool *spool)
- {
-@@ -1145,7 +1144,7 @@ static inline struct resv_map *inode_resv_map(struct inode *inode)
- 	return HUGETLBFS_I(inode)->resv_map;
- }
- 
--static struct resv_map *vma_resv_map(struct vm_area_struct *vma)
-+struct resv_map *vma_resv_map(struct vm_area_struct *vma)
- {
- 	VM_BUG_ON_VMA(!is_vm_hugetlb_page(vma), vma);
- 	if (vma->vm_flags & VM_MAYSHARE) {
+entry: Skip inactive IRQ-return reschedule calls
+
+This commit checks preempt_count() in irqentry_exit_to_kernel_mode_preempt()
+to avoid calling irqentry_exit_cond_resched() when preemption is disabled, =
+and
+marks arm64's preempt_count() as __always_inline for noinstr callers.
+
+> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-c=
+ommon.h
+> index 289e308d2d46c..e1fd9155410c1 100644
+> --- a/include/linux/irq-entry-common.h
+> +++ b/include/linux/irq-entry-common.h
+> @@ -503,7 +503,7 @@ static inline void irqentry_exit_to_kernel_mode_preem=
+pt(struct pt_regs *regs,
+>  	if (regs_irqs_disabled(regs) || state.exit_rcu)
+>  		return;
+> =20
+> -	if (IS_ENABLED(CONFIG_PREEMPTION))
+> +	if (IS_ENABLED(CONFIG_PREEMPTION) && !preempt_count())
+>  		irqentry_exit_cond_resched();
+>  }
+
+[Severity: Medium]
+Should irqentry_exit_to_kernel_mode_preempt() in
+include/linux/irq-entry-common.h also be marked __always_inline (like its
+companions irqentry_enter_from_kernel_mode(),
+irqentry_exit_to_kernel_mode_after_preempt(), and
+irqentry_exit_to_kernel_mode())?
+
+On arm64, __el1_irq() and arm64_exit_to_kernel_mode() call noinstr function
+arm64_exit_to_kernel_mode_preempt() in arch/arm64/kernel/entry-common.c, wh=
+ich
+invokes irqentry_exit_to_kernel_mode_preempt() directly without
+instrumentation_begin():
+
+    static void noinstr arm64_exit_to_kernel_mode_preempt(struct pt_regs *r=
+egs,
+                                                          irqentry_state_t =
+state)
+    {
+            irqentry_exit_to_kernel_mode_preempt(regs, state);
+            __arm64_exit_to_kernel_mode(regs, state);
+    }
+
+While preempt_count() in arch/arm64/include/asm/preempt.h is changed to
+__always_inline so Clang does not outline the new check into instrumentable
+text, irqentry_exit_to_kernel_mode_preempt() itself remains static inline:
+
+    static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs =
+*regs,
+                                                            irqentry_state_=
+t state)
+
+Because noinstr in include/linux/compiler_types.h strips sanitizer and
+profiling attributes (__no_kcsan, __no_sanitize_address, __no_profile,
+__no_sanitize_coverage, __no_sanitize_memory) whereas inline only adds
+notrace, building with Clang and CONFIG_KASAN=3Dy, CONFIG_KCSAN=3Dy, or
+CONFIG_GCOV_KERNEL=3Dy can cause LLVM to refuse to inline a non-__always_in=
+line
+callee due to mismatched attributes.
+
+If that happens, couldn't Clang inline preempt_count() into
+irqentry_exit_to_kernel_mode_preempt() and then outline
+irqentry_exit_to_kernel_mode_preempt() itself into instrumentable .text,
+allowing sanitizer instrumentation or kprobes to run on the noinstr return
+path even when state.exit_rcu or regs_irqs_disabled(regs) is true?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028033127.8219=
+3-1-kmehltretter@gmail.com?part=3D6
