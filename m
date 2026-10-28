@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.91.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187800;
-	b=wE+siD9OzMgVSqQ90p7S+iMWQWRZ8vwPW69r6/yZ2wptyKxo6pNymc+6BN/DIR1O2BHk
-	 xKtft0qfukOU7MTcBR8ihLABv8hsmtEpwPWdWfrwacUYDyZfDhNpJdewVW0pRqfrJJiLH
-	 83Ih5NM5qoYFOcMLkzI4q53gNnKSYGoJazEqEH5bkUEU5F7mAmPsRvL4c2dSKkkeLqzpY
-	 knT6dGEBvWWFZ+sNU7Wf4x219yBiXFWvY0fsCbbSj9sEzJnltQRphrU/blLFy6thovd3z
-	 Yxryey5JCasZ3PIUIRCnArxvi9uH2HNKyMC9OKCIj9bQeSIk/00WBXhjQyvp+XGl4Hw==
+	t=1793187804;
+	b=PsWI/qjgMRi4Ae3u5H8k2aP2HCqAd3Woy5Etb7fMS3tUFUuCi4wsl96jcSvSQi1n4InW
+	 iiAa+ltqAUHEKr5eMHucYp3dZ1cCD+KfuPuedtIf0PDNi6Z5LrWGOj4s3wu4orcudUpQI
+	 eTOLv3RZBTFZbmRLvNATB6le2DjzgVnMHrJfB7NAEInZ5wIWiY/BbXZF6G3OwaK6IZMLR
+	 IFT5zCNPg1+o9FxJ6d2+RR98E2zyj+VQZqzlOPkbspWBeIN3LE854NOQM5/v1aficA7uE
+	 AhLmKxCdyrvumCLiLjlKbRW4beNNAIjEpfTkiJWvn5cwqEe7dRf6Ysd+300BWg/eTUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187800;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:From:Subject:To:Cc:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-JNJ;
-	bh=OsuVkeafblGpTsXYut7m1aN/nlY5ZzIRjoB1MM1Rhx8=;
-	b=hFEL8Y3rObzP1o/GNFOLYGZCJUI/tqoQVtSd4LXKutaszWNKnY0De15s78xqGO3dFa11
-	 AR/B6oyk+7D8wNMIO2pkoq5/dexUepS+sAHcxsXteLCVbD3mXcqByUIGi2BkAvUxMtKUA
-	 Iq4pUqWEsuQ0kgsUdlDkkF/L8HaAjfaMObTecQAh0c4eyJONNPeFq0LxYBfJ87oZMkYen
-	 PDgeN8rEzw+MsvwjgDayudg9fuB7I0BmcxgeMsixEGTFiLnhTUIsZPrcSQU8GyAelKvnD
-	 WAoqxm7Mq0iwcCX0pRdfDbrUMUKu30AgBqgI6sUzge16gMFgdXrt3knnmapHzEWCvJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187804;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mfCH5siTslprbVWbzonh++7TcYX9RLbSGXWmsSgr/V8=;
+	b=00SFHk9jkVBaBwVGubdOfheQ2QoB936Q+tdny5Cs96WfnV5aIB0ZsirxAxJUUccaXGvW
+	 cxRE1i2nJuEoMvUe1D6KwNcd/rTuWpGLh5j/uKTzg3MIeAe0lsFJIgZjcUodv/p6QdWUf
+	 SCssAaWzGKR57iw/+UkkRmy7BQcvoF8t2UjqVYwW2amSiLEjI2o2+mPizGwlEOx1I1Xws
+	 pBczlPAPt7lUf5Q8+QP1KPwPxgqa9lqWaopv4XODWmfZ7p1WxaFepbWqYYmNK0qEFaQ+t
+	 kArka9xydqIfk6Ed91EKLPVEX5gJAPV39XGav1afloJNGAQG+soTq7NNCfloYjC3MrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=manyhobbies.com;
-	spf=pass smtp.mailfrom=manyhobbies.com;
-	dkim=pass header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=hwNbtXvn;
-	arc=none smtp.remote-ip=57.103.91.221
-Received: from outbound.ci.icloud.com (ci-2003i-snip4-11.eps.apple.com [57.103.91.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WmBtg+SB;
+	arc=none smtp.remote-ip=95.215.58.89
+Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36490606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:43:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36490606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=manyhobbies.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manyhobbies.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCC0606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFCC0606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=hwNbtXvn
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with ESMTPS id 6C1051800820;
-	Wed, 28 Oct 2026 11:43:18 +0000 (UTC)
-X-ICL-RepId: 01a18252-5d6d-7bd6-91d2-692952ce09ab
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAUMGWQZeD04dXwVcEhVdRUcMWkVWH3kVUgNOA10SWxFWHhkIXR0ZHldQWgpcCVEXUQ9eDkFeWhdeTUUID0kZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1UGV0UXwRQElAdQENUBF9QVBFXUAtaBUkKSQtaAFMERglWC1wEXAdeCEkBWwRZB0gLQANZDl0DRQxLB1l3BlMeQBBcD1UCVwMXG1wACUtGCUkdDg5CGEYfVCdXAloKWx4=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manyhobbies.com; s=sig1; t=1793187799; x=1824723799; bh=OsuVkeafblGpTsXYut7m1aN/nlY5ZzIRjoB1MM1Rhx8=; h=From:Subject:To:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=hwNbtXvnnR59r7qgS5h1p3fS16aD5jzIeyH6FfM/P0jckDlcg/ea2roFPOaOUG3J/sb081LehV5wvctDZ/JiMRzjuh8SU/TYry5D2bxTyoPyNIiVFQNdgFJDsGrAy5E0jl6a3Ka7FE4sxX8B0I2kBApvKwhZzSkSlqogs/WjPtNceikWDst1iRwoB3qmZw4xPH1EzPUwPoPnJoTCjz0XIpvAam6R2m/B8cJZr1W5fmag0lxrjvkDJDxJIDfBOLgUQDYUPYfQpK0na1nRpHwaj5tJ4QU3NTx4UyOPY6VSvkOIKY2b9BuD0skdqxmIXQB+5RYx+6gfh73l9TCDfnDoOg==
-mail-alias-created-date: 1780273699991
-Received: from claude-agent.manyhobbies.internal (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with ESMTPSA id 9048C1800839;
-	Wed, 28 Oct 2026 11:43:17 +0000 (UTC)
-From: Tam Do <tam.do@manyhobbies.com>
-Subject: [PATCH v3] mmc: sunxi: reset the controller after an update-clock
- timeout
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>,
-    Jernej Skrabec <jernej.skrabec@gmail.com>,
-    Samuel Holland <samuel@sholland.org>,
-    linux-mmc@vger.kernel.org,
-    linux-sunxi@lists.linux.dev,
-    linux-arm-kernel@lists.infradead.org,
-    linux-kernel@vger.kernel.org
-Date: Wed, 28 Oct 2026 11:43:06 +0000
-Message-ID: <179318778660.81375.11263258280496155344@manyhobbies.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WmBtg+SB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tonu0mtS36f03NgUUNtAYyjNYq0EXBIuxH78yC50xRg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793187801; v=1; x=1793792601;
+ b=WmBtg+SBjjk8MGu00t8CZ+tPsnjEYM+ILnAEpn4VKpWG8GHU/Mj5NavKSaZo+Ul6G3P27fEn
+ dfBIOV4hDK8NOCU5hZPJt4n01l3SUp/Usn3cBHPeH2QMzArmyU4I44sohrfjVyuSjcChhEnRzxl
+ x1Q3kJ++k9r56JTS6qEtmq7Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad9f9173b3de5ee0;
+	Wed, 28 Oct 2026 11:43:21 +0000
+X-Mizu-Trace-ID: ad9f9173b3de5ee0
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 19:43:14 +0800
+From: Hao Li <hao.li@linux.dev>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Harry Yoo <harry@kernel.org>
+Cc: Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
+	Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 3/8] mm, slab: rework KMALLOC_RECLAIM handling of
+ SLUB_TINY
+Message-ID: <auHcj2G78VkXy-Vz@fedora>
+References: <20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org>
+ <20261024-slub_tiny_rework-v2-3-bf1419ab5ffd@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,99 +68,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfX9v7vwJCZUAQh
- cJY9YliLJf5Sj7s8z0lAbLqgy4FCJ+wmLCJ1GwC5QAur6kNEf4/BFfS6/FFWLkZxtGHz9NTkVeD
- vBCi1Iwab93fOTroBByohOYlMa98l/5Lu9VqV4CjwBEyizskLbu9OaCmeohQoNAlf+KTJRCrBpS
- C6zZRoQ8wGLqR7sCw6RI/3aPA2hMx6dq32DuMb36aKZe0uJiB3CHuNwS7zx2wuCc0b9Nb0oJgyt
- DxqZQ95bkDKbBrgjyFQag6cf2O6JytdZKdd+ksQoMHocnZw2HWcROlehudyeOiPCJgyhu1Rh7LB
- luZ+La2Hc5IEZRt92uJjS8ig8/Fvh/f2BdEVv1eMwoeo96eaIeGc1YBiF8r4+0=
-X-Authority-Info-Out: v=2.4 cv=L74QguT8 c=1 sm=1 tr=0 ts=6ae1dfd7
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=w2OPf45SAAAA:8
- a=1tvfc1y3xX-o4uWKYHEA:9 a=QEXdDO2ut3YA:10 a=-iXIJKm6ftRzmWoHelNS:22
-X-Proofpoint-ORIG-GUID: VSrRne3TfcgmffBp2ODlyHQ9fNAP35cV
-X-Proofpoint-GUID: VSrRne3TfcgmffBp2ODlyHQ9fNAP35cV
-X-JNJ: AAAAAAABnZTtDZq/p55h04EW18ZZXuIli9DAQsyjrV651gPUhYbhFPONnpN4Q2l1D7zh4h
- jrNXs/YFjDA6Bc66K1KHPplaC618Obo/QKJfRxNwzx/llyrxopXKzk1QMlJXTmC6A3JH9k
- KOx0wC755kgtChPDKOkD9zfVh+aDbg/8iZRUD+HUldRc8IeOy+5ggKT8k8h25lj7JoAmtH
- 5H4qEAbxEbogSP4abWSsRcR8/WqdHkjdpZqnu0QqctC9bGgWbopMNVbWXujObrwRBrGStb
- h+uaGM7Nmre1ZIFromtNOwQkx3WddvxeN4berUVREtE0sz2y6nez4cGg5QLIpT6mnBGD6u
- xS8LQcpp79ORU7urxKHgmCvgE7bw+0EhEFUeGipD1TFkyWEev345KJNNPKdJBiehBK1n9C
- /n92+exJYEQDOIkxBay5BNga3YfW+uvtnYwWRsyXYEazHgyWLBHMvgZaGydwF9HtKg0bAF
- uT2Ik9ZvHmkzzc1ce87Jf1QhSB1UUDFXrDwem6m3YPHaAbRJD8D3SaGt1JI+PRj5ydU3uT
- ZcwLfbKQhMAVCIwYba4d07PJammAtKU+L/8wcdXtkI8XHWEtrykhPPY6JSI8bBG43vy8dG
- kgjGdm182S0/9AhzDp0EpZ+xz0JQ1zDIVUwzfgu45ct6ZTMZoN76K928XsckRATN/C7P4H
- eQ6nGpkmiWsppNeCnkTVH8vAYzxH770OPo9qF8UY+rA9hNt3oWLnD0J4XRQgnLc8uryHcQ
- eGrAv6ruAjklRXg5/oms1LvE0Wih++CTw5ICWVI+aXA/n5UdJ5OHty52H0WVISDW+4tvIR
- 8UXEmk+0s8R9TbBZwivGJHkJM7sL/CMUw/3PyopCouOgQJGHUHtX7rF6BOkrehGdJeHF7i
- Pw/hyjOUML+QMhsnl/CEY3+q5fBreUcdfZcC9BdHNGNYkXCtQp2SI5gbHnJaN4RmfuvbOY
- QHeDN6QPjXJymQGLcYGpMal4OZdbWCFn5tq4ptVr56UlSvCkdtadjJMTiCUjuSCVQMtHX8
- uGAIIQBbAfuLBBxm8Ush/yw8SWT0Sn/gCtp5gf3Vzq+d+lP6WdMQ54FNDt2ZQvOPSUrHGs
- ueoY29CwlXH1ikSbY+qDWtqlVtMFTJXXrLPxH95vdJJM5w6JKXNF3PVImepC/+D4g65U8D
- qJhfo8VQlnloXhUlt5dfAGAsaYgJL4EOEDWxqFFYbUZJRC0aTLVbKOx3c1Vgfe4MnTv/75
- G9owgtAxXrjrA60wSpoul5PyOywNJy4nUrGbARfutKqiBVB+kokHxYBilZDL9ZdGseisPB
- V4Hyvm1XM=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024-slub_tiny_rework-v2-3-bf1419ab5ffd@kernel.org>
 
-If the clock-update command times out it stays pending in the
-controller, and every later clock update times out as well, so the
-card cannot be initialised until the next probe.
+On Sat, Oct 24, 2026 at 09:07:25PM +0200, Vlastimil Babka (SUSE) wrote:
+> One (relatively minor) aspect of CONFIG_SLUB_TINY is the assumption that
+> letting reclaimable and non-reclaimable caches merge will save more
+> memory, which is more important on small systems than the page allocator
+> level fragmentation (where distinguishing reclaimable slabs should
+> help).
+> 
+> For now that has been achieved by #ifdefs that result in making the
+> SLAB_RECLAIM_ACCOUNT no-op and aliasing KMALLOC_RECLAIM to
+> KMALLOC_NORMAL on the enum values level.
+> 
+> With the goal of converting CONFIG_SLUB_TINY to a boot-time decision,
+> rework this so that SLAB_RECLAIM_ACCOUNT and KMALLOC_RECLAIM are
+> distinctly defined always. Now, creation of kmalloc-rcl caches is
+> avoided by assigning a pointer to the normal kmalloc cache on the
+> kmalloc_caches array level.
+> 
+> To prepare disconnecting of this boot-time decision (and the evaluation
+> of the need for kmalloc_no_objext) from CONFIG_SLUB_TINY, introduce a
+> slub_tiny_enabled variable that's initialized to the CONFIG_SLUB_TINY
+> state.
+> 
+> There is one minor functional change for CONFIG_SLUB_TINY=y. Since
+> SLAB_RECLAIM_ACCOUNT is not 0 anymore, caches that differ only in that
+> flag will stop being mergeable. If that turns out to have a noticeable
+> impact on memory footprint, we can adjust the merging decisions to
+> ignore SLAB_RECLAIM_ACCOUNT when slub_tiny_enabled is true.
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+>  include/linux/slab.h | 10 ----------
+>  mm/slab.h            |  5 +++--
+>  mm/slab_common.c     | 12 ++++++------
+>  mm/slub.c            |  2 ++
 
-This happens on an R16 board whose SDIO Wi-Fi holds DAT0 busy while
-its supply comes up during the first clock update.
+[...]
 
-Reset the controller on timeout so the next attempt can succeed. This
-runs sunxi_mmc_init_host() with the interrupt enabled for the first
-time, so write REG_IMASK from sdio_imask under host->lock, as
-sunxi_mmc_enable_sdio_irq() updates both under that lock.
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 02dfe4351e8b..33e76a0c3084 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -835,11 +835,7 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+>  #define KMALLOC_CGROUP_NAME(sz)
+>  #endif
+>  
+> -#ifndef CONFIG_SLUB_TINY
+>  #define KMALLOC_RCL_NAME(sz)	.name[KMALLOC_RECLAIM] = "kmalloc-rcl-" #sz,
+> -#else
+> -#define KMALLOC_RCL_NAME(sz)
+> -#endif
+>  
+>  #ifdef CONFIG_KMALLOC_PARTITION_CACHES
+>  #define __KMALLOC_PARTITION_CONCAT(a, b) a ## b
+> @@ -976,7 +972,11 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+>  	unsigned int aligned_size = kmalloc_info[idx].size;
+>  	int aligned_idx = idx;
+>  
+> -	if ((KMALLOC_RECLAIM != KMALLOC_NORMAL) && (type == KMALLOC_RECLAIM)) {
+> +	if (type == KMALLOC_RECLAIM) {
+> +		if (slab_tiny_enabled) {
+> +			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
+> +			return;
+> +		}
+>  		flags |= SLAB_RECLAIM_ACCOUNT;
+>  	} else if (IS_ENABLED(CONFIG_MEMCG) && (type == KMALLOC_CGROUP)) {
+>  		if (mem_cgroup_kmem_disabled()) {
+> @@ -1009,7 +1009,7 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+>  	 * KMALLOC_NO_OBJ_EXT cache.
+>  	 */
+>  	if (!mem_cgroup_kmem_disabled()) {
+> -		if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
+> +		if (type == KMALLOC_NORMAL && !slab_tiny_enabled)
 
-Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tam Do <tam.do@manyhobbies.com>
----
-v3: take host->lock only around the REG_IMASK write in
-    sunxi_mmc_init_host(), not across the reset; v2 polled the reset on
-    jiffies with interrupts off. The return value stays unchecked, as in
-    sunxi_mmc_runtime_resume(): if the reset itself times out the
-    controller is wedged either way.
-v2: held host->lock across the reset (not posted)
-v1: https://lore.kernel.org/all/179307312104.39863.12372814163472848752@manyhobbies.com/
+(While reviewing Harry's patch [1], I happened to notice a small inconsistency
+in the current code. Since these lines are being touched in this series, I
+figured I'd bring it up here, even though I haven't properly started reviewing
+this series yet :D)
 
- drivers/mmc/host/sunxi-mmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+IIUC, for both KMALLOC_NORMAL and KMALLOC_PARTITION_START + n, if gfp has
+__GFP_ACCOUNT set (and without __GFP_DMA/__GFP_RECLAIMABLE), the allocation is
+redirected to KMALLOC_CGROUP. This seems to mean that neither KMALLOC_NORMAL
+nor KMALLOC_PARTITION_START + n actually needs an objcg slot in obj_exts.
 
-diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
-index fe4c0f6d73f3..55313780d06d 100644
---- a/drivers/mmc/host/sunxi-mmc.c
-+++ b/drivers/mmc/host/sunxi-mmc.c
-@@ -322,6 +322,7 @@ static int sunxi_mmc_reset_host(struct sunxi_mmc_host *host)
- 
- static int sunxi_mmc_init_host(struct sunxi_mmc_host *host)
- {
-+	unsigned long flags;
- 	u32 rval;
- 
- 	if (sunxi_mmc_reset_host(host))
-@@ -336,7 +337,9 @@ static int sunxi_mmc_init_host(struct sunxi_mmc_host *host)
- 	/* Maximum timeout value */
- 	mmc_writel(host, REG_TMOUT, 0xffffffff);
- 	/* Unmask SDIO interrupt if needed */
-+	spin_lock_irqsave(&host->lock, flags);
- 	mmc_writel(host, REG_IMASK, host->sdio_imask);
-+	spin_unlock_irqrestore(&host->lock, flags);
- 	/* Clear all pending interrupts */
- 	mmc_writel(host, REG_RINTR, 0xffffffff);
- 	/* Debug register? undocumented */
-@@ -688,6 +691,7 @@ static int sunxi_mmc_oclk_onoff(struct sunxi_mmc_host *host, u32 oclk_en)
- 
- 	if (rval & SDXC_START) {
- 		dev_err(mmc_dev(host->mmc), "fatal err update clk timeout\n");
-+		sunxi_mmc_init_host(host);
- 		return -EIO;
- 	}
- 
--- 
-2.39.5
+Right now, KMALLOC_NORMAL already doesn't carry SLAB_MAY_ACCOUNT, but
+KMALLOC_PARTITION_START + n still does. Given that, would it make sense to
+change this line to something like:
 
+if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END &&
+	!slab_tiny_enabled)
+
+[1] https://lore.kernel.org/linux-mm/20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org/
+
+>  			flags |= SLAB_NO_MERGE;
+>  		else if (!(flags & SLAB_NO_OBJ_EXT))
+>  			flags |= SLAB_MAY_ACCOUNT;
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 51daf361c601..a3ee1bdf0eb3 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -219,6 +219,8 @@ DEFINE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT,
+>  			slab_obj_ext_has_codetag_key);
+>  #endif
+>  
+> +bool slab_tiny_enabled __read_mostly = IS_ENABLED(CONFIG_SLUB_TINY);
+> +
+>  /* Structure holding extra parameters for slab allocations */
+>  struct slab_alloc_context {
+>  	unsigned long caller_addr;
+> 
+> -- 
+> 2.56.0
+> 
