@@ -1,69 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180061;
-	b=O3v7zKXigytAxqDQN8yfISWehephlPL+ezrw5OQA68GMrrTbPII/Z8b9S7UQ+Z/4ROH3
-	 51kmd4Q5Pm9Ppp9L3vyexQTxhW/SNLitQzMT2RicGcHmzlauH1k/M7tTbe0V4iNT6I6gu
-	 dEJJukmntQ1tVdK3ewOZYpzlRz2+P+40lMTqgI4Hv8iYvmoZ2ZnwLqw56Uhyrb/jdmTnT
-	 xihghzPNcCFSgD4iVkwu50MDh1UeHfNZ3XI1WPkPRRA+HiWhOliB0BEZHlCdgKimJg7c5
-	 stxLXrTgKITdpSu44nKPWfA96jYTuud+QyHjAti2dCvk7rqK+t4vjqvMc/03VJJqEeQ==
+	t=1793180070;
+	b=MsBuaVrjxX7zp1Tcahxd12A3otAfd8iscOksfaESZii1TFaLPpAwbedDeToumErHrJTj
+	 iAXcWf5uA3q2FRNO/VbHp7DtdTObjcjh2HPQkl98h+ffauPo7Wqzt/vJwThzX5DKQpUbe
+	 VPUVhcfudpvnyIk88rN+Qtg6E4cU5V+yrIbRLPSaBv9OZmWTTzW8pE9aDbjJjfHcyJ3S1
+	 nwNhEVhGBOu0dk38xd2sRgmNeLxuuIgnDNgRLyjj/BENdR8inBZ3LSI06ukRZ47TV/bil
+	 m4EwXUs8TB4pSpVuo+0bvrHAbIykpX+QCrpQtMxdDktus53DNxpMsoYUILirQ8fq0lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180061;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 X-Scanned-By;
-	bh=wOF429PAF6wPGZ/DQccKnRO6Ry9eRCxXG5zhRkZrbt0=;
-	b=LTDdCXAy4TWlOnCepYrX+krQWouDYiNs3XdVH+NS0zTMmXD0IZzYpXpE3Tp8WQfkNtZp
-	 XUFzlvvX8MfW7gtGe3GRwHob79oOqI7R2IH+18RQJvlvnxenYzy7LYZ7RaNo36pDYAdsi
-	 e2e634/wGdtSGF0DKvoArf7Uu+8P+/NrN2v+WCxznUS43sfctKjOppCatdrlQVzX6BiTL
-	 dxqTCBiH+3gf/Y97TPgludLU0+foPMYT/+ndeS+clQjTnAUyOthD144OFeqbV43HcVprg
-	 nsx4gkH8vsH8phw8MKIM28LNt2ewTwjh+o+FCMOv7isnvN1/OUROr3aHGLnzSO0CeIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180070;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Content-Language:Cc:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=npanRg0QZLRyOg4NvL8u4eE0WVQ+s/uGa11R06EyJJw=;
+	b=ool4JCYBImugDyhnS1C4o7y5dHIne9W189jfuSvWRuDFAeX+0N84xAkPwFBg48mbtlnp
+	 GV1vg3At48wZ8ESFyJp10BC+HnvgXnqS48DFsNbrXUbnsYhJJr+HKEYfSfi0+VSvf5iJP
+	 XqJsNSrGILO/JaD9C+RETeu/JSP6qZh4oyPHjqyR3RlrBzZGN2F5K/sjgu4UuGnn9pjc7
+	 oWdhaMKIh1MQ6P6uZjDsOW3i270SWH7O93JisS1o+fMb9SB/iLMGW/u7DYeCAJoutse3I
+	 XafBolo0TMYjufI72GlVUFPlVp5x5tQjT4/KVldZM47tkGtICpzfLAh5v1SvtGdKKkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Bnnr/oW6";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eWC3HaLC;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA972606A339
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA972606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77952606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77952606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bnnr/oW6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793180059;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOF429PAF6wPGZ/DQccKnRO6Ry9eRCxXG5zhRkZrbt0=;
-	b=Bnnr/oW6q+pdJObKDGICXQsXCx6zrb4KKZ1jTOFTRr0/prWlYIqstVZNEPCAsvRs2dgvof
-	6pSrBfJhxMgnxxvHUuXj+seYlDxkcWxn9Bu3upQWw6WPaSzCO9GNeU8xaIBe2BJTgzDm4b
-	eao1N2BPYTFSddOxWXOz0P8479sv4Fg=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-349--37DGzHoMvOqUrao7Sr2uw-1; Wed,
- 28 Oct 2026 05:34:09 -0400
-X-MC-Unique: -37DGzHoMvOqUrao7Sr2uw-1
-X-Mimecast-MFC-AGG-ID: -37DGzHoMvOqUrao7Sr2uw_1793180047
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B5A081955F14;
-	Wed, 28 Oct 2026 09:34:07 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CC2321955F10;
-	Wed, 28 Oct 2026 09:34:05 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 28 Oct 2026 10:33:49 +0100
-Subject: [PATCH v5 2/4] soc: qcom: smem: validate private entry list walks
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eWC3HaLC
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so473595f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:34:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793180069; x=1793784869; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=npanRg0QZLRyOg4NvL8u4eE0WVQ+s/uGa11R06EyJJw=;
+        b=eWC3HaLCAgyUvdATmG9+qWEOV/AXT9tAWV8J2eIpXYG3GID6i/nmQ6/cw8IcIDfDik
+         7aNG83/Zm+FokfAbKjLzNSc1FXI8ueGIuCfQ9NXkBlMcIFRmn9brL75o56O64Y4KH6m+
+         1+WTtZMAp5dFhIDNiu/ZHmOL6YDDPC/o2y1jFoXGkfbhZYUrL9I13EGpYsjg2GnHIdYI
+         V/HYIszWagB/jmpYijacA3Bz5zcoMlWVuLZ8rxahee23weSJeHm4Jn3ItsYWQlMFBu72
+         Ym1ZzfssseeDMHeHSMLGKk0u+P14I2xoe9/8EzNTyHS0o9a4pVwjakIRuWSkzxO54Mid
+         iUSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180069; x=1793784869;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=npanRg0QZLRyOg4NvL8u4eE0WVQ+s/uGa11R06EyJJw=;
+        b=HvzhRUGYWwVPE46FvThrSEOjO398iOT8/bYnmWyFo/RqVwgjhadZ90zALbBXC3GOqu
+         yU6DAztuUcWxx0gaoH6XFSn0PBJGfGMoTPYOc3ttyYIPvt9HcAH6pJqo1mNZWH/45DM/
+         0Qe2iPQkmUH/0gEt/v4h+aksTySzf2DtBjkLCDKAD5WaCJ0s6V/N2+o/XMV6bxDrLTwJ
+         b21R6CnAhrwbswYcUBKVSoenioOxeDd72mVFym51aiOea/w+VC25UE4UyaEez+jijC2v
+         0zcsoyzye/Q+8n0M00eHhbSgu+DcF+3U95sGdGDI6c7lF63jMGAgs60HOn4V4vPNPiwJ
+         YsgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJRrBpubXs+7rIwqd2LWbH7x3aS/fdKiKpzO0OUChqiZjFdgxPMKseDBItqfQA3z3ON1pPn4SqGREqw54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG3avyBL0KdTjtdulm6vYc2wnqros94QPpDIqF1GgkSwOq4OPu
+	PtP6QLBPnuuqfaxqNODRqxRv2lgLiRkQ+ftFpg6XZ5jDNRRtmUdoOQxydwSPdJbxRVY=
+X-Gm-Gg: AYBFou3S+LR72TlTDKHVdZmHQ2R9W1GLUSInFFvyffbxBV6H5RCLHe88j9o/o/UOqJT
+	iOiPPz76a6qXcFeAJsLm9GkakauT9k1Exg6MpSyx19SUHhdB5oLLqDCpWfomeMKhMWI/YxKmfbp
+	C4WzUdPI4wzUmDBVM6vwDt/hiPS/h1tRSOlnM1pHvYiERXmJH/LgvBAgEFvDi804ou+gxJnvAM4
+	sAEb8XOshAbMRZIuD7wUuNFfX8xnriitHNVkaJxionvJMWwZsiKwbOaGqslhSaiDS6LrG9KuKYa
+	4qpbQAGpzaJRO/pxGRQpcOLnldULsFXRIa4ydxQNmKckyJ92ZZZjTqN/bLrsF4F3AMsRYTSxOaX
+	kQm84JaZxCPmmXHPiNY8RLgjIECgYeKzmKB+ACvNCtzU/NQJrq8p+QNFEgfxtV0ARUfaOKjCGu7
+	kGVn/89gRvaCiA65CpYsQaUVGrdqiCj/cIjcUimn33lUA3KnbQCqj4nOPb4n9ARoARgn8MWXPzF
+	uLGrG/5kTqUq6mujBvrAYj0n26HpfX1vTQgrMAOAU9LMbe8RTXkuwNZ8yJ8N/pJSNTIe1BbfeeE
+	3W94I+yvv1/euzv08hb1USeBnOjto/cL7w==
+X-Received: by 2002:a05:6000:4919:b0:48e:127a:c914 with SMTP id ffacd0b85a97d-48e55a36c3fmr11539376f8f.5.1793180068877;
+        Wed, 28 Oct 2026 02:34:28 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7c3sm29091965f8f.51.2026.10.28.02.34.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 02:34:28 -0700 (PDT)
+Message-ID: <418cf6b3-a56d-45e2-b2f6-0c8496e93ea9@linaro.org>
+Date: Wed, 28 Oct 2026 09:34:27 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,166 +91,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] perf off-cpu: Write the sample ID for
+ PERF_SAMPLE_ID
+To: Ian Rogers <irogers@google.com>
+References: <20261027170415.2815859-1-irogers@google.com>
+ <20261027170415.2815859-2-irogers@google.com>
+Content-Language: en-US
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Ankur Arora <ankur.a.arora@oracle.com>, Howard Chu <howardchu95@gmail.com>,
+ Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261027170415.2815859-2-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-port-smem-v5-2-121257d490b5@redhat.com>
-References: <20261028-port-smem-v5-0-121257d490b5@redhat.com>
-In-Reply-To: <20261028-port-smem-v5-0-121257d490b5@redhat.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, 
- Sarannya S <sarannya.s@oss.qualcomm.com>, 
- Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>, 
- Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793180040; l=4357;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=c6a3QAR90MOflWyIRW806QdYNWbjK3DUq9ROH4+Ga7U=;
- b=HyEqEyZZYJ38VsTGgBlOyQxiUgRkwDn1dSvXd0CEnwzXfxOrcRDFDFx4ZrpQ+R4g2vA6pKIKa
- WUieqA21SX8B8/uvEbODs6JhjHJXZid0lc75l9HS8nQpLJtOSiokn+Y
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Sarannya S <sarannya.s@oss.qualcomm.com>
 
-When walking private entries, use the uncached/cached free offsets as
-the list bounds, require room for a header before dereferencing, and
-reject a next pointer that does not advance.
 
-Skip the cached list when the cached free offset is at the partition
-end.
+On 27/10/2026 17:04, Ian Rogers wrote:
+> OFFCPU_SAMPLE_TYPES allows PERF_SAMPLE_ID, and the sample ID is
+> computed, but off_cpu_write() only wrote it for PERF_SAMPLE_IDENTIFIER.
+> When PERF_SAMPLE_ID was set the synthesized samples were one u64 short,
+> so the remaining fields were misparsed. Write the ID after the time as
+> the sample format requires.
+> 
+> Fixes: edc41a1099c2 ("perf record: Enable off-cpu analysis with BPF")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>   tools/perf/util/bpf_off_cpu.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/tools/perf/util/bpf_off_cpu.c b/tools/perf/util/bpf_off_cpu.c
+> index ff8935688b43..16948761cc45 100644
+> --- a/tools/perf/util/bpf_off_cpu.c
+> +++ b/tools/perf/util/bpf_off_cpu.c
+> @@ -373,6 +373,8 @@ int off_cpu_write(struct perf_session *session)
+>   			data.array[n++] = 0;
+>   		if (sample_type & PERF_SAMPLE_TIME)
+>   			data.array[n++] = tstamp;
+> +		if (sample_type & PERF_SAMPLE_ID)
+> +			data.array[n++] = sid;
+>   		if (sample_type & PERF_SAMPLE_CPU)
+>   			data.array[n++] = 0;
+>   		if (sample_type & PERF_SAMPLE_PERIOD)
 
-Signed-off-by: Sarannya S <sarannya.s@oss.qualcomm.com>
-Signed-off-by: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
-Signed-off-by: Sudeepgoud Patil <sudeep.patil@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- drivers/soc/qcom/smem.c | 51 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 37 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-index 36a4a10f3aec..ff5aead97bdd 100644
---- a/drivers/soc/qcom/smem.c
-+++ b/drivers/soc/qcom/smem.c
-@@ -422,6 +422,7 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
- 				   size_t size)
- {
- 	struct smem_private_entry *hdr, *end;
-+	struct smem_private_entry *next_hdr;
- 	struct smem_partition_header *phdr;
- 	size_t alloc_size;
- 	void *cached;
-@@ -434,19 +435,24 @@ static int qcom_smem_alloc_private(struct qcom_smem *smem,
- 	end = phdr_to_last_uncached_entry(phdr);
- 	cached = phdr_to_last_cached_entry(phdr);
- 
--	if (WARN_ON((void *)end > p_end || cached > p_end))
-+	if (WARN_ON(!IN_PARTITION_RANGE(end, 0, phdr, cached) || cached > p_end))
- 		return -EINVAL;
- 
--	while (hdr < end) {
-+	while ((hdr + 1) <= end) {
- 		if (hdr->canary != SMEM_PRIVATE_CANARY)
- 			goto bad_canary;
- 		if (le16_to_cpu(hdr->item) == item)
- 			return -EEXIST;
- 
--		hdr = uncached_entry_next(hdr);
-+		next_hdr = uncached_entry_next(hdr);
-+
-+		if (WARN_ON(next_hdr <= hdr))
-+			return -EINVAL;
-+
-+		hdr = next_hdr;
- 	}
- 
--	if (WARN_ON((void *)hdr > p_end))
-+	if (WARN_ON(hdr != end))
- 		return -EINVAL;
- 
- 	/* Check that we don't grow into the cached region */
-@@ -605,7 +611,8 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
- 				   unsigned int item,
- 				   size_t *size)
- {
--	struct smem_private_entry *e, *end;
-+	struct smem_private_entry *e, *uncached_end, *cached_end;
-+	struct smem_private_entry *next_e;
- 	struct smem_partition_header *phdr;
- 	void *item_ptr, *p_end;
- 	u32 padding_data;
-@@ -615,9 +622,14 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
- 	p_end = (void *)phdr + part->size;
- 
- 	e = phdr_to_first_uncached_entry(phdr);
--	end = phdr_to_last_uncached_entry(phdr);
-+	uncached_end = phdr_to_last_uncached_entry(phdr);
-+	cached_end = phdr_to_last_cached_entry(phdr);
-+
-+	if (WARN_ON(!IN_PARTITION_RANGE(uncached_end, 0, phdr, cached_end) ||
-+			(void *)cached_end > p_end))
-+		return ERR_PTR(-EINVAL);
- 
--	while (e < end) {
-+	while ((e + 1) <= uncached_end) {
- 		if (e->canary != SMEM_PRIVATE_CANARY)
- 			goto invalid_canary;
- 
-@@ -639,21 +651,28 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
- 			return item_ptr;
- 		}
- 
--		e = uncached_entry_next(e);
-+		next_e = uncached_entry_next(e);
-+		if (WARN_ON(next_e <= e))
-+			return ERR_PTR(-EINVAL);
-+
-+		e = next_e;
- 	}
- 
--	if (WARN_ON((void *)e > p_end))
-+	if (WARN_ON((void *)e > (void *)uncached_end))
- 		return ERR_PTR(-EINVAL);
- 
- 	/* Item was not found in the uncached list, search the cached list */
- 
-+	if (cached_end == p_end)
-+		return ERR_PTR(-ENOENT);
-+
- 	e = phdr_to_first_cached_entry(phdr, part->cacheline);
--	end = phdr_to_last_cached_entry(phdr);
- 
--	if (WARN_ON((void *)e < (void *)phdr || (void *)end > p_end))
-+	if (WARN_ON(!IN_PARTITION_RANGE(cached_end, 0, uncached_end, p_end) ||
-+			!IN_PARTITION_RANGE(e, sizeof(*e), cached_end, p_end)))
- 		return ERR_PTR(-EINVAL);
- 
--	while (e > end) {
-+	while (e > cached_end) {
- 		if (e->canary != SMEM_PRIVATE_CANARY)
- 			goto invalid_canary;
- 
-@@ -675,10 +694,14 @@ static void *qcom_smem_get_private(struct qcom_smem *smem,
- 			return item_ptr;
- 		}
- 
--		e = cached_entry_next(e, part->cacheline);
-+		next_e = cached_entry_next(e, part->cacheline);
-+		if (WARN_ON(next_e >= e))
-+			return ERR_PTR(-EINVAL);
-+
-+		e = next_e;
- 	}
- 
--	if (WARN_ON((void *)e < (void *)phdr))
-+	if (WARN_ON((void *)e < (void *)cached_end))
- 		return ERR_PTR(-EINVAL);
- 
- 	return ERR_PTR(-ENOENT);
-
--- 
-2.55.0
+Reviewed-by: James Clark <james.clark@linaro.org>
 
