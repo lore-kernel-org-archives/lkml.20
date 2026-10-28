@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163021;
-	b=ZUDKd4aiD9Anrh8cjjwl68ODjUwc/sPlZ1AeDK2YBqzPRsZDNVSX7s43KtOLJsEiWAu6
-	 hqnKBRCNquG9FBU2LO5gp0fqvQmSPAqkz4t/rSgrqFKyFKncBqkpgfyJQhz1HtQm39zH9
-	 IMNrmNq3wxPF0Dqn+vLiLLX1KzVJ53FF4Ugn2SQAdzpdaddE7xS8/TtxgLf0Fro7Nogzb
-	 KMd6oj9aIVxeyoVzd3gDBg4zh70qLGIo1qBi/IBpnXuG2mozxXMDvDNH5TiqyorIK7elh
-	 VSvY17h/6GCgZOLZ9jyczdevaEqBF1VyVvmSQLbNL9utrHGObykozEWY8wve+2vDEew==
+	t=1793163020;
+	b=IDcQ/k9EkAAgmd2TCMyPQyoHuGkdwluihWBoDbDwxX32hO20CKy4WeQoJFeFQSBQ5koB
+	 1yKhGjH/KkIIapwGGINTrUCbAVG0TqhDEtNoNpzg8XMOtCwGP3KPM2ml+ozLY5d5RKJ+g
+	 Z3DWrB+H+PKYvmd4zSmA95cbAIAi56svDO14XI/7WGqxzSCOr5tBGGMaMNF3gUSdk5k9d
+	 m+rzMiEw4OLobSjkbvV8e0X2RCT4cxb54Vnt3hrIFGTO/7lqWd51V1sFt1oKIQRsPhjlI
+	 wM8Lri45yIezpBQj/iO7ztuvjo0A+An74Xx9miExKhAbZAmarPyDWZm1g5+89VH+/Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163021;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=rDYEf1rgU50wwns+nROrVWSna2CJr+Uqr/UDhhZJLnY=;
-	b=kRa2A59Db1XSG8TBVG4pgHyRbgtD8DpGnn4eqjGmOxY/rzcPLS03R6DCerNCNpYB0GNA
-	 aGZE81lfXaKiPRzlzXEvX+R2+YU72fbLByDvpodM7V5NSAtsPKQiEAblWJ//9G0bnlfQ6
-	 e0U8D8lZryD5Owc04g5yriYpITxc+pn5rkC4+rS3pCLWhB0269Qg+hBM3U/FZ7OQPQYL6
-	 1XbWokKFY6xmm3QEW0JXsCSQ6XypmeF6MnLvGO1VeR+o0f7NWXWilG9zIA2ZM78wXPsB5
-	 wRHFrRGS/7bAmE2MOdfFh3idEqHH8SFLkPrjpkzC9DWjVenFVgFnRXOZR0pURdzO40g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163020;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=5eX6ZERtxMma6IIiwk4zjHSJGCnTW5TdkQ89tZL/8dM=;
+	b=GmxtOGfyUj5pCCr4aqR0JioNiimFurOzK9YRtRlglGWJpfIKgJ987Fj/+EPj6frdd9VP
+	 OZi/sW3bgP5+u7xP42PaGohspt/uhERJLLeUnmU1uCOl/iF/OncY2YOXrpolVUiLlUQNX
+	 sdCCAsSxP59wd1Oijbf1kLiQCoaWfiXQG4qBJSJLiXFuQeDbYIPebH8EEJCDaOnQddyK0
+	 BNkZWC2k1pO4PBlyfYn8Ehs4n6td59E9NlJznKUNJzsd4kuZxhZ2ZKXVnVbw8+NhiaAKc
+	 /pfL8u6VwErNkSObK6xg+cXK4YUkG0C/5WC6ErYXtsjiNjocnfvZDc8ozUKTQQr4oYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CM6Tu6vo;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Pmoe/AMv";
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD583606A31D;
-	Wed, 28 Oct 2026 04:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD583606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD134606A31A;
+	Wed, 28 Oct 2026 04:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD134606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CM6Tu6vo
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Pmoe/AMv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=rD
-	YEf1rgU50wwns+nROrVWSna2CJr+Uqr/UDhhZJLnY=; b=CM6Tu6voCiMqEZkdMK
-	n7zLsi3k708RxER9P3vtiNxMZWGgpowvFCDcj+wTpKOTT/AbDhPBd14fmapJRyEy
-	aeYwVjsfUw9ekbgg2lT1yJNcF/bYZ5XzuMWVmp0OMfIptT0jEasU777aFtdnQx4D
-	AIc3R4Zsnl1YhiwOsluDGWen0=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=5e
+	X6ZERtxMma6IIiwk4zjHSJGCnTW5TdkQ89tZL/8dM=; b=Pmoe/AMv61DOoUS7hw
+	fJtrZ1OMVnBesqPe6v4a8+oGDtdeJ3Kmtf4tf4a4NHv6eHPXLarg1WgKZ5yBzh2D
+	sCKfYqy6c0tdGZ0XZrY36teHjocwbfTitnmOp/cu5Kq9/4MNwk/sKJvQ7YHsj4rp
+	O2kCYpKzGX/5HwlY9DZzq6lCs=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3_977fuFqVrksDg--.35683S2;
-	Wed, 28 Oct 2026 12:50:04 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXyGcfuFqI22BCQ--.35298S2;
+	Wed, 28 Oct 2026 12:48:30 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] regulator: arizona-micsupp: freeze charge-pump state work
-Date: Wed, 28 Oct 2026 12:50:01 +0800
-Message-Id: <20261028045001.99474-1-yaojiale02@163.com>
+To: Justin Sanders <justin@coraid.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Brad Warrum <bwarrum@linux.ibm.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+	Anirudh Rayabharam <anrayabh@linux.microsoft.com>,
+	Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Muminul Islam <muislam@microsoft.com>,
+	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
+	Steven Royer <seroyer@linux.vnet.ibm.com>,
+	Adam Reznechek <adreznec@linux.vnet.ibm.com>,
+	"Bryant G. Ly" <bryantly@linux.vnet.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Martin Schwidefsky <schwidefsky@de.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Florian Fainelli <florian.fainelli@telecomint.eu>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-hyperv@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: [PATCH 0/6] Initialize device state before userspace registration
+Date: Wed, 28 Oct 2026 12:48:20 +0800
+Message-Id: <20261028044828.96177-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,58 +92,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_977fuFqVrksDg--.35683S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFWxGrW5XF45ZFW5Kry3urg_yoW8WFy7pF
-	s5WrZ2kF4vyrW8W3yUCF9rtas8WrnrK39rGFW8Jw1IvwnxCF97ury7Xa45tFn5Cr95GFya
-	yFWjy3WfGF1ruaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9FxUUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhzxLGrhfvyWXwAA3P
+X-CM-TRANSID:PSgvCgDXXyGcfuFqI22BCQ--.35298S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7XFWfGw4fZr1kWFy5Xry5Jwb_yoW8Jry3pa
+	1Sg3sYy392krW7Xr43Zay7Ga4Fga48uayUCF90kw1FgFs5CFyvqFW0qay8tFWDJFWxA3W0
+	qF10vrWxGFWUCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UpE_NUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7x7ZFGrhfp6IQwAA3c
 
-The charge-pump state worker accesses the device through regmap and then
-updates DAPM state. It is currently queued on system_wq, so it can run
-after the backing bus has suspended.
+Several drivers register character devices or sysfs attributes before
+initializing synchronization objects and related state used by their
+userspace entry points. Registration makes those entry points immediately
+available, so a concurrent access can reach partially initialized state.
 
-Queue the worker on system_freezable_wq so hardware access is deferred
-until devices have resumed.
+Move each initialization ahead of the corresponding registration. The
+patches are independent and cover AoE, fsl-mc, MSHV, IBM VMC, DCSSBLK,
+and the RDC321x watchdog.
 
-Fixes: e6ed90581bfa ("regulator: arizona-micsupp: Enable SYSCLK for charge pump")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/regulator/arizona-micsupp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Jiale Yao (6):
+  aoe: initialize error message synchronization before registration
+  bus: fsl-mc: initialize UAPI state before device registration
+  Drivers: hv: initialize partition table before device registration
+  misc: ibmvmc: initialize HMC state before device registration
+  s390/dcssblk: initialize device semaphore before sysfs registration
+  watchdog: rdc321x: initialize device state before registration
 
-diff --git a/drivers/regulator/arizona-micsupp.c b/drivers/regulator/arizona-micsupp.c
-index be7208bc7409..ae99173b8236 100644
---- a/drivers/regulator/arizona-micsupp.c
-+++ b/drivers/regulator/arizona-micsupp.c
-@@ -78,7 +78,7 @@ static int arizona_micsupp_enable(struct regulator_dev *rdev)
- 	ret = regulator_enable_regmap(rdev);
- 
- 	if (ret == 0)
--		schedule_work(&micsupp->check_cp_work);
-+		queue_work(system_freezable_wq, &micsupp->check_cp_work);
- 
- 	return ret;
- }
-@@ -90,7 +90,7 @@ static int arizona_micsupp_disable(struct regulator_dev *rdev)
- 
- 	ret = regulator_disable_regmap(rdev);
- 	if (ret == 0)
--		schedule_work(&micsupp->check_cp_work);
-+		queue_work(system_freezable_wq, &micsupp->check_cp_work);
- 
- 	return ret;
- }
-@@ -102,7 +102,7 @@ static int arizona_micsupp_set_bypass(struct regulator_dev *rdev, bool ena)
- 
- 	ret = regulator_set_bypass_regmap(rdev, ena);
- 	if (ret == 0)
--		schedule_work(&micsupp->check_cp_work);
-+		queue_work(system_freezable_wq, &micsupp->check_cp_work);
- 
- 	return ret;
- }
+ drivers/block/aoe/aoechr.c       |  6 +++---
+ drivers/bus/fsl-mc/fsl-mc-uapi.c |  6 ++----
+ drivers/hv/mshv_root_main.c      |  6 +++---
+ drivers/misc/ibmvmc.c            | 16 ++++++++--------
+ drivers/s390/block/dcssblk.c     |  3 ++-
+ drivers/watchdog/rdc321x_wdt.c   | 12 ++++++------
+ 6 files changed, 24 insertions(+), 25 deletions(-)
+
 -- 
 2.34.1
 
