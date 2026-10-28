@@ -1,101 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793172658;
-	b=jAW+2/q+ep0VlBwKtoc+0MwDzUhsvDX6trklxkbaP9zHPhS2LqQnkaPZyhikNpeZ4OmT
-	 XlpK6+oyt0izuQnRy0rXhNRHihv3sRfmFomuOpcw1AemDJwRKv3TAAd0poQyXMjG6l8zN
-	 Cc/dA63jsqi2CBBQWtuT1Mup17XYgOLEWFxHorpSjf/cCy9kRZtW6QqLuNCXnerkQVCET
-	 qXJgmSHKvrUnsEIlEYQBnaIb6X3ytJB0Lc19TxxS1Nl11o1bd7aNATb/+7ochfD5XO0uc
-	 UXUpRI1TuCLMiwumVmEqyGQxp3iZHtkvBRGHaTbsDAt0TukKpJNasSymP2symYRhGJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793172658;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793172657;
+	b=z2Dua4GtKxbMeZMESxUU/v0H2WzcWMiH8iNKzRoVJw4RbL0epQnE/ONXYy3tR0YaBA5u
+	 bmT0ylf4O4NFgDGNJ0eR3eec4BHh82BKCI4Cljl5IKKsFBCbgnxkEHz7oN2X1tGtX3qMn
+	 EeJmGqJalB77i4480pMIUHGGOtnY3z39agD+8v73/XRMTwPimjx98J6dWq/dpxD4Ts5Ob
+	 sRji/1m/4VVLtNf0es2G1/iA7t4rM9AAnbHOiD4EQLRlaJREJS4fb0Zqdubet/56f6WcS
+	 CSN5CpiYlXxFTVP5GxglKcLGQssCTkKgX651y8FCUUMAd//KYochGp24KQq0pqz+0dw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793172657;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=94kzz6GGJdMjFdi0mDx2nMqMBoR4dk5VY7WfJdM579Q=;
-	b=1L0z0/dNOASU3/0MU4YdgrzeJCcVClYZpI69Cz7fQv6kak6VSK3IcgAcSjuO1tO++wzI
-	 cdrzmgPM3zHsHs9IN1WzOldMKugD7n/c0tz+gAF/S7gQBeFlpz8Cd8Walmh/zvP/e7sQo
-	 8mW8caxtS+tMV11L9heDw9YvEkJ9UD3q7WS/c2o6+BHqh/csawU2eowKEXUX6G7JrHy7Y
-	 fEnfFhgo2dVHx27kEy1t02hZv+/o4K6Zsan385TRjCqsRuaEwim00WgBC31qiBen/K2tX
-	 P/ilAp98sOhuee50c2wDDktlMgjqD6gsUwIyWi+e9v1Nkf4t5Njpy1tmvOrD3nSJ7VQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4gvBxf1fqNFjM1GSlcwJUneHyiK6lU7SdqO+7rEXKHc=;
+	b=iv6JG6u03FzJJue8z1cKpWNQDFap7VsyDvTTGhMrusgYRHBUQ3M6DzWhcc8YuQQIVnNH
+	 EGy+/bUU+rGOxPKC5kMdN460OlGODpXah6jvIS0haPQrrRw5cCIVoaCrLl1sP8y5XHVRo
+	 v9e+gy4MnIJlJwL8UUdREs9BniNb+muIvg0DU1LpXvT3vwDONvp+hVB6rBhx6vms+YFzm
+	 YEtlg0mc3K211DIc10rimevLYXrU93X0szqd+zBW9kB3uCMqLZHbFI/q5CD/M1XTljw31
+	 e9O5HlpnHNuvTgT9VcK+/mXlYnU9HKbh8yjaCCDQeoHeo5+z0fvQ1gagSx1Mjy0TBYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qn64ej+2;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bJneuDjS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F49060A2613
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:30:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F49060A2613
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E158460A260B
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:30:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E158460A260B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qn64ej+2
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d1da913so495615f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:30:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bJneuDjS
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-313bab9cfe7so127082eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:30:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793172656; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bPklvjJBDxg4uyyFZjN23iKcv1FgknOwrnFcVOB1XT6CXwZw7PbKWmigN/j9xoFlZt
+         FS8/JQi5XstbuSQ06VhMYiTssH9/Z3JWvtRPfYrHsX2AS2zB6XmV7nsZmOHEf6rnWpvW
+         yQAX98LojdSY7iB+el7vpgH0dVjVZkNTAVmdh3lNjqJMoII6PbZmkTb2ypMqPE7/DRAK
+         htnx/KuEC7TS5A8uxp0tBC0HeLaPVIw8oToM0yYqueOrioC2Iiauf5ZDJkmLSugvvv3q
+         qlvqHmldcJVNHGhB1T0YTvzFedk8dGtw8CS2y7jn9ZymVQm53qkDrO+HIX/efZxKPxbK
+         747A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4gvBxf1fqNFjM1GSlcwJUneHyiK6lU7SdqO+7rEXKHc=;
+        fh=Jk/UkJRIUWNpd7BgnGv1QuViYFzLD2OfvkbfxMlG9uA=;
+        b=DyO1lIgYSaSddXclzUL75gytDgyC497rDxYHO0xdCyOitfYOf4K7JGlh/O5uZZc4Oq
+         fFNHH9dRCXlyiRLzoN2Ap4SzkN9DBsTHVVvT03dcwvk7xLt2qF80aGzKUi0PDHMPZS3I
+         uW4ogtC9o678LIXFMoeGX0GRh8R1DraOb1Sj+kbQFANfqgdtSbNA9vC6EqHPHex/IJ1J
+         Z7TjsIZCTjXEEKcrMOvkk5yByEOuOBLBJ+v5puvQl9jp/VXqjrVCl9B97Gl/LygO7wWH
+         fKlfj1wKfSQYtm7BMKH2YEkG/V0qdWG3gvGskgQ7Q7CIzCsQssZwH84dBx/4pqTKGx5q
+         ZW5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793172657; x=1793777457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=94kzz6GGJdMjFdi0mDx2nMqMBoR4dk5VY7WfJdM579Q=;
-        b=qn64ej+2M+61riqdcjD5N/QK/oFs/NsZoDPw+iP5hQ9phk9PxKq8YlrnLXqmJqw2ef
-         a0ndLwje1iAA3GGuHNDcZPGzVvgxPPDM2EbJDR3F/GSrqElSKmKNb6841ewhPhSiAhLC
-         uJoVPhNL301/nmPW3Uyarjy37FC9pVOAkrlNYrjz/2iakS8r2mn9hSS+iEToEToU+o3D
-         qSqmQyMH5TrzEY4NCbBW+FVX/dTW7S+gIBDkpUMee+DOsG4SRzYC4/fOI5oYcc4aTLfj
-         xqkQcXztTE5fEPTLmasFPYttp5yArgwQDdNsPpwidTZ92pRrKh1Bdw6fuf05TDj6Qira
-         YonA==
+        d=gmail.com; s=20260707; t=1793172656; x=1793777456; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4gvBxf1fqNFjM1GSlcwJUneHyiK6lU7SdqO+7rEXKHc=;
+        b=bJneuDjSTeRtWYs9gLUzq94HuHAoFwhslEwQvNPXvw2Kkf8nTMJss5fQjjqL7AIBYP
+         +OLGCb5rb4t0f94npzyFIsA8YRFRRJS3NojxyKYSJTYGqAzzTiwFflm66sPuzX630Esq
+         U3/+A+SZl/zdO6wdtAg06Qbmn6YgjeW2B6plLyI6ziP7QOs+2JwIjoD1srOxCaS71ena
+         TKSUL9xnCv0poX1LRcRkjNt+bemTiXtpAY0bB9PdvqM4zrtzXJpw/6xakmmH+zxEYgF2
+         WcH453cXL0XYU6lfAeJTOF3hdMG5zjiZiLe9LTDgWXEcq5DT8WaKE6FbUYWhu1/eoXtr
+         FKJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793172657; x=1793777457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=94kzz6GGJdMjFdi0mDx2nMqMBoR4dk5VY7WfJdM579Q=;
-        b=rWwMLkweDxFQi77kacakl7erKurs3+AlAUF3Dq87so1RXMXwDk0aotFmj2B0+cUxDt
-         46BtbU3fy7r4pIONI8e3ny0aEMoyBOVQBwE6ZsBe1eqM6w3OvZYJzJAs0EjlkFQgwuss
-         OEIkiIMfXTSUjGEpK+Mm4ayzGMgbuQdvzG9Wb9n25PaJxOJDww6Pq20HPW2oZN6fsYrd
-         6YfqqOtdLZFdsxq0zZIA+aEZaqihBRAL4BWOHzMhgrSUZel6e/IaXod9oqWY1e6HRhei
-         g3c0a0vkILkZe9Jt/zYf550mLUyLVCUyqh2TdMuxGPnluCELce8b+rJCj2E2m8XSZGD7
-         XVjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxNXPpYmLl2qhIZUIO5pJeEe7+QTUMwF/tgzEJFhEXhe8jPwh0683jikG3Z7ZUKU17FAJwJgdOjxmRhM0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3A8apXWtMA/b3jBZrrivATwBV6QHAt8V6F5SPjFM2VvjgXLy1
-	Rjf5nk0aTWxytwMzLjs+Z1AhTXFe+x2Qh1jHbulIu/OyDG3nS8XZSOUI
-X-Gm-Gg: AYBFou3G1D4MLCEGaHx0VaCPnGHZI5GhYJmdy0eAuPxQJUVVM2QXfsD6tIvoOr1mUEN
-	2bdrGkqTSlj48IohMqywd4sKl1BAAyIO/3vcTBkE3pLJo/8IYMdrOPJQSRljR50TOTVUIF5DI5p
-	XA4XZ8urZlPwtw7Q7ya7RhI8/FzEGEg/VbImfr6UV06hkL6tUUcKfENyf95ANdw6I2s4gweQhpX
-	hqBhV1J0Zv0+/6RMxWzGSlKhInNrVD4HgzOqakq9CPbxZ8EqsN/AzVhQ209hupN5Au5dIxRIbx0
-	vZ/JSQuu5A3xz3QF8jCqChedzGft+K2+k+sZbA/FtOxTqQxBczX5cP+2JVx62AIFM0PCxPEZzdL
-	8jU77+WB+XPfmHGy7CAxJOPFuZbpjgKDOBxZypOG5LZGOa1cauFIz4fqQXRdHOLiqWv3ivqTrwr
-	EuYNcwcwKP2MJisiaGJ85+aXm4JVeeXxx13DiZCmfLqFjoSHgTDQPFFbYm3XebHLiWgxXHIOYf9
-	5CuNX+6pkg0/2TTdWf+PXzEgNcuypRai1sVwrBw5KupepL9TVHaCiCgY3O1x/e0qYKmzzeeAAk+
-	DLlQvSZz7+c1EIsEIsBFBly38yBT9jyy+ZMXPfOikxrqE0EXkujFkyRAcqF8/ghBQEwfnTl1oXC
-	8lvS0EPVzHDo08lHQKGkW1kiyly4nwZZg2Q==
-X-Received: by 2002:a05:6000:1081:b0:48d:f5c1:dc24 with SMTP id ffacd0b85a97d-48e55a377d4mr9182155f8f.6.1793172652133;
-        Wed, 28 Oct 2026 00:30:52 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e542ed998sm12083088f8f.13.2026.10.28.00.30.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:30:51 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 4/4] net: phy: as21xxx: handle odd firmware on loading
-Date: Wed, 28 Oct 2026 08:30:22 +0100
-Message-ID: <20261028073024.25175-5-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028073024.25175-1-ansuelsmth@gmail.com>
-References: <20261028073024.25175-1-ansuelsmth@gmail.com>
+        d=1e100.net; s=20260707; t=1793172656; x=1793777456;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4gvBxf1fqNFjM1GSlcwJUneHyiK6lU7SdqO+7rEXKHc=;
+        b=DqPV0de6X2Y+1z0pfcDSbr+PTQrR4uBqPE0NwXypxjQAHgLYTB3Wyi9sKrpqUUMkqt
+         02FS3w5q+MVvYCJmmZDVGfvA7aNvS0uKaO7GgPxOk9dto/V/Odyh6S4RFfzq5mOrDDmp
+         1Qw841XPxVlI4JBKJdnfn4qjoyD3dB2i+DBuXdZwrUyCz86YX62cED1jBlBqnSqx6MqV
+         2+tMRMCHRt4ClGpzD/jjb2VGq1WWF8JUVQeDqB/QLHdeKjyS68TL5cA0+UlXtMK7dqXP
+         2TCYotFW78y/Zy4DejmQ3BumYxUdbOey6xoOyQX+4rkFCjFBZGmNx+gVY2bFDvDgtc2L
+         wAdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHBgI7I8H9NpNbvZv/vVgOV+G6/t3rGQYx3QQqz65duYyeleubCy0MSf7Vz0t5qTbXRwzkuvlCHxXkxR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJK5h/n8cl6OwKnHkRlJLc/fqcHv6n2huKVgV4PKDjey0HAsxyy
+	FP2QI/Cz4azyHctMO4TzOsOK6BUmHMATNi6sZbkeVPvtDI1AOjIS8qX8Kxui7XcdABmZe+Kj+Dq
+	y0EZVO2oKx40iZQzNUwBj5fYG1UmuaKI=
+X-Gm-Gg: AYBFou2g22FUmWXHM1UHqG0lRqmK7StgLhG1MAhqFABa4xRgAQESiH27QPdZSMAJY7g
+	BCGkOrO5eWE7TF0EgJ22uiSMxq8JWU8ryVtccb4nW2Q0dHpRhgRZZHQwJwoRxfA4mm8X0taZYb+
+	jJ9RLJFSAkXsqsXamdvO/HI3Rt7rwjaeoTLhlPS5vfrXtzQfh7Ii8zzVo2I2c6W3XUl8zUhRNS1
+	p66qYunIwoOciRKql/6mv/dg4HkCh/TrvbZPx5jOWuPzJ85VIVDM590tqHwy664fS/9ani9j18z
+	PH59sqnRgHKBjfBPdW1gn30IXmbB3ntbwSjdnVYCgUTX954pUb9WK/T4N3Gco4498JJt9MI37mc
+	H8N9tGoM/fXhcRYnWyePE3C/VmpCo6tE++xonTs3i8hYnSV17knQM2BNEEZQkh49nTkxVtWXnHG
+	SCMS/Qq8vzQRf15ZoO+ir9O+75jxgEhj6a1TiDQ+2HMErlZ+QAIcAigwzJVyM9IL218PSTHFhet
+	J3xksIGe/KGCDWj1YbFt5MvQTvsI1JHzwMm
+X-Received: by 2002:a05:7300:f484:b0:351:7883:bf47 with SMTP id
+ 5a478bee46e88-36a1fca875dmr3770812eec.0.1793172655949; Wed, 28 Oct 2026
+ 00:30:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +106,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io>
+In-Reply-To: <20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 28 Oct 2026 08:30:43 +0100
+X-Gm-Features: AclHuK_uiWS-PXbCJG5cbGuuSSYIZS7YP8Echn-C46nxtbCkTjeTMaSgo2vlD0w
+Message-ID: <CANiq72ntn6ThPz9Q6+BxU6w-x2jUQ50xpiy1_gCRi6o0peHi8w@mail.gmail.com>
+Subject: Re: [PATCH] rust: doctest: fix line numbers after crate-level attributes
+To: git@younes.io
+Cc: Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+	Rae Moar <raemoar63@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Shuah Khan <skhan@linuxfoundation.org>, rust-for-linux@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Even if firmware for AS21xxx should be always u16 aligned, we can't assume
-this will be the same forever. Better address this by simply validate the
-index before reading out of bound from the data buffer.
+On Tue, Oct 27, 2026 at 7:32=E2=80=AFAM Younes Akhouayri via B4 Relay
+<devnull+git.younes.io@kernel.org> wrote:
+>
+> Twelve in-tree doctests start like this, e.g. in `bits.rs`, `devres.rs`,
+> `init.rs` and `std_vendor.rs`.
 
-A zero padded buffer will be passed to the AS21xxx mailbox in such case.
+This looks OK, and I think it fixes all the cases we have currently,
+but it doesn't cover every case one may write (like a multi-line
+attribute), i.e. I was wondering whether the complexity of this is
+worth it or not (especially if later on we try to support every case).
+But it may be that never happens, or happens way less often than even
+this case that we may not even care.
 
-Fixes: 830877d89edc ("net: phy: Add support for Aeonsemi AS21xxx PHYs")
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/phy/as21xxx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+By the way, why `saturating_sub` in particular? I guess because of
+underflow, but can that happen? And if it can (perhaps in a future
+compiler version), wouldn't we want to notice?
 
-diff --git a/drivers/net/phy/as21xxx.c b/drivers/net/phy/as21xxx.c
-index 81e9827873bf..655127a656c4 100644
---- a/drivers/net/phy/as21xxx.c
-+++ b/drivers/net/phy/as21xxx.c
-@@ -323,9 +323,11 @@ static int aeon_firmware_boot(struct phy_device *phydev, const u8 *data,
- 		return -EINVAL;
- 	}
- 
--	/* Firmware is always aligned to u16 */
-+	/* Firmware should be u16 aligned, zero-pad a trailing odd byte */
- 	for (i = 0; i < size; i += 2) {
--		val = data[i + 1] << 8 | data[i];
-+		val = data[i];
-+		if (i + 1 < size)
-+			val |= data[i + 1] << 8;
- 
- 		ret = phy_write_mmd(phydev, MDIO_MMD_VEND1,
- 				    VEND1_GLB_REG_MDIO_INDIRECT_LOAD, val);
--- 
-2.55.0
+Thanks!
 
+Cheers,
+Miguel
