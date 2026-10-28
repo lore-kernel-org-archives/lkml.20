@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182924;
-	b=VzYVag1uQ9Z7dmyYkS1PPMGhK/58JtqCikkd+nryj6yyQoVj8x35UW3g2t/dkao9eMhv
-	 2RQL7U4+ycpP6s6l/4rZuce6kHcJ/+IH0xzRD8VaGlVLx2uRXfWcyZq4a7eBoyWdZlxQf
-	 hv9ew7CrjbUkxhrmV5CLShfW4HkAbg+XwN2aUbSi8nMyp6xco9eweQoHGquetdiLfiWs+
-	 CL5dxDraT6IYd5PYp7hWFO8cNk8mf7OFSI5Z1t1Zy0WkUnMSPO6F6VWdgxSgVdMS1IFMZ
-	 izZnv6w4Y6pn7WVvA65vN4G3scrCy2nRGs8brgBfFOCJZJXJ3/avNqxp+S6lWhMwJHg==
+	t=1793182953;
+	b=zSyUnLCC5ynd2UsK4wQbi8q6Nq7jFzZYIy7qK/quJb4IxUsrxQwNoaUvC9RqIV/mo7ky
+	 SKPmgJe9i6zN6VtEEb+2nGddFTK0VxWUAeU0ri9FwytACiTFHxnehfro8cb7i/g8Yq2sl
+	 x6q+cy8uOOQoRsA0OeS5Ym2LPWGwUR6vgiQm56dTR7nbhjTVCgrktv8Z2bPP1o6RuSlQp
+	 amDzBP0Xc22mMhN9548ikKpe7juHHb8XcC4DbeJ8abWbciz5eMsX1RMZmkBYk5rwQtoR2
+	 O9PHdDJaNwUwPvb6J/xSUfUz0EJtfxbFOvQTzmXRmDKERajZzy1EnLkfBjx+dFCEDjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182924;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fB+844XfQIYl5+SEECufGoMX1n1a++vVUgwHs31aKaU=;
-	b=guBBc1NxS8wJOypPJdsttnV5/FwDPvsO6x6LeA1X1wb+kQt1f8zDzOu0SAGxW8OMjoge
-	 bi6mrKz+vTMyxNthtbiOPaG49lZvC9mbkl5O1gpOWA6hNHrEWzWqpdUT2PuoTnl7KblsN
-	 Fig8S+sXfpFA7JolMSi/cVCH1uJyqQ4LkYpxMvvYoZI2cUTCGuY7EkgcmHaIi3JHGL68N
-	 cLdRcsb5kLXhJJzm3dwo3URjArOIwapqBKJ/3EaakVZFf2fKucivN/5ysSNa3L4zQnkcR
-	 ZrEZlDbs0/WMXiyPXsl5tP/dyEgERTPRkT70vVC2ue3V8rHeJVcka82SCbWQuJ7WXcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793182953;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+	b=pd9+ZQ0WLqnPrcUbL7lpMPwm75irx09XnmPiHlVyL53UEUPsTwn0RAG/RT771uhINePt
+	 2oT990y0uqS35pNK9ABRohuHzc3vNcis8XqzeqUpznd1B+RHK1zLUnAjYPhQL+IKmWEyH
+	 QfYaA8xzYyLZUDLnov15FfqfZrlqk8YzcWR3YMEVJhl+FVQFCOKdmWUSiJRJd8QzrOA8U
+	 tJpTYs9nALRdVITrzrPoqCa6+ecY1c8eBAGFrDtAogPeJ6D+Ao8VV87hRpjgW488Lcew4
+	 P/IgC5xauJfvDKC2dFvMsZLcK86cIDNGEtbSN0wwbnhtUm5FD7AY2/GF4d5UF6s97RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fGZdpLIa;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="hDY/B/fk";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oW4IAvxE;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53141606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53141606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B48D606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B48D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fGZdpLIa;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hDY/B/fk
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8hH7p3768253
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:22:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fB+844XfQIYl5+SEECufGoMX1n1a++vVUgwHs31aKaU=; b=fGZdpLIa/VlrNvbN
-	7Rq32kkNW66ldkQAejOdCs7iuZ+OG8+j/hjP0NPWQ735Cyv/yueTy/s2X3IjflPX
-	Je3R1070kGTwyX8ZdpPKOPhDLW81gEUc7o6tyIgc68P6kU0MsvgdQXmPjLfuEqSs
-	7Qj2+DUr5GQ2lv0CYaACSa3jvlQIY5DVIeXAjpTcUBf7w5on4IrxX3gyflpCuUom
-	IXDsHCUSx7W/FeNayyoIKQfXrr2ywe+xy88p4mYgJs3hvuCLmIxmMUgpJJSzbKpm
-	nGERntRCVWuCrl3ZEFS37H8z4/fqJ5guGi4eRkG73CKW5EKqpE9Jyd1qaRVssgDU
-	x251jA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp0bqb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:22:01 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caf7856ffso166400185a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:22:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oW4IAvxE
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b060ec084so459476f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:22:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793182921; x=1793787721; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fB+844XfQIYl5+SEECufGoMX1n1a++vVUgwHs31aKaU=;
-        b=hDY/B/fk188q3nZQoM+wn86ThzOTmQeVESqlksbK85DFh0woSEzN2MjvQx5kEFST5W
-         JuYxLtEuEkrjgJxVKqu264Vm+haXYox75FSysl/VHSUKNitt/8X8LuK9S86szqcTajHM
-         ksw2GOoeWHOpstMJcpf/pyrQZInolUeZNaL6BmZe3KZx39HywWUhj/mxKu/J4UsdUxk3
-         4MPYCEcg4YaipQKbv++jONUuAWONAkd2hnVHhG/3crfcS819z08B3GFgpF0+DWik0PIi
-         AP2GZz/rC0ntU5DcO46gSNiYn7K0FVNHGsY9BEvFCGlQk6wd9C6UXkysiZFU4MG2NIse
-         9VYw==
+        d=gmail.com; s=20260707; t=1793182951; x=1793787751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+        b=oW4IAvxEO6tFXQWgIF9jFVid2BAB4I2EHM9HMlsuzOKzojZhiaih3Fo2SLqFQUvGvV
+         qQ+zqPNSl7wHZpUvIHR9aPN7kSfZ1FTY87qM0WvYYd26zviY/LFu4GEwbiJhS0ADmyTW
+         pkRlaLHX0lJuUqhlkwTvo5uCzK5M/Bi9pAAm68gH2d2vQ+Dd06E/go2xH51iV08dERUJ
+         BBqWmJ5ScVNlRqFHV4OsevBi1whK+LbJgTZlzXYfg9dhoma/+H6UW0TsYnIS7pI+akJ2
+         4FngWclLa6yeP6WSQAsMxmT6dLOtN2AliV41188zEJ/hrg5UwuqtSb0LDt1rpvkbIeCp
+         FBQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793182921; x=1793787721;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793182951; x=1793787751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fB+844XfQIYl5+SEECufGoMX1n1a++vVUgwHs31aKaU=;
-        b=UrglVzwB78z6z0cHvg6OaaDCRmQydjTmdeo58+WuL8EASi5Eu05L7sxphvB0ZG09oJ
-         bgJ3iSZgL9ZEQyON2Nju59A/OpILf10aY/5zLyuhRmxTr0lHnGw/OJufMagF8s4qtenw
-         QCFSun5ec47bexDpKZkstUmbWfwKhfvCJ/pf6Vf3CIqB+pWAr9LLHXx2rnVmoiRh5Xf5
-         L/nPXxs4Khoff7OorLCWTxNIVK1aCfu3e/VKMz299z+mVTKlyWm6NOoWbSAHAJx/Q+GD
-         6iqi+70AdEraGjlES+pdheDOexTqOAUvkhrOcbdKyjlTumh0ADYh4pBwKSrVduBlOZ88
-         IiEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6fDEzRP9SVbQNr/Nv3qT/KA1CfM91kopK/LX0++++DVF7v7neF8+VGlfFDeRPHl+Mw88fhh7N8+fLVX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuEayTDlqqZGEulkIe5qoPGFx2PL2AbjpzOR5BGWC3vyO1D+fJ
-	9O08YCbIRY+DcmBcyKt/jIpGiKRAiQthvPyx5C+YlN5l9EqGE/zWUrC9e++iGTKqXpQRfYriQ7M
-	Fwuy7Hs/LI5gunMC6/Snt2l2b//ldP7+t598ZDkZOnYBWr2eIMfyg6LX230vShuQYc2o=
-X-Gm-Gg: AYBFou1lNo4ao8v2C9tZXQbm9laUG8DXba7WmVdIKeRNiRrGhwWUAJp2e+03BLhx0Le
-	c6l55bkoGTSpuP7/Ql+FCabsq6VQuWZo2H+o/71zhtOZyXr0kw/UJHWdDOPwnU4lvYlU11LdX0/
-	O1cugA4mnfeQypmustX5Tcce9w/pSg1VvIGRiZLjUE4t0fRBLMxGfliqQXOV1yvVb9u7PhB2RDh
-	aBZ3IbprUefgv1LW3e8WDzTTTF1QAqQFNbzITic3+5XvS4GVGcixV3m/NtV2Lom5Qrd7FMpvOxM
-	jaZQ2jmxsDe76A6dhDm0XPGZs/LnANAdbwwukxD5jeUSEgbi1AmQPASXX6WOqr4XBm6loe6qrY7
-	9Fzj4JYyBZvckEnhkx5j5k3Icqy2vZR0A1vqfIu7fRrkzLMOFWSbe5AcBMFscSCIum7buXjgsDF
-	4=
-X-Received: by 2002:a05:620a:63c6:b0:93c:8544:6adb with SMTP id af79cd13be357-94408a5f81dmr245901285a.22.1793182921156;
-        Wed, 28 Oct 2026 03:22:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:63c6:b0:93c:8544:6adb with SMTP id af79cd13be357-94408a5f81dmr245899185a.22.1793182920585;
-        Wed, 28 Oct 2026 03:22:00 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a9797e98a7sm32949905e9.15.2026.10.28.03.21.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 03:21:59 -0700 (PDT)
-Message-ID: <6c423837-b665-4635-9984-a3efc28a7922@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 10:21:58 +0000
+        bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+        b=hZAVtQqeX7qvl6QF6vkftdp5lvBfiO6jfET0EYek7wYJOd9h3oHP3it5Io+m9o9AHQ
+         PudLd2pEdeAF2KoJ7H5Wy0gQGunWQw1x0mMgx/r+2EmlrhgS4cuUT0uhCSdVYRJcXAyU
+         YZEPRK5ib+3O2ZNVn1yvlOZEYhMpFUklh8ll4Gp3Lek5Rt2BxElKhqfidiTcGUk7RoAc
+         8y7Gc5px16Z3X9uaby1g59rcM+nKIJnyt8C4j+prZk2WmV5dDQDVwRDUCbaHY2zdmZKX
+         IEQv+va9TML8I9JV1lx5yBaJDDmnDmzO68nWpzkEc1/jGlZwo2jYss3aW3NPCVo22MVp
+         QIeg==
+X-Gm-Message-State: AFq9FYKkaxF9KGHQbY8da7lgiPNfsp3bcLw3B69XVMpH4gYayDWLd/Os
+	mbyjxyMd611UOeQE4GSvOaymNVtckmvREe+y2M3KLlfjS2Pk0jXLpzdM
+X-Gm-Gg: AYBFou26iBpVk29sujOkdX3qI+RPdYCE/u9K7o5OlRzl98eHWXbYUU0KYODDzj42QQF
+	vXMlN/GR8mXe6YwtJ+3M4VDD+IIVmf9WLdkh+Ms4sDLtSrB2gJ45FQ1NZ2uAXfTsd0NAuiBJhu/
+	5UjVrCiA3fGrQjO1gvN1ss/ijShaKTpsj27bgxDjbhulGhU/MeNnVlj9uNpIAVQR/HKBvT4WKeN
+	cY8v3jqK2CaDZF9CRKe573G6bqxsy8/u3Yj5pKaZEIfDowyWe+652PqO59GxSUMxadIRr7nDXaZ
+	8Bje1n4YlRWmNPXzKhZkEpg5UcFuKH88DYAR6yXJxUKyn/j6fPrTT0vH2/FkgP+d2TMVQ5766fd
+	fWvY2CJhntQ8DxdWjufcZir3vluhartNVV0vY1JObMHkCUGIptzLox6v4SAPQydf+L9AKFIJuip
+	3/LZpahAYwjTC1y5+PfeB/YUHqFTA42tezeZZnLeHLKvEQewBfum2sf9qRar4Mun7Ys5ux1Nobs
+	0gvCrMpHxOrgAw7pV/ziFv+p1iZdKzYYCj9xCCIC8Kh2B0o/vWUYnVVJiO0O2MdpUndfUQ1+S2J
+	ndXioncRKcoldfcK17zwRrxQEvHHd/MfelZTSk/1+4CEnMkMqVXANYVUC5jADX/G2hFXUEZhsqp
+	4k01MkHrEHnbnoAqJdKWGq4En5P16731v0A3MkOTtCVmAwRBcDms9daLyOYkZxrOT4AAE6asuVj
+	yMpO2ChGGBlkmYHzARxDQms/dqdgHoSSDNGv+z
+X-Received: by 2002:a05:6000:2488:b0:486:f6dc:52c8 with SMTP id ffacd0b85a97d-48e5d5a4030mr4706468f8f.37.1793182950573;
+        Wed, 28 Oct 2026 03:22:30 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm27135788f8f.39.2026.10.28.03.22.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:22:30 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH] powerpc/dts: Add dts for WatchGuard Firebox T30
+Date: Wed, 28 Oct 2026 06:21:58 -0400
+Message-ID: <20261028102158.71032-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,143 +104,450 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: qcom: qdsp6: clear stale channel_map entries
-To: Fabian Renn-Giles <fabian@fielding.dev>, srini@kernel.org,
-        broonie@kernel.org
-Cc: lgirdwood@gmail.com, neil.armstrong@linaro.org,
-        krzysztof.kozlowski@oss.qualcomm.com, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261028100708.6808-1-fabian@fielding.dev>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261028100708.6808-1-fabian@fielding.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: mkDH7gPk4cFP80WcOtV86lzoYZ17iPj2
-X-Proofpoint-ORIG-GUID: mkDH7gPk4cFP80WcOtV86lzoYZ17iPj2
-X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae1ccc9 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gWL0RvtfYAzCyNj8DMQA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfXwIm0cLOZLI9a
- PVrxytkpkKaSNp9IhDYLL+whMDCnRSs5x2mf67fWfAcATm6Nxa8Bjc2iVzwPK9l04CezxRzar0L
- 6Lj370UMQMIIZG1Al1UZvqDSO6sY+JCUyu3wLrsSkTruqMB22AxedF3qVGSNtePMHr/BqCoR3jY
- PSelVprIMDRH2jvSGl2rZp60zsJz6RMJy8hMWuNuHUu93c62SC8FHQAfpCcN6Npar4RsWY/+FqV
- JrFwb+AhDQ8d3KL8bZcst2gmZH7O0rO52BoWTAZzRZWCMs3sh99on2HIxvLX+6e6Xe3BTzcvA0z
- rTj77LGE3r35FHdNKTRd+ShPqVE1kBu6gkzx3ZMhVBuDfb4pddPLt2kxl9jEXc+trFA8XbqqqvG
- vWAITXPMmpnFaqGx9nU7C0ECUMuSpkvtkdlISoGs2Ed24rxy5vc9qIvUsdWlBX3Gl5zcL4aMEwN
- cdWkPitybLcgVS6hWrg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfXzscWzZ/RUpIz
- CAEFtUbQi/X+pqnRhov5yy++A8vY/S+uz2w7sj8aHBG1CndJaPjwSqxJyqy4jpAi7PAj8lL2J4E
- KkOH7QNBNnvnoxUqfgmH14CgtD2OSsI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280041
+Content-Transfer-Encoding: 8bit
 
+Add device tree support for the WatchGuard Firebox T30 and T30-W.
 
+These devices are security appliances based on the Freescale P1020 SoC. They feature 5x Gigabit Ethernet ports, USB, and a serial console.
 
-On 10/28/26 10:07 AM, Fabian Renn-Giles wrote:
-> Since commit c663014e452d ("ASoC: qcom: audioreach: compute active
-> channel maps from channel_map"), the codec DMA active_channels_mask is
-> built from the non-zero entries of the channel_map instead of from
-> num_channels.
-> 
-> audioreach_set_default_channel_mapping() only writes the first
-> num_channels entries, and q6dma_set_channel_map() only the first
-> tx_num/rx_num entries. The per-DAI module_config in q6apm-lpass-dais is
-> persistent, so entries written by an earlier, wider configuration
-> survive a later narrower one. E.g. after a 4 channel setup, a 2 channel
-> capture on VA_CODEC_DMA_TX_0 keeps the map 01 02 04 05 and sends
-> active_channels_mask = 0xf with num_channels = 2. The DSP rejects the
-> graph start:
-> 
->   qcom-apm gprsvc:service:2:1: DSP returned error[1001002] 1
->   q6apm-lpass-dais ...: Failed to start APM port 110
->   MultiMedia4 Capture: ASoC error (-22): at dpcm_be_dai_trigger()
-> 
-> which breaks the built-in DMIC capture on the Lenovo Yoga Slim 7x
-> (X1E80100).
-> 
-> Clear the whole channel_map before filling it in both places.
-> 
-> Note: this is my very first contribution to the linux kernel so I
-> may be new to some of the processes. I apologize in advance.
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ arch/powerpc/boot/dts/fsl/Makefile        |   1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts | 413 ++++++++++++++++++++++
+ 2 files changed, 414 insertions(+)
+ create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
 
-Thanks for sending the patch and Welcome.
-You can move this comment after --- as it does not make sense to be in
-the commit log.
-
-> 
-> Fixes: c663014e452d ("ASoC: qcom: audioreach: compute active channel maps from channel_map")
-> Signed-off-by: Fabian Renn-Giles <fabian@fielding.dev>
-> Assisted-by: Claude:claude-sonnet-5-5
-> ---
-> Tested on a Lenovo Yoga Slim 7x (X1E80100): built-in DMIC capture on
-> VA_CODEC_DMA_TX_0 (MultiMedia4 Capture) failed with the DSP error above;
-> with this patch repeated arecord runs work. Based on broonie/sound.git
-> for-next (d34a818a331f).
-> 
->  sound/soc/qcom/qdsp6/audioreach.c       | 6 ++++++
->  sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 2 ++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-> index d2dc5d37bccf..4ac65d9b5543 100644
-> --- a/sound/soc/qcom/qdsp6/audioreach.c
-> +++ b/sound/soc/qcom/qdsp6/audioreach.c
-> @@ -308,6 +308,12 @@ EXPORT_SYMBOL_GPL(audioreach_alloc_apm_cmd_pkt);
->  
->  void audioreach_set_default_channel_mapping(u8 *ch_map, int num_channels)
-
-there is patch on the list to remove this function, could you please
-take a look at
-https://lore.kernel.org/all/20261028024720.981971-1-zhangfei.gao@oss.qualcomm.com/
-
-
-q6dsp_map_channels() already does the memset,  pl recheck with that patch.
-
-If your patch might be still relevant, please send patch against it.
-
---srini
->  {
-> +	/*
-> +	 * The active channel mask is derived from the non-zero entries, so
-> +	 * stale entries from a previous, wider configuration must not survive.
-> +	 */
-> +	memset(ch_map, 0, AR_PCM_MAX_NUM_CHANNEL);
-> +
->  	if (num_channels == 1) {
->  		ch_map[0] =  PCM_CHANNEL_FL;
->  	} else if (num_channels == 2) {
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> index 83f2711bceea..12f139af8ca0 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> @@ -99,6 +99,7 @@ static int q6dma_set_channel_map(struct snd_soc_dai *dai,
->  				tx_num);
->  			return -EINVAL;
->  		}
-> +		memset(cfg->channel_map, 0, sizeof(cfg->channel_map));
->  		for (i = 0; i < tx_num; i++)
->  			cfg->channel_map[i] = tx_ch_mask[i];
->  
-> @@ -123,6 +124,7 @@ static int q6dma_set_channel_map(struct snd_soc_dai *dai,
->  				rx_num);
->  			return -EINVAL;
->  		}
-> +		memset(cfg->channel_map, 0, sizeof(cfg->channel_map));
->  		for (i = 0; i < rx_num; i++)
->  			cfg->channel_map[i] = rx_ch_mask[i];
->  
-> 
-> base-commit: d34a818a331f7e270fa9dc3db3d96f6a0d4fa7ab
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+index d2cc8e1f0..ebbf301e1 100644
+--- a/arch/powerpc/boot/dts/fsl/Makefile
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -3,6 +3,7 @@
+ dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(src)/%.dts,%.dtb, $(wildcard $(src)/*.dts))
+ 
+ # MPC85xx platforms
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+ dtb-$(CONFIG_BSC9131_RDB) += bsc9131rdb.dtb
+ dtb-$(CONFIG_BSC9132_QDS) += bsc9132qds.dtb
+ dtb-$(CONFIG_C293_PCIE) += c293pcie.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+new file mode 100644
+index 000000000..546e98938
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -0,0 +1,413 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "fsl/p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30";
++
++	chosen {
++		bootargs-override = "console=ttyS0,115200 rw root=/dev/mmcblk0p2 rootfstype=squashfs rootwait";
++	};
++
++	aliases {
++		label-mac-device = &enet0;
++		led-boot = &led0;
++		led-failsafe = &led1;
++		led-running = &led0;
++		led-upgrade = &led1;
++	};
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-property/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "tpm,tpm_i2c_atmel";
++				reg = <0x29>;
++			};
++		};
++
++		sdhc@2e000 {
++			compatible = "fsl,p1020-esdhc", "fsl,esdhc";
++			sdhci,auto-cmd12;
++			reg = <0x2e000 0x1000>;
++			interrupts = <0x48 0x2 0x0 0x0>;
++			interrupt-parent = <&mpic>;
++			fsl,sdhci-dma-broken;
++			fsl,sdhci-ahb2mag-irq-bypass;
++			fsl,sdhci-adjust-timeout;
++			clock-frequency = <0>;
++		};
++
++		spi0: spi@7000 {
++			compatible = "fsl,mpc8536-espi";
++			reg = <0x7000 0x1000>;
++			interrupts = <0x3b 0x2>;
++			interrupt-parent = <&mpic>;
++			fsl,espi-num-chipselects = <4>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			rx-internal-delay-ps = <2000>;
++			tx-internal-delay-ps = <2000>;
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++
++		gpio0: gpio-controller@fc00 {
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				#gpio-cells = <2>;
++				gpio-controller;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "fsl/p1020si-post.dtsi"
+-- 
+2.51.0
 
