@@ -1,62 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203598;
-	b=1BcldglLUFBqp1hz4LvEz+BemSSYBbN9ohO7W4u4/7srVl5xgZ9f9DE4ayRnXdTuuNes
-	 ZUnkZsIjgoyjMAT297z4L7dOtZ4L0CW1aNnUEZVEnkVrCPNPyw27IS9c5CbM8HRujA1+f
-	 44upNYiWIupTg6SQexNVJElCI8TbIqfYwh4SQxzbFfLpHWRvmRQ3fj6fd7qJuOBfS7Ykq
-	 nxG2tF5MuQGu9yX9Q3SgIrlWHfWyGAsfF3wyq0ViDEuuTl6MCVSrUSAzKKqoI7YXblsXk
-	 oVc/o9isUNiKWBzO3/tRJOsDGvPdh9zLf575l51EwsEeqSlcGvcKVPKoPDQkje+w4FA==
+	t=1793203594;
+	b=S/ogMn3gqYipicZSICnmXTuk6W9bqR6Rt9WnAC2Gl5cx10JbMfJCPW7ROiWxNz+NoEBz
+	 kjOG17MWxKnhzvFzjfYg4bSbel/Fsqt0DOuQqTvELS5p8niW8hrOVqdlBE6a1POdMf3G6
+	 TJTqKW+OmHTpuvEG8Vc84gVg97k7BLknLusMaYzGLYmpW/Q16MZQtiL1fHCSothNPYaHX
+	 nsL35d8OZgd9+GfXgv+/Sn1F5xSgdHZDBhOeQDCswe0zYrD0AitFEj8SqQ08poe8Wlyda
+	 K0WYcMr2fBFLek9/gj3S6A8SzCVmCaxaW2oxUCfqSt86nDP7FNquJP1STJHsWWNSehA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203598;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=ZlxUJ1ZYisBBogOzH0yyMRj1wQGO7OwTeoPIx19o6hE=;
-	b=ppKqBPeEV5YwwxUqpgP8XCLnHntD0X0DGfBMK8QnhJOXA6uQHXxVPlppmFKGh3uwApj2
-	 WTGvMzTbenpBEtotEv2bcKUkoXej3r9vxn49gZCDA8TNRxF30sFG5ikMmjR9cFKYUsZdx
-	 Sx13R8j/Bpm2aDL06hdoqm6FEFJA/itm+OnBzhnKMJUHPAm6lJqW+LupC5/4VoqEhVZXj
-	 HZB0geQirC/bL1KeIPYP2K4UUAA0bKgrhh8ahYGgJGezUFKRN9/ptz7FlByWJ46jxLBv0
-	 RPX+dfHVJ8wFoWg2ZV43ZPMiYBO7Dj2Ii0nix9Lvlg9muKD1DE4M2adRE6bZVM/J2Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
+	b=Fhh+T11drSrrqt3BX/HYKiAy67gPkbJexXSVYX0ASJewEwliPMNhxn1XnIg0bAiukaoQ
+	 VJt10zMpVqQgWtyO8i347JTJZQFEJDCrSQ2AEcV83/V+ufMVExqBhmUkjm040paH0+Xdt
+	 QaO4l0BjufRMCcxNwXRlY0B9XzTi+RqITcWfIgpERINbABaVMwefTtVeF8F+AfLOo6UP1
+	 XC3bPp0035Xf3XSUNurT+mMH1N8oCkc6iaBljUXHnyX+X0d+2LlXIrkviIA3YDJMfZNz9
+	 vJKv+hZ04s3vuKQomrr43UDyZcY9JB712NXp3bpTuCqe8DrkTAP+V6+CRVba6JAaRHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DYuOrWz3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD08F606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:06:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD08F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mPH3qpCb;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C3C60A3811
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54C3C60A3811
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DYuOrWz3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA3C1175D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:06:33 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C0A6D3F59E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:06:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793203597; bh=3qcnl684PVu1J+bPAecWbEqHH7JxoBDU9tDfr23e3yI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DYuOrWz3nRJlunp8IkpygpjUARoQll8ISVDgUvRsxz7C7PVxM0Xo5GQ5LJJ7AJEBW
-	 9K/08FgHZyVfrSt6pQRHsizAjZVRxfJnF2d6erRdO1nloX9F5vQgPY7JXOmOyRy6s1
-	 RdHtW89ltLryrGag4FvW1KV6dfUUy4SMW0ETX2qg=
-Date: Wed, 28 Oct 2026 16:06:13 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v1 06/27] drm/panthor: Derive MMU AS register addresses
- from base and stride
-Message-ID: <auIdddtRvEYNH88u@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-7-karunika.choo@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mPH3qpCb
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so10335355e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:06:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793203593; x=1793808393; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
+        b=mPH3qpCbAKLiev8/hNU719zKhQN6qRmCwgloVp7ypKQZpC9Uk61P8Yj7ABA16hvoM0
+         +86OxbofRb70B4z3af2vh/6kS4boXPnK7Kr89xBvlCdoqdhMkfgWk1yAjghm1hu4q6C+
+         Cqwmk6aI6MN2x4uCioaMdg0xvqiG+9IUdy7JUA5mub6nVtisQhw7+4pXhqWLkcExZxnQ
+         rT0/j5XQ/jd9qw9/cnEW/pB5cJhyiPF6bDCExaREU0X9TRMvOk1a+QVOnAO0CGLGJ9tc
+         aa2I5lc1eDV8ES3nhSOvoHuiZ3adPz9KxarEvKxpzICn871XshDaJ9331nE3NhtQoDpg
+         Kmrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793203593; x=1793808393;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K5cbxD/lRSp2Q3hLi6PLLzoHUCTKepxDQp4Kq4HqxLM=;
+        b=uVA9pMHUOn+M2vs4CdV4UbhQj5tmn12yPLrfLoM73Gv161VyMnbC2Nb80MJufKF7j8
+         t+bkcIGp36o/0kG+GEWVzJ58nPrmmrChPT2DBa7tSFBKZqud9S+bpxXp1z8qnPvuiHwD
+         3A/OZM8CPgjVSaQJtXs2dT77MEIdMqWtuQNmn9HP/NoxWH+fQ2d0FHXscueeId8gKB01
+         lIVg3EL8JYOPGd4QuPCRNVXNOS6/GHxVaFJh/N5Mr2leJI8hYP9lVTAlnm19X+Ie4Jww
+         v3S6zoZNIzREPqlsmRFsHUQ3zkKP656xXq4XlvLxYg845jr7kMcWRH7j9gH8PBRS64MD
+         n8XA==
+X-Forwarded-Encrypted: i=1; AKwUvBwx5C2CcJOcfR3G6etgeKZ4XjJjvXpJb75RzUWQODJpf6qG3pu5kD9xpYulkrV9vymZ8WJ5BrfY4P2JgRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAPiBl6QmnWLNbj25YBXHjjqDrczZNB2/X/ud+TO1SJTf6090v
+	qf6/QiywTXz3Jr9tW+c7b9mSUQxg8baI1mQyY9pGmmzKfxL52GtRn6iE/UEjKenkzP0=
+X-Gm-Gg: AYBFou1ot4H2muB36CEzUVPr3LfENtu1DTQWBOy07PKs5O0X9VFg6TPIu3w/nrlLvqj
+	xICjRr5TQeKdlGemQdyvIVhrJqYEvF5VBFNTpVXv9n71Yiv2vf03rluVYttWj808rTHdEzRKYjW
+	XsOGF8oexNQaPRM7Id+z+IMD4aJRV6y43jI16WU6nuh1Dc0nu+kvosdTQ1FOp7idLTHhppd5x0y
+	UF2RQu9R1QLEEnuM0SK2lDqtyp07mtpdeCeFvA+WuSZzdG9sZEWbMLzeoIQZ90pmzEyk1DRu9Yd
+	unnkEoriJVs2VwSwfzwR6LsLpDbb7s/9BT0zgEMLdV7u5hIzl07fneKDaQ6xRwOeZfv6NctFOMW
+	R/nxd4BUxG8CVzJNcNTgfyHEhChCkwmXfSxjg1Bn6BT4aj80hR0e2rgF7lo6yLr8zv5ygnvd7vj
+	kf+qp868rqaeQS6Xl9g76yWtVIvsatgxMLmRgkSq7vIgJnUXyRA8leD8f9/nJmW6HaA79jIeTyi
+	wBjiDyY2Isxa32lxrZUIw7/ihQRcvzdly5lYkI6GXXg49HvLkknSrle0ZjYTiwXioYL3VdwlpXB
+	NV0YOh7lK8ADSheKsFASwso4562bVP7dB//nsKInwDgsHerhrhte28ndnB3d7r+qobM52KZuum2
+	l72uTBkabcJ1V/nIHgpU/2kweuG0IB44Y8yNwN5VkPFsAnUw=
+X-Received: by 2002:a05:600c:34cf:b0:4a2:397:73fd with SMTP id 5b1f17b1804b1-4a9667755f3mr61530825e9.12.1793203592754;
+        Wed, 28 Oct 2026 09:06:32 -0700 (PDT)
+Received: from z13-ek5.local ([151.40.161.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm1625875e9.9.2026.10.28.09.06.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:06:32 -0700 (PDT)
+From: Ettore Chimenti <ettore.chimenti@linaro.org>
+Date: Wed, 28 Oct 2026 17:06:09 +0100
+Subject: [PATCH v2 8/9] ARM: dts: omap: dm8168-evm: Correct SD card pinmux
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,287 +93,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-7-karunika.choo@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-patch-ektor5-dm8168-dts-v2-8-4544429251e2@linaro.org>
+References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Christopher Obbard <chris.obbard@oss.qualcomm.com>, 
+ Andrew Goodbody <andrew.goodbody@linaro.org>, 
+ Paul Walmsley <paul@pwsan.com>, Russell King <linux@armlinux.org.uk>, 
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>
+Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Ettore Chimenti <ettore.chimenti@linaro.org>, 
+ Christopher Obbard <chris.obbard@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793203582; l=2102;
+ i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
+ bh=eWhzeB8jAMTZPI1KrE3IIq1D7Ssewn5fvDeiaH0we+4=;
+ b=CUTdkEkF+dq1LidthdxZMOHWhYkh3VNaqmkMHQcbzmIMwWqhtlFSpowlgfjJ9B+E6nNFDhmgJ
+ 4l964OezPWqCU8RpaNDL7ofSCLEmk1/wscSP2drx4dcm0qqWHWQZ+ME
+X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
+ pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-On Tue, Sep 22, 2026 at 09:45:00PM +0100, Karunika Choo wrote:
-> Move the MMU address-space register layout into the hardware description
-> by storing the MMU_AS base offset and per-AS stride in the Panthor HW
-> map.
-> 
-> Use those values to compute the iomem pointer for each AS slot and make
-> the MMU AS register definitions relative to the per-slot register window
-> instead of hard-coding the slot offset in every register macro.
-> 
-> This prepares the MMU code for GPUs where the MMU AS register region is
-> not at a fixed offset while keeping the existing register accesses
-> scoped to a single AS window.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+From: Andrew Goodbody <andrew.goodbody@linaro.org>
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+The SD card lines use external pullups and so the internal pullups need
+to be disabled so that they do not cause contention on the lines.
+This bug was revealed by correcting the effective bit mask of
+the pinctrl device. Use the correct macro for DM8168.
 
-Best regards,
-Liviu
+Also fix typo in comment SD_DAT2->SD_DAT3.
 
-> ---
-> v1:
-> - align with updated panthor_hw_regbank structure.
-> - moved AS iomem tracking into panthor_as_slot and introduced as_iomem()
->   to retrieve it.
-> 
->  drivers/gpu/drm/panthor/panthor_hw.c       |  8 ++++
->  drivers/gpu/drm/panthor/panthor_hw.h       |  3 ++
->  drivers/gpu/drm/panthor/panthor_mmu.c      | 45 ++++++++++++++--------
->  drivers/gpu/drm/panthor/panthor_mmu_regs.h | 23 +++++------
->  4 files changed, 50 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 2ca5a334f5817..13090ff6db7b5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -44,6 +44,10 @@ static struct panthor_hw panthor_hw_arch_v10 = {
->  		.mcu_control = {
->  			.offset = 0x700,
->  		},
-> +		.mmu_as_control = {
-> +			.offset = 0x2400,
-> +			.stride = 0x40,
-> +		},
->  	},
->  };
->  
-> @@ -63,6 +67,10 @@ static struct panthor_hw panthor_hw_arch_v14 = {
->  		.pwr_control = {
->  			.offset = 0x800,
->  		},
-> +		.mmu_as_control = {
-> +			.offset = 0x2400,
-> +			.stride = 0x40,
-> +		},
->  	},
->  };
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> index 9231c18af94d1..68627f0df7f95 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> @@ -48,6 +48,9 @@ struct panthor_hw_regs_layout {
->  
->  	/** @mcu_control: MCU_CONTROL register bank layout */
->  	struct panthor_hw_regbank mcu_control;
-> +
-> +	/** @mmu_as_control: MMU_AS_CONTROL register bank layout */
-> +	struct panthor_hw_regbank mmu_as_control;
->  };
->  
->  /**
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d75d575473da4..169550413a1a5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -35,6 +35,7 @@
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
-> +#include "panthor_hw.h"
->  #include "panthor_mmu.h"
->  #include "panthor_mmu_regs.h"
->  #include "panthor_sched.h"
-> @@ -49,15 +50,15 @@ struct panthor_vm;
->  struct panthor_as_slot {
->  	/** @vm: VM bound to this slot. NULL is no VM is bound. */
->  	struct panthor_vm *vm;
-> +
-> +	/** @iomem: CPU mapping for MMU_AS_CONTROL iomem region */
-> +	void __iomem *iomem;
->  };
->  
->  /**
->   * struct panthor_mmu - MMU related data
->   */
->  struct panthor_mmu {
-> -	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> -	void __iomem *iomem;
-> -
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
->  
-> @@ -533,6 +534,11 @@ static void free_pt(void *cookie, void *data, size_t size)
->  	kmem_cache_free(pt_cache, data);
->  }
->  
-> +static void __iomem *as_iomem(struct panthor_mmu *mmu, u32 as_nr)
-> +{
-> +	return mmu->as.slots[as_nr].iomem;
-> +}
-> +
->  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  {
->  	struct panthor_mmu *mmu = ptdev->mmu;
-> @@ -542,7 +548,7 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  	/* Wait for the MMU status to indicate there is no active command, in
->  	 * case one is pending.
->  	 */
-> -	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem, AS_STATUS(as_nr), val,
-> +	ret = gpu_read_relaxed_poll_timeout_atomic(as_iomem(mmu, as_nr), AS_STATUS, val,
->  						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
->  
->  	if (ret) {
-> @@ -560,7 +566,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
->  	/* write AS_COMMAND when MMU is ready to accept another command */
->  	status = wait_ready(ptdev, as_nr);
->  	if (!status) {
-> -		gpu_write(ptdev->mmu->iomem, AS_COMMAND(as_nr), cmd);
-> +		gpu_write(as_iomem(ptdev->mmu, as_nr), AS_COMMAND, cmd);
->  		status = wait_ready(ptdev, as_nr);
->  	}
->  
-> @@ -609,9 +615,9 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  	panthor_irq_enable_events(&ptdev->mmu->irq,
->  				  panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
-> -	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-> -	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), transcfg);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, transtab);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, memattr);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, transcfg);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -647,9 +653,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  	if (recycle_slot)
->  		return 0;
->  
-> -	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
-> -	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
-> -	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, 0);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, 0);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -1808,7 +1814,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
->  		/* Lock the region that needs to be updated */
-> -		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
-> +		gpu_write64(as_iomem(ptdev->mmu, vm->as.id), AS_LOCKADDR,
->  			    pack_region_range(ptdev, &start, &size));
->  
->  		/* If the lock succeeded, update the locked_region info. */
-> @@ -1871,8 +1877,8 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
->  		u32 access_type;
->  		u32 source_id;
->  
-> -		fault_status = gpu_read(mmu->iomem, AS_FAULTSTATUS(as));
-> -		addr = gpu_read64(mmu->iomem, AS_FAULTADDRESS(as));
-> +		fault_status = gpu_read(as_iomem(mmu, as), AS_FAULTSTATUS);
-> +		addr = gpu_read64(as_iomem(mmu, as), AS_FAULTADDRESS);
->  
->  		/* decode the fault status */
->  		exception_type = fault_status & 0xFF;
-> @@ -3388,8 +3394,11 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
->  int panthor_mmu_init(struct panthor_device *ptdev)
->  {
->  	u32 va_bits = GPU_MMU_FEATURES_VA_BITS(ptdev->gpu_info.mmu_features);
-> +	unsigned long as_present_mask = ptdev->gpu_info.as_present;
-> +	struct panthor_hw_regbank *regbank = &ptdev->hw->regs.mmu_as_control;
->  	struct panthor_mmu *mmu;
->  	int ret, irq;
-> +	u32 as_id;
->  
->  	panthor_mmu_info_init(ptdev);
->  
-> @@ -3408,7 +3417,13 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> -	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
-> +	for_each_set_bit(as_id, &as_present_mask, MAX_AS_SLOTS) {
-> +		u64 offset = regbank->offset + (regbank->stride * as_id);
-> +
-> +		guard(mutex)(&mmu->as.slots_lock);
-> +		mmu->as.slots[as_id].iomem = ptdev->iomem + offset;
-> +	}
-> +
->  	ptdev->mmu = mmu;
->  
->  	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> index 4e32ab931949c..9d3747601e698 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> @@ -10,13 +10,8 @@
->  
->  /* AS_COMMAND register commands */
->  
-> -#define MMU_AS_BASE					0x2400
-> -
-> -#define MMU_AS_SHIFT					6
-> -#define MMU_AS(as)					((as) << MMU_AS_SHIFT)
-> -
-> -#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
-> -#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
-> +#define AS_TRANSTAB					0x0
-> +#define AS_MEMATTR					0x8
->  #define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
->  #define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
->  							 ((w) ? BIT(0) : 0) | \
-> @@ -28,8 +23,8 @@
->  #define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
->  #define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
->  #define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
-> -#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
-> -#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
-> +#define AS_LOCKADDR					0x10
-> +#define AS_COMMAND					0x18
->  #define   AS_COMMAND_NOP				0
->  #define   AS_COMMAND_UPDATE				1
->  #define   AS_COMMAND_LOCK				2
-> @@ -37,16 +32,16 @@
->  #define   AS_COMMAND_FLUSH_PT				4
->  #define   AS_COMMAND_FLUSH_MEM				5
->  #define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
-> -#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
-> +#define AS_FAULTSTATUS					0x1C
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
-> -#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
-> -#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
-> +#define AS_FAULTADDRESS					0x20
-> +#define AS_STATUS					0x28
->  #define   AS_STATUS_AS_ACTIVE				BIT(0)
-> -#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
-> +#define AS_TRANSCFG					0x30
->  #define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
->  #define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
->  #define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
-> @@ -64,6 +59,6 @@
->  #define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
->  #define   AS_TRANSCFG_WXN				BIT(35)
->  #define   AS_TRANSCFG_XREADABLE				BIT(36)
-> -#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
-> +#define AS_FAULTEXTRA					0x38
->  
->  #endif /* __PANTHOR_MMU_REGS_H__ */
-> -- 
-> 2.43.0
-> 
+Fixes: 86800ffe84055 ("ARM: dts: omap: dm816x: Correct pinctrl register")
+Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
+Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
+[ettore.chimenti@linaro.org: squashed after fixing DM816x macros ]
+Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+---
+ arch/arm/boot/dts/ti/omap/dm8168-evm.dts | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
+index 81450e15b889..a6d42766a496 100644
+--- a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
++++ b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
+@@ -45,13 +45,13 @@ DM816X_IOPAD(0x0aac, MUX_MODE0)			/* SPI_D1 */
+ 
+ 	mmc_pins: mmc-pins {
+ 		pinctrl-single,pins = <
+-			DM816X_IOPAD(0x0a70, MUX_MODE0)			/* SD_POW */
+-			DM816X_IOPAD(0x0a74, MUX_MODE0)			/* SD_CLK */
+-			DM816X_IOPAD(0x0a78, MUX_MODE0)			/* SD_CMD */
+-			DM816X_IOPAD(0x0a7C, MUX_MODE0)			/* SD_DAT0 */
+-			DM816X_IOPAD(0x0a80, MUX_MODE0)			/* SD_DAT1 */
+-			DM816X_IOPAD(0x0a84, MUX_MODE0)			/* SD_DAT2 */
+-			DM816X_IOPAD(0x0a88, MUX_MODE0)			/* SD_DAT2 */
++			DM816X_IOPAD(0x0a70, PULL_DIS | MUX_MODE0)	/* SD_POW */
++			DM816X_IOPAD(0x0a74, PULL_DIS | MUX_MODE0)	/* SD_CLK */
++			DM816X_IOPAD(0x0a78, PULL_DIS | MUX_MODE0)	/* SD_CMD */
++			DM816X_IOPAD(0x0a7C, PULL_DIS | MUX_MODE0)	/* SD_DAT0 */
++			DM816X_IOPAD(0x0a80, PULL_DIS | MUX_MODE0)	/* SD_DAT1 */
++			DM816X_IOPAD(0x0a84, PULL_DIS | MUX_MODE0)	/* SD_DAT2 */
++			DM816X_IOPAD(0x0a88, PULL_DIS | MUX_MODE0)	/* SD_DAT3 */
+ 			DM816X_IOPAD(0x0a8c, MUX_MODE2)			/* GP1[7] */
+ 			DM816X_IOPAD(0x0a90, MUX_MODE2)			/* GP1[8] */
+ 		>;
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.56.0
+
