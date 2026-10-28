@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793162929;
-	b=a3EmI6Hb+8XEe4VVTO0IA8UXezRfuCygXTn8LXo+ei+xH+XNbfv2JZ6Q6WttP3A9oKlO
-	 nymalvKRzq0jnZFA6yUGESTVrAo2zNcvKEW+qj3Qtaeh4+OrOLYzVNhfGRiKAxv5I7V8W
-	 yPvlazR+pSIfUAhVP8hsTdTtvQbF/miD7rQCaomqkKh4PyaDq4Xr/jOKGWEOAcAgZf4mc
-	 jj2h6Yp2/VFQX3V0vhH+n/ZmTlUd+5DaRIi7t+R4TLRPNt2kAQpjZQrPfY6XL1UdCxoLo
-	 WgH+rUbYTf56mEWS462McYTx/ed7aRe9yIbKVue+sctz5xZJXfnZS7dyg/BcmKoiEpg==
+	t=1793162944;
+	b=D8vpZQYwE/tn1mU2MEkz7+TF0r0vgLTDqhID+WZgNAvefHNLCRZZugkHRnupIUdufCT8
+	 MervqJWGQEYobsn5kF/1eHe+vbPi7Lmp+ExAVy3Ye7pj+doyyr8XkVRwjhoNZah5cdXHZ
+	 tb1ECE5ZtSGEy9R08nmXoRzAynLfr31kJFF04U6EE7T23c13yiF9oW47jW+8lp01SBfy6
+	 Mi7ho/l8Uu113Wy/X/inHKuHMnfi9JZIssqpjN0DYwS6OQjlNbqaqxANA5wKlssCMKEZv
+	 RIeD8+HBXdYEtDMl/MGiM1bkVsYecdYubWrm+rhoP6xoaO+f94cYgWsuEYPM03y9mXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162944;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=BIyqk4EIFBEh6YzqQd/sxPsjm17XNt9nVVGA3XBXOBo=;
-	b=3/+aTozybZ0sEIX1zCjXResIumhxKA0NXzYS5ME2AXTxXD+24lbYPxtB1bpMU+/mtNe6
-	 1IVBZidE4k8D5ngO1b9MI7y0QQ6JSgqA+nsDnw/gXTgGl55DmEYVewkNVnF40djbn4QcS
-	 SsybXXUFrPqzRXoFZNY8MyUenD4qjfds5dlelZOeNOXR0WYOKCfGdTGbUqBURpl6coyhd
-	 2HKIu+mJPFhuBEv+f6bkc2p+KpS9SSkN40Lo7vkQ3z8o12yReoRWy2d1hFPGvxYAv9bn/
-	 GxnT7jGO04MMjWd3aeRNTvhlnG+0fddRvdC5o5ro1hkLCLHcanlGezcnzxUJnXhauEA==
+	bh=lAppreIDaRBwp2bJc0C8P4KcAycTbVej2XgNIS+hMVU=;
+	b=AKiGmMEtLsbnPEVhwRv9970RXrG9+s4bQ1PDdholMLNFfTDycPs25zN79KgKUkWnvfje
+	 7YuItO1qeRiSCuZSo6q2Xjtf7mKbLP51WTAAeGB2lCmC5GRx4k0q41W3bKLytR+Mpbr1Y
+	 6RziBqHK5jUaVizQjCXq0p1yNLF5ExzbsgjJuXfXkwtsU7J3feckzorebdG+tgGnRNubc
+	 LyKP+TQLIGEa98930cux3Nhle0eEP/6BoUW9tLsBEKvfNcX/FLSB2rAnmTWeUOAOkm4o2
+	 gre/J0YltDbm8dPwAKC57B/q/n1oBcqWfjD7KAkK2ysO0EfIVn3SMjs5xSPylLyQ06g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SjI9VgGN;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WjKtksBM;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35160606A31A;
-	Wed, 28 Oct 2026 04:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35160606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005FA606A31F;
+	Wed, 28 Oct 2026 04:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 005FA606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SjI9VgGN
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WjKtksBM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=BI
-	yqk4EIFBEh6YzqQd/sxPsjm17XNt9nVVGA3XBXOBo=; b=SjI9VgGNA+EpcYadfe
-	xIg0LOp0537EKAHcaGFXKmtL3oMSUrYzgG2Rqln5aJE2ZxUIdBD99gUpp6KmYOdm
-	QA4fGffDg+56+hBnATWndm8yMVZARV6z/xHvRYpQP7SpFbLYycSpC8+ktYYJHCyo
-	J8htokG0k1o7dKYGUl6/cmX4M=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=lA
+	ppreIDaRBwp2bJc0C8P4KcAycTbVej2XgNIS+hMVU=; b=WjKtksBMImFt1+BQzo
+	4Ck2tsm/b7AYROXtZP42ZTKA3mlCVH1sE/EslO0Ge10WpHXLe6obKRkd390jiW5k
+	HwF2A7u/AoJ5x8jj2YOKlRjEsHZfAoGiz5hLwLyLA6yiq1iAjLKjTr8zVZVVM7Ef
+	Udbn4J0rfv/v2aHjanF5+Jva8=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXyGcfuFqI22BCQ--.35298S3;
-	Wed, 28 Oct 2026 12:48:32 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXyGcfuFqI22BCQ--.35298S4;
+	Wed, 28 Oct 2026 12:48:33 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Justin Sanders <justin@coraid.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org,
+To: Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 1/6] aoe: initialize error message synchronization before registration
-Date: Wed, 28 Oct 2026 12:48:21 +0800
-Message-Id: <20261028044828.96177-2-yaojiale02@163.com>
+Subject: [PATCH 2/6] bus: fsl-mc: initialize UAPI state before device registration
+Date: Wed, 28 Oct 2026 12:48:22 +0800
+Message-Id: <20261028044828.96177-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028044828.96177-1-yaojiale02@163.com>
 References: <20261028044828.96177-1-yaojiale02@163.com>
@@ -65,54 +66,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDXXyGcfuFqI22BCQ--.35298S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWxZF4UJr17JFWxXFW7XFb_yoW8JFyfpr
-	4fWa4rKr409r45Gw4qqwn2yFy8Was2k3yUua40kw1xZw1rZa4q9r4Utry7ZF4UJrsrCFW2
-	gF1UJ3yrC34jkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzrWrUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wDaFWrhfqCIewAA3G
+X-CM-TRANSID:PSgvCgDXXyGcfuFqI22BCQ--.35298S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFy3trW7GFykGF4UGr1rJFb_yoW8JFyUpF
+	srX348Cryjvw47Jr4DXF4Uua15Wa4xXayUAFyIka4rCa15CrZ0vF1UG34Y9F18JrWru3WY
+	vF4Dur15W34vyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j3UUUUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AHaFWrhfqETDgAA33
 
-register_chrdev() makes the AoE character device available before the
-error message completion and lock are initialized. A userspace access
-racing module initialization can therefore use either object before it
-is ready.
+misc_register() exposes the fsl-mc UAPI device before its mutex and
+static portal pointer are initialized. A userspace open racing device
+creation can consequently lock an uninitialized mutex or observe
+incomplete state.
 
-Initialize both synchronization objects before registering the character
-device.
+Initialize the UAPI state before registering the misc device.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 2cf1e703f066 ("bus: fsl-mc: add fsl-mc userspace support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/block/aoe/aoechr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/bus/fsl-mc/fsl-mc-uapi.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/block/aoe/aoechr.c b/drivers/block/aoe/aoechr.c
-index a42c4bcc85ba..efc09c97ff23 100644
---- a/drivers/block/aoe/aoechr.c
-+++ b/drivers/block/aoe/aoechr.c
-@@ -288,13 +288,14 @@ aoechr_init(void)
- {
- 	int n, i;
+diff --git a/drivers/bus/fsl-mc/fsl-mc-uapi.c b/drivers/bus/fsl-mc/fsl-mc-uapi.c
+index aaa14f17aef4..2c586dd787f3 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-uapi.c
++++ b/drivers/bus/fsl-mc/fsl-mc-uapi.c
+@@ -586,15 +586,13 @@ int fsl_mc_uapi_create_device_file(struct fsl_mc_bus *mc_bus)
+ 	mc_uapi->misc.minor = MISC_DYNAMIC_MINOR;
+ 	mc_uapi->misc.name = dev_name(&mc_dev->dev);
+ 	mc_uapi->misc.fops = &fsl_mc_uapi_dev_fops;
++	mc_uapi->static_mc_io = mc_bus->mc_dev.mc_io;
++	mutex_init(&mc_uapi->mutex);
  
-+	init_completion(&emsgs_comp);
-+	spin_lock_init(&emsgs_lock);
-+
- 	n = register_chrdev(AOE_MAJOR, "aoechr", &aoe_fops);
- 	if (n < 0) {
- 		printk(KERN_ERR "aoe: can't register char device\n");
- 		return n;
- 	}
--	init_completion(&emsgs_comp);
--	spin_lock_init(&emsgs_lock);
- 	n = class_register(&aoe_class);
- 	if (n) {
- 		unregister_chrdev(AOE_MAJOR, "aoechr");
-@@ -319,4 +320,3 @@ aoechr_exit(void)
- 	class_unregister(&aoe_class);
- 	unregister_chrdev(AOE_MAJOR, "aoechr");
- }
+ 	error = misc_register(&mc_uapi->misc);
+ 	if (error)
+ 		return error;
+ 
+-	mc_uapi->static_mc_io = mc_bus->mc_dev.mc_io;
 -
+-	mutex_init(&mc_uapi->mutex);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
