@@ -1,70 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793162656;
-	b=eAr+2qsEh0B45xRE5LDkWzHQVGgrKupNn9wOO3a1IrbynkGa4LJHhJ/mIOpsDWwLCNgT
-	 mkGEQYOaET8EMtWlS2sV+Ec5e8V6sf/DQF8HdMBzGAWt6qPm662Tt3XwkAYRsZtL4YK8+
-	 32MlOH3IWv4cLc5NZTBt9zDw5gj7PgQQP+NMclW8DlJXWHbBKKrWuRIWgsQLdhQfDKfc3
-	 7hT1STxeB4Kpr1S70QlDcxRvGW/GQK3b8OEshkudEcUaO61lPjAsAajhZEnlIpU8v2AAT
-	 ZcaA0OwqxSCjWzW+QYSG2swBOl0ubCfviKSGplIhZFmTCt4vNLcecz0Cu/BlybQVn1Q==
+	t=1793162826;
+	b=WYtc8pUsSmGcyt/YERA+4tZ578o9VPMR/alG5mi2aEpApSTT6Y1P6/WhNFtIY6T6pLmc
+	 ZTvM896h7flJXRKm2ahRY7VMulw1OMMeEUydIWAiS7iD5tfNlNkJt1JWqazDQG5V5lCLr
+	 spIZW9O18936pnd5hro7gqXzOeKu0eNLw9h7ONUo11XpsZQrrpppFaOp6ViG4Pk2BLCIU
+	 ipssYL3mKJp5sUGReAStmWSiSS9mg2SJwOFbuYwx1+1CCOjnLPLXNIH+eXL53WfRQGNXW
+	 F0s2uIQ9pJA8tr490m5WWbb4C1+JVX5gE70K+h719pLAi9euizKNJPBTlwteLyCOnDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162656;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
-	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
-	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
-	b=mvhoHqeQyYxxAWVyRPD8PmAoZOCe67AQOm9oLxW3+Sc8SoyE1Etm0msuvVSmpzItmScH
-	 OhiJfocOGDy6E/JQu+vW/XVs16ObX3E/XTmSbPVlu/J8JhXTSpiXUg0F69nJqR0nO3Zpu
-	 sNptAT+o9MiwtuWDdc6qzyqKPJJAEx4VUR911bRnRrEDWz9RtL4FDU4HI/1nZAstBnDsM
-	 qTnRWLOApoS4Nw29KYk83x/0UkftUeCweT7njVFQG7pFp+l2Laa58aUS1v+E7oww4vLuh
-	 z8z+eI3ZombC3lqnKXi1Kw+4w0poxCx4I6EJy3gAk9Wb8BQtVd+2Oooc79O6q7kQX6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162826;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8hS5aSDmglPlOzdV8fa+sBCGIad1pvPJBWV+r0mWLyk=;
+	b=sbLlnK0J1L+bCyqBjNAbyJYUlWrBOpgUWCtia4YPBgDz5hqXDoyhX3yBvK8F7segjC9G
+	 YY1zFPidP3fkCM3WPxKuATQZyBBM5vMLCE8s0/KB5euHqIPuhej7OwFyuC9yumlDAGzhk
+	 IlzaEQDGoX7zRswpxbTQe78sw6rUwVOwxFBmpFN62glMH+qWmwtcortbwvmbGRjCSHDZn
+	 YU1R579fDs5ogO0U/7rDengN1cYf93q3kQX4rGB8d8hIvRSOaHt6O5EbDv7beP2tGkWRO
+	 2Yy+O4d+eFY44i/b3tPc1pz/5sSAuuW5QOCCcIN3PTI0s+TlyhcR7yP6KAL5EmoRWnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=brar.si;
-	spf=pass smtp.mailfrom=rsend.brar.si;
-	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=kdC6GVlt;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Y5Zbddrt;
-	arc=none smtp.remote-ip=23.251.234.61
-Received: from e234-61.smtp-out.ap-northeast-1.amazonses.com (e234-61.smtp-out.ap-northeast-1.amazonses.com [23.251.234.61])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=fneUV2Df;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB2D606A31A;
-	Wed, 28 Oct 2026 04:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB2D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B401E606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B401E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=kdC6GVlt;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Y5Zbddrt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=brar.si; t=1793162654;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
-	b=kdC6GVltO0nKqK9WNToOI59+phheT2qf31oTxyPe9/yShX0T3czUTGutpRmTRyj3
-	2qtnhxptuoSE0U7otke1HU/8h5jmpDLjIOwUvo8OmWwIEZsVCQboqsLVxC1f3QJOheq
-	hMynls/hwirpmfqEtatDmfGflhmZBHJ0GT/QmC7s=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793162654;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
-	b=Y5Zbddrts3lZilrY6mM/RRQjDXJSu8Y9pEvK1NUrKbOteS/ZahGFoWmNDKrO6bXR
-	GICpEbXEpYfqmEkL1TS+3GDVM3UXptas2aBumK0hCfKUP5yETddW3pJ1Rk4+Jt+t4tN
-	ip07nTauKwTYHHf4ljtSeDtp8wZFLJe0T1xFCdxU=
-In-Reply-To: <20261027-married-jasmine-hummingbird-dadc1d@quoll>
-Message-ID: <010601a180d2b177-f7b0d42f-908c-4d36-8aab-bdabb6a2a1b9-000000@ap-northeast-1.amazonses.com>
-References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
- <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
- <20261027-married-jasmine-hummingbird-dadc1d@quoll>
-X-Pmail-ID: <1793162653048.f55bc3470704@brar.si>
-From: Ishu Brar <patches@brar.si>
-To: krzk@kernel.org
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, konradybcio@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250
- RPMh NoC
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 04:44:14 +0000
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=fneUV2Df
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2ACB640E040C;
+	Wed, 28 Oct 2026 04:47:03 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 3n4QpbmJ79ud; Wed, 28 Oct 2026 04:47:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793162820; bh=8hS5aSDmglPlOzdV8fa+sBCGIad1pvPJBWV+r0mWLyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fneUV2Df7BeitxzrYDavLS+RCS7vel2rSVg/JOw7J/ED+4Kq0eMBB9xVcP7dbmXGM
+	 ZgYSKfTFhu9985ItEx9UPeoLMuxR2lB3Mi3/8koLUQVrQUSPCx352kUYyUXBzil8+B
+	 oRogjonqMzV2HmczE8gjUXCR81bevn/0xakOokR8GrggRpkFyYw3DdlITnMMM/Yzwg
+	 h3xrPtR8A8doSUxgzzbNzTrENYuXmryYhh2qsPQh1tBHefBShkfi/IKJO5gwXvpC45
+	 Gh0IfDQFRY0PUz/HiAKqEXCeuEqqyuMoyhdHA/uNOUlsjbcuCvboTis/YVLMg/sDhc
+	 4Vs90hL2xX8+xjGRGtJ+i5y2wUL6qY7CaHrwAK2bn0aQsjxK3JDQj0/PCAxBQuCm1W
+	 tEdqn8f8c6fzOPBMOPkKIOVfK1puSmJag76rguy/X8JQlLJ1g/EEGPOQSlqeURf2ux
+	 lu6oiuroZ93Shuup9G2NtddQ8aJeZjd53NEE0cYhmrxkVnewoERfPN0sv7NPN/mdq8
+	 mMmUr38+8s7T+59AQqA88d/41wKZ49g2Y5KEBY+FSELz6xaXsRknAiYPYIZcGEvemc
+	 vgoKJ4I/MrKxGSnuRyzhAy8FvY1pai+hj0NkQ2R39GHy4AF/hvfAjUvzKckQgvAbPb
+	 viXg68PE9Dl/dSguz7Mr3uR0=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 76E6F40E016C;
+	Wed, 28 Oct 2026 04:46:56 +0000 (UTC)
+Date: Tue, 27 Oct 2026 21:46:53 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Sean Christopherson <seanjc@google.com>
+Cc: x86-ML <x86@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH] x86/cpu: Change AMD uarch detection
+Message-ID: <20261028044653.GBauF-PdTS6gsOOozC@fat_crate.local>
+References: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
+ <auDBUQQ9Ympsobkh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,36 +80,36 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
-X-SES-Outgoing: 2026.10.28-23.251.234.61
+Content-Disposition: inline
+In-Reply-To: <auDBUQQ9Ympsobkh@google.com>
 
-On Tue, 27 Oct 2026 19:38:34 +0100, Krzysztof Kozlowski wrote:
-To: krzk@kernel.org
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.=
-org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.=
-kernel.org, konradybcio@kernel.org, devicetree@vger.kernel.org, =
-linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: =
-interconnect: qcom: Add SM7250 RPMh NoC
+On Tue, Oct 27, 2026 at 08:20:49AM -0700, Sean Christopherson wrote:
+> This is better than X86_FEATURE_ZENx, as I always found the lack of inclusivity,
+> e.g. ZEN4 not lighting up ZEN3, to be confusing/surprising.
 
-On Tue, 27 Oct 2026 19:38:34 +0100=
-, Krzysztof Kozlowski wrote:
-> Cover letter is missing,
+Yeah, I didn't think of this simple scheme back then.
 
-Sorry, my mail setup rewrote the Message-IDs, so the patches lost the
-link to the cover. I will fix that and resend.
+> But why invent another scheme?  What stops AMD from implementing precise macros
+> as arch/x86/include/asm/intel-family.h does?  Providing range-based checks would
+> "just" require more macros, no?
 
-> but you also never =
-responded what is the actual hardware here - why
-> sometimes you have =
-children, sometimes not. How is it supposed to work?
+That's exactly the reason - moar macros. I wanna keep it simple and instead of
+having at least 5 OR_LATER macros, I wanna simply do:
 
-compute-noc has no register block of its own: its QoS registers sit
-inside the aggre2 NoC region (0x1700000, at offset 0x9000). mc-virt
-and qup-virt are virtual providers with no registers at all, only BCM
-votes; they belong to gem-noc and system-noc. So all three depend on
-the parent's register space, which is why they are child nodes.
-v1 and v2 had them as children; v3 flattened them because I misread
-your comment, and v4 restores that.
+	if x86_uarch >= AMD_UARCH...
 
-Ishu Brar
+And who knows, if in the future the scheme becomes even simpler, like it was
+before, we won't need those either.
+
+But I might keep the uarch checks even then because this is a lot more telling
+- we want the microarchitecture version, not some family, model or stepping.
+
+And mapping f/m/s to uarch we already do.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
