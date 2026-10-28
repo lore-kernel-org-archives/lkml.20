@@ -1,132 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194093;
-	b=PO2TcocGQ4UBZGwl3kiFRwfqz3/65ps0rlMHcxXRTi3plwDB905TEMRuYt9FUhqL2Pnp
-	 zT5CaF/Xt2xRz/RG8EZYsj/qYZXzN4rvDEvGmlnULAhjZ23fuPTuJRC3tEpbU6SOL/RP2
-	 pCwb3PvI9EGhv+NR7k1YPo2HrjDADir76Ota32d7rrxzEBpVbvkI5W2bKqxgJZMnsi0Yk
-	 F5R3qOduK0SWIMHyNXIAO7UUo1pz+Hr1AIZ5kJ0XEs0r2i0UlRMiX+0YcpmRhPirQcGU8
-	 c9tNp3hK54qxePexICzvgSf8ZlNTUzuPLpTKsNwocD3OY46ApwWkvqcy/qRDc6kFSIQ==
+	t=1793194114;
+	b=gkN72gmpGYoL+1UmGfNgoPA8Mi81cNc7SWDhood4usI2A1bA1fz5MeAxWxYV5/V/+8OS
+	 O4pg6Z9GhvyocVmO05j16F1ydPMQbCcw1Dz5/7md55AJ9Um3vtuOLIzAWx0W7PvzmrtHG
+	 hUUag4sY1+NXTQqtmH5F6Lu4cB6C/cDFqG1s+0qNlaSp/2uqeTXE4h9n1fau4LxNEhJWC
+	 nm9sU5e13PYKAUDpiaKN4xCjzZcmHbA9kjdeAq15d+CEXIRe0updhIZ76sXJhi/fawBy4
+	 kfkpxqkU20oxynOMXE0cLRMOzYqf7Opz4rgMS/iRfwL9OdqDcy5TbtLLfu4rn9lGd9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194093;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=I1RNhY463TlUij+3G3iMbvuChAlQ+OLmz5YWd+MK6CA=;
-	b=sTWss7lSIdVQT5IF6ebkiKsWX8HjUo06Jj59hhHN2nSnI/O3+W7ExDcyApveiuELqeZ4
-	 ZyNN4lOStcqlLtnnfVXh1pcryH/rHy5d/uJ0tSDRCIc3VRvpzyeCLnocPmh/twRhuJNbG
-	 t85B1jpyVrxiR0cNIL+8dZrrVSX/Avua4vFOj/6VrD/fLEAWIDJ3wMpMUfNgIpn1hxcDZ
-	 RVRfTpOEBrNNoBnLPl3v11FMQGxK2gcCXri/gcYs7AMd93m053B1/bbvuWiStb6cVZQdk
-	 gs30SbDVhOl7YQNWF67ELXYRXgp17yvAS+Xw17z+AP2QHOOvZx/NRnkoOVU/SGqvU3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
+	b=C2+AJjL3JwHzRkJwd5pzYT7xTiOudBBdGz0xGMmdEIqCJ44NonrCtbTOj3twA33nOW0E
+	 2yy6lIUsV1HekhO6nDkae4IxnRfu9fK0thTJWooHEIdJeDt4CBbaaJKUExWi3No1Gj74I
+	 2KkVtuR+0H+V2uwOaYEfypcnc5bVkEDnaP0hNNLRQKMJ9dekCha/j9zgY4CI3v5xMH6nu
+	 6/Pf9x2dbc6/o1IHiwJf0STBKFtK4/j+ENzXnjYueVID1ZoC4uDaCRBnEST3G33tE8+OL
+	 Hd4yO5E2YYWfsdo8GS4f8Nxn5iid9GNXB5uhl8o1YtuCkwF0X176pRvFkTwLAgx5OnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ALg7S6VN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZnY+bcNZ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ALg7S6VN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZnY+bcNZ;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jr1r+QIH;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B77606A323;
-	Wed, 28 Oct 2026 13:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50B77606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD20D606A32F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD20D606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ALg7S6VN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZnY+bcNZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ALg7S6VN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZnY+bcNZ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9819A1F7AF;
-	Wed, 28 Oct 2026 13:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793194090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I1RNhY463TlUij+3G3iMbvuChAlQ+OLmz5YWd+MK6CA=;
-	b=ALg7S6VNVeN7jO6Z7rlet/HLuKH1zkhEgjQR2Xvm4DkhHKhTBLq53hW/xC+fT4PpUaiCNz
-	B9QXxj/DluV0nfi3hKw4vzd/L6Iy1o9tCnhLX2zduQQH0uhF/uKi8emqpuWoDssyk2EeP7
-	FPOU2p73i8PKM79PYL3ibH89LPsH9Rg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793194090;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I1RNhY463TlUij+3G3iMbvuChAlQ+OLmz5YWd+MK6CA=;
-	b=ZnY+bcNZGtDLLTNjb64cdXLVrUWCI/Uuh2kNnd+cr7Tj56tawriBozgiH7MF4GNYbyz8E9
-	1a1ICcFS7uYeiiCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ALg7S6VN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZnY+bcNZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793194090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I1RNhY463TlUij+3G3iMbvuChAlQ+OLmz5YWd+MK6CA=;
-	b=ALg7S6VNVeN7jO6Z7rlet/HLuKH1zkhEgjQR2Xvm4DkhHKhTBLq53hW/xC+fT4PpUaiCNz
-	B9QXxj/DluV0nfi3hKw4vzd/L6Iy1o9tCnhLX2zduQQH0uhF/uKi8emqpuWoDssyk2EeP7
-	FPOU2p73i8PKM79PYL3ibH89LPsH9Rg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793194090;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I1RNhY463TlUij+3G3iMbvuChAlQ+OLmz5YWd+MK6CA=;
-	b=ZnY+bcNZGtDLLTNjb64cdXLVrUWCI/Uuh2kNnd+cr7Tj56tawriBozgiH7MF4GNYbyz8E9
-	1a1ICcFS7uYeiiCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9661213419;
-	Wed, 28 Oct 2026 13:28:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4DfdGGb44WoUOQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:28:06 +0000
-Date: Wed, 28 Oct 2026 13:28:04 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 29/46] mm/mremap: use pudp_huge_get_and_clear() when
- moving huge PUDs
-Message-ID: <auH4NKaWuE0-8XBk@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-29-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jr1r+QIH
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5ec20398b05so654749e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793194113; x=1793798913; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
+        b=jr1r+QIH9SF8KtcfX9BXZIHaTISyWChxSbxtk2nQq/HpZxq55eiafMQmivcjOYIsn7
+         h2qTJ6u26kwNCEpWvOqoCy6eXKsRJUtjuvajaCzMcFb9JBIp1tzPDOU62NwP1fpm/Ct5
+         M+zBG07CeU+BBuL/0F8Y08csE5QigbGYSElY4VEUohVPJz/qtmyNASR9EC12577NET5s
+         eMEzhI+f9wQLdSDxiqHdX6Qw7dpIHdd+Q14xV77sYfPNv2zJgRY12MtqLg0zOzu4hZsT
+         CXMAKNko1WX759zarCC5VWO5mf1uOdDt+/b0lA3rulT4dM0LcCWJQ2tYIb0sMtlmFcYu
+         iM6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194113; x=1793798913;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
+        b=EQ43hJ4yersGZ/UGYpMS++j4f7s3YfwvIcm9MqlYBJ6+dXeaXpdxYqz3Ir5HrVrjQo
+         BcQVDvzf8Gzcm2CuC7KPJHSMVVnGsg2TOzwSmAo/qPhuuPaNGcFdS2YvdkUPbynyPC6e
+         kMgZ9jS2gYkBpiBYDkjwKld9dYcAg36ZReZxicxSTy1GElpfjqjFZUV1BNTziYrpGxd7
+         2BDBcf02C5X9cwLNzD8hnb9qy5mEaFxs2nnnIU3NamwQENupNzDy9DyHymFZzRAQfijJ
+         kuisZnHb8/Ujj/UE73wrWKFqCEj8nEKLhOeUf6pBdtMVK0Bb9vlikiFvnK4eHI0K9k4P
+         zhOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwY9A+GEEVS+kChkoJK46ORL+la4NmNsEfq2d4OzvRK09U5P8lPc9IqxWkagUUybG3HAUeTH3dYvWoVrjg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEewdjQ9rhnN6PK3Nn7s8oxqa3ki5AQOFlDZ8cEBrAw85y3/99
+	Q89vC+GIWEO+Lxl5voyqrpmeOp3nPaS/+7nuPZLHySInWjjekVzA4dbW
+X-Gm-Gg: AYBFou3GOeP+pM24ATXb3QLNIrzJ0Jl0Rfa/ThKR8kXazMTX6U3sCThPdPhVDN4+TUT
+	narsH4utbKVMaIhvQf/56k45YnzvdeL3xKu/7nNBLifzJLZfLjB2k16j2necy7Sl/vvpB18I4rZ
+	4Z88pcc/hOIR6xmLd7w8CPTNoJlpQIN8JEfm58ixNAxrSJai+KdpvPdxBWtmjvNckhEeq++0Nt3
+	jeHV7yuV6cVDQgJY8OauxHw/rVgiE7RaWLbHgs8Jg2tjeKEXiMvR5Nsp7buZ3MnjgDR3T5o+c0p
+	PKMyRZiqAKv79tv2pEGwbvI2w2qxgVOC1sw9+8n8iFBCMZP3H75RaKG4yZD2nkBouwlrd1+fC63
+	9R4gXFl4P06pWUfjFCEDxkPr7KzGcNuxcQDlblWeoQIormA8s0gRST48H7QXo6P/E4hDs0XCTn3
+	exXwAgUvsRNPS83EwzmDbrVvUW1vXAOgxb6nSsT+jFHwSFLKDmzSz3r5wwXW7/SQAS8z36gJvSx
+	83lRIt5TKFTFQMI4jSop0ssHOeI1NuUSIJr5+27MfphLh7h1A0SXUrOb3mjPNzawjMJ/E5zL0tM
+	TmWGSN+/Fod5hrNwMgDdB2c1A53fDdbHTRqNuDWSj+fv0t3yh9izB1dwHhYWZ1hLwM04z7p5I2M
+	p74t0ldXG2sPQ4ot/hmQkD1w=
+X-Received: by 2002:a05:6122:c93:b0:5ea:c37b:450 with SMTP id 71dfb90a1353d-5ec4cc5343cmr1027395e0c.20.1793194112610;
+        Wed, 28 Oct 2026 06:28:32 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a801:e068:c468:5e04:829b:4378])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f99442fsm1720000e0c.15.2026.10.28.06.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:28:31 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: herbert@gondor.apana.org.au
+Cc: horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	sahil.malhotra@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fabio Estevam <festevam@nabladev.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: caam: jr: Use dedicated shutdown callback
+Date: Wed, 28 Oct 2026 10:28:25 -0300
+Message-ID: <20261028132825.657546-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,64 +101,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-29-6f74bec9a5bb@kernel.org>
-X-Rspamd-Queue-Id: 9819A1F7AF
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[64];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
-X-Spam-Score: -12.01
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:17:49AM +0100, David Hildenbrand (Arm) wrote:
-> move_huge_pud() reads the old PUD and clears it in separate operations.
-> Hardware accessed or dirty updates between those operations can be lost
-> when the saved entry is installed at the new address.
-> 
-> The raw pud_clear() also bypasses page_table_check_pud_clear(), while
-> set_pud_at() accounts for the destination mapping. This leaves the
-> checker counts unbalanced for mappings tracked by page table checking.
-> 
-> To fix it, simply use pudp_huge_get_and_clear().
-> 
-> Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+From: Fabio Estevam <festevam@nabladev.com>
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+The CAAM job ring platform driver uses caam_jr_remove() as its
+shutdown callback.
 
-At what point do we ban straight up clearing a PTE/PMD/PUD/etc? :)
+The remove path refuses to shut down a job ring while crypto
+consumers still hold references to it. This is necessary during
+driver unbinding, but causes the following warning on reboot:
 
+caam_jr 30903000.jr: Device is busy; consumers might start to crash
+
+Unlike driver removal, system shutdown does not require
+unregistering crypto algorithms or releasing driver resources.
+
+Introduce a dedicated platform shutdown callback that shuts down
+the hardware job ring without checking consumer references.
+
+Keep the reference checks and algorithm unregistration in the
+remove path.
+
+Tested on a i.MX8MP custom-board.
+
+Cc: stable@vger.kernel.org 
+Fixes: c007e720989e ("crypto: caam/jr - add .shutdown hook")
+Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+---
+ drivers/crypto/caam/jr.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/crypto/caam/jr.c b/drivers/crypto/caam/jr.c
+index cf725a6ac0fb..75be668b74b8 100644
+--- a/drivers/crypto/caam/jr.c
++++ b/drivers/crypto/caam/jr.c
+@@ -178,6 +178,15 @@ static int caam_jr_shutdown(struct device *dev)
+ 	return ret;
+ }
+ 
++static void caam_jr_platform_shutdown(struct platform_device *pdev)
++{
++	int ret;
++
++	ret = caam_jr_shutdown(&pdev->dev);
++	if (ret)
++		dev_err(&pdev->dev, "Failed to shut down job ring: %d\n", ret);
++}
++
+ static void caam_jr_remove(struct platform_device *pdev)
+ {
+ 	int ret;
+@@ -812,7 +821,7 @@ static struct platform_driver caam_jr_driver = {
+ 	},
+ 	.probe       = caam_jr_probe,
+ 	.remove      = caam_jr_remove,
+-	.shutdown    = caam_jr_remove,
++	.shutdown    = caam_jr_platform_shutdown,
+ };
+ 
+ static int __init jr_driver_init(void)
 -- 
-Pedro
+2.43.0
+
