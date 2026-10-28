@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190833;
-	b=etH0gc8OZM9e0RYGmEOp3V6hrjNZk4BtJxua7fexReKnAhktaSA/GRueHdkdQWmyDaGJ
-	 7TzJ2AVXKY+OpLgT2e5+telIi3qyi4mgzIqh5rtDo2vhH+nXnFtL/ZFdgGxHPoABvfhUT
-	 9LMn0JfjjwiEoOF2IkvHqiYVEqIvaX3DOeziJNrf87IbeL0uWy7zA5W0z/3EMdLFeAahO
-	 kZnaEqmNlbinQXFT0/eo/ajh8arAn6PhK1ifgjabSfk1Lat7PminrJsZrT0s94bpAnOiO
-	 yfMEF7SsYLLR+hmlmJHgcleTEbobmPsR7Z7SbyIHdOvhlncqwC8NgU3C3Njmb80UM+g==
+	t=1793190856;
+	b=Lf43hfICvuFbNNN+CjzWpBVdoLGExtdWL23UlaDQil2STlNWtSCKRaAB7KsftwRAh0rE
+	 J0ezpjVm6hz5r7S5SEPlGzIatHPjO1mdsThbeAEkwhOqIgCDIytpk3PKW0ceo1pb7eF26
+	 k/O5tl2Tbgz9bREUK2CKpAQUtueoO2zV+qxJmR4sNgqCJ0BbpM5LiaKmikDw8x1rA4D2c
+	 SuHnTJ93JBCenyGuYK9ifNssblePfnFyDXIBqwa2e4QIVK61ykBCd34s7OHn4UXQ/yVsd
+	 c5pykdMHMzHjANjZJK8FGeQXZx7hea+nsIXHQ3PoZ82lop+A1A7/hI1beqsOPDWf3cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190833;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=WMoRfpkzjo+kxzqaZnu+n0oPg+0cBm0W+fYTzt9xvJM=;
-	b=K4SU+Tg4bN2R9CcKgqKzVVrkSmXp4Tp+hAcPiYweFDdFSTA+2zzq3FjQOA0vW5OLQE8c
-	 stC4tVy9+J22ADgwJJh1Gwhl0aDyURVppYO9vufn3gHtoBixsmaoBL55lKXUGWKlKHKK2
-	 m1BhCt7uDfIIbaollvcwMJKkIgkAS6XX6UzAA+fvJUQV2RlZ+aLqWlUPcMioVCMYgmZTL
-	 bZaJ9yIPLgJ3ah4XnOQGs76MPU+KBB1ziQptcHKR4BQ3n1nMzTd0jBG9S/GNLSXIGstCo
-	 RfUpPCvSGpvec/DrP9osxHJWkoIDozo2mu7CW1Jyq44ZHHrnOBFvxgMGOl7kuIDauEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190856;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=betQ2CoEQ/mBmZNfTxapq11hedAnmhh1frpMEbB1xZY=;
+	b=OCyT2We/Ew96nFcwvRwPQOztRRwbC7OHsweu/EThLmSwyMqBiqWYres+Eu01xzeX9VGd
+	 buAz42QCPzHXV1BPSt40Ep2rP/39anyFEZYp9j3yoYVhhO6/BMZjvVQzW5BBiVzKQ1Q9Y
+	 fVzpNyomMSOwyko4z9giYb4wDTBQFOg+FF5j+vCKDZXbDqQtNNN32FXr4DWAtsRa49BU1
+	 seAz8uZ+ZGIgJjVaBQbkl3u8Lrd7O9c/6NdS9UmtK02JFhjakyBwSMsf1HKDdEIKgkP/y
+	 9WmRUWwOVIb1nS+emWt+wtgI56EPs079urbx+Jfb6+aWJBkkaO6g2t7wKh3fXCdmkiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=jq0iAutx;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=af8gBn6d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CC2606A31A;
-	Wed, 28 Oct 2026 12:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56CC2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65CF606A31A;
+	Wed, 28 Oct 2026 12:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=jq0iAutx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WMoRfpkzjo+kxzqaZnu+n0oPg+0cBm0W+fYTzt9xvJM=; b=jq0iAutxytuvAawK7WINQARGoT
-	X2MepMdn+xPfgVJs/KFJbzRJWgZm1zasPGW5gu2Pcce0E0H24Q2vcJOMCWulX9GkERDvvStwroz7X
-	Jh3Q8KCz5l5nyskkh2Y9FDhP9JlfQK/44TL5EUZ7YrJK1w4hjYy8gw+gAJbVFkvqK4+OOdnEfKtFy
-	l11xc+AyKyFA/rF3oRy7Jj8E6KpBpq804dtDkLj9CaVaNx7HrQJzPdVj55bG8K08LoyMd0daHqNy8
-	3o5ure+t/IIQz3iXuDvFC0hjqoS63wj2jrLgUEtjMxEoBik224g5ERoh/hDrQr1fo7nYMDsjjJ4zq
-	9qGAKtKA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xM2qj-00000003RA4-186T;
-	Wed, 28 Oct 2026 12:33:49 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D115930120E; Wed, 28 Oct 2026 13:33:48 +0100 (CET)
-Date: Wed, 28 Oct 2026 13:33:48 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: cyridge@proton.me
-Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Chris Li <sparse@chrisli.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Kees Cook <kees@kernel.org>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-sparse@vger.kernel.org
-Subject: Re: [PATCH v2] x86/kcfi: Don't emit KCFI_REFERENCE() in modules
-Message-ID: <20261028123348.GQ2668564@noisy.programming.kicks-ass.net>
-References: <20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=af8gBn6d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 004FD1F01825;
+	Wed, 28 Oct 2026 12:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793190855;
+	bh=betQ2CoEQ/mBmZNfTxapq11hedAnmhh1frpMEbB1xZY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=af8gBn6dFchbs70jdQYN3ScFsFE48pvmYh5ExZgr8NPOeyulWvOSXftgiVPUtyf5j
+	 u18AIzOJVSvz2vMQQSeVPfy6todqN74e95mTlh2Fgb5UOMIXj0bBnwfyV7sPtNdYU2
+	 gib49mc+ZNMMMTJ0H6atxziu+IO/Vk/2ImYDaJ3asExVtzrSvjSQlzpNHl6ByPaC8a
+	 oYsF8fyRKGbw+plaoy9kD46pu0gyTj4kjzmHIAiwk4CndH+1xxErBlcp+RHbK9Wbtm
+	 MkLeDnPBGMqnUGSdK4d3rRsGKRXQXlCWlyqG2H/s2NwHDdF/irIrlMXbiP7ND32K72
+	 FyDRURlGqH6NA==
+From: Lee Jones <lee@kernel.org>
+To: linux-leds@vger.kernel.org, Liang Haowen <nbg2974@gmail.com>
+Cc: lee@kernel.org, pavel@kernel.org, mkp@kernel.org, 
+ linux-scsi@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, denis.benato@linux.dev, W_Armin@gmx.de, 
+ hansg@kernel.org, ilpo.jarvinen@linux.intel.com, scardracs@disroot.org
+In-Reply-To: <20261015140051.1159817-2-nbg2974@gmail.com>
+References: <20261015140051.1159817-2-nbg2974@gmail.com>
+Subject: Re: (subset) [RFC v10 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB
+ LED driver for ROG NVMe enclosures
+Message-Id: <179319085271.3664457.8130606663267466619.b4-ty@b4>
+Date: Wed, 28 Oct 2026 12:34:12 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,54 +61,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Tue, Oct 27, 2026 at 03:29:21PM -0700, Ridge Lomont via B4 Relay wrote:
-> From: Ridge Lomont <cyridge@proton.me>
+On Thu, 15 Oct 2026 22:00:51 +0800, Liang Haowen wrote:
+> ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
+> plain USB mass-storage devices with no HID interface: the Aura LEDs
+> hang off an ENE controller driven by vendor SCSI commands on the same
+> LUN as the disk. The enclosure has 4 independently addressable LEDs,
+> verified on hardware.
 > 
-> KCFI_REFERENCE() takes the address of a symbol so that the compiler
-> emits its __kcfi_typeid_ symbol, which the SYM_TYPED_FUNC_START()
-> assembly implementing it needs. It is used from arch/x86 headers for
-> __clear_pages_unrolled(), copy_page(), __memset() and __memmove(), and
-> all of that assembly is built into vmlinux.
+> Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
+> model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
+> disk) and exposes each LED as a multicolor LED class device,
+> /sys/class/leds/asus-arion-0-0-0-0::led-0 through led-3. The
+> H:C:T:L part of the sdev name keeps the names unique when more than
+> one enclosure is connected, with its colons flattened to dashes. The
+> color section stays empty, since multicolor LEDs enumerate their
+> palette via multi_intensity, and the four identical zones use the
+> function name with a "-N" ordinal, as the naming section in
+> Documentation/leds/leds-class.rst asks for.
 > 
-> Modules include the same headers, so with CONFIG_CFI=y every module
-> also gets an __ADDRESSABLE() reference to each of these symbols in
-> .discard.addressable. This serves no purpose there, and since
-> __clear_pages_unrolled() is EXPORT_SYMBOL_GPL, modpost now rejects any
-> GPL-incompatible module that includes <linux/mm.h>:
-> 
->   ERROR: modpost: GPL-incompatible module repro.ko uses GPL-only
->   symbol '__clear_pages_unrolled'
-> 
-> even though the module never uses the symbol. This makes OpenZFS
-> impossible to build against CFI kernels; its configure checks fail
-> in the same way and are misreported as CONFIG_DEBUG_LOCK_ALLOC.
-> 
-> scripts/module.lds.S does not help here: modpost checks <module>.o
-> before the final link, and even after it the discarded section only
-> loses its relocations, the undefined symbols stay in .symtab, where
-> the module loader resolves them with the same license check.
-> 
-> Only emit the reference when building vmlinux.
-> 
-> Tested on x86_64 with clang 23.1.3 and CONFIG_CFI=y, with both
-> CONFIG_LTO_CLANG_FULL=y (the configuration from the Fixes: commit) and
-> CONFIG_LTO_CLANG_THIN=y: vmlinux links without warnings and still contains
-> __kcfi_typeid___clear_pages_unrolled, __kcfi_typeid_copy_page,
-> __kcfi_typeid___memset and __kcfi_typeid___memmove. It boots in QEMU
-> with no CFI failures. A minimal module with MODULE_LICENSE("Proprietary")
-> including <linux/mm.h> fails modpost before this change and builds and
-> loads after it. OpenZFS builds against a CFI kernel with this change,
-> and its pool, encryption, checksum and send/recv operations run
-> without CFI failures, in QEMU and on a desktop with CFI enforcing.
-> 
-> Fixes: 9b041a4b66b3 ("x86/mm: Ensure clear_page() variants always have __kcfi_typeid_ symbols")
-> Link: https://github.com/openzfs/zfs/issues/18092
-> Assisted-by: LLM
-> Signed-off-by: Ridge Lomont <cyridge@proton.me>
-> Acked-by: Nathan Chancellor <nathan@kernel.org>
+> [...]
 
-Thanks!
+Applied, thanks!
+
+[1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures
+      commit: e3ea86f2c378b5ba6355712f09566eec44eb16bf
+
+--
+Lee Jones [李琼斯]
+
