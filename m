@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195849;
-	b=BB1VRKe068RbbQESTLcxbEOIaulrEQ4MlJSg4bshUb1sNpD+juSa5OPPfQF7wK2UE95O
-	 lAB217BpqzYHHMWsOq+6jPkPDnW0VBYV8NqJpWlXEzpX4q8kfrRm8icDuWyBIDNKhxflC
-	 lkc78I6luc2SmG6QibJgb231IL6XIMB6F06OkN3aQNFEXQ2FYwI0/l8Ivb/000n7bHKSe
-	 iiQJTjB6jO2IBKgdn43+OVx+kIpRC1fjAJnIP16mkEKUxUbxclFX4ngbiO0CigYKzzQPZ
-	 atb1ulNhsAhEz+tM+ammbOISplH+d8impfOxRo9EDv879WYptFQ5njyL0foYo4SfaGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195849;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=kjoWncs6Ir+gA9d8rwO7aJw5Gvr2T1m9bpDOqJloaOw=;
-	b=tbhSXN1Ttrro+cQj2SFQBvrKMfEPjPiDJ5jF6NNvwsjDzEJdJDPj9eWdpy4nbIyH0xmn
-	 aQTQLwtuTzexn/654gW/QBc+YwqRfy7qoKng9WcHYyjIktApIWjpxxPvmkvCX/GTYUs/6
-	 4XJW/FcvXVu0+PeM7gC/XSBXo4uBidwHR6woRkjz0QG2mi7NXuhnzNUt7BTumXfAkxsGq
-	 OkLIL9X8FqdNKcgTVX0CG9SXKxKjwe/xIfJz3T1uQ56U0ljgMAOMN8o7mD0VPBsJpGDVU
-	 t0dKHYG6TcmxY//FyQYYokzw0Yg8osQ6kqGyFUfHvx4HPR5IJnoH/WxVnQLSwiFL4Jw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZwIzZq+o;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793195848;
+	b=KicgNeqYqCo1vbzoUtfMySSA3uYsCLK1vUdCfUlF7KvmfyRZE/MrV5ilDboyu6+Vy9bm
+	 3rt8A8A58ppekDYMMdDuzou+ESvg9MGxvCfF1p+hPc7Aqueo74lr+MPYx1aSeljZ5T5bC
+	 XVIbM7dHEspznLpP8yKRalGAEQysaHMGbWwZITSgbpLMI5aOzOl0zwR66eVbuoMjqKqVZ
+	 BdgKydeX263a1w65m7FcA0YrIC3DJ927zQM36IFt4BjP/cLmHIN2DoCCk7/Yt8QtPzumi
+	 b/6u4l9BOdChVyFNrgjUBbrkVHDe/JXX+PHlzGSuUPb+xpKxwmpPXeRu9nBsl83RKtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195848;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=N6jb7B/1j7cEHHeX+fTV0XB71j0TCm943LKPkVSn0vE=;
+	b=SEZKsAW5+B0VNZC40yoDdW0QmRJJkFX0bPnk/SxfCi1K+DMMYGhWqz2GhChM7is+ifqb
+	 PJW7731Hc0WV7LjMXsbphclNEIu+PxNHW+uDIVsq202UgYdwJ4NlA2VrJ9CyIj2y99uFq
+	 KAebBmPpZVg9CJJs5uNP7dMjPVU1eaefFs4ETDNEJMysjHzW+fZaQO1dmcusIbZyI5LuU
+	 SNcyguMYx0xAeCpzbZwacdE9nQ0jx5f4X/au8w/BW095TC3fMoTX5QHJk1H9hdgvEV9xL
+	 Lcn18LMoax6LiJTsTh/oM3YXfZBJ5bs1hKsYXWBPMFawHIbyPk7db1BYjdjLKn8cKWg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPl8YJty;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17155606A31E;
-	Wed, 28 Oct 2026 13:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17155606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E4D606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05E4D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZwIzZq+o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793195849; x=1824731849;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=kjoWncs6Ir+gA9d8rwO7aJw5Gvr2T1m9bpDOqJloaOw=;
-  b=ZwIzZq+ozL1CIxqmw2WKf+NvZDuyx0YsJkKbifCOXplLjHYlj78YhoqF
-   GZ4T178s+rBLI0Wf6czymlgpO66CsBppllp38+eBcU8J3hQ6f/cDvKtZP
-   JxjJWmRb2EZ85mYaiFpCFTqq1X9LCeVFZI0KEkHbn5cHqU6SaU5u8Ncm6
-   qpjQnIPSURjzw6CSmmKs7fntpwTeurt2QIiDz2WcQHuXOKCj5UAbCF00b
-   +zyFqLAA89r08MVecMbTUErEtSMGZbNtyJmpRCJdRVvqPHMJu9IlCFQbH
-   Pu5OqHFRAcxSTEnq9VeFFBD26ZA/xsK/L4Znb8vsztKCUnFTErbKNOmFS
-   w==;
-X-CSE-ConnectionGUID: McGPa8nmSF2pWpGaQxikcA==
-X-CSE-MsgGUID: 6Sn3DPhMQJGo+SFa9z4heg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1929831"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1929831"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:57:27 -0700
-X-CSE-ConnectionGUID: XGvMYi6BQtyLHQWIIJ1jww==
-X-CSE-MsgGUID: zT8iJdk1T9Kr8hcOLr1FEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6667408"
-Received: from ncintean-mobl1.ger.corp.intel.com ([10.245.244.235])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 06:57:14 -0700
-Message-ID: <733ef8df15abeeacea0ac12dd93ad1eba5755dbe.camel@linux.intel.com>
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-From: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
-To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= "(The Capable Hub)"
-	 <u.kleine-koenig@baylibre.com>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>, Sakari
- Ailus	 <sakari.ailus@linux.intel.com>, Broadcom internal kernel review list
-	 <bcm-kernel-feedback-list@broadcom.com>, Florian Fainelli	
- <florian.fainelli@broadcom.com>, Eugeniy Paltsev
- <Eugeniy.Paltsev@synopsys.com>,  Frank Li <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team	 <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Imre Kaloz	 <kaloz@kernel.org>, Conor
- Dooley <conor.dooley@microchip.com>, Valentina Fernandez
- <valentina.fernandezalanis@microchip.com>, Daire McNamara
- <daire.mcnamara@microchip.com>,  Daniel Palmer <daniel@thingy.jp>, Romain
- Perier <romain.perier@gmail.com>, Robert Jarzmik	 <robert.jarzmik@free.fr>,
- imx@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org,
- linux-riscv@lists.infradead.org, Hoan Tran	 <hoan@os.amperecomputing.com>,
- Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, 
-	linux-hwmon@vger.kernel.org, Matti Vaittinen <mazziesaccount@gmail.com>, 
- "Enrico Weigelt, metux IT consult"	 <info@metux.net>, Viresh Kumar
- <vireshk@kernel.org>, 	virtualization@lists.linux.dev, Yinbo Zhu
- <zhuyinbo@loongson.cn>, Thierry Reding	 <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 	linux-tegra@vger.kernel.org, Geert
- Uytterhoeven <geert+renesas@glider.be>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Srinivas Neeli
- <srinivas.neeli@amd.com>, Michal Simek	 <michal.simek@amd.com>,
- linux-aspeed@lists.ozlabs.org, asahi@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org, 
-	linux-omap@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-unisoc@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, Michael Buesch <m@bues.ch>,
- William Breathitt Gray	 <wbg@kernel.org>, Robert Richter <rric@kernel.org>,
- Andy Shevchenko	 <andriy.shevchenko@linux.intel.com>,
- linux-acpi@vger.kernel.org
-Date: Wed, 28 Oct 2026 14:57:11 +0100
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPl8YJty
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b45f9ec1ceso1283643a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:57:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793195846; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QYnhJ19EEMiukIp7mgnz89dRRnK4wuGkqKOb8fZx6f92SexQDwv7G7m++cBim8/kqv
+         vi2s4vO43FHMrs6CyyS9ewchwRgpZUxqbzDfYc89RWYbmbm1Bq7qvwDzjA/jtpmNGMab
+         7S9IiNfIxfxEtnRLZq5/3SjCnxtamUGlhcKamghC6g3uCpaK5kZPvCXDcfQVq4i181yy
+         EFaAGo458NRvuc7KoVllcBaDBxzYjICogNzt0o/f9Nw9b6qpaLSEDRUIXEaGWSlm6Sig
+         Ohc2Rsz7J3p4N987Ryb8u8Dfx7Xan/1hTJUDskyh8a0YlWSSATQGzoK11WF/vHN3TPBS
+         I4FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=N6jb7B/1j7cEHHeX+fTV0XB71j0TCm943LKPkVSn0vE=;
+        fh=LU3MjwV8nu2ypXhOfMSKnzolFCCIW8AAmiPx+Wqdx+U=;
+        b=Vl22biu2jqnNZelNEoGju4je18vqy0oP+Id6nOfefovOUp6ajdj4NrYpG3AHwhS1ri
+         uAu0/eDtcyE1D/0XcGIl3tNfguWRCag0iqrlq8k1Ca6sGyaIa0Ijg+2RNdN33iv+4Hah
+         trEy0w5+CllIqsd+OQuxA6NSY4MAuPVSRTYlW/c7lDOLv3ch+Spg/ifCLk2kzsqCQjWz
+         JiPD4oNmGUJ0ZcfSn2h0rkNmGaHISd3ud1ldBdvGGJAe9wWDcGUxP09CPoiSfgrpihof
+         lk6FFHx6yI3bB9obw9z+cCOxjWmSanuTq1wVGiRgdd0CsiM8qJKMuWUl8MrQQp3C6CUR
+         WN9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793195846; x=1793800646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N6jb7B/1j7cEHHeX+fTV0XB71j0TCm943LKPkVSn0vE=;
+        b=bPl8YJty3EY6Wq7xeQgJ/geL6+J4EUyouDm9pdGsaRIgaydTnJiSqkk3OxnMM6vqeQ
+         lUCyiQuit6WGJft5ZEC/S67eUEZW4J1gjq3ukktVQhf4xmXj90ODyrglOzm/fUDMOGmb
+         36FUShq9IbcRdCNiNYxPobOCIoDYU0Mr5/TVh+Lne6yJoq0TXVTdD4bgSAaMXNBHG/br
+         UQhE7Z7v9vkLwVIEz812u7DrEW90ft/4MzudqaM05osee33jfQwNJqorR2hg5rkb/hUf
+         yLncoAdQllZ475HveMnJ7uaHPH3V6Kz1S6ug7R3yQhs5B01p+fBKRsU7GOYb+QtsRn4j
+         /Vlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793195846; x=1793800646;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N6jb7B/1j7cEHHeX+fTV0XB71j0TCm943LKPkVSn0vE=;
+        b=J9gDUjswjnpIKC6N0yGYRk+6Xxkfg8o+XJZ0aADSJRviAH6fnNuh9l+sMVedvlMRG0
+         9T6ul+sLZHJC8625QHbHdtkCEWFDQhbL1p/FBhSg94PK7t1lmdWQlMuQ4O8RX6Ov3Oj4
+         t1a2M0m6tbAFYYgd984xlw6VdKgFJPqZzBHD+ugqLW4atYoNX67fyWNtv7rzYJQ175fw
+         v0nOetbPpsH9hk3qJTs/dJhi8b0mGIn/kGXuBdtcSU4jmUSnK8M2Hnf/mAota1mMvxFw
+         f+yyQ7F8KC0d62JYBRcmnP+7W5xq2OzGszHRHZMoXTymIdtV0rNg3Y9bfjLrONU+ZLhK
+         2ErQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYURBg08o0KG1qpfQ5yCSsPG1CWLYAA7ZCZaxxeH8fj/gTweZ55fsYpE9YWFNsLI28+AAj+RXzLkwnNKg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJS/K3D8nUKcHmeWRnXEiIkebJoDSEUWzsmakWJc9yttW+ytgNH
+	ctyAhTjX3SkcSvngIQUtVVkJBn803cyG0ArAyB8EZhE2P58a0L3QTSvQd8lY3yb4SclBZtnArNm
+	DU7NJ1if/qq/cCxM+KY0QxBt8kwLzHwU=
+X-Gm-Gg: AYBFou20VGjn6UX8YeeFxG/SczB6GhFaeG5cuQ+O1EqlpKto+I2Vw6PTyisbSE1cMBv
+	Iuttf/fiK3XXBxPrDfaQ6w9strYBvcQjO1y/DMyssrFpf7yMJ5iR6MmNIYRX1dw3n5DUvaFIq94
+	sdfLF1C41kVoyA+G/vAqHRh1kL0uuaavQ/HsnCYa4RZqD3lLmrNZ51LOhnPbzIlrjhGzRuVKfKH
+	IXTTAbufZDyxCpyl91gUvSLJ6/+PgPwjvm2gpt52PWSDVfwkTmJliYb5d9kwkUOsIoN8AhQ3X7+
+	bgiS9I1ApT62Bbegaz+vsv+0/4nNxLbkdF+2zvWSCCJEabNtX6FR+0MzUQ6ZFQ7ajuJrqFmu9gu
+	fSp9ZPtFE2W44/Kr77MwKYhYx+TKMJDoNmgmWbUFPHAxHW3ffxduRU+XDutOBt84laa/LNg==
+X-Received: by 2002:a17:907:980c:b0:c41:cf68:bbcf with SMTP id
+ a640c23a62f3a-c49bdf2c81emr204613066b.32.1793195846170; Wed, 28 Oct 2026
+ 06:57:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,61 +104,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261027-fix-mglru-kswapd-age-v1-1-b1ffdec4ae52@tencent.com>
+In-Reply-To: <20261027-fix-mglru-kswapd-age-v1-1-b1ffdec4ae52@tencent.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 28 Oct 2026 21:56:48 +0800
+X-Gm-Features: AclHuK8y7VKQBWVhXVH-qtsChj_MIThWMcMwlYaDr56F0maa3oCruvc7sukFQ_c
+Message-ID: <CAMgjq7CcSxNMx9UxVjjM=W11fhd8sh3PgkHKt2kvdah3fy6kXg@mail.gmail.com>
+Subject: Re: [PATCH] mm/mglru: skip oom killing for high order allocs in kswapd
+To: bingfangguo@tencent.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Tue, Oct 27, 2026 at 10:21=E2=80=AFAM Bingfang Guo via B4 Relay
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>
+> We observed that when MGLRU min_ttl is set and the system is highly
+> fragmented, high order allocations (e.g. order =3D=3D 9) will fail and wa=
+ke
+> up kswapd. It can not make any progress, while pushing generations of
+> memcgs so that they all end up younger than min_ttl_ms, repeatedly
+> triggering the OOM killer in lru_gen_age_node(). Then the whole process
+> repeats until all processes are killed and the kernel panics.
+>
+> Fix this by skipping OOM killer invocations in lru_gen_age_node() for
+> sc->order > PAGE_ALLOC_COSTLY_ORDER, which is also what the normal
+> allocation path will do, to fail high order allocations without OOM
+> killing.
+>
+> =3D=3D=3D=3D Testing =3D=3D=3D=3D
+>
+> Tested on a VM with 6 cores and 6GiB of memory, HZ=3D1000, MGLRU enabled,
+> min_ttl_ms set to 1000, and a workload that fragments the memory then
+> allocates 2M pages.
+>
+> Without the patch, kswapd kills all processes and panics the system even
+> with plenty of memory available. With the patch, allocations fail but
+> the system remains stable.
+>
+> Fixes: 30d77b7eef019 ("mm/mglru: fix ineffective protection calculation")
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> ---
+>  mm/vmscan.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-On Tue, 2026-10-27 at 11:48 +0100, Uwe Kleine-K=C3=B6nig (The Capable Hub)
-wrote:
-> Hello,
->=20
-> the original motivation for this series are the patches that convert
-> the
-> arrays to use named initializers, see
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre=
-.com/
-> for the idea behind it. Looking left and right a bit while
-> implementing
-> that, the series grew a bit.
->=20
-> Changes since v3 (available at
-> https://lore.kernel.org/all/cover.1793030820.git.u.kleine-koenig@baylibre=
-.com
-> ):
->=20
-> =C2=A0- Picked up review tags (b4 even found some from v2)
-> =C2=A0- Add a 2nd MODULE_DEVICE_TABLE(of, ...) in drivers/gpio/gpio-
-> mpc5200.c
-> =C2=A0=C2=A0 (My grep didn't handle >1 driver per file well), noticed by
-> Sashiko
-> =C2=A0- New patch to use named initializers for auxiliary_device_id array=
-s
-> =C2=A0- Fix code style of of_device_id array in drivers/gpio/gpio-grgpio.=
-c
-> =C2=A0=C2=A0 (My script doesn't handle of_device_id::name) and
-> =C2=A0=C2=A0 drivers/gpio/gpio-ppc44x.c (didn't exist yet when I sent v2 =
-and
-> =C2=A0=C2=A0 failed to notice that for v3)
-> =C2=A0- Fix code style of auxiliary_device_id array in
-> =C2=A0=C2=A0 drivers/gpio/gpio-shared-proxy.c, missed as I didn't have a =
-script
-> =C2=A0=C2=A0 for auxiliary_device_id before.
-> =C2=A0- Dropped a few broken email addresses from Cc:
->=20
-> Best regards
-> Uwe
->=20
-> Uwe Kleine-K=C3=B6nig (The Capable Hub) (23):
-> [...]
-> =C2=A0 gpio: Use named initializers for acpi_device_id array
-> [...]
-> =C2=A0 gpio: Unify style of acpi_device_id arrays
-> [...]
->=20
-> [...]
-> =C2=A0drivers/gpio/gpio-novalake-events.c |=C2=A0 4 ++--
-> [...]
->=20
+Thanks! Really nice catch.
 
-For gpio-novalake-events
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 9959ca158ce83..b32777468ead8 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4407,6 +4407,12 @@ static void lru_gen_age_node(struct pglist_data *p=
+gdat, struct scan_control *sc)
+>                         reclaimable =3D lruvec_is_reclaimable(lruvec, sc,=
+ min_ttl);
+>         } while ((memcg =3D mem_cgroup_iter(NULL, memcg, NULL)));
+>
+> +       /*
+> +        * OOM killing won't help high order allocations. Skip and let th=
+em fail.
 
-Acked-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+A nit pick, OOM definately helps for high order allocations :-D, maybe
+something like, the OOM kill is to prevent thrashing whtn all memcgs
+are younger than min_ttl (and maybe merge with the comment & check
+below?), so OOM for fragmentation is definitely unwanted.
+
+> +        */
+> +       if (sc->order > PAGE_ALLOC_COSTLY_ORDER)
+> +               return;
+> +
+>         /*
+>          * The main goal is to OOM kill if every generation from all memc=
+gs is
+>          * younger than min_ttl. However, another possibility is all memc=
+gs are
+
+This patch is good to me on its own with a nit fix above.
+
+And checking commit 30d77b7eef019, you might need a Fixes: or maybe
+even bring the check back which was removed in that commit?
+
+But for long term, and as a follow up, the whole idea of OOM in kswapd
+seems kind of wrong, maybe at least it need to check the water mark
+here?
