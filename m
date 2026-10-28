@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793153820;
-	b=shqkBl15EZObFPgZX69Yb+BPxsy14MaiHP4PUf/12jEvFzOjYZWE7zVxDOzhBFtAzeOW
-	 UmMhbCFxQbx5LeBY+sPKKQjMkzMXO0OiaC7+ZqX+z5yWUM27RTulq4N+odbdtRJ78SHea
-	 LrvqBjGUCr6A+ODE6bNK/f8v885RUAfbvQIUDJDifnSMH/Dk8NyQHbzEPJCQG0v8ifme3
-	 IO+YIfmXeutCrSjnuVtbKrOoaqx/ZgofRj2/hH2Gf8RxfeXcZbgYMLFDayM9qmLo1odyv
-	 NQOzAST45Leb3JO7UTkFw1AaUIYYSsKW2zjj/+atlT9dsFZfYl2CsbrFK05dxMawRBw==
+	t=1793153859;
+	b=KBA3ZrLhyqbVYZtGsPQA3do1lE23VqHRPvcQ/ZvFvVkIDlW0IPtQo8mMnPoGpkgb6Rx4
+	 uRdQp8w4ftgkJS52vsn3XdakiaokdwMxrW23+Wa6Zq7tZwA+MOJTe4ZEk7oPPuk3OFsX4
+	 bfVtkRZpLo9SHvFvFpVDqob4ltsLEB+k4z4wRGb4DWHKDJUQ30N9Dhz+191nuokT+gbXS
+	 UY4G9RoKMqKqleWMyNIq66I7bWz/j5XRgGnwXUO1lrcPKsomVsCnh4PvPxaQCtrXeowby
+	 P4OPcdy6je6UXQc8oJwCLxWiSqP7soiFgggQuQj/WpJHOlmWQRYME2DFjAT+5jG+y9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793153820;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lrCQonoolrwjv1CzKvZ6CRzrYqlsy3KBNBUtoY9/lMk=;
-	b=OoaVa8Ot25I/a4gmcLxNXnrLz/z27+fuESiLtKY0kPL5FwtiNiQnH16qISpTCsYv1srl
-	 uo96+avMeroUX5KNE/wpzLEbidVElQ6sJEjdb1XTCoy98PjKYFBY1uJuyZkL8xQIG1srZ
-	 rl6nK08FsR/o59p4+CagvUYb2JJw8ih2RHSpVzLbWUeSKYnDh+n0wemepYMn6ZBJKmI6U
-	 +KT8Mqofha2Q1Pg/9RHB4ZqBDLnVXkN9feRC7mpHiBdhVoavk7Riu/9lKMG9Mzxlb26n6
-	 L4/SaEITzy7Jtn8yXDrP768ZbZ3D+EOVt8uCbbQg1AgDamjRwUsUTahLk+y3YbpAJVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793153859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cP51aETFJLolZBQiqlTw2VFExTNDGMiywN+ARlpv7nY=;
+	b=C6MEi/Mpr0SOk5hZzQgspHrjtBRFe/r5AJE5IODAOrY/IWzEL56UhTx6GeKUBn+E7FZf
+	 qU5apvzdqPH1AcZ+Ibz2+KHRQY48dn2zALhec0cJhb6tn7WbjTvXW1IhRUMY7M8fir1sO
+	 OCW+UbfrGWnj1mVy/f3jHbD3Yqrdv2e1xzfjZOrObJsswUqq7JraHdW2HagsfMMto7ezc
+	 aotu2lNiUM1ZlV9KfZHWJE8bl6k5mPqpEC29m8ZxBZpvK+XywKw5BSQyJ71FFt8T+U9u3
+	 I+E+Fyrc/Digxn49FogN5Hs16E53DvW7ojFkiriG4HlLYHeMmir0PSUSAzTUPLswykg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.75
-Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PGHTmIxF;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BA9606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42BA9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07505343|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.100953-0.000718823-0.898328;FP=4028276740343799034|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jr9MeHD_1793153800;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jr9MeHD_1793153800 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 10:16:46 +0800
-Subject: Re: [RFC PATCH 4/6] sched/fair: Restrict newidle balance to LLC
- domain
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-5-likunyu@open-hieco.net>
- <20261021124218.GJ2823843@noisy.programming.kicks-ass.net>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <417bd81a-6eea-2a03-0f77-a00eac94fe71@open-hieco.net>
-Date: Wed, 28 Oct 2026 10:16:43 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27E7606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D27E7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PGHTmIxF
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53bb57f1310so6547791cf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:17:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793153857; x=1793758657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cP51aETFJLolZBQiqlTw2VFExTNDGMiywN+ARlpv7nY=;
+        b=PGHTmIxFKjnU19jNBA/s6lGGoH53x5tWg295cIqrBg1JLB2BfKWGRyKvI49JUdO45l
+         /5zvmC08NQxPxGOhccVKe+YPhGRyYiZDB8pUx/ljzJxsNeNdxQDyWGpJFkLNmhpNyoDZ
+         x0j6FExJe8qXZ9OczSwI0CkdStzjlHA9mdoMeozMK0JplFkiQr/Z6H15RZLooRAf+r0c
+         CIMvEctzkiukhmZq4n6gREgGIKhQ7u1EB5iVxjm9uZepYbYN+Z0pZpxVahJ8qooa50rH
+         UFOVDUneWggA7C2otwlAEQU4mViPNCpXo9cqL8PmIelowmdAv606oKkYIFwuxmFNtGsN
+         K8xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793153857; x=1793758657;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cP51aETFJLolZBQiqlTw2VFExTNDGMiywN+ARlpv7nY=;
+        b=KJsIn4kuFNqMiFfHLzl3qEGCFxFNAi50iziuFZCxGAn6X0/vh+CYqgIFLbfXdydNqc
+         glQKpYyqdA1gl5R95L2UTBVB8bMY6kZiJG8G+9qnHlTU4ywyMJEcx628lnWQ+mHDYKCj
+         XkxPoe0rqdN0cqYfXMWDw1XulPs31E88VTJDx3/pe4aCVi/yuHFDBgF5lgDFhcbSge6K
+         KG3N50PSr1s//hlRpqRdmczv0HuSj4+5YhahxTWq7WeCyj/FgCXArhtvAEz0Y0k/PSh+
+         +zrIiA0F75VGgw2PBCi7IYf9CgUPWNoq2K3lGY4gm7bZy7Tk2BKvUTa6yTnkSA+YdPOG
+         /Psw==
+X-Forwarded-Encrypted: i=1; AKwUvByh+KcbBooQdY8RM+PRfOQ7s/Z9LTKQVA38362LKIsNeMhbyHZLYFOsWCFo9Q1cSb5/mW+Gb3mP3TkP11w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIurSgkYkWEPS+/C2VGUGYry5wGASBJkU7isN2rkMGfPzDF3Rp9
+	TcSvg+R5OtKnWk/IlPcKvm7mf3QdSxC18AgKVFixoZCOFtPwYWrPGAf4
+X-Gm-Gg: AYBFou3sdXJIGBKCTlyK3IF6bzWaEypr2Wq1NMrZ2XZPqbM6doBLgcmYYbJBVS+r9Y9
+	9APuYO+h8kXDSYVcbWZ7L5PeKVtcJdSSJg+1EieFtXOnhPMYBy9tfnfKIJdMGra/GiA0TQUEkix
+	sqVBorIe9eLTiCI30CEIgXmluQjaUpVHmZgd44sjdp6cFBXMSo9qVjEgxIYZXz2uZSgJ2drokFA
+	qkl0mEcsC1mCpcD2QRucqCoACrqxMt0SWpvcN8VOmUrjWsbw9sOQsizqP0eO1TEyHz+uSQWc7qd
+	X4QVNCNdoZrMAKoNBw47dvYkixELijLP7uhctF3p9u7x2aOEwAwlhVtem5Hr0falQ7bq8GPGUpe
+	LCld93tsLkkvRdk0Ybs0ZPVBwcmx/L8G46taljtody04ooBPU+98m9iFclOcR166nGQ6++6ildu
+	S3he+iayc74sokX+M1KJFlLdhNuXx+C5HSN1xp+6T+6Ao+YBJp33/pDgglc+MadBbTC1VoAmJYu
+	EBxHC5O+in/3LLUIwb0Qcp5ShPmKaZCCujIgtp+JjhY9x2QafjOnnBUI9RH1CeOdhQBja2iZSW+
+	liwa2SSoElOKS+/ItM+sas4Bu97k52PQWSDaVKArRkg7LCp34vAQKqLGuH/zDf9tWauUup/3drC
+	fGCIWfDy0fuJgxqbMQRUNebziXJii+1xhB9T9WflYT9tC3cXT49uL8233/IVbRoksUtlAf+2/Tj
+	tAkL/O4q+47eAJ7KeAniiZ+929UJwA8K8lwWLVQn9VNLGhpD2A8ccMJPA=
+X-Received: by 2002:ac8:5d8b:0:b0:536:64a3:aaca with SMTP id d75a77b69052e-53fcc6caf38mr19690551cf.62.1793153857267;
+        Tue, 27 Oct 2026 19:17:37 -0700 (PDT)
+Received: from localhost.localdomain (wnpgmb0311w-ds01-161-139-200.dynamic.bellmts.net. [142.161.139.200])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c96375sm119234946d6.33.2026.10.27.19.17.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:17:36 -0700 (PDT)
+From: Riccardo Oliva <oliva.scorza@gmail.com>
+To: lee@kernel.org
+Cc: mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Riccardo Oliva <oliva.scorza@gmail.com>
+Subject: [PATCH v2] mfd: dln2: Clean up dln2_unregister_event_cb() loop logic
+Date: Tue, 27 Oct 2026 21:15:56 -0500
+Message-ID: <20261028021556.11988-1-oliva.scorza@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179198398105.839288.1873130512029656566@kernel.org>
+References: <179198398105.839288.1873130512029656566@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,66 +100,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261021124218.GJ2823843@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Streamline dln2_unregister_event_cb() by using a dedicated 'entry'
+pointer to store the matching event callback. This removes the need
+for the 'found' boolean flag, restricts the iterator scope, and matches
+the pattern used in dln2_register_event_cb().
 
+Assisted-by: coccinelle sparse
+Signed-off-by: Riccardo Oliva <oliva.scorza@gmail.com>
+---
+v2:
+- Rephrase commit log: Clarified this is a cleanup rather than a bug fix
+- Rename 'target' to 'entry' for consistency
 
-On 2026/10/21 20:42, Peter Zijlstra wrote:
-> On Tue, Oct 20, 2026 at 04:37:44PM +0800, Li kunyu wrote:
-> 
->> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
->> index 6e2271484c86..f2bf4b53d8a9 100644
->> --- a/kernel/sched/fair.c
->> +++ b/kernel/sched/fair.c
->> @@ -14983,6 +14983,24 @@ static inline bool nohz_idle_balance(struct rq *this_rq, enum cpu_idle_type idle
->>  static inline void nohz_newidle_balance(struct rq *this_rq) { }
->>  #endif /* !CONFIG_NO_HZ_COMMON */
->>  
->> +/*
->> + * is_smt_buddy_newidle_constrain - After enabling the smt_buddy_assist
->> + *                                  feature, check whether the current
->> + *                                  scheduling domain meets the conditions
->> + *                                  for skipping statistics.
->> + * @sd: The current scheduling domain that is to be traversed.
->> + */
->> +static bool is_smt_buddy_newidle_constrain(struct sched_domain *sd)
->> +{
->> +	if (!sched_feat(SMT_BUDDY_ASSIST))
->> +		return false;
->> +
->> +	if (sd->flags & SD_NUMA)
->> +		return true;
->> +
->> +	return false;
->> +}
->> +
->>  /*
->>   * sched_balance_newidle is called by schedule() if this_cpu is about to become
->>   * idle. Attempts to pull tasks from other CPUs.
->> @@ -15080,7 +15098,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
->>  				weight = (1024 + weight/2) / weight;
->>  			}
->>  
->> -			pulled_task = sched_balance_rq(this_cpu, this_rq,
->> +			if (!is_smt_buddy_newidle_constrain(sd))
->> +				pulled_task = sched_balance_rq(this_cpu, this_rq,
->>  						   sd, CPU_NEWLY_IDLE,
->>  						   &continue_balancing,
->>  							false);
-> You could have just fiddled with SD_BALANCE_NEWIDLE, no? But instead you
-> went and did something inscrutable and violated coding style *again*.
-> Any multi-line block must have {} on.
+ drivers/mfd/dln2.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-I would like to get your opinion on modifying patch 4 (I have also consulted
-Tim). Please take a look at the following:
-
-1. If relax_domain_level is set, patch4 is disabled.
-
-2. If relax_domain_level is not set and the feature is enabled, patch4 takes effect.
-
-
+diff --git a/drivers/mfd/dln2.c b/drivers/mfd/dln2.c
+index 0b1e7fd7f..2a9d83d32 100644
+--- a/drivers/mfd/dln2.c
++++ b/drivers/mfd/dln2.c
+@@ -157,25 +157,24 @@ EXPORT_SYMBOL(dln2_register_event_cb);
+ void dln2_unregister_event_cb(struct platform_device *pdev, u16 id)
+ {
+ 	struct dln2_dev *dln2 = dev_get_drvdata(pdev->dev.parent);
+-	struct dln2_event_cb_entry *i;
++	struct dln2_event_cb_entry *i, *entry = NULL;
+ 	unsigned long flags;
+-	bool found = false;
+ 
+ 	spin_lock_irqsave(&dln2->event_cb_lock, flags);
+ 
+ 	list_for_each_entry(i, &dln2->event_cb_list, list) {
+ 		if (i->id == id) {
+ 			list_del_rcu(&i->list);
+-			found = true;
++			entry = i;
+ 			break;
+ 		}
+ 	}
+ 
+ 	spin_unlock_irqrestore(&dln2->event_cb_lock, flags);
+ 
+-	if (found) {
++	if (entry) {
+ 		synchronize_rcu();
+-		kfree(i);
++		kfree(entry);
+ 	}
+ }
+ EXPORT_SYMBOL(dln2_unregister_event_cb);
 -- 
-thanks,
-kunyu
+2.43.0
+
