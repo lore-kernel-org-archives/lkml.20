@@ -1,88 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200779;
-	b=Upshp00q220cIZrN4HVBJDuoMztIZBwXbHIRznjiG5I5M7VHWIGplNMi1I7C+jVS6Apz
-	 gf9yRpWWp/ksYmJKZpwYH0gbNScDnK2cC+feeNs1yGe1aBob4FgB4kMSwcYTls6w6EbSe
-	 cMzlJ/tiC/WHB2TRuYfLlEUGGkWLH5GZpIxF0oWgSPWOtf69xH1zQt2t34fTW7RahVwut
-	 WSoE3fgHfqPj8AnoEs1OnhgUmHmj6aH9pbaRfhInRRNjct3sUG+/ISwgHRqX9s/G7uQkb
-	 394y2HuhAPFVmkMOt8+xNVvi8O2XNPcSkDJ8z7Q9k1rVuzgdddoAnVqQILLMm9/GLMQ==
+	t=1793200781;
+	b=Dsv5+z+soXQQf9QFZZWGkz01moRjYJOPeXTY0zQKrC3rBiSbKmdIl+69pEGzqstmBHwG
+	 JkAMrTKBSwaGXg0MXLWkhPUvSPjkoc74IdvlICSTOTjV11oyqX8Iu8dVUyXV2SKbISvf9
+	 K5vmZ8E4wWQeyX0Ncbx4MnsOKG21UrG638ZAebQcsfdirAhvA0A281wBXcYsuLtLbysM1
+	 V17Sm5zziXCE4Wdf2DYuG6tAvIfRO3+3kHFX47nXVZWyC+2Y9TsoMX3dHjRxvcYA6gjj+
+	 QzhzOAcgRuSwbaWPrwEHutaCf+EmZAlBmaS3ibQCV3p5YFWZtuJxwoFaYoO3vT5b1TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200779;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iReJ63N40uvhp96+KeukleF6Ru8p5xLQflMjZYr/Acw=;
-	b=T9XQMNcPNM1HWncb6u0Qbrk9OsRt7QXxLwnPYEQPoR5UiXDvDWbjgTe9+yh0BwmMEZ+A
-	 ICTM1darhMl9cZ3jPpvCV3Vsb6JqCoDUGF3YMIPzgO3A3FRGQEbpg3a9f9MWXNQ//oav8
-	 t8ffnrbM9+jVtdTInGgWD/cSCrESHwO41w3YrzfvFprwRb1T1/bY4v51rDhqAAKLjEyEP
-	 WyKzimn4orlCDmw8ZxDPkQhfjGG2rqWYa265yac9q7BSzTmIPuahw3NxU4XjsVXpxA2rN
-	 uVaQHxe/e4C41cs82zKQVoASx4XJlS6gKHu1kOZvX9we+BqyAe/4vVjPC6krsYu+XYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200781;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=N7+mDIUz0DKphDB1jWSDWivCn2/hfCrcGv28CLhs5yY=;
+	b=MRior8b+/L2knP86To326kiEm8+Kr3kogyaflrf9Tupmdihw44WMW2N+ywt3oDLEqW8Z
+	 J5Wl3o1qJpwbAAFtG6CbifUT1VLqUTWxQvw0yLsu+R2W687iHbmTHCevRzvPYKsZP1PLd
+	 K7FjGe/l5TVYGlVOCV3+5IrxZyy21ccNJPHGQFsgceuC+aINmK8QPI36W2+8ToQ3IMoJH
+	 SFGhVBq3U4cy0GO8hsBnobtfYtTnAsRzyT5qNvB1GsOyUCzQ5NXXOyG0OoR7V4PgMAMFr
+	 YI/qwzVLwVo/mFFdv32dlOKXBqUdy2mfCAZZFXLmiasv9FPGbuGlms0CZpkA9OWmriQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzaFxjwH;
-	arc=none smtp.remote-ip=74.125.224.131
-Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ipqlsqXJ;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A82606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90A82606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91858606A31C;
+	Wed, 28 Oct 2026 15:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91858606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WzaFxjwH
-Received: by mail-yx2-f3.google.com with SMTP id 00721157ae682-8a72cead747so3823867b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793200778; x=1793805578; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iReJ63N40uvhp96+KeukleF6Ru8p5xLQflMjZYr/Acw=;
-        b=WzaFxjwHUkZRP78AKN1ZxS1P5PCKI94qPA9TfietW5naO0RswhElbxqI7thw8t9sh+
-         jDJaDssemB+1/BX16qugTorsRjLnmm3BiBx+xKFN0yHsB8yjhAAOBztwV+NVtmxngHZB
-         jjScHUOw6p+1bapPoS1PKqozcG6/gr1lSgQPIbz9tBjnNhpIoFcpyjdtVgWwwJBCTOvs
-         zuZNjw4/k6S2BqyNDxfRE2WjmlwZ4KMkr32nyZV7VtifNaF+qJfq/rXKG3T7uivmXiQ9
-         SJU94fs19Qa2FJsx3d2d0RFmpkqYhUZC9pJepH0hcilGWHUzecM8Ku85R7F7I27Sz7Y+
-         f1kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793200778; x=1793805578;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iReJ63N40uvhp96+KeukleF6Ru8p5xLQflMjZYr/Acw=;
-        b=KslCs2R5lQD8XOCZCwpAGXor0T2A0ZEgsv3kF9/977dmk0dp4vZxBo3GbNC31eZrWb
-         2DYx+fQsJln6eHrxoYBcqRHBitkw+IvdzwV4RqjDsOC87ajhkzlqD8jlr0uFkxuv3BRF
-         i2ZGW/AcBg7dsBFS2aa4QXI/+mmiHBhE85l9Krx4aKin6+Dh8/5Zp+FTOTy+tL+4CUf4
-         yuL8SB/0NYQUiTGcq2wzW0c3hMxOF1dVjnvE6VVyvJUbm3lXFPJvgBAN60S7Bs4VzBuZ
-         3iQxaZ549QJfHlr4R0RRTOtbX+ah/qF/vlp6F3eG1dvr273tkl7E4sAke40KTYifAv4S
-         Ivww==
-X-Forwarded-Encrypted: i=1; AKwUvBzVjJ0qXqtcX1VNBL3Uge2z1QeBRwL5XBjXojWflKEHAGIrqG3YGVk/swqLkQzm2a9Yp1vutRrLoEUTkr4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIqEqHj8hG/eJ9ZV9GmX17klvMQJAKG8HR0wn+tMfOUj+lVUw4
-	AU1NK8lhZKjpRd5zSNtfqvw1L6zjFegMFYOqqBIJFoGfj+GN9Z9x+u9S
-X-Gm-Gg: AYBFou1Ty5xy6TjTykQCT4Fafh2mdfJZ22ftjJaHnNNt6FgbOPy/bPoNqfsBtpALKVu
-	XSEWhOuaMSjRSipk6eiXutm/rOlaAp8JqLSj3KkcguRI0qjpQWjIo/RMpIATkx1/b+l+B+z8bfy
-	49s8uNhu7elmScViRoe3vnh0oy4EqprKjArVBowN+7VsJIUF1X9Pm1xm98uZadoXXag+ebdGSfU
-	4ICUB0OLIZP0JB1k1GS2UBG0ssnmap7duuSpcArKKnJupytmRmxvIipL7iELXAwmpPwv7mK01RU
-	iOh0cPfFOWXAk+Z7hkNtrVx5PtBDTPGqN3CbUahG83OiVJUpRYrlcBlU8uuw2GHcOXWh6uoOaz0
-	cRpvf/9yPFGRLRFgGhactAbyMXQovTPru2dKfrfFQc9Kh2pYXRKcilGL/hwJZShkm145+DhccD8
-	7tQ/RN6w1cxApuLLLgjQHxjffRnpI8RUeFkdBAjlzYN8nKgRP0VyUc9H0HpsOxaP/mrAviDiFS8
-	3gHzVTBYswPS4XJoxz4CmpKUYRHWVrgCUp/ED7qPl1fAWFZrtwa7q+g+B31RjZSLIfTVxKJTXZp
-	/P3NPFxiuBkw4lUhTmEwucgrRcrrsVxB66w8
-X-Received: by 2002:a05:690c:c509:b0:8a9:bbb5:6bff with SMTP id 00721157ae682-8b1b5d36bffmr19095177b3.47.1793200778545;
-        Wed, 28 Oct 2026 08:19:38 -0700 (PDT)
-Received: from [10.0.0.48] ([71.69.222.122])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e6365b6sm30497897b3.41.2026.10.28.08.19.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 08:19:37 -0700 (PDT)
-Message-ID: <a0e96bea-b2bd-4c7b-ae94-a13c57c86f3f@gmail.com>
-Date: Wed, 28 Oct 2026 11:19:36 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ipqlsqXJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=N7+mDIUz0DKphDB1jWSDWivCn2/hfCrcGv28CLhs5yY=; b=ipqlsqXJgj4/UhpM5GuRGgYDI+
+	LRjZM2zcJkZ6keHzv/cJER65OxsAzPtpa0fDV9lf6QPwOYFgrAod9hW+gj/m9KZSFqIeSEHUmZ2Qm
+	n9+RwikVcEKfom92fr/tdYSER71O3yLvfs+IbHzeGKVL/ZUwClQCbMRUGRkFmWPQiSHtKm2p2nPxR
+	6ArNGczO6MO82e5+VEiTRRVJTQeMWZVl11ZSiPg1qo+1OJc2sYDfBcg4CpCUhYlnPqgiFh0Y3NfrO
+	iPYRLuAeGISsADKkqhug+uZP9nGC/FooWJROFjL2FYUnfnlrjH5RAYMKVZidr8CNh8R0zM7poe2YP
+	4lZecJoA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xM5RB-00000007KUl-0kzA;
+	Wed, 28 Oct 2026 15:19:37 +0000
+Date: Wed, 28 Oct 2026 08:19:37 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>, Carlos Maiolino <cem@kernel.org>,
+	David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+	Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/10] xfs: set SB_I_OVL_USE_SYNC_FS
+Message-ID: <auISibZ1oCWFMruC@infradead.org>
+References: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
+ <20261027-b4-ovl-containerized-sync-v1-3-802e512379a6@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,40 +71,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] nvme-tcp: handle TLS control records at connect
- and on receive errors
-To: Keith Busch <kbusch@kernel.org>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke <hare@kernel.org>,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- Martin Belanger <martin.belanger@dell.com>
-References: <20261027-nvme-tcp-ctrlrec-fixes-v2-0-9656395ebcf2@gmail.com>
- <auEreAhSYCdGCWvt@kbusch-mbp>
-Content-Language: en-US
-From: Martin Belanger <martin.nvme.dev@gmail.com>
-In-Reply-To: <auEreAhSYCdGCWvt@kbusch-mbp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-b4-ovl-containerized-sync-v1-3-802e512379a6@toxicpanda.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
+On Tue, Oct 27, 2026 at 09:09:29PM +0000, Josef Bacik wrote:
+> All metadata is logged, xfs_fs_sync_fs() forces the log, and there is no
+> ->write_inode().
+> 
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  fs/xfs/xfs_super.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+> index 5a06132aa384..2f09d48b7e6f 100644
+> --- a/fs/xfs/xfs_super.c
+> +++ b/fs/xfs/xfs_super.c
+> @@ -1924,7 +1924,7 @@ xfs_fs_fill_super(
+>  		sb->s_time_max = XFS_LEGACY_TIME_MAX;
+>  	}
+>  	trace_xfs_inode_timestamp_range(mp, sb->s_time_min, sb->s_time_max);
+> -	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM;
+> +	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM | SB_I_OVL_USE_SYNC_FS;
 
+Please name flags ater their behavior and not the user.
 
-On 10/27/26 18:53, Keith Busch wrote:
-
-> Thanks, applied to nvme-7.4.
-
-Hi Keith,
-
-Could you add these tags to "nvme-tcp: start error recovery when
-read_sock fails", if nvme-7.4 can still change?
-
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Cc: stable@vger.kernel.org
-
-Since 6.7, a TLS record that is not application data (for example a
-KeyUpdate) makes the queue stall until a command times out. This patch
-makes the queue reconnect at once. It applies cleanly to 6.12 and 6.18.
-
-Thanks,
-Martin
+Even with the commit log I have no idea what this indicates.
 
