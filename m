@@ -1,73 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208818;
-	b=C52P/flx7L0fbC862A747tZ4IYlX/945M+cQeRmUlha12ste5LE8zVeGrjT30Cr8mCR5
-	 TqDoPWHuX+C82Mb6IoKB5Qm4Mn+Mb89JcdJJYYlFQiCiq939t6jDpddZeQvAreNrTJDdR
-	 t0P+jMUTUzFHx/oNWTDOpgOIBm+IM2s5Bq32vCl2eR2q5lNdJxww9tJ8bI0xXe8UOTfEp
-	 aZJBNjwrXRddLlJKljBBiqkDEjAvcqAPGTbKZUlaTmVAsEE6N7fbJk6ARGqvL7ueRS4tt
-	 vSLsbRGQOpDyiiqvRTyRZix9TRvy6+FELWqT95dKC1ckwk2natutKyODwgpd5zrgaDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208818;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=I1Fa6JRPP7VYNcV1UYSNzfVBuIai7Yz+ImynYwQzz8w=;
-	b=dRUki0WdxU5ptPr3L2j/hhiLUB1JIt7cEu+tVuUf/Fcp75cE2AH3PqeK17WvJI3IlJa7
-	 911RM4SDSjsXbfiLQX8PnSDds6eq2nRgYpZ02DpCyBcCjgO4cDGogp75HJhwLKkwhXKk0
-	 1bsAN3fPxf5QO7P7TCN1vVonSL2AHvR6O0nu6CmUqeu0+0JFwobeRpvCd1zxp4Y8PSvqB
-	 56w6G1wAYITb8fxTyw4cFLYpt1gzBANWXPpWuFhikkGOfmw41dqa4BBWzflJdxAF8F0sY
-	 9eeBog98G6j/DoFPzv02QPTgz0AEjFLMJSn5VSDBV89BJFEkLTQyuwoi/cDZP+fAA0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YldVIdE0;
-	arc=none smtp.remote-ip=95.215.58.118
-Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793208830;
+	b=yYy205276/pV46PoW0wzHJ5w2xQKYXkvPc+Z+v5OUEBotMRllubyWLec7YPxWKdD7/wC
+	 He3y14/7VO8VidRYVOxe/SkawtbNBLWBj4ERN1r0DKCBCn27KxXdBlxgGvs3oNbO+BeVA
+	 IUzRQO/S/Sb+kwFH+H6K3q2vO1BtWj+rmLtz9em3On+WKbGRozery+YYJpqOSfD0JC5O1
+	 4leYjg7i01+O/VjMj7xINM9NmAwNyEsEics1le+wylbG1fdpimWAyetNEV62UAqOyc6Gr
+	 Ap1O2sqBSQhwUA4T6NwgVaLQ5sJfMI/xNYijp1wEkS6r171Vt0BU7MXIRLt53CDaJJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208830;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
+	b=G7CkB3LTf6xS0Q5TCht/Sa7IIeOSFb1zy2gxqpVLXIKrMSdTRO9V28hwJcujxv5LvUHI
+	 Ue4WP+rOcHlR/8aY/uWNF2S7CscpoBSr9EOwnrodn8A/4scickQpeUIhTTKyvX7I9drf9
+	 lgr9jXYVEdA/Agnho2FC7lLvIwRArjLSpp7gmDNMMfqG6WTHxKk5rbfzesehjaF7p3vC7
+	 vGCGbn26yxUPCfIt3BtDLakxNFd6Elxo6/1ByfjJhz4JKL3rJnK+6BXeuxFxKuhccVSnn
+	 KVEW5j1EZs4f9e8vzR/fIlMdGn25cYaMZDFL32WnWQae9ip5BNYoHfEOB8HZJvjSjcA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hHWgMcjy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87187606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87187606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8724606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8724606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YldVIdE0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Vu3DCnFQlvZnnQDvCt8iSvZagRZVGtqQzKTq6UXQQNA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793208815; v=1; x=1793813615;
- b=YldVIdE0tZen68U2dzYAeLfmvCn/AYpRxWJFx3P/bZU+3lg8OkAkiv8LzWz35zCguLpc2HKT
- uqEPOk4lIqIMYEpy+vQ/zQOyE7Fmqf8t+bVhqSi0E5R6jjx89onQgmgZLBzpv5mwCP9bc4+rrBZ
- qIadKiMGGYOrpMBweNdPzo0g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5cb386fb5ff2312e;
-	Wed, 28 Oct 2026 17:33:35 +0000
-X-Mizu-Trace-ID: 5cb386fb5ff2312e
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] KVM: arm64: vgic-its: Remove the pending state of a cleared LPI
-Date: Wed, 28 Oct 2026 17:33:19 +0000
-Message-ID: <20261028173319.1807811-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028173319.1807811-1-fuad.tabba@linux.dev>
-References: <20261028173319.1807811-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hHWgMcjy
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso943a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:33:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793208828; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dfOBhqp7uPMxw5CKalYHF6juD8z+czXgJWv17TF8a96+wd8JmjNz0UwCi/7aQHl+LE
+         FFaRqIherskQw8t6EM9IUA+hxlJPe6YBU1cKeAvrMgAepfj7qXGfBCDrrhdDi0aog6CN
+         o9C0/91v+lv3RyEJwXuk14r8GiYHDVOZ9a3tcA9JuKzO/+fvMro1oK7j5rBfLqrtScNm
+         731tgPRDRytDUFEcXIFHCZUp8HUOhTs90fIsQhmmG3aNNipgAXoj5qIjzIkU7EQSso+K
+         1XB48v5CwegUD3OCERG8YKlGIcNYZFntgpiUwOa6HQqlR/bPWybby0B0MNQ0XZZrp1Vr
+         07bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
+        fh=9bCgr+WQwAb6yCOEHneQhmWijvmydC4pRXx/H6niqTo=;
+        b=MiPdBodoEG7yr1ge7ebbRHo+zLMx+cPLZ8P4QEsdHRzxntgSRPLVEYdAPGi+4Z+alv
+         cPHvoZVTpOEpGd2pzlpqrNZH4Wm3hDpWtmMW1yU4TUsm2ym1szH7HwB4X6NuQJvAlk2I
+         7wHDHm4rQ5iiBafBG91V/1k9wTBUBVXf4do8ufF2uA2qpg/2WkRgDbUu9vQyDgMolllI
+         DO0ClhK2VY2UiWExWVfDAmg86ZS153lBA94RBScETawZylK1+s0V9Av82hM758ic02qO
+         9tUMp/dM6S9HBtfARKtRQo51tIbpJLzrpyWOv/eTI08F7BpVKk19+6teZVr9X6JSQC39
+         rjlA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793208828; x=1793813628; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
+        b=hHWgMcjyEXEFs94F0opmrR2osT29gnRS0Wcbon1pb9d0qNq2KamffAiJQABDUWT+t+
+         bs1tvpNgwt5Ay4A2BPCuvL+699P5FICIWki9EUnEg6NFcXvWyyhjassWjYurneMOLorv
+         632UmjTXENyTpYhAJUOFyvfZEYGE2B0txXFIubn5n+MSPMn96EzmvgP9rpnchfyYONCx
+         hSpZLCfLyOG28ATlnQ6uP83+tZLAq+GjSvG1ozkh1OMVWY1W36x/yfZIaFMd4pKdZffZ
+         YOxnluTIs1peo/YCOQPxwu3qvKsu+upCyvRTaj72DRybLzdZLSKN9qwvGvz7i6TD2Ogf
+         vrjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208828; x=1793813628;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4x4ogCcrIz3iULJj4AUcmCmwpvZhGjnxniSpLhEijJA=;
+        b=1UkbfzVJIqwUw0bIT1p4mL5yR2Vgv0jLaZi6a250tkcJhV7bCB5OgWhz1nzU9Fimm7
+         CNNprtJBZIH6mgfLvsj/oATS+JcIOdBl/MNszszvTE5AXaZw9PzzVqq1yCROusQca6x7
+         Gi2zCdNavMHdBnq2XfctGxmGAt/s8tsKXgXm2v2gOruKZJcwfp4GJHoC6qCBaqL0FuuH
+         2L1Wiy4wGgAz5ciYLhKk/0ciRKUrsXBRcQkgKyRTKCxaOispqrl9L+mga0CuRO8Igabl
+         DytUGzu87TGO5dNOaOzcsNBT5tGyxv0GmrouYjnM1YqnJBTVJ7kR2v7FJcnbISYlFpMC
+         NbpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzttiOQDyqORBczAPt9G0wPAIvAKJaesrL/W388uuEOlETMzwMQKGE3+Fk7ij/D5g/DuJMDSA49XeDby+M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQG8y3mDxAzp/8dodiN6JTVdVluw8NJo567Lz3+I1Yw9MV8wEw
+	pVV5t6JdQT+f28ThxNQkJ5hCK3UDUe1pXL+ks4YFD67tse5XMQa5AXD+4J5fAPkJ+XmPikYdeGC
+	pj545rVNk5ZnbaMwdDLo+gyYycBEkmSNSwvED0CYH
+X-Gm-Gg: AYBFou2PVch+kPC3mgQuOY+ww/mai8vpqYIPAjM5IT6DUPEJUWfDBYZDPyhACsxxDku
+	mqLxHRDTLF1de9HIyw4o5b2/ofYJIOsN1/nStzJLzChqWkmAQXDMX+BzJTtcqOFfeyYqkw2+xWs
+	Kef9wTbNTs2QT/EDvnekYCS4/2LePnOBkaBDTL3qr6CqPKl/g6Ose7XAtl2GOSZ+0wiJvnFiWA5
+	/Yj6ol6gPNJJPMs4VvMIwROn8B1Gq0+iJJyI5I7BS+BhXkO9fcEe3WFkC0WQIZfvfjbEtAdEHRZ
+	gzj/rkCclJk5ZGsPS4BDmxGO/zMXmy5hoQnEithO+5eJPD8CCewJqc5Q0Sppq4KU01pBbEenzm6
+	6c7TZ7R0yJDeF4imA5iwjsnPxEhRkhiS57uvCNvdaMtylVdiddEboLpaUUQ==
+X-Received: by 2002:a05:6402:a204:10b0:6b4:9221:8932 with SMTP id
+ 4fb4d7f45d1cf-6b4b10d3756mr7408a12.10.1793208827782; Wed, 28 Oct 2026
+ 10:33:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,125 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-8-zide.chen@intel.com>
+In-Reply-To: <20260827223755.143247-8-zide.chen@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 28 Oct 2026 10:33:35 -0700
+X-Gm-Features: AclHuK-cshc-ua1x23QeiEhM2iv4YfYaUSv2c6vItBjWJCU_Q1Z7ZQY_OtyF72s
+Message-ID: <CALMp9eRrgBXxFtNLOw0KAjFu_L9ofar_oiJA9WSJk82w75w+bw@mail.gmail.com>
+Subject: Re: [PATCH v2 07/16] KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CLEAR removes the pending state of an LPI (IHI 0069H.b 5.3.3). Since
-commit e99ff76f4a02b ("KVM: arm64: vgic-its: Remove the pending state of
-a discarded LPI"), DISCARD does that under the irq lock, after pausing
-the vCPUs whose list registers can hold the LPI. CLEAR does neither. An
-LPI pending in a running vCPU's list register is folded back on exit, so
-the guest takes it after the CLEAR. pending_latch also shares a word
-with on_lr, so a racing CLEAR can restore on_lr after the exit path has
-cleared it under the lock, and trip the WARN_ON() in
-vgic_v3_compute_lr() when the LPI is next queued.
-
-Move DISCARD's pause and clear into a helper and use it for CLEAR too,
-after checking, as DISCARD does, that the event's collection is mapped.
-CLEAR on an unmapped collection is a command error. Without the check,
-the helper could be handed an LPI that has no target vCPU to pause.
-
-Fixes: df9f58fbea9bc ("KVM: arm64: vgic-its: Implement ITS command queue command handlers")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/vgic/vgic-its.c | 67 ++++++++++++++++++----------------
- 1 file changed, 35 insertions(+), 32 deletions(-)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 42dc71495ad98..f9e9b0a71eb5a 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -817,6 +817,38 @@ static u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
- #define its_cmd_get_target_addr(cmd)	its_cmd_mask_field(cmd, 2, 16, 32)
- #define its_cmd_get_validbit(cmd)	its_cmd_mask_field(cmd, 2, 63,  1)
- 
-+/*
-+ * Only an LPI on a vCPU's AP list can be in its list registers, which the
-+ * exit path folds back, and that exit moves the LPI to its target vCPU if
-+ * the target has changed: pause both. Clear an LPI on no AP list before
-+ * dropping the lock, so that nothing can put it in a list register first.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static void vgic_its_clear_pending(struct vgic_irq *irq)
-+{
-+	struct kvm_vcpu *vcpu, *target;
-+
-+	scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
-+		vcpu = irq->vcpu;
-+		target = irq->target_vcpu;
-+		if (!vcpu)
-+			irq->pending_latch = false;
-+	}
-+
-+	if (vcpu) {
-+		if (target != vcpu)
-+			kvm_pause_vcpu(target);
-+		kvm_pause_vcpu(vcpu);
-+
-+		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
-+			irq->pending_latch = false;
-+
-+		kvm_resume_vcpu(vcpu);
-+		if (target != vcpu)
-+			kvm_resume_vcpu(target);
-+	}
-+}
-+
- /*
-  * The DISCARD command frees an Interrupt Translation Table Entry (ITTE).
-  * Must be called with the its_lock mutex held.
-@@ -833,38 +865,9 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
- 		struct its_device *device = find_its_device(its, device_id);
- 		int ite_esz = vgic_its_get_abi(its)->ite_esz;
- 		gpa_t gpa = device->itt_addr + ite->event_id * ite_esz;
--		struct vgic_irq *irq = ite->irq;
--		struct kvm_vcpu *vcpu, *target;
- 
- 		vgic_its_invalidate_cache(its);
--
--		/*
--		 * Only an LPI on a vCPU's AP list can be in its list registers,
--		 * which the exit path folds back, and that exit moves the LPI
--		 * to its target vCPU if the target has changed: pause both.
--		 * Clear an LPI on no AP list before dropping the lock, so that
--		 * nothing can put it in a list register first.
--		 */
--		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
--			vcpu = irq->vcpu;
--			target = irq->target_vcpu;
--			if (!vcpu)
--				irq->pending_latch = false;
--		}
--
--		if (vcpu) {
--			if (target != vcpu)
--				kvm_pause_vcpu(target);
--			kvm_pause_vcpu(vcpu);
--
--			scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
--				irq->pending_latch = false;
--
--			kvm_resume_vcpu(vcpu);
--			if (target != vcpu)
--				kvm_resume_vcpu(target);
--		}
--
-+		vgic_its_clear_pending(ite->irq);
- 		its_free_ite(kvm, ite);
- 
- 		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite);
-@@ -1309,10 +1312,10 @@ static int vgic_its_cmd_handle_clear(struct kvm *kvm, struct vgic_its *its,
- 
- 
- 	ite = find_ite(its, device_id, event_id);
--	if (!ite)
-+	if (!ite || !its_is_collection_mapped(ite->collection))
- 		return E_ITS_CLEAR_UNMAPPED_INTERRUPT;
- 
--	ite->irq->pending_latch = false;
-+	vgic_its_clear_pending(ite->irq);
- 
- 	if (ite->irq->hw)
- 		return irq_set_irqchip_state(ite->irq->host_irq,
--- 
-2.47.3
-
+On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
+te:
+>
+> kvm_host_pmu holds the unadulterated host PMU capabilities, which
+> can be used to compare against guest capabilities to determine whether
+> certain MSRs should be intercepted by KVM.
+>
+> Exposing it directly avoids the need to introduce per-field accessors,
+> which would add boilerplate without hiding any implementation detail
+> worth encapsulating.
+>
+> Opportunistically, fix typo "Unadultered" in the comment.
+>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Jim Mattson <jmattson@google.com>
