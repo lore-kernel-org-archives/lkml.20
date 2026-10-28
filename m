@@ -1,90 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225038;
-	b=OGC3diNanMFkcJHI9+rWjh5Zt8cbUQFSRKG5Mu9dijrJxLdIxMOCsfPW3XQ04a1R6TQW
-	 AFIXflIQfi1W/Lro3ChKodf1PSHB1DSOZ65/YBVi/zmT1xInxZLhd6JGo0v6eHOg2F4x+
-	 gl+2A8mBO2GkCw4qH/TCufNX6uZ54B8L90wyhlE6qd28h3WEHprQEeC8Cl9Fwb/vpAoGs
-	 3/Wqnpn+VvWKZ/zLLXbT0tMw7AhR3GtXR22NIUEvlqXtAvPuI0Pfvtm9xL70s5wsjRWe8
-	 RIpOA8+/rV5TiZ2ttR+2IfUYSTHBDGniARFkkkuzjXMZ3bVld3JaA88GpQuKrxI6PGQ==
+	t=1793225058;
+	b=g0fv+3dpYMJzPnXbUts3n3zyQkAvo66q18hhz/Rjk9dodMbudQtbZkuIyk+m3kCYJy5x
+	 C6VgS79Xt2ikttkWaJMV6SvJWDqdruFWsU3S0ONlqKMHsDmru90gytURNPUyK91BdayXz
+	 L1inqoE9VckO9L8tH+pHfpDqCiyUgtW7zDsRBmBJS0xjXvKU6VBAbtrw+W4Fzsv4QUNBv
+	 hmwvnLR15x/CyGgTet1qhi1BQ1YXXko7g45MHw/Ij+N3e2wGs7CV4/YM35uUxOlKJMeiT
+	 J3Jwi16zjCNKBkGkrRZCWjRxy1jxEeQCupHggOaA6Q0wR1Se3Q0m83pUTgxUj29br+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225058;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=07TvSjlSa6pD44ieWEKulZ7cEs4Mmh25/8EVSbg6l/E=;
-	b=UjZXKPhzpbZkwIglCq1gDEj22ILLz3yolmcVpJ3YMoNcm5rdcGLffaNDdXLjyfbGSf4b
-	 hJQwy0Mn/j/9UPcL55uLpBPh4LBZ1q2B6P6k/1v8dg79U9XKKMwB3kAz7ImfzaqYYMsir
-	 saH+hmQTX0yHUiF2zAqbcgonCq5mgkQWuzst1IXFXUOisfPR3hg0nhqu6IOaAkjWn/OKy
-	 VFKxsuRPSN/g/UuRruNpm15yrobSJ09ZFtYXvd5zMpYWfBqoE/yQBop2WyMo9lxYVtb7H
-	 dwYqPzEDGhXmYY7jvZs43OuA2+Y6w2CIsF7T4lrLEQki7ekDaxFn+g9pDTpGE6vpiUQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
+	b=vd4u5T4qebs59nduxmt+0bDGncBMc8slt4pW5xlqdjnn5/YPVsVhZqfmG6H+zDhYY+ul
+	 yXI6VcHcwpe8/wzupQEDJf3itYmXFaLGNcsriCaCQQDdJVn0azlsEAiXVoX+yH8E2n+cy
+	 tjftspCtwLuVhEnJOCT/Y2Z6GTDJxcix0B/lnW/bM7SQI7TuOkvj9YBueDUqPhVjFD/XS
+	 c4tHimQMrMSSb08m4xqZ4i2Isfz18TzkCAggctxKCqOhgLM8lhFXi5b76+oYphwS5xOe7
+	 t1aYG99bW0b1TVwDcSK3dahrOinyS9cMB5iOaqKhaghZDeawq0j3phZtvsWXVomgfJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=C5B+FJNH;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JXiNs34e;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009AD606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009AD606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E330F606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:04:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E330F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=C5B+FJNH
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1578284e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:03:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JXiNs34e
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a26fe9521so135724eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793225036; x=1793829836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=07TvSjlSa6pD44ieWEKulZ7cEs4Mmh25/8EVSbg6l/E=;
-        b=C5B+FJNH7h1BkLPOSCjjLRptcRRRVHEnqv5jrFGN0yRpSQVDpMyYKfx3LouZ1QyzGo
-         zkh9sTPch3Scde1GcGXekP+YcAP20APOod+xebkc5OISHw+1XzyBOpPwUx1HESRV3H5w
-         6wuNaUjIBwvnOYf6xtOkGQ20d+nryf1yMMaT0=
+        d=google.com; s=20260707; t=1793225057; x=1793829857; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
+        b=JXiNs34e6Fk2LnWdvPRxIcmtr/wjGDbl6nP72wE/PEuHVJh/k1DCD2LNDrXuc8458n
+         HqQ7QY318sUg5Q9qHAlH8A7JF0LwkHD/Abu5JeWDFy9H2xhShvMxhIHV3KxFHSV2hteu
+         mI0Ra0Xnxdios7GXMnNnQtKhQDTjqeCJtkpZY1sID+Byh4C8SSbdzQyxfCkvBrYgXH4r
+         UxH5u+jJn12DyLXz/LySrVtj3nEmvIF6Fn/KDsFulPwrYqpSCTiLr8MHjRGiFOXnEsS9
+         jPXGMIqk40mxOXpjFE3Y0EQXUd9Tu0QF9yQWtNh5lY2jcTwdo0XrTEl13d3OYNUfNPQG
+         XSIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793225036; x=1793829836;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793225057; x=1793829857;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=07TvSjlSa6pD44ieWEKulZ7cEs4Mmh25/8EVSbg6l/E=;
-        b=W/xLX197gc51u+E55/7zB4zO3e6l5AYoyOQjVttQvNTeiAoUo1wKv75fS1+8Vt9b8B
-         sYGDjjpubvw/Wk/F+GlTWVDib4jX1sqqdXNkdOq8nHWUlkXjczxc5u35QXaROgzvnxrY
-         82whKSzTo4y4Usn0TET0efqXdDliytfqmdSx2DK3smtITlCeAumeN2nxy2ksLpNLDFL3
-         Q2d5tBOokL5XvRqPhOmgL/PI9qGlaBfEOKQy55wvfI7VSxN55d/iSe8U90XAAenlfHLf
-         UVgJ1IoApqOUj5BAweo68Wm04PW2rXy+wR2zMJV3lfARdB7HVGxywIrfWLNuPboE5uPh
-         MzXA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFkMQquruDGQwNKdTYbI74Mu7NSu92SaAbJ3sYZGTw45jPuIlC7Frr/H/ulOF3zIYeTdZAh5X1bvS8VN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJopQn8/+gOyVmuQjzU2gXfMz2lv0ivm+k9+ffm2eStaTNzE5od
-	uxbrSDODNbnMGWkFE3mADnmiIM4kosV7a4WwSm1SI+SCgehEyq52exAh7bCOrZM/egNw945lJkl
-	4a4O981S5
-X-Gm-Gg: AYBFou1oQddWlNwT3gg3BBhXu+69PIR9mEnSwztf3zFL2HPaA3Ib2X7l81fjAutJYWp
-	cuplYqf/Cuq6883Eb7ZERgDe0GGrcUwfdrXk7cmWvu7u2/HArXb11Pg8ZAggpv601lzRX+RDv/P
-	NLExYB/JsDwPkzSn8iOQwT4jh8fdiB7ltMkDROV0sa3aXjSoBXCAVdIZuccSgsub96egelqnUp1
-	SnOi2fHNtJ2wn8TsYHdjwbeFJSrGUdmEXJi3G1dH81jlsrSdcj8a9Xjy0aECw/a9TMAV+3bKZnv
-	m74F0mRAcYYfSFZsLGtb7cXhKzUFJ18aF4+j1XUAqS52z9ChUTvS+T5rMBOrq+yJbTFxWPPhqWI
-	daU3OqeoPpEStqJ3T7qiflcbiAUmZpB5hWpYO4b2aqNk8DzNx4AJK8hLCGJZpU/bkloSliw5oMX
-	VQmNXmAIEHWHA+FENKgKB4sRs8los4YrJxFyuItzh0UxlO6ZjO1Q7OQssoibTh6Ex+kapdyJdO8
-	K8vbucwIAa5DmRBZ9yrYwbZNxZUBXfPyTmIW0VaqqIyFoZiwxzMSyFzqWckOtgnVMs+HBJWy7kj
-	y6EHC4Gla/ozDQHv3KxEzLHqs6Luj2GdYjVdKuc2Z8bgW8Mbl1KURXrw6LlClXge0NdFag==
-X-Received: by 2002:a05:6512:3b07:b0:5bf:b237:8e40 with SMTP id 2adb3069b0e04-5bfcad7ed0bmr1325467e87.20.1793225036019;
-        Wed, 28 Oct 2026 15:03:56 -0700 (PDT)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com. [209.85.167.43])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca57ed8bsm848255e87.42.2026.10.28.15.03.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 15:03:55 -0700 (PDT)
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1578262e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:03:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz1fKpU7l7Tr5HwqBialxlHFz1qoXVFwgswEcq+RUAVUfalDUbxJEis99/X+8C0cndjS/UiFc9OUL5wvpk=@vger.kernel.org
-X-Received: by 2002:a05:6000:250a:b0:48d:ed98:2a55 with SMTP id
- ffacd0b85a97d-48e5d5995bemr7521102f8f.22.1793224640054; Wed, 28 Oct 2026
- 14:57:20 -0700 (PDT)
+        bh=VSCUoby7xP25HrykDh9HQieAyhcppxVPR0g487OArfo=;
+        b=n0q0hJxztOpNSFNESj+wQMQz1YTfsCBCpqWeTjW2dpH6lnZVu3zgG+PeaYjltswRGa
+         y9E15eXN9gTcUpgiIH3LUaCbaOgKs1fOB9JQvqT1BAs/+Gwt5dhE6YcvGkpqWF1pkouQ
+         OHKP1faxqLIcisvsQBKk+BVkMf/rBtX9YHWebDIul8jkInGItieAo1sov90va0d01hC/
+         y2clqU7SLfKsPCfr02KNXqolXwx3mDAczhNsP1xuohIf0/n06tyYRIuB8y+2FO7veK2X
+         HfVVKFWcPkwAWTvF5zObGDuuNUDd7Mqu2qe+D0M+UgZrnaAl8BJ2qF7MQf2X15WE5Fzl
+         fZ7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwmWlIZVC+ClnWCLq5HyC2v4uRb04NAPFDOpiNxAlBi0zVKMEwAt8kj7YK8hDytFXMgzYD9jmjbElp/s50=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLf+1MdjvYAuohjlhhajwfK1gaxsDkcmmE98U0scJwJgo5ZV0NF
+	jhw4wUQGUrAkNJLNyi+X60A1uCJyEcXEcNhckJY5069s1RIBBpQVgGiKEXgw6xtFW1jXPf4ofrG
+	YqSskowMEuSxQhw==
+X-Received: from dlf41.prod.google.com ([2002:a05:7022:429:b0:164:47f8:a96a])
+ (user=scollyer job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:2083:10b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1a944179045mr1067825c88.12.1793225056530;
+ Wed, 28 Oct 2026 15:04:16 -0700 (PDT)
+Date: Wed, 28 Oct 2026 15:04:14 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,197 +75,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261015182221.2931742-1-dianders@chromium.org> <atrnN0ICA41TU1B3@gractus.seuss>
-In-Reply-To: <atrnN0ICA41TU1B3@gractus.seuss>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 28 Oct 2026 14:57:08 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XXp6rMfE0fwUOFHQ--eetjRu8N=L1pjZP71Lcu5n-yow@mail.gmail.com>
-X-Gm-Features: AclHuK8NLTlui-V6h-KJogbMRPIZx2bj01wfY_NZiveWxCtCuxzAidtcDBdEMUQ
-Message-ID: <CAD=FV=XXp6rMfE0fwUOFHQ--eetjRu8N=L1pjZP71Lcu5n-yow@mail.gmail.com>
-Subject: Re: [PATCH 0/4] fdtfactor: Introduce fdtfactor to auto-factor overlays
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	linux-kernel@vger.kernel.org, Devicetree@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028220414.1414481-1-scollyer@google.com>
+Subject: [PATCH v2] platform/chrome: cros_ec_ishtp: report EC_HOST_EVENT_PANIC
+ to userspace
+From: Scott Collyer <scollyer@google.com>
+To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Scott Collyer <scollyer@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+When the ISH firmware encounters a fatal exception, it resets and sends
+EC_HOST_EVENT_PANIC over the ISHTP MKBP channel. Register an
+event_notifier callback in cros_ec_ishtp to log the panic, invoke the
+panic_notifier chain, and emit an ERROR=PANIC uevent so userspace crash
+collectors can capture the panic dump and handle recovery.
 
-On Thu, Oct 22, 2026 at 10:04=E2=80=AFPM David Gibson
-<david@gibson.dropbear.id.au> wrote:
->
-> On Thu, Oct 15, 2026 at 11:21:33AM -0700, Douglas Anderson wrote:
-> >
-> > Devicetree overlays allow you to have a "base" compiled devicetree and =
-then
-> > to apply an "overlay" to it to add or modify nodes. Devicetree overlays=
- have
-> > at least two purposes:
-> >
-> > 1. Supporting add-on boards (like "hats" on a dev board). In this case =
-the
-> >    main board is described as a base devicetree and the add-on board is=
- an
-> >    overlay. In this case there is a clear separation between the base a=
-nd the
-> >    add-on board and the base/overlay separation models reality nicely.
-> >
-> > 2. Supporting a "family" of similar boards in a space-efficient way. In
-> >    upstream Linux, there are 47 distinct sc7180-trogdor boards supporte=
-d.
-> >    These board are all highly similar, but we compile (and ship) a sepa=
-rate
-> >    devicetree for each. Devicetree overlays can make this much more eff=
-icient
-> >    by factoring the common bits to the base devicetree and having each
-> >    of the 47 boards represented by a small devicetree overlay.
-> >
-> > Up to this point, the usage of overlays in the upstream devicetree repo=
- has
-> > mostly been for case #1.
->
-> I don't think it invalidates the concept you're going for, but this
-> description is a bit misleading without some historical context.  In
-> particular this is a bit confused by the fact that there are both
-> source-level (dts) overlays and binary-level (dtb) overlays.
->
-> Source overlays came first, in conjuction with /include/ support in
-> dtc, and were intended for use case (2) and similar.  A group of
-> boards with the same SoC was the most common case, but families of
-> similar boards and families of similar SoCs also used this mechanism.
-> At the time this was still envisaging that a complete tree was built
-> at boot time, and didn't change.
->
-> This started to drift into use case (1) since without hotplug (we'll
-> get to that), a board with different hats (or whatever) can be
-> considered variants of the same base board.
->
-> That still required the complete tree be built at compile time (or at
-> least bootloader / kernel installation time).  That wasn't great for
-> two reasons, roughly matching your two use cases:
->
->  1. Compile time is obviously no good for hotplugged hats.  Even for
->     coldplug hats, it's desirable to be able to complete the tree at
->     boot time rather than compile / deploy time.
->
->  2. Bootloaders often want to support a variety of related boards, not
->     just a single configuration.  That was already possible by
->     incorporating a full dtb for every variant, but it gets pretty
->     bulky and bootloaders are often pretty constrained.
->
-> dtb overlays were invented to address these, though I don't know that
-> difference between the two motivations was particularly well
-> understood at the time.
->
-> dtb overlays were pretty much a direct transcription of dts overlay
-> semantics to dtb and runtime.  The use of "in band" encoding (special
-> properties) is kind of inelegant, but it worked well enough to become
-> popular.
->
-> This works reasonably well for use case (2).  That makes sense: the
-> semantics are based on dts overlays which were designed for use case
-> (2).
->
-> But, dtb overlays have always been a nasty hack for case (1), even
-> though that's become the predominant one.  Overlays can change
-> anywhere in the tree, whether or not that's physically sensible via
-> the hat connector (or whatever).  The semantics of applying an overlay
-> lose information (by design), which means that removing an overlay for
-> hot unplug is a complete mess.  The way we encode the information
-> necessary to apply an overlay is kind of messy and inconsistent.
->
-> Still, they worked well enough for (1) that they've become widespread.
-> Herv=C3=A9 Condina is now working on a new scheme (dubbed "addons") which
-> is actually designed for case (1), and should suit it much better.
-> It's a fair way off being ready for use, but it's a good development.
+Signed-off-by: Scott Collyer <scollyer@google.com>
+---
+Changes in v2:
+- Move EC_HOST_EVENT_PANIC handling from cros_ec.c into an event_notifier
+  in cros_ec_ishtp.c as suggested by Tzung-Bi Shih.
+- Drop kernel_restart() and instead invoke panic_notifier and emit an
+  ERROR=PANIC uevent so userspace can collect the crash and handle
+  recovery without forcing a kernel reboot.
 
-Interesting. I'd have never thought to call the "dts" vs. "dtsi" split
-"overlays".
+ drivers/platform/chrome/cros_ec_ishtp.c | 43 ++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
 
-I'll try to reword this in the cover letter.
-
-
-> > I've used this tool to reduce sc7180-trogdor device tree files (which
-> > are stored lz4 compressed) from 1.71 MB to 213 KB, a 87.5% savings.
->
-> Nice.  I suspect this gap would be substantially smaller with a large
-> window compressor.  The trick here is that the factoring is finding
-> long distance redundancies which lz4 won't be able to see.
-
-FWIW, I don't think the large window compressor would have helped
-here. Each .dtb file is compressed on its own, right? This means that
-the bootloader doesn't need to read/decompress all of the devicetree
-files--just the ones actually cares about.
-
-
-> > I'll freely admit that the patches in this series were pretty heavily v=
-ibe
-> > coded. I'll not pretend that I have a deep understanding of the intraci=
-cies
-> > of how overlays are implemented. That being said:
-> > * I've spent quite a bit of time reviewing the code from a high-level
-> >   perspective: confirming that functions are well documented, well stru=
-ctured,
-> >   and make sense.
-> > * I believe that what the tool is doing and how the tool is used make s=
-ense.
-> > * I have had quite a number of internal "the AI reviews the AI" rounds =
-to
-> >   the point of diminishing returns.
-> > At this point, I'm not embarassed to put my name behind this. While I w=
-on't
-> > promise that there is zero cases of the AI doing something really stupi=
-d,
-> > I'd be willing to bet that the end result is better (and cleaner / bett=
-er
-> > structured) than what I would have coded up if I had spend a few weeks =
-doing
-> > this on my own.
->
-> Thanks for that clear and helpful context.  My views on AI are
-> complicated, leaning negative, but I do think it can be a useful tool
-> and have no plans to reject patches purely because they're AI
-> assisted.  A statement like that goes a long way to convincing me that
-> I'm not about to waste my effort reviewing slop.  c.f. my rather
-> unfriendly response[2] to a recent very sloppish bug report which
-> vastly overestimated the impact of the bugs in question.
-
-Sorry if it still wasn't super amazing. FWIW, it was definitely much
-worse when I first started with it. :-P The quick prototype was done
-in 30 minutes, but then I spent a big chunk of time trying to whip it
-into something sensible. ...but obviously (as you found in reviewing
-it) there were a bunch of things that looked reasonable to me but
-weren't ideal. FWIW, there were at least some things that I simply
-made the wrong choice on. I wasn't sure how much you would want
-fdtfactor to stay out of the way of the rest of "dtc" (AKA keep my
-changes self-contained) vs. actually improving / fixing the dtc source
-base. I chose to stay out of the way in a few cases. That's changed in
-v2 which makes fdtfactor smaller.
-
-FWIW, I've attempted to get my AI to improve the later patches in the
-series based on your feedback in the cover letter and patch #2.
-Hopefully this makes things look better to you in v2...
-
-
-> [2] https://lore.kernel.org/devicetree-compiler/as8RYmIp0pDCplpu@gractus.=
-seuss/
->
-> Understand that all dtc maintainership is unpaid volunteer time for
-> me, so I'm less responsive about reviews than would be ideal.  I am
-> gradually chiping away at the backlog, though.
-
-I really appreciate the time you took on this. I've made it a priority
-to go through all of your feedback and ensure everything is addressed.
-
-I'm sure v2 won't be perfect, but hopefully it's a bunch better.
-
-
-
--Doug
+diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
+index 3766cef81fe8..ea7d4c61ffc2 100644
+--- a/drivers/platform/chrome/cros_ec_ishtp.c
++++ b/drivers/platform/chrome/cros_ec_ishtp.c
+@@ -8,7 +8,9 @@
+ // (ISH-TP).
+ 
+ #include <linux/delay.h>
++#include <linux/kobject.h>
+ #include <linux/module.h>
++#include <linux/notifier.h>
+ #include <linux/pci.h>
+ #include <linux/platform_data/cros_ec_commands.h>
+ #include <linux/platform_data/cros_ec_proto.h>
+@@ -117,6 +119,7 @@ struct response_info {
+  * @work_ishtp_reset: Work queue reset handling.
+  * @work_ec_evt: Work queue for EC events.
+  * @ec_dev: CrOS EC MFD device.
++ * @notifier: Notifier block for CrOS EC events.
+  *
+  * This structure is used to store per client data.
+  */
+@@ -133,6 +136,7 @@ struct ishtp_cl_data {
+ 	struct work_struct work_ishtp_reset;
+ 	struct work_struct work_ec_evt;
+ 	struct cros_ec_device *ec_dev;
++	struct notifier_block notifier;
+ };
+ 
+ /**
+@@ -538,10 +542,32 @@ static int cros_ec_pkt_xfer_ish(struct cros_ec_device *ec_dev,
+ 	return rv;
+ }
+ 
++static int cros_ec_ishtp_event(struct notifier_block *nb,
++			       unsigned long queued_during_suspend,
++			       void *data)
++{
++	struct ishtp_cl_data *client_data =
++		container_of(nb, struct ishtp_cl_data, notifier);
++	struct cros_ec_device *ec_dev = data;
++	u32 host_event = cros_ec_get_host_event(ec_dev);
++
++	if (host_event & EC_HOST_EVENT_MASK(EC_HOST_EVENT_PANIC)) {
++		static const char * const panic_env[] = { "ERROR=PANIC", NULL };
++
++		dev_emerg(cl_data_to_dev(client_data), "CrOS ISH Panic Reported\n");
++		blocking_notifier_call_chain(&ec_dev->panic_notifier, 0, ec_dev);
++		kobject_uevent_env(&ec_dev->dev->kobj, KOBJ_CHANGE, (char **)panic_env);
++		return NOTIFY_OK;
++	}
++
++	return NOTIFY_DONE;
++}
++
+ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
+ {
+ 	struct cros_ec_device *ec_dev;
+ 	struct device *dev = cl_data_to_dev(client_data);
++	int rv;
+ 
+ 	ec_dev = cros_ec_device_alloc(dev);
+ 	if (!ec_dev)
+@@ -555,7 +581,20 @@ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
+ 	ec_dev->pkt_xfer = cros_ec_pkt_xfer_ish;
+ 	ec_dev->phys_name = dev_name(dev);
+ 
+-	return cros_ec_register(ec_dev);
++	rv = cros_ec_register(ec_dev);
++	if (rv)
++		return rv;
++
++	client_data->notifier.notifier_call = cros_ec_ishtp_event;
++	rv = blocking_notifier_chain_register(&ec_dev->event_notifier,
++					      &client_data->notifier);
++	if (rv) {
++		dev_warn(dev, "failed to setup event notifier: %d\n", rv);
++		cros_ec_unregister(ec_dev);
++		return rv;
++	}
++
++	return 0;
+ }
+ 
+ static void reset_handler(struct work_struct *work)
+@@ -665,6 +704,8 @@ static void cros_ec_ishtp_remove(struct ishtp_cl_device *cl_device)
+ 	struct ishtp_cl	*cros_ish_cl = ishtp_get_drvdata(cl_device);
+ 	struct ishtp_cl_data *client_data = ishtp_get_client_data(cros_ish_cl);
+ 
++	blocking_notifier_chain_unregister(&client_data->ec_dev->event_notifier,
++					   &client_data->notifier);
+ 	cancel_work_sync(&client_data->work_ishtp_reset);
+ 	cancel_work_sync(&client_data->work_ec_evt);
+ 	cros_ec_unregister(client_data->ec_dev);
+-- 
+2.56.0.313.g2479322e68-goog
