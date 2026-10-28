@@ -1,131 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194208;
-	b=GMQL4zSGjrx/cfglssu43Gqb5Q4fvgLvbmnxM4cNPXDkqSkG5ABy7+8dHt771t4PMLgN
-	 IQDtUnlkCjhaLjFHPmhaOza8dX1FWhHSQa9nzd7DKSk7U3e4G8f0nhfnwY1SrGsup0eP0
-	 nI940y+HW2eMHzM2nCmNWSyJ8LE22WReYCH5s+7vnaJuUwLiUo18dBTvxjTAu1ipTCtCY
-	 cLDWjdSvkhz96F6Et8wSeIpzxqzj+1qiVQBtvATlIL7McDAK6G+uBezQRb9xoEggRaXWM
-	 O3Mj7cOdQ5UGDd7IIeb6JUJ9FwS556oLvnu+PezvH23qV61GXDSDSJ5j6ANuN5RK2bQ==
+	t=1793194213;
+	b=y/ZqjkXzHAFQEcNnwR3HcTRF6Y39fpz8lBnrwrqINKHmqGrCSG6Bkl2YSryuTLAvcruz
+	 +4IWXByAjQYQ6PI2zEFocJaw/9mSmktdo5yhr63VmUbu1fAUoBdWntkFl+ErAvHPUuk7w
+	 BzLgluVJkvJKmq/n1mLngC48BZGdzt6rpG2+r7c0UOM2U1fAjj57y/PU6BZ4iTfMyoQKX
+	 6NrfhJGTRDb142O+7uPyQ0jlQD2yJMA9nes87ieEUAvKlXh6PyTeLAaYt7uhJoFTBw6Z/
+	 /g8K/eVzEyU9CeDl9/Birv8R0WakxYNixI94IwlnrMkZbRAUPVmlxKroAwWuueZ2I3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194208;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
-	b=IMGVQV2/Hc4JOX9ePriB0VaI0uu7NZ9aYYAanqYzZU1TVdcUfBBBG3xRnWb9JFlBkTma
-	 4vslY0+4ARZZZghAosT4abhtWQYxv/n8LeZ25aP4byIL2u2OTxqHOERkmS3ElLO5hyv7Z
-	 vaFTuUNaqYvqLAjSTnHL+B0Bwd0R1ARH+SLwVtUaKc5IVVU6kodKcVm/zn1zdEJdEJZTL
-	 f+0loF9BLhMTrPEYy5OGqS5tEfOl3cLRm5T2kO+Q9FB1pilji66YaX83LTZ5vxifJ2q6b
-	 MJA4fQXDMmpP0AXrcY7HYecM5KZkbtiSgorpjHmCuH2XEBqXy9390COp7PVr7qKQXuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194213;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6f4Woc3XyMt/SHCxQyb8Mu+ku7o75W8y7G3fAoa1yCU=;
+	b=g80OHfymEovFq+kwc0iMc3RHetUUsuiBx+jCLPiekeh7k2z2SJJEdifkGo3phKSkCnzV
+	 kcvcxXH1ndl2rUW2/p/LHeJc7PigNFGLMIvOlJ7YPkQXn8SO6ZQoANE32YbKwlsDGo0Qa
+	 poUm/HSBZ8/DW7HqrU+IPvIrBF7QP30yS3HZDRhCbHSJglTjZi6LBHosKqWK14Ad99Vjr
+	 yp9mCvvf3a6x2/g+yYp3v3UP0QJBimKPb48paOvM61+IoX8PERTD3v6L+x8lXI7I9crNL
+	 wiiNSboYNjJHMuqrMShpFw3eqALXGdxTSKfMWwPeoISLg2HEGepIoHf0UO+XdTSDsPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Pfvj/4IU";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Pfvj/4IU";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WvxrqJ99;
+	arc=none smtp.remote-ip=209.85.208.178
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D916C606A31E;
-	Wed, 28 Oct 2026 13:30:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D916C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB41606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECB41606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pfvj/4IU;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pfvj/4IU
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 187361F7AF;
-	Wed, 28 Oct 2026 13:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793194206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
-	b=mRyYh38zGNqTdDzU2IBgubLvN6qxwLaC4yFWHklZIKqU26TyZ4oRQY7PAOrHeC8vFtNPfh
-	tcu52wSZ2Uc0egE7xLAaTMsq7kNtqVi5AcopCj8oycgRjtrCAgktm5lNVefPGRrF3AzCBi
-	EJzcNw70UCWj9ijZwZO8mecYSsw/20I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793194206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
-	b=Pfvj/4IUnhBaGC3rOJuYYnvHJWbGlsw4oQr9Z6uxVKVb+noUK+iNaGhZ7KFB1kZMqC9m+b
-	WQDtLt4MDXAFB/Cg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793194206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
-	b=mRyYh38zGNqTdDzU2IBgubLvN6qxwLaC4yFWHklZIKqU26TyZ4oRQY7PAOrHeC8vFtNPfh
-	tcu52wSZ2Uc0egE7xLAaTMsq7kNtqVi5AcopCj8oycgRjtrCAgktm5lNVefPGRrF3AzCBi
-	EJzcNw70UCWj9ijZwZO8mecYSsw/20I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793194206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
-	b=Pfvj/4IUnhBaGC3rOJuYYnvHJWbGlsw4oQr9Z6uxVKVb+noUK+iNaGhZ7KFB1kZMqC9m+b
-	WQDtLt4MDXAFB/Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B299213419;
-	Wed, 28 Oct 2026 13:30:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id R8HKH9n44WrwOgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:30:01 +0000
-Date: Wed, 28 Oct 2026 13:30:00 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 17/46] mm/khugepaged: preserve dirty bits when collapsing
- PTE-mapped THPs
-Message-ID: <auH4sb2pq-LpAUI3@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-17-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WvxrqJ99
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ac99992373so7513171fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:30:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793194211; x=1793799011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6f4Woc3XyMt/SHCxQyb8Mu+ku7o75W8y7G3fAoa1yCU=;
+        b=WvxrqJ99zwvaqod4/2gjx2Pk9XxspHhavfGzN8VQcoRla9pZs5tMSXCjSlZ6s8jC+q
+         d2UnkRjcL6/i+8RTPyWem1p+4mYqEnsKBxJ/ZfFwKvlJ8UQCnuZhUDeXgZEQnKumnp1G
+         oiktPJuJpT6+lEfXOf27+phCY9pPBVCyq5FS2iueRe4UqWZzw/VyxRdzWfrAENWV3ElT
+         3rMJ/Cw6BE9hZYu0e7d9pR+1tSl7TyOYnwRMV99Q+2fk4dMq3ueQtw+boVBefFxw97Ic
+         u0kDd2pCu6OV41B9kQoLOC8YPO38kpBtCqSmeLES99dAGrl6aW1gruhdaruqRBQSWA+M
+         FK4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793194211; x=1793799011;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6f4Woc3XyMt/SHCxQyb8Mu+ku7o75W8y7G3fAoa1yCU=;
+        b=XUDn+ZMX9G5wo/sd4po7fJGGpDHF2o+XHownduXxZlXMzmLDAZVAtvcJ0jbNfULIVi
+         sX4JxM5VXZKnjwi0hKWaNmts3TEPwWT2lMMZw4mDQZXOR8dqcrbHjlc9gGlRM80H6mBy
+         x4ufI1DATTyaNTSD4Sd1szohlPIIqr7dGjrccfzTNzYO5h9PQk72Uf3D68QHgdMfik+o
+         OdL8KzCZK/oeFuZsTzUM32/bM04N0jk0RN6LmvhaX6uqXrYqYNBDQ6Z9l9vEphWv1yG6
+         9g9dU/SYMOqv9dCtDBk02vDjtMXEtTgLEEm+faJzAdSUIwXPThKv/e96hyn7NLisqerR
+         LwCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRuzlx9wCKqk768sbihgy2+dKaBwGqs4qXnfUFCfvInpLky8yYjsz9gQcGxCX8Gout0hOCLFIl3rkKCY8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPUliVsE6VWdw5hn/xyVbYinTaL9LJP3zSjJYzQhbEKfNZBJNX
+	lbz+KwXJIhl4nRZbFUFyDI2tc/lwbFafYi7jG93eQjnQVeu+oyalsSU0
+X-Gm-Gg: AYBFou0vz2y8/lh3YdzHPJPuotX2Wy7ugrNIoqCcZvJOdMXrPJ6Gnb19XvlDxNLsvfD
+	NiPT+SjR6/DSA9CJcPWzMLgvWxCAE7gJEzmfPb3RBnL9xwIGVx/g7DKC8yH/X3zJjuJbHe3vKZh
+	hkfMkVM/vNv0Pew9YfP8AJTov52EE5AAg6ssIWN7hmWYmxqgiA19sUNP/ntckj3Rwhn3ParPobg
+	cJcJG2WKDnEGsO7SVEXiMg9PgmPSigj9DiQjcBBGTPXRMPPRBBV/6Y8gcPf2P9kqTvJjOPbzVkb
+	LD4O22tK62a2bHOhpXOESrd1MTufa1AYjLjI7OGgM5bTwNBD8xnxYLiJUYTW40/BeL/Iwwupaki
+	FOsY4Hcq3PVBoon4Scweof6s3rZ3qj7JjoNjg4kYuLMg7vH0YJ04Bk3ZVsur+V6w0EIAMXiPacT
+	6+mTHHjiIM4Jtpv9RNXiz1NXYFWg7+F9FRUkh+NPhlB/VoF2mUk4WaZdNX+oi8YdLoNCbuxRnxi
+	8HHPGSsJ69D1unrqbehl1cK31bOEJXSFKBPuqgfvn/GGhjTQvifR0fa/dfBCQ1ytaRVPv4mKeu4
+	F2R30IU8Dti92ZPblfpGqx1Q95g9mbTFEvPG3H1SdXorExDgxmESZICZuLl5lN8HhMKlXeDi
+X-Received: by 2002:a05:651c:54b:b0:3ab:483c:9149 with SMTP id 38308e7fff4ca-3ac9cf56f02mr4952551fa.17.1793194210831;
+        Wed, 28 Oct 2026 06:30:10 -0700 (PDT)
+Received: from NOT-THE-FBI.miamioh.edu ([134.53.242.65])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70993a57sm30955841fa.12.2026.10.28.06.30.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:30:10 -0700 (PDT)
+From: Benjamin Pryor <programmer2514@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: Andrew Udvare <audvare@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Benjamin Pryor <programmer2514@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Extend ALC1316 fixup to MSI GE76 Raider
+Date: Wed, 28 Oct 2026 09:29:51 -0400
+Message-ID: <20261028132951.1253841-1-programmer2514@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,65 +97,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-17-6f74bec9a5bb@kernel.org>
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[65];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:17:37AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
-> bits to the folio. A shmem read fault can map a clean folio writable, so
-> a later store only dirties the PTE. Losing that dirty bit allows reclaim
-> to discard modified data.
-> 
-> The assumption that regular files are read-only is also obsolete since
-> commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
-> for writable files"). In any case, transferring PTE dirty bits to the folio
-> when removing mappings (and while the folio is still mapped) is the right
-> thing to do.
-> 
-> Use get_and_clear_ptes() to collect the dirty bits and mark the folio
-> dirty before unmapping it. Update the comment.
-> 
-> This was reproduced with shmem using MADV_COLLAPSE followed by
-> MADV_PAGEOUT.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
-> Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: adjust comment; simplify description; cover file-thp as well ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The MSI GE76 Raider drives its speakers using the exact same ALC1316 smart
+amplifier as the GE66 Raider, but under a different hardware ID. Thus, the
+same speaker dropout fixup should apply to both devices.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+This patch extends the fixup that configures this amplifier's silence
+detection to apply to the hardware ID of the GE76 as well.
 
--- 
-Pedro
+Link: https://github.com/thesofproject/sof/issues/10475
+Link: https://lore.kernel.org/all/20260909193104.26508-1-audvare@gmail.com
+
+Signed-off-by: Benjamin J Pryor <programmer2514@gmail.com>
+
+---
+ sound/hda/codecs/realtek/alc269.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 23aa175faedd..1d3f60ea9adf 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8330,8 +8330,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x144d, 0xc1cc, "Samsung Galaxy Book3 Ultra (NT960XFH)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+ 	SND_PCI_QUIRK(0x1458, 0x900e, "Gigabyte G5 KF5 (2023)", ALC2XX_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
+-	SND_PCI_QUIRK(0x1462, 0x12fb, "MSI GE66 Raider 11UE",
+-		      ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
++	SND_PCI_QUIRK(0x1462, 0x12fb, "MSI GE66 Raider 11UE", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
++	SND_PCI_QUIRK(0x1462, 0x1305, "MSI GE76 Raider 11UG", ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
+ 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
+--
+2.43.0
