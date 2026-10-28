@@ -1,117 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201932;
-	b=UAl9GxYq1y3JwsQPORTuduDSO+69ms19hYZPq6IHRdXvZdJtxQXzUC6gqfTwa5dCQbJ+
-	 mXWXiFBTWMVORy2Id7RmfeaU5FFTJIugPeFAowkicQQxrDbaezycx9MWjeBZmX+dRJdpt
-	 C+paHBaB0FbNh8mE3rSBjpgr9USVAcXLzy7wQLbKIIlIhl7NZA7az/UICdGwA5DC3Ui0R
-	 2snqBSiolCdJZefcO/dPnXVyfNxXsx79fqZxBYWV4/6vm0OMhTo/qWIY909OqmVjyFRuT
-	 eOUC9YVrfZEpQnmaKU1kc9dRDG4X/r3ut91jrQaXDAP2J3MQqIxQPiXbxeUKa285iMg==
+	t=1793201947;
+	b=xxfU3P85CicQpyt0n2qxKU6CDLq65ZRzlVJRxTjT3v7AQtEvRn8405QIGqf6Gx8kaqTf
+	 EFvC1HgZ1Myu+wmcYS0iL9enEiHTiAqemWioi/leyD+Y1N7l90D0E0Y5KmC8/kv7OQa2D
+	 ICh4EbjuXzuqC/s1OJ8SBfaIU/dMl6KjvDky8uqrtbKtDNzv7+Hc6RoaNmFb+RRVRZaE5
+	 DVP3fPBqQpF0MbYaV/LDF08bzQmAXND1pdpSZzh3TBSV07hKBhk14i6+ZwcZ6mYHI5wDg
+	 XOfrFXmdall8H4rM8xVsjlLkbx3wv0Hfh2XCH1b3/+9WLLQT1bsk1cIY3mmMFwB4lMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201932;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HL3n5xlRKDyRhGpMHoz3nl0nGwGhziyan8A1Wdy6cno=;
-	b=1tvtrlfbwoFGc/Xha/GY1NYZW40S4n2XG18VyPoNQabWZqL833NNbP1wjQcqXP1GXHBJ
-	 g4Fm44uE7hgowZmenC2GiYDVAfOLuQUBT0DslxbfkEgQYsQH4oVA6opUiSAAIlUcd0VDS
-	 5Z4iYSmFm+5y/bP2c3TA/vmXrnz7c7seyRaSbU1US4TkrfrWti9EkgWXpIoPhGDlwJuzj
-	 sIgjIH2n2ltajfWc6kVOqu6B1d2ki7H75cBx0JQtGvB17cGIpKtuGk9eJ4S5CAva5LfOp
-	 k079jMIB8DK0xjD1kuGMC05MN2pDo577eH4DE+U1LGwwTE56Fh3rey7vSxjIqnxRtUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
+	b=MoEbSgvwtjQJ6cm7QyU0Kx7RRBhzIoq4zRZZUukEzfvAPIM5Arloxb7a6ISMkj4e2KO4
+	 gTCAmWTWe9B/FSpSYfT+iunT/M3EejMNCoex9DTGDhI7vMzldjziIOwokw60egDXCP7z7
+	 bgBZHfGINtBKw6Cw065RaBazgMI9dfB1ZxvmTkvIBElyeJeNp3MrgGwVc7eL5SL8PkLEd
+	 0G3gEwcm5A1ZcqciifaIU8thhA9WKXaA8Aj+vfzf6QR7DjABIB5jjhxr6oCoLsQ71aZ1s
+	 ttPRIGUx90pEtqHVq8vF8UxT0qDCugFT9DpjKIpt+3UDcPI7/eBGzj8BPeE0nAV5WjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QwU1UGoL;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UsLvD3Pq;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DnQPtUIw;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635F2606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 635F2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE8C606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECE8C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QwU1UGoL;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UsLvD3Pq
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFA5vT966643
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:38:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=HL3n5xlRKDyRhGpMHoz3nl0n
-	GwGhziyan8A1Wdy6cno=; b=QwU1UGoLZJPPRN1rjKjGfwL82bt7KAKZeEDd5JdX
-	lgGFryXJt2uQKelf7VO+9DwvDMUtXtsKW1QQ/b8wbqhfAp39J5cmlXdcbHyzgO2a
-	1FNgUPI6aTo3UttCONl90/IFzcRGpRrSotR/6VE8gGRDUzj6sU8YmIXh2a17wpLQ
-	yRA9VwfMCU67L5HawXfbG+X24BUce7/JXYTP8kVP0R/KBli/yCElfTKfr8Gi3FIt
-	mtO6kya+5FGH+dMXA9RH9b9nC3hUPjqAbAAdiQUeeGMbnON6UuyNfDhd7qDlAOA1
-	Y2p8jxyHgp9J0SjHhEeT34Vi2b4Whmh3OmS3Vz3gbGyMBA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtjgmyd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:38:51 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caf6c528aso150722485a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:38:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DnQPtUIw
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so666381a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:39:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793201930; x=1793806730; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HL3n5xlRKDyRhGpMHoz3nl0nGwGhziyan8A1Wdy6cno=;
-        b=UsLvD3PqFbaKS77peXGZMcBuu4z8DXCkN7rEVnT/9rxbDQu/0IlWLXnFGe+kPSzljv
-         nifHWWV6zi/2XQWOJGFSv4+iLTwhLa199r0Fw9nygP2u4dVQZTq/EaLuvns8SFt5Qb32
-         f+DaeoT6RiFkzsoO/L0u+G/mT8KYEzjteB+yKJhBbUU/iSMEmE/8L6igzItnzJNmg0sX
-         s5Wfgwz0tRRB952I+J6iMoOurk6voHot3BYCkiA2iC1BSJ3pAzztbS97GHPm1PE7ALcL
-         LAG8zs2i6W01NZI0Q6OB5ixsqg5pSUjL+kWEFZjhWXj13kpy/kkGv3yO7nY9fybwKy1x
-         0n2w==
+        d=gmail.com; s=20260707; t=1793201946; x=1793806746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
+        b=DnQPtUIwRy+I2bjm1a5lupUuNF0QdFVhy/2wCSZqQ8LSIMvmYkPU7s0zuCVpHd1m1V
+         p/PkTA9nj4uRlqNoazBgStQi15oc346+C7LmA7B4V7OLGVvK3xk14JdEGJonGn8dkRPA
+         nE3289YyK1/0qWEW4F1umCxE56wOT9lSv3GGQxj9hGCqJlFGhb0W/9b9semF4awl36Fb
+         pb/AEockeTA/T35qqS8aMRBHgcwZRy/19KUT/yjWOOYzTBQVecTiTJDNoB+dksmfuZD/
+         J16sfC2iT+zQlBTGMdL1kJsCwn7enFj/pDThPea/5ObeH6awa/rGssM5D4yP1zbZa8Ph
+         EMQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793201930; x=1793806730;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HL3n5xlRKDyRhGpMHoz3nl0nGwGhziyan8A1Wdy6cno=;
-        b=u5lV0K9mHsEgSpUmbJ6DjAbUSSwU24Cyjivnp4u4hrU/cuXjPHDElPanS6/z82e7Ot
-         3fsv5XOLLTnsSeRa6nPMSdOAxx3wDTfEC9JkTRPh74EYGCp6Bm872+lFFn+j+9cG1+xA
-         1j9yKcg33Z1UEoo5oL09HAZhhNzda4vAVNtvRKhP4wXwi1mW7SFh7k4uy2Obmj6JKaa9
-         wRTw01RiCbwW7PEkRXmUGPUNTSC2e4yEowOHU7xl11TryajioXMvWtMnwOEdqFFcHYMr
-         UJ9BEkiuIJ9aLILOW5mxDlrNB0KDwNXjsNKp7Zz8faDn8Ii9HIqAReVLDuLKN2PUNUHQ
-         +1pA==
-X-Forwarded-Encrypted: i=1; AKwUvByRJ3E3+XaCJ2xpUck5ZLudvSB99fQ52WKOkjVJISZHxTo1y9G9M9mdF4X7D7ewmZhfU5NkigSKT637XhY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1gWk7jyMIl22WCcXH/ZzTc+ti6QishorTSXFBe871HBYI+hI0
-	lI76IE7Q+ZGsIz7S7cuRSRkss9z5iPEzqXon1xaarsZR4/Cxx8wqwTV3lDWv+JocLzuiz5ggl9D
-	gPEhdke6Rne9c9bmw8Xer2BDooH7uYTeQM+iDJKw9Uzpr/bJ2n8n85uRV+W73hckotjc=
-X-Gm-Gg: AYBFou0WsPbJWp6nJMOpGeMAPyNZVLlzLQooj2FPvYuqkeUYV7YHmLYDiCqwolUpwlM
-	a2kYXwoKP5dzv5nwBQuoWEImMDATwQ/ME/efn8Qkh91HZGknBB7xWugCy760tPD0br+CBQEeyxT
-	vzB9OEAxfdgN7vAAhqlQEVrr6QUiT41EUXwd5KrFb6gkjZPJMpoqIa91ULoE/XOuWqftYaMOnip
-	rEHCx81oL6lsc19dfFVkk/rPX+WChty39bW4JjCvgAkfhtxxOTki4+1L0qW/jE3SHO5SSzR1NXz
-	XvrJmIFIGUyuztB8BJfej8J9Bg5odkJobtl/prUqY6vfY+A2y3nGZAmKxAVjOQUs2/9WW+kZE4m
-	BS0GNsIhLIxrU3Ju3wBj6R24PYDvP+pLoPLwSlbYadkFfBDjTEoOC2wWcMjAuTv/hiA==
-X-Received: by 2002:a05:620a:63c6:b0:93e:746e:235c with SMTP id af79cd13be357-94408a26905mr381726985a.15.1793201930398;
-        Wed, 28 Oct 2026 08:38:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:63c6:b0:93e:746e:235c with SMTP id af79cd13be357-94408a26905mr381720685a.15.1793201929666;
-        Wed, 28 Oct 2026 08:38:49 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm28945e9.10.2026.10.28.08.38.48
+        d=1e100.net; s=20260707; t=1793201946; x=1793806746;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
+        b=ZA2aAivmJQnDlESJ/4/Bgx7m/7E5Ui68NA2ilRKGa2b0yFc229uBvkND54OLY0UExp
+         DDkTcY4STPF1Oxm59zkxIC5lK68VtHNkLI5Tj/81dgUqcD26HjHyRku0IXPgeDb7pB4B
+         T1neR/qW0/v970C0bqtS/3YvfT4cyF6OH5/CWN/huhqk+0ht+zfBrt0r3Csi/s9JiYOR
+         xgLF7zXokvN/g468siriOpfvDHWdx2UFhiesxF9Bh7tvjBUeLN4Vk2l9d0P14YXr/c86
+         CTasKaz8QnJVpwirJZkLdUm1UM/qtIoVzf5X0+JpF6XbAn2BE+xHSZtZOourDauPG6H4
+         lOSA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCf3bkhqxDZFxYk1BF+pp3qTVSp56wJbLBIpbv4rGfJ1058f0w/7iAqlq1vHp5+H2cdPEdzhAGjy6ddBE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM6DR94j0MR2jNcSPEAPexQFuMtGVM5d/LdgWxS9lWdRfLRlBO
+	oamJw9PRC2+C2Pik2kBOrpQSWz5JvZeXpDqChdOna3T5u9qFgOf74vGFqqTuGA==
+X-Gm-Gg: AYBFou07fC3M8mpiH+4N3BM4z6F4jICebhycCN/oCOeDA69gG8ttfRQtH15u3cX2hBh
+	iCdqvAe0kvDuHB+Qxo2ctdsY5B5PPCnGmw6pZXD7vKM5nkao3TWJbUf7JMZ/6w0/XYSdFun/id0
+	sdcGMOmF2OB4EtSr3w0DbUAO2OIcldMg2prPbgpufYtV+LFQ7aVgHkkvOTh+N6PKRk+4zO1uc69
+	I1y99VbROg9zWsaEhG9iiQcYov3/uNG5h9QaEsjzAZdd2PIqJDbS7oIJYd07xheIfpiELgR/qxK
+	QKUoAIc/GTA821L8u27s4WnqH24lF1LuAr5Wn3Jxq4y7t/EzUBMKzJnwiQkiOMMrYtK9HyMDrfT
+	m657VHVlXOGfP5BDdZOSrx7Ks2c2tPmhwT+OjxecfRS5BbqFfgmNXpyKbSPPNsEI4IxJGgde1vs
+	76zE0r2YRD8uw2GdXgrK+LeTk1ESP3dFEGqkXtD857dRew/F0WbI4DLOfrYtYosDjdpSPa3DYpl
+	xFf9L1xTTtEmfoGhZ7REyCVTSaag79Z0RQipNqpEaiys80ZeNHfcr+7poxfpVTujzZrAJcxBkul
+	GrittEDEOT0DK1f/IMUdI10eF9ol4CJ9I5feINsgHQ/7D4bmgsYTWNAuqR9wIVAN6FgJbqG32O4
+	c
+X-Received: by 2002:a17:90b:3812:b0:3ac:adce:60b2 with SMTP id 98e67ed59e1d1-3ae57e33be2mr2149303a91.2.1793201946249;
+        Wed, 28 Oct 2026 08:39:06 -0700 (PDT)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c5b77sm2033386a91.3.2026.10.28.08.39.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:38:48 -0700 (PDT)
-Date: Wed, 28 Oct 2026 17:38:47 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Luke Macken <luke@phorex.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        srinivas.kandagatla@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add
- Elan touchpad at 0x15
-Message-ID: <46qu6w6grb2alv6f3pnvefbtbruoojwemwop34bdehosz4s2dv@l6ib6qgzvmw2>
-References: <20261014234949.1730808-1-luke@phorex.org>
+        Wed, 28 Oct 2026 08:39:05 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH v2] media: mtk-vcodec: vdec_vp8_if: guard list_first_entry on empty fb node pool
+Date: Wed, 28 Oct 2026 23:38:57 +0800
+Message-Id: <20261028153857.3972168-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,50 +100,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014234949.1730808-1-luke@phorex.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfXz1OegWiwyeKn
- 22GEOa0b715T/t9QufIYw0oBNq8UzJR1uuQq51Le8Lm9/EPYeDxr3WxYz+DYtxgRChmfGG5loo3
- oHhCOsboPYMwJ2eAfba0n7FvH4cy+tVQXisrGXbroSJSqveW+iVI2T+PJ07KGL535fL1DWnS+0Z
- GonieKWoyzcdTpKlcCoeZvuNYPqR2H8aecZcVnppokXhIsKA2uWtPBBQaOC5/G+50/4jYHZsHDY
- hlvH/sMVbLY8H+fy45+EpVKX2dgO5PHC8CJs1iZrAwiNqqhybrPQ/jNqy/z/njVyL7UZdNrcvmB
- tNka79uNSCeKfvYr43QCMqVqud3qQJnZwHA8RIRHo/ndV6LuWCSmb/ZVmJ1MgxIYux7MWq9RtiB
- 57HVORiB7AbNaR/7otNYiv+gk+jQrlPb1bVrrF+0g/qVOEjkorPDLe0qzkr4X8qohSI/6iqR5XK
- CInN/kQjYT2Lz1p6j1Q==
-X-Proofpoint-GUID: aBPRBKlIWi49DkSsK--xj-3FbcvhuJAm
-X-Proofpoint-ORIG-GUID: aBPRBKlIWi49DkSsK--xj-3FbcvhuJAm
-X-Authority-Analysis: v=2.4 cv=LdipeTfi c=1 sm=1 tr=0 ts=6ae2170b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=mO8_gwkcAAAA:8 a=EUspDBNiAAAA:8 a=1ncODQROBz-vSmanY1sA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=InTEqNb8lIr1xazlwGwc:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX2N57RAJ0HXdZ
- dNX2ltLXP1jWXgDho9763C2/9e9wl5KoLgu93tbLi4ZYTkZO2XW3PULo4KsVSFVOxEybCFxW7kY
- W3Ew1uplRTvSqKMMY78MmDfKqL8wckU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280062
+Content-Transfer-Encoding: 8bit
 
-On 26-10-14 17:49:49, Luke Macken wrote:
-> Like the T14s Gen 6, the Gen 7 ships with either a Synaptics touchpad at
-> I2C address 0x2c or an Elan one at 0x15. The dts only describes the
-> Synaptics part, so on Elan units (e.g. 22A7000VUS) the touchpad@2c probe
-> fails silently (nothing answers at that address) and there is no
-> touchpad, while an I2C scan finds the device at 0x15.
-> 
-> Describe both, as x1e78100-lenovo-thinkpad-t14s.dtsi does; the absent one
-> fails probe harmlessly. Both share the interrupt GPIO, so move the
-> tpad_default pinctrl state from the Synaptics node to the i2c0 bus node
-> rather than have two nodes claim the same pin.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Luke Macken <luke@phorex.org>
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+list_first_entry() does not return NULL on an empty list; it returns a
+wild pointer computed by container_of() on the list head, and
+dereferencing it corrupts memory. vdec_vp8_if.c has three unguarded
+list_first_entry() calls on inst->available_fb_node_list: two in
+vp8_dec_finish() (one unconditional, one on the show_frame path) and
+one in add_fb_to_free_list(). The pool holds a fixed number of nodes
+(VP8_MAX_FRM_BUF_NODE_NUM = 10) prefilled by init_list(), nodes leave
+the pool on every successful decode (two per show_frame decode and via
+the vpu error / resolution-change paths), and they are returned to the
+pool only through the userspace-driven get_disp_fb()/get_free_fb()
+calls -- which themselves use list_first_entry_or_null(), i.e. the
+driver already treats the pool as exhaustible on the return path but
+not on the take paths. If the VPU firmware keeps reporting a stale or
+zero prev_y_dma, or if userspace decodes more frames than it
+reclaims, the pool is exhausted and the next list_first_entry()
+returns a wild pointer into struct vdec_vp8_inst, after which
+node->fb = ... and list_move_tail() perform an in-structure
+out-of-bounds write and list corruption. This was found by code
+audit; we do not have a reproducer on real hardware.
+
+Fix this by switching the three take sites to
+list_first_entry_or_null() and bailing out when the pool is empty,
+matching the existing style of get_disp_fb()/get_free_fb() in the same
+file. On exhaustion vp8_dec_finish() now logs an error and stops
+tracking the frame instead of corrupting memory, and
+add_fb_to_free_list() simply drops the buffer.
+
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Link: https://lore.kernel.org/r/20261023075633.3662574-1-lixicaicai@gmail.com
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Link: https://lore.kernel.org/r/20261023075633.3662574-1-lixicaicai@gmail.com
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+---
+v2: add Link: tag referencing the v1 submission as requested by the
+media CI; no code change.
+
+ .../vcodec/decoder/vdec/vdec_vp8_if.c         | 22 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
+index fd15d462b..ba34c71f7 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
+@@ -308,15 +308,23 @@ static void vp8_dec_finish(struct vdec_vp8_inst *inst)
+ 	}
+ 
+ 	/* available_fb_node_list -> fb_use_list */
+-	node = list_first_entry(&inst->available_fb_node_list,
+-				struct vdec_fb_node, list);
++	node = list_first_entry_or_null(&inst->available_fb_node_list,
++					struct vdec_fb_node, list);
++	if (!node) {
++		mtk_vdec_err(inst->ctx, "no available fb node");
++		return;
++	}
+ 	node->fb = inst->cur_fb;
+ 	list_move_tail(&node->list, &inst->fb_use_list);
+ 
+ 	/* available_fb_node_list -> fb_disp_list */
+ 	if (inst->vsi->dec.show_frame) {
+-		node = list_first_entry(&inst->available_fb_node_list,
+-					struct vdec_fb_node, list);
++		node = list_first_entry_or_null(&inst->available_fb_node_list,
++						struct vdec_fb_node, list);
++		if (!node) {
++			mtk_vdec_err(inst->ctx, "no available fb node");
++			return;
++		}
+ 		node->fb = inst->cur_fb;
+ 		list_move_tail(&node->list, &inst->fb_disp_list);
+ 	}
+@@ -352,8 +360,10 @@ static void add_fb_to_free_list(struct vdec_vp8_inst *inst, void *fb)
+ 	struct vdec_fb_node *node;
+ 
+ 	if (fb) {
+-		node = list_first_entry(&inst->available_fb_node_list,
+-					struct vdec_fb_node, list);
++		node = list_first_entry_or_null(&inst->available_fb_node_list,
++						struct vdec_fb_node, list);
++		if (!node)
++			return;
+ 		node->fb = fb;
+ 		list_move_tail(&node->list, &inst->fb_free_list);
+ 	}
+-- 
+2.30.2
