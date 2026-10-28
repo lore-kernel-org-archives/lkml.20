@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173974;
-	b=uKkgBwiH8iH56grdyZoJY/DTJ5s1pc9R4TjeESeKEJ3Vq08TrdvbPNAkyLmkV507VHc5
-	 hYhEtowkYGGJ4cxyGDXhnLvsvoKJvhH4xK/J8c+Gd++bFdPfsezOrAoVc4OF5CZGvSs3s
-	 fgkZgoJoxMDVwKXGcR+NWgGSs6atQ1rIJbI3ymmMSugQdpEu7AAeF0Bjz+D2yzdnW/cGV
-	 9XBsj6OpbKEJkZxuIygVdEoq1f/j7rVSAflHwkmXZzfuoAidf93rBt1mj/5FgjHYvydNQ
-	 7kmyDgWKjslCA6ZRCLgRN0U40wE6biDsrjuOYMxB7Ax/irogYoKoQoDP5iV1JmAUQEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173974;
-	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:X-ClientProxiedBy;
-	bh=Hf1CMufnAT672qe7Eu73z3TtfaYwqEFksJs75MflBj0=;
-	b=t9XoCztMfH/LDgcW0JSlIE7qGTScBTPvq4DDUyz6g/fWY1+2digX+rhwAb49cRkWcW7f
-	 7lUgGaH8yCPJyqXEfAFgGQgI6MlvXBhSHviJGHQmTYsfeQw+XH+c82uNIrzn0s75BTUcS
-	 1iXQK1stLoCKHfE6YKtJrhnpZgQkl1er/jsM6mBcCaYzU5LlQz1waGUfJWQoS44THWj4T
-	 TIZ2DUJOqwXHSQUcRyWI57EHwSTLZ7xTtj4cbELdHNn+/4olNISvewCOpb3hj921o+rWm
-	 8my4Pc0ul3GSowtOCMudYzU4+iaEJh2pZy3WLCsnY6AjEelDwSF8utP5BKleEpuzbnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3739B606A31A;
-	Wed, 28 Oct 2026 07:52:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3739B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jF02P6wZhz4tvGJ;
-	Wed, 28 Oct 2026 15:52:29 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jF02M35Fsz4wJL8;
-	Wed, 28 Oct 2026 15:52:27 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id B724816DF;
-	Wed, 28 Oct 2026 15:52:21 +0800 (CST)
-Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 28 Oct
- 2026 15:52:25 +0800
-Date: Wed, 28 Oct 2026 15:52:23 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-	<namhyung@kernel.org>
-CC: <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
-	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
-	<jolsa@kernel.org>, <irogers@google.com>, <adrian.hunter@intel.com>,
-	<james.clark@linaro.org>, <tglx@kernel.org>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liuqi@hygon.cn>, <lijing@hygon.cn>, <wangfengyu@hygon.cn>,
-	<wujiangyong@hygon.cn>, <shijie8@gmail.com>, <1537577747@qq.com>
-Subject: Re: [PATCH] perf/amd/ibs: add phy_addr_only software filter for
- ibs_op
-Message-ID: <auGpt6wenUj5mFP8@hsj-2U-Workstation>
-References: <20260902085251.4046240-1-huangsj@hygon.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793174066;
+	b=GcHNTS/0frer4Q8dDOCUnl9fUCC9FnSfh3CrrYseljChuSiHlGDqvqNhXPjyyWBUEYfo
+	 5iCiW3rJcakhhP0LDhQhcz9JCNnd6ZDRg15s/yCkzzIv+8yeA68rV+LhYg6pBOIj5qMmW
+	 cyoZ41WO7Hz4aHgPTujMDHNCxLGoRTcumegiPXJAIvENZ0meWf/MseCqt1fSy5HfKeDZV
+	 nmFwJ0GHVkPxKEFxom5tACafP/qhtPb7CjPVd01GHXX684beue13NkymcGbgS3qM2Twnq
+	 XmWpmEoRclFW5ZbwGNmvLCqV2Lk85K27u/fYik8C44jwQZo2temOOxhIbHCvSA53l9w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174066;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
+	b=xCUxH7HtGCMammhZUI29SifY2b2MbV/strhHdwbX5tkINlX1TxI2yKVABBSfXpk8RADo
+	 oJu9wxjKIJMijCryv2fqMmxOJgg7em2T1lxB3wtNcJySFX/jqs4MJZh+AP3B4goTT8tFv
+	 nw573KYTg5HncRSKriQ0REgSF6cRbe8YjvZkViTm2n5ftylJtr/cizfMRmseJikwwdX/N
+	 FXH42b092KxdxkIzVtBsvAvC7B7vxAkJzquBDxfAQaPLFSq9QE2GUu8XCdVNVL3yqimbs
+	 kmdU1xczcTW+Nl42gdqZv6oVOvaXl15ADeeRZEW2YpO5gaQqPPAqsSJ7KtnJuJA7y9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YrtaeSUZ;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=HsYoRumw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80168606A31A;
+	Wed, 28 Oct 2026 07:54:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80168606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YrtaeSUZ;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=HsYoRumw
+ARC-Seal: i=1; a=rsa-sha256; t=1793174043; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=QEROafXO7EkB1NgajBC1qiQZ3+JwfvvJf/Vxhm3dHpaGicq6fBlYOW1xs9xB+3Ahh0
+    JidhsathV85RxH+1m7hD+4Qfbh+Dtk4I9EK7l8cg9tu2fU7sIBbiqnznKwokGld0Crcv
+    OCrwsEtolAjpW3HiVHbpyaSl4/xA/dqbHb097HD1eVOXXusUl42R3FYVlbnfXkV3mXnC
+    MC6Gq7tF875/jc4WRK1i5ct6JQgFthSRhomFw9LDSTNVsbi2DEmDEYY4WbUpUgeR8eep
+    0WW+kKV8T0tvJeGl62qn090FPPwXhnAnirerdBz5Emo44uhvaN5JV1wWQ7m1UW2YZzRo
+    msSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793174043;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
+    b=dcs7KfpwkPQGX7aZcGP47FsCQUwqTib3nTyNT/qHDfMU3HvbjyTOaI05y4Rb/VENxt
+    9ozX6UDvFYWtSxgGHaIC/eNFBmASPlP+1S6ueo4aNiqwkwlg5KKs3o4/9i+XZZ8FWSmH
+    +Vqdw8FXGPF40ZnUzqZMCLvDlQQMQgXV9UfWgQD62Tz+3aMsCU08639om9GLxkqAeNG8
+    fn9kkZHkz+PA2/P+iolk0QQl8FldnIquNofb/HkK6QHpwnXH1HbeX1SkzNWDJH/71HWA
+    ctif2/5kjSXVAYr1L2FEh9LE/v0Re8DtKZJOpRz5OPUcpKxBNBEgg3dTADbfGOh6FlJg
+    lR0A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793174043;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
+    b=YrtaeSUZbF7NtCYcwVDCCJlPb0BkCzK9tAR4+y1JhjxrbK98sDgBO3FfVAcsx9t1ee
+    pKBUpi2sZe9zkyY9v7Kqtp8aYBAYnVw1FvyrV3MvsOb56N5afYHoVfi8QUbPSNG7S5S0
+    o0eK/DkYa4r65jWksjMDbebbjA5i83m2WDZZap4sUXhd6dbpoD9TrBUvFfPlkGsxkS+E
+    W0zGpYXKtarpj1Xc4eXKMzkFdo4YklHZOkSicu4/veeJUU/BefTyuKL4zGGj703hKvQ9
+    47jH8mkTbVXxc585yckTMjtXVVtjg9DRoVbx9BkCcOVJV5PbLNp97fmZIMtm7dkiXsNy
+    ajyw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793174043;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
+    b=HsYoRumwIQQiQ4zeOPPpps9EZsuoO0yup73s5LYGEuyMxEgxiqk4TWr0XADlOtYEAe
+    CkrH3O6FL7yG75jX1fDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTj5oHnsiN8oToSJQKZjl88YAGFDRn84+aVUM="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229S7s3B5i
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Wed, 28 Oct 2026 08:54:03 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,40 +93,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260902085251.4046240-1-huangsj@hygon.cn>
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 0/6] MIPS: Ingenic: Add XBurst / XBurst II infrastructure
+ and SoC support
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261027210821.21612-1-olivier@mgcrea.io>
+Date: Wed, 28 Oct 2026 08:53:32 +0100
+Cc: Paul Cercueil <paul@crapouillou.net>,
+ Paul Burton <paulburton@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com
+Content-Transfer-Encoding: 7bit
+Message-Id: <8F150A92-1C7F-4F5E-A02D-2730ADA5C917@goldelico.com>
+References: <cover.1792956055.git.hns@goldelico.com>
+ <20261027210821.21612-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Boddie <paul@boddie.org.uk>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Hi Ravi,
+Hi Olivier, Thomas,
 
-Thanks for taking a look.
+> Am 27.10.2026 um 22:08 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+> 
+> Hi Nikolaus, Thomas,
+> 
+> Patches 2 and 3 overlap my cpu-probe v2, sent the same day with
+> Nikolaus' Co-developed-by:
+> https://lore.kernel.org/all/20261025073146.25326-1-olivier@mgcrea.io/
+> 
+> Both add PRID_IMP_XBURST (0x0000), so only one of them can be applied
+> as it is.
+> 
+> They also handle the X1600 differently. Mine puts PRID_IMP_XBURST on
+> the PRID_IMP_XBURST_REV2 path (write-combine through
+> _CACHE_CACHABLE_WA, as for the X1830), as the Letux commits
+> ee3e4e8baeb6 and b799b9a5e4d3 do. Patch 3 here gives it a case of its
+> own with _CACHE_UNCACHED_ACCELERATED.
 
-> Why not simply use the BPF filter?
->   $ perf record -e ibs_op// --phys-data --filter 'phys_addr != 0' ...
+and in addition presents a different __cpu_name.
 
-I did try the BPF filter.
+I am not sure yet which one is better and more correct regarding the
+_CACHE handling. Maybe Paul Boddie can comment?
 
-Measurements below are system-wide ibs_op sampling for 5s on a
-384-CPU Hygon box under a 400-thread sysbench oltp_read_only load
-at three sampling periods:
+> 
+> Tested on a HiBy R1 (X1600) with the REV2 path: it reports "00d00000
+> (Ingenic XBurst)" and boots to userspace.
+> 
+> Nikolaus, which handling do you want for the X1600? If it is yours, I
+> will drop my patch.
 
-    -c     filter        valid samples    
-  ------  ------------  ---------- 
-  100000  phy_addr_only  19,345,907 
-  100000  BPF filter     17,939,819 
+I am currently working in the feedback that we have received and
+the plan is to submit a V2 soon.
 
-   30000  phy_addr_only  54,670,617 
-   30000  BPF filter     47,926,784 
+The same is planned for the CGU series where I want to also include
+jz4730/x2000/x2600 patches.
 
-   10000  phy_addr_only  61,606,488 
-   10000  BPF filter     40,826,086 
-
-
-The phy_addr_only produces more *valid* samples than the BPF filter.
-
-Thanks,
-Huang Shijie
+Best regards,
+Nikolaus
 
