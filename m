@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211044;
-	b=oIZgE74x/+Fb4Yv5XokHy5W0XHfCI4FtyXtKydbCTN70tPRe1W80TzFJlyNsUkhWe7SK
-	 WxUdpcBr+KxzapHkFNdc7D5+B9OkKkbhO8NMszCnf171LBrxPmFnRacnwPYmvyvuTpDcM
-	 nFLb8xxI7+gZuQ8EEf39xTlTYYg3AA24tSM6IYiCLexM7ZGlmLYdq0GHC9jE+QT4LX0ZW
-	 mxnO16KyJcuG89puzwLUyWpT9OhWmP/QmcsBNsXhzGLJWryM+Dy9Fwzl9Py2ihyK3BKoL
-	 ILFX7oUcqBfd/cWTDPFHvParnhDWOx/jzHIMwoAVpRWBtiYdGjs3RMDPZXPylQOiMxw==
+	t=1793211046;
+	b=KLB6o2jRZtc0c+T5Zwe5Yk9GVNgcWNktZDObRXUVBaORKRRpZ/fpsJt5ttGLBV7LPjM9
+	 kfBXFw7g3KnuUFmpffgxS0vuq8S730Kk3CBhKMwxBaoY7rH7mZ26WOCUER0qudx7CEqvL
+	 9vO7o7s3a/FECz222Grt8/ajeJMrJOs0neLy4GrwAL5B21i4MYFuECkZLNCqD3tUjYGs7
+	 XkenOdpsOjeyVas5KIa/8U2Cy5m22hX1oU7+E1dz7M8vqmU6XoyfvG9E9c0sfcXX6OySW
+	 25Jon5wjKr8oY96sneUaAj4D1fB9du044Jr7qqpWmAu8Al6E0VINV+OfPXnpvtbJFLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211044;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211046;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=dcugw3FeaEH+l6IOMCAKq+jbx4gkaO661Hj6kSK4QIE=;
-	b=kQKwH3bVvNn4OkkK1pum22tW4ejZnDorFwfJcskmkKg7o6eS6cX4JMCpSOt+KrlwQMRU
-	 fNjOyd032lcoAEahl2EKptoyF9iDej64y5Lfv4FA4H/B2+tVC/fQPi543EZKvL4p9u4Ce
-	 gwzWgamaTadlLBF4nLWg0vGqUlLte8VPcu9wzrXmgxbvJwvTcYYD3apGZa8QXKkUNepeX
-	 ywnoPLGPSF7WH6SK7DWz4TsKhBj8NbQ5DYzzY29b12oPyMgrorbPXoQi2dEvCRo+W49LR
-	 VRebp/HruBTQ2QvzD8xw1Zb0EQc1rbVZ4EIda+WDgDjohRuo34YMNp6uIbnNsITqYCw==
+	bh=PVnwBt9xsj7RL4DLPsng/5KKma/6Q31wIRYf9zCB6OE=;
+	b=GcQQQCsgJsuVRN6IfT82EeTdnB6hmbGYrfuab1D9CAmpct49omBKMM3Ma+1EjZv+Ez0+
+	 f1IBBKpuNM39G9mL9vJbp2WV6spdLRfWoyk5Gkh4OXMphRsaA2allMPvmpCm7JesEIGvg
+	 ah1aUzz9nqiRulLpCBYE6ENWdDT4wXBj28qphDXXnYMJh28Ms/bDzffEeSzWcTjsAuHG6
+	 505sQHUNgvWYJtc6HyaAmRoh0UXS2QwwSqpK+dqvUXiqQG53/l9Ubz67ia0BP6a6uv64/
+	 cJq91c3tS7j8J5j9oWg8b6AVmHL4ZbK01x5tA2siS8Ky1kS6pID0mwzshlSciRN9xhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqgmoTvp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5Psr4mW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDB2606A336
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:10:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3633860A5BE5
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqgmoTvp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75D71F01825;
-	Wed, 28 Oct 2026 18:10:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5Psr4mW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138EF1F01829;
+	Wed, 28 Oct 2026 18:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793211043;
-	bh=dcugw3FeaEH+l6IOMCAKq+jbx4gkaO661Hj6kSK4QIE=;
+	s=k20260515; t=1793211046;
+	bh=PVnwBt9xsj7RL4DLPsng/5KKma/6Q31wIRYf9zCB6OE=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=JqgmoTvp0jtIGBNxJD2JIwkwJ+NFysxxK1k1S0sVJd7b78783Erqu/g6r3nfyAKrf
-	 gJ+s85PBvFCoyaSyQVd39cCHLZ/w42qO6aMte+vSvbcNcgTG3CNZ5+02oXGsBDhzuM
-	 zUBv65vDB2I87CLC83FqIF/5/KPVviLuDZxjcbCjC6uSdpAbNTml7P/7jNf7Xa2xLu
-	 zuYLMBgBo8CABXrqjpR6sa9xhJ+ctahbmA4ECf6SJWM4JCh7avx2ZXqmQTL6UmwxXc
-	 5fTZowied2/OnyugErrV6cx5ibFv8+1fATBbh28y13yiuw4GzgaA6AiW8a2H3XJ9wF
-	 yvctJQ+GghPhQ==
+	b=m5Psr4mWwr/MmEuCbr9nZLtVD4nHavG2o4cfBb1leKE09Bqua7DgAIBvjW54wNLcm
+	 pdBJl1JjJ+na6vHA0go6m3Re98T7QW3fN2OjN7U57hBew7a7iwwgGqcNwlycLGCZAL
+	 DEW0vGIay+CCJs4bnWSqaieKpAw7mHq4dLDCUNCWEAAEHUn7jF2vFhPDAGxVGv1+C1
+	 oz86uA05Y+0KlmRkCLumxtoYPT9The2Cfmp5ofjZ+VtEfRpM+CP60T6JtWlDRyKAda
+	 zbceBX20fQR52cy1MD7E5hO8S33hhH0YqFhVz2bfRBWvxR4oFAtG5MlkipLabk3axy
+	 5p97Kpe9rAPKg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5993AA9F6C;
-	Wed, 28 Oct 2026 18:10:43 +0000 (UTC)
-Subject: Re: [GIT PULL]: soundwire subsystem updates for 7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 073863AA9F6C;
+	Wed, 28 Oct 2026 18:10:46 +0000 (UTC)
+Subject: Re: [GIT PULL]: Generic phy subsystem updates for v7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <auIRcPJQY81j6U81@parshuram>
-References: <auIRcPJQY81j6U81@parshuram>
+In-Reply-To: <auIR2sNcKC0VsaRS@parshuram>
+References: <auIR2sNcKC0VsaRS@parshuram>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <auIRcPJQY81j6U81@parshuram>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/soundwire-7.4-rc1
-X-PR-Tracked-Commit-Id: 2e9eff8847a46530ab937696f340b9d5bea2e4ef
+X-PR-Tracked-Message-Id: <auIR2sNcKC0VsaRS@parshuram>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tags/phy-for-7.4
+X-PR-Tracked-Commit-Id: 8f56fdf3d8cb9f1dbdc93bf9ac816698aa6f70b7
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 1cb6cfab0916d18f88d44e4a23806b6c4cb355f8
-Message-Id: <179321104251.1342141.17083215017573040437.pr-tracker-bot@kernel.org>
-Date: Wed, 28 Oct 2026 18:10:42 +0000
+X-PR-Merge-Commit-Id: e191b05f321b064a973399b7cdc003c0de89e5b9
+Message-Id: <179321104451.1342141.11036010002283778888.pr-tracker-bot@kernel.org>
+Date: Wed, 28 Oct 2026 18:10:44 +0000
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Wed, 28 Oct 2026 20:44:56 +0530:
+The pull request you sent on Wed, 28 Oct 2026 20:46:42 +0530:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/soundwire-7.4-rc1
+> git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tags/phy-for-7.4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/1cb6cfab0916d18f88d44e4a23806b6c4cb355f8
+https://git.kernel.org/torvalds/c/e191b05f321b064a973399b7cdc003c0de89e5b9
 
 Thank you!
 
