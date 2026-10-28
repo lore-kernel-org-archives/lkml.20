@@ -1,43 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793179824;
-	b=0ANU+9Pbm6vk+qplBCN6NMWGrw03UfoGWKRVujTyNLgFwZf8nnk+3eJQl7RBvomoze4B
-	 N4v8hshmUNfIw1jC+kautIHTbJhbqLH8Wr3Um3R745E8/v0iwwyhUPYQOZ4CoolMtEh8b
-	 4gTF5DEbNGMyjSVAMYIzUa8lFT1jg7YSY9t5vXDQPdWqcp/hr44fz9BtBlyOzhUvhTx14
-	 pljR45SbwBN8wG/jySDEX4F/Wvrqd87YrIO69L1Cq49lpaQeouId2Y3KaRmgJGxhCwBjb
-	 LhfSY9qpGzCdym7fjeLq7+dSmNMiiXkuz1wLkKOlXG7c+OW3EpPll/w6Cq5k+skONDA==
+	b=aWIWxjD0vXdzaMN9frS910qyOmrVfPN9nHKFc7djNWvFrKsx6dLn2GRYsfo3iuL+qsIp
+	 qAEiLe76AVMqWkmTNNOXaOtZIA8It36HeQaLoazlYbSUiBuY+E38B2THxlDSH2bxzV9mx
+	 ZBTwh6W2iId5wjpQfNmaEoEdtvzw/1hMxFXxfOdtXvb73u+8tO5tJFw495SGNRiQoqPxa
+	 SLIm9eyp8TIMrTvaqHizbDxL9RXtBzjlQoXMvINtpZhWn83sgCSP13DtD0htULXDgbVU/
+	 z7OnMq1gQB6qBWxF1rl9PqjgqcZxGDkx+bkAxLevagZ2eyWBz9ePiDpNzJ87imyf5OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793179824;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h+KEtTPrrU=;
-	b=oe83PDqGpgPYqzEovezufBe3OYVxnNenIM9h3TOhw58KsTUZLIjfLNNsDNbDzuy5enY+
-	 1DDWjcsMriNmWkFZ5IP2zwFS/I/7GhTnE03+e7CtsuwNshqbmAQAdXw/RjC6nlDZf1hYt
-	 HznAM2DEiwJCMdR4DpPh6mYysbeFnV2Mpq6jlXypjjCz0eQgPLMoclLNYG4Q/sCytXTwX
-	 atWjsZ9h08anDCwoQjpy3E9h3wJz//knwwSOWZzdHnroL9rhyPWOWNY9LkB+kS/dqik+o
-	 fpTZopHia+slEY0LLCSGpXQT8FoVlYvC1A/S1/Kgkmp9kPlMTq9GQ22Fa9OB/8WW2nQ==
+	bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPYVKU2rOFlY=;
+	b=mZRXfFxjW1P7XdgpSyrkbqqDg7g3+0lTnXkS41KsxAIaV5fYeyb3qXqRQbx23mMvHQQU
+	 Kj8d9nrYrkzv4QU0X5ZQ+ThiFWk6OGGvHDviPD5uKAOfMi1S+kOI8HM9Zzqg8EjCNXwP9
+	 jFIdrPGh5kNhVvRiCs8e5SJj28Qx+q6PGVh157Tjlyatgtq18reHilqd8Za9kyCzULMkg
+	 r1ztSq4g6yV2mDrmWWMokS78/PaMDCwyuzCoQFB5fKD3qVEC2IffF2G2t1IpYMKYsIFX1
+	 lG78NtMjIyL3tWW+TeL5+3AVa4Vt6PcJbl1ohJy2AKI3Q3i3L1Ok5AZEg+qhZOTbvcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=AoBZDATp;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2CFF606A323;
-	Wed, 28 Oct 2026 09:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2CFF606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71844606A32E;
+	Wed, 28 Oct 2026 09:30:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71844606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=AoBZDATp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h
-	+KEtTPrrU=; b=faGn2ZP6j42UnHnpDklJ7CE/a5Q3J/Z2nijOX0NOxdMvejigPe
-	AGO2WkmoQ0tTYtglLciw3KKlgW86iXUVYz6vDvP3tyWPTeXiwMxwzECoX2p7j4jg
-	sxeCbRuxrNqO/ASeuvBKE99CW71ewK517hvplGkDedUVpVzXuJQ5XEdbE=
+	Content-Transfer-Encoding; bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPY
+	VKU2rOFlY=; b=AoBZDATpQ7ICR5RCnmVdccKJ+RMGouxmhYT6CFwOt5+6o00M67
+	Hrx/0OtI+S8oh+/pRfyhA4mts8+R6rDqQRoHMvyOsGBZWaHSBhJdl/bwWoOGqUHn
+	OmCDBArDdxZW5t9IzQwNVtzFSBc3AFW6C4jhLbRqtA5F4PCW6VPVlezrs=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S5;
-	Wed, 28 Oct 2026 17:30:07 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S8;
+	Wed, 28 Oct 2026 17:30:12 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -51,9 +54,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/9] media: camss: csid: unwind the power-on path through a single error label
-Date: Wed, 28 Oct 2026 17:29:57 +0800
-Message-ID: <20261028093003.722745-4-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v2 6/9] media: camss: video: check that a buffer is DMA contiguous and add a prepare hook
+Date: Wed, 28 Oct 2026 17:30:00 +0800
+Message-ID: <20261028093003.722745-7-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -67,115 +70,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S5
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFyDXr18ur18Gry7tF43Wrg_yoW5GF1kpr
-	W5JrW7Ar4FqF109rs2ya12qFy5GrZ5Wa47JF17Ca4Ivw1Fka4xtr48GryYgFykKrZ8Aa1a
-	vrZxtF4UZF1YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DurWrurWrGF4rGr4rZrb_yoW5XFWkpF
+	WrKrW5GFW2qF4UAw4xJw4UuF4aywnYga4UGrW7Zw1Yk3Z5tr13ur45KFyayrW5JryxKF17
+	tr4jq3yfuF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmKb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	YxBIdaVFxhVjvjDU0xZFpf9x07jr0eQUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBUsX
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU4sXoUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBXsU
 
-csid_set_power() repeats the same cleanup sequence in every error branch
-and gets it wrong in the first one: when pm_runtime_resume_and_get()
-fails, the parent device reference taken by parent_dev_ops->get() is
-never dropped, so a failing power-on leaks it and the matching VFE stays
-powered.
+The write master of the newer VFE generations can only be programmed with
+a buffer whose payload is physically contiguous, because the frame
+increment registers describe one linear address range.  Check that the DMA
+mapping of every plane is contiguous for at least sizeimage bytes and
+reject the buffer otherwise, instead of silently writing past the end of
+the first scatterlist entry.
 
-Replace the four open-coded unwind blocks with gotos to a shared label
-chain and route the pm_runtime failure through the parent put as well.
-No functional change on the success path.
+Also let the SoC code add its own alignment requirements to a queued
+buffer through a new prepare_buffer() video operation, which runs after
+the generic checks.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../media/platform/qcom/camss/camss-csid.c    | 45 +++++++++----------
- 1 file changed, 20 insertions(+), 25 deletions(-)
+ .../media/platform/qcom/camss/camss-video.c    | 18 +++++++++++++++++-
+ .../media/platform/qcom/camss/camss-video.h    |  1 +
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 48459b46a..592c1dfc9 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 0852eb6f1..027cf024f 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -155,7 +155,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+ 	const struct v4l2_pix_format_mplane *format =
+ 						&video->active_fmt.fmt.pix_mp;
+ 	struct sg_table *sgt;
+-	unsigned int i;
++	struct scatterlist *sg;
++	dma_addr_t end;
++	unsigned int i, j;
++	size_t contiguous;
  
- 		ret = pm_runtime_resume_and_get(dev);
- 		if (ret < 0)
--			return ret;
-+			goto put_parent;
+ 	for (i = 0; i < format->num_planes; i++) {
+ 		sgt = vb2_dma_sg_plane_desc(vb, i);
+@@ -163,6 +166,16 @@ static int video_buf_init(struct vb2_buffer *vb)
+ 			return -EFAULT;
  
- 		ret = regulator_bulk_enable(csid->num_supplies,
- 					    csid->supplies);
--		if (ret < 0) {
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto put_pm;
- 
- 		ret = csid_set_clock_rates(csid);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		csid->phy.need_vc_update = true;
- 
- 		enable_irq(csid->irq);
- 
- 		ret = csid->res->hw_ops->reset(csid);
--		if (ret < 0) {
--			disable_irq(csid->irq);
--			camss_disable_clocks(csid->nclocks, csid->clock);
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_clocks;
- 
- 		csid->res->hw_ops->hw_version(csid);
- 	} else {
-@@ -746,6 +730,17 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 		buffer->addr[i] = sg_dma_address(sgt->sgl);
++		end = buffer->addr[i];
++		contiguous = 0;
++		for_each_sgtable_dma_sg(sgt, sg, j) {
++			if (sg_dma_address(sg) != end)
++				break;
++			contiguous += sg_dma_len(sg);
++			end += sg_dma_len(sg);
++		}
++		if (contiguous < format->plane_fmt[i].sizeimage)
++			return -EINVAL;
  	}
  
- 	return ret;
+ 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
+@@ -193,6 +206,9 @@ static int video_buf_prepare(struct vb2_buffer *vb)
+ 
+ 	vbuf->field = V4L2_FIELD_NONE;
+ 
++	if (video->ops->prepare_buffer)
++		return video->ops->prepare_buffer(video, vb);
 +
-+disable_clocks:
-+	disable_irq(csid->irq);
-+	camss_disable_clocks(csid->nclocks, csid->clock);
-+disable_regulators:
-+	regulator_bulk_disable(csid->num_supplies, csid->supplies);
-+put_pm:
-+	pm_runtime_put_sync(dev);
-+put_parent:
-+	csid->res->parent_dev_ops->put(camss, csid->id);
-+	return ret;
+ 	return 0;
  }
  
- /*
+diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/media/platform/qcom/camss/camss-video.h
+index d3e56e240..af046ecb7 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.h
++++ b/drivers/media/platform/qcom/camss/camss-video.h
+@@ -28,6 +28,7 @@ struct camss_buffer {
+ struct camss_video;
+ 
+ struct camss_video_ops {
++	int (*prepare_buffer)(struct camss_video *vid, struct vb2_buffer *vb);
+ 	int (*queue_buffer)(struct camss_video *vid, struct camss_buffer *buf);
+ 	int (*flush_buffers)(struct camss_video *vid,
+ 			     enum vb2_buffer_state state);
 
