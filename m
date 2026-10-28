@@ -1,64 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163848;
-	b=TMZywJVKElOg+WX5E3C7Xx/0/wsxtxwNW1JiK2kUtfkur/msDn/VnbSBPVgzjk4UL/TJ
-	 RSCx8pUB/rfOjkp5/waDA5QcT2Yg1TZNRXueqH55hVLTe4kehdnr9vVbCdjdkzrsHZS3P
-	 G8a7a1sRlQzLOK1gwf4w2qMkRiSxPgx+IVGMBEb3Zm/2XTfFs++IFed+Fiuq4enLeKEko
-	 RrkoLfNzfkMQRfSO8imBWfQzstx/yeH8V7z4tU6EPytK3sriNkzLE5Ucb9LlxLnCgUI/S
-	 z34XGwvAXq+aLCA82hEDHKpXjkWwTZduiYMlUMz/gFKtK/kGmz4+Jb/r/XfFTumtF4Q==
+	t=1793163853;
+	b=SGPSLoYpHpqyZeDvSuRpN7OYIq4n+DPyhlhrBOlMRtpenVvaxBQul4YM2hwt12XlbOSC
+	 v+T1ZrRLdu1sQVhY085gOI0btvJgSLJCT579+JwMAO0rG083n8EGGUW4ifHu1nZpm1f31
+	 msE+/iHY0XmL39Re7jbXzSjPQ/hwV1qYpdhOT2RNa3aB35Q9jzQmWxbZAxxL5kqNbvJl8
+	 KaKZMIkmEVUDFA9umMdTXs+maSim4SM4PA1waUMjZIVtwzyw0VXI3ZawtVJPRb30qIM6T
+	 Zh27RijZmji++IQLe17+Pvdlg9OOfUTfVJgjqXvVe5EKE2zZAr5NzuDidIMaJSebROQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163853;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=FlFLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=;
-	b=JQZch//HGEr0ROXLbY0l57Z2n0IDECC5HXzx2dE8lEvbwb5/gb1CqQa3+S1sOFnlvbFK
-	 azsglvi+BiZUKdVrDx4ztifbxvUaKnCo+Nnlu49mLC9lEQ/HGl9j4Af5Q0IIpz0q1Atko
-	 Ywjop25dzfos6L/Wl1LrYi8vBMXwqQoVPOuqL6MsoCgUqVOTkCPv77HVpaWy5aphMoMQs
-	 eW5hNo6omfXUDdAJ0+GyIunUKsf2jDhpIdnuQY5afKn+ois+8Q7e3JJT6kZ1UBV9PA1nT
-	 Z6rdynJkuQcmd3vpzpc4252OTMg+qFPD9Tq3QFtCQ4/507xB4yhFAgK2wdJPPRt+bww==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=dhv+8FlBddRkoW7HUJioYxqmcNV+Dawhev5ggsbsEWE=;
+	b=KEg9Lt2kDZ6hh5AMnfvrupnMU0u/1zbmPZtb0DQl5KsHuwzNUoJwmjlXY9+Lj8o7b4sy
+	 CUNcsDnq99NWgr2vQHSyeXO9VR2UscY253lWb1Sm+7xJkE9GHRWESt2+AU0xxtRP6Q0xh
+	 iksUxQCmV1PxM+I6oA0VgcpqxsVJ2VuMRjs3zvRqxOXnvkKHrFZcoCBIRqpq+IVrm9WLC
+	 vZnzJRcOtzwR4vw/hPTVDwal8yWZHRULPoLpSgpMVqOOxN5S2RTTZsYrQ7g1bP1q27VwL
+	 F1lJiUCWXVlAnHLxyoXGb1aP/ZlIENyN/UfdA+L2FMiHXw5TNHwySYanHt0JwGW35Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Oad0yl4O;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA018606A31D;
-	Wed, 28 Oct 2026 05:04:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA018606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9703606A327;
+	Wed, 28 Oct 2026 05:04:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9703606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Oad0yl4O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Fl
-	FLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=; b=aELgK7wseZzANP5nSx
-	6kWzED6BXAEgxjXhIPQZI5+oaNu3QTi/tGDDPd92HW8HE10Uqv66IFz0gL+CWWmT
-	eVSGnPcISzVVCTQSOyVmP1A8Y9zxZzUmUXS8H6VA0+J2ytL4UejSSNMqQjxI3YnU
-	pri/7nsh8JgdMIfm6GuXlX9is=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dh
+	v+8FlBddRkoW7HUJioYxqmcNV+Dawhev5ggsbsEWE=; b=Oad0yl4OirsQ5GShYM
+	hygXEMibdlSmJwexZovzN75xOJNVE5doZxC38Z8aTjxrNz6sTeGdiv7uTsFFSmAU
+	/RXoZBCRWbhE5V+UQn750371DT0scAjGJXQ0GaicYMaOyEn6z3wOtkW/+t+8EaDY
+	fAXE2XKBEN8MxS7uWHUen29BY=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXXx0QguFq4jaQDQ--.52556S2;
-	Wed, 28 Oct 2026 13:03:13 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S5;
+	Wed, 28 Oct 2026 13:03:43 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH] net: phy: only remove owned topology entries
-Date: Wed, 28 Oct 2026 13:03:12 +0800
-Message-Id: <20261028050312.126508-1-yaojiale02@163.com>
+Subject: [PATCH 3/4] wifi: mt76: mt7921: unwind interface restore failures
+Date: Wed, 28 Oct 2026 13:03:36 +0800
+Message-Id: <20261028050337.127464-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
+References: <20261028050337.127464-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,44 +72,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXx0QguFq4jaQDQ--.52556S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruw1UAr47Jw45JFyxXFWfAFb_yoWkKFX_C3
-	9rZrW3Zws5Jan0yryfWr4fArySk3Z3J3Wv9r1vg3y5Xa15Gr15Crn5Xrn8Jr9ru3WaqFWD
-	Gw1UCFyxAa45ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU847K3UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhG38WrhghHgUAAA3x
+X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr13tryDtFW7CrykWr1rJFb_yoW8CFW3pF
+	47KayYkry8Jw45Ja1xGFW8uF95t3Z5GF1Uury3Aw18Zrn5AryrJF4j9Fy3tFyjyFs7t34f
+	trWvqFn8uwsY9a7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jva0PUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ+++Grhgi+qLAAA3k
 
-phy_link_topo_add_phy() can fail to insert a PHY when its saved index is
-already occupied.  Its caller may subsequently run the normal detach
-path.  phy_link_topo_del_phy() then unconditionally removes the entry at
-that index, including its ports, even though the entry belongs to a
-different PHY.
+The reset recovery callback ignores failures while restoring an interface
+in firmware and continues issuing per-vif configuration commands. A failed
+two-command device addition can leave partial firmware state, while the
+following commands operate on an interface that was not restored.
 
-Look up the topology entry first and only remove the PHY and its ports
-when the entry belongs to the PHY being detached.
+Check the restore result, remove any partially created firmware state and
+stop configuring that interface on failure.
 
-Fixes: 384968786909 ("net: phy: Introduce ethernet link topology representation")
+Fixes: 0c1ce9884607 ("mt76: mt7921: add wifi reset support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/phy/phy_link_topology.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/wireless/mediatek/mt76/mt7921/mac.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
-index 214ccce23cf6..175eef44cf54 100644
---- a/drivers/net/phy/phy_link_topology.c
-+++ b/drivers/net/phy/phy_link_topology.c
-@@ -185,6 +185,10 @@ void phy_link_topo_del_phy(struct net_device *dev,
- 	if (!topo)
- 		return;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
+index 6f5e31489e2d..0d19f2d7dd5e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
+@@ -628,13 +628,23 @@ mt7921_vif_connect_iter(void *priv, u8 *mac,
+ 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
+ 	struct mt792x_dev *dev = mvif->phy->dev;
+ 	struct ieee80211_hw *hw = mt76_hw(dev);
++	int ret;
  
-+	pdn = xa_load(&topo->phys, phy->phyindex);
-+	if (!pdn || pdn->phy != phy)
+ 	if (vif->type == NL80211_IFTYPE_STATION)
+ 		ieee80211_disconnect(vif, true);
+ 
+-	mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
+-				    &mvif->bss_conf.mt76,
+-				    &mvif->sta.deflink.wcid, true);
++	ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
++					  &mvif->bss_conf.mt76,
++					   &mvif->sta.deflink.wcid, true);
++	if (ret) {
++		mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
++					    &mvif->bss_conf.mt76,
++					    &mvif->sta.deflink.wcid, false);
++		dev_err(dev->mt76.dev,
++			"failed to restore interface after reset: %d\n", ret);
 +		return;
++	}
 +
- 	list_for_each_entry(port, &phy->ports, head)
- 		phy_link_topo_del_port(dev, port);
+ 	mt7921_mcu_set_tx(dev, vif);
  
+ 	if (vif->type == NL80211_IFTYPE_AP) {
 -- 
 2.34.1
 
