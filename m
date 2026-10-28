@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793174066;
-	b=GcHNTS/0frer4Q8dDOCUnl9fUCC9FnSfh3CrrYseljChuSiHlGDqvqNhXPjyyWBUEYfo
-	 5iCiW3rJcakhhP0LDhQhcz9JCNnd6ZDRg15s/yCkzzIv+8yeA68rV+LhYg6pBOIj5qMmW
-	 cyoZ41WO7Hz4aHgPTujMDHNCxLGoRTcumegiPXJAIvENZ0meWf/MseCqt1fSy5HfKeDZV
-	 nmFwJ0GHVkPxKEFxom5tACafP/qhtPb7CjPVd01GHXX684beue13NkymcGbgS3qM2Twnq
-	 XmWpmEoRclFW5ZbwGNmvLCqV2Lk85K27u/fYik8C44jwQZo2temOOxhIbHCvSA53l9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174066;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
-	b=xCUxH7HtGCMammhZUI29SifY2b2MbV/strhHdwbX5tkINlX1TxI2yKVABBSfXpk8RADo
-	 oJu9wxjKIJMijCryv2fqMmxOJgg7em2T1lxB3wtNcJySFX/jqs4MJZh+AP3B4goTT8tFv
-	 nw573KYTg5HncRSKriQ0REgSF6cRbe8YjvZkViTm2n5ftylJtr/cizfMRmseJikwwdX/N
-	 FXH42b092KxdxkIzVtBsvAvC7B7vxAkJzquBDxfAQaPLFSq9QE2GUu8XCdVNVL3yqimbs
-	 kmdU1xczcTW+Nl42gdqZv6oVOvaXl15ADeeRZEW2YpO5gaQqPPAqsSJ7KtnJuJA7y9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YrtaeSUZ;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=HsYoRumw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.54
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793174090;
+	b=3g7Ljz+AG08bTkQiTh/eFsSDV7x4sM6ygkuQiuW/LGe1Rh2l0wLyCH/xY4MO2NGP/n+N
+	 pQs7BNtnAe5VylS2H3K/G/Fjo3R4k7OGrdEqahmyouK9gF3FSCoA5kAaV9IdT1CSqvsXV
+	 0lDB6Lu5anZXvaaod0FwhVuEU2LQAUF2ILliZo8CLyt4GJvdk2AauTGaCw08r8p/K0XW6
+	 98q+E6sRFbFMVCmX7Vu7akJvg6iAi46k6epBEo982pnMBsVh6tWY/DEojqjt0bwFRt1Wu
+	 sfXSR6oTusQosMbQy/gyQ6+hgz+ZfFnSFjaZQvglN3lDS2TWt8NuT+KZjt17u4h6sJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174090;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DgpTX+N69CPuJBqSnT9cmchssSidaciumXGKTnRd2lg=;
+	b=i0y4MP4wPVrycw7rX7ipjI4g9pdaCdIQo83+v281KW4jaSqJL6a7fmHrj3wfQOsZjEgg
+	 maUIFv9KZpKstAmqbLlEBQVD4JE/WkYqPGf9Tx+EQ01NCvwIEOHXDGtk77yMa4SC67I0g
+	 J0u/9H3pD6CBHq7Bv8FhVb13FFPLStwVzKsx+3Bngnpzu9sWCmqaUuKbaZVSyBze8/TF0
+	 l1PqHarMa5xrsEJa4aT19eTWtTfFzR9aP5yyR2utdHKBkAwfVJ3dx+GkAuKRUOU71V635
+	 sXXB1D4hREYzyThO25NkvpPRVSsvLV9AsVEfGj/AsNtrKLp3g4wK6wx8ZjMamwkt4RA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JuXq3SN0;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80168606A31A;
-	Wed, 28 Oct 2026 07:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80168606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533EE606A31A;
+	Wed, 28 Oct 2026 07:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 533EE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YrtaeSUZ;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=HsYoRumw
-ARC-Seal: i=1; a=rsa-sha256; t=1793174043; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=QEROafXO7EkB1NgajBC1qiQZ3+JwfvvJf/Vxhm3dHpaGicq6fBlYOW1xs9xB+3Ahh0
-    JidhsathV85RxH+1m7hD+4Qfbh+Dtk4I9EK7l8cg9tu2fU7sIBbiqnznKwokGld0Crcv
-    OCrwsEtolAjpW3HiVHbpyaSl4/xA/dqbHb097HD1eVOXXusUl42R3FYVlbnfXkV3mXnC
-    MC6Gq7tF875/jc4WRK1i5ct6JQgFthSRhomFw9LDSTNVsbi2DEmDEYY4WbUpUgeR8eep
-    0WW+kKV8T0tvJeGl62qn090FPPwXhnAnirerdBz5Emo44uhvaN5JV1wWQ7m1UW2YZzRo
-    msSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793174043;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
-    b=dcs7KfpwkPQGX7aZcGP47FsCQUwqTib3nTyNT/qHDfMU3HvbjyTOaI05y4Rb/VENxt
-    9ozX6UDvFYWtSxgGHaIC/eNFBmASPlP+1S6ueo4aNiqwkwlg5KKs3o4/9i+XZZ8FWSmH
-    +Vqdw8FXGPF40ZnUzqZMCLvDlQQMQgXV9UfWgQD62Tz+3aMsCU08639om9GLxkqAeNG8
-    fn9kkZHkz+PA2/P+iolk0QQl8FldnIquNofb/HkK6QHpwnXH1HbeX1SkzNWDJH/71HWA
-    ctif2/5kjSXVAYr1L2FEh9LE/v0Re8DtKZJOpRz5OPUcpKxBNBEgg3dTADbfGOh6FlJg
-    lR0A==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793174043;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
-    b=YrtaeSUZbF7NtCYcwVDCCJlPb0BkCzK9tAR4+y1JhjxrbK98sDgBO3FfVAcsx9t1ee
-    pKBUpi2sZe9zkyY9v7Kqtp8aYBAYnVw1FvyrV3MvsOb56N5afYHoVfi8QUbPSNG7S5S0
-    o0eK/DkYa4r65jWksjMDbebbjA5i83m2WDZZap4sUXhd6dbpoD9TrBUvFfPlkGsxkS+E
-    W0zGpYXKtarpj1Xc4eXKMzkFdo4YklHZOkSicu4/veeJUU/BefTyuKL4zGGj703hKvQ9
-    47jH8mkTbVXxc585yckTMjtXVVtjg9DRoVbx9BkCcOVJV5PbLNp97fmZIMtm7dkiXsNy
-    ajyw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793174043;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=KJx6BcmEV1tIJp5/fThVmRGj444L6tF3gP2AUIIXUNE=;
-    b=HsYoRumwIQQiQ4zeOPPpps9EZsuoO0yup73s5LYGEuyMxEgxiqk4TWr0XADlOtYEAe
-    CkrH3O6FL7yG75jX1fDg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTj5oHnsiN8oToSJQKZjl88YAGFDRn84+aVUM="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229S7s3B5i
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Wed, 28 Oct 2026 08:54:03 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JuXq3SN0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793174088; x=1824710088;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=POeJ3we7ldSUr1gxytX9ShjD5E9HCMSZ0AlF3Ov4bEo=;
+  b=JuXq3SN0/Hx23bUjf/FNkN8QH3ZPpaEHnvz+thWCK+bGYjyh+VD7i0i+
+   BPo7r1zRkUcykRfrP8G1mA9dKUPxaWDEHKpdycObGfobSyZVMiDz4ar/8
+   rBWZb5fsILEnWX/Z1p7R0BVnwYlQGA3+C3XvY5Yz+gdyU6buJxk3K7Jrh
+   bEOjAMPUsZEefPWBRzzS3IHYFh4sJ1dID/qU3X99QRRX6pKIBarOYOPRp
+   R1Udpef85YNoYlGMRd0xK1zJRSM1wg/hmhOI5c7sNGfrosluM+AW2DNde
+   fhsimc0iFEQPlF/RJfdsGw84nVcTzSTreHuz8i5S8IfHkxv/Fza85XZ2u
+   w==;
+X-CSE-ConnectionGUID: pc9PPC0DQYWxm/GXsd4ESA==
+X-CSE-MsgGUID: HItxolguT62StuNSaIvHRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1763108"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1763108"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:54:47 -0700
+X-CSE-ConnectionGUID: Frj+XhxhTsiEh1aHp1QQhw==
+X-CSE-MsgGUID: 72FvaIViRLC10nKsD5pmAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5162711"
+Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
+  by fmviesa007.fm.intel.com with ESMTP; 28 Oct 2026 00:54:46 -0700
+From: Even Xu <even.xu@intel.com>
+To: bentiss@kernel.org,
+	jikos@kernel.org,
+	sammiee5311@gmail.com
+Cc: srinivas.pandruvada@linux.intel.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Even Xu <even.xu@intel.com>,
+	Rui Zhang <rui1.zhang@intel.com>
+Subject: [PATCH v3] HID: intel-thc-hid: intel-quickspi: validate GET REPORT response size
+Date: Wed, 28 Oct 2026 15:55:12 +0800
+Message-ID: <20261028075512.597589-1-even.xu@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,65 +82,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 0/6] MIPS: Ingenic: Add XBurst / XBurst II infrastructure
- and SoC support
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261027210821.21612-1-olivier@mgcrea.io>
-Date: Wed, 28 Oct 2026 08:53:32 +0100
-Cc: Paul Cercueil <paul@crapouillou.net>,
- Paul Burton <paulburton@kernel.org>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com
-Content-Transfer-Encoding: 7bit
-Message-Id: <8F150A92-1C7F-4F5E-A02D-2730ADA5C917@goldelico.com>
-References: <cover.1792956055.git.hns@goldelico.com>
- <20261027210821.21612-1-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Paul Boddie <paul@boddie.org.uk>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Olivier, Thomas,
+From: HyeongJun An <sammiee5311@gmail.com>
 
-> Am 27.10.2026 um 22:08 schrieb Olivier Louvignes <olivier@mgcrea.io>:
-> 
-> Hi Nikolaus, Thomas,
-> 
-> Patches 2 and 3 overlap my cpu-probe v2, sent the same day with
-> Nikolaus' Co-developed-by:
-> https://lore.kernel.org/all/20261025073146.25326-1-olivier@mgcrea.io/
-> 
-> Both add PRID_IMP_XBURST (0x0000), so only one of them can be applied
-> as it is.
-> 
-> They also handle the X1600 differently. Mine puts PRID_IMP_XBURST on
-> the PRID_IMP_XBURST_REV2 path (write-combine through
-> _CACHE_CACHABLE_WA, as for the X1830), as the Letux commits
-> ee3e4e8baeb6 and b799b9a5e4d3 do. Patch 3 here gives it a case of its
-> own with _CACHE_UNCACHED_ACCELERATED.
+quickspi_handle_input_data() copies GET_FEATURE and
+GET_INPUT_REPORT responses into qsdev->report_buf. The response length
+is derived from data supplied by the controller, but was not checked
+against the destination buffer size.
 
-and in addition presents a different __cpu_name.
+Adjust qsdev->report_buf_size to store the data length of report buffer,
+reject responses that exceed it before copying. This prevents an
+oversized response from overflowing report_buf. The rejected response
+does not complete the GET REPORT request, so quickspi_get_report()
+follows its existing timeout path.
 
-I am not sure yet which one is better and more correct regarding the
-_CACHE handling. Maybe Paul Boddie can comment?
+Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Even Xu <even.xu@intel.com>
+Tested-by: Rui Zhang <rui1.zhang@intel.com>
+---
+Change log:
+V3:
+ - Correct the data size used in the get report check
 
-> 
-> Tested on a HiBy R1 (X1600) with the REV2 path: it reports "00d00000
-> (Ingenic XBurst)" and boots to userspace.
-> 
-> Nikolaus, which handling do you want for the X1600? If it is yours, I
-> will drop my patch.
+V2:
+ - Rebased on top of latest mainline kernel
+ - Adjust qsdev->report_buf_size to store the data length of report buffer
 
-I am currently working in the feedback that we have received and
-the plan is to submit a V2 soon.
+---
+ .../intel-thc-hid/intel-quickspi/pci-quickspi.c  | 16 ++++++++--------
+ .../intel-thc-hid/intel-quickspi/quickspi-dev.h  |  1 +
+ .../intel-quickspi/quickspi-protocol.c           | 12 ++++++++++--
+ 3 files changed, 19 insertions(+), 10 deletions(-)
 
-The same is planned for the CGU series where I want to also include
-jz4730/x2000/x2600 patches.
-
-Best regards,
-Nikolaus
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index 53023e30cf8d..d0aa66a8a4b4 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -562,17 +562,17 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
+ 			     le16_to_cpu(qsdev->dev_desc.max_input_len));
+ 
+-	/*
+-	 * write_cmd_to_txdma() writes the output report header ahead of the
+-	 * content in this buffer, so it has to hold both.
+-	 */
+-	qsdev->report_buf_size = HIDSPI_OUTPUT_REPORT_SIZE(max_report_len);
+-
+-	qsdev->report_buf = devm_kzalloc(qsdev->dev, qsdev->report_buf_size,
+-					 GFP_KERNEL);
++	qsdev->report_buf = devm_kzalloc(qsdev->dev,
++					 HIDSPI_OUTPUT_REPORT_SIZE(max_report_len), GFP_KERNEL);
+ 	if (!qsdev->report_buf)
+ 		return -ENOMEM;
+ 
++	/*
++	 * Store the max data length of this report buffer, then compare it with output/input
++	 * packet content when write or read into this report buffer to avoid buffer overflow.
++	 */
++	qsdev->report_buf_size = max_report_len;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+index fe51ff51d8c0..4362ac568bda 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+@@ -115,6 +115,7 @@ struct acpi_device;
+  * @input_buf: store a copy of latest input report data
+  * @input_len: the data size of the input report buffer
+  * @report_buf: store a copy of latest input/output report packet from set/get feature
++ * @report_buf_size: the data size of input/output buffer
+  * @report_len: the length of input/output report packet
+  * @reset_ack_wq: workqueue for waiting reset response from device
+  * @reset_ack: indicate reset response received or not
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index 0df33c44fbff..f8b455fd3939 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -30,7 +30,7 @@ static int write_cmd_to_txdma(struct quickspi_device *qsdev,
+ 
+ 	write_buf = (struct output_report *)qsdev->report_buf;
+ 
+-	if (HIDSPI_OUTPUT_REPORT_SIZE(report_buf_len) > qsdev->report_buf_size)
++	if (report_buf_len > qsdev->report_buf_size)
+ 		return -EINVAL;
+ 
+ 	write_buf->output_hdr.report_type = report_type;
+@@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 	struct input_report_body *input_body;
+ 	u8 *input_report;
+ 	u32 input_len;
++	u32 report_len;
+ 	int ret = 0;
+ 
+ 	input_body = (struct input_report_body *)qsdev->input_buf;
+@@ -210,7 +211,14 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 
+ 	case GET_FEATURE_RESPONSE:
+ 	case GET_INPUT_REPORT_RESPONSE:
+-		qsdev->report_len = sizeof(body_hdr->content_id) + input_len;
++		report_len = sizeof(body_hdr->content_id) + input_len;
++		if (input_len > qsdev->report_buf_size) {
++			dev_err_once(qsdev->dev, "Get report response too big: %u\n",
++				     input_len);
++			return;
++		}
++
++		qsdev->report_len = report_len;
+ 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ 
+ 		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
+-- 
+2.43.0
 
