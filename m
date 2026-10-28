@@ -1,95 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793168197;
-	b=ez+aUT/XrGIj7CbBEjF6ozzMrGA2pEwxfqub2n2m8BRMEiE8SLYla3LVfgGCgrrrXInw
-	 qdoVmMoQKhKYpj744MdhZZXyXe7IRLXbVRCMGfcHnV5wcCpguKywyV5ic6VReQLerNuBf
-	 jYVEUtfGO6UC7sVgf9nDXJmNFi9Txy+CA1SCpB5QVUbIxtLP/OyfjGDjedOZgO/NThO+9
-	 cUajN/So9SPOn3HuM2HirDcoLlXLRyl4qfX2wvFKoWw/MLA8bh89/SQjf4OqY33UhZfAD
-	 aqKquIuaRbA4AwDT1ExNEOVH7rDFAUzvAMmXH1VEnAVvFytIduvTGgFB1EKFBhBpAGA==
+	b=qwvZ65DRCG1OZWhZmv48GJP0+Xt2oyazDXkWVRTgAcSddPMPwDfBrwAJGpHQ8uxU+lAN
+	 RTmT5ZmlgBnbqiZwshzxLfKf4K17Ah3nqvvi8pjukP/oWBRoI5viDjdMZvj4HR+Q/9uYG
+	 Le+nEmVj4oYW2u6+/Zq0EWUXqWXExcL03SKHEEe1PSXYF/+J/8OlzNgoGHABHrtK+hGJv
+	 vTFtrHAMuf7HX9XJ9tqHZp5PnTncETLd2uTPDVTB15HJjN+aTM7Aka3J1pqizGGauKlkT
+	 exUFDf1gYZBzpRNdXxsNToEuYvaBIGpv2VvlP8CxtjeV75U4rNqA9nE6fjN2PDDsx7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793168197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
-	b=maKQ7z+8VX+vQO/NwOsHthMf0z4qEDItykwmZcWvONvfEVX4RKDtSLoXR0gY/Tc+ySdg
-	 fymULZK+5V2CAOY9SPKb+OGbwkDoKebocOBxq6wIrfvV4YiCYSvHyrsK0hA5h1ypU82ia
-	 vMP9artGTz+W7Fu7i0aD7AfT2brKSR74CbZy9LOOQlECBRQhNJO1myOEwpK/mPZYWcuG7
-	 ot72rI44Ma+KvsjyRdhv3EUdzee+WZ9aCAg7BGo+i7qQrR0qHpYnstCEkpG7RexMsGePK
-	 lHfuyE1o0RySsuiHfmuiHPlgEmkKtEvehhWTYfnIvAuOTVTC+TIwVhE6i7uxWdpnogg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:
+	 In-Reply-To:References:Message-ID:Date:Subject:From:To:Cc:
+	 Content-Type;
+	bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
+	b=Fxz3pkb9L8AsoJ6Ay96MlPTamNZlU1ONqrB6l++V3lPvAG1MWpDu1cFgcC8d4LjnuPJc
+	 3e+2hRwyrQOZCzDBFqytS3ELRTBRe2SMzcz0FIIBCOelyBM3HFaJLdMOLSP9xjSYfo8mj
+	 zx6/xjbLGRw2VeFmd8ES+j8GTIExYyudp4DK2p5p/xNAEAubU0AZZaiYoqaqgBAPfENq4
+	 E0VnHzQHwUlOTHTJVCy3pg7MqdUOhCyRNberQ1Bgi3qsmdKqz41SPqeW0LSWD6CpMUYfm
+	 gAmLaX8wby903wkdSEnCyrR27N7VlgfDh4UK6LJKxcIN6mj1TM7MaLta2LHKQ5aGvpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qL75CXXS;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C6Pudu23;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE312606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE312606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74600606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74600606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qL75CXXS
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae0852df46so498328a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C6Pudu23
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so843919eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793168196; x=1793772996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
-        b=qL75CXXSLAU/Gv2tLrwqvQXPx4mu4GWPyIo9Q1zgJBv85dLOVQzwja3aT+nCxp3GUm
-         8X8u4UylayMON4X/Kgu2lHWAB2MwBylTV3UA5khPFMl62Ukuv3Bge+LBhjqYP4Js5L8O
-         ZhZETSZ4kfYzJdQ2V0177tWGB/K3S7HavVD06xvtKzVXOkgUejx4C8HO+ElqiadTmQuy
-         pzAmR4utmFQ8sNiFITD5YKCQFHKGCvOAoB3ltnvQ3st19NO6obqIVr9J3hnSFs6j2J4v
-         2mC8pEGgACy1uvaN8XVNcLuM7BOTHFprhVwT5MQEaUBRaFnObKL9qmWYdG/tGFAwPF7G
-         jViw==
+        d=google.com; s=20260707; t=1793168196; x=1793772996; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
+        b=C6Pudu23merR8N3QUSSvCl7wNv2iJ4wZUywbEvQhTfxkkwUD1bmyJMvQ2INlo/bCI7
+         3J2m8hD96wmYaDz2HNVTnKY7bDC8tFyaNdiOM1QFSV5826GR/S9EbVVncFbiq7dSSy2t
+         w24/QFazfb8wG5dHVpT8H928MituPMKXEXB8snmifr3Gc2O/tC3crUaeuJw9TS9d5Gvn
+         r5pkfFwogZZk3Efst5f17eYYlK22KsZS0vTvX+rFSthgeT4zRTnDzcMhm7e0c3Erq6Sh
+         bhACPNNEje+m79G8yP5AhOuwbfhrViJl3Ag1sVFrnaEc56uj8+6SQualB4meyXj8OWeW
+         6OeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793168196; x=1793772996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-type:cc:to:from:subject:date:message-id:references
+         :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
-        b=WpnORWI3nb7BFMm8O3LPotPn98Wtdj+2WDdnmRgw5yTWOktE1uO4vjvXA5OsKupmEb
-         wYqmEv6A0HkI2Wr4mwI9rGJJqGxpNeGtgqxCGkNWPlZHObgvRVcKB8dJtpgRwUHe5yqn
-         o6oDLTKW05Vv2BbTTCg3CayIeM1eBxatWwhhWZEsaW+hp3KNFfiglktoNOfhe3WaMKZo
-         2CQQJeNg/V4/RSR76czZkEcQescUJOdBLyXxONx92u3kS1xBro1Ij7d5bqCQ03CuLaau
-         ghTUiou+c6deJhm8qmyGcuaVy9fK3+nd/XqnM1tgj9VNS/m3n/C0WPXuYtgIc94byNkZ
-         ltVQ==
-X-Gm-Message-State: AFq9FYJW0fzbXUNAqAVM8r3KMTakAHsLSKsugRFOTxwwvUHyJmfTLnlo
-	3ofLLWzbUuF8QSSdSTnWhIDvkr+0EPmumjyWAa0N4OqdkARU1+muuVOs
-X-Gm-Gg: AYBFou0OGTDZmGRglBuSTo6PaoZQ9x+y15OKEOtbgY/1J52WIkifUZ+oAhBTHWF89YG
-	ujG4wM9xBxBx6XAMkRszROw+zbv2/TNwwirtucV9UWt/YB9QyavkFJEmJB4w+TZPXEUP9QENvk0
-	nLtQybVQj/WfpuhYaLQ30Ee8ldbDuMoacY/uohfus6RTgJ4KzA4GSl5Xef0FcsUjwEBvNOpnsRE
-	XEp5ge1rpnHE/dfu/p7mOWqWBn3uT4hb8F9TFGyJm2YmpvNcoCm8PfeXB7v3QqWOQmsP6D3Vbzz
-	Q6zPtomuSH1BzpuNCLGXcliLScEl+PvzXpPCZ3GB2XGtTaVHqx0/obxQP1gD+gkZnhRz2ybcR5s
-	AsUmhpI+yEWh5WHoNdNBvz4sOZSI45ajWXHPL1MsMrxLlPT3rlhh//eK1kx9Ou9YzDLphocNTfP
-	nYfE4X1LLuw1UXzANvLPeh/EBTotydq783UkwWnOFr2AtFg9uiW5aNd0DyoRP/Py0DedwJ24x3G
-	PqNqXCCawk+9A7HZysHPYp4Nm7GBLy3CRqgmu6vseVO0fOkSKFrlHkFw6CIGBZuQdig2zcCuueo
-	tBCp0Spp1nYwDSLB+JlL5Da49lLYWqdv+tHzHoOTAxci+0hKkCh+gfkQXuUGjk9x9g==
-X-Received: by 2002:a17:90b:2ec7:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3ae5c6c4568mr318608a91.7.1793168196136;
-        Tue, 27 Oct 2026 23:16:36 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a586662sm1433996a91.14.2026.10.27.23.16.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 23:16:35 -0700 (PDT)
-From: Jianping Liu <frankljpliu@gmail.com>
-To: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	frankjpliu@tencent.com,
-	linux-ext4@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] ext4: fix soft lockup while shrinking the extent status cache
-Date: Wed, 28 Oct 2026 14:16:28 +0800
-Message-ID: <20261028061628.1209508-1-frankljpliu@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
+        b=1Bk3L4umSUarwvNC5ySpCOgeaTMYKCjm3OoKDdvorBd3ljODZIThbYT7GafgSD8EaX
+         RvhDUMrlx70jc0xruwG7gFpWQZXw569fOoB6RC4NK6u8+yvGJ6NV+cZbBypOgpGTLrZ2
+         Hbad4jGZJi4Zji+aI8d/FHqDL17AGeOtG1TNSe+3ooXM5adqTrOS2SY3aMvYYKTtu7Ia
+         u1CKEjmLFC29aNqWvW2JiwuODdNUNwYuodivBqNcjz/qgIvoovTcDZx6GB8t+VsfU8Gu
+         M3IOQv2NpZktaXYbwCRvlpmxxcpFPqKEkXJ7q5M4LRP6D1Wm6Rb+/bMMMkC0IAgZ6Vdv
+         jJhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRaTRzWGKPTpSRU0LJQq/0KhhviWFOfOP1ICQzgumOoi/GPZv8OEdUsDz3xZbEcqA/0BtrJwuZo15im9o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMtwhKu3NwTJyuBrRlvE8gjGZ/Fo5T8B1im3Jg/ot+mF3lLDhy
+	8v1bzdkkGRK3ytGjSXWT21ILubupszt9EC8FxhReSaCt6YD1DLVTak4qCmT//rV8ZsgJ6L/WEjr
+	AgagZOQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,55 +73,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: from dyx13.prod.google.com ([2002:a05:693c:820d:b0:36a:1d37:273b])
+ (user=jeffxu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:6195:10b0:35d:95e4:267d
+ with SMTP id 5a478bee46e88-36a200c3b89mr2179969eec.27.1793168196147; Tue, 27
+ Oct 2026 23:16:36 -0700 (PDT)
+In-Reply-To: <auGOXLB1XZFWcTfX@chrisdown.name>
+References: <cover.1793094611.git.chris@chrisdown.name> <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
+ <auCxjbvY3qPv1sV6@gremlin> <auDTMb6WMFUpxeZy@chrisdown.name>
+ <auDTptDQsB4xBcz7@gremlin> <18e2972cb8520c2e.3137322e32382e342e3434.279dd1.0000sendgmr@google.com>
+ <auGNkhSHpBRd2U_5@chrisdown.name> <auGOXLB1XZFWcTfX@chrisdown.name>
+Message-ID: <18e29cf9499c7ec0.3137322e32382e342e3434.2a28ab.0000sendgmr@google.com>
+Date: Wed, 28 Oct 2026 06:16:36 +0000
+Subject: Re: [PATCH 1/3] mseal sysmap: Add mseal_system_mappings= boot parameter
+From: Jeff Xu <jeffxu@google.com>
+To: Chris Down <chris@chrisdown.name>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+	Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Jeff Xu <jeffxu@chromium.org>, Jeff Xu <jeffxu@google.com>, Andrey Vagin <avagin@gmail.com>, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-From: Jianping Liu <frankjpliu@tencent.com>
+Hi Chris,
 
-__es_shrink() walks sbi->s_es_list and reclaims extents from each
-inode. On a non-preemptible kernel that walk never gives up the CPU.
+On Wed, Oct 28, 2026 at 01:55:40PM +0800, Chris Down wrote:
+> Chris Down writes:
+> > - Have check_sealed skip as usual when [vdso] isn't sealed and param
+> >   is not set
+> > - A new test, say expect_sealed, fails in the same case
+> > - run_vmtests runs with -T expect_sealed when
+> >   CONFIG_MSEAL_SYSTEM_MAPPINGS=y
 
-There is a soft lockup report on our company's machine. The machine
-with millions of active inodes, 256 CPUs, and heavy memory pressure,
-concurrent shrinkers run too long.
+> Er, the other way around. I meant vm_runtests passes -T expect_sealed
+> _unless_ CONFIG_MSEAL_SYSTEM_MAPPINGS=y.
 
-i_es_lock is dropped after es_reclaim_extents(), and s_es_lock is not
-taken again until the next inode. Once the shrink has run for one
-second, call cond_resched() so the CPU can be scheduled before the
-scan continues.
+Using kselftest_harness's `-T expect_sealed` together with checking
+`/proc/cmdline` for `no_mseal_sys_mappings` in `check_sealed` sounds
+great to me -- very clean and covers both regression cases without extra
+argument parsing.
 
-Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
----
- fs/ext4/extents_status.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 018b6146b9d8..c9c70db5eb71 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1679,6 +1679,7 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
- 	int nr_to_walk;
- 	int nr_shrunk = 0;
- 	int retried = 0, nr_skipped = 0;
-+	unsigned long end_jiffies = jiffies + HZ;
- 
- 	es_stats = &sbi->s_es_stats;
- 	start_time = ktime_get();
-@@ -1719,6 +1720,15 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
- 		nr_shrunk += es_reclaim_extents(ei, &nr_to_scan);
- 		write_unlock(&ei->i_es_lock);
- 
-+		/*
-+		 * Call cond_resched to avoid soft lockup if a kernel with
-+		 * preempt disabled.
-+		 */
-+		if (time_after(jiffies, end_jiffies)) {
-+			cond_resched();
-+			end_jiffies = jiffies + HZ;
-+		}
-+
- 		if (nr_to_scan <= 0)
- 			goto out;
- 		spin_lock(&sbi->s_es_lock);
--- 
-2.43.7
-
+Thanks!
+Jeff
