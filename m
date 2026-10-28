@@ -1,54 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156059;
-	b=eE8UwVTX8XVzynmJGqBJjPUF5+eoAWvw7GzEi0pDb5MQYsMRkKVHtVNsQZp2v4uRl4QG
-	 dvV8URTYeUZIGJt4UXXE64PreQzR0IlzEhyhxQ9OWH2+V+6L45hVVOE4t7cjT/jS+mg/L
-	 hUjtCG8PP70nOOLhodlhe4x0oJhrO9n4qE6jYPdc7dSsSBFxOFWLHA5sJTgov264vZ3yN
-	 T/hOc/N0Ctu+fC9lfmKprQK8mLSCc7nqfqi2Q7Ee4shHU3qTRxjQLUtutmt2SDALctcG9
-	 xsJPY+h5AhaK8ld59MYNunV65QFq03u0qrjfcgYx2+b3UxuyTWM5NVaSPwjjaFlOCog==
+	t=1793156049;
+	b=xg+qfBVskXS9wc80RFxFdHhE2940eEsf5B6+2lxpklQN60hL43BYaTnaNGU/cM6fJbBD
+	 ckekkkzxPsBzSOh5vi1qfeYnON09YFRaz+qGPZHYcYAfOp+dAPOEMa7Sr9cXs08E1FTGc
+	 xGCkhilnxRQ6/To0yAZ+I77mPScGef4mGaS6jIlQ1ZsSkRjrC9qkN6YQ1rw4y1VlGP4HN
+	 R3KUyQ51+f9hz88Um7tzN4BJAeR4SHClX7pPP2Fwcpf5xcnng4OcHe4nmUE3R0OMTf8BR
+	 AAh5JzkxxYyr2AO+ohEttGPyPoPv53uMcNpMCJg09v3nKye12jjrP5t25fb+G8PPhRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156059;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=az3xinfVNcIc4DtU/JNbSKU+IB6AT32kgEgKNdK8F8s=;
-	b=VNi3/0gEc7y6ltQie2MUq51rKQiL1C2FFSRV6M4SeZL634+vhpE5PiDZhnxBRlJjKnr+
-	 2IfPRN8NcgGuhfHzC3+RPRFQG4cVBYaKiw+3hR8FcnnkYzWbK8ZFZMnNanTACp0zQNmVC
-	 c717kD+8+KTicLn/dCzrpi3SWzJ1KZSc8zzDIxZR0baB7TnEPO4cMCsanuD7Yv31s8dWQ
-	 C+bjzajYzaZ+7gdx3M+9q4psglrhAtwn2LJvPql3h7fC6wGD0fy+I1g3TWABDiDvXK854
-	 Jec39BFYSIXJdikQhZcW9Xu90DMEpIXGt46m7tSsz5UzCK/XEhw7Xys2nN8kK6VDlUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156049;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xENf0eoUGZdfDkYJ3sDGskH+jC5/Mfw71VSp/kGlzNw=;
+	b=4AEM3jYREa1hQiaPkSU3Ljsdy5XtQMptYR9wxrFHcyBpJt0otWTQDMpUUQdNU2rIEksG
+	 ukNkVXa04wq0U0047tsS3HwQ5c9eaTPQTaQurhxFbVqpL/qLixR7rtzLn+TwFLgJRvJLs
+	 eTIYyFs6lHVNAkfqk/7i4wE24aVHBW5cKclKYxDxm7VmUpzNiAQx+YEThHCH9wpr9Xh8c
+	 LiM20Z3L5eFuydppdw0H6MFcz9hntsl0qbXVvsI+2/Zuv4LNtI/lav/7mpyeojNPHbU3s
+	 m8Hav0nsbbr//YFDu6FIeac6rJhdMob4L+CKGM83sWVtp5mJiMuovkPlEcbccP0ysfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.123
-Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EXU+7KlB;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16DB606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:54:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E16DB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08831345|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0101372-0.00127542-0.988587;FP=3834068421359482106|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jr3fTIQ_1793156044;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jr3fTIQ_1793156044 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 10:54:07 +0800
-Subject: Re: [RFC PATCH 5/6] sched/fair: Add task burst threshold for
- large-scale bursts
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-6-likunyu@open-hieco.net>
- <20261021125419.GK2823843@noisy.programming.kicks-ass.net>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <48262bd7-8748-bb87-2a49-736b320c5b0f@open-hieco.net>
-Date: Wed, 28 Oct 2026 10:54:07 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B019606A33B
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B019606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EXU+7KlB
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a121bb8c2so647335eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:54:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793156048; x=1793760848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xENf0eoUGZdfDkYJ3sDGskH+jC5/Mfw71VSp/kGlzNw=;
+        b=EXU+7KlBRIpfDDOw1WHSD9pod1pcNY8v8oQ3DwZu4RDU/cfGOfygSB7DJA8PtZ552P
+         4clI2LJqMx4qgDyCt6d9crIvGHG0aobY3ja9FTQmJX7ttf6OVxbfbGr8CDv90v/b0pkK
+         2rIDDI98sqIt1J0XAitQgE0wWpjfYZJniJ4lNdXjRBca/tG8+NA1U2sKE2rKyb159Zq6
+         N2GvZmfUwhAJmHdhFNVqXciqik6uG4l4hh/dCbId1wBGjcBH7JQJGrjBANtwdSFXxQJq
+         TU9LydvTDopzo9kGXcbn82dI/t+Nk1tbb1UbkN0b3YCE1PxPSeffR4QYDgkAOQZjhPCX
+         ohmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793156048; x=1793760848;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xENf0eoUGZdfDkYJ3sDGskH+jC5/Mfw71VSp/kGlzNw=;
+        b=BEmaeRSTNJfjvx89uRvIe7IMDUtZX2NJn2QxBexld8M+szbIwlBN9QZb/autSs/uDd
+         a0kZgzFfni/uCKps+Z2AxQs/ddl/tTbYmrZF6rTvStSaZpK9goQBOTvv7Ufkxat7oeXu
+         hqdHCTmIkYzRKGDIGBq+KncOLZBTEXwS6uOKkNk06h8NoSeMKgkkQVhV/DihwHHKEON5
+         U02tkqre5bgByf1G9rzbDiGH77RG195yY/fVrS+daQvbK0kHqIHxnpio9aeqQlubMW0H
+         1OG9MHK9v/ysuj8VPVswUXVPQiQtPgxoJX8832fghDM1H32Lha276X90Sn33EHR3uyWG
+         gkAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtAyuxv/UnhPM32vg2yui678shRCTJHyznIvlYaLUmgx4TLgByumSp51vgdwVRA8HVoj7zh1YiV3Kpk5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIztpgu1sk0+gtoEyCyBttUypQBdWlp41taBOGTIWAGe3xqUnJj
+	/TIv/SAUuL8NY5DkeMd59apTCp+8BWvkQsFLKPEHtdBmQFUCVq552h14
+X-Gm-Gg: AYBFou2uXx0iq3XQMKkGUyON6/x6ZCWlRWqbBPRXjhxz3MWMJaZWxhQoN9IzcpcR6qQ
+	WnxRLoJtNbV1365wnVkrHpOCqpy3d4Zc0tMR9KqZYteXVVnGnknsnEFjdQJc+dGB088T8jKYwMD
+	uUPWl2abNajBQSkQCaoOjqQAOlfAGUUzKxcCCixJkATsHL65XUHkuuLDtKC1y8S+/yWrNMB6vrK
+	zTCTa/gKuStiR+0hbPv2dtSeFmETvDfllw59GSbeLJfFF1SmKqvJHqeiHbtuLTG/szVN9LufgzQ
+	Pggol5veTgaFn6fK2Z5h6lzeef0q8sZ0XBBCzgZiqE5fyN7kzDGPJEfr0aJPIrHHgJxAgwF33vV
+	9kfskBJozeaKGeVP4mPdGJST20d1Tx2YVXghEwFypaU4UAEmZkZy300veaWNbfBG5kPmZs799SC
+	WUloXPYtZTJwiTKYrXUOvkWYLhlhkp/7HbR9/kdvKAoLwT6mtnKIBitAsQe0ekft7qew8CJmLmc
+	XkzjW6vnWZP8UE+GvydwafqAKffEcsIUUpPQ36zDAisL03E4EXJZsDwGm/0+sb3n1fdHCJCeMxy
+	eTFWzu++/zztzpsq4oW2zLGYJ554DmCjtJsiT7w2c1kuvAXhgqGxWgX3PKN1mE+qBsusKIBhKbw
+	NmMu2JT/dBLQyAQgBbzOcU3rrrizyosYFxvF9DAultWfFxS4=
+X-Received: by 2002:a05:7300:681b:b0:36a:2473:9b2f with SMTP id 5a478bee46e88-36a24739b3dmr365410eec.23.1793156048042;
+        Tue, 27 Oct 2026 19:54:08 -0700 (PDT)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239644efsm1711914eec.23.2026.10.27.19.54.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 19:54:07 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.de,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v6 14/14] docs: describe virtio-sound capture options
+Date: Wed, 28 Oct 2026 11:53:17 +0900
+Message-ID: <20261028025317.92450-15-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261028025317.92450-1-mynameisjune111@gmail.com>
+References: <20261028025317.92450-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,162 +107,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261021125419.GK2823843@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Document the five opt-in capture module parameters introduced by this
+series. All default to false. Describe the startup-empty, short-payload,
+packed-status and pause-restart compatibility behavior alongside staging,
+and require validation with the target device.
 
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt | 30 +++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-On 2026/10/21 20:54, Peter Zijlstra wrote:
-> On Tue, Oct 20, 2026 at 04:37:45PM +0800, Li kunyu wrote:
-> 
->> +#ifdef CONFIG_NO_HZ_COMMON
->> +	/*
->> +	 * In practice, bursty tasks can lead to uneven task distribution.
->> +	 * For example, some CPUs may have kernel-mode utilization above 50%,
->> +	 * while more than 10% of CPUs in the system remain idle.
->> +	 * Therefore, we define a task burst threshold:
->> +	 *
->> +	 * 1. For a task to be woken up, the scheduler first follows the
->> +	 * original wake-up logic (such as wake-up on the current CPU or
->> +	 * affinity wake-up) to return a CPU. If no CPU is returned, it
->> +	 * then checks the task burst threshold of new_cpu.
->> +	 * 2. Newly created child processes or threads have fewer
->> +	 * considerations; only the task burst threshold needs to be checked.
->> +	 */
->> +	if (sched_feat(SMT_BUDDY_ASSIST) && cpu_rq(new_cpu)->nr_running >=
->> +			sysctl_smt_buddy_balance_task)
->> +		for_each_cpu_wrap(nohz_idle_cpu,  nohz.idle_cpus_mask, new_cpu + 1) {
->> +			if (!idle_cpu(nohz_idle_cpu))
->> +				continue;
->> +
->> +			/*
->> +			 * In general-purpose scenarios, the CPU can
->> +			 * typically meet task requirements.
->> +			 */
->> +			if (!cpumask_test_cpu(nohz_idle_cpu, p->cpus_ptr))
->> +				continue;
->> +
->> +		/*
->> +		 * Simply returning nohz_idle_cpu is sufficient, since the
->> +		 * subsequent NOHZ kick will clear the corresponding bit in
->> +		 * nohz.idle_cpus_mask.
->> +		 */
->> +		return nohz_idle_cpu;
->> +	}
->> +#endif
-> I don't understand why this depends on NO_HZ. I also don't understand
-> why this only considers idle CPUs.
-> 
-> Also, static thresholds are horrible.
-> 
-> 
-> Someone that burst wakes a ton of tasks, even on a non-idle system, will
-> cause an uneven task distribution. Irrespective of there being idle CPUs
-> in the system or NOHZ whatever.
-> 
-> So how about we track an average rq-depth in the periodic load-balance
-> pass, in say the root domain or so. And then, when the the local
-> rq-depth reaches some multiple (3 sounds like a good number?) of that,
-> we'll fall back and do something utterly dumb like:
-> 
-> 	cpu = cpumask_any_distribute(p->cpus_ptr);
-> 
-> Eg, simply start rotating new tasks around the system *and* reset the
-> periodic load balance period.
-
-During testing, I found issues with the behavior described above - for example,
-about 10% of idle CPUs remained unused because tasks were not successfully
-migrated to idle CPUs through the NOHZ KICK. I tried checking for task storms
-(where the number of tasks exceeded a quarter of the total CPU count) and
-triggering the NOHZ KICK   earlier, but this did not actually alleviate the
-problem. I therefore considered how to use NOHZ idle CPUs more reasonably and
-promptly.
-
-In select_task_rq_fair(), both task wake-ups and newly created tasks invoke this
-function. After multiple attempts, selecting the number of idle CPUs based on
-the task threshold proved to be the most reasonable approach: once idle CPUs
-receive tasks, they enter the normal load-balancing process, which can quickly
-distribute tasks from other high-load CPUs. In actual tests, user-space and
-kernel-space load across all CPUs quickly reached overall balance.
-
-The overall average improvement from this patch is over 13% (which seems too
-high to be plausible, so I will verify the optimized patch code over several
-more rounds). The test items are as follows:
-
-
-type            pct
-hackbench	+3.79%
-tbench	        +8.45%
-schbench	-4.89%
-STREAM	        +58.96%
-unixBench	+2.04%
-overall average	+13.67%
-
-
-hackbench:
-group   base    patch5  pct
-g1	0.262	0.265	-1.15%
-g2	0.288	0.311	-8.13%
-g4	0.407	0.374	+8.06%
-g8	0.567	0.493	+13.02%
-g16	0.836	0.720	+13.88%
-g32	1.411	1.277	+9.48%
-g64	2.473	2.564	-3.68%
-g128	4.502	4.554	-1.16%
-
-
-tbench(throughput):
-clients   base          patch5          pct
-1	475.97	        475.46	        -0.11%
-2	714.48	        709.10	        -0.75%
-4	1349.73	        1389.51	        +2.95%
-8	2059.00	        2220.22	        +7.83%
-16	4364.25	        4315.82	        -1.11%
-32	8325.17	        8821.86	        +5.96%
-64	12614.20	15186.43	+20.39%
-128	15845.07	19653.97	+24.04%
-256	20837.93	27263.20	+30.83%
-512	29820.67	27037.03	-9.33%
-1024	25969.93	29164.13	+12.30%
-
-
-schbench(99th):
-threads base    patch5  pct
-t1	10.75	10.80	-0.47%
-t2	11.20	11.80	-5.36%
-t4	12.80	13.20	-3.13%
-t8	13.80	16.60	-20.29%
-t16	14.80	17.20	-16.22%
-t32	17.00	17.00	0.00%
-t64	27.20	23.00	+15.44%
-t128	2844.00	2844.00	0.00%
-t256	5656.00	5643.20	+0.23%
-t512	9680.00	9564.80	+1.19%
-
-
-stream-10:
-operation base          patch5          pct
-Copy	103034.5	160527.1	+55.80%
-Scale	100012.0	156769.2	+56.75%
-Add	128469.0	182293.1	+41.90%
-Triad	114401.2	173172.1	+51.37%
-
-
-stream-100:
-operation base          patch5          pct
-Copy	122156.6	226728.8	+85.60%
-Scale	127074.8	214951.2	+69.15%
-Add	140021.5	209541.0	+49.65%
-Triad	136455.4	220304.1	+61.45%
-
-
-unixbench:
-cpu     base      patch5        pct
-1	1808.3	  1783.3	-1.38%
-384     113834.2  120040.7	+5.45%
-
-
--- 
-thanks,
-kunyu
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e75344f..6c7b1b3 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -8328,6 +8328,36 @@ Kernel parameters
+ 			brightness level.
+ 			default: 1
+ 
++	virtio_snd.capture_allow_empty= [HW,SOUND]
++			Retry a bounded number of empty startup capture replies.
++			Format: <bool>
++			Default: false. Compatibility option for devices that
++			require staged capture; validate with the target device.
++
++	virtio_snd.capture_allow_short= [HW,SOUND]
++			Accept non-empty, frame-aligned short capture replies.
++			Format: <bool>
++			Default: false. Compatibility option for devices that
++			require staged capture; validate with the target device.
++
++	virtio_snd.capture_packed_status= [HW,SOUND]
++			Read status immediately after the returned capture data.
++			Format: <bool>
++			Default: false. Compatibility option for devices that
++			require staged capture; validate with the target device.
++
++	virtio_snd.capture_pause_restart= [HW,SOUND]
++			Release and reprepare capture streams across pause.
++			Format: <bool>
++			Default: false. Compatibility option for devices that
++			require staged capture; validate with the target device.
++
++	virtio_snd.capture_staging= [HW,SOUND]
++			Use request-owned buffers for capture data.
++			Format: <bool>
++			Default: false. Compatibility option for devices that
++			require staged capture; validate with the target device.
++
+ 	virtio_mmio.device=
+ 			[VMMIO] Memory mapped virtio (platform) device.
+ 
