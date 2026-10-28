@@ -1,104 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793204659;
-	b=lVahR8VsnE0xkLXuvKLxMQgALFYXe6yM2aVmiCCptI+41jpiZrN2467/3petWrWeLYnp
-	 BzQceyZ9OHv1GaW4gzTSNsOjvuppv4UQBhvWRFjxvrdkfa5UL+UD/jyXxQwNSdgyDbhz5
-	 NwhgK0ZRTs1X1WEIW+DM2GWy0Mj1yb3fhyrNIn+bqht7/vQy/SGZdP93e2Ye8sI6Szz7b
-	 1j2dr6+nvrXrRBJCUTg4VFwvUFRnosAPv+tJscKr+mYGTnw2nHKWQVAl9pG96hmZr3OiG
-	 n5kvk99UpCf7j5PsB37U0quj7Ctz+PPEB590wq/VYteZIgOgBv2E7Fkq9BS6ApYLlCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204659;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RzghwIJywr9/TH2WGtcNN2E1NcXxjM7oYHv5o8xHrP4=;
-	b=t4LJ/HhMwthe+tvZxiPC17QBCvYUus4jsY528L798bc/Uutvaf3oBYM8FY5D+sYStEQl
-	 GpueEGSp3iZwyF85zFZCz97ZKFHnj1ofs3tgbF0YB/afM6MMB9uMcYnVLxIX8UOwTs66h
-	 bTJuNojSoJnIKeioya2UE4gG2lsuBX11b7boYSVVJyUGMEI/tPiXo/Too86xIBN6AiO17
-	 6dESCqre2rFKStNDRhbzmSZ0dWvvssSxgLLgLVgGazlJGdizNIsjEgCtNpwz8emgqxuK3
-	 MqBqDhEntfw9kNu3wD849SkliOqXYLgJkqsluwETHszSjWoX25ZQpcKeofNHMC9LtTQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EHEeAMSZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.48
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013048.outbound.protection.outlook.com [40.107.159.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.85
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793204770;
+	b=Z+3a8g05/TgCnpHAfJawEKJjnlk2GkdA+uuDx0AZgV9VDfuL+MM4eyJIgT/PsAz8I2JW
+	 PP4BCEYv01/Vf7MejpFV/ow4/7bLRKL701WtUQDZw+mo5VD18bbLFzZS1km7ZH0Uxsevv
+	 +AB1RajY5jwYxdV0zhX8TgGQb2IS1kxwCzkpMXsH1BL7CKB61SKXwu8VwhYkyh2q5c54Y
+	 DkXfxKmfsMWjfiJQDi80TRtd6uEvuTkU6OLfZwaH7+YWtWHV5ajQaMHm4HpeEO/B8vRzO
+	 FdduxLW7fm5+LsHAH5CN55sWzG0tWCR1NqFOpAQAnHkgNNSLYxkVq3gn9zpOX9cYOwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204770;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=h+HIOOxJx9hUe+jm2hepdbTigAroXYRQmP3amdTNLAk=;
+	b=oR3tQpDeIBD+oFE9+VBpPzwnPZJ17IYAI9qT2zbTsAsyaApnhoKtOaKxH4gpkysc6+w9
+	 ZmdFpdUoPjDN3oDuej3lW/vLQthM/68NEUHgcChs1DvJ+jlSUA8ppdVjQ5zwVm9Dynp6s
+	 7VO3fbL/yZOIX7WjORbZNkj50wwyFAHxYpGq9gNAPZ9myYeZ3dQZISKO/nHla/OLVx9GZ
+	 iy320O36JWlQ77BNkdiEA/y/f72bCsRnGfw0Md4xVhpbJGwsk6Z82IUnL2waNGJz1lUfD
+	 LOE47HrVYo0hhiCKKrxR5vNQCpqrUb0y7QUqwTe68oMZPsmtKyfETp5td06ympmsRcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.85
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D094606A31A;
-	Wed, 28 Oct 2026 16:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D094606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EHEeAMSZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HI/qAxPqMsq0mOlKLWjWXSM0oohfWvaFIr8P/S9DTQbBq2gCh5AsomyIKJqBD1/bwtNmaCXlB0/U8NzFYrjz0IdELQczkGyx5T6dd6GXWSCygZNoJ2QHeOQbXAHGFes0uXQtwXh+AX8RYE2VnnoHmGocUycXidxm5igZFXgLNZCUjEpPLfRMzsu06pPJ0nbcevvu5b5gVa0x7zFsHO//QsJDNQhTz6wKsFXlrF8OrEPX2olbLspzgVGq1rh0rc0MwOAb/uzQQ4PkDwJRu9BEiwai3vArEEMP9Jf6YrZ3vxN9yOGvtMuj/Ye7vUJemkd62Y+QrebP70o7ufftjswKEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RzghwIJywr9/TH2WGtcNN2E1NcXxjM7oYHv5o8xHrP4=;
- b=u85YvlTgZNirZejLXdtrQcJ3hwQa9ktE5AH5oF0DIAGpGoC8tbIG1Baba3C8vFoZ4te4J108U2vHT03l7ul/jFMxiB3HGBaLf5vEmCJJLCWo6QdXVxK7kO+CgpnXNrKzRKImenSHfGCGyRdd4D6ug/LA1P81SHZI8EcbuifKuueGiIyIDDfx9iTKFF0wvuEe7TxKIOcDZ6O7zrC/3wNTwt56U3+yqB+01jfUJfz7BzzzkdmWujw4y0j+WN4omye4S5REYQjw405U7Of/yT6g9QlbBhccR2N1CgsFs+CHzBpWwfD/XbV0aC2k6C89lOQja1wwwBDxIffoHGcM9zJOWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RzghwIJywr9/TH2WGtcNN2E1NcXxjM7oYHv5o8xHrP4=;
- b=EHEeAMSZ4rt5aZvZ+hRaf0WLttqRJpsCZTUlSnEB70W+7srOuc1H9s6S4W9KTnuwkCXLmDT0V9AhMMynXchyixkO6gMoT01XLFgRC501nroYWxMJEwJ/5hEoN1HEQXMV0rdgwvmDfPV1srXHTjobCUBJn3gXFz7AFxSNmmtoHdysJnFsuNv+un8mOWIOs4sMW6e7+HKc9GH1zcAaptwnA0OtLA/V0+sNckvUE3xZkXsGQAur6JlQ/PF8VzE1KjEGKNUq4AztzEhHZn9eRVIhiVnAy3kyL8GtZL+hIxwqdlpsOshfwohelkuglBL6AThbpOn1DuAP93QknEk1lVu95Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by MA9PR04MB203935.eurprd04.prod.outlook.com (2603:10a6:250:110::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 16:24:16 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 16:24:15 +0000
-Date: Wed, 28 Oct 2026 12:24:06 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Maciej Sosnowski <maciej.sosnowski@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Haavard Skinnemoen <haavard.skinnemoen@atmel.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] dmaengine: dw: serialize error recovery with
- channel termination
-Message-ID: <auIhpgXNseoUh6an@lizhi-Precision-Tower-5810>
-References: <20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com>
- <20261023-submit-dw-dma-synchronize-v1-v3-2-c62bf048f5ce@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-submit-dw-dma-synchronize-v1-v3-2-c62bf048f5ce@gmail.com>
-X-ClientProxiedBy: SJ0PR03CA0202.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::27) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC76606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XuPbLLiPtXAl47QACJO9Vzp6Txe/hdhVtczq1D4shLo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793204762; v=1; x=1793809562;
+ b=pl7yDW9Zu05cYxMtG5YbemlYrBNeT01NjUaBLXzRYnTwzOGE/m/iETnqdne93AEcqAF0Z/Fz
+ DNULADKI9msNuRRLJ6Fa0ruG1XzWdfhG9U9IiWrX/jAmv8kqLRfxJc9h4DzksgBnfDxu80hbJcG
+ p+JoZ088qXh6Ps17vuLM9EMw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 40b3dfbd2361a10e;
+	Wed, 28 Oct 2026 16:26:01 +0000
+X-Mizu-Trace-ID: 40b3dfbd2361a10e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <56eff81f-c7d4-4c81-b087-93cf63f42e35@linux.dev>
+Date: Wed, 28 Oct 2026 09:25:52 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,142 +55,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MA9PR04MB203935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 311f3561-b313-4e71-d7f4-08df350fe8e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|366016|1800799024|376014|23010399003|22082099003|18002099003|261028144727099003|261026140227099003|10067099003|261021123027099003|261021121427099003|56012099006|4143699003|261009223027099003|261022105027099003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	Zr+FRimxpm0VfikD0081C56mro6fbfD8tX3ZwwlmvMTqIHNmwlzMGSxiLC4Bl1xEsfrOJlcn6DwJOZjQdh79CfPwRWUW5aGZOvVsm9oBDxd904cw7E8J8CbzN52IKwv/v7rjrbby8z86F85eI7AniW4TR4jCcOrYZbf0ZONtynRmore9dVoPm7A2TI1AU9a7s4xNcCLhg8M8li1xqgATBt+XG/ePc3dVbBPUfQZcrK60VW/0hy64QdMbuvoTdIj3SX3xTbP4qOFuayCyeWaXrqEdjw3VOIhYHcKgy0cKm6NQXXofxx+Q3zIgs2MPhFqWJJVfycNhqVLDzF4kJXGNysQsXC+DNNWy79wk0gHiwe6K1weQaKjJsaBzLNKwhPuMQ/XCIgvlfxXt8yY27GVI0XXAS6HDhOXiNLa6zyrwagq6naqdjl9vUbQ6Bon73WtpXLC/cZzE7yIKMhvzo6Q+xi6ZAZ8Bf52cSzeqAqsoKIv2hYpVIL/8XjTq2x5k3gqzuI9JRzPGKISuQcJyOa+kQ6zo00q74GxNu5dQhUcCj0Q5cb7vrtFwwRlQk8OrlX8aSX6Na79X8Pw8qXfCwdWKJzsbCEpdqRGTDRBp3jz2fXzhiK92UQvu8FPKw5QikVSosSgb/3K/MTrh/vt897MThRbdy03x3Nk0VA7TvQkObso=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(261028144727099003)(261026140227099003)(10067099003)(261021123027099003)(261021121427099003)(56012099006)(4143699003)(261009223027099003)(261022105027099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B3DE4JC4KuBfhE4SwrENK9nTViNQmlhVgecMCme9gXivZ4MvCJAdDgjBK3Fs?=
- =?us-ascii?Q?Od/W5Nrj77G2j7/7ERAAPP79LvksGVeoGzfvGKA4MzD393xEeFcDhtQ3Ugey?=
- =?us-ascii?Q?oenh3Nl0bc0yhdfkp8nT6XKoYRtn60kMdROkN4RqUcyWEE3H0t4xtaanghzO?=
- =?us-ascii?Q?EG1Cli7mHC9gBYrwmxp8jQ0/hOwQbJT3DNm2uJ8Q40E1VxO+HH32vsvApDvS?=
- =?us-ascii?Q?4B0sLolSeZc6fHDNM+/JV7nlivE02iT8ogEeK7M6lZRL4NKbVOYOiOSRSAzO?=
- =?us-ascii?Q?/S1Mv4qZdRFpsyGTLHT0A1G83A7AkHclOaKe1mJ9S5FR/vUxaU1Tc4urNFjj?=
- =?us-ascii?Q?mLbrxK/f0q1YRW5vHE4qyk4tXfq1eykrCTk5RJvF/kX/4aeRR3sYD4Rsf1mV?=
- =?us-ascii?Q?dTjQ1ji0iUw87yF+vzNohM0ZseUZjYhbG+GMHjbMDUQHBB7LiJKbn5nALscK?=
- =?us-ascii?Q?cunWubzWkCYbKbLE2X7qEE3jh3YuqqHjY/Za/C6UuV1ma/iqRmMbuGCt4ZtC?=
- =?us-ascii?Q?udu+GxkUD80Tcre9KOVMBWOYWr7jvZXjErv9Ym9otWjOg140YisuNrGWlVd/?=
- =?us-ascii?Q?zOQx3yT7ZXtOxR9Dy2ppuhuEhSFwTrNKDfrx8JtnfcQ7G20NyOH01s09QEbt?=
- =?us-ascii?Q?s7Lg/OM9sJr5djyar5MRAOms4/1AQIYiqPuLqLZRCyxx5MYd1ErrgC4vqGYV?=
- =?us-ascii?Q?NmfDOjMo4HtNyO0cbE3UrpKn2YTLKc75wB9jFN20S8YuR6eS0GRG+PEg6tkj?=
- =?us-ascii?Q?dxb7Xhlf1a2EYOtQyS2pn1/Q/aWwgCK4J002VAFDMDRGaa7XRlw1qLcMwzhn?=
- =?us-ascii?Q?g0iwGFocv9LmKubfyB+68lEucmduMw4hqleteINWc0Zn0ZU98VgPEivGOTHH?=
- =?us-ascii?Q?fOV9DxyhXGAKkOezAC0A+aMKJfyIksFde7/h323XAQ/yq4TxnMreEgcCwAe+?=
- =?us-ascii?Q?jyMIIuRO5KkSSs0ulrNuQDuou/XAaLtVU9D/qLwsrqY3PRlUr6dT4y+kJc/z?=
- =?us-ascii?Q?AISU6PpLJPMMhknyXs7Ovz4O9lNrk8DJASS4VEXa/khnH2D2tcDBWHAn1yeZ?=
- =?us-ascii?Q?KIuASrlXPIZ3cR5A9wsDQPGKev4IW4As/t1/WDOs8XvAa+kkRe1uBxRCihS1?=
- =?us-ascii?Q?0WYIjUuPXei3t33zwlX0WimRNNKf86KAZEVcpZ7dhi7oEc/AXs1jTWtrYSvI?=
- =?us-ascii?Q?vVYlKA3eiKrsffyz3I5qqVaIRD+WpRzvZYWldfGDmOpkDEA9HBVzhq4KSu6Q?=
- =?us-ascii?Q?f60MXT+3fmfdlUjacX/3o4LycAYRugaGYMOeQeUfGEelxO74+9wBFgS0WpvK?=
- =?us-ascii?Q?gytO7NpWcI3yiBM0P6H0/92WykqU/Gp/2T1B+sXtC1l5TyaaAhuvDgoxdTYO?=
- =?us-ascii?Q?E0Ut1ygGBiURc9EQfUEzwoGSWpg0lU5waclfoGvCoQkuXJoE+6MeCs/T4+2+?=
- =?us-ascii?Q?CMfT9MWoLEgG37jTojxdoCCyejIDxbFITOlctNUCfWnGkfH0AHQimWkkVorP?=
- =?us-ascii?Q?EuHPPlhEh4aeMB5KDlHA1pKuaIDEa99Y7YZ0wo31mNmrDuVo3RNxlr+5iEib?=
- =?us-ascii?Q?rgrCyhX3i8+eQh7XQku1bKuI/s/lUiYE9q7yULJyNi1DW5HTzNDqchObqZiD?=
- =?us-ascii?Q?JUtk8RKf4v+/l3FxAVTWRzjTH3MIXkeST6ljXw9j81dnX+CQNRrw81syDi5G?=
- =?us-ascii?Q?eGuFGb5yutf518+cSd/mk0rJBkyydw3n0aItK3NBZbpYg8L7GDNF3kt4WVqF?=
- =?us-ascii?Q?PA5NTUB3o6dN3Z5VrquoYVbgJGml4fY0ETNa6MTUU/MoUeRhmUaH?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 311f3561-b313-4e71-d7f4-08df350fe8e5
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 16:24:15.8783
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jCckQtI9UWByRNrQ7oMzPbFMRhCB6zFII2YaqQqf8FPddePjVhJ2nRj9FJBh/fZSLWDy79q9NqrcSmyK0o3dbChZ6z4z6Og9EKIbVSpdmFiXXfNU3gyNcweUNq2UTLHn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB203935
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v1 5/7] selftests/bpf: don't report arena tests
+ as passing with an empty body
+To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, john.fastabend@gmail.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ jose.marchesi@oracle.com, david.faust@oss.qualcomm.com,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20261028000411.4010967-6-vineet.gupta@linux.dev>
+ <bd70230bf88b570044957ec4866a4c0ad3870121a7e6c609e4d60043a13be905@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <bd70230bf88b570044957ec4866a4c0ad3870121a7e6c609e4d60043a13be905@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 10:27:23AM -0600, James Hilliard wrote:
-> The tasklet samples RAW.ERROR before taking the channel lock. A
-> concurrent termination can empty the active list before dwc_handle_error()
-> uses that cached error to select a descriptor. The list head is then
-> interpreted as a descriptor. Even with an active descriptor, moving
-> queue.next unconditionally can put an empty queue's head on the active
-> list and pass it to dwc_dostart().
+On 10/27/26 5:46 PM, bot+bpf-ci@kernel.org wrote:
+>> selftests/bpf: don't report arena tests as passing with an empty body
+> TL;DR: Commit message only: it cites arena_types to justify running arena
+> kfunc tests without a cast, but the address args are __ign (ARG_IGNORE) and
+> never checked against it. Conclusion looks right; the explanation may need
+> rewording.
 >
-> Recheck the error status under the channel lock and stop the channel
-> before selecting its failed descriptor. Only one transaction is issued
-> at a time, so take that descriptor directly instead of scanning for
-> completions first. The scan can otherwise complete it and start queued
-> work before the error handler has identified the failed transaction.
+>> selftests/bpf: don't report arena tests as passing with an empty body
+>>
+>> Some arena tests put the __BPF_FEATURE_ADDR_SPACE_CAST guard inside the
+>> function rather than around it, so without arena support the program
+>> still exists, its body is empty, and __success __retval(0) is met by
+>> doing nothing.  A reader sees
+>>
+>>    #584/1	 verifier_arena/basic_alloc1_nosleep:OK
+>>
+>> and concludes arena works.  That is worse than the tests which vanish
+>> entirely, since nothing hints anything is missing.
+>>
+>> The guard was never needed to compile those bodies: without the
+>> feature __arena is still btf_type_tag("arena"), which every compiler
+>> accepts.  What it avoided was the load failure that follows from no
+>> addr_space_cast being emitted — but only for a body that dereferences
+>> an arena pointer.  The arena kfuncs take one as a plain scalar:
+>>
+>>    static const struct bpf_reg_types arena_types = {
+>> 	  .types = { PTR_TO_ARENA, SCALAR_VALUE }
+>>
+>> so a test that only passes pointers to bpf_arena_{alloc,free,reserve}_pages()
+>> needs no cast and runs fine.
+>>
+>> test_loader checks skip_reason before it opens anything, so the body no
+>> longer has to be empty to stay loadable: drop all 19 in-body guards.
+>> They do not all need a tag in their place, which is why 19 guards go
+>> and 7 tags arrive:
+>>
+>>    6   dereference, so they get __skip_without_arena and report SKIP:
+>>        basic_alloc1{,_nosleep}, basic_alloc2{,_nosleep}, big_alloc1,
+>>        access_reserved
+>>    11  never dereference, so they get no tag and run for real instead
+>>        of reporting a vacuous OK
+>>    2   big_alloc3 and big_alloc4, already inside the file's outer
+>>        whole-program guard, so the in-body one was redundant
+>>
+>> The 7th tag goes on check_arena_arg_ret(), which has no guard at all
+>> and is the one verifier_arena subtest that really fails under a stock
+>> GCC.
+>>
+>> Measured on bpf-next with a stock bpf-gcc, test_progs before and after:
+>>
+>>    verifier_arena/basic_alloc1            OK   -> SKIP
+>>    verifier_arena/basic_alloc1_nosleep    OK   -> SKIP
+>>    verifier_arena/basic_alloc2            OK   -> SKIP
+>>    verifier_arena/basic_alloc2_nosleep    OK   -> SKIP
+>>    verifier_arena_large/big_alloc1        OK   -> SKIP
+>>    verifier_arena_large/access_reserved   OK   -> SKIP
+>>    verifier_arena/check_arena_arg_ret     FAIL -> SKIP
+>>
+>> the six that dereference stop claiming to pass, and check_arena_arg_ret
+>> stops failing.  The eleven that do not dereference stay OK, having gone
+>> from an empty body to actually running.
+>>
+>> Removing the guards exposes the arena_base() calls they were hiding.
+>> The previous patch made that macro opaque to GCC's -Warray-bounds, so
+>> nothing is needed here beyond the guards going away.
+>>
+>> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> The paragraph that says "The arena kfuncs take one as a plain scalar" and
+> quotes arena_types: is that the check that actually lets these tests run
+> without an addr_space_cast?
 >
-> Detach the failed descriptor under the same lock and use the queued-start
-> helper, which leaves an empty queue alone. Clear the software-LLP flag
-> before restarting so a failed multiblock transfer does not prevent the
-> next transaction from starting. Keep the completion callback outside the
-> lock, with the detached descriptor owned by the tasklet.
+> bpf_arena_alloc_pages(), bpf_arena_free_pages() and
+> bpf_arena_reserve_pages() declare their address argument with the __ign
+> suffix in kernel/bpf/arena.c:
 >
-> Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-> Fixes: f336e42f73d9 ("dw_dmac: Move single descriptor from dwc->queue to dwc->active_list in dwc_complete_all")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>    __bpf_kfunc void *bpf_arena_alloc_pages(void *p__map, void *addr__ign, ...)
+>    __bpf_kfunc void bpf_arena_free_pages(void *p__map, void *ptr__ign, ...)
+>    __bpf_kfunc int bpf_arena_reserve_pages(void *p__map, void *ptr__ign, ...)
+>
+> get_kfunc_arg_type() tests the __ign suffix first and returns ARG_IGNORE:
+>
+>    if (is_kfunc_arg_ignore(meta->btf, &args[arg]) || is_kfunc_arg_implicit(meta, arg))
+>            return ARG_IGNORE;
+>
+> and check_func_arg() returns for that type before any register type check:
+>
+>    if (arg_type == ARG_IGNORE)
+>            return 0;
+>
+> arena_types is only reached through compatible_reg_types[ARG_PTR_TO_ARENA],
+> which applies to kfunc parameters named with __arena or __arena__nullable and
+> to arena-tagged global subprog arguments.  resolve_btfids adds the arena type
+> tag for KF_ARENA_ARG2 but keeps the parameter name, so the __ign rule still
+> applies.
+>
+> So the conclusion that no cast is needed looks right, but the address
+> argument is not checked against { PTR_TO_ARENA, SCALAR_VALUE } at all.  The
+> same reasoning applies to the tests that no longer have a guard or a tag:
+> basic_reserve1, basic_reserve2, reserve_twice, reserve_invalid_region and
+> arena_kfuncs_under_bpf_lock in verifier_arena.c, and
+> request_partially_reserved and free_reserved in verifier_arena_large.c.
+>
+> Could the paragraph cite the addr__ign/ptr__ign parameters
+> (is_kfunc_arg_ignore() -> ARG_IGNORE) instead of arena_types?
+
+Yes this will be fixed in v2.
+
+Thx,
+-Vineet
+
 > ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40608355234
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/dma/dw/core.c | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-> index 07a5f5105787..51c5460b4670 100644
-> --- a/drivers/dma/dw/core.c
-> +++ b/drivers/dma/dw/core.c
-> @@ -408,10 +408,17 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
->  	struct dw_desc *child;
->  	unsigned long flags;
->
-> -	dwc_scan_descriptors(dw, dwc);
-> -
->  	spin_lock_irqsave(&dwc->lock, flags);
->
-> +	/* Termination may have cleared the error since the tasklet sampled it. */
-> +	if (!(dma_readl(dw, RAW.ERROR) & dwc->mask))
-> +		goto unlock;
-> +
-> +	dwc_chan_disable(dw, dwc);
-> +	clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
-> +	if (list_empty(&dwc->active_list))
-> +		goto unlock;
-> +
->  	/*
->  	 * The descriptor currently at the head of the active list is
->  	 * borked. Since we don't have any way to report errors, we'll
-> @@ -419,12 +426,7 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
->  	 */
->  	bad_desc = dwc_first_active(dwc);
->  	list_del_init(&bad_desc->desc_node);
-> -	list_move(dwc->queue.next, dwc->active_list.prev);
-> -
-> -	/* Clear the error flag and try to restart the controller */
-> -	dma_writel(dw, CLEAR.ERROR, dwc->mask);
-> -	if (!list_empty(&dwc->active_list))
-> -		dwc_dostart(dwc, dwc_first_active(dwc));
-> +	dwc_dostart_first_queued(dwc);
->
->  	/*
->  	 * WARN may seem harsh, but since this only happens
-> @@ -443,6 +445,10 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
->
->  	/* Pretend the descriptor completed successfully */
->  	dwc_descriptor_complete(dwc, bad_desc, true);
-> +	return;
-> +
-> +unlock:
-> +	spin_unlock_irqrestore(&dwc->lock, flags);
->  }
->
->  static void dw_dma_tasklet(struct tasklet_struct *t)
->
-> --
-> 2.53.0
->
