@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191699;
-	b=hXm62N2DxkKTjMRA+cVVQq6RSJGWxwn9kelALECcsSDsdUQ4+yqum4q1+Xw7yJR26MEE
-	 26bOdHEbZIE750m4lUELTeiqgaZPRNelPScZE6ifX3BWDSa4uc1YEfpj653c2cPgaYSdU
-	 4zP5tseVTp+smSTfOYtVGsqH4JxCLw93hxXoBPpvpH94el+2Xy1PBsbeEldFDjt3vQT6W
-	 A3dmHtolW8YtWF5B9MrFtEByvDGEinHWq8R838fC7FTR11zDQXE1vxwl1CsoI/Ncx8Oqw
-	 5WuptEhf20+lGAxPbGOJ/DU7dAKb12lqjgjLYLFlOOia0OXuEl6HsywHCzpwVP1ff9Q==
+	t=1793191769;
+	b=4T7Tfed6a2YPtSF1ih+9UgWyqXm+6jQJz7XaBBihCQXD+t2h2LOiDzctwlrdfWtQxpYF
+	 zbnG+cLGK4Res+9OXwMzkuhAAAaCZ6iYjiGxk7dwiUjFjcafwakPxjUwe6QmML4ZEY6Eu
+	 5dE5Fbiq8UWlI2OLuCInpxP3TEzGC6TGBbLTRYtqJaXZierIOcnPxx09DXi1C5mAeV7lK
+	 LIMOfwAdDiOC01GI7zM2CLz+NVJjKPvB5iCn99Hef1/8HOBNjCWvkh3AVt7gfzhpfL1ee
+	 Qk5coUCf3+ROeBwA6pFBFZb7nRpuuFmP6Namcq+dyv5rvauU/RhXqUWxVXcnKJhPhaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191699;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/rp10C9vmYrvZ8n2ETCONDZuve+pgclYyA15cGXRQ9U=;
-	b=PMSHRgR4+YbclU+jvr9bSEIrHUL1L7Y+IPc9kX4CCgXJzu72w2Gxn0R0TNgYWvNw6O5a
-	 wjJIa3/PQkFv3FjkcAtUVhvON46wr/tNjXuKXG0bIN6CqsV6HZglN0HlGWzu+kT+YQUGo
-	 vkImcwe+piwILM/aTNzqQvz1AU9u1+d9TlLtH1W22WZCEImzW4WLyvyjPp6z7lSPKiYkq
-	 HkT9ykfdAKWyB6aufMGoqrxzKaeEOrP9bn5YTfTr6r7uQ3QFcgY8jSM/fI/YQZq01z+HP
-	 F09lAM/qC41c9vGk6shAbsQSjUy4seWJMic1MnyoMtq/ZwZh26xLz3ZpNDU7j1MppdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191769;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YK41smP7QE9oJovUtzzAvla6GYf/L/dPjCC5nmsqru8=;
+	b=Msvgyl+IFKuGsJGlUMWPMs7XWss5OV1yVWFEQZKp9UAxlQ/zMMEpzqonAux+CJP1SjYd
+	 S5BYZBmv9RsX5+G8PTSb3jlDVmOk5hKrKC3rOLi78TNqYExZiM1z2/A7Yg4HiLj+CNMf8
+	 5eGg9ntqRCfHO4/XG8EvNfTey17NUML73Vqk4z/C5QePKYvAY99eRU8Kx4DCZtpebvC0P
+	 18OUR/YLV6l4WQO6x3gu2hVsBQudVLeIAXHwgVdok9wnePTIr8FlDGVKNYXUPVmUD/aAZ
+	 BX+nRJH2riNni50Jgclg5qYCi2InqRs7259rX8IvphFNDiaQ5FiDT57VJdG+h1JJkRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=b4txhJpw;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="FLQpX/Gw";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D73606A31A;
-	Wed, 28 Oct 2026 12:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1D73606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D451F606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D451F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=b4txhJpw
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793191688; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/rp10C9vmYrvZ8n2ETCONDZuve+pgclYyA15cGXRQ9U=;
-	b=b4txhJpwHmZZaVNsrVSG6XnzxVadk3HQPSZdFNXPAuG4r11vy5T6zenr8uDb5KeazgXNx39vcZyCJr01z/vert8PBe4SJY6J2+lIgXZJYrmZby67vsinjeOcStpPP0nfgGDTmS7sjMB7BKiFCTNhCXN6UHDQca9tJ+7XpPvTLWg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDgpOyF_1793191687;
-Received: from 30.221.129.127(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDgpOyF_1793191687 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 20:48:08 +0800
-Message-ID: <a0c3eeda-f73b-483f-a129-8d45eb120337@linux.alibaba.com>
-Date: Wed, 28 Oct 2026 20:48:07 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FLQpX/Gw
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so8689815e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:49:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793191767; x=1793796567; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YK41smP7QE9oJovUtzzAvla6GYf/L/dPjCC5nmsqru8=;
+        b=FLQpX/GwzpRrDYRTS6RpKgN2/3dRI2UnPBn4fKVsGUen0LVkYXdl/gK8EYqK2I+Ln8
+         LuNwdIlL7Lir/k6W2TfuVpHjlaHwKUbLSFDdC/zGqI71PAFfdLKcqzWcX2edU6j5LPpd
+         4elQBgzGkv1DqGu2sEzu1Z7b79+q602tWFB9NeyvlcdIilmTmgRIu3C61eO8TkMtYg1k
+         +XMz7JCujuRyy1iO2+Ksto6L2pNahwlZTkuIcuQntdDklA22Zyqa3b8I/hTNAC5Ki5UH
+         PF+mYW9i2l7K1i4FOfbfMtFAwbFsKhstUp7b/viC6FFYcFJlNjxlpw7pyHzvlUbsbH73
+         zt9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793191767; x=1793796567;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YK41smP7QE9oJovUtzzAvla6GYf/L/dPjCC5nmsqru8=;
+        b=PUVp8Akt1nDSViJXRAiHp+RkloXqme/OdNfry5+HXdSUlQY+bXMfK9E7rtOuCCPTcR
+         dWTYdTWUOFYk47LduD6AyJe82dfp8Z5IZD+/+AGvGdw9dqui5n8fJkqsndFihQXuhiGk
+         JFNiq58UjbcnCGoUSKYYCkUTz2LybISGmom6TFJAHYorRFj2br2nr1tvv8OLbXm9eIBV
+         IiHSC8vSQQUEKURHtViy3zukRm2uSAX8hrS31n2IsFn58uWAMTAO9fnnbpD0atn2DVIa
+         CckMzJplAVSqUihA0uR6sWYvUgtK8PGkZy3zLlhnfGafbmyCvQl8yKllL6aP+qxwRf1L
+         LB4w==
+X-Forwarded-Encrypted: i=1; AKwUvByXdwIiML2ZDACaWtEdjnL55Oy/Dwzq0y+3kJX/pmguX7jQE5maLAIoRdZL8CPbIHcAocLiCZuf6MoTt7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6g/OQ+a616yvb6fx/ih3PB7NKI4j/EXor8VkQ9jQTjvIwjw+v
+	fjhvA4KVIBIjmR3busav0OWUuerfMwjewhmd1tkF4gBqaZG7AS67rTw67qOGo76oF5o=
+X-Gm-Gg: AYBFou3UZdF/tSShJAYMBG3Ubb+9o/KcNiOD2O8qTUjkjrSssXNFFW1THo4XQi/PWFv
+	ae/eS8TRnyCYKuSQQYpJ8/B4VFSu40b2M/J5qfkCPm6K4+UaFxoSlfFWd45TiRS4oKzKT3Ikf9A
+	WHR8muBGiWCWTOeK0BEnKJQ6RIcJDsXiSmEECJ89Q8OwJlq3jONDFo5Wtbcp6rPtIW68StAWPD2
+	LUxjeZ4VBu/ycQrsBJcp+irVg9DqjImsV6AQvixxNXmx0TEL4+tFZZsvDhhEUO4FpodYcgEgX45
+	Jt0FuYKcyxaHSu3HfEn6+gdgqHQBiIg2JX29ecNFAZytk49xA1NyDm+mzC+EqooUGnCWS5ueU4M
+	Pnc08EmLRKKIP6D6zgQ44rpx1wqs21IFdNqK/Vn1cFS8Z+xLChxpDUUsqi5mvXg2wQavy0mmMGb
+	JPDrRrA+VDdeHd8W+VsPSkBV01YrV4g1pTvqfP3GDe+SY5qjtBcYsve55moiS1nOZrrdcGfgLzu
+	gYONSgOKYeewL7OeGxCxcBwyDtyZivCI3NCcNO/4hTqRBOGpNPf/ef16Y6Y9o8Qou5Exz4s2mzG
+	Gn2Sui30RMPHnBWdtvF1JikRWOoR7gr7+D6u1BgbXZs/jMol11GJLA==
+X-Received: by 2002:a05:600c:a00f:b0:4a1:9c71:9f17 with SMTP id 5b1f17b1804b1-4a996d873a9mr37324205e9.9.1793191767028;
+        Wed, 28 Oct 2026 05:49:27 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a969e61f9bsm28159215e9.2.2026.10.28.05.49.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 05:49:26 -0700 (PDT)
+Message-ID: <8ab1834a-c544-4a2c-8fcc-cf7b00b4f4d2@suse.com>
+Date: Wed, 28 Oct 2026 14:49:25 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,225 +93,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: advance locking_state through the live cursor
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0053-v5-76075d5da2df8108f813@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0053-v5-76075d5da2df8108f813@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 3/4] KVM: TDX: Report only KVM-allowed CPUID bits in
+ KVM_TDX_CAPABILITIES
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ xiaoyao.li@intel.com, chao.gao@intel.com, tony.lindgren@linux.intel.com,
+ kishen.maloor@intel.com, dedekind1@gmail.com
+References: <20261028081658.1228484-1-binbin.wu@linux.intel.com>
+ <20261028081658.1228484-4-binbin.wu@linux.intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20261028081658.1228484-4-binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
 
-On 10/26/26 10:00 PM, Cen Zhang wrote:
-> locking_state copies each lock resource under ocfs2_dlm_tracking_lock
-> so its containing inode or quota object can be freed during the dump.
-> The copied l_debug_list pointers do not have that lifetime protection.
-> Yet ocfs2_dlm_seq_next() follows them to find the next record.
+On 28.10.26 г. 10:16 ч., Binbin Wu wrote:
+> Filter the directly configurable CPUID bits reported through
+> KVM_TDX_CAPABILITIES against KVM's TDX allowlist, and drop the hardcoded
+> denylist-based filtering.
 > 
-> Remounting read-only can free a quota-info object while a debugfs read
-> is between the snapshot and the next iterator callback:
+> The TDX module reports the CPUID bits that the VMM can directly configure
+> for a TD, but KVM must not advertise bits that it doesn't support, as
+> blindly exposing a feature that clobbers host state can corrupt the host.
+> The existing denylist, which clears only TSX and WAITPKG, can't account
+> for such features introduced by future TDX modules.
 > 
->   locking_state reader                Quota suspension
->   --------------------                ----------------
->   snapshot current lock resource
->     copy l_debug_list.next
->                                       remove next resource from live list
->                                       free quota-info object
->   seq_next(): follow copied link
->     read freed lock resource
+> Add tdx_get_cpuid_cfg_mask() to compute the mask of directly configurable
+> bits that KVM allows for a given CPUID register, and apply it to every
+> CPUID entry reported through KVM_TDX_CAPABILITIES.  The mask combines
+> feature bits, taken from tdx_cpu_cfg_caps[], with non-feature bits, which
+> are identified by function, index, and register.
 > 
-> Advance through the live dummy cursor instead. List removal updates its
-> links under the tracking lock. Position it after the resource being
-> copied before releasing the lock, and never walk the snapshot's links.
-> Rebuild the cursor from the requested position in seq_start() so a
-> seq_file buffer retry or seek starts at that record again.
-
-seq_lseek() does not pass the target to ->start. It calls traverse(), which
-resets the index and walks forward through ->next instead.
-
+> Treat CPUID.0x1.{EAX,EBX}, CPUID.{0x4,0x18,0x1F}, and CPUID.0x80000008.EAX
+> as fully allowed, as these registers enumerate non-feature information,
+> e.g. family/model/stepping, brand index, CLFLUSH line size, APIC ID,
+> cache/TLB/topology properties, and address sizes.  Allow the reserved bits
+> in them as well.  Though there's no architectural guarantee, given what
+> these registers enumerate, the reserved bits are expected to be used to
+> extend the existing information rather than to enumerate new features.
 > 
-> KASAN report as below:
+> Also allow CPUID.0x24.0.EBX[7:0] (AVX10 version), which the TDX module
+> reports as directly configurable when AVX10 is supported, even though the
+> CPUID virtualization table in the "Intel TDX Module ABI Definitions"
+> currently lists it as not configurable.  The table is expected to be
+> corrected.
 > 
->     BUG: KASAN: slab-use-after-free in ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->     Read of size 8 at addr ffff888117ea9838 by task python3/489
->     
->     CPU: 3 UID: 0 PID: 489 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy) 
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      kasan_report+0xe0/0x110
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ? __pfx_ocfs2_dlm_next_res.isra.0+0x10/0x10
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ocfs2_dlm_seq_next+0xb8/0x4c0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      seq_read_iter+0x92f/0x1110
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      seq_read+0x362/0x5a0
->      ? __pfx_seq_read+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? selinux_file_permission+0x11d/0x540
->      full_proxy_read+0x11f/0x180
->      ? __pfx_full_proxy_read+0x10/0x10
->      vfs_read+0x1a0/0xc20
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? kmem_cache_free+0x242/0x580
->      ? __pfx_vfs_read+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? putname+0x93/0xe0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? do_sys_openat2+0x12a/0x1b0
->      ? __pfx_do_sys_openat2+0x10/0x10
->      ksys_read+0x111/0x200
->      ? __pfx_ksys_read+0x10/0x10
->      ? irqentry_exit+0xbe/0x820
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on_prepare+0x11d/0x150
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x7f0266dbb687
->     Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
->     RSP: 002b:00007ffccf76fc40 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
->     RAX: ffffffffffffffda RBX: 00007f0266d27780 RCX: 00007f0266dbb687
->     RDX: 0000000000000001 RSI: 00007f0266a53200 RDI: 0000000000000004
->     RBP: 00007f0266d27700 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000001
->     R13: 00007f0266a53200 R14: 0000000000000004 R15: 00007f0266b651e0
->      </TASK>
->     
->     Allocated by task 547:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_local_read_info+0x181/0x1580
->      dquot_load_quota_sb+0x68b/0x1000
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_fill_super+0x21f9/0x38f0
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     Freed by task 577:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_local_free_info+0x47b/0x800
->      dquot_disable+0x5d9/0x17a0
->      ocfs2_susp_quotas.isra.0+0x22c/0x2b0
->      ocfs2_reconfigure+0x284/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x16ae/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     The buggy address belongs to the object at ffff888117ea9800
->      which belongs to the cache kmalloc-1k of size 1024
->     The buggy address is located 56 bytes inside of
->      freed 1024-byte region [ffff888117ea9800, ffff888117ea9c00)
->     
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x117ea8
->     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->     flags: 0x200000000000040(head|node=0|zone=2)
->     page_type: f5(slab)
->     raw: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
->     raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
->     head: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
->     head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
->     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
->     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->     page dumped because: kasan: bad access detected
->     
->     Memory state around the buggy address:
->      ffff888117ea9700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->      ffff888117ea9780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->     >ffff888117ea9800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                             ^
->      ffff888117ea9880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff888117ea9900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ==================================================================
+> As a result, directly configurable bits that aren't in the allowlist,
+> including bits introduced by future TDX modules, aren't advertised to
+> userspace until KVM explicitly opts in.
 > 
-> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Note, this is an ABI change, as some bits that were previously reported as
+> configurable no longer are.  However, the semantics of
+> KVM_TDX_CAPABILITIES are unchanged: KVM already filtered unsupported bits
+> out of KVM_TDX_CAPABILITIES, albeit via a denylist, and the set of
+> reported bits already varies with the TDX module and KVM versions, i.e.
+> userspace can't assume a fixed set.
 > 
-> ---
->  fs/ocfs2/dlmglue.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
+> The change isn't expected to break userspace or guests:
+>   - Userspace that honors KVM_TDX_CAPABILITIES simply stops setting the
+>     dropped bits, and KVM_TDX_INIT_VM still succeeds.
+>   - CORE_CAPABILITIES, which older TDX module specs defined as fixed-1, is
+>     still allowed.
+>   - The dropped features are either obsolete or unsupported by KVM, and in
+>     the latter case, a guest relying on them would already have run into
+>     problems.
 > 
-> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-> index 88d946466083..5e05e98fb9cb 100644
-> --- a/fs/ocfs2/dlmglue.c
-> +++ b/fs/ocfs2/dlmglue.c
-> @@ -3101,10 +3101,19 @@ static struct ocfs2_lock_res *ocfs2_dlm_next_res(struct ocfs2_lock_res *start,
->  static void *ocfs2_dlm_seq_start(struct seq_file *m, loff_t *pos)
->  {
->  	struct ocfs2_dlm_seq_priv *priv = m->private;
-> -	struct ocfs2_lock_res *iter;
-> +	struct ocfs2_lock_res *iter = NULL;
-> +	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
-> +	loff_t n;
->  
->  	spin_lock(&ocfs2_dlm_tracking_lock);
-> -	iter = ocfs2_dlm_next_res(&priv->p_iter_res, priv);
-> +	list_move(&dummy->l_debug_list,
-> +		  &priv->p_dlm_debug->d_lockres_tracking);
-> +	for (n = 0; n <= *pos; n++) {
-> +		iter = ocfs2_dlm_next_res(dummy, priv);
-> +		if (!iter)
-> +			break;
-> +		list_move(&dummy->l_debug_list, &iter->l_debug_list);
-> +	}
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 
-seq_read_iter() calls ->start once per read and its buffer is a page, so
-reading the whole file with N tracked resources re-enters this loop about
-N/R times at increasing *pos, and a single late ->start holds the lock for
-that many list_move() calls.
-
-And ocfs2_dlm_tracking_lock is taken on every lock resource create and
-destroy. So I'm not sure the lock hold time on it is acceptable.
-
-Thanks,
-Joseph
-
->  	if (iter) {
->  		/* Since lockres' have the lifetime of their container
->  		 * (which can be inodes, ocfs2_supers, etc) we want to
-> @@ -3128,12 +3137,12 @@ static void ocfs2_dlm_seq_stop(struct seq_file *m, void *v)
->  static void *ocfs2_dlm_seq_next(struct seq_file *m, void *v, loff_t *pos)
->  {
->  	struct ocfs2_dlm_seq_priv *priv = m->private;
-> -	struct ocfs2_lock_res *iter = v;
-> +	struct ocfs2_lock_res *iter;
->  	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
->  
->  	(*pos)++;
->  	spin_lock(&ocfs2_dlm_tracking_lock);
-> -	iter = ocfs2_dlm_next_res(iter, priv);
-> +	iter = ocfs2_dlm_next_res(dummy, priv);
->  	list_del_init(&dummy->l_debug_list);
->  	if (iter) {
->  		list_add(&dummy->l_debug_list, &iter->l_debug_list);
-
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
