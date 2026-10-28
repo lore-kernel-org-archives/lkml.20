@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182219;
-	b=XWpuXFQqAhTM1t8943TLZdMLGA62FnpCWVzbZydlToEXyMbQt047hucs8fnsxFDMPJpm
-	 vVt/4OpRkAM19B5WwTnPfKzmWNtMWeLWgIbbNGAuKh0VcqmkXWovUidqGXNxiGoKPprIv
-	 N1FDr7WKbhk/fVnVUHrmYWKdSGzVAp8G+rzbb0gPuUOw1WSQEk4dm9WvOQonArHC+3yXh
-	 L1QPXcGT6bYPUHYfRRx420c2Ph2UJBk+jJ3OWrQKjvIDptwCs0+qh/Glw/zw7+U+KhlQW
-	 n9RljD/UzTtGMm3afgUAG7/+UYzUF5r7VYCBf7DWg5HkpQM0F8rLPPCyhCRqYrkcKoA==
+	t=1793182250;
+	b=d3mcj3aafQhXJKcu+AVlX1oqZEg8gsWNZ0RVn2x2D4TRN2l4OMCFZts2SstqeaON9WJ5
+	 QIMkdfS2XuDOtnne9HdcTqEijaYBVRUE3FF+HqyIM9qHkkGEf8F30U9lMzW60/M9NmH1m
+	 7Ly5n5HixhB/UI6TCIG6FU2fNERwSP4ldpOxQEPBYHI1WVcFVcS9zkqStr9bRKJNJfEww
+	 11ixGe/aY/BJXjpsj8h1LwThsPqt5D5AdC0fZbBok66UrZr+NgImvX1r9+wvDhOMufhvg
+	 l+eyTEUl78/pTKoj5ffvaMnAMhqodDkJRjVgVJkr4t54uGqbvBzySsPu4aKLr7NAmYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182219;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cKELuaD9Ie6Wnn1CxU2GmM1KmGGgirgeDOIpmC2cCUg=;
-	b=m4IQAjAkHv37dS/LWIA6zX8E1MALY22bnseLfUvPBh4Qb/DaKn2k95jngUwTyQ4+3OSH
-	 bc8u2rC137zgKZ2jMAT/2U+UU+gdb5qeVAjqgdVWrSQu9E23/WyzXAisFza2iZDZGMyQL
-	 4hsr2MjOUJKCZBDazc5CGZywpfdWWAnlCSBbYUpW/0YaaUqWCjf9cvWAh+EMdGe9xJeD2
-	 aiT/jTZnVfU73Q9Tkkc/Y+4/5bsFs/lVvC7EU4GwjVExMQy9E9juQGyOpdTaqfpBGahq7
-	 fuRcy57bLPWogGyUU3gRcjX6QDMnq4hhIwVwK2UECPTXS7CRQvNqmRn4Mjq0UVn50wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793182250;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=19TPKFjxLxxJXmQTxvpO9mlfiQegSPOYzBZe/idkCsk=;
+	b=KiHK8+5kFwB9eOAHxt+v3mNsEBovKb3J2RKEbfWxcFE4175pJtX0rsPDNr5jRaocDXmh
+	 hV3N5CorBG6CTDuM2s+rfUijTQXadZ10GEDP74J/3/2toNZQH6JLfwpiGQcPGSZpA7Bnp
+	 VSl935s2eN1qjnd2OWmxegQij9Kv92+tcQTP2Uvk9jbk1/STZrChtcDh4IkbCXr+Ckrse
+	 OJrPQKgD0VeCrKSZQq0dJMMqQmHCUPlb0YpQQugJ8teaac4zhaF3FayH+B2zrrF2nh5Bg
+	 qCbcxiC1sgTB4qmcKe0nQyByCqXMs1QXip26SBQEJenD+ybbHur0WMn3QCq1d5v73zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMuVOyhS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="lwtT/Voa";
+	arc=none smtp.remote-ip=91.218.175.23
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A68606A31A;
-	Wed, 28 Oct 2026 10:10:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3420B606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3420B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMuVOyhS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF891F01825;
-	Wed, 28 Oct 2026 10:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793182218;
-	bh=cKELuaD9Ie6Wnn1CxU2GmM1KmGGgirgeDOIpmC2cCUg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bMuVOyhSp4DaG0p3XbSvBAUGlFW7FWYjyLvjCDT4Xx3iwiztXSf6V2NJ8enAFMjDY
-	 vmXeSS0wNfHN9p+6dcY9f7LEdjtnXIfLNVKjJnIivwsJ4LkQYCefzwVBP9yQUOurcF
-	 Pnjitvl1v2JT980gnK6FtSxxZhiGtS9sk+gQoWSeyY8IMDLBJMLv2mAtV3CqMpJhOu
-	 3E1dAzgJYROc6CB1dQJTZGaeQYwpTwkpqYIUGyTKhnJgOStf2Pox6kZdd2GaGCPldO
-	 73E7jCp8dJm70kK2SfTpeoZAJN83ym77/qD0rrQJNttz9AUUboQsRxp54i2VzammUC
-	 ZJFaxG36O8xNw==
-Message-ID: <8e05a28e-7881-4bf5-98c7-c5ccf4e22735@kernel.org>
-Date: Wed, 28 Oct 2026 12:10:14 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lwtT/Voa
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JldTN/ya2t8xpYirdSsWzyVdXdbqZ8hQSNVyw7aaEbs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793182247; v=1; x=1793787047;
+ b=lwtT/Voa3tn0zXEU/PzhEq0Pv8X8RXgswAH8eyPNFDU0mVUoYTJcJVehDdEEREy+Iz54fENy
+ biPGeo1lUF3FCPNyK43SlXfZFKlPiQCPNH6Um7LLz0rjHXCDULctY3z4vy29SE1tGrEP0slcIV+
+ 3C1eREjAnp0IWO8qCENK3LKw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3eac00e914e20d2a;
+	Wed, 28 Oct 2026 10:10:19 +0000
+X-Mizu-Trace-ID: 3eac00e914e20d2a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <76f1df75-09cb-45ad-bb08-e34acf93518e@linux.dev>
+Date: Wed, 28 Oct 2026 18:10:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,46 +59,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v6 02/19] selftests/mm: skip collapse_compound_extreme()
+ where the PMD is too large
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, "Nico Pache (Red Hat)" <nico.pache@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Hugh Dickins <hughd@google.com>,
+ Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Michal Hocko <mhocko@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
+References: <20260919002451.496763-1-kirill@shutemov.name>
+ <20260919002451.496763-3-kirill@shutemov.name>
+ <5862cddb-a78f-419f-a5a1-15e16a422bf5@linux.dev>
+ <atiQmWnz8zx2AKI7@thinkstation>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <atiQmWnz8zx2AKI7@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hello Qianhui.
+Hi Kiryl,
 
-On 10/28/26 11:29, Qianhui Xu wrote:
-> This series adds camera capture support for the Qualcomm SM8750 SoC
-> (camera subsystem block with three full and two lite CSIDs, six CSIPHY,
-
-for CSIPHYs you shall use the new MIPI CSI2 PHY driver unavoidably, see
-drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c, as a reference see the
-recently published SM8450 CAMSS support:
-
-   https://lore.kernel.org/linux-arm-msm/20261026224957.1115370-1-vz@kernel.org
-
-> three full and two lite VFEs and three CSITPGs).  It was developed on a
-> Lenovo TB322FC (Y700 Gen4 tablet) and both of its sensors (rear s5kjns,
-> front gc08a8) capture at full resolution and 30 fps with it, through
-> libcamera.
+On 10/21/26 6:32 PM, Kiryl Shutsemau wrote:
+> On Thu, Oct 08, 2026 at 07:52:18PM +0800, Zenghui Yu wrote:
+> > Hi Kiryl,
+> >
+> > On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
+> > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > >
+> > > collapse_compound_extreme() builds a PTE table full of distinct PTE-mapped
+> > > compound pages by cycling hpage_pmd_nr fault-time THPs through mremap.  It
+> > > therefore needs hpage_pmd_nr PMD-order allocations in a row.  That is fine
+> > > at a 2M PMD (4K base pages) or a 32M one (16K).  A 512M PMD -- arm64 with
+> > > 64K base pages -- makes each of those an order-13 allocation, which the
+> > > allocator cannot reliably hand out even once, let alone 8192 times.
+> > >
+> > > The failure is not a quiet one: the case calls ksft_exit_fail_msg(), so the
+> > > whole binary stops and every case after it is lost.
+> > >
+> > > Skip the case where the PMD is larger than 32M.  The MADV_COLLAPSE cases
+> > > still cover PMD-order collapse on those configurations, and 4K and 16K
+> > > PMDs are unaffected.
+> >
+> > collapse_compound_extreme() failed on an arm64 virtual machines with 16k
+> > pages.  The VM has 8GB of memory.  Not sure if this is the same issue that
+> > this patch attempts to address.
 > 
-> The block is close to the SM8650 one, but the capture interrupts move from
-> the VFE to the CSID: the VFE of this generation has no useful interrupt
-> sources, and the CSID reports RDI buffer done, register update completion
-> and CAMIF start-of-frame per CSI2 stream.  That drives the two structural
-> changes in the series:
+> It is the same issue.
 > 
+> Memory usage for the test case, assuming 64-bit page table entries:
+> 
+>          4K pages:  512 x   2M =  1G
+>         16K pages: 2048 x  32M = 64G
+>         64K pages: 8192 x 512M =  4T
+> 
+> 64G is a lot, but I don't think we want to give up on this test case
+> on 16k machines completely.
 
--- 
-Best wishes,
-Vladimir
+Agreed. This test case passed on other arm64 servers with sufficient
+memory.
+
+> Maybe we should treat a failure to allocate a huge page here as a skip,
+> not a fail? And remove the PMD-size gating.
+> 
+> Zenghui, do you want to experiment with this?
+
+I've just sent a patch for that. Thanks for your suggestion.
+
+https://lore.kernel.org/20261028100119.11340-1-zenghui.yu@linux.dev
+
+Thanks,
+Zenghui
