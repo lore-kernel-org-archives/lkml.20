@@ -1,86 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186228;
-	b=ns+aovnSpFE5pQkRVZi88DL91nuKd4w42lNxktOfu24xlg/faYe5B8i+ijNWbfnvRpB9
-	 QVZVWwyjMVvr0aIXUAJNYUOW2q+1RL3LEpkTqv/z08hEJq2+hPPbZqniY5TO2uY7kf36x
-	 lIdXo0cFpIuWauRnoEfr1oBldeW+VO+lI1PLJHR2VZ5Mj6fnHfek8eulXBjxHXlQt2zJG
-	 WTsMv/Qw+/AAD2Jc7VuA3USpNydLKPOIcctdnviuu4ObYOj25DBUBvppqJDkWR1QkG+qW
-	 JPL4qmlrY/1HeIqs4RwGYjy0w9QVieLwTXGwsNvayf51hAB5+x70YBVdL9sa4F+BHPA==
+	t=1793186330;
+	b=pCf9uhhAWDCJGmILe7L4HWSFBVUhZRldWlQqag//CjREX6eaiT8nVt/dwjisGwN0NubW
+	 368IESlai3y26pOLgqFaZQMeVZ0vlFHZSgS4+l8DR/VFb5CK4FOfV0Ib4PmbY5OZu94ob
+	 wCafJ6WqDTcrDLvkAbLplTY2yYcPMKb9zVPBux6VLrPE5Jfc/KSFYyXpaD9TrCopestbp
+	 TAb+ydCwYWdC4mWdnp2djRFcwsDFJ8me12XqkRQCWGF1Sf0vJpQZbSTNY6nO3Sm4oMwUi
+	 sbTjX1jFEO0wwSLx8FlZUsMZCJ+XIJiZ0s2IcCq2vIxw1ouNqK7ZsRiOQEpXB9yTNjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186228;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186330;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Chcvf6VlzJnLjBYUf8kAsZEyoPzwl/dgt3ThYcATBv8=;
-	b=SmojPrXryecXNGrJpLq8BqvqEjWPEXrc5qXsPGaK9PQ7oNRWBmSscfSVer94wyx6ZdJ+
-	 B0cu09QLU0VJQ4LZvf2Dx8u0CYrIx6n2C9mOfQgm7upxRAuWDWNUHnFLj76ikhb6pWog3
-	 09vR461+O3baW9Pt7znzxIRQub4ZVVMpp5hQlopBb2/byY4X5uA9wag2sP+AWM0vEtUUC
-	 jIQVo0VtCpehJkTT1ylUIElQsTEhul488R6IhV/cv+rPKv+TvxdBduonEdOsHgh43CBDo
-	 9LPjszZjhzDqBIqQG6WXioLcs/tn7Bnhkvy1EKGzckm76BGnpWF9+yWnejUS2dKDbnw==
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=7EpvSXca8rM2k8J3ZZT8+kGftyppNh/b/NiNwaPRO80=;
+	b=Q443b62jTJmH8VdlSc2cxVD48zMHL1GlxizbGMIYEGjcUeWAAt6QyrjcunGqvvqjCOaz
+	 zv8dkeV3VlzL99q4tqN0D2Nj0UD5yNHkUqeKbdoaOilVZEypbjgwTkZx4bT04Y3WEdfxJ
+	 6XfHU1eqiuy9tnj6Yl4FR9cobLNlE95y0KyPUIZu727F8KmmJNYOPOlHA5XXoXu07Td31
+	 /HsO7TSzUmp6CZiRR+S251gmD2XNeLhJqfnYVJ9KXfjD/p1nHYYwAWuTjWv1/oVtQteqA
+	 fr57TmtM3QJTx6bnHT/lmK2uHSu7HDnl3wE4ghwLdeqPrWXsEei7oVhSNu+C78mGqLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QQVDF2gU;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=URe3llAH;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F018606A31C;
-	Wed, 28 Oct 2026 11:17:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F018606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE660606A322;
+	Wed, 28 Oct 2026 11:18:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE660606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QQVDF2gU
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8i4vW978972;
-	Wed, 28 Oct 2026 11:17:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=Chcvf6VlzJnLjBYUf8kAsZEyoPzwl/dgt3ThYcATB
-	v8=; b=QQVDF2gUWwDUr2CqaVGZ0V3vrtxshy5rf9b4G5reNL3uxJVYgpyVbPUP8
-	R2/FPSK9b0t3Y8dD92s2Kis6/2LIjbyxnNnn2qeHSTz8pjbXuWj7/YC9dM+tf6Lv
-	uI7G3ULobOKRe9tAJKmd3wtR9mwQtzHw0fqvEVMnbLETlV/6jymnMVc28qVdsOdc
-	yPK6m18HyCYHkvHUh0/StGjPYx0qj+K+YssC9fXpLjtYS3oEZfVEOaUPNTEwSrWR
-	GoFTqAl3HRWInCmCKdU/4Ap1X/H8UPU24+pFv8KQcAg2/mKZ1fGMnqhuqPQyeDAU
-	Vzpm58SFAAhEwW7V2W5+GAUJvlrFw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm644c37-1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=URe3llAH
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8K6Je1167788;
+	Wed, 28 Oct 2026 11:18:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=7EpvSXca8rM2k8J3ZZT8+kGftyppNh/b/Ni
+	NwaPRO80=; b=URe3llAHAtOKcnrakN4fmqiwacjSP9NwZxvcn+UxwAt1UkT8u8a
+	eiVRDWajTzOSEuqMVfLkAkc8OezDlrNgqXZ7SXh268LbqIGUqWRq1Ap3vtl7AbvL
+	P7bg1HyTad6cpPdnzY0jhknNOhsOHMt2IxJEClBLgU8HOD2WKWYziCwYJ1rE3N5Z
+	BWDDXIOJXputeBcnmlq4u5jkhQEXT31nTlDPSSV2lwqv4DU0qa9J6Ss9wiV9jjaV
+	h7mDda4JNVIJ4nZZ/pus3rnR6hJusaadlduZZfdPMGwlQockPQgeIbPGJLoEjafR
+	rjI5cGYPD78LtTP01wrgD0ur6kCAcmbXffg==
+Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk7g7hwcj-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 11:17:05 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8YmDZ1291845;
-	Wed, 28 Oct 2026 11:17:05 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pa0th-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 11:17:05 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SBH3ln9437860
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 11:17:03 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2B94758165;
-	Wed, 28 Oct 2026 11:17:03 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C44D758162;
-	Wed, 28 Oct 2026 11:16:51 +0000 (GMT)
-Received: from b46lp13.lnxne.boe (unknown [9.87.84.240])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 11:16:51 +0000 (GMT)
-From: Gautam Gala <ggala@linux.ibm.com>
-To: borntraeger@linux.ibm.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com
-Cc: david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v1] KVM: s390: pv: remove misleading gaddr output from KVM_PV_DUMP_CONFIG_STOR_STATE
-Date: Wed, 28 Oct 2026 12:16:51 +0100
-Message-ID: <20261028111651.66917-1-ggala@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	Wed, 28 Oct 2026 11:18:44 +0000 (GMT)
+Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBIgqV3255744;
+	Wed, 28 Oct 2026 11:18:42 GMT
+Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 69SBIfjT3255737
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 11:18:41 +0000 (GMT)
+Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
+	id B5F2C63C; Wed, 28 Oct 2026 19:18:40 +0800 (CST)
+From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com,
+        quic_chezhou@quicinc.com, wei.deng@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com,
+        Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] Bluetooth: hci_qca: Reopen port after power on for QCA2066
+Date: Wed, 28 Oct 2026 19:18:37 +0800
+Message-Id: <20261028111839.2148515-1-shuai.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,141 +85,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX3H34Vrr7gdBv
- F7qjuYxXeyFZ41EMGeqaufv/+30DTbW3oeGiliCLmvU7J9dcEje3zOuXRChrcHa9metW/QAWzS7
- Y+AaQ57qR/VdUdjXOdHQ667NDFf0H5s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX2uVppNqS6bte
- j8Zab5s3Xoi4npullC4Y3qfQcUvkMO51JoSJVsUgMvNUpD0ZrB4SpkS9KZ7jHGgdqG63NwadyDF
- pxhk9OxbGkRJmc/aXHwQTjeVKkpCenrsc/BHl292HFFVYY4mNHeJHv+/9AosE4F9H/5aecqB3oB
- gUisJ3dgPhS4Hm7mh4SvYBYLi5WN/ClOpPyccb+XyuZHWwZRYNNsP0OZEwp/1ivPysskEfB09Rc
- aIOtATTvvEU5Sd/9232d/gh2l9BsN/q+QV3AdEiiitvBqdIUAbP3Xf/wkO1P1u6LknsA4qF2gEw
- jgVtkYYxXJVCfNO3PBFrpnyY0inQTLTmCbWEDr8SZit/EiNQwCqAapcZT276RJuY6/aq+3dCN4b
- C1HonsSYDGimTUO23u+kIdsiKQ5AA4kmTof+FT71WDLE0zfmdtaK3vaduiN4Xd+MPTTBByAibjN
- 2eOjVW+hTe6TAQ/gRXQ==
-X-Proofpoint-ORIG-GUID: Udo1BYQBfgR6g23_FTzjB1bBW9PZRSDc
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae1d9b2 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=iGVm0XFYRraa2BqvpJAA:9
-X-Proofpoint-GUID: Udo1BYQBfgR6g23_FTzjB1bBW9PZRSDc
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX7aSYCT3J6AdM
+ aV+p9dy72KFcn12iZmN6o3qjtdvW6IRIzU+oTCX7TWRWyjypy+bjx3fGMNYvZG8LxJB8b32e3jT
+ 0aJm59yJ+qi3QC3TArXDs5t6f8J8hyU=
+X-Authority-Analysis: v=2.4 cv=SoIFe/O0 c=1 sm=1 tr=0 ts=6ae1da14 cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=m7elg7v7XPzLZVMeLoEA:9
+X-Proofpoint-GUID: Lqj9mR8Ebv-BPtPzUnml0-q0GjD8Zti9
+X-Proofpoint-ORIG-GUID: Lqj9mR8Ebv-BPtPzUnml0-q0GjD8Zti9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX2qCCu5uie02V
+ EsYzIyJ7NGyIs6ztlGmdEAqfRqjpBYBKP5TW5An0tdX0tj2Swjeemi1Tpvdd1jxFNp1e8XaGuaT
+ A5dOXV+JZT2uVmnBQFHW2L6JEtYI6uM20A3GFHbY1RAU6IFGYjE+vNPY4rz81b+TuY80wH7MfcG
+ BkGgbor3NQr3LOyU8aNhjFnt7L0Trfg6XsSkSL4AYUNJK1DoDZPNwzMY3HHq2380hAXeUtqihLm
+ 615c3XODAluPqyjf1pNLF9W6DNQThpDr9QEVWh1ZhiZGW30tBCCu+P3io7eLDeJ6wlnrAu06pde
+ WuCNjXNJbs1zWoKEwQzQToa1NYsecHwJiXMLlyEnkbWVhos6doS+j/RUE+aBfHxVKNoM0m3ktL7
+ wwCaWcjqPdI5KDSJ06KAOefOo1qVsU6w0waGSMJQKYNVX1MUNpiPDDfghv4gEGTugX7ZLO9XHn2
+ Zf7+QSzmwKZWpjROTzA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280044
 
-A comment in kvm_s390_pv_dmp() suggested gaddr is an output parameter
-for KVM_PV_DUMP_CONFIG_STOR_STATE, and kvm_s390_pv_dump_stor_state()
-wrote back uvcb.gaddr through the pointer accordingly.
+QCA2066 needs the serial port reopened after the controller is powered
+on, otherwise the host and the controller run into RTS/CTS
+synchronization issues.
 
-However, api.rst does not document that KVM_PV_DUMP_CONFIG_STOR_STATE
-writes back dump.gaddr and QEMU does not use it. Furthermore, the
-write-back would not have reached userspace in any case: dmp was passed
-by value to kvm_s390_pv_dmp() so copy_to_user() in the caller always
-copied the unmodified input gaddr, not the updated one.
+Patch 1 reopens the port in qca_power_on() for QCA2066, as in v2.
 
-Drop the write-back and the misleading comment, and change the gaddr
-parameter of kvm_s390_pv_dump_stor_state() to u64 to reflect its
-input-only role.
+Patch 2 keeps HCI_UART_PROTO_READY in sync with the port state, so that a
+port which failed to reopen is not closed or flushed again.
 
-Fixes: 0460eb35b443 ("KVM: s390: Add configuration dump functionality")
-Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
-Reviewed-by: Janosch Frank <frankja@linux.ibm.com>
----
- arch/s390/kvm/s390/pv.c   | 16 ++++++----------
- arch/s390/kvm/s390/s390.c |  7 +------
- arch/s390/kvm/s390/s390.h |  2 +-
- 3 files changed, 8 insertions(+), 17 deletions(-)
+Changes in v3:
+ - Patch 1 is unchanged from v2.
+ - Add patch 2. If serdev_device_open() fails during the reopen, the
+   port stays closed but HCI_UART_PROTO_READY stays set, so the later
+   serdev_device_close() and hci_uart_flush() use a closed port. Keep
+   the flag in sync with the port state and skip the port flush when
+   the port is not open.
+ - Link to v2:
+   https://lore.kernel.org/all/20261016022302.4003647-1-shuai.zhang@oss.qualcomm.com/
 
-diff --git a/arch/s390/kvm/s390/pv.c b/arch/s390/kvm/s390/pv.c
-index b18abd0e29ef..a9bc32d5be6f 100644
---- a/arch/s390/kvm/s390/pv.c
-+++ b/arch/s390/kvm/s390/pv.c
-@@ -901,10 +901,9 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
-  *
-  * Stores buff_len bytes of tweak component values to buff_user
-  * starting with the 1MB block specified by the absolute guest address
-- * (gaddr). The gaddr pointer will be updated with the last address
-- * for which data was written when returning to userspace. buff_user
-- * might be written to even if an error rc is returned. For instance
-- * if we encounter a fault after writing the first page of data.
-+ * (gaddr). buff_user might be written to even if an error rc is
-+ * returned. For instance if we encounter a fault after writing the
-+ * first page of data.
-  *
-  * Context: kvm->lock needs to be held
-  *
-@@ -917,13 +916,13 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
-  *  -EFAULT if copying the result to buff_user failed
-  */
- int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
--				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
-+				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
- {
- 	struct uv_cb_dump_stor_state uvcb = {
- 		.header.cmd = UVC_CMD_DUMP_CONF_STOR_STATE,
- 		.header.len = sizeof(uvcb),
- 		.config_handle = kvm->arch.pv.handle,
--		.gaddr = *gaddr,
-+		.gaddr = gaddr,
- 		.dump_area_origin = 0,
- 	};
- 	const u64 increment_len = uv_info.conf_dump_storage_state_len;
-@@ -934,7 +933,7 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
- 
- 	ret = -EINVAL;
- 	/* UV call processes 1MB guest storage chunks at a time */
--	if (!IS_ALIGNED(*gaddr, HPAGE_SIZE))
-+	if (!IS_ALIGNED(gaddr, HPAGE_SIZE))
- 		goto out;
- 
- 	/*
-@@ -989,9 +988,6 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
- 		}
- 	} while (buff_user_len);
- 
--	/* Report back where we ended dumping */
--	*gaddr = uvcb.gaddr;
--
- 	/* Lets only log errors, we don't want to spam */
- out:
- 	if (ret)
-diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
-index e4912db67adc..1f975ebeca82 100644
---- a/arch/s390/kvm/s390/s390.c
-+++ b/arch/s390/kvm/s390/s390.c
-@@ -2522,12 +2522,7 @@ static int kvm_s390_pv_dmp(struct kvm *kvm, struct kvm_pv_cmd *cmd,
- 		if (!kvm->arch.pv.dumping)
- 			break;
- 
--		/*
--		 * gaddr is an output parameter since we might stop
--		 * early. As dmp will be copied back in our caller, we
--		 * don't need to do it ourselves.
--		 */
--		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, &dmp.gaddr, dmp.buff_len,
-+		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, dmp.gaddr, dmp.buff_len,
- 						&cmd->rc, &cmd->rrc);
- 		break;
- 	}
-diff --git a/arch/s390/kvm/s390/s390.h b/arch/s390/kvm/s390/s390.h
-index aa0d1d062f8d..5d6c36c6ba34 100644
---- a/arch/s390/kvm/s390/s390.h
-+++ b/arch/s390/kvm/s390/s390.h
-@@ -316,7 +316,7 @@ int kvm_s390_pv_unpack(struct kvm *kvm, unsigned long addr, unsigned long size,
- int kvm_s390_pv_set_cpu_state(struct kvm_vcpu *vcpu, u8 state);
- int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc);
- int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
--				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
-+				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
- int kvm_s390_pv_dump_complete(struct kvm *kvm, void __user *buff_user,
- 			      u16 *rc, u16 *rrc);
- int kvm_s390_pv_destroy_page(struct kvm *kvm, unsigned long gaddr);
+Changes in v2:
+ - Use a separate case for clearer logic.
+ - Link to v1:
+   https://lore.kernel.org/all/20261015092224.262158-1-shuai.zhang@oss.qualcomm.com/
+
+Shuai Zhang (2):
+  Bluetooth: hci_qca: Reopen port after power on for QCA2066
+  Bluetooth: hci_qca: Don't use the serdev port after a failed reopen
+
+ drivers/bluetooth/hci_qca.c    | 46 +++++++++++++++++++++++++++++-----
+ drivers/bluetooth/hci_serdev.c |  6 +++--
+ 2 files changed, 44 insertions(+), 8 deletions(-)
+
 -- 
-2.56.0
+2.34.1
 
