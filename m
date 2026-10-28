@@ -1,75 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213769;
-	b=yUcLhdx4+LXW7m5fmI4Zfj10jBjZQpCQAXhNvYoEWladLBWn5dGqwOCHbbPvsE93aD2H
-	 0bSjoRvxr5P010fdP1ICbvcCOyBL9J0wwSiJnKkuL6P9kNvVJliUxDmXvCp1fEx+jLRyw
-	 RNO+95J76oedC88msG+GOOLxVZmcDuY++AMzJDkq4ATiz7cBcxcqkm7a9mm1deVFH7ShG
-	 P7EUn4+Er0liDkC8gS+nCZ/pfn6TJ/nxn9YTUXjM/pv2cEF3X34GbGrWe8wXUC4DWCPGR
-	 S/0EtsC/PfHi6fyneh6vxLW6vE3NHt23xHADsYUUC3jo3urDtYAFXK1+567c8IGGjJA==
+	t=1793213840;
+	b=U5LFjrlxJCFQ2yiXy/Is75gOmWpP+WmZQTUM130tieTrtQQthgACdeDNhi/elW1+gl/I
+	 mt+DUxbc94zFJZqHnjoA9JN3x78FlNZOKxWCDTjVU8HwaOr+5oiS7jrSOxn4W9fbV3a8k
+	 wtVVaaEv0I0zeg+WVoP0cy2di5DArGR5uktU0ctTyPlGMnpMofaKv48ltPHB3KuGPid3J
+	 MUx0Yj9rjzvpYVWifbYqxvfk6BNUnc7sWhp+2u+CIMjEkkJnWSLsT4SQoklfgc9zpNVXQ
+	 OAjHyjWyMPm6gMUJ9RiYZJ1Ajz6JN7oAaLq0tMuD59PXTmGm4D1SObLuIklqo4KYWUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213769;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=df/xPPyuiQPcm1AE1rSPxuyp5dlFq4Se196rhHrJoBM=;
-	b=Xuc09XunVt1SMuqGBEIuIPxzno32wfx8JNOOfelAmCW4JPWSFQB4Pr23ZX0+4hYzbDyI
-	 fGgPzHhU9CV95cv4TJiOb93TLy/fwOYEhFHU6mzqoqcqF62Zah8fSkX3awLWjqb7jikzL
-	 wwHPe07Mm2YTQVXGM+e7hITVgeXxxEVvmjxyqntAoi0Eg81VNh0D+0u0lhd1vzWob/VtT
-	 HQDAouXDHbvzHP1sTZUcOYqmnLc2wMVlEhlpd8RmUPR/VMWV2d37JNlduZ3+d6JDRwNR/
-	 DFr2nNfSDiZgp9Qxh1IRQyzPTTOFwj4VCrQ/AtOYBS/5sbshRFfvBnBoiTGp0WnimgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213840;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=/7JOurlc6HqiL3iDH7Eo3+AO11zhMtBDqjHXfq+c0VA=;
+	b=gydFfj8wGJp0l9q5wI8z/aImcnRU7hHXxmJrJHQYsOHzF9qRETNsTkDdZ9mgoEWOYVlB
+	 DitkU6NtC03GlhT3yTF9DjQ/KlovyIZt9o0DKjDaYonmhq2pNg0K1jONKf6QIny0rKM+s
+	 NJThkhsFyXCPO9EM4cVDb0eP9GztdaailHYbeqyxfYM+l1cm9hLbkl5Odv3eUpTTeX1sg
+	 HJm2K0hzPzP9e2wcz3FtSF+MFh984wypIGezZq6uyuMiRaFHNITuaP6KGEbpDk5LJ9wvz
+	 YJg1+n7r2H8zdnxQttoR9gEyiwfSbowTdfFg2SBkE9Q2/fDyy4QBWxnkEUKYGlBMtMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+edzg6v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5838606A31C;
-	Wed, 28 Oct 2026 18:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+edzg6v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70D261F01828;
-	Wed, 28 Oct 2026 18:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793213768;
-	bh=df/xPPyuiQPcm1AE1rSPxuyp5dlFq4Se196rhHrJoBM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K+edzg6vK4sYIgPI0EHAxslJmPd/aExnxCZkYatx9SKb8ztopQpN/Brte7D1uGHDc
-	 +PWfIYIXj2TwEIjrIeT9aSjpQlU/qFISxxHuWsvH08dCGPPiD4L4rx5Tz6bxLuFRvY
-	 RhA3+DjTqfNcnhfh/7faDIzX0CmFsTI2XpkHQ8+jhA2LaeatAD4sqfFj21cmIRpM5b
-	 W2D2wH60j2ajxxUPUQIplNGc0FcQFY/hgWtTB/gjNx5LU362Hvl/ouMKfNIqzO8whL
-	 EQwWzgrE3+OvEllJ5XwE13QwOyNwuhXlhNdKAwm9IJuUZrFACWCEqjTJXX2ww3Zp+t
-	 0+IngOv7LotGw==
-Date: Wed, 28 Oct 2026 11:56:08 -0700
-From: Kees Cook <kees@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
-	llvm@lists.linux.dev, linux-hardening@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	linux-s390@vger.kernel.org, gfs2@lists.linux.dev,
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>
-Subject: Re: [PATCH v2 1/9] Compiler Attributes: Add __must_init macro
-Message-ID: <202610281155.4D2AA663@keescook>
-References: <20261027223847.652884-1-irogers@google.com>
- <20261027223847.652884-2-irogers@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D031A606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D031A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4eb0b989f0eso1924825b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:57:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793213839; x=1793818639;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/7JOurlc6HqiL3iDH7Eo3+AO11zhMtBDqjHXfq+c0VA=;
+        b=cOnSUa905HclRxlLPfcVPTnpJF0NR0VZQz13lzhZGCiWjZdKlR5CnYAKkFpksXGLSr
+         Z8Q40Yr4VAnTYF8V0BcbMjjutx5cvGVkykuLUuwcoK3JiqrBrWogicCUCcRsJZ8q9tPH
+         pcleXK6+55v2X2IMvBB90wFyRwaFwYWT67pjM5tydLwhGXFMThAFrVPPZeHgzwd67220
+         lxR2M6pdv8GZXSVx5rHkeu6WBtKQGhAO8UBzuiOmFWxOBDKkXHUpF5aSf2iJ+dfHGI3v
+         7Cddbm199DEfpZzsId9i0Kq9oPZsoBd+ubKGHiWq0JvKtf6wHDAlKvJNFY8waNnYLtEL
+         4LbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWLmIxfGqystqq2OjQzvuL+HDnKyzCahwj9SQCg4EuhmiCPyKK9L2N7J6dWF9GzOa2w1g8EIf4qEIjVnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4HHtOefFf5tlWRarvpvzktmsWRodMEp/jslYqYaJUP4X5nApN
+	EPqVtSmp9IERCZ8FXwLF3Yfp11ej5tkdw8i2ptPsO9EOJMMOWLbvViJAHfnDACPjBXiBNJ7qknv
+	lRLU7KgPuMwYRxGHvIpHQWGHPxtg2a/76YvfCJ4lL58guJr81aeGvWvJPJiA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,46 +58,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027223847.652884-2-irogers@google.com>
+X-Received: by 2002:a05:6808:6f92:b0:4b8:4703:db91 with SMTP id
+ 5614622812f47-563ef9cd728mr252876b6e.26.1793213838900; Wed, 28 Oct 2026
+ 11:57:18 -0700 (PDT)
+Date: Wed, 28 Oct 2026 11:57:18 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae2458e.5451848c.f7707.0000.GAE@google.com>
+Subject: [syzbot] [bpf?] WARNING in bpf_offload_dev_destroy
+From: syzbot <syzbot+88435e204734072bf39a@syzkaller.appspotmail.com>
+To: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
+	daniel@iogearbox.net, eddyz87@gmail.com, linux-kernel@vger.kernel.org, 
+	memxor@gmail.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 03:38:36PM -0700, Ian Rogers wrote:
-> Clang supports the 'require_explicit_initialization' attribute on struct
-> fields to indicate that a field must be initialized explicitly by the
-> user when the object is constructed. When an aggregate initializer or
-> uninitialized variable omits an annotated field, Clang emits a
-> -Wuninitialized-explicit-init warning (enabled by default).
-> 
-> Add the __must_init macro to include/linux/compiler_attributes.h (which
-> is included by include/linux/compiler_types.h and
-> include/linux/compiler.h) so kernel structs with error-prone
-> initialization (such as mandatory callbacks or cleanup handlers) can
-> enforce explicit initialization at compile time, as discussed at the
-> Linux Plumbers Conference. The shorter __must_init spelling, rather than
-> the attribute's full name, keeps annotated struct members readable and
-> was suggested by Greg Kroah-Hartman.
-> 
-> Note that Clang does not yet diagnose file-scope objects declared
-> without any initializer (initializers at file scope that omit the field
-> are diagnosed), see https://github.com/llvm/llvm-project/issues/232483.
-> 
-> Also teach Sphinx (Documentation/conf.py), kernel-doc
-> (tools/lib/python/kdoc/xforms_lists.py), and checkpatch.pl about the new
-> attribute macro.
-> 
-> Link: https://lpc.events/event/20/contributions/2392/
-> Link: https://lore.kernel.org/lkml/2026101532-fantastic-deafness-e04c@gregkh/
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
-> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Hello,
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+syzbot found the following issue on:
 
-As part of this, can you open a Clang bug for the lack of detecting
-global initializers? It'd be nice to get that fixed.
+HEAD commit:    6b4b543fa187 Merge tag 'parisc-for-7.4-rc1' of git://git.k..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=15152d31580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=acf3b51ed91c8a7b
+dashboard link: https://syzkaller.appspot.com/bug?extid=88435e204734072bf39a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13b06469580000
 
--- 
-Kees Cook
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+88435e204734072bf39a@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!list_empty(&offdev->netdevs)
+WARNING: kernel/bpf/offload.c:817 at bpf_offload_dev_destroy+0x50/0x60 kernel/bpf/offload.c:817, CPU#1: syz-executor187/5989
+Modules linked in:
+CPU: 1 UID: 0 PID: 5989 Comm: syz-executor187 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:bpf_offload_dev_destroy+0x50/0x60 kernel/bpf/offload.c:817
+Code: 08 00 74 08 4c 89 f7 e8 ae 97 3c 00 49 8b 06 4c 39 f0 75 10 e8 e1 29 c6 ff 48 89 df 5b 41 5e e9 e6 84 30 00 e8 d1 29 c6 ff 90 <0f> 0b 90 eb ea 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90
+RSP: 0018:ffffc9000427f8e8 EFLAGS: 00010293
+RAX: ffffffff8202e2df RBX: ffff888077e79380 RCX: ffff88807fb99f40
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff888077e79380
+RBP: ffff88807f177068 R08: ffffffff919d22bf R09: 1ffffffff233a457
+R10: dffffc0000000000 R11: fffffbfff233a458 R12: dffffc0000000000
+R13: 1ffff1100fe2ee0f R14: ffff888077e79388 R15: ffff88807f175360
+FS:  000055555df6c400(0000) GS:ffff88812372f000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000562affe20950 CR3: 0000000033214000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ nsim_drv_remove+0x60/0x170 drivers/net/netdevsim/dev.c:1727
+ device_remove drivers/base/dd.c:616 [inline]
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x48b/0x880 drivers/base/dd.c:1372
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:667
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ device_unregister+0x21/0xf0 drivers/base/core.c:4006
+ nsim_bus_dev_del drivers/net/netdevsim/bus.c:488 [inline]
+ del_device_store+0x2b5/0x370 drivers/net/netdevsim/bus.c:243
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe6aee8cd77
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffe6a26c3a0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055555df6c400 RCX: 00007fe6aee8cd77
+RDX: 0000000000000001 RSI: 00007fe6aeeca627 RDI: 0000000000000003
+RBP: 0000000000000018 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007fe6aeeca627
+R13: 00007ffe6a26c760 R14: 0000000000000004 R15: 00007ffe6a26c414
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
