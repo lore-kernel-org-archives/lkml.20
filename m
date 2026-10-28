@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.128.109
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197624;
-	b=Zf/Qd21bXeiWFzS8k/fTrhJXJE0Cdk2MljSI5zz7xQi1Ttxchr6H7x5IcwoG55dYLx/C
-	 qeiOgXRze31ssYpyYJNKCmAa1WiHCHzVsNDtbCdO39A3SMOv4pNPw4KRaX9dUHdkbnKdu
-	 75oJmVitYCL2Mwg3Xlr162kPH/UxS0BYlVCYYCubFF+D5xO9L2ON/Jomd9NgaCJZta/tL
-	 4ihF9kn3FfloLVO6XYhWCJWoC79OVsscqdk1vrQF7UtBmnQ41sZ0Qfv6LWxv8doZbdFHR
-	 CtWG3uFunoeKZPy1jDfrK/ngzIGIFnGTA49Kzt2oZTEUiccXEaJDqOHA4ZwLnoViRNQ==
+	t=1793197715;
+	b=T8fHM2JD9m2g6IaRCz6nCRcuuDy+Kcc8nJOH7q4d6QVLxfSeTiG/eGCSmkvSivUA+s4d
+	 A40Lj8MLvBW4KpTtLII7cZixjGpW8QbIyUbjGv4xlAJjLX0evRnF/AppRz1aPhcoLfBjQ
+	 jDcjzzSvSD/hvI4S4XX4QJI2Cg7iVEhngxQLz9PYSGpqRJ74IeK0iIun7W8B8tw7sHx6w
+	 kiaKe4hM4AGmdxNJJqCYi7Ychz0q182hqipyGZrW0uJBQ+mK3owTBPFVoKNG7+UI+H+ZM
+	 D98mhD/rBmZlI9/P1RkrdX60NnyJb8xfnxzunj2aGnKOe2fU04FYW/99pcw8ST3/DXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197624;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=ouM8Jyf5xp1XhUc42Rrlc+J0uWzI2n/sd/KhMhx8z+8=;
-	b=s3VEnFVUaNvNWQ6etQi45yJCzWymPRTUu6fDgO9rxjsKWe7vS0kSRdtzUX74R5O7mfsJ
-	 zSBdceqhGKa0Vg9WdaoB7VpUjeXsvfFUbrW+o9YEd0BCOoHlBvw5+u9+vfQQ6741a3CPw
-	 5bhnqxmGUdnXpe7p7ZuKICojgi8x5f1pNxq7lvNOUtMAlNPVun6+aQru6gkkv86YuroDY
-	 upmFEHzdil9uopfYBGvt6074E8tYFHc1oWkbQfK3jm/u/hpoHyT0NtXJxMXKfAGQMAV1V
-	 s0KQn2VttbJqkVT9e9VnMzUeJzYsuDsNyumsdVl6K33bb/oSPUc6KkVMbmvyJ8heDDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197715;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1LfB+84NBGbm/GyoDpQVgJytlLPdkNE/ohvQ66bC1kM=;
+	b=vF50Z5Ny6jWxrxBdK2rjqB0E693Tb/DnNTN+Jzz7cJayxAB8aVVbaDJCIhx6nNlEE//y
+	 pqpcduSld+6gkn4RBnxMB9BPr45Z4WzvnuY9Y57librVVP+gW7KbYV5cdG77A7bWjb9MY
+	 9aGgFHiAUctZp4AISvbaGwzSclkxJwSwl0uqVVPblY9UXu6WuKWdXI5jRZcsufSk2Wle/
+	 7Dn7oyFdle6XcR1RBea1HV2Czjn5+6CPm9AA2qbsTUY9ZzEt7smbCzPEHl8hTubTGJmTY
+	 7V9nNPbH2rQcT0wfDQ7eWO+lVHhRafo15QZntvShQwtzpOh74STPYiLwwP0CyQzEj/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=HbPqVtvG;
+	arc=none smtp.remote-ip=74.6.128.109
+Received: from sonic312-47.consmr.mail.bf2.yahoo.com (sonic312-47.consmr.mail.bf2.yahoo.com [74.6.128.109])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A33606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A33606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cbf700ddccso1003837b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:27:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197623; x=1793802423;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ouM8Jyf5xp1XhUc42Rrlc+J0uWzI2n/sd/KhMhx8z+8=;
-        b=pYCkIwtvJ39249JlC/Lyuji9xq2KaKSCHkgLt0EQ9jei3N9+qQJljqG7mbevQ3Ulke
-         Zq6oVsfi+YBy53hR1dXxYCUR4ERKIhXtfD19QeWxQJ9NGOoD/+xWDNo38P7bmPmAP0ZZ
-         VHW7A6XjP8XK7hxDHj6dLhVcH3LCzfDjKE+alMl69P0u0PymRDzOlxud5thHUDKz/b8Q
-         Nu2p8UGZYxrQko6lGW7590UDU5Tge2BvjVIRAOHF+AbOU0nndNmItOzH5ESdH6WNVxtY
-         c0tthFftkiZK+RabA7QcJxL0LLSDmOeD20N5dEZVLo0u93Ckd6kyhzUThbHc/44gFy4Q
-         IZ9g==
-X-Forwarded-Encrypted: i=1; AKwUvBz7WHg23p6/dd4TX3g77OsWfd28rfpkUu/wYRJIu5ZAoSG+k/Rp0sOMzvi5WIQQrNXQte61RmKXQ9IburY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv3FgDQjH5L/XwFadPmVrJHKc4DCXUGFxH6E0E5SXTsO1m3I2b
-	RqB1znVRFpSsD7a2d2161SzaHY+TiAsrMl0o+1iwYfCuthbGS7v3SnQnKz/+r1h1h+V4gqBxhwC
-	cycfAKwliE5cR/UwUEVx8LWG2Lg1U9eMmJR3YSi6SGgrpDXEE0Qnk0dUVTcU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857CA606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 857CA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=HbPqVtvG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793197713; bh=1LfB+84NBGbm/GyoDpQVgJytlLPdkNE/ohvQ66bC1kM=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=HbPqVtvGoO1gl53/6aFLehhsEVliagQQiW3ewtJbAQrzJkZ4pkv8tDrufKz2aEtqEuLXhKSNieoNW+9H9mQUf1C2Y7KWnuE0hCeyMISuYWNOWT+inSoqCKSxlF1uuVPvECGXMgku6gVHgWdyickHaaxnFrPCerdDdQTlckvGAMGgDMl7MM2dm1cp2iI3NugqY3qF1Tppf6Ac91MycM7PZ/KeH1xKJYZOnwTA/vXGJF2cCCOlZajD+g2sRxAfdwh05onlLPWcjzBxH+yIFU8eVTp5yNkUZp4frhFYBLjZEHGU9gzDcMcuWzOq5749/mkyMSNzGNVKQxETOdiTnjglyQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793197713; bh=DMBwoR2TjpGAuDPVOYump4wGLcmcQZPs67xXu2C0vX1=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=PAAcdbratc+sAfFqs6FzUi4mjhF0Ui0uYA39V0PmeP6jj3ufqQlTVi9btxNU9bOjQ307+qpJELP3GM/m1BLz9gtx7fP2OL6eKUWOEBuwfj21RTeM4z0LXbcllTyd5/y/XV7fCvlKxdb3ewKyasSY0/f3MUBEm8AG9ln9MyQ3DToIRl8pneDR6GNaRax944quE/ida4sZ4rRS8HifkLNPTtbKXj2GKo1Rg2apH0/oh1qAJNNHWXTdZD3fSOKAUm2SbW30Y2jF28GhT1sDRlp1UQAe5RgeCB9clxiXkcP3l1HH5c3N+Ni1e2txuf6XjBxDRFcZZqQ8zFR+HeSnBZStUA==
+X-YMail-OSG: 5a_M3EYVM1nCRMNprSS4IH7bhzRv2fHGTSGjY8G3ZK525hdGhq6CcuiAol2Xv_U
+ .jLRy.h.5cBeZr_u0P_GBGngZP0lNS7ZW.FZf2zXBOUhs06ZjtILjN7Lsz9qA2t.f1VNOG0floOi
+ 5C3fJBxzOi_syBL0U9K2wLB0NvHWs5rsBBfgLjqsPfVK9ALnmFvpu4FgJW8Haa12hyQb2UqQzbnA
+ r5bJIKpWdKCSx466OdXRPciQAsFiuQm2AE1rpnu6TI9Z3gI8s_cu3It0ZRmJ9_KdaNnDxNUlVnZL
+ _wfVufgeeX6trHvg4WENM0GL9WnOCg0N7.yYhYLHS28LizTUIm65i7PEoiRqsJcSzH7.GZIYr7ni
+ 0q9GshvqtBtW0HBwBdQAaMOaJ.sHqssUgaXrsMB9jockyffaDoVIkJQOjo9rYS0zS92MHdEo0esc
+ wyzbbS3wXLliCe6xzuV2dJ_jJE68BcaCukG4.NibLMBLT3jMhizovgwtPaob9M09LfuSH9EvLoDb
+ cOASglw4a_t0rMRVzSmjKBOuy4NupmWRqNkmhdRvOXS5v_TuZIW4opONr6E1XOhG5sOKQoqx6mZZ
+ V1kqffv1di6V2izg_g3LYyy9qw6ZzPLE5gd9DZs9XT60NyBW.UKAoViCbg_.uXu10CVdc8t_TGEp
+ c6o9mUJysguw0uRaj7liNoxRzlqNLWQp11lyosMIndRmKuH492pxtTmoNY59YhSDtsfd1o4Nms7x
+ FNVcWVHfFNCgNXA2eX4nJ1YO9VjNuY2k6g5xTgTrLDlwapNLUbJs_AcOPVkgZ9HHogups8eFx2eF
+ o4ZODZ43R3odanX7KdBFWYIb9Ty4ELk7LjJkB0EKxg5QKfMtlVGwOVNw56TTqLanRS3.0X2KnteV
+ IOn93Oi.r9DUhzOEo2uHVKba3m3SMfLJ5iYF.4k5BeZYMTyJ3LNHKkc_JpSuj6YjhbFsSM5xUjMR
+ qHQJ66QxJOJW20oyMpRpdZmjabO6NYFVIwYc5DSeKkF0ogf0eaIkVyQyitiJlkeGPROCPD9E3soL
+ .PqEpKoufty_hL6dhRomEXUcqQ7vHsIlJjWx996SK1Ckq1_u_XaEjVbLvHsAQDUds.Rh3SQz7Xfj
+ B26IWfM1hn6oHNL0_t54DMlgLBKNQQfNhbzIlUiRDLm235Uvm7c4CgjxF.3.yC4JfWsogSZfIz1H
+ LUlSiXrWX9Y00jXiyKBvhW28HLacrbe9f2fKnS5VpkvVDiT60Wc5tNCXENKF9PnJpoWRjpcKrGFE
+ NkkZVhJ6n8FIg9Qij4SxWDe56Y02KDAaGUeA8G72HLvwWIdJL31806_hTouvyIKhskuA9SsYw__R
+ Fajsw3tq0.I8vD6OAuoiWNrvmKYjEgGVGij_1bsmuQwd1Mc7vhU04so2tqIsm.mheIW5Xl1dKC6B
+ SG3ry0.2e.m4oZHG10y4qBJAsW5zFlyoxlXUXROnY6IfYNOaOnktGlQKNIw9UP3UsgDf7ENzY22n
+ 7JJfIVPfUyqVIKEIK.DlYRXQY0C62HXtYEF9VnIUOMzPOUE6JUDOViPyUfPDc5naQTaRx5WAW9s9
+ aIU8.Tyl.BOhudXkO9dJtGY0g5yoqZZFGvyUoD7rob.4G5GfX.dfPr1A3OP5NsCF.FdLZAhW9XcW
+ Rmo9xnvm4Yo49b62L8Kk2jhQLYvcYsnmBf9on9w5E5v.a4FcBwGgcS0xhrZAiwJL2dtt9qIj9ti2
+ rGv83E7GoswAAQosl7KUnGmBjZydT5jXrU6Y9L4yar205JWl2hmvwLv0Pyymu.7gcqSnGaFxRC3m
+ y6CGrWN7uA3dBvwA6AmKM7feYsRONZU0HWeWW0CrEfwa03_htUIQ1bIfBQjLKAQJJg.Iv8CZ8zs2
+ a2leyOf54w4c7FNOMRg0c2PHuuqOYwbnVelD5jVdu41QxS2XxllhRN64e1jrAoO4XZX1mLQS4Zmn
+ TF3xBU43c4dZMMPy3rNQ4pLgJuZZWDCb0V9hUBBruerXQh4ZbQNhXI8BxdAOPtVPdzCmBqJfye_R
+ jxHma9uzQ3lcyp7mc9RvpgoZjPUmH3FjuEemSy2jSpSwN8S.y3kSc4.ISKCRWzWXIyJtSbJudQzT
+ a8OdA00AoMWQeGCBc_1Rs9A5ZYu6GpWFSah9IhOf_v1S9U7_uwpxawqviLAJnZAJInzclb988X9y
+ aoPDfK3.XY9kjPuuqduXDqtuyd9DIKQKs8hO7bJ9n74DFcK.08SjBelG1v6Loo6fyMPHK0DsSi3t
+ _2FjJ1.FeQYHDctKpLul5puVrW9wAKNrif7snErmX9U3ZjLWxYMtxcmnxYtJUoKomDZHjk7k4qP.
+ Em6MbRIHb4RHVjgGuzBl1lM1OlGARU2JAaTgiX.c-
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 1c6ed766-fa46-49e1-9571-1b07cdf4f0e8
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Wed, 28 Oct 2026 14:28:33 +0000
+Received: by hermes--production-bf1-6d6877594b-nssjx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0632395d668a8bca3a8d4cf7829ba41e;
+          Wed, 28 Oct 2026 14:26:32 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Heitor Alves de Siqueira <halves@igalia.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hillf Danton <hdanton@sina.com>,
+	syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
+Subject: Re: [PATCH] Bluetooth: hci_core: Fix queuing disc_work while workqueue is drained
+Date: Wed, 28 Oct 2026 14:26:31 +0000
+Message-ID: <20261028142631.128802-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020145320.115333-1-deaner92@yahoo.com>
+References: <20261020145320.115333-1-deaner92@yahoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +96,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:309c:b0:55c:6aa:14f7 with SMTP id
- 5614622812f47-56382c81c64mr1795765b6e.21.1793197622894; Wed, 28 Oct 2026
- 07:27:02 -0700 (PDT)
-Date: Wed, 28 Oct 2026 07:27:02 -0700
-In-Reply-To: <CAA=drAoaK4tbiwuR+RPMQvo2LwDwqbSKsN0Ft-pMi2vCOH0m4w@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae20636.cbab20e0.42a9b.0006.GAE@google.com>
-Subject: Re: [syzbot] [mm?] WARNING in setup_conf
-From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
-To: google-kernel-team@google.com, gowtham398gs@gmail.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi Luiz,
+ 
+Sashiko replied with two points and they are valid:
+ 
+1. A disc_work timer armed before close sets the flag can still fire
+   during drain_workqueue() and hit the same warning.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+   hci_dev_close_sync(), after setting the flag and
+   synchronize_rcu(), we could cancel each connection's pending delayed works
+   (disc_work, idle_work, auto_accept_work, le_conn_timeout) before
+   drain_workqueue(). 
+ 
+2. Skipping disc_work can leak a connection created after
+   hci_conn_hash_flush(). This one is more severe.
+   Suggested fix: re-check HCI_UP after hci_dev_lock() on the connect
+   path, so no connection can be created once close has cleared
+   HCI_UP.
 
-Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
-Tested-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+   Are these additional changes reasonable? Any feedback is welcome.
 
-Tested on:
 
-commit:         65ba8f34 Merge tag 'xtensa-20261027' of https://github..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13631d21580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8fae3718ee4d506
-dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1637e17f980000
-
-Note: testing is done by a robot and is best-effort only.
+Jeremy
