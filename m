@@ -1,122 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176382;
-	b=yJn3pK39+FnPnDTewmDxbdzUVXsLaYaBo8lhrtrGI+WgmBZ3geu2H6kE3adlWnOaveEM
-	 BJ1kUYkNcq6cwkmWv2vtrPCSc098CoyrgL9LbxpOVLDXG6Dnl2i/bLvkPHbNi49vj4HL+
-	 FzGZ88fnf1V7cfhV6Bj0YqxpSCrvGhxvyQKIBfPic7TvrStIobsFF+6915FA3r1M8nI0t
-	 n1iRuKtNPCysOtLpaF/7vk7K1GHvIdAKScIWyG9bUFm8QF4zwaQx4blLoXbXVb3E4BDRF
-	 pDzHHcln9rFFYBjPVb1SBy6Hi54NY7UIVkKaNW/vlRzU3ZnVAkE73MfanC3iQVlg0YA==
+	t=1793176397;
+	b=X4dqxzxkCsaTpCkTsHLyvBqKhAmjqnFsmlRMroBDqRFkWxkyF+Ug/5Z0zJQDk4v4kKjp
+	 ovzbndkgl4V50JkHJX0bxzU3JqW4+iBG0AxqsoiIgvXyeUDXQjoAXMk1rvVJOPBiS68Jd
+	 tfGZYmWT1YL8rxgt+ty32j4cuD69+h8MW5TsfH5vm53FNFqALmPE7bpUL/oAeI6c3CKfA
+	 ItEIZBnkqHVYT/Xjcfzq2QIKUIvMhInhKmEyhLEYfPIMANGfvuSTDMDKOhuhS7e6oDNRs
+	 r4A+XpA31TdLeqKY3nVMG+q5eVS2Z7fVOBpvC3QiC7F6JJrhRqkdCHk5a/NH90bdKqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176382;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=jvkImuUZZN8wIzCTfLOpE+RyFC8r7MIMVjR7O1zODfI=;
-	b=XAzcR2mct3juV3vXLNNSUNhC3r73sFAG/sywAHfCEstsD0vn8T0Oyk5So8uxuJYzA9Rh
-	 o/9RpX6YZpF4nOVqV43gg02Hc+V+Eku89hqGgrvThpfqLlp56OLZ7oG6vp126rLBBmDH2
-	 oe66IlgzIpTDiUrjZi+VvMJaz8cRnTtiikRudE3qDqNwHRAifmcAC0V37ehU1q7vQWNsX
-	 phVak5oc09E6ZctS8DprfkagO2rZOpdNv0WDQi5zaOQ4j4flv1S6xSK7b8aFkYS8suZVD
-	 HIILIRLRM7lomtHtVdzMIuO2NnLShHv1Wtk0uqnOnU9XaoZJ/T0yyHlBisbTrmYTuww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176397;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=QLm/yffEnsJh1miThy9hpGDyLWes9YsIW3RPGR3pfmg=;
+	b=CHohtx44xA3gFm2RJTSJW9dMi5k1PAfXzlWxKT51FB/ItAuXndjrmGu5Tpk4SKYrbI//
+	 bKnKeQPffck1rVzRo4DdH8cntd90e2KOn3nBk3G5V17tRUpF1Qz6v6h+HQlPsT9P1zz4/
+	 r6cRAdn3URKchuqjVK9UyJQI6AqFBYCETl4g2QzYULVGRa5NhYklWm+dDyCP117X4Yv0C
+	 RL6Eelm2breq4jbE3F4aTKkwJhw8tJe5tguIe63dAkM8t4NFFVNQWHV7eIG0wMLzq2YMJ
+	 YBs3b6LYNVuHc3lTgcrw1s0+uYcwI5/mmksSqLM1zqyS//kr+rhNaw4shBuL6AZJuKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="RmXN/UH9";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Pa1huM/T";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EFEIcqG1;
+	arc=none smtp.remote-ip=203.205.221.191
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0521606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0521606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98556606A31D;
+	Wed, 28 Oct 2026 08:33:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98556606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RmXN/UH9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pa1huM/T
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KAlU1642956
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:33:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jvkImuUZZN8wIzCTfLOpE+RyFC8r7MIMVjR7O1zODfI=; b=RmXN/UH9tAHAatHx
-	tO9msi+c3wcCJMlbU09wKFIe8OCUsMhjnDOsS20mxFGGdZNLfUcFvCzq6KFzXAly
-	5EvACi3kt7JILHBQge+1JoXlCti6IghG8dSCDbZJ0YeqxJ/56N37fKKg72zOHiXN
-	7JvwXZjcvuCAosDDwcNGT/hu20qvuE+7Pujv/f7Y4n+VEhR5za8kNF5mAjjr//PO
-	rVp4pRN53v6FqUMdQHuNPAYCAhpUYlkUoh5v+XlRmzDPkUhJvCSk/fo1qYHJCDNW
-	AtxQEH4+uVCeh5fxdzvWJ6sqpFf8fvdGxfjfU0nkGvc3WzUgC+oQgTVzFhJZqTOC
-	iKiCFg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjyjpu41b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:33:01 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ecdc701a2so75021085a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:33:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793176380; x=1793781180; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jvkImuUZZN8wIzCTfLOpE+RyFC8r7MIMVjR7O1zODfI=;
-        b=Pa1huM/TF70Tyd2ozmBuDm2EfW8YNGh7fC/mPJL5YYyP1vOXxHvsDkUKpCN8kBJwfY
-         UblFHbKiopu5LGCOOK2cZocAXtgAwPLzAMePTiyyGLFTJh6gDDWsLR+Pg75RwoTha+sL
-         2DaH8NICHSlO0QfIUTKoGHPMQjLh8wUe4kXEwg2tcpYakIQEw/XNwTtHMVNi+tDV4VW4
-         /66HZ5SjSa4kqCroxiBLOUADpuG/YoL0PgvB5cdyD0y9X0Cs/IJjzU9pEVLlCArgkbqZ
-         eYpyaYUIWzF7KyfStBvvJhmUU+9E30mM2RzxDJzwK37eR+5GpJWDW2TABSgtSFoiBbsc
-         GDqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793176380; x=1793781180;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jvkImuUZZN8wIzCTfLOpE+RyFC8r7MIMVjR7O1zODfI=;
-        b=jLAfWwoFjwWCCzY7e/52xanv4ycJ1IAsLlrzPg3oL7aKvSynGEjndt3O2lEseJm9qO
-         llh1u5EaIAgxVMOgRKhb9OXHtgR4uHoF8ifBWaRZJQBPzCfkvFl2nqvBV2U1Y+t5bh3G
-         V/wvCAesnNmm2gS/mDu8MP54SfzMwCRpIEczEHM54CjOGumtGbXjC9J0q+3zZ4xwYMSa
-         AAJLW/DddpZ6s6U0k+xvcaN3St0cAM60tvvW60bJJA2GFGgdAY0jDzleFhwRpNycQBB4
-         MQSdTafIUUp3LezfJFhxMdV6DxD8ZWpCUYhQoejDnSeJ4dGWwj5rqm5gjOZjQOzL40Gj
-         /HCA==
-X-Forwarded-Encrypted: i=1; AKwUvBy793BmosodTDs3C2TP3zTyjbo9aWSt4hdyojbxhQv6/keysrZvoWZMRIKwLhkYw8v+l6zbpPLazpJMB/Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQvqHgyqW0jlMd3Yl8ZLlwxdDWwe5Iou74/oc/BSbA35Gug6DS
-	zdTgIls5PPTwFpNbSIhHcVqC9mkgKv7RxT6kz8W3k839hH0OcdSvShVXIgIRt0W5xRyAarsT+tB
-	G74EhQ9/MANFi9rIsBPfMaTBMdzwuxO3YbIknTbpWkSbsJQ/KVwSAxQIRj7vVLYvNSfkvtK4eCy
-	0=
-X-Gm-Gg: AYBFou34ENcCphyA8u56jKo6WAiNlSZsQkZePyOP9WCzTsKfJskh9jecat4czaFRXRr
-	EDiEns3cU7CPpCQ7ugRDZ8SQmHgbiPO/YFn7cqczN1Quhp1OQxLSyQ0jJLf7kg1artOtkaQ01R1
-	VQ3vw0HpikW9XdvUBkVMnOwzY2+Pd30K0H9/ikBw8RJATfOfLjXv2r8FacscI6kIsZ28+FHrZOU
-	xTPbWgKD6Ojn1vzmYL8NacKYhJPTcgM6Jm9OHFOkrpbYOd1JvhuKL3bqcdkpmfEAkXuZAvRFLHU
-	KKapI3Zc6euFwjx7OGRaCVwTs6NGihTPUD/7DKIkc/I/muP0CZlzTxqy7ex3T9dfdsAjHFf5bEc
-	TvSrgBEvuSM05rPGHSXYUPcdQ7z3PDP+FzIByfzDvM9K535K8TcAi+hbdQUVuPSx8/vQGnOZGpF
-	WM
-X-Received: by 2002:a05:620a:4147:b0:93f:2cf4:e6dd with SMTP id af79cd13be357-94408cde155mr208297585a.51.1793176380032;
-        Wed, 28 Oct 2026 01:33:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:4147:b0:93f:2cf4:e6dd with SMTP id af79cd13be357-94408cde155mr208294385a.51.1793176379505;
-        Wed, 28 Oct 2026 01:32:59 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3a1csm27503404f8f.16.2026.10.28.01.32.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 01:32:58 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: aggregator: constify struct configfs_attribute
-Date: Wed, 28 Oct 2026 09:32:53 +0100
-Message-ID: <179317637229.6922.2864720743065087678.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
-References: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EFEIcqG1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793176387; bh=QLm/yffEnsJh1miThy9hpGDyLWes9YsIW3RPGR3pfmg=;
+	h=From:To:Cc:Subject:Date;
+	b=EFEIcqG1ftzq6iPwATXsX5KoH6eyYvPd4fSMH5jQqKPcrK70dcNB99dj4MlCA/jsd
+	 8e0CgmhmSuB7j3C2L8Uh6rDXLd+iv1GHUq0DyQCmMZud0kWPaDPKsrKN7yG/YJ4D6i
+	 kpDUs73HVx4IoHS8GRPZx1B0R3h1dHWk7kBWHcMg=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 84524222; Wed, 28 Oct 2026 16:33:05 +0800
+X-QQ-mid: xmsmtpt1793176385t2ue1xls5
+Message-ID: <tencent_884B14762AC6B7F8489E13AEA94994BD4F06@qq.com>
+X-QQ-XMAILINFO: N7OyF/iLIkDUbM7oiISnnm88vjyhRdclEpC4X3/kKnrB+E3RWTXS47vF9U+sBw
+	 FwVj+VXS11Irb0NC0z1/l6Tq2C44FCZW7jBI+6gTV/qk8msloq0QVN9OAWuBEUJWSwoCho5IHWNc
+	 9mQD8Ig0UDtGZtrsTKp0ErTDVrrCw15Ty9nBK79CLBJuzD12DQrGtT5evSnaj0Dv+vwOBcmynog7
+	 y1MHuKjvebccbDx7BLhxQyrLrR7ZJ57yXdV1QZesqk54yoaTaRviTjkveCKehREPsHj7OIemmXnX
+	 7/3SWkzXPaP+D+L0+KORDVr3YgRwY6PFwRw9BAOG7Yg99Z3wytV7f9eUdeEWpim39SCW7v/PWP+j
+	 bMfmzlvKt+Fm85gSWvogJPPIK7oDmX2hHnjwZRZ0TxSyE728P4Gxto8RlukEyoCc013bT83iEEYK
+	 JyA4HXzbqe2F+lz92cW8MK7rS/Lowc6NrtzGxw2C3x6CScl14H7YxHshzEucylWOpGxMr4cuiA2B
+	 OPgAsTZ3vMUaaWnSR6VsVoCrC5JmIgzoT6zPGZ9L5ZCOHZ3ErLjiWmJDg/gnxtECqIcfhIL150AC
+	 PMN5DDeoRulxLGndANsZ7Cng26TlsALKpJdN4n+dcLAGW7kF1ybK9SEd96jAcsHH5CxUk+Cw8Fg9
+	 c30nzDVD2qBDqQcHCh6eefN7nJi7ryDYZHINWQZFVAvkd9WwY5eXikzYataeS9srUgOu4aplOj+e
+	 hB7MaXinOCppkMc1QvLgLjcNO6SIiWVS/8r0867dSqMgzVcaS0KOT67ITDnCA7LiYyy1ujc7LF/8
+	 hHz4wNmF2IuDetB9NfAK6TI3XD0tAVqpDIUfWx7qdF99/wuOlws2r4hSz6ZbIYPBLeHvuxp+JphD
+	 eu+Mhi7WEr7pi3gI/h5sB/qsjSy3uIO6HZG3LQvKnN7/iwUOvCmriWtM2jYoNdAzPjiO87zmkEto
+	 w3RhH9oSvIIMEJlDAOlN7cwB4/2tWMoMeb1lTyXkCkszjRpuLtLeCXd0CjIweMkyVAJKsVK/5Ck7
+	 0ZEubdagW1iJnkUpAa2srUl/iqjDWVWltg8cktUBZ/AVdaMGZGRmyLrXVqJw06L9ocjtb0+G8oeB
+	 0NvFNYct+Rzh+Rx/um7Oa2ccmxWA==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Yang Guikun <yangguikun19@qq.com>
+To: marcel@holtmann.org, luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_core: Check HCI_CMD_DRAIN_WORKQUEUE in
+ hci_cmd_timeout()
+Date: Wed, 28 Oct 2026 16:33:04 +0800
+X-OQ-MSGID: <179317638494.33108.2879635829580596112@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,49 +78,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAzMyBTYWx0ZWRfX0ZSGYutgAiTv
- t5BWHrfjILLdOLgLINMGyvGuN5tkZWoI8wPRy0WGBLPE8k/kcSr6gCZzQbkg+38MyZUPFv4Bsx4
- vCW9d6RgqhUh7I9XziqxJ2bTFUBPZibDvC7Sv55WlUYH4yuBkK2n0g/ra9mHMB+4eSu64sMUtT0
- WADlWRwNP6iDtCygmc0pcXuRXD8Ivsjp78ly5rIwDio/LB/UfOkaG/sDZfzwuD5ssAQxV4Pz5jt
- lPenJH8aJt+0qAzgtjxsCY5a+/MlLB/RyO+aaD3CmVgVB231po/AEbtXmPJ6jqu1T3m/EuM74aK
- YbSl6bfk8GQ8bpYLc7dzCJgQq4Bj2cyx2uXDB1/cG1rz0NzuJPsbcjourDwxBMc6vh76vxX28uN
- 7CxWhfb97QI9B7JkXn8ZBTbckqCTWtV7NvyT+QBod8ERNGgtkYY3sXXRLFM/4ZCEcRN1MnQ9SYK
- GnUjysI0+v/kPA8guLA==
-X-Proofpoint-ORIG-GUID: GLUKt1yRbHJrZ16iQzBzOT3ddND8jBZs
-X-Proofpoint-GUID: GLUKt1yRbHJrZ16iQzBzOT3ddND8jBZs
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAzMyBTYWx0ZWRfX0o64iCGUr0uz
- xD80Jmmi5jrS/OoTcNdROJ3K1ewrQ9m8mCXttB6R5+Dc+RjuWhkrURh+4aZPfb8GfRrLk685cha
- vKsw45JchrnJknNruWLrAiTxVPq1rNM=
-X-Authority-Analysis: v=2.4 cv=JodkP84C c=1 sm=1 tr=0 ts=6ae1b33d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=wRwPfHjqSs-fDICwijwA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280033
 
+Bluetooth: hci_core: Check HCI_CMD_DRAIN_WORKQUEUE in hci_cmd_timeout()
 
-On Wed, 21 Oct 2026 14:31:41 +0200, Bartosz Golaszewski wrote:
-> In preparation for the constification of configfs attributes, make the
-> existing instances of struct configfs_attribute in gpio-aggregator const
-> and use the new st_attrs_const field of struct config_item_type.
-> 
-> 
+hci_cmd_timeout() runs from timer softirq and queues cmd_work
+unconditionally.  If the timer expires while hci_dev_close_sync() is
+in drain_workqueue(), __queue_work() sees __WQ_DRAINING and warns:
 
-Applied, thanks!
+  workqueue: cannot queue hci_cmd_timeout on wq hci0
 
-[1/1] gpio: aggregator: constify struct configfs_attribute
-      https://git.kernel.org/brgl/c/59abcfeb59426e7575e80be53b7024a151def2b2
+cmd_timer is cancelled only after drain_workqueue(), so the window
+between them is reachable when an HCI device with a command outstanding
+is powered off via rfkill.
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+hci_cmd_work() and handle_cmd_cnt_and_timer() already skip queuing when
+HCI_CMD_DRAIN_WORKQUEUE is set; hci_cmd_timeout() is the remaining
+unchecked producer.
+
+Fixes: 525daaea459f ("Bluetooth: hci_sync: Set HCI_CMD_DRAIN_WORKQUEUE during device close")
+Signed-off-by: Yang Guikun <yangguikun19@qq.com>
+---
+ net/bluetooth/hci_core.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 209244fd9391..3333333333333 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1441,7 +1441,10 @@ static void hci_cmd_timeout(struct work_struct *work)
+ 		hdev->reset(hdev);
+ 
+ 	atomic_set(&hdev->cmd_cnt, 1);
+-	queue_work(hdev->workqueue, &hdev->cmd_work);
++	rcu_read_lock();
++	if (!hci_dev_test_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE))
++		queue_work(hdev->workqueue, &hdev->cmd_work);
++	rcu_read_unlock();
+ }
+ 
+ /* HCI ncmd timer function */
+--
+2.39.5
+
