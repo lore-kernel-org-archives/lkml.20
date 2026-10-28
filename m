@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205978;
-	b=HxeUna8g8ic8Rw2VAPvhvuBuDuRI7DmTiILA9EhwHNUYIRuJI87cUpCuMbzXn/GdU+ly
-	 27Ti73uOQKmM2UvJEBTSdNLbd9FIWt7CPibqQRRXhAbObODerTaX85KDPcw4ZDmAOGbBd
-	 oQm2A5rOZQDnAwb19QD5CvswgUhYCv81re1us0vL1YnH6DFWR96nGYgRpwDYt0ZblGnWz
-	 NyBE0V2QMpmjq5bSnZqAU/CKNIaiR11nvvamPAhilFZPLaTVn0rXbAn169pRpjS1MDMdU
-	 sAUwMieIIbmdebRyVuWD6gA5j+hDnlqdufvKPDZBB8MV30CPNnP0Q3oN2TkEhuRA07Q==
+	t=1793206015;
+	b=nwz/vttAab9t7kDH4iNO2vsVmgAItUBg3eM+cySCVrjnEQj4g4hHiAEepNpYg3Ccn4BX
+	 5qmo2T5Tlte56CVH6+PWjrwbf0dvtl956fpM6k5Pjg7Xv9bbysM+UEUrw9UJT5MK4hnjP
+	 2g0FDMNczCsTdI5Pqa+fpugXTU6v/nBhFKjDbqdqWRKfXVW+97GVKNRByNgy2sqP/sri9
+	 JW7L1S0wSjKS4OTnKLEqNXA5Spc5rJHv9T9la+LQJb3hHApr/ceS3K2aYlqSCxKa7pMxL
+	 aZ/niXmzAR5EvT6ZzFFAMaXBv56WpJed/2LFOMe4yJibkikUFzSI4lCobHdfjnaKzlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=B4aeA1JDhDSlavAe3QtN317ZVxvJh8xk7OKR4/iEpbs=;
-	b=gn0jcC4O+MXbru60PNxGx82fe41MS5ktvU1LxncMiYIIav54P/PwVlyrcjhHCplvaHV/
-	 dwjf0Nq7ok/XKa3hRdUIA2oDcm0mmYn5aDVGTh9jcIAYA8EaHOAMnzJZd331YHoGz80dg
-	 deYGdM02Jaudp6UT236kBsXxxnt6PAVALfAeojH6Coh9+H2uuPK2HkhgVwa4CieRL9srk
-	 TevWfpi2YopzhK3KWxTIiMpTqW6X7DZonLLuMbUkrve95jlinYSS/I5cvuNeoZqPpFMw/
-	 Qol/dJ1i6m+kLxbYAE8GfoUwogfOPG/HzTAnhQ7CDzIrxi6wOsfBUqU9ZIJTr7hqPog==
+	bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
+	b=U/HWbLiL9u+BqUclIugMSjpN+gpd5b5HmsKY+sbLwJWn00g1njepBQ/9hPLq7Ib4Ewcu
+	 N6Xaf4zy5ibxVDL6UQDlZwHcWENpVZEgyu4wqATkeR4ZISC7fKZU/e5A4ESwM/iWlsgBl
+	 0v6Z5JBBsZGHvLxmnYZ2VAe5gQQQgBCZHlWIbdXOKoJ2/PUe4BU0YEcyuzwgpXNb8H63d
+	 hzzTAalz/xgEaod1EMm1PQg/p9YCKYwQpgZoeh43enkYfaDuHHN08fenc7qlRABaJaoH1
+	 HKr3rD2E+VQ67+/wBFoiEjm5SM/s92op/j9DxIpRGsNXTDHl77MeVTqy+QR2Ae8qN4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uddc+wrw;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kfw5lTIe;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3D360A2606
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F3D360A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9665606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:46:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9665606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uddc+wrw
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a1947498bso70088eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:46:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kfw5lTIe
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so948318a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:46:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793205977; x=1793810777; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793206014; x=1793810814; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B4aeA1JDhDSlavAe3QtN317ZVxvJh8xk7OKR4/iEpbs=;
-        b=Uddc+wrweG9QoyRAHUWEjoih3MObT1xTgzWxKwXQa1ijU1RY31WvoB3KPk84swdhKt
-         7hQZjJUlmBnyVA2B+UWVswzv/xhqOfBTc8WtGejuJlv57PNaaIoX9AztYT0nG4s9ZSHt
-         9P3fKf9ITq5iOFdHziqhBB27b24lEBi3sS6jR43yeJswvzWlLsXN02NQcLqkRmfhXOyJ
-         Cv1svNjp2glvG/8VVUyvttRyaSzkRrkwwuit4HVM8FbMkM6erUKax806sx6cDK39JzUS
-         /8smOndgUZASaaOvT18GW0bp9KmqAcrAHUHS5eFc6dxFCd7L/o7bEa8/QgiJmaZ0qQWe
-         KJ/Q==
+        bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
+        b=Kfw5lTIeK0b+pOQ6UeoU3otNbG/F+hJLBbHJEngSvUZJX2T+MxRia790fWsYRjO+gu
+         zctBZmF6vri7AvKN6vl25fZ88lMKL7xNhzGmKT5vzAphBDKRfVmSdyXMt2boyd+sNC+B
+         Y1eJ5ALziL3Ty0kZRoBFzS4YX6Y4PuZhr4o2RfgzX2saVF4UCTFpQvJusL3w0/JWqHaf
+         ih2ZAjpf2pjMmCimMqDGyF+XyRi/GjPmTkkK4NbKvltpVB3SR+/ronU3UaaWcfwCqTx+
+         UocDFBZjP3PAzqQgzwwW0MdCOLVUhWoTHd6LJWzNZ2Wyqulal0tkpXusZpW5jqqLYHQQ
+         Ylcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793205977; x=1793810777;
+        d=1e100.net; s=20260707; t=1793206014; x=1793810814;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B4aeA1JDhDSlavAe3QtN317ZVxvJh8xk7OKR4/iEpbs=;
-        b=Lcznw/Y/1Sk9P5lWIP47miCZooulFlNEVc9Bcp/wspNLOhkjpYgrpvr6RXwiNGJ+oD
-         wOyazokPfEirnhQOGF0sDecUwGGkssy3Qae4+5rA3eMd7qxIwkl49gtJhralDHYrO6io
-         +p4KIkdLKl5fVakNVQBetZOvWLpafLF0svW/wH7hUv1eiUIRgiOVxY6DEPmPERh4Szl8
-         tUtIA7VyaA+FdbRGHaBrybRI8DTtKhmr6Z9t+beDSg3ovA5XNejhew4k/PtimOhxw4at
-         Olf7X+noxygmSkmdxe0uv0HeCS713J8QvzDONkMxowLKtC2ugP8tWiC6i7ICs5E3mODf
-         6Oog==
-X-Forwarded-Encrypted: i=1; AKwUvBzmmkeptbR1hZTDI0M57lFDN4QR8G4icNsjg8r88PuHaRpr7xNDf4LhLKdJwePNGaZxPF4r6QNBcx7LgYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa425M7mZqNSBDgkPn0ECdhGpsuRVG/hb604N0VmGtmojmVwlV
-	ITpBb0wU5iugywBe8CSyIdK8I06qewt4mEfWV7J2TTQoHGpaG2AVv+fS
-X-Gm-Gg: AYBFou0mK7iIR3ZsgYEZMZ0RKUXYbT+VA/D/h41WcFZoKnEZ0nDxGFvVHcme11qp9aG
-	USEYHYmvSAWSkKkCPZHNgW3YYUMFqkFfawE1WJLeybPm8D6U4o0+1m9kTCrRNvLZ1gWF0QRjT6d
-	yTcznC+bOOnej/Ss6rnuGP2C8m4gFx9O4AOQPZF/kiYwXnxPUWI++Lg8LyifSSOe+/Gq0YWC8lw
-	TyGT8pLDUflHgG+drN3emM1luKlf3Gd6hj+SW4JuVa/DL/7Vvhk1LEekSqQIzlNm8as1qsgN9Wx
-	kd251QHCQF9dIGF6C2LHNJrg6qKgCZrUvkKMmR2U+s5JZyjt/y4RvObFQ5gzH3zm7GD3xf53wXH
-	1PG+Q+n6TxBnFKXRQIk7gADdEpcdAldakS1ZIx0VzDBB6GIz4BZU0Nt2NCddQSvaOiL5SOydxVo
-	6e9CPQ7UnB5oeYaN5D58o7H2sk/Z2sGnKSGJM5YptO4HHQYZb8aBYFD1HD0muy3AgLYsW6SYu3v
-	d54SeskY+HQeqgcpfKKptzGQC9rPEizb6e7KBdzEH5FDUnC4ssffAAejFA/r1rzw2J7XLp+Ny+W
-	4B9LbmctZhNTlMEQtjY+fxmI69HskIp6vTqmV2xlvkX12VbCt/wncN0pFa/q1gFb9IwUuvvTxp5
-	Y6TRkx0rbSL+IwjXv
-X-Received: by 2002:a05:7301:4d08:b0:360:905a:7c27 with SMTP id 5a478bee46e88-36a20417e00mr3738593eec.26.1793205977381;
-        Wed, 28 Oct 2026 09:46:17 -0700 (PDT)
-Received: from localhost.localdomain ([136.126.251.209])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23908449sm7821964eec.11.2026.10.28.09.46.16
+        bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
+        b=mo5Zh2ZPHqE0tPbAsVeJBXm+IIhjFO7lgvq1Hb5j09c6u8lpmHNIRrIMy/EJpNm4Ry
+         g6381RsyWlGzSajPYs1T7odgSVSL4oW1IOAM3GEUYg8Cu0uFiGIDwEPr99WLUjEfhz3b
+         +F5sKKTaUR+V2nd2dJ3mcKlA46N4KepSANtWhW6ePQSyhnMiqfKyvhAwkvSY7aCPwbos
+         ZBT/+KjQkuNjC/Ixn1N4xaNI27iG+hfrRIeaEug0r1eX+3Y1IveMPKw/MC8Yi934Nsx3
+         9jBpSyKGVQgMgiZlvTDYjEbLuswEJnZNfPJe5FN/+vb2K+os481plDccnXNPGkQ+lH29
+         XN9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwrATCh9DVI3pr2Vchf8bXgsqLSrIn/GH3ovUh1Z24NKS6j9MhhXg7jFki1NeZ6wMHaGatiUxGp74AErZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+CC7zts25ZP/+x8i6JaVKExbJ+QomXQCeTonriuvWxuJjRSgh
+	LCP9sKa8dKSKt/TusgNfzZ4EewLHydyJ7x6oq5jbzQsh+1is2PiwGvw7
+X-Gm-Gg: AYBFou3ucrBinqQuqsiJj1d87lgGAu2iNUM9lN7pcLMJiX20beza+5t/plaPua33mDl
+	whu0cQGrRKkjnCQjwfzRN4cNrrbokf7zZdV5TRnKrw28vLwIvdAvPv9Fzffqe2L0VvsI85BVijC
+	YogMNPj+2ivkBAXuf8DKsRber2IPeA7XAb07eyBHnMuQ4yIbUkcl+pUO/tpGiFlK2kVVUYRahA2
+	FNYoJy80WR8Fy96IegJhfX2Yy9Gg6mf+Tsao0DZ7e/5NQPBmEM2Euspa3NKzOGAxy7hawb/px3P
+	Ly8jNwElh1ca8TtvxL+C0xZVVVmw9phra+zAXCwE7eHGcNVMx0iOUEAYHcMsWk5f46i9FHp7qHu
+	Kyn/ruwTX8GzMvKfeNnLd4rRUQ5ooGg87TiJ88CD007rSxOMd19xhV11Hf5z0gY7pl1sqabZwcK
+	7lkrJyIFdDNXg2qmG+gT3KUSPFwN8LMuZ6c+OMsiOk7Yf+K906AVKce6tIQOkgvDOoz1G7uIbHK
+	NPZfgyxYnuYnE2gjC7hS8+X+wt68nagNabPvSerPx5K+OdX9vzJbrK8qy3DsQGo4w/ZtZIklaFQ
+	yWirTulSHv0f6wSu+e09S38FRb+9+J6W7u7HKBOw9ZsHBzq9gpwQ0VKdVmX+zLuiAqb0VzlUpPM
+	l3vMXUb7PuHRfUiodwjTr77gddwk5O4/gmF52wHvB/Bkh4P2AAA==
+X-Received: by 2002:a17:90b:5348:b0:3ac:8446:c1b5 with SMTP id 98e67ed59e1d1-3ae58228c0bmr2122376a91.31.1793206013689;
+        Wed, 28 Oct 2026 09:46:53 -0700 (PDT)
+Received: from lima-arm64-dev.hitronhub.home (180-176-144-38.dynamic.kbronet.com.tw. [180.176.144.38])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5797f6aasm2083346a91.2.2026.10.28.09.46.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:46:16 -0700 (PDT)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Henry Zhang <henryzhang62@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
+        Wed, 28 Oct 2026 09:46:53 -0700 (PDT)
+From: Harry Hsu <x90613@gmail.com>
+To: pmladek@suse.com,
+	jpoimboe@kernel.org,
+	mbenes@suse.cz,
+	joe.lawrence@redhat.com
+Cc: jikos@kernel.org,
+	live-patching@vger.kernel.org,
+	shuah@kernel.org,
+	song@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/5] drm/vc4: dsi: Rate-limit error interrupt messages
-Date: Wed, 28 Oct 2026 09:45:28 -0700
-Message-ID: <20261028164539.3471833-4-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028164539.3471833-1-henryzhang62@gmail.com>
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
+Subject: Re: [PATCH v4 0/5] livepatch: Fail object initialization on duplicate patched function
+Date: Thu, 29 Oct 2026 00:46:49 +0800
+Message-ID: <20261028164649.337479-1-x90613@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <att7GJXA7hK7Ic64@pathway.suse.cz>
+References: <att7GJXA7hK7Ic64@pathway.suse.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,38 +106,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The error interrupts (contention, sequence and timeout errors) are
-always enabled and each one is logged with drm_err() from the interrupt
-handler. When a peripheral leaves the data lanes in a bad state, the
-same error is raised again as soon as it is acknowledged. On a
-Raspberry Pi 4 a "data lane 0 sequence error" was seen at more than
-50000 interrupts per second; printing every one of them, mostly to a
-serial console, starved the rest of the system to the point that the
-SD card driver timed out and the board had to be reset.
+On Fri 2026-10-23, Petr Mladek wrote:
+> I wonder how to move forward with this patchset. There seems to be
+> three unresolved problems:
+>
+>   1. How to handle aliased functions when replacing two livepatches
+>      with aliased symbols, aka two NOPs on the same stack [1].
+>
+>      My take: I would fix this later on top of scoped atomic replace.
+>               The aliased symbols should conflict.
+>   2. Fix the low-level __write_relocate_add() to clean its own
+>      mess on failure.
+>
+>      My take: I would fix this a follow up patch.
+>
+>   3. Better describe the purpose of klp_write_object_relocs_limited().
+>      Or clean its own mess a better way (code duplication)?
+>
+>      My take:  This requires v5.
 
-Use drm_err_ratelimited() so that the errors stay visible without
-taking the system down.
+For 1, I have a proposal to create only one NOP in the first place,
+as in your solution 1 from the earlier mail.
 
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
----
- drivers/gpu/drm/vc4/vc4_dsi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 1eea60aec..be9caaf50 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -1487,8 +1487,8 @@ static void dsi_handle_error(struct vc4_dsi *dsi,
- 	if (!(stat & bit))
- 		return;
- 
--	drm_err(dsi->bridge.dev, "DSI%d: %s error\n", dsi->variant->port,
--		type);
-+	drm_err_ratelimited(dsi->bridge.dev, "DSI%d: %s error\n",
-+			    dsi->variant->port, type);
- 	*ret = IRQ_HANDLED;
- }
- 
--- 
-2.47.3
+Recap: The problem
+-----------
 
+Take two livepatches that are already loaded:
+  A patches __do_sys_fork
+  B patches __x64_sys_fork        (same address as __do_sys_fork)
+
+and an atomic replace livepatch C that patches neither of them.
+klp_add_nops() finds the functions by name and sympos only, so C
+inherits two NOPs. Both resolve to the same address and end up on
+the same ops->func_stack: [A, B, nop1, nop2]. When the transition
+is reverted, the stack goes from nop2 to nop1 instead of back to B.
+
+
+Proposal
+--------
+
+klp_add_nops() runs from klp_init_patch() before klp_init_object(),
+so the new NOPs have no address yet. But func->old_func of the old
+livepatches is already resolved when their object is loaded. So the
+address can be used as a hint when the NOPs are created:
+
+  1. Copy the already resolved address of the old function into the
+     new NOP (func->old_func) as an address hint.
+  2. Do not create another NOP when a NOP with the same address
+     already exists in the object.
+
+The hint is overwritten by klp_find_object_symbol() in
+klp_init_object_loaded() with the same value. It is cleared again by
+klp_free_object_loaded(), so it never outlives the loaded object.
+
+A sketch of the change in kernel/livepatch/core.c:
+
++/*
++ * Return true when @obj already has a nop whose address hint is @addr.
++ * The hint is only set when the livepatched object was already loaded.
++ */
++static bool klp_nop_exists_at(struct klp_object *obj, void *addr)
++{
++	struct klp_func *func;
++
++	if (!addr)
++		return false;
++
++	klp_for_each_func(obj, func) {
++		if (func->nop && func->old_func == addr)
++			return true;
++	}
++
++	return false;
++}
++
+ static int klp_add_object_nops(struct klp_patch *patch,
+ 			       struct klp_object *old_obj)
+ {
+@@
+ 	klp_for_each_func(old_obj, old_func) {
+ 		func = klp_find_func(obj, old_func);
+ 		if (func)
+ 			continue;
+
++		/*
++		 * Aliased symbols resolve to the same address. A single nop
++		 * is enough. More nops on the same ops->func_stack would
++		 * break reverting the transition.
++		 */
++		if (klp_nop_exists_at(obj, old_func->old_func))
++			continue;
++
+ 		func = klp_alloc_func_nop(old_func, obj);
+ 		if (!func)
+ 			return -ENOMEM;
++
++		/* Address hint for klp_nop_exists_at(). */
++		func->old_func = old_func->old_func;
+ 	}
+
+That's only one way I can come up with :D
+
+Best Regards,
+Harry
