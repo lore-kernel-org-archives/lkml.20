@@ -1,90 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793192075;
-	b=yT05Qy2nH/KksWRQYDyHoYdI3N95qTWf0Gm8lrWwoG7Sw64zFnJMS/5LbeB2ABY2sg7x
-	 p5bz9PpFA+b5caorQKBz0V4JvVo/gi2s8PvdhH8iKWR5jeX815NBoQHyXOe7FIMj7RKzw
-	 gzHC8rG7h7UibFB1vGhk+QbB5Aa1kx4z1CPm38E2xJAsx4NCPdrllKPIQWAvz/l4rqPf3
-	 DQhTp5uEuwi0R7HRCSKe3/k1B0wFpRSnqB0mSmkqq+ed1WwuIEUK8sMoVMDG0PT+KcoFc
-	 w8zErysv6TxKnaTGqBZASQAD8Vwr1aOk/dOFcR48sXsCgf6Kvkz7SJaltf9yZZDWwiA==
+	t=1793192112;
+	b=J7rKsenMIofZIpyca2HVJH1WM6Fw3JZ8AUL/0ZI1mXiaPv6eKsucOnr7Gr/6UniPruXG
+	 XpNpFQFj+eiPWxOtO1QJTJZjRhUqXQiNlkiZlHG3f24Yx1aoJQ0B+n529qlIBJht3wHb8
+	 QYCKF8x1LhJ+oIEYOHDSvD0caHSSEpggE9RCmbJojEPckDV7kqbKWtxwLR3MXqfGvd7ow
+	 9OSJe5FFG8u4ldTaxAnnWJprrMrR02tDAGF5VyArh1LC6PGgsmgPtav9eavXbB5tLL+n6
+	 qHVy+Z2iueV1jeoKC0FV4f3DcmL7+TsJGOehfFKemZPKVTRGpLkB6d54kdw+71ws+mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793192075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=tu+eO7nns4BvX7b+E6s7tzt+Km0pkqqyKwMsHmrLMZU=;
-	b=ut5rdpNk8g2hg/wf38ppTjQ7t1jCDgvXAbba2u6Rl+BftfGwRNQshkv4e1Zoq4rF5jG2
-	 6HV8xqa3WWel3Ww4L35AZEfCV0P0J7jdimDwu4iwrt6pHvH/I4m/lXIfqeictCWAxKBwt
-	 qKhbbOxEDgog3QplmyC6atcTbNK6qaouydqFCpsJPzfZPnyE1dUlubiqtkJAtwMX0Wa+S
-	 ow9s4KUmEQxY+9TtnYP2kf0CMdW7i/IQ41gcM/lhO8uYmYgpZVkDLxfKFhLIBg5IL4lhe
-	 +5OQ9kpzznAWVMmGrCoVlZuf2NCeO+HMy35WNIn53mxf/9PSNz5WgBAnMoZEZN21rzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192112;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=oHMQ7jThbhsyE45ivREh/BKkvnArBrfhCr6h7QbYevuV1fz3FMx4RPGUp+zVdnidnYgu
+	 QWgDUqYaDEw7PniozHj1HBGX3Tc5Wp3Jf1+KKlbkd7PXTAx+f1Cjt/mTcZwxcLNlioMsQ
+	 c9aSyvS0vPKvG3rkJMfae/7DER08PiJrf29Arvgf6tZYfntfbGdF9XVIDcbQ29pXzy6Zt
+	 xKgPKE2LeLOxFCZLNiMhS+38wntimE0huFCRxCUhyBpFsU3WEg+RoucOqwfMOW6KJ3UTK
+	 HTYucPFYuEdiBT7VRqpryxmC1TMZV3JqfZlLxzxTbHGWtdj9KISewC4bOgIFSSdz44g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=GXHOL+aQ;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tEm5XV3K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3L4wVEOZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NuxsBLoI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7ad5oBI;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E92606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1E92606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D662F606A31A;
+	Wed, 28 Oct 2026 12:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D662F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=GXHOL+aQ
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so7072065e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:54:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793192073; x=1793796873; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tu+eO7nns4BvX7b+E6s7tzt+Km0pkqqyKwMsHmrLMZU=;
-        b=GXHOL+aQECScglN9UHqIcLF0jV1XLQEOWn/xcKV1iZwzGUqpi2uDEuGDyf2i6aDXxO
-         5xgVY5LkDib0Vi/k/1vQ2jccuvT3JNFwfPCnpvUeBcmi6d9OWLL6ATcjx4pPUiTy+1A0
-         RQ9NLOgfwNz32MhdGpBEX5BcQ4sHcLhd3zKcTWCrV0jm3FQI7qXBujnkqNfkwkaMVKhQ
-         Ve9GAnjvPvFfVvFLiVq4viKvUrVFW6Wr7iTKF+bE0g4iBrASk17wWP1ycOMLbBB9z8Es
-         BR/o3DpYZXXFL8o2J11YZ8VejmaGGFbq+Uc3vjfFHm6ispzTNAxPH5XN1n9v/AumHJq1
-         QtYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793192073; x=1793796873;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=tu+eO7nns4BvX7b+E6s7tzt+Km0pkqqyKwMsHmrLMZU=;
-        b=ZkqvwoAsXZI/+9S2x+hvu8Ok/CWR+UdwB6AsQTBco8rAF4HWZaH2cXbAjzp0kJ6hjo
-         h8sxgV4z18CS8p2rbix88XFGTbAf6Kws4bRg2FLjnjFEqlvT264IX5/FrO8pGFqvzxl2
-         MvFzWBcJeaCPKVxonM83eZsh+rCsjw0PzjYMQLtCidZocOT37+iL0vy9giOo47aYWwLC
-         WdlXQkxVzUoDi9mZcFUNqgVfhCsqU4Y5qFupfHHROYeqShROzYiN9JGATKcSITFKd0Cs
-         TrQbCeahPxscBXmvHiBT11wYsO7iU2wNGCyiiU3WQ90R8ZioAq9gy/CSivRjM06hiQXt
-         19tg==
-X-Forwarded-Encrypted: i=1; AKwUvBygfXJu/H7GfqGxAdWxA5Po4DIil3/5RAXFk+JpgI3ltC8oPN6OBhLAZspLNDjVDtSJUwso3BcH5oC/b+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINA1C9ICCr9zPIJvgvxKwpLrG/GYL8deV701lDefPu20TrrvaS
-	cYBfvp+4QJbtEvU8pZ3DwVBOBW7NY+sCuvSdNy3b4QPfaPafzRMREqqEURrgQfmWEvhKYVhR+e8
-	rSNu/8PNggA==
-X-Gm-Gg: AYBFou1g1oPnq4bcQb5FgKih5qVa4vI6+OH1YmkNJhRRkAFu+AXKuthVMnCqtHDFNN8
-	P1/MAfZhmYRO9QGpFrKCvowOTPZjDRklYLm06WrkAoJ7cEAJ/47nSSu6hB+uP8QIdY7WyPRN6Vc
-	F8IpYiBpH5uXyB0jTfFQEjVa0wjW/7eRZWOpjFuEfNLyldVP55kVFqjeWttmbC5e92JkVEhAama
-	EMmvNMxo1LiibkUQn2D2BNfHqjfhWWOzy4Z1CS8icnrjkt8RpNODl6rrBfcK5ngTbZhTVDRpnJ3
-	RY079MRQPxDXFh30bVOop3LOqrcg2WubiL1azdjS1+3w6l5hGnfavw5zj9sHr7acigOmWoXwCb0
-	IeRPVFNXkTPF0PBy+V3itFmmsToluKSstbnj6fQC7ls1/6hn+0zru9Z2nlTSuDXnEP7yIwt9mC9
-	1VxumTCsVVA0QEJU3mXnpp7vxVell9HOATv8K214kZzoSC8U6gIjWYxk62px4EtjnUoafKxHjQh
-	UvBolqDX/hGLf1Cw/szDWr5/yI7ixCiyvx76cweHJUhOKG5SmYuf9vwo1nyY5Vm5XiL2I1wGPdI
-	CfaW3E4PQTlbaoaD9bqh7B8QlizOfqZDNsITu5UBA9DNmPR0RBPtgZRjA7TB7seIFkGjpncG3ZH
-	SH3cgO2i6Vw==
-X-Received: by 2002:a05:600c:3b29:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a997bfaa4fmr37804585e9.16.1793192072733;
-        Wed, 28 Oct 2026 05:54:32 -0700 (PDT)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c9f1403sm48686715e9.9.2026.10.28.05.54.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 05:54:32 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 28 Oct 2026 16:54:21 +0400
-Subject: [PATCH] scsi: ufs: core: Clear power-on UNIT ATTENTION on BIWIN
- devices
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tEm5XV3K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3L4wVEOZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NuxsBLoI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7ad5oBI
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DA48322140;
+	Wed, 28 Oct 2026 12:55:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=tEm5XV3KjbEjA41ZoYQtFK15SnyJr/jro2kAD7VcJ5Nd+xXCeh4MOSDOSl4gs16gOuMj1n
+	2xE3J3A8sl5Ltrq85nxbmFf18x515DUo74zEDgzkeO03pvq4GMkN0dvsQ2UQX/6VJbcXMi
+	2SihNsvbiknM4tPeVmrkd8edOj2h7vk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192110;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=3L4wVEOZnbwLwpiT/6p/yUN1CGm8BCBGENEqGDXYvBfXN4ALX7tkweq+NQgRINIks9l6SY
+	Oj9hq1SccSlw7FDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192108; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=NuxsBLoIZe0RCX6eCWMO4BBI2zD4MDPTwQN+oGb/8EVr6QFJtbQrfT5EbmRflQ0wO1Fq9+
+	IiN60C3UHKnxFucRljWSZMNVNDbWigF0ESpMoTysxKkpo6/YVc07F+3JRBXFFVsBG8uZ8G
+	IeyoyClDdnZWvRm7F4ix8zVnXzU760c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192108;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=d7ad5oBIDy9uyvYJSfVkcYBqi8kIr0BJCTIvUM3nFJwDeXTA5GEVesAI5PARxFiR78fYFd
+	Yu8Y7PsZt+zW+8Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6B0113419;
+	Wed, 28 Oct 2026 12:55:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UmP0JKjw4WpyFgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 12:55:04 +0000
+Date: Wed, 28 Oct 2026 12:55:03 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Barry Song <baohua@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
+Message-ID: <auHve-G8bboW77IZ@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
+ <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
+ <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org>
+ <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,178 +142,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-biwin-tua-quirk-v1-1-767a12c9b9cc@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyML3aTM8sw83ZLSRN3C0syibF2TNFMT47RkSzNDQzMloK6CotS0zAq
- widGxEH5xaVJWanIJyBil2loAo+aODnMAAAA=
-X-Change-ID: 20261028-biwin-tua-quirk-4f543fc96116
-To: Alim Akhtar <alim.akhtar@samsung.com>, 
- Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
- Stanley Jhu <stanleyjhu@google.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5556; i=alchark@flipper.net;
- h=from:subject:message-id; bh=sPjc0WbtQP3T5OVtFuZlBHejCL2UFm9D19nKEw6dZCg=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQ9/NA0Ldb70pnC8pXuSZO15+jePJ/ipcw6gX9XwoalW
- S+iDYyOdUxkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkY6xjpGDFycAjDV6iYM/xO3hJfvvNTOF2Jem9C2frn22SJps2f8J79aVGZFhXwJ/cHI0Nxs7vr
- +e1T3zFWXcyZIXvd/qN757GXy/ZKohicP3X5a8AMA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux-foundation.org,cmpxchg.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-With the link off across suspend (UFS_PM_LVL_5), resume resets the device,
-which leaves a power-on UNIT ATTENTION pending on every logical unit. The
-SCSI core retries the command that receives it and relies on the device to
-clear the condition once reported.
+On Wed, Oct 28, 2026 at 03:48:09AM +0800, Barry Song wrote:
+> On Wed, Oct 28, 2026 at 3:07 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+> >
+> > On 10/27/26 11:38, Pedro Falcato wrote:
+> > > On Tue, Oct 27, 2026 at 12:17:22AM +0100, David Hildenbrand (Arm) wrote:
+> > >> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+> > >> mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+> > >> and newer heap mappings, causing later brk() requests to fail.
+> > >>
+> > >> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+> > >> cause inconsistencies.
+> > >>
+> > >> As a simple and robust fix, grab the parent's mmap_lock earlier. This
+> > >> way we don't need to update individual mm fields in dup_mmap() and
+> > >> keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+> > >> exec_vm, stack_vm), as that is now no longer required.
+> > >>
+> > >> Keep releasing the parent's mmap_lock in dup_mmap(), before
+> > >> userfaultfd completion, to avoid moving the userfaultfd handling into the
+> > >> caller. This should get cleaned up later.
+> > >>
+> > >> Move uprobe_start_dup_mmap() to preserve the lock ordering.
+> > >>
+> > >> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > >> Cc: stable@vger.kernel.org
+> > >> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> > >> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> > >
+> > > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > >
+> > > FWIW, strictly speaking malloc() isn't usable in a forked
+> > > (multi-threaded) child, but glibc/musl provide this in a best-effort way.
+> >
+> > Yeah, I'm more concerned about other things that can race ... :)
+> 
+> Regarding the race with memcpy(mm, oldmm, sizeof(*mm)), we
+> still have one [1] even after this patch.
+> 
+> That is, copying mm_struct can happen concurrently with
+> lru_gen_del_mm(). However, this race doesn't seem harmful.
+> I might be missing something here though.
 
-The BIWIN BWU2A0526B128G and BWU2A0516B064G do not clear it when reporting
-it to a WRITE. Writes queued across a system suspend then fail on every
-retry for the full 180s retry window, until the SCSI error handler's
-TEST UNIT READY clears it, and end in I/O errors. A single TEST UNIT READY
-or READ clears it. This seems to be limited to the particular BIWIN device
-family (with 128GB and 64GB variants exhibiting this behavior), as Samsung
-and FORESEE ones I have tested clear it on WRITE as they should.
+I don't think it's harmful as well. mm_init() reinitializes those fields.
 
-Add a device quirk that sends a TEST UNIT READY to each logical unit at
-the end of ufshcd_host_reset_and_restore(), and enable it for BIWIN
-models starting with BWU2A05. That function follows every device reset:
-on resume from link off, system or runtime, and in the UFS error
-handler, which also carries out the SCSI error handler's host resets.
+Though I hate that memcpy. I think that ideally we copy by member and
+data_race() benign races, like what is done in vm_area_init_from().
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/ufs/core/ufshcd.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++
- include/ufs/ufs_quirks.h  |  9 ++++++++
- include/ufs/ufshcd.h      |  1 +
- 3 files changed, 64 insertions(+)
+Anyway, KCSAN reports aren't the most serious thing in the world, so this can
+(should?) be cleaned up later.
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index ee643830a57a..d52275a813fd 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -321,6 +321,9 @@ static const struct ufs_dev_quirk ufs_fixups[] = {
- 	{ .wmanufacturerid = UFS_VENDOR_TOSHIBA,
- 	  .model = "THGJFJT1E45BATP",
- 	  .quirk = UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT },
-+	{ .wmanufacturerid = UFS_VENDOR_BIWIN,
-+	  .model = "BWU2A05",
-+	  .quirk = UFS_DEVICE_QUIRK_TUR_TO_CLEAR_UA },
- 	{}
- };
- 
-@@ -8265,6 +8268,55 @@ static void ufshcd_process_probe_result(struct ufs_hba *hba,
- 			  hba->curr_dev_pwr_mode, hba->uic_link_state);
- }
- 
-+/**
-+ * ufshcd_clear_unit_attention - clear the power-on UNIT ATTENTION of each LU
-+ * @hba: per adapter instance
-+ *
-+ * Send a TEST UNIT READY to each logical unit to clear the power-on UNIT
-+ * ATTENTION left by a device reset, for devices that keep reporting it to
-+ * WRITE commands instead. Receiving the UNIT ATTENTION is what clears it, so
-+ * only transport failures matter.
-+ *
-+ * Use the device management slot rather than the logical units' request
-+ * queues: those are blocked during error handling, and during a runtime
-+ * resume of the device W-LU its runtime suspended consumers cannot take
-+ * requests until it has resumed.
-+ */
-+static void ufshcd_clear_unit_attention(struct ufs_hba *hba)
-+{
-+	struct utp_upiu_req req_upiu, rsp_upiu;
-+	struct scsi_device *sdev;
-+	int err;
-+
-+	shost_for_each_device(sdev, hba->host) {
-+		if (scsi_is_wlun(sdev->lun))
-+			continue;
-+
-+		req_upiu = (struct utp_upiu_req){
-+			.header = {
-+				.transaction_code = UPIU_TRANSACTION_COMMAND,
-+				.lun = ufshcd_scsi_to_upiu_lun(sdev->lun),
-+				.command_set_type = UPIU_COMMAND_SET_TYPE_SCSI,
-+			},
-+			.sc.cdb[0] = TEST_UNIT_READY,
-+		};
-+
-+		ufshcd_dev_man_lock(hba);
-+		err = ufshcd_issue_devman_upiu_cmd(hba, &req_upiu, &rsp_upiu,
-+						   NULL, NULL,
-+						   DEV_CMD_TYPE_SCSI,
-+						   UPIU_QUERY_OPCODE_NOP);
-+		ufshcd_dev_man_unlock(hba);
-+		if (err) {
-+			dev_warn(hba->dev,
-+				 "TEST UNIT READY to LUN %llu failed: %d\n",
-+				 sdev->lun, err);
-+			scsi_device_put(sdev);
-+			break;
-+		}
-+	}
-+}
-+
- /**
-  * ufshcd_host_reset_and_restore - reset and restore host controller
-  * @hba: per-adapter instance
-@@ -8306,6 +8358,8 @@ static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
- 
- 	if (err)
- 		dev_err(hba->dev, "%s: Host init failed %d\n", __func__, err);
-+	else if (hba->dev_quirks & UFS_DEVICE_QUIRK_TUR_TO_CLEAR_UA)
-+		ufshcd_clear_unit_attention(hba);
- 	ufshcd_update_evt_hist(hba, UFS_EVT_HOST_RESET, (u32)err);
- 	return err;
- }
-diff --git a/include/ufs/ufs_quirks.h b/include/ufs/ufs_quirks.h
-index e9c59ec1ceae..74d4ca3badb7 100644
---- a/include/ufs/ufs_quirks.h
-+++ b/include/ufs/ufs_quirks.h
-@@ -17,6 +17,7 @@
- #define UFS_VENDOR_SKHYNIX     0x1AD
- #define UFS_VENDOR_TOSHIBA     0x198
- #define UFS_VENDOR_WDC         0x145
-+#define UFS_VENDOR_BIWIN       0xDAB
- 
- /**
-  * ufs_dev_quirk - ufs device quirk info
-@@ -109,4 +110,12 @@ struct ufs_dev_quirk {
- /* Some UFS 4 devices do not support the qTimestamp attribute */
- #define UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT	(1 << 13)
- 
-+/*
-+ * Some UFS devices do not clear the power-on UNIT ATTENTION condition when
-+ * reporting it to a WRITE command, so writes keep failing with it. A TEST
-+ * UNIT READY clears it. Enable this quirk to send one to each logical unit
-+ * after every host reset and restore, which follows each device reset.
-+ */
-+#define UFS_DEVICE_QUIRK_TUR_TO_CLEAR_UA	(1 << 14)
-+
- #endif /* UFS_QUIRKS_H_ */
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index be62165b785e..6140798ed128 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -37,6 +37,7 @@ enum dev_cmd_type {
- 	DEV_CMD_TYPE_NOP		= 0x0,
- 	DEV_CMD_TYPE_QUERY		= 0x1,
- 	DEV_CMD_TYPE_RPMB		= 0x2,
-+	DEV_CMD_TYPE_SCSI		= 0x3,
- };
- 
- enum ufs_event_type {
-
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20261028-biwin-tua-quirk-4f543fc96116
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
-
+-- 
+Pedro
