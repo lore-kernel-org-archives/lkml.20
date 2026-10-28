@@ -1,89 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793168178;
-	b=UP7yqmA12BQPWQIMrc7+3mz6bCY3OzU0AVc2L27XE5RgkxIKo1I61yQRWNv93PRBE6HZ
-	 c8k/Lt5mpeD/Cy48bNr0se3pLtWbSI0bQ+WFWs+WMaWjNuSl/EgqzHTXTEp17SrzWZOa5
-	 WrXYH9Bl3gxF/CfGriJ7IKBAGuZy6pq0wsyT2jaoGxnBlCDVUuegV78M+Gm4Hyt75h1Ji
-	 2U84Dwq/mfknLLs1v/CII0dxOtUTuDWyNaSYDo0mKKWu2eCrPBhTauni/OdUmZrCBIdMm
-	 yqs6cB4o6aUyC2nXhButK4thmqjgYx3HMXsUeVq09WgVY3aNnut4qpDIyRqupTYGxPw==
+	t=1793168197;
+	b=ez+aUT/XrGIj7CbBEjF6ozzMrGA2pEwxfqub2n2m8BRMEiE8SLYla3LVfgGCgrrrXInw
+	 qdoVmMoQKhKYpj744MdhZZXyXe7IRLXbVRCMGfcHnV5wcCpguKywyV5ic6VReQLerNuBf
+	 jYVEUtfGO6UC7sVgf9nDXJmNFi9Txy+CA1SCpB5QVUbIxtLP/OyfjGDjedOZgO/NThO+9
+	 cUajN/So9SPOn3HuM2HirDcoLlXLRyl4qfX2wvFKoWw/MLA8bh89/SQjf4OqY33UhZfAD
+	 aqKquIuaRbA4AwDT1ExNEOVH7rDFAUzvAMmXH1VEnAVvFytIduvTGgFB1EKFBhBpAGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793168178;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793168197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=upb2yDjK+Sz2Or79oIRzVU6fGyWUl+WecZ9r73Zp7qs=;
-	b=c2rlo1xFrQ9P24Bw8IHnNWdLdVcuGToWxBSbTV3aSIDG5ss+UjkH9oH5Lq7J5xkxmSfx
-	 2/1NsP847fmTrFM0xEoPkZCVbjnrnwx295LOFJB30UmXHVf2AqnaMFIzzBeW2EDt0kYTZ
-	 T3hPMmhqbVvE/a5hHh/Lx6gg8eS8irk8ESpsxFkHZV52R+CZeWL5zbjEz3eRaFz/pFyeR
-	 F/xIoJJpBhodz+5mbfALRa2FGL9zXTLYZ5J/7wW4gxBXLuGz26uRAL2h2ymA3bbGSyUwQ
-	 G4itVRCIgWZz0Qusqg3omxWkVBnmI7Yt6AjnyAbznlX2CU4LPHpv2JRcAbLJweB4X+A==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
+	b=maKQ7z+8VX+vQO/NwOsHthMf0z4qEDItykwmZcWvONvfEVX4RKDtSLoXR0gY/Tc+ySdg
+	 fymULZK+5V2CAOY9SPKb+OGbwkDoKebocOBxq6wIrfvV4YiCYSvHyrsK0hA5h1ypU82ia
+	 vMP9artGTz+W7Fu7i0aD7AfT2brKSR74CbZy9LOOQlECBRQhNJO1myOEwpK/mPZYWcuG7
+	 ot72rI44Ma+KvsjyRdhv3EUdzee+WZ9aCAg7BGo+i7qQrR0qHpYnstCEkpG7RexMsGePK
+	 lHfuyE1o0RySsuiHfmuiHPlgEmkKtEvehhWTYfnIvAuOTVTC+TIwVhE6i7uxWdpnogg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xVrrS+rA;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qL75CXXS;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7D6606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7D6606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE312606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE312606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xVrrS+rA
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4d648aacso594031e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qL75CXXS
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae0852df46so498328a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793168176; x=1793772976; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=upb2yDjK+Sz2Or79oIRzVU6fGyWUl+WecZ9r73Zp7qs=;
-        b=xVrrS+rA48dR++IWDoeT0yzgI8xGj6gmsCuXugY9JkQg8WgACbfDsXwKUBfsfE+oO4
-         xWeUg+T12a7Bbfsb5wCcdiLCdoMQu5a5u77uLDQJ2AYHQiH8zXrGn9/9sXY008GV+gQR
-         Rvf6zK1RU7ithcxnnEsZgKBC8J6OXzVYOYbWHsEVuUJS3FGX4oFYxfsqQyMBoUUaIJzn
-         p5Gg4diO74fqYRoEQqGKbXmrpJGDvWGUg+MQpMwxlvGGVncK5E6Z9c3jw3DJOAi9sncu
-         baKYmGIraPwobQ9M63jnTuEVNUa+cPVrVO+L33aJu2tm42cwY6MIQ2pZE5R883rrFRCg
-         qSfA==
+        d=gmail.com; s=20260707; t=1793168196; x=1793772996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
+        b=qL75CXXSLAU/Gv2tLrwqvQXPx4mu4GWPyIo9Q1zgJBv85dLOVQzwja3aT+nCxp3GUm
+         8X8u4UylayMON4X/Kgu2lHWAB2MwBylTV3UA5khPFMl62Ukuv3Bge+LBhjqYP4Js5L8O
+         ZhZETSZ4kfYzJdQ2V0177tWGB/K3S7HavVD06xvtKzVXOkgUejx4C8HO+ElqiadTmQuy
+         pzAmR4utmFQ8sNiFITD5YKCQFHKGCvOAoB3ltnvQ3st19NO6obqIVr9J3hnSFs6j2J4v
+         2mC8pEGgACy1uvaN8XVNcLuM7BOTHFprhVwT5MQEaUBRaFnObKL9qmWYdG/tGFAwPF7G
+         jViw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793168176; x=1793772976;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793168196; x=1793772996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=upb2yDjK+Sz2Or79oIRzVU6fGyWUl+WecZ9r73Zp7qs=;
-        b=RyA/ZeQPubRnYu1KO1w3m4pHSQlCm2rwf9jXDFYUIwlRMENYP0HKJQYkYO6NHgX7vF
-         uaS7O3Yvpuz78lBzQ6bGE89P2u/JvSB3iAob0ZbvR4y/GWkub/0rvKZdbmwbZsp+cHSC
-         0YJx3eF0BnNlRVxmdvm9RuARe66e1Q4NOhXc1Z2+IHrGXj59O9Xuk15pHE83eQyF+OCI
-         YCkJ11qXxXZTdl5cJy9Qt6q5h3A0NupaQqyWCHW1Xf+CcwnEcVR7IS5lbuuLi9MIf4ao
-         ZrNBWW/bDKlzYF7RemJG7HwaJMCQB6AnWA6sFCU7Juq0y1TnfcZa28MeMhC35wpbeB6Y
-         XXBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNjUZPoTp6ujAxSVZ9hVHFZXNW02ZhIzvvtbm8zCaf6QDg45FPcnFiDUlP/TN+gMCp1ohfIl2/8mM3zsc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkRMYhaes7kSJEfReOoR6Dd4Y2VTsl3l+OTfOFtBXVWcXB1dfJ
-	E0rhT1Im1z3DvN5l3uvmch+T6T0TC299TSD2h7wIv35eYztx/2/c15mO
-X-Gm-Gg: AYBFou1MhXGj+J14H/BPK4V+P5RN9hE9+hcrUqMEdgBDXR9BtnXIt55knIGH0tMdyeF
-	kwbyBzpKXkM1b+X0zv6XDK4H3kwVgnhYfGQ3QP4uk/IwP5QzPWde8/0cTRsZgfktJ0yWnZ43gqa
-	mxc4rDcheOxLhHnDH33iciEzvveWz4uzPArfZvWFPcn4JuxFkCUS6jm3gSsg3Txbv+q4dFJpYZF
-	mOU47SVbu1TdoXv8uJMPkmpGR6qG/nP3EnByBYuqlNwihe0Nu2YDETUIfg/8XE5XTWvJezufCDF
-	3Hsw5E14jRmjlCbA9PBztXIb4TpcstI+gEcwizrHTe/lXHdms4x7dx2Wbe5DUKa7VPSBLMyoppt
-	KripPOReSk2Vss8S+8lzAcKSQzmpDGci/cU8jWWXrlqeWiypQz1xXY8NDhiE/YQcweFkTU8Pk5f
-	ZfEmtJbxsju5eEkNUJs0Uf3rnVGMCtpFO0s5SwQ5S6VM08a1OcpG+3NXHDu6wifuvAATqE3ZPgj
-	cm6Pg+O6nJ/KW9uTP6NSKOukoz/J7xlDbNhy1puBk7QMUfVByGKERTbj/3e3XfV4j4xjvhx+tBV
-	J0PD3NZbjHfFJDRGEYBl3BcUUnrUm0MNjR6b2ER2AjsUjyIp4kS5BWtlhU6IzVTyDZZEPXLh/9n
-	hcBz6yJakcA==
-X-Received: by 2002:a05:6512:3a82:b0:5be:4be3:bb8f with SMTP id 2adb3069b0e04-5bfcad787eamr578392e87.19.1793168175751;
-        Tue, 27 Oct 2026 23:16:15 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca47f9f2sm400912e87.8.2026.10.27.23.16.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 23:16:14 -0700 (PDT)
-Message-ID: <9e9a2f4b-b6d6-4faf-95f2-e227b41d27eb@gmail.com>
-Date: Wed, 28 Oct 2026 08:16:11 +0200
+        bh=9R9LaBRh9udXMBlJBNWQe1InqKAXJ/9+XRSXSIVZido=;
+        b=WpnORWI3nb7BFMm8O3LPotPn98Wtdj+2WDdnmRgw5yTWOktE1uO4vjvXA5OsKupmEb
+         wYqmEv6A0HkI2Wr4mwI9rGJJqGxpNeGtgqxCGkNWPlZHObgvRVcKB8dJtpgRwUHe5yqn
+         o6oDLTKW05Vv2BbTTCg3CayIeM1eBxatWwhhWZEsaW+hp3KNFfiglktoNOfhe3WaMKZo
+         2CQQJeNg/V4/RSR76czZkEcQescUJOdBLyXxONx92u3kS1xBro1Ij7d5bqCQ03CuLaau
+         ghTUiou+c6deJhm8qmyGcuaVy9fK3+nd/XqnM1tgj9VNS/m3n/C0WPXuYtgIc94byNkZ
+         ltVQ==
+X-Gm-Message-State: AFq9FYJW0fzbXUNAqAVM8r3KMTakAHsLSKsugRFOTxwwvUHyJmfTLnlo
+	3ofLLWzbUuF8QSSdSTnWhIDvkr+0EPmumjyWAa0N4OqdkARU1+muuVOs
+X-Gm-Gg: AYBFou0OGTDZmGRglBuSTo6PaoZQ9x+y15OKEOtbgY/1J52WIkifUZ+oAhBTHWF89YG
+	ujG4wM9xBxBx6XAMkRszROw+zbv2/TNwwirtucV9UWt/YB9QyavkFJEmJB4w+TZPXEUP9QENvk0
+	nLtQybVQj/WfpuhYaLQ30Ee8ldbDuMoacY/uohfus6RTgJ4KzA4GSl5Xef0FcsUjwEBvNOpnsRE
+	XEp5ge1rpnHE/dfu/p7mOWqWBn3uT4hb8F9TFGyJm2YmpvNcoCm8PfeXB7v3QqWOQmsP6D3Vbzz
+	Q6zPtomuSH1BzpuNCLGXcliLScEl+PvzXpPCZ3GB2XGtTaVHqx0/obxQP1gD+gkZnhRz2ybcR5s
+	AsUmhpI+yEWh5WHoNdNBvz4sOZSI45ajWXHPL1MsMrxLlPT3rlhh//eK1kx9Ou9YzDLphocNTfP
+	nYfE4X1LLuw1UXzANvLPeh/EBTotydq783UkwWnOFr2AtFg9uiW5aNd0DyoRP/Py0DedwJ24x3G
+	PqNqXCCawk+9A7HZysHPYp4Nm7GBLy3CRqgmu6vseVO0fOkSKFrlHkFw6CIGBZuQdig2zcCuueo
+	tBCp0Spp1nYwDSLB+JlL5Da49lLYWqdv+tHzHoOTAxci+0hKkCh+gfkQXuUGjk9x9g==
+X-Received: by 2002:a17:90b:2ec7:b0:3a0:cca0:4a8c with SMTP id 98e67ed59e1d1-3ae5c6c4568mr318608a91.7.1793168196136;
+        Tue, 27 Oct 2026 23:16:36 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a586662sm1433996a91.14.2026.10.27.23.16.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 23:16:35 -0700 (PDT)
+From: Jianping Liu <frankljpliu@gmail.com>
+To: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	frankjpliu@tencent.com,
+	linux-ext4@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ext4: fix soft lockup while shrinking the extent status cache
+Date: Wed, 28 Oct 2026 14:16:28 +0800
+Message-ID: <20261028061628.1209508-1-frankljpliu@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,47 +99,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/9] iio: accel: kionix-kx022a: annotate the lock
- helpers
-To: Rupesh Majhi <zoone.rupert@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>, Andy Shevchenko <andy@kernel.org>,
- Benson Leung <bleung@chromium.org>, David Lechner <dlechner@baylibre.com>,
- Guenter Roeck <groeck@chromium.org>, Jagath Jog J <jagathjog1996@gmail.com>,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Jinseob Kim <kimjinseob88@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Remi Buisson <remi.buisson@tdk.com>
-Cc: chrome-platform@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- Marco Elver <elver@google.com>, Bart Van Assche <bvanassche@acm.org>
-References: <20261027124954.110697-1-zoone.rupert@gmail.com>
- <20261027124954.110697-5-zoone.rupert@gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20261027124954.110697-5-zoone.rupert@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/10/2026 14:49, Rupesh Majhi wrote:
-> kx022a_turn_off_lock() returns with data->mutex held when it succeeds,
-> and kx022a_turn_on_unlock() releases it. Annotate both so context
-> analysis follows the lock into the callers.
-> 
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+From: Jianping Liu <frankjpliu@tencent.com>
 
-Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+__es_shrink() walks sbi->s_es_list and reclaims extents from each
+inode. On a non-preemptible kernel that walk never gives up the CPU.
 
-Thanks.
+There is a soft lockup report on our company's machine. The machine
+with millions of active inodes, 256 CPUs, and heavy memory pressure,
+concurrent shrinkers run too long.
 
+i_es_lock is dropped after es_reclaim_extents(), and s_es_lock is not
+taken again until the next inode. Once the shrink has run for one
+second, call cond_resched() so the CPU can be scheduled before the
+scan continues.
+
+Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
+---
+ fs/ext4/extents_status.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 018b6146b9d8..c9c70db5eb71 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1679,6 +1679,7 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+ 	int nr_to_walk;
+ 	int nr_shrunk = 0;
+ 	int retried = 0, nr_skipped = 0;
++	unsigned long end_jiffies = jiffies + HZ;
+ 
+ 	es_stats = &sbi->s_es_stats;
+ 	start_time = ktime_get();
+@@ -1719,6 +1720,15 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+ 		nr_shrunk += es_reclaim_extents(ei, &nr_to_scan);
+ 		write_unlock(&ei->i_es_lock);
+ 
++		/*
++		 * Call cond_resched to avoid soft lockup if a kernel with
++		 * preempt disabled.
++		 */
++		if (time_after(jiffies, end_jiffies)) {
++			cond_resched();
++			end_jiffies = jiffies + HZ;
++		}
++
+ 		if (nr_to_scan <= 0)
+ 			goto out;
+ 		spin_lock(&sbi->s_es_lock);
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+2.43.7
 
-~~ When things go utterly wrong vim users can always type :help! ~~
