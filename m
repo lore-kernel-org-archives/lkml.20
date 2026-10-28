@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218069;
-	b=cAiOH65gdZfCJgYTFMXdMYs6a/MfOSw3SXkw3hoAoJlaB3kzXzGjzBEA0wyJ06FcLJo6
-	 cp29ym5f7M1gPq/jhz0pCeAJP7bn7QGWar4i/PxViYC9VNlV71cS+1SViTHC35xheOhuU
-	 jeoNvrfsIPTClgEqvyquARklByBMy7RiVAORKATdE2Us3/zD4thmhuJTlFoeTcXrGJGLx
-	 Ge7r0hx3VptDEpQseiXrG2p4WMHxNvoTwa1W/vQDBFx6vh4+dNDgMsepHJ1MrOXMl63rc
-	 ZfciLrgDO0qXk4llPwuFb/arkvVzhKBtTMb/gbBrRFjPn4n4A4VGqoZwMDzfiqJh4cQ==
+	t=1793218071;
+	b=LlWvU9+R9o/gDV/cswVh7H5aTHrwN38yn7k/R6NRpPWbBmOdZHNqE9lFeQNuy2y6PzlN
+	 Vptt3PeHjwJyMM+0EpRmGcYPChLVpHplMMnXDTK39CutE5szkTPPaB51qR6ATh+zr2dX+
+	 NYTP8Bq7I7c8v+rAZkaOleJugOBCFKXn+cXScJSup/hijfPIggquQ9b8xFrzyhLPeH/lI
+	 wSIC+LsUVZMW6jWAipPR7oBzDIO4XL0OdgpHuIOf6/l3hV6WZgIHYevsf7uiQBL81bPxh
+	 qAWhEUmJXUL35cCXsZxvxj1YVd45HK25RoxlxiIAjS8Cl69oYjATGUuioOvUOLtQL+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218071;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yU15C9lGWv33DmyhVTu5h/6S42IJzqFMS8tB7NUy6cw=;
-	b=F1MWHwmM5l59dVb6fn6ALm2ezpjXy4J4pzo9cKJSM0RWOqLpw21TS8jkN5G95ZhNfBgE
-	 Jz6zE3JeiSss8nS8ZLmJkardTqH6gkGt86VgAOdaFWa6LINrU7ZxFIG48JnID2lyLnst3
-	 SIVUOzZSy4Qq7kMXZpdQ9j6dDOoKp9PPRkiRrb48Az7eT0+Y+sL0IBPwXV/Y04hC+wDkO
-	 95m/yUycydg+lgDIY18Mm9JHhKNcM/4us3e6UwmO9zxr3P+1S44Q8h1ytp3fOhnSaJww5
-	 7C7DpoXlueLm6SAKnz06lKecaHCXuAET5pQDRt1TaXvACTD9xDN2LcRtr4f3WykxKzA==
+	bh=45B3EYVV7L9uR4EJrE7Zfbp22ck+MWK5PE+WpGQpSrM=;
+	b=k2uBvpeaUc7RNlf4qDFWoSoOdWrLVEFLBZgIxrw/KFas0pnmhac1S18w7/Z6iFokRVZe
+	 Jhs1B6IiQUAKzph3M9M5RUZrtecEcYFJdn9qhNHpck8cRquDjObQaLBg5J3OQKmnBjG1c
+	 qQoPeQmOLZ+mig8ZC9JvO7ltlNiXlFd4EnipUdKK7f+yCzMOCq32fWeGGVN+xDMSY91cB
+	 x43lWVXO9myELTPQ7q4xShpWf2cLcaieXMnO7P314M/9LV7WjGQIBDWnva+FReJ9io+2x
+	 GY8LFyqUQjtcvWitqCv69TI+Kmf9K0cghkP1WOz3blW4pEM0fRwACTF9pxmhU5a2TDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YtHfr7qP;
-	arc=none smtp.remote-ip=209.85.161.52
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yv2yY5bC;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B000B606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B000B606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F433606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:07:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F433606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YtHfr7qP
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6dd059478dcso1072501eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:07:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yv2yY5bC
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-85a5455bd3cso850993a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:07:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793218067; x=1793822867; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793218070; x=1793822870; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yU15C9lGWv33DmyhVTu5h/6S42IJzqFMS8tB7NUy6cw=;
-        b=YtHfr7qPjSYo96TVPgIMHoy8TBA2zUpb+VWu3s4l+GYonVMnKgWsOoiF2MHC7T5Aiu
-         a8QeoYoB/RxiaqXFiAxtLlLym5Yh1X2BCJqzlz6Zxy1HAa71p84IBQLq6/U/hJ9XDIwz
-         1RyC2Vz90wgp9orha9NteWCbpe/Bx9GndPp1lUyKYhz4W5d1b3fZ5DHyFROdd3TP209E
-         Lr0RVF2c34MlgbcKiClhiInQkrAhesp0GTt42Zp6sVt5+DVmunNJ9xxusTlokYLkH0mQ
-         fEglLI95ubsTdGN/s4Y6EqFYE0IEnuHJh01m50A9Egw+uegxkzSMJRe9x4q56xCV95CY
-         beGQ==
+        bh=45B3EYVV7L9uR4EJrE7Zfbp22ck+MWK5PE+WpGQpSrM=;
+        b=Yv2yY5bCMtedG56M+matoiFXdcZTzrCvxxmk9VtZNA42QRT7hjNx0ivck+SsYuzKNd
+         gU7ZJ1sOnYdLXuOSXe7A2r/KrJQsZXdcayOC1hjZJsseX59OABaTVNdgFd3uPZVq+uRg
+         zgfcIAGsqJXItpfb11g4Pz0Gmu9IFGPgQdBHfqBB5MRtXUVfoAXI5wc63N9JIWUZpVXQ
+         4IfnReIyQCyYtu0FT6LE2DY4tP45SVhUCaqoPhcP1x7Uipud71YNRNN7MWz61buBJWIa
+         KnNre1ueV04832QeOIyaZx8I8CBKDAVX5F+clVSelbdWz19wdRGYaYBsLI3JAmblo8lA
+         fvQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793218067; x=1793822867;
+        d=1e100.net; s=20260707; t=1793218070; x=1793822870;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yU15C9lGWv33DmyhVTu5h/6S42IJzqFMS8tB7NUy6cw=;
-        b=Ymv7xi+pdLcv7n1WJynklGh66Q9IYpHmAUwKtoxTwmEF8lc7iiKt7UOx5nVtKMXoLH
-         jM/Uwf7uwLaqhdaXYwwaih/bVNqCvUbgBjo24BKTK35zUbcZDHCRKYy2v284YxWcBQ24
-         eKsV0awg8FiGnu2l1EP/QsCaGwuWwI6uYTI+M3YNvnuf2+9DnosxvVKVnyoV53knX8/k
-         iyelBiHhoCyBO+15E2BTEfkStJpUlEKtLeYKcg2M1cakIQMYj5O1d27ZPDYeyG5M6YG1
-         IrDge5x5qE3aXYohszKL/5RD5Zzz5sR/H0SYD/nUpR2TFB16NPYfm5UF4RW7PVV9F3cI
-         K73g==
-X-Forwarded-Encrypted: i=1; AKwUvBxf/oeo/1+DSj5D7jS/I5AE4+MOVGd1we2KUIwuwyHzfzqU9OPyVTKwxFCvoc9pVC2ZBwCypomgX6dVCSw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOfyKxLxYO2pnKKEw2u9yWqAvz8mSlZEgIwKPsV8b/ch1W2904
-	Y44udpdP0j1anassDZe0OCwQAXsLozB8Ib/BltSrPzrzIpQTGRuFMx/o
-X-Gm-Gg: AYBFou0jyX2VKflclYUkyTRhoAt7xU+KUSEGgKypfCzsZyXP1Q5hqkG/3OeQiwY9ihN
-	3YJnAPtM/1KYv79aw5v9QMSa7TndzHWi7+DMMVgmURtp3znPi2RDqlAuqll6ngWVIwFr4E29ccP
-	X9wyLCxdWl2msYNn4bg7Bv9O8x8Ctqn0Uuc11cNCva77k9bwd3DmDTrdts4g00Vjkeq+2GxwQbn
-	JrRGkUtWyHu8604I9P5fkb+yFAA9rD/FBHXpeMaKW2GSkBX+F2MnG4P5FNzaduSD9zE4dGa+6cY
-	t47/UI1s2dd4zEgDQpWGAxcX/UyDQ9zAVdNp/GFuSeYRvlOocznJVOh8FFw7CGBf9UOuJooSeUZ
-	Q0SxOqeUZV6RKqo6VcChyeQ3hfw+5rrj8ZS2VVi53ZdBGFd94T/jKsxrB6OQs5o2xeRB+c5d5Ji
-	YaFOvhQH5r95qWId6MXDmUAfIUzNpNjCCGFX2ZCGjS6WI1pgZ1jysR9UunfSPhL/ILAUN9BFXP5
-	Rlk+BRNUJtAt/XQsaT7n6PshMdHGoqID2XniJRk68AlgRO9tcHEjdymAz2hP4mx/NPFkKF+Bnf6
-	oAdMasGSrEvaImlDauwS/53bxvm7dGLpqg0cRA8bfm2kUfeXBNQljvzPZG1US5GLviSNs58=
-X-Received: by 2002:a05:6820:828:b0:6c3:2390:c293 with SMTP id 006d021491bc7-713edca6654mr2114633eaf.32.1793218067584;
-        Wed, 28 Oct 2026 13:07:47 -0700 (PDT)
+        bh=45B3EYVV7L9uR4EJrE7Zfbp22ck+MWK5PE+WpGQpSrM=;
+        b=ywfjEF/aa9GMFo9oo1v8rWeGxDYHu7/uQrWfbEyrSimrjr6Z3x0D+Cie+t3XCGvnJo
+         Lxi5JzyvaABVmBaU60D8u3dCz1d3zMAuRfUw9DWAlvTITJRhMlapZsYDZT7lkpFhf9M8
+         gdkCu/jzwZkVqCO7wxwlFqBmRoiG/pqWhGYc289U2xa0Haw4ZBN0oXUwIgox1ft7uYgL
+         9vgFKQSAk9gX7DuH+sa8y6P0bpq4DSf7QICqvUTDFL5fRoMDOjWfXMUjfqYnkxbELki8
+         GvYFwykND4T75eVYmjglUU5eCRTdMWlZF8w1M3QkY1vYNw4j0k/nxjGqAl6/8hteOhJc
+         DP9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxm4VSxqnyBP03FjLIWr5gyJGd5HD+lv9D6UDgeDPvDEHblaRPvDdXOQZqyJhADNLtNRqJxFGBbwIWnfOI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgxihc/qSrAtlDtcfP5xD+Fh1fM53SZsztkdgojQ4vLRxOc0JR
+	F4dNVAZQpE5vC6x9e23foXr8WYz16uD/mPscQnrOiURuHoC+jqM3V86Z
+X-Gm-Gg: AYBFou3Kw7UYAlQut79xU/D3+Emo7lxInQOVwTiUn/AiVkkijjxoVPO04i48AZ0YStq
+	CTbaIHT0HwKYCjF6VzvuGL5Hf2adiXk5GeaOiqbhKjBoLEaq8Ay37IfevaTIzf5MhK9Vd8Hlrjx
+	g9hlUkAq01ueMHFf1dmRRfbwEIYsSB7GWxPlQDppc0pW+k3QaOB4USOEOo5TuKS7fLuGr8vofaK
+	GPvxhx1rrlvlKwy258SG83esaCytnNWO0bCyatSzeSyRgm5GF39HEcrj+fdUMEoLRK9lh0sW2Bi
+	0kzjdd4IoyDT0hj499gCZgnmzix9xAwDBkfrGS5fAJPhOqLduM6uQ5oZwRkWbiUsokG/eniaupG
+	IpslAsQr1QJQUW8CQZd0X3ruSGQlEI2B8eGHD9b6t18goGJZDKFm97sGI5ZX2G8Ew3UE8frINSP
+	mqL5jTyq3qkTryCyywf1c6LyzngBoAuRnNuWoLWqThXu+aqA8mStjy2ULz6u2VQcEc+mpYAoG7g
+	86HsiGTtwclSf1IgzpkA1aHcCMY4sXodjkX3dy3cO9taHZd1lW3VxAzNxHbnSzgyUY9ZZyDAJY9
+	UMS4meQz/XFKd4IqmUWE+NqkvO9sTnPvDHXCVq6EgvjzWwOoQMCK93XZzCCZ8KbGMi92Xf8=
+X-Received: by 2002:a05:6820:1394:b0:70d:d3a7:24d3 with SMTP id 006d021491bc7-713ee089ee5mr1973598eaf.24.1793218070241;
+        Wed, 28 Oct 2026 13:07:50 -0700 (PDT)
 Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7142cc3982esm2275539eaf.11.2026.10.28.13.07.45
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7142cc3982esm2275539eaf.11.2026.10.28.13.07.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 13:07:47 -0700 (PDT)
+        Wed, 28 Oct 2026 13:07:49 -0700 (PDT)
 From: Danish Khateeb <danishkhateeb03@gmail.com>
 To: Willy Tarreau <w@1wt.eu>,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
@@ -85,9 +85,9 @@ Cc: Shuah Khan <shuah@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 1/3] tools/nolibc: fix fopen() errno when open() fails
-Date: Wed, 28 Oct 2026 15:07:41 -0500
-Message-ID: <20261028200743.154151-2-danishkhateeb03@gmail.com>
+Subject: [PATCH 3/3] selftests/nolibc: test fopen() errors and update modes
+Date: Wed, 28 Oct 2026 15:07:43 -0500
+Message-ID: <20261028200743.154151-4-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028200743.154151-1-danishkhateeb03@gmail.com>
 References: <20261028200743.154151-1-danishkhateeb03@gmail.com>
@@ -102,33 +102,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When open() fails, fopen() passes its -1 on to fdopen(), which sets
-errno to EBADF and so overwrites the error from open(). A missing file
-is reported as EBADF instead of ENOENT, and a file without permission as
-EBADF instead of EACCES.
+Check that fopen() of a missing file fails with ENOENT, and that a
+stream opened in "rb+" or "wb+" mode can be both read and written.
 
-Return NULL as soon as open() fails, leaving its errno in place.
-
-Fixes: a009a0c6faa9 ("tools/nolibc: add fopen()")
 Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- tools/include/nolibc/stdio.h | 3 +++
- 1 file changed, 3 insertions(+)
+ tools/testing/selftests/nolibc/nolibc-test.c | 24 ++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/tools/include/nolibc/stdio.h b/tools/include/nolibc/stdio.h
-index ebdd413d13ec..00a95a267d90 100644
---- a/tools/include/nolibc/stdio.h
-+++ b/tools/include/nolibc/stdio.h
-@@ -79,6 +79,9 @@ FILE *fopen(const char *pathname, const char *mode)
- 		flags = (flags & ~(O_RDONLY | O_WRONLY)) | O_RDWR;
- 
- 	fd = open(pathname, flags, 0666);
-+	if (fd < 0)
-+		return NULL;
-+
- 	return fdopen(fd, mode);
+diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
+index f3d0d27cdbe1..be501b5298d7 100644
+--- a/tools/testing/selftests/nolibc/nolibc-test.c
++++ b/tools/testing/selftests/nolibc/nolibc-test.c
+@@ -1035,6 +1035,27 @@ int test_file_stream_wsr(void)
+ 	return 0;
  }
  
++/* checks that a stream opened with <mode> is readable and writable */
++int test_fopen_rw(const char *mode)
++{
++	FILE *f;
++	char c;
++	int r;
++
++	f = fopen("/dev/null", mode);
++	if (!f)
++		return -1;
++
++	/* reading /dev/null hits end-of-file, so a write may follow */
++	errno = 0;
++	r = fread(&c, 1, 1, f) != 0 || errno || fwrite("x", 1, 1, f) != 1;
++
++	if (fclose(f) == EOF)
++		return -1;
++
++	return r ? -1 : 0;
++}
++
+ enum fork_type {
+ 	FORK_STANDARD,
+ 	FORK_VFORK,
+@@ -1759,6 +1780,9 @@ int run_syscall(int min, int max)
+ 		CASE_TEST(fdopendir_notdir);  EXPECT_SYSER(1, (uintptr_t)fdopendir(STDIN_FILENO), (uintptr_t)NULL, ENOTDIR); break;
+ 		CASE_TEST(file_stream);       EXPECT_SYSZR(1, test_file_stream()); break;
+ 		CASE_TEST(file_stream_wsr);   EXPECT_SYSZR(1, test_file_stream_wsr()); break;
++		CASE_TEST(fopen_blah);        EXPECT_PTRER(1, fopen("/proc/self/blah", "r"), NULL, ENOENT); break;
++		CASE_TEST(fopen_rb_plus);     EXPECT_SYSZR(1, test_fopen_rw("rb+")); break;
++		CASE_TEST(fopen_wb_plus);     EXPECT_SYSZR(1, test_fopen_rw("wb+")); break;
+ 		CASE_TEST(fork);              EXPECT_SYSZR(1, test_fork(FORK_STANDARD)); break;
+ 		CASE_TEST(ftruncate);         EXPECT_SYSZR(1, test_ftruncate()); break;
+ 		CASE_TEST(getdents64_root);   EXPECT_SYSNE(1, test_getdents64("/"), -1); break;
 -- 
 2.56.0
 
