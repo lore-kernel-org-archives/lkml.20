@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793198960;
-	b=KmuDMzDFhXL5rVOcgshYMjRLQm0hCVflMXzbVxUrAD87fAyo4YFga+7x2rMZVawTJ7nO
-	 +TTu5jhw0RvV1XK8jbR5MH/pKj8xyp7iXnCA36EVe1EQRDqF4vIY2dO3R4f8vPZQIIDzu
-	 pn1IanBWmVoa7kiYt8bYi2MvSsSvGxiQhGvLlBO4NsGnlp4+CBrCvmQSQa2Ax1C85QgMQ
-	 2x8bRJvk7hrRQcYruPNcXg7Tc8+sIlvrE/JZGQK0E9oo44F8jCDbcBZIcmZpR93HyZcpM
-	 mse1bsvy5iyZ6tBinJ0CM59I0XeuA/+qMo+TP1bpL2ppS8ip3LUWwubJUy/kRWH4FDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198960;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793199043;
+	b=1XfpP4uioq29gleA39M3Ll8nxrrN+RenMXakm1KNioXfO8l8T+9eSeT+F1uwzFHYB5lJ
+	 pI3bZKZ/agOfTBdiP8igQQ8k2BQyRevUA9tTribZqSENSjSccayH2256TqWim7jSEvYCW
+	 kaTz9ScMq68qx7FwJmC2/G7CnrobOINVZhAXQFfP1xGG05OY3uuSmVuTMEU6AdLfkZMlp
+	 vxbNZ9w7TlvDNR3/JDSHq26e7YF3nPvvxLHOLHdo/Cto4vITcMiAqy5BJq0wS02zVk1QC
+	 bgBAlFuBjAxwpl9KtZePcUg+GqKi+DKhHHYeEaXkPfy9Wv3ZCOlIMdH6rI110cMuN7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199043;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=utCPzy+tkw4ynkgJD1keEVLYIPaT4gQebzETd+jl33s=;
-	b=fWe2rst3gaeArfRrcDDpNQb0vAQ1g+I2FMLNwpDYin+7XIifsq15bzCA/c2lfLGnTMu0
-	 UzdcGvixjpPaHyyK5Imux3knzZLRv6Qg8xuI530H/vIcZNwwTTd+DED7yNGKJrNP6lQbA
-	 shq0mpS5GOeSoy0f/b3c4eyMfdQW9VaoqlHkrw43hgGMLEqrP9N+52X3Rws5oEKyAdrSs
-	 TRDleW+zLMm/IGbCnyAxPT/JNnO6ZiRxKApZiYt1z0f456jRAgzQ1+eKzFmzLUsom6a0A
-	 A42cbM0oszWAoWQXC38NT7vuyx1OnjYbM9B+SqbpqJb8vBYlrCQsx28NHDD5y/EegZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=HF1altOhSOliHgMv/AZ/rbBGnqwe/0k0dVHlSjsTcys=;
+	b=leKJ4kiMhzvRfC7dpAbNWm2FYuHbABZQmTDJGRHrSrPhMQIU5KD0mZHVFzlsf/4I1W0H
+	 ATVu4aQF4k0cV9gSN+m5O41R0zI/w7cAlkCJhhLBigKuPVYBALMA/XhhiHLnAUr66WlDx
+	 NdAOCbEzc/jRZ72VzPYFkgrN+bfThL03VPM4ezlV3VXBYTdBwqIoKhaPor9Yj0omcESsU
+	 Ogprd/VdR/Rii3Z/J8Sngp2MyiJiHSOJNADtUvYKQkj6D9EAJuhMDVYBsrgS8YWnx7HU0
+	 Rrw/A2UE9Vp5B5d2COY/ErSbpQXYHiRgjdt2PrsPV8u5dm5ucg96jLrV1ftZeR3Af1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dNBIc4c8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y2RQn6fs;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11934606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11934606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CEE606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CEE606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dNBIc4c8
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso14378a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:49:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793198958; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OLZKpbOYeSstYEszJNkrN72Bkss7Uj1T1JQBElejsUmsreFA6kDcLv7CqJVuJqDEIR
-         /WgeaZArTs4mf3VQX2mtFPffjaOT/juZsW1n4nYDulHHXBJhhrtiVHCjEGOtXGl+604d
-         IToCbuWsNGFk56CC50u5+axC0MTpl9jy/ZqCWHdx0JeyOTEj4GrwPRfbh0knOTh9VpXJ
-         /9UrbYlIFzgwOOgvdhapLt7XUgtNt3Pw8UaRGMjyCQuf7OuAzhOOt/CRTllR8NDNeQMJ
-         4yR9oyu/EobxVsojjNru224QMOaI6hn5F4g56Y5JLYlgmyLtpODA6ehJMvWt8HRD2Ele
-         rJLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=utCPzy+tkw4ynkgJD1keEVLYIPaT4gQebzETd+jl33s=;
-        fh=WvXvcl4G6zU4N+uwyb2Ni7W6Rc14U0foyYEOTeysMk4=;
-        b=ltSQU08/oq2hkxdm4HTRbRtHhMBvISbCFLYKBTCeG1vA2sDDr0+aTVDK/iovE0cxyX
-         KUfMUVBCqgmPPlQGc8m+c9FnVThAufZWiwodLx7U6umsypBnufL0fIrwuBEF7A72aXoC
-         fk7kqdHUmtoq780LM/xBxsxpPw3OPWv4bjFgldcOOgSseIRb1shVUlhlirXALPgQ+a44
-         4CLwRrPcpETFmdY1BxbG74KSEXmmHESfOrlFN0LhspAycJq1KZuIG9ycnpRQiQ2SLTc8
-         rV2pwekL8C7am0TQxd8uRbcWManIKnfwC5Gj0n47xH12YvjBKplBYAthkx7r8ryQf+D9
-         AXlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y2RQn6fs
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c46bd7a7345so192835966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:50:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793198958; x=1793803758; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20260707; t=1793199042; x=1793803842; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=utCPzy+tkw4ynkgJD1keEVLYIPaT4gQebzETd+jl33s=;
-        b=dNBIc4c8fsaG0NVOcYeVV2p4ae5N3eN0y3Klumt9jGzf2fRoQqNuMgVR7v5vG+18iz
-         OgkRyhT3pdiFYLqoEijj1DM/rb6zHktERZR0l0kxhHB+y0T1hcnMmnDNIK/iF+Z6EH5a
-         3KsIke5A0JpLMlsQY8fa2Wsge38S87XWFubshExtqt/IDdvjojOLYE5QjCeYn5RRG6/m
-         zHtdIcQ+Fl3DSySlAMGGCre2EYpcEajV80n6lvlDNaPTba/3f1Mdj05qoxCf2f6F0HRG
-         xgXYbbQGX/+5FrsHZrR5JoKCYQLgl9I9ktaswOMBwcm2W7fbp/HfbEjoUjOILu0GNw/v
-         xzvg==
+        bh=HF1altOhSOliHgMv/AZ/rbBGnqwe/0k0dVHlSjsTcys=;
+        b=Y2RQn6fsIZRhcK8lV3PlbyIGDGsNrvP/2tFWapgKkI5LPIPXQUseGChPE9UjL4RgFG
+         MKBrm/Dn2RcCEFFOC11nYOn+JqK0E8vlMIaAMsudPBvt5aYdEY7RvIWXR3hlLqG3m4I1
+         1W2dHpOnuVTz8y903UuAZYH3z4w2Cx/jcfuJ3Uc5vFEzmjsoE6P4BzQ1j8nsOwjp4xTz
+         r3/2eYqHv2zPbm51Rk4CRERbnjRZMzhxiIlFJUNsGnR2khNsn6uZM/hLALkaDbrUyF4b
+         y0JDnJLrbelAqQjHtkbOhSl0JrGrMndTeRx7wyJepirTFwHMo8rIdUGRCTN29i2yaXoW
+         cdbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793198958; x=1793803758;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793199042; x=1793803842;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=utCPzy+tkw4ynkgJD1keEVLYIPaT4gQebzETd+jl33s=;
-        b=hmB+cQ+j5HRH5airmWImndj3rVvoPq/Xxeo+vJOssdkM7+SL4aNYfhZxtrYijXKavp
-         orZvZmQgxFmshyQIMIRo4g7H1UqeDZB6QmgxyzceIs/7V7YZt9pPM1i1cKX55kW354fH
-         Xk/QmmDCzIWhdBpOPlqzRshUmwIPwam1RQEUFWuI+rp/S51MPuwiUW/yqRRb3j7J91Tt
-         Qb2aQF210n5kgK7pGH/Sj13z4QNUxpnPF0SI3kJGhS4X1Xzh9tpY7fo4j67+Boi4KrmP
-         YCPnx9+Vi7sF26wG4OvqgrYgUONhRBBa+dFm/iSvEJG8CrDIv26O54Fd84mnZND3dXhW
-         SP0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwhjyM5uNiL2/+cTE5VrWnCGbR/vQWgkCYFeFC6UScT9RfdNYabUzgE1wS4Et9p2vg16IDo0qW4f4Lps3E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWgOR3G87fhOEbE+5ILEj4hD5E+Izgqhoz9xThzXEHxt54tkJL
-	s7JV35czqZ6jnqzja/XwPKWz2OpzAeoGYFm9PhFVC5VinFTApgwjpVbYVw6AjOv4oKnZXohdV/O
-	aSNKjbgue4GYTBX1+w+Tcc/+2G+GPqAm5/9wXVGV1
-X-Gm-Gg: AYBFou38GrBnhWKMcb4kFJL1utpaWlcP9D4Hi+zxKmJggiO6UzfnBc+pXVqurLwEbpA
-	CVEaz63fr11ROr2WNkdSxnHzlAAGvEw+qzLJ5fSp5jym6upFCAWxWvja5/OZu+LUlyR6Wf8Qa6G
-	qteB26um7sBW9x3auSic6Z1AZWNNkSx6wT78HDRpf02QFu3zjZfsmEPAdeZtoE9igtcd5+A4xHX
-	+JNqFU1Nm93M0mBBztPX8NxLQAIxAdrMRVfUB2B2GE7dkrk+NgCWc4/giJOygNmXdGthW3D31u3
-	XJCb0GamYkEe/ed3bZSrWSZVlN1nTdAqSzMmmgDjFmV7i5nolkp0l55pU0zuFsXaoScnKF9S1JO
-	MlgOhx4CelFFID1AtmipW+LmU6SugzpOlVHO8pQ==
-X-Received: by 2002:a05:6402:c502:10b0:6b1:aa31:a627 with SMTP id
- 4fb4d7f45d1cf-6b4994b7ce3mr82073a12.4.1793198957960; Wed, 28 Oct 2026
- 07:49:17 -0700 (PDT)
+        bh=HF1altOhSOliHgMv/AZ/rbBGnqwe/0k0dVHlSjsTcys=;
+        b=2vxYsKZ4FCVzbNUpifATXipTZOhbUNCmL56y4Uz0q26pGBCpuxub72CIabTsZ/g46/
+         MWekz6VyZvczJnF6YUlJWi3Va4HJLCdsGGWRyBqYU6g6PAYawraOu9aR67kgfr0EllbM
+         bfx5e038OIV/kn9iemEybWh01WE6eES7HuRGML/l7vG4AdKzt7tzbD6tspw0R6JdftM0
+         hQGrvyqiI+Dng/iJ8V//UmOlHx9+9k74NrLwd4OzsGYFLnynwQjA3656y2xPInvlaw84
+         IHKfBxvERNXdjzABW0BATJYLarJ7P2oRV5UTsCjVW59NoiTCHnxCAFYxEw7NNGeaSBIr
+         C0ow==
+X-Forwarded-Encrypted: i=1; AKwUvBy5ckPT42PPLn57IuPzGHdleUtNnfvK5fJj5JkdwSK8n/1JEDGERH1Gq72IxAVdvcNE16XPxXx4gR67HNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiQXyEaLeHwIvlde6VeEu7ae5WtQ5vPp+6HCDH9FWYlgWP+ZCn
+	IABR08e2Y0aGJccd4gHdvW+fB96GPbkCk9l4k5BI1r49QDgBC2hXD7nCh1V/AnK+ew==
+X-Gm-Gg: AYBFou0JPLxsbxP9gbRmoZgmDfK7ktAXHt3+sBEoxplITlgFDc7yXvjo81akIrbAGDD
+	2Gdeu2X4PRlyg2Itz01Qrr4tokPvfCsJfH6CylMDsk04AYgzOZ6PRIeRbQ4JHF+k2PO+FtrxgAn
+	My1VRp9OEjbFFGK5eWShmwFln5lh1CdkQD4PCtEdrTEW8ZFtJbOvJ5fziMt8fKc2K5VhMsm8MJV
+	PIsKdVuwWnSlIF18zQeJMq8SDUN7A24V02wK0BoJUpB/qHl59gy0xoXJL7kPyXsH2YU0nPY/T0d
+	Qwjc9aEmcHMAY2UdJC/nspd5LokIkqv6gdnwHtHq9U9lTpfJEzJdhOygcInUaUf412na/IUat4W
+	jg01mGT+Bj6o4JjFw9OQoUf3lM9vbw+3aqtIgLRIafrPGCvwuSRM03hkhG2DTBi7jKD6n+Hp1sc
+	bft8zdN4/VeNU67zg6NNY/R++IYNp+erD+AyGzgBHz8iDcjraBVsrIG4zsLUeSLRo08vFnVK2+w
+	XWxRwN4XLwRBsMgq5cVGWjh1xikyAdx0uAllFesrSxyCAhctNq+iBuzWO7a99i8MijAFw86ZLC9
+	ckHdeMIAxbFZTqoV9lh3XL54i70HyGhFfteZa/kqpJdGEfpicDz4M/BNhZ2PuoDvVupQGiQqoHT
+	jwtpMR8Ql98g=
+X-Received: by 2002:a17:906:99c9:b0:c29:4b57:503e with SMTP id a640c23a62f3a-c49c620c08emr153260566b.1.1793199040959;
+        Wed, 28 Oct 2026 07:50:40 -0700 (PDT)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd35004asm607338466b.4.2026.10.28.07.50.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 07:50:40 -0700 (PDT)
+Date: Wed, 28 Oct 2026 14:50:36 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
+	catalin.marinas@arm.com, rppt@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, ardb@kernel.org, thierry.reding@kernel.org,
+	david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <auILvMVSXk9pZh6M@google.com>
+References: <arIYtjmSKCs14SqO@sumit-xelite>
+ <arKW_91EeKA-w96m@willie-the-truck>
+ <are21BjeS1O3RYE3@sumit-xelite>
+ <aruh86rd5FMv2i9G@willie-the-truck>
+ <ar5TPvANFUoosxGW@sumit-xelite>
+ <asOAYODGZa-7EIV1@google.com>
+ <asOD31rTX6dNfD1o@google.com>
+ <aszdnInyJxLhSQRp@sumit-xelite>
+ <as3798SFCfKFirag@google.com>
+ <as4ATqhp0bPI03PA@sumit-xelite>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,65 +112,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-7-zide.chen@intel.com>
-In-Reply-To: <20260827223755.143247-7-zide.chen@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 28 Oct 2026 07:49:03 -0700
-X-Gm-Features: AclHuK8n77ASv0YtAhp7uY-rKpDmMZOITBWFwgXV3mX-mvm_sx5SsIOEQuKTOts
-Message-ID: <CALMp9eQ2D2BjX8ZNqRuNp9h46Rw-_7pJD=50JAXbNHf5KEVj2A@mail.gmail.com>
-Subject: Re: [PATCH v2 06/16] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
- from kvm_pmu
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as4ATqhp0bPI03PA@sumit-xelite>
 
-On Thu, Aug 27, 2026 at 3:48=E2=80=AFPM Zide Chen <zide.chen@intel.com> wro=
-te:
->
-> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
->
-> This is a preparatory step toward fully bitmap-based PMU capability
-> handling. Later patches switch KVM's view of host PMU capabilities from
-> counter counts to counter bitmaps.
->
-> Populate and use pmc_exists directly when walking guest-visible PMCs,
-> instead of relying on pmu->nr_arch_{gp,fixed}_counters as intermediate
-> state.
->
-> Iterate counters via the newly added pmc_exists based helpers, and
-> remove the now-redundant nr_arch_{gp,fixed}_counters fields from struct
-> kvm_pmu.
->
-> Note: {vmx,svm}_recalc_pmu_msr_intercepts() may leave stale intercepts
-> on GP MSRs after CPUID narrowing. This corner case is resolved by the
-> following patch: "KVM: x86/pmu: Switch to bitmask-based KVM PMU
-> capabilities".
+On Tue, Oct 13, 2026 at 03:26:30PM +0530, Sumit Garg wrote:
+> On Tue, 13 Oct 2026 at 10:37:59 +0100, Vincent Donnefort wrote:
+> > On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
+> > > On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
+> > > > Sorry, not sure why Sumit's email was dropped...
+> > > 
+> > > The problem was with my mutt config, it should be fixed now.
+> > > 
+> > > >
+> > > > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
+> > > > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
+> > > > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
+> > > > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
+> > > > > > > > Looks like you dropped me from your reply.
+> > > > > > >
+> > > > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
+> > > > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
+> > > > > > > when he replied here:
+> > > > > > >
+> > > > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
+> > > > > > >
+> > > > > > > I can't figure out why that's happening :/
+> > > > > > > I manually tried to fix the To: and Cc: lines in this message.
+> > > > > >
+> > > > > > Thanks.
+> > > > > >
+> > > > > > >
+> > > > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
+> > > > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
+> > > > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
+> > > > > > > > > the linear map, which isn't generally possible unless you force pte-level
+> > > > > > > > > mappings for everything, which is prohibitive for perf/power.
+> > > > > > > >
+> > > > > > > > As per the cover letter it's about allocating pages that are not present
+> > > > > > > > in the direct map. This essentially fits the protected DMABufs use-case
+> > > > > > > > where we don't want any kernel mapping to exist at any time. Bufers
+> > > > > > > > allocated from protected DMABufs are only meant to be accessed by the
+> > > > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
+> > > > > > >
+> > > > > > > That sounds like it should probably build on top of this series, then.
+> > > > > >
+> > > > > > The main problem I see with this series is it tries to move from the generic
+> > > > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
+> > > > > > DT. We already support reserved pool allocations via "no-map" which are
+> > > > > > discovered dynamically from OP-TEE.
+> > > > >
+> > > > > I can't think of a way around a DT declaration. We need to know what region is
+> > > > > PTE-level before the direct map is installed and of_reserved_mem is very handy
+> > > > > for that purpose. And as this PTE-level mapping is costly we certainly only want
+> > > > > to enable it for platforms that absolutely need it.
+> > > > >
+> > > 
+> > > I am rather thinking of a way to turn the default CMA allocator to be
+> > > PTE-level mapped. Since the overall idea for this dynamic protected
+> > > buffers was to reuse memory efficiently, otherwise the reserved buffer
+> > > approach is already there to use as "no-map" via DT.
+> > 
+> > When the default CMA allocator is setup, it is already too late
+> > (dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
+> > reordered easily due to the dependency on dma_limits_init().
+> 
+> Yeah I saw that constraint too, let's leave it for future extension
+> then although having this reordering dependency fixed will be ideal.
+> 
+> > 
+> > So the only case it would work would be when a reserved memory has set
+> > "linux,cma-default".
+> > 
+> 
+> Let's rather just turn DT based default CMA pool to support PTE-level
+> mapping and keep it configurable via Kconfig or cmdline or DT.
 
-Are you saying that you are deliberately breaking bisection?!? Shame on you=
-!
+If we need a DT declaration anyway, a Kconfig and a cmdline option aren't really
+necessary.
 
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Co-developed-by: Zide Chen <zide.chen@intel.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> ---
-> v2:
-> - Fix AMD legacy PMU MSR intercept handling for guest PMU
->   narrowing reconfiguration by adding for_each_clear_bit_from().
-> - Re-word the stale interception changelog part.
-> ---
-[ ... ]
-> -       for (i =3D 0; i < pmu->nr_arch_fixed_counters; i++)
-> +       kvm_for_each_fixed_counter(i, fixed_mask)
->                 vmx_set_intercept_for_msr(vcpu, MSR_CORE_PERF_FIXED_CTR0 =
-+ i,
->                                           MSR_TYPE_RW, intercept);
->         for ( ; i < kvm_pmu_cap.num_counters_fixed; i++)
+Also, Rob wasn't very keen on having a DT option for the reserved memory and
+suggested to have a compatible string instead [1]. So perhaps we could have a
+a separate driver that handles the unmapping.
 
-Doesn't this potentially leave stale intercepts on FC MSRs after CPUID
-narrowing as well?
+	linux,cma {
+		compatible = "shared-dma-pool", "unmap-on-alloc";
+		reusable;
+		linux,cma-default;
+		...
+ 	}
+
+That "unmap-on-alloc" driver sets the memblock flags and register some cma hooks
+(to be defined) for cma_alloc/cma_free where it unmaps/re-maps into the linear
+map.
+
+The nice property is optee won't need to be modified anymore. The downside is
+the entire pool is now mapped at PTE-level.
+
+[1] http://lore.kernel.org/all/20260902172436.GB1440252-robh@kernel.org/
+
+-- 
+Vincent
+
+> 
+> -Sumit
+> 
+> > > 
+> > > If we can have "cma_unmap" cmdline option alongside "cma" then it can
+> > > turn the existing default CMA allocator to support unmapping buffers.
+> > > Not requiring a DT change at all, although we can have the DT property
+> > > for the default pool too if platforms want to opt for.
+> > > 
+> > > > > >
+> > > > > > If we can rather support a generic CMA like allocator for arm64 which
+> > > > > > can support unmapped allocations then I am all for it. These platform
+> > > > > > specific reserved pools isn't a scalable solution.
+> > > > >
+> > > > > What do you mean by generic CMA allocator here? An extension to
+> > > > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
+> > > > > cma_alloc() cma_release()?
+> > > > >
+> > > > > Right now I have created an API for the unmapping/remapping part. It adds a
+> > > > > burden on the caller, but the alternative solution is introducing post-alloc
+> > > > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
+> > > > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
+> > > > >
+> > > 
+> > > I am not too worried about where the actual implementation lives but
+> > > looks like CMA driver to be the better place. I think use-cases like
+> > > guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
+> > > looking for this feature.
+> > > 
+> > > -Sumit
+> > > 
+> > > > >
+> > > > > >
+> > > > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
+> > > > > >
+> > > > > > Allocation from generic CMA pool is already the case here:
+> > > > > >
+> > > > > > tee_shm_alloc_dma_mem() ->
+> > > > > >   dma_alloc_pages()
+> > > > > >
+> > > > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
+> > > > > > region since it doesn't have any linear alias?
+> > > > > >
+> > > > > > >
+> > > > > > > > > Vincent's series tackles that by using a pool so that only that part of
+> > > > > > > > > memory requires the pte-level mappings in the linear map. That's the
+> > > > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
+> > > > > > > > > of Brendan's approach (which doesn't work).
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > For protected DMABufs, we even don't require any pte-level mappings in
+> > > > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
+> > > > > > > > for performance sensitive secure media pipeline use-cases. That's why if
+> > > > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
+> > > > > > > > be the best fit for this use-case.
+> > > > > > >
+> > > > > > > The point is that you will require pte-level mappings for the linear map
+> > > > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
+> > > > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
+> > > > > > > decide to unmap only part of it and there isn't a safe way to do that on
+> > > > > > > arm64 without transiently unmapping the entire block, which can lead to
+> > > > > > > fatal translation faults during that window.
+> > > > > >
+> > > > > > I agree with you here, what I am rather trying to find if on arm64 there
+> > > > > > is any possibilty to have a generic allocator for unmapped pages. That's
+> > > > > > the use-case here as well as what Brendan't patch-set was trying to address.
+> > > > > >
+> > > > > > >
+> > > > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
+> > > > > > > > how Brendan is doing it for x86?
+> > > > > > >
+> > > > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
+> > > > > > > break-before-make requirements we have on arm64.
+> > > > > > >
+> > > > > >
+> > > > > > Sure, sounds like you are eluding to that the generic MM flag
+> > > > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
+> > > > > >
+> > > > > > -Sumit
+> > > >
+> > > > --
+> > > > Vincent
+> > 
