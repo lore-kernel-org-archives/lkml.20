@@ -1,65 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214879;
-	b=dM1dOGgzXiVPgayqxjzBnuyHkHmrWDqaPM5FC5InZUor9npwglEcYWf5Hm7VeML+InpB
-	 zsb20GDBRHEr3NI9UDIpVmiNuvXXVZn8DuMsRe+Prgdz+VWoPhqpJzIpS00iwSjplXexl
-	 QoLtGC0OAeyksf+wL3CNU6XpV8yyW38h1HZXlLmyAja/WS8Fe77/hFb71AIXLKkR89idS
-	 9knURm4pSV8hNddrjW9ZUOQJvF0s3ttEK2g/0+9VBS1KyErj+dKu7hPLbsfKUJLN1A6Ju
-	 GoWIZjMlvE7P0uTY7dQZL7BLonAH4qfb13DKeVDHPne+2lbOEai8fF4G1TqxjKMU5TQ==
+	t=1793214948;
+	b=V4NF+ibM34pNF4doUWx6t8FCRD7lIK9e8mjaPuMMMl0nhLSLY55yojQ5sA4iwWLjwE10
+	 kYn4JRPLXlRKWnS7Vy2on9M5WW9k9ehZmlU7HvbqP2sbmJLWVVhcvrkdnSo+LDS0JVQ89
+	 lo2f2b9ccLEgNdw59U4XGGmGdntwcRTbl7D39O2PJYCAXZSvatX8zJpWtaJ5zFSeYepb1
+	 sTqCaT0QHydXb4m/flS1JKA/OF2HZ546Vibo/70ui8gA400pbpzvIZMtGP7OVf2OKc61H
+	 auTcYX9t5VKFRU667855cNgmM0Nyj2H7qEHzt9uGPV3Tp81JVTT4Z/Pn/+cJNsWi5mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214879;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aWVDvbEQQQ1SjDTO2dDhPAAkUx0gj3dMclo/LMFAu/s=;
-	b=ml794H6YkaEpHB5q1aj3W4Y66b9XmZ5MofzrqWSqe3MJ88szjJnd8FUUpkTJr7H28HoU
-	 h9MB6mWA+wnOb586IXzrNNgRUAhiGWQDt4ViLyiE2cO+7v4dsLj2SNDOHDWCWoMu+1esT
-	 ZReUQV8Yf2jzapmHdYKFqYdpAk+vUKIB7I3wkKV1bRyQhbPf9iPIgd2eWaEE7vtAZ7IZ8
-	 GJ1NKJf64GSdli/741frFS4nleUdBhW8A0WAcx2Z4nHWnz24SDkoMWMGLI6qkpnEaLFty
-	 jmS7C1xiWI4WgxnAeWx8iZGRd3Y5+VxVYSqw1w4O/F9fdyRe5SkrhWd9ivYol2+fMXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=blfPghdZI13T3uCclhGxzMQPkTNJyMCZwHiprQpcXKc=;
+	b=lbJZw3JqHbNMwVqTaSqHnLctM6T3ceinQecD2MImKZZ87vAhHGeEcKKz1cqOcTZUOuNS
+	 FABkCzPeSo7CiqAgJ4aQgqSFOCvaGty2mkztd9sY176XZc+DH6WTmr6610kMyfOk0UnU1
+	 8UjAgqGWyTalUcGIoDQv2forzUcrT9JJ504vEJm3BlTjeqY0bVylBtrD3uUVW3BfwEjmI
+	 eaR/UlxVIBvl7z4mrL1EJe7ogI69m/V6W+x7hP/TwOUdNEvM5uxd1lFe38+tDFJ1nL/9I
+	 LeI6CnPbLiUy2IIG+7sA4JPvlhg/A8Azrj/KcNzjlM7N646DRBrCI0Nkk6/fgv8t61w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7eMqn8a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Q1UabqJZ;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF83606AB38;
-	Wed, 28 Oct 2026 19:14:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AA7606A324;
+	Wed, 28 Oct 2026 19:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55AA7606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7eMqn8a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296641F01828;
-	Wed, 28 Oct 2026 19:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793214879;
-	bh=aWVDvbEQQQ1SjDTO2dDhPAAkUx0gj3dMclo/LMFAu/s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h7eMqn8a8EdRBoi0X6nQ2LgNYHVdM2nmxsFYYPFJhseEhpgfO/hmFqWZ8d8bMYDtW
-	 T0nx51XwU1r1azFSFuhrqHZUmWELHLojmC3c7BOgrQ5PobT7aUyr0d+Gpx/HiX8zYT
-	 q7f3N2oyG2j5j/1ZK4aSq7pKJxO/azTvygQs1JnyosJ0FE4r6V5TtdSvDufRuhgxDw
-	 6P9glPp8xTu1YRQEf3bM/sveV9h05QQ2FcH9jhPhE07r3GQtvVODHdO1pPxTuiDJdB
-	 PdkBHXIuLria+haObP79SizdHZULGJKIRLSmhFJHaKYxBgXc5rpjZwysCwDiti/0+3
-	 LNZth8EzkCjKQ==
-Date: Wed, 28 Oct 2026 12:14:32 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Wentao Zhang <wentaoz5@illinois.edu>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Bill Wendling <morbo@google.com>, Chuck Wolber <chuck@wolber.net>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
-	Marco Elver <elver@google.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolas Schier <nsc@kernel.org>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [RFC PATCH 16/20] coverage: add MC/DC measurement
-Message-ID: <20261028191432.GA669102@ax162>
-References: <20261028120034.871983-1-sashal@kernel.org>
- <20261028120034.871983-17-sashal@kernel.org>
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Q1UabqJZ
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 0DFDF21F6D;
+	Wed, 28 Oct 2026 21:15:43 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=blfPghdZI13T3uCclhGxzMQPkTNJyMCZwHiprQpcXKc=; b=Q1UabqJZYWB6
+	rR/qW5A6C8gHy2zdDxxoRuUmNhzwBJ3k7YLNGeo6D3RE88XT0mvENLa+FKxvJY1A
+	1fk0CgJqXvolBR/wzJ5eSm+zvI9YltEWfM9CS0DZLrnd1GMinP8E2xqBi7tCaDT8
+	+ovBrfo6/ejTUfNfBA1vjR82YwVWS06c1YjoFvZ4f/ZXLdT5zPfoVq9jAkrbWLuh
+	ugebE9Mv8WOXfGTirMWj4zMO37kaqVQy3TMTL4NYoipGZOJWZImm/oZY2ts2HQCn
+	AFaI07i9jxL/4MtV78KAGScBEPDg0L9b2ZEtp1D1Q3XNJ/fojX4Gl9V4acDg0h8G
+	dxXMb9fxfWa7IPenBkerY23ykBM3Y0j+VlRBUCScD5HFctSLkRGSgWKwZzisTG2u
+	1Ff6isz7DNJ5mr+yc0fKNS1ScO0a7CjJIqLF06BZ9wTW4j+wQrfYLZAWc0uahxJ8
+	lgijjtljAwgKv15hmRNu2fnd8aflYf2mnk0/qwi6i3XpJFJcHn/hZ/x6V6wdtXDu
+	Mbgq4kL1b4KIed5ub+DN9bjEFaAjKv4JpQCbuzngqrwoEJJ1oDHPmFx8bkAqy8Ek
+	sbgFJiww11H0WNMdhH8H3B43xya8kl23i6EPHZgRuuSXqrHB4IcsjxJ0D06stylM
+	dRv+QGvLih44JabwHQS5XuUI3H95Axo=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Wed, 28 Oct 2026 21:15:42 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 68FC06044D;
+	Wed, 28 Oct 2026 21:15:42 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69SJFYVC057702;
+	Wed, 28 Oct 2026 21:15:35 +0200
+Date: Wed, 28 Oct 2026 21:15:34 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Linkui Xiao <xiaolinkui@126.com>
+cc: horms@verge.net.au, dsahern@kernel.org, idosch@nvidia.com,
+        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+        pabeni@redhat.com, netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
+ sysctl_sync_threshold[0]
+In-Reply-To: <20261026083708.617278-1-xiaolinkui@126.com>
+Message-ID: <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg>
+References: <20261026083708.617278-1-xiaolinkui@126.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,21 +81,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028120034.871983-17-sashal@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Oct 28, 2026 at 07:59:40AM -0400, Sasha Levin wrote:
-> Larger decisions, and decisions the compiler can't instrument, produce
-> warnings. Starting with Clang 22 they are kept from becoming errors
-> with CONFIG_WERROR; older versions can't be used together with it.
 
-What is the reason for keeping these warnings in the build as opposed to
-just disabling them altogether? Are developers expected to address them
-and if so, how? It seems odd to keep them in the build but prevent them
-from breaking the build unless they are not intended to be acted on, in
-which case they should just be disabled outright.
+	Hello,
 
--- 
-Cheers,
-Nathan
+On Mon, 26 Oct 2026, Linkui Xiao wrote:
+
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> 
+> sysctl_sync_threshold() reads ipvs->sysctl_sync_threshold[0] from the
+> packet path without any synchronization: ip_vs_sync_conn_needed(),
+> ip_vs_sync_conn_v0() and ip_vs_sync_conn() run in softirq context on
+> behalf of ip_vs_in_hook(), ip_vs_conn_expire() is a timer callback and
+> ip_vs_proc_conn() runs in the backup sync kthread. The only writer,
+> proc_do_sync_threshold(), updates the array with a plain memcpy() while
+> holding ipvs->sync_mutex, a mutex none of the readers ever take.
+> 
+> Commit 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
+> already recognized this race, but only for the second element of the
+> array: "As the sysctl_sync_period now can be 0 use ACCESS_ONCE to avoid
+> division by zero". sysctl_sync_threshold() was left with a plain access
+> even though both elements live in the same array and are written by the
+> same memcpy().
+
+	Yes, ACCESS_ONCE was used to solve possible division-by-zero 
+problem, not to solve the data race. Even if memcpy is converted
+to 2 int copies on some archs (eg. x86) may be it is time to use
+2 WRITE_ONCE instead of the last memcpy. Can you include this
+change in v2. Post it when net-next opens again by using nf-next tag.
+
+> A stale value is not dangerous here: the element is only compared
+> against a packet counter and stored into cp->in_pkts, and an aligned int
+> cannot tear on any supported architecture. What the missing annotation
+> does allow is for the compiler to reload the element, so the two
+> comparisons in ip_vs_sync_conn_needed() can observe different values
+> for one and the same packet, and KCSAN reports the unsynchronized
+> access.
+> 
+> Read the element once with READ_ONCE(), exactly like the adjacent
+> sysctl_sync_period() has done since 749c42b620a9.
+> 
+> Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  include/net/ip_vs.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+> index 9a83bff32569..5aa6a94ed104 100644
+> --- a/include/net/ip_vs.h
+> +++ b/include/net/ip_vs.h
+> @@ -1353,7 +1353,7 @@ static inline int sysctl_conn_max(struct netns_ipvs *ipvs)
+>  
+>  static inline int sysctl_sync_threshold(struct netns_ipvs *ipvs)
+>  {
+> -	return ipvs->sysctl_sync_threshold[0];
+> +	return READ_ONCE(ipvs->sysctl_sync_threshold[0]);
+>  }
+>  
+>  static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
+> -- 
+> 2.25.1
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
