@@ -1,114 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202281;
-	b=j9gc+rNxUd3UaA7on1vQRZSjuoMEbIHOQju3X4UYyTJYE8avl6AifukzwykUzglQ+nrr
-	 Sim02UOjuOmo5H0JHYa2VRnz7RrjdEolrVp1IiENeLTVgCTBRT0eIW2c4JuRfFLpiNfSg
-	 b3OTMAtX+nXSeSqPtMcmBce21u38rXQRsKfE5IdIre3kF9Hy4hG36+2RB4xX9avIUBTvU
-	 fCAa2LJt85dyG4yVXxnkfCZUyCfb76m4QJ92HzEAQfeT/ZJ5wcsxvTlVidNVpaaN0yd9Y
-	 UVjtolaTaIaz7FyD2PYxsBYidGsosGQahDjD4fzPTS3ohZFvMi2jYPQil653AXWiekw==
+	t=1793202283;
+	b=w762BeKYam6QJAu2tjOm8nFRRwEVaLcFtY1WSO0+bK7VW17CM1vzRADAubRmnqCq0p4l
+	 i3B+c+2JN/1IUElwfeG3AfkxnYGT+KLivGu60zu/RxRdkcTDR7+p5i8pqVe3Gsvch+I+4
+	 qu/IEOUWssAMW+OS9Q8BlMBO3eUVOkvDY1aCrrt9+HIERwT1Gszti/j/O0wNhLB08uCgg
+	 2zyyYw7bR/MItbOE9Wz8Hnuaqo7oqdxMfCo7eUSchBr9/YbslalUW+iJVlxdkf2AVZRlK
+	 C8SCbuAP6tw43eV+/Mvx52JrjWRDnsizZyPf68mLLMqNrgVOtHHv8eq8lA/JBLnmLhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202283;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ms02nrJTaBuo+AIaXcDfc5FWiw4agEchEQ/tyzSsLpc=;
-	b=keCEmqQMj/RJRDBajqzXX6CeQBK+i1Z8DrEvg7VZJShH+FKMr1Qx/U1gIwc90q5CiHOK
-	 IZr9lCrfF8hfMW1985QbBfr7CdasD+1mRCMjBIadDwjYq/qPag/mXU4pujYcYdNfOdf4O
-	 DVkHzJkOiThVsPqYI7RYA8x93Wi9HGoBJAq1kqBE4uw8p1FE2UumJPOaQqajglhwnQBEo
-	 DM2zB1W/yzz8Lz6dixStoev1iNno7pNIQ2NYb1hgg1zaJwRRITdRrVjawMpkv7Q3bcCnJ
-	 pxFs9oNi743F84xy0MErRO40ZHyErDAo7V0h49NUioJxuF4z0wEFjfusdzu8kovtRjw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RnGNc+Ncv3PAPhA2y8pB7rHYUMviqJQ7ga8Bc0zRWFc=;
+	b=Iv7RYNk33MB/Ez8BEOLwrAmLnzldyfV70Gh2KrORJVsf4KLTTfXeTFS1wfW+cxmvZfin
+	 QzGMGrY1kMjzKDa/X6+S8wLXzQ8hZUOq4axlni+cZKBhLLxPOoNHq6on11X29SH8Ypd2h
+	 E8WJTwIk/4m8PjQBzA0ij/nqXPbKKlqlww+4B4NLfpgi1PenBljUTR4mLD9TH1dHlg2s8
+	 +piXLIJ76mNDp66kgO6W1YQBqtmPvIebv3/oeb8RNPt9HGiDlnrkUiEUUlNrsE/djr+po
+	 8Tk0/uV9VnXghyogvT+fUR31W9Z79O2eJWW9ROgnBlD+U3WaLXwJcP12HQmrWrzteCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u9HjNIMr;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=akLrqxCH;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99ADC60A6F6E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99ADC60A6F6E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3878A60A6F72
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3878A60A6F72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u9HjNIMr
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so14098415e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:44:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=akLrqxCH
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c20aso7978015ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:44:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793202279; x=1793807079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ms02nrJTaBuo+AIaXcDfc5FWiw4agEchEQ/tyzSsLpc=;
-        b=u9HjNIMrCZDNu/6Fq/2AJBkVWhqvixpit3P2sLm/TertR3NAlkmZPZrxTQ1oEVadoO
-         7cnhUmEix6B4k2ezBjAq+nzHgfYfHJoFNGMaVYHVxAFW9ZTQ202504POIAt9DwOMf8F3
-         /MdQyVN3tbrC2y160Kf3wfgkA5YYmyjT5jhgYkT0shIdTePFzTE3BiFYBfJ89epE8/cF
-         T4Lx35UVSzfYPsr3vIHKgHFKUJsyhN03/zNARHxLw41KXGHfET4IbaiOuyEMA2+wM2Ij
-         gMfXTkJUnakZhntr4ikZGuXR0oRclE0w9UCmpBEp2l59mQaBDx3DKoQ90PWlcypKsGCn
-         nnQw==
+        d=gmail.com; s=20260707; t=1793202282; x=1793807082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RnGNc+Ncv3PAPhA2y8pB7rHYUMviqJQ7ga8Bc0zRWFc=;
+        b=akLrqxCHOIwWTzSVBNmi1DsgMuKeUp7AsU74zq+mJEZvfgR6eJKifrJ8FPGfjQtArU
+         DXCzyWf4YTTWdDWp6/6uKtyb2vKfGE3L8e3Xc1RcyXcNO+6QRpR9R+S6824OodXh9xnK
+         tj/v378/tCvhttqhxxulcXeqEgAuxx/XTpGI1CifIGC+WCDsKMB6BZdxCijEg0smtAs7
+         FVzdK2WNQ7T9mNkZiY0aveUg2m3W9EOBc02M5iqHb+6Qt/K+B1N9g+rdYYkvIxV2EAhz
+         Km9O1okLa/AjneH6/JmoY8llJjCdD2MS7dBlb9IKNm9DYxt72r4iAGKElGNfYmHzwx9N
+         sWHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202279; x=1793807079;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ms02nrJTaBuo+AIaXcDfc5FWiw4agEchEQ/tyzSsLpc=;
-        b=t+KUhuuBsA/Q7TbDYe8XSSZDzB+UPnzxHd2UDiirfUPkAhZynmL5/qL6/FCGWSOonW
-         uElaHjLxniKRMlSLm0H1otQZhfsPTA80SfpxV8j6ODBPujArkrVKcbf0F73+Ef1h2+Y2
-         P/NZ8fM1F8nPOHSAdgLKoYiT/XhANdA5gowxRGW8h1lxhRc91enyMH+2Y3IFnQ3DdazG
-         M+oGlrPZyq3BP7cWPQUREfm7wwZH1TaBqqVp35eKfRfELHZyPTPz7fxX2B/S2EV+gp5x
-         2b/TCG+Ebc84evp42TbbdliO6WKFn0RjWYoLgPOxX+Ml8z0Kr9r2cRTSWCd5hKYYx3hG
-         CEsQ==
-X-Gm-Message-State: AFq9FYL7NOK1+WUXd8Cs3Tq6WcpHJlW/dk+3c0MsXGJm5pIu+K82eFcb
-	5LsPJDbnfFeRzJHQYPZAy5w8cMBRMsgqv4J/gNZlgIUhs7diLBdsLeka
-X-Gm-Gg: AYBFou36iVf5m1siS0Fipu7kqg66mYfymqBbHUYYU+ri33Lh1Vm+0TfWDOqKsHp3pcl
-	fhfYiW1uW1xRvpf7bMLmT+hTdiNFD+D/Io8yguUaEVqHdzdRWZC72+bkaLCj1mCTtjaktjo67px
-	QAB7B04DQ2iGyttPTX5ndeGTNNDCf3XbcGrLw+7PS9Mp5bCNg2EzJgMlSOyyIrdoWAPE5KPeQms
-	bOHOzSboODXQ2Yg2O07sawmBRn4tyu/HoWIOjo+M07TO9KbnjM5bYKIkbyDRz9Hj4HRGUJFGdbH
-	OX4T6hlLHgNFsVI+uTk0hgXBp2NHWlAAoNz9T12khCyo8pb0yx6QlUD9Cxy8KrPUkQyYs+Qu9TN
-	drvb9aKtyDpTm+puvZorXE+joUtLYZkrBC5oBhE5SBtOtINvXrm9w2o5mB8uF8IiTH0Ercn0S/l
-	MzRTZblIX+BT4g65hdH9a9195u828VbwR/7eCcyIxSWdrlytO85s5JLCnGJCjuEBSISmwyZ1sPL
-	6GKG6DvrXr85ZD+xJ6fLFELfZnhEsoZ61Pqh+90Vg7+W0ilFmozRvUhECEnKv8rDBoX1WQjdy72
-	HeCbHVB3ADlUkfo+l5VtCAZxgLlBe8OlErZdYy7axmtnKRCBqi8J0aHwkMagBYn97A==
-X-Received: by 2002:a05:600c:6211:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4a965ec94ffmr51952945e9.11.1793202278790;
-        Wed, 28 Oct 2026 08:44:38 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8c05sm37044493f8f.49.2026.10.28.08.44.22
+        d=1e100.net; s=20260707; t=1793202282; x=1793807082;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RnGNc+Ncv3PAPhA2y8pB7rHYUMviqJQ7ga8Bc0zRWFc=;
+        b=mqBYaLdCUphtPD2rBMNAcEAxEze0H/0Ei5/V9SYn3m8+NvTSJtSxYj8q9/w8Q1lBDu
+         sX9UAu1maM5PX07k8oi+6KMvbx06tPxIqEwLoxX51IHvkRQIEirQ9yN5O7l8sIz48Q7B
+         vDzOUvtXlhtL6OSx33j2UQ4SgJHOunOcatqhKa2y9556v6FTkkyNqYF7gPhv2RipXBZm
+         KB3q8pMK1dCO/dUNYAKTuHuLogQV5tu+x8X7Ps9uNa1lr+7QSZqR9aSKmopsl6cEYETv
+         zqEfxbj1qAWRHCVe7PfegBKACfhUdUjMgwg/Pa51TMeGFMmIcWrC5d5/S827TLSv8T+C
+         wq+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwW6eyRCBised8JKDEZh/kizRyeFZPwaT/7aFNONXz0ccnnG0NjNM/2Bp81lxMAXmoSllF/B/asyfkTvRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuOc6Nx1EEivUpEPeAsd4HWTfxQqgPhqob9lJN5DdfNQM6lXr+
+	xu9UJwnIOV7SCB4JF3e3bKSi0vddgM6nYC+oF/xpGFuMKeL6OnpPjWxp
+X-Gm-Gg: AYBFou2jqZb+UGDwQg4TDtpZN7qo5z9eHJtFOpjlNYzrxXHMVfqxR8CuuzDmT+SUKwt
+	ri1DSsRubp3uTNVggdqpqUL268JcclFaVg2rw3mQJwcaHDuhGD7/r0RQs5XSXSyqZegNycNQ9aY
+	Tn3ZXNnfXUxvyXOCUxzVpNB+ZofhVHA/uR0YOtqSYN/vQtrW6gmsVuZyeUghfwbDq0h6UrjGge4
+	PgNpOJ/4Bl00SSpAO0FuYJY7YmhTsemrWf04rFPJl38G0rPCDcN3aol2Ab/IuHum1pUNAUx2mZV
+	ICzcbSla1sGkfyJOlWKbnmpaECToFgEwEywW+fZ6SP/I9kI9ABx6MgQnmwVsgeiofHf5eaxaM5+
+	XzWB/dtKbtlkqihVlSP9uBI5mNMCGSFAG+/ZA8ndE4XmCE7/7u2MI2ycnbgWIPgcyAder8s6Svr
+	uNuDu8Sps8HFsA3YVFjc8/+xHD4ax2leivu8NiIFI1uDk1SY6ir1xoYtSx9BAQtS5pCr6+oThlm
+	zV/8Q9KP8TJYCA/sLMsP8vBUMwtdDBaFA8Fb0zAmfAUzHH4UShxOonrjYOGgv0xACi1kn0jxACa
+	Ai3wuTr/Mgf2ic1ScDpC3RKQX4he2A5KtkINNOYVhzwN/S09IbzsPnrDxnM9xRYc984=
+X-Received: by 2002:a17:902:e946:b0:2e9:c569:7050 with SMTP id d9443c01a7336-2eb005772a7mr23369535ad.47.1793202282321;
+        Wed, 28 Oct 2026 08:44:42 -0700 (PDT)
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6be5105sm24111655ad.37.2026.10.28.08.44.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:44:37 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Deepak Gupta <debug@rivosinc.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>
-Subject: [PATCH v3 3/4] selftests/arm64: GCS must not leak on a failed clone3
-Date: Wed, 28 Oct 2026 12:43:14 -0300
-Message-ID: <20261028154315.1272705-4-ivanrwcm25@gmail.com>
+        Wed, 28 Oct 2026 08:44:41 -0700 (PDT)
+From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: [PATCH v8 05/15] f2fs: support large folio writeback
+Date: Wed, 28 Oct 2026 23:43:56 +0800
+Message-ID: <20261028154407.1601430-6-nzzhao.sigma@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
-References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+In-Reply-To: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
+References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,308 +109,661 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-KTAP coverage for clone3(CLONE_VM|CLONE_PIDFD) with a bad pidfd
-pointer: sixteen failures must not grow the parent's GCS VMA count.
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Large folio can contain multiple dirty ranges.
+Add a folio-based writeback path for large-folio mapping files
+and keep the legacy f2fs_write_cache_pages() path unchanged for
+non large-folio mapping files.
+
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- tools/testing/selftests/arm64/gcs/Makefile    |   3 +-
- .../selftests/arm64/gcs/gcs-clone-pidfd.c     | 168 ++++++++++++++++++
- .../testing/selftests/arm64/gcs/gcs-locking.c |  20 ---
- tools/testing/selftests/arm64/gcs/gcs-util.h  |  24 +++
- tools/testing/selftests/arm64/gcs/libc-gcs.c  |  20 ---
- 5 files changed, 194 insertions(+), 41 deletions(-)
- create mode 100644 tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c
+ fs/f2fs/data.c    | 533 +++++++++++++++++++++++++++++++++++++++++++++-
+ fs/f2fs/segment.c |   8 +-
+ 2 files changed, 533 insertions(+), 8 deletions(-)
 
-diff --git a/tools/testing/selftests/arm64/gcs/Makefile b/tools/testing/selftests/arm64/gcs/Makefile
-index 1fbbf0ca1f02..f1365eea31c9 100644
---- a/tools/testing/selftests/arm64/gcs/Makefile
-+++ b/tools/testing/selftests/arm64/gcs/Makefile
-@@ -6,7 +6,8 @@
- # nolibc.
- #
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index fbffe4c56090..1faff6f4621d 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -364,6 +364,49 @@ static void f2fs_cache_write_end_bio(struct bio *bio)
+ 	bio_put(bio);
+ }
  
--TEST_GEN_PROGS := basic-gcs libc-gcs gcs-locking gcs-stress gcspushm gcsstr
-+TEST_GEN_PROGS := basic-gcs libc-gcs gcs-locking gcs-stress gcspushm gcsstr \
-+		  gcs-clone-pidfd
- TEST_GEN_PROGS_EXTENDED := gcs-stress-thread
- 
- LDLIBS+=-lpthread
-diff --git a/tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c b/tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c
-new file mode 100644
-index 000000000000..96400ea376c0
---- /dev/null
-+++ b/tools/testing/selftests/arm64/gcs/gcs-clone-pidfd.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: GPL-2.0
++static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
++{
++	struct f2fs_folio_state *ffs;
++	unsigned long flags;
++	unsigned int nr_subpages;
++	bool dirty;
++
++	if (!f2fs_folio_has_ffs(folio))
++		return false;
++
++	ffs = (struct f2fs_folio_state *)folio->private;
++	nr_subpages = folio_nr_pages(folio);
++
++	spin_lock_irqsave(&ffs->state_lock, flags);
++	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
++				nr_subpages) < 2 * nr_subpages;
++	spin_unlock_irqrestore(&ffs->state_lock, flags);
++
++	return dirty;
++}
++
 +/*
-+ * clone3(CLONE_VM|CLONE_PIDFD) with an unwritable pidfd pointer must
-+ * not leak a GCS VMA. copy_thread() maps one, then put_user() fails
-+ * and copy_process() calls exit_thread(). Without HAVE_EXIT_THREAD
-+ * that free is a no-op and the VMA stays in the parent's mm.
++ * Drop a write page pending of @folio.  When the last pending is gone,
++ * clear PAGE_PRIVATE_GCING if no dirty subpage is left, and end
++ * writeback if it was started.
++ */
++static void f2fs_ffs_put_write_pending(struct folio *folio, unsigned int nr)
++{
++	struct f2fs_folio_state *ffs;
++
++	if (!f2fs_folio_has_ffs(folio))
++		goto release;
++
++	ffs = (struct f2fs_folio_state *)folio->private;
++	if (!atomic_sub_and_test(nr, &ffs->write_pages_pending))
++		return;
++release:
++	if (!f2fs_ffs_has_dirty_subpage(folio))
++		folio_clear_f2fs_gcing(folio);
++	if (folio_test_writeback(folio))
++		folio_end_writeback(folio);
++}
++
+ static void f2fs_write_end_bio(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi = bio->bi_private;
+@@ -379,6 +422,8 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 
+ 	bio_for_each_folio_all(fi, bio) {
+ 		struct folio *folio = fi.folio;
++		unsigned int nr_pages = fi.length >> PAGE_SHIFT;
++		unsigned int npages = nr_pages;
+ 		enum count_type type;
+ 
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+@@ -398,7 +443,8 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 			}
+ 		}
+ 
+-		dec_cache_count(sbi, type);
++		while (nr_pages--)
++			dec_cache_count(sbi, type);
+ 
+ 		/*
+ 		 * we should access sbi before folio_end_writeback() to
+@@ -408,8 +454,7 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 				wq_has_sleeper(&sbi->cp_wait))
+ 			wake_up(&sbi->cp_wait);
+ 
+-		folio_clear_f2fs_gcing(folio);
+-		folio_end_writeback(folio);
++		f2fs_ffs_put_write_pending(folio, npages);
+ 	}
+ 
+ 	bio_put(bio);
+@@ -2946,7 +2991,7 @@ static unsigned int __ffs_mark_subrange_dirty(struct folio *folio,
+ 	return bitmap_weight(ffs->state, 2 * nr_subpages) - before;
+ }
+ 
+-static void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
++void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
+ 				    size_t offset, size_t len)
+ {
+ 	struct f2fs_folio_state *ffs;
+@@ -2964,6 +3009,99 @@ static void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
+ 	spin_unlock_irqrestore(&ffs->state_lock, flags);
+ }
+ 
++static bool __ffs_clear_subrange_dirty(struct folio *folio,
++			struct f2fs_folio_state *ffs, size_t offset, size_t len)
++{
++	unsigned int nr_subpages = folio_nr_pages(folio);
++	unsigned int start, end;
++
++	start = offset >> PAGE_SHIFT;
++	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
++	end = min(end, nr_subpages);
++
++	bitmap_clear(ffs->state, nr_subpages + start, end - start);
++	return find_next_bit(ffs->state, 2 * nr_subpages, nr_subpages) <
++			2 * nr_subpages;
++}
++
++/**
++ * f2fs_ffs_clear_subrange_dirty_and_test - clear dirty bits and test remaining
++ * @folio: the large folio
++ * @offset: start byte offset within the folio
++ * @len: byte length of the subrange
 + *
-+ * After enabling GCS, do not return from main(): libc frames above
-+ * that point have no GCS entries.
++ * Clear the dirty bits of the 4K subpages covered by [offset, offset + len),
++ * and return whether the folio still has any dirty subpage left.
 + */
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <linux/sched.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/auxv.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include <asm/hwcap.h>
-+
-+#include "kselftest.h"
-+#include "gcs-util.h"
-+
-+#ifndef HWCAP_GCS
-+#define HWCAP_GCS		(1UL << 32)
-+#endif
-+
-+#ifndef __NR_clone3
-+#define __NR_clone3 435
-+#endif
-+
-+#define NCLONE			16
-+#define STACK_SIZE		(64 * 1024)
-+
-+static int count_ss_vmas(void)
++bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
++					    size_t len)
 +{
-+	FILE *f;
-+	char line[256];
-+	int vmas = 0;
++	struct f2fs_folio_state *ffs;
++	unsigned long flags;
++	bool dirty;
 +
-+	f = fopen("/proc/self/smaps", "r");
-+	if (!f)
-+		ksft_exit_fail_msg("fopen /proc/self/smaps: %s\n",
-+				   strerror(errno));
++	if (!f2fs_folio_has_ffs(folio))
++		return false;
 +
-+	while (fgets(line, sizeof(line), f)) {
-+		if (!strncmp(line, "VmFlags:", 8) && strstr(line, " ss"))
-+			vmas++;
-+	}
-+	fclose(f);
-+	return vmas;
++	ffs = (struct f2fs_folio_state *)folio->private;
++	spin_lock_irqsave(&ffs->state_lock, flags);
++	dirty = __ffs_clear_subrange_dirty(folio, ffs, offset, len);
++	spin_unlock_irqrestore(&ffs->state_lock, flags);
++
++	return dirty;
 +}
 +
-+/*
-+ * CLONE_VM maps a new GCS. CLONE_PIDFD lets put_user() fail after that.
-+ * Use a raw svc: the child resumes on an empty GCS, so a libc return
-+ * after clone3 would fault; exit the same way.
-+ */
-+static long clone_pidfd(void *stack, size_t stack_size, int *pidfd_ptr)
++static unsigned int ffs_next_dirty_subpage(struct f2fs_folio_state *ffs,
++			const struct folio *folio, unsigned int start,
++			unsigned int end)
 +{
-+	struct clone_args args = {
-+		.flags = CLONE_VM | CLONE_PIDFD,
-+		.pidfd = (uint64_t)(uintptr_t)pidfd_ptr,
-+		.exit_signal = SIGCHLD,
-+		.stack = (uint64_t)(uintptr_t)stack,
-+		.stack_size = stack_size,
-+	};
-+	register long num __asm__("x8") = __NR_clone3;
-+	register long ret __asm__("x0") = (long)&args;
-+	register long sz __asm__("x1") = sizeof(args);
-+	int st;
++	unsigned int nr_subpages = folio_nr_pages(folio);
 +
-+	asm volatile("svc #0"
-+		     : "+r"(ret)
-+		     : "r"(num), "r"(sz)
-+		     : "memory", "cc");
-+	if (ret == 0) {
-+		register long n __asm__("x8") = __NR_exit;
-+		register long e __asm__("x0") = 0;
-+
-+		asm volatile("svc #0" : : "r"(n), "r"(e) : "memory");
-+		__builtin_unreachable();
-+	}
-+	if (ret < 0)
-+		return ret;
-+	if (waitpid((pid_t)ret, &st, 0) < 0)
-+		return -errno;
-+	if (!WIFEXITED(st) || WEXITSTATUS(st) != 0)
-+		return 1;
-+	return 0;
++	return find_next_bit(ffs->state, nr_subpages + end + 1,
++			nr_subpages + start) - nr_subpages;
 +}
 +
-+int main(void)
++static unsigned int ffs_next_clean_subpage(struct f2fs_folio_state *ffs,
++			const struct folio *folio, unsigned int start,
++			unsigned int end)
 +{
-+	void *stack;
-+	void *bad_pidfd;
-+	unsigned long gcs_mode;
-+	long rc;
-+	int pidfd = -1;
-+	int vmas0, vmas1;
-+	int i, n_efault = 0;
++	unsigned int nr_subpages = folio_nr_pages(folio);
 +
-+	ksft_print_header();
-+
-+	if (!(getauxval(AT_HWCAP) & HWCAP_GCS))
-+		ksft_exit_skip("GCS not supported\n");
-+
-+	stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
-+	if (stack == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap stack: %s\n", strerror(errno));
-+
-+	bad_pidfd = mmap(NULL, 4096, PROT_NONE,
-+			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (bad_pidfd == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap pidfd page: %s\n", strerror(errno));
-+
-+	rc = my_syscall2(__NR_prctl, PR_GET_SHADOW_STACK_STATUS, &gcs_mode);
-+	if (rc)
-+		ksft_exit_fail_msg("PR_GET_SHADOW_STACK_STATUS: %ld\n", rc);
-+
-+	if (!(gcs_mode & PR_SHADOW_STACK_ENABLE)) {
-+		rc = my_syscall2(__NR_prctl, PR_SET_SHADOW_STACK_STATUS,
-+				 PR_SHADOW_STACK_ENABLE);
-+		if (rc == -EOPNOTSUPP || rc == -EINVAL || rc == -EBUSY)
-+			ksft_exit_skip("cannot enable GCS: %ld\n", rc);
-+		if (rc)
-+			ksft_exit_fail_msg("PR_SET_SHADOW_STACK_STATUS: %ld\n",
-+					   rc);
-+	}
-+
-+	rc = clone_pidfd(stack, STACK_SIZE, &pidfd);
-+	if (rc == -ENOSYS || rc == -EINVAL || rc == -EPERM)
-+		ksft_exit_skip("clone3 valid pidfd unavailable: %s\n",
-+			       strerror(-rc));
-+
-+	ksft_set_plan(3);
-+
-+	ksft_test_result(rc == 0 && pidfd >= 0,
-+			 "clone3 valid pidfd (rc=%ld pidfd=%d)\n",
-+			 rc, pidfd);
-+	if (pidfd >= 0)
-+		close(pidfd);
-+
-+	vmas0 = count_ss_vmas();
-+
-+	for (i = 0; i < NCLONE; i++) {
-+		rc = clone_pidfd(stack, STACK_SIZE, bad_pidfd);
-+		if (rc == -EFAULT)
-+			n_efault++;
-+	}
-+	ksft_test_result(n_efault == NCLONE,
-+			 "clone3 bad pidfd returns -EFAULT x%d\n", NCLONE);
-+
-+	vmas1 = count_ss_vmas();
-+	ksft_test_result(vmas1 == vmas0,
-+			 "no GCS VMA leak (%d -> %d)\n", vmas0, vmas1);
-+
-+	ksft_finished();
++	return find_next_zero_bit(ffs->state, nr_subpages + end + 1,
++			nr_subpages + start) - nr_subpages;
 +}
-diff --git a/tools/testing/selftests/arm64/gcs/gcs-locking.c b/tools/testing/selftests/arm64/gcs/gcs-locking.c
-index 80a1317f6097..8877fd2d2eab 100644
---- a/tools/testing/selftests/arm64/gcs/gcs-locking.c
-+++ b/tools/testing/selftests/arm64/gcs/gcs-locking.c
-@@ -18,26 +18,6 @@
- 
- #include "gcs-util.h"
- 
--#define my_syscall2(num, arg1, arg2)                                          \
--({                                                                            \
--	register long _num  __asm__ ("x8") = (num);                           \
--	register long _arg1 __asm__ ("x0") = (long)(arg1);                    \
--	register long _arg2 __asm__ ("x1") = (long)(arg2);                    \
--	register long _arg3 __asm__ ("x2") = 0;                               \
--	register long _arg4 __asm__ ("x3") = 0;                               \
--	register long _arg5 __asm__ ("x4") = 0;                               \
--	                                                                      \
--	__asm__  volatile (                                                   \
--		"svc #0\n"                                                    \
--		: "=r"(_arg1)                                                 \
--		: "r"(_arg1), "r"(_arg2),                                     \
--		  "r"(_arg3), "r"(_arg4),                                     \
--		  "r"(_arg5), "r"(_num)					      \
--		: "memory", "cc"                                              \
--	);                                                                    \
--	_arg1;                                                                \
--})
--
- /* No mode bits are rejected for locking */
- TEST(lock_all_modes)
- {
-diff --git a/tools/testing/selftests/arm64/gcs/gcs-util.h b/tools/testing/selftests/arm64/gcs/gcs-util.h
-index 7a81bb07ed4b..46f6ed9cf54d 100644
---- a/tools/testing/selftests/arm64/gcs/gcs-util.h
-+++ b/tools/testing/selftests/arm64/gcs/gcs-util.h
-@@ -43,6 +43,30 @@
- #define GCS_CAP(x) (((unsigned long)(x) & GCS_CAP_ADDR_MASK) | \
- 		    GCS_CAP_VALID_TOKEN)
- 
-+/*
-+ * prctl(..., arg1, arg2) with unused registers forced to zero.  The
-+ * kernel rejects non-zero unused args; libc may leave garbage there.
-+ */
-+#define my_syscall2(num, arg1, arg2)					\
-+({									\
-+	register long _num  __asm__ ("x8") = (num);			\
-+	register long _arg1 __asm__ ("x0") = (long)(arg1);		\
-+	register long _arg2 __asm__ ("x1") = (long)(arg2);		\
-+	register long _arg3 __asm__ ("x2") = 0;				\
-+	register long _arg4 __asm__ ("x3") = 0;				\
-+	register long _arg5 __asm__ ("x4") = 0;				\
-+									\
-+	__asm__ volatile (						\
-+		"svc #0\n"						\
-+		: "=r"(_arg1)						\
-+		: "r"(_arg1), "r"(_arg2),				\
-+		  "r"(_arg3), "r"(_arg4),				\
-+		  "r"(_arg5), "r"(_num)					\
-+		: "memory", "cc"					\
-+	);								\
-+	_arg1;								\
-+})
 +
- static inline unsigned long *get_gcspr(void)
- {
- 	unsigned long *gcspr;
-diff --git a/tools/testing/selftests/arm64/gcs/libc-gcs.c b/tools/testing/selftests/arm64/gcs/libc-gcs.c
-index ddb0b2b20155..4e9fa9b82f0f 100644
---- a/tools/testing/selftests/arm64/gcs/libc-gcs.c
-+++ b/tools/testing/selftests/arm64/gcs/libc-gcs.c
-@@ -24,26 +24,6 @@
++static unsigned int ffs_find_dirty_range(struct folio *folio,
++					u64 *range_start, u64 range_end)
++{
++	struct f2fs_folio_state *ffs;
++	unsigned int start, end, nr_pages;
++
++	if (*range_start >= range_end)
++		return 0;
++
++	if (!f2fs_folio_has_ffs(folio))
++		return range_end - *range_start;
++
++	ffs = (struct f2fs_folio_state *)folio->private;
++	start = offset_in_folio(folio, *range_start) >> PAGE_SHIFT;
++	end = DIV_ROUND_UP(min_not_zero(offset_in_folio(folio, range_end),
++					folio_size(folio)), PAGE_SIZE) - 1;
++
++	start = ffs_next_dirty_subpage(ffs, folio, start, end);
++	if (start > end)
++		return 0;
++
++	if (start == end)
++		nr_pages = 1;
++	else
++		nr_pages = ffs_next_clean_subpage(ffs, folio,
++						 start + 1, end) - start;
++
++	*range_start = folio_pos(folio) + ((u64)start << PAGE_SHIFT);
++	return (u64)nr_pages << PAGE_SHIFT;
++}
++
+ static bool find_next_valid_block(const struct folio *folio,
+ 				  size_t orig_off, size_t *need_off,
+ 				  size_t len)
+@@ -3501,7 +3639,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+ 	if (ipu_force ||
+ 		(__is_valid_data_blkaddr(fio->old_blkaddr) &&
+ 					need_inplace_update(fio))) {
+-		folio_start_writeback(folio);
++		__folio_start_writeback(folio, folio_test_dirty(folio));
+ 		f2fs_put_dnode(&dn);
+ 		if (fio->need_lock == LOCK_REQ)
+ 			f2fs_unlock_op(fio->sbi, &lc);
+@@ -3528,7 +3666,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
  
- #include "gcs-util.h"
+ 	fio->version = ni.version;
  
--#define my_syscall2(num, arg1, arg2)                                          \
--({                                                                            \
--	register long _num  __asm__ ("x8") = (num);                           \
--	register long _arg1 __asm__ ("x0") = (long)(arg1);                    \
--	register long _arg2 __asm__ ("x1") = (long)(arg2);                    \
--	register long _arg3 __asm__ ("x2") = 0;                               \
--	register long _arg4 __asm__ ("x3") = 0;                               \
--	register long _arg5 __asm__ ("x4") = 0;                               \
--	                                                                      \
--	__asm__  volatile (                                                   \
--		"svc #0\n"                                                    \
--		: "=r"(_arg1)                                                 \
--		: "r"(_arg1), "r"(_arg2),                                     \
--		  "r"(_arg3), "r"(_arg4),                                     \
--		  "r"(_arg5), "r"(_num)					      \
--		: "memory", "cc"                                              \
--	);                                                                    \
--	_arg1;                                                                \
--})
--
- static noinline void gcs_recurse(int depth)
+-	folio_start_writeback(folio);
++	__folio_start_writeback(folio, folio_test_dirty(folio));
+ 
+ 	if (fio->compr_blocks && fio->old_blkaddr == COMPRESS_ADDR)
+ 		f2fs_i_compr_blocks_update(inode, fio->compr_blocks - 1, false);
+@@ -3536,6 +3674,13 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+ 	/* LFS mode write path */
+ 	f2fs_outplace_write_data(&dn, fio);
+ 	trace_f2fs_do_write_data_page(folio, OPU);
++	/*
++	 * The outplace write path failed to submit this block.
++	 */
++	if (!fio->submitted) {
++		err = -EIO;
++		goto out_writepage;
++	}
+ 	set_inode_flag(inode, FI_APPEND_WRITE);
+ 	if (atomic_commit)
+ 		folio_clear_f2fs_atomic(folio);
+@@ -3547,6 +3692,144 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+ 	return err;
+ }
+ 
++static int f2fs_write_folio_dirty_range(struct folio *folio, int *submitted,
++					struct writeback_control *wbc,
++					enum iostat_type io_type,
++					u64 *pos, u64 len)
++{
++	struct inode *inode = folio->mapping->host;
++	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++	bool atomic_commit = f2fs_is_atomic_file(inode) &&
++				folio_test_f2fs_atomic(folio);
++	struct inode *dn_inode = atomic_commit ?
++				F2FS_I(inode)->cow_inode : inode;
++	struct f2fs_folio_state *ffs = NULL;
++	u64 folio_start = folio_pos(folio);
++	pgoff_t start_idx = (*pos - folio_start) >> PAGE_SHIFT;
++	pgoff_t end_idx = (*pos - folio_start + len - 1) >> PAGE_SHIFT;
++	int err = 0;
++
++	for (pgoff_t i = start_idx; i <= end_idx && !err; i++) {
++		struct dnode_of_data dn;
++		struct node_info ni;
++		pgoff_t data_idx = folio->index + i;
++		bool ipu_force = false;
++		bool dn_held = false;
++		bool submitted_blk = false;
++		struct f2fs_io_info fio = {
++			.sbi = sbi,
++			.ino = inode->i_ino,
++			.type = DATA,
++			.op = REQ_OP_WRITE,
++			.op_flags = wbc_to_write_flags(wbc),
++			.old_blkaddr = NULL_ADDR,
++			.folio = folio,
++			.folio_offset = i,
++			.folio_blkcnt = 1,
++			.encrypted_page = NULL,
++			.submitted = 0,
++			.need_lock = LOCK_DONE,
++			.meta_gc = f2fs_meta_inode_gc_required(inode) ? 1 : 0,
++			.io_type = io_type,
++			.io_wbc = wbc,
++		};
++
++		if (f2fs_folio_has_ffs(folio)) {
++			ffs = (struct f2fs_folio_state *)folio->private;
++			atomic_inc(&ffs->write_pages_pending);
++		}
++
++		set_new_dnode(&dn, dn_inode, NULL, NULL, 0);
++
++		if (need_inplace_update(&fio) &&
++		    f2fs_lookup_read_extent_cache_block(inode, data_idx,
++							&fio.old_blkaddr)) {
++			if (!f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
++						   DATA_GENERIC_ENHANCE)) {
++				err = -EFSCORRUPTED;
++				goto block_done;
++			}
++			ipu_force = true;
++			goto got_it;
++		}
++
++		err = f2fs_get_dnode_of_data(&dn, data_idx, LOOKUP_NODE);
++		if (err)
++			goto block_done;
++		dn_held = true;
++
++		fio.old_blkaddr = dn.data_blkaddr;
++
++got_it:
++		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
++		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
++					   DATA_GENERIC_ENHANCE)) {
++			err = -EFSCORRUPTED;
++			goto block_done;
++		}
++
++		if (fio.meta_gc)
++			f2fs_wait_on_block_writeback(inode, fio.old_blkaddr);
++
++		if (ipu_force ||
++		    (__is_valid_data_blkaddr(fio.old_blkaddr) &&
++					    need_inplace_update(&fio))) {
++			f2fs_put_dnode(&dn);
++			dn_held = false;
++			err = f2fs_inplace_write_data(&fio);
++			trace_f2fs_do_write_data_page(folio, IPU);
++			if (err)
++				goto block_done;
++
++			if (submitted)
++				(*submitted)++;
++			submitted_blk = true;
++			set_inode_flag(inode, FI_UPDATE_WRITE);
++			goto block_done;
++		}
++
++		err = f2fs_get_node_info(sbi, dn.nid, &ni, false);
++		if (err)
++			goto block_done;
++
++		fio.version = ni.version;
++
++		f2fs_outplace_write_data(&dn, &fio);
++		/*
++		 * The outplace write path failed to submit this block.
++		 */
++		if (!fio.submitted) {
++			err = -EIO;
++			goto block_done;
++		}
++		if (submitted)
++			(*submitted)++;
++		submitted_blk = true;
++		set_inode_flag(inode, FI_APPEND_WRITE);
++		trace_f2fs_do_write_data_page(folio, OPU);
++block_done:
++		if (dn_held)
++			f2fs_put_dnode(&dn);
++		/*
++		 * If this block was not submitted, roll back its
++		 * write pages pending.
++		 */
++		if (!submitted_blk && ffs)
++			f2fs_ffs_put_write_pending(folio, 1);
++		if (!err) {
++			*pos = ((loff_t)data_idx + 1) << PAGE_SHIFT;
++			spin_lock(&F2FS_I(inode)->i_size_lock);
++			if (F2FS_I(inode)->last_disk_size < *pos)
++				F2FS_I(inode)->last_disk_size = *pos;
++			spin_unlock(&F2FS_I(inode)->i_size_lock);
++		} else {
++			file_set_keep_isize(inode);
++		}
++	}
++
++	return err;
++}
++
+ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+ 				struct bio **bio,
+ 				sector_t *last_block,
+@@ -3996,6 +4279,238 @@ static int f2fs_write_cache_pages(struct address_space *mapping,
+ 	return ret;
+ }
+ 
++static int f2fs_write_cache_folios(struct address_space *mapping,
++				   struct writeback_control *wbc,
++				   enum iostat_type io_type)
++{
++	struct folio *folio = NULL;
++	struct inode *inode = mapping->host;
++	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++	struct f2fs_lock_context lc;
++	u64 pos = 0;
++	u64 end_pos = 0;
++	u32 r_len = 0;
++	int err = 0;
++	int submitted = 0;
++	int nwritten = 0;
++	bool op_locked = false;
++	bool retry = false;
++
++	if (get_dirty_pages(inode) <= SM_I(sbi)->min_hot_blocks)
++		set_inode_flag(inode, FI_HOT_DATA);
++	else
++		clear_inode_flag(inode, FI_HOT_DATA);
++
++	while ((folio = writeback_iter(mapping, wbc, folio, &err))) {
++		struct f2fs_folio_state *ffs = NULL;
++		u64 isize;
++		size_t poff;
++		size_t clear_len;
++		pgoff_t end_index;
++		bool verity_in_progress;
++		int folio_submitted = 0;
++		bool bias_added = false;
++
++		submitted = 0;
++		retry = false;
++
++		if (err) {
++			folio_redirty_for_writepage(wbc, folio);
++			goto retry_out;
++		}
++
++		if (atomic_read(&sbi->wb_sync_req[DATA]) &&
++		    wbc->sync_mode == WB_SYNC_NONE) {
++			folio_redirty_for_writepage(wbc, folio);
++			/*
++			 * A WB_SYNC_ALL writeback is in progress, so defer
++			 * this writeback.  Mark the error as -EBUSY to let
++			 * writeback_iter() stop iterating.
++			 */
++			err = -EBUSY;
++			goto retry_out;
++		}
++
++		/*
++		 * Writing back one large folio performs multiple block allocations, so
++		 * best-effort balance the filesystem before writing it back.
++		 */
++		if (!F2FS_I(inode)->wb_task && has_not_enough_free_secs(sbi, 0, 0)) {
++			folio_redirty_for_writepage(wbc, folio);
++			retry = true;
++			folio_unlock(folio);
++			f2fs_balance_fs(sbi, true);
++			folio_lock(folio);
++			goto retry;
++		}
++retry:
++		pos = folio_pos(folio);
++		end_pos = pos + folio_size(folio);
++		isize = i_size_read(inode);
++		verity_in_progress = f2fs_verity_in_progress(inode);
++		poff = 0;
++		end_index = 0;
++
++		if (retry) {
++
++			if (unlikely(folio->mapping != mapping))
++				goto retry_out;
++
++			if (!folio_test_dirty(folio))
++				goto retry_out;
++
++			if (folio_test_writeback(folio)) {
++				if (wbc->sync_mode == WB_SYNC_NONE)
++					goto retry_out;
++				f2fs_folio_wait_writeback(folio, true, true);
++			}
++
++			if (!folio_clear_dirty_for_io(folio))
++				goto retry_out;
++		}
++
++		/*
++		 * If cp_error is set, all subpages of this folio are not
++		 * written back unless the filesystem is mounted with
++		 * errors=remount-ro.  The check is placed after the retry
++		 * block so it also covers cp_error being set while the folio
++		 * lock was dropped for f2fs_balance_fs() or for the trylock_op()
++		 * backoff.  PG_dirty is clear at this point, so both the
++		 * redirty and the drop below leave a coherent state.
++		 */
++		if (unlikely(f2fs_cp_error(sbi))) {
++			mapping_set_error(mapping, -EIO);
++			if (F2FS_OPTION(sbi).errors == MOUNT_ERRORS_READONLY) {
++				folio_redirty_for_writepage(wbc, folio);
++				goto retry_out;
++			}
++			goto out;
++		}
++
++		/* To avoid dealing with the complexity for one subrange is in bio
++		 * while we trylock_op failed before writing another subrange.
++		 * Try to lock_op before any subrange write for the folio.
++		 */
++		if (!op_locked) {
++			if (!f2fs_trylock_op(sbi, &lc)) {
++				folio_redirty_for_writepage(wbc, folio);
++				err = 0;
++				if (wbc->sync_mode != WB_SYNC_ALL)
++					goto retry_out;
++
++				retry = true;
++				folio_unlock(folio);
++				f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
++				folio_lock(folio);
++				goto retry;
++			}
++			op_locked = true;
++		}
++
++		if (!verity_in_progress) {
++			poff = offset_in_folio(folio, isize);
++			end_index = isize >> PAGE_SHIFT;
++
++			if (folio->index > end_index ||
++			    (folio->index == end_index && poff == 0))
++				goto out;
++
++			if (end_pos > isize) {
++				folio_zero_segment(folio, poff, folio_size(folio));
++				end_pos = isize;
++			}
++		}
++
++		folio_start_writeback(folio);
++
++		/*
++		 * Large folios can be submitted as multiple bios, which may
++		 * complete while we are still submitting the remaining dirty
++		 * ranges.  Hold a bias on write_pages_pending to prevent
++		 * folio_end_writeback() from being called early.
++		 */
++		if (!bias_added && f2fs_folio_has_ffs(folio)) {
++			ffs = (struct f2fs_folio_state *)folio->private;
++			WARN_ON_ONCE(atomic_read(&ffs->write_pages_pending) != 0);
++			atomic_inc(&ffs->write_pages_pending);
++			bias_added = true;
++		}
++
++		while ((r_len = ffs_find_dirty_range(folio, &pos, end_pos))) {
++			submitted = 0;
++			err = f2fs_write_folio_dirty_range(folio, &submitted,
++					wbc, io_type, &pos, r_len);
++			folio_submitted += submitted;
++			nwritten += submitted;
++			if (err)
++				goto out;
++		}
++
++		/* If none of the subpages of a folio is submitted, keep the atomic flag */
++		if (folio_submitted &&
++		    f2fs_is_atomic_file(inode) &&
++		    folio_test_f2fs_atomic(folio))
++			folio_clear_f2fs_atomic(folio);
++
++out:
++		/*
++		 * Clear the dirty state of the subranges that were written back.
++		 * If some subranges are still dirty (e.g. the folio was only
++		 * partially written back), or if the writeback failed, the
++		 * folio must stay dirty so that the remaining subranges are
++		 * written back later.
++		 *
++		 * On success, clear dirty bits of the whole folio rather than
++		 * up to isize: subpages beyond EOF can still carry dirty bits
++		 * (e.g. fill_zero() w/ FALLOC_FL_KEEP_SIZE, BG_GC on blocks
++		 * beyond EOF, or f2fs_ffs_find_or_alloc() on a dirty folio),
++		 * they will never be written back, and would keep the folio
++		 * redirtied forever.
++		 */
++		clear_len = err ? pos - folio_pos(folio) : folio_size(folio);
++		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
++						clear_len) || err) {
++			folio_redirty_for_writepage(wbc, folio);
++		} else {
++			inode_dec_dirty_pages(inode);
++		}
++
++		/*
++		 * Release the bias taken above and we end writeback here if
++		 * no write bio is in flight.
++		 */
++		if (bias_added) {
++			f2fs_ffs_put_write_pending(folio, 1);
++		} else if (!folio_submitted && folio_test_writeback(folio)) {
++			/*
++			 * Order-0 folios take no bias, so end the writeback
++			 * if nothing was submitted.
++			 */
++			folio_end_writeback(folio);
++		}
++
++retry_out:
++		if (op_locked) {
++			f2fs_unlock_op(sbi, &lc);
++			op_locked = false;
++		}
++
++		folio_unlock(folio);
++	}
++
++	if (nwritten)
++		f2fs_submit_merged_write_cond(F2FS_M_SB(mapping), mapping->host,
++					       NULL);
++
++	/*
++	 * Prevent the -EBUSY error that stopped writeback_iter() from
++	 * propagating to the user.
++	 */
++	if (err == -EBUSY)
++		err = 0;
++	return err;
++}
++
+ static inline bool __should_serialize_io(struct inode *inode,
+ 					struct writeback_control *wbc)
  {
- 	if (depth)
+@@ -4090,7 +4605,11 @@ static int __f2fs_write_data_pages(struct address_space *mapping,
+ 	account_writeback(inode, true);
+ 
+ 	blk_start_plug(&plug);
+-	ret = f2fs_write_cache_pages(mapping, wbc, io_type);
++	if (mapping_large_folio_support(inode->i_mapping) &&
++	    !f2fs_has_inline_data(inode))
++		ret = f2fs_write_cache_folios(mapping, wbc, io_type);
++	else
++		ret = f2fs_write_cache_pages(mapping, wbc, io_type);
+ 	blk_finish_plug(&plug);
+ 
+ 	account_writeback(inode, false);
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 80f58c586e33..cbb65e0343c8 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -4173,7 +4173,13 @@ static void do_write_block(struct f2fs_summary *sum, struct f2fs_io_info *fio)
+ 				"%s Failed to allocate data block, ino:%u, index:%lu, type:%d, old_blkaddr:0x%x, new_blkaddr:0x%x, err:%d",
+ 				__func__, fio->ino, folio->index, type,
+ 				fio->old_blkaddr, fio->new_blkaddr, err);
+-			folio_end_writeback(folio);
++			/*
++			 * For a large folio, the caller rolls back
++			 * write_pages_pending and ends writeback when the last
++			 * pending write is gone.
++			 */
++			if (!f2fs_folio_has_ffs(folio))
++				folio_end_writeback(folio);
+ 		}
+ 		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
+ 							CP_ERROR_FLAG));
 -- 
 2.43.0
 
