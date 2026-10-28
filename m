@@ -1,51 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206494;
-	b=cMy2d/awCXcI1LdygDjvmZYcCdNHbPxUFoh9Qqiht4KcTUuElZvpS4Kh2A49B+weyl+H
-	 3pVvr0nhArBJRrLM0QhEJtEKIao8Iqh8xxiay7lN0fpufzQ5Cj3uQBo125NgtOdGBKgh/
-	 /pvw/SAi6pMiH39ap1Oi6SPZzghayG9WhreOJbTRbNipE+C3Tik36DOPVLancUEu9bOMc
-	 dfejAEXk609Maz0wc6SOXtayPmnj3kRvzdQPp0d3TwdbxPxitDYpNVXOrtgK0826+0IJV
-	 3f+s0IOw9BCPqKeSoMh3fhts00AvHeUMwixMXg0QTD5xNnOz+Q1Zvi0a1WQhviM5wJw==
+	t=1793206505;
+	b=X46i+YX/wML2iRFVwg+8jnBFIES2sjwvxUMQaZoX0fDoopvZZQ4674w+hRaSVtxaRrer
+	 snBkcpHNf4smuLbpJOtfDEyOO0qqQxqjFYh52l14efu6G6WQ8fc2xeaauSgj2gkvMjC7A
+	 Dh00qbTHSybB2GbUd9eD/cQeDqRtGxef6+/HWg5xXAiIO0mBL3+EiZQ84PiMmQit3Yd2T
+	 L0iWDPo2UPuEK5IQOH7v1cPNEKovTGSP/4s4NFvPMp6F2qkcbsoQeqtP+4191d4Pu9llJ
+	 6CHk3a7eewYGpyymYH3PleP9+mj9Xq1gPsez1cO4Y1lD5WMKoB6bV4obRIVMdaEWCWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206494;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=65KvZC1LFbngmbRx+tq6aCYPHEbvFJnMwAW5Rz+frMc=;
-	b=C06KJKPt726EugWZiY+yfiZNuiMYoRZ2T3/Jc4IQeIfQgPwDmQ122PPNjUosgjw7RnDk
-	 30xhlo7S1R64YkwX5W7zoq6DZnyy9hhUdekPFf9EgEQskmG2vOhIN94wfB37rIRdBDqst
-	 urKjqNj/5aQPWZkV5EHhPXQZ4z4N7vqMrqq37XjmGjNVWjlmO0VqczpG4rCQ1kBOtqDI9
-	 ZBQ1UVQhTP7jYjgWbwAeGXsXv/FW0kpRvOjNdbbEMxUUHE3MWBNQVyxSJ5qcb+GEr/QCA
-	 LpHh3a4CRBS0/iMCCtOURUTRlOsROn9wfXRf2nmZ+fT7qA8Qsr8jnI053AkEBN8cQ/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206505;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
+	b=Rto44ReB1vQmWEdT3+rKMGy8bIGPGJwVAxdItkJo06o7d6lWD/l8cDp0AAYzeg8YWrck
+	 OvkjKJXRBKCpmbvEfYC59Vicd2bEADKnTCZCsef1bk7L7WK4vSSBzMYMkRNFWPNs20g6O
+	 CF0cTR6mPBTv5AxkyNn0ux42dScI5L9lyXpV7ayV1UG13i4I8uwuhiuy4XR2RGKYcMlz6
+	 vPkx7SqOTzmXhf5bazdoikAB7VpNRngDXMuOn7aM1S7LUGKaRTKXPX0a/mDB0GyYkRaqD
+	 rK79pH8KyfeHFCCKlvixPvjLw+8WTVBNnxSxLyzQ1aO70ARZ540CPaMFVZFky9yH0DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFOn0vpF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YZTcsWCI;
+	arc=none smtp.remote-ip=209.85.222.41
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A368606A31C;
-	Wed, 28 Oct 2026 16:54:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D58606A337
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29D58606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFOn0vpF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3131F01825;
-	Wed, 28 Oct 2026 16:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793206494;
-	bh=65KvZC1LFbngmbRx+tq6aCYPHEbvFJnMwAW5Rz+frMc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lFOn0vpFnqsn8D2yL8Hs3CuvHUH66Si8iOmjA6/UW1SOmblzK5qAn6l34I8ULuSgO
-	 6uYXkeC16FNxLGAGgcNyF6nnPryNRiXa/P131p9lFnTgD3N1x459tL4XHiM6zQx+iX
-	 M3XTKxZ1MWjXppZnn+UGv3QlSZigzFEwsKpTZ103kMDznQWtKsqC+OJFLPbObRELLx
-	 M4Y1dVLoSUkn3xC/SINx8VhiqB8NWYu2oE1I++fZne7lRy8eX100StDn9TtZbHpzAv
-	 LCpdMeCVbzSKMxAP/wPW5MUVAYIzijdKb+2A1vGit0gk4S13lNQQkgvu8ibYdZLPLh
-	 2PMBBckPLcDyg==
-Date: Wed, 28 Oct 2026 17:54:50 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Tang Bin <tangbin@cmss.chinamobile.com>
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: hix5hd2: check clk_prepare_enable in runtime resume
-Message-ID: <auIospeKKEECNiaf@zenone.zhora.eu>
-References: <20261026112608.2767-1-tangbin@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YZTcsWCI
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9905d61449cso427961241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:55:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1793206504; x=1793811304; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
+        b=YZTcsWCIUypnB5n4D/hsVZ4sYhEwp0OAWBZMIpgCIgC9VKYTguiLg2qUrAb1YtwQXm
+         fBX2qjbMohrDsF8FpU3xT0wg+Z/De85xmZkcivTaFPK/xC2rSJQKjq22NWOhc1lGVidr
+         hM8JGH+eSNGpRlvJh4EuWmmvnFfWam7TOV3FYkuqC4/2+sI4BlGechXv6xOQOVgypb6q
+         zWTc1Wh0ex2ijemeCLiISE7AQnNSqdbH3U9hHcLHJdV8/WdwHyqp0xajG5zARiSHdoqr
+         pOVMKySmKrvxR+H5Dzu0wqmwb1u32hxlg1K0CKnzvk4A8gUXWUD4WI0PaDrMBKpYlNaK
+         M9iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793206504; x=1793811304;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PRHEIBcRVtOU9mxXH6oSTTLdGiFLeS2r2uPk2vm17iM=;
+        b=ogjFCdXQHaetHzQHJAKkO0cTXKR4DArUoaKZuXLO75Msk4aFwAHxnEpagBG8Nn6w7V
+         DgRr3tyyyawyncAxVS1ZjagEm2HP11wdUZdgo49sSRhKAi4hS/+kpFrAC0v0pYv6c+gK
+         1xH5cPYlGnIV2IgoNNnVYgHBr1kh7PisxrsyIdhXd+QLRhG0zq2fj3ZQK2d1CS0alIti
+         NsEqlfzLFcCvGhtXtJb0InCLSzfTl4mQDojSeFBz6xIx2cDc0TKsyq2vsJn8F1T7w88Q
+         quFF4DUM3hpVm0xXZDKu6Wbmiw0IedaiiSXpBjbeyziXQ/EohEklko1PokLFNjBaDDuL
+         pVqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzp0PtH6enUS9h7xoqtKY0BOXrmNZ6VqNy1NTSv1NLg4HKWWZEXoJuWZEtNOzRHnsw4rsFTuIsi8sgZhv8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnU709KGMtCsn8lPqfoPErbF99zkgRNryg7p1X9eEZUodxQO6o
+	5vlx+65O9g2EtSp7wp1Q8wmq52Pz0ms7W2hbp6U/NoEjobpKpIttH1fvn4RN/LQ70hg=
+X-Gm-Gg: AYBFou1uI7G8zV4T0OYDE5mFcz1Pyiu0DLi5q9wwQdlzkEOJ48xKjsjL2D4kHumiTlz
+	jV2irbDcPJV0dvinnTLJub4WiSXmAajxtyVOah5pLz9rG1Io8BJ2Byo71EHO9ramufBFhIWuqCG
+	zEAxfaIwQ3EKMoTkL9nhkFV65STZuosxp1JaBl7c5ec47Cp+Go3EmOFexwoJlQz3IcRv9V13rx+
+	k9aAmVayZvi/NqsI7C9li+oCTMd3u/Ue/qTjmf36W5chZCwFApNwIdjkgV+b0s1QQo8zhwj14PT
+	kr7kd/ux4aVsQKTWpdcSk17eueJuzK9QXqpnvnpNt+cJhluHRk8ipX4eyDRHs1TUw7VSHthhX0i
+	i9YnjEnKkLSGGI9Ef4wUuuIzm/gx8ogezAa3gn9F11Jen5lW8nisiEX8CxN9ESx7O1DtIpUg8x4
+	0DafcBgjuqUCotxmEWdtJjBICmqKTIVLrkc9+xZFVQnqCob0docCkCCHOObyLyFr/X7GvVng5lF
+	dz8SherykbMkhznTnuj81rAm2fcaj3HjzJ1RwJHWl1F+cYeSnGGfGEblI5e+CqL5Ca81dvy0rxo
+	q4TmNONKkqulHJLqMNvXUFD4bl/id9+D06W1S/+QXG0K1z4J+jgA7tt2LVaKr4u0mrfsJSXgQWD
+	20bFBhl7hoIaFyZSujMIXHieBefaJOw==
+X-Received: by 2002:a05:6102:a54:b0:7b1:6028:5475 with SMTP id ada2fe7eead31-7d03a505a71mr1235376137.12.1793206503993;
+        Wed, 28 Oct 2026 09:55:03 -0700 (PDT)
+Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3d32a48sm6300543137.9.2026.10.28.09.55.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:55:03 -0700 (PDT)
+Date: Wed, 28 Oct 2026 12:55:01 -0400
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
+Message-ID: <auIoupm228FQTNGi@google.com>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,25 +127,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026112608.2767-1-tangbin@cmss.chinamobile.com>
+In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 
-Hi Tang,
-
-On Mon, Oct 26, 2026 at 07:26:08PM +0800, Tang Bin wrote:
-> hix5hd2_i2c_runtime_resume() ignored the return value of
-> clk_prepare_enable(priv->clk), then ran hix5hd2_i2c_init() (register
-> access) and returned 0. On clock enable failure the hardware is accessed
-> with the clock disabled (bus hang) and the matching runtime_suspend()
-> clk_disable_unprepare() unbalances the clock count. Propagate the error.
+On 10-27 00:17, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> Fixes: 9242e72aaea0 ("i2c: use dev_get_drvdata() to get private data in suspend/resume hooks")
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
+> read(), write() and lseek() on a shared open file description of a regular
+> file serialize on ->f_pos_lock.  The flag that asks for it,
+> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
+> too, but its struct file comes from alloc_file_pseudo() and never passes
+> through do_dentry_open(), so it does not get the flag:
+> 
+>   CPU0                                CPU1
+>   write(memfd, "a", 1)                write(memfd, "b", 1)
+>     pos = file->f_pos  (= 0)
+>                                         pos = file->f_pos  (= 0)
+>     vfs_write(..., &pos)
+>                                         vfs_write(..., &pos)
+>     file->f_pos = pos  (= 1)
+>                                         file->f_pos = pos  (= 1)
+> 
+> One of the two bytes is overwritten.  Two threads writing 100000 bytes
+> each, one at a time, to a memfd end up with a file that is far shorter than
+> 200000 bytes, while the same program on a tmpfs file never loses a byte.
+> 
+> Set the flag when the memfd is created.  As for any other regular file the
+> lock is only taken if the file is reachable in more than one way, and
+> nothing a memfd does in read or write waits for another operation on the
+> same file.  This cannot be done for all alloc_file_pseudo() files: anon
+> inode files such as eventfd are S_IFREG as well, and a blocked read holding
+> ->f_pos_lock would lock out the write that is supposed to wake it.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: minor description tweaks ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-pushed to i2c/i2c.
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com> 
 
-Please next time send these patches in a single series.
-
-BTW, for both I removed the Fixes tag as I don't think they are
-necessary.
-
-Andi
+> ---
+>  mm/memfd.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/memfd.c b/mm/memfd.c
+> index 7d2da23157003..6f5fbce74f21e 100644
+> --- a/mm/memfd.c
+> +++ b/mm/memfd.c
+> @@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
+>  	}
+>  
+>  	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
+> +	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
+> +	file->f_mode |= FMODE_ATOMIC_POS;
+>  	file->f_flags |= O_LARGEFILE;
+>  
+>  	if (flags & MFD_NOEXEC_SEAL) {
+> 
+> -- 
+> 2.43.0
+> 
