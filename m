@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197243;
-	b=i5jINi5S98xhGSvNSAgAyjXeOKtUlznkxp9OzhINJzVu8ZojqgaeKX5HRcSSFCtCCXOo
-	 ed1p14ey+/JVGe9dHxMPv5ehAh/bMq1XU/4jookFKuW2xsg1Lo28ArYKSygWPxuoi3h9a
-	 WAMPMJQqMk+AKqLS69JOk8Kfm5zGp04asRKbzrauojO3UesuMHaGj8SjYpM3uRmedVpua
-	 QdQltllpT53tp0bxps/smWC9EGi4po/6Rguf/bcCXY577d6s0TKu8pEDa9tVTynUaMwET
-	 XVWSYO5MYCyJUdW9MiMocJrZn2w/Sw3JcRDuOBo7rQCVpj9JTb4OBpiRGf3dlnCxXBQ==
+	t=1793197253;
+	b=5YNjr+/7hqbaFpRqTC//KsI6t5VrlVU0/ce5BiBLpln+4lLt6P6bZygg/mh0qdag9C1u
+	 mPdXLksdl/x5N5+gR50O7seynQJyoguz3nnw4xqRGnzsflff4nbBZ88o/Q8BxlPPXJgTM
+	 bCTEV+H13+wAhx0RnmMWJrT+vlh9ZVptswrqx2beOMQjgfDQeMVgZFEWtiAyrPLJuiAYo
+	 tym27wAVDBqiGikhRo8iW0mbe0qh6WFaQcLIk6y1PwCOLtHeDWIXhjxKrMCUgi36vPbW8
+	 S4FMNL2S2Yv872LRe5B7MangIh00BU+msz7mug4zB/YnkP/RZI2PBi4Q2l0hbNQJRvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197253;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6n8IW/uLeuiPSehxbUOrC5l5QcKl9RaPrUD5nySkR/A=;
-	b=HLfXgYz7Pt1DmmwNpeQ5HZp7sU30aQadGsirIoAu+LHOpVy+1A1oM5nxHWiUDDMjtBIb
-	 /xUShOna0zzkVFSYqSD8OjHx8M87Edng/Gnz6dViR01yNiRv5Ige5O3ZUSIpa1BWLfjGQ
-	 5Dm8BS1Mqr16kchHrsuI4CpF1kPSb+JtbwRwF0Tgp+FIG7gqH+0neiZRtrKy+T5xG8Pae
-	 bLD7cILPznV0zp7ZP5ZTZYANTv7ekwtocopQjQspepBQMI2+egHjaPfMLsfhmiT13NY7+
-	 PVmlBkO4gzqQ3k31xyW6PohJvZ29J1jwVSHm7krimS8YEtu1DRvuTqlAuq/TmlsxANg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hW/jBrywUVcMLNkiFu8jFLQbjFXHdm+U5asdpiowAvY=;
+	b=j57FXJf3AeiwiTNkLp8KN4Y7ST6ypyl5ghnKRII7GlQfwF0N0OOQKBU7C6dx6dzMaAf0
+	 ya452s7rCLFtgl73mfrZPvLGJ8DTEDPiMvWPjH4rKv/XnHP9oSY41Y3Qkhq3dIulFcIQS
+	 W5Yuwk0yYo9gTTi/fb1DgOcIsaQN4jmdRFEKB+86JXl4fn4Z3aediLZtqyZyZnKJ3+Ja+
+	 LOlEoq/Gpj6taIK+grIywINchc+s7LqxcFVMJuV2BPiXBhCkkkES7m8/qMWI26NkCaq7o
+	 SiuJC/OJGCSWJcZHIHeWxEgeUEqfIut93eoHehaZmUJi+OI8TBV0o6/6F7U53kIsxsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="sjSmWs/L";
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CONt2K;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9106F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9106F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08328606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08328606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjSmWs/L
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso562510a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:20:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CONt2K
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdab9e9761cso598676a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197243; x=1793802043; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6n8IW/uLeuiPSehxbUOrC5l5QcKl9RaPrUD5nySkR/A=;
-        b=sjSmWs/LBhPuYyzDNDvi8REjdT7mYhQCsdWh6VwjVLKtvFc3gQXVaXNXV/msBoUS2k
-         4OSrqCw/XHsCXZhVzfzBxrZnCv93DLDZ0pukBrTCBf6PC5TkrzMiWsWZGlU7rO4vGCga
-         OTNfZjdfUYbD0Vi47ykpTv2wHSrOyeEwlrMytfCTrM+r2evVAFnm3EWxvLfjdZR4RsmH
-         G0NlwvCqyEboxkYKLhlqbV4ZssD7/c8yBC3GsjZFu4hiO1bDUJAV6lN2XWMC6JIxMYfL
-         8QRxCoKbOnReHNWQ3eK1pDC6wQ23bhjMJBG9tzXr9f84TQOEPK3pXbTFngacazjs8Sgc
-         B6nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197243; x=1793802043;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793197252; x=1793802052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6n8IW/uLeuiPSehxbUOrC5l5QcKl9RaPrUD5nySkR/A=;
-        b=VBi9oAXZy47Zbn0kI98A9MtCHeq65DoyEFVkif3qFkDdLuVtPv5b2bLnWkFYT/PPPO
-         nh3rw7oltx160YYWD827gz54strXK3Ch8rCZFyRuJFJ7akxodxeTXvx1cpZ7jgBl54rV
-         ukdYrs0Q9oRanH9rqoUI6F/a17/IcgFhAOAEERYlY3Uc/F6QYfl4UzPuNypnF5T0NTQH
-         fvD3aLag5j/B96DXVB3ijLp6kz/jzWrj74DzXg/T+kEQUOHdTeZYvf1ZR9QQ7mf6wHPj
-         o9ye1Ev5ZJmjk5hvlzK18vaQYxhvd2qwAtNV7w0lFFFiQF86LO1FVMxpLwh/tj2I0ELZ
-         kQGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlLdYUwgxQMiGaMSBhMuVKjIcgdA88evNMnK0b4i0vK9wGE22/49zcUgY8FEbmEBI+Q4PO86tOcaR+8A0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLx1SQzIKThoXwACiSnMKvUFpZO7VDWcIVv3mid0sj1rC5ZfJra
-	lx625GZtTljVmb3395DSX/+WETMmDaPR7HF+M0/r4Mh36kbNI5r4XRSW
-X-Gm-Gg: AYBFou3yywqvslMR2M5WFWPTBs8ju/fi1ajk291+Q8LadM2QXeub6GTawLEuZGyNFDW
-	aCSsNLKvta0j5AkDEUzr9ruXIvY97GwQTscWELbfgrpNkcC36v/vCrMV5a01jv5Ci8MIAnz/ioG
-	oGn5e55fmcxVPIzQfFH3Wuxs/x3UmnLx7fr4YSOUdXIKgwr4pyM8J6LHivIsC4l2R7U/GcQe1Ip
-	ZXZmigT41+gKiVohURVclpYT7niP3cG+cFQ+7PL5VJczlhTcttmLX667o5ugobUuSp0m0iv4V/K
-	KkDaer7mqbxYeXiNigb6DPib1wSsUzVED/T9+UqB3jhhdZ9hJpKXOgCVuVB3Ps8pZfuux2Oymzc
-	sR6cquzssl3yRIaxFV4rBDsIWnkyTA8rFDJWy44x6QLDYZO308aI7sVAmfWem4WddbWn3/VbnNl
-	siq+rO6vdh1rK+DARhHIxMzs7ZTTTXc6VJkW8Cq0/fD0vtVYoLVufGWQjrb65YtZXQeYXyjSYTQ
-	Dk3FlIfxXIi2LDRiJKGpk8AEZ4oD1mth1F5+zqiRmWtjyx/gKPcSn1wxIPcmC+rfHtGu2krCRwb
-	gEWYcawLtGpMSJYuTXLtesaemRlFVGBEyltnndMrnWtMne8/IyuY6X0yKaYPofj/Zzefig==
-X-Received: by 2002:a17:90b:574b:b0:3a4:acde:1e3b with SMTP id 98e67ed59e1d1-3ae57f637b8mr1772644a91.13.1793197242672;
-        Wed, 28 Oct 2026 07:20:42 -0700 (PDT)
+        bh=hW/jBrywUVcMLNkiFu8jFLQbjFXHdm+U5asdpiowAvY=;
+        b=b5CONt2KrHnCCGOdicDIoytk7EbSYWQ3movKqD/9VWx0m+hjzpUVBFP+zWXQ8EOzlv
+         6QGK775Bx7WuSrMpwMoA5KdPT/rrCRrgHFAAvEixbS7QBnjoxi0cpjY9ulS30iQ22qRU
+         bEKP49JnSTRMAZv8UNyMP4L2Y0bt9YmsC/6NoK/6kv8fd1AMgXCIEjKDwYaSLr697/SR
+         /tfDHaY66X8bnbjG1NCFT45eLhuK/SXYs+qy++ttbqxjoyOJuUphJYZujdrF7I0n4hWz
+         np+nIBDYu/ZdSGibspgNv1PWJoZKEselm94p1IE5oBtdRtW/PfC1M6q0PAoMiDoli+cE
+         HfYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197252; x=1793802052;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hW/jBrywUVcMLNkiFu8jFLQbjFXHdm+U5asdpiowAvY=;
+        b=Ag0sRmIDRKyKGAZ+/iRAgpKGHKynLTXKJm+CPCpPaPhE5InRU5aQ02sEYbmZHBLDhE
+         3ns8qpfBPnf4jViUsiq1UhjVVSpvPsQ3NEDRPxDjU5SaexMhLjvqElYLOFo4W2aGPFLc
+         1zCZ+7dh59CpHBxGX8ax5WQzgLwKC11KzjVahrnSGKX4gpA9Ou9m7Mt6S1y1vmkfbUy7
+         0cq5WCRUmnRUf9gB1lc+SBLv4ar5TBA8u2jqi2Ur4TNOZ+bAAYeKLACsP0w00CclwJX0
+         ay+6LZkJuu1Sn8jM3Rqh/vmg0NbYO3jjlKgVO2c8B+5qOsRUal9SGXmu/AU3xKLIMMvn
+         6f1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwCKg07Zxdkqiw1aLgW2H9IhneL+su+ETBe+Pwcy6FOmHMDlhAN9Q+A3jDAJoZKiWSkf4RHDQMHzBiVSQ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpm7BAVHCrvEyqDHbC7MczpXVibfZX+d0EkbC6Kx55B4koaotc
+	C2KDaiprm84X+r3V0hbHwcajCudyChCRDSXgiDk6Y+6uTNQfw6o0QiMu
+X-Gm-Gg: AYBFou1cx1QyP1wnCGNx2MLTcv5Es5vhNslRT25Yq04Wga/cOzPaVyIRkOsKsqmBn9L
+	ikt0tcu2ijfcmytUiQ0Vova9oWr8y0eBkCIbCIrjEybRjsEYGjys+slYFqvOqbpUBnfUqsu4umw
+	JiYuVdne420sru5FiO+cL4bJHHxHZDiIubZIv9fSKry+YGs5Zh2EX0bcrwrjCZjA+WByhc7kayQ
+	CM5ygHKOynjDf2FT/nPqYeTt8O98sO/xrl76XVSl7e2zxuSC9YM6d71hHnMw4K4fnx5ybg4tyIc
+	ih+s0TBVEOrSYlwMtD++3qVO0RzeP3e+3h++DylxJvY8B+XcdPOGiuooC9Z37yPHHiKBcoYkNCI
+	dV75Ivw2xKkaztJVQDN4KInmzMXbDcB/mmd0Q/Ufq5bi6RCNEldNKLSpo4LFIqK1xlRa7VFQQhR
+	+QJKGdkfAjjTfBHuSJLWspQIBeJy80eFXrZVUBSUWwu7SerdwRicIKYF8emXU5pEBcQcEKYsZut
+	zjsyEGlxXJzI7ZQb85U3xGkcs2bBxZn6zbpU3NmtJpxPqilSKYcldzbBvmYgs3hk/qBDh8TOdda
+	CWSmQMVEgjAJUbC7+mV7totBXFxW3Us3HF0lUs7bDL3eiIU2LJP9nd0tnFCJwIhuAHEU
+X-Received: by 2002:a17:90b:2ecc:b0:3ac:a7ee:6770 with SMTP id 98e67ed59e1d1-3ae57e3bc3dmr1911826a91.7.1793197252041;
+        Wed, 28 Oct 2026 07:20:52 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a501083sm3765987a91.8.2026.10.28.07.20.35
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a501083sm3765987a91.8.2026.10.28.07.20.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:20:42 -0700 (PDT)
+        Wed, 28 Oct 2026 07:20:51 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
@@ -92,11 +93,14 @@ Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
 	Siva Rebbagondla <siva.rebbagondla@redpinesignals.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] wifi: rsi: stop packet threads before bus teardown
-Date: Wed, 28 Oct 2026 22:20:13 +0800
-Message-ID: <20261028142015.10717-1-enderaoelyther@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] wifi: rsi: stop WLAN threads before teardown
+Date: Wed, 28 Oct 2026 22:20:14 +0800
+Message-ID: <20261028142015.10717-2-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028142015.10717-1-enderaoelyther@gmail.com>
+References: <20261028142015.10717-1-enderaoelyther@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,33 +112,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stop the WLAN RX and TX threads before mac80211 or bus teardown. Then
-stop coexistence TX after HCI unregister and before USB reset or SDIO
-chip reset and function disable. Probe failures are covered before
-buffer freeing or function disable.
+Disconnect and probe unwind can leave RSI packet threads using mac80211
+state or a bus that teardown has already released.
 
-Patch 1 makes repeated thread stops safe and prevents the WLAN TX loop
-from draining queued packets after a stop request. Patch 2 does the same
-for coexistence TX without adding an exported core-to-bus wrapper.
+The USB path unregisters mac80211 before stopping RX and can free its
+shared TX buffer while the WLAN TX thread is running. The SDIO paths can
+leave WLAN TX active across mac80211 detach or function disable. Waking
+the TX thread to stop it can also drain queued packets because its
+processing loop does not check the stop request.
 
-The driver is orphaned and the series was not run on RS9113 or RS9116
-hardware. Testing from device users would be helpful.
-LLM assistance was used to review this series.
+Make repeated thread stops harmless, and stop the TX drain loop when
+teardown requests it. On USB, stop the RX URBs and the WLAN RX and TX
+threads before detaching mac80211. Leave coexistence TX and its shared
+buffer available until HCI unregister completes. On SDIO, stop WLAN TX
+before mac80211 detach and function disable, including probe unwind.
 
-Zhao Li (2):
-  wifi: rsi: stop WLAN threads before teardown
-  wifi: rsi: stop coexistence TX before bus teardown
+LLM assistance was used to find the bug and review.
 
- drivers/net/wireless/rsi/rsi_91x_coex.c |  3 +++
+Fixes: dad0d04fa7ba ("rsi: Add RS9113 wireless driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Validation: W=1 module builds with MODPOST passed for every prefix with
+CONFIG_RSI_COEX enabled and disabled. The series applies to v7.3.
+Not reproduced; RS9113/RS9116 hardware was unavailable.
+Sparse C=2 passed. Smatch across all configured translation units under
+drivers/net/wireless/rsi introduced no new diagnostics.
+
  drivers/net/wireless/rsi/rsi_91x_core.c |  2 +-
- drivers/net/wireless/rsi/rsi_91x_sdio.c |  5 +++++
- drivers/net/wireless/rsi/rsi_91x_usb.c  | 15 +++++++++++----
- drivers/net/wireless/rsi/rsi_coex.h     | 12 ++++++++++++
+ drivers/net/wireless/rsi/rsi_91x_sdio.c |  2 ++
+ drivers/net/wireless/rsi/rsi_91x_usb.c  | 13 +++++++++----
  drivers/net/wireless/rsi/rsi_common.h   |  4 ++++
- 6 files changed, 36 insertions(+), 5 deletions(-)
+ 4 files changed, 16 insertions(+), 5 deletions(-)
 
-
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+diff --git a/drivers/net/wireless/rsi/rsi_91x_core.c b/drivers/net/wireless/rsi/rsi_91x_core.c
+index 3281fc94e107..2555bb53766d 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_core.c
++++ b/drivers/net/wireless/rsi/rsi_91x_core.c
+@@ -267,7 +267,7 @@ void rsi_core_qos_processor(struct rsi_common *common)
+ 	int status;
+ 
+ 	tstamp_1 = jiffies;
+-	while (1) {
++	while (!atomic_read(&common->tx_thread.thread_done)) {
+ 		q_num = rsi_core_determine_hal_queue(common);
+ 		rsi_dbg(DATA_TX_ZONE,
+ 			"%s: Queue number = %d\n", __func__, q_num);
+diff --git a/drivers/net/wireless/rsi/rsi_91x_sdio.c b/drivers/net/wireless/rsi/rsi_91x_sdio.c
+index bfa386b820d8..c5619a34940d 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_sdio.c
++++ b/drivers/net/wireless/rsi/rsi_91x_sdio.c
+@@ -1079,6 +1079,7 @@ static int rsi_probe(struct sdio_func *pfunction,
+ fail_claim_irq:
+ 	rsi_kill_thread(&sdev->rx_thread);
+ fail_kill_thread:
++	rsi_kill_thread(&adapter->priv->tx_thread);
+ 	sdio_claim_host(pfunction);
+ 	sdio_disable_func(pfunction);
+ 	sdio_release_host(pfunction);
+@@ -1220,6 +1221,7 @@ static void rsi_disconnect(struct sdio_func *pfunction)
+ 	sdio_release_host(pfunction);
+ 	mdelay(10);
+ 
++	rsi_kill_thread(&adapter->priv->tx_thread);
+ 	rsi_mac80211_detach(adapter);
+ 	mdelay(10);
+ 
+diff --git a/drivers/net/wireless/rsi/rsi_91x_usb.c b/drivers/net/wireless/rsi/rsi_91x_usb.c
+index 8765cac6f875..99e029e66407 100644
+--- a/drivers/net/wireless/rsi/rsi_91x_usb.c
++++ b/drivers/net/wireless/rsi/rsi_91x_usb.c
+@@ -562,6 +562,7 @@ static void rsi_deinit_usb_interface(struct rsi_hw *adapter)
+ 	struct rsi_91x_usbdev *dev = adapter->rsi_dev;
+ 
+ 	rsi_kill_thread(&dev->rx_thread);
++	rsi_kill_thread(&adapter->priv->tx_thread);
+ 
+ 	usb_free_urb(dev->rx_cb[0].rx_urb);
+ 	if (adapter->priv->coex_mode > 1)
+@@ -873,12 +874,20 @@ static int rsi_probe(struct usb_interface *pfunction,
+ static void rsi_disconnect(struct usb_interface *pfunction)
+ {
+ 	struct rsi_hw *adapter = usb_get_intfdata(pfunction);
++	struct rsi_91x_usbdev *dev;
+ 
+ 	if (!adapter)
+ 		return;
++	dev = adapter->rsi_dev;
+ 
+ 	rsi_mac80211_rfkill_exit(adapter);
+ 
++	if (adapter->priv->coex_mode > 1)
++		rsi_rx_urb_kill(adapter, BT_EP);
++	rsi_rx_urb_kill(adapter, WLAN_EP);
++	rsi_kill_thread(&dev->rx_thread);
++	rsi_kill_thread(&adapter->priv->tx_thread);
++
+ 	rsi_mac80211_detach(adapter);
+ 
+ 	if (IS_ENABLED(CONFIG_RSI_COEX) && adapter->priv->coex_mode > 1 &&
+@@ -887,10 +896,6 @@ static void rsi_disconnect(struct usb_interface *pfunction)
+ 		adapter->priv->bt_adapter = NULL;
+ 	}
+ 
+-	if (adapter->priv->coex_mode > 1)
+-		rsi_rx_urb_kill(adapter, BT_EP);
+-	rsi_rx_urb_kill(adapter, WLAN_EP);
+-
+ 	rsi_reset_card(adapter);
+ 	rsi_deinit_usb_interface(adapter);
+ 	rsi_91x_deinit(adapter);
+diff --git a/drivers/net/wireless/rsi/rsi_common.h b/drivers/net/wireless/rsi/rsi_common.h
+index 2a33a81f71a3..2407ec61d412 100644
+--- a/drivers/net/wireless/rsi/rsi_common.h
++++ b/drivers/net/wireless/rsi/rsi_common.h
+@@ -72,9 +72,13 @@ static inline int rsi_create_kthread(struct rsi_common *common,
+ 
+ static inline void rsi_kill_thread(struct rsi_thread *handle)
+ {
++	if (IS_ERR_OR_NULL(handle->task))
++		return;
++
+ 	atomic_inc(&handle->thread_done);
+ 	rsi_set_event(&handle->event);
+ 	wait_for_completion(&handle->completion);
++	handle->task = NULL;
+ }
+ 
+ void rsi_mac80211_detach(struct rsi_hw *hw);
 -- 
 2.56.0
 
