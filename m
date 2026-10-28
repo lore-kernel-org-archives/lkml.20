@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205979;
-	b=AfzQY79FhNOESYAVp/4Iwl4iTHZMQGYgQcTh6W34nJ+8pM4AbGY8n/o6s0WqleJJGIXG
-	 +SmJPJltqKe4gz4qfOfoSrVP5sB3vfuDt7oEiFHAgx4WAmBQ4CS1pL8i6GppZz/GVgZSl
-	 3GK1ZhfduujHy7teAW3MXgnQI49W1FYujr/GEPzlwYCwutsjtb1K4ngQFZuKBUwr0MySr
-	 4pwrUYtIVdyNPsfHarBKDV/nTI3o39Q1FLwW2FtjWqSO+DQtj48/MC+5BF0UtOcziLwVH
-	 w0TcdBGq7nyROqLFPbWG6UZUgfsZxWjZEkBJThrP3XBRWcUirU1kck+hFD0fE6Bp3+w==
+	t=1793205975;
+	b=xOCdtaVlwtTxEdSa2p5Un8cDzDU6X/29+FWv4exRVif0l4UKF5KFZwWjsgKocNGFsUn7
+	 4oAMpKxEM0/HFTsM1/qVvcQw3e6RQUdR/biIS2VI0CGZlDN9TZIqNAu2o8nqhaDqrcadh
+	 XWIn9Q8OCwm0WdSHdFOt3Rvl1CtVgTLrKEhS37TW9pCBJ7dHAJr/oU7Ae3zUAe1jvCoHv
+	 pq1Pvz/Xs/M12BizIb8wcQMHOc1EWlf4T9X9cNTLK14m08/yRwJP3WbjJfi3rUFi6FZ0L
+	 J6CECry+a1WJBP9LNn05J6G7W2O3u8Mcgt12GnE/9qmV1hKE4Iru9+GXydlsB08nYNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205975;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CeF2vXpdMa1pfvksP6uKJgr0A5M1DsAwpOtlsJ3oJeA=;
-	b=Odf4uwiylm1sw+a9FR8Dft93paZvGxJux8srrw4x+jhJSUpTP3kcpCNdh+N6ELAo82Lw
-	 +wh1MzX4mXCG5hRqe/rvVZjUb7bkb1f7T1dnPT8niJT12Tnx+u2aOkXemT1WV/Xjo+6nN
-	 787Tw7idClt59Ang8RiiM2JXjXh4ourQoab8JwAgapusQmWmhQxBm0jLnspkJLZB9jn9G
-	 h0ABN6U1Nrk6A8B/OTll41IhvIyiFuYnaFKJjflwVWaCoC9iNP1O9r9YzDx42U2vp4YF3
-	 +K61yo9UpnhxYoUo9XpaqBAsXPFowvZDIF6cVD/4xEUbdskg/gjGEXwCKQb9+QRIKKQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OLaMbaoim8E2HPY7c41mzNoySwNHbusfNb0WniQFAAE=;
+	b=NE7TqmnZqv9kSMlw0TvOrOMYNTm2/7OHn+2ZhVhZXbRVcO4imybJyp6HIThHq9/sO4xo
+	 K+1zfA3Cxom6c6yEWKeYKtmKm1V2PDiawPkvHF4FbK64Xf90oWD4xTMyhK94UtHDQ+FMn
+	 fHeQD0YXowe71srvaz8gpDbXo1oiMLLnvoaszYm05x8ZjiU9NBf0SSMhjI+QeCfA5uFAA
+	 qm9Jpj1iZy40ocvNBbJuorH4vwA8BPk7zQem00Fv92cyJcZZNAUiXsc+Qu4hfgWEwNzaG
+	 qv9GaUEC/rNdnnUiAK5gIaL8aI+BVvUUvjBrZt6CdI81KyG4AxrscrYzUv8w0q90gJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=03Me3K8w;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FcV8eKk2;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643F360A2625
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643F360A2625
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBA7606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:46:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEBA7606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=03Me3K8w
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35829219da8so2851969eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:46:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FcV8eKk2
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f33df08eso2245967eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:46:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793205978; x=1793810778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CeF2vXpdMa1pfvksP6uKJgr0A5M1DsAwpOtlsJ3oJeA=;
-        b=03Me3K8wr/kpt4LOEoo//8KBR9w7dT6BuCpg76d8Mg0x18csV4FaPNZkZ0qGYUKU9m
-         EMZ/Focce5EWNWEzaiaIaJXhvWY5RNf6JOKr7iX/rwRM6CKoomZPuUFte1lG+UsBBEjH
-         MRzcswAlnGkBeNb3McJKecdw9SwMSv6D4uFSDUwpesAvPXpsWPaIgmi5nGTlpVGW9PbV
-         B/qUIMw6aMUYwbQA5nVa7WRe697jV1j3rdxs1ICTOo7VzmdJ1gY4ROqikiJO/FdkVVfC
-         Fud5z9vX9uXaRjmfqm4YamA73eihmjwoqv+dk8eOK6I7aUZdPMWyLxCtcAbuH+kAi9iq
-         fBHQ==
+        d=gmail.com; s=20260707; t=1793205974; x=1793810774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OLaMbaoim8E2HPY7c41mzNoySwNHbusfNb0WniQFAAE=;
+        b=FcV8eKk2i4Aoajnujzdjo/B988+bFT4O7Dm6IHFU3dzdZ6ORZ1OP6t+nywsvmKfunG
+         f95oRD+9UF+1kZZeAYlZEILQjr5b64GDslTWbWhsWquY/0pjqzFRy9f2LP+dsIjtT7fQ
+         d2RQohHx6ERX7Qbftz9xaeIXPbLC7I85stD76cFh6gv1Hslf03EFnPlJHUa8sKb7QAul
+         GpF7uaGxncL4L2EoMTl8TQn33ajy3Mv9i9n+KtbPBe9YEuXFVLSoIznLMcmxlJjLnVKM
+         VNo5fS3h4J6FMExq6m59qRYraOiVEhOpo9NiEe8S88ajWM3H6NEBe7j0Ilc67kTLqSab
+         ALFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793205978; x=1793810778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CeF2vXpdMa1pfvksP6uKJgr0A5M1DsAwpOtlsJ3oJeA=;
-        b=oIzLdEiXSlEEBWWf7HOlM9j4wr8hP6YASDxaycTX2bo8FEgt/qccZ3hgSeVJQT4LT0
-         /yZSbB5RF0OTIrrZPPNzlnJpG2ZJvIBT/0jKs6Pi2udn7MtwmRGf5Uk95NQQIxNnX9KI
-         djN9+vVeSgop83IbN2L1dZ2pz1u4hZS2Om15NHULkyDWTZ5EmWhkncnPhFqr3ohu56TU
-         xkUzz4/TU/hbVP8m7yEgTTgKyNRA1a27ozGhI3icS+BAUd+EAF2lbmIAviIm1YcKnPYU
-         Lg6dxetAvlSyL/syjLzvaWeDCE3Y5hfG/S/GE8T3frtCLFqN4VAFqPKfCw5AiHY3UsWF
-         Y3AA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ1pZ7xXJnesKefuo04wyIPx0xicBd81Ty5X+uXx3X5UECJupDjFLGxcrRpN+m6kBUwcSiivWkBhsoLA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdvxIAAYmYLTdXzl8maYwExkYPVXB2gHWCksh2RknxGwLGHUTb
-	5JeWonAgCLfFqXhyPcVTuSMQfFhGztyYoD2iGBsbFLyq7kdgFq2rbOLe
-X-Gm-Gg: AYBFou2THySX8HXlTstf4T9VMgr+aEhIBeYoXHaLoI7t5+xlqSKDIyVyalcnO1QNPb9
-	TUXQGHghRthsvLX+aFsmS0VImmmRsbdXdCiSxOA3Ro2QoOxsyZwVsd8YJE1Y9gw3vNEc7pam3pc
-	+PnnHszdirACaDVBi9seXVcjwiIwETsUkMN9rjwMLuZoas4CMjZlnpUhoplTWS8VEy4NgR06hmL
-	XO0Sfc6reqnBCgVlDzqi6ZolqfJDfch8smmkUsL/050NVFCNBJ4xvK2pmvQ1byaaLiYjVCK6tz0
-	SWxyr+7jdqx7QqzuXDBEpJUn5dKPsUo3PfELGpdJMXPekGTYP9RPrn7ep0wQIUU2+IelXIN3MB3
-	7YdXq5DLMtKb+98HQwnRG0TkNEXZ8e7qOrxQMGTdMUX1y3iKR841OG8NIjLj4T+0+/1upZrnO3z
-	teoy4jAB88bNK7eNnTtxobJPyYqKtLWS/eUyf/0cAacW8kVE/L0qCUyawu/DRg397J7O/ydZjPh
-	BuRhYQWiSe/n2fl2wkiEs6KmL7aVSVtVU4F6PvWCzsp1w5TqdlKkBnvJ23VHOo/MCfUDa11QXD8
-	5qruQnXvF6q5PguC7f/Jz/or7MnuLav8y5ydRwpmorhXyDBHxOZ1tpFRROPK6SmIaTubONg=
-X-Received: by 2002:a05:7300:3b05:b0:369:fe82:8d3f with SMTP id 5a478bee46e88-36a3002ef31mr138128eec.14.1793205978318;
-        Wed, 28 Oct 2026 09:46:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793205974; x=1793810774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OLaMbaoim8E2HPY7c41mzNoySwNHbusfNb0WniQFAAE=;
+        b=Tq1/i+AasU6p8SutxKE8ANP+TY5+PAzf7gd7dAOfMR4/QGdye2fCphcm2z5EftCLZa
+         CpQ5bJgD9Ki66dznmxleiVYel4ay7bYHRT6uiPNkBkEKId9ZBtIK9ybYon3yLmSGAuCl
+         TZWfBYLFflMVZMaI4bKP7qiHyiSesrmSqzjSWPU6ifch4oip+YKSkeKlIi3WPijWt/E2
+         igL07od+u+Ao/xUqqPKoHvPgtwGVv9tfoggaev/Gug3/1dJGqc8p2tSrDb/FF1A5yFat
+         FPeNPuA2Nhuqwf2Bm8Ah8h5Yd9Ire2iQELQEPjGxFZqqg5JBYYk1jm51DBMRnOcTMcOz
+         jlHw==
+X-Forwarded-Encrypted: i=1; AKwUvBw21gwrQtqx50Kbt6pF2u50mjw3WolA0LqaEKNfTL33SL75ttaAYuLXQUtg1q4OiwlF/y9HcuPajejzA1Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLi5VLODm86409CcVlryNwxDTHV/4RmeGr66DvosEyQivLp46eg
+	mF66s9eskPW79zVWVQseY2tYYYNnLaAOgOZPQZqFvuqrr3gZmjJ4z+FA
+X-Gm-Gg: AYBFou0wBembejZO8Wau78GUYM0O80XkOhLe0V+JajJlXCMSJpJU2Fs7z3eGww6jGNZ
+	BP2d/scsIYAXGJfOthM7InnyHZQFrRdvBDo0Em9Baznr4nFyip0+qq/s2rSi37YX0NyntZ385WD
+	dOMDRThPKN5cLWa7pb/jmjXYLLzyEW4WfyxLshcuapN6NoDUvquVA/2YdAantGqspYeiCuiYvGT
+	cu0ZX7AQL5AVKnJniDOxJ65WyAfwfYn6PZPFoJ4iwfjFThdtHaabEtc9CRhokLU4aeH4FT7hzzc
+	NH3YQwSvVP7OnaeVRYTqxcu/gfTfH6yKjwlGAsbYwTvEv1CoZfP1L0DhJyUSq++Cg6gQCeL1gO7
+	wd2ZV52unRNa6suWbi2O7zqoq1astycPl+qpqawedFSH58IOzVtWnF6bw9xjOkLTGGuoq6LZbjT
+	w4+QvEbBzxtarognMBso3I1nORZBS8FXz8V2K6G3dCBBRWIefbKPwsThAb07l5rRMuXc7hyR38u
+	85dE3cUfICwIx3P08zXqt4PFl8X4+NrYWsYSjqXe3mt8HjGsmyY1PES9bd/PMT0eTzOyajLj7EI
+	gU15M+A6WweFx5WSctOOEO9YjVrS6TOEUZh6ZCIFifKscU1YVNFU+Q1JGIgD+3NclHECAzvuIJ8
+	QMRN6gWisu02b4jRW
+X-Received: by 2002:a05:693c:8803:20b0:36a:fec:d8b0 with SMTP id 5a478bee46e88-36a2010a1bdmr4195933eec.25.1793205973745;
+        Wed, 28 Oct 2026 09:46:13 -0700 (PDT)
 Received: from localhost.localdomain ([136.126.251.209])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23908449sm7821964eec.11.2026.10.28.09.46.17
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23908449sm7821964eec.11.2026.10.28.09.46.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:46:17 -0700 (PDT)
+        Wed, 28 Oct 2026 09:46:13 -0700 (PDT)
 From: Henry Zhang <henryzhang62@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>
@@ -90,12 +90,10 @@ Cc: Henry Zhang <henryzhang62@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/5] drm/vc4: dsi: Serialize host transfers
-Date: Wed, 28 Oct 2026 09:45:29 -0700
-Message-ID: <20261028164539.3471833-5-henryzhang62@gmail.com>
+Subject: [PATCH v4 0/5] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Wed, 28 Oct 2026 09:45:25 -0700
+Message-ID: <20261028164539.3471833-1-henryzhang62@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028164539.3471833-1-henryzhang62@gmail.com>
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,110 +105,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
-and waits on a single completion without any locking. Two callers
-sending at the same time, for example a panel driver and a backlight
-update, can overwrite each other's packets. Nothing keeps a transfer
-from running while the bridge callbacks reprogram the block either,
-for example while pre_enable sets up the PHY timings.
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
 
-Add a mutex and hold it for the whole host transfer and in the bridge
-pre_enable, enable, disable and post_disable callbacks. None of these
-callbacks calls into the DSI device, so the lock is never taken
-recursively.
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 2). An HSTX timeout can be reported as a
+  success as well (patch 1).
 
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
----
- drivers/gpu/drm/vc4/vc4_dsi.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 5).
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index be9caaf50..3ee6e8e86 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -25,6 +25,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
- #include <linux/io.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/platform_device.h>
-@@ -595,6 +596,11 @@ struct vc4_dsi {
- 	 */
- 	struct clk *pixel_clock;
- 
-+	/*
-+	 * Serializes host transfers against each other and against the
-+	 * bridge enable/disable paths, which reprogram the block.
-+	 */
-+	struct mutex transfer_lock;
- 	struct completion xfer_completion;
- 	int xfer_result;
- 
-@@ -805,6 +811,8 @@ static void vc4_dsi_bridge_disable(struct drm_bridge *bridge,
- 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
- 	u32 disp0_ctrl;
- 
-+	guard(mutex)(&dsi->transfer_lock);
-+
- 	disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
- 	disp0_ctrl &= ~DSI_DISP0_ENABLE;
- 	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-@@ -816,6 +824,8 @@ static void vc4_dsi_bridge_post_disable(struct drm_bridge *bridge,
- 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
- 	struct device *dev = &dsi->pdev->dev;
- 
-+	guard(mutex)(&dsi->transfer_lock);
-+
- 	clk_disable_unprepare(dsi->pll_phy_clock);
- 	clk_disable_unprepare(dsi->escape_clock);
- 	clk_disable_unprepare(dsi->pixel_clock);
-@@ -891,6 +901,8 @@ static void vc4_dsi_bridge_pre_enable(struct drm_bridge *bridge,
- 	unsigned long phy_clock;
- 	int ret;
- 
-+	guard(mutex)(&dsi->transfer_lock);
-+
- 	ret = pm_runtime_resume_and_get(dev);
- 	if (ret) {
- 		drm_err(bridge->dev, "Failed to runtime PM enable on DSI%d\n", dsi->variant->port);
-@@ -1148,6 +1160,8 @@ static void vc4_dsi_bridge_enable(struct drm_bridge *bridge,
- 	bool debug_dump_regs = false;
- 	u32 disp0_ctrl;
- 
-+	guard(mutex)(&dsi->transfer_lock);
-+
- 	disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
- 	disp0_ctrl |= DSI_DISP0_ENABLE;
- 	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-@@ -1181,6 +1195,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
- 	bool is_long = mipi_dsi_packet_format_is_long(msg->type);
- 	u32 cmd_fifo_len = 0, pix_fifo_len = 0;
- 
-+	guard(mutex)(&dsi->transfer_lock);
-+
- 	mipi_dsi_create_packet(&packet, msg);
- 
- 	pkth |= VC4_SET_FIELD(packet.header[0], DSI_TXPKT1H_BC_DT);
-@@ -1807,6 +1823,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct vc4_dsi *dsi;
-+	int ret;
- 
- 	dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
- 	if (IS_ERR(dsi))
-@@ -1814,6 +1831,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
- 	dev_set_drvdata(dev, dsi);
- 
- 	dsi->pdev = pdev;
-+	ret = devm_mutex_init(dev, &dsi->transfer_lock);
-+	if (ret)
-+		return ret;
- #ifdef CONFIG_OF
- 	dsi->bridge.of_node = dev->of_node;
- #endif
+Patch 3 rate-limits the error interrupt messages, which patch 5 would
+otherwise turn into an interrupt storm. Patch 4 serializes host
+transfers against each other and against the bridge callbacks, so that
+the recovery cannot reset the block under a transfer or while it is
+being configured.
+
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a command can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
+
+Tested on a Raspberry Pi 4 (DSI1, 2-lane video mode panel) with the
+same changes backported to the Raspberry Pi 6.18 kernel:
+
+- 5 minutes of generic long writes from 4 extra threads with video
+  running: 45000 writes, 582 timed out; each timeout was followed by a
+  reset and restore, and the following writes went through. The DSI
+  interrupt rate stayed at 147/s.
+- 50 display off/on cycles with 2 writer threads running (the case that
+  locked up v2): no lock-up, no warning.
+- 250 display off/on cycles without extra traffic: 245 panel inits
+  succeeded; 5 failed because the data lanes did not reach LP-11 after
+  power-up, which this series does not address.
+
+Reads were tested with these patches plus a change, not part of this
+series, that stops video while a command is sent: 2000 of 2000 reads
+returned the expected data.
+
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
+
+Changes in v4:
+- Patch 1: new, set the transfer result before completing the transfer
+  on an HSTX timeout (found while reviewing v3).
+- Patch 2: add Dave's Reviewed-by (unchanged from v2 1/3).
+- Patch 5: keep the interrupt handler out with disable_irq() around the
+  reset instead of synchronize_irq() before it: an error interrupt could
+  still run during the reset (Sashiko review).
+- Link to v3: https://lore.kernel.org/r/20261026191618.9430-1-henryzhang62@gmail.com
+
+Changes in v3:
+- v2 is not safe; please don't apply it. Its recovery keeps the block
+  usable after a timeout, and a peripheral that leaves the data lanes in
+  a bad state then raises the "data lane 0 sequence" error interrupt
+  tens of thousands of times per second. Printing each one starved a
+  Raspberry Pi 4 until it had to be reset.
+- Patch 3 (new in v3): rate-limit the error interrupt messages.
+- Patch 4 (was v2 3/3): moved before the recovery, and also taken in the
+  bridge pre_enable, enable, disable and post_disable callbacks.
+- Patch 5 (was v2 2/3): only recover while the block is enabled, and mask
+  the interrupts while the block and its AFE are in reset.
+- Link to v2: https://lore.kernel.org/r/20261019174930.7237-1-henryzhang62@gmail.com
+
+Changes in v2:
+- Patch 2: restore the registers in the same order as pre_enable, and
+  call synchronize_irq() before the reset (Sashiko review)
+- Patch 3: new, serialize host transfers (Sashiko review)
+- Link to v1: https://lore.kernel.org/r/20261012190249.3167-1-henryzhang62@gmail.com
+
+Henry Zhang (5):
+  drm/vc4: dsi: Set the transfer result before completing the transfer
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Rate-limit error interrupt messages
+  drm/vc4: dsi: Serialize host transfers
+  drm/vc4: dsi: Recover from a timed-out transfer
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 180 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 170 insertions(+), 10 deletions(-)
+
+
+base-commit: 650385a0fd0ea6475a17d39a20ec90470c7a4c67
 -- 
 2.47.3
 
