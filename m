@@ -1,48 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218543;
-	b=nJNqf0PDjQ9GjGqtVPgQZAbvoBro2NfOgn3tJdK1LLmoZuse4Y8JCILd1LvXeX0YLgrg
-	 4mVo2FutixysLlojho/56WZFkmPr+b1MPiSnxeicOu0NsTEucwFs3ZFX3w1w0Xb74OPmm
-	 olhag+/6SFYbH2sXiDklBqF5q9zqymNhMcJg774hCA1T+OiWzosU3t0wY+gaRkyQ9cDhk
-	 oTHElF8WlHIvCJgyu+H65tqEifU6DHyiOMpTKoP2u3gnLH3yFbAGTAnScwyMSsoKQbyLM
-	 XlIrscCr1ZFQGWwE1PVfs5Pitq0wOFBPK5zi2zS6ZdRZrwUGQknwOpa9E3nfWRWt5jA==
+	t=1793218554;
+	b=rkKoYZxwAt42mqeEXNSLsz57U/kUeJMQwIvJ0Yk5YB4ecSl5Go0oAEAzbH/4szNLj6lf
+	 vIwh3Lsjjos7sGKKMg9GE69uKLanZKjzFu7kfcI/Y8vB+GNMASYaY02G+/qJ9JuQfh6JX
+	 W61FFUG/REm86pF1v2xoOyMB9M+59gQqUgwFdWAOpTJBzGPBmyRGYIaNpzXHEATFJTlt9
+	 yA0H3okTvAJ5CAzyEX3xDwpFNes0Bxz4hBX+SlGtA9TsRufAwoZWlykbsUQfb9xyMCley
+	 NWJtl+XXJVNTuAgKbglpNsVWOZu9WvDWJWAuWHMirjzjFP4FAhPOslwCpTUWSyEOWBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218543;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dhlOcylSqv6vV3g9yAiSRK5LeWK6PvVVUjVeVgzCiQQ=;
-	b=fgsvVMihLpSKRRVEs/pdn6uVmryRdLuyNjHO+tJ6YpharApgD0hqbz9ZLMge332hX8Fj
-	 I3DQnWmX5t2xBoRlfvEKGiWJGEUAK7MxkZPkz5Q5nIWN2Na6KAkbHe6BDti8Rqz/q098h
-	 xSaI4T1hhE9aZEQC08sPeT7gIsRXB6PDHLMML0D4GaHgZi/h5RUOMDQw+0PsL+k4pHSMh
-	 21agToq3s8XHvgnYME/87FqGtJiJqbnV86EsB0Ub9l+5Ya2fncowHkOwODwVaPySd4exN
-	 c/a+BZZhbjLEKWQVH0Gr3sTF3cmH7iQpgWZVYmLIT8V2e5XpQDHfktnKWJUtYhY42rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sE7YL0Mu7zAtP+r+dItmrpgUYmZe1QgZ8AhEij2E0bY=;
+	b=AqjWCp3rIQf3M7TgFxg2+tyTbis3wQACcrAQ6ub2o9sn/zfQTvzMi1P2WTQBR8gNRQIH
+	 nMDDYA4JvwEdZU5dAFqyfbDeIjZXcp5NOzfQ4P0DU1MCOuxbYiYdbMqMmP7Wx3QDhy4KG
+	 LO91khZsJaal3VWcz6IeSHIzLTfPFXOVsYxG1hyc5NtACbhdvlXPQSbiKw+Niw1kX9JWE
+	 nk8w8dvf9wqew42wck3bSakH9asOjSlgQLAH/eJRR55u+r/K9hAnuKBNo5GMUbRXmLhBF
+	 r76/CLFsMP20dDBjnKFntB3iLEuG2yKJiI2qaqUUi6Niao879IpvpYsUUSOKcPbul5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDryEfII;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bG7XSkYB;
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91A0606A31E;
-	Wed, 28 Oct 2026 20:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EA5606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7EA5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDryEfII
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5134A1F01828;
-	Wed, 28 Oct 2026 20:15:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218542;
-	bh=dhlOcylSqv6vV3g9yAiSRK5LeWK6PvVVUjVeVgzCiQQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MDryEfIIbBaBrNLjVh8hACudAmXfL/S1kjrTLh5SZ08bjgHV6iWXaXp31ewgzfKe+
-	 zWNEbZUYhL/laZa4wmO5uWL429aLw9BrkwUNg9TYVRY5iPDgN5wldEw1bIoxGd9Toq
-	 PQh1eb5oeGrVkia/U2LFeH3hWctk396bHN/cwEVZW1towoLPmbhcF0C5pzLxc9fE9x
-	 6yZmXjQs8uIOijZ0DoGLNB78fF56/72A3d+tDxUxf6iGgw2KYtvPos5F1X+diqmqMt
-	 c4S8d2I/GmOne7rKz5V+Z0nCjCzEAmelHZpDitJZ2FTrtPqI24uifZXvNp1VdlE5I5
-	 GxDSJ1FqFqmYQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 21:13:39 +0100
-Subject: [PATCH 11/15] hugetlbfs: do not grow a sealed file in mmap()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bG7XSkYB
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53381e53b80so16952261cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793218553; x=1793823353; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sE7YL0Mu7zAtP+r+dItmrpgUYmZe1QgZ8AhEij2E0bY=;
+        b=bG7XSkYBkwwgMP269A8xYjsaFH+uLKqQJIdQBZXRjpfHMIIb9tAu3xbQw19i+0ZZZw
+         duWLzjdfOEJWrHrH53HDvcT+zhVzmyHGzHN9GlLXcC3RDP68WvNG/JRCFvTXDjD+PomR
+         EoSo1+qz2ZGSFgS/2HAqOhHZtT8ytoZ+4AuenPf4Y12llLhX+tWCiz8yhsGMvuB9fcSk
+         EPP6Sek4wII29a7wxxHyNUZQVSyIYoKhMspqIo2OQ6P26Jzl+sbIH9qrzEpdQgFc7EPJ
+         zrxygZINHngixt6Y7KN5i+2CTxa60xHD/V2c3FFDqp5Qpe2dwXkRKgZEhMQtqsj578SS
+         HH3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793218553; x=1793823353;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sE7YL0Mu7zAtP+r+dItmrpgUYmZe1QgZ8AhEij2E0bY=;
+        b=yJQezjq6e8fGgLLDFmgSUU6LV7g/nMVPl87px3iaXvtnxFZnUF4fL3WR92k/FfP70N
+         gq1bG9L9MR+AEZf0YxNaJJqB8cu2+YN3rKSmccd+eWZE9Qjqw7QsArkkJ5O6JCJZ9Wpv
+         VF+FZ5kL7sYIe4F8lq4wqTlOcLzSA1ytbMtKR+J/Akni/2W56IsO9XBrgj93YUN4Mq3u
+         5dnBjX5cpLrvxmUE8vavQfaX1sdIpaOpoiklki2CwpvV6nkdYGPP7V90BpWkx3aR5YF0
+         15QEo/1vKKfh9RTmAYhGBj6KK+rzvqfFV7E6DqoQsK/FE7nbqdM4/JoCKwjRi+IFRpvM
+         Udcw==
+X-Forwarded-Encrypted: i=1; AKwUvBznULzAHFpqu6wjjdcqsO8aqydnUMWrHXjoXFtrtrfpMNPukO5+VOJpdcuH+Rot+O+zoKqeyq3P+M3ojuQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKb5LWl0Y1bQLUfUp2kWCzS2d1QXtJsA9W5MhA+1lXSIzDXx/5
+	WEmtn/br5gNErfl20tmXk4BPosPZ65YcXhsB8wKOerwDS3aUyMcbLHZB
+X-Gm-Gg: AYBFou3d8iJ3pv7h2lvb1SFX2sOttP7AsfmxjkVlRUDPOAF7Tb13vZ4Yq+At0GcBkpP
+	WVLRqCd+7xRHqupPo21bRHwNyq7XTtsq9sD+YrzTA91UHkCSNmu7PwidxDLjnJA90uxx6fSjUER
+	gPqMK2fxxluXRaN2uwNGYku6uwAWMsMvbi4I2vCb3dh1pnuvK7UB97CfI7N0Bvx1rDC1ARrzdEJ
+	xMGn9A8KCN/jnoymUU0+RGORotUsTKmLN1xpBr4qE6eaIlXiTwc33ELswxI4W/MEoo9CLGjrCz8
+	R3nfpHKom8pU9ITX/J65BmlqpfrmEUjVH480r3p0gPijiEzJf3QgBqPhdPIuP3aGc3y1BYcimM0
+	kC6sIkSE6D3k8vRNp4cJ6EUrXlrf/URBvgT/4dGYqz9qka7JLySLz1t5AxyOGLRbIbLRTlazhvN
+	rZ52iAazvobqmFIXW5qwLDTMYn+vDs7xjs0u8wxz7mwRPP3FEOGq1x3TuF+TNnvN7kEdAHUnDET
+	kaeChFhiYuTuf6z13nXjG9GSe+NbILLBR9sql3IIRErz1Lt088/9P33xZ/UoEnYtm7llgmCm5DT
+	cNx3fx3pc/O7GEA0v5+PVd/fJYF0imCLSSwmLoyeGTFkBTyXZC+TsOvi
+X-Received: by 2002:a05:622a:506:b0:535:2794:851c with SMTP id d75a77b69052e-53fcbfdf35bmr60489901cf.39.1793218552723;
+        Wed, 28 Oct 2026 13:15:52 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c38easm112809151cf.7.2026.10.28.13.15.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 13:15:51 -0700 (PDT)
+Message-ID: <131ac3f8-8658-4b78-bc0c-746cc49cc526@gmail.com>
+Date: Wed, 28 Oct 2026 13:15:46 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,91 +92,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 000/516] 5.10.273-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261028170003.522232767@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_hugetlb-v1-11-a0a033db180f@kernel.org>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1642; i=david@kernel.org;
- h=from:subject:message-id; bh=jfkxciSMrikjpjxL1MRSlSwGiIzaViEI3tCQWSWiOnE=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZfd+Xd4tvvyz5xvlh03sXngfnuSyoGrLxMOfbHTm
- 3vghl/O2o5SFgYxDgZZMUWWoOD7Bi9frqutduNjhpnDygQyhIGLUwAmoqzM8M8qr+y2cslv7tel
- Yjo7GTnfTlNcYyIkuzDX4J/kGgX2Qm1GhvU6GhpWRcdurZr0NYObk8Vxq9uH12bhR/KXcU2N2hW
- gzAoA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+On 10/28/26 09:52, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.273 release.
+> There are 516 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.273-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-hugetlbfs_file_mmap() grows a file when a writable mapping extends beyond
-EOF. We are missing seal checks similar to hugetlbfs_setattr() and
-hugetlbfs_fallocate(), allowing a user to grow a file that has F_SEAL_GROW
-set.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-To fix it, skip the resize when F_SEAL_GROW is set; mmap() still succeeds
-without growing the file.
-
-We currently also allow CoW mappings to grow a file. Disallowing this,
-maybe even only for read-only file descriptors, could break existing
-userspace, so we have to be more careful. QEMU's file backend is an
-example user that might rely on such things, and would suddenly start
-getting SIGBUS when faulting in memory outside EOF.
-
-So be careful and focus on F_SEAL_GROW for now.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: ff62a3421044 ("hugetlb: implement memfd sealing")
-Cc: stable@kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: drop comment; simplify+extend description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- fs/hugetlbfs/inode.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 174455e10d0f..47da18bb3490 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -156,7 +156,8 @@ static int hugetlbfs_file_mmap(struct file *file, struct vm_area_struct *vma)
- 		goto out;
- 
- 	ret = 0;
--	if (vma_test(vma, VMA_WRITE_BIT) && inode->i_size < len)
-+	if (vma_test(vma, VMA_WRITE_BIT) && inode->i_size < len &&
-+	    !(HUGETLBFS_I(inode)->seals & F_SEAL_GROW))
- 		i_size_write(inode, len);
- out:
- 	inode_unlock(inode);
-
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.43.0
-
+Florian
