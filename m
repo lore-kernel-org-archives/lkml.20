@@ -1,85 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188656;
-	b=CcLkcpg0BSjNd4byGwMpgfs5rxwzCR8A156HjLHuS7oK7uSFjALjTq8XaDuuqXiKCmWw
-	 PmGlTDOa4JlPJ1Rb7I9uC6Svy8gZQaxnC2jX4/KuNBDirA11Z5Aprw7QO3rTGgyevaF4N
-	 T0+esZnEITa5Tgiapkir07dinHPBEolm6RMX4w53+rfLtUkP6ladJRj5taVigF36tNdJB
-	 adRuh6y6m2l8ufgIDN5av4hwUNSHnn98J0GkbFcoE/YkV6rz/fLImvvAyTEQvSiSmIy+Q
-	 fVTHeRoM7yB3/0BNNzp2paftaWckKbVHEJeJ4mp1U1KlIfrimfPTzmD4JZbRvnK6rnA==
+	t=1793188653;
+	b=VO0+VFacAhZgOu7YZ3r27kcIJFiaFsc30RmtnQlaYnQYkBMRqHGlu+FXLr+mdQz9U70U
+	 73zsTyd/XmDC3a4ODKW8ibstrCWkPacflsDHnPumYNh0ilPUHnrjhtXzYjFy8p9FmaeWD
+	 h8koBgzMxaV1rQbSqNKoXbmTMkqKQzc+YvJn3ub6PfdhdBVRbL60QmvbHsqYKTlL+GRgN
+	 os9G527AXL62wUaTjjGCADs8K8rMPpfv54Z8cxz2pbxSTKCJRdLB1wzjYEubzW6Y01JJb
+	 ClolQ2DEZ0nwNKm0x2V8wZw2VHJoFJvM1A+zQZAJYSvNSJ3rTJy+SVobjPT/QXKoDBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188656;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vQn70RFilaV6vCUmTPIBJG08q6mnqtgfrSTQOJVWmnM=;
-	b=MSsaco+pgURPwa/SKpGkbylhOfUTxxkp+UUpVsxkxZvoqe4UUGab/JtHfaR0n29YUO1S
-	 jdh5b4IQrGfdXFHi11VKizsgLVGKa+rHzno+2i63gbMlgHeShlBAPhq5n5aY/s5x6+XVX
-	 EkyB/6xx7OnlPYxztj0C7MpX/4k6ljQyKhedJn1WUh9GDTUJuf4J+Dc9iWjRXR2kfsNbF
-	 iKhmwHDt+bzFwEjDlJZcumFnRKvKOa2JGkQp/lQc8M5OKvdhmhPllVS1Nc+j9htvf54+h
-	 fXRZDBVhlAUWoYNPJeu6zSwM1SCtx+EkAbXrknUYJdq/Mh32s2qd68yHgSzZneWhJCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188653;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qiW0xBkrGwxrr6G2qYAuGESnkge3qTgda6VZZem51Yc=;
+	b=taB+jqTxPvOkMBWGnsY4Zt8KsRyhjEnEl3gy2Qe+ooIXtKuisOGFMVRyI60jnu2ofu4a
+	 +M5AZ7ZnQ0mOJNhcLEgjU/hqw62kqasriSweCaAORZBbvwf0znOcKH5LLx4zfQdpkJl3P
+	 kUl9zNAD2AS/lINxuDmjFcXnto7PMUt8Bjzf2K+ZWxuEBtdZs4HOfxTZ5DHGkIhKgEq8Q
+	 u4M8pw8LMB+xwmqlxJrSvdOFNqMFSO3BGZ5J0R50li4MWJrBZSTWVIz3AkUMpsqwSN7s0
+	 yFCKA/YrUSW2CUBebWSl0eojZZWbPSFU25oKmmAJi6hb6LQwtadwf4BOllXjCdrKd/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=klIQwHUu;
-	arc=none smtp.remote-ip=43.163.128.44
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.44])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ev8RrmbM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D411606A333;
-	Wed, 28 Oct 2026 11:57:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D411606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9704606A321;
+	Wed, 28 Oct 2026 11:57:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=klIQwHUu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793188647; bh=vQn70RFilaV6vCUmTPIBJG08q6mnqtgfrSTQOJVWmnM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=klIQwHUuzh2w45eHtuOnqbQAuZd7Fpx91XWMp/Gc3S/rXVxug8HU/H8SHCOe1Il86
-	 8ibt/no49YAHrWUnxt645If5Ac9fwJwc4dxyORRXNe7E1KJuUNHmE82/ZZrZJtHYfs
-	 XPOfAVOBkJAOj2/ETMkMVsjwgPt81IwnMHdn/tak=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:7875:da97:7462:bbd3])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id E54BDCF4; Wed, 28 Oct 2026 19:57:20 +0800
-X-QQ-mid: xmsmtpt1793188644t4xpull8n
-Message-ID: <tencent_BFD509CFBFC7E76F10959593270DD1CAA506@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJDwY7q+uWS/ezw2m7FPoHn9QNH3RigtCsbW4ix+ZHS/aNzvIYXU
-	 SFCKEknR0qW1MsihjWZNbEMd8dacQ2CrxYSJO+MTicnuwaKy3N9P9kLnJlldIqNVIbJ86Phfdhen
-	 ZreMA7dFlqxB8BIXvfkRfXDI811Oa9JXn6+m959yk7lr372RlZRaz6RQRvfalnZ6A/j9Gv8k7xVe
-	 pr7YfAR6NjD/m8AcjGmIFmjQ0B0o08431itwnambfkK9OCVhXHEH0VkB3bn9ZD1siABq+V1711Ob
-	 DyASJ2WIMBfL32gbWn6UYuhU3QIdgd5h0iZtEUbRXr0mI6MRCQt4Z6e/HtppUD1+a8+YGhs28NL4
-	 dndWA7WCET7Ec5hRc16MXg9lPJYRf8lEoBHabubJ4RCtHlPWusNbi/rHFt08HmeFjP1km346iebZ
-	 sgBY06G4h3SHVPDyKQocusDwLFKd3mYCFJ803rT9FpM0sTKi/gTGlIv/yiz87lxFmmIbMqu85mN7
-	 LzajgbqQHsy3NwVy85Yd2F6T0RUaBePGokd5w3hVuvaVcho2YwwYFTX2YTwQ/NjPzNWRAPgl0dq9
-	 ljasEATEQGhgClxAJxIQwlgg9SSt+f44H4aPitLkmIqfvRbJu7hdDNFeHFsBceFCw6PTRl9nAn9q
-	 EBmzhLCHxj0niCfAlszdmWsMlxxXtyhTvNs69rwzP/FBtg06mR/deRx36ZBpLFqPRWEv3EZ00rzE
-	 mALVoJa29tGDxzUK8qY08mXs9bj6bauOG1Nol20Cf4+ToDp24re0j9h3ooqBbSbXBxnjbULbhefF
-	 L4Wo0SIeE6pbI1QZcq5+krAaIE+n64lRGg8WjAE7hYuhzXaTPSQ/CJQJh+VERNx3kxCMNQUEmPNj
-	 MVQbgbjUdhnFwTIDpoTkTIJqTK635V6BGEtjnWCJYXdRp9JeTNHTEc+hCaGTmksf+Q0LJ6BZ82Iw
-	 QHRK23d3nrkwtM7uUBIoZl9yIakj1JYQhA0EYVyHXGfxS37MxFN0zfjU0mVJUy7W17nr7+xTBSOr
-	 IQKNcNsmS8UiFGvueKj0771zOKwxXsDR8LrsRYB1sivOrilBjmpccpAQSPUJBrOovmE+Uq2lqtlL
-	 QNPZO+IzbW23ooqQVZVcza4VyUufN6nmzati6iMoPedfqtYAo=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Yingjie Wang <1075151112@qq.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	hare@suse.de,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] nvme-tcp: validate the TLS handshake timeout
-Date: Wed, 28 Oct 2026 19:57:20 +0800
-X-OQ-MSGID: <54ebf9c3b89165a0a4d5df754b3a099253dc15b2.1793188633.git.1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793188633.git.1075151112@qq.com>
-References: <cover.1793188633.git.1075151112@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ev8RrmbM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D49D1F01828;
+	Wed, 28 Oct 2026 11:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793188652;
+	bh=qiW0xBkrGwxrr6G2qYAuGESnkge3qTgda6VZZem51Yc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ev8RrmbMYhR4lKcWzj5wRE5kUpGwPKf0SL2N9X4i02sdq8Tn3ptoDeVtQagfGQaHT
+	 b3wsAq6VB1XYNNTjC352GNDxGeZGJpb57Le8de1ls5pqxKEWIqhw72ojFZDkVYaAK3
+	 SLbOGJzt2gkq3h9Q73ceCU6qHme+kxlZRFAbHy2ReheSWGKgvuwevComD9zlAjaCPD
+	 oQrcJha6A19ufPEib3ddTLBxhQFHc/MlRp5L3NipdwMbRvEYCNEZegTZPTdcczz0O0
+	 fkmN85IsuxgGWbPV+1hxeb1u7XVgMqL8v5MCirMTUmb7lkbm2Et9qBbaiBanpfWvHw
+	 ITdlF/je7722A==
+Date: Wed, 28 Oct 2026 06:57:28 -0500
+From: Rob Herring <robh@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261028115728.GE3598537-robh@kernel.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+ <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
+ <20261027122346.GA2133989@killaraus.ideasonboard.com>
+ <auFH8o9FbxprB40A@mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,132 +71,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auFH8o9FbxprB40A@mit.edu>
 
-tls_handshake_timeout is writable but stored as a signed int. Multiplying
-the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
+On Tue, Oct 27, 2026 at 09:14:22PM -0400, Theodore Tso wrote:
+> On Tue, Oct 27, 2026 at 02:23:46PM -0500, Laurent Pinchart wrote:
+> > > The problem boils down to how to present work that touches multiple
+> > > target trees, and where some parts depend on other work that is
+> > > not yet finished. Do you post it as single series, so people get an
+> > > overview? Do you split it in multiple small series (which may still
+> > > have interdependencies), so everybody looses context?
+> > 
+> > There's no one-size-fits-them-all solution to this problem. What I want
+> > in those cases is information provided by the person posting the patches
+> > about the dependencies and where to find them. I think there's value in
+> > specifying that information in a machine-parseable way.
+> 
+> The problem is that "one size fits all" and "machine-parseable way"
+> are in tension with one another.  One approach might be that the
+> patche series fragments might be sent to different subsystem mailing
+> lists and reiewers, but the cover letter might include a pointer to a
+> unified git branch which has all of the patches touching all of the
+> different pieces.
 
-With HZ=1000, setting it to 2147484 overflows both multiplications. If
-the handshake request is accepted and its completion remains pending,
-schedule_timeout() reports a wrong timeout value with a stack dump and
-returns zero. The handshake then fails immediately with -ETIMEDOUT,
-while the handshake agent was given about 24.9 days. Negative values
-such as -1 have the same kernel-side effect.
+b4 can already handle that if the dependencies are listed.
 
-Store the parameter as an unsigned int and reject values that cannot be
-represented both by tls_handshake_args::ta_timeout_ms and by a safe
-jiffies delay. Take one snapshot so a concurrent parameter update cannot
-give the handshake agent and completion wait different timeouts.
-Document the accepted range for built-in use.
+> Another approach might be to post it as a single series, but different
+> mailing lists and reviewers get cc'ed on the various patches in that
+> series --- and everyone gets cc'ed on the cover letter which also has
+> a pointer to the unified git branch.
 
-wait_for_completion_interruptible_timeout() returns the remaining
-jiffies as a long after a successful completion. Keep that result in a
-long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
-systems.
+b4 can handle that too as long as all the patches are in lore.
 
-Negative and oversized values now fail with -EINVAL. Keep zero valid,
-preserving the existing immediate-timeout behavior.
+> A lot of this really depends on whether you are asking for reviews, or
+> whether you are asking people to apply the patch series in their
+> subsystem trees.  In the case where there are a large number of
+> interdependencies, they probably can't do that via patch series
+> anyway, and it might be easier just to get relevant ack'ed by and then
+> send to Linus with an explanation that you've gotten acks from all of
+> the relevant reviewers.
+> 
+> In truth, this case is actually pretty rare.  The more common case is
+> where there is a single set of changes that multiple patch series
+> might depend upon.  For example, there might be an set of iomap
+> changes which will go on one branch, and then various file systems
+> (xfs, ext4, btrfs, etc.) might pull in that common dependency branch
+> with the iomap changes, and then put their ext4 changes on top of
+> those.
+> 
+> In that case, what's important is not just the base commit id, but an
+> explanation of where to find that base commit.  Normally that just
+> goes in the cover letter, in human readable form, because I don't
+> think we have a lot of automation that tries to deal with that, as a
+> subsystem maintianer, reading the cover letter is just fine from my
+> perspective.  But if someone wants to propsoe extending the base
+> commit with a repo and branch or tag where the commit can be found, I
+> guess we could do that.
 
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
- .../admin-guide/kernel-parameters.txt         |  5 +++
- drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
- 2 files changed, 31 insertions(+), 8 deletions(-)
+That would be nice as it shifts the whole problem of applying a series 
+to the submitter. 
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 5bd8a24be6b61..187917a4f196d 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -4801,6 +4801,11 @@ Kernel parameters
- 			Example:
- 			nvme.quirks=7710:2267:bogus_nid,^identify_cns-9900:7711:broken_msi
- 
-+	nvme_tcp.tls_handshake_timeout=
-+			[NVME] NVMe/TCP host TLS handshake timeout in seconds.
-+			Valid values range from 0 to the smaller of
-+			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
-+
- 	nvmet_tcp.tls_handshake_timeout=
- 			[NVME] NVMe/TCP target TLS handshake timeout in seconds.
- 			Valid values range from 0 to the smaller of
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index dbefe36b0575e..1b9c090bfda93 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -6,6 +6,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/module.h>
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/slab.h>
- #include <linux/async.h>
- #include <linux/err.h>
-@@ -48,9 +49,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
- /*
-  * TLS handshake timeout
-  */
--static int tls_handshake_timeout = 10;
-+static unsigned int tls_handshake_timeout = 10;
- #ifdef CONFIG_NVME_TCP_TLS
--module_param(tls_handshake_timeout, int, 0644);
-+static int tls_handshake_timeout_set(const char *val,
-+				     const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 0,
-+		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
-+		      MAX_JIFFY_OFFSET / HZ));
-+}
-+
-+static const struct kernel_param_ops tls_handshake_timeout_ops = {
-+	.set = tls_handshake_timeout_set,
-+	.get = param_get_uint,
-+};
-+
-+module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
-+		&tls_handshake_timeout, 0644);
-+__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
- MODULE_PARM_DESC(tls_handshake_timeout,
- 		 "nvme TLS handshake timeout in seconds (default 10)");
- #endif
-@@ -1930,8 +1946,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- {
- 	int qid = nvme_tcp_queue_id(queue);
- 	int ret;
-+	long wait_ret;
- 	struct tls_handshake_args args;
--	unsigned long tmo = tls_handshake_timeout * HZ;
-+	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
-+	unsigned long tmo = (unsigned long)timeout * HZ;
- 	key_serial_t keyring = nvme_keyring_id();
- 
- 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
-@@ -1945,7 +1963,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	if (nctrl->opts->keyring)
- 		keyring = key_serial(nctrl->opts->keyring);
- 	args.ta_keyring = keyring;
--	args.ta_timeout_ms = tls_handshake_timeout * 1000;
-+	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
- 	queue->tls_err = -EOPNOTSUPP;
- 	init_completion(&queue->tls_complete);
- 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
-@@ -1954,10 +1972,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 			qid, ret);
- 		return ret;
- 	}
--	ret = wait_for_completion_interruptible_timeout(&queue->tls_complete, tmo);
--	if (ret <= 0) {
--		if (ret == 0)
--			ret = -ETIMEDOUT;
-+	wait_ret = wait_for_completion_interruptible_timeout(&queue->tls_complete,
-+							     tmo);
-+	if (wait_ret <= 0) {
-+		ret = wait_ret < 0 ? -ERESTARTSYS : -ETIMEDOUT;
- 
- 		dev_err(nctrl->device,
- 			"queue %d: TLS handshake failed, error %d\n",
--- 
-2.43.0
+However, I think there would be new issues. The base could be old or a 
+stable tree. The base could contain a commit to disable all those 
+annoying warnings or disable all the failing tests which then affects 
+any testing we run on the series. But all of that is probably much more 
+rare than the number of series that don't apply today.
 
+Rob
