@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793206015;
-	b=nwz/vttAab9t7kDH4iNO2vsVmgAItUBg3eM+cySCVrjnEQj4g4hHiAEepNpYg3Ccn4BX
-	 5qmo2T5Tlte56CVH6+PWjrwbf0dvtl956fpM6k5Pjg7Xv9bbysM+UEUrw9UJT5MK4hnjP
-	 2g0FDMNczCsTdI5Pqa+fpugXTU6v/nBhFKjDbqdqWRKfXVW+97GVKNRByNgy2sqP/sri9
-	 JW7L1S0wSjKS4OTnKLEqNXA5Spc5rJHv9T9la+LQJb3hHApr/ceS3K2aYlqSCxKa7pMxL
-	 aZ/niXmzAR5EvT6ZzFFAMaXBv56WpJed/2LFOMe4yJibkikUFzSI4lCobHdfjnaKzlw==
+	t=1793206055;
+	b=4yDASZ/WUv1BPgbh09lBovywyXD/KFq07L24kpat2ig2k68kMMxPsPrC1JJSfLOV1GVn
+	 Qo5Kn2Vuf7qjSCw7Wm5GaaaZMHsdPkieqR1wACvdrXkI/zk7xF1tVPD83+u4WP/mFpZVi
+	 w5cNqswzoJspDpfc66g6y7fEoxDoKacPzpbiF5TVDKNUlcZc6oX1xjIAqzL1Qr70bRlzA
+	 v2DbAsZWTppknBniB+8FjqRGVePqjow3e6tdxqLOubopfkGnOJKBl7QBYE3qgWIF3e/Yr
+	 +LMRiKIgNENdhtHBRYqrH6hYG+2pUn8hpiyQoQ/1sgb6D6BTe4YzBgVugFc74IT9qDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793206015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793206055;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
-	b=U/HWbLiL9u+BqUclIugMSjpN+gpd5b5HmsKY+sbLwJWn00g1njepBQ/9hPLq7Ib4Ewcu
-	 N6Xaf4zy5ibxVDL6UQDlZwHcWENpVZEgyu4wqATkeR4ZISC7fKZU/e5A4ESwM/iWlsgBl
-	 0v6Z5JBBsZGHvLxmnYZ2VAe5gQQQgBCZHlWIbdXOKoJ2/PUe4BU0YEcyuzwgpXNb8H63d
-	 hzzTAalz/xgEaod1EMm1PQg/p9YCKYwQpgZoeh43enkYfaDuHHN08fenc7qlRABaJaoH1
-	 HKr3rD2E+VQ67+/wBFoiEjm5SM/s92op/j9DxIpRGsNXTDHl77MeVTqy+QR2Ae8qN4g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
+	b=p3IwYRix17xdZ2QkXiEI0KkwoWAZDSO/f5tcc4dMHjFu2do3cAZCeolqMj2Uu3CyJsBQ
+	 pZf3kXr6h+t6bBjKbl3tbuIEPBTGBnnTvw8Tm+6l0i0bDdMJkA7+nvsZxO+PG9skLzgWY
+	 yPMrtV/j+7LfhR4SVmjCs5ebmhGTe0rXLh2MqOzRldmT2I2QhN+rGmSjiE4xYB6QJgtDh
+	 GhCBkZ042ABv/twHo4t5oLeOuBBptkJ38+1Kh4TCPW6tc+f4QHl/s/H+ZHAHblBXO07Yx
+	 t00B3hL4VMiJg/VNhM6lknh3VpkqIh2Gw5BM/uwdldG7ASrOVetuOxvOFlukkf0Q/Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kfw5lTIe;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tZqd/5Zc";
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9665606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9665606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDC6606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:47:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DDC6606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kfw5lTIe
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so948318a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:46:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tZqd/5Zc
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so521729a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:47:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793206014; x=1793810814; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
-        b=Kfw5lTIeK0b+pOQ6UeoU3otNbG/F+hJLBbHJEngSvUZJX2T+MxRia790fWsYRjO+gu
-         zctBZmF6vri7AvKN6vl25fZ88lMKL7xNhzGmKT5vzAphBDKRfVmSdyXMt2boyd+sNC+B
-         Y1eJ5ALziL3Ty0kZRoBFzS4YX6Y4PuZhr4o2RfgzX2saVF4UCTFpQvJusL3w0/JWqHaf
-         ih2ZAjpf2pjMmCimMqDGyF+XyRi/GjPmTkkK4NbKvltpVB3SR+/ronU3UaaWcfwCqTx+
-         UocDFBZjP3PAzqQgzwwW0MdCOLVUhWoTHd6LJWzNZ2Wyqulal0tkpXusZpW5jqqLYHQQ
-         Ylcw==
+        d=gmail.com; s=20260707; t=1793206054; x=1793810854; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
+        b=tZqd/5ZctCbxMs1eSeArkxV/6Yk8QYOU200v8aPUBd4k+sUr0zgoPNPHCiY9a31ngD
+         gns6UZwWrMJNXTVzKhcVhZMb6F9fvMWXjAUgyuqPUB8GdNC/uij/msuxHgxXGDXrKgly
+         CSHMSlmpjfyrrOANMGrLr8oaAAMetCgfX7vA5SmknjqRrvTHz3YTSlaJSAKd22Az96/b
+         1CFbWwIGFdEurhKh4wzON/31ndk2aAcs113W4EE4HC3oXaI2QHAWCOOB/d4cjPgVhxEY
+         AzxcmEQ/BbfzcZtH7PfgjPvaeYWCVY70q7VB9lCRG3LeLPN60Zc4HPF3kXaUs5OWSW4j
+         uFSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793206014; x=1793810814;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g09dqGgfkECLzBz+aB2tJ6NeeH7OBTuBnp9ZDOSrA+g=;
-        b=mo5Zh2ZPHqE0tPbAsVeJBXm+IIhjFO7lgvq1Hb5j09c6u8lpmHNIRrIMy/EJpNm4Ry
-         g6381RsyWlGzSajPYs1T7odgSVSL4oW1IOAM3GEUYg8Cu0uFiGIDwEPr99WLUjEfhz3b
-         +F5sKKTaUR+V2nd2dJ3mcKlA46N4KepSANtWhW6ePQSyhnMiqfKyvhAwkvSY7aCPwbos
-         ZBT/+KjQkuNjC/Ixn1N4xaNI27iG+hfrRIeaEug0r1eX+3Y1IveMPKw/MC8Yi934Nsx3
-         9jBpSyKGVQgMgiZlvTDYjEbLuswEJnZNfPJe5FN/+vb2K+os481plDccnXNPGkQ+lH29
-         XN9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwrATCh9DVI3pr2Vchf8bXgsqLSrIn/GH3ovUh1Z24NKS6j9MhhXg7jFki1NeZ6wMHaGatiUxGp74AErZs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+CC7zts25ZP/+x8i6JaVKExbJ+QomXQCeTonriuvWxuJjRSgh
-	LCP9sKa8dKSKt/TusgNfzZ4EewLHydyJ7x6oq5jbzQsh+1is2PiwGvw7
-X-Gm-Gg: AYBFou3ucrBinqQuqsiJj1d87lgGAu2iNUM9lN7pcLMJiX20beza+5t/plaPua33mDl
-	whu0cQGrRKkjnCQjwfzRN4cNrrbokf7zZdV5TRnKrw28vLwIvdAvPv9Fzffqe2L0VvsI85BVijC
-	YogMNPj+2ivkBAXuf8DKsRber2IPeA7XAb07eyBHnMuQ4yIbUkcl+pUO/tpGiFlK2kVVUYRahA2
-	FNYoJy80WR8Fy96IegJhfX2Yy9Gg6mf+Tsao0DZ7e/5NQPBmEM2Euspa3NKzOGAxy7hawb/px3P
-	Ly8jNwElh1ca8TtvxL+C0xZVVVmw9phra+zAXCwE7eHGcNVMx0iOUEAYHcMsWk5f46i9FHp7qHu
-	Kyn/ruwTX8GzMvKfeNnLd4rRUQ5ooGg87TiJ88CD007rSxOMd19xhV11Hf5z0gY7pl1sqabZwcK
-	7lkrJyIFdDNXg2qmG+gT3KUSPFwN8LMuZ6c+OMsiOk7Yf+K906AVKce6tIQOkgvDOoz1G7uIbHK
-	NPZfgyxYnuYnE2gjC7hS8+X+wt68nagNabPvSerPx5K+OdX9vzJbrK8qy3DsQGo4w/ZtZIklaFQ
-	yWirTulSHv0f6wSu+e09S38FRb+9+J6W7u7HKBOw9ZsHBzq9gpwQ0VKdVmX+zLuiAqb0VzlUpPM
-	l3vMXUb7PuHRfUiodwjTr77gddwk5O4/gmF52wHvB/Bkh4P2AAA==
-X-Received: by 2002:a17:90b:5348:b0:3ac:8446:c1b5 with SMTP id 98e67ed59e1d1-3ae58228c0bmr2122376a91.31.1793206013689;
-        Wed, 28 Oct 2026 09:46:53 -0700 (PDT)
-Received: from lima-arm64-dev.hitronhub.home (180-176-144-38.dynamic.kbronet.com.tw. [180.176.144.38])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5797f6aasm2083346a91.2.2026.10.28.09.46.51
+        d=1e100.net; s=20260707; t=1793206054; x=1793810854;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hXQ5AtLbtETfyYAi8CVU1bdEjN/xUiyW0YYpN9HOqkc=;
+        b=OLO6lnag4v9FAgBO3vAGcz/KN2imEbJym4xgy8xc5fDiJy2ZetmDsOeqzqACom1Bfd
+         IXzw7QT7R+h0v8xW8mGCPgkhnlKyLnKNvEQiN7cwoPcnUSvzB5AdgFrF9cG/QpjNa54q
+         xxAccOfPrI5g1u86AxVSmk89t1myrUr6FYjTDOVa1o5AWs8jky5FeKov12wSvtZQoaet
+         yUQEn6XOuSsVv4keXAh0ScL4QUZdfE0AF39ilhp8GW2bWqII72cSvjOIk5ptwiuk5Cgp
+         UimcAmeA8t7ir9rU3Vzf8opabVvikx1lnuJrH5S9gX/8gcwkDcs9WHIdqKr9+/PzM/b+
+         3R4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwrbUXrfem8epYs28j8IwwPcCHB8IhCnHoKGspEjP2um95ASyMptlW6alMTt1zuwJRElkO3ARv67xzx+co=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZhVOgrVTeLmhISgDXfFcgDzX2WP62qrdhKl/ncby2cO2S+57/
+	jFYYBirZCtqeuTY2GJSPC+CTgDNv5cfo5looOPMNnj361oNFG+zsPxab
+X-Gm-Gg: AYBFou16V6dRafHEd9QvdVxezdSI+uSjUSNMGicC9FSBqVqiV4mY2ytyzwRTevnUmoH
+	O9MlrUVft4ASyeg4w1jFIXIJQ84d0F+OyhpuURIw4GvNnpfqFmo63/GkcWg0PYkkorkhGNEc9Gn
+	DZiBjJ2PqdSSoA44lgw5bjLD1DdXXKi6AQD9W5jzOmp1cnAjc4xMnHO4S2dj73r/rEqSFz23bUw
+	ivrU7sowShcBQYKnK690gvwKZ2Fc13j4GpJ7fFNkFJxSrh+uRcdoId0o+H9k4PHmrhVlVa75pF8
+	u+9TW8HhluRP82h630okUAmlZujczicoDFB7kYYyTqtiLB/PiPbUJgPELpp0HNAi5rBZ4+NyopP
+	1k5Nbz9vLg7B6T5tSOwe0JnpyyvjJVL5P+A54ZkJyByPx7X2QFEa0RILzzfKPIsYjlO7UipMJIS
+	HOz7fRG8zYSnZcELjMmRWtMY7zgfN1ccp7Mle+TByM4tm7k312FEqod3rXvLWe7i9CMFIdQ0P9y
+	V82mbyYmcPrZVh+B9z00GBb7W+9aUz4Va8OBiXBvk9RnQVIiTAvhy6LrAzArfpIg2R8354b/yVL
+	EoWlWW3ca23T7ENZ5G50LbzDjKurwaKx8A7oWsg5JLkDIO2yKT8z8ODXMWOt5D0cG5Zf
+X-Received: by 2002:a17:90b:4d05:b0:3a7:f4d:b23d with SMTP id 98e67ed59e1d1-3ae5821f346mr2159561a91.52.1793206054280;
+        Wed, 28 Oct 2026 09:47:34 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c5b77sm2173048a91.3.2026.10.28.09.47.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:46:53 -0700 (PDT)
-From: Harry Hsu <x90613@gmail.com>
-To: pmladek@suse.com,
-	jpoimboe@kernel.org,
-	mbenes@suse.cz,
-	joe.lawrence@redhat.com
-Cc: jikos@kernel.org,
-	live-patching@vger.kernel.org,
-	shuah@kernel.org,
-	song@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/5] livepatch: Fail object initialization on duplicate patched function
-Date: Thu, 29 Oct 2026 00:46:49 +0800
-Message-ID: <20261028164649.337479-1-x90613@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <att7GJXA7hK7Ic64@pathway.suse.cz>
-References: <att7GJXA7hK7Ic64@pathway.suse.cz>
+        Wed, 28 Oct 2026 09:47:33 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+Subject: [PATCH net v2 0/2] bridge: cfm: correct CC receive monitoring transitions
+Date: Thu, 29 Oct 2026 01:47:28 +0900
+Message-ID: <20261028164730.253238-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,107 +99,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri 2026-10-23, Petr Mladek wrote:
-> I wonder how to move forward with this patchset. There seems to be
-> three unresolved problems:
->
->   1. How to handle aliased functions when replacing two livepatches
->      with aliased symbols, aka two NOPs on the same stack [1].
->
->      My take: I would fix this later on top of scoped atomic replace.
->               The aliased symbols should conflict.
->   2. Fix the low-level __write_relocate_add() to clean its own
->      mess on failure.
->
->      My take: I would fix this a follow up patch.
->
->   3. Better describe the purpose of klp_write_object_relocs_limited().
->      Or clean its own mess a better way (code duplication)?
->
->      My take:  This requires v5.
+Two CC transition bugs affect CFM receive monitoring. When CC is
+re-enabled with a new interval, the first RX check uses the previous
+interval. After CC is disabled, a received CCM can still change peer
+status even when its RX work cannot be queued.
 
-For 1, I have a proposal to create only one NOP in the first place,
-as in your solution 1 from the earlier mail.
+Patch 1 stores the new CC configuration before enabling peer RX work.
+Patch 2 keeps RX work disabled while CC is off and skips CCM status
+processing during that time.
 
+The v1 submission covered the RX work restart. This revision also
+addresses the two review findings. The interval fix is a separate
+patch because it has a distinct failure condition.
 
-Recap: The problem
------------
+The combined series passed 8 CC interval/transition checks and 3 CCM
+status checks under ARM64 QEMU/KVM with bridge/veth. The CCM status
+test failed 2 of its 3 checks on the v1 image as expected.
 
-Take two livepatches that are already loaded:
-  A patches __do_sys_fork
-  B patches __x64_sys_fork        (same address as __do_sys_fork)
+Baek Kyu, Kim (2):
+  bridge: cfm: Store the new CC configuration before enabling peers
+  bridge: cfm: ignore CCM while CC is disabled
 
-and an atomic replace livepatch C that patches neither of them.
-klp_add_nops() finds the functions by name and sympos only, so C
-inherits two NOPs. Both resolve to the same address and end up on
-the same ops->func_stack: [A, B, nop1, nop2]. When the transition
-is reverted, the stack goes from nop2 to nop1 instead of back to B.
+ net/bridge/br_cfm.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
+---
+v1: https://lkml.iu.edu/2610.3/01364.html
+v2:
+  - Add the CC enable interval fix as patch 1/2.
+  - Skip CCM status updates while CC is disabled in patch 2/2.
+  - Retain the RX work disable/enable fix from v1 in patch 2/2.
 
-Proposal
---------
-
-klp_add_nops() runs from klp_init_patch() before klp_init_object(),
-so the new NOPs have no address yet. But func->old_func of the old
-livepatches is already resolved when their object is loaded. So the
-address can be used as a hint when the NOPs are created:
-
-  1. Copy the already resolved address of the old function into the
-     new NOP (func->old_func) as an address hint.
-  2. Do not create another NOP when a NOP with the same address
-     already exists in the object.
-
-The hint is overwritten by klp_find_object_symbol() in
-klp_init_object_loaded() with the same value. It is cleared again by
-klp_free_object_loaded(), so it never outlives the loaded object.
-
-A sketch of the change in kernel/livepatch/core.c:
-
-+/*
-+ * Return true when @obj already has a nop whose address hint is @addr.
-+ * The hint is only set when the livepatched object was already loaded.
-+ */
-+static bool klp_nop_exists_at(struct klp_object *obj, void *addr)
-+{
-+	struct klp_func *func;
-+
-+	if (!addr)
-+		return false;
-+
-+	klp_for_each_func(obj, func) {
-+		if (func->nop && func->old_func == addr)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static int klp_add_object_nops(struct klp_patch *patch,
- 			       struct klp_object *old_obj)
- {
-@@
- 	klp_for_each_func(old_obj, old_func) {
- 		func = klp_find_func(obj, old_func);
- 		if (func)
- 			continue;
-
-+		/*
-+		 * Aliased symbols resolve to the same address. A single nop
-+		 * is enough. More nops on the same ops->func_stack would
-+		 * break reverting the transition.
-+		 */
-+		if (klp_nop_exists_at(obj, old_func->old_func))
-+			continue;
-+
- 		func = klp_alloc_func_nop(old_func, obj);
- 		if (!func)
- 			return -ENOMEM;
-+
-+		/* Address hint for klp_nop_exists_at(). */
-+		func->old_func = old_func->old_func;
- 	}
-
-That's only one way I can come up with :D
-
-Best Regards,
-Harry
+-- 
+2.55.0
