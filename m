@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195962;
-	b=EDGal7vd11qmr+7W8WX4ecFNT37eG/hbweFGjdHnB8IFzuZhRrhMrWIWSCSHAXwAWSZM
-	 t1G/EqFndCNWaO50vIbLbQjEjbx3bogqgtgZmb8m8PJeg8rLeX/7lT4STNvt4kokIWEjE
-	 OojgRYyhBcQVxksERsESDFnTduiHFmbsVKUmidTKnS58dZFYIJp007bZ9V6ANxRlhUSS8
-	 muSZAb2sG12cn/LSEHATgTG5OAQSY6kvO2yFEU9ezZN1pGaT7niRxVgr0Sr2kCIum+pIC
-	 v3SDqAznjoYAobu+z0W78aJwot2PpeXf9ooYHKD6790Uxp+jzX1snb8UcgExAh9mFhA==
+	t=1793195967;
+	b=ozGcscnHbmjfyYVAZF60k8wYUFf9Hoqdg+FYoCF2xfmngUgi2q5cXFzC3hbAL9mx6UCZ
+	 iaD/yvRTEcKar6YHZY9GyiFzSM8VKgKd0WYbuo6djdMFQ7+0hHdk4u9T510EJbIsx/agE
+	 Ji+TMupyd3W44wOu+pUBFhPACs5u2xOznk44w0HKSjElQHjCUfKvWhj82/AYmTRuVG78Q
+	 hoLA4WC9Ol7Emh3O19eKy7KjGK6s+FttwM1Cqp+CZmoIDVR44W+xPvrCinAn/VXi5QBb5
+	 CiPlD+yPVq+9x4mNqpfGNLQqhtq0pzaf3jaBUy8pDEgE+PkXGWXZgd2KKnc8pQwRoCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195962;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lmwsrkba+SRG/AXiVVkwXIp5wUOzmuBRAc0XQagcnRk=;
-	b=iDYFRkFG6Mp0Zc3apnSfcut93xsXlK8NI9BuAOQq9YhcOpgvv04aHmFPrLCJAxfzQ/4I
-	 KcjM5xB55zyfgGfNseANYv9Z4FAEXcA+DrB2bruwaRVzBPJ0V+8K513lJVWCogC4YtE9H
-	 GyzyI6PR/OvgI6I7/P3ARQF9Vabg25dDz14pfg02BvphG58ZPhSjCUgdtmGM6TwsSLk3N
-	 PHP43CDa4SdwqofcJIKXqauQVt1irAc17mkITNB7H7au2MoN/5Y6wF71tA/WXDO120Kod
-	 LbDSsDUKhW4bieBmoeHicfAhrJItzQg3QQqzSYfgowO0ChqoQH9k7roiDVf4r9J/feA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195967;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
+	b=XrfYqnAx/XLjbWzJ8j7onrRvYuJriQIMY2Fzufs3pWZfUgG2xxpcdH9u8NRJsuHRwv/K
+	 GVeqPglTlbjFjUH/dt1mpcWrMBK9FKOvlzdJph3kpL0+LrbAQwSAEgCVLGb9gomaq84gV
+	 R2LbxYw88GQ7xnmYSZDQFgGurMlKgz/PHcKet4D4hVDdOi/vG2fzXaMRWPvm5QU2/4qBg
+	 WD62Si1ZN+YI54ij/5JcZ1+bqYAwTz6ZWhGvORU/6656celrex63oGJ1EVCGXRE6/4jrt
+	 Z1XzpgB1kyuYt98BTvVnu8iVKwUdu01Q1YQzmDlN1xbokOtpjDzEAubZF8rDMDYElFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZcpNV/Cy";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=KWKGKeip;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98607606A329;
-	Wed, 28 Oct 2026 13:59:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E28606A331
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E28606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcpNV/Cy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E981F01825;
-	Wed, 28 Oct 2026 13:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195962;
-	bh=lmwsrkba+SRG/AXiVVkwXIp5wUOzmuBRAc0XQagcnRk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZcpNV/CyxgZlHYTgc9hz+BHGNvVQTNr2Km24y1NtEAipKrQpWq/PnNnomtVHFa60H
-	 fq/dnQtzBNA1YFxuQWUpMKjxRjHD9TL76A4VWNOOD17bBj39UbNmg9IoGsdC8TNibD
-	 PzZRXmfWpzc0v4S8HCUxioxzz0nUTL723I738EfkJ/pwmVnZL6fJthMXe+IdRUM8sY
-	 0VSypMLm4xLMThodRtiJupZVx4RrEYAMgTVMyOcxVO6P2TKUWAK91DXgn4+kT3k8kH
-	 SlTXh7e9aDUOI5e2xO+fmTOBmGkauVtXIU1nu/qAI16DPgVIp2HS6yRGNMGl8gcDRJ
-	 7uIMThOzuVRBA==
-Message-ID: <cc5c7066-b5cd-45df-b338-37944320da2f@kernel.org>
-Date: Wed, 28 Oct 2026 14:59:11 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=KWKGKeip
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso10462535e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:59:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793195965; x=1793800765; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
+        b=KWKGKeipGePT9IJuVyxw5YsqDXc2AkjbuCxEI9jczow2/1/idGvDwiznsK9TOhdAlH
+         Zaa3SIYobCUnBJ36mnrD/PUn90mcqMCv6TIWRZMg9JRtzys4vHLb82ANdjPm+1EFBUa6
+         uh3YNsE8H4Oj9yRxgTNwaZKHDkxPWXUmZCwO0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793195965; x=1793800765;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qzov9cMie3JOWsLr9fHYVP0N8sIiaMOwtNhxNRILXQI=;
+        b=QhtPo0OW9SAyX/5xAVVnCKDilhPEhxfGXiaavzlUlmHjTdVH66xmo9jMmHwi2c92n6
+         LLi01nZxd+CYT8RCSk5aZDJMx9/Ui4GtWs4jT8u+/fumF8ipEnFSNWLpZWyE+Qd7smXY
+         fDrhtH47Ij9cRSHDSDNYRlJVbvT+eoZlsYzB4w9YhHE9DI2xDUs9a165BR1Pcbkra5ay
+         fNT1GBwk5xJ/pi/PO70G8N4PghdjT/eX7X548JvSwmUF0yjMQ3aKPtvHYI9RxQrMk/1J
+         TSXBKBj3ChhDtcR4KdP24Ob0iqjXHuFfKWsg+Yd5wOFtc2bzU63fbdLeqk7KyvImlWu3
+         +IWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBMIuramToCq03EqFhfTVQ6s7u7Yp+tvl7bBFbvefV8num0X6NzUJA/LH8YKbHv+eVDDCWbZymdFl5mpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrvZaL4z6rQm76AakfmejUTqiHcxJu/eEwr1fHhYdXtkfz/SUa
+	4wMxWGKf4N++BGeRsMb2a+mxdWtliMv0Yh7bz1K/OFxUOTkVuROYNdpIYEuQX+FC7rU=
+X-Gm-Gg: AYBFou1fK1NCwlKk0v8z9JgkqdCvYyBcpREyXgVwNcYreurnlRO1aLfC5kHexKOmnKx
+	pr5sgG+h3DTPKqflAWfJhRlHpY7dwQYICJ2gx3PZqzwJmL914H7joQ6AOF79MHYkTBNaUpCG818
+	roGwx6Fa2B7FC7ZH3mOjyrs3oDJW9yEEbP/6jCmMA/GWwaVARw6MIh+1sxkaM0U4ZEB05MA1w76
+	Bo+lh9QhnKBPdgQcc2YJFqNeOck13wpqmGIv2lV0kr8JB4yYPEx7B7UjN4P6/mV3FTm2TeTF3UO
+	hXghBwo8ipIhkjF+lRi7Rhlxc8EokMwBsYd8de7n+avv+n/oQoCe84hnIxZ8f+UTKvHiktbLqHZ
+	4qysuGYrbJ9D13oY2EueNiGY3zcQPQLB5dtplqFUat1FKYwChwtj0bKHK7KGWYwHnZlhQdfwXPR
+	1w0Rnv9XRXrMVSI6J1QgbKRJOZKw3GON1bWECaZeaq0swheMcpkU4BjgCl2e6ZMYAG2q2Ly1hhI
+	u6VBmSRfLJd1mJY1OhuRiIGOxjKYKJA4QA41Cbvsl+3wxqbQwNFullnySxl6gUCdT54+MlQKTN7
+	qfGIFQv3yE7jFWsO1IsNcX5biOUm8HCvHI+1zsmyH4rkVeaDxC3bBzt+Csjbnb0m/UKwHKYV1dP
+	VeoX6MPxC8TLzpWUXoO0B7Awmv+AXd8oOZbVOKAn842ILzptY
+X-Received: by 2002:a05:600c:8b28:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4a96720304cmr53194255e9.22.1793195964806;
+        Wed, 28 Oct 2026 06:59:24 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm37077165e9.4.2026.10.28.06.59.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:59:24 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>,
+	Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+	michael@amarulasolutions.com,
+	linux-amarula@amarulasolutions.com,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [RFC PATCH 3/4] soc: st: stm32mp2-syscfg: register the STM32MP25 clock device
+Date: Wed, 28 Oct 2026 14:59:07 +0100
+Message-ID: <20261028135915.2665857-4-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
+References: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,101 +106,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
-To: Andreas Larsson <andreas@gaisler.com>, Imre Kaloz <kaloz@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Magnus Lindholm <linmag7@gmail.com>
-References: <cover.1792609488.git.kaloz@kernel.org>
- <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org>
- <409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org>
- <20261027212610.6798-1-kaloz@kernel.org>
- <dfe06aef-540a-4450-88ba-300a460007b7@kernel.org>
- <20261028091631.8072-1-kaloz@kernel.org>
- <25f5cbed-9126-4870-a81e-65099155bc9d@kernel.org>
- <20261028101719.11918-1-kaloz@kernel.org>
- <4fba060e-c4f4-4d73-8efe-dbed0b5a7bc3@gaisler.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <4fba060e-c4f4-4d73-8efe-dbed0b5a7bc3@gaisler.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/28/26 14:57, Andreas Larsson wrote:
-> On 2026-10-28 11:17, Imre Kaloz wrote:
->>> The biggest problem all of us with supporting old hardware is the maintanance
->>> cost. Not just core-mm, but also things like ad-hoc page table walkers you are
->>> adding we (from core-mm) might have to touch at some point.
->>>
->>> If there is no good reason for the complexity, out it goes.
->>>
->>> Because otherwise people will push more and more for removing legacy support
->>> completely, and that's not what you want, right?
->>
->> Definitely not. Fair point, I was only looking at it from the sparc
->> side, and keeping these platforms cheap to carry matters more than a
->> few percent on reclaim. B it is, then; it's below the scissors, on top
->> of 1/4-3/4. Thanks for taking the time to go through this!
->>
->> Andreas, if David is happy with it, would you take it in place of 4/4?
-> I'm open to a solution like that, but it'll have to wait for the next
-> round as we are far too far into the merge window. 
+The STM32MP25 SYSCFG provides the LTDC pixel clock mux, whose driver is
+an auxiliary driver since the SYSCFG node is bound to this driver.
 
-Fully agreed.
+Create the auxiliary device for the clock driver on STM32MP25.
 
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
+
+ drivers/soc/st/Kconfig           |  1 +
+ drivers/soc/st/stm32mp2-syscfg.c | 28 ++++++++++++++++++++++++++--
+ 2 files changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
+index 2a9d6a77be45..62bbe8c63238 100644
+--- a/drivers/soc/st/Kconfig
++++ b/drivers/soc/st/Kconfig
+@@ -5,6 +5,7 @@ config SOC_STM32MP2
+ 	tristate "STM32MP2 SoC family support"
+ 	depends on ARCH_STM32 || COMPILE_TEST
+ 	default ARCH_STM32 && ARM64
++	select AUXILIARY_BUS
+ 	select SOC_BUS
+ 	help
+ 	  If you say yes here, you get support for the ST STM32MP2 family
+diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
+index 770321a4a6f7..300a949744c5 100644
+--- a/drivers/soc/st/stm32mp2-syscfg.c
++++ b/drivers/soc/st/stm32mp2-syscfg.c
+@@ -3,18 +3,42 @@
+  * Copyright 2026 Marek Vasut
+  */
+ 
++#include <linux/auxiliary_bus.h>
+ #include <linux/module.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
++
++struct stm32mp2_syscfg_data {
++	bool has_clk;
++};
+ 
+ static int stm32mp2_syscfg_probe(struct platform_device *pdev)
+ {
+-	return devm_of_platform_populate(&pdev->dev);
++	const struct stm32mp2_syscfg_data *data;
++	struct device *dev = &pdev->dev;
++	int ret;
++
++	ret = devm_of_platform_populate(dev);
++	if (ret)
++		return ret;
++
++	data = device_get_match_data(dev);
++	if (data && data->has_clk &&
++	    !devm_auxiliary_device_create(dev, "clk", NULL))
++		return dev_err_probe(dev, -ENODEV,
++				     "failed to register the clock device\n");
++
++	return 0;
+ }
+ 
++static const struct stm32mp2_syscfg_data stm32mp25_syscfg_data = {
++	.has_clk = true,
++};
++
+ static const struct of_device_id stm32mp2_syscfg_ids[] = {
+ 	{ .compatible = "st,stm32mp23-syscfg" },
+-	{ .compatible = "st,stm32mp25-syscfg" },
++	{ .compatible = "st,stm32mp25-syscfg", .data = &stm32mp25_syscfg_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
 -- 
-Cheers,
+2.43.0
 
-David
