@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793223970;
-	b=qnUC4zvjJu91G2j1zkLoVOgDrFPekt43dAEs/5LmkChU5q+tkd421Xc0BDmL7m4qypjM
-	 XNKjTqNia7shw/gvidfNHXqvCLXoqXpSOQ1IS+J70YUHhtDmOgdcBlEJhjMufeEzhL0+a
-	 a4ptSP+M1GxXC6Mseoy3q56E5tJZTVp9Rs2HvIB9s7W8MbXfPSFX469tE2iLoxDCAHD3c
-	 Nlez3ewJ3xMSqS4F/lZTpDRwTHemUW3CQ+OAggIzA/4F9XA/22bBCpivgBERY4dYjGRhj
-	 ABge8hUZTphdmDPWpECF2P/4HGrXOlcmFaJ71uQC/KTLNhC5KXtmu9DM6arlQItpfqQ==
+	t=1793223975;
+	b=1ICdsX2B0TgbxIPtpgslgEGCjuqKck4AQkE9FYEV5DKJwbjDvMhibDl3H90wIfvuiA6L
+	 ZKwMkNL2I4uC4AUg4j8wLCJPtaAPE4OakGLrSIb2jqv0S2LHoCTdvu99Li073VSSqgQe3
+	 VYhajlLfPXT/5Eqn67cfwkJ3jhPfIzswRUgjwdEsSE3Vyt7cFtwYCJIFOAci/hg9BDL6k
+	 U2n8ZzjcirYFafrTBU95cfQs385HziMQ/2ZCXdQVXkuLcT92coZYhr7cX7GHzCV3PonMX
+	 o9SGgo7s63Y6blczc/fltvmLY0N2ajgxag3C4VNmcllYqCr2hE2L4bcdCl4a6UScv4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793223970;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793223975;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qRoz2Ud7m1EpM11LAi2xkbUFkqidMBK8XuB84tKw0Wg=;
-	b=wBJqdvjB+uFJ/vwawzRUygekytn6bHk8kkuH6BdboapFrPP6Mp2pq8MEdCt2Y+HDBHXn
-	 O23oyzJ1TMAyrvLDWrAkSPJ5H+tmFjyOb+EXL9xcrGJKCNh/UF76wJdZigLe3je7YWnOK
-	 U3Weg0pOJO8sxp06oZ9x2m3g1xueV3tNISYgxewscA8qtlwflKrdg23OzOvCJO/Ob9oLY
-	 +CpqXmekBZJagGDU3QZ8MGBEs3v946Xta0VJ5uVwvAMtQbtvGRuZaKULztm3EWap+ISEW
-	 ehLw7Yw7ew8AQ+PBmEx3JLhWrW2RCNpuubFUc26qtx0MV3rxdcZuVwJdee2xXnw0hkg==
+	bh=mkNP8VDKFacUQ2R3+P/8bTR8wKAz3oDwsget4lm1gBE=;
+	b=155IaWyQYT2L6TDYsxyUkdvvjwxOEVBJlyw79inb2OUY6SVGNq667NOLLOATcg+AtA8f
+	 ZbpigOBED6cLHA1Losu4G7Q1iQtos2F6bX94R6HfbP+Q2ICMMgB6F6nKZfZB/2dPHcxUU
+	 81aRpHnnfOimCDVWDrzNXFt96qupUa8oscZ2wL7QM0zje6/LvwTNtML5nKEUO67QQIwmO
+	 v7VYxRPrkB8UqJJdzA3CbMugrZpvvrao9+bZI2bn7dtvhESDMl33PkRRBMTGX/VaifTW4
+	 DGOOJtuDbkhHRUSFqPk8O+V6d12wA9Dgm7eN7EqmIMobrD6drb6saF6qdRHuSDZWY0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IupLS8WB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKpVh900;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A17606A31E;
-	Wed, 28 Oct 2026 21:46:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4255A60A2639;
+	Wed, 28 Oct 2026 21:46:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IupLS8WB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8141F01829;
-	Wed, 28 Oct 2026 21:46:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKpVh900
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA9F41F031ED;
+	Wed, 28 Oct 2026 21:46:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793223970;
-	bh=qRoz2Ud7m1EpM11LAi2xkbUFkqidMBK8XuB84tKw0Wg=;
+	s=k20260515; t=1793223974;
+	bh=mkNP8VDKFacUQ2R3+P/8bTR8wKAz3oDwsget4lm1gBE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IupLS8WB90KaOoIhpr0AKSNowqdQCsNnN6XvqNK8mr2jMLYyCFsod4L65ODydnudB
-	 tsHpl456kMFrTz4nZoCbbpTTTMRXrRRiqfNMvV7sP8vAq8hq81wNCVEOtC0iDcxZjv
-	 /AVUiJyTs+aOiidNfpdg3hMjoFLHJ6saDatXVWZMt3c+68WdeEvlyUP4Gw+x3pJeMQ
-	 FK86bz4ysSwkLZkgi11ayKZS/dOsNcl8oNLtITWjX68XT4gYbLZB3Oy6T7zyQLhaI7
-	 jfJF/PjB3LEI5ZN9r2GVlxUuJOPdimPFWpMXdMQhU9pAXJfJcfmrFIVuBZiHMiHkRZ
-	 qTeHKO8rlh4Sg==
+	b=aKpVh900HR9MatTmQg5/QPokmCH8DEFoCjSHi/3qeuhzFmeOGS4fgz/v3kU+ycHiK
+	 +aNUT17NmDQjaHJD0I2DJ3ec2UZaAenwRlXL0c8Pd86WAsSJhIFgvRmzC6vnjd2yY2
+	 L9UEN5QPSrUMFC9hIBg0jzAoNHSWNbkKefNETI26xOfGm0L+gsmmJ7Pd/9uBz1JGBy
+	 VwhLwJ40DcmStc/QeFw7iCEBtBPnOuYQIHu+6NQkqMxs9pLItqgspTruYfPjCZqxGl
+	 EmkS9oeTj6R4FJGLkbeKJuwxGqyD8nM5yRlFUJfkr2Q2m/gUGRO3hPhW+CkhovsEqn
+	 JSmh10VlGueaA==
 From: Song Liu <song@kernel.org>
 To: live-patching@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
@@ -50,9 +50,9 @@ Cc: jpoimboe@kernel.org,
 	shuah@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Song Liu <song@kernel.org>
-Subject: [PATCH v2 06/12] selftests/livepatch: Test klp-prepare-patch with independent patches
-Date: Wed, 28 Oct 2026 14:45:28 -0700
-Message-ID: <20261028214534.1919398-7-song@kernel.org>
+Subject: [PATCH v2 07/12] selftests/livepatch: Test klp-prepare-patch with patches which cancel out
+Date: Wed, 28 Oct 2026 14:45:29 -0700
+Message-ID: <20261028214534.1919398-8-song@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028214534.1919398-1-song@kernel.org>
 References: <20261028214534.1919398-1-song@kernel.org>
@@ -67,39 +67,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a test where two patches change different functions of the same
-file, and the second also changes a header.  The patches are combined
-into one patch per file, and the #line directives use line numbers from
-the original file, even for the function the first patch moved down.
+Add a test where a patch is followed by its revert.  On their own the
+two leave nothing to build, so klp-prepare-patch fails with "no changes
+detected", and klp-build stops before building anything.  With another
+patch after them, only that patch's change is left in the combined
+patch.
+
+Add expect_error() to functions.sh to check for a failure with a given
+error message.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
 ---
  .../livepatch/test_klp_build/Makefile         |   3 +-
- .../test-independent-patches.sh               | 124 ++++++++++++++++++
- 2 files changed, 126 insertions(+), 1 deletion(-)
- create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh
+ .../livepatch/test_klp_build/functions.sh     |  14 +++
+ .../test_klp_build/test-cancelling-patches.sh | 102 ++++++++++++++++++
+ 3 files changed, 118 insertions(+), 1 deletion(-)
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh
 
 diff --git a/tools/testing/selftests/livepatch/test_klp_build/Makefile b/tools/testing/selftests/livepatch/test_klp_build/Makefile
-index 71ae793b0595..50205a047dcd 100644
+index 50205a047dcd..158a08d8a1b8 100644
 --- a/tools/testing/selftests/livepatch/test_klp_build/Makefile
 +++ b/tools/testing/selftests/livepatch/test_klp_build/Makefile
-@@ -1,7 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
+@@ -2,7 +2,8 @@
  
  TEST_PROGS := \
--	test-basic.sh
-+	test-basic.sh \
-+	test-independent-patches.sh
+ 	test-basic.sh \
+-	test-independent-patches.sh
++	test-independent-patches.sh \
++	test-cancelling-patches.sh
  
  TEST_PROGS_EXTENDED := functions.sh
  
-diff --git a/tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh b/tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh
+diff --git a/tools/testing/selftests/livepatch/test_klp_build/functions.sh b/tools/testing/selftests/livepatch/test_klp_build/functions.sh
+index 6b2f30d72f99..e28988d07bc9 100644
+--- a/tools/testing/selftests/livepatch/test_klp_build/functions.sh
++++ b/tools/testing/selftests/livepatch/test_klp_build/functions.sh
+@@ -133,3 +133,17 @@ function expect_patch() {
+ 
+ 	echo "ok"
+ }
++
++# expect_error(msg) - check that klp-prepare-patch failed with an error message
++#	msg - the message, without the "error: klp-prepare-patch: " prefix
++function expect_error() {
++	[[ $STATUS -ne 0 ]] ||
++		not_ok "klp-prepare-patch succeeded unexpectedly:" "$WORK_DIR/stdout"
++	[[ -s "$WORK_DIR/stdout" ]] &&
++		not_ok "klp-prepare-patch printed a patch:" "$WORK_DIR/stdout"
++
++	grep -qxF "error: klp-prepare-patch: $1" "$WORK_DIR/stderr" ||
++		not_ok "klp-prepare-patch didn't fail with \"$1\":" "$WORK_DIR/stderr"
++
++	echo "ok"
++}
+diff --git a/tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh b/tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh
 new file mode 100755
-index 000000000000..eebb075da7ce
+index 000000000000..da6a12064be9
 --- /dev/null
-+++ b/tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh
-@@ -0,0 +1,124 @@
++++ b/tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh
+@@ -0,0 +1,102 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +
@@ -128,22 +155,6 @@ index 000000000000..eebb075da7ce
 +}
 +EOT
 +
-+add_file include/linux/foo.h <<'EOT'
-+#ifndef _LINUX_FOO_H
-+#define _LINUX_FOO_H
-+
-+int foo(int x);
-+int bar(void);
-+
-+#endif
-+EOT
-+
-+# - patches to different parts of a file are combined into one patch, with
-+#   #line numbers from the original file even where an earlier patch moved
-+#   the lines down
-+
-+start_test "patches to different functions of a file"
-+
 +add_patch 0001-foo.patch <<'EOT'
 +--- a/drivers/foo/foo.c
 ++++ b/drivers/foo/foo.c
@@ -158,69 +169,63 @@ index 000000000000..eebb075da7ce
 + }
 +EOT
 +
-+add_patch 0002-baz.patch <<'EOT'
++add_patch 0002-revert-foo.patch <<'EOT'
 +--- a/drivers/foo/foo.c
 ++++ b/drivers/foo/foo.c
-+@@ -14,7 +14,7 @@ int bar(void)
++@@ -1,8 +1,6 @@
++ int foo(int x)
++ {
++-	if (!x)
++-		return 0;
++ 	if (x < 0)
++ 		return -1;
++ 	return x;
++ }
++EOT
++
++add_patch 0003-baz.patch <<'EOT'
++--- a/drivers/foo/foo.c
+++++ b/drivers/foo/foo.c
++@@ -12,7 +12,7 @@ int bar(void)
 +
 + int baz(int x)
 + {
 +-	if (x > 100)
 +-		return 100;
-++	if (x > FOO_MAX)
-++		return FOO_MAX;
+++	if (x > 1000)
+++		return 1000;
 + 	return x;
 + }
-+--- a/include/linux/foo.h
-++++ b/include/linux/foo.h
-+@@ -1,6 +1,8 @@
-+ #ifndef _LINUX_FOO_H
-+ #define _LINUX_FOO_H
-+
-++#define FOO_MAX 100
-++
-+ int foo(int x);
-+ int bar(void);
-+
 +EOT
 +
-+run_klp_prepare_patch 0001-foo.patch 0002-baz.patch
++# - a patch and its revert leave nothing to build
++
++start_test "patch and its revert"
++
++run_klp_prepare_patch 0001-foo.patch 0002-revert-foo.patch
++
++expect_error "no changes detected"
++
++# - with another patch after them, only that patch's change is left
++
++start_test "patch and its revert, then another patch"
++
++run_klp_prepare_patch 0001-foo.patch 0002-revert-foo.patch 0003-baz.patch
 +
 +expect_patch <<'EOT'
 +--- a/drivers/foo/foo.c
 ++++ b/drivers/foo/foo.c
-+@@ -1,5 +1,8 @@
-+ int foo(int x)
-+ {
-++	if (!x)
-++		return 0;
-++#line 3
-+ 	if (x < 0)
-+ 		return -1;
-+ 	return x;
-+@@ -12,7 +15,8 @@ int bar(void)
++@@ -12,7 +12,8 @@ int bar(void)
 +
 + int baz(int x)
 + {
 +-	if (x > 100)
 +-		return 100;
-++	if (x > FOO_MAX)
-++		return FOO_MAX;
+++	if (x > 1000)
+++		return 1000;
 ++#line 17
 + 	return x;
 + }
-+--- a/include/linux/foo.h
-++++ b/include/linux/foo.h
-+@@ -1,6 +1,9 @@
-+ #ifndef _LINUX_FOO_H
-+ #define _LINUX_FOO_H
-+
-++#define FOO_MAX 100
-++
-++#line 4
-+ int foo(int x);
-+ int bar(void);
-+
 +EOT
 +
 +exit 0
