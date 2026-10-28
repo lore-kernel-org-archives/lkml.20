@@ -1,72 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212881;
-	b=P+TohFY+W6QBnYo/LNZH00oPEThSafb7RprmiuRH4jJN1a5ZrniyO5rOo1tv4s/wb5fF
-	 XiAAdgTXoHrxMJyrjV8o02YUlAB/9ltTbeqpAsgbbuz7asQEoIUCNONdWJSxYMD4m0Kpj
-	 Mnu7Gsh3ERbEseI0jC3Jhc91ZG/0rDNDxhjvtpHOdURRMUPMyvQMxBDz8xWT9cZtWA2sb
-	 Fss+i3n/RMmJ+A8DHhsWSBP4sZhuGqixhvrMNWjlbQ2axF1fP13mrzaJtbIZhjF9eS+xL
-	 6/7QKrKfhoA9LJgen4IX749+IHkVTrIeJQJOqg+FEDlvP5P1CKruvwJcOpxP728RVTA==
+	t=1793212899;
+	b=NYTjPpWHiV1rP8Ak6oV54RGWgSAx+x+v3TM/S3WiP4CswIYPgH2qM/n4GmvTXSuIxTQ2
+	 zISnr7MAetyisyH4PWgaw86+ZeBm/G3VcGhK5DusNsiNZMWZzuuAerrjqz9eCdt2HFtMS
+	 9t2P/QuvS6Y6MLUgfkK8xsBTBAi/HvjyBUXVqAbsmOA6wsiOFWseWL7PnPimry+OoJMNN
+	 49h64r3Mk+IrE2/5lo8nHC6d8OI82/mIlK81lbepoquy0kbuJznkbXptvwzuwBSmeN+Wl
+	 0rlZTPzUpQ3QadlwUXlPTMZXWMoXfIZn+mrKQXM9ihkztLKakEsO6haWnMqpOSZNHuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212881;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=PjhlO6bW9+MSarY6wTfU4M87BNvgFcP6/LMpd2feJeY=;
-	b=2sVu1H3xWe/DFRjfUSAcP2JXvloIR7qsKoNlG+JcbLZzDmXuKBjeIPYFaAUdxGXVyaAV
-	 4E3wqZlnWwXljCKjUJHBbYNNBwSRkz/iZY3u5osqd0m1qJ8tAv8UyrVY8RrIz2Z9iKBFW
-	 XZgY9CH4+97pLaW0/tVDmRJgzDoaXpQN3CwB+EziUroFTZqFzJ3m9ApJZ9G5wgN9HDd1v
-	 qa7z9mLAmT2iNNRgtizperDy/5OTMrLRaYtBb8IDa0AgjKOtIkdUDwY1d1bRkyHoI+JO1
-	 jYq+MiKvS+4e+9Xdj0GJqcCFFeIJGpH473vfTcColZlyhPwgrfKV2NxTaslRtErDBug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=LGiAn3+vC7k/dQuHhAIgXgOGgb19a4igxKhn9cpgVGY=;
+	b=VE2Om4HUfLbm64GUynAL3e2eO0gG94E9G/lqyHkzO9SWkKD2EqzBtiLLXECtrwsdoNqX
+	 KE8x1zv4ffA5dxWv1NOFG6HFu+ShdKZqUwaNNSQvjdBLIxDTsg/VEFih8rBHPSMGLeolc
+	 eiWLhI5geGhlk05mBlxC2dlqcAInlnnG47I93tBUjEQLOttZRH2ogEW1Jfxe1CIff3IkS
+	 TG5wuCJuqCsHmIdoSi4E01e1uExSCViPqERz5XATIYMy7W9QQQdtHXS81xHXXt+HKRCsq
+	 eM6yV8BVa4OBBzABXjp1xCGeZyu0E67TKwOkpv0KKNsI2B90iywDpuAlEHXravo48pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+Ku+Dfy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aLW2zmsh;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A45606A31E;
-	Wed, 28 Oct 2026 18:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6B7606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C6B7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+Ku+Dfy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072BD1F01825;
-	Wed, 28 Oct 2026 18:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793212880;
-	bh=PjhlO6bW9+MSarY6wTfU4M87BNvgFcP6/LMpd2feJeY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I+Ku+Dfy9D1rIjDAH01vQDIriIj8Zw42Ol3KsnQQisCDSNUzpgxOB5hpqZiFAyjVs
-	 YGr7Uzn63H4DUG+31UyZfBsNIl4kpzI2WFUDE0Y7FcYO2J2WJABgafFjrjQvasOXZw
-	 ZuEf6nx60b958GRx2QgfzkwisLaoa3x79rs8XurGiU85IAOF5Dhj56+/9KOaikiQkz
-	 PlphaYIDP1LHurqocO+l0yWviduSuuWAoRTEatuKhQkA47rqoPT/iKhPaO+fVK/Yd3
-	 RhECPtQPienO90RuwfI54HwGQdVKukGOO9MmBS6sRPHB6Bx+zFakp3lCKqRBSknDyi
-	 dc4Q326CsbINg==
-Date: Wed, 28 Oct 2026 18:41:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] arm64/gcs: release GCS on failed fork
-Message-ID: <85c7637d-f5a8-4d65-a5a7-40b3984094c8@sirena.org.uk>
-References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
- <20261028154315.1272705-2-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aLW2zmsh
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3adc5b185bfso1291923a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793212898; x=1793817698; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LGiAn3+vC7k/dQuHhAIgXgOGgb19a4igxKhn9cpgVGY=;
+        b=aLW2zmsh/ARMyezCN+73svbBgGUvHnwglIs8kXMv9ohPv7KXdhcBBAVZSVzHaNW5gr
+         UV+v6W4/NJMOIFu6+V5+Znd4fPmD89E0WDokkTIs4+9G9BaGucnhk/GnRx0hEy1IHmq4
+         ccqrd+w5hTzKmFQE9PXfJHoDxVAnHIIq7UkNGh98OzN+OQxmU9cBXUSs4zHEjiXfiI4E
+         gujbRbfWXRX2fv4+13XPnx2NI+d/h0EFe0emM/58RxRJJUZ9FJK3vHEH7EIwDznW2h+o
+         uhvC0y8E94bxFSo0gJQFWrd3oeNhLMGIXX27OAsSsbCacdVyBUagLvf6Rm0tzoRnX6X3
+         NQEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793212898; x=1793817698;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LGiAn3+vC7k/dQuHhAIgXgOGgb19a4igxKhn9cpgVGY=;
+        b=AGmXjSZgM4A2yD1cFbB9lZ5DFMKFyJFABNbqy0iU/99AMfrqKowUYvzX4+uGdcddoM
+         WIJ8DbkxSuIDrHTw5F354H2EA5xLbEgZFbDz9aZryAdOOmY6zQ4DJLCagSdKtPJvPj/i
+         /odr2uMcKjZLkq8w4rQIph7Vk5thNYyWAlUmvUqpBwkWxx10Ax7bH57RRYC1apNAt6O7
+         bU+3sHVspYwJ09c3zF4ZlntNlvpWVamfJwWBTB8I946nv/bGgvC1YOAFce1GBQr41fUr
+         E16YtU4H3sCGldVSxFaP6NlDpr2Z0/yFPtVsNMPl3nGQg9xSHW4iL8yTp4y6E52xXqBh
+         6I6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxZxaZOwt8m3IM/Oxm3fABobl3vGo7IuoGCAkn9aPpU/yXpOFVWCcWlajpDfj0mrNDQR/7AtFhNjo1EgaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRDZTCxf6tfdC8YKhmmzBq9Abr2C2pd0ItbXD0rdsI1IK8qHsJ
+	rFjmlIymuETcw4AgW6jQyJ3UGJWH6sxTyhTNHySvE8+iHFeGjA8meix26BrzHoSu2/QY1rGQzJ9
+	pvNKZiA==
+X-Received: from plhy2.prod.google.com ([2002:a17:902:d642:b0:2ea:775e:19b7])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a90:b0:3ac:9669:846b
+ with SMTP id 98e67ed59e1d1-3ae57e47db6mr2484597a91.9.1793212897466; Wed, 28
+ Oct 2026 11:41:37 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 28 Oct 2026 11:41:34 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,57 +76,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ide9tbszk81fwOPE"
-Content-Disposition: inline
-In-Reply-To: <20261028154315.1272705-2-ivanrwcm25@gmail.com>
-X-Cookie: Pushing 30 is exercise enough.
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261028184136.1803336-1-seanjc@google.com>
+Subject: [PATCH v2 0/2] KVM: x86: Convert all runtime WARNs to ONCE
+From: Sean Christopherson <seanjc@google.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+
+Convert all bare WARN() and WARN_ON() runtime usage, i.e. WARNs that aren't
+strictly scoped to module init/exit, or similar, to ONCE() variants for what
+should be fairly obvious reasons at this point.
+
+v2: Convert the WARN_ON() in kvm_mmu_uninit_tdp_mmu(). [Sashiko]
+
+v1: https://lore.kernel.org/all/20261022215541.631694-1-seanjc@google.com
+
+Sean Christopherson (2):
+  KVM: x86: Convert WARN_ON(preemptible()) to lockdep assertion
+  KVM: x86: Convert all runtime WARNs to ONCE variants
+
+ arch/x86/kvm/hyperv.c          |  2 +-
+ arch/x86/kvm/i8254.c           |  2 +-
+ arch/x86/kvm/irq.c             |  4 ++--
+ arch/x86/kvm/lapic.c           | 17 ++++++++++-------
+ arch/x86/kvm/mmu/tdp_mmu.c     |  4 ++--
+ arch/x86/kvm/msrs.c            |  2 +-
+ arch/x86/kvm/svm/avic.c        |  2 +-
+ arch/x86/kvm/svm/nested.c      | 12 ++++++------
+ arch/x86/kvm/svm/sev.c         |  2 +-
+ arch/x86/kvm/svm/svm.c         | 12 ++++++------
+ arch/x86/kvm/vmx/nested.c      | 12 ++++++------
+ arch/x86/kvm/vmx/posted_intr.c |  2 +-
+ arch/x86/kvm/vmx/vmx.c         |  8 ++++----
+ arch/x86/kvm/x86.c             | 18 +++++++++---------
+ arch/x86/kvm/x86.h             |  2 +-
+ 15 files changed, 52 insertions(+), 49 deletions(-)
 
 
---ide9tbszk81fwOPE
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+base-commit: 7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
+-- 
+2.56.0.313.g2479322e68-goog
 
-On Wed, Oct 28, 2026 at 12:43:12PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
-> copy_thread() can map a CLONE_VM GCS and still return 0. A later
-> copy_process() failure calls exit_thread(), but arm64 did not
-> implement it, so the VMA stayed in the parent's mm. Wire
-> HAVE_EXIT_THREAD to gcs_free().
-
-One extremely minor nit below, I verified that this fails with the
-current kernel and that the kernel change causes it to pass so with or
-without dealing with that:
-
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Tested-by: Mark Brown <broonie@kernel.org>
-
-> @@ -328,6 +335,7 @@ static int copy_thread_gcs(struct task_struct *p,
->  {
->  	return 0;
->  }
-> +static void gcs_reset_thread(struct task_struct *task) { }
-> =20
-
-This looks like there's a missing blank line but it fits in with the
-missing blank before the stub for copy_thread_gcs().  Possibly slightly
-neater to put this before there next to the similar flush_gcs() stub but
-meh.
-
---ide9tbszk81fwOPE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriQcgACgkQJNaLcl1U
-h9D9+wf/SHEa+LP5AxakY5iKXz8OEmHkAD3fFP8gBmCVPhIqGctmgQHKjOqdW7kP
-xOfXg/CJU4L6nYqnyiGhiXDZ8vgIWOIJ1kX+6H65vbIQi+Z5BWDuL9V/4tXG+Ue5
-vm493cyci8zp1g/g1ygcvRbPJc622QWP61VWAy1gUnN2IA8ix6/Sdj28+/QAcJ9y
-IcrkwKGQuuJyU2xU/3EIpmW4Y3tL09b8/kunnn1SbvyGTvYRLCc/K2TTdtH+T0Wi
-OvPhpmGzjGQv5OGNX4aHkIW5tx/wqUKcSfqb70IyHGqD8I8srKRZ2UyQNZ9+mU2a
-0Eh6URoZuIVQGFrVDFvxcZqHfpC1CA==
-=Yq1h
------END PGP SIGNATURE-----
-
---ide9tbszk81fwOPE--
