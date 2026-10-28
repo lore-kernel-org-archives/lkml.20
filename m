@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199071;
-	b=3XOivYT4dqMC7a83JEr02uO3Z21yyrgZUlWPbpFQynj9anHAtw9Il0GPRxZNSgWC+PQs
-	 IzGdC8+13M5uR6SBomfO53eHOhP2st8YzQBbWbOfhXUGTAvWTQgBLNZA+0rKet/uUmbwk
-	 rHKE3k0atE91752fCNt5XDUPxdlUNk0QM50LqJcqcFD2vQrRvuYbF+XSFXkTS9sA5l37W
-	 5Xxzph8qgM/5V04PYVZoVX2fFc3Oo3cUmnCcydm2Soh/ul/iK+dPl/szcvGM1DaE1cUyw
-	 w3aWOQDjqXWz529VKR4Yo7IN5dMgRQP0Vm22wUnWn/i30tS5VFkAdCBDHPUu71cEtcw==
+	t=1793199107;
+	b=PJpy/jAZrMzn4lqe1wG4WTcqjospRahvE/y4VvP7jvaCj06WizSURFgO/PAzByof7huZ
+	 EWwfeI1xq54fb8yCl+N///QrVyhBLVIfsgDbTYocxtSgvSNvd6Zgp3+bd7lTmnO1lDeCI
+	 I+TwDzo9swqp6eRXQXCiG/YKSvV6n7ltscrshI9LiuSmSFA/PYKQvAXOgPK5pNacc7XBV
+	 iHTHbLB4yG/UmU+PaXrS9wbDJHtTxiQCLCRKrOr4Zorly4iBj2eRYn9Gxt9qHvo3nkJQK
+	 3V8QEho5KdikHnFEbb9rAUzCZrhIvn9YWNwypdrOLWXnCg64KSWQj8umn+/fNww/lpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199071;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199107;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ug43qQts6gDuZkuchi5FUzqrEwboOJCBBSHYXZMY/S4=;
-	b=xn3E7bSoUwMrgC+xYG7nkM69JnF5reEdvERgPQrV2GrcxoV35f9M8qpG29IwG17XCOV8
-	 bdWWm3mQvPZzayQY7Mqrz6lFUW3YoaprFZCAZSHULYOf05zyP0tYhJ/eP5EaB7vacrbln
-	 kfwpUXeaP2xjqAOf5eXNuE1Go1sN+Nsc42Nk1Bwut5Mov0HI6BqSJd0T1AQlvdarkEXKs
-	 /PWXuliCJpo0tyqXBtdb2a0pP2W0i1ruUHjW9S7kD5vmHGh/JYXBzUEXGF5RX35ZXDrq3
-	 +Cpb61P0CvXpRsjDLJIsN9V1se5FJsJ4OBnGIaPAHtPCGd8Nlg3C5V2DhOJYkNES11Q==
+	bh=kLMSlG7Ym7zEigXRP151VRg5FF7XyebPDkv4apgI5Bk=;
+	b=ZPX7QsojeN6JKqJxUtnHuamrrmQONvLFj2zPOyNfVfzBI4YZ6Tlw/U4Vib/3+/BLXj6f
+	 2O+rScUE4BIbGerrEIrz8X6OquwZsjdJLSjdKFdO41brqiTJwS3rUQc3eWTBEf2oRH9s5
+	 TkfUMRUpOPXVNA2OaMRSCIu5iR6EsceYs6TixEethj5R09ypZNVRbdtgUksXe52eF3rz2
+	 ZMyQXDHxTE39W3ZObYWETgnTODHkwFeESNJsipzdZXIzPws5OMw1CMnuWYGaj0YWmbskU
+	 Z3EKAMh0S5TtBs8Qv42MW7GddhJFqRZM2HlE/VibI6bfYdZEt9fSL14W7mFMBpM+6NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMluKOLv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LrTsfsLq;
+	arc=none smtp.remote-ip=91.218.175.158
+Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A23606A31E;
-	Wed, 28 Oct 2026 14:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC415606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC415606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMluKOLv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465101F01828;
-	Wed, 28 Oct 2026 14:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199070;
-	bh=ug43qQts6gDuZkuchi5FUzqrEwboOJCBBSHYXZMY/S4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RMluKOLviz+Ct3J2Wy3Xk3+fpXHwBN8wkd2rTQFVpk8MDEY3An467I6G1waDkLfUb
-	 VkGRs+h2B24EJvrK0ySisYsWH+cQbnAUlxksG4EQRljv43zjUYjw8f6Z0XfSO38yxF
-	 xAFii0j6cA3Ug37MbkJTm67Xg6KVeH/0hfR8R1CIz58f/vGWi8QA9c1Ke67u+MODf2
-	 KJp32HqJMqsSJYYEQ3z2VpFioZ6wGVBHcdFfv0jaIQMZP6aMBO21RB68+MWDxFumal
-	 ZMPd0LXmnTCPjSOQoxliQAU0dTjzjSjKisolkDVK6y5wew9t3QxPGZmwXG0eNSd2VT
-	 BmQ23rn6E5RvQ==
-Message-ID: <76e47b43-2f00-4b29-bf2b-afb6fa0387d7@kernel.org>
-Date: Wed, 28 Oct 2026 15:51:04 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LrTsfsLq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8capDLTMz6rNDC3kBcTMj3L1XI50zZhlLuOVH6yaAbo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793199103; v=1; x=1793803903;
+ b=LrTsfsLqPYR0gPFepT11vf8NPZYoyA7HTbuQF+enDE55w8z9WCiY0jJPk4cTDJAgU8sXsXBj
+ yC1iLd+5QREWKR404i44U5MOGafZJtkfa8Vf1hLvTUN/yOcC/aw9Q4KyH1Jq7MD3orMi4jtjLpH
+ zz3b5iDHiaJXloZmWt0SKCqM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4c573ac9549fa244;
+	Wed, 28 Oct 2026 14:51:43 +0000
+X-Mizu-Trace-ID: 4c573ac9549fa244
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7efb1e79-f4a3-48a1-a08c-20eeb6369bbd@linux.dev>
+Date: Wed, 28 Oct 2026 15:51:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,98 +59,98 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
-To: aousherovitch@rambus.com,
- Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
- Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
- Thi Nguyen <thin@rambus.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261026-cmh-b4-a-v7-v7-0-500a83faf500@rambus.com>
- <20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [v3 for-next 0/3] block: delay support for error injection
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org, Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+References: <20260928221634.43239-1-haris.iqbal@linux.dev>
+ <20261022202326.GB2931-mkhalfella@purestorage.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>
-Content-Type: text/plain; charset=UTF-8
+From: Haris Iqbal <haris.iqbal@linux.dev>
+In-Reply-To: <20261022202326.GB2931-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 26/10/2026 20:44, Alex Ousherovitch via B4 Relay wrote:
-> From: Alex Ousherovitch <aousherovitch@rambus.com>
+
+
+On 10/22/26 22:23, Mohamed Khalfella wrote:
+> Hello,
 > 
-> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
-> hardware crypto accelerator.  The binding describes the parent
-> SoC-level node with its SIC register region and one queue@N child
-> node per mailbox the host owns, each carrying a reg (mailbox instance
-> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
-> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
-> crypto cores are present is discovered from the SIC CORE_ENABLE
-> register at probe, not described in the device tree.
+> I wanted to use the delay injection for a test case that I am currently
+> working on [1]. Are you still working on these changes?
+
+Hello,
+
+Yes. But currently I am moving houses and hence did not get a chance to 
+look at the comments. I plan to send a v4 with changes based on the 
+comments next week.
+
 > 
-> Register the 'rambus' vendor prefix for Rambus Inc.
+> 1- https://lore.kernel.org/all/20261022185920.GA2931-mkhalfella@purestorage.com/
 > 
-> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+> 
+> On Tue 2026-09-29 00:16:31 +0200, Md Haris Iqbal wrote:
+>> Error injection can only fail a bio today.  This adds a delay_us option so
+>> that a rule can hold a bio back first, to model a slow device.  The delay
+>> happens above the driver, so it tests the code waiting above the block
+>> layer, not the blk-mq timeout handler.
+>>
+>> A delayed bio is marked with a new BIO_ERROR_INJECTED flag so the rules
+>> are not applied to it again, even after a split.  Christoph asked on v2
+>> to avoid the flag by allowing a delay only together with an error.  I kept
+>> delay-only rules, as a slow device that succeeds is the more useful case,
+>> so the flag question is still open.
+>>
+>> Holding a bio back reorders it against bios submitted later, which breaks
+>> sequential write ordering on zoned devices.
+>>
+>> Patch 1 is a prep cleanup.  It moves the rejection of an unknown status
+>> tag into the parser, because patch 2 makes a rule without a status valid.
+>>
+>> Tested in a VM.
+>>
+>> v1: https://lore.kernel.org/linux-block/20260827000115.128093-1-haris.iqbal@linux.dev/
+>> v2: https://lore.kernel.org/linux-block/20260830012002.80275-1-haris.iqbal@linux.dev/
+>>
+>> Changes since v2:
+>>
+>>   - Patch 1: return bool, rewrite the commit message.
+>>
+>>   - Patch 2: drop __submit_bio_noacct_nocheck(); the flag alone stops the
+>>     rules being applied again.  Log the error when a delayed bio is failed.
+>>
+>>   - Patch 3: trim the documentation.
+>>
+>> Changes since v1:
+>>
+>>   - Add the BIO_ERROR_INJECTED bio flag.  v1 only resubmitted a delayed bio
+>>     below the injection hook, which left the remainder of a split going
+>>     through the hook and matching the same rule again, so a bio was held
+>>     once per split instead of once.
+>>
+>>   - Patch 1: tag_to_blk_status() returns an error and passes the status back
+>>     through a pointer, instead of returning BLK_STS_OK for both the "OK" tag
+>>     and an unknown one.  A delay-only rule has no status, so the two have to
+>>     be told apart.
+>>
+>>   - Documentation: a delayed bio is held once rather than once per split.
+>>
+>> Md Haris Iqbal (3):
+>>    block: Reject unknown status tags in error injection rules
+>>    block: allow error injection rules to delay bios
+>>    Documentation: block: document error injection delay feature
+>>
+>>   Documentation/block/error-injection.rst |  39 +++++-
+>>   block/blk-core.c                        |  14 +-
+>>   block/blk.h                             |   2 +-
+>>   block/error-injection.c                 | 167 +++++++++++++++++++++---
+>>   block/error-injection.h                 |   1 +
+>>   include/linux/blk_types.h               |   1 +
+>>   6 files changed, 192 insertions(+), 32 deletions(-)
+>>
+>> -- 
+>> 2.53.0
+>>
 
-Why is this sent multiple times?
-
-b4 diff '<20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>'
-Looking up 20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com
-Checking for older revisions
-Grabbing search results from lore.kernel.org
----
-Analyzing 8 messages in the thread
-Could not find lower series to compare against.
-
-And both variants are present in Patchwork, so not sure what you want us
-to do here.
-
-Best regards,
-Krzysztof
