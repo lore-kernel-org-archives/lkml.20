@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158315;
-	b=rzBEPas26zZoy064eMc04cU4I2+1D3H2/PGI6JWWfiTH0EoQm8ke6i2jqG//y4rdcugP
-	 3BKSW8quI+TITLkHv7dpDgBeml+7IZ2JumTtFz17/ARDNS/cHr87sy9vOgdZXjmfIXjKN
-	 nxBI9kRfs2aT0g34UC8SgN+ntg5NhWGuqTR+WKWrGuHr9PdXhh3iuT72Nz59SYiOekiUj
-	 xI0V5LshfAquMyvoLkibIC3V3nC9+E+bxab/ZdCKWzSX/DtifzULosxFMMtND/OkGyIDD
-	 oVDdpKXSG3AMoDWyvwDMHaQhPwpPrLTr8HQ0ZVXouV+5g2fNcc8meZ/RHUQHnXX47PA==
+	t=1793158319;
+	b=GjraiEhbTldH3IKjF4BZRcnR5rpz8QfLXk6qKi1ok80NVpoDj/cZMIVFEOJRywN4DXA6
+	 9sgtzjM4LoIG2uvGsubHU3F5IAYLhyV7LYeFQODXEQ89LGIVfaqmCUd3XRw46kHzDxWqU
+	 pAtyMyxqZjBBDSQhH6UdRv0hDEHjmUpSVS/BA5EU5o60jP48dlGiOX852uPVDfnS1r0ur
+	 YORhnQrIoWxrPMxGjKjEH9HzuyHZAwDnjGUa8GtDXNMTfriokgg/xPmKFChlb7ahYoEUO
+	 CyB+zz9AbkbGZeMtWzquZA0olZbC7fzyG5xLt0583+5TN2WBBK3D8rPRKF01XEF4VKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158319;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4bZvL/9Bc8+ZGmd5br85IbVSWoa0e2ud1GyeOTF2PTQ=;
-	b=XL3SV6Xv6Ix/pT1S9hpMK63Q+0mKUgLk0MEbFGTRq7U9H1NcN5WyfTEufk9jurj9zrje
-	 a9vPPDoDGKXrcP4VqTJ5i2XYMP9QNmdSzOqDxqXRRCTkFUprVNsmFt0B8mFxsj6fR5KkR
-	 jG0bENVO73ytHnU7/eVRQdwbwK0AQSQlw6uJ4pzfQw0DoCAWlvR64mrIlLx2M8ZlWnslf
-	 PImVAWd+R+regtl0tEuDDXh/UNMicTfKnaNZO+7jgMxogVlAqzeSBXY8ZpDeQPaWxLHG0
-	 FRrHcjECX2Mf4jHX3LhbFoe84KxpwVpTI174RKkMrviMGA5LhC3fvzIwuYSY5AeSXqw==
+	bh=eeFaMcaI/QULWPGI46eWUbs+3gYM1Hxa41OxQr0Fu1k=;
+	b=NRybhex9/a1hRn7oMW/dAMbCYtfAQXsvKM1C7RJ1+AgZYB0mJGKO1Y8MueUQgM+Ry4Oe
+	 mZjAJs/OOl191M+L7NEtza3uoyxZK8I+NCHrQS/7BJHqrbaTqMzfT4bGfh44zrUjByT4D
+	 Qrp3zgayEUk89sVTeaHMRo0PLZ9dl1eSIkIw0LjgClTfQaLIvuj6mr/0mnToC/n2GWX6p
+	 bD7cSDl4HMf8t7G3S31KqAFYKTSdKyaYVNXcIu+2g/U6GA9Kl0+wSbrGT1M/YaMOW4Qwh
+	 POKjwZeeC8UOnCZpbDzgNRUrO0IIL7Z3TT1lNAxrsBLIPQYFo9tdnxVzNSKbd6hF6Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dMmmb3sX;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mSM5kXWU;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7592606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7592606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68383606A333
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68383606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dMmmb3sX
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b042c0759so229897f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:31:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mSM5kXWU
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso309202f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:31:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793158313; x=1793763113; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793158317; x=1793763117; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4bZvL/9Bc8+ZGmd5br85IbVSWoa0e2ud1GyeOTF2PTQ=;
-        b=dMmmb3sXN+9+WtWYT5GIYxukvgjY6lg7vM9vMpuXULzuhss44sjTF2Ww0uz6wBUVUP
-         YeyXil4UPV//QQdO3O7MzMp32Q6YpRghE8pNsbChAsRVNxGn1XyXw2a6Q1cdD1l9do3/
-         Mpelq8RhzvmulGHfMQbtHfEmrTo/OyDUr27s14L52zhwTeIX1uJCQ0VKIatZERd4E4ID
-         ILeSX8mL2xZoiZlK0PDPsikO1j7O9PBEuaFA6wJCnfEjmdArq0uwtfN7ov+2jQ/iXrp/
-         zOgQBZlvtPyLXkoa4VVx2lWoCP+MyFqTzLTwDCnuaxA7aL4zMUNzZ3ZaNT3fJ/QXt6bm
-         steg==
+        bh=eeFaMcaI/QULWPGI46eWUbs+3gYM1Hxa41OxQr0Fu1k=;
+        b=mSM5kXWUR8Z96cy2saxlbGZeUUJymchja8NP7GC57+LJygUU34b8LffxX4qAaCmdBH
+         k12HPMshRpVmXnmfT3zmnO/6tuMTaJlBzdJhKV1+fUCZsTxPLqZkiVWKwxuhirBqHhQw
+         AFCdcBQ9w96IIQAYF4OwVmxBFEaE739rfqIVp4jO678G1wZerMFvL6k7m0Ld3Ev3cvSj
+         MxWNgJ4fxdvEsTZl2uOHfJW06fSNzieFWl/7ofPLvlnw+b16KkQxGb0yzxO3xu0zUj5e
+         0BA20IMeBYv+vxEf9cTCfpHJKtH82aLd5ALo6ZmVMxQSvCDQdzETdBgZ/2XAVhwAFtK+
+         QKUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793158313; x=1793763113;
+        d=1e100.net; s=20260707; t=1793158317; x=1793763117;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4bZvL/9Bc8+ZGmd5br85IbVSWoa0e2ud1GyeOTF2PTQ=;
-        b=VY45AlmRvHtkMHrX2ufUz4DITfna7l0YxbDS4fs8qTeh/+/FhLhVsBZ3txH+eyUrCe
-         vX1JMtpcy3Tx7RRHqx0NTVxB8/ZujpIOye+5OTX2BLNR9LOoAlQPdQXP1U+TFd6VbcFW
-         iwYz8gXKYivpaHucBfszSHcKfL9+qMtd0bFc0GIEFsongd3VYmwJ1b3+bXnis2rQGVzX
-         eVQ5t5qG1T70431cOhN6dDZHtmOnQpeV0MYVUGfZdLOjQ2m6CnNMilGOLvoIx9nNL2fy
-         K5t5F5ShyycB8QfD8/3yPE5hLt/o/+2l3xKcHeNjEx1+JQ9J9vCY6tlnKTF3vv4CYr1l
-         lkUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwffRaLPKMtbV8mXOfBJ14U4f0719rQTECFw0frCUYzoMENGs12e71ig2KhXs+/mPMO316RYy5uBCqIA7I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsArJcfQ7ddLZY8Z3xq+9UXNpj7c7EyLlEA66+cEA2OgvvLEDv
-	CJ2pu+UNQsTI0L58VX+S5yS5mjQ7v8QfGQwXmP9gSXuOiNe/7tfV08Ir
-X-Gm-Gg: AYBFou0PP4nCl+FapHalqd6siACush70/5v0RK4pECwjK4zIGC9SWfQ1e8JaeoQiy4d
-	WRez8DqI+PKexgzarn4Pun7c60H1dcP0fxCV6m95h+CKRac/KDlbgsivcpq8dhObGbLJ8+epv3y
-	olJO9Xc1zNeQ1FiW1V2UBlxGK/u36ULFjUfQiKzyUOFLRQkxkXXXQ9TdBxlOQafHmdZoEmI2O33
-	bmSXtFkc8g0MUHjrAXh+6SxZLd9a1fso3aYKor9O3WaQiHTJ/Y8CJRLmS7DtIpO+R63Ck2Kd7DH
-	XEhIQveUAP/RbMFgmzkBJgiESzTSsWOkRuWsW7mHBvZXryzlJQYYxZUf2VCrjs3+qU4/D7Vmr0b
-	k0IFsn3eiIOsoiuCg9zGBHzBXeS7qqkvot1M8rpQ2x315Cd5+5E8DGx+OAvzdut4id16PrMLEqK
-	yyhWPzGHcv3ZRWdtEGJuHwT4aG4G67FtKSEyuhvzIRVQibfzOb7ZoKVrK6beGNnyxZoND3ciXT/
-	oe5oI9+S33bLCHIrjGD9jvMbZTlkO0h5SrzKnOwTq1iR5yJPVHpvpfHUYd6Pd4zFgxORH1icqY/
-	RCg+UcANJIZwlA/1vS8pagZztlZq5pUbNVsk0TmH+KlNdXD9aZC2GJgHaHb9TyGtdrXRyWxcjhz
-	Y/ekNnGD2XkmhwpgPnBuli3it48w0ZTpPxcIwPdsqrVXg+poB8dFy81WosSE23sRzCrhFso61uQ
-	8nD2TXbVuh6GCvas5mt6IMutnXpPdzqh+y
-X-Received: by 2002:a05:6000:1862:b0:48b:d9:cb52 with SMTP id ffacd0b85a97d-48e5d2f0870mr3087140f8f.27.1793158313112;
-        Tue, 27 Oct 2026 20:31:53 -0700 (PDT)
+        bh=eeFaMcaI/QULWPGI46eWUbs+3gYM1Hxa41OxQr0Fu1k=;
+        b=XbRyy4RCZSVHzYvMDxtmxnBRzpJHyEeQoxdRF8fQF0oQcPtPHqTvg0/oRRMdpeXGvB
+         hrT5PS/82/FEo16CAau6+3ri2hMJ+BlWvD2l7LvXvBC3JEEMpuK2iQUlImKxXuhfPwWa
+         3tpYlnYJORD6NBznbmxO3Q5YwwXM65upzBLC2+rPkVIOKxOX1OUppUrz8VBKDipiK/07
+         vBEMv56jKxcKOBvr1FU+Z6RgDe3VAIyKrQ9gbKs2HW3JT803MZgHZf1d26kyOPIAVOY0
+         P65xRT9gEtatH+zwK9AyP9xU/8ZSa7lE9w5bjFX9LYINKmPl4JUzESK/eFkD6sAwYsC5
+         8/ng==
+X-Forwarded-Encrypted: i=1; AKwUvBwj0RzEBWCEmhTj+3ous9bqCaELOuPeZHzsyk1wSLfnusr4B/9OeUVmG3NPtS+eQwjjzAbrYKTg4p2un8Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm/GmXa3oMiX0fTWPjNmC749pI30FZF/cSsCN6D5yrkLnh5CFy
+	5zjiYkeP8jtiMEnZ6l9QwGAhioyx/ToHrZtT/YoxS/59pvA0vg9Sb8Lq
+X-Gm-Gg: AYBFou2HSd84wi1NJ5RO9OrMBC/F7UvsJ7OYqKbAkCPWfxjxGJOLBT9JWff5KHDLEgv
+	l65DIVUde6+0gZcBSL+oqJ75lDDA2I3VNdvTji17SdqE+OWksgGckFuoDozBpjGCZjCRaMJXpaL
+	N/5h4vBwsI83WaEDa8HgntFDcFdDMCUW/9aQjOQr11TMOfxojpH3/6WDfn2OXWuzobx1c1pLCug
+	ieDpEBZyvQeW6AZdyVYct3ZKfzEocUEFOF9BnIFdy1PSX9++FOk6Ahp5VpOoAhY/Z6KmmBC/lg5
+	vnFmeWC02Xr6kLdEvxn65dKamcOvClIebcyyymKL3soJ8tJPh9aJYuoDF/Mz9uNBWkf8/x2V7o3
+	J5uM9CYr270lGVIJjtSa9dfKcPlocuucdfcTKcLkP1QtM/6ieIsqcVMu3DsTWSC/C8usJGg3bUt
+	wkRq+/ZpqOPxNyOU3Arwa85GrFPd3IOJIk3AvCmSXqrUfzA9Q1FdV4p0Iulu35WK+STgezT6+5p
+	TAyqTMuaFq/msxoEzmRvMNUQm0OtJASmPPylZu7P5X58mF271LxGVxNDcEidKFC+bHo4SK+7Wao
+	hEjH1VHmgyJ1fdFw7pjkN3LsWmQE6MHO70S6j+TFgGGQqfKMOXIa3oZeiPaW+P3RdCceBtEP/Se
+	cX8cpiC8iLUGnK51W+KyHXdYMeLwmqs9GfJHrD0xoJUOUC4ygF+1Zn9nQ4rYNFWm63e4lt4GYZi
+	cm5lxUETCA3IDHSgS4z9OotmFQKmJxyocZ
+X-Received: by 2002:adf:f18f:0:b0:48e:1d87:f170 with SMTP id ffacd0b85a97d-48e5d5c27c7mr2142297f8f.12.1793158316595;
+        Tue, 27 Oct 2026 20:31:56 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-a45b-7d01-5035-b393-698f-53f0.310.pool.telefonica.de. [2a02:3100:a45b:7d01:5035:b393:698f:53f0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfd8dsm24290569f8f.56.2026.10.27.20.31.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfd8dsm24290569f8f.56.2026.10.27.20.31.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 20:31:51 -0700 (PDT)
+        Tue, 27 Oct 2026 20:31:55 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -117,9 +117,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-doc@vger.kernel.org,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 04/13] lockdep: Use raw access for pinned hardirq state
-Date: Wed, 28 Oct 2026 04:31:18 +0100
-Message-Id: <20261028033127.82193-5-kmehltretter@gmail.com>
+Subject: [RFC PATCH v2 05/13] entry: Add the pre-counted ordinary-hardirq entry/exit contract
+Date: Wed, 28 Oct 2026 04:31:19 +0100
+Message-Id: <20261028033127.82193-6-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261028033127.82193-1-kmehltretter@gmail.com>
 References: <20261028033127.82193-1-kmehltretter@gmail.com>
@@ -134,99 +134,601 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-irqentry_nmi_enter() reads lockdep's hardirq state before __nmi_enter()
-establishes NMI context. Arm64 does the same for its NMI-like EL1 debug
-entry. Both paths run with interrupts disabled and cannot migrate.
+Architectures which identify ordinary hardirqs before generic entry need
+to install HARDIRQ_OFFSET before context tracking and tracing callbacks
+run. Lockdep hardirq state must agree with that count. On exit, both states
+must remain installed until every traceable callback has returned.
 
-lockdep_hardirqs_enabled() uses this_cpu_read(), whose preemption checks
-are unnecessary for these callers. Add a raw accessor and use it in the
-two entry paths and in lockdep_hardirqs_off(). Keep the existing accessor
-for callers which are not already pinned.
+Add irqentry_hardirq_enter() to stage the raw count update, record whether
+it was applied in irqentry_state_t, and establish lockdep state before
+instrumentable entry work. irq_enter_rcu_preempt_counted() finishes the
+staged count update while preserving the existing timer and hardirq
+accounting boundary.
 
-Check the interrupt state before accessing per-CPU state in
-lockdep_hardirqs_off(), independently of warning suppression.
+Add a retained exit path which runs IRQ-exit processing and instrumentable
+teardown preparation before returning to an immediate conditional raw count
+and lockdep teardown. This keeps function-graph return callbacks in hardirq
+context.
 
-On arm64, this change relies on __kern_my_cpu_offset() being forced inline
-by the earlier prerequisite patch so the call chain remains noinstr-safe.
+A return callback after the final softirq drain can raise regular or
+forced-thread timer work while hardirq state still suppresses the usual
+wakeup. Recheck ksoftirqd, ktimerd, then ksoftirqd after the last traceable
+teardown step. Record wake requests made by the main exit path so the
+closure does not repeat them.
+
+Keep the existing entry and exit interfaces unchanged. Architectures opt
+in only after distinguishing ordinary hardirqs from NMI-like entry. They
+must not place instrumentable code between the retained-exit helper and
+raw teardown.
 
 Assisted-by: LLM
 ---
- arch/arm64/kernel/entry-common.c | 6 +++---
- include/linux/irqflags.h         | 3 +++
- kernel/entry/common.c            | 2 +-
- kernel/locking/lockdep.c         | 6 ++++--
- 4 files changed, 11 insertions(+), 6 deletions(-)
+ include/linux/hardirq.h          |  31 ++++++
+ include/linux/interrupt.h        |   2 +-
+ include/linux/irq-entry-common.h |  62 +++++++++++-
+ include/linux/irqflags.h         |   9 +-
+ kernel/entry/common.c            |  37 +++++++
+ kernel/softirq.c                 | 160 ++++++++++++++++++++++++++-----
+ 6 files changed, 271 insertions(+), 30 deletions(-)
 
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 11d3f888fcd87..003f84109a913 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -177,9 +177,9 @@ asmlinkage void noinstr asm_exit_to_user_mode(struct pt_regs *regs)
-  */
- static noinstr irqentry_state_t arm64_enter_el1_dbg(struct pt_regs *regs)
- {
--	irqentry_state_t state;
--
--	state.lockdep = lockdep_hardirqs_enabled();
-+	irqentry_state_t state = {
-+		.lockdep = lockdep_hardirqs_enabled_raw(),
-+	};
+diff --git a/include/linux/hardirq.h b/include/linux/hardirq.h
+index dcbda3c1d5636..d4b2754468c09 100644
+--- a/include/linux/hardirq.h
++++ b/include/linux/hardirq.h
+@@ -26,6 +26,37 @@ static __always_inline void rcu_irq_enter_check_tick(void)
+ 		__rcu_irq_enter_check_tick();
+ }
  
++void irq_enter_rcu_preempt_counted(struct irqentry_hardirq_cookie cookie);
++bool irq_exit_rcu_preempt_counted_prepare(struct irqentry_hardirq_cookie cookie);
++
++/*
++ * Prepare every potentially instrumentable part of hardirq teardown before
++ * the raw count and lockdep updates. The caller must invoke the matching
++ * finish helper without passing through instrumentable code.
++ */
++static __always_inline bool
++irqentry_hardirq_exit_prepare(struct irqentry_hardirq_cookie cookie)
++{
++	bool do_sub;
++
++	/*
++	 * Preempt-on tracing can raise deferred work. The caller must perform
++	 * the final worker closure before conditionally removing an applied
++	 * raw hardirq count.
++	 */
++	do_sub = irqentry_hardirq_count_applied(cookie) &&
++		 irqentry_hardirq_count_sub_prepare();
++	lockdep_hardirq_exit_prepare();
++	return do_sub;
++}
++
++static __always_inline void irqentry_hardirq_exit_finish(bool do_sub)
++{
++	if (do_sub)
++		__preempt_count_sub(HARDIRQ_OFFSET);
++	lockdep_hardirq_exit_finish();
++}
++
+ /*
+  * It is safe to do non-atomic ops on ->hardirq_context,
+  * because NMI handlers may not preempt and the ops are
+diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
+index ee2dd5349697d..6143ef6074ad6 100644
+--- a/include/linux/interrupt.h
++++ b/include/linux/interrupt.h
+@@ -640,7 +640,7 @@ DECLARE_PER_CPU(struct task_struct *, ktimerd);
+ DECLARE_PER_CPU(unsigned long, pending_timer_softirq);
+ void raise_ktimers_thread(unsigned int nr);
+ 
+-static inline unsigned int local_timers_pending_force_th(void)
++static __always_inline unsigned int local_timers_pending_force_th(void)
+ {
+ 	return __this_cpu_read(pending_timer_softirq);
+ }
+diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+index d5a66f54d70b5..289e308d2d46c 100644
+--- a/include/linux/irq-entry-common.h
++++ b/include/linux/irq-entry-common.h
+@@ -5,6 +5,8 @@
+ #include <linux/context_tracking.h>
+ #include <linux/hrtimer_rearm.h>
+ #include <linux/kmsan.h>
++#include <linux/preempt.h>
++#include <linux/irqentry_hardirq.h>
+ #include <linux/rseq_entry.h>
+ #include <linux/static_call_types.h>
+ #include <linux/syscalls.h>
+@@ -76,8 +78,9 @@ static __always_inline bool arch_in_rcu_eqs(void) { return false; }
+ #endif
+ 
+ /**
+- * enter_from_user_mode - Establish state when coming from user mode
++ * __enter_from_user_mode - Establish state when coming from user mode
+  * @regs:	Pointer to currents pt_regs
++ * @hardirq:	Whether to establish hardirq lockdep context before tracing
+  *
+  * Syscall/interrupt entry disables interrupts, but user mode is traced as
+  * interrupts enabled. Also with NO_HZ_FULL RCU might be idle.
+@@ -95,10 +98,13 @@ static __always_inline bool arch_in_rcu_eqs(void) { return false; }
+  * done between establishing state and enabling interrupts. The caller must
+  * enable interrupts before invoking syscall_enter_from_user_mode_work().
+  */
+-static __always_inline void enter_from_user_mode(struct pt_regs *regs)
++static __always_inline void __enter_from_user_mode(struct pt_regs *regs,
++						   bool hardirq)
+ {
+ 	arch_enter_from_user_mode(regs);
  	lockdep_hardirqs_off(CALLER_ADDR0);
- 	ct_nmi_enter();
++	if (hardirq)
++		lockdep_hardirq_enter();
+ 
+ 	CT_WARN_ON(__ct_state() != CT_STATE_USER);
+ 	user_exit_irqoff();
+@@ -109,6 +115,11 @@ static __always_inline void enter_from_user_mode(struct pt_regs *regs)
+ 	instrumentation_end();
+ }
+ 
++static __always_inline void enter_from_user_mode(struct pt_regs *regs)
++{
++	__enter_from_user_mode(regs, false);
++}
++
+ /**
+  * arch_exit_to_user_mode_work - Architecture specific TIF work for exit
+  *				 to user mode.
+@@ -317,6 +328,12 @@ static __always_inline void irqentry_exit_to_user_mode(struct pt_regs *regs)
+ 	exit_to_user_mode();
+ }
+ 
++enum irqentry_hardirq_state {
++	IRQENTRY_HARDIRQ_NONE,
++	IRQENTRY_HARDIRQ_APPLIED,
++	IRQENTRY_HARDIRQ_REJECTED,
++};
++
+ #ifndef irqentry_state
+ /**
+  * struct irqentry_state - Opaque object for exception state storage
+@@ -324,6 +341,8 @@ static __always_inline void irqentry_exit_to_user_mode(struct pt_regs *regs)
+  *            exit path has to invoke ct_irq_exit().
+  * @lockdep: Used exclusively in the irqentry_nmi_*() calls; ensures that
+  *           lockdep state is restored correctly on exit from nmi.
++ * @hardirq: Encodes whether the current staged hardirq-count attempt was
++ *           applied.
+  *
+  * This opaque object is filled in by the irqentry_*_enter() functions and
+  * must be passed back into the corresponding irqentry_*_exit() functions
+@@ -338,9 +357,32 @@ typedef struct irqentry_state {
+ 		bool	exit_rcu;
+ 		bool	lockdep;
+ 	};
++	u8		hardirq;
+ } irqentry_state_t;
+ #endif
+ 
++irqentry_state_t noinstr irqentry_hardirq_enter(struct pt_regs *regs);
++
++static __always_inline struct irqentry_hardirq_cookie
++irqentry_hardirq_count_state(irqentry_state_t state)
++{
++	struct irqentry_hardirq_cookie cookie = { };
++
++#if defined(CONFIG_DEBUG_PREEMPT) && \
++	!defined(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS)
++	cookie.applied = state.hardirq == IRQENTRY_HARDIRQ_APPLIED;
++#endif
++	return cookie;
++}
++
++static __always_inline void
++irqentry_hardirq_count_state_set(irqentry_state_t *state,
++				 struct irqentry_hardirq_cookie cookie)
++{
++	state->hardirq = irqentry_hardirq_count_applied(cookie) ?
++		IRQENTRY_HARDIRQ_APPLIED : IRQENTRY_HARDIRQ_REJECTED;
++}
++
+ /**
+  * irqentry_exit_cond_resched - Conditionally reschedule on return from interrupt
+  *
+@@ -349,8 +391,9 @@ typedef struct irqentry_state {
+ void irqentry_exit_cond_resched(void);
+ 
+ /**
+- * irqentry_enter_from_kernel_mode - Establish state before invoking the irq handler
++ * __irqentry_enter_from_kernel_mode - Establish state before invoking an exception
+  * @regs:	Pointer to currents pt_regs
++ * @hardirq:	Whether to establish hardirq lockdep context before tracing
+  *
+  * Invoked from architecture specific entry code with interrupts disabled.
+  * Can only be called when the interrupt entry came from kernel mode. The
+@@ -364,7 +407,8 @@ void irqentry_exit_cond_resched(void);
+  *
+  * Returns: An opaque object that must be passed to irqentry_exit_to_kernel_mode().
+  */
+-static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct pt_regs *regs)
++static __always_inline irqentry_state_t
++__irqentry_enter_from_kernel_mode(struct pt_regs *regs, bool hardirq)
+ {
+ 	irqentry_state_t ret = {
+ 		.exit_rcu = false,
+@@ -401,6 +445,8 @@ static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct p
+ 		 * as in irqentry_enter_from_user_mode().
+ 		 */
+ 		lockdep_hardirqs_off(CALLER_ADDR0);
++		if (hardirq)
++			lockdep_hardirq_enter();
+ 		ct_irq_enter();
+ 		instrumentation_begin();
+ 		kmsan_unpoison_entry_regs(regs);
+@@ -418,6 +464,8 @@ static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct p
+ 	 * in having another one here.
+ 	 */
+ 	lockdep_hardirqs_off(CALLER_ADDR0);
++	if (hardirq)
++		lockdep_hardirq_enter();
+ 	instrumentation_begin();
+ 	kmsan_unpoison_entry_regs(regs);
+ 	rcu_irq_enter_check_tick();
+@@ -427,6 +475,12 @@ static __always_inline irqentry_state_t irqentry_enter_from_kernel_mode(struct p
+ 	return ret;
+ }
+ 
++static __always_inline irqentry_state_t
++irqentry_enter_from_kernel_mode(struct pt_regs *regs)
++{
++	return __irqentry_enter_from_kernel_mode(regs, false);
++}
++
+ /**
+  * irqentry_exit_to_kernel_mode_preempt - Run preempt checks on return to kernel mode
+  * @regs:	Pointer to current's pt_regs
 diff --git a/include/linux/irqflags.h b/include/linux/irqflags.h
-index 57b074e0cfbbb..5bc179a88e513 100644
+index 5bc179a88e513..e98313a8ad307 100644
 --- a/include/linux/irqflags.h
 +++ b/include/linux/irqflags.h
-@@ -52,6 +52,8 @@ extern void trace_hardirqs_off(void);
- # define lockdep_hardirq_context()	(raw_cpu_read(hardirq_context))
- # define lockdep_softirq_context(p)	((p)->softirq_context)
- # define lockdep_hardirqs_enabled()	(this_cpu_read(hardirqs_enabled))
-+/* The caller must already be pinned to the current CPU. */
-+# define lockdep_hardirqs_enabled_raw()	(raw_cpu_read(hardirqs_enabled))
- # define lockdep_softirqs_enabled(p)	((p)->softirqs_enabled)
- # define lockdep_hardirq_enter()			\
- do {							\
-@@ -113,6 +115,7 @@ do {						\
- # define lockdep_hardirq_context()		0
- # define lockdep_softirq_context(p)		0
- # define lockdep_hardirqs_enabled()		0
-+# define lockdep_hardirqs_enabled_raw()		0
+@@ -64,9 +64,14 @@ do {							\
+ do {						\
+ 	current->hardirq_threaded = 1;		\
+ } while (0)
++# define lockdep_hardirq_exit_prepare()	\
++	__this_cpu_preempt_check("add")
++# define lockdep_hardirq_exit_finish()		\
++	raw_cpu_dec(hardirq_context)
+ # define lockdep_hardirq_exit()			\
+ do {						\
+-	__this_cpu_dec(hardirq_context);	\
++	lockdep_hardirq_exit_prepare();		\
++	lockdep_hardirq_exit_finish();		\
+ } while (0)
+ 
+ # define lockdep_hrtimer_enter(__hrtimer)		\
+@@ -119,6 +124,8 @@ do {						\
  # define lockdep_softirqs_enabled(p)		0
  # define lockdep_hardirq_enter()		do { } while (0)
  # define lockdep_hardirq_threaded()		do { } while (0)
++# define lockdep_hardirq_exit_prepare()	do { } while (0)
++# define lockdep_hardirq_exit_finish()		do { } while (0)
+ # define lockdep_hardirq_exit()			do { } while (0)
+ # define lockdep_softirq_enter()		do { } while (0)
+ # define lockdep_softirq_exit()			do { } while (0)
 diff --git a/kernel/entry/common.c b/kernel/entry/common.c
-index e234b04373fea..2f5229132466c 100644
+index 2f5229132466c..9d207c37c5707 100644
 --- a/kernel/entry/common.c
 +++ b/kernel/entry/common.c
-@@ -158,7 +158,7 @@ irqentry_state_t noinstr irqentry_nmi_enter(struct pt_regs *regs)
- {
- 	irqentry_state_t irq_state;
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
  
--	irq_state.lockdep = lockdep_hardirqs_enabled();
-+	irq_state.lockdep = lockdep_hardirqs_enabled_raw();
+ #include <linux/futex.h>
++#include <linux/hardirq.h>
+ #include <linux/highmem.h>
+ #include <linux/irq-entry-common.h>
+ #include <linux/jump_label.h>
+@@ -120,6 +121,42 @@ noinstr irqentry_state_t irqentry_enter(struct pt_regs *regs)
+ 	return irqentry_enter_from_kernel_mode(regs);
+ }
  
- 	__nmi_enter();
- 	lockdep_hardirqs_off(CALLER_ADDR0);
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c3dc84a7cef26..01dba8fb32a90 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -4543,10 +4543,12 @@ void noinstr lockdep_hardirqs_off(unsigned long ip)
- 	 * So we're supposed to get called after you mask local IRQs, but for
- 	 * some reason the hardware doesn't quite think you did a proper job.
- 	 */
--	if (DEBUG_LOCKS_WARN_ON(!irqs_disabled()))
-+	if (unlikely(!irqs_disabled())) {
-+		DEBUG_LOCKS_WARN_ON(1);
- 		return;
++/**
++ * irqentry_hardirq_enter - Establish state for ordinary hardirq entry
++ * @regs: Pointer to the interrupted register state
++ *
++ * Attempt a staged raw hardirq-count addition before anything instrumentable
++ * can run and record whether it was applied. Then establish IRQ-disabled and
++ * hardirq lockdep state before context tracking or irqflag tracing can invoke
++ * callbacks. The caller must have distinguished an ordinary hardirq from
++ * NMI-like entry and must finish the staged attempt with
++ * irq_enter_rcu_preempt_counted().
++ *
++ * Returns: An opaque object for the matching irqentry exit operation.
++ */
++noinstr irqentry_state_t irqentry_hardirq_enter(struct pt_regs *regs)
++{
++	struct irqentry_hardirq_cookie cookie;
++	irqentry_state_t ret;
++
++	cookie = irqentry_hardirq_count_start();
++
++	if (user_mode(regs)) {
++		ret = (irqentry_state_t) {
++			.exit_rcu = false,
++		};
++		irqentry_hardirq_count_state_set(&ret, cookie);
++
++		__enter_from_user_mode(regs, true);
++		rseq_note_user_irq_entry();
++		return ret;
 +	}
++
++	ret = __irqentry_enter_from_kernel_mode(regs, true);
++	irqentry_hardirq_count_state_set(&ret, cookie);
++	return ret;
++}
++
+ /**
+  * arch_irqentry_exit_need_resched - Architecture specific need resched function
+  *
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 7fc2200392cdf..169c559832501 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -14,6 +14,7 @@
+ #include <linux/kernel_stat.h>
+ #include <linux/interrupt.h>
+ #include <linux/init.h>
++#include <linux/instrumentation.h>
+ #include <linux/local_lock.h>
+ #include <linux/mm.h>
+ #include <linux/notifier.h>
+@@ -353,15 +354,18 @@ static inline void ksoftirqd_run_end(void)
+ static inline bool softirq_handle_begin(void) { return false; }
+ static inline void softirq_handle_end(bool from_irq_exit) { }
  
--	if (lockdep_hardirqs_enabled()) {
-+	if (lockdep_hardirqs_enabled_raw()) {
- 		struct irqtrace_events *trace = &current->irqtrace;
+-static inline bool should_wake_ksoftirqd(void)
++static __always_inline bool should_wake_ksoftirqd(void)
+ {
+ 	return !this_cpu_read(softirq_ctrl.cnt);
+ }
  
- 		/*
+-static inline void invoke_softirq(void)
++static inline bool invoke_softirq(void)
+ {
+-	if (should_wake_ksoftirqd())
+-		wakeup_softirqd();
++	if (!should_wake_ksoftirqd())
++		return false;
++
++	wakeup_softirqd();
++	return true;
+ }
+ 
+ #define SCHED_SOFTIRQ_MASK	BIT(SCHED_SOFTIRQ)
+@@ -525,12 +529,12 @@ static inline void ksoftirqd_run_end(void)
+ 	local_irq_enable();
+ }
+ 
+-static inline bool should_wake_ksoftirqd(void)
++static __always_inline bool should_wake_ksoftirqd(void)
+ {
+ 	return true;
+ }
+ 
+-static inline void invoke_softirq(void)
++static inline bool invoke_softirq(void)
+ {
+ 	if (!force_irqthreads() || !__this_cpu_read(ksoftirqd)) {
+ #ifdef CONFIG_HAVE_IRQ_EXIT_ON_IRQ_STACK
+@@ -548,9 +552,11 @@ static inline void invoke_softirq(void)
+ 		 */
+ 		do_softirq_own_stack();
+ #endif
+-	} else {
+-		wakeup_softirqd();
++		return false;
+ 	}
++
++	wakeup_softirqd();
++	return true;
+ }
+ 
+ asmlinkage __visible void do_softirq(void)
+@@ -703,13 +709,8 @@ asmlinkage __visible void __softirq_entry __do_softirq(void)
+ 	handle_softirqs(false);
+ }
+ 
+-/**
+- * irq_enter_rcu - Enter an interrupt context with RCU watching
+- */
+-void irq_enter_rcu(void)
++static __always_inline void irq_enter_rcu_common(void)
+ {
+-	__irq_enter_raw();
+-
+ 	/*
+ 	 * If this is a nested interrupt that hits the exit_to_user_mode_loop
+ 	 * where it has enabled interrupts but before it has hit schedule() we
+@@ -724,6 +725,32 @@ void irq_enter_rcu(void)
+ 	account_hardirq_enter(current);
+ }
+ 
++/**
++ * irq_enter_rcu_preempt_counted - Finish staged hardirq entry
++ * @cookie: Staged hardirq-count cookie from irqentry_hardirq_enter()
++ *
++ * Finish an early staged hardirq preempt-count attempt, then establish the
++ * remaining timer and accounting state. The matching lockdep hardirq state
++ * was established by irqentry_hardirq_enter() before entry tracing. An
++ * applied update receives post-add bookkeeping. A rejected update attempts
++ * deferred reporting and skips that bookkeeping even if reporting is
++ * suppressed.
++ */
++void irq_enter_rcu_preempt_counted(struct irqentry_hardirq_cookie cookie)
++{
++	irqentry_hardirq_count_finish(cookie);
++	irq_enter_rcu_common();
++}
++
++/**
++ * irq_enter_rcu - Enter an interrupt context with RCU watching
++ */
++void irq_enter_rcu(void)
++{
++	__irq_enter_raw();
++	irq_enter_rcu_common();
++}
++
+ /**
+  * irq_enter - Enter an interrupt context including RCU update
+  */
+@@ -764,8 +791,56 @@ static inline void wake_timersd(void) { }
+ 
+ #endif
+ 
+-static inline void __irq_exit_rcu(void)
++static __always_inline bool irq_exit_wake_ksoftirqd(void)
+ {
++	if (irq_count() != HARDIRQ_OFFSET || !local_softirq_pending() ||
++	    !should_wake_ksoftirqd())
++		return false;
++
++	wakeup_softirqd();
++	return true;
++}
++
++static __always_inline bool irq_exit_wake_timersd(void)
++{
++	if (!IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) || !force_irqthreads() ||
++	    !local_timers_pending_force_th() ||
++	    hardirq_count() != HARDIRQ_OFFSET)
++		return false;
++
++	wake_timersd();
++	return true;
++}
++
++enum irq_exit_wake_flags {
++	IRQ_EXIT_WAKE_KSOFTIRQD	= BIT(0),
++	IRQ_EXIT_WAKE_KTIMERD	= BIT(1),
++};
++
++static __always_inline void
++irq_exit_wake_late_softirqs(unsigned int wake_flags)
++{
++	bool ksoftirqd_wake_requested = wake_flags & IRQ_EXIT_WAKE_KSOFTIRQD;
++	bool ktimerd_wake_requested = wake_flags & IRQ_EXIT_WAKE_KTIMERD;
++
++	/*
++	 * A wakeup can be traced, and its callback can raise work for the other
++	 * worker. Check ksoftirqd, then ktimerd, then ksoftirqd again. Skip a
++	 * worker whose direct wake request was recorded above: it cannot run on
++	 * this CPU before hardirq teardown, so later work remains visible to it.
++	 */
++	if (!ksoftirqd_wake_requested)
++		ksoftirqd_wake_requested = irq_exit_wake_ksoftirqd();
++	if (!ktimerd_wake_requested)
++		ktimerd_wake_requested = irq_exit_wake_timersd();
++	if (!ksoftirqd_wake_requested && ktimerd_wake_requested)
++		irq_exit_wake_ksoftirqd();
++}
++
++static __always_inline unsigned int __irq_exit_rcu(bool keep_hardirq_count)
++{
++	unsigned int wake_flags = 0;
++
+ #ifndef __ARCH_IRQ_EXIT_IRQS_DISABLED
+ 	local_irq_disable();
+ #else
+@@ -774,7 +849,8 @@ static inline void __irq_exit_rcu(void)
+ 	account_hardirq_exit(current);
+ 
+ 	/*
+-	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
++	 * HARDIRQ_OFFSET normally remains set. A rejected staged addition leaves
++	 * an already-invalid count unchanged. Only the outermost interrupt handles
+ 	 * softirqs, and only if it did not hit a softirq or BH disabled section.
+ 	 */
+ 	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
+@@ -783,20 +859,56 @@ static inline void __irq_exit_rcu(void)
+ 		 * before enabling interrupts to run softirq.
+ 		 */
+ 		hrtimer_rearm_deferred();
+-		invoke_softirq();
++		if (invoke_softirq() && keep_hardirq_count)
++			wake_flags |= IRQ_EXIT_WAKE_KSOFTIRQD;
+ 	}
+ 
+ 	/*
+ 	 * Wake the timer thread even if the interrupt hit a softirq or a
+ 	 * section with BHs disabled. Only the outermost interrupt can wake it.
+ 	 */
+-	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+-	    local_timers_pending_force_th() &&
+-	    hardirq_count() == HARDIRQ_OFFSET)
+-		wake_timersd();
++	if (irq_exit_wake_timersd() && keep_hardirq_count)
++		wake_flags |= IRQ_EXIT_WAKE_KTIMERD;
+ 
+ 	tick_irq_exit();
+-	preempt_count_sub(HARDIRQ_OFFSET);
++	if (!keep_hardirq_count)
++		preempt_count_sub(HARDIRQ_OFFSET);
++
++	return wake_flags;
++}
++
++/**
++ * irq_exit_rcu_preempt_counted_prepare - Process IRQ exit and prepare teardown
++ * @cookie: Staged hardirq-count cookie from irqentry_hardirq_enter()
++ *
++ * The caller staged a hardirq-count attempt and established lockdep state
++ * before instrumentable IRQ entry. Carry any applied count across traceable
++ * IRQ exit. Softirq handling temporarily replaces HARDIRQ_OFFSET with
++ * SOFTIRQ_OFFSET and restores it afterwards. The caller must invoke the raw
++ * teardown helper immediately after return. A rejected staged-add state makes
++ * that helper skip the matching subtraction.
++ *
++ * Return callbacks can raise regular or forced-thread timer softirqs after
++ * __irq_exit_rcu() performed its final drain and worker wakeups. Recheck both
++ * queues after all traceable preparation. Worker wakeups are traceable too,
++ * so order the rechecks such that a callback which raises work for the other
++ * worker cannot leave it asleep. Do not repeat a direct worker wake
++ * recorded by __irq_exit_rcu(); the worker cannot run on this CPU before
++ * hardirq teardown.
++ */
++bool noinstr
++irq_exit_rcu_preempt_counted_prepare(struct irqentry_hardirq_cookie cookie)
++{
++	unsigned int wake_flags;
++	bool do_sub;
++
++	instrumentation_begin();
++	wake_flags = __irq_exit_rcu(true);
++	do_sub = irqentry_hardirq_exit_prepare(cookie);
++	irq_exit_wake_late_softirqs(wake_flags);
++	instrumentation_end();
++
++	return do_sub;
+ }
+ 
+ /**
+@@ -806,7 +918,7 @@ static inline void __irq_exit_rcu(void)
+  */
+ void irq_exit_rcu(void)
+ {
+-	__irq_exit_rcu();
++	__irq_exit_rcu(false);
+ 	 /* must be last! */
+ 	lockdep_hardirq_exit();
+ }
+@@ -818,7 +930,7 @@ void irq_exit_rcu(void)
+  */
+ void irq_exit(void)
+ {
+-	__irq_exit_rcu();
++	__irq_exit_rcu(false);
+ 	ct_irq_exit();
+ 	 /* must be last! */
+ 	lockdep_hardirq_exit();
 -- 
 2.39.5 (Apple Git-154)
 
