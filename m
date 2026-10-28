@@ -1,104 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793176684;
-	b=Rpm6/eh20OklqQcO768iSDIWuvJ3Y1iJWhXI42g9zD5HJuZqg8i81pqjebGlcJssofmA
-	 gmnyKrX1ExWpfO5LrOpFeCH/l985rrdI2Vlfe3oeeqTb9U6GzbtBZcTt+ix4X03ILfJi9
-	 6xQ+rwHModhO3apGfC10iCvE85/KGcDuoZFgEVh6VZDSqW9Ymi6ewUpeV802wGRnfHxbS
-	 fTsmA2bcVsI9ZP7z3MXMobtjQfjhrr0yuaAz+OHDPX3BHGK4NJk/8bSgpJb+M/DxV4FA9
-	 OSB2LJbwtsQvKD7QxQUdp09oCfjypItaiAKMn6gTj7jzoiTefAWJVY/KpqotV2016Yw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176684;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IX28gJlwhXJCn51gMU7oNP6y6BbpxrWocTDxICay0Ys=;
-	b=RHLMzDeeHoVcWJe4GOfC4xFuuxuwxWARJedWWxCw3CLD5C8+SmQ26PyF6aawWGy5Lgu/
-	 5PSnXyPamSBnT0bEMg4YIxz7roZrN+2+npKJmfvm8qsfQ1TQVugz665q1gCgUdV+ebj8i
-	 iXAdZs/Xh/KDmGpN1g/vHdAtE4Aq8q5+HhgOkjrNAdgISXKSVuMtrJZ/H+Yh2kULkbr5Q
-	 f3anAG9e6m2vw4RUe7IYNUv3ydO16LIE21ma+gEUWmttfCoaXj1nRbrCUEBsh2I5pUkZx
-	 CsjWhc6FsUV+TpO97x0bQNPE/yw9cyBtjadPBEXdtAiOcRTvnRUsFVqxy1z8Q0bIfJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oJgYfFk9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.26
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010026.outbound.protection.outlook.com [52.101.69.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793176761;
+	b=MkKD+YEuCPWltfPueucHCuC/GVUfJ6FPGgcRssY34LOph9ogfk4KHtt0gH1+66Fk2GNT
+	 ZTO4boJ1I6uiU9p0bZuHDM0lIzSrRxPUenRPwJc/Cm2ev3oX4sJKMVr0u35rqfpQxJ3N1
+	 tO9PGxq0ZakZ2IGkuAsdO1ACAlNxfyyiI2OzVF4QsqM46R0z7/fsj27Z3Q26TDXkOF6u+
+	 OS9bE6k2VKtmuYG+6oDNzMNXoTzm1j3JHg/5X6GvBMhTA8wt0yc6bc1NhtLyNKKkGOIt3
+	 uKsEu3wF7PUVLwaFEppp+A0FNAosQ6S5Fngs7soElrnJSv9kKINvePgiep16DLgj2Zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176761;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=k+/0Etqtd3IAC5WSaWUuCODMHTr63RxsQxyEkapcIZ4=;
+	b=qGUCWYVqLfnurfNB5awjsoFodYlnabViWEOeXIOowDu40V7sdWHeqeXHG4Rvz1c4aiMK
+	 fxYhcG6/ecK2240M5Z8A7E6j5Io5QQ/8qIFR5HXIO30nYUEIvI+HoWnYdB9iEVpN/uGvI
+	 rzvktfMWbiEMdxjT0rQjBpAmDfMEhb6nHhKsMKBFU1SIgb70cIiMa5DZKkeCH2Rd3/2VQ
+	 icM4gHGUyPJ8InYy0JVf3JOMYFgZCZiyv5kzAzXskKYzYfl+EmwPHVHvbhG09ZGX+TWep
+	 mEJKGESxpAj7+Miqqt4hL/cwetJF6XCPXSViFotjFBa9WCC31/ESMR3pBOG8qJhE15A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fjPI6AZb;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC66606A31A;
-	Wed, 28 Oct 2026 08:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AC66606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B126E606A31A;
+	Wed, 28 Oct 2026 08:39:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B126E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oJgYfFk9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YGFCk3vTEvk7e81rXTcJUTIC0KsRgI2HW4S0TwpFCUcl0/Je2N8G+oNsMtsC9UX3XMr4h6hunT4BFBo30uOkTffnYIpJNY9nBE3mxn1rXeH5PEpI5n5NSno3C5z46kS4nUx/zO9A8fUfcePpqMbto9g2lLRq00Iu+NU6RYLBUb8+AB/swYHl7B6ejcmwP0kU3+l/3PxQOS5+Cxn1MMU/Pqd6C29bR6TAmJxX6XPbl7ouJIsPlS3x6mDRtwwDhyUKY+BZKiF+XTHpJI1WRLRl6au9FWkfBLMsyR/twmoZkZzgiFTdgCgD/Fm2S/Pe/3nZ+XwhWeIqqbelikfPDivv+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IX28gJlwhXJCn51gMU7oNP6y6BbpxrWocTDxICay0Ys=;
- b=tOMPp4kRsjUCQO17f6tslFq9PPhNEaCwcwrk+aagMQ3pc1ktZi/29memCEZkXLx1d4RnS7WSvhkVJx+xvKamC4slcK+hzzC6yCOov21Nn8BWqJsh4vimU+ePj3ejMixPNz49b8Thh5lyoM7E8J+A0WLDsJsd+kknJw9QZfevgb7moCr77B5wdttWE/pEuJQyESSbiWaVQvu+EVy635NJdX0cSTegjqNV66ricXQ6SfZoHEKMAZJ84jZvvTeVOvWNiOrdZD0/cZWzMPefxzJ8pW+nk/21KkE0ykKXpBUE/gNoFaFojf5aBNplfz8RHeETY7ndLIjqDL9izEFV7yYvvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IX28gJlwhXJCn51gMU7oNP6y6BbpxrWocTDxICay0Ys=;
- b=oJgYfFk9RX33WeANOiryzcVbVAxX83bJVFsURPp/9gm5/DT2mNEyvGxJC+xt5k1Nv3yHNBMVqv4HvDdSlsQBy5iVqFC0v8Wq+Yy3oi6X/jRu6NIZ4cVnSFHn/16bWKSny7/C9WEfhLGqrGGqt6I7z4qyameSW2gfpAuFwYKjdvsMH6W0jiSOnM6yvBPYeM3ckto/gi90QvO4ktzpyPqyTvA8bx6P3knHhMceQxkabS1sVHUxdbOD+E782EHCEZKovEufx8uPv38EwiPiaf8Gzk7oOF9v/hg+IqSGwNKyelnJNe1PCQqkxi/Tvsp0cvFzVRz+PO3YCAM7/1fD+gc+4A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by MA9PR04MB215426.eurprd04.prod.outlook.com
- (2603:10a6:250:106::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 08:37:59 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 08:37:58 +0000
-Date: Wed, 28 Oct 2026 10:37:52 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v5 4/7] arm64: dts: imx8-ss-dma: Add lcdif support for
- i.MX8QXP and i.MX8DXL
-Message-ID: <auGvm5WQfyNL-To0@vm>
-References: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
- <20261027-dxl_lcdif-v5-4-3a974e4b94b2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-dxl_lcdif-v5-4-3a974e4b94b2@nxp.com>
-X-ClientProxiedBy: AS9PR06CA0442.eurprd06.prod.outlook.com
- (2603:10a6:20b:49e::30) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fjPI6AZb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793176760; x=1824712760;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=uTaRlxLCqbcv6Xj6m6xjniKklWGvpcYIMWydvvWrEAg=;
+  b=fjPI6AZbdKAEbTKthYkTDQ1yc1cIeCmUM7GBBmcLsg/5AMEDE2YwF5Nd
+   h6EaTwXxvDyzdXBic+Baxv39cBOrWmsA4shJ0IILyQUbWnMnGNPZMBXRu
+   Xa1d/Zz8UfRCnqnpU7Pn0Ba5r/T6Hqg4lXx1S82JGsk4isIgwtg2wkkSe
+   qgwA/oL+2Wbo8wr8F06P8v5yZhNAqMY7qYDYQjRXWSlZaVbV61PXuRxIN
+   2hVLqRAOBqgP5yQyNs7RgyKJWgqN9HX9GdzI3/8bB3YFdEzF+NicjWYrq
+   vJxy7B46suKv0fZrTrr0bp5hJnwkwP2hhagnaVoMV/v91Ls0F9VdUCnmX
+   w==;
+X-CSE-ConnectionGUID: Yr9/2BPOQ0SrDpbmlqFFGg==
+X-CSE-MsgGUID: hYKFcv8SQmqJ+H3hmbqbkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1891349"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1891349"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:39:20 -0700
+X-CSE-ConnectionGUID: 1qHJ4GAZQ/2D7Rw5/ucZYQ==
+X-CSE-MsgGUID: DGDOUWwPT7WiCRd3U5NEvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4712710"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:39:15 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 28 Oct 2026 10:39:10 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v4 4/5] serial: 8250_dw: configure the Allwinner H616
+ UART
+In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com>
+Message-ID: <c8668925-efec-da4c-193c-5e85c5bbcf15@linux.intel.com>
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,115 +86,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MA9PR04MB215426:EE_
-X-MS-Office365-Filtering-Correlation-Id: be11ec1b-35fb-4aac-747c-08df34cec4fb
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|19092799006|4143699003|11063799006|56012099006|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7ulO5AhDDDDDGuKbsqK7Fu3Z4+ZGQieITfCNdi3Yue0+zUO5kbxDWSY5ULI5OyrVokvzGhNQRoV1J5+tV36UIE9V4tYH9gtA6hrZehHimRAQiWoCyz3u7d1iHQCF824i6/mhqt2SS/uqWwC2tC4yGfOG1XZFP9wMJhUvqcw6jTVrX9dQjAPykZeriVaa4oNwxXwx4642QYbMAg4xF6qdWvw8qUUnh7Z/hT2K15wgSqBaf5vBIx7qY+Lt3aMyyUcYO+ct9uTBx2LK2pOpZDqjO4nG3mb7eUAUU1b5dRTNiOpNucdbLgDqt6xounaApwhfUvnLA4zwblox50S3Hcg3ltbBm09IeqBBvcTyqTfKOE0vOP3Ek9LmJExa6zWUepKuOa4F4GCN13jjfJIq5xpd+dzu/RfTus3sX7ijKjz3H50LtuJozLO+XSd4E0l551v6LHDJkgosceNkapkeIK7yjtSolfhtbeMr4tjVpz9G3EDHCUu2W8dlY/Zd1CD1kLcZ4hGAai1aOB1eIMaKPMISPWNh8Gn/RlzQpcP7KkiIeBPpkDl0k8Z48bn+GuGlF978t9RbKzJ+FrRnkGHIVE+kHSCHXh4xrF7mrA7+mmcdF7/Xm8Rbp4socVxXHbmKlqRwW/xvBrjMhufCcHYESTfXifmKfkon8SEbb+S/e8hr/l4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(19092799006)(4143699003)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JhdQQ8DVFcO57hi52OU59/JBUlSVe/GSqy96S7woQQSOl22DJ9EmoV17LmF/?=
- =?us-ascii?Q?CTZPalEzfRlVS+xTHGro6Mq+RPYQiyRe04uxzTG6SuLUyW3kJNHP8OeT5HPz?=
- =?us-ascii?Q?BX5CKgEmkMZaMNZ2jxw2EbIZ5h36Y340oJcFpG/FZim5Qmy5yN/NutpaOj97?=
- =?us-ascii?Q?rs9X9xivxL0pennbtZ6Lgi5I+TOHNuiOmmvnUS4bx/AaUHNVsyb7JVzUw8G1?=
- =?us-ascii?Q?3MKQkgwOreV7L04AKCRKiT2znYFRdKRooUmhFRtbf6K24SQq9qV9H0zV9eu+?=
- =?us-ascii?Q?zWFtc+8NzNC4yjim1ZMT/YKsfNjIXN+SIpCG5bwikwhdDDpORsXmTlHq4Sff?=
- =?us-ascii?Q?vSMgbLFzaI4Zcni5ndtc51bZYyO1SbreuCDGa1u13bQVG7kiZKIZPSw8Y/Hg?=
- =?us-ascii?Q?Cd+3o/vAlRogV7ZWexrGLiIeeJnfi0lAj3dhqQV+zLNKcA6Iws02aWh3rGNR?=
- =?us-ascii?Q?eLxKnfPb1Bkg582QDomzuM0ET5OT38S2wMAl8azwAt7+G9prLFznySgmsb+7?=
- =?us-ascii?Q?sd3dUGgUH1gvm8uXwHYQCt+IK/iB9ULvS517bmv0WU72nK4e+Uq0siZXm79Z?=
- =?us-ascii?Q?iXmDWIdvYHH+pNjxmncoqHc3CCZmx0kkDyVEGMLQ1w7JHdP68huqiZeqPrne?=
- =?us-ascii?Q?g6s6C2dttQI39Hxe8P3CditG9vp9qYty8ftQI91q0+ILQLU0Y4bs9g3QlYMB?=
- =?us-ascii?Q?/I8I0kEYVEXyc+sPyIAMPZ353xelIzFQ7HV7TFjsnmhSubUoTwKyNKhR54SL?=
- =?us-ascii?Q?h2IPFVLM3tjxb/pI3ZSHOvkKbNyfxH2FVNWOzef89qRCTcJrATelPMacPY1m?=
- =?us-ascii?Q?dU++15+vr31y3N9fITGrlChSSq9fbaLenBcSLBFr0dVVPHWq03UEs343hHxh?=
- =?us-ascii?Q?eVNQVaB87u/OtxEtgaMW6WtO4W1Wu40LBKt6eUiPIC4bS5/bLNLMOsnMtxwx?=
- =?us-ascii?Q?NY2CAu9Q4+OcOvoOnFVOkLjRkMvmohfB3tc7bLhjVMwBb/QXA4xA8aOl9mBA?=
- =?us-ascii?Q?g30KuUBfiAKdlwFcgamqbCF/NcaFPlNMK2mbBf5Iu2AT1jciuOnt19h3ZFj2?=
- =?us-ascii?Q?6btzI08txicS5Et916F/YaedyKR594JslYOUg9DVyamBaqZQje/qRdW7j69A?=
- =?us-ascii?Q?fkhPxF+CdDZLZxsc69AjohG/vm9LbfKrcx3pa7iT0rnCrgoCyd6shF1qXsU7?=
- =?us-ascii?Q?xT41cM0t9Wb2KTni+o5lCsx+tLuHbj7E/hXfw7vtBqje3b4TsFtrUZko62kq?=
- =?us-ascii?Q?m853/wX4K2ENiWpCKdrQbsO5buR7viN5nzUNB2jjexVFAbv0Ediq3XhhiS3c?=
- =?us-ascii?Q?kzIn25wrrjJGzV8bZfXMS8IJMjSad1IZ22OW4UuvPzF5Hq/L5m1WXKEdtdyC?=
- =?us-ascii?Q?MWo3rMXK06nG0KqMbkLYLYBsOoWwaWdqwITTxA9XS3NdABGgi++MEYQayAxg?=
- =?us-ascii?Q?/vdDEKtIh3OqzR6yTdtTvO/Z0itdUFF4ZZ7gp+OSsJqbgtjcCsVv4wG27DL1?=
- =?us-ascii?Q?FDrhh94S/6lEOYrNvPMpnh5TGasw8Ja9vqXEOZfWlbHVxLblS3r4Cbt3PWsF?=
- =?us-ascii?Q?xzAxhK4U2UTNajdJAS6JeW43cSxC63quaeK6vKEbo3ZkY3eEDxTCA+qFEHot?=
- =?us-ascii?Q?gUfvZKPWBHZWuNXzko1537Uby/0a/IwAn8k1R30oWuUjayC9tTOPGlAt45+l?=
- =?us-ascii?Q?iR23QytlNqwIhNA6AEfKpIfTBnuAixs8+IgT6/Pw/IrDxrGCZ/R74cOdXj/6?=
- =?us-ascii?Q?8iwYhqY9uLnD2l80rnABYbWAXu4QEAM=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be11ec1b-35fb-4aac-747c-08df34cec4fb
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:37:58.5735
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vcQk6v+EBtY8YuuDyTzDVZ8sV8eZmN3Gh2rrkDBjZU93OO+V3H8C53on327icZZ5/qdYXmlHEVOKrP1pHFs5YQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB215426
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Oct 27, 2026 at 11:00:56AM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Tue, 27 Oct 2026, James Hilliard wrote:
+
+> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> component parameter register reads as zero. Generic 16550 probing leaves
+> the port using the 16-byte FIFO configuration and its trigger-level table.
 > 
-> Add lcdif support for i.MX8QXP and i.MX8DXL.
-
-The commit message is incomplete. It doesn't mention why you needed to delete
-the nodes in imx8qm-ss-dma.dtsi. I see you deleted those because Sahiko
-suggested but it would be worth adding the reason in the commit message as
-well.
-
+> Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platform
+> data. Use common Allwinner setup helpers to configure the transmit load
+> and receive trigger table from that depth.
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Derive the receive thresholds from the documented 1-byte, quarter-full,
+> half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128
+> and 254 bytes; the normal 16550A half-full FCR setting selects 128 bytes.
+> 
+> Build the threshold table during setup and use the shared 8250 conversion
+> helper to select the nearest lower threshold for sysfs writes.
+
+You do that, I can see from the patch, but I came to read this changelog 
+to understand "why"?? You provide zero reasoning for this design decision.
+
+Since you fifosize is constant as well, so what benefit building it on the 
+fly servers?
+
+> Serialize trigger changes with termios and hold a runtime PM reference
+> while programming FCR, preserving the FIFO contents. Propagate runtime
+> resume errors before changing either the FCR shadow or the hardware.
+> 
+> Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> DesignWare termios path selects hardware CTS handling, so the capability
+> must be present for the corresponding hardware control to be enabled.
+> 
+> Select the fixed configuration through the platform setup callback.
+> H616 has debug-divisor and RS485 control registers at the offsets used to
+> detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> those probes and retain the BUSY-safe integer divisor hook and software
+> RS485 handling.
+> 
+> Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
+> termios changes. Its clock is a gate on the shared APB2 source, rather than
+> an independent baud-rate generator.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 > ---
-> change in v4
-> - delete adma_lcdif and lcd_clk_lpcg (sashiko AI)
-> ---
->  arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi     | 29 ++++++++++++++++++++++
->  arch/arm64/boot/dts/freescale/imx8dxl-ss-adma.dtsi | 11 ++++++++
->  arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi   |  2 ++
->  3 files changed, 42 insertions(+)
+>  drivers/tty/serial/8250/8250_dw.c | 94 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 94 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi b/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
-> index 4de78f870c05c..87082c3fa9338 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
-> @@ -149,6 +149,24 @@ lpuart3: serial@5a090000 {
->  		status = "disabled";
->  	};
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index 1351523f0c47..2f156c01c5a1 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/io.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/property.h>
+> @@ -63,6 +64,7 @@
+>  struct dw8250_platform_data {
+>  	u8 usr_reg;
+>  	u32 cpr_value;
+> +	unsigned int fifo_size;
+>  	unsigned int quirks;
+>  	void (*setup)(struct uart_port *p);
+>  };
+> @@ -81,6 +83,7 @@ struct dw8250_data {
+>  	unsigned int		in_idle:1;
 >  
-> +	adma_lcdif: lcdif@5a180000 {
-> +		compatible = "fsl,imx8qxp-lcdif", "fsl,imx6sx-lcdif";
-> +		reg = <0x5a180000 0x10000>;
-> +		clocks = <&lcd_clk_lpcg IMX_LPCG_CLK_0>,
-> +			 <&lcd_clk_lpcg IMX_LPCG_CLK_4>,
-> +			 <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_MISC0>;
-> +		clock-names = "pix", "axi", "disp_axi";
-> +		assigned-clocks = <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_PER>,
-> +				  <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_MISC0>,
-> +				  <&clk IMX_SC_R_ELCDIF_PLL IMX_SC_PM_CLK_PLL>;
-> +		assigned-clock-parents = <&clk IMX_SC_R_ELCDIF_PLL IMX_SC_PM_CLK_PLL>,
-> +					 <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_BYPASS>;
-> +		assigned-clock-rates = <0>, <24000000>, <804000000>;
-> +		interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
-> +		power-domains = <&pd IMX_SC_R_LCD_0>;
-> +		status = "disabled";
+>  	u8			no_int_count;
+> +	u8			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+>  };
+>  
+>  static inline struct dw8250_data *to_dw8250_data(struct dw8250_port_data *data)
+> @@ -657,6 +660,89 @@ static void dw8250_octeon_setup(struct uart_port *p)
+>  	dw8250_setup_dma(p);
+>  }
+>  
+> +/* The trigger is the masked, unshifted FCR receive trigger field. */
+> +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
+> +{
+> +	switch (trigger) {
+> +	case UART_FCR_TRIGGER_1:
+> +		return 1;
+> +	case UART_FCR_TRIGGER_4:
+> +		return p->fifosize / 4;
+> +	case UART_FCR_TRIGGER_8:
+> +		return p->fifosize / 2;
+> +	default:
+> +		return p->fifosize - 2;
+> +	}
+> +}
+> +
+> +static int dw8250_sunxi_get_rxtrig(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	return data->rxtrig_bytes[UART_FCR_R_TRIG_BITS(up->fcr)];
+> +}
+> +
+> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +	int fcr, ret;
+> +
+> +	fcr = serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
+> +	if (fcr < 0)
+> +		return fcr;
+> +
+> +	guard(mutex)(&p->state->port.mutex);
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
+> +	up->fcr |= fcr;
+> +	/* Changing the trigger alone preserves the FIFO contents. */
+> +	serial_port_out(p, UART_FCR, up->fcr);
+> +
+> +	return 0;
+> +}
+> +
+> +static void dw8250_sunxi_setup_rxtrig(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +
+> +	/* Allwinner RX thresholds differ from the standard 16550A table. */
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(data->rxtrig_bytes); i++)
+> +		data->rxtrig_bytes[i] = dw8250_sunxi_rxtrig_bytes(p, i << UART_FCR_R_TRIG_SHIFT);
 
-According to the DTS coding style you should add a blank line before 'status'
-line if there is content above it.
+FIELD_PREP(UART_FCR_TRIGGER_MASK, i)
 
-With the above issues addressed:
-Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+For clarity, it might be useful to split it into two lines using an 
+intermediate variable.
+
+> +	p->get_rxtrig = dw8250_sunxi_get_rxtrig;
+> +	p->set_rxtrig = dw8250_sunxi_set_rxtrig;
+> +}
+> +
+> +static void dw8250_sunxi_setup(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +
+> +	p->type = PORT_16550A;
+> +	p->flags |= UPF_FIXED_TYPE;
+> +	p->fifosize = data->pdata->fifo_size;
+> +	up->tx_loadsz = p->fifosize;
+> +	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
+> +
+> +	dw8250_sunxi_setup_rxtrig(p);
+> +
+> +	/* Use software RS485 with the Allwinner register layout. */
+> +	p->rs485_config = serial8250_em485_config;
+> +	p->rs485_supported = serial8250_em485_supported;
+> +	up->rs485_start_tx = serial8250_em485_start_tx;
+> +	up->rs485_stop_tx = serial8250_em485_stop_tx;
+> +}
+> +
+>  static int dw8250_probe(struct platform_device *pdev)
+>  {
+>  	struct uart_8250_port uart = {}, *up = &uart;
+> @@ -878,6 +964,13 @@ static const struct dw8250_platform_data dw8250_dw_apb = {
+>  	.usr_reg = DW_UART_USR,
+>  };
+>  
+> +static const struct dw8250_platform_data dw8250_h616_data = {
+> +	.usr_reg = DW_UART_USR,
+> +	.fifo_size = 256,
+> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
+> +	.setup = dw8250_sunxi_setup,
+> +};
+> +
+>  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
+>  	.usr_reg = OCTEON_UART_USR,
+>  	.quirks = DW_UART_QUIRK_OCTEON,
+> @@ -929,6 +1022,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+>  
+>  static const struct of_device_id dw8250_of_match[] = {
+>  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+> +	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
+>  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+>  	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+>  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> 
+> 
 
 -- 
-Thanks,
-Laurentiu
+ i.
+
