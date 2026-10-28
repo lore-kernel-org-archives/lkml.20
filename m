@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211460;
-	b=Dc9IbsJ67eJzpd8v7JKMA5c6HAblr4WvPuw3tAr1zBhe2q343Xj3BBF6Rck3mioEAx32
-	 Ax7SFD7YZfgDH7RqCykvd7uATQrqs/E+HYyIP4tE4iL44gAjIq5Qi8K+qA5wfoU8VccI/
-	 jpu1vxZA+PT7ceOztiBgeHu+D4n93pznFHkGlHvwdQa6GSVa75QbgzBXQGPmTauzJEG7o
-	 YLf/lMMw5QF2/Ru4FUSSdrFU3caQNRRPvi7Rf5krYxOvYqH+Suss/N0RBjsg7VzdSjOsq
-	 XLaUi2BXkoAKhr3fVsoo28TNfryrJzoXST69tI47KKE0uJ61u1anD/a8CHm8+0Ld/4g==
+	t=1793211482;
+	b=E2pKLfGLf3IphuoC6rBRjoN7CF2pWA81V6YA4sxpPtl94ppeXCsztt2galcipJu3edUW
+	 VQH5IX43Zm+3rMZcUYGc3TsoqnZyHKab6WNxabDp/gtmfDowGHYFJZVPIexWwpCjf4QhF
+	 uu9c5WHiL1QwCRiiqlUWH/teO1IrJTnZybXdIQWI833qkDWXBd7n98wPopvXNt2H8poa4
+	 Ista8OWjC8H4GM4kX4KE33DwiLOFdvnvEsIT+9aBPzu9bHuwg5RinlNyrt8SdI34Xcdho
+	 6C68JLSvW4vK7mULCHyEqTbDrWmSHCqGmM5Ws1ymHjt9o7g6vjrS7LwacKgM93bjdaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211460;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aTB+qmr+k6hrfExn8YMUYkBKlFM/bzuSQoxuiUonvFM=;
-	b=d4UGSi3+S+92CSbMGqBHKiHnpx74GGRTeIMm/CPslhvdwQR3SHEYMnG2Rn2CCMQKJfPN
-	 Kkw55QUXcXHWjrMKeqiKBCaGi0aMV/J0+npB+an9h+9B35PC/8PUMFt2Rx30u1w3kxwDq
-	 kctI21UUY6ZldquB/q98zQUS1+4S9fT2tbY5WEj3WB9q/l/DqbdUcJmRQlNDjQtUq9Lvu
-	 Y+xuz93mgbNq3riq10eC+XwxQK3yTIcD1WLONW/vQfjeg6rBCae0BAVcn+pXFotFJb7cm
-	 97vL8VPbX+vfS1T5pBkIl60VEQxPqWijFWIABWRv0PmPpU1W/VVloFrLTwes7L1qOAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
+	b=CWv/ctAmDQa0ziTKqhRXMwOCAKLm+31iqf7hbfmfZpGBu3r338cfI0kdc9NIH1DUFBY9
+	 bcJJ61SFmh9qO81XYNk2B5ZF6nwB/IXJaMC7PN38ah9Eem9agjshaFtQh0y5i5YgTPxMv
+	 CC/Av27Fu/JnEoKh/ITWNxXome6/+S9EPB2b67sjSGeCTEClsOINlDfcPQleoePIMNcfn
+	 yWikFZFgh72AfhoSWIt/ESy658BYIQm9luL00tf3cgeT4RugeMLvEj+iUvaASh308iNx2
+	 qG7ofCkoROnTkYoPmtsgs4I6DII9ygjacCk/LmTqwUJL/M2817jmFwdKeDMVKDTFjOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYt2jHLb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ImiggEzz;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787E0606A31D;
-	Wed, 28 Oct 2026 18:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E270606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E270606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYt2jHLb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7926B1F01825;
-	Wed, 28 Oct 2026 18:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793211460;
-	bh=aTB+qmr+k6hrfExn8YMUYkBKlFM/bzuSQoxuiUonvFM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DYt2jHLb8pZDWRnfkToccjW+vE2T0iI7ivXTNIJNgxs91DqMaLoDImSYTgVI+Gh4H
-	 wfRxWEHJe8UhpBiHByk44xOf39qW2vXEdFfr8YWZKeFEEkcze9xa12vHdKSh0aMWoa
-	 eopEMcnFcqKxVmCjWLsM8CPcwdc3uplOAL1jYqyCeHfzCm8YjOeXS2cY8rvKkayZ9c
-	 rMJUZ1boofElRx/0CKi+tU1iuHl8suzd+pIVB7/T+vHN0SDQo+uwiz9sAJjYN/jkVK
-	 lOTNLWE7tvr+S4BkYCmRn28yYZoayVqTS26GACt+Lthd6v3KfbSgGdXNdJg46+43Eu
-	 1Y4T4jX4gnvVg==
-Subject: Re: [PATCH] net: octeontx2: fix building without DEBUGFS
-From: netdev-bot+sashiko@kernel.org
-To: arnd@kernel.org
-Cc: sgoutham@marvell.com, rkannoth@marvell.com, gakula@marvell.com,
- sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, arnd@arndb.de,
- sumang@marvell.com, nshettyj@marvell.com, hkelam@marvell.com,
- yijiangshan@kylinos.cn, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 28 Oct 2026 18:17:39 +0000
-Message-ID: <179321145903.3134.9602070499142320900@kernel.org>
-In-Reply-To: <20261027151737.386155-1-arnd@kernel.org>
-References: <20261027151737.386155-1-arnd@kernel.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ImiggEzz
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15dd124bbe7so2332966c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:18:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793211481; x=1793816281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
+        b=ImiggEzzD5JTc7iM9iw0b1H1AR46v9uOSW3+27hSXXar4QF0Tu4z5ufm7jLhaJcep0
+         XoSxroyZjtoB8mC6lpib7j1vsOnTyZKfjCTOpAJvIwJo0U8SR6KSwD+z0RStxA3PBX+c
+         9WnqrtBsyoy3ov57hsdu2z0wydsnjqfMfc6nIknMOnT4eG07mV6lwqUIuhSKoQpJahOU
+         HR5TH4eAVXfLc3zUnlaGiJWL+Zbdy0WjbZYY4gHRVLYp8+H5FiA726GY9M/07AcVOQ8U
+         h/P3FDOArUMS1lG7yrSSQCEPfj+NIqMvF8MTIjL98QiBW4I6eZMBfy666i9llm60eFh0
+         ylZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793211481; x=1793816281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nb1GL7vyuk4wRsFBzPO4BunddjtAlFmqxmKJhxlenVk=;
+        b=B4FAu1U7GfNgkv8GD5qfZICBAZ/ofL3tUvIoJ8WVZpTJd0vz06valzWqaxA7FOBpj2
+         1U/i75HbCBNjIlWu8krh5TnLBBMJp/d8tyMfOEtsBksYbU3uTHdnpmv6TtrfaeVygEjb
+         2Ex/H0eRPDnpOrunMsUXyDb4mwceJVR3Nl0bF+MFF3SPhHxYnlrr6OcKjTA3kVOeAGVs
+         Ra7k5y/5vpvQqXXsQfqp9SLOqfUUQzYSXELx0tGtym/s3i+80Q4HDztX2kDW8asSyXWR
+         LK4CGgT69d8ug7pUaGfCVA4XByQROaT3YU4UkgWwh+Qb3qHVqry9UOle15XuGY7OhuV7
+         JKdg==
+X-Forwarded-Encrypted: i=1; AKwUvBxgcuzhUnFqH/x/i7v2kWKJ30t0acd9cDc4wt6t1wp0Jj9tCoK1eSoQDadE2DD8kSc3Mk7NNhsHrtXUPL4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsIlXvQGj4DjUt0KoUrBc3bauQMg9wXFCwraurJ3YMsj1YSaQ9
+	tLw4kt8ACMnGv2tuBaG0dMBUA5lA3ZfiGr9BQ0Ki0JHd9BgPD4VsrZ8O
+X-Gm-Gg: AYBFou1LOzSUXUcRlpFdDUK952e7oiFHbQCX1ZXPjYiYq1nxZHOfFI00MwWxJhD5/5P
+	p89zcA3b4MVw4zdX8yi7bbf9qmre8nRd/2aJJi7xtRDvI663PHrcRHz/uzKRrye4ep6jm38r/NZ
+	/WPidf6I1DowJrasmAcqEP85w8apLNQcLpAxY5YhBO6XY6P2eG26CTlQDjFu64qKc3E+C0KJR4v
+	+8blY4BPfENgn2uHY8Y8lRWWx3WNPuhYngIup/zjqJwd0JozgSEktjLe4QHTJ6DuePraYa4lfpy
+	+agN2IO6O4HFYEeJTtZVKxuZW0Vtefw3rOBrkzu9w+MQuwBtZt4Q/Q9ncwIH93l+2GHtbVCeKDP
+	t/GMla257br4DbtxvC59enTXJgjSyHVZ9BSXw91PRT9LHtfFh4t2lGbuPm/N8Jik/Xg2ZJgUVRY
+	h7/KP2U7jwnR3B1e3ZKn/QaPrE0z9Sh52DfAXDK4lvVpkK0jQ/EymvGKlG8gWPmRkGbTP+0Sc1l
+	apG24d1tN0OdDwAoVmvIFLk+Edg9O6U1IoUnlAjqS2GE6i6EVAEAZB/z28UvMPfGvLiLnoMNkDR
+	XAcaxIY01BKpnpTxH3wBbF9Q7SrVjYwO74icAgskmtCLWpf+XnlVVqSMmZXsWdydv5UJjgTbAxD
+	UOMe5KJfiPJBHbGlw
+X-Received: by 2002:a05:7022:ed07:b0:144:de98:eec1 with SMTP id a92af1059eb24-1a6cc90e818mr4693122c88.11.1793211481229;
+        Wed, 28 Oct 2026 11:18:01 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75fdc1031sm7441623c88.19.2026.10.28.11.17.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:18:00 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Henry Zhang <henryzhang62@gmail.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/vc4: dsi: Serialize register writes through the DMA workaround
+Date: Wed, 28 Oct 2026 11:17:17 -0700
+Message-ID: <20261028181720.3476629-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,130 +103,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+DSI1 on BCM2835/6/7 cannot take register writes from the ARM, so
+dsi_dma_workaround_write() stores the value in the single coherent
+buffer reg_dma_mem and has the DMA engine copy it to the register.
+Nothing serializes these writes. The threaded interrupt handler writes
+INT_STAT through the same buffer while process context may be
+programming the block (in a transfer, in its timeout path or in the
+bridge callbacks), so one write can overwrite the buffer before the DMA
+of the other has run, and the wrong value lands in a register.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+Take a mutex around the buffer write and the DMA. The writes already
+sleep, which is why the handler runs in a thread on this port.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 4078f5757144 ("drm/vc4: Add DSI driver")
+Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+---
+Sashiko pointed this out in its review of my vc4 DSI series [1]. The
+race is older than the series and not limited to its timeout path, so
+I am sending the fix on its own. It applies to drm-misc-next and on top
+of the series.
 
-- [High] The patch does not fix the CONFIG_DEBUG_FS=n build.
-- [Low] The Fixes tag points to the wrong commit.
-- [Low] The commit message says making the member unconditional will
-  "waste the 8 bytes in the structure in this config".
+Compile-tested only (arm64 defconfig, DRM_VC4=m, W=1); I have no
+BCM2835/6/7 board with a DSI1 panel to run it on.
 
---
+[1] https://sashiko.dev/#/patchset/20261028164539.3471833-1-henryzhang62@gmail.com?part=5
 
-net: octeontx2: fix building without DEBUGFS
+ drivers/gpu/drm/vc4/vc4_dsi.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-This commit removes the CONFIG_DEBUG_FS guard around the rvu_dbg member
-of struct rvu. The goal is to let the rvu->rvu_dbg.npc references in
-cn20k/debugfs.c build when debugfs is disabled.
-
-> Remove the #ifdef and waste the 8 bytes in the structure in this
-> config.
-
-[Severity: Low]
-Is the 8 byte figure accurate? rvu_dbg is embedded in struct rvu by
-value, not as a pointer.
-
-struct rvu_debugfs contains 12 struct dentry pointers, 6 struct dump_ctx,
-a cpt_ctx[MAX_CPT_BLKS] array (MAX_CPT_BLKS is 2) and two ints:
-
-struct rvu_debugfs {
-	struct dentry *root;
-	...
-	struct dump_ctx nix_tm_ctx;
-	struct cpt_ctx cpt_ctx[MAX_CPT_BLKS];
-	int npa_qsize_id;
-	int nix_qsize_id;
-};
-
-That comes to about 208 bytes on 64-bit.
-
-> Fixes: 45229e9a9ab5 ("octeontx2-af: Extend debugfs support for cn20k NIX")
-
-[Severity: Low]
-Is this the right commit for the Fixes tag?
-
-At 45229e9a9ab5, rvu_debugfs.c holds the only references to rvu_dbg, and
-that file is fully wrapped in #ifdef CONFIG_DEBUG_FS. At that point
-cn20k/debugfs.c contained only seq_file print helpers.
-
-The always-built cn20k/debugfs.c seems to have first referenced
-rvu->rvu_dbg in 1396771b0b7741 ("octeontx2-af: npc: cn20k: Index
-management"), which added:
-
-void npc_cn20k_debugfs_deinit(struct rvu *rvu)
-{
-	debugfs_remove_recursive(rvu->rvu_dbg.npc);
-}
-
-The debugfs_create_file() call quoted in the error message came later,
-in 1100af13fd14b5. That may also explain why the error only showed up
-recently.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> index fb4870cd18e9e..3b647e7b4bc20 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> @@ -649,9 +649,7 @@ struct rvu {
->  	int			mcs_blk_cnt;
->  	int			cpt_pf_num;
->  
-> -#ifdef CONFIG_DEBUG_FS
->  	struct rvu_debugfs	rvu_dbg;
-> -#endif
-
-[Severity: High]
-Does this build with CONFIG_DEBUG_FS=n?
-
-The definition of struct rvu_debugfs is still inside an
-#ifdef CONFIG_DEBUG_FS block earlier in rvu.h, with no #else. So are the
-struct dump_ctx and struct cpt_ctx types it embeds:
-
-#ifdef CONFIG_DEBUG_FS
-
-struct dump_ctx {
-...
-struct rvu_debugfs {
-	struct dentry *root;
-	...
-	int nix_qsize_id;
-};
-#endif
-
-With OCTEONTX2_AF enabled and DEBUG_FS disabled, struct rvu now has a
-by-value member of incomplete type. The compiler would reject that with
-"field 'rvu_dbg' has incomplete type".
-
-Every rvu_af object includes rvu.h (rvu.o, rvu_nix.o, rvu_npc.o,
-cn20k/*.o, ...). Wouldn't this turn the one error in cn20k/debugfs.c into
-a failure in every rvu_af translation unit?
-
-OCTEONTX2_AF does not depend on DEBUG_FS in octeontx2/Kconfig, so this
-config can be selected.
-
-Would either of these work instead?
-
-- Move the #ifdef CONFIG_DEBUG_FS so that dump_ctx, cpt_ctx and
-  rvu_debugfs are always defined.
-- Build cn20k/debugfs.o only when CONFIG_DEBUG_FS is set.
-
-The Makefile currently builds cn20k/debugfs.o unconditionally:
-
-rvu_af-y := cgx.o rvu.o rvu_cgx.o rvu_npa.o rvu_nix.o \
-	...
-		  rvu_rep.o cn20k/mbox_init.o cn20k/nix.o cn20k/debugfs.o \
-
->  	struct rvu_devlink	*rvu_dl;
->  
->  	/* RVU switch implementation over NPC with DMAC rules */
-
+diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+index 5ed3c35ee..b81b46829 100644
+--- a/drivers/gpu/drm/vc4/vc4_dsi.c
++++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+@@ -25,6 +25,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+ #include <linux/io.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
+@@ -562,6 +563,11 @@ struct vc4_dsi {
+ 	struct dma_chan *reg_dma_chan;
+ 	dma_addr_t reg_dma_paddr;
+ 	u32 *reg_dma_mem;
++	/*
++	 * Serializes the register writes through the DMA workaround, which
++	 * all share the single reg_dma_mem buffer.
++	 */
++	struct mutex reg_dma_lock;
+ 	dma_addr_t reg_paddr;
+ 
+ 	const struct vc4_dsi_variant *variant;
+@@ -625,6 +631,8 @@ dsi_dma_workaround_write(struct vc4_dsi *dsi, u32 offset, u32 val)
+ 		return;
+ 	}
+ 
++	guard(mutex)(&dsi->reg_dma_lock);
++
+ 	*dsi->reg_dma_mem = val;
+ 
+ 	tx = chan->device->device_prep_dma_memcpy(chan,
+@@ -1667,6 +1675,10 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
+ 	if (dsi->variant->broken_axi_workaround) {
+ 		dma_cap_mask_t dma_mask;
+ 
++		ret = devm_mutex_init(dev, &dsi->reg_dma_lock);
++		if (ret)
++			return ret;
++
+ 		dsi->reg_dma_mem = dma_alloc_coherent(dev, 4,
+ 						      &dsi->reg_dma_paddr,
+ 						      GFP_KERNEL);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027151737.386155-1-arnd%40kernel.org
+2.47.3
+
