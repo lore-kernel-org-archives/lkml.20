@@ -1,62 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203412;
-	b=FhBFcEOafyQZsnwkCGPqEwizyAR54hKmXMAKlYY7zI9eZZP9RKQ8RRowKKL62obQ/vAw
-	 kNVJ/AOJVXDQ4mkPffjTks8hjZXIrE6qu7Q5bz5zDIcFPfOD+YufAXGTTdqXfxxDezrjn
-	 xNTH2jeynznh2FJHXowxmt2aITJHU04j7GycrNh4GTFIDCdzawzzmuXKIMCVO8n0PAGDJ
-	 jsGQvp9AOqHaYn+efhXg9C23lL5cQXIZu1QFmyMgPEEnqyqergUucYIqQ7//l2iWh4DXy
-	 rpu9WyAb4BC4pU++g5+gOir1WP0yibIEzZ8zqVaDNcEWGKm9PZZtRxjMp0TapuBiDWQ==
+	t=1793203449;
+	b=yeLvAehEZ7JG0lWlQgVWsq7BIz14z8651mRhDlxSVHuBb7+C52duIiTvO75Jr8WDM7d8
+	 lS5NxecINUJucE8SoxInlvuz+jpQ50sTal4QSeBY78BYmdk43uwXPg1ILLuJNHtZi4GVE
+	 NGxHhWqUwPXjkbELlbhGKh7yk265BD9u7xq/gEdLKu8hyaNY+ZWrnAdDvCmMXPWKY+EfN
+	 UZ/tSAhIWNhei1hUhmqtCR/MUWSu03zhCvUYE/UVPmqn5P5/xdni9sRQS8P6kIf3ve7Ef
+	 kLQ7bNbTLcmKWhNaxVWiU6JVDjmUzNq1CpKKV95HFPOxvCumBsGswz4g7hPy7MMBJjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203412;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=QiLWCzzd107+2dR+tglXudYvr8B2VeboljFrR/xOofo=;
-	b=xcQ+uRNSpfAsM5FOISR05VDxTKESRLyCT+3x031nSBTPuq20TvE9YkEfcXVmvf+/2O8J
-	 LaWPsPWwzRQuTZPG8m9bnZ518wrya24rInb0EbqBzUf63Vpk9MSe2RwzFMiZY1AN8bmqd
-	 evt+FtxzsncBS3q4ku1ZckO3R9MCCXobiFN6e2achjmLJIzjqufmCdHPDqPZOqbuISs0i
-	 gHA/baDNrHN410dmOQpnLGERbIZmlL7iEdUy3ChgLlOwk8DLD0SvTv/yxwVwoqA6hojYl
-	 69yTG5TuKVBtdt6SHbavzpfm1MftVAe7Rqsb1G9dFyYS8YnmcBNYT1pmL256m+4J75A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203449;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
+	b=FMSnbyLYTA3W+WKtMxg3dPbirVuf8ptvsQg0GlA9Dr4hlBO3CndRSGd9JFxpv5ehE7nR
+	 dIlz/3ru9GCC93otUGH3QVFWP1TMvv/HVKSybwAQFuyeEO3czKZYIg7qnbCvh8Ae+EoiE
+	 Ux5rUt5iRKxEiM9h8Dj/UtVFx7PYh5GLcE3o+YM92cZvQq5wIbc9GXEHrPCr0tvHaW+mA
+	 V70BcYHFvQLetmUZiMYp+k4uonJZHl/xbnIfkQ3gjgzx589XaLiPla/jkd0EUSkulWD4L
+	 NpROweGpjXz+uLnRePDD5e9Zj/z2CMVfGTywUlC3NPkK2xlQwrtJ2UvUdVztZZwq+1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QA69jcs4;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC71B606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC71B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h7w/6mjk";
+	arc=none smtp.remote-ip=209.85.221.170
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3386606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3386606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QA69jcs4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5889175D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:03:27 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CE52E3F59E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793203411; bh=CMZVJ5YT9JJ8tpX8bI1KqzXScFcovvI/hSXWXqZPaDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QA69jcs4ZFCJ2cImlSaUNfklbPcEJGab72+awrxZ7z1FuwIC2iwCBcVJ4Thuj1zC4
-	 BWcp5z+qrqlT/nfkYB3n4t34qxq+2WVUfuBGMwZOsBA0LgxIdxGHchIA3Y3M9GjNZ2
-	 VDM0VNRTlemYzm8rkY+s5k5DzKlB1qcZIPgl6Sn0=
-Date: Wed, 28 Oct 2026 16:03:25 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v1 05/27] drm/panthor: Move register base offsets to the
- HW description
-Message-ID: <auIczSl53RK5AG9t@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-6-karunika.choo@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h7w/6mjk
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so2150212e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:04:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793203448; x=1793808248; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
+        b=h7w/6mjk6+6kpdKforROPrJX+UDA63yf6nVts44aIrSXJJDyONSXYHDrGBuI1KOZ3h
+         0GakPDtGQJ9AX5Yms9cJyOljn/cP6nLUH/BmSGtMjmj9Hnu7FJ6nSdn6V59f5/OuWqYs
+         TGq/8hmQ0Hoqoo+pLKrhtcng01yYB+b7azWGX4l7IoRFQFewVB6GQBDGGOarGsrR1qQb
+         DlcV7TFre0T6I6/A0qDwyCVc89uhVesfZjRVenTMQfNAufO6WUEdgQWnfborHpREF/SL
+         znFx4+xOEhqvA5Qmz9AuntimIS0MGiMsgWK5uZJWFUNTWwMfS81dSK+TBz8jLyrfPwa3
+         obMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793203448; x=1793808248;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wW+/Xd8Krv/fKYtWcQLYyD+KltWSe3OXoRZLQJCTD0I=;
+        b=WIBAsfp2nZQH4Hs64ictg8sunAcSpp7od/Gk7HGVBbvstq0Fu8TYF91IB74zT0hEAK
+         UoBoOJeBA50iFz5ikMm9wQXb7NIMj7fbQCy2rikpnE/W4Czdwhe3nGWXmOzCW0zOscrU
+         +i9s6aaihYEXRUUgLI9e4etOwP0asG6/4HYBYKpuAWKIfL3GZ8Xa3Awb38FqLgAL0MIx
+         gnH8QGaqUMhfMn8YdsXxkJUcTPwNE4A+8dwfsPXrNkqhyK10fEqfung8uJI77Mk+5fP5
+         LQ1py0o1LDlV2xHe+EvrzjBG6Kw5LUN91eCXpfCrPmTMv8twgHVm8Rdx5xzCOz8TdEmw
+         tCMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxcF5oB/v184EFPmUM1d2roX13WnXxb0280MBvdoQGLCpULgOzuur1rjOju1pp+k4xwRCF10khbVgPZmQk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhOibEUmBJfNhON52/wrW1HkJqMOzBPyWhv8Y03vQxW3OyA9lq
+	FkMFpkaF+vMqwrz2/Id5zGUx4BHKTETbWs4lE+duh88X/EJ6FKQRbSMu
+X-Gm-Gg: AYBFou3oRUzDXWyoRJ4iwhW4Ws1YRcEaczUROHhL+dbM6SsqlHTzJq6caI4y0r/rhyP
+	qJJQcHJXQ/XDJo59M3fVO/RYOqZpR+xxwN+zhHFcyQXCeY+1oNrPPr5C3dzhuvbfabJDFk1wSLr
+	DAX3XKbK0XcMBMPGRojwgveG3ubgnnfcJFR2wHixIjIWYt5gqr1uE/9cRDq2HAdie3MzfUoHJ+9
+	fC30BWPezYiBdgTkiV85bbNCdDpAbO283ugXITB8QWIJRbpJZpUq8cOiRHvDnrXd6ZuKK4IgqGZ
+	xuc5F8THnra/ib6G3WubLEZniwn/nYCXY8qherlhSFxqBmskRmGmuHfrwR2XCH0KxZUQKd2Zq9S
+	yGS5wnwO64eTiKva+6jKwCeTyvhfgdgRGKsL+gPaMXKZvJVigs4KSRhxWZ44Nyf7fSu+uNn0uU5
+	wVZQ9rP0ibEtMjpHjJuat60ck214aH2sZzX7SHUhxOhuy2UFYZjEiG/Gk+ambWo0+LRoM3urpRS
+	z1LTDsj2zHunxO7Bjk70UEBHqNt6GWrDgjqG2LaYtwSv685g+9pGZLxDZfSqbx1dHzVngsv3b2e
+	2tQsB7DTAB42y88XsoWK1dSO9EKj23333XlziwDOMkzcB2sn+bFxMjRL3RwSGwBgKSVRdF82LAS
+	cEQ==
+X-Received: by 2002:ac5:cd4f:0:b0:5cd:4fdc:4c30 with SMTP id 71dfb90a1353d-5ec3ea67966mr1617819e0c.8.1793203447486;
+        Wed, 28 Oct 2026 09:04:07 -0700 (PDT)
+Received: from localhost.localdomain ([190.177.146.128])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259db2d3sm6354565241.6.2026.10.28.09.04.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:04:06 -0700 (PDT)
+From: Cristian Papa <pcristian292@gmail.com>
+To: cjd@cjdns.fr
+Cc: netdev@vger.kernel.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	linux@armlinux.org.uk,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	naseefkm@gmail.com,
+	b.larsson@gmx.com
+Subject: Re: [PATCH v3 0/7] net: dsa: mt7530: support EcoNet EN751221
+Date: Wed, 28 Oct 2026 13:03:53 -0300
+Message-ID: <20261028160353.4239-1-pcristian292@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028011317.1557238-1-cjd@cjdns.fr>
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,245 +121,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-6-karunika.choo@arm.com>
 
-On Tue, Sep 22, 2026 at 09:44:59PM +0100, Karunika Choo wrote:
-> Mali v15 reorders several register regions, including GPU_CONTROL,
-> MCU_CONTROL and PWR_CONTROL, so the driver can no longer assume a single
-> fixed base layout across all supported GPUs.
-> 
-> Add per-GPU register base offsets to the panthor hardware description
-> and switch the GPU, FW and PWR local iomem setup to use those stored
-> values. With the base addresses now owned by the hardware description,
-> drop the corresponding fixed base-offset definitions from the register
-> headers.
-> 
-> This prepares the driver for GPUs with different register layouts
-> without changing the existing behaviour on currently supported parts.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+Hi Caleb,
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+I tested v3 on a TP-Link Archer XR500v v1 (EN7526G: on-die switch plus the
+MCM gigabit switch).
 
-Best regards,
-Liviu
+Setup: OpenWrt with kernel 6.18.44. I took the four mt7530 files from
+econet_eth at 3a8bcd2e6398 (they contain every line added by 1/7, 3/7,
+4/7, 5/7 and 7/7 of v3) and booted from RAM over TFTP, nothing written to
+flash.
 
-> ---
-> v1:
-> - rebased on drm-misc-next
-> - use a generic panthor_hw_regbank structure for all register offsets.
-> 
->  drivers/gpu/drm/panthor/panthor_fw.c       |  2 +-
->  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 --
->  drivers/gpu/drm/panthor/panthor_gpu.c      |  4 +--
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 --
->  drivers/gpu/drm/panthor/panthor_hw.c       | 23 +++++++++++++++--
->  drivers/gpu/drm/panthor/panthor_hw.h       | 29 ++++++++++++++++++++--
->  drivers/gpu/drm/panthor/panthor_pwr.c      |  2 +-
->  drivers/gpu/drm/panthor/panthor_pwr_regs.h |  2 --
->  8 files changed, 52 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 13efed3a2ea72..679ea1d233d53 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1500,7 +1500,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  	if (!fw)
->  		return -ENOMEM;
->  
-> -	fw->iomem = ptdev->iomem + MCU_CONTROL_BASE;
-> +	fw->iomem = ptdev->iomem + ptdev->hw->regs.mcu_control.offset;
->  	ptdev->fw = fw;
->  	init_waitqueue_head(&fw->req_waitqueue);
->  	INIT_LIST_HEAD(&fw->sections);
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> index b2e59cfc22b00..a3492f7f913f9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> @@ -4,8 +4,6 @@
->  #ifndef __PANTHOR_FW_REGS_H__
->  #define __PANTHOR_FW_REGS_H__
->  
-> -#define MCU_CONTROL_BASE				0x700
-> -
->  #define MCU_CONTROL					0x0
->  #define   MCU_CONTROL_ENABLE				1
->  #define   MCU_CONTROL_AUTO				2
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index ade2646e2caf6..d6534fabc682e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -158,7 +158,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  	if (!gpu)
->  		return -ENOMEM;
->  
-> -	gpu->iomem = ptdev->iomem + GPU_CONTROL_BASE;
-> +	gpu->iomem = ptdev->iomem + ptdev->hw->regs.gpu_control.offset;
->  	spin_lock_init(&gpu->reqs_lock);
->  	init_waitqueue_head(&gpu->reqs_acked);
->  	mutex_init(&gpu->cache_flush_lock);
-> @@ -175,7 +175,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  		return irq;
->  
->  	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
-> -				  ptdev->iomem + GPU_INT_BASE, "gpu",
-> +				  gpu->iomem + GPU_INT_BASE, "gpu",
->  				  panthor_gpu_irq_threaded_handler);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> index 4c5b953796e4f..753df87009901 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -4,8 +4,6 @@
->  #ifndef __PANTHOR_GPU_REGS_H__
->  #define __PANTHOR_GPU_REGS_H__
->  
-> -#define GPU_CONTROL_BASE				0x0
-> -
->  #define GPU_ID						0x0
->  #define   GPU_ARCH_MAJOR(x)				((x) >> 28)
->  #define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 40012ba7e23ca..2ca5a334f5817 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -37,6 +37,14 @@ static struct panthor_hw panthor_hw_arch_v10 = {
->  		.power_changed_off = panthor_gpu_power_changed_off,
->  		.power_changed_on = panthor_gpu_power_changed_on,
->  	},
-> +	.regs = {
-> +		.gpu_control = {
-> +			.offset = 0x0,
-> +		},
-> +		.mcu_control = {
-> +			.offset = 0x700,
-> +		},
-> +	},
->  };
->  
->  static struct panthor_hw panthor_hw_arch_v14 = {
-> @@ -45,6 +53,17 @@ static struct panthor_hw panthor_hw_arch_v14 = {
->  		.l2_power_off = panthor_pwr_l2_power_off,
->  		.l2_power_on = panthor_pwr_l2_power_on,
->  	},
-> +	.regs = {
-> +		.gpu_control = {
-> +			.offset = 0x0,
-> +		},
-> +		.mcu_control = {
-> +			.offset = 0x700,
-> +		},
-> +		.pwr_control = {
-> +			.offset = 0x800,
-> +		},
-> +	},
->  };
->  
->  static struct panthor_hw_entry panthor_hw_match[] = {
-> @@ -196,7 +215,7 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
->  {
->  	unsigned int i;
->  
-> -	void __iomem *gpu_iomem = ptdev->iomem + GPU_CONTROL_BASE;
-> +	void __iomem *gpu_iomem = ptdev->iomem + ptdev->hw->regs.gpu_control.offset;
->  
->  	ptdev->gpu_info.csf_id = gpu_read(gpu_iomem, GPU_CSF_ID);
->  	ptdev->gpu_info.gpu_rev = gpu_read(gpu_iomem, GPU_REVID);
-> @@ -222,7 +241,7 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
->  	ptdev->gpu_info.gpu_features = gpu_read64(gpu_iomem, GPU_FEATURES);
->  
->  	if (panthor_hw_has_pwr_ctrl(ptdev)) {
-> -		void __iomem *pwr_iomem = gpu_iomem + PWR_CONTROL_BASE;
-> +		void __iomem *pwr_iomem = ptdev->iomem + ptdev->hw->regs.pwr_control.offset;
->  
->  		/* Introduced in arch 14.x */
->  		ptdev->gpu_info.l2_present = gpu_read64(pwr_iomem, PWR_L2_PRESENT);
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> index bdda3b10e660a..9231c18af94d1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> @@ -26,14 +26,39 @@ struct panthor_hw_ops {
->  	void (*power_changed_off)(struct panthor_device *ptdev);
->  };
->  
-> +/** struct panthor_hw_regbank - Register offset and instance stride information */
-> +struct panthor_hw_regbank {
-> +	/** @offset: Register offset relative to &struct panthor_device.iomem */
-> +	u32 offset;
-> +
-> +	/**
-> +	 * @stride: Register offset between instances, or 0 for non-instanced
-> +	 * registers
-> +	 */
-> +	u32 stride;
-> +};
-> +
-> +/** struct panthor_hw_regs_layout - Hardware register bank layout */
-> +struct panthor_hw_regs_layout {
-> +	/** @gpu_control: GPU_CONTROL register bank layout */
-> +	struct panthor_hw_regbank gpu_control;
-> +
-> +	/** @pwr_control: PWR_CONTROL register bank layout */
-> +	struct panthor_hw_regbank pwr_control;
-> +
-> +	/** @mcu_control: MCU_CONTROL register bank layout */
-> +	struct panthor_hw_regbank mcu_control;
-> +};
-> +
->  /**
->   * struct panthor_hw - GPU specific register mapping and functions
->   */
->  struct panthor_hw {
-> -	/** @features: Bitmap containing panthor_hw_feature */
-> -
->  	/** @ops: Panthor HW specific operations */
->  	struct panthor_hw_ops ops;
-> +
-> +	/** @regs: Hardware register bank layout */
-> +	struct panthor_hw_regs_layout regs;
->  };
->  
->  int panthor_hw_init(struct panthor_device *ptdev);
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index dd7b6ef8ea209..cc2e01595f23b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -480,7 +480,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->  	if (!pwr)
->  		return -ENOMEM;
->  
-> -	pwr->iomem = ptdev->iomem + PWR_CONTROL_BASE;
-> +	pwr->iomem = ptdev->iomem + ptdev->hw->regs.pwr_control.offset;
->  	spin_lock_init(&pwr->reqs_lock);
->  	init_waitqueue_head(&pwr->reqs_acked);
->  	ptdev->pwr = pwr;
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr_regs.h b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> index 9cf7a715066f8..05f5b48e6a39a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> @@ -4,8 +4,6 @@
->  #ifndef __PANTHOR_PWR_REGS_H__
->  #define __PANTHOR_PWR_REGS_H__
->  
-> -#define PWR_CONTROL_BASE				0x800
-> -
->  #define PWR_INT_BASE					0x0
->  #define   PWR_IRQ_POWER_CHANGED_SINGLE			BIT(0)
->  #define   PWR_IRQ_POWER_CHANGED_ALL			BIT(1)
-> -- 
-> 2.43.0
-> 
+With the DT from en751221g.dtsi in openwrt#25330 (MCM "econet,en751221",
+no "mediatek,mcm", dsa,member <0 1> on the on-die switch and <0 0> on the
+MCM):
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+- 18/18 boots: all 10 TRGMII lanes found a window, no "calibration
+  failed", "TRGMII inter-switch link initialized", DSA tree set up, ping
+  over lan4.
+- The chosen taps were stable across boots (+/-1): SoC->MCM 15-22,
+  MCM->SoC 27-29. In the SoC->MCM direction the window always starts at
+  tap 0.
+- 6 of those boots ran iperf3 for 6 s each way through lan4: 0 RX CRC
+  errors on on-die port 5 (~1.05M frames) and on MCM port 6 (~1.29M
+  frames). In 4 of 10 boots MCM port 6 already had 1 CRC error before any
+  traffic, probably from the calibration; it did not grow.
+
+Following the binding in 6/7, the MCM does not come up on this board:
+
+- "econet,en751221-gswitch": mt7530-mdio.c in 7/7 still matches
+  "econet,en751221", so nothing probes the MCM and there are no LAN
+  ports.
+- "mediatek,mcm", which the binding requires for -gswitch: the probe
+  fails with "Couldn't get our reset line", since nothing provides an
+  "mcm" reset yet (the TODO in en751221g.dtsi).
+
+So I think 7/7 should match the new compatible, and the binding should not
+require "mediatek,mcm" while there is no "mcm" reset for the EN751221.
+
+Not covered yet: cold boots, and the other LAN ports beyond link-up on
+lan3/lan4. I'm happy to give a Tested-by once the compatible strings line
+up, and to rerun anything you'd like; the full boot logs are available.
+
+Thanks,
+Cristian
