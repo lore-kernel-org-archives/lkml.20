@@ -1,95 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197356;
-	b=aGrFt4Jrx6EB2Y0Bzegi7Lq70N6c0NCNg1bQXPxMQCh+Vvhk+4Uln32P/bl542sYgtQG
-	 vAFQTgwDeIgh8HrE3tY6Aerrw45zVziV0TDXKWEt+hGNHgRbQt+Bf5UcKZibsd+cXwsqR
-	 XnJ4cw/TYLyapFLwtz3yEk6EtTfmosheeB+62q+Q/wZm1huwafKxii7Wlm8YRC7KEdSS2
-	 JTvAnREnwNntbPI6xdtOot22bBYk4IuEFOByrAgzxQ7Ylur2mbLpf8YTZ/0SJjNg+/G6X
-	 mbMsXMfgIolISNES0/g9m6y9ydBIO1HqOujlOIby2qdXRC+Wz8i1/jcGw+RIh2/y7YA==
+	t=1793197360;
+	b=GzwY4QdHaN+ktR9YMDT70DvEnV8hJjpyfnb1xFSFiTJ5DyDNc3FLRnc4FnoJxbuYdRg4
+	 5M8num8NT83SkHB/lCMFXpEV7K3N6Xb5QH/BYdOGWVgg36cgX/beayyTcKdR6jQgqoU5z
+	 rmeobu9i+pZF/UZNzQHwySJI3SrPZTe//ZH7CGUITGrI0U0CoJQVQvkw8JjSxnQ2qZmjT
+	 c2CGYwXtUIqu5YcUVUfwm2fZzimAkk7pTz38UNYoOS6/jUr66SwdDQ0Mjur0AMXZPW6Ca
+	 XYnZqwkvleCUjRIoHHvqlqEC7nTSdwwHyfMXh/KHht0SKDrg/NcIAFs4ZLa4SBQW5ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197356;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197360;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-	b=tmNqE95UtMqVnnWQd6TvatUPGZUoOG5d0GJJYvQCekF+hCW5kp5rfcO4EY2pDoVFn4lg
-	 2UXGzuKwvK7TZb1RPkkE4kucPI8ooYpo2/NNYq8Of0KPtM16IDDQmIWiOGIte39WFH7A+
-	 WPkiW0uB8C6LSrJXgn4AcseKIdwDPv5dNT3dtec52TvpYimx3FcLtykt/EA5++i75g8vA
-	 YLTnkLvH8g5mZnGV+xvn0JYSfN4uo4ktG4Xe7t/SzD0XnTjUxnwzR2EHgVaG2JOodwHzR
-	 mR6H1w/6+EZAWnR9lP0R3fjvgP870UO2/FYMU6P/l+oOMe38RpjaueN9pTBaGAYtzWg==
+	bh=d6xo5cJLzMRcEzyBwDsvWjXaejYriCDwwrXb5CZ5N94=;
+	b=vL4uikmAsTCPXiJmQCd5No9H15/UQm4iuohFsy6mhiFcM33jE6Y7IhE69pq1SbwxoPZ1
+	 pyqpoM4DhSVDucKhsBrxOZkytnceczq8q7uYrkkxGFn3YDSvwIxMh6BbSzptuYwueXmDG
+	 R10WZpfqB0pm27WEkRYlYaEIYjemLmr+xV/hmzy0u8ehSYBP7be2T0nArtaAFYoIYD2yB
+	 Mrs2r3Z5NVWCQ1xNB4et/0cIYBlxTs7EEbZ0C8sxCS2Wmorz83HsI7zlPHc9R/5ZzxJny
+	 0Ggk3ras1M9KHRyHp7A7Sj7r6ucH/YDsDyR9nqPaYCssxXD9OlpVkhSr3NPHl/GZOlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+B9NVDk;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYFX5FBy;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A3C606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23A3C606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C03E606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C03E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+B9NVDk
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1154727a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:22:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYFX5FBy
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so8447075ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:22:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197355; x=1793802155; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793197360; x=1793802160; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-        b=G+B9NVDk35WhIetAeOybgWF5FUaVx4PLG54HD67lQ+AB9SFBfBsLJ5qsiuhIJCKZiu
-         E2zE29XFq3TMc4dc4HVw2SsISFGT30LsXCL9Hu+xtBhwOTXru0BJRqd26LmexPZQlRjo
-         uEFruBiTze1LG7QV3EkRWIU24AwrEroLcjLJryAPk7GC2viNF2+DuyKqvV8N4xEiGId0
-         f1tr0Vcfs5Se9zzStoE14FYUd78LkBnu+GfrnxqtGB1k0SjLtbWi6UCi54+cAJwFRsVz
-         /HagYHytdWo2ObgfDZ0nsdduG0hRcGCk4ixMuATQrzPp76vab96/Et9Ishw25yN/L41F
-         dDJA==
+        bh=d6xo5cJLzMRcEzyBwDsvWjXaejYriCDwwrXb5CZ5N94=;
+        b=QYFX5FBy3/KO2MAF1zdZmN0FZcrCcprFxmjM3IgVmExPv/cdUmYODAZiVqqFUpyZv8
+         HRfV1q/1tPZh+J1RQWtL9/dauWbXyi6wD0veX3qTkO7HNIK6sFmNRTloFQWc0Usz6I8K
+         eP0351D4C5rXW3pDsClwJBLNUdWtniyDNMFmYvi8MQNPPGs0PZRyxGNS+zMB5ZI2XmX4
+         bVblquPgCSvW16twws9nr95pNg4gjLO+bgc3U9joxk9GUEM4Kc0n4bxxIZIZYgYN4jr1
+         yoEMwILo94+NcludKGnzm19tlGdC6/HbWikvah8WhuqSDbU7S4afLDAjY3eatyNkGL5W
+         7ytQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197355; x=1793802155;
+        d=1e100.net; s=20260707; t=1793197360; x=1793802160;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-        b=bf0CCdaZEDqEDRmQN+NkA7sDmZJY9+pUAYyvXUyS+gXsp5j/r8N/XxIiNmvGzMUv+Y
-         31maahfWux776mHwfpT1hUlajMQIm8qCkeKolb99ItFyRlRrA7Eq8zcfHLqICQ+jvZG7
-         taAl0gtz0OwGEcmWSe3qgnlcQyosL9s3Q+CzTRPAs/hqTuxXKdN7+fwk7ppc3qoYbV9E
-         I6+z1cnvhHIKSPGV/3PCS/QKA6m1zTpejfNNAtGCpTT4D8wyqFJbRJPtLqBBohJNfqQF
-         RQFDVYOKFOzqp54cgyEhCC/oJptF0nIPqd5eSyZSBARCMVwFQ/yLIU9fekMOp3n3HzNK
-         MTyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzTC82BqrmjqzfSxXMj81PY8hVGXbAA+Z7+A1vYZMRkPEVyMxOAVoZdGRatxLie2DfpyN375vdZhGH5F74=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLW6iz2mGzU25qrvETfvmWsOkmrhsxs+5dfou0IlZKh//5ad8Sc
-	65kQeFGk2+FyN7kBbqnd3JfPwhBbr1AOsk84arGVkH7t5QSbDUYtg7Vh
-X-Gm-Gg: AYBFou0LTjCs2PfRmD1LM9Hs1Ntt3BrRwI6pZuSHuodnzvkg6n3plDpivrw8weHCPq/
-	RetUUluwvnsoq1stWzUrUVftL3S4U1Wpvj9r+1O6RNZTShUbLDEQxnppETR/7NBcC5/FTXAHRpg
-	2IOUqRx49htLazn7jTRHPcUWstUA8GtuJWpSo4e6bGsAc29lgV7PA35vriTxjmSq4zHplMJsAYG
-	L1F6m+s5oqchRsi0mRBOymlRrRQsI+wQfObZtanxMrfvSdDtmWT8s0bEQqnqcxxfscDscHsoqWm
-	G37/ip9/47kP7h0l/Hhyg6uJqgCLXNqhEYy3ufipwIGYvsxZrHQ8pvI2kmwc+LYkjNQogsNgpme
-	8aMZq1xUZPOGmSgs3H+UCQnP/ZJrrUFXqjkYYWqw+LKITlus1ARhqZPa8O/WAxLJWkT2IEO6Iqq
-	i/vCkxgl3lEsoiN13+pMyhZMepwD80fYCqeam40S0SGVAF/9AWVJy78PJCqh8wt5BkyeiWJmf0V
-	LPG58WtSgxP53C6YvGQSxjM/sY+r2jO8p5NoNfg7plqGRsHItKsdb6uPvl/9GKI8Gum5hHpk6hp
-	9UxFp9aoxLj/bj0p2S/cq4fbGf68dgH17TpjXjbDxhWKT6vkE8xe6zwPyR8BjzYy3QZx
-X-Received: by 2002:a17:90b:264c:b0:3a8:10e2:ad08 with SMTP id 98e67ed59e1d1-3ae580dd95fmr2042875a91.48.1793197355157;
-        Wed, 28 Oct 2026 07:22:35 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6453ea6sm23723645ad.10.2026.10.28.07.22.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:22:34 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Deren Wu <deren.wu@mediatek.com>,
-	Quan Zhou <quan.zhou@mediatek.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
-	Bo Jiao <Bo.Jiao@mediatek.com>,
-	linux-wireless@vger.kernel.org,
+        bh=d6xo5cJLzMRcEzyBwDsvWjXaejYriCDwwrXb5CZ5N94=;
+        b=JPRC4AeTNiU6dbxRYIXfEtgjm49ZOTdkvseEbEoXqkwW98/LSz1NF2oAdMSjQc93Qq
+         tYz4wOz10omjzz0oQb91cxuXNzzqbIfDy+C3ra4ecnEPyuWJSbxmxtCMGLPHsILue+3P
+         arH7nL+s1CF3vlhaWRSaTv/FiY0l0elLb38P0wyFR8OJkZ2byvd7SuZOeB9BSDhTAQ2l
+         bP0FeqfzIXJDeNkE3c7PduN4Ceu9ixNsjZqWAYrFASiPvV+IBtH5WZlB3AytBRljVgP5
+         Z49iurecFOGGyhDJbVZYLa9SG/JctVgMCKJxyffS/w1MLtKcdknG2KWMmTQznugqLX5l
+         MWdA==
+X-Forwarded-Encrypted: i=1; AKwUvBzy9BjVcZhtKJ5wu9dAXWvFM2D2Wqy2c3fZz1ek3FdyZ+XnKXlq/jg+e5E+o+avZYMFGOdSeLtjAFjRR+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4bd2aZ4ZUudmBIIAhaUmhhPfr4nBjnGJAtWfjf3dwkLzlbaYf
+	6T0adRMUueSuxV5nv0z6E4CGu0gZtBn6mxOptOKdhFqFa+7eTItRQ47j7R9fjg==
+X-Gm-Gg: AYBFou1rYsjG64oQixYxoTVtq7vNXtwJnUCRX/caDL+Iocnk+yBmD2STjqbSEDshbKE
+	BG66LwsCuh93+X2mVOLaWSj74LQoba1Tp7umCr8b8MC5HfT/TJvUeHlb8gQ/Il1FabkDVOwspnF
+	LFHVirfequvOhzBWqvv6vuUkDQFfPi5Yda0gBGG1CkP/82LthEDSkHtO0C/UUs/F7JMmg/b/0ib
+	rXofY6FBwJvCtjPt2tCNylHDhn3JPQyMgzM1/HGYPmBO8x2j9XTiVGYBnZh7m5s6AtJqvD4Kz3M
+	mXJg6yPWlUA4jSHjLE3one2GGFqhZJheJoMiIiKJijfNCJXE3MV3GOnS2kwWnnwvrAALEJuHnzt
+	nBn8/CSkWmnozFEUV+cLBWFT/fDFpW30qQ82VMmVArkPVU6PW1MWUe1r/kU8+rjWT6VWnHjD7rK
+	g0bzLp979SWE63I1XuUp1LGzN+DzpAS8u48CEl+F6ljtd/30LSypAoSvHvglSk4hZnAn3wB1yF2
+	CH2DmBknnPK0BV0B0e1FiCf4jGvnVJ1vG/WmgJDCtsq5yp11BXKKe2hPEkF47vULb354BKomv5H
+	0cVWejer1kTSuH84us2aV1pfg5ns
+X-Received: by 2002:a17:902:d4c4:b0:2e9:776f:66b3 with SMTP id d9443c01a7336-2eb001d0688mr25784005ad.2.1793197359610;
+        Wed, 28 Oct 2026 07:22:39 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::246:47])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9ea8asm23149375ad.66.2026.10.28.07.22.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 07:22:39 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Josef Bacik <josef@toxicpanda.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Eric Dumazet <edumazet@google.com>,
+	linux-block@vger.kernel.org,
+	nbd@other.debian.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mac80211: reject invalid EHT guard intervals in airtime estimates
-Date: Wed, 28 Oct 2026 22:22:12 +0800
-Message-ID: <20261028142212.14523-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] nbd: reclassify the socket lock on reconnect too
+Date: Wed, 28 Oct 2026 21:22:35 +0700
+Message-ID: <20261028142235.24675-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,50 +100,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An invalid EHT guard interval can select the wrong airtime group and, at
-320 MHz, read beyond airtime_mcs_groups.
+Commit d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular
+dependency") moves nbd sockets to their own lockdep class, but only in
+nbd_add_socket(). A socket installed by NBD_CMD_RECONFIGURE keeps the
+generic sk_lock-AF_INET class, so the false positive comes back as soon
+as recv_work() shuts it down under tx_lock:
 
-Guard interval 3 advances EHT_GROUP_IDX() into the next bandwidth group
-at narrower widths. With one spatial stream and 320 MHz, it evaluates to
-264, one past the 264-entry table. RX rate parsing rejects the value, but
-the common TX-status validator has no EHT check and last_rate_info can
-carry it to the airtime helper.
+  WARNING: possible circular locking dependency detected
+  kworker/u20:0/67 is trying to acquire lock:
+  (sk_lock-AF_INET){+.+.}-{0:0}, at: inet_shutdown+0x67/0x410
+  but task is already holding lock:
+  (&nsock->tx_lock){+.+.}-{4:4}, at: recv_work+0x657/0xa70
+  ...
+  Chain exists of:
+    sk_lock-AF_INET --> &cmd->lock --> &nsock->tx_lock
 
-Reject values above NL80211_RATE_INFO_EHT_GI_3_2 in the helper. This also
-protects exported ieee80211_calc_rx_airtime() callers that do not pass
-through the TX-status validator.
+Reclassify the socket in the reconnect path as well.
 
-LLM assistance was used to find the bug and review.
-
-Fixes: 3702a33216e6 ("wifi: mac80211: introduce EHT rate support in AQL airtime")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular dependency")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-Validation: A W=1 module build with MODPOST passed. A QEMU
-KASAN guest calling ieee80211_calc_rx_airtime() with a synthetic EHT status
-changed 8 global-out-of-bounds reports to 0; guard interval 3 returned zero
-instead of a wrong neighbouring-bandwidth estimate. A real device TX-status
-path was not run. A reproducer is available on request.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+Found while testing the fix for
+https://syzkaller.appspot.com/bug?extid=a246ab421a728c78b4ad
+("nbd: don't take cpu_hotplug_lock under tx_lock on reconnect", sent
+separately): once that splat is gone, the same reproducer reports this
+one. Independent of that patch; applies on its own.
 
- net/mac80211/airtime.c | 2 ++
- 1 file changed, 2 insertions(+)
+Tested in x86_64 QEMU (KASAN + PROVE_LOCKING): with both fixes the
+reproducer runs clean 5/5.
 
-diff --git a/net/mac80211/airtime.c b/net/mac80211/airtime.c
-index a4e1f33c0377..c31540ff42e0 100644
---- a/net/mac80211/airtime.c
-+++ b/net/mac80211/airtime.c
-@@ -550,6 +550,8 @@ static u32 ieee80211_get_rate_duration(struct ieee80211_hw *hw,
- 		group = HE_GROUP_IDX(streams, status->he_gi, bw);
- 		break;
- 	case RX_ENC_EHT:
-+		if (status->eht.gi > NL80211_RATE_INFO_EHT_GI_3_2)
-+			return 0;
- 		streams = status->nss;
- 		idx = status->rate_idx;
- 		group = EHT_GROUP_IDX(streams, status->eht.gi, bw);
+ drivers/block/nbd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index a567c0bce90e..b24f69a2bd82 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -1357,6 +1357,7 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+ 	sock = nbd_get_socket(nbd, arg, &err);
+ 	if (!sock)
+ 		return err;
++	nbd_reclassify_socket(sock);
+ 
+ 	args = kzalloc_obj(*args);
+ 	if (!args) {
 -- 
-2.56.0
+2.43.0
 
