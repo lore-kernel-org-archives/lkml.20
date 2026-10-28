@@ -1,107 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186212;
-	b=kh3aAfiDsdYBdyUrhQp15vQzx9TMIBT1esKoRbcY656g15mE72U9KKKT+73NSor8AunC
-	 Gof3Lo6nCxnYIgaOBWMXP5E9RYzVmtDvgpK6SppguscbUsZfN3+h+VvuTG2r/nA5ykWn1
-	 GkISzb4wLeS2MkD5Ra4pilfOqZUiv0tY7S6HaN5voRkrWKokTHAR21B4wK01W+wIfnWGK
-	 TIxyS318kherBDIfU1OAbP8fD9gAfGvzdA0BZIUCgL06hBF3f+BJQXUFBwtK/Efe8bZd3
-	 BGqr/OCSk91XlYZR1i2ArRuN1jNdPc5SW1BwSvOtclzAWgSb4fnfH2LN9FSK+g+PHKg==
+	t=1793186228;
+	b=ns+aovnSpFE5pQkRVZi88DL91nuKd4w42lNxktOfu24xlg/faYe5B8i+ijNWbfnvRpB9
+	 QVZVWwyjMVvr0aIXUAJNYUOW2q+1RL3LEpkTqv/z08hEJq2+hPPbZqniY5TO2uY7kf36x
+	 lIdXo0cFpIuWauRnoEfr1oBldeW+VO+lI1PLJHR2VZ5Mj6fnHfek8eulXBjxHXlQt2zJG
+	 WTsMv/Qw+/AAD2Jc7VuA3USpNydLKPOIcctdnviuu4ObYOj25DBUBvppqJDkWR1QkG+qW
+	 JPL4qmlrY/1HeIqs4RwGYjy0w9QVieLwTXGwsNvayf51hAB5+x70YBVdL9sa4F+BHPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186212;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-	b=vVHfoE9zpcQ31uDvr8PqMoS02M6Gt7NKXlD+82ymQT0ZTxP7yqGYVWbHXHXs98AhjZIA
-	 dSb651YDYJTpw1x8GZv+HBeJMDdz42i4VcymUr78mPy7OOjargy4O85oXrLy38ubYvcer
-	 zCKUsWxD/JbX/xJ8ZYUuNlVE6WnOzJFc0A61Ya4yltvIRatGItev5wKJwVl/6eu6CgZ9p
-	 H0qMtGedFYr/NjazatlcIjVuGEalL5EviqL6fPlPBjs0WVZqsLC0k0hwanZmx0mzmy7yf
-	 4DOTbtYhCuxC4Ou3nWux+Cg8dmIsvoBJ5bYBDzIusDNcG4ZVhKuu/XCYKtClGkouu4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186228;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Chcvf6VlzJnLjBYUf8kAsZEyoPzwl/dgt3ThYcATBv8=;
+	b=SmojPrXryecXNGrJpLq8BqvqEjWPEXrc5qXsPGaK9PQ7oNRWBmSscfSVer94wyx6ZdJ+
+	 B0cu09QLU0VJQ4LZvf2Dx8u0CYrIx6n2C9mOfQgm7upxRAuWDWNUHnFLj76ikhb6pWog3
+	 09vR461+O3baW9Pt7znzxIRQub4ZVVMpp5hQlopBb2/byY4X5uA9wag2sP+AWM0vEtUUC
+	 jIQVo0VtCpehJkTT1ylUIElQsTEhul488R6IhV/cv+rPKv+TvxdBduonEdOsHgh43CBDo
+	 9LPjszZjhzDqBIqQG6WXioLcs/tn7Bnhkvy1EKGzckm76BGnpWF9+yWnejUS2dKDbnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TuFDdViG;
-	arc=none smtp.remote-ip=74.125.231.136
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QQVDF2gU;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC01606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AC01606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F018606A31C;
+	Wed, 28 Oct 2026 11:17:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F018606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TuFDdViG
-Received: by mail-oo2-f8.google.com with SMTP id 46e09a7af769-843c8bbfbc4so292214a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:16:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793186211; x=1793791011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-        b=TuFDdViGJGEL+b0nZfQKqmZyadWwdWMzBmFH+Mn7eeNaUHjaDgL07albXg0moMw9or
-         9+JnvbXMRY6g0zpKWR8JMQ42xGk5CNHlmUj/wJkDMVIGSfuCf62/EwBaUIbB6CGDC0Ct
-         cRRYLOBnhn+a1dyNi9s1oq/Ct4znyKZrx46NhV2gQhuDiEgOGEjkLp5guXAz3sUjbDKx
-         icJWDFuwZdM+esbT/v1I1mXHJPIiH6N//3grhqxjAe4CIN4W+6sxnaVFF9gq93XKOKKq
-         XHY1R737tLhs0APhGCAPhqF2V7EzZPPt18ruafFAY7KQxTCJPS3wmSYZgHCn+6DO8FmP
-         p0Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793186211; x=1793791011;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-        b=1yfSXdUxHniMkUYPNFKpH+STioiX6BVQPo8D7Kg5QKy7/7j/Jip9gbgMuBmNNGVFz3
-         iYu+2HykjbEjHc2bGOMJ7QANr78MWf03ipV0XK1ylR75tlq0rD94rSa7pSOLgzDaghNN
-         HtlaqwGC13+ZpFuDN118kLkDF0MVub3sFA8c7VstNnPpgNuk9tDwUrHUFNfkl3N3e2Fx
-         WGocvzD7Jc9ibZUfCA56T+r3HG9KcD6VCFhISCBdlevAddtPZmDfoxIv+A6+7jPIR0Zc
-         Yz/fBJA5K2LQRfcwmLsg8j3h2kkLSAT+hutL2wLFhXcoICpy2aPf85JSLTdR0bhgSLqs
-         4Wmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxcOCy9xYJqUWA3IYcZPE7A7Yteehq/kpYFCWAipsCxW5bVd4wOLOAX2kPWp0z8ME63btyuZPwq6iYm5+0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7ya7EpQxRKvbMd+TAsG5yludLFRyHMOHOF1soeieW9zS4aDKs
-	TaQbkSFy4NS6kW87wFEfN8X3DD1SGxWMs2Ar9UVaTmKh9c7LHrjcQB2S
-X-Gm-Gg: AYBFou21ogkd0LFKfxVJNKCaoOql0vUQDHWx7Rlc20QAa/DZXdzSy2hcBxw9oOG1NYx
-	DOg8GXZm77xcSztxW6D+gFqe34IYs37PDE2ZafHTPSXw8A1uZv5iRLV2xseB6V7wZNLgSVVhF4b
-	iFUs6OjaMn0tdLtNW//Vw8wGGwFIvBKDWDF2LmV/fjpJCJFwrd+9xlNX7TIVS5+XpR47rovy12D
-	vqK58NTH4GizD3WIpcrYWpJR9LZw7ue4VCVF7Ys2Xa1ed0OTNqhwsoQ+UptNo+iTVBoKTm+kyVz
-	FhsEicGvOmpfbgDyqaZJ8X1uf/UVltqdLZIEfnXAO/MmoCu4ED/PaHbKCYrZ9TeZEXGebZxR5Uk
-	w+X/60NyuZ5hTjivM+7pEbAopPcj/5x2LocAbhpHyJrW/WWfHyoaY27gEU/il+q1bpzBJQRnp0a
-	ZZcDgmJa+4KTPSiXax1uYF5DnAqT7yOSIjcszIjCI8mFKkOj5cuFBJSa8RUtlPo2vbqI078e1Te
-	uFOLembrhTecSfDGyfyiLYH6KryOc/QSiMJJ6ysY6NDc810WKRKbe0CjpwgrFec/B+LRFMbEpQq
-	yJ3JKbvj6QdK+qO5J8BJIKOvj7uBRoRZx01JzAD5rv2Ryjiup5a9MpPJrGAubTBhN8n0
-X-Received: by 2002:a05:6808:2229:b0:4c3:6d56:77c2 with SMTP id 5614622812f47-56382d8e3b4mr1287682b6e.41.1793186211387;
-        Wed, 28 Oct 2026 04:16:51 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.34])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b77ac4e4sm2003351fac.3.2026.10.28.04.16.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:16:49 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Ido Schimmel <idosch@nvidia.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Ferruh Yigit <ferruh.yigit@amd.com>,
-	Antoine Tenart <atenart@redhat.com>,
-	Seungwon Bae <qotmddnjs@gmail.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v5 2/2] vxlan: reject VNI add when the default fdb entry is nexthop-backed
-Date: Wed, 28 Oct 2026 19:16:26 +0800
-Message-ID: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
-References: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QQVDF2gU
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8i4vW978972;
+	Wed, 28 Oct 2026 11:17:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Chcvf6VlzJnLjBYUf8kAsZEyoPzwl/dgt3ThYcATB
+	v8=; b=QQVDF2gUWwDUr2CqaVGZ0V3vrtxshy5rf9b4G5reNL3uxJVYgpyVbPUP8
+	R2/FPSK9b0t3Y8dD92s2Kis6/2LIjbyxnNnn2qeHSTz8pjbXuWj7/YC9dM+tf6Lv
+	uI7G3ULobOKRe9tAJKmd3wtR9mwQtzHw0fqvEVMnbLETlV/6jymnMVc28qVdsOdc
+	yPK6m18HyCYHkvHUh0/StGjPYx0qj+K+YssC9fXpLjtYS3oEZfVEOaUPNTEwSrWR
+	GoFTqAl3HRWInCmCKdU/4Ap1X/H8UPU24+pFv8KQcAg2/mKZ1fGMnqhuqPQyeDAU
+	Vzpm58SFAAhEwW7V2W5+GAUJvlrFw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm644c37-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 11:17:05 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8YmDZ1291845;
+	Wed, 28 Oct 2026 11:17:05 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pa0th-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 11:17:05 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SBH3ln9437860
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 11:17:03 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2B94758165;
+	Wed, 28 Oct 2026 11:17:03 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C44D758162;
+	Wed, 28 Oct 2026 11:16:51 +0000 (GMT)
+Received: from b46lp13.lnxne.boe (unknown [9.87.84.240])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 11:16:51 +0000 (GMT)
+From: Gautam Gala <ggala@linux.ibm.com>
+To: borntraeger@linux.ibm.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com
+Cc: david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1] KVM: s390: pv: remove misleading gaddr output from KVM_PV_DUMP_CONFIG_STOR_STATE
+Date: Wed, 28 Oct 2026 12:16:51 +0100
+Message-ID: <20261028111651.66917-1-ggala@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,106 +91,141 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX3H34Vrr7gdBv
+ F7qjuYxXeyFZ41EMGeqaufv/+30DTbW3oeGiliCLmvU7J9dcEje3zOuXRChrcHa9metW/QAWzS7
+ Y+AaQ57qR/VdUdjXOdHQ667NDFf0H5s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NCBTYWx0ZWRfX2uVppNqS6bte
+ j8Zab5s3Xoi4npullC4Y3qfQcUvkMO51JoSJVsUgMvNUpD0ZrB4SpkS9KZ7jHGgdqG63NwadyDF
+ pxhk9OxbGkRJmc/aXHwQTjeVKkpCenrsc/BHl292HFFVYY4mNHeJHv+/9AosE4F9H/5aecqB3oB
+ gUisJ3dgPhS4Hm7mh4SvYBYLi5WN/ClOpPyccb+XyuZHWwZRYNNsP0OZEwp/1ivPysskEfB09Rc
+ aIOtATTvvEU5Sd/9232d/gh2l9BsN/q+QV3AdEiiitvBqdIUAbP3Xf/wkO1P1u6LknsA4qF2gEw
+ jgVtkYYxXJVCfNO3PBFrpnyY0inQTLTmCbWEDr8SZit/EiNQwCqAapcZT276RJuY6/aq+3dCN4b
+ C1HonsSYDGimTUO23u+kIdsiKQ5AA4kmTof+FT71WDLE0zfmdtaK3vaduiN4Xd+MPTTBByAibjN
+ 2eOjVW+hTe6TAQ/gRXQ==
+X-Proofpoint-ORIG-GUID: Udo1BYQBfgR6g23_FTzjB1bBW9PZRSDc
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae1d9b2 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=iGVm0XFYRraa2BqvpJAA:9
+X-Proofpoint-GUID: Udo1BYQBfgR6g23_FTzjB1bBW9PZRSDc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280044
 
-vxlan_vni_add() installs the new VNI - hash table insert, group list,
-socket attach and the RTM_NEWTUNNEL notification - before calling
-vxlan_vni_update_group(), which in turn calls
-vxlan_update_default_fdb_entry() to store the group (or the device's
-default remote) into the all-zeros fdb entry of that VNI.
+A comment in kvm_s390_pv_dmp() suggested gaddr is an output parameter
+for KVM_PV_DUMP_CONFIG_STOR_STATE, and kvm_s390_pv_dump_stor_state()
+wrote back uvcb.gaddr through the pointer accordingly.
 
-Now that vxlan_fdb_update_existing() rejects appending a remote to a
-nexthop-backed default entry, the group store can fail with
--EOPNOTSUPP after the VNI has already been installed and announced,
-leaving it half-installed: present in the tables and announced, but
-with no remote stored and no multicast join.
+However, api.rst does not document that KVM_PV_DUMP_CONFIG_STOR_STATE
+writes back dump.gaddr and QEMU does not use it. Furthermore, the
+write-back would not have reached userspace in any case: dmp was passed
+by value to kvm_s390_pv_dmp() so copy_to_user() in the caller always
+copied the unmodified input gaddr, not the updated one.
 
-Check whether the default fdb entry for the VNI is backed by a
-nexthop before installing the VNI, and reject the add up front.
+Drop the write-back and the misleading comment, and change the gaddr
+parameter of kvm_s390_pv_dump_stor_state() to u64 to reflect its
+input-only role.
 
-Note: the missing unwind in vxlan_vni_add() predates this series;
-this check avoids giving user space a deterministic way to reach it.
-
-Cc: stable@vger.kernel.org
-Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Fixes: 0460eb35b443 ("KVM: s390: Add configuration dump functionality")
+Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
+Reviewed-by: Janosch Frank <frankja@linux.ibm.com>
 ---
+ arch/s390/kvm/s390/pv.c   | 16 ++++++----------
+ arch/s390/kvm/s390/s390.c |  7 +------
+ arch/s390/kvm/s390/s390.h |  2 +-
+ 3 files changed, 8 insertions(+), 17 deletions(-)
 
-v5: fix a build error on current net/main: vxlan->cfg became an
-    RCU-managed pointer, so reference the function-local cfg
-    (reported by kernel test robot).
-
-v4: new patch; the failure path was made reachable by patch 1, so
-    guard it before the VNI is installed (sashiko review of v2).
-
- drivers/net/vxlan/vxlan_core.c      | 14 ++++++++++++++
- drivers/net/vxlan/vxlan_private.h   |  2 ++
- drivers/net/vxlan/vxlan_vnifilter.c | 14 ++++++++++++++
- 3 files changed, 30 insertions(+)
-
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 3390e341d1e58..13143085065f6 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -422,6 +422,20 @@ static struct vxlan_fdb *vxlan_find_mac(struct vxlan_dev *vxlan,
- 	return f;
- }
+diff --git a/arch/s390/kvm/s390/pv.c b/arch/s390/kvm/s390/pv.c
+index b18abd0e29ef..a9bc32d5be6f 100644
+--- a/arch/s390/kvm/s390/pv.c
++++ b/arch/s390/kvm/s390/pv.c
+@@ -901,10 +901,9 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
+  *
+  * Stores buff_len bytes of tweak component values to buff_user
+  * starting with the 1MB block specified by the absolute guest address
+- * (gaddr). The gaddr pointer will be updated with the last address
+- * for which data was written when returning to userspace. buff_user
+- * might be written to even if an error rc is returned. For instance
+- * if we encounter a fault after writing the first page of data.
++ * (gaddr). buff_user might be written to even if an error rc is
++ * returned. For instance if we encounter a fault after writing the
++ * first page of data.
+  *
+  * Context: kvm->lock needs to be held
+  *
+@@ -917,13 +916,13 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
+  *  -EFAULT if copying the result to buff_user failed
+  */
+ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+-				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
++				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
+ {
+ 	struct uv_cb_dump_stor_state uvcb = {
+ 		.header.cmd = UVC_CMD_DUMP_CONF_STOR_STATE,
+ 		.header.len = sizeof(uvcb),
+ 		.config_handle = kvm->arch.pv.handle,
+-		.gaddr = *gaddr,
++		.gaddr = gaddr,
+ 		.dump_area_origin = 0,
+ 	};
+ 	const u64 increment_len = uv_info.conf_dump_storage_state_len;
+@@ -934,7 +933,7 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
  
-+bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan, const u8 *mac,
-+			       __be32 vni)
-+{
-+	struct vxlan_fdb *f;
-+	bool ret;
-+
-+	spin_lock_bh(&vxlan->hash_lock);
-+	f = vxlan_find_mac(vxlan, mac, vni);
-+	ret = f && rcu_access_pointer(f->nh);
-+	spin_unlock_bh(&vxlan->hash_lock);
-+
-+	return ret;
-+}
-+
- /* caller should hold vxlan->hash_lock */
- static struct vxlan_rdst *vxlan_fdb_find_rdst(struct vxlan_fdb *f,
- 					      union vxlan_addr *ip, __be16 port,
-
-diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
-index b1eec22163608..0454689965aeb 100644
---- a/drivers/net/vxlan/vxlan_private.h
-+++ b/drivers/net/vxlan/vxlan_private.h
-@@ -11,6 +11,8 @@
+ 	ret = -EINVAL;
+ 	/* UV call processes 1MB guest storage chunks at a time */
+-	if (!IS_ALIGNED(*gaddr, HPAGE_SIZE))
++	if (!IS_ALIGNED(gaddr, HPAGE_SIZE))
+ 		goto out;
  
- extern unsigned int vxlan_net_id;
- extern const u8 all_zeros_mac[ETH_ALEN + 2];
-+bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan,
-+			       const u8 *mac, __be32 vni);
- extern const struct rhashtable_params vxlan_vni_rht_params;
+ 	/*
+@@ -989,9 +988,6 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+ 		}
+ 	} while (buff_user_len);
  
- #define PORT_HASH_BITS	8
-
-diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index dd94085e08865..f07ae2a6a59ed 100644
---- a/drivers/net/vxlan/vxlan_vnifilter.c
-+++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -737,6 +737,20 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
- 		return err;
+-	/* Report back where we ended dumping */
+-	*gaddr = uvcb.gaddr;
+-
+ 	/* Lets only log errors, we don't want to spam */
+ out:
+ 	if (ret)
+diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
+index e4912db67adc..1f975ebeca82 100644
+--- a/arch/s390/kvm/s390/s390.c
++++ b/arch/s390/kvm/s390/s390.c
+@@ -2522,12 +2522,7 @@ static int kvm_s390_pv_dmp(struct kvm *kvm, struct kvm_pv_cmd *cmd,
+ 		if (!kvm->arch.pv.dumping)
+ 			break;
+ 
+-		/*
+-		 * gaddr is an output parameter since we might stop
+-		 * early. As dmp will be copied back in our caller, we
+-		 * don't need to do it ourselves.
+-		 */
+-		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, &dmp.gaddr, dmp.buff_len,
++		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, dmp.gaddr, dmp.buff_len,
+ 						&cmd->rc, &cmd->rrc);
+ 		break;
  	}
- 
-+	/* A default fdb entry that is backed by a nexthop group can
-+	 * never take a remote; reject before the VNI is installed,
-+	 * otherwise a failure in vxlan_vni_update_group() would leave
-+	 * the VNI half-installed.
-+	 */
-+	if ((group && !vxlan_addr_any(group)) ||
-+	    !vxlan_addr_any(&cfg->remote_ip)) {
-+		if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "Cannot add a remote to a nexthop fdb entry");
-+			return -EOPNOTSUPP;
-+		}
-+	}
-+
- 	vninode = vxlan_vni_alloc(vxlan, v);
- 	if (!vninode)
- 		return -ENOMEM;
+diff --git a/arch/s390/kvm/s390/s390.h b/arch/s390/kvm/s390/s390.h
+index aa0d1d062f8d..5d6c36c6ba34 100644
+--- a/arch/s390/kvm/s390/s390.h
++++ b/arch/s390/kvm/s390/s390.h
+@@ -316,7 +316,7 @@ int kvm_s390_pv_unpack(struct kvm *kvm, unsigned long addr, unsigned long size,
+ int kvm_s390_pv_set_cpu_state(struct kvm_vcpu *vcpu, u8 state);
+ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc);
+ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+-				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
++				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
+ int kvm_s390_pv_dump_complete(struct kvm *kvm, void __user *buff_user,
+ 			      u16 *rc, u16 *rrc);
+ int kvm_s390_pv_destroy_page(struct kvm *kvm, unsigned long gaddr);
 -- 
-2.43.7
+2.56.0
+
