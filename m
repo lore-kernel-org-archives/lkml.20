@@ -1,86 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201624;
-	b=JnZqdDDPNjJ2fDI/5diLXnzS4Kuq6jl1L5JXWsyieX7AX2MfSsDUIzQMIhCXMkWodvVo
-	 gx5RErcTjw/8FUSlU5ME7svHQVNwHUCSoIVLvCtAhzzrKKgO9Xg+G6NN3tugrlzGIPWW0
-	 JH/pTg4q+z/O25ZNDcfRg+grbqeGXSQcYLgrD6N5sP1BOYX39+0nj92mAgxe15NofXvE8
-	 SqNJS7IOlxPKmt3L00deQRZedZkT8pZhzowZ3XuADhvCeYI7JdWTEyMtjvOJgwAk+sboo
-	 sA0PyyWWYfhHzVLPlnOIwDZ+r1AWradTXmARXKa1UUKxtye+BXVsLtWjJ3wP4DczZdw==
+	t=1793201674;
+	b=mMP6uCL6vVdnAeZDoZiB3ItopIwE29PbVMDeV9pw1iMgd+0gOEenxPUIzbPZ24wKxpjb
+	 lPE+/dZgxNv+UOjm1EKytP+ATHJNdBf1XxbsLR94mXv5PKxpeyVjkSWLUzeTO2bSCvacn
+	 FkGxPKviKHm/bixBtW9v/86QUQ7ui0x0EiPKmDYDOBmwBCNvFoUAzYMlPnf5zHIL3JUIs
+	 FEU6iQa1+zfFYE8Uz6I8JfiH3xFMYInnK+umTjuEGy4sg3RIuvbtWq47i9gVEQbY8q0iw
+	 7ZlgIn9/j3g9MvAfLoC+WiuuCLCX5p0ZICnuiJG6aU6gbCzGEkUDGYo7mqc15IZmrGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=sw3TaqHVAMSM60hMWawgwXd2cRFA6h38Z/DQRogJXS8=;
-	b=q9C8g+FKtzyP6OwyyGHhVAeGsOAcB1C6c1LmyBpD81lyrYhAhosLIGNPwjFXlx6kaA71
-	 n8QvzKpNapIjYI1lpdB/C+W7j4sdEiUQsKsjqGZs/FIDOJL0GfBhlhVhouh6Ibyd4Ap6D
-	 +BNIR3OpTcktQpc10XYSn+0FkOOkOR6w4B3B/0NqwbXtZzjyfx/v5zs12rKPnowbi5L5m
-	 PcU0vjyEIEr6VWfjJns1ilccieFJvFf/7kvbpuv2AHZm8TcTxuMFRLfr8LoBcyaKuzpEw
-	 Vh8WqrVwh2E3HaMQyzmSJXXzKaIa4cLPQDEyaxgXgmuchgDqBTnWzv82n5gUvK4BQvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201674;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fJh4nHfo8vDIas+JM/zBTxdDZjFMAqozk5NvMGQRHBA=;
+	b=ATN/0EK8UlKtLHCHZq4NymZskGbz6mD26IIVh3NNR+qwA6rvB7gEEkoFQ79k5v06wnM8
+	 jR580eN1vkYywQt78Gh644Ft/Srr3m37u4UMzT0NTBlw3I/gh/IZ63wdkbjOmPSFmxwCw
+	 lAoyECGxgqyAQU0NenJyvA9NCe3Kf0IHpSu5X6+LSmiGFF8apPhqMkeU1wQ3OWlseT1ZB
+	 znkifh5MfjLuhfyBopquFpCWeBlcoE9QBu3o4nh41P9Cdv4PW92lqX3CRjg6ZKhp4sUN7
+	 Y742EgGWnAmxMBFjdpTLLY4nQMVH5DlVb/qWWK+7zcYy6Vc6FD4BeYuNhoKta8Wzx2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u3wb+6rI;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DvyKXzkj;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230BD606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 15:33:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230BD606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2A8606A31D;
+	Wed, 28 Oct 2026 15:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2A8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u3wb+6rI
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so9423825e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:33:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793201621; x=1793806421; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sw3TaqHVAMSM60hMWawgwXd2cRFA6h38Z/DQRogJXS8=;
-        b=u3wb+6rIEuU4l60j65Ldqcn00GpoDrZbMrucF3NtAgHCS0WUMM3CoPaWMpaYZrlSdO
-         Nz8+ZAPQlZWhIdIKTP+mU77SEweff8gWic4434t7Xg5DXhGObTs2CbZN/4pSfgWpUoG6
-         jjZ7IFuw7QBYJVVBD7O0oZ9kI6XrXps2lF/FUPNkmIe/w0CHM32vk/4FLWGde6Y0SLeB
-         xHnD8EgWqEYzDX2Cqdgz/EQ4+ZBUZurUtTbHC5K/xVqv0ropahbIk8H44ZWObeILaqf5
-         NFV2hJoYQs6EI7jS+UZkJ6PwXiXq9AWCDpxDtt2z7RwxS0mrbzXRApzsYFmZnTE1H1qZ
-         y/VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793201621; x=1793806421;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sw3TaqHVAMSM60hMWawgwXd2cRFA6h38Z/DQRogJXS8=;
-        b=aEyYv/vSGw+j6C3AdGJpWVZn8aKdoW1NozNS/+aPo3w39O01jQA8CYz5XUdgVK1dyu
-         ba1kOMXu5UqTCiez1NSFjn6OUmmgvCHnJhLbjtEovDwVV2DpIQZF6R96AIucs8k+RBI4
-         ioCv0L5iTGBBaL/ncBiSXs3k2tA+LoFbW3o+SbNOOOZCNaVfY1hE8HZg4SyAG++CF84e
-         bEmXLaPgByTa5uobZE/jagW4SVlrZkNS6RJxFjwoWVZfg24tiOBbWcZSZC3TjEjlV69O
-         6iQJX8dOltZoJhzxwenKoPqmDMETdY6Dq8nEl59k8h0sAAuD27HYxpOXH59ZtcglbbDl
-         yIjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzTFeILuQ+N4D0sDSU5q8IIKMNzi9g86NjwGJENVbMs824GQur9miAvxXOcnk7MFkcQ9He3TPvPNsxJ7Ws=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICxg5Mn7BWVucpPyuYFBETa200dGstvfrBrD+o5hwOyBNm7Qc7
-	T01ZTjbtLDA2IgKOcCaiYZn2+ps+0U4VtTtHgEsObxdzyWbob24j3fM/BgpTZgfYQ2Q=
-X-Gm-Gg: AYBFou1ftmYGbtJ1EhkIsSkqaAtMIzA1TD1SSPSzO2NRs0GRnjhsoQJ3JMzf6+ibJYn
-	q6q1LAkfoRpdFebV0z5sZrLRfF5RJP8m9AVpF+N0kckY5tt0moFSyLzdb0id3wQRALoyIP3w4gk
-	fA+SxcXBH5DePOyc9aeOAXWcx+14CZLa/+QW8LAo0Mjsdkpgv//wyib6FuCS8PHP5gho2qRDCgg
-	vLj+C8H4SXtU5Qc2NW6bsvwQlpp0Bch64003bJ0gm7TLXS+B7YxJRIGyLSC7BJRqFKewbiPul7c
-	JcM2mR5HBUEbCvs4EaV3Kj0smbnoB2JRh5/w1apc/gv2zbZVmvw7pT0H/ToVloKIJIV30v1pBVP
-	EJofdxiWMaRYgs7j98YLyoAGx5U9/BK2hcuHam68DTZHi26+kkUsiMkj6AFO7pig/mrGniOeHB0
-	BJjLIWFz9Kqxx8gUNf4GLd7cW/XlER1QkbetXxMS7vDbpN33W7zlQrcfRRWlq48FUN67Y0iPWF5
-	neAx69fFsVB3IEb6CJu/oT04tmcr3dICegAqDwfPWcSdPWr3XSat2+ADPVgbpq/dewiLjG78Fzq
-	+XP0cVCAiYWSYH997xXZANTbHdOOgDVxIa+aj5BFRw==
-X-Received: by 2002:a05:600c:1da8:b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a966c3ffd7mr64028635e9.23.1793201621321;
-        Wed, 28 Oct 2026 08:33:41 -0700 (PDT)
-Received: from [192.168.0.167] ([109.79.76.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3c32sm30167148f8f.47.2026.10.28.08.33.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 08:33:40 -0700 (PDT)
-Message-ID: <29c988cf-2bd8-4970-b96a-a5784fa071f6@linaro.org>
-Date: Wed, 28 Oct 2026 15:33:34 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DvyKXzkj
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFE41L4147837;
+	Wed, 28 Oct 2026 15:34:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=fJh4nHfo8vDIas+JM/zBTxdDZjFMAq
+	ozk5NvMGQRHBA=; b=DvyKXzkjqrdeQJ985EbnmXGQ6PjX4hmQ42WfThqNE/Oumg
+	0jPFfQzkio4NRlzMgHtk0SGpAJuQaw5DxokIeQhkwZ8R3hxpPx3ZaEkR7UhmlBz/
+	WLgFDq/cNVYsk1YoHsqr14yvkPjnKUV7M1pOt013O27zui2CgI2qu9Uj6jgMqGwv
+	aqifV+HTBBpz3aCyhaVoWSerhIOWYDj95zKCRu9Nbp3izTa2yMbNU5K7bFCUL1Fb
+	l73OtA56WKkDxuDrWuz00rNW+zhqQLwAb2ozmBF6sUgJMJ3xWiVr9KwnFFuuiGPj
+	x/WLMXzUkaEGnKPT+J42jH4J3ifXIdYuFgb2NZNw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmbt5j38-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:34:26 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFK5pY1784791;
+	Wed, 28 Oct 2026 15:34:25 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7wfn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:34:25 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFYLhs39649706
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 15:34:21 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9418B20043;
+	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 616A520040;
+	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
+Received: from osiris (unknown [9.68.31.201])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 28 Oct 2026 15:34:21 +0000 (GMT)
+Date: Wed, 28 Oct 2026 16:34:19 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Kees Cook <kees@kernel.org>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Anastasia Eskova <anastasia.eskova@ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390/cert_store: Hold the keyring->sem while
+ invalidating keys
+Message-ID: <20261028153419.8417E3b-hca@linux.ibm.com>
+References: <20261024144229.1546151-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,472 +98,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 10/15] media: qcom: camss: vfe: Add support for VFE
- 1080
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
- <20261028-kaanapali-camss-v23-10-95f250b18612@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261028-kaanapali-camss-v23-10-95f250b18612@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024144229.1546151-1-jarkko@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX/uhailaaCKMx
+ ANIs4L918l2swsBLRVdrjxbxmVXvA/FyhCbgLnxpxUyr0WsAie97suX/jbjAotoG17qLKI2iaX9
+ qCiJFCGd3yvnFy5zrwY/NZEyXNWc8V3dvHYrwXddHBwRIPbsBSZwTF53DNs1q9V6AIhqpzI3KTi
+ biNnjlV7A0rjc2TzE9bLIbHV7HxPb/wjCssch95wdhVFMZycT8vg5MoA8e2EzLxtK5az/HN8HqP
+ +dddnsQfcrnrp72JUko1v0PxBKChOQZD2W5Aehz95d7t9gcl2qWVQahmz7ty4cAn+2SCsjYynpN
+ fsPl8bRzVaPyUIHoym3BgtfshFdSW/ZDBgTCWB/Z3RK1nAiwLlT/wjkjw3V6Vm16aUIg/Jawymx
+ DCr+gX0V6vtBQCA6twhJx4bTn/zWrm1NF/f38La62M8Gbo2UtvolhFnAU89RNZs4FFKIhy5MY19
+ OQJbAHfpkH4JlmuNdDw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX5M7xxQ9+SlmB
+ a87JDv8cMBDl/V2uuMh9Vosch7oKAu2wQh41mCW+PwGQ7sxj9vg864tJMhoXPUiDdDhdYo0gWwY
+ Hi2V6btNd3ijv5FtLfRA8skq6S9ARv8=
+X-Proofpoint-ORIG-GUID: XE_KJxF2zpnToa9w-7rI8aTAMMwylbrO
+X-Proofpoint-GUID: XE_KJxF2zpnToa9w-7rI8aTAMMwylbrO
+X-Authority-Analysis: v=2.4 cv=CeKdd7rl c=1 sm=1 tr=0 ts=6ae21602 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=DPC3QgldnefEYUrkxV0A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 phishscore=0 clxscore=1011
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280060
 
-On 28/10/2026 15:20, Hangxiang Ma wrote:
-> Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
+On Sat, Oct 24, 2026 at 05:42:25PM +0300, Jarkko Sakkinen wrote:
+> invalidate_keyring_keys() does not hold keyring->sem while calling
+> keyring_read(), which is contrary to what keyring assumes from its callers,
+> and can lead to reoccuring bugs.
 > 
-> In the Kaanapali camera subsystem, the front-end blocks are referred to
-> as TFEs (Thin Front Ends). This driver continues to use the VFE naming
-> in some places to preserve consistency with the existing code and avoid
-> unnecessary renaming. Support is currently limited to three output lines,
-> matching the constraints of the CAMSS framework.
+> KEY_FLAG_KEEP alone does not e.g.,  protect from  the following call path:
 > 
-> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
-> CSID configuration has completed. In addition, the number of AUP_UPDATE
-> requests must match the number of buffers queued to the write master
-> while it is being enabled.
+> 1. keyctl_keyring_move()
+> 2. key_move()
+> 3. __key_unlink()
 > 
-> Although real-time TFE traffic is routed through RT_CAMNOC, both
-> camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
-> that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
-> reset in a fully idle state.
+> Address the issue by guarding the critical section.
 > 
-> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 > ---
->   drivers/media/platform/qcom/camss/Makefile         |   1 +
->   drivers/media/platform/qcom/camss/camss-vfe-1080.c | 213 +++++++++++++++++++++
->   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
->   drivers/media/platform/qcom/camss/camss-vfe.h      |   1 +
->   drivers/media/platform/qcom/camss/camss.c          | 126 ++++++++++++
->   5 files changed, 343 insertions(+)
+> This came up as a side product while working on assoc_array to
+> rhashtable migration and going through various callers of the keyring.
+> It's made by me but please keep in mind that I don't even have a
+> toolchain for s390 setup so it is based only on reading code and I have
+> not even compiled this.
 > 
-> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-> index 218ba3a95939..42a14e8fe1b7 100644
-> --- a/drivers/media/platform/qcom/camss/Makefile
-> +++ b/drivers/media/platform/qcom/camss/Makefile
-> @@ -26,6 +26,7 @@ qcom-camss-objs += \
->   		camss-vfe-340.o \
->   		camss-vfe-480.o \
->   		camss-vfe-680.o \
-> +		camss-vfe-1080.o \
->   		camss-vfe-gen1.o \
->   		camss-vfe-gen3.o \
->   		camss-vfe-vbif.o \
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 000000000000..68798f13fbea
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
-> @@ -0,0 +1,213 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * camss-vfe-1080.c
-> + *
-> + * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 1080
-> + *
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +
-> +#include "camss.h"
-> +#include "camss-vfe.h"
-> +
-> +/* VFE-1080 Bus Register Base Addresses */
-> +#define BUS_REG_BASE				(vfe_is_lite(vfe) ? 0x800 : 0x1000)
-> +
-> +#define VFE_BUS_WM_CGC_OVERRIDE			(BUS_REG_BASE + 0x08)
-> +#define		WM_CGC_OVERRIDE_ALL			(0x7FFFFFF)
-> +
-> +#define VFE_BUS_WM_TEST_BUS_CTRL		(BUS_REG_BASE + 0x128)
-> +
-> +#define VFE_BUS_WM_CFG(n)			(BUS_REG_BASE + 0x500 + (n) * 0x100)
-> +#define		WM_CFG_EN				BIT(0)
-> +#define		WM_VIR_FRM_EN				BIT(1)
-> +#define		WM_CFG_MODE				BIT(16)
-> +#define VFE_BUS_WM_IMAGE_ADDR(n)		(BUS_REG_BASE + 0x504 + (n) * 0x100)
-> +#define VFE_BUS_WM_FRAME_INCR(n)		(BUS_REG_BASE + 0x508 + (n) * 0x100)
-> +#define VFE_BUS_WM_IMAGE_CFG_0(n)		(BUS_REG_BASE + 0x50C + (n) * 0x100)
-> +#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH		(0xFFFF)
-> +#define VFE_BUS_WM_IMAGE_CFG_2(n)		(BUS_REG_BASE + 0x514 + (n) * 0x100)
-> +#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE		(0xFFFF)
-> +#define VFE_BUS_WM_PACKER_CFG(n)		(BUS_REG_BASE + 0x518 + (n) * 0x100)
-> +
-> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x530 + (n) * 0x100)
-> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x534 + (n) * 0x100)
-> +
-> +/* VFE lite has no such registers */
-> +#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x538 + (n) * 0x100)
-> +#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x53C + (n) * 0x100)
-> +
-> +#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x560 + (n) * 0x100)
-> +#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x564 + (n) * 0x100)
-> +
-> +/*
-> + * IFE write master client IDs
-> + *
-> + * VIDEO_FULL			0
-> + * VIDEO_DC4_Y			1
-> + * VIDEO_DC4_C			2
-> + * VIDEO_DC16_Y			3
-> + * VIDEO_DC16_C			4
-> + * DISPLAY_DS2_Y		5
-> + * DISPLAY_DS2_C		6
-> + * FD_Y				7
-> + * FD_C				8
-> + * PIXEL_RAW			9
-> + * STATS_AEC_BG			10
-> + * STATS_AEC_BHIST		11
-> + * STATS_TINTLESS_BG		12
-> + * STATS_AWB_BG			13
-> + * STATS_AWB_BFW		14
-> + * STATS_AF_BHIST		15
-> + * STATS_ALSC_BG		16
-> + * STATS_FLICKER_BAYERRS	17
-> + * STATS_TMC_BHIST		18
-> + * PDAF_0			19
-> + * PDAF_1			20
-> + * PDAF_2			21
-> + * PDAF_3			22
-> + * RDI0				23
-> + * RDI1				24
-> + * RDI2				25
-> + * RDI3				26
-> + * RDI4				27
-> + *
-> + * IFE Lite write master client IDs
-> + *
-> + * RDI0			0
-> + * RDI1			1
-> + * RDI2			2
-> + * RDI3			3
-> + * GAMMA		4
-> + * STATES_BE		5
-> + */
-> +#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
-> +
-> +static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
-> +{
-> +	struct v4l2_pix_format_mplane *pix =
-> +		&line->video_out.active_fmt.fmt.pix_mp;
-> +
-> +	wm = RDI_WM(wm);
-> +
-> +	/* no clock gating at bus input */
-> +	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
-> +
-> +	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
-> +
-> +	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
-> +	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
-> +	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
-> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
-> +	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
-> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
-> +	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
-> +
-> +	/* no dropped frames, one irq per frame */
-> +	if (!vfe_is_lite(vfe)) {
-> +		writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
-> +		writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
-> +	}
-> +
-> +	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
-> +	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
-> +
-> +	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
-> +	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
-> +
-> +	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
-> +}
-> +
-> +static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
-> +{
-> +	wm = RDI_WM(wm);
-> +	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
-> +}
-> +
-> +static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-> +			  struct vfe_line *line)
-> +{
-> +	wm = RDI_WM(wm);
-> +	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-> +
-> +	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n", wm, addr);
-> +}
-> +
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-> +}
-> +
-> +static void vfe_reg_update_clear(struct vfe_device *vfe,
-> +				 enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
-> +}
-> +
-> +static void vfe_addr_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_addr_update(vfe->camss, vfe->id, port_id, false);
-> +}
-> +
-> +static void vfe_addr_update_clear(struct vfe_device *vfe, enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_addr_update(vfe->camss, vfe->id, port_id, true);
-> +}
-> +
-> +static const struct camss_video_ops vfe_video_ops_1080 = {
-> +	.queue_buffer = vfe_queue_buffer_v2,
-> +	.flush_buffers = vfe_flush_buffers,
-> +};
-> +
-> +static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
-> +{
-> +	vfe->video_ops = vfe_video_ops_1080;
-> +}
-> +
-> +static void vfe_global_reset(struct vfe_device *vfe)
-> +{
-> +	vfe_isr_reset_ack(vfe);
-> +}
-> +
-> +static irqreturn_t vfe_isr(int irq, void *dev)
-> +{
-> +	/* nop */
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int vfe_halt(struct vfe_device *vfe)
-> +{
-> +	/* rely on vfe_disable_output() to stop the VFE */
-> +	return 0;
-> +}
-> +
-> +const struct vfe_hw_ops vfe_ops_1080 = {
-> +	.addr_update = vfe_addr_update,
-> +	.addr_update_clear = vfe_addr_update_clear,
-> +	.global_reset = vfe_global_reset,
-> +	.hw_version = vfe_hw_version,
-> +	.isr = vfe_isr,
-> +	.pm_domain_off = vfe_pm_domain_off,
-> +	.pm_domain_on = vfe_pm_domain_on,
-> +	.reg_update = vfe_reg_update,
-> +	.reg_update_clear = vfe_reg_update_clear,
-> +	.subdev_init = vfe_subdev_init,
-> +	.vfe_disable = vfe_disable,
-> +	.vfe_enable = vfe_enable_v2,
-> +	.vfe_halt = vfe_halt,
-> +	.vfe_wm_start = vfe_wm_start,
-> +	.vfe_wm_stop = vfe_wm_stop,
-> +	.vfe_buf_done = vfe_buf_done,
-> +	.vfe_wm_update = vfe_wm_update,
-> +};
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-> index 4f8867daea4c..221abf7bfd47 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -353,6 +353,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
->   	case CAMSS_8550:
->   	case CAMSS_8650:
->   	case CAMSS_8775P:
-> +	case CAMSS_KAANAPALI:
->   	case CAMSS_X1E80100:
->   		switch (sink_code) {
->   		case MEDIA_BUS_FMT_YUYV8_1X16:
-> @@ -2020,6 +2021,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
->   	case CAMSS_8550:
->   	case CAMSS_8650:
->   	case CAMSS_8775P:
-> +	case CAMSS_KAANAPALI:
->   	case CAMSS_X1E80100:
->   		ret = 16;
->   		break;
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-> index 8312e4c91e98..0a91440cfe43 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-> @@ -251,6 +251,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
->   extern const struct vfe_hw_ops vfe_ops_340;
->   extern const struct vfe_hw_ops vfe_ops_480;
->   extern const struct vfe_hw_ops vfe_ops_680;
-> +extern const struct vfe_hw_ops vfe_ops_1080;
->   extern const struct vfe_hw_ops vfe_ops_gen3;
->   
->   int vfe_get(struct vfe_device *vfe);
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 12dfe760fc54..6ff82dd2aeaf 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -156,6 +156,130 @@ static const struct camss_subdev_resources csid_res_kaanapali[] = {
->   	}
->   };
->   
-> +/* In Kaanapali, CAMNOC requires all CPAS_TFEX clocks
-> + * to operate on any TFE Full.
-> + */
-> +static const struct camss_subdev_resources vfe_res_kaanapali[] = {
-> +	/* VFE0 - TFE Full */
-> +	{
-> +		.clock = { "vfe0_fast_ahb", "vfe0",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe0" },
-> +		.interrupt = { "vfe0" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.has_pd = true,
-> +			.pd_name = "ife0",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE1 - TFE Full */
-> +	{
-> +		.clock = { "vfe1_fast_ahb", "vfe1",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe1" },
-> +		.interrupt = { "vfe1" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.has_pd = true,
-> +			.pd_name = "ife1",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE2 - TFE Full */
-> +	{
-> +		.clock = { "vfe2_fast_ahb", "vfe2",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe2" },
-> +		.interrupt = { "vfe2" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.has_pd = true,
-> +			.pd_name = "ife2",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE3 - IFE Lite */
-> +	{
-> +		.clock = { "vfe_lite_ahb", "vfe_lite", "cpas_vfe_lite",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 266666667, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe_lite0" },
-> +		.interrupt = { "vfe_lite0" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = true,
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE4 - IFE Lite */
-> +	{
-> +		.clock = { "vfe_lite_ahb", "vfe_lite", "cpas_vfe_lite",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 266666667, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe_lite1" },
-> +		.interrupt = { "vfe_lite1" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = true,
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +};
-> +
->   static const struct resources_icc icc_res_kaanapali[] = {
->   	{
->   		.name = "ahb",
-> @@ -5727,10 +5851,12 @@ static const struct camss_resources kaanapali_resources = {
->   	.pm_clks = { "cpas_fast_ahb", "cpas_ahb", "gcc_axi_hf" },
->   	.csiphy_res = csiphy_res_kaanapali,
->   	.csid_res = csid_res_kaanapali,
-> +	.vfe_res = vfe_res_kaanapali,
->   	.icc_res = icc_res_kaanapali,
->   	.icc_path_num = ARRAY_SIZE(icc_res_kaanapali),
->   	.csiphy_num = ARRAY_SIZE(csiphy_res_kaanapali),
->   	.csid_num = ARRAY_SIZE(csid_res_kaanapali),
-> +	.vfe_num = ARRAY_SIZE(vfe_res_kaanapali),
->   };
->   
->   static const struct camss_resources msm8916_resources = {
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Just wanted to clarify the background for this fix as I'm not a regular
+> contributor over here. If for any reason it turned out to be false
+> positive, I'm fine with that too.
+
+It is not a false positive. There seem to be more bugs in the code.
+I'll take your patch and create a series with other fixes.
+
+Thanks a lot!
