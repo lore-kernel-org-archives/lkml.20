@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180607;
-	b=5jlNwVgbPu6zxcf3ioAzzOxHygxM9DrKl3hXbKkqp+psWT4tcpyv0ubBhrdJwN27zpzE
-	 ej0BkA4aC6g8scpplzdUVutjCbuNnitjWlegwdcds2aUHxLIa1uLS+IVVwu2ZYSUrFU8f
-	 kSf796CkTEUPg2dSsKKUUGoqNXJXu9C57kPCu0HkZEoSwC8sMrUnKR+1Bpy6Z6vXQofGR
-	 CMqzaFrB+Vf+hdScwgzX4LdZHsIEBAqdMd5XjUAdSpHdq70ivi8OlP3TF9hfpUQQi6/4O
-	 oTB3A/587suGZZUPY3HBK8nEFz2eL2Y3Wu5GOmOSnBAeAzH1rp9i3JJcgtS/Y992qGg==
+	t=1793180616;
+	b=BAxGOp7TGOpn+wsSS+4iQTxH8hUibibBDjYRw6JwccA/GirfKNrt8hUugdiYLYkeuG5G
+	 CZIDR9/zTArWCc0A1m4l6B6mP8ShvbdZXYLfEh5ProdK8oL8iuwrVIS+LQxPLP3NtEq6U
+	 5EihvPiJ1oC0r37qz4BwLWH5bh2UsP6PqQB5L/pvycnMqOaWejGG8TCHYlDrrqxnqgnS8
+	 Y8X17eV6vkcTfmiR2eZrbvXQMILQVCEgwISTXpeps9WVVTVIwXJexTjNLAeYWy0hLAmo4
+	 WGIRHU3fd+qZENrLPxs9wOMAgUNx7pQF7fM3MxfXDEHvgwxD89wNh3b+SSbpkniIFRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180607;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=535aXf9H9rC26a6zJhJ1r2DGySEkl3W8qtDu8csDPOg=;
-	b=jA92kTdVb4GNMX3of/p6QzhK0NiFWoMgu2SsWawN7eYZ+R1CfiSge5J/n6PrhpibjaOl
-	 J03fz4WjyBksvFkEnCblV9DdXmpEz9v192kPC7zTpx4AV1WWY2blfbK6ViAF+6QKhgm72
-	 Xm7dHzZX0g1wKlqv2UY38Kob3qIEIao3iLno13n+/mbQyXA1o/2poC4GLNt1/9IBT330P
-	 xWiheOdjvZyK4I1iRwgV8A0Xavrg/50PWkx3QrDvkhuB8zZ6POkskT0JGWnoRmf8pOt8Z
-	 feAtqIQCxuayP53vId3PCjzAWTPHZMPCH33+rnseeT3MtOLx2bmxysbYVthlIzpmlpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180616;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Uik1EuYMBAB4IuJ3lkD8ogKL5A8K0R8JHX7Ne40Kvnw=;
+	b=BUxQ1kyY80REXKiZQDJ7vGN3t8UWlYH0GN69PFiFDz8ZNQqNeiui6ZSgBgCLbvrqMN0T
+	 FvsZ2sPr5ABmb89MVHZmJ/L/2neEzxz6XaP7JcMRtvcwJm897pi02mqWE9OkMgUOh2QZ8
+	 wyRFdiPc3HX5pwzuzsBclXGIZrJIIa43DKP6kZV63Fc3rxbfnF2tCPcWF2pOEp6zEbqMO
+	 DKqHz/ZunQi/IThKc/opuuZQ597hNSruUfIuj2CapMfBOdWnIPzu2ayhiud9azKH7oSzA
+	 15YhpY8I7TcywfvTnVPVwwr9yP93Gt+1vjRN+eLs2HZjw8Yr+eYcZ1GBJ5EtrxUO3SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=a7d59F50;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+xL8Olm;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2777606A32C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:43:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2777606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CB3606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24CB3606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=a7d59F50
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261028094322euoutp01b09f111e91b16b6dd593f354009c2d24~iqEHdm2Jc1621216212euoutp01u
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:43:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261028094322euoutp01b09f111e91b16b6dd593f354009c2d24~iqEHdm2Jc1621216212euoutp01u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793180602;
-	bh=535aXf9H9rC26a6zJhJ1r2DGySEkl3W8qtDu8csDPOg=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=a7d59F50iU2RybF1FZVJqqGsE3wBZnUx83olzWf9UshxkFtBkMZrd0pWcCFJO28T1
-	 y21F90VMdNgopBhMFS6MCvjzrzjfAW/IjeWOlktb3ToXTWBDwdco3WzX9hyNYuYEB9
-	 KLBtztKS/jn9c4RuVm5YYsSPQ1xaeQi55awmhSMA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261028094322eucas1p290e530066640b90b39ad9d5066c4e273~iqEHDwUBM1968019680eucas1p2Y;
-	Wed, 28 Oct 2026 09:43:22 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261028094321eusmtip243f9cf93d775eb983c0129e973fe4e33~iqEGJK6bi1976119761eusmtip2D;
-	Wed, 28 Oct 2026 09:43:21 +0000 (GMT)
-Message-ID: <6b89446c-c1a7-42c2-a557-53059cef03a8@samsung.com>
-Date: Wed, 28 Oct 2026 10:43:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+xL8Olm
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso5717065e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793180613; x=1793785413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uik1EuYMBAB4IuJ3lkD8ogKL5A8K0R8JHX7Ne40Kvnw=;
+        b=o+xL8OlmBVwp14ASpE2+HCEJsGeFsArqMQQFsxc0Dt29li2itU4avjU6MZ8shFnJew
+         Evp3zVF/RMp6kmotUj16EHMxJjkLF3dHq1j7I4AEOAhwYf524PNo+5vyNw+62UJ/W4BS
+         JIo/WJECdnwyY8FG8UaNFEUZfu8KIKNPDG5eSFMcO94snPnGVI54wWppMzaAVj7QpDpW
+         aVfidSP0w5K0wNQMqIK18YuYiTMU7wrGUL4T7nXcne3ulULJHyJB3GBR2SGbDVA0c5Xm
+         G0KzbPFNhIcW8SrEV4KF508zMVxHazWUjpDl9NS+VJVNUrWXMVx+NARAHsiRuRZf7N0T
+         lZHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180613; x=1793785413;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Uik1EuYMBAB4IuJ3lkD8ogKL5A8K0R8JHX7Ne40Kvnw=;
+        b=ok02ElgMfWexGbncaVa0ZlGtUsF61rxt9WV5h9BD3lxryGOeNqCaUQswXTpjpL1hNT
+         xpKWEVvJ7nmMWP3zpz5e13pzO5A8tnWqrXRwAHPtFczkQ+y4R2XIwBH6/qQXGddy8P8l
+         JGZToow0cwUiCVmfNHS8o5fDEEvceFBrfdoItzrRq6zhEpb6DOzhOAfPzYpvEcn0Nnkw
+         V28EebJwjc/v8KxXENRrGVuYe0J8sM63CkaqFq88KootOFsFWhCZhCuuEec2KJbFQIQn
+         gCRx6iSI6+oLz3/8PN8u8ijGJiXU2X2uN+r/2LnKFTfalWG0GU9YrjuUEnEw6o26Sdk3
+         AE5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzHj36Tm5om7wGocxX4naDp8rkoIxzXW5LZ5rWP18Y3kaubI6uZ3eVoVPE/itk5zzG0CuFrqKdwHiRnomw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3ge56Na5nl2/eS5/ucjk9JfMN1lTVeICV6N31LFOIRH4yix8c
+	b/bTZApFzarF1w/jsLoPYSTgwMqn22ggAJlygi2+y+p/MSR5A7faITwB
+X-Gm-Gg: AYBFou2uWTyPk82m4Xgji3JtmGerYZ7H8s80y0InqfOUqUD7Nej9mRrCojTFD6E6LNk
+	XA1YCIrClCo5MbPjKn1LyyxTGbtiTFrZhlhG/Roj61cq7Ce8soMmrgwBVSbeAYlkTU6JKhfBBeC
+	/6VDcz/FNv42d5vZaM/iqlz4DEUO/YXNHUvbuCHVK/FratKQlBeRKvTbhjJEO+ZiGf2QbImRxud
+	cYhR0oD4x1k88kXGmZNuerILepeQKdYllHY3h0R7VBlP9kftiYL8afwFslrRK5Zm5XInzm7+DQK
+	fPGQlc1G6ktomqjF/f8NVSN/EmyZj1ELfvjZ3unwNIqtLthocKp3wvNTSRmNauZW7+MqArd8rKJ
+	K+91fIcz9BDqUfMFfblc/OgvuHWjBBegpbfcirQ3VixKKQ8CaVq9ffghL9AOqMwNPrQnNmwgbf1
+	HfojUSMJxTbuoWiFfxV488njj0loCIwxRKtQboOf2f4sezCEKdgIkQAjmPnPP6wFII75n+fm5E+
+	qe0FfBsts5Zg1JoVQu/O0qbXL0i3u5y+OL0x1H5icuuoe/BkeR6VUbXdY2biaWZgl94Dpkz/myE
+	If9PID0EmFp57PjVlVwWHPUYV4bO4NXLek2qIk6+DZkF2kMpyAguNAV/bRo=
+X-Received: by 2002:a05:600c:468b:b0:4a2:16c0:f5e with SMTP id 5b1f17b1804b1-4a965be6173mr31930875e9.10.1793180613431;
+        Wed, 28 Oct 2026 02:43:33 -0700 (PDT)
+Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978795f42sm37559165e9.8.2026.10.28.02.43.32
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 28 Oct 2026 02:43:32 -0700 (PDT)
+Date: Wed, 28 Oct 2026 10:43:29 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Nicolai Buchwitz <nb@tipi-net.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: xhci: Relax high-speed bulk max packet size rules
+Message-ID: <20261028104329.3d1c8029.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,74 +94,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
-To: Guangshuo Li <lgs201920130244@gmail.com>, Sylwester Nawrocki
-	<s.nawrocki@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin
-	<peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Hans
-	Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261028094322eucas1p290e530066640b90b39ad9d5066c4e273
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261027145330eucas1p1b07eaac7858482b12d90a342fae36f2f
-X-EPHeader: CA
-X-CMS-RootMailID: 20261027145330eucas1p1b07eaac7858482b12d90a342fae36f2f
-References: <CGME20261027145330eucas1p1b07eaac7858482b12d90a342fae36f2f@eucas1p1.samsung.com>
-	<20261027145313.136305-1-lgs201920130244@gmail.com>
 
-On 27.10.2026 15:53, Guangshuo Li wrote:
-> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
-> DMA address does not satisfy the firmware alignment requirement,
-> but leaves is->memory.vaddr non-NULL.
->
-> Because firmware loading is asynchronous, this error path may run
-> after probe has returned successfully. A later remove can then
-> attempt to free the same DMA allocation again.
->
-> Set is->memory.vaddr to NULL after freeing the buffer so the
-> existing NULL check in fimc_is_free_cpu_memory() skips the
-> already-freed allocation.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Nicolai reported multiple dodgy high-speed devices still being made
+which declare out-of-spec bulk wMaxPacketSize and actually require
+the host to use it for correct operation. Apparently, Windows copies
+this field to the EP Context verbatim and other Linux HCDs like EHCI
+and DWC2 do similar things for compatibility's sake.
 
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+We are also aware of devices like astronomical cameras which use 1KB
+to reduce protocol overhead, and audio devices with MIDI endpoints
+that specify unusual MPS like 8 or 4 (the latter was full-speed) and
+work with larger sizes just fine because they never do multi-packet
+transfers where MPS really matters.
 
-but I would relax a bit the severity of this issue. I'm not sure if it
-makes sense to bother stable team with it and I would add 'potential'
-word to the subject. In practice this case would not happen.
+I found that sensible (power of two, 8 - 512) MPS are usable on many
+xHCI controllers from vendors like AMD, ASMedia, Fresco, NEC/Renesas,
+and VIA. Nicolai also tested two Raspberry Pi SBCs and a modern Intel
+machine running Windows 11 and 64B endpoints worked.
 
+OTOH, Etron rejects Configure Endpoint if MPS != 512. For such cases,
+commit e4f47e3675e6 ("USB: xHCI: override bogus bulk wMaxPacketSize
+values") sets HS bulk MPS to 512, which obviously breaks those dodgy
+devices that perform multi-packet transfers with other size.
 
-> ---
->  drivers/media/platform/samsung/exynos4-is/fimc-is.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-is.c b/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-> index b7d9bfedd590..9fdc352abfe4 100644
-> --- a/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-> +++ b/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-> @@ -346,6 +346,7 @@ static int fimc_is_alloc_cpu_memory(struct fimc_is *is)
->  			(u32)is->memory.addr);
->  		dma_free_coherent(dev, is->memory.size, is->memory.vaddr,
->  				  is->memory.addr);
-> +		is->memory.vaddr = NULL;
->  		return -EIO;
->  	}
->  
+Problematic devices known so far use power of two MPS of at least 64,
+so try to recognize them with this heuristic. Non power of two or
+small MPS seems to indicate a clueless device which treats bulk like
+interrupt and specifies intended transfer size; we will use standard
+MPS here to avoid trouble with potential other HCs like Etron.
 
-Best regards
+Reported-by: Nicolai Buchwitz <nb@tipi-net.de>
+Closes: https://lore.kernel.org/linux-usb/20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de/
+Link: https://lore.kernel.org/linux-usb/93d5aeb4-f1c7-9342-7bc5-4b277b4ec55e@veikia.lt/
+Link: https://lore.kernel.org/alsa-devel/CAE-xCyPhrS6pgY0T9SG0TCubSi0CE2Yd5H=ttOzBmvgrR8fTPA@mail.gmail.com/
+Link: https://lore.kernel.org/linux-usb/348c50de-f922-8295-ef87-cf5cdea5c7f4@gmail.com/
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+---
+ drivers/usb/host/xhci-mem.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+index 83ed26c4f9e4..bbde39ccc4f9 100644
+--- a/drivers/usb/host/xhci-mem.c
++++ b/drivers/usb/host/xhci-mem.c
+@@ -1473,10 +1473,22 @@ int xhci_endpoint_init(struct xhci_hcd *xhci,
+ 	/* Allow 3 retries for everything but isoc, set CErr = 3 */
+ 	if (!usb_endpoint_xfer_isoc(&ep->desc))
+ 		err_count = 3;
+-	/* HS bulk max packet should be 512, FS bulk supports 8, 16, 32 or 64 */
++
+ 	if (usb_endpoint_xfer_bulk(&ep->desc)) {
+-		if (udev->speed == USB_SPEED_HIGH)
+-			max_packet = 512;
++		/*
++		 * HS MPS should be 512, but Windows lets devices use anything.
++		 * Etron rejects MPS != 512, many HCs dislike >512 and a few <8.
++		 * Non power of 2 troubles Fresco, hopefully it means the device
++		 * uses single-packet transfers only and 512 will work. Some 64B
++		 * endpoints (shared FS / HS logic?) use multi-packet transfers,
++		 * so MPS must be exact. 1KB EPs are unlikely to tolerate less.
++		 */
++		if (udev->speed == USB_SPEED_HIGH) {
++			if ((xhci->quirks & XHCI_ETRON_HOST) ||
++			    !is_power_of_2(max_packet) || max_packet < 64)
++				max_packet = 512;
++		}
++		/* FS bulk supports 8, 16, 32 or 64 */
+ 		if (udev->speed == USB_SPEED_FULL) {
+ 			max_packet = rounddown_pow_of_two(max_packet);
+ 			max_packet = clamp_val(max_packet, 8, 64);
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+2.48.1
