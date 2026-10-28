@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.60
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189958;
-	b=OuCm3cb82DuJAY6v74RWbLPusJHMLyQhPmyc+c2NIAVlhNTHKdJWg4nHr9XULcY+BaI7
-	 TwJeCUkhrwjtNDqUyeU5SZxa5D62O2bdGW8McfN7mNDVx871v8+PfrLz6SH3Nk9DMy6Bh
-	 luSt+mqdzyf/50Xcy84ormi8FnulpbKhr6YYxzBBLAlohVM5H98dhChiqsZp+wV9Cnc8f
-	 PBkkUDuq2EaN/OkuhMNRtudiGNUZCQUbn0TsDZsRwDBX0aMz9woZwth6tgDvTyRuPx9ux
-	 J9Z+O+sag8jPmt7yGHnOpdk6qGs24zGmzvazP3igKWVKESlFw7DbQ+PWIsBboVbOEzQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189958;
-	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:X-Mailer:
-	 X-Lms-Return-Path:To:Date:Mime-Version:Cc:Content-Transfer-Encoding:
-	 Content-Type:From:X-Original-From:Received;
-	bh=Jxut/MrKMYK8UeaqLdbANTgLB+m90HMiLTxeFkgxSMM=;
-	b=CbI68EpLZYip0gp9CCwjuvlIIQhsAeBjJm0qG14YxAnxkSkaCAinaKsqshIztTuGduzK
-	 Akr5F61rlhhg8ZK3viYrqDX6RAsNDRHt5OFi0rFYUv3SJb63zp2WkzCzsaP2uX2Pw0tJM
-	 cWS9mcUzvHdLhna0LAHvocH+oQpX5JAyGAZlgvjpoF2khsdAraaGdcA7CQVH1SgiCWA//
-	 CZ5pag4G1G1tqBGC9juRG+cmH8Ric7RZcLEldyNQWq3/Wudd5H4BML6WGYLIjDBd6fA+z
-	 93xpS4wWqMNpY9/TiCCKJl2OU7iy0mlRdpQvqarwC8oyFIxUQ33nnDFLFcqFBdiDHgA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=insta360.com;
-	spf=pass smtp.mailfrom=insta360.com;
-	dkim=pass header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b="TR6b+d/p";
-	arc=none smtp.remote-ip=209.127.231.60
-Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793189983;
+	b=0ugEK54ssIeQgfN/UBqSt3M2kjF0qCuJ0i5T9tF3RNKdmcNOMhAPtR3rHz/boQSFMfM4
+	 SPZHLdNE3GQFl7paUc8e12kmsCkP3yigPZKC4nuFjGI4GyssLB+Qa3Smtrm7YUpwiaa88
+	 I1u/ghC83Ewnbq/3sHzn1Q3qhAD63wabQaBcpT97pbJtt6GApagdocvZwQpErT99yz73M
+	 UulHX7jwj7H1PHfmXd4JNS/RV2PMEewCNFExJfHQVFIqusVSrehZvz0dBLzFhemg1fBN8
+	 1M2qmuYwIgONuMZrEqiTLU28GqBg5Lji1fGZ6LHJYU2CEZJ+R8wxYR/4JjiLpMai3vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189983;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=noatuxH+5lH91j/aVEfMVtP8fV9Gyk2BFuAxe6aEhxQ=;
+	b=KPhlb7e8RhkJnIG1j3RjY3zIapRRqHN+ggQr9P0HabemfUHTwvzB9SLPbHlSOOaa5c8N
+	 CMryDobCjPtjbdECCf9OFV30t+g6CxTwy79sIOHwMV+IoaWtXRXtIpLqJO65KSOS2dClD
+	 oQDGBJV9A01GxmnYlqybVuj4WVm+0BrUGQgllE+wBRyZfE+ipAdE2hJ8DqJvBd+0y+LhV
+	 MKaF/rbBADQQqUeGXay50jbeoge4+DuxFWTAFOhrrwvWNqLoNA1falySiX32TSKUdsW/q
+	 RJ8pv/utWGrnaDp4SOgPl8AThdXUXX+2a8pnnsSxqPcRsbt28NXn//XUyMypOEYVNDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LBmz2ig3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.43
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DCE606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5DCE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=insta360.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=insta360.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1107606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1107606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b=TR6b+d/p
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2606151854; d=insta360.com; t=1793189952; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=Jxut/MrKMYK8UeaqLdbANTgLB+m90HMiLTxeFkgxSMM=;
- b=TR6b+d/pC+85EqP4rpOJqjpS8YOrRCEADLpIVA18ez8kCWDXaXyruaU1xYp6c2T/iBwhZF
- Yv2v9EHPl7vB27z6NZwgsvNpxMbTREGNgEkTlkp6Qx0ji2P8NcXPAZElHb9ZJX1yFrLtbZ
- n4SyuLd+bo7ciqfb7O6Ap12kua8kBug2qXkN25GzR7dofZnx3aLazfAAFEj6YRhZaBGE7h
- db4+Bc3jokvIm2BBnU9VkKakFr0PpLUNfoA6rPEiViolA7vCfJ1EFyZmYs6Vm6bxdYK+sU
- JO4mNXhjugi/kYhZBZG5EI+Q9u78CWRutyTPrfYmVjh7wc2CVAGe2Fv3t1F4FQ==
-Subject: [PATCH bpf] bpf: Always hold RCU read lock around perf callchain in __bpf_get_stack()
-Message-Id: <20261028121859.994-1-yangsongsen@insta360.com>
-X-Mailer: git-send-email 2.53.0.windows.2
-X-Lms-Return-Path: <lba+26ae1e83e+b68203+vger.kernel.org+yangsongsen@insta360.com>
-To: "Alexei Starovoitov" <ast@kernel.org>, 
-	"Daniel Borkmann" <daniel@iogearbox.net>, 
-	"Andrii Nakryiko" <andrii@kernel.org>
-Date: Wed, 28 Oct 2026 20:18:59 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LBmz2ig3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=js0l9SFjHotzb9KgppojhiiJcWORGJsHg3HYgMmX4416QCqrsPY/wyUJREEcu7UHyp8uA+Zx6hIaA4ZfxlpKPw7jjQyn9wFENVy6HjwOh5rpQAazAd/CEEIzvL3UjfdVv1lQqDGwBGPsLXfxspr0OgZQMlxsyC8v5YJ6SBoeYy6aMjICpCt//TRV/24UK8Wr0qF5bezWS/CsYdFckBRCnZERGnt8Rwc57QcxuhOYN99v+/aG72bLzUngkglib04omsiwDXBrkKBK0vEsj4GSCT31ZZdlr9j9SLjoqXnJkngQNRScX1ZYavlbbJYzSo8JHwyyPhgyW6M74F0Ez8QYbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=noatuxH+5lH91j/aVEfMVtP8fV9Gyk2BFuAxe6aEhxQ=;
+ b=i4D0Onnts8HiS/Clu00IE0zdC/TyCTck7zbTu9j8LJ/0RhwHdlFYHsA2TEvmXzEMqtkVt9dDhK0sMu9hBUHmXt1tbTbDn3QWm3CCHp9H6vEKqI8719HWUIhM2ouwJIUEklh4j5scU/H/+gFRPRS3qfhSuzjzekse9EvuzwEDXrJ9cyUXVK3QQYB4FQxTeFiRSHv/pa/coFmBHJgOFR4T4KxSDYNxduG0tSa1Kw85mv9xECkiXPCiK7M4S/k9+xrkxwd0X5o5Efvz4bxO9JKMJ4iJ7kzV/dZWe8Tj8VIc4gHMJzMxKO6Kxs6Y3o301gW4VQqjKypiXbv7bSnvgK+nZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=noatuxH+5lH91j/aVEfMVtP8fV9Gyk2BFuAxe6aEhxQ=;
+ b=LBmz2ig3sXVRWx4C0PCLE9ozegxFVEM7pQaxdpgUB5xhkHeZ+n0ijLv0wCrYrJ6bCbTxg1Fve70FW/D6M+zwwyFFNwNvlgBKX9klpFMpDqbqHyC2bCeMtGaZlFkIt7lTS07dRXjibtK+dsUbUMAp/MmU3XtwYGIiF8t15LOB6TU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5354.namprd12.prod.outlook.com (2603:10b6:408:103::22)
+ by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 12:19:38 +0000
+Received: from BN9PR12MB5354.namprd12.prod.outlook.com
+ ([fe80::7ae3:c4f2:733a:50bd]) by BN9PR12MB5354.namprd12.prod.outlook.com
+ ([fe80::7ae3:c4f2:733a:50bd%6]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 12:19:37 +0000
+Message-ID: <dae36cea-b00a-4b3c-aa79-d82bfbb67f3e@amd.com>
+Date: Wed, 28 Oct 2026 17:49:32 +0530
+User-Agent: Mozilla Thunderbird
+From: "Gupta, Akshay" <Akshay.Gupta@amd.com>
+Subject: Re: [PATCH v1] misc: amd-sbi: Fix use-after-free on driver unbind
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, arnd@arndb.de,
+ naveenkrishna.chatradhi@amd.com, Anand.Umarji@amd.com,
+ Prathima L K <Prathima.Lk@amd.com>
+References: <20261026113910.1003008-1-Akshay.Gupta@amd.com>
+ <2026102651-prideful-finance-b60a@gregkh>
+Content-Language: en-US
+In-Reply-To: <2026102651-prideful-finance-b60a@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0008.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:176::7) To BN9PR12MB5354.namprd12.prod.outlook.com
+ (2603:10b6:408:103::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,115 +97,251 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, 
-	"Eduard Zingerman" <eddyz87@gmail.com>, 
-	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>, 
-	"Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, 
-	"Jiri Olsa" <jolsa@kernel.org>, 
-	"Ihor Solodrai" <ihor.solodrai@linux.dev>, 
-	"Emil Tsalapatis" <emil@etsalapatis.com>, <bpf@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	<syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-From: "Songsen Yang" <yangsongsen@insta360.com>
-X-Original-From: Songsen Yang <yangsongsen@insta360.com>
-Received: from DT-9806 ([61.241.19.90]) by smtp.feishu.cn with ESMTPS; Wed, 28 Oct 2026 20:19:09 +0800
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5354:EE_|PH8PR12MB6940:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5b8e229-0947-4ad9-5a1d-08df34edbc21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|4143699003|11063799006|56012099006|261022105027099003|261009223027099003|261022075727099003|261022113327099003|261021121427099003|261026121527099003|261026140227099003|261021123027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Ctu7iEwWHbT5fyPnjB7lkQNfaI7x8GuOSxApWi7e5nDpUxflYpkuFh4vl23QAUPw93UcNkYr9WfJF2VSD7kDy2TKgWB3xnPA23WpbtxWoKRyLZGJIGwDs2XBcdEKL/4Sebt+apUpmDw8noRRRyRvv+Xe4BSz+FkBRQJQbvO9H/G8l9Z0Ugs/xq8xOxO4RdJ0nOuxA4j9cbXCUAOqxRplR6SGVL7XSjKFCVMWLLcYQRDgSujmUl1KUOZA9oU0qt7p6DTLBE6RBVSDkkcZhbKie36hlZkaDHa5CFZL9WSdP+diOiLFCuqzBgTQJkIRG4Lf90Obaxw76zwDNqLYHq9HGPv8L0xEjfFHj9WBevQuII2VoG8fZ1BvtB7/w5VsFWoRYdGyq6erVZRr8oBMRyqxyXmYYTW6BuOx/GftXyq4ytdCEPM4xfZh6R2vXKXlOgzVRIYVJu54llZ1P8va7FuV0PndL/RCT/NfteEVAqJvp+og/ZNtQTV4zgQmLfr2G6Qo4G0L6PJ93UhQPrj7wUzaZBAPplTDjMCd9oves6Y6bsAy4V2yrrTQGRQlzvN/DYiRMK9MzUnDXc+47+xMrVtfRxWXReuvF5m6sW5XD/mAKffdge10rKUY0a603DQwzithoxcXo0K6OnENHijXbv27d4Rhp7JJe83R3UOQjrRulQw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5354.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(261022075727099003)(261022113327099003)(261021121427099003)(261026121527099003)(261026140227099003)(261021123027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RVp6QktUeit5NDR6TWJ0eUhYVWEwcE5Gb0tVYkRvcEo4SG9aNnZRUXU0OHJp?=
+ =?utf-8?B?TTBhQmt1Z2U3K1hTYlU0ODVueElYemRUdGV5b25ON2dwTWtlaTNhK2ZpdGQw?=
+ =?utf-8?B?M1R2L3RpWFp6TDIrQlEzdFZWNTk1N0lhYmN0K3BxSGkyOFRtWDQ2R1RZSm0y?=
+ =?utf-8?B?TmFIUGZ5ZWVZaUdsVWk0dUJkOThBd2IxN29mU0l5UW9VUTlvQWZSTit1TVpi?=
+ =?utf-8?B?NzFPZEJjY0xjZEVNTC96aGpGTkVPbGRteW5OZHZ2NmVRSkpseEJEL0hqZGpU?=
+ =?utf-8?B?Z2VHNW9qaVNhWm13ZWNCQXB2bnNIbURLZEszRTFaVVpqNXBwZ2RQeVV3QmFW?=
+ =?utf-8?B?QjNwQ1RETktFTk5ES2NJbXBpc1J4QUp1SkZTL0U3ekZHS2ZXN0ZLTnlzM2Zt?=
+ =?utf-8?B?YnhFQkpqRDZwRUpzWmh0RDhDWWF2SVVsODc5VEM2N0xqZ001dEtVc2xubk5P?=
+ =?utf-8?B?VEdQWEd3Wk43RTFma0J4M3Z6T29hMEVGeHVmc0U5aWpldnVLSHBiempXRDg4?=
+ =?utf-8?B?VlJRcjZ4WmpRNkxSc3N1YXNPRHBoaFBWWFZ3akVkN05jWjNaRmFDTmd2WVUv?=
+ =?utf-8?B?L3hLeHhKV0NvV0hvdElTZld4YkFWNFIySXBCeGd4ZEI4SWJEd2E5U2ZPRXVy?=
+ =?utf-8?B?aFJIS2lTNzB1K1o0eGYreTBNV0NsOUtkeGFWRFNEMWF3TXhTL1FPMGhQai9n?=
+ =?utf-8?B?aUFNa2NQb3RUellLckNhTldDM1JpanJidVMwMjhYOEZTeDhRNnNwU0dNUUhD?=
+ =?utf-8?B?SGpyVVIvd0xOd0F6OURCdmRmdFdBSUY2dkVUNHpVdzVUaEszYnZDbDdYc1NI?=
+ =?utf-8?B?di9CTEFhSEpZS0ZPSkgzNEVtamF4VFdmZ1hzT084bnBmRmJqeE5VazN5cjc4?=
+ =?utf-8?B?Rnd2OUhVZmVPSC9FVmREQmlpUmg3SjY0QlplZUVYYVRleHd4azZDMmZ4U3Yv?=
+ =?utf-8?B?TG5DbjcxZEZ4OHlpSEhPZWQyUWJPVmljSlhtUjNzdWphT0twNEgyTHp3eDZ5?=
+ =?utf-8?B?OG1pQnVCZ2RPQU9UMVNLdHBSV28zYld1V1NxUGRoSCs5ZDdnekpna3U1L1BR?=
+ =?utf-8?B?SHIwS0JaSG1KaDhROWtobHRmaTRQNzJLMWozZGdSUUpkUWp1L3JIUlREQVI4?=
+ =?utf-8?B?aDA0Szl3NXkyYU1ONE5rZFhTV3p2SnFsd1NpUEc1QUppWDhrREQwMHpyYlpx?=
+ =?utf-8?B?MGhEenI3cUxFYThjZUJTWHpnQjVMVUNvc0Q0S1ZVTG5IbnQ0V0UyM3BvaXNy?=
+ =?utf-8?B?UkJuRHA5WGJML0wrNWE3cTI1WmJlMWpDbzNMTlJVNlBjRC9JWVpDeHQ3cEJX?=
+ =?utf-8?B?ZDFLTVBBQTE2TW9zWDY0OFBpdCtCVXo4OC9WZlBRb2pmUVVOM3Q3TkE2TmFB?=
+ =?utf-8?B?N0VHTGtmWThMbjRNSkFSM0pvMUk4RjBqblZuMjFQNE5tSnFCT1ZwM04rU09O?=
+ =?utf-8?B?TXJPdGcwNlY1bWhCRlJjZHhQNHdVUEo3RGNvNU1QWU8vaFJ3SEd6b0VEUXNr?=
+ =?utf-8?B?NW12ajBoNklSdWJOb24yM3BTMjYrYmpYL09LMEk4amZXZkI3WndJaklWbkJo?=
+ =?utf-8?B?M3M1UWU1d3llWHdyQUxKYkVJNGJkckxhTHNxUzBzT1B6TXJsODJIUGtUNkR4?=
+ =?utf-8?B?b2U5WTJ1cGZ3dnVrUXNHRlJmSE1wd1V1d2tDV1hPUzM0Z2hkcnV6Ry9aSEhY?=
+ =?utf-8?B?MjZ4TkNvR2s2Vkg2NlBHeDgzdzZHRlQ4emRXWllvWFJjL3pWWS9WVkt6VlBE?=
+ =?utf-8?B?Ry9VTU5DZkdrdHRDZmZUU1pCTkFkbDVmZFZ4dkE0bVYwYm1YSGxha1JBbmd3?=
+ =?utf-8?B?dXdONy81TkpyeklhODhzczk4amwzczZTMm5ieG9lbmRKVFRpMWdTWWc4aHNH?=
+ =?utf-8?B?UmJvTDNBQTJjYVpMSEErQUF2b05SaDdjdHh5TmNabE1PRXlTb2t1cmlTRllF?=
+ =?utf-8?B?bm84a1NvNUljc2N4MTJIbmJQUDhwVkZ4citBeHdZUjRkdmZVNlNXcWxsWW1h?=
+ =?utf-8?B?Ujc4WTYwUE5qZ1oyakxtWnhSOUFTUE10VzdaQzdiUnJBYmFta1lvTWhXY3VV?=
+ =?utf-8?B?RS80MnhyWTJCVkNtd01xUW52cjRPdkNSOU9tdGJLc2YvNTIyNVJ2OGdKOUow?=
+ =?utf-8?B?b1gvd1IzTHZGRjlaSk9ZRUxBMHdPRm1MaUF2bzJsZ2Vrd3hWdEZsVGUxUU5q?=
+ =?utf-8?B?UUVjSkc5SlNnVnFlc0lJS29tMEUxSWFvZkplZlNlVkljY3JMQWdXRkpreUVP?=
+ =?utf-8?B?WjY3NGNTSlZxVkpCWEtrUjRxaXp3dU40cHBFUmJVK0VVZS9mcG0rUEFMd2pn?=
+ =?utf-8?Q?fdacRJpd1Y1Vz/fW7U?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5b8e229-0947-4ad9-5a1d-08df34edbc21
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5354.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 12:19:37.9242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XyFQFEHkXb1O37qyUAzq9FJJy+BE7qaCXRNhCKJZKQxqvVDY2kOTazEVg2PMrkNk5esCRQNr7LVOpIi0ExPI0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
 
-__bpf_get_stack() only takes rcu_read_lock() around get_perf_callchain()
-when may_fault is true, assuming that non-faultable callers already run
-inside an RCU read-side critical section.
 
-That assumption does not hold for BPF_PROG_TYPE_SYSCALL programs. They
-are always sleepable and bpf_prog_test_run_syscall() only holds
-rcu_read_lock_trace() while running them, yet through
-tracing_prog_func_proto() they are given the non-sleepable
-bpf_get_stack_raw_tp() helper, which calls __bpf_get_stack() with
-may_fault == false. get_callchain_entry() then does
-rcu_dereference(callchain_cpus_entries) without rcu_read_lock() held,
-and lockdep complains:
+On 10/26/2026 5:44 PM, Greg KH wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> On Mon, Oct 26, 2026 at 05:09:10PM +0530, Akshay Gupta wrote:
+>> From: Prathima L K <Prathima.Lk@amd.com>
+>>
+>> sbrmi_data was allocated with devm_kzalloc() and freed at unbind while
+>> an open /dev/sbrmi-* fd could still reference it, leading to a
+>> use-after-free on ioctl after removal.
+>>
+>> Refcount sbrmi_data with a kref: take a reference in open(), drop it in
+>> release(), and free the structure only when the last fd closes. Mark the
+>> device 'detached' under lock when the misc device is deregistered so all
+>> ioctl/xfer paths return -ENODEV. Move misc deregistration to a devm
+>> action and drop the now-unneeded i2c/i3c ".remove" callbacks.
+>>
+>> Fixes: 35ac2034db72bbbc73609aab5f05ff6e0d38fdd0 ("misc: amd-sbi: Add support for AMD_SBI IOCTL")
+> The documentation shows how to properly format this line, please fix it
+> up, and don't put a blank line between it and these:
 
-  WARNING: suspicious RCU usage
-  kernel/events/callchain.c:163 suspicious rcu_dereference_check() usage!
-  1 lock held by repro:
-   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0}, at: bpf_prog_test_run_syscall
-  Call Trace:
-   lockdep_rcu_suspicious
-   get_callchain_entry
-   get_perf_callchain
-   __bpf_get_stack
-   bpf_get_stack_raw_tp
-   bpf_prog_test_run_syscall
-   __sys_bpf
+Hi Greg,
 
-The callchain buffers are freed with call_rcu(), and an RCU Tasks Trace
-read-side section does not imply a normal RCU read-side section, so
-holding rcu_read_lock_trace() alone is not what get_callchain_entry()
-expects.
+Thank you for the feedback.
 
-Take rcu_read_lock() unconditionally. Nesting it inside an existing RCU
-read-side critical section is cheap and harmless, as suggested by Andrii
-in an earlier discussion.
+Will update the commit message in proper format.
 
-bpf_get_stackid() is not affected: sleepable programs cannot use
-BPF_MAP_TYPE_STACK_TRACE maps, so syscall programs cannot reach it.
+>
+>> Reviewed-by: Akshay Gupta <Akshay.Gupta@amd.com>
+>> Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
+> signed-off-by implies review.
+>
+>> Signed-off-by: Prathima L K <Prathima.Lk@amd.com>
+> Wait, this is out of order, yours should be below this, right?
+>
+I will drop my Reviewed-by, and fix the order
+>
+>> ---
+>>   drivers/misc/amd-sbi/rmi-core.c | 54 +++++++++++++++++++++++++++++++++
+>>   drivers/misc/amd-sbi/rmi-core.h |  6 ++++
+>>   drivers/misc/amd-sbi/rmi-i2c.c  | 54 +++++++++++++++++++--------------
+>>   3 files changed, 91 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/misc/amd-sbi/rmi-core.c b/drivers/misc/amd-sbi/rmi-core.c
+>> index 95c9109101b5..e77f114c16c6 100644
+>> --- a/drivers/misc/amd-sbi/rmi-core.c
+>> +++ b/drivers/misc/amd-sbi/rmi-core.c
+>> @@ -13,6 +13,7 @@
+>>   #include <linux/module.h>
+>>   #include <linux/mutex.h>
+>>   #include <linux/regmap.h>
+>> +#include <linux/slab.h>
+>>   #include "rmi-core.h"
+>>
+>>   /* Mask for Status Register bit[1] */
+>> @@ -193,6 +194,10 @@ static int rmi_cpuid_read(struct sbrmi_data *data,
+>>        u16 thread;
+>>
+>>        mutex_lock(&data->lock);
+>> +     if (data->detached) {
+>> +             ret = -ENODEV;
+>> +             goto exit_unlock;
+> Why isn't a guard being used here instead?  Then you can do a simple
+> "return -ENODEV", right?
 
-Testing: on top of bpf/master at commit c8a8a68d3ab4 ("bpf: Don't re-sort
-subprog_info[] for every new subprogram"), x86_64 under QEMU TCG with
-CONFIG_PROVE_RCU=y (syzbot config with KASAN/KCOV/modules disabled), the
-syzbot C reproducer
-triggers the splat above without this patch and does not with it. A
-minimal BPF_PROG_TYPE_SYSCALL program calling bpf_get_stack() was also
-run via BPF_PROG_TEST_RUN: it warns before, and returns 0 without a
-warning after. BPF selftests were not run.
+The existing code in rmi-core.c take data->lock with mutex_lock() and 
+release through mutex_unlock()
+The new code added as part of this fix patch, follows this so patch 
+stays a lifetime fix.
+I can submit separate patch converting the mutex_lock/mutex_unlock() to 
+guard(mutex) after the fix patch is merged.
+Let me know your opinion if you suggest to submit the guard_mutex() 
+patch before the fix patch.
 
-This issue was located, and the fix, changelog and tests were prepared,
-with the help of an AI coding assistant (Claude); the submitter has
-reviewed the change.
+>> +static int sbrmi_open(struct inode *inode, struct file *fp)
+>> +{
+>> +     struct sbrmi_data *data;
+>> +
+>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
+>> +
+>> +     mutex_lock(&data->lock);
+> Again, please use a guard.
+same as above.
+>> +     if (data->detached) {
+>> +             mutex_unlock(&data->lock);
+>> +             return -ENODEV;
+>> +     }
+>> +     mutex_unlock(&data->lock);
+>> +
+>> +     kref_get(&data->kref);
+> Are you attempting to use a kref without a lock?  That way lies madness
+> and is sure to be wrong.
+>
+> Are you attempting to keep the data "alive" somehow?  Are you sure this
+> is correct?
+Yes, the kref is there to keep sbrmi_data alive. kref_get() in open() 
+does not race with the final put. misc_open() calls ->open() while 
+holding misc_mtx, and misc_deregister() takes that same mutex. The probe 
+reference is dropped by a devm action that runs only after
+misc_deregister() has returned, so the object cannot reach zero while 
+open() runs.
+kref_get() and kref_put() are atomic. I will add a comment at the 
+kref_get() saying this.
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int sbrmi_release(struct inode *inode, struct file *fp)
+>> +{
+>> +     struct sbrmi_data *data;
+>> +
+>> +     data = container_of(fp->private_data, struct sbrmi_data, sbrmi_misc_dev);
+>> +     kref_put(&data->kref, sbrmi_data_release);
+> If open is the only thing that can get the reference to the kref, and
+> this is the thing that drops it, why is the kref needed at all?
+open () is not the only holder, kref_init() is the reference owned by 
+the driver binding and a devm action drops it on unbind. each open() 
+takes another reference and drops it in release().
+sbrmi_data is freed only when both are gone, which is what closes the 
+window where devm frees the structure while an ioctl is still using it.
+>
+>
+>> +     return 0;
+>> +}
+>> +
+>>   static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+>>   {
+>>        void __user *argp = (void __user *)arg;
+>> @@ -570,6 +622,8 @@ static long sbrmi_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
+>>
+>>   static const struct file_operations sbrmi_fops = {
+>>        .owner          = THIS_MODULE,
+>> +     .open           = sbrmi_open,
+>> +     .release        = sbrmi_release,
+>>        .unlocked_ioctl = sbrmi_ioctl,
+>>        .compat_ioctl   = compat_ptr_ioctl,
+>>   };
+>> diff --git a/drivers/misc/amd-sbi/rmi-core.h b/drivers/misc/amd-sbi/rmi-core.h
+>> index 975ae858e9fd..ae084beb6c03 100644
+>> --- a/drivers/misc/amd-sbi/rmi-core.h
+>> +++ b/drivers/misc/amd-sbi/rmi-core.h
+>> @@ -9,6 +9,7 @@
+>>   #include <linux/miscdevice.h>
+>>   #include <linux/mutex.h>
+>>   #include <linux/i2c.h>
+>> +#include <linux/kref.h>
+>>   #include <linux/platform_device.h>
+>>   #include <linux/regmap.h>
+>>   #include <uapi/misc/amd-apml.h>
+>> @@ -56,9 +57,13 @@ struct sbrmi_data {
+>>        struct regmap *regmap;
+>>        /* Mutex locking */
+>>        struct mutex lock;
+>> +     /* Reference count; keeps @sbrmi_data alive while misc fds are open */
+>> +     struct kref kref;
+>>        u32 pwr_limit_max;
+>>        u8 dev_static_addr;
+>>        u8 rev;
+>> +     /* Set on driver unbind; open/ioctl return -ENODEV afterward */
+>> +     bool detached;
+> How can open/ioctl even run if the driver is unloaded?  You aren't using
+> the cdev api properly I think...
 
-Fixes: 79a7f8bdb159 ("bpf: Introduce bpf_sys_bpf() helper and program type.")
-Reported-by: syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=72a43cdb78469f7fbad1
-Link: https://lore.kernel.org/all/CAEf4BzYN33yQhO-tsF8pUWDMZoiLAXkV+Z1oP6fJkByocYcjpw@mail.gmail.com/
-Signed-off-by: Songsen Yang <yangsongsen@insta360.com>
----
- kernel/bpf/stackmap.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+This fix addresses driver unbind, including unbind through sysfs; it is 
+not limited to module unload. misc_deregister() removes the miscdevice 
+from the misc-device list and destroys its device node. Although it 
+prevents new opens, it does not retain a reference to the driver-private 
+sbrmi_data for files that are already open. Such files retain sbrmi_fops 
+and private_data, so a later ioctl can still enter the driver.
 
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index f7e8d766d128..e452ca7c859a 100644
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -812,8 +812,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
- 
- 	preempt_disable();
--	if (may_fault)
--		rcu_read_lock(); /* need RCU for perf's callchain below */
-+	rcu_read_lock(); /* need RCU for perf's callchain below */
- 
- 	if (kernel && task) {
- 		trace = get_callchain_entry_for_task(task, max_depth);
-@@ -823,8 +822,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	}
- 
- 	if (unlikely(!trace) || trace->nr < skip) {
--		if (may_fault)
--			rcu_read_unlock();
-+		rcu_read_unlock();
- 		preempt_enable();
- 		goto err_fault;
- 	}
-@@ -832,8 +830,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	trace_nr = callchain_store(trace, trace->nr, buf, elem_size, flags);
- 
- 	/* trace should not be dereferenced after this point */
--	if (may_fault)
--		rcu_read_unlock();
-+	rcu_read_unlock();
- 	preempt_enable();
- 
- 	return callchain_finalize(buf, size, trace_nr, elem_size, flags, may_fault);
--- 
-2.50.1
+Without the kref, unbind cleanup could free sbrmi_data while an open 
+file still refers to its embedded miscdevice, causing a use-after-free 
+on a subsequent ioctl. With the kref, unbind marks the device detached, 
+deregisters the miscdevice, and drops the probe reference. Existing open 
+files retain their references, and the object is freed only after the 
+final close. Subsequent ioctl operations on those lingering descriptors 
+observe detached and return -ENODEV.
+
+>
+> thanks,
+>
+> greg k-h
