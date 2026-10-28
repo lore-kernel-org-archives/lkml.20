@@ -1,85 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793169265;
-	b=U0qJ9faVkG7MdrJ2h67v6pFYWXIoRHwuYEOApw/gZ6D/KfGPAdBfo7I3eqFLwYyWFaNT
-	 4dJBQndn8RBOxriKnQ4XhUChsdfAEwwMpReIxVtSgu91GUPcwAJQcvlrQJeO8FA1fEMjT
-	 qSgbCUMAuStpm4wdiF05FJsSKvAs4ICVvSTdSK/0Oehmq/vcbW4WzKPcX2TKTWUee5IIA
-	 k+YCr83D5/h4X1JEwL3NRC05KhZkqUmy78w2iNULa7azRr2cJmSxuT9vt4A0l7kWvlBGh
-	 LFgZtHy0OhcLfVN8jccaACwKT3IjVSbIuL7L4/1ymmgIu1ECzegdMKAYfEnp730h/Ew==
+	t=1793169333;
+	b=bABx64ZX8qveaL7466tg4a7fXhEc67nJNIg9KhGWT+XbWW+TVlJzI+cs+SxuiflMaNkN
+	 4iL26FRcZ6eyl5xDeVsnQqBrASDjtPjNTUG1J+0rdqKWRxSFpy4yfAvxbjXHEsXC0bSQC
+	 O4Wa51X38dYIOVK208lfNetvmQnYLtBzHdQ2k5VCGBltybqqfJ04SwQCTG6h7DdiRlZ9W
+	 XNDhU7JutYMIyQ9esS/7sbhTj54yLj52mzw/R1ypoykp0vG3TEPolV7RgsycCjZxU/SuW
+	 ihQNy7/nUL0E3uN1EYc3rN9mlrDs0EULxk/ivXe10zAePYv9+9PyWI1GjjzdhcALlNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793169265;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vQof/cj2rfQzelHAPjIhcxdxd60z5aCplNluzkoFJ+o=;
-	b=hBXlvCIx8vLoJQGSZs842szqVQRutFgCNljRx8h34bkWiJDwOg6/ka/8w0qamatieW2S
-	 zH9qo7SOTPsVGXNetSDl5csO5WmvTBqtA6sTGiloHBPhFDQDs2ogvMwxyZRBnhYqH2M37
-	 g6eNqhoPC8nk7N9h9iPsSpRBmOyEupa6TAfIwx+4Np/tByBZgdTE8jRKNGFI/KAWPmzfy
-	 kFRYaD3vmPtl3n7H1spXdvdA10uGigMSQVKGIQRxlNXSu7mtz0iZQN8jw2efxB6XMEBpJ
-	 XLUCB6/DnLcznXNCGuNw2PexpJZQa7C3GV08+aWrNCZtsyHjKYpMjQmM3QCXLR3QCWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793169333;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:From:To:Subject:Date:Cc:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=8h/qo6kthTAWj0+DvmbQM0qiT9gJIQfvau3oJd2x4lk=;
+	b=VvEfKDvLgWoNZaVG/50jBXQz0Jc22Nsn/tvMTRRE1IxM4Nu6O0+HpCdwvmK4B6JU9wJU
+	 895p7fDiBrafB6hQsiupx1d1WvCNSWLvX6kg8mj6iEy6ZvjReMipdM5aIwzXpkE3izDEn
+	 O/YPCO5L5zbThZpXaDUTgW9lR0wezEhwsx24JBdxS9odeSjaWEWUwAoPt46tTEOfMSrGU
+	 CJG/NCyRTgXLVb7Px60pm5m8DKJFcyXu1ZUyIjtQIXfO4YiAU74PLTtEnpbFICDb+hD4/
+	 +dkFcGC4NMgUrLM9EPguIh7LpTJZ9c3D3kLtjSc5r1pXpSbYyodZxkvH8xjrc6/4RGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=gtvc8xLO;
-	arc=none smtp.remote-ip=43.163.128.48
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=utexas.edu;
+	spf=pass smtp.mailfrom=utexas.edu;
+	dkim=pass header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=dJJpFxCE;
+	arc=none smtp.remote-ip=209.85.210.53
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F793606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F793606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E6D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2E6D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=gtvc8xLO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793169255;
-	bh=vQof/cj2rfQzelHAPjIhcxdxd60z5aCplNluzkoFJ+o=;
-	h=From:To:Cc:Subject:Date;
-	b=gtvc8xLO7ZPjwXBX2FUduGPYhQKtTAFfpPAKtDZzGDWhCwIpmJ6bteIrgVRHO8G2L
-	 XxGO5AscHPjKao0PxRe7Fy942q1YOLxv/pp3YAfuhTXRxNRam90k6JPQWcwnWKCXCA
-	 Xmds0w2YWiJhPBElSa0bmjJ137HvNi2yX9rR9zzo=
-Received: from LAPTOP-TKBJAGN4.localdomain ([27.38.201.62])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 87A2BC36; Wed, 28 Oct 2026 14:33:58 +0800
-X-QQ-mid: xmsmtpt1793169238t2xcorkks
-Message-ID: <tencent_E6D69775D91AD9FE45C994B3755CB1452506@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3Juz8BRtUTIynhC7xXOfHjjR0NWlufK1lc8NauVMKx5cGNn+stB5Y
-	 g78ip6EvWmYmz1jfKCNsytbtwYz3nCGwMHrW3ISNHhI59rEjHExvEjGU97Boo2OM7hJxDRFyTZqQ
-	 +hJdOyhfVaG2DJX1OVnWV5pgGUMumk6i/KH4vBK/FDXx8vfuvgd5xZg/AVjW/DvvXHqgbalHb1RD
-	 9z4cFYyu7Ordh/NjSgPsqpsJVOH2a3LngM4vAWSshyQIfysVNaQNCY/kQWb5zLLIjXfXfiBAGK6L
-	 Bgg9IM5ISSFDfb5oJ9mejV7EK+Sf56iIKDZfRz0wAL+a1FBMOXmbOH77tG1UFY6ntIliUa5x7m8q
-	 w1RHyna+RYF96hJR7tgaNzGNhpzR1orME4DXPEetDMfA0k7JAa/ruCmxSVbwoi+CLaQ47xMRPyC3
-	 r87qt7tI2okiJq0J7W1mWe4P0KMzyo/veznRIq9a8V0DuKlCKreFMeGT0DE4neaUVkN5dJ21V0lV
-	 uzD9dARAb/YsLYA1sfZwZ2utQMT/P14wFmaxA07jNW2eThpn5bV2DZeCY7c1PVyLpBBR8l76Unt+
-	 chnU0tChMvy8q1VNUQFEu8Yyq6XsLMINDqnRY6l47CMxMB8dxlDa3XnzgLULpDtrWwCP2JBrlC11
-	 1NavXBCGaDNzR/pngkBlIgxLvTw5SZqBw1Kj7LeyvJuTovUDzQ0J+EQ4t3hlnR7+vfspBLOrcGsV
-	 zVBPcT+ot29s0SfZBGNJx0hqmqC9k90dswwmVADoYBi3wziJJN5EpZpZvpa37F0h66PNWkOKmtFL
-	 /tfJX91lYDFyqCaIzziMYv87Hduh0T88uGgiDyZSlTpvv19vhT1MW2v6c4AiHfPNRBGclXOslZre
-	 /fQQTg4ANrbj2aP+BONSjE3uNojDo9UgBLZXdPde3WQcZ7A3DkfzW1GcYLNqC0exKDDPBMO/vhKP
-	 ILpkTeRbQdkILV6mu3C+UIqxW2KAnldrzD9c1W+rXcsiv9S/eXI1gJ7rGwFo3YEVg8JkENwA9UHh
-	 KOKtBFuFzQ0bG/TmxgSlH9jO21ihL1L6XO4aP0V5JTdnnabF/wR7IAYPdlmXr7KKTN+0NJ48ZWps
-	 Ie79+l290bRm6QmpqmvaaNTmZx+X6RL9SzgF1q
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Haobin Jiang <lemonoutput@foxmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-i2c@vger.kernel.org
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Carlos Song <carlos.song@oss.nxp.com>,
-	Vincent Jardin <vjardin@free.fr>,
-	dillon.minfei@gmail.com,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Haobin Jiang <lemonoutput@foxmail.com>
-Subject: [PATCH v5] i2c: imx: honour I2C_M_IGNORE_NAK
-Date: Wed, 28 Oct 2026 14:33:34 +0800
-X-OQ-MSGID: <20261028063334.24845-1-lemonoutput@foxmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=dJJpFxCE
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8479f46ecd8so306490a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:35:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=utexas.edu; s=google; t=1793169331; x=1793774131; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:cc:date:subject:to:from:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8h/qo6kthTAWj0+DvmbQM0qiT9gJIQfvau3oJd2x4lk=;
+        b=dJJpFxCEQwE5J3Nif2uJcy7MY26ryGbOULpFGzuGbclxnagJO/NUbVD7zqpdFXlQzA
+         8G7lstMzvNXleokI2IjHzTVRAHU92CHA3SMW6bNmDrHtv7lhjd2g53S1Y8jSrc9BqBfc
+         3p8LrQW91NPwDzym6FRsP1vvrs+awWmkq4odJwzokOXgfeKV5MBqtzjHy9ja652OnhW9
+         dak5W3tghp16s+DnDDeOpnEk6s4HaJEZmCPqx8QBPzYNS+INlliU72Lp8xvs+yjozK/0
+         JUFSAhojxz2ey5Do1ZLb2KcXNJMF+3paFaa4zvXm1NnZgLO9pBo8tmuZxFSHRE/K0Rbl
+         F9lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793169331; x=1793774131;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:cc:date:subject:to:from:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8h/qo6kthTAWj0+DvmbQM0qiT9gJIQfvau3oJd2x4lk=;
+        b=x4wDqAiD+cu+g/1HxI56CdVirAzs6EmTZibvbpzojnvsaFe2dJaCHzDQjOChHdwrFu
+         EFguTmPVQ+N+LciIlADuTKZHbrgRadIFBeBNDmDFI4GUg5YM+SzurdN1zZVgbXbuLoAv
+         esPDQ0tlSzUzMkHJQLMu+CykhUvwR+vuQeP6v7vcJ7qfK9s2MUhn3Z5HTJIpgg6ZoWPG
+         MEF3sLvC80K6ZVoBTdgth8MBwaAWWtqGYL9O37VzxceM3GMzTfweV0PETJHuM0LmhJg6
+         8r2U8cklZcwZiASlS00yNSUb9XWvxqHe2V5dBldjktJq/31+vdImUmPCDT5KRSLXZG0z
+         F7qg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5YMcMDqHkeBIg2IeYWorFEZMwziD2l8ylw54nwKViHOjK1lJsN9PO11SQFH0KUUY7GLay2aca3TL8Ng0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1OPAw/QjQDvuUW0XByHFEfkM9nqAsowQw6jssTrH/GjsjbfK0
+	JmTf/PblJkyQlqaOyWMEh9YeHiCXZAR/RH3PErd75FDAFR/qzqsvssu+CkwyKfEuy9vVT/q/9Rg
+	Os3TtX53ayw==
+X-Gm-Gg: AYBFou0CgdQqMFyb0VUwiQGcSxtOsnfgnAzKlLG/QAU5iXt4rU1xmBWmxFnzuiabp3S
+	lGHKiM0GNqYwMuVYF4gdwFj1AzLqXO8TpucaMFGplaCimXr8ghqjhwukk4E7FTUTMGVo5kHsSgw
+	NTty/Xsjdh1oUaz/SNoWcvGskYMD6y+w3Q5Weabvmjb+P7dskG4OK9MQOX3Iv2cL16HTGMRY00R
+	0GX3J5v9kyRrEFuYQPC50aW0gGP/2cOOw/TJU2wUZ8yhLLxG1dd2Up+tiiuIsAfLplITzohl2JU
+	W3MzXL2IL6dnGIFNwTpnZ6TFLsvmcfnSiP4kYIKCHyAp4pcLL3Ecu/sBkneAVnP+R1J6bj9gnhi
+	MPq5vXx3yRzXgabzj1M4j9FGqK/8RjSJzNDXFZ/ZwsbhlHioXjpfCdqbzGQfzQDtM9+CYJnjicx
+	9HIEOk0WrbQMDbKnExQqLNLWi3QYj84KmHo1ngQ4De7jtWpdwUMhTt6MEbvENhi/Y4J2502JJBu
+	6svvigIzGcQdOIMJRQGZ2zG/VESQ74bx2ups1wUg3RJCDAHRp8nZ25z/KN2aRPJZFdhOCzmLAnI
+	DKZp5jNtEj8zAMU+5q/eE/yZteGiNj86bpJ6fAfsUKLH1uGcvslJSyROYcdwDRkzcV5qcVmNdGI
+	yapAdMRLtsrSD/QIguUE2sxGN7Bq4NUpzjar9LLoPnCqEvBUdyy7B6gC6wmr9K7iSwlgyhwdye7
+	H84HNEAVZ+RSUi2d1K3/u6Li5+lIXYic4mFkEG2wc90utCzXInOb1QI6R52I9Ry1yJ0URA
+X-Received: by 2002:a05:6830:44a3:b0:7dc:4947:36a1 with SMTP id 46e09a7af769-85ab9e46071mr1422426a34.12.1793169331496;
+        Tue, 27 Oct 2026 23:35:31 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([173.174.112.101])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85b1f4363d0sm770585a34.4.2026.10.27.23.35.29
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 27 Oct 2026 23:35:31 -0700 (PDT)
+Message-ID: <6ae197b3.d47bf0d2.14cb70.fecd@mx.google.com>
+From: karim.sabar@utexas.edu
+To: Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2] drm/xe: Rebind VMAs one at a time when a bulk rebind fails
+Date: Wed, 28 Oct 2026 01:35:29 -0500
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <atl2i1vJoU2QwCbG@gsse-cloud1.jf.intel.com>
+References: <atl2i1vJoU2QwCbG@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,154 +105,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Honour I2C_M_IGNORE_NAK for supported PIO transfers and keep flagged
-messages out of DMA.
+From: Karim Sabar <karim.sabar@utexas.edu>
 
-Following Sashiko's review, reject zero-length reads carrying
-I2C_M_IGNORE_NAK before START. This prevents the newly supported flag
-from exposing an existing receive-path bug, without changing unflagged
-zero-length reads.
+Big games die after every s2idle resume on flat-CCS iGPUs. The exec
+ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
 
-Link: https://lore.kernel.org/linux-i2c/tencent_877C99956190215D644EB959DF1663542A0A@qq.com/ # [1]
+On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
+these parts. On resume the first exec rebinds every VMA in one job and
+xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
+Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
+array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed. A
+bind that big can also fail later with -ENOBUFS when it doesn't fit in
+the migrate layer's vm_update_sa.
 
-Signed-off-by: Haobin Jiang <lemonoutput@foxmail.com>
+When xe_vm_rebind() fails with -ENOMEM or -ENOBUFS, fall back to
+xe_vm_rebind_iterative(). It rebinds each VMA on the rebind list in its
+own job, the same thing Mesa does from userspace when a bind returns
+-ENOBUFS. Each VMA comes off the list once its job is queued which
+means a failure part way through leaves the rest for the next attempt.
 
+I tested this on a OneXPlayer 3 (Panther Lake) running SteamOS's 7.2.7
+kernel. A small Vulkan program fills a VM with 20,000 or 35,000 64 KiB
+buffers, suspends with rtcwake and submits again after resume. Without
+the fix the first exec after resume returns -ENOMEM over and over and
+Mesa reports the device as lost. With the same fallback loaded into
+xe_vm_validate_rebind() through a test module, the bulk rebind failed
+with -ENOMEM on all four resumes and the fallback rebound 20,024 VMAs
+three times and 35,027 VMAs once with no errors. The program kept
+submitting after every resume and the kernel log stayed clean. The
+patch itself is build tested on drm-xe-fixes with W=3D1.
+
+I tracked this down and tested it on my own device. I used an AI
+assistant to help with the debugging and with writing the fallback. I
+ran every test and reviewed the change myself.
+
+Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Cc: stable@vger.kernel.org # v6.11+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
 ---
-v4 -> v5:
-	- Add a scoped zero-length read guard following Sashiko's review.
-	- Previous version: [1].
----
- drivers/i2c/busses/i2c-imx.c | 37 ++++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+Hey Matt,
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index ccf08cd63151f25581dd3059ee874b606d0dc94c..1e2fd699f4fc658f4a9298cd1852455966018e37 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -612,9 +612,12 @@ static int i2c_imx_trx_complete(struct imx_i2c_struct *i2c_imx, bool atomic)
+Sorry for the slow turnaround on this one. I said I'd write it and then
+it sat for a week. Here's the iterative rebind you suggested. When
+xe_vm_rebind() fails with -ENOMEM or -ENOBUFS, xe_vm_validate_rebind()
+now falls back to rebinding one VMA per job.
+
+I only hooked it into xe_vm_validate_rebind() like you said. The
+preempt rebind worker for LR VMs still calls xe_vm_rebind() directly. I
+left that alone since it's not the path I can reproduce but I'm happy to
+add it there too if you want it covered.
+
+Thanks for offering to take the error injection and IGT test on your
+side. Also I'm not on the Intel CI allowlist which means CI won't run on
+this one until someone hits retest. Would you mind kicking it off?
+
+Changes in v2:
+- Fall back to per-VMA rebinds in xe_vm_validate_rebind() instead of
+  switching the op array to kvmalloc (Matt)
+- Link to v1: https://lore.kernel.org/r/6ad8027c.7f7fe2b9.10c6e4.4073@mx.goog=
+le.com
+
+ drivers/gpu/drm/xe/xe_vm.c | 49 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 99e42bd29..3cbb305b8 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -370,6 +370,8 @@ static int xe_gpuvm_validate(struct drm_gpuvm_bo *vm_bo, =
+struct drm_exec *exec)
  	return 0;
  }
- 
--static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx)
-+static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx, bool ignore_nak)
- {
- 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-+		if (ignore_nak)
-+			return 0;
+=20
++static int xe_vm_rebind_iterative(struct xe_vm *vm);
 +
- 		dev_dbg(&i2c_imx->adapter.dev, "<%s> No ACK\n", __func__);
- 		return -ENXIO;  /* No ACK */
- 	}
-@@ -971,11 +974,15 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
- 	return ret;
+ /**
+  * xe_vm_validate_rebind() - Validate buffer objects and rebind vmas
+  * @vm: The vm for which we are rebinding.
+@@ -397,6 +399,8 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_ex=
+ec *exec,
+ 			return ret;
+=20
+ 		ret =3D xe_vm_rebind(vm, false);
++		if (ret =3D=3D -ENOBUFS || ret =3D=3D -ENOMEM)
++			ret =3D xe_vm_rebind_iterative(vm);
+ 		if (ret)
+ 			return ret;
+ 	} while (!list_empty(&vm->gpuvm.evict.list));
+@@ -856,6 +860,51 @@ int xe_vm_rebind(struct xe_vm *vm, bool rebind_worker)
+ 	return err;
  }
- 
--static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx)
-+static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx,
-+				    bool ignore_nak)
- {
- 	i2c_imx->isr_result = 0;
- 
- 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-+		if (ignore_nak)
-+			return 0;
+=20
++static int xe_vm_rebind_iterative(struct xe_vm *vm)
++{
++	struct dma_fence *fence;
++	struct xe_vma *vma, *next;
++	struct xe_vma_ops vops;
++	struct xe_vma_op *op, *next_op;
++	int err =3D 0, i;
 +
- 		i2c_imx->state = IMX_I2C_STATE_FAILED;
- 		i2c_imx->isr_result = -ENXIO;
- 		wake_up(&i2c_imx->queue);
-@@ -988,7 +995,7 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
- {
- 	int result;
- 
--	result = i2c_imx_isr_acked(i2c_imx);
-+	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
- 	if (result)
- 		return result;
- 
-@@ -1017,7 +1024,7 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
- {
- 	int result;
- 
--	result = i2c_imx_isr_acked(i2c_imx);
-+	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
- 	if (result)
- 		return result;
- 
-@@ -1249,7 +1256,8 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
- 	if (result)
- 		return result;
- 
--	return i2c_imx_acked(i2c_imx);
-+	/* I2C_M_IGNORE_NAK messages never take the DMA path. */
-+	return i2c_imx_acked(i2c_imx, false);
- }
- 
- static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
-@@ -1268,7 +1276,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, !use_dma);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1401,7 +1409,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, true);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1416,7 +1424,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, true);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1613,8 +1621,9 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 	return ret;
- }
- 
-+/* I2C_M_STOP is the controller's native behaviour; don't reject it. */
- #define I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS \
--	(I2C_M_IGNORE_NAK | I2C_M_NO_RD_ACK | I2C_M_STOP)
-+	I2C_M_NO_RD_ACK
- 
- static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
- {
-@@ -1625,6 +1634,12 @@ static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
- 		if (msgs[i].flags & I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS)
- 			return -EOPNOTSUPP;
- 
-+		/* The receive path cannot handle zero-length reads. */
-+		if ((msgs[i].flags & I2C_M_RD) &&
-+		    (msgs[i].flags & I2C_M_IGNORE_NAK) &&
-+		    msgs[i].len == 0)
-+			return -EOPNOTSUPP;
++	lockdep_assert_held(&vm->lock);
++	xe_vm_assert_held(vm);
 +
- 		if (msgs[i].flags & I2C_M_NOSTART) {
- 			/*
- 			 * NOSTART continues an already open frame. The first
-@@ -1712,6 +1727,10 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
- 		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
- 			msgs[i].flags & I2C_M_DMA_SAFE &&
- 			!(msgs[i].flags & I2C_M_NOSTART);
++	list_for_each_entry_safe(vma, next, &vm->rebind_list,
++				 combined_links.rebind) {
++		xe_vma_ops_init(&vops, vm, NULL, NULL, 0);
++		for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
++			vops.pt_update_ops[i].wait_vm_bookkeep =3D true;
 +
-+		/* A NAK'd byte may not generate a further DMA request. */
-+		if (msgs[i].flags & I2C_M_IGNORE_NAK)
-+			use_dma = false;
- 		if (msgs[i].flags & I2C_M_RD) {
- 			int block_data = msgs->flags & I2C_M_RECV_LEN;
- 
++		trace_xe_vma_rebind_exec(vma);
++
++		err =3D xe_vm_ops_add_rebind(&vops, vma, vma->tile_present);
++		if (!err)
++			err =3D xe_vma_ops_alloc(&vops, false);
++		if (!err) {
++			fence =3D ops_execute(vm, &vops);
++			if (IS_ERR(fence)) {
++				err =3D PTR_ERR(fence);
++			} else {
++				dma_fence_put(fence);
++				list_del_init(&vma->combined_links.rebind);
++			}
++		}
++
++		list_for_each_entry_safe(op, next_op, &vops.list, link) {
++			list_del(&op->link);
++			kfree(op);
++		}
++		xe_vma_ops_fini(&vops);
++
++		if (err)
++			break;
++	}
++
++	return err;
++}
++
+ struct dma_fence *xe_vma_rebind(struct xe_vm *vm, struct xe_vma *vma, u8 til=
+e_mask)
+ {
+ 	struct dma_fence *fence =3D NULL;
 
-base-commit: 123cffeca4a33d770c29ff8d3f22453a5fd59c32
-
+base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
