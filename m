@@ -1,91 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197072;
-	b=uLWmGFz+VIWAq8ND+z7ZmEUm4DJW9NvsBDZ6mV0K/F42zNav8QNMbGxXh6wnyLRj4kG2
-	 S093qGBvE+7wN+R6d62lhaEQYO7ZS0+gvq14LF9F+YIQaE3rH0ZJnGohI7M2DFbrkXPQb
-	 RRWc3JPtUEjzd4VlZHLunPm497ZB/TradKu3LViXj9mbsrU3kZDcLnq0dH3mQW3CpBjw0
-	 jTl7rRscPnQsaPrVFfM50/EUh3NyZglremarVxccQYci0yEP6B17EP39uKHIfWq4fihaf
-	 gYVVreQmniPTvxb535oKCGNaSNDs/4yUQ0Ehn4K9ePfIrDmfqfAGOtiVHiOjgOBGjyA==
+	t=1793197053;
+	b=r+gM/oxpSfUMO9/eIGes9TGbSkkmx+3Zy5CfQMg1X8nMq+kdiXekZ/fY0RuRNg13eriC
+	 ye83LURQkQdmU4mEtwtLR7qqJMli4QuIpSDHPn/FI1OqS2oTB4XWAVN8SM966+YuBCk19
+	 UX6ddv8s3MmJiONGsWxABDzbylGW3p4amn6DQiPOgeGfWontWDpQibsO0Nol+zOP03Lsm
+	 TGZO+qFAEVBNcfbiJPKp1AXxZ8pLuOv05M21wqsRKorNfKnjxDsUXNZdfbd8y+5Tch8fZ
+	 5Eg8DwOf5LivBHTj4mJVWXGdseylD2Vog99exNwrfVbeaV15fUkY0rgLA9HHVbXHHaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TQGM9otKFbe0v/ZMqO3QRr7VPtgpLnjAfvMxrL4LM9E=;
-	b=oBGUgu3+DgziNwLHTbs/zWueQtt/hnHd3hNK6YIhopXsYW74PLwP3WBXbODTQoA5UEA6
-	 dhaXh12E49aXLRs/PqlGKKAM2TCQ7KheKcpI/huck73sfNxZs8b/s+jmThQ/JnrEaF2GO
-	 83J1ArnbW0eXfJe5w0eSowCv7lHgOCCVvCftvbI8VhSBFXCvVmIgbvESWpwNpGBfc1CJT
-	 RkrPpGygMEs6ti5qulgeopW/8Sz3XzJJAJ2PEdFjMfUVvKGpPEcWgNN2cxT3ATkKYB3xf
-	 ujP1sVoeQ3xQ/DqcyBgdR6brqmF0PjMCtZgLPSraSnKrfB+iNO4BX9D6YFRKDfkYjwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197053;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0yPa5wbC5qsV5ePJc3qyfqSfwGtResrr8GiaQmPYPZk=;
+	b=YnZ1GaIVS2qry9NVYWqJvPQ7UCUp+zuJvgnTmTgPRmq4bM3txJ1bWVLp6O2w2mTqVzzh
+	 8UqM43Ybj9WVUcTTBFVI7i8Nn4Od+ZsLN3+h1RXXUPVON0snskEuqJkXckcyZP8st4TvE
+	 rsNpdccZH29gHX8xiDI3jGJi9Cj9nnpYpe+SHg8zPj3M9BCIGIsvxhPbBPUbXx5YJb+jC
+	 BW4FrpTiS1/L9ZOrp/Oaz89B2xhdRRWJDQZrR13HOzGAiI0yKGq1tkSnbB+rs2nFv2Zlg
+	 9/bMlToFo3RtLjwAzdqs9Ace0hNqgajxi77P7pV3+k0MNJWuDKkOQ0COq0ctwAMV3uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpKoM6jp;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZO3/k+0r";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0392606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0392606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FC1606A31F;
+	Wed, 28 Oct 2026 14:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpKoM6jp
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso779752a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:17:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197071; x=1793801871; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TQGM9otKFbe0v/ZMqO3QRr7VPtgpLnjAfvMxrL4LM9E=;
-        b=tpKoM6jpGJRdzPveFMYHzJVSbJ48ERnNDwLSEnp9gQ+hLWhvyR8YDV1noTRZL7W6zt
-         ZoJRmhMyMfBLdppluggHtQPzYwLnN5El+UkWKxSTjL1A5ui+C99UhDEvpczuZbmV8kzD
-         3l1KvipLcIa7+yICyE8Pi694UyQtglAfGBwOEbD0+S5aJV6IJ+0XmQEB3sUDgBSRHLnw
-         t1In+xUy5j6IjFGUAgFjoGEb9H3DhbC6mB5hmo67Zzu4iEEGesct/5g248hu04Nm3HEq
-         NCPAGhX+atRpuHybq/BCkIcNTYBuDM2R9P81c8FfMeEwPzZ93Uc6LhAqEqLsSssBR6kQ
-         VsyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197071; x=1793801871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TQGM9otKFbe0v/ZMqO3QRr7VPtgpLnjAfvMxrL4LM9E=;
-        b=L0w7H/DaNSfGXgubbo4d8+yKenOeT4EGF2ZwqiB8bZmYSdVtz3B1nydfgjKngZUCHf
-         xlc5jHegLzQmlOvAPT/qRlZRcvPSjFoIZ5ZPaOtJ/GmfzugIkNXA+rWbe4qr3QZ6dAMi
-         8hIDhHreeUmjhl4O76xwbsAyDst8xL/3UIFO7+HenxtteDit+Kx9Vlg5q/8zTax5nNQ8
-         ZzYpL+wGtB8aJz2HXI1IjjV1QjL88UOnFfsUbhChHVwLrUsaSyA8IaGX7bEWM3Y9vck5
-         NT/CNU1mOJKJt932s8vPRNmmz+J8Ze8YKZ2cg7zUH+B3m+Ti0yPa072L4Sb8mo2I39+D
-         3iyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzT1k6Sa0HQ8nZAzHe8ov/qlc/q5rTMRerD2XZ2ZDm/A9dv7mrydP3TIjp55xWLBMchAPnRMLTTdRLfk9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUmFWII4bRSqlLLxEvX8iI4LMsU4355qUM7HcvvHHSyYMOkNo8
-	wWucMP6Xbl+FNOS7tAjFdY/65LE/5m3AESf4Zk2HfbnFG0cdecky3m26
-X-Gm-Gg: AYBFou3sV4ecIG5yiNNzy4yYE3urZkp/JKrCG8BlKG1GnNTUldWtX3A3POL0nv/lojd
-	95aWpwhoMFDr+dy9ZWZ57jgLqBIHQLi1kFgM5+NAOGtqUOM5cImpZ4O+h2rizgZFtmiolyXNoyU
-	vBWFcRoWQ+9rSMSJaLNAa7PuYHj8DXZ263n/vPqG1s9M42XFEvIeWONErz19NHwsClSJqnc1DNt
-	5DR33VrIAJ0BPFOL7gS4bz4NWasiwiPOTyqWDWn171KdQotjHfhK7hxt7eA/dHupoguZ7NlAQWI
-	oT1uM0AxXwzSaAavtq1u/xHHL7uShpw5ZZmRpNg08os6jtla5yheE3WX6LmnKgQ5buzBC2fCfzS
-	N/zXSmsIXWfSJ1sD8exxYC/KBsHFeiLNps3Yp9KBSn6tzrM4EosXykI9x6STVO+HHd9A4vQYQjs
-	gf/vwimeIFvzImoKOmcPICITtDM2TEb8Jo6Sgtgm+Bmf0iFe5gK2PA1vUZtvEgyZMZNS0EcNY4D
-	uovOop4u3ieyq747r7VItrSCLQjr3MSIzeXKDe7tLTdiKa5wWpjC5R7Mv3LiuirIq1umFzryApQ
-	t9f9R0lwPZDJObiXxmNeJu6DiB9JtsnjY0x5e0j3YIgUxkgzSvvAxl553OYaaWdiNSce6w==
-X-Received: by 2002:a17:90b:4b0e:b0:3ac:85be:cd56 with SMTP id 98e67ed59e1d1-3ae57f9b343mr1819072a91.12.1793197070417;
-        Wed, 28 Oct 2026 07:17:50 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a5839besm3288028a91.11.2026.10.28.07.17.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:17:50 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO3/k+0r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDA91F031E7;
+	Wed, 28 Oct 2026 14:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793197052;
+	bh=0yPa5wbC5qsV5ePJc3qyfqSfwGtResrr8GiaQmPYPZk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZO3/k+0rpGxjzv5FjESP8rdCYPHL0qIKSXYtMfk/WcjzeFRk0CxkzDIDcLvPixOzz
+	 yOXzMWjKta0SNKf6DVx+eYL1ZsRKUiMRiQ/tJgCU/Aq8MY2mm6rLJld/ZIJ4Q2XYjT
+	 c4vT4vI8X8+C8YkdZiP1Tic1uHVmk9V5FuxPpI5Q7KO7+kboZhWpl3FhaeX9iSLfbW
+	 2Jlu8z38EAtvKzflNrl0CbJDKXLdcEsPguDC/MYxIc5BzHsenxBqGwAE2+5FA8x3j5
+	 hQ2OWiY5D6JwD29cq3ADZ7HrkpoqnQBUBS8q6pI10dJwC9vR2mJgLn9f8Lu4ibs0cp
+	 J0SC/B7f1YJ1Q==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: cfg80211: release rejected nontransmitted BSS reference
-Date: Wed, 28 Oct 2026 22:17:31 +0800
-Message-ID: <20261028141731.6185-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	linux-mm@kvack.org
+Subject: [PATCH 6.1.y 1/2] mm/damon/sysfs: put target pids for damon_start() failure
+Date: Wed, 28 Oct 2026 07:17:21 -0700
+Message-ID: <20261028141723.161776-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028141723.161776-1-sj@kernel.org>
+References: <20261028141723.161776-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,44 +63,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Repeated MBSSID reports without an SSID can leak BSS entries outside the
-scan cache, where the BSS entry limit cannot account for them.
+damon_sysfs_turn_damon_on() allocates and sets up damon_ctx to start.
+If it is for virtual address space monitoring, the setup increases the
+reference counts of the target pids.  After the setup, the function
+invokes damon_start().  If damon_start() fails, it deallocates the
+damon_ctx object without decreasing the reference counts of target pids.
+As a result, pids can be leaked.
 
-__cfg80211_bss_update() returns a referenced BSS. If adding it to the
-transmitting BSS list fails, unlinking drops the cache reference, but the
-caller reference is lost when res is cleared.
+Fix the leak by putting pids using damon_sysfs_destroy_targets() before
+deallocating the damon_ctx object.
 
-Release the caller reference before discarding the unlinked BSS.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 0b7808818cb9 ("wifi: cfg80211: fix BSS refcounting bugs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Fixes: a61ea561c871 ("mm/damon/sysfs: link DAMON for virtual address spaces monitoring")
+Cc: <stable@vger.kernel.org> # 5.18.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Validation: A W=1 module build with MODPOST passed. In a QEMU
-guest, 20000 rejected BSS reports retained 589--594 bytes each before the
-change and 14--19 bytes each after it; the transmitting-BSS reference
-ended at 20001 and 1 respectively. A reproducer is available on request.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
-
- net/wireless/scan.c | 1 +
+ mm/damon/sysfs.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/net/wireless/scan.c b/net/wireless/scan.c
-index d35c826c4b1a..36f8521f8d60 100644
---- a/net/wireless/scan.c
-+++ b/net/wireless/scan.c
-@@ -2452,6 +2452,7 @@ cfg80211_inform_single_bss_data(struct wiphy *wiphy,
- 		if (cfg80211_add_nontrans_list(data->source_bss, &res->pub)) {
- 			if (__cfg80211_unlink_bss(rdev, res)) {
- 				rdev->bss_generation++;
-+				bss_ref_put(rdev, res);
- 				res = NULL;
- 			}
- 		}
-
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 9a918f8e4c6bf..4b28bb9ba0a24 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -2547,6 +2547,7 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 		return PTR_ERR(ctx);
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
++		damon_sysfs_destroy_targets(ctx);
+ 		damon_destroy_ctx(ctx);
+ 		return err;
+ 	}
 -- 
-2.56.0
-
+2.47.3
