@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793230970;
-	b=eEy0m4iS8KE7KwEFMZmt03tQgasqLysJ24mdHb1610vTTGchWi5YwKeT2X/cKTkntpfk
-	 ZSqCTpxRMLqs7QKJ5hU4nVPmqr6DXCfQwUDXHHY+mYB1v9WT3m3orpnV9tUOuI1S5L1/T
-	 5mTNaeROngaaSSGwlBcZT72nVGW77HCCyluvd/7EaetD3s2QCmVnTcue30Ncvd65o7noA
-	 T+KO2pc5Uu7YICH5c7KoJj9bkABpog6P6b59I7KgSkbG7XUJOT9RxU8AM4/A8Ij5NxYRs
-	 Mg6g9I5/toZ4IuGsOUoR2y/QhmY22BJhb0lmhJ2lgg+iFtdwVmYH7xfGyZ+o/gZUEqw==
+	t=1793230971;
+	b=JL/PinEtnHuUH/VYlkiN3zKDW9RN2DtNjNIiMLMMcwmvEmuoANvmW9WrgxEftf3oUTlf
+	 lcFBCDaG9gM1nmkRZS6VX4ump3+sXQl8lINfCY+gOLDiWtM5lcDSoTJGwGdjZmI+Lqr1a
+	 n5kcK3ZA5pUfjT9xZ2jSak4/b8EXFLNxvmeBiVTGATQ3MsCFhGDvYwzfyO/1R2DLCAilA
+	 /J3/3Xc/wCrXTcqQ9ihiPTX8TcqhW1egdG3Fxqm9rMBfC2d+MvYp5VLrVQaxHl4663F8M
+	 GLctEVGKa1TXRI5Bbc26OILjdAlAu/FENw/GRlqzAXDAoBeiw2rVzgOW3wLGS8aPnxg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793230970;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793230971;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=viCUp1crSW2jGJfJ3UlDk2hvRgqBta5P86Yf/Op8wjA=;
-	b=5a34ZuOtilPpsIiZN2HT6smXSnoKLiANstFL9pihuxMHOy4huww/YgOzuZUMqDP+F6yi
-	 0yt3k/CwckrkqbUJAMHBrDWqOC4tALGFCm2SkDJ9Sm3EpGS1x1v0qT1s//o5JJkyjfSdC
-	 zB4kcdHsCJj/KGkGhRsL1DH5pt0fi+hCH2/Pp73YVQd8IyhloLaycVcBqlLKiWgLbO7Ay
-	 Hdw+29Fv+aS+O5rjkWyxyzCqTM4pd5vLzyDPhBw37p1fpodx5Z5aTZyt2teNStMr4zdPh
-	 p1ZDj18OlpMy4yXf7A4OWm8aNoSkug9/AewrZ8SzEpD0FxOKdWJP1a1CSZpsnzijhGQ==
+	bh=Rl3mEnpFINIo/fNdrLGKiGda6V5w+TutGVQ743Jd43c=;
+	b=rKH7w4t3i1kBedv73WSNr24SLfcNw1hVgc0+H//Y0LmwTr/TzK1zUmv9boYQMpwW+siF
+	 fWwQp+sd059Ekmg0xaHlMeHhcpmkLA5W1Pm2FHVKPjdAwmTbXSxVU2dXyuHzHCI4upG5c
+	 6PEdii5P8Le8+9L+oZTqm/AG399E4aYUuhQTEKHkEcxPzVBLfNW/UaSt+GxexHnYGHGOu
+	 c+I2yTbvQhKd99KQxaSxDn0PSW6Ndk+akyZBHlpXtZQHztaVt4Cx9U9MqzBu1lwetEy4D
+	 kmbOlD4B4F3Pa/talOu/nYdSt/99KR82KaNY7H0cHPztedKntkjOVfZ/9dMUxn03YKg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwF6AsRW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnrkHmPL;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CF0606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A722B606A31E;
 	Wed, 28 Oct 2026 23:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwF6AsRW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnrkHmPL
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793230970;
-	b=xyq+rcWKikUoQ24RsWPlSlSiULlR1+vO7UVRXPUeun3xbItwGurnrz7W2A0M4IQJrkDA
-	 96tkCV7TvN/5/SevSk6lW/YMXS0Wu1SvJ71oqCxaeIX+zw7Hw7gQrcmD8y8mHs8Ld1Q87
-	 TgRkM3UwjciM5bk19rMUYXkB31ACWMNoyE4i3cgjZSd/sLt2IWjBp0Xka2UfFe7ZX+LS3
-	 8ujTXrs8Tve3NZjrm6k1HB+a9926rbkik6N1GpLdGeYUiv2nU4O60R2EKgbPFdUPxqWvj
-	 USRzN4De42KEtGgR6ylDQVDuR4rr9soFj/iH2fd2KtDJL02TZq/RBYfDpUKra0kJBpw==
+	b=gKe96VRi4Ay3qvN89F1wn0Xnw+Y1DHkRwJaGn70hF3h72+u9pYnneo9tzKp9vLXeXZtD
+	 TxShQR5q+3KJITVa+NsdxjYdYyNVqEJotUcmPBgrvz4rZT/Hv3m1CZcXMhJ9Vy4wj/quL
+	 AVBLHz/J6XDShMvA8fI9IWzyFew37CPWNHXf9Kl0idC6MHm8a73DVgW+rJ1B98Axnl22U
+	 P1H7gqHnZoDnY454lzEoeZmnIVtpdteMpDrP1gYKpkWqXWvv6rvp4vIQJNAkuyKtRVW4h
+	 sRcxU7RQZCR/zSOn5yKL0pO6QRezhY8Gj5oXxIbcGyXyDrvBBl6EFgWU3rOTj9AxVpw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793230970;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=viCUp1crSW2jGJfJ3UlDk2hvRgqBta5P86Yf/Op8wjA=;
-	b=Sk4A/KmxOdyGzTicgre8hf8Ip+wCuPSnIiNnTkzgqabqt73DyQj/ehsaUwoA9YFcPsbp
-	 Xxlrmo0bjandg6zFN87EC9DCFQacMWK3AfuTaLLwA112wZGnHNr+rLwHnt34Qv3a2FD1N
-	 WtbyZ+qRRzQVfjK0IgE0uZpKdWkkjwocqYFSZTzqpoATBIPCIhLq8yWoT1ggCAiX3wK2X
-	 DYUyd7YNDu6n+mSuN9fHf/OwSEXBZVDlfsWsuzBRufPbnFeT8KRX1oSj2Lyx7++PE0PlY
-	 qAOUmGr6Krr5OtW7wTUtEwIWVEYdXlN1gOBdcr+EzQhBgeIR81ez3reutbqCkvvt49A==
+	bh=Rl3mEnpFINIo/fNdrLGKiGda6V5w+TutGVQ743Jd43c=;
+	b=eSErlRV0uk+V22TQk1z63HrSfWKXfvHAVE197znEAqSknwwh0h5EIqyebGibVcLHD3O7
+	 oOWs0iC1183+fIuViOR1akBp8auEyro9j2g8tCaMKuUmcmWEZqp2k8u6R1y/3Kv8+ZmkU
+	 ZF+t+zkO62DXD3E3xZ57xqme6viVq5JhibvWqbOegWo5CzUlR+i5aGu5HUmFRcmxN6RJg
+	 fSnD/Pa+rztM/UFCW0Um9p+DlqzANxUZ17HJhxde+FWXflMkvQC5bWQnt97e08bjkuMzR
+	 9ibqm1AQGMwv2fmNcqI9vTC1oVi7fX0vKwBG6vDcEvZ7Qo35W8bEGjmI7mRc3J847yg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1D9B91F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1F0651F01828;
 	Wed, 28 Oct 2026 23:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793230970;
-	bh=viCUp1crSW2jGJfJ3UlDk2hvRgqBta5P86Yf/Op8wjA=;
+	bh=Rl3mEnpFINIo/fNdrLGKiGda6V5w+TutGVQ743Jd43c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mwF6AsRWhL+zke4zRek/V3j31Bkf9jUP4N1PJJwJC5dXACNNdmLRteSD7Q/LYpnEC
-	 b80XAfnZapz1GIfAH+9vj/nJOwilMq+YucGkm9HGHcBiXRVF6EiULxYPTk215NAai0
-	 0VyqZI6L/jZ1aZc78A7c8OHmAYnxS89AvMkZ3HLm9A76xhpi6XVPycjS0s7vOm4UMR
-	 Vk6cSc7hmGcpH34tMIZv4mbVPgdDbn+1vjFmaqRVkgpyk/pX/7jjczdoDq4cw83ZGX
-	 N/4h3/tTrPmaRUQTUezqdNv1JkO/VQfdGdnniDXIQdYFrreyt3f2QcKt9m1y5tPnR+
-	 PvEtwWS/RotFg==
+	b=TnrkHmPLKVFIFW3dkam2STq9NoGLtSJn8zHngLYonwgM0BbJQRSv2OT0/6YOKrPPk
+	 tuTbxo6lLK7CmW3yv5HR0Vv/XQGy0IuJ2vnDOe89ozK0ifcrPWA/GAWvbbFW7PjWkr
+	 EzqD2L9l83ww9exh/Tc0zhv1kUs8J/AQYEOySTeYZkj8fI7vnSHlPOrPUqH6KN/pAW
+	 OY8Wed7Met1VhfZzmXUcS0Z1czgO7kAMngpyhowU+WtL+zxQFUPGyCWJCYPBPq9OjQ
+	 tvVWyHvjzG0ANpzNRI72ulc/T6pqeBvkHSoyR2ABhecfwyryQ6ZXDhmwKPRYFQJlXZ
+	 cAxTrsRz5WjKA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 94AFF4562B;
+	by lkml.kernel.org (Postfix) with ESMTP id 8873F45627;
 	Wed, 28 Oct 2026 23:42:48 +0000 (UTC)
 From: Alireza Haghdoost via B4 Relay <devnull+haghdoost.uber.com@kernel.org>
-Date: Wed, 28 Oct 2026 16:42:34 -0700
-Subject: [PATCH v6 3/5] perf symbols: Point to the symbol name instead of
- embedding it
+Date: Wed, 28 Oct 2026 16:42:33 -0700
+Subject: [PATCH v6 2/5] perf symbols: Split out name-independent duplicate
+ symbol selection
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-perf-symbol-memory-send-v6-3-7e90415f0101@uber.com>
+Message-Id: <20261028-perf-symbol-memory-send-v6-2-7e90415f0101@uber.com>
 References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
 In-Reply-To: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -98,21 +98,21 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alireza Haghdoost <haghdoost@uber.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2211; i=haghdoost@uber.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3083; i=haghdoost@uber.com;
  h=from:subject:message-id;
- bh=StUqBnmB7QE/x00WFgZFXRbs4qC9OsQOqq8JJSIB66s=;
- b=owEBiQJ2/ZANAwAIAVNlBDxl2ALYAcsmYgBq4oh2X2YhnuN8Atl7FP7ZuNj2so0EbTGJo3DCM
- B8n5IlOJIqJAk8EAAEIADkWIQS5+sFL3gX/8PrA0S1TZQQ8ZdgC2AUCauKIdhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDMACgkQU2UEPGXYAtjYExAAm1r7nsfEKO3RCcNzWSYQLbKzprw4Rgc
- h03jixxBalliuQYkyu+VsAhBgTiX0x2ARqszoH8ayjjh15pBGLgIKakavaybX+OmE+Sp9ih3sn8
- zLtZWA0bxz3T+HIGmsAsP/1fJC6e22JYJwFKv1hNWPBi9nlz+t1mxmyOEh1B0ePTk+C53N9E55j
- tNeYzOf7N78mi/TT9zFoD17XY5TpJHqMMbAt5IsPrVFOn4aEbd3+9j+5eUxJiPFVnU/Ff2mJmk6
- VIyoGzMNdSuaUDryBEKDerCjczivPG/xi+oEBYadNN5nNnA0jWRmslXvAsupWvleFxS9WTKO9VJ
- nGE/teWGGes3u/D1DV3M8h6K8fjZ7c/0Z5llOW+a5CF868FwAlsh/vBByzC50BLM00UWRLAWnUW
- YannlalMTPNmdfrMcoskGjddR65iamCAKtpcw4U0FG9cs5Bdm26sL0sqnhqg5buGlbqRfwUrzrR
- aLKtYoiOqIe/FF/51iP54qhIX4VnG+ihFq96QiqyTBHtLcvP9JD4up1fUAs1pfzrKjK2Wu8AXBW
- qhPb7rOOVJpDaH5qysgvBt+hQOiG62dnWQwxcN5JgRlCl/KVCK+UFSEox35KMDyncwKKwAXO5Md
- P0q98P6nDGb53Co0B2Pvjm+1Q9GgzVASs4Ae+87y+vrMdaQBtRuU=
+ bh=UFacskGEBu0XEz3nvj7QOau6UP9nsBYAYWQ+E7Nz3js=;
+ b=owEBiQJ2/ZANAwAIAVNlBDxl2ALYAcsmYgBq4oh2tWOhJUiFDWi4yQZNya/JlXoiWvKSy0z0g
+ Xmh32y/1N+JAk8EAAEIADkWIQS5+sFL3gX/8PrA0S1TZQQ8ZdgC2AUCauKIdhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQU2UEPGXYAtiQQQ/+OgLAXIXP4L/3YiuXilobQUOBhQRAViT
+ ulCpV/5ik8ZeNccLISGDCCa/0GAK+DkUs2NmTpQrH83p90bP/1wCCIqH8/BnL1AGecCc2/w8wMf
+ Xb0KqXCc6MrGBeEbWqx07Ld3r76dnB/NdzE4zRodO3thk1KZSgKI4LSoZ8BdvMVGddktk2GQtf3
+ G6De6qKezufavVgrAT7k2USVJNdxLYBs2U3DNnkLz5IZixaGaLu9FRSIC06RFPyjzdgHdRtGtIG
+ 8Tkio534MKsOsCphpSWb+oI0jCx7bbL6FeMlSdaJyDiU+RvSocKg63WuJDcU9UHO8y7bBl4acHI
+ iHuHPLFKWSDoZKLP+CizVfluafU5dsCM/jhb7f+CgY7MsFGF87pFSWMsxJVYl2SLwKINOKjoTrW
+ J4ZrAqymGYVx+Xz5KtINXLsMwMndZO1Is3l4umnQ/D0IFsa2UoIR8jmrbXJfnewzsgFvbtPV5Fp
+ dHAUkNAgVzd9ofWX4zKUGQfd8ibzDBDmjzLvS/G5mth0C6gsSJUEMmOvhuWAUqVLtCzZn58n4bM
+ R29iSQRBlXKXlTqtwKzmFOeI0ms2rGdwYt0Ef3JcySpYoxpoCK/999tSlDk2zJR08c/Ak08BXr7
+ L9ar+AjI13Z4RSGzqNDKZRJO44NA8RWKEmmNXh5765lMIp8lMjug=
 X-Developer-Key: i=haghdoost@uber.com; a=openpgp;
  fpr=B9FAC14BDE05FFF0FAC0D12D5365043C65D802D8
 X-Endpoint-Received: by B4 Relay for haghdoost@uber.com/default with
@@ -123,62 +123,87 @@ Content-Transfer-Encoding: 7bit
 
 From: Alireza Haghdoost <haghdoost@uber.com>
 
-This patch changes the type of the name field in struct symbol from a
-flexible array (char name[]) to a pointer (char *name). It is a
-refactoring and does not change behavior, but it adds 8 bytes to each
-symbol allocation on 64-bit hosts.
+This patch is a refactoring and does not change behavior. It moves the
+size, type and binding checks from choose_best_symbol() to
+choose_best_symbol_by_attrs(). It also adds symbol__choice_needs_names()
+to report whether choosing between two symbols requires their names.
 
-The next patch creates symbols whose names are read only when they are
-needed. When perf creates such a symbol, it does not know the length of
-the name, so it cannot allocate space for the name after the symbol.
-Perf also cannot allocate a larger symbol after it reads the name,
-because the rb-tree and the callers keep pointers to the symbol. With a
-pointer, perf can allocate the name separately and set the pointer later.
+symbols__fixup_duplicate() keeps one of the symbols that share a start
+address. It compares size, type and binding first. If those attributes
+are equal, it compares leading underscores, name lengths and the result
+of arch__choose_best_symbol().
+
+An unresolved lazy symbol stores a file offset instead of a name
+pointer. Thus, the lazy loader cannot call choose_best_symbol() until it
+loads both names. The new helper lets the loader keep the names
+unresolved when the attributes select a winner. It loads names only when
+the attributes are equal and duplicate selection needs them.
 
 Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
 ---
- tools/perf/ui/stdio/hist.c | 1 +
- tools/perf/util/symbol.c   | 1 +
- tools/perf/util/symbol.h   | 2 +-
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ tools/perf/util/symbol.c | 26 ++++++++++++++++++++++++--
+ tools/perf/util/symbol.h |  1 +
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/ui/stdio/hist.c b/tools/perf/ui/stdio/hist.c
-index 8c4c8925df2c..c65e3aa73a13 100644
---- a/tools/perf/ui/stdio/hist.c
-+++ b/tools/perf/ui/stdio/hist.c
-@@ -106,6 +106,7 @@ static void init_rem_hits(void)
- 		return;
- 	}
- 
-+	rem_sq_bracket->name = (char *)(rem_sq_bracket + 1);
- 	strcpy(rem_sq_bracket->name, "[...]");
- 	rem_hits.ms.sym = rem_sq_bracket;
- }
 diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index 2d611c05d000..02c077d7e2a6 100644
+index b61a574ce9a3..2d611c05d000 100644
 --- a/tools/perf/util/symbol.c
 +++ b/tools/perf/util/symbol.c
-@@ -362,6 +362,7 @@ struct symbol *symbol__new(u64 start, u64 len, u8 binding, u8 type, const char *
+@@ -157,11 +157,15 @@ int __weak arch__choose_best_symbol(struct symbol *syma,
+ 	return SYMBOL_A;
+ }
  
- 	pr_debug4("%s: %s %#" PRIx64 "-%#" PRIx64 "\n",
- 		  __func__, name, start, sym->end);
-+	sym->name = (char *)(sym + 1);
- 	memcpy(sym->name, name, namelen);
+-static int choose_best_symbol(struct symbol *syma, struct symbol *symb)
++/*
++ * Choose between two symbols at the same address by size, type and binding.
++ * Returns SYMBOL_A or SYMBOL_B, or -1 if only their names can decide.
++ */
++static int choose_best_symbol_by_attrs(const struct symbol *syma,
++				       const struct symbol *symb)
+ {
+ 	s64 a;
+ 	s64 b;
+-	size_t na, nb;
  
- 	return sym;
+ 	/* Prefer a symbol with non zero length */
+ 	a = syma->end - syma->start;
+@@ -194,6 +198,24 @@ static int choose_best_symbol(struct symbol *syma, struct symbol *symb)
+ 	if (b && !a)
+ 		return SYMBOL_B;
+ 
++	return -1;
++}
++
++bool symbol__choice_needs_names(const struct symbol *syma, const struct symbol *symb)
++{
++	return choose_best_symbol_by_attrs(syma, symb) < 0;
++}
++
++static int choose_best_symbol(struct symbol *syma, struct symbol *symb)
++{
++	int ret = choose_best_symbol_by_attrs(syma, symb);
++	s64 a;
++	s64 b;
++	size_t na, nb;
++
++	if (ret >= 0)
++		return ret;
++
+ 	/* Prefer a symbol with less underscores */
+ 	a = prefix_underscores_count(syma->name);
+ 	b = prefix_underscores_count(symb->name);
 diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
-index d8386c4a7fc5..c231d8e4427c 100644
+index 46b1649c64fc..d8386c4a7fc5 100644
 --- a/tools/perf/util/symbol.h
 +++ b/tools/perf/util/symbol.h
-@@ -95,7 +95,7 @@ struct symbol {
- 	/** Architecture specific. Unused except on PPC where it holds st_other. */
- 	u8		arch_sym;
- 	/** The name of length namelen associated with the symbol. */
--	char		name[];
-+	char		*name;
- };
+@@ -303,6 +303,7 @@ int arch__compare_symbol_names(const char *namea, const char *nameb);
+ int arch__compare_symbol_names_n(const char *namea, const char *nameb,
+ 				 unsigned int n);
+ int arch__choose_best_symbol(struct symbol *syma, struct symbol *symb);
++bool symbol__choice_needs_names(const struct symbol *syma, const struct symbol *symb);
  
- void symbol__delete(struct symbol *sym);
+ enum symbol_tag_include {
+ 	SYMBOL_TAG_INCLUDE__NONE = 0,
 
 -- 
 Git-157)
