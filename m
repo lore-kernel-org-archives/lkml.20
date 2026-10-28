@@ -1,73 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203902;
-	b=0VTDwaKNk3/tQqr+XM0OiHnh9yURGiFVWrKaflhT5Ht86RMtnWM9UGrxkVQAsiqqshm/
-	 5DibpZIQeVuNw4GMMgRcqGsOvq1JFNjwtL4WnmMPMnXhjsIt1h+ooSIZxJWZ0rTYycaMW
-	 TW+RLteMeQCrq1oCXNPWs3cnZaDqzecVVCzSvePwHNxKpu/6lAHmdaLs+bRSnZc+wyOR/
-	 LYHeK/hvmx7IIQHHUD27GjIJeFuIDiavsrrU0EWaHkqmafS47Pt87jJV+lpavPQeHHKl1
-	 9rCRZhS0XeRzPRrsj/m5HDd2FWOf4tc8qzYepfyt4AggZ8h6a7OGYg230+j4f3omVQg==
+	t=1793203930;
+	b=Bvq9xv2ZtWMeF5h9rgcLeZ5hA5Kcs1f1+/dKq8uMgP+Hde8defysqUQV0AI5qENBYQmU
+	 lZvgsi+8rCBmWAtya3OdFytXPOTx3CbSfE9b8v8WyACwRbwAswzqnWAozwqj46ZUdoCJY
+	 yUCU9ujy7xZmLeycEbIbZW21YTmN0RsO3KdPVayfcc2a0vGL/NU0/WQ1ncDaGJwbcyMqj
+	 8gQtxpEVWXPfOU7hrQlexHfeyZLtvkMb4zZHhE2X4jBGsufojLCmCqo+klX6SU0gpCQP+
+	 AfDvI4DMcXWYogdnLjOdlUp/EP+U06nHUZfvJ0cDSDn/ki3kpXb0w1UN/rjnb5LG0Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203902;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=uxSAUdDO3MwPK+26JuHSTsq458DkeZfKh4h7kUJVnPI=;
-	b=rAmZPaehgngr5+/oU5c+kMbrkBHEGMs5+nwHwYsimvpEGZuCwuftXm37rNyQLK3cPEfq
-	 goLu3GrOrOVP+JNxeS8tDyGjOAOl9pYVswmFmuW6sZDY9iiT5nwG1fCoyR6+TV5bA6iGx
-	 fqpAOK3kvq3HxM7ns0E/Yg/4U4Gh2tPNbA7n59t5Z0jny29eFVOHMhZrLtZxzMp+cjekS
-	 VtJF/je00S2Rwfi1lnYsASkIm6hdaBPrXHejM4EbKdV2qINTxDpf6wgLu8PV8WrAL97CR
-	 29u624HTSBJ1YUKRU/Dkt1cwdG/NPoK8phjsw0VMlGhoxUhue1+a67TuSf3QlGXzB0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203930;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=GNb429SxdXpm4caVuhSn94pFiZc0SV5Ewq2RLfxSttEZ2JF3E3JQDxl2c7YSfmEf/hix
+	 v6VXnEVMkS23q52FjhrzPzcBTa6aHTKpksN8U2haK7288C64AHUm5o0dpy+QObThABY08
+	 dMzJYDiFJ6v+q9FgQoQve0WkuqsRNGw2scR/B7pBN3M0k0kuDNkGfZvzHXWEhIHX0sWVm
+	 QCa4FPchS9S9sR9jIBl/t4RI26wYTLvaKE8B1YkKrOaDSuLfR76C5AHbUXd+lbkzP8n2c
+	 8HBJh9j3oI0JLW21NWlZAy7wkmkEsIlFqy79DOEY13dpDRm9gfOlEZSUXVXx88w9r3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDA9606A31A;
-	Wed, 28 Oct 2026 16:11:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCDA9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id D9BA980162;
-	Wed, 28 Oct 2026 16:11:36 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf08.hostedemail.com (Postfix) with ESMTPA id A762B20029;
-	Wed, 28 Oct 2026 16:11:26 +0000 (UTC)
-Message-ID: <aacb76ee8a23f956eb2e778da7b125d86d164b25.camel@perches.com>
-Subject: Re: [PATCH 10/10] checkpatch: suggest nonnull attribute conversion
-From: Joe Perches <joe@perches.com>
-To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
- <alexander.deucher@amd.com>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	 <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
- Lahtinen	 <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones
- <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Joel Stanley	
- <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen	
- <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, Kees Cook
- <kees@kernel.org>, Andy Shevchenko	 <andy@kernel.org>, Matthew Wilcox
- <willy@infradead.org>, Andrew Morton	 <akpm@linux-foundation.org>, Andy
- Whitcroft <apw@canonical.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap	 <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org,  Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 28 Oct 2026 09:11:25 -0700
-In-Reply-To: <bc2cd702455e58feb777cdb230e3ba4f7e1db60f.1793027261.git.d@ilvokhin.com>
-References: <cover.1793027261.git.d@ilvokhin.com>
-	 <bc2cd702455e58feb777cdb230e3ba4f7e1db60f.1793027261.git.d@ilvokhin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA49606A31A;
+	Wed, 28 Oct 2026 16:12:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BA49606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id B0FEF68AFE; Wed, 28 Oct 2026 17:12:06 +0100 (CET)
+Date: Wed, 28 Oct 2026 17:12:06 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
+	Sergey Bashirov <sergeybashirov@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 8/9] xfs: add datasync and log_flushed arguments to
+ xfs_log_force_inode()
+Message-ID: <20261028161206.GB20998@lst.de>
+References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com> <20261020-xfs-pnfs-batch-v4-8-9230fa2ca4a4@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,52 +54,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: A762B20029
-X-Stat-Signature: 5m56y4bjcqjn15doddn3439d63u3xrtz
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18kHAE4RjXJ/BeJ9lSamcdiJOrG4xRY5jU=
-X-HE-Tag: 1793203886-334294
-X-HE-Meta: U2FsdGVkX1+vO3ZouaggYmakzKiEViVwEjIkayqsOUxRh4Y+D03W9OsYvhntgdSUdjdTBgNAGM07O+W/OBkN7qiawu9kPLoFiAUred/Z/Bvw2Ynv8IG7qnAPxQ8uaps63yUCxrPyn7HCEVo07x5i6NYNvKDhGCJh54qqNDafUAiSXShW2FGTVwwUUFc93x1OQO9f/LKoTfr2/KbcvJm3wJYFIWxls5MSV6vUbxfQ1CWIN5fZL2IoMApFvaTjDQjqQiBboJBwZoq4pSCGSqpTDJvfdjT4vabv8HAYbaFYZefsnth8dvgSgzQtAJujUJ5T/R386onDul4BmhyfIQ2SbKwU1ePW8+59QlMTPdteTFyX32nsSOnI504//g+rZB3j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-xfs-pnfs-batch-v4-8-9230fa2ca4a4@samsung.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Wed, 2026-10-28 at 08:19 +0000, Dmitry Ilvokhin wrote:
-> The kernel provides the __nonnull_args() macro as the preferred form for
-> marking pointer arguments as non-NULL. Add a check suggesting the macro
-> over the raw __attribute__((nonnull)) spelling, consistent with the
-> existing attribute conversion suggestions.
->=20
-> Examples:
->=20
->   WARNING: Prefer __nonnull_args(1, 2) over __attribute__((nonnull(1, 2))=
-)
->   #11: FILE: drivers/soc/aspeed/aspeed-lpc-snoop.c:230:
->   +__attribute__((nonnull(1, 2)))
->=20
->   WARNING: Prefer __nonnull_args() over __attribute__((nonnull))
->   #11: FILE: drivers/soc/aspeed/aspeed-lpc-snoop.c:283:
->   +__attribute__((nonnull))
->=20
-> Signed-off-by: Dmitry Ilvokhin <[d@ilvokhin.com](mailto:d@ilvokhin.com)>
+Looks good:
 
-Seems sensible, thanks.
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-[]
-> @@ -6856,6 +6856,7 @@ sub process {
->  				"no_caller_saved_registers"	=3D> "__no_caller_saved_registers",
->  				"noclone"			=3D> "__noclone",
->  				"noinline"			=3D> "noinline",
-> +				"nonnull"			=3D> "__nonnull_args",
->  				"nonstring"			=3D> "__nonstring",
->  				"noreturn"			=3D> "__noreturn",
->  				"packed"			=3D> "__packed",
-> @@ -6876,6 +6877,8 @@ sub process {
->  					if ($curr_attr eq "format" && $params) {
->  						$params =3D~ /^\s*\(\s*(\w+)\s*,\s*(.*)/;
->  						$new =3D "__$1\($2";
-> +					} elsif ($curr_attr eq "nonnull" && $params eq "") {
-> +						$new =3D "$new()";
->  					} else {
->  						$new =3D "$new$params";
->  					}
->=20
