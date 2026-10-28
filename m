@@ -1,131 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183378;
-	b=ZuzjyA1bP/TQiCowbHT39C5YOzokvMOA1+CYEF577lFciIe3164cMQ8KN3mMavwnmybq
-	 e2nvudqKN0cczSufDDl775RSmcZUCYFFt2A6dISmVUpPlKO8sRvoM5txT9M6Lw+Qt+4MH
-	 p0G7VP7S9ErHhk9MV8icUuT1lUHS7qywPIQNU6Qtyj2cza5CksS1r3SolD1QAlQhfSvcu
-	 yO3vjXu2TvuphsP/m1guaAFwnx3k6MIYG9NcG7eOG+SPdKgzqzM/mjlEFbYjkaFXaC2gh
-	 DzxoBW+2JO/QkEAuPCTjvq+wn/KSEuo5+FgQMJqU4kN+Rcu5pFlBsGN5VxqXT7rnXQg==
+	t=1793183421;
+	b=PkkrlCuX1j6q8NcRy87eM/izjIsoeCDZH31lyOtfiUNOacWeImg+rLB11rTEOqfteQoN
+	 XzFEq1MK5MDJcU5J/zQRpEPETuiYHhxByZIK3wodbYzI8VWnt+vrnfgirAGHKz408OfrB
+	 I2B6Un0kK/4kkVHxHESd9rYbk1bukhUUmfPP7aaCC/xydu3t7uWHVCM82NxuX9D9nv8qF
+	 ZYFZ8TagtMxlcAOCdFt60Xa/5LBkICOLP81Py6sEJsp9eZs4DyjnIV+mLR6vb5lGYOYyj
+	 oaWB7M4EfIxf0ELumYYePx9CuRSL4ahkBwZhJNB+WsBaUA4M53f25Hxts3zGPzeCJXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183378;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=VohrFoztSGfGZ3WTL4JzlDb7PzmZHpxs4gdPIB5ruDwI1e3nEin6P7Ib467NtAbvO1cT
-	 XuBL/ZK/mQQVgGH2MifA6NEH6y0hXbdOgA6LI8N1d/L7jXe1p2kc6PY+4Poy6eYTewEV+
-	 g23BXsQ0zQrzJHnSFqgCBMdZvyLCh2xnka6pkSUj1eqvkl+d/r5eD+k6o1PUXirCSCPHm
-	 N0QOgI+XR+Xllgp9tIywL5P7nhBzsxjnGrbphHZkPjWv+onrkZIXWzIvCHoF3MAJjtC19
-	 U9KixE58+G6mKbiC1M0Jg3I0mZj7wcYOuqc0/kSsLUnUTbnl9aI6ZsOS73if2dXRGzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183421;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OLbLynrkimEjQQfsH9TxXqFTM1rChVGZCPkVrmOFKSA=;
+	b=mShU1E2+PwuEvWLjSHUe0PbyJFMzmQDr69/iKOQ+QV/Kk5jMU0DnIFfAMbqYYMKLPBuw
+	 BNwYVeonbu6kKNIXtOB8wz+XdfYJexb/WoiZuVXMe37FxNt9s7thuDZUPWYOaLfPZPJLE
+	 5L53wor4SoaLqeQYgXfPkK30YrhlGWEH4oiYMyM5f0Owxqc4Tnyrl6VDhdWzuEDdwI3N1
+	 spldCbEl/LQtKaxyVaGx43orVNBG4qBzYWX3L6yCNNJTnWXJiJrDr5/xpsCcC2zoNHNPx
+	 aYYG7mlrYRWvBAmLr5fuM1fP69VuPk9amgLwE9dDXBoayX24p+DMF8NGjPvCfI8pCsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF73606A31D;
-	Wed, 28 Oct 2026 10:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDF73606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FBiuLYqr;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57C64606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:30:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57C64606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 88C2122124;
-	Wed, 28 Oct 2026 10:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
-	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
-	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793183375;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
-	3hUkITI3RqQxxMDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
-	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
-	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793183375;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
-	3hUkITI3RqQxxMDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81CFD1321C;
-	Wed, 28 Oct 2026 10:29:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XiQoFIvO4WqxewAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 10:29:31 +0000
-Date: Wed, 28 Oct 2026 10:29:29 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 01/46] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
-Message-ID: <auHOYcRfFFs3xhXa@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FBiuLYqr
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF050175D;
+	Wed, 28 Oct 2026 03:30:15 -0700 (PDT)
+Received: from [10.163.164.200] (unknown [10.163.164.200])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 81C393F59E;
+	Wed, 28 Oct 2026 03:30:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793183419; bh=4MPiUYIxNyXc9vdvNkcXtM4ldkByD+QE/ChrMGrmtr8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FBiuLYqrxiroBhoNhvYFwAqEEixEavtD4GF9fQEEuBsgIYNK7ccNRyIHehsRitv2v
+	 c7Ie6wpU/TIvS32s88hsMi8OOGhNHkL3dJD0JTsASD7JzIIuB5gi14CJtk8TLR0F5Q
+	 8jaLwajorqSLSDcmuPKnrRX7q/Gh/tw06UEgT+NY=
+Message-ID: <548d9950-cc77-4c1b-b78a-34e304adb989@arm.com>
+Date: Wed, 28 Oct 2026 16:00:12 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,68 +53,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[65];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/compaction: annotate data race for
+ zone->free_area[order].nr_free
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: teawater <zhuhui@kylinos.cn>
+References: <20261028090747.68086-1-hui.zhu@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261028090747.68086-1-hui.zhu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 12:17:21AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> MGLRU passes stack copies of page-table entries in walk_pud_range() and
-> walk_pmd_range() when walking to the next level. These copies can become
-> stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
-> table concurrently.
-> 
-> This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
-> support page table walks"). Likely, earlier locking masked the latent
-> bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
-> retract_page_tables() without mmap or vma lock") allowed concurrent
-> retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
-> for MGLRU") dropped the walker's outer RCU protection.
-> 
-> The fix is simple, so just fix the original commit so we don't have to
-> speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
-> RCU-protected lookup and validation against the live PMD. Note that the PUD
-> handling is required as well to handle folded page tables correctly in all
-> cases.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: handle walk_pud_range() as well, clarify+simplify description,
->          adjust Fixes: ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-I see we're already trying to beat the R-b record set by Gregory's patch.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+On 28/10/26 2:37 pm, Hui Zhu wrote:
+> From: teawater <zhuhui@kylinos.cn>
+> 
+> KCSAN reports a data-race on nr_free which also exists on mainline:
+> 
+>   BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+> 
+>   race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
+>    fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+>    isolate_freepages+0x52/0x650 mm/compaction.c:1722
+>    compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
+>    compaction_alloc+0x21/0x30 mm/compaction.c:1880
+>    migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
+>    migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
+>    migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
+>    migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
+>    compact_zone+0x539/0x10b0 mm/compaction.c:2660
+>    compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
+>    try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
+>    __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
+>    __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
+>    __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
+>    alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
+>    alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
+>    io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
+>    io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
+>    io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
+>    io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
+>    io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
+>    __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
+>    __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
+>    __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
+>    x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
+>    do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+>    do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
+>    entry_SYSCALL_64_after_hwframe+0x76/0xe0
+> 
+>   value changed: 0x00000000000002f4 -> 0x00000000000002f5
+> 
+> nr_free is only updated with zone->lock held, but fast_isolate_freepages()
+> and fast_find_migrateblock() read it locklessly to skip an order that has
+> no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
+> instrumented and the report is of unknown origin.
+> 
+> The race is benign: a stale zero only skips the order for this round, and
+> a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
+> lock.  Annotate both reads with data_race(), following commit
+> af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free").
+> 
+> No functional change intended.
+> 
+> Signed-off-by: teawater <zhuhui@kylinos.cn>
 
--- 
-Pedro
+teawater? What?
+
+
+> ---
+>  mm/compaction.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/compaction.c b/mm/compaction.c
+> index f1b2060eb2016..499ec7ceaa3ed 100644
+> --- a/mm/compaction.c
+> +++ b/mm/compaction.c
+> @@ -1601,7 +1601,11 @@ static void fast_isolate_freepages(struct compact_control *cc)
+>  		unsigned int order_scanned = 0;
+>  		unsigned long high_pfn = 0;
+>  
+> -		if (!area->nr_free)
+> +		/*
+> +		 * Access to nr_free is lockless as it is only a hint; a stale
+> +		 * value is harmless. Use data_race to avoid KCSAN warning.
+> +		 */
+
+The comment is noise, the reason of using data_race() is a well-known fact.
+
+Apart from that, do we have the same problem with zone_watermark_ok? It also
+uses area->nr_free without zone lock.
+
+> +		if (!data_race(area->nr_free))
+>  			continue;
+>  
+>  		spin_lock_irqsave(&cc->zone->lock, flags);
+> @@ -2031,7 +2035,11 @@ static unsigned long fast_find_migrateblock(struct compact_control *cc)
+>  		unsigned long flags;
+>  		struct page *freepage;
+>  
+> -		if (!area->nr_free)
+> +		/*
+> +		 * Access to nr_free is lockless as it is only a hint; a stale
+> +		 * value is harmless. Use data_race to avoid KCSAN warning.
+> +		 */
+> +		if (!data_race(area->nr_free))
+>  			continue;
+>  
+>  		spin_lock_irqsave(&cc->zone->lock, flags);
+
