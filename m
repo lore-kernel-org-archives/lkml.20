@@ -1,61 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175018;
-	b=DQf0k659fEot9dLaeepudMaSkh6mf1/NN6+OD/k+vLXXpO6DMYaenQ+3U8JMT3jRHAyI
-	 OATozDoXsIcpxkhtrZ3Q2iHSm8UyU2lso5Nl0TaUDozWKZfyoGDNvNCirYHI9G3x0FL3z
-	 ErKKANudzeIbgLe+EE8CW8suD1jjxfWbZjLArBUcV/n+UyVXeqSUYLhLse3zy/5KeS6fP
-	 W++X6WfGTdb/OHIZ9Bt6VY6hq8r6NLF3+njG73DtPk8Hh/B4RwjEf2o6W6pJNo1OsVvPy
-	 mK4M5brkegeBhMFaPBMhSGlduUK7bJF7xVriNIOdjxcsr8zQUzf4RYPJfRkX6GbN/cQ==
+	t=1793175028;
+	b=TRbTBNpko1nPHAQAtt2HVzxg5mim4kJoIES6idnqZ4eDc+CIeZwn6BHs4zgmQxMjrMIf
+	 OZezwX0SOwhZ80GkdazVf10eqndDJbUKzkaE0P7FeHgKP2zJGDaCbqRTzSuO75YXHAa3B
+	 YwbGo6qzCT3pdLPzq0ISg7FIYkuPii5uNhWMMfPxie+hMsvciHQiB1gdg8MTivhh8AiBD
+	 nEaleFdDZzzBT80JS5i/cmUcqduijNHoWVpJ2c1pXfbmCuKcHktVtC939NGc8BsOi0hEZ
+	 G4G34Ub0rC4tfDHz8VxFPm7CR44usRDTl52rB+CNUaabLRQzJmarKwmhAX918Obmjig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175018;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:Sender;
-	bh=G8E1MJWzV3M4DJYjKtp16uZzM5Zd7LJCU2Q5AuhHszs=;
-	b=znic2X/PuJP7TXs7DUVi/pwBK7pE6pHnsf8DlEO3bXZRSkp87aYmktkRzes/azqGEBVa
-	 c8cxoYcU7W6zGWALbLjnIKqUeHWJzGoH/gAWIet9Ky/vV6rNnWACj4WruO6fnmJ0XIh/G
-	 Oznvfy67SKPUH9kTVmzTHn1kB+VUn7OVxwv4rda8X0HK7skOXDI4MJSmdcUVQ7LG3JYFy
-	 l0f4IDB4Iqs1w58K8yViKECgzhIH1jpjjqlEAsy0OzbYvbo7oo/c6gxTgYQlFZA7Ombx3
-	 wqrNCa58v+80EFAUTMg90HIkmvjhlTMGnWS5wIY22bfpdxBYcQQHqKdvd1C+LwECgAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175028;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ga9vuA2xoCtJu+QN1zpXqkcnOnpfj/gA9trsWU+zbbw=;
+	b=tsUTvtbHoi7r6awq9E5z0Rm1x6kiShuUD2P2kP6+vSkJAmETsYId8RS7ULdKQlarooLg
+	 FND1pujMGpSSjk0iU4wAbqrGIbMyS4l0yUO06+Ime9fVa0re+q+AWAm8C1D2YpcPzObM2
+	 0eC9lbef/lKt3EsAjuA4x/DJnWtavlSZ2Meldgrk7awpE3P1ee8ykfn0+48LhUkT86Rjf
+	 RZkzD3sDzKqWDfii/xHQ+YIkCE8AKC1NikBnH07AcJfIV/YWLSY9ob9+H69kXHZ8kNLQl
+	 7OK/ZkUr0nDQyEZ0TML6e7XE5RKb2Li3HVUEXnCFz0gYTnCqq7Fouy7arjnF9465Aeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEUhYuHY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcmwDHSF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79CD606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:10:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B75606A31A;
+	Wed, 28 Oct 2026 08:10:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEUhYuHY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5846C1F01825;
-	Wed, 28 Oct 2026 08:10:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcmwDHSF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3D11F01828;
+	Wed, 28 Oct 2026 08:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793175017;
-	bh=G8E1MJWzV3M4DJYjKtp16uZzM5Zd7LJCU2Q5AuhHszs=;
-	h=From:To:Cc:Subject:Date;
-	b=WEUhYuHYvzgNxhMcu+LW59a6z0bIUFlxI/4MB+VuPikwaZjJfz7gteMZ8GzeKP3nr
-	 imioDUKwKv8DQLkaZy95QnIDB2gr87JipucfqSR1u6huvnmIJS0AOKUtdkM/9HNYPe
-	 N+OtU1Kamcdww9t1EdJxVTHpppbNxNdia/1y2XtVFGC8YclRjYfG2LRYqoXj9mVyam
-	 d+zKh+Ehph5wDeBNqkctaX9677G66BMlYsV0tFMao3u4PMoWNhscCy3r6THm4lq0aq
-	 r6C47zleLXT2O+zFkjyiQ93R0zvHQn2XP6F2K53g4z+k9DH+xEWbZ4dJqaGXK8Dwf9
-	 SC2o2PcvbWprg==
-Received: from mchehab by mail.kernel.org with local (Exim 4.100.1)
-	(envelope-from <mchehab+huawei@kernel.org>)
-	id 1xLyjf-0000000ASmT-1TDu;
-	Wed, 28 Oct 2026 09:10:15 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Mauro Carvalho Chehab <m.chehab@huawei.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	zhenwei pi <pizhenwei@bytedance.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: [PATCH] mm: memory-failure: update statistics before emitting the trace event
-Date: Wed, 28 Oct 2026 09:09:57 +0100
-Message-ID: <d472a9a3ccfa8c0359d7d7acabed92c8927d8e47.1793174996.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793175027;
+	bh=Ga9vuA2xoCtJu+QN1zpXqkcnOnpfj/gA9trsWU+zbbw=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=CcmwDHSFqxB47m2Tcs1Q0ee1FC5LWydi3sBNXmZz+k1xaCjb2UpdB98TJ0/tmSpBT
+	 w841GfG50ynMw3Ci3X/2gf+AOCn4KGuBPWdR5QtNUfpnJ5aS4UE5U/chcCQtmS2jhy
+	 QZmA9jlB90ZFGQQFN4xmDDIfNuDkqBjW8sDPwMxKKZ+XiuT3OTbQeuJzT5i9V8VvHj
+	 c2LfMiMBZFdRL7XQL+9rDZOGClpqhxGr59YC18Qrk1MiesY2K0RraTG6Oxb1/nJ7PH
+	 PQSSyPSv0nNLmlqa4d59GOSMkIK1QuZF08lOM1pnIb6vPPBD5TNNlMb8DM0CqyjYI4
+	 vUK6BUs8EZagQ==
+Message-ID: <b0d99121-06a2-4674-bbc0-0edeb426e072@kernel.org>
+Date: Wed, 28 Oct 2026 09:10:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,64 +51,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Sender: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
+ NoC
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org, konradybcio@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
+ <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
+ <20261028-classic-sloppy-harrier-72dfcf@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028-classic-sloppy-harrier-72dfcf@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mauro Carvalho Chehab <m.chehab@huawei.com>
+On 28/10/2026 08:59, Krzysztof Kozlowski wrote:
+>> +  clocks:
+>> +    items:
+>> +      - description: aggre UFS PHY AXI clock
+>> +      - description: aggre USB3 PRIM AXI clock
+>> +
+>> +patternProperties:
+>> +  '^interconnect-[0-9]+$':
+> 
+> We actually do not need to enforce -0: '^interconnect(-[0-9]+)?$'
 
-Today's rasdaemon-ci run showed a race condition at the page poison
-logic affecting userspace (rasdaemon): action_result() emits a
-memory_failure_event before incrementing num_poisoned_pages and
-updating the per-node memory failure statistics.
+Actually is this really a pattern? How many children are there?
 
-That causes userspace to read /proc/meminfo to detect HardwareCorrupted
-trace events to warn if the value exceeds POISON_STAT_THRESHOLD.
-This works most of the cases, but there is a chance that the value
-not being updated in time before libtraceevent notification is handled.
-
-Root cause is commit e240ac52f7da ("mm/memory-failure.c: simplify num_poisoned_pages_inc/dec")
-which changed the order of updates.
-
-Rasdaemod-ci run up to Oct 27 worked properly, but on today's run, it
-failed to get the HardwareCorrupted data from /proc/meminfo because
-it was updated only after trigging the hardware error event:
-	https://mchehab.github.io/rasdaemon-ci/failures/20261028T035110Z-40629018388/daily/aarch64/consumer-poison-page-stat.html
-
-E.g. it failed to log this:
-	rasdaemon: Poison page statistics exceeded threshold: 4 kB (threshold: 0 kB)
-
-This is important for rasdaemon, as the consumer's action monitors a failed
-threshold before poisoning pages. So, if the counter doesn't update properly,
-it will end not poisoning pages at the expected threshold.
-
-Fixes: e240ac52f7da ("mm/memory-failure.c: simplify num_poisoned_pages_inc/dec")
-Closes: https://github.com/mchehab/rasdaemon-ci/actions/runs/40629018388
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- mm/memory-failure.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index a8b03e2920ba..eba6fe1dfdea 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1281,13 +1281,13 @@ static bool panic_on_unrecoverable_mf(enum mf_action_page_type type,
- static int action_result(unsigned long pfn, enum mf_action_page_type type,
- 			 enum mf_result result)
- {
--	trace_memory_failure_event(pfn, type, result);
--
- 	if (type != MF_MSG_ALREADY_POISONED && type != MF_MSG_PFN_MAP) {
- 		num_poisoned_pages_inc(pfn);
- 		update_per_node_mf_stats(pfn, result);
- 	}
- 
-+	trace_memory_failure_event(pfn, type, result);
-+
- 	pr_err("%#lx: recovery action for %s: %s\n",
- 		pfn, action_page_types[type], action_name[result]);
- 
--- 
-2.56.0
-
+Best regards,
+Krzysztof
