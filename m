@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200781;
-	b=Dsv5+z+soXQQf9QFZZWGkz01moRjYJOPeXTY0zQKrC3rBiSbKmdIl+69pEGzqstmBHwG
-	 JkAMrTKBSwaGXg0MXLWkhPUvSPjkoc74IdvlICSTOTjV11oyqX8Iu8dVUyXV2SKbISvf9
-	 K5vmZ8E4wWQeyX0Ncbx4MnsOKG21UrG638ZAebQcsfdirAhvA0A281wBXcYsuLtLbysM1
-	 V17Sm5zziXCE4Wdf2DYuG6tAvIfRO3+3kHFX47nXVZWyC+2Y9TsoMX3dHjRxvcYA6gjj+
-	 QzhzOAcgRuSwbaWPrwEHutaCf+EmZAlBmaS3ibQCV3p5YFWZtuJxwoFaYoO3vT5b1TQ==
+	t=1793200801;
+	b=GHj2jwVqWa+7HO8F6CZNyrMtOBU/mTpX9QXAILB928mFprZTzvZNb9xx18iKEob9mbV6
+	 1pC9U6B7WFkvdZQ6p5xOAAAMtSUPirfL6w3qgKnpKyVnL57YDozljmn0wbeyURj2/xNiX
+	 mnbXYQe5WJ2BbVCirF7Vca1rux/u/uTc/gi13a9LJ8dKYrTTf5xuTdBGYpTpCaDpsjsJb
+	 v1jc6TdE0Q8PmiQBqzKeloAUZruL23kiMFgIYvVwl93tEVgxXd3OwGmJn/8ygS90HGOhJ
+	 fiQmCVVWW8k8HkWw+nEprE+h33xOtusUAstOEL5YP/dBHCYVolcgkr4NH1rrHpAy6lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200781;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=N7+mDIUz0DKphDB1jWSDWivCn2/hfCrcGv28CLhs5yY=;
-	b=MRior8b+/L2knP86To326kiEm8+Kr3kogyaflrf9Tupmdihw44WMW2N+ywt3oDLEqW8Z
-	 J5Wl3o1qJpwbAAFtG6CbifUT1VLqUTWxQvw0yLsu+R2W687iHbmTHCevRzvPYKsZP1PLd
-	 K7FjGe/l5TVYGlVOCV3+5IrxZyy21ccNJPHGQFsgceuC+aINmK8QPI36W2+8ToQ3IMoJH
-	 SFGhVBq3U4cy0GO8hsBnobtfYtTnAsRzyT5qNvB1GsOyUCzQ5NXXOyG0OoR7V4PgMAMFr
-	 YI/qwzVLwVo/mFFdv32dlOKXBqUdy2mfCAZZFXLmiasv9FPGbuGlms0CZpkA9OWmriQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200801;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=A9z9mPc50c9zcO2nI8W5ZaxJzLIoB0ucd+UQZfv8iz8=;
+	b=0gGIt5DsCSQfGOO4eJ3ksRg0pmeGhtvIyT7qJwMs3pfwB7pE0h4EbOVeKQsHfKmoduKX
+	 gLtGaOn3PV5EomqANIyJ58OI05igGvoDyeDdJkBsqjrzQWNhPQP1qvsTPymqRIa9BGKH/
+	 py7L1twAP801rFQcmz2JWkH9vLt3fuL5xuYx9WmdQRcgk1qHt7xC46z0ty7PjkLHzh5fh
+	 4hv+R5I0o4PueJcLWovhzyRnaAX2tA81fnkvjmHdxY6+9jFiLMb15n4N5bStXOGuOzcv3
+	 3OLGl9CsJ9RJeBTxT88ZgcIHixmZgKi/zdGCcHbf9YOFvLDpOQnC28dxXisWMcYYR1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ipqlsqXJ;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBmlPsG3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91858606A31C;
-	Wed, 28 Oct 2026 15:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91858606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5060606A325;
+	Wed, 28 Oct 2026 15:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ipqlsqXJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=N7+mDIUz0DKphDB1jWSDWivCn2/hfCrcGv28CLhs5yY=; b=ipqlsqXJgj4/UhpM5GuRGgYDI+
-	LRjZM2zcJkZ6keHzv/cJER65OxsAzPtpa0fDV9lf6QPwOYFgrAod9hW+gj/m9KZSFqIeSEHUmZ2Qm
-	n9+RwikVcEKfom92fr/tdYSER71O3yLvfs+IbHzeGKVL/ZUwClQCbMRUGRkFmWPQiSHtKm2p2nPxR
-	6ArNGczO6MO82e5+VEiTRRVJTQeMWZVl11ZSiPg1qo+1OJc2sYDfBcg4CpCUhYlnPqgiFh0Y3NfrO
-	iPYRLuAeGISsADKkqhug+uZP9nGC/FooWJROFjL2FYUnfnlrjH5RAYMKVZidr8CNh8R0zM7poe2YP
-	4lZecJoA==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xM5RB-00000007KUl-0kzA;
-	Wed, 28 Oct 2026 15:19:37 +0000
-Date: Wed, 28 Oct 2026 08:19:37 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>, Carlos Maiolino <cem@kernel.org>,
-	David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-	Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/10] xfs: set SB_I_OVL_USE_SYNC_FS
-Message-ID: <auISibZ1oCWFMruC@infradead.org>
-References: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
- <20261027-b4-ovl-containerized-sync-v1-3-802e512379a6@toxicpanda.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBmlPsG3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66D71F01825;
+	Wed, 28 Oct 2026 15:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793200800;
+	bh=A9z9mPc50c9zcO2nI8W5ZaxJzLIoB0ucd+UQZfv8iz8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZBmlPsG36+63vfQ43cx6IG1M4sJcNfI+nj8gsLrSK7Fc3QS3Uc9M4jNJ2H7Iprlr6
+	 BBMSjBED/JD4PYOiq6CBIPGIf8wsT1o5XQFwQskPRTEuk59C2VJnIrS8sBH327+w5a
+	 18pxBHcvp8Gd1vsWyVU2gbEpP6fKutCmA5FA+y/sLBgEvag7IYlFqVCp5VoDqdDS6O
+	 4RX8GLMvLSFG3o8tWOHy3jRbd0z1dLMB+SA3vN8cs1+6TwZLBxW/8TbxznEF3pOBge
+	 hWyxV76Ef+1QRdBx2IrOCyftW4r3op9sAXOH58uOmV6NahosQnzZ04rHgyXZlPk4Zu
+	 u8/o27dYDsO9A==
+Date: Wed, 28 Oct 2026 15:19:56 +0000
+From: Lee Jones <lee@kernel.org>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
+	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
+Message-ID: <20261028151956.GA3774906@google.com>
+References: <20261015144033.56519-1-danishkhateeb03@gmail.com>
+ <179213356828.2581328.5085333261240588869@kernel.org>
+ <20261028134857.36086-1-danishkhateeb03@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,30 +61,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-b4-ovl-containerized-sync-v1-3-802e512379a6@toxicpanda.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20261028134857.36086-1-danishkhateeb03@gmail.com>
 
-On Tue, Oct 27, 2026 at 09:09:29PM +0000, Josef Bacik wrote:
-> All metadata is logged, xfs_fs_sync_fs() forces the log, and there is no
-> ->write_inode().
+On Wed, 28 Oct 2026, Danish Khateeb wrote:
+
+> On Wed, 28 Oct 2026, Lee Jones wrote:
+> > Please review, explain or fix the Sashiko review(s).
 > 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  fs/xfs/xfs_super.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
-> index 5a06132aa384..2f09d48b7e6f 100644
-> --- a/fs/xfs/xfs_super.c
-> +++ b/fs/xfs/xfs_super.c
-> @@ -1924,7 +1924,7 @@ xfs_fs_fill_super(
->  		sb->s_time_max = XFS_LEGACY_TIME_MAX;
->  	}
->  	trace_xfs_inode_timestamp_range(mp, sb->s_time_min, sb->s_time_max);
-> -	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM;
-> +	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM | SB_I_OVL_USE_SYNC_FS;
+> Sashiko is right that the "LED off" write queued on unbind gets
+> cancelled, but that predates 1b5c2fa7081c: remove() used to call
+> led_classdev_unregister() and then cancel_work_sync(), the same order
+> this patch restores. Since 1b5c2fa7081c that write only ran on freed
+> memory. If you'd like the LEDs turned off on unbind, I can send a
+> separate patch that flushes the work instead of cancelling it.
 
-Please name flags ater their behavior and not the user.
+Submit them as a set.
 
-Even with the commit log I have no idea what this indicates.
-
+-- 
+Lee Jones
