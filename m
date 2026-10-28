@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198684;
-	b=zS/IGmIrZhqgxv5uVhYjPbfn2HEGUOsd4oUglFuuNg2I8Gt1KAs8iFr3W+SZXkTdViP2
-	 j7UXE8OATVOw8bH3oTa/7sgC/A2QD1UgXKOb/4yoO/OEIrW/so7KpMRk/78trzlF1YyAi
-	 pbcWC65hKQzltC9OFT+nQHjMPoWSd39q7c1ZBpX9NSdm2srYzj4GTJIxLv/EwtDZ7MYVW
-	 uWD4mgg5wOc3XyNOpJ6xC19O5OSb/lwdDbGQhu5SbIesZ/o7blSpAox5AgyyveO/W2viU
-	 n5oLsJynDp9hapE0YQV4SU9YbEG1u6EcVN9MrEHPtq0UqQFVvOZQBaWKyuIf7FkJx9Q==
+	t=1793198686;
+	b=TzG7qKqpoSqVet8/yjV+iWvm9yXNQf5hduvQEfrPJt7wRRYCX2qkC5f4FZPjvlGUrp2U
+	 +xnDO9DRAXFmSd1EO0UdyC+o/2rR8rm8Qai0uYqvsvwzHIFVh/2KwzRKWb9jRnNQiMFIi
+	 E/BncVYeb8KYFffgIDUrXFd8y6iZgWKFaNuW9Pa916LQ7n/LVGXJxUUI+WAQGKhoenacz
+	 cmhm4Mpf5euqaJ/0C+wlLExGkbN1jat6/XXVEFZq5tbyNJJWizr0iZHKVfWWpijXpiSEQ
+	 7v/ysw6sA6LHrDKbsCXIBX/2s1UZqqFQaFow+YrLt2PfB437XhNi2mjC3zJWao5vbeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198686;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=h+uN2iMlfIP4A44HxsOdce9du2IgXx8U4PWi0rxqv/4=;
-	b=2BHI1FZ1oVCKdl1sRXAJfHBPOIbWpev1HmGe2dvaiusCE5f60GLelF3XVJctO/XZDZCe
-	 zBCwKzG93XClIn9b8WuR+EOwk2dxSm7KiGR6cdNEb01fc6GKIpmTIoaQla0KgKIqrblHO
-	 IvbEDUexcv33CgNCx00oHp9qwkE5BgGUZzqaXjwtAEicXJgtBBvgfV/ETJQ4jJoLybyeE
-	 uXyvTwTtCO6pCQ5EQnxj1ET87GtieUy/ppqBhSUoIS/nC38dt7T0TNH6emFwvUaWfyC6/
-	 m4onfVK+unW704GFay0H/ew4y0DY/sBqakpcPEDK8PUCXpJUgIVNUGHvIr9o+ecxW2w==
+	bh=0S9uO1EDL+1m4XC+8t2Qhfvz+5zf/rBg8A+iaUjDgts=;
+	b=x3T2TkHI55lVxmqsQE9w6IfC0shiaUnmzTLEHZI3Zy74XrrteAY8Gm/XtVyvVOJmRloQ
+	 uSfVPZwhGl82rm7i9KWsYZ83P2ZGe4k1IFE34arsptrmoNh7JJDCY+4FJjvkknfazY513
+	 3HBRQGeyiibXuAmbx69emLKHKeGCfqAaNoWr/edVAh6Yc03QUNKaRG3zAvv02Auo/NrUa
+	 WHiQ3vCTc9M2OtPUCoUAoT/8cGIJNgtoymsJdzraePO8lgu0XgkRTEkaqGXl5An05VhFr
+	 GVkws8jH+gifYvWnc3j72VMgH0ldvpl8wYfVulfFwYTgLTGyYVFPH2qTC2Z8Mu/RtOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDQWQ1OX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4pzrkMF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E52606A31E;
-	Wed, 28 Oct 2026 14:44:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E25B606A32D;
+	Wed, 28 Oct 2026 14:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDQWQ1OX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC6F1F01825;
-	Wed, 28 Oct 2026 14:44:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4pzrkMF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0580C1F031E0;
+	Wed, 28 Oct 2026 14:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793198683;
-	bh=h+uN2iMlfIP4A44HxsOdce9du2IgXx8U4PWi0rxqv/4=;
+	s=k20260515; t=1793198685;
+	bh=0S9uO1EDL+1m4XC+8t2Qhfvz+5zf/rBg8A+iaUjDgts=;
 	h=From:To:Cc:Subject:Date;
-	b=mDQWQ1OXGUkp0/xWXG/EFoYxTKfQt83aMIvFN00bD5/uY/T3tTSVJizdIaA8zsqLg
-	 qXuLFIgtHWj+Z427LAlFU71uteHmjFtXoujAEypeBWL1nb/Gh6UfMUf8vx0MbevirF
-	 NZQXm1Y1lyoNQz7xRATYo6KCkxwy6A5omO8Z07p2UM08a8P3HVP1RnjusYSPy+QpjL
-	 foA9hGtWJ73A86X8Fl9Ol8dGwhi0jk2l5vCCqxuMoyp3t+Dn0iEFgohhzI03qCENTW
-	 /UIVdRnAHeXvR8pO1cioNyBJlp6zAqF63f/M6jaDeIsRuVd1GKAZVVu20tmnk76J/R
-	 oaJUo+1ivKMsw==
+	b=g4pzrkMFzP5sck29nfMOGo+qtuWUjQ0eHYI52RabvqWMKIOAuo/fMqYLF/zO02MrW
+	 QpGbydLPvGQAn8K1GqPgchbmrGkpWH38m3bPViogmvwAcGYYjFLAeUCWHXbq5f9iZg
+	 eA6KBdMPP+gPbb/JBMHMLcSw2BkdWD96Py3y6FrHS2JVQYAigYVtd3TXTHIVK6x8CJ
+	 ryDHePdQTBuRdzPV5D+zks+ZjEyo8s/l9auSTgs5iAE+Yo1bkxki85To3+rXcxgNYI
+	 WA4YoAixc2hryc0NEUnxATeCW80w7w7J80fCkZsC74QsA3GK69wdq8FYFtuXC1iffO
+	 Dbd1wsdTXQE8A==
 From: Sasha Levin <sashal@kernel.org>
 To: Takashi Iwai <tiwai@suse.com>
 Cc: Sasha Levin <sashal@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: memalloc: Free the new pages when WC DMA mapping fails
-Date: Wed, 28 Oct 2026 10:44:41 -0400
-Message-ID: <20261028144441.992127-1-sashal@kernel.org>
+Subject: [PATCH] ALSA: hda/core: Fix double free on stream page allocation failure
+Date: Wed, 28 Oct 2026 10:44:43 -0400
+Message-ID: <20261028144443.992569-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,49 +61,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-snd_dma_wc_alloc() keeps the newly allocated pages in a local variable,
-and snd_dma_alloc_dir_pages() stores them in dmab->area only after
-->alloc() returns.  If dma_map_single() fails, the error path passes
-dmab->area to do_free_pages() instead, and that is still NULL at this
-point for the usual callers.
+Since commit f16eaa38ea64 ("ALSA: hda/core: add cleanup in
+snd_hdac_bus_alloc_stream_pages()"), snd_hdac_bus_alloc_stream_pages()
+frees the BDL and position buffers it has already allocated when a
+later allocation fails.  snd_dma_free_pages() doesn't clear dmab->area,
+so the freed buffers still look allocated to
+snd_hdac_bus_free_stream_pages(), which the HDA controller drivers call
+from their destructors, and they are freed a second time when the
+device is removed.
 
-The pages are then leaked with their write-combining attribute still
-set, set_memory_wb() warns about the zero address, and for buffers
-larger than a page free_pages_exact() goes on to free the struct pages
-of the bogus addresses 4096, 8192 and so on.  With CONFIG_DEBUG_VM that
-hits the VM_BUG_ON() in free_pages():
+With fault injection failing the CORB/RIRB buffer allocation of
+snd-hda-intel on a QEMU ich9-intel-hda, unbinding the device then
+crashes:
 
-  kernel BUG at mm/page_alloc.c:5600!
-  RIP: 0010:free_pages_exact+0xcb/0xd0
+  page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
+  kernel BUG at include/linux/mm.h:1986!
   Call Trace:
-   snd_dma_wc_alloc+0x14f/0x160 [snd_pcm]
-   snd_dma_alloc_dir_pages+0x4f/0x80 [snd_pcm]
+   ___free_pages+0x9b/0xa0
+   free_pages_exact+0xa5/0xd0
+   snd_hdac_bus_free_stream_pages+0x43/0xb0 [snd_hda_core]
+   azx_free+0xb3/0x1b0 [snd_hda_intel]
+   azx_dev_free+0xd/0x20 [snd_hda_intel]
 
-This was reproduced on an x86 guest without swiotlb by allocating
-SNDRV_DMA_TYPE_DEV_WC buffers for a device with a 24-bit streaming DMA
-mask, so that dma_map_single() fails.
+Clear the buffer pointers after freeing them in the error path.
 
-Free the pages that were just allocated.
-
-Fixes: c880a5146642 ("ALSA: memalloc: Use proper DMA mapping API for x86 WC buffer allocations")
+Fixes: f16eaa38ea64 ("ALSA: hda/core: add cleanup in snd_hdac_bus_alloc_stream_pages()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/memalloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/hda/core/controller.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index 5bc7e586b430f..3118bb14231ce 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -506,7 +506,7 @@ static void *snd_dma_wc_alloc(struct snd_dma_buffer *dmab, size_t size)
- 		return NULL;
- 	dmab->addr = dma_map_single(dmab->dev.dev, p, size, DMA_BIDIRECTIONAL);
- 	if (dma_mapping_error(dmab->dev.dev, dmab->addr)) {
--		do_free_pages(dmab->area, size, true);
-+		do_free_pages(p, size, true);
- 		return NULL;
+diff --git a/sound/hda/core/controller.c b/sound/hda/core/controller.c
+index a7acd3418ae8a..32574dc899fad 100644
+--- a/sound/hda/core/controller.c
++++ b/sound/hda/core/controller.c
+@@ -764,10 +764,13 @@ int snd_hdac_bus_alloc_stream_pages(struct hdac_bus *bus)
+ 
+ error_posbuf:
+ 	snd_dma_free_pages(&bus->posbuf);
++	bus->posbuf.area = NULL;
+ error_bdl:
+ 	list_for_each_entry(s, &bus->stream_list, list) {
+-		if (s->bdl.area)
++		if (s->bdl.area) {
+ 			snd_dma_free_pages(&s->bdl);
++			s->bdl.area = NULL;
++		}
  	}
- 	return p;
+ 	return -ENOMEM;
+ }
 -- 
 2.53.0
 
