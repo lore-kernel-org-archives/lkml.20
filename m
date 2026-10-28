@@ -1,75 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793149581;
-	b=dNGV8+8wPjH837Xk1KfM7MUVPFlmyvNLnXjCF4cEfpFB2ww6mzbCmXnSwbC2LRjDLiWB
-	 qwOWDK8nTvL3n0ujqL+3Ty4ywf9I2jiRPCkxAti5ks5S2v1ZBRfFEDCGS6mXEFrU2zzgK
-	 qS8zczlNcPfYAPR0+pvDigomwOdormmuWATVSDgEAEoct7kaHch+ZU6hjXfHdyG+Zn28Y
-	 0svCop4X52iAmtVQdJy2ZoQurpdpFji3ZV56SrDy7xZHax898rJp9jSx3DTfRe7Hmtk43
-	 S+CIxcEJ1WFCsoexHP/N8gbSo1UtQhWTs84ImQeKukXFH8D/R+oV+REPHLcitgRQCLw==
+	t=1793149670;
+	b=dm2f4qdlVgUo5jctUF0qjmRiLZc6PFTiveRW8duu7jI4sJQiUR8Vch2M/cbNDwypzIku
+	 DFjZIhqYyuP6DSUCCRhPGywffONiYIJsIOjEbOCg3GtLsICbQcpoEXXSYGwENPMA9JRIT
+	 lixS+5M75ip9ibGmmJReraIjW9+Fu/z9e3tS0ix7r15Nz17mDL95jOWCOPj719RvLDqnD
+	 etPC63k8YuxWq4nMnqQECQylDk0y+PUe8kjLLYYgQ5rYWiEWf6V8mbC5cwwCs7M6ppu97
+	 K7+0LfqS7xah+G3gxqWPgEvA4aaIpFyo0OwIgdrGiWw9q55tDIdCIxTQZOclrkzpsSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793149581;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
-	b=JI+SisiiSjStYnUOeO3Kfky2XvBDtzY0WiX7gPqrq1z8NeGwyziOqeZ4BdOilmL3AX/I
-	 Pul+txqgTtyV3f8bvZBGa3ul28FH7WwENQkMYPrg6A2mXqlBFgdrag6J5ujOqNWYVWfw7
-	 Tj+kg4TI72K4AcHX5ygOrIxBOz/+AwQwT0OoBJto8pWQow5SkTnXZFulxb2mjkef5AoTa
-	 wBF6KtsaQIkZQk6ZHbN6net98srYn4QeeXkj09Nej1kxl4JSM8cy8B7LveAJOeEJ6Y4gm
-	 8v6awlCnXXXwbH7Zbav0gIk554Z2no2tNf5rILW5SHis6tozq+9M35vJ8B0ieAZX2vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793149670;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=G5hV2V6SdAWvpaPSkKW+zcHsAnkahIlajifYwNF+O8c=;
+	b=bhfsR0Bm/xjSstEsrBah4odJ7EtjcViQMtRqwc+Dx31R+iP1ly9QHIX+GrKdsqV1Euks
+	 qAJ08wuI0jLgsa9QKcsK0dkcvVOjsxrPVIvz6w8van+5GS4nigAJrkKQU2h0q55EeK/I8
+	 c1p98hfqj8lk0K2AhBHlxVx5ECSV57AbjEnsHwXUMp3Ip37BbUQIcyD2nqo+Xby6nSHVg
+	 HVje/0weg1HMhpBs6pKaja41xVM5qilRcvFpf3b5OOPmXYhjfm6sNWkBQ7oGe+xnn4ha3
+	 LWY7pXjFVXa6MX+B6bE3y5a402WyTI3KS8O/idlpjomLmvKSCdzfedIvfAdreVQ2+dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LUDkWSOc;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlwjzJGb;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A57A606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:06:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A57A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7930B606A31D;
+	Wed, 28 Oct 2026 01:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7930B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LUDkWSOc
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd8b299b0abso340339a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793149580; x=1793754380; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
-        b=LUDkWSOcPb9F6RsSuNpHkpeq2oPkJVL1bNUvM/wgwBs1vJAQ+pzxMsfoleYav07b9n
-         0bCX2f/lu5EZoJTagA9tI1v1mi4pbidDxwbJHP5JWTvNqH/GBK4LxvKWL3t4o6Sxo2HK
-         rPdf2IeAHPWcONw2k0azXKIiv5O1UUtMC9MeaQ3L5CPOGxPchhIQQaLR2g01hb/XK0vE
-         AOc0ISOYbewo84ORL85KUJkOp4m0n++49YLGUHavkKQ2hh/8+nkss/hb2rKT3XSEcM57
-         YcN+ghkD6R8K0l2IvepVkEgmWC+I6ayy8tBd72VhspdqziwF54EjV7eIUXIjEDWonimY
-         IWRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793149580; x=1793754380;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3zcW+5YXwpWgAlstk9X4uWBFChO4Av++o92U1iDImK4=;
-        b=213DCj7XjpvwDqPNAI2dC2R7Ui2r1jKLB7tpHFtuvwgBOxdRX4niehL/0roTDNiQaD
-         fyR2GEvm3Ig36pWrieQLRWk4NU0x5F1043yAoaL9hpXnpsSDtHM/dgb2/qvhYds398Me
-         R1jHesjuYqIY+NpOyLWWOwwbSb8HggsxhS2seXj7vXlb6f4tig+Rsbua+nib0p5+0gH8
-         +Pi411s5Ebb3oqLw5Y/fM6/NbR4VUI/lqbskq2ZQ3nWX0g4n9/24mvMNHiAL1yPVKzS9
-         LhkwGFg+Vkyhxf/wdfMgx5MLnkoFL0RfSgtgxlkv56uVwS4Tt9tp3Nn7YleSR58a+abH
-         rScQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQwWtaj8cINYI3G59YudN8fM0u/NUq7L7M8pPQscNtZnAuBRKOKjVb94fAb4HIYH78WIUKi9fse72UedA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7WyPnYiZWnNabhZQVRMA0ak2QnpTj6kEAMlRUwRtT1zYWfH3Z
-	hoVXgsKWnsxKBQRqlg5yZfcPWHvz0J08u6UgCCZ2i1Qzd1UHqLc0hPtDhgHMLjL30Y4Bc19OYZh
-	c++O74k10YMiA+5YAyw==
-X-Received: from pgbcl22.prod.google.com ([2002:a05:6a02:996:b0:cc7:aab6:f8a6])
- (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:5482:b0:3e2:7225:d14b with SMTP id adf61e73a8af0-3e9023f5055mr675991637.72.1793149579547;
- Tue, 27 Oct 2026 18:06:19 -0700 (PDT)
-Date: Tue, 27 Oct 2026 18:06:06 -0700
-In-Reply-To: <20261028010611.3929937-1-tjmercier@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlwjzJGb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793149669; x=1824685669;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=hYzpcDmj3XuKtz2I8wv6l4Dkd+nsYNx+Svvl0NP8les=;
+  b=AlwjzJGbDOUnw4Oa+DjbRgvK4Sugiqzyv1BvUl00xCBVg6XP8y6JFACw
+   GRxPv0XPhsio6NPoLGIc3NqWoyKOiY20GvuSPdTugX0YIt3IhB3MJRkIc
+   zBUmylNZu7ANVey7RqbrXIk3HsSDrBGW/lqRfWDIC1lpkdsuLaOQFHpE0
+   +28NXDIWoimHp5qc26Iwr76B67hl1IcNXe67Gjll0uMFxoAZDx0XrRnqh
+   DFGjiiBBNHRhdyoxdPYfu5G7EpNmpw91whXNoPkRVtkgUtnTcvLAWmnnw
+   AHATSa2jX2Zrg9LHXAk9oJUrKR0XxVv8A2EeMTbTfP7woGLwog6rdRAFK
+   w==;
+X-CSE-ConnectionGUID: L1+p77DZTYG0s0AFiZOjnA==
+X-CSE-MsgGUID: fBqhvuKTTymIRP1BN/pVhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1743363"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1743363"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:07:48 -0700
+X-CSE-ConnectionGUID: nrx1XpZdQBS8raKXNHLajA==
+X-CSE-MsgGUID: 19HQZixvRZaQQhzrTXeq3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5080448"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 18:07:44 -0700
+Message-ID: <e87a8037-92b1-45b9-871b-8d470fa90962@intel.com>
+Date: Wed, 28 Oct 2026 09:07:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,179 +71,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028010611.3929937-1-tjmercier@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028010611.3929937-3-tjmercier@google.com>
-Subject: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old generation
-From: "T.J. Mercier" <tjmercier@google.com>
-To: roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: cgroups@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>, linux-mm@kvack.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
+ functions don't match
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ Binbin Wu <binbin.wu@linux.intel.com>, Changyuan Lyu
+ <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
+References: <20261022210134.612848-1-seanjc@google.com>
+ <20261022210134.612848-4-seanjc@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261022210134.612848-4-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-lru_gen_offline_memcg() moves an offlining memcg to the head of the old
-generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
-visits it first and evicts the folios it left behind.
+On 10/23/2026 5:01 AM, Sean Christopherson wrote:
+> Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
+> entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
+> bug where userspace could bypass the TSX and WAITPKG checks by simply not
+> marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
+> more in-depth validation of the incoming CPUID configuration.
+> 
+> This is obviously an ABI change and diverges from KVM's general approach of
+> "let userspace do what it wants".  In practice, no "real" VMM that supports
+> TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
+> actually breaking userspace is basically nil.  And unlike normal VMs, where
+> KVM has full control and thus can deal with bizarre CPUID input without too
+> much fuss, TDX VMs require extra care due to the TDX Module also reacting
+> to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
+> than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
+> setups.
+> 
+> Opportunistically rename the helper to make it more obvious that it's
+> checking if the passed in @entry is unsupported, as opposed to returning a
+> set of unsupported entries or something.
+> 
+> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-dying memory cgroup for LRU folios"), those folios are reparented to the
-parent before lru_gen_offline_memcg() runs, and nothing can be added
-back to the offlined memcg's lruvec afterwards. Putting an empty
-offlined memcg at the head of the old generation no longer serves any
-purpose and only delays reclaim from the memcgs that still have memory
-due to additional shrink_many() iteration.
+Given the discussion of patch2 has settled down,
 
-Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
-like any other memcg below the reclaimable size threshold until
-lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has no
-other user, so remove the op and update the memcg LRU comment as well.
-
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
----
- Documentation/mm/multigen_lru.rst |  4 +---
- include/linux/mmzone.h            | 14 +++-----------
- mm/memcontrol.c                   |  1 -
- mm/vmscan.c                       | 20 +-------------------
- 4 files changed, 5 insertions(+), 34 deletions(-)
-
-diff --git a/Documentation/mm/multigen_lru.rst b/Documentation/mm/multigen_lru.rst
-index 52ed5092022f..b532ce961371 100644
---- a/Documentation/mm/multigen_lru.rst
-+++ b/Documentation/mm/multigen_lru.rst
-@@ -234,9 +234,7 @@ the active/inactive LRU (of folios):
- 1. It has the young and the old (generations), i.e., the counterparts
-    to the active and the inactive;
- 2. The increment of ``max_seq`` triggers promotion, i.e., the
--   counterpart to activation;
--3. Other events trigger similar operations, e.g., offlining an memcg
--   triggers demotion, i.e., the counterpart to deactivation.
-+   counterpart to activation.
- 
- In terms of global reclaim, it has two distinct features:
- 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 7f078ff0dd76..542e465ee7a1 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -626,12 +626,10 @@ struct lru_gen_mm_walk {
-  * per-node memcg generation counter, whose reminder (mod MEMCG_NR_GENS) indexes
-  * the old generation, is incremented when all its bins become empty.
-  *
-- * There are three operations:
-+ * There are two operations:
-  * 1. MEMCG_LRU_TAIL, which moves a memcg to the tail of a random bin in its
-  *    current generation (old or young) and updates its "seg" to "tail";
-- * 2. MEMCG_LRU_OLD, which moves a memcg to the head of a random bin in the old
-- *    generation, updates its "gen" to "old" and resets its "seg" to "default";
-- * 3. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
-+ * 2. MEMCG_LRU_YOUNG, which moves a memcg to the tail of a random bin in the
-  *    young generation, updates its "gen" to "young" and resets its "seg" to
-  *    "default".
-  *
-@@ -643,8 +641,7 @@ struct lru_gen_mm_walk {
-  * 3. The second attempt to reclaim a memcg below reclaimable size threshold,
-  *    which triggers MEMCG_LRU_YOUNG;
-  * 4. Attempting to reclaim a memcg below min, which triggers MEMCG_LRU_YOUNG;
-- * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG;
-- * 6. Offlining a memcg, which triggers MEMCG_LRU_OLD.
-+ * 5. Finishing the aging on the eviction path, which triggers MEMCG_LRU_YOUNG.
-  *
-  * Notes:
-  * 1. Memcg LRU only applies to global reclaim, and the round-robin incrementing
-@@ -675,7 +672,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr);
- void lru_gen_init_memcg(struct mem_cgroup *memcg);
- void lru_gen_exit_memcg(struct mem_cgroup *memcg);
- void lru_gen_online_memcg(struct mem_cgroup *memcg);
--void lru_gen_offline_memcg(struct mem_cgroup *memcg);
- void lru_gen_release_memcg(struct mem_cgroup *memcg);
- void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid);
- bool recheck_lru_gen_max_memcg(struct mem_cgroup *memcg, int nid);
-@@ -709,10 +705,6 @@ static inline void lru_gen_online_memcg(struct mem_cgroup *memcg)
- {
- }
- 
--static inline void lru_gen_offline_memcg(struct mem_cgroup *memcg)
--{
--}
--
- static inline void lru_gen_release_memcg(struct mem_cgroup *memcg)
- {
- }
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index a05d9a8baa1b..e2ddf0680e62 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -4475,7 +4475,6 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
- 	memcg_reparent_objcgs(memcg);
- 	reparent_shrinker_deferred(memcg);
- 	wb_memcg_offline(memcg);
--	lru_gen_offline_memcg(memcg);
- 
- 	drain_all_stock(memcg);
- 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 636152d8c94d..45a2c1021f4f 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- enum {
- 	MEMCG_LRU_NOP,
- 	MEMCG_LRU_TAIL,
--	MEMCG_LRU_OLD,
- 	MEMCG_LRU_YOUNG,
- };
- 
-@@ -4560,8 +4559,6 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
- 	/* see the comment on MEMCG_NR_GENS */
- 	if (op == MEMCG_LRU_TAIL)
- 		seg = MEMCG_LRU_TAIL;
--	else if (op == MEMCG_LRU_OLD)
--		new = get_memcg_gen(pgdat->memcg_lru.seq);
- 	else if (op == MEMCG_LRU_YOUNG)
- 		new = get_memcg_gen(pgdat->memcg_lru.seq + 1);
- 	else
-@@ -4571,11 +4568,7 @@ static void lru_gen_rotate_memcg(struct lruvec *lruvec, int op)
- 	WRITE_ONCE(lruvec->lrugen.gen, new);
- 
- 	hlist_nulls_del_rcu(&lruvec->lrugen.list);
--
--	if (op == MEMCG_LRU_OLD)
--		hlist_nulls_add_head_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
--	else
--		hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
-+	hlist_nulls_add_tail_rcu(&lruvec->lrugen.list, &pgdat->memcg_lru.fifo[new][bin]);
- 
- 	pgdat->memcg_lru.nr_memcgs[old]--;
- 	pgdat->memcg_lru.nr_memcgs[new]++;
-@@ -4613,17 +4606,6 @@ void lru_gen_online_memcg(struct mem_cgroup *memcg)
- 	}
- }
- 
--void lru_gen_offline_memcg(struct mem_cgroup *memcg)
--{
--	int nid;
--
--	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
--
--		lru_gen_rotate_memcg(lruvec, MEMCG_LRU_OLD);
--	}
--}
--
- void lru_gen_release_memcg(struct mem_cgroup *memcg)
- {
- 	int gen;
--- 
-2.56.0.307.g5fe7bd680c-goog
-
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
