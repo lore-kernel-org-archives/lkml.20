@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219577;
-	b=LmQfn0Hcb7HfDh2Kp+0uO3bx6mtmeV15YQGrdzfSkc69Y0bgJOtE5C042tFOS3+yeRrU
-	 uu2PuFZuuLMk43Hgswtx2srNngyz7d+K+lH/DIHMiZpMjryG21/OZpCichuOYjlm0dwCo
-	 OteIP5Knr/nt3S/zLCK8v17UokzlMEW5o2fWz894kExS4DsiJq6r2Jg6zP/U2Sus3YFpZ
-	 rPLNlhyn6cQgxdiEBgBITYNfs5rsqMknF5FDUk3XizvxMlLfNRCimmWJEbUtizIc7qtk3
-	 09qvTZioj4myrUa+jZO0PXQm7wt65CPmQdol3Sy1nLHXC+78/ncbNGvYJCgUYkCYz7g==
+	t=1793219627;
+	b=ezvwL+IjoqHnSc5SHGJXP/xXfF4PJjyeFbPQ1TSxc9XacOh6Qz2uiban37w6tfX4FGHZ
+	 di8RNRzmY7TtRkmsM3Brb0pWwfdMhfB8Zcj/flcFaSK53OcjmqBDRQKwQ4bZab6u9Kqxf
+	 vkrB4yjGJrySoe2B9a5VNDrWmn2dnDtEMNejlBiYjva0TlAQvlKK8w2pu8fShsp2EMCOu
+	 5LuwYeY2DSQ4iCjwHSOoYM4NQZvdgszUgEraghnSmVMiWTKBv5shywjGkiBTw3/oOPLCp
+	 d2hwfWktT8zsNWerhqy3VZCpeERtI3vB6WktocZCRQu048V+L885asFY57t9A051SRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219577;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9X+pCcekx/7Rlff7Kqi2J3DlR1/Mhd++k2xfF7L25Us=;
-	b=gvuh9upJfM/ppVGQjVJxsIagZ4otjCX5jjOUAUCvSIMP8euVH6cH4gZaZhuEdCQBlBN1
-	 sw19pfyqfG2cNs/AjbgM1NMj4adMzlfpQKVgq6xnhrykGmCfEBOIS42K7aimd8UWUTtH8
-	 /aoY+L3G+86Ij6wXyLA9mmT9L1lStQwIJaaqB42wlittZdh/YrOWvxJ7LxiZDNXV/xlz0
-	 CDNYGRTgBubPV12R6RcaPGjoCZtjp4kAzzEKpWKgF+iXPOmAStjHtXDDceuQfwxBDVhas
-	 QI/Wp7Tdw5RkUf974ZC58zF+pkzRF70sGZ6ffy7cfMTFHbrvJ6gIGdBmGjSlpUwFM5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219627;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Lb/W93mWkP3TBmUhejtZ18o//62t4qTaZxB1+dKBVHs=;
+	b=lYlHu79iMc2zmtj90Su5Ir3Woa4R4rL0VbjhqAYB59RCtqzVTfPxNMzjHvm1YIUOMUWE
+	 5R/Iy2SDiRs5quakMCNxfIfBEY9ZR2aiQWCZwoUHMfMcGmV7tZsBX+H54iAxim4DHl/gR
+	 Itgp85QANBrhBIy+FhYknuL5fMpcZwltqdG9xgFjfenIwf1ClYsM7v7q/lOm8A1jmFI5M
+	 dsQT1ZtZVT+R9HO62UOV1WF4AuKgAGILMjKl3W7CHKVjIrFfYYYjsPgMPKQ6xr5eOJjX1
+	 aivKHnRSaCYSxur2/w88yNBUChaFiAcIHRY8prmbZN/pFl6ruaCm04RxB1Bg78UjT8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frjp0mtt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VIAHYoX/";
+	arc=none smtp.remote-ip=74.125.229.132
+Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5D03A606A31A;
-	Wed, 28 Oct 2026 20:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9164606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:33:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9164606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frjp0mtt
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9D15B1F01825;
-	Wed, 28 Oct 2026 20:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793219577;
-	bh=9X+pCcekx/7Rlff7Kqi2J3DlR1/Mhd++k2xfF7L25Us=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=frjp0mttVjhyleq4vIqg5I5lH0FWbMuSjV49m5JhQi6ZEk5GIPFEcCqTrvSBLMGHy
-	 Vx+CSxVP/hYgaVf8uyGn3L0iDDXS63YGyQ1kUPoxLXxN7L3Qu7T21IUDuWTwK4IpRS
-	 gtqb+GsgxlUthwGHH7GsueH6QrZCcCugpXNVEHrHaC8T3LeUZ4pUs6j9SKLUbyYS+3
-	 fvz/6WfSMefTcmy3XzxgJltDZdEHkTogcNZi7NtrIHeC3Bz3fFLI32cRGZQjfzZOUQ
-	 dbS8bjQDyGE3QfpOEunAujtt54EN6mY6YACQSHUls/7efFo+AsPZ2kls8l3m8thvwx
-	 blWyo0FlPuGSg==
-Date: Wed, 28 Oct 2026 22:32:49 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: linux-kernel@vger.kernel.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
-Message-ID: <auJb8drL7rpvNMyK@kernel.org>
-References: <20261028094504.4256-1-stefano.r@variscite.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIAHYoX/
+Received: by mail-dl2-f4.google.com with SMTP id a92af1059eb24-1949fbcbe6cso56052c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793219626; x=1793824426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lb/W93mWkP3TBmUhejtZ18o//62t4qTaZxB1+dKBVHs=;
+        b=VIAHYoX/gWbWjx34bja30pDruefzNGvjIYWXpOMoYXWW1mUOtOZlhkvEbPwNePYFUn
+         QfUIJQixpcDi+reeukzBUdBkhjA55ttY+/3fETjJdUOW42FIxNYzDebmi7iCh2VWl/ln
+         ze5aI4gcNybe7B7pq1gtOGt2W27Tt+dYcpcb9tWCgdnIFk8QRtvL6+ROASGzsvO5gLbH
+         JZLIbEqVx5aY8Ke7U/Va1aHI+iEx3VlpkWO6TdszAMuDSf/kKvcWRuc2aejFyJYHcI38
+         VhZ6b5Te9kYxtYtCfqqZWVZNG3QlQFpKwz3bQ2SeBxyRwFd7ltstAnke9Y+vHzAmf5A6
+         OQMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793219626; x=1793824426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lb/W93mWkP3TBmUhejtZ18o//62t4qTaZxB1+dKBVHs=;
+        b=zmKbCWT+zKulLOM4AvbQLw1+d4UvQcCAT4k5bggW9UxYo56YZXLK3RARe9q80dqJi6
+         ruUiWAH4g/hw/WPZkiyNDdcJgzJ2Hg8bm4BUHCiBo5FojinD0gdhroKOsotixYhO3wLe
+         M0943QyQ2wkbbWsaqEB6A4CBRjK9Pedu/ISwfhdasWta6JB33oBEgS2nPpYGI7PWzW8f
+         7OieyfUBj4mgWStriUlqZxsESo4As630HjIvxYy/4uA9StuRNBYSbAMS+EPoR3PerYzJ
+         HcrWnU9h48y7JPFL9FIAoWLESBWvhpNi+1P1GykGpdatPmIysUPJQyFE6Jyx6OyXCLNB
+         Y54Q==
+X-Forwarded-Encrypted: i=1; AKwUvByD7QseX7nSUk6+45nNWHimNkbw1fbKFy7ecMlbvnJyYM7qAZ6uESLmbnsrzu/Va1XyYzBv5vMstzhymls=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7BT+VyhlhLFRiPJx348kNmPkt3VCbakgB0ps8AnvDFgOVGZao
+	HaeUZmoPvge3gNPE9wIsZTOW2GFZYG5SZrdstjLhnOOTm00MC5pIb8BX
+X-Gm-Gg: AYBFou1uOALzBQs+OrgBLYyE6OVPxtLsrePIBFEZKTFRD7jvUUmTItkOqCb/zrVf9TR
+	i1S5xIWUvLluAhzJJg4+CrycRPjFbAXZ3huEUAKLvBRLhGs1MVj+i7YnqLU6KVG//VB4Z5OlVOn
+	Di96YTLBoFjIJhyNRjEl00PNHWgbxAatM1yOdx6be//JGv40Bw8HAy5ZTFzkznMrMcOHAQDxp7c
+	nSOWYkgGAnSlrxywcVBcIn3IdxmGWVx9wyyWhLhIlGTeHJXF0Kv/x/qmlmL6dSnfkFXSWwoANbn
+	ZqzJEcSyGtYX1O5yCeb0evGZF8GYwGGy+Z6KmefJ0AxNsJAfF7xLQnhLx9aMy5NKSFOiB2zDlSB
+	Hp96kIzmYmq4JOTjNz42wece57mJLS8kqIAxis2pyg3JQSvCQEjANA/65+F6HwRZumAknfzylBx
+	JAQxkW8dB6SxPMsu4c+s/yxcfCXkg0xJ3CqK/uykfJRu1pZAFX4Dmua5Sq/+JnF1rzKNf7KJxkd
+	RlDlaRvSlrn/SiTvAcgSo1ElyC1K3LAI/GutJeWC0puPFPu9VHha3pCHfCvxcYoG7le5n0jMBsg
+	9khtbLU30DEJ3rwXhOxUfOqVA53HcmCiVD+BPwyWqS4ke32Oj80chmCw1JD7hy7WL2L1zts/EWD
+	RFw==
+X-Received: by 2002:a05:701b:281c:b0:16e:c820:b20d with SMTP id a92af1059eb24-1a6c87bcdabmr3617245c88.5.1793219625684;
+        Wed, 28 Oct 2026 13:33:45 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75e5c6d4fsm14699522c88.14.2026.10.28.13.33.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 13:33:45 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: linkinjeon@kernel.org
+Cc: sj1557.seo@samsung.com,
+	yuezhang.mo@sony.com,
+	exfat@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] exfat: fix parent link count when replacing a sibling directory
+Date: Wed, 28 Oct 2026 20:33:24 +0000
+Message-ID: <20261028203324.6073-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,32 +100,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028094504.4256-1-stefano.r@variscite.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 10:45:04AM +0100, Stefano Radaelli wrote:
-> From: Stefano Radaelli <stefano.r@variscite.com>
-> 
-> The optional reset control is deasserted without a delay, and probe then
-> proceeds directly to the first I2C register access. Since reset-gpio
-> initializes its line asserted, this provides no guaranteed minimum reset
-> pulse width or recovery interval before communication starts.
-> 
-> Table 66 of the ST33KTPM-IDevID datasheet specifies a minimum reset pulse
-> width of 1 ms and up to 50 ms from reset release before the first command.
-> Choose a 2 ms assertion interval to provide margin above the minimum and
-> wait 50 ms after deassertion, before initializing the I2C guard times.
-> 
-> Associate these timings with the existing st,st33ktpm2xi2c compatible using
-> match data. Apply the delays only when a reset control is present. Preserve
-> the existing deassert-only sequence and the behavior of devices without
-> timing data or a reset control, without adding Device Tree properties.
+exfat_rename() adjusts parent link counts only when a directory moves
+between different parents. Replacing an existing empty directory in the
+same parent also removes one subdirectory, but leaves the parent's
+link count unchanged. For example, renaming one of two sibling
+directories over the other leaves the parent with four links instead
+of three.
 
-"Pull the timings from the matched device entry. If they don't exist,
-fall back to the legacy behavior without delays. Update of_tis_i2c_match
-with the timings for st33ktpm2xi2c."
+Also adjust the parent count when a target inode exists in the directory
+rename case. Keep same-parent renames without replacement and the
+existing cross-parent accounting unchanged.
 
-I.e. the last paragraph has the language of a white paper.
+Fixes: 5f2aa075070c ("exfat: add inode operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/exfat/namei.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Br, Jarkko
+diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
+index 68ddb9c5504f..24110e7fde47 100644
+--- a/fs/exfat/namei.c
++++ b/fs/exfat/namei.c
+@@ -1309,7 +1309,7 @@ static int exfat_rename(const struct mnt_idmap *idmap,
+ 	else
+ 		mark_inode_dirty(old_inode);
+ 
+-	if (S_ISDIR(old_inode->i_mode) && old_dir != new_dir) {
++	if (S_ISDIR(old_inode->i_mode) && (old_dir != new_dir || new_inode)) {
+ 		drop_nlink(old_dir);
+ 		if (!new_inode)
+ 			inc_nlink(new_dir);
+-- 
+2.43.0
+
