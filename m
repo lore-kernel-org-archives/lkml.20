@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793180883;
-	b=f1RAqATR/eIrFl8nPsFv8hND/3Xr5murTVpvsBr4JToc62NH25sG5oUkPCwqjYlgOFHc
-	 162cchQK3CYOggfFKqw1uLY/+dd+YjPVZCmDwOnc6ZEkuaYB6/gSZqevLCUP1f8HlDPKZ
-	 4n+epa0dhnqUfeYxfLWfPvQGbShwGGfkWOMB8y4pwITL6FmC5LNPVoyEvhG0kBILt64Cf
-	 /FopD9FJ9xfj3pey0wVUdCH+fbCPwx4pNWL/tsNZs+chxgFjAqEOWP+Qp2i5XjUgof/ux
-	 2UOslGRCBHsUwrR9u/27V5iu6335aJNbVY3TTRonlq5OAfvo6IONwa157QHSPLe7EpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180883;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793180882;
+	b=w8bGAfCy45E6krAvl7vcFAshFsQ/WENXcvIZKNw8hqDmdm2TNng4pRqKs+B8s5aPfGSx
+	 lbHIJq5k13+Dy8Gy4fZQLrFX3ozJPHnW703LZXoW2idQmu83+rfXS9Ux+6AnhS04/1g0H
+	 l6NX1oS08FnfeCQ7ruEWu/SgQbx7rPzFiR6ZoHLFGQmwanuo+s3vt/iI7mlo6dIt9pm1X
+	 eeW9ne6LIYFMp7eby7nQAAddytXavJLRv03eAF4LOEvvXZmUjv1Rid1x2vy5s8DaJ+gnG
+	 7/bWY6oyf1F0TGrAEfe5frJNzjaoQjiUcPc0NhmK/hhNtyGGa74znahGKfT43wz1k7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180882;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
-	b=xvuSHRskeNzdS/LrmiPmn6TeI2+Jqg8UqrHpeOyeEzWcTfmBmObJvD1gEtMibvVN6hIS
-	 EfgF4f7xbTalc1PgCcmkeBA24nBcpC0Cqefevo56vDeT431vKnmkBBqwtV6F04Pu3VIiz
-	 Dxhfd0Gh9FQ7nH2cdqQP1i7A83dhUWytgSJRxTnx3Wk3OW0BieRn9laKu8RRnQaCPKp2l
-	 jivhajtcKh28slv+fcC6gDpVhcuYEeWjupK6logml1vSuY4Ve4OIPW9gfaYuhoHR+CaXq
-	 tXk+P87+Ezr3uYpAQgfn/VARJlmvKpEnfe7Th6ni81BepkBulUVx5DOWYcO/NRnhReQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
+	b=vQSXVLFwu1fP+FHQJO/pfZmBPI6f8x2veqd6rfOWT2uwwk0tLA36oUWauvCEYZa6OR4f
+	 LDZ/W4Sxx9Sbl6Yx9HSFKDoq3DShHY55gNor6zVPPDb86vq8NefAwh3LTy6l5r6EpE810
+	 Kj7MGFd941nxrmnLOWzjXHPB/dm3kSoeoJpRGIHP0XNTyiFyX04TEGzHfKL9kawylKpJp
+	 r558DEpkf1lLVebCFksZoPFc0DTXWcYyzZAwPvEphuTT/3NHPaO5j8zq1vurV+udUHwNM
+	 G6O7vejStfRCklcSc059RCWBxK/99UfysIfusKSRWuEcxRlAdCzHJbQTQcs5HbH7y7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJw6mAzl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SS536KN/";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7D8606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FFA606A31A
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD7D8606A325
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34FFA606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJw6mAzl
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40e30c26a4so297057666b.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SS536KN/
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so6712785e9.3
         for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:48:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793180881; cv=none;
-        d=google.com; s=arc-20260327;
-        b=itDgxffIXBVmVn4G0JqOzER3xhhBbfgnYA1PWFJZkYDrGFSOk3U2YWNVBNzWXY4C1a
-         k0m3bHmoUx/39IDFma0EqaiAPtYoMK0c7tgR4OQZUVTjcOC0w4mR6El/6gfmp7ccbwhX
-         mlLWVweS+6E9mEEBCNtHq5GpTvQ6Q/UvoJQX1PUMjgvt6o4adjRPISPu59D7XKLn17Eb
-         Iscp+/q0ZHdl3LDM2EvQY0lOVqiXBoOATtCkSgH6PpK6fmHIMVj6YtjzVgzMnB6B9niP
-         O7yCR3Pwgle2T5XitR4NH9nItqmukOE+G8pt3uA4WBImr16wpGOM2RZf+zMruq7VyPue
-         Dr4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
-        fh=Ol/OmYrMAhcdkkJ3yAKit5L2H9NX37LFpYWTWKKM1LY=;
-        b=D9dV+BWziKjm2XVHOFnDMEYCrTSJ0NQ2sxSF6Ek9YhWj0lAC2X8LPdxxSGIhSICJ3i
-         93hKPXy8VCigD0RPY8S7Vh4T9FTdqKc73VbQFL0moCqJL9bgYFKrEnIaORjq8LBQQYRa
-         xzgEP/doNV7H7D4BmX1K7qCtfqCMbOvyeY0uR4LzQ44aGHTg2qoeXwtgQ1lnyACIWRkz
-         pBtw4YAXAehUHfYRAh2KsKvvvbzoiJqtbq+pUbI3giTBuWb1hzzUyb/mN9zjvECrcWAN
-         zuRXcLBqbwgaIRAvNy6ZICedM5FjtHLflxa9P6s8bSvtMiaGqalzX6wOFpaVxtvap0Ov
-         iEXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793180881; x=1793785681; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
-        b=zJw6mAzldYFqYZzdqrK5sVCjCWQPQmTep1dLeDCOodLgldWlrkclOGlwaZnjuK1Oum
-         TPJIIs//JWN7qNyOHlCsUAdJNutM2b52i0HJOialjxTrWs4keZvZmw3BRcoJU4Awqzjr
-         WT7ZIhJrd4c9JQzrTY2yU8wr3bsllD1F4CAiDQBfntXs5r47SzlK8X0ezxzisTf0fyLH
-         V2m79FTBz5/Q8KkYGms7kGw/9UPrH+YveHnhAh0ujkqjlAJ55dCcMHh8t8hYyve2EZ4W
-         CPhdOdeH9FP4wI1+y2tqcuYKKYhDPN/HKsHrz7f0EKP2g/ydwoE9hgBJKjkE88fNdPU0
-         JRLQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
+        b=SS536KN/FNb5ZcLsLsAYO46h/5MEOlP+vGqlqfGkkILFUt+I4S7V9CFmqXZF8Jf/4v
+         JvOgGdgHX8kN0hPDIvDCbYR2Gv+V22vOuKrhezQQqWxTveWH1fOY3XdGaEH/PZlebHP8
+         yb8TMuHEN+DBGkOWtVvqCc4SclYN6wEjUh0WE8WyavAPdJMvgwlmcmoK7ZNKUDnV6Q2y
+         4hWdCi3ItZN5RJBEXjP/BgkmHI/a/J5nclWfU8V76GCE1KtEh3ns116DvOnStV3t9Yvc
+         L7rWbxYybvUByz/fEzvWlKjprfc6u5ulkeTKtXKIUUQPf1xiTh3R04s1mhzjq2tQ6GK6
+         6Jdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793180881; x=1793785681;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
-        b=syDNKvOgriaarQ+PO0xfSo6hgJ5q/EyLx6WQpCvBZ2dHUDNfk6MhDr1S2kqiTyjiVn
-         WrROqD9TVEt8dIn7TwqLV5ajmpawuOk0//22WDbsRCiaKZzZtBFsc2qhhS9y8IbFQbao
-         87JC2XhV6BSnmqpBne8xed/2SB7EhOZXJyFGpU5lX/r3O5Iw09/7iVcObMrxQnYEJNU8
-         y2NC+9Q/1hleuKeYnncj0xLs0iBkLmBKJjxttGjYdkCOWuIAksvM8SpzuCtbclqT48MU
-         8vEo9aYpITa7KeFHEOv+V1NYZBGYV1FDqxa16cpuqmPhTu3iaFtGFqzKwej08looPB5I
-         Nkzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRq45mSs809NH7kGbH6TmQG+cX5a8wHaxDLGPSgHK0yOLG3H8OLG6F5tdCZUBlDJm/19Kkvc57MzdGxWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbuk4SsYG7XejQtDYVUOxOh7lRtxm/tV5W/T5fTm6aLW9DQavQ
-	ql04v/7xtarEg89BrZ4BeiIc7RvWN/oFIKdv1Ke03FL6VKQTOBFMcTNH4sRpHobSILZ8uc1smzl
-	YbrP6JCpofFzJnbkYuia0T6IC0MoKORI=
-X-Gm-Gg: AYBFou17X7z1tgcs3HpkO6uQ9rxYU/Nt0r5DQlLJsEB2Jk7KsL+bNwDQJdahNY5GNhA
-	4MC8qdB+rlJX7GVo+AHmlP4KBrlN3TibYcxINiEqxfO8YyOPWMBTizffI/tsPF9FzjOGphYi6MN
-	hmPO8YDA2CQD8E21Cf5PBFQjlTWAiLsgetRGWrwX/Zkqrrd4iKfQE2ZdMKMyj4B/9Q1M/oWlRj0
-	neaBuGMzeDx5ib24QnMW5h78y32aBCkb2htTlr557m+bHu7vCcgPxgheuYfilzLhuHrB0WsLdf7
-	qReKhsKZlfrgf65aG8cTNF2ZnptORh/LiHaZ+QMa3w4KSpS74K5WYB83VQmLaKmjw9INHwk0iho
-	Eu1PtzLMvHUTtUx2p4rNxLEqeCwRjpR8bD1YXU1FbnYF3xX8p3QyuN62BHynjBxTo0Y+pkUteM5
-	ihOJ4gp2B6UvIeB9JFvS3FZcXezH69u1NPOukTQd/PczQpkd4KqTvojMo2xPLaVRxMCYGByeV2n
-	WTskQsHgwAnkRlSWC5Z6/Yrwg==
-X-Received: by 2002:a17:907:86a5:b0:c25:f7db:4bec with SMTP id
- a640c23a62f3a-c49c6357d34mr69949566b.18.1793180881026; Wed, 28 Oct 2026
- 02:48:01 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
+        b=L6D56dze0CZIM4kTHtZ/StLI/9Eeq0CZ07NRGFC+ESz9C/UvggThj9VjJH1EP5uIut
+         W1wa1vemIk7YaFFS2u4abiGKdmEw0fG+iL7JOkJpZtx2eTqy6K56LumHL/VrKqHxspz9
+         OGEyc/ncmkgix8vPXhZljrUmVAEAZ5ZcU+5/0I5LHjTXkO+NtUgRL4ScdG8RdkURQnWd
+         5vQwRy2sxLzkdFjBgxFds4mUPxg7rQ/npcPw0qUcnmVSEIkmx/myHJqQJhCkG4lm/0Yt
+         +dISVuu6HJz2kBUjtUrbTPALZaAklT8v7sVPZlXyHWzXU7Io5SjFURo8WVuJfFd3WI9I
+         vyKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzFDl8moSmu7yINOYC5VThMAnvT70/0fMKysWL5eB/SA6d6mEShMsGxdfdnqTW/hm6Onb/+OXawt+kbK3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhtw4VGJPiw6wluFAeRbP/MvKCu1LliBXxs4ydR67kUBK72lP+
+	KQ7fQIWw7C98aky+lBa3wNtdEjWtVPZNOMUhS5Y3ZA0vcl+Y1NNLzwBo
+X-Gm-Gg: AYBFou2TaygHOi3Ta4DlFeAzOPkZZtBwlEdcI3IYH2em8JNtBOot4uED2gKYSuWvjuC
+	av/qrzNYG1a/HjcGlql4QNbVwoIZ7YMmAVLMCpeghS/OfmnGQuQHS9etkNVGmncE5kTefw/TuDY
+	SM60B3c/InkkkUMfqBW9LMDdn+cP+DtJIPLsSzQQ+enlwRFNgVM2EOXbM2ebAwMIAGJg4Tl8nmI
+	D3MQ3xwCgOcoHodmray/0EZ5fjG1+aS8mn1vEGTbZ8QMeKPahdGf2dUA9tecxBgpq0Hcyi4lme2
+	tiMt+B4RfzcjmrxxJ9Wg1sxgvcLWH2GNrdF5Hsy6fwd6BtN5ju7Z0fuK/k2LKB+QhWO8LzKiZL1
+	Wd6fuONLOsCjUZazpUcpc2l2CerlMXjxbbLLdeZkB3i11s0yUvE89Z1BMAhlP6aeFJO9ROW1G6S
+	p0126RnLGfKnT3bFkDHt5B1hcK/ZKUgCM0MK7QDn2YywXQgW0bW6nu+XjVUSpXeLY8EqBWjhwkI
+	+RQYwnXmaLzz+Eku0oOXsHa/s0/VVWDvp80Pa7fnLURzYAeLFgn21f0NRLAUKLDFuvtv4sA7vIO
+	RuYv+CvBxrKkUfoFcdpp6p9cLje6amS9NHXO9cYRFsMhFLcYkoGvamTgFaiuiNimes5imGAL5j1
+	dLJNZHQ==
+X-Received: by 2002:a05:600c:8b63:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-4a961892781mr34341255e9.0.1793180880339;
+        Wed, 28 Oct 2026 02:48:00 -0700 (PDT)
+Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm26957431f8f.39.2026.10.28.02.47.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 02:47:59 -0700 (PDT)
+From: Zak Brighton Knight <zakbrightonknight@gmail.com>
+To: linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Len Brown <lenb@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Doug Smythies <dsmythies@telus.net>,
+	linux-kernel@vger.kernel.org,
+	Zak Brighton Knight <zakbrightonknight@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] cpufreq: intel_pstate: Restore P-state request on resume without HWP
+Date: Wed, 28 Oct 2026 09:46:59 +0000
+Message-ID: <20261028094659.2321491-1-zakbrightonknight@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+References: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,53 +104,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793027261.git.d@ilvokhin.com> <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
-In-Reply-To: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 28 Oct 2026 11:47:24 +0200
-X-Gm-Features: AclHuK-8N84O0Y9k-BLOPVpeywTja7886uZe3ugxN4eM-96m__IvC7bzZgS0MkU
-Message-ID: <CAHp75Vedr5J1WJMrAkBjRSLKA_zf1kt3GD6UhjzLcy9vowxnaA@mail.gmail.com>
-Subject: Re: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
-To: Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 10:20=E2=80=AFAM Dmitry Ilvokhin <d@ilvokhin.com> w=
-rote:
->
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
->
-> Replace __attribute__((nonnull)) with __nonnull_args() to
-> standardize nonnull attribute usage across the tree and keep the
-> attribute's quirks in one place rather than open-coded at every call
-> site.
->
-> Add spaces after the commas in the __nonnull_args() argument list to
-> follow the usual coding style (according to checkpatch).
+On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
+the CPUs stop using turbo after every suspend to RAM when intel_pstate
+is in passive mode with the performance governor: they stay at the
+2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
+policy limits change or the system is rebooted.
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+During resume, the platform firmware sets each CPU's P-state request
+register, MSR_IA32_PERF_CTL, to the base ratio (28).  Without
+hardware-managed P-states (HWP), nothing in the passive mode writes it
+again afterwards:
 
---=20
-With Best Regards,
-Andy Shevchenko
+ - When the nonboot CPUs go offline during suspend,
+   intel_cpufreq_cpu_offline() bails out because cpu->suspended is
+   set, so the cached P-state (cpu->pstate.current_pstate) and
+   policy->cur keep the values from before suspend.
+
+ - When they come back online, cpufreq_set_policy() does not start the
+   governor, because cpufreq_suspended is still set at that point.
+
+ - cpufreq_resume() then calls intel_pstate_resume(), which does not
+   touch the register without HWP, and starts the governor.  The
+   performance governor asks for policy->max, which is equal to
+   policy->cur, so __cpufreq_driver_target() returns without calling
+   the driver.  Even if it did, intel_cpufreq_update_pstate() would
+   skip the write, because the requested P-state matches the cached
+   one.
+
+Governors that change the request often, like schedutil, write the
+register again shortly after resume, so they mostly hide the problem.
+In the active mode, intel_pstate_set_policy() writes the register for
+the nonboot CPUs when they come back online.
+
+Fix this by adding a ->resume() callback to intel_cpufreq that writes
+the cached P-state back to the register when HWP is not used, before
+calling intel_pstate_resume().  The governor of the policy is not
+running at that point, and the write is done under the policy rwsem,
+so it cannot race with updates of the policy limits either.
+
+The problem was found and root-caused, and this patch was drafted, with
+the help of an AI coding assistant (Claude, by Anthropic) during a
+performance review of the machine described above.
+
+Fixes: 4adcf2e5829f ("cpufreq: intel_pstate: Add ->offline and ->online callbacks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+---
+Changes in v2:
+- Only restore the request in the passive mode, from a new ->resume()
+  callback of intel_cpufreq, and do it there unconditionally, as
+  suggested by Rafael.  v1 did it in intel_pstate_resume() for both
+  modes, where it could race with the active-mode util update hook, as
+  reported by Sashiko.
+- Hold the policy rwsem around the write.  The governor of the policy
+  is stopped at that point, but cpufreq_resume() has already cleared
+  cpufreq_suspended, so a policy->update work item (handle_update() ->
+  refresh_frequency_limits() -> cpufreq_set_policy() ->
+  cpufreq_governor_limits() -> ->limits()) can still get to
+  intel_cpufreq_target() for the same CPU, for example after a limit
+  change during resume, and its write could then be overwritten with
+  the stale request.  This is the second case in Sashiko's report;
+  please drop the lock if that cannot happen there.
+- Describe the suspend/resume flow in the changelog, based on Rafael's
+  explanation.  When the nonboot CPUs come back online during resume,
+  cpufreq_init_governor() and cpufreq_start_governor() return early
+  because cpufreq_suspended is still set, so the request is only
+  dropped later, by the target_freq == policy->cur check in
+  __cpufreq_driver_target() (see the debug messages below).
+- Fixes: 4adcf2e5829f, after which the nonboot CPUs no longer go
+  through ->init on online.  Before it, intel_cpufreq_cpu_init() reset
+  PERF_CTL and policy->cur to the minimum when they came back, so the
+  request after resume was written.
+
+v1: https://lore.kernel.org/linux-pm/20261027143725.3763827-1-zakbrightonknight@gmail.com/
+
+Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
+with v7.3 plus this patch and a temporary module parameter, not part
+of this patch, to turn the new write off, built with PROVE_LOCKING.
+intel_pstate.c and the cpufreq core functions involved are the same
+in v7.3 and in the base commit below.  Passive mode, performance
+governor, one suspend to RAM and resume per row (rtcwake -m mem
+-s 25), PERF_CTL read on all eight CPUs:
+
+  fix  before resume   5 and 17 s after resume   single-thread clock
+  off  38 on all       28 on all                 2.8 GHz
+  on   28 on all       38 on all                 3.8 GHz
+  on   38 on all       38 on all                 3.8 GHz
+
+The second row started from the state the first one left: the restore
+writes the cached request, which was still 38.  No lockdep reports,
+and debug_locks was still 1 after the three cycles.
+
+With dynamic debug enabled for cpufreq.c, cpufreq_performance.c and
+intel_pstate.c, the online part of resume logged "governor switch" and
+"governor change" for CPUs 1-7, but no cpufreq_init_governor() or
+cpufreq_start_governor() messages and no frequency requests.  After
+"Resuming Governors", every CPU logged cpufreq_start_governor(),
+"setting to 3800000 kHz" and "CPU n: cur 3800000 kHz -> target
+3800000 kHz", and there were no transition notifications at all, so
+intel_cpufreq_target() was not called during resume.
+
+In v1's testing, the active mode was back at 38 on all CPUs after
+resume on this machine even without a restore.  Doug Smythies saw the
+same on an i5-10600K with HWP disabled (passive mode affected, active
+mode fine) and tested v1 there; v2 has not been tested on that
+machine yet.  sparse was not run.
+The tests were scripted and run by the same AI assistant.
+
+ drivers/cpufreq/intel_pstate.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+index 17158cb..67a3015 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -3408,6 +3408,27 @@ static int intel_cpufreq_suspend(struct cpufreq_policy *policy)
+ 	return 0;
+ }
+ 
++static int intel_cpufreq_resume(struct cpufreq_policy *policy)
++{
++	struct cpudata *cpu = all_cpu_data[policy->cpu];
++
++	/*
++	 * Without HWP, PERF_CTL is only written when the requested P-state
++	 * changes, but the platform firmware may have changed it during
++	 * resume, so write the last request back.  The governor is not
++	 * running yet, and holding the policy rwsem serializes this with
++	 * updates of the policy limits.
++	 */
++	if (!hwp_active && cpu->suspended) {
++		guard(cpufreq_policy_write)(policy);
++
++		intel_cpufreq_perf_ctl_update(cpu, cpu->pstate.current_pstate,
++					      false);
++	}
++
++	return intel_pstate_resume(policy);
++}
++
+ static struct cpufreq_driver intel_cpufreq = {
+ 	.flags		= CPUFREQ_CONST_LOOPS,
+ 	.verify		= intel_cpufreq_verify_policy,
+@@ -3418,7 +3439,7 @@ static struct cpufreq_driver intel_cpufreq = {
+ 	.offline	= intel_cpufreq_cpu_offline,
+ 	.online		= intel_pstate_cpu_online,
+ 	.suspend	= intel_cpufreq_suspend,
+-	.resume		= intel_pstate_resume,
++	.resume		= intel_cpufreq_resume,
+ 	.update_limits	= intel_pstate_update_limits,
+ 	.scale_freq_ref = intel_pstate_scale_freq_ref,
+ 	.name		= "intel_cpufreq",
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.56.0
+
