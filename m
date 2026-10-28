@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793229281;
-	b=LD2rkSmcaG3vH27ayPmKfR8y0gdbyDlx9UPWGxEM2I14Ex1UTJSlfdFnGmPDnvYCuNe8
-	 jcSqY8TVpaWtCDByMWDoqo2Zl4MPXB/KGem+d8GpdsgvBHQyI4Os5OEmv+T6H7l6b+tu7
-	 QwFUkemYrLpzZ/W66KpXVUz6+Y1Nuf0IbPqFQCq9EJmBxM7ZLclOgbcCh9I7TS1c7985e
-	 AAkncU8a5A5dxINGLQZG8RhIiIxMxSi9pPM05l6bgqyLBRsxURsem+M0fKGQRKekBcKes
-	 y3GKiT6u0CUB+Mj8XqsiRDkIvz60YAsX3rwNBoC5M0g4JAJRzA2U0cltEXhEK603dcQ==
+	t=1793229316;
+	b=pckOgk/j8RBtJZu4Go3v4M8EwJmezmJMDdLTiogAmeBsVvyZwrhxLCuC+AP0cf/IQs9P
+	 /PV/PydwUJpMCit0BzYDDH3KQyTrM+bazLKRGokD1eD8+OfC4dpcANuNhPsahviQQ43wH
+	 R0Kgo6/7HHe42P8MudZPsBBA72atxZVXlqyyUBpugvUIIQ1pZfnAhRjTsQpw8dNZDIWUW
+	 Pt4BN6qP2u61gTdfyF+c0+isIUlniS36CbuKOxxN1gCefsGhwgpkRcpJwtb0dXQEd5ItO
+	 0yCYG66WeeLKUPyjZ9RIj0egpL6s1oelkuWnnkYs+xb7a5SvzLPpvl+nf12MyoOr0gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793229281;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=3MEr9fLZD0azSi0DOKE0xNOrGIBfvLaVqc1C2QcbR/I=;
-	b=LGYMJOvXrXVd3lCG27z3eX7uFsyRifzTO/GNLTydqMr8pOM0CjRFJQdlu3SDT1RAuFha
-	 WxnaeftvoofPkX7m9XTFgmS2QvNJEe5vrC4+eohxe552ORBp+t5ij9MvnPOb293Ia10FN
-	 8q1XP0XtVemDjVHirLv8V9EL+4vpDFgTYugQpA0pgl5awiX9TzQ0D9Zr8sc2U5saA5o/Z
-	 aG1aw+CecTkLFw4hNkRNLBfGKQ/IfP8L3UE146JmaTuR74WopySejeqIPDUPIaMfTjOHj
-	 9UWO/p/L3YkfIQyWlYUMrv+L/8ZQ9jMXvgidmJ0Vu87f7I0JZZwmXvPhYHwyNhmWzgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793229316;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DhpSOR12/rHCUhOJ1uYI7366QFpKc66f+uuFcRu/hhQ=;
+	b=AAQE0EZoHA/8Qwuklj0PXmmri/NIzESFeSi5em2Nhanf8KpAJLjWuMvMAejxPrqQ7m9e
+	 qhalmNC3a6+vY8TdAzHTQR5Q7F+yZGvWQln2JDyMPibA9OiSS+67CkEQDSElCc/HLayeO
+	 mYDGn6W+eaS2grA+H493NYRjg3MvnY7YSzft+DcFhqHwKtP/EIz3gNbBIwB3cmWtumxcm
+	 RBDu/tTu+EPdc7FVLz9YqFRQtYvkKkArrg++eX/D1skhAMY8HB5Ar++OY8hu6c/gqhBS4
+	 YVuYaEVNcId0GLgOQ/nnQp4rvJpIxSuqkdMShuwtEiUALher3a0DdZ8TEB7vfHVlnHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qWp54Q7g;
-	arc=none smtp.remote-ip=91.218.175.113
-Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="o21s/8x+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C891606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C891606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800D9606A320;
+	Wed, 28 Oct 2026 23:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qWp54Q7g
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LnJuu7B/S4VYS5oG0PP7FkWoFrFo1uRdb6upZLPKPHQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793229278; v=1; x=1793834078;
- b=qWp54Q7gPuRsP3lt9+9G+AAFpTUgKF61bBCTcxBL1IHcjH4O+kGNorEbpvcySqhkkICXY/YA
- fJ+UpMZL7JDzW1ADpIqJuAOgZK0NdPDkz5uq1m6nMs/LKUlg3SCO2SASgZcloPM1WRiWy2tN2VU
- QK5uZ6RCtvcuUid8JJLYdm9E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5eb06f2ffba058c2;
-	Wed, 28 Oct 2026 23:14:37 +0000
-X-Mizu-Trace-ID: 5eb06f2ffba058c2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f7bd7c62-7762-4fe9-8aef-d84e92f2bc31@linux.dev>
-Date: Wed, 28 Oct 2026 16:14:28 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o21s/8x+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E545C1F01825;
+	Wed, 28 Oct 2026 23:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793229316;
+	bh=DhpSOR12/rHCUhOJ1uYI7366QFpKc66f+uuFcRu/hhQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=o21s/8x+8uvTF9En4VEKmOQb097E+uWKBQO1wfD1YpkcIq+XwJhtliMn0BgHxH+A6
+	 OYM90bMhe/EtKsU16CJes/Ot0cRx5IQcjrH7v3R31x/HuUYUFvseO/BW/4JJXBc5AX
+	 FmSYENZ1lPi2ygfDZ0kX7W4zH8CwwhEP4OusyaCKX7ogDfkjNLdbqlOZtOTKQu/9QG
+	 tdHTTHQht5Kc/8Z3oFjP75cgTCU61zPzIhN5XY365EUgmFeGia2VVXdEstKVAuBMoK
+	 N2ju2Y8RfSSDHYDGYvNJRw4+YALzZxpIYVGLNoSKG18E4iqrF0SGbnH6x+QgCNxgsz
+	 FktRzhIOQWdwQ==
+Date: Wed, 28 Oct 2026 18:15:14 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: wuqianhai@loongson.cn
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, tzimmermann@suse.de,
+	javierm@redhat.com, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
+ relocation
+Message-ID: <20261028231514.GA577494@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,97 +57,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 7/8] selftests/bpf: write the mixed
- arena/scalar ALU tests in asm
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, john.fastabend@gmail.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- jose.marchesi@oracle.com, david.faust@oss.qualcomm.com,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261028204158.1021284-8-vineet.gupta@linux.dev>
- <e08eb87415801027d75170c930dc709beaea5f20f4afc92ff0affd434faaa9a0@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <e08eb87415801027d75170c930dc709beaea5f20f4afc92ff0affd434faaa9a0@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028094634.766723-1-wuqianhai@loongson.cn>
 
-On 10/28/26 2:22 PM, bot+bpf-ci@kernel.org wrote:
->> selftests/bpf: write the mixed arena/scalar ALU tests in asm
-> TL;DR: Test comment only: the new verifier_arena.c comment claiming the r9
-> arena load is needed for addr_space_cast looks stale, since libbpf now binds
-> the arena via fd_array. Suggest dropping or rewording it.
->
->> diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
->> index 21b66d51c61e..b84d8f1e0b39 100644
->> --- a/tools/testing/selftests/bpf/progs/verifier_arena.c
->> +++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
->> @@ -539,53 +539,58 @@ int arena_ptr_add_arena_ptr(void *ctx)
->>   	return 0;
->>   }
->>
->> +/*
->> + * The r9 load is never read; it is there so libbpf records the arena map
->> + * as used, which is what lets the verifier accept addr_space_cast at all.
->> + */
->>   SEC("syscall")
->>   __failure __msg("same insn cannot be used with and without arena pointer")
-> Is this comment still accurate?  Commit cd7a395838cb ("libbpf: Bind the arena
-> of an object to every program in it") is already in the base of this series.
-> With it, bpf_object_load_prog() calls bpf_object__bind_arena(), which puts
-> the object's arena into a continuous fd_array when the kernel supports
-> fd_array_cnt:
->
->      obj->fd_array[0] = map->fd;
->      load_attr->fd_array = obj->fd_array;
->      load_attr->fd_array_cnt = obj->fd_array_used;
->
-> The kernel binds that array before it looks at any insn:
->
->      process_fd_array_continuous()
->        add_fd_from_fd_array()
->          __add_used_map()
->            check_map_prog_compatibility()
->              env->prog->aux->arena = (void *)map;
->
-> This happens for every program in verifier_arena.o, including these two,
-> whether or not an insn refers to the map.  The addr_space_cast check in
-> check_alu_op() (if (!env->prog->aux->arena)) and the prevent_zext/needs_zext
-> logic in adjust_reg_min_max_vals() only look at prog->aux->arena, so
-> removing the r9 load would not change what either test does with a kernel and
-> libbpf from this tree.
->
-> The comment also describes the mechanism differently from what happens.
-> libbpf only relocates the ld_imm64 to the map fd, and the verifier records
-> the map as used in add_used_map() during resolve_pseudo_ldimm64().
->
-> The log of the libbpf commit describes referring to the arena artificially,
-> as in asm volatile("" :: "r"(&arena)), as something that change makes
-> unnecessary.  The r9 load would only matter on a kernel that rejects
-> fd_array_cnt, or with the light skeleton loader, which test_loader does not
-> use.
->
-> The same four comment lines are repeated word for word above
-> mixed_arena_scalar_alu64_arena_first().
-
-Will remove the duplication.
-
-> Could the comment be dropped
-> together with the r9 load, or be reworded to say the load is a fallback for
-> kernels where libbpf cannot bind the arena through fd_array_cnt?
-
-Yeah the comment mentioned r9 is totally weird, will simplify it.
-
-Thx,
--Vineet
-
+On Wed, Oct 28, 2026 at 05:46:34PM +0800, wuqianhai@loongson.cn wrote:
+> From: wuqianhai <wuqianhai@loongson.cn>
+> 
+> PCI resource assignment can relocate the firmware framebuffer BAR, which
+> leaves the base address in screen_info stale.  The VGA arbiter then calls
+> screen_info_pci_dev() from vga_is_firmware_default(), which fails to match
+> the framebuffer against any PCI device's BARs.  As a result, the boot VGA
+> device is not recognized and the arbiter may select the wrong default
+> device.
+> 
+> Fix this by calling screen_info_apply_fixups() in vga_arb_device_init()
+> before adding the VGA devices.  This relocates lfb_base to the assigned
+> BAR address so that vga_is_firmware_default() matches the boot device
+> again.
+> 
+> Tested on a LoongArch platform, with vga_is_firmware_default()
+> additionally enabled for CONFIG_LOONGARCH via local changes.
+> 
+> Fixes: 337bf13aa9ddab8ae47f2677ab75cf69ae33437b ("PCI/VGA: Replace vga_is_firmware_default() with a screen info check")
+> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
 > ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/40768193895
+>  drivers/pci/vgaarb.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> index 3e58b2c05c85..aca594651f58 100644
+> --- a/drivers/pci/vgaarb.c
+> +++ b/drivers/pci/vgaarb.c
+> @@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
+>  	int rc;
+>  	struct pci_dev *pdev;
+>  
+> +	/*
+> +	 * PCI resource assignment may have relocated the firmware
+> +	 * framebuffer BAR. Update screen_info's lfb_base so that
+> +	 * vga_is_firmware_default() can match it against the boot
+> +	 * device's relocated resource.
+> +	 */
+> +	screen_info_apply_fixups();
 
+I'm really confused about this.  vga_is_firmware_default() relies on
+screen_info_pci_dev(&sysfb_primary_display.screen):
+
+  vga_is_firmware_default
+    screen_info_pci_dev(&sysfb_primary_display.screen)
+      numres = screen_info_resources(&sysfb_primary_display.screen, res, ...)
+      for (i = 0; i < numres; ++i)
+        pdev = __screen_info_pci_dev(&res[i])
+
+screen_info_resources() returns resource structs with PCI bus
+addresses in them.  These are not valid CPU addresses, so that seems
+broken on any system where bus addresses are not the same as CPU
+addresses.
+
+screen_info_fixup_lfb() and screen_info_apply_fixups() may fix the
+issue you see, but I think the way this happens is questionable.
+
+screen_info_fixup_lfb() captures the framebuffer PCI bus address in
+screen_info_lfb_res_start.  Then screen_info_apply_fixups() compares
+that PCI bus address with the CPU address in pdev->resource[].  That's
+broken on any system where bus addresses are not the same as CPU
+addresses.  I think it's also broken because screen_info_lfb_res_start
+may not be at the beginning of the BAR.
+
+I think screen_info_fixup_lfb() should only capture the pci_dev, the
+BAR number, and the framebuffer offset into the BAR.  When we need the
+CPU or bus address, we can always compute it from those values.
+
+>  	rc = misc_register(&vga_arb_device);
+>  	if (rc < 0)
+>  		pr_err("error %d registering device\n", rc);
+> -- 
+> 2.34.1
+> 
