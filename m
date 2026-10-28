@@ -1,108 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203522;
-	b=sEkGUqweRh24XbCRok/XWk2jIMqh4OYy9fFPWRPNtfzU6yXwqIPxRvaITbOss1DkwLgC
-	 aucpR0JL7TmTEJL0JVDDocxtjO3802aaL++FJLllV5lqwu2nHCRORR2wb7NItiJyCPzdT
-	 wUR7RWcYl42Pf+Bmi6jGtP4Z0wigV3UzyI9hC+WvCEFx+Y3q3CGrpfeNwEz8dD9wctmls
-	 I3CzMGDviDjuDvhran2C2oCC6sTiRaROGjV9P3EJnOxifDDBTWUk/ChzUdUWPA5Y8SY3X
-	 djHAsEKKHDCoyWngQiJKBdjCH+NUxV9FF7NBlFrTwF2TL4Rvg5F6HJIj6TDfKit1OUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203522;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=nEyeX3aqTLompuWb5IEEzexFWok9xp4lREyH12ON5qU=;
-	b=x58cztQLTGq1HuiaJ1mgR3JsVr87mOftaWezE5z+W0cjV6WdRlnhxNpsdDh5ZGQnQs/W
-	 6ztqOBtHGFJrXLPaWdcPJ+0lrDfyI44RcXB7txNnf3SA3ilzAAiWIj1ta8/3TMO5pXlmv
-	 Grq2/ae5aZ+s3K8YAuoJZWCzv5pu8RJ+BViCsN5q49xuZZlQRFyU0V9xQfCt/Uvzm2xP1
-	 rIGw2S6alKu36dK31tmnYoUE5Fsa7eNKL+ne/VxyPm8rJKHqLwZ5hQlbikxEOAJ5241SE
-	 gjilkIq+yEf/3nVV3sN8qMGof85h4LXmS6OKgTWWzgv+XJU7pe6JDDTPc4ZAHzXRSdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b6gmhNPG;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eHGlorOC;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793203567;
+	b=ye6Msm237wFHhygNribNJoSkpo+Z7h+ttfAWoBMpMYvBC3Nohbjp8pwyo4l6/qy4gMFF
+	 zscfMA86+SfYHuNcCgZB049qWZEQAXeJHOMwY+MJrm7ucb2a+pQBK5y++ZgS1lEFZrtMB
+	 bwujsR6GovuoabMyl64u7q7l6WrLziAPd4Ew/rj4yEfNyUIzd/So6d9DS2IKM4tYqm8Zb
+	 9EEvLzVmhVwqPGFmPu3ZtsqmIZHkDu4uk6p9Ty/qNLgWngboyAi9ypWgI/b7erEzC0DPe
+	 4IpCNnWBal04dFVq5rOtk4miru5P0SpEOPUpJBKWtOWIJdwb7BxAyLLUXoMqtNzXzyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203567;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JjZL0LpvDdOjSRO2qnRklWaytRS+6oW0S7030i2OwxQ=;
+	b=rwUvrGls4wqlBWauOh/PTQ1K7yKkV+uD4O7eoGXjre12Md+Tj7RyPQRxE6GUk293hVPa
+	 aHLnDVheuSWHQWJWyVD6It5+ZAk58FZTmvGGm1ZiPn74G4CHUZ7R7a/piJIKYhp9ytOmc
+	 un1HkK7Ax/G9McnVwHEKVKhD5cj/AP0BzpMmOtBCVKyFdgRIkLXxpbm0om1YIMolb6E9A
+	 47LxjxMxw5ROmI9YDTcuK7L7CGlxuZsslfKvKZoAdZhczLYTHsbQ2v194LGKnohpDASve
+	 m7tSfjVcPKYqXTErEbsTKJHpCLzKRr5P1bS3Xe8B8XEjREigs2ryxt886D9/gnY0PTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mapUkRuv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.23
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB46E606B24F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:05:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB46E606B24F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1548E606A323;
+	Wed, 28 Oct 2026 16:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1548E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b6gmhNPG;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eHGlorOC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793203519;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nEyeX3aqTLompuWb5IEEzexFWok9xp4lREyH12ON5qU=;
-	b=b6gmhNPGRgAgcTiiUydyh5hYjuIyhSHqXWwGzPdtN7eqgsyLmI3KMNL9o81dWkhm8h+La3
-	s68/4Fk+131RDYt5Dc2Kic18+9txftQEROkS80nz2rg5vi9BQNWOeqTniYKuR3k0MDTraj
-	TwfkxO4drH3u9T3+ieJWxNvmBGXIRdU=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-691-HJowSkHHPRm4E3GQz3zxBg-1; Wed, 28 Oct 2026 12:05:12 -0400
-X-MC-Unique: HJowSkHHPRm4E3GQz3zxBg-1
-X-Mimecast-MFC-AGG-ID: HJowSkHHPRm4E3GQz3zxBg_1793203511
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so922930f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:05:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793203511; x=1793808311; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nEyeX3aqTLompuWb5IEEzexFWok9xp4lREyH12ON5qU=;
-        b=eHGlorOCpudeQV4gnYylZIWgB++a6oPpwNXCfEOVc7sKB1LYT4BGDjA3uxVei46kuS
-         Y8no5a896jwnoqQT7nBS4CJavksnd7yqyaAQLMmHQ+9qPAsJNyGE/x42EKZaPJQsYVm6
-         2Cd05eUBNc8yPiLMtCtQ7iKh7Bzi1XmI5GtGtpk3uDF6wBAFRjl1rTt91KXwGQO9Lt4x
-         jFIhcbJs1rH0atibP5KLkST4CIdW7xGQjW8iNY+I9SBs28jVS6hfFsZmHQB0iF8EhOQE
-         U/y6AgUtMbbi6OwSkIjklBkK6WMWmIwALlVdYZHazf8TBo9L7ufq8pd7uxPYLnhsONfY
-         Le3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793203511; x=1793808311;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nEyeX3aqTLompuWb5IEEzexFWok9xp4lREyH12ON5qU=;
-        b=dtdiIChIK6HsvUhMIdD1LefTS9cFtEaSiFezzisywkUq6DQSQmz1wqNucu1XFtm8nR
-         VRSJezxwW7YHtB08X3/iMteH0XYpO08C5MOqfPYy+PwQV1OoPt1fCsgjjcT1DQHgaLEB
-         7mkniG2rJoFda7aDMzZJL7oAQEC4kdIKnis6rkpMzw8JnlCT3FhRBLJVwqk6RjzkeOkl
-         QzPzjmIplsUdTIMiJloCCJflz6h77Ue7g4GmG72PgtHsMv7iH/aflQ4TYDIosxJXohGO
-         WkV53EalM4uDxE7j8b8moK3EIxvbaEuct35NcpBeP29dX/2WrbhmwHPsbZnDo2ILd1Si
-         x39A==
-X-Forwarded-Encrypted: i=1; AKwUvBwDieQ7NXvEobLN3Fu8kAoqbEck1gL8cCHxtFKVebbk21r3bVwGOvQVUFaEs7sv0MKestRFdw52Q2pPTAc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBqhjPB/hNJyLojR8d79ieRo7lGOxdhc6CbOb2r3EXTGUT2vkt
-	8eq0d72oB/SjEN3yVjIb4Xip5uqcAtn747Tr2YU9Ci123WuCAcw1yyC6fShUDpgKkO+4viOY+KZ
-	rxD34UbPxJKiFnjO38YqbEHC1q4ZBEz9bTifqkkSdjrtD2b1Sto3esAXRNlxO+m4tgQ==
-X-Gm-Gg: AYBFou0vCbDjfFs8T8n6hzJXGEsel4gHxydJZz1JwYBC9+ZWI9MpcI50qWyx8ozTQYn
-	vw8OjfpZGLjeBFpHEwcB+xd/CmoP30VTLGLLJ9Vm25LEaGhU668qHwRXxLnQVBzvmN4aDCnf4nf
-	ucqX8Oc7117C3vzbaPrxfyPpy6r1m4Rst5TVE6zDmxw+DhJ+HpQHV8pvFD0m1mZH8ZFNjmiWb3o
-	6W3+oikx+mwAF6zTbM2lG6xfdKJ/p6xBkFOcEnkwlLYjWdWHokHaop9JPUL4xcxpTwBNcbG0do5
-	hYGJUSDVfd3xxXZHcgTMdwQnuYaAH2qn3nzNmad1zdtSTgCROehm156aSMrY4FxipqWHKpSiU+8
-	9gupT2Z4NvWlNv09cMJOYL+efQFi5XWqf78VOwxONyOu2RrkIRBRbR6WY+RTcF53ELobphLXJiM
-	SK8TfqsE2mQe8=
-X-Received: by 2002:a5d:6191:0:b0:48e:75f:477d with SMTP id ffacd0b85a97d-48e5d288b60mr5160449f8f.7.1793203509865;
-        Wed, 28 Oct 2026 09:05:09 -0700 (PDT)
-X-Received: by 2002:a5d:6191:0:b0:48e:75f:477d with SMTP id ffacd0b85a97d-48e5d288b60mr5160376f8f.7.1793203509240;
-        Wed, 28 Oct 2026 09:05:09 -0700 (PDT)
-Received: from [192.168.0.19] (217.red-88-4-146.dynamicip.rima-tde.net. [88.4.146.217])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd47basm31898410f8f.32.2026.10.28.09.05.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:05:08 -0700 (PDT)
-From: Sergio Lopez <slp@redhat.com>
-Date: Wed, 28 Oct 2026 17:04:37 +0100
-Subject: [PATCH RFC 8/8] vsock: add datagram tests to vsock_test
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mapUkRuv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XTJjWhzUCQIN7kAUZRq82flGkMgqc8x59xnt7iwkNxYKbwAYN6NNc1L8x0hbsYjuF3c50KmJQKOoKnHl8ffPLmMF0P/pe06ttub2XiLxrdshiTWAEsxGbYjEWSHvGYf377gEPRD8GWLxBfX6ioZ8qPjUjFWtahqTAB+Hrvi5TRoYvdjtSax5Hi7xrLaBSN5QekuqNJfvVdji4l5C6tPe+7YMMR7VvK2HLzH/NLFbiF4IgBDvH2Ilf4hewiuWiNNn8kYF+HJKj2MVDh1Htq5nUBPSzxHIhhvAZkpvgAa39+nqOfZLO+ltoLUjux9kyP8NZxTSN1gofY1zsAYRMiaoNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JjZL0LpvDdOjSRO2qnRklWaytRS+6oW0S7030i2OwxQ=;
+ b=F4UxAzdPb8HO3AebZVcC/gCLgEvmUfCGcID8BlXZGcxH3JNz/BL3sUSoQOaWGK3vJKhY2CzxVU3LFTG1GQPi+UcH6uTP3llR4JhQz2XYkHuZU7AhBYis406J8QJcpPT638kVSNtkcnYUiM9jXevGyaVIeLpS9MglkHkqNcYFXcNSEPgw32vPGGQnNkuRWp+D+hYGP4Ri1we2QH7xDfAUJccm5qW4LDtwKWe2Ky/XzzuXrwvQbo97sq0vphg1swATTEZ1PgXYbWbzmhI+t8CvmsONpFV2HK1qfhMy5HuOP01/1KGzNKv59N3Klwwi1IhZvLSJc9DDaA1ngF5QhCoUFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JjZL0LpvDdOjSRO2qnRklWaytRS+6oW0S7030i2OwxQ=;
+ b=mapUkRuvanOKlg5reMI3Hew+OkqecL+eiG6XxrW4WPJEyKVEIumUTtTYiRbPQJfu2WH46dq3h1z2I8AqWI3UeVxsUl7ajsq5Et/oSAPPLWLSvgx4UGmDowTBSyin/HSgDxDC0YKUZHktBSzzMHzR7HKFzkU9yU61BCNCwkR0/qAgfQpFsWjSqOVT1yZWQkm+nEpIUbunm2H2aqeusDxEzr+/AegustM56Pr+FtA7cqwbU4rGdB8JURt9I12wcxOJ2RfKqw//to+V9K/2+N0fjMn9YFYePQTud9BCgWHkdtR8/qDySHOUMUbXgwVeFnjRfUqfmUtpxBjSeU/iW4FQ+w==
+Received: from CH2PR11CA0002.namprd11.prod.outlook.com (2603:10b6:610:54::12)
+ by SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 16:05:58 +0000
+Received: from CH01EPF000BE940.namprd02.prod.outlook.com
+ (2603:10b6:610:54:cafe::87) by CH2PR11CA0002.outlook.office365.com
+ (2603:10b6:610:54::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 16:05:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH01EPF000BE940.mail.protection.outlook.com (10.167.244.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 16:05:58 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
+ 2026 08:50:31 -0700
+Received: from build-johnliu-noble-20261009.internal (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 08:50:30 -0700
+From: Johnny Liu <johnliu@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	"Prashant Gaikwad" <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, "Douglas Anderson" <dianders@chromium.org>,
+	Aniruddha Rao <anrao@nvidia.com>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>
+CC: Johnny Liu <johnliu@nvidia.com>
+Subject: [PATCH v2 4/4] clk: tegra: bpmp: Do not cache the EMC clock rate
+Date: Wed, 28 Oct 2026 15:50:00 +0000
+Message-ID: <20261028155000.1205739-5-johnliu@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028155000.1205739-1-johnliu@nvidia.com>
+References: <20261028155000.1205739-1-johnliu@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,1309 +119,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-vsock-dgram-support-v1-8-e457cf7cee78@sinrega.org>
-References: <20261028-vsock-dgram-support-v1-0-e457cf7cee78@sinrega.org>
-In-Reply-To: <20261028-vsock-dgram-support-v1-0-e457cf7cee78@sinrega.org>
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Bryan Tan <bryan-bt.tan@broadcom.com>, 
- Vishnu Dasa <vishnu.dasa@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Stefan Hajnoczi <stefanha@redhat.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>
-Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, bpf@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, Sergio Lopez <slp@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=40322; i=slp@sinrega.org;
- h=from:subject:message-id; bh=TIwuWd7i1+qWGmyOY30SaVBp/DeXM1FXCyycqwV80Vk=;
- b=owEBbQKS/ZANAwAKAfRpJ40vDAI1AcsmYgBq4h0htLCtYL3MYVsmGrp5FLdiUPazEV5O7J8jw
- pN8fDSY1+yJAjMEAAEKAB0WIQS+1fz3US2GgJFC6KL0aSeNLwwCNQUCauIdIQAKCRD0aSeNLwwC
- NU1FEACfCEdwEkGyP21Q4FVO40H0HO7z5fvC8+M82QO3LS96OgAppqur1laeb+UDTZSRL1WcERY
- vwfHnJG5/IUIbhn7DZFhpmp0zKVurgvTHAdho1OZZcndCtI9Kagkc29Ev7W6zCWtCN+Oq+YG/ui
- lWJuGwCve/KVuCZ58CuMxebwCUI2L5z0IXY2ZJzun/uinpmCBHlWJFx887E9QQWR1EwfMJGPo2l
- fj7Fovkn/48vmA0uGn6fH7oVLWudyI+iH/MN4cNg07yRuDOH8ohzIyPEaoksKYaZUoQY88tpDB5
- iawf5uLfK27ThHqguFdH01Z/Xgqot9U6PYoUMrDhsloVSb1qYTNaJrZpgvcMKVmtESZmNDPSzz7
- AnS9vJ0ijqf2DP8PJgrpE3Hx6gOm1xSDYmzToY8j3eEfxeZ9y1dZ+1DDw0gFqFBnJrOXKOvSWn1
- kCjIJHz9JEeKV+293POOZJu1e0amrJbkR5JcTkCFziwRIqHMyD8L5WnmoLVYBmpg41WFEuixZ8C
- UAL/CzGLkZ9WCl1vpT2fROvhY/iWz4e9c0EwpV1FhpPaP4DyinuVrPtBBvHFdHEFtb1URR5LGED
- uayEqcSMg2IpJZkqtZ+MWY4RYzHUUHmH8aofpW5NQsltpeBvfTIxxCRGZ24Ye9HIxlcjtSWoreE
- mKjWFdF7ucwY14w==
-X-Developer-Key: i=slp@sinrega.org; a=openpgp;
- fpr=BED5FCF7512D86809142E8A2F469278D2F0C0235
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE940:EE_|SA1PR12MB6799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ae82725-62b9-4c1a-d411-08df350d5ae8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|921020|11063799006|56012099006|261021121427099003|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AgMi6Q+CJl8JsSe20178j2XqglUm3OBYWHQzfpf79afXKysE/bgg5/2f7fXdMPSd+koXwIJSXjCFCIyeInBuXh6fmW808HZwW95yfVKGsxMaUSHQJ5FvasQa8Oi4DW+drnYw9k5Q4KxpP334mIEc0J3sNIlGv6L9n4khv3GHw6Bh0joiVo//pxMYsSa3s8HYneDNDFHsRizuPi3PtTNQdcQFmroDaP4oJMoUpc+9mJPN8UZ4QfyF1pORA/sIpE20NMO+oihZjH3KkKZWXOb86ZLVQ+fC4/WC9UwdAKWN0pfIXUUwQWFUYVHLhSoxtlh1hTjFHSw0ay8nF3BKJe6HSbo3Q2kxQzP0K3Y7r1rYnZ2bZx5DhTcJJrzDY5wz/n3TMbJNOcRFvRtDKi9+YQWShTu2/tXdldn+Tqf+4T8vCgYmCwIMzw6KF+m5d61V7qWt49l0jIzfdJP+RZkKu2m57fll9Whvo416PlPr5kMNs/nAHAw6P4KMAglJZXGrM/Q9PG4IFbAGXlNyI94w4gkvGyugtqFRtNtSP98eIouSj7GU7WrbXKGOlF3480XuvQzIDINQdzdtbqyTPpHP0+5fowm0jzitPiMsGvM3PiWbIKEdlFiZ+wn/J+uUBUZNLke0LDpq3Em1WoIUsadvpsZpDCt2oWFxFJ1jAECd/PqtGEEOuy7p19Khu3w/a081FDwiizTrNSw8wzDPR2WT/wHsp/C74J2/ujJP+EG3WuQZ2iEq6LB62R9w1oxqOfZwS8VX
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(921020)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	UAPYOPrLJwiPe0gS7RSelXfy7QJVxD8jtCBxGQOjIdrEji+Ra8R+pKNoLXR/VkY6BWQF9+e/2higsXW6/EQxxcbkeKRnvJ5VApjjN47Z/zOmeh0rC7Q85ddhbrVowIvry3wqg0NrPR0mv/2EeEwS1IB7A664zWrekOpDpkQn96bVRPvmE8fKcTSrmjqzNxDOlA7VzAveYycHom9puxIlSa2T5D2egBwBvPcMBgYFUT5oqvXbi0oBSTED8xK4lSzdTj1qQKdp+thtBnaVeWymcwxSpA25y320e8bb0859PGWFahfbLrNlipPpylAKvidN+o0h+o2Bp2F1sPUd2Thg6nIClWqr2Bn5r7S35d4//BC1dM01L3NeWa5vpanhXtja3FHlYDsMiXEFAVxokGCEXDoSVPcFbBFvPiwrW1gE8LWEScEy+wGbAzAdzM7U1K52
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 16:05:58.4366
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ae82725-62b9-4c1a-d411-08df350d5ae8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH01EPF000BE940.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6799
 
-Cover local semantics, host/guest transfers, routing and queue
-accounting. Synchronize capability-based skips and document manual
-checks.
+EMC clock scaling is managed by the BPMP itself without kernel
+involvement. When the rate changes on the BPMP side, clk_get_rate() on
+the kernel side returns the stale value cached by the common clock
+framework instead of the rate programmed by the BPMP.
 
-Signed-off-by: Sergio Lopez <slp@redhat.com>
+Set CLK_GET_RATE_NOCACHE on the EMC clock, identified by the per-SoC
+emc_clk_id from the BPMP SoC data, so that rate queries are forwarded to
+the BPMP.
+
+Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 ---
- tools/testing/vsock/Makefile           |   3 +-
- tools/testing/vsock/README             |  23 +-
- tools/testing/vsock/util.c             |  62 +--
- tools/testing/vsock/util.h             |  10 +
- tools/testing/vsock/vsock_test.c       | 154 ++++++-
- tools/testing/vsock/vsock_test_dgram.c | 809 +++++++++++++++++++++++++++++++++
- tools/testing/vsock/vsock_test_dgram.h |  26 ++
- 7 files changed, 1055 insertions(+), 32 deletions(-)
+ drivers/clk/tegra/clk-bpmp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/testing/vsock/Makefile b/tools/testing/vsock/Makefile
-index 88211fd132d2..78e2cb7b1193 100644
---- a/tools/testing/vsock/Makefile
-+++ b/tools/testing/vsock/Makefile
-@@ -1,7 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0-only
- all: test vsock_perf
- test: vsock_test vsock_diag_test vsock_uring_test
--vsock_test: vsock_test.o vsock_test_zerocopy.o timeout.o control.o util.o msg_zerocopy_common.o
-+vsock_test: vsock_test.o vsock_test_zerocopy.o vsock_test_dgram.o \
-+	    timeout.o control.o util.o msg_zerocopy_common.o
- vsock_diag_test: vsock_diag_test.o timeout.o control.o util.o
- vsock_perf: vsock_perf.o msg_zerocopy_common.o
+diff --git a/drivers/clk/tegra/clk-bpmp.c b/drivers/clk/tegra/clk-bpmp.c
+index 067a8555c4e7..ddbc528cf93a 100644
+--- a/drivers/clk/tegra/clk-bpmp.c
++++ b/drivers/clk/tegra/clk-bpmp.c
+@@ -588,6 +588,9 @@ tegra_bpmp_clk_register(struct tegra_bpmp *bpmp,
  
-diff --git a/tools/testing/vsock/README b/tools/testing/vsock/README
-index 680ce666ceb5..be34b032ef13 100644
---- a/tools/testing/vsock/README
-+++ b/tools/testing/vsock/README
-@@ -5,7 +5,7 @@ Hyper-V.
+ 	init.parent_names = parents;
  
- The following tests are available:
++	if (bpmp->soc->emc_clk_id && info->id == bpmp->soc->emc_clk_id)
++		init.flags = CLK_GET_RATE_NOCACHE;
++
+ 	err = devm_clk_hw_register(bpmp->dev, &clk->hw);
  
--  * vsock_test - core AF_VSOCK socket functionality
-+  * vsock_test - stream, seqpacket and datagram functionality
-   * vsock_diag_test - vsock_diag.ko module for listing open sockets
- 
- The following prerequisite steps are not automated and must be performed prior
-@@ -32,7 +32,7 @@ Invoke test binaries in both directions as follows:
-                         --control-port=1234 \
-                         --peer-cid=2
-   (host)# $TEST_BINARY --mode=client \
--                       --control-port=$GUEST_IP \
-+                       --control-host=$GUEST_IP \
-                        --control-port=1234 \
-                        --peer-cid=3
- 
-@@ -51,6 +51,25 @@ suite run, e.g.
- 
- For more information see Documentation/dev-tools/kmemleak.rst.
- 
-+Datagram tests
-+--------------
-+vsock_test includes datagram cases in the client/server runs above. Unsupported
-+cases print a skip reason.
-+
-+Virtio/vhost datagrams require kernel support on both sides and a VMM that
-+negotiates VIRTIO_VSOCK_F_DGRAM. Load vsock_loopback on both host and guest for
-+the local cases, and make /dev/vsock available. VMCI's dedicated datagram
-+transport takes priority when loaded, causing virtio/vhost cases to skip.
-+
-+Run only the local datagram cases without a peer or TCP control connection:
-+
-+  ./vsock_test --local
-+
-+Use --list and --pick <test_id> to select individual cases. The BPF admission
-+test (48, requiring BPF privileges) and nested routing test (49, requiring both
-+virtio and vhost transports) need explicit selection. The VMCI queue-length
-+test (53) runs only with VMCI.
-+
- vsock_perf utility
- -------------------
- 'vsock_perf' is a simple tool to measure vsock performance. It works in
-diff --git a/tools/testing/vsock/util.c b/tools/testing/vsock/util.c
-index 299a4e8ecb63..6ad97403697f 100644
---- a/tools/testing/vsock/util.c
-+++ b/tools/testing/vsock/util.c
-@@ -499,47 +499,55 @@ void run_tests(const struct test_case *test_cases,
- 	int i;
- 
- 	for (i = 0; test_cases[i].name; i++) {
-+		const struct test_case *test = &test_cases[i];
- 		void (*run)(const struct test_opts *opts);
-+		const char *reason;
- 		char *line;
- 
--		printf("%d - %s...", i, test_cases[i].name);
-+		if (opts->local && !test->local)
-+			continue;
-+		printf("%d - %s...", i, test->name);
- 		fflush(stdout);
- 
--		/* Full barrier before executing the next test.  This
--		 * ensures that client and server are executing the
--		 * same test case.  In particular, it means whoever is
--		 * faster will not see the peer still executing the
--		 * last test.  This is important because port numbers
--		 * can be used by multiple test cases.
--		 */
--		if (test_cases[i].skip)
--			control_writeln("SKIP");
--		else
--			control_writeln("NEXT");
--
--		line = control_readln();
--		if (control_cmpln(line, "SKIP", false) || test_cases[i].skip) {
--
--			printf("skipped\n");
--
-+		if (opts->local) {
-+			if (test->skip) {
-+				printf("skipped\n");
-+				continue;
-+			}
-+		} else {
-+			/* Agree on explicit selection before any capability check
-+			 * or test can exchange messages on the control connection.
-+			 */
-+			control_writeln(test->skip ? "SKIP" : "NEXT");
-+			line = control_readln();
-+			if (control_cmpln(line, "SKIP", false) || test->skip) {
-+				printf("skipped\n");
-+				free(line);
-+				continue;
-+			}
-+			control_cmpln(line, "NEXT", true);
- 			free(line);
--			continue;
- 		}
- 
--		control_cmpln(line, "NEXT", true);
--		free(line);
--
--		if (opts->mode == TEST_MODE_CLIENT)
--			run = test_cases[i].run_client;
-+		if (test->check) {
-+			reason = test->check(opts);
-+			if (reason) {
-+				printf("skipped: %s\n", reason);
-+				continue;
-+			}
-+		}
-+		if (opts->local || opts->mode == TEST_MODE_CLIENT)
-+			run = test->run_client;
- 		else
--			run = test_cases[i].run_server;
--
-+			run = test->run_server;
- 		if (run)
- 			run(opts);
--
- 		printf("ok\n");
- 	}
- 
-+	if (opts->local)
-+		return;
-+
- 	printf("All tests have been executed. Waiting other peer...");
- 	fflush(stdout);
- 
-diff --git a/tools/testing/vsock/util.h b/tools/testing/vsock/util.h
-index 9dabb547021e..e23290e7dcc6 100644
---- a/tools/testing/vsock/util.h
-+++ b/tools/testing/vsock/util.h
-@@ -51,6 +51,10 @@ struct test_opts {
- 	enum test_mode mode;
- 	unsigned int peer_cid;
- 	unsigned int peer_port;
-+	unsigned int bind_cid;
-+	bool local;
-+	bool to_host;
-+	bool expect_to_host;
- };
- 
- /* A test case definition.  Test functions must print failures to stderr and
-@@ -66,6 +70,12 @@ struct test_case {
- 	void (*run_server)(const struct test_opts *opts);
- 
- 	bool skip;
-+	bool local; /* Can run without a control connection */
-+
-+	/* Return a skip reason or NULL after the selection barrier. Checks
-+	 * that coordinate over the control channel must agree on both peers.
-+	 */
-+	const char *(*check)(const struct test_opts *opts);
- };
- 
- void init_signals(void);
-diff --git a/tools/testing/vsock/vsock_test.c b/tools/testing/vsock/vsock_test.c
-index 10b9074fb87f..f4ff6a42a9cb 100644
---- a/tools/testing/vsock/vsock_test.c
-+++ b/tools/testing/vsock/vsock_test.c
-@@ -27,6 +27,7 @@
- #include <linux/sockios.h>
- 
- #include "vsock_test_zerocopy.h"
-+#include "vsock_test_dgram.h"
- #include "timeout.h"
- #include "control.h"
- #include "util.h"
-@@ -2911,6 +2912,95 @@ static struct test_case test_cases[] = {
- 	{
- 		.name = "SO_INQ option validation",
- 		.run_client = test_so_inq_validation_client,
-+	},
-+		.name = "SOCK_DGRAM autobind, duplicate bind and wildcard destination",
-+		.run_client = test_dgram_bind,
-+		.run_server = test_dgram_bind,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM queue ioctls, poll, peek, truncation and empty messages",
-+		.run_client = test_dgram_receive,
-+		.run_server = test_dgram_receive,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM unsupported receive flags preserve normal data",
-+		.run_client = test_dgram_receive_flags,
-+		.run_server = test_dgram_receive_flags,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM socket filter trims receive length",
-+		.run_client = test_dgram_filter,
-+		.run_server = test_dgram_filter,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM connect, disconnect and shutdown peer filtering",
-+		.run_client = test_dgram_connect,
-+		.run_server = test_dgram_connect,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM explicit loopback source CIDs and reply addresses",
-+		.run_client = test_dgram_source_cid,
-+		.run_server = test_dgram_source_cid,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM connected stream/seqpacket cannot shadow datagrams",
-+		.run_client = test_dgram_bound_lookup,
-+		.run_server = test_dgram_bound_lookup,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM sockmap and sockhash reject datagrams (BPF privileges)",
-+		.run_client = test_dgram_sockmap,
-+		.run_server = test_dgram_sockmap,
-+		.skip = true,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM nested CID_HOST loopback rejection (nested VM only)",
-+		.run_client = test_dgram_nested_source,
-+		.run_server = test_dgram_nested_source,
-+		.skip = true,
-+		.check = vsock_dgram_check_local,
-+		.local = true,
-+	},
-+	{
-+		.name = "SOCK_DGRAM bidirectional sizes, 64 KiB boundaries and RX refill",
-+		.run_client = test_dgram_sizes,
-+		.run_server = test_dgram_sizes,
-+		.check = vsock_dgram_check_peer,
-+	},
-+	{
-+		.name = "SOCK_DGRAM connected socket alternates loopback and peer routes",
-+		.run_client = test_dgram_routes,
-+		.run_server = test_dgram_routes,
-+		.check = vsock_dgram_check_routes,
-+	},
-+	{
-+		.name = "SOCK_DGRAM peer filtering and disconnect across transports",
-+		.run_client = test_dgram_peer_filter,
-+		.run_server = test_dgram_peer_filter,
-+		.check = vsock_dgram_check_peer,
-+	},
-+	{
-+		.name = "SOCK_DGRAM VMCI ioctl(SIOCINQ) payload length",
-+		.run_client = test_dgram_vmci_inq,
-+		.run_server = test_dgram_vmci_inq,
-+		.check = vsock_dgram_check_vmci,
-+		.local = true,
- 	},
- 	{},
- };
-@@ -2957,6 +3047,26 @@ static const struct option longopts[] = {
- 		.has_arg = required_argument,
- 		.val = 't',
- 	},
-+	{
-+		.name = "local",
-+		.has_arg = no_argument,
-+		.val = 'L',
-+	},
-+	{
-+		.name = "bind-cid",
-+		.has_arg = required_argument,
-+		.val = 'b',
-+	},
-+	{
-+		.name = "to-host",
-+		.has_arg = no_argument,
-+		.val = 'T',
-+	},
-+	{
-+		.name = "expect-to-host",
-+		.has_arg = no_argument,
-+		.val = 'E',
-+	},
- 	{
- 		.name = "help",
- 		.has_arg = no_argument,
-@@ -2972,8 +3082,10 @@ static void usage(void)
- 		"  Server: vsock_test --control-port=1234 --mode=server --peer-cid=3\n"
- 		"  Client: vsock_test --control-host=192.168.0.1 --control-port=1234 --mode=client --peer-cid=2\n"
- 		"\n"
--		"Run vsock.ko tests.  Must be launched in both guest\n"
--		"and host.  One side must use --mode=client and\n"
-+		"  Local: vsock_test --local [--pick=<test_id>]\n"
-+		"\n"
-+		"Run vsock.ko tests. Paired tests must be launched in both guest\n"
-+		"and host. One side must use --mode=client and\n"
- 		"the other side must use --mode=server.\n"
- 		"\n"
- 		"A TCP control socket connection is used to coordinate tests\n"
-@@ -2986,8 +3098,14 @@ static void usage(void)
- 		"specified with --peer-port=<port> (or the default port)\n"
- 		"and the next one.\n"
- 		"\n"
-+		"--local runs local datagram cases without a control connection.\n"
-+		"\n"
- 		"Options:\n"
- 		"  --help                 This help message\n"
-+		"  --local                Run local datagram cases without a peer\n"
-+		"  --bind-cid <cid>       Source CID for peer datagram tests [default: ANY]\n"
-+		"  --to-host              Route peer datagrams through the frontend\n"
-+		"  --expect-to-host       Expect the upstream datagram source flag\n"
- 		"  --control-host <host>  Server IP address to connect to\n"
- 		"  --control-port <port>  Server port to listen on/connect to\n"
- 		"  --mode client|server   Server or client mode\n"
-@@ -3011,7 +3129,10 @@ int main(int argc, char **argv)
- 		.mode = TEST_MODE_UNSET,
- 		.peer_cid = VMADDR_CID_ANY,
- 		.peer_port = DEFAULT_PEER_PORT,
-+		.bind_cid = VMADDR_CID_ANY,
- 	};
-+	bool picked = false;
-+	size_t i;
- 
- 	srand(time(NULL));
- 	init_signals();
-@@ -3023,6 +3144,18 @@ int main(int argc, char **argv)
- 			break;
- 
- 		switch (opt) {
-+		case 'L':
-+			opts.local = true;
-+			break;
-+		case 'b':
-+			opts.bind_cid = parse_cid(optarg);
-+			break;
-+		case 'T':
-+			opts.to_host = true;
-+			break;
-+		case 'E':
-+			opts.expect_to_host = true;
-+			break;
- 		case 'H':
- 			control_host = optarg;
- 			break;
-@@ -3055,6 +3188,7 @@ int main(int argc, char **argv)
- 		case 't':
- 			pick_test(test_cases, ARRAY_SIZE(test_cases) - 1,
- 				  optarg);
-+			picked = true;
- 			break;
- 		case '?':
- 		default:
-@@ -3062,6 +3196,22 @@ int main(int argc, char **argv)
- 		}
- 	}
- 
-+	if (optind != argc)
-+		usage();
-+	if (opts.local) {
-+		if (opts.mode != TEST_MODE_UNSET || control_host || control_port)
-+			usage();
-+		if (picked) {
-+			for (i = 0; test_cases[i].name; i++) {
-+				if (!test_cases[i].skip && !test_cases[i].local) {
-+					fprintf(stderr, "test %zu requires paired mode\n", i);
-+					exit(EXIT_FAILURE);
-+				}
-+			}
-+		}
-+		run_tests(test_cases, &opts);
-+		return EXIT_SUCCESS;
-+	}
- 	if (!control_port)
- 		usage();
- 	if (opts.mode == TEST_MODE_UNSET)
-diff --git a/tools/testing/vsock/vsock_test_dgram.c b/tools/testing/vsock/vsock_test_dgram.c
-new file mode 100644
-index 000000000000..d818f43176dc
---- /dev/null
-+++ b/tools/testing/vsock/vsock_test_dgram.c
-@@ -0,0 +1,809 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Datagram feature tests for vsock. */
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/bpf.h>
-+#include <linux/filter.h>
-+#include <linux/sockios.h>
-+#include <poll.h>
-+#include <stdarg.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/syscall.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include "control.h"
-+#include "timeout.h"
-+#include "vsock_test_dgram.h"
-+
-+#define MAX_DGRAM (64 * 1024)
-+
-+static void fail(const char *fmt, ...)
-+{
-+	va_list ap;
-+
-+	fprintf(stderr, "\nFAIL: ");
-+	va_start(ap, fmt);
-+	vfprintf(stderr, fmt, ap);
-+	va_end(ap);
-+	fputc('\n', stderr);
-+	exit(EXIT_FAILURE);
-+}
-+
-+static void check(int ret, const char *operation)
-+{
-+	if (ret < 0)
-+		fail("%s: %s", operation, strerror(errno));
-+}
-+
-+static void expect_error(ssize_t ret, int error, const char *operation)
-+{
-+	if (ret != -1 || errno != error)
-+		fail("%s: expected %s, got %zd (%s)", operation,
-+		     strerror(error), ret, ret == -1 ? strerror(errno) : "success");
-+}
-+
-+static int64_t now_ms(void)
-+{
-+	struct timespec ts;
-+
-+	check(clock_gettime(CLOCK_MONOTONIC, &ts), "clock_gettime");
-+	return (int64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-+}
-+
-+static short poll_fd(int fd, short events, int milliseconds)
-+{
-+	struct pollfd pfd = { .fd = fd, .events = events };
-+	int ret;
-+
-+	do {
-+		ret = poll(&pfd, 1, milliseconds);
-+	} while (ret < 0 && errno == EINTR);
-+	check(ret, "poll");
-+	if (pfd.revents & (POLLERR | POLLNVAL))
-+		fail("unexpected poll events %#x", pfd.revents);
-+	return pfd.revents;
-+}
-+
-+static void wait_readable(int fd)
-+{
-+	if (!(poll_fd(fd, POLLIN, TIMEOUT * 1000) & POLLIN))
-+		fail("waiting for socket readability timed out");
-+}
-+
-+static struct sockaddr_vm address(unsigned int cid, unsigned int port)
-+{
-+	return (struct sockaddr_vm) {
-+		.svm_family = AF_VSOCK,
-+		.svm_cid = cid,
-+		.svm_port = port,
-+	};
-+}
-+
-+static struct sockaddr_vm sock_name(int fd, bool peer)
-+{
-+	struct sockaddr_vm addr;
-+	socklen_t len = sizeof(addr);
-+	int ret;
-+
-+	if (peer)
-+		ret = getpeername(fd, (struct sockaddr *)&addr, &len);
-+	else
-+		ret = getsockname(fd, (struct sockaddr *)&addr, &len);
-+	check(ret, peer ? "getpeername" : "getsockname");
-+	if (len != sizeof(addr) || addr.svm_family != AF_VSOCK)
-+		fail("invalid socket address");
-+	return addr;
-+}
-+
-+static unsigned int local_cid(void)
-+{
-+	unsigned int cid;
-+	int fd;
-+
-+	fd = open("/dev/vsock", O_RDONLY | O_CLOEXEC);
-+	check(fd, "open /dev/vsock");
-+	check(ioctl(fd, IOCTL_VM_SOCKETS_GET_LOCAL_CID, &cid), "get local CID");
-+	close(fd);
-+	if (cid == VMADDR_CID_ANY || cid <= VMADDR_CID_LOCAL)
-+		fail("a virtio or vhost transport is required (local CID %u)", cid);
-+	return cid;
-+}
-+
-+static void bind_fd(int fd, unsigned int cid, unsigned int port)
-+{
-+	struct sockaddr_vm addr = address(cid, port);
-+
-+	check(bind(fd, (struct sockaddr *)&addr, sizeof(addr)), "bind");
-+}
-+
-+static int dgram_socket(void)
-+{
-+	int fd = socket(AF_VSOCK, SOCK_DGRAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
-+	int rcvbuf = 1024 * 1024;
-+
-+	check(fd, "socket(AF_VSOCK, SOCK_DGRAM): check transport/feature support");
-+	check(setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf)), "SO_RCVBUF");
-+	return fd;
-+}
-+
-+enum dgram_capability {
-+	DGRAM_SOCKET = 1 << 0,
-+	DGRAM_VIRTIO = 1 << 1,
-+	DGRAM_VMCI = 1 << 2,
-+	DGRAM_LOOPBACK = 1 << 3,
-+	DGRAM_PEER = 1 << 4,
-+};
-+
-+static bool dgram_unavailable(int error)
-+{
-+	return error == EAFNOSUPPORT || error == EPROTONOSUPPORT ||
-+	       error == ESOCKTNOSUPPORT || error == ENODEV;
-+}
-+
-+static unsigned int dgram_capabilities(const struct test_opts *opts,
-+				       unsigned int needs)
-+{
-+	unsigned int caps = DGRAM_SOCKET;
-+	struct sockaddr_vm peer;
-+	int fd, local_fd;
-+
-+	fd = socket(AF_VSOCK, SOCK_DGRAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
-+	if (fd < 0) {
-+		if (dgram_unavailable(errno))
-+			return 0;
-+		check(fd, "probe datagram socket");
-+	}
-+	/* VMCI registers the dedicated datagram transport when loaded. */
-+	if (!access("/sys/module/vmw_vsock_vmci_transport", F_OK))
-+		caps |= DGRAM_VMCI;
-+	else
-+		caps |= DGRAM_VIRTIO;
-+
-+	if ((needs & DGRAM_PEER) && (caps & DGRAM_VIRTIO)) {
-+		bind_fd(fd, opts->bind_cid, VMADDR_PORT_ANY);
-+		peer = address(opts->peer_cid, opts->peer_port);
-+		if (opts->to_host)
-+			peer.svm_flags = VMADDR_FLAG_TO_HOST;
-+		if (!connect(fd, (struct sockaddr *)&peer, sizeof(peer)))
-+			caps |= DGRAM_PEER;
-+		else if (!dgram_unavailable(errno) && errno != EINVAL)
-+			check(-1, "probe peer datagram route");
-+	}
-+	close(fd);
-+
-+	if ((needs & DGRAM_LOOPBACK) && (caps & DGRAM_VIRTIO)) {
-+		/* Binding a stream socket to CID_LOCAL probes registration of
-+		 * the loopback transport without sending a packet to the host.
-+		 */
-+		local_fd = vsock_bind_try(VMADDR_CID_LOCAL, VMADDR_PORT_ANY, SOCK_STREAM);
-+		if (local_fd >= 0) {
-+			caps |= DGRAM_LOOPBACK;
-+			close(local_fd);
-+		} else if (errno != EADDRNOTAVAIL) {
-+			check(local_fd, "probe loopback transport");
-+		}
-+	}
-+	return caps;
-+}
-+
-+static const char *dgram_check(const struct test_opts *opts, unsigned int needs)
-+{
-+	unsigned int local = dgram_capabilities(opts, needs);
-+	unsigned int both = local;
-+
-+	/* run_tests() has already synchronized explicit --pick/--skip
-+	 * selection. Both peers can now safely exchange capabilities.
-+	 */
-+	if (!opts->local) {
-+		control_writeulong(local);
-+		both &= control_readulong();
-+	}
-+	if (!(both & DGRAM_SOCKET))
-+		return local & DGRAM_SOCKET ?
-+			"datagrams unavailable at peer" : "datagrams unavailable locally";
-+	if ((needs & DGRAM_VIRTIO) && !(both & DGRAM_VIRTIO))
-+		return "requires virtio/vhost datagram transports on both peers";
-+	if ((needs & DGRAM_VMCI) && !(both & DGRAM_VMCI))
-+		return "requires VMCI datagram transports on both peers";
-+	if ((needs & DGRAM_LOOPBACK) && !(both & DGRAM_LOOPBACK))
-+		return "load vsock_loopback on both peers";
-+	if ((needs & DGRAM_PEER) && !(both & DGRAM_PEER))
-+		return "peer route does not support datagrams";
-+	return NULL;
-+}
-+
-+const char *vsock_dgram_check_local(const struct test_opts *opts)
-+{
-+	return dgram_check(opts, DGRAM_VIRTIO | DGRAM_LOOPBACK);
-+}
-+
-+const char *vsock_dgram_check_peer(const struct test_opts *opts)
-+{
-+	return dgram_check(opts, DGRAM_VIRTIO | DGRAM_PEER);
-+}
-+
-+const char *vsock_dgram_check_routes(const struct test_opts *opts)
-+{
-+	return dgram_check(opts, DGRAM_VIRTIO | DGRAM_PEER | DGRAM_LOOPBACK);
-+}
-+
-+const char *vsock_dgram_check_vmci(const struct test_opts *opts)
-+{
-+	return dgram_check(opts, DGRAM_VMCI);
-+}
-+
-+static int bound_socket(unsigned int cid)
-+{
-+	int fd = dgram_socket();
-+
-+	bind_fd(fd, cid, VMADDR_PORT_ANY);
-+	return fd;
-+}
-+
-+static struct sockaddr_vm local_address(int fd)
-+{
-+	struct sockaddr_vm addr = sock_name(fd, false);
-+
-+	addr.svm_cid = VMADDR_CID_LOCAL;
-+	return addr;
-+}
-+
-+static void connect_fd(int fd, const struct sockaddr_vm *addr)
-+{
-+	check(connect(fd, (const struct sockaddr *)addr, sizeof(*addr)), "connect");
-+}
-+
-+static void disconnect_fd(int fd)
-+{
-+	struct sockaddr_vm addr = { .svm_family = AF_UNSPEC };
-+	socklen_t len = sizeof(addr);
-+
-+	check(connect(fd, (struct sockaddr *)&addr, sizeof(addr)), "disconnect");
-+	expect_error(getpeername(fd, (struct sockaddr *)&addr, &len),
-+		     ENOTCONN, "getpeername after disconnect");
-+}
-+
-+static int queue_bytes(int fd, unsigned long op)
-+{
-+	int bytes;
-+
-+	check(ioctl(fd, op, &bytes), "queue ioctl");
-+	if (bytes < 0)
-+		fail("negative queue length: %d", bytes);
-+	return bytes;
-+}
-+
-+static void expect_inq(int fd, int expected)
-+{
-+	int actual = queue_bytes(fd, SIOCINQ);
-+
-+	if (actual != expected)
-+		fail("SIOCINQ: expected %d, got %d", expected, actual);
-+}
-+
-+static void wait_sent(int fd)
-+{
-+	int64_t deadline = now_ms() + TIMEOUT * 1000;
-+
-+	while (queue_bytes(fd, SIOCOUTQ)) {
-+		if (now_ms() >= deadline)
-+			fail("SIOCOUTQ did not return to zero");
-+		usleep(1000);
-+	}
-+}
-+
-+static void send_packet(int fd, const struct sockaddr_vm *addr,
-+			const void *buf, size_t len)
-+{
-+	int64_t deadline = now_ms() + TIMEOUT * 1000;
-+	ssize_t ret;
-+
-+	for (;;) {
-+		ret = sendto(fd, buf, len, MSG_DONTWAIT | MSG_NOSIGNAL,
-+			     (const struct sockaddr *)addr, addr ? sizeof(*addr) : 0);
-+		if (ret >= 0)
-+			break;
-+		if (errno != EAGAIN && errno != EINTR)
-+			fail("sendto(%zu bytes): %s", len, strerror(errno));
-+		if (now_ms() >= deadline)
-+			fail("sendto(%zu bytes) timed out", len);
-+		poll_fd(fd, POLLOUT, 1);
-+	}
-+	if (ret != len)
-+		fail("partial datagram send: %zd/%zu", ret, len);
-+}
-+
-+static struct sockaddr_vm recv_packet(int fd, void *buf, size_t capacity,
-+				      int flags, size_t expected, bool truncated)
-+{
-+	struct sockaddr_vm src = { 0 };
-+	struct iovec iov = { .iov_base = buf, .iov_len = capacity };
-+	struct msghdr msg = {
-+		.msg_name = &src,
-+		.msg_namelen = sizeof(src),
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+	};
-+	ssize_t ret;
-+
-+	wait_readable(fd);
-+	ret = recvmsg(fd, &msg, flags | MSG_DONTWAIT);
-+	check(ret, "recvmsg");
-+	if (ret != expected || !!(msg.msg_flags & MSG_TRUNC) != truncated)
-+		fail("recvmsg: expected %zu bytes, trunc=%d; got %zd, flags=%#x",
-+		     expected, truncated, ret, msg.msg_flags);
-+	if (msg.msg_namelen != sizeof(src) || src.svm_family != AF_VSOCK)
-+		fail("invalid recvmsg source address");
-+	return src;
-+}
-+
-+static void expect_empty(int fd)
-+{
-+	char byte;
-+
-+	if (poll_fd(fd, POLLIN, 0) & POLLIN)
-+		fail("unexpected queued datagram");
-+	expect_error(recv(fd, &byte, 1, MSG_DONTWAIT), EAGAIN, "empty recv");
-+	expect_inq(fd, 0);
-+}
-+
-+void test_dgram_bind(const struct test_opts *opts)
-+{
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm dest = local_address(rx);
-+	int tx = dgram_socket();
-+	int other = dgram_socket();
-+	struct sockaddr_vm src;
-+	char byte;
-+
-+	dest.svm_cid = VMADDR_CID_ANY;
-+	expect_error(bind(other, (struct sockaddr *)&dest, sizeof(dest)),
-+		     EADDRINUSE, "duplicate bind");
-+	send_packet(tx, &dest, "A", 1);
-+	src = recv_packet(rx, &byte, 1, 0, 1, false);
-+	if (byte != 'A' || src.svm_port != sock_name(tx, false).svm_port ||
-+	    src.svm_cid != VMADDR_CID_LOCAL || src.svm_port < 1024)
-+		fail("autobind or wildcard destination returned an invalid source");
-+	close(rx);
-+	bind_fd(other, VMADDR_CID_ANY, dest.svm_port);
-+	close(other);
-+	close(tx);
-+}
-+
-+void test_dgram_receive(const struct test_opts *opts)
-+{
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	int tx = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm dest = local_address(rx);
-+	char buf[80];
-+	char first[31], second[79];
-+
-+	memset(first, 'A', sizeof(first));
-+	memset(second, 'B', sizeof(second));
-+	expect_empty(rx);
-+	if (!(poll_fd(tx, POLLOUT, 0) & POLLOUT))
-+		fail("new socket is not writable");
-+	if (queue_bytes(tx, SIOCOUTQ))
-+		fail("new socket has pending output");
-+	send_packet(tx, &dest, first, sizeof(first));
-+	send_packet(tx, &dest, second, sizeof(second));
-+	wait_readable(rx);
-+	expect_inq(rx, sizeof(first));
-+	recv_packet(rx, buf, 5, MSG_PEEK, 5, true);
-+	if (memcmp(buf, first, 5))
-+		fail("MSG_PEEK payload mismatch");
-+	expect_inq(rx, sizeof(first));
-+	recv_packet(rx, buf, 5, MSG_TRUNC, sizeof(first), true);
-+	wait_readable(rx);
-+	expect_inq(rx, sizeof(second));
-+	recv_packet(rx, buf, sizeof(buf), 0, sizeof(second), false);
-+	if (memcmp(buf, second, sizeof(second)))
-+		fail("datagram boundary or payload mismatch");
-+	send_packet(tx, &dest, "", 0);
-+	wait_readable(rx);
-+	expect_inq(rx, 0);
-+	recv_packet(rx, buf, sizeof(buf), MSG_PEEK, 0, false);
-+	recv_packet(rx, buf, sizeof(buf), 0, 0, false);
-+	send_packet(tx, &dest, first, sizeof(first));
-+	recv_packet(rx, buf, 0, MSG_TRUNC, sizeof(first), true);
-+	expect_empty(rx);
-+	wait_sent(tx);
-+	close(tx);
-+	close(rx);
-+}
-+
-+void test_dgram_receive_flags(const struct test_opts *opts)
-+{
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	int tx = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm dest = local_address(rx);
-+	const int flags[] = { MSG_OOB, MSG_ERRQUEUE };
-+	char byte;
-+	size_t i;
-+
-+	send_packet(tx, &dest, "A", 1);
-+	wait_readable(rx);
-+	for (i = 0; i < ARRAY_SIZE(flags); i++) {
-+		expect_error(recv(rx, &byte, 1, flags[i] | MSG_DONTWAIT),
-+			     EOPNOTSUPP, "unsupported receive flag");
-+		expect_inq(rx, 1);
-+	}
-+	recv_packet(rx, &byte, 1, 0, 1, false);
-+	if (byte != 'A')
-+		fail("unsupported flags consumed the normal packet");
-+	close(tx);
-+	close(rx);
-+}
-+
-+void test_dgram_vmci_inq(const struct test_opts *opts)
-+{
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	int tx = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm dest = sock_name(rx, false);
-+	char first[31], second[79], buf[80];
-+
-+	memset(first, 'A', sizeof(first));
-+	memset(second, 'B', sizeof(second));
-+	/* CID_ANY is resolved by the dedicated transport to its local CID. */
-+	dest.svm_cid = VMADDR_CID_ANY;
-+	send_packet(tx, &dest, first, sizeof(first));
-+	send_packet(tx, &dest, second, sizeof(second));
-+	wait_readable(rx);
-+	expect_inq(rx, sizeof(first));
-+	recv_packet(rx, buf, sizeof(buf), 0, sizeof(first), false);
-+	if (memcmp(buf, first, sizeof(first)))
-+		fail("VMCI first payload mismatch");
-+	wait_readable(rx);
-+	expect_inq(rx, sizeof(second));
-+	recv_packet(rx, buf, sizeof(buf), 0, sizeof(second), false);
-+	if (memcmp(buf, second, sizeof(second)))
-+		fail("VMCI second payload mismatch");
-+	send_packet(tx, &dest, "", 0);
-+	wait_readable(rx);
-+	expect_inq(rx, 0);
-+	recv_packet(rx, buf, sizeof(buf), 0, 0, false);
-+	expect_empty(rx);
-+	close(tx);
-+	close(rx);
-+}
-+
-+void test_dgram_filter(const struct test_opts *opts)
-+{
-+	struct sock_filter insn[] = { BPF_STMT(BPF_RET | BPF_K, 7) };
-+	struct sock_fprog prog = { .len = ARRAY_SIZE(insn), .filter = insn };
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	int tx = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm dest = local_address(rx);
-+	char data[100], buf[100];
-+
-+	memset(data, 'F', sizeof(data));
-+	check(setsockopt(rx, SOL_SOCKET, SO_ATTACH_FILTER, &prog, sizeof(prog)),
-+	      "SO_ATTACH_FILTER");
-+	send_packet(tx, &dest, data, sizeof(data));
-+	wait_readable(rx);
-+	expect_inq(rx, 7);
-+	recv_packet(rx, buf, 1, MSG_PEEK | MSG_TRUNC, 7, true);
-+	expect_inq(rx, 7);
-+	memset(buf, 0, sizeof(buf));
-+	recv_packet(rx, buf, sizeof(buf), MSG_TRUNC, 7, false);
-+	if (memcmp(buf, data, 7) || buf[7])
-+		fail("filtered receive copied beyond the filtered payload");
-+	send_packet(tx, &dest, data, sizeof(data));
-+	recv_packet(rx, buf, 1, MSG_TRUNC, 7, true);
-+	expect_empty(rx);
-+	close(tx);
-+	close(rx);
-+}
-+
-+static void check_peer_filter(int rx, int allowed, int stray)
-+{
-+	struct sockaddr_vm dest = local_address(rx);
-+	char byte;
-+
-+	/* Both packets use the same ordered loopback worker. */
-+	send_packet(stray, &dest, "B", 1);
-+	send_packet(allowed, &dest, "A", 1);
-+	recv_packet(rx, &byte, 1, 0, 1, false);
-+	if (byte != 'A')
-+		fail("connected socket accepted a different peer");
-+	expect_empty(rx);
-+}
-+
-+void test_dgram_connect(const struct test_opts *opts)
-+{
-+	int rx = bound_socket(VMADDR_CID_ANY);
-+	int allowed = bound_socket(VMADDR_CID_ANY);
-+	int stray = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm peer = local_address(allowed);
-+	struct sockaddr_vm dest = local_address(rx);
-+	char byte;
-+
-+	connect_fd(rx, &peer);
-+	check_peer_filter(rx, allowed, stray);
-+	disconnect_fd(rx);
-+	send_packet(stray, &dest, "B", 1);
-+	recv_packet(rx, &byte, 1, 0, 1, false);
-+	if (byte != 'B')
-+		fail("disconnect did not remove peer filtering");
-+	connect_fd(rx, &peer);
-+	check(shutdown(rx, SHUT_WR), "shutdown SHUT_WR");
-+	if (poll_fd(rx, POLLOUT, 0) & POLLOUT)
-+		fail("write-shutdown socket is still writable");
-+	check_peer_filter(rx, allowed, stray);
-+	check(shutdown(rx, SHUT_RD), "shutdown SHUT_RD");
-+	if (!(poll_fd(rx, POLLIN | POLLRDHUP, 0) & POLLRDHUP))
-+		fail("read shutdown did not report POLLRDHUP");
-+	close(stray);
-+	close(allowed);
-+	close(rx);
-+}
-+
-+void test_dgram_source_cid(const struct test_opts *opts)
-+{
-+	unsigned int cids[] = { VMADDR_CID_LOCAL, local_cid() };
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(cids); i++) {
-+		int rx = bound_socket(VMADDR_CID_ANY);
-+		int tx = bound_socket(cids[i]);
-+		struct sockaddr_vm dest = local_address(rx);
-+		struct sockaddr_vm src;
-+		char byte;
-+
-+		send_packet(tx, &dest, "A", 1);
-+		src = recv_packet(rx, &byte, 1, 0, 1, false);
-+		if (src.svm_cid != cids[i] || src.svm_flags ||
-+		    src.svm_port != sock_name(tx, false).svm_port)
-+			fail("explicit loopback source CID %u was not preserved", cids[i]);
-+		send_packet(rx, &src, "R", 1);
-+		recv_packet(tx, &byte, 1, 0, 1, false);
-+		if (byte != 'R')
-+			fail("reply to explicit source CID failed");
-+		close(tx);
-+		close(rx);
-+	}
-+}
-+
-+void test_dgram_bound_lookup(const struct test_opts *opts)
-+{
-+	const int types[] = { SOCK_STREAM, SOCK_SEQPACKET };
-+	unsigned int cid = local_cid();
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(types); i++) {
-+		int listener = vsock_bind(VMADDR_CID_ANY, VMADDR_PORT_ANY, types[i]);
-+		int stream = vsock_bind(VMADDR_CID_LOCAL, VMADDR_PORT_ANY, types[i]);
-+		struct sockaddr_vm listen_addr = local_address(listener);
-+		struct sockaddr_vm src = sock_name(stream, false);
-+		struct sockaddr_vm dest;
-+		int accepted, tx, rx;
-+		char byte;
-+
-+		check(listen(listener, 1), "listen");
-+		if (vsock_connect_fd(stream, listen_addr.svm_cid, listen_addr.svm_port))
-+			fail("%s loopback connect: %s",
-+			     types[i] == SOCK_STREAM ? "stream" : "seqpacket", strerror(errno));
-+		wait_readable(listener);
-+		accepted = accept4(listener, NULL, NULL, SOCK_NONBLOCK | SOCK_CLOEXEC);
-+		check(accepted, "accept");
-+		if (sock_name(accepted, true).svm_cid != VMADDR_CID_LOCAL ||
-+		    sock_name(accepted, true).svm_port != src.svm_port)
-+			fail("unexpected accepted loopback peer");
-+		close(listener);
-+		rx = dgram_socket();
-+		bind_fd(rx, cid, src.svm_port);
-+		dest = sock_name(rx, false);
-+		tx = dgram_socket();
-+		/* Reuse the listener's port for the datagram source. The receive
-+		 * socket uses the stream client's port at another local CID.
-+		 * Connected lookup ignores the destination CID, so it would find
-+		 * the stream client before the bound datagram socket.
-+		 */
-+		bind_fd(tx, VMADDR_CID_LOCAL, listen_addr.svm_port);
-+		send_packet(tx, &dest, "D", 1);
-+		recv_packet(rx, &byte, 1, 0, 1, false);
-+		if (byte != 'D' || (poll_fd(stream, POLLIN, 0) & POLLIN) ||
-+		    (poll_fd(accepted, POLLIN, 0) & POLLIN))
-+			fail("connected socket shadowed the reused datagram port");
-+		send_byte(stream, 1, 0);
-+		wait_readable(accepted);
-+		recv_byte(accepted, 1, 0);
-+		send_byte(accepted, 1, 0);
-+		wait_readable(stream);
-+		recv_byte(stream, 1, 0);
-+		close(tx);
-+		close(rx);
-+		close(accepted);
-+		close(stream);
-+	}
-+}
-+
-+void test_dgram_sockmap(const struct test_opts *opts)
-+{
-+	const int types[] = { BPF_MAP_TYPE_SOCKMAP, BPF_MAP_TYPE_SOCKHASH };
-+	int fd = bound_socket(VMADDR_CID_ANY);
-+	struct sockaddr_vm addr = local_address(fd);
-+	uint64_t value = fd;
-+	uint32_t key = 0;
-+	size_t i;
-+
-+	connect_fd(fd, &addr);
-+	for (i = 0; i < ARRAY_SIZE(types); i++) {
-+		union bpf_attr attr = {
-+			.map_type = types[i],
-+			.key_size = sizeof(key),
-+			.value_size = sizeof(value),
-+			.max_entries = 1,
-+		};
-+		int map = syscall(__NR_bpf, BPF_MAP_CREATE, &attr, sizeof(attr));
-+
-+		check(map, "BPF_MAP_CREATE (requires BPF privileges and CONFIG_BPF_SYSCALL)");
-+		memset(&attr, 0, sizeof(attr));
-+		attr.map_fd = map;
-+		attr.key = (uintptr_t)&key;
-+		attr.value = (uintptr_t)&value;
-+		attr.flags = BPF_ANY;
-+		expect_error(syscall(__NR_bpf, BPF_MAP_UPDATE_ELEM, &attr, sizeof(attr)),
-+			     EOPNOTSUPP, "datagram sockmap admission");
-+		close(map);
-+	}
-+	close(fd);
-+}
-+
-+void test_dgram_nested_source(const struct test_opts *opts)
-+{
-+	int rx, tx;
-+	struct sockaddr_vm dest;
-+
-+	if (local_cid() <= VMADDR_CID_HOST)
-+		fail("this test requires both a guest frontend and vhost_vsock");
-+	rx = bound_socket(VMADDR_CID_LOCAL);
-+	tx = bound_socket(VMADDR_CID_HOST);
-+	dest = local_address(rx);
-+	expect_error(sendto(tx, "A", 1, MSG_NOSIGNAL,
-+			    (struct sockaddr *)&dest, sizeof(dest)),
-+		     EADDRNOTAVAIL, "nested CID_HOST loopback send");
-+	expect_error(connect(tx, (struct sockaddr *)&dest, sizeof(dest)),
-+		     EADDRNOTAVAIL, "nested CID_HOST loopback connect");
-+	if (queue_bytes(tx, SIOCOUTQ))
-+		fail("rejected route left pending output");
-+	expect_empty(rx);
-+	close(tx);
-+	close(rx);
-+}
-+
-+static int peer_socket(const struct test_opts *opts, struct sockaddr_vm *peer)
-+{
-+	int fd = bound_socket(opts->bind_cid);
-+
-+	control_writeulong(sock_name(fd, false).svm_port);
-+	*peer = address(opts->peer_cid, control_readulong());
-+	if (opts->to_host)
-+		peer->svm_flags = VMADDR_FLAG_TO_HOST;
-+	return fd;
-+}
-+
-+static void check_source(const struct test_opts *opts,
-+			 const struct sockaddr_vm *peer, const struct sockaddr_vm *src)
-+{
-+	bool upstream = opts->expect_to_host || opts->peer_cid == VMADDR_CID_HOST;
-+
-+	if (src->svm_cid != peer->svm_cid || src->svm_port != peer->svm_port ||
-+	    src->svm_flags != (upstream ? VMADDR_FLAG_TO_HOST : 0))
-+		fail("source expected %u:%u flags=%u, got %u:%u flags=%u",
-+		     peer->svm_cid, peer->svm_port, upstream ? VMADDR_FLAG_TO_HOST : 0,
-+		     src->svm_cid, src->svm_port, src->svm_flags);
-+}
-+
-+static void fill_payload(char *buf, size_t len, unsigned int seed)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < len; i++)
-+		buf[i] = (i * 131 + seed) & 0xff;
-+}
-+
-+void test_dgram_sizes(const struct test_opts *opts)
-+{
-+	const size_t sizes[] = { 0, 1, 7, 255, 4095, 4096, 4097,
-+				8192, 32768, 65535, MAX_DGRAM };
-+	char *data = malloc(MAX_DGRAM + 1);
-+	char *buf = malloc(MAX_DGRAM + 1);
-+	struct sockaddr_vm peer, src;
-+	unsigned int round;
-+	int fd;
-+	size_t i;
-+
-+	if (!data || !buf)
-+		fail("malloc");
-+	fd = peer_socket(opts, &peer);
-+	fill_payload(data, MAX_DGRAM + 1, 0);
-+	expect_error(sendto(fd, data, MAX_DGRAM + 1, MSG_NOSIGNAL,
-+			    (struct sockaddr *)&peer, sizeof(peer)),
-+		     EMSGSIZE, "oversized datagram");
-+	if (queue_bytes(fd, SIOCOUTQ))
-+		fail("oversized datagram left pending output");
-+	/* More than a default RX ring's worth, including on small rings. */
-+	for (round = 0; round < 32; round++) {
-+		for (i = 0; i < ARRAY_SIZE(sizes); i++) {
-+			fill_payload(data, sizes[i], round * ARRAY_SIZE(sizes) + i);
-+			if (opts->mode == TEST_MODE_CLIENT)
-+				send_packet(fd, &peer, data, sizes[i]);
-+			src = recv_packet(fd, buf, MAX_DGRAM + 1, 0, sizes[i], false);
-+			check_source(opts, &peer, &src);
-+			if (memcmp(data, buf, sizes[i]))
-+				fail("payload mismatch: size %zu, round %u", sizes[i], round);
-+			if (opts->mode == TEST_MODE_SERVER)
-+				send_packet(fd, &src, buf, sizes[i]);
-+		}
-+	}
-+	wait_sent(fd);
-+	expect_empty(fd);
-+	close(fd);
-+	free(buf);
-+	free(data);
-+}
-+
-+void test_dgram_routes(const struct test_opts *opts)
-+{
-+	struct sockaddr_vm peer, src, stored, local;
-+	int fd = peer_socket(opts, &peer);
-+	int aux = bound_socket(VMADDR_CID_ANY);
-+	unsigned int round;
-+	char byte;
-+
-+	connect_fd(fd, &peer);
-+	stored = sock_name(fd, true);
-+	local = local_address(aux);
-+	for (round = 0; round < 32; round++) {
-+		send_packet(fd, &local, "L", 1);
-+		recv_packet(aux, &byte, 1, 0, 1, false);
-+		if (byte != 'L')
-+			fail("sendto on a connected socket did not use loopback");
-+		src = sock_name(fd, true);
-+		if (src.svm_cid != stored.svm_cid || src.svm_port != stored.svm_port ||
-+		    src.svm_flags != stored.svm_flags)
-+			fail("per-message route changed the connected peer");
-+		send_packet(fd, NULL, "P", 1);
-+		src = recv_packet(fd, &byte, 1, 0, 1, false);
-+		check_source(opts, &peer, &src);
-+		if (byte != 'P')
-+			fail("connected send did not retain the peer route");
-+	}
-+	wait_sent(fd);
-+	close(aux);
-+	close(fd);
-+}
-+
-+void test_dgram_peer_filter(const struct test_opts *opts)
-+{
-+	struct sockaddr_vm peer, src;
-+	int fd = peer_socket(opts, &peer);
-+	int stray = bound_socket(opts->bind_cid);
-+	char byte;
-+
-+	connect_fd(fd, &peer);
-+	control_writeln("CONNECTED");
-+	control_expectln("CONNECTED");
-+	send_packet(stray, &peer, "B", 1);
-+	send_packet(fd, NULL, "A", 1);
-+	src = recv_packet(fd, &byte, 1, 0, 1, false);
-+	check_source(opts, &peer, &src);
-+	if (byte != 'A')
-+		fail("connected socket accepted a different peer port");
-+	disconnect_fd(fd);
-+	control_writeln("DISCONNECTED");
-+	control_expectln("DISCONNECTED");
-+	send_packet(stray, &peer, "B", 1);
-+	src = recv_packet(fd, &byte, 1, 0, 1, false);
-+	if (byte != 'B' || src.svm_cid != peer.svm_cid || src.svm_port == peer.svm_port)
-+		fail("disconnected socket did not accept the new peer");
-+	close(stray);
-+	close(fd);
-+}
-diff --git a/tools/testing/vsock/vsock_test_dgram.h b/tools/testing/vsock/vsock_test_dgram.h
-new file mode 100644
-index 000000000000..0dec74ef5f46
---- /dev/null
-+++ b/tools/testing/vsock/vsock_test_dgram.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef VSOCK_TEST_DGRAM_H
-+#define VSOCK_TEST_DGRAM_H
-+
-+#include "util.h"
-+
-+const char *vsock_dgram_check_local(const struct test_opts *opts);
-+const char *vsock_dgram_check_peer(const struct test_opts *opts);
-+const char *vsock_dgram_check_routes(const struct test_opts *opts);
-+const char *vsock_dgram_check_vmci(const struct test_opts *opts);
-+
-+void test_dgram_bind(const struct test_opts *opts);
-+void test_dgram_receive(const struct test_opts *opts);
-+void test_dgram_receive_flags(const struct test_opts *opts);
-+void test_dgram_filter(const struct test_opts *opts);
-+void test_dgram_connect(const struct test_opts *opts);
-+void test_dgram_source_cid(const struct test_opts *opts);
-+void test_dgram_bound_lookup(const struct test_opts *opts);
-+void test_dgram_sockmap(const struct test_opts *opts);
-+void test_dgram_nested_source(const struct test_opts *opts);
-+void test_dgram_sizes(const struct test_opts *opts);
-+void test_dgram_routes(const struct test_opts *opts);
-+void test_dgram_peer_filter(const struct test_opts *opts);
-+void test_dgram_vmci_inq(const struct test_opts *opts);
-+
-+#endif /* VSOCK_TEST_DGRAM_H */
-
+ 	kfree(parents);
 -- 
-2.56.0
+2.43.0
 
