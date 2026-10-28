@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793172651;
-	b=rF+za9hOUBi6VIHhruAtxgSDNiI2XMOQEhip0WM/6wpzjLX5yzltrSSc4XNqcgpG2963
-	 wcBKdywofpJzC6ODwqWYqwWNEtNLpeKWwGARExklpn/sfFcTvE+JZkDbpyroC4DrT7Jjv
-	 CA/+OrB7Uxh1HIkEQIU9viwX0hKVTUMoqky1ea2B4udbPsI0FSGrG+uypaOzXyiExJmG/
-	 dyEoK98lZU7q9YbsXj/bfNI5TBv/7Ya1HWgc06c849iYYjmq/lpB1QUcOcYTdpnv5dGXF
-	 Kc7eWzvApKpzRRV2LBaoH0t8y8f4kKERQ3ZYftc/CAv2IV/9bcnlFIWpCwxS1skmTzg==
+	t=1793172652;
+	b=lZIY3FLQV9m9PxjUQZWFLuvg9nn1CC9sA37lzOk4tUSY2ED/IbxtMxVCYA9NPMmulh8B
+	 NvRHOPQW7cJbZ5p15EdOsxfGGchU3QQwcMBGg8W3KnL2vRYI5RGHV8VgDsOQCSJsMBp7S
+	 2HRqjPMXpVERNoRLhXR6oLMl0injyIywOR9krBRXrh6F9GN0YuhoZhiuemVCI8GGS9rpa
+	 rwPsE8jl4kdvcq/n3ya5XROCbkqctAukFv/q8T9ZJbDhZFVRvuCE8qLAddCVLUL+7xQVt
+	 Bc46A++afxfeLHg4fYe5UqkLmnwTOIvU8PKoOEUGxQ25lo0Bo69oqWId190jRfY4eCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793172651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793172652;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=OAGqs6jUlmv0p4hRztxaTJMgYX66siN4FoCA+yfUcJs=;
-	b=TYSyfEVKN9lbGyOzFGikDnm75WvNjfEx1Go15i6pREe6o6ST8efcroBBukC4t9rXepAM
-	 SI03eAWRVxYqIvY9t1bUAmdBDY0O1q7P/jcNfOpOC/vpT07tBPDTXomJ4nezd+lfCfLto
-	 CkoZtPDbOTeYyfclpoSYp0KpgEimV0v/rAF5gDs5dwH0tre0KEfWdF0tHDXgBHm8FM7WE
-	 xawjQq0mapVWR3pAZTNUJZGYPOXlC8LTLYYgwb91U5pdOpswYIJrb72ixfD/XyPWIX1sJ
-	 nlRWyXJoxjXeQ50c08B6k2gAzc1/FVYMRsQKc4yrqVNGAvtjZeCbg+59ERkbZ4xJbTA==
+	bh=zov4u420zTtyxdsszpy0m/58XGeR28E9MNfOcUnPbTw=;
+	b=HI89P9egvPPGLqb6RLljW81JlaJMeynK8yRpzLT65p68TA7Mg5keuVTnlFPrb4gQGCw+
+	 KPemLAQsNvdvLnfgaQOlqwJcz2WQLOlLCrsk2H32qvY1uXvuBvLH2XuBUKkv30r/yyde/
+	 EzWjUR2M811dpHEvGJCoVzaCXzrVzQysTgcSC25+Cu7dA98YER5NZU3gtW6dV3sXDLYvf
+	 IoBXq7zK2qcMWXRmoWPJDbEV/vwJao6vD9Q9Obj9c5RBFbNWhPCIlkSkxFDzCM1ZsSDc7
+	 kR3NifY2eHYjTofNjOfHh/Mp+3HS1kEVIQRSIRS6Ix05ClStqZygHNVllotprkH6FVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cJ/5izAF";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QNt1abaq;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D7B606A33F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D7B606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FB960A2612
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58FB960A2612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJ/5izAF
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso350627f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:30:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QNt1abaq
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so319919f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:30:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793172649; x=1793777449; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793172651; x=1793777451; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=OAGqs6jUlmv0p4hRztxaTJMgYX66siN4FoCA+yfUcJs=;
-        b=cJ/5izAF0PHl91urAMXo+UynlwE+xocDZpvUz+OvZz1d4+FePg+sIrjEH9PtOVcBqf
-         jae7xQ2Zm2tYSGfhFLoc2JGWYJicQdFiPdFYhBSvjKzVzKCwycfJXp43nc1snnSFlD2n
-         N5Ha2i3IMQcKAV+mjTbwNf4Z7qKlWSoBho9NNc7QSGMenJtUC+zcY0IoRhAS/W+A0zmc
-         8hp3KGcI5w16NVTvkbnQLmDJZd6wqDDcBbrxbB2eoS2FplTAi/u0qiQhZeAuq51xaF7I
-         X3T4hAaTMp6FAS7cQLnXEoR+D7Vz3Y0Fv2umMLwUrHr8imHWZHyZf8bYRs6YftowhhFv
-         3XDw==
+        bh=zov4u420zTtyxdsszpy0m/58XGeR28E9MNfOcUnPbTw=;
+        b=QNt1abaq9ByIxbUfGJS9uvxbgE1Ezhf77KkYnX5kqOVrXQCcGZIC4KKZB5Ah4Ybn42
+         1nsD3ZY1YOJgxec1zGSKnWhbbxEU19r0vrmMJqidvo6jK0R5qYPdPO2mxLczjXUP3gUB
+         FW5LF76YlgJvBkRBpF+W6AyENVxfC4T4v9zo8tdr0FQZ+gRH/ayYKjv1VRIAJNpQG9gX
+         14t6VR5oKDUxZY6ZvsmozTk5r3qw5EYSazBaG8+6ZZcyQQHgP2TBvZFIwgYSz28kOOcL
+         paStggrE5eqxvw9928o5ylby8MfzKcm7YqQiEGSIjKHfEryABWFQdxtOQaF1umy9SuZV
+         EMQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793172649; x=1793777449;
+        d=1e100.net; s=20260707; t=1793172651; x=1793777451;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=OAGqs6jUlmv0p4hRztxaTJMgYX66siN4FoCA+yfUcJs=;
-        b=vPWF0gHr8YNxs3fOGqnORKo9C6x4j+xqUz71CJ3avSUUHyF/AiqocmnuTIroTtPyNH
-         O6Bj2ZemVogonj1/D+pMQoXnZpluPmXCk1pKtWHUZGFOLXSROwuhxFZ2zGA1vdxJXNZ1
-         D7dRt9I6hbl3y7DSpk+7HGDO0qWGUMWPM6xLMVdNovgYT7Q3drwRF3EZQzXrYs9tV9fx
-         Z9WKNWf3rXANT6hq25EUhkAKqHZg8YjyVr1RvTcz0IUtFvg0zMeweiwUWLMzMtcOd6Vy
-         yT6QfzRp1+fVwFn9W4s6Ssfj/xMJGiTt0TGcsGAuPGsjOL3b+wW+wN01TzSRfg2rjalZ
-         nYkw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1y0DfE3ABQcd8MtJRfhXfrlQELnGr5VrxeECCj2VkhlYNLEtpda0+1JoV4ZZ/Zh4e48t4AeNuPfoCx7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTMxLol/UbibeTIVwbIF15DRd0lT+NsoIzdrOotTjRvDkTgjQa
-	UR0m0zxVbxHQKvkgm7BSoUENbCwORJu1z15ViNj85mZR+6ZsSEN1tUwn
-X-Gm-Gg: AYBFou1tVhW9QxBhNq+Rwe3Jyc/98l5LdeokrU02uofFvS9SCut915tL/LBvSzrYfYF
-	NZ53blN8bvOQIzC9KspQlgYgqysguBxBRiJQUMttHUeaEVC+XE+eHPHSh+smQR/Diy0+jahHRA6
-	OtPaGA/SG932YPaJ42EfX7XV0RqqwoUqgUB0UPDoX1wk08YLPG62hJKiLYtfP/oPo+gT/6Y6HsT
-	0n9ry3LlGa+lo8gXkCFDV24S0vn1Xv191qCLcaitFY0Qv139nfg4DcNuRYzJjIcyTtrsWj+Z+LX
-	87Ms0wUCfFTv12OWmWTuNn0b9WO8RY5btQ/aiPSplQNO957T5obljDKDsV40PCGSiM8wKnuk6LJ
-	D8O8PehEkgc/TJZnztlNASeRE8fAbay3r1IKVkGycX3CF7UNtT4Niyh7oXI+e5stq+ADOrnsY5s
-	iEsE2Mn2RRWm0QQ5cVkn+GVEcrX89El3p64B+1mckXhHp2wEt8/DH0Sw8FrhEtJ0zuZt2M3cNqr
-	dT9wC1XWY0o/9f9xXVoq0uEGycvR1WrCOfpGc5l1DQcgsMbhQvzwo0z3BJhd8fzpZDsfMckLqIH
-	AngR+/8O0kTqdkyNxGRSiOgdlPOBPQ7C3xbbNPwVxqlcvsqca4yu33KsI5lZP3kSIkWkfpWLcT/
-	6LBwcoauKbnTcw/eBeYQnXcu/keR7iXKpiA==
-X-Received: by 2002:a05:6000:2207:b0:48e:5df2:fd24 with SMTP id ffacd0b85a97d-48e5df2feb5mr3037152f8f.32.1793172649305;
-        Wed, 28 Oct 2026 00:30:49 -0700 (PDT)
+        bh=zov4u420zTtyxdsszpy0m/58XGeR28E9MNfOcUnPbTw=;
+        b=UMGUdK7wULP9LVjfUyOCLItvrIbphfRJ4WhmrC8HbXULj9xbUSDkeRBQOaL/yf7PSg
+         /uR9E2w1u9oG0kCQWyCUo7HWCA7MndeVSkbq2ktdXoT+cXbnoZl2uR4JTbiNJxWSCGTr
+         gfJCOvKKd76X44vF07ULa0Hr0/wRvBTAXvYsaKHDQSJrDp3Gfumi7mJBgosaJyWxKlWy
+         ctxc71OgW4/ozowPDj+xVAtRhNxcv8yQPRfF+fxr76bvMLWbsU5tsf43PuHm7RGJXxfP
+         FEg9hQM6ilWZaIWxVm9dFE4TO2B4/cdtykbPSXuF4xWitYDBYAAthXLYHzNYWjzgVUj5
+         skyw==
+X-Forwarded-Encrypted: i=1; AKwUvByTJ3yRwdTtthASB7u7HaM5Do5hkxJL57LrNKcvELnyLpZCP2JrZGbFoiYhCStH3EQG5mnPfj0lqcJGWzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhvo2XpJqMRHaHP383yFl8eEAKgOdQjWxCZVceLXvPeRAlMH6Z
+	he9YwwKy8q5BK10wlNAtvVQPb9rlVV5xs9LDc3JsRFhP7VJ/CJMcKzC8
+X-Gm-Gg: AYBFou1h2hA73ffg+YAVP00KKfxW1VByvPNlJ/fY1kisHemG+VjVLuyYqrTGCvq2yTo
+	qM14kIqozKuW8lmq4RKDOpqZ9RlEbSDhSUjLZGThLDs6ZBE50XDeRDhU+NdbOzb8H3UXhl2Z/q7
+	1WNufRTJ4OqRbJpphytkWIFZvoLN+W0WAT5tS8daq3pAfLIT3GxWGcEl4EdxAq3mAiqK4dlr+xt
+	PbMmOaqlJee5DOESzSUZ6EMZTeVWjeT7GlDfAHvoWd7qPVxAOzQkNzB6MIXEZ5uIT1n1YZfP/MC
+	jL/yLi2sUhndLcVP0nki9aId8adV0o50evjefiNbbeXHvbQUbK9AO3EC5cVvtkTmj7XVgWCR/RO
+	Jh6oNaMAjIBEMBoOq2j/t4N6oFqlDhhnxZVbvz1wsJi8G7096dy25CxjBNlrqXJ6fEK7DnB0B+h
+	nGrZ43MGRnJ8zNICrZA/qhMDQYN9VhG976hZBEijFOCv3EGUYJLdubCj8T6QLygh/3KHFY2oC/d
+	vu/0bxD6NQ0ciothTqtug7z7zPpCe9IHqsDiLAlJCxkoJn8BiL9YySpf+ZB7ejKUr3tNj57nJP1
+	CoaE5Pk+njCvY2lSywaTGPhpdicPNTE2Lk0lcCsZ9gH8xr9Zx4UcIhLrRDRPFs+pXVVWZs7ay5w
+	/ge8qSwgOkT/Zpa78HC9TiISYrQGPxcZ5gA==
+X-Received: by 2002:a05:6000:2488:b0:486:f6dc:52c8 with SMTP id ffacd0b85a97d-48e5d5a4030mr3795646f8f.37.1793172650648;
+        Wed, 28 Oct 2026 00:30:50 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e542ed998sm12083088f8f.13.2026.10.28.00.30.48
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e542ed998sm12083088f8f.13.2026.10.28.00.30.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:30:48 -0700 (PDT)
+        Wed, 28 Oct 2026 00:30:49 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Christian Marangi <ansuelsmth@gmail.com>,
 	Andrew Lunn <andrew@lunn.ch>,
@@ -90,9 +90,9 @@ To: Christian Marangi <ansuelsmth@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 2/4] net: phy: as21xxx: fix read_status speed handling
-Date: Wed, 28 Oct 2026 08:30:20 +0100
-Message-ID: <20261028073024.25175-3-ansuelsmth@gmail.com>
+Subject: [PATCH net v3 3/4] net: phy: as21xxx: force C45 OPs for AUTONEG
+Date: Wed, 28 Oct 2026 08:30:21 +0100
+Message-ID: <20261028073024.25175-4-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261028073024.25175-1-ansuelsmth@gmail.com>
 References: <20261028073024.25175-1-ansuelsmth@gmail.com>
@@ -107,173 +107,174 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With further test with 2.5G NIC it was discovered that
-phy_resolve_aneg_linkmode is not enough to detect speed higher that 1G
-when autoneg is enabled.
+With further testing with 2.5G NIC, it was discovered that the PHY
+require the C45 OPs to configure and restart ANEG or speed higher than
+1G doesn't function correctly.
 
-Also in the switch case there is a typo where the speed mask is AND with
-VEND1_SPEED_STATUS instead of the correct mask VEND1_SPEED_MASK.
-
-Rework the read_status code to use the vendor register to read speed >1G.
-
-While at it also address a problem in read link where autoneg_complete
-wasn't cleared when AN was restarted.
+To force C45 OPs with generic PHY function, clear the C22 bit from
+devices_in_package bitmask and implement a custom .config_aneg.
 
 Fixes: 830877d89edc ("net: phy: Add support for Aeonsemi AS21xxx PHYs")
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/phy/as21xxx.c | 100 ++++++++++++++++++++++----------------
- 1 file changed, 58 insertions(+), 42 deletions(-)
+ drivers/net/phy/as21xxx.c | 67 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
 diff --git a/drivers/net/phy/as21xxx.c b/drivers/net/phy/as21xxx.c
-index 0db82da8dbdf..f5968eec11c8 100644
+index f5968eec11c8..81e9827873bf 100644
 --- a/drivers/net/phy/as21xxx.c
 +++ b/drivers/net/phy/as21xxx.c
-@@ -650,6 +650,7 @@ static int as21xxx_read_link(struct phy_device *phydev, int *bmcr)
- 	 */
- 	if (*bmcr & BMCR_ANRESTART) {
- 		phydev->link = 0;
-+		phydev->autoneg_complete = 0;
- 		return 0;
- 	}
+@@ -616,6 +616,13 @@ static int as21xxx_probe(struct phy_device *phydev)
+ 	if (ret)
+ 		return ret;
  
-@@ -671,7 +672,7 @@ static int as21xxx_read_link(struct phy_device *phydev, int *bmcr)
- 
- static int as21xxx_read_c22_lpa(struct phy_device *phydev)
- {
--	int lpagb;
-+	int lpagb, lpa;
- 
- 	/* MII_STAT1000 are only filled in the mapped C22
- 	 * in C45, use that to fill lpagb values and check.
-@@ -698,13 +699,22 @@ static int as21xxx_read_c22_lpa(struct phy_device *phydev)
- 	mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising,
- 					lpagb);
- 
-+	lpa = phy_read_mmd(phydev, MDIO_MMD_AN,
-+			   AS21XXX_MDIO_AN_C22 + MII_LPA);
-+	if (lpa < 0)
-+		return lpa;
++	/* Even if PHY declare support for Clause 22 register,
++	 * Clause 45 register should be used for ANEG configuration
++	 * and restart. Clear the C22 bit for devices_in_package to
++	 * force C45 generic OPs in generic PHY ANGE OPs.
++	 */
++	phydev->c45_ids.devices_in_package &= ~BIT(0);
 +
-+	mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, lpa);
-+
- 	return 0;
+ 	ret = aeon_ipc_sync_parity(phydev, priv);
+ 	if (ret)
+ 		return ret;
+@@ -633,6 +640,56 @@ static int as21xxx_probe(struct phy_device *phydev)
+ 	return aeon_dpc_ra_enable(phydev);
  }
  
- static int as21xxx_read_status(struct phy_device *phydev)
- {
- 	int bmcr, old_link = phydev->link;
-+	int speed;
- 	int ret;
-+	int val;
- 
- 	ret = as21xxx_read_link(phydev, &bmcr);
- 	if (ret)
-@@ -719,57 +729,63 @@ static int as21xxx_read_status(struct phy_device *phydev)
- 	phydev->pause = 0;
- 	phydev->asym_pause = 0;
- 
-+	if (!phydev->link)
-+		return 0;
++static int as21xxx_config_aneg(struct phy_device *phydev)
++{
++	bool changed = false;
++	u16 ctl = 0;
++	int ret;
 +
- 	if (phydev->autoneg == AUTONEG_ENABLE) {
--		ret = genphy_c45_read_lpa(phydev);
--		if (ret)
--			return ret;
-+		if (!phydev->autoneg_complete) {
-+			mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising,
-+							0);
-+			mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-+			mii_10gbt_stat_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-+			return 0;
-+		}
- 
- 		ret = as21xxx_read_c22_lpa(phydev);
- 		if (ret)
- 			return ret;
- 
--		phy_resolve_aneg_linkmode(phydev);
--	} else {
--		int speed;
-+		val = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_AN_10GBT_STAT);
-+		if (val < 0)
-+			return val;
- 
-+		mii_10gbt_stat_mod_linkmode_lpa_t(phydev->lp_advertising, val);
-+	} else {
- 		linkmode_zero(phydev->lp_advertising);
-+	}
- 
--		speed = phy_read_mmd(phydev, MDIO_MMD_VEND1,
--				     VEND1_SPEED_STATUS);
--		if (speed < 0)
--			return speed;
-+	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
-+		phy_resolve_aneg_linkmode(phydev);
-+	} else if (phydev->autoneg == AUTONEG_DISABLE) {
-+		ret = genphy_read_status_fixed(phydev);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
--		switch (speed & VEND1_SPEED_STATUS) {
--		case VEND1_SPEED_10000:
--			phydev->speed = SPEED_10000;
--			phydev->duplex = DUPLEX_FULL;
--			break;
--		case VEND1_SPEED_5000:
--			phydev->speed = SPEED_5000;
--			phydev->duplex = DUPLEX_FULL;
--			break;
--		case VEND1_SPEED_2500:
--			phydev->speed = SPEED_2500;
--			phydev->duplex = DUPLEX_FULL;
--			break;
--		case VEND1_SPEED_1000:
--			phydev->speed = SPEED_1000;
--			if (bmcr & BMCR_FULLDPLX)
--				phydev->duplex = DUPLEX_FULL;
--			else
--				phydev->duplex = DUPLEX_HALF;
--			break;
--		case VEND1_SPEED_100:
--			phydev->speed = SPEED_100;
--			phydev->duplex = DUPLEX_FULL;
--			break;
--		case VEND1_SPEED_10:
--			phydev->speed = SPEED_10;
--			phydev->duplex = DUPLEX_FULL;
--			break;
--		default:
--			return -EINVAL;
--		}
-+	speed = phy_read_mmd(phydev, MDIO_MMD_VEND1,
-+			     VEND1_SPEED_STATUS);
-+	if (speed < 0)
-+		return speed;
++	if (phydev->autoneg == AUTONEG_DISABLE)
++		return genphy_c45_pma_setup_forced(phydev);
 +
-+	switch (speed & VEND1_SPEED_MASK) {
-+	case VEND1_SPEED_10000:
-+		phydev->speed = SPEED_10000;
-+		phydev->duplex = DUPLEX_FULL;
++	ret = genphy_c45_an_config_aneg(phydev);
++	if (ret < 0)
++		return ret;
++	if (ret > 0)
++		changed = true;
++
++	switch (phydev->master_slave_set) {
++	case MASTER_SLAVE_CFG_MASTER_PREFERRED:
++		ctl |= CTL1000_PREFER_MASTER;
 +		break;
-+	case VEND1_SPEED_5000:
-+		phydev->speed = SPEED_5000;
-+		phydev->duplex = DUPLEX_FULL;
++	case MASTER_SLAVE_CFG_SLAVE_PREFERRED:
 +		break;
-+	case VEND1_SPEED_2500:
-+		phydev->speed = SPEED_2500;
-+		phydev->duplex = DUPLEX_FULL;
++	case MASTER_SLAVE_CFG_MASTER_FORCE:
++		ctl |= CTL1000_AS_MASTER;
++		fallthrough;
++	case MASTER_SLAVE_CFG_SLAVE_FORCE:
++		ctl |= CTL1000_ENABLE_MASTER;
 +		break;
-+	case VEND1_SPEED_1000:
-+	case VEND1_SPEED_100:
-+	case VEND1_SPEED_10:
++	case MASTER_SLAVE_CFG_UNKNOWN:
++	case MASTER_SLAVE_CFG_UNSUPPORTED:
 +		break;
 +	default:
-+		return -EINVAL;
- 	}
- 
- 	return 0;
++		phydev_warn(phydev, "Unsupported Master/Slave mode\n");
++		return -EOPNOTSUPP;
++	}
++
++	ctl = linkmode_adv_to_mii_ctrl1000_t(phydev->advertising);
++
++	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN,
++				     AS21XXX_MDIO_AN_C22 + MII_CTRL1000,
++				     ADVERTISE_1000FULL | ADVERTISE_1000HALF |
++				     CTL1000_ENABLE_MASTER | CTL1000_AS_MASTER |
++				     CTL1000_PREFER_MASTER, ctl);
++	if (ret < 0)
++		return ret;
++	if (ret > 0)
++		changed = true;
++
++	return genphy_c45_check_and_restart_aneg(phydev, changed);
++}
++
+ static int as21xxx_read_link(struct phy_device *phydev, int *bmcr)
+ {
+ 	int status;
+@@ -982,6 +1039,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21011JB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -994,6 +1052,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21011PB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1006,6 +1065,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21010PB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1018,6 +1078,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21010JB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1030,6 +1091,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21210PB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1042,6 +1104,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21510JB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1054,6 +1117,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21510PB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1066,6 +1130,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21511JB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1078,6 +1143,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21210JB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
+@@ -1090,6 +1156,7 @@ static struct phy_driver as21xxx_drivers[] = {
+ 		.name		= "Aeonsemi AS21511PB1",
+ 		.probe		= as21xxx_probe,
+ 		.match_phy_device = as21xxx_match_phy_device,
++		.config_aneg	= as21xxx_config_aneg,
+ 		.read_status	= as21xxx_read_status,
+ 		.led_brightness_set = as21xxx_led_brightness_set,
+ 		.led_hw_is_supported = as21xxx_led_hw_is_supported,
 -- 
 2.55.0
 
