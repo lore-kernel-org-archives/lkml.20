@@ -1,105 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175402;
-	b=XcFkrBVoStLTaH4Wa4cIDBaEps0QqsDnC69VLf+UqfBnwPiBFSdqwprfYjy4bZaU6AXZ
-	 Sbh+FZOQx1cA5Xgb2TyDHMNm0/92D8bWT9aRbOrT7dhyjvSQ9lENQzVBD+KCaFIW7JlGG
-	 0zUMEBrHPWa4t4D0hBEzx4bZ7jewHi74kD66C104ojnnO/nPox5v46X7rlaCqb1RidVlT
-	 AK13rXlDZriNGZSSfUnzHFrfYEwpKdtZ3NNq7Db5bajJsU0ll88rCvx1BkJDM8CbIfk3P
-	 qVYNWx96IG0tCW14tOi6tGL/ez7TdH/Tdm3sEQlZ8WtuWFzeNY7E2e+Bp0OScMeM3YA==
+	t=1793175419;
+	b=HsRlR3QzQAxE0ucAfUgdSxHdg4LVQ6yZu7kKYknVG9+PqFGcWsQJX9xq4cUQkSCw5Iis
+	 NewFaK41SxVDwewg1KJ0xaXDq/1wY7kZjLGTZOtxghFgK7mHJFfggc1zx0Pjz+a/3bPQv
+	 0T/jlFXTyUu6kfGq2/MTxLmeFAnX6VVxJ2HiqUQsX9loQDF2A9YgsIh9Gu4emooKZO+SP
+	 H5nvsXsmCApD2F2lhrfES5FmVv5RRLh0Ac6KQi4/3zV7S2iWQBtmT3tBsq2b51CHrSPe8
+	 ASC7FdZAnDAde8FH+rjYqeNaiFtvk+tIzF3AmGyKauf2QPxJ/dFVHxJPbhT+w1sIHRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175402;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ewTGkXdsNJwvYFPISDJjvcJQGNkUEeqtLfVaYw+sa6o=;
-	b=lPe2zA/JYiFSxX7CgqfsiuQE8xDtw+B04kitporHWo4lITbolAcEYrb/Xhag8JS45lq6
-	 J8gONQACk2tIa83XUOZwcEH18RgWbCOBDjb+hKMAnjezLzE+Hg5qJBGB6PqK4mPDDsEaF
-	 Cb2GFzKinIYXxIPjR7KcFIm23XQhLYkIDjuoiwhcKu90xVIkz8BKODQQkNlMK6A0m2EO/
-	 N60CfbHkNaO8CEGQO2Hcpd5myCz5C7PKpeKmOhwfH5ROZ27FmtNB9TWDkBvD0vrhwO/RO
-	 GD4mn1zMlLnhmioPoJM8kEwpGcCOyu/MkQ4RXVIuDueAeyD324mvMJFUnTWj4Dw978w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175419;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dqnWKvbCDNqZUxkMc7D8w+XMOrdlu1tMeCS8z4qa+HI=;
+	b=13X+GC5oa3BM200C6Y8NCl+WnN5QEC6opFgmcXZ3JtIrNhykfbwH+qlsgkQ5gRqrMBux
+	 2mcWCb8GT6lKsuZG2BalQE31qtB+llKCNq3+LQcJ7LCibDkcgs+mDTz4Cjnzzzaqesz9S
+	 4MDZAb1lfGGjAFLl2PSGGzpcXmt99dWszgVOi/hNh72TcR5fvdspuvK4DyPSHqu17zb/a
+	 KECQauI3tDVW7FRH6hP8TNLm40rFsnPme1pifDkTl5QsxE9FBSU5qhL8VwJS6SakMHRNP
+	 UOsy/iSAuwCAR2b55yac28V2cCVBu3OUuVby6ilyP4FVSf+1zu30cAGu5zUzm3/Juig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xYKY4EZm;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Bli89J4B;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA098606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 08:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA098606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC770606A323;
+	Wed, 28 Oct 2026 08:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC770606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xYKY4EZm
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ccca948203aso325623a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:16:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793175401; x=1793780201; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ewTGkXdsNJwvYFPISDJjvcJQGNkUEeqtLfVaYw+sa6o=;
-        b=xYKY4EZmRwmAundVML4+5ovDNGlRr8UuPp5gwEt6SuSzuhRgbvisbWLbI3EfpUIvzK
-         P0ooy6qAAJl4sUwm36aji3IhCdRne5qjPJwbmjTjS8npMEbGNUcJmM91/V82yckO30h5
-         C7cW23+v8Mu+g8YzfGSstApN32J7mWJSWGDNEsPV0x1UqfUekeeQkTybvX6T8xevJoX4
-         ot+Wy3FXR+HuPFc6KGN/UVCmnYkTVStLTmUymDA039ohWYz6pZlG9wLHuw5FeFe5FrQR
-         3cGcZxQHoQDMWJOEGpWQl8AvFJu3q6PQwLNspeRggArAlOrfTs3gDVG1YS2gZEOwGd0S
-         ilAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793175401; x=1793780201;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ewTGkXdsNJwvYFPISDJjvcJQGNkUEeqtLfVaYw+sa6o=;
-        b=RCO41XPTKAZBcfI4P7omJA3apW6PqZhMmohaY7/2MuzTxI7lXiVYvTv8Bx6AQN72lc
-         3WwluvDc+2VLOcv81rAT6II4eTq2X+Yj3K2HCpFlNZgQafdqiWiyaqpqO7xGy1BI41to
-         xudGUVz2ey+gD8/wwR06mvnnJqXn5ibb8tP6xottk//f8J2RYpmE5lQMzNzlDAwkEZaf
-         MjLkAcnt0mUVCDGcYxeYkiLrjLyN4WWzYgZjqPlO8p4i0Vvqaan9OBNioaBJxQQb2tmA
-         eQMOR3c8hrS86wU1EZDwtiMDEkgkyTHbnITLBNb6bVzf+AIxlSrf1sanFvAWluerdEUr
-         Dqqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNbo29lsaHswC80zw+57iPOMYi5fAipbyHgnBbOOFr6nq3+6Y3Ipg1mbVevntd+T6r5TJZcdMwDmC5s1A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+sulAgEjTsmRpywK3z5LAqzxsTcUYVmwP3BiSW+T/kHOc8O6g
-	AOYReK2fGhFzNXB/6a1p2NwpG/MgXWuoUriDgx0KBjTPE6L9deBtyVQNfNKM0A==
-X-Gm-Gg: AYBFou0vO8oun/pHelVINWCG9wofezNz/MUiv3HSAODDQiVYNZ4S7JkD71Es/GEvT/U
-	S1gsiLM0ES7v5A7yhjZD698AYhMuZOY9ocmNVFu6Ls5Ud0Sne5leYbGPbaTX1G81dM6QzC+EHxK
-	PQiN7Ps+sgP9gtjpNdkCpCbmAOmvNNSvkUdt0IdJdKX1Ymvp9agrIkvbVL1BnIiyMGp8FboT75S
-	8beRtYWZhKl8zcHOVt0csYZsmgWlARwAbrDQizA6o4gmEN+qaEm5EYjxE/cAIDWuVqcORqN0q9j
-	UZkq6dosxbIRqVtwTBpdVCz8m0rgyfURHxSwWqWBxjnkisVkSvlCgx/a6k5FZiZYTYLX/077gEV
-	8NIvrqF908MrrHYy+H84uqJ+C3pjcPQZkjUYRsDoqkqAzxacXAODeVHl5Clqly7JSxcPhaPnEEr
-	7MvrDNSv+f+IqphtFLJDgANyCMgMSaS9FfDZvU+kqEMM3m+/49dOe6X976VBrkoJU7z8FHYEOK6
-	9XTcukvk5QdOg6uz101yLGMeKRvKr9j5UitzDDSG5dvCNU++HGIx+iZY0Fomt+tCn4qSTqnUbtk
-	3WUo0F6ltpM09xqlz+2PEfb8DH9p8RPhG4OF+jgXgzT0ZQqm0bQ=
-X-Received: by 2002:a17:90b:4c:b0:3ad:9ecf:2b88 with SMTP id 98e67ed59e1d1-3ae580c7a08mr1105748a91.19.1793175401041;
-        Wed, 28 Oct 2026 01:16:41 -0700 (PDT)
-Received: from twhmp6px (mxsmtp211.mxic.com.tw. [211.75.127.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a902a51sm1953639a91.3.2026.10.28.01.16.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 01:16:39 -0700 (PDT)
-Received: from hqs-appsw-a2o.mp600.macronix.com (unknown [172.17.236.67])
-	by twhmp6px (Postfix) with ESMTPS id 2368A4163B73;
-	Wed, 28 Oct 2026 16:16:37 +0800 (CST)
-From: Cheng Ming Lin <linchengming884@gmail.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Michael Walle <mwalle@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Maarten Zanders <maarten@zanders.be>,
-	Cheng Ming Lin <chengminglin@mxic.com.tw>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mtd: spi-nor: Describe locking support for MX25L51245G
-Date: Wed, 28 Oct 2026 16:15:34 +0800
-Message-Id: <20261028081534.945416-1-linchengming884@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <8ee5b312-80bc-4584-ac35-cc76c2812c5d@nabladev.com>
-References: <20261024001658.222147-1-marex@nabladev.com> <8ee5b312-80bc-4584-ac35-cc76c2812c5d@nabladev.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Bli89J4B
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 87A43B07;
+	Wed, 28 Oct 2026 09:14:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793175281;
+	bh=AWSwERrxciPJHOKVtZ7cmk7EJfcz8HKAbL/Ezzdq9oM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Bli89J4BJcwEeKK1PdPKib63+AjbsLfDQN0QfAS6lokEi9XXdMMeOHMtRU+BzYeb/
+	 9MHSprc13ofWHlEiA5eRZbTEJHNUYFr8x/lEZfNcwlxoIDEaa0jH4C+MbveDlDTt0G
+	 QhOA0LII1dBq23CGZnT4HIp0OYsn9SZxkrnOql+U=
+Message-ID: <6b275d56-0dfe-4076-9d02-8410e50aef07@ideasonboard.com>
+Date: Wed, 28 Oct 2026 08:16:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,54 +54,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] media: i2c: ov5693: Program the mode registers on
+ stream start
+To: rylos78@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
+ Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>,
+ linux-kernel@vger.kernel.org
+References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+ <20261027-ov5693-fixes-v1-1-3c8ab1ae104d@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261027-ov5693-fixes-v1-1-3c8ab1ae104d@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Marek,
+Morning Marco
 
-On 10/24/26 2:18 AM, Marek Vasut wrote:
-> Cheng Ming , can you (or someone from Macronix) please have a look at
-> this patch and confirm that it is OK ?
+On 27/10/2026 20:29, Marco Ziliani via B4 Relay wrote:
+> From: Marco Ziliani <rylos78@gmail.com>
+> 
+> The mode registers (readout window, binning and subsampling) are only
+> written from the runtime PM resume handler, and ov5693_set_fmt() merely
+> stores the requested mode. If the sensor stays powered between two
+> streams, the new mode never reaches the chip: the sensor keeps
+> streaming the previous mode while the CSI-2 receiver expects the newly
+> negotiated format.
+> 
+> This happens whenever the format is changed while the sensor is still
+> powered. On a Surface Pro 7+ (IPU6), with the sensor held powered
+> between two streams, OUTPUT_SIZE_X read back over I2C showed the sensor
+> stuck in the mode it was powered up in, and 0 of 16 streams that asked
+> for a different mode produced a frame. With this change, 32 of 32
+> streams completed and the register followed the requested mode. A
+> Surface Pro 9 (IPU6) gave the same result: without the change
+> OUTPUT_SIZE stayed at 2592x1944 in all 32 streams of 16 such switches,
+> with it the register matched the requested size in all 32. On a
+> Surface Pro 5 (IPU3), switching between 2592x1944 and a 1920x1080 crop
+> the same way, OUTPUT_SIZE_X stayed at 2592 and none of the 16 streams
+> in the new size produced a frame; with this change, 32 of 32 streams
+> gave 10 of 10 frames at the requested size.
+> 
+> Program the mode on every stream start, before the controls, so that
+> the mode registers don't clobber them. This matches what commit
+> 4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream start")
+> does for the ov8865.
 
-I checked the patch against the MX25L51245G datasheet. RDCR (0x15),
-CR bit 3 as TB, the TB bit being OTP, and the 4-BP locking scheme all
-match the datasheet, so the description is correct from our side.
+This commit message is very long, most of this detail is not necessary:
 
-One concern, in line with the sashiko-bot comment: since locking is
-an optional feature, I think failing to read CR should not fail the
-probe. Controllers with a restricted opcode set (e.g. spi-intel) will
-return -EOPNOTSUPP for 0x15, and this part probes fine on them today
-with macronix_qpp4b_fixups. Rather than special-casing -EOPNOTSUPP,
-how about just leaving locking disabled on any CR read error, e.g.:
+"ov5693_mode_configure() is only called in the driver's PM .runtime_resume() hook. If the sensor 
+remains powered between two streams with different modes, the settings for the second mode are never 
+written to hardware.
 
-	/*
-	 * Locking is optional. If CR cannot be read (e.g. the controller
-	 * does not support RDCR), leave locking disabled instead of
-	 * failing the probe.
-	 */
-	if (mx25l51245_read_cr(nor, nor->bouncebuf))
-		return 0;
+Move the call to ov5693_mode_configure() to ov5693_s_stream() to ensure it's written every time."
+> 
+> Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
+> Link: https://github.com/linux-surface/kernel/pull/181
+> Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+> ---
+>   drivers/media/i2c/ov5693.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+> index 56599f9ca..579aa55b7 100644
+> --- a/drivers/media/i2c/ov5693.c
+> +++ b/drivers/media/i2c/ov5693.c
+> @@ -1000,6 +1000,19 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
+>   			return ret;
+>   
+>   		mutex_lock(&ov5693->lock);
+> +
+> +		/*
+> +		 * The mode registers are otherwise only written on runtime PM
+> +		 * resume, so a format change on a sensor that stays powered
+> +		 * would never reach the chip. Program the mode first, then the
+> +		 * controls, so the mode registers don't clobber them.
+> +		 */
+> +		ret = ov5693_mode_configure(ov5693);
+> +		if (ret) {
+> +			mutex_unlock(&ov5693->lock);
+> +			goto err_power_down;
+> +		}
 
-Michael, a related question for you. Maarten posted a series last
-year to make the RDCR opcode configurable in the core and use 0x15
-for Macronix:
+The same function call should come out of ov5693_sensor_init() then, or it'll be written twice on a 
+stream on from an unpowered state.
 
-https://lore.kernel.org/linux-mtd/20250922155635.749975-1-maarten@zanders.be/
+Thanks
+Dan
+> +
+>   		ret = __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
+>   		if (ret) {
+>   			mutex_unlock(&ov5693->lock);
+> 
 
-It stalled because setting 0x15 for all Macronix parts is wrong (e.g.
-MX25L12805D has no RDCR), and because there was no user of RDCR at the
-time. This patch is now such a user.
-
-I have gone through the flashes currently in the Macronix ID table
-and checked which ones do not have a CR / do not support RDCR. If it
-helps, I can add this information per flash entry, so that 0x15 is
-only used for the parts that actually support it. For IDs that are
-shared by several parts, RDCR would only be enabled if all of them
-support it. That should address the concern on Maarten's series, and
-this patch could then simply use spi_nor_read_cr() instead of
-implementing its own RDCR helper in macronix.c.
-
-Would that be an acceptable direction?
-
-Thanks,
-Cheng Ming
