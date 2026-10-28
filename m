@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179841;
-	b=Evz/RBRe19GT0UiPlvuldueouRVPvlT17QxNrIa0hZgdJ4br6xkQRCQAI3rgA9HMSg4N
-	 o70u3kL+4wgIxSc5TzBNFbdjzVwCOOoW24PhEl+FJpOMexqGsDlEt7IjKoGc++sSzVuAp
-	 juAZi4cJ+cT456YtL3UXbNPKZ9N7Pgxkwn7MOrK8JnAkwFqHtmh3C1rRWj3+idP9fr+Sc
-	 IrY9T/Xo2IIbKZZQw1dTUOE+8h4FH6erjeo9tFMOg8hr0UpbMnyu3/FugthBzryS5bvHe
-	 PrGK5eQi68ZGH7oSf4qBgwTvsa6svJhs81cQ09qqIEOhZM2m87QOURYxhFzErwZVxhw==
+	t=1793179819;
+	b=RT+p/TlkGk33x1+VBl3XVikXc/8CxI9R58yZqgWpRnWUxdlICYxaFFYq/tQ1gzJ5JUBm
+	 tStE7lgw8EbzZRUUGRH8oJQ54UBLZ7VFZtG+Txx1v3d3VV2LryOrCmCMgV/4H9MBl8fhR
+	 AroTDZj6+zoG6dwEPajATS6JBEZP7vGnLEXidxVSPDtn0AT/ycR+EZm9aifMAQPnRPdh5
+	 JEN2ALUZEYrPuZHkc/2RW+JL/ls6nciABdg3JmAB6UCkWW/sv7XqDXePBeOD6D/7RVEiT
+	 v+1zEIjsnh9bfDPF9dMT3kLIgzlvJ7lFm51WQQtAbzeVwUdzjhCKB/lLH6kmWcc3cRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179841;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=BzY/9GS+8grFtALrDXv5eWekSLwpjFUB0KHUPTwIMLU=;
-	b=UQ77FJfXAwMlqzeAEhPKqFoOWgfH1oQu/PwtKN4y1uOgBlFDsD5SBDpG/UOFEUEDmjVJ
-	 T8L46Mi3s4lrrOwxFRjvTe6jlO8eJPhWX72Bm77/MToIUl0U6vk2rCM3SqpqjpTGlu4ZR
-	 DWFhLN0DfeQvQVy4dGm9otccDS8Pp56tij3z2hjEeTeTcQ+t1PQsEg/LbM1YvLQVUUHjU
-	 OlmjMauwCpm0wRwS23dvejn6EqIBAWxdDAJE40W2ooF0kILVWU054h/2YqWrxZ7vLBPhH
-	 pxxRAYNFSeLG/YWY79FSz45CK0qJNwO7xH8VzBEfv265JZvSiBHpmWqfhP0mlzVGq9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179819;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=YY/Ma1ov9fBwHQXIvfTeBHOUS3MZTCAuacbmMAoLAE0=;
+	b=4p0JxI5eR62X7qNl3IHS6k8dihxYhwXeMRhvU9y6sRZ8U58SNZL6dvPqTzEz7svGjVb1
+	 eZ2uoyhFTZv5rWJtxMd/poPg/Izj7dqfty1jCKaSWB2ErpQmv1MJjB20uXL4PotuILgDw
+	 C2zeQkaPRpuwxSkUF9jHZzVXRNnE79hFVlPuh4CIf/h2iBajFY/sPI6tpaLvcaTvFrRtc
+	 v+IIKz/y7rj7CsZtKGzNeoCl26D6vByjkWt57bcxEbjaS/6/QTJ76DWspEYEuiVGvxca8
+	 VaWQ+ufmRB1qY37M+rHbzKGKUY/CYDTHtPvLWSXwtO465a5ywez5OCiyu/yL3qgVPQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F7460A2608;
-	Wed, 28 Oct 2026 09:30:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F7460A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jF2CL5V15z4yjjX;
-	Wed, 28 Oct 2026 17:30:22 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 69S9U8U0063881;
-	Wed, 28 Oct 2026 17:30:08 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 28 Oct 2026 17:30:11 +0800 (CST)
-X-Zmail-TransId: 2afb6ae1c0a3191-f6b36
-X-Mailer: Zmail v1.0
-Message-ID: <2026102817301132485IE4Ia6aXSqUo5KZUvgW@zte.com.cn>
-Date: Wed, 28 Oct 2026 17:30:11 +0800 (CST)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ODCgesI0;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 08EBE606A31C;
+	Wed, 28 Oct 2026 09:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08EBE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ODCgesI0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=YY/Ma1ov9fBwHQXIvfTeBHOUS3MZTCAuac
+	bmMAoLAE0=; b=ODCgesI0CYRbqAUdSR2u18SeFLpGfrRnI0mkvh8ERVRMq9ZVMA
+	FW79lhL2YW31O1y60aatuQQGn3Q2CaieRRXR080aTP2pwFfuEwAc6XKosRc7XGSq
+	5LMrcVHR+1yhyhNNN3N4pwMlm3DF2IK9doA2fyT3a1Yvw7PftrbWN4xuc=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S6;
+	Wed, 28 Oct 2026 17:30:08 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 4/9] media: camss: csid: add the 980 generation
+Date: Wed, 28 Oct 2026 17:29:58 +0800
+Message-ID: <20261028093003.722745-5-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,127 +68,669 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogeGF0dHI6IGZpeCBvdXQtb2YtYm91bmRzIHdyaXRlIGluIHViaWZzX2xpc3R4YXR0cigp?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69S9U8U0063881
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 28 Oct 2026 17:30:22 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE1C0AE.001/4jF2CL5V15z4yjjX
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S6
+X-Coremail-Antispam: 1UD129KBjvAXoWfuw4xCw1fWr43uF43tryDGFg_yoW8uw47Jo
+	Z5CF45Aw1YgryxZa97Crn3JayxZr4qgayDJay8KF1DZwn5ua4Yk348JwsFqw1Yqry3GF43
+	AF95tws3JFn2vF1fn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUOh7k0a2IF6w4kM7kC6x804xWl14x267AKxVWrJVCq3wAFc2x0
+	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
+	I2jVAFwI0_JF0E3s1l82xGYIkIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2
+	F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjx
+	v20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2
+	z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0V
+	AKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04
+	v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8uwCF04k20xvY0x0EwIxGrwCFx2Iq
+	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
+	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
+	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcI
+	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4U
+	JVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5pqc5UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBVsW
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+The CSID found on SM8750 (call it generation 980) keeps the capture
+interrupt reporting of the 680 generation, but moves the register update
+completion to per-stream interrupt bits and adds separate start-of-frame
+and end-of-frame timestamp registers per RDI stream.
 
-ubifs_listxattr() derives the size of the name list from
-ui->xattr_names + ui->xattr_cnt and uses it to reject a call whose
-buffer is too small.  It then copies every visible xattr name returned
-by ubifs_tnc_next_ent() without checking @size again.
+Add camss-csid-980.c with the register maps for both the full and the
+lite variants.  The full variant splits the register update into separate
+RUP and AUP commands that need an extra trigger write, while the lite
+variant keeps the combined RUP/AUP command of the previous generations,
+so struct csid_device gains dedicated rup_update and aup_update fields
+next to the existing combined reg_update.
 
-Both counters are read from the on-flash inode node and are only
-accounting values.  A modified image can make them under-report the
-number of xattr entries while the TNC still contains more entries: the
-node CRC only protects against accidental corruption, it is recomputed
-for a crafted image.
+Only the register map, the RDI stream configuration and the buffer-done
+reporting are described here; frame start reporting is added on top of it
+by a separate change.
 
-The usual caller first invokes listxattr(path, NULL, 0), which returns
-the too small size computed from those counters, then allocates a
-buffer of that size and invokes listxattr() again.  In the second
-system call fs/xattr.c:listxattr() allocates the kernel buffer with
-kvmalloc(size) and passes it to ubifs_listxattr(), which copies the
-names past its end.  The copied bytes are the xattr names from the
-image, so part of the overflow content is attacker controlled.
-
-Bound each copy by @size and return -ERANGE when the list does not fit.
-With a corrupt image the reported size may now be too small, but the
-following call fails cleanly instead of overflowing.  Note that nlen
-itself is already bounded by ubifs_validate_entry(), which every node
-returned by ubifs_tnc_next_ent() has passed; the missing check is only
-against the caller's buffer.
-
-While here, validate the two counters individually.  Their sum is
-computed in 32 bits, so the existing check is bypassed when it wraps
-around; rejecting the oversized values at mount time keeps the O(1)
-size query in listxattr() from returning a wrapped (possibly negative)
-length.
-
-Mounting UBIFS requires CAP_SYS_ADMIN in the initial user namespace, so
-this is only reachable with a crafted image.  Compile tested with W=1
-and checkpatch --strict.  Runtime reproduction needs a modified UBI
-image: change xattr_cnt/xattr_names in an inode node and recompute its
-CRC; a KASAN kernel then reports the overflow on the second
-listxattr() call.
-
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..fe24e1949bb3 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -82,7 +82,15 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
- 		return 2;
- 	}
+ drivers/media/platform/qcom/camss/Makefile    |   1 +
+ .../platform/qcom/camss/camss-csid-980.c      | 443 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csid.h    |   3 +
+ .../qcom/camss/camss-csiphy-3ph-1-0.c         |   8 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c |  15 +-
+ drivers/media/platform/qcom/camss/camss-vfe.h |   2 +
+ 6 files changed, 464 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-csid-980.c
 
--	if (ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 27898b3cc..348da1ccc 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -8,6 +8,7 @@ qcom-camss-objs += \
+ 		camss-csid-4-7.o \
+ 		camss-csid-340.o \
+ 		camss-csid-680.o \
++		camss-csid-980.o \
+ 		camss-csid-gen2.o \
+ 		camss-csid-gen3.o \
+ 		camss-csiphy.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-980.c b/drivers/media/platform/qcom/camss/camss-csid-980.c
+new file mode 100644
+index 000000000..09139815c
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-csid-980.c
+@@ -0,0 +1,443 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * camss-csid-980.c
++ *
++ * Qualcomm MSM Camera Subsystem - CSID (CSI Decoder) Module
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include "camss.h"
++#include "camss-csid.h"
++#include "camss-csid-gen3.h"
++
++/* Reset and Command Registers */
++#define CSID_RST_CFG				0xC
++#define		RST_MODE				BIT(0)
++#define		RST_LOCATION				BIT(4)
++
++/* Reset and Command Registers */
++#define CSID_RST_CMD				0x10
++#define		SELECT_HW_RST				BIT(0)
++#define		SELECT_IRQ_RST				BIT(2)
++#define CSID_IRQ_CMD				0x14
++#define		IRQ_CMD_CLEAR				BIT(0)
++
++/* Register Update Commands, RUP/AUP */
++#define CSID_RUP_CMD				0x18
++#define CSID_AUP_CMD				0x1C
++#define		CSID_RUP_AUP_RDI(rdi)			(BIT(8) << (rdi))
++#define CSID_RUP_AUP_CMD			0x20
++#define		RUP_SET					BIT(0)
++
++#define CSID_LITE_RUP_AUP_CMD			0x18
++#define		CSID_LITE_RUP_RDI(rdi)		(BIT(4) << (rdi))
++#define		CSID_LITE_AUP_RDI(rdi)		(BIT(20) << (rdi))
++
++/* Top level interrupt registers */
++#define CSID_TOP_IRQ_STATUS			(csid_is_lite(csid) ? 0x7C : 0x84)
++#define CSID_TOP_IRQ_MASK			(csid_is_lite(csid) ? 0x80 : 0x88)
++#define CSID_TOP_IRQ_CLEAR			(csid_is_lite(csid) ? 0x84 : 0x8C)
++#define		INFO_RST_DONE				BIT(0)
++#define		BUF_DONE_IRQ_STATUS			BIT(csid_is_lite(csid) ? 13 : 3)
++
++/* Buffer done interrupt registers */
++#define CSID_BUF_DONE_IRQ_STATUS		(csid_is_lite(csid) ? 0x8C : 0xA4)
++#define		BUF_DONE_IRQ_STATUS_RDI_OFFSET		(csid_is_lite(csid) ? 1 : 16)
++#define CSID_BUF_DONE_IRQ_MASK			(csid_is_lite(csid) ? 0x90 : 0xA8)
++#define CSID_BUF_DONE_IRQ_CLEAR			(csid_is_lite(csid) ? 0x94 : 0xAC)
++
++/* CSI2 RX Configuration */
++#define CSID_CSI2_RX_CFG0			(csid_is_lite(csid) ? 0x200 : 0x400)
++#define		CSI2_RX_CFG0_NUM_ACTIVE_LANES		0
++#define		CSI2_RX_CFG0_PHY_SEL_BASE_IDX		1
++#define		CSI2_RX_CFG0_DL0_INPUT_SEL		4
++#define		CSI2_RX_CFG0_PHY_NUM_SEL		20
++#define CSID_CSI2_RX_CFG1			(csid_is_lite(csid) ? 0x204 : 0x404)
++#define		CSI2_RX_CFG1_ECC_CORRECTION_EN		BIT(0)
++#define		CSI2_RX_CFG1_VC_MODE			BIT(2)
++
++#define MSM_CSID_MAX_SRC_STREAMS_980		(csid_is_lite(csid) ? 4 : 5)
++
++#define CSID_RDI_CFG0(rdi)                                  \
++	({                                                  \
++		__typeof__(rdi) _rdi = (rdi);               \
++		csid_is_lite(csid) ? 0x500 + 0x100 * _rdi : \
++				     0xE00 + 0x200 * _rdi;  \
++	})
++#define		RDI_CFG0_RETIME_BS			BIT(5)
++#define		RDI_CFG0_TIMESTAMP_EN			BIT(6)
++#define		RDI_CFG0_TIMESTAMP_STB_SEL		BIT(8)
++#define		RDI_CFG0_DECODE_FORMAT			12
++#define		RDI_CFG0_DT				16
++#define		RDI_CFG0_VC				22
++#define		RDI_CFG0_DT_ID				27
++#define		RDI_CFG0_EN				BIT(31)
++
++/* RDI Control and Configuration */
++#define CSID_RDI_CTRL(rdi)                                  \
++	({                                                  \
++		__typeof__(rdi) _rdi = (rdi);               \
++		csid_is_lite(csid) ? 0x504 + 0x100 * _rdi : \
++				     0xE04 + 0x200 * _rdi;  \
++	})
++#define		RDI_CTRL_START_CMD			BIT(0)
++
++#define CSID_RDI_CFG1(rdi)                                  \
++	({                                                  \
++		__typeof__(rdi) _rdi = (rdi);               \
++		csid_is_lite(csid) ? 0x510 + 0x100 * _rdi : \
++				     0xE10 + 0x200 * _rdi;  \
++	})
++#define		RDI_CFG1_PACKING_FORMAT_MIPI		BIT(15)
++
++/* RDI Pixel Store Configuration */
++#define CSID_RDI_PIX_STORE_CFG0(rdi)		(0xE14 + 0x200 * (rdi))
++#define		RDI_PIX_STORE_CFG0_EN			BIT(0)
++#define		RDI_PIX_STORE_CFG0_MIN_HBI		1
++
++/* RDI IRQ Status in wrapper */
++#define CSID_CSI2_RDIN_IRQ_STATUS(rdi) \
++	((csid_is_lite(csid) ? 0xEC : 0x114) + 0x10 * (rdi))
++#define CSID_CSI2_RDIN_IRQ_MASK(rdi) \
++	((csid_is_lite(csid) ? 0xF0 : 0x118) + 0x10 * (rdi))
++#define CSID_CSI2_RDIN_IRQ_CLEAR(rdi) \
++	((csid_is_lite(csid) ? 0xF4 : 0x11C) + 0x10 * (rdi))
++#define		INFO_RUP_DONE				BIT(23)
++#define CSID_RDI_TOP_IRQ(rdi)		BIT((csid_is_lite(csid) ? 8 : 16) + (rdi))
++#define CSID_RDI_IRQ_PATTERN(rdi) \
++	((csid_is_lite(csid) ? 0x548 : 0xE50) + (csid_is_lite(csid) ? 0x100 : 0x200) * (rdi))
++#define CSID_RDI_IRQ_PERIOD(rdi)		(CSID_RDI_IRQ_PATTERN(rdi) + 4)
++#define CSID_RDI_SOF_TS(rdi) \
++	((csid_is_lite(csid) ? 0x594 : 0xEA0) + (csid_is_lite(csid) ? 0x100 : 0x200) * (rdi))
++#define CSID_RDI_EOF_TS(rdi)		(CSID_RDI_SOF_TS(rdi) + 0x10)
++
++static void __csid_full_aup_rup_trigger(struct csid_device *csid)
++{
++	/* trigger SET in combined register */
++	writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
++}
++
++static void __csid_aup_update(struct csid_device *csid, int port_id)
++{
++	if (csid_is_lite(csid)) {
++		/* CSID Lites in v980 follow the legacy way of a combined RUP
++		 * and AUP commands without an explicit SET register.
++		 */
++		csid->reg_update |= CSID_LITE_AUP_RDI(port_id);
++		writel(csid->reg_update, csid->base + CSID_LITE_RUP_AUP_CMD);
++	} else {
++		csid->aup_update |= CSID_RUP_AUP_RDI(port_id);
++		writel(csid->aup_update, csid->base + CSID_AUP_CMD);
++
++		/* CSID Fulls in v980 split AUP and RUP commands, which requires
++		 * additional SET operation to make registers modification take
++		 * effect.
++		 */
++		__csid_full_aup_rup_trigger(csid);
++	}
++}
++
++static void __csid_rup_update(struct csid_device *csid, int port_id)
++{
++	if (csid_is_lite(csid)) {
++		/* CSID Lites in v980 follow the legacy way of a combined RUP
++		 * and AUP commands without an explicit SET register.
++		 */
++		csid->reg_update |= CSID_LITE_RUP_RDI(port_id);
++		writel(csid->reg_update, csid->base + CSID_LITE_RUP_AUP_CMD);
++	} else {
++		csid->rup_update |= CSID_RUP_AUP_RDI(port_id);
++		writel(csid->rup_update, csid->base + CSID_RUP_CMD);
++
++		/* CSID Fulls in v980 split AUP and RUP commands, which requires
++		 * additional SET operation to make registers modification take
++		 * effect.
++		 */
++		__csid_full_aup_rup_trigger(csid);
++	}
++}
++
++static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
++{
++	/* Hardware clears the registers upon consuming the settings */
++	if (csid_is_lite(csid)) {
++		csid->reg_update &= ~CSID_LITE_RUP_RDI(port_id);
++		csid->reg_update &= ~CSID_LITE_AUP_RDI(port_id);
++	} else {
++		csid->aup_update &= ~CSID_RUP_AUP_RDI(port_id);
++		csid->rup_update &= ~CSID_RUP_AUP_RDI(port_id);
++	}
++}
++
++static void __csid_configure_rx(struct csid_device *csid,
++				struct csid_phy_config *phy)
++{
++	int val;
++
++	val = (phy->lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
++	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
++	val |= (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
++	       << CSI2_RX_CFG0_PHY_NUM_SEL;
++	writel(val, csid->base + CSID_CSI2_RX_CFG0);
++
++	val = CSI2_RX_CFG1_ECC_CORRECTION_EN;
++	writel(val, csid->base + CSID_CSI2_RX_CFG1);
++}
++
++static void __csid_configure_rx_vc(struct csid_device *csid, int vc)
++{
++	int val;
++
++	if (vc > 3) {
++		val = readl(csid->base + CSID_CSI2_RX_CFG1);
++		val |= CSI2_RX_CFG1_VC_MODE;
++		writel(val, csid->base + CSID_CSI2_RX_CFG1);
++	}
++}
++
++static void __csid_ctrl_rdi(struct csid_device *csid, int enable, u8 rdi)
++{
++	int val = 0;
++	u32 rdi_ctrl_offset = CSID_RDI_CTRL(rdi);
++
++	if (enable)
++		val = RDI_CTRL_START_CMD;
++
++	writel(val, csid->base + rdi_ctrl_offset);
++}
++
++static void __csid_configure_rdi_pix_store(struct csid_device *csid, u8 rdi)
++{
++	u32 val;
++
 +	/*
-+	 * Both counters are read from the on-flash inode node.  Check them
-+	 * individually first: the addition is performed in 32 bits and can
-+	 * wrap around, which would make the check below pass for absurd
-+	 * values.
++	 * Configure pixel store to allow absorption of hblanking or idle time.
++	 * This helps with horizontal crop and prevents line buffer conflicts.
++	 * Reset state is 0x8 which has MIN_HBI=4, we keep the default MIN_HBI
++	 * and just enable the pixel store functionality.
 +	 */
-+	if (ui->xattr_cnt > XATTR_LIST_MAX ||
-+	    ui->xattr_names > XATTR_LIST_MAX ||
-+	    ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
- 		return 3;
-
- 	if (ui->data_len < 0 || ui->data_len > UBIFS_MAX_INO_DATA)
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 3b0e8a270f59..8efe2c545bf4 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -421,8 +421,25 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		fname_len(&nm) = le16_to_cpu(xent->nlen);
-
- 		if (xattr_visible(xent->name)) {
--			memcpy(buffer + written, fname_name(&nm), fname_len(&nm) + 1);
--			written += fname_len(&nm) + 1;
-+			int nlen = fname_len(&nm);
++	val = (4 << RDI_PIX_STORE_CFG0_MIN_HBI) | RDI_PIX_STORE_CFG0_EN;
++	writel(val, csid->base + CSID_RDI_PIX_STORE_CFG0(rdi));
++}
 +
-+			/*
-+			 * nlen is bounded by ubifs_validate_entry(): the
-+			 * node length is nlen + UBIFS_DENT_NODE_SZ + 1 and
-+			 * is itself bounded by UBIFS_MAX_DENT_NODE_SZ, so
-+			 * the name cannot run past the node.
-+			 *
-+			 * The missing bound is the caller's buffer: the
-+			 * on-flash xattr counters are not authoritative and
-+			 * a crafted image can under-report them.
-+			 */
-+			if (written + nlen + 1 > size) {
-+				kfree(xent);
-+				err = -ERANGE;
-+				break;
++static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
++{
++	u32 val;
++
++	/* Source pads matching RDI channels on hardware.
++	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
++	 */
++	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
++	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
++								   csid->res->formats->nformats,
++								   input_format->code);
++
++	/*
++	 * DT_ID is a two bit bitfield that is concatenated with
++	 * the four least significant bits of the five bit VC
++	 * bitfield to generate an internal CID value.
++	 *
++	 * CSID_RDI_CFG0(vc)
++	 * DT_ID : 28:27
++	 * VC    : 26:22
++	 * DT    : 21:16
++	 *
++	 * CID   : VC 3:0 << 2 | DT_ID 1:0
++	 */
++	u8 dt_id = port & 0x03;
++	u32 rdi_cfg0_offset = CSID_RDI_CFG0(port);
++	u32 rdi_cfg1_offset = CSID_RDI_CFG1(port);
++	u32 rdi_ctrl_offset = CSID_RDI_CTRL(port);
++
++	val = RDI_CFG0_TIMESTAMP_EN;
++	val |= RDI_CFG0_TIMESTAMP_STB_SEL;
++	val |= RDI_CFG0_RETIME_BS;
++
++	/* note: for non-RDI path, this should be format->decode_format */
++	val |= DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
++	val |= vc << RDI_CFG0_VC;
++	val |= format->data_type << RDI_CFG0_DT;
++	val |= dt_id << RDI_CFG0_DT_ID;
++	writel(val, csid->base + rdi_cfg0_offset);
++
++	val = RDI_CFG1_PACKING_FORMAT_MIPI;
++	writel(val, csid->base + rdi_cfg1_offset);
++	writel(1, csid->base + CSID_RDI_IRQ_PATTERN(port));
++	writel(0, csid->base + CSID_RDI_IRQ_PERIOD(port));
++
++	/* Configure pixel store using dedicated register in 980 */
++	if (!csid_is_lite(csid))
++		__csid_configure_rdi_pix_store(csid, port);
++
++	val = 0;
++	writel(val, csid->base + rdi_ctrl_offset);
++
++	val = readl(csid->base + rdi_cfg0_offset);
++
++	if (enable)
++		val |= RDI_CFG0_EN;
++
++	writel(val, csid->base + rdi_cfg0_offset);
++}
++
++static void csid_configure_stream(struct csid_device *csid, u8 enable)
++{
++	u8 i, k;
++
++	__csid_configure_rx(csid, &csid->phy);
++
++	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
++		if (csid->phy.en_vc & BIT(i)) {
++			u32 mask = readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
++
++			writel(mask, csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
++			mask = readl(csid->base + CSID_TOP_IRQ_MASK);
++			mask = enable ? mask | CSID_RDI_TOP_IRQ(i) : mask & ~CSID_RDI_TOP_IRQ(i);
++			writel(mask, csid->base + CSID_TOP_IRQ_MASK);
++			writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
++			__csid_configure_rdi_stream(csid, enable, i, 0);
++			__csid_configure_rx_vc(csid, 0);
++
++			for (k = 0; enable && k < CAMSS_INIT_BUF_COUNT; k++) {
++				__csid_aup_update(csid, i);
++				__csid_rup_update(csid, i);
 +			}
-+			memcpy(buffer + written, fname_name(&nm), nlen + 1);
-+			written += nlen + 1;
- 		}
-
- 		kfree(pxent);
-@@ -432,6 +449,9 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	kfree(pxent);
- 	up_read(&host_ui->xattr_sem);
-
-+	if (err == -ERANGE)
-+		return err;
 +
- 	if (err != -ENOENT) {
- 		ubifs_err(c, "cannot find next direntry, error %d", err);
- 		return err;
++			__csid_ctrl_rdi(csid, enable, i);
++		}
++	}
++}
++
++static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
++{
++	return 0;
++}
++
++static void csid_subdev_reg_update(struct csid_device *csid, int port_id,
++				   bool clear)
++{
++	if (clear)
++		__csid_aup_rup_clear(csid, port_id);
++	else
++		__csid_aup_update(csid, port_id);
++}
++
++/**
++ * csid_isr - CSID module interrupt service routine
++ * @irq: Interrupt line
++ * @dev: CSID device
++ *
++ * Return IRQ_HANDLED on success
++ */
++static irqreturn_t csid_isr(int irq, void *dev)
++{
++	struct csid_device *csid = dev;
++	u32 val, buf_done_val;
++	u8 reset_done;
++	int i;
++
++	val = readl(csid->base + CSID_TOP_IRQ_STATUS);
++	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
++
++	reset_done = val & INFO_RST_DONE;
++
++	buf_done_val = readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
++	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
++
++	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
++		if (csid->phy.en_vc & BIT(i)) {
++			bool done = buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
++
++			val = readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
++			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
++
++			if (val & INFO_RUP_DONE)
++				csid_subdev_reg_update(csid, i, true);
++
++			if (done)
++				camss_buf_done(csid->camss, csid->id, i);
++		}
++	}
++
++	val = IRQ_CMD_CLEAR;
++	writel(val, csid->base + CSID_IRQ_CMD);
++
++	if (reset_done)
++		complete(&csid->reset_complete);
++
++	return IRQ_HANDLED;
++}
++
++/**
++ * csid_reset - Trigger reset on CSID module and wait to complete
++ * @csid: CSID device
++ *
++ * Return 0 on success or a negative error code otherwise
++ */
++static int csid_reset(struct csid_device *csid)
++{
++	unsigned long time;
++	u32 val;
++	int i;
++
++	reinit_completion(&csid->reset_complete);
++
++	val = INFO_RST_DONE | BUF_DONE_IRQ_STATUS;
++	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
++	writel(val, csid->base + CSID_TOP_IRQ_MASK);
++
++	val = 0;
++	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
++		if (csid->phy.en_vc & BIT(i)) {
++			/*
++			 * Only need to clear buf done IRQ status here,
++			 * RUP done IRQ status will be cleared once isr
++			 * strobe generated by CSID_RST_CMD
++			 */
++			val |= BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
++		}
++	}
++	writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
++	writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
++
++	/* Clear all IRQ status with CLEAR bits set */
++	val = IRQ_CMD_CLEAR;
++	writel(val, csid->base + CSID_IRQ_CMD);
++
++	val = RST_LOCATION | RST_MODE;
++	writel(val, csid->base + CSID_RST_CFG);
++
++	val = SELECT_HW_RST | SELECT_IRQ_RST;
++	writel(val, csid->base + CSID_RST_CMD);
++
++	time = wait_for_completion_timeout(&csid->reset_complete,
++					   msecs_to_jiffies(CSID_RESET_TIMEOUT_MS));
++
++	if (!time) {
++		dev_err(csid->camss->dev, "CSID reset timeout\n");
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++static void csid_subdev_init(struct csid_device *csid)
++{
++	csid->testgen.nmodes = CSID_PAYLOAD_MODE_DISABLED;
++}
++
++const struct csid_hw_ops csid_ops_980 = {
++	.configure_stream = csid_configure_stream,
++	.configure_testgen_pattern = csid_configure_testgen_pattern,
++	.hw_version = csid_hw_version,
++	.isr = csid_isr,
++	.reset = csid_reset,
++	.src_pad_code = csid_src_pad_code,
++	.subdev_init = csid_subdev_init,
++	.reg_update = csid_subdev_reg_update,
++};
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 5296b10f6..5d07cffb6 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -155,6 +155,8 @@ struct csid_device {
+ 	u32 irq;
+ 	char irq_name[30];
+ 	u32 reg_update;
++	u32 rup_update;
++	u32 aup_update;
+ 	struct camss_clock *clock;
+ 	int nclocks;
+ 	struct regulator_bulk_data *supplies;
+@@ -216,6 +218,7 @@ extern const struct csid_hw_ops csid_ops_4_1;
+ extern const struct csid_hw_ops csid_ops_4_7;
+ extern const struct csid_hw_ops csid_ops_340;
+ extern const struct csid_hw_ops csid_ops_680;
++extern const struct csid_hw_ops csid_ops_980;
+ extern const struct csid_hw_ops csid_ops_gen2;
+ extern const struct csid_hw_ops csid_ops_gen3;
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index 9cf22ff17..999f92fbe 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -826,7 +826,7 @@ csiphy_lane_regs lane_regs_sm8750[] = {
+ 	{0x0008, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0010, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
+-	{0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
++	{0x005C, 0x00, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+ 
+@@ -849,7 +849,7 @@ csiphy_lane_regs lane_regs_sm8750[] = {
+ 	{0x0408, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0410, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0494, 0xD7, 0x00, CSIPHY_SKEW_CAL},
+-	{0x045C, 0x54, 0x00, CSIPHY_SKEW_CAL},
++	{0x045C, 0x00, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0460, 0xFD, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0464, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+ 
+@@ -872,7 +872,7 @@ csiphy_lane_regs lane_regs_sm8750[] = {
+ 	{0x0808, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0810, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0894, 0xD7, 0x00, CSIPHY_SKEW_CAL},
+-	{0x085C, 0x54, 0x00, CSIPHY_SKEW_CAL},
++	{0x085C, 0x00, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0860, 0xFD, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0864, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+ 
+@@ -895,7 +895,7 @@ csiphy_lane_regs lane_regs_sm8750[] = {
+ 	{0x0C08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
+ 	{0x0C10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	{0x0C94, 0xD7, 0x00, CSIPHY_SKEW_CAL},
+-	{0x0C5C, 0x54, 0x00, CSIPHY_SKEW_CAL},
++	{0x0C5C, 0x00, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0C60, 0xFD, 0x00, CSIPHY_SKEW_CAL},
+ 	{0x0C64, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 319d19158..d1b66033a 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -20,6 +20,7 @@
+ #include <linux/spinlock.h>
+ #include <media/media-entity.h>
+ #include <media/v4l2-device.h>
++#include <media/v4l2-event.h>
+ #include <media/v4l2-subdev.h>
+ 
+ #include "camss-vfe.h"
+@@ -352,6 +353,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 	case CAMSS_845:
+ 	case CAMSS_8550:
+ 	case CAMSS_8650:
++	case CAMSS_8750:
+ 	case CAMSS_8775P:
+ 	case CAMSS_X1E80100:
+ 		switch (sink_code) {
+@@ -449,13 +451,14 @@ u32 vfe_hw_version(struct vfe_device *vfe)
+  */
+ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ {
+-	struct vfe_line *line = &vfe->line[vfe->wm_output_map[wm]];
++	struct vfe_line *line;
+ 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+ 	struct camss_buffer *ready_buf;
+ 	struct vfe_output *output;
+ 	unsigned long flags;
+ 	u32 index;
+ 	u64 ts = ktime_get_ns();
++	enum vb2_buffer_state state = VB2_BUF_STATE_DONE;
+ 
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
+@@ -464,7 +467,8 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 				    "Received wm done for unmapped index\n");
+ 		goto out_unlock;
+ 	}
+-	output = &vfe->line[vfe->wm_output_map[wm]].output;
++	line = &vfe->line[vfe->wm_output_map[wm]];
++	output = &line->output;
+ 
+ 	ready_buf = output->buf[0];
+ 	if (!ready_buf) {
+@@ -494,7 +498,7 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 
+-	vb2_buffer_done(&ready_buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++	vb2_buffer_done(&ready_buf->vb.vb2_buf, state);
+ 
+ 	return;
+ 
+@@ -552,7 +556,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 		output->gen2.active_num++;
+ 		ops->vfe_wm_update(vfe, output->wm_idx[0],
+ 				   output->buf[i]->addr[0], line);
+-		ops->reg_update(vfe, line->id);
++
++		if (!vfe->res->reg_update_after_csid_config)
++			ops->reg_update(vfe, line->id);
+ 	}
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+@@ -2012,6 +2018,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+ 	case CAMSS_845:
+ 	case CAMSS_8550:
+ 	case CAMSS_8650:
++	case CAMSS_8750:
+ 	case CAMSS_8775P:
+ 	case CAMSS_X1E80100:
+ 		ret = 16;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index ae9dad353..c402ef170 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -133,6 +133,7 @@ struct vfe_isr_ops {
+ 
+ struct vfe_subdev_resources {
+ 	bool is_lite;
++	bool reg_update_after_csid_config;
+ 	u8 line_num;
+ 	bool has_pd;
+ 	char *pd_name;
+@@ -249,6 +250,7 @@ extern const struct vfe_hw_ops vfe_ops_340;
+ extern const struct vfe_hw_ops vfe_ops_480;
+ extern const struct vfe_hw_ops vfe_ops_680;
+ extern const struct vfe_hw_ops vfe_ops_gen3;
++extern const struct vfe_hw_ops vfe_ops_gen4;
+ 
+ int vfe_get(struct vfe_device *vfe);
+ void vfe_put(struct vfe_device *vfe);
+
