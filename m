@@ -1,95 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793200065;
-	b=CYC6iKFThyYaHn4Ge7s/iVCR7YaCDtUbSPMD1eOgrtWnuqR1H2OgbtW+0LvsTBAC0t+D
-	 n/ws+rTJU/j6Wkla33N5qHmJwDnKsxcuCYI7u7YUGvO/8cM+4EtBwRZEQxUDJ6PtsLOB6
-	 EvmaqDB3CjwRlZMKWoWRzD7R7hRDJrihfLKBpiawn85iJg80kqttc1Ea6bODutXT0UbjQ
-	 P95cTkMBSVd8l342IcavreVnI4md+fLC+nZfQ0WJY8XZ49B+F4Sbkm8F1alVHH2rNAdUC
-	 BmLbKCjTp6887X+SQZcjO5lbNC445KQlrjvakOpERXhBFlXVc3+aQ0D2ahbeUYy00Sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200065;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
-	b=kUfPKD9N8JsEzteZMivvvdDzf3zXRWtYsswEIFz7tGe8i6YvGS+EvIEswmJuAv2FQuKj
-	 jDk2nAQFNVpbHif/QCl/Ut8pEI8I2u8AwCK5xQzBLaNZjyhUnxs686F0PFBOfQk2y2Y2Z
-	 zrNev8Qorr47mgg9DJYH7xURnqKpp1UVKfeBfrgA6csKmEJcdVXwTkj3CIip7+xx8WUlE
-	 BarPjhfEyU3cgtS6vN5H7vSes0zRrhVWWznU3PRti261RQ6NOQJwrYvxKGNtle+hgqI9u
-	 9+ZwAcSbBdXeyEsk2vuUvE5jqEzeXLyWRjPUtHhzcN4S69x1q032bAY7dO/8Ahf5/cg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vifpnpje;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.69
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66735606A31C;
-	Wed, 28 Oct 2026 15:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66735606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.80.4.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793200084;
+	b=ydf3gVE8VYPP5mXUCwkFQ3bC9ypBO0x/a4ECwuXlgyoE6GnG/mX99LkbwVPl8dwhB2zo
+	 x1seJ3WcU+UCbzlboEuVrwWTdcHeisLLu0TYLLMQFQwg8XeNY/NFN0uDyMXz0gVxiGG9B
+	 kUe1OGMeUA1FFk6UzrURiPuf7KUkpGwCEV0K6VXLdZY/XZQyZRbIeX1I+svh0nbkCLZT8
+	 V2klcnopbxxrujIZWpSlKCduK2Bp3RnEdEPRqjIOra9cgNBzOe/x7vh0hWLXf76eNo8l2
+	 NM6bR0GM3FzjwWPOEIX4Q212vquMmfGStZGgP4I4b9eJRCVvzYllPDhITwHla0znMZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200084;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:Date:
+	 From:To:Cc:Subject:Message-Id:In-Reply-To:References:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=44l5EMiVsY/tDoRrmll9AZ7FjK4IkjzJb1T2mR7SHCA=;
+	b=Mw1pcBxp7Yh1KTplU0y8AQZZHiNQQvyYDze2MnR3y7XKIkpypAVFR+boGMy39Od9nF0I
+	 rjDmMkPET+K/NL36Ws4HOcU3O7dkVHDxxiu3sOt277zV/yijFMkYj4jdB4n+QVlE7HGon
+	 ctsWk2brLedh2HNUxD/U98bxkxp9n6QQR/mySFiMy0CFHPu8uXWHG2yQaFdWBSINf2Nky
+	 AsNnFXVCloBXT06X1TCU09d1RZCDNLY5uPdrnA1vaW+R1gpsMtWVo7ebQBlXyqwF8+y3Z
+	 /eKsZvU8adrctZog7o+igt5vNQyWVH75+hoXuH5BbRsTQd2Z0gIjFpG/lipfLZPOOEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniroma2.it;
+	spf=pass smtp.mailfrom=uniroma2.it;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=9EDRZRtN;
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b="O/MbzMa0";
+	arc=none smtp.remote-ip=160.80.4.37
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37C84606A31E;
+	Wed, 28 Oct 2026 15:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C84606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vifpnpje
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TfVzv3BsYv+cMW3PRSkOf1Njedbwru5Zj9GiLJJFTQEf0v0SrwVNcABD7YZ0ZLWdXGhznIXU2CS4opoDPGgNMVHwSs4dIkdKvHsTWyBA/buYQCsyq6eJHlzL3+cIvQPiY2CTB9Kl2O0VzWzZ8q7HM+AAZORNMvvZN7VmDTb4jP0fLr2ihIQqb5YKelXpxQIrcn/xFld5f6/IBKqfL2V6HFunbcPHeXMj1eUu6z2BpoFfoeMojKi/iljlKtWy+3qP8Xyw+DxVTj8LaezOHgoOuT+UVkPe2b+S/iPkXEarDayI3WwDuGGiX4weYnxm2J+hR/bp4BGtUmjzkNIRKRuwjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
- b=yrI8FnnON59cLE3bP/Eivfp5oxoNBRYPKn4TyI7/DWDuhdKG2bQGYHVgmwAqhi7gO++QJZYUiDmB2tVfBeMzYKDY7nIoVGlj4aC9jFdkHP0Hk7MGM7F5nArOsvp6Xn4ywtrRB1JclplObDXViSrTrSwOKDRsnS30UcKnqjUQIWHxrKRPx9ANPprKy//FQBvMCwVLQhrx/F1/tSMWZ3B0CDCVu0U7cBMS5PAV2tVkDKX08JPU1Hp3hgbjRUiGcEZYguHNl2U/xOy/EMIhXKUPkhCK2j3F2C5hKsNGDP2ONsujVi4spTVMAG0vHuobIlfpVdWumX+Uf9FFI6U+YXCHWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RlutKAPDxqtuHhEyqqshP4lJLxMDFAdGE0VMiJ/UmB4=;
- b=VifpnpjeGjktoAsk73evyZFQ6yD5n/6E6sdHlC7rZveCM/kNLaOeziJoxtCgyLhIFuibKI2TOCaKhOTIFSySY8e1mySkKvpmKSNPOE1F4DcAx8CKKArwoXlOrY95KFJwvQ+MmqN3HPgulVNj+e+OjlFDJqTvxO3ERw+djzJdPgKr3NIWEP5oXaXenOGoETkUlmVxVcVqmX28XhRx+eAzkL9Pd0SdVRiPpW0T7m0D/O6gGOm1BxhJd5LBKVo+b/yJxgy4I4aAOy69G3BKNkXQsxbLguQAdWrBDEkA934GTAYRunebeempB2cYywfpjkLVPH/2mbHfXJ5WPWoF9o+e4A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI1PR04MB6799.eurprd04.prod.outlook.com (2603:10a6:803:130::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 15:07:41 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 15:07:40 +0000
-Date: Wed, 28 Oct 2026 10:07:30 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jingyi Li <jinli@purestorage.com>
-Cc: vkoul@kernel.org, vinicius.gomes@intel.com, dave.jiang@intel.com,
-	xueshuai@linux.alibaba.com, fenghuay@nvidia.com,
-	Frank.Li@kernel.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: idxd: fix destroy of NULL or already
- destroyed workqueue
-Message-ID: <auIPstOq38cnQsiA@SMW015318>
-References: <20261028003708.834341-1-jinli@purestorage.com>
- <20261028003708.834341-3-jinli@purestorage.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028003708.834341-3-jinli@purestorage.com>
-X-ClientProxiedBy: SJ0PR03CA0365.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass header.d=uniroma2.it header.i=@uniroma2.it header.a=ed25519-sha256 header.s=ed201904 header.b=9EDRZRtN;
+	dkim=pass (2048-bit key, unprotected) header.d=uniroma2.it header.i=@uniroma2.it header.a=rsa-sha256 header.s=rsa201904 header.b=O/MbzMa0
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 69SF7AJl016772;
+	Wed, 28 Oct 2026 16:07:16 +0100
+Received: from lubuntu-18.04 (unknown [160.80.103.126])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 8C3A8122954;
+	Wed, 28 Oct 2026 16:07:04 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1793200025; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=44l5EMiVsY/tDoRrmll9AZ7FjK4IkjzJb1T2mR7SHCA=;
+	b=9EDRZRtNWbjr9yybTkw0MUZLg3twCV3daEIHWNRj+XkqvA0vLw5JWQXyVAaPuzTRooKF8P
+	JXKbfQ30TkaLGNBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1793200025; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=44l5EMiVsY/tDoRrmll9AZ7FjK4IkjzJb1T2mR7SHCA=;
+	b=O/MbzMa0a1lNebygFgsWSkocmAmxjCD8C32WY8Oqp4+exAW8yHATcbbNk4ed5PFfMngerA
+	5G3NWUBK+uxOUDa1fGU3mvQMvSGDsJSqSjl+//SJxa/QNir605AuLKh/5QTmmvkW1BNPC4
+	PVzOQzMf/gHWHtTDQp9UrqV8kQdo+j7tpwG5vdqesoOe9RRJ87wEd2yml2wsIKAHzOG63i
+	NfTx87uKMeY5ANZ+q3Sz+Pv44uNebNO9ge/C57B3NHkdEc5L/UMulEbF9ZRJG9ROUlHjEK
+	rXvdORXAdYdtOF+ZJ4so7F40cEa21+VAw8OIbpkg+xuhvr5olrhawcWYm3/vmQ==
+Date: Wed, 28 Oct 2026 16:07:04 +0100
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>,
+        Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, David Lebrun <david.lebrun@uclouvain.be>,
+        Steffen Klassert <steffen.klassert@secunet.com>,
+        Herbert Xu
+ <herbert@gondor.apana.org.au>,
+        David Ahern <dsahern@kernel.org>,
+        Hazley
+ Samsudin <hazleycryilis@gmail.com>,
+        Stefano Salsano
+ <stefano.salsano@uniroma2.it>,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net] seg6: fix transport header for inner IPv4 with IP
+ options
+Message-Id: <20261028160704.5dd02501bad62a6dfd46139f@uniroma2.it>
+In-Reply-To: <944e6740-d91d-4251-be31-aab730a49d43@redhat.com>
+References: <20261020023336.34-1-andrea.mayer@uniroma2.it>
+	<atgWEBZ5J9LQyULx@fedora>
+	<944e6740-d91d-4251-be31-aab730a49d43@redhat.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,143 +95,178 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB6799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ec706d7-5ee1-429e-340d-08df35053588
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|261026140227099003|11063799006|4143699003|261021123027099003|261009223027099003|261022105027099003|261022075727099003|10067099003|261021121427099003|56012099006|22082099003|261026121527099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	5OmOER5IPDEyus6YG8ZrDUmunR1j6kI5CUP0IeRvF5XCTM1JSasXD0Yq3pBHOwHuqMVTntLBd8mqXlVbaWXOsfaZFab4pTiwgrXViWT45MvNZhsJYUdRKMcwSPTg+BV/BSCsF8ZG8D5+M/WZX+KHvRoOUu7F2Kv4atUrpCtUiQ8YmUnBshlULhLMaOQy9QCmQTSw29iluWgdMHVj8dR+zxPdZy7KauttVmF7lhCBg+JQGceWjrL9m8nzL/sbP3P/2rg0EqLfjjJi3wSfyPBVeIa77/HTWn4yz0k4RMyBG8sOLX2vtBhjr/WZIiO7f98QL1GCGhCvzrOyuwatFzQRMQ+ahQUpOe0/DABpGRqpEkSomsN/RNpkL3iQOUIknoaARbGBN4eOl6pQDv51pq79V5O5q/EjTIsSDgeXo1TZx9/QmgkJElX92WQBC6Emo50HYqn6HFRu3gUZ7mblgn9oAEPmMJrgYpUSwlexp9kNRwSlagpT16n4WR0DN5xz4Ja0jroGrgYp3z59RnrmKGaM8HGvKgmMHdJ0FUVCKq1F+L8qSfkSjJx5DCHhv4g8yIsFmaXrFmcSQigrvVmhDlDjp3zDFIefYGLm9zStq7u3ZcLcpzSAoQbAtaQQnuhZDm6X
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(261026140227099003)(11063799006)(4143699003)(261021123027099003)(261009223027099003)(261022105027099003)(261022075727099003)(10067099003)(261021121427099003)(56012099006)(22082099003)(261026121527099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WIvrRtKaP+plZTeo+ZbQURwFdOGIonSgpo4ju7CsSmodc9dVEw12FKye5FDc?=
- =?us-ascii?Q?Oh4wF7Rg3TaOKFeJJnMjbwrfLy9OvmkWQqORnBRIyzM5/HnOoYcHLcweB/qN?=
- =?us-ascii?Q?fOGUSXoUm6ICIATq8iqPCXKVcrEUYyFn4DkJ1FL9uX3/Abk+NJDo1t/Cj1z6?=
- =?us-ascii?Q?IGoRUx8gVQMkYxJ8n91Rs9/04BxD9RTvaxZ+gKjsTiNi6YLSzpgRqvleIMfU?=
- =?us-ascii?Q?0zzcrPcy0Y0xSLlMqXSFH3SDIawJENBpsDMz9YoW2inAdjIPzJr/7yQJwY6z?=
- =?us-ascii?Q?2SMgUPgBx3ZOBZ9wbgLvqFRoo3DFFfB835sFn45xoYRCtWE/upddyy0oB3uG?=
- =?us-ascii?Q?fHYKgJHqHtCUjy1IXdnqB9svl+PB59/ARqPMtcS8EpKZb2nwop9kH4oaCkDP?=
- =?us-ascii?Q?7YEJvigH31jbqpAvWWUnMSqQdKcaSTAN7rfSjbIY7QxBJU4CaPoHNuH0sAXH?=
- =?us-ascii?Q?IrOwyV7EW0EKbOFtInYeOVIXQnWfacM6U56lwPtXzWb8rrftNEg5QJeMPHc+?=
- =?us-ascii?Q?FMXtSH7bAoYMPGPLRMI4UXccSnOCq1+g3AybC+6Pl38Ghv2cwl5BJtepIk92?=
- =?us-ascii?Q?vHqoXzz0LbbjWaaS1RT7uoptqdKRQfe2B7kpGxsh86yFGMKC7wPqmjFHg+w1?=
- =?us-ascii?Q?dMCSmCBl8URt8OATvke8PS5pxBVBGDZQjg7jGj913xz1IrcMAGev1nC++wMT?=
- =?us-ascii?Q?04/Ryuka+pfgrhSZ9lh4SW6q5ogmu4MXnZXBr2eOKgQUrF+6D556SOQAkSPT?=
- =?us-ascii?Q?8vuvAnjF8iaVcW7asNbdBCGBvAh7LDFlsA/PlA9VK65ywCv9eYBKxdEtbch6?=
- =?us-ascii?Q?HNbKkI1PeVHGMo/4KJ9HNpqGTyk/DcjHbrkLij7md1bfdWfz14zBGWsroMjZ?=
- =?us-ascii?Q?tIuyJaN1iJ568P+fFKlRgjg1muR/TEjci9fAexAlJQ0tjsvaURCfmgwDH/XX?=
- =?us-ascii?Q?jdtbxEc+iQiLiw8OmS35XSyaQ6dAsOzlQPN5LGHlsRtAujyUfLzPPjYzEaM8?=
- =?us-ascii?Q?5IPYsQggtqkLPa8OCiJffLAWTlInbroHxnFKyU5EisOPM3+yFwu4U6bxTGA/?=
- =?us-ascii?Q?7dHLkBZZhY9ASy99EyfS0Y/fuBriIFv/NhBw3sXuONof5CE9TgyXtAJypfVW?=
- =?us-ascii?Q?fcRIlSMYbVuJt6BNqXmwOBJdTXowWB0izxybfcn4dHD3V70k9GhBjsEjYV3H?=
- =?us-ascii?Q?+QuE/e/aDmxel+dsCmWIsbcy28kosD7EcV6gz8+/qtPfW3KM8ObXNvNPOCrP?=
- =?us-ascii?Q?tHj2VJrMk9nJoibjL6qcTGFv3y1JuAlilUKncMl37iPox/P7c+XVcUIth6q7?=
- =?us-ascii?Q?JzKNZi3OnD1L14ix4d4jTNSivJUesDzQTdNSLqPT+5UeEMXHvK2Vpz0AYmhH?=
- =?us-ascii?Q?LfVf3LLJUFFU8x5UVrkJyzW3W3hokDBteWGL25otiu8wPme7LrL92lCdOA0t?=
- =?us-ascii?Q?WM3qZ6iHPKmuKx3xVsQThBcLp9LOB+qJSY6G3Eyaf291FlEpn639xdulFqtX?=
- =?us-ascii?Q?nmaA+sGET/maqdPbG/BgxK0cM5CRxXDztuWKa677gpUXe34v+FZmKl3V2t0c?=
- =?us-ascii?Q?d4TxNTo7i3Mklelsd1vWj0/fKbNSDKadQBE9SzvyTxWo7bFnzUKGMsahDLG7?=
- =?us-ascii?Q?/iKeucaZqT2n4ERPPQS3bwXU8x+zj1unLfVwAn9NBFBdHzLrF1c8ICSVDBMi?=
- =?us-ascii?Q?1J7IvQQwJfA8H5e4R8GiHCLg7iciihOdGiLSBPy+8pZ7y1XHk/XzHEQUTJrb?=
- =?us-ascii?Q?1hJB1jJXnlFKU3Dt8Xpyfj6BfNCECbRlP4ncyKfRR6gZsF5/5vuF?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec706d7-5ee1-429e-340d-08df35053588
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:07:40.1231
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ajImWbgOyoaIwi698bmWe7AxsAfxOv+R+fmWd8EV7DONjPeMI2BBl15+Oqg7PDaW151Fnf/0sEDc1hnCnx+4usmRbXsyN3A1MvovuO0bT6rFIQ0vvtEXoU5gVu+ENX5f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6799
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-On Wed, Oct 28, 2026 at 12:37:07AM +0000, Jingyi Li wrote:
-> [You don't often get email from jinli@purestorage.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> idxd_conf_device_release() unconditionally calls
-> destroy_workqueue(idxd->wq). This is wrong in two cases:
->
->  - If idxd_probe() fails before idxd_setup_internals() has created the
->    workqueue, for example when the device reports HALTED after reset,
->    idxd->wq is still NULL and the final put_device() in the probe error
->    path oopses:
->
->    BUG: kernel NULL pointer dereference, address: 00000000000000d0
->    RIP: 0010:destroy_workqueue+0xe/0x300
->    Call Trace:
->     <TASK>
->     idxd_conf_device_release+0x15/0x90 [idxd]
->     device_release+0x3c/0x90
->     kobject_put+0x7e/0x1e0
->     idxd_pci_probe_alloc+0x300/0x15e0 [idxd]
->     local_pci_probe+0x22/0x60
->     pci_device_probe+0xd4/0x260
->
->  - idxd_cleanup_internals() and the err_evl path of
->    idxd_setup_internals() destroy the workqueue but leave idxd->wq
->    pointing to it, so the release callback destroys it a second time.
->
-> Clear idxd->wq after the early destroys and skip the destroy in the
-> release callback when there is no workqueue.
->
-> We hit the NULL case in a kdump crash kernel, where the DSA device
-> fails to reset and the oops kills the crash kernel before the dump is
-> saved.
->
-> Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jingyi Li <jinli@purestorage.com>
-> ---
+On Wed, 21 Oct 2026 12:40:30 +0200
+Paolo Abeni <pabeni@redhat.com> wrote:
 
-This one better than
-https://lore.kernel.org/dmaengine/20261012-wt-idxd-fixes-v1-1-30a35a445077@intel.com/
+> On 10/21/26 03:32, Hangbin Liu wrote:
+> > On Tue, Oct 20, 2026 at 04:33:36AM +0200, Andrea Mayer wrote:
+> >> The End.DT4, End.DT46 (its IPv4 path only) and End.DX4 behaviors set the
+> >> transport header of the decapsulated IPv4 packet at a fixed 20 bytes, the
+> >> size of an IPv4 header without options. They do not validate the header
+> >> length either. With options, the transport header points at the first
+> >> option byte. The effects include:
+> >> - ping -R sends an echo request with a 60-byte IPv4 header to a local
+> >>    address through an End.DT4 or an End.DX4 SID. Since icmp_rcv()
+> >>    computes the ICMP checksum from the first option byte, the request
+> >>    fails the check and is counted in IcmpInCsumErrors.
+> >> - A UDP datagram can reach a port that an iptables rule drops. The rule
+> >>    checks the UDP header after the full IPv4 header, while the socket
+> >>    lookup reads it at the fixed 20-byte offset.
+> >> - With an inbound AH state, ah_input() reads the AH header at the fixed
+> >>    20-byte offset, but copies the IPv4 header over it with the length in
+> >>    the IHL field. A packet shorter than that length can make ah_input()
+> >>    write past the end of the data, into skb_shared_info when the skb has
+> >>    no tailroom.
+> >>
+> >> Validate the inner IPv4 header length with the new helper
+> >> seg6_validate_iphdr_len() and set the transport header at that length. A
+> >> packet that is not IPv4, whose header length field is below 5, or whose
+> >> header is truncated, is dropped with a drop reason. The fix is limited to
+> >> the header length, which the transport header relies on. Other checks done
+> >> on IPv4 input, such as the header checksum, the total length and the IP
+> >> options, are not addressed here.
+> >>
+> >> Found by code inspection while reviewing commit 44930446dde4 ("ipv6: seg6:
+> >> clear IPv4 control block on IPIP decapsulation"), as a pre-existing issue
+> >> that Sashiko also reported on v2 of that patch. Without this patch, a
+> >> bpftrace probe on ah_input() shows the reporter's reproducer packet
+> >> written into skb_shared_info. With it, that packet is dropped before
+> >> ah_input(), ping -R no longer fails the ICMP checksum, the UDP datagram
+> >> reaches its real port, and the SRv6 selftests still pass. These effects
+> >> reproduce on an unmodified kernel, without error injection.
+> >>
+> >> Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
+> >> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
+> >> Reported-by: Hazley Samsudin <hazleycryilis@gmail.com>
+> >> Closes: https://lore.kernel.org/netdev/20260809221915.2ffc1ecd0f445fcb70270e31@uniroma2.it/
+> >> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> >> ---
+> >>   net/ipv6/seg6_local.c | 56 ++++++++++++++++++++++++++++++++++++-------
+> >>   1 file changed, 48 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> >> index 53f7b2452575..c249f7751d41 100644
+> >> --- a/net/ipv6/seg6_local.c
+> >> +++ b/net/ipv6/seg6_local.c
+> >> @@ -1056,6 +1056,40 @@ static int input_action_end_dx6(struct sk_buff *skb,
+> >>   	return -EINVAL;
+> >>   }
+> >>   
+> >> +/* Validate the length of the IPv4 header at skb->data (which must point to
+> >> + * the network header) and report that length, options included.
+> >> + * Only the version, the header length and the presence of the whole header
+> >> + * are checked.
+> >> + * The length is written only when SKB_NOT_DROPPED_YET is returned.
+> >> + *
+> >> + * skb pointers may change: after this call, the caller must evaluate again
+> >> + * any pointer into the packet data.
+> >> + */
+> >> +static enum skb_drop_reason
+> >> +seg6_validate_iphdr_len(struct sk_buff *skb, int *hdrlen)
+> >> +{
+> >> +	enum skb_drop_reason reason;
+> >> +	const struct iphdr *iph;
+> >> +	int len;
+> >> +
+> >> +	reason = pskb_may_pull_reason(skb, sizeof(struct iphdr));
+> >> +	if (reason)
+> >> +		return reason;
+> >> +
+> >> +	iph = ip_hdr(skb);
+> >> +	if (iph->version != 4 || iph->ihl < 5)
+> >> +		return SKB_DROP_REASON_IP_INHDR;
+> >> +
+> >> +	len = ip_hdrlen(skb);
+> >> +
+> >> +	reason = pskb_may_pull_reason(skb, len);
+> >> +	if (reason)
+> >> +		return reason;
+> >> +
+> >> +	*hdrlen = len;
+> >> +	return SKB_NOT_DROPPED_YET;
+> >> +}
+> >> +
+> >>   static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
+> >>   				       struct sk_buff *skb)
+> >>   {
+> >> @@ -1085,14 +1119,18 @@ static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
+> >>   static int input_action_end_dx4(struct sk_buff *skb,
+> >>   				struct seg6_local_lwt *slwt)
+> >>   {
+> >> +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+> >> +	int hdrlen;
+> >> +
+> >>   	if (!decap_and_validate(skb, IPPROTO_IPIP))
+> >>   		goto drop;
+> >>   
+> >> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
+> >> +	reason = seg6_validate_iphdr_len(skb, &hdrlen);
+> >> +	if (reason)
+> >>   		goto drop;
+> >>   
+> >>   	skb->protocol = htons(ETH_P_IP);
+> >> -	skb_set_transport_header(skb, sizeof(struct iphdr));
+> >> +	skb_set_transport_header(skb, hdrlen);
+> >>   	nf_reset_ct(skb);
+> >>   
+> >>   	if (static_branch_unlikely(&nf_hooks_lwtunnel_enabled))
+> >> @@ -1102,7 +1140,7 @@ static int input_action_end_dx4(struct sk_buff *skb,
+> >>   
+> >>   	return input_action_end_dx4_finish(dev_net(skb->dev), NULL, skb);
+> >>   drop:
+> >> -	kfree_skb(skb);
+> >> +	kfree_skb_reason(skb, reason);
+> >>   	return -EINVAL;
+> >>   }
+> >>   
+> >> @@ -1234,6 +1272,7 @@ static struct net_device *end_dt_get_vrf_rcu(struct sk_buff *skb,
+> >>   static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
+> >>   				       struct seg6_local_lwt *slwt, u16 family)
+> >>   {
+> >> +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+> > 
+> > Nit: We can use SKB_DR(reason) without the long definition.
+> > 
+> >>   	struct seg6_end_dt_info *info = &slwt->dt_info;
+> >>   	struct net_device *vrf;
+> >>   	__be16 protocol;
+> >> @@ -1246,7 +1285,9 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
+> >>   	switch (family) {
+> >>   	case AF_INET:
+> >>   		protocol = htons(ETH_P_IP);
+> >> -		hdrlen = sizeof(struct iphdr);
+> >> +		reason = seg6_validate_iphdr_len(skb, &hdrlen);
+> >> +		if (unlikely(reason))
+> >> +			goto drop;
+> >>   		break;
+> >>   	case AF_INET6:
+> >>   		protocol = htons(ETH_P_IPV6);
+> >> @@ -1260,6 +1301,7 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
+> >>   
+> >>   	if (unlikely(info->family != AF_UNSPEC && info->family != family)) {
+> >>   		pr_warn_once("seg6local: SRv6 End.DT* family mismatch");
+> >> +		reason = SKB_DROP_REASON_NOT_SPECIFIED;
+> >>   		goto drop;
+> >>   	}
+> > 
+> > And maybe move this checking upper before switch(), then we don't need
+> > to reset reason.
+> I think both suggestions make sense, please send a v2.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Sure, I will send a v2 with both changes. Thanks Paolo, and thanks
+David and Hangbin for the reviews.
 
->  drivers/dma/idxd/init.c  | 2 ++
->  drivers/dma/idxd/sysfs.c | 3 ++-
->  2 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-> index 1577d22b299c..5962cacef060 100644
-> --- a/drivers/dma/idxd/init.c
-> +++ b/drivers/dma/idxd/init.c
-> @@ -389,6 +389,7 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
->         idxd_clean_engines(idxd);
->         idxd_clean_wqs(idxd);
->         destroy_workqueue(idxd->wq);
-> +       idxd->wq = NULL;
->  }
->
->  static int idxd_init_evl(struct idxd_device *idxd)
-> @@ -460,6 +461,7 @@ static int idxd_setup_internals(struct idxd_device *idxd)
->
->   err_evl:
->         destroy_workqueue(idxd->wq);
-> +       idxd->wq = NULL;
->   err_wkq_create:
->         idxd_clean_groups(idxd);
->   err_group:
-> diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-> index 6d251095c350..d5ffc641c856 100644
-> --- a/drivers/dma/idxd/sysfs.c
-> +++ b/drivers/dma/idxd/sysfs.c
-> @@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
->  {
->         struct idxd_device *idxd = confdev_to_idxd(dev);
->
-> -       destroy_workqueue(idxd->wq);
-> +       if (idxd->wq)
-> +               destroy_workqueue(idxd->wq);
->         kfree(idxd->groups);
->         bitmap_free(idxd->wq_enable_map);
->         kfree(idxd->wqs);
-> --
-> 2.43.0
->
+The Sashiko review [1] also asks about the inner IPv4 options on the
+decap paths. That point is pre-existing, is not addressed by this
+patch, and can be handled separately.
+
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020023336.34-1-andrea.mayer@uniroma2.it
+
+Ciao,
+Andrea
