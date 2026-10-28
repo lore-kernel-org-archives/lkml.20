@@ -1,57 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158103;
-	b=xtT0PB3WFU4mCt0fGqfDyEBNL1DUbrwbTstkns6uYphmsBCWASZMYys21/JidBKObZNH
-	 GffWQuSsWOUAkMyaji5L/R5wk+SFxx2iLSseCFdx0OK/auCYSPq9J5ncZPCFogyzlckME
-	 ve9KUz4ybJ9cK4N+Ku0NsYH78NhNeKu8ph/WoE8vfVIsxtRBTMCguJ9K9xWqphmwSFOoI
-	 ZaMbKA8jDClslUvf5aiDi4QcXH59mKUXW5onL1KOVk6QOx2QlQnf4+QHZYdMc/xaIYXaw
-	 NVc1Z9nQSKN1uduspCp9BOn105/js1YfOn3+5krvwz4Rjc6EavQoDAlRNm3yfIGHOVg==
+	t=1793158145;
+	b=DGqkXoNKTIHoFvaX8H7lxgz97En8oESCqv6OF1tfHVhaZDbrfhw6S7akDnC+fBmPYdrT
+	 eIJV7K/timQ2z6RRzXcrUyzJa4ioWWOtetzxBkarZ/1XWPra07TgbsMAz7cAhmIR2/goa
+	 UwZJwVjzl/aM0DmHUyO53TTlOcoY5KI7kpFVRN2NEiEzIEQy7Aj3F97yAfQv8lzeclSCb
+	 mj24w2SyQK5npCD649QtAxuF0SGLoUh2vTEStIPgAakEB5nWyrt+9tn8x4KM2dC3zB1p2
+	 HRyTQJxZK6nTgsVtBe6pH3WnGDko+Lq/Aeqd2APtMvcwAdI4F9n2O4LRK61y1XsfUYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158103;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=7YJ3VR/lK3Ypr21j50V93yJLpph7b+1DNy2JoCt6wc8=;
-	b=P7Dri8ln9sQGqmSv+mknvrPw2Nf3XApyBHWCFlmw6/66kjLADOh83QL39Kw5W6WnKrHI
-	 zecdwpbmfneUQ3VI5p9ydInhXeQQd9RWeLDywjGoaQniHDHN6jU5jUBgOGf5j5VJzwNid
-	 QM/0us+NLK06f5SMZ65+/bm5ePsGhSNgnM5M4C8SWN/9ZGK1Gtw/rNAfRlT2eZB+e19QE
-	 5ubvhRUdWLinrlSqv3epzDXFL5l26AMElXYm/IxYhgZjcLT3OMbZrtRWXEbBM/EBz+7Vi
-	 uumTz/7EUvgv2Eh8d3vkw40Enji2D+D/85C9u7ommCuO2j9sbJjPYBUDMNZcobZwfQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158145;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VrZ0m8QHDacZrqzDgxCpcv/7YLv5jV5PmL4thK5aFqw=;
+	b=bkszxjbqbwPEG8JabWB/oahelm0Grk7ENhhjMM2gDkFR5VvOPtGNdNTTUwEIMZYNfk1X
+	 lTU2XUcakSLdrNHdwwtOUhBHEKtG49vQVCuOVqR3a3cvi7TRGmTsnppnMrgtRMVeHEFuA
+	 eXzuVhZPKtgXHfDWgg2GGyMa6D3YT5n/hcON6A6UeIAA9ker/O32mpiDXlK36CmFUz39j
+	 2ql7hOkAZPOQqMDK5yP0+n3KC3NZFJoprsvZ/aFoJtNKM4UoXa0Em/JarAv5EQEPn1NfV
+	 /i606Vahum0fZphsjP5Z4WTyWLaZqWp+AWZDwDS2BUVKm8VNKXlZAhdiTwB43aL06vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bpQVS6Q6;
+	arc=none smtp.remote-ip=43.163.128.54
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA3E606A322;
-	Wed, 28 Oct 2026 03:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA3E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9af36daad27f11f19a56ed5b684f684d-20261028
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:31f716a8-b266-4c03-b4bb-6ca6c94775cb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:6,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:6
-X-CID-META: VersionHash:7db8b62,CLOUDID:8bb064e096f5666a3dae38e6f9f026cd,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|52
-	|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9af36daad27f11f19a56ed5b684f684d-20261028
-X-User: wangxuewen@kylinos.cn
-Received: from [172.30.70.102] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <wangxuewen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1539901823; Wed, 28 Oct 2026 11:28:12 +0800
-Message-ID: <4496ceae-5973-48c0-a2a9-7247f59de9c9@kylinos.cn>
-Date: Wed, 28 Oct 2026 11:27:33 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1457606A31D;
+	Wed, 28 Oct 2026 03:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1457606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bpQVS6Q6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793158135; bh=VrZ0m8QHDacZrqzDgxCpcv/7YLv5jV5PmL4thK5aFqw=;
+	h=From:To:Cc:Subject:Date;
+	b=bpQVS6Q6C35LsYYwSoO32YBBIArdyX1+qedXE8IHsVE4J8t9lIw2UeoGLXQ875CLS
+	 MPl4gSUFhR4kXTSUsBIKf7bYOX8XZ0yEuDFSjp7jXWJHXjm9S312byXzOjgF6R5n5U
+	 OWaqOqbtVfvpZ3rNUUbWkdNvRHPG09CefcaLTVyg=
+Received: from localhost.localdomain ([36.129.27.111])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 73486AB6; Wed, 28 Oct 2026 11:28:52 +0800
+X-QQ-mid: xmsmtpt1793158132tadwnjs7z
+Message-ID: <tencent_056A9EE408796550EF0B9739470910E62F08@qq.com>
+X-QQ-XMAILINFO: Nc9yw6Uiw6QHeIinfqnFVyyqj6+n9bHg4FcfJ9IIJ5OSVUKdT3XXJ6A40EmU41
+	 njhi2RVBmuKJhm8MIVsvpAVrOCicbKkwKusBAwOvqfma3jaCQVEYRuS3AT81d8kHJEUpFwd6+Jk3
+	 F8SuZ98QwIW8Z9H2gasyXHsbkRZ4spySUPgBNMiUwPUKPXXMSI2NiAL+CeTr0zemKQqmJWsLlC00
+	 yTMlVFSGR1ajXmNq4f00u2FqOrwHFWVI0C+rHvXllPu6mSGvQCfooxD2f4e45/QVryiBUkCHpgzf
+	 vO9WfFAJm4c0ykKQG5mFvryVs0SplK5D1MJfDZpb8jRyXd0tfWtW7QLAU8lG6unpSopSl5HhJHyL
+	 5pJKH4xVr+pCA51euCF4xYtMZpy88eGWQxrrBeOieXL8KmJCzq15qTU4B86g2goGS2Somg5UVQaZ
+	 6lYUdByOTZAHt5uN3hzR3lWXiX+jeHnjPtwt9Q+cHzxci4siUv2AIyOPDtgiafY0lXmCkekODqzb
+	 E+Q+7qSEY+VrQPec1ARG5Tp+p2JCFB72l5jOwVmhlY5KCChmIwriFTVvLoBc0zD9r6ylvs3gsdCZ
+	 6imHyeXCMsHmHH5RKt36HO67kXwT+umKK9OLWWXqzvCljQ2bosz3eOI4fIQWR9S24FcQWXNHg2/l
+	 YivlK2ntVGwQBqAbQbMJTs9j9/mm094CDwDmjIBvh7jZ8tG2OvLnRxXRtJZSDxHbpGoUBt6Z/2lj
+	 VUPYgyEmklLCjxiv3dT4O+kaTME5QymPBGTCIx8Rsm8jypVBu1jkbjzCmOFwC1HHGc0xywCuf6YH
+	 iEc1LUUP+hyzDqra8R75rY40K4jb8O13XJlk6djdJ87d8oM6vTHSwg5hXjovwhfRq0wVOtRBzlW6
+	 w38V6gP0pBYvBYIckCEAkOJ0T22Qewl9XulVwxJm1PZ9KFSFUem3QX0q8KC9ny4YYaU8ux4f1eyk
+	 8dWXTjF/+NruCqIs8CmpIh9PTun82p1gft9QqIDdpAhnzNZ/+/yL+uke9jqwmiHpNwdJo47cE5+H
+	 kTJHNDFbkbZQk14busQtVywE0Y3RyneMw8YXQhpA==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Lei Qiu <750592120@qq.com>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lei Qiu <750592120@qq.com>
+Subject: [PATCH] fs/libfs: add blank lines after declarations
+Date: Wed, 28 Oct 2026 11:28:49 +0800
+X-OQ-MSGID: <20261028032849.17016-1-750592120@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,48 +79,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/shmem: trace swapin results and order fallbacks
-To: Randy Dunlap <rdunlap@infradead.org>, hughd@google.com,
- baolin.wang@linux.alibaba.com, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, corbet@lwn.net, skhan@linuxfoundation.org,
- akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261027094014.2432692-1-wangxuewen@kylinos.cn>
- <20261027094014.2432692-2-wangxuewen@kylinos.cn>
- <f34f14ca-21bf-4ae4-9e7b-da7f72d1b134@infradead.org>
-From: wangxuewen <wangxuewen@kylinos.cn>
-In-Reply-To: <f34f14ca-21bf-4ae4-9e7b-da7f72d1b134@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Randy,
-Thanks for catching this. I will fix the title underline in v2.
-Xuewen
+Add a blank line between the declarations and the following statement in seven places, as reported by checkpatch.pl (WARNING: Missing a blank line after declarations).
 
-在 2026/10/28 07:55, Randy Dunlap 写道:
-> 
-> 
-> On 10/27/26 2:40 AM, Xuewen Wang wrote:
->> diff --git a/Documentation/trace/events-shmem.rst b/Documentation/trace/events-shmem.rst
->> new file mode 100644
->> index 000000000000..45da82761360
->> --- /dev/null
->> +++ b/Documentation/trace/events-shmem.rst
->> @@ -0,0 +1,73 @@
->> +.. SPDX-License-Identifier: GPL-2.0
->> +
->> +Tmpfs and shmem events
->> +=====================
-> 
-> Underline is one character too short:
-> 
-> Documentation/trace/events-shmem.rst:4: WARNING: Title underline too short.
-> 
-> Tmpfs and shmem events
-> ===================== [docutils]
-> 
-> 
-> 
+No functional changes.
+
+Signed-off-by: Lei Qiu <750592120@qq.com>
+---
+ fs/libfs.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 8e2cc627b..578cdb688 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -34,6 +34,7 @@ int simple_getattr(const struct mnt_idmap *idmap, const struct path *path,
+ 		   unsigned int query_flags)
+ {
+ 	struct inode *inode = d_inode(path->dentry);
++
+ 	generic_fillattr(&nop_mnt_idmap, request_mask, inode, stat);
+ 	stat->blocks = inode->i_mapping->nrpages << (PAGE_SHIFT - 9);
+ 	return 0;
+@@ -114,6 +115,7 @@ static struct dentry *scan_positives(struct dentry *cursor,
+ 	spin_lock(&dentry->d_lock);
+ 	while (*p) {
+ 		struct dentry *d = hlist_entry(*p, struct dentry, d_sib);
++
+ 		p = &d->d_sib.next;
+ 		// we must at least skip cursors, to avoid livelocks
+ 		if (d->d_flags & DCACHE_DENTRY_CURSOR)
+@@ -145,6 +147,7 @@ static struct dentry *scan_positives(struct dentry *cursor,
+ loff_t dcache_dir_lseek(struct file *file, loff_t offset, int whence)
+ {
+ 	struct dentry *dentry = file->f_path.dentry;
++
+ 	switch (whence) {
+ 		case 1:
+ 			offset += file->f_pos;
+@@ -599,6 +602,7 @@ static void __simple_recursive_removal(struct dentry *dentry,
+ 			      bool locked)
+ {
+ 	struct dentry *this = dget(dentry);
++
+ 	while (true) {
+ 		struct dentry *victim = NULL, *child;
+ 		struct inode *inode = this->d_inode;
+@@ -1096,6 +1100,7 @@ static DEFINE_SPINLOCK(pin_fs_lock);
+ int simple_pin_fs(struct file_system_type *type, struct vfsmount **mount, int *count)
+ {
+ 	struct vfsmount *mnt = NULL;
++
+ 	spin_lock(&pin_fs_lock);
+ 	if (unlikely(!*mount)) {
+ 		spin_unlock(&pin_fs_lock);
+@@ -1117,6 +1122,7 @@ EXPORT_SYMBOL(simple_pin_fs);
+ void simple_release_fs(struct vfsmount **mount, int *count)
+ {
+ 	struct vfsmount *mnt;
++
+ 	spin_lock(&pin_fs_lock);
+ 	mnt = *mount;
+ 	if (!--*count)
+@@ -1365,6 +1371,7 @@ ssize_t simple_attr_read(struct file *file, char __user *buf,
+ 	} else {
+ 		/* first read */
+ 		u64 val;
++
+ 		ret = attr->get(attr->data, &val);
+ 		if (ret)
+ 			goto out;
+-- 
+2.43.0
 
