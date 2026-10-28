@@ -1,70 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205588;
-	b=Thh1w/1jd+E6dzAgyHk5HD5Rf4cDja04Vw5ipaRYxGJrhf9L+1St8RV+AXN7LVOZJGcj
-	 wTvu5cP8aKJY1SpwAuRsN4l3akLjE7KetrspX7NkbhSZl6iybnlhlJ4u2Nv7J9LM39VRD
-	 htzvTVE5hGBnpiCPtUtEa3W4eu8zGWvC5f00oUV51HqZ+602qNaOgWOLD8uJxTzHj6+uS
-	 ziEuTp4FEV5D7xT6xWanvm6YCQGba6ED3Pk3q7oN68/6kxTbpInFa+FNKoXzRXqxuMXiG
-	 UtAr1WEeiWWWtrjFMxKTH4ANNuo8PyOBZCpT053wosIMzumT9F2EdhInLeKTw1dsJkQ==
+	t=1793205640;
+	b=VP5wtQoLklrdZqRWt1Hzpgys2MDSvifvYaXzVPT4eb9vAK3BHfIryVdO/Aq+INsjVr2E
+	 BFuopR1/rUbtIel+z3EnyLVMYxZrj1Y1T46nVK1JJMqkUysE/kP61CNlY83s2I8lmRvEx
+	 mBNBWO0Ut2GXlWYNQk3umQAD7P3+n68DAd+m4Xcrtmk8XxTTjkygsN3W3q3iaZQy119+5
+	 w+Bk3B1OOcTsZ8YS6z/59jT4acaJiKyueFSItiW+iEl52v8PLsafz9z460dgPgjZzwiH5
+	 1du8EsZdNZpx1mt03fs415xxLhxrxChTJrXKS3t97QgAQ9GUzRfplStT/w5qmO51ptA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205588;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=d047tn7ZyUAE4CZJF6OwqmbdpCg4ZRFaWnDJv2Xlu+8=;
-	b=YfqywLhHykKF/P7cUqAG5QJQPKQBmcXTVpWFT/jnu1uENaSYGxCrYlTbaYgasmW2C9rf
-	 mjhLgaAgC6zyA0gKoT79b9On8ch3a78y2YXJS5pD957m46bGSk8j7y6m+446K5ktGkKAy
-	 oua6O5deYqAewN6UqIb1c0hAJ9tSC0irDTY6gvwKX2UmmHwJ0k216GArfZanDmKKqV9L9
-	 QedjoZe1qR2CiAKQKPaYJCbPr0EXOFDb9mAstzAc5JSFkKmmBPSdjowDr+agzG0wdf3GT
-	 DaqcPgIVZIQsYz8bN4WTWZ0GufRyfqr6CDvKJG8xvANtpetROZLGcZe1yHPI+kqt8mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205640;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3q7TO+ZwaEbqoqmLKPrIUPjIISzIPUN3/sJr3wevERg=;
+	b=S90VIxTKkaBv601LR+m3TaMpRJ8mgm5FS2SB5f9FCVqTZKqiBSaMea8dmbWmCSVJ++tC
+	 gwCb7OTekYhhYqhKkpSca4MRjgofZFCVDHf+tfOPP6TZdNI31wpUtgXhCrxuKpp3eZeCx
+	 vHMWWkEjzm3Mi/UBIMPd0UWriAIVF7UExht0LW8iNiM0OeaDsMIzg+HqA2ogQMvsJqt6r
+	 zbASc8wheOUkq1ccXE6iHcFNVZitAtE5Ap1CmTWC0gfbn3v5RKb9j7bvutbhP+zRK/XGu
+	 tKTv8ZadNppyeATUpKz+rzpHU8v0opt6U3SpV/ktZKs0rSY/atdlxqXH9FS8SnfZZJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qCMpHgry;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clt9BGFA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF80606A5F9
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:39:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CF80606A5F9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94B8606A31F;
+	Wed, 28 Oct 2026 16:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qCMpHgry
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 88C031A137B;
-	Wed, 28 Oct 2026 16:39:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 54A7E60769;
-	Wed, 28 Oct 2026 16:39:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C4ABD103290D5;
-	Wed, 28 Oct 2026 17:39:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793205580; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=d047tn7ZyUAE4CZJF6OwqmbdpCg4ZRFaWnDJv2Xlu+8=;
-	b=qCMpHgryog1vBCpYw2HnRskue6gsLgB9uoaHyNvM0YNItQkxRCo1T8oI+12cGb5oxg6MgS
-	EKhcVHkSpJmnXgfq03mwJGrHU6ylLbZNOshuzLyT1eTX31bfoylyj6RjFTeTa91PVNX3uA
-	CFDxOIL63kdYVpkQfQtYyg/55KilXBl/VU1++SiVbKEjHIqY3qphAdZqMYGB+2bC8GGbl/
-	4MOIDH9pwJEfT7Vdg+fVsuEpQIAxgZ3O10KHXWyo4M32AwlQ2xslc/Y1AAmDKDqMFHMV4q
-	LTGC39X7sUZYIBe9gi1HS29LySxXbrl1x144YQZPz+lqRxwlrLlStqOmUUvgtQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
- <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-  Mark Brown <broonie@kernel.org>,  Richard Weinberger <richard@nod.at>,
-  Vignesh Raghavendra <vigneshr@ti.com>,  linux-spi@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org
-Subject: Re: [PATCH v2 2/5] spi: dw: Add DDR (Dual Data-Rate) support for
- enhanced SPI mode
-In-Reply-To: <20261028121100.79667-3-changhuang.liang@starfivetech.com>
-	(Changhuang Liang's message of "Wed, 28 Oct 2026 05:10:57 -0700")
-References: <20261028121100.79667-1-changhuang.liang@starfivetech.com>
-	<20261028121100.79667-3-changhuang.liang@starfivetech.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 28 Oct 2026 17:39:32 +0100
-Message-ID: <87a4nxg4or.fsf@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clt9BGFA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8D41F01828;
+	Wed, 28 Oct 2026 16:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793205639;
+	bh=3q7TO+ZwaEbqoqmLKPrIUPjIISzIPUN3/sJr3wevERg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Clt9BGFAO6FunMnG3BktqQdCWJrcPnaMDWug57IQu444FcIO+Jk+rveBxyGhwgcTq
+	 sBOr66NhkV9nYwgROWEZ0mlY6J7+pQkg7Zsne2F/vz44/MxN3CvAW2PIi5rSBpKIOS
+	 LSOJGTlaNQGXZ48QsIltE3WLaCBNWItqzRFpDVlGuy7ix7rcKILXHjG5maKOQa579O
+	 BhjCM8yRzBr283z+Yttr5p9uT46dg0TS02/dNtFYcql+WCjF1s7+hs2FOZxTWYL7o1
+	 crnMsIepwqcSwXVN/RXEosxQ20ps8dJRqSSXL6Azj7qm77DtFK3P76ygvhEVUyHjt6
+	 uUGwz6hpLFJNg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8F8CF198003A;
+	Wed, 28 Oct 2026 12:40:24 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 28 Oct 2026 12:40:34 -0400
+X-ME-Sender: <xms:eCXiaqiN7uW55pdnDLmQfMCpgqKssyEAlbg2kEo-5uT2EnxoO4ZuSw>
+    <xme:eCXialQiwOxUKOiOgRbMVzuCX901N_ygNZZlIGwGmhUSPEOO024OPL_frpYc5UvRF
+    ufzO0DZbg79qizqZNu3oZPsAJjfr-Rc3mcV7MSCwYMa2c4GY3IOmUfF>
+X-ME-Received: <xmr:eCXiakFBqwymY7_RFYo0Ad-7d64WPxU19dNbSVic6uXNgnkcXdts2JTSFpw>
+X-ME-Proxy-Cause: dmFkZTF9BSIUpdbqdcQtRDBoZ6omZu6gkWuOLh6CEtsiN9GCwL96yShYRR0sGWUfB/BAqE
+    WZ64unNfK3Oe0Pmq84aQBKzz6U4bNLPGOt0L+3it1u7lBgkGfJBxf+KgimcC8ODml/Bvs4
+    tVarhMXUh7RcWdDG/2JFwnscmJK43/IZh/RFjzDX4hQQAHQgOtEMpiD/6x6mNoabLgV1Uh
+    8N833SkC9jtVG28yAz+w/Ea9Sw7TZ1VqhdC4+mQnrllda/7izabJuHYqT4SfvoZvONJ4j5
+    MPW1Gk8oi9Trgp5oDcZSI4Pe9o74RJVHkS7lxxR8lsEZd8CIgsegB1KiHE2T7Z5xehGBqQ
+    3UynFVkTFHQUjTSucs9dm2AKKwGlYfQ+KZouD3lwtJq+CNgLVrRX8hnysY6WtAmZYn+2FA
+    UMKoGHv2nyQcjhytg8JcnhDM5D5FH8oTePRRudgezShXdD3VQZaIwdMFryvIDXfmNdG+xS
+    x3FgXxCpjM1Dnx36WNsJr9NZywtGtqeBnpNa2CcH7uZItXr/EJtDkKFaLLDYrmrMYoRZy6
+    9WMgAdXyW/auCalGZ898cnS6rzXymDqGbDfabqdqvexVbud3Xyfh83yzVJNAJb/KZJB0Dr
+    RwkvxvaWvVMVXraC6fhht0GDpCcItQ8xXgQ8CizyTFww+xm1P2qA5dskCNwg
+X-ME-Proxy: <xmx:eCXial92jNgSBQTxWlBjZMWgmR6TBvKzWaFSBoP-VAqjL0ukcNqioQ>
+    <xmx:eCXiaiF9yjc9digKd5Ya1GDuxp2814mB5aHgvCvd4OHzLNuho0A7Aw>
+    <xmx:eCXiarjoMRi8d9X-XM92nD_cnaj5ysHGPELtUq4mL-3Vs4NwrN19_g>
+    <xmx:eCXiauHvY_LuyMcaATsWdR4V2wsHPU2Pnegr0ayYJWcc1st6zamU_g>
+    <xmx:eCXiav1OXfLSRm-Vd5XTlOvlVQyXslpANnXfV-qVihMApMQBeiD5C2MX>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 12:40:22 -0400 (EDT)
+Date: Wed, 28 Oct 2026 16:40:21 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
+Message-ID: <auIlVgNRuGsBrRso@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,37 +112,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 
-On 28/10/2026 at 05:10:57 -07, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
+On Tue, Oct 27, 2026 at 12:17:24AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
+> read(), write() and lseek() on a shared open file description of a regular
+> file serialize on ->f_pos_lock.  The flag that asks for it,
+> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
+> too, but its struct file comes from alloc_file_pseudo() and never passes
+> through do_dentry_open(), so it does not get the flag:
+> 
+>   CPU0                                CPU1
+>   write(memfd, "a", 1)                write(memfd, "b", 1)
+>     pos = file->f_pos  (= 0)
+>                                         pos = file->f_pos  (= 0)
+>     vfs_write(..., &pos)
+>                                         vfs_write(..., &pos)
+>     file->f_pos = pos  (= 1)
+>                                         file->f_pos = pos  (= 1)
+> 
+> One of the two bytes is overwritten.  Two threads writing 100000 bytes
+> each, one at a time, to a memfd end up with a file that is far shorter than
+> 200000 bytes, while the same program on a tmpfs file never loses a byte.
+> 
+> Set the flag when the memfd is created.  As for any other regular file the
+> lock is only taken if the file is reachable in more than one way, and
+> nothing a memfd does in read or write waits for another operation on the
+> same file.  This cannot be done for all alloc_file_pseudo() files: anon
+> inode files such as eventfd are S_IFREG as well, and a blocked read holding
+> ->f_pos_lock would lock out the write that is supposed to wake it.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: minor description tweaks ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> Add support for 1S-xD-xD DDR transfers in the enhanced SPI mode of the
-> DW SPI controller, on controllers that have DW_SPI_CAP_DDR.
->
-> SPI_CTRLR0.SPI_DDR_EN switches the address, dummy and data phases to
-> DDR all together, and it only applies to the Dual/Quad/Octal frame
-> formats. So in supports_op() only accept DTR operations where the
-> command is sent in STR on one line, the data phase uses two lines or
-> more, and the address and dummy phases are DTR on the data lines.
-> DDR instruction phase (8D-8D-8D) is not supported for now.
->
-> For DDR transfers the dummy phase takes two bits per clock on each
-> line, so the wait cycles must be halved. Factor the wait cycle
-> calculation into dw_spi_enh_wait_cycles(), so that supports_op() and
-> exec_op() use the same value, and refuse dummy phases that are not a
-> whole number of clock cycles.
->
-> When DDR is enabled, program the DDR_DRIVE_EDGE register. The
-> recommended TDE value is SCKDV / 4, clamped to SCKDV / 2 - 1 and to
-> the field width. The register is only written when the controller
-> supports DDR.
->
-> Finally, advertise DTR to the spi-mem layer through a dedicated
-> dw_spi_ddr_mem_caps when the controller has DW_SPI_CAP_DDR.
->
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Looks correct to me.
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
