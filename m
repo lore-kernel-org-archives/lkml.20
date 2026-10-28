@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180263;
-	b=YKZmQZZ4vrYji/lqVAxfbe/N2N99nypGbddj9Hj1nSklN43b1thia2LBct5sJgXfrsGI
-	 sNz2/xGxDpDc070Xqy9e1GLXaAVPjt6+txK7X9ATDezUd8shhRGBWr9lbD06YcheTjO0t
-	 TL/ZW+s1dxNjiN7zuiGHJAaSD0wYggUM6rU91ekP1SxLlnjgG1cE48DtNL4YsBeTbn+vQ
-	 ylDsnWE3o4Avl7mkLoULu7lle0oOlZsvEHXuwguKJwhwi45m1o2tnkGy/dfuxEqaPUFol
-	 za50ZL7vT06XTKqlypISEzwV8nHxlMG0aHEqodZ8ugTCBfJZDFhBX/MNr6hNi3vJB1w==
+	t=1793180293;
+	b=UQ6z10LQuiEuLliQYsGr2nLtZNUWGYelE+IugclAPpwvn5x5lFtQzn3Dva7j/C0gPoIc
+	 Aq4yHmT6bWxj/y8bBqD0GuylGPZSb+ffonC+CSjgpHZIJGWnruY0naLqmGJwOKKa1IZWw
+	 iIZpTS73VaXkjwXmIr+Puh5Z00k5AS88J8gHFkeIbPgUG9WlR+TWIhUMtvYrBPcWHQ4xX
+	 dYG32+/8JtKMF/P36dzAZtbYMLJatHtkDy2VqJzscjklFDNMhSreAwL9K1COgkc9TgSYL
+	 2dJHFemlc/KX4b9n8RrCSODrOElI/7CtiagPMKZULDfwx7EP5v1j2LCgU1+0/xqtGxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180263;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=PfFt5b3z6T/Dye1GZfdd20rqwauprOu5i4Wb9YAWnjE=;
-	b=X2L/hZvEOmQMYRSnhvbxaPxgksZyC218oUx7RHP8ZsEBxFIDpoxRnie2Gli0SUHDji+1
-	 OWWEbtkU+yOOjtpPh5R+GMobZvcHhBa0L0dWgGUHw0FAX0hN++Z1IMTtcX2Ps2Si9B/Pt
-	 E92EL42nL3DF4DouH/KWCoJwemOdcjb9PlwX22bo8o2HEOMyx0UAjD2tv8xg1NLgVni3p
-	 EV7qgOy1EjSv+/8EcIbidjizZ15AuSYYPQhSintqn7pAojaVnaPEtNgPeMeMWPCXwir1M
-	 nFfo2WuDEpjKvzOpJje8vzB0PeZ8yB6wpIE92GNLgPAyEjBAyActM2BVVvXpUZlNF/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180293;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=/337IpE5KTxyqcxql/1j4KDMdfOcExSPgOP5KC4FMmQ=;
+	b=V3oIrddvK+p+V2KbXwliV6RYr7qjXFF3KBDnKaBnzJQkbMCk1ztQWKN5jaDH39D6hb3e
+	 sXmcU49tCVcIr1Udxo63n9keMYGotH1S0jRtI2dy+oZcc20t3FDRvwWTIKhUv7l0GjUqI
+	 NAEMiH1YpHG0NSkyCSSI1MQI8EgKdO0ACMLjS6PssqLyr3oJeZaJocwDJhVDGiLxdNPWC
+	 Uh7eMDOATAXFLJ2GK7RxDoNXRVAX/jfYIdPtZ+/Y2aJvAqf+mabsCL710Ve+m17LXsy42
+	 aXcQ2rk1diCn7/aSulCVNSceo/r+g49b2iPbD9Yu1yWjjvGwyFETIi4QgvmgFVyfcMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PEwjczoW;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KMg/f8po";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5EB606A31C;
-	Wed, 28 Oct 2026 09:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD5EB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C63E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PEwjczoW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793180263; x=1824716263;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NIfnoQkZ4V2uVEMm5sBMRELn7o3bsPgvE78ZyMH/yWg=;
-  b=PEwjczoWGVvFFou/B8QoDkQOeR0gLrqeJqyiu8YV79BcutacU01HY38Q
-   +417BPHjTz209dbCMNqZNQpawBpkOHikEWheJmMPGJcjP0ASZXk36zNZW
-   5NOIopKPjtTWNMdN4OBe0D7+j8AT9FpKFMb1tRdc7tN0kyrgm001FyVsL
-   c5QBxW1Jqop7h62Xeq1FHeXUFFChsMwd5P4+CaXI7l5IqYuneR6CJbrHP
-   qPe+LKaBIq1GFYoe0ImA9kK2dJIKlVeVe++h8EcWwoFZCj+jOYa9fWGJT
-   8G+y3EmqITVD18a2ecc3PsFg7vEt/4+XYiigwIzHnALyTMLmy/hslZM0A
-   w==;
-X-CSE-ConnectionGUID: krLZLEhyQLa5ZWQrFJz1Ug==
-X-CSE-MsgGUID: qLi+ewB4Rc25wDM0hwOxnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1918967"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1918967"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:37:43 -0700
-X-CSE-ConnectionGUID: sJn63pxHQrGnAsgSV+mzNQ==
-X-CSE-MsgGUID: VpaTTqh/QwSf/O0Focra7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="5142869"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:37:39 -0700
-Date: Wed, 28 Oct 2026 11:37:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v4 2/5] serial: 8250: share the RX trigger conversion
- helper
-Message-ID: <auHCYdZEqSh4RX7B@ashevche-desk.local>
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
- <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMg/f8po
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3BC1F031E5
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793180293;
+	bh=/337IpE5KTxyqcxql/1j4KDMdfOcExSPgOP5KC4FMmQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=KMg/f8poVuF+OYYPg2we+k9iKYhNdzzwEXevZXPuMFYAaiLTlZFRzurPDpsiRIA6r
+	 qLN1YK2LwoyVaOu7Cdy3S9Htjl0OIBaayZEpGzl8lI4++ZLgj534gb/BgWiIY6iVXG
+	 FWGk00+epgjbssmL3PjakXWdSicxCzL+H/TvG+M+6uKZX+AXfuuvdY/9UUxMosk8SQ
+	 /fiBgKRohC+iL4XCrhjFTGJ+WoVq5m8oCDJrRcGg68uNTQwsIxovttjBgkYu60BdWo
+	 gM+kcfRCO6oKdEmiS8CTEZcPamFqUl041qLLO2EgPF0ajyw3VjptY3FUJHg252a49a
+	 jAENpJ3EsZzTg==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a595487d43so5596121fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:38:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz8Pj/8VsMpsG0EhFeBl25dylK+UHxB+j7WLv/XjhimcvYDA6+Z28/fFV4xJfHAhDmWjO/DODCes5RasFw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ3tBb2rfRjmUo1tDx7aWPS64UyAXk018OBoqltO5kMpVOLWP4
+	9cTnNSBW9v2mNrInmOacIP+7kMfC+172HDNgAFqg1UN5XULeUISDXZXHwjX31kHOrNmRpfjLNRj
+	eMRqXnb85f+qhbsaa3mfEweynBYTkgPNcMjg2gKUplQ==
+X-Received: by 2002:a05:651c:3605:b0:3a8:bd3d:549a with SMTP id
+ 38308e7fff4ca-3ac9cf08a40mr4333801fa.7.1793180291927; Wed, 28 Oct 2026
+ 02:38:11 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 02:38:10 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 02:38:10 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261024-samsung-kp-v4-2-e21253295e68@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,25 +65,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com> <20261024-samsung-kp-v4-2-e21253295e68@gmail.com>
+Date: Wed, 28 Oct 2026 02:38:10 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdtxtssfPrwXVGxLe1tyyfUxdOKcNmczn=gzESRNE5+oQ@mail.gmail.com>
+X-Gm-Features: AclHuK8XdDJnZKMQhT5pgCqqGCu9vzYOmcLsT73Wl1aen1LlgEEs17VBcSWb8bE
+Message-ID: <CAMRc=MdtxtssfPrwXVGxLe1tyyfUxdOKcNmczn=gzESRNE5+oQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] ARM: s3c: crag6410: convert PMIC DVS GPIO to
+ software properties
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>, Arnd Bergmann <arnd@arndb.de>, mfd@lists.linux.dev, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 05:05:30PM -0600, James Hilliard wrote:
-> Extract the receive-trigger threshold search into serial8250_bytes_to_fcr()
-> so drivers with per-port threshold tables can use the same conversion as
-> the generic 8250 implementation.
-> 
-> Include the unsupported-table check in the helper and preserve the existing
-> nearest-lower selection and highest-encoding fallback.
+On Sun, 25 Oct 2026 06:03:13 +0100, Dmitry Torokhov
+<dmitry.torokhov@gmail.com> said:
+> Convert the PMIC DVS GPIO configuration from a legacy lookup table to
+> software properties. We use the new 'dcdc_swnodes' field in 'struct
+> wm831x_pdata' to pass the software node to the regulator driver.
+> We keep the DVS configuration parameters (control source, startup
+> state) in the platform data.
+>
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
