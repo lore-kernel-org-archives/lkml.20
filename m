@@ -1,65 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163749;
-	b=YgzcE2IUzIwE+zdO+BHsTEd0RhXpsNQtiZF0f+4Hh9PJkaWvHHyqrZhtv7jSBeKPZEQF
-	 qah1A71fT2Yfj1MMwsiSfqxL6L58G50ob8eIQJ+J7YnFoae47QQwhl8eYbFjionUlChhB
-	 17cujiYCI5XA14J7fzSFQDAvHvYlasOhrXz2Da7ur4O6oPtANSts5chRb083K0jdCNJX9
-	 +8QDUTkvM0REEcMzb5lIc1GF/8y9nW1lm9BvCf1SCdgSuHfWSyRi9H9zFr05/TAoB/FMv
-	 SpCUL1WXK3QSlNXm1pxvy1YznoNNc8a58w2tz1cS511RjbB6FLp+skyymrMIFpwbHsQ==
+	t=1793163783;
+	b=S6S5bIqFkqke7j243w48kdZlsu6bsdE4Luv72GwKEQd72RnTFUDebqyVOiYUZFLM6z1q
+	 4pqr5fZ3hyq5LPJg0OpWoLiF0nhIWRoN65FtMHfoZBJOxvo/mm6p2SFYOoT0cLxOC91aV
+	 mGtz3r8gIHLu/WWH3bytJlYIuHG6Vd1j+PQRF3x1Zjm95BtSZGBDYlV2qY2lSOtV0fyok
+	 vizHaB3mcUvWDF8uTzZefinmaEn2/jESxBHYQBPGxYvGea8C6rjEh47MgQMiTvxS4yNUl
+	 ouwNo8o+MPdu4TUemXglOR5Wft7uVWF+ohdm9sUPSt85OzKGcv3MgYBWChjw1JnFkZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163783;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=2OoM9aqdEMWmFV24OBqNFCnNw9L/ZSPQ/qm/z6qoipM=;
-	b=K6weBUgms4AcD7ZJ1JD4D0maoV/KCtSo/yVeBo9KTpUcCgnaaIyJ+BZXjiwKad8R6D1E
-	 rnKefyKsZQZU8Cweu2eu0144hFMJBnc0aSan8zR/oAYWL6TUPbFpfQlZaVkYBJx+iNrUA
-	 8zpXUVERwOIXv6QZvjxnq4e2QJnpVw0z+cqwrRFXJI1kiWY0uUCSRT1sHjJF8Z/CI4c2P
-	 sK+nCI9Fg2wECIZazH0wtko/rmvf4PrnGixQZL6zSiz1thvX8EqWE6f9Ae9tl91g0/Lcq
-	 PbINaesLD+rnlcXzHAUlSXT2+VuKqzOvxavU/PFy1HMBasNTOWGMSvwIUGDz7e+3JhQ==
+	bh=IzFdRn+VOrybJgWWFDYuFapdxaKrHzcUaO5PvHVqwZk=;
+	b=3Nc78jx/ypbb3zCDDO21Ff4sywpijY5DKD4CAxmQqGEqHtHE8w01Ay9BBNosQeWdp6BE
+	 gLim1pf/FmEoHNRY5pOahO62nX8/PTd59SRwNyAiKS1Ayqxj3DEJ10lWFnmajO9HDJgcv
+	 Aj6fGsMYznUgG+M7UOAleZrIKBTlxZqlSaOM4xMrmW/d9QnS4GG8QNIDJgqx4+ILinDKA
+	 kAQuqxzL9y7UkBHSA6y/Hg/9ATQD4B26Fy301PJK7dYyiq0qwCPCHCKxGhunKA0uICnts
+	 zgf9Q95lG3jE6mzssuE71M3ZB6Sk/Y0DBX1e8Vig9J8y4gnKuiaJ79dmTGI1YWqeZ1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N8TIAltF;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dKdpHICL;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFF8606A327;
-	Wed, 28 Oct 2026 05:02:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AFF8606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB677606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB677606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N8TIAltF
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dKdpHICL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2O
-	oM9aqdEMWmFV24OBqNFCnNw9L/ZSPQ/qm/z6qoipM=; b=N8TIAltFsTqJoP2abj
-	xeHlFG4XEHZ9TDV4Erbx0qdUYy0k+v79kgJSytxE3At1kFbauel/rOlh9tNpREu9
-	RIr7mU5JhCv34XRxiNz1WUWwxTxbGsWBMYwHB80hzqHh0xkGSovCbE0pT3RasCuN
-	XABx3Uu4jelnXzY9bF3MwRLHM=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Iz
+	FdRn+VOrybJgWWFDYuFapdxaKrHzcUaO5PvHVqwZk=; b=dKdpHICLW5v4MJxocm
+	ZRQy2kT3QnLqf923RYGRzbTStMOP2aOfEeKg61ucQ/pK6M6jx3wcyQDLh6+5mPTB
+	hD86Ji/mjlaHGGO+wRtbGnjcdY+zRtVX6YytcvtLiquBs0XrUMbfV/BQzkv0yleY
+	zbb42XM/ip5GwtHHV/E8IYeeE=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3v2KngeFq+hfDCw--.20542S2;
-	Wed, 28 Oct 2026 13:01:28 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDX35fTgeFqLgVkDg--.10775S2;
+	Wed, 28 Oct 2026 13:02:12 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Anup Patel <anup@brainfault.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sunil V L <sunilvl@ventanamicro.com>,
-	Andrew Jones <andrew.jones@linux.dev>,
-	linux-riscv@lists.infradead.org,
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 12/12] irqchip/riscv-intc: validate MADT RINTC entries
-Date: Wed, 28 Oct 2026 13:01:27 +0800
-Message-Id: <20261028050127.122684-1-yaojiale02@163.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH] ocfs2: validate the xattr tree root of an indexed xattr block
+Date: Wed, 28 Oct 2026 13:02:10 +0800
+Message-Id: <20261028050210.123904-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,47 +64,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v2KngeFq+hfDCw--.20542S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uryfuF45KrW8Xr4rJr4xJFb_yoW8Gr1kpa
-	y8trW2vr4Yya1Svr17Kw1rJFy3Aw1DCF9FqFWUCay3Xr4FgrWDXFy2yw1FvFn7Gay2ga12
-	9r4FgFyru3W8AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uv-erUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wid12rhgajPTgAA3O
+X-CM-TRANSID:_____wDX35fTgeFqLgVkDg--.10775S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFW8GrWDCF1DCFy8ZFW7XFb_yoW5uw4xpF
+	nrCw1rtr4UGr1xur9xA34UWw1F9ws8GFnrJryxJr9xZFW7J3WIvr9Iv3WY9Fn09rZ3JrnI
+	qF45Kr1UCa43ua7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwdb8UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BSo4mrhgdReNwAA3Z
 
-The ACPI initialization callback copies fields from a typed RINTC record
-without checking that the complete record is present. Reject truncated
-entries before allocating or reading per-controller data.
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Fixes: 7023b9d83f03 ("irqchip/riscv-intc: Add ACPI support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+ocfs2_validate_xattr_block() checks an xattr block's signature, blkno,
+generation and suballocator fields, and for a non-indexed block the entry
+array it carries.  An indexed block is passed straight through, so the
+extent list in its xattr tree root is never looked at.
+
+Both fields that describe the list are bounded.  The two places that
+create a root set l_count from ocfs2_xattr_recs_per_xb() and nothing
+rewrites it, and the insert path asserts in ocfs2_rotate_leaf() that
+l_next_free_rec stays within l_count.  Check both when the block is
+first read, so a root that disagrees with the block size, or claims more
+records than it has room for, is caught before anything indexes into
+l_recs[].
+
+An empty root is deliberately not rejected.  Emptying the tree leaves it
+that way: ocfs2_rm_xattr_cluster() removes one extent per transaction,
+and the last one ends in ocfs2_truncate_rec(), whose closing
+ocfs2_rotate_tree_left() reaches ocfs2_remove_empty_extent() on the
+depth-zero root and takes l_next_free_rec to zero.  That transaction
+commits before ocfs2_xattr_free_block() frees the block, and before
+ocfs2_xattr_remove() clears i_xattr_loc, in two later transactions, so a
+crash in between leaves an orphan inode pointing at an xattr block whose
+root has no extents.  Both readers already cope with it:
+__ocfs2_xattr_index_block_find() answers -ENODATA, and
+ocfs2_iterate_xattr_index_block() returns without iterating.
+
+Link: https://lore.kernel.org/20261014105856.2909777-1-joseph.qi@linux.alibaba.com
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
 ---
- drivers/irqchip/irq-riscv-intc.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/ocfs2/xattr.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/irqchip/irq-riscv-intc.c b/drivers/irqchip/irq-riscv-intc.c
-index 0595144116e2..6884fa413df0 100644
---- a/drivers/irqchip/irq-riscv-intc.c
-+++ b/drivers/irqchip/irq-riscv-intc.c
-@@ -344,6 +344,10 @@ static int __init riscv_intc_acpi_init(union acpi_subtable_headers *header,
- 	int count;
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 52e46d1b8763..8b7a382dc2ff 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -491,6 +491,7 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+ 				      struct buffer_head *bh)
+ {
  	int rc;
++	struct ocfs2_extent_list *el;
+ 	struct ocfs2_xattr_block *xb =
+ 		(struct ocfs2_xattr_block *)bh->b_data;
  
-+	rintc = (struct acpi_madt_rintc *)header;
-+	if (BAD_MADT_ENTRY(rintc, end))
-+		return -EINVAL;
-+
- 	if (!rintc_acpi_data) {
- 		count = acpi_table_parse_madt(ACPI_MADT_TYPE_RINTC, riscv_intc_acpi_match, 0);
- 		if (count <= 0)
-@@ -354,7 +358,6 @@ static int __init riscv_intc_acpi_init(union acpi_subtable_headers *header,
- 			return -ENOMEM;
+@@ -573,6 +574,30 @@ static int ocfs2_validate_xattr_block(struct super_block *sb,
+ 							 region_offset);
  	}
  
--	rintc = (struct acpi_madt_rintc *)header;
- 	rintc_acpi_data[nr_rintc] = kzalloc_obj(*rintc_acpi_data[0]);
- 	if (!rintc_acpi_data[nr_rintc])
- 		return -ENOMEM;
++	/*
++	 * An indexed xattr block carries the root of the xattr tree.  Its
++	 * record count is fixed by the block size and l_next_free_rec never
++	 * exceeds it.  A zero l_next_free_rec is valid: emptying the tree on
++	 * the inode deletion path leaves the root with no extents.
++	 */
++	el = &xb->xb_attrs.xb_root.xt_list;
++
++	if (le16_to_cpu(el->l_count) != ocfs2_xattr_recs_per_xb(sb)) {
++		return ocfs2_error(sb,
++				   "Xattr tree root #%llu has invalid l_count %u (expected %u)\n",
++				   (unsigned long long)bh->b_blocknr,
++				   le16_to_cpu(el->l_count),
++				   ocfs2_xattr_recs_per_xb(sb));
++	}
++
++	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
++		return ocfs2_error(sb,
++				   "Xattr tree root #%llu has l_next_free_rec %u past the end of its list (l_count %u)\n",
++				   (unsigned long long)bh->b_blocknr,
++				   le16_to_cpu(el->l_next_free_rec),
++				   le16_to_cpu(el->l_count));
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
