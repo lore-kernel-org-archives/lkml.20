@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217909;
-	b=F2lM43tk1lbJ+7en6x/QzT//5h2w1F1YbFt0fgYBUYxHqPzPmB1I8AQ+phW1NnmCuTZ+
-	 /2T5WCkntPZNvaMMn0Kku91UxvFDhVLXHwvIIePdVxjAsYHCUa/0ghVVEsB/PpAsugO0c
-	 wG3Z4E6f5aiAyh/hIzSMI+N9l+8+meIBUo0J5JFbDoCIq9ObI1Q/446/iV+I64plmZ+8S
-	 aN4h8nRihyOTmLY/Hr1WbnvNfBe2hhj4A7FiiidwJHpkSH/C7VMDpo/xNlATEBf/rOp9H
-	 wGbeGT+uSzp8FAiG1aIZxddu35RKwrKvTljsYAxpBBI/2UIWN6SfctWGYVg6AUvejbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217909;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=o49wDZezadbzzhjMZXVo1RNTg8xkSKbSUV93QZ7B39c=;
-	b=aM0qXwvTYBZhnsFz7UHhbYQ4iYPTu4BEIHm6wAwMqTAQ3EC0SePyK0biy4oYssB5am3Y
-	 xD+7wwnMEC17UIg5yGdkG5oTgoxLDBf/mf4TNYpxWuE7pieHkoE6S/Rj84Na8qV+/qo50
-	 C+DWH716dSe0UWjohmymokWVGXP5s0VcAjlZV+Nex0iNyINdTwBBILXk3t9yZ+MocUjYS
-	 oJ0GcxDOlMDJWG1wzN29NC78CqkCL140yPnI6Bux7wRPvJWRPYbA0AEia1LRIiqteXy8h
-	 wEnwJY6QkIPA7Mzmur1HMw9RVdtcy4pF5mGAExeJ8yx0bu0NAVOrgGFU4xkcB2kl+uw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdwFqAwu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793217966;
+	b=1R6mBL7eDfLzX+pqpuejnPFHFwNtB9Ck0yn1GEF3JaJMPvbpkrBep5JKaH67vokVV3nL
+	 Qk1nZZ53Yx1Fhr0LPQUFDgEVt9X+4TU7aZr8LNKAf6GbZX0HtfstclwD3ZtTOdYgnv/SY
+	 71u3vrILM6abvxSiQyGylp/ITIQ5UV88jYJCh2r7Y+ldTyfPcsWEGsZZmGeZ0F72XkoUp
+	 ZCetNfI04nyBzyect4dXmIe/xaH6efSErG9uM6RGePDvoMZ1Gj0hLkTVFZhEDyi3VCJxu
+	 /DV0jqvnH/UrWWxvTyY3IcrVfDY6K3rqGcBbtqWbcEVr0nSqcsCZcEyQmg7oeapWobw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217966;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=E7ixOB69ERI62LQAi2qp7f/jJpNcrGT6jByhhOIKXrg=;
+	b=EF4sOXwtQgmzZFTNZr+Elbna9cCNfD8aWSrLJDze85RO5Ae5+j5QcBFc47tqfOOBT1s5
+	 2WEQp9KAeci1peAzeZ78S8/Pby5P8UIXYqJxm7YdDhn1k+Cxosg6FRcV2Ady4TWI2CPEM
+	 XEyx3j6XbyQjYKJejBHNiOApZ3UjpQZxQodUtq+/Swr2EgXp57sBvSp+TU+XWVhvEHIlr
+	 mb/FzpIDy/eGKWSlRLNTU8DBKqREcxG+NBdxJoPiXySXM/t/8EHoO25tplCvkA3OtlFAS
+	 bEtMYq/7PJze29cvHyH0qa5w5c+IgE011kMGccDdwNfKhZHYJRRJvKMIHhaHHbdLBDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dXlutysd;
+	arc=fail smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF68606A32C;
-	Wed, 28 Oct 2026 20:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371B5606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 371B5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdwFqAwu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE27D1F01828;
-	Wed, 28 Oct 2026 20:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793217908;
-	bh=o49wDZezadbzzhjMZXVo1RNTg8xkSKbSUV93QZ7B39c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=IdwFqAwutRj3c1H1zBUuYH5f2PLuZAa4ubgYBNMRF+S8wFRIeffvXolezNulLDtjf
-	 pzlBElszJZLBSSsRp/cgyXFf9qw47M66RpV1bz4KiGp2u30MXodtYZJpYCxgInxOEb
-	 jrhgAtKrcTMHPUxO61lVycnaZsxoLqwbO6Gg5AGQ1rxLKf6viCjsU8trmYrUrknNWK
-	 f/gtEuZ3a8mMME7Ifd9ijXhB7qJ+b841AVZ3flk4XDcxOW3xKWt8Oxp/oCMdQDPe7j
-	 8yZ0l3+CUBtqTFpwkBSdW21JnWjQFfV3UIBJI7c8vivLj0UMEyfZmzzL9CH2Xvv2Iy
-	 5SOfGfP2V3EEA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Gregory CLEMENT <gregory.clement@bootlin.com>, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
- <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
- <theo.lebrun@bootlin.com>, Radu
- Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-Subject: Re: [PATCH 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
- controller driver
-In-Reply-To: <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
- <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
-Date: Wed, 28 Oct 2026 21:05:05 +0100
-Message-ID: <87v76ly4jy.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dXlutysd
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53644ab1f7bso14259691cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:06:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793217965; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gfjX8yWsa3pW1hwENdceQQ47f6p19D2YCvrO9ZowrefMzZkqGR/3CF+UC8DMcZfzR0
+         IFWhQgewwJJ7aQG2wUl4F/lTbLOGeKtLCGuRWAWTX9aLTA3ENpmhYPp1A0ysjID1VZ5W
+         V+aX0oHqb01noEZj6j0ScRRxvz9wVbBmUkWj7YYmXkwj5Mw+SAdc+GYsAVcKJZY57v1G
+         CPZhsFuz5CndAeCjuRcL23PMLeMmu6AeUwNKM56xp+oPYmvaYyKqqh1YDZTXi/n74U9Z
+         S8ZU0QZPf81UKWE/On3celhGY2zaLkfAyMu+YQ4rKJPgquqnFsUpxeruiOxm1szkRGpI
+         vhZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=E7ixOB69ERI62LQAi2qp7f/jJpNcrGT6jByhhOIKXrg=;
+        fh=6b7OIrBlyujhDfsfK0PY+6EyUr6y+zenL6rtOydwfL4=;
+        b=RXxU2oDyQN+3K20+0HKM71WrK6YCfZ3u6XmsFefgu6e48KwFRXvh/g15boT0q0TYKN
+         z2AsWU7Wb28Kmdf79iQtmnHZ3Xfhx8Cw+x1mBJWVg/vmTqUOJUnUvdtNYVnj5QCD9QtD
+         GbV4YpXyGzcO3WNKICGvQRAGhLZphz6QC7bczUC+Nd8aOeROOyFdyfurGjvz4AkoDh1G
+         cpA0x4tKhzvBJEL77KsOLVnDN1mWpgZZIa0ncBl0yTC6flgHzIVg2oq42CGlSfcBmt6O
+         Tri2odJqJ260I5femrWbDG0M/YxlhcWpY5A3KPmbea6KjNHFD4Mbxik2syQfM8bu0UNW
+         qpyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793217965; x=1793822765; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E7ixOB69ERI62LQAi2qp7f/jJpNcrGT6jByhhOIKXrg=;
+        b=dXlutysdDhscdJmeRbPa7EM1sLb4yD199vkD1Ud5wNXNla2GnfyQapJff2WzczuP0y
+         ZoScjWnXZShxVmWz9NPieu6mPwchuubNN4y7UAizgNwTD5dSTLPO7oagVoLQhXgFwI7R
+         0ax81qAMbxaGvmxEDaZrIPclJ3y8sA4VvsKl/tdlP8Xza6OaZoMCzoeQ6mJK7dbuP0Dh
+         n6EEY8267H2Ahnai+uaOOBePk7JCxf7O1jC7P83jtze93Mn/OFhfTe77V/idFSexTZVg
+         PjpmHlYWxCb/SMBZbZRok6C4ExF/hzy3pfjJ2pGP1SCnuqw86uG5L8xj2e4geQGqcLCP
+         v20A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793217965; x=1793822765;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E7ixOB69ERI62LQAi2qp7f/jJpNcrGT6jByhhOIKXrg=;
+        b=G6IfKDZ2uqaHF1PzXc1NVyjIyhksbcKsDg+0pqFIo17KV1k7WhDoZv4QD20ItxIlq4
+         JigGC0qghZ9s313GnwIIvFKIiWDyVID/n1PpaviAEkUceH7lNOqCT1GX7ipv0m/bTvjC
+         FeaQ4jGZf2YAdgPG/AqKWrNJ3V85otqfalV5YL9p+zT6cVZst5VCfOLehVuMgcYH8PRc
+         5h2j8tZVif9DBARfNG2QOYglHfN5EURma2WxCsvPOrx/tkavPSuc6Muo9EPV3hn+zE7/
+         XehgdK+Zfpsf22IUzjnbJkOMRx0JZ5rEuw1oLu/XHsvqH0E4JotbDOD2daV97z5SIc8E
+         G2Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwtXuoAOz5jB1etepX2GPJeqW81Q7v5fuC20EikyJPxlU3aJU+7wkTDzDjWry67GGC2Y5JlHStH0R602YQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5AYfsPzTtfPgggBXNs+ZVK71I0iWiGESVcGixgj91hEso8Vm7
+	R3480NBqLEaX8j2FMNqa3uxV2QfbBAcZlO5Ty7GLkQp9GUnbbWCgwNgD2Z4Ur6W+15dXbvOYakP
+	TFXDS3D5IDlGnY2eF1W++cpWmdPUhqvM=
+X-Gm-Gg: AYBFou1W8w282LDnDrb/sWTw5DnQbzwb4rAp/OcmOpysBKxVvUDkLdNDBLAkNlftafp
+	f/3uxVAtFI2+w3tI5C5SMwRE/pgFQEMeOQYWsHl9wQz44i2QQBNBiXNJRBqrqRmPpWQG0L/WuSq
+	H3S3G5/TEvahQ1AyAKjZFJ3CAtUberfzH7ffa1OB7aTv0ozvtrhJTgWO8LIckPq8q+XCecUf6+H
+	7fC1zl7t4ac7n4YMvzT7J9Kabpn0jPXMUk/Qgqgo4OZm1dxbC6dmBirtQOpMNhByM+guULlqYIH
+	LHTzTTEgnrPma4WmXkJHASX781sXW9cnUQUhI6ADdREDP3BENt2Hky1IfGsdLtXWZjPKQN0ZlIo
+	otR9yIIlmaK1utgzEnW7n4Uxa+6r/gU3aPOzl
+X-Received: by 2002:a05:622a:1b06:b0:535:11e7:fdb3 with SMTP id
+ d75a77b69052e-53fcc4cc979mr53158021cf.34.1793217964993; Wed, 28 Oct 2026
+ 13:06:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,175 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261028155005.174417-1-mbkchelofficialdev@gmail.com> <CA+YDrKA1hTM-Yh+qsCz7Q_O9f4m_JWqyxkm4izaz4uAao_Jz5Q@mail.gmail.com>
+In-Reply-To: <CA+YDrKA1hTM-Yh+qsCz7Q_O9f4m_JWqyxkm4izaz4uAao_Jz5Q@mail.gmail.com>
+From: MBKCHEL <mbkchelofficialdev@gmail.com>
+Date: Wed, 28 Oct 2026 22:05:52 +0200
+X-Gm-Features: AclHuK-gwnM5a3gchHzfHJ4Fbkh10NoTzJM4qf8pmkxYyLfJG-2YoMNVzSxHgK8
+Message-ID: <CA+YDrKAjSO7SVOE+odJ4zYEphfJtytjteSvQgGwmz_rD4tsx5g@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: document emit_base in ModInfoBuilder
+To: Luis Chamberlain <mcgrof@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28 2026 at 16:58, Gregory CLEMENT wrote:
-> +/*
-> + * The caller must hold msi->lock.
-
-Instead of a non-enforcable comment can you please put a
-lockdep_assert_held() into the code.
-
-> + */
-> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
-> +{
-> +	u16 value;
-> +
-> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
-> +	value &= ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
-> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
-> +}
-
-> +static struct irq_chip eyeq_msi_irq_chip = {
-> +	.name			= "EyeQ5-MSI",
-> +	.irq_mask		= eyeq_msi_mask_irq,
-> +	.irq_unmask		= eyeq_msi_unmask_irq,
-> +	.irq_compose_msi_msg	= eyeq_msi_compose_msg,
-> +};
-> +
-> +static void eyeq_msi_isr(struct irq_desc *desc)
-> +{
-> +	struct irq_chip *parent_chip = irq_desc_get_chip(desc);
-> +	struct eyeq_msi *msi = irq_desc_get_handler_data(desc);
-> +	void __iomem *status_reg;
-> +	unsigned long pending;
-> +	unsigned int bit;
-> +	int ret;
-> +
-> +	chained_irq_enter(parent_chip, desc);
-> +
-> +	status_reg = msi->gcsr_base + GCSR_IRQSTATUS;
-> +
-> +	while (true) {
-> +		pending = FIELD_GET(GCSR_IRQSTATUS_MASK,
-> +				    readw(status_reg));
-> +		if (!pending)
-> +			break;
-> +
-> +		/*
-> +		 * Write-one-to-clear status register.
-> +		 */
-> +		writew(FIELD_PREP(GCSR_IRQSTATUS_MASK, pending),
-> +		       status_reg);
-> +
-> +		for_each_set_bit(bit, &pending, msi->num_vectors) {
-> +			ret = generic_handle_domain_irq(msi->msi_domain, bit);
-
-You want to look at generic_handle_demux_domain_irq() and related
-functionality so you can actually provide a irq_set_affinity() callback
-for these demultiplexed interrupts. 
-
-> +			if (ret)
-> +				pr_err_ratelimited("unmapped MSI interrupt %u\n",
-> +						   bit);
-
-No line break required. You have 100 characters. Otherwise this needs
-curly brackets around the "two-liner".
-
-> +		}
-> +	}
-> +
-> +	chained_irq_exit(parent_chip, desc);
-> +}
-> +
-> +static int eyeq_msi_domain_alloc(struct irq_domain *domain,
-> +				 unsigned int virq,
-> +				 unsigned int nr_irqs,
-> +				 void *args)
-
-100 characters... All over the place
-
-> +{
-> +	struct eyeq_msi *msi = domain->host_data;
-> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
-> +	unsigned long bit = 0;
-> +	unsigned int i;
-> +
-> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
-> +
-> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
-> +		for (i = 0; i < nr_irqs; i++) {
-> +			bit = find_next_zero_bit(msi->used, msi->num_vectors, bit);
-> +			if (bit >= msi->num_vectors) {
-> +				/*
-> +				 * Roll back this call's allocations: on error the
-> +				 * core does not call .free().
-> +				 */
-> +				for_each_set_bit(bit, reserved,
-> +						 EYEQ_MSI_MAX_VECTORS) {
-> +					clear_bit(bit, msi->used);
-> +					__eyeq_msi_mask_irq(msi, bit);
-> +				}
-> +
-> +				return -ENOSPC;
-> +			}
-> +
-> +			set_bit(bit, msi->used);
-> +			__eyeq_msi_unmask_irq(msi, bit);
-> +			set_bit(bit, reserved);
-> +			bit++;
-> +		}
-> +	}
-> +
-> +	i = 0;
-> +	for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS)
-
-  for....() {
-
-> +		irq_domain_set_info(domain, virq + i++, bit,
-> +				    &eyeq_msi_irq_chip, msi,
-> +				    handle_simple_irq, NULL, NULL);
-> +
-
-  }
-
-See documentation.
-
-> +	return 0;
-> +}
-> +
-> +static void eyeq_msi_domain_free(struct irq_domain *domain,
-> +				 unsigned int virq,
-> +				 unsigned int nr_irqs)
-
-....
-
-> +{
-> +	struct irq_data *data;
-> +	struct eyeq_msi *msi;
-> +	irq_hw_number_t hwirq;
-
-Reverse fir tree ordering please. See documentation. And please move
-these declarations into the scope where they are used.
-
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < nr_irqs; i++) {
-
-  for (unsigned int i = 0; ...)
-
-> +		data = irq_domain_get_irq_data(domain, virq + i);
-> +		if (WARN_ON_ONCE(!data))
-> +			continue;
-> +
-
-
-> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi,
-> +			     struct device_node *node)
-> +{
-> +	int ret;
-> +
-> +	ret = of_property_read_u32(node, "num-vectors",
-> +				   &msi->num_vectors);
-
-        int ret = of....();
-
-> +	if (ret) {
-> +		pr_err("missing or invalid num-vectors property\n");
-> +		return ret;
-> +	}
-> +
-
-Thanks,
-
-        tglx
+=D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 21:57, MBK=
+CHEL <mbkchelofficialdev@gmail.com>:
+>
+> Hi,
+> Please note that I made a typo in my last name in the "From" and "Signed-=
+off-by" lines. My correct name is "Ivan Tverdokhleb".
+> If the patch is accepted, could you please apply it with the corrected na=
+me?
+> Thanks,
+> Ivan
+>
+>
+> =D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 17:50, I=
+van Tverdohleb <mbkchelofficialdev@gmail.com>:
+>>
+>> Add documentation for the emit_base method within the ModInfoBuilder
+>> struct. Explain its role in formatting metadata strings, handling the
+>> differentiation between built-in and loadable modules, and managing
+>> linker sections and conditional compilation.
+>>
+>> Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
+>> ---
+>>  rust/macros/module.rs | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+>> index 0a7b9e24c..6f361013f 100644
+>> --- a/rust/macros/module.rs
+>> +++ b/rust/macros/module.rs
+>> @@ -49,6 +49,16 @@ fn new(module: &'a str) -> Self {
+>>          }
+>>      }
+>>
+>> +    /// Emits a single metadata entry into the module information table=
+.
+>> +    ///
+>> +    /// This method formats a `field=3Dcontent\0` byte string and place=
+s it into the
+>> +    /// `.modinfo` linker section. For built-in modules (`builtin =3D=
+=3D true`), the string
+>> +    /// is prefixed with the module name (`module.field=3Dcontent\0`) t=
+o avoid naming
+>> +    /// collisions in the final monolithic kernel binary.
+>> +    ///
+>> +    /// It automatically generates a unique static identifier using an =
+internal counter
+>> +    /// and applies appropriate conditional compilation attributes (`#[=
+cfg(MODULE)]` or
+>> +    /// `#[cfg(not(MODULE))]`) based on the target type.
+>>      fn emit_base(&mut self, field: &str, content: &str, builtin: bool, =
+param: bool) {
+>>          let string =3D if builtin {
+>>              // Built-in modules prefix their modinfo strings by `module=
+.`.
+>> --
+>> 2.56.0
+>>
