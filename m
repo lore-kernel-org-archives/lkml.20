@@ -1,63 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205531;
-	b=MnWCD/kBU9jiqyO5VvsxT+w5bKCnsjgnHB9/HVEw9Z9mIKVcx3SFpGCKttE9fzi/a/y8
-	 PJZG4DNjh6nIUVnFs7/8hleMnmYeRBwwof1qqWkK3/efmSrfROm9xcS2CKhn7GqQ1IVnG
-	 CPwHgW134G+Q5LOkjt+MJNkK+p5mtHMZyPHP/8nSz5fRwRkCdln3xfJ9D7T7TAit0egeu
-	 lLAE5TZCb+HmfdCGAQmZe1cwHtfEOGPR/QB/oe18M2Cg5hq0VHpMBo6nbqC/IWOJ6X+kX
-	 cSlSxig0EAy+e3VDFoaNygXSpjby5LBGg8LhqNt4pJlk8/ChN1EDiVlHQprYuMeCkEg==
+	t=1793205530;
+	b=zCYn7H3GsXOq7dZYdTGF3dd1R7D8aONiYn4xgr/7AymQkpJtSTm/EEMEkzntJn6OfW1b
+	 d4AkL/wpkMtcsEAq8WpD7HX/gT9sLUJbJDBjIyFRXyMNvphbbj1puT3KOurESCTaxzEx1
+	 GkhjP0NFKFZCBB1uZlI8j5wG5glnHDt52nc3qamjNla2isSXtqsslqs3yC2UFOnpoTBRJ
+	 a7UjCGbT6fzm3viSo3rk166UaT3bBZHqeQD+LlLaxJ9RfnnhveCy901L+Z3NoS4Xq8V9y
+	 JRVO+MUrXtEXOfhJVD0308RL0bN4taO5CxAeFF+Oi5FbebNp8gG5oiuYQ/QIKGY64rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205531;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ifR0qDy/iaxXGXvQm3zB7TkCmfvzruM7DFYN/9xaScM=;
-	b=HtVMyrbDYQnEXcSs8pH2sopg2d52XCoZGhuPg1keIr+StBtlh3niyhdAagBf1E8Ff0TV
-	 3O2XrFM8vEu+m9Sz7q5Pmq3B/0WXJnfIfJ54yKDbqeciN1NtbgcTJxYpMxuLlExCM+xyL
-	 uLjurfE01skOn5YD3xHXhSH+P81CT88wlDxv2gr2xffkKIsmZj7+XL602tNHBMq5j1led
-	 iRfYq30gBONvZkZYgy9fZ3BumUmIKPsYwBVKbdc9W2sU7DVBc3oiYn+85cXMacKfQeKgx
-	 GEXxaDu2ODFT7qHM3CnhUqEaNGxh1b6zdpD1N+/CMjqEP2+gRsbYKdo5jpkqIHMxO/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205530;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
+	b=hDqdzNB550Yvy54w2o82c9r/kqfxfd3C6WID++vbfyxGgfYPlDhe03yPQjuNZtlEy7tF
+	 5L6DTTvREZl7Da/J7gxh0srIzvOfMegjywn5fyXtnRRxxW6n2MHvLtXtNUYHPO12y+29e
+	 +GydL1MwQGKOcf9iLUGhqG2Abv2PFPI4AW/t0cRg7WB0ayIMThoRSmq1bmRhCuEmZRP1l
+	 pET8jxa/onXF14RRBvARWuJR/U0VYOAwa4HBwWGtzqDwqLRAqnxOJCAQpnRxiyEG4rGSN
+	 Z9eHGCiHC4Q2AbBf1dqvWD7UJ8FJys36g99VTIY1T9pSnLEjM+ZZNGBwWS+hzNmOdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nKfJXe8w;
-	arc=none smtp.remote-ip=95.215.58.126
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPXilkf5;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D03606B2A5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E03B606B28D
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:38:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D03606B2A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E03B606B28D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nKfJXe8w
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kpn3x0ZLcIzl4sHYfMb536xhUwwO2lJCcQ17NPADT+w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205529; v=1; x=1793810329;
- b=nKfJXe8wQ6N3w7OmyuMTi0wf549hs6VrCS7HhamhGcrWPXu3Z4GNVNhXjiAyLcjpEUTES6+O
- yAvPp4i1xNN8EX5hDJ6aCFRSkOV2w/VgIOlBXbR+wem/fhHZyNyVazuYpLMTU4nH0R+zPnJJoYa
- Xu/qJH79DWNuGfb0qGeh+mnA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8d7449e846000ce6;
-	Wed, 28 Oct 2026 16:38:49 +0000
-X-Mizu-Trace-ID: 8d7449e846000ce6
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Wen Yang <wen.yang@linux.dev>,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPXilkf5
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb040841a9so162155ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 09:38:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793205530; x=1793810330; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
+        b=OPXilkf5W2mSrES/eYAou3I3925xBOmvAKuFXCfpSrnxPLnj4kUMLpI+jLbIXRhBp0
+         Tt0n9dCUTuUw8+ZO0sS3kJucb4xltTp5nfTz+RJDWmJduzVdHYqQOd18bWatWyjnNovE
+         YlZCPG3PGfuoMn/nqpAYtqGfP03M+3OSETEe8SNAH7VY91zPeU6BdgPCaw7u3EZmO7vY
+         RUkAZYxo8g0xeRYpPdlRVmnVn5D7sjsWuZkGbk9BiCb0oSCZaraD8+H9mZKKzy9GcRFI
+         A2ug5sAisBx6jr7IUqNsAwR0TnA6JRYhH+UizrU2Unehh9dbkTbDZdHmIia2jek02aWn
+         t5yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793205530; x=1793810330;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YYg+bgTYV9ji+xIuiu7GqnBDXQOUfklC31rXpMn4A4Y=;
+        b=WNf/18gDYYOEJ7y3TmTRZFHkGHHxaZvTyie7q9nYiVq6xMz2FRp8Y2+0T+AiEOo/al
+         hZR82Fb5vVLhGgHQUa3x6HbZUjtNyNpqhjuSI74knf3cs6p/UMaZyu86d0xtfPDi2azT
+         bol0vdOriK3qH1BfoNI7UYVp6Y3nGz2+15QeUp6YSJIhnzkhSMociBCEPFndenT1FB6I
+         HuILEDHQXILkQDgvLACSTltJ3KICF9CSHsnAZXsFSAHAQpNg85yQ9OMVEJvEv1DKgZZS
+         D0DM/uMpHazb4YaExoG4NGLzZOeTh0eylzvTsLLL1OjCP/rI6TnAGfFMSFPhroC/yUaZ
+         JA4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzklCb436JgMGo3FtsNjTzLC9FGjW3JpL0sghDHOl7cb0mYc5weGyH2YsPyhTv1oaRvnl0otIbmL1ovg8c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZlbW52bZ/43+QiQ7upRGi4ehQuV4YeQIsOAYmHdoYNsRisrbl
+	4/BKs4lJpRG931TEsW3MxzD1GpZcQlitumlCJCXhnUCQca3bJpREsxIj
+X-Gm-Gg: AYBFou3zv1sD5ioogOZ8V/lvNgL6tkyysDkRNvO18HtsVMyMI6g4lZh4ivl5FnODi+q
+	WZOuqK0Ip65TvhVHz3Tmc9uCiXTqY+NKMgLc4cN1DF+JOJ1VytrmJmJr/qEGpZCnAwpO2H2rAyo
+	eKWG+jkzcrYZiYLNd/BbUn37bv5ocdL1lHXmGEAfAYjpd8yIB4Guhl5mNcrO+9OmZFLoRsq1QdY
+	NeR5GrRqj5KGg7w29fuS17+fvOgP+SHVBFOskPh6mNIxecxD+3OPmjKHnOWxVwfq/AuXyKvXYud
+	zf5rYE+Yb3feLFrKEmGAbnFxZB6/gV5ZBHQIu62i8hRu18fDfbaWFZwVePjTqEnBIC/uXIgjZyf
+	udVCevRiXoabVYpSvJ0LNXknvTg1j2iirN2L7FqDBEO/2Ytoz6Oi8mvyz5WmwjkkScbQk3U0yLb
+	RsMWS4klkj3lw0fu0V2a2o9nbpkO9an4YkQXdkv9U7wXKooMZgq1GQoA+7Rmx/O/ZS5Wk/yd4v5
+	gA/v8odiNKU2U2f6/fGy1y2VhNcvsAS5JT+jMQxvmM5WWUlRKHCGxySTqBDf1FztQ1bV6mJxkD3
+	oVr9jVI/WdPW5TPnTovYyVU83XBjAwEFJjdWw/WB1U3bL5HfXHZU
+X-Received: by 2002:a05:6a21:496:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-3e913a7ca80mr44385637.33.1793205529784;
+        Wed, 28 Oct 2026 09:38:49 -0700 (PDT)
+Received: from 192.168.1.7 ([2409:8a1e:2330:4ef0:1490:f0fa:6df7:f234])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cc9b25a3sm4395321a12.2.2026.10.28.09.38.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 28 Oct 2026 09:38:49 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Stanislav Fomichev <sdf@google.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	stable@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 35/39] netfilter: move logger sysctl context to priv
-Date: Thu, 29 Oct 2026 00:35:14 +0800
-Message-Id: <f757d99eb27472d43fb503c4b3e9fa2b1dc76fa1.1793204511.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
-References: <cover.1793204511.git.wen.yang@linux.dev>
+Subject: Re: [PATCH net v3 2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
+Date: Thu, 29 Oct 2026 00:38:39 +0800
+Message-Id: <20261028163839.82573-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <auH2iJ9oXEQRVG26@boxer>
+References: <20261028025026.11401-1-testwrzwrz@gmail.com> <20261028025026.11401-3-testwrzwrz@gmail.com> <auH2iJ9oXEQRVG26@boxer>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,163 +104,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wen Yang <wen.yang@linux.dev>
+Following up: I extended the selftest to run every descriptor count from
+1 through MAX_SKB_FRAGS + 1, not just 1, 2, and the maximum. This also
+covers uneven fragment splits. All cases pass.
 
-nf_log keeps the netns in extra2 and encodes the protocol family into
-extra1 as an integer cast to a pointer. Both share the fields that hold
-numeric bounds elsewhere, and the family encoding is a type error
-waiting to happen.
-
-Carry {net, family} in priv, leave data NULL, and keep maxlen as the
-proc_dostring() name length. The family becomes a real field.
-
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- net/netfilter/nf_log.c | 67 ++++++++++++++++++++++++------------------
- 1 file changed, 38 insertions(+), 29 deletions(-)
-
-diff --git a/net/netfilter/nf_log.c b/net/netfilter/nf_log.c
-index f1d3649e3fc6..8163774ad4d4 100644
---- a/net/netfilter/nf_log.c
-+++ b/net/netfilter/nf_log.c
-@@ -420,8 +420,18 @@ static const struct seq_operations nflog_seq_ops = {
- #endif /* PROC_FS */
- 
- #ifdef CONFIG_SYSCTL
-+struct nf_log_sysctl_context {
-+	struct net *net;
-+	unsigned int family;
-+};
-+
-+struct nf_log_sysctl_table {
-+	struct ctl_table vars[NFPROTO_NUMPROTO];
-+	struct nf_log_sysctl_context context[NFPROTO_NUMPROTO];
-+};
-+
- static char nf_log_sysctl_fnames[NFPROTO_NUMPROTO-NFPROTO_UNSPEC][3];
--static struct ctl_table nf_log_sysctl_table[NFPROTO_NUMPROTO];
-+static struct nf_log_sysctl_table nf_log_sysctl_table;
- static struct ctl_table_header *nf_log_sysctl_fhdr;
- 
- static struct ctl_table nf_log_sysctl_ftable[] = {
-@@ -440,8 +450,9 @@ static int nf_log_proc_dostring(const struct ctl_table *table, int write,
- 	const struct nf_logger *logger;
- 	char buf[NFLOGGER_NAME_LEN];
- 	int r = 0;
--	int tindex = (unsigned long)table->extra1;
--	struct net *net = table->extra2;
-+	const struct nf_log_sysctl_context *ctx = table->priv;
-+	unsigned int tindex = ctx->family;
-+	struct net *net = ctx->net;
- 
- 	if (write) {
- 		struct ctl_table tmp = *table;
-@@ -451,6 +462,7 @@ static int nf_log_proc_dostring(const struct ctl_table *table, int write,
- 		 */
- 		buf[0] = '\0';
- 		tmp.data = buf;
-+		tmp.maxlen = sizeof(buf);
- 		r = proc_dostring(&tmp, write, buffer, lenp, ppos);
- 		if (r)
- 			return r;
-@@ -471,6 +483,7 @@ static int nf_log_proc_dostring(const struct ctl_table *table, int write,
- 		struct ctl_table tmp = *table;
- 
- 		tmp.data = buf;
-+		tmp.maxlen = sizeof(buf);
- 		mutex_lock(&nf_log_mutex);
- 		logger = nft_log_dereference(net->nf.nf_loggers[tindex]);
- 		if (!logger)
-@@ -486,42 +499,38 @@ static int nf_log_proc_dostring(const struct ctl_table *table, int write,
- 
- static int netfilter_log_sysctl_init(struct net *net)
- {
-+	struct nf_log_sysctl_table *t = &nf_log_sysctl_table;
- 	int i;
--	struct ctl_table *table;
- 
--	table = nf_log_sysctl_table;
- 	if (!net_eq(net, &init_net)) {
--		table = kmemdup(nf_log_sysctl_table,
--				 sizeof(nf_log_sysctl_table),
--				 GFP_KERNEL_ACCOUNT);
--		if (!table)
--			goto err_alloc;
-+		t = kmemdup(t, sizeof(*t), GFP_KERNEL_ACCOUNT);
-+		if (!t)
-+			return -ENOMEM;
- 	} else {
- 		for (i = NFPROTO_UNSPEC; i < NFPROTO_NUMPROTO; i++) {
--			snprintf(nf_log_sysctl_fnames[i],
--				 3, "%d", i);
--			nf_log_sysctl_table[i].procname	=
--				nf_log_sysctl_fnames[i];
--			nf_log_sysctl_table[i].maxlen = NFLOGGER_NAME_LEN;
--			nf_log_sysctl_table[i].mode = 0644;
--			nf_log_sysctl_table[i].proc_handler =
--				nf_log_proc_dostring;
--			nf_log_sysctl_table[i].extra1 =
--				(void *)(unsigned long) i;
-+			snprintf(nf_log_sysctl_fnames[i], 3, "%d", i);
-+			t->vars[i].procname = nf_log_sysctl_fnames[i];
-+			t->vars[i].maxlen = NFLOGGER_NAME_LEN;
-+			t->vars[i].mode = 0644;
-+			t->vars[i].proc_handler = nf_log_proc_dostring;
- 		}
- 		nf_log_sysctl_fhdr = register_net_sysctl(net, "net/netfilter",
- 							 nf_log_sysctl_ftable);
- 		if (!nf_log_sysctl_fhdr)
--			goto err_freg;
-+			return -ENOMEM;
- 	}
- 
--	for (i = NFPROTO_UNSPEC; i < NFPROTO_NUMPROTO; i++)
--		table[i].extra2 = net;
-+	for (i = NFPROTO_UNSPEC; i < NFPROTO_NUMPROTO; i++) {
-+		t->context[i].net = net;
-+		t->context[i].family = i;
-+		t->vars[i].data = NULL;
-+		t->vars[i].priv = &t->context[i];
-+	}
- 
- 	net->nf.nf_log_dir_header = register_net_sysctl_sz(net,
- 							   "net/netfilter/nf_log",
--							   table,
--							   ARRAY_SIZE(nf_log_sysctl_table));
-+							   t->vars,
-+							   ARRAY_SIZE(t->vars));
- 	if (!net->nf.nf_log_dir_header)
- 		goto err_reg;
- 
-@@ -529,22 +538,22 @@ static int netfilter_log_sysctl_init(struct net *net)
- 
- err_reg:
- 	if (!net_eq(net, &init_net))
--		kfree(table);
-+		kfree(t);
- 	else
- 		unregister_net_sysctl_table(nf_log_sysctl_fhdr);
--err_freg:
--err_alloc:
- 	return -ENOMEM;
- }
- 
- static void netfilter_log_sysctl_exit(struct net *net)
- {
- 	const struct ctl_table *table;
-+	const struct nf_log_sysctl_table *t;
- 
- 	table = net->nf.nf_log_dir_header->ctl_table_arg;
-+	t = container_of(table, struct nf_log_sysctl_table, vars[0]);
- 	unregister_net_sysctl_table(net->nf.nf_log_dir_header);
- 	if (!net_eq(net, &init_net))
--		kfree(table);
-+		kfree(t);
- 	else
- 		unregister_net_sysctl_table(nf_log_sysctl_fhdr);
- }
--- 
-2.25.1
-
+Thanks,
+Rongzheng
