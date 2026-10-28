@@ -1,62 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174328;
-	b=itW3EFJ+XiSNIxvM/KUGzNWJeKecObpRBSk9IGbJbM0LSR/EjZpxyCKuiinszqM8RGkL
-	 HEfEL7aI84BPKaH/zHM2BtdW0aCU1e4UdkFthoAc7SKOIYatN5VqtHBMvMQeQ8UcgrJqe
-	 HpMJaUzaU4iTZunfQ/a+MbDN0DfFTfKrQsDmJrYSDUD05360itIUvyhg4L4wqJurnLZ3H
-	 KxsBZIRTkDCsU5ht3RaltM9WZWx/nNxnbv+oyEBqP2iQ/30F1YS6sWoNlcTdfA4hL5Egk
-	 w5fb1KUc5UtsrIick5k5A+eAYVz5uKF/6P6UEnhbfd7PBZFv/0eceprIYu01+Mr1Msg==
+	t=1793174368;
+	b=YELndh6lAUZoT1NFwtH8zGVXmH8OIgERJvTBvEf893FJUT19zpoL06GXrzjObJYsI0YM
+	 T1z7RKn4JlrulgIK0Zz/uWHsZRZgEvACiFxaxXtyvkA095LIx86fjXKZtC/UfbYL65/t2
+	 KFzgIX6lBeBkLJ1RZDfJxgg3ZY/75SFSeqZiQsafRCQR3EjgTWu5EBnT8+ZuKDFPalMgf
+	 9xLJHrzOBIBLvLaY3Z3tOgEuBnOCPO+OreFC0zEIFTOykSOO2dQHyw6twZLVs6CLQyUEv
+	 DHetNBE+IkYdvnFrZJarNqjjbZ1AViba4qICt1CEwDBflChqP59jKCzHzVKICa5Pw7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174328;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=pfvOzJiKiMTkA3fPMLFus5H6cgFa0Z/8HwHoWTyu4R0=;
-	b=AA2RtlyvKaqta10euTHzgRMGzvjkTwd/RMa4Pku22jEB3mqmcfJntZQSHoq/20PJ+JFf
-	 L4Fdjmp/D3VPH2pUAMQnSjFIAdy2c/IE6CsPfCYOARR5U22bdpWHIxe6E7Q8ZQxD92/ZW
-	 ueQJtFUdhs+0RUj2b1TmoSCsI+dcIEf7sqv9l7u0sz8PTUCri1yK2qsKNtqm2Xc2Po/6M
-	 6RFPUs23dWKEfsWkYtYYwX3fuHgsPQPwz+t2qVmezwsWe3W2A/Zq1RwACEvfcXIqi31BJ
-	 NfWW9zvPE/+AsMdN7sB6zYz0716L+1UhyZgXeLC0a0sErqXlxb26MvO9tiRkttgNYLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174368;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ekqXR/ezjwIhn6QWPuXucxfhVEWQ+CFyrjhl++9kcH4=;
+	b=R3HiZseOSer1Tjso4KoFL6oa2dzepiH7B0SBe5dhNyOsIxT9fG2SUEbpboB8bMOZuG1N
+	 DmDTxwFWWFX1LJraLRvZZRw5TKoWjkg0dj34Q0zJVq7rYm9U5cBXBPKVZsKbptCtH0UJ6
+	 jYTJeR1WGoifwTjxh5SSRtAmIA7U3QST9wr4DhGR8zyBHCOwRizYRBjqMOER7cXTNz1ES
+	 J0whf1/APppRoecI3Tw8PdGEA0i44smgZazzK4wWrl7CyD02USt4c7Q9ZOGSTq6QpCbzA
+	 mGGkih2lwqPDiccNnGb9sjV9dX2E6/UvU9tNp1VAHWWUJ6kbrMQqDRVL3Ob6Mfv7jVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=br5gLx4F;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMly7bgE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FF6606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31FF6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65331606A31E;
+	Wed, 28 Oct 2026 07:59:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=br5gLx4F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=pfvOzJiKiMTkA3fPMLFus5H6cgFa0Z/8HwHoWTyu4R0=; b=b
-	r5gLx4FvlPG9DP59OGY6XmK9liaSauQ1etD+DNWB3a4RFCwiKuUydD5U1jh2hoYz
-	0EOkYwMMxmo12mIgInculj3Wp0yVdISJk3Obn/BHWKkikLRdkakLowo4xHMpHtbh
-	5QvXsQiho3LqYGpdNV+meFORiPReZNg/sEjcKjHf2s=
-Date: Wed, 28 Oct 2026 15:57:42 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
-	"Joseph Qi" <joseph.qi@linux.alibaba.com>,
-	"Heming Zhao" <heming.zhao@suse.com>, ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: "Andrew Morton" <akpm@linux-foundation.org>
-Subject: Re:[PATCH] ocfs2: validate the xattr tree root of an indexed xattr
- block
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261028050210.123904-1-yaojiale02@163.com>
-References: <20261028050210.123904-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAf2cu0ot5CicZ+kcn08ShO49XMOyvfoi2YFTc94Fqir85SIvQXNgDVju1M+/CzuxvjK0Szhn5uh3cY9/LyvFi1xa3zRA4sk7TAD0+Q==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMly7bgE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A801F01825;
+	Wed, 28 Oct 2026 07:59:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793174368;
+	bh=ekqXR/ezjwIhn6QWPuXucxfhVEWQ+CFyrjhl++9kcH4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oMly7bgEdst89yXG5H5qp+z0eVdUxhFCOzUrDLjd32CQlRxQseiYxdycE6BwJ0RFM
+	 wFxdC9tay2opS/NbFjIXOnayE7nZtw7w/XqwFV8qiAfqoKQBuqqf8bcW+Ef2r3QW+S
+	 FiDIMLqEG1W/a/jsXTuVw4teU7e3nX1eU7CralA/3MW6ibKXYWsveXUCyPrMUlXD/Z
+	 CmWq6hYaYVVNSen4Rh1smOdI/KHcpaJr8xZPbO4AzRwvd0kPrisOoi6OZarO2aDgLW
+	 pWryvvve3iP0HjZYXmXuw5nEnhuRD/jMX2H1lyAwHY3aIP1tehX5Q+vKnfoGPDefdQ
+	 3MQMZj4UTO//w==
+Date: Wed, 28 Oct 2026 08:59:24 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	konradybcio@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
+ NoC
+Message-ID: <20261028-classic-sloppy-harrier-72dfcf@quoll>
+References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
+ <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,71 +59,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <132d1ac9.6641.1a18183d445.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jCgvCgD3_9L3quFqSSBiAA--.561W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRf6NWrhqvcKOAAA3x
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
 
-QXQgMjAyNi0xMC0yOCAxMzowMjoxMCwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5Gcm9tOiBKb3NlcGggUWkgPGpvc2VwaC5xaUBsaW51eC5hbGliYWJhLmNvbT4KPgo+
-b2NmczJfdmFsaWRhdGVfeGF0dHJfYmxvY2soKSBjaGVja3MgYW4geGF0dHIgYmxvY2sncyBzaWdu
-YXR1cmUsIGJsa25vLAo+Z2VuZXJhdGlvbiBhbmQgc3ViYWxsb2NhdG9yIGZpZWxkcywgYW5kIGZv
-ciBhIG5vbi1pbmRleGVkIGJsb2NrIHRoZSBlbnRyeQo+YXJyYXkgaXQgY2Fycmllcy4gIEFuIGlu
-ZGV4ZWQgYmxvY2sgaXMgcGFzc2VkIHN0cmFpZ2h0IHRocm91Z2gsIHNvIHRoZQo+ZXh0ZW50IGxp
-c3QgaW4gaXRzIHhhdHRyIHRyZWUgcm9vdCBpcyBuZXZlciBsb29rZWQgYXQuCj4KPkJvdGggZmll
-bGRzIHRoYXQgZGVzY3JpYmUgdGhlIGxpc3QgYXJlIGJvdW5kZWQuICBUaGUgdHdvIHBsYWNlcyB0
-aGF0Cj5jcmVhdGUgYSByb290IHNldCBsX2NvdW50IGZyb20gb2NmczJfeGF0dHJfcmVjc19wZXJf
-eGIoKSBhbmQgbm90aGluZwo+cmV3cml0ZXMgaXQsIGFuZCB0aGUgaW5zZXJ0IHBhdGggYXNzZXJ0
-cyBpbiBvY2ZzMl9yb3RhdGVfbGVhZigpIHRoYXQKPmxfbmV4dF9mcmVlX3JlYyBzdGF5cyB3aXRo
-aW4gbF9jb3VudC4gIENoZWNrIGJvdGggd2hlbiB0aGUgYmxvY2sgaXMKPmZpcnN0IHJlYWQsIHNv
-IGEgcm9vdCB0aGF0IGRpc2FncmVlcyB3aXRoIHRoZSBibG9jayBzaXplLCBvciBjbGFpbXMgbW9y
-ZQo+cmVjb3JkcyB0aGFuIGl0IGhhcyByb29tIGZvciwgaXMgY2F1Z2h0IGJlZm9yZSBhbnl0aGlu
-ZyBpbmRleGVzIGludG8KPmxfcmVjc1tdLgo+Cj5BbiBlbXB0eSByb290IGlzIGRlbGliZXJhdGVs
-eSBub3QgcmVqZWN0ZWQuICBFbXB0eWluZyB0aGUgdHJlZSBsZWF2ZXMgaXQKPnRoYXQgd2F5OiBv
-Y2ZzMl9ybV94YXR0cl9jbHVzdGVyKCkgcmVtb3ZlcyBvbmUgZXh0ZW50IHBlciB0cmFuc2FjdGlv
-biwKPmFuZCB0aGUgbGFzdCBvbmUgZW5kcyBpbiBvY2ZzMl90cnVuY2F0ZV9yZWMoKSwgd2hvc2Ug
-Y2xvc2luZwo+b2NmczJfcm90YXRlX3RyZWVfbGVmdCgpIHJlYWNoZXMgb2NmczJfcmVtb3ZlX2Vt
-cHR5X2V4dGVudCgpIG9uIHRoZQo+ZGVwdGgtemVybyByb290IGFuZCB0YWtlcyBsX25leHRfZnJl
-ZV9yZWMgdG8gemVyby4gIFRoYXQgdHJhbnNhY3Rpb24KPmNvbW1pdHMgYmVmb3JlIG9jZnMyX3hh
-dHRyX2ZyZWVfYmxvY2soKSBmcmVlcyB0aGUgYmxvY2ssIGFuZCBiZWZvcmUKPm9jZnMyX3hhdHRy
-X3JlbW92ZSgpIGNsZWFycyBpX3hhdHRyX2xvYywgaW4gdHdvIGxhdGVyIHRyYW5zYWN0aW9ucywg
-c28gYQo+Y3Jhc2ggaW4gYmV0d2VlbiBsZWF2ZXMgYW4gb3JwaGFuIGlub2RlIHBvaW50aW5nIGF0
-IGFuIHhhdHRyIGJsb2NrIHdob3NlCj5yb290IGhhcyBubyBleHRlbnRzLiAgQm90aCByZWFkZXJz
-IGFscmVhZHkgY29wZSB3aXRoIGl0Ogo+X19vY2ZzMl94YXR0cl9pbmRleF9ibG9ja19maW5kKCkg
-YW5zd2VycyAtRU5PREFUQSwgYW5kCj5vY2ZzMl9pdGVyYXRlX3hhdHRyX2luZGV4X2Jsb2NrKCkg
-cmV0dXJucyB3aXRob3V0IGl0ZXJhdGluZy4KPgo+TGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvMjAyNjEwMTQxMDU4NTYuMjkwOTc3Ny0xLWpvc2VwaC5xaUBsaW51eC5hbGliYWJhLmNvbQo+
-U2lnbmVkLW9mZi1ieTogSm9zZXBoIFFpIDxqb3NlcGgucWlAbGludXguYWxpYmFiYS5jb20+Cj5T
-aWduZWQtb2ZmLWJ5OiBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPgo+
-UmV2aWV3ZWQtYnk6IEhlbWluZyBaaGFvIDxoZW1pbmcuemhhb0BzdXNlLmNvbT4KPkNjOiBNYXJr
-IEZhc2hlaCA8bWFya0BmYXNoZWguY29tPgo+Q2M6IEpvZWwgQmVja2VyIDxqbGJlY0BldmlscGxh
-bi5vcmc+Cj4tLS0KPiBmcy9vY2ZzMi94YXR0ci5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysr
-KysrKwo+IDEgZmlsZSBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspCj4KPmRpZmYgLS1naXQgYS9m
-cy9vY2ZzMi94YXR0ci5jIGIvZnMvb2NmczIveGF0dHIuYwo+aW5kZXggNTJlNDZkMWI4NzYzLi44
-YjdhMzgyZGMyZmYgMTAwNjQ0Cj4tLS0gYS9mcy9vY2ZzMi94YXR0ci5jCj4rKysgYi9mcy9vY2Zz
-Mi94YXR0ci5jCj5AQCAtNDkxLDYgKzQ5MSw3IEBAIHN0YXRpYyBpbnQgb2NmczJfdmFsaWRhdGVf
-eGF0dHJfYmxvY2soc3RydWN0IHN1cGVyX2Jsb2NrICpzYiwKPiAJCQkJICAgICAgc3RydWN0IGJ1
-ZmZlcl9oZWFkICpiaCkKPiB7Cj4gCWludCByYzsKPisJc3RydWN0IG9jZnMyX2V4dGVudF9saXN0
-ICplbDsKPiAJc3RydWN0IG9jZnMyX3hhdHRyX2Jsb2NrICp4YiA9Cj4gCQkoc3RydWN0IG9jZnMy
-X3hhdHRyX2Jsb2NrICopYmgtPmJfZGF0YTsKPiAKPkBAIC01NzMsNiArNTc0LDMwIEBAIHN0YXRp
-YyBpbnQgb2NmczJfdmFsaWRhdGVfeGF0dHJfYmxvY2soc3RydWN0IHN1cGVyX2Jsb2NrICpzYiwK
-PiAJCQkJCQkJIHJlZ2lvbl9vZmZzZXQpOwo+IAl9Cj4gCj4rCS8qCj4rCSAqIEFuIGluZGV4ZWQg
-eGF0dHIgYmxvY2sgY2FycmllcyB0aGUgcm9vdCBvZiB0aGUgeGF0dHIgdHJlZS4gIEl0cwo+Kwkg
-KiByZWNvcmQgY291bnQgaXMgZml4ZWQgYnkgdGhlIGJsb2NrIHNpemUgYW5kIGxfbmV4dF9mcmVl
-X3JlYyBuZXZlcgo+KwkgKiBleGNlZWRzIGl0LiAgQSB6ZXJvIGxfbmV4dF9mcmVlX3JlYyBpcyB2
-YWxpZDogZW1wdHlpbmcgdGhlIHRyZWUgb24KPisJICogdGhlIGlub2RlIGRlbGV0aW9uIHBhdGgg
-bGVhdmVzIHRoZSByb290IHdpdGggbm8gZXh0ZW50cy4KPisJICovCj4rCWVsID0gJnhiLT54Yl9h
-dHRycy54Yl9yb290Lnh0X2xpc3Q7Cj4rCj4rCWlmIChsZTE2X3RvX2NwdShlbC0+bF9jb3VudCkg
-IT0gb2NmczJfeGF0dHJfcmVjc19wZXJfeGIoc2IpKSB7Cj4rCQlyZXR1cm4gb2NmczJfZXJyb3Io
-c2IsCj4rCQkJCSAgICJYYXR0ciB0cmVlIHJvb3QgIyVsbHUgaGFzIGludmFsaWQgbF9jb3VudCAl
-dSAoZXhwZWN0ZWQgJXUpXG4iLAo+KwkJCQkgICAodW5zaWduZWQgbG9uZyBsb25nKWJoLT5iX2Js
-b2NrbnIsCj4rCQkJCSAgIGxlMTZfdG9fY3B1KGVsLT5sX2NvdW50KSwKPisJCQkJICAgb2NmczJf
-eGF0dHJfcmVjc19wZXJfeGIoc2IpKTsKPisJfQo+Kwo+KwlpZiAobGUxNl90b19jcHUoZWwtPmxf
-bmV4dF9mcmVlX3JlYykgPiBsZTE2X3RvX2NwdShlbC0+bF9jb3VudCkpIHsKPisJCXJldHVybiBv
-Y2ZzMl9lcnJvcihzYiwKPisJCQkJICAgIlhhdHRyIHRyZWUgcm9vdCAjJWxsdSBoYXMgbF9uZXh0
-X2ZyZWVfcmVjICV1IHBhc3QgdGhlIGVuZCBvZiBpdHMgbGlzdCAobF9jb3VudCAldSlcbiIsCj4r
-CQkJCSAgICh1bnNpZ25lZCBsb25nIGxvbmcpYmgtPmJfYmxvY2tuciwKPisJCQkJICAgbGUxNl90
-b19jcHUoZWwtPmxfbmV4dF9mcmVlX3JlYyksCj4rCQkJCSAgIGxlMTZfdG9fY3B1KGVsLT5sX2Nv
-dW50KSk7Cj4rCX0KPisKPiAJcmV0dXJuIDA7Cj4gfQo+IAo+LS0gCj4yLjM0LjEKCgpJZ25vcmUg
-dGhpcyBwbHosIEkgbWFkZSBhIG1pc3N0YWtlLg==
+On Tue, Oct 27, 2026 at 12:42:21PM +0000, Ishu Brar wrote:
+> Document the Network-On-Chip interconnect providers of the Qualcomm
+> SM7250 SoC (Snapdragon 765/765G/768G), which are controlled through RPMh
+> Bus Clock Managers, and add the header with the node and slave IDs.
+> 
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
+>  .../bindings/interconnect/qcom,sm7250-rpmh.yaml    | 105 +++++++++++++++
+>  .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    | 148 +++++++++++++++++++++
+>  2 files changed, 253 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
+> new file mode 100644
+> index 000000000000..1ae1ebfc27e3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
+> @@ -0,0 +1,105 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interconnect/qcom,sm7250-rpmh.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm RPMh Network-On-Chip Interconnect on SM7250
+> +
+> +maintainers:
+> +  - Ishu Brar <patches@brar.si>
+> +
+> +description: |
+> +  RPMh interconnect providers support system bandwidth requirements through
+> +  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
+> +  able to communicate with the BCM through the Resource State Coordinator (RSC)
+> +  associated with each execution environment. Provider nodes must point to at
+> +  least one RPMh device child node pertaining to their RSC and each provider
+> +  can map to multiple RPMh resources.
+> +
+> +  See also: include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
+> +
+> +allOf:
+> +  - $ref: qcom,rpmh-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm7250-aggre1-noc
+> +    then:
+> +      required:
+> +        - clocks
+> +    else:
+> +      properties:
+> +        clocks: false
+
+Entire allOf goes to the end, before unevaluatedProperties.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sm7250-aggre1-noc
+> +      - qcom,sm7250-aggre2-noc
+> +      - qcom,sm7250-config-noc
+> +      - qcom,sm7250-dc-noc
+> +      - qcom,sm7250-gem-noc
+> +      - qcom,sm7250-mmss-noc
+> +      - qcom,sm7250-npu-noc
+> +      - qcom,sm7250-system-noc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: aggre UFS PHY AXI clock
+> +      - description: aggre USB3 PRIM AXI clock
+> +
+> +patternProperties:
+> +  '^interconnect-[0-9]+$':
+
+We actually do not need to enforce -0: '^interconnect(-[0-9]+)?$'
+
+> +    type: object
+> +    description:
+> +      The interconnect providers do not have a separate QoS register space,
+> +      but share parent's space.
+> +
+> +    allOf:
+> +      - $ref: qcom,rpmh-common.yaml#
+
+Best regards,
+Krzysztof
+
