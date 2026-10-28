@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218503;
-	b=X1fF7cMUE7cWzWQ7SLuOsKn8VzLwsE4TZeSijhphoLHczWP3iPuG6uMwjapGMquXKW1z
-	 oEKNBo8wtU2Bi1C3T+MMsS8QToE8UgO//VMEjZ4zR6aLd5Rv2ChznRjJk/ZXTxNy0nINu
-	 9BgjRByb7kFpkf7B0/NvYkS2I+REMS9r71fEulm3HP0xcOoEECp8Afs8aMmo0cg7WW9qM
-	 Imc87sTYV8Q0+7m3VaovD7lDiS52jhEDtB2y6swcqY+qvx10F9ypMzZm/mpxKkvpsW9SH
-	 dPwL2MwhGZeI43KfWwKOg6nR9j/8s12Mriy3HUbGY8lwD+d9W3rl14NvCwZ7x9lSzdQ==
+	t=1793218523;
+	b=aORM08J8632RM9Xnn3HLFahbdA7oI1uUahgFRLkc27H42Pgh9IT4npnBrMimfB+WOre1
+	 P2m9aDPjBeJcWqxTxs4PmvfUoIHRF2BJhC6NgyXyXCx7gM6OIVXTotg4CHu6Z4Ogx+f2s
+	 uCYCaEoe7pXkJWTBa6/Zb65oU5VOZm3QWj10UJrIUcBxqz2Hk4m/7Zf9Oko/rml6tbTjb
+	 rpKAJO3thids3k3jb0cW0rIVWx73TycPLFsdwBfhWLhu+bznBBQxVNdzw2GYOy4RI0ANl
+	 gSyTj4bgpfaxgYuFtPw3C/KdqrmfiTmScl8gnJN7/WPbWVAKhAEzpkJDYWc+2K6+/cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218523;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/U9n2F5dQOQHSwb1MXCfMAe5RfJMUNrLjUXev2VqdHo=;
-	b=DCE4OQKQP6QyZjVvA5PRGLACPHs66D6QWJQkN4cxcTwtQXHzDSZ4ABVr/so++YZTQL5g
-	 bwrlebCsuXk2QMpIPgllXJ1QCGkU+WO+l0taoQC0X3ZJDDf3GtfFC1QpLNoPjxpM20INY
-	 3dPCKmhH7MCyXukLzZ2Jl4z6vVXekIJme83h4cs6fwONZBlG7IWoR6rGdxIuL7vCyYuGE
-	 VWM9NBfJ5Qa3v5Suh6pdjMC3f3wk+40XAEZg9NaxgL11IxfCj6xAo2Z43/moeF88PkgKM
-	 OgrVrY5ne6K1k4fNs0Wex/+OT/HiXCNabAQHgkkxneMpLlvLpnPRXVZssmphkDomRaA==
+	bh=KdmedUrWzEtTp05PuFK4Ncer2dR3r5JAfq1llDowfs8=;
+	b=KxBc0CGDy8rhKYdIUFAB5otUtWBzl7Ow0uK5fRUU22BfwERMtkb7bdTMULwC3xeBlpP0
+	 6btdAKT6rie5AaD16iF4zaGICvgXU2Ulf/v9Hcwd/f6DIYCTD66aRC3Xg44Jg6M+ZuELC
+	 p7ZT0zy4U1KPjIc0Qs+szOnQxfPPdHwkZYf3lKJxS0AutUB661NxHdTXifiFM4A+BcRxP
+	 ERESrkCWxw7D+ZE/y1rJ9DsAFWb6qJU5koeBhdSj/EF+fNwvh+sv+irGPAtkWeLVR4TVz
+	 HoqlzxPtHE86nVpdUiTZCsKSaBBACgr6ONDG5aX+GDtNKCKGhIVVIt/hIT0K9vbDMzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rq9Ru2l4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fL8qtDFp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB8F606A323;
-	Wed, 28 Oct 2026 20:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FF6606A31D;
+	Wed, 28 Oct 2026 20:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rq9Ru2l4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B921F01825;
-	Wed, 28 Oct 2026 20:14:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fL8qtDFp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97A11F01828;
+	Wed, 28 Oct 2026 20:15:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218503;
-	bh=/U9n2F5dQOQHSwb1MXCfMAe5RfJMUNrLjUXev2VqdHo=;
+	s=k20260515; t=1793218523;
+	bh=KdmedUrWzEtTp05PuFK4Ncer2dR3r5JAfq1llDowfs8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Rq9Ru2l4yMkJyr/jNoKFGTmkAlXE2FDGSgQxEQAku+lQY8AFnqQIyt1jzMmONwh4q
-	 kDTLUzME3AvbI5d7QDNllciJdAzfa+61Fh44eWWBAmr6qPK4xxkv+6x300WqZp2BfR
-	 zX/T0YJcIGStcwr5GdE4B3ZSqs6wXKJyp2c9IgJFjQaGqhKDykfe8bPb4hjmAf2Xwu
-	 lJarCETJWX6/U/PqBmmlR5EQyyXPyjiut575L2P+6OYLtAbh99qxojHguMjAcS4Bss
-	 q4OFyM9/FSL5Iuy4AHNYlsunTo/BqU25zXOGquu4qbgNHa4C0R8Lq17sPHtO2vN0Gy
-	 5ZpB7NHG9uFbA==
+	b=fL8qtDFpArubnAzzUrN4DekT5Rnq/qB54hxYZR/vjjwa1WD/AE9d+0DFjjWOc0Yjv
+	 v6OUwG/iOgpMHGqwhajbqeKtjcqSFNMYY7VNWt3LW7LYbvie5aqirQRAoIemFr16ix
+	 KC/9k04QQ1In0Cu/OdDoKMGqMPbCDYC5p3lZfVTCScE71iWcUWVtqidNwlvKHAy04w
+	 XJH8x3R+LlLLGeSvevjLFpuD10/j/xygBGK2TmAFuKU2h6B1eRxX79XC9ves3y27TI
+	 0OVJMNJLz+HAYuda8MSyLKVxgblQovSQKJM1A7eIHr09+9r24b1MofFAbcMLA9z0x/
+	 bzyU2QiokJ99w==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 21:13:35 +0100
-Subject: [PATCH 07/15] hugetlbfs: fix unmapping folios from private VMAs
+Date: Wed, 28 Oct 2026 21:13:37 +0100
+Subject: [PATCH 09/15] mm/memfd: recheck the page cache before allocating a
+ hugetlb folio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_hugetlb-v1-7-a0a033db180f@kernel.org>
+Message-Id: <20261028-fixes_hugetlb-v1-9-a0a033db180f@kernel.org>
 References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
 In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -82,63 +83,61 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@kernel.org, 
- Daehyeon Ko <4ncienth@gmail.com>
+ Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1684; i=david@kernel.org;
- h=from:subject:message-id; bh=rVtz7fX7kcHzCCezweHAtetVEk43H7wa5E9No4kWJ70=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZfO5dZ6YFXlkbImz3NXXN2kF52vd6eYsGuKWIred
- ZgaGODaUcrCIMbBICumyBIUfN/g5ct1tdVufMwwc1iZQIYwcHEKwETOeTL8lQnbm73rQsEJnaZ0
- GyvLGfOb98tuNGOecLv3lOw074RdGxj+BygIq7pWz2K5O8u51Wqri0FSzNOQp08sTi57zbrxyKI
- 3TAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1657; i=david@kernel.org;
+ h=from:subject:message-id; bh=GKSzWPjp1+dBjhIazkgIibLYlmz/l1AboKBRT1V8Q84=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZftjfMpft56POuC0fX06JvccolPd9w/XWwrYto2w
+ 08qTJ+xo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIk4sTIyXG9qOqsdELzQtPXk
+ 80jRHRzp7RVCmfzekqpPd9gWVNy+z8hwZfaj97atsYxxeldDHop8zbkSIqSz+0vs/JQCDUWbGh1
+ mAA==
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+A concurrent fault or PIN request can populate the page cache
+after memfd_pin_folios() misses it in the page cache but before
+memfd_alloc_folio() takes the fault mutex. The latter still tries to
+allocate another folio and can return -ENOMEM even though the requested
+folio is already cached.
 
-hugetlb_unmap_file_folio() assumes vm_private_data points to a struct
-hugetlb_vma_lock when hugetlb_vma_trylock_write() fails. Since hugetlb VMA
-locking was extended to private VMAs, this can also happen when
-vm_private_data contains a resv_map pointer; treating it as a
-hugetlb_vma_lock corrupts memory and can cause crashes or hangs.
+In particular, hugetlb_reserve_pages() finds the existing reservation-map
+entry and reserves nothing. If no global reservations remain,
+alloc_hugetlb_folio_reserve() fails even when the pool has free pages,
+effectively failing memfd_pin_folios().
 
-Only take the VMA lock when a shareable lock exists, as additional locking
-is only needed for PMD table sharing. The fault mutex and i_mmap_rwsem
-already provide the required protection for private VMAs.
+Recheck the page cache before reserving or allocating. If the folio is
+present, drop the lookup reference and return -EEXIST so
+memfd_pin_folios() retries its lookup.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+This is probably not worth backporting to stable.
 
-Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
-Cc: stable@kernel.org
-Tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: simplify description and comment ]
+Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/hugetlbfs/inode.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ mm/memfd.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 5592cfc6cc8b..fa367fc9e019 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -400,6 +400,16 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 		if (!hugetlb_vma_maps_pfn(vma, v_start, pfn))
- 			continue;
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 4650a69aa7a6..86842c077cdd 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -102,6 +102,15 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 			goto out_unlock;
+ 		}
  
-+		/*
-+		 * We only need additional VMA locking here for PMD table
-+		 * sharing, which synchronizes on the shareable lock.
-+		 */
-+		if (!__vma_shareable_lock(vma)) {
-+			unmap_hugepage_range(vma, v_start, v_end, NULL,
-+					     ZAP_FLAG_DROP_MARKER);
-+			continue;
++		/* Let the caller retry if we raced with population. */
++		folio = filemap_get_folio(memfd->f_mapping,
++					  idx << huge_page_order(h));
++		if (!IS_ERR(folio)) {
++			folio_put(folio);
++			err = -EEXIST;
++			goto out_unlock;
 +		}
 +
- 		if (!hugetlb_vma_trylock_write(vma)) {
- 			vma_lock = vma->vm_private_data;
- 			/*
+ 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
+ 		if (nr_resv < 0) {
+ 			err = nr_resv;
 
 -- 
 2.43.0
