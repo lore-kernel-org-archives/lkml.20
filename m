@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186344;
-	b=NYzeyfeDa+Z2hFd4Gqoex4IN5SpihOYUqe0FCqms986A13yJohZOoDw0x6T0vadQEDub
-	 KAtcGYzzrSK1WA+8tfalXoOJMHUh4qdJWfsivNXd1sx2VrtjOR87kJbd6DckyStaWSHvP
-	 T4d3X09h65/+iwVAtmfRiyxST5NhNmx5J5rCVHX81rncu4ZeY4KyiKZOdbXb623loCGQI
-	 8d1p3udAfrpGi9rrI3DWtGKekQpzVeFaXIPvOrNFmO6s5fKMq8UwpUF6sPDfDIQsHPAEL
-	 kcELw8r8ZyAyAlFBtOcDWc/YuRfZRf2MefpYmhNtD0XMZrAAxmSGjaGL0HTqopNI7zg==
+	t=1793186345;
+	b=YwVvetPmwCpqaRiAHJC7bGCHhGYtEukeAz28DIZwPtO2cLsMphX45MgwyJz9Ax0fhs+t
+	 4rE8GNIFm/IFNEpmc2ZktOC76qbODsoBZ1rMXuc08OU7PiVu4nsdpaasQY+6M2dRiaDqs
+	 ziSND2Eng/rlF/0wx4nOkrYhhH6K8FL/OHsXWKmntCT5FLFF3JD9f/PfslMQLndgjtMAJ
+	 BpzG4I9ZE4T9looMTsx3D3cVpsNf6/mNY5Q/c20UUw6vOaGF4BGTq3GtITTXYDZY9AfTU
+	 +kVqcU5WGROfeiOPTKYDToHzHICU0kRTAVAAPaFiwx7Sstr1zq3bYqaqMAfev1YdMkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186345;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iMMtJqFO/Qle89nnsy9oUzaGg14r9OuaMM5bIBVnCI4=;
-	b=2Ja6vVClQRhhbcbcfrZME2WtN+HeJuSyBNX8VZs8vjbx1uHqfF8qyHsUpL7dZmLpokPY
-	 zfzs2I8xxWauCYhenLZqM/+G4FwBsmoDrgMR1Ql0KOwQLt6RG55GpDycDGjS6JtwhT7gk
-	 trXHoIYcGKDANt8sOxGQcLCO/uK3FDHog3byVSN/esl95nWoQ75Hei4ggNkpIkUD4PSOY
-	 D/z0bCquJ2fYk9Q9bV1xMFVJC1WmzGPeVNQQVSiiWyHJxYcWkeHjb4xWukXIxn3fZghWe
-	 S/Cx5vcFD79ylAycsI55B59t5IxvFIhUuZQO8YYSI/FPgk5WxK4rKCTaMc8fivXwHZA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=NZpAsNc3aC2Ydf5DrbJRymJ/w3CBvaG5ANPMqZgnkm4=;
+	b=glt3aRtAF8HzHIHdfWfem/GoouCe15kkOv8VI8Wf+aJhv2oYn6TkCOx9BoPpDKcE3DQE
+	 +jOGMAoWnNOiH/UMWdwikKQQe1rjisdaRIP9j1YlX5hJIDLqywkgYqYOJITya/xjQI3Hc
+	 MucOsz7lBk+7weOEx+0CT0w+k+Ogu/Jl7tw+0DcNNeR2VpjaXEMGg3C07Q3a+rzEo6Dwo
+	 VGSmO2cF66k2u+wFHuGEX0b3f+YJ3i7w+u6GmiREhb3h8JANQSBOc7miWbbETdocaPYgF
+	 gO/TzjDb3c3clfaaZmZ2jNVso8VkddBtBbr3Zm1ch065XmZ3VhMsf1RDyWarzyEAorQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkwwcWkz;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1bYFQAo;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650B8606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 650B8606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4382A606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 11:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4382A606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkwwcWkz
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so7477325e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:19:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1bYFQAo
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso6163095e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:19:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793186343; x=1793791143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iMMtJqFO/Qle89nnsy9oUzaGg14r9OuaMM5bIBVnCI4=;
-        b=nkwwcWkz8TNjDDmqiqeh7iSi35qTG52KVnUwUyq3juIbScLJ+AtgE+8FpSs/GrwfpN
-         aaYgGMgKgdVnCVpZQTBxWLF3VC8m5QYDm2bXhQ1lVFBng4sAITE/w0CLACbT8n5a0PQ2
-         CSHfNFcARY6Nzomg2KFE9o6jE5LtssDHcXRqweXtbMUBkwrj4DWYMz9lLHPQfXhF5fzr
-         HemaxwiRGYR6CzW5RVtAuDQcjWbeGwkh7z3cuZBdOxdNWengtMra9XmmmskQCRjHbgzO
-         OK+kMJ75s3nSSWdUpJVK66MkJZsblOh3pbSBI3ACJOzC0kaJwTu8CUS6XpuZgWgPNBf8
-         E9zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793186343; x=1793791143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793186344; x=1793791144; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iMMtJqFO/Qle89nnsy9oUzaGg14r9OuaMM5bIBVnCI4=;
-        b=LDqg6Icv1Q9mAJB9l3GbhRgXHF3Dm2kV1YT9wAOeUBD++Xdjpc0XXSq2/O1JS6Onby
-         YjYNWzPvXKaDR+gW5XcYk+deF5rg4Yr0/I9rMpKxIVTP5sNRDGRrciFkXwBsDLyGyKfH
-         StSTEfSNve7BEP4ars+M/3abAkhR5aeMdJmFz9u51FN4azobaQnKFnV4Z+b51sN4J0Af
-         zgFKnYWYTCwtcu8QldIwkMVkeTSMvH1OJbexUqsz9Goo8edUPIGkYY8RyWqv4fjpgyxM
-         YfGAQO9/JJs4w/YAn4qZGVr8X1xgZS4Mgtj9HGGaTiiNpjgAeQHyXNceh/3ECqbXrOvQ
-         2BkA==
-X-Forwarded-Encrypted: i=1; AKwUvByL+VPaAHyUR1YLt6Pk/u4Vm5VPQEk0dit2wNVp3cOYrA5yWArzAAWGp0z+P8IRdWIRR1nS9y//caSmOmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxSL0mcOWyD4DOuAvzg6pryaBuZcyfyCaN8oxppOySs12QZ3bz
-	vY6NFLvfEW3hM0/COQkb1LPc/11gb5wIl4UmqrAcUNwCHDCooIns1CMt
-X-Gm-Gg: AYBFou0zV6KpCTfiNPloTKFuLds+TjIeVFq8fGqY7A4owPWIODye0fLdAeS1Vx2CCnV
-	ZqXIYElCJcieRN2/aK3JdZBu5xBuqlVwStTAVz9s75kZMY+6IrPyTXOm/PPDReG0Mu6Kedq4RaY
-	yCTvx7QhuoQ84Ts1VO5uzxqwzpLbAlXehMxr2eDMkqDItiqZ2Uu8nyRolc5KU98IVZ3M/wDGwjO
-	KY4n7jkr9J9fbniPG3pF6g3GQUMP+yU/A4UH8SM9idkOjPV3MKzlvjgy6hBpBZxd0drOHT8m0Hs
-	1IWMKVdAvMq2J1nEsnffC2Cu403cAbB4RjB9njGJiX/PP0ovwc/Cg+9/AeqcZ/eoKZX+sShc6l0
-	qM737ggDLiAjmTPmtCDnQT1TrNkXj44eI3Qu7MXeV5K38SD82vyWOXlgUHNmjTjhFQ+Hu6J7zGN
-	+nHDhtDo1htapnnXFmttg7zaGADVBlmwscsPr0FbZSG9cIJIqGmVESlNuVtSSjf2w8t3zZhyc85
-	1I2PHNtPO6JnH8L4apVlDm1ypqKgrhFscF4i5gcSc9Acbu8YDu6SP0fp6pQqnBBHWnutGgC5U22
-	UxSgdSKs+9xnG2WXVQ==
-X-Received: by 2002:a05:600c:46cd:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4a96695ec9cmr36091795e9.15.1793186342385;
-        Wed, 28 Oct 2026 04:19:02 -0700 (PDT)
+        bh=NZpAsNc3aC2Ydf5DrbJRymJ/w3CBvaG5ANPMqZgnkm4=;
+        b=F1bYFQAoUcJwRfQdmKkSXusKU7Fx/9t66rBSaVjqFBK+ZOshaDMvuOIXybN164s2tf
+         gAHLOpEaaRdTii21+MSIt8LR0dx0GQ3//g0Bp7FK1BBRkxQBH+SUNAd/iAUgkwvXcoR3
+         caXh8yR/6oGAXCQzGp06afsQZa9IfX3taOWF6RJkZNf4rb5R76fAegSxmZm9itHW3q2v
+         ol8x4IWV3BRFGwh/pO9RpXTm2V3cFL5mDTzJLVU8cJDTjXLcUKZ43EBgRHMrHv7AfTVm
+         AweRNC9Kgj5hihxMa1nHgQqz1GDc9kQU2IfheHo0pvh60SQoFECMvioFlzOT1tV8wrem
+         3K2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793186344; x=1793791144;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NZpAsNc3aC2Ydf5DrbJRymJ/w3CBvaG5ANPMqZgnkm4=;
+        b=YnAlEXBjMY+Sr+Tkuv1xt7+W1Fic7suDh5NDsc7DYWf/9AO94+Vmm6I115EiTaX4yE
+         wDbp3UCniy82XqJh1dAAQnQIc0A0n7pGEDfuO3Nf2fFZbN8CmHSvdmDKPcIZiOpDeyL6
+         IetqfnUut08MvsphYOpqbYLMq7QWN9YOFWfKILn3XjxyCBwTKdhOBb/J9S9Bjk09nvgu
+         sRRL1wcQMaE4fAtTkJ0+3WjYWDRb5Oi2EjnmZPz4LaTc9z9TJVjIi/fQ1XdwDjYGGdVz
+         vC4SRl7Nkzl6+YqPlDdJ/7QCIDeo4Ehq54B61G1DdlCGrhHY4SMc3Nm4XMvA1n4/J3v5
+         gc9g==
+X-Forwarded-Encrypted: i=1; AKwUvByMukqahJmA+Wcq27KcoVBfKXDrM+YPyyx4fOvv/KKsXT/b/+KwD98Uo64/0Zx3ziYEQ/jBZqGKOzqGZ8E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYl2FO2xhcJypnMXGgpFyJJJjKMGR0E+ZiniqheZewSSSt+fwn
+	TCKMy7HAK1k1bGI+dEBxtf1Wo+yi5BzZDZbnbI/G5KWpbFL2XeHKgvYY
+X-Gm-Gg: AYBFou20dGiGYpPs7zgHHI1qHBvHMKJU6Awau6p3UmwLtjsHfl87m7kds9YDPwzYaNS
+	jF/j9Of/nSILEnB/m7so5hd/4Wxe2RqF+ndygtnczM/IrjzTyu/7EhJN61HrNIeL9i/i4WVrWeT
+	p2lnxiwkIudHhTEtIHIeyQarjOtKtmaRgKouFQl4kaxqVKa4HUexNIH7qz61I2lxi0Wll4CQC7T
+	MtBdGkEjFLyazI4Nb7tFRM/X2YxRnHagaNJOnsZo47nEYGdBYounqC6xKFhxtqJ/Twbm3H87zaR
+	ceNbXf4shWout5rBHv4a/lBaRjS7cnzCAb58T57wc3yHUlNq98lFFo6yyK4zqHcbb/wbB3ox6BX
+	iFewtRSBLBYheKX6xM14SHk9h/oklNFje+HF9FD8Hqz3ZKsdDf/T1L3GvJ2lony/Bpb/cIdagWu
+	b9tbRPHYEYHogbdZJ0uDOQcrNtKnT12BXdIdIrVQvZ3DfhHRpx8HsjDkEixhvJniVH+VEEWssZF
+	jp+XVO70HT7qtlWks/L619EM02EhCHmPx9cbteoE53enO2G1sIxkKPYkOAiKnJGVF+M13wk09Uk
+	zuDdcOmbkoCSGfSADOEj44epbJj7YbJtuAfO6to=
+X-Received: by 2002:a05:600c:354a:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a9678c3ca2mr40478565e9.32.1793186343622;
+        Wed, 28 Oct 2026 04:19:03 -0700 (PDT)
 Received: from fedora ([2a02:587:85d1:a500:5135:1deb:a9ab:fb3f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978d57b39sm64197635e9.10.2026.10.28.04.19.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a978d57b39sm64197635e9.10.2026.10.28.04.19.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:19:01 -0700 (PDT)
+        Wed, 28 Oct 2026 04:19:03 -0700 (PDT)
 From: George Karagounis <taterraster@gmail.com>
 X-Google-Original-From: George Karagounis <mail@taterr.org>
 To: Jiri Kosina <jikos@kernel.org>,
@@ -86,10 +87,12 @@ Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	mail@taterr.org
-Subject: [PATCH 0/3] HID: Replace deprecated create_singlethread_workqueue
-Date: Wed, 28 Oct 2026 13:18:50 +0200
-Message-ID: <20261028111853.22429-1-mail@taterr.org>
+Subject: [PATCH 1/3] HID: haptic: Replace create_singlethread_workqueue with alloc_ordered_workqueue
+Date: Wed, 28 Oct 2026 13:18:51 +0200
+Message-ID: <20261028111853.22429-2-mail@taterr.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028111853.22429-1-mail@taterr.org>
+References: <20261028111853.22429-1-mail@taterr.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,32 +104,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi maintainers,
+create_singlethread_workqueue() is deprecated. Replace it with
 
-This patch series replaces the deprecated create_singlethread_workqueue()
-with the more efficient alloc_ordered_workqueue() in three HID drivers.
+alloc_ordered_workqueue() for the haptic workqueue. WQ_MEM_RECLAIM
 
-WQ_MEM_RECLAIM is added to ensure the workqueues can process hardware
-events under memory pressure.
+is added to ensure hardware events can be processed under memory
 
-All three patches have been compile-tested with W=1 and produce no warnings.
+pressure.
 
-Best regards,
-George
+Signed-off-by: George Karagounis <mail@taterr.org>
+---
+ drivers/hid/hid-haptic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-George Karagounis (3):
-  HID: haptic: Replace create_singlethread_workqueue with
-    alloc_ordered_workqueue
-  HID: elo: Replace create_singlethread_workqueue with
-    alloc_ordered_workqueue
-  HID: logitech-hidpp: Replace create_singlethread_workqueue with
-    alloc_ordered_workqueue
-
- drivers/hid/hid-elo.c            | 2 +-
- drivers/hid/hid-haptic.c         | 2 +-
- drivers/hid/hid-logitech-hidpp.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
+index 8760eeb08b2c..2f4fcb56aba1 100644
+--- a/drivers/hid/hid-haptic.c
++++ b/drivers/hid/hid-haptic.c
+@@ -460,7 +460,7 @@ int hid_haptic_init(struct hid_device *hdev,
+ 	name = kmalloc(strlen(prefix) + strlen(hdev->name) + 2, GFP_KERNEL);
+ 	if (name) {
+ 		sprintf(name, "%s %s", prefix, hdev->name);
+-		haptic->wq = create_singlethread_workqueue(name);
++		haptic->wq = alloc_ordered_workqueue(name, WQ_MEM_RECLAIM);
+ 		kfree(name);
+ 	}
+ 	if (!haptic->wq) {
 -- 
 2.56.0
 
