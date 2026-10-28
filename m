@@ -1,102 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793207686;
-	b=NcF4e+OX6FZ7WZ2lB/t0SS5AiqM1dPNEthylfU4e6ajnlYYrEz9GY4e3uwAu3VM1O62B
-	 kNJEdjp5gx/SXcBe07qjfMI4mWKU6jqqdfav1cwHPPd/o/Oa0Bq7txXLkrOR3Il3obpKf
-	 cfQU2tWilkdnhvmWKrcpnPq+9tXCmWVIRtcvQPBv5qx0xgMnViQPlRPrTNlns1wc81WKD
-	 eiX0mfY3vjmFGOYj0tLFGIfYhTTsiuNzQ0UYiQOCyP2tIiisPF72SP+chw7Nb9DiXR9qu
-	 l0GxTDjcOlXSPzi6QBhGx60ZWX3Luhi3uqZYtRnfSR9tGn9PNz1+ApSkleP5dv2RJzg==
+	t=1793207685;
+	b=Lo0+Avy0qByLHEWjQ7bGqY8E+huRJ3IZmQHCHgltd7WoPjDIXnK7qryO0Qo1x+e+TrUL
+	 +oxyQv9jGmz0a1+j9e9vjZdaDnSv8lt+ZZ+ZcTdYMFQU+BEDPYvYfNX1r2z/EAFEcl5dQ
+	 b+Z3iuiescRk1rDQrD583gQVC9GB1U/NyytK4A9phH49St0amxbDUes0M7KCQtJnS4A37
+	 3KPrRftKVj2PH+8BMBQ0+FHs5rMXluK4HR2GjVFMRh4Sj0U0yYUqsFLZqiPmsIGFfE2zm
+	 WuboZMkXthklMMxCHDKpVo+DmIa1Fq7aYsvOOfzYTGWAJaP2Yj/HM7byulKnsaxfrdA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bpvH8Kp7pKhcNKeWguQojqXnpg5TBg/XvZmMs15zNuc=;
-	b=iGfsFY1Bw8Vf//7dmdQB36IqAXFvVeSMrt5Cl/h1aqm6kZFqR0Xlrke8dzkP/rvVCvhd
-	 UOKUfgRAmK5MHSrTTNaAiwRZtirxtbu4HEIX7Jat7lb6uLQTLpoFtwB5xiU7zfLEb2HYO
-	 tL8pF/X1MKY1Onb60/5ih36Ui5LdfKYF7okxVYzGsGqKfXfssRNiZhmOUu2Nu6W6TodDT
-	 sW0BzrbzCGE212ReqDubCT9KJN3xLwxzpGf8MjeuqtLDB7rhGJ2ZOq+fbKBI5pdA63OBE
-	 92zMBreCw86otnQDsPBuxdoo/0n7J1D64A/wIv2puMfDQQZ99ioWBTfd+vbIl4jv+uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207685;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UDp0wgkglTmPmDg1owrhZsr+zbSjJcFONFEn6LtAuCw=;
+	b=zzHdjxS4tEcTYaP0yRMf4KczFrk++nR8vkY2ncb/RyvraY+IJRNkDB/DKtNvCCCBTMLG
+	 UzEwHDsN/FNH2XGTBEXaqwB68M7Hze0rgfaAmJ1H3s4cqJB8uRRL0tZjJAeIOwhwV1EiY
+	 YwwleFa4byzztasKetMikG6RYd+tkDpMw78Bk9rakz9rrXAcrfKI3Yn/5v9PlVE6wLE1I
+	 PaeKzKIRR0cj7RS1E19zidW3i1jKOQo4D3EpCJY/gMfRKdfONI+Yx7ffUByDkKdTmWKa5
+	 vgPX8CwRcDQgEQROEep6xf/L1KJD5UptzjCNstWhvzQrr0l/4AiLYXTCNO0bFSSJh0w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKONlaE7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RYGmdgia;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ItWYps3q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B48606A329
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B48606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66AF606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:14:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B66AF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LKONlaE7
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so11214095e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:14:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793207684; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RYGmdgia;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ItWYps3q
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFANw72569152
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:14:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UDp0wgkglTmPmDg1owrhZsr+zbSjJcFONFEn6LtAuCw=; b=RYGmdgia+3ENWT3K
+	8+9fUgyk3+OJ48GqrcLUDuwVBC9OSko/LEE1L/7t9RXLVs4tE1UHXsyw9MBM171X
+	soVqa+8kcSxMwLw6aKmHKma7nuVbkr09rYqDakq8oZRPuWIyxKPSGBFu0dxAL0Sp
+	Ez+h5JedlHpuq2D4MGclYUBV0DaB780wGy2MgucF9vVEALqYzjQuTDrJYQdAGtwE
+	m/LPl1MRV//GkFz1jINnl0hZuJ9wxS0OlpbuxTOfDdXF6bnGn5Qv+mtPWkqsGgtn
+	38v4cf5wkYahd2NDWLH2klgFk/XgEEWejb0wMkwRzsZUrhukUndRLnjyoFz0wtA8
+	PzrMoQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk12pvspy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:14:43 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd652c0385bso819276a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:14:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793207683; cv=none;
         d=google.com; s=arc-20260327;
-        b=JbsiZ0cWo+PQ5AE4K8mKInnMuY7cAvDPK31Fk4rHrXC59rrAcnbafTixwIMrLzOiZT
-         /c4g8ED00mlqPe0oKE0jaHBZJOKiH5gsNCZtqnM2vKaJrl5vhj4r3lJCEPtYehos+n3F
-         1D5SHO3kEZ1LDgDTt5+GMnrvvGrB899nhtHroZ7pZUIrzp5pFSigcHF0UoY7utsKclZg
-         2Zi/yy+JzxNBDW5FVBf8hq3wsueMcnCwB5wgsSbOXDCpQ1odDGiPGB3MIDhHcss2LH9I
-         9OBoma33Ut9F8XLm+Pe4MLbrWXXWsI3iy+GgqZKekQizJIENGsvr/+w5r2zuC3s0mOED
-         ZrzQ==
+        b=FUu+myqoq4d9REYFGZuqHvGo6DycwCz4xkKlq0Mk8+bxMOxKTa2LC0G80ZOnKeghnq
+         DOlOrbq3pPZN7TL7De7azSP2dzLXnshcpa7JXUARilbFrQ2y1lqw8gUo5lXtnVs30gzh
+         JXkUZnt8jmoDMuj4/WlLNcvI2WPeyeuu7Fm672RWUzKWI+b0JJcYN/WofIXYxsDKoU64
+         YlvLbeIfU16FSLJBVZNYizT+Gn4rXhpWagoUFbjcJ5c9ZVadJePZST5WvNvIPUhmxBro
+         7FjsB+a9sOWUXdNcd40QOgtqcNT+8FR/f3XjEhy9xyXCCuZus1l9kQcP4dbOVSi8LX1W
+         p97A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=bpvH8Kp7pKhcNKeWguQojqXnpg5TBg/XvZmMs15zNuc=;
-        fh=PPb9IIYPx67mwZCFnG+KUVLuRyUm2Akpj812Obj7iNQ=;
-        b=qEZ4QV70CwGwUm9b8TVvlEjKV0XiUr+GDVpbmuhz4kZ3UjelDu6NU87qc7MsEiozqf
-         Tvcd6qmmRevVOkGvtOhLbbAEazuQOT9C3SnE572ilxxNZRHoZpgpep++73Ri1TZZqdqw
-         T12PAAqmiWpqpHndLUvOsIagD49qymv4CsOhuyhR2NhDdzUcTv+TOERtNJZH1fVPCIBx
-         sBXhVPTUDPSyxBZJx4nHE788W/VbeMmpJUxblg77x8V3j2pPX1d4md2i9T7am0F5CRgm
-         bYJcP9mccTd5cNdTXGmEiRw6aNQgGfppFETLeZUOGLp8iQ1Xijgc0sZQZ4XhVmJgW/Vg
-         q5rg==;
+        bh=UDp0wgkglTmPmDg1owrhZsr+zbSjJcFONFEn6LtAuCw=;
+        fh=8BB25h276lYgu0qU432y+0bQm9q9m+h2VyJzWsiTF/8=;
+        b=Zigv8FT5ZkIhs4BSQkJ40asKc/1kkKmOE/zOO9iSBAAOaxwsx5TWea6MZ4dala4KEZ
+         oQ+v3d7dX8TqXB7fSQF5zD0CRo4d9d5P1AcRWRpHp6EqyqikKh+t3FFPJ+hRrkVSBD3V
+         E62ocTtdhbHZPJXVBMdH/KixceyXB2cHXeMDiNyfA/f+PvD0OPFO1XxFgLijtDkyvw+n
+         ZfOg5TnH4KBe3YQEPPxtjHBXUFLIPQH3M+7ANak32VRNinrYRuzCkkvm+N3y0A9fJ2wU
+         AgtNcEaH6nlYm9rBmqdxdfI8Y8YEPJHoBJfFYYHShHDtU5cN1FWDTm5d75b1W4r0I1xm
+         bW3g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793207684; x=1793812484; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793207683; x=1793812483; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bpvH8Kp7pKhcNKeWguQojqXnpg5TBg/XvZmMs15zNuc=;
-        b=LKONlaE7wu/J1BUerHw9BiCNiFSpIs9zwdF5AwTU/rsMl5yW4qKHn2tcU9qqyh4RYS
-         jzfpU3xM633m40P1YhleWHC0A1PSxmcmQAugbUhUJh0/RCqItljlS6hRMClg3wYH/LeW
-         oyn7D7SD9/QlZWffio+hNy/BAu6+I1WKCLfIqM5UowHoMBelZMUQSKMgQ1crNFGo3Kge
-         AFUAJ01By1ihkgKfPpFmQ0gTBAyHldBNb6dN+d6jzRH90vyRDmolD5O3BtlxThPpeNQw
-         vg22IW1ZcJakoF4yt7ctsEY1bgkTI6NE1/SKUm50QvOHyDcHIN7Gn/zvmGbrLfOxQ8rz
-         8w3w==
+        bh=UDp0wgkglTmPmDg1owrhZsr+zbSjJcFONFEn6LtAuCw=;
+        b=ItWYps3qeISaj+0QKytoXeoyep6Hd4pn5F0pyPX5ltoPrLVbYbtoFBMhtaB8nAb+ZW
+         6/kzRMD4/0pIFPCS0NbSyMQYtkMHnBPt7NBI2vSbgRP/1nNe2PW+CINN4sjZj9YMgAMM
+         1IPz7+611RruaRWGV8TpDYyFQiZORyPZIBEYYPrnJx4HV6WMpffohdc4tJ3JgSjlkJvi
+         l3gEDy55CJODaUzSxnfHWugj6zQiJVuhgNwbthIgwe5wyhTinGkrXAUJrvPK4Rcpz5vQ
+         2JLGCpYOPZvJza+YNhuOtV8MVaVVnjMt1ttWBHlHEelHs4y6nVMVy/OqaMGemayskbhf
+         2jdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207684; x=1793812484;
+        d=1e100.net; s=20260707; t=1793207683; x=1793812483;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bpvH8Kp7pKhcNKeWguQojqXnpg5TBg/XvZmMs15zNuc=;
-        b=jf7TQN08BbLpHEo2w4vD7i2BfNTAjAqKsqw1lqtgUkJMQfsewS015S/2iesqKG+GGg
-         cIryG+fLxUo0ZEHfy8oM8/BObfp6QYAnN4HtGIkfzjFgOa5/sa2rt0vWL83Y2z4E70Wv
-         gohIf/hTR2DL0nlXzVXeVlu4Ad0Fmk163R02UpVDc1Rdef8si5LhNjye/7gyWEDHBUJM
-         Og8o+eFcf/tFwXQhq4H/2kyEU8mwBeO+zIYLKDxHKixGDEcoWtmHHRqTPiBjNTtIawOH
-         y13cwsLhMsiT2LWfsdjDEft9xEGTDdfmN1IwBNw23a6tdDsGZFFVi0A1ZBIqy8NwyaPZ
-         dM4Q==
-X-Forwarded-Encrypted: i=1; AKwUvByG8QWnh5YjYBrbNPW3+BSU5xs7l0fl52X+qzhz25ej37KnO1vrfBYqYqTZuc2Vlyw1Dck8MwgellQa6DU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN88NU8DMaG/Fe4urDPaQLc220pngZ7mk/Z6G+Ws5CX59twQ68
-	KzR91x/vCwmL+kaXX8oqC8INq69iv/71MdYxCeMEJs7fpy+qOuUtQcCmWTUmPcXGu/F5SWY8EJj
-	0/6alkXjk83T5t2nEsV8J9Z9NjD+cX3M=
-X-Gm-Gg: AYBFou0PR6LOhyM1JBz6136jczBt2lX6vmQyROgYbBW7Tn+1ZMqbljM6KwlLPYOHQ68
-	BNu7/Abr57wOZ3L9naY1V249A4Le8izIbg/1jkjIIY8sNbzXl/T3HwMgfjvYKrdUvzOUR3yaUXb
-	V5luJGIxgFTvuyDFOrdztjSxsUE6kgxfCzXp2gcLE8WJjAzLFpWMa9IoClKScwPsMbeEZgKUpfj
-	AlWh/tywyn0h7DuY3ErpZdihvZhIagqb0dYfoxREGv1Lf78CmaTQw4CN37XxAOa3ndShVTW0Jvd
-	+TbVoFFEOqPnFR6HqhVSRq4MaXVoXSNXLnKoWJeVPG+ITFVv0EC1R1FyYhXugxjIYEmkx3kkBaG
-	HL/IQ9F/D10HdfIm15ecgtpxckWBUPBmg3OqpagYW1J9W+1WVLw+zY0A5fLJyPjuLV7ghLNk/E+
-	slYKI1zyq2xDXFmRrSPwz/f3FfV5u5Ap1yp5fyseVM3g/OyKGHKLFikDOOkxFkXRXFZRINdPdcD
-	Q==
-X-Received: by 2002:a05:6000:1842:b0:48d:f02e:f7cc with SMTP id
- ffacd0b85a97d-48e5d599647mr7878806f8f.24.1793207684168; Wed, 28 Oct 2026
- 10:14:44 -0700 (PDT)
+        bh=UDp0wgkglTmPmDg1owrhZsr+zbSjJcFONFEn6LtAuCw=;
+        b=gU5XwWSIKeEb0Mqz1oWXA4AlmAoteE6g7opNuayyiyVfR+kRTLWyFSpktrd9WQV+pI
+         jUWyWAsrgWmMgF3sqn8njHaS4QK8T3jdae3h6mJog3tyWG2qv97KJhUVmSL2idEMAW/C
+         7Sxfikdp8TzFBp1a4DvGIKlwj8+JK+YsWIQpPmunDMWxcrL9GIfReS1NbFM9bV9dJbky
+         WU6dDD9GUdC2uCp9nDSvk9NE86obKcAC+bYpAiWKuovuY+NFJrOb+FEUJ81s3Csz8878
+         ABoMYm/HIGxbHTuZu6cOcYWkkmmeEWqEN9a24tH3xMDCOJ8RRH3Ex+LCTUXqgW/Vxuzd
+         CSnw==
+X-Forwarded-Encrypted: i=1; AKwUvByT8ZfAue5nRp4ugmRZ2ysTOja9PPhV53KE2Y94YJQSmABIHRqIVqn4iuho+aRYNO4MwzMlvd9HQQeD5rI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKa3PvTLncz/0BK/AIjQ6jxooS9ci3PxMNudktEoavpp3jlQpl9
+	R8Gh49ifbaL4h6nZBh5C2klcPRoyM8p99DcyJpJblhh4HZWvHX6n93EQXdHEAcusC733R+5O2WZ
+	kyci18C7qQgtg6ahDktMZrHmyoCz/JPeyeia/IuJXeUid0NMLfH+BGpKKwetYTH5nYWpsvxmJSo
+	a0gqB8oAADctBD+kk5iq5j40DvCXwjk2YG1rFP/RKiFg==
+X-Gm-Gg: AYBFou37Y0ymdAxPLJZK1MKYwuT/g7qtDEa/eOgynkQ+Ad/4TdH8y47ncg3NFkBRvUP
+	RgCgVhwTw42PSpDJH8U1n/Xz24AKK0tmKP9V7rv6aLnY1PqRkPjyCLTEYdt0vq/LKQCP4BSfpBO
+	Ej6YULab+L/dk6kjWBbCnK0aX6hvr55y8gfYCRMShqhWQwvRTxatyCL1vyMQ==
+X-Received: by 2002:a17:90a:e7c7:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3ae5824d380mr2248110a91.47.1793207683156;
+        Wed, 28 Oct 2026 10:14:43 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c7:b0:3ac:9a03:20bc with SMTP id
+ 98e67ed59e1d1-3ae5824d380mr2248076a91.47.1793207682688; Wed, 28 Oct 2026
+ 10:14:42 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,53 +127,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org> <20261028-fixes_shmem-v3-13-4ce3baf2db4b@kernel.org>
-In-Reply-To: <20261028-fixes_shmem-v3-13-4ce3baf2db4b@kernel.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 28 Oct 2026 10:14:32 -0700
-X-Gm-Features: AclHuK8uGLMeF-yLDH-Azm2VUTE0jqvp7VNoB49he4XaLFESCOLaEk0KKrGGynE
-Message-ID: <CAKEwX=OPADynOVEwpn3cui4U2GsP5T9phZQMaJo5xF==Nq_Tow@mail.gmail.com>
-Subject: Re: [PATCH v3 13/15] mm/shmem: fix truncate loop after boundary
- swapin failure
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Gregory Price <gourry@gourry.net>, 
-	Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	David Stevens <stevensd@chromium.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	William Kucharski <william.kucharski@oracle.com>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+References: <20261007070313.863-1-ian.ray@gehealthcare.com>
+In-Reply-To: <20261007070313.863-1-ian.ray@gehealthcare.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 18:14:29 +0100
+X-Gm-Features: AclHuK8OzKAlNJgB9bkGdb-Xga4FUgj0a3CnfcJYrvb6cJly0UazM3hY7LrTXlM
+Message-ID: <CAPx+jO8o3+ca6LE-1DPuiOrxOWVRosuW7rf23SzLAGq4vRHqeg@mail.gmail.com>
+Subject: Re: [PATCH v3] mmc: sdhci-esdhc-imx: map unsupported driver type to
+ Type B
+To: Ian Ray <ian.ray@gehealthcare.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Haibo Chen <haibo.chen@nxp.com>,
+        Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Shawn Lin <shawn.lin@rock-chips.com>,
+        Kamal Dasu <kamal.dasu@broadcom.com>, stable@vger.kernel.org,
+        linux-mmc@vger.kernel.org, imx@lists.linux.dev, s32@nxp.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: b83GD3GFuFd1eggNKqnDmt_zpU89_A1t
+X-Authority-Analysis: v=2.4 cv=DtDDa2/+ c=1 sm=1 tr=0 ts=6ae22d83 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=lb8OlhKpAAAA:8 a=QyXUC8HyAAAA:8
+ a=NVfV2Rmm9NVekzJLEn8A:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+ a=7GnFejQYy5TgUzHuXd-m:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfX3gdvARBpn4iq
+ Fz9YdwD2Lv44tAw6Bvl1Vw54xqtYVXkhjvjKAGOJGbJFdSLgoc8TXrYoCNb83o3ziaQKxfwvwYo
+ 85o4Mab5YNm0BzWW+8ssuKTAR1PoD23SjVAu8j7J0gFS5ywTMWHq/z3iYppjOBVsEWBMJbG1vo9
+ epqcaLLxlXt8XJTlS+ugf2ktlTGBXy72oPyNOWq+OCPhnKNb4Ve+ddEz8TS40maISe5puFxXt0A
+ /2vLEqUhUf2lrm1FutCVQiLUc4bUsjin5Q5MlRaXKpXNmAcvSpZZ9d2P7LIRiguKdhg1QweMH4f
+ jipouPaN6/EOMn3vQifyR/eWNXKUnZ0wGTnpGZSqhzCB8PJuwDsZs4q+31o79u8EzuB0kli6lcu
+ MlSV6wLbbRkg3iR/V6ZdB95AhtChkJWRrwCfoU7lDaPfgPO6/Chh6JzF/uT8qhHrg0qa9EzojDw
+ XmGFMslsl0wFBPn2g3Q==
+X-Proofpoint-GUID: b83GD3GFuFd1eggNKqnDmt_zpU89_A1t
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2OCBTYWx0ZWRfX/K3czJ0Sh2P3
+ eQPfdRs6cflZv57La5QrKAfmNBTKGGtTu4bGR7IJsmGO++2OmsjD7bce1QCkq8ZQQXIxO3WA302
+ W8ae7/I0BbpY1X5hFQoBLuOhs5bVTnQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280068
 
-On Wed, Oct 28, 2026 at 2:57=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
+On Wed, Oct 7, 2026 at 9:03=E2=80=AFAM Ian Ray <ian.ray@gehealthcare.com> w=
+rote:
 >
-> If swapping in a large entry at the new EOF fails, shmem_undo_range()
-> leaves the entry in place. Its final scan skips the entry, then restarts
-> from the same start index and finds it again. Truncation can loop forever
-> while holding i_rwsem.
+> Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+> for fixed driver type"), the eMMC driver strength is passed directly to
+> mmc_set_driver_type(), which propagates the value through ios.drv_type
+> all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
 >
-> Advance start past the skipped entry so that a restarted scan can finish,
-> as we already do for folios that cannot be split.
+>   mmc2: invalid driver type, default to driver type B
 >
-> Note that this does not fix the missing zeroing when boundary swapin fail=
-s,
-> it merely prevents the endless loop.
+> The host driver type has no effect on this controller: esdhc_writew_le()
+> never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
+> set_ios() and force drv_type to the always-valid Type B, so that SDHCI
+> never sees an unsupported value.
 >
-> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry=
- split")
+> Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+> `fixed-emmc-driver-type =3D <4>`: the warning is gone and the HS_TIMING
+> register contains 0x43 as expected.
+>
+> Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixe=
+d driver type")
+> Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthca=
+re.com/
 > Cc: stable@vger.kernel.org
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
+> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Applied for fixes, thanks!
+
+Kind regards
+Uffe
+
+
+> ---
+> v2 -> v3: Force drv_type to Type B unconditionally;
+>           hook set_ios() for all esdhc variants, not only usdhc (since
+>           the driver-type field is ignored in all variants);
+>           reword comments.
+>
+> v1 -> v2: Move fix from mmc core to sdhci-esdhc-imx driver per review
+>           (see "Link:" above); always provide a valid host driver type.
+>
+>  drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+>
+> diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-=
+esdhc-imx.c
+> index 6ab59d3e346f..931e383748a9 100644
+> --- a/drivers/mmc/host/sdhci-esdhc-imx.c
+> +++ b/drivers/mmc/host/sdhci-esdhc-imx.c
+> @@ -1142,6 +1142,20 @@ static void esdhc_reset_tuning(struct sdhci_host *=
+host)
+>         }
+>  }
+>
+> +static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios=
+ *ios)
+> +{
+> +       /*
+> +        * This controller has no driver-type control: esdhc_writew_le()
+> +        * discards the driver-type field when writing SDHCI_HOST_CONTROL=
+2.
+> +        * The programmed value is therefore irrelevant, but SDHCI reject=
+s
+> +        * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-t=
+ype).
+> +        * Force an always-valid Type B.
+> +        */
+> +       ios->drv_type =3D MMC_SET_DRIVER_TYPE_B;
+> +
+> +       sdhci_set_ios(mmc, ios);
+> +}
+> +
+>  static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
+>  {
+>         struct sdhci_host *host =3D mmc_priv(mmc);
+> @@ -1952,6 +1966,9 @@ static int sdhci_esdhc_imx_probe(struct platform_de=
+vice *pdev)
+>                 host->max_timeout_count =3D 0xF;
+>         }
+>
+> +       /* No SDHCI driver type control */
+> +       host->mmc_host_ops.set_ios =3D sdhci_esdhc_imx_set_ios;
+> +
+>         if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
+>                 sdhci_esdhc_ops.platform_execute_tuning =3D
+>                                         esdhc_executing_tuning;
+> --
+> 2.47.3
+>
