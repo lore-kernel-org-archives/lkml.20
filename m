@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793186355;
-	b=aqSiu4DSh6WSHxlwmE/jLaXt0H7FzpAGq+7TOfz+2+g8C20gt1RhXWcVaZLZINsGXZ4h
-	 KFmXD5H1WVaabglvKsomn1jvASwLsIxyscwziwcmnYDDUAkOrviYnXivCq+B7F9wyGQ14
-	 tEyC8jTrvGeUBN9j7kdAtRL/+IAQAxGxwgOfrpvKL4V7awtkc51eB67S6bFTUgcjdMx/T
-	 KtJH8niVSmzSYs6s4QhT24s/MYIUiGHgiBZi0z+Qk/VemvFUeUrOrRUbVSsdwqmHlhsxK
-	 4CvxqEFHmPUsMDPBtTbUENTz8xjSX5dxinjbVFBVuRW84cmKulrUHhvtARq1j+7p8zA==
+	t=1793186360;
+	b=tSQMX/uvRzAXTIv0Ml2aEyheLo4Htbd6l7omjjiLoS0ukM4K1MxqJ8QR0i+lnq92trB3
+	 FSqveOBUZfM+8WYnxr7j5U9ZY852JXqPQ2hVVKHcjgrOZeMOy+I2bb2sfQMxK5eGnuIxQ
+	 v8gLWiiT1bNOacsmiM4yc/OiqpSHVlUmOkGwSj91ksBHDYJJhvjZwmYSZ59WChSQtQKGP
+	 9uuqggALoUpkmneuD8fnSdK8uJe44FjbUhhbEIAUELsc7w7M+nLzwk9/EB5iNZyHlIOaI
+	 afq91C89SbD3/m5rdkbTVJ2N054LYG4aJkxw3K60UaDvZbtqc4I6puyTSX7PFvEubzA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186355;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ZzDwz/kHSwYjxp3K+XXuMS+EadtQR/v1/Kjd8N4ZVok=;
-	b=I60bdVWQKIovneeA2kLDpFEVdUv+4/g6TLyhf1Hbj5lvIJ3UPrw53bO5Y7ZkMoMw0n1/
-	 68PiTq5G6zfg07LHymCProGSMhizNEilm90l1D0ujPA3F+poRmlAqsCe1SaLbzm9elfDM
-	 Zljq5kl8DanbUz2Sbu9k5DlSQ9y0rc8RcFUxU2RejGHclrC5djuNt/YF8ZqxR9cwwqcp5
-	 +/aNQ1n4uZ0NM83NYwaYgH0Rkjmo1F7TcMvgusJ0Mk6NwzIZMx895ds+4wpMEBQsP0UPS
-	 A1OMVtLYKqgzgegXJXClGITcwhbQcLsZC684X7I3KnzYPfRFhc28CNa8BdcKcUEs+TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186360;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	b=p2B4u4OqMMTfFjQLcO5uJhDqPzZ7DJc4+t4eywQxRDVJuji1+SEEuRsDEzv/xXmlPtCT
+	 EUZHTuZmUVH00Fr2bWheetcSVUjTlMjbfJ5aqYk/8FgBmjFD5rkUWZUeVzTe4rHQvqcEH
+	 n15Q4tZl2r0xgFJqQmfi0zXqSU9yT7jrq87i1YBJrGKdqgkxCvlDdgfqhE/r2rfKcctAH
+	 Nbj0u5MQeJGUCiyVm9UjjznRvwPzB3J94tMMyJCZkHY03j4574HCa6sCNAf25YPvSvouO
+	 13kZ/fDRP6yOlGqr09IzgtCEkJCCBNp1HVXueD8o6mXcpPb5nUZVzptjDLor4Y2TEug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEnSyugM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FGONao/g";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7A3606A326;
-	Wed, 28 Oct 2026 11:19:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97A0606A31A;
+	Wed, 28 Oct 2026 11:19:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEnSyugM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGONao/g
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793186355;
-	b=2YIG/QA70T3RUB1QrhUp2tdLoIbtYSw2ZL7xiMsIYRoCFWFxuExNkcs98PaW9Oc/GWFW
-	 pin3PmmVrZYDjMmyQepTyjw2DOfinUwVa5xqX1cOHHj5j/URygtvPoZdRAQyNChSWWj19
-	 qIsl2DDAkYyw29XdnSb9rp/AOSFLD9gYgtC1Dab3rLKcWetDxk334iQzuhnC8MtGoqBcA
-	 0Ye3Fr8mvF3Y955yp+3ZW/d5yAZyJxyBM57fTb56JkoSUX+W9mH0V279E1kkpQfAY/3jN
-	 mVPrQLc+glNOnvYvv3LaTRDLK5udcR4/AV6IsK9cwcugRQB8DgecX8qkY5MJuJQmCXQ==
+	t=1793186354;
+	b=anz4XldHoeB51+tOfy5fluDuSJOWdTplG0Zl0HsDpSto5gB9FfOQiSS/qQkUhaVjoG6X
+	 KfuqiFCYJ96p5wOs2lX3r37+6YfOx1oJbEgXEo35TJWPMRmksqN9K4Tcgt7cSrQjRLwzA
+	 P7ackGVsReNq4HPrDHq7pKBtP/8ufBkCgR/5+1MpwoiaA9tEGDZKIC99N3nwfxk3OQSk1
+	 T8EkaZIcsCgIzGunxq5l5m5X150tdh9qbjaobLgkgnn1fY9LTEpeocKwiGwtrIWVjpecJ
+	 eHgx+jtsxqKwOKA4nnPzFSn2SW++kBgdjW1a/kfOrRLQD3eR9TqTDsbtZ0d/euNVHeA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793186355;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ZzDwz/kHSwYjxp3K+XXuMS+EadtQR/v1/Kjd8N4ZVok=;
-	b=BDH8MAHRRlhp74+PI+kTcZL5QMM16VT9ZYF0Pdqe33WWkz13AsVU6Ek+YvD5LyFIN0GE
-	 MA0nJuodrBn20tAI5gi1uE8gMaPL5PWxR4+SnF9/3tz51c5itgt/DiF8lLiD5BjTMMd/b
-	 vi45WZMKqRXBNFiKxNo2tXm6RozUbeVZA4Xkm9qk00dZh3arF0ueJsiFLGvEfGRa8ExYK
-	 xvYTjxrgB34ktUfA9bKtFhvwRgnvt3khwWbGynIYuax8MjTcOY3pOU8iqb5fKqc2ow3nX
-	 694+xOSjvg7mBzJkKG8qYprWxXE+HQ2JUiXCv3QhsvcY8TQJZ4Bk54boC6DP9RRqjZQ==
+	c=relaxed/relaxed; t=1793186354;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	b=V0tc0mKh6lKLqpjXNOI8uRN7yy2wIRJokY/Vo9HdtzFYMySCsb8Cn2NpTz1O5/UohUub
+	 MKUQOOGzE9AVERKhFTHtmC/aQa254OLQWKF8ucHx7MwP30NPL+SeNQ33zQAknaIp2f8WR
+	 p9aAn5ZfM7xnO6cIxBajShSx5DkTjr5H0o/AgWRk49IfLp2k0LMkUMyK8MWRSqxLpJtIr
+	 5Q175GPrwup+ppMQcG/TcAwBULsJNKw+wlE4YI+4AE7bl8QYH29nso2DZFmdr3glc8ENL
+	 CaNw64rWPA6kPMxCB7nGJ/jG+PrOycyyKs/TT+oJXXuDAguqV6cMMvtL/QRF+zNunhA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0CC4D1F01828;
+	by smtp.kernel.org (Postfix) with ESMTPS id 3D4AE1F031E5;
 	Wed, 28 Oct 2026 11:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186355;
-	bh=ZzDwz/kHSwYjxp3K+XXuMS+EadtQR/v1/Kjd8N4ZVok=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=lEnSyugM0tkd8fzCvYcjYfNtrZAw0mj0Gi4IwoVfqWHeNLKMH9MrF0B5bpi4AAsYp
-	 iw4IxD6h+vUCP1EUuJ6SmtoLih0Jz+45SR5oE2h+DyosKBIpSGDz7FJoWuWWs/hSQN
-	 KxLtt/yuE1B2ie+8RQYoG28dOD1EGEL6G0U83Y65vBXjswG/TNk+xqHBYSg210oFjv
-	 DqqE6uwkcWm51+MLEN9j4TngnALApIRxymM25JhAmjO/EE5h36js/ny6Fq98H9xMhA
-	 qUkJrhAPHkqq0O9s24xV9F4ThxagwnjR1LAlzXv7W52fs5GVUAkCoituJ9IHffD/Nj
-	 5kLpp8tjIcDRA==
+	s=k20260515; t=1793186354;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=FGONao/g0p5nzye2j6WJZMCtB8JgFMzcVHtayJcNUJPMV92iF0Usxg8JPmZYeOkRC
+	 Te1PgPiYISAri44X+U76PvqfP2Z2pltj/EkaMvNX8wzfWQ0ulm/WLnbflMOqQSpS5h
+	 XO9B4h45rb4JTFBoB7eCGkaTPy8gdJIuns152Y9XOMK60NluV3bnFJLqkDds03jHlR
+	 Hju9hm+d84ZlEhJFBg8fZw8T+tP7/sG25MiHe3P4Q87w679CiQITMhSRcvAWT1BI8k
+	 xWl1SEc7azZr280RPDKnuV1a4f1pvub/caZNwp0+jDpIm94a0T/Jpx6S+1BealjVnh
+	 t/ehYBbvKHyBw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8B2ED45413;
+	by lkml.kernel.org (Postfix) with ESMTP id BA8EF4541B;
 	Wed, 28 Oct 2026 11:19:12 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Subject: [PATCH v6 00/11] Add Initial Support For MSM8952, Add General
- Mobile Shamrock
-Date: Wed, 28 Oct 2026 14:17:19 +0300
-Message-Id: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
+Date: Wed, 28 Oct 2026 14:17:22 +0300
+Subject: [PATCH v6 03/11] dt-bindings: watchdog: qcom-wdt: Document MSM8952
+ watchdog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,13 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OwW6DMAwG4Fepcl4mxyQh6WnvMe0QgqGRSkAJQ
- 5sq3n1pNU1Igx5/y/7831imFCiz8+nGEi0hhzGWoF9OzF9c7ImHtmSGgBosWD7kwViFPMQwB3f
- l+XOaxjRzDQ6U9UhCESvXU6IufD3k94+SLyHPY/p+PFrEffprCjw0F8GBA9USVW0ahfJtcCFey
- 1rsX8fUszu84BbTxxgWrLbGlz1sWxK7WLXBUBxjVcEaq7u26gitaXYx+YcJgCfNZMHIt94L5zW
- C38XUBhNPmqmCCaNqqKW1SP+xdV1/ALU/E/r3AQAA
-X-Change-ID: 20260909-msm8952-initial-support-60a059c2e15e
+Message-Id: <20261028-msm8952-initial-support-v6-3-e07ddd8bcf4c@mainlining.org>
+References: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
+In-Reply-To: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
@@ -124,128 +119,44 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793186350; l=4979;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793186351; l=832;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=kPxJA+CCGn8v9Nvls5ZWVWiZ07xF/tKKZFIWEPjrrhw=;
- b=d1wnnVDKKDLprFacJGtNdbXAvmqj6uKTuCbF7ydYNQ/c+tnyOfNbiocHxVrz5Se9bzMQVgw4p
- Vm2oCdxR3poBzx4kWktcrU9t+skdKNXUOXUq6792oVpWOpp/oKa6rn3
+ bh=6oZOV+Mf0e2Xnm4F17qb2OJyHhIjSjwRgWv2fbhA1PA=;
+ b=/LAAnAOrVpwOOgRezY78N0yMI7KJQY//B7hj3n1Cd4TXoQKy6YnY36h5aDZ+hTD7vhw9Aowwf
+ UXs4hdvKYtcB4EweLSUH3Ktyc4lTRj8YFkDa3lK3/R7Vyxu0jKQ4sps
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
  with auth_id=954
 X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 Reply-To: muzafferkadir@mainlining.org
+Content-Transfer-Encoding: 7bit
 
-MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Ported without uart connection. ramoops and usb
-mainly used to debug.
-USB is not enabled in this series because it
-depends on the not yet upstreamed (and not developed by me)
-pmi8950_smbcharger.
-
-General Mobile shamrock display panel driver
-is generated using MSM8916's mdss dsi panel
-driver generator and tested with it. I didn't
-include it.
-
-Pinctrl driver was submitted and merged here:
-https://lore.kernel.org/all/20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org/
+Document the watchdog found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
-Changes in v6:
-- Use one-per-line in SoC dtsi as Konrad requested.
-- Drop unneeded dr_mode in usb as Konrad requested.
-- Drop 1651200000 from pll_opp_table_c1 as Konrad requested.
-- Added new patches for more msm8952 specific compatibles as Konrad
-  requested.
-- Renamed 'aoss0', 'modem', 'camera' sensors to generic names as Konrad
-  requested.
-- Drop clock-frequency from timer as Konrad requested.
-- Switched passive and hot of cpu0-3-thermal trip types
-- Link to v5: https://patch.msgid.link/20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org
+ Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v5:
-- Added opp table for spi and uart.
-- Wired all i2c and spi power-domains
-- Dropped default slope from thermal driver.
-- Link to v4: https://patch.msgid.link/20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org
+diff --git a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+index 4ff61102e407..38f86ccd1ffd 100644
+--- a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+@@ -29,6 +29,7 @@ properties:
+               - qcom,apss-wdt-kaanapali
+               - qcom,apss-wdt-maili
+               - qcom,apss-wdt-msm8226
++              - qcom,apss-wdt-msm8952
+               - qcom,apss-wdt-msm8974
+               - qcom,apss-wdt-msm8994
+               - qcom,apss-wdt-nord
 
-Changes in v4:
-- Dropped 1651200000 freq on cluster 1 because it depends on speedbin 3
-  and speedbin is not included in this patch series
-- Dropped applied patches
-- Changed mdss_dsi0 power-domain to MDSS_GDSC
-- Reformatted SoC dtsi file
-- Added the remaining reserved-memory entries for not added parts
-- Rename adsp_mem to adsp_fw_mem
-- Drop the "ts-" prefix of touchscreen pinctrl in device dts.
-- Link to v3: https://patch.msgid.link/20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org
-
-Changes in v3:
-- Improved GCC driver, also rewrote resets part
-- Rewrote the dt-binding side of gcc
-- Reformatted Device tree files with dt-check-style tool
-- Added reset to sdhci1 and sdhci2
-- Added cx regulator to gcc
-- Added gcc commit messages that it is a derived driver
-- Dropped adsp_mem, renamed lpass_mem to adsp_mem
-- Changed tusb320 interrupt from rising to falling as downstream uses
-- Link to v2: https://patch.msgid.link/20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org
-
-Changes in v2:
-- Changed device dts file as David's and Konrad's suggestions
-- Removed accidental duplicated clock assigments and fixed wrong gcc gp1,gp2
-  and gp3 parent_maps
-- Updated commit messages to make it wrapped at 72 character.
-- Fixed spi1 tlmm node naming
-- Added remaining spi and i2c nodes
-- Wired up mpm
-- Add mmio-sram to rpm_msg_ram
-- Reformatted msm8952.dtsi
-- Removed rpmcc-msm8952 driver entry and replaced it with rpmcc-msm8976
-- Merged sdhci tlmm pins to single nodes, now it is similar to existing SoCs
-- Rebased to latest linux-next, now storage works
-- Removed polling-delay properties from tsens
-- Link to v1: https://lore.kernel.org/r/20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org
-
----
-Muzaffer Kadir (11):
-      dt-bindings: nvmem: Add compatible for MSM8952
-      dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU to SMMUv2 compatibles
-      dt-bindings: watchdog: qcom-wdt: Document MSM8952 watchdog
-      dt-bindings: sram: qcom,imem: Document MSM8952 compatible
-      dt-bindings: mailbox: qcom: Add MSM8952 APCS compatible
-      dt-bindings: clock: qcom,a53pll: Add MSM8952 compatible
-      dt-bindings: display: msm: dsi-controller-main: Add MSM8952 compatible
-      dt-bindings: remoteproc: qcom: adsp: Add MSM8952 ADSP compatible
-      arm64: dts: qcom: Add initial support for MSM8952
-      dt-bindings: input: touchscreen: goodix: Add binding for GT970
-      arm64: dts: qcom: generalmobile-shamrock: new device
-
- .../devicetree/bindings/clock/qcom,a53pll.yaml     |   25 +-
- .../bindings/display/msm/dsi-controller-main.yaml  |    2 +
- .../bindings/input/touchscreen/goodix.yaml         |   35 +-
- .../devicetree/bindings/iommu/qcom,iommu.yaml      |    1 +
- .../bindings/mailbox/qcom,apcs-kpss-global.yaml    |    5 +
- .../devicetree/bindings/nvmem/qcom,qfprom.yaml     |    1 +
- .../devicetree/bindings/remoteproc/qcom,adsp.yaml  |   31 +-
- .../devicetree/bindings/sram/qcom,imem.yaml        |    1 +
- .../devicetree/bindings/watchdog/qcom-wdt.yaml     |    1 +
- arch/arm64/boot/dts/qcom/Makefile                  |    1 +
- .../dts/qcom/msm8952-generalmobile-shamrock.dts    |  439 +++
- arch/arm64/boot/dts/qcom/msm8952.dtsi              | 2884 ++++++++++++++++++++
- 12 files changed, 3388 insertions(+), 38 deletions(-)
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20260909-msm8952-initial-support-60a059c2e15e
-
-Best regards,
---  
-Muzaffer Kadir <muzafferkadir@mainlining.org>
+-- 
+2.55.0
 
 
