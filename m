@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218172;
-	b=hRudOfgTkMbRbAezHyTwlW3eXNl6o9d7mMXh/Mp6fbqNykeGv4sjd4G7BsbDov2Ra7S+
-	 fsHiFtw3YvyXtiTSl1ZgzxZmuoXDnlHJBrG3nH1x0s5NSITr9Gq2BnN5PXBjCwGfeGiP3
-	 qbUQQea9F9UZiZRDaWOz49AWW/qlmCy/UkaOy+bAGyFjtL+fsIyW6Mjq8I/C4KbudH3Mr
-	 RtFe2LikNXtm6OQRvzB5ZkdaHGLsKXojE7/IIympyjgX1qWcZlYgpu10dSHtKYqM/douP
-	 hR02cQ/w7Gz6w+vjAnof8/wq51flh4MHVZQ/4wgdj20vh0E/wqzpPAyKWh9dqmm2k/g==
+	t=1793218168;
+	b=dOYBjQhtW+hv4yWDT2J/L+rPu1GtiR3uddHOj+/rPz4vBu5kUePBnhp56o36xccVjKq+
+	 gAZTrl5wZYc98hfPsoG+lAQ4sSU36SRPnRdSPj5PHVvIz+oIk91l4GPwRKAD25J+gNsno
+	 XJoVFcG1iv5ZgWrbM/XH1cvfMwbM4IFBZ49lDkn5Zu2i6LXbhRv6QQ4kQniUkRMlCySpO
+	 sgNNNknYDiTjcQJ07OQJ3LpS1CnBkNmpXfRMjxdb93ltK4rl4L2jKin6Q4g//xxGLPte9
+	 09Z9Tt/Jv9RBtB23IcbqsR6r/iodJrVfwQ9oNFQNw7lJVONbYTIknKHD8arhQel9Xzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218168;
 	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Y9prV6WuIi15Ykaoy1sEEO6x+8TCFI9Z8BWNg0g0Ywk=;
-	b=2wNocvp8hrFdtADf8lYBgppPZGx21wOmgOfGEfgVue8It1wbNCL2zI9JSDkWzuFyUQcB
-	 sXyDhaaM3G+lutP19LjKK2c8shLX75TQ1EUIAOH620Cwf7VxhuhimLY4PPVCUivSRK22u
-	 DQROE4qX9/8cVuOTLIt1lju3JzpapxAG4ISmuvPsLlg8jMeyDSxPGEhD1H9zoAtnU46uY
-	 L3J6+SWeDjCumsQJmMr3Kp7TAIyE4K0EGsCtnhL3EXcWaMhz4dkn6hh3tZsUfoEEbryWJ
-	 SCa9swOMQgopdZShYSYEe22DYqP7vRCQJXl5vnZWAZtFwhQsV+JgiORLaYv97hs+Ocg==
+	bh=6VQ6mH40ewrGZ32o4DLVykO5lwkcmWllJRWNLquEs6A=;
+	b=MfkHZOxb4ptQErmKy0pAZM9wIlkVrLfvs/ky0GyezzgZ1Ud2BmanMHAJzpWbgqW2IvR/
+	 0JJp4W+FjY8xWQrqd3AvAGNp23yUhuMSw/n5ytjUa7vyC0kVkPgb6Tw7CZaC7eiNifMOC
+	 D/ygKLFrQOMPV9zI7xfHbueCwPxzO+XhxOSAn71tlt/hQL9EcS279nwxvpmJx+XSNCdGb
+	 6ZvEQ+9d19JtjZcozdBUBvFz9FknG3fAjlj2xjCsbqm0lQdBC1QtN1iLlU7XCz6et+v++
+	 tkqiqRE+784nj+DyHxh0gOvtbWFDTyHCQhZNDe7H9xCSlcTo3XuixEa15w75QkmfkJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WND6t1/j";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCwdaJbJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D1260A3820;
-	Wed, 28 Oct 2026 20:09:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB60606A339;
+	Wed, 28 Oct 2026 20:09:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WND6t1/j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4ECD1F01829;
-	Wed, 28 Oct 2026 20:09:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCwdaJbJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AE21F01825;
+	Wed, 28 Oct 2026 20:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218172;
-	bh=Y9prV6WuIi15Ykaoy1sEEO6x+8TCFI9Z8BWNg0g0Ywk=;
+	s=k20260515; t=1793218167;
+	bh=6VQ6mH40ewrGZ32o4DLVykO5lwkcmWllJRWNLquEs6A=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WND6t1/jTFscSVNiNiVqFI+25ygKV43rBTw/IGzypSYvTe95dJR8SahVRynocJz6s
-	 IJme8Tw+bnsZrayFVEW9e/VCfLhvsXlE3jsnYpM7xzoAgfiinqstsy/fdVL7hEidlX
-	 ey4HcPH5A4Q6oRiAihCsRSxcGo27G7yJXQg6Sj9M/kHUGjYDznI9fyLcAWy2AGc7er
-	 8K2JehtT03S1rIasywLfEZEeS9QQYmmczaXqBM53X4HEH5MGRXpJR5k4YNVaYs0VI9
-	 NfGWP8hL2r3gR+K/tPfXUC5H86uJLwLcTChcka8RBIZfc44QgUktahYa5jvvglMI1v
-	 YSLmq2+fp7B5A==
-Date: Wed, 28 Oct 2026 10:09:31 -1000
-Message-ID: <72deb196d0dfc413a48f0739013bc610@kernel.org>
+	b=TCwdaJbJasWr3Eusg3kV43BkgKvT+ULmvekXRCQkqOXwAf7Zao0lmax51Rcd41Mc5
+	 1F+fJZvLAM55Ff+wzmb5wLFylhoi0zde+2Yu1/F4YA1to5ZXyRPhlkdbmb2Bv6Bm/5
+	 hzluDnMfgBLgZJG+zzRW+MrDOtH3CSfpUAoWxpic4mitl5Szige7p+f8GXFu6IKsU+
+	 zq7s/9dQjnQfxj8Ws/NK4qcvFqcVnCJkRTRFPOQ4cyTIHMx/EGvVJnZsySZjfzQcfY
+	 RZ+OtfzSoItRXqvM4xxgkGtkDhjkI0sOHjSC97/tK0SEI6V7/e/f/nttJS7Rl4Jnr1
+	 RuPhB7ePlmLPw==
+Date: Wed, 28 Oct 2026 10:09:27 -1000
+Message-ID: <3f51067b3d4d549e8414bc19bb612cb5@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Tao Cui <cui.tao@linux.dev>
 Cc: josef@toxicopanda.com, axboe@kernel.dk, cgroups@vger.kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com, alexei.starovoitov@gmail.com
-Subject: Re: [PATCH 5/5] docs: cgroup-v2: document the iocost BPF cost model attachment
-In-Reply-To: <20261028143534.135968-6-cui.tao@linux.dev>
-References: <20261028143534.135968-1-cui.tao@linux.dev> <20261028143534.135968-6-cui.tao@linux.dev>
+Subject: Re: [PATCH 1/5] blk-iocost: move shared definitions to blk-iocost.h
+In-Reply-To: <20261028143534.135968-2-cui.tao@linux.dev>
+References: <20261028143534.135968-1-cui.tao@linux.dev> <20261028143534.135968-2-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +62,27 @@ Content-Transfer-Encoding: 7bit
 
 Hello, Tao.
 
-On Wed, Oct 28, 2026 at 10:35:34PM +0800, Tao Cui wrote:
-> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, a BPF cost
-> +	model can be bound to a device by attaching an
+On Wed, Oct 28, 2026 at 10:35:30PM +0800, Tao Cui wrote:
+> -static struct blkcg_policy blkcg_policy_iocost;
+> -
+> -/* accessors and helpers */
+> -static struct ioc *rqos_to_ioc(struct rq_qos *rqos)
 
-Users can't select CONFIG_BLK_CGROUP_IOCOST_BPF.
+This isn't a pure move. The comment is dropped here.
 
-> +	Only detaching removes the model, after which "model=bpf"
-> +	fails and the device prices with the builtin model again.
-> +	Device removal ejects the attached model as well, while the
-> +	struct_ops link remains until userspace destroys it.  "ctrl"
+>  }
+>
+> -
+>  static int ioc_weight_show(struct seq_file *sf, void *v)
 
-"Only detaching removes the model" is followed by "Device removal ejects
-the attached model as well".
+The blank line removal is unrelated to the move.
 
-> +	accepts only "auto" and "user" and never selects a model.  It
-> +	keeps describing the builtin coefficients, which take effect
-> +	again when switched back.  The automatic profile stepping does
-> +	not switch profiles while the BPF model is in use; as with
-> +	user-set parameters, the profile selected from the device
-> +	class still applies.
+> +	bool				user_qos_params:1;
+> +	bool				user_cost_model:1;
+> +
+> +};
 
-cgroup-v2.rst doesn't describe automatic profile stepping anywhere else.
-
-> +	defined.  They remain readable and writable while "model" is
-> +	"bpf" but take effect only after switching back to "linear".
-
-The builtin coefficients taking effect again after switching back is
-already said above.
+The blank line is new, and 2/5 then replaces it.
 
 Thanks.
 
