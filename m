@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793162006;
-	b=GaErOvyraceL2I94p0YCo8ygDlK9ciP8/N56jG+h2oIgVjyFvHcHhhin9lR9FbFoUFyC
-	 1BaKl9isRvvOH9JhYMde4hMmb9WO0M4WreYlgmvBBg6fSGaRlDczPxI3cL4/p/SFZvJBm
-	 abytv2WevYfcn6tKlzJRPuQB0ceOh/I+/dluYobp6CPSRoNyG4sFcOv0JHLJGnq6Er7MR
-	 Jz4GJkbhXTGl7l5dW4+WGMOC1M50cF6J96HkORYIS2npkflHIaAs5ziH0Vr6cy0r1DExM
-	 HPyF8P2Yzmr64fJEnHo9VX2fHRzA8kDVULl+S+8JeyBMEeRqcM5Tz7n/dcaBF7AXuyg==
+	t=1793162009;
+	b=XWmFWTwdmQ1tAxMBMOEUpTIyIMGU8lBs7aaGvzbE8ox8FCGw1JaGDz+EnNrmEoqdKa8b
+	 /fi43z5GmUJHzSHlXKvuRG7qQ4hPDHevmMiZV2OOfMMQKln/kemyvVJMFJLsl52dVYx2T
+	 xdVsrW/B9El9bArsITVbBroi7bZeaCKBNtfpuNYQHkfcd5mn5TH2430wi7ep2SSXiLarU
+	 vlKQCwX0Bdsi1fsIicH/50LAUxUETIN0F4OzDCwMgzQfoQ0sVpIbCMPa2P5wngq3/Tqc6
+	 BKs2Omfvc1oIRIPTmSSuURuL6SXJ6FLxzI25KJAcP6W58kcvXePl3aCWAD0s9PfXqrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162006;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KQliSYu5IO0Ztf2KMR9ZclDlsE5PuZwsA7H/3S4ytlk=;
-	b=uvyel1SJviKO+hKqAXQXrDc0HtwJzPwE+PwVp4+tLRGfguAhqJCFgqj6Y+UOGN3Mpw/3
-	 D/b/bJNS0QIeztLL1SbrwH1xGPrN6Yqk/wgEMrt+K0Fc1TZpSb4LSdjwtE8t3lz1OJM1D
-	 H8QcTK66XwywRxrc1Hv857nvjZ9WbIFlg4aCFqoczgUzhlBOUkUxc4cHq3hQbDVnqn7Py
-	 NXcQf/uvhTXQfDunA/b/CypTKiJ613eyqUQw7v3DnOUgOflpfbrXRxgBxpm6ELKuVcsMz
-	 thMOh9M/gF7JlDXVlOV9v1+RSSZf5pHahucvRRYVCKcUtYuNIHLAlZKHcb8RTs4Bzhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162009;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hoaYYE9clIuJ0Ig445chvZt4nolRKxe5BT9MRTh3Egg=;
+	b=kWpL5q1nz4MwyhY65cg4NLfVbV3tAMn8mHc9P+8cChY3j7TXvbm9BHHIvlzoeEa1Yl8w
+	 ULJc8XzjDp8qmX4Y+XDWbCyhKfPoAya/WD+U/r/op3xl6JKNl2wYpWJwjhgsSb/80Mio+
+	 T54Be4mLH10lX7YaPRcnHHyJjGZZf5c1Y/1o/w5NnTm5Zyk3UpFqWb8tFpFNSWWdeJGfV
+	 QlIaCuEyKyhjxcyVloib9Yq0DEbmpP2f/GtOEixfjHw0QJLFMOAqiUgevpMIZL43Czu2f
+	 5kzCkQ00ZraYzRm9SEaK9uwsIMsSuGuyG0ctKMab88goxnrKddOjz68/QUSKPV9IGTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vNZJ1Y9v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.53
+Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A45606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vNZJ1Y9v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B331F031E1;
-	Wed, 28 Oct 2026 04:33:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793162005;
-	bh=KQliSYu5IO0Ztf2KMR9ZclDlsE5PuZwsA7H/3S4ytlk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=vNZJ1Y9vgwzm5vi2q/Ro/QE7r6JtOMQI/X+zg6SZf41Yqbhh5Dmq397ZRxr+++zBw
-	 YAzgHNsBD8KWgp9VqpRxOFCiAqE0jn7QJCo4yAQZfuHNs2lRzHtXBX2f5fGuJCLiaw
-	 AbvahUgZ+Ds6OFZN1RNimOCoo+eYNPJ0Y4MXjObU=
-Date: Tue, 27 Oct 2026 21:33:25 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Wang Guangke <gkwang@linx-info.com>
-Cc: rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: fix typo in comment
-Message-Id: <20261027213325.d28fb3a913c68a982b5a6591@linux-foundation.org>
-In-Reply-To: <20261028040625.204-1-gkwang@linx-info.com>
-References: <20261028040625.204-1-gkwang@linx-info.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887CF606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 04:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 887CF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=T4efCo2Hap6aPJgKK/ehUGhK0yIt+mn0LCQnSmlQd0s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793162000; v=1; x=1793766800;
+ b=WeW0dcEyzkw6mTIdVt2Z06iHEedOA9csfafpNxIqlvgXWGNleOMk4G5+xIqtxnfY0oJlEGQo
+ 3RIOLo03odtO32V/gvt274JFHEpf0OAsY2K6WgJh+s2w2M9H9KOLel/juzZL0FcuRQ3OjvRdcI0
+ 9UEAxWdkfJdjVzGrmw7+tycY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bee4a2cb7972e2c2;
+	Wed, 28 Oct 2026 04:33:20 +0000
+X-Mizu-Trace-ID: bee4a2cb7972e2c2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fa0f07af-e8d7-44b0-b1e7-ad325d75ac34@linux.dev>
+Date: Wed, 28 Oct 2026 12:32:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,66 +54,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 32/46] mm/memory_hotplug: avoid races in
+ pfn_to_online_page() with dying pgmap
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
+ kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
+ peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
+ jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
+ apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
+ matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
+ will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
+ osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
+ xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
+ shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
+ gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, josef@toxicpanda.com
+References: <20261027-fixes_core-v1-32-6f74bec9a5bb@kernel.org>
+ <20261027121307.40431-1-lance.yang@linux.dev>
+ <87e3d64e-8b25-4d51-a984-7ab8a58f785d@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <87e3d64e-8b25-4d51-a984-7ab8a58f785d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026 12:06:25 +0800 Wang Guangke <gkwang@linx-info.com> wrote:
 
-> Correct "pages frames" to "page frames".
-> Only touches comments,no code changes.
+
+On 2026/10/28 03:41, David Hildenbrand (Arm) wrote:
+>> LLM stumbled upon a possible race in kpage_read() ...
+>>
+>> Say the reader passes pfn_section_valid() for a device PFN in a section
+>> shared with online RAM, gets preempted, and resumes after
+>> pgmap_array_delete(). We'd then find no pgmap and return pfn_to_page(pfn),
+>> even though the subsection is no longer valid ...
 > 
-> Signed-off-by: Wang Guangke <gkwang@linx-info.com>
-> ---
->  mm/mm_init.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> I think that's similar to our pfn_to_online_page() vs. memory offlining races,
+> just slightly different. Getting these races down to 0 is pretty hard.
 > 
-> diff --git a/mm/mm_init.c b/mm/mm_init.c
-> index 1533aebafb68..9d233b6af7ab 100644
-> --- a/mm/mm_init.c
-> +++ b/mm/mm_init.c
-> @@ -1179,7 +1179,7 @@ static unsigned long __init __absent_pages_in_range(int nid,
->   * @start_pfn: The start PFN to start searching for holes
->   * @end_pfn: The end PFN to stop searching for holes
->   *
-> - * Return: the number of pages frames in memory holes within a range.
-> + * Return: the number of page frames in memory holes within a range.
->   */
->  unsigned long __init absent_pages_in_range(unsigned long start_pfn,
->  							unsigned long end_pfn)
+> This patch here tries to do better and arguably almost looks like a cleanup.
+> 
+> I wouldn't worry about that one for now; it's extremely unlikely to hit. And it'
 
-Sorry, but a one-line comment typo fix just isn't worth a kernel commit.
+Ack.
 
-A more substantial file-wide sweep might receive more consideration.  I
-asked LLM to do that and came up with the below.
+>>
+>> Could we take the memory hotplug read lock in kpage_read(), covering both
+>> the lookup and the metadata reads? We can drop it before put_user(), once
+>> we're done with the page.
+>>
+>> Maybe along these lines?
+>>
+>> ---8<---
+>> diff --git a/fs/proc/page.c b/fs/proc/page.c
+>> index 6aa99e42ec22..12bed36d76dc 100644
+>> --- a/fs/proc/page.c
+>> +++ b/fs/proc/page.c
+>> @@ -12,6 +12,7 @@
+>>   #include <linux/hugetlb.h>
+>>   #include <linux/memremap.h>
+>>   #include <linux/memcontrol.h>
+>> +#include <linux/memory_hotplug.h>
+>>   #include <linux/mmu_notifier.h>
+>>   #include <linux/page_idle.h>
+>>   #include <linux/kernel-page-flags.h>
+>> @@ -77,6 +78,8 @@ static ssize_t kpage_read(struct file *file, char __user *buf,
+>>   	count = min_t(unsigned long, count, (max_dump_pfn * KPMSIZE) - src);
+>>
+>>   	while (count > 0) {
+>> +		/* Prevent memory removal while inspecting the memmap. */
+>> +		get_online_mems();
+> get_online_mems() is the big hammer we try to avoid (or ideally remove at some
+> point). And it's most pfn_to_online_page() users that are affected.
+> 
+> A seqcount in pfn_to_online_page() could detect concurrent pgmap removal and
+> retry from the start. But I'd rather delay something like that.
 
-But even a fix for these wouldn't be smiled upon at this time.  We're
-all swamped and stressed out over a maelstrom of bug reports and fixes.
+Fair enough, let's leave it alone for now given how unlikely it is to hit :)
 
+> Thanks for taking a look! (Can I convince you to review some of the THP fixes?
+> pleeeeaaasseee :) )
 
-I found these comment typos in mm/mm_init.c, against mm-unstable
-4685a28187f4:
+Of coursssssssse! I'm already looking through the THP fixes :D
 
-  55: "then end" -> "the end"
-  377: "before borrow the nodemask" -> "before borrowing the nodemask"
-  1090: "smaller that" -> "smaller than"
-  1092-1093: "in the lack of an altmap" ->
-             "in the absence of an altmap"
-  1217: "sized independent of architecture" ->
-        "sized independently of architecture"
-  1223: "in order of monotonic increases memory addresses" ->
-        "in order of monotonically increasing memory addresses"
-  1279: "pages frames" -> "page frames"
-  1524: "been setup" -> "been set up"
-  1631: "0 ," -> "0,"
-  1651: "`struct *page`,so" -> "`struct page` objects, so"
-  1921-1925: missing spaces after the leading '*'
-  1957: "pfn's" -> "PFNs"
-
-Two comments also name the wrong thing:
-
-  1481: "multiple of pageblock_order" should be
-        "multiple of pageblock_nr_pages", matching the rounding below.
-  1834: "arch_max_dma32_pfn has no pages" should be
-        "ZONE_DMA32 has no pages".
+Cheers, Lance
 
