@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793167786;
-	b=CmTYCogfTqnYGGsTJnrlC1TSVwqMQC87q4KCguPY60lF7MtVHQcwZJoUrFw0j0fLvz8H
-	 M+SD+Xy5KnWmIpART287SOAmqO75YlUVsblkrMIg4x+BxYmXVQK7Ehv5NfrktBDAssQIq
-	 2gRDGkTTraGJeRNhVg0zTLv84aibGon0/ANhSQpM/vToj9VughirfYSxCwyY0Q87EDLzZ
-	 vOymGcDB6IsDJJhArE+5xZL3hB1fRn+8pXYb+xHzaJQAFe6zWa1q+P8wYtyYYR24pM+Sy
-	 y+ru9PpmReoaUzi3MDJAGlVRtt8CY0Rl/Aq2BLcuCQAetYbcNzfiRKIqp/Xi5nCAF6g==
+	t=1793167975;
+	b=04AccbbEECewOOon4R1QEU1iq9oq+bVxGAJ/BAE/iAFZLBlX6P/hfb1Z8GIq3FNL04z0
+	 KOQgJr4ckewGA2e2DHgpymmEdRVFPre+QbkHlqBotN2jU9om/IuyNqTvldAeygv1Wt5+g
+	 1XKa5TdWB/UzaVlrvz3NuNYW+sW61uy6giEcqByQHB0x3usFibl73IYqMoLNcXIrp6+w9
+	 nwf90ZEN+p5NRjiJ8pD7Jtw2rUHwYCIOUgoeigNfD5Vm3mSfPQKbBrR3DElhvvnsfAeiA
+	 /N0V7M2Qp2eKcsluwL8upSGmLlM5jIRMvlURJYA2CjgvxJXSYSJNRlo/KzNnqE+LZAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793167786;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=W7W8QgouVJygAFTU/QOPQhBR1kM7Toq82huy2c/7CAk=;
-	b=rDl/g6mUVMImIo+BtnDJtdiWB/Y1JdGvQYcKXN7Chiu+vtHRXrkNjWRFPPbGwPNS1XII
-	 iK8CgFRoAYk2KjzCBGrRmO94YFs3AunQ1gl1jpPWWLxfs1HnrWOr80c2Esl9eQhlaM/h4
-	 dHrcqrB3UmE3HTH9Fl52RCZySxnukU9RcdsBZUuldrWbbAn8WC4gTzllKnYk480TfFGAH
-	 +VVgp2UiqJEkX2TYlkZ/3c1eYvC/oMdIa5luAtZDCExJzF6wujYIgBU2QS5PneANIXTlQ
-	 ntXa/GGdXI8Ym8UBnJEdK92hfEq8vrLZTZT9zSPljcMNJJ/V5Kes48isuATE3D32FyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793167975;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+KoKmcXA/B0ADIWST/pA3pwxT+GnX97Sf5SCmyvzAzU=;
+	b=vs3GIwmY0BOsekU7YDlZXSrlcPPUmdGZyOElY2doCDJOja68pk8r63d2aEwUHZua2cQ5
+	 VnBy8e0/Vgbsv+XO2x1hs5hEcNWEVD5D6T+0T1ycOwEO2RADZqATBuEr5UtuC3RNdpW4s
+	 q4j4fI0Zd4UhUzHmk9nZaZA+2jPQ34qMx06+kk0kC9W/LI6FdJPGTz4kad4RY8lOTJAyp
+	 Ucl6AVzfQWqRctnhLZVfkRuCWkR7Uf76bCLe6NjZPdiWc2H+UkjGADK4MChks/RF3Xpjb
+	 rXfkDSyQZOy4dunyiYNiqbRm95PAttdv12aYePdNDbo0b6orGveMRK0AJD1CrMMt0dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=2+1C75S9;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=PHHw8wzk;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC04606A31D;
-	Wed, 28 Oct 2026 06:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AC04606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA02606A31D;
+	Wed, 28 Oct 2026 06:12:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA02606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=2+1C75S9
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=W7W8QgouVJygAFTU/QOPQhBR1kM7Toq82huy2c/7CAk=;
-	b=2+1C75S9OvsLz5K40sfJSzRlBYdU/BzYWI58tMpRIf+0f0ZK2cOZMkg2juReOBynHPHQxG8TR
-	tTmeA6XyS7FmG29CW8JylZa5BKgFqpekjwBkELhjh5GoiGNjizS2oYUG38F/FqoFbE36Y/xgmF/
-	PUeGEdiWDebD7k2wBkYX44Q=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jDxld6q7gz1cynb;
-	Wed, 28 Oct 2026 14:09:33 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9C6AE40586;
-	Wed, 28 Oct 2026 14:09:40 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 28 Oct
- 2026 14:09:40 +0800
-Message-ID: <b0fb80cc-4a0d-4612-beef-bf2fc398f06e@huawei.com>
-Date: Wed, 28 Oct 2026 14:09:39 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=PHHw8wzk
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69S6CV5K1896025
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Tue, 27 Oct 2026 23:12:31 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69S6CV5K1896025
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1793167953;
+	bh=+KoKmcXA/B0ADIWST/pA3pwxT+GnX97Sf5SCmyvzAzU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=PHHw8wzk5OP8s1uftMZzCH3m4VGwz5nVFGJsfiGwULZCLWFAdXZJyRNVpPFW4omq1
+	 BhX8DGeEdo0ZZQqexX9r0oycSjeXAOZlfBxaJlAa3C2WrTLlOMnHFrUxt7rzDGfBex
+	 kVHyP0NspN5G3VR7E2hIFF6vhJHay9azD7GVK0AHnuNV4k9LrgNjg3y84N39Z8Mz4X
+	 kNQyJnUdDPZA2a7jtC1jHSI2S7+27YZi0YvcDTfQUUVGSMWn0NNFclY+ywEs57TGeX
+	 GQizq+3aNJZTXhE90F8jw+ZBEcs0zR7EN1U96imScHMsQIdyMMRsOC9biByHKYfnIq
+	 HiNqDg3/xn5Kg==
+Date: Tue, 27 Oct 2026 23:12:26 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+        Nicolas Schier <nsc@kernel.org>
+CC: Nathan Chancellor <nathan@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Andy Lutomirski <luto@kernel.org>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Nam Cao <namcao@linutronix.de>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        =?ISO-8859-1?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>
+Subject: Re: [PATCH] vDSO, kbuild: Provide vDSO debug variants at runtime
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261028064715-bd8a4806-e974-40a3-b773-0afa26689d56@linutronix.de>
+References: <20260708-vdso-sysfs-v1-1-fcd93385006d@linutronix.de> <179313256476.2881498.3865128683953782646.b4-reply@b4> <A0A4758F-BCDF-4C76-A51B-3ADBB5CAC8DD@zytor.com> <20261028064715-bd8a4806-e974-40a3-b773-0afa26689d56@linutronix.de>
+Message-ID: <147D6C9E-264C-4492-9EA7-A4BB8526CB95@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,83 +76,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Docs/admin-guide/mm/damon/reclaim: document how to
- disable watermarks
-To: SJ Park <sj@kernel.org>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<damon@lists.linux.dev>, <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261028053525.155909-1-sj@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261028053525.155909-1-sj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On October 27, 2026 10:55:04 PM PDT, "Thomas Wei=C3=9Fschuh" <thomas=2Eweis=
+sschuh@linutronix=2Ede> wrote:
+>On Tue, Oct 27, 2026 at 05:02:52PM -0700, H=2E Peter Anvin wrote:
+>> On October 27, 2026 1:22:44 PM PDT, Nicolas Schier <nsc@kernel=2Eorg> w=
+rote:
+>> >On 2026-07-08 15:56 +0200, Thomas Wei=C3=9Fschuh wrote:
+>> >> Finding the debug version of the vDSO is not trivial as there is no =
+common
+>> >> scheme where it is placed=2E That's especially problematic for CI te=
+sting=2E
+>> >>=20
+>> >> The vDSO futex unlock mechanism requires for testing to have access =
+to the
+>> >> inner labels of the unlock assembly, which are only accessible via t=
+he
+>> >> debug so=2E
+>> >>=20
+>> >> Also for general debugging purposes it's convenient to have access t=
+o the
+>> >> debug vDSO at a well defined place=2E
+>> >>=20
+>> >> The files are placed in /sys/kernel/vdso_debug=2Etar=2Exz=2E They us=
+e the
+>> >> regular 'make vdso_install' layout, including build-id symlinks to f=
+ind
+>> >> the correct file for each process=2E
+>> >>=20
+>> >> The design is kept close to the ones of the similar IKCONFIG and IKH=
+EADERS=2E
+>> >>=20
+>> >> On x86 the x32 vDSO is derived from the x86_64 one, necessitating an
+>> >> explicit dependency to avoid errors due to concurrent builds=2E
+>> >>=20
+>> >> Suggested-by: Thomas Gleixner <tglx@kernel=2Eorg>
+>> >> Link: https://lore=2Ekernel=2Eorg/lkml/20260602090536=2E045586688@ke=
+rnel=2Eorg/
+>> >> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas=2Eweissschuh@linutronix=
+=2Ede>
+>> >> ---
+>> >>  Makefile            | 33 ++++++++++++++++++++++++++++++++-
+>> >>  arch/x86/Makefile   |  3 +++
+>> >>  init/Kconfig        | 10 ++++++++++
+>> >>  kernel/Makefile     |  1 +
+>> >>  kernel/vdso_debug=2Ec | 43 ++++++++++++++++++++++++++++++++++++++++=
++++
+>> >>  5 files changed, 89 insertions(+), 1 deletion(-)
+>> >>=20
+>> >
+>> >This seems to have fallen through the cracks; shall it be considered f=
+or
+>> >kbuild-7=2E5?
+>
+>Please don't pick this up just yet=2E I have a prototype which exposes th=
+e
+>directory through sysfs directly without forcing users to unpack the arch=
+ive=2E
+>If you could take a look at the kbuild bits however, that would be great=
+=2E
+>
+>> A thought: most tools support compressed separate debug information=2E =
+Would it
+>> make more sense to have the vdso images with separate, compressed debug=
+ data
+>> in a subdirectory?
+>
+>I want to stick to the 'make vdso_install' layout=2E Maybe that should be
+>changed to your proposal, too? But what are the specific advantages?
+>The files are compressed on disk anyways through the module compression=
+=2E
+>
+>
+>Thomas
 
-
-在 2026/10/28 13:35, SJ Park 写道:
-> On Tue, 27 Oct 2026 22:24:24 -0700 SJ Park <sj@kernel.org> wrote:
-> 
->> Hello Jinjie,
->>
->> On Wed, 28 Oct 2026 10:36:28 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->>
->>> DAMON_RECLAIM runs its scheme only while the free memory rate is
->>> between `wmarks_low` and `wmarks_mid`.
->>>
->>> But some users want to reclaim cold pages even while the system has
->>> plenty of free memory, and it is not obvious that the existing
->>> watermarks parameters can already do that. So Document the setup.
->>
->> Thank you for this patch!
->>
->>>
->>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>> ---
->>>  Documentation/admin-guide/mm/damon/reclaim.rst | 7 +++++++
->>>  1 file changed, 7 insertions(+)
->>>
->>> diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
->>> index ec7e3e32b4ac..23fede7d1cdb 100644
->>> --- a/Documentation/admin-guide/mm/damon/reclaim.rst
->>> +++ b/Documentation/admin-guide/mm/damon/reclaim.rst
->>> @@ -193,6 +193,13 @@ DAMON_RECLAIM becomes inactive, so it does nothing but periodically checks the
->>>  watermarks.  In the case, the system falls back to the LRU-list based page
->>>  granularity reclamation logic.
->>>  
->>> +To keep DAMON_RECLAIM always active regardless of the free memory rate, set
->>> +``wmarks_high``, ``wmarks_mid`` and ``wmarks_low`` to ``1000``, ``1000`` and
->>> +``0``, respectively.  Then the reclamation is limited only by ``min_age`` and
->>> +the quotas.  This is useful for reclaiming cold pages even while the system
->>> +has plenty of free memory, e.g., right after an idle virtual machine is
->>> +paused.
->>> +
->>
->> I feel like above might be too detailed.  Particularly, the second sentence
->> looks too detailed.  In a sense, it is not technically correct because of
->> 'skip_anon' parameter.  We might later need to add more such controls, and I
->> concern if this kind of detailed documentation will limit such extensions.
->>
->> What about keeping only the first sentence and dropping later two sentences?
-> 
-> If you don't mind, I could add this patch to damon/next after dropping the last
-> two sentences on my own.
-
-Hi SJ,
-
-It is fine with me, thanks. Please go ahead.
-
-> 
-> 
-> Thanks,
-> SJ
-> 
-> [...]
-
--- 
-Best regards,
-Jinjie
-
+The nice thing would be that it would let debug tools use them as-is, and =
+after all we need to make the vdso itself available anyway=2E As a possible=
+ side benefit the user would be able to see the post-patch vdso=2E
