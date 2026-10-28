@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173801;
-	b=3GACTekj6A7CuW/dpeGdT7OkNgcEhcU0tce2M9+7XIGdcmigrDdjiY7xLVXJM19bawGP
-	 ZeSEp+iCxES2w3qa9hk03LnWfIW8M2U1sGbVekk2baoBk2Ephh+wuQ4bjOsMvUt/qLU3v
-	 oFRNqP628hCViLeSUEhhLhYUp/qKgJJ+NlbodGHNiTHhVxbQtr4UBq++S2B7vZVpAgzgw
-	 urglYJjb+3B215vKPwhTkj+nQZqjBh+VHO7W/1Vd9By+OlpaI2QE1QplveLVUlc4gcRpr
-	 gr+PcWU6u6avfkbTzV63cWlas6ZVvh+HOm0wUKCu6DePEPzqawlCahY0UNsbw1JsXpw==
+	t=1793173853;
+	b=WZ3KgFJe5Gpv/3+xfBqhmo82cCxK89enbkGhs/MX3lZ3DAQaLPCG7jKohM0ise3GYhRR
+	 Vf0ECRtQgXV0xy/xsiXwEiH6hfvzd9P4D7GiRE3erpZ5hPqiQmq7FeyJg3yuQeDDY6bIN
+	 FK9mn55sxA0PW8C23h5cnHh7HcGr3l3vXHs0cuLlHLJ2gKeVqsZaXXlcm5EZu1LdlTzC0
+	 NnFa81v8ArcSzgMD0MsZlVwgaqj9M/NdME0tlts42bz8W+NnuTXbrKnLifFnoZ6dBg2Dt
+	 JysWchG1ApiMG7T6rCS442OTbvcYiiZQiXYRR0LLgyYwvANfPXxJBy5VxsfNZL2WMuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173801;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173853;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
-	b=3JGjRQErKSNbRgWzEL2ItHEfy2MN4B+CAcX7c2xh5g8tUXfqXeTQKZAkmsffCJB8d6Va
-	 uk7vzJba5JsuDVtq9rZxHXwgjqqvu15gMmANhpVj+YMZsgXd1VE209/ZHPhn2J7gUl5Al
-	 V3JbgxNZIbItZ2wE6KcIBZXzQaM9Rgj0/uXPZD3Y7c33OfAbJf00tqhmwuzMj1n57B7/b
-	 i2KfvJ2vab77WtarxJXaWxRt6du4IPf4SPxdNbqlufCnPofBSgdKKIien9nfslvHkGm6R
-	 Yyn0hwuabHjZe5UNBWiWJWOsXVwwHKi/5bBsj7PSGkXtojAyfYcVhOlSQ7zHs8w2cNA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+	b=po0wjb3v5rvGASKRjwOJgWQ40PfIf0d3HXULfUr/klsu5Q2R0vbUeGxrWoAz28zZaCaM
+	 uUT5vrZLU30ug1lUpxYxQLfJBrvV1/zrcBh+YlVR5UMnZeB+Az5nKk3d3gY1mMWarMmnT
+	 c0ArDyyw8fTvN6gBhqRhaedeRaUT/iK0ULdZA62jyTE3AMdvb8+LmRdpNlo6x2Uh5EuRY
+	 yNkPEV5yu/HhXCpTkIV8u8f9zW1nFxd718bNB+oGNvAP//pSsAqVLqnyziscFKoe2ng23
+	 bUPXbur0WEMIeBTNOmMi0NNiAZ/Qnb86MLHM7sQBZqEUodA8+hIbIoEG0mSWBuVZVBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tYEmxW8o;
-	arc=none smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cIzTfwvI;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E1D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57E1D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AA6606A332
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8AA6606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tYEmxW8o
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bfc346401aso488210e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:50:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cIzTfwvI
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so9892145e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793173799; x=1793778599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
-        b=tYEmxW8o8J3bPZexGykiK9xI66Bm+hvxqka9qZi3rk5p592VDeg03Bnxh8QXuFZsUF
-         wR8yA18CA8ucCzFk0WAtEIiCeyzpTENgVLce+IzfrrTZFa+hxIrP5IM+fYi6Owz4+Hfc
-         SMzPA3ws7cDRMf4ejy3pEVI7KLHZHbiWf85SSqDx/112f6SAzyTHgBxKn8PAfdmBo9Hm
-         DNTHpV9zOYpyb/8oBV7inl2wpeJ0fCqQTeUIv/b8t2CPk7QbhQu0TMXv0Vt3gCjV2bIf
-         dEuYMqNRVEuIEiCaFkDqSTfOuqyDzKARt+eZFWiW47sGCshegYgFNN5lnOC7HRc+SdP0
-         0MsQ==
+        d=suse.com; s=google; t=1793173851; x=1793778651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+        b=cIzTfwvIeV2p3+HZONnaLs8OrALR1BiQZsuEHFv22k5tMpn87c699RB4pXtpO1BknZ
+         w7mFc/NBuJ/LAraXW70R5EtX0MqSS4DHIYhaaK3x8RDhKQETu2gPyFaLw8QlT07DFmBy
+         h4TeAG55cDuS9WgM/KuuXL/YnXqyY0QDsLIj4e3bPqq5OyiMw+/0Mfdyk6LGeGLmZyaE
+         I2kApHS+fxHb6U8Xha4YMCFI9beSJ/0SgvmgggOctUagsh08ImbV+oTWYJfOT6s0xrWL
+         t3VuHw/TDKPR6xf82IXNxdgzIU0r5Nf2P+iQ1/pq4Zq3Ps5LagWwiwVa+Ej2c5BIOp/V
+         usRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793173799; x=1793778599;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793173851; x=1793778651;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qR8KTb6qvAzIDMlPYHpTftZOot/Hoc7eU6G7Bmug9mE=;
-        b=rZ7H/e/rHCfmO/HuDlCEMKFr6Ocpbc35OMa1JCGtldwhrTGilkacqRZOzZRk9q8HnS
-         HaiO29lqorR08+BMUgEona1hH7l633IHkmNsUkmyDrUMJrsvBXPMZC4eTR9Ffvkb6nds
-         bfzl+kbGz9mPDL2awSrN4en4DjsCc29I2V85rdCNIP4ysQFc6vYojzsbmC0LYZosMjOw
-         2Pj7vfapPFNjkepHtfFrKi/5OuDqLSiMYfaTbT912D88DhmncqyjGSPnr30VSaVXm1ND
-         oWEiHt48Nu5QufE5UvsUVUxmHYWTFPK98hpqWXWVrozp3m1jcAC3vmNzOOVILx0msyMM
-         Q8FA==
-X-Gm-Message-State: AFq9FYInGRjPXaLYaxEsPV5oDtyQhy2n80OIu9S8hQv8ZjvUUzHTIYg6
-	NqfJGbNEGMa9Dqg+s3JmTH/Xays31F2eXc/ZFCs4VfsyWMoJ8qSX8zoq
-X-Gm-Gg: AYBFou2cQzEsr5eAhJ0vJSKch6GaccOuLjYuHQiZYqw7ixvHJrszCHr/yMec0oPScXT
-	iBDnb/WFgNrVKKg7JYLIue8d9W12y2LOO8MMMCLu571qCF9Qn1z9fDyUzKiElKGeHeBDF8Ychxt
-	FTFzsDswdH6h5iJO9mJG6T2YDRFQjgPSnn2RDWyX+oYyM/64Nhc5GnDhbwmk1Odd2eabMakUHQr
-	cfdZIa0sQQKqFSG1Wxgx6Nnhdfjr169lDyNilXThZVGKJMsqEQG7wr+KyyM8r7tctVGaU3eL/2W
-	59SMvN3v/TOFH1Sn8/Cw+3SUTOi3CgMhSA3KHYIb4can5raOXuJNLTzo+rkRlX9Ivrkta3/ywMU
-	vKgSx5lM78TL9mqOmXy7fe7BGe2tYg6Gf/kcDB2mKnCcuG5jMWxSFyCC6Mpl/L9LvgsCOe9W20Y
-	dsKfT9NuQw/sypg7ceHeqfBb9+u8tiT63orCSNZSoFW8p75rYgcjKSxAM0KjTw0TsO7rdPR8HRY
-	4ItaNLiF5qwCzZzrVuLIZWeH/tWio3mAUHPjR2Xys63BNpqNsxF1nAg8Mt3n5z3oCP2BSWw9NC1
-	bsGRotH1gBjW+Iy+ulKjaAfTwLI2GfR/Pk1ShQ==
-X-Received: by 2002:a05:6512:108a:b0:5b6:183c:5ca2 with SMTP id 2adb3069b0e04-5bfcad737d1mr539813e87.64.1793173799309;
-        Wed, 28 Oct 2026 00:49:59 -0700 (PDT)
-Received: from archlinux ([194.28.181.64])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca5bb09dsm414337e87.71.2026.10.28.00.49.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:49:58 -0700 (PDT)
-From: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
-Subject: [PATCH] staging: sm750fb: make g_fbmode array const
-Date: Wed, 28 Oct 2026 09:49:46 +0200
-Message-ID: <20261028074946.12728-1-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+        b=ytfm5z1A2FieN/kDSQHxPb3fx/+aakKQ6LXLygIibgul3x8o0tdwLdpt4vhrcP5zWP
+         buGOIrwYyu6JV9ASUXFb+pf5MRtf2f0g82V/DGr6cJGVAP8a63fA+7GlvupMWuGb0s8z
+         rn0sFj5bhDEHcgVQWWJ0I6ZK/+oZ9FN0HU8iEJ9BXnjpPjf7bX/NUE8EzcVM45ex61ow
+         zi4A7szvhLXQx27RDkEO9RGVTskxB0afKAbkirZ2DwnwFFFQT77Z8Syh3an9Dt3+6UKc
+         JOHRAz/6rzc0NobJVJORSvG4CNWBhQNWW8Rk/E8T03KPuzkRDcUeVTpSEEcoVPklpjO7
+         VyFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxy4By77eh9ij9Yr/7OfxE6GFifFEy9R4BQXivFPyGr/aoBJsrRL+ncJMoqOxR/BbOUBol7LdMg+ZnhbH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZDpSJwrxY91jBPyDQ8JO76lHbFDJ03XP8D5iAtRNCizg0bVKK
+	I7BRZo2A2nHr+53jW+1NPOSeKGZgGwQVB755R8IL9g1mB+RctWCHY/JPQBR7yfnIAVw=
+X-Gm-Gg: AYBFou07a4AJg8I0Zxp+J8H9p+QoOzZUUmx6bogP+Dmz186WwumlkdWDONHohGx2tiE
+	Wcv9YiBHqI7tCLO5Q3iFkXIAM0OXAQh+sRrHrZ3zki2pep63BaaKdxlxtfmK06E2/fVHm1Tlco5
+	dM7osJ7j5REdUZGjbKltXwtsQiJ8Wc6iN7OgQgllMcX9xuDV4UwtSCs4F582j/AHAGGyXNtAJSJ
+	V4IcqB8+Z5fnqemsPQgN/v5EOZMEFxrLELS44mM4CSHRVMeqb+I9Hz6oBZLA69elMte/8BIb9qc
+	TBdIhS9tRnGZD9zYXq9cPnkkG7MOf4PrVIvhEb8A82B29BOgurKFCfU41uqeIcWBRRdji6RynSu
+	m9DNfztOm6QKsOL63DSgxH/2wbGf5Zi5Pky5uc3VkxkjgNyX1nDPoUSoax6gOL6Fv2nOiZi1GzX
+	dmd2IFlMrQymXVOSMwNvlcIPNVuF7K+sIwfDDAQE8zDZseG34Zbpljg3W4oydJYtpMsDRHh2FAy
+	XMueLAFxRs6xSyeKmi5gpIQS5iAU4iOcx2K693pRh/wWMXaTbUVy+/AJYmcu8GMtjkz8us5WLdf
+	smxrHMjaTV5TmMTG2J7ksA==
+X-Received: by 2002:a05:600c:6dc2:b0:4a3:5d64:e063 with SMTP id 5b1f17b1804b1-4a7c4c7e93dmr87769765e9.9.1793173851270;
+        Wed, 28 Oct 2026 00:50:51 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a4fc46csm1876135a91.7.2026.10.28.00.50.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 00:50:50 -0700 (PDT)
+Message-ID: <8ac505b5-cb6c-46ae-8791-c39de5babe66@suse.com>
+Date: Wed, 28 Oct 2026 18:20:42 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +92,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+To: zhiwei.liang@zliang.me, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>, Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: Filipe Manana <fdmanana@suse.com>, Robbie Ko <robbieko@synology.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Make g_fbmode array const as it is not modified after initialization.
-This fixes a checkpatch.pl warning.
 
-Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
----
- drivers/staging/sm750fb/sm750.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 21e310274..47d2917cc 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -12,7 +12,7 @@
- static int g_hwcursor = 1;
- static int g_noaccel __ro_after_init;
- static int g_nomtrr __ro_after_init;
--static const char *g_fbmode[] = {NULL, NULL};
-+static const char * const g_fbmode[] = {NULL, NULL};
- static const char * const g_def_fbmode = "1024x768-32@60";
- static char *g_settings;
- static int g_dualview __ro_after_init;
--- 
-2.56.0
+在 2026/10/28 17:27, Zhiwei Liang via B4 Relay 写道:
+> From: Zhiwei Liang <zhiwei.liang@zliang.me>
+> 
+> When a suspend starts during FITRIM, fstrim can fail with:
+> 
+>    fstrim: /: FITRIM ioctl failed: Unknown error 512
+> 
+> On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+> fstrim.service runs were in progress when an automatic suspend started.
+> All three failed this way and left the filesystem untrimmed.
+> 
+> Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+> loops"), the trim loops return -ERESTARTSYS when
+> btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+> to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+> properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
+> 
+> -ERESTARTSYS is only valid while a signal is pending, because only the
+> signal handling on syscall exit turns it into a restart. But
+> freeze_processes() first sets pm_freezing, which makes freezing() true
+> for every user task. Then it walks the task list and sends each task a
+> fake signal. The trim loops check btrfs_trim_interrupted() after every
+> extent. If a check falls in this window, the loop returns -ERESTARTSYS
+> with no signal pending. Nothing restarts the syscall. On that laptop,
+> with a few thousand threads, freezing user space took 2 to 5 ms in each
+> of the three suspends above, and all three runs hit this window.
+> 
+> Make btrfs_trim_interrupted() treat a freeze as an interruption only
+> once the fake signal has arrived, i.e. when
+> freezing(current) && signal_pending(current). freeze_processes() sends
+> that signal in the same call. The trim loop stops at the next check
+> after it, so suspend is not delayed.
+> 
+> The restarted syscall re-reads struct fstrim_range from user memory.
+> When the device phase is interrupted, btrfs_trim_fs() has already stored
+> the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+> the struct back unconditionally. The restart is then asked to trim
+> [start, start + trimmed) instead of the requested range, or fails with
+> -EINVAL when nothing was counted yet. Skip the copy_to_user() for
+> -ERESTARTSYS. In all other cases the partial count is still copied back.
+> 
+> Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+> during a trim leaked errno 512, and 10 of 10 restarts after a
+> device-phase interruption failed with -EINVAL. With the patch, all 30
+> runs restarted and trimmed the full amount.
+> 
+> Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+> CC: stable@vger.kernel.org # 5.15+
+> Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+> ---
+>   fs/btrfs/free-space-cache.h | 3 ++-
+>   fs/btrfs/ioctl.c            | 7 +++++++
+>   2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+> index e22443598b..cba2f5fd6b 100644
+> --- a/fs/btrfs/free-space-cache.h
+> +++ b/fs/btrfs/free-space-cache.h
+> @@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
+>   
+>   static inline bool btrfs_trim_interrupted(void)
+>   {
+> -	return fatal_signal_pending(current) || freezing(current);
+> +	return fatal_signal_pending(current) ||
+> +	       (freezing(current) && signal_pending(current));
+
+What if pm freeze has began but a real signal is also pending before the 
+fake pm signal?
+
+>   }
+>   
+>   /*
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index ac070c745b..b02c59cbb0 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+>   	range.minlen = max(range.minlen, minlen);
+>   	ret = btrfs_trim_fs(fs_info, &range);
+>   
+> +	/*
+> +	 * A restart re-reads the range from user space, so do not clobber it
+> +	 * with the partial len the rerun would otherwise take as its input.
+> +	 */
+> +	if (ret == -ERESTARTSYS)
+> +		return ret;
+> +
+>   	if (copy_to_user(arg, &range, sizeof(range)))
+>   		return -EFAULT;
+>   
+> 
+> ---
+> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+> change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+> 
+> Best regards,
 
