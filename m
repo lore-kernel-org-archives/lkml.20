@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189397;
-	b=kJSJkY1MZ3D9pOdrkSlWPFCT1ylU1BBJpbKf3cQgsrEDDI2IJwCG7Fa0SEj0YI512Leh
-	 MMEeCcI/J4za4C1NbGbKaNuUWgAJpq+2WXb2+VfkyFSemTaIbFxCompfA7d2GwNC0CfIe
-	 Naitv06P6SvGzFS4q6iISdIDEwRjAHxGM5tX2KXP4R++6lWLVmXWtiRDL+yRd7hKr0iwL
-	 8aB0D4h10CIhtR8orBxLRx3hPSxgwjdBF0PLHlnVuRCYaasdDD8YOSY/2PZ1lIlEU9E43
-	 pysp9YIQ5SQw2j/xSU2D+5KofUhie0ORclSyonbyltbAzcPruA9E6XY4K7c9Csa+jeQ==
+	t=1793189462;
+	b=Qrq+XYg4aZq5yUJ/2JHHKOl4iU56wh9riHT91EETpckZEVtHktUlAZGLTwMj5UekFDb9
+	 348SnFJRuP8ECa3c3oMnam7D6/6gibmuqp9Zo5Er0WcHCYiDtmt+QTPrVMOnJI2XBucSF
+	 lfhsVrsCtgUcHN7rfvmYI6kIITaFpn/zJqcnTgCgXE2Zp3IrAsgmpIPfI2Z8SBpGdX17G
+	 xwzNeZOyYu5St4GN7pqdm/TjYMPBLz4XcSJcGzGeuEAoCZaK4Cxbj3CTP9xPViVVeG8XH
+	 AIok70s4w+GFimzYgtcrDGqmJORoXfWoriu+kRfvyW5bhnpF2/X9MPE1C8XLHWNJdaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189397;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info;
-	bh=0HLaRvrg+jl3Zxb9AZyjzDR0FZQPetkXt6VlqhhlGEs=;
-	b=fQzRwJyuCFdHVhD9F2goKIGvkLdKJU42XrrDloyX63W70/1CPwab9hTGDIUj3qXjtfPv
-	 CV/RMdlJH2gMxWghW9fXt16lFUkKbG+GEKq8e9wf5K4qDce+C5defekSpHAczRj9otGiG
-	 RkYFTv9xLB8mitA3fjBWv589CyuYTosfLjdHwLO8FUJSKK73CASLh8iK//JCa4tZEAALw
-	 Gr6Qd3Y5v69YLJ83bqhtfG/450JJD12EIlAGwU7woKGsZwi+e3GfoFGnJ3qd+KJBhSUOs
-	 uwdt6lfjMxRDt4EOZWQY0cJzCV2xMCENJhM7tqrevysq67dA1HtV8gTOmhLzzkMs0Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189462;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YH8exneAUOKvBRopo/qKSgKRlif0KWcuV1FHtfBKY8Q=;
+	b=0IQRQA5qR6xYCcK8CeKf+z3yknTsCHfXk6GXM4aXdz+AikGaou428q7OkCfyQSvWrf/H
+	 lwEHc55S1R0oHQsbBln+ne2HNB3dyBJbNeq5P3acmvLyOp53EQ1ncB1+gIVAoFlIQMFr9
+	 WNDGi3e4ONbquLG4cpVAX57/l4kckONW83MB5c4Yeg6GVrRlEOCJ730Lo3ERqzmxcBMvG
+	 T5V7J/aivIaIFhVkMXPa0MzLNYn/YewjVTUI6bKyPJm95dOTLC0tlBi/D9J1FDBW/0vI3
+	 wzwsXElQ5tH8DkrVj/sXt97gxEviWgeOXcXxkaOmyJETYSKsvhbvd2hXnwwLZu1xQyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=LGyd1Str;
-	arc=none smtp.remote-ip=91.207.212.86
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DOBr/23h";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE8C606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE8C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1AD606A31C;
+	Wed, 28 Oct 2026 12:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=LGyd1Str
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBfSQl1071483;
-	Wed, 28 Oct 2026 12:09:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=0
-	HLaRvrg+jl3Zxb9AZyjzDR0FZQPetkXt6VlqhhlGEs=; b=LGyd1StrXhjsnDGgs
-	CIB6wNIvPza2XZIM3DWrE8u36AwPiBPWgTAN+SjVhS+KI6bLCyDycsJRG4GryZXt
-	idEPU+xLoaNQ6dOSodfYIjFoYJb9yyNaUcFUzoKiMVEWcjAQXJ5u+PoCtY4Hziq3
-	cLANp2c/G04eb8UX75s8o9ZRLAszDtTKZP8mS+vHWdI+OJfuQZ4woeAvtv6+DHrL
-	QHaJiEs9x4bP4i0JR3kvqepWQrxWGG2+Qfj7iYm+wmQM0fpMr5bv2ATnwLl/NlJX
-	DTH2gzTNymyglRLuXtmIEguBld11pgZYxZMvhwRrhv7l7kMuZnGusxiyLx1QFzPm
-	JP9Pg==
-Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hk4168exc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 12:09:39 +0000 (GMT)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.210) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 28 Oct 2026 12:09:38 +0000
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: <dri-devel@lists.freedesktop.org>, Rosen Penev <rosenp@gmail.com>
-CC: Luigi Santivetti <luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-In-Reply-To: <20261005194127.151181-1-rosenp@gmail.com>
-References: <20261005194127.151181-1-rosenp@gmail.com>
-Subject: Re: [PATCH v2] drm/imagination: simplify pvr_fw_trace_seq_data
-Message-ID: <179318937874.184022.1740380316769591198.b4-ty@b4>
-Date: Wed, 28 Oct 2026 12:09:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOBr/23h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F231F01825;
+	Wed, 28 Oct 2026 12:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793189461;
+	bh=YH8exneAUOKvBRopo/qKSgKRlif0KWcuV1FHtfBKY8Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DOBr/23hmCjh4wM2ot7hpLjiW5OPK242RMuA7tPtbu7BaF3zojrlh+H6jDUj6eCR3
+	 p4G7wLlsFHqgiTEpyvOA5cZC0cr0jh1Hfl30heUHA1iiw6bbbWsIOQe1EpQycsVeKO
+	 zFGcn3wMkCPUJaGd6FXoyz9c79jVEetuLg6M7BxJBZx+wIjIZscRQkYy/C/Cc01Obd
+	 V7T/eXY7IE9bQfe0RJvOOHD+Hic+gET50gFDnKZpqepumxIa8+iEfaZevujjdjYDJr
+	 T3uh4Uih+lLu7qRsBJpHb4mSIu1nKSG9SSIKtQadJ5ZI7y3GoBg1G6zdUpmntaTy3N
+	 cauCHtT0FOWlA==
+Date: Wed, 28 Oct 2026 12:10:57 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v14 4/5] reset: Add KUnit test cases
+Message-ID: <auHmUVsSCbZI7V4e@google.com>
+References: <20261011121246.162759-1-tzungbi@kernel.org>
+ <20261011121246.162759-5-tzungbi@kernel.org>
+ <986d1b636fc7a96b3c2e05e8725a693a496d2f62.camel@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,48 +65,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-GUID: z1JiCtqXW1WrcZmI9mQiOc88j6aDrIzv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX02X1LANHBf17
- vS890HkUyKOb5Tcvp16rpXbe+ONC5HRF2NeoCPyjqKRQFL9Eg76t9kh8Y1wKBXMAnMniI0+wc5u
- 5GAx5YW+wMqONfiUgsWJf1KS4axxIAYjKCEz3E+dtLTC5ucdptIaI+jRg/J5cL9dTJikYu8Ip0F
- /t2AN1mFxZ1JO/loMNZRan225K2rZjf/tovJ4BO68d9V8jItik244sCZn9LRVANc3BxdJ2fd+84
- yrsTy7TEvX29kJZcsIU99TAiV+ZcV/18psJu5w4fXoyJqUe7yV8GZ74kFINZTBSrA3Dd2jLHyr1
- vqZiiRsBwlSowgGODynn9P7QsFtbbPJSp8qIRtWwSW+0vmbrbBcVa+oWO6LHPNi+WxTektNa0Td
- jxH4n6Cbj+KP280A1FC/+Ul2dSAOP2COwLRzoBEYEpMAVA+qULfV4T/cvGYZAkZ056xQohPyEls
- U0xB6oNrSXRsTKdXZtQ==
-X-Authority-Analysis: v=2.4 cv=apQnmiZV c=1 sm=1 tr=0 ts=6ae1e603 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=sooSunb62akA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=zec_S3E7ITbJX9_FcKEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: z1JiCtqXW1WrcZmI9mQiOc88j6aDrIzv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0OCBTYWx0ZWRfX2C90W1cZXGJ1
- hS6u0qrsD2PSfLqj98H7O3TBQPK/9ejgCnrGR8oSGGJpANGir0BX+Bjom2KL2eg/qMl6Uz1Qjbc
- Bt7e+qkMAWeDkM3a7Js440Qo5yDAQJQ=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <986d1b636fc7a96b3c2e05e8725a693a496d2f62.camel@pengutronix.de>
 
-On Mon, 05 Oct 2026 12:41:27 -0700, Rosen Penev wrote:
-> The trace buffer copy always has ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS
-> entries, so embed it in struct pvr_fw_trace_seq_data as a fixed-size
-> array instead of allocating it separately. This removes one allocation
-> and its error handling, and lets FORTIFY_SOURCE and UBSAN_BOUNDS see the
-> real size of the buffer.
+On Mon, Oct 19, 2026 at 03:32:12PM +0200, Philipp Zabel wrote:
+> On So, 2026-10-11 at 20:12 +0800, Tzung-Bi Shih wrote:
+> > Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
+> > nodes"), reset suppliers and consumers can be wired up using software
+> > nodes without requiring Device Tree or hardware devices.  Leverage this
+> > to add KUnit test cases for the reset controller framework.
+> > 
+> > The test cases cover the following scenarios:
+> > 
+> > - Basic: Verifies that a consumer can acquire a reset control via
+> >   fwnode and perform reset, assert, deassert, status, release, and
+> >   acquire operations.
+> > - Use After Unregister: Verifies that after the supplier unregisters
+> >   the reset_controller_dev while a consumer still holds a reset_control
+> >   handle, subsequent consumer operations fail safely with -ENODEV.
+> > - Concurrent Unregister: Verifies that unregistering the
+> >   reset_controller_dev concurrently with an in-flight reset operation
+> >   waits for the active operation to complete before returning.
+> > 
+> > Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 > 
-> At about 48KB, the struct needs an order-4 page allocation, which can
-> fail under memory fragmentation. Allocate it with kvzalloc_obj() so it
-> falls back to vmalloc in that case, and free it with kvfree().
+> It looks like the Kunit tests are independent from the reset of the
+> series and could be sent individually.
 > 
-> [...]
+> Is there any dependency that I am missing?
 
-Applied to drm-misc-next, thanks!
+No, but I was using it to verify if [PATCH v14 5/5] breaks anything.  I'll
+send it out independently.
 
-[1/1] drm/imagination: simplify pvr_fw_trace_seq_data
-      commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
+> > +static int reset_test_init(struct kunit *test)
+> > +{
+...
+> > +	ctx->rcdev.ops = &reset_test_ops;
+> > +	ctx->rcdev.nr_resets = 1;
+> > +	ctx->rcdev.fwnode = ctx->supp_fwnode;
+> > +
+> > +	ret = reset_controller_register(&ctx->rcdev);
+> > +	KUNIT_ASSERT_EQ(test, ret, 0);
+> > +
+> > +	ctx->rstc = __fwnode_reset_control_get(ctx->cons_fwnode, NULL, 0,
+> > +					       RESET_CONTROL_EXCLUSIVE);
+> > +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->rstc);
+> > +
+> > +	test->priv = ctx;
+> 
+> The rcdev and rstc could be cleaned up in .exit for the error cases.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+Ack, will add a .exit() callback to clean up `rstc` and `rcdev`.
 
+> > +static void reset_test_basic(struct kunit *test)
+> > +{
+...
+> > +	reset_control_release(rstc);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), 0);
+> > +
+> > +	reset_control_put(rstc);
+> > +	reset_controller_unregister(&ctx->rcdev);
+> 
+> Could be cleaned up by .exit.
+
+Ack, will let .exit() handle them.
+
+> > +static void reset_test_use_after_unregister(struct kunit *test)
+> > +{
+> > +	struct reset_test_context *ctx = test->priv;
+> > +	struct reset_control *rstc = ctx->rstc;
+> > +
+> > +	KUNIT_EXPECT_EQ(test, ctx->reset_count, 0);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), 0);
+> > +	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
+> > +
+> > +	/* Unregister supplier while consumer still holds rstc. */
+> > +	reset_controller_unregister(&ctx->rcdev);
+> 
+> If you allocate rcdev on its own instead of embedding it in the
+> context, you could
+> 
+> 	reset_controller_unregister(ctx->rcdev);
+> 	ctx->rcdev = NULL;
+> 
+> here and still have normal cleanup if not NULL in .exit.
+
+The `reset_control_ops` callbacks use `container_of(...)` to obtain `ctx`,
+so keeping `rcdev` embedded in `ctx` is convenient.  Will add a bool flag
+so .exit() only unregisters `rcdev` if it is still registered.
+
+> > +	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), -ENODEV);
+> > +	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
+> > +
+> > +	KUNIT_EXPECT_EQ(test, reset_control_assert(rstc), -ENODEV);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_deassert(rstc), -ENODEV);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_status(rstc), -ENODEV);
+> > +
+> > +	reset_control_release(rstc);
+> > +	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), -ENODEV);
+> > +
+> > +	reset_control_put(rstc);
+> 
+> This would not be required either.
+
+Ack, will let .exit() handle it.
+
+> > +static void reset_test_concurrent_unregister(struct kunit *test)
+> > +{
+> > +	struct reset_test_context *rtc = test->priv;
+> > +	struct test_concurrent_unregister_context *ctx;
+> > +	int i, ret, val;
+> > +
+> > +	rtc->rcdev.ops = &reset_test_concurrent_unregister_ops;
+> > +
+> > +	ctx = kunit_kmalloc_array(test, 3, sizeof(*ctx), GFP_KERNEL);
+> > +	KUNIT_ASSERT_NOT_NULL(test, ctx);
+> > +
+> > +	for (i = 0; i < 3; ++i) {
+> > +		ctx[i].test = test;
+> > +		init_completion(&ctx[i].started);
+> > +		init_completion(&ctx[i].enter);
+> > +
+> > +		if (i == 0) {
+> > +			ctx[i].thread = kthread_run(
+> > +				test_concurrent_unregister_supplier, ctx + i,
+> > +				"supplier%d", i);
+> > +		} else {
+> > +			init_completion(&ctx[i].entered);
+> > +			init_completion(&ctx[i].exit);
+> > +
+> > +			ctx[i].thread = kthread_run(
+> > +				test_concurrent_unregister_consumer, ctx + i,
+> > +				"consumer%d", i);
+> > +		}
+> > +		KUNIT_ASSERT_FALSE(test, IS_ERR(ctx[i].thread));
+> 
+> Isn't this missing kthread cleanup in the error cases?
+
+Correct, will fix it.
+
+> > +	/* Subsequent access must see -ENODEV. */
+> > +	KUNIT_EXPECT_EQ(test, reset_control_reset(rtc->rstc), -ENODEV);
+> > +	reset_control_put(rtc->rstc);
+> 
+> reset_control_put() could be done by .exit.
+
+Ack, will let .exit() handle it.
