@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220617;
-	b=UEuQwDkM/3djMmgA3IQlxddFbbehyp3FFsCBUV2NEK05BunkqFRSl9lBUiEEiXtgCg78
-	 5bAUJQ2269Ei1jknbb2x2llc6DcMGV+HsFzSz2oDjF41tRcx7Z9A28Q3QIF5KSBFOAppf
-	 Uiyd9XZPVvWF/EpnHg5e2x2pia9utvGdLA7FzFhRx1pU7Z4np8/VXmLyjofretm7NKdKW
-	 cRHh7Em2nkPxzvghLlSDEncrfFjiEgU6Xp520y11C1DTv4b+JzEh6jCOcEuC9PJM734R7
-	 xYTskYLJPJBCxhOtpiSvqxvMuEU9QowQxSwTEQWTOp7KQBpZEo4sYHWUxK6DKxJE5rA==
+	t=1793220628;
+	b=AZ7IFgN5GJ7QcJy9wOPwpENbWQZTy8FJEcp2LTYLnh70V6zGKx8uxygmhurS8o3LH7bq
+	 gRIpg7ILbtSlnEudcanhxei6Cmx12wu3aTwAg1vYFSoNKKPAwPlJPZRBg/2l0i4xtn+kN
+	 UvGzq401kjJelRpXbh7pbWr9Sd9105D3BufT67aO6sKHGRvhWfUelVyw25x8gFMFlfItZ
+	 3FGUtObQqsVGHoxCBB/1P092rf0iBBDblmnomrmthqymb9RuCIKWAv2LC5OxmwB74K+2q
+	 1ozLzymwVTdr2ciR2xblrUPQ1bT5A8zx7P/4XhQSkrtUHxg/kytSwZ0PQAptAKb2igQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220617;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=3J+m5zssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=;
-	b=pQQDeVX6YIXiVCgdIiQTXZjmbH8OUEfZEfp94MI7g4Li343TUo5IeIh9UqzfX20BQQ2U
-	 QDcH2Wv6N720hASB50zkHnKmjszpQh9yaTDqUQVdwBwUkPa9KSw1AgneGSJWGhrs60+Ae
-	 Jd3+1pMx/hkcbzDYt8xfZQch2R6LV/YHkofJHGwAu7y7fV450f/uNH6zt8Bo0F6A3oBgN
-	 Prk7Sn9LYP4Fxo//j0vyNiMg0Gns1DXv/Dz0Gsc+hpQQTRjNGVACHf+lKvPYm2asiuBH/
-	 0QWzZ3yPCNNT0J2PxlrHE9q896RTeweNb6U7Emr7t4WHu7O1KhsTK8OplU2aQObjXfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220628;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=9pX1g/iklzjrFfdOAyXiLeRMjX0W6ZaApW2OAWacHQI=;
+	b=BHfawGtXIVwl9MC6Yp6F51bquVI100J12LFekscqx7WFySCnA21II+fxdF1kAiN4qwEQ
+	 /eEPFRSAFEMbfaRg/pWfFhsB6yruocyINuc8P5zE3sZ/DVLcD+gEmCjXxw5OuPWYDVlRF
+	 bh7JxjXEKfCIaCXhaZrEJ3XAww2rnsooE8RBuWrPJjMwFfuFdjIaL8+mFmfM5fjtz9afR
+	 jYgm4oI5Hz5vqkwKVvwW4bqOtcoCK99+4EWlVPT9v2E4Q5qgV+ESjhzmjVaYN6Q/xknRZ
+	 twlmnz4Jyt9wSPSE8keNqaquzFoCVNc6kI0cJYFaUnebpqu5lbRNMIDnK5zsUAA681g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b="M3/Eb9Gx";
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0091606A31E;
-	Wed, 28 Oct 2026 20:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0091606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DA9606A321;
+	Wed, 28 Oct 2026 20:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29DA9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SJYsnp2340162;
-	Wed, 28 Oct 2026 20:50:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=3J+m5z
-	ssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=; b=go0Fx3+NOkNNIrw4Ln4G5+
-	n1hVw44Bg5eoxTwZuoZ1R8LgTQbs6pxo9Pyx77Kqpglb/tAN5HtBfVkzBPbTtg+S
-	lM8gxpWaLWvaZEwC6TrV7UkdWbJDmj0mBrz6YyMf89fwA4thgPY86YsIWVtBONqt
-	AzKDOgfZdanBt4b7QJjxPvSRblpD8+vCnWwa/W3cnyMQVObeIbf+XJEFCUhIwpcV
-	tAGpd0tz12wl7SHtYL80zcN/4F125F5OM0qWl8D905bYiiWvzFWyYLLQoAvyTjJO
-	45eenpUAlPJww7erptCqOOBuPeDXQbmNLQI13+eeU0USi4g00NjOIirTq5AAlRoA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm646y1u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:50:14 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SInkCG1983966;
-	Wed, 28 Oct 2026 20:50:13 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pc1wu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:50:13 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SKoCPs22545028
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 20:50:12 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7F9075805C;
-	Wed, 28 Oct 2026 20:50:12 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A589058054;
-	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=M3/Eb9Gx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=9pX1g/iklzjrFfdOAyXiLeRMjX0W6ZaApW2OAWacHQI=; t=1793220627;
+	x=1793825427; b=M3/Eb9GxaTMnEAhgsREa7EI5cRBxkc1oBlwcSIxes9ZqqP/04gAQSqDYzxk0m
+	CI5+fYlzV9DZUiGt9jrLNb2bj+ClAaOWRQjuCK3eD7icuI4lgRhuCU0muJQXG9Z+uXA7kkBdNiFbM
+	j6dwZqVOhdYyyfNQjNTbm7rgY94JFaM8rg6uFOGP8zxBJ4RaAUZOEzbR+wnLen0YDpYQ20kxxVHEt
+	LpdedB43GaeQTF/gA2xj9k0ekaj02Es/GEYg6CIKuJ+hY5ztAm/4YjPaaJKpilrf3Lcg42O8K3qr8
+	lE6A9l1u2UDu0I4ImtLbhkCyP4ENM3t6ow8fWBQP89LvKRekWw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xMAbH-00000001TAs-3gSv; Wed, 28 Oct 2026 21:50:23 +0100
+Received: from dynamic-077-183-189-206.77.183.pool.telefonica.de ([77.183.189.206] helo=[192.168.178.50])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xMAbH-00000000MZJ-2nWC; Wed, 28 Oct 2026 21:50:23 +0100
+Message-ID: <6dae1312a957da6e140d684a04ea69e15c21647a.camel@physik.fu-berlin.de>
+Subject: Re: [GIT PULL] sparc updates for v7.4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>, Andreas Larsson
+	 <andreas@gaisler.com>
+Cc: David Miller <davem@davemloft.net>, sparclinux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 28 Oct 2026 21:50:22 +0100
+In-Reply-To: <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+References: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
+	 <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,107 +80,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 28 Oct 2026 15:50:11 -0500
-From: Wen Xiong <wenxiong@linux.ibm.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
-        gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        wenxiong@us.ibm.com, linux-pci@vger.kernel.org
-Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
-In-Reply-To: <20261028103616.29110069.michal.pecio@gmail.com>
-References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
- <20261028103616.29110069.michal.pecio@gmail.com>
-Message-ID: <c10dd783a61e66023b04aac7829c66ae@linux.ibm.com>
-X-Sender: wenxiong@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX601frCAB19/q
- uI/YX55lZDL46lwWnclqvOCWBrF4GSZJ30O7k5FmAE90xoWvjJVKtmQ0K4njkWF1eXM7fbBBMy/
- iku+wZ3kD7Efj5mY0LIdQ/Xaam08lZY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX43KXMdpUq/rL
- 9e3OQmfoHHGFh0wSriTm+Nzt4QfloGu4utUAL3uPGrNk0hxV/ye4mgAbixY8zYrxzHLcVq0jHMx
- gWA8zrb5IcCT4gLxCAfRBgkYHlD2OjyXrvIsTFixdnFIRZEvmgItbWxe48XLXMeTSHOaozSf57p
- 82xJf3zeouc/3adjbj01urlfnoinAdAzLFe0/1XvXysBgJvbsH5YGps7ViLk90FyF3JwGQCvxCi
- FVqYf1vMCJNFg5uvOAc/Ivtnq1c97UpVAQaGpmlbFM9FrFRhemAXgre80fgT5prRcDQl0Hw9uOb
- 65yhfZpAl3VqwkquCM4vJebV+ctsQVfyw+j3qgsyL6HgdZzDFydY+1r9QVskr7CgvAfOY+E62EX
- VVOZ65TvVtGhv8rAxCYzyrbQar/W6To9wWA1Dx7aK+kyKacUDF4WYXGYaO/41iAZ3EgBcB7BJV4
- R9GZZ2n60kVt/mCviXw==
-X-Proofpoint-ORIG-GUID: w1D2aPIGsQzg6O2eGCeEIUcG8ZgfXFVc
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae26006 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1VaoIupEdHR5eMkdamIA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: ochY4GT0oiw3AJipYFMkE2_mabINeyr9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280082
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
+
+Hi Linus,
+
+On Wed, 2026-10-28 at 07:03 -1000, Linus Torvalds wrote:
+> On Wed, 28 Oct 2026 at 03:44, Andreas Larsson <andreas@gaisler.com> wrote=
+:
+> >=20
+> > This includes the following changes related to sparc for v7.4:
+>=20
+> Send them for 7.5
+>=20
+> This is the second week, and the commits are all apparently basically
+> just a couple of hours before your pull request.
+
+I think this was actually accidental. Andreas had most patches already
+merged before the merge window opened as my local checkout shows:
+
+glaubitz@node54:/data/home/glaubitz/linux> git log --graph --pretty=3Dforma=
+t:'%C(auto)%h%d (%cr) %cn <%ce> %s' | head -n20
+* a9e88d617a25 (HEAD, alarsson/for-next) (3 weeks ago) Andreas Larsson <and=
+reas@gaisler.com> sparc32: remove redundant memset in srmmu_nocache_init()
+* 077e15cf545a (3 weeks ago) Andreas Larsson <andreas@gaisler.com> selftest=
+s/seccomp: add sparc64 support
+* 60b5c9eda5a3 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ add seccomp filter support
+* 9840f43c3d09 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc: N=
+MI: Remove obsolete comment
+* e77e845f7226 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ drop sp_banks
+* 0a8f5903b456 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ move early memory setup to setup_arch
+* 91c897e01883 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ drop unused valid address bitmap
+* 6b2510b9d8f7 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ populate memblock from the PROM memory map
+* a33ec04570f3 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ use memblock to find available system memory
+* ccdc278b61c2 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ use memblock when mapping the kernel
+* 22a749706e3b (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ decide the TSB huge-page window fixup before the bank switch
+* f1c0029fd6bf (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ use the fault address for si_addr on window fixup faults
+* 80fd9c765ddc (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ restore %asi in user_rtt_fill_fixup_common
+* 1ea502a48efc (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ remove dead THREAD_SIZE branches for non-8K pages
+* ca0a9905074e (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ increase kernel thread stack size to 32K
+* 6982cb1c57c8 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc64:=
+ Fix comparator problem with timer interrupts
+* 01d609628750 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ advertise relocatable kernel with HdrS 0x0300
+* 7c0a0dda3830 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ derive phys_base from the PAGE_OFFSET mapping
+* 494e0351b740 (3 weeks ago) Andreas Larsson <andreas@gaisler.com> sparc32:=
+ honour phys_base in the viking cache flush routines
+* cee9395acd80 (tag: v7.3-rc1, alarsson/for-linus) (8 weeks ago) Linus Torv=
+alds <torvalds@linux-foundation.org> Linux 7.3-rc1
+glaubitz@node54:/data/home/glaubitz/linux>
+
+It seems that Andreas rebased his tree today and therefore bumped all
+the commit dates.  I unfortunately don't have a newer pull of Andreas'
+tree, so I'm missing some commits.
+
+Andreas, do you happen to have a local backup from before?
+
+Adrian
 
 
-> I tried to make this code a bit more "proper", by moving the
-> pci_reset_function_locked() call to xhci-pci.c from xhci.c.
-> 
-> I found that when I actually run this, I get a warning from PCI:
-> 
->   unlocked secondary bus reset via: __pci_reset_function_locked
-> 
-
-Hi Michal,
-
-How about we add check TI/failling usb controller in xhci_halt and 
-xhci_pci_shutdown?
-
-Thanks,
-Wendy
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae82..af6ca5447f22 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -950,6 +950,10 @@ static void xhci_pci_shutdown(struct usb_hcd *hcd)
-         /* Yet another workaround for spurious wakeups at shutdown with 
-HSW */
-         if (xhci->quirks & XHCI_SPURIOUS_WAKEUP)
-                 pci_set_power_state(pdev, PCI_D3hot);
-+
-+       /* TI XHCI controllers do not come back after kexec without this 
-hack */
-+       if (xhci->quirks & XHCI_HALT_FAIL_TO_RESET)
-+               pci_reset_function_locked(pdev);
-  }
-  
-/*-------------------------------------------------------------------------*/
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.cW
-index a9e47e178c28..67108692a354 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -120,6 +120,8 @@ void xhci_quiesce(struct xhci_hcd *xhci)
-   */
-  int xhci_halt(struct xhci_hcd *xhci)
-  {
-+       struct usb_hcd *hcd = xhci_to_hcd(xhci);
-+       struct pci_dev *pdev = to_pci_dev(hcd->self.controller);
-         int ret;
-
-         xhci_dbg_trace(xhci, trace_xhci_dbg_init, "// Halt the HC");
-@@ -130,6 +132,11 @@ int xhci_halt(struct xhci_hcd *xhci)
-         if (ret) {
-                 if (!(xhci->xhc_state & XHCI_STATE_DYING))
-                         xhci_warn(xhci, "Host halt failed, %d\n", ret);
-+
-+               if (pdev->vendor == PCI_VENDOR_ID_TI &&
-+                               pdev->device == 0x8241)
-+                       xhci->quirks |= XHCI_HALT_FAIL_TO_RESET;
-+
-                 return ret;
-         }
-
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
