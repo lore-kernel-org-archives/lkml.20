@@ -1,108 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197199;
-	b=MVlMXVs80ZtU6GWXCetywo2Z05DelK/nQad9BG+dzumZw7fz3Br3RrGFtCUCjGQd9TIf
-	 mcdv+TnoDUXUI/nBuuPK5x02Mh7CaKB2eX+o3vkMHLRwZBr2LWipYmNXk0+NLhdNFVz6e
-	 LAz4qDrZWwZWruuIr3xaAYvSPTeIKqSD4hxJMGBiu5t4iJgdMZ1ewELfLUTy2pspfmIUy
-	 OHG9QYYKrWYfdmNxdtuyTSp64TPaUhH7CVXsN6RM06qyJY6Ax8poGOKC7iRrAcI+8FAS1
-	 JJ8Ei2IKqI4k0fhVuKgkUWTGF6lsiK/6gYkZ/in+rUJTm5pGzSOefirv+945PgxHV3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197199;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-	b=OuqO4Xl2bOEv5u0jwTkaRBZLWVfRJ4G4zJMenDfEyEMIOA6Kb5EcVUYiGMj+MTYqQ4Bu
-	 LMkjfKCALEW078fQU0kAjsauMyekrwwNOTe5b3jo5K0z2Oazf5/V3Iu3EyGYkx705X+Rr
-	 5Gwv9EIaUcka4cfMXZQZPzmJUEuqX7VrfpGhNOiDlzHAsedHX7oIP2mejxSU0B8MDyKWH
-	 UeCFzioWVtQ3DJKsPetKiX7wo4oTGEV5IVrDkrcd0rewygb5ZoOQC2ia2SSnfJroXurCU
-	 UTszNJBsbVEPLX0Z8XxO95McupjPVNqX1dJ1tXHGZ2n0TNkJkdLSgpRe0hQua3YL7ow==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peCWJaLY;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793197200;
+	b=L4PXk+svlDgRAxciXiK9lCi8BdXDpgDlNDJ2Ioc00RJBXo6c9ARoibFsVpCV1AOmkRbU
+	 NHcHjStwXrImanQWMLnSw7VI+VX/FtdgVHzOfjvgcyPJlr8o1zcvVWMskH0Rs/WOj8+37
+	 DsnjmTh5bb4s+Nv/I4A39hFvWjQARpnlmUFbXrtYuIEtMAhuwXRvH3TjA8XNuRuQDYReL
+	 VvPuBCLVqhvlt54wX4TDClfL6uWXhMYLZqjf060JB3F5CEXUQSTwTPLijQcNUOnMGeYxX
+	 4wig/CoMMeIqGTd7UKigIda07i+CJQcJZQjpxJ4zE+nzlaWFmUVnxVXOry94RF6/a9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197200;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sjqXoqPS3GSg2+oKUPBpXTipKFah5Ifty0Jw4Alix+o=;
+	b=p9wL+P3ZfBrxGN8hfJ5Nuzou/TF5Bo0VjfiTp0wfESNGiAyU1NZGvcravW2L9hqxdAMr
+	 hB/Qk6/2Y9w5ykWiQQj7aXmQdJ6SR5Lsh94ZCF89/rLRQz7+f2CUcZruGP84T6u+oDuh3
+	 Ce6+BligZ3JIgUcLhjRVYCU7iZBaS0G6gzr85YA4zSTV/sdgDLf3nAypWniGztaZMJ4R4
+	 7Vgr3bM1++8sTJSrc0Ig8L3omjUJm/Fw0sElfdICfsmYr7XCDkugiIYxnTmS07gFsGOaJ
+	 sfI3E6mJO2lsGj90gYJy4CF6dWXyND/Yf5Lww5UU7+w+jgdEoRByxDAKPcQHF6OoDbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XyW708ld;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RGcjTesz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0AE606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F8B606A321
 	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B0AE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F8B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peCWJaLY
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so851577a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XyW708ld;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RGcjTesz
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBdqcn137450
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sjqXoqPS3GSg2+oKUPBpXTipKFah5Ifty0Jw4Alix+o=; b=XyW708ld3LtIxMLr
+	pGg+XwKvx5S0CKMqGYZHMb3V9qIkQWuvgBlglaV3UsiCfBhSlO+BuPX7mlZRWVjW
+	c3fek6v6x2cWIyTT04fw3ObhqkSdAEh41dcHvCOjqSbGAsfL4r9cteX7rZtkB4jd
+	WmF3lqCQpqX1WrWFbltBzmTS9t9GpB2eWQkcLQaeLvt9EbHA0oiaXhJYmzugyGrj
+	RY8FljuUFWljOLVLqBc+EH8cOwKDZpkK4npctZAxuCqb1wQYE1xSmZrDTyC+aZgk
+	kP0wLrip1QK93OKTR/45CYRXwxNvlp2U3XTt00mHCb+O7TmmAudCh5g6Vew42sS2
+	yRg0fA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6f92ukd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:19:58 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-943e8ff02d0so95570285a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 07:19:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793197198; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gQoQm5X58uWsBudeYZ2EvO9pn5bkHgaqNXbCs7LSaiuVTpTEp5A1rzcRB9RxB3BOHV
+         Yd1LmKlHcIK5zSq50+19/q/vhRhkKYY3BsR6CjwzsaY2JukGIaR1eh/zBFm4OG+5Am1i
+         BOMEpA9GEmL/TT1pqjfIGxHAFH56t32XUtzCKD7jLG7dmqWzDRmkQXSQJYZGY8n30uxS
+         oN3JfSwj+HuzKZ6T4U9Vmm4XQ33eU2KakLdSerxOm+Dolv1huWM8b+IFq5a2XogW3rOO
+         EluYBPol9pZ//iaVbfL7zd06SESH9kLRLr5yy98aALMEJU37v+nQW+Q6t9AeNo3fFMWR
+         VCQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sjqXoqPS3GSg2+oKUPBpXTipKFah5Ifty0Jw4Alix+o=;
+        fh=pkuXnIyUcqF2FFM/sDexvwTZcdEXlkSJn5fIlcaGVbg=;
+        b=rZsOkQsfmsqlqNqlNV1XlpJ8NbHsGd/oJZMnpwMl9kM2maCVqjTz6ypPNxHZxbNEB3
+         hrqYNYLnj+ayGcI8AXCgFcc2O+aBVDMrnCcnk1tDCVUEnoNWnsUfmk+vqNxj02N8A8yJ
+         Wg/ovZ0/qZDvsGbURXkb1KytGFA0F6HzIMMkejYPIoiHbXBYDL+d23St15mFxDroauMy
+         0apbuek2WdU8AMxddGQfKQNnqKQGMXKHGol9wVPaSGcGnsL7GOnjzITmNjZS7yHnuTWG
+         VEbHzDZVah5XiCv9T8ERYd7JkCFgGC9Cne6LlhiqNwYRT4QiJ/mvTNSTpcE2yZIbKl0w
+         Sc8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197199; x=1793801999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-        b=peCWJaLYkOWLaEP6XA9dqQ39bpY31PQXgMA9w6j96UyOMBTw1LPEDgGfTcj4Y0CieM
-         9IUt6G1CLYh755RA47HELiwSG4SVtmqf3taQBQVIy3JEiSDo+dQ+VykLg3sVy5MGt3f0
-         SIVTnRm1avW0IuFhxWilD8khuW1A/Fu3+x7TEZ0SdCsA97iK/O+GXTC9GiztqB3qYpbc
-         0J6vumpZX5jN/i6X3DBPRyPIoU1E2SM+bWo/2ODUNSOMoTpugjqxrnQo9Cw3Yc4oenXl
-         oG6fK0v9sWEBGa02TnL4OmiJC8BarEN6ZgcKS2akv0RwCfL2ywYyF3eh70VumnHe+EXv
-         VClA==
+        d=oss.qualcomm.com; s=google; t=1793197198; x=1793801998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sjqXoqPS3GSg2+oKUPBpXTipKFah5Ifty0Jw4Alix+o=;
+        b=RGcjTeszMwuhmSkMektefCJNwOTY2v51QGfxsRPAw0NHifXwLcQBUE8nVzFFPcWiKE
+         078ymGmuYOep38t3kM4tz+SEAc3+UAc8ZyIs2F+ymzpY39KFX0iK8tOzebVubmEJRuXj
+         0VBuwhnbhGlQZ09Z+KH8cSQn3G5wJ2LqM6Q8wsKvm6hUdJ7pvrz6jD+JUneMzQ5ZUgpa
+         hAE/fL4buhgXyt0SxGYnx31iYKZNTXVrwQHiJIZOS8YTO20Q8nzfM13ADAm76p1i/Q7j
+         J8O7cDSqSHGW6qy2NJ8Srw3AzgwKjDN7XB0lhkkxS4qX6SHRQv/4evnkyInAhquXVNm5
+         +dHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197199; x=1793801999;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-        b=xnJhwk9Vw0IJpKy9IGc/Jo4qDIk+WAiDbtLD/gxdD9eptRtv584++XZUcuqIXixgmi
-         9ao3x8qhnq9HMx9esQSLdeZA6rxHG6KOpaGj9ks1ei0gh18g3zcZjtWj+LojhRDZbRHh
-         zz9PFtXysmqVzfijnZVhD7Mb+kEwWDAY1qUTuQ3AZ9RJJ15rZFPm4Ad5+IqT1+PFhYr8
-         AaGoehjYdYWd9YE2t2w6XhYzT1Lb+B9pyQfsf9arBWs65tVwBiuiCKXnovRH2yopb2gQ
-         7rHHy2T3I5//7i/bO3nMeml7UWKW2Ld87337kVY0Bt9rhapLP/l8Z6RrZlZ+d43koop2
-         YbIg==
-X-Forwarded-Encrypted: i=1; AKwUvBybeJJIabc/Glj/2Sth96NPgNq/tFiQXNI6To2nUwXnEkWWTCQZUGXeFjQT+Dk48dub59U1I0ZihPuxjj4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL893TjvyeG0zOHhi1IYQMtzHW9OkpmGGGWGokZj8f+z0a80Imb
-	o0n3O8RvlD1ldhT5tuiU+xB68pl/4ojQu35kukKsXNsi2Kf80KZg8FoA
-X-Gm-Gg: AYBFou1ZG0YJmoEW2mx3gASw9DJ9AfT1YJMKe4vk7U5A1rq82CTy7sBcjxZNrxqlTdD
-	0WptrwuAvqzhnYBVTNyzucXpCJdnDukajIor7Z9TLWcL0+4GbXeoKZtFZol0AATYTu3cRMdQQFI
-	iM6AVe52RhVctGVUCS9PJO3onDbZb9/QN9crfOhlNUH5eGhdtIqILoWmfEXnOttt8qOxqp1DkCS
-	5bWvgrOQbVqZWySgCd4ACMql/bZTidKUuYZzAoMcw53G6ysYVLlHHq2zW44VNxRBPU0t6XSneNU
-	m3qz1mxpYERUFCxeZi2Yz8kyRXwSxRwNN2fs11lcdLqC5TsqewM88fR4mCaGp5CeUItyMKRS+oE
-	/Bb0eDdWIBjxkIwq3vKGhn2Q3maT+7C/Luj0hVvw7cXLeGghylrrXzkR3OAfISzabchnia2J3kF
-	MlQ6YhHn5SooWNMLHGn/sFS5udD3uuJDbZkh7pgz6ymezS+BF9XcO+vFfFn+h8N22DRrfovj1b0
-	YJpp0CQmS6k4C84CN/RJXg680ZmKFOoL5AiC/uTchR0HYAnEfUBpnp9UYVYciWV4cB/UmSXkZGX
-	pFNNfJ3Rh72b2/qvX8LZhDbowjKlkjOB5p8NkSF5nF4aoC8vtAyowLK8oUU9YgatuPev
-X-Received: by 2002:a17:90b:1d44:b0:3ad:ce24:acfa with SMTP id 98e67ed59e1d1-3ae57f638cbmr1762004a91.20.1793197198315;
-        Wed, 28 Oct 2026 07:19:58 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9f286fsm3290141a91.15.2026.10.28.07.19.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        d=1e100.net; s=20260707; t=1793197198; x=1793801998;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sjqXoqPS3GSg2+oKUPBpXTipKFah5Ifty0Jw4Alix+o=;
+        b=iggDXEP/IjklW7U3xwuQxuwfBJ4gB4jmc95pP1QkDSErHT8JdKqz/X3KUBy0Htafkc
+         d4tYXZxNpusXCAD8JOL0kpLXPmDbAbNc8mmwXn7/JR/UM6rQQk8Z2DOtBLUwqZ8LSS8A
+         MOIwLwwyp+BEFJGKufYLhwiF9bSjVJXXCmNn30iVJg/ClqGpD4D+JI1+/wcf36APIGlE
+         vl60fiL8fB/Lzbil7jVTW41ykXypLTI2ggx4VbPm9t5CB5ZW2gy64s9Ul9/KhuBe86j2
+         o7JDjx0MazjTD2Mr0dMxlJRDc23E2rw8aav2N2heewZUkghZ7pxiBoVWMJTKNYs2dhTk
+         5wAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwxH4iLNCKRwFNB04M9nKHW7WkwAi3gZsvRkcCNm4BI8fLQncsPRtRCoIVEiNfIIXL5aB/KntkSr6wXfo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB6+wQGa0/RRnVNgUXOwy5o8fIcnGV6/JhBGfDsemgiWkNtB4w
+	rZ20cmLJjHBCtmhuBFHbXZlGN8/CT7ETzxQUDYa/FHb/N6bQrWx1RSxtS8uzuDJOtQCkK4OsS/0
+	9wnXPtJJxetdG7WoTV1F8SBFu+yIMpBPTLfOYscgUYnzYrFHQgiytaoWxtDY+KnpBYykxz6G86l
+	Genm6PLufAbsrcmObOYEon+LbnzhWMylt23O3XQWXECw==
+X-Gm-Gg: AYBFou3efGLIR9IxJdVnCbvpTaG5uPUdranXV1sXqYh3PPiESjIIFreY1ga1oOg0SrY
+	GTUgQu02R8R0q/WBOKPtYbzs807CnWjnPxTuPU7DhHkrRA7xu5Vp9INl3PITT3Q90ra/OU8OUu3
+	qNVVY5IJlIreMSh5fUVCVFh+seDyaEaL5h/WfOGDdDTh6aQuYG7L4AwY1LPbVk16LsrzRRrQDgN
+	vY05S+xLIYBSGmuEzfKuqbAthy+JAwax7kYOTnLifsGtyH851CQphLz7s0kS96n3kB9ld8Ma74=
+X-Received: by 2002:a05:620a:458b:b0:93f:237c:1019 with SMTP id af79cd13be357-94408d08e5bmr375731985a.62.1793197197447;
         Wed, 28 Oct 2026 07:19:57 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Ville Nummela <ville.nummela@kempower.com>,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Marek Vasut <marex@nabladev.com>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	Stefan Hansson <newbyte@postmarketos.org>,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Prameela Rani Garnepudi <prameela.j04cs@gmail.com>,
-	Siva Rebbagondla <siva.rebbagondla@redpinesignals.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/3] wifi: rsi: initialize background scan completion data
-Date: Wed, 28 Oct 2026 22:19:25 +0800
-Message-ID: <20261028141927.9306-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028141927.9306-1-enderaoelyther@gmail.com>
-References: <20261028141927.9306-1-enderaoelyther@gmail.com>
+X-Received: by 2002:a05:620a:458b:b0:93f:237c:1019 with SMTP id
+ af79cd13be357-94408d08e5bmr375725285a.62.1793197196764; Wed, 28 Oct 2026
+ 07:19:56 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,72 +128,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com> <20261028132403.3505037-2-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20261028132403.3505037-2-atanas.filipov@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 15:19:45 +0100
+X-Gm-Features: AclHuK8kkq0Gqe5D0rM_tGuX-UB3ViZblls9exEieIKoK6z36eZPswD3Pd1PIYk
+Message-ID: <CAFEp6-3-B3ub9giiSu5G_jJtDxv=D6+kxWqRao91GgjyumAp=A@mail.gmail.com>
+Subject: Re: [PATCH v4 1/6] media: qcom: camss: factor out the VFE minimum
+ clock rate
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=frhJ914f c=1 sm=1 tr=0 ts=6ae2048e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=4dG2s3dy74NheT9wN7EA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1NyBTYWx0ZWRfX4pvJ2BiAq1sP
+ d/8zPMq4RKt3sE3EH63wAG4ri0SLgpPr+cEBBKch6QGzho8pJK+aarvYozGvPqxMNDEcpNTrd0D
+ fbrxwF+axP20wbuegy/dfqfP9kKtrCc=
+X-Proofpoint-GUID: vaZRnrtfIH91SkgcTpZi_LDkvdlIonhs
+X-Proofpoint-ORIG-GUID: vaZRnrtfIH91SkgcTpZi_LDkvdlIonhs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1NyBTYWx0ZWRfXyR9hIzt89Cf2
+ qEQYVxmPED4DfO1BSZHPHns4vySDLP2+PwZ/hYssmN/ZHf0mW2wNWQaOLcH16pnh6SkYmjWuzjK
+ zOMdggYaBhCej7O9WQAYQyFmszSqQ74pZK8YiHT/17FDTUrxdvfREFRI+03Nl98EfNTDYj+WwrH
+ J54vXcNOtxX8Hakdr6Go8twl/F7BJyzClnSQN11ILkeJlJMrtENEklzmiHQfcuQLXqbhuYjD1pW
+ p5Yj5MLkvDSTwDQgcexVkDiUJLPArttgGMqM9GdLMn8kNdL7+z46VLgjLI37xDgGPOmC2LCI4IC
+ Xwg0gKwq2r1PxH3Shxsz8YEgU1wDuC1hUOUTbCfOmsZ8BqD25a74s1KeP5qYt2A3PndtaEJSkPG
+ Het6bjv4TlneaYjOjVvcR+yRMFOOmUahwPAYJVDzr9TJzBZkpSd/atNM3YwqaKL7tw0VAUPHTYt
+ lYjz6lseSNGYZkpARJQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 adultscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280057
 
-Background scan completion can expose uninitialized timestamp and BSSID
-fields to userspace, while cancellation is reported as a successful scan.
+On Wed, Oct 28, 2026 at 2:24=E2=80=AFPM Atanas Filipov
+<atanas.filipov@oss.qualcomm.com> wrote:
+>
+> vfe_set_clock_rates() and vfe_check_clock_rates() both compute the
+> minimum clock rate needed by the VFE lines from their pixel rates,
+> inside the loop over the VFE clocks. The result is the same for every
+> clock.
+>
+> Move the computation into vfe_get_min_clock_rate() and call it once
+> per VFE, so that the clock loops only select and check rates. No
+> functional change.
+>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Both completion paths allocate cfg80211_scan_info on the stack but set
-only aborted. mac80211 copies the other fields, and nl80211 can emit the
-14 uninitialized bytes when the stack value interpreted as TSF is nonzero.
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Zero-initialize the result and mark cancellation aborted.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 7fdcb8e12660 ("rsi: add support for hardware scan offload")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: W=1 module builds with MODPOST passed with CONFIG_RSI_COEX
-enabled and disabled. Not reproduced; RS9113/RS9116 hardware was
-unavailable.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
-
- drivers/net/wireless/rsi/rsi_91x_mac80211.c | 5 +++--
- drivers/net/wireless/rsi/rsi_91x_mgmt.c     | 3 +--
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/rsi/rsi_91x_mac80211.c b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-index 3faf2235728b..27bfdb6affaf 100644
---- a/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-@@ -276,7 +276,9 @@ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
- {
- 	struct rsi_hw *adapter = hw->priv;
- 	struct rsi_common *common = adapter->priv;
--	struct cfg80211_scan_info info;
-+	struct cfg80211_scan_info info = {
-+		.aborted = true,
-+	};
- 
- 	rsi_dbg(INFO_ZONE, "***** Hardware scan stop *****\n");
- 	mutex_lock(&common->mutex);
-@@ -284,7 +286,6 @@ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
- 	if (common->bgscan_en) {
- 		if (!rsi_send_bgscan_params(common, RSI_STOP_BGSCAN))
- 			common->bgscan_en = false;
--		info.aborted = false;
- 		ieee80211_scan_completed(adapter->hw, &info);
- 		rsi_dbg(INFO_ZONE, "Back ground scan cancelled\n");
- 	}
-diff --git a/drivers/net/wireless/rsi/rsi_91x_mgmt.c b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
-index d9dcbb255317..9ceb6cba3546 100644
---- a/drivers/net/wireless/rsi/rsi_91x_mgmt.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
-@@ -2107,11 +2107,10 @@ static int rsi_handle_ta_confirm_type(struct rsi_common *common,
- 	case BG_SCAN_PROBE_REQ:
- 		rsi_dbg(INFO_ZONE, "BG scan complete event\n");
- 		if (common->bgscan_en) {
--			struct cfg80211_scan_info info;
-+			struct cfg80211_scan_info info = {};
- 
- 			if (!rsi_send_bgscan_params(common, RSI_STOP_BGSCAN))
- 				common->bgscan_en = 0;
--			info.aborted = false;
- 			ieee80211_scan_completed(adapter->hw, &info);
- 		}
- 		rsi_dbg(INFO_ZONE, "Background scan completed\n");
--- 
-2.56.0
-
+> ---
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 108 ++++++++----------
+>  1 file changed, 46 insertions(+), 62 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765..59be37f83df3 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -935,52 +935,66 @@ static bool vfe_check_clock_levels(struct camss_clo=
+ck *clock)
+>  }
+>
+>  /*
+> - * vfe_set_clock_rates - Calculate and set clock rates on VFE module
+> + * vfe_get_min_clock_rate - Get the minimum VFE clock rate for its lines
+>   * @vfe: VFE device
+>   *
+> - * Return 0 on success or a negative error code otherwise
+> + * Return the highest rate needed by the VFE lines for their pixel rates=
+,
+> + * including the clock margin, or 0 if no pixel rate is available
+>   */
+> -static int vfe_set_clock_rates(struct vfe_device *vfe)
+> +static u64 vfe_get_min_clock_rate(struct vfe_device *vfe)
+>  {
+> -       struct device *dev =3D vfe->camss->dev;
+>         u64 pixel_clock[VFE_LINE_NUM_MAX];
+> -       int i, j;
+> -       int ret;
+> +       u64 min_rate =3D 0;
+> +       int i;
+>
+>         for (i =3D VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
+> -               ret =3D camss_get_pixel_clock(&vfe->line[i].subdev.entity=
+,
+> -                                           &pixel_clock[i]);
+> -               if (ret)
+> +               if (camss_get_pixel_clock(&vfe->line[i].subdev.entity,
+> +                                         &pixel_clock[i]))
+>                         pixel_clock[i] =3D 0;
+>         }
+>
+> -       for (i =3D 0; i < vfe->nclocks; i++) {
+> -               struct camss_clock *clock =3D &vfe->clock[i];
+> +       for (i =3D VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
+> +               u32 tmp;
+> +               u8 bpp;
+>
+> -               if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_=
+levels(clock)) {
+> -                       u64 min_rate =3D 0;
+> -                       long rate;
+> +               if (i =3D=3D VFE_LINE_PIX) {
+> +                       tmp =3D pixel_clock[i];
+> +               } else {
+> +                       struct vfe_line *l =3D &vfe->line[i];
+>
+> -                       for (j =3D VFE_LINE_RDI0; j < vfe->res->line_num;=
+ j++) {
+> -                               u32 tmp;
+> -                               u8 bpp;
+> +                       bpp =3D camss_format_get_bpp(l->formats,
+> +                                                  l->nformats,
+> +                                                  l->fmt[MSM_VFE_PAD_SIN=
+K].code);
+> +                       tmp =3D pixel_clock[i] * bpp / 64;
+> +               }
+>
+> -                               if (j =3D=3D VFE_LINE_PIX) {
+> -                                       tmp =3D pixel_clock[j];
+> -                               } else {
+> -                                       struct vfe_line *l =3D &vfe->line=
+[j];
+> +               if (min_rate < tmp)
+> +                       min_rate =3D tmp;
+> +       }
+>
+> -                                       bpp =3D camss_format_get_bpp(l->f=
+ormats,
+> -                                                                  l->nfo=
+rmats,
+> -                                                                  l->fmt=
+[MSM_VFE_PAD_SINK].code);
+> -                                       tmp =3D pixel_clock[j] * bpp / 64=
+;
+> -                               }
+> +       camss_add_clock_margin(&min_rate);
+>
+> -                               if (min_rate < tmp)
+> -                                       min_rate =3D tmp;
+> -                       }
+> +       return min_rate;
+> +}
+>
+> -                       camss_add_clock_margin(&min_rate);
+> +/*
+> + * vfe_set_clock_rates - Calculate and set clock rates on VFE module
+> + * @vfe: VFE device
+> + *
+> + * Return 0 on success or a negative error code otherwise
+> + */
+> +static int vfe_set_clock_rates(struct vfe_device *vfe)
+> +{
+> +       struct device *dev =3D vfe->camss->dev;
+> +       u64 min_rate =3D vfe_get_min_clock_rate(vfe);
+> +       int i, j;
+> +       int ret;
+> +
+> +       for (i =3D 0; i < vfe->nclocks; i++) {
+> +               struct camss_clock *clock =3D &vfe->clock[i];
+> +
+> +               if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_=
+levels(clock)) {
+> +                       long rate;
+>
+>                         for (j =3D 0; j < clock->nfreqs; j++)
+>                                 if (min_rate < clock->freq[j])
+> @@ -1024,45 +1038,15 @@ static int vfe_set_clock_rates(struct vfe_device =
+*vfe)
+>   */
+>  static int vfe_check_clock_rates(struct vfe_device *vfe)
+>  {
+> -       u64 pixel_clock[VFE_LINE_NUM_MAX];
+> -       int i, j;
+> -       int ret;
+> -
+> -       for (i =3D VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
+> -               ret =3D camss_get_pixel_clock(&vfe->line[i].subdev.entity=
+,
+> -                                           &pixel_clock[i]);
+> -               if (ret)
+> -                       pixel_clock[i] =3D 0;
+> -       }
+> +       u64 min_rate =3D vfe_get_min_clock_rate(vfe);
+> +       int i;
+>
+>         for (i =3D 0; i < vfe->nclocks; i++) {
+>                 struct camss_clock *clock =3D &vfe->clock[i];
+>
+>                 if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_=
+levels(clock)) {
+> -                       u64 min_rate =3D 0;
+>                         unsigned long rate;
+>
+> -                       for (j =3D VFE_LINE_RDI0; j < vfe->res->line_num;=
+ j++) {
+> -                               u32 tmp;
+> -                               u8 bpp;
+> -
+> -                               if (j =3D=3D VFE_LINE_PIX) {
+> -                                       tmp =3D pixel_clock[j];
+> -                               } else {
+> -                                       struct vfe_line *l =3D &vfe->line=
+[j];
+> -
+> -                                       bpp =3D camss_format_get_bpp(l->f=
+ormats,
+> -                                                                  l->nfo=
+rmats,
+> -                                                                  l->fmt=
+[MSM_VFE_PAD_SINK].code);
+> -                                       tmp =3D pixel_clock[j] * bpp / 64=
+;
+> -                               }
+> -
+> -                               if (min_rate < tmp)
+> -                                       min_rate =3D tmp;
+> -                       }
+> -
+> -                       camss_add_clock_margin(&min_rate);
+> -
+>                         rate =3D clk_get_rate(clock->clk);
+>                         if (rate < min_rate)
+>                                 return -EBUSY;
+> --
+> 2.34.1
+>
