@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.62.254.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175644;
-	b=joYgVMr8w1Bto+C6mAoEzjqi25dKuYgO3amzVzBEUHbY9ainQphg5WZwHimtK5yTkVXp
-	 FHrNd8+UssO0GTwL3Wg0KtBILLTKk4TK29eG6BEy/qiqww1zOG83mODR8Nh2yovHEIvF7
-	 s7bt+lnQ7qPQTO9vj4GDjfnh6gv5JqIqQI8iZ+hjK+tFPyHD0eA7PMBGeP7KYZMcS9ahz
-	 zrNxQvwpJBV+uxikJUQGPHhL02R0vx/UX6dzOcbE/M3twxciXXL07CpY6h0Cjc8O6HDtp
-	 xxsyTx3nKkP1Z5w0fKV4weW1GK/7qp3J3qL6RvbT+VMFV8V8SOLnfZonlQETnzUVc7g==
+	t=1793175643;
+	b=1ZtMPMKA4O9Z/oJGUT5gg5cOE8WGaAE7ytfoPmt60kQ0kHAYmPEnoDKyedm2qxrcqFT5
+	 85ecb5/6g/49ZPRoAmu5vbp+SzX/q6i1HFQHFzqDrq6PWtlCUm+oDMSDrw8u+eNkNK8CT
+	 RnLXykIe9UxdkE/AgVB2+kyXEMHPaw12fzgYyrbja8aHL7T3U3/K6HfHwd/e0nlWxA+rI
+	 t4cQMLKTkpYLElcX+a9VC7F7I6+TFvjvyvg7b1kxAO6yBgMHZRtmZn5ya75U0h7PSOYyO
+	 eI1ws2bvpkSj9RXZ9vJOLoLg9F+VcMIhWlBYxg7o+4yGnAfByxXqNiRDjh4J0wO90gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175643;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FiKV5NXJkUgnsMcI+sXb0n0HNmp3jB2cH055fflH0Yk=;
-	b=eTGyYWlqVG2x2z3Q4dud94hH1jE74YsNJnPZZSLq5A1wOWNp76f7Ex4KHrzhFvwad/o8
-	 lKTm1ZyMjp3xDXjVAegBiyc7JdL9h4oCRsRwAQcw+e5udH1B//ddRcnQXxEwyUhg9v+1K
-	 we5JOKHKEgUxeqJMeB5BGaICrn7J/rT09qotwagg3F8VhiiBqHSQL15km3/8xpTGkChtp
-	 eqGIMPf1ey+bllPj+HNpJ8ihfE/O+cLrWhQ/+DjMowgvrlZcLraIs1pCGf5t0WldzvPMC
-	 r5LFmUU+VDUByTL2DMxtMO5i/Y1SXbPhFy1epp2Km6BNiXXA/IIikIcZXtmpEmQETnw==
+	bh=ceexsp2t6/v12ItyH2pSPyV+syh2rxnTHvgHk3Ni1dE=;
+	b=rCtmF1yDdCDQNWYHustVfCn30dg5J1LjgtVhDLpUnsDstdUKJxdjHGyKOuV14xB008ew
+	 XE5RsJi1UAv/jYlbwm7niJnlZPVi91RBmmVdsAfeAhbauNV+vYdRuKmzpAnYDZjf/f6qE
+	 wo09eDpZfaQwuRmyYa664A5pg7TThRqvKsioFwlH80jMieIsM9237XWwajcqdT+HlkBJ0
+	 bPdDNGkb7XyUStb2Ah6TssxUysofFbflEQuN+eHOF6g0uZiw8MpHHTlt3ARI12YshQ8qh
+	 OCgYgkUV+LjpvGoVSzEhlIoMvbvxPFh1ELq1/vXkkOJ9+xGrrD5oDhiQQqL0/MveSJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ilvokhin.com;
 	spf=pass smtp.mailfrom=ilvokhin.com;
-	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=VVlo1g2c;
+	dkim=pass header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=Jg8BLE8I;
 	arc=none smtp.remote-ip=178.62.254.231
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D9360A2617;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A32860A2607;
 	Wed, 28 Oct 2026 08:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D9360A2617
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A32860A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=VVlo1g2c
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=Jg8BLE8I
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
-	s=mail; t=1793175636;
-	bh=FiKV5NXJkUgnsMcI+sXb0n0HNmp3jB2cH055fflH0Yk=;
+	s=mail; t=1793175635;
+	bh=ceexsp2t6/v12ItyH2pSPyV+syh2rxnTHvgHk3Ni1dE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VVlo1g2cdt+56K8mWNs+kTnpuMnj6v1NqMXFWNclXmipKK5Opz7hXWMThpTbOSgyj
-	 eOL9BeLA9artebTwUe3aomW3AQpvt1PlkLxI2lRkk5FAhY0kJkXeOLwyoZBdm+iTWu
-	 I8Pef11LheXSvHn1Q8Fn9g/yAIYYO1mDlqVjQ0aw=
+	b=Jg8BLE8IZCB+yObRAAqiVmVgU9sigg/nFDUGFqQXhWnSUadRZwDKyR4LY8EpthVle
+	 pA/bIha5skUWK4mVY8+AIkx6NRdoOUTSd/zD45eghCBSekWpPyZ52q6p9FUlikkAVg
+	 i5iCn86ahK5MOiZH/P0BO+c07/rkr7dgAwZrsWjg=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
 	(Authenticated sender: d@ilvokhin.com)
-	by mail.ilvokhin.com (Postfix) with ESMTPSA id E3709FBCFD;
-	Wed, 28 Oct 2026 08:20:35 +0000 (UTC)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id E1323FBCF2;
+	Wed, 28 Oct 2026 08:20:34 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -84,9 +84,9 @@ Cc: amd-gfx@lists.freedesktop.org,
 	linux-doc@vger.kernel.org,
 	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
 	Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 06/10] drm/amdgpu: switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:45 +0000
-Message-ID: <d57489b8bec240794a7a8aaac6e1e3e0d78ea331.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 04/10] xarray: switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:43 +0000
+Message-ID: <e2660c4c9f5e6f97be2ef7bd3752d259bce77d81.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -109,25 +109,50 @@ Replace __attribute__((nonnull)) with __nonnull_args() to standardize
 nonnull attribute usage across the tree and keep the attribute's quirks
 in one place rather than open-coded at every call site.
 
+tools/testing/shared/linux/xarray.h directly includes the kernel's
+include/linux/xarray.h, which now uses __nonnull_args(). The macro is
+not defined under tools/, breaking test builds.
+
+Define __nonnull_args() in tools/include/linux/compiler.h.
+
 Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/xarray.h         | 4 ++--
+ tools/include/linux/compiler.h | 4 ++++
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 8f0720a77520..c238564b4a31 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -307,7 +307,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
-  * move and different for a BO to BO copy.
-  *
-  */
--__attribute__((nonnull))
-+__nonnull_args()
- static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 				      struct amdgpu_ttm_buffer_entity *entity,
- 				      const struct amdgpu_copy_mem *src,
+diff --git a/include/linux/xarray.h b/include/linux/xarray.h
+index be850174e802..cf7f8802da5b 100644
+--- a/include/linux/xarray.h
++++ b/include/linux/xarray.h
+@@ -361,9 +361,9 @@ bool xa_get_mark(struct xarray *, unsigned long index, xa_mark_t);
+ void xa_set_mark(struct xarray *, unsigned long index, xa_mark_t);
+ void xa_clear_mark(struct xarray *, unsigned long index, xa_mark_t);
+ void *xa_find(struct xarray *xa, unsigned long *index,
+-		unsigned long max, xa_mark_t) __attribute__((nonnull(2)));
++		unsigned long max, xa_mark_t) __nonnull_args(2);
+ void *xa_find_after(struct xarray *xa, unsigned long *index,
+-		unsigned long max, xa_mark_t) __attribute__((nonnull(2)));
++		unsigned long max, xa_mark_t) __nonnull_args(2);
+ unsigned int xa_extract(struct xarray *, void **dst, unsigned long start,
+ 		unsigned long max, unsigned int n, xa_mark_t);
+ void xa_destroy(struct xarray *);
+diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
+index 03ecf9086643..fad2c6131a80 100644
+--- a/tools/include/linux/compiler.h
++++ b/tools/include/linux/compiler.h
+@@ -68,6 +68,10 @@
+ #define __naked __attribute__((__naked__))
+ #endif
+ 
++#ifndef __nonnull_args
++#define __nonnull_args(x...) __attribute__((__nonnull__(x)))
++#endif
++
+ /* Are two types/vars the same type (ignoring qualifiers)? */
+ #ifndef __same_type
+ # define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
 -- 
 2.53.0-Meta
 
