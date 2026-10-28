@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183421;
-	b=PkkrlCuX1j6q8NcRy87eM/izjIsoeCDZH31lyOtfiUNOacWeImg+rLB11rTEOqfteQoN
-	 XzFEq1MK5MDJcU5J/zQRpEPETuiYHhxByZIK3wodbYzI8VWnt+vrnfgirAGHKz408OfrB
-	 I2B6Un0kK/4kkVHxHESd9rYbk1bukhUUmfPP7aaCC/xydu3t7uWHVCM82NxuX9D9nv8qF
-	 ZYFZ8TagtMxlcAOCdFt60Xa/5LBkICOLP81Py6sEJsp9eZs4DyjnIV+mLR6vb5lGYOYyj
-	 oaWB7M4EfIxf0ELumYYePx9CuRSL4ahkBwZhJNB+WsBaUA4M53f25Hxts3zGPzeCJXg==
+	t=1793183470;
+	b=BCA91G+9aVn9KTBRSk+8FvMptWXeWALGSha7oXG3Pd9GXhcHgYgLapQwMZIIqIWUYgqW
+	 pu2apx4R1y/+z4cZWbAz6rxF2+5aOtcp+dRX6OycCCGC+QwmbexvnhUbFab+Uu2wKDsiR
+	 HNb83bHlDXRKorCHMvGI08C3ieoazlsjToL1iKXYg97WsuzkvlL2YIerJ44BRZ58J2Nz0
+	 bhqrPP1Oq4uyzxLFcOrO9RF4AQYU8O+otDQxv1vUotJHuSDsWruNYHNROyyZoIRzLYLMW
+	 jk4QISaUM4QX3CjNddFkVOhq/+3TVQYyu0YvZLxoCmz+/sU1lYrgNfxHPE7JzFWvFfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183421;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=OLbLynrkimEjQQfsH9TxXqFTM1rChVGZCPkVrmOFKSA=;
-	b=mShU1E2+PwuEvWLjSHUe0PbyJFMzmQDr69/iKOQ+QV/Kk5jMU0DnIFfAMbqYYMKLPBuw
-	 BNwYVeonbu6kKNIXtOB8wz+XdfYJexb/WoiZuVXMe37FxNt9s7thuDZUPWYOaLfPZPJLE
-	 5L53wor4SoaLqeQYgXfPkK30YrhlGWEH4oiYMyM5f0Owxqc4Tnyrl6VDhdWzuEDdwI3N1
-	 spldCbEl/LQtKaxyVaGx43orVNBG4qBzYWX3L6yCNNJTnWXJiJrDr5/xpsCcC2zoNHNPx
-	 aYYG7mlrYRWvBAmLr5fuM1fP69VuPk9amgLwE9dDXBoayX24p+DMF8NGjPvCfI8pCsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183470;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
+	b=FUevgE3qhJ3YF4vY5NiyNSTsAjC+2ODxg3MCjRSTd+YjJ4Dij5IUCylmxWg36eOVy/WB
+	 6TWFxVyxYZzAlJwI6xNaC2oGq2iSjmuaJZdwPzUZCEfBiSCTAJBUueFJg4Bv4zyvcibJg
+	 cNv30hHT0C9HYBFo9ohExPGB3KwF11qgKSkvP2mxMVMDLMIUKWovsypnIX1dxWU8TG/ju
+	 eZX9AUQVHWZQUwLswNpHD/fwBmsLKJJxxHAJouPjYoPc06eOFM24MVfS1ME8A/R/MCtjI
+	 LgRTC7Mc5XyO1ZOrc9cJ+JtoLvACgwc1VRB0SroFAzBTNFacKjwE6OEoloEPatllNkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FBiuLYqr;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57C64606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:30:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57C64606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FBiuLYqr
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF050175D;
-	Wed, 28 Oct 2026 03:30:15 -0700 (PDT)
-Received: from [10.163.164.200] (unknown [10.163.164.200])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 81C393F59E;
-	Wed, 28 Oct 2026 03:30:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793183419; bh=4MPiUYIxNyXc9vdvNkcXtM4ldkByD+QE/ChrMGrmtr8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FBiuLYqrxiroBhoNhvYFwAqEEixEavtD4GF9fQEEuBsgIYNK7ccNRyIHehsRitv2v
-	 c7Ie6wpU/TIvS32s88hsMi8OOGhNHkL3dJD0JTsASD7JzIIuB5gi14CJtk8TLR0F5Q
-	 8jaLwajorqSLSDcmuPKnrRX7q/Gh/tw06UEgT+NY=
-Message-ID: <548d9950-cc77-4c1b-b78a-34e304adb989@arm.com>
-Date: Wed, 28 Oct 2026 16:00:12 +0530
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F89606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:31:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50F89606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so6222185e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793183468; x=1793788268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
+        b=wF2X2R7YzgOGqqkrWOJGYWNH//5VT3msW5jN0tuiRxlDW3pDuT5rM/B9QT5Q8QJf0h
+         vfF9XXVy369N6QGZVc3IQh4ul38PMO81wHB9elDwMEaun6m36pHNQwO9sPVUMTcBsJ5g
+         U2yIy0Fe/BTH2NDJHTQglJw49MsR9xrN8kepGMvwUN0n7ekkdN73bxD9iIgVlojCpoPf
+         pLTQdp6qc/dfYGs55FUymgISy+CM5gJ5svCBCrdnIjxtMnTy+CfWUojNKRXyUtqcIVUi
+         GwyKZ7Et9qKtkBo4A38e+snBl06h9rl/hTAJ4F0bGJmSVXfWD7YnU94p7H8BMXgVzVpp
+         XQGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793183468; x=1793788268;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HTHxbZ6qE5Era12xleC9JgAV+z8lPfOhstehEnGxVpw=;
+        b=TUdbMdMlT5FM4EaCrFRAaiFMoQ4mGFfJ0bxZ0yo93H5EkWB5pWvDbNcrA7LFhDVW0e
+         hbUkzAtScOWL2uIpnLoDrSIZ4oXenl8JbQX8xE2e10eTfN02Oj2CjHjXBWCfA7xY5Fod
+         ZUznq2aMVIbgTS93UkRIwMA9TLdmIL6z5Tgmmuv8rlCWcFqu6/fC0le3TO70G6ydskLX
+         LbaGA/ugH+P1eKMEzlm5u5+wxl2Bl8EKgPhxXmtN/bnOcjP2iWylJRNkRwaASiLs0+/b
+         meig6KHnJMuKTXqtHT01wgA0JeP1uUTUxJNz0Or/EvxB26aCtG6jYXEU9lISLeEjSiGu
+         TdeA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVdURC7NLWdiYZuxtv8IqBYj4PguxMrgQMmfyXclVeFJwKzMkE5kBW0aDNf/GYfF+2O/M1b0unL4ypLbQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjrsr5ttIAU47odHjOQ0SY1U/a2Vgkz74cWrLA7/rd3oJGAACj
+	6oXEBiTardTcfUv3hWDVg2dZGi1fVaklksRliW+pctguOb7eKFDIwJsL
+X-Gm-Gg: AYBFou009h70fViTsGzysBuEPWEaZBDcuDp/D/36N/oOL/h7h8IQe+JPNVTWJDTBNfU
+	j7sJxUYsgr3Fm6jYtkCf0T6psQjRG86qg1oDlxWNZFEaKP9oHa8ifBUaZj3HpTlA3hGE5Y5Cwaq
+	NlL2lcmvdBG05PwakYlPE+7EfYjMFBoAoL7xSdlw8nlDZeI456w6Alhk9t7ASUqfozEso0dxUkn
+	NrmEru/5OurSLYO5rYA0OK/h7kmOcsX90d/+eCsQPbjD/S+o+Z6hyCFaNP9CVe9JgOp0oRN/yY7
+	ptA1dyZrOw0H6hoQtghGrElZjbfC6eENwM8VqO0X5HB1BESAiGcE8tPOfUMcrPidonAoFHMYkBh
+	nb09fSsinYqQgWqjB7oDeCcMavCKwfMXHSK0xgXlVldqLeBz0jPncAh8IutiSudoXbZk9QebbbV
+	AtIgzkEX4NG7oyAaZQBtIdmZfxPA7JGAKhDiNbEYysS+lZdaphtZVLoaI0+H9j2kSWBWFHOHTMi
+	knRxKEFQac46SYvKErcDXpyFs+vtT3VEzJIPZuSkA2b+cUjvFKoumRAebsMBzClNtHXdh4jjgSf
+	ZYr63pyfJTOLyif9mtOyu/d+kUOTkBOBfleG/5z7zxE487iRGUr3NWL4HpCrvrO1jw==
+X-Received: by 2002:a05:600c:37c3:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4a96695f317mr37325365e9.13.1793183467424;
+        Wed, 28 Oct 2026 03:31:07 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm26676045f8f.43.2026.10.28.03.31.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:31:06 -0700 (PDT)
+Date: Wed, 28 Oct 2026 10:31:05 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, David Laight
+ <David.Laight@aculab.com>, Victor Chernyakin
+ <chernyakin.victor.j@outlook.com>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] iio: prepare iio_format_value to handle
+ higher-precision IIO_VAL_DECIMAL64_* formats
+Message-ID: <20261028103105.0053c079@pumpkin>
+In-Reply-To: <auGuGfSqa-D9sceB@ashevche-desk.local>
+References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+	<SN1PR12MB2528906BE220765FAF201080A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+	<25g6fr7y4bmd6bzomvlvoejtps7wzbnbuuxxipmcrnozujno2l@klcfyrmqsifd>
+	<auGuGfSqa-D9sceB@ashevche-desk.local>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,118 +103,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/compaction: annotate data race for
- zone->free_area[order].nr_free
-To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: teawater <zhuhui@kylinos.cn>
-References: <20261028090747.68086-1-hui.zhu@linux.dev>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261028090747.68086-1-hui.zhu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Wed, 28 Oct 2026 10:11:05 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
+> On Tue, Oct 27, 2026 at 03:56:35PM -0300, Rodrigo Alencar wrote:
+> > On 26/10/26 11:51, Victor Chernyakin wrote:  
+> 
+> +Cc: David Laight
+> 
+> ...
+> 
+> > > +/*
+> > > + * Regular abs(LLONG_MIN) causes signed overflow, which is undefined
+> > > + * behavior. This variant avoids that by performing the computation in an
+> > > + * unsigned type, for which negation is always well-defined.
+> > > + */
+> > > +static inline u64 abs_s64_no_overflow(s64 x)
+> > > +{
+> > > +	return x < 0 ? -(u64)x : (u64)x;
+> > > +}  
+> > 
+> > I think I've seen Andy doing mentions to a needed 'safe' abs() a couple of times.
+> > Don't we have something in the tree already? if not, Why not adding a
+> > 'unsigned' abs function to math.h? something like:  
+> 
+> Or maybe something clever using the s64/u64 domain for all.
+> Let's gather David Laight's opinion.
 
-On 28/10/26 2:37 pm, Hui Zhu wrote:
-> From: teawater <zhuhui@kylinos.cn>
-> 
-> KCSAN reports a data-race on nr_free which also exists on mainline:
-> 
->   BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
-> 
->   race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
->    fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
->    isolate_freepages+0x52/0x650 mm/compaction.c:1722
->    compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
->    compaction_alloc+0x21/0x30 mm/compaction.c:1880
->    migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
->    migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
->    migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
->    migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
->    compact_zone+0x539/0x10b0 mm/compaction.c:2660
->    compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
->    try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
->    __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
->    __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
->    __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
->    alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
->    alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
->    io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
->    io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
->    io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
->    io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
->    io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
->    __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
->    __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
->    __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
->    x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
->    do_syscall_x64 arch/x86/entry/common.c:51 [inline]
->    do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
->    entry_SYSCALL_64_after_hwframe+0x76/0xe0
-> 
->   value changed: 0x00000000000002f4 -> 0x00000000000002f5
-> 
-> nr_free is only updated with zone->lock held, but fast_isolate_freepages()
-> and fast_find_migrateblock() read it locklessly to skip an order that has
-> no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
-> instrumented and the report is of unknown origin.
-> 
-> The race is benign: a stale zero only skips the order for this round, and
-> a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
-> lock.  Annotate both reads with data_race(), following commit
-> af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free").
-> 
-> No functional change intended.
-> 
-> Signed-off-by: teawater <zhuhui@kylinos.cn>
+Well, it might be UB, but that is probably mostly related to '1s compliment'
+and 'sign overpunch' number schemes.
+So, in practise (u64)(x < 0 ? -x : x) probably always gives the right answer.
+The kernel is also compiled with -Wno-strict-overflow which also stops the
+compiler doing unexpected things.
+OTOH clang is know for 'silently just throwing away code' if it detects UB
+behaviour, so code that is fine with variables can get miscompiled for
+constants.
+(All not helped by it being undefined behaviour, not undefined result.
+And the 'behaviour' bit really being 'might trap'.)
 
-teawater? What?
+This should work for all types (except s128 - not used in the kernel):
+#define abs(x) ((x) >= 0 ? (x) : (u64)-((x) + 1) + 1)
+or maybe the equivalent:
+#define abs(x) ((x) >= 0 ? (x) : -((x) + 1) + 1ull)
+which will generate the correct bit-pattern for s128.
 
+The negate is always well defined and its result in non-negative.
 
-> ---
->  mm/compaction.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+gcc and clang also realise that the (u64) cast always zero extends
+so can be optimised away for 32bit values (especially relevant for
+32bit compiles).
+Note that optimisation may not happen (I've not checked) if you use
+a real function with an s64 argument.
+(Which also has a downside if code passes a very large unsigned value.)
+
+Oh, and the compilers realise the '+ 1' cancel out and throw them away.
+
+David
+
 > 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index f1b2060eb2016..499ec7ceaa3ed 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -1601,7 +1601,11 @@ static void fast_isolate_freepages(struct compact_control *cc)
->  		unsigned int order_scanned = 0;
->  		unsigned long high_pfn = 0;
->  
-> -		if (!area->nr_free)
-> +		/*
-> +		 * Access to nr_free is lockless as it is only a hint; a stale
-> +		 * value is harmless. Use data_race to avoid KCSAN warning.
-> +		 */
-
-The comment is noise, the reason of using data_race() is a well-known fact.
-
-Apart from that, do we have the same problem with zone_watermark_ok? It also
-uses area->nr_free without zone lock.
-
-> +		if (!data_race(area->nr_free))
->  			continue;
->  
->  		spin_lock_irqsave(&cc->zone->lock, flags);
-> @@ -2031,7 +2035,11 @@ static unsigned long fast_find_migrateblock(struct compact_control *cc)
->  		unsigned long flags;
->  		struct page *freepage;
->  
-> -		if (!area->nr_free)
-> +		/*
-> +		 * Access to nr_free is lockless as it is only a hint; a stale
-> +		 * value is harmless. Use data_race to avoid KCSAN warning.
-> +		 */
-> +		if (!data_race(area->nr_free))
->  			continue;
->  
->  		spin_lock_irqsave(&cc->zone->lock, flags);
+> > /**
+> >  * uabs - return absolute value of an argument as an unsigned type
+> >  * @x: the value.
+> >  *
+> >  * Unlike abs(), the result is well defined when @x is the minimum value of
+> >  * a signed type, since the negation is done in the unsigned domain.
+> >  *
+> >  * Return: an absolute value of @x, as the unsigned counterpart of its type.
+> >  */
+> > #define uabs(x)	__uabs_choose_expr(x, long long,			\
+> > 		__uabs_choose_expr(x, long,				\
+> > 		__uabs_choose_expr(x, int,				\
+> > 		__uabs_choose_expr(x, short,				\
+> > 		__uabs_choose_expr(x, char,				\
+> > 		__builtin_choose_expr(					\
+> > 			__builtin_types_compatible_p(typeof(x), char),	\
+> > 			({ signed char __x = (x);			\
+> > 			   (unsigned char)(__x < 0 ? -(unsigned char)__x :	\
+> > 						     (unsigned char)__x); }),	\
+> > 			((void)0)))))))
+> > 
+> > #define __uabs_choose_expr(x, type, other) __builtin_choose_expr(	\
+> > 	__builtin_types_compatible_p(typeof(x),   signed type) ||	\
+> > 	__builtin_types_compatible_p(typeof(x), unsigned type),		\
+> > 	({ signed type __x = (x);					\
+> > 	   (unsigned type)(__x < 0 ? -(unsigned type)__x :		\
+> > 				     (unsigned type)__x); }), other)  
+> 
 
