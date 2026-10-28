@@ -1,115 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189935;
-	b=jrfr0nqCWgDvitif4yYUR2LjFnwVxmcratWUmeSS33idLdUsVRSXOGs59VYRIMZENrJe
-	 ErwajPSpBvpPgtcXEn3+XhvKB4vg9dtb5+qYO7jNfhTQdck7C8CemCqODDvwA6Wf7tW3o
-	 Jl1EsEtdDRPxf1P2hBr/0MkxtiEMMvHmkvoJg627FIRjnf0Fe/CIND6rK/cODL5MTosDv
-	 YVx9nZIVXh+lPrfGOL9/a9UDxauQnuNjOoO4pQEoUah1JZSMJwouWCFseUA6+D3ZFKtVr
-	 0dpS0R4zHwKOCWz3zwDWST8nS/1qic++Ibiv+v2g+A1iv4+MHSGRXaq+76uu0ihhVEw==
+	t=1793189958;
+	b=OuCm3cb82DuJAY6v74RWbLPusJHMLyQhPmyc+c2NIAVlhNTHKdJWg4nHr9XULcY+BaI7
+	 TwJeCUkhrwjtNDqUyeU5SZxa5D62O2bdGW8McfN7mNDVx871v8+PfrLz6SH3Nk9DMy6Bh
+	 luSt+mqdzyf/50Xcy84ormi8FnulpbKhr6YYxzBBLAlohVM5H98dhChiqsZp+wV9Cnc8f
+	 PBkkUDuq2EaN/OkuhMNRtudiGNUZCQUbn0TsDZsRwDBX0aMz9woZwth6tgDvTyRuPx9ux
+	 J9Z+O+sag8jPmt7yGHnOpdk6qGs24zGmzvazP3igKWVKESlFw7DbQ+PWIsBboVbOEzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189935;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=OskEvaxrgfNfL/Gq5v8g3VeZhJ7zUOHQB1CES574JS0=;
-	b=grhouGRvmEjU7iJQGeHspzUrPsFmFffvGj0Pm8a2gSKZu8HupLXig3RuT6GywBkELM/h
-	 A527WKLANdnqmdx0WRUekaYtXmF9Ti6kX2OflNQF0M4zSwMKHAg50EgzMcGWmEuP2co2c
-	 qQKEVme3rRf913PvlhTHwWvsKeCD+0WEcAzdTkHYg0Pci14uyz6hujC4CnStuseK1AI5U
-	 l9g6ia9URIHMMvSva5zo2sW45OVxplZwtklqKy+PBug0SIv6bWJVuMMEjBQZg/QPDHUFS
-	 G9iZ4iqjnZwLCRLws+VcNRjmzy/89tv20EsuQ/YhSLDBwAdbC/HnkwInTsIjNfXk+PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189958;
+	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:X-Mailer:
+	 X-Lms-Return-Path:To:Date:Mime-Version:Cc:Content-Transfer-Encoding:
+	 Content-Type:From:X-Original-From:Received;
+	bh=Jxut/MrKMYK8UeaqLdbANTgLB+m90HMiLTxeFkgxSMM=;
+	b=CbI68EpLZYip0gp9CCwjuvlIIQhsAeBjJm0qG14YxAnxkSkaCAinaKsqshIztTuGduzK
+	 Akr5F61rlhhg8ZK3viYrqDX6RAsNDRHt5OFi0rFYUv3SJb63zp2WkzCzsaP2uX2Pw0tJM
+	 cWS9mcUzvHdLhna0LAHvocH+oQpX5JAyGAZlgvjpoF2khsdAraaGdcA7CQVH1SgiCWA//
+	 CZ5pag4G1G1tqBGC9juRG+cmH8Ric7RZcLEldyNQWq3/Wudd5H4BML6WGYLIjDBd6fA+z
+	 93xpS4wWqMNpY9/TiCCKJl2OU7iy0mlRdpQvqarwC8oyFIxUQ33nnDFLFcqFBdiDHgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="gXfA/Dfp";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ihTRBDUo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="z8DqKq/+";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HgutpAPI;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=insta360.com;
+	spf=pass smtp.mailfrom=insta360.com;
+	dkim=pass header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b="TR6b+d/p";
+	arc=none smtp.remote-ip=209.127.231.60
+Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F272606A32F;
-	Wed, 28 Oct 2026 12:18:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F272606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DCE606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5DCE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=insta360.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=insta360.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gXfA/Dfp;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ihTRBDUo;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=z8DqKq/+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HgutpAPI
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DB2AB2212C;
-	Wed, 28 Oct 2026 12:18:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793189927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OskEvaxrgfNfL/Gq5v8g3VeZhJ7zUOHQB1CES574JS0=;
-	b=gXfA/DfpF6w+jyZaWtiR86xpjyK4cUM01VKUq3ddfeV01r2x5BlhIoEm39ldSPFMxwckRQ
-	/Fy4Ng+MwGEDmhprV1iwEcx53S2e1sfnTLx8rptIWu4ZkVfpJ/dOaVgJHrCrKQZaHAExFC
-	lesktXcN/bRaF6rQoWKMbvwZakHJ8DE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793189927;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OskEvaxrgfNfL/Gq5v8g3VeZhJ7zUOHQB1CES574JS0=;
-	b=ihTRBDUoHkkC1CO9Vi7stz2y/cMF7dsbcqqppFqULwrhtZd80WfubWLOKDDczOMOfPN7UP
-	tMqLffewEcxRxUAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="z8DqKq/+";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HgutpAPI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793189926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OskEvaxrgfNfL/Gq5v8g3VeZhJ7zUOHQB1CES574JS0=;
-	b=z8DqKq/+TGAIJwmTF4U0sQ7FfYKJ77L7dKL/trqLyzIl/Sgl9Ekctzsh1xn4HTwg+/cd4o
-	R0xm4n8RpjQrRepUKjnrNa/qi2quvDzjKwWyo8+erMWnL1P2DO5b4tyYhdhl+EHyi1fk2X
-	55OxWOhPLgi8dZ8SLybC4j9oDNf4bMk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793189926;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OskEvaxrgfNfL/Gq5v8g3VeZhJ7zUOHQB1CES574JS0=;
-	b=HgutpAPIGu/bYSfZI0OSy/iDcOHIXFbgI+oIOVqCmUwY1MYJLVJuYZ33vVQG/DQK6vAmu9
-	ASr5yKE/0sTjYkBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 399C71321C;
-	Wed, 28 Oct 2026 12:18:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3uAeNSTo4WqLbwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 12:18:45 +0000
-Date: Wed, 28 Oct 2026 12:18:43 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Jeff Xu <jeffxu@chromium.org>, 
-	Andrey Vagin <avagin@gmail.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 1/3] mseal sysmap: Add mseal_system_mappings= boot
- parameter
-Message-ID: <auHkLMb_Xo-7Z7mx@pedro-suse.tail5790ac.ts.net>
-References: <cover.1793094611.git.chris@chrisdown.name>
- <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b=TR6b+d/p
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2606151854; d=insta360.com; t=1793189952; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=Jxut/MrKMYK8UeaqLdbANTgLB+m90HMiLTxeFkgxSMM=;
+ b=TR6b+d/pC+85EqP4rpOJqjpS8YOrRCEADLpIVA18ez8kCWDXaXyruaU1xYp6c2T/iBwhZF
+ Yv2v9EHPl7vB27z6NZwgsvNpxMbTREGNgEkTlkp6Qx0ji2P8NcXPAZElHb9ZJX1yFrLtbZ
+ n4SyuLd+bo7ciqfb7O6Ap12kua8kBug2qXkN25GzR7dofZnx3aLazfAAFEj6YRhZaBGE7h
+ db4+Bc3jokvIm2BBnU9VkKakFr0PpLUNfoA6rPEiViolA7vCfJ1EFyZmYs6Vm6bxdYK+sU
+ JO4mNXhjugi/kYhZBZG5EI+Q9u78CWRutyTPrfYmVjh7wc2CVAGe2Fv3t1F4FQ==
+Subject: [PATCH bpf] bpf: Always hold RCU read lock around perf callchain in __bpf_get_stack()
+Message-Id: <20261028121859.994-1-yangsongsen@insta360.com>
+X-Mailer: git-send-email 2.53.0.windows.2
+X-Lms-Return-Path: <lba+26ae1e83e+b68203+vger.kernel.org+yangsongsen@insta360.com>
+To: "Alexei Starovoitov" <ast@kernel.org>, 
+	"Daniel Borkmann" <daniel@iogearbox.net>, 
+	"Andrii Nakryiko" <andrii@kernel.org>
+Date: Wed, 28 Oct 2026 20:18:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,55 +59,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
-X-Rspamd-Queue-Id: DB2AB2212C
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,chromium.org,gmail.com,mihalicyn.com,paul-moore.com,namei.org,hallyn.com,lwn.net,kvack.org,vger.kernel.org,meta.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+Mime-Version: 1.0
+Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, 
+	"Eduard Zingerman" <eddyz87@gmail.com>, 
+	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>, 
+	"Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, 
+	"Jiri Olsa" <jolsa@kernel.org>, 
+	"Ihor Solodrai" <ihor.solodrai@linux.dev>, 
+	"Emil Tsalapatis" <emil@etsalapatis.com>, <bpf@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	<syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+From: "Songsen Yang" <yangsongsen@insta360.com>
+X-Original-From: Songsen Yang <yangsongsen@insta360.com>
+Received: from DT-9806 ([61.241.19.90]) by smtp.feishu.cn with ESMTPS; Wed, 28 Oct 2026 20:19:09 +0800
 
-On Tue, Oct 27, 2026 at 07:43:04PM +0800, Chris Down wrote:
-> CONFIG_MSEAL_SYSTEM_MAPPINGS seals each process' system mappings when
-> they are created. As it is today this can only be toggled at build time,
-> so hosts that need sealing and hosts running software which moves or
-> unmaps these mappings end up with separate kernels. This is not ideal
-> since it adds more complexity of deployment, it would be great to be
-> able to have one kernel which can configurably do both.
-> 
-> So, to improve this, let's add mseal_system_mappings= so that this can
-> be chosen at boot.
+__bpf_get_stack() only takes rcu_read_lock() around get_perf_callchain()
+when may_fault is true, assuming that non-faultable callers already run
+inside an RCU read-side critical section.
 
-I'm very curious, do you actually have a usecase for this?
+That assumption does not hold for BPF_PROG_TYPE_SYSCALL programs. They
+are always sleepable and bpf_prog_test_run_syscall() only holds
+rcu_read_lock_trace() while running them, yet through
+tracing_prog_func_proto() they are given the non-sleepable
+bpf_get_stack_raw_tp() helper, which calls __bpf_get_stack() with
+may_fault == false. get_callchain_entry() then does
+rcu_dereference(callchain_cpus_entries) without rcu_read_lock() held,
+and lockdep complains:
 
+  WARNING: suspicious RCU usage
+  kernel/events/callchain.c:163 suspicious rcu_dereference_check() usage!
+  1 lock held by repro:
+   #0: (rcu_tasks_trace_srcu_struct){....}-{0:0}, at: bpf_prog_test_run_syscall
+  Call Trace:
+   lockdep_rcu_suspicious
+   get_callchain_entry
+   get_perf_callchain
+   __bpf_get_stack
+   bpf_get_stack_raw_tp
+   bpf_prog_test_run_syscall
+   __sys_bpf
+
+The callchain buffers are freed with call_rcu(), and an RCU Tasks Trace
+read-side section does not imply a normal RCU read-side section, so
+holding rcu_read_lock_trace() alone is not what get_callchain_entry()
+expects.
+
+Take rcu_read_lock() unconditionally. Nesting it inside an existing RCU
+read-side critical section is cheap and harmless, as suggested by Andrii
+in an earlier discussion.
+
+bpf_get_stackid() is not affected: sleepable programs cannot use
+BPF_MAP_TYPE_STACK_TRACE maps, so syscall programs cannot reach it.
+
+Testing: on top of bpf/master at commit c8a8a68d3ab4 ("bpf: Don't re-sort
+subprog_info[] for every new subprogram"), x86_64 under QEMU TCG with
+CONFIG_PROVE_RCU=y (syzbot config with KASAN/KCOV/modules disabled), the
+syzbot C reproducer
+triggers the splat above without this patch and does not with it. A
+minimal BPF_PROG_TYPE_SYSCALL program calling bpf_get_stack() was also
+run via BPF_PROG_TEST_RUN: it warns before, and returns 0 without a
+warning after. BPF selftests were not run.
+
+This issue was located, and the fix, changelog and tests were prepared,
+with the help of an AI coding assistant (Claude); the submitter has
+reviewed the change.
+
+Fixes: 79a7f8bdb159 ("bpf: Introduce bpf_sys_bpf() helper and program type.")
+Reported-by: syzbot+72a43cdb78469f7fbad1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=72a43cdb78469f7fbad1
+Link: https://lore.kernel.org/all/CAEf4BzYN33yQhO-tsF8pUWDMZoiLAXkV+Z1oP6fJkByocYcjpw@mail.gmail.com/
+Signed-off-by: Songsen Yang <yangsongsen@insta360.com>
+---
+ kernel/bpf/stackmap.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+index f7e8d766d128..e452ca7c859a 100644
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -812,8 +812,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
+ 
+ 	preempt_disable();
+-	if (may_fault)
+-		rcu_read_lock(); /* need RCU for perf's callchain below */
++	rcu_read_lock(); /* need RCU for perf's callchain below */
+ 
+ 	if (kernel && task) {
+ 		trace = get_callchain_entry_for_task(task, max_depth);
+@@ -823,8 +822,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	}
+ 
+ 	if (unlikely(!trace) || trace->nr < skip) {
+-		if (may_fault)
+-			rcu_read_unlock();
++		rcu_read_unlock();
+ 		preempt_enable();
+ 		goto err_fault;
+ 	}
+@@ -832,8 +830,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	trace_nr = callchain_store(trace, trace->nr, buf, elem_size, flags);
+ 
+ 	/* trace should not be dereferenced after this point */
+-	if (may_fault)
+-		rcu_read_unlock();
++	rcu_read_unlock();
+ 	preempt_enable();
+ 
+ 	return callchain_finalize(buf, size, trace_nr, elem_size, flags, may_fault);
 -- 
-Pedro
+2.50.1
