@@ -1,104 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793151681;
-	b=N2f1Rd2khjgIiWtgmxKwUABdfLk0LRKuqVgg3/ngs+onAKaKHN1NkkR/CeaxNaPSw+Qi
-	 L6w4Dqp7cVkoLch7BS4Jp6kMweLihpS1gI8LOOuFqMEUs7gLq4UiwmlXTCpR5JXH8Eeyg
-	 H0tB7ueKyr7Wu+jqQJGCLd/CJHCw27+jgx+vvjksd7nxHqKTFzG2o3SfnC7QHOxbmjymp
-	 VPqOSi1cxB1hK4ulIxp9eVRpYVCAzbssY7qs6rd85Gw3wz8m17wdsxRvqj5UQMY1nhpxh
-	 tZs81r3B8TAypER+6umjPN3SyT/uG8e6MNhjxm6FRxUNLqRhQijYhkC2vig4dcseJsw==
+	t=1793151732;
+	b=d/P/M5S8cl7ZnCTR/pH+b5ypcVp/P4nnKBLuX2w17YbWXeYGWzammCnld6AzOnmTnDI9
+	 M0vLxvF8KCuTUo7JcfKs4E5KIwEJ/d+sK7Itljs69D+l3DFhtQtKdTC5Neooap8ePoF4M
+	 ZSaHManO2Mjpdz62hFryuqhlUDJRz14mfYFNehrivRjQprhK14Zef51CEUm6Gjp9iZFl+
+	 1HNOWmElyDQrkAIz1YPlQp1/hhlfqpvufcAesfA/gQFx6Xt/fkC1D9dQNeRXGFhvEEsCQ
+	 x6hjy5rNPqgHjkgyVnA/ZRDH1mkqf6muIeLyjmk39AF11qS433h/ZurnrvthQfOamXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793151681;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793151732;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Xdd791neb7+DgspUqeY+rUJCS1GBwC2Im7bccJPreSc=;
-	b=pPxmoV5h3TeCZV9teHHdMh9Kr1Ix6p4fOCILIvnVjCuip06eIf3bgT2Gc3KG0AIWHSdS
-	 STP+rNY/DhzUHfCHb1h07kUKZUd2E6A1eThm2wfcrCnqyGu/5t0UR5hBPeUqondLNWHUU
-	 fhtas8e6v9gSfNr0f/IvDCinW9MV4ruMehfKPGuX3rs+bSKn29vWbjE8mLysFobKVZA8q
-	 I9hNgakUyurVH8TylqIzRTKJb9tN+YNcI/ET/V3NfyaCfKjC9DIdxsLD1Po2QUUkHKKRw
-	 0oJOsVtiMSMIJXN3XheQUWaGC8e8AzCmO98EG3NU1vW4Vwl3DZd7oq0eNvIpMnFJZNg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6qFiHf0tIbDLVDz6TOJvHxKdyUmXFvOVRG/rMFDPZq0=;
+	b=zMtrrSIKuE2ZV7wzBNNVGzJHClIOp7XyvWrvx2jgfGB/VvjiXsGiOeRZiQEd8j6rr9TK
+	 phGFLOu0x6XU2FxvO1YR6nBjMW7u9cOW8EAeq0pc+1/ZtBWYgN/zKdmTy+C4NoFhdyZ8s
+	 ZqaffcPkLjjuOym+Wu8FywTfL38TcMyOuq71ET0OenjoHUdEB9mq4ZuG8ELU5XrKdjhhq
+	 UMCoKli3TDEpDLa84zpL2NpWrgEK4sIAC7/A0ibgGpGu8gJ04VjP2aoUc4YyuRX1olOhW
+	 waCxpX6Wc8bBwV8/LTLiHR79lBxG8QHdM9ysn0m5enzTSgieWgXW7NP/nbpG780fu6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D+raJxwK;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20835606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20835606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F59606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 01:42:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F59606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D+raJxwK
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4956869750eso2600795e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:41:20 -0700 (PDT)
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e8ad5b2f61so944615ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793151679; x=1793756479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xdd791neb7+DgspUqeY+rUJCS1GBwC2Im7bccJPreSc=;
-        b=D+raJxwKduJM4yicnaUFr0uWSio/X/xekIonUhAj2ICxuSdAuB3YDOLBxO3I/LFXNl
-         CPPI1//DX3e0NG30vyEJtThR0E5aSud25jEb2xAtL9kJy1HburCay8kEo1cWUm0mgP0w
-         CrSV7FclQB55se7gE3KX2hT6hTYchswygDjLhcmqkgawbVxicNNJJP2JNMsJubX7ow/B
-         8pk3JwBsOdmUEVQaH8Ez8UP8ni063oNF81a8xxBKzSbck00T46NRWOxTvi7UUp7qxs3W
-         BS6dB0LjgFbuZYuFKM7e6VSqg4lTD9PAS5bAgS8/JPedwLHDJ/IbQr9eE22ZA1fLe6ij
-         9mWA==
+        d=gmail.com; s=20260707; t=1793151730; x=1793756530; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6qFiHf0tIbDLVDz6TOJvHxKdyUmXFvOVRG/rMFDPZq0=;
+        b=vZUzLndHuy+VrKIWc8p9M5ErSiqHSTEQkb9wVs99zm6p7KAj9XBh3k3EJ99gprGcZD
+         hlu5kMNZsrq1wpEgHoKsjHTnshgWPCuL9yQ95Z2HpDv2ENFjrcbJ3F9SApVkFcXtxQc8
+         r6Bv5EqaMce/K2vGnSU2LE25LG6KkUAs3Etqx71TwcdrbSsb8h65TbSqowVvmGyIdsrS
+         kR4hgBkWPIADtdHzQu7ywyR3Tpze60Wl0AQOHu6TLljhXzz5HomKsyoCh1N+tURCmw12
+         LmSgoPxP2LITXU90NNKTE7VZHx/T4E6aZ3whxPJcGbxDTPNpZXBuZM/QnR12j0d4oXaK
+         sdYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793151679; x=1793756479;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xdd791neb7+DgspUqeY+rUJCS1GBwC2Im7bccJPreSc=;
-        b=garoDwrJ2pvuBPgpcCN5vxyQeMaZfvSKcY8eHVqUuLp+NDbkbj2sFtZCpgBRK8p6u1
-         n9+6A5p5pDCaw4EqTG3sZcG2X/CKlrY29ejJ2P4kT3wHvSWT9Kwi0/xrRdbfuxJI4b9j
-         zFrnIUgStngQPpRcNkXDe31PnJKnRl9Ge0jyWlo4bvMTg+zbrHOhL7nmPXufu7s3jn0H
-         9yk11O5eMO0KFxevKjOwkmHWwVmYm0LuD0M9s+QB7Ou4Qxva3PTfu/zkwiL640OV8/E5
-         lXL0zHRWRGh1BuwEI7UhuJKaIFiRaG0Nb2TBsJnGasIIIWAHKruzsfKlHHNB4z+wqPPy
-         iXSg==
-X-Forwarded-Encrypted: i=1; AKwUvBxd71JUGqxzgrJkXBVeQqL0iP4yZwTruPGMgVCJQMcDqSKS/x6efHAbajLRlAvHdUdkAnSxrhZedj/FK8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdJ3BqlLe/yzLEjbaufrA74z3WF59OkOnvZTVT9gycNTGDEBzK
-	ezNdY1qSDtLOsa1CP068nrPts805lFUCWBN35D7U1hKSmQE0t7vr5lyV
-X-Gm-Gg: AYBFou26D3ryuN0QVNDtXlxw1/IISSP8CRK/8eTDnDZRAqV/olzcuOp/UgUi+n/AWvQ
-	cWMbHRZblas5jG9Qlkz48e/bKxblwMjlLLylv+JbZ+5zDKAIkOKKRKf08DMvttppu9erevMCHt+
-	T+xwDVkjq7WgMI+fsaRGTVZUowetl13vwv/jot83QW4eq6UJZOiP1teCOiMKFUmW3ISeKkMMh30
-	RkwrYuIaTdVd18Yogg8WG4QeEgZ3LLHX6cH+nln8dCmHspTaoWKZMy5W94KlnCS/Z7vsKfukfxP
-	zov49dq7Q2OutL25gt1ZzWZzzG6XID79op4ZMP/g7fbfxQKtwvQKjqWwEhqur2OU9PPPwD3TTew
-	H3NMe8G2R4E01ngm0MX0VtsTDrwwFZEz85BdBq06X1cPuEAQiuoJG0GMJNyNb7ryD6pJIr2sDRD
-	KiRErhhq3YIUYK3cabARgJmfBMOImb2Es7BXL3zssS7FdMKsPMoaKTgsohNc8oPpKvU9YDLrUUK
-	eWoK6DSD32qF8FfsB1ppIX7QqXmJTFblnsi7/1SWyRLv+PsfA7mDxSBF7a8YekNNr9+Y7YZRDX6
-	zy2zEcOUw9YyhKitDMGoXO0V/TGEfCTJOwju8z38Uxqc7viiUefzNo7XGiD3To8MSiq0Jstlzpk
-	7zN3AfwTsndoIcqkWpqpn2HzAHsv+6a5iJAt73wGRdZ/o5Q==
-X-Received: by 2002:a05:600c:1da8:b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a966c3ffd7mr15596435e9.23.1793151679407;
-        Tue, 27 Oct 2026 18:41:19 -0700 (PDT)
-Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a9792269a7sm9089645e9.12.2026.10.27.18.41.17
+        d=1e100.net; s=20260707; t=1793151730; x=1793756530;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6qFiHf0tIbDLVDz6TOJvHxKdyUmXFvOVRG/rMFDPZq0=;
+        b=edyzVOSfz0/p5V+lxwI+p9Qj1yM11XbTLqXulKSsLR/3eH+ISEwJcWARblg7pYDSRr
+         FK+Lx4rBobTXhBF0wwsb8smpacFHFTqBWT4OozU1P3FBn5nJYS9S75pfcsCbRfxsWNuc
+         uv6xloYbWJlC+ug071HVBZ/rXEnMl605sjYwXz/hR/uZh5HSExVyVCKMK4jAjVHbtgr/
+         5HHOA0mdKd2kSQIUTugr1Gi7KaXWFlv3jPvBy8OeYDBltqOO0RhRxsiu+w2D+TZhDH7l
+         kpGtZjdaDgzuCeZPlm8E1s5iC3FKFLTMIJJ3bivRSvN3+P/xrruO0VfHAD06dhkNQQlj
+         Ac/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzSFypNRMUeG0Ub34A7/CQrQeXiMNZhY32jgThZ9ndflvJ2zSkALpCe0EiTw/a1fe5jbgZgUHKWCIq6omU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnSVtqrZN6clcfm/lCP7Kaod0DzUacT+M1Nww/5AIANJtJx3BL
+	cM6guATNkFQq/LJFajH6Wb08XYMHM0cdzy4P1zW1AOUd6fWAiANJAAYx
+X-Gm-Gg: AYBFou1FN020AY1O06uuiZZYVuKH0ZAz80QMKeCvoyM2JGg4iJK/ePeOZFhA3F1Tkzu
+	w9n/8BFmz7riJPWsQQcdbwt5QO/gH9HQBjPfW4EmT1OQd3d1OonH1uZy/qwf14Rl8w0GTBibubC
+	cQvdJ0bMo+bUwggtf57rjI4LyCLWwaMByaPkpxEe/1/oD0Da1FmBdYj45E3sb6bTP07o4ZrxNkG
+	Fv3rodYro4ah6q+58k/F4SX/kCzkhanpg8Xa9sbpeTHo0u501CWAmB0KWqJDijXpYTEMT9uw1Aq
+	dQLqNWzHTAExhfbHhVMCyS+q4EAXBCNAjEZ3lHcRtEEsaqUi16BbTYkxcl247Q/FG73U20YCY7i
+	HDoxGkjbiNYTi+ks7HFFZuMmWIuQwvOxpuG6SWlCgUIm0y69Xbg00JvBc/9afIGDvwIaUfthVvo
+	vIB+orjOeLXVxuGmNQhmwc0vyX9vkmowHha20r+/Bdqc4l/RyaFwWOIvyhkliXSW6icm9Sx9uAP
+	bk+v5x8cPSKLp72dlfryDsDSopWcVm3x/TRv1QGq23+v03n3BervO4mW3jsHiL0f7f4bNaPONeK
+	T19T2J122ln50N7RmsRjN9TTBXlcMBda
+X-Received: by 2002:a17:90b:3c8c:b0:3a8:736e:c19b with SMTP id 98e67ed59e1d1-3ae581811b1mr1020251a91.4.1793151730487;
+        Tue, 27 Oct 2026 18:42:10 -0700 (PDT)
+Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9a5e73sm544338a91.10.2026.10.27.18.42.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 18:41:18 -0700 (PDT)
-From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-To: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	bhelgaas@google.com
-Cc: robh@kernel.org,
+        Tue, 27 Oct 2026 18:42:10 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: krzk@kernel.org
+Cc: HystericalDragons@proton.me,
+	amadeus@jmu.edu.cn,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
 	heiko@sntech.de,
-	dlemoal@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+	hrushirajg23@gmail.com,
+	krzk+dt@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	iav@iav.lv,
-	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Subject: [PATCH v4] PCI: rockchip: Don't lengthen PERST# when power is already valid
-Date: Wed, 28 Oct 2026 01:41:16 +0000
-Message-ID: <20261028014116.2432425-1-ehbello@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	linux-rockchip@lists.infradead.org,
+	liujianfeng1994@gmail.com,
+	macromorgan@hotmail.com,
+	michael.opdenacker@rootcommit.com,
+	naoki@radxa.com,
+	robh@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+Date: Wed, 28 Oct 2026 09:42:01 +0800
+Message-ID: <20261028014201.11057-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <7b993a3e-d2b4-417b-90a3-a41d1f454cda@kernel.org>
+References: <7b993a3e-d2b4-417b-90a3-a41d1f454cda@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,243 +107,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-behind an rk3399 root port is almost never enumerated: the link trains
-normally, but the endpoint's configuration space never answers. On this
-controller a configuration read that gets no usable completion is
-reported as an external abort rather than as an all-ones response, so
-the machine does not merely miss a device -- it dies with an
-asynchronous SError inside rockchip_pcie_rd_conf().
+Hi,
 
-That change added an unconditional msleep(PCIE_T_PVPERL_MS) to
-rockchip_pcie_host_init_port(). PERST# is asserted much earlier, when
-the line is acquired with GPIOD_OUT_LOW in rockchip_pcie_parse_dt(), so
-the sleep lands inside the assertion and widens it. Measuring the pulse
-in the driver with a ktime delta across the two gpiod_set_value() calls
-gives 1 ms without the sleep and 108 ms with it; msleep(100) rounds up
-to roughly 107 ms. This endpoint does not recover from a reset that
-long.
+On Tue, 27 Oct 2026 10:56:44 +0100, Krzysztof Kozlowski wrote:
+>Yes, just be sure to capture this in commit msg and maybe Sige7s DTS
+>comments.
 
-To separate the two things that sleep changes -- how long PERST# is held
-low, and how long the supplies have been valid when it is released --
-both delays were made runtime-adjustable on a single kernel, one before
-the assertion and one after it, and the host driver was rebound to
-re-run the whole probe:
+Thanks, Krzysztof. I'll clarify the hardware design relationship and the
+reason for keeping a separate board identity in the v2 commit messages and
+Sige7s DTS comments.
 
-  before assert   after assert   pulse       trials   enumerated
-  0 ms            0 ms            1-11 ms         5        5
-  0 ms           10 ms           ~18 ms           3        3
-  0 ms           15 ms           24-47 ms         4        4
-  0 ms           20 ms           ~28 ms           3        1
-  0 ms          100 ms          ~108 ms           4        0
-  200 ms          0 ms            6-11 ms         5        5
-  200 ms        100 ms          ~108 ms           1        0
-
-Delaying the assertion by 200 ms changes nothing, whether the pulse is
-short (5 of 5 either way) or long (0 of 4 and 0 of 1); widening the
-pulse is what decides the outcome. vcc3v3_pcie on this board is
-regulator-always-on and regulator-boot-on, so in every row above --
-the failing ones included -- the supplies have been valid for seconds
-by the time the driver probes, and Tpvperl is met whether the wait runs
-or not. It therefore cannot be what distinguishes them. What this
-endpoint reacts to is the width of the PERST# pulse.
-
-That one sleep was carrying three separate CEM requirements, though, and
-only one of them is about power:
-
-  T_PVPERL      100 ms   power stable before PERST# inactive
-  T_PERST-CLK   100 us   REFCLK stable before PERST# inactive
-  T_PERST       100 us   minimum PERST# active time
-
-Sleeping 100 ms immediately before the de-assert satisfies all three at
-once, so dropping it outright gives up two that do still apply here.
-Old power does not imply an old REFCLK: rockchip_pcie_init_port() runs
-phy_init() and phy_power_on() on every probe and every resume whatever
-the regulators were doing, and that is where the 100 MHz reference
-clock PLL is configured and locked. So T_PERST-CLK restarts each time
-even on a board whose supplies have been up for seconds, and between
-the PLL lock poll at the end of rockchip_pcie_init_port() and the
-de-assert there are only a handful of APB register accesses -- that
-poll also reads before it sleeps, so a PLL already locked on the first
-read adds no delay at all. On the resume path, where PERST# is asserted
-at the top of rockchip_pcie_host_init_port() instead of at GPIO
-acquisition, nothing holds T_PERST either.
-
-Measured, with function_graph tracing across three re-probes of the host
-driver, from the lane 0 phy_power_on() returning -- it returns only after
-the PLL has relocked at 100 MHz, so that is when REFCLK is stable -- to
-the gpiod_set_value_cansleep() that releases PERST#:
-
-  72 us, 107 us, 75 us
-
-against the 100 us T_PERST-CLK requires, and ftrace's own per-function
-overhead inflates all three (ktime_get() shows up as 1.2 us in the same
-traces). So without this patch's fallback the requirement is missed on
-this board most of the time. The pulse itself measured 898-1032 us in
-the same traces, which agrees with the in-driver ktime figure above and
-is comfortably clear of T_PERST at probe.
-
-So keep a delay, just the applicable one: record whether the supplies
-were already enabled before the driver enabled them, and in that case
-sleep PCIE_T_PERST_CLK_US instead of PCIE_T_PVPERL_MS. 100 us covers
-both remaining symbols -- it is the T_PERST-CLK figure, and it bounds
-the pulse from below for T_PERST -- while leaving the pulse three orders
-of magnitude short of the 100 ms this endpoint does not survive. A
-supply that is already on at probe was brought up either by the
-bootloader or by the regulator core at boot, both of which precede a
-PCIe probe by far more than T_PVPERL. When the driver really does bring
-the rails up the full wait still happens, as it does if
-regulator_is_enabled() cannot tell.
-
-The same check is repeated on resume rather than assuming that power
-was cycled: suspend calls regulator_disable() on the 0.9V supply, which
-only drops a reference, so on a board where that rail is always-on or
-shared with another consumer the power stays valid across the cycle.
-
-This ends up more conservative than what the driver did for years:
-until the change cited above there was no delay before the de-assert at
-all, so on every board neither T_PERST-CLK nor T_PERST had anything
-behind them.
-
-Boot-level counts on the same board agree with the table: unmodified,
-the endpoint enumerated on 0 of 84 boots; with this patch, 3 of 3; with
-other ways of dropping the same wait, 16 of 16. Each of the three
-PERST#-related changes that landed together in v6.11-rc1 was also
-reverted individually, and only removing this wait made a difference.
-Moving the wait later but still inside the assertion did not help
-(0 of 15 boots), which is consistent with the width being what matters.
-
-The measurements were taken on 6.18 and predate the PCIE_T_PERST_CLK_US
-fallback; 100 us is three orders of magnitude below the threshold the
-table shows, so it changes none of the counts. The code in question is
-unchanged between v6.11 and v7.2.
-
-Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
----
-v4:
- - Keep a delay before de-asserting PERST# instead of removing it. The
-   100 ms msleep was also covering T_PERST-CLK and T_PERST, neither of
-   which anything else holds here, so sleep PCIE_T_PERST_CLK_US when the
-   Tpvperl wait is skipped. Found by the Sashiko AI review of v3; the
-   hardware measurements in the commit message predate it, and 100 us is
-   far enough below the threshold they show not to affect them.
- - Say in the commit message which CEM symbol each delay serves, since
-   conflating the three is what made v2 and v3 read wrongly.
-
-v3:
- - Rewrote the commit message to lead with the width of the PERST#
-   pulse, which is what the endpoint reacts to, and demoted the Tpvperl
-   redundancy to the reason the wait can safely be skipped rather than
-   the explanation of the failure.
- - Added the A/B measurement: one kernel with the delay before and after
-   the assertion independently adjustable, so pulse width and
-   power-valid time vary separately on the same binary.
-
-v2:
- - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
-   assuming that the 0.9V rail was really turned off. On a board where
-   that rail is always-on or shared, regulator_disable() leaves it on,
-   and forcing the wait there would reintroduce on resume exactly the
-   failure this patch fixes.
- - Factor the test into rockchip_pcie_supplies_enabled() now that it
-   has two callers.
-
-v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
-v2: https://lore.kernel.org/all/20260911211559.207990-1-ehbello@gmail.com/
-v3: https://lore.kernel.org/all/20261028005603.2399220-1-ehbello@gmail.com/
- drivers/pci/controller/pcie-rockchip-host.c | 41 ++++++++++++++++++++-
- drivers/pci/controller/pcie-rockchip.h      |  1 +
- 2 files changed, 41 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 5b071bd..ebb864c 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -315,7 +315,11 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
- 			    PCIE_CLIENT_CONFIG);
- 
--	msleep(PCIE_T_PVPERL_MS);
-+	if (rockchip->supplies_pre_enabled)
-+		fsleep(PCIE_T_PERST_CLK_US);
-+	else
-+		msleep(PCIE_T_PVPERL_MS);
-+
- 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
- 
- 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-@@ -590,11 +594,39 @@ static int rockchip_pcie_parse_host_dt(struct rockchip_pcie *rockchip)
- 	return 0;
- }
- 
-+/*
-+ * Tpvperl is counted from the supplies becoming valid, and the driver waits
-+ * for it with PERST# asserted, so the wait also lengthens the reset pulse.
-+ * Supplies that are already enabled before this driver enables them were
-+ * brought up by the bootloader or by the regulator core at boot, both of
-+ * which precede this point by far more than Tpvperl, so the requirement is
-+ * already met. Treat an error from regulator_is_enabled() as "not known to
-+ * be on" so that the caller waits.
-+ *
-+ * This does not change who owns the supplies: the regulator_enable() calls
-+ * below stay, both so that regulator_late_cleanup() cannot switch off a rail
-+ * that the bootloader merely left on and so that the regulator_disable() calls
-+ * on suspend and in the probe error paths stay balanced. Whether a supply was
-+ * already on says only whether Tpvperl has elapsed.
-+ */
-+static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
-+{
-+	return (IS_ERR(rockchip->vpcie12v) ||
-+		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
-+	       (IS_ERR(rockchip->vpcie3v3) ||
-+		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
-+	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
-+	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
-+}
-+
- static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
- {
- 	struct device *dev = rockchip->dev;
- 	int err;
- 
-+	rockchip->supplies_pre_enabled =
-+		rockchip_pcie_supplies_enabled(rockchip);
-+
- 	if (!IS_ERR(rockchip->vpcie12v)) {
- 		err = regulator_enable(rockchip->vpcie12v);
- 		if (err) {
-@@ -871,6 +903,13 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
- 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
- 	int err;
- 
-+	/*
-+	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
-+	 * where it is always-on or shared the rail does not actually drop, so
-+	 * re-evaluate instead of assuming that power was cycled.
-+	 */
-+	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
-+
- 	err = regulator_enable(rockchip->vpcie0v9);
- 	if (err) {
- 		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index b5da156..9127b55 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -315,6 +315,7 @@ struct rockchip_pcie {
- 	struct	regulator *vpcie1v8; /* 1.8V power supply */
- 	struct	regulator *vpcie0v9; /* 0.9V power supply */
- 	struct	gpio_desc *perst_gpio;
-+	bool	supplies_pre_enabled;
- 	u32	lanes;
- 	u8      lanes_map;
- 	int	link_gen;
--- 
-2.56.0
-
+Best regards,
+Jianfeng
