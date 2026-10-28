@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793179818;
-	b=XjkR+mgtCAilCmWfau6jvd/UfdBG95tXEiiaWZpL5EBxANJepbD6+f5WhXOquVOljQSf
-	 SzkaFR/62xOVd6k67Dpps98+qb8pnP8/bVNbEv55JRaUQqeca8DUQxSA2UeMK2Ri/Yofh
-	 /7DVFC0ZOWHe94HZbkUMEbpmDgped+JT8QEgSqv62bORnm8pmXpg6KSQz3CaW2xLFt4vO
-	 wXNQcYkOs/LD7WFnED/zZEOb1Gkxoi3KmF16vYdSq7Vwy6iv2gzyOBBVHJfj24H5yA76V
-	 IWduUaarWeUvk94He7AAUCbMkLs+FAw0Y7ojPRoIrLqBR2NqBavrAThtieY44SdCVKg==
+	b=39h8novILovgFpCjMuS8hBS0hbTfJtyBYB5mGfo+ymV7E5dJ6xm/763K3dz2QXKTiaUC
+	 swdfgXf/yzwZi24gZrI1F3fi8Wkam3WVUaTN0+8vqhzeNWd3TUg4/Kq1An2NDcxbpPeJ3
+	 lGbzQ+EycblNnU2RlvfSMrh8TJE6cWGqDii7QrqkJs0TYHN79kj7ZDNVyiVgxiCfOG7+O
+	 xmIHIvUR+Nr+sDg0sV2HyxKlqnDjtxgvZpVw3W0gKNKvccgu2gilryYTi36PU99OoD2uT
+	 7i6ycQ3P7nViL0Pw4/HrMlCFS9/1pLMuwAf7aX8r7rrUxaALEDFgOmiYJYXVrta4wwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793179818;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQrsYr7WgxM=;
-	b=EHT9vckNEhvH+jC5whDYl2paI4ik7QadCit1sKqfW0TvEKi1IdXgr8+0Z3zPiUPJXIZV
-	 vER9dm3CCQ+qzL1TLBD8L0s8ZnowUG8uTzsKNhlQNqigPFAYiiUy6IGpzC+5p4d4y1E08
-	 2S+rwmvLN0Hguwf8ZpJhk/iLYQrMl/dNkz8jV4J74oFiDMU1vF2kFE/nAh4MgRSXt36V1
-	 z3iLqEq8ygf6x4jxw4Tqhe/xj0r5gEXnliZW538rVFdj1XZVn9A3vw6+KJA3nnQ7+ehR8
-	 v18PQerq7m8oy5RCFe/e0WVF8+x4tAlaDnFTplIREvnzwFnOUN+6Sjyk49rKzIHCb0g==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=r8SpqM79fmDPf4QIoJcoFsSUCeCV4OIUB92EmZhcb9M=;
+	b=nd+TocA1Y3AAT4PdoADPznwt8WjqnJL2QyB2d1XDwDJS1uauScaNpipDQ4OqvMQTI44S
+	 FSTzDAskAqFmFAGNa9rVwmUbxNjLVAqq88MV2LX3YHl0hsRqxoyBxprlNOR8MmX7mSbT4
+	 eOnJPZ5ISwLEmi8D0ZsHXPL7swjV7pwZ3o5dvQb+1tM5kubJs1BaIy/0586RWFKzqlMuv
+	 tIB1a67m+B368EVp/2zBf8Oxbkd37BMYszBqoEJrxUR/OXtd+p2HzRbI6mYLPKPwlv0PX
+	 XDqKhLgJZ7JCgbEKF5Kqj2zEHaDeDzK2a6xSnYvHo28tFqz4yG7/T3Zm53w3SZDDr3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="eoA5v/v2";
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pWWIG90L;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2E6E606A324;
-	Wed, 28 Oct 2026 09:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2E6E606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC62C606A31E;
+	Wed, 28 Oct 2026 09:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC62C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=eoA5v/v2
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pWWIG90L
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQ
-	rsYr7WgxM=; b=eoA5v/v2Ne03KEdL1q2MPv/2CTiEQ2J5268zrwpmqpdEZSjo23
-	BwWmDD8xDYN4ygZDeWiukJwHo5+e8knYRKNrAXB0Uj3TLqoVa9SAPFyIyYXm6wt1
-	jN8NYTs+3JCkXNmZV+vSyeKTmTMwlK1Cx2LASIagRwmk6MPDhymgqmN3U=
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=r8SpqM79fm
+	DPf4QIoJcoFsSUCeCV4OIUB92EmZhcb9M=; b=pWWIG90LAZDE+Q9Va23OzdSS08
+	JBqCFGJA4XVLmfN/xqnbM0qBX+TbdLWfc9V3pSvUbljuL8BGSaqgrHv2ZshNjcFL
+	NLLa5qZigSxeMz2faHvy1GqNw3kowGsreAEVvCoW8REnfVXSVjPdBv5VVgVvUVKr
+	LubNafs8uHeoe7bKY=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S4;
-	Wed, 28 Oct 2026 17:30:07 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S2;
+	Wed, 28 Oct 2026 17:30:04 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -54,12 +53,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Wed, 28 Oct 2026 17:29:56 +0800
-Message-ID: <20261028093003.722745-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v2 0/9] media: camss: add SM8750 support
+Date: Wed, 28 Oct 2026 17:29:54 +0800
+Message-ID: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,225 +67,124 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw1UKFWrAF4fuFWfGFykKrg_yoWfAF4xpa
-	10yr18Cr92yFnIgFsaqrn2yr1rKF9aqrs8Z3WUtryrt3W0va1UXr45Kr9rKFZrZF1UJFy2
-	gr1qvF15ur4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	YxBIdaVFxhVjvjDU0xZFpf9x07bopndUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBTsQ
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Aw1UAF43tF4DGF43uF4kJFb_yoW7Zr1rpr
+	WrK398KrWkGr4Ivr1xJw18JFWfAwn3Jay5KrZFv34jv3y5Kr1Igr4fKF1jqrW7CrZ5ta42
+	yF4jqrWxuF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+	wI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07boxRgUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBRsS
 
-SM8750 uses the CSIPHY 2.4.0 CSI PHY.  The block keeps the register layout
-already handled by csiphy_ops_3ph_1_0 (four data lanes at a 0x400 stride,
-clock lane at 0xc00, common block at +0x1000), so the generation-2 lane
-programming sequence applies unchanged, but the per-lane values differ from
-the 2.3.0 block used on SM8550/SM8650:
+This series adds camera capture support for the Qualcomm SM8750 SoC
+(camera subsystem block with three full and two lite CSIDs, six CSIPHY,
+three full and two lite VFEs and three CSITPGs).  It was developed on a
+Lenovo TB322FC (Y700 Gen4 tablet) and both of its sensors (rear s5kjns,
+front gc08a8) capture at full resolution and 30 fps with it, through
+libcamera.
 
-  - the lane register 0x0000 default is 0x8c instead of 0x8e,
-  - every lane gains the four SKEW_CAL registers
-    (0x0094/0x005c/0x0060/0x0064),
-  - the common status block sits at 0x138 instead of 0xb0.
+The block is close to the SM8650 one, but the capture interrupts move from
+the VFE to the CSID: the VFE of this generation has no useful interrupt
+sources, and the CSID reports RDI buffer done, register update completion
+and CAMIF start-of-frame per CSI2 stream.  That drives the two structural
+changes in the series:
 
-Add lane_regs_sm8750[] with those values, report CAMSS_8750 as a
-generation-2 PHY, and select the new table together with the 0x138
-common status offset in csiphy_init().
+ - camss-csid-980.c adds the CSID registers of this generation, with the
+   full and the lite variant; the full one splits the register update into
+   separate RUP and AUP commands that need an extra trigger write.
 
-The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask and
-parameter type are identical for all 103 entries, and the data byte is
-identical for 99.  The four remaining entries are the SKEW_CAL data bytes
-of the four lanes (0x005c and its per-lane copies), which are 0x00 here,
-i.e. the vendor value.  This SoC wires the PHY in two-phase mode; the
-three-phase variant of the same PHY (csiphy_3ph_v2_4_0_reg, 72 entries)
-uses a different address layout, so its table cannot be reused.  The
-0x138 common status offset is where the vendor parameter block of this
-generation points its status register window (0x1000 + 0x138).
+ - patches 4 and 5 keep the "add the generation" and "report frame starts
+   from the CSID" parts apart.  The latter is the architectural change:
+   frame start moves to the CSID, V4L2_EVENT_FRAME_SYNC is raised from
+   there, the sequence number is only incremented on a frame start, and a
+   buffer whose frame never started is reported with
+   VB2_BUF_STATE_ERROR instead of silently being numbered.  An SOF can
+   also arrive after an as-yet unhandled completion, so the EOF and SOF
+   timestamps are compared and the completion is reported first in that
+   case.  Generations that still report frame starts through the VFE are
+   unaffected: the new vfe_hw_ops callback is only provided by the VFE
+   implementations that need it.
 
-These settings are the ones the CSIPHY runs with on a Lenovo TB322FC
-(SM8750), where both the rear s5kjns and the front gc08a8 sensor stream
-at full resolution and 30 fps.  Enabling the SKEW_CAL data byte of the
-four lanes (0x005c = 0x54) instead of leaving it at the vendor value was
-also measured on that device: 90 frames with each setting, no error
-reported, 30.26 fps and 53.81 vs 53.78 frame time deviation, i.e. no
-measurable difference, so the vendor value is kept.
+Patches 6 and 7 are generic video-node fixes the newer write master needs:
+a buffer payload has to be physically contiguous because the frame
+increment registers describe one linear range, and a start that fails
+halfway must stop the subdevices already started.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 2 files changed, 125 insertions(+)
+The CSIPHY 2.4.0 lane values in patch 2 are the ones the vendor CSIPHY
+2.4.0 driver uses for the two-phase variant of this PHY: address, mask and
+parameter type match for all 103 entries and the data byte for 99, the
+four remaining ones being the SKEW_CAL data bytes, which are left at the
+vendor value.  The three-phase variant of the same PHY uses a different
+address layout, so its table cannot be reused here.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index dac8d2ecf..9cf22ff17 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -804,6 +804,123 @@ csiphy_lane_regs lane_regs_sm8650[] = {
- 	{0x0c10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
- };
- 
-+/* GEN2 2.4.0 2PH 4 lane DPHY mode */
-+static const struct
-+csiphy_lane_regs lane_regs_sm8750[] = {
-+	/* LN 0 */
-+	{0x0094, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x00A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0090, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0098, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0030, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0000, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0038, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x003C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0020, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0008, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0010, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 2 */
-+	{0x0494, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x04A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0490, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0498, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0430, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0400, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0438, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x042C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0434, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x041C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0414, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x043C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0404, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0420, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0408, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0410, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x045C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0460, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0464, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 4 */
-+	{0x0894, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x08A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0890, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0898, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0830, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0838, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x082C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0834, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x081C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0814, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x083C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0804, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0820, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0808, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0810, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x085C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0860, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0864, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 6 */
-+	{0x0C94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0CA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C00, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C38, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0C10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C5C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C60, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C64, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN CLK */
-+	{0x0E94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0EA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E28, 0x04, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E00, 0x80, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E0C, 0xFF, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E38, 0x1F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0E10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+};
-+
- /* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
- static const struct
- csiphy_lane_regs lane_regs_x1e80100[] = {
-@@ -1139,6 +1256,7 @@ static bool csiphy_is_gen2(u32 version)
- 	case CAMSS_845:
- 	case CAMSS_8550:
- 	case CAMSS_8650:
-+	case CAMSS_8750:
- 	case CAMSS_8775P:
- 	case CAMSS_X1E80100:
- 		ret = true;
-@@ -1259,6 +1377,12 @@ static int csiphy_init(struct csiphy_device *csiphy)
- 		regs->lane_regs = &lane_regs_sa8775p[0];
- 		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
- 		break;
-+	case CAMSS_8750:
-+		regs->lane_regs = &lane_regs_sm8750[0];
-+		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8750);
-+		regs->offset = 0x1000;
-+		regs->common_status_offset = 0x138;
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8a..ef45eea00 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -95,6 +95,7 @@ enum camss_version {
- 	CAMSS_845,
- 	CAMSS_8550,
- 	CAMSS_8650,
-+	CAMSS_8750,
- 	CAMSS_8775P,
- 	CAMSS_X1E80100,
- };
+Not included on purpose, to keep this series reviewable: the CCI/I2C
+control path of this platform, the CSID to VFE instance pairing and the
+repeated RUP on the initial buffers.  Those are being prepared separately.
+
+Patch 9 describes the block in the SoC dtsi, so that dtbs_check exercises
+the binding together with the node; the node is left disabled and boards
+enable it on top.
+
+Changes in v2 (addressing the automated Sashiko review of v1):
+ - csid 980: DT_ID in CSID_RDI_CFG0 must be derived from the RDI port, not
+   from the (always zero here) virtual channel; deriving it from the VC
+   gave every RDI the same internal CID and broke streaming on RDI>0.
+   This mirrors the fix already made for CSID gen3.
+ - csid 980: unmask INFO_RUP_DONE in CSID_CSI2_RDIN_IRQ_MASK, as the
+   vendor driver does, so the software register-update shadow is cleared
+   when the hardware consumes an update.
+ - vfe: clear output->frame_started once a completed buffer consumed it,
+   and avoid the unsigned underflow of output->sequence - 1 when the very
+   first buffer completes before any start-of-frame; the "buffer before
+   SOF" error is now detected on every frame, not only the first.
+ - vfe: return -ENOIOCTLCMD from subscribe_event and drop the explicit
+   unsubscribe_event op, so generations without frame_start report a
+   consistent -ENOIOCTLCMD for the event ioctls instead of a mix of
+   -EINVAL and success.
+ - dt-bindings: fix the sub-block counts in the commit message (three full
+   and two lite CSIDs, three full and two lite VFEs) to match the schema.
+
+
+Qianhui Xu (9):
+  dt-bindings: media: add the Qualcomm SM8750 camera subsystem
+  media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
+  media: camss: csid: unwind the power-on path through a single error
+    label
+  media: camss: csid: add the 980 generation
+  media: camss: csid: report frame starts from CSID
+  media: camss: video: check that a buffer is DMA contiguous and add a
+    prepare hook
+  media: camss: video: stop the subdevices already started when a start
+    fails
+  media: camss: vfe: add the gen4 block and SM8750 camera subsystem
+  arm64: dts: qcom: sm8750: add the camera subsystem
+
+ .../bindings/media/qcom,sm8750-camss.yaml     | 435 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8750.dtsi          | 179 +++++++
+ drivers/media/platform/qcom/camss/Makefile    |   2 +
+ .../platform/qcom/camss/camss-csid-980.c      | 470 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csid.c    |  45 +-
+ .../media/platform/qcom/camss/camss-csid.h    |   3 +
+ .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 +++++
+ .../platform/qcom/camss/camss-vfe-gen4.c      | 212 ++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c |  74 ++-
+ drivers/media/platform/qcom/camss/camss-vfe.h |   5 +
+ .../media/platform/qcom/camss/camss-video.c   |  78 +--
+ .../media/platform/qcom/camss/camss-video.h   |   1 +
+ drivers/media/platform/qcom/camss/camss.c     | 369 ++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h     |   2 +
+ 14 files changed, 1938 insertions(+), 61 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
+ create mode 100644 drivers/media/platform/qcom/camss/camss-csid-980.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-vfe-gen4.c
 
