@@ -1,141 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183791;
-	b=JT26OxBKhDYA7RgPG8ZvDQWG4zylCQwBdKt5lf7CQCPSI/wv23qn/k6ACvCj01M9o4cM
-	 KDtEDUpsb6PgBYVdGlt0QlaQdQYLsX3tf2IKKEeDaZqoxirpa2bOvU4y+TY4d9dUWMWYH
-	 7m/SmNJMpRepphI+0URfgZ/ARtvtmWHGhWzgSr6BZO2w1ZLadSCK1tI3e3Ste7Z3Gj9S5
-	 Y2Ns5VpMfpKz3dqMmIzlSNauDlovxWCR6umbH3GOaW5bzUHz209lUiVqyvgtlj4auwsV9
-	 A7vWNMIsjbysiJOO57KDJnPJkkvqp5gk7tg7xwMFLXJJ1poeh4tqoxM6aBS3gYFa4XQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183791;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
-	b=ga+DR4RzPriBbZvSb0YAM/09plBSk/zdpdyC39r/yrJpmnfXn0QWvT403k6e+cmfSdWM
-	 fIFOI5WiWkhfl9MEue5j87FRjDQiGjHKYHiHqlAJ0MXIHUPCKbxHT07cpqRLRy5DQQAOG
-	 mAYCOzmXW1W1WvKr+pY9N/ow43uZSZ9dGZLb/1wQOYUK2rw5pdW1sXATYCGW/pBR6qTky
-	 ItvAQhby1C99y89Xp0qKJGJP9GsP7fIR703fTqzTMZnWy5JaubPMI22EIM17pGddGa86M
-	 lNWuGm/EeqUrAk1c007GqHSA2bGG63Zxi+x1va1yQhICn9gQOYyEmkrPOkfPQHPsaaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cmTbcXAQ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mTiM0StS;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793183818;
+	b=sCyNDmcJvqWIfzbNeK+YdiZE6s9HCW/yyK4Nw6yB3VGT/y29kydWdyhnqK6q98OP5VFZ
+	 mh8Iy09K4SjmK8ed9D3mDuC/8ZjFNdTRCqzrgWxR7IBZDGdOKCWk7yM8+IlZT5VsmdIC7
+	 4wsHosSvwAM0KCpA8pRJsvGfH+diRQZFyKaxo66vowepP3xF4lJ2lIIAmJIYEL0R1Hlcf
+	 v/uOGSKCOtBcE9aXvZC165EK7mdbejM2JxyKO6zfFx9y5MtplU+fyn+ZvayS39Uz4epB0
+	 cxyJR1InAuhVJ/+mDwnObok/Wu9VUwIBtsol8vDSrVvYNX9jsUYTIFiRUJQxj9tdl8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183818;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
+	b=DlBhhN/GHYomM9dLht100Sv9wedYJS0Xk+dma+sknNw9CcTaFcoaUWy2K3GsGeCzI4n6
+	 g0qaXhEYr9W+vQaSaovk2hxhyjZ/SWugb1skTTuXyE/EbdFGz6RAokanzJALm93icf7ve
+	 6W3Kq1B8Pzdr3UnQ5Tq+EV6QUJSvvyh3Xom3iWlpjsmKcEISHRiGBgFi/pCg9Fp6sP/ux
+	 isHKmv1JDzWUHv1JszTuddo2/U//BUG8SNtpyBrEnTsdc1w5Q1fQva+30VpAG1JD07qGQ
+	 A2QrqN27GF0eOavIQr2EFzs8jPV+HJz8a6MHftrNl5VEHN62UujEtZc6f7ORA5XTzhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="SeaJ5/oq";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R3MxyAaO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D7D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D7D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9D7606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9D7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cmTbcXAQ;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mTiM0StS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793183789;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
-	b=cmTbcXAQ4oMsGr8C72tqPbEQcNUDZYjXqYUcZj44lfq/t/55FVF5zK8yIuGGzmB9HOv76h
-	nq2wGxoMmtyoCbGoee3DA7MwLSJfxpqDXfewtkhCbXIPtPwfOBmZIMHc11lLA+DD3WWBBt
-	QCOIJLMth8NroyIE8hwxVkU3euYMSBw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-329-_XqJCKKqN62PTxIq-xyD3Q-1; Wed, 28 Oct 2026 06:36:28 -0400
-X-MC-Unique: _XqJCKKqN62PTxIq-xyD3Q-1
-X-Mimecast-MFC-AGG-ID: _XqJCKKqN62PTxIq-xyD3Q_1793183787
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2065a2ef9so7287735e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:36:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SeaJ5/oq;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R3MxyAaO
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KKS13264790
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=; b=SeaJ5/oqFe9yCvFG
+	n8K5pKGPqPeTOZBVHIi5C/Zu1ziqtPTzTFOt4eTj/IBskftxuxfQWzrnhIRHrcjz
+	SFq3qvCWszIEq7JFk1ufb2QyufxO7uj10E0c+TUIJ05mzD5GS4OeI7mN7ylnkja1
+	Y5FD6bz4fsxycnipTEVdylXAjAlhwXN9aTuhEYDxl+R7F9WhmY3IsHVIvJOEsfXo
+	E+h/sf02/K87ugR6c38m0CYs0uacEOOy0F/B9qHIwAUU8Ecq/Rgz6P+NyaS6GJxi
+	c/+/Umzga+XJrTYCl+9dU4Sl55l04mSASmKlZy8A0+3YIgol2o7EXhb0JVVFPMCR
+	fqFdwQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy713r9v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:36:56 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3adf71ee6a5so1150245a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 03:36:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793183816; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FkwzDM3KkRsSjxLayK0e+pXTtvGgmLjs0vMNTA4sUVa7TzCZkRPaFIdehDNeJlk/2n
+         QDdjbuCPO/vhh9ZqojA+HLvwJ4QY67eOGrk0oZN8yWsIe8BacD0PG4+ID6lZpk3Kbwlx
+         A2pX1MX2WoreRtDr0fwWm3CRV7FwFfXCiXwuuY4lsKvn7P3W67SnBWpu9oDPoy4U/YOc
+         TtfTfvGBz3TsVk1L4n6f2glVPyYkS+rWAyYTo1lc5MIpsy0U4a8Uldlww2IkGVAKzxhA
+         Ooz5tIZK11ksFKGjrYHbwnY2Gu0LF0osqWTIn/i5FrBtH79GSKe6voN0x4rQHmrzYywV
+         VgAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
+        fh=ivHtVYu6gqIRsQBTP7BmxD7TWuFu9o7GN/0riwIttvQ=;
+        b=CKgZkgy/a62HDXuiZrEjFSsYSvs79szP8H7wMNrmDi8NcqqmHob48nfJZcTPL19W7G
+         HfTBenC0gjSMDcx73h3A0GjNtO29FVSSAE2DigOeQR/YMIejE+Qz5P0nxnlLYnIgZOHn
+         DWqOLhBB9esBjm+syvsUTzPapv/z604ltaIVbRzUw5Zdh8S4f1xWVgenX9bkIqIk9ubm
+         mp0bD4uB5PUOwdk1e8tsZm+5HCnvfoR04xr9yYsCVIWzWvIVd7h4V5IsfAJpF8d3xAgq
+         32rFWLiUKKReaBebjgQnper0nfHIAnyJ/VyaGpNXJk528dlmdgYF6QLOHhtQoYwUhidp
+         HLLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793183787; x=1793788587; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1793183816; x=1793788616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
-        b=mTiM0StSbXHzjf7a1nV/eW3maV1d4ovb1SJxYuXMnR78v4BEoELm5jD8TrdTujpNAs
-         2Jkn0HEDEcSfLagPqTQwYCdPzxobT9edLdpm9x7fN2jpC7z+FZaCbJlOJLts6TY+iw11
-         VGtuGyExrJixbaQDsnTs3Xy5ZayA0ciHcISm+Xo4SAUo1tEPix8594a97nEbq/apxt7j
-         9JghsxkvGa/udpNLLq15PKhOvTGkEh5N+chszdNJ5yAZ09q9mNTsW+2HxQk+by+ymPr7
-         wVjLMqCKWbOPXRgj8JZLUjAQEnQcAE+bKEWtlh9aep1B3DBFaIS+8OCQIb9og7nfsASC
-         D9tg==
+        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
+        b=R3MxyAaOexEH0lun8t2yK7yt3N70o/OlnilQy799DFMEb+iOJ2wEnCYrF8QgeJRTYe
+         g7eXF5ybkYmkBUfdy3uTWnflbP9JVAcLdGaTmyr8wqDQQ3ndIs/KU3usNaur+mwxbel3
+         v/ddWaH0VutQBBYr+ITb2aVy7DeOtMZkNTngLxgiWR69tmKkVvL4J6WwOYBSUozpYbGb
+         nQCAn+yaYLaRMcKjdwGZehXiDf52yi9A3bFR2xLF86RuS6FeH8vLptiOQxeFP6DRiz5L
+         ncELnUarmpGc0no+OOEf+QNSiYzP2jujWzHIqoa8iX7CLlOXFri3DvcxDwz3hjw5vIF9
+         qmJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793183787; x=1793788587;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793183816; x=1793788616;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hqfIbMaslfTCor3koCS6fx+i2YjaP1qGPCjSZegNUf4=;
-        b=JLZVNnrumnyw8NKL3ThyjaGm7W6sV3BbI5XBtoiP+UdKFxFaTMHo87XHX8IH9SHAJu
-         FD+O/Fk/pN1c4n4PYxllcK+fgWnQSD0ucJe8DK57mFcWYAIMseCW6SKeBaPhZBawADmZ
-         Z14WH5kNNOGfIShoGgkl4ZSZcbznd+Ku5YWPQ0qh0kUyaF3jCKJziqqQron2ygF9fTn9
-         95UpzSLM+0z5DqUfx1w/f4edotM1dOly+9sYPE8lzofZhZK/Hxt3Mmg3S+ebjl52h3Ru
-         tA5ZcpQ17Hbnfy9twOtxfiuoOx0om0svg7L0RCWhc9fjMOEHqc60wwMFjbmENqYGXN1l
-         PDww==
-X-Forwarded-Encrypted: i=1; AKwUvBzo3CsG+4+5JeWf7Mtgvgr3F/uwoLC56CTSR7B+z6AoPFxbWSt7JJ8+gmM7+9CQ0G9cfx9XsqRMhNl7K1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv5nQHRwNH29RisH0rNLqbEl0QKYiLFPcQoHaYfUuwz34Ud+1c
-	nWf+Vc3WyyTnL6R1/Yauph+lkgLrEfDrJ6RxU9qIsqh0wfW+eaRkNooH4OVjaZ0WpDmcyuaFyGE
-	jium5mlxXcB8sc27X67hNUp5T9EZoG20BbUc05beXSUwrrHeUWegUCFR2pdN/jAmGjQ==
-X-Gm-Gg: AYBFou0eqthRFCHLRGS94psUjbSNrPXDC6T+zDIgoYets4Lc2yYSXyKHoRg7NTlZbqf
-	/sX95eMPHhGvezKJSkNwtlZLiKwHLF6LzARuQT4B+PNfMTuUHODu1jYKgGw4iLH9v72HIOBc/2R
-	v/DcSsxRYWr/qsOxK5or+DKcHOaameRYvMnYjGWW8SUJJLcrPvbjO3pZNZ0McPRkNO73XVk3uY9
-	94b3R9a+IUK8EZJhi2IhtrEhYKmOEcPS3hKsnMo6kCZVb+dENrXtqavGBpWNxhmQEj4z0KcWTn2
-	1S+EbwFtLre36TF2ThyeLADzsRAm0yzOdQxrKuKwK+F/OEPdl4yH109+jY/J9kV/4/3xFlIXQ8y
-	FkCx1b71QBwAYM1dXhjxg+4JkZ3SKJe6SXgJQz66yUMXu2KkHw9lxpwS2Yj+UcErST2KtgWxSZK
-	zlVr4=
-X-Received: by 2002:a05:600c:4e8c:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4a9647ab576mr36471575e9.3.1793183787250;
-        Wed, 28 Oct 2026 03:36:27 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e8c:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4a9647ab576mr36470935e9.3.1793183786797;
-        Wed, 28 Oct 2026 03:36:26 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.0.132])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm27370730f8f.42.2026.10.28.03.36.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:36:26 -0700 (PDT)
-Date: Wed, 28 Oct 2026 11:36:23 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Andrea Righi <arighi@nvidia.com>, John Stultz <jstultz@google.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Valentin Schneider <valentin.schneider@arm.com>,
-	Connor O'Brien <connoro@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Suleiman Souhlal <suleiman@google.com>,
-	Metin Kaya <Metin.Kaya@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Zimuzo Ezeozue <zezeozue@google.com>,
-	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	Xuewen Yan <xuewen.yan94@gmail.com>,
-	kuyo chang <kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	"zhidao su (Xiaomi)" <soolaugust@gmail.com>,
-	Hui Su <sh_def@163.com>,
-	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
-	kernel-team@android.com
-Subject: Re: [PATCH v33 7/7] sched/proxy: Add deactivated (sleeping) owner
- handling to find_proxy_task()
-Message-ID: <auHQJ8vq6VtL2Uf0@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261023220431.1106611-1-jstultz@google.com>
- <20261023220431.1106611-8-jstultz@google.com>
- <atx1U_0FC-fazkV7@gpd4>
- <267d3f71-7f60-48d2-b8dc-bf87f403b94f@amd.com>
- <auDPxCTyGbStTWJD@jlelli-thinkpadt14gen4.remote.csb>
- <a3bb6028-52f9-4545-a5f1-08f56fa6ac2a@amd.com>
- <auHH9ixQvWQ7RYA3@jlelli-thinkpadt14gen4.remote.csb>
- <1bfd6376-cc69-4c55-ac3b-6ea12b8c6c75@amd.com>
+        bh=GYZdHgXiHBouJ9ejDg7nryamtVIjQkYJVCR904hj2b8=;
+        b=bGr7OZc3poSgEbkQPrrDchT1/+SIk7Ms9mxym/knmPLJiIDZgvJ3ZizjQurdYq86D5
+         smsCE3bVCogQ1fnxFD1WNVfNiPRYY3iloDvxTEOtd2umAnOMKxWoKt7oRlBKoAAtNMdD
+         dHMweAZjAQM3UURxMr9RhpiSndrvC7q+9knYTbsPHNzhABULdyAzpG99z68ekUXSiQBl
+         HSOwz32yrvXs0nElAKaVpOxiIdZqtFxlaqrGLgFUtM9mHJfqhGV9DmJ3NrPtAn15WEiU
+         a/rCOE5tcWzGNj4qVS+u6aZpm0FyN5IHmQMhSxITV3Vgwx/NSfcFR+LAdsrrWZBfAA+6
+         tWQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwqXa5+Gf/JvQXRDAyjy7tSHqTRa+Mdmte1Lhe1qOI2VkSwftMm5WMTkI6ySC9uEv5/5hGt4Mk0qHJ+bdY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJB3seXRGyIZMwT5PBDxHJyHS8rbZdSzDNFn8/oUVi3AqcbPazp
+	R55UD9qz6OBPJuT4tYndcmk4uW+eNEwtgwfldRObGqVuAmCCfGMYdY7yXQfw91O8sLh5pLZvPlc
+	1ja+2nHSbpZ8r8ZtREllU7DW9zm9o5Qo43CZlkPKdDc+mDtTRuA9fKr04KuLzzXuwrbZgnn6RRf
+	1dLjF96hSqal1qffriBRqkYf3JspHn8P0dSf+doytG4Q==
+X-Gm-Gg: AYBFou2BxFZ17gqGTn8xaUHW5KgiphMxriXB4lyWHXZtXuB8z8J8oUW0nssv3cL1eNw
+	XkbRB7t7MMEkeM6kXbxlhq99OfpnMOHy48KoHpxjTQQxOqVtfBcYDP3y3Ya9Z54igBxM7E2QVOf
+	iekrNJyDiCE2CYZO/K7OS7cOIsoMqNycG22yicA/6SVnv53SziB/mDCS1gLpMHl7jH8XEK5mK1/
+	k6SygHgkm/fu/yF/A==
+X-Received: by 2002:a17:90b:3f8c:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3ae5835d8a6mr1377091a91.59.1793183816006;
+        Wed, 28 Oct 2026 03:36:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f8c:b0:3a8:9b79:e6ea with SMTP id
+ 98e67ed59e1d1-3ae5835d8a6mr1377070a91.59.1793183815482; Wed, 28 Oct 2026
+ 03:36:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -145,98 +128,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1bfd6376-cc69-4c55-ac3b-6ea12b8c6c75@amd.com>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com> <00b63b4f-053c-40cf-82db-21a86fc485c6@kernel.org>
+ <CAPx+jO821-wULVT_KbZB4oaPSYAHi3PEpM0VzvSL_7NBns1t_g@mail.gmail.com> <CAKekbesRt5qDOf76MBG_8hROMa6Z=UCNdXHKoE=5u3xFcznhhw@mail.gmail.com>
+In-Reply-To: <CAKekbesRt5qDOf76MBG_8hROMa6Z=UCNdXHKoE=5u3xFcznhhw@mail.gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 11:36:40 +0100
+X-Gm-Features: AclHuK9Xu0HlqvsyEeUvS1LrhIXq4uQwwd1vAC47YGpdju_wAFdqdb0bMNU_sHU
+Message-ID: <CAPx+jO_C+xHihnu+ZweSoFL3gJrj3mjJm9RUVX4aXTdKEi2mug@mail.gmail.com>
+Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+To: Kamal Dasu <kamal.dasu@broadcom.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-mmc@vger.kernel.org,
+        Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX2xNwu5ItFSbM
+ ndVy/+ooNLof/TpHDpoaBT/iSodEfuG6TF7Iq5Acz/hCP1XwpsR5Y+eKWf3onbr+W7/KuilD9Gu
+ Dsti80uWoCOEiy88LSyaBQiSBQmdHr4uHsj7fgadgbQmxKgpQ9XSMu9zM1lwcZLnazYMxuRAH7S
+ 7wy+k0DKkEKqqDN44vz2qMySPf7cwK3m9cGluLV+2f+ZtaEq6bJTOxokXiShun1hUSDhnM7hRsr
+ Synp6jb/XPlKYVig0yEy6zxVJc3a5W7Xkn2lOSvcqalTwWa5XMQEpu1JmNdmO++p/1/PswvBI6I
+ ckGOHiA4ywB2ss6+uKdPbKkDA0qEwzHhb48NChqM76LHp6nTaJATYl4EEWTNHC8FpvXvn12CaAL
+ EueGZtMbKZ0JSgxZkx4kRAjYmCVN8FSVt+6QQN9CDW6hZtpK4pgdXx3hSlwszN7bZD3jB49b428
+ 4SWgmFSOrvKHsLYzieQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXylxrQlJZqtKc
+ 0Fs7tTjKYLLeRKNKTjpK55hxWjX/LOPTjGgKVomn532vtWwftTxJWEN1SLwQOT7vAyoq43MvhX0
+ 0oyfpegGhxNtGCHo/rp6dObIiMog+6E=
+X-Authority-Analysis: v=2.4 cv=JspkP84C c=1 sm=1 tr=0 ts=6ae1d048 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=Q-fNiiVtAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=VJCnStefonsj0tF54p0A:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: _krPgNr59U-LFnMa6R2hNWMjJ9m3hWVQ
+X-Proofpoint-ORIG-GUID: _krPgNr59U-LFnMa6R2hNWMjJ9m3hWVQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280042
 
-On 28/10/26 15:41, K Prateek Nayak wrote:
-> 
-> 
-> On 10/28/2026 3:31 PM, Juri Lelli wrote:
-> > On 28/10/26 09:06, K Prateek Nayak wrote:
+On Tue, Oct 27, 2026 at 9:31=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.com=
+> wrote:
+>
+> On Tue, Oct 27, 2026 at 3:48=E2=80=AFPM Ulf Hansson
+> <ulf.hansson@oss.qualcomm.com> wrote:
+> >
+> > On Tue, Oct 27, 2026 at 4:33=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> > >
+> > > On 27/10/2026 15:40, Ulf Hansson wrote:
+> > > > From: Kamal Dasu <kamal.dasu@broadcom.com>
+> > > >
+> > > > keep-power-in-suspend is currently documented as SDIO-only, but the
+> > > > requirement it describes -- preserving card power across a
+> > > > suspend/resume cycle -- applies just as well to any card type. Drop
+> > > > the SDIO-only restriction so eMMC and SD platforms can use it too.
+> > > >
+> > > > Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> > > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.=
+com>
+> > >
+> > > Incomplete DCO.
+> >
+> > Sorry, I should have explicitly stated that I will leave that to Kamal
+> > to contribute on top.
+> >
+> > Kind regards
+> > Uffe
+>
+> Hi Uffe,
+>
+> No problem. I'll resend the two dt-bindings patches myself with the DCO
+> fixed and the DT list on Cc. Do you want them as a separate two-patch
+> series on top of your patches 3-6, or should I post the whole series
+> as v11?
+>
+> On the SD wording, since you plan to add SD support too, I'll keep the
+> description as it is, unless Shawn or Krzysztof object.
+>
+> > That said, I was also thinking that maybe it would make sense to add a
+> > sysfs node to allow the behavior to be controlled by userspace.
+> > Thoughts?
+>
+> For this board the requirement is fixed hardware behaviour. Firmware
+> reads the card at every S3 resume, so the card has to stay powered and
+> be reset each time. Without both DT properties the board enters suspend
+> and then resets at resume, so I think the DT properties are the right
+> way to describe it.
 
-...
+Yes, that part is clear and user space should not be allowed to
+override that requirement.
 
-> >> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> >> index c0ebdcde5fe5..6a081c2b7191 100644
-> >> --- a/kernel/sched/deadline.c
-> >> +++ b/kernel/sched/deadline.c
-> >> @@ -2654,19 +2654,23 @@ select_task_rq_dl(struct task_struct *p, int cpu, int flags)
-> >>  
-> >>  static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused)
-> >>  {
-> >> -	struct rq_flags rf;
-> >>  	struct rq *rq;
-> >>  
-> >> -	if (READ_ONCE(p->__state) != TASK_WAKING)
-> >> +	/* Inactive timer is not armed. Nothing to migrate! */
-> >> +	if (task_on_rq_migrating(p) || !p->dl.dl_non_contending)
-> >>  		return;
-> > 
-> > But a task can be blocked/sleeping and non_contending if
-> > task_non_contending() was called after 0-lag; in that case running_bw
-> > was subtracted already (see zerolag_time < 0 -> dl_task case) but ..
-> 
-> I see what you mean and I didn't see that the sub_rq_bw() is outside
-> the p->dl.dl_non_contending block but simply checking
-> task_on_rq_migrating() for bail out should be enough to cover off
-> !ENQUEUE_WAKEUP cases right?
-> 
-> > 
-> >> -	rq = task_rq(p);
-> >> +	/* Task must be fully blocked if we reach here. */
-> >> +	WARN_ON_ONCE(!p->is_blocked);
-> >> +
-> >>  	/*
-> >> -	 * Since p->state == TASK_WAKING, set_task_cpu() has been called
-> >> -	 * from try_to_wake_up(). Hence, p->pi_lock is locked, but
-> >> -	 * rq->lock is not... So, lock it
-> >> +	 * set_task_cpu() has been called from try_to_wake_up().
-> >> +	 * Hence, p->pi_lock is locked, but rq->lock is not...
-> >> +	 * So, lock it
-> >>  	 */
-> >> -	rq_lock(rq, &rf);
-> >> +	rq = task_rq(p);
-> >> +	guard(rq_lock)(rq);
-> >> +
-> >>  	if (p->dl.dl_non_contending) {
-> >>  		update_rq_clock(rq);
-> >>  		sub_running_bw(&p->dl, &rq->dl);
-> >> @@ -2681,7 +2685,6 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
-> >>  		cancel_inactive_timer(&p->dl);
-> >>  	}
-> >>  	sub_rq_bw(&p->dl, &rq->dl);
-> > 
-> > .. we still need to sub_rq_bw for a migrated task, and I believe what
-> > you are proposing would skip that?
-> 
-> Ack! But this is only needed for wakeup so just:
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index c0ebdcde5fe5..20c388b55c50 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -2657,7 +2657,7 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
->  	struct rq_flags rf;
->  	struct rq *rq;
->  
-> -	if (READ_ONCE(p->__state) != TASK_WAKING)
-> +	if (task_on_rq_migrating(rq))
->  		return;
->  
->  	rq = task_rq(p);
-> ---
-> 
-> should be enough then?
+>
+> A sysfs knob could make sense where it is a policy choice, for example
+> on SD. If it is added, I think it should not be possible to turn it off
+> when reset-card-at-resume is set in DT, since that would bring the
+> board back to the failing case. I would prefer to keep it out of this
+> series and add it separately when SD support is added.
 
-It is enough, but I now fear too 'broad'? :)
+As stated above, the reset-card-at-resume requirement it brings with
+it, must not be overridden by user space.
 
-Looks like dl_task_offline_migration() ends up here via set_task_cpu();
-in that case the task was throttled and found the cpu was running on has
-been hotplugged so it needs a new cpu at replenishment. All bandwidth
-accouting is done by dl_task_offline_migration() itself, the task is not
-WAKING so migrate_task_rq_dl() has nothing to do and bails early
-correctly. If we use task_on_rq_migrating() it won't bail early anymore
-and double subtracting? Adding !p->is_blocked seems to cover this case
-as well?
+The reason why it could make sense to allow an eMMC and SD card to
+stay powered on during system suspend is primarily for two reasons.
+*) It allows internal garbage collection to happen in the eMMC/SD
+card. Meaning that the card should be able to perform better later on.
+*) System suspend/resume latencies may decrease.
 
+Of course, this all comes with draining more energy, so it would need
+to be carefully used.
+
+Kind regards
+Uffe
