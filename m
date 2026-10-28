@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.73
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793166338;
-	b=Hh81JwRCnvno2OLCRjJZ8xBeJ+VWEV0CXJnsYHBi1rdP3tfQs4Zynidzw264Z/5CKTgm
-	 ogVcicN3V5gB6jDBB5Yy3QXgdDNoF0FgFZm1B+A/fyvovUza4/MvNQfZRABcdk4u2X8zM
-	 UWfLToo2tbTv4Kd2yYHjiiPa+PSd3cEw+Fg7vdQfSZOw9DfGneULY1542sesrLqIeJVpA
-	 VXxk7ytQH3lX8EyJEztdgGGUX/rm2wPR/0FM5ziBqjnN/Wa8dt8qV/epfEzsx4OYWiVOs
-	 rJnT939l2CUDMJb8Eo4X6R1XE+Zy3PdiqGvff9scv29zYOilfxM59YSJ8sKpIkPvRxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166338;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PFsS6+I6tSnMVxI7cw6XHZ1p9l0CCeVWrHrbBHijNRU=;
-	b=flzhrS58Snd89fVNstCHJyBc3CMXe7UKdsaw5NJqa4YjexEcTMY7IgfG+3G9vA8mkTyk
-	 v9Ji4tGGa8b0evIR/LmMepK5k5CUXFOR3E0XHYHMLPzLoA0e3JvpEpt2i0Bv94aq9EOfR
-	 bhEZbnyiQ/jmhjKPzdlueD60coSW87qp1Op8I4uNN4Ri3/5Hjc2WvUZcfYdwnX9KQX39I
-	 NDrjwY6/HB+7eE4a7kPqRlzhB4HG4sjGEJeACjAMgns7xT4WU6IwqtK/sC51HKTkr30rM
-	 nXaokqZNh924vDyjoB8Di1SNnXNRyEJdb2FW8HGk7/PKwoj/LIjaZRIsXcbEeGXEyaQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JRkbDyGu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.73
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793166344;
+	b=oEQUBbmskeLPeaqkoHKZhqwk0tWhKBN/IMN9pVAKpqlOZ/JQQR64QcVHdr1XjM8zPgkf
+	 bFHltRBxLfWgBMcZKKQ5GcOrWoEBkqHgDiGaZ5jqb5eTh5KqffMlgfInOvGzl+66tIkg7
+	 Ynd8T+uPTOehxkUMyj6fjDsJqe7ZqkIYef1c+GLqQQ+UatFi/kghW1g4+B3HFOnqWRLji
+	 ce+0wvWIcnDtfOEjYh3v/0QKwpTlObozjtz0B6P4ubAS/dl2rK7VU7xaSFt2lY39bhULp
+	 rD0Tde7f1F/yMaO/FI1loX4DfesMTJydAL8+7NjcCs0B52hp+ro99neGWWdOc5O+UuQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166344;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=SXeoHFfJ08+SsvxwU622/ejUUw9pYEAmzWxZavzjU8E=;
+	b=lpczkNJ9qp+1oODPf52ylr4GdU9inFiwIRDbx5l6y9XSUJhLNIk8GacXOVXaU28YQBO8
+	 aibz7jT+04+vjnba4nH0luwndo6ehJdlIbnCTOpuoew8+JBfAP+Onb6NDbBWySsfNgGS8
+	 3K1zzyqKEDtkkXXhaagApoeJcSb/EcjWlDf90jLTARfpDmMrhracbG2qSiF7zO4A7Lb2L
+	 02v+oWH3d36LNaTSvg6k00WkS+lobATrzZSS8rXkpOpnDhtnhCtUOWHAhFm4o4rg5oLgw
+	 pr+v1seZx087M911dE913eWcwbUMfnTeM1jqejHQwGDjd3hQC5qYarV8BPqvqOIm8pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cZEUeVSx;
+	arc=none smtp.remote-ip=91.218.175.54
+Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F94606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:45:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F94606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB47606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 05:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CB47606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JRkbDyGu
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so230460fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:45:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793166336; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WD2JkWfIcbRW9rdnkN76Xjt2COVN1rT50FoyuMXME+uxKdyMH3wltupq/B5R8bsXsx
-         IxpEJZqLkE7O2P0rv03F3hGCu2CyyKOurfmuBsnIoBb21CC6ZMgW0s9Q45g9RqgajWAx
-         iwwn9qL/i3NIDpsRJ2q5ebHTmJE85AQyPEXPbAz6w0BUwT6nISthSQRYJszeeWcRatLA
-         hBA9MlMTCgM4a7u952vdjlG3e4j+mcRBBc6UfBBwW56x4eYRCCz6rX89WVw1S8IQbq73
-         ZHnQnAA/uETwHBp+QrsygmmkORCrKDOHDv/BtIq+xFQoUbLGRkFLR2/WZ4vchWJD6wVK
-         xMZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PFsS6+I6tSnMVxI7cw6XHZ1p9l0CCeVWrHrbBHijNRU=;
-        fh=2SxxeeYBU8eHkMvmrYdtb3oepHlEDLnuMIPnXbt/ZJk=;
-        b=fvHRy1qbE2DYwA/mkrYC88404wTt7zOKbnW5ZmStDeUSKcsOP3SyFBWqeay1j9ka0a
-         Zx/fi4Ee22WFH4Ef61qX89kPPD7KysaoXeAFeAQ+WNguNmOHGn3kwSPZJgsrr2MZjUFp
-         j8XixaIIWxeNpNTBa7J0XkGjiSYvfEqBrS5HuLsRKcnHyNHyXDdhNIIr9jXcsJx2NGyM
-         mlpvRvHM4Cs27omS6HocapivOxvP3vF3g7+QLp8Iyq8+KD7eex5288oV3mQSwkfnp97J
-         a3qwdrhEnsiCpI9RV4WlLKdRSJodBva3PAhxGDZ4l9hHWVo1CoQWsLMZGtuMha2DVK3y
-         ItEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793166336; x=1793771136; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PFsS6+I6tSnMVxI7cw6XHZ1p9l0CCeVWrHrbBHijNRU=;
-        b=JRkbDyGuG0UvtHYASqoddmJEhcXLTgtIDy0VqLELLxlT4ZPJHCAwN5lbEYR3nNpSMY
-         rF8Wacg1klSNuO/rSXkDF2p9Fi7879P0RUN/E/f0XB7xgKUXKeAjEHeXH/SklkrIkh3D
-         MaoVZun3A0b8slTgI8/qtb8UeifcXtz77ZI5uLwPFT1P6IRAQ1XIRQCzTOOTkCJ0/JWA
-         Yxa9v5xe9v40NBeEWYGsZ8UVAHrVWKh6BwHKYvVG/LL6OeJjIirsXDREXwuthbgSlRmb
-         FBYAtPxNfxLoNOuW+FabsWBO2rEaBvx3FjL6iROyUKejQasIj2C3lTTdur0lADGo8PG9
-         SgEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793166336; x=1793771136;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PFsS6+I6tSnMVxI7cw6XHZ1p9l0CCeVWrHrbBHijNRU=;
-        b=CGUyk34jTcIRexWhFh30hHEhHDPlR+ZNZgBEin7wX93/J4lA3WStkzOOIfzpMZXG0y
-         Ou77cGLsColpiBSiZ2W17dajzjV/BPs7fRyk/ss5WMTt2t8W+tV+8cLpe0b9kAgQLZRC
-         g4QWT4r09TTqZMpjftzmbNs+tep97A2EUDOPfVO5vghvkpYNhO9/jufsNPX2n2nY1p4m
-         aOpI3BDisfS/RIIp1xr/buUPvXNNlBQtZXa17BvHfOvp95GzyONoHTzY9tmu7BlDg0bA
-         UE/A3GFbheWWT7YtoG8xu3Y8bPKodau5FWLItRRUlVJLBw45vl3ML66InbjmlIV/IiKa
-         aRaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQf9I4rxvHq/PtGW8sUDaNh5gYcOuZ7bmgaGm+bpF2d5/T0jTko5z+h6S2si3azZp1Mrwahj2dyNirrwQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqIV2B5khiDTqeGjFObk8Li5juDJRnhxlDfAsh+MLR6vSpFjoC
-	MGwPZft2bGcHa10sDMxRAWlKF7jeGIEaKugNZIbmB15syRUZ842/hnSAWKZXtUWTLLvvrmroeeL
-	p/vu8WI7mUkgQ0gjv9GPAIP0E5JofOic=
-X-Gm-Gg: AYBFou0aQ4TPp/xN26oECLgxUVyU+l33zoXDPGPkZaVexPCBrnXEDHV+KCENCnxmngE
-	ekdm/KT/Iy1qfDpJc7IG1qE70X5NbxloFcw3iGz8HMuOkRX+RyzQnSiC8BOFPKiLwcTlLWdHgu+
-	YqJsrL0NLuJqZcFR22+oIrBx5C9Z2E6+EW3nyA4yCRC5nyWtivUEu84c5E6G/7ryRMudlkcu9zy
-	RPCurB8TxDw3euNxkkfN4yh+E9UKJfZjFCa57gtloUJS9gz6R3HglkEtHwwlj5scrshAUM+81pY
-	wgCEMlxoF7eveL6N6FQTpUcHi1Dfn80saqklhhMlzVuoU31McrVtXdE2BrYltZoYeWf3pHSYxAE
-	GKEJzgh4FySHj8ndf926s60SPR6JTuESuqAUdau4B0aJv/xgvrZ/1q0X5er6x0bidRuoSKO0=
-X-Received: by 2002:a05:6870:6784:b0:475:e2e9:4f54 with SMTP id
- 586e51a60fabf-4a8bb623838mr1143705fac.34.1793166335471; Tue, 27 Oct 2026
- 22:45:35 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cZEUeVSx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=k6iHfgslbmnn3n9zufZFJ+9aHyYW9KHntgxnXO67GF4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793166340; v=1; x=1793771140;
+ b=cZEUeVSxyLEiODjBgnuSM5vj8KLW88m7foBMZV2CweJStUnhfancYcMLUM6NbeeHtGyUkhA4
+ Nm8eLtljwLKnM5mX/ILyHvIjRPwaTWaMLQVn/f/L4ScODYI6qPwaWCXx2q/SILN9TXNj/rFcre/
+ eDQ2zOvgEzzx8dKDp9oPsuQ4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id fbf67270c8f6aec8;
+	Wed, 28 Oct 2026 05:45:40 +0000
+X-Mizu-Trace-ID: fbf67270c8f6aec8
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH 0/3] net: ioam6: makes IOAM insertion transparent to IPv6
+ ECMP
+Date: Wed, 28 Oct 2026 13:45:28 +0800
+Message-Id: <20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,27 +61,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019165103.5990-1-dennylin0707@gmail.com> <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
- <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev> <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
- <CAGEkeHevidTtTNj-qfy6kE_O0wRvqT=F=sG+Hy83BOkRjCUqeA@mail.gmail.com>
- <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com> <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
-In-Reply-To: <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Tue, 27 Oct 2026 22:45:22 -0700
-X-Gm-Features: AclHuK_56Etvh4NDXHmZo6v_Uy5gCnaEAwyYEkyYaUlQKWDKsf27nBbYFYKNEFs
-Message-ID: <CAGEkeHf0CLjxhGySt2axf8gXMrCcn=cEHbe1aXRW4FgcbxjyZQ@mail.gmail.com>
-Subject: Re: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
-To: Shagor Khan <reza1234khan1234@gmail.com>
-Cc: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQpAQBRG4VfRXZsakyy8iqRr/LgK0wxS8u4Gy
+ 29xzkUBXhCoTC7yOCTIukRkaUJ25GWAki6ajDZFpo1W4o6ikZXnBnZ2ipGj15y3HYNi5Dx6Ob9
+ hVf8OezvBbu+F7vsBnCaRTnIAAAA=
+X-Change-ID: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Justin Iurman <justin.iurman@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.16.0
 
-Hi Shagor,
+This series makes IOAM insertion transparent to IPv6 ECMP, as required
+by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
+along the same path as the identical packet without them.
 
-> I can help in testing if you want. Since i do have rtw88 hardware
-> available with me.
+Patch 1 fixes the transit side: hash policy 0 hashed the raw IPv6
+nexthdr, which becomes NEXTHDR_HOP once an IOAM Hop-by-Hop header is
+inserted. The policy-0 key (and the ICMPv6-error flow selection) now
+uses the nexthdr the packet would have had if the Hop-by-Hop header
+carried only IOAM options and padding.
 
-Have you had a chance to test this patch?
+Patch 2 fixes the injecting node: the ioam6 output re-lookup on a
+destination-cache miss hashed the transformed packet's NEXTHDR_HOP
+instead of the original nexthdr (inline) or IPPROTO_IPV6 (encap), and
+rebuilt the flow keys from the outer header only.
 
-Thanks,
-Hungyu
+Patch 3 adds selftests/net/ioam6_ecmp.sh, covering both places: a
+transit forwarder with a multipath route, and an encapsulating node
+compared against a plain ip6ip6 baseline.
+
+The issue was found while reviewing RFC9486. It can be reproduced and
+verified by the newly added ioam6_ecmp.sh test.
+
+Tested with:
+ecmp_rehash.sh
+fib_nexthops.sh
+ioam6_ecmp.sh
+tcp_ecmp_failover.sh
+forwarding/gre_inner_v4_multipath.sh
+forwarding/gre_inner_v6_multipath.sh
+forwarding/gre_multipath_nh_res.sh
+forwarding/gre_multipath_nh.sh
+forwarding/gre_multipath.sh
+forwarding/ip6gre_inner_v4_multipath.sh
+forwarding/ip6gre_inner_v6_multipath.sh
+forwarding/router_mpath_nh_res.sh
+forwarding/router_mpath_nh.sh
+forwarding/router_multipath.sh
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Hangbin Liu (3):
+      ipv6: route: consider IOAM options in ECMP hash policy 0
+      ipv6: ioam6: use transformed packet nexthdr for ECMP re-lookup
+      selftests: net: add ioam6 ECMP test (RFC 9486 C2)
+
+ include/uapi/linux/in6.h                  |   1 +
+ net/ipv6/ioam6_iptunnel.c                 |   4 +-
+ net/ipv6/route.c                          |  67 +++++-
+ tools/testing/selftests/net/Makefile      |   1 +
+ tools/testing/selftests/net/ioam6_ecmp.sh | 349 ++++++++++++++++++++++++++++++
+ 5 files changed, 419 insertions(+), 3 deletions(-)
+---
+base-commit: 5d7f3375cd574fc83f0cd30839b21455c0e79ae2
+change-id: 20261020-ipv6_ioam_ecmp-ae4ef0a4bdae
+
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
+
