@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793155454;
-	b=y3MUA7GfBETQU5SZcRcgTRyvkAc8hzI71zDLkgxDb7GVt4Bg85QevwzdDoEaIZpI0ivi
-	 2C4iqNW06NXirh3u3MJ7ePXiVW+7U3n9whhCdumldC9E3yEPZbWo5jc+4YcLcrVCyU9Q9
-	 DNO6gNjiHk4MvJgcbiRM2UuTWd1+pwW+sDv6XZZlfqf1RpdsFh6FYB1CRm7Je3uJZSMuv
-	 nsCN5VqnkuFvDnA6Tw1gzfI3XpI4GyGtrtycpwuce7qLdljvlzkJ4iLGbI4rTKP8Gwf5Z
-	 Dr/9yaaUJKttxjHl7jXwAyn57TbFYOJ2LIhAJTjOsKhZBfuTdWQdnH3yvk3QpT3CYUg==
+	t=1793155507;
+	b=5S+hjNlxfP+JX0yU+Jca9tufo+ut0VUXNmrYuCpOGF+mrTIWeGhF/NHR5jdOxFttIoJU
+	 ENGTnM65D+dU1eSrR1J6D4mdLuvunTXeUXtkQ1K0fmlpmghtvgqG0scBGapA5a2FIek4j
+	 vCnCeiHmOad+BEdnicJmDyVFwE4snxzG4e2ncFu3RbjMkcsVu32t8XcE0tWuWab/HX6VZ
+	 IG8vyuvVIOdZJnvsL9/od5b9XzG0kNqmGQCskBnSzNvcHnDH3yojiQ/q65hd+3JLEV0MD
+	 Mn0WqJ+uGWYSA+gWjFnCCgZHJaF/Z09rk8nuqY/BwRwqT29/pSJOhMJnRY8YhAc2Bqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793155454;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=oo/01Jp9FjfS/2vPevSBVo3jb7P52PPUK77gNUPhv1Q=;
-	b=eo835LqJkC6m3FQp//gQSdmeoNmmrhWb4cwV4M5kTXcCIVtQODfBj4ohpcOyWcPMcoZY
-	 jOnbABm68dCEEdxc8tYab3Wl+MsXO2Pckh51MJtlxhThCaeQ8kRNEBETALF2NKKP966Ip
-	 DysLpb6FI4n8XfRp9yVSZrQPDFZdO52mV261JGuN44+fB7syeY7e0+e63DUKie990pezl
-	 YpqiEkmnEmN/hPZL/TSYMDm+Fdi+c318YG96dmKjou8+77ojp/AJNuUp3NUyqS8s8BS7V
-	 F09ilIRwLk8uUy0TK/gTiYGmmHH6GjRQ4IczF7DbEC6d5aJIZ6vOWJgI+Jqtv67t2tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155507;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=WOL4+D5dXDoziRa8ClTS8VQqRnnMXSqv697kaQ02AW0=;
+	b=WHfxmwPr89Y0595/qZHHtGcEjdWEHCMHeoDX8jBsc7Jvs9ATHTMhqsODw/RdaPYdz45s
+	 8zjiTPNY0+7G5wed5d2UZ4IRtTUnbBvQcQxG3TnyBP7n4aKyoXlF+hU6BJTmlO+scZ9gF
+	 +cz/5HXxNUzlwji1NaKs7ZhJiEPKToyxWv1xJTs9Emc52SPUWEIe0KgoAZIz2ieuSiKX7
+	 3TPsI8rP590+icstodXpMaUSel1BxMxLTy75fEknttb1NmI0crn/ZSc/Pdg/dbvxXeZGy
+	 IIlXabXegTgpc2M0VVLXN0hHScJwsbajYt/J9YRj5uvL2udEvzs5iedtnfp4Pr8Fm3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0ya6vdEb;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=COJbszoA;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93861606A31E;
-	Wed, 28 Oct 2026 02:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93861606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D87E606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 02:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D87E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0ya6vdEb
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=oo/01Jp9FjfS/2vPevSBVo3jb7P52PPUK77gNUPhv1Q=;
-	b=0ya6vdEbU5Mfqn1RFJsUVc/88GAzKW+T/UBkDTmNWfJgQMH59agRyxVZ/B5GgYIouxxqL34nX
-	ENUgBMJZecIpIWCm2y0m+Ybkgmxt7UvaBglR10oSURNSmBD9j1FyTesjKhpX6FGSWa3GyFVks2T
-	0aAqqT2OD2zbiBGNYLNk1hs=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jDsBV60Xtz1cyqv;
-	Wed, 28 Oct 2026 10:44:02 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 688134057C;
-	Wed, 28 Oct 2026 10:44:09 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 28 Oct
- 2026 10:44:08 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>,
-	<rppt@kernel.org>, <arnd@arndb.de>, <bp@alien8.de>, <kmehltretter@gmail.com>,
-	<dapeng1.mi@linux.intel.com>, <elver@google.com>, <enelsonmoore@gmail.com>,
-	<jlayton@kernel.org>, <quchaosheng000406@163.com>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-rt-devel@lists.linux.dev>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH 1/2] docs: kernel-parameters: Drop unsupported preempt= modes
-Date: Wed, 28 Oct 2026 10:43:32 +0800
-Message-ID: <20261028024333.795917-2-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261028024333.795917-1-ruanjinjie@huawei.com>
-References: <20261028024333.795917-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=COJbszoA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=WO
+	L4+D5dXDoziRa8ClTS8VQqRnnMXSqv697kaQ02AW0=; b=COJbszoAoNmXsaPh2v
+	XtvSfcNLEw+xkIorW7T7YwHQzn1ybiSJ0mIeuhm4zk9k7nWDDwGNDTpWXzrfiCd3
+	xonlTPyhCP2NQoUB3y7Xbyqgk2m5z0meB1z+++UM8Wi3aIcHtYqYnnK16IWByGfS
+	LOw9ibiNFaC+DMmNSj9VldwgU=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgD3wCicYeFqV0gkCg--.55043S2;
+	Wed, 28 Oct 2026 10:44:44 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: validate INDEX_ROOT size before reading its fields
+Date: Wed, 28 Oct 2026 10:44:43 +0800
+Message-ID: <20261028024443.25-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,36 +60,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-CM-TRANSID:PigvCgD3wCicYeFqV0gkCg--.55043S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1UWFWDXry7Wr18Cw48JFb_yoW8Ww4rpF
+	n7AFZ7GrW8Gr129wsIyF4DX3y8Cw48Ww1UtFW8Zr4Iyr93twn7G3sFyryrAryDtrWDJr9x
+	XFs0qrW7W34UGaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlJmUUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7R2S0GrhYZ026QAA3a
 
-Since commit d3d16750693b ("sched: dynamic: Make PREEMPT_DYNAMIC depend
-on ARCH_HAS_PREEMPT_LAZY") only "full" and "lazy" are accepted with
-CONFIG_PREEMPT_DYNAMIC: every architecture that supports it selects
-ARCH_HAS_PREEMPT_LAZY, which excludes the none and voluntary models.
-Passing either is rejected with "Dynamic Preempt: unsupported mode".
+check_index_root() reads root->index_block_size and
+root->index_block_clst before checking that the resident data is
+large enough.  check_attr() accepts a resident attribute with
+data_size == 0 and data_off == asize, and mi->mrec is exactly
+record_size bytes, so a crafted $LogFile record can make the
+first read go past the end of the allocation.
 
-Remove the two lines so the parameter reference matches the code.
+Use resident_data_ex() so the attribute is validated before the
+fields are read.
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt | 2 --
- 1 file changed, 2 deletions(-)
+ fs/ntfs3/fslog.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index fce0d52b9cfe..11f0b700d56a 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5428,8 +5428,6 @@ Kernel parameters
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index 2460a4a..e208f4c 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -2721,15 +2721,21 @@ static inline bool check_index_root(const struct ATTRIB *attr,
+ 				    struct ntfs_sb_info *sbi)
+ {
+ 	bool ret;
+-	const struct INDEX_ROOT *root = resident_data(attr);
+-	u8 index_bits = le32_to_cpu(root->index_block_size) >=
++	const struct INDEX_ROOT *root;
++	u8 index_bits;
++	u8 block_clst;
++
++	root = resident_data_ex(attr, sizeof(struct INDEX_ROOT));
++	if (!root)
++		return false;
++
++	index_bits = le32_to_cpu(root->index_block_size) >=
+ 					sbi->cluster_size ?
+ 				sbi->cluster_bits :
+ 				SECTOR_SHIFT;
+-	u8 block_clst = root->index_block_clst;
++	block_clst = root->index_block_clst;
  
- 	preempt=	[KNL]
- 			Select preemption mode if you have CONFIG_PREEMPT_DYNAMIC
--			none - Limited to cond_resched() calls
--			voluntary - Limited to cond_resched() and might_sleep() calls
- 			full - Any section that isn't explicitly preempt disabled
- 			       can be preempted anytime.  Tasks will also yield
- 			       contended spinlocks (if the critical section isn't
+-	if (le32_to_cpu(attr->res.data_size) < sizeof(struct INDEX_ROOT) ||
+-	    (root->type != ATTR_NAME && root->type != ATTR_ZERO) ||
++	if ((root->type != ATTR_NAME && root->type != ATTR_ZERO) ||
+ 	    (root->type == ATTR_NAME &&
+ 	     root->rule != NTFS_COLLATION_TYPE_FILENAME) ||
+ 	    (le32_to_cpu(root->index_block_size) !=
 -- 
-2.34.1
+2.53.0
 
