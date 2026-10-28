@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182352;
-	b=pNXlYl+iC3WeVccCaXzWltH2+X19sDPGkhpjN6AC2MtWJDZXB3eA3jDP95Anf3m+2cbJ
-	 rWrxjl2TLD7aI8gFIG8oL7v6We5n08E4qmduz5s2Yw12DH6hwiEIE6ToRO4SuOPktzLsg
-	 1NVvJ3eeZoAZWc4Z8d0S4Pjpi7E88eDkaQ0oBDyMBwhJDUwENVMIQsZCzWKIWA90wnhhY
-	 Lg/cjO/IymSPOSp7zacX9eVT1fGiBuHaHFKNqCl3XJL+W2tzfWj+UrNfPPV4xHTXLpx39
-	 qy7gXDTvyeTuWhOkrnw8iAkmNKcy3S2PK7teZIshsdtBX36in7DdeAJmO6xMn/fpTRg==
+	t=1793182392;
+	b=F6B/ljT/6u2prm7v1SbuGn/6Mh4JmxItFd/C1M8erPJhUjPS+aujP/1j8eQz71qpaQaV
+	 GGKv6ux4RYSOjCuUHo1cU1mTo9x+5EHw0WU2MySZHw4QI2XkY0lfzH/oIuqiBHZs4ljkd
+	 6jXmLSLiBMErNhVd+qDNaeTkwAN17RuybdjrxfPv4KTDVCq7jSCGCXdV3P0dZ95YY8W+R
+	 XoClfCuNxE9o4VFRQRytypoNUkmsSHwamaAqu0ErqDB5AatitRRSubP7dxj8098L8aERs
+	 sLUMbuHI0IsrVgLUiXdsEwrSA1Jb5S3vtbwFXbfmJNUOQwYgSsNOK/U49X1rZkHF7jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182352;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CLByMb/sD+ZAvsSTekY9MbsiY0HI8hmQnYsiCGgVbF8=;
-	b=jz3s/oGTRlsYW4V4ZiDj4hyWkIibNf2A8r1oVVDLMupYXxGVY0y3udpzdJPoh6G8B/Cd
-	 7D7vSUypi3h7ucR4I37kK9c3vSgnjh9O1uoS3kTBwgQhVhfMxYZ9pTZ4SGutrMzLCGz0+
-	 lBK2E5c2x7bN+rpvhhr0SHgZWyL9Qv/anyFYfo6BCGQx79vAU8hjm6Gnb2bIcMDkdNvfp
-	 6BkCUE8DtFjxAQz2V0i7Ekhk2OZUhTvtedpqUeQoydfpLd+CKcApg6mPhhGfvL+HrnCTs
-	 +oWrmTiqmc5F2a6P3D592sn5NADI23klnFV5Vm3JMUsr2t6IDgQjwnoSVW7SHDAJaYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793182392;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 X-Last-TLS-Session-Version;
+	bh=ubjEcerpRYPkrBmSQwo5V4W5j9UQ8STAOxq9l3KgdhY=;
+	b=2Eisxkfa85oUV7+EfVUjfMWQKksUOMFEyz9C6Xx5QXOBi6Rrm0WOVgza3q+oAiz4e/Qx
+	 kChejjiwejYi7SRPLfncPTJRlXHgAynyPSanRV80QjTEYoarWDUp8CmSfj7fjd6zaMBAa
+	 WZO6s/OajOsw1N5DfaQbq+6ZGF9UFuvUnmcI7c9tUu8V4fndRTmKMud8zISZmO2TpKAV0
+	 C4U+1IMdsOJELwYalZu+9dLlFLwUCDgyB86lFcGBj9EZ8qoaddjFexkBX/HurJYdtLOBw
+	 1vKoqf9ShBuSqfqs88I/w0rxV6sNOxUd3ab0UvaJ6YWaiIUOF1R6a1do4/MI2CA1bsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YuBqUzh1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Y32I/9WL";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48BF606A31A;
-	Wed, 28 Oct 2026 10:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CE7606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96CE7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YuBqUzh1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD541F01825;
-	Wed, 28 Oct 2026 10:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793182351;
-	bh=CLByMb/sD+ZAvsSTekY9MbsiY0HI8hmQnYsiCGgVbF8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YuBqUzh1l2HE0YDAwpzIJkTNkJHZvsBgVQoXuvebJcvMlK2CX3Qlpb2XrbN9DeQDo
-	 JpplHxGpqlnKavhwLga6sy6Q1KnNbnmZ62d51braPNx3KY7zIwhPOMiYz3yJWygjqd
-	 jpZz2BEZFPytQxTVeVNOXTowXrcgLAo0Dn6W8LG5SvQtSeTRmemfNSruWtZohfT+x2
-	 wgpjsApsEfTr9+2mJ4A5L5Osk6aBEUd1Ku2RFMscCQy7DiT9aLenhF3ZmgzPajDVfD
-	 sfxUf1lOGJA4omOJGn+9LZ3kA7suK2pDT1BRy1FyaW77ilM1apyS6jR2LtUoF4GdSv
-	 g2wIDe/oD+4ZA==
-Date: Wed, 28 Oct 2026 10:12:25 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
-	Imre Kaloz <kaloz@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	"Mike Rapoport (IBM)" <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, sparclinux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Magnus Lindholm <linmag7@gmail.com>
-Subject: Re: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
-Message-ID: <auHI2vYFjpKk_0wJ@gremlin>
-References: <cover.1792609488.git.kaloz@kernel.org>
- <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org>
- <409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org>
- <20261027212610.6798-1-kaloz@kernel.org>
- <dfe06aef-540a-4450-88ba-300a460007b7@kernel.org>
- <20261028091631.8072-1-kaloz@kernel.org>
- <25f5cbed-9126-4870-a81e-65099155bc9d@kernel.org>
- <8d4993cb2f2e5c3300514f1e2616e4a101488883.camel@physik.fu-berlin.de>
- <5dac5fd3-c2a6-4e1a-98fa-0fe1936b269d@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Y32I/9WL
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 45200C4FECF
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 10:14:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6021D60769;
+	Wed, 28 Oct 2026 10:13:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9E68910329092;
+	Wed, 28 Oct 2026 11:13:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793182381; h=from:subject:date:message-id:to:cc:mime-version:content-type;
+	bh=ubjEcerpRYPkrBmSQwo5V4W5j9UQ8STAOxq9l3KgdhY=;
+	b=Y32I/9WLzaPlwIj+mxfZ/HpWH7Un45e7Ahgutq1FG6U2toCHBXBGO14FoK3dsBY/0j9WWk
+	y187cJNvUOe3o2z29mEPbpsXFSQ3lUa21MggROM8RxLR16bxf3Y/8uQvMOlpKlYHe961Ws
+	QITSz4QfWsLmHSD6zQkv6gzbmIVY0u4Mdzv2m7kBiJ+tajt5y14PMkfWKcC+1qpSoHWC6A
+	v0jF9LVBHrkBSBKmcc7tWkAxWfZf9MG/NCfeG1LXx8GnP35sAXOzyWJNZx8mMGTWFrUgwI
+	VKdIUmsZdENydcaY1mse15Sbx56oNy+21pfBMn/NiigbTScV8/c1ZOfjht746w==
+Date: Wed, 28 Oct 2026 11:12:59 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] I3C changes for 7.4
+Message-ID: <20261028101259ce32989d@mail.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,28 +66,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5dac5fd3-c2a6-4e1a-98fa-0fe1936b269d@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 28, 2026 at 11:02:17AM +0100, David Hildenbrand (Arm) wrote:
-> On 10/28/26 10:58, John Paul Adrian Glaubitz wrote:
-> > I don't think it's fair to make the kernel exclusive to very recent hardware only.
+Hello Linus,
 
-Nobody's making the kernel 'exclusive' to 'recent' hardware.
+Here is the i3c subsystem pull request for 7.4. It introduces the I3C
+hub support in the core with drivers still being worked on. Then we have
+the usual fixes and cleanups.
 
-It's about overburdened maintainers having to deal with museum-piece hardware at
-the cost of literally _everybody else_ who uses linux.
 
-Use an older or downstream kernel - problem solved ;)
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
->
-> "Very recent" find the mistake.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Exactly...
+are available in the Git repository at:
 
->
-> (sorry, I'm unusually grumpy today)
+  git://git.kernel.org/pub/scm/linux/kernel/git/i3c/linux.git tags/i3c/for-7.4
 
-Justifiable ;)
+for you to fetch changes up to fc5eb1b0631aa3b34c530ae962d01699ed22a0ae:
 
---
-Cheers, Lorenzo
+  dt-bindings: i3c: Add Synaptics sl2610 i3c (2026-10-08 14:21:37 +0200)
+
+----------------------------------------------------------------
+I3C for 7.4
+
+Subsystem:
+ - Add APIs for I3C hub support
+ - Restrict HDR modes to those supported by the bus and target
+ - Fix ACPI target enumeration on multi-instance controllers by extracting the
+   bus-controller instance number and PID from the correct _ADR fields.
+ - allocate IBI workqueue with WQ_HIGHPRI
+
+Drivers:
+ - dw: Synaptics sl2610 support
+ - mipi-i3c-hci: HDR-DDR support, cleanup and fixes
+
+----------------------------------------------------------------
+Adrian Hunter (17):
+      i3c: master: Fix out-of-bounds read in DMA bounce buffer setup
+      i3c: mipi-i3c-hci: Bounce short reads irrespective of the IOMMU
+      i3c: mipi-i3c-hci-pci: Set drvdata before creating LTR sysfs attribute
+      i3c: master: Match ACPI targets to the correct bus controller instance
+      i3c: master: Remove stale GETSTATUS length check
+      i3c: mipi-i3c-hci: Restore controller state if i3c_hci_enable_ibi() returns an error
+      i3c: mipi-i3c-hci: Send DISEC before disabling IBIs in hardware
+      i3c: mipi-i3c-hci: Fix runtime PM violation in i3c_hci_free_ibi()
+      i3c: mipi-i3c-hci: Process multiple IBIs per interrupt
+      i3c: mipi-i3c-hci: Move DMA suspend/resume callbacks
+      i3c: mipi-i3c-hci: Stop rings gracefully when suspending
+      i3c: mipi-i3c-hci: Correct RESP_DATA_LENGTH to bits 15:0
+      i3c: mipi-i3c-hci: Remove invalid transfer size limit
+      i3c: mipi-i3c-hci: Remove invalid HDR-BT and Fm/Fm+ definitions
+      i3c: mipi-i3c-hci: Support configurable device NACK retries
+      i3c: Restrict HDR modes to those supported by the bus and target
+      i3c: mipi-i3c-hci: Add HDR-DDR support
+
+Aman Kumar Pandey (2):
+      i3c: master: Add APIs for I3C hub support
+      dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+
+Fan Wu (1):
+      i3c: master: adi: free the IRQ before unregistering the master
+
+Jisheng Zhang (3):
+      dt-bindings: i3c: dw: support up to two reset lines
+      i3c: dw: switch to array-based exclusive reset control
+      dt-bindings: i3c: Add Synaptics sl2610 i3c
+
+Lakshay Piplani (2):
+      i3c: master: Add controller-only device operation helpers
+      i3c: hub: Add support for the I3C interface in the I3C hub
+
+Pawel Zalewski (1):
+      i3c: master: use named initializers for acpi_device_id
+
+Shubham Patil (1):
+      i3c: master: amd: Report direct CCC read length in payload.actual_len
+
+Stanley Chu (1):
+      i3c: master: allocate IBI workqueue with WQ_HIGHPRI
+
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml       | 330 ++++++++
+ .../bindings/i3c/snps,dw-i3c-master.yaml           |  16 +-
+ MAINTAINERS                                        |   9 +
+ drivers/i3c/Kconfig                                |  14 +
+ drivers/i3c/Makefile                               |   1 +
+ drivers/i3c/device.c                               |  15 +-
+ drivers/i3c/hub.c                                  | 832 +++++++++++++++++++++
+ drivers/i3c/internals.h                            |  16 +
+ drivers/i3c/master.c                               | 476 ++++++++++--
+ drivers/i3c/master/adi-i3c-master.c                |   4 +
+ drivers/i3c/master/amd-i3c-master.c                |   4 +-
+ drivers/i3c/master/dw-i3c-master.c                 |  28 +-
+ drivers/i3c/master/dw-i3c-master.h                 |   2 +-
+ drivers/i3c/master/mipi-i3c-hci/cmd.h              |   4 +-
+ drivers/i3c/master/mipi-i3c-hci/cmd_v1.c           |  28 +-
+ drivers/i3c/master/mipi-i3c-hci/cmd_v2.c           |   4 +-
+ drivers/i3c/master/mipi-i3c-hci/core.c             | 112 ++-
+ drivers/i3c/master/mipi-i3c-hci/dat.h              |   2 +
+ drivers/i3c/master/mipi-i3c-hci/dat_v1.c           |  13 +-
+ drivers/i3c/master/mipi-i3c-hci/dma.c              | 136 +++-
+ drivers/i3c/master/mipi-i3c-hci/hci.h              |   9 +-
+ drivers/i3c/master/mipi-i3c-hci/mipi-i3c-hci-pci.c |   5 +-
+ include/linux/i3c/device.h                         |   4 +
+ include/linux/i3c/hub.h                            |  92 +++
+ include/linux/i3c/master.h                         |  20 +
+ include/linux/platform_data/mipi-i3c-hci.h         |   4 +
+ 26 files changed, 2024 insertions(+), 156 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+ create mode 100644 drivers/i3c/hub.c
+ create mode 100644 include/linux/i3c/hub.h
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
