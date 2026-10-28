@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793168197;
-	b=qwvZ65DRCG1OZWhZmv48GJP0+Xt2oyazDXkWVRTgAcSddPMPwDfBrwAJGpHQ8uxU+lAN
-	 RTmT5ZmlgBnbqiZwshzxLfKf4K17Ah3nqvvi8pjukP/oWBRoI5viDjdMZvj4HR+Q/9uYG
-	 Le+nEmVj4oYW2u6+/Zq0EWUXqWXExcL03SKHEEe1PSXYF/+J/8OlzNgoGHABHrtK+hGJv
-	 vTFtrHAMuf7HX9XJ9tqHZp5PnTncETLd2uTPDVTB15HJjN+aTM7Aka3J1pqizGGauKlkT
-	 exUFDf1gYZBzpRNdXxsNToEuYvaBIGpv2VvlP8CxtjeV75U4rNqA9nE6fjN2PDDsx7Q==
+	t=1793168207;
+	b=5jh1iBCydNBxRpKLQHNiM4WInKvfLZK6W/UgVFp+mLOKMevCcmU/wWoGEDlV+FoBq0Q2
+	 Fg3JXCZR3N8LHLQ45tmJVEkvO20yQ5VJ9KCX7sB+rI9W72xsr7G5x/EkCMXaNhHJGdDQw
+	 eU+iZoa0hmuEK8Ck1VL1D+EyGTu8KcoU5ZCtVvkoEXlHJ19ebmRfQn68FZcsWRkEqD2gj
+	 5T0uaKvBNDkWFJxJKNsnpFo3NtJRISHtX1O7v8DoiRp4XetlWaiUGENiupxKl4DC1JenV
+	 KfxCiQwbW8CbLgo2YDbZ0x5rC97xfBp72/Od9viZ9K4EqTl/y2A49knNAARAhoPcahQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793168197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793168207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:
-	 In-Reply-To:References:Message-ID:Date:Subject:From:To:Cc:
-	 Content-Type;
-	bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
-	b=Fxz3pkb9L8AsoJ6Ay96MlPTamNZlU1ONqrB6l++V3lPvAG1MWpDu1cFgcC8d4LjnuPJc
-	 3e+2hRwyrQOZCzDBFqytS3ELRTBRe2SMzcz0FIIBCOelyBM3HFaJLdMOLSP9xjSYfo8mj
-	 zx6/xjbLGRw2VeFmd8ES+j8GTIExYyudp4DK2p5p/xNAEAubU0AZZaiYoqaqgBAPfENq4
-	 E0VnHzQHwUlOTHTJVCy3pg7MqdUOhCyRNberQ1Bgi3qsmdKqz41SPqeW0LSWD6CpMUYfm
-	 gAmLaX8wby903wkdSEnCyrR27N7VlgfDh4UK6LJKxcIN6mj1TM7MaLta2LHKQ5aGvpA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=acUYVG0DRJMibOObg2mQC73a9/WqeX3fCrgMIEZ8lJg=;
+	b=wYQnSlIn+EgZkzGlpE+ZygzNaakXTsRhzmsqh20t0nmK21eJOZlt8Q+L5Ja2e58qCzw4
+	 f5MpgeCg8mFUT8bvBJg1eI3RILXkv1NVcgeooc6AqChKmFiCY4WunjmUeF3fVNP3cLlTg
+	 oiLbf/9oUYIDA3bx4EI5k0C90W+qMEsMm26flzM0ucUgwwwCkvhST94TaACwJIt7EuH98
+	 JlC3MJz+LZ7uvzHgkcxuth9CKofYbbSWAV/BvtQxHGuLKRruG7pNkE4nUB6QE0FGWYkWy
+	 pirF9vkOrfsYIZWFZhiYFJbKZa3ruUzpt7/wt8zGlgCeDKQvjsa70cHnRQJvdDkcf0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C6Pudu23;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cp+bV1ll;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74600606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74600606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6562606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 06:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6562606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jeffxu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C6Pudu23
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so843919eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cp+bV1ll
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so911374b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793168196; x=1793772996; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
-        b=C6Pudu23merR8N3QUSSvCl7wNv2iJ4wZUywbEvQhTfxkkwUD1bmyJMvQ2INlo/bCI7
-         3J2m8hD96wmYaDz2HNVTnKY7bDC8tFyaNdiOM1QFSV5826GR/S9EbVVncFbiq7dSSy2t
-         w24/QFazfb8wG5dHVpT8H928MituPMKXEXB8snmifr3Gc2O/tC3crUaeuJw9TS9d5Gvn
-         r5pkfFwogZZk3Efst5f17eYYlK22KsZS0vTvX+rFSthgeT4zRTnDzcMhm7e0c3Erq6Sh
-         bhACPNNEje+m79G8yP5AhOuwbfhrViJl3Ag1sVFrnaEc56uj8+6SQualB4meyXj8OWeW
-         6OeA==
+        d=google.com; s=20260707; t=1793168206; x=1793773006; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=acUYVG0DRJMibOObg2mQC73a9/WqeX3fCrgMIEZ8lJg=;
+        b=cp+bV1llTdNS8j7xG5g/rFZGbuMifnkWqGiBGuNuDK/SURDQB9+EMMaR4yKpgkb0BQ
+         qMljNVvDu0ega716P5NYIwc7oaCtnjFQzmB96Q6/cFGeqGCrfKqEQjc/dHxFD75GemlZ
+         bSFrPVvKm969uSua77lDzJ4I74KIswEs/Z/amM9AJh+OI/VANRTvD3eUzxazRoHp/ORH
+         HC3AWwLE5GlQlQq/tjLV4p7M0r9CSeaZQv2JfEDRA/xPSlD25AtTBcN/G86dhCVeCkvE
+         WEi7whhSl0r04QZR4hOIV7VYCTbEXof+/oOOJqG25c7UNmIVxPjRWZi7pbbcSuRZ7Zda
+         cbwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793168196; x=1793772996;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X4wg8Pbjg2SQve6wgEy6XvKbvCoQemBjrt/2F9Kq2TY=;
-        b=1Bk3L4umSUarwvNC5ySpCOgeaTMYKCjm3OoKDdvorBd3ljODZIThbYT7GafgSD8EaX
-         RvhDUMrlx70jc0xruwG7gFpWQZXw569fOoB6RC4NK6u8+yvGJ6NV+cZbBypOgpGTLrZ2
-         Hbad4jGZJi4Zji+aI8d/FHqDL17AGeOtG1TNSe+3ooXM5adqTrOS2SY3aMvYYKTtu7Ia
-         u1CKEjmLFC29aNqWvW2JiwuODdNUNwYuodivBqNcjz/qgIvoovTcDZx6GB8t+VsfU8Gu
-         M3IOQv2NpZktaXYbwCRvlpmxxcpFPqKEkXJ7q5M4LRP6D1Wm6Rb+/bMMMkC0IAgZ6Vdv
-         jJhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRaTRzWGKPTpSRU0LJQq/0KhhviWFOfOP1ICQzgumOoi/GPZv8OEdUsDz3xZbEcqA/0BtrJwuZo15im9o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMtwhKu3NwTJyuBrRlvE8gjGZ/Fo5T8B1im3Jg/ot+mF3lLDhy
-	8v1bzdkkGRK3ytGjSXWT21ILubupszt9EC8FxhReSaCt6YD1DLVTak4qCmT//rV8ZsgJ6L/WEjr
-	AgagZOQ==
+        d=1e100.net; s=20260707; t=1793168206; x=1793773006;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=acUYVG0DRJMibOObg2mQC73a9/WqeX3fCrgMIEZ8lJg=;
+        b=E7Rr/Ry+px1GXgcPNT2Tg4x7Kd16dFsnLWVSj/Ub3GYqfvRn0nzvF6LRjyK3wHBLV7
+         cHZHdvp8VBuLdrcahCb2Ph6t/Iu3wYjhGps4KUrwyABo8gMzoiOHi3lyRxs3ctSZT0Dm
+         HKQFCgdklNa3LIkEfIio2LW/+yjTs1eRj9SWFogS7p6osZnNSX0uFwu33EIUi2uFs8Gi
+         Zsap0CLZl1xRl2VKdCXgI2YgQFselzv9FdzegT53WrWbf9/x8nLtbGhRE08ZAHWV1iPh
+         AZBBxO8Xcns2Oc0BdTEkFuIHf1DpkMXbCsS+oxfuQ6/4oAsJ7hJhcypZHkx9/1U1r49p
+         oXTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPUtI0ctbuN6n6btvEWmvSQzcFUN9UQKaKUgQ8M4haq9iCeQhvyiT1gS9fBrpwB4UaNdIy8zyiom/gmkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5R8tBk612H2EAf6NTWSrw2z0wp7voniVi8wCZIKyPL+5cQR75
+	Axv/M669NgJKCCQ4HrRIQFDlTvXsI/0iMJNmD7rLCsNEkIN3sbMgf+n167l7v7xFUTSpvMHOGLO
+	Ib+aqHVdIbomi/opFBg==
+X-Received: from pfdn12.prod.google.com ([2002:a05:6a00:a66c:b0:88e:c0e0:7ea6])
+ (user=starchang job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:bd04:b0:89f:6989:cb9b with SMTP id d2e1a72fcca58-8a6e74da8f5mr1084767b3a.27.1793168205950;
+ Tue, 27 Oct 2026 23:16:45 -0700 (PDT)
+Date: Wed, 28 Oct 2026 06:16:44 +0000
+In-Reply-To: <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,49 +79,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Received: from dyx13.prod.google.com ([2002:a05:693c:820d:b0:36a:1d37:273b])
- (user=jeffxu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:6195:10b0:35d:95e4:267d
- with SMTP id 5a478bee46e88-36a200c3b89mr2179969eec.27.1793168196147; Tue, 27
- Oct 2026 23:16:36 -0700 (PDT)
-In-Reply-To: <auGOXLB1XZFWcTfX@chrisdown.name>
-References: <cover.1793094611.git.chris@chrisdown.name> <5bd3c89d733ad22224f296dfa8900769de937de0.1793094611.git.chris@chrisdown.name>
- <auCxjbvY3qPv1sV6@gremlin> <auDTMb6WMFUpxeZy@chrisdown.name>
- <auDTptDQsB4xBcz7@gremlin> <18e2972cb8520c2e.3137322e32382e342e3434.279dd1.0000sendgmr@google.com>
- <auGNkhSHpBRd2U_5@chrisdown.name> <auGOXLB1XZFWcTfX@chrisdown.name>
-Message-ID: <18e29cf9499c7ec0.3137322e32382e342e3434.2a28ab.0000sendgmr@google.com>
-Date: Wed, 28 Oct 2026 06:16:36 +0000
-Subject: Re: [PATCH 1/3] mseal sysmap: Add mseal_system_mappings= boot parameter
-From: Jeff Xu <jeffxu@google.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Jeff Xu <jeffxu@chromium.org>, Jeff Xu <jeffxu@google.com>, Andrey Vagin <avagin@gmail.com>, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Mime-Version: 1.0
+References: <20261026150539.1357037-1-starchang@google.com>
+ <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261028061644.2997812-1-starchang@google.com>
+Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+From: Star Chang <starchang@google.com>
+To: ja@ssi.bg
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, johannes@sipsolutions.net, johannes.berg@intel.com, 
+	linux-kernel@vger.kernel.org, wangroger@google.com, starchang@google.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Chris,
+Hi Julian,
 
-On Wed, Oct 28, 2026 at 01:55:40PM +0800, Chris Down wrote:
-> Chris Down writes:
-> > - Have check_sealed skip as usual when [vdso] isn't sealed and param
-> >   is not set
-> > - A new test, say expect_sealed, fails in the same case
-> > - run_vmtests runs with -T expect_sealed when
-> >   CONFIG_MSEAL_SYSTEM_MAPPINGS=y
+Thank you very much for the insightful review and for pointing out the RFC =
+826 and RFC 2002 references.
 
-> Er, the other way around. I meant vm_runtests passes -T expect_sealed
-> _unless_ CONFIG_MSEAL_SYSTEM_MAPPINGS=y.
+You are completely right on both points:
+1. Per RFC 826, the Target Hardware Address (tha) in an ARP Request has no =
+protocol meaning, and Linux updates neighbor entries using (sip, sha), neve=
+r tha. Inspecting tha on ARP Requests was a fundamental mistake and would b=
+reak legitimate devices that leave arbitrary/unicast addresses in tha.
+2. In RFC 2002 (section 4.6), many real-world GARP reply implementations le=
+gitimately set tha to the broadcast address (ff:ff:ff:ff:ff:ff) since the a=
+nnouncement is broadcast to all hosts. Requiring tha =3D=3D sha in our chec=
+k was overly restrictive and would cause false-positive drops for legitimat=
+e GARP replies.
 
-Using kselftest_harness's `-T expect_sealed` together with checking
-`/proc/cmdline` for `no_mseal_sys_mappings` in `check_sealed` sounds
-great to me -- very clean and covers both regression cases without extra
-argument parsing.
+Regarding your question about arp_accept:
+In our testing, arp_accept =3D 0 successfully prevents creating *new* neigh=
+bor entries from unsolicited broadcasts. However, in typical client scenari=
+os, the victim station almost always already has an existing neighbor entry=
+ for its default gateway (i.e. n is not NULL in arp_process).
 
-Thanks!
-Jeff
+When n already exists, arp_accept is bypassed, and once the 1-second LOCKTI=
+ME window has passed, arp_process() calls:
+    neigh_update(n, sha, state, NEIGH_UPDATE_F_OVERRIDE, 0);
+which executes memcpy(&neigh->ha, lladdr, dev->addr_len) in __neigh_update(=
+), overwriting the gateway's cached MAC address with the attacker's MAC.
+
+In a Wi-Fi (Hole-196) scenario where clients share the GTK, an attacker can=
+not forge unicast frames directly to the victim, so they broadcast an unsol=
+icited unicast ARP Reply (sip =3D gateway_ip, sha =3D attacker_mac, tip =3D=
+ victim_ip) over L2 broadcast (PACKET_BROADCAST).
+
+Under standard networking behavior, a non-GARP ARP Reply is strictly meant =
+to be delivered as an L2 unicast frame (PACKET_HOST) to the requester. The =
+only legitimate reason an ARP Reply is ever sent over L2 broadcast is for G=
+ratuitous ARP (sip =3D=3D tip).
+
+Based on your feedback, we plan to completely drop all checks on tha, leave=
+ ARP Requests entirely untouched, and strictly narrow the ARP defense to dr=
+op ARP Replies received over L2 BMC *only* if they are not Gratuitous ARP (=
+sip !=3D tip):
+
+--- a/net/ipv4/arp.c
++++ b/net/ipv4/arp.c
+@@ -791,32 +791,18 @@ static int arp_process(struct net *net, struct sock *=
+sk, struct sk_buff *skb)
+ 	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+ 		goto out_free_skb;
+=20
+ 	if ((skb->pkt_type =3D=3D PACKET_BROADCAST ||
+ 	     skb->pkt_type =3D=3D PACKET_MULTICAST) &&
+ 	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+-		bool is_valid_garp =3D (sip =3D=3D tip) && tha &&
+-				     !memcmp(tha, sha, dev->addr_len);
+-
+-		if (arp->ar_op =3D=3D htons(ARPOP_REPLY) && !is_valid_garp) {
+-			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
++		/*
++		 * Standard ARP Replies are strictly unicast (PACKET_HOST).
++		 * An ARP Reply in an L2 broadcast frame with (sip !=3D tip)
++		 * is an injected unicast reply. Legitimate GARP (sip =3D=3D tip)
++		 * is preserved and defers to DROP_GRATUITOUS_ARP.
++		 * ARP Requests are left untouched per RFC 826.
++		 */
++		if (arp->ar_op =3D=3D htons(ARPOP_REPLY) && sip !=3D tip) {
++			net_warn_ratelimited("Drop non-GARP ARP Reply in L2 BMC on %s\n",
+ 					     dev->name);
+ 			goto out_free_skb;
+ 		}
+-		if (dev->addr_len =3D=3D ETH_ALEN && tha &&
+-		    is_valid_ether_addr(tha) && !is_valid_garp) {
+-			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
+-					     dev->name);
+-			goto out_free_skb;
+-		}
+ 	}
+
+With this approach:
+1. ARP Requests are completely untouched (fully adhering to RFC 826).
+2. Legitimate GARP announcements (sip =3D=3D tip) for VRRP/HSRP router fail=
+overs are preserved regardless of what value they put in tha (respecting RF=
+C 2002).
+3. Injected unicast ARP Replies in L2 BMC (sip !=3D tip) that poison existi=
+ng gateway entries are dropped.
+
+Does this sound like the right direction to you for v5?
+
+Thanks again for your time, guidance, and expertise!
+
+Best regards,
+Star Chang
