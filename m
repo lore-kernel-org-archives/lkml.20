@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793147842;
-	b=x1/9OnHv4fAtvSDFGKgUlD0eJDt/jOumTBz11776Y+wj3cvD6ZsMhJ2eQEfdjklEbXlv
-	 RDkHYg7bzaz7ti56ICIFFPlpgL6SMtEsGLeUUq/pZXVDc9thIviSLMkL5k3IjlV/8IqFt
-	 PjbVQv2NONDclbl3ArDwugOyURQXU7MBowew+LDMqS7dxYYBpPplqW/hs6zslTcH9nHKD
-	 dZy7dpD1v5cCrLyCFGIPzzzmnN1UXg1lxWyaGc+aMwB9ql8RmEfULP3/VzI48suFqylNZ
-	 COqsVkcjBYOJHPQxJRpK5pFVevX3oWRTmjMs2h7f7t1rTIwxgJ4WUt2GdB/sH6orHPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793147842;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793147976;
+	b=G3vZ7E5Eav/LIcdhgo1POQPLfBheXUXqyj4Zs6/4bGSA9DID0B4ThhYF3RPMwIJgXa/y
+	 WuNrEbxACIX0qYZPiN/ZUfe81tEzq5L46OARct1qoLvniEeFVSdY45upNLKMiejTsClu3
+	 n1s19EiNCtR1UOtwHT9s6I8aPjUqViCNY9+HUQ04V3PX3tzrF7pZDZqvSXTRS2OvIjmiZ
+	 DZFWHWOT27zxxl8djlshrtLr8EcKnwkEtT1/M39xho4/bsuNodgGCGHfrQ80l+AeM56qt
+	 TSSHKkETqI4orQDgxPf0VLO5R8d7V92bdaZ7I2Wi5OO88VWvvJ3iyJndq8Xv6+RKGPQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147976;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-	b=bGvtHz+Wfd3piiqI4/cmLP7BWj2SbLj/uJ9YR7kL+HsHdOm2HmNsFkl7uPF7oHMQxIIK
-	 9mIkCZTi8yAvj4Q+fTQ6QhACArX/S+XSAyb4GGU34PN8uUjVZsQk9+rhaEnXSjCDDYChs
-	 RlThEPBO7KNq5Bg5XPJDTfpvtqz27vUx5f5JL+m5KUIx9h1Irf+ZZo45/Kzfacpa+ALz1
-	 Pz002joxuYcxxv7d+GgTDtSK11dunJlrkUnbHLihjmlxFM2CRjcQFKOgpS3d6v0OJEYvM
-	 B4p6ThcFzdaTP2XtSsyesTJJaZxhiZYAUoA6vE2u3i8byy5J3o1JkPdofXkEI/O/P3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Us3BQ6Oe;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8OqtLfhC5NDfUpetxWQFi4TMteqAlcr0nsRIqZjX4g4=;
+	b=ni5LQaj0+k2NaNUL72xudSvRf0WtmRMUUqnVC3X+nJhwdjdM53rBsvlQT8wdCnmKVWyS
+	 zDagvK0IIWW04ncOt45Kh7Aa1QuuftXYr+v+KiK+aJEzR2FWzRw0j+3qcasuOR6TJh4ZQ
+	 mBEQMywvJi+xQxxRvSHyvihp33H+evExBxRxbzEGVr4Y2gwrC4QUvZ/GUDL8BMBHW+tzH
+	 1EzsBlul8Dgx2spq0gJtq3+Tcwe8dDfWQZiNgBuZM0A6ahI6bgtW36nwVwWixR59B1z4q
+	 IAgwZ8YJl0AsUrcVTmOgeDNNackUztcYI0rYDqNVAA0uasv6ebwR2m4UArNaEwFPWmQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFO3a1Ao;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38DE606A33B
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:37:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A38DE606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527D4606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 00:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 527D4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Us3BQ6Oe
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so8951095e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:37:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFO3a1Ao
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3ab2a40750fso2052311fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:39:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793147974; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p87hPijPmp1kMX862eMQGr+D7PMcNQ7IUwU1QmFC5tazaGz3EycSDK/0M1mDTapmKS
+         FEpxrQyp+CWTMmZGwhkulibhVLS6QYzw9FcAtfN3bN4TZQ4bZnbY2H/wC9GG0Zl8NOZE
+         drGzSst9vQYT30fiQBLelULLdqt5kZvqfKuiR655BMjFJW+AsZ+M6VcO6VWMRSU25Dis
+         iQ46jUtwXHt8cO6bbPkh2/nvFZwSkX63P0IK/bJdGPq/Z1nyO3PtafFspythenukb55K
+         1DcEvlUO+2WyIy1pwRcasbS/MHvbJNFDvwOBKHh3SW6Sw2/0C5+GdMfCege4Frr8f9tt
+         Udlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8OqtLfhC5NDfUpetxWQFi4TMteqAlcr0nsRIqZjX4g4=;
+        fh=NhsZJRvLYr7Aigj0pW6iUs8QD5emUzoKUQk7Qeh/cro=;
+        b=OuGwkBv2ok+yNPQlTIXZRdWpA+F+jM5FrQRWKVA+uJvhwEaxZpTPZ8rxsioxzP9nl0
+         emJaJq/WinHV1Qq0FcmHT/7su5elBPef3V7kmGz3ftylGBt36U8w2nS7IBBJN3TGw+Ly
+         ZjEp57IiictVN92m1rf2X0pe8raUgz1/uIdasZz64MFBn4++KanGMkOKAAbTua0uClVu
+         M1U0vOj0aNCTNooW82hPCzF3cihZGJeeJADOWgEb5ZQwdXxXyElXuPW5QtMP0Hf5/J0j
+         ctXDxIlTlUeD/NTjtKvJ7rL1xQShkb3CLQ/ztL/YxHSbqXqtUnm+0yx3qCENmbG02wm3
+         lOnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793147840; x=1793752640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-        b=Us3BQ6OeRGuRLKCh4A/xtwYUHovES9okx+gEuRziZgqPd+whmms6vJJv/aAT7oMEJ2
-         3rCugxLgKUVvC706v+s9kTo6ahP81FDSnV1qrL9ABg7JTwdbjmUglOFXrlP0E64jrRfo
-         nMxpepUMNBqgrb253CsbpMePH9H8wEJTZgaVb503dpyFixRl6qhgpQ1iFaJQeWTKChxW
-         P1BYLKCna4TSyR3tdO6hLCwBPqrW4H44+KlDyU1joaYrtoOLQWw8T2t5psyRfsKl3w25
-         R6/A7nd0IPcIKGML4ixFDkBiYai4YeJpvW7E5kTa5klSmbCNsipZkgWAAqUjgS+6AFmm
-         +hlQ==
+        d=gmail.com; s=20260707; t=1793147974; x=1793752774; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8OqtLfhC5NDfUpetxWQFi4TMteqAlcr0nsRIqZjX4g4=;
+        b=RFO3a1AoMwSAMGUn0ipnKS245KWkzrFi7JccukXkZSKbCV2FJZdfELUGjqu2ntW5pv
+         7UfFwxBvRm/99P6njkfACglFNdbskR9/uOQoKvEz3mXe80tLgtT3XsuqEM8GsF/t4uuY
+         mtBWIGByGhILMpphL/h/sVekBP1oYGMJkZN9l4UhPpEjRDVWaRmrp/tNchE9Mxd5BRAp
+         PnPb3XlyKBke9YqSz7khBIYeSD4I//qv/RoBn5vs6sRuKCkd7H9rBeKYMd4H5yGq2B+E
+         c8fa1LKYR3GDOA8OWFT2ePSqW/JXjrkMYQqhzUfThSatnDzWd2b2qzA5TVPDYtKp5Bad
+         7Yew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793147840; x=1793752640;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-        b=CaWUtoZdYUTRMsik4A0q7X6PjZx3cefNCEkHqjYW5w+h5rx7fRktw90mKHEA+nSf3c
-         JyDDbvNpVVhwI36Y2+f2n1qYPOPsQJsQwal6e8PDmHq1AYUSH3KpY+iVu7qnjqgsu2+e
-         uxUSx3siOsa0hjP1xNc7HwjbQtNVm6gStgpzqgMw2QK+kcKqkt+rOlZyQQe4OX4F/2v7
-         f3fkbLb0E8EDTWb031tK7GuSgCYxx2iaEzrsgB1WgeXlShg6L49Tb+E+8oKGnCijOPyr
-         FwWHRm0MovH8iA2v44GSbGRH7NR2qu/B8rW5kOTQlxBZJxMwh3vpUk5KtN7J1BysR2So
-         JBtA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0DpPTHDlAdny0qD/pCkyF3xCtAMWbGDFdwM8QKqdo2/JZBRqMDruPGgUA4zWR7xSH3M2J4AGr7Eh0VKc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOSVygNiwPUD2PXYIN7Ttdk5al+rQ5SigMSKRWvwjWIXRur5Vr
-	8rqzKsS/WlCGoZfrBQ91ODPTUfqpkT1QPkFudpUofEM4gFMsq6bZvxQj+6OC6IXWDsc=
-X-Gm-Gg: AYBFou2IsH3vPOPk2WypNUENjylyxmaFYG7ceyshtX1WP6MHsdAd9cloLXnCV27MI5c
-	jr4fPCM0cHRx2TPcCH+93RCAM+vhUFmmOTh/Z5BPRMoYsTG06zHyQ++/kWLyN/VHqGF9vfIn1gs
-	t8Mx6dLat6aQ7wMSbqCJDWVGCkhkVFkPZxL1qbKI1Nl3f+Cc0yUG10fJXaudCmnVs2/QbrycUHL
-	0Xq2RWtSHOhZemuqZ0+/d/Mfcv0xbclc5JpZDs4St+RKzZyRMHK/7kTOrLtuZE6bDCs/qy7+Dks
-	r7sjCbyYkvmmGEXVvnXc9V4/Jj9NFUZZlvg7IpNU7aqG7Su0773v+cbYCCCKlKX1HqznprbYZ+L
-	05IsD02ztrHX+oqUvjzDUvobhsaJRC9L6p/25HOWCgRv3Ip/nuz6SL0bh0QO2yNggHsrIn7FvUP
-	nJfQBKXj8hMys5gS7ar6X+veYDsMieiwu/hDTR7EE+cH1uadXfxjHIQXVjq6sE6FjFgvdqX4YGF
-	OMEPOfUVZLjQkFZ2FHqRPhAkn4nWL2gWprgcyprqWI4HPqYMPP7vTBTWPl1nS2bLvG8SwxZgwYY
-	10JWnJROijIjCK4yKl+uXhqOtSfSHa6ZoN7fK9HmIw2eH9MY3LGeJEcGKiEOIHmGVy9y6LVVKvn
-	apBBpulYcknw=
-X-Received: by 2002:a05:600c:3e15:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4a9961f3d36mr3510115e9.6.1793147840030;
-        Tue, 27 Oct 2026 17:37:20 -0700 (PDT)
-Received: from irdv-jinli.dev.purestorage.com ([208.88.158.128])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a976010d2csm8395245e9.2.2026.10.27.17.37.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 17:37:18 -0700 (PDT)
-From: Jingyi Li <jinli@purestorage.com>
-To: vkoul@kernel.org,
-	vinicius.gomes@intel.com
-Cc: dave.jiang@intel.com,
-	xueshuai@linux.alibaba.com,
-	fenghuay@nvidia.com,
-	Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jingyi Li <jinli@purestorage.com>
-Subject: [PATCH 2/2] dmaengine: idxd: fix destroy of NULL or already destroyed workqueue
-Date: Wed, 28 Oct 2026 00:37:07 +0000
-Message-ID: <20261028003708.834341-3-jinli@purestorage.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028003708.834341-1-jinli@purestorage.com>
-References: <20261028003708.834341-1-jinli@purestorage.com>
+        d=1e100.net; s=20260707; t=1793147974; x=1793752774;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8OqtLfhC5NDfUpetxWQFi4TMteqAlcr0nsRIqZjX4g4=;
+        b=b4WCmJwlZvI66iNt6dlaOLtp2FO03dq9Ni7bJh/mNmVx2vAVcqJxlUtNFxa9ap9DCU
+         rX7lfMoZH1D7i5YRJFEhWZ8G2OlS6yNOjQv3rZUWyQAAtSgyPGT7pjqpYdB2cWyLCfY0
+         l+kY2Yg0asZG0cpBeORgz7E9PBd387AJRsQW3KnvtkWUlya8Wust3/BXRC8YIqmHRlPf
+         p2A/VENlKiWi+ERHjM5AUx8JFcho/Wh/mVGp4I0GPRDx6vNYOSBHm5qlc3+jJvU4yGuo
+         kmAoSqRRSikWML57lPwaDuHLivnmnTCtLWopnUxS2+7tWXuHSBDu9MUoZQcqozYqDqnA
+         cIaA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/uJQm+oHxiiN21c9oFDDP94Yq+lPg7KP97BXQIQFA88G3kGIXFOeISF+t68BgtpqK/UVMhEPdHLWvYMA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmDNSJS6Grvr/WEmrHN0pfJpwqyJ/oYqadv7nlr5tOtgWoM5xE
+	pp2kmloER6zQ3E/ph+cHn3rlvGF9O/Fc1exxJX5dsZBoB1362Kk12KRrnK2A42dsexGRRBXtzG5
+	R+2UCYjP+kSZnNynZ+3cow+ZLqqG0rPEcSyUCysJgA78RwuVY3g==
+X-Gm-Gg: AYBFou3lbG0052yaFwvBl5IGwaagE9yW9CpQahFcYpsUJM2fTq35AUXUOcdoqxjxY51
+	Ur9DUXRfX9hRLMcWCZEtWdVFW2VmH2p4SwCwnQdv9pDwiSRcWvwyVkHq2O4ZK3zqeAsXByvdS4y
+	ywF9NvpFgCavlP9TERkBc/Im1yhW8WPiUmq3LbKQZ9qF84e6UG6N/7ZFvpB+7BqqA48EC84ZdCT
+	saaVbMcyNATEwfR8ufCT4U7IbDn9BDaUtPKXLR71ujvSQTbUH/Hc6fSdrWNR0cX1BNCGroRZPgK
+	n1uQtIXk9hEZ2dNAsDdRNbHyI9VgkBkvJXsL7ol1doPjgv9f68jc0NRmTwkE2vkX3P1YjXRpf1O
+	QbG3qfop8IA9DoC9l71ste41HATRqT6XNIxw=
+X-Received: by 2002:a05:651c:b13:b0:3a9:c1de:852a with SMTP id
+ 38308e7fff4ca-3ac9ce3b95emr1270841fa.3.1793147974231; Tue, 27 Oct 2026
+ 17:39:34 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,80 +104,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
+ <auDbrRoBQaxWnsE9@cronus.toxiclabs.cc>
+In-Reply-To: <auDbrRoBQaxWnsE9@cronus.toxiclabs.cc>
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Wed, 28 Oct 2026 08:39:21 +0800
+X-Gm-Features: AclHuK8n1C-HN8_ZSqYd3c-5v_SbdRi2BLHY-p8qUXbEBdTX9Lw1BbEHIxvDUvw
+Message-ID: <CAO-4RZ1TTQRRS-LfJHogu5Sgjw7brWbjJUza8dv-At-OLW_mKw@mail.gmail.com>
+Subject: Re: [BUG] xfs: undersized log triggers assertion in xfs_log_mount()
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-idxd_conf_device_release() unconditionally calls
-destroy_workqueue(idxd->wq). This is wrong in two cases:
+Hi Carlos,
 
- - If idxd_probe() fails before idxd_setup_internals() has created the
-   workqueue, for example when the device reports HALTED after reset,
-   idxd->wq is still NULL and the final put_device() in the probe error
-   path oopses:
+Thanks for the clarification. I am running syzkaller in isolated QEMU
+guests for kernel testing, rather than using this configuration on a
+production system.
 
-   BUG: kernel NULL pointer dereference, address: 00000000000000d0
-   RIP: 0010:destroy_workqueue+0xe/0x300
-   Call Trace:
-    <TASK>
-    idxd_conf_device_release+0x15/0x90 [idxd]
-    device_release+0x3c/0x90
-    kobject_put+0x7e/0x1e0
-    idxd_pci_probe_alloc+0x300/0x15e0 [idxd]
-    local_pci_probe+0x22/0x60
-    pci_device_probe+0xd4/0x260
+I understand now that the fatal assertion is expected with
+CONFIG_XFS_ASSERT_FATAL enabled. My intention was to check whether
+this particular assertion on malformed filesystem input indicated
+an issue worth investigating.
 
- - idxd_cleanup_internals() and the err_evl path of
-   idxd_setup_internals() destroy the workqueue but leave idxd->wq
-   pointing to it, so the release callback destroys it a second time.
+Your explanation answers my question. Thanks for your time.
 
-Clear idxd->wq after the early destroys and skip the destroy in the
-release callback when there is no workqueue.
+Best regards,
+Zheng Zheng
 
-We hit the NULL case in a kdump crash kernel, where the DSA device
-fails to reset and the oops kills the crash kernel before the dump is
-saved.
-
-Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jingyi Li <jinli@purestorage.com>
----
- drivers/dma/idxd/init.c  | 2 ++
- drivers/dma/idxd/sysfs.c | 3 ++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 1577d22b299c..5962cacef060 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -389,6 +389,7 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
- 	idxd_clean_engines(idxd);
- 	idxd_clean_wqs(idxd);
- 	destroy_workqueue(idxd->wq);
-+	idxd->wq = NULL;
- }
- 
- static int idxd_init_evl(struct idxd_device *idxd)
-@@ -460,6 +461,7 @@ static int idxd_setup_internals(struct idxd_device *idxd)
- 
-  err_evl:
- 	destroy_workqueue(idxd->wq);
-+	idxd->wq = NULL;
-  err_wkq_create:
- 	idxd_clean_groups(idxd);
-  err_group:
-diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-index 6d251095c350..d5ffc641c856 100644
---- a/drivers/dma/idxd/sysfs.c
-+++ b/drivers/dma/idxd/sysfs.c
-@@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
- {
- 	struct idxd_device *idxd = confdev_to_idxd(dev);
- 
--	destroy_workqueue(idxd->wq);
-+	if (idxd->wq)
-+		destroy_workqueue(idxd->wq);
- 	kfree(idxd->groups);
- 	bitmap_free(idxd->wq_enable_map);
- 	kfree(idxd->wqs);
--- 
-2.43.0
-
+On Wed, Oct 28, 2026 at 1:32=E2=80=AFAM Carlos Maiolino <cem@kernel.org> wr=
+ote:
+>
+> On Wed, Oct 28, 2026 at 01:00:54AM +0800, =E9=93=AE wrote:
+> > Hi Carlos,
+> >
+> > Executing the stored syzkaller testcases on Linux 7.3.0 ultimately trig=
+gers
+> > an assertion in xfs_log_mount():
+> >
+> >   XFS (loop0): AAIEEE! Log failed size checks. Abort!
+> >   XFS: Assertion failed: 0, file: fs/xfs/xfs_log.c, line: 597
+> >   kernel BUG at fs/xfs/xfs_message.c:102!
+> >   ...
+> >   xfs_log_mount+0x4e3/0x590
+> >   xfs_mountfs+0x10b9/0x2270
+> >   xfs_fs_fill_super+0x15cc/0x20b0
+> >   ...
+> >   Kernel panic - not syncing: Fatal exception
+> >
+> > The log size check reports 516 blocks, below the required minimum of
+> > 636 blocks.
+> >
+> > Is this an expected assertion with my XFS debug configuration, or shoul=
+d
+> > this malformed image be rejected without triggering a kernel BUG?
+>
+> You have bug_on_assert set on your system, so yes, this is intended. If
+> you don't want to panic() the machine there, you need to disable it on
+> sysfs, but...
+>
+> > Questions
+> > ---------
+> > - Is triggering a fatal assertion for an undersized V5 log intentional
+> >   with CONFIG_XFS_DEBUG=3Dy and CONFIG_XFS_ASSERT_FATAL=3Dy, or should =
+this
+> >   case return -EINVAL without triggering a BUG?
+>
+> The config you have enable explicitly says asserts are fatal. I'm not
+> sure if I misunderstood you or you misunderstood the configuration
+> option.
+>
+>
+> > - If a diagnostic dump would help, what state should be printed before =
+the
+> >   assertion so the malformed image/log geometry can be identified?
+>
+> You are running a kernel configured with debug configuration that are
+> meant to crash the system when some issue is found. Those are
+> configuration settings used for development and debug purposes, not to
+> use on a production or semi-production system.
+>
+> Cheers,
+> Carlos
