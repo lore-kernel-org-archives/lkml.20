@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205370;
-	b=whxAqk+WHqKXGVi9buSiVEsIchsqV6KAI+Z3GFhtEudnhbs844vZe/Gld7VJ+Yh15/l7
-	 CcYh3wKIO+0hr/RjTDLtUZ46VIauuTAu4+W6JD5L6CzzQWq3Vpn+X9fLDBrDrr8+I3al4
-	 S/uNEI56hUUr3YabHa5ExGJZWVUrJhv/I6i/gZafyMHV7Wz4Uo/wqf6tQacTQQF2dHH5S
-	 7BxTWE6mDCJqjQqbVgYY8/1lbI0PI70t4vvcoHr2go4N46Oh57VIA6Cxqt6EV34dGCpZ0
-	 BNV7IZ/d3uZi/onATKvj9i6MGPC603AAnaNRObohErtQf5Bj+b6Puz5+rh8EXClkEhA==
+	t=1793205376;
+	b=YNzDZbBiPpdrpBuQbKnx3BC8PmWAqfmdR/XL1iAzY/q1uFyqg9Dx6RxkxhliWhWxLRzZ
+	 mwQ1wckZxwPf1ffjoHIvqXwKp5i2q6KcnUWU7G9VeAuQsD+53TIDymXMMsCJQmpvqylHU
+	 AjtsclpEi/tvcnVLmbj7GP6LvluYnJJDa/VPEwDJ/8pdSOG1+zSecqjkNOjUFKlLkO+jd
+	 zDLocncdnDVnW45NoOBotVutyxiqLbBWtY7x/HCs7ihQXV923iezPAjXbH2qj63ZdAwQp
+	 RSbePBkBbHAdKJujBR4w2paTlrVeo/8vnWTMtOVae53Kx6JmI/PW/WAMTGjPi9JdPsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205376;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gr+FffybMoKTnzaG6ZAR8E+VcbDqxuoWTalkBsg0XwE=;
-	b=uCFe/ZXZLCOjQbwd2+rv67+RJXrBXksqyBwURRzE/giQ/+uVIfSIdbWlj7a7h47RXB9s
-	 y/jiJ5OwoE+3ZVh77bMcw0S6wHFPFBdM6jLzMiMngW2D2W+Pis1TErDSc91hZpFuktdf7
-	 ty6uaysAnEQykpJz0qriy8qx2HYGsF79Z74DI8kJQ1NGTkDtDOVJDILtJf7adi7sBlCMO
-	 FN+g8cQo/sHjqbYPsKPb3zvOC2L3GMeAsex0a4BwfFuO1t41JEZeB+At6/oCEeo+QIWR5
-	 fqHRq0mbZdP1QjgqXd4owr6TbuOz6xErfyeZawvcBz4d48WjJoI2E+cHBHycNGbrIhQ==
+	bh=j18R/u9AFwxow4H4xAXgdYr2II53/V49eYYOKd0B+TM=;
+	b=jQNDBR50UlvYl18KySxvpAthBwH925Zczl98TdpAFjBh8Vpv6/49fPuapDlUMqlP8YYr
+	 XyQTwuIjTvloAMAj3/ZEvRzC2VMn0hOfYCDklqHuzzJlOpBwhn/Ab690PjnTn4OWcvimG
+	 40QBHOsSFctLaI2nR78llXlsjmTg0RnB+AR5sADpeZ6/2KT078+qcw0VYJl7Cip+zliqc
+	 1vvPUY1dYvkrwXBSC9tAliPxFt/KHJXZWBgerNvAv/hX99JhdNfPVeTReQJ0/QKMktyBv
+	 bH5M83K0J1lMEDlkGVjUpvitR4UlEcxiRWyOsTmwn/ih463nlkAqnNy0sXHVUO8AGUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EIPoYy9N;
-	arc=none smtp.remote-ip=91.218.175.18
-Received: from mta0.migadu.com (out-18.mta0.migadu.com [91.218.175.18])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o7gqYsmt;
+	arc=none smtp.remote-ip=95.215.58.243
+Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFFC606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFFC606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801F6606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 16:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 801F6606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EIPoYy9N
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o7gqYsmt
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Lwcocf08TuUY2qZwcshYxQ7Rgj7nIQ+06tZbHdoA2Cg=;
+DKIM-Signature: a=rsa-sha256; bh=Jkj1eD+MmhP3VhWyT7x0V+pjjQ5A/qULoxmR4y16hyU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793205367; v=1; x=1793810167;
- b=EIPoYy9NMKyCdwLYmbEtbNvafrl1TYwK+akJxV1io0NapV4Ns4MOWbdkZsbfTK2sLMb9SEaa
- x6qzxXy7VQVFxh57c0kjeKXPo87T6O/fTe0FBkoc/pT0a5gao2bpQnVn64o2pbboqenQeBFUJQf
- pngFE3Qv2+CmZjKM3skNlDdQ=
+ t=1793205373; v=1; x=1793810173;
+ b=o7gqYsmtdEyGglZ3DvThu8BiWr9fZtcCrBqte9bFtrxhRiU74BpQJb7c8+3FGKLIrlrAXRfw
+ uggBvhLMDtifhYHpTDcHFUuT+8qo2r2hLgxb5cqnLiGmjGUMCH/0iBhlU6d+hq+Xu9wQsyb962l
+ S08mQQc7dx96T/UnWX1GxIVs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 17bde889dcd46300;
-	Wed, 28 Oct 2026 16:36:07 +0000
-X-Mizu-Trace-ID: 17bde889dcd46300
+Received: by mta11.migadu.com with ESMTPS id 0a69350423016007;
+	Wed, 28 Oct 2026 16:36:13 +0000
+X-Mizu-Trace-ID: 0a69350423016007
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Joel Granados <joel.granados@kernel.org>
 Cc: Wen Yang <wen.yang@linux.dev>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 05/39] sysctl: cover priv in KUnit and the debug test module
-Date: Thu, 29 Oct 2026 00:34:44 +0800
-Message-Id: <0384433c6fd37d307100b5c8eaf33c6ec4b442ba.1793204511.git.wen.yang@linux.dev>
+Subject: [RFC PATCH 06/39] sysctl: convert core table bounds to numeric values
+Date: Thu, 29 Oct 2026 00:34:45 +0800
+Message-Id: <667add68291d43432ff3bc7323d265ee74f3b7ee.1793204511.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
 References: <cover.1793204511.git.wen.yang@linux.dev>
@@ -71,149 +71,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Add KUnit cases for priv: a standard handler must ignore it, registration
-must reject priv with a standard handler, and a re-registered table must
-keep both the value pointer and the context.
+Use numeric bounds for the write-mode table and static-key handler.
 
-Move the debug module's dynamic-value entry to the same shape so it
-exercises data-as-value and priv-as-context.
-
+Suggested-by: Joel Granados <joel.granados@kernel.org>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- kernel/sysctl-test.c | 72 ++++++++++++++++++++++++++++++++++++++++++++
- lib/test_sysctl.c    |  9 +++---
- 2 files changed, 76 insertions(+), 5 deletions(-)
+ kernel/sysctl.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sysctl-test.c b/kernel/sysctl-test.c
-index dd658ca18793..f9efc146f219 100644
---- a/kernel/sysctl-test.c
-+++ b/kernel/sysctl-test.c
-@@ -699,10 +699,56 @@ static int sysctl_test_entry_write(struct kunit *test, const struct ctl_table *t
-  * entry must not change what is stored, so a stray context pointer cannot
-  * redirect a write to the wrong address.
-  */
-+static void sysctl_test_priv_standard_handler(struct kunit *test)
-+{
-+	int value = 0;
-+	struct sysctl_test_demo_ctx {
-+		int marker;
-+	} ctx = { .marker = -1 };
-+	const struct ctl_table table = {
-+		.procname = "standard",
-+		.data = &value,
-+		.maxlen = sizeof(value),
-+		.mode = 0644,
-+		.proc_handler = proc_dointvec_minmax,
-+		.min = 0,
-+		.max = 100,
-+		.priv = &ctx,
-+	};
-+
-+	sysctl_test_entry_roundtrip(test, &table, "42");
-+	KUNIT_EXPECT_EQ(test, value, 42);
-+	KUNIT_EXPECT_EQ(test, ctx.marker, -1);
-+	KUNIT_EXPECT_PTR_EQ(test, table.data, &value);
-+	KUNIT_EXPECT_PTR_EQ(test, table.priv, &ctx);
-+}
-+
- /*
-  * Registration refuses priv on a standard handler: the context would be
-  * silently ignored, which is always a configuration mistake.
-  */
-+static void sysctl_test_priv_standard_handler_reject(struct kunit *test)
-+{
-+	int value = 0;
-+	struct sysctl_test_demo_ctx {
-+		int marker;
-+	} ctx = { .marker = -1 };
-+	const struct ctl_table table = {
-+		.procname = "invalid_priv",
-+		.data = &value,
-+		.maxlen = sizeof(value),
-+		.mode = 0644,
-+		.proc_handler = proc_dointvec_minmax,
-+		.min = 0,
-+		.max = 100,
-+		.priv = &ctx,
-+	};
-+
-+	KUNIT_EXPECT_PTR_EQ(test, NULL,
-+			    register_sysctl_sz("sysctl_kunit_priv_invalid",
-+					       &table, 1));
-+}
-+
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index 7d0bcd2b24ef..ab25c75cb3ac 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -1348,8 +1348,8 @@ int proc_do_static_key(const struct ctl_table *table, int dir,
+ 		.data   = &val,
+ 		.maxlen = sizeof(val),
+ 		.mode   = table->mode,
+-		.extra1 = SYSCTL_ZERO,
+-		.extra2 = SYSCTL_ONE,
++		.min    = 0,
++		.max    = 1,
+ 	};
  
- /*
-  * A dynamic range wrapper reads its related limit through priv on each call
-@@ -1159,6 +1205,29 @@ static void sysctl_test_context_registration_lifecycle(struct kunit *test)
-  * at the caller-owned objects; the handler resolves storage through data and
-  * context through priv on every call.
-  */
-+static void sysctl_test_priv_registration_lifecycle(struct kunit *test)
-+{
-+	struct sysctl_test_lifecycle ctx = {};
-+	struct ctl_table table = SYSCTL_TEST_CTX(ctx.value, "priv_lifecycle",
-+						 0644,
-+						 sysctl_test_lifecycle_handler, ctx);
-+	struct ctl_table_header *header;
-+
-+	header = register_sysctl_sz("sysctl_kunit_priv", &table, 1);
-+	KUNIT_ASSERT_NOT_NULL(test, header);
-+	kunit_add_action(test, sysctl_test_unregister_table, header);
-+
-+	sysctl_test_entry_roundtrip(test, &table, "23");
-+	KUNIT_EXPECT_EQ(test, ctx.value, 23);
-+	KUNIT_EXPECT_PTR_EQ(test, table.priv, &ctx);
-+	KUNIT_EXPECT_PTR_EQ(test, table.data, &ctx.value);
-+
-+	kunit_release_action(test, sysctl_test_unregister_table, header);
-+	sysctl_test_entry_roundtrip(test, &table, "17");
-+	KUNIT_EXPECT_EQ(test, ctx.value, 17);
-+	KUNIT_EXPECT_PTR_EQ(test, table.priv, &ctx);
-+}
-+
- /* Registration rejects numeric bounds that cannot represent the element type. */
- static void sysctl_test_context_registration_reject(struct kunit *test)
- {
-@@ -1381,6 +1450,9 @@ static struct kunit_case sysctl_test_cases[] = {
- 	KUNIT_CASE(sysctl_test_dointvec_write_happy_single_negative),
- 	KUNIT_CASE(sysctl_test_api_dointvec_write_single_less_int_min),
- 	KUNIT_CASE(sysctl_test_api_dointvec_write_single_greater_int_max),
-+	KUNIT_CASE(sysctl_test_priv_standard_handler),
-+	KUNIT_CASE(sysctl_test_priv_standard_handler_reject),
-+	KUNIT_CASE(sysctl_test_priv_registration_lifecycle),
- 	KUNIT_CASE(sysctl_test_entry_null_handler),
- 	KUNIT_CASE(sysctl_test_entry_explicit_handler),
- 	KUNIT_CASE(sysctl_test_entry_int_limits),
-diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
-index 1411896fdbd0..64c82fd53975 100644
---- a/lib/test_sysctl.c
-+++ b/lib/test_sysctl.c
-@@ -97,7 +97,7 @@ static struct test_sysctl_data test_data = {
- static int test_sysctl_dynamic_value(const struct ctl_table *table, int dir,
- 				     void *buffer, size_t *lenp, loff_t *ppos)
- {
--	struct test_sysctl_range_context *context = table->data;
-+	struct test_sysctl_range_context *context = table->priv;
- 	struct ctl_table resolved = *table;
- 
- 	resolved.data = &context->value;
-@@ -215,12 +215,11 @@ static const struct ctl_table test_table[] = {
- 	},
- 	{
- 		.procname	= "dynamic_value",
--		.data		= &test_data.dynamic,
--		.maxlen		= sizeof(test_data.dynamic),
-+		.data		= &test_data.dynamic.value,
-+		.maxlen		= sizeof(test_data.dynamic.value),
+ 	if (SYSCTL_USER_TO_KERN(dir) && !capable(CAP_SYS_ADMIN))
+@@ -1375,8 +1375,8 @@ static const struct ctl_table sysctl_subsys_table[] = {
+ 		.maxlen		= sizeof(int),
  		.mode		= 0644,
- 		.proc_handler	= test_sysctl_dynamic_value,
--		.min		= 0,
--		.max		= ULONG_MAX,
-+		.priv		= &test_data.dynamic,
+ 		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= SYSCTL_NEG_ONE,
+-		.extra2		= SYSCTL_ONE,
++		.min		= -1,
++		.max		= 1,
  	},
  	{
- 		.procname	= "int_zero",
+ 		.procname	= "ngroups_max",
 -- 
 2.25.1
 
