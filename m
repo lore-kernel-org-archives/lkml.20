@@ -1,99 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215131;
-	b=JnohXUyi9o1J49KmNNKJ5pCoDjk9qZ4mJOD7gm12zH83cDfmfEqPafQ7U/12YCNdJvTI
-	 ZGv6TF9WjCW3geH4xt603fz/qtT+HUgsw46WpmABiudQFd3k08WE6iuY4I4QrHVRFLGwf
-	 zgkAtJR1KEZL8EEE4wUTqP/DtdkydK/q+rrzt+RCh9BQbS5iIF/RbQUiI6ztVfDRSBE5D
-	 VAJue7bWyyQ59IzvBI/68uER+j91wEyEK8mSTsfnthqFCfn5c90tmbX/zvQ5tBA7ovO/s
-	 apSbM1OaCVC/8oiqO9IJsk1RY6nz0qVCZ0ru/BE7T6O6UyyXyMiUVjBtY7XkpDL0mTw==
+	t=1793215294;
+	b=t7XRPWTmemJNLkIboCy4ZZ0y9bPIq4P0VOKEwEmAYu4wGcW5sqAynHMs5DFsK+LfIJFP
+	 7D0cZDgjfSncdNt+j5Y783a9/TaaiIVk27aLYF5UBcPZjsOT7sh3zFmKwXqcIM/8hwCqu
+	 0GYfHb4Ic7wxKTXL3CzCm4l2zDNYkjU7fl/GOj09AG3Zz3fw1uUnz+VFfToUJM1XCH482
+	 lUHvfTD8Dl2C8jVBrHWUzET1qL8gGRtrWyn+e8bGIS5l/YLFOkx+Nk4O2Z/XRGXl4n4Oj
+	 DGgGme7qbtSfFTkhdgftY6FS4rsdWOwYNDRwsjk2X9Kt7LWMqyc1TOsPXp57gZ3t4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6vZ6om9FYtHLuxxt/jURe4tARN2iOgMfaZorU75wv6Q=;
-	b=C1eSaqOqLQkzWlYDhHMxFxzW0wyttgjd6kitDbf4Gi+SX6XYfJFTRXPDwH0xY0Sx8ZBi
-	 2bBMMCoYJ03OGcX79oMtGjtfaXpPGKXHlAAPv0wl2d/CWnr+EkhHj1eGQODVXYwP5Dxpq
-	 3W78Yh+YD4UwPu8TCq11B6UG363E8Cawj+KAbtqXYeWfgXSFpkoaMtBYl83xBHc0HbpjT
-	 T1hoISwTXkSA3fjWe43uWv7a+Nlel7FUUmu0BJK/vsa7duBgq4pZutvbIA6ELNq79GgZm
-	 VcklchX6UyUA9D46osLfymLmet7Oc8h1oPlTvTLvrvzHAViGOTr6VdvwB6Aq7MFZMXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215294;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References;
+	bh=3bvvTJnPZabqaDZdBJTshH2tst9rQFUl49juPIv2dIs=;
+	b=nXw6xK6U815DQZNHZgwD+bFP8maQTU+ZPyNNapPlMRxcjTBl958/Rv/B8jBa66i9zKSy
+	 inN3P8oeFVBrlkyUTG+c3M5gQzzby8YSjYSqn1M0iNU6sBRvewRlhEHlpbzddxtnvKYrS
+	 0/84n5L6/6eh5f+4+urT1cIks9LD/2Ukr0UjaoIJ7ztw/1SESFd6HdbntHC6nqabq3Ilh
+	 Zv2IqWTzXli0aNATteyqV1BQMzQyN48IgAsf4156bf4LsCbdpeQ2LdO7S5T+SDcxskHaW
+	 VeWzzTDsZi7LovpBZoUtSL4IF0aV/DxWlHEu3jvvRNCddwah+RfeBPtaOYlYB0uJwTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+RuMQEl;
-	arc=none smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLS7O7kk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D887606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D887606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3D9606A31D;
+	Wed, 28 Oct 2026 19:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+RuMQEl
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-4911df1e196so778974fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 12:18:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793215130; x=1793819930; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6vZ6om9FYtHLuxxt/jURe4tARN2iOgMfaZorU75wv6Q=;
-        b=J+RuMQEl+CDTv1rs2v9if+ss4fqRXbOFUOBe2GhOpXnYmU7dtUpjkqOcgPbWfcEwsc
-         2xzL4Imz6fjBvp2J477zmWlEOZH6B/DAz+NKXHPQC+Rspn5nAQDRZICCmEmsZ6Pn7Ynr
-         cIwMSU1jE926r8CMKTJvIfv9Ga2Y50fEREkdeVEl3pLHRaMjjpflA8cGuFrvoOL75JHh
-         xfpk1o0RRm0eMi5kPKOe8qTawIUCfqpA/WT0b6bOKco5C25TzEAfTsfd9ldF62YfiqYk
-         7yECTGl5T68dL//nguthVLe5tM02V5NrTOallrtKk6xukvgJvDQ3plPQrdR8nN612JOg
-         zC9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793215130; x=1793819930;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6vZ6om9FYtHLuxxt/jURe4tARN2iOgMfaZorU75wv6Q=;
-        b=b+r6caChL8I7eoz2iwVXdJQvVECqAfyIcxg8om4arTaEZ/w5+QDKFdzvrMVy6NOIME
-         Pk1zroDYaFfkyKE4iw33NzV3993WON6L/zP4g7exMtc1TFYZOwIZGNhXWRdIli9XC85s
-         S1RZXuaWwo0O4AX7WnQIj418ldcyHexmJDrvbCTvu80IliVD9CAEGmSkJ4ux2Bo6pAHQ
-         b/mnS9pXeVncw/aRlx6TqyZYagtHeFK9Mxah8JSO+tVLBq/TTDTsovwwjjhDTWbDbkWK
-         ME7ZdmtDhWyyl8U02eXMvvmoMX9bVhJBaHjC7s7+s0+jEEZmL2BbZCirKLc60Td/RHQi
-         pHwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCKUtQXYuw8gbCwH1R/3kS+fj0UhfyslSjp/BW3UUv3Lb0guVWYqgJv8GriRuDQbTnTOOt3IOtWPf29Yk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLESDjZo5ZDmQTQkaU4nwBHxiJAYlLHh4Yjm5V1/gFT75v9onrz
-	mmML2alEny/WcaruuwVnktztUMhmzbzAsWmDDRDw2kJuuVLW7hRnS/CQ
-X-Gm-Gg: AYBFou16CUZ/xYrSHsDxIQrUy4VSADbCesvk8Y+VlGL9mX5fPLniFk7wJGWaYxoX2Sl
-	eG8e9Em1eyd7nHr+DDBuAKYhNdmeWkGteeVtKke95U5Ox6yCFtVaqeZsLgegDnbFyEyuwFcvWS7
-	psJm0uM29nLQL8SM+mhC7Wh81kHKBtocOJkigWLliBukvMKEXT53oJJfs6pvM1hLkEljHcUKroo
-	pz35HHW7dhzhnaBt/PhEwgzel8VY/gOYti2aLL/ORcQuEZwHL4Q4hrPF1YAWirbUr7vwy9h7Feo
-	t2jaC5Dhu4Q7J4MfIpopAktHTf2v7e94Kclkp5pewR2dbLo1hG032YaM/2reaf/hTR+G/lhBFI2
-	OljGHaknV5gMEp1nln1hzX8DN2txLvSO6VzuL2zSKq1bqmXfR6yaWZ2zgxY7JRtGFdra74r7yAn
-	d9DMP4Xb677m3IORybFqB5nFFQV/Ua/7ipMkNUErPOOTWqsVOk0qAfaHEuIAHxZmHli3eOzNM3/
-	c8xwNFS7QKpechKJ4+n97hkQ9XpVhzMA+ulCNcC198IT1dKHDWkywTv5LRFa2WLd6LXXHziMXss
-	hUYE6eTmo2hIlJgBnvvy99lfzbgP7JFhQ8WOSCGMAMSOaWDBNgsWzU50IA==
-X-Received: by 2002:a05:6870:f114:b0:49e:7c51:3b19 with SMTP id 586e51a60fabf-4a8bbb059c3mr2712734fac.48.1793215130440;
-        Wed, 28 Oct 2026 12:18:50 -0700 (PDT)
-Received: from jeffmr.mynetworksettings.com ([2600:1014:a112:1526:f26:718f:8dc1:b185])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b785d108sm3092916fac.9.2026.10.28.12.18.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 12:18:50 -0700 (PDT)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
-Date: Wed, 28 Oct 2026 14:17:59 -0500
-Message-ID: <20261028191800.27829-2-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028191800.27829-1-jeff.roach0@gmail.com>
-References: <20261028191800.27829-1-jeff.roach0@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLS7O7kk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CC41F01828;
+	Wed, 28 Oct 2026 19:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793215293;
+	bh=3bvvTJnPZabqaDZdBJTshH2tst9rQFUl49juPIv2dIs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LLS7O7kk0d1qKu2VhrOtw3q+9UhHBxY1qKjVj6Mg3VywpOiIL2DOM/2s8Fl+irNn5
+	 kOcLXP9guBiTb6tI4q57+cXIldHN8hZY9N8iQaz6LePBVNA945M5WVxh2rmVUzq8ZX
+	 G6Am/wQOx9YPDgQX4VNvLMuuUU8/80YCsZ1id2xSdEDA5YsmN1I9cQ8Kv97GH4XRE1
+	 r1pSeLGHb57brcaRIKrg63V0iA6api1ld0k/onWC92gjEYbIi9h237/3bMS/vXLgWp
+	 jb4Fhh/UPennGdiWdZWjkogxu6S1JLHHNB+TaJh4S3eMFp0M3rcMCYK85Y4Ezq2SAO
+	 nB+u/uYpeZQYQ==
+Date: Wed, 28 Oct 2026 09:21:32 -1000
+Message-ID: <019648c2b11a3aa6a9b14723df813d65@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched_ext: Avoid unnecessary IMMED reenqueues on idle CPUs
+In-Reply-To: <20261028165258.3723153-1-arighi@nvidia.com>
+References: <20261028165258.3723153-1-arighi@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,30 +56,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the HP OmniBook X 16-cp1 laptop, based on the Qualcomm Mahua
-(Snapdragon X2 Elite, 12 cores) SoC.
+Hello, Andrea.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Jeff Roach <jeff.roach0@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+On Wed, Oct 28, 2026 at 05:52:58PM +0100, Andrea Righi wrote:
+> +	/*
+> +	 * A local insertion can raise next_class to ext while the donor is
+> +	 * still idle, including after proxy_resched_idle(). The local DSQ head
+> +	 * is next to run if its cookie matches, so keep it through IMMED reenq.
+> +	 */
+> +	if (rq->donor == rq->idle) {
+> +		struct task_struct *first = first_local_task(rq);
+> +
+> +		if (first && sched_cpu_cookie_match(rq, first))
+> +			return true;
+> +	}
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557ce..4dd57e8663 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -191,6 +191,7 @@ properties:
- 
-       - items:
-           - enum:
-+              - hp,omnibook-x16-cp1
-               - qcom,mahua-crd
-           - const: qcom,mahua
- 
--- 
-2.55.0
+Can you leave the core-sched cookie check out of this patch? IMMED
+doesn't handle core scheduling correctly in other places either, e.g.
+when core scheduling forces a CPU idle, nothing reenqueues the IMMED
+tasks left on its local DSQ. Core sched should be addressed in its own
+patch.
 
+Also, the check as written doesn't work on an idle core.
+sched_cpu_cookie_match() compares the task's cookie against
+rq->core->core_cookie, which the core-wide pick sets from the
+max-priority pick, so it's 0 when the whole core is idle. A task with a
+cookie that wakes on an idle core fails the check and still gets
+reenqueued even though the next core-wide pick would run it.
+
+> -		if (p->migration_pending)
+> +		if (p->migration_pending) {
+> +			reenq_flags |= SCX_REENQ_TSR_NOT_FIRST;
+>  			continue;
+> +		}
+>
+> -		if (!scx_is_descendant(task_sch, sch))
+> +		if (!scx_is_descendant(task_sch, sch)) {
+> +			reenq_flags |= SCX_REENQ_TSR_NOT_FIRST;
+>  			continue;
+> +		}
+
+Can you split this out into a separate patch? Skipped tasks not taking
+the first position is a gap that has existed since the IMMED
+implementation and is independent of the rq_is_open() change.
+
+Thanks.
+
+--
+tejun
