@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793311312;
-	b=eNE9MKpNILifuTFe0N9RxPA0Z9BcEzH5I9E5CzmcI996Cy4kg7ZBBrWcDDU5lH1pIlro
-	 XWuA3AF3LLQbE0JoDeMW11bdtieAwI49U3PJ2L6xdrjgZkOhDBz0YcPYmK9b7QP8NKZEE
-	 LH0i9burc4S7G23aoDHJOuepBuaCb6mx8eNSlSODpli9HYZFA6ifjXoFXHs5Bd3G7pHlm
-	 lyxELfSfHxaK6Nmf7ZLT+FzOG8F9/fznR3gh2kXtYS90vKlUaapE6EyXsAisDSO8MLGOF
-	 kSaLGBjFYXEcOfOUl7HGlTQDV0PwLyNeWXZLGLSQDNYa4natzjbHvbEgfq7F9kL420A==
+	t=1793311325;
+	b=5GIQKnEipr0l+QjMcoORiw3K6/yXR7TF9Q3llJzQFyGBuvU1gXLcLOm4ozasI2CSVmxA
+	 Vwv0GXVV7Fwrzf+19wcr5zI/c5ZIxbXFCuapuvWEkIzy+UunvxpnB53C9yR+HtZcSpHrB
+	 MJ5WIreI6wzOIINX5a/buySNyfZjeiTwZBqfAlFa64+rsTP//NSZynYFOcOqZDhb6IKen
+	 sdim0USyk2C3shUis+mjPR+o9lLah1zcc8GoJLoO6prl2z3K7S0U/QPZ8e3LuE24Z7L+s
+	 mi8McJ99/7l7IWVphe/NzfGNKJdWt6FxS8muBGTJqrtCT4pNnn37atno5Qo08U5XxBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311312;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8Q/lW9fQYT21QznHQjvJzPQJl55ESH89M5aAdKeZYiU=;
-	b=oh3Zqp3uFC08N8Ndg5Ossq/OSB3TdT834SYclqTyGJa/nfHmu/ZaMuVv+g9mo/RHgbrw
-	 gTXtFbjTLo9/+RoD2fbSMfheZ9Xxu3YV+eM+5O5YLKgXKk5vNFHYTHtUAms0CqJEoKlfr
-	 CiNl4lq5emaXx8fNgCJkCaLq/T4HGw3AJAKdSmytNYMIubqLK+xqQdwXAiBo+C2ILVWd6
-	 IPQsb1pw2qywK19q+aoWt8PG4pq3Q9Emx/WPcxt3oBEWF9au9zrY5ROrsltLkY6uG/19/
-	 yKKcdgHme14gDo/rh2Hoeoja8/XABr0piTNdwklrVG1MUJIW/rxGo1/FbzA/pmZV1LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311325;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JYxKhJ5Nqkl6cTQISRdnvK/P3JV5rSsFOheg672wUag=;
+	b=IRIXmCHJrtyD7yad9rNOjdDTEDTwYRRM1N7ZzSy++HnMvbw5w+04onUUOVr9CofQZ179
+	 XDpT12YEKJGCGTWBG+AQ8uaze1E8BiQskRLP9MOOLBPu9zZGzjfc4vSvdoTGJmc3Y2DIP
+	 iRgr1xSLYOBwLnhQ43BopLHjHZM4Vv6mUdpsd/2xOKg/6M2dRYRpjrC0soOvQwlb2B0TR
+	 BpjrmkTsG0QFvgHRhfcVZbg1b5iMoEe4t4DFn8OA4CL9myKbBKeVVoYNTH2Kw418jKDJy
+	 DbLfyqY8lCibRDM1yTWDbCE2TNfcXaMmxYs3LkHVSsQjCtkJCvHCBDFG25cdp8gsSFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PvyQ5bWt;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C08606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C08606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lJySD+DX;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2861606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2861606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PvyQ5bWt
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1931ff67a29so123475c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311312; x=1793916112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Q/lW9fQYT21QznHQjvJzPQJl55ESH89M5aAdKeZYiU=;
-        b=PvyQ5bWtfUrBDAlzm7ET+Nv4xMP295D49xeHwvk13R677MduzOlQNmJ8GxFFMVyWxU
-         BqMVSEVdWZLF01pHYP3M3f3PzdfC2m8TkKQ5y9q4ykfBwM3o57cG/2U5pKB/KtuTC1UM
-         e49Kbp0C5kLAkXzXMB2uk62M/uP5UfQGPMXDB4oQ3m6dPirpFaIEhhb0lkosbmyyZ08V
-         sIhdgv6BtBk5FK+ja8mE+inDr3UlZKcfK+VHbV5zSvKIHkBC7yi9D4UWbgpcJ5A4REZP
-         Elo5/0aBDT3cbVo1tVIbn9bnaYT+sBAfNXVfjMZC1FSoXjan17/gzi1z3FLYvcyoOtCJ
-         LHnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311312; x=1793916112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Q/lW9fQYT21QznHQjvJzPQJl55ESH89M5aAdKeZYiU=;
-        b=lQ/Wju4asbpN8jsvq0s+FQ+MuzF1pCf3TD3+rnNZ5oBi+4IlsyNLxwo9gELEvTpSkq
-         J/g8WFWvz9OxxoTGBNGv6y1WEp7EI8M3cVcXL8QN+XLhmYKSPAq3TxwdmNqibH/xh3fK
-         RTIVnLqSedPVs70HCjQb19szGYSC7qS3Kl1O05n2rtj1lE06zi11w67hNls9r5pM8z7D
-         2azucm8X21qRXQipin52BsCDAtWhwWB15P1YX8aaoJ7pLvBJPFp/zESbAleXeMCZ7XQx
-         envMItov90R7JKzrjRV/hSnwArWuuDKsU/S8cAxpZwZM54KICDWgNA6F0F2yTJPvzQBk
-         KpkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkcK3ghLUPTFO8ldzqDlxWNuhE1YvR493mvECh2j3eTiyjdzItXLjZL+pRkxnxYdNZUAKf9auBiUCKpYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAYzCUJ+snuTujiWtBIuFOja391KspWkYVqYUVwidE30D4QNE0
-	lz8BAKVRnOxi4N0iTaPmrRJ5GBZc5FHLvsniQ+KzDxXQgDmnKZwDTDAr
-X-Gm-Gg: AYBFou0E6OWdY6SmClZz/NDl8GzPpAGLXSbLN1bxyzlSqFrUI6V6oCQ4wTbPAiZhXbW
-	uhqHyszdBZFIYrIL7SnoxgPJfmVAxa0WvUD57QyrrvqTyAU65/0rZ/gKzWt1m597M2jvvHEV66H
-	kaf0MvmUM/jB5ruhPBAE3+bndqjb4dAgljGxGg9o0WScwz88LbGznSTFmsW695MpzNbiw+gU41m
-	pfZG40mgQjiNC4Szj6hk0Ap4XSJ+mmHafrZbZJx02eZQo88JbjqIu3esYE9Wad8y8Pz7qDGkjOO
-	iVo6GDuhG1gauzg+ojEt+CU/2ij5v6lcXGFyVp8RrkgDekYzb/3tbZ0xr4WWjFupG0jZlQWU9sc
-	6ZozbjrEn5FNv94/FyuCA0otD49aoOzBMXdJ4zu8jtaq3T9ZCrEGGLBu7Xqg5T/0cnyzu0bDd93
-	J7GRh+FJhfGUvS+msPlmi0ZiSSjKq2eDs7gdZwhjuA827uhmt93YI4mmtWNZRfcteYIV+VxrWFj
-	uoGZqevgo7NUdWUjmPcMkPgs/BBi/as/d8egg5683xUd9zVNo0E9Rzz0V7jf5Ymhs6cJUSSXTGX
-	7NjHvCmfJnKqTkjnG4NNEtrnyBTlEweUsaXOoXP0WQvoJHKf2po98lj8pQrQOB8vaxZuPJMXS3L
-	C
-X-Received: by 2002:a05:701b:4589:b0:187:eb7f:bb4 with SMTP id a92af1059eb24-1ac5d88c4e4mr385234c88.46.1793311306922;
-        Thu, 29 Oct 2026 15:01:46 -0700 (PDT)
-Received: from samniyama.tailbcd61.ts.net ([76.20.4.3])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm1314661c88.20.2026.10.29.15.01.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:01:46 -0700 (PDT)
-From: Koral Ilgun <koralilgun@gmail.com>
-To: netfilter-devel@vger.kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	fmancera@suse.de,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Koral Ilgun <koral.ilgun@adtran.com>
-Subject: [PATCH nf-next v2] netfilter: nft_flow_offload: do not offload multicast
-Date: Thu, 29 Oct 2026 15:01:44 -0700
-Message-ID: <20261029220144.2474139-1-koralilgun@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lJySD+DX
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C82D115A1;
+	Thu, 29 Oct 2026 15:02:00 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D42E73F59E;
+	Thu, 29 Oct 2026 15:02:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793311323; bh=JTrK1XlB+5p23F0LNcaqj0VtA4gzIX+/IaVVmpuGrl4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lJySD+DXukQaaFPs6Wft5kbYJLMizH8HdgBLh4ByuYeQJrehaf5/st9zCdP6UBi7W
+	 Lg37Jqt+mfkQGHfkp4C9a2WJMk+TA9g0DmVWhrFD2+sAlxUu2RQJiV3/IOJcSLg2aK
+	 9ulhF40slKJxrq2eEaEeZB1DvqUZxUlc2EzRYxus=
+Date: Thu, 29 Oct 2026 22:01:59 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>, Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] KVM: arm64: Clear the whole hugetlb folio when
+ storing MTE tags
+Message-ID: <auPCV6VdMEz4uZkK@arm.com>
+References: <20261021110700.493315-1-fuad.tabba@linux.dev>
+ <20261021110700.493315-3-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,72 +71,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021110700.493315-3-fuad.tabba@linux.dev>
 
-From: Koral Ilgun <koral.ilgun@adtran.com>
+On Wed, Oct 21, 2026 at 12:06:58PM +0100, Fuad Tabba wrote:
+> When KVM_ARM_MTE_COPY_TAGS copies tags into a page, it marks the page as
+> tagged. For a hugetlb folio the flag covers every page in the folio. If
+> the folio wasn't tagged yet, its other pages are marked as tagged with
+> their previous owner's tags still in place. The stage-2 fault path then
+> maps them into the guest without clearing them. The ioctl's read side
+> also copies them out to the VMM.
+> 
+> Clear the whole folio on its first tagging, before copying in this
+> page's tags.
+> 
+> Fixes: 25c17c4b55def ("hugetlb: arm64: add mte support")
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/guest.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
+> index b01d6622b8720..cda655fbff657 100644
+> --- a/arch/arm64/kvm/guest.c
+> +++ b/arch/arm64/kvm/guest.c
+> @@ -1012,6 +1012,7 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
+>  		void *maddr;
+>  		unsigned long num_tags;
+>  		struct folio *folio;
+> +		unsigned long i;
+>  
+>  		if (!page) {
+>  			ret = -EFAULT;
+> @@ -1042,12 +1043,14 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
+>  			/*
+>  			 * Only locking to serialise with a concurrent
+>  			 * __set_ptes() in the VMM but still overriding the
+> -			 * tags, hence ignoring the return value.
+> +			 * tags. A hugetlb folio is marked tagged as a whole,
+> +			 * so its first tagging clears every page.
+>  			 */
+> -			if (folio_test_hugetlb(folio))
+> -				folio_try_hugetlb_mte_tagging(folio);
+> -			else
+> +			if (!folio_test_hugetlb(folio))
+>  				try_page_mte_tagging(page);
+> +			else if (folio_try_hugetlb_mte_tagging(folio))
+> +				for (i = 0; i < folio_nr_pages(folio); i++)
+> +					mte_clear_page_tags(page_address(folio_page(folio, i)));
 
-A flow holds one output per direction, which it resolves when it is
-added. The outputs of a multicast route change when listeners join
-or leave. So a multicast flow in the flowtable continues to send to
-the output that it resolved, also after the last listener left, and
-the counters of the multicast routing stop.
+I guess we could have skipped the actual page we are going to copy into
+but not worth it.
 
-A ruleset can keep multicast out with a match before the flow
-offload statement. Without one, IPv4 multicast stays out of the
-flowtable only because the reverse route lookup in nft_flow_route()
-refuses a multicast source address. The IPv6 route lookup has no such
-check, so IPv6 multicast that ip6mr forwards goes into the flowtable.
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
-Skip a multicast destination for both families in the flow offload
-expression itself, so that the result no longer depends on the
-ruleset or on the route lookup.
+>  			num_tags = mte_copy_tags_from_user(maddr, tags,
+>  							MTE_GRANULES_PER_PAGE);
 
-Signed-off-by: Koral Ilgun <koral.ilgun@adtran.com>
----
-v2:
-- Target nf-next, and drop the Fixes tag (Pablo).
-- Use the shorter form that Fernando suggested; the result is the same.
-- Say in the commit message that a ruleset can keep multicast out.
-v1: https://lore.kernel.org/all/20261028205938.662312-1-koralilgun@gmail.com/
+Something Claude spotted and unrelated to your patch. A malicious VMM
+using memfd (not guest_memfd) and MAP_SHARED could construct some
+mapping so that the VM slot is !PROT_MTE while the same page is mapped
+in the VMM with PROT_MTE. try_page_mte_tagging() (or the folio one)
+above set PG_mte_lock but a subsequent fault on the uaccess to VMM
+memory will attempt to zero the tags and wait (forever) on the page
+lock. Not tested to prove it.
 
-Tested with v1, which skips the same packets: on an arm64 router with
-Linux 6.18.54, with an inet flowtable that offloads forwarded flows,
-and IPv4 and IPv6 multicast routed from the WAN to one VLAN. Without
-this change, the IPv6 flow went into the flowtable after its first
-packets: the ip6mr vif counters showed 25 of 1,500 packets, and the
-receiver still got all 400 packets after its leave. With it, the vif
-counters showed 1,500 of 1,500, the flow stayed out of the flowtable,
-and the stream stopped about 2.5 s after the leave. Unicast IPv4 and
-IPv6 flows still went into the flowtable.
+If you get bored and want to fix it, I guess a copy_from_user() into a
+local buffer and then setting the page tags.
 
- net/netfilter/nft_flow_offload.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/net/netfilter/nft_flow_offload.c b/net/netfilter/nft_flow_offload.c
-index d3c5651dd699..530e20c7fd45 100644
---- a/net/netfilter/nft_flow_offload.c
-+++ b/net/netfilter/nft_flow_offload.c
-@@ -10,6 +10,7 @@
- #include <linux/netfilter/nf_conntrack_common.h>
- #include <linux/netfilter/nf_tables.h>
- #include <net/ip.h>
-+#include <net/ipv6.h>
- #include <net/flow.h>
- #include <net/netfilter/nf_tables.h>
- #include <net/netfilter/nf_tables_core.h>
-@@ -33,6 +34,10 @@ static bool nft_flow_offload_skip(struct sk_buff *skb, int family)
- 
- 		if (unlikely(opt->optlen))
- 			return true;
-+
-+		return ipv4_is_multicast(ip_hdr(skb)->daddr);
-+	} else if (family == NFPROTO_IPV6) {
-+		return ipv6_addr_is_multicast(&ipv6_hdr(skb)->daddr);
- 	}
- 
- 	return false;
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
-2.43.0
-
+Catalin
