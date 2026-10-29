@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271328;
-	b=oYZByuj8ZM69vH9F/ChQ+3MwYErhnaAZ2NBenXWOMgoCvwXdgEO7AR4V5xk0vjBhYHQi
-	 lSAwqOX9b5rjoSGVl99mHVbxnhHZgqu6h2blwTWHdJYWf94dtwNJVmpL3wcQqbh7BDguL
-	 57VTFWunj6wVpJFr3kuaLnqlkGEKsGcRENxLOooEjAeMEmnfyJN+5GWpcxZqNk1kkX6/7
-	 xMc41LsPQ+J6at40Ke+GW+xRbN/CCFVngGr7KyX0ndfzEBG9gwu9UKFn7lqJjbW4k7Be1
-	 jRLkttBCAFJVK46oD4ps4dMxNlqTZTBKUY+/sZDxrCXM7R/+7d5fVImltpkfZnOAfbA==
+	t=1793271336;
+	b=Lw4xwvu103Ll2x7v1iRZuYVS8YQavq/kcUiRFXw8NsT1HJstjnjPhn2fvD0CJq0bo7qt
+	 QUVTWJNUfI+brgkaMFVs75X9g67RAUmHbmipDxL1aLhvVgKP4Qvw6Hr9KIfGEor75wzu2
+	 O9hQ1rw2v+JofcRE3KX+WgzRAD5oBevvuLcj9of9B0hWMguM8NouMvuIHIbCzsnvyw3Aq
+	 y2qgvx6WTmBRpL/J/BRQlOp0wqcRuKce5xGa8b+Np2ighwRyA+5EdVo8jCdLIGEqyERyi
+	 8l1ZuI8Lfv8cnCfcyEArHu05vAt+TWgTU7pTdAlFwJb1j5G/RhtI9ESkDVdzje6eAoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271328;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QkkwAFQHohFN3MMtdm1q3jZttxO/j+fe5cVvGi3Xl6c=;
-	b=YgU/RR9K5CvbIQceL+Xe91OE6zVeK31Yji/nz7g3hVzb7GGSWZyjAgiSLXgzWgIT2qaK
-	 jJQaWroEAE9JNpkWEQclbyL3PT4tHhSO/Ot36DB+jggPO5ywnJ/8aeVnRtY7NnqMygMHv
-	 fOTZnIvhmR+N/o9obIly1xqamY6va3c3puLig5zXOEQb0EyfkXerANGwIzleVOG2mqGlj
-	 dDyerCEm5ZjQO3+eFco1cgO2b1MzGLtPifD6riXVLd8HCr0WXabq4gGOEQPGr4WTLcUVy
-	 ldTBxYl/5demT4SX6jKnvqxRxhWW5kt4r3XmXGV9pkGJn3Vbc2yp8obkk08yrhTUulA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271336;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xhAoZPWvwAo/20ygCK6A+/SSqWc+2DfjkgwR4zGA3f0=;
+	b=fo2AicRNGDzwVUOVRbX5F7WKJJsRtOnnlqsd4kxkC3lNHh972KMXCPVXhOdLRMIMZCek
+	 WagGfY6eDQUg+kfybi1WeRrO7STirQL8WxxN2HQhJCWF7XpIYiug1AYfrugiD1/i6Hp/H
+	 RF2SaPjhf9Mafx3p8PLVGjMkLaLNeJ3Vt4Fz7aSWEeRhUCnq8+53MwhKV9hU1UshrKm6v
+	 qCF7+aDyGfsKtTJAhhEszf5aENL8ZPoTkWRyYt6uiibT2x4R82pyLbrMgL5a+i/UbJsyX
+	 +dxTdLQORoV9F31nqARFfBjhi8zOMxroODsoY9JqktFXTev8Ed+A8Ge/WBr8UqiK4KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hAfZlOvp;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Maf/mNEp";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F638606A31A;
-	Thu, 29 Oct 2026 10:55:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F638606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6352F606A322;
+	Thu, 29 Oct 2026 10:55:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hAfZlOvp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793271328; x=1824807328;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=QuCVJTSRuC+l8TTfanattdAyMrkAFWAplA63tjk/Ubc=;
-  b=hAfZlOvp1RmtV47iSAy9QuJfiKnX+l4gbbxj6jECqTjnpacxc9mE4faq
-   GKpDpggwEXYffFJnEMUoSDriMYu0NyQMjbXAuoydhGv8Fwn52PbYsc65e
-   1Q0A2Uj6SQZ5qthnubO8qePkGgmoJ/dZ8ROAJWnKVe8Nq1jkMIvpZRIu7
-   Zrb+hASRIDh17zVE2fUVN6upDNLkYzb3lMfs2iJ83v3rbXvjMbWgj51ts
-   tMNuExDOop3HznnjAPu90VECzB9gd3gcV2O1VehhX2YgCi1sYyzc+ZlVC
-   Xv6l/Mt6MUXE38kO+4DSyBoMXs9PjGPAx6Nj++HK58eAyIqdFmc00E+Yx
-   w==;
-X-CSE-ConnectionGUID: bnJQe9QeSTe13SFAw4aeEg==
-X-CSE-MsgGUID: XiN9O3laR5Wc6iP1ROjqwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1899186"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1899186"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 03:55:26 -0700
-X-CSE-ConnectionGUID: TCIFsRTITRCDp/Up5ewsjw==
-X-CSE-MsgGUID: pxmLGcUrRe6SW/aUTpSCkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5208689"
-Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 03:55:21 -0700
-Message-ID: <2afe6fcd-eadc-4f9d-bbe4-0e6449479603@linux.intel.com>
-Date: Thu, 29 Oct 2026 18:55:19 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Maf/mNEp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4C91F01825;
+	Thu, 29 Oct 2026 10:55:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793271333;
+	bh=xhAoZPWvwAo/20ygCK6A+/SSqWc+2DfjkgwR4zGA3f0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Maf/mNEp+DgQyauRatZAQI/ziUAfbZSe/ken/zraWpqxkq4YCB2t93zNkutYILe5H
+	 thChaYgF2ZfiklmoDax1pOZ689yws/8enNx0f6sfQgGvcf20SfuKLSU9wGNmiebE6y
+	 /LFS6bmSShuaTRJJMCw+a7+IlfEO7lxLLR7qf3IouOMRBKmCPdZcOxa87Ns5UBCqui
+	 iWjksAGsaTxVMQwDgFCdTN4zAHUkQqusqaPSiJGHmYFmpWgQsV0vXT7c8DHeeQzxZb
+	 tV6dlYxizIIWDqegciOeXsKBEsyuM6y+zUsAAGeIk86qmyxfPLrT55VI+zc3JkfMOD
+	 o93UvO1miZ9Vw==
+Message-ID: <e146c90f-5931-445c-9f5c-2a8e4f0dd538@kernel.org>
+Date: Thu, 29 Oct 2026 11:55:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,66 +52,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 14/28] KVM: VMX: Virtualize FRED event_data
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Shivansh Dhiman <shivansh.dhiman@amd.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
- Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
- David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-15-sohil.mehta@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: spi: add spi-virtio
+To: Mark Brown <broonie@kernel.org>
+Cc: Francesco Valla <francesco@valla.it>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>,
+ Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027-spi-virtio-bindings-v2-1-67927b24b9d4@valla.it>
+ <20261029-enigmatic-honeybee-of-dignity-bee01f@quoll>
+ <1449d4cf-9e9d-4fe4-a904-15d51ba9448d@sirena.org.uk>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260911213659.2025974-15-sohil.mehta@intel.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <1449d4cf-9e9d-4fe4-a904-15d51ba9448d@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/12/2026 5:36 AM, Sohil Mehta wrote:
->  
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 94d684210cf6..e10ac6b280f6 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -431,9 +431,22 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
+On 29/10/2026 11:53, Mark Brown wrote:
+> On Thu, Oct 29, 2026 at 09:29:56AM +0100, Krzysztof Kozlowski wrote:
+> 
+>> I guess everything should go via DT tree, but Francesco, please update
+>> the maintainers file if that's fine with Michael.
+> 
+> I'd been expecting to pull it into spi since that's where the driver is.
 
-kvm_deliver_exception_payload() returns early if !ex->has_payload.
+Indeed, good point.
 
-For example, if a #PF is injected, kvm_deliver_exception_payload() sets
-ex->event_data to cr2.
-Later, if a #DB without payload is queued via KVM_GUESTDBG_INJECT_DB, the
-event_data is not updated.
-It seems the stale #PF event_data will be write to INJECTED_EVENT_DATA and
-delivered to #DB handler in the guest.
-
->  		 * breakpoint), it is reserved and must be zero in DR6.
->  		 */
->  		vcpu->arch.dr6 &= ~BIT(12);
-> +
-> +		/*
-> +		 * FRED #DB event data matches DR6, but follows the polarity of
-> +		 * VMX's pending debug exceptions, not DR6.
-> +		 */
-> +		ex->event_data = ex->payload & ~BIT(12);
-> +		break;
-> +	case NM_VECTOR:
-> +		ex->event_data = ex->payload;
->  		break;
->  	case PF_VECTOR:
->  		vcpu->arch.cr2 = ex->payload;
-> +		ex->event_data = ex->payload;
-> +		break;
-> +	default:
-> +		ex->event_data = 0;
->  		break;
->  	}
->  
+Best regards,
+Krzysztof
