@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793312151;
-	b=PJTGpeWugBjMpVzVeQfufPLgK35QZX4zWRRQDbaHWQ4HoVeujbdzOziGZfeGrnQrHabt
-	 gNPGcRyx5FtVwqDqbnWjy9G1Z3Bc0Hs9jUpt3cLXt8eL24irVvHB4HyfCl+EbjRgIOvf5
-	 3Ay2FkY9GNBdFdw/3QYkXXOzSKgvmK/JjksZZz79VYUp+WBMdIFw3rOJS+Ps5BL3kKH+e
-	 1ltvs8VbmbQe0LJABDVhn92UN1K0VYEJaVXP6IHwZcC2KuBAt4TVlGVNS/lXvwYaxOpxt
-	 NM0Nn/mMdx5vBvaY9XfuqJ8Oq0xBVhBserT3soYAYZIPkNfMJblo/8fJii8ONv1ej1g==
+	t=1793312201;
+	b=HJ22JVeHVYy7SI0C04k5O4TKovp1/FBnm1MLNP/DhxcrJjXZf0GcbfSgMuv4qzr+MNVT
+	 q4Z7paBmRY+01Vdj69az2/WrP7waqhlMaZjMR24m4ctUd3UZ15gc9lPc4k/cZWVUlLZQ2
+	 Ujyhxkijj1GtwEATyjHJGbo8zjB9HF8WyMwdE6qJQeCOXXtT73JYAPxSsuXeXX0q8LRzw
+	 LTcJufXKaDEmqYqLjPpqgPYiJnTTwMdEVyDCOYE6zX8dFT2ez9EpjPi7V4AX6IN0wmrvf
+	 Dj18P+2rbIEEXg8CWfOrtqOUSR4viCBQKT75pULSgo0bWooRf6KjPy12YbqgzcmM0kQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793312151;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
-	b=mt9ImPc9BAngzphvDYVV1dW4+ES6A6ZcZ0H569IOQUegnQH25YYVJmsMRfdFGzz1iD4N
-	 0bh+UsUA79etA5ofHlZBqZDv1KhipdhIEa+DUbsBm3D+OkpglYeFPpWVus7Prfehtu+X9
-	 pGLLQZBAxkNT9NHJaQiMAP88HpOyufFY7gpLTOMxOgW+l7Xp/0GbqN6ofp3chg54N1+1l
-	 WwYdMK9tXdO02kH07+r4hICumttQ+qpLzuaLRKZDBH/osAeYMENFPCw8GA3z+aSbDnPcP
-	 Vj3AnWtewhorm66X283vdTR4+b9LwGlFgJamjyUPr7qIud2fnVjqcFOXHTWjnQwSi8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=koZpx6vqHKuQYrxobP/d4PhoSM1zd0NfzqrWj5/V+0E=;
+	b=EEPnE73H/unE3WBOBMbqQig9fDZzmV5R1ZWXHtg2U9YQ6sza/pOWCbPcsjzYVr/se21U
+	 ij3hgOpaSByFdL//SEsMPMailSIw7GKzbdZctNP+GK5GOEAqgemW6s3KI5blwj7OsRVRI
+	 9RtVjguEu3CzNpz0pgSSuz9dVkJ+Aks98ea1WF/6BLTNSR0qN609Goi/+7flCiXDtR3/v
+	 fbdIbqbEAemxF9Yz9KK1sS72APvle/PAU1yzTKgY/BQSlMU6+RjZ/Y18yTEnRaw5/YvfR
+	 wPPZqg/3kDl69tn+0PP5VCXEFNnyxaC0qSSyH0zF+R7dPrjcKEb9A8pXmYVw0ZJJUWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPelaCvM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A4F606A31A;
-	Thu, 29 Oct 2026 22:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPelaCvM
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793312150;
-	b=pdi4+5bimXtHC+FSXhR7g0mq8XrP4NMq7bospIKxyAc707nrtOsuHXYjVPp6h/DLyD3E
-	 6U0LZ75OC9kXlUcHk6eK+MDT8dzkRPNn6iRt24LfXvqgBm34Sl7/NQ/joYrXb5jCant0l
-	 ys1O2/eJaZTaUTRlYGLbsw3tMxND8NJZUHmeJj4DrSRV8xLRCXWL5R5OAaZvf7hiTfgc2
-	 4iobCSmTWQRNbyVUT1iBMosWgqrCnYvllaPYRz7gqIVBE/KMbp2bVVBWt6h83hwsWvvJa
-	 M3/92Y3s+1Emj96geJ+KeEviudYHHPKDSNWEeK9iKEbt0xv6JkGQ4OQt73YzKLfC+lQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793312150;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
-	b=gw9095RFhKep6oLJDnVjyT8Eh7zVMve51whLEPmRx5gspelj6dwB91JBuqMg0wlqYZ7z
-	 tcNnukVttwKVP8u6gBXW98Vt+1KkhLXhNj1gWX6fYPiwTgxsKZKrfBL3z7K1yc0KWScSY
-	 yTZNrPmoDfQ/6fGHWN9XhtQ1vGwhJpE11mHOTx/gXouHMuXgVXJFhJz5MaI3/ja2bAggd
-	 70I55oDZU1RUFM9d8LeEgFcnkdeLLpXEPQUjof8V89Dffgn8ScWwn4Yn0CJybXCX36qCb
-	 WLN6ZXYj5fFbZiQQOxyiWSa2Nokm1R6aGtjiHuqt5iTp2fxFhrCm8yj0JChs4sV3+oQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xr2L+YSV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3C9391F01816;
-	Thu, 29 Oct 2026 22:15:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793312150;
-	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GPelaCvM/fntZhAplPpPWOS7IcJ47jr+ioaWzqHzHzpU+3AiwVD3JzT/FQ3gCrLxa
-	 CN9c2yX7jAWk0pC8/nSzqzPQohcBT11Dn86F8+fRmBBNeBQv7C/AyBsV4dCNdo39WT
-	 0Z1SlRyZSkSdHE1JZJDqTc+83B2FrsqCL+OT0JSFZzhCHqt9OdH5z/uPTFyFK2/Var
-	 Sddf5uvdHuyYh9fEf7pE38Xxk2rrklQIy1o4ZND+a8u8WQzxNDWlw0acIAaM1y8NU2
-	 06YAb6OPu4cyGUJnKAVCdnZ9mh+uF8AN3hYGE2noERItqQikU6AwX39An7eECY1tOd
-	 QxTpjZQptz6ag==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9004C459FA;
-	Thu, 29 Oct 2026 22:15:48 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 17:15:48 -0500
-Subject: [PATCH ath-next] wifi: ath11k: add the measured noise floor, not
- -95, to a received signal
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5B8606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF5B8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xr2L+YSV
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso33853a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:16:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793312200; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NleXHp8nCqa1BrmoY5Kz9P6brYqlSqUFgutIbk7k3bLmw2ihaQvZfwGCa4o78BVRee
+         519KNWWUJxALhtt13M2o/3Aw0OajRWSyGp3vEVWH/bqOYfYYQQFlVpSXtQmNK+MV3guT
+         t7XQ5mpQq6jNR6chSz2GO/836TXyTH2dx2nVnVnhbnmp4wL6+OXOH2Y+hSMlBBaqbEa7
+         0Axpauq5In3kIvQ4gh9ZI+7nXMdNTEOPMRNbRkKb18/Wp4vbxzf6iMtTraI2+p4K/a5w
+         UW+/2zfvJmjon4uQeCP+hxi3KkQdv9hTETYxlwNwG9X3ZCg0cSHK4oGb+Xdv2aAJRzRL
+         WIdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=koZpx6vqHKuQYrxobP/d4PhoSM1zd0NfzqrWj5/V+0E=;
+        fh=B3KL7nKXjQMVg1LPP3J+KRvVlvk0EMkxbRfhGiU1nn0=;
+        b=rPRI3lHRM+2vLW2TeQ1x6R7oGHfV8hzsTJHAiHI0+5OkwgJP0WPX8Lnyl+4UGb/DCR
+         NI9Ohd2jrpGfu/EEqKEBspyba4FnoRsK+uaIw6oAHeF25q5o0uP+Ltvur1z7WAzCRoFT
+         73waZC1nVNNADw71GAeBr4tr3XfJ50Oq1l+1h39r6dObxU1TK7LNAtN5pJqQEPmerXL2
+         ToC/fmgA1Jk27c4iqD6i1doixXGfVfplN3XNu7tI1HcjFKPtODxGqJHygXEYtXmfpGql
+         fxvVXg3et1Er3dtQ5mtpcT0i5SIeCXdX1h8AV9slsfd8OEFSFFZwSQpejKzaBHHT6vCa
+         XGgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793312200; x=1793917000; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=koZpx6vqHKuQYrxobP/d4PhoSM1zd0NfzqrWj5/V+0E=;
+        b=xr2L+YSVfPIi5bsK0sQduGMgmae01aKgXSUseaJikh3GJOXYKaCpT7MugONeWoy1Wy
+         L0fdYaceEriICAikAcMys9iLe0NuSQyGQTELjt2Ft54mZK0Ea2rsg22LaEwXUnKKsovd
+         kL7PGxEK47e2qujKLsgE9yrTo5lfZKx8nHxgb3r/PIxi0YchvNvUoe5g+rWm0xrJEUse
+         9DRaJt4wWvOsq/laKci0C89PCBiI5SJb3D52TcFto6hBRRY+AOb0prFHVuz6lvt3uQIn
+         O911UfpGGIIYXaSbBrKrO1+qB14+el9UMLEsR0DWmN+bb465NXDjwcUKwy1uZCPx7BeO
+         Va8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793312200; x=1793917000;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=koZpx6vqHKuQYrxobP/d4PhoSM1zd0NfzqrWj5/V+0E=;
+        b=d9bRLm7eGxhi5g80sy9ZdWAdth5+hP0o6qKG1IOidDajqRVbvtq9SBQ7DDMR8WSJxx
+         uYB7iXt75k1EZ7uQx0DWbtqUqzJrhrBzn5C/KpODCoffjaq8oI1MsrjfH9CUnlPLf1Pi
+         lZuvOOGtAbCHQKjXmP3UurtSgpAXu6tT6nfkOTptJD1hhF6uGDSqvQIEqiNnWCWa2e5i
+         HVEBkWmHHMsCTDZFhga6MmzAEv+HRP6SI0yRymSkgRXgOuXWnVl5k+HolqbvEnKhQyNT
+         aI28EJxcrxNN6Y8swr6xdt5mGOIaVzW8VqXK6xpUSeZa3g07N/l54gfCFk5EUGQ2px0v
+         H+8g==
+X-Forwarded-Encrypted: i=1; AKwUvBwxx6qQLgYvOt09Zef2RDpNc5fesL63fuCUkDRo49Zh3jPW+fDANXF5GEa+SknCbi3qDR2fRjtz9k5oQkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYQNQhj+wE9dyuUhWNXAOwEaV6qthDB0MJ7JF3JHft84YKhCYo
+	iPJIPE0PqxCM65IyB69FDM9XQar0IljHcFd3DgAB26vT3IFTG7rupOyyIaGK11G+57WsFicYgJ0
+	J2ofDO7pPuNAMEAXdMeTrBv9nt8Hfe3s=
+X-Gm-Gg: AYBFou2DRinGn0Xr6/h8p5Punhc8z8fL9DZM6gYCmJ9zPVG2QE7DaybbfbzSqKuoAv0
+	7Sw/a2RxOjREpi6K3Mng3CvuN6LqqK/ohmC5h+V+a/9HlfPuarreqUvk7/dJBp1Z6qARmvpVkH/
+	Zv7D7wpXeFlsBHTjqrDxkFBa0lfapFEJR9p81+1AWavDF+58PyYsSLFV0oh3v4bDsyNqDWFhoKA
+	Nyh21HSvbOpbds0fj6frruXpbXoT0YX2ZrtXxs9I5yPHuHxt69wTHfR4Won/qblU7uuapEhmqzj
+	tPhTPkGcPhl+qRTPp9nSo8kQrbyVgPAjNArdXNvlVqYMVB8ctuQMZuRs5pu4wtWaApDPRethNw/
+	zanh6Xyuc4qF6X3T5gXomeYYIlyYKIBgA3oUTVhq/fB1aK4JromVbHNGkzV4b9jLnjc7IiwNqC/
+	6R5V/p/tFOf2eKi0w/7hrQf6Euokbiyb6PSQ==
+X-Received: by 2002:a17:90b:380c:b0:3a7:250:333e with SMTP id
+ 98e67ed59e1d1-3ae896f8315mr277145a91.11.1793312200139; Thu, 29 Oct 2026
+ 15:16:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,371 +105,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-ath11k-signal-noise-floor-v1-1-dd5d6a04dcf2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJPF42oC/2WP0U7EIBREf6XhWRIgbYH+itkHuFy2aBcUaK3Z7
- L/LajUaHydzZ87cKymYAxYydVeScQslpNgEf+gIzCaekQbXNBFMjJwJTU2dOX+mJZyjWWhMoSD
- 1S0qZgrSceQGOWUda/iWjD/tn9yNpMRpxr+T05ZTVPiHUe/Vxm/F1bfh6BH7oU3ew+2923undj
- bjQ8hYqzLQ3yAaQRgkJ08bJ7/X/82XNG77/3a7MoEGBUr4/CqxpLqTLJdSpa0+JEUflnfVKWQ0
- wCGHl2JjaaQHa9NxLpsnpdvsAljUqc1QBAAA=
-X-Change-ID: 20261029-ath11k-signal-noise-floor-c7b10f2cd0bd
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- ath11k@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793312148; l=14047;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=an+cFuf9qofjguKNKpiOOW55It8wu9JPo5kVIgrvAJA=;
- b=Sjf7zhxr8VdGzQAV7i8iwQhfQ8UY0QGDsx4ENXSVeOOXv0iGbNrlhebYvbnR6EjHEivqRqiRS
- AVsqllwqHewA+TOpawy+k0h8TFPLcR36YEGjmvCoQ7hdEaEG7/DyPk+
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+In-Reply-To: <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 29 Oct 2026 15:16:27 -0700
+X-Gm-Features: AclHuK9av7Er2dEcOWg6hJWIv2K2TpdNYpqUpTLgWkKxe-dORmBpAAvoyO4hh00
+Message-ID: <CAEf4BzYT4rvKwbOJ6UQ3zcp4wdsSBqRsMz-2=U1DA2RyUA3XSg@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: Samuel Wu <wusamuel@google.com>
+Cc: David Laight <david.laight.linux@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+On Thu, Oct 29, 2026 at 3:06=E2=80=AFPM Samuel Wu <wusamuel@google.com> wro=
+te:
+>
+> On Wed, Oct 28, 2026 at 6:40=E2=80=AFAM David Laight
+> <david.laight.linux@gmail.com> wrote:
+> >
+> > On Thu, 22 Oct 2026 17:16:02 -0700
+> > Samuel Wu <wusamuel@google.com> wrote:
+> >
+> > > Add an extensible KALLSYMS_QUERY ioctl() interface to /proc/kallsyms
+> > > to support fast point queries without scanning the entire text file.
+> > > Exactly one query mode must be set in query_flags.
+> > >
+> > > When KALLSYMS_QUERY_BY_SYMBOL is set in query_flags, KALLSYMS_QUERY
+> > > resolves a NUL-terminated symbol name in vmlinux or loaded modules an=
+d
+> > > then populates sym_addr:
+> > > - Searches vmlinux first via kallsyms_lookup_names() (binary search),
+> > >   which takes precedence over loaded modules, and falls back to
+> > >   module_kallsyms_on_each_symbol() under module_mutex for module
+> > >   symbols
+> > > - Matches names exactly, like kallsyms_lookup_name(), disregarding th=
+e
+> > >   .llvm.<hash> matching, following precedent set by commit fb6a421fb6=
+15
+> > >   ("kallsyms: Match symbols exactly with CONFIG_LTO_CLANG")
+> >
+> > Hmmmm....
+> > What happens when you have functions foo and foo.constprop0
+> > In some sense they are duplicates.
+>
+> BY_NAME matches names exactly, like kallsyms_lookup_name(), so they
+> would be different symbols at different addresses. Please correct me
+> if I'm missing something here!
+>
 
-The firmware gives a received signal (rssi_comb of a PPDU, the ack rssi
-of a tx completion, the snr of a management frame) in dB above the noise
-floor it measures on the channel. Without the firmware's own conversion
-to dBm (WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT), ath11k adds a
-fixed ATH11K_DEFAULT_NOISE_FLOOR (-95 dBm), so every signal it reports
-reads low by as much as the channel's floor is above -95 dBm: 5 dB on a
-channel at -90, 7 dB at -88.
+foo and foo.constprop0 are different functions with different
+arguments, so I think we should distinguish them. The only special
+case is .llvm.<hash> because that suffix is added by compiler for LTO
+and I don't think the function itself is any different from the
+original
 
-On an IPQ8074 (WLAN.HK.2.9.0.1) the HTT PDEV RX rate stats give each
-chain's signal of the last PPDU in dB and in dBm. Their difference is
-that chain's measured floor (-87 to -95 dBm across chains and channels),
-and the chains' summed power is rssi_comb plus the channel noise floor
-of the pdev stats to within about 1 dB, on 2.4 and 5 GHz. A client whose
-chains summed to -42 dBm on a 5 GHz channel at -90 showed as -46 in a
-station dump.
+> > > - Resolves 0x0 symbol addresses in both vmlinux and modules
+> > > - Rejects ambiguous symbols (multiple entries with the same name at
+> > >   different addresses within vmlinux, or across loaded modules) with
+> > >   -EADDRNOTAVAIL, while allowing same-address aliases
+> > >
+> > > Userspace symbolizers resolve kernel addresses to symbol names with
+> > > /proc/kallsyms. This is typically done by reading the entire
+> > > /proc/kallsyms text file, and keeping a compressed sorted copy of it =
+in
+> > > order to resolve addresses at runtime.
+> >
+> > You could mmap the tables into userspace and have a ioctl that reported
+> > the offsets of the tables (etc).
+> > Then user lookup would faster then kernel lookup!
+> > Especially since you could throw a bit more memory at it to remove the
+> > linear scans.
+>
+> I think that would increase the UAPI surface because it would set the
+> table format, so I'd prefer not to. It would only cover vmlinux and
+> not modules, and then we'd need to apply kptr_restrict checks to the
+> mapping.
+>
+> > >
+> > > When KALLSYMS_QUERY_BY_ADDR is set in query_flags, KALLSYMS_QUERY
+> > > resolves one address to the symbol that contains it:
+> > > - sym_addr holds the address to resolve on input.
+> > > - sym_name_addr must point to a user buffer of sym_name_size bytes
+> > >   that receives the NUL-terminated symbol name. On output,
+> > >   sym_name_size holds the number of bytes written (including the
+> > >   terminating NUL). -ENAMETOOLONG is returned if the buffer is too
+> > >   small; a buffer of KSYM_NAME_LEN (512 at the time of writing) bytes
+> > >   is always large enough.
+> > > - Symbols are resolved via kallsyms_lookup(), the same lookup as %pS,
+> > >   covering vmlinux, loaded modules, BPF JIT images, and freed module
+> > >   init functions still tracked by ftrace.
+> > >
+> > > On an 8 CPU Cuttlefish (x86-64 VM), using this patchseries to load a =
+BPF
+> > > program with 11 typeless ksyms has ~220x speedup (157ms -> 0.7ms).
+> >
+> > Have you tried measuring it with my patches that speed up the kernel
+> > 'search by name' code?
+> > That speeds the lookup by a factor of ~18 (testing the code in userspac=
+e).
+>
+> Not yet. Can you point me to the latest version? Happy to try it out.
+>
+> > You also should allow for 'find first' and 'find next'.
+> > As well as letting the code iterate though functions with the same name
+> > it is absolutely trivial to enhance the 'lookup by name' code to match
+> > a prefix.
+>
+> Agreed, that would be useful. In v3, the idea will be to have BY_NAME
+> return the first match by default, and an ALL_MATCHES flag to report
+> how many matches exist. Find next and prefix matching can be added
+> later with breaking UAPI, and best to not include in v3 since there
+> isn't yet a user.
 
-Keep the measured floor of the channel in use per radio, read from the
-pdev stats when the survey of that channel is read or a station dump
-finds it older than 10 s, and add it in place of -95 to the station
-signal and its average, the ack signal, management frames received on
-that channel, and monitor frames. Drop it when the radio changes
-channel; until it is read again, and for frames on another channel
-(during a scan), -95 stays. Chips with db2dbm are unchanged. ath12k
-already adds the noise floor its firmware reports.
+I do think it would be good to spend a bit of thought on how to
+support at least one-by-one pagination from the get go. The same
+mechanism can then be used by batch version. I.e., think what can we
+use to provide data back to user which they can use to continue search
+after the symbol we just returned (at least for fixed set of symbols
+in vmlinux and modules; we also have dynamic symbols added for [bpf]
+"module", etc, we should support those as much as possible with the
+least possible deviation, IMO)
 
-Tested on an Arista C-360 (IPQ8074): a client whose chains summed to -42
-to -44 dBm on a 5 GHz channel at -90 now shows -40 to -42, where -95 gave
--45 to -48. The management frame and monitor paths were not checked
-separately; they take the same offset.
+>
+> > (Basically it needs to 'return -index' instead of 'return -1' when the
+> > binary scan fails.)
+> >
+> >
+> > >
+> > > On an 8 CPU x86-64 VM with a 175k line kallsyms, there are broad
+> > > performance and memory savings for the symbolization and callstack
+> > > sampling tool, Perfetto:
+> > > - Init time: ~350x speedup (155.7ms -> 0.44ms)
+> > > - 50k symbolizations: ~12x speedup (25.2ms -> 2.2ms)
+> > > - VmRSS: -68% (15.1MB -> 4.8MB)
+> > >
+> > > Suggested-by: Andrii Nakryiko <andrii@kernel.org>
+> > > Signed-off-by: Samuel Wu <wusamuel@google.com>
+> > > ---
+> > >  include/uapi/linux/fs.h |  41 +++++++++++++
+> > >  kernel/kallsyms.c       | 132 ++++++++++++++++++++++++++++++++++++++=
+++
+> > >  2 files changed, 173 insertions(+)
+> > >
+> > > diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
+> > > index 34c6f219462a..b43f227dad0e 100644
+> > > --- a/include/uapi/linux/fs.h
+> > > +++ b/include/uapi/linux/fs.h
+> > > @@ -674,6 +674,47 @@ struct procmap_query {
+> > >       __u64 build_id_addr;            /* in */
+> > >  };
+> > >
+> > > +/* /proc/kallsyms ioctl */
+> > > +#define KALLSYMS_QUERY       _IOWR(PROCFS_IOCTL_MAGIC, 18, struct ka=
+llsyms_query)
+> > > +
+> > > +/* Exactly one query mode must be set in query_flags. */
+> > > +enum kallsyms_query_flags {
+> > > +     /*
+> > > +      * Look up a symbol in vmlinux or loaded modules (vmlinux first=
+; BPF
+> > > +      * and ftrace symbols are not searched) by exact NUL-terminated=
+ name
+> > > +      * at sym_name_addr and return sym_addr. sym_addr and sym_name_=
+size
+> > > +      * must be 0 on input.
+> > > +      */
+> > > +     KALLSYMS_QUERY_BY_SYMBOL =3D 0x01,
+> > > +     /*
+> > > +      * Look up the symbol covering sym_addr and write its NUL-termi=
+nated
+> > > +      * name to the sym_name_addr buffer of sym_name_size bytes. The=
+ same
+> > > +      * symbols as %pS are searched: vmlinux, loaded modules, BPF JI=
+T
+> > > +      * images, and freed module init functions still tracked by ftr=
+ace.
+> > > +      * A buffer of KSYM_NAME_LEN (512 at the time of writing) bytes=
+ is
+> > > +      * always enough. On success, sym_name_size is set to the numbe=
+r of
+> > > +      * bytes written (including the terminating NUL).
+> > > +      */
+> > > +     KALLSYMS_QUERY_BY_ADDR =3D 0x02,
+> > > +};
+> > > +
+> > > +/*
+> > > + * Returns -ENOENT if no symbol matches, -EADDRNOTAVAIL if the name =
+maps to
+> > > + * more than one address, -ENAMETOOLONG if the name does not fit in
+> > > + * KSYM_NAME_LEN (512 at the time of writing) or sym_name_size bytes=
+, and
+> > > + * -EPERM if kallsyms addresses are hidden from the opener of /proc/=
+kallsyms
+> > > + * (e.g. kptr_restrict).
+> > > + */
+> > > +struct kallsyms_query {
+> > > +     __u64 size;             /* in - struct size for compatibility *=
+/
+> >
+> > I'm not sure you need a size here as well as the one in the ioctl comma=
+nd.
+> > It only complicates things when they differ.
+> >
+> > If you need a new version they you add an extra case to the switch stat=
+ement.
+> > Simple and easy,
+>
+> Good find thanks! Will update.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
----
-This applies on top of two ath11k patches I sent on 2026-10-24, listed
-as prerequisites: "wifi: ath11k: update rx_channel on a channel switch"
-and "wifi: ath11k: report the measured noise floor of the channel in
-use". It reads the floor where the second one does and drops it where
-the first one moves rx_channel.
+think about user space application compiled against UAPI headers from
+older kernel version. For that application size will be smaller and
+that's ok, newer kernel should honor this and only fill out smaller
+part of v2 struct. Versioning is done by appending fields. This is a
+well established pattern that provides a pretty good forward/backward
+compat story, let's keep it.
 
-Found on an Arista C-360 running OpenWrt, where an AP on a channel with
-a raised floor (-88 dBm) seemed to hear its clients 8-10 dB worse than
-they heard it. On an IPQ8074 5 GHz radio with a floor of -90 dBm, the
-HTT PDEV RX rate stats of the last PPDU gave per-chain signals of
-40/37/36/39 dB and -51/-51/-57/-52 dBm (chain floors -91/-88/-93/-91);
-the chains summed to -46.1 to -47.1 dBm with rssi_comb at 44. With this
-patch the station dump shows -46, without it -51. On 2.4 GHz (floor -94)
-the chains summed to within 1 dB of rssi_comb plus the floor as well.
-The firmware's combined rssi_in_dbm in the same stats did not follow the
-chains on two of three radios, so I did not use it.
+>
+> > > +     __u64 query_flags;      /* in - query mode (enum kallsyms_query=
+_flags) */
+> > > +     __u64 sym_name_addr;    /* in - address of symbol name buffer *=
+/
+> > > +     __u64 sym_addr;         /* out (BY_SYMBOL) / in (BY_ADDR) */
+> > > +     __u64 sym_name_size;    /* in/out - name buffer size / bytes wr=
+itten */
+> >
+> > Maybe separate the buffer size from the length of the symbol written?
+> > The in/out parameter will get annoying in code doing multiple lookups.
+> > Or just have the buffer size and require it to be '\0' terminated.
+> > (There is a strncpy_from_user() can that be used.)
+>
+> That is simpler- in v3, we can have buffer sizes as input only, and
+> names will always be NUL-terminated.
+>
 
-Not tested: the management frame and monitor paths on their own (they
-take the same offset), and chips other than IPQ8074. The QCN9074 and
-QCN9072 in the same AP read their floors the same way, but I did not
-compare their chains. Chips with db2dbm are unchanged.
+user code can be easily written by always setting buffer size, even if
+kallsyms_query is reused. This is the pattern with PROCMAP_QUERY,
+let's keep it consistent.
 
-The investigation and the patch were done with Claude Code
-(claude-opus-5-5): it found the offset by comparing the per-chain dB and
-dBm figures with the pdev noise floor, wrote the patch and its
-changelog, and ran the tests on the APs. Tested on OpenWrt's
-backports-7.2 ath11k with the two prerequisites; built with W=1 on
-ath-next with them applied.
----
- drivers/net/wireless/ath/ath11k/core.h  | 25 ++++++++++
- drivers/net/wireless/ath/ath11k/dp_rx.c |  2 +-
- drivers/net/wireless/ath/ath11k/dp_tx.c |  4 +-
- drivers/net/wireless/ath/ath11k/mac.c   | 88 +++++++++++++++++++++++++--------
- drivers/net/wireless/ath/ath11k/wmi.c   |  2 +-
- 5 files changed, 97 insertions(+), 24 deletions(-)
+also, returning actual size even if buffer is too short is a good way
+for user space to "probe" and increase buffer if necessary. unless it
+adds tons of complexity, this is a good and flexible UAPI
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index a0d725923ef2..0901695de015 100644
---- a/drivers/net/wireless/ath/ath11k/core.h
-+++ b/drivers/net/wireless/ath/ath11k/core.h
-@@ -716,6 +716,14 @@ struct ath11k {
- 	/* valid during scan; needed for mgmt rx during scan */
- 	struct ieee80211_channel *scan_channel;
- 
-+	/* measured noise floor (dBm) of rx_channel for the signals reported
-+	 * on it, or 0 until it is read; set under conf_mutex and data_lock,
-+	 * read without them on the rx and tx paths
-+	 */
-+	s32 noise_floor;
-+	u32 noise_floor_freq;
-+	unsigned long noise_floor_time;
-+
- 	u8 cfg_tx_chainmask;
- 	u8 cfg_rx_chainmask;
- 	u8 num_rx_chains;
-@@ -1370,6 +1378,23 @@ static inline const char *ath11k_bus_str(enum ath11k_bus bus)
- 	return "unknown";
- }
- 
-+/* The firmware gives a received signal (rssi_comb, ack rssi, management
-+ * snr) in dB above the noise floor it measures on the channel. Without its
-+ * own conversion to dBm (db2dbm), add that measured noise floor, not a
-+ * nominal -95 dBm, or every signal reads low by as much as the floor is
-+ * above -95. A frame on another channel than the one in use (freq given),
-+ * or a channel whose floor has not been read yet, gets the nominal one.
-+ */
-+static inline s32 ath11k_noise_floor(struct ath11k *ar, u32 freq)
-+{
-+	s32 nf = READ_ONCE(ar->noise_floor);
-+
-+	if (!nf || (freq && freq != READ_ONCE(ar->noise_floor_freq)))
-+		return ATH11K_DEFAULT_NOISE_FLOOR;
-+
-+	return nf;
-+}
-+
- void ath11k_core_pm_notifier_unregister(struct ath11k_base *ab);
- 
- #endif /* _CORE_H_ */
-diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
-index 6d95f7b343a5..8c6bec1d6fa8 100644
---- a/drivers/net/wireless/ath/ath11k/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
-@@ -5050,7 +5050,7 @@ static void ath11k_update_radiotap(struct ath11k *ar,
- 	u8 *ptr = NULL;
- 
- 	rxs->flag |= RX_FLAG_MACTIME_START;
--	rxs->signal = ppduinfo->rssi_comb + ATH11K_DEFAULT_NOISE_FLOOR;
-+	rxs->signal = ppduinfo->rssi_comb + ath11k_noise_floor(ar, rxs->freq);
- 
- 	if (ppduinfo->nss)
- 		rxs->nss = ppduinfo->nss;
-diff --git a/drivers/net/wireless/ath/ath11k/dp_tx.c b/drivers/net/wireless/ath/ath11k/dp_tx.c
-index cac970c92806..6cd03258a5d1 100644
---- a/drivers/net/wireless/ath/ath11k/dp_tx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
-@@ -358,7 +358,7 @@ ath11k_dp_tx_htt_tx_complete_buf(struct ath11k_base *ab,
- 
- 			if (!test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
- 				      ab->wmi_ab.svc_map))
--				info->status.ack_signal += ATH11K_DEFAULT_NOISE_FLOOR;
-+				info->status.ack_signal += ath11k_noise_floor(ar, 0);
- 
- 			info->status.flags |=
- 				IEEE80211_TX_STATUS_ACK_SIGNAL_VALID;
-@@ -593,7 +593,7 @@ static void ath11k_dp_tx_complete_msdu(struct ath11k *ar,
- 
- 		if (!test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
- 			      ab->wmi_ab.svc_map))
--			info->status.ack_signal += ATH11K_DEFAULT_NOISE_FLOOR;
-+			info->status.ack_signal += ath11k_noise_floor(ar, 0);
- 
- 		info->status.flags |= IEEE80211_TX_STATUS_ACK_SIGNAL_VALID;
- 	}
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 155ce76d9a2a..ada0f3a3c856 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -7522,6 +7522,20 @@ static int ath11k_mac_op_ampdu_action(struct ieee80211_hw *hw,
- 	return ret;
- }
- 
-+/* how long a station dump reports signals with a noise floor before it
-+ * reads the floor again
-+ */
-+#define ATH11K_NOISE_FLOOR_REFRESH	(10 * HZ)
-+
-+/* forget the noise floor of the channel the radio is leaving */
-+static void ath11k_mac_clear_noise_floor(struct ath11k *ar)
-+{
-+	lockdep_assert_held(&ar->data_lock);
-+
-+	WRITE_ONCE(ar->noise_floor, 0);
-+	ar->noise_floor_time = jiffies - ATH11K_NOISE_FLOOR_REFRESH - 1;
-+}
-+
- static int ath11k_mac_op_add_chanctx(struct ieee80211_hw *hw,
- 				     struct ieee80211_chanctx_conf *ctx)
- {
-@@ -7539,6 +7553,7 @@ static int ath11k_mac_op_add_chanctx(struct ieee80211_hw *hw,
- 	 * Rx PPDU desc information.
- 	 */
- 	ar->rx_channel = ctx->def.chan;
-+	ath11k_mac_clear_noise_floor(ar);
- 	spin_unlock_bh(&ar->data_lock);
- 
- 	mutex_unlock(&ar->conf_mutex);
-@@ -7563,6 +7578,7 @@ static void ath11k_mac_op_remove_chanctx(struct ieee80211_hw *hw,
- 	 * rx_channel with the channel of that remaining channel context.
- 	 */
- 	ar->rx_channel = NULL;
-+	ath11k_mac_clear_noise_floor(ar);
- 	spin_unlock_bh(&ar->data_lock);
- 
- 	mutex_unlock(&ar->conf_mutex);
-@@ -7803,6 +7819,7 @@ ath11k_mac_update_vif_chan(struct ath11k *ar,
- 	if (n_vifs) {
- 		spin_lock_bh(&ar->data_lock);
- 		ar->rx_channel = vifs[0].new_ctx->def.chan;
-+		ath11k_mac_clear_noise_floor(ar);
- 		spin_unlock_bh(&ar->data_lock);
- 	}
- 
-@@ -9342,44 +9359,71 @@ ath11k_mac_update_bss_chan_survey(struct ath11k *ar,
- 		ath11k_warn(ar->ab, "bss channel survey timed out\n");
- }
- 
--/* The noise floor in the firmware's bss channel info event is not the
-- * channel's measured noise floor: on IPQ8074 it reads about -109 dBm on
-- * 5 GHz and -102 dBm on 2.4 GHz, and barely moves, while the measured value
-- * the firmware reports in its pdev stats is -94 and -96. Report the measured
-- * one for the channel in use, as the channel info events of a scan do for
-- * the other channels.
-+/* Read the measured noise floor of the channel in use from the firmware's
-+ * pdev stats, and keep it for the signals reported on that channel (see
-+ * ath11k_noise_floor()). Return it, or 0 if there is none.
-  */
--static void ath11k_mac_get_chan_noise_floor(struct ath11k *ar,
--					    struct survey_info *ar_survey,
--					    struct survey_info *survey)
-+static s32 ath11k_mac_read_noise_floor(struct ath11k *ar)
- {
- 	struct ath11k_fw_stats_pdev *pdev;
-+	bool db2dbm = test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
-+			       ar->ab->wmi_ab.svc_map);
- 	s32 nf;
- 
- 	lockdep_assert_held(&ar->conf_mutex);
- 
--	if (ar->scan.state != ATH11K_SCAN_IDLE)
--		return;
-+	ar->noise_floor_time = jiffies;
-+
-+	if (!ar->rx_channel || ar->scan.state != ATH11K_SCAN_IDLE)
-+		return 0;
- 
- 	if (ath11k_mac_get_fw_stats(ar, ar->pdev->pdev_id, 0,
- 				    WMI_REQUEST_PDEV_STAT))
--		return;
-+		return 0;
- 
- 	spin_lock_bh(&ar->data_lock);
- 	pdev = list_first_entry_or_null(&ar->fw_stats.pdevs,
- 					struct ath11k_fw_stats_pdev, list);
- 	nf = pdev ? pdev->ch_noise_floor : 0;
-+	if (nf >= 0 || nf <= -127)
-+		nf = 0;
-+	if (nf && !db2dbm) {
-+		WRITE_ONCE(ar->noise_floor_freq, ar->rx_channel->center_freq);
-+		WRITE_ONCE(ar->noise_floor, nf);
-+	}
-+	spin_unlock_bh(&ar->data_lock);
-+
-+	ath11k_dbg(ar->ab, ATH11K_DBG_MAC, "noise floor %d dBm on %u MHz\n",
-+		   nf, ar->rx_channel->center_freq);
-+
-+	return nf;
-+}
-+
-+/* The noise floor in the firmware's bss channel info event is not the
-+ * channel's measured noise floor: on IPQ8074 it reads about -109 dBm on
-+ * 5 GHz and -102 dBm on 2.4 GHz, and barely moves, while the measured value
-+ * the firmware reports in its pdev stats is -94 and -96. Report the measured
-+ * one for the channel in use, as the channel info events of a scan do for
-+ * the other channels.
-+ */
-+static void ath11k_mac_get_chan_noise_floor(struct ath11k *ar,
-+					    struct survey_info *ar_survey,
-+					    struct survey_info *survey)
-+{
-+	s32 nf = ath11k_mac_read_noise_floor(ar);
-+
-+	if (!nf)
-+		return;
-+
- 	/* keep it for the channel too, so its survey shows the last measured
- 	 * value once the radio has left it
- 	 */
--	if (nf < 0 && nf > -127)
--		ar_survey->noise = nf;
-+	spin_lock_bh(&ar->data_lock);
-+	ar_survey->noise = nf;
- 	spin_unlock_bh(&ar->data_lock);
- 
--	if (nf < 0 && nf > -127) {
--		survey->noise = nf;
--		survey->filled |= SURVEY_INFO_NOISE_DBM;
--	}
-+	survey->noise = nf;
-+	survey->filled |= SURVEY_INFO_NOISE_DBM;
- }
- 
- static int ath11k_mac_op_get_survey(struct ieee80211_hw *hw, int idx,
-@@ -9507,6 +9551,10 @@ static void ath11k_mac_op_sta_statistics(struct ieee80211_hw *hw,
- 		ath11k_mac_put_chain_rssi(sinfo, arsta, "fw stats", true);
- 	}
- 
-+	if (!db2dbm &&
-+	    time_after(jiffies, ar->noise_floor_time + ATH11K_NOISE_FLOOR_REFRESH))
-+		ath11k_mac_read_noise_floor(ar);
-+
- 	signal = arsta->rssi_comb;
- 	if (!signal &&
- 	    arsta->arvif->vdev_type == WMI_VDEV_TYPE_STA &&
-@@ -9521,14 +9569,14 @@ static void ath11k_mac_op_sta_statistics(struct ieee80211_hw *hw,
- 		   db2dbm, arsta->rssi_comb, arsta->rssi_beacon);
- 
- 	if (signal) {
--		sinfo->signal = db2dbm ? signal : signal + ATH11K_DEFAULT_NOISE_FLOOR;
-+		sinfo->signal = db2dbm ? signal : signal + ath11k_noise_floor(ar, 0);
- 		sinfo->filled |= BIT_ULL(NL80211_STA_INFO_SIGNAL);
- 	}
- 
- 	sinfo->signal_avg = ewma_avg_rssi_read(&arsta->avg_rssi);
- 
- 	if (!db2dbm)
--		sinfo->signal_avg += ATH11K_DEFAULT_NOISE_FLOOR;
-+		sinfo->signal_avg += ath11k_noise_floor(ar, 0);
- 
- 	sinfo->filled |= BIT_ULL(NL80211_STA_INFO_SIGNAL_AVG);
- }
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 08fd6795ed9e..dfb8509ede75 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -7695,7 +7695,7 @@ static void ath11k_mgmt_rx_event(struct ath11k_base *ab, struct sk_buff *skb)
- 		status->freq = ieee80211_channel_to_frequency(rx_ev.channel,
- 							      status->band);
- 
--	status->signal = rx_ev.snr + ATH11K_DEFAULT_NOISE_FLOOR;
-+	status->signal = rx_ev.snr + ath11k_noise_floor(ar, status->freq);
- 	status->rate_idx = ath11k_mac_bitrate_to_idx(sband, rx_ev.rate / 100);
- 
- 	hdr = (struct ieee80211_hdr *)skb->data;
+> > The '\0' terminated string handling is likely to be noise against
+> > all the rest of the lookup code.
+> >
+> > David
+> >
 
----
-base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
-change-id: 20261029-ath11k-signal-noise-floor-c7b10f2cd0bd
-prerequisite-change-id: 20261024-ath11k-rx-channel-switch-4ae05c7a827c:v1
-prerequisite-patch-id: 56c9f55a2b8fc7289ed2f2d736587a8869952253
-prerequisite-change-id: 20261024-ath11k-survey-noise-floor-c8a59c8c88f4:v1
-prerequisite-patch-id: 2d448d49f848e484eda837fc11f04458b594c770
-
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
-
-
+[...]
