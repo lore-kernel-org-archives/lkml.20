@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279671;
-	b=Jkpz4LiCfAMQswArLHRt0OHThbyIiNevFHAm3mdajPbqJ/6blBXnf9/2Dg+Slcurj3C0
-	 W0uq6iuC5yXql6vSXq/zEnrPP4MWqrbfkIlVk3b60H053oCxfNOZ7tY+G4WfzPC6A1vc7
-	 LrxyZUMr0S2HQVT9kYNBA5XMhCHCp/beiaPWyNCCg8T4VbritGvKhTzDSqBx96jWuXd3f
-	 7cd25B5autOqI4IE4ZOHadWn52kUwwfouJ0YlEZXm9dl90hi2mUvvmFUd7I1HBCOUbxuH
-	 Nd5iwlns6cNjfxzJ8AEuuN/cNMSC91hbmVuGhlm2NeYLG/k43osMXOFVvGcHTDfnTUw==
+	t=1793279697;
+	b=1GhHjc4D3FtXoURXU09Q5nZxdwJxEuhTIcMD8MuxqUQpKZf3eqOaYPQuNqOEZlA2RyXf
+	 56IKUs1Yc1xu/ZurKcBcoalMbqGBz2KXf9h0NL6q/JZ79eRFWTIzu3MtzA+S2xEvMwF1z
+	 YkmhQrj3pujH7e60+C3z6Uu8FHB2nJcNlUFoPug7BKIbCJvAKH7puHckTWZQk8v2iokVP
+	 JiunsZhImG8Nku8reMjZuTnPnrkmJ2V7U2ILVhz+oxU16ng1DS2ruyx1r/w9BRKTbdDhv
+	 omLXgIVOnBm7stEBUFNt3VAGCKv0/klSVA6Pz2JiiGMTo3Y2e6viofn6h17lGQf98Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279671;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=cJdBYcQWZzEcW170Dkg1FZUpnGDs52EYrFStRAwM8lw=;
-	b=D6LiOoVCHBQ16xCfMV0FprxG9rc0SgK1eC8hI5+QRpxL9JSLC0V50ypLKFa13y/8WATm
-	 AtdU8/6hP/tQSAJSV2U5wAxbptTpOsbWSPMnTUcnLP7SpFoCl+iBiTHhx0rtuEdgfKMI9
-	 jpGWnYOuRptuSiyHBCNcsTSkLYfmwDrBEPdEyqZYMuKP3UC1zlv8WSMBVtw2v4byjeAC1
-	 Lmuch2kCWLBvL5cQzuGKEuPMlAdJLXPM/Irct6dGVCjOtpBF8KyL6h/RKTWKCRXTuCKZr
-	 HIOuL7PMysPQRqRBnn1o75R2zI51gHh7R5x8dtxKYwH7dCOvfqoeEjW88emH3dkDGCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279697;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IlrVOpwJaTGTlDuUwqeTHk9QESdPLeKpM6jhbtM0OEU=;
+	b=S5Xn1+2+PAsNCE9JUMOa+w3XDsxSVHsxxkXWxI1JEtbkp6d1CsyC64pyP+nQ9T/2yJH0
+	 PLaPOESwoM7CRzmdpjSszdFy2DsXwvUtxve88MoomAJUneVxTW3ra6JG7oeDziiFb3EGZ
+	 awQ96al7EQp+semYEdCcj0/D+Qhq0VV4m3m7ImXAQgNqfjba4/t8Z7pjdAN4YUqjyZIlF
+	 RkfGRZEyqjzs58Ao0pAyom7fBz1tiyTDHx3a2olq9o1YSqAl9oH2IIcxiSEwaI28nGqs2
+	 2/tTPvqSbQWiFlzBPX0z9z3AcGkFoVA4EQ+h3nVL3wc8Ix78bjhf2x5p0GsKPNxgJ/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="cEvG/H26";
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAUe5cvo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF18606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF18606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 27AC1606A31A;
+	Thu, 29 Oct 2026 13:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cEvG/H26
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cJ
-	dBYcQWZzEcW170Dkg1FZUpnGDs52EYrFStRAwM8lw=; b=cEvG/H26TrlAW5LocT
-	FBivRxuwOdpf2GPxisJ0huVJ7e5boQE9NQfeNaWuqbyIUoeI4iQNy0URW++jQkGR
-	Ib8NhO57fbcerh/TC1vnTwtsnuEJnIRIqbPW9SzOoGKTjBnIf3I43cMNr6N8jNXb
-	/LsyBlfKMKd+Cgc/PiXRZ7NBA=
-Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgB3u3eeRuNq+Lb+CQ--.14261S2;
-	Thu, 29 Oct 2026 21:14:07 +0800 (CST)
-From: Shirong Zhao <shxzhaosr@163.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: bound UpdateFileNameRoot/Allocation by the entry size
-Date: Thu, 29 Oct 2026 21:14:05 +0800
-Message-ID: <20261029131405.30-1-shxzhaosr@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAUe5cvo
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 45FFE1F01825;
+	Thu, 29 Oct 2026 13:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793279696;
+	bh=IlrVOpwJaTGTlDuUwqeTHk9QESdPLeKpM6jhbtM0OEU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QAUe5cvo/sqCthYn89K+3BawyDIxpvUAgSF4n1z3ZNl7uihHE9jIERbAohHkgBBCB
+	 dDEbRei14KAICkqciQ6QqxZ2+s/6On3euJjrTYjmmz4yEMFx49aP5oBzvqxibO99pB
+	 VZcOewrZXsUUF7oA8rVgDT9Sam6R59+g5an++6UeTQOM8XnOULPfbjSAdN76s7RJ5f
+	 9GIISGQmG2E0XBK2OjUnFO68O3qXiDAUpNJP7hhZtHUOCIklkhqcN6NiDlED+LMBUa
+	 Corl1br2jmylRpXp/Yk+HXiMahi4bEDqa7CnxSUXOunxE4tN+YI5F3Ybm/ihi0CB0h
+	 nwCRhznpfhogA==
+Date: Thu, 29 Oct 2026 15:14:52 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH] keys: Protect the update method check against type
+ removal
+Message-ID: <auNGzJIWFt64IMWY@kernel.org>
+References: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,91 +59,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgB3u3eeRuNq+Lb+CQ--.14261S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFyDGFW3Wr1UKr48Xw4rAFb_yoW5WFW3pF
-	ZxCFZ3Wws3Jr17XrsIyFs5Aa4Fvw4kZ3WUWFy0yw10yr4agw1xKa4DK348u34Ut395ZFy3
-	tFZ8tw47WrnruaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbL05UUUUU=
-X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7R9MimrjRp+HPgAA3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
 
-do_action() resolves lrh->attr_off to an index entry only through
-check_if_root_index()/check_if_alloc_index(), which verify that the
-offset is an entry boundary.  That boundary may belong to the 16-byte
-NTFS_DE end entry, which carries no file name.
+On Thu, Oct 29, 2026 at 07:58:06PM +0800, Cen Zhang wrote:
+> key_update() reads key->type->update, ->def_datalen and ->preparse
+> before it takes key->sem. A reference on the key does not pin the
+> module that provides its type, so KEYCTL_UPDATE can race with the
+> unloading of that module, for example dns_resolver:
+> 
+>   KEYCTL_UPDATE task                  Module unload and key GC
+>   ------------------                  ------------------------
+>   keyctl_update_key()
+>     key_update()
+>       key_permission()
+>       load key->type
+>                                       exit_dns_resolver()
+>                                         unregister_key_type()
+>                                           GC: down_write(&key->sem)
+>                                           GC: retype to key_type_dead
+>                                           GC: up_write(&key->sem)
+>                                         unregister_key_type() returns
+>                                       free_module()
+>       read saved type's update member
+> 
+> The final access reads freed module memory. With the updating task
+> held after the key->type load, it faults:
+> 
+>   BUG: unable to handle page fault for address: fffffbfff804107f
+>   #PF: supervisor read access in kernel mode
+>   RIP: 0010:key_update+0x12d/0x550
+>   Call Trace:
+>    keyctl_update_key+0x6b/0x110
+>    __do_sys_keyctl+0x21d/0x4f0
+> 
+> This is the same problem that commit 925c84e3cc21 ("keys: Protect the
+> read method check against type removal") fixed for KEYCTL_READ.
 
-Both UpdateFileNameRoot and UpdateFileNameAllocation then assume a full
-ATTR_FILE_NAME follows the entry and memmove() sizeof(fname->dup)
-(0x38) bytes starting at e + 0x18.  With the end entry placed at the
-tail of an ATTR_ROOT that ends at the record boundary, the write runs
-past kmalloc(sbi->record_size); the non-resident path has the same
-layout in the index buffer.
+This is useful bit, thanks.
 
-Reproduced on v7.3-rc6 under KASAN, mounting a crafted image whose
-target MFT record (record_size 0x400) holds ATTR_ROOT.size 0x3c0,
-data_off 0x18, data_size 0x3a8, ihdr.de_off 0x388, a single 16-byte end
-entry, and log action UpdateFileNameRoot with attr_off 0x3b0:
+> 
+> The encrypted and trusted types can be built as modules and have an
+> update method. For them there is a second window: the GC can move the
 
-    BUG: KASAN: slab-out-of-bounds in do_action+0x3407/0x8790
-    Write of size 56 at addr ffff88800375e400 by task mount/205
-    __asan_memmove+0x3c/0x60
-    do_action+0x3407/0x8790
-    ntfs_fill_super+0x33e4/0x3f40
-    ...
-    Allocated by task 205:
-    __kmalloc_noprof
-    mi_init+0x81/0x110
-    The buggy address is located 0 bytes to the right of
-    allocated 1024-byte region [ffff88800375e000, ffff88800375e400)
+How is the second window related to the fact that encrypted and trusted
+can be built as LKMs and where is "there"?
 
-Refuse the update unless the entry is large enough to contain the
-region being written.
+> key to key_type_dead after the method check and before key_update()
+> takes key->sem. key_update() then calls the NULL update method of
+> key_type_dead.
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
----
- fs/ntfs3/fslog.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+I don't understand this paragrap overall. Needs a rewrite.
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index bb8d40b..abc066a 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3568,7 +3568,19 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 
- 		e = Add2Ptr(attr, le16_to_cpu(lrh->attr_off));
- 		fname = (struct ATTR_FILE_NAME *)(e + 1);
--		memmove(&fname->dup, data, sizeof(fname->dup)); //
-+
-+		/*
-+		 * attr_off is only known to be an entry boundary; it may
-+		 * point at the 16-byte end entry, which carries no file
-+		 * name.  Bound the update by the entry size, as the
-+		 * neighbouring UpdateRecordDataRoot case does for its
-+		 * payload.
-+		 */
-+		if (PtrOffset(e, &fname->dup) + sizeof(fname->dup) >
-+		    le16_to_cpu(e->size))
-+			goto dirty_vol;
-+
-+		memmove(&fname->dup, data, sizeof(fname->dup));
- 		mi->dirty = true;
- 		break;
- 
-@@ -3753,6 +3765,12 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		}
- 
- 		fname = (struct ATTR_FILE_NAME *)(e + 1);
-+
-+		/* As in UpdateFileNameRoot: e may be the 16-byte end entry. */
-+		if (PtrOffset(e, &fname->dup) + sizeof(fname->dup) >
-+		    le16_to_cpu(e->size))
-+			goto dirty_vol;
-+
- 		memmove(&fname->dup, data, sizeof(fname->dup));
- 
- 		a_dirty = true;
--- 
-2.49.0.windows.1
+> 
+> Take key->sem before the first access to key->type and hold it until
+> the preparsed payload has been freed. Once a key exists, only the GC
+> changes key->type, and it does so with key->sem held for writing.
 
++1
+
+> unregister_key_type() does not return before the GC has done that for
+> every key of the type that is still in use, so the type stays valid
+> for the whole update. If the GC has already moved the key to
+> key_type_dead when key_update() gets key->sem, there is no update
+> method and key_update() returns -EOPNOTSUPP.
+
+I don't understand this but the difference to the previous case is that
+it would be better to be just deleted.
+
+> 
+> Assisted-by: LLM
+
+Please run checkpatch.pl --strict for the next version.
+
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+>  security/keys/key.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index e88548f1a704..bac2333089fc 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -1101,9 +1101,13 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/* the GC cannot change the key's type while we hold the semaphore */
+
+I don't understand this.
+
+> +	down_write(&key->sem);
+> +
+>  	/* attempt to update it if supported */
+> +	ret = -EOPNOTSUPP;
+>  	if (!key->type->update)
+> -		return -EOPNOTSUPP;
+> +		goto out;
+>  
+>  	memset(&prep, 0, sizeof(prep));
+>  	prep.data = payload;
+> @@ -1116,8 +1120,6 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
+>  			goto error;
+>  	}
+>  
+> -	down_write(&key->sem);
+> -
+>  	ret = key->type->update(key, &prep);
+>  	if (ret == 0) {
+>  		/* Updating a negative key positively instantiates it */
+> @@ -1125,11 +1127,11 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
+>  		notify_key(key, NOTIFY_KEY_UPDATED, 0);
+>  	}
+>  
+> -	up_write(&key->sem);
+> -
+>  error:
+>  	if (key->type->preparse)
+>  		key->type->free_preparse(&prep);
+> +out:
+> +	up_write(&key->sem);
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL(key_update);
+> 
+> base-commit: 9a2a4c51dccc3168c3dc949fcbaa360a478fa228
+> -- 
+> 2.43.0
+> 
+
+Br, Jarkko
