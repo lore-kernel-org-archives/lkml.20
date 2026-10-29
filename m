@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793280799;
-	b=3kSJ23mF5LK/fSdJYD2ywNYL0Fwcn5XakyOiBRXyhYpu///3EwyFuyHcSfpXOGQTEKzP
-	 j7UY/0+TFfpQbbJcBMAG4Rdf1i9XNo1/HUhc5Jc5rejRqMYsSNYUAi+KL6yPu0WqFSmXE
-	 qpWSC/g/jTv99xK7MOlxujl6KGjz8aMe1L1W+IxrGXFjqz0mOXYUG0ds0ju5bc2AhIBYA
-	 jBrDy2r02X9Wxog16FWNX0Fo3UsSZsXHf6RXzh3MwlnCyokPM2X5fJ/zhYualCmj0iKUr
-	 77UOtaEgoCN6KXeFDl1i2amwbrQwhtUriMTcJIFuUmrMvI+Gdf/s0el/qCyd9lzUd9w==
+	t=1793280838;
+	b=WD1bJbbi1uuF579NQ5hgOIrK4Mp2a2AsLB/fIKP5a4Vzy5GEndHDm/EfzF/48P9uijr2
+	 O2NR5NnvqdyaDOly5za45yGrysi5IiyFPJdC8a6UpupzPfdzi5/+hjWTyF/g1Lgf/r2/r
+	 7XlUyGLkZKsaGwWtbLSbYDfyL9SXly8YzK7C0AL9oe4z71zBcCfBkIQ/lhwby+eW4sMmO
+	 XjwLCciP1UkKFQ9J1ca+VG0Zz1wLQHZZ/mrekYENHHCKp/rj/ATY8wQ0Uw+CVKPChmHmq
+	 IGeQgck7fOHWiFDVE7/0prE/syt8RjE8LztF2+ik96XEBweLjJZLd714AGX2Uyx7cBw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
-	b=yt93RvT5NXdpSyN+tm/Ie7sTYS2JklWv2UjGr309oRvsx1hNqiJl12Oa1LLTgm/Eqie+
-	 Gl8pnpLSfUVf1LwTI8SSqZZR9mFVNkd6DNUycyEv7Ym08eBRlh4PyLecmqtrmM9wU9xuS
-	 4cLhCHXLltXiNXjY67zymEy6d6l+ZLBc94NfoDbrwQ7ur5mR5VJyPmeee1W9HrE3FuEaj
-	 pieU/qrzh76YIA/5ij7iXozjURNo2FiS1xTKFBEr0ezLyrxspeGtCZTG7L8SA437ijK+h
-	 abYoO5yE/TGH+rcNweXSZs0NGvFifGPfchN35jwHfnDFE5R9MgGmU4/TERCEz6EMdNQ==
+	bh=F+eNJSMVkwDxJUThG2ULRs96wZbJ07yl55m4EZseYWk=;
+	b=H1YRZewAsi8MME2i3ets8gmr1wCCGk6By0X7l0WNMvCnOU/sKJtN5rhDhc5+V0rDPkMD
+	 9P21TeSCxFWG9Yg/ep6Yclfn6iJRKede7SdsCrv8TYiuXaF/zbTZdndVetBygsZ9+L4Ny
+	 s4q5K0q1G3DD0zSoN5Etcm/lYy4/AQWIwbxfMv2Cv4oiXqnLktCVGzXax7BtWkkhvKShS
+	 WYmx3c8qKDgpwmSJ7EoUv3DJavyjuRlwWBs/XNIh99Eex/z3hZ/jtiH2i+zeOg6QaKGLS
+	 k2A/Ws8eL47E6wZLdY0p8oxFn5puz32T1oursIBwDFCiVz8nv2WXAcigcmqZf6kkY8g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rBk1Rza3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=pXENXzws;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAC606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BAC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DAB606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DAB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rBk1Rza3
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e4c00d71aso193547085a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:33:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793280797; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=pXENXzws
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso619237a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:33:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793280836; cv=none;
         d=google.com; s=arc-20260327;
-        b=UHM4Xz2IIrBigMX+Kud2zB8Qv74zgageXaMJFGHq3mW86qsnDhicgJQZfjsZM0iPki
-         ICtuLC+/7GSMLs806M86yJzXLeDx7Wa8pDZEiglOZ/e8eIqBZ33zoqVbDO963KIBAXUH
-         Blt+kKgYdDF+OJyHLAYjDx0cfzikWbXGGxhExokVAm7uC8Abj6rDKZu4sXqgyhD4+M8A
-         q6f2Bzcg67tVwO1CNlMEkiTMRs/gw3nY7eLqYSqzUEuVkApBzVNLlzV7Tqo1w4S3LXWY
-         1W7tgkBUk2x6TRvNQTfVmxNK/qUuTmhlPEfxuE3dY0MK663tBoo96SHcDCIXWlwyIhAa
-         rQnQ==
+        b=qWNZ4LvzFh02LRhIYij/I7431DASM6Bt+HCySHwu4NxbkdOf8irWOTjptcU8JCXWKX
+         pCIeyS08vId34y6ybnpm+dKn1m81EG0KSzQ8V/S+1odUKysLqf+npQXS/s5i/TEFLGWF
+         gs3Tdz3KQbkTUj34tGIvxE2vIHgSMeaK19fwrWFpT7TZHwD2SPhtKRuxXHZDfclQ+MZj
+         IOHfstdYbhwsGRXNWf1KEcVRo8F9FwA84nW7mTcRKKb2SOkHZNCDxF60SM9e7qmFVXUR
+         F0BNKFhvCimleXRmgwPrBC9UZjQZDobDzFJKjjvGyPx+cH3txWmIKzUHEtDyFYOiB0kZ
+         RDFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
-        fh=RsXRCTz2wqFNfEHrpUGMPAOggENKrxrZZlGpAy5BRU4=;
-        b=OKt5dxolBQjLRmCiCuVZ6SC/d2PHS15Jh+yzbkJElKXlgWtg2Klju3S34aOlbv4zZ2
-         SGjBtfp56wi4juHHK0xzGg3OfGB9K5BBz/KKmUn8DSwnCrBK269KL9iHHc9H262qZu6p
-         zvv+1JgwjSHN6fwj3jD+mNk8jECQav5PRg1KWzqcgFNPUwKdQR706PjlvsyXcbrAdjJ+
-         zldfE4tbgxbklRYrqxE+ty3JCLsqNTbPVx8wah59j6SjLhrvK5oRdDsUDfbK8h/V44+q
-         KVRJW8xXgE/Wm2APm6Vsj30j1HpydxIfxXFTLsUV8lxia/7dkZgPCRwPK2JPE2nugPbN
-         1lwg==;
+        bh=F+eNJSMVkwDxJUThG2ULRs96wZbJ07yl55m4EZseYWk=;
+        fh=V6H0DkFZvEiQplQksilIMSvPxwSsm1YS67Yooa+PyIs=;
+        b=MTEQbJxXUA+I/JXFKrSTJ2XZ5tIBl18vnnM7PSQBMcSoGlxEv4E3WgaQbc5k/Yu5WJ
+         giThw34PIpxM3dW3WqahLVw8535F5rUEHAdOgP5k837Gq+UuW0O9DCeGVNcx/89Ki1xe
+         pZEcd67bhveaU5fSi3QOFDKBkJq061h9oohTda3+PHDY9QeDovM2YUN0YpYipBGZij6V
+         dN89+ktCvTYWKb7GW/qOfCX1q4USY/aaHQmsIx1aTFSOvFPUwy01oafZstS2Fw7lfcSP
+         CDH5e5c7qKQ17Db4BAvMeJvv0Na9EfNMV7DPjc7HzohBNYVaKDZ/AiUJspYX+9Tb7Vc/
+         AJ6w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793280797; x=1793885597; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1793280836; x=1793885636; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
-        b=rBk1Rza3nDUnh651/Pwns2HNDnuy/0lby1QjU9+b3t9q5BL07PwHCmGSDtDQ4PIZug
-         Kx42Hs6ZrSeflD/Dq7B3pRfWwQ/ZEc8oMkPyGE8kwCz9NqTt3KtSHDgR0eNz3xdzFpTv
-         B02ZVtutkAoPAQ70c0A4NLpq0i6Jp4e1Kf3f90oAPLWsCrr5XpX2TjxqLXoTVkwWRBe/
-         fDxnPtQLgDBGvnYCOP/LRKhA8EmyIxEbQ7+9RGZ+nZmsE2FF7HEgK9DFNIm6XvCs/Ph1
-         DqFipXqM3CYZ6xkNqoTWAZZ9klLdvKP2ch05kyi4hmVOTNeMQrqc2/4eKXOLfrKdGevR
-         fxEA==
+        bh=F+eNJSMVkwDxJUThG2ULRs96wZbJ07yl55m4EZseYWk=;
+        b=pXENXzwsbXs1Bi1Q/de3hCPfefNHByHAaEvTI4G0A+WREg0Ect4dw9f9kyV9r4ucgP
+         5F8ZmauJaht58zJtnNK9yMCCSb6tLrLTukk6Ug6FxEAzCXTpRiUqJ9naaf/5aRrmgGtv
+         EqbpZTfV7dKVYlJk3jVCnw/cvh5RAwYd5eDt20AZIQoEzM8XyrHQIO5UrTh0TJj1U/wY
+         mynDC5vs+gyCvgk6DPi6HBAO34nYUcnZDwWHTHtxUSGt7oj2nx/ZxgHyhdeApsrdeZE6
+         8+o5CslRF1nuPE1Jb22mXJdJAwnJ9C7DxsFXc7wblydSBsSwtBUvrtyWjL6HSTNjSE5T
+         BlyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793280797; x=1793885597;
+        d=1e100.net; s=20260707; t=1793280836; x=1793885636;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
-        b=EeaOdKNY+Prq9zBHR7H2fIoRY1C2pKTT+udnxXP+9IckumPgCCXZQ10ERzOU6jDpXj
-         wIqAeI0DTMT3QFK7leKVXOPmV2y6Ap+6Q1Gl4Jo0mb0pkhTESxDPIGiJ/KQBAYCrJqxW
-         LjYmBxeUaDZOj1h0trCvJr8HgG+w3R5EDEcDHWeDSWAugYKiSd6rUyjfd7xSoN75+prM
-         9Ifx7B8h/yC874sPLVuz58tz85SQL9mDjdlZ8uR5N6kebCHd4uItVljmep6SjoFE3ZLb
-         AIWH4WLfjVNo0exE8ac7bH3U6l118kfEp9ykH2bIPNoBf2Vu84hxoe+nKP+d5lgt2Y1p
-         2GTw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9rk64ZvOzA7VflgvZT5Kb9Dh0shQpvUIykdYLHpTKvtqCP0J6PQWwUTCMT0Vr1acD80ydpVReKT/ugrA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgDkTTWHybDxyXOyBqdAg1aoJK31OEO70BvVF0volCbP1EzP9i
-	5fh4qowygxMXACvCdo2y5NXDO8JYE2EF3jBi1zptXf9/Rznk7msr/P+Ok/XS7CbTgWAvJSmVx7a
-	KyKwDLsmJZW5TDFr7wrIrEBQvDNYTu/31EjfB6WI=
-X-Gm-Gg: AYBFou2sE5ulE4h1/acNaeGfxMDNVVYsKCHDv/Bi06+misyWEHCv55ZPtfJ9jKHMdoG
-	4sOPRFB6G9ZiTV3t351dUmf5ltxpyvHkg1zmTkwwYR9c0zg2HltKWZEI+y4B28YrWVpl2mvSxpE
-	Zt9KZBrLsU4ZQ/BA6+roF5DIHKTOhKJL+FxqoKiPe2qRwURxsth8v6TRH9hTOPXyVZcAoQ5IfWZ
-	CXJlTUHwE8ubKWzu+Th0nfczNRFuE79/CrXMUB6Df8/wve1p22QbjgJwIVwuMur68oYXWWRYknN
-	eBuHTOYsY0csu5xWO81chRtkaEHS5XQchZhCf+XDf0OrcpzK/TJbswGXQfZHHBR/xXHKClo+CsC
-	EYEm1XjjkQUhC549Yp6KE0pPdDPaJglGU3MSC
-X-Received: by 2002:a05:620a:4628:b0:93f:1cd7:734b with SMTP id
- af79cd13be357-94408cf970amr830248485a.34.1793280796965; Thu, 29 Oct 2026
- 06:33:16 -0700 (PDT)
+        bh=F+eNJSMVkwDxJUThG2ULRs96wZbJ07yl55m4EZseYWk=;
+        b=JKTteFGKBFwaXsy/gBMgQF/417Litx2eS44b0t8mxSyxlMsYhoHUvUbQwup4koTWw+
+         mVDD/1fnXa7q40lRUdN1K1gQAeotk11QF8z+d2t+szJeYAxjdJwgz8eXWIrBhAhkRw/t
+         wGwLYzybYIFzoHMYJd9lb98bUS25DsVEWQ7/GKdmsp3U1M8wNGafokNiYqwOgbr3KdI/
+         9dZ9WHc/vgySEYBGHeNg9z9ldG4dRAERDoYzC9lpSMyTF93Ab5ekErU6GjgCORqSiWaq
+         g5pkvDdPig0dT6S+iKyajwzvvlE88tfitMVndS2Vw3rmr2jUyfqCPHsE9dq27tBMFaeS
+         MSag==
+X-Forwarded-Encrypted: i=1; AKwUvByevDnWhR5BQD37wV5S5OQBW31UzlVk9O4RU/PprOMKR0iFSV1xmkzWEnZLl9iwVht7GipgLT4jFNlOhok=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiEoCXZhUoXQViBe8gL8ToQyzn9pHYRJCRhKfTYxXs9MhxnGQb
+	U1gWacMswlTP5wRlXecMalXBoK2r3PB/XAL7GNPpKHlH7PpzzVhJOAp9c4xX6R8ATMNSocSRh3n
+	LrfG/2+qPT6wKYGw5ObLkaIBllxTdSSFs5E2ulD1SYg==
+X-Gm-Gg: AYBFou1O3fkXhGWCGaGQndqiy6fi1VNlVZ/sqMZV41WNuDWZXh9XMfy7f7R04t3/oEF
+	ibmwG67GHu1N7JPtWmGEwSCrebN+XvT0ReZlAJMvVFdJyP7z50NF0bqS5Pck5zbNgmeeZR2Ibvx
+	6L+aumNOP6Dtkr3DuAd8kHHxndlrikDPIa1/y7oXNN84vZ++9FRSOPQGPNGvFzkX1r1rwG3qjpy
+	To8K/2d8E8MdggCL8XnBQ85lBtcrJGmRZMSyurcLXwlCS2vGmc607xxJwfdh02wkd97OX4Ora5P
+	xttK8dUqcN4qAK4JHd8YOh71AbgbjAldvsK9nmXbrl44JeezxOSGc9SCYYr02nuTOnmQGUYWmUS
+	HGiKYNoA8Ek4Afbwn11qWTeZmeVnMyEAyLJ6+dfYlaKCZUKDkGyC5rcNA9MWRWKJOLzNKheRzbU
+	UASIxWtNQ2RywpPNE=
+X-Received: by 2002:a17:907:6d29:b0:c2e:3f49:df04 with SMTP id
+ a640c23a62f3a-c49bdb68d6dmr477795466b.1.1793280836138; Thu, 29 Oct 2026
+ 06:33:56 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,72 +105,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
-In-Reply-To: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
-From: MBKCHEL <mbkchelofficialdev@gmail.com>
-Date: Thu, 29 Oct 2026 15:33:05 +0200
-X-Gm-Features: AclHuK9wwROn4TU15KaNzEXIRId3eBxRzEJjMKpQJVL7IKBQ3GuCcnxcaYqj24A
-Message-ID: <CA+YDrKBAPZ9MHB46wVSsD4Vd-R8L1Kkz=Vp-F32+WyfJ5FDaoQ@mail.gmail.com>
-Subject: Re: [PATCH] rust: macros: document emit_base in ModInfoBuilder
-To: Luis Chamberlain <mcgrof@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029-biwin-tua-quirk-v2-1-4d71af956ac5@flipper.net> <sashiko-outbox-189185@kernel.org>
+In-Reply-To: <sashiko-outbox-189185@kernel.org>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 29 Oct 2026 17:33:42 +0400
+X-Gm-Features: AclHuK-InaAZRWkyXXw7fbMZCCfKUR5Fcnop4TxQ9forW4KTFobV-VEqdzfk2_o
+Message-ID: <CAKTNdwHeHECQiM=MBew4YE6E0STwPBxyo_QnshASoE7u2z8P1w@mail.gmail.com>
+Subject: Re: [PATCH v2] scsi: core: Clear power-on UNIT ATTENTION on BIWIN UFS devices
+To: sashiko-reviews@lists.linux.dev, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, Oct 29, 2026 at 3:12=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+[...]
+> [Severity: High]
+> Can scsi_test_unit_ready() starve waiting for a request tag when retrying
+> writes saturate the queue?
+>
+> scsi_test_unit_ready() calls scsi_execute_cmd() -> scsi_alloc_request() -=
+>
+> blk_mq_alloc_request() with flags =3D=3D 0, which waits in blk_mq_get_tag=
+() for a
+> normal non-reserved tag from bitmap_tags.
+>
+> When write commands receive a power-on/reset unit attention,
+> drivers/scsi/scsi_lib.c:scsi_io_completion_action() requeues them immedia=
+tely:
+>
+>         case ACTION_RETRY:
+>                 /* Retry the same command immediately */
+>                 __scsi_queue_insert(cmd, SCSI_MLQUEUE_EH_RETRY, false);
+>                 break;
+>
+> In __scsi_queue_insert() -> blk_mq_requeue_request() ->
+> __blk_mq_requeue_request() -> blk_mq_put_driver_tag():
+>
+>         if (rq->tag =3D=3D BLK_MQ_NO_TAG || rq->internal_tag =3D=3D BLK_M=
+Q_NO_TAG)
+>                 return;
+>
+>         __blk_mq_put_driver_tag(rq->mq_hctx, rq);
+>
+> When an I/O scheduler is attached (such as the default mq-deadline on UFS=
+,
+> where dd_init_sched() sets q->async_depth =3D q->nr_requests so writes ca=
+n
+> consume all tags in sched_tags->bitmap_tags), __blk_mq_requeue_request()
+> releases rq->tag but keeps the scheduler tag (rq->internal_tag) across al=
+l
+> retries. When no I/O scheduler is configured, blk_mq_limit_depth() impose=
+s no
+> limit on writes and blk_mq_put_driver_tag() does not release rq->tag on
+> requeue because rq->internal_tag =3D=3D BLK_MQ_NO_TAG.
+>
+> If enough write requests are queued to fill all non-reserved tags across =
+a
+> reset or runtime resume, won't those writes endlessly fail and requeue wh=
+ile
+> pinning every tag, blocking scsi_test_unit_ready() in blk_mq_get_tag() un=
+til
+> a write exceeds the 180s retry window and fails with an I/O error?
 
-Please note that I made a typo in my last name in the "From" and
-"Signed-off-by" lines. My correct name is "Ivan Tverdokhleb".
+Hmm, I've simulated this scenario and it is indeed the case. When a
+lot of writes are in-flight at the moment of an injected UFS
+error-handler reset, they end up holding every scheduler tag upon
+resume, meaning the TUR queues behind them, and the recovery doesn't
+happen until after the writes time out with an I/O error (which is
+pretty much the original broken behavior this was meant to fix).
 
-If the patch is accepted, could you please apply it with the corrected name=
-?
+Given that, I'm wondering if dealing with this via the UFS devman
+interface (as was done in v1) is a better option after all. Bart, what
+would you say?
 
-Thanks,
-Ivan
+- sd.c looks like a wrong place, because sd never sees resets the UFS
+layer does on its own, such as UFS error recovery
+- The midlayer (like this version) doesn't seem to work either,
+because it only learns about the reset under the host lock, where it
+can't issue commands, and queuing them in a process context means they
+wait for a tag from the same pool as the offending writes are holding
+- The devman path in UFS, on the other hand, knows when UFS does all
+of its resets, and has its own reserved tag, so the TUR can go out
+inside the reset before LU queues restart (thus no deadlock of the
+sorts referenced in edc0596cc04b)
 
-=D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 17:50, Iva=
-n Tverdohleb <mbkchelofficialdev@gmail.com>:
->
-> Add documentation for the emit_base method within the ModInfoBuilder
-> struct. Explain its role in formatting metadata strings, handling the
-> differentiation between built-in and loadable modules, and managing
-> linker sections and conditional compilation.
->
-> Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
-> ---
->  rust/macros/module.rs | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
-> index 0a7b9e24c..6f361013f 100644
-> --- a/rust/macros/module.rs
-> +++ b/rust/macros/module.rs
-> @@ -49,6 +49,16 @@ fn new(module: &'a str) -> Self {
->          }
->      }
->
-> +    /// Emits a single metadata entry into the module information table.
-> +    ///
-> +    /// This method formats a `field=3Dcontent\0` byte string and places=
- it into the
-> +    /// `.modinfo` linker section. For built-in modules (`builtin =3D=3D=
- true`), the string
-> +    /// is prefixed with the module name (`module.field=3Dcontent\0`) to=
- avoid naming
-> +    /// collisions in the final monolithic kernel binary.
-> +    ///
-> +    /// It automatically generates a unique static identifier using an i=
-nternal counter
-> +    /// and applies appropriate conditional compilation attributes (`#[c=
-fg(MODULE)]` or
-> +    /// `#[cfg(not(MODULE))]`) based on the target type.
->      fn emit_base(&mut self, field: &str, content: &str, builtin: bool, p=
-aram: bool) {
->          let string =3D if builtin {
->              // Built-in modules prefix their modinfo strings by `module.=
-`.
-> --
-> 2.56.0
->
+I've run the same test on v1 (TUR through the devman slot): the TUR
+went out inside the reset, before ufshcd_err_handler finished, and all
+399599 WRITEs in the same window succeeded, with no UNIT ATTENTIONs,
+stalls or I/O errors. If we go that way, v3 would be v1 plus setting
+lrbp->lun from the request UPIU, as pointed out by Sashiko during the
+review of v1.
+
+Best regards,
+Alexey
