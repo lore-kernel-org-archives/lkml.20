@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793242406;
-	b=01JshMXtKsc9k9N45NIYkXmrQZ865jFYyRMZdqCZqp7hD0nDSoj9/QJrRhTdDljE8Hqt
-	 PdcnruNEQpLjvNM01powULy6LP3YHohvnPfFgL/WjKGUbMvGGQ2I/GUURuE97UtLytry5
-	 Po5GG0qunRra2d1DgfwYDoDKEX5S/wsWsGJQcqirva1DIUFL+IlepFqZI+4K5lNeey8Vz
-	 NX8PA90qT0aWOoNAGMq9e/WCatK0JVUpvEnMz8axgECMd3xnoPuvgVKElADtlcg4NlXYL
-	 6VguUBv0OiQ2+XQP5OOBLoxTwS3KuV0yLsZCxAGaMoqGhdGovEzeOYdEYEt0uHz7VCw==
+	t=1793242477;
+	b=sgmECo/UohkoGuuH/XZEdK7wzyNfSlNeAUfQdd8ybHDoguu9NZ/0A0zGse0ySi/5mdfe
+	 1IjJkMBI04GADp6vBUP+yfZH1kTKSn0WxHOFTIrxTk6gDM9CC2bwv82qrnuLxln2Hrn8G
+	 DeoRYTJihDPGcLOGWq4GtlETb1S4vSWhQDEXKM5riRv7+NK1eWpFs1fimfh/wbGIz5TCX
+	 Ww53ttT7euAyUyTxLMKhSLIhtyu00NyvmonzRQ0AIGVM287cHcIHIOt9WkgUt+vrWA1Ke
+	 VikFcH4YWC5HFukauE78AINjlDRW/yETBuJZwM+RVPh/Pj2JW4LOoRvjMe36kJrP4hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793242406;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UzCsom1MHdjuVQoOuLgWKxmawdZeBEU/EW+Emz+v9v0=;
-	b=4bKDt9ODwNQqd9zsKag/p6JHi+tho57MEf+htKdgHrpPnPWxZTe3Q+dRCbBai2NwjsWw
-	 zNKWzNM9NG+0/DprrXySdQdbv77Scy9vVl/Ezl8UzD93CRorZOIPN541MjcXo6/f1vy63
-	 NjD+UE6I66M2DMo5N8XsyNctsHy7v+WvhtUcckf8HnUolyT9hyCOwnaAHlAgp4pV9eHtr
-	 o1Uj2xH+uGz9DIJArMwvNOlzvsmDPPeTeUGAOE7UG9FHN7aMuJQ6t2XRR4ghH6zLLLdoN
-	 9BICEM4Y+8LZYLlJJSR1ikd26LG+TKc/wEmKgK/DuIED1vVA1iG1hu1L1LYQzo42cHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793242477;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=kG2dXNb8wO3/BgLfC0cpJvPGIyuZmV9XeLRw5RqugE4=;
+	b=PVQ4+OI1Dvbw4f+S9osAHbQm/W/B2explIKbvZevegvzgKFcZFCtMVxpIwC2PFRx6zyW
+	 iU1pYRWz3eXNqumXTxZOj/CJaIrXXU2fnFixVOEVhklQkukRWQ3D2dOOr6cFIVCpdYTTP
+	 NuRx9kgxn75EOhg5TUlRegN8JwjLg/i+h+bIjyB/9UIS7I/zkfUHqBNNf1UO8s5OQ8jB8
+	 xHtmPbo2c1FCRSRlD2yTMPbpJSrBHO7nk+lJ2nIzwRATN+jfzanKkjF2SVgpWUYHjyhjT
+	 oFXMaNGOmz1H3NAddMVUd0YnMP6/9vg36WfcpmeKQ3p7V0qeakJkkF3GVATMVOTTpbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URvirsQi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=2IklUx2L;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D249E606A31A;
-	Thu, 29 Oct 2026 02:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D86606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:54:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78D86606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URvirsQi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA361F01825;
-	Thu, 29 Oct 2026 02:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793242405;
-	bh=UzCsom1MHdjuVQoOuLgWKxmawdZeBEU/EW+Emz+v9v0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=URvirsQiWXJ7Xm4pBthzWDJwb9Oxq57av5mcQXXbsbwwYjCj1ljj1JHFIXKRKvXMP
-	 Dqz428lScfq5vQtAz4KNVER303uKzXXGY9q88uAs7i0tLcTej7HLqOiu54L2RZ7siE
-	 Ob4ORJHjAsi8TQ+yII3Z9/iGO6A/661eFxZE8o5RpUfXEOZ0NE0fEZuJEnI6KymXDe
-	 KdWD3IPKhSqE6uJSeZrcmhXY23pRyl4AJenbPU74D7eTyT/P27nWSFZPfaKcPLWkxm
-	 hikR6gHZBe7u79P8WxySMEz9MqORw0Qz/UrhkirqfnZTwDJNm6qU90A7arMXXsWrhs
-	 6Os9oMEgLUocg==
-From: Sasha Levin <sashal@kernel.org>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
-Date: Wed, 28 Oct 2026 22:53:18 -0400
-Message-ID: <81c6fc0c56aa4c83a06a.sashal-rc-0001@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d989cca6-f049-4c87-bacf-8a6a4832dfbd@gmail.com>
-References: <20261028170459.200466217@linuxfoundation.org> <f09f94df-c5e7-45d5-86a6-50be145f6655@gmail.com> <d989cca6-f049-4c87-bacf-8a6a4832dfbd@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=2IklUx2L
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=kG2dXNb8wO3/BgLfC0cpJvPGIyuZmV9XeLRw5RqugE4=;
+	b=2IklUx2LMEZLmggJ3mhG3a18Gubq8nvBArxV8GANZCGw0Mh/SwWlaUoh71DSi3Koh0Zc58dgz
+	ZnC7qz+ZGFcd1CCNqLyIRrdjgaN4noxkUUA3e15+fAR0pKK+46xWakBys78xRqfERtzl5a83qrW
+	mF8GnxsvytzPaFBLsPilyhc=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jFTMr6fy3z1prMP;
+	Thu, 29 Oct 2026 10:54:16 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7A2844056E;
+	Thu, 29 Oct 2026 10:54:25 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 29 Oct 2026 10:54:24 +0800
+Message-ID: <52945586-8c5c-4991-bd92-fe02aaf79fbe@huawei.com>
+Date: Thu, 29 Oct 2026 10:54:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,41 +62,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on
+ migration
+To: Leonardo Bras <leo.bras@arm.com>
+CC: liuyonglong <liuyonglong@huawei.com>, Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly
+	<joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose
+	<suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
+	<mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>,
+	<linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+ <20260901171558.2674031-6-leo.bras@arm.com> <aqneWnlsdpocLIl6@kernel.org>
+ <aqqhDs3NyjtkZzXK@LeoBrasDK> <aqsl1_IqnV2r8kUL@kernel.org>
+ <aqvt2gnlBZeNsaf4@LeoBrasDK> <as-mH36YSMxAosND@LeoBrasDK>
+ <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com>
+ <attMtUqxNsuPooix@LeoBrasDK>
+ <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com>
+ <auCPEQmnFwWldTaM@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <auCPEQmnFwWldTaM@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-On 10/28/26 14:26, Florian Fainelli wrote:
-> On 10/28/26 14:12, Florian Fainelli wrote:
->> this is due to 341d4e6294d9 ("highmem: add memcpy_to_folio() and
->> memcpy_from_folio()"). We would need to also back port 00cdf76012ab
 
-That one was already addressed earlier today. Rather than adding
-00cdf76012ab, I dropped the highmem/hfs set from the 6.1 queue:
 
-  - highmem: add memcpy_to_folio() and memcpy_from_folio()
-  - highmem: fix a memory copy problem in memcpy_from_folio
-  - hfs: fix general protection fault in hfs_find_init()
-  - pagemap: add filemap_grab_folio()
+On 10/27/2026 7:46 PM, Leonardo Bras wrote:
+> On Tue, Oct 27, 2026 at 10:02:55AM +0800, Tian Zheng wrote:
+>>
+>>
+>> On 10/23/2026 8:01 PM, Leonardo Bras wrote:
+>>> On Fri, Oct 23, 2026 at 03:23:04PM +0800, Tian Zheng wrote:
+>>>>
+>>>>
+>>>> On 10/14/2026 11:56 PM, Leonardo Bras wrote:
+>>>>> On Thu, Sep 17, 2026 at 02:40:42PM +0100, Leonardo Bras wrote:
+>>>>>> On Wed, Sep 16, 2026 at 04:27:19PM -0700, Oliver Upton wrote:
+>>>>>>> On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
+>>>>>>>> On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
+>>>>>>>>> Hi,
+>>>>>>>>>
+>>>>>>>>> On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
+>>>>>>>>>> When dirty-logging is disabled, even non-write faults make a page dirty,
+>>>>>>>>>> which avoids a second fault when the page is actually written to.
+>>>>>>>>>>
+>>>>>>>>>> On dirty-logging enable, this approach causes all (writable) pages on the
+>>>>>>>>>> memslot to be marked clean, even if they were not written to, which can
+>>>>>>>>>> take a lot of time, while holding the MMU lock, doing atomic writes to
+>>>>>>>>>> PTEs.
+>>>>>>>>>
+>>>>>>>>> Do you have any performance numbers for this? Enabling HAFDBS seems a
+>>>>>>>>> bit involved to avoid some stores on the first pass.
+>>>>>>>>
+>>>>>>>> Not yet, but if the idea does not look too crazy I can find hardware and
+>>>>>>>> collect some data :)
+>>>>>>>
+>>>>>>> TBH this looks like a micro-optimization so I'm not expecting the
+>>>>>>> performance gains to justify the behavior change.
+>>>>>>>
+>>>>>>
+>>>>>> Okay then, I will get a machine to figure the performance gains :)
+>>>>>
+>>>>> Got the performance numbers here.
+>>>>> I tested both the case where all PTEs are dirty, and the case that 50% of
+>>>>> the PTEs are dirty.
+>>>>>
+>>>>> For that test, actually patch #5 could make kvm_pgtable_stage2_wrprotect()
+>>>>> slower, which is counter-intuitive, in all platforms tested:
+>>>>>
+>>>>> When we walk the S2 pagetable to wrprotect, using the new walker, the
+>>>>> write to the PTE itself is so cheap* that the cost of the branch
+>>>>> misprediction (write PTE or not) for the 50/50 case is significantly higher
+>>>>> than the cost of the 50% extra writes, which makes the 50/50 up to 60%
+>>>>> slower than the 100% dirty case. It is still slower in the '25% dirty' as
+>>>>> well, and starts to get even at '10% dirty'.
+>>>>>
+>>>>> * (non-atomic, everything is in order, walker is small, cpu will probably
+>>>>> bundle it all in a single cacheline write)
+>>>>>
+>>>>> Since the idea of patch #5 was to reduce PTE writes in the first wrprotect
+>>>>> walk, it becomes faster only if only a small portion (<10%) of the VM was
+>>>>> write-faulted while the remaining was read-faulted, which seems to be a
+>>>>> really reduced audience.
+>>>>>
+>>>>> Since this comes with increased complexity, and also carry costs of
+>>>>> having HAFDBS itself enabled outside dirty-tracking, I don't think it's a
+>>>>> good idea to further pursue patch #5. It's only value is that it served as
+>>>>> a base for HDBSS implementation.
+>>>>>
+>>>>> Thanks for reading!
+>>>>> Leo
+>>>>>
+>>>> Hi Leo,
+>>>>
+>>>> Thanks for running this, the numbers are really useful.
+>>>>
+>>>> It means the hardware dirty mode (HD=1) should only be enabled while
+>>>> dirty logging is active with HDBSS support, and stays off otherwise.
+>>>
+>>> Hi Tian,
+>>>
+>>> Correct, it's actually counter-productive for it to stay on without HDBSS
+>>> before dirty-logging.
+>>>
+>>>>
+>>>> With HD only enabled during dirty logging, we also keep the DBM-based
+>>>> encoding for the HD=0 case. On systems that support FEAT_HAFDBS, DBM
+>>>> remains the write bit and S2AP[1] the dirty bit even with HD=0. This
+>>>> works because kvm_s2_fault_compute_prot() maps any writable page of a
+>>>> non-tracked memslot writable-dirty (WD), including on read faults:
+>>>>
+>>>> ```c
+>>>> if (s2vi->map_writable) {
+>>>>           *prot |= KVM_PGTABLE_PROT_W;
+>>>>
+>>>>           if (s2vi->device ||
+>>>>               !memslot_is_logging(s2fd->memslot) ||
+>>>>               kvm_is_write_fault(s2fd->vcpu))
+>>>>                   *prot |= KVM_PGTABLE_PROT_DIRTY;
+>>>> }
+>>>> ```
+>>>>
+>>>> So there is no WC entry for hardware to promote, and HD is simply not
+>>>> needed outside dirty logging.
+>>>>
+>>>> In the next HDBSS version, we'll only turn on HD=1 when dirty logging
+>>>> is active.
+>>>>
+>>>
+>>> Right!
+>>> I will also send a new version of the pre-patch (4 patches) for us to
+>>> discuss. The first 2 patches will change meaning a bit, but should still
+>>> work as they do today.
+>>>
+>>> Thanks!
+>>> Leo
+>>>
+>> Hi Leo,
+>>
+>> OK, I've seen the new DBM RFC patchset. HDBSS v6 will be based on it.
+> 
+> 
+> Hi Tian, thanks for reading it, and for accepting it in your series!
+> 
+> Before rebasing, please wait for the ongoing discussion on it's
+> correctness. Maybe I will have to send new versions before it can be used.
+> 
+> Thanks!
+> Leo
 
-> And there is this other build failure caused by 997f9c35fcad
-> ("Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete")
->
-> net/bluetooth/mgmt.c: In function 'set_mesh_sync':
-> net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function
-> '__struct_size'; did you mean 'struct_size'?
+Hi Leo,
 
-The 6.1 backport of that patch uses __struct_size(), which on 6.1 is only
-available with CONFIG_FORTIFY_SOURCE enabled, so it breaks the build
-without it. Fixed by dropping the five-patch Bluetooth MGMT cluster from
-the 6.1 queue:
+I've read your discussion with Oliver on DBM RFC v2. As a suggestion,
+maybe we should go with Oliver's approach, i.e. revert to the v1 scheme
+and continue fixing from there.
 
-  - Bluetooth: MGMT: Fix possible UAFs
-  - Bluetooth: MGMT: Fix dangling pointer on
-    mgmt_add_adv_patterns_monitor_complete
-  - Bluetooth: MGMT: Fix memory leak in set_ssp_complete
-  - Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete
-  - Bluetooth: MGMT: Fix list corruption and UAF in command complete
-    handlers
-
--- 
 Thanks,
-Sasha
+Tian
+
