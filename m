@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287515;
-	b=qc4Wd9bzN6DAittcPx3jDp8+p+JyFV2fBTSSynxe7WaVL3ME1Ylcc+JBAKXvjFZPxKqC
-	 I7Eplaz6Y29EjzpvzC/1Lbi8aHnKpBAo/6bD8DFWHTkBuv4GW9HGjK7zmFsNE2f1a1yY6
-	 zCUlZ5IfjgrA0/k51YCRCt9tdZfRL7Y5JgcEVJFpdFWHD0LeRzxS0iGLPEQlllG4QuDuA
-	 w88CR4jnpU99YnVnuJVvKVuOw1k+fRazfIJzJluGWxu9n/K5i6dtrgD3jTdwkXnWVoWEc
-	 rLt+rJZU+SkC9hZYfu/neQMZRpF8jM/1tNBnBRSQX0EH76UnTPX9pM4JEbKDmJ945AA==
+	t=1793287530;
+	b=udEhynm0chQXkiG9jHGNQx/L5h/5a943usxEsAKG8Ez/dBPZeeM28wCp0xNlATuCe1yR
+	 1hfO5eHq7LLxozM9SaPQyid/CzdG66DMWkZAZDmOr+TzAEMyF7PUHvvcux6kt8cFpxCe4
+	 V3Q24eG3aiBvL7FyeSQEvjI6uSkSURSF18J8UER4USnbasMgFsEcnnN8JT1Fyw2UBi8Qw
+	 F1sNbqJXxbIFG2G9skApwRad+NhL+cA3sUVWv+cQJJ2annH2JoD3WlIr1uwZXeu2TtZQw
+	 UR5d6WQ4xAxFDR01SEVKBNfvRz5NwgNykfMNfCYYpaAlQyXvIatBZuwFgzfRut1e0YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287530;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XjX6gisJB//qDXMokKrwoltsXuJ9jGUsbAeG0uD8IUQ=;
-	b=Sg0vMXHF4OV7PZGU4aOspBRyCLbVRa2TuKK44kiNOItgUmB6MVtqL9Ay3lukcw1NxYgY
-	 nwYFxyQg5C7hnk8q0hPCSl6Ccl3JGZR26Jowl0xk29ktpOMmczqem0/Pi9CCeC7jIoP/f
-	 5n3V2FKy3UuZ3QDoRCAcm2lZQHd94GQSbuiuD8EqwSp/vaJpXl517FuGwxKfDvz1Imv67
-	 PwluoKrtoXWRxRYE+KTKkAmSykZDainMy/YPQoKuALRicsvZMKGy7mWd9WG/Pa2Kd0hgB
-	 ozS8+W3fMAnzli/4WVly7DfYN12tbF4dKWvECWti2rJ2A4LHensaT3ZA5z7uDrcj7sQ==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=MzyMU44fX/KbRLhEgJffdyMJh6VGZdEGMFpzkYJGgv4=;
+	b=GnP5PS/Mo6GvqOBN1Eiw3wVK9SxbRYRMc4gkwnAAlKqZTYZtNDQEU8gmVI/X3WPIajH+
+	 X4gAX4uDr7zUPyMRhMNGP+bSo2LCd0QeTkgGJ5NutEYdi0NpZlDtRAHaw0+xrsLndBKOc
+	 cHPXQ6Lt6vN62pVxieYK9kCY+N/oDuAIS91W+qg//mFgXtXI3WAHqRZ4NUxzXmKAvzA4S
+	 4Uk+vYDt3UMrlDT81uOvjxb7PoBYra1zOG+xGyBnT2olTm+xcMATOwbxVC4F8mxCpxuWr
+	 6wgby3lo81HmunEPWhwlMUwM9dHxnHQk5BcDO5wMiTt3uF5b/orCzZH10FEfslL64+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NELCQc8S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBTnpE7B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDA8606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:25:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44236606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NELCQc8S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AD41F01816;
-	Thu, 29 Oct 2026 15:25:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793287514;
-	bh=XjX6gisJB//qDXMokKrwoltsXuJ9jGUsbAeG0uD8IUQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NELCQc8S2XfebsLtAqbGTckv/3bAzlVbeIZ+aAm28Cz3cC3wd/Ry4UK8e0PVw16zK
-	 ZmU7AdGSoQZ1Wk73hNnRzyuOjJx2RJKLlGmHYZ7L1lMewHy9tPhiHTa9vOvY9mpEuE
-	 yq341HyT0A7y9bIMEi7utEG4B9+RP2vyzvVRP19U=
-Date: Thu, 29 Oct 2026 16:25:11 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: MBKCHEL <mbkchelofficialdev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBTnpE7B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B9B1F01816;
+	Thu, 29 Oct 2026 15:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793287529;
+	bh=MzyMU44fX/KbRLhEgJffdyMJh6VGZdEGMFpzkYJGgv4=;
+	h=Date:From:To:Cc:Subject;
+	b=bBTnpE7BXXk4L1YfFuLpQLiTM0JVbh8rCelgZVAaYQAspYgz9AVeE74PJzyXKDUEx
+	 2TGL8pzkIMeo70IWeb9QCbXf+LwlvhNmZKTm8EyQdKIfJxyfa+1xhsf8XFtlQsmuOa
+	 5qQZDKrCgimiAGCYJbR3R7E9k7rO2yd8c/6FVQ6jGuwtvQgtXjD8abKtSLOr87tP4C
+	 kR+a83elSpOulfYTMJ4LYdHeUInQWn3sW/IUnYcHRPLAKYo0aOu8rJrp+jOXAcR4Xa
+	 VbnsAHL+ftDWWvTCqj6K4UHKje3M1kwojKcNB9Nhr9/GUgWZVIKdseZWuw4G8eZMjo
+	 +zDpdiNp8lk2w==
+Date: Thu, 29 Oct 2026 16:25:26 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: sm750fb: make g_fbmode array const
-Message-ID: <2026102953-scaling-palpable-46ae@gregkh>
-References: <20261028074946.12728-1-mbkchelofficialdev@gmail.com>
- <CA+YDrKAaU1EXGhCtJ_yqBrVxKRs0ykyAibvtevVhRwWyU-BLLQ@mail.gmail.com>
+Subject: [GIT PULL] kthread fix
+Message-ID: <auNlZtFskpC1ijA-@localhost.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,20 +56,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+YDrKAaU1EXGhCtJ_yqBrVxKRs0ykyAibvtevVhRwWyU-BLLQ@mail.gmail.com>
 
-On Thu, Oct 29, 2026 at 03:32:38PM +0200, MBKCHEL wrote:
-> Hi,
-> 
-> Please note that I made a typo in my last name in the "From" and
-> "Signed-off-by" lines. My correct name is "Ivan Tverdokhleb".
-> 
-> If the patch is accepted, could you please apply it with the corrected name?
+Hi Linus,
 
-Why would we accept a patch that was not even built?
+The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
 
-Always test-build your changes.
+  Linux 7.3 (2026-10-18 13:14:58 -1000)
 
-thanks,
+are available in the Git repository at:
 
-greg k-h
+  git://git.kernel.org/pub/scm/linux/kernel/git/frederic/linux-dynticks.git tags/kthread-fix-for-linus
+
+for you to fetch changes up to 78ff77ded78f2d3d6040705a3ab5a83cc45275e3:
+
+  kthread: Fall back when no preferred housekeeping CPU is online (2026-10-25 19:53:54 +0100)
+
+----------------------------------------------------------------
+Fix a bug where dynamic CPU isolation through cpuset isolated partitions
+can move a kthread out of the housekeeping range. For example in a
+system with 3 CPUs:
+
+_ kthread K has preferred affinity to CPUs 1 et 2 and is affine to them
+_ CPU 1 goes offline
+_ An isolated cpuset partition is created on CPU 2 (so the only
+  remaining online housekeeper is CPU 0)
+_ K is affine to CPU 2 but this CPU is offline so it fails and goes back
+  to its previous affinity where only CPU 3 is online. Yet it is
+  isolated.
+
+The fix makes sure the fallback affinity is always a set of online
+housekeeper.
+
+----------------------------------------------------------------
+Avi Weiss (1):
+      kthread: Fall back when no preferred housekeeping CPU is online
+
+ kernel/kthread.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+Thanks.
