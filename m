@@ -1,115 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269031;
-	b=iJ2EUUDCvE0OWn6GMyKXOwWoOmgerAiyT5MufcABewI+Hle7nSmOZgFi4+oKkqlnUeLn
-	 SPfxaJOO7GN2rNXDvSWth+len6/+aIn+MmYy3q8fOByqyApm+bOBHtS84/0J89sWwDVzc
-	 6VBr50U8P6ABKhfM7tfrKt56Vgzpni/G1ZIF7MOfrNzJAjitK4E+ZDPKN0BDn6HC74f3V
-	 5bEbgzGv0zRC4xz/zGomgE939NPdeaqKF25kCtYgjRfRzNNqlNyFuaAEjM+5dGYsnskO8
-	 kLyNMnREhwtPqnpGpuoFOGbb9Fr9zddwNefFDhW2hvXFD8b/B1IuyHiVwlJ7a+1MpzA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269031;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793269062;
+	b=19fnwp4OXxnCdCZ42J37ibTKOnsQ4Kwyc609FTxK7JuHSS/c8/nGqlbIWL9PblVtvbeH
+	 0X1WK8wYispz+Sh1LTlMTzH/bojzgdwF1IO/uTXRJCM/pxiI3NwiOHijoNgJlup9l9lIG
+	 y4kpHUeyiXhAFv5DCV6sx3OU2Icro3eCGYXGyMhVSsRp46ExN8p/OpEUOxPlejNPkL3bJ
+	 FEeEvEZ5euCirOlfXa/DWC8gT+0XPXQyzi5nykGg+9KSKM+XVULvmnUHibLLXJ/3N16KZ
+	 MbsLmlkrtLV0+oocIGlqxhH6bkzz44W4hgkPtT8PSObqV+WQqekPgcB5K/PSQPweL7g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269062;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=NPJOQiFiu3cThGScjhj4fYF5jTtoYIR+DKw+l+wDclM=;
-	b=WrVLigyu3d/FUrgqgS0H202QpCMLUiWikBUIzIqlO1xbH1jgRUq7QzM1cazwQ5ADxNHn
-	 33/Z7XgfK9JlOhbT/SUv90ysr4gserb/SvobMLu1P0+7RIj2C30wEDXWdDp7+sDYs7lNM
-	 mkSPwSSXBmDTpDz1qAXXn7QA0L5qrldyha1molt6BnaGDD95p3ft17Xsg8dRv0a3+bseo
-	 eBv2h9brWZZx3i/e/d7rsTcaY1/7vphMyewrmtYfw9PqFqdXY1ixqq9srt0yZSMu1ptQM
-	 sykKKeH7hNu39IdTlxA8HM0gyL9rwsZZCyL0/l4yPtQgj0br43WF18K17T8ib0PZPcg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	bh=adbKXnkrj/Zj0MFQsrgS7CP9R8qw1nrS1ry1AUvfysk=;
+	b=sJPjU72Y77DwpuLH2aBUayW9CiMTR6+eQyhHDCaM8yywQqqeVTn/6tp6/I3lKaW3JwwR
+	 Pr4TIKnQiagr/PlkL0cqBAGjQtu88CUMUm5Q1wgvulidhz8aH0S+TPC4dneQamhrTLun4
+	 SHZuHIzjF61TleNTN4AS1rA1XQlbrelc+W+AYSlOv+eYzTQacaF4Br/kR7XjZG2X2f26L
+	 pkRhRYBWvVzV/78WSjPRbFOuCk3Jw8VkC/YJUvutK8BfutZG6STEpUfVtgmONvvf3aVhN
+	 6C4zm5M2wM62LR5kFS1Og3fQ+KE0F6XKYInCofEpw8orgOV8jjVcvordRrYy9CjQymA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OtWUEuXK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="bkDMT/to";
-	arc=none smtp.remote-ip=205.220.168.131
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HGKgjvO3;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=N1fpzKNl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEA1606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AEA1606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F87606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03F87606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OtWUEuXK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bkDMT/to
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HGKgjvO3;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=N1fpzKNl
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vSC42273523
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:10 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8v9AE2273151
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=NPJOQiFiu3cThGScjhj4fYF5
-	jTtoYIR+DKw+l+wDclM=; b=OtWUEuXK14AirTJL6g0ACsDKPbUPrUVDua1UpXeT
-	eJ/V0kjzN3G+XtlM3FMndhpkXzYyBGu0c57CFSbdUsPxNkG5gP+DOa1cZ4ShrFrJ
-	gOxoPiWTydpTQgdm8dswDl7ur9Y7OY5+gRWWuOBzQSs4N9MEJca7JjIpVLL7tY30
-	oWa5ZxA7Wg8whUa9IgiOdPKYr4HonzHgH4WPQDU0SpW7xc6UIUWss2l7/XPfgTqK
-	BSNu1XXeUdlJxicBW5lvO0ut3WJ4HusVQ02Mbe0yh3AiBK9F2sRd8eeT8jBOprYd
-	pQp/vGSunUBTvb5ceHJwedGMyeAZePIpTyHJAzvTSlSWkw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm31b0b5g-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	adbKXnkrj/Zj0MFQsrgS7CP9R8qw1nrS1ry1AUvfysk=; b=HGKgjvO3Mmul6mYm
+	HXsndv9hvZ0Zx7kg2j9MQNzkelbImXc6UzBdBrI9yoyICak/R9oxwqfxch2oPpl3
+	kGSfDlwKb6YCMsjrvFyAcTk2kpu49mcjYlQnNZxxVvEaIBZpgTGN1xcPXxKMhCar
+	nHkkJu8UnM9QtHFfTOHVDU6E+dL+iNaamDLII2QF55NFVEjPX8A/A/0BYtp/86L2
+	xBXof97Tv6BPKwySquobaRqiSBITjy+5PUwNhtx643IQ3u8+5ahHyDMNfOYTPKFJ
+	bqUYfgrHbkY2OX3CDMkFfJGoa4rLovyk2cxPRi085aQfBfTaPYFLXNfDJ6rjNjfh
+	9N6CBg==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm31b0b7w-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:10 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f20addba1so346768785a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:17:10 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:41 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-67a781c1080so1754465d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:17:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793269060; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GTMS6+UvlcJ/lQqtKKUHdjj4CF740dXRYle8nN7mPzc75sGnI9L2GZXbsy3RCF1dPm
+         9jai8BO4PnWoOlgbMp0rznl6HsgnWEGF7iUS5wHPQGleYGp7cF+eEpdXafRXD0EQP2Vx
+         OGq4S5hYCRAzupkZyqptnwxbRD3MmZGN2Y1B/XyS/aBk0Dfoa0/J8ZcCK66VMK9JfPdZ
+         MXJYDhFdQ3ceJ2ZoCtHMfEiT1uo+WmEwUY0BzmnNSd9wMPtkNMRA3PH2GJtxO8818srC
+         QTxZcZJju0s/Fo0gB9pMHIZXmEfWmnibmreO7VYBwRcDVx5beWwptcOPBlk2N6qgE8Y7
+         Eokw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=adbKXnkrj/Zj0MFQsrgS7CP9R8qw1nrS1ry1AUvfysk=;
+        fh=ucmGKrW/bTwsM5HmLY1JvaztmlEYVHRJFj4GgVh2Jr4=;
+        b=p32WkQYB+mFyyK41u8Y5LXY/nKp6XEjguwgJOSvcf/Bx68Qu0fRaNjaB8Ay4YWeC93
+         3QDWhy7dGLF0b/w2zwAC1+ulPrs2HMFSKIOnt6RMFf1GstKkxusDPs4coXZOKhTqodlH
+         8OpCRfJxkX4GokcucObsZFL5DUsuzqw9FpdY3qIKdeUOyAHJdN68C1UjCSfEYjXew89A
+         7tpZW4x6tci1BSnSfBtLGG01aDb7IPudI4FTXQ84XY8tuNbKuPuRjr5bgyRhLXpGu2dd
+         oYBoQ1YIEYmde6jr9p/ABfoROtbGcwKIsxL+rn6hrxdVQzJAagd8fJa27o6mdsf5JQNd
+         WdBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793269029; x=1793873829; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1793269060; x=1793873860; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NPJOQiFiu3cThGScjhj4fYF5jTtoYIR+DKw+l+wDclM=;
-        b=bkDMT/to1VCqa6nNESVvlcZqigyjuuIkjEnasdRqCPYm4Ls1WlXMPR3DwFsuus1aq0
-         OvLFrUFFgPGDwyTQySUY8KoXy2W8tBOHv+r337kT5cIxTAqf+RDlu1yZMWyC8s1T4QUO
-         /9KXvd/QxDWpY5RGAmgg+Paj0yXt2xup7FEAZK+yVim/3sAjVoTD4onvUimhckZM0RAe
-         0KR1aD3QYBRiABtUp9h/5vBlNXR04xPtbDVyCtcPN7eGMYX38j3TqliozEGAHrfMC0jf
-         l1gJ7jqUJdL45PX70EWPch7+sdd8ga0zDlynxTI4+4ohLQCNV/3m114MPLFAnhlbvLQy
-         /3ww==
+        bh=adbKXnkrj/Zj0MFQsrgS7CP9R8qw1nrS1ry1AUvfysk=;
+        b=N1fpzKNl7vJKDYtFaQbbnn9QCb9ycrn3a06eCemsTzmwR1BOyWkoxBwF+jKNPELFYK
+         uD8g5bTBFUsqyVivQFV5UiSsa6OP7Uoz2gQYmbc7wFW9G0nvruNJElM5jAkedtDW8Ezw
+         lKqX3CHiza86WeqNADnz4C3cFVSqNVaWqRZrdJXlTIGGqqbgsw2hIocBgNeS/TyerJsO
+         F59/OK4o0IAAsif4XOlwf5jsZHqgeHMbX9EiihZzPE4LxyZtR6vSmUARIO+xTHxIyNW1
+         PaAUHGZwscxhezdSbhMo1764o1evdroD7EJ4Csj71SADcqVE8kpi+3TTGyWE/ZBB3wQe
+         8EVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269029; x=1793873829;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793269060; x=1793873860;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NPJOQiFiu3cThGScjhj4fYF5jTtoYIR+DKw+l+wDclM=;
-        b=ftM+xSv1Uw0n4X+Q/X5mWAdfAGpRY1hg5yGteJg2Id4fkbfg1Tzh+PGYQcAWKbn7om
-         6un5v+3vZJSFxhQzo1pf56mFlA/8QYMgr6t4jQTx6f8FRPnRUitT5S60W9jm3cR33MS9
-         ij0E7xNptWlsGmdGjvpJpHDqNdJlgXxMabDezU79cDHDp6qioLa4F9fEAqs3NJHLzFl2
-         uDLSD/dT3fdHsjCEDZgGwa1FzLW+VhvKXTagEhj3M9YXvZAIo04RbJg1Hdricw3NoPvF
-         aNXCx9+1B2paJGtxR27tO2pk9xlKOkIkxVXBi8lZjpyLo3toqq/zsnbIwgOXsVlAOped
-         VQ8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwQLMkgO0JYWx199RZ1pbR8JStmMmgpOg83XOHoaNNj7Em7MuUcCk8L9+GVC11145ZP04+khqZv31EIjqI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyqWF45jtR8ncPWmUKwws7lvqQD4e9LrzZzacu34JXCnX++HFU
-	1qwblU0uEa4Yd4lD1IjMz3hfPlisvaq8V03SI7m8xarYpTc8AWKRWjUU2Dc4Nmk1jN009oQoPYy
-	HeFCh0x4jLD5/SIgqeGGVFvIAhalEvH+Uoqq35h/rIc75VvkGD72HZjs43bS1TGwcMaWzqWf9Rr
-	w=
-X-Gm-Gg: AYBFou3je99aOK3QHgpqDeCfbU77LaSsA9pMM6TtHDirUqv5uMOMzwj8zsA29D8YEY0
-	fth0/cwaTsENHDqzvA5FDWn4ye6IaSkiajQOJp4h+y0x5qKqB2l/2KqZkuQNEaoXFqPb2dR8Drf
-	SNASjfcyPt5J/+Y79w8d0PENNKLdMT/hS3Df59+a74E/mLn7gCOuEXIPwcaOSco/zzNkqO1Xy6x
-	nTNXMfTrSjx9A8vPONgiso4Eeepn8zXV7lfQsrcV0tQZ7LUpNaiy7EcuEmANTiUN02iyqTtv4jc
-	LcsgSNkqo0GE7IuegZfJ1Q6HG7iSWVrENbUFlMnjCTsRikT0k9y1Xq5gGOUYk19Dw0FfKJZ8ElE
-	i7WRirXTxbh2wpEwBRSoDyGsDS0IzwQKpN2M2zcA2Qfncckp2QMwfYNscdaqMgKIi
-X-Received: by 2002:a05:620a:4008:b0:93c:7d49:7b69 with SMTP id af79cd13be357-94408d42e06mr698883285a.60.1793269029163;
-        Thu, 29 Oct 2026 03:17:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:4008:b0:93c:7d49:7b69 with SMTP id af79cd13be357-94408d42e06mr698880385a.60.1793269028525;
-        Thu, 29 Oct 2026 03:17:08 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm56444675e9.1.2026.10.29.03.17.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:17:07 -0700 (PDT)
-Date: Thu, 29 Oct 2026 12:17:06 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: vamshi gajjela <vamshigajjela@google.com>
-Cc: sboyd@kernel.org, jwylder@google.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] spmi: core: Add generic DebugFS interface for bus
- inspection
-Message-ID: <53ths7dovupnmj6tcraiigwu3wfu4vlfza2rh43l4pksr3mwsb@u33x5uoxuig3>
-References: <20261019202107.888262-1-vamshigajjela@google.com>
+        bh=adbKXnkrj/Zj0MFQsrgS7CP9R8qw1nrS1ry1AUvfysk=;
+        b=naMW17Qm/H8Z+uPXyzY5MtKQdMSMdSJd7ehXPmW8pyhlPPdPPm3dyJb8Qmf+0tAha4
+         +pmGHkgA3Hk8kW1lfpy7VgGtVFO/YbS2eg8zVH1yCQQ//ZNEft3QspJsQ0iDokcs0WeW
+         odWC2IkvuZqlEiXEKdNK99P31W8kDViAAqK/Ti2vXnC+eYsD+CsHh3aX6zaTBICRYouD
+         divYkrt1EfYOrwzRvkhrEF3bbdysknyQZymUB6Ywg0ltVxSfK0DHUdn3T1farlml92If
+         Podi/ATNr5rmnSysEQgoE4Ic5FcW/YJYaK93uoAxnjVNklGYBRPWGnFKSN1PXv9lj2Xn
+         m+lw==
+X-Forwarded-Encrypted: i=1; AKwUvByYj6ZPgKXJ2+c8n74wXrl5KCZmSSoZzl/xtvZZsiJnjR7aTEUUVM6keNPSicGDhNT6JuYHimUsEONh7b0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWFAOweAZGc7uPl3D1Icd5G3DZZhJwqpNjlLbQgKFH4c2376nj
+	175vscsnwmtXRugTc5RzzveeC0pPX9r66EFXTWsnd0MySEKaE+IU1I/09MPSslndZc5CGbJHqnr
+	2nGt3b0PA2iVSsCAWH4KJMGeFnteVFPK3NIDn3fj8zMsEGD7do820J+gJJmrNRpqxzOgA+B8oNg
+	MPnWTB7zuXcR+1cF5ByAOKpHcyR8YaMa7k8msy4JPMvg==
+X-Gm-Gg: AYBFou0mnIxDiGS4LH5pUzkTkzOdUxo8+T2af5G66y0TfU0P/36QOXeHNkCukypqQac
+	1qJR4gvDPrXl/f+OXq7MfHcybwE+fVdJnU9ZSfzzuoKExOEKKmt7VZjLfx3zl93zVTP60bywnHy
+	a2HPQuWMlgTwCIbhqmRO96OCE3ykDXUDZ5mUvz83FL9ve6Ih9/aknl9kf9Xw==
+X-Received: by 2002:a53:ef8a:0:b0:679:3b0e:3e11 with SMTP id 956f58d0204a3-67a7bcfb0aemr2293233d50.109.1793269060100;
+        Thu, 29 Oct 2026 03:17:40 -0700 (PDT)
+X-Received: by 2002:a53:ef8a:0:b0:679:3b0e:3e11 with SMTP id
+ 956f58d0204a3-67a7bcfb0aemr2293227d50.109.1793269059583; Thu, 29 Oct 2026
+ 03:17:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,28 +127,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019202107.888262-1-vamshigajjela@google.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfX1FJq80IoTfDn
- fG7cZhibBLq3w19ErwN0dfbSaFUHO4grQfXdv6tvueK4FwaNiludiMK+GOqWkSjSKnME+eUegPe
- MKYJpDXEEFhlvkbs+Ab9nk233A29PBA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfXxx2vhHnfo0Bw
- IVORTf3Mk5pTB+HIZuzSqhCtM7JSg5nrSYN6Pqdua3z4PZCxrtENsXU4z3mP0loyYPaKggiPEZ8
- FTy7UKn5noPB7zPV4+J4syIB2O8j6n8EQefUwajhqJVczBc9nJM/uaKn1nam7uShCpEO+/T5unC
- sVdrGzLLu70dZv7F2fCbIcC2LahOL/ZbDS9IdoE2enHeUF9s6Wwtnkv7qB7WHUHLDtYBQZRckNo
- JsPcl30BtI7tMDz7dHTj9DiB+Kc41ob4Wzc3Vx6VT3htQ2rlAqeqFr1qokU/inf0sjAgSGI4ay1
- n/I8pnDKGn9jKqsvqHX91tL9k7LYEDnSCKpuToq3LS/i+HezZ198rEFhBojFim0N8aAYFDjDjiK
- Hzd3r3CS5hQQgq9mvCN+dlcRM5F6skPILtlT7j8X2eLdFyniWzaL0TUTqlE/NkgLGGMrmkh5RlQ
- iZ72wPOurvEXOYi6POQ==
-X-Authority-Analysis: v=2.4 cv=A8T5rKWG c=1 sm=1 tr=0 ts=6ae31d26 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=1XWaLZrsAAAA:8 a=tlVbMLCJcZbeR7vuVLMA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: Vm8KlOCgSiYv5lotJXf0p6DGaGNZZmN6
-X-Proofpoint-ORIG-GUID: Vm8KlOCgSiYv5lotJXf0p6DGaGNZZmN6
+References: <20260923-aquantia-support-5gbaser-v2-1-4d789dc21418@oss.qualcomm.com>
+ <179027194602.2160803.1483822531995612133@kernel.org>
+In-Reply-To: <179027194602.2160803.1483822531995612133@kernel.org>
+From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 18:17:27 +0800
+X-Gm-Features: AclHuK8qA7sT9aXyMK9MadwT18kA_k0cGovoEZRIA8-V0lCOv1JHPksIROlbU5U
+Message-ID: <CAPTcHHS7fckRfGzT-_n-GShsbaG7D1nV5=r8XgRbfV8vg7KK8Q@mail.gmail.com>
+Subject: Re: [PATCH v2] net: phy: aquantia: Add support for 5GbaseR
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfX1BiviREbPkRE
+ qkeW+XEwbQR8IJ6kEBmZnN7xE0yVUZf/xUDoH7MrMikusiR1pb60lGShWIfLHIctLzvFHCiaj5s
+ F6GsnyDXk2EpgT1k2jACfS+rFRZxki0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfXxck14LbNmwPv
+ ynrdetDvsth6aPuAWyBxCFyyQXGw51XVFf6bTEog1B0pSSRJglzrU+WjWpSEG9N1CM785MTok9W
+ qNr0r4gwq4VVbvs2MbCqn3dBYhNDQ/ToppM65fL4PTPoIUXX+Li+VnQP7H4ieCR/tjFUbsY0JzO
+ Ldz3bhLJwyPk05T698l6zQD7BDBMY3mvriIrTE4GDtyTzSUP0+40jHQRglNcA+/9PPeOLQW3FDq
+ JqKCfPoFhDA4SiFt+NLRaxLygo0rOfsRTzELIFglzamIy+kXbuuYt3K5fjQ60kCegBNKGN89aOn
+ SxYC2pykgelsKpI7Ufyd9DZQOSOfXPP5oB0m4RRstxzGy9QiybyXJAxYn93uSKJRq0JToCB/vKA
+ NkQvtCkxl7Uk+MY7a2rTi2ZEDZSzdLzHXvER5ugvDXFzSNQBWynod7Zq0XXut/TLe6rCfx2t0Ex
+ 4MofuslUBjZVjY9sFrA==
+X-Authority-Analysis: v=2.4 cv=A8T5rKWG c=1 sm=1 tr=0 ts=6ae31d45 cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=TrX7sf6gzCYKm8an2WsA:9 a=QEXdDO2ut3YA:10 a=nd2WpGr1bMy9NW-iytEl:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: mI4Q-I957h_K-GbXPqedx0ZuGLMtblhq
+X-Proofpoint-ORIG-GUID: mI4Q-I957h_K-GbXPqedx0ZuGLMtblhq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
@@ -150,289 +170,159 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290039
 
-On 26-10-20 01:51:07, vamshi gajjela wrote:
-> Introduce a generic, controller-agnostic DebugFS interface in the SPMI
-> core under /sys/kernel/debug/spmi/spmi-<nr>/:
-> - name: Displays the controller parent device name and OF node.
-> - detect: Probes the bus for active slave IDs (0x0 to 0xF).
-> - xfer: Transactional interface supporting register reads, writes,
->   and directed command opcodes with automatic opcode selection.
-> 
-> Write and command operations restrict access to root (mode 0600) and
-> mark the kernel tainted with TAINT_USER. Runtime PM is managed
-> automatically across transactions.
-> 
-> Detailed interface syntax and parameters are documented in
-> Documentation/ABI/testing/debugfs-spmi.
-> 
-> Co-developed-by: Jim Wylder <jwylder@google.com>
-> Signed-off-by: Jim Wylder <jwylder@google.com>
-> Signed-off-by: vamshi gajjela <vamshigajjela@google.com>
-> ---
-> Changes in v3:
-> - Move internal SPMI core command helpers (spmi_cmd(), spmi_read_cmd(),
->   spmi_write_cmd()) and DebugFS prototypes out of the public
->   include/linux/spmi.h header into a local drivers/spmi/spmi-internal.h
->   header.
+On Fri, Sep 25, 2026 at 1:45=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The commit message does not mention a behaviour change in
+>   aqr_gen2_get_rate_matching()=E2=80=A6
+> - [Low] The submission is incomplete.
+>
+> --
+>
+> net: phy: aquantia: Add support for 5GbaseR
+>
+> This patch decodes PHYXS interface status code 12 as 5GBASER in
+> aqr_gen1_read_status(). It also makes aqr_gen1_config_init() accept
+> 5GBASER, and makes aqr_gen2_get_rate_matching() report pause rate
+> matching for 5GBASER.
+>
+> > Add support for 5GbaseR within Aquantia phy driver.
+> >
+> > Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+> >
+> > ---
+> > Changes in v2:
+> > - EDITME: describe what is new in this series revision.
+> > - EDITME: use bulletpoints and terse descriptions.
+> > - Link to v1: https://patch.msgid.link/20260923-aquantia-support-5gbase=
+r-v1-1-537d39bb8c35@oss.qualcomm.com
+>
+> [Severity: Low]
+> This isn't a bug, but the v2 changelog is still the unedited b4 template.
+> That makes it hard to tell what changed since v1.
+>
+This is a careless, it is fixed in new version now.
 
-This doesn't apply on top of the current spmi tree or -next anymore.
-Please rebase.
+> The commit body is also a single line. Could it describe the three
+> separate changes in the patch?
+>
+Yes, will privide more accurate commit message for it.
 
-Also, please split the spmi.c -> spmi-core.c rename into a separate
-preparatory patch.
+>   - aqr_gen1_read_status() now decodes interface status code 12.
+>   - aqr_gen1_config_init() now accepts 5GBASER for all gen1 and later
+>     PHYs, including AQR105.
+>   - aqr_gen2_get_rate_matching() now returns RATE_MATCH_PAUSE for
+>     5GBASER on existing gen2 and later PHYs.
+>
+> Separately, the new define lines up its value with spaces:
+>
+>   #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G   12
+>
+> The neighbouring MDIO_PHYXS_VEND_IF_STATUS_TYPE_* defines use tabs.
+>
+OK, will use tabs.
 
-> 
-> Changes in v2:
-> - Rename spmi.c to spmi-core.c and link spmi-debugfs.o into the composite
->   spmi.o module so CONFIG_SPMI=m builds cleanly with CONFIG_DEBUG_FS=y.
-> - Route DebugFS bus operations through spmi_read_cmd(), spmi_write_cmd(),
->   and spmi_cmd() instead of calling controller callbacks directly,
->   preserving SPMI tracepoints and core validation.
-> - Allocate a per-open-file struct spmi_xfer_ctx in open() instead of
->   sharing a controller-wide buffer, avoiding races across concurrent file
->   descriptors, and store struct dentry *debugfs directly on
->   struct spmi_controller.
-> - Reset *ppos = 0 on register read commands so repeated transactions on
->   the same open file descriptor work without manual seeking.
-> - Restrict SPMI_CMD_ZERO_WRITE at address 0x00 to 7-bit payloads
->   (data[0] <= 0x7f) per the MIPI SPMI specification, falling back to
->   SPMI_CMD_WRITE for 8-bit values.
-> - Parse register addresses with kstrtou16() so values above 0xffff are
->   rejected instead of silently truncated.
-> - Update Documentation/ABI/testing/debugfs-spmi to document per-fd xfer
->   buffers and 7-bit Zero Write opcode selection.
-> 
->  Documentation/ABI/testing/debugfs-spmi |  77 +++++
->  MAINTAINERS                            |   1 +
->  drivers/spmi/Makefile                  |   2 +
->  drivers/spmi/{spmi.c => spmi-core.c}   |  20 +-
->  drivers/spmi/spmi-debugfs.c            | 382 +++++++++++++++++++++++++
->  drivers/spmi/spmi-internal.h           |  28 ++
->  include/linux/spmi.h                   |   6 +
->  7 files changed, 510 insertions(+), 6 deletions(-)
->  create mode 100644 Documentation/ABI/testing/debugfs-spmi
->  rename drivers/spmi/{spmi.c => spmi-core.c} (97%)
->  create mode 100644 drivers/spmi/spmi-debugfs.c
->  create mode 100644 drivers/spmi/spmi-internal.h
-> 
-> diff --git a/Documentation/ABI/testing/debugfs-spmi b/Documentation/ABI/testing/debugfs-spmi
-> new file mode 100644
-> index 000000000000..ad0246a5306a
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/debugfs-spmi
-> @@ -0,0 +1,77 @@
-> +What:		/sys/kernel/debug/spmi/spmi-<nr>/name
-> +Date:		September 2026
-> +KernelVersion:	7.0
+> > diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy=
+/aquantia/aquantia_main.c
+> > index e95d391a6dc23..0bcec88fcf727 100644
+> > --- a/drivers/net/phy/aquantia/aquantia_main.c
+> > +++ b/drivers/net/phy/aquantia/aquantia_main.c
+>
+> [ ... ]
+>
+> > @@ -1040,7 +1045,8 @@ static int aqr_gen2_get_rate_matching(struct phy_=
+device *phydev,
+> >                                     phy_interface_t iface)
+> >  {
+> >       if (iface =3D=3D PHY_INTERFACE_MODE_10GBASER ||
+> > -         iface =3D=3D PHY_INTERFACE_MODE_2500BASEX)
+> > +         iface =3D=3D PHY_INTERFACE_MODE_2500BASEX ||
+> > +         iface =3D=3D PHY_INTERFACE_MODE_5GBASER)
+> >               return RATE_MATCH_PAUSE;
+>
+> [Severity: Medium]
+> Every PHY that uses aqr_gen2_get_rate_matching() now gets
+> RATE_MATCH_PAUSE for 5GBASER instead of RATE_MATCH_NONE. That covers
+> AQR107, AQCS109, AQR111/B0, AQR112, AQR412/C, AQR113/C, AQR114C,
+> AQR115/C and AQR813. Does this hold for every firmware provisioning?
+>
+> aqr_gen2_read_global_syscfg() maps XFI5G to 5GBASER whatever the
+> provisioned rate adaptation mode is:
+>
+> drivers/net/phy/aquantia/aquantia_main.c:aqr_gen2_read_global_syscfg() {
+>     ...
+>                 case VEND1_GLOBAL_CFG_SERDES_MODE_XFI5G:
+>                         interface =3D PHY_INTERFACE_MODE_5GBASER;
+>                         break;
+>     ...
+> }
+>
+> So 5GBASER can end up in possible_interfaces when firmware provisions
+> XFI5G with RATE_ADAPT_NONE or RATE_ADAPT_USX.
+>
+> At runtime, aqr_gen2_read_status() still takes the provisioned value:
+>
+> drivers/net/phy/aquantia/aquantia_main.c:aqr_gen2_read_status() {
+>     ...
+>                 if (syscfg->rate_adapt =3D=3D AQR_RATE_ADAPT_PAUSE)
+>                         phydev->rate_matching =3D RATE_MATCH_PAUSE;
+>                 else
+>                         phydev->rate_matching =3D RATE_MATCH_NONE;
+>     ...
+> }
+>
+> phylink validation, however, uses the fixed answer:
+>
+> phylink_validate_one()
+>     tmp_state.rate_matching =3D phy_get_rate_matching(phy, interface);
+>     ...
+>     phylink_get_capabilities()
+>
+> When 5GBASER returns PAUSE, phylink_get_capabilities() adds every speed
+> below 5G to the supported and advertised link modes over 5GBASE-R. The
+> fallback path in phylink_validate_phy() also stops widening validation to
+> all interfaces for c45 PHYs.
+>
+> The get_rate_matching kernel-doc in include/linux/phy.h says:
+>
+>   It is assumed that if a rate matching mode is supported on an
+>   interface, then that interface's rate can be adapted to all slower
+>   link speeds supported by the phy.
+>
+> Could phylink then advertise 10M to 2.5G over a 5GBASE-R host link that
+> the PHY won't pause-adapt? A MAC that only supports 5GBASE-R is one
+> example. Validation and runtime would then disagree about the same
+> interface.
+>
+> The existing 10GBASER and 2500BASEX checks are just as unconditional, but
+> the 5GBASER case is new in this patch. Would it make sense to check the
+> provisioned rate_adapt in priv->global_cfg[] for the requested interface?
+> The commit message also doesn't mention this change in behaviour.
+>
+> >       return RATE_MATCH_NONE;
+> >  }
+>
+> --
 
-Update this, please.
+this is  a pre-existing concern, not caused by my change, can consider
+to address it
+in separate patch, this patch only focus on 5GBaseR mode enablement.
 
-> +Contact:	vamshi gajjela <vamshigajjela@google.com>
-> +Description:
-> +		Displays the SPMI controller parent device name and
-> +		associated Device Tree node.
-> +Users:		Debugging, hardware diagnostics
-> +
-> +What:		/sys/kernel/debug/spmi/spmi-<nr>/detect
-> +Date:		September 2026
-> +KernelVersion:	7.0
-> +Contact:	vamshi gajjela <vamshigajjela@google.com>
-> +Description:
-> +		Scans the SPMI bus for all 16 possible MIPI SPMI slave IDs
-> +		(0x0 to 0xF) using standard register reads at offset 0x0.
-> +		Active slaves are printed in two-digit hexadecimal notation
-> +		in an i2cdetect-style grid, while unresponsive slaves are
-> +		represented with "--".
-> +Users:		Debugging, hardware diagnostics
-> +
-> +What:		/sys/kernel/debug/spmi/spmi-<nr>/xfer
-> +Date:		September 2026
-> +KernelVersion:	7.0
-> +Contact:	vamshi gajjela <vamshigajjela@google.com>
-> +Description:
-> +		Transactional interface for raw SPMI bus operations:
+pw-bot: cr
 
-[...]
 
-> +static int spmi_debugfs_detect_show(struct seq_file *s, void *data)
-> +{
-> +	struct spmi_controller *ctrl = s->private;
-> +	struct device *parent = ctrl->dev.parent;
-> +	int ret, sid;
-> +	u8 dummy;
-> +	bool rpm;
-> +
-> +	if (!ctrl->read_cmd)
-> +		return -EOPNOTSUPP;
-> +
-> +	rpm = parent ? pm_runtime_enabled(parent) : false;
-> +	if (rpm) {
-> +		ret = pm_runtime_resume_and_get(parent);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	/*
-> +	 * MIPI SPMI defines a 4-bit Slave Identifier (SID), allowing a maximum
-> +	 * of 16 slave devices (0x0 to 0xF) per bus. Format as a single-row grid.
-> +	 */
-> +	seq_puts(s, "     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f\n00: ");
-> +	for (sid = 0; sid < SPMI_MAX_SLAVE_ID; sid++) {
-> +		ret = spmi_read_cmd(ctrl, SPMI_CMD_READ, sid, 0x0, &dummy, 1);
-
-On the Qualcomm PMIC arbiters, address 0x0 belongs to the peripheral 0,
-which doesn't exists, so AFAICT this returns -ENODEV for every SID and
-detect reports an empty bus even with PMICs present.
-
-> +		if (ret == 0)
-> +			seq_printf(s, "%02x ", sid);
-> +		else
-> +			seq_puts(s, "-- ");
-> +	}
-> +	seq_puts(s, "\n");
-> +
-> +	if (rpm) {
-> +		pm_runtime_mark_last_busy(parent);
-> +		pm_runtime_put_autosuspend(parent);
-> +	}
-> +
-> +	return 0;
-> +}
-> +DEFINE_SHOW_ATTRIBUTE(spmi_debugfs_detect);
-> +
-
-[...]
-
-> +static ssize_t spmi_debugfs_xfer_write(struct file *file, const char __user *user_buf,
-> +				       size_t count, loff_t *ppos)
-> +{
-> +	struct spmi_xfer_ctx *ctx = file->private_data;
-> +	struct spmi_controller *ctrl = ctx->ctrl;
-> +	struct device *parent = ctrl->dev.parent;
-> +	unsigned int cmd_opc, val;
-> +	unsigned int sid, len;
-> +	char *str, *tok;
-> +	char kbuf[256];
-> +	int ret = 0, i;
-> +	u8 data[16];
-> +	size_t off;
-> +	u8 opcode;
-> +	u16 addr;
-> +	char type;
-> +	bool rpm;
-> +
-> +	if (count == 0 || count >= sizeof(kbuf))
-> +		return -EINVAL;
-> +
-> +	if (copy_from_user(kbuf, user_buf, count))
-> +		return -EFAULT;
-> +	kbuf[count] = '\0';
-> +
-> +	str = strim(kbuf);
-> +	type = tolower(*str);
-> +	if (type != 'r' && type != 'w' && type != 'c')
-> +		return -EINVAL;
-> +	str = skip_spaces(str + 1);
-> +
-> +	tok = spmi_debugfs_next_tok(&str);
-> +	if (!tok || kstrtouint(tok, 0, &sid) || sid >= SPMI_MAX_SLAVE_ID)
-> +		return -EINVAL;
-> +
-> +	rpm = parent ? pm_runtime_enabled(parent) : false;
-> +	if (rpm) {
-> +		ret = pm_runtime_resume_and_get(parent);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-None of the SPMI controllers use runtime PM, and the regular client
-path don't do this either. If a controller ever needs it, it should be
-handled in the controller (or the core helpers), not only in debugfs.
-
-So please drop it.
-
-Also, pm_runtime_put_autosuspend() already marks last busy.
-
-> +
-> +	mutex_lock(&ctx->lock);
-> +	ctx->xfer_len = 0;
-> +
-> +	if (type == 'r') {
-> +		tok = spmi_debugfs_next_tok(&str);
-> +		if (!tok || kstrtou16(tok, 16, &addr)) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		len = 1;
-> +		tok = spmi_debugfs_next_tok(&str);
-> +		if (tok) {
-> +			if (kstrtouint(tok, 0, &len) || len == 0 || len > sizeof(data)) {
-> +				ret = -EINVAL;
-> +				goto out;
-> +			}
-> +			if (spmi_debugfs_next_tok(&str)) {
-> +				ret = -EINVAL;
-> +				goto out;
-> +			}
-> +		}
-> +
-> +		if (!ctrl->read_cmd) {
-> +			ret = -EOPNOTSUPP;
-> +			goto out;
-> +		}
-> +
-> +		ret = spmi_calc_read_opcode(addr, len, &opcode);
-> +		if (ret)
-> +			goto out;
-> +
-> +		ret = spmi_read_cmd(ctrl, opcode, sid, addr, data, len);
-> +		if (!ret) {
-> +			off = scnprintf(ctx->xfer_buf, sizeof(ctx->xfer_buf),
-> +					"0x%04x:", addr);
-> +
-> +			for (i = 0; i < len; i++)
-> +				off += scnprintf(ctx->xfer_buf + off, sizeof(ctx->xfer_buf) - off,
-> +						 " %02x", data[i]);
-> +			off += scnprintf(ctx->xfer_buf + off, sizeof(ctx->xfer_buf) - off, "\n");
-> +			ctx->xfer_len = off;
-> +			*ppos = 0;
-> +		}
-> +	} else if (type == 'w') {
-> +		tok = spmi_debugfs_next_tok(&str);
-> +		if (!tok || kstrtou16(tok, 16, &addr)) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		len = 0;
-> +		while ((tok = spmi_debugfs_next_tok(&str)) != NULL) {
-> +			if (len >= sizeof(data) || kstrtouint(tok, 16, &val) || val > 0xff) {
-> +				ret = -EINVAL;
-> +				goto out;
-> +			}
-> +			data[len++] = val;
-> +		}
-> +
-> +		if (len == 0) {
-> +			ret = -EINVAL;
-> +			goto out;
-> +		}
-> +
-> +		if (!ctrl->write_cmd) {
-> +			ret = -EOPNOTSUPP;
-> +			goto out;
-> +		}
-> +
-> +		ret = spmi_calc_write_opcode(addr, data, len, &opcode);
-> +		if (ret)
-> +			goto out;
-> +
-> +		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
-> +
-> +		ret = spmi_write_cmd(ctrl, opcode, sid, addr, data, len);
-
-Raw writes (and SHUTDOWN/RESET via 'c') to PMICs can easily damage the
-hardware, and they bypass the drivers and thier regmap caches. regmap
-already exposes these registers read-only via debugfs and keeps writes
-behind a compile-time switch.
+Regards,
+Hongmei Xu
