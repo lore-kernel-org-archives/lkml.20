@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283523;
-	b=ADPM8AGU8HTkd9SxDbI+bt/NfHEAwu7jeSvd2tQPeWeqnVI5TbFC8eCfCP0n8xwtQ5go
-	 Qr+G4Y4QgIF+sMqGws3EB59MXvc6eoCJ2BBhKVVboxobJFYwl1KjpK5Hb4e2PFSUTgS1K
-	 4xbmwUu9UyxopSpjPevaU8hzCvohXNJ3QXnB6N2x3zw6QPVvZ8Wj5vktDZm3NhB/F7Bvg
-	 N/CSR3eH2m/iqsMsh0cFbOxdPaPIk0JBPV0SrWWbj0gk4z75kmliv1Hze7qDJZnqLer/X
-	 0c5yGm1W3obZKZGypJDo8Rrrv/l9OfWXyo/o1nlY2sBqGz8TzjoSvgAmqjB3AVB3JzQ==
+	t=1793283524;
+	b=Y/sXPjzIA6CwaL0M1RDkjAPMlg/SGB9k0wjNmKb/qG7aQXqLpxcbryEg67spRyr6f6SJ
+	 gPncyvv8nizDQFf4QKdZl8qAYPThQUDh9ybbQEXoJpEceALOQqMMXSZk6nddC9yvl4Qdr
+	 PHoQjCR1fEB3Vw7Q/Hsj8qTgfTCFMYBT//pejfgd1eV+AOqzEEWTZRpIjAr9jd9TKLvAi
+	 7qkxrnbD8kNqhkQyXuBlFHehpj24VtpsWnNSvBx5ifn2w5O/kxE/fLkBVWAzDpixJZCjP
+	 cNg9s4UdcXovChvB/CdW+DYsSopAdEam7Ltl15UoljhvqRindnFpfbe2NIMs3695w4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283523;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-	b=T4+ccrwp2cOuZdVltKEIFmedBebh0M6BtqIoO/O8G0mYI7hD+h8NSGBhNbGl19FH9nJI
-	 AbY02abTn/IaKMQZlXgvKlfjEZLLgXhNZ1Nd1ZiqQwVweJePJzB9OyC0PW7Xhb7X6dowo
-	 qNOA+of/RtmYRCHt3jGrC/ohJJquF/jTRQm1kqmY+o5HHL1Qnq3Cw1kxL5LRqpfLbcObn
-	 xZrml/FpOu5VByHQDbmdr2uBGPSQvxAoMHqkAuWltY4unH/AoDrngetHmlI0u9Xu+ktTu
-	 BZFj3fcv2YWnU1T2LN1xEH6VCQeHpQgHryLWAhB+jK/+gXoeGN7DfbG0BeQ9MKFPNtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283524;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
+	b=spp9omB0i/DdeZo8seNH42ck38zuhk1gvK7M+ntk6aCvb4NI+MTimo5ikjZNI6t6o2jM
+	 xvQXv/w4I0wZTb1GaZFfhEuDZ/hFG+E74erSfeiIG7Exw+A5J9FCL1aJvDiUoE7B++RAR
+	 n0aXELP7idlnw/PemyEClGTT7LUKcSfPf6TGaECz/lvebwEsYY4fWvL8sX5CaOVm7SWx4
+	 XH+sjcbxrUvw4kMlSS6wNL5xAkdCJA1nDnZbmZeI14pN+GrneojRggf2X+BMzh+VDHwLX
+	 FjVZai6ljIj8EQRRGOsLvqct/gBPWid4JOy87G+50tRsnOeKcBo4bs6y3lfyRgHbyxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=fuxRwIQv;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6932D606A329
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6932D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE38360A2606;
+	Thu, 29 Oct 2026 14:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=fuxRwIQv
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so17406595e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793283521; x=1793888321; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-        b=fuxRwIQvb3e976FiXVMdg6SHXixOXVRaowr68nVfAqH8eD5NAp5N9yZfae163nCeAK
-         3VirG4pkwprxkCJreXcIvis41yC6wxi7VWOkv+APQpjpUzAM0N++7QQJcsXzvb5y6Ozl
-         EjCL2Xg6QcxRyFG8voCKTvgHx6FBsfIwMNHinOlbHx1tFFBtavnBVBB/dWcoXh20jHnp
-         o/pH6f7lcEE6v/5O21q+fdCZietQeyCAo7Fm5DglMPsFgNAeI7k8J44sh7SWip7dCaPW
-         /29H05Tz0/gRPDACaQVTwMyLLejGxTm7UcbHWs31e3QN8nqz+zvl1F0U6MomISgO9s0E
-         ykKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283521; x=1793888321;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-        b=ADYyBB08DjedqOoaVtcfgTeXimCNzKjzC5dqjhae4aSAAokMOMG6BtvTxLxJc2lOwj
-         35PMJEG/Oc+mLK/U5Gfa4A3MIdrJ3s3+tKmkj537iczrin9bEtSXNsJkTu8yDNa4akCO
-         lWhN1XFGEvGO7FgRsigsNxWnddTMr7wiLeqeSZJC6flC5o98/vie5IjnXBm+kSvsYKXt
-         hRD30vwL+nsffBEXMXseGq+wfHkSFWb/53a1aEmnpy9Jqk8Uc++8FuD7e2x3kHSq5jTo
-         h4L0V4d/57WxdgcwQLg+bIRuPMbKd0Rpu/su/iLmtu9aFOsk69wVF0FKtCdcpFYgDZaJ
-         IDnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8ZziBzbPuaNcu70UGm40+N+1ll3wA1HohYBQWIYphpg9ffEQWtxR2C9G+VpcZuXPtWkVTcHbQOi0Nc/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHbq0HTQoDkSF4GET4GMmrZuyYAec0PrQC3LG0wkyaKIVzbv7z
-	/pnleYuS5RMLtyifm1BFTt3vm2+kyrLInd85jTeadfLtZc70LCUo9Fn3aII7Hf8VJ+sVDMw2SjI
-	mT4tDUK8=
-X-Gm-Gg: AYBFou2m9DD8dtM3U48vVBKsWNOYgqzgtaVlzyzbYXpHOJAmY0+EiMHOJ8hMHBVQ1EK
-	di16n3QMHARdpZ+OAEB2xlwxuxsIC3oAn/vKHc3sWd0J0qOMiSVs349Xhm2ZfgQYjFbByV+AgjQ
-	niRP4LawbXxmJES9w4qoOyW2Q0+N34FhRGLxNmt/t7nUaNov9U2dr+S8xKLLCwYHGETXmRFGh5h
-	SGPNKgVuITnWeTWCeI5PZ3Om5Ie3/FElEd44G7nA/hbEdOBXcoP3ryOUlhWhgHFKCPoFqUJu8eN
-	2Az2PSc9gH8mR2MDlXpJOFVF4RbIAiHG9zmL9jFQFp4+ixNdIhWiIAzTKf4QrKiDk79EKBV0t2J
-	YOm3BRvgwlbObUZfY40ArPjnb/cGT+7DxjkhAElw4374ZLCXuGqrjY1TQACHrM9Ze+3ZIVbr3UX
-	VY17Tn3HfG0A2mahKTuwMtrfJNIe+bBsR0gw6dPOGs9u6EezYK9/3RDOJA+Cvz1Xw2LVSCz0vu+
-	XHXkKr2KMVgdrs0uYvVfMNnPxuO+FPZ5eEyRaTfhNJrExDMr7bb7H0++Y2TQe4QkDd6OKdlvjyW
-	SKFWIMiwYIELj51SF+Zp7uDEX9kXnt2FVlDlbD0hTmO1xo61S65JsxXe9hrOzEzQe0wylp499RW
-	XEm9N
-X-Received: by 2002:a05:600c:354a:b0:4a1:fba8:b13d with SMTP id 5b1f17b1804b1-4a9662a0c02mr123628385e9.9.1793283520731;
-        Thu, 29 Oct 2026 07:18:40 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:18:40 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 14:18:23 +0000
-Subject: [PATCH v7 02/18] media: sony-starvis2: Reorder link frequencies to
- remove lookup
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A8D1F01825;
+	Thu, 29 Oct 2026 14:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793283523;
+	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XUQVHCdIXfvmbaph/VA/rxWkBrBMpTWNrTAYGGhlCnhClgHcbmqfLm/eKiQyCpl+W
+	 E3eYifg9BPWiMSDXEftsG6P1erQcEU1cxEqVv7Q65NLTq6sRGvicyug8evlSykwQ1n
+	 N555FxgSSTArXb9eRt1k/+Rr7/gKg542EG3ZHgkCdrsxx5r9mVZUcQFcOovPpa8Tf+
+	 K5DX1M/2E6C5yMjxDhwgcHRNE2N173N/c0Ut2AaVXgOtOHtG0XhsZlbs8t2w98oJlg
+	 Mu1VOIE7670qxMrHyiu6QL0I/NiamJbSsCKr41PrvWSm0g6yo0ne75ilTxt7hUJyj/
+	 vpESVobE2Pi8Q==
+Message-ID: <7fab2115-6c44-43b1-b03b-8ce4a37ffe32@kernel.org>
+Date: Thu, 29 Oct 2026 15:18:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,90 +51,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+ <auIniV8YSpA4_oxg@thinkstation>
+ <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
+ <auMvYdTd_e9O9kDj@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auMvYdTd_e9O9kDj@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-media-starvis2-v7-2-b33a1332fdfc@raspberrypi.com>
-References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
-In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Alexander Shiyan <eagle.alexander923@gmail.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
 
-link_freqs_reg_value is table that just reverses the order of the
-link frequency enum.
+On 10/29/26 12:37, Kiryl Shutsemau wrote:
+> On Wed, Oct 28, 2026 at 10:45:34PM +0100, David Hildenbrand (Arm) wrote:
+>> My brain hurts, does the above make sense?
+> 
+> Yes, I missed that the loop only goes back to start when a lookup
+> comes back empty below end. When the last batch reaches end, it exits
+> without another look. It doesn't need the split either: any punch hole
+> whose last page is in the page cache gets there.
+> 
+> That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
+> truncates that split large folios") turned the "if (start >= end) goto
+> out" early exit into the loop condition. Before it, the loop went back
+> to start until a lookup from start found nothing; Hugh kept that on
+> purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
+> hole-punching pagecache").
+> 
+> Restoring it is enough, and makes the "restart to make sure all gone"
+> comment true again:
+> 
+> +       if (start >= end)
+> +               return;
+> +
+>         index = start;
+> -       while (index < end) {
+> +       for (;;) {
+> 
+> Then a replaced folio is found on the next round, and truncate needs no
+> special case for it.
+> 
 
-Reverse the order of the link frequencies so that the table is
-redundant, and remove it.
+But that's then another lookup even if not really required?
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/sony-starvis2.c | 31 ++++++++++---------------------
- 1 file changed, 10 insertions(+), 21 deletions(-)
+Why do you thing that is that better?
 
-diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index e62cde583324..134fececac5c 100644
---- a/drivers/media/i2c/sony-starvis2.c
-+++ b/drivers/media/i2c/sony-starvis2.c
-@@ -187,25 +187,14 @@ enum starvis2_lanemode {
- 
- /* Link frequency setup (DDR: lane rate = 2 x link freq) */
- enum {
--	STARVIS2_LINK_FREQ_297MHZ,
--	STARVIS2_LINK_FREQ_360MHZ,
--	STARVIS2_LINK_FREQ_445MHZ,
--	STARVIS2_LINK_FREQ_594MHZ,
--	STARVIS2_LINK_FREQ_720MHZ,
--	STARVIS2_LINK_FREQ_891MHZ,
--	STARVIS2_LINK_FREQ_1039MHZ,
--	STARVIS2_LINK_FREQ_1188MHZ,
--};
--
--static const u8 link_freqs_reg_value[] = {
--	[STARVIS2_LINK_FREQ_297MHZ]  = 0x07,
--	[STARVIS2_LINK_FREQ_360MHZ]  = 0x06,
--	[STARVIS2_LINK_FREQ_445MHZ]  = 0x05,
--	[STARVIS2_LINK_FREQ_594MHZ]  = 0x04,
--	[STARVIS2_LINK_FREQ_720MHZ]  = 0x03,
--	[STARVIS2_LINK_FREQ_891MHZ]  = 0x02,
--	[STARVIS2_LINK_FREQ_1039MHZ] = 0x01,
--	[STARVIS2_LINK_FREQ_1188MHZ] = 0x00,
-+	STARVIS2_LINK_FREQ_1188MHZ = 0x00,
-+	STARVIS2_LINK_FREQ_1039MHZ = 0x01,
-+	STARVIS2_LINK_FREQ_891MHZ = 0x02,
-+	STARVIS2_LINK_FREQ_720MHZ = 0x03,
-+	STARVIS2_LINK_FREQ_594MHZ = 0x04,
-+	STARVIS2_LINK_FREQ_445MHZ = 0x05,
-+	STARVIS2_LINK_FREQ_360MHZ = 0x06,
-+	STARVIS2_LINK_FREQ_297MHZ = 0x07,
- };
- 
- static const u64 link_freqs[] = {
-@@ -914,7 +903,7 @@ static int starvis2_write_common(struct starvis2 *starvis2)
- 	cci_write(starvis2->cci, STARVIS2_REG_INCK_SEL, starvis2->inck_sel_val,
- 		  &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL,
--		  link_freqs_reg_value[__ffs(starvis2->link_freq_bitmap)],
-+		  __fls(starvis2->link_freq_bitmap),
- 		  &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_LANEMODE, starvis2->lane_mode,
- 		  &ret);
-@@ -1177,7 +1166,7 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
- 	const u32 hmax_4lane =
--			min_hmax_4lane[__ffs(starvis2->link_freq_bitmap)];
-+			min_hmax_4lane[__fls(starvis2->link_freq_bitmap)];
- 	const u32 lane_scale =
- 			starvis2->lane_mode == STARVIS2_LANEMODE_2L ? 2 : 1;
- 	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
+I agree that the code is simpler, but at least it's consistent with the other
+handling.
 
 -- 
-2.34.1
+Cheers,
 
+David
