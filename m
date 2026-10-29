@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257654;
-	b=CUo50H1iYcNZ0XcV92Smai+6lk0De2g2T9gIZAKZxmaD7lbaDtX/+1PDlmeq4ruICqCU
-	 Gw0pKTCCj2uO1TjeYppspV5McXWycmFktrUdOnlllot6dnoRgdGKYpMVnxEWkp2ZQjo/w
-	 KXPcd/LAVUJUSgy7iYBSbgekV/hMR9kOJZwMRI9msjsnMj+ClCjrSmeLmxf7YrAbsrzHd
-	 33Tglg0qJSP/R+ZyDrcl0zFtr6PiOH/dCnhSKnqOP01tyP+VBVvB6O6eZnEc/IM+xb1HS
-	 WQKzK4x5MeY0ylY3R7qdGySO52gZcjvObQX5I8QUSfSigRaiACm2luXuiEVpwutX7Ag==
+	t=1793257702;
+	b=ubd6xbbS9xH1RPo6Q10390TgLsTuV0LoJtWjeY6x0vgaWPC1YB5cy6V9j0YiNB72Rxvb
+	 T2/rFl+D4wRVHipjfYOICnqWyHOvG1Petax7hzVHWvyipBJVbnAywO/8WKhELz/xMTtbO
+	 eUomFEk+7g69mooIAXu2qBPuFMdzdEJZrjCdn1tYY7Tli+2VTQyieWP9DoLt98afbUoUC
+	 Pj0YE+OxAgAf6Zlc2F9GDRina+ePzTZFq4rGUaDaIe+x/wCMD8XYy2nfyvaMUxkrmj3fG
+	 mMkrFmnS/J88xxSgvL/wy8zHLoYQXaUB8qDPC6pBR7JNprdWW4XpN7uMG+Km6hL3+xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257654;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
-	b=UTO/x1IDLQCnRSzUWD+J1C7f+4De3Sp9yRLuhezM+uv6/5ubnd5Z8j5Qy/2hEPf4QMKL
-	 BZ+L2h3RDBMuTl+oLhX/YaUHT3hUwq3xHT4IeNl1prZoAwERkpFik0Q20opZiF0IE4Zkh
-	 vPPn9JliPIcE3NAtubUUAat9br1zQMYU2glbdTlB6PB0Run47V3HM+/3zdxSk1oX7hAv5
-	 z3V8kKAxE7y+ta+ciF+wCl1fE9qhZ8mG46xNWUkPCWDZtc2iPzLNEB+1eFCow44Mu9jcD
-	 0z9c/GlDU3LIj3gZxFQ3/u2CkqEFcWg8u3Jx7i280cdVrI7F2XKCxo0/MoiczbgpO9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ke87La0xWSgmTiEL3IFuQIhdbuC7AYi2feZJeeO6Kt4=;
+	b=TOOVOxnwGE5hxb5fi47nJXXrMmqJXO3s9ptqFfaB081aPlZtaLFVbw3P7ouUJE/bhyJz
+	 kjYsfGAyILrczjFXlJAeVX6uvG63qySLBFyUkkDYd+qZAMQh/FqLI89x9m8fUtrNAm9Bj
+	 JyzmuKdv4rBZzI0KLEiT3NIwXUOhdxbaGGn91hM21YtcQcOGffxZErBqujhxmscU31FzN
+	 FiB8ILRAtJpVSIAyrxCcRdrXiA9PW/8LLXl1XJuYxlohn4qL7Ngze1epU2DWzMArjwwwU
+	 3CM1jNURVPXHwwslPMvcSz144o+cOqpKfO/XZnF73rhmU3p3RVMGWIBtL3GqC4KLUMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M20GFEY0;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1557D606A31A;
-	Thu, 29 Oct 2026 07:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AECE606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AECE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBD51F01828;
-	Thu, 29 Oct 2026 07:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793257653;
-	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b5ZQ4uOSwVo0TKfcMA8KM+g/qKqoUOM/CiH6Hk68YncwF3UMlzEr4uaNSrvccoVle
-	 +zDWiIwh6E0IXcFTW4sSfdeqU9nypc1CAurWs6po+btYPCitbnC+mAcmOrT2HSCY+E
-	 eNY8aUae00Md3abpJimfu8q17tY5La0AZibAVK/d5yz1dJVZXSFuVUIkZu4eQckQHL
-	 ZohkPtm7QpW8OpTA+ipZGJXMgabWyWy3pAe1kYCKqJWtIeHlRl/9+nNpg16iOWX4Vw
-	 3s8iqQa3gsd5KEEFgCy36qCD9PdtdaR94aJnGXXaW1n/xTU3V+Mn6lCnrnvXMl5qP8
-	 zLS6xoHEdUXwQ==
-Message-ID: <fe9765cf-ef10-4068-ad43-26346d842c12@kernel.org>
-Date: Thu, 29 Oct 2026 08:07:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M20GFEY0
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a086f5d91aso2467804b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:08:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793257701; x=1793862501; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ke87La0xWSgmTiEL3IFuQIhdbuC7AYi2feZJeeO6Kt4=;
+        b=M20GFEY02HFSlOhygrjlm7JH+ts5qe+9RbS8DxnrFLxry8ev9Lw11ID2dfeTYsjyBY
+         qVSyuWqH7hAygkevW54cuMwSIRjF7pe1C0jZKZDcPKzyfLYnXKZAJtiL4vg1+VFey012
+         j9Hpe/FqeqKAnoq7Grxue+mDvoCWyUns7Fg3gJAHodzyVDay3ahfl63+/h4mUoZuYo7b
+         QeKf3mv7FFNFn8ZpTi3F+19xC7Fe+q5wn773h7jQb5HE9PI2Im8fJNHd5QmtR5STJbxT
+         iSex4RNsKfYxh1RZf05woqvVdj+XfC3Xo7F5DJyMHONeX+Jk2DkfGvqp6B7DHe/EeC2h
+         gbyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793257701; x=1793862501;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ke87La0xWSgmTiEL3IFuQIhdbuC7AYi2feZJeeO6Kt4=;
+        b=Hp3i3Pdc7frc58RdWJPmuEqJi3Gt7YrYfRoYjsrMXBsmZjnm53pqeYRPpaoAUG86qX
+         4SlELl9D3VmabBawy6Zq9NdnBsbUP68DWI5Ybz1QAJ12MM3Zn+iqOywpdWZdOjzTBI4O
+         zQ9M8qyfJ33+V5GBOaHIBBi5ZO4KBnXVvrVbM1tH5ZY8jlY14Zuv36DJE0Z9Q0u6levX
+         rpFgDhqLPdiCKL1Sj0SxeQQsFEJ8j54sMTf3jLnYUFgc6ubGrRBK3b1PXDH4myoPcKy5
+         r+KQErHubT0ionVTNZb3pS93Rvq37sfVq9t0ZcqABqEpGLfSaI1wtRLVFkLXk/kqGMrE
+         8R0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwn2Gw+jBUwoy3izKOtuEuvrWa/Eixh8ba6wNywslJbdnpGFJo9+lBE4oURckgkvTj8DSjAkc9i09gtbzI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFeyfVaf+H6r8m8lpfTpHnGbqjbKwHAg8AmkeYnAMwNnQydmbr
+	qt84guK7iVvFpr9KPrCuLZO1mAEP8gc7K090nZiRppNkUk2uWVpqDCrbwG3suiH7K2kdwc2DIb/
+	7918B5VaH4ZhsP6sf1pu8BA==
+X-Received: from pfblo10.prod.google.com ([2002:a05:6a00:3d0a:b0:88a:f8c3:9c75])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1c84:b0:8a0:1435:fda0 with SMTP id d2e1a72fcca58-8a6e7dc9390mr4068412b3a.51.1793257700500;
+ Thu, 29 Oct 2026 00:08:20 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:08:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,72 +75,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261029040001.2100001-1-stanleyjhu@google.com>
+Subject: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+ already active
+From: Stanley Jhu <stanleyjhu@google.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Praveen Talari <praveen.talari@oss.qualcomm.com>, 
+	Alan Stern <stern@rowland.harvard.edu>, Bart Van Assche <bvanassche@acm.org>, 
+	linux-block@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 29/10/2026 07:59, Qianhui Xu wrote:
-> Answering the open points in one message, short.
+Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+suspend callback failures"), a failed runtime resume leaves
+dev->power.runtime_error at 0 with runtime_status set to RPM_SUSPENDED,
+so later runtime resume requests run sdev_runtime_resume() again:
 
-What are you referring to? I'll just drop this.
+1. A runtime suspend increments q->pm_only from 0 to 1 and sets
+   q->rpm_status to RPM_SUSPENDED.
+2. The first runtime resume fails in the driver callback, and
+   blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
+   blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
+   commands can enter the queue (intended since
+   commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
+   runtime active in blk_post_runtime_resume()")).
+3. A retried runtime resume calls blk_pre_runtime_resume(), which
+   overwrites q->rpm_status from RPM_ACTIVE to RPM_RESUMING, so
+   blk_post_runtime_resume() sees old_status != RPM_ACTIVE and calls
+   blk_clear_pm_only() a second time without a matching
+   blk_set_pm_only().
+4. q->pm_only underflows from 0 to -1 (triggering WARN_ON_ONCE in
+   blk_clear_pm_only()), blocking non-PM requests in blk_queue_enter()
+   and __bio_queue_enter() while the device is RPM_ACTIVE, and the next
+   runtime suspend increments q->pm_only from -1 to 0, letting non-PM
+   requests dispatch while RPM_SUSPENDED. This hits the UFS device
+   well-known LUN by default and SCSI disks with
+   manage_runtime_start_stop enabled (ATA and FireWire sbp2 defaults).
 
-Best regards,
-Krzysztof
+Set q->rpm_status to RPM_RESUMING in blk_pre_runtime_resume() only when
+q->rpm_status is not already RPM_ACTIVE, so blk_post_runtime_resume()
+skips blk_clear_pm_only() on retries.
+
+Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
+Cc: stable@vger.kernel.org # v7.3+
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ block/blk-pm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/block/blk-pm.c b/block/blk-pm.c
+index 8d3e052f91da..31598dd03a3f 100644
+--- a/block/blk-pm.c
++++ b/block/blk-pm.c
+@@ -142,7 +142,8 @@ EXPORT_SYMBOL(blk_post_runtime_suspend);
+  *
+  * Description:
+  *    Update the queue's runtime status to RESUMING in preparation for the
+- *    runtime resume of the device.
++ *    runtime resume of the device, or keep RPM_ACTIVE if a previous failed
++ *    runtime resume already reactivated the queue.
+  *
+  *    This function should be called near the start of the device's
+  *    runtime_resume callback.
+@@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
+ 		return;
+ 
+ 	spin_lock_irq(&q->queue_lock);
+-	q->rpm_status = RPM_RESUMING;
++	/* Keep RPM_ACTIVE if a prior failed resume reactivated the queue. */
++	if (q->rpm_status != RPM_ACTIVE)
++		q->rpm_status = RPM_RESUMING;
+ 	spin_unlock_irq(&q->queue_lock);
+ }
+ EXPORT_SYMBOL(blk_pre_runtime_resume);
+-- 
+2.56.0.313.g2479322e68-goog
+
