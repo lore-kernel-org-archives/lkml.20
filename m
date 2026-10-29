@@ -1,89 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300309;
-	b=i9UtUs1QP/SzBprcOChbcs+Ym6kyCsqXZn+f30En+BKSPb+j30RgWPCzB1qxUjRQwQ68
-	 H6eBqBXeXLLbz314GGdaVkjqBmFv+oPTIR/mJVZ0u0TzUTJHBGvl7tpG/LDfMfSGDaqq+
-	 ZH3ozBa0wUcfy+lDJo3ooWb9vNVfOODNbdpJxSnRwGwCS7TgIvIl5zMtDAHdP6HavtKHU
-	 pe2rUI8BTp1tsaIDHxA3dM7UgnrE8NHUIX6NMtbiihrNo3NKPaBtqjUyRIQIZfxHE0ksl
-	 nEaeAyzrmkWcbHpytmvt8OcwB3pT13YO+Uyv+ZcYPWBzjlsGMwj8k0aRfngJgxo+1aQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300309;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=QRxyHZ6GOQK27MPndfay3/TIbTozwLg+MmKKevRpGg8=;
-	b=1qpbJVUN/+cRXM4y37CqPZ53dwbNAV34EXFytoxJyJOilw1MM3VFqcwtYGL08xwv5wFf
-	 snjSZLFzpjD91B3uMjgoSDU7kOjrgxYcBgdZla1sRyvErrsMdVQ8rU3rPejDfwJz26zys
-	 j7nPllDNC8+zCPsRCx3eGwch/1F+rHBj5xo5DpH0Ckg+okGteDOm3JB1Tokki5h1uYvxK
-	 GcfO1PaCs2NUTQCfZG7/ECg/j50B1ST2lVtPcc+GcBb8+D4/IkKBmar/62aW4hvgO9nKH
-	 F0wAWC/6ZE3YmED1e7AvRAaIYTtyfIFQG9UdfX48Aj2NYCg5SUhfWE/Kb5ktFKmSjhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WG50PzC1;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793300331;
+	b=ljtbp3Xo2H2YMYui0nxxbQySfDGaYmlEw34pgkp2qhYmxt1Fhywiu6rwB+cGuB6u9lnV
+	 Tyjx2h4/EcucfOhC+wkXkPjWN0GyJgx/OIsehnHvT6URRtgcAORRCCNGj7ivWc/rNgTz5
+	 Fic6JJQNqB7ocpxZw+zoGD4cXchuLn7ZlbbbLdIsnZEF2t8JrJ0wOREMdUuoUmRClrn56
+	 EA+N+9kHWCPOD7imqWImybEutMh25CpFlacTLmU7ThuHpsNYt3lBuTpxQYlaQLK+4B7Hz
+	 U+NoYTct7XlROGj/vcoN2KrLPWduZlJMWfkawCEnQWIleUNgtRVk3Yu/IPC/ctz3Npw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300331;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=NPiZ+08ulLx/vkZSEtkpezRbSQS6bYsKl0lEbL5mVQs=;
+	b=Idi6t0XZDDuEHNvWMX2TYysqXP3q5u/sq2Ahek0j20TWoJlsOcAMofctEpWjaEvQljJI
+	 g0kIASBp3/de0aPoQ9QRYEsOmiHO/2dhGgs3ecBuC5+sx/hSd0ZoxFs3UNw3OxPF+EYVw
+	 lejL+nfzTmgOF97LqVTOhV7OlK8bOO1UGgehM1KanfYtXw2HKfUSjPmrwm+5hzzGRjhAg
+	 C8NEvejQsaoacHkGHpLFhJDANEWN8/X9tWMnjryLWO5HZ3IBY5/kl520c9gsFbHWH208K
+	 6jeg5BQyBIc3Otw4ashSvM7kZqEIEoi0QaKWRz3PXfip3J8myqRZ0XVuK1WQDz4OCWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XrYDXGS7;
+	arc=fail smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0945606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0945606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA79606A32A;
+	Thu, 29 Oct 2026 18:58:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA79606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WG50PzC1
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so25118635e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793300307; x=1793905107; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QRxyHZ6GOQK27MPndfay3/TIbTozwLg+MmKKevRpGg8=;
-        b=WG50PzC1Ay1I0Glw55AmztxpIWfZDz3eOnGdupteLZ47FerQSrvsFU45bZtvrez1L7
-         J63XE2fvRJo0mqUUjrueWa5chtX4l5wHX58h9VDEYhpWZqQR83qwwkto0crUX8hj289G
-         c9jzSt9I/Srtz0R6m9Lw9QCfcUb7fP7ot81RKu+knpeyTIPPN1FvV06DHLivduqrS6Bv
-         fPb5GQ9ptnErgUgk7139kmbdjQQu8DPx8H4xblwQlfZJ7JMB2ClhbgJ8bMztI411AGZ2
-         kmnRrTW8e18m/S01Twl0NvZaOgm5lheM+ladQ23U1W0NPz8Fhv9OacOcgLhcHVaT2ji/
-         5W7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793300307; x=1793905107;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QRxyHZ6GOQK27MPndfay3/TIbTozwLg+MmKKevRpGg8=;
-        b=YnsqUMXKHo/d9uiFbz1j2YzEJ3HzZZ6FJLC7A8CbUnz6PLco2R/JG2l+8QkXdG/C6k
-         eU65RqO6hP+XZImQgcVeN9yJuL0xZN/EAe1ald+yvYTIR3Ubzo2C+0Teq57B6e1f5wLc
-         NnOwwIOsIfLP8k+ChV/KJgYkanAHYeMiOIyqS71wMwSQyAFgyLmt0cpHIbzmNbcPG81z
-         wfMvG/9R/Yp2FVULYPykWGifK2rxu40frAaoyNMxxjkN2vGzBjx+59BPQiFVfy+w8uhT
-         BgDe/ZHknBipggXjAcYnSKjvgcxbZwov37qvjSsVObtdgj+aSmVKtYBubljhNPGRDOPx
-         Sk0g==
-X-Forwarded-Encrypted: i=1; AKwUvBy9ojP9eJb3PryIPIeAx7ydgsuTMWIqLGOJodogpIgNjZsNup+Mkn9gRS3+t82j3otfyI5bkhloH3UChjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgyR5tgsuatzCSc3nEVy23zPM8daNF9MELG3ZwqYVD/pGsrUDG
-	fMg12Td3ucOyAojM45BY3CD/I+ubuuq6O+7InT8MYt5461T152jphkXA
-X-Gm-Gg: AYBFou2+e2zhuQ9kjZr0sdVQOYwz5is1LhlBhiJkWKMU0l4E30Tkj2kfv0xN8pguY52
-	RNyuTCDpkkBHSVq26bYIbA+mkm0iE8RG2YL0x7dhcxJ6Eqr+9fInkedGLQzEXJWSLmvhwFkBZGq
-	vQmJQZ2xPS9DxZQgNJHExetDtnch9WNJGMoUg9vInQjrOt+iXunsljdlO/GLVp3YRK3O+DYQCQ9
-	feWGxN9hwVTGy/V7cIyPtA+CCKfyRJDA0bPZIlLvaDQgZ//qO4S0bgPZf9dxX6qrgFt+pMBNKWh
-	XE+zyjcYuR/b0BWA1wI1q4DH7P5AbzF1O4UO8GXqXXCMR+A+vZaCSBQt9xQp7rKvncr+sAfr3iR
-	HoVHCe6jVeTC5v+faj8V4/vkDDelnNn2kMcYQCMpZpUw5SyJztKnRmDUPZnGSYrXWfWAgDR3acq
-	7CEu2xyOeVyfX0N1jCu9zkvlwjLMCEzzPFoiUdGQr7wqQmVE5TxzVFkDmITQcLSWrNuMZeQMTcg
-	OyIVMa8Hgh+scwBrzRs/mb1mafeYnPLijqtBxhc/RIl4bRyNWlLcRn5QB5erT40Z7g6h6NqvfwD
-	X1pp3xMssKUw3PHw/MRcjN3zk/EN6M4/YUd464V8plOAmPwXM/wSaKieWInyIPgaz8uTLcD9E1F
-	NxdVhcb0xM0I=
-X-Received: by 2002:a05:600c:3b02:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4a967202e72mr145048895e9.13.1793300307008;
-        Thu, 29 Oct 2026 11:58:27 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:eafc:6fb2:6c68:5ae0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm94291535e9.10.2026.10.29.11.58.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:58:26 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Thu, 29 Oct 2026 18:58:23 +0000
-Subject: [PATCH v9 2/7] pwm: rzg2l-gpt: Convert to waveform callbacks
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XrYDXGS7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793300329; x=1824836329;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=11GrxuV4NlNs8iN8pO4wuSpb7LaXbS6hhqvNqPiqnPU=;
+  b=XrYDXGS7X6PckvNDQvsr0QHBk0fhKvkOzSEh8Yjmm/32QRrEahmIE9nY
+   jOiGnZoEGOiXIZ9334jDQt6O2+Kgjq6VFoTJ5LofXsO64fP0h5cN78Z4s
+   /uRVGLugdo3a778k0LlyT5PhOlTOrDnq4sEWCTJ3xG1FNnYoDun7tT0ZO
+   mNVQerxvb6JqI6nlkOqdaAYoXGI/rnVvYqBWtrhBdiaEI13ENaPae0WyC
+   ZgsOPkzN02HKM6PHg1sreMr+iekAbBhHKIJ1C60OqV+igY84fSS85EURp
+   7LGDfwPhuxoZbpb4f5NjHSpvfU/9Xh8LE0kCsoJpNRP6GUj7r5fgsVxuA
+   w==;
+X-CSE-ConnectionGUID: 0mXPZD/0SrSIvUj1d5G6xA==
+X-CSE-MsgGUID: oAw9ojP4TqGxnAVUDD8AuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1933143"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1933143"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 11:58:48 -0700
+X-CSE-ConnectionGUID: LJ81F3wuQ8GFhW+KU8Cbjg==
+X-CSE-MsgGUID: L0VOrmtQRMesX84PNqkGvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="7055602"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 11:58:48 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 11:58:47 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 11:58:47 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.26) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 11:58:47 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A/GustOpjR0ZRmCDIdiiNMJVTMRZ5udTPVhicBVrmRwktqPuIoInTg031Pz2cLHYolY50npZSpPHlbPC+CLNV/1GwFDWHF7fZf9l3nqvIkLyLFY19dZW7uWBjtRIsLzjHN/IDrMXheefLyooPaoV4IG/sfaOWthR0tAtBfMrOZBfplvKPSFJ6Q3Ga10BcJ6NtIyo2Ha6WDSx5jvMtQHbqoaDjx5/xybXSsS0sEVCF1cMeWy+5Dt7k/aVzfotDZTAust2rrwpsuCwiocZZNWPWjsByuqPoSMmK/oCPVMlNqnaz325Il3LrBYuB7zdKXK3yaWZolpVbmrumQTuuzXP8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NPiZ+08ulLx/vkZSEtkpezRbSQS6bYsKl0lEbL5mVQs=;
+ b=FQF/1Ft8M7cAxvhz4FySUcDNoEUNhFvkVFmGuXfE/rl4qh8+I1wIhQpNQ4iim/F+tGaaL2gZ9xbGq7WDfYw7nBUPfxPrOttoR73AzsLwyotOeTI5TriQCM9aD6JLrMnsFBncIqUDxpuOfkJxzwOuortR76X5wwCqBWF5rfcQP+lKMVjTKmBPIdSSDDfWulRyIcQFud3tkAdZRN8/utP5Q72ZhftfH3BuqBSSV+5xfPed1XqrpxpiH5kT/vL3Yl7vVz83m+cZvrQXYJ9NFb+uHR1kaaUbWdvSCN4ug0RntA6M/3RmwFJL57YFx5Lbnz82LPE49HBfKv5Hbj8MdRVDUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by IA4PR11MB9180.namprd11.prod.outlook.com (2603:10b6:208:56e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 18:58:40 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
+ 18:58:40 +0000
+Date: Thu, 29 Oct 2026 11:58:35 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+CC: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
+	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Li Ming <ming.li@zohomail.com>, "Alex
+ Williamson" <alex.williamson@redhat.com>, <vsethi@nvidia.com>,
+	<alwilliamson@nvidia.com>, Sai Yashwanth Reddy Kancherla
+	<skancherla@nvidia.com>, Vishal Aslot <vaslot@nvidia.com>, Manish Honap
+	<mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, Richard Cheng
+	<icheng@nvidia.com>, <linux-tegra@vger.kernel.org>
+Subject: Re: [PATCH v16 00/18] PCI/CXL: Add CXL reset support for Type 2
+ devices
+Message-ID: <auOXW3BTb8CYIh4m@aschofie-mobl2.lan>
+References: <20261029145703.2185231-1-smadhavan@nvidia.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261029145703.2185231-1-smadhavan@nvidia.com>
+X-ClientProxiedBy: MW4PR03CA0226.namprd03.prod.outlook.com
+ (2603:10b6:303:b9::21) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,435 +140,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-gpt_rzg3e-v9-2-f3a5520388d3@bp.renesas.com>
-References: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-In-Reply-To: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793300303; l=14586;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=6WjUirom5UtoCaNHl77k1eEc+AMVL7PNXtJ3osp6aLE=;
- b=rDii/oIxvB/L2Dxnu58QAIGNIIXUronUlNOzUTshinGWq2rSm8TuH5LvZwP3rw/MY+KJyqAtn
- Ev1xoS4fc4MDUaJCy7wG1/AJiUsvs1IhSYWpTPgm61MVLXQpcapX6uu
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|IA4PR11MB9180:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca00f338-33fe-431f-c9cc-08df35eea4d8
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|260925021311599003|260925022911599003|260925021911599003|11063799006|5023799004|56012099006|261009223027099003|261026140227099003|261026121527099003|261022075727099003|261028144727099003|10067099003|261022113327099003|261022105027099003|261021121427099003|261021123027099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: gu8uJKYY0j1Mru9EUj5c0Fz4ARcMuF5tQ23tYTovcpyFuN8yu+aJHlVzCqltxXWEOuSoJm8pGGUsKQoBAMpSqDvHct90jpQjA+FA7w3RXb0i7wk3evqjf9Q8K99EXIDa98nCjQsKu3GCWdIdJ2CT05LLr/oU2xqA8VE3OJm0qrwreCo3pKhFNQysnEd2NFWqo/bz95P2usTqzLXNPNLHJ19vZSD3STrdDtestWCxxZ3ce6Wd8dFZYTpGYMgyrZ20D/m9iWs3g37ehg4m7XFlv/QCtG7scUOTaEzJYtkUqEP8YB3rrun1G3NHTRKX7haIIf42Ure+YOK9VK7vKXK+cySAE7I4F/XgxCI5SBRjsa4PWwwj5bWVsAug5aMTGvdZG75/WcU+LFw1HjUH7DqeVIEoTAJaSbJ+Kdz3ubuddu32B3FzUMUAP6slFkENaDMyRsE/6A/1NDUaWCqMoNBpHqtQQA7/YY5oFZt+cs3bnoDQV2qMwT1/4jOM7JCX0J7PPnYW19j9k6urCTqDWYUDi2HNy+ydBpbs4UogJD4A3XJksbBU5PLkNs6gwdOixkxpXsHBPlA5eJyV7FBj1j2XUhxsZ1GigeNBqDcpgqhtX7w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(260925021311599003)(260925022911599003)(260925021911599003)(11063799006)(5023799004)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261022075727099003)(261028144727099003)(10067099003)(261022113327099003)(261022105027099003)(261021121427099003)(261021123027099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tKuwl4TPJa2VlS9chhLt2oSGaDFwrFKp3vGpP09OGs/DIrNi/4PjnwGYywYa?=
+ =?us-ascii?Q?t7/JXogksfU79Z2Ro9F/2SXDxbTSlXR3yx2y48XTJ54GmC1fL1CP8vYOzmvV?=
+ =?us-ascii?Q?rIp0jWzMfn+10Pi1mdrwf55P02nN3nZAAYerDhcrr+NCp9p9g/q3DPXZTmyA?=
+ =?us-ascii?Q?nQEIBflxH2Pjn7bV3j4PIVOOegY3QbzPumlY5XSa3ZDAacKzJzVEMnvkETjp?=
+ =?us-ascii?Q?3ahPPTjkYnP/IPmvp3bsoN0Ih6EKwJMzxi+vaVMxHLvh5kDhxyshbGdXn5w1?=
+ =?us-ascii?Q?fiKNAbsazXsnTapUHu9SwFTQtac3VokHSp1HslG2S9jPBn7yP1RMvZCsxE1q?=
+ =?us-ascii?Q?vNNN6R+bJrXck1BJfGQbJnjeuD5k67ZZp55sqYdKCxGw8jW/n6PFeXDz0oMO?=
+ =?us-ascii?Q?o9j8raQitrXNyHJvXyofAHSrSLdYv9XKJ2zOEc2O7Gd2jXtPr8q1QeQu+4uC?=
+ =?us-ascii?Q?MEmhvfRzXDW7boOPVFwdhutAdngvWlYLfDvJMDeRKxrAbSRZa+1UDSuFR/ZM?=
+ =?us-ascii?Q?NLd5eQ/5lYLLUsrJIyl1VsdBPjcckcNK3eTYN+kYs1lWQc6dm9ed8+qfnyBT?=
+ =?us-ascii?Q?q/picIi8tq8uM0essrVOeAkqVDVg9r7EyMuplk2VwyMkcbZPUdWlCiLkIZNC?=
+ =?us-ascii?Q?k2sIouu1OAKRAcugslM+XqJ7E18Xf1qcwBe+54nJlfDMPoWy8AylqcIV3GFM?=
+ =?us-ascii?Q?C8FTFT2Dm9XYj32ee3tbI2FA/IJ2k1InKilqfPY5YM3WIoMs4PqyIg2h+USY?=
+ =?us-ascii?Q?iMIoLg2x7wnDeal8pTCFfBbTZIIoU6dGTAwxvZ7eefJIwa1y9nruGRo220Zp?=
+ =?us-ascii?Q?bc7x1tEuYU336Jimx60gEg0AGuwHwveFAJxdFj2Rpbiw3tyTPKlC8Y21mKYK?=
+ =?us-ascii?Q?RLaoREQtWKjfySDelg5vBB5X+vsqPEPsQV6sQ4t3yIA7TnfpGIMWVyf3/Nyk?=
+ =?us-ascii?Q?cOrOA9UqWVnKfcowTOBYftS41kmif0hLaifjzTEzB5mmIzppMhAIjm8vL+uZ?=
+ =?us-ascii?Q?pAqdgFbbq4U/0iEf9CY6s87dwoZb1pvQsUaxZe5t9KIm85JIbJi7WBXYmqUf?=
+ =?us-ascii?Q?1C48lS728y/08hYVpH9xuRKwi4xbc0PMB16rNc+aXrKkfIkwH2jeBCmKIHQq?=
+ =?us-ascii?Q?pQvgrcvtX1/yGelCNmpy3uS5gzISRuCbgPPQYnC1JROocgquisft6eTqkDN8?=
+ =?us-ascii?Q?QtQb426u1yvzUzgZJ6bvboSidL3vX4JdKr/jiK5wAEGJ6PK5QsLLvcIyudX8?=
+ =?us-ascii?Q?vfR+WhhV1ElNVLFxLondIevQWQ51fCt+F6Iphf7yZBleumNYWyrPYNmLKy2x?=
+ =?us-ascii?Q?H7gpGwSnmypoHraSHdnu45G6lTWE0Vb5Cd9pNIco3aOS+HyvQXxYAJQdCrQt?=
+ =?us-ascii?Q?TbyaHWcmJ9WTGKTcewVBnfsOXTaCH7FtVQQJT0nK+2yJ9KeJshbN2qMFy29l?=
+ =?us-ascii?Q?53C2sxiiQ10V6GsMwU7SnyR7DphJ8Vr/4cmJSu5Gtsp97PabP2BElVRSeoBy?=
+ =?us-ascii?Q?1AORcxoelfIKiBGEX6WOfNG9V6sgBiSfa6TSjnjOFZHCWBQSgWs5KndEkdQr?=
+ =?us-ascii?Q?tyLbHr2AG5fly+GNTYQkJRff579+KWiefR499K1NsM+ao5zKs+ZJaVoe4xD2?=
+ =?us-ascii?Q?Iif1g+C1AJn+P772QRSVg2mMN09+WUxwyOk0KYZQC/2oBW8CpDHdy38lVnid?=
+ =?us-ascii?Q?vIrlaA+xDAclxwjLYzmSxjNK5bRWvdm3hLrptXB+uoN691jT2SNMaHllyBT5?=
+ =?us-ascii?Q?UfgICrHxjH0POpd6C6xLiVBgiHuLMxU=3D?=
+X-Exchange-RoutingPolicyChecked: yOsjYEcvtyt54n3AgrYFxUNYLVQBLn4V/kOcpchCqJlQbfkzuljTdnPRP7eCPy5edC/UXzdKwUvPhcDYU6HSqZSaqS0GLaGtcdlVIYakujXkm0FopzJ5Nb23ENPzVVoHC03zzqtFCj/STF0b1E0d5gHqdLC4taUl4vdxIX0rOs7QYYJycPnYzOfpS3jz1EWYnJnuFGi20bJyB3tP9YtMZbeFQj6olp2ej/7UqiALzEYF1ug/MmH3E7WfrJY5hq9AFLg3kNQ8oT/lTN63JhYyKeQHwRTaReI/iVhgQighR43jyJmwwdTwpiekWVBMi5physpdz3wxQ2MlfkXOdha1kw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca00f338-33fe-431f-c9cc-08df35eea4d8
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 18:58:39.7195
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i7dVx4Pqjqctz/gtMex6XVXLD8CbgJ+aJ32rTl9PLLmDHMXn44Xx3zsEI6Zbe6Q/8zzCh5rbrI/R44WiowXpDpnLyrZhTWoPA0k9eyL1Yo4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9180
+X-OriginatorOrg: intel.com
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Thu, Oct 29, 2026 at 02:56:45PM +0000, Srirangan Madhavan wrote:
+> Hi folks,
+> 
+> This series adds CXL Reset for Type 2 devices through the existing PCI
+> reset_method and reset sysfs attributes. It disables CXL.cache, performs
+> supported cache writeback, initiates CXL Reset with Memory Clear, and
+> restores cached HDM decoder and CXL Device DVSEC state before PCI use
+> resumes. Active HDM ranges are reserved and CPU caches invalidated before
+> and after reset. The method remains limited to eligible single-function
+> devices with both CXL.cache and CXL.mem enabled.
+> 
+> The reset sequence follows the CXL 4.0 specification [3], including
+> CXL.cache disable, optional cache writeback, CXL Reset Memory Clear,
+> ResetComplete polling, and ResetError reporting. Sections 9.7.2 and 9.7.3
+> define the completion timeout encodings and reset access restrictions.
+> 
+> The userspace ABI is the existing PCI reset interface:
+> 
+>     /sys/bus/pci/devices/.../reset_method
+>     /sys/bus/pci/devices/.../reset
+> 
+> Userspace selects "cxl_reset" in reset_method and triggers the reset
+> through reset. Following Dan's v6 feedback, this uses the PCI interface
+> instead of adding a memdev-specific sysfs ABI.
+> 
+> For sysfs reset, the generic PCI path invokes the driver's reset_prepare()
+> callback when provided and disables PCI I/O, memory decoding, and bus
+> mastering. The CXL path reserves affected HDM ranges exclusively and
+> blocks IOMMU translations where applicable. It does not offline memory
+> or revoke mappings; it relies on CXL.mem users retaining conflicting
+> iomem resources while access remains active.
+> 
+> Changes from v15 [1]:
 
-Migrate the rzg2l-gpt driver from the legacy .get_state/.apply ops to the
-new waveform callback interface.
 
-Introduce struct rzg2l_gpt_waveform to represent a hardware waveform
-configuration holding the period register value (gtpr), compare/capture
-register value (gtccr), and prescaler (prescale).
+Srirangan,
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v8->v9:
- * The prescale always initialised (reuse cache only if the sibling is
-   running)
- * The round_waveform_tohw() no longer writes the prescale cache.
- * Disabling an idle channel no longer touches the shared registers/
-   counter in rzg2l_gpt_write_waveform()
- * The shared registers are only written (and the counter only stopped/
-   restarted) when no sibling is running -> no glitch on a running
-   sibling in rzg2l_gpt_write_waveform().
- * The rzg2l_gpt_write_waveform() re-validates, under the lock, that the
-   sibling still uses the same prescale/period (returns -EBUSY otherwise)
- * Redundant "enable &&" removed in rzg2l_gpt_write_waveform().
- * The rzg2l_gpt_is_ch_enabled() fills *gtcr before the early return.
-v7->v8:
- * Cached prescale value.
- * Updated rzg2l_gpt_write_waveform() for caching the period, If the
-   channel is already enabled and the user changes its period.
-v6->v7:
- * Avoided recalculation of prescale, if is_small_second_period == true.
- * Moved `wfhw->gtccr = 0` into the if block in rzg2l_gpt_config().
-v5->v6:
- * Dropped local variables pv and dc from rzg2l_gpt_round_waveform_tohw().
- * Dropped blank line in rzg2l_gpt_round_waveform_tohw().
- * Moved assignment of rzg2l_gpt->period_ticks[ch] to *_write_waveform().
- * Restored clamping of duty_ticks with period_ticks in
-   rzg2l_gpt_round_waveform_tohw().
- * Simplified rzg2l_gpt_write_waveform() using else if statement.
- * Dropped local variable gptr in rzg2l_gpt_write_waveform().
- * Moved mutex after early return in rzg2l_gpt_round_waveform_tohw().
-v5:
- * Updated commit description.
- * Updated rzg2l_gpt_round_waveform_tohw() to initialize gtccr when the
-   period of the second channel is smaller.
- * Replaced period_ticks with RZG2L_MAX_TICKS for the duty_ticks maximum
-   value check in rzg2l_gpt_round_waveform_tohw().
-v4 from [1]
-[1] https://lore.kernel.org/all/20251208152133.269316-3-biju.das.jz@bp.renesas.com/
----
- drivers/pwm/pwm-rzg2l-gpt.c | 273 +++++++++++++++++++++++++++-----------------
- 1 file changed, 170 insertions(+), 103 deletions(-)
+I notice you posted this v16 without responding to review feedback on v15.
 
-diff --git a/drivers/pwm/pwm-rzg2l-gpt.c b/drivers/pwm/pwm-rzg2l-gpt.c
-index 108fa99f832d..e9ba0f3bdeb1 100644
---- a/drivers/pwm/pwm-rzg2l-gpt.c
-+++ b/drivers/pwm/pwm-rzg2l-gpt.c
-@@ -84,6 +84,14 @@ struct rzg2l_gpt_chip {
- 	u64 period_ticks[RZG2L_MAX_HW_CHANNELS];
- 	u32 channel_request_count[RZG2L_MAX_HW_CHANNELS];
- 	u32 channel_enable_count[RZG2L_MAX_HW_CHANNELS];
-+	u8 prescale[RZG2L_MAX_HW_CHANNELS];
-+};
-+
-+/* This represents a hardware configuration for one channel */
-+struct rzg2l_gpt_waveform {
-+	u32 gtpr;
-+	u32 gtccr;
-+	u8 prescale;
- };
- 
- static inline struct rzg2l_gpt_chip *to_rzg2l_gpt_chip(struct pwm_chip *chip)
-@@ -152,12 +160,16 @@ static void rzg2l_gpt_free(struct pwm_chip *chip, struct pwm_device *pwm)
- 	rzg2l_gpt->channel_request_count[ch]--;
- }
- 
--static bool rzg2l_gpt_is_ch_enabled(struct rzg2l_gpt_chip *rzg2l_gpt, u8 hwpwm)
-+static bool rzg2l_gpt_is_ch_enabled(struct rzg2l_gpt_chip *rzg2l_gpt, u8 hwpwm,
-+				    u32 *gtcr)
- {
- 	u8 ch = RZG2L_GET_CH(hwpwm);
- 	u32 val;
- 
- 	val = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTCR(ch));
-+	if (gtcr)
-+		*gtcr = val;
-+
- 	if (!(val & RZG2L_GTCR_CST))
- 		return false;
- 
-@@ -219,159 +231,214 @@ static u64 rzg2l_gpt_calculate_period_or_duty(struct rzg2l_gpt_chip *rzg2l_gpt,
- 	return DIV64_U64_ROUND_UP(tmp, rzg2l_gpt->rate_khz);
- }
- 
--static int rzg2l_gpt_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
--			       struct pwm_state *state)
--{
--	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
--
--	state->enabled = rzg2l_gpt_is_ch_enabled(rzg2l_gpt, pwm->hwpwm);
--	if (state->enabled) {
--		u32 sub_ch = rzg2l_gpt_subchannel(pwm->hwpwm);
--		u32 ch = RZG2L_GET_CH(pwm->hwpwm);
--		u8 prescale;
--		u32 val;
--
--		val = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTCR(ch));
--		prescale = FIELD_GET(RZG2L_GTCR_TPCS, val);
--
--		val = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTPR(ch));
--		state->period = rzg2l_gpt_calculate_period_or_duty(rzg2l_gpt, val, prescale);
--
--		val = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTCCR(ch, sub_ch));
--		state->duty_cycle = rzg2l_gpt_calculate_period_or_duty(rzg2l_gpt, val, prescale);
--		if (state->duty_cycle > state->period)
--			state->duty_cycle = state->period;
--	}
--
--	state->polarity = PWM_POLARITY_NORMAL;
--
--	return 0;
--}
--
- static u32 rzg2l_gpt_calculate_pv_or_dc(u64 period_or_duty_cycle, u8 prescale)
- {
- 	return min_t(u64, DIV_ROUND_DOWN_ULL(period_or_duty_cycle, 1 << (2 * prescale)),
- 		     U32_MAX);
- }
- 
--/* Caller holds the lock while calling rzg2l_gpt_config() */
--static int rzg2l_gpt_config(struct pwm_chip *chip, struct pwm_device *pwm,
--			    const struct pwm_state *state)
-+static int rzg2l_gpt_round_waveform_tohw(struct pwm_chip *chip,
-+					 struct pwm_device *pwm,
-+					 const struct pwm_waveform *wf,
-+					 void *_wfhw)
- {
- 	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
--	u8 sub_ch = rzg2l_gpt_subchannel(pwm->hwpwm);
-+	struct rzg2l_gpt_waveform *wfhw = _wfhw;
-+	bool is_small_second_period = false;
- 	u8 ch = RZG2L_GET_CH(pwm->hwpwm);
- 	u64 period_ticks, duty_ticks;
--	unsigned long pv, dc;
--	u8 prescale;
-+
-+	if (wf->period_length_ns == 0) {
-+		*wfhw = (struct rzg2l_gpt_waveform){
-+			.gtpr = 0,
-+			.gtccr = 0,
-+			.prescale = 0,
-+		};
-+
-+		return 0;
-+	}
- 
- 	/* Limit period/duty cycle to max value supported by the HW */
--	period_ticks = mul_u64_u64_div_u64(state->period, rzg2l_gpt->rate_khz, NSEC_PER_MSEC);
-+	period_ticks = mul_u64_u64_div_u64(wf->period_length_ns,
-+					   rzg2l_gpt->rate_khz, NSEC_PER_MSEC);
- 	if (period_ticks > RZG2L_MAX_TICKS)
- 		period_ticks = RZG2L_MAX_TICKS;
-+
-+	guard(mutex)(&rzg2l_gpt->lock);
- 	/*
- 	 * GPT counter is shared by the two IOs of a single channel, so
- 	 * prescale and period can NOT be modified when there are multiple IOs
- 	 * in use with different settings.
- 	 */
--	if (rzg2l_gpt->channel_request_count[ch] > 1) {
--		u8 sibling_ch = rzg2l_gpt_sibling(pwm->hwpwm);
--
--		if (rzg2l_gpt_is_ch_enabled(rzg2l_gpt, sibling_ch)) {
--			if (period_ticks < rzg2l_gpt->period_ticks[ch])
--				return -EBUSY;
--
--			period_ticks = rzg2l_gpt->period_ticks[ch];
--		}
-+	if (rzg2l_gpt->channel_request_count[ch] > 1 &&
-+	    rzg2l_gpt_is_ch_enabled(rzg2l_gpt, rzg2l_gpt_sibling(pwm->hwpwm), NULL)) {
-+		if (period_ticks < rzg2l_gpt->period_ticks[ch])
-+			is_small_second_period = true;
-+
-+		period_ticks = rzg2l_gpt->period_ticks[ch];
-+		wfhw->prescale = rzg2l_gpt->prescale[ch];
-+	} else {
-+		wfhw->prescale = rzg2l_gpt_calculate_prescale(period_ticks);
- 	}
- 
--	prescale = rzg2l_gpt_calculate_prescale(period_ticks);
--	pv = rzg2l_gpt_calculate_pv_or_dc(period_ticks, prescale);
-+	wfhw->gtpr = rzg2l_gpt_calculate_pv_or_dc(period_ticks, wfhw->prescale);
-+	if (is_small_second_period) {
-+		wfhw->gtccr = 0;
-+		return 1;
-+	}
- 
--	duty_ticks = mul_u64_u64_div_u64(state->duty_cycle, rzg2l_gpt->rate_khz, NSEC_PER_MSEC);
-+	duty_ticks = mul_u64_u64_div_u64(wf->duty_length_ns, rzg2l_gpt->rate_khz, NSEC_PER_MSEC);
- 	if (duty_ticks > period_ticks)
- 		duty_ticks = period_ticks;
--	dc = rzg2l_gpt_calculate_pv_or_dc(duty_ticks, prescale);
--
--	/*
--	 * GPT counter is shared by multiple channels, we cache the period ticks
--	 * from the first enabled channel and use the same value for both
--	 * channels.
--	 */
--	rzg2l_gpt->period_ticks[ch] = period_ticks;
-+	wfhw->gtccr = rzg2l_gpt_calculate_pv_or_dc(duty_ticks, wfhw->prescale);
- 
--	/*
--	 * Counter must be stopped before modifying mode, prescaler, timer
--	 * counter and buffer enable registers. These registers are shared
--	 * between both channels. So allow updating these registers only for the
--	 * first enabled channel.
--	 */
--	if (rzg2l_gpt->channel_enable_count[ch] <= 1) {
--		rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_CST, 0);
--
--		/* GPT set operating mode (saw-wave up-counting) */
--		rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_MD,
--				 RZG2L_GTCR_MD_SAW_WAVE_PWM_MODE);
--
--		/* Set count direction */
--		rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTUDDTYC(ch), RZG2L_GTUDDTYC_UP_COUNTING);
--
--		/* Select count clock */
--		rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_TPCS,
--				 FIELD_PREP(RZG2L_GTCR_TPCS, prescale));
-+	return 0;
-+}
- 
--		/* Set period */
--		rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTPR(ch), pv);
--	}
-+static int rzg2l_gpt_round_waveform_fromhw(struct pwm_chip *chip,
-+					   struct pwm_device *pwm,
-+					   const void *_wfhw,
-+					   struct pwm_waveform *wf)
-+{
-+	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
-+	const struct rzg2l_gpt_waveform *wfhw = _wfhw;
- 
--	/* Set duty cycle */
--	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTCCR(ch, sub_ch), dc);
-+	wf->period_length_ns = rzg2l_gpt_calculate_period_or_duty(rzg2l_gpt, wfhw->gtpr,
-+								  wfhw->prescale);
-+	wf->duty_length_ns = rzg2l_gpt_calculate_period_or_duty(rzg2l_gpt, wfhw->gtccr,
-+								wfhw->prescale);
-+	wf->duty_offset_ns = 0;
- 
--	if (rzg2l_gpt->channel_enable_count[ch] <= 1) {
--		/* Set initial value for counter */
--		rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTCNT(ch), 0);
-+	return 0;
-+}
- 
--		/* Set no buffer operation */
--		rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTBER(ch), 0);
-+static int rzg2l_gpt_read_waveform(struct pwm_chip *chip,
-+				   struct pwm_device *pwm,
-+				   void *_wfhw)
-+{
-+	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
-+	u32 sub_ch = rzg2l_gpt_subchannel(pwm->hwpwm);
-+	struct rzg2l_gpt_waveform *wfhw = _wfhw;
-+	u32 ch = RZG2L_GET_CH(pwm->hwpwm);
-+	u32 gtcr;
- 
--		/* Restart the counter after updating the registers */
--		rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch),
--				 RZG2L_GTCR_CST, RZG2L_GTCR_CST);
-+	guard(mutex)(&rzg2l_gpt->lock);
-+	if (rzg2l_gpt_is_ch_enabled(rzg2l_gpt, pwm->hwpwm, &gtcr)) {
-+		wfhw->prescale = FIELD_GET(RZG2L_GTCR_TPCS, gtcr);
-+		wfhw->gtpr = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTPR(ch));
-+		wfhw->gtccr = rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTCCR(ch, sub_ch));
-+		if (wfhw->gtccr > wfhw->gtpr)
-+			wfhw->gtccr = wfhw->gtpr;
-+	} else {
-+		*wfhw = (struct rzg2l_gpt_waveform) { };
- 	}
- 
- 	return 0;
- }
- 
--static int rzg2l_gpt_apply(struct pwm_chip *chip, struct pwm_device *pwm,
--			   const struct pwm_state *state)
-+static u64 rzg2l_gpt_calculate_cycles(u32 value, u8 prescale)
- {
--	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
--	bool enabled = pwm->state.enabled;
--	int ret;
-+	return (u64)value << (2 * prescale);
-+}
- 
--	if (state->polarity != PWM_POLARITY_NORMAL)
--		return -EINVAL;
-+static int rzg2l_gpt_write_waveform(struct pwm_chip *chip,
-+				    struct pwm_device *pwm,
-+				    const void *_wfhw)
-+{
-+	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
-+	const struct rzg2l_gpt_waveform *wfhw = _wfhw;
-+	u8 sibling_ch = rzg2l_gpt_sibling(pwm->hwpwm);
-+	u8 sub_ch = rzg2l_gpt_subchannel(pwm->hwpwm);
-+	bool self_enabled, sibling_enabled;
-+	u8 ch = RZG2L_GET_CH(pwm->hwpwm);
-+	u32 gtcr;
- 
- 	guard(mutex)(&rzg2l_gpt->lock);
--	if (!state->enabled) {
--		if (enabled)
-+
-+	self_enabled = rzg2l_gpt_is_ch_enabled(rzg2l_gpt, pwm->hwpwm, NULL);
-+	sibling_enabled = rzg2l_gpt_is_ch_enabled(rzg2l_gpt, sibling_ch, &gtcr);
-+
-+	/* Disable request: shared registers are never touched. */
-+	if (!wfhw->gtpr) {
-+		if (self_enabled)
- 			rzg2l_gpt_disable(rzg2l_gpt, pwm);
- 
- 		return 0;
- 	}
- 
--	ret = rzg2l_gpt_config(chip, pwm, state);
--	if (!ret && !enabled)
-+	if (sibling_enabled) {
-+		/*
-+		 * The counter, prescale and period are owned by the
-+		 * running sibling. Do not stop the counter. Re-validate, now
-+		 * that the lock is held again, that the values computed by
-+		 * round_waveform_tohw() still match the running configuration.
-+		 */
-+		if (FIELD_GET(RZG2L_GTCR_TPCS, gtcr) != wfhw->prescale ||
-+		    rzg2l_gpt_read(rzg2l_gpt, RZG2L_GTPR(ch)) != wfhw->gtpr)
-+			return -EBUSY;
-+
-+		/* Set duty cycle */
-+		rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTCCR(ch, sub_ch), wfhw->gtccr);
-+
-+		if (!self_enabled)
-+			rzg2l_gpt_enable(rzg2l_gpt, pwm);
-+
-+		return 0;
-+	}
-+
-+	/*
-+	 * No sibling running: this channel owns the counter. Counter must be
-+	 * stopped before modifying mode, prescaler, timer counter and buffer
-+	 * enable registers.
-+	 */
-+	rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_CST, 0);
-+
-+	/* GPT set operating mode (saw-wave up-counting) */
-+	rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_MD,
-+			 RZG2L_GTCR_MD_SAW_WAVE_PWM_MODE);
-+
-+	/* Set count direction */
-+	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTUDDTYC(ch), RZG2L_GTUDDTYC_UP_COUNTING);
-+
-+	/* Select count clock */
-+	rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_TPCS,
-+			 FIELD_PREP(RZG2L_GTCR_TPCS, wfhw->prescale));
-+
-+	/* Set period */
-+	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTPR(ch), wfhw->gtpr);
-+
-+	/* Set duty cycle */
-+	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTCCR(ch, sub_ch), wfhw->gtccr);
-+
-+	/* Set initial value for counter */
-+	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTCNT(ch), 0);
-+
-+	/* Set no buffer operation */
-+	rzg2l_gpt_write(rzg2l_gpt, RZG2L_GTBER(ch), 0);
-+
-+	/* Cache period and prescale used by the sibling IO */
-+	rzg2l_gpt->period_ticks[ch] = rzg2l_gpt_calculate_cycles(wfhw->gtpr, wfhw->prescale);
-+	rzg2l_gpt->prescale[ch] = wfhw->prescale;
-+
-+	if (self_enabled)
-+		/* Restart the counter after updating the registers */
-+		rzg2l_gpt_modify(rzg2l_gpt, RZG2L_GTCR(ch), RZG2L_GTCR_CST,
-+				 RZG2L_GTCR_CST);
-+	else
-+		/* Enables the pin output and starts the counter */
- 		rzg2l_gpt_enable(rzg2l_gpt, pwm);
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct pwm_ops rzg2l_gpt_ops = {
- 	.request = rzg2l_gpt_request,
- 	.free = rzg2l_gpt_free,
--	.get_state = rzg2l_gpt_get_state,
--	.apply = rzg2l_gpt_apply,
-+	.sizeof_wfhw = sizeof(struct rzg2l_gpt_waveform),
-+	.round_waveform_tohw = rzg2l_gpt_round_waveform_tohw,
-+	.round_waveform_fromhw = rzg2l_gpt_round_waveform_fromhw,
-+	.read_waveform = rzg2l_gpt_read_waveform,
-+	.write_waveform = rzg2l_gpt_write_waveform,
- };
- 
- static int rzg2l_gpt_probe(struct platform_device *pdev)
+I've already compared v15 and v16 to see which review comments were addressed.
+However, that exercise is no substitute for responding to reviewers and
+resolving the discussions they initiate. Rather than me repeating the
+outstanding comments from v15, in v16, can you go back and respond to the v15
+reviews before we proceed?
 
--- 
-2.43.0
+Reference is the guidance in Documentation/process/submitting-patches.rst,
+under "Respond to review comments". CXL subsystem contributors also often
+append the reviewer's name to the end of each changelog item to identify
+whose feedback prompted the change.
 
+Thanks,
+Alison
+
+
+
+> - Split register discovery and cxl_rwsem preparation out of the HDM cache
+>   patch. Share decoder register reads, read register pairs low then high,
+>   and keep cache access and locking in HDM state helpers.
+> - Dropped Dave Jiang's and Li Ming's Reviewed-by tags from the decoder
+>   unpacking and cache refresh patches (v15 patches 7 and 8; v16 patches 7
+>   and 9) because those changes need another review.
+> - Clarify the 16-way decoder interleave limit and incorporate the review
+>   comments on decoder helpers and cache refresh.
+> - Keep a successfully read HDM snapshot if restoring PCI_COMMAND fails,
+>   while reporting the failure.
+> - Clarify cache writeback timeout handling and report the effective reset
+>   timeout. Keep all-ones config-read checks.
+> - Split cache preparation and state restoration into reusable helpers,
+>   and simplify range error reporting.
+> - Allow the test-only region invalidation bypass for CXL reset.
+> - Explain the scope and duration of the global region lock.
+> - Reject virtual functions for CXL reset and CXL bus reset.
+> - Consolidate decoder commit polling, set Lock On Commit before commit,
+>   and report HDM restore failures at the PCI restore path.
+> - Move the saved-PCI-state check into the CXL reset preparation helper.
+> - Move the standalone HDM decoder checks from cxl_test to KUnit. The test
+>   layout follows Alison's proposed CXL KUnit series [4]; if it lands first,
+>   these tests can be rebased onto that infrastructure.
+> 
+> HDM caching now requires CXL.cache, CXL.mem, CXL Reset and Reset Memory
+> Clear capabilities. CXL bus reset state restoration uses that cache.
+> 
+> CXL Reset requires a registered CPU cache clean/invalidate provider
+> and matching firmware, such as the separate SMCCC provider series [2].
+> Without that provider, cxl_reset can be advertised while execution returns
+> -ENOTTY, unless the test-only CXL_REGION_INVALIDATION_TEST bypass is enabled.
+> 
+> The KUnit suite checks HDM range boundaries, zero-size and uncommitted
+> state, lock and target-type decoding, and 12-way interleave. The unit test
+> suite passed on an earlier ARM64 test kernel.
+> Type 2 device reset cycles are also successful with this. The reset test
+> kernel also included the separate CXL bus cache maintenance patch.
+> 
+> [1] https://lore.kernel.org/linux-cxl/20261011021422.3428136-1-smadhavan@nvidia.com/
+> [2] https://lore.kernel.org/all/20260910082142.1522865-1-smadhavan@nvidia.com/T/
+> [3] https://computeexpresslink.org/wp-content/uploads/2026/02/CXL-Specification_rev4p0_ver1p0_2026February26_clean_evalcopy_v2.pdf
+> [4] https://lore.kernel.org/all/cover.1791949910.git.alison.schofield@intel.com/
+> 
+> Srirangan Madhavan (18):
+>   cxl: Clarify decoder interleave limit
+>   cxl: Share CXL port upstream PCI device lookup
+>   cxl: Move decoder declarations to shared header
+>   cxl: Embed decoder configuration in a standalone structure
+>   cxl: Introduce endpoint HDM decoder settings
+>   cxl: Move HDM decoder helpers to built-in code
+>   cxl: Share HDM decoder register unpacking
+>   cxl: Move cxl_rwsem into built-in code
+>   cxl: Refresh cached PCI HDM decoder settings
+>   cxl: Build register block helpers into the kernel
+>   PCI/CXL: Cache endpoint HDM state during PCI enumeration
+>   PCI/CXL: Add CXL Device Reset sequencing
+>   cxl: Validate and synchronize HDM ranges around reset
+>   PCI/CXL: Reject reset with unsafe function scope
+>   PCI/CXL: Restore CXL state after PCI reset
+>   PCI/CXL: Expose CXL Reset as a PCI reset method
+>   PCI/CXL: Restore CXL state after CXL bus reset
+>   cxl: Add KUnit checks for HDM decoder unpacking
+> 
+>  MAINTAINERS                          |   1 +
+>  drivers/cxl/.kunitconfig             |   4 +
+>  drivers/cxl/Kconfig                  |  18 +-
+>  drivers/cxl/Makefile                 |   1 +
+>  drivers/cxl/acpi.c                   |  26 +-
+>  drivers/cxl/core/Makefile            |   2 +-
+>  drivers/cxl/core/atl.c               |   4 +-
+>  drivers/cxl/core/core.h              |  15 +
+>  drivers/cxl/core/hdm.c               | 273 ++++------
+>  drivers/cxl/core/hdm_regs.c          | 419 ++++++++++++++
+>  drivers/cxl/core/hdm_state.c         | 408 ++++++++++++++
+>  drivers/cxl/core/pci.c               |  70 ++-
+>  drivers/cxl/core/port.c              |  68 ++-
+>  drivers/cxl/core/region.c            | 102 ++--
+>  drivers/cxl/core/regs.c              |   9 +
+>  drivers/cxl/cxl.h                    |  46 +-
+>  drivers/cxl/pci.c                    |   2 +-
+>  drivers/cxl/port.c                   |   4 +-
+>  drivers/cxl/tests/Makefile           |   5 +
+>  drivers/cxl/tests/hdm_unpack_kunit.c |  90 +++
+>  drivers/pci/Makefile                 |   1 +
+>  drivers/pci/bus.c                    |   1 +
+>  drivers/pci/cxl.c                    | 784 +++++++++++++++++++++++++++
+>  drivers/pci/pci.c                    |  12 +
+>  drivers/pci/pci.h                    |  29 +
+>  drivers/pci/probe.c                  |   1 +
+>  include/cxl/cxl.h                    |  60 +-
+>  include/cxl/hdm.h                    | 109 ++++
+>  include/cxl/pci.h                    |  13 +
+>  include/linux/pci.h                  |   8 +-
+>  include/uapi/linux/pci_regs.h        |  14 +
+>  tools/testing/cxl/Kbuild             |   1 -
+>  tools/testing/cxl/test/cxl.c         | 158 +++---
+>  33 files changed, 2337 insertions(+), 421 deletions(-)
+>  create mode 100644 drivers/cxl/.kunitconfig
+>  create mode 100644 drivers/cxl/core/hdm_regs.c
+>  create mode 100644 drivers/cxl/core/hdm_state.c
+>  create mode 100644 drivers/cxl/tests/Makefile
+>  create mode 100644 drivers/cxl/tests/hdm_unpack_kunit.c
+>  create mode 100644 drivers/pci/cxl.c
+>  create mode 100644 include/cxl/hdm.h
+> 
+> 
+> base-commit: fef22d37d47043b63e4007f2f5fe762fa21fae0c
+> -- 
+> 2.43.0
+> 
