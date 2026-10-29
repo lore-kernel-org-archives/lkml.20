@@ -1,94 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793291902;
-	b=XWI4Ob8usCRrlWaU+8+D2HDbljdS/i2XDtnUBL4EljU+FpYx9JtSJamLyFNgHaY/LBl9
-	 bmjbR8o0z1oAVN3OebJkanHxqyo1kRjgm4y4XQOmMRORbxeEnnDI6UjzTdfdHRbB6kJ6q
-	 ql4DeSv8Zvo0VzZF+mT8xDzNnjwE8ZGy0wguoAUapFs9qikfWIlkDKp6Dl1uNJCbCijUL
-	 JPAn1obPLajFfaMcaphsOXPqmvNzfRM/diMCQ/HXT/wNaglC+fV6CRckp2hkrY2W6WvZk
-	 7tJcE6O/bmxUjb7GIqE72RsWMK4jIAe6Q7B892iOh4YWj6Vpc87NPFBIHuKjDf5Wvkw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291902;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
-	b=z6Kn8IFq3QVOkNltgvmAeuSFDtm00LqZiXqsg6aPqvXVSOt1dA67PbTvW/BksxpQUdCP
-	 GhIO6h8pf1oo6JX/9BRpk4LnxZjbWNE043P9TKxQUe8qv+TQ8qp/mBMyFrJj5qHWg21VG
-	 qLfYa6eL1Qm4n1yQ1BWSscsRHX4sFQZjRdDB/bgUdpuRdT4NmX+uB6pvWWumQ4NGVKR0u
-	 0wVZTADFoIvsAmu1HlT0MLYMlnRmuYBG70hXz0pHhg5Jis16Ox5mkYHZRb0+Cri8aSWLs
-	 rxYnj0IqMKqUn8dD0c/Lty4jrUR7jOle2WQXeue0S6mFP+4Yqd77+A614oZ2N2Bqx2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MKjSeZav;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.11
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793291907;
+	b=cK5NQSvx3KpbeevgFHDaad+vA0EgAcuiwSsdGXhAAdqen4ztZtNVhr4/8sIft+Wt7LPC
+	 g5oQul6rgiPhjU7GJRbMwWUKv4W2ORjSI5WXTz5eHiAeVnAKyIAt+xSP5/1yWapoMotSO
+	 57RTdH71f5RijB8b57geXV1kO80l11aoYmHBVqN9SMcS/HBp8E0Lg3e78pB9bRi9qhOkq
+	 wVtZ6fYCmRDouIp8t1Tkv8jWojUVAfmIzF9QSAJL3zDGbldL9WaVjE1eoY/uZeZLMrw1J
+	 KHAlt0gU90iojaX3d9OL8dArrgz7QazBTFOfe9mWEcxAZSMo+IORG4exuF2M3DczFSA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291907;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=+Hcw6ChGcYDsBOLvV15AWtaOoAcXtAbBHg8paBG5N7A=;
+	b=JC2BOcsaAgmlcmF/AqDrZNz6hvNkqaqY1jIPLlfb+TI4sqAuE+TquvbrNDeV3W4RDQPH
+	 o0+nTcpitEPQOLsp3+gBu6e8KFDmz+g2aXbieBg5ufeDDn8Mzx3kj6vevbi6yMGFKpxJ2
+	 Eu70v3lf/sTLEuoBMdq2Wjuut8/bqx+gwMQmHAnVgYdc1qFCW4yS09eiN3o1KB59ZV8WG
+	 0EqtAYYSwYsItuws0rmopWTsh4yqEEE84Puq43PX/DPjx6vsRMlnjLfY8++8zv0UdMlhP
+	 O0Ai180PO9snPwFCfcrlpWVDFqE36KUF3W//DVbCdnS2Pqz6vu1jnFgZ3+jDyxAeuZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ahN3Pqin;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6770606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6770606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF58606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CF58606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MKjSeZav
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fiMB7aLxEYHYHWaxa5MubJOz5mpahzw1ZlZYRNMBK7t8GsHBPfYhiTKf36bm3/T77LB2BOyQfH1IuFD9A0RE1hhRyciXk98krjIf20uiVuO82p9xJazaoroAobdAG7j5ed6jHJNgvFKYx/8yrxjpO5b/VusBM20oc1YY4pLH0IkK7QchONklDUU7Rc9JNx80W3N/L+OF4ZeYxXkCBaACJSJaIi2JKs+ptoIkYGtQ2MLHwV8SDiZXpd4GwloBNkAFvieza97kAcWO11R8CJeX7VOsH08PPF1yJlu5+cMBlx7lPJ9dNu5qtcp/vIbHunp66iKTM2tIbQFZgBGDCWNRQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
- b=SYUpEc6xY8orRwATDHvxYD3+Rw6AXPan4o1o7U6RcjgvDpun66wqZVpJrHtRyrqGg9pK0mo6cdFWRENGRN261GPcJpj3q2BuJNILMJDyp6KiKVxfk3HbJ6+u/oQ+5w2asd/60XckB8gr7vEdJ9VR3sNhwyOVdsy6WECSWqYgbFHBVv6LwR3nvWLLZoYDE+XruYe28PU6oeydJHt7tJEKhpSYSGIANZMjWIb+nbObtYtz09PTu0fJeJ1DTWjIIKExa9fOgTyQYcvEtUSEXHG6/5RzOZ70Mh+U1HmOad7Jj66fvMbH/N6ZcqwjZcwILGiwUYl9/SS6ay+9GDN/TMbDtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
- b=MKjSeZavwE0mPofgqzxhBHFLVAVuSluY+aGGTG3eHCV3RtIV30hxKFJs+B8ax3TQf6B+gz1agRYYcRLqOmXBjMhZopjPopwwSO3EZBZ+HSW/+VOBgziThNn7a1yUIxCcgkSNXHef1ND0e6QnhJx0dGEqP+sVlghr1m5W6a4kdxZcjG4vW/yt6YKsKXOH7ZJHMABPpW6ovvpcruMltWZ2coIk/eTz7Rn+y86WtgRDrRISpPu+bfcIz7Vqm6fTmQ31k1GyykflZCu59o5E4vUkwWj129MqOpfMK+WLSQ3xwZG57ZMymiU0kHFrWezbgVqGsAH8r7A0uHeByq6ZD2gl7g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB11034.eurprd04.prod.outlook.com (2603:10a6:102:483::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:38:18 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 16:38:18 +0000
-Date: Thu, 29 Oct 2026 12:38:11 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/31] accel: ethosu: Fix runtime PM get error handling
-Message-ID: <auN2c20fmWdj1vtu@lizhi-Precision-Tower-5810>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-X-ClientProxiedBy: DS0PR17CA0016.namprd17.prod.outlook.com
- (2603:10b6:8:191::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ahN3Pqin
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793291905;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Hcw6ChGcYDsBOLvV15AWtaOoAcXtAbBHg8paBG5N7A=;
+	b=ahN3PqinUFx4TjmqHccWMc6AzJotST75t/NEzCajnl6CY3tiOywhGLhVbXFaqAyi6gpndZ
+	n3x6sTuoriveHtIezEYYWKyhlvFFwEKHClHv5VM/Q23HwqydpM9OiJRGIP4Yhh7LnnSVy0
+	d9DsBsZYxLipWGtBtevaSdY2nCWJtfE=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-54-IZUHoYpdON-BLUmfP8xBgg-1; Thu,
+ 29 Oct 2026 12:38:24 -0400
+X-MC-Unique: IZUHoYpdON-BLUmfP8xBgg-1
+X-Mimecast-MFC-AGG-ID: IZUHoYpdON-BLUmfP8xBgg_1793291901
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6867A1935311;
+	Thu, 29 Oct 2026 16:38:21 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5426E1956088;
+	Thu, 29 Oct 2026 16:38:16 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jgg@ziepe.ca,
+	alex@shazbot.org,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	bhelgaas@google.com,
+	jjohnson@kernel.org
+Cc: johannes@sipsolutions.net,
+	mani@kernel.org,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	robh@kernel.org,
+	vkuznets@redhat.com,
+	kevin.tian@intel.com,
+	linux-pci@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v3 5/8] ath11k: use KVM MSI domain for VM passthrough
+Date: Thu, 29 Oct 2026 17:37:10 +0100
+Message-ID: <20261029163713.1366077-6-jtornosm@redhat.com>
+In-Reply-To: <20261029163713.1366077-1-jtornosm@redhat.com>
+References: <20261029163713.1366077-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,98 +95,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB11034:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|11063799006|4143699003|56012099006|261009223027099003|10067099003|261026121527099003|261021121427099003|261021123027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	lm/CJvNJRSiI6msyBdvtiJ7snW03PQYI6DQTgT4How2PI3kb7u+BywJlA3/CkW2+y4z/ird5dNEkJ6B+XTO+wnkdynMWCPyJMJP3RbgdSqqz0H+s7TPUC/F5rcculmWTWWrvMPg+sik2rvGgXqVLK4cTdIxw2xJexkk1vz2WZhf/CfWlTQdoBiZ3chvM8sfkb+YDTUd1p1IeHpoqnOqc8TUdTLR0VFEX95k33SuMG21VUCkZjJOAn+rVdKnazNYPnd5E69ROO1TvseBgRwpCacOnqAENCK+e3is11KgfKpV5ePbtryz6OKxRA/5/u9Jyty5TFlVAq2LcSrvTNzfyo80Pi7XLRugSNbCZQCm+z+0OqXgwBVCo13n3fcZmHGbLRM1XeOjVI2J7GetvENo6MUSQowpbUOy+Oa5ievNOcbZy6MLMdvDKFrSu5R16LMX0ydQhjAlsIj0tZOx5I4BxewMHElaxWoceLyb3+gwxVHEoWpHRiysKfbSKPuUieJOcIZqtZXzOGClizfHTnywuyaS1gWb6H0LOoTnzVVQ/qAK7IkIZUZoEixQYJ70N1sQGr/W1t0ZUhtaSf5AY8xiEwOPvn344UdulHZfaqjQ8taM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(261026121527099003)(261021121427099003)(261021123027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XO+W7YpMuj1/u2MbBh+3K9TLD50c9/5yGeg2AKQIzEnHB4tHmFCJHYC1m8im?=
- =?us-ascii?Q?4HJ3hP+nO29AuucwNpJb2AkKFb6Pl7KYJYPuaGknSHsnPSncFuYPwz+AAS+n?=
- =?us-ascii?Q?rRcWlzHR2qO8Nez6CIRqTFLF8D/8xpKgjojja+gVWbGmIqu1OCBYpipAOELd?=
- =?us-ascii?Q?z0DMyjikOt6iAKIZ4D9ZrgGO2MgJeBGZTM9PMJJ2iJ+Prb75DzFQkwsyNFse?=
- =?us-ascii?Q?QFaqvzIJFrI94OPK1RCaonpMpuEQmmp8jVKZdbALOsLCBuc46cS52EmRCQXw?=
- =?us-ascii?Q?wWNCLsCsqxPH4zsKfYyRhvgyAQOYq77GlXJF3bAwGt1T+FYKOQJafjIiGhRn?=
- =?us-ascii?Q?oft1XJNBDCLFWia57XaQgvLGhxtIlZFPRhuP0vMgPeK0VS+dIE50Qld2Cncx?=
- =?us-ascii?Q?UpuO+3lhYqQRQ6mj2v40W0qrcMIbtBp+mlIizJMy0wNkrLdVuC+sB+I/dNEk?=
- =?us-ascii?Q?+hCdH01WYIclwQaHfSv0mBD+8v89f+w3/qAk9UCtd8A6wE48XNkpBVfBgqKq?=
- =?us-ascii?Q?m1fot9usnnaf0fj/8IEwJqhehknMo6+KvjyVHWds2kWL2XJxfEBumeEp9Kwj?=
- =?us-ascii?Q?s/lCNJCcMlvCpxz/RS9ZIyUUT5jZeSEDfOd6JBftCLchcNK4e7iD0y70tKrG?=
- =?us-ascii?Q?uTpoD/CKAX7GxnN6vrEjQCzh5uT5h8k+APeKHU5IVBUweH/dtrrs5nMatftY?=
- =?us-ascii?Q?znP7JF9DCazF7YZsINHSVmOGjYJRH5tjlDLPuOJvI0ruuyZEBvcYxnrsF9gn?=
- =?us-ascii?Q?FYNM5somCSTl+yPivQkv3YQ9Y0Y3y6+vZPCXeW97s7QyAKqPE+ezXTSKlgfg?=
- =?us-ascii?Q?BDnp0dG3XGCWMAwtr0kp4OrHQwBCS6iruh1+6+OAd18Z2vhKrZI2/+7/ska2?=
- =?us-ascii?Q?2Rm7++KVkQzNLxKhQOmaGyKJL/WEhn7CIJcx8oQL8sAhWzhGYi6++J3Rj7QK?=
- =?us-ascii?Q?Omx8fNOv6wK4piOtjSfNSbhkAtQFycnVnpWgPrzZpnQmqNiSD7AG1ZmNBBtE?=
- =?us-ascii?Q?bmi6LhjV3XXAMz1hiYwm2/qV603fuYfUGB7gsyDBdpRR0GE0lt6jEoQOg1lf?=
- =?us-ascii?Q?C9Jn2W/+UFsmiVQoUBuqlbhAE4wRWR/ZY+3SxupXTaNyCwa/Ap89yJ5Fs6N1?=
- =?us-ascii?Q?/aKaElkE3ub7R/2jvNDxp26HDK4uyG9hQaqwyWkMm5XmG59er+IN8ZCe9mYF?=
- =?us-ascii?Q?2FpCSrdqHQLvff00R3CXEYPVuBZ0rG1ThUoCAhhjlooZEOqHUrpYsau3TT5X?=
- =?us-ascii?Q?eNHhKv0PQAMqqHYdbMedJ7z1TpjGYkDj97p14TjAIJDHHdSUWbuIRnnO2ua+?=
- =?us-ascii?Q?59i6oUM2UHV6WvB2OPBlz7jpNNM+E3n5kF5eg2tqRbbQPZDOYqJwAp3K8VXl?=
- =?us-ascii?Q?0ZHJNvzqqFHdIsD5dEiNypCHnR+o9SyT54tS7qyHUs9FpzkXaF6K77fF03Tv?=
- =?us-ascii?Q?JihEfnyX1t5Fxx3RV2ohfAzbv1CAc1jTJzV7d23uXJzd7rTJpmnGtyiz0E84?=
- =?us-ascii?Q?CurPJaw5Ylhh995OBAIC/1XdtFdIMFLztDnXRBmQCbOTwNFrU94BpOPXQ1N5?=
- =?us-ascii?Q?QkcCSyZ3uxPCNT4o7Ti6OSgV472n8Gq0ENtcDNljjfq3KTa4ZZBz7eEyjiyu?=
- =?us-ascii?Q?2aP5+gVEQstPfVkWxgu6VFuuaSr+XIzcgRoTwObzBTHmUMn/EoWN3j/iL3d+?=
- =?us-ascii?Q?Y1NFbz3/yTNIygVquDx3T9rWzJ788DfB9PXGOkrWFnHQR2A76OvEKKq6NTis?=
- =?us-ascii?Q?gg5dr9x0v/51vwq1zyOnUqs3FMlv6xbEJK7m7Qlzft/iOWZOvS62?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:38:18.8305
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HlggWKS850LyVVuPp+0n7153rzgwYlsJn6fgExRw+lsmLCxazEEMP943VuxT71jHbEi6Z2FKy0qn4MRrva3oO2gqtTJENECqjBZBzUKkU12IVnv6wrz96P68+4D6ZvNU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11034
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Thu, Oct 29, 2026 at 08:35:53AM -0500, Rob Herring (Arm) wrote:
-> pm_runtime_get_if_active() can return an error including for !CONFIG_PM.
-> Do not treat that as an active runtime-PM reference.
->
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v4:
->  - new patch
-> ---
->  drivers/accel/ethosu/ethosu_perfmon.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
-> index 26f625374f9d..0ae2df3ceac8 100644
-> --- a/drivers/accel/ethosu/ethosu_perfmon.c
-> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
-> @@ -71,7 +71,8 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
->
->  	ncounters = perfmon->ncounters - 1;
->
-> -	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
+The Qualcomm ath11k firmware programs MSI addresses directly into
+device BAR registers for CE/SRNG ring interrupt delivery, bypassing
+the standard PCI config MSI path managed by QEMU/VFIO. In a VM, the
+firmware receives the guest virtual APIC address instead of the host
+IRTE address, causing DMAR faults and non-functional interrupts.
 
-This should be correct. I just post
-https://lore.kernel.org/imx/20261029163044.3062958-1-Frank.Li@oss.nxp.com/T/#u
+When CONFIG_PCI_KVM_MSI_DOMAIN is enabled, use the KVM PCI MSI domain
+synchronization functions to obtain the correct host physical MSI
+address after MSI is enabled in power_up. The kvm_pci_msi_wait_ready()
+function performs a KVM hypercall to retrieve the host MSI address,
+and kvm_pci_msi_get_address() reads the cached values to update the
+driver's internal MSI address/data used for ring configuration.
 
-belong to Pattern A
+This placement (after msi_enable in power_up) ensures:
+- Host MSI is enabled and stable (QEMU has completed setup)
+- No MSI state transitions are in progress
+- CE/SRNG rings have not been programmed yet
+- The function runs on every power_up, including recovery
 
-Frank
+On baremetal, if CONFIG_PCI_KVM_MSI_DOMAIN is not enabled the code is
+compiled out and the behavior is identical to the original. If
+CONFIG_PCI_KVM_MSI_DOMAIN is enabled (e.g. distribution kernels), the
+KVM MSI functions detect baremetal at runtime and return immediately,
+preserving the original behavior with no side effects.
 
-> +	if (IS_ENABLED(CONFIG_PM) &&
-> +	    pm_runtime_get_if_active(ethosu->base.dev) <= 0) {
->  		ethosu->perfmon_state.active = NULL;
->  		return;
->  	}
->
-> --
-> 2.53.0
->
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+---
+v3: new
+v2: https://lore.kernel.org/all/20261011074514.515894-1-jtornosm@redhat.com/
+
+ drivers/net/wireless/ath/ath11k/pci.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
+index 7e29ebaf9773..31889e5caa8d 100644
+--- a/drivers/net/wireless/ath/ath11k/pci.c
++++ b/drivers/net/wireless/ath/ath11k/pci.c
+@@ -7,6 +7,9 @@
+ #include <linux/module.h>
+ #include <linux/msi.h>
+ #include <linux/pci.h>
++#if IS_ENABLED(CONFIG_PCI_KVM_MSI_DOMAIN)
++#include <linux/pci-kvm-msi.h>
++#endif
+ #include <linux/of.h>
+ #include <linux/time.h>
+ #include <linux/vmalloc.h>
+@@ -855,6 +858,13 @@ static int ath11k_pci_power_up(struct ath11k_base *ab)
+ 
+ 	ath11k_pci_msi_enable(ab_pci);
+ 
++#if IS_ENABLED(CONFIG_PCI_KVM_MSI_DOMAIN)
++	if (kvm_pci_msi_wait_ready(ab_pci->pdev, 500) > 0)
++		kvm_pci_msi_get_address(ab_pci->pdev, &ab->pci.msi.addr_lo,
++					&ab->pci.msi.addr_hi,
++					&ab->pci.msi.ep_base_data);
++#endif
++
+ 	ret = ath11k_mhi_start(ab_pci);
+ 	if (ret) {
+ 		ath11k_err(ab, "failed to start mhi: %d\n", ret);
+@@ -1350,6 +1360,9 @@ module_exit(ath11k_pci_exit);
+ 
+ MODULE_DESCRIPTION("Driver support for Qualcomm Technologies PCIe 802.11ax WLAN devices");
+ MODULE_LICENSE("Dual BSD/GPL");
++#if IS_ENABLED(CONFIG_PCI_KVM_MSI_DOMAIN)
++MODULE_SOFTDEP("pre: pci-kvm-msi");
++#endif
+ 
+ /* firmware files */
+ MODULE_FIRMWARE(ATH11K_FW_DIR "/QCA6390/hw2.0/*");
+-- 
+2.56.0
+
