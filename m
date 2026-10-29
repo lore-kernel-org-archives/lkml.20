@@ -1,189 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793240709;
-	b=iZfHd5RtsLs8Y4ZWmk0qN0p904XIgETn2q2/36dDuinq26PUwO/bgeTDPtuE3osrru/c
-	 skp3ciAGuuZXfn2OJGgN7xCLk7Prcke80T38nAVOyWIcM9GLXVPyoS4OTwnk6lL6ahuxy
-	 EUMVMQ72x3/LZWEyRjACM0UC4lhTu5xhA36mt77v6J5p2wgFZhIzGma93pwU+7c6bUNzb
-	 BkPM/KFekKhxlnMHPadM0ay0dtpyZrQXgHWb8BhA+JvnX/HkolA9CJ/rR5THXnSJZ3Ds1
-	 xD+444KPkpeCXXpRTUEN2NkhMLZrnC5v5Q69M27oHApEXIYUI9Cog8YhPmLksxQF4pA==
+	t=1793240730;
+	b=XsmSsyYOjgHeTPmdZG8t9aLvzUvUrw9gpfx4eI+0AkHAGXIAoe2S66Y7GMsUe+piV6Og
+	 mRmgwzr2VQ22AuNi7avtlTrX9EqUvPWUsI9y2DCdyb/B2tppimEgUlmg8WbSHLJjMvz6S
+	 tVdFR9iiEemUnmXeMr50bsK/PJMzrtJxtQcsEev7XjyLt/s+X3GDJMyPY8eusIdvrKoES
+	 DNT/XbJhAnj/1ZYZBYvqIbRr9t1rwipXCLPJ8lSIpUi8QhgDjnha7oHryp4jiOJq0vaar
+	 SEmLCnf9Sig9iq45P+x+u3MBA5fBjiacI7RJThaoMYYwpwUoh818VUYE44WJ4sTDCnw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240709;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
-	b=J93CZbKaGiH3ku6CxVcvT9sHHzEjw490QEdb8WvjZHJEcWyiIdogMkVk3u30QHx4FytD
-	 MVILCI5SO6EQJFeEDVCfSLtMtsSfYxuWIzzrXelj8QULrJ0GjR6Rh0S4aB0+qXmvxlxPD
-	 ewaQ67WwvmX+Kocb7dE/rAYG1xAjyhuPTww4CWae4uvh9sNLMAHSv3XlsJROvzAdDNVNu
-	 JcwW89ripFnBiEz21mDKu6ZVVTDNJGXyTBfI7OXOjWNz3fKP/5PWsDkj4JWM4oIHeojMU
-	 pucF1TR6G53B3qX871XalMyaX+DfoTeRjxxqY/DtOODvjgXV0l6e/abdw9Tzq//UdKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240730;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ibrE7kLfmhA0/hpTQtmllGHOAtohRxdo6NcA+NdA/cc=;
+	b=jqFou2aQwISZ/xpDogbMmFLhro/F5LKWzyPwJDNIvYc/+tZjKciEBgTEb1g+8pdAx7NN
+	 3uamUsTVWvG9qHmV96aD2oy4s0zsUeVkc0VWNouGqIwl4BOcbE2BTEpqPVcyoYY0dABiz
+	 MK8JWH3amVpEe46uTEAcgyC1osyBZ9yJyVpBc6BighluKtj4v83Sr0ytNzyr7brppSSni
+	 toZz64cvn+mcwewJk72WAN3OI8fUWjQJ8AtD0I/olpbFkUermdgCUbj4dCfWwpKxzdeAj
+	 78ocpqTnIYXOpgjcTpek3PExZYs0kG8OrMDTKoYRIInrNNahqW/MA9KZJtTFsj/Quiw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nfqit7wD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rrLqpNHP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C20606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C20606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C586C606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C586C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nfqit7wD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793240708; x=1824776708;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
-  b=Nfqit7wDnDtxlHOqb6JpUEGIHN2EBxWxZy3WQHZiExPPfHuNi6wk1oUO
-   TMhx5WQDM83vEHItwABSMi4YhnyH39nGGxPHKcjCXv3ID3fNimhdEOvJ0
-   O06i+ebueooJSSvLyaBOlMw728c38KlI382gIcyUZEHgaSoNTCC+Y8FY0
-   wFtTxSe+p8UgC5gcQK/CJfRYoHctnCaupNS9FXRGQIv8/Dm2KxyfncVU+
-   yAgPaWxJRr80Nkwgof1nPwT2IuKWRi1ZBpMKgfqnpN25xkCHFG/AINbbL
-   l1ZCgHEc/Fo87koSZJPhzWSAohVa1CVDrtfBqL6Exp9fFm+5Is/L+UPNN
-   Q==;
-X-CSE-ConnectionGUID: urFNesSqSCivX9p67Me3Sw==
-X-CSE-MsgGUID: PWkeGX9TT3mbJqhqJuHeGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1978221"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1978221"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:25:07 -0700
-X-CSE-ConnectionGUID: MS743DtLS8Shvz0C71cwWQ==
-X-CSE-MsgGUID: qM9/sOIHSrywqbJ4/Xpukw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5012441"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:25:08 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 28 Oct 2026 19:25:06 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 19:25:06 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.48) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 28 Oct 2026 19:25:06 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y43Pjjf6giACe5HV2Eh6gGpVA3LQlM70ZmlKAge4s2KXTo1XJyoJr9s+ck/i318PWlG8VdCU6qCFlHSJmGyDCk56NY00W9FBL3M6vNuVOyqHUnkLdehEsLRb7bOusqPcqITauE6iPQmF+rgXDhH0b5niUe+JwuGhhAFdXmIcbOwptfrdGtPEJ4+lBVtbjkGGB1l/I4DcGFXCqIvKAKbd3zfHtsIoYrD/UCFdPXVerFjteT/e/4Wqvc3TD/f27ONvdMoyjkL9yKiSH8y7t42I8P8LlcwFWITcWVLat7VMULKOoVLOqgfkWgknxlTYqmdgU3hTLSxYQHW1szt/xPYxWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
- b=S1qNJqETlexI/uxEExbhp9B+4b/w5IaB8ywK91i/0fkOkfL55gSSO70QmcD9L6mw/Py7spB7Nvn+qFF/cqqTgFnFuPNmBsC99VOU0veToG/bq96MnqZ7BIXsSjarbvROJ5TFAmcLNF4DffihkYDu/e1xoPQBaq4zEVYc1jo33NqSBSU3rZc8tK3cvIbapR3JMGuUjhfJr7lICTLtNINPc5jiOf7gvCxY6qXw0Yu7m2qOK5FYx3ZeJK5VKRJy7sVnTcV0hHkxefZuR6jUjIavnDOHUrLxD9Bm89bVNGIEAOF8bekTLbb9k+Yl49IVnonC++GrE1AsKcMRwXPQJ/1gsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by LV2PR11MB6047.namprd11.prod.outlook.com (2603:10b6:408:179::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 02:25:04 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 02:24:57 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-CC: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
- Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
- Rick P" <rick.p.edgecombe@intel.com>, "nicolinc@nvidia.com"
-	<nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal
- L" <vishal.l.verma@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
- Chao P" <chao.p.peng@intel.com>
-Subject: RE: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device Interface
- (TDI) activation
-Thread-Topic: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device
- Interface (TDI) activation
-Thread-Index: AQHdS9rXga6cgPHlGUSTJRY7liaL3LcPnPOAgAMakBCAAGQFgIAA5WXg
-Date: Thu, 29 Oct 2026 02:24:57 +0000
-Message-ID: <IA3PR11MB913674E58AD37A67810F542A926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-13-zhenzhong.duan@intel.com>
- <c81b4b51-4412-4d5d-a073-55fb346a766a@intel.com>
- <IA3PR11MB9136FCB9ABE0B3171BC3A6E2926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
- <20261028124115.GC2541714@nvidia.com>
-In-Reply-To: <20261028124115.GC2541714@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|LV2PR11MB6047:EE_
-x-ms-office365-filtering-correlation-id: e5f26037-67ef-4398-b69e-08df3563d398
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|38070700021|4143699003|11063799006|56012099006|261022075727099003|261026121527099003|261028144727099003|261026140227099003|10067099003|261022105027099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: n2OAy6ILjz5JgRBjL0v9lHxwkkyEj33cbew2iwkHZ9bSDQl/VjR1jlX9qCRIxg6RSF414YZC1F0hf4mmFL50+Dfl9qxVQM+YJrq4GLJY0I9enBvVaUWaTaQwmpzGuraSL6+B8vCMTApQCSoHZ4UfRSBhEpCKenKZ7XZ74lqe9quSNr9AoBCe+fQaklVFJM4k9EtGwM5vzaRI7V+Zwr4PvM3Dc2kAnICk1YET5PGpcxHOgi4ZpgUQ8qOjrj6BW/vEsKV3bHIXiCTLpERGBuTTOdh2tUXYNiFbHfw049Me032QHhUVPSK8ng5UwJhCHAchUXM5nga/lP9I5noKr5dnrnZRUSnZMgGtNu99wFF5S8JQmctHmSxUAjjOUh6cK8bwSns9SLfbkhnnaQIdXcjZzuOKjIB0xQIm3PHKfkS8bRXT52o/nBQQ6ccNsRvnrJauxfTBN/qGJsmsQV5VbDNFi8C8Q1iK0nTc3VUduGavAHsqBMRbQuB+D5uKMsGpxoSUY7ft2Y0UyZ8ldcNF/FE3d6YivRDT2YKH+qauJwcOd8vfsFUE0cYJJ2l4hhZ9IE+ROHRGi7HTsdxNZtsxzei7P7A2Not8cOUXp2cqh1JoqoeYNdoWke763aoss8lI5gKaeRiefFbz6LnLaSjsUmIi6J4dzr8JHaul7QSk7+/Fsr4MzWAeBsgUepSocRrQDj8sF1x1xi81HQJ8LwUG65iA6DTrO1/Pjl33Sh/SxN4DD6c=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(38070700021)(4143699003)(11063799006)(56012099006)(261022075727099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(261022105027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?q1VBhqxfW9B++gC9RR2S9Hym415rSJiza1810ABO1kofCZPkodLq4kztWXK7?=
- =?us-ascii?Q?Iuq06TPE+oJLDnvSaW19EHNHTebGGNVLT5y/A9M7RAqgcN6vRylqUjh/T0UG?=
- =?us-ascii?Q?KC3ohIhktqjPNvMFhrSws921eWGuCd22ag5wSjxE4lNnIwM7waum83n7bFF2?=
- =?us-ascii?Q?fcEv1ClvdVfmsfUCbZoZmSaLMPlyV0IRe700c1UeTSmifm3xVXShZHXw+v+d?=
- =?us-ascii?Q?WH3zPb+eDrOHk0ruseFyrmfUroV1OX2Brlsuz6mb9HtmAKayrwrPOqwEyazJ?=
- =?us-ascii?Q?eETbg/W1UmbdAPvDkQPCrUTofLmvWECaBRp0llFYRgPJLlKiYDWYSq4IEQtW?=
- =?us-ascii?Q?qTz7IIQiBzn2qgpY4pROxjkozn6eZOL9y+y5hTMXNFJhc51DhrE3E6BOAT3W?=
- =?us-ascii?Q?Oqh23rGqaNMiDkq2QlcVqWckDNg0xcXOsYjdTZY0gWrRDd26uyQOoN/PiLwB?=
- =?us-ascii?Q?iuQE0W9fRfcErI81Iryx2pDt/mVCqAYz7O/kXZphngPBwy128/1l9qn8Jew2?=
- =?us-ascii?Q?I/B9CH1S3zCIJKIgtRrdKcuL4cv94K2cTPjbtoUf/wA+M/t7jtLuFYQbWU8g?=
- =?us-ascii?Q?zAX6WZ50lOgInF0C611zISoVziUKCMCbo2w4D8CsfFZ6qUjUc4B/+0Y0V5vN?=
- =?us-ascii?Q?jvMq/oEI5By724NGdD4RsoyAEnnCxjr179v5VrvTOeMD2ivMA9qrQUW6F6u0?=
- =?us-ascii?Q?9Ah7XpUk818//2WRolnmIjpVS8SB6quonkTEdoLXa8NCgzaAiwcvdV0/CPPw?=
- =?us-ascii?Q?6P+BiSwvPQcO3C2DVlwJ1vZrq1uqoKyvXi7G/TOs7kZpJXeWiuwcVtddn2k9?=
- =?us-ascii?Q?LlAULgAF62PcEb7KDOdS6oL8M4F88lF1oHRvBR9wewZd41t9RKiGBWrvwJT+?=
- =?us-ascii?Q?HSgNAANJZjvUfwizI4NO6+Y+UwSfwBDd6B5jI5cgbcCpPJgEQOXb98irFf+5?=
- =?us-ascii?Q?6JF6ioEdPcserPhL0d7JttqGG1Sw7FvLOW8WJS/SIkQD4OXx8TXVJzfbtv7A?=
- =?us-ascii?Q?8fW8pc4+pIN7WXNfQ8o9qyRkdk//VEXqdKC4tCahdvs8jSEod8IoukP01VwL?=
- =?us-ascii?Q?pdyacb+4Ewyo23ORI/zhtD3MK+PvWitasDvVTid1ZnWy+2/+qhAwC+dFFMCR?=
- =?us-ascii?Q?RuOo8bl0jozc5PWSEUKHpmXOrqfq1j9rvsZJjQFXLl+SplWcs+2W1N+7l6lT?=
- =?us-ascii?Q?MGWZVVe5/HmOXgf1zf2dbfNy0QNz281cj+wGuqbMfHJa8hg9ZKnr5Y6n3foD?=
- =?us-ascii?Q?zkbLzL4nn1qCIQbmTeQsdM4596Hi0t1DefBC0+p/f1+DAGP5QzJ17vGd5Xnf?=
- =?us-ascii?Q?+reBNSkFS5QA74mfLj4r8TsUlVQaC6tD+9rKd3781fPn5WCGP3j0zxcfOkBS?=
- =?us-ascii?Q?zsHgx9BmG2AbvtcfLkFJsh0HfiNpdBjVTeLmBQCUVCH8XbG9UzVi+LwOhOf9?=
- =?us-ascii?Q?T4N7VQa9F6WYv6WVXSHCe5FwbeCfYESVVkL/KO6Xacb6sVaXGmWN9ngEwolU?=
- =?us-ascii?Q?fjS4NFLlMHbWADlJP2FbYArcTAo8fjWrnm7PjxYj4G0qiZJBLZ1XyZmGFdUK?=
- =?us-ascii?Q?LosbyxlS2kkiQz89UlnD8uWKc82u4XbSrOn3tVpaO/RH3qcSFNi1whKltg0S?=
- =?us-ascii?Q?Ry12g1lkMTOKkMqxObrBB1ZIyc61n/XImyyJQ7bum/z4WjE+abEIYJT4aczJ?=
- =?us-ascii?Q?gwyjoQTYASpFOWCi/5s7FOKxt4hv/U5dhgkLHJgvASgpwSlA4gu1brdXmP7j?=
- =?us-ascii?Q?+p/SLJGZnQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rrLqpNHP
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-85a5455bd3cso1014467a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:25:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793240728; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L4OkhxE9AHzpXA1wcOPey81BgmiSA5FzdcHl1/Ovg/X+jcllr2fA5qZb45LijJ0c3p
+         D86/cKqT9F/XJ1jHc2wuyhxIyUuVbnSYOQJo5yvbUqlM7pndz/nigsNB9r9nxLhUhXW2
+         3jARl8ZWVImGXioDEqcWk2meBOWIp1exj6bJMTKDZ4tw7uwemKRuq+5vbRMufaqfNxR1
+         s+os2iEQLOt67brNbb3hlCBc0KZ5+TSzAVcjQK6R8KrwxZz+fA5/HU6Qox6CcXMFjqoh
+         oNzx/Bu5H7MdaSbWBjasU29T1SpK+Yovlw+Gtq6CxbPvNkzb2KJtfjCeWJtq6lNezyFX
+         Lrdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ibrE7kLfmhA0/hpTQtmllGHOAtohRxdo6NcA+NdA/cc=;
+        fh=qfRU7xxtrHopBAqJol0XicEjGFcjeVcGJozZOqsRVjU=;
+        b=kdNe10ushVQlKXBTr/1kQy1LTerZDbB3jQlAEfTzvAJsPKleA32838HtPcjn8KeIyK
+         XdwY2qBEQRTIbb8CWP02fv02fmwjknu+gXpk2pqqrL0qXgW7uUvAdR+weT0YpRmNK1ei
+         pSlVwhgdfu/BpQSa0j2KmAKxqHSVO8kXpr4v8+0ppdrzv+zWFvuUFOSi2KwnWr6iMdu8
+         R1LvFQRTkNim3UGPXgqhFsy0o50X0rE4AicOKwxZ+xDQnqaiue2dxlPl20Fg8P1K2kGM
+         dmIO7w9EJmYRSecOiutCIMfTChDpVb5FK8pfggyu+0lbG3GjkutayTgYcY2gzdyscIkX
+         jRaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793240728; x=1793845528; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ibrE7kLfmhA0/hpTQtmllGHOAtohRxdo6NcA+NdA/cc=;
+        b=rrLqpNHPmoyjvTVXcgriO7Urn3CAdbOtl6SWdtR2Kc+m39GbUjHB0sidRN8ITutXYc
+         KUSLc6jY5wffVfDNJhoFFp7X9FCSQA+33STiVTZ2FjFkYp8TSG60C6r1S+5BRcFKSmei
+         bheGuhffuNW0FZTbGs9Bxn3WpAk5NRs5I7L80b00rCk7gBTXAeKH6fIQkvR4IH5KtdHd
+         /IKH9a5lixQsscIAf/sh1pxqhLTlFPbkYl/4usF3Pv2lCj4kvNANqpOs5wwmsj4HpkkF
+         V9mowesznZzsM6SUMZa3cdijtzeOqgJRB8W11+B7X4pt25XqSPM+diKqkMIYUKYs9Ae9
+         v7oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793240728; x=1793845528;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ibrE7kLfmhA0/hpTQtmllGHOAtohRxdo6NcA+NdA/cc=;
+        b=t+Rb8OFC1Q3rn22aOqmIwvYWj8Ik4EJ6ybFan/Fw6fX8bCGtvMWyaACPgHKz9+N8Dq
+         lY4XP5tTouTvauB8/5FK80tkiPlt2JWE4haq4R8Aig/W3LK7VGFamWMexJbPQIsNepjp
+         po28Ela/E+AaTJaaGoAQUxzTNeFjfpu86m7v31x6i0KQOaIAqDZ0D3u9HWjiMVyxFkI+
+         7mKNFgKiXhlSk/kea7hCzrGVflUnJRcuAjy2XSQE3ndZ2p3cMX+tggPCGVmdlh4BahY7
+         5TBJh3joeauYr5lx1qaH/HjEPzu5Z/K0wj3S39l8i07vI0+qnOnIkenj5O46SgPuAJP8
+         9gCw==
+X-Forwarded-Encrypted: i=1; AKwUvByB7/w0zz1Ishs32XsJK2O91n2QSqlutzuVt2c66zH6RN+Zxt+tL1W6wDOXv9n+9DKJcoUYt2243qcjWqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZv2gxJZB9Hnk+tH+ByPpBA+2AjHgwadNgsVJzHuE42Vreh6Fl
+	hUS4LzN7KzD37bAAjIS35+sZs5EHZXdzJ1caj3nxkIuPLkcP+1qFhSy4lmt/KzoQr6x56o8WqBI
+	+GXqckcZmFKmJzE/1HKGO6vonyi/lrdY=
+X-Gm-Gg: AYBFou3cCoX3FGTkgjlRl/GQsKYdzyE2SEiZRptRvIoUqKkJy76NAJ6bGiEb/mpWOHP
+	j17+qESVYcgPc+MGMxn1bIkrsDxXfQ1rDIRTscqfpS0XYpf0Egq8z7fZA13nv/0Pljf1Faj+6jN
+	x/KX1aKZM6pmt2J/h1HtvlIGQZzG8mwaEzc4ajGf1+iq1bmaW9ufYtJ6qpz55mTEiUV0zvqwvbS
+	22CdBqm8d7M5PKzTHHrmmNt8IIo5fdD+XaRIt7NIIW2lGPLIw8g9Xs1yIQ1iy7iqezBhPpDSx8j
+	1D1qmUT04CZVyy9bE3yH5XY0ua+arEEbV5BHMlQ7zsZpHJrKpdVkorYm47pbDTcVpE40RJvsVdG
+	X+Nf9QbmqNYtmgSB2WFHE8/F+lUYjP9nqmWrroMI=
+X-Received: by 2002:a05:6830:2b22:b0:81f:22fd:6ed5 with SMTP id
+ 46e09a7af769-85ab929bea9mr4207273a34.21.1793240728513; Wed, 28 Oct 2026
+ 19:25:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -193,43 +104,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: qU926xhZJjoDMxMi4BuSdMq8DKHgnZJsdVcei1BPAAHMQc2LAlstvV1pNDAabc6kChTi4jICMyNluca0MPad9D3jGl53zpUJTuUU++c2jyppg/5BKLYJC87pRcdQZ0n1sccKUJ1T+Wws3NZ7sy2t1QElDukRsCD77APalBIRTQ15LFKRsyM13dikuUNZniF6uHLjpvAPzJONDMzaoya8dadbrInh78oxiWvZdGKo6G/AhDViaUYK5oq63tqxYQ/UtxFiNKUh0JVMPLtmbTNOkEbqnPOPQ6VahAJur90gQLnt+XFQh5GqEIxjKf9IPnmcDxeSk7aN9yfEY/cbe7H9DQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5f26037-67ef-4398-b69e-08df3563d398
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 02:24:57.7403
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2MhclzOcTW3J+l45p6AGgQztDuSQg1qgOkv+EYjbNpia9sF5R4xUJI2mH2wKt5HUx3WTUquh3uHKTbY9DlDGaQDe60JSb4ZdISLSJT8I9xo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB6047
-X-OriginatorOrg: intel.com
+References: <20260914013033.3938-1-ki.chiang65@gmail.com> <20260914130907.749cd8e7.michal.pecio@gmail.com>
+ <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
+ <0e4c85e8-77e6-4eb9-aca1-048199f2f0e0@linux.intel.com> <CAHN5xi0tN2iWGVfH18SASoP0HVvAaDY4Kgq2U6LCCznGg-1o9w@mail.gmail.com>
+In-Reply-To: <CAHN5xi0tN2iWGVfH18SASoP0HVvAaDY4Kgq2U6LCCznGg-1o9w@mail.gmail.com>
+From: Kuangyi Chiang <ki.chiang65@gmail.com>
+Date: Thu, 29 Oct 2026 10:25:17 +0800
+X-Gm-Features: AclHuK9d_Y4NwcLAID_WoSD1jcWekDk2VdLFqupARR4n9WQETwi-Tu-aoyzptUQ
+Message-ID: <CAHN5xi1M+g3Sy8YkRKpZuU7EtTxiyi0ZD6y5TCcAZTrpxUpHNw@mail.gmail.com>
+Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>, mathias.nyman@intel.com, 
+	gregkh@linuxfoundation.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
+Sorry for the late reply.
 
->-----Original Message-----
->From: Jason Gunthorpe <jgg@nvidia.com>
->Subject: Re: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device
->Interface (TDI) activation
+Kuangyi Chiang <ki.chiang65@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=8818=
+=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8A=E5=8D=889:58=E5=AF=AB=E9=81=93=EF=BC=
+=9A
 >
->On Wed, Oct 28, 2026 at 06:44:57AM +0000, Duan, Zhenzhong wrote:
->> >But this patch already calls dma_set_cc_private(). Will it cause proble=
-m
->> >without
->> >the following patch? If so, it has bisect issue.
->>
->> Agreed, it make more sense to move dma_set_cc_private() call into
->enable_dma() callback.
+> Hi,
 >
->I would be happier if the tsm drivers don't try to do anything with
->DMA API. Let the core code do it.
+> Mathias Nyman <mathias.nyman@linux.intel.com> =E6=96=BC 2026=E5=B9=B49=E6=
+=9C=8816=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=888:18=E5=AF=AB=E9=81=
+=93=EF=BC=9A
+> >
+> > On 9/16/26 04:33, Kuangyi Chiang wrote:
+> > > Hi,
+> > >
+> > > Thanks for the review.
+> > >
+> > > Michal Pecio <michal.pecio@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=
+=8814=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=887:09=E5=AF=AB=E9=81=93=
+=EF=BC=9A
+> > >>
+> > >> On Mon, 14 Sep 2026 09:30:33 +0800, Kuangyi Chiang wrote:
+> > >>> Control transfers to the HIK 1080P Camera (2bdf:0280) can time out =
+when
+> > >>> the device is connected through an Etron xHCI host:
+> > >>>
+> > >>> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2b=
+df:0280)
+> > >>> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (ex=
+p. 26).
+> > >>> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : =
+-110 (exp. 26).
+> > >>> [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> > >>>
+> > >>> Testing shows that at least 125 us between control transfers is req=
+uired
+> > >>> to avoid the timeout. Limit the workaround to the affected Etron ho=
+st and
+> > >>> USB device combination to avoid changing control-transfer timing fo=
+r other
+> > >>> devices.
+> > >>
+> > >> Any idea why it happens or why the delay helps?
+> > >
+> > > We don't know the root cause yet, but we did some more testing.
+> > >
+> > > We tested delays of 50us, 125us, and 200us. The issue was still
+> > > reproducible with 50us, while 125us and 200us passed our test.
+> > >
+> > > Our pass criterion is 30 successful plug/unplug cycles on each port.
+> > > So 125us is the minimum delay we tested that consistently works.
+> > >
+> >
+> > Are there issues with the control transfers already during enumeration
+> > of the device, when reading descriptors etc, or are these issues only
+> > visible after uvc driver is controlling the device?
+> >
+> >
+> > > We also tried USB_QUIRK_DELAY_CTRL_MSG, but its 200ms delay is too
+> > > long and causes UVC initialization to fail.
+> > >
+> >
+> > Does it help if you as a hack set udev->quirks |=3D USB_QUIRK_DELAY_CTR=
+L_MSG
+> > _after_ enumeration and uvc initialization?
+> >
+> > >> How many other HCs did you test this camera with?
+> > >
+> > > The camera works with the EHCI host we tested without any delay.
+> > > We can also reproduce a similar issue with an ASMedia ASM1142 xHCI
+> > > host (1b21:1242). This patch, however, is limited to the Etron/HIK
+> > > combination.
+> >
+> > I think we should avoid usb device specific quirks in the xhci driver,
+> > especially now that we know it's not really tied to a specific xHC vend=
+or.
+> >
+> > If this is only an issue with the control transfers sent by uvc driver
+> > then I think this device specific quirk should be in there.
+> >
 >
->The drivers should just implement the PCIe side of things, lock,
->unlock, run.
+> Thanks for the suggestions.
+>
+> We'll do some more testing based on your suggestions, including
+> enabling USB_QUIRK_DELAY_CTRL_MSG after UVC initialization.
+>
+> We'll report back once we have the results.
 
+We did some more testing.
 
-Yes, that would be ideal.
+We don't see this issue during device enumeration.
 
-Thanks
-Zhenzhong
+We also found that the timeout is not limited to UVC control
+transfers. In one failure case, the first timeout was observed in
+a UAC control transfer, followed by UVC control transfer timeouts:
+
+[  961.127402] usb 2-3: 5:2: failed to get current value for ch 0 (-110)
+[  971.367443] uvcvideo 2-3:1.0: Failed to query (GET_DEF) UVC control
+2 on unit 2: -110 (exp. 2).
+[  976.487473] uvcvideo 2-3:1.0: Failed to query (GET_DEF) UVC control
+3 on unit 2: -110 (exp. 2).
+
+As suggested, we also tried enabling USB_QUIRK_DELAY_CTRL_MSG after
+UVC initialization, but subsequent UVC control transfers still timed
+out. In addition, UAC control transfers may already have timed out
+before the quirk is enabled.
+
+So far, we have reproduced the issue with these xHCI hosts:
+
+ASMedia ASM1142 (1b21:1242)
+Etron EJ168 (1b6f:7023)
+Etron EJ188 (1b6f:7052)
+Intel xHCI (8086:8d31)
+
+The issue is less frequently reproducible on the ASMedia host.
+
+The camera works with the EHCI host we tested without any additional
+delay.
+
+So we agree that this device-specific workaround should not be in the
+xHCI driver. Since the issue can affect both UAC and UVC control
+transfers, we plan to handle it in the corresponding class drivers.
+
+Thanks,
+Kuangyi
