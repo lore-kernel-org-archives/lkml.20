@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263184;
-	b=xlr3njxc8qmtcsPzcgWq3f55b8PmTAglvQXrFrSDbgDggDXOxPw44wL+tNgjkypyklr1
-	 Na/YVpXunUYiaozwJnMaO1yu1E7+2dKmt2SEJi8i14AmSnYfWyZ9PB+h7eZPi6iXz3bM4
-	 YyVZpHN2oPWevrWvQHcvy6JyGwjkGfrngxMBnoPFqHOwu6KmR2PwfBOOo+dQzvynu0JqT
-	 nQztzMGFK/v7XHTMr++y99enQqVFCgvHC1IWTwhws0xzJ0H0z/eqFuQo9R6TeqsElrlP4
-	 kC8ZawK9JguFixwEna6mjN22AF07v2/VIUiTWZW7xCNUMRgPa1q4vzytiMPWZ1/t5DA==
+	t=1793263265;
+	b=E3XXKbdZTz9Nb1r3h5uXM1RZF56IUEpp1SXQIhE6BWEXv6yY4d1UGC+9gHAjHeqUiy7z
+	 BUz4IcllI+soO6m8JfrNUmtKoTuep/mzs3Ldv8w/NAXmHniA6C+a+psydQAepNHmkkCgr
+	 yhD/LZq4/t6mC14xlS9gpsbveBh7vH8fXymWgv2pmJ2BUSu+QMNqGEzh43dP/6Mma5imt
+	 VISKq9wn37NiXBWbHJ4dD8vcVzecPhyFXLWgDEpXWAn5K5BLFGTIsyBsYX9erSWZbQc8x
+	 8bJPSKGWA9er/0jdCh4cC21F7QosybcKAGXKnkB8t7yrId0LGNE/6piDPd/AbkWMRog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263184;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=boRhbr+FM0tKBVcgDQpQ3P+TqBiVA+fRPepHBkPCF+8=;
-	b=k6PtLBDMgnmioAynhRgXj6KZJBBGaOoXcQxTg6cLk45RbCqIgX8E5c4kehaQzCFVW792
-	 ydlppcSdHk0jgoXWJmT7P7AAxT3wFAIyKQrvDa6AwEPb4hk14HroemUTZtv00pib/jWTf
-	 OMyZTBtsrq7mlQl10Hite75RzrgTHBA9mMoZlc3rbzuepZJpIFM33mxYd2pxm744LdLe2
-	 2tZpfQwo4/E9r2l+kX9YRVv8yWtpzPwevOhPXvSO3QpnwJZLk5OvIANMPDop74WOYjOjJ
-	 fbMhxho6Fi34IhSsIES81lFMYq62ytMAAgoDU3dscFZEjKb/tSMOpzovGniexMo2cfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263265;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=SvRnkTYFzNTVywemRusqYidKM7+0WJFsMZZ8unX2qGI=;
+	b=k66vryGFWGL6LmgMvwa+KQ8AjVggj3WnhBeqciQog5Oa1eA8zzFuesUu4GIz/d7HYoj3
+	 EDv+sKGQR+twdeXTJdrLxkrwFeBaYtT9UtAdY40agwddrLWj2bzg+VmmmUk+NEb0a5L53
+	 ZJA5NgTpQhrY+YYtdS/YGZuMg5ITEInHnrDqsD5YN2uqAAEkE1NNOazRNXq9UjCFa9GAh
+	 civAR/4WCd6ytXTV4pDImXafCg3e4onehbzuiD5UyNY/Ke0ewZCLtyFNTrhIRNVE/GZ40
+	 GCn39nND+QFD4Q5euK+QfVUDM/EVJsKH/cvpkOWgRqBqZRhtVsBKLjuoV2g016KkdTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=d97OYoSx;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH8OAcCH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEE1606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:39:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CEE1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3270F606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=d97OYoSx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793263163;
-	bh=boRhbr+FM0tKBVcgDQpQ3P+TqBiVA+fRPepHBkPCF+8=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=d97OYoSxP9+JXjYBqbADemTtea8hbs1IO0FCIgsmCDKrTAGe5LgOPFs7tzSpCg+xG
-	 qqiK4hoQ2yufHnVdqhe1RLMrdU5ItmsuboGnfVJnU7cbZDsyOz9GzeJRem16q4U5kC
-	 6IIwY0tNdJxJ1o+llnxc9dhrTl2dps1fnpr4/tWA=
-X-QQ-mid: zesmtpgz8t1793263159t33143ec8
-X-QQ-Originating-IP: m1XVQ5RI6q/S3Bf3iwqFd6FKZ8h9v92/ZduyIH/iRPY=
-Received: from LT-LIANGBAIHUI.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 29 Oct 2026 16:39:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17958232766869935615
-EX-QQ-RecipientCnt: 15
-From: Baihui Liang <liangbaihui@linux.spacemit.com>
-Date: Thu, 29 Oct 2026 16:38:48 +0800
-Subject: [PATCH] drm/imagination: retry runtime idle when firmware is not
- yet idle
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YH8OAcCH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D3E1F031E1
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793263264;
+	bh=SvRnkTYFzNTVywemRusqYidKM7+0WJFsMZZ8unX2qGI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=YH8OAcCHri18WyeJBVkcO2euTB7Bvk3VcNhggTrUkqjigPpECPh3BDsnM0bN+M+xa
+	 +84j4lZbfJNh76UdY0Qzr32KOC0SPeXLQUkRWY71d8FfM+1vM3CbOx6WnbGdNbCoMQ
+	 ntRm29YwYYDz+T7z7K5LPcz3BQ1T8qs6q9WewNI7sIceCNqPRArKV8ywNKle/v7qKy
+	 NSPI76dJXjdmFdfkiNUwM6JWXRl8lxybxh5EMZLo/j6u9nl0ExFKhErkYC0DbiEDfL
+	 LgAht4GKHImUt6g3f5H9ozAMFWfNmSEtku2iLnEECbA2mbCaBKyx5lBwLQ44vJX+CR
+	 9aIhOdHfhC9jg==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso1898023e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:41:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy9s7FAoZ+w9rQk/FbMhMLCuPy5AYrzG275oXpP6Yss/XyTkesM7GMR2m5bENw+XpRpTH/2iST4B4TTxHQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqQC1D1yTjFvEWyvvskyYFOYDQF2t1eYm+rdMALfUKZAbemMNk
+	QNzc4gazEYPdOUGgGTNdzdbrmWKYT3bg7WETkOA8MEMRm6ByLoUNUizfpNb95NAVyZVKVwNCACr
+	crMrLClvjMYleO0IW4CGk5VNHq0C9Yo2DVG1pNzFzlQ==
+X-Received: by 2002:a05:6512:6c6:b0:5bf:a46b:5546 with SMTP id
+ 2adb3069b0e04-5bfcad768b6mr1904258e87.64.1793263263637; Thu, 29 Oct 2026
+ 01:41:03 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 29 Oct 2026 04:41:02 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 29 Oct 2026 04:41:02 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAMuHMdWhBeqmMt-VXbh2u6AvzyQ6NsZAzATNRZCnm2DHUAFUFw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,95 +65,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIABcG42oC/yXMQQqDMBBA0avIrDtgYjHVqxQXakadgjFkjAji3
- Rt1+Rb/HyAUmATq7IBAGwsvLkG9Muin1o2EbJNB57pUua6Q5xH9jG1cF4niyVk0xmj7Kd6qHAy
- k0AcaeL+n3+axxO5H/Xqd4Dz/ZG7Y6HYAAAA=
-X-Change-ID: 20261029-img-pm-autosuspend-7772d83416f7
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Baihui Liang <liangbaihui@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793263157; l=1595;
- i=liangbaihui@linux.spacemit.com; s=20261015; h=from:subject:message-id;
- bh=zcUD8QgC3EZy/zoKLS2pFNdag8Gz1I+LICYi+Le1+OE=;
- b=BGFNDhIg6gYlpPJnNL7ooDA1mNIquk2dbIWADun6A9/CLBlkcvx7AGym1elhzughIf07XBNLl
- a5MYEDW0pHRCgphZ4r2moevt2DG8eGpwFmP7nHX/AqDlc/SGrjvy6LZ
-X-Developer-Key: i=liangbaihui@linux.spacemit.com; a=ed25519;
- pk=L9Pa1YBHFuJrRPNu/FfSW/likBvv9j2dUrR3r+YyJ5M=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OT1af/FwY+++Lg5QsZOndr+tm10K2D8Tvj0Aa6D1TbYCRZFkK3mP64RA
-	BTG+ZIe7qoXGru2sM62yN3yY8s3uWYhbWMqOOZLhQhLzf/FkoLKaQbkCY9UEEKvnfs0tcj5
-	m/XnTLyLpRnSU1w6j6gCQQn09rhAXPhn4gSH7doB6gxDl7nXh6djEAh+nWjwVgpgIe9uNAT
-	Y6AOx3ynGadlJzQBnuaGKOS0E+w0TCl6yqVBYHYqSb8PxJyPCb4G/b+l0++BYnlWk0+59n0
-	EvNNylg+4O+O8hcTZnohVBKIUkQAD28QQ5lJh4QFWOKm7JR+mE/zqHQp4YiBy58rRfFN/vT
-	aXqu+oTmIO67diOHJ/fBxOpgdjuNN1XtDX5EM+nPjuLZN5cGjUhx1JjMXC6Dq+klXSUYUNy
-	bdKuRcaRUqYr64NMGFprj4PaXHk4CdOxgqUhl4J2KPBCDzuw3FFV/SsRpUSKrrh45NbCfkA
-	XPluiHzFgcL8WyuTMCxqBYuZhlh3eG5Trgk6m+/Jy0MnQFvTQMlY9IISIhFJ4FfE3VKD2ny
-	qWmuP415gzdMEwCaxGsEUfW1RNZI6PebLJy2FgBZkh4oaGB1sR8ucIaNoZMU+r+IvHhF9PS
-	WyRdTSpjVYBQ+NBafjQOxcHlscOwjlSflL7fZo6/kLj49Z8OJcyyJLaAQTj02qxRSS6xQSa
-	qoqOqmDRa/GdQpr4bjE1SHSniQrvdMRjZZSZG9NFd9EdRP6AWblDPx2/sK+jabVVfSsMMDk
-	JFgcq2KNROS5VoJ7Mtlt9Pbdyx/79+MfMQ4txwYM//oZAiyPr4heNW2D9ovUdYekjcZkBxn
-	XYvJppsjjCWd5Y96Fn0N0bsCwRoECZkN5XSzLx+JqddFuabOpMwyp+Qk0VR9B18o+X8L3i+
-	tWNhEWadUfhPHoxw0IaKHgpHfnq3K9bdo8KCmK7wqPbyWOVWm5FY0sB0/CT9su4Yg7oXZne
-	yZoMb/cMKrU5Q+3v/btzPo6ELS/OaXWfx5C8K7/bl0txKZrOE0L8o9WS8/tLh/eK4m1tsw1
-	nGd037Uo6XBiiVe0TDGlCULMMiJwJnQrJKA69rL0zo/D6/ybftaT6LgRntXas=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+References: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
+ <CAMuHMdWhBeqmMt-VXbh2u6AvzyQ6NsZAzATNRZCnm2DHUAFUFw@mail.gmail.com>
+Date: Thu, 29 Oct 2026 04:41:02 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MdWuoANzpNDa9XvJjK=ccY12y7TJaqnUsV8GRqSDh7jAA@mail.gmail.com>
+X-Gm-Features: AclHuK9-Fk9LJoMHJ29dTtLnkXw9K6ph4LXwtcaCoBatL-DyIjUns29xXxZ2-UA
+Message-ID: <CAMRc=MdWuoANzpNDa9XvJjK=ccY12y7TJaqnUsV8GRqSDh7jAA@mail.gmail.com>
+Subject: Re: [PATCH] gpio: aggregator: constify struct configfs_attribute
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Returning -EBUSY from ->runtime_idle() prevents the PM core from
-retrying the idle check. Schedule an autosuspend so the idle state
-can be re-evaluated once the firmware reaches ROGUE_FWIF_POW_IDLE.
+On Thu, 29 Oct 2026 08:57:15 +0100, Geert Uytterhoeven
+<geert@linux-m68k.org> said:
+> Hi Bartosz,
+>
+> Thanks for your patch!
+>
+> On Wed, 21 Oct 2026 at 14:31, Bartosz Golaszewski
+> <bartosz.golaszewski@oss.qualcomm.com> wrote:
+>> In preparation for the constification of configfs attributes, make the
+>> existing instances of struct configfs_attribute in gpio-aggregator const
+>> and use the new st_attrs_const field of struct config_item_type.
+>
+> This has a hard dependency on commit f7528cd38b87fb59 ("configfs:
+> Allow the registration of const struct configfs_attribute"), which is
+> not yet in gpio/for-next, thus  breaking your build.
+>
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>
+> Since you have to rebase anyway ;-)
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>
 
-Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
----
-Tested on SpacemiT K3 (PowerVR Rogue BXM-4-64) by running vulkaninfo
-repeatedly. Without this change the device intermittently stayed
-runtime-active after the last user went away, because the firmware had
-not yet reached ROGUE_FWIF_POW_IDLE when the idle check ran. With the
-change the device reliably suspends.
----
- drivers/gpu/drm/imagination/pvr_power.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Ah, dang it. :( I stupidly assumed it must be in mainline when Thomas
+recommended it. :(
 
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index eb4b6ecdf4f..6f38249ffcb 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -434,7 +434,16 @@ pvr_power_device_idle(struct device *dev)
- 	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
- 
--	return pvr_power_is_idle(pvr_dev) ? 0 : -EBUSY;
-+	if (pvr_power_is_idle(pvr_dev))
-+		return 0;
-+
-+	/*
-+	 * Firmware not yet idle; reject but schedule autosuspend so
-+	 * runtime_idle() can be retried.
-+	 */
-+	pm_runtime_autosuspend(dev);
-+
-+	return -EBUSY;
- }
- 
- static int
+Thomas: Unless there's an immutable branch I could pull, I'll need to back all
+of them out of my branch and have them wait for the next cycle I suppose?
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261029-img-pm-autosuspend-7772d83416f7
-
-Best regards,
---  
-Baihui Liang <liangbaihui@linux.spacemit.com>
-
+Bart
