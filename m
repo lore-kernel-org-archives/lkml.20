@@ -1,61 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283528;
-	b=d7FwNcT3BEornSASeuawoTxpRRmxiNwLYUCDrsWUyW1L4NOX5n67rKAF+2k9PO9FV9ok
-	 fU1VfCbsTwVfnCdI+UcL5P9dEXPknutZBf5IObCnnfBGCzAHJ5J8YxHy9N/mHsZqsASZF
-	 xjdBteX+6vc+2qfmAy9YuKD3BTQ1TCtEitxbZE6nNVWvT5rVkRPbuyfvMUlIeLEx9uZZK
-	 tapZ6FyOBYRMqN6FRWnni+XrztlhnBC6vcBKhhB6Sdj2RrxCqoDlk1BitqggHk9LrIcyP
-	 k0Rp2hpD04fa0qguN8/GE40MwJpu+awP6yFbCvu/2zC7/31hcBtUQUCFSFtVQ9DCxyg==
+	t=1793283535;
+	b=ZGwoEU0crc74/IZnskYdukNCgj9Ee4Ply6/mBNLg7AkPyseWbOt1w3joOxCWdQoHfX84
+	 KXsRJjSttyAwUGZcRdO6KglEGcvb0+a+bYSKhUTJkCVMIWBFaVw+/+vHi9IE/NvyS6Fif
+	 HE4nFjhWI2FNe67v/1BsBJ2fk/OKLwSUqVdWoYJl3NdQLjhfZWqQ+txv+nZhnyELfuM7f
+	 190NqGOBnKnxuW4XJDW8yjJWZKv3JztUinShMML0+hideGRky7CjUG0fUmle2rcClZfzN
+	 Ow0RISoW4R6ysPLStKTSBnynTaCL2BVSk77UsNR4WremAwK0s7eHpRMLuJrCeHegU+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283528;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=bi3XCRBGvmSDE1K5OHmyVRwmgMxDG33ALAmA+5YU2uM9Bla2XicQl3o1AOu+ioHZ9cu6
-	 H+JqFOBp9lwVOlP3HEsnga8d7KLswjttYUmEcqtadjzOrjKixkN5MOt3IJodRalleu/OS
-	 diIGyC1GrrEyaGnmabG3/XIQeMvsyeQjWg4oCMejz7WtendyY+iPhb1f2d2Dqni0XNyyp
-	 1Kh9freGDogsdrZTSNVFXTDlgiyv9OUx+s82FhPC2T4DkoSdxtBHDmxMSKWffuYq52Wyn
-	 D6T+bEJ483MdrbyD3KmPJaGbEIKY/fcCtVvjxArvRq6fpa/1CVbI5ybpcrO8YzfPo1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=SpPolyfzJYMmE5VU9BMzMFqCxVbYb3ZUGO3YoElucf4=;
+	b=O6c1epd3SpFizDcL9UdQLWL4HLDrHAk/fnaU4T4asqlU1X+gk/Ds8jtI6KSvDYfgjDaP
+	 QZudGTLfnvP3lnJlQrbwzgPlgY1upb1YKv90SXWYOnETzLxJqhGBCdlrChwFITJaUPekK
+	 +z3B+qqJaRHcrnp5d6BZNmeYGdaWAkp9qIQJEHsglWeTiklyb91zj98a7dqa0aejwYV6e
+	 3Ug4rySnOR09qj0Cbr9cU485nshb5rI2n7XXJEO1CGDcJErKY5lfOK4xWPV5EbtLRXkdL
+	 As0MDBfsyWySTtOFQ2QEm/WYxyxIDBTjt0gPOYy4gVtP/q6CWVHUvZJOmyYJJGIHTDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfn3C+x8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=PP9Z8JXM;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB8860A382C;
-	Thu, 29 Oct 2026 14:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF30606A926
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:18:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDF30606A926
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfn3C+x8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9D51F012F7;
-	Thu, 29 Oct 2026 14:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283527;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cfn3C+x8PWgqZ6uc0GI1t9iDicUCtNUmrMQuLjb/ZvGRonVQp9Nh4jYtoQ1DZPD4J
-	 bGGSiaCOjnJ++iujcT2PdJ/QJ72Ftk7Usw1d1s3wBFdG1EAz5TtrkcEirJQcsKc96X
-	 vAGrX6EbTjtUtz5IxxXyLPlFQQTL84F7/0V+OpkXOqCB8+KoBnTzC5qze9XcBjWUOK
-	 QZa93OFk719/XRn0CGp6kH33X/05mWX0JbO9+2e/w79VJw2jMv+Gtk6bWkaDCCyNHn
-	 ABpFrbd9Z7UCkl40ia78/1EANT3lNpbflZqvwbpk4Jc8SeN/0gj5lfi46lIc0TFqZ1
-	 jgkIMzFWWjPYA==
-From: netdev-bot+sinfo@kernel.org
-To: Cheng Yongkang <teel4res@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bridge: mcast: release the EHT host budget for
- zero-address hosts
-Date: Thu, 29 Oct 2026 14:18:46 +0000
-Message-ID: <179328352676.3327.7322681510650096532@kernel.org>
-In-Reply-To: <179328314076.648427.17991367257682028617@gmail.com>
-References: <179328314076.648427.17991367257682028617@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=PP9Z8JXM
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so17279105e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793283533; x=1793888333; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SpPolyfzJYMmE5VU9BMzMFqCxVbYb3ZUGO3YoElucf4=;
+        b=PP9Z8JXMRv12NVbJJTOH7JX2pGH4rPkfQJ790zn8qn/xt4NThA5QhaU578TKkngdBd
+         d/Mo2u325P7PiYJhXa2q3ypw/NVixIXHOVxF33dqzc37c9kM3hjxyaPEvKPmq80+2BTj
+         pJBHDNHDIvZMsEZdWeXNg4etLlw6xxQ9Sgy1NWLHSuHQBXiyzuDhekpcGa0h2U0i35xB
+         H95+w/KTWsBaNLYAklqzySMs526DwFBCjfHxV1nYaJwU8r3X9Bo8biui1B+997e8wGZt
+         BG92KZ6XG3y7CE5l3C5bJMaBs1OKUzZt6QdQFmzZ2aLxvQJ9YiQ2WADFr0KspjgbyFja
+         Fyig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283533; x=1793888333;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SpPolyfzJYMmE5VU9BMzMFqCxVbYb3ZUGO3YoElucf4=;
+        b=ixipgpT3Z6dxf2p7a5n9KtYRN3Zg5z5W61vVU6UWt5eI0+5pMmVQzeArfcteRXHYrK
+         LrYUiX+Sx8N7gb6VjT4jM9iFKBMSGisWOw1sf0kv1l5Rlsto+1E3g5km5jMNtfEC4qKY
+         tUYtWJPn2XglYHUiY3kHU8NxLeaSt6rEjbfK13M2ar2sAG4dESoV8OAchO7WUi4/2tuy
+         +BfPoZqnoHIOm3HpXxnwKd0ahoUEN6mQkTPx19DCtgajV5r3AmFJ2rSiS3ipit/PG0DQ
+         wi52/ZaOw1RyicaScOHjDCsTdrrzjZuLrZJyRCLQEYFpRB1oBL4fNiLQCXAERwqXNEpm
+         LfyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoagBSEm8VgTdDo64j3NCCEarn5Hmujb+EB1JN35lJIhVT2cBzyyKgo72vXblxfYAnYbAzj12ULon9jI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtK+8yxDS4qDZTs3kveunj9aAPERW+W7SzfWwhxU7IwAMAiukV
+	Tke7gAwT7Jq8yu48e7sIzYCI8762AK613G7VF5/scFUbrtu2wVp2yz3l0RmstLIZ1lI=
+X-Gm-Gg: AYBFou1YKuznjcw9EGP/pc8Po7WTbIlaVlPiYNnp/9O86+yfvf03iCT5FQonivE2AuL
+	/Wh/NB1yZ2iBxOQFe8wRkx2z6lxPzNYzpBDnHGYgiNQlwN+FnRS8SeLdJF3gf/rcA5PPWzqHOaJ
+	6LwdKuBz/yfkIvo29vN504JabZkbZdvXZqfMGPaWjy3Z8M5ddDG20iE1SD1qJVvfDRlC+jVIQit
+	4NfDRwj6a3oQ4LhpDvtzlJRPUglWCgnx1Tg1kSgvRxbdKSie1qJzuj+tt7BoTJBCbuNwjsZBtVi
+	tX5wshaTpyAVD5N6al5HCAoQj0dWaFBD4gvJp5/mEnqQBGIPTS0+eMtB0X7UEknqyOuUrWz2bNx
+	V2YUjUAk+k1XeGANmSWE7zmbxzOwBGZhp5yy7RD7XNhNFly7CkpxUv/hN+pKLUuU2J8ZBIguyXF
+	SEHc4vdGBS42nKhgbt/JfAd46OGwEbW+bsFUTd1tD9vbmXhKEulvbtA5nPe2VVmr1RiX5o1dg8D
+	2frW0FofnjEgcY7Dp/XI+vvwUSS1iZVjqTUC3BiwVrp/8duoTSHImWh8XcaFVbdfm42oIe4irWd
+	0cCbRZokJ5MtXRPtcabUsMNw469Q2f5t2TM0KsTAH+toR95OpwXdmIDcauk6l9JfTuGs7NKXZZN
+	ZK7eu
+X-Received: by 2002:a05:600c:474f:b0:4a1:cd83:b23e with SMTP id 5b1f17b1804b1-4a97452869cmr128475975e9.0.1793283533370;
+        Thu, 29 Oct 2026 07:18:53 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:18:52 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 14:18:37 +0000
+Subject: [PATCH v7 16/18] media: sony-starvis2: Parameterise the mono ID
+ register
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +93,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-media-starvis2-v7-16-b33a1332fdfc@raspberrypi.com>
+References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-Hi!
+All sensors to this point have used register 0x4d18[0]
+to signal whether it is a mono or colour module.
+IMX585 uses a different register (0x5a18[0]), so parameterise
+which register to use.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ drivers/media/i2c/sony-starvis2.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index 15d5a066a556..b526ea3ce2e4 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -97,7 +97,6 @@
+ #define STARVIS2_REG_WINMODEV		CCI_REG8(0x3021)
+ 
+ /* Sensor Identification */
+-#define STARVIS2_REG_MONOCHROME		CCI_REG8(0x4d18)
+ #define STARVIS2_TYPE			BIT(0)
+ #define STARVIS2_MODULE_ID_DELAY	80000
+ 
+@@ -629,6 +628,7 @@ struct starvis2_variant {
+ 	u32 id_mask;
+ 	u32 id_value;
+ 	u32 interface_sel_reg;
++	u32 mono_id_reg;
+ 	struct v4l2_rect native_area;
+ 	struct v4l2_rect active_area;
+ 	u64 pixel_rate;
+@@ -649,6 +649,7 @@ static const struct starvis2_variant imx678_variant_def = {
+ 	.id_mask = 0x3ff,
+ 	.id_value = 0x2a6,
+ 	.interface_sel_reg = CCI_REG8(0x4e3c),
++	.mono_id_reg = CCI_REG8(0x4d18),
+ 	.native_area = {
+ 		.top = 0,
+ 		.left = 0,
+@@ -782,6 +783,7 @@ static const struct starvis2_variant imx662_variant_def = {
+ 	.id_reg = CCI_REG16_LE(0x4d1c),
+ 	.id_mask = 0x3ff,
+ 	.id_value = 0x296,
++	.mono_id_reg = CCI_REG8(0x4d18),
+ 	.native_area = {
+ 		.top = 0,
+ 		.left = 0,
+@@ -972,6 +974,7 @@ static const struct starvis2_variant imx675_variant_def = {
+ 	.id_reg = CCI_REG16_LE(0x4d12),
+ 	.id_mask = 0xfff,
+ 	.id_value = 0x576,
++	.mono_id_reg = CCI_REG8(0x4d18),
+ 	.native_area = {
+ 		.top = 0,
+ 		.left = 0,
+@@ -1068,6 +1071,7 @@ static const struct starvis2_variant imx832_variant_def = {
+ 	.id_reg = CCI_REG16_LE(0x4d1c),
+ 	.id_mask = 0x3ff,
+ 	.id_value = 0x340,
++	.mono_id_reg = CCI_REG8(0x4d18),
+ 	.native_area = {
+ 		.top = 0,
+ 		.left = 0,
+@@ -1675,7 +1679,7 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
+ 		goto err_standby;
+ 	}
+ 
+-	cci_read(starvis2->cci, STARVIS2_REG_MONOCHROME, &val, &ret);
++	cci_read(starvis2->cci, variant->mono_id_reg, &val, &ret);
+ 
+ 	if (ret) {
+ 		dev_err(&client->dev,
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+-- 
+2.34.1
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
