@@ -1,72 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305812;
-	b=ba2tdK12qy700UpMH+yrE9tpN9BqXWIKx9s8HEwugX2lOgG1i8IUv7ZDeQ9ljXOI5hiG
-	 ex+kThQKY3W/9LNisnwJqk9IWgiRhD0g6ncYDcOIhI5l6HGjU3tVVT+J2tKzx77/RVqeI
-	 bDJAQQa7LECuc96SAczns9DDCZR2W078FFgPcMvdwEWUiGV2QDd3y1j9nriYAtWEpBLjP
-	 HpvtpwtfVdbzLSVz3RLkHxpb5qEbqUfB6D/BJDBbPeZ8IHwKs+V2/mp3a019n0XErNLKp
-	 YGn4YvE91F+2s0pJLpbyelNbdS9WiosDxRz3+a3wcS7Aoiqfy73RqrzwcYySxG6WNuw==
+	t=1793305922;
+	b=N/r69SB5i14I6x3ZGER3wuObNXak1E5UGuteOOtjmIPzHg9rJHdZ/RhhbO0RubUejA3j
+	 4f626UOYi44Rjv6wmvOxKEF7nakAI/3Rgf/fOrAOGD2ONynx6KizVrScoz7Tvpo56dHAD
+	 BewsCOyK9WSnDJprD+TzRX7xP6y9Sxv0ST+AdoOW15rsd/5Ijrlx9KJn5JFd7mRreh/rv
+	 Q8hkPVWk9qapVE1yLJy1mErpLsP93O1p1o7xKoSee5/R5Yed/A7OVbEtlYXPYAFisyBby
+	 88ujGix21ofUnJL0wjV02dbyqGmJEtWaUA7WL1GHNG8Aobg9ix6Gbaeqs6GwViaJfoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305812;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
-	b=zfEEziSLQ28BV9JmWMfV4f5vPZ4kN1ei6o9a7zLwpv8j+s/j9KYrZuNYjJuyyG16cTFf
-	 4MGNuv8/jh3WCqd+Pn4d5jdqygUjIr+dAGxuyHkGfvxWZFj0RFv2AdZ9e5CYSPgqBu+Fn
-	 5Q8QCy+n0k4BWSPzUzK9w5lDQm9r+Im4VrfwzdCoan4vF5BExDl+eEzvDyEoZ85cOKIU8
-	 4eaMU0DaZID6vmoFRnnRcR+OczfiVzPux3Pgk1Ncyr/imrX+tYjBST+j0OHA/WtAVwKN/
-	 Uk8On9Qwt3ZzaIDkRW1TuLm9pe7I9zHyTkAm6wWTvclfn2MR6yKmLsKIp0DRB25xStg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305922;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=6pxQXpYemRN4XfUbn7yrkBqwsiJyMHBQYqkM4m18C74=;
+	b=bANVR3LxVwkqk6EsoJQfJjFTRWEOmudfZfpVHM3e0PV+Cyais/MHH+0cT9yRldYRf82w
+	 eFr8yf6HiSM3wYeA2XUPFOHfAi/edUH5PEJx3NG9alY23GqJUdgxyqqH4segEs+43Nrya
+	 0VvBGp1PvON+WRzOGROOdtHchu7+GWm5DZDuilM3KaPjGUsoJ57a6VpHFKfFAxe0zM+8d
+	 KlBF0dMiy1WCOoaBJiNZ9L9qgT9Ob7AHlwnhwwvu1029Dut1fgh5wbzSsTLEKP/d69GC5
+	 S0Uq78XSY/AaHiclo9W1MM+/0zGpAOMHzWYMKxXz1vNaBxAee2zz8nmwz3Q4nJjQpTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+SfqPC2;
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OeOAv10Z;
+	arc=none smtp.remote-ip=91.218.175.216
+Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D2606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802D2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF00606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:32:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF00606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+SfqPC2
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-18eb2616974so2849381c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:30:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793305812; x=1793910612; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
-        b=p+SfqPC2TKLRYRGAQKYdsg4hvSGOYSaZPNRCmZwI+OWG8JYu/encDCWEy0hXGlPSv9
-         o1v0sXKjKRfTMIepr680LUYxQiwlaGtoGMnp/IU46MF9otqe2IuIf08h01lBR7NYDYkb
-         DPc5J5C4qGaq4+DlEWItKrD1uIAhM9tuXV2ThzshWc3C5Qk+Xqydk88V32KhIXXR7U5B
-         3+RnvrWZIc+dxmRrBJ+ZVdxy3WV2TzU9NRk4LoDOwnjSnbaBFaXoKqR42GKN+nBKanSC
-         +6hC84OuOlRiYstRrUjNQ3DFQabLGKLJ2o0VbiNWPo8BXzXGYgNDxkQbcuDSx4+ynx6E
-         5fQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305812; x=1793910612;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
-        b=0YtNNK0hX9i6kX9C1+sfM5emP80TCt+rjy6OIMckUoHa6gpBtA/oFbWwfMWeh7L2G6
-         YLuoMQkTkTddBRr9pRB/+Vrq1i8AmAJ5MmGZCkH+0R+XOi1H/kniBGf6RXLaZH6XljqI
-         v6tesUo3yTyI/qnlH1ct6sd6Sijn0eo8i5/l8hJE2nrzHunHVmiOeecnmkmKxUV3gdhf
-         iHXGbPZsiZbnnsTUMmMTY5DxRzH+FRMVjRFZTdZ0+hcThFUkv8vXlXm60ylEB6hB0ebz
-         wDb8cZCPL7kDExcPIRJpcyUNOrl+TzadPXcMY+1UyBknNiDdgL3Aj0RvnUBhEV+mVAMY
-         A1qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkBViYAsmMovXZ9keJC7ZhU+asnTzOO+shR/Rw78SUWXi8jkwQJ1OcbhUtnPyyBFcoZDbyxQMnQjWWJbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK57D4/DE4mivl7qWjw8HXEBzqAQ+jtaCxebQ179ZurHkZO6lIz
-	U/0WSJaq2wBI9gq8xPIvpHpgaM7Q3epa9vfmt1WuOvXZke/TK9cfsiSESbVUJKE1V9DCxE+2t+S
-	tSHKPxj76RcV2rg==
-X-Received: from dybmx2.prod.google.com ([2002:a05:7300:d402:b0:369:ff7f:6354])
- (user=scollyer job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:ea4b:b0:1a7:979f:ecc0 with SMTP id a92af1059eb24-1ac5b7e1074mr150741c88.27.1793305811259;
- Thu, 29 Oct 2026 13:30:11 -0700 (PDT)
-Date: Thu, 29 Oct 2026 13:30:08 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OeOAv10Z
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9A5v4McM9EgODDHbbpqQnxabhAuw+cMXqsVGQj5+Xt8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793305918; v=1; x=1793910718;
+ b=OeOAv10Z+GO835QuNAumb3dmvGt0laxpAkCMD1WMKBeQJeH6y7Ri5IOyWhgORIMvxXUMjHjQ
+ yEohGOULgLrP/NCmWFpSBXBR4GMGBAPRRihwkcdXtSRqRYNYz9pbeThjukvDlETwCuLb5zhS4Uc
+ V39thRLbhPr8vPJlitG6t8mU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 53ff5c625a1fc412;
+	Thu, 29 Oct 2026 20:31:58 +0000
+X-Mizu-Trace-ID: 53ff5c625a1fc412
+X-Migadu-Flow: FLOW_OUT
+From: clement.leger@linux.dev
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: kgdb: Fix potential missing local_irq_restore() call
+Date: Thu, 29 Oct 2026 21:31:42 +0100
+Message-ID: <20261029203144.190422-1-clement.leger@linux.dev>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,134 +66,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029203008.419808-1-scollyer@google.com>
-Subject: [PATCH v3] platform/chrome: cros_ec_ishtp: report EC_HOST_EVENT_PANIC
- to userspace
-From: Scott Collyer <scollyer@google.com>
-To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Scott Collyer <scollyer@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When the ISH firmware encounters a fatal exception, it resets and sends
-EC_HOST_EVENT_PANIC over the ISHTP MKBP channel. Register an
-event_notifier callback in cros_ec_ishtp to log the panic, invoke the
-panic_notifier chain, and emit an ERROR=PANIC uevent so userspace crash
-collectors can capture the panic dump and handle recovery.
+From: Clément Léger <clement.leger@linux.dev>
 
-Signed-off-by: Scott Collyer <scollyer@google.com>
+If kgdb_handle_exception() returns an error, local irqs are not
+reenabled. Fix this by factoring out the kgdb exception handling to a
+function and call it between local_irq_save()/local_irq_restore() so
+that the error handling flow is simple.
+
+Signed-off-by: Clément Léger <clement.leger@linux.dev>
+
 ---
-Changes in v3:
-- Use ec_dev->dev in cros_ec_ishtp_event() and drop the client_data lookup.
-- Register the event_notifier before calling cros_ec_register() so pending
-  events dispatched during registration are not missed.
+ arch/riscv/kernel/kgdb.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- Move EC_HOST_EVENT_PANIC handling from cros_ec.c into an event_notifier
-  in cros_ec_ishtp.c as suggested by Tzung-Bi Shih.
-- Drop kernel_restart() and instead invoke panic_notifier and emit an
-  ERROR=PANIC uevent so userspace can collect the crash and handle
-  recovery without forcing a kernel reboot.
-
- drivers/platform/chrome/cros_ec_ishtp.c | 43 ++++++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
-index 3766cef81fe8..d3a00dc6924e 100644
---- a/drivers/platform/chrome/cros_ec_ishtp.c
-+++ b/drivers/platform/chrome/cros_ec_ishtp.c
-@@ -8,7 +8,9 @@
- // (ISH-TP).
- 
- #include <linux/delay.h>
-+#include <linux/kobject.h>
- #include <linux/module.h>
-+#include <linux/notifier.h>
- #include <linux/pci.h>
- #include <linux/platform_data/cros_ec_commands.h>
- #include <linux/platform_data/cros_ec_proto.h>
-@@ -117,6 +119,7 @@ struct response_info {
-  * @work_ishtp_reset: Work queue reset handling.
-  * @work_ec_evt: Work queue for EC events.
-  * @ec_dev: CrOS EC MFD device.
-+ * @notifier: Notifier block for CrOS EC events.
-  *
-  * This structure is used to store per client data.
-  */
-@@ -133,6 +136,7 @@ struct ishtp_cl_data {
- 	struct work_struct work_ishtp_reset;
- 	struct work_struct work_ec_evt;
- 	struct cros_ec_device *ec_dev;
-+	struct notifier_block notifier;
- };
- 
- /**
-@@ -538,10 +542,30 @@ static int cros_ec_pkt_xfer_ish(struct cros_ec_device *ec_dev,
- 	return rv;
+diff --git a/arch/riscv/kernel/kgdb.c b/arch/riscv/kernel/kgdb.c
+index 0bf629204c76..b833408494f9 100644
+--- a/arch/riscv/kernel/kgdb.c
++++ b/arch/riscv/kernel/kgdb.c
+@@ -319,13 +319,28 @@ static int kgdb_riscv_kgdbbreak(unsigned long addr)
+ 	return kgdb_has_hit_break(addr);
  }
  
-+static int cros_ec_ishtp_event(struct notifier_block *nb,
-+			       unsigned long queued_during_suspend,
-+			       void *data)
++static int kgdb_riscv_handle(struct die_args *args, unsigned long cmd,
++			     int type)
 +{
-+	struct cros_ec_device *ec_dev = data;
-+	u32 host_event = cros_ec_get_host_event(ec_dev);
++	struct pt_regs *regs = args->regs;
 +
-+	if (host_event & EC_HOST_EVENT_MASK(EC_HOST_EVENT_PANIC)) {
-+		static const char * const panic_env[] = { "ERROR=PANIC", NULL };
++	if (kgdb_handle_exception(type == KGDB_SW_SINGLE_STEP ? 0 : 1,
++				  args->signr, cmd, regs))
++		return NOTIFY_DONE;
 +
-+		dev_emerg(ec_dev->dev, "CrOS ISH Panic Reported\n");
-+		blocking_notifier_call_chain(&ec_dev->panic_notifier, 0, ec_dev);
-+		kobject_uevent_env(&ec_dev->dev->kobj, KOBJ_CHANGE, (char **)panic_env);
-+		return NOTIFY_OK;
-+	}
++	if (type == KGDB_COMPILED_BREAK)
++		regs->epc += 4;
 +
-+	return NOTIFY_DONE;
++	return NOTIFY_STOP;
 +}
 +
- static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
+ static int kgdb_riscv_notify(struct notifier_block *self, unsigned long cmd,
+ 			     void *ptr)
  {
- 	struct cros_ec_device *ec_dev;
- 	struct device *dev = cl_data_to_dev(client_data);
-+	int rv;
+ 	struct die_args *args = (struct die_args *)ptr;
+ 	struct pt_regs *regs = args->regs;
+ 	unsigned long flags;
+-	int type;
++	int type, ret;
  
- 	ec_dev = cros_ec_device_alloc(dev);
- 	if (!ec_dev)
-@@ -555,7 +579,22 @@ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
- 	ec_dev->pkt_xfer = cros_ec_pkt_xfer_ish;
- 	ec_dev->phys_name = dev_name(dev);
+ 	if (user_mode(regs))
+ 		return NOTIFY_DONE;
+@@ -335,17 +350,10 @@ static int kgdb_riscv_notify(struct notifier_block *self, unsigned long cmd,
+ 		return NOTIFY_DONE;
  
--	return cros_ec_register(ec_dev);
-+	client_data->notifier.notifier_call = cros_ec_ishtp_event;
-+	rv = blocking_notifier_chain_register(&ec_dev->event_notifier,
-+					      &client_data->notifier);
-+	if (rv) {
-+		dev_warn(dev, "failed to setup event notifier: %d\n", rv);
-+		return rv;
-+	}
-+
-+	rv = cros_ec_register(ec_dev);
-+	if (rv) {
-+		blocking_notifier_chain_unregister(&ec_dev->event_notifier,
-+						   &client_data->notifier);
-+		return rv;
-+	}
-+
-+	return 0;
+ 	local_irq_save(flags);
+-
+-	if (kgdb_handle_exception(type == KGDB_SW_SINGLE_STEP ? 0 : 1,
+-				  args->signr, cmd, regs))
+-		return NOTIFY_DONE;
+-
+-	if (type == KGDB_COMPILED_BREAK)
+-		regs->epc += 4;
+-
++	ret = kgdb_riscv_handle(args, cmd, type);
+ 	local_irq_restore(flags);
+ 
+-	return NOTIFY_STOP;
++	return ret;
  }
  
- static void reset_handler(struct work_struct *work)
-@@ -665,6 +704,8 @@ static void cros_ec_ishtp_remove(struct ishtp_cl_device *cl_device)
- 	struct ishtp_cl	*cros_ish_cl = ishtp_get_drvdata(cl_device);
- 	struct ishtp_cl_data *client_data = ishtp_get_client_data(cros_ish_cl);
- 
-+	blocking_notifier_chain_unregister(&client_data->ec_dev->event_notifier,
-+					   &client_data->notifier);
- 	cancel_work_sync(&client_data->work_ishtp_reset);
- 	cancel_work_sync(&client_data->work_ec_evt);
- 	cros_ec_unregister(client_data->ec_dev);
+ static struct notifier_block kgdb_notifier = {
 -- 
-2.56.0.317.g454f8302e1-goog
+2.55.0
 
