@@ -1,63 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280069;
-	b=fXJAkvFwmIMGVIEA7C5VuUzfkZ39PfoDfmAX76pCMYJvjavZoMam6XbAikOqxY7dUdYk
-	 fKASRCsH98o46/Kh/BIqCJVqnY0cVQVj6R03IEM/cyiB2LUibUfaqIOtZakw3o/h4LYtN
-	 ifkFWMzi39Hf5LTn9wsfSWwxN8UY+Efv7YkSDB8oz68Fv9ZkB4K6mAOZJPtRL66UVcAsW
-	 GLbdXofOUstayvZ3Rt5hQe0EWnd0t9ey/q47njb0E3ctgeH/IXvI+7YML2J2I1SzcWr52
-	 qEUxtrSPMEBhwzHgpAoPjh4uhUJtJCs1V+f9g2CJdbaX8/gqFfd5/TQByqw/jauDSLg==
+	t=1793280089;
+	b=oUQyaRPAlZx18YeGJndgIoJ+RGB2KEKcBjGMQkNIb4KL/KXL5mlJEmKXp3dFGnlNC7P0
+	 HVj/9WMei0LhCu6THEuvucSuC8zzIEAPa+oUhRErWYJ2b+SwUzLm1WFR1bVAT8yQJA9vC
+	 aOtJCrgF6IxCFFXECLL4PFOQecw9Hx4VrEY5+WVkWxUliUVaaZIlBa2MsgOYBlyLwWuhx
+	 K4cR2sbeXPVMBLXK2vY3jmHCPpER3OI4NbYzYliaV3ODPrUPigEz0Q97qAiAioPTfA7ZD
+	 DEbAojNSkWpxWiQpGcNhQzdn9XGxFeTTKWIc12ms276ALabUBoNUpMU6RvSyJNQSSOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280069;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Lp2fs7ZbOlVXklezlvUcMAOoy4OS8c7SUAwJ7l9dS4U=;
-	b=gePRLV5VmS4l2PfZ1qcgJkl7UrbfnlKPWMNIXrvmovSWcPtTE4c6cxEUvvjDb1VQdNuz
-	 rimJ9e9pQDKk5iRgfn+elpI9KiaYKi7IHTfckykPyMkYbEkWLuIbiiYSFMLME/lSQGzA6
-	 Re1kMB3dDwwmrRPynT8mOJfrTw/Rm99Ec3rSgSA7AqGrTHppxEQzmOR3SCtye7FxWY28u
-	 iiYx/hHE5Z+Ks7UxQYRVCXV/ZpYu6l+5wbvLQjBkml3cxYvYh4tmNghth54K3vkJZuKXO
-	 qL00WgExmjfhoJVEEVXi9MRJ4MR5CGMVmrw/SGDLHcHJth5UPzT7zkF0ZGdFRZZSA7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280089;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=SdAws15E4boPyFwiZCIHuT2z7R3eozeBP3yjVNgMrMs=;
+	b=2uqIEnixVzr02J+Pxg5r4R0Sb4AomQzRSZnDHeW0rd8Hsf1KqYNy+UU+xpBIQ71FCAQM
+	 R5XNzByxFZU7x+ar9TvmLof3PzI8A4aLY4pon8FhHMzt7f3QS7HFnu2En6VWHpmDnDG90
+	 NKVQAboNzT9z9f6590h6twievrJy+fea5OjGPuDvn6A7nW5h5i3uZWHqZrtSrYDAxosD3
+	 BYt+HQVRTeak+z42kOu3YcJtyOjvRy+gX/dkh3LNz2Tjz3vJ/e3GeN3aMOnHcVS7Bl+RL
+	 jbYNGh+kwE6i10zY5gFqmEAbDIwOugtP+I2pmtWvSGbAGbk+f1nAG9O6t5ulSJFrcYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=leGq8Tf0;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ByWpXUDN;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E072B606A31A;
-	Thu, 29 Oct 2026 13:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E072B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADBE606A31C;
+	Thu, 29 Oct 2026 13:21:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ADBE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=leGq8Tf0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Lp2fs7ZbOlVXklezlvUcMAOoy4OS8c7SUAwJ7l9dS4U=; b=leGq8Tf09kTUwEEAi91ZrEPch7
-	ZGhH+SiiG9cZe30J9nFJiyUGEnHOhLDZiKuXiGXNCsGhCaWcU4hS9NvsmfXu0xmaLUWnU40ivacZ8
-	zwoV3cId8aLBbJw3aqyTZ7gMKBUne4RLvf29dC74W0MJi8VOITEiXubvKfgG+EXmu9Bw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xMQ3s-00DFRE-7P; Thu, 29 Oct 2026 14:20:56 +0100
-Date: Thu, 29 Oct 2026 14:20:56 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: pcs: xpcs: make supported_interfaces
- authoritative
-Message-ID: <20fb8d2d-a20e-472b-8f32-3fe2fec9a425@lunn.ch>
-References: <20261029102728.3189359-2-coiaprant@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ByWpXUDN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793280087; x=1824816087;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=tkpV40hGhO5XeSgRXjpBId5i/GBz5co0mYtfaR2uPHc=;
+  b=ByWpXUDNtE041PcxpjxWOiUscgxyB6wd6HHSHpTkfdqKrHt0nNRiVlNi
+   iGklM75b35IAYUuhXooKHYUmke4On3DONklwepMYt50Djjh06D7hR/Rex
+   esUsgPmXo0WZuKINjKwAM6b4UUGSGG7PK3uLp0KOwXMJ9Ve95Rq71K6ok
+   ZTbVwrJtQ3UAP5w6ouWkzPjbCO2HwwJ57OkdBxrphXE17pJpMMiUe3njz
+   NUk5U7n9eOiQY0ZCuPOO+1cX7gC1QAHtyYunBwh7eVVMghapDtlxlu7Qu
+   NlkGAblFP0nufHK66JBOIdzsfzqWVolsTSSd96UzdOwOj2C2cf5pu4X9r
+   g==;
+X-CSE-ConnectionGUID: +k1Ihz39R3K8ZALfvQQJQQ==
+X-CSE-MsgGUID: uu/Y6S3UTQGW7Z75TckLBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1899923"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1899923"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:21:26 -0700
+X-CSE-ConnectionGUID: lcHCQ8oTT4+RWbV1aJm5jw==
+X-CSE-MsgGUID: gd6Ro2tCRA6pOUXdfheN3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5690610"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:21:17 -0700
+Date: Thu, 29 Oct 2026 15:21:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Dmitry Ilvokhin <d@ilvokhin.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>, Kees Cook <kees@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
+Message-ID: <auNIS5n2aUD9t7yB@ashevche-desk.local>
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+ <fb3b6a24-74ca-4da8-8593-352afd515313@suse.de>
+ <CANiq72mMm75svCqevd8fHtVoczDpvpo4NwL0SC8=bWy030vQuQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,39 +107,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261029102728.3189359-2-coiaprant@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72mMm75svCqevd8fHtVoczDpvpo4NwL0SC8=bWy030vQuQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 29, 2026 at 06:27:29PM +0800, Coia Prant wrote:
-> pcs.supported_interfaces is the mask of interfaces a given xpcs
-> instance actually supports. The compat table describes what the
-> Synopsys IP can do in general, but a specific integration may support
-> a different subset: the RK3568 XPCS supports 1000BASE-X, SGMII and
-> QSGMII in hardware, but does not implement the C73 10G or 2500BASE-X
-> modes that the Synopsys compat table advertises.
+On Thu, Oct 29, 2026 at 02:00:28PM +0100, Miguel Ojeda wrote:
+> On Thu, Oct 29, 2026 at 8:32 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> >
+> > Should gem.h now include <linux/compiler_attributes.h> ?
 > 
-> The Rockchip glue currently advertises only SGMII, since that is what
-> the RK3568 MAC side supports today. 1000BASE-X and QSGMII can be added
-> later when the MAC side gains support.
-> 
-> Without narrowing the mask, stmmac_phylink_setup() merges the PCS
-> supported_interfaces into the MAC mask with phy_interface_or(), so the
-> XPCS would contribute 1000BASE-X, 2500BASE-X, USXGMII and the 10G/25G
-> modes to the combined set. The MAC side forces the phy modes and
-> phylink start passes the mode explicitly, so this does not currently
-> make phylink switch to an unsupported mode, but the combined mask still
-> advertises interfaces the SoC cannot use.
+> No, it should be included for you (unless you are doing something
+> custom with the compiler flags etc.).
 
-I don't know this code too well, but something does not feel right
-here. It might be due to the way stmmac does PCS with phylink, which
-is often considered broken.
+Usually it comes to the mere drivers via types.h, in rare cases (usually some
+more generic library headers, we do better granularity as it affects the almost
+entire kernel. Just double check that types.h is explicitly included.
 
-What i would expect to happen is that each piece of hardware indicates
-what it can do, and then phylink finds the common modes.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-So maybe stmmac_phylink_setup() is wrong when it ORs them together?
 
-Maybe look at other MAC drivers using pcs and phylink.
-
-      Andrew
