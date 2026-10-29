@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793248053;
-	b=bwKhXiJDCkhQWFiHGWN3+cV9WO585V6nYs8Qj1Qew21Lzp06ebNhA7uFT9E2NZFP/Abf
-	 z1C4aSYTJXDZQzeVU+k2qxRepCXZg85EAIdNlOyBWrXYD8P8kxxr1dWZUaLtj7sTNFOkD
-	 ixxKOmieLYEqGc+5pEZHFtPoVni51t0zmIUDotEOoKzDnAyL+N+i/frR0++3hfHJ6NF4h
-	 x1OF/rpA+r/nTuLIU26vvpaRcarH7FEc3yx4mGa7p2sooKlFvQ9mJMkWvGtKYKME3Pvi8
-	 GPew3+3GRm1zVeCnmAIxmHeezP9BftcutFtmhGCRBkDVhLqqcA2FsoDilA59gQmPkrw==
+	t=1793248056;
+	b=q1ufuIq9fU0yV4oAQFmhLV6IetCmC88rwk4ubcX/7nQBcp49G71kCL4muMlccyuEFEMq
+	 UmB1PzkN0Bs4wSvO5MIR0auZ11tTJNZ2G8YyrA7W5mbmADwORpf9YJ6vTbP6yQCz//VVc
+	 vZPTE+Sep5cEgY0d2ILUGfjI1TJGyiwsYjkr16M5T6HDe+urYrR1YOn/CG+PCSnoF5Ow7
+	 UjYDlem6OIT7RxuRw+mcs9r3il9eNHT277evCbX6fn6a0S6CCDgM7iYtNWkZ6//Xc4Joi
+	 hHS4LkkTIv3puWzKgnc9VSZGMm79hTrkJFBSlAfOeHAvVecuIN0ZUXff9TjFOI2PhLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793248053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793248056;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RKqYqsjIxSLlGzKhZXBBrOPGFw2mBf2DyMFxJyqEHDQ=;
-	b=K5zGs84ig/PyNeMBCwa6KLz2aEj38FoOSVmCrqwwF9yTbbXwd+Rp6tTAxH6KO4FqNOiP
-	 Gz8l9TYkozIZGuDFCCcKqfKx94/KAZdAWUTvOc0Bde1OESLb8DSXyH6UB92m9Ms23jHEr
-	 liiNtB2TUb5Q4Xn+uOJX6+WbzgiFw6jUGaY+qY1xqU+O4ba3Sn2rKzK+xfCOl/oOYqmMY
-	 zks4dpFWnW3cxeB/7J3+OOwV91a5268IYP/xt8BEgWzjynC4AvQQRSiANSl9DIjAp8FiZ
-	 GiUkGVnQsl+zU5gujys3jbRVPwskbi8/ecITTqoUIywg6SZgWx7p32MnmknF+/7FPCg==
+	bh=Bx+vuMUqU0o0uCOdBUYrDw9h8WBls/PvV0DAFCe7yLY=;
+	b=eXNABW8gZK1tPVOfkYvsz8gjhy5qFshOsmxzyxTP092yONH8Q9ZyphgY61QNo5RrYULt
+	 dEchNst70b801LBa7e1LR1ZF7zIcIqsq2OJI3QqZHWVxK7SxErbSEH32ddfJo3VHbxV0H
+	 IMjTO9jciOKPfvH5nqQBTt90hd3x0j0WXLXLijnO0ZdlT5otkNyEIxkxj1E1HhNfqz/wX
+	 66BF2cd1tr4hAkxHc2bk9lgXCB8yLSlsJ94rcev1plhOP8kWOhN4FO+4bIqzLe+o3/ltj
+	 myIN734F0zCPCivxWY8/FohYa1+NQ6mrNK8v12b5WXF0kr10x9ySy7mrXkLlokUAbpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRFi4lNE;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AbnxPPsg;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6D8606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A6D8606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E73D606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:27:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E73D606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRFi4lNE
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso647845a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:27:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AbnxPPsg
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so1058263a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:27:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793248052; x=1793852852; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793248056; x=1793852856; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RKqYqsjIxSLlGzKhZXBBrOPGFw2mBf2DyMFxJyqEHDQ=;
-        b=VRFi4lNEZxpTwtXgGUaYz3Fj+Cz2g4mBhs+TyEgTHiMPyiMjODXTteMaFr8NkgxOVv
-         xIjjYQ3OkoA2O+FFQsz9h/jC/zrWzaS0H6J5LT3z0AkOdeVa1rbEGsO9ORvkQqeye6QX
-         JvRg9TuTP9Wj4Q8BBcXHNWMGHJ5+p9Xbxo6MtgF/0WuDC7n8ATqlxZWM7H9R7GesXW0V
-         Hknahd/sPkNtuMWkfIdY8+XN/Gs94i7xXvsCmap6PSbT7XMvlVrKQugMeBPKCstbOSyc
-         Hs0wUMdcZ4KqI5/augboVK1ddAEIFV9hJiZvOh7ej56uyAnjV2P0coXe38K8iq7Pusp6
-         DWHA==
+        bh=Bx+vuMUqU0o0uCOdBUYrDw9h8WBls/PvV0DAFCe7yLY=;
+        b=AbnxPPsgwVQ+uL3rCi0nnQlDD9t8RlMD8CFAlJDiNlJdGkXK+0UORsyD+/OtEs1Bb7
+         HG5D0JhlmmAty0xPXywaCk/Y2qG78fcXm++zCubmtCAVBk+CWlSI8rbzEX6Jj3ZAcsUD
+         U4CQirSoiw8NzZjCA1+lM2ZE2Luqc/Ao8twD8gIEgVbGVb6z5vs5jDapijI1JVRqYR4z
+         rW1GQv+t/NLm9G/GZYYqlrNUSoiCIf7P+KOZSU6WvrjCSuEEvGVzftJxIs73YYzcUQUJ
+         OboX73tCaWoxSu6Is+Vr78CTO/7uYgTRoSyekOjSPnN6FogGaAggylYrY6R7GvnB6D1y
+         i8Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793248052; x=1793852852;
+        d=1e100.net; s=20260707; t=1793248056; x=1793852856;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RKqYqsjIxSLlGzKhZXBBrOPGFw2mBf2DyMFxJyqEHDQ=;
-        b=2MmVB1GbTlDPo6AqKpjVen4Rud8XURuL3wYtrof1iE1na8Vjo1I3VovkeFfhWGccAN
-         tEFEfHJKolQF/btyRMCKqSnnDDsnw40SkDTcDZajYNcf/MxwBLGxl+cepXdBVSh9Sk7L
-         ku77lNKAPPY1/LNB7V4xEUtJBMncEedURS3Kr9MCc0IhSIRwQPXhWh7oasiHkOFHykKI
-         SfUrhrbdXHlVuYDUKFg2crdlznw3X5tRE2Wgz4zYGjd/F341mJTCGq2BzBPo8GDJawGv
-         JUZtoZcC15kQBMcmNAwiQTE/sDRiGCX8dlRazLstRU6x07h0JE41zfLcKbW2Yw8LSgii
-         bgvA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIW+41zjTIfUk9FojF0tEkDmCnaNXdpvmeKpuJcwIeioLSznqC+jRORA+MncjLwJoKhdF/NCCPbxfdggg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyUZdHF1VYt87/kgHpRTfuDU+Hnp93BMV1vzITAoLJvMj67o4t
-	7rJcVQQHbjkI0jtntgWMvjbuislKhTZNz5RHHI+mgQ3X/EQlAXA3QVbT
-X-Gm-Gg: AYBFou3fdpFfOXbnByrg1ulLOlbYAnkJqeUpU3cVKtNQXz6D9J0ST/bS/ZO2hDP+vWV
-	+bQfGtlJFdg1FVqo3f+zA0JDrbmVztmlfgR8Egnk+SpdAnvO6YWbua1ZI/2GCsWJ2vrUfhTkyRZ
-	nLgMsfH5L6BLsB+PetBKvkKVktZmLxX0JecqSvtCFlJ1vrHb6xt1E3Ndlxc4lPojnHeJFCcNSTD
-	NYGQMHo6M3t8piBP+Vt+dg7M68qzMccAao5fkbdTDRec8pL6DGua9gO1NIuNZTMJxBMhQO2jFIb
-	Em1vvqZSJiB/DX5rB2evG8AesRjqIvGkqV/GssaQO+72nHHxM/2Z8bgstuenvDEzatZP9Z4IAcu
-	jOuYejCVspHvsCkCHR6llyXDW6XWH3vyTSQfK3nXhiQ4DvML5klkAlNRNTf1J6EJlW7hzgkgLLn
-	O8+kuH3hamT4uWV9x19BAcjEdbfETHFi2vikkR+9cflQNq543utkMLm64avzRQ6Oucr7xT3VXsj
-	6rgsciw5oxIg4GW9EAeJo1fvWDT2iUN418Jf1HVv2JIls0k5sBR9Icg/ZFlXNT221tmMfTWrd9x
-	BZ54XdBabWIHZGngeXrzk5jeDe0gJizwb8SDrPp6rSCzUS6QweO4ILc=
-X-Received: by 2002:a17:90b:54cd:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3ae580f1940mr3392128a91.25.1793248052271;
-        Wed, 28 Oct 2026 21:27:32 -0700 (PDT)
+        bh=Bx+vuMUqU0o0uCOdBUYrDw9h8WBls/PvV0DAFCe7yLY=;
+        b=c9mFjDqXIae9mj+/zWcfCQcRuU1eUSkpPskXxZdM1tFRg9SyYB95mWqhyyYFBKhqZY
+         DkWOG7c3ppv6ufsXrMNQToYrDsL0Ha32fiCSnr1WhvT8laHnWQGqXHDGEx49tk5u7e2+
+         bQm7P5ng8jMxQSdEzv+Pp3dbHqmgQQzM4RKYy53Q6I+EBupJJzdDq5fzqJ+4PNhJUV2Q
+         xwQ5iD9vhakseCBNz6ic+TopAj9ulSKkb6dRsr8tQuRKhnHi+QjErGvlRi3/3lSDM816
+         asE7kr+I0BNd1ok7alwweipLGcC264rC1RfMNg3Um59L+fekM1NS/Zuirh3HnxUSfWaR
+         xCaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzlWwlBLDWvA5I11bm1oKWsk03WftWvQlZQ/HzndtiQdVOqTNoGdyRimXK8llLfmWpSP98dYWtpsyhFy+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXTVhDYT0bVmDRrHuHAxlNoGr+VcuWKhgVOgucu5Q2Kd9+Pmvp
+	1aQ2HbgTc9f+acptPrtwvGifR4DKmVAgXGDY8BZAfhkV+4TxMYMqcvQR
+X-Gm-Gg: AYBFou0FyX5a4wQH8cqaMoBfeQhX5jWVg+0aQc/iNm4CXUCDaZkfTIjtlzghpLjwKIZ
+	qW1H7VL6pCCvmrLxtjr1ghGFDMo0+VWDr5Fa37TrflTSMDnEGL53oMlrtCVju4CSXS1B0urwgID
+	DGXgE1BSkfEVn/nnd5dqX9YmGSQUZge6hjQC9QZZhLQXE2hXUYVAZDKnMeC1aEZ/j5Jufsn8D3W
+	eHvtTHIwTP4TL6B9sBMon9SgqfJFVH/Fq8Cc7vAHQsHT+zx8hIPHgIpHHyj3qTPcA7axGxTXKNB
+	vewm+LH9yw8/YAPMf3QB1/O19e9HcfnzWjGDJQTKKqW3EXmFxKt1D0G44a/PrLMm/32XDoYwdZx
+	cs42GFrv1BbYFwRwmob9cZpYRGJhYWnBQvdmEswMO7JsopLe7dtTsrIGLuaDN3NT24cR9ez2WFu
+	scYNBeccrTiCz9JYMPLhP0WVHwa6P1o1zM/Ne15cUy7p+kUBLkKGP6rq+NS0pjaJIpgyaBt4tj4
+	/46tNpxugVBQRBDPaCVtnd4x3DYr9S2mcpi2fUPD16eGNpOCLMA4WB+Rci5hS3YHH4P7FWRug8U
+	MttczOCaIIsNPF3cA471Qlep8so/6QxsTACcRYAf6sXB01RdeUPcATU=
+X-Received: by 2002:a17:90b:2681:b0:3ad:8963:344a with SMTP id 98e67ed59e1d1-3ae58329beamr3298598a91.66.1793248055822;
+        Wed, 28 Oct 2026 21:27:35 -0700 (PDT)
 Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e898317sm2010846a91.16.2026.10.28.21.27.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e898317sm2010846a91.16.2026.10.28.21.27.32
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 21:27:31 -0700 (PDT)
+        Wed, 28 Oct 2026 21:27:35 -0700 (PDT)
 From: Yuqiang Sun <izaiahsun@gmail.com>
 To: haris.iqbal@ionos.com,
 	jinpu.wang@ionos.com
@@ -90,9 +90,9 @@ Cc: jgg@ziepe.ca,
 	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] RDMA/rtrs-srv: Do not free the path on path file creation failure
-Date: Thu, 29 Oct 2026 12:27:17 +0800
-Message-ID: <20261029042719.75868-2-izaiahsun@gmail.com>
+Subject: [PATCH 2/3] RDMA/rtrs-srv: Balance the session device reference in sysfs setup
+Date: Thu, 29 Oct 2026 12:27:18 +0800
+Message-ID: <20261029042719.75868-3-izaiahsun@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261029042719.75868-1-izaiahsun@gmail.com>
 References: <20261029042719.75868-1-izaiahsun@gmail.com>
@@ -107,150 +107,158 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When rtrs_srv_create_path_files() fails after kobject_init_and_add() of
-srv_path->kobj, its error path ends with kobject_put(&srv_path->kobj),
-and the release, rtrs_srv_release(), frees srv_path.  The caller does
-not expect that: process_info_req() goes on to free its tx IU through
-srv_path->s.dev, and rtrs_srv_info_req_done() then closes the path,
-whose close work tears down the connections, puts the session and
-finally frees srv_path again in free_path().
+The session device is initialized in get_or_create_srv(), and the
+reference that device_initialize() takes is meant to be dropped last, by
+free_srv().  Each path takes one more reference, which
+rtrs_srv_destroy_once_sysfs_root_folders() drops when the path goes
+away.  On the failure paths of the path sysfs setup this does not add
+up:
 
-Commit 5b7437339011 ("RDMA/rtrs: Fix use-after-free in path file
-creation cleanup") reordered the cleanup inside
-rtrs_srv_create_path_files() so that the helper runs before the put, but
-the final put still frees srv_path under the caller.  The same pattern
-exists one level down: rtrs_srv_create_stats_files() puts
-srv_path->stats->kobj_stats on failure, whose release frees
-srv_path->stats, which free_path() frees again.
+- rtrs_srv_create_once_sysfs_root_folders() calls put_device() when
+  device_add() or the creation of the "paths" kobject fails, then
+  unlocks srv->paths_mutex;
+- rtrs_srv_create_path_files() calls
+  rtrs_srv_destroy_once_sysfs_root_folders() when a later step fails,
+  but the per-path reference is only taken by process_info_req() after
+  rtrs_srv_create_path_files() succeeds.
 
-With one allocation failure injected into kobject_init_and_add() of the
-path kobject (failslab restricted to rtrs_srv_create_path_files), KASAN
-reports while a client connects:
+Both drop the base reference, so rtrs_srv_dev_release() frees the
+session while it is still locked, on ctx->srv_list and used by its
+paths: the mutex_unlock() writes to freed memory, and the path's close
+work later uses and puts the freed session again.  In addition,
+srv->dev_ref stays incremented when the first helper fails, so the next
+path of the session skips the setup although the device and the "paths"
+kobject do not exist.
 
-  BUG: KASAN: slab-use-after-free in rtrs_srv_info_req_done+0xe43/0x1740
-  Read of size 8 by task kworker/0:1H/84
+With one allocation failure injected into device_add() (failslab
+restricted to rtrs_srv_create_path_files, into which the helper is
+inlined), KASAN reports while a client connects:
+
+  BUG: KASAN: slab-use-after-free in __mutex_unlock_slowpath
   Call Trace:
+   mutex_unlock
+   rtrs_srv_create_path_files
    rtrs_srv_info_req_done
    __ib_process_cq
-   ib_cq_poll_work
-  Freed by task 84:
+  Freed by task 25:
    kfree
+   device_release
    kobject_put
    rtrs_srv_create_path_files
    rtrs_srv_info_req_done
 
-These paths run in the server's completion worker when a client sends
-its info request, and are reached when allocating or creating the sysfs
-entries for the new path fails.
+and with the failure injected into kobject_init_and_add() of the path
+kobject instead, once the previous patch keeps srv_path alive:
 
-Keep srv_path and its stats owned by the caller on failure: the error
-paths only delete what they added, and free_path(), which runs in every
-case, drops the kobjects that were initialized but never made it into
-sysfs, so their releases free the structures; otherwise it frees them
-as before.  This keeps the kobject names from leaking, which is what the
-puts in the error paths were added for.
+  BUG: KASAN: slab-use-after-free in rtrs_srv_close_work
+  Freed by task 88:
+   kfree
+   device_release
+   kobject_put
+   rtrs_srv_create_path_files
+   rtrs_srv_info_req_done
 
-The problem was found with kbound, a static analysis prototype that
-checks whether callers rely on an object after a callee returns a value
-for which the callee may have released it, on v7.2.12; it is present in
-the rdma for-next branch.
+This runs in the server's completion worker when a path sends its info
+request.  Besides allocation failures in the sysfs setup, device_add()
+also fails when the client sends an empty pathname, which the next
+patch rejects.
+
+Take the per-path reference in rtrs_srv_create_once_sysfs_root_folders()
+on success, instead of in process_info_req(), so that the put in
+rtrs_srv_destroy_once_sysfs_root_folders() is balanced on every path,
+and do not put the device when the helper itself fails.  Undo the
+dev_ref increment on every failure, including dev_set_name().  The
+device is still released, together with its name, by the put_device()
+in free_srv().
+
+The problem was found while checking at runtime, with the fault
+injection described above, a report of the kbound static analysis
+prototype for the same function, on v7.2.12; it is present in the rdma
+for-next branch.
 
 Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings.  Run-tested under KVM (KASAN, lockdep, kmemleak), failing the
-path or the stats kobject allocation with failslab during a client's
-connection: before this series KASAN reports use-after-free in
-rtrs_srv_info_req_done() and rtrs_srv_close_work() and a general
-protection fault follows; with this series nothing is reported, also
-with CONFIG_DEBUG_KOBJECT_RELEASE.  Failures of the two
-sysfs_create_group() calls were not injected.  With this patch alone,
-the close work still uses the session freed as described in the next
-patch.  Not tested on RDMA hardware.
+warnings.  Run-tested under KVM (KASAN, lockdep, kmemleak) by failing,
+with failslab, each allocation of dev_set_name(), device_add() and the
+"paths" kobject, and the path kobject, during a client's connection:
+before this series KASAN reports the use-after-free above, with this
+series nothing is reported, also with CONFIG_DEBUG_KOBJECT_RELEASE.
+Mapping, I/O and unmapping without fault injection still work.  Not
+tested on RDMA hardware.
 
-Fixes: 424774c9f3fa ("RDMA/rtrs: Call kobject_put in the failure path")
+Fixes: baa5b28b7a47 ("RDMA/rtrs-srv: Replace device_register with device_initialize and device_add")
+Fixes: e2853c49477d ("RDMA/rtrs-srv-sysfs: fix missing put_device")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5-5 kbound
 Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
 ---
- drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c | 16 +++++++---------
- drivers/infiniband/ulp/rtrs/rtrs-srv.c       | 14 +++++++++++++-
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c | 21 +++++++++++++-------
+ drivers/infiniband/ulp/rtrs/rtrs-srv.c       |  1 -
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c b/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
-index 9dd9141c86a5..45ee07a98ca8 100644
+index 45ee07a98ca8..8de3963ca791 100644
 --- a/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
 +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
-@@ -238,25 +238,24 @@ static int rtrs_srv_create_stats_files(struct rtrs_srv_path *srv_path)
- 				   &srv_path->kobj, "stats");
- 	if (err) {
- 		rtrs_err(s, "kobject_init_and_add(): %pe\n", ERR_PTR(err));
--		kobject_put(&srv_path->stats->kobj_stats);
- 		return err;
+@@ -162,12 +162,12 @@ static int rtrs_srv_create_once_sysfs_root_folders(struct rtrs_srv_path *srv_pat
+ 		/*
+ 		 * Device needs to be registered only on the first session
+ 		 */
+-		goto unlock;
++		goto get;
  	}
- 	err = sysfs_create_group(&srv_path->stats->kobj_stats,
- 				 &rtrs_srv_stats_attr_group);
+ 	srv->dev.class = &rtrs_dev_class;
+ 	err = dev_set_name(&srv->dev, "%s", srv_path->s.sessname);
+ 	if (err)
+-		goto unlock;
++		goto dec_ref;
+ 
+ 	/*
+ 	 * Suppress user space notification until
+@@ -177,20 +177,27 @@ static int rtrs_srv_create_once_sysfs_root_folders(struct rtrs_srv_path *srv_pat
+ 	err = device_add(&srv->dev);
  	if (err) {
- 		rtrs_err(s, "sysfs_create_group(): %pe\n", ERR_PTR(err));
--		goto err;
-+		kobject_del(&srv_path->stats->kobj_stats);
-+		return err;
+ 		pr_err("device_add(): %pe\n", ERR_PTR(err));
+-		put_device(&srv->dev);
+-		goto unlock;
++		goto dec_ref;
  	}
- 
- 	return 0;
--
--err:
--	kobject_del(&srv_path->stats->kobj_stats);
--	kobject_put(&srv_path->stats->kobj_stats);
--
--	return err;
- }
- 
-+/*
-+ * On failure, the caller still owns srv_path and frees it in free_path(),
-+ * which also drops the kobjects initialized here.  Do not put them here:
-+ * their releases free srv_path and srv_path->stats.
-+ */
- int rtrs_srv_create_path_files(struct rtrs_srv_path *srv_path)
- {
- 	struct rtrs_srv_sess *srv = srv_path->srv;
-@@ -296,7 +295,6 @@ int rtrs_srv_create_path_files(struct rtrs_srv_path *srv_path)
- 	kobject_del(&srv_path->kobj);
- destroy_root:
- 	rtrs_srv_destroy_once_sysfs_root_folders(srv_path);
--	kobject_put(&srv_path->kobj);
+ 	srv->kobj_paths = kobject_create_and_add("paths", &srv->dev.kobj);
+ 	if (!srv->kobj_paths) {
+ 		err = -ENOMEM;
+ 		pr_err("kobject_create_and_add(): %pe\n", ERR_PTR(err));
+ 		device_del(&srv->dev);
+-		put_device(&srv->dev);
+-		goto unlock;
++		goto dec_ref;
+ 	}
+ 	dev_set_uevent_suppress(&srv->dev, false);
+ 	kobject_uevent(&srv->dev.kobj, KOBJ_ADD);
+-unlock:
++get:
++	/* Dropped in rtrs_srv_destroy_once_sysfs_root_folders() */
++	get_device(&srv->dev);
++	mutex_unlock(&srv->paths_mutex);
++
++	return 0;
++
++dec_ref:
++	/* The reference from device_initialize() is dropped by free_srv() */
++	srv->dev_ref--;
+ 	mutex_unlock(&srv->paths_mutex);
  
  	return err;
- }
 diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-index 5314599d29fe..641a7bf5e02c 100644
+index 641a7bf5e02c..56f0ab5a7619 100644
 --- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
 +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-@@ -1584,11 +1584,23 @@ static void free_path(struct rtrs_srv_path *srv_path)
- 	if (srv_path->kobj.state_in_sysfs) {
- 		kobject_del(&srv_path->kobj);
- 		kobject_put(&srv_path->kobj);
-+		return;
-+	}
-+
-+	/*
-+	 * rtrs_srv_create_path_files() may have failed after initializing
-+	 * these kobjects; then their releases free the structures.
-+	 */
-+	if (srv_path->stats->kobj_stats.state_initialized) {
-+		kobject_put(&srv_path->stats->kobj_stats);
- 	} else {
- 		free_percpu(srv_path->stats->rdma_stats);
- 		kfree(srv_path->stats);
--		kfree(srv_path);
- 	}
-+	if (srv_path->kobj.state_initialized)
-+		kobject_put(&srv_path->kobj);
-+	else
-+		kfree(srv_path);
- }
- 
- static void rtrs_srv_close_work(struct work_struct *work)
-
-base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
+@@ -879,7 +879,6 @@ static int process_info_req(struct rtrs_srv_con *con,
+ 	if (err)
+ 		goto iu_free;
+ 	kobject_get(&srv_path->kobj);
+-	get_device(&srv_path->srv->dev);
+ 	err = rtrs_srv_change_state(srv_path, RTRS_SRV_CONNECTED);
+ 	if (!err) {
+ 		rtrs_err(s, "rtrs_srv_change_state() failed\n");
 -- 
 2.53.0
 
