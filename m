@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239370;
-	b=gxMsC3rxEIiulXnRS+Y07a5Y7g5gup2L6oQ3XueEWDhrVNMobmELE1drPF8GdB5y5NnZ
-	 0qEqiAAhtO/xUXk2qTtVbs2db2AFdxrmEub9i3rq7TKmVkEGgMnDORYeZ6d1oVkGVCwJG
-	 mHJ64oF5b47dZYdZByEJkMtnGe5vPTrGeY9iTmj/evSG2in0SuwKpPvnV/BnwM+285Z7H
-	 QJ2zFWN+MLbCUPCrTehpes+z3Y9+aBNAcH6cNcHeHbUVZ4OWEw1O1Te21PKQTTI0q+8Zs
-	 e9ELTrHogVoX9R3mdte85k+dMsLnyzSOFbsJfz99L0V99Ih2CXS/lEQ0P8AaL4A1cbg==
+	t=1793239366;
+	b=y9bO1pWSExfG/n0gQ7gH0ZoybWFn6jX5dY/tZqJ9EtYeWNNmDazEprKyavGvcYQ9sbjR
+	 wbBzXJe+k2fwqwm0THzNXBfdqret3hUvoC44gEU5gFJD3oIUKVDSD13Qu7SqU61OZltR9
+	 IJwMWt8u+Utatg6bF40AxXj0XysPvIUMV+GbKNCTaxy/CxN3Z2WN7mrnrqC4mG2TbcnGF
+	 XWwiGgx0rsQKKeLQflLM9QnMyaXkqFPitx+9Tewu3lgdVYzheQmul1pGtEOxdRixaT1Pu
+	 d+QkRkCfNlYmFGar54orZMsfUufG/BgPUvNW9cRqAF3kouVNEW64b4LopcmL/d0hBvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239366;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=tmgA/zzSqwAj+KhU/5eMn9wiP0QhHj5jnCg6dxwSyVA=;
-	b=b8qBstzm0N19d2meOHnsjtBelmUhBjfUlmqwDt9Qrsb8WcFF7mHNAZHbCFz7xmLiIbLE
-	 c53A8MT0N53Y1gcsXox9TMoCqsydDq6H110dZl+IzTH4iTa+5chVc93wavhSWLefV2duA
-	 362OYoFTo7R+ADfNgMU2EMKKTfdxYtCUYIktezi3kVetiOYMPZDQ9YmZ+TkEi3hlQ7VHx
-	 b0Z8IwK+Nix2kZVIxowcRckc4C2BgYN7GguNDT77VLtmM/ZFG0Q2cSeDUd3KiVjxmWE1o
-	 YYBS9U2yNiVPR8jpu3vkYs4EG4G1wbj+1GOa/sPVLhyq1Xk8ObZnwe2sySfjuYZWWIg==
+	bh=jvFw5HrlIv7l7uFCZb/W0oMDQkrDlvWg/SYM7bb8XNw=;
+	b=p7kjbtCeYz7/l6xHLDbnmWw3JGIbThseyMM68/IvcqCAhPix5MvC2lolvNenFkKIRZYj
+	 gshZD+L9CZzGNGzrLcIy+TrHguD7kUsh9OizB6tXgh/KFARAQpc2bymxi06JqH/4YrtHz
+	 iYMPWa4OaHhW+dd4HtEwqqB04tWTaljrL+Ggu5ELnLREklM5Fhg2BI2spWCAvg/0p/vjA
+	 EkfmDOkspKjEu/GMEQBIs2skxE8vtRViNi+IhPJSeuUSmqBVYVzB3vRJLRQPGXe2kQOB3
+	 8ZDENRkcPo5yUFvBvRtObDANN4gNCXWsizw9h7M21TCzs2havoKGET46bIXj3i/gXsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cejqZiFg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTijfR6j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B76260A2613;
-	Thu, 29 Oct 2026 02:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC67C606A33E;
+	Thu, 29 Oct 2026 02:02:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cejqZiFg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1D91F031E3;
-	Thu, 29 Oct 2026 02:02:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTijfR6j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12ECF1F01828;
+	Thu, 29 Oct 2026 02:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239369;
-	bh=tmgA/zzSqwAj+KhU/5eMn9wiP0QhHj5jnCg6dxwSyVA=;
+	s=k20260515; t=1793239365;
+	bh=jvFw5HrlIv7l7uFCZb/W0oMDQkrDlvWg/SYM7bb8XNw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cejqZiFgygriIirPsdJjVvLSyLwEDdw4EYWqjzH/AYjTi32L1hUXPR9gIV1mBjNZD
-	 GNITtlR3Il1IAzpkXlRnA1acrLwPXhHHbPdghrrYapFmC1WtKCSoh2f7vWol7zWzL+
-	 Uu4e9roWHy6B/Lbuzbo5PRHzMHzGWP/c87Qy4mpPEgJdgc98sOLEd/68Ph5W3cQ36/
-	 0buUA3OExNfGkGiMeMre7pI/PZBjOGkuOfxSd45UqViYym9iDvoSHVMxNUGCZsyjLM
-	 E4cQYJ1bKzPqiVz/naeHvCnD7pMkcw7lgCE6SS3k1hacjYGLafGosglz47LQ/3XDwa
-	 C2E40XQRuC16g==
-Subject: Re: [PATCH v3 7/7] net: dsa: mediatek: support EN751221 switch
+	b=LTijfR6jX1dhi7wlarDD++v1qx7NQeobuzAJQLQVBzC9tYBzyMTeqhJKPSSbwGdv2
+	 1dDCxDw9nowWrhiuoZ/RhPDIMpvPiXejmM8oK9fhZuESdYcikPuoj/8BQ/qDX6dNJW
+	 TgKnypjWW1kf2GtTRQbvfLDAar2o29iKH5JfFWN/iJWzqoRCPXACduaFvqnf32Fln7
+	 NRQVsvUuWQW8X53TUbm4YYmYjaD5+gbo7JRlFdRPyWrwBtTeOG1wxpZN1eebgAOlNj
+	 1tAtKYqeNk+aMC1DeGgWYwOIheIFGwYsnPVS46ZSp7ZqYCBL8KuH2TOgt91Qw4U3KL
+	 OVmsT0ySqplvg==
+Subject: Re: [PATCH v3 5/7] net: dsa: mediatek: support MDIO switch downstream
+ of MMIO switch
 From: netdev-bot+sashiko@kernel.org
 To: cjd@cjdns.fr
 Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
@@ -52,10 +53,10 @@ Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  sean.wang@mediatek.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
-Date: Thu, 29 Oct 2026 02:02:47 +0000
-Message-ID: <179323936770.3134.5820916344803363362@kernel.org>
-In-Reply-To: <20261028011317.1557238-8-cjd@cjdns.fr>
-References: <20261028011317.1557238-8-cjd@cjdns.fr>
+Date: Thu, 29 Oct 2026 02:02:43 +0000
+Message-ID: <179323936361.3134.12891112792195028104@kernel.org>
+In-Reply-To: <20261028011317.1557238-6-cjd@cjdns.fr>
+References: <20261028011317.1557238-6-cjd@cjdns.fr>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,10 +70,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 13 potential
+Thank you for your contribution! Sashiko AI review found 9 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 5 · Low: 6
+Critical: 0 · High: 1 · Medium: 7 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,454 +81,376 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The MCM (external) MT7530 is matched in mt7530-mdio.c with
-  compatible "econet,en751221" (ID_EN751221_EXT).
-- [High] net: dsa: mt7530: missing MT7530_CHG_TRAP when modifying
-  MT753X_MTRAP on ID_EN751221
-- [Medium] mt7530_setup_irq() still sets TOP_SIG_CTRL_NORMAL only for
-  ID_MT7530/ID_MT7621.
-- [Medium] en751221_trgmii_pair_setup() passes each switch's saved RX
-  taps to the calibration of the other switch's receiver.
-- [Medium] mt753x_phylink_mac_link_up() sets the resolved bits (including
-  PMCR_FORCE_TX_FC_EN / PMCR_FORCE_RX_FC_EN when tx_pause/rx_pause are…
-- [Medium] This commit makes core_write()/core_rmw() reachable on the
-  MMIO on-die EN751221 switch.
-- [Medium] This patch enables the topology described in commit "net: dsa:
-  mediatek: support MDIO switch downstream of MMIO switch": an MDIO…
-- [Low] The patch adds `TOP_SIG_CTRL_B0` (commented 'Undocumented') to
-  mt7530.h, but nothing in drivers/net/dsa/ uses it.
-- [Low] Concern: on the on-die EN751221 the TRGMII cascade is port 5, but
-  the TRGMII PLL/clock is programmed only from port 6's mac_config…
-- [Low] The binding description (from commit "dt-bindings: net: dsa:
-  mediatek,mt7530: add econet,en751221" in this series) says "EcoNet…
-- [Low] en751221_trgmii_pair_setup() runs from the MCM's port-6 phylink
-  resolve work.
-- [Low] en751221_trgmii_cal_ok() reads the RD register, writes
-  val|EDGE_CHK, immediately writes val&~EDGE_CHK, and only then reads…
-- [Low] Concern: in en751221_trgmii_pair_setup(), RX_RST has no explicit
-  hold time (unlike TX_RST's usleep_range(5000, 6000)), so the pulse…
+- [High] net: dsa: mt7530: recursive reg_mutex lockdep class on
+  downstream switch
+- [Medium] The patch moves mt7530_setup_mdio_irq() out of
+  mt7530_setup_mdio(), where it ran just before…
+- [Medium] In exactly the case the patch targets (the DSA tree is
+  incomplete when dsa_register_switch() returns), mt7988_probe() calls…
+- [Medium] mt7988_probe() ignores the return value of the newly exported
+  mt7530_setup_mdio() and always returns 0.
+- [Medium] mt7530_setup_mdio() can now run from mt7988_probe() before DSA
+  has set the switch up.
+- [Medium] The early MDIO registration cannot complete when the upstream
+  switch's 'mdio' node has PHY children whose interrupts come from the…
+- [Medium] The new 'Already done' check (if (priv->child_bus) return 0;)
+  in mt7530_setup_mdio() is an unlocked flag used as an initialisation…
+- [Medium] Because the MDIO bus is now registered in probe, before the
+  tree is set up, the later mt7988_setup() (run from mt753x_setup()…
+- [Low] The commit message says "In MMIO mode the switch provides its own
+  MDIO bus which connects to its integrated PHYs".
 
 --
 
-net: dsa: mediatek: support EN751221 switch
+net: dsa: mediatek: support MDIO switch downstream of MMIO switch
 
-This adds support for two switches. The first is the EcoNet EN751221
-on-die MT7530 (MMIO). The second is the optional MCM MT7530 (MDIO), which
-sits on the on-die switch's child MDIO bus. It also adds a calibration
-routine for the TRGMII link between port 5 of the on-die switch and port 6
-of the MCM switch, which mt753x_phylink_mac_link_up() triggers.
+This patch lets an MDIO-attached switch sit on the child MDIO bus of an
+MMIO MT753x switch. mt7530_setup_mdio() is made safe to call more than
+once, it is exported, and mt7988_probe() now calls it right after
+dsa_register_switch(). The mt7530_setup_mdio_irq() call also moves out of
+mt7530_setup_mdio() and into mt753x_setup().
 
-> diff --git a/drivers/net/dsa/mt7530-mdio.c b/drivers/net/dsa/mt7530-mdio.c
-> index 0be107dc6759a..03ef6a9f2084e 100644
-> --- a/drivers/net/dsa/mt7530-mdio.c
-> +++ b/drivers/net/dsa/mt7530-mdio.c
-> @@ -139,6 +139,7 @@ mt7531_create_sgmii(struct mt7530_priv *priv)
->  }
+> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
+> index cf3bdb23a2d54..f387190a95391 100644
+> --- a/drivers/net/dsa/mt7530-mmio.c
+> +++ b/drivers/net/dsa/mt7530-mmio.c
+> @@ -61,7 +61,14 @@ mt7988_probe(struct platform_device *pdev)
+>  	if (IS_ERR(priv->regmap))
+>  		return PTR_ERR(priv->regmap);
 >  
->  static const struct of_device_id mt7530_of_match[] = {
-> +	{ .compatible = "econet,en751221", .data = &mt753x_table[ID_EN751221_EXT], },
+> -	return dsa_register_switch(priv->ds);
+> +	ret = dsa_register_switch(priv->ds);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	mt7530_setup_mdio(priv);
 
 [Severity: High]
-Should this compatible be "econet,en751221-gswitch"?
+Will the cascade this enables trip lockdep on the shared reg_mutex
+class?
 
-The binding patch earlier in this series ("dt-bindings: net: dsa:
-mediatek,mt7530: add econet,en751221") documents the MCM switch as:
+Both switches initialize priv->reg_mutex at the same mutex_init() call
+site in mt7530_probe_common(), so the upstream MMIO switch and the
+downstream MDIO switch share one lockdep class.
 
-    const: econet,en751221-gswitch
+Once an MDIO-attached MT7530/MT7531 sits on the upstream switch's
+child_bus, every regmap access on the downstream switch first goes
+through mt7530_mdio_regmap_lock(). That takes
+up->child_bus->mdio_lock with MDIO_MUTEX_NESTED. It then calls the
+upstream bus callbacks, which take the upstream priv->reg_mutex at
+subclass 0.
 
-It also attaches mt7530-passthrough-dsa-port and the required
-mediatek,mcm property to that string. "econet,en751221" is already the SoC
-root compatible in arch/mips/boot/dts/econet/en751221.dtsi and in
-Documentation/devicetree/bindings/mips/econet.yaml.
+The downstream driver also holds its own reg_mutex across regmap
+accesses. The first such access during setup is mt7530_port_disable():
 
-With a DT that follows the binding, the MCM switch never binds. The
-on-die switch's port 5 has a link to the MCM, so the DSA tree never
-completes. Neither switch is set up, and mt7530_cal_interswitch_trgmii()
-never runs.
+mt7530_port_disable()               down->reg_mutex (0)
+  regmap_update_bits(priv->regmap, MT7530_PCR_P(port), ...)
+    mt7530_mdio_regmap_lock()       up->child_bus->mdio_lock (1)
+    bus->write()
+      mt753x_phy_write_c22()
+        mt7531_ind_c22_phy_write()  up->reg_mutex (0)
 
-A DT that uses the driver's string instead puts the SoC top-level
-compatible on a switch node, which fails dtbs_check.
+The unguarded regmap accesses earlier in mt7530_setup() and
+mt7531_setup() already record mdio_lock:1 -> reg_mutex:0. Taking the
+upstream reg_mutex while the downstream one is held then looks to
+lockdep like recursive locking of a single class.
 
-The on-die side uses "econet,en751221-switch" in both mt7530-mmio.c and
-the peer check in mt7530_cal_interswitch_trgmii().
+The instances are different, and the order is always downstream
+before upstream, so this is probably not a real deadlock. Under
+CONFIG_PROVE_LOCKING, though, the splat would fire deterministically
+during setup. Lockdep would then be disabled for everything else on
+the system. The same pattern repeats on the port, VLAN and FDB paths
+that hold reg_mutex around regmap calls.
+
+Before this patch the tree never completed in this topology, so this
+pairing was never reachable.
+
+How would you like to annotate this? One option is a per-instance
+lock class key for reg_mutex, using lockdep_register_key() with
+__mutex_init(). Another is mutex_lock_nested() on the upstream
+indirect PHY access path. Or is there a different approach you would
+prefer?
 
 [Severity: Medium]
-With an MDIO MT7530 on the child MDIO bus of the MMIO on-die switch, can
-lockdep report recursive locking on reg_mutex?
+Should the return value of mt7530_setup_mdio() be passed back here?
 
-On the MCM, register accesses made under reg_mutex also take the on-die
-switch's reg_mutex:
+mt7530_setup_mdio() can fail with -ENOMEM from devm_mdiobus_alloc(). It
+can also return any error from devm_of_mdiobus_register(). That includes
+-EPROBE_DEFER, which fwnode_mdiobus_phy_device_register() passes up when a
+PHY's interrupt provider is not ready yet.
 
-mt7530_port_enable()                        /* MCM */
-    mutex_lock(&priv->reg_mutex);
-    regmap_update_bits()
-        mt7530_mdio_regmap_lock()           /* child_bus->mdio_lock */
-        mt7530_regmap_write()
-            bus->write() == mt753x_phy_write_c22()
-                mt7531_ind_c22_phy_write()  /* on-die */
-                    mutex_lock(&priv->reg_mutex);
+On failure priv->child_bus goes back to NULL, but probe still returns 0,
+so the driver core never re-probes this device. In the cascade topology
+the only other caller is mt753x_setup(). That runs only once the tree is
+complete, and completing the tree needs the downstream switch on this
+same bus.
 
-Both reg_mutex instances come from the single mutex_init() in
-mt7530_probe_common(), so they share one lockdep class. The downstream
-switch has no mutex_lock_nested() or separate lock_class_key.
+Wouldn't the tree then never complete, with nothing logged except the
+dev_err()?
 
-These are distinct instances, so this is not a real deadlock. With
-CONFIG_PROVE_LOCKING, though, would the first such access during tree
-setup trigger a "possible recursive locking detected" splat and turn
-lockdep off for the rest of the boot?
+In the !mnp case, ds->user_mii_bus is also left pointing at a bus that
+was allocated but never registered.
+
+[Severity: Medium]
+Is there a dependency cycle when the PHYs under the "mdio" node get their
+interrupts from this switch?
+
+arch/arm64/boot/dts/mediatek/mt7988a.dtsi uses that layout. The switch
+node is the interrupt-controller, and the PHYs use "interrupts = <N>"
+with the switch as their interrupt parent.
+
+mt7530_setup_irq() is still only called from mt753x_setup(), so
+priv->irq_domain does not exist yet at this point. The registration path
+would be:
+
+mt7988_probe()
+  mt7530_setup_mdio()
+    devm_of_mdiobus_register()
+      __of_mdiobus_parse_phys()
+        fwnode_mdiobus_phy_device_register()
+          fwnode_irq_get() -> -EPROBE_DEFER
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_phy_device_register() {
+    ...
+	if (rc == -EPROBE_DEFER)
+		return rc;
+    ...
+}
+
+__of_mdiobus_parse_phys() aborts on that error. __of_mdiobus_register()
+then unregisters the whole bus, including the downstream switch device.
+
+The IRQ domain cannot exist until the tree completes, and the tree cannot
+complete until this bus registers. Propagating the error would not break
+that cycle by itself. Does the IRQ domain need to be created before this
+early registration?
+
+[Severity: Medium]
+Does this probe the PHYs before the switch has been reset and set up?
+
+This patch targets the case where the tree is still incomplete after
+dsa_register_switch(). There, the "mdio" bus is registered and every PHY
+child is probed before mt753x_setup() and its sw_setup callback,
+mt7988_setup(), have run. When the downstream switch completes the tree,
+mt7988_setup() does this:
+
+drivers/net/dsa/mt7530.c:mt7988_setup() {
+	/* Reset the switch */
+	reset_control_assert(priv->rstc);
+	usleep_range(20, 50);
+	reset_control_deassert(priv->rstc);
+	usleep_range(20, 50);
+    ...
+	/* Reset the switch PHYs */
+	regmap_write(priv->regmap, MT7530_SYS_CTRL, SYS_CTRL_PHY_RST);
+    ...
+}
+
+For the MT7988/EN7581 class GEPHYs, mt7988_phy_probe() in
+drivers/net/phy/mediatek/mtk-ge-soc.c applies three things only at probe
+time: the LED polarity fixups, the MTK_PHY_RXADC_CTRL_RG7 TX power-saving
+disable, and mt798x_phy_calibration().
+
+If SYS_CTRL_PHY_RST clears those registers, does anything apply them
+again?
+
+On AN7583, the early PHY ID reads and the probe also run before
+mt7988_setup() programs AN7583_GEPHY_CONN_CFG (PHY core register clock
+select and the ETHER_AFE power-down clear).
+
+All the MMIO variants use mt7988_setup. That includes EN751221, which the
+later patch "net: dsa: mediatek: support EN751221 switch" adds, and that
+patch does not change this ordering.
+
+[Severity: Medium]
+Related to the above, what keeps the reset in mt7988_setup() from
+overlapping with MDIO users of child_bus?
+
+The bus is now registered at probe time. mt7988_setup() runs later, from
+mt753x_setup() during tree setup on the downstream switch's probe thread.
+By then child_bus and its PHY and downstream devices are already
+registered.
+
+mt7988_setup() does not take child_bus->mdio_lock. For MMIO,
+mt7530_mutex_lock() takes no lock either, because priv->bus is NULL:
+
+	if (priv->bus)
+		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
+
+Two MDIO users could be active at that moment: a PHY driver probing
+asynchronously after module autoload, or userspace touching the PHY LED
+class devices. Could reset_control_assert() or SYS_CTRL_PHY_RST cut
+their transactions short?
+
+Before this patch the reset always ran before the bus existed.
+
+> +
+> +	return 0;
+>  }
 
 [ ... ]
 
 > diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index dbe3887097dbc..c44f2084b1730 100644
+> index d09ff207e2dfc..dbe3887097dbc 100644
 > --- a/drivers/net/dsa/mt7530.c
 > +++ b/drivers/net/dsa/mt7530.c
-> @@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
->  static int
->  mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
->  {
-> +	if (priv->id == ID_EN751221)
-> +		return 12;
+
+[ ... ]
+
+> @@ -2457,6 +2457,10 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
+>  	static int idx;
+>  	int ret = 0;
+>  
+> +	/* Already done */
+> +	if (priv->child_bus)
+> +		return 0;
 > +
 
 [Severity: Medium]
-This makes core_write() and core_rmw() reachable on the MMIO on-die
-switch. ID_EN751221 sets .mac_port_config = mt7530_mac_config, so port 6
-goes through mt7530_mac_config()->mt7530_setup_port6()->core_clear(),
-core_write() and core_set().
+Is this unlocked check enough to make mt7530_setup_mdio() safe to call
+from two places?
 
-On this switch priv->bus is NULL, so core_rmw() falls back to child_bus.
-The lock helper only does something when priv->bus is set:
+The new caller in mt7988_probe() runs after dsa_register_switch() has
+dropped dsa2_mutex. The other caller, mt753x_setup(), runs from
+dsa_tree_setup() with dsa2_mutex held, triggered by whichever tree member
+completes the tree.
 
-static void
-mt7530_mutex_lock(struct mt7530_priv *priv)
-{
-	if (priv->bus)
-		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
+If that member is not on this switch's own MDIO bus, it can probe at the
+same time on another thread, such as the deferred-probe worker or a
+module load:
+
+CPU1 (mt7988_probe)           CPU2 (dsa_tree_setup->mt753x_setup)
+mt7530_setup_mdio()           mt7530_setup_mdio()
+  priv->child_bus == NULL       priv->child_bus == NULL
+  devm_mdiobus_alloc()          devm_mdiobus_alloc()
+  devm_of_mdiobus_register()    devm_of_mdiobus_register()
+
+Both would register a bus for the same OF "mdio" node and create
+duplicate mdio and phy devices. priv->child_bus and ds->user_mii_bus
+could also end up pointing at different buses.
+
+priv->child_bus is also set before devm_of_mdiobus_register() finishes,
+and cleared again on failure. A concurrent mt753x_setup() could therefore
+treat a bus that later fails to register as already done. On MMIO,
+core_write() and core_rmw() use child_bus whenever priv->bus is NULL.
+
+Would a real lock, or doing the early registration in one well-defined
+place, be more robust than using child_bus as a gate?
+
+>  	mnp = of_get_child_by_name(np, "mdio");
+>  
+>  	if (mnp && !of_device_is_available(mnp))
+> @@ -2481,9 +2485,6 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
+>  	bus->parent = dev;
+>  	bus->phy_mask = ~ds->phys_mii_mask;
+
+[Severity: Medium]
+When this runs from mt7988_probe(), is ds->phys_mii_mask set yet?
+
+The DSA core fills it in only in dsa_switch_setup(), once the tree is
+complete:
+
+net/dsa/dsa.c:dsa_switch_setup() {
+    ...
+	ds->phys_mii_mask |= dsa_user_ports(ds);
+    ...
 }
 
-As a result, the MMD sequence on child_bus address 12 (MII_MMD_CTRL,
-MII_MMD_DATA, MII_MMD_CTRL | NOINCR, MII_MMD_DATA) runs through direct
-bus->write() and bus->read() calls without child_bus->mdio_lock. Each op
-takes the on-die reg_mutex, but the transaction as a whole is not atomic.
+mt7530.c never sets it itself.
 
-Could a concurrent phylib or PHY driver access to address 12 change the
-MMD devad or address between steps, so the PLL write lands in the wrong
-register? The MDIO-attached variant holds bus->mdio_lock for the whole
-sequence.
+Take an MMIO switch with no "mdio" DT node whose tree is still incomplete
+when dsa_register_switch() returns, for example because another tree
+member probes later. The probe-time call sets ds->user_mii_bus and
+registers the bus with phy_mask = ~0, so none of the internal PHYs are
+scanned.
 
-The child_bus fallback came from "net: dsa: mediatek: support PLL setup
-on MMIO MT7530" earlier in this series. This patch is the first to make
-it reachable.
+When the tree later completes, mt753x_setup() calls mt7530_setup_mdio()
+again. That call returns 0 straight away because priv->child_bus is set.
 
-> @@ -347,12 +350,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_interface_t interface)
->  	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
->  	xtal &= MT7530_XTAL_MASK;
+Wouldn't dsa_user_phy_connect() then fail with "no phy at %d" for user
+ports that have no phy-handle?
+
 >  
-> +	/* EN751221 on-die does not report clock speed in MTRAP */
-> +	if (priv->id == ID_EN751221)
-> +		xtal = MT7530_XTAL_25MHZ;
-> +
->  	if (xtal == MT7530_XTAL_25MHZ)
->  		ssc_delta = 0x57;
->  	else
->  		ssc_delta = 0x87;
+> -	if (priv->irq_domain && !mnp)
+> -		mt7530_setup_mdio_irq(priv);
+> -
+>  	priv->child_bus = bus;
 >  
-> -	if (priv->id == ID_MT7621) {
-> +	if (priv->id == ID_EN751221_EXT || priv->id == ID_EN751221) {
-> +		/* PLL frequency: 362.5Mhz */
-> +		ncpo1 = 0x1d00;
-
-[Severity: Low]
-This isn't a bug, but on the on-die EN751221 the TRGMII cascade is port
-5, while the TRGMII PLL is programmed only from port 6's mac_config. Port
-6 is PHY_INTERFACE_MODE_INTERNAL, and it also gets P6_INTF_MODE(1) here.
-
-This works today for two reasons. dsa_tree_setup_ports() sets up the
-on-die ports before the MCM, and phylink never does a major reconfig of
-this fixed-link CPU port.
-
-If port 6 were reconfigured later, would the TRGMII clock be gated and
-reprogrammed without recalibrating the port 5 link? Would it be clearer
-to tie the PLL setup to port 5?
+>  	ret = devm_of_mdiobus_register(dev, bus, mnp);
 
 [ ... ]
 
-> @@ -469,6 +479,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
->  	usleep_range(25, 35);
->  }
+> @@ -3328,6 +3330,9 @@ mt753x_setup(struct dsa_switch *ds)
+>  	if (ret)
+>  		return ret;
 >  
-> +static bool
-> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
-> +{
-> +	u32 val = 0;
+> +	if (priv->irq_domain && ds->user_mii_bus)
+> +		mt7530_setup_mdio_irq(priv);
 > +
-> +	regmap_read(rx->regmap, reg, &val);
-> +	regmap_write(rx->regmap, reg, val | EDGE_CHK);
-> +	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
-> +	regmap_read(rx->regmap, reg, &val);
-
-[Severity: Low]
-Does the hardware keep RD_VALUE and RD_ERR latched after EDGE_CHK is
-cleared?
-
-EDGE_CHK is set and cleared back to back, and the result is read only
-after it is deasserted. en751221_trgmii_calibrate_direction() also calls
-this right after changing RD_TAP, with no settle time. When the receiver
-is the MMIO on-die switch, EDGE_CHK stays asserted for only a few bus
-cycles.
-
-If the results are not latched, the pass/fail map would show bus timing
-rather than the data eye, and the chosen taps could be wrong.
-
-> +
-> +	return FIELD_GET(RD_VALUE_MASK, val) == TGMII_TD_PAT &&
-> +	       !FIELD_GET(RD_ERR_MASK, val);
-> +}
-
-[ ... ]
-
-> +static void
-> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
-> +			   struct mt7530_priv *ondie, int ondie_port)
-> +{
-> +	u8 default_taps_ondie[NUM_TRGMII_CTRL];
-> +	u8 default_taps_ext[NUM_TRGMII_CTRL];
-> +	u32 mcr_down, mcr_up;
-> +	int channel;
-> +	int reg_val;
-> +
-> +	/* BOTH: Put interfaces in a downed state */
-> +	mcr_down = PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
-> +		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
-> +		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
-> +	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
-> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
-
-[Severity: Low]
-Is anything serializing this against the on-die switch's own phylink
-instance for port 5?
-
-This runs from the MCM's port 6 phylink resolve work. It reprograms the
-on-die MT753X_PMCR_P(ondie_port) and TRGMII block in several steps: down,
-reset (with 5ms sleeps), up, then train.
-
-The on-die port 5 mt753x_phylink_mac_link_up() writes the same PMCR
-register from a separate resolve work item, under a different
-pl->state_mutex. That work is queued earlier, but nothing guarantees it
-has run before this sequence starts.
-
-If it is delayed, its regmap_set_bits() of PMCR_MAC_TX_EN |
-PMCR_FORCE_LNK could land inside the TX/RX reset window. On-die teardown
-through mt753x_phylink_mac_link_down() is also not serialized against a
-calibration in progress.
-
-> +	usleep_range(5000, 6000);
-> +
-> +	/* BOTH: Reset TX */
-> +	regmap_set_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-> +	regmap_set_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-> +	usleep_range(5000, 6000);
-> +	regmap_clear_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-> +	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-> +
-> +	/* BOTH: Reset RX controllers down */
-> +	regmap_set_bits(ext->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-> +	regmap_set_bits(ondie->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-> +
-> +	/* BOTH: Set TX drive strength, MCM uses more */
-> +	en751221_set_tx_drive(ondie, 8, 8, 7, 7);
-> +	en751221_set_tx_drive(ext, 11, 11, 15, 15);
-> +
-> +	/* BOTH: Reset RX controllers up */
-> +	regmap_clear_bits(ext->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-> +	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-
-[Severity: Low]
-This isn't a bug, but RX_RST has no explicit hold time here, unlike
-TX_RST. The pulse width depends on how long the en751221_set_tx_drive()
-writes in between take.
-
-The MCM writes go over MDIO through the on-die indirect accessor, so the
-pulse is long in practice. Would an explicit delay be more robust in case
-this ordering changes?
-
-> +
-> +	/* BOTH: Ports up */
-> +	mcr_up = mcr_down | PMCR_MAC_TX_EN | PMCR_FORCE_LNK;
-> +	regmap_write(ondie->regmap, MT753X_PMCR_P(ondie_port), mcr_up);
-> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_up);
 
 [Severity: Medium]
-Does this drop the flow control settings that phylink just programmed?
+Is mt7530_setup_mdio_irq() now called too late to have any effect?
 
-When tx_pause or rx_pause is set, mt753x_phylink_mac_link_up() sets
-PMCR_FORCE_TX_FC_EN and PMCR_FORCE_RX_FC_EN with regmap_set_bits(). It
-then calls mt7530_cal_interswitch_trgmii().
+In the !mnp case, mt7530_setup_mdio() has already registered and scanned
+ds->user_mii_bus by the time this runs. mdiobus_alloc_size() set every
+bus->irq[] entry to PHY_POLL, and phy_device_create() copied that value
+into each PHY during the scan:
 
-The full regmap_write() calls of mcr_down and mcr_up here replace PMCR on
-both the MCM port and the on-die port, and mcr_up never includes the FC
-bits.
+	dev->irq = bus->irq[addr];
 
-Any pause configuration phylink resolved, such as a fixed-link with
-pause, would be cleared on both ends. The on-die port's PMCR, which its
-own phylink programmed, is overwritten too, so the hardware state no
-longer matches what phylink reported.
+mt7530_setup_mdio_irq() then updates only the bus array, which no
+existing phy_device reads again:
 
-[ ... ]
+	ds->user_mii_bus->irq[p] = irq;
 
-> +	/* BOTH: Collect and then zero every RX TAP */
-> +	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
-> +		reg_val = 0;
-> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ext[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +
-> +		reg_val = 0;
-> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ondie[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +	}
-> +
-> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
-> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
+Wouldn't the internal PHYs keep phydev->irq == PHY_POLL? Then the PHYn_LC
+link-change interrupts would never be requested, and link detection would
+fall back to polling.
 
-[Severity: Medium]
-Are the default tap arrays swapped here?
+This looks like it affects every MT7530/MT7531/MMIO switch with
+"interrupt-controller" and no "mdio" subnode. That includes the ordinary
+single-switch MDIO-attached setup, not just the cascade case. The commit
+message does not mention this move.
 
-default_taps_ext[] is read from ext->regmap and default_taps_ondie[] from
-ondie->regmap. But the first call passes ext as rx with
-default_taps_ondie, and the second passes ondie as rx with
-default_taps_ext.
-
-The fallback in en751221_trgmii_calibrate_direction() writes default_taps
-into the rx switch:
-
-		} else {
-			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-					   RD_TAP(default_taps[channel]));
-
-When a lane fails calibration, the MCM receiver would get the on-die
-switch's original tap, and the reverse, instead of keeping its own.
-
-The two sets can differ: mt7530_setup() programs RD_TAP(16) on the MCM,
-but mt7988_setup() does not set RD_TAP on the on-die switch. The "old %d"
-value in the success message would also come from the wrong switch.
-
-Should these be:
-
-	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ext);
-	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ondie);
-
-[ ... ]
-
-> @@ -3023,6 +3286,44 @@ static void en7528_mac_port_get_caps(struct dsa_switch *ds, int port,
->  	}
->  }
->  
-> +static void en751221_mac_port_get_caps(struct dsa_switch *ds, int port,
-> +				       struct phylink_config *config)
-> +{
-> +	switch (port) {
-> +	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
-> +	case 0 ... 3:
-
-[Severity: Low]
-This isn't a bug, but the binding description added in "dt-bindings: net:
-dsa: mediatek,mt7530: add econet,en751221" says:
-
-  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
-  gigabit PHY.
-
-This function, this commit message ("4 FE ports and 1 GE port") and the
-binding commit message ("ports 0..3 are 10/100 only") all describe four FE
-ports. Should the binding text say 4x 10/100 PHYs?
-
-[ ... ]
-
-> @@ -3428,7 +3732,8 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
->  	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
->  	 */
->  	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-> -	    priv->id != ID_EN7528)
-> +	    priv->id != ID_EN7528 && priv->id != ID_EN751221 &&
-> +	    priv->id != ID_EN751221_EXT)
->  		return;
-
-[Severity: High]
-Does the on-die switch ever get MT7530_CHG_TRAP set?
-
-On MT7530, values written to MT753X_MTRAP only override the hardware
-straps in MT753X_TRAP while MT7530_CHG_TRAP is set. The driver relies
-on mt7530_setup() setting it once during setup. After that,
-mt7530_port_enable(), mt7530_port_disable() and mt7530_setup_port5()
-update MTRAP without setting it again.
-
-ID_EN751221 uses mt7988_setup() as its sw_setup. That resets the switch
-through priv->rstc and then calls mt7531_setup_common(). Neither of them
-touches MT753X_MTRAP.
-
-This patch still sends ID_EN751221 down the MTRAP paths:
-
-  - It adds ID_EN751221 to the MT7530_P5_DIS and MT7530_P6_DIS handling
-    in mt7530_port_enable() and mt7530_port_disable().
-  - Through .mac_port_config = mt7530_mac_config, port 5 reaches
-    mt7530_setup_port5(), which writes MT7530_P5_MAC_SEL into MTRAP.
-
-Without MT7530_CHG_TRAP, would those updates be silently ignored? Ports
-5 and 6 would then stay at whatever the straps select. Port 5 is the
-TRGMII cascade to the MCM, so if the straps disagree, the inter-switch
-link would not come up. The same would apply to any other MTRAP bits the
-series programs on the on-die switch, such as MT7530_LOOP_DET_DISABLE
-for passthrough mode.
-
-This may work on the tested boards because the EN751221 straps already
-match, or because the on-die block does not gate MTRAP writes on
-CHG_TRAP. If so, could that be stated in a comment? Otherwise, should
-the EN751221 setup path set MT7530_CHG_TRAP the way mt7530_setup() does?
-
-[Severity: Medium]
-The MT7530-family ID lists here and in mt7530_port_enable() and
-mt7530_port_disable() were extended. mt7530_setup_irq() still has only
-the old IDs:
-
-	/* This register must be set for MT7530 to properly fire interrupts */
-	if (priv->id == ID_MT7530 || priv->id == ID_MT7621)
-		regmap_set_bits(priv->regmap, MT7530_TOP_SIG_CTRL,
-				TOP_SIG_CTRL_NORMAL);
-
-ID_EN751221_EXT is an MCM MT7530 that uses mt7530_setup(), like the
-MT7621 MCM. If the MCM DT node has interrupt-controller, the IRQ chip is
-registered without TOP_SIG_CTRL being set.
-
-Would switch and PHY interrupts then never fire, leaving phylib waiting
-for link changes on the MCM user ports?
-
-The unused TOP_SIG_CTRL_B0 define added for this register suggests some
-TOP_SIG_CTRL handling may have been dropped.
-
-[ ... ]
-
+>  	/* Initialise the PCS devices */
+>  	for (i = 0; i < priv->ds->num_ports; i++) {
+>  		priv->pcs[i].pcs.ops = priv->info->pcs_ops;
 > diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-> index c86bc4bca29b9..1a4329749c0f1 100644
+> index 5b7394f6383c7..c86bc4bca29b9 100644
 > --- a/drivers/net/dsa/mt7530.h
 > +++ b/drivers/net/dsa/mt7530.h
-
-[ ... ]
-
-> @@ -601,6 +607,8 @@ enum mt7531_xtal_fsel {
->  /* Register for TOP signal control */
->  #define MT7530_TOP_SIG_CTRL		0x7808
->  #define  TOP_SIG_CTRL_NORMAL		(BIT(17) | BIT(16))
-> +/* Undocumented */
-> +#define  TOP_SIG_CTRL_B0		BIT(0)
+> @@ -969,6 +969,16 @@ struct mt7530_hw_stats {
+>  int mt7530_probe_common(struct mt7530_priv *priv);
+>  void mt7530_remove_common(struct mt7530_priv *priv);
+>  
+> +/*
+> + * When an MMIO based switch has an MDIO bus which contains a downstream MDIO
+> + * switch, the MDIO bus is not normally setup until mt753x_setup() has been
+> + * called. But mt753x_setup() is not called until DSA sees that every switch in
+> + * the tree has been probed. Calling mt7530_setup_mdio() after at the end of
 
 [Severity: Low]
-This isn't a bug, but nothing in drivers/net/dsa/ uses TOP_SIG_CTRL_B0.
-Is it a leftover, or is some MT7530_TOP_SIG_CTRL programming for
-EN751221 missing?
+This isn't a bug, but there's a typo here: "after at the end of".
+
+The commit message also says:
+
+  In MMIO mode
+  the switch provides its own MDIO bus which connects to its integrated
+  PHYs, but also can be connected to other things, such as another
+  switch.
+
+mt7530_setup_mdio() is common code, and it also creates a child bus for
+MDIO-attached MT7530/MT7531 (mt7530-mdio.c). An MDIO-attached MT753x with
+a switch on its child bus would hit the same problem, but only
+mt7988_probe() gets the workaround.
+
+Could the commit message explain why this is MMIO-specific?
+
+> + * the MMIO probe function allows the downstream switch to register, completing
+> + * the tree.
+> + */
+> +int mt7530_setup_mdio(struct mt7530_priv *priv);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028011317.1557238-1-cjd%40cjdns.fr
