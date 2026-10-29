@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793277173;
-	b=Q6twtnQF/ddPsrwwAsnTWPF2UUN2tJQ84jE6v/9ej/gtHMPIIthTjoXqDQPnjyXaD4ze
-	 aX9Qef6Pc+qNL9LZ6yxD2bOOLwb1DB4ZVMhuZm+B/6kIbTp49/L2JBk7XTo56H8WK36Du
-	 G16TzIlN+SBlEt4/SiBl0H+cdVNCyQ963rZjoUuDffHTTu8bLman6AF5wEkaOIsGYLHxr
-	 jUCGJjzKoVJvpnrx6V/I/dubArxrNMJ5YACcTCEsqB0teTT7ZPMxwNmDPyc6ZVT0rd+iS
-	 s3uPzagQiR+CIajzPFedgUT1x7YwxnVR8QZgXEtODUw/dSRFwCrMEiScz3iBCBaiG2g==
+	b=OkkyW+3Mkk2jNYt8KxdAR9VO7z/C7zHVqQZucB1Xsc1DQr/590MbOoy7QpOwSD1MlBVn
+	 Pp1e0Ls0eSlIvEIm9g7MP3xzTBKpTKhpGG8qjWlEly3CR82lupzEa+Z/P+eIsGyg0jeWR
+	 JaijBr7s8qkc6YLOyM3ZAj3IHhT53cmVIL2cHvn9qlX8POTTLtfdfg9FvBX04sWnL+5c1
+	 5uezE6b9kU8vZodANQTVFTM3Dl95UvEXcsGFrh4E2s1vVxPBJ7swmh04gafC/ryrJgety
+	 4d/zG8HMAs2QoK63uwql0+jJQssoUqRd2y+THOVWOYjCy/4smzeli+YzDo/8Vbu0qog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793277173;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=as59LYxN0aioePkU/4k32aNSSAEcvGxtqVu6grquYmM=;
-	b=HZ/rX6DPMTvzoa5bF8zDRQkTqxkc8F4fapKuNNO9eAkCtkT8wx8n4t1HyMnt8l3oy/kP
-	 Cu8H2fTugG4dI2gud40A0VQb6VOmCn+C/Cf3J1PL6G/8HwdLFTDGGCkx+2y1QpEZgSjFk
-	 en+kR0lFzPWYC4V+6jaDDhy31qPNLgjT9Q5eO9C5qZ8ZFJfsumjd1LKQ9pS2YTaNizFFw
-	 eJAZSxvFDb8XaIl4goCAxgMgcv2QEM+LhDY363SwHtBr+io1yUrbR1pZ4VMaaUqBmd4Yp
-	 DDJfj5/2r3CcvF/++cfaxp7krapH5nHHUmnYeLgmiYUrzJa8Ai86tJJIg7YCpKZnZAA==
+	bh=Tg3R13sknH4kBiLkdZSxbk4Ng4+LLPOpweq6+Jw9GaU=;
+	b=SuVB60LHdFaJiqRKnTLz+Prw5OxSEbG1q+6Xjyyt6ebro4Fj9aDgACeRTpBC5Ntztnkg
+	 2dA/UKKAW1WdV4etZxi/Tl5zrHkvFYMBXmeqmvN6QtPHvdYeVBbP50ogMjLCp4bNBTRO1
+	 wDk4wsD3mEE3/ZCkHVgOC2t0ST546WBqRh0okaYfZbyibWVwlVfdTHqNsx91u6tX09d6Y
+	 X1tN+oeCWSHXOTg/f9PNLxRiLHClQxQswtCQpq3W+KSb0cXWMu3Kiku1ZLd3PFZWcTN/O
+	 HrwcTuWgJjj7Il4pOin8fiJG+rLggb+qDEqi+zTQG6Vw9SbIl6jYhc4/LwZiZmMac1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=E2ir9Yg5;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="pRf/rnIy";
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D88F606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DB5B606A31E;
 	Thu, 29 Oct 2026 12:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D88F606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DB5B606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=E2ir9Yg5
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pRf/rnIy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=as59LYxN0aioePkU/4k32aNSSAEcvGxtqV
-	u6grquYmM=; b=E2ir9Yg5HkSi7+qM+w1CWrIRgMfKgV1Pvh+P2XLOLNDAW0iXVv
-	b6VXSUotapkcBQ1FU5tViCS/4e4Jf4+EDs4WPZO/5GzMqHgK4I5asER3TTFkXpeY
-	DN/EBAgPjUFRnjkYgoU3Jlelgz7kCRu+etQjmNtKM8mwe/AEXcDHwImNY=
+	Content-Transfer-Encoding; bh=Tg3R13sknH4kBiLkdZSxbk4Ng4+LLPOpwe
+	q6+Jw9GaU=; b=pRf/rnIy4LeIUW3561wiAS2tbbl4dSixwn49ME3OlwM99hxDI/
+	QViAkwolNRP5gwnlyxwpsh1JDho4joeoUcA5NaCiQHx5Eb5968+/D1+WwEOWq6mA
+	Y0BIIE2KpCEARGyNoL+zZlPTPEf/T+FcVkz9oZyMKPkRqrdGE9IBPCiCc=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.224.240])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHjPmPONqmPdgAA--.889S5;
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHjPmPONqmPdgAA--.889S4;
 	Thu, 29 Oct 2026 20:32:39 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: linux-arm-msm@vger.kernel.org,
@@ -58,9 +58,9 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
 	Taniya Das <taniya.das@oss.qualcomm.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: dts: qcom: sm8750: describe all MDSS block resets
-Date: Thu, 29 Oct 2026 20:32:38 +0800
-Message-ID: <20261029123238.29877-4-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v2 2/3] drm/msm/mdss: reset all block resets described in DT
+Date: Thu, 29 Oct 2026 20:32:37 +0800
+Message-ID: <20261029123238.29877-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -74,65 +74,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgCnHjPmPONqmPdgAA--.889S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4DZr4kXFy5Jr4rtFW5ZFb_yoW8CF1rpF
-	1xCFW7Ww4v93WFgFW7tr1j9r15Gwn5Kr15GF9xG34UCanxJrn3Krn8KFs2gFyjvFWxua1k
-	Zr17WFWIqFnYy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:3pYKCgCnHjPmPONqmPdgAA--.889S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxZF1ktrWDur47Gr17Kry7GFg_yoW5GF4kpF
+	s8Ja4ayr4qga1fZa1jy3W8uFyFk393KryUGwsxG34UA3W3J3yrJr9rKFW5tFWDJFyxAF90
+	yFsxGFWruF1qyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
-	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
-	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
-	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x
-	0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
-	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_
-	Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	YxBIdaVFxhVjvjDU0xZFpf9x07bO4SwUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVZTsQBSs7
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
+	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6ryUMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I
+	6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r
+	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1U
+	YxBIdaVFxhVjvjDU0xZFpf9x07bOyCAUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVZTsQBRs4
 
-The SM8750 display clock controller provides, beside the MDSS core
-reset, block resets for the MDSS core INT2 interrupt controller and for
-the MDSS RSC.  On devices whose bootloader hands over with the display
-block still active (PLLs locked, MDSS core / INT2 / RSC out of reset),
-the kernel so far reset only the MDSS core and left the INT2 and RSC
-blocks in the state left behind by the bootloader; command-mode panel
-initialisation then fails with command DMA timeouts and the display
-comes up as backlight only, without a DRM device.
+msm_mdss_reset() acquires only the first reset listed in the MDSS
+device node.  Platforms can describe additional MDSS block resets: the
+SM8750 display clock controller provides resets for the MDSS core INT2
+interrupt controller and for the MDSS RSC, which can be left out of
+reset together with the MDSS core when the bootloader hands over with
+the display block still running.
 
-Describe all three block resets so that the MDSS reset returns the
-whole display subsystem to a known state before any display hardware is
-programmed.
+Switch to the reset control array API so that every reset listed in the
+device node is asserted and released as one group.  Devices without a
+reset in DT are unaffected, and for devices describing a single reset
+the assert/deassert sequence is unchanged.
 
-The reset runs after the display clock controller has programmed its
-PLLs (the clock controller supplies the MDSS clocks and power domain,
-so it always probes first).  The block resets do not touch the PLL
-registers and no display pipeline is active at this point, so the PLL
-configuration survives the reset and nothing visible can glitch.
+The resets are driven from the display driver rather than from the
+display clock controller: the clock controller supplies the MDSS clocks
+and power domain, so it probes first and has already programmed its
+PLLs when MDSS probes.  The block resets do not touch the PLL registers
+and no display pipeline is running yet, so the PLL configuration
+survives the reset.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_mdss.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index dd738d13df..950c528bc4 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3071,7 +3071,9 @@ mdss: display-subsystem@ae00000 {
- 				 <&gcc GCC_DISP_HF_AXI_CLK>,
- 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 9087c4b290..59343987bc 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -306,11 +306,22 @@ static void msm_mdss_destroy(struct msm_mdss *msm_mdss)
+ 	irq_set_chained_handler_and_data(irq, NULL, NULL);
+ }
  
--			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-+			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>,
-+				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>,
-+				 <&dispcc DISP_CC_MDSS_RSCC_BCR>;
++/*
++ * The MDSS block resets are driven from the display driver, not from the
++ * display clock controller: the clock controller supplies the MDSS clocks
++ * and power domain, so it probes first and has already programmed its PLLs
++ * when MDSS probes.  The block resets do not touch the PLL registers and no
++ * display pipeline is running yet, so the PLL configuration survives the
++ * reset and nothing visible can glitch.  Bootloaders that hand over with
++ * the display block still running (PLLs locked, blocks out of reset) are
++ * returned to a known-zero state before any display hardware is programmed.
++ */
+ static int msm_mdss_reset(struct device *dev)
+ {
+ 	struct reset_control *reset;
  
- 			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+-	reset = reset_control_get_optional_exclusive(dev, NULL);
++	reset = devm_reset_control_array_get(dev,
++					     RESET_CONTROL_OPTIONAL_EXCLUSIVE);
+ 	if (!reset) {
+ 		/* Optional reset not specified */
+ 		return 0;
+@@ -327,8 +338,6 @@ static int msm_mdss_reset(struct device *dev)
+ 	msleep(20);
+ 	reset_control_deassert(reset);
+ 
+-	reset_control_put(reset);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
