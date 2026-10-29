@@ -1,88 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313648;
-	b=TogTtg52SJ/1WO+/mQO5tM7I6pUB7of+hOnG2WRoozdVYAJ6D+ojUeyXQvSB+tOm/6cS
-	 Onpsm17uWqR926gpzC1FQx86PAgwsfaWjQ+DWADLZ5dRwK+s6AwvdlsuCDlp16FwXWeT2
-	 mlvpxqxObMOtUBoMlElSveZK8g4qgfOzQl2X8lbKV70i+W8oazgUH8NN1d+zuhHV4bbGZ
-	 d39uHLdcHhJq/SALYquB/P9AnJOyuTkNPOLK+DBBQHpXdbA/SSMUNfWBW6U6OlRWQMAqv
-	 3u30+BiAal30S7gY0ARbCV/gtnAQ46r1GixpXBdyWkWkOV8Dvo+gRT0QZaZolUzgl8g==
+	t=1793313694;
+	b=hD7bgSKuPLWeuhJw5lE8GKuagtYsbuCSBUa7LMMBlHG5GBT9ZvM08dNDRWSntNjNua8z
+	 +YPmh2FVS+LuUxtUSc2/FpnY7JZ1549Bz31we/RtBN0q4cIrsnVlULdkZBZtHy5NDzCjz
+	 xOabs3i2GygxlD0jEo2+BabzLnyT966ktrd7/MSmE/pnktD6JveK1FvRS162fscGL9rgF
+	 Ijh2tnGao92RVgFry+QXPx/iLXjEYCeZG1HFXlo9O1hVurC5vdUYQ4yxQSQL/KIL5ozO9
+	 Hn05Jf17GVyyE6670VqJOGLQhbc91ofY6aXaLwYelGlcAAFlhCi79qMJEKuSOUbbhrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313694;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=v26TLKrWvhVgWLQBFxdA5doS6zBCcx6klRRGMpDzDpQ=;
-	b=PWwxVXWZEUId6Leqqhv7/ElIIvFoBb6O+KUwWFXjZP8jibHfT8M1bqHeap/U++WZXvUN
-	 43P+bONaBZRj6rzo6P8CGUvL2qemGHwcGV5gp1bmL8V7IMETqsrGtQwA7RSFu9kEEp48B
-	 HKHJ2w3uVp3+fTCsCyYjKK8z7BB65mpdp/mo5H9l2QIruQVcjPn/v0RI9bJifGrP41lMR
-	 ltHtC2CCPdC1um9b2La6t8+7HK/ogHHvHBYL/PFt5S0LtgiP5talS3WkhmsHGPD+OZKPV
-	 zld8Yg+p36rq+rDdkcWApbs65va27G5UMH59KGne+NTMKtsIccuOXM+IEBhN5w4rzKw==
+	bh=p/lNXcmee9ZNuCiy3sE8z9e8aCfdm1832qnUnHax1I0=;
+	b=JN426dVB/CWjvPg7PICTrgZvVM8MswBoDrHQrHl6mW6HXTndMoyde5WtvH/uPsdhz2ss
+	 0kANHDK2gFM410wQLEej2D6HXgo2MTTUZmxlU+pyvKpecY3q0xDY8Y09v5MnBy3qRFFhD
+	 qGZzBA86iRswTARnvSemC2ki5E9E1vtdS+egbR551yyqaB7UDvEH3IBD3R/QaAlOxMi7J
+	 Y0NgD72W2BV6IZ6nn2fOfv+TuHPPZNkAeOhKcHEB+8uSpGL6Qn9kqNX3OTloPCu2ywVj3
+	 CfTQDoPxJVv2MlIaBJ1L23CF3zlRG6yJIItQEWAdXVehIS+ACAmNvG6jwjyF7huhXeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HoGP2nR5;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRnDXfc1;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C03606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:40:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C03606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEDD606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AEDD606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HoGP2nR5
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso647515e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:40:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRnDXfc1
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso249915e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:41:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793313642; x=1793918442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v26TLKrWvhVgWLQBFxdA5doS6zBCcx6klRRGMpDzDpQ=;
-        b=HoGP2nR5HnnMREdHMmKLvXlJ8MTuqKsOFRx/lsPQVihkPjTkdxtrbcPTGdJogArE++
-         gS1jk7/zpISKJW3LOSu+IC6Xr4H+IEO/h11hg+rnVy1EEoEvHdz2n1YGscTVT5IJltWa
-         Zo7bmfcQDSNDoeC4p8dmRgYgYkMZOnHEIEvbY5fywv1NhzyId/5XGTosysU25Ku8Zzq9
-         CuMgQAAwBDMwqaUVvbdHwYlvfNq/rGLbQlAz0RzGxv7dr0tyxyLckapmeBee79gdzeBJ
-         Z7KwK2wybM5BJviJt2alV9iPY36Nx4LHT8LgdHLflIoiDZNACbWhvL4gH5IRJjeEsJ2D
-         Zz+A==
+        d=gmail.com; s=20260707; t=1793313692; x=1793918492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p/lNXcmee9ZNuCiy3sE8z9e8aCfdm1832qnUnHax1I0=;
+        b=NRnDXfc1L8HQiAoUUSzdXBA4/kU4JeA9BUmhutMluOoEVVN0mQ5ivfmXdTE0ciz/Kn
+         eY2juSG1NXxDge0BX+ORHnccDpFU0uHSxRwmEUGCOoqxn9tUIA0QQo0AHSEgvvpmfD3o
+         RBFUtfQb6ZDcKxdiRJVFMSI4O7lpsit0zjtJdJmOsCXcNhc6luJA3csWO3yF7cweFhqK
+         AKWlRWGBMn3CXeDiIewZbpRohp7JLpLvwD4a1DpMAaL9Ug40uxzQ8YLtapZSC2D21bR7
+         jZOaG5Vc0tfotegSFdGg72LDCxIY0PXHKIVfMFp3BRbwAMyDHCNrxhlyY3YDTt6/2LYQ
+         PQVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793313642; x=1793918442;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793313692; x=1793918492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v26TLKrWvhVgWLQBFxdA5doS6zBCcx6klRRGMpDzDpQ=;
-        b=TPM/+xVmPyjsp3DI/hkx+WeaMv3YBZku/MJjDcSXj1naBVj0e/YxfycyKGZf3E3ufV
-         ImYmx/MbOIbN6eiDxoPpReNU/LwGwmzMOBrxNzIXgZaH6Bclnl4iFWojIDd0ZN8Qa7TG
-         wJ9iYSrwRrTqXM+f615NxrHkNBiTeSdUFJR3GHE8qBfeZOu1/HsSFc4rG2gi0KdKedER
-         TOAYm0+IEkKRe3VloUcdHSPH0g5DQzpKCqa0sJjzRStBhfmXGp6M/gWbMqa1CsV2XuWN
-         L+BM5ahV+eXGuK1fX4akow+UdSCLcdBbyQDLFLTJbNFEbiG1EO335v3udOMyeyiFTtss
-         ADPw==
-X-Forwarded-Encrypted: i=1; AKwUvByIoV637yRLL5l4GOZYB05Adc2uFvoMYOuhpKFNL1oTHUZ8g3Mb0W50hwerASVq3+yAIQdkPbc2X73XEuE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKmzkj6VNYiefnwSh6ecWWOgAYUvrGbrUH6EK6wQ1K80KnayaW
-	AWqA0baN71SBwE6B0bBG7FO/aUTpFYK7qKW3EvWfO7731nvw0KfBSGZG
-X-Gm-Gg: AYBFou1WPSffYWo6clvSo47jL06txNpPgtabVsEg3EzHdjzJuJETpKg+F/Xa0RW+x/c
-	zSa01MRipE78dLahXE65D6kpArjkf4FS8sWGHUDQ3SaadRo/Q9usP7Hs7YmucupW98EQj84m+GN
-	qtHMv1tOZadXZqdS2rDbg16stKG2IiM1Lj2dKzFzYymzvYZJ//8jHPgQgh5KkCnRyzItQbQNouL
-	aRd2+g8uin8txJRbb7CwiaOjRPUVjgypO5JXaiek2hyN+mvymcEo2SQ8VJBEnpCjh1Jnete3i9h
-	4bCXbzzsKPi3lPcFgJQ05Q6RSZKQTeG+ZAd/nZ4rrKZzJWzA4fQJ4/zeiJWyIIX4gz36uSLnr6I
-	d3Dg7Ad7W04W/+AvVNLOiiTt82Gn1Jp/SIFQz1Y3odObo5oijh9PftjGdljwdO7DdPuZ0CECHqJ
-	EwHqNdAvw6fjNt6+7OGGkBRMwaJI+IiQJcqwaMhBQUazFXLcCHXgeBK8d6STceoDMwEg1ZvK+sI
-	1vo2FCKliHS/PNHGwCB+Jqc7NhZdgTs8/dcyj2SUtH/izBWHfxGkcV4JbqPvuU6UHvUFBToU2tJ
-	ej4N6OpCrd3F+mFXlx0IDsvM4ZwovvMWRMByORc=
-X-Received: by 2002:a05:600c:4e13:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-4ac1228978cmr8730515e9.0.1793313641519;
-        Thu, 29 Oct 2026 15:40:41 -0700 (PDT)
-Received: from [192.168.18.21] ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab69b54742sm91144645e9.15.2026.10.29.15.40.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 15:40:41 -0700 (PDT)
-Message-ID: <14736869-57ed-43df-986b-8b24ea9772dc@gmail.com>
-Date: Fri, 30 Oct 2026 01:40:39 +0300
+        bh=p/lNXcmee9ZNuCiy3sE8z9e8aCfdm1832qnUnHax1I0=;
+        b=jBngd1RvSlAgMV4lEJ1+l/UL5hIieHLRNu8Z9/QoUDU7OLfF38/yljRMwYdOAOUWKT
+         SQ5El4ijkMasiEnce7hNHqQtj0+HuzF1NHt6QQxTTgw4EzJrRMzzoKhhtxKGPn7ZcPZR
+         LMrAd53HqpVIA10yDOPI1S9EfF3of58j/wA1wdhhjsisrs9tAYKFsyIls7CKGksqcdX8
+         zbqR2rMe+oIvEfMegIcjyJElPmqa+ws/5B6N9JcRak4+ajEqBYlW2G+JwETLWb1cGss6
+         ImUZQF96O1+p4a3eYhdtqRtWXVlG2GBz9ewnR5kbQ0q534HMzl5aU5uINNFcG4wAGJ/Y
+         +/Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwenbAXBQpr78tYj/RqXu4dLfvXkw9ml75e3OIz879zYYDgAGuVnuW2KLle24jRWG6TyUCQ+DPJTh4foUk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKSWzFcU7VC1s52I4pVyFBs3i3Qitn0/PM/wVhPCsyPhKXcqp9
+	DoOHSuZ4ghdr1QNGDqtEO16oeWIX0gZBFr7pWgDoPilXEbZ3B582oswosjBxOuX5MxI=
+X-Gm-Gg: AYBFou0Q0mgmHhoJNYJ0anw0jltqcKFlUbj2CxiQAjpp1qMACCVJscZ6nn0yY9T72ig
+	abXRRk6dY7jDK2Gb+YP+a/dxvwdXpZrFGQk08vbYfmxtzZmuhE9w27TS8KsAw0DNDnIg7qAyk7A
+	mrlorhEwaMSfZGBzFD4x4r6JIwf1O6Xe4+ekUf08Bnoa//UY2k32Fc+nANxmQtWgorTRtAB5Fiu
+	sJyUyD6cf9wQZi6u1r3EvqvU735pzUfwbgVhlUOES7FJXqmB1552FqUcFuqbDgFY7H1Vik7pMyp
+	M0UFOYq5NW6fzR+X4GNnTscdgoKcnliwOOIPAbZsZEujmmxwPaXnxxsVjfLX0dd8I+oyDiPW4HV
+	Tdb1Ag4WqEcxUKTjWWa40Y6qd0GkdRxsM1r4pKG3Gr+2U7p1ryZNdU9eSwnI9iZ20UM7lyXSdse
+	vOskHNNJK0ifpDM7hVU70xqVKk0ylx6b6f4zW8K7UyjDNNFu37vN7nHewKiGZSAHj5MZOEppaKB
+	6HIo7G4tlptGfWRoiEmoD0Axh8/n1WayE2+2r2vfFlWkIxHiwN0tdriV1go5w0Vr/Woi7ALtZ15
+	WqZxtsFvA41Xf0G32c+A0U4OnkqAYJkNdmHoYsZCn8Zr7bXwRMxKsfHukCRwKHEsWZM006Crgk8
+	qI4wO5vxNntneIlxv6YPxj4HqKfHGAjuxlmZCG9+WegvfQAgh6k4DGusLiGRFcSbGCTDfzeiwnd
+	LtcSiWJJyx1g3c
+X-Received: by 2002:a05:600c:811a:b0:4a3:5d5d:48d9 with SMTP id 5b1f17b1804b1-4ac187a80a7mr6995185e9.35.1793313691567;
+        Thu, 29 Oct 2026 15:41:31 -0700 (PDT)
+Received: from archlinux.tailbe3ea7.ts.net ([185.19.153.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm89557405e9.2.2026.10.29.15.41.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 15:41:31 -0700 (PDT)
+From: Ismail Tarim <ismailtarim7@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Chris Lu <chris.lu@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] Bluetooth: btmtk: fix error handling in btmtk_usb_isointf_init()
+Date: Fri, 30 Oct 2026 01:40:15 +0300
+Message-ID: <20261029224022.1233751-1-ismailtarim7@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,32 +102,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netdevsim: reject port addition and clean up ports
- after a failed reload
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abini <pabeni@redhat.com>,
- Jiri Pirko <jiri@resnulli.us>,
- syzbot+88435e204734072bf39a@syzkaller.appspotmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261029145844.231018-1-omermetekaya0@gmail.com>
- <CAHS8izORg8OR8TyWBHmZsgFBtM3+qh7gXCJxifk1QGs13Q=ygw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>
-In-Reply-To: <CAHS8izORg8OR8TyWBHmZsgFBtM3+qh7gXCJxifk1QGs13Q=ygw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+btmtk_usb_isointf_init() submits the ISO interrupt IN URB and then
+sends the vendor command 0xfd98. If that command fails, the function
+returns an error without killing the URB it has just submitted. The
+caller then leaves BTMTK_ISOPKT_RUNNING clear, so the driver treats the
+ISO path as inactive while its RX URB is still in flight, and
+btmtk_usb_suspend() skips killing it. Kill the anchored URBs on this
+path, as the URB submission failure path already does.
 
+The return value of __set_mtk_intr_interface() is also ignored: a
+failure to select the ISO alternate setting or to find its endpoints
+is logged, but the function goes on to submit the URB. Return the
+error instead.
 
-> 
-> net and CC stable for a netdev sim bug is extremely overkill. move to
-> net-next with the AI-review comments fixed, if any. Thanks!
-> 
-Ah right, I thought I should put every bugfix to net. Thank you for
-informing me.
+Fixes: ceac1cb0259d ("Bluetooth: btusb: mediatek: add ISO data transmission functions")
+Signed-off-by: Ismail Tarim <ismailtarim7@gmail.com>
+---
+Tested on an MT7902 (USB 13d3:3579) with 7.2.11 by forcing the 0xfd98
+command to fail once with -ENOMEM through a local test-only module
+parameter. Right before the function returns, usb_anchor_empty() on the
+ISO anchor reads 0 without this patch and 1 with it; the rest of the
+controller setup completes in both cases.
 
-Thanks!
-Ömer
+ drivers/bluetooth/btmtk.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+index 6a48ff0192cf..1b3dab0d10bb 100644
+--- a/drivers/bluetooth/btmtk.c
++++ b/drivers/bluetooth/btmtk.c
+@@ -1741,7 +1741,9 @@ static int btmtk_usb_isointf_init(struct hci_dev *hdev)
+ 
+ 	spin_lock_init(&btmtk_data->isorxlock);
+ 
+-	__set_mtk_intr_interface(hdev);
++	err = __set_mtk_intr_interface(hdev);
++	if (err < 0)
++		return err;
+ 
+ 	err = btmtk_submit_intr_urb(hdev, GFP_KERNEL);
+ 	if (err < 0) {
+@@ -1753,6 +1755,7 @@ static int btmtk_usb_isointf_init(struct hci_dev *hdev)
+ 	skb = __hci_cmd_sync(hdev, 0xfd98, sizeof(iso_param), &iso_param,
+ 			     HCI_INIT_TIMEOUT);
+ 	if (IS_ERR(skb)) {
++		usb_kill_anchored_urbs(&btmtk_data->isopkt_anchor);
+ 		bt_dev_err(hdev, "Failed to apply iso setting (%ld)", PTR_ERR(skb));
+ 		return PTR_ERR(skb);
+ 	}
+-- 
+2.56.0
+
