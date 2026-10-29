@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289889;
-	b=YKz+iAEt1P2oqFz/xdK2OBIZgYs+begaQFKyCnzOB39bCWniKETBKFXsePQDOe3JhIHL
-	 NwGIKY0wGwsl70TVoP4P+1IlSRnh16+cbcPibamdGaRF3t9DizoVRkdD0B0ze5/0AIQGO
-	 3C7Mm7qmWHCoAiJvGTGhKRNf+blUZsoMfumNaE5kvTVKBJFL9Q9hR0VIURqnDoxBP8H3F
-	 tQbJ9OgfaPz0IU+GJifgZ8KYIhdeBX2KBpUBTbyaqfbxeeRSVRv1TAYt5qttEZXD7OFeI
-	 pU/7HtV6f1SA/Ea2+nAEM+lreIqcXPYgo4cEJF/VX9d/PKzcZveqFfyOCKqEQafUueQ==
+	t=1793289891;
+	b=tminGAskRvrimiCEkNA10/NlsFX7naLU+4kV8OPNX7h2Wf1avJ7zFQnoMhBtsJB5zqGB
+	 jgcOziUTENJtgNytqX+sYGlSw1XwjNL+YUTKUV7PwaA4BzIhp6rkgA2gR7ZKTTG1qEbT8
+	 gzVa0nufrTiERIpvGnbmIIgCzZyb18WM5oMgeAZraaWtSfBqpldJ1CU5eN5WnHEKXdz0s
+	 N94WYkH0PGbKwsi0ORDSSUMclJU/GwASxEHwXzCoH6Ud0UScBDgR+xv8Zq7WYbvGYrZh8
+	 BIn/EOh7IQfh7mciCDcQ5uFP+eyIlMZI3pTwVlaTCR2B1pPjnGo483mfpSLJthtwdeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289889;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qVRLkBmwmg+TmfzMT50Xgy/KvRvwtW2uIgy7R70qgBk=;
-	b=Xkk+nCq5zSt4EUcwxEcWqLqsNkDobx6Jtl/O3Ev22QTo07HeAnzuU+1q2cu11ny4dhDI
-	 Takmdldn5u3lFcrInpabTDUbUKSbFgxKsFu+HlY1D60hwQ3NsarSAKmGXwRUwmoyGB0bG
-	 5CS7ZNISoPOdQFbm8yTjrEhM82N4IrlyVNWYyLszMN/kqkubCrDBJ2teGztDZ/xHOfK1W
-	 YCPnvkhW5/qquahSj0xNWlLMYRF9pKEdoWdzaWsZM2/Y5KOGtuLecx14UQLgtOfm1MxX3
-	 YmXtzAoM/OfnW5bLl+GFdbpJuHnPM4DZpkbZgDYPCp+7JK/EkuWxDQjNZCtuJptEePA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289891;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=Ujti69uAXYq3nrNEejy8limZ43MgliAb4aAxtO/+OGE=;
+	b=mjPdxl86FGtOKm91Gd/JzPVANitdVRgofnhxNolUyKvOF4wMYkANlAvFY9ne5hAPGE34
+	 aG9LopZO3Wo23zFR0SZ+7gg8F1vbMUnf4aJil3nldhF64MZUKDQWXPxgOqQbY4Ya2/8D2
+	 1aJ9PfeK5J1YjIvkHyyqP4M+EqJzDTSSElHwZj1P9OQXWTevGWNoZumKYJLpCoSmoYZAA
+	 KyRkQutcUijEAjbLDVlbUuh8qf6/3z61NSm25FKTIySzO2QsJuHxKohFxg73JA2l67SLO
+	 i6fJ4ikd9GE9ztPOqconhSdZLLAyk9MFK/dPXCEG/ioNlm/vxMFEpwQ3ent5efh/6vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Imn8dHmy;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OlYLzhR4;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C8C606A31C;
-	Thu, 29 Oct 2026 16:04:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C8C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1660F606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:04:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1660F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Imn8dHmy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=qVRLkBmwmg+TmfzMT50Xgy/KvRvwtW2uIgy7R70qgBk=; b=Imn8dHmy6kBxKHeJAUhZloX+Ef
-	ITtxnVSuM9fvcVrPBTUFfVEgLqU77+C2E0SEJlVFjEL0IzpuTX3f63KyjBzyosHAc5TLUhezwA56O
-	8yS4tLUblvA2zgnbO8B2JUCHzLsPUrXb915EXl26W2myXFxcvHeDVyYSQf7IwX4ua13t9QNIKA9Id
-	CXWQZYjaebKGHRwpoKzy9jcm1toZdtRwsnYwkgcFl5/dvCWKb7r9vDVxj0Lj6jA4NMIqdZxmVweTN
-	mT8CRwiV/4MUH8fc26WDXqZDqOXMQDqyqjm8lyloBi2+52KjBB8kDFuagrqDct4VaSm3MZmMRhv6q
-	m20mD1eg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMScR-00000009jhR-2orr;
-	Thu, 29 Oct 2026 16:04:47 +0000
-Message-ID: <58d11bf2-f5db-40e4-b367-de8ae7e31472@infradead.org>
-Date: Thu, 29 Oct 2026 09:04:46 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OlYLzhR4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793289890;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ujti69uAXYq3nrNEejy8limZ43MgliAb4aAxtO/+OGE=;
+	b=OlYLzhR42Qi83y/JGRJMf0p54MGey/4SGilKG0sM+x7aIlc4QM65lhN6gqVTjx6bFm+WG2
+	xqqg7cB5d/svpu/SbXXTRbveDb+GQP/wLUMbdx2YP4zZkU4JIiEhOWOlBsgq4+/d0BkTs2
+	//VdbxmT4gk1vWIOBHSnsJbYr5BBymA=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-313-djN2mtQlNgiWl8wg_aSqvQ-1; Thu,
+ 29 Oct 2026 12:04:47 -0400
+X-MC-Unique: djN2mtQlNgiWl8wg_aSqvQ-1
+X-Mimecast-MFC-AGG-ID: djN2mtQlNgiWl8wg_aSqvQ_1793289886
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 27730195FDE8;
+	Thu, 29 Oct 2026 16:04:46 +0000 (UTC)
+Received: from jtaubepe-thinkpadx1carbongen12.ibmlowe.csb (unknown [10.22.80.33])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6132F30002CB;
+	Thu, 29 Oct 2026 16:04:44 +0000 (UTC)
+From: Jesse Taube <jtaubepe@redhat.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Nimal Prabudoss I <nprabudo@redhat.com>,
+	jmeneghi@redhat.com,
+	Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-ETH-Storage-Upstream@marvell.com,
+	Jesse Taube <jtaubepe@redhat.com>
+Subject: [PATCH] scsi: qedf: Remove unesseary function call
+Date: Thu, 29 Oct 2026 12:04:43 -0400
+Message-ID: <20261029160443.904468-1-jtaubepe@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,64 +81,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] docs: ABI: power: rt9471: Add newline for
- paragraphs
-To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1793225920.git.waqar.hameed@axis.com>
- <98bc1b0dae37a68b4a5f148094459fabd5f4c867.1793225920.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <98bc1b0dae37a68b4a5f148094459fabd5f4c867.1793225920.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
+The result of `skb_transport_header` was unused. Calling this function
+warned when `skb_transport_header_was_set` returned false causing a
+panic on debug kernels.
 
+Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+---
+ drivers/scsi/qedf/qedf_main.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-On 10/28/26 3:39 PM, Waqar Hameed wrote:
-> To split paragraphs in reStructuredText, an empty line is needed.
-> Otherwise the output will be:
-> 
->   Access: Read, Write Valid values: - 1: enabled - 0: disabled
-> 
-> Add a newline in order to properly format it as intended.
-> 
-> Reported-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> Closes: https://lore.kernel.org/oe-kbuild-all/20261020101625.01874245@foz.lan/
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-> ---
->  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> index d4ea9c9a5a9b2..53393488ec419 100644
-> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
-> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
-> @@ -14,7 +14,9 @@ Description:
->  		Note: use /sys/class/power_supply/rt9471-\*/load_switch instead.
->  
->  		Access: Read, Write
-> +
->  		Valid values:
-> +
->  		- 1: enabled
->  		- 0: disabled
->  
-> @@ -29,6 +31,8 @@ Description:
->  		datasheet for details. Normally controlled when TypeC/USBPD port integrated.
->  
->  		Access: Read, Write
-> +
->  		Valid values:
-> +
->  		- 1: enabled
->  		- 0: disabled
-
+diff --git a/drivers/scsi/qedf/qedf_main.c b/drivers/scsi/qedf/qedf_main.c
+index da429b3a4283..f2bc0ac684e0 100644
+--- a/drivers/scsi/qedf/qedf_main.c
++++ b/drivers/scsi/qedf/qedf_main.c
+@@ -2496,7 +2496,6 @@ static void qedf_recv_frame(struct qedf_ctx *qedf,
+ 
+ 	/* Pull the header */
+ 	hp = (struct fcoe_hdr *)skb->data;
+-	fh = (struct fc_frame_header *) skb_transport_header(skb);
+ 	skb_pull(skb, sizeof(struct fcoe_hdr));
+ 	fr_len = skb->len - sizeof(struct fcoe_crc_eof);
+ 
 -- 
-~Randy
+2.56.0
+
