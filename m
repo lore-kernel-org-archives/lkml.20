@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240933;
-	b=VZUgPTI0448WLCg4jeCQFUAjgsiHaNp9li3Rhy5m4/HOrkeYh/WgEDPrScu9YQzZK7MQ
-	 RvTyBpaP0KWF536K+psaz4U9Tv4lBhXHM+XEgs+8HeAa7MpBYjlmlPVE9t3RrV7FVX+xn
-	 cj979X6TqI7R85ZGX8K+/fi7PfOAtUwvuS2/jcEnwKGndySdQigKwOnFGCZcWnZx0+71E
-	 63+yaVCPzlVoA1h09seheX7AEaQNaL5cKuMXNWkBZO1sy4opDfPES78NVdBxLRpsRqiZt
-	 nVokZJpKMPL00Ntw1iQho4VnlFLMoG1T3mkOe4DHfIfnL55K63UMKs2vSemzeSXTJmA==
+	t=1793240975;
+	b=Qp08Tjjcvuduj+H9V2UG1Gae/CQLegcxJ16CptOZTEgacpTYkwr1u8CarFEqmLY2C3ki
+	 1/LuPH3chnVI72mM20BhKIatR4UUes837eUyh04SGjcghXop3ygia6uPszX4aCJe2il+g
+	 zNi9MoXSwLVBZaxIwc/JCFSrDqyFYHvtfwM5FXzj/fdZwmyoDnnK3YcUVPY6AweuvC0Pa
+	 H8Zg4P6e0fRi0kaZUZ72ygYYviDqQPyzIk/IyGEl6J5M/CmVLLzeR/B3HCffF+XxlNctD
+	 TRTdt/CaeodmjDbUxJvmajpt4FNcSn2mxBYKcMqIjJD3nlCC4x9JbVrl784MEDt+ixA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240933;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240975;
 	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=20duY2IP7jPpe7YOxQQZaC4NVCUJp+5qNS+r+ht1Gj0=;
-	b=SFqwLgIu7KPTyluet1rsfow16yBEFVZ7lrg4Ic+ph82UI9l1ivDgytAr2sRHI2BEYnKb
-	 vVQK5YjlqHsZBFAxeJVbuYWGphI8YrE2mn/kbxZMAWXEr3Z5MexjPUny2YG4/nHwCDL7T
-	 7eAoyFL6t79PRmawqCPOP61znw2BTASd/uNJ7NTRRsA+1y6WrLuYP/c/wZTGmBkobtXyG
-	 iWiwg2rvKe6UaLMTUDI53YO/GKK90Kj8hJd+n3PNMcXRiErXLr7SARr+jARtYcEPcBBwC
-	 gVeBQXr1Zga50kwbYMrbDifu/QbgvZTUJMmXTui1dbwX48ijN8ArXdypLxCx+NCFLXg==
+	bh=SNAZgMWdago4QF2GOz0W0+f73cppO6R0b/wUNfoa/VU=;
+	b=PJefp054ydALSETOCgRf1RALffR5V1WucyOtFcoaGF4/SrZ2P4Rkq9+Y6yZVUBd9fRSq
+	 hyBRb7fLwwhDAWiUUudbkLBF30tSYbZnBW9aCAXGKJkQ8x+hLrd9eebCqrUyhBDtf0R2m
+	 GUcAYSTEyIlsjrxqbSgEdjNflp1jGiDcxh756QSnVMQnaojK7LE9TLEdoB/0WP9Ei+GXk
+	 c+VVMogmq2tjF2ZWsa1gA842IAKttgctxKMSHnCIFXoaPylL4N9mrD655dp1w6dFyLPvv
+	 xd1+yjG9KsUVrH/aO9lPIjBEf7Df3n2RGQzv7rXLfRQWupQPCsxvcdiN5o1cWi+UMsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hygon.cn;
 	spf=pass smtp.mailfrom=hygon.cn;
 	arc=none smtp.remote-ip=101.204.27.37
 Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF997606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF997606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BA64606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:29:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA64606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
 Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSpG6zMkz171Yp;
-	Thu, 29 Oct 2026 10:28:38 +0800 (CST)
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSq470Xhz171Yr;
+	Thu, 29 Oct 2026 10:29:20 +0800 (CST)
 Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSpG6rlVz171Yp;
-	Thu, 29 Oct 2026 10:28:38 +0800 (CST)
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSq32bswz171Yp;
+	Thu, 29 Oct 2026 10:29:19 +0800 (CST)
 Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 9C819314AC01;
-	Thu, 29 Oct 2026 10:28:15 +0800 (CST)
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 0AC65314AC01;
+	Thu, 29 Oct 2026 10:28:56 +0800 (CST)
 Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
  (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
- 2026 10:28:37 +0800
+ 2026 10:29:17 +0800
 From: Jianyong Wu <wujianyong@hygon.cn>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
 	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
@@ -56,9 +56,9 @@ CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
 	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
 	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
 	<yingzhiwei@hygon.cn>
-Subject: [RFC PATCH v3 04/17] sched/topology: Build triangular affinity orders for LLCs in a node
-Date: Thu, 29 Oct 2026 10:20:22 +0800
-Message-ID: <20261029022036.4002331-5-wujianyong@hygon.cn>
+Subject: [RFC PATCH v3 05/17] sched/topology: Walk LLCs in NUMA node
+Date: Thu, 29 Oct 2026 10:20:23 +0800
+Message-ID: <20261029022036.4002331-6-wujianyong@hygon.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029022036.4002331-1-wujianyong@hygon.cn>
 References: <20261029022036.4002331-1-wujianyong@hygon.cn>
@@ -76,192 +76,314 @@ Content-Type: text/plain
 X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
  (172.23.18.114)
 
-An earlier patch builds NUMA node affinity sequences. Build the LLC
-order within each node here. Ordering the remaining LLCs by ID would
-systematically favor low-ID LLCs, so use a triangular offset permutation.
+Cache-aware scheduling needs to walk the LLCs of a NUMA node, either by
+LLC ID or by their CPU spans. The existing LLC-to-node map records each
+LLC's node and rank, but does not provide a direct per-node walk.
 
-Assign each LLC a node-local rank in ascending LLC ID order. For a node
-with N LLCs, let M be the smallest power of two not less than N. Generate
-the triangular offsets T(i) = i * (i + 1) / 2 modulo M for i in [0, M),
-and discard offsets greater than or equal to N. Store the resulting
-permutation and its inverse for each node.
+Store LLC IDs grouped by node in ascending ID order and cache each LLC's
+CPU span in the RCU-published map. Add iterators for both forms of
+traversal; the span iterator skips empty spans, and both keep the map
+alive throughout the walk.
 
-For a preferred LLC with rank p, add p to each offset modulo N. For
-example, with four LLCs, the order starting at LLC0 is:
-
-  LLC0, LLC1, LLC3, LLC2
-
-Shifting the same offsets by the node-local rank of LLC1 gives:
-
-  LLC1, LLC2, LLC0, LLC3
-
-In the system-wide affinity order used by subsequent patches, the
-triangular LLC order applies only within the node containing the
-preferred LLC. Other nodes follow the NUMA affinity sequence rooted at
-that node, with LLCs within each remote node ordered by ascending LLC ID.
+Refresh the map after CPUs are attached to or detached from root domains.
+Also refresh it when a CPU gives up an LLC ID even if another CPU still
+holds that ID, so the cached spans reflect the current load-balanced CPUs.
 
 Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
 ---
- kernel/sched/sched.h    |  1 +
- kernel/sched/topology.c | 96 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 93 insertions(+), 4 deletions(-)
+ kernel/sched/sched.h    |  37 +++++++++++
+ kernel/sched/topology.c | 134 ++++++++++++++++++++++++++++++++++------
+ 2 files changed, 153 insertions(+), 18 deletions(-)
 
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 5d3fa5d70d16..b114b7cc813f 100644
+index b114b7cc813f..dec697c6a283 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -4108,6 +4108,7 @@ static inline bool sched_cache_enabled(void)
+@@ -4141,6 +4141,43 @@ sched_cache_numa_key_cmp(struct sched_cache_numa_key a,
+ 	return 0;
+ }
  
- extern void sched_cache_active_set(void);
- extern int llc_to_node(int llc);
-+extern int affi_llc_rank_of(int prefer_llc, int llc, int node);
- 
- /*
-  * Lexicographic node affinity key. Keep the raw NUMA distance as the first
++struct llc_node_iter {
++	const int *llc;
++	int nr;
++	int index;
++};
++
++/* Walk the LLC IDs of a node in ascending order under one RCU snapshot. */
++extern struct llc_node_iter llc_node_iter_begin(int node);
++extern int llc_node_iter_next(struct llc_node_iter *iter);
++
++#define for_each_llc_of_node(llc, node)					\
++	scoped_guard(rcu)						\
++		for (struct llc_node_iter __ln_iter =			\
++			     llc_node_iter_begin(node);			\
++		     ((llc) = llc_node_iter_next(&__ln_iter)) >= 0;)
++
++struct llc_node_span_iter {
++	const int *llc;
++	const void *span;
++	int nr;
++	int index;
++};
++
++/* Hold RCU continuously from begin() through the final next() call. */
++extern struct llc_node_span_iter llc_node_span_begin(int node);
++extern const struct cpumask *llc_node_span_next(struct llc_node_span_iter *iter);
++
++/*
++ * Visit @node's LLC spans in ascending LLC ID order. Empty spans are skipped.
++ * The body must not sleep.
++ */
++#define for_each_llc_node_span(node, span)					\
++	scoped_guard(rcu)							\
++		for (struct llc_node_span_iter __ls_iter =			\
++			     llc_node_span_begin(node);			\
++		     ((span) = llc_node_span_next(&__ls_iter)) != NULL;)
++
+ struct affi_node_order_iter {
+ 	const int *order;
+ 	int root;
 diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 8d0fd0f8a67a..512a9762b9a2 100644
+index 512a9762b9a2..37f1eeae9b7b 100644
 --- a/kernel/sched/topology.c
 +++ b/kernel/sched/topology.c
-@@ -696,6 +696,13 @@ DEFINE_STATIC_KEY_FALSE(sched_cluster_active);
-  */
- struct llc_node_map {
+@@ -698,14 +698,22 @@ struct llc_node_map {
  	int nr_llc;
-+	int nr_node;
-+	int *rank;		/* [nr_llc]: ascending LLC ID rank within its node */
-+	int *offset;		/* [nr_llc]: triangular offsets, grouped by node */
-+	int *inverse;		/* [nr_llc]: position of each offset */
-+	int *node_count;	/* [nr_node]: number of LLCs in each node */
-+	int *node_offset;	/* [nr_node]: start of each node's offset slice */
-+	/* One allocation contains node[] and all the arrays above. */
+ 	int nr_node;
+ 	int *rank;		/* [nr_llc]: ascending LLC ID rank within its node */
++	int *node_llc;		/* [nr_llc]: IDs grouped by node, in rank order */
+ 	int *offset;		/* [nr_llc]: triangular offsets, grouped by node */
+ 	int *inverse;		/* [nr_llc]: position of each offset */
+ 	int *node_count;	/* [nr_node]: number of LLCs in each node */
+-	int *node_offset;	/* [nr_node]: start of each node's offset slice */
++	int *node_offset;	/* [nr_node]: start of each node's LLC/offset slice */
++	void *span;		/* cpumask_size() bytes per LLC ID */
+ 	/* One allocation contains node[] and all the arrays above. */
  	int node[];
  };
  
-@@ -901,22 +908,56 @@ int llc_to_node(int llc)
- 	return node;
- }
- 
-+/* Build one triangular permutation and its inverse for each node's LLCs. */
-+static void build_llc_offsets(struct llc_node_map *map)
++/* The span array holds cpumask_size() bytes per LLC; never index it with []. */
++static inline struct cpumask *llc_span_at(const void *span, int llc)
 +{
-+	int node;
-+
-+	for (node = 0; node < map->nr_node; node++) {
-+		unsigned int mod = 1, pos = 0, i, index = 0;
-+		int nr = map->node_count[node];
-+		int base = map->node_offset[node];
-+
-+		if (!nr)
-+			continue;
-+		while (mod < nr)
-+			mod <<= 1;
-+		for (i = 0; i < mod; i++) {
-+			if (pos < nr) {
-+				map->offset[base + index] = pos;
-+				map->inverse[base + pos] = index++;
-+			}
-+			pos = (pos + i + 1) & (mod - 1);
-+		}
-+	}
++	return (void *)span + (size_t)llc * cpumask_size();
 +}
 +
+ static struct llc_node_map __rcu *llc_to_node_map;
+ static void rebuild_llc_node_map(int size);
+ 
+@@ -935,25 +943,33 @@ static void build_llc_offsets(struct llc_node_map *map)
  static void rebuild_llc_node_map(int size)
  {
  	struct llc_node_map *new_map, *old_map;
-+	size_t entries;
+-	size_t entries;
++	size_t entries, span_off;
  	int cpu, llc, node;
  
  	lockdep_assert_held(&sched_domains_mutex);
  	if (size <= 0)
  		goto fail;
  
--	new_map = kzalloc(struct_size(new_map, node, size), GFP_KERNEL);
-+	entries = size_add(size_mul(size, 4), size_mul(nr_node_ids, 2));
-+	new_map = kzalloc(struct_size(new_map, node, entries), GFP_KERNEL);
+-	entries = size_add(size_mul(size, 4), size_mul(nr_node_ids, 2));
+-	new_map = kzalloc(struct_size(new_map, node, entries), GFP_KERNEL);
++	entries = size_add(size_mul(size, 5), size_mul(nr_node_ids, 2));
++	span_off = struct_size(new_map, node, entries);
++	if (span_off == SIZE_MAX)
++		goto fail;
++	span_off = ALIGN(span_off, sizeof(unsigned long));
++	/* The spans grow with nr_llc * nr_cpu_ids; avoid high-order kmalloc. */
++	new_map = kvzalloc(size_add(span_off, size_mul(size, cpumask_size())),
++			   GFP_KERNEL);
  	if (!new_map)
  		goto fail;
  
  	new_map->nr_llc = size;
--	for (llc = 0; llc < size; llc++)
-+	new_map->nr_node = nr_node_ids;
-+	new_map->rank = new_map->node + size;
-+	new_map->offset = new_map->rank + size;
-+	new_map->inverse = new_map->offset + size;
-+	new_map->node_count = new_map->inverse + size;
-+	new_map->node_offset = new_map->node_count + nr_node_ids;
-+	for (llc = 0; llc < size; llc++) {
+ 	new_map->nr_node = nr_node_ids;
+ 	new_map->rank = new_map->node + size;
+-	new_map->offset = new_map->rank + size;
++	new_map->node_llc = new_map->rank + size;
++	new_map->offset = new_map->node_llc + size;
+ 	new_map->inverse = new_map->offset + size;
+ 	new_map->node_count = new_map->inverse + size;
+ 	new_map->node_offset = new_map->node_count + nr_node_ids;
++	new_map->span = (void *)new_map + span_off;
+ 	for (llc = 0; llc < size; llc++) {
  		new_map->node[llc] = NUMA_NO_NODE;
-+		new_map->rank[llc] = -1;
-+	}
- 
+ 		new_map->rank[llc] = -1;
+@@ -962,17 +978,23 @@ static void rebuild_llc_node_map(int size)
  	/*
  	 * for_each_possible_cpu() revisits the same LLC non-consecutively
-@@ -929,10 +970,22 @@ static void rebuild_llc_node_map(int size)
- 		if (llc < 0 || llc >= size || new_map->node[llc] >= 0)
+ 	 * under SMT (each node's LLCs are walked once per thread), so
+-	 * dedup by populated node entries, not by comparing against the
+-	 * immediately preceding CPU's llc.
++	 * assign the node once by checking populated node entries, not by
++	 * comparing against the immediately preceding CPU's llc.
+ 	 */
+ 	for_each_possible_cpu(cpu) {
+ 		llc = per_cpu(sd_llc_id, cpu);
+-		if (llc < 0 || llc >= size || new_map->node[llc] >= 0)
++		if (llc < 0 || llc >= size)
  			continue;
- 		node = cpu_to_node(cpu);
--		if (node >= 0 && node < nr_node_ids && node_possible(node))
--			new_map->node[llc] = node;
-+		if (node < 0 || node >= new_map->nr_node || !node_possible(node))
-+			continue;
-+		new_map->node[llc] = node;
+-		node = cpu_to_node(cpu);
+-		if (node < 0 || node >= new_map->nr_node || !node_possible(node))
+-			continue;
+-		new_map->node[llc] = node;
++		if (new_map->node[llc] < 0) {
++			node = cpu_to_node(cpu);
++			if (node < 0 || node >= new_map->nr_node ||
++			    !node_possible(node))
++				continue;
++			new_map->node[llc] = node;
++		}
++		/* CPUs detached from load-balanced domains keep their LLC IDs. */
++		if (cpu_rq(cpu)->rd != &def_root_domain)
++			cpumask_set_cpu(cpu, llc_span_at(new_map->span, llc));
  	}
  
-+	/* Rank LLCs by ascending ID, independently of CPU enumeration order. */
+ 	/* Rank LLCs by ascending ID, independently of CPU enumeration order. */
+@@ -984,6 +1006,12 @@ static void rebuild_llc_node_map(int size)
+ 	for (node = 1; node < new_map->nr_node; node++)
+ 		new_map->node_offset[node] = new_map->node_offset[node - 1] +
+ 					     new_map->node_count[node - 1];
 +	for (llc = 0; llc < size; llc++) {
 +		node = new_map->node[llc];
 +		if (node >= 0)
-+			new_map->rank[llc] = new_map->node_count[node]++;
++			new_map->node_llc[new_map->node_offset[node] +
++					  new_map->rank[llc]] = llc;
 +	}
-+	for (node = 1; node < new_map->nr_node; node++)
-+		new_map->node_offset[node] = new_map->node_offset[node - 1] +
-+					     new_map->node_count[node - 1];
-+	build_llc_offsets(new_map);
-+
- publish:
- 	old_map = rcu_dereference_protected(llc_to_node_map,
- 					    lockdep_is_held(&sched_domains_mutex));
-@@ -1154,6 +1207,41 @@ int affi_node_rank_of(int prefer_node, int node)
- 	return topo->rank[(size_t)prefer_node * topo->size + node];
- }
+ 	build_llc_offsets(new_map);
  
-+/*
-+ * Return @llc's position in @prefer_llc's intra-node affinity order.
-+ * The preferred LLC is first; the other positions follow the triangular
-+ * offset permutation of the node-local LLC ranks.
-+ *
-+ * Mapping, ranks and counts come from the same RCU snapshot. Return -1
-+ * if the topology is unavailable or either LLC does not belong to @node.
-+ */
-+int affi_llc_rank_of(int prefer_llc, int llc, int node)
+ publish:
+@@ -2464,6 +2492,69 @@ const struct cpumask *tl_mc_mask(struct sched_domain_topology_level *tl, int cpu
+ 
+ #define llc_mask(cpu) arch_llc_mask(cpu)
+ 
++#ifdef CONFIG_SCHED_CACHE
++/* The iterator's LLC slice remains valid throughout the caller's RCU scope. */
++struct llc_node_iter llc_node_iter_begin(int node)
 +{
++	struct llc_node_iter iter = {};
 +	struct llc_node_map *map;
-+	int delta, nr, base;
 +
-+	if (prefer_llc < 0 || llc < 0 || node < 0)
-+		return -1;
++	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(), "LLC walk without RCU");
++	map = rcu_dereference_all(llc_to_node_map);
++	if (!map || node < 0 || node >= map->nr_node)
++		return iter;
 +
-+	guard(rcu)();
-+	map = rcu_dereference(llc_to_node_map);
-+	if (!map || prefer_llc >= map->nr_llc || llc >= map->nr_llc ||
-+	    node >= map->nr_node || map->node[prefer_llc] != node ||
-+	    map->node[llc] != node)
-+		return -1;
-+
-+	nr = map->node_count[node];
-+	if (!nr || map->rank[prefer_llc] < 0 || map->rank[llc] < 0 ||
-+	    map->rank[prefer_llc] >= nr || map->rank[llc] >= nr)
-+		return -1;
-+
-+	delta = map->rank[llc] - map->rank[prefer_llc];
-+	if (delta < 0)
-+		delta += nr;
-+	base = map->node_offset[node];
-+	return map->inverse[base + delta];
++	iter.nr = map->node_count[node];
++	iter.llc = map->node_llc + map->node_offset[node];
++	return iter;
 +}
 +
- /*
-  * Get the effective LLC size in bytes that @cpu's bottom sched_domain
-  * can use. A CPU within a cpuset partition can only use a proportion
++int llc_node_iter_next(struct llc_node_iter *iter)
++{
++	if (iter->index >= iter->nr)
++		return -1;
++
++	return iter->llc[iter->index++];
++}
++
++/* The iterator's arrays remain valid throughout the caller's RCU scope. */
++struct llc_node_span_iter llc_node_span_begin(int node)
++{
++	struct llc_node_span_iter iter = {};
++	struct llc_node_map *map;
++	int base;
++
++	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(), "LLC span read without RCU");
++	map = rcu_dereference_all(llc_to_node_map);
++	if (!map || node < 0 || node >= map->nr_node)
++		return iter;
++
++	base = map->node_offset[node];
++	iter.nr = map->node_count[node];
++	iter.llc = map->node_llc + base;
++	iter.span = map->span;
++
++	return iter;
++}
++
++const struct cpumask *llc_node_span_next(struct llc_node_span_iter *iter)
++{
++	const struct cpumask *span;
++	int llc;
++
++	while (iter->index < iter->nr) {
++		llc = iter->llc[iter->index++];
++		span = llc_span_at(iter->span, llc);
++		if (cpumask_empty(span))
++			continue;
++
++		return span;
++	}
++
++	return NULL;
++}
++#endif /* CONFIG_SCHED_CACHE */
++
+ const struct cpumask *tl_pkg_mask(struct sched_domain_topology_level *tl, int cpu)
+ {
+ 	return cpu_node_mask(cpu);
+@@ -3426,7 +3517,7 @@ static int __sched_domains_alloc_llc_id(void)
+ 	return lid;
+ }
+ 
+-/* Return true only when the last CPU releases the LLC ID. */
++/* Return true if @cpu held an LLC ID, whether or not the ID is released. */
+ static bool __sched_domains_free_llc_id(int cpu)
+ {
+ 	int i, lid, max;
+@@ -3442,7 +3533,7 @@ static bool __sched_domains_free_llc_id(int cpu)
+ 	for_each_cpu(i, llc_mask(cpu)) {
+ 		/* An online CPU owns the llc_id. */
+ 		if (per_cpu(sd_llc_id, i) == lid)
+-			return false;
++			return true;
+ 	}
+ 
+ 	__cpumask_clear_cpu(lid, sched_domains_llc_id_allocmask);
+@@ -3458,6 +3549,7 @@ void sched_domains_free_llc_id(int cpu)
+ {
+ 	sched_domains_mutex_lock();
+ #ifdef CONFIG_SCHED_CACHE
++	/* Drop @cpu from the LLC span even if another CPU still holds the ID. */
+ 	if (__sched_domains_free_llc_id(cpu))
+ 		rebuild_llc_node_map(max_lid + 1);
+ #else
+@@ -3532,10 +3624,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
+ 		}
+ 	}
+ 
+-#ifdef CONFIG_SCHED_CACHE
+-	/* The map depends on assigned LLC IDs, not on sd_llc allocations. */
+-	rebuild_llc_node_map(max_lid + 1);
+-#endif
+ 	if (WARN_ON(!topology_span_sane(cpu_map)))
+ 		goto error;
+ 
+@@ -3608,6 +3696,11 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
+ 	}
+ 	rcu_read_unlock();
+ 
++#ifdef CONFIG_SCHED_CACHE
++	/* LLC spans depend on the root domains just attached. */
++	rebuild_llc_node_map(max_lid + 1);
++#endif
++
+ 	if (has_asym)
+ 		static_branch_inc_cpuslocked(&sched_asym_cpucapacity);
+ 
+@@ -3723,6 +3816,11 @@ static void detach_destroy_domains(const struct cpumask *cpu_map)
+ 	for_each_cpu(i, cpu_map)
+ 		cpu_attach_domain(NULL, &def_root_domain, i);
+ 	rcu_read_unlock();
++
++#ifdef CONFIG_SCHED_CACHE
++	/* Detaching CPUs must also remove them from the published LLC spans. */
++	rebuild_llc_node_map(max_lid + 1);
++#endif
+ }
+ 
+ /* handle null as "default" */
 -- 
 2.34.1
 
