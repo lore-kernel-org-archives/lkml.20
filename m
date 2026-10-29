@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306010;
-	b=IQvhBuQ47w6P2Or7MvrU9ap6/BqP8UqIit5AbwZ7ECNwJwcbgJjhmyF5InORVxO8zNEY
-	 KvptiMi7y+LyBFWAXc6fZaBRj98TVuV99Z9Y+f+l4z1d+05FViy6oD+qg2c0R/qIQgBu6
-	 f0IskNJ0iRzplc+WUn7pRBFKBAQf7VxY32Smo2S8uL4MgSrIwYAwMV8t7IdDjWJT0dozG
-	 Mb7C30E+Q53mQBn+SRTseDxJgpQQpwh/MU5+YLGf4mFV04dxTp4W7OjDlKa+kAHEhSu9Q
-	 6FMHrUkhNZUbjnFBF7iMFG1ZEdGAW9ce9k6F9nNADtLRGxaDJitAe+BId+eX1o5ZhOA==
+	t=1793306015;
+	b=3wufJ27WXW1OyL8xg7/+4bD5DWM4N1ogg9B8koyl81Rrpy4AnmQ8TZiReR4/vPh2dBsi
+	 et/GzOUKDZSWQ4EplLQ8E44i0Ey7zaG2/zG9lsDo8GuWPimH0CdAirBYrviqF0BYrDBOL
+	 c29H/jQjws8SSobJLn1ftYUHA1a8lUQMDzF1EgwVA1HxGl2IAZSK4n7mQxJXjHUPVPH/f
+	 UmGswV7luedgWQ3ps0BFNBcKOD4Mu6YYBRYqoAnP+ta7CHnZ6q7kXc1qdKvsifVuDn9xA
+	 arxY29Z8sHCNs1uVHL/SvxbeTg8rSz10JRD6LHuFKMYfHC6Xv638KFHQu32P8i5iJjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306010;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=tDfMnHPOVxE98+9TE/nBvfLsdX5oZKXJTQxV9ofrPB8=;
-	b=BSVEUo+8DU86XNSluYgwnoF2iiFf6mzwyqN6QWmmJyCMUDzPNGPh1IDKpx5NmVz856IC
-	 oNIoZ880Vn37+o+VOHMamO5rMdciB6VCciAfuiMgL38MgydVmtxJEe1V7Zg3uPIU5KbWr
-	 6dUB5w1gpJVjVH0YQGiUk+sV9aFGg0myBem3tkdzDzNySHnws5RVXDcMhVlNdJVe/wPPM
-	 kxYPNokm/6c9QAHYNziH/fVx4V93jrwh/RPKqauIoYgBeweEuV8LnGbgt39uTVKSIY+NX
-	 BYZ18sDXZyPzCsAyOdiCHWT9a/eG9Sr118VHY6xiO1zVxIIqc4yY3AbkvuhO9vHjc9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306015;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=17oxeHm4MUFXx8oUnMg2RFZzsT/fdDnqLdZR64DpZFo=;
+	b=mdpw2Fo1nL/Lks+qtKiV15pyR3mA7gdxD73z7Bui7GrLg3oKV3y1HFk0FTVv7o2EDiS1
+	 6lXFuAnkH7I/pwbvcoTXYprM5WHtIMJvwEMQSsTubXzjIUrO07Bgts+q3Uy3Gmlf16OjS
+	 UwLyD1M144xxlCWj+OehrRREzw36yOuVTrOcb1TzBrHmQMwR9d7j8irwGvzA/+SAC195L
+	 u789fNii23zEiTEEMBEuWV6vuqTHIi7m9Esm2tUdBuHHzv3ZHt4JY3MIYzbGEBOSHkMJ8
+	 mscXbelQeGaNsWW7BwnWp1CfgTaKoGVvg/U3lMk3S3DIyvGqxxCxU4fKSPPWyPXLPhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jVFy5+f3;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNcaCASB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E555360A2601
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E555360A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81989606A33F;
+	Thu, 29 Oct 2026 20:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jVFy5+f3
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad7030e886so15515a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793306009; x=1793910809; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tDfMnHPOVxE98+9TE/nBvfLsdX5oZKXJTQxV9ofrPB8=;
-        b=jVFy5+f39q99V15VIlErwgQ/W4JaK3puuVFnmWxDh5qTYdzYTJm/i5S26DvU74eokY
-         dEBszj0wP7s60Ia5DwLR246rhtEnlUJLcrW89C+l/iTHE05Mgyua3tJU2eIIVEn7QGa2
-         1tP7NcSxuZN+unp/iskwvxXQ1DN9j+EpgKQftNQ1WYbq/mOK4Q7833DHO/d3tcd2rg0y
-         yHshEZmt8XPPm7p82kjx5mH6lZZMkBSmHaAzogxKryBwnvlU4dmXHUnd+h4jJyPAeX6i
-         g1KvAV2uq3R4Ybl9rxrMFMQwuWvdlwGlpZPDprdmvJXJM0Tq5Na/aG/AruA+chpCVvcC
-         oqqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306009; x=1793910809;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tDfMnHPOVxE98+9TE/nBvfLsdX5oZKXJTQxV9ofrPB8=;
-        b=XjvcFEBrumwqEB+HAeVyi/eL7Vtd2sUpjQnFvIwpDB454+rmpH2C1ExGtP4PG9PjFU
-         FwvTcsuBlYLEsvaWTUaa3NF8b7vfmxr5wvGWLlzftWPuYmkQ3HtKphzHRUB/Sgr00Cnp
-         zwSEk1cnF8VlwX7zkshDwq+DaKlLcvQSjtiXTksGNUp8S1RuCGZuK4Lnw8g4oytysCq3
-         1kN+EuGj6hM1h4go5PpFIdGB8hcufwTQzQcRR1eAOz4Sj5sRgrzbwwyjgVVx3dJBnwvR
-         4qrbIxAaLjS+VkcsmICLeWszkRcYoI2oTPN8h+7C4u0NHmpuOM8YMe3Rl45xLzecuHMi
-         q6mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMWs1V5SOSEaD7iC5R8bBJLL5Vj+wGOyNShl3QSYqwBK9JG/CmiyzowqqK0OW6KJiVEJcXR3a+VkMJusE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHuDeZQ3VK+AQcVelQ9Ubzn4Lu5eWgMK/LsjuLUse7QIySjYRx
-	mo4WWdNw0sy5QXvkP5MObj5Q9mHRTxJXp4DDYYj9bsfxv0NI/9Xafg3Jcxj/BvNcIrP6j+tn6dN
-	aQpdy3pXlAaFsbA==
-X-Received: from pjff12.prod.google.com ([2002:a17:90b:562c:b0:3a6:daac:15d1])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3812:b0:3ad:183f:5e3a with SMTP id 98e67ed59e1d1-3ae89574cc8mr139687a91.4.1793306009170;
- Thu, 29 Oct 2026 13:33:29 -0700 (PDT)
-Date: Thu, 29 Oct 2026 20:33:22 +0000
-In-Reply-To: <20261029203324.1637772-1-dmatlack@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNcaCASB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37FAB1F01816;
+	Thu, 29 Oct 2026 20:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793306010;
+	bh=17oxeHm4MUFXx8oUnMg2RFZzsT/fdDnqLdZR64DpZFo=;
+	h=From:Subject:Date:To:Cc;
+	b=CNcaCASBkr58BkeV5FzL0HNWxoVf1d7Rlajv79gTSCyzTkE8UVWkZWDPi59dKuXSW
+	 tWfLF5byrXEIpUod1i7TmvAQrkDvnZIO8uC3fwEZiU19cxoq6PjqXRCIQUWyYVJMmR
+	 3f3VeRic4DZCtZoT2rZwcT8OKgjKALj4Va6fiVeF0s2liIDTHEUsosMuXu+ebxh9eP
+	 XKtThH4+3G61SbynruUTIxI4Y3GDMDDoOnZXAzDMFS6EXvBjLU74Enzg21lax2P+xB
+	 n3IUmfliGEAzxoPxrHihHpIEGdSLCRYA3KavBEzvEvIu9U1pjyEGX9blFs8OsTZh30
+	 VWwR7B9C577mQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH v2 00/47] mm: various (urgent?) fixes
+Date: Thu, 29 Oct 2026 21:32:55 +0100
+Message-Id: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,85 +52,193 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029203324.1637772-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029203324.1637772-4-dmatlack@google.com>
-Subject: [PATCH 3/5] vfio: selftests: Add vfio_pci_find_capability()
-From: David Matlack <dmatlack@google.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
-	David Matlack <dmatlack@google.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah Khan <shuah@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHet42oC/02NQQ6CMBBFr0JmbU1bFNSV9zDEtGUKVdKaKRIN6
+ d0tGBOXL/P+mxkiksMIp2IGwslFF3wGuSnA9Mp3yFybGSSXleBSMOteGK8mEDLd2qo8WGW5LCE
+ PHoTrNfuX5svxqW9oxqWwGL2LY6D3+m0Si/cL1//hSTDOKlvvNJqj2mt9viN5HLaBOmhSSh9Rf
+ FwQtwAAAA==
+X-Change-ID: 20261021-fixes_core-bdf638faf023
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ Mani Tofigh <mt4022@columbia.edu>, Samiullah Khawaja <skhawaja@google.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5939; i=david@kernel.org;
+ h=from:subject:message-id; bh=cGtcVx8+Zxqn025k2zdD4rFE67pcocOs1hUqk8Z4pYg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer63lutW86ETmr4pGiRuTg2c/XsmStPHZeYP33AvDX
+ z4/yBnO3lHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEzJsZ/nAvcHbjOWt1P8rv
+ oLzhlrKSH1esZfhSEm59EAhUYb31vRyoojiz+6yxg2Nj2W/18INnPfMDTe7w3nowg929pVxpsR0
+ 3AA==
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Add a helper to find the config space offset of a capability in a
-device's standard capability list, mirroring the kernel's
-pci_find_capability(). Return 0 if the device does not have the
-capability.
+See v1 on details. TL;DR various fixes :)
 
-This will be used in a subsequent commit to locate the PM capability.
+Thanks to everyone for the review! Hoping I can get some more? :)
 
-Signed-off-by: David Matlack <dmatlack@google.com>
+I am planning on picking these myself, moving them to linux-next fairly
+soon through mm/core.git.
+
 ---
- .../lib/include/libvfio/vfio_pci_device.h     |  7 ++++++
- .../selftests/vfio/lib/vfio_pci_device.c      | 25 +++++++++++++++++++
- 2 files changed, 32 insertions(+)
+Changes in v2:
+- "mm/memfd: check for real shmem inodes before accessing shmem state"
+ - Call it inode_is_shmem
+- "mm/truncate: look again if a folio left the mapping"
+ - Different fix for truncate_inode_pages_range
+ - Adjust description
+- "mm/huge_memory: fix zapping migration entries for device-private THPs"
+ - Move handling in zap_deposited_table
+- "mm/mmu_gather: fix flushing ranges with 4 GiB or larger"
+ - Adjust description"
+- "mm/huge_memory: split huge PUDs when adjusting VMA boundaries"
+ - Drop split_pud check
+- Link to v1: https://patch.msgid.link/20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org
 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-index 007adc322c1e..1839e95cc792 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_device.h
-@@ -79,6 +79,13 @@ void vfio_pci_config_access(struct vfio_pci_device *device, bool write,
- #define vfio_pci_config_writew(_d, _o, _v) vfio_pci_config_write(_d, _o, _v, u16)
- #define vfio_pci_config_writel(_d, _o, _v) vfio_pci_config_write(_d, _o, _v, u32)
- 
-+/*
-+ * Return the config space offset of the first capability with the given ID
-+ * (PCI_CAP_ID_*) in the device's standard capability list, or 0 if the device
-+ * does not have the capability.
-+ */
-+u8 vfio_pci_find_capability(struct vfio_pci_device *device, u8 cap_id);
-+
- static inline void vfio_pci_cmd_set(struct vfio_pci_device *device, u16 bits)
- {
- 	u16 cmd = vfio_pci_config_readw(device, PCI_COMMAND);
-diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-index 4063a0e2b3df..2afbc465d30c 100644
---- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-+++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
-@@ -260,6 +260,31 @@ void vfio_pci_config_access(struct vfio_pci_device *device, bool write,
- 		       write ? "write to" : "read from", config);
- }
- 
-+/* Bound the capability list walk in case the list contains a loop. */
-+#define PCI_FIND_CAP_TTL 48
-+
-+u8 vfio_pci_find_capability(struct vfio_pci_device *device, u8 cap_id)
-+{
-+	int ttl = PCI_FIND_CAP_TTL;
-+	u8 pos;
-+
-+	if (!(vfio_pci_config_readw(device, PCI_STATUS) & PCI_STATUS_CAP_LIST))
-+		return 0;
-+
-+	pos = vfio_pci_config_readb(device, PCI_CAPABILITY_LIST);
-+
-+	while (pos >= PCI_STD_HEADER_SIZEOF && ttl--) {
-+		pos &= ~3;
-+
-+		if (vfio_pci_config_readb(device, pos + PCI_CAP_LIST_ID) == cap_id)
-+			return pos;
-+
-+		pos = vfio_pci_config_readb(device, pos + PCI_CAP_LIST_NEXT);
-+	}
-+
-+	return 0;
-+}
-+
- int __vfio_pci_device_reset(struct vfio_pci_device *device)
- {
- 	if (ioctl(device->fd, VFIO_DEVICE_RESET, NULL))
--- 
-2.56.0.317.g454f8302e1-goog
+---
+
+Chris Mason (11):
+      mm/huge_memory: fix truncate racing with PMD zapping
+      mm/huge_memory: fix zapping migration entries for device-private THPs
+      mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
+      mm/gup: fix clearing folios in memfd_pin_folios()
+      mm/gup: fix out-of-bounds write for nr_pages == 0 in GUP-fast
+      mm/mmu_notifier: set ->mm only after mmgrab()
+      mm/memory: reject remote COW faults on PFN mappings
+      mm: fix unkillable fault loop on MAP_DROPPABLE memory
+      mm: fix deadlock of mremap() against UFFDIO_MOVE
+      mm/ksm: check large swap-cache folios before mapping them
+      mm/vma: call ->may_split() before a partial merge
+
+David Hildenbrand (Arm) (20):
+      fork: take mmap_lock before copying mm_struct
+      mm/memfd: check for real shmem inodes before accessing shmem state
+      mm/truncate: look again if a folio left the mapping
+      mm/filemap: finish fault cleanup before dropping the fault lock
+      mm/rmap: handle device-exclusive entries in folio_referenced_one()
+      mm/huge_memory: fix list corruption when deferred_split_scan() races with deferred_split_folio()
+      mm/huge_memory: properly handle refcounted PUD mappings on fork
+      mm/khugepaged: check if PTE table is empty in try_collapse_pte_mapped_thp()
+      mm/gup: recheck the PUD under PTL in follow_pud_mask()
+      mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast
+      mm/userfaultfd: write-lock the VMA before waking waiters when unregistering
+      mm/userfaultfd: wake waiters when registration modes are removed
+      mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
+      mm/mremap: recheck PUDs under the page table lock
+      mm/madvise: fix data loss from MADV_FREE on a KSM page
+      mm/ksm: reset the unstable trees of all nodes
+      mm/ksm: fix use of a freed anon_vma at swap-in
+      mm/huge_memory: split huge PUDs when adjusting VMA boundaries
+      mm/vma: don't leak the charge for stack growth
+      mm/memory-tiers: unregister empty tiers outside memory_tier_lock
+
+Gregory Price (1):
+      mm/userfaultfd: compare exact registration modes before skipping
+
+Josef Bacik (14):
+      mm/mglru: don't use stack pointers when walking PUD and PMD tables
+      mm/memfd: make f_pos accesses atomic
+      mm/filemap: read mapping->a_ops->free_folio under i_lock
+      mm/filemap: don't lose a folio lock wakeup to a signal
+      mm/huge_memory: fix livelock on device private folio
+      mm/khugepaged: always recheck the pmd in try_collapse_pte_mapped_thp()
+      mm/khugepaged: fix PMD table lock leak in try_collapse_pte_mapped_thp()
+      mm/userfaultfd: wake all waiters on unregister
+      mm/mmu_gather: fix flushing ranges with 4 GiB or larger
+      mm/mmu_notifier: finish non-blocking interval invalidation on error
+      mm/mremap: fix moving PUD leaves
+      mm/memory_hotplug: avoid races in pfn_to_online_page() with dying pgmap
+      mm: fix unmap_mapping_range() beyond 4 GiB on 32-bit
+      fs/proc/task_mmu: refuse addresses beyond 32 bits on 32bit
+
+Rik van Riel (1):
+      mm/cma: don't release CMA pages still in use
+
+ fs/proc/task_mmu.c            |   6 ++
+ include/asm-generic/tlb.h     |   3 +-
+ include/linux/huge_mm.h       |   5 +-
+ include/linux/ksm.h           |   6 +-
+ include/linux/memremap.h      |   6 ++
+ include/linux/mmu_notifier.h  |   3 +-
+ include/linux/shmem_fs.h      |   6 ++
+ include/linux/userfaultfd_k.h |   2 -
+ kernel/fork.c                 |  20 ++++--
+ mm/cma.c                      |  10 ++-
+ mm/filemap.c                  |  88 ++++++++++++-------------
+ mm/gup.c                      |  53 ++++++++++-----
+ mm/huge_memory.c              | 146 +++++++++++++++++++++++++++++++-----------
+ mm/hugetlb.c                  |  14 +---
+ mm/internal.h                 |  28 ++++++++
+ mm/khugepaged.c               |  77 +++++++++++-----------
+ mm/ksm.c                      |  56 ++++++++++++----
+ mm/madvise.c                  |   9 +++
+ mm/memfd.c                    |  10 ++-
+ mm/memfd_luo.c                |   2 +-
+ mm/memory-tiers.c             |  29 ++++-----
+ mm/memory.c                   |  30 ++++++---
+ mm/memory_hotplug.c           |  13 ++--
+ mm/memremap.c                 |  13 ++++
+ mm/mmap.c                     |   8 +--
+ mm/mmu_notifier.c             |  24 +++++--
+ mm/mremap.c                   | 103 +++++++++++++----------------
+ mm/nommu.c                    |   2 +-
+ mm/rmap.c                     |  23 +++++--
+ mm/shmem.c                    |   5 ++
+ mm/swapfile.c                 |   3 +-
+ mm/truncate.c                 |  13 +++-
+ mm/userfaultfd.c              |  75 ++++++++++------------
+ mm/util.c                     |  13 ++++
+ mm/vma.c                      |  24 +++++--
+ mm/vmscan.c                   |   4 +-
+ 36 files changed, 585 insertions(+), 347 deletions(-)
+
+---
+
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+
+change-id: 20261021-fixes_core-bdf638faf023
+
+--
+
+Cheers,
+
+David
 
