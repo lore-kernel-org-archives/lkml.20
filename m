@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285119;
-	b=1dZwOXCioAPVzWJ1LfYp7+84vGExfa96GD1Z7a7dKOAHHUHBtcBt3tTim9Tl343MMW6S
-	 upVjiUGeRLVkL705J6HqP0oEA9h9VEal3I5G4oQqV2xU+lNrM/JlY2MGEEGlzPie9dMQe
-	 hvP10cDNFDBjGDmNUGiDdPjJqNhT/HJlollHFAsUNLR6KRdBy4ju2nsS0GPuutqPr5ZLo
-	 NeHqRK2jHlHLC4JeQXgQFM7Sh8kyF+2pALyWesmox7aq77reI7Dofm2dKpJcyxtFaRmz/
-	 7++UPDi40OtEk6EmUXP5IJSsR8pL3gLKcDqD91+OYQ9SImWfeeW3sSKJZFci0ql0ESw==
+	t=1793285129;
+	b=GNWyc4ak+S7jd4uKRaFMXa4D8Cl+a4qrjEmkiiG0oku2vg1N0M23X188tHo67jiCqJQI
+	 kWOm6BW/zZJhK19qhM3jcekdSqO1jqmczvJuNZ+3/kABwB3GivsEJl++0WF0jqpVdflV+
+	 pwkIdH9Vw19mBSJt+Jwl714QjQ5WgQQbW5ydbPVYHau/2jWYqJ6Im/UrVOI9yGBfgHk10
+	 JuZ3xBU8BY4rRfw7lrbZTXKTLvRlqwJdu8Pyu69BbzU9U9oZW/cozg841C0nxfbpOxGG2
+	 EFwQoGpuen8GCv4F88bk/rbr19XSjt8dtGvoclXuCTi9CK8ipUBVIfvdXD1hnc6zXpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285119;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=CNoBY2EeWHEFgt1yeg9PBZ6U1Amx+8f8ooHrQN3OmPo=;
-	b=J/5kqxSMr+QhzPrnEPVl5QIRy11t1COu0IsNWX1yoGWTTuX2xJyFOVgWNk49wmZG4TNI
-	 uHNm9R68mqOEtD7GT4IFR8J1hirUGcRmd550y4InoHp9dwDSgJhdFd+xQIDPYbHpDhOjU
-	 VkJiZckalYoflfQmIf7n/8//O7959mUppwYfy2K0jPCV+z99zTEEM8KBAuC8gARzjyYJ4
-	 IP4EhMy5abVcHYfNmOcDq2InUfCqnfl9kQlncZiv2kkUk5MRFdkMYlqGcknjtkKNEuumc
-	 2MJnGQ9zTrODHmBwzIvDuGHqp1rCrGSq79wdPsAvQiVm2NPOH2rcduVlJXLJHMyxHVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285129;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=hj33H5cixDs80rOIsQBOmpmSaxJjyB5hAd7hAmO37v8=;
+	b=He0/zsXHWjQ9Ekrzsq03EyRaT8+ntW1oLFRMohkRc/3/hfxWdSE/glh7cw6iv+iQHl3Q
+	 kAX5/55hfeyFX7Nj9i4QHiD6T4nK/ggCT4GJslcHA2MsR4G3nAXGiCMF23PkQ3WwnLfHr
+	 3wWdna2EKnh1ng6W2GQmk9k3zAlDPjNQhvy1HJ0rhsixPWudXaCseTBQbo5N0aQbQ33of
+	 YNCRxJTEmlz1NCqcBJbG7N5eRksNEfQ5nISpXZmPgpO2ERqM0QJ0msfjP6SCtQ+aA1uLO
+	 IG8svZOizlWuORUwEXNm7N5y/PbWNNGRed86xKV4bGnNJVhC3k+QO3J8TKyJw2YcYwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UiYNZX81;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wRLaok;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CB7606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8CB7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1D9606A31C;
+	Thu, 29 Oct 2026 14:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UiYNZX81
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=CNoBY2EeWHEFgt1yeg9PBZ6U1Amx+8f8ooHrQN3OmPo=; b=UiYNZX81AcqsZWotAhrPdUoKhY
-	zccdHdWmq6cLFmiQQigs/25ytDI/uU9o2H6rFTfICtQ12PjfYnS3XdAfPbHyxRTyjH4hVKTLKMW1V
-	QeHd6i0IZqh3/6hc44wc/8N9fgyAnPdkqzFJmhSvKm9cN9FOabisxgboOAwHIONBx5w+pdM13pvwR
-	n/35wZCVKRUCK00bA0qDgWwV7Znfui/8tPwj008E8clkL4mO0sj/UCQcvIMda5faqLgjbiW9aF1TC
-	k5OMngvHbl224cQMw7dslDxZdDa8UE2QNlqganGTla+pjc3o/ikRMoJgoyG8JYOEMijefv3JV90Wk
-	0TyQjc+w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMRNQ-0035zm-1q;
-	Thu, 29 Oct 2026 14:45:12 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 29 Oct 2026 07:45:03 -0700
-Subject: [PATCH] x86/bugs: Keep BHI mitigation when only user->kernel is
- mitigated
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wRLaok
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306501F01825;
+	Thu, 29 Oct 2026 14:45:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793285128;
+	bh=hj33H5cixDs80rOIsQBOmpmSaxJjyB5hAd7hAmO37v8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a0wRLaokzs5Jv8M7LUWxTzbOyvNvotiMOTQ28FLvqvDcD2J/Igo8S6x8O4ipm7+H9
+	 b7OUgixy56jb+O40SUJjddADWQuevGwZ0ZNbtW7dh60oEoKCulE+1mJ5zbB3tEUiYe
+	 vdJkdBOuJrvW6FiyDOd09tHRGEu85MDNgQ1Y2vQ7WykX+8Moh1gu9NXlZVI+ACrZQ6
+	 xAsNSB1cAs9lRQz32V1VDv1X4AnEHuBZKq25ZUSdwE2ciNtsVGcFd0dbOFNXBmhB4v
+	 TxOwj3LfjePAJuT5sD8UZLilGqz4CQClMSrFtfjw7cgNx8nxqDcnXbKx4in7Y4M800
+	 cEO5Noc8Qa0Ww==
+From: SJ Park <sj@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
+Date: Thu, 29 Oct 2026 07:45:20 -0700
+Message-ID: <20261029144521.150074-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,93 +76,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-bhi-attack-vector-v1-1-29cfa697efb6@debian.org>
-X-B4-Tracking: v=1; b=H4sIAO5b42oC/x3MQQqAIBBA0avIrBtQK6muEi3MphoCDZUIorsnL
- d/i/wcSRaYEg3gg0sWJgy9QlQC3W78R8lIMWmqjpO5x3hltztYdeJHLIaKrDVnTtU0vGyjdGWn
- l+3+O0/t+sQzZGGMAAAA=
-X-Change-ID: 20261029-bhi-attack-vector-c36ea6854904
-To: Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, 
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- David Kaplan <david.kaplan@amd.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2158; i=leitao@debian.org;
- h=from:subject:message-id; bh=M5UzdlFygEbmSIkRv8ha5naqQM0957EzufBscASNrY4=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq41v0niI7uhmlNC0kar19lYqcVDLzaR3ekRhp3
- a/Qfbku4RuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauNb9AAKCRA1o5Of/Hh3
- bStHD/9Ov6zMXiDrMiOtVedSarmYLCzOmkNEqNFCQDb+P6Z54EXigXTpp94at58ofXgajTSKjMv
- ot3Po+2eb3qIN7i4au//K4oO+U1ABaaIcEOYuAwLyX1STkJncwHzzW8KAIGabEZ638fkOTcJ1y2
- Re6o0JWDumfQ98xWuGS06U0SmMHgEuk/7Wre2AnX4GooN9KrvM3O7CLIABfOnoDZ0/4qY76al6A
- idaQWVw1KQNRv60bN0g2U15kzajBVfI9FIFTEGzvyzFYQ9rQyZ2wi4BQppcwPUo7O7mI2BjrUEK
- n/ZGp5xJ1njTiv2cz+NELIbl0ykaaAbTpdZyp5Svym/1VoDZ+dta3ZfYFgJXd9ppolgX6CS2c/Z
- Xfks3JI8W+t0ZoXc6R1ZwjaRBzfzSKyjQLEoON0xzo1TpbuNyduGjVepflXeWjK7rT3WeKJlbbK
- JYRrRfTzZ/Q1aCtOQ6WFPGmlhQF30IMZJDEoLzHkrvo/S7PJzisU2uf1lWLk/XjNS2kwWnDk6p9
- LhVJ/c0JSjT/J7WQoyee26a8HF3ADhJj1qCM8xvLC5+aFLW1VRhVauyQhxuvCgVEfcJq+sKKsSc
- RzNTQwA1U/CtqQ55CtH3PtAiWa8tiAlVWaEVycn5O36bpveavGzAOLarGuaXxgwSpbA+CuLuewQ
- qyV5fWjDsvRdDcw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-The BHI mitigation selection is inconsistent with the documentation
-(attack_vector_controls.rst), which lists BHI under both the
-user->kernel and guest->host attack vectors. bhi_select_mitigation()
-only enables it when CPU_MITIGATE_GUEST_HOST is set; otherwise it
-selects BHI_MITIGATION_OFF, even if CPU_MITIGATE_USER_KERNEL is set.
+On Wed, 28 Oct 2026 17:56:43 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-As a result, a kernel compiled with KVM disabled gets BHI automatically
-disabled, since CPU_MITIGATE_GUEST_HOST defaults to off without KVM.
-This is a bug, given that CPU_MITIGATE_USER_KERNEL still needs it: on
-affected Intel CPUs these kernels lose BHI_DIS_S or the BHB clearing
-loop by default. Booting with mitigations=auto,no_guest_host has the
-same effect.
+> This is the start of the stable review cycle for the 6.12.115 release.
+> There are 247 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 
-Select BHI_MITIGATION_ON whenever user->kernel is mitigated, and keep
-BHI_MITIGATION_VMEXIT_ONLY for the guest->host-only case.
+This rc kernel passes DAMON functionality test [1] on my test machine.
 
-Fixes: ddcd4d3cb37c ("x86/bugs: Add attack vector controls for BHI")
-Cc: David Kaplan <david.kaplan@amd.com>
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- arch/x86/kernel/cpu/bugs.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+Tested-by: SJ Park <sj@kernel.org>
 
-diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index 000ebee2d247b1..4ced10c6ba0db9 100644
---- a/arch/x86/kernel/cpu/bugs.c
-+++ b/arch/x86/kernel/cpu/bugs.c
-@@ -2088,14 +2088,12 @@ static void __init bhi_select_mitigation(void)
- 	if (bhi_mitigation != BHI_MITIGATION_AUTO)
- 		return;
- 
--	if (cpu_attack_vector_mitigated(CPU_MITIGATE_GUEST_HOST)) {
--		if (cpu_attack_vector_mitigated(CPU_MITIGATE_USER_KERNEL))
--			bhi_mitigation = BHI_MITIGATION_ON;
--		else
--			bhi_mitigation = BHI_MITIGATION_VMEXIT_ONLY;
--	} else {
-+	if (cpu_attack_vector_mitigated(CPU_MITIGATE_USER_KERNEL))
-+		bhi_mitigation = BHI_MITIGATION_ON;
-+	else if (cpu_attack_vector_mitigated(CPU_MITIGATE_GUEST_HOST))
-+		bhi_mitigation = BHI_MITIGATION_VMEXIT_ONLY;
-+	else
- 		bhi_mitigation = BHI_MITIGATION_OFF;
--	}
- }
- 
- static void __init bhi_update_mitigation(void)
+[1] https://github.com/damonitor/damon-tests/tree/next/corr
 
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-bhi-attack-vector-c36ea6854904
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+Thanks,
+SJ
 
+[...]
