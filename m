@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239404;
-	b=m6SxWvCdzvBLlWlkkp6o/xaZBLaTjYnpMsIvpOV18ArfmyMa33o+t3Tl+J4HOLuSAuL6
-	 957be2DmiSs55qZ4di57CZMe0s/7e7AvtueSAmz76CLinFHyRMzdITnWuIIMBJYzEORGT
-	 U+J7u3V0LkTXYBlUNH2lskRw37fBQRz9BjAyjmX2WLTYGELNGc0DjL9BGoEywRYBwOp2D
-	 pD1f9jUgRymxVLZlX2Uh3+qLl5EDU36FsbEG75J929ctLmKevHsXRKC/gX6TFnQSFD32T
-	 NUYBarLuhZ7FtRJzym4AB/njbtD7EgRVHiu/kR3oeiK7CgPACTR/MHk3RayParfWjyg==
+	t=1793239403;
+	b=vtPQIL404EcjcvPOE0PGi+uZKekNdBeIyFl9kCTUhWJIb4wxQyMmqwT2POwCFDhHoovy
+	 KyEqqLzz0WpqVaqEgHBFAhz7CBOgmDl4NLlabKI/1DiXopM4ImoXnT/gxFktR64tfhUJP
+	 RdQiW5D9Te5x7Zoq1ykBNaw7KmEphgIAMrVukE+sgHPzS3UbOFKqbpjzRWXjR1G7QAdP/
+	 kQWa15fWQFcm9E7J4rNjdJxw1ZTVdZPlPtOWzrsL5oorkU1ZGy3SWWavTe4zP8O0+xvxL
+	 8vREdOFkQuagvVPTXlb99N7bLsTTH9fkFtRAZdOcRZd+q5dDJx3CW1GcdXj0mXbismg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239404;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=heCZ3eMofqJRMaoiKgFonBBuGwXdpA0ncbgdWxOVWmI=;
-	b=lWseqUZ0MM2sFYghyufyyO1/1pgGndSnN30iqTEGhaUH1pwmpZ8O8inevZRJaT7PVdym
-	 +k42ZT43sa70/HnmlbFnKVF69l9bDDSv72Xplf8AZiQz/3Lb1Ixd7GeV1iXNTP68qrXCc
-	 s5VEQTMToLX1YeFp3j+/LmvphoHu8TBJsa6q8Xf9/HFBF+TdBd35j3McoOANvqIuCZdm1
-	 yoQy5JBgMneKslO60aHwxbdNwT0gmb/cwTTb/8lqxCo4d/s4fCWN3RGq7TkLuGDxcmvtI
-	 FiTnfzPfmCq3oxd9ebKpqFoKORfKsf75V8JVdWBRK72wcElU6Hm1+QgapUh3fYd0Xwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239403;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kkQc70oVksqdbEHEl+DL/6+OU0ag3dkv+ZKz50Q+rqg=;
+	b=SrxssNL1TjrPcOij7L/kfqn83H2XrgAE8KVIfemhmPxuLguBk3LsJCm/Pr9/ZQOzCMCJ
+	 K3tO0doyF3p9TsxkuQ/6M2jnhdMdHv6SnKPXHgpXm7FjwWzI+zY3FYWspoc00gMJxP8lW
+	 lDY3ysjFT0/VGfRwPYxKqwpbPGVcYny5oNJas1QSSmuJUzwxZljuBRRzODDlL+8PUq9Ro
+	 ZLd6kue4PUn3WA8df+rdL9gieGhmUSWWEc4lVVsjNULp4d0FksovE2OG8k9lGR2W33oEp
+	 pfSHMqKiPcXrmHk7+12R0501TCnUywBLtpI/wsgZaM9KXWSlNxw3NAwTgwqN1nwnJ2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqWHOhTT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns0rWLZK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39F0C60A3804;
-	Thu, 29 Oct 2026 02:03:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqWHOhTT
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 673CF1F031EB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845DB606A33D;
 	Thu, 29 Oct 2026 02:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns0rWLZK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E14A1F031E7;
+	Thu, 29 Oct 2026 02:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793239403;
-	bh=heCZ3eMofqJRMaoiKgFonBBuGwXdpA0ncbgdWxOVWmI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dqWHOhTTcf6QIuZcK/x0TMs+EcUhDMPp11aPWuxXPxZnyr0IXjFBvYMG+LHgVZ8pe
-	 omDP4ow7pGQx3zhqQWu4Gh8ytUqqD3TlVrwTUR+oAVMK+ntDyPIvCRoYf8l4k1UYBD
-	 fE60x3cb9sdzKump8KVfJcVLpi6jwHu/DFdYgXTvaQ0XQetezeRL4yVqpShyLef1yo
-	 grFjlR7qvJktrnLPyjepzb7BUiqpXd0S9SeDVXrT/zIAhmbz6fkBveZm878qYfaeUC
-	 y1Fe1PBiheKQ28IYyF5rJRIVN91wbkzR419xzOCKXqty+ffSt6t1XvMT0Oh5ePxfBG
-	 Ezy7vNJAJjLzQ==
-Date: Thu, 29 Oct 2026 04:03:19 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"open list:KEYS/KEYRINGS" <keyrings@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] KEYS: key_garbage_collector(): process in chunks
-Message-ID: <auKpZ-BAJ3B18DiX@kernel.org>
-References: <20261028025306.2063007-1-jarkko@kernel.org>
+	bh=kkQc70oVksqdbEHEl+DL/6+OU0ag3dkv+ZKz50Q+rqg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ns0rWLZKFVKnZHk0NTbNpOWLmS1/SVvqtPvOZX1Hf3P2PPJe89v0IRL7pRb+XT6UJ
+	 16KMErrxvcx1fljQKivFb0H5216EpRW1MvTd0AQiw5cJ4r5KjXZs60rO6yEAmeCBK0
+	 J1y/fZ/f5tggVo2+xxOgt5aAaxLkmIH3JWao8ciXV0T6zWMcx7fH/Af015+9qHQ599
+	 xT9Q+E4zy3B3d7k00UQPMauBP/kS/owcx1pnV3PBvrJC4+vvBKPUH+y8EgjVHZ+PVp
+	 f01FJUxU94UJgC9SsrcdZ69aWw2IHJzd4Jd5mxF416LeWj6cqU9Fzej0FeDH7xtiE9
+	 3b/HmYPtEkd0A==
+From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Stanley Jhu <stanleyjhu@google.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Brian Kao <powenkao@google.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix UIC result byte and BSG request handling
+Date: Wed, 28 Oct 2026 22:02:57 -0400
+Message-ID: <179323465375.491807.14399231373519507963.b4-ty@b4>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261015001855.3450573-1-stanleyjhu@google.com>
+References: <20261015001855.3450573-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,19 +66,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028025306.2063007-1-jarkko@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 04:53:04AM +0200, Jarkko Sakkinen wrote:
-> - x86-64: chunk max: 125 ms, total time increase: 5%
-> - aarch64: chunk max: 235 ms, total time increase: 6%
+On Thu, 15 Oct 2026 08:18:50 +0800, Stanley Jhu wrote:
 
-Oops: those are for unused and expired on x86-64.
+> ufs-bsg fixes for issues found by fuzzing /dev/bsg/ufs-bsg* with
+> syzkaller on QEMU's emulated UFS host controller and in review of v1,
+> plus a fix for peer DME retries.
+> 
+> Patch 1 completes failed BSG requests via bsg_job_done() so error paths
+> do not leak the job's device reference and mapped scatterlists.
+> Patch 2 clears the reused reply buffer so replies do not carry bytes
+> from an earlier request.
+> Patch 3 rejects requests shorter than the UFS BSG request structures.
+> Patch 4 rejects UIC commands with a non-zero result byte from userspace.
+> Patch 5 clears the stale UIC result byte and restores argument3 before
+> peer DME retries.
+> 
+> [...]
 
-For emulated aarch64:
+Applied to 7.4/scsi-queue, thanks!
 
-- unused: chunk max: 388 ms, total time increase: 8.2%
-- expired: chuk max: 1372 ms, total time increase: 1.5%
+[1/5] scsi: ufs: bsg: Complete the job on error
+      https://git.kernel.org/mkp/scsi/c/cc0ce3fe8fac
+[2/5] scsi: ufs: bsg: Clear the reply buffer before use
+      https://git.kernel.org/mkp/scsi/c/2e63ac76cc08
+[3/5] scsi: ufs: bsg: Validate request_len before accessing request
+      https://git.kernel.org/mkp/scsi/c/42aa44371810
+[4/5] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte
+      https://git.kernel.org/mkp/scsi/c/1ae42513205a
+[5/5] scsi: ufs: core: Clear stale UIC result byte before peer DME retries
+      https://git.kernel.org/mkp/scsi/c/e4a9b7640914
 
-Br, Jarkko
+-- 
+Martin K. Petersen
