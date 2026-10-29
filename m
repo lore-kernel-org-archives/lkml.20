@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266317;
-	b=SXEQaPGu5mqJRjEF+ik7xeu6rrzFlyE4irlMP54GIvUyVrShG6qAt8T3rvtYEeVRNHpV
-	 zXxABLnoUtnDfInBXCBttPFCoiwg5MVHFHMYDz/6bTlzTB5tpzXo51/2H4a7yWMygcu9B
-	 SikizTeXW4UZLJZB6SJrqKO1+i4X7XnQNkafJ78uymxizZXHXS2eCxWUP6MvgppZikHu/
-	 pErEj4S6alukqZqSVbjSe8IieqUjcxbID3oJy0ZoVFYGNttyQT3nPxKX+B3Z9pPbABILI
-	 xykdi0/sImAPuklf6jnDXfR4GRAVOC11njmWUyjuegybJ13h4V+IC3Zz0tI40SgFLHA==
+	t=1793266334;
+	b=ekb5oA8xw3laKLO1iqLsfHO7jcZZQiXeXuESIC2+q+QGNQKIiGvsBAySsdsYkbbVxfNY
+	 5xxNqoXbF7X09zNzWVH9EKKTz/Fh9F4lDg5d5Jic/84MuxFmpUR//ey8pC2CUGw2j2s3H
+	 Rm/Gc9+Vc1mRGfdG2uHEixNQ/74tYT1T7xEvs4HEuwQeCzBPcIEq5q+gh7AxN3rcdzzkm
+	 a0jz7epLG9IFGTiPZEGkKC9GmoSLXZf4Umwkfv5rvya9UaT7LTQ87bQZ3bRsbfFPc6GWM
+	 q6qvwmdB6+cx5NcW8Tgkf/PRwr+ptjgxRDV/5rkLiuT4/cxC/20CJoLjYKYQJoC34Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266317;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=okptCD3UTwIXdaRJonCEkQqFEfGDTbXbfiDDvu4kuWg=;
-	b=b4VzXP08bjema05dqC8Er47DD/B0A/cMSadXXfQ5QqEnEAxD/O2gNPX2oTWRLQ9IVuK2
-	 8EjBJpT24C00qXoq3IxrRjrvqwXDU7R8glZuOl+PZQONLp4tbRcVDpUbNjxaZKDrEY2Vu
-	 AGvADrIDTc58XllZYQXo3QtLkYUJLn7BNTzEjKhDB6V7ExJiptMpNumCz9fvetNsFnWil
-	 kw7WcRDUTzR2KztC/TJHtWlXTON10kZhSGLXY9GtpEsLV6NqlgK4w23OGkqw2jLmmLSgT
-	 i1uw6U2l1Q3OX5an9de4YXkzk0oha8M+7SkXrWQkuhu7arMhwp3hR4uTKDuIoe3kHoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266334;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6XNj4Gpi3S44V1kUATueDFWe3fANO+BJZY0+ntjIOyU=;
+	b=4ognA+aqMZpNJ+8ZPnlVAfEmTX8Mqq1DzVbuc4Z21ab2ivfwmb4Jky+/y5hEMUurePpL
+	 xkmtuN8EA1/AFr7R4CdWCWzHX6hJyVrvtFm73SBLSQLEx+XeF2xxkS2RrCoNtLupOg5uL
+	 Sgn+dmBCmRjtfABAu128m6gU3voCUO1h0Y5IDoskuqhn2r/KErX8jTj48TP06Wt8Y2Ohq
+	 9oEKmBVCzql9L0FlhJ6/fJIeqys5z1nis5TI0Pi7v26NtOzm7xZVR3CiUjhuKazO52WWB
+	 wscn3bDD1pRuOafqCAHWZgTuhMlp6Hmc9r47pwcFqqVj+BGdB4m6IvJImgoqkzceUEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="pN1/33dJ";
-	arc=none smtp.remote-ip=91.218.175.245
-Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RmNzoq2k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6DB606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:31:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED6DB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD90606A31F;
+	Thu, 29 Oct 2026 09:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pN1/33dJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RV02fKHXp15N1sora8/JC7gfty5QHQabj6vGISh62x8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793266315; v=1; x=1793871115;
- b=pN1/33dJVwRqFONKhLklqHMutpUamuhZu2AZye1lIQaTJs8hbPF6bTcf+cXJU55EZ7qfRbEN
- VqLnxOcNfSnhjKZfdIqtIYcR6Mu/HJrSU/0xS3cnfMzfLhPjO4jcmpN8tgFxuhUzDAuWgKb+pWN
- +Ay+0iVCC/HouO+wrJe02qgM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fbff33db7aa8f017;
-	Thu, 29 Oct 2026 09:31:54 +0000
-X-Mizu-Trace-ID: fbff33db7aa8f017
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e71e3a39-e88d-4e4a-ae4c-51e0783dabe0@linux.dev>
-Date: Thu, 29 Oct 2026 17:31:50 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RmNzoq2k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1351F01828;
+	Thu, 29 Oct 2026 09:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793266333;
+	bh=6XNj4Gpi3S44V1kUATueDFWe3fANO+BJZY0+ntjIOyU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RmNzoq2k1G+FGUC9nMzIEw6oJQbIIKw22qcuHYVEw3dRSU2Q96T8Su0VfG9im0EfJ
+	 3Qx+43MVLIu2jox6ZFyyV5umeH18YQtwdEkgQvpgpTRycEVj9slO3IyjU08zyyvDf1
+	 22cvgIoJHQb0w3cwfjls7BEHGVsrNf6EKUO1ZmleA+lUM7HafDwMZ+ihdiKdiDA1os
+	 nQXMsbOHwn1X8LtPuusnXCQ2d0pG8nww+YZsEtoFz+smY/UFARdiLKZktXPwAcyviH
+	 7cPuv0W0GlwKCXMJM4U5la3YHMfk7tKimM+LOUs5q2dwbVlKzzkYFwgGdi0QvclOWf
+	 4ImkNQLuoEeyg==
+Date: Thu, 29 Oct 2026 10:32:10 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: an7581-afe: add support for reset and
+ secondary IRQ conf
+Message-ID: <20261029-brainy-faithful-dogfish-da1731@quoll>
+References: <20261026101026.34318-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,49 +59,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs: fix ramfs_fs_info leak when rootfs is unmounted
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-References: <20261009055546.85279-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20261009055546.85279-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026101026.34318-1-ansuelsmth@gmail.com>
 
-On 10/9/26 1:55 PM, Karl Mehltretter wrote:
-> When rootfs is a ramfs, for example with root= on the command line, its
-> superblock carries a struct ramfs_fs_info from ramfs_init_fs_context().
-> ramfs_kill_sb() frees it, but rootfs_fs_type uses kill_anon_super().
-> 
-> Before commit 576ee5dfd459 ("fs: add immutable rootfs") rootfs could not
-> be unmounted. Since then prepare_namespace() pivots into the real root
-> and unmounts rootfs. When the superblock is destroyed, the structure is
-> leaked. kmemleak on an SH7785LCR board:
-> 
->   unreferenced object 0x8100a720 (size 32):
->     comm "swapper/0", pid 0, jiffies 4294892299
->     backtrace (crc c8bfd23b):
->       ...
->       ramfs_init_fs_context+0x16/0x48
->       rootfs_init_fs_context+0x16/0x2c
->       alloc_fs_context+0x98/0x114
->       fs_context_for_mount+0x16/0x24
->       ...
-> 
-> Call ramfs_kill_sb() when rootfs is a ramfs. tmpfs frees its own data
-> in put_super and keeps kill_anon_super().
-> 
-> Fixes: 576ee5dfd459 ("fs: add immutable rootfs")
-> Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On Mon, Oct 26, 2026 at 11:10:24AM +0100, Christian Marangi wrote:
+> Driver got support for configuring the secondary IRQ configuration to
 
-Tested-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+This is confusing wording, I see no commit adding support which is
+implied by "got support". "Got" meaning it never had one but at some
+point it "got" it. When?
 
-Thanks,
-Zenghui
+> support full-duplex mode (playback and capture at the same time) and also
+> to reset via the dedicated SoC reset line.
+> 
+> Add the property to support it and make update the example accordingly for
+> a more specific register mapping.
+> 
+> Also add the missing #sound-dai-cells property required for the generic
+> sound node structure.
+> 
+> Previous register node definition doesn't prevent normal execution of the
+> AFE driver as the additional IRQ register is placed at the end of all the
+> previous AFE configurations.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/sound/airoha,an7581-afe.yaml     | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml b/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
+> index 80d9e87f1470..86d006559436 100644
+> --- a/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
+> +++ b/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
+> @@ -14,15 +14,25 @@ properties:
+>      const: airoha,an7581-afe
+>  
+>    reg:
+> -    maxItems: 1
+> +    items:
+> +      - description: base AFE register
+> +      - description: secondary IRQ option register
+
+That's ABI break but maybe just original commit adding the binding was
+incorrect.
+
+>  
+>    interrupts:
+>      maxItems: 1
+>  
+> +  resets:
+> +    maxItems: 1
+> +
+> +  '#sound-dai-cells':
+> +    const: 0
+> +
+>  required:
+>    - compatible
+>    - reg
+>    - interrupts
+> +  - resets
+
+Another ABI break. Please explain in the commit msg what is happening.
+
+Best regards,
+Krzysztof
+
