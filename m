@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257996;
-	b=KKjxsnEmiunO0EMiylDkbDCQHY7e8bXj/L2yc2gg+jVA3inseaIjVXVEc9jpFMYx0H7/
-	 hxQfyjKRRbLxK1iqMmQSBjuQ9I8WCKsgNPh2BhbGsG42P37I1CDpQ6ju6NNKTTPOpJYfl
-	 pz94AEfGd+2x6lpX61LJ/OX2viatgJzT2FEg+xT23CXN8EKvgtpv1y0/vddzMlodmyHHZ
-	 4mtCQMkjznjGxK5KE2+6pigIo//1EqqQyEv2ndrKjmIIg0RZjZm50+mDjI5sFJwWrdhAk
-	 ya0cibK7F8Mrq2NVaWmSEhrsnlEk1u/zkTVjyu5Bnvj3gyeB4IqGulcilFBqj9KHy7w==
+	t=1793258007;
+	b=0SWPE46bs5EFfyBDftbWjLsFsuvKMC60Res6O/MQ5+mRFTV5bbz/bERysy8B4AmUwQxK
+	 yb19eVzcmmxTpWoZcfmBYvPAegptbZYU6oRxMoXDtGYoxUpmpjyXach4aeZsGL5cGq/8s
+	 3kpf7QhvC7t4N5+Z/ug0BoIN+wizkPAeXaaJL6pz3b2O5vGEAv/iMCcMOKE4C1tkFqBVm
+	 kNi2KWbKg8CFb+RrAZNCLnodwfF/QI5LZ/Ia5LBOwu7UvdLCwgckidkbqbpVS/NHVPpNc
+	 Z+uzR5Myv9vX/R3+z+bMEdsyPdGrh2P+bNwdyRBkXYkcFq3lQyKTaovG7JfxyfkqWLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258007;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
-	b=psmk2VLMh2/KSlRQHJL8vY3a1iTKH3WJEdg4+ZsjrWRpfY1BLNqUMHBYDyI4DjJMOEoF
-	 Z6zZ45jdTAh0xgCs8uiL0WYBYONhk3JDArth6gt02BgxbedrEf0UOw/ZHMo1RfyYxNSah
-	 mSjZbZDUASLrCrZ6ZvA2+rDk7EVu6fv50Kc0Wiqi7g4vq6f+3jG9ca5K+4n84W2L0Xl8X
-	 FnifuzyEEVWTTwK3IJuIE5iPPh3CDlEXsMosdJQZ6qFxKOOlgyHp9Y6/YChgOeNKuu+0y
-	 WCskAiKnhLu7+Qn5BOMZNN152c+D37xu8EibPti1LPojMvn8QmhRzEoDvt6OAVZluZg==
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=b6s740g30n7ggR3Wpo1TIMx/u72gJJORBGCmEaKiM/s=;
+	b=pr/cKPUe/STbalWRsGaOggNprWqD9Y5g6Mi5CNLaD0AnuPbVWMZ4s4oEqjk0UJQVJSah
+	 msaC/uRPv/lsjiuWJSxfJmysbqAMVIanp6PwuRcTjzFTJQTd4Vt2QhmJfbXdwhKnDvQH9
+	 6K6o7aEwgkT9tdYXlgGlXSRzZN2Hz4xzg6X25EUMexJfXKJWuHoNFEk5tV3qb+lm1Eyi6
+	 xKyCsMOiE1kXcxVpqdH/ofGXn72NfvVqBOy2TCpGiNrcGqBbte265Y7UjfLhNd7RGS+tt
+	 4UGsJkxlmVUvoXcy8vKpoYNXc6NcqADeXLtxLIeckVCfr/KrSsUWjFIBvuQQDt0dJNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ptoU1Ccz;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=gRCizaSn;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1684606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1684606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F95606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82F95606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ptoU1Ccz
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c499e0e43a9so23427466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:13:15 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=gRCizaSn
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so928971a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793257994; x=1793862794; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
-        b=ptoU1CczcGjWkVNE0L6P7V5YYacX1MIenQ8eUTmzh+7VT7RpSN/t1/3CEC5mxmEVVQ
-         09cj6zz7T64iCtzPb3SJYBAXALsH0YSvzz9OdFNxtN/sFKBrA8x4RNeBdf2RYeCfx+Yi
-         eXSBrPrQTYPpn4YR+Z6xiVCBrY0doZ20fOIhlIUey82CkxnyWXpgvJewahO5ClbvYiQd
-         IpjmpuBItwaoJ9E3PCrEXA82dlPk3jWu79xSdOEi6VLM5CjBmBjapWYHIFSKy9CfGgRo
-         rkcPdSviPZWu7lJEiGhk6Q2lgsY5XN3npoBWqX9GWbPwVkQlG3xvPfar4WT7XMu4gXrA
-         EXyQ==
+        d=chrisdown.name; s=google; t=1793258007; x=1793862807; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=b6s740g30n7ggR3Wpo1TIMx/u72gJJORBGCmEaKiM/s=;
+        b=gRCizaSncgB5zEaCGIObx6D0QnyahEZaB4qEZ4qSwL1F5BJwP0oilqMqTg4ZAac10g
+         zNQCsgUsWprtwCvH2aoWeIc6BbzJw1zCIRxPVyLmIrJkgrI8q9ZVoB7GdeH+w3K7TEek
+         bD/RascKzjigUa62OVI+LB29LTMXVA8DA11ag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257994; x=1793862794;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793258007; x=1793862807;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
-        b=GS26zbutV66KbpcDk1gk6SwlI21Xxl47XYWv7kG16psETlEld0nmTBCfh7eNiNpPtL
-         UDvYODnYEzL57J4QOkKmuO/1xFNqevO3s4+05qUKL7gS52xBWqMxgbDq1OT6YrQnE4Ps
-         sSbV3Q35JLO6Z52YW8rJ154PEHYwXvqYH7vAnVRTIF8LGHHO4oq0O8Vu/NHZlqaYYZNB
-         ettgWJTwEnRA31IuUCobq7U0qu7Sc2C6wy5hvgVyL1hxF7vSywXXc96aj6s/2q9kssUu
-         o8PD43jlo65fpkSqCcaxSak1/s+Pvbs0ptSEyWk70I31hiIgZBPttUpDYfNb9d20kPCr
-         0FYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfGXgqqeIIMbabGQRN5hgUK1oDe46m4A4qt2dvHbD+7xZhLcwE+XumuMJjkez4MrUGFXzC1ss0stjWMDw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvCXjxsuD+Wp78vjSpTd+cKDChBIsg/j6qSWCDpUNCDB5LiRc6
-	VzusizX0b7vAWwTBJ0u7sjwx2rL0k4+XgiMgnqxeSgqy5gR72a5GhzrD
-X-Gm-Gg: AYBFou1e1ezXNcZmyFjokU5aPbvMSsV1rv2lHOFgtbPKDcpe+HzczJSsLyKYDNlruYt
-	seLkOFyNxKNzGxtyGK/QbLGUA07qhbi08uJ9+vQh3qe+Zfk5iCL23I7owogq7jzUEQU8AC0IxvG
-	hkkRQ2Ak3kg7YixMCrlFHb7iz8OmSIqDVqN5HyvGPAoXy6SW2YQj9BFCzCw+gvaAGT9xv8Kvd4c
-	CQWz/0v/4BwYxyFnvf1eV5QtJO83aMlwIsj+EckLAnfhg6y3K6FKzLtD+ah22j0/FRpDHqIjp7f
-	OHqZPLBHY5aWPQDI+zL6BLYIT9An6Nfk4GrT4+NnTfmvlXexAhaFTO4VMve82ldhSa8FOX7g1Cd
-	4i3JAYbGNiPU5Lkpo9iKJ2kksJdVToHFWtp/8icEF4qy0oM73D820iMIu6i/6WPX2LQ24VewZKm
-	xkvrtJbXs25+kDcrAiQGPi7ZICRDimGYNrDM+Jd1kHtPGepspcBeug0qOXEvjjJVDObMpOuH522
-	hssrKuiC5QEQiEQQxkGkj2tGZa/hl3kTEniaXIAqKwzZbyGrKKfdvd2EqaB09ONnw34uFfNxpMH
-	00KYjNBlndHyiR+JOH1wPYaoMxNLeRvVb30YZZKf8Vw2TOtFrW91Eb6Y
-X-Received: by 2002:a17:906:d932:b0:c43:f1ab:167c with SMTP id a640c23a62f3a-c49bdd9ab19mr398914666b.1.1793257994106;
-        Thu, 29 Oct 2026 00:13:14 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7c3sm34417791f8f.51.2026.10.29.00.13.12
+        bh=b6s740g30n7ggR3Wpo1TIMx/u72gJJORBGCmEaKiM/s=;
+        b=fpSPUBVk5NbNevZuuiJEKQmY3mpgNKS9OyCij8W3+F63jm3d2ReWRXLTcZIkf75IaV
+         W1L4Zu3HO0V3XCIdUq59pk/diTAXLIOhok54kopR5VTQFuMWJL4QC0zH6LUou6gB28/P
+         ryiCztC5w/x+/TqfCYDUK7+dhyFk4J1JlItNFYnuUxlXSfqQTwzPCB9ib6TcwOg+AIUB
+         wwPwUaQ+s3De+SuzI+3V+VAKHBBxwwRQusLQuwsF1Y1y0LREP37+FVg0GY9Mzk1uCUOl
+         71paoDPPhRcN7XQ+7jywk/5kDSqv+YcvY78uHhNB6/kY9jGLa3Uw7B2Qfj3ChvUe0vaD
+         SNsg==
+X-Forwarded-Encrypted: i=1; AKwUvBwys1eSSTzCz4vAPMROSmyaBffxA/5zcBUjDIBI82/ZBF8rhFk/lBuA0EyWKVFE2Ydd18MeEEO+A6Yj+Lg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJnYNdpGybssctze+YoDwG+1je8MbLJ+PZmxLicxpx80/lfwKD
+	V00ebVSYSib+DaRCpRjZuomgqVxUBf3gc+h69/j1S1Ig1YicL6r54LGWOKPMOij5QfY=
+X-Gm-Gg: AYBFou0PRit6ZQ3hyWdVFSUZO6TsSWEq7gp34kKqEc1875iDnNinJ+GDB/HXvTIR9t5
+	eCVYxYLFYoXZcyXCbhLSndm47drjo+TMsasLLccu2Z4lQf/x9R2jsZNMOfpSMJ+uCcbkeBeHlim
+	CX5Qdv2JIfnwMfFlAy+9kfNkiHbpiuqQBCBfFQsf2P7VBDhR0R5brJLnPQcBokJjf9y1N9EJc20
+	QStHgCfAc+zCn2Ba7MoGfU4y3yvyA11UOwnlbg8rpjgm5iesLVGn1LmFCJl+9ETiLckkNfynD+G
+	ZHkhmKZn6K6n6VLm7ZjSfQ3ms6iMgtOH6W/3LmiEVu4ec+khMSjaGVr6nJ7mHmZi1mDVN0Vtqj9
+	jDYGTsw2RV+pCnXX+x2CIpjXjv1tVC+8o7SpADZJ88T3eA0/kWcm/2s8V8D3lQ3Y7cGw1+FvDTi
+	wm4V+5JzeoyDFcBbEdaCwEq/R3n2fqHDoGhWVepyz3K17S3gokwXrsiIdVA33hnyI/n5UK1epTU
+	erRXeglXuMLATGlLc5c7FeV+pXCJTaXa28UCXq7aFIRXuD5W2pMo2GAOn1i5iqtd3gJ7zvYkiFO
+	UhsqzHPSCISzGduYxtiUxUUv6XhsCHgc0gvgUIyiHSYnm7oR++6zPf3r/0/DRewRXoWfYOMZ4P9
+	m6PIe4VeQx+tLhdcApOF4jlmHX57DlmmYVXM6PC0f3LJPVKDqNOJFNHlccgRFm+KaUDGiYJ/d
+X-Received: by 2002:a17:90b:4d09:b0:3ac:96a3:77d5 with SMTP id 98e67ed59e1d1-3ae58154d35mr3200231a91.36.1793258006841;
+        Thu, 29 Oct 2026 00:13:26 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7fe1f3sm3194098a91.7.2026.10.29.00.13.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:13:13 -0700 (PDT)
-Date: Thu, 29 Oct 2026 10:13:10 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: peterz@infradead.org, mingo@redhat.com, tim.c.chen@linux.intel.com, 
-	yu.c.chen@intel.com, kprateek.nayak@amd.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] sched/cache: Check reduced capacity before
- alb_break_llc()
-Message-ID: <auLs7xeL9FsHcf-h@scheduler.schedules>
-References: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
+        Thu, 29 Oct 2026 00:13:25 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:13:21 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 09/16] printk: Allow to override options via the
+ command line
+Message-ID: <auLyEcr_gqE3CBBi@chrisdown.name>
+References: <20260929120546.328616-1-pmladek@suse.com>
+ <20260929120546.328616-10-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,84 +100,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
+In-Reply-To: <20260929120546.328616-10-pmladek@suse.com>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On Thu, Oct 29, 2026 at 10:36:50AM +0800, Zhan Xusheng wrote:
+Petr Mladek writes:
+>Consoles can be preferred either via the console= command line parameter
+>or by some platform specific code, e.g. SPCR, device tree.
 
-Hi Zhan,
+On v4 I recall you said you would probably do the change in a separate series. 
+I think that is still the better plan: the rest of the series is a clean-up and 
+it would be nice to keep it that way.
 
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> need_active_balance() moves the only CFS task off a CPU whose capacity
-> is reduced, for example by IRQ load, to an idle CPU with more.
-> alb_break_llc() runs first and refuses to move a lone task off its
-> preferred LLC, so if no other CPU in that LLC is idle the task stays on
-> the reduced CPU.  Like asym packing, which was moved ahead of
-> alb_break_llc() for the same reason, this is a performance case that
-> cache locality should not override.
-> 
-> With two LLCs of two CPUs, the other CPU of the task's LLC busy and 60%
-> of the task's CPU spent in a hardirq, a CPU-bound two-thread process
-> stayed there for 20 seconds at 38% of its normal throughput.  With this
-> change it moves to the idle LLC within a second, as it does with cache
-> aware scheduling disabled.
+>-	 * Historically, the preferred options are stored only by the first
+>-	 * caller who prefers the particular console.
+>+	 * Allow to override options via the command line but always
+>+	 * prefer the Braille variant.
+> 	 */
+>-	if (is_new_entry) {
+>+	if (is_new_entry || brl_options ||
+>+	    (user_specified && !is_braille_console_preferred(pc))) {
 
-Sweet.
+This also clears options when the later console= has none, which v4 did not do. 
+That breaks at least the MIPS boards that pass the firmware baud rate from 
+setup_arch():
 
-> 
-> Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from their preferred LLC")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
->  kernel/sched/fair.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index cfc982205b98..e313c6d212c6 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -13585,12 +13585,6 @@ static int need_active_balance(struct lb_env *env)
->  	if (asym_active_balance(env))
->  		return 1;
->  
-> -	if (alb_break_llc(env))
-> -		return 0;
-> -
-> -	if (imbalanced_active_balance(env))
-> -		return 1;
-> -
->  	/*
->  	 * The dst_cpu is idle and the src_cpu CPU has only 1 CFS task.
->  	 * It's worth migrating the task if the src_cpu's capacity is reduced
-> @@ -13604,6 +13598,12 @@ static int need_active_balance(struct lb_env *env)
->  			return 1;
->  	}
->  
-> +	if (alb_break_llc(env))
-> +		return 0;
-> +
-> +	if (imbalanced_active_balance(env))
-> +		return 1;
-> +
->  	if (env->migration_type == migrate_misfit ||
->  	    env->migration_type == migrate_llc_task)
->  		return 1;
-> 
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> -- 
-> 2.43.0
-> 
+    arch/mips/sgi-ip22/ip22-setup.c: add_preferred_console("ttyS", n, dbaud)
+    arch/mips/sgi-ip32/ip32-setup.c: add_preferred_console("ttyS", n, dbaud)
+    arch/mips/sni/setup.c:           add_preferred_console("ttyS"/"ttySC", port, baud)
 
-Well yeah. alb_break_llc() just returns true in the nr_running <= 1
-case. FWIW, on my tip tree this just creates a conflict. On me
-alb_break_llc() is first, then asym_active_balance() and then
-imbalanced_active_balance(). I think in that case moving all three
-functions would be better? (below this other block that's for this case)
+With "console=ttyS0" and no options, the drivers there (ip22zilog, 8250, 
+sccnxp) fall back to 9600, and anyone with the firmware set to another rate is 
+gonna have a bad time.
 
+It also makes a bare "console=uart" after an SPCR "uart" entry oops because 
+univ8250_console_match() hands the now-NULL options to uart_parse_earlycon().
 
+(A bare console=uart on its own already oopses in the base, so that part is an 
+older 8250 problem, but this patch adds a fun new way to get there.)
 
-Thanks,
-
-Kayra
-
+If you want to keep it here, could it at least only override when the command 
+line actually provides options?
