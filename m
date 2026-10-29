@@ -1,115 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793256321;
-	b=N6N/hXlhPMVme4+Mz8ZJJJKJOkJPMhFxK3gh/lzhW5pKTIwpXT4ODZgm4vCL+eAlJPDf
-	 3G+jc8pOmso8DaMqWjesZgStrl9SxR5P4+TEdayBQkGPI1LvKmY0v0cYH1uMMycZSdL7h
-	 uw9PwACYqAZFl6lSoTu2flEhDRC4W4Bcn/DkPKTOyE4hhLYshtq1Sg342uaqvnH6vjaZy
-	 W/J1v7XTNHHbhcqjzFqDkC7iT9TO/1PDHNW2ZfCK62ItBif3ZNx0dXM4XIdpfW4QaKd54
-	 HWMYTnrDpVZtHsyvVBWMorZHCbn9IxuuJ7unrGZaMSbO8DLv2jbrVpZJeDy73zAVtIA==
+	t=1793256356;
+	b=c2p3yA4ffmBW3mh6u1SJb3Im5cB0k98GaEoMYoLCCuegyiG/717uidoUPm4DMvWviiwS
+	 QoZd0GU6MUlaX7aJcsRApT1Vq6zGjEhBc6Y2RK2gmpiOEiQ22PsRbuevI0hUUiOd9bIyP
+	 bS55ZAq2w0xS5pxcuzPRvlWH51ZuoTsJpORFcCZBV/MW6T4EQCI/h6NV79fj54AV4S97H
+	 DRACDWgZwnfkCqW4Yd2LSUibArbzLzmf1o1M+RDwuEYk0ICasOcWv2rtNDkxL0L7Byd5N
+	 ava5gCM7k8epYDu3OF6jyXUxJ8AnZ7AmvTwypvpKbE9bkiXh/sznL2SuxSUVBaSyWNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793256321;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=PpZwiOLy+qBSQ8PQ3tlsCfW6m/0pXMByVlZ/42AmEx0=;
-	b=EZg/ULujjcdWYie+E++ONQ71f4wldOJDQS/iJAssMrcS5SPLbU8bf5VJbhqfLj3cnaO2
-	 UxJK7Zf6cFARwI3A/gkF0urSJZwFQakyhsmlQLGB8IZb8O5vZkBTS69fTmJYKLGdm3iv+
-	 h6MZ5bgrtmgt15um4Qwr5nihVxLBIvWPcdoVCrPTC0DgIhYIb/Wa25bEHCAVmt5brYhnJ
-	 k2miFbmcCJwJctWNyWKk9PuWc+vB7DGzTW3fmneP7YvJhdBX8POmcuSUhmmigfmjNi04J
-	 E5PkdtBiIko8be+TCC+M84z2cM0t4XfoDJC5iBe0hWXG+/1/uspopI41wHIyX5/aP3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793256356;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1HZdEtGRBinobOm262LWtghp2oUY3RgVs+/v7S0ZtPM=;
+	b=5glZme6ockYXbRTB+8cSFpLBXf0jYrtxzmnVXU672NQOGlaYOWMZR3F9Tc3Yg+PUzG/H
+	 vK7NPlWWbBU/7FqD/uXryfTwBduRBPpBX8TsqtYSa3e5iKrOq58iYrNe1mGnxCZ/NhGgt
+	 NWUBnI9mVRU0MkYh6iCgp0iWX+bVvbapZ60BrzxhFn8fEV3gR61J3v/G7CrD2yp5sYSFG
+	 /tUifofm1OQadOgScKJG4oj0yOFEkQE3oe3GeMeJTFQi6eeZ79JpQ+q+hxFkytGT6O5gu
+	 Y1LSXYjVcEUoDfcK3ZQQSGNbkiEFCZrFdTPSiavXjAx19KlmpRpYGANwfJajBfhUURA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KCg5n/Q8";
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1956F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1956F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=erkwwRoG;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FE12606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:45:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE12606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KCg5n/Q8
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso1156155a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:45:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793256320; x=1793861120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PpZwiOLy+qBSQ8PQ3tlsCfW6m/0pXMByVlZ/42AmEx0=;
-        b=KCg5n/Q8XqL00OlgFFq3nv6XZvSJbvibwOIUf3l4ieuhRJh02MJd3TmHNL8ItAvBb6
-         DQI7zORWyFVVog+kbdHN/hAjpeFznKr71mR13ljhlNkwi/XxIpA2gM2IQ7y8YAQ+0G3H
-         ji7h8gpO2SHejHiHeGkBF7sakQPW7l1YdGaqRXkXMFRuxljqORyfWpIq0YHu7SCZ6iVS
-         kye+V+d3VcqR+mnKfGJi3n6/Q4Yd+xqIXxBtOLaP8gROLPokcoy9TYDEdztFWQUwCpQ5
-         bETn4zmz0nsCFsoruMBK6xUnzv+Hfawie6E/LuJYrcqEEaNK3MZ0HvwhMP7lgfZhK9T0
-         kgxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793256320; x=1793861120;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PpZwiOLy+qBSQ8PQ3tlsCfW6m/0pXMByVlZ/42AmEx0=;
-        b=V0ywfEV/9osZCo6Ctk5d5EC3I5rojnQeHcZ8hcZWi5s5PKcTYrWkddcavkqRWKQ1k7
-         lJ1dAXl2az4ujEcuzqxVNE1Q4EKYN+krPQpOuBCD7huiO1zr8QIUxyuIz0a8awoNdk6t
-         ENyTj/rTxAdNMxtVIwH8DddwfiWMalr3vNKgSteuHtpsak6B+PXk8FHpfEktuW6+rMcI
-         LxLNFRbyRbP3oI3Se30oF8KV+4uxACVLuckjjU7+rmvgfr0wElEPMNUO+FNAP0Ixp5fD
-         jRiDCzBBhsfWzCCX6tvVx6CW+vjYBtd6E/mjehmS7hQlphCDoqlWhzkbUKvPou8fJFJy
-         zEvA==
-X-Forwarded-Encrypted: i=1; AKwUvByKZ8YHjKocpJqBcBqRp/60bymz7VNjXp1wBTzLIeEKUxMV1ziO/VQhT1jgm1Uk6BY0tr+G/++eRAwYC1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpx2T8JFk3CwM3U76MYojwGVxJEtyJTrt/TZSI3yDto7ME3UaD
-	8CCOBU4+H9BZC42QY6YfrU2x3Q9ZKcODQ6JkxqoFWqZPGCg6QRQyTWdr
-X-Gm-Gg: AYBFou0RoLuMAvxWutbj0n2SsDFzQ2kepPvrNzVltDeVn8yFzXiAGkdDq4YnZ3RlmBS
-	oSsmmRKV5tPjRY3FMVVCAUwI3dioU6EKRM2OrP7jSD4pItG4pk9aP886BgVN1QzEsqjXuUbIAem
-	pP/Ljn/zpXvoO0t6wGHXFpwNot8a/jiPfrfv2JZ6m5eCG3wuxC+RaYB1mVydvzc8Wsd2PCpRS93
-	Ee1Xc0iL6KmP8t9JKeEiARJpzB0MPxvMl1sET/PZ2KSPAJdrvjhRMLVtyOCuwX+Oqhf9YvfwY1r
-	zOTeQ1mDcGDEXQI8L79yIf3+vGFtSdBnv7hklSNhEHcMI9mnmu1lrl9OeTe3VyF/SeodOhycCry
-	35w/6UaQT+zlNaXUektMvmjMllawfPartVr5SdxsifSiobIzBM0J8AY8yirh0in32GFaBtOajwA
-	oZOmlM0/u7Tfz5JMVkDcB/1V48W4ig9LtEdm43em/9fCcezyrxd2Ory1iRx1fmPp3jppU1snswr
-	/H6cyiybcmOAEXinh0D7paxnK+a5oMmie35WeR8DGCkLWxSaLwZmwXhD+xm8u5ux967TWhxsjcj
-	J/6s8pb25HrEsZqGD9NtMz6s/A6NC+Euirb4WgyN16OXTqJqL2c1Pg==
-X-Received: by 2002:a17:90b:2543:b0:3a0:e1f7:9b04 with SMTP id 98e67ed59e1d1-3ae58172e4emr3338233a91.12.1793256320522;
-        Wed, 28 Oct 2026 23:45:20 -0700 (PDT)
-Received: from localhost.localdomain ([101.44.96.6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8401casm2729502a91.11.2026.10.28.23.45.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 23:45:20 -0700 (PDT)
-Sender: Yilei Zheng <trilithzheng@gmail.com>
-From: Yilei Zheng <trilith.zheng@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dan Williams <djbw@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pankaj Gupta <pankaj.gupta@amd.com>,
-	linux-mm@kvack.org,
-	nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Matthew Wilcox <willy@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
-Date: Thu, 29 Oct 2026 14:45:10 +0800
-Message-Id: <20261029064510.17667-1-trilith.zheng@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <2E5C10CF-F3E0-4694-965C-B0E432A1A962@linux.dev>
-References: <20260903122128.12264-1-songmuchun@bytedance.com> <20260903122128.12264-4-songmuchun@bytedance.com> <20261027065723.66564-1-trilith.zheng@gmail.com> <4c9741cf-ac62-41d4-9c7a-7d5ceea4a8e1@linux.dev> <20261029030511.12004-1-trilith.zheng@gmail.com> <2E5C10CF-F3E0-4694-965C-B0E432A1A962@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=erkwwRoG
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 92D5B1682;
+	Wed, 28 Oct 2026 23:45:51 -0700 (PDT)
+Received: from [10.163.153.30] (unknown [10.163.153.30])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4D8E93F673;
+	Wed, 28 Oct 2026 23:45:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793256354; bh=wEceBPDAoI7jkb3PQGl1/s7MQmUjV8j5qCga2ORy3jo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=erkwwRoG6+fk1Y3jDeJ13nGzcRLsYy0R9OCVLIYLTULcKkEtbklrmnBpAtpbme0Mp
+	 yc1Ho19txmvw15SBggNRsxjjRXm0L55bGaaQLANavxQ2otIesqDLYAA7aE0p+al4JJ
+	 L0F9uugIDa/NKe4ON8P8/Xt9RLydxLcoTZ9T4d4Q=
+Message-ID: <dd2ee501-fdba-4853-8f8a-e0e78d068148@arm.com>
+Date: Thu, 29 Oct 2026 12:15:47 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,19 +53,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/compaction: annotate data race for
+ zone->free_area[order].nr_free
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: teawater <zhuhui@kylinos.cn>
+References: <20261028090747.68086-1-hui.zhu@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261028090747.68086-1-hui.zhu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> What's the size of the roots image? And I just want to know how much
-> memory this series could save in your workload.
 
-In our setup, the rootfs is an EROFS image exported from the OCI
-container image, so the pmem device size follows the image size.
 
-Most of our workloads are simple today, with images around 1 to 2 GiB,
-which means 16 to 32 MiB of vmemmap overhead per guest. And we expect
-the average image size to reach about 5 GiB as we add heavier desktop
-and agentic RL environments. That would save roughly 80 MiB per guest.
+On 28/10/26 2:37 pm, Hui Zhu wrote:
+> From: teawater <zhuhui@kylinos.cn>
+> 
+> KCSAN reports a data-race on nr_free which also exists on mainline:
+> 
+>   BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+> 
+>   race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
+>    fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+>    isolate_freepages+0x52/0x650 mm/compaction.c:1722
+>    compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
+>    compaction_alloc+0x21/0x30 mm/compaction.c:1880
+>    migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
+>    migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
+>    migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
+>    migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
+>    compact_zone+0x539/0x10b0 mm/compaction.c:2660
+>    compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
+>    try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
+>    __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
+>    __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
+>    __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
+>    alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
+>    alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
+>    io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
+>    io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
+>    io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
+>    io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
+>    io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
+>    __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
+>    __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
+>    __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
+>    x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
+>    do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+>    do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
+>    entry_SYSCALL_64_after_hwframe+0x76/0xe0
+> 
+>   value changed: 0x00000000000002f4 -> 0x00000000000002f5
+> 
+> nr_free is only updated with zone->lock held, but fast_isolate_freepages()
+> and fast_find_migrateblock() read it locklessly to skip an order that has
+> no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
+> instrumented and the report is of unknown origin.
+> 
+> The race is benign: a stale zero only skips the order for this round, and
+> a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
+> lock.  Annotate both reads with data_race(), following commit
+> af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free").
+> 
+> No functional change intended.
+> 
+> Signed-off-by: teawater <zhuhui@kylinos.cn>
+> ---
 
-At our target density of about 200 sandboxes per node, this adds up
-to around 16 GiB of guest RAM saved per node. Memory is what caps
-density here, so this saving helps a lot.
+Thanks. With the SOB fixed:
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+Is a Fixes: tag required? I think stable backport would be overkill but
+Fixes makes sense as this leads to a reproducible stack trace?
+
+
+>  mm/compaction.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/compaction.c b/mm/compaction.c
+> index f1b2060eb2016..499ec7ceaa3ed 100644
+> --- a/mm/compaction.c
+> +++ b/mm/compaction.c
+> @@ -1601,7 +1601,11 @@ static void fast_isolate_freepages(struct compact_control *cc)
+>  		unsigned int order_scanned = 0;
+>  		unsigned long high_pfn = 0;
+>  
+> -		if (!area->nr_free)
+> +		/*
+> +		 * Access to nr_free is lockless as it is only a hint; a stale
+> +		 * value is harmless. Use data_race to avoid KCSAN warning.
+> +		 */
+> +		if (!data_race(area->nr_free))
+>  			continue;
+>  
+>  		spin_lock_irqsave(&cc->zone->lock, flags);
+> @@ -2031,7 +2035,11 @@ static unsigned long fast_find_migrateblock(struct compact_control *cc)
+>  		unsigned long flags;
+>  		struct page *freepage;
+>  
+> -		if (!area->nr_free)
+> +		/*
+> +		 * Access to nr_free is lockless as it is only a hint; a stale
+> +		 * value is harmless. Use data_race to avoid KCSAN warning.
+> +		 */
+> +		if (!data_race(area->nr_free))
+>  			continue;
+>  
+>  		spin_lock_irqsave(&cc->zone->lock, flags);
+
