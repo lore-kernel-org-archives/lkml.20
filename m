@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277079;
-	b=Mii/M5cKQijwIJ70y+8WfrAhs6hHRNRLR5NkYimZG6l9iJO/DGXTfD9MmimNHrqv9Coj
-	 KFb00nVRPjB2QVFGz8COTO9S3TkOY/ffX6XSX816+a6kngAIb44xwwbbcRLsrNdDmemsv
-	 x/+ewszUzxNG61awbDhTpavxZ8dyn6N8nSfBkTs3iIeODj/yriBdPx4btpY6CQomODWbS
-	 fTE7/5m9ViY8d5neljBgBZKhlO2yB1PmWs5EuxYn+cPwhN1MGDduSJLvSQt+mf3gOCEah
-	 yPaPx+jGurdn8VQEXHWzDECq8cBc3owPJ6JGm8ljY7jecZJLoRD5mcBtHdG8A7W0wAQ==
+	t=1793277132;
+	b=Y1TYsGrBxcR0I2rJRDmjAvahqNWF8ddIpJqKEvMCBvjYMVmi7x7a7L4wohUuoNPdXevF
+	 0wJ/c5PYxFQGawDWjIoJMJVIdoSOS4ci1cgurY65dU0nNU2lFbvc2a+PdLAugU5Ab2Xu+
+	 BJ0Fi5D9+dUlQwiHjyh7See3+7hwJ0ksryHchxUPevvaqXKpNlRzbm2RqFkOVyKtcbsuS
+	 UecV6ZxUWLyiGInIdk8OCsOM1gmhyJVxuBghP0lFZHDbTJOOYdAT8JV5bjf1OQhArEcyu
+	 9QjQVRpjDeShmpKnOkIKdlokG9bDZxoS7nMjJjbCsw0KxPNKmI7njJ7w3ulXjhQzbnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277079;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=cczABSL5zMN0Y81syn12EnZDUTE+vH/9aAo6wAF3z+c=;
-	b=F00rt+uD2HkV1izNVMDHBdKPitHWCYFFXdjpKlBzM2xrha3zsWH2IzhSHNjUFyqUYXQ3
-	 qvRRhOZ/L2FlEiEFQn8Y+FOFRbh8SS+nDN/ZmSNN+kG4mM3FQPalz3QcBRTKOm3k0rjlf
-	 bgng9OnU/P1sh/pX0QRADday/sx7zqRldGbrO6LS7+BlaxegZP+tm8l1LySEm4Yb6YW17
-	 US1iOPdEEMUBJvZek91gCFqxccLzRKISt00gb4zsUrmYILS2QJNDOolJPx02J8uIRgVZ3
-	 vTAVHonbUCWIjvauHnRE4XuBODmxu2zLn8YDKOXKDV5LWaprH8MlLGb+tvrDm217BLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277132;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zi3/I/lqphxDLrLkyjjzcmioo6LbSf2p9VhXNf8gbL4=;
+	b=FCXNUkLuHy06b18dHynxRcufi8sEzDfhXxbLHfaoo8yKDAKQUKWgHL1dHE2mhswHr29g
+	 ycR4EKnAl+pz0uuYHp1EF9tucxApVeW5ulyBSkiMjH9i8g5NyVjXDRxsX8fB1j17Ip7Qv
+	 cvdYnto7SYKOr2b3Bt4ofzYX6yVmkM6mem+D5jteH+4DoeIH899t24ZwGQjjPiD5VVRb9
+	 bkqqU1J2LjOxoxVGDL2woHTmAM5o7770vSCCUZBkAKwse5RT1oW27yy385BpYD2JjYQy7
+	 oWv+mL4HIuQ2n4zzhsR28zhd5drtmkn3xtuH7xdb9GWYd/hMRT7wbeCmRQBupKfYw3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=cq7pHj0p;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70865606A322;
-	Thu, 29 Oct 2026 12:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70865606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=KshZHmzM;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=F1KZcrV1;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41031606A31D;
+	Thu, 29 Oct 2026 12:32:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41031606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=cq7pHj0p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=cczABSL5zMN0Y81syn12EnZDUTE+vH/9aA
-	o6wAF3z+c=; b=cq7pHj0pJw/PiJHDFRs+ow7bFpSuqAuyvUbU2WEx3ZaeTHTi3b
-	qLKI3Xn0OLFAFX7hqzsJaxajHYIllFPRRBW+8pzIuG8r7UT3demhMdkefaJ/jLaw
-	0h0MjnkVNhhwz43Eerxwv6FRGoumMBKEL+4jinRArq0V6ZNDzts1pwBUc=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.224.240])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3OD2LPONqnPVgAA--.841S3;
-	Thu, 29 Oct 2026 20:31:09 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] media: camss: csid: unwind the power-on path through a single error label
-Date: Thu, 29 Oct 2026 20:31:05 +0800
-Message-ID: <20261029123107.28705-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261029123107.28705-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261029123107.28705-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=KshZHmzM;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=F1KZcrV1
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793277118; bh=zi3/I/lqphxDLrLkyjjzcmi
+	oo6LbSf2p9VhXNf8gbL4=; b=KshZHmzM7/ziOyQwv2byZQC8NIBXQEzjeQ0ZTx33R2c6oChoeP
+	LWT3yCI5UFuztS6zNGHMCLr/n105jvpRP30wp4ZAmP6X82HvGDOGGLeS0AIoYxUGn2cb84dbFQO
+	N02Tw+NVuw9EAtko/++lZnjULf95NE6I/2wINHKGWDnCq6fS88Xv1ZXxxwX4GuMvwnSnef5H0VQ
+	82if8j7byW2wjfvTpd0oHUIaRhl5YE86UPKhEEt5PdzM99pP6kXFEmrTJEKpL0clyDH4ZSXa7u3
+	2Kw00rQjkMlysuSZc2E7/d87YlfvCAwce7NJNO6XAM5DO9Znk/6vndFQsNdQ5GVusBg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793277118; bh=zi3/I/lqphxDLrLkyjjzcmi
+	oo6LbSf2p9VhXNf8gbL4=; b=F1KZcrV1SSdid+de1DKPGZ0uNAIAgFUE0N6Hf2UiA9GgRPKFJg
+	jLtIKw8bYJHKW0BKsBxaqa1l9avZ4PNL5PAQ==;
+Date: Thu, 29 Oct 2026 12:31:59 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: zhiyuzhang999@gmail.com
+CC: brauner@kernel.org, dhowells@redhat.com, edumazet@kernel.org, greg@kroah.com,
+ jarkko@kernel.org, keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lyutoon@gmail.com, ncardwell@google.com, security@kernel.org,
+ tpluszz77@gmail.com
+Subject: Re: [BUG] watch_queue: RCU/info_id overlap leaks kernel stack
+In-Reply-To: <CALf2hKv6KAFJTyDBy_yqt7QPvA1ewZHzBxchAUmcFxSeNXghOg@mail.gmail.com>
+Message-ID: <02F6DE4D-E2E4-4637-96E0-33034D91839A@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,116 +65,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgC3OD2LPONqnPVgAA--.841S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFyDXr18ur18XF1rJw1kKrg_yoW5GF48pr
-	W5JrW7Ar4FqF109rs2ya12qFy5GrZ5Wa4xJF17Ca4Ivw1Fka4ftr48GryYgFykKrZ8Aa1a
-	vrZxtF4UZF1YqaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
-	AK67AK6ryUMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Wq
-	2JUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVZTsQBMsl
 
-csid_set_power() repeats the same cleanup sequence in every error branch
-and gets it wrong in the first one: when pm_runtime_resume_and_get()
-fails, the parent device reference taken by parent_dev_ops->get() is
-never dropped, so a failing power-on leaks it and the matching VFE stays
-powered.
+On 29 October 2026 12:05:02 GMT, Zhiyu Zhang <zhiyuzhang999@gmail.com>
+wrote:
+>Hi Greg,
+>
+>> The documentation also says that a patch should be sent which I can't
+>> seem to find here, am I missing it somewhere?
+>
+>I'm sorry for miss-cc you. The patch for the watch_queue bug can be found
+>here,
+>which just got reviewed by Bradley Morgan <brads@mainlining.org>:
+>https://lore.kernel.org/lkml/20261029054136.1174216-1-zhiyuzhang999@gmail.com/
 
-Replace the four open-coded unwind blocks with gotos to a shared label
-chain and route the pm_runtime failure through the parent put as well.
-No functional change on the success path.
+Why CC security@k.o for a ai generated bug?
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../media/platform/qcom/camss/camss-csid.c    | 45 +++++++++----------
- 1 file changed, 20 insertions(+), 25 deletions(-)
+Well, this patch looks okay to me.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 48459b46a9..592c1dfc97 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- 
- 		ret = pm_runtime_resume_and_get(dev);
- 		if (ret < 0)
--			return ret;
-+			goto put_parent;
- 
- 		ret = regulator_bulk_enable(csid->num_supplies,
- 					    csid->supplies);
--		if (ret < 0) {
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto put_pm;
- 
- 		ret = csid_set_clock_rates(csid);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		csid->phy.need_vc_update = true;
- 
- 		enable_irq(csid->irq);
- 
- 		ret = csid->res->hw_ops->reset(csid);
--		if (ret < 0) {
--			disable_irq(csid->irq);
--			camss_disable_clocks(csid->nclocks, csid->clock);
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_clocks;
- 
- 		csid->res->hw_ops->hw_version(csid);
- 	} else {
-@@ -746,6 +730,17 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- 	}
- 
- 	return ret;
-+
-+disable_clocks:
-+	disable_irq(csid->irq);
-+	camss_disable_clocks(csid->nclocks, csid->clock);
-+disable_regulators:
-+	regulator_bulk_disable(csid->num_supplies, csid->supplies);
-+put_pm:
-+	pm_runtime_put_sync(dev);
-+put_parent:
-+	csid->res->parent_dev_ops->put(camss, csid->id);
-+	return ret;
- }
- 
- /*
+>
+>Another patch candidate for the relevant netdev bug, which combined as
+>the lpe, can be found in this email thread:
+>https://lore.kernel.org/netdev/CALf2hKtiCaiabDQGpm+jzy7VKgMr78eQTKGsN10aXp0JfaOhLA@mail.gmail.com/
+>
+>I am waiting for the maintainers' approval to send that patch.
+>
+>Bests,
+>Zhiyu
+>
+>Greg KH <greg@kroah.com> 于2026年10月29日周四 14:43写道：
+>
+>
+>>
+>> On Thu, Oct 29, 2026 at 01:06:28AM +0800, Zhiyu Zhang wrote:
+>> > We will send the reproducers (including the complete exp for lpe) to
+>you
+>> > and the relevant maintainers privately. I understand your point that a
+>> > similar reproducer can likely be recreated with a few LLM prompts.
+>> > Nevertheless, Documentation/process/security-bugs.rst says not to
+>> > publish a reproducer for an AI-assisted finding, so we are keeping it
+>off-list.
+>> > The same guidance says that AI-assisted findings must be treated as
+>public,
+>> > which is why the report was posted publicly.
+>>
+>> The documentation also says that a patch should be sent which I can't
+>> seem to find here, am I missing it somewhere?
+>>
+>> thanks,
+>>
+>> greg k-h
+>
+>
 
+--- Thanks!
