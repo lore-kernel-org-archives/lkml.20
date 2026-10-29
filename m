@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282661;
-	b=aoX8+g9GQwouujQC9Y6l0dmsv36slFDWRXrliHDrpj+khGo9R48gym7OFgPytpkswYap
-	 Z31sZQMUXe/7MW+851FTTUcqDcmVi7x8E47g1OZ3V8zfvEM1RemUEb6kDIYW7MeQxwTMe
-	 9rnDA7vGWTzw5yj9DGEK4QaId8wbM8qWlEiBHPIymSxNAzQuZ4pufxwntm1GFSraBR4Hv
-	 YF7ygc/q9S+aNTCCfFmpI1Tukal/GlapW8UEzP3Y3P9lIMUqS3/xVsu1K2PRfwIIZjpn5
-	 K6s8VBoBIAfmph2ubBOkAEmQPM3qmOygD4jNz5CG3SqVUSD0CcEfxKAlia1aTe3cl+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282661;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=GHUMGEdyC276HDhVeE4eFAKQ8gxK43dXDeTPJnFTDjE=;
-	b=uNwVpbpBMWEkgCh6r6XdQezqPgt0KJWek3hz9yW6eBpqrOEfoa7uGI9sOFhDhfGK9A5Q
-	 IsURXqD+0cDBF2DNR3LFez3U6f8vcA6KrNKPDO+EPbLXHENu74WyHGcfbFxjpJf+/Hzz3
-	 AmT0mN0fZUBRazthpcThXUFoT5oZ69JNfMQJsVY3jrq5oo3fvsroxbL+7od2oEdJgpf6V
-	 asc9dKXqV7Bv8zjmmfvb+V4tXB2+XqQoT23sLReQTRF0lKlo8qNd5Bcz6EQnqoOIcixXS
-	 gbSEQZl68hxILbHUonoMBSFF6Q5UnlhXCbXJjX9MZQYT2vsOPOTCrE8Fd68OHRir+3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8tyWfLK;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793282668;
+	b=vHve/Q95atSvOrRaCTXkMZYDuItDw2bOd7OKt+zgpqe4fSTOrIgtjDKI0URWAV1J57zh
+	 QFK+rRQNNVm6CZf3pwpOGx1YJaq4ktJxA4avXNgJyM/AaE+3LUMxoNC0cLGEbyC0HW8Nc
+	 ndw+P685Kl3ZaM1+3+A0Oyb/7xTii/2oQuRU8ClIkY1ghtBd3aq7l5ufLJhfiO4VyK8iO
+	 jfpBrz3+G7sdW/u0E58OqFoD0xyl/0Zd5NsJVjvaPiTtK6N0JdiI5kGgM61KdsT7wFCs/
+	 SFcYOqOYGoZIsc4ULbbJbDDd/cSkVFJCrZvk0b4E7glveExuASGcJnkR5c3muRNaw4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jOIJiz3JqGs+BXIFdn+z8p3AdQ++3MvGNgnUSp9BRR0=;
+	b=GQ7yPX/J6ZSMbOfM5OmbnU71LlVM9k+Ny7ONq4PaWPMjuiLHvF/JKprH6h5vk0E08NbG
+	 wot2fWSm113adY32G37hGKWMwaNwutwDobiAdw4DCbswvMnavElKiX3el5WmAwUR4NRTC
+	 z/kC/mmJyhPobtF7b4jACimX1Mcjlks1jYSb10ROzs8479eLn4bfMFv4gVqzvFLaOgC4t
+	 e83epRZB935JSYvFiDme3u22pBxDy+daxx06gYTDKaru6VT4dpKLDlgO1MadGr6V3ywh9
+	 Jl+nGjK0XilqyPbtkPBa9to/VqxWviwrZIPabY/bAjz6Qi9dE1BXdZfik/8cKWiopHg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y5dc86bd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4666F606A31A;
-	Thu, 29 Oct 2026 14:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4666F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9692D606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:04:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9692D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8tyWfLK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282660; x=1824818660;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bQ5OUJWFYkxc3nRdKrCXbaenz2Nh7NiAYBBqw1kij0c=;
-  b=k8tyWfLK0LAmzzMo6EDLg9KI8T5icjKS8JCLmFxfuM3YiJ47LPeWWcmk
-   9AfSDf/Tl5K+3bjU9L6rKAtbV3K5f8kCKF0jSHWGEbSip8Q6QmZ1SGXmQ
-   fmpn3/dji6gh8HQ65JIhAcDyFal49haHfdHgM2vrem0YTlCPnZUnJMtF/
-   NvEfx8eEAf9IjOkfqnCnB3Atwv5Lw9LZel9rSVgj/Td1HhUIQI3OGKq64
-   ff2KQM25ewZ8mYVl3DXoRy/05bcqw1zo5DlrOZvMlltRxOHrp+fxYC2my
-   BwqGR5t7laux5EgMV75RXbIeFhoEyk2gonMWA7pPHedW/ykGdUEHoTC8W
-   g==;
-X-CSE-ConnectionGUID: uxzzl/0ZQA63t290FVx9sQ==
-X-CSE-MsgGUID: 77hTxJvNRKa36ONbXEmR2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908366"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1908366"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:04:20 -0700
-X-CSE-ConnectionGUID: ckuPjJMuSdy/tT5qWzBsWw==
-X-CSE-MsgGUID: IBVZkT9pSqyMPjIJ9gTHCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5701409"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:04:17 -0700
-Date: Thu, 29 Oct 2026 16:04:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 9/9] media: ipu-bridge: Add a rotation quirk for the
- Surface Book 2 and Pro 7+
-Message-ID: <auNSXxxqA75T6Xwm@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-10-antoine.pichot@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y5dc86bd
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab3d3c5761so20471957b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:04:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793282666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KlnPOmZnwd0n7q9NIS91vwZ9hAFnU4aLKD9zL/VqqZrLLjRmcP8iU+mlZrtcakjP0X
+         nS6l2sgDrKZL5k9ofhNUgaBdd+1Tr86dszm7Gjt1HFsHRvVA9Hz9LXljxFYUzKANEA5o
+         k051OVOxW2fzcN3EtfcgFR7Mr/QlWx5TSAQZMoPU/b2OmaXwB1NsPMS9OmjdPwQvK27J
+         dBGFCKtGer3oqVuEGmVuEChYr1h1fVqSebAc2Oj2IXvAkbcYjlvhm+tSQPg7TPVy8mtq
+         gqlcJnSWLvFVYEo5qsA8nUNMimuk12TYYPx6fFkguErs4CtHn8NaelSPttyUbhqo6xql
+         mGcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jOIJiz3JqGs+BXIFdn+z8p3AdQ++3MvGNgnUSp9BRR0=;
+        fh=GpifI9UTKi/Vx3X4sbtgGLcVH6mRFLTW+p6YBLx7adE=;
+        b=VG061oeQ4NG1aUQDz5Vlx5t/zeoVjIxokkRmEgJckYrLfZ6l+VPFfdZ695U3Y14fRs
+         kl6PX6SjwBLPP5ev9ZRmRNnfKUVOCJbv0uMImM9HJaqLyArxUAJeZaLb8m3HGJDsRwaa
+         KWjLxHPJ9MC9D8HCFCcr6WiyoQT6zDunH2lWgqYZc5u02vtFdfv+6MiHdTjIsxo6TqPU
+         Of9rQTSpvzofMh1FGmNdgzZpJso+eKV4EcFW7d7d3p4MHihSc73m4Epnc9Wu7Bt8EPaZ
+         PIRRfqQs5Fj0BsBgAUtctReE+YxNN7Z4cgNDEVfgXUgWcV0ny43apsg2O2J73QFGf8fL
+         KsAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793282666; x=1793887466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jOIJiz3JqGs+BXIFdn+z8p3AdQ++3MvGNgnUSp9BRR0=;
+        b=Y5dc86bdmRKt0Fdg7JrcFIXb7pnxA/3b62rmNTk9808VnsIAhs6WArPEI0iUxgHrL2
+         kNy2Fnr55h/+B/Kr3EyDMectt3PxMyAT3K6NK9vl3HIPrlieIYtTQWO/60Kg6q5Is/Ej
+         3UbiDcVYy90YvayGElyL2fIMeR14BjKWxH41LL1ZIyPZIl9L4o6HstRg2XOMXaSe52te
+         E6y7yXkvvfIVtBkGQAPaSjKdchUn+jH7oFvbepT6fRIx8X1COgHBXe38/kZyxR/XfzpX
+         l6Rs9SFQBXi4HJcuM/cIkFAETr806GIfsvfTVdKQoOqmVYt2r6c7j0NYzQAFjH9AdAIs
+         0KZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793282666; x=1793887466;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jOIJiz3JqGs+BXIFdn+z8p3AdQ++3MvGNgnUSp9BRR0=;
+        b=XZvZBMMieTHbQphReYwtAlKL88DvPS7ZNKqHEu/A/Qmv/Ukepckh7E7exERKStKYnb
+         O33bZbXRJr9F6LBJ1/n3uuGJs2eH8FhC1xut06FP/PPZVUl/C5MHNEJXmUOm7RVGHh9h
+         arJjnlDrHyw2wo5u5iSS0vSE2yFmsGHyI0jth+MphTyXSGU84aWc/b4SSzsRorHFDVB2
+         4BirNpVe8HPhjAjFXEEhBRRHwyp6ZAUJQ9wxi+Yf4KVJhHptF9z02EoVHzg80GV6UFZa
+         y0lg8m0atEMCUQTjXRt6nxgxjfdagaq+LXgKFTMp0UuC5ex67kTzEvOuEJp1nlyCsmLz
+         OePA==
+X-Forwarded-Encrypted: i=1; AKwUvByIXQThZ0hbV7s5L/l0VoM+gAqTXSE6W0P17z1pko7DmTOj1B93g3B/5V01Ru3Cv3Z+BUKc9wMqBTciWhI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcWFkKYQ3mY0hPY+mGWDBBKc/P0vmyWbOU6zfIM5jU27Spqi3d
+	afyNL8IfXwOir4YfR2ZURZTCuABMODdap4IM6FIwqDV+056j1TLezOhrPKjFObUAkZOFS3v5LuA
+	djL78VhdNDRYyFue0LrKkxBVjkd1PaSk=
+X-Gm-Gg: AYBFou2Ik3u5ZFxWwHsvyCmXTuZcoylAAkLSfWc5H6MSBGtvtmPVv36xaDxH9/RdLRR
+	xBIz+NxADkzW2YX8Xl0mzs0PC3+R7AI+3n05h5AIOL+4yf34SgsW46x0UZX66RSwXzn8CHuZyoE
+	1FQ1wq5Wdedc+8kldk05iHAqkoJKTx9yGcsLEWP47IQrHMam5Eb8ALYmhSX3Euxk8pq5RFx1zev
+	rdYLjgEWgorp+6tvHyGTIVZ72yplLivyQFOeLWHkTu0PxRbCGiqxGd0uPRYaFg5RTnnINoANM26
+	pR+0dBwm2/fGa1Qoj3TO3cZm+6IiITXU2z9oKoXDKVbfVxw1GchTkByaUL0jIIw47oU2HLIXgn7
+	dwyec7P2rrREYtV17QkjRw17H+vmuTHIb2SE8rik=
+X-Received: by 2002:a05:690c:94e:b0:8b1:2aff:1740 with SMTP id
+ 00721157ae682-8b1b5bbc547mr36572347b3.14.1793282666501; Thu, 29 Oct 2026
+ 07:04:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,55 +104,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-10-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
+ <auNGzJIWFt64IMWY@kernel.org>
+In-Reply-To: <auNGzJIWFt64IMWY@kernel.org>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Thu, 29 Oct 2026 22:04:13 +0800
+X-Gm-Features: AclHuK-fL_kIzHPwfOpnScrTRCdAOv9QyH89rdm7dSYyaUfxKyQ-LUn7ts43gAw
+Message-ID: <CAFRLqsXdUfqvNyzNpnz=dvgtHrVyRhYoZqt-CQUo98HW7BtNJA@mail.gmail.com>
+Subject: Re: [PATCH] keys: Protect the update method check against type removal
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org, 
+	serge@hallyn.com, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 08:21:54PM +0900, Antoine Pichot wrote:
-> The infrared camera of the Microsoft Surface Book 2, an OmniVision
-> OV7251 with ACPI ID INT347E, is mounted rotated by 90 degrees. An
-> upright scene appears rotated 90 degrees clockwise in its frames, with
-> the top of the scene at the right edge of the image, while a frame
-> taken at the same moment by the colour camera next to it shows the
-> scene upright. The degree field of the sensor's SSDB buffer in the ACPI
-> tables is 0, and so is the rotation field of its _PLD, so
-> ipu_bridge_parse_rotation() sets the rotation property to 0 and
-> userspace has no way to know that the image needs correcting.
-> 
-> The firmware is wrong here, and ipu-bridge is where the firmware data
-> is turned into the rotation property: it already carries DMI (Desktop
-> Management Interface) quirks for sensors mounted upside down without
-> the firmware saying so. Add a second table for sensors rotated by 90
-> degrees, checked the same way, with entries for the Surface Book 2 and
-> Surface Pro 7+ infrared sensors. Following
-> V4L2_CID_CAMERA_SENSOR_ROTATION, 90 is the counter-clockwise rotation
-> to apply to correct the image. The Book 2 entry matches on the SKU of
-> the 13 inch model, the one checked; the 15 inch model has its own SKU
-> and has not been checked. The colour sensors of this machine (INT33BE
-> and INT347A) already report 180 degrees and are unchanged.
-> 
-> D. Manresa measured the same rotation on a Surface Pro 7+ (IPU6), whose
-> infrared sensor is also an INT347E: an upright scene comes out rotated
-> 90 degrees clockwise, with both flip controls at 0 and the firmware
-> reporting a rotation of 0, so the Pro 7+ gets an entry too.
-> 
-> Tested on a 13 inch Surface Book 2 (SKU Surface_Book_1832) with a
-> 7.2.12 kernel: V4L2_CID_CAMERA_SENSOR_ROTATION on the OV7251 reads 90
-> instead of 0, the colour sensors still read 180 and the orientation
-> controls are unchanged.
-> 
-> Link: https://lore.kernel.org/linux-media/6ae0f151.0f9a9df6.1cace3.5239@mx.google.com/
+Hi Jarkko,
 
-Add a reference here
+Jarkko Sakkinen <jarkko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8829=E6=
+=97=A5=E5=91=A8=E5=9B=9B 21:14=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, Oct 29, 2026 at 07:58:06PM +0800, Cen Zhang wrote:
+> > key_update() reads key->type->update, ->def_datalen and ->preparse
+> > before it takes key->sem. A reference on the key does not pin the
+> > module that provides its type, so KEYCTL_UPDATE can race with the
+> > unloading of that module, for example dns_resolver:
+> >
+> >   KEYCTL_UPDATE task                  Module unload and key GC
+> >   ------------------                  ------------------------
+> >   keyctl_update_key()
+> >     key_update()
+> >       key_permission()
+> >       load key->type
+> >                                       exit_dns_resolver()
+> >                                         unregister_key_type()
+> >                                           GC: down_write(&key->sem)
+> >                                           GC: retype to key_type_dead
+> >                                           GC: up_write(&key->sem)
+> >                                         unregister_key_type() returns
+> >                                       free_module()
+> >       read saved type's update member
+> >
+> > The final access reads freed module memory. With the updating task
+> > held after the key->type load, it faults:
+> >
+> >   BUG: unable to handle page fault for address: fffffbfff804107f
+> >   #PF: supervisor read access in kernel mode
+> >   RIP: 0010:key_update+0x12d/0x550
+> >   Call Trace:
+> >    keyctl_update_key+0x6b/0x110
+> >    __do_sys_keyctl+0x21d/0x4f0
+> >
+> > This is the same problem that commit 925c84e3cc21 ("keys: Protect the
+> > read method check against type removal") fixed for KEYCTL_READ.
+>
+> This is useful bit, thanks.
 
-Link: $URL [1]
+Thanks for the review.
 
-and use [1] in the text above.
+>
+> >
+> > The encrypted and trusted types can be built as modules and have an
+> > update method. For them there is a second window: the GC can move the
+>
+> How is the second window related to the fact that encrypted and trusted
+> can be built as LKMs and where is "there"?
+>
+> > key to key_type_dead after the method check and before key_update()
+> > takes key->sem. key_update() then calls the NULL update method of
+> > key_type_dead.
+>
+> I don't understand this paragrap overall. Needs a rewrite.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Sorry for that. Perhaps this wording would be better:
 
+For dns_resolver, which has no update method, key_update() returns at
+the check, so doing the check with key->sem held would be enough. A
+key type that is built as a module and has an update method, like
+encrypted or trusted, gets past the check. If its module is unloaded
+after the check and before key_update() takes key->sem, the GC has
+already moved the key to key_type_dead, and key_update() calls the
+update method of key_type_dead, which is NULL. So key->sem has to stay
+held from the check until the update is done.
 
+> >
+> > Assisted-by: LLM
+>
+> Please run checkpatch.pl --strict for the next version.
+
+Thanks, I see that the Assisted-by tag has been removed from the
+documentation and checkpatch. I will drop it in v2.
+
+>
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> > ---
+> >  security/keys/key.c | 12 +++++++-----
+> >  1 file changed, 7 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/security/keys/key.c b/security/keys/key.c
+> > index e88548f1a704..bac2333089fc 100644
+> > --- a/security/keys/key.c
+> > +++ b/security/keys/key.c
+> > @@ -1101,9 +1101,13 @@ int key_update(key_ref_t key_ref, const void *pa=
+yload, size_t plen)
+> >       if (ret < 0)
+> >               return ret;
+> >
+> > +     /* the GC cannot change the key's type while we hold the semaphor=
+e */
+>
+> I don't understand this.
+
+I will remove it in v2.
+
+Best regards,
+Cen Zhang
