@@ -1,62 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260228;
-	b=3ozcLG8id5ijCKRLwxya5hvNPoljd67cMEBa38uxjEwZnm+mM52YuzigvBl517tGDnSL
-	 LSNwIhLH77yeAjSuPB5CZJo+xGhcswT+MskykVaQIFlFv81mG7GzwIRqpgoQeDbgz//cS
-	 Wv/5dTNX7zsvdwgJGVrsYt0k6tlZY+n8aT9RbOn7PlweRW+g24dUExRRbLNTsOGNHs7p7
-	 mUCXl8znsqt4hg2zH290e/A3S6rMipGj7DILnzU9i6Ei62oF5VZH/hIY9CcYv83mqM3Jt
-	 Ed5KLRMbIfR/ja2rOiRMlpxqCFyvAU1x2e7oGQpue+nq2kXUs6J7PQPRHjGZileQwFQ==
+	t=1793260223;
+	b=yrMvH/hFdLeMLGpWZxHAQvxQtj44snkTf1iMQicKHqy7pVYEsBDVY1rVYCNZ8iYfNo6E
+	 mlKc9kus3zHrLhlt6+zecVerFivNO7YSd3wgeNn0P7c+zcEkPzNhKdMKjHFMSicfMs7u6
+	 9zKvFQQO8vWw6T/ovAOB6+NUoDjwn28DPdU+JtUAzn5gJT//9Y8AP6j2H9R7BOQEmThyF
+	 ZW3bN65Xeb4qRu6J3a0qVe0UhBV7jlvnwdsWJBG9/oztbvd0X1J/44INKRRMy0Jl6rpHY
+	 jEfV/4ZFBaY9aPkTaQPrmWjEEGshzWxI8h7nWnUIJjTu6whbs0cko1XldmH+L1LOSQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260228;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=LPA6Inh2wBCKqBtP/pIYKJnpKzD87TCTJsmoxrtXeEE=;
-	b=bUc0nnziBfjX8xrP9iwn3hO2Do0TWUVb7RgI4YY5nObc2IRRRXthisshXEl5tcAEJ45j
-	 EXCFbIulhX9y+OdQ9qBjIg6/H/YZG1zAj+wJePMXIaRAc6nUiSxSXEv3OeuepE17zkeF1
-	 m38aMETRwgocQikArHnXKVCZm8lU3vFFvJqKA+SGd1AXR61CyxYvzX+2IM9F8al2Dd96x
-	 AYIHY+RSupLSgTAFb77ivbJ8eI8a8iVGnFe+RicHzV5qcN/vwdWkBp/eflix1EMH37X3F
-	 7fgdyEhmoKNKtwmNOf/R7FMW7xgU68eUNY1K/l/xh7lb/PIYI4dMz0C79yJ+lR5w6JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260223;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=MV4ytUjkkUv8kGNfsO80EzlV4FKpsKt0v9OLD73l06w=;
+	b=5HXGhJ+BTLVjYm0WcSqZD0tC7cY47eG4xMtOSZ0P8dHiDXBe5pBfKlYIzqYognxuFk/A
+	 gTtAQ8yesvRDbhri2DY4tKNbSPNxT6uMOpo4/V7NoPHfYmnaWjqctZnNLZU+RfQU/etP0
+	 ILLzzXQsxUk4FlWTztvf7RWfBd0DIVPTxemkzzsry2ICS0eNvfbTtaBBiRsHLLGeXjyUD
+	 xgqtN5SaaO3pmj4g9BBPYGQezaRL0hbDN5r3X2L0O5c7BFSGyo9KESE/IEUgUdFIBNt8y
+	 CTWpJi3xYHE5xviyVzmW+KKpntunxShkCAhZqrwGwq0iavr1b0K7tUswOXgoZKK5BYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQvhmNNG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ywY/1UxZ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6818606A31F;
-	Thu, 29 Oct 2026 07:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A00E606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:50:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQvhmNNG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E621F01829;
-	Thu, 29 Oct 2026 07:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793260227;
-	bh=LPA6Inh2wBCKqBtP/pIYKJnpKzD87TCTJsmoxrtXeEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JQvhmNNGK36sulpbupSyeQgY1/i9+fLhfKPjqtpZZHmSjQ6BrwcE1Rp2Q31WIMrdh
-	 +tOMZmch+mgXAAcdaT63O8teV+ztS4p1KYAJYGFBC/o4g2DEhXk3OlGKODjrStmicC
-	 XOw5tO48cUIZx0ZLluprc/5kYSX5cT/103G4V0aaodLKtR/zNV9KcOcw0RA+OPoYtg
-	 6iri4zFlKtKKdZMfv85qI8qlfR+mNaQN5I03QXKsbSyODaaWUA9IpcdsRj0reUT5hX
-	 7AYWS02SjiNrytftHzf+psdPT6FdfWic4byezbTyrLtZlxjbkCqkUkYm8pTMZvL7vH
-	 wCRnVGvFvWpKg==
-From: netdev-bot+sinfo@kernel.org
-To: vmukunda <vmukunda@marvell.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Sunil Goutham <sgoutham@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>,
- Geetha sowjanya <gakula@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Naveen Mamindlapalli <naveenm@marvell.com>
-Subject: 
- Re: [PATCH] octeontx2-af: fix TX hang after link mode change under traffic
-Date: Thu, 29 Oct 2026 07:50:26 +0000
-Message-ID: <179326022661.3327.15804422690861412603@kernel.org>
-In-Reply-To: <20261029074635.4139111-1-vmukunda@marvell.com>
-References: <20261029074635.4139111-1-vmukunda@marvell.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ywY/1UxZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF45D1F031E0;
+	Thu, 29 Oct 2026 07:50:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793260222;
+	bh=MV4ytUjkkUv8kGNfsO80EzlV4FKpsKt0v9OLD73l06w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ywY/1UxZ1aWD7wkfTUYfqOTPn8ouDyPikF8GbfMYtO+iZa4EBkkSuCL0cloborX4K
+	 3JpIZWobFGX4dj00UT2r3F0vxt8sKDoV+vna4CgcwrlZRqNDiaXJbmcwEy+z8opHg+
+	 +zBa5GogV/n3GfSi/eYUagc1VDZss2ZMYD+39TZs=
+Date: Thu, 29 Oct 2026 08:50:19 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: =?utf-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	security@kernel.org
+Subject: Re: 0001-drm-vmwgfx-unpin-BOs-without-revalidating-placement
+Message-ID: <2026102910-prodigal-fraternal-0b7b@gregkh>
+References: <AKoAagBcLENWUVxRNA4*KqoJ.1.1793259618800.Hmail.242270054@hdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,25 +57,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <AKoAagBcLENWUVxRNA4*KqoJ.1.1793259618800.Hmail.242270054@hdu.edu.cn>
 
-Hi!
+On Thu, Oct 29, 2026 at 03:40:18PM +0800, 潘煜杭 wrote:
+> Hello,
+> 
+> Thank you for the review and for pointing out the kernel-version,
+> patch-format, and maintainer-CC issues.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+All of this was rejected by the public lists due to html in your message
+:(
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Please just send a normal patch, as documented, and it can be handled
+that way.  And as it's public, no need to get security@k.o involved.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+thanks,
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+greg k-h
