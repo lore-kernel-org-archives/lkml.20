@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290521;
-	b=TQKxIqSCGBK/yJNxID+7gjw73n+BnNkaERmxdFWwhaUL2NB7ZTb5dJmaFfhycV0dC40J
-	 5xyPzgtAf0AD6Dj/Mb7Jwl3UioXXPkm/wJaazz9lYAKoHRWjaY1D1HWS+22oH4IJUre8/
-	 vbS3qLA9drjlsZvxRSrDTcKS+zT5ClF/eYjptpZMlgxipYPsw3q8jn+SN+cvXUACXXh0B
-	 R0B29h6LsjtXSz0SarwVDuMTGZw2zyB9efSHAA0QCtFGEDRe/RFLzHNsE0XxwchPwiPIP
-	 uh9N1V5+gmyO9h0wpuGS+x5g+EKJ7J4S6xZm0OxbLL4gwui1IeFoR9CbXMtOcbQGLcA==
+	t=1793290516;
+	b=UlrBmuxYEFkGfvYp82zuqEsnEQGamRXNRtA0yPifvfJAm95U5uH1Zk9oieMFgm9OcbVy
+	 Wi4zcRdAsib31gsQw+0HyC4Rk7fRVgy2ORH66ZZbgAWzTU+Df9B4/jJsRfPMTJkx6P+1m
+	 9ppeEQo7xrQ0JltLaCv61sDcMH5xlsUgk2jbgr3BZCmUKREw9r20Hg3HDwCD5AG1VPGzL
+	 8zycRf2pyMrGa4uH4h1aW9nWn0GrjDL70kYhdw/AP7zAi/ONof3y7QNLKBmdUgR7cAGoI
+	 HplSuJXrHadVe8WiQ4vf8rUyp/PrUuPEwfzTJSAqTPHH3/l5PF4sgvOaGeuuGlo3Mpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290516;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=AFeCYnytubQBMNux7hziA4Q5Uj+lo/pqtiW7DuReXLs=;
-	b=xHYmFUiEJCr8YCsdDUoj2aA3ZTeNNlndrzg4rNtjapFGaRIXYwfx/J1Q2QphQSNyRq7d
-	 DUKAZmDPlT1u1fmW3E5FDhP8tqC3i8l5UWefPOFY6xcP9J8ywmhjvLcNFuJrP7KqSSACG
-	 dZeMpDfV5WwcIgi7bxc/Yqw442LVS//Moy72YZLKk40Tqwopo21MyUJTjV/AygS+ayxG5
-	 PtR4boygYLyFRR3hyvkCGiEA60AjENoJVmK1H0/GtEZTIwFwMPV+B6JpYoS5nhENKgCzK
-	 QrkpwHfqFyp5tkzmgj6ybrBKATuAsq+9PVX7zWQqVPE27FseGnICVPyQpk4dSJg8flA==
+	bh=k6NrO70p6SzlKRqmWvppOYWBQqrvnG6uRQVbixAqVsY=;
+	b=dKSvpEt/aT01NfwfiztZOql90z3INjF2KkCsbSXMMcsINO9Qj5o5ZfaNXQL4yB2Sk0kF
+	 ikRZHhiPmhZfizkbWidX85rFAZDHPrzpXwcXbplFYGPxf8KdVQosePTTF0NABKa67TNwS
+	 UN33dFt+BB86tEBHAvtKBttIQTP/jLJHlidx70360A80Q8f7zuOjd1MedI1JGMVuDgFY3
+	 /z0HolgqLqK9LsN62+fptExqNXjreCpWpvvqvARLwqK32XZJv1Ar7a7teKO1zXwGRQDHR
+	 lWr9U3gjam3KQxZ53FvSH8VVegbjQAgerJyZQfkmxC05b9/V0z14tUNzjKasBMH4/CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WI/aCo4d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmKNS+xL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E197F606A31A;
-	Thu, 29 Oct 2026 16:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D354560A2608;
+	Thu, 29 Oct 2026 16:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WI/aCo4d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD9A1F01816;
-	Thu, 29 Oct 2026 16:15:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmKNS+xL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6AD1F031E0;
+	Thu, 29 Oct 2026 16:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793290520;
-	bh=AFeCYnytubQBMNux7hziA4Q5Uj+lo/pqtiW7DuReXLs=;
+	s=k20260515; t=1793290515;
+	bh=k6NrO70p6SzlKRqmWvppOYWBQqrvnG6uRQVbixAqVsY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WI/aCo4dVN3XY4/jtSh/oLLQAAsO4qYH2uU/FSoecB0NOYpAguZcI7CziqIeYhG1g
-	 Y1ccxqmMEhYqruPGJoOw4zYT6RogrpramC1aAHh2+8yPdvpG4f6O0DiV4ZlSCth2zs
-	 nTO6jo1mkPGMbesRm9V8Gye07PWVMC9yZXGRGLF+qGsOATX6yJwTS1OVTTS45SBXjM
-	 p7PotTErS/DuxJD4KVhnkWVrKnIz6hOoqHzZIqmCscrH146SwZ86lR4G2dHrQA9rQq
-	 d59EYnFBjH2/QQCDISOZa+CEEsS7NZPlCfJtzJOeCzmwm1IOfXtH3eMEeGv6xmSCR+
-	 zNChM8QH0L3vA==
-Subject: Re: [PATCH net 08/11] net: au1000: restore receive filtering after
- MAC initialization
+	b=MmKNS+xLMhWpCX0yHiIQAFzVnPXx3QbBuEvveHVzBh6TPq75GX8q0uGJjivmQZArc
+	 N2iKqYvGiWUGZ3PYPY7GfOGkgPSgo0DBUXmu87J9e1w8HPHw9j3FGcSepV+ZMgxG2i
+	 jii1MK3OVxisaaWSK4aBMtnedcG87o6BkhjdCLx87NyvkB45pGPIBXaY+ItuYK8bEO
+	 P+orIrdz/Ds//ZvV5sG30PGtlcfmxShRHN2vTuwWrqWQ586/tuKRTXYFWzKq9aZicW
+	 qmq8I1yIjiuXaXvAhYs5BAvI0RsjJpAh5f24r+d/WJSF3uwMHT8RWlaQ/fpDJ7jL+r
+	 9PFXTn+0bcXlw==
+Subject: Re: [PATCH net 05/11] net: au1000: serialize TX completion with
+ packet submission
 From: netdev-bot+sashiko@kernel.org
 To: f.fainelli@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -50,11 +50,11 @@ Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
  danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
  linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
-Date: Thu, 29 Oct 2026 16:15:19 +0000
-Message-ID: <179329051912.3134.7644702434785244368@kernel.org>
-In-Reply-To: <20261027223140.3774570-9-f.fainelli@gmail.com>
-References: <20261027223140.3774570-9-f.fainelli@gmail.com>
-X-sashiko-severity: Low
+Date: Thu, 29 Oct 2026 16:15:13 +0000
+Message-ID: <179329051390.3134.18192194876316281231@kernel.org>
+In-Reply-To: <20261027223140.3774570-6-f.fainelli@gmail.com>
+References: <20261027223140.3774570-6-f.fainelli@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,74 +67,185 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 (1) · High: 0 · Medium: 2 · Low: 0
 
-- [Low] In au1000_init() (drivers/net/ethernet/amd/au1000_eth.c), the
-  control register is written with MAC_RX_ENABLE | MAC_TX_ENABLE and no…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] au1000_tx() in drivers/net/ethernet/amd/au1000_eth.c now frees
+  the skb with hardware IRQs disabled.
+- [Medium] After this patch, au1000_tx()'s inline reclaim path leaves
+  aup->tx_tail permanently out of step with the hardware.
+
+Pre-existing issues:
+- [Critical] This problem wasn't introduced by this patch, but
+  au1000_tx() copies skb->len bytes into a fixed MAX_BUF_SIZE…
 
 --
 
-net: au1000: restore receive filtering after MAC initialization
+net: au1000: serialize TX completion with packet submission
 
-This patch reapplies the current netdev receive mode at the end of
-au1000_init(). Promiscuous and multicast settings are then kept after a
-watchdog reset. It also takes aup->lock around the control register
-read-modify-write in au1000_multicast_list().
+This commit takes the existing IRQ-safe aup->lock in both au1000_tx_ack()
+and au1000_tx(). The goal is to serialize TX descriptor reclamation in hard
+IRQ context with packet submission in ndo_start_xmit. It also closes a
+missed-wakeup window between netif_stop_queue() and setting tx_full.
 
 > diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-> index f8976e324f0e7..6b817d18329b2 100644
+> index a507a524370fd..90887dac26bc9 100644
 > --- a/drivers/net/ethernet/amd/au1000_eth.c
 > +++ b/drivers/net/ethernet/amd/au1000_eth.c
 
 [ ... ]
 
-> @@ -742,6 +744,9 @@ static int au1000_init(struct net_device *dev)
->  	wmb(); /* drain writebuffer */
+> @@ -973,17 +977,20 @@ static netdev_tx_t au1000_tx(struct sk_buff *skb, struct net_device *dev)
+>  	u32 buff_stat;
+>  	struct db_dest *pDB;
+>  	int i;
+> +	unsigned long flags;
 >  
->  	spin_unlock_irqrestore(&aup->lock, flags);
-> +	netif_addr_lock_bh(dev);
-> +	au1000_multicast_list(dev);
-> +	netif_addr_unlock_bh(dev);
+>  	netif_dbg(aup, tx_queued, dev, "tx: aup %x len=%d, data=%p, head %d\n",
+>  				(unsigned)aup, skb->len,
+>  				skb->data, aup->tx_head);
+>  
+> +	spin_lock_irqsave(&aup->lock, flags);
+>  	ptxd = aup->tx_dma_ring[aup->tx_head];
+>  	buff_stat = ptxd->buff_stat;
+>  	if (buff_stat & TX_DMA_ENABLE) {
+>  		/* We've wrapped around and the transmitter is still busy */
+>  		netif_stop_queue(dev);
+>  		aup->tx_full = 1;
+> +		spin_unlock_irqrestore(&aup->lock, flags);
+>  		return NETDEV_TX_BUSY;
+>  	} else if (buff_stat & TX_T_DONE) {
+>  		au1000_update_tx_stats(dev, ptxd->status);
 
-[Severity: Low]
-Is there a short window here where the receiver runs without the
-requested filter?
+[Severity: Medium]
 
-A little earlier, au1000_init() enables RX and TX with none of the filter
-bits set:
+Now that the lock is held here, can this inline reclaim leave aup->tx_tail
+permanently out of step with the hardware?
 
-	if (!dev->phydev || dev->phydev->link)
-		control |= MAC_RX_ENABLE | MAC_TX_ENABLE;
+If desc[tx_head] has TX_T_DONE set at this point, the ring is full
+(tx_head == tx_tail) and the oldest buffer has just completed. This branch
+updates stats and zeroes len. Later in au1000_tx() the code re-arms the
+descriptor, which clears the done bit, and advances tx_head:
 
-	writel(control, &aup->mac->control);
+	ptxd->buff_stat = lower_32_bits(pDB->dma_addr) | TX_DMA_ENABLE;
+	...
+	aup->tx_head = (aup->tx_head + 1) & (NUM_TX_DMA - 1);
 
-Then aup->lock is dropped. Only after that does au1000_multicast_list()
-program multi_hash_high/low and set MAC_HASH_MODE, MAC_PROMISCUOUS or
-MAC_PASS_ALL_MULTI, using a second read-modify-write.
+tx_tail is never advanced on this path.
 
-This can happen on the au1000_tx_timeout()->au1000_reset_mac()->au1000_init()
-path when the link is up, or on open when there is no PHY. In between the
-two writes, frames for joined multicast groups, or non-local frames in
-promiscuous mode, could be dropped.
+Before this patch, on the uniprocessor Au1x00, the pending MAC DMA
+interrupt could run au1000_tx_ack() before the re-arm and move tx_tail
+forward. Now the ISR is held off until spin_unlock_irqrestore(). At that
+point au1000_tx_ack() finds desc[tx_tail] re-armed with no done bit:
 
-The window is small next to the reset delays that come before it. On open
-it is also shorter than before, since __dev_open() calls dev_set_rx_mode()
-only after ndo_open. The window is still there at the end of the series in
-"net: au1000: keep the MAC stopped until the PHY link is ready" when there
-is no PHY or the link is up.
+	while (ptxd->buff_stat & TX_T_DONE) {
 
-Would it be worth computing the filter bits and adding them to control
-before the single writel()? Then enabling RX and programming the filter
-would happen in one step.
+So it returns without moving tx_tail, which now points at the newest
+submitted descriptor.
 
->  	return 0;
->  }
+au1000_init() sets tx_head from the hardware's own buffer index, so the
+hardware completes descriptors in index order and that newest descriptor
+completes last. Wouldn't that leave the TX_T_DONE bits of older completed
+descriptors unacknowledged until then?
+
+It would also delay netif_wake_queue() in au1000_tx_ack() until the whole
+4-entry ring drains, rather than after one completion. The offset would
+then persist until au1000_init() resets head and tail.
+
+The same thing can happen when au1000_tx() is called with IRQs already
+disabled, for example from netpoll.
+
+The MAC DMA interrupt is IRQ_TYPE_LEVEL_HIGH, and au1000_interrupt() always
+returns IRQ_RETVAL(1). If unacknowledged done bits keep the line asserted,
+could this become an interrupt storm? That part depends on hardware
+behaviour that has not been confirmed.
 
 [ ... ]
+
+[Severity: Critical]
+
+This is a pre-existing issue, not one introduced by this patch.
+au1000_tx() copies skb->len bytes into a fixed MAX_BUF_SIZE (2048 byte)
+bounce buffer without checking the length:
+
+	pDB = aup->tx_db_inuse[aup->tx_head];
+	skb_copy_from_linear_data(skb, (void *)pDB->vaddr, skb->len);
+
+Can skb->len be larger than 2048 here? When po->vnet_hdr_sz is nonzero,
+tpacket_snd() in net/packet/af_packet.c skips both MTU checks:
+
+	if ((size_max > dev->mtu + reserve + VLAN_HLEN) && !vnet_hdr_sz)
+		size_max = dev->mtu + reserve + VLAN_HLEN;
+	...
+		if (likely(tp_len >= 0) &&
+		    tp_len > dev->mtu + reserve &&
+		    !vnet_hdr_sz &&
+		    !packet_extra_vlan_len_allowed(dev, skb))
+
+An all-zero virtio_net_hdr (GSO_NONE, no NEEDS_CSUM) is accepted without
+making the skb GSO. validate_xmit_skb() then only linearizes it, because
+au1000 does not advertise NETIF_F_SG, and applies no MTU check.
+
+With CAP_NET_RAW, this path could deliver a multi-kilobyte skb to
+au1000_tx():
+
+socket(AF_PACKET, SOCK_RAW)
+  setsockopt(PACKET_VNET_HDR)
+  setsockopt(PACKET_TX_RING) with tp_frame_size > 2048
+  tpacket_snd()
+    packet_xmit()
+      validate_xmit_skb()
+        au1000_tx()
+          skb_copy_from_linear_data(..., skb->len)
+
+au1000_probe() allocates a single 16 KiB region with dma_alloc_coherent().
+The TX buffers are at offsets 0-8K and the RX buffers at 8-16K. Would an
+oversized frame overwrite the neighbouring TX/RX DMA buffers? Beyond about
+10 KiB, would it write past the end of the coherent allocation?
+
+Should au1000_tx() drop frames larger than MAX_BUF_SIZE?
+
+> @@ -1012,6 +1019,7 @@ static netdev_tx_t au1000_tx(struct sk_buff *skb, struct net_device *dev)
+>  	wmb(); /* drain writebuffer */
+>  	dev_kfree_skb(skb);
+>  	aup->tx_head = (aup->tx_head + 1) & (NUM_TX_DMA - 1);
+> +	spin_unlock_irqrestore(&aup->lock, flags);
+>  	return NETDEV_TX_OK;
+>  }
+
+[Severity: Medium]
+
+With the new spin_lock_irqsave() in au1000_tx(), dev_kfree_skb(skb) now
+runs with hard IRQs disabled. dev_kfree_skb() is just consume_skb():
+
+include/linux/skbuff.h:
+#define dev_kfree_skb(a)	consume_skb(a)
+
+include/linux/netdevice.h says:
+
+ * It is not allowed to call kfree_skb() or consume_skb() from hardware
+ * interrupt context or with hardware interrupts being disabled.
+ * (in_hardirq() || irqs_disabled())
+
+Does this mean every transmitted packet now runs its skb destructors with
+IRQs off? That includes sock_wfree()/tcp_wfree(), zerocopy ubuf callbacks,
+and dst and conntrack puts.
+
+If any of those reach local_bh_enable(), lockdep_assert_irqs_enabled()
+would fire. With CONFIG_TRACE_IRQFLAGS, __local_bh_enable_ip() could also
+turn IRQs back on inside the aup->lock section, which would reopen the
+race this patch is closing.
+
+The data has already been copied into pDB->vaddr. Could the free move
+after spin_unlock_irqrestore(), or use dev_consume_skb_any() instead?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027223140.3774570-1-f.fainelli%40gmail.com
