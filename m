@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277968;
-	b=XOLFAVk/4iGaza7lvEKBJo5qRtSOgBDGf+D0/ku7dzFYz23UWyRcZPHTIO7tT0YnqGQx
-	 PbsSGfMn4wFYLEY6CDjVQfEDzBnkNz044emWJPXltcx/esWn6CDP7UDYExgoxOD/eA5co
-	 T1gYU0IivowgSFBZVQ3Vr/gscQCn13OC5k0v1KNVzzHEvfdS+2hNsuZtrqEp2pUuc/oqu
-	 FRbyhnYn0csWW2O3SSrabrARKihpZ2ZRrc9wZyU+2ij55POyEG4+bQThE9TVF1iEEeDC6
-	 kfhWIwzEXLWkux4d9NBKRe6yjVpKIxmW2N864dWQWVQLGVMV6uVp03fQimpS5vzq2mA==
+	t=1793278193;
+	b=oNhE5mOHsGz1nDWvGe/w1pkI9kMFX6Tu5uw4MSiZCZdJo/A0kwdYm8WOnkkbcpPvj/Ni
+	 MGH0PM+0KUDDzELfSTIuizwC1+fK8GBp+O9xWLCjtduuJRq352/Aktq/tcgQI5cA9l3uB
+	 PMwIXpWvw1jndJufPls0zIp69P8pGEuXtPCkO8nX4LjNJdQzbH9YOn9Xm+Eigz2+vxGiF
+	 CjIsazElWg8oGqpi9kDnNcQleTE0LGJxzSOPvzD6mcy/3ZP0MCFCNdb04MU1MDlX3BiN5
+	 5CiB26rwvv+Chun/d40Yk0LKQ2z1yP5eD3TBiRobjUEPSy1YT9YvGPg4i+R/1r/fvAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277968;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
-	b=qX+k0artU+PmTSipuw8tMpyj5DA/nmOUSDrPEehN0ZPBGt4JraxPFQNnZFWmiYYDd65C
-	 NOhZ/CWlSP6UoM3vXkhousFgLMD47bJ21CUJrgAbtY5mNSacoxsOo0E4EQPzGNNr3MkBb
-	 qqTxG7uHcd7mCeMva/kmbh3AkgmnEGVVKFM6OLEF5OSVwgY1bfV+6PefH+r3lzlTHsj94
-	 uY5Dp4FghTV+HFHeRGmb27gsL+KQPK+w5ChewmhnaNhJ6z+HRpfHI3mN0ZYmpXk8KXFhM
-	 gNwnwYf/2GLOKLAmDf7AS9uMKhYdou+UU9NBs1tRYPXkz1B+GiAut2bmI40UI8moLFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278193;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ROp3jZYajDVDh8nm32pw5xyIgzSFtN3IpqGpjVrWuQc=;
+	b=EDT2F0lbJJujsD7ZuEuBXlQ9nc/BkzD/4146e5lQvtKpetSG8GpzZI94THsdcL+edTpr
+	 iGsTLWkr5FpS692hf3GGmNsFTfPGAvcLI1GKYhjKrIpoy80Y3WBrfbsL70vGy0PWNmnAD
+	 iLBJ3p9pmKVB3Yu+rDZqw5LMrDGn88N50wdKadevOzeOp4ufGbWehtGDq71KL7k/jVjiP
+	 iCbvHgyxMI6ZOAqqE2jceNbgttXBtUV57AMe7E9KMBrMSWZz3RUXrNX1fpYmiGFxLbOXQ
+	 vWBgoL7dBey6Dq5JyZUQGNhQYjyWpUaj5K+OJUz04Dgz/yvDpJZN99B6UOETVGdfzMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SyStkEZm;
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4A7606A31C;
-	Thu, 29 Oct 2026 12:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169AC606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:49:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 169AC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CFB1F01825;
-	Thu, 29 Oct 2026 12:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793277968;
-	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ULCbiumhSBpvHWfABnOL+qWWXTjf5N0lA/5Ith6C7WGBILoqVTaUf6N2ERWnc6PJn
-	 mPID/jQLcmV4/Xm4aptEUXchkZbYCFJWE8D7f8RT1lXY+VzoBSij8nkqf+VibG2yso
-	 r+U/MDpD+SlRVf5AipnN9Q+6+Pav3UJO49dGl7FzzVJz1b6LopuGCs+Mc8sJI3XR5d
-	 ARbPI4PTuYtKzc/1NrZU/6xh4BzaZCU13h8stp9MwyR/sv+iwY1VmrAVz/IEBGnUc7
-	 1ANZNumOHdFnNnFPdihV/Pl7af6B91QQeFxgf6U4A1JPTjy+3Y+t/o89uww0hfBvyE
-	 cyP+KJfpdD7bg==
-Message-ID: <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
-Date: Thu, 29 Oct 2026 13:46:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SyStkEZm
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7a6e560f580so1483076137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793278191; x=1793882991; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROp3jZYajDVDh8nm32pw5xyIgzSFtN3IpqGpjVrWuQc=;
+        b=SyStkEZmAKI1EJX06M5T1xEgkXiYvK0jB/EsIJc74PsoZLVPeLOliWrXZGuSkUX2uJ
+         09xrz2uFk5twc2iZjQWB9gE38cAAwiBu4eFYUA1OUtXnTpLY7gWfu/867+BZELjIY1oy
+         p9k+7TcpJu2uH8Wz3ryGNRtYN0uheqhky09LY1EK8EahyvrLefRdB8BLNbFGB9FMpmaK
+         2JYsjUQ6qoKsF5k8rEgBPqOJ/wBYC3CcSG/ILg2UU5B8g7FuoGVD/J/ryykK4Mx31feT
+         TNihCZdRwlj5+QFhtk+isJuZUTbnis0ctp3pkO6KhqnNP4Joqd2/TtEVt/6SOZv5nrnM
+         QSzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793278191; x=1793882991;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ROp3jZYajDVDh8nm32pw5xyIgzSFtN3IpqGpjVrWuQc=;
+        b=cMpQHKD7r/xTnpN+LY0ykmGp5Mg7KkB4+Fpe4Vy5qQqiHpdCx6i5WfKa3Uf0fJNzEs
+         Evf/KU2rKV/KYbn1VQ+JFmq2ynSx8sDTzbxWLxHmTbudgjqQDzO6VZRgK1bSFxEs6VX/
+         QxB0NXIWlELWTw0862tn+SeNhl9auwUO8kGGQss2AFFzCpUZWOkkwJoqePSsMFrTf8Nw
+         XbpSgL78pAeU4T2m9071roukYqmreDGSLa+4CxHX5/1c+pvadmsiDLCQO5PJiX2jyni4
+         UNZYqNf3G322Pueswjt3M92kHwGOSe1ExL01XavGyy5goVLceww7hju4zKkDsXiub4Ef
+         97uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSXjXIoyhPJIQgNi//ywWcghDdwxFHzi3ANaCzfctmVDoKpqsy9AdpkTAw8krCu6Uh6jrOq0SjTrdwmSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzeP4hvde3tc6SxdKfNdCy5Kvf7V+N7otSeHNNzRuObGKpECfk
+	rpNO+vswjJ7rdYnGZ+qu1y2MVk1ABBPDN6a+sYcogqgRbSHlLt0a3lvj
+X-Gm-Gg: AYBFou0ZG4CW2Ozx/HxulPE9hVaj5gXsRVVEHb6XaU3p+ZoGwdDCqYkpDk+7XABThO4
+	AglWBRFIv6fTopaYrVcm4KfZksEMiFacsnU7bHOAlkgm5ELvB11qSMdQKyJ8sphLleNWeFEy2ZQ
+	dlZkt9Wfn8xKOs9fKfgGuDaWUEMeRD3mEwuKw0rNmzWkm0CAc58zMRoNc7qELG3PwthM1HSM5fS
+	bay5FAsQTI876cTzfLvc77NmkpMJga3DcHsUifknGtSk5CAcZ1ggjW6v2jfvTJ1iCYGPQuGGYwv
+	M0qxQJEtw0zMHSlVhL/SPF0zpP73nEfxUm8PzEJWBs28eXWAI2HnWgyrCVw8SA9hHdcaChHqhA9
+	3OK81EgTtIx8yUxg0qOgVnPbpddaBCbPjIeBBsOn0s69jiDszYR2It269jEVw4qzGbiJ7Lnd/Rb
+	bWJrLE44k3/Isspr30f68bdYmP8roTfQGSiwnetBqZ8c9ZrxKn5eyV+fwJOn2X/8D6jSpdbdSwv
+	I7A29QAUR2slUBka1mpXa9V+e940XI8J4ejBmGdhOMR72vf2Z+HSdrmBRlE06LOl2zOfk8KLJq4
+	AVCWwE4sOo7LIkF9msScOOt5O836Cgz0gjKwGTbeHfJBcz8TU3sI5UzQhh7JblMx103+Yd1tSXx
+	SP5tJwvT45G6g
+X-Received: by 2002:a05:6102:442b:b0:7cc:2712:caf2 with SMTP id ada2fe7eead31-7d03a58ef68mr2795290137.23.1793278190871;
+        Thu, 29 Oct 2026 05:49:50 -0700 (PDT)
+Received: from [192.168.15.16] ([2804:1b3:a2c1:77a1:5cd:8fee:f3c:4da7])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9913af7aa6esm3225638241.4.2026.10.29.05.49.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 05:49:50 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ syzbot+2e3c70a51d4ac0f6bdd9@syzkaller.appspotmail.com,
+ linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] SUNRPC: serialize pipedir removal on the
+ rpc_client_register() error path
+Date: Thu, 29 Oct 2026 09:49:40 -0300
+Message-ID: <179327818020.63233.759139320736692367@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,119 +102,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
- camera
-To: Kuangyi Chiang <ki.chiang65@gmail.com>, laurent.pinchart@ideasonboard.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261029033106.7374-1-ki.chiang65@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261029033106.7374-1-ki.chiang65@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi,
+When rpcauth_create() fails, rpc_client_register() calls
+rpc_get_sb_net() and then __rpc_clnt_remove_pipedir() whether or not a
+pipefs superblock was found.  If rpc_get_sb_net() returns NULL, the
+removal runs without sn->pipefs_sb_lock, and the client is still on
+sn->all_clients until rpc_unregister_client() a line later.  Pipefs
+mount/umount notifications run under pipefs_sb_lock and walk that list,
+so they can race with it:
 
-On 29-Oct-26 4:31 AM, Kuangyi Chiang wrote:
-> UVC control requests issued when preparing a video stream sometimes
-> time out on the HIK 1080P Camera (2bdf:0280):
-> 
-> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
-> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
-> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
-> [   58.592967] uvcvideo: Failed to initialize the device (-5).
-> 
-> Adding a 1ms delay after each control message avoids the issue.
-> 
-> Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
-> 
-> Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
+ - a pipefs mount between rpc_get_sb_net() and rpc_unregister_client()
+   gives the client a new directory, which the unlocked
+   rpc_remove_client_dir() then removes while a concurrent umount of
+   that superblock drops the same dentries in select_collect_umount();
 
-Is this a USB-2.0 camera connected to a XHCI controller ?
+ - a umount notification that picked the client up before it was
+   unregistered keeps using it after rpc_new_client() has freed it.
 
-And if yes, how old is this camera model ?
+syzbot hit the first one when racing rpc_pipefs mount/umount with
+NFSv4 mounts (the krb5i rpcauth_create() fails without the gss mech):
 
-The reason why I'm asking this is because the EHCI USB-2.0 controller
-interface causes a natural delay between consecutive ctrl commands queued
-one by one till the start of the next USB frrame, so they get spaced
-1 ms apart.
+  WARNING: fs/dcache.c:1063 at d_make_discardable+0x28e/0x2f0 fs/dcache.c:1063
+   __simple_recursive_removal+0x276/0x5c0 fs/libfs.c:625
+   rpc_remove_client_dir+0xf0/0x140 net/sunrpc/rpc_pipe.c:898
+   __rpc_clnt_remove_pipedir net/sunrpc/clnt.c:100 [inline]
+   rpc_client_register+0x605/0x6f0 net/sunrpc/clnt.c:333
+   rpc_new_client+0x977/0x1300 net/sunrpc/clnt.c:437
 
-Where as the modern XHCI controller interface will put these back-to-back
-on the USB bus. We've seen some issues with (older) USB devices before where
-they needed some delay because they were originally only validated with
-EHCI controllers and the hw/ff assumes it will get some "breathing space"
-between control messages.
+With a test-only msleep() after rpc_get_sb_net() returns NULL, the
+syzbot reproducer also triggers the second one:
 
-Regards,
+  BUG: KASAN: slab-use-after-free in rpc_pipefs_event+0x568/0x57c
+  Write of size 8 at addr fff000000ec53240 by task rpc_repro/107
+   rpc_pipefs_event+0x568/0x57c
+   notifier_call_chain+0xfc/0x384
+   blocking_notifier_call_chain+0x68/0x9c
+   rpc_kill_sb+0xbc/0x1a8
+   deactivate_locked_super+0x98/0x11c
+  Allocated by task 111:
+   rpc_new_client+0x144/0xf04
+  Freed by task 111:
+   kfree+0x1dc/0x5c8
+   rpc_new_client+0x9f8/0xf04
 
-Hans
+Do what rpc_free_client() does instead: unregister the client first, so
+no later notification can find it, then remove the directory with
+rpc_clnt_remove_pipedir(), which takes pipefs_sb_lock (waiting for a
+notification that is still running) and only removes it if the client's
+superblock is the current one.
 
+Fixes: eeee245268c9 ("SUNRPC: Fix a deadlock in rpc_client_register()")
+Reported-by: syzbot+2e3c70a51d4ac0f6bdd9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2e3c70a51d4ac0f6bdd9
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+---
+Tested on Linus' master c339f4010dea (arm64, QEMU, generic KASAN,
+PROVE_LOCKING, NFSv4 without RPCSEC_GSS_KRB5) with the syzbot C
+reproducer.  The race window is narrow: the plain reproducer did not
+hit it here in 6 runs, with or without this patch.  To widen it, a
+test-only msleep(20) was added on the err_auth path (after
+rpc_get_sb_net() returns NULL in the unpatched code, and between
+rpc_unregister_client() and the removal with this patch):
 
+  unpatched + delay:  2 of 2 boots, 16-22 WARNINGs each (mostly
+                      d_make_discardable, plus fast_dput, and umount_check /
+                      generic_shutdown_super once) and one KASAN
+                      slab-use-after-free each (rpc_pipefs_event in one boot,
+                      rpc_create_client_dir in the other)
+  patched + delay:    3 of 3 boots (9 runs), no WARNING, KASAN or lockdep
+                      report
+  patched, no delay:  2 of 2 boots clean
 
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
->  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc7..c720d75 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
-> +	/* HIK 1080P Camera */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x2bdf,
-> +	  .idProduct		= 0x0280,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= 0,
-> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
->  	/* Insta360 Link */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a..4667f86 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->  {
->  	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
->  	unsigned int pipe;
-> +	int ret;
->  
->  	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
->  			      : usb_sndctrlpipe(dev->udev, 0);
->  	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
->  
-> -	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> -			unit << 8 | intfnum, data, size, timeout);
-> +	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> +			      unit << 8 | intfnum, data, size, timeout);
-> +
-> +	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-> +		usleep_range(1000, 2000);
-> +
-> +	return ret;
->  }
->  
->  static const char *uvc_query_name(u8 query)
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4..1426d14 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
->  #define UVC_QUIRK_MSXU_META		0x00040000
-> +#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
->  
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+net/sunrpc/clnt.o builds cleanly with W=1.
 
+ net/sunrpc/clnt.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index 6cedc82..16aff2a 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -328,12 +328,18 @@ static int rpc_client_register(struct rpc_clnt *clnt,
+ 	}
+ 	return 0;
+ err_auth:
+-	pipefs_sb = rpc_get_sb_net(net);
++	/*
++	 * Unregister first so that a concurrent pipefs mount cannot give the
++	 * client a new directory, then remove the directory under
++	 * pipefs_sb_lock like rpc_free_client() does.
++	 */
+ 	rpc_unregister_client(clnt);
+-	__rpc_clnt_remove_pipedir(clnt);
++	rpc_clnt_remove_pipedir(clnt);
++	goto out_destroy;
+ out:
+ 	if (pipefs_sb)
+ 		rpc_put_sb_net(net);
++out_destroy:
+ 	rpc_sysfs_client_destroy(clnt);
+ 	rpc_clnt_debugfs_unregister(clnt);
+ 	return err;
+-- 
+2.39.5
