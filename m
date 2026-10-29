@@ -1,87 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.148.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260021;
-	b=2D3G3SedKhvqDuEGcw19fbTmmDiMsah+TC9ShGbDEzc7YxzmafDatY91F3sEKFRoMeDB
-	 IC9S5rQ3J2VHjM3kDAPdmwmlfnZ99SgoBbZuMD3zdDVJz3/b5qLfCcsTdhlWdOlM1Ebne
-	 dkxyLyr/KT1jgmENsN49rtki06VBC2K1FLWrMz/0hZ3yoK/c1X34WgyAeveasCtgTLMQh
-	 gFlrKoOvB+u3KbJaplMyI6q+4jF8dT8OIs4/3wzVfUEHuxC7UMOx4OO8I5YXNB3aBERiq
-	 Obv7V4ULrB1KeAEOcWjPD0ruO5L7zx0/sxKRcHZzs/ZeD9xSVXL1kyMO+KrFu+xDESg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260021;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version;
-	bh=7w1kF4JKD9yMYLJ1WZx0v2GmnR/7yGWA1vJOKp1xLeI=;
-	b=wLTYMRfvNneTgjtAN+Nb7xHRCHULvQdNUFmbZRc41F2Ji7EXqNQh/a6gjCCHqUEEOIkF
-	 W6/WA1ZDael7TYMHYf2cV/9Dha3scdlLfTz6j+L/OtUIPgqn1uvk0V2oijMJk2H8AbF/p
-	 qtWu2f/KZ0DU5ttMsF6V8lDedTt0uenhsFIlShlYenPc9XlpKKL5TNMgQANSU99HBGPcM
-	 j3x1Cm0emc0QPbIHXaC+tO3e11JuFY8zpKKhsjIyQZla9DFPyNlQKNwf8LrMohmusxY+Q
-	 m21J/5mcdOr+9gH48EC8x+Qn8Cyws1b/FrdJ5m0trv3Ut4PIkopl70jQ7WnThWVrr8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=U57H5O4v;
-	arc=none smtp.remote-ip=67.231.148.174
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793260091;
+	b=vBtE9YZuVyShyi6qSmrKaOumXK9TQZ7glbGw8mZ11yGSHDA9sVwfcXy+Isr+76mkUn4H
+	 jFGkl5emROpJPidwpNtTMXZiElVQUe4w+e+5nL8T5yrG2h8t6yBjDfngRmXjYj8WX6bfE
+	 Ots85cV26BP6npnzxWgWeKTO/Oht4E5wGbBvwIQV50wsLCYrq6vjkP8D5w11fMyHD4fBV
+	 6Ygmdx3YnEkTsEaAZ5poELHe5zgI0FYqMAZfiMgeTI2SOeuoP7yCYD6Hbe+v1z7MtDjSV
+	 zaHH5wxfHv1xBAauoCNIPC+GJQsem/yBFv/96gfY7ZOmiERhVq7var7IJu79Won5YyQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260091;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kLPsObaT6f/PPOqYyCA0kMg08YEwAESLQry3ZVb28XY=;
+	b=l8JeMmCJUAVKohtb1yFCTrTQKLVLLz81hyMkOQWBC13p3WaVcGEA2Bpi1oedmK/Jbe5Q
+	 lMM8ihZUDSdY4r84OC5X3g7X6GyEbMApOGc2unsz6nAsXMYzhI2/Usbw5iJlCauNq2leI
+	 nUbwT9a0d3C3ApkT3+T3oeki4Ns78VSdL0zrynOQHxqInKFSGVOxb1Yu68oeDWk7ZmjE3
+	 iInOOy/03WfbjN1d/yfPyt6iedFJamvd64bY0Yyw/hPixgjzNNXMr0IQcY9uXgcfKG01B
+	 DpTztPhypHd/Uo4zYucxeEhD3KlIghCLNnon/xRpBEJOfLFD24FXn+2UFHaEqwoF72Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXGvRbc0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76382606A31D;
+	Thu, 29 Oct 2026 07:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXGvRbc0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793260090;
+	b=g8YN6WcNBE/WeUSixnomOIge6T+yjJcmw+EPPjh34EhOdgwQpWJQS2kLE6Y3QoHJfH2N
+	 NBBY3EeTCyLsclfPJdcgoWDmN5vPJxyBdmIXHK2sNm7Wt9Wnp64VswfH8wxQXgq9T6heV
+	 84kEDcAc7rec0EbBsgKT2GF16fzJ/K7+GKoIs7lupxwE3Rxd3u4hLUb2d3JiEIWC6K0tP
+	 +Mr9NTwzfR4mTV1e2PkNjP1YlPnUv40fhQy6dV6L3Y2oQQVkdJwFP62sW9DnUpx2wn4YI
+	 oX/6lVV/CPOP2kAlpH0qJE9hJZEjJr+BkWN6bCn80f28h0mJbYxIHdAOX+Wg4GTIt4w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793260090;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kLPsObaT6f/PPOqYyCA0kMg08YEwAESLQry3ZVb28XY=;
+	b=ocLdFtbGOaVqmTwooG/HhkMAsN3qDUOhr8oI97lO/pSTfGPqFEfy8mK99CGul2GIG5B9
+	 qo6EbiY3cNF+tYFW1AKzBca/Q7/oyZpYvV/sWaprs/tVwBQZ8dWa8DFPW+lE86BP7ofGw
+	 aHRf76EG9EZ8LztvcFhC/zZ6mqyw+9wEGbK+y9lOG76bGwKi4CuOscGzqmfoNW6/ZM6PT
+	 Mb24S+QfUfIA9aOdZWK9hJiMt5nld3rzdA4DxPQkrbB9jMYMaUknfER06LSow8Wy4zmQn
+	 8CPUgV99zMtf7TP9QdmyBU+WnOWQgJ8AvrJ3Zg2NTUwrZSeG5q9RZdvWGX3pCGCzXAA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3AE606A31C;
-	Thu, 29 Oct 2026 07:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB3AE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=U57H5O4v
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T6wEXq3214496;
-	Thu, 29 Oct 2026 00:46:41 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=7w1kF4JKD9yMYLJ1WZx0v2G
-	mnR/7yGWA1vJOKp1xLeI=; b=U57H5O4v2YOKEXiOYTyKk0WVTDlmsjahN23toyy
-	FvXwmzfalINUegmr59WPo5p49TScGk6iOEcC21hSRUEIeJIaaDT6Gj2N1RmazHLu
-	QIxn36PynytX0OXT5Ua0iJlvAJJCQccxa3VpQNnXtOv2htVHAOsZw7Hp06U9KYc4
-	Aq/7S9nO6UrPZQzh88vOwii481Y6QC6uA8xXfvc+4RaFAW0/KGvik4qfdWuu5vLQ
-	Exh+oXOS6Ma9MtvKMrdfoDWLPRZofTjNZD6hd3Q4ZeQuyRM6Ut5CNUv7+5X2gILk
-	pE8xWXxtPEMdVjoPW9eNU831P6aOSA8vfi6oY41t4m8n1Aw==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4hm1bf05qy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 00:46:41 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 29 Oct 2026 00:46:40 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Thu, 29 Oct 2026 00:46:40 -0700
-Received: from localhost.localdomain (unknown [10.110.24.192])
-	by maili.marvell.com (Postfix) with ESMTP id 5A2E65C68FD;
-	Thu, 29 Oct 2026 00:46:39 -0700 (PDT)
-From: vmukunda <vmukunda@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Ratheesh Kannoth
-	<rkannoth@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S
- . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        "Naveen
- Mamindlapalli" <naveenm@marvell.com>,
-        vmukunda <vmukunda@marvell.com>
-Subject: [PATCH] octeontx2-af: fix TX hang after link mode change under traffic
-Date: Thu, 29 Oct 2026 07:46:35 +0000
-Message-ID: <20261029074635.4139111-1-vmukunda@marvell.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 217E01F01829;
+	Thu, 29 Oct 2026 07:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793260090;
+	bh=kLPsObaT6f/PPOqYyCA0kMg08YEwAESLQry3ZVb28XY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=nXGvRbc0lQvqE8SMg05FrZECiXSMuoPggUsUNQ2k3RhR4SpD9gPnzCgNGat5lyUGU
+	 9j5fIjUsMWX4OELOnDqqceKJu0BvHpwf0cZqMv+NHvWdrPos6ZoDTm8j1y5JM4CXI3
+	 WkGLnWCQCMkA7lqKhf4RsEPIlorWuk6AtW58ZLbBFyQLuw1uXx6m0sdeGVjMVOhOhN
+	 ZbD63SfPin0ZdKZd99RW6EqyxDYkrbF3sJPQcJCNPGJSxEbZ1EikoVBL3tXOXUzy6J
+	 B6cHk99SbMDkO3Y4aXgme5oulxcLqzvDq3YhBKuMti0qJ2nhlKMzOlSL0hDuVKMLOB
+	 wLEEvI0wG9bhg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 88CBE4571A;
+	Thu, 29 Oct 2026 07:48:08 +0000 (UTC)
+From: Remy Demangeot via B4 Relay <devnull+remy.demangeot.net@kernel.org>
+Date: Thu, 29 Oct 2026 08:48:02 +0100
+Subject: [PATCH v2 1/2] ACPI: EC: allow drivers to create a polled EC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,140 +82,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyOSBTYWx0ZWRfX0VRMdMWZVQ82
- OT7xybG5kpjJgXHpr++pPuo1Mdo/QxaA5ulZ/ZmBHYxQZ3R5btmCuRDaa0Yv63G8eALqTTjydvL
- 1wtlV94PmpUtzmFuvh8BW0QAY3v+qz9nFoGtJK4UsyNpiUdGHmuTF5TvI8EwLL/G+ALcEp2WwA7
- lUnws3BhRB9gg/RuoydX1HMPcmmBFGQmHAD9QGSOY/xVQ5l4E4QSk2mjPDZrMwMqMjBPXNbZGNa
- hHTDkyPupjapiszZZCEEE2xVlDNmoekRffN+YaTF1x3Y9kK12y8tTX235/IxtFC3bOEHmiEbihP
- JzKsHfD+JRjpG80LKkTjC7qSVgkOTqxkGZx/5fPefusvtOl/wNh8cv4hHYMH74Mx/R0oleVqd/E
- JNmkMndSKgzik0uCfna5qOC0b9JgBefqBg5ncgtJ9C2qOLYwdu6mmM/x7v3ChRFHXqe5ea+dCQK
- vN8mIShP5mWd37O04RA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyOSBTYWx0ZWRfX+V103RDzhjMm
- 6RI1ggFOYAlBghl0QJzqqK1vOt5thGbPZ7blxW3lBSl708QVeX+nkRfi4pCcZHsDjOpDkYhtoxK
- ToNH35mIIb+wFq2yS4IrJQv0aqVl3LI=
-X-Proofpoint-GUID: f_v6AtngsfN0Zr2NkuLS9QBuZn6_44jL
-X-Proofpoint-ORIG-GUID: f_v6AtngsfN0Zr2NkuLS9QBuZn6_44jL
-X-Authority-Analysis: v=2.4 cv=FaWiV5+6 c=1 sm=1 tr=0 ts=6ae2f9e1 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=ls1hVQvxTW4bqZ7aOB4A:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-m9e-ec2-v2-1-e9c4e2ba8415@demangeot.net>
+References: <20261029-m9e-ec2-v2-0-e9c4e2ba8415@demangeot.net>
+In-Reply-To: <20261029-m9e-ec2-v2-0-e9c4e2ba8415@demangeot.net>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Eugene Shalygin <eugene.shalygin@gmail.com>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: Armin Wolf <W_Armin@gmx.de>, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ Remy Demangeot <remy@demangeot.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793260087; l=5632;
+ i=remy@demangeot.net; s=20261015; h=from:subject:message-id;
+ bh=/cs87yafgZ1YRaT6jFA1fah9Em8PNXk59oRg4Wxln8U=;
+ b=SJGYtPngqwrsMY4JTdkpDFBhIAECWlUUIsYKw5585DN4UsoU7Fx7Mt6Jv/SYCNPECjwUwVhtG
+ gquoTchcIAhBHpIF/H8nWPTyU1qNGX4VmBFZIFINuLY0Cz6BTD7ifuf
+X-Developer-Key: i=remy@demangeot.net; a=ed25519;
+ pk=h/s5N2ZlgZ0m+8FpMhSaCNJt0jvb9whRBAdJwpC+VAo=
+X-Endpoint-Received: by B4 Relay for remy@demangeot.net/20261015 with
+ auth_id=1194
+X-Original-From: Remy Demangeot <remy@demangeot.net>
+Reply-To: remy@demangeot.net
+Content-Transfer-Encoding: 7bit
 
-From: Naveen Mamindlapalli <naveenm@marvell.com>
+From: Remy Demangeot <remy@demangeot.net>
 
-During a CGX/RPM link mode change while traffic is running, the link
-state is disabled and the TX link credits go negative. Once the link is
-active again the credits are not restored, which leads to a TX hang.
+Some boards have a second embedded controller that uses the standard EC
+protocol but is not described in the ACPI tables. For example, the ASUS
+ROG MAXIMUS IX EXTREME has one at I/O ports 0x68/0x6c that holds the
+water temperature sensors. Its DSDT has no EC device for it: only a WMI
+method writes to these ports directly.
 
-Set TL1 SW_XOFF before the link mode change and poll until the TX link
-credits return to their original value. Clear TL1 SW_XOFF after the
-change, including when it fails, so that a failed request does not leave
-the link stopped. A timeout in the credit poll is only reported with a
-warning, and the link mode change still proceeds.
+Add acpi_ec_create_polled() and acpi_ec_destroy_polled() so that a
+driver can create a struct acpi_ec for such a controller, and
+acpi_ec_read_byte() and acpi_ec_write_byte() to access it. The EC is
+used in busy polling mode, like the boot EC before its GPE handler is
+installed: no GPE, no IRQ, no query events and no address space handler.
 
-Fixes: 62945033ea22 ("octeontx2-af: poll for tx link credits before link mode change")
-Signed-off-by: Naveen Mamindlapalli <naveenm@marvell.com>
-Signed-off-by: vmukunda <vmukunda@marvell.com>
+An EC with neither a GPE nor an IRQ must not touch any interrupt when
+its events are masked or unmasked, so check ec->irq there too.
+
+Signed-off-by: Remy Demangeot <remy@demangeot.net>
 ---
- .../net/ethernet/marvell/octeontx2/af/rvu.h   |  2 +
- .../ethernet/marvell/octeontx2/af/rvu_cgx.c   |  5 ++
- .../ethernet/marvell/octeontx2/af/rvu_nix.c   | 50 +++++++++++++++++++
- 3 files changed, 57 insertions(+)
+ drivers/acpi/ec.c    | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+ include/linux/acpi.h |  8 +++++
+ 2 files changed, 95 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-index 094227404ef9..7fc10d17bde9 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-@@ -1048,6 +1048,8 @@ int rvu_nix_mcast_get_mce_index(struct rvu *rvu, u16 pcifunc,
- 				u32 mcast_grp_idx);
- int rvu_nix_mcast_update_mcam_entry(struct rvu *rvu, u16 pcifunc,
- 				    u32 mcast_grp_idx, u16 mcam_index);
-+int rvu_nix_tl1_xoff_wait_for_link_credits(struct rvu *rvu, u16 pcifunc);
-+int rvu_nix_tl1_xoff_clear(struct rvu *rvu, u16 pcifunc);
- void rvu_nix_flr_free_bpids(struct rvu *rvu, u16 pcifunc);
- int rvu_alloc_cint_qint_mem(struct rvu *rvu, struct rvu_pfvf *pfvf,
- 			    int blkaddr, int nixlf);
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cgx.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cgx.c
-index 87d21889dc49..a66abea6e676 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cgx.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cgx.c
-@@ -1235,8 +1235,13 @@ int rvu_mbox_handler_cgx_set_link_mode(struct rvu *rvu,
- 	else
- 		linkmodes = &rvu->fwdata->cgx_fw_data[cgx_idx][lmac];
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index a89f10256dbb85768b86a2a970c75a7d8e3814fa..48e83e84cfdb64c28adedcb77fce29affc956e4c 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -401,7 +401,7 @@ static void acpi_ec_mask_events(struct acpi_ec *ec)
+ 	if (!test_bit(EC_FLAGS_EVENTS_MASKED, &ec->flags)) {
+ 		if (ec->gpe >= 0)
+ 			acpi_ec_disable_gpe(ec, false);
+-		else
++		else if (ec->irq >= 0)
+ 			disable_irq_nosync(ec->irq);
  
-+	rvu_nix_tl1_xoff_wait_for_link_credits(rvu, req->hdr.pcifunc);
-+
- 	rsp->status = cgx_set_link_mode(cgxd, req->args, linkmodes,
- 					cgx_idx, lmac);
-+
-+	rvu_nix_tl1_xoff_clear(rvu, req->hdr.pcifunc);
-+
- 	return 0;
- }
+ 		ec_dbg_drv("Polling enabled");
+@@ -415,7 +415,7 @@ static void acpi_ec_unmask_events(struct acpi_ec *ec)
+ 		clear_bit(EC_FLAGS_EVENTS_MASKED, &ec->flags);
+ 		if (ec->gpe >= 0)
+ 			acpi_ec_enable_gpe(ec, false);
+-		else
++		else if (ec->irq >= 0)
+ 			enable_irq(ec->irq);
  
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index 68cf730a8372..ec51a3911da6 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -6749,3 +6749,53 @@ void rvu_block_bcast_xon(struct rvu *rvu, int blkaddr)
- 	cfg = rvu_read64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(0));
- 	rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(0), cfg);
+ 		ec_dbg_drv("Polling disabled");
+@@ -934,6 +934,34 @@ int ec_write(u8 addr, u8 val)
  }
-+
-+int rvu_nix_tl1_xoff_wait_for_link_credits(struct rvu *rvu, u16 pcifunc)
+ EXPORT_SYMBOL(ec_write);
+ 
++/**
++ * acpi_ec_read_byte - read a register of a given EC
++ * @ec: the EC, e.g. from acpi_ec_create_polled()
++ * @addr: register address
++ * @val: where to store the value
++ *
++ * Return: 0 on success, a negative error code otherwise.
++ */
++int acpi_ec_read_byte(struct acpi_ec *ec, u8 addr, u8 *val)
 +{
-+	int link, blkaddr, count = 1000;
-+	u64 tx_credits, regval;
-+	struct nix_hw *nix_hw;
++	return acpi_ec_read(ec, addr, val);
++}
++EXPORT_SYMBOL_GPL(acpi_ec_read_byte);
 +
-+	blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NIX, pcifunc);
-+	if (blkaddr < 0)
-+		return NIX_AF_ERR_AF_LF_INVALID;
++/**
++ * acpi_ec_write_byte - write a register of a given EC
++ * @ec: the EC, e.g. from acpi_ec_create_polled()
++ * @addr: register address
++ * @val: value to write
++ *
++ * Return: 0 on success, a negative error code otherwise.
++ */
++int acpi_ec_write_byte(struct acpi_ec *ec, u8 addr, u8 val)
++{
++	return acpi_ec_write(ec, addr, val);
++}
++EXPORT_SYMBOL_GPL(acpi_ec_write_byte);
 +
-+	nix_hw = get_nix_hw(rvu->hw, blkaddr);
-+	if (!nix_hw)
-+		return NIX_AF_ERR_INVALID_NIXBLK;
+ int ec_transaction(u8 command,
+ 		   const u8 *wdata, unsigned wdata_len,
+ 		   u8 *rdata, unsigned rdata_len)
+@@ -1436,6 +1464,63 @@ static struct acpi_ec *acpi_ec_alloc(void)
+ 	return ec;
+ }
+ 
++/**
++ * acpi_ec_create_polled - create an EC that is not described by ACPI
++ * @command_addr: I/O port of the command/status register
++ * @data_addr: I/O port of the data register
++ * @name: name used to request the I/O ports
++ *
++ * Some boards have additional embedded controllers that use the standard
++ * EC protocol but are not described in the ACPI tables. This creates a
++ * struct acpi_ec for such a controller, to be used with acpi_ec_read_byte()
++ * and acpi_ec_write_byte(). It only works in busy polling mode: no GPE, no
++ * IRQ, no query events and no address space handler.
++ *
++ * Return: the new EC, or an ERR_PTR() on failure.
++ */
++struct acpi_ec *acpi_ec_create_polled(unsigned long command_addr,
++				      unsigned long data_addr,
++				      const char *name)
++{
++	struct acpi_ec *ec;
 +
-+	/* set TL1 sw_xoff */
-+	link = nix_get_tx_link(rvu, pcifunc);
-+	rvu_write64(rvu, blkaddr, NIX_AF_TL1X_SW_XOFF(link), 1);
-+
-+	/* wait for link credits to return */
-+	tx_credits = nix_hw->tx_credits[link];
-+	while (1) {
-+		regval = rvu_read64(rvu, blkaddr,
-+				    NIX_AF_TX_LINKX_NORM_CREDIT(link));
-+		if (((regval >> 12) & 0xFFFFF) == tx_credits)
-+			break;
-+		count--;
-+		if (!count) {
-+			dev_info(rvu->dev, "TX link(%d) credit poll timeout, expected=%lld credits=%lld\n",
-+				 link, tx_credits, ((regval >> 12) & 0xFFFFF));
-+			return -ETIMEDOUT;
-+		}
-+		cpu_relax();
-+		udelay(1);
++	if (!request_region(data_addr, 1, name))
++		return ERR_PTR(-EBUSY);
++	if (!request_region(command_addr, 1, name)) {
++		release_region(data_addr, 1);
++		return ERR_PTR(-EBUSY);
 +	}
-+	return 0;
-+}
 +
-+int rvu_nix_tl1_xoff_clear(struct rvu *rvu, u16 pcifunc)
++	ec = acpi_ec_alloc();
++	if (!ec) {
++		release_region(command_addr, 1);
++		release_region(data_addr, 1);
++		return ERR_PTR(-ENOMEM);
++	}
++	ec->command_addr = command_addr;
++	ec->data_addr = data_addr;
++	acpi_ec_start(ec, false);
++
++	return ec;
++}
++EXPORT_SYMBOL_GPL(acpi_ec_create_polled);
++
++/**
++ * acpi_ec_destroy_polled - destroy an EC created by acpi_ec_create_polled()
++ * @ec: the EC to destroy, may be NULL or an ERR_PTR()
++ */
++void acpi_ec_destroy_polled(struct acpi_ec *ec)
 +{
-+	int blkaddr;
++	if (IS_ERR_OR_NULL(ec))
++		return;
 +
-+	blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NIX, pcifunc);
-+	if (blkaddr < 0)
-+		return NIX_AF_ERR_AF_LF_INVALID;
-+
-+	nix_clear_tx_xoff(rvu, blkaddr, NIX_TXSCH_LVL_TL1,
-+			  nix_get_tx_link(rvu, pcifunc));
-+	return 0;
++	acpi_ec_stop(ec, false);
++	release_region(ec->command_addr, 1);
++	release_region(ec->data_addr, 1);
++	kfree(ec);
 +}
++EXPORT_SYMBOL_GPL(acpi_ec_destroy_polled);
++
+ static acpi_status
+ acpi_ec_register_query_methods(acpi_handle handle, u32 level,
+ 			       void *context, void **return_value)
+diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+index ddacac81209473cfc5fc83047a0de91c07ceb7b5..d657a94aed5dd90c2ba0c8c2784c7a0cb0fb3bc2 100644
+--- a/include/linux/acpi.h
++++ b/include/linux/acpi.h
+@@ -432,6 +432,14 @@ extern int ec_transaction(u8 command,
+                           u8 *rdata, unsigned rdata_len);
+ extern acpi_handle ec_get_handle(void);
+ 
++struct acpi_ec;
++struct acpi_ec *acpi_ec_create_polled(unsigned long command_addr,
++				      unsigned long data_addr,
++				      const char *name);
++void acpi_ec_destroy_polled(struct acpi_ec *ec);
++int acpi_ec_read_byte(struct acpi_ec *ec, u8 addr, u8 *val);
++int acpi_ec_write_byte(struct acpi_ec *ec, u8 addr, u8 val);
++
+ extern bool acpi_is_pnp_device(struct acpi_device *);
+ 
+ #if defined(CONFIG_ACPI_WMI) || defined(CONFIG_ACPI_WMI_MODULE)
+
 -- 
-2.25.1
+2.47.3
+
 
