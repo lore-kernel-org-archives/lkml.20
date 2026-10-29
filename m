@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297394;
-	b=VCtBpKbh3rRHthwClWwcnbFffsTHAaAlT1xiEeCflop5K8y/Qu3D2s/cLMQCGDycCuxu
-	 1NvtKdNifclWPrRxbaZ+x9dKmOFZlG0CoDmwe+kX6VLGJ+iqw/bI8G4mTOtkdlTrz/EEB
-	 150yin/PjU43vP1uRDUeP1vpuONXUAa+7HI2aUxRTrIJrPrK2CtgmG7AtpfhQDv4Aq+FD
-	 4joN2zXAtiBPiUWPZzmFPp0/SJhfiX/XPmQ/N+kuyW1zvWVT/JHbtXSG+6XbzvGOx7YVW
-	 NzVLa5dNujdKJLX9xucp42/LuvGkFerUrvWFi8eeTQUZr8FmVVaF7iNavJebC1F2lBA==
+	t=1793297396;
+	b=AqRu2uh+h/tWQsywMucViOnQ6dQ7sXKr4v/aRR7DF2GhExwt/KYwgGsPTpbrBR15CIf6
+	 2VxHEccWIAf0k7PAwR9EcmbL+mtCdJl1lxkvP8ADwMSD35sN0huY8hyTmGUdP78ClOjXf
+	 MtCbezeykHqpjAB7zZEQ4eJPRYp0/c1Yg/Xg9qKRbZHsenVOoBevrbSxG3dliSAYf6WV6
+	 jS+Lg5ottt3bPVmnjYVX38e+ZB8XniHuwi3l+0VHdYTk95DuF7O3TqQAaxk+r7rgFvAny
+	 8AZ/bVSpObLBe2uYaxLadleYplt37n2fS4Ut+/BwWijLrL4TCvzvBPC/zvYo2hvz0Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297396;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BL+32AV/+8oEq45HeDcTTOkYS9ivJyJauIHumIl+ifc=;
-	b=b1uXOEsgCLEKIUWmNQdhFdT3Qsyf/s5t/dxwEyo9HFbfgjkFt5whDHT/FYPz6BgoM8KN
-	 uGVebmedLo7BM2DEjmDfL/Cey00In7//XoD8lBzoSJDANWxbDzZWTP66q6PBQA02DEJjp
-	 6BzDITPSIwXYNLxJ6WyrtJFGCQ+JiAihb0nzPjagKZF7I+dDUGG3wAROvdC5pdXRJCUUM
-	 NseKyc9S+nav0YS9dPcXkB5VDrwvziUx0D3VidWIrvmLj/5IBkKcOoKdMQ7ZcZfk2mWQ+
-	 /ozSEvrnyfH7K5ozZDABCjzX/w1ivamPc2xeZ39HGQOLcFH+Y1MhailGzLtl3+f9TMg==
+	bh=OAjOFeHOiJyO3E+LMShJhniXIw/25NQLu/aILC9IA/A=;
+	b=wHP1XoSxLAuQYTMdVBKqbES+NPjH7aB2jPzW9ktWiZm5VeRrVPAzc88br66ZkyitOrf7
+	 Z1WEtJURjYFVmvqXaHzhWEIF/co6Khz+zJt8Gh8+acHBGsry5GVAJxJ7FwhRUNoouCaN/
+	 U8Tv1dam/zzEDRK+OlGXO2daUq7f11yPwoD2dalih08qJxT9NeZ7sJkvvWEpejCBEUXbo
+	 3itdp2am1KHi9GNpIOAQkh5I4D/UfpydgWaWwtdqYulK1lewQLAIgN2MEb/Xor+PqvWW/
+	 s5YsPqJyxOn4s1iM1dLJghpU0pwhYptaUo52haqop1u+W9QaHzGFAK5ZxXWYLLtTwEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hammerspace.com;
 	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=H+BMdFYq;
-	arc=none smtp.remote-ip=209.85.160.51
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b="G/r5O3WT";
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E20606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:09:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E20606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8604160A2604
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8604160A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=H+BMdFYq
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a822463a22so1535578fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:09:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=G/r5O3WT
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6aa9606ddadso1951980eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:09:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297393; x=1793902193; darn=vger.kernel.org;
+        d=hammerspace.com; s=google; t=1793297395; x=1793902195; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BL+32AV/+8oEq45HeDcTTOkYS9ivJyJauIHumIl+ifc=;
-        b=H+BMdFYqWyleR+B/XOB9zr9SPM/E+SfwEw2vjC/If0ehdKwoRIJEWo1nOqS5eQyLMF
-         fyIgd+dHM9ElDiMRWvNbhLAFaf0lXdH6ix52QRlNR7SMDEXmd1q08/NOlUmJ75oR2AcI
-         ZdNr+BkV2tjrkTF8A/yFFSgefslqtTXZe6hE7ffDpzwwtmxZS4/ELr11z77yTNhdBxSX
-         Ush7n/lnxfD+WluhzrheQrdymDdmll9C4dBNLnPHX1SrZOiNOdj2ey6kYlUcqoC2d+q0
-         e85PWWgqnUToKtGHkbs/POTQguYGSnPuQOdOO+Z+7OgsNCtmmWWPNLHCGxNo1HobcQF1
-         g0aQ==
+        bh=OAjOFeHOiJyO3E+LMShJhniXIw/25NQLu/aILC9IA/A=;
+        b=G/r5O3WTCP567pyFF5NYPtgmj6MAguEOZ4imMA9ujQJRY6FkDHU8LkHDQ26A+Gxtp0
+         ghWWgbuTzHHADAfYaL6ZO1bhp0FolkLu2fN7sgmG4RVS9332I7e7PkWYa3aVVUiHaSrR
+         YAbdgKF+6sNaDLZtUElzXjxgDLayPCEcmUzhPI1qQQ4SRofPZmoJSMaGMsf0lZQXEyfl
+         gC9dkfr8yHrIs85TyYPh1o6uqjiiNpPXOBTtDitcHoMyAuOcGbfV+UDI35u9taassuUZ
+         W+B1RANUdjQXPJFOHCQWJ3IzqOPtooz2m37Mo8aN5Vw+hzHsYONl5s1aVWL5rPq5Zz/B
+         OeoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297393; x=1793902193;
+        d=1e100.net; s=20260707; t=1793297395; x=1793902195;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BL+32AV/+8oEq45HeDcTTOkYS9ivJyJauIHumIl+ifc=;
-        b=VwOup3Qzb035Zo3RCUpD9B0OxhSMDdX93lVn/1P2+FZRO7BcYiT8GMxpNfBFapuypR
-         x9KJabPPCgq449Ysq9gQh0WGe5iLx2dkyaPEtEM/FlgIMeLg3OfuBe7o3+JP9nPBrYwn
-         z8+TQd496uCIfQjZxzjEbGQnrIASTlu+0kBepSAoS7zhE2dYtcDrPh8K2tzhv/cWd1pk
-         gOPtHscpj2sywBwB/IBfPUxFiazWQSAzFFyvMEiuhWD3RG2+iAbf0k9i+r/GR2vRaKNI
-         ujJEZTgR3t7LV2WVSRm6C9ltpzyuVofPogHu/kSQfHj9fm2PQ4lnasnKJ17Jo7COXFmu
-         66MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwrjV6nCjVhTgXv3dHGyQnCPTNihYzTt8wS+a4LyiF4Nl8MbA4tgbgI1KSz8ov0tXYu1QKRWFLYI5UOLpQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKidD/YvBGaE8zg5wxKUMw1Ys8eMD8kGbHVM4GGVBX+cafBIJl0
-	zW/Bu8EIBlA2jeDvV9w33DtfujlxwlB9cEHzjVyhDFKyXJky6492vYDlNa27WwJ/r7I=
-X-Gm-Gg: AYBFou3dcpIOVt+rHQU4kAsWtrWNCqEZwa87JqboV5MY4jxdLJVAxE0Z4THiER5CeFg
-	JiWfunDwHDbJnyCPsOVgBLNmr7AZ92cBj1iNZshOyxjgYJ55uzmAnBEVYoo/ZXWFTv1XHaSYMjj
-	blo+VUROLtTWGS4Rn4JJjGbR2Bb1xQxAqbOgo66fyzbJnGAivwogLHVCpw7DhwP3Ib694Evrk8C
-	vPulhm5p6L08cD6qPH5lTX6mqQSnzFU8AK6Emo+LOTES3pzg95HxTmIkGLnPV+5kbsr+we2RlCH
-	Ok2CVylU8td6tzpGnFvVsaFJ+ncXjqCXl2tKr2+iiRFLsG9/b/hXOLTl4do4L1jErc0sl243zfv
-	81W+jNb8FaZQdIsVoUfP9nPXpirCDjMvcpFxyfDzOF0U6YK0jC0Etbe1Ug/vxzU6YOTje+/MdDq
-	rOR3rYQApB87v+ANmYFO6eaaMGcKmKEK7cZdPzf35j3Ox+nPEiYASzX+ylnu0ZlxlYqowT9zyuH
-	ZMJXHssVBO4hYy7Re2EZnXZkTAfGF1o608xeORcpGT/yoS1yol/lGspU8Pn7Z6PkFuR0JHvmJJe
-	kecUVXl4Fvb8B9Zrv6myLRhjMM6Kavegor9+Y7JOqlB7deJ+Sti+0WIUd5gJvBv6Df5u9vjW
-X-Received: by 2002:a05:6871:3287:b0:4a7:5eb7:ab97 with SMTP id 586e51a60fabf-4a8bb62169emr4560053fac.32.1793297392261;
-        Thu, 29 Oct 2026 11:09:52 -0700 (PDT)
+        bh=OAjOFeHOiJyO3E+LMShJhniXIw/25NQLu/aILC9IA/A=;
+        b=PQulm79X4uy2vYXOrHyCozdGYjhnE3Vd1co/HYrNAv8DEm4JwBlbFiurOEhHvajUeE
+         cARdFa43I/NetlYFnK2b1L73N5wPOf8if4BAlDXUKlcM0Y0e+33x8Wv2bqRTkFMPqx0q
+         FOiCwyJUZb6uK86XQh8xOwNIwy+h4yhiD0XXWzeXdFNS/yJIMD8hEHALr+5g4wg9QU+y
+         qP4NVraHgJL9UXEiIZvfxN8nh0XDMYRnboMmcbOSxn5H+pC/zWY0CI0BnKjoDxlTrr/P
+         eNYxeS8sdcZPTstSGTStBl/mVqEnsGyQqT3yX4USeRwa1fI3urTewXmw5CRe29gVm5u+
+         099Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwcRf9mHF6CO1WDDu3iJOFy2MQKHx29dLdtuEN0rLCgQ88zqF0pLgF2wptr+WXC77I6fSYEONmORLMhUfk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHUs69lPNltI/wucI7q6THoaxOzUsE1ZcarVby6WUCcDbb+KKV
+	KwhUhnC0+Jm4gfpWt8qREPhF1frXWBiCveKWjXCdbmKx4VQVyNMRy9bxvTObToRUDUg=
+X-Gm-Gg: AYBFou2uftLxPK5a7sgECOosLk/khny+8+j4k9wY0Q7MeDtwr/Ku/JQ/YtZYucQNB+9
+	khVjKxSB9aGfIQv98CCAXJghlHmLbRzoRbajguZZsBNczZQUqMGpDQYHfphh4VBdjbkgRedYeDa
+	TKwDsekguPZCM/pUL8ML2ii2IEaC+0OBnGf6K8YbuKgM16ZsitZkJ535/ZKIcRLdNBGIhNyJd2G
+	kXnNprKu7bMuyh17qL+D1LAt8X1x1iMZxjyfbKeOrtMwTZP/iIqH/kZuhUd0L37d2rgTzwMK7Kz
+	uhvdeYU/iLMIEym8SgaXv7AHtplrFq3myRA6vAASPC0LPK5ViXLj4V8D9apMvflrfTjxM8ZmYJu
+	i4cj74gauwzLqtSaw4esgOmtye1s930F0+Wi1ZfilSI9Ab84EihGij+lIYG3nnzd+MbYhnEWPDk
+	8FXZn7RLwigSUTc6MjqssR1T/x4t9c/ddh3U94frUE3Q9nzk5NDoTik2X+8kGgnsiO4rjfXjAwd
+	64zw6yjozNuyCAnKFVreutDvfqnrOBXGb///jJlz304Xb6bUudSIe+ZE8IUlHSTtzb3qqHVvYQo
+	tlWW86aCxYpY1upcSU2AN5CzFkboCQi8e5B6QZluFkT1Fbm0oALsVwRodyLGjykjUOM3k0cfCw=
+	=
+X-Received: by 2002:a05:6820:1c84:b0:713:da3b:8bc1 with SMTP id 006d021491bc7-714f29d3fb6mr35971eaf.39.1793297395405;
+        Thu, 29 Oct 2026 11:09:55 -0700 (PDT)
 Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a9048e6ab1sm119378fac.8.2026.10.29.11.09.50
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d355295fbsm149150a34.25.2026.10.29.11.09.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:09:51 -0700 (PDT)
+        Thu, 29 Oct 2026 11:09:54 -0700 (PDT)
 From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
 To: NeilBrown <neil@brown.name>,
 	Trond Myklebust <trondmy@kernel.org>,
@@ -90,12 +91,13 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
 	linux-nfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] nfs: fix the silly-delete hand-off that 2/9 makes reachable
-Date: Thu, 29 Oct 2026 12:09:47 -0600
-Message-ID: <20261029180950.387072-1-jonathan.flynn@hammerspace.com>
+Subject: [PATCH 2/3] nfs: answer a handed-off silly-delete on a removal target with -EBUSY
+Date: Thu, 29 Oct 2026 12:09:49 -0600
+Message-ID: <20261029180950.387072-3-jonathan.flynn@hammerspace.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028041023.3738553-3-neilb@ownmail.net>
+In-Reply-To: <20261029180950.387072-1-jonathan.flynn@hammerspace.com>
 References: <20261028041023.3738553-3-neilb@ownmail.net>
+ <20261029180950.387072-1-jonathan.flynn@hammerspace.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,98 +109,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Neil,
+When the last user of a silly-renamed file goes away, nfs_call_unlink()
+can hand the delete it still owes to another cached entry for the same
+name: it marks that entry DCACHE_NFSFS_RENAMED and stores its struct
+nfs_unlinkdata in ->d_fsdata, under the entry's ->d_lock.  NeilBrown's
+"nfs: fix nfs_call_unlink()" makes that hand-off reachable; before it,
+the lookup for the other entry was given a name with no hash and never
+found one.
 
-Your "nfs: fix nfs_call_unlink()" computes the silly name's hash before
-d_alloc_parallel(), so nfs_call_unlink() can now find another cached
-entry for that name and hand it the pending silly-delete.  With it
-applied, that happens: an entry made by a fresh lookup of the silly
-name, after the original entry was invalidated, receives the delete
-when the file is closed.  Three problems in the hand-off become
-reachable with it, and these patches fix them:
+The VFS refuses to remove an entry so marked, or to rename over one,
+with -EBUSY, but may_delete_dentry() tests the flag without ->d_lock,
+and a hand-off can land after it.  nfs_unlink() repeats the test under
+->d_lock and treats a marked entry as a bug: it warns and returns
+-ETXTBSY.  nfs_rename() makes the same test before it takes ->d_lock, so
+a hand-off can also land between the test and block_revalidate(), which
+then kfree()s the nfs_unlinkdata as if it were a device name.  Its
+credential and name are leaked, DCACHE_NFSFS_RENAMED stays set with no
+data behind it, and the final dput() of the target reaches
+nfs_call_unlink() with a NULL pointer, which it dereferences.
 
-  1/3  the hand-off can overwrite NFS_FSDATA_BLOCKED on an entry whose
-       REMOVE or RENAME is in flight (Sashiko's review of 2/9 reports
-       this too);
-  2/3  the other order: nfs_rename() tests its target before it takes
-       ->d_lock, so a hand-off landing in between is kfree()d by
-       block_revalidate(), leaving DCACHE_NFSFS_RENAMED set with no
-       data and a NULL dereference at the final dput(); a hand-off
-       that the VFS's unlocked test missed also trips the WARN_ON()s
-       in nfs_unlink() and nfs_rename().  nfs_rename() now tests under
-       ->d_lock, and both return -EBUSY, as may_delete_dentry() does;
-  3/3  nfs_call_unlink() holds rmdir_sem for read across its lookup and
-       across the dput() of the alias, and either can kill a dentry
-       carrying a silly-delete, which re-enters nfs_call_unlink() with
-       rmdir_sem still held: that deadlocks against a waiting rmdir()
-       (Sashiko's review of 2/9 reports the alias case).  It now takes
-       rmdir_sem only for the REMOVE it sends, which also closes an
-       older route to the same re-entry that does not need 2/9:
-       NFSv4's delegation return in ->unlink_setup().
+Take the target's ->d_lock before the tests in nfs_rename(), as
+nfs_unlink() already does, and answer a marked entry in both with
+-EBUSY and no warning, as may_delete_dentry() does.  No hand-off can
+land between the test and the store any more, and one that landed
+before the test makes the entry the busy file the VFS already refuses.
 
-They have to go wherever 2/9 goes, and its Fixes: tag will take it to
-stable.  Fold them into 2/9 if you prefer, as you did with the d_seq fix
-in 1/9.
+This was found by an AI coding assistant (Claude Code) reading the
+code.  The hand-off itself has been reproduced with "nfs: fix
+nfs_call_unlink()" applied; its race with a removal or rename has not.
 
-One window is not covered, and you may prefer to close it another way.
-After nfs_unlink() or nfs_rename() clears the mark, and before the
-VFS's d_delete() or nfs_rename()'s d_move(), a hand-off can still land
-on the entry.  For an unlink, that costs only a second REMOVE, which
-finds nothing.  For a rename onto the silly name, the target is left
-owing a REMOVE of a name that now belongs to the renamed file.  That
-REMOVE is normally dropped, because nfs_call_unlink() then finds the
-renamed file's own entry and its file handle differs; but if that entry
-has left the dcache by the time the target's last reference goes, the
-REMOVE is sent and deletes the renamed file.  Closing the rename case
-would take the hand-off refusing an alias that is no longer hashed, and
-nfs_rename() dropping, under ->d_lock and after d_move(), a
-silly-delete that landed after its mark cleared.  I have a draft of
-that, and can test and send it if you want it.
+Fixes: 3c59366c207e ("NFS: don't unhash dentry during unlink/rename")
+Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+---
 
-Tested with your v4 and these patches on a 7.3-based kernel, over
-NFSv4.2 to a pNFS metadata server that is not knfsd.  The hand-off
-happens as described above.  With 3/3, the nested nfs_call_unlink()
-that follows it starts with rmdir_sem not held, where without 3/3 it
-ran with rmdir_sem held for read, and the REMOVE is sent once.  The
-removal race tests of my RFC, posted in reply to your 0/9, passed on
-this kernel, as did a PROVE_LOCKING and KASAN build running them,
-though lockdep does not see rmdir_sem's read hold, which is taken with
-down_read_non_owner().  No test here hits the races that 1/3 and 2/3
-close, or the deadlock itself, so for those the fixes rest on the code.
+Notes:
+    For reviewers and review tools; not part of the changelog.
+    
+    A hand-off that lands while nfs_rename() is in its silly-rename
+    branch (the target's count above 2, with ->d_lock dropped before
+    d_duplicate()) still gets -ETXTBSY: nfs_sillyrename() fails with
+    -EBUSY, and that branch returns -ETXTBSY for every
+    nfs_sillyrename() failure.  This patch leaves the branch as it
+    was, and the handed-off data is neither freed nor leaked there,
+    since nfs_async_unlink() tests and stores under ->d_lock.  An
+    automated review (Claude Code running Sashiko's review prompts)
+    raised this; it was checked and dropped as not introduced here.
 
-The series applies to 83f32c773255 in Linus's tree with your v4, and
-fs/ compiles without warnings at each patch.
+ fs/nfs/dir.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
-Tools: these patches, their changelogs and this letter were written
-with Claude Code, using Anthropic's Claude Opus 5 and Claude Opus 5.5
-models, at my direction.  It found the problems fixed by 1/3 and 2/3,
-and two of the three routes in 3/3, reading the code with and without
-Sashiko's review prompts; Sashiko's own review of 2/9 reported the
-problem in 1/3 as well, and the route through the alias in 3/3.
-
-Thanks,
-Jonathan
-
-Jonathan Flynn (3):
-  nfs: do not transfer a sillydelete onto a blocked dentry
-  nfs: answer a handed-off silly-delete on a removal target with -EBUSY
-  nfs: take rmdir_sem for a silly-delete only when its REMOVE is sent
-
- fs/nfs/dir.c    | 32 ++++++++++++++++++++++++++------
- fs/nfs/unlink.c | 39 ++++++++++++++++++++++++++++++++-------
- 2 files changed, 58 insertions(+), 13 deletions(-)
-
-
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
-prerequisite-patch-id: 3405b4d6ab8b0bf24ba63a898083d617deec4f24
-prerequisite-patch-id: 096657d6d80d7ca533ccb574d2af65611ede4af2
-prerequisite-patch-id: 1a2319c14739918aef86116647fea28ae85ad4df
-prerequisite-patch-id: 725cb18c3936d50141ef27dafc159bf50b64a5bd
-prerequisite-patch-id: b39cdd352b97e2cd247311fd5db620dbff227bd7
-prerequisite-patch-id: f9f3f0e945cadf96113d4ac9ab8f7b0c207af4e5
-prerequisite-patch-id: 4c09a15390bb556d79bea1ee733f52a58bec80ef
-prerequisite-patch-id: 7c026717a97b2c86a169539822f5d14650f68f8a
-prerequisite-patch-id: a702d54495d0f3d7f88b82411d884dcf5aacf9a0
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 36cb99f746..dc7784b666 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -2605,10 +2605,18 @@ int nfs_unlink(struct inode *dir, struct dentry *dentry)
+ 	 * completes.  ->d_revalidate will wait for ->d_fsdata
+ 	 * to clear.  We set it here to ensure no lookup succeeds until
+ 	 * the unlink is complete on the server.
++	 *
++	 * may_delete_dentry() refused an entry carrying a silly-delete,
++	 * but without ->d_lock, and nfs_call_unlink() can have handed
++	 * this one a silly-delete since.  It is busy, as the VFS says.
+ 	 */
++	error = -EBUSY;
++	if (dentry->d_flags & DCACHE_NFSFS_RENAMED) {
++		spin_unlock(&dentry->d_lock);
++		goto out;
++	}
+ 	error = -ETXTBSY;
+-	if (WARN_ON(dentry->d_flags & DCACHE_NFSFS_RENAMED) ||
+-	    WARN_ON(dentry->d_fsdata == NFS_FSDATA_BLOCKED)) {
++	if (WARN_ON(dentry->d_fsdata == NFS_FSDATA_BLOCKED)) {
+ 		spin_unlock(&dentry->d_lock);
+ 		goto out;
+ 	}
+@@ -2801,13 +2809,25 @@ int nfs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
+ 		 * completes.  ->d_revalidate will wait for ->d_fsdata
+ 		 * to clear.  We set it here to ensure no lookup succeeds until
+ 		 * the unlink is complete on the server.
++		 *
++		 * Test under ->d_lock, which nfs_call_unlink() hands a
++		 * silly-delete over under and block_revalidate() below
++		 * stores under, so that no hand-off lands between the test
++		 * and the store, which would kfree() it.  A target carrying
++		 * one is busy, as may_delete_dentry() says when it sees the
++		 * flag first.
+ 		 */
++		spin_lock(&new_dentry->d_lock);
++		error = -EBUSY;
++		if (new_dentry->d_flags & DCACHE_NFSFS_RENAMED) {
++			spin_unlock(&new_dentry->d_lock);
++			goto out;
++		}
+ 		error = -ETXTBSY;
+-		if (WARN_ON(new_dentry->d_flags & DCACHE_NFSFS_RENAMED) ||
+-		    WARN_ON(new_dentry->d_fsdata == NFS_FSDATA_BLOCKED))
++		if (WARN_ON(new_dentry->d_fsdata == NFS_FSDATA_BLOCKED)) {
++			spin_unlock(&new_dentry->d_lock);
+ 			goto out;
+-
+-		spin_lock(&new_dentry->d_lock);
++		}
+ 		if (d_count(new_dentry) > 2) {
+ 			int err;
+ 
 -- 
 2.43.0
 
