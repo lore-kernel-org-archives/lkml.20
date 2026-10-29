@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306009;
-	b=ZHyHTTrGrB5cK7/8NcOm/Ac+ZmcyOAg5BQxKWZwIH9IoWVDKI2AR8NwFnIs21E30d3gt
-	 6+nuPPt49me6GMBBNR73RTTLNnCkF4FRPJIIUXBZwyG/Nfq9ga+vHeOChrC1Ha9Hhc3TO
-	 avsU5ZRn8zaNw5oa3UehW6dLPW7K/femgPF1jPz4aVgmyj60pJZ2AfBfX2jvVLtULV7UC
-	 6M99YOtvI3lm7oAvwpWQJ2DdlBdxFGsJwRRowrcT7ne1wJrjcNHJzlP3qrI9cBsSMmZf8
-	 Y8M7FtYLuMunrUupU0ZHQBD4kaW1QHvet5oAmx4CA39qQONuwB0jW6WraZWUIB9234Q==
+	t=1793306010;
+	b=J8RVhDooJ3/aETfOaa+gelkHHDlTS3sXMpjXVHxvK7x+IDWMHqCdbTHPp9/xd/gbKQER
+	 aWKWZGEFnhkA4tliEmbHhe1+MDAv1kA1ivB9wpd/nmbAcokdZvtlHKk08sRr3yIbA3Iiy
+	 yZvHMHWn/sbAHRMHco/EBnS1AI62uP1PbKOd4meMFGVVWEJF8HlbkaBNkyqvGtt7HM7HB
+	 iDbYBj6kZ48cez4MC+Zeo+X2hF4KZVa2PRlONeI7YNILGzsdj1zJXNZ08NUn8BvLlqcn8
+	 4CQ6csQ3sSxdoUbNQcPLKb8UjOurMQauQvYGWQEIZ6yfjadIFG0HUEaZZLShOAsYZhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306010;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=3lveHbuvlAIWm29OSBI4KfWvmKMn4MlaR8N+gaIZnQY=;
-	b=bMeO2dKO5BBcLGeUgmgYdYHZ5HSpiUmk2glYLjxB+Ur34leotDuBcJ0U1VitcR5vd7Wp
-	 YQGuXw4nzfFTvR2kP6XStKH7J3IFeUaZSC5A8+Hq6nJZSBVBNxKbNkQd+8+r6kOaSUAn1
-	 ChAAle4fZWAOSWNyI8wBSw+wBg6b9KBU3eBT1qP33nSHvZdTZ/q15Fyd2RlYQyCEXaztH
-	 76ai8Xok/Rx9Nl5vhd5tLx087zmP3df6Jw9RO5th+6CZ0fam+5olqa0FKXG6BsuIqtx0T
-	 0naVSX47Ryxt5eKNoTplgSoFMofUB2q/zwBDqJ3ozAhdos9xx8PSdefWEyccZhANWrQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
+	b=nlUy75phyR+PAB6QTWiJ+X1fHPlPRZYseW8Qd8/qwjVrLey7xi43bheQshFbA3d2xZ0k
+	 0hl6ABdJ3CxODiBCv86I35j5LOD3qI+QdzXVWUcTmXmOEwFwG9yFVhacUBDX0BjsXfABB
+	 OYfaIYx+xAmoeyFswentiPZmvFVh9P1m6DodQV/hRYyk9WHQaSGeFkJv3EANUl59LlsHT
+	 8pO3c4L9AHIeZuap3TcKuXgcIqY4j/qeijHmRqpoJpaUhch5HbtRB2h375RihcvIw/WiJ
+	 +v3fkR2U/KOX1Ou1wUzwPInyOS1VndD3rnqBQaIWHz6MeCc5q8LX4E11LPQaFPbt0Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XSlAvoSj;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jzUC4j+m;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA0606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76FA0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EC8606A335
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EC8606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XSlAvoSj
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd6969473a4so1627438a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jzUC4j+m
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-703be215729so1405247eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793306008; x=1793910808; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3lveHbuvlAIWm29OSBI4KfWvmKMn4MlaR8N+gaIZnQY=;
-        b=XSlAvoSjhIrK+0FlYVA34ci8I/NQe849Jitj5lT9cMRbOjoulPASEQw9BDIcATDXMj
-         0M5RkaDtJ8XalpbcJV6Z0EACY063/2S5nXWMLPCRiJEV0pckp61Tpl6W+QVzmu7I767D
-         5cZaqDRj1b7rueNhaoEZ6ABocPXkZ1Rdcz8ZHLBWSFg5deK1Y4kzFKybn7OVqnaCU6Kj
-         o3TTy3RuMqaam9y2g/UJw/a3h90T7+CufSvMYzw1SNVWpsg1zqA2zygjIC3gMuLVs1W9
-         2PjCoKfpA/63Ipt0pzeznL7X+pTwTXNjCspux4dlwYN8cOkfiVV4BRUFO0quJ8DjDhJa
-         gXbQ==
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1793306008; x=1793910808; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
+        b=jzUC4j+m5k1GWzE4M+MP1+7CZ24I8OTXJlA+L47TEmbE8YmDlulAMxTxxOUwWkdRHH
+         ZA7UWCWY4UP0IpGp1AHTAIZ3biCBCS3Tm/hc1d7JYAYzBEUgymxOLRamDSR52NWY6yTV
+         Nj/CqyTphrQl74nCEr4jlN0A5maoCINl7zvMB7W8X8TZfTkAJvS2G8HM3Jp5HF69ixuK
+         k8K6KaBp15/F8ksjNkcHk9DTAxy2LvSV5923Kd0H2P6TbZ8q5agmTrdcmkY94F1z8Riv
+         XkPjRnV7/c156Gl2EZ27Xh6M+m8MNab0eP3uNFZbUkpddrNb2ItyVbJgXuN7mAV+JTBo
+         PHqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793306008; x=1793910808;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3lveHbuvlAIWm29OSBI4KfWvmKMn4MlaR8N+gaIZnQY=;
-        b=obTOakKdCN0GC45gcmH+n9VIveq2r/OHtRU6/xYzCtEK4qysN/b9qsFBXvBvq9MVk0
-         C14+Xw8lvOdkCVquloWdNOavxqY48NkgD0eLHxJsmuz2yUfa+ar7GPDRdUNb5HnNZcLN
-         x2bCdzRc0J1ornNAByxiQPOgUxBzVrJlLmjfGu7vN2wvkVDMQBk06TM4Ubo0oN7SV9+N
-         DGMZcUYPp++WMDYKN/GZ6kPLd6mfV9q4Q0FIaTSJeNTxwnTXT9r2nuX3iFT49Y3BD22c
-         YQ68X8l8Y6csUFuyXl3xFgmvf6tzvyZMTK5qvag1Nzk2y6q0sNJ42j6Xe6ID0O82hfbN
-         bF3w==
-X-Forwarded-Encrypted: i=1; AKwUvBy4D9O4wyAQ9GfQBWOuiaUc+DcWI7xinC+o9f/AnlS3SFKcoxqnpDjVtX3g/ux/7R1vAmOWxaFRhZaA6Ww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJsYcRIHyQggUnVMNuuunXSLYABJWE+RdbVP0J7bOjg985h+Tr
-	Upgqf2pcic7Ct6IEubTo5bNxhenvm+ZPGpUOaXIZx1RLQx8B8leEvAdUVDJiRHNjC557g4ImMxt
-	vj63ig0e1bHX2fQ==
-X-Received: from plld11.prod.google.com ([2002:a17:902:728b:b0:2e9:5b68:4b7d])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:d2cc:b0:2e2:df9c:ff71 with SMTP id d9443c01a7336-2eb3646e7c7mr4803995ad.49.1793306007605;
- Thu, 29 Oct 2026 13:33:27 -0700 (PDT)
-Date: Thu, 29 Oct 2026 20:33:20 +0000
-In-Reply-To: <20261029203324.1637772-1-dmatlack@google.com>
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
+        b=Kde8pexUW/iHD2ONHeEqJC4hTsGLIopQV0Ei6nwf5AsAE570oGPK8sTbNlEsn+oUmr
+         Ss4AowZpxw/PzyUKADdGsodTmqGtECE5b4EvPj3qaaZO71Stn1kzn1MhtkOE2azlxiSz
+         u3x/ebh+zNzSLcWV8pJVttsKWhUPEZpa/hE7hHhAyzl3BZ3rVZLiu9wYhjIpssatf1sj
+         k2UKub9QX/UlWDXZpqgSzpP+Dk4by6fMcOv7U+3SM4tLv9C3ZgI5PJghG97MfTTaqSyn
+         ZF5gNpRJE7kFcLORyhVe8suQMDN7BazSWPQOU9/L0t8ndq1gHwJn/DkqWUmDlRSNhnTg
+         qFgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTEE/z7QB48hlSHD3tV3Nu41d6uRFxkHDkNShCGelHZmkqtnV9r9JXh8JsDHRk5e2uYxYyxc5V/QUOe/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJvPMb4MZuxscrr/xAO4mTDphT/Dq5DRDSjQa6YESKViaVxjvR
+	0plY6zHbSnKcwSrC3kEXfGotveuRVe1CmIOG4YEzLdWv/omIihby2BdE/GrwR50sGLZW
+X-Gm-Gg: AYBFou2txwZk/onAUUlVeUs45aMwGEPD3YALolstNKT0gHAVWqS3zjC8Veu7eWdghfk
+	tIlFKXu8gPpPieOel2I2LMTOvH+hzLkZCb35AwRX4TazyPYyGXPm5eIQ65mLthGTf840bxw+rL5
+	RaCpanGXpOHM+uWvz/Z77ROhBZtUfl7O+kwGM0obNf6rHQ2MWZMhJVfi+Mc/wlDg/Wgp3WS+61s
+	bLfhlzzOX9f9YH1Nbpfny7PFZTVWVkCp7dnRtRitAE2VwKRf63rMK/D4b3YPbEYceQEnE8b8jqw
+	B3JWf2Uw1eVGmLZEL4/SPOkgQZ+Ca8zRX8ahxZ0aj89nN24LrG1m0NeAdlomrfzlKvUAYAo/O8h
+	jdBZzzoO4gsU2OW4shRFTasRAJHS4GO+mr3QZw/mb0/S6+v/XAkTpe6OPEisaSuxY0ElDVgp6qM
+	wjihMsV4b1HBR/uljg26K44AJUdGUfoBoWoYXdFxqWsy8uOAwCrRDMiEtF1XC3vuPFfw0kAPrmU
+	7Xv+V5GExl5ep8ESVglHMzUnSXSIvIBg/3AvBFBAs133NKW9mYVyoI4O/hW+QnONreMzzOc9fVu
+	Syb4UyasF+I+bzd1nvATgFaS
+X-Received: by 2002:a05:6820:240b:b0:6dd:25a3:94dd with SMTP id 006d021491bc7-714f29beb56mr224819eaf.41.1793306008134;
+        Thu, 29 Oct 2026 13:33:28 -0700 (PDT)
+Received: from toolbx ([2600:6c8e:af00:4c:73ea:df46:8ccd:ac9f])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce7c9csm260964eaf.5.2026.10.29.13.33.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 13:33:27 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:33:25 -0500
+From: Andrew Halaney <andrew@amutable.com>
+To: manuelh@nvidia.com
+Cc: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
+	Jarkko Sakkinen <jarkko@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Luca Boccassi <luca.boccassi@gmail.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org
+Subject: Re: [PATCH v2 1/3] ipe: add the .ipe policy keyring
+Message-ID: <auOn9CzT_gku-5cH@toolbx>
+References: <20261029-b4-ipe-keyring-rfc-v2-0-77727b205844@nvidia.com>
+ <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,121 +102,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029203324.1637772-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029203324.1637772-2-dmatlack@google.com>
-Subject: [PATCH 1/5] vfio/pci: Hold memory_lock for all calls to vfio_pci_set_power_state()
-From: David Matlack <dmatlack@google.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
-	David Matlack <dmatlack@google.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah Khan <shuah@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
 
-Hold vdev->memory_lock for write when calling vfio_pci_set_power_state()
-from vfio_pci_core_disable() and vfio_pci_core_register_device(), and
-assert that the lock is held for all power state transitions, not just
-transitions out of D0.
+On Thu, Oct 29, 2026 at 12:30:38AM +0000, Manuel Huber via B4 Relay wrote:
+> From: Manuel Huber <manuelh@nvidia.com>
+> 
+> Add a dedicated .ipe keyring for IPE policy signature verification.
+> With this, userspace can provision its own keys into the keyring,
+> then restrict it and activate it for IPE policy signature verification.
+> 
+> Gate creation of the keyring behind a new by-default disabled
+> CONFIG_SECURITY_IPE_KEYRING Kconfig option. When created, the keyring
+> is empty and writable. The keyring is used as a fallback after the
+> existing policy trust sources only when it is created, non-empty, and
+> restricted with restrict_link_reject.
+> 
+> This enables scenarios in which a trusted userspace component generates
+> an IPE policy, and creates an ephemeral policy-signing key pair,
+> provisions its public certificate, and restricts the IPE keyring during
+> the early lifetime of a system. The trusted component can then sign the
+> IPE policy, destroy the private key, and load and activate the policy.
+> During that phase, the system is considered in a trusted state whereas
+> the system transitions into a possibly untrusted state afterwards,
+> running arbitrary user-provided applications. In such a scenario, the
+> trusted userspace component could reside on a dm-verity protected
+> rootfs disk, and applications would reside on additional dm-verity
+> protected disks. The latter disks would be dynamically attached and
+> their dm-verity root hashes and/or signatures not known a priori to
+> launching the system.
 
-vfio_pci_core_disable() calls vfio_pci_set_power_state(vdev, PCI_D0)
-without holding memory_lock, which allows it to race with
-vfio_pci_core_sriov_configure() when userspace writes to sriov_numvfs
-while the device is being closed. If the user left the device in D3hot
-via a config space write (which leaves the device RPM_ACTIVE, so
-pm_runtime_resume() does not bring it back to D0), both threads can
-transition the device from D3hot to D0 concurrently.
+Not trying to muddy the water here, but I stared / thought about this
+a while and wonder if I'm missing something below...
 
-For devices that need_pm_restore (NoSoftRst-), this can result in:
+With this Kconfig approach, aren't we now saying "if you want to use IPE,
+and you want to ever use this feature, you need to make sure you seal that
+keyring or else someone can replace the IPE policy!"? That seems rather
+easy to foobar, and means to me at most kernels (i.e. distros) won't have
+this enabled which limits how easy this is to use. I know Fan wanted this
+behind some Kconfig to make it controlled by build time, but does it make
+sense to keep the command line option as well to really make this opt-in
+for users who have it enabled at build time? Otherwise you really are gonna
+have to craft a special kernel in my mind.
 
- - vfio_pci_core_disable() restoring the PF's BARs after
-   vfio_pci_core_sriov_configure() has enabled VFs, since the D3hot->D0
-   transition sleeps before restoring device state. This is easy to hit
-   and triggers the following warning:
+Likewise, but more nitpicky, I'm not sure the restrict_link_reject
+requirement buys much over the chain restriction. restrict_link_reject
+stops new keys being added, but pkcs7_validate_trust() walks certs
+embedded in the signature, so whoever holds the private key of any cert
+in .ipe can sign a new leaf, embed it, and have a policy accepted anyway
+I believe. Under both restrictions that basically means "holders of an
+enrolled private key and whoever they delegate to". If the concern is a
+restriction like key_or_keyring:<id> pointing at a writable keyring,
+that seems like a provisioner bug rather than a reason to rule out the
+chain restriction. Am I missing another reason for the stricter check?
+I do realize this is rather pedantic in argument and doesn't have a place
+in the use case described, but I'm wondering if a future use case will
+want such a thing.
 
-     vfio-pci 0000:01:00.0: can't update enabled VF BAR0 [mem 0xe0200000000-0xe020001ffff 64bit pref]
-     WARNING: drivers/pci/iov.c:1062 at pci_iov_update_resource+0x170/0x3b0
-     Call Trace:
-      pci_update_resource+0x1a3/0x5b0
-      __pci_set_power_state+0x597/0xb90
-      vfio_pci_core_disable+0x13b/0x1180
-      vfio_pci_core_close_device+0x144/0x260
-      vfio_df_close+0xf2/0x210
-      vfio_df_unbind_iommufd+0x89/0x140
-      vfio_device_fops_release+0x85/0xf0
-      __fput+0x2d6/0x720
-      fput_close_sync+0xe8/0x180
-      __x64_sys_close+0x7f/0xc0
-      do_syscall_64+0xbc/0x320
-      entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
- - Both threads observing pdev->current_state >= PCI_D3hot and calling
-   pci_load_and_free_saved_state(pdev, &vdev->pm_save) concurrently,
-   resulting in a double-free of vdev->pm_save.
-
-vfio_pci_core_register_device() cannot race with other callers since
-the device is not yet registered and device_lock is held across probe,
-but take the lock there as well so that the lockdep assertion can be
-made unconditional and catch any future unlocked callers.
-
-Taking memory_lock in these paths does not introduce any new lock
-dependencies. vfio_pci_core_disable() already acquires memory_lock
-under dev_set->lock via vfio_pci_runtime_pm_exit(), and
-vfio_pci_core_sriov_configure() already acquires memory_lock under
-device_lock.
-
-Fixes: f4162eb1e2fc ("vfio/pci: Change the PF power state to D0 before enabling VFs")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- drivers/vfio/pci/vfio_pci_core.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index fcbb2da860e2..95aee6b7cbb3 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -325,12 +325,15 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 	bool needs_restore = false, needs_save = false;
- 	int ret;
- 
-+	/*
-+	 * Serialize power state changes and accesses to vdev->pm_save, and
-+	 * protect the check of vdev->sriov_active below.
-+	 */
-+	lockdep_assert_held_write(&vdev->memory_lock);
-+
- 	/* Prevent changing power state for PFs with VFs enabled */
--	if (state > PCI_D0) {
--		lockdep_assert_held_write(&vdev->memory_lock);
--		if (vdev->sriov_active)
--			return -EBUSY;
--	}
-+	if (state > PCI_D0 && vdev->sriov_active)
-+		return -EBUSY;
- 
- 	if (vdev->needs_pm_restore) {
- 		if (pdev->current_state < PCI_D3hot && state >= PCI_D3hot) {
-@@ -699,7 +702,9 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
- 	 * reset without restoring the original state (saved locally in
- 	 * 'vdev->pm_save').
- 	 */
-+	down_write(&vdev->memory_lock);
- 	vfio_pci_set_power_state(vdev, PCI_D0);
-+	up_write(&vdev->memory_lock);
- 
- 	/* Stop the device from further DMA */
- 	pci_clear_master(pdev);
-@@ -2273,7 +2278,9 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
- 	 * be able to get to D3.  Therefore first do a D0 transition
- 	 * before enabling runtime PM.
- 	 */
-+	down_write(&vdev->memory_lock);
- 	vfio_pci_set_power_state(vdev, PCI_D0);
-+	up_write(&vdev->memory_lock);
- 
- 	pm_runtime_allow(dev);
- 	if (!vdev->disable_idle_d3)
--- 
-2.56.0.317.g454f8302e1-goog
+Thanks,
+Andrew
 
