@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266163;
-	b=wdDYtIG3c0CplGkSaxmL+Ti1igurv5BcT8ug7iFsFNjK2zGcAKccH/7gWD4S2+PSlCk1
-	 RX7ohERP4AnXJzSyBnTXXlsncUWr2+6IyHpLS9zRjp6Ddq39KfRoMtdrsJ90gULdRQ60f
-	 pfW5rYszU0UtCs25JFoQKxTUiF4vi0ymYpKni8GSqkFJ4g+od8kcZFb6l8deiq2x/Xfnz
-	 XHqvhM7dhLHXHw5a0+H6w+QuPsijMk17z60ejXC2wSOktYSh+j9/Vwt9+o8THnB0DY6pv
-	 NtOX6xZis7w7tNFDN2334EYvl77UKKpVkIWqKxJeiYOTHte+/MwMx5P6KJnV/KpZJDw==
+	t=1793266168;
+	b=RvzDoijwWY8BcZwS4dE0U6D6n9q6oQ33vLlXqa60D6QSzABkm2b7CtX5uFQnKcDtItm+
+	 WcEXwT3hPaRw/SHPqUDQcZPaAYijEfXmQzY+cATt6+dHUpd77mep2Cd5lcWAuNobz5nxU
+	 eb04IJV8URfdKg9Ig5Lw1kZakhq1t8ZMFDAz8AioqYfHqlYK+KLTblMFYuZv6X6fd4M99
+	 hBGsGK135XtZ83K0MxlkCe82cFilNFDH8dL/DosdZE7sCYeDI1L4CLnDa9VSe3XOhJbqS
+	 EYaz2uWhJ8H4NzVzYpD8SRdysS8Dsl5oHPsuIA+LE5+hGuv1XiEV0nZ433y54Et3PJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266163;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=p2VFQ2YdVBVMlHGI8TnDXTz0Id7EK8o66F4F8DkIzGs=;
-	b=G0dXDRsYiQkqwb9D2fOgHv91UiHEDSvkBETgxJVLhorA22XzfPRWm6aNbburblr3Qk5e
-	 vNXkQ18dgDVxhjoSp90NPbfnTVjXo6DSy2q8u896o9r+QbzhPYg0lprUBOeXoXbBRONAI
-	 B5XqJH6JOBc45urEJCYC5GkkUIRHojfb+/u91AiDQj8ZcZ27Ej9cJQq+1jRTpXzD/b7Qc
-	 E+NuEZJeufQNMSmvOVbVfN3Ry6eB1NxNAbhO3PuV/IAje3rilciT0rOYCWenbp4kT/H3y
-	 44gn0emuYOIHDp+Hs0nVC1st8CUawUZ9H8TzqtCNjv6MPUetSLHGfS8Q3A0Iv6dRtwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266168;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=BG0tZQ11JJC9xUSQsLPfPeO4P84oYAHHSlBdRKJggas=;
+	b=AUIyozJZmn9RlJj8ci2wiZdEt94aEK1FX+AGwGVv3iYjj5wvDMVlmOz2BCBelU9tG/tn
+	 qDouJpLf76562qMbK6cZjeSTJj7TnzO2k7T4cUX3MQfebX2U90HRGzYvEjZqQaV1CvhdO
+	 U105C4H3C1jqxP1Z42SMcColKoNDIe9AypeVSBujBbHo+b2dHwPn7v7ThJDx3XqiJyK5S
+	 m1fo1RDsN1XkYiyGFA5/xx7eesH+7flMTuoRpfrUAXwF+GG0UU/JnDf4YwwC+uZmxr1Q8
+	 ZbzaxWT2WLm5Q2OZDZy7MLh5+fGcWape2KHZ14aD7CHj85T7GDRERNER8Y+cpRXtTYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KPSgiyD9;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=znzjoBLi;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=UF8CDRKG;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D78606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:29:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D78606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337F7606A320;
+	Thu, 29 Oct 2026 09:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 337F7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KPSgiyD9
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso1218978a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:29:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793266163; x=1793870963; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p2VFQ2YdVBVMlHGI8TnDXTz0Id7EK8o66F4F8DkIzGs=;
-        b=KPSgiyD92WSi6Fh9CUiZtRObKuwHvCYU1NDwm4cWnnIA7pEELX9rauOCJB43Fu3NOo
-         ZXv2LA/8civXM836gZzYBpGx09nCTwZsEJVvMtIl4pcX+uOalxW4hSFtDJ5OGK+owFPV
-         pErEqMwvM2w67A5uCdRV3XGUNwpXN0d3/vsvkYuGCLoGk1QQ8fuqpISbH9gnOYQdCB/I
-         qaKFdRL6/88+Rbg4x5fZSWnh8exyoidAKanO9FYBcvwXxKPryXFHIrvo/utQVuagAEeT
-         chx3n6P+yEbtnm34hjtup5ljzk3z3ZKY1mEbRqcKnGsSHk0f3feGGqoHVtJ6e2eKF+zY
-         PpJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793266163; x=1793870963;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p2VFQ2YdVBVMlHGI8TnDXTz0Id7EK8o66F4F8DkIzGs=;
-        b=LQNmTvdianXssfIjUPdVxOxLnjweGGiqDBEZXSlKXMJtSNKBz2JWeCTZPmgDkxTn+8
-         YNzu2cvzCOkXcLObQcMpkPjjkZsVp/iSRNUqctiTOX2pwjpPRm+gX3eBrlSQLgi4/2lI
-         KM4ioPrSohhbfHT469FHK+rALyM4vL4Dt0WJI1XQoIh1Lgtcvw+O/tnTe3VfYmOTJN1Z
-         sMrMjssxeXUo9x+bxsPJAm7BmPZhKB9so7CmeouXo2F4spAaebeXW9xZQwN1Xp3dc5hA
-         EZ8tx3BqSxLVDb0540jCgSczozVSV4UhWBs417wEqL4SyIzNf+4NyxSax/CWhk3igR7n
-         OgIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIgHWJhdxnwQ96qpx/uTbPNXY0nuvm+owmduPvyga68q6/CWLFc6rQiCcBErHKVEOfcLmjIlgmC7qDPek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlGtDBufHJNxivMfOj8d5Jx5Q6fCB3SkPJEHh336Chqd16z6AT
-	WEEpQEHjcGQhBpN7mVfFD6mLt+R7SnqbtEAm3mdGR1j/WxOBZ0qkuj0JgupMHNYd
-X-Gm-Gg: AYBFou2wyMDPDd/gc5KeAYnF9AMO+VXrpiput6oFgtne/s6rOzz9Pn8BeHoH7V1my5j
-	zqId6c7ce76m8Q74CXUS2deWFZyl+KBIBNLTKpKBYboZ41AkW5vlKlbA4odMoCO2FSYl6qN8F3H
-	32IvTP6McWjjSoG5/Pp/pVfEs7FCzlaRq99aGWDS/P1vxT884VQBrCbL77vOeQ2DVhxA5jRJpC6
-	Crie/0KToysH3QIX8HhIFsFSacF0VFBmQ/+gHBMg72e2e/tEByo1gPSWR/Th7S3Eyu3EeVRWpuE
-	IVLAgs4p2s8SUfvPP9c1q8PfY1F4Yj99mxwDzZDrZHP6AxRpTphja+BziclN+PJesVv9TEZYKCm
-	5qzMPZ3tY701OQu6pPctMl4mYj3H1blS/G30b5viZpWmGsM0nPo+8Kix16kUsXCb5ZTFMv2iC+2
-	DVIwmZvM3e4LpyanX+DrUI5enwk7TfFEr/u5VGJGwmUZKtmHx8/rioOniONMEvetFF7O8b1S4px
-	VKhtuWv0gnDuSUpi2lNL+b/a4nOfqDO7hsaxZHq9idSllXxo7em8sXukKy/EA==
-X-Received: by 2002:a17:90b:3c04:b0:3a7:a6bc:9d58 with SMTP id 98e67ed59e1d1-3ae581e8bd3mr3092891a91.54.1793266162773;
-        Thu, 29 Oct 2026 02:29:22 -0700 (PDT)
-Received: from [192.168.45.62] ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fb1ddsm3540149a91.5.2026.10.29.02.29.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:29:22 -0700 (PDT)
-Date: Thu, 29 Oct 2026 02:29:22 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: Ido Schimmel <idosch@nvidia.com>, bridge@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH net v2 0/2] bridge: cfm: correct CC receive monitoring transitions
-In-Reply-To: <12c35123-2c08-4d3a-b08f-c646b1a7b982@blackwall.org>
-References: <20261028164730.253238-1-pocj8ur4in@gmail.com>
- <12c35123-2c08-4d3a-b08f-c646b1a7b982@blackwall.org>
-Message-ID: <179326615954.265212.11556019462202036381@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=znzjoBLi;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=UF8CDRKG
+Date: Thu, 29 Oct 2026 10:29:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793266166;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BG0tZQ11JJC9xUSQsLPfPeO4P84oYAHHSlBdRKJggas=;
+	b=znzjoBLieQYSIrmv+QMgLEkGf/NJO1W2YunETKvhaR/xQUhOF3v5SPBRToMUcdviMLn0B3
+	YiwlENOWqmPUTCfaLBM/s/Cdsi98pQsMekndt+b+WdoJi5ChyHwI9sZYhZwvHDVwhqErZD
+	0V9lVmcLTl51aGbx10LBIP2PsSKNbmFvrrvSEP2tgv4tF5jW+Z0Ebs9dbW/p/0PcPFwUB1
+	a3relYguhAl7C+FTtZNVByZpUn+ZoH358cLbCX0C/wcPbzjcTwRKIDh5psQJMmNnK2HmHz
+	ldk5uuKTkCkbmlBH8sY3JVudueMUUMY9ZolVg8LVOAcClGxfQ4hbjJP+zjYrFw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793266166;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BG0tZQ11JJC9xUSQsLPfPeO4P84oYAHHSlBdRKJggas=;
+	b=UF8CDRKGrO2s+945prji3AsZf+wIU7Yv/XUcP3Pq87LkdOqvjwxotSzQ5GoFpBz82SECID
+	ekrihXS8jjCfhyBw==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH] gpio: aggregator: constify struct configfs_attribute
+Message-ID: <20261029102611-40fa9198-1caf-4c57-a03b-d8066642d330@linutronix.de>
+References: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
+ <CAMuHMdWhBeqmMt-VXbh2u6AvzyQ6NsZAzATNRZCnm2DHUAFUFw@mail.gmail.com>
+ <CAMRc=MdWuoANzpNDa9XvJjK=ccY12y7TJaqnUsV8GRqSDh7jAA@mail.gmail.com>
+ <CAMRc=MctUi9g5DUOxEa3F541gZXfeDO_dCoJO9D0tmHmcfa_9w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,12 +77,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMRc=MctUi9g5DUOxEa3F541gZXfeDO_dCoJO9D0tmHmcfa_9w@mail.gmail.com>
 
-Hi Nik,
+On Thu, Oct 29, 2026 at 04:43:44AM -0400, Bartosz Golaszewski wrote:
+> On Thu, 29 Oct 2026 09:41:02 +0100, Bartosz Golaszewski <brgl@kernel.org> said:
+> > On Thu, 29 Oct 2026 08:57:15 +0100, Geert Uytterhoeven <geert@linux-m68k.org> said:
+> >> Thanks for your patch!
+> >>
+> >> On Wed, 21 Oct 2026 at 14:31, Bartosz Golaszewski
+> >> <bartosz.golaszewski@oss.qualcomm.com> wrote:
+> >>> In preparation for the constification of configfs attributes, make the
+> >>> existing instances of struct configfs_attribute in gpio-aggregator const
+> >>> and use the new st_attrs_const field of struct config_item_type.
+> >>
+> >> This has a hard dependency on commit f7528cd38b87fb59 ("configfs:
+> >> Allow the registration of const struct configfs_attribute"), which is
+> >> not yet in gpio/for-next, thus  breaking your build.
+> >>
+> >>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >>
+> >> Since you have to rebase anyway ;-)
+> >> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> >>
+> >
+> > Ah, dang it. :( I stupidly assumed it must be in mainline when Thomas
+> > recommended it. :(
+> >
+> > Thomas: Unless there's an immutable branch I could pull, I'll need to back all
+> > of them out of my branch and have them wait for the next cycle I suppose?
+> >
+> > Bart
+> >
+> 
+> Ah, seems like commit
+> 
+> commit d4d9eb226e4c2af8ab390bb470477fa68072fa2a
+> Merge: 32543b09681a1 6c1fa55e287a6
+> Author: Linus Torvalds <torvalds@linux-foundation.org>
+> Date:   Tue Oct 20 16:25:43 2026 -1000
+> 
+>     Merge tag 'configfs-7.4-rc1' of
+> git://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux
+> 
+>     Pull configfs updates from Breno Leitao:
+> 
+>      - Attribute structures can now be const (Thomas Weißschuh)
+> 
+> pulled it into Linus' branch so it's just a matter of post-poning them until
+> v7.4-rc1.
 
-I am not currently using bridge CFM in production. I found these issues while=
- inspecting the code, and I agree that the fixes can target net-next when it =
-opens.
+This is what I meant with "the necessary infrastructure will be part of the
+next merge window" when suggesting this change. I could have made that clearer.
 
-Thanks,
-Baek Kyu
+Early adopter issues :-)
+
+
+Thomas
