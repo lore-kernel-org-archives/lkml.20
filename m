@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793283578;
-	b=l18d7seopmRs4/4tgvvPhN0kKnVXFvx3klKFw+IOoT53DIPa/c3gHppmdMtt144djVUT
-	 TuoMwerFB1W86kjohZiYrp6lWg1VxLJ8TIVJijIaX4i6Pm8ms4r9ydU2e4w3teUoPOshO
-	 G3t9tR51ftYyKb4V/WpzFFM+ZYGyk9YRa0Fug9aVIYkUgiajq7CgzSC5/jfCyrO/vspW0
-	 VYq2Oww2qX6J4g2ahIq84+/zlDsMkLe1N79ECllwbT3gFHVX0l6EUEdXXbX+yzmfQmRkL
-	 BCtEZuUenyiN7v9kQFgqbR/MzqiFEwPGu1RYAuXTn/bAt/9xX1ug1FL1Q7QrkW5fo6Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9by/+qn28kcO71UCrIacSXbOC8dVdMUGgB4hEtIS4Ow=;
-	b=UTUOaglBz1cZsLzFH1WMm451ptH8iOv26KL4pa5/B3YFuQf39Ctjgg1xobO6JL/Z0YKj
-	 FcW4ATP2+TOp+mRJdrm6wrcnp1xsLEdIRa+RKSbaws0iz1K6rhQIAR9k5SW0+zVIHvJ5s
-	 7MdAlFmCfQtTw5P3uQMKzTpUgqU8/PpvuYuTjAar1Df6s74eeTWUZpE5Dldhr5+UwIEQ2
-	 ej2MObkgNBAyYp4YHstxDjxsmVsKDb/Qhn44/x05kEwer/d3Fb5i2DwaCa0n+16G1m3Wn
-	 EsD9/e7zlLe3VQE+l1vRDC675SwAxEevbknbeEAbRyM7hCTHdv5JIdD8KEL+ZNzLTaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZV6gnFWU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793283581;
+	b=EkN/y8VhDAvz2P8XsvnBHt9PwcNL/edpiG5C291new94ylLrIVZXDav6T5o2CuEGDnav
+	 DalMTmA1vDxYNQZaI0CerohKB2QD7pvdpSphSB01tEg/1ihiW+IoYbyaX8E0HS+9Pyqcd
+	 JtrS+Xf0ICKvRPTITV46AMZcsT1JpLWooTSOf0TjL7rCm8L/bq8BIk7LrN9wo0NQRYx4x
+	 i9Av8viTBBVehwDCfUP4iE/xRbFath0KSuIhPEXgjRAh7ieHMvh26c4j+id7o4EBbAXvf
+	 jgJJS6zvzSqFAskuhmwnRWGKUrgYKHRvnJGk3ZNpIL2e/iwY3PMQfnDmF10CrmW8Weg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283581;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=0t7g2WC+b9FztvwqiERlUGDT4mF51ROculYuxl9U52o=;
+	b=ItLlua0BsikiFOBfkvyevtfNxV8sgTgihV7ObMdeYiE7qnXKGhYbeOovIvKvcTBBAgek
+	 8axla55XhugpwDf2UyHpGQZTttQ3guQGa1LUZM/gXlDqKulOepumP8V+rSMBXNAmAKpLr
+	 cgxM/38iEFBK8Fstn93cceL0m9YDwClK4+cCt2pElNswXDRz0v4u1zXseLUPvtfbKvNTX
+	 3IwfcCcev7jecpSKi6QfMqMTgYzdBGn39fCk1i53LpGvgRoMWVpQfsZT4XZc0CST1Hdb9
+	 vJ0l69fMxbqqgUUSErKJLUcqFTR39cY1ssg3PaWg3rBEWrWlbaeXZYi0rI4Pi3HKNMQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWuSS1ku;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1EE606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:19:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F1EE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF44B606B6D4;
+	Thu, 29 Oct 2026 14:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF44B606B6D4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZV6gnFWU
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6acb9c018ffso1188014a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:19:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793283577; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BbDv+dSQ1pRqTUQmeSumgnbgz31S/i+pna+bzp6xz/e2OCPWt/+kGhKQtwrLjmJzNK
-         64EsV+YaqTLOk/T7Kf62BZshjm+gAX5u4su9lACqgtpEpw18Ve1cgd28l+ZhfL04HuId
-         wMy4qawP7lqNoWYPvmeXWTD+/sjXf5tkPhCs94uYPV3/hTBMjlwnYSbCvE7D778Ka5fW
-         SX/LRzHtJiwb6fO4cOSRPAogvacAwZ+z9YqIc1q9A/Y7D6Ngs7wqm3vq/eW88rYpZqMG
-         hWY/pAS0lpnJOzzE+b0ef/Bk4dTwwpnsTrl1rYApIbWKE3m2fjvWXV1KptiOlE+yL2mD
-         t0nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9by/+qn28kcO71UCrIacSXbOC8dVdMUGgB4hEtIS4Ow=;
-        fh=eOj6W6KMxR/l63iIuA1aFk0uk/6Ld0Tm2OsreQTgfcg=;
-        b=Xxq7T2KMh+E7bdCg+7okZX3fqttgCcMRIIRQWUdnPaw11DOBpVsWPkF+cqD7Lxsjli
-         nLc4Gn6aG/jjzb41FU1jSIMavAHiAmFGMLOBeQKU/NLjVkdvJj45kJ3P7ZJJH0Glr+6T
-         mB9OehwR4rEX8MUiGo2bs9Ipg1rYLSzazml12r4++umLnkBikYHU/ojGKcxHcqbVJita
-         mRVGhwlekopHOH+cVLsOiOhH17vENEhe4ENOmEYo0jVz2Cd1pB7NGc/gQ5GV6pGsZ0xO
-         SpmvP0WJ7vIUoupe3ErfKYzTc6sg3GJJl2nHqxnD3j9XaU1Qdg7KcgUL65pPOOop4Niq
-         0AaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793283577; x=1793888377; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9by/+qn28kcO71UCrIacSXbOC8dVdMUGgB4hEtIS4Ow=;
-        b=ZV6gnFWUEjF2W22PhBo1hYXFtgLZ89QQmovrCEZzBWPoP/4N16PkqWj4HrxA3HeO37
-         KGi1spKvsnQCNQTkzowIz8/lS7ImaonvUjMTlrIZ90EZv1tsQXr26WYGXtEu/LmjH3mY
-         Sy689n/gnYwDkhbKZ8blHDhOdDIt+HWekavFgA6dJEDZQ+6zcMXhBnn43AmaiCOqJ6/x
-         DnwxwbfiXh1LcEswRIiMSF3T4fwkcGmR2qEpi61MjJV8Mt7+buguqeFubW0q6kEgL734
-         xV66RovXQaZAyeW49LXGA9GQD0Bd/NfrFYX9+NrOSliA5r+9ngUYu65AdWTQxg+e87NC
-         utIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283577; x=1793888377;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9by/+qn28kcO71UCrIacSXbOC8dVdMUGgB4hEtIS4Ow=;
-        b=IxEdU1ElFupKpl5NLKKfWdV8YgzjWwTsPu2DZK+cb8Wck+XQSfV6kbgTChdps4lfxu
-         pX0xHCvBAJ2lRfzTx1l6MY5fvjhysuTmKCFgC8kW/wKFJyYxaVw76axtOzWh2ZB+s0th
-         iDOBev0zuQmLJsFiBPHX7Zp2iH8fSQfqyHHH/KNJZATNLee70IDo76bARKuF3cy6+WHU
-         8wGPpL1VslOckrtiwLXaBAWBnoSraKTVzJOqn6BT8Oeda9DSpJAqx/sZuYaAhHHQmgnk
-         9yUuQk7dxbNt6vw00B4lPm/YdHiDykdZ0HvFawpAELdJO6M66jQznZtJe/zvZvX9ufZd
-         B7Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjarcdlGHkzG0JhLBHUst88gLPd355qFqj//g+6ogQSgMUEqfeatSFtZSFuiQYj/KumyMhc/nbM09Ty8w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb0ZmNGDpTOazEG+GOr+2CUt/ya6VxSr58dqMvccPIFaNzT+yn
-	u5tmWezAG9ep9PrRmUaw5vmyXLuPTnSd3JFfRlFuLGJd/ozJR9rHgiMXbFYFasfZycLOGxUrqeu
-	ZpZNpDHvJYcXKhRZBfufyA5MitjQEE8IG7V1T
-X-Gm-Gg: AYBFou3v9CueMW1f7KPpYLCgJy9TBnHtW19d4IylVGI6fGnO4zgYHPUX47LVbOELPxe
-	k6mm/1tQbam7nGQ4XrpO1VKIv/nkaLqH9pKVCboc/sCBsmc37buUAWoxCgejjhVE5DhtfRV8EAF
-	yAuQYjkhbN8BD6SrKcHiFi35O0f3hHMgAT0UXnjL89qmnvyHKkQrbFloG0c2CHQ8KhiUK3ElXrx
-	3sKSfsqOYnIbpUA64aANkuH7gnptI4d+2AoRhY0m4l5ozk2yFq+44pXTZjWAyPAt+bs3mVPS//B
-	fmWZVeUJUQfZj3ijho9OYAJcYhiFgPGIFsaajFn02hTHXqFSB5EEi8FVIaT1ty1mj110G/XRNOP
-	Tuf0leyAiUBo4DidlaXy+sL+jM0jsENdsl1Ud
-X-Received: by 2002:a05:6402:1ed0:b0:6b3:d0a0:39c9 with SMTP id
- 4fb4d7f45d1cf-6b4b0b1cf11mr2209106a12.6.1793283576657; Thu, 29 Oct 2026
- 07:19:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWuSS1ku
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793283581; x=1824819581;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ks0QnF665NpX8S1B9/P4xaJFMSaRvnc+QpU5Vun1o38=;
+  b=kWuSS1kubnfkY9keyowEejRMZp5Xl7hrho2WizUJVGAo/eLJG2MhZzNl
+   WTSOP0Hvr9IZAGfe+9xuro8bViWJa3e7jHL9Nu6dInb2G7YkFoYhVD2h+
+   K8meJ+9EFEtGart3v66jV6Qk/IHvH8ZzLAP8KxCXvTIFGpFWEYS7oTRKI
+   Vn6OOoT6rNFffcOZk+8V7XdJXz6I3DwzCLVYkKM5NrTdeqEZc1E/w4wzw
+   1mOsomD7bKbILKSxC06NI/5Og1EALiH2bRjcIn4YFDWVd1LUboydnZuaQ
+   EIp8oi8JEZrRNzg1Bz0TWOWW9cDJN1xvAsWg9QwQ/vlEl/RbwxWaAG5Iv
+   A==;
+X-CSE-ConnectionGUID: bIrVknu2QpOthFcc4CCSmA==
+X-CSE-MsgGUID: Ko4ptfLdS7GgKSp+2kZaKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1934262"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1934262"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:19:34 -0700
+X-CSE-ConnectionGUID: QyJOQ8qDTY+boqh3NJr+/A==
+X-CSE-MsgGUID: 7B3JJIPERS6eyiaI7RVCSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5119312"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:19:28 -0700
+Date: Thu, 29 Oct 2026 16:19:25 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v8 4/6] serial: 8250: drain canceled TX DMA before
+ reusing its buffer
+Message-ID: <auNV7Vco5O3vVwRH@ashevche-desk.local>
+References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
+ <20261029-submit-serial-8250-dma-cancel-v1-v8-4-3fd56ba352ed@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +99,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260929100625.50380-1-ayush37735@gmail.com>
-In-Reply-To: <20260929100625.50380-1-ayush37735@gmail.com>
-From: Ayush Yaduvanshi <ayush37735@gmail.com>
-Date: Thu, 29 Oct 2026 19:48:59 +0530
-X-Gm-Features: AclHuK8YRd7esRwJwQxXZsuBWfYGyAmxvBoyXjMehkxel03w8u9xNskEzG-b4IY
-Message-ID: <CAPgWTUTQti8Z7Kkw+DfTdsYd-SGsq+NpX2vD7TVmfLDdgcAMQw@mail.gmail.com>
-Subject: Re: [PATCH net-next] sfc: siena: fix kernel-doc description for efx_ptp_timeset
-To: Edward Cree <ecree.xilinx@gmail.com>, Richard Cochran <richardcochran@gmail.com>
-Cc: netdev@vger.kernel.org, linux-net-drivers@amd.com, 
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-kernel-mentees@lists.linux.dev, 
-	joe@dama.to
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-submit-serial-8250-dma-cancel-v1-v8-4-3fd56ba352ed@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi all,
+On Thu, Oct 29, 2026 at 01:37:00AM -0600, James Hilliard wrote:
+> uart_flush_buffer() resets the transmit kfifo before calling the driver.
+> serial8250_tx_dma_flush() terminates DMA asynchronously and clears
+> tx_running, allowing a new write to replace tx_size while a detached
+> callback has not yet run. That callback can then consume bytes
+> from the new transmission. Reusing the reset kfifo can also overwrite the
+> source of a transfer that has not stopped yet.
+> 
+> Reserve the flushed FIFO storage through serial core before returning
+> from the flush callback. Keep tx_running set until a worker synchronizes
+> the terminated channel, suppressing old callbacks and new submissions
+> during that interval. Return the mapping to CPU ownership before releasing
+> the reservation and waking writers. Normal transfers continue to use the
+> FIFO directly.
+> 
+> Reuse the locked completion processing after retirement, including OMAP
+> delayed register restoration and transmitter-empty handling. Take a runtime
+> PM reference around worker UART accesses and drain the worker before
+> releasing the channels. Shutdown releases the FIFO reservation after
+> stopping DMA and unmapping its source. Serial core keeps writes and wakeups
+> gated until startup or resume makes the port ready again.
+> 
+> Track a flushed FIFO separately from the transfer length. If termination
+> fails, retain the reservation until normal completion and account the
+> completed bytes without advancing the reset FIFO. After successful
+> cancellation, process a zero-length completion once callbacks have drained.
+> 
+> The race was found by inspecting cancellation and restart while preparing
+> H616 UART DMA support.
+> 
+> Retain the tx_running check in both completion callbacks. Releasing the
+> reservation relies on the DMA provider draining detached callbacks when
+> dmaengine_synchronize() returns; provider callback-lifetime fixes supply
+> that guarantee for controllers which previously lacked it.
 
-I'm following up on this patch to check its status.
+...
 
-I found Joe's review in the public archive:
-https://lists.openwall.net/linux-kernel/2026/09/29/2834
+> -	bool			shutting_down;
+> +	bool			shutting_down:1;
+> +	bool			tx_terminating:1;
+> +	bool			tx_flushed:1;
 
-However, I haven't been able to confirm whether the Siena change was
-applied to the maintainer tree. Could you please clarify whether the
-patch is still under consideration or whether any changes are needed?
+What is the meaning of bool XXX:1? Have you checked with `pahole` the result?
 
-Thanks,
-Ayush
+-- 
+With Best Regards,
+Andy Shevchenko
 
-On Tue, Sep 29, 2026 at 3:37=E2=80=AFPM Ayush Yaduvanshi <ayush37735@gmail.=
-com> wrote:
->
-> Remove excess @valid struct member description from
->
-> efx_ptp_timeset.
->
-> Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
-> ---
->  drivers/net/ethernet/sfc/siena/ptp.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/sfc/siena/ptp.c b/drivers/net/ethernet/=
-sfc/siena/ptp.c
-> index 0b723a127364..d643e41ae773 100644
-> --- a/drivers/net/ethernet/sfc/siena/ptp.c
-> +++ b/drivers/net/ethernet/sfc/siena/ptp.c
-> @@ -196,7 +196,6 @@ struct efx_ptp_event_rx {
->   * @wait: Number of NIC clock ticks between hardware timestamp being rea=
-d and
->   *          host end time being seen
->   * @window: Difference of host_end and host_start
-> - * @valid: Whether this timeset is valid
->   */
->  struct efx_ptp_timeset {
->         u32 host_start;
-> --
-> 2.53.0
->
+
