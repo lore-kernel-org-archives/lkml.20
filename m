@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253626;
-	b=tzGvCH9CIhQt+umOw652Ms8Ja11nuuWkY0zo84FdyIUIuJ6J7yp5uleQZYQN6pVxKEMa
-	 b0mISd8+oijURfah/W2I9OrHo5Fxbzyab9u/u/QbCG65T7HZUgeySFCzODQ2kJ8XXispO
-	 kSaGdFiXx5KNHobafVlrfsKyij6OnnDIK2v+PfrkSV6PB1X80R1AKr+SE3RTIz95IqEm9
-	 UiCvKGexbbvHKHjcFVJDvmcYW2MvYLOH2onue6w+md5PRp7NfcSPszwynu8M0PdPyU4W8
-	 DVaLktfR57wZVaKtlw9KbIJKxXyNR6yb/tkMKx8N6JM9b9mZhk61YYyv+irvjrLzLuQ==
+	t=1793253614;
+	b=LE14zYv3zka+iie0CWXi87mtr1nHTu3zPqvEJKfjumo2xWIpoOG8Q48l4IcxaTu44wxj
+	 e4iY5n2kzrMMWzmlfcZsianWKi1f5pnS/orkIuiRQtPf/Q3sIFKUofC8YXlaMNcZ8sBlW
+	 hn73QYzrVp5X2uY0vBSl6A06R+bwuVbnddyy4jvMj5HYhdut7NfyRXaFQefxGO9M5nbk4
+	 +eybMcU4gGX3PcFWty4/WLefTZSNtvz1uAUQfjX6dF0+vvqWQYgBBLjNaZZDZGJaeo0tT
+	 S5yfXH9+YV4Buh1UFt87+JflJfjaaG3aigW0xF1V2KAxioOfcJr3W6UoQm2O6DLKDAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253626;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=vOGC1ex5Knc4gUvwls9OSLa63qIjRIYMiD8fFkiWwrE=;
-	b=JoHcxVnLnNs+P0r4xoSl+FDTLH/WRTn1VGtQBcqfjcFsQudsq1PbJz2GHSh3AqrgcF0O
-	 +IUwIUikrP9W5jQCxEkGmEuD9G+cqL6MNlqGY6SdctShfxDU5F4V5ZfS5BoENToi4Bx4i
-	 YEQhDE5+N5IH+iKro7WAW0wL5GuY8s1ts9bN5iWZfM78zhOG//AT7QLz9uESelnt/smAN
-	 FSG+nHsLurES7QwMf4URhQjEfcGSZkB4NfezZLqT3+EMFxmCwqq3nnuwylFbBVX57xQYE
-	 qs3dxNVykf+n55BsLCrCap8dQEMFItGmMtTwPYhRrKp72h8XJJ0ErgBSerTm75I/yGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793253614;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9jsZV6tJxvBfZHrRRHfJr4z1Bdmp0wbXP7PaAyZg2DQ=;
+	b=T5gusDtghlL7UOI4/wRZ9efE/Sr+etDEeNJ2jlCJYmt0qQ2/+6W9HRiImZyrIkbS714Z
+	 0Algkaj9Jc/DZUuVyGQyG6j/xaGjDBcLYfenp/hy+FmqeNhHtWecxIwU3zfXYio7a9oBu
+	 qPYjS1rjaMX6IrbIkbLeOo04YXC7NUab1AwQmahjtCOk+MtcZIRotzLe8rwN7s5Qbv1o2
+	 b06++QQCHo8pSBDELaubJ3635AC/aFfr4uMm4eCPD3yck5/t0GeasDKUVWC+DA7olxYLh
+	 CSxqSKWaP6akIaqpH5KiNBr/8Y54nGnCiO3h2EbmMGRH6rtBbnZWhE/aC1t6xX85x+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=QJmOLFkT;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E582B606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E582B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=QJmOLFkT
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 69EED14C2D6;
-	Thu, 29 Oct 2026 07:00:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1793253622;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vOGC1ex5Knc4gUvwls9OSLa63qIjRIYMiD8fFkiWwrE=;
-	b=QJmOLFkTugrCihej57+Q0f0P+SXn029yLmYWE0Kb7/AJOyQd6ujIpzmsG9B27FMaphwiI3
-	Vx1qX/AJjRgo65RrelaK6gtkJEGY98z/o72aEYn0wQZuWVqVR1GWzEZojbjDaQSP1ba9UV
-	Rk5WD/KqdrM0MRORpaevjUgcqmqVKgMGNzIbwXttqaHHYuLpoQ7QjmtVPkPcdeIrM35Hqz
-	PmFdpbgsTvnjMa/x/GTXtgTygD/HsA0/BSVwaW19RcZvG3uAP6GJPH30M7zGpjyH/8a9t8
-	1tGXjvX1/D1QHL+mHEc85Imj/t7ekleGMgBB28hqKQIgyY6skQCHlSXGT85M+A==
-Received: from gaia.codewreck.org (localhost.lan [127.0.0.1])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTP id 506b6a35;
-	Thu, 29 Oct 2026 06:00:18 +0000 (UTC)
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>
-Cc: v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] 9p: optimize p9_fcall struct
-Date: Thu, 29 Oct 2026 06:00:12 +0000
-Message-ID: <20261029060014.3-1-asmadeus@codewreck.org>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92187606A31E;
+	Thu, 29 Oct 2026 06:00:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92187606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f8ed46c2d35d11f19a56ed5b684f684d-20261029
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:94fa15f2-9933-4612-8501-663724b1ac59,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:503cd10159724e47f562d8a7ecf15e67,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f8ed46c2d35d11f19a56ed5b684f684d-20261029
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1239124262; Thu, 29 Oct 2026 13:59:58 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	kailang@realtek.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	John Doe <coolcrew45@disroot.org>
+Subject: [PATCH 1/2] ALSA: hda/realtek: Add speaker depop sequence to alc225_shutup
+Date: Thu, 29 Oct 2026 13:59:44 +0800
+Message-Id: <20261029055945.188723-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,72 +73,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-p9_fcall has a 1 byte hole followed by more data and then a single byte
-element:
+Mute speaker pins and disable their pin widgets, with a 75 ms delay
+after each step, before cutting EAPD in alc225_shutup().  This
+prevents the pop noise that occurs on suspend when the amplifier
+loses its input signal while still powered.
 
-struct p9_fcall {
-	u32                        size;                 /*     0     4 */
-	u8                         id;                   /*     4     1 */
-
-	/* XXX 1 byte hole, try to pack */
-
-	u16                        tag;                  /*     6     2 */
-	size_t                     offset;               /*     8     8 */
-	size_t                     capacity;             /*    16     8 */
-	struct kmem_cache *        cache;                /*    24     8 */
-	u8 *                       sdata;                /*    32     8 */
-	bool                       zc;                   /*    40     1 */
-
-	/* size: 48, cachelines: 1, members: 8 */
-	/* sum members: 40, holes: 1, sum holes: 1 */
-	/* padding: 7 */
-	/* last cacheline: 48 bytes */
-};
-
-move `zc` up to optimize it:
-
-struct p9_fcall {
-	u32                        size;                 /*     0     4 */
-	u8                         id;                   /*     4     1 */
-	bool                       zc;                   /*     5     1 */
-	u16                        tag;                  /*     6     2 */
-	size_t                     offset;               /*     8     8 */
-	size_t                     capacity;             /*    16     8 */
-	struct kmem_cache *        cache;                /*    24     8 */
-	u8 *                       sdata;                /*    32     8 */
-
-	/* size: 40, cachelines: 1, members: 8 */
-	/* last cacheline: 40 bytes */
-};
-
-This in turn also makes p9_req_t 16 bytes smaller (152 -> 136) as it
-contains two of these.
-
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Reported-by: John Doe <coolcrew45@disroot.org>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221616
+Tested-by: John Doe <coolcrew45@disroot.org>
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 ---
- include/net/9p/9p.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/hda/codecs/realtek/alc269.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/include/net/9p/9p.h b/include/net/9p/9p.h
-index 22ab7486795d..067e8a3b38d0 100644
---- a/include/net/9p/9p.h
-+++ b/include/net/9p/9p.h
-@@ -581,6 +581,7 @@ struct p9_rstatfs {
- struct p9_fcall {
- 	u32 size;
- 	u8 id;
-+	bool zc;
- 	u16 tag;
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 23329d5887a5..67ce5b130f81 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -665,6 +665,7 @@ static void alc225_shutup(struct hda_codec *codec)
+ 	struct alc_spec *spec = codec->spec;
+ 	hda_nid_t hp_pin = alc_get_hp_pin(spec);
+ 	bool hp1_pin_sense, hp2_pin_sense;
++	int i;
  
- 	size_t offset;
-@@ -588,7 +589,6 @@ struct p9_fcall {
- 
- 	struct kmem_cache *cache;
- 	u8 *sdata;
--	bool zc;
- };
- 
- int p9_errstr2errno(char *errstr, int len);
+ 	if (!hp_pin)
+ 		hp_pin = 0x21;
+@@ -698,6 +699,16 @@ static void alc225_shutup(struct hda_codec *codec)
+ 		alc_update_coef_idx(codec, 0x4a, 3 << 10, 0);
+ 		alc_enable_headset_jack_key(codec);
+ 	}
++
++	for (i = 0; i < spec->gen.autocfg.speaker_outs; i++)
++		snd_hda_codec_write(codec, spec->gen.autocfg.speaker_pins[i], 0,
++				    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_MUTE);
++	msleep(75);
++	for (i = 0; i < spec->gen.autocfg.speaker_outs; i++)
++		snd_hda_codec_write(codec, spec->gen.autocfg.speaker_pins[i], 0,
++				    AC_VERB_SET_PIN_WIDGET_CONTROL, 0x0);
++	msleep(75);
++
+ 	alc_auto_setup_eapd(codec, false);
+ 	alc_shutup_pins(codec);
+ 	if (spec->ultra_low_power) {
 -- 
-2.56.0
+2.25.1
 
