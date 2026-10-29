@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793245909;
-	b=iKzkREjpKnS0NyjhirsHSi+6Gux2IqC87I+KQppwuD2Bsm1FmGMu559yVRdyeUwiYKL/
-	 j1t7YzoDcYGRgvuQjk3AjoHEjjXZMgOXdp6WKtH8TVtppcL6zSbnOkJZtWi0fHTlGj7fa
-	 koYGp7JUp4eI5Su3DLdOOC6T2fi1EcwEY+lA7w9+pj2M8UjbmifZuBoZzAejClzE9Owzz
-	 yIsrGJfIGb20eBwrsFiYhxOO4VM1/C94w5mo/cBkxffgjDwDPxrrdaTlJ33sEw6CMkH73
-	 l3AuUIxdc5HehPYpxq39YF6ZIecUIuXQsSB0zSggnzFPnp+A/NrbkQtwh92TmSAfZuA==
+	t=1793245926;
+	b=5HE0LHngCoEUFx0lqciVniCQpA5XLAZxanSJ8YukvhFSWH24Q1GgCmJYRrwsuvhgeUhB
+	 i8pT3RrWN99LS0OiN3N7LBP1qRYRKrCwEbMlY05BR2V3fYIKuCq5Ntxc/xexAY0gwMWTa
+	 8Zeb5D+E63Xxt7dxjS2z8ovKebW5gKbVv5Up6EXPSozMk0NQfu/pyQvkCXrY1mYPX6WJE
+	 jQX6G6dIZJg6SRopFB6WYZTLdFm3BhVrXmV/mzYEGFv7trYHeBo9IuyhrPECFAK2JUQAu
+	 M1M8jyALfOkthYENABX5sYW1L81MDKBdPNGqeRUuBzUJh5vzs1pHu1owUJZY+1cTLlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793245909;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=YXfmsX/yQpRThvRvFibuXD3vPcTXDbmM4UJssVVOAKc=;
-	b=1XdJygEzTLeWrGXWWyH8AOuRZkrxhnPXRaZqF0rAW8nIwdeEU7ZvNFAyxunq7lSlugk0
-	 5s3f6Rq+3e5JMsfCKiN9MmkDDYJW3GdefRg2z7OUP/7y1JIUstc7j1JoU10UNaSPSTIBt
-	 7M+vkHnXchewys6bW2i2gOs1zjKcFyutr3nv4UnUrJVzRx2SvH6yAyNA7Z/tKMrw6RCyE
-	 qcc4QwoTRzcjW+ks5yyRZ3p/kA5H66WLeSzzCRkGiEBLF/2W2JJl+IHtIELs3WzT6gRv3
-	 S4mqk0MV1dhyzKiksXPTd/oMOToUWsB1OR4BUokYirrBR73ZEsGlA+VpP7upm3WgNQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793245926;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=qixoEVSqgEF2nQA2b/vD107HKEObSlU42nXMVY8kxqo=;
+	b=LPiiN6IvIHFzjEuOaV9jdLb2SKQecf5JsRmTd+kPD8qHcUWBYK76swfimCXewFqaFdYT
+	 fd++2dtmo3FaWLKWU21RkuHT2EL8EdWsEiTH0HdbSMW2ZcL3GIS+kbg4hZAjnRs9ZpoDH
+	 HS1FgaZdx0aN7V5r8XbMQ7ZOckwVLazcu7+6LM6sI24re1L8cqHfk0joJ6jh1ZV+6lRse
+	 wC/RZXZnf3TItoP7kpe7buzOmCdqE+M8TBs+7pTe3CXrDivf58x0ZhQGFLbffTb7MGHbp
+	 MN5n5Tw9RC5jSmrnwCR8rmkfdVkdZS43I+dyrBWzdjd2dtthz3XeoGY7GwAiz/UVQ7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kKimkzyM;
-	arc=none smtp.remote-ip=91.218.175.174
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=burAcJNh;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED746606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:51:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED746606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D22A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D22A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kKimkzyM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=716xbJigIsWZtYo06Vb5k1w3O79is5fyZrfOLJIQCDQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793245901; v=1; x=1793850701;
- b=kKimkzyMPeC7s5+fbgeXF8tpg/Q20CMWuvnl55Scox90nZ4dUkgyeG+w0oApM+0nWA4fRHkg
- q/pfBgaWt9rb3eD6HUd7Wny2AINRQQZRfUAHY9eATkwakdCHmJE5s3+3NeXmKraZBCz+10zFbr1
- 2tzeKUEeN5Os5kX7uiceRtZA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 718d34fddc079b55;
-	Thu, 29 Oct 2026 03:51:40 +0000
-X-Mizu-Trace-ID: 718d34fddc079b55
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=burAcJNh
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qixoEVSqgEF2nQA2b/vD107HKEObSlU42nXMVY8kxqo=;
+	b=burAcJNhxmpTJAQPIX47fbpGXa0r0jmuW/AinYm18KVGY74WGO8vvtMTnx8ZJVqAk1ugoXf3j
+	m5txwD/4Vew6NhB058SUyST3p0+uH1TKk9GN6R2veH0I9aEbQikOKKpwAN4YtSs6SlZ7Hn8TcQg
+	oKDFlRUb96Swu5Mz84KTIvk=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jFVf95q4LzLlTD;
+	Thu, 29 Oct 2026 11:51:45 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id BC8CC40563;
+	Thu, 29 Oct 2026 11:51:52 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 11:51:51 +0800
+Message-ID: <ee77c4f7-e1d6-47e1-8cc6-d6a749f6a55a@huawei.com>
+Date: Thu, 29 Oct 2026 11:51:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,107 +61,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 05/15] mm/hugetlb: keep surplus folios when the pool
- shrinks
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261028-fixes_hugetlb-v1-5-a0a033db180f@kernel.org>
-Date: Thu, 29 Oct 2026 11:51:13 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>,
- stable@kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8DF234F5-8EAF-427C-928C-8DD6E53FC501@linux.dev>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-5-a0a033db180f@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 RESEND 01/15] fs/resctrl: Return -EBUSY when
+ per-CLOSID RMIDs are in limbo
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <ben.horgan@arm.com>,
+	<fenghuay@nvidia.com>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
+	<jic23@kernel.org>, <gshan@redhat.com>, <catalin.marinas@arm.com>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+ <20261020134239.3921377-2-ruanjinjie@huawei.com>
+ <faf2f64a-ef40-4ec7-afcd-282885c09833@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <faf2f64a-ef40-4ec7-afcd-282885c09833@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
-> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> Surplus folios are accounted per node. When shrinking the pool,
-> set_max_huge_pages() removes free folios through
-> remove_pool_hugetlb_folio() and accounts them as persistent folios.
->=20
-> It can select a node whose folios are all surplus and leave its =
-surplus
-> count larger than its total count. Free surplus folios can back
-> reservations created by gather_surplus_pages().
->=20
-> For example, with nr_overcommit_hugepages =3D 8 on two nodes:
->=20
->  (node columns show total/free/surplus)
->=20
->                                      total free surp   node0   node1
->  mmap() of one page, bound to node 0     1    1    1   1 1 1   0 0 0
->  node1/nr_hugepages =3D 7                  8    8    1   1 1 1   7 7 0
->  nr_hugepages =3D 6                        7    7    1   0 0 1   7 7 0
->  munmap()                                7    7    1   0 0 1   7 7 0
->  nr_hugepages =3D 0                        1    1    1   0 0 1   1 1 0
->=20
-> After shrinking to six persistent folios, node 0 has no folios but its
-> surplus count is still one. Releasing the reservation cannot clear =
-that
-> count, and shrinking the pool to zero leaves one free page on node 1.
->=20
-> A later write to node0/nr_hugepages underflows the unsigned per-node
-> persistent count: 0 - 1, resulting in allocation of many folios.
->=20
-> Use persistent_huge_pages_node() to skip nodes with no persistent =
-folios,
-> as adjust_pool_surplus() does. This also excludes temporary folios.
->=20
-> Fixes: e4e574b767ba ("hugetlb: Try to grow hugetlb pool for MAP_SHARED =
-mappings")
-> Cc: stable@kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: cleanup code and description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+在 2026/10/29 5:28, Reinette Chatre 写道:
+> Hi Jinjie,
+> 
+> On 10/20/26 6:42 AM, Jinjie Ruan wrote:
+>> resctrl_find_free_rmid() returns ERR_PTR(-ENOSPC) when no matching RMID
+>> is found in the free list. On systems where RMIDs depend on CLOSIDs
+>> (CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID), the target CLOSID may have RMIDs
+>> temporarily in limbo rather than permanently exhausted.
+>>
+>> When userspace attempts to create a new monitoring group, a permanent
+>> -ENOSPC failure prevents retry even though the CLOSID's RMIDs may become
+>> available once the limbo handler completes.
+>>
+>> Check closid_num_dirty_rmid[] before returning -ENOSPC. If the target
+>> CLOSID has dirty RMIDs, return -EBUSY to signal a retryable condition.
+>>
+>> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: Babu Moger <babu.moger@amd.com>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  fs/resctrl/monitor.c | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>
+>> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+>> index 73413cb128ea..da883adc3adc 100644
+>> --- a/fs/resctrl/monitor.c
+>> +++ b/fs/resctrl/monitor.c
+>> @@ -225,6 +225,14 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+>>  			return itr;
+>>  	}
+>>  
+>> +	/*
+>> +	 * If this CLOSID has RMIDs in limbo, return -EBUSY so userspace can
+>> +	 * retry. Otherwise, the CLOSID is genuinely out of RMIDs.
+>> +	 */
+>> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) &&
+>> +	    closid_num_dirty_rmid[closid])
+>> +		return ERR_PTR(-EBUSY);
+>> +
+>>  	return ERR_PTR(-ENOSPC);
+>>  }
+>>  
+> 
+> Does this address all scenarios? Consider for example the first test of 
+> resctrl_find_free_rmid():
+> 
+> 	if (list_empty(&rmid_free_lru))
+> 		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+> 
+> If rmid_free_lru is empty but rmid_limbo_count > 0 then it will return -EBUSY
+> but it may be that closid_num_dirty_rmid[closid] is zero so no amount of
+> waiting on limbo handler will produce a usable RMID.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Yes, you are right, we should defer the check for whether rmid_free_lru
+is empty, and first check whether closid_num_dirty_rmid is 0 to
+determine whether to return -EBUSY.
 
-Thanks.
+
+
+> 
+> Reinette
+
+-- 
+Best regards,
+Jinjie
 
