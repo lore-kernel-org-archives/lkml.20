@@ -1,87 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246079;
-	b=46gUXOadX621RkBGs51F97yPxAKynsLr5R6hD7XaB4/sdYNpjWllo1w0TdT9149ameMr
-	 n5L2ymKXryVRnqzTOCrkSNPtnW3U2G9CMg0QrRbgmyF2bBE0Ga8TwkFdWZFa6Lr4TFVZ+
-	 qjV3HvpVcNYTZIBzI/nxZG32eSyy+vbeMHvPUWtr2hufp4QdcFYKvsVUUEXROHXMtMJg+
-	 JQ0SKCv21CrQQRLP6qFoEDCQftBp2kSlgWMMn2HsRR9hgvMRdgk7TzqztGNb4q7jW4qE2
-	 Pdn8MdnPXU7IMRY2znKt7WNRrkha3ZXg/RFR0lwghyStBP4oJx0ckQWsRN1tBYDfH3w==
+	t=1793246169;
+	b=5IX41fVBMkMmfUCd4dWqnVppWqBiks08PCJvfA02N7L9UC811PG/SlZYtCa1aDe/8bMN
+	 5J3qIs78zndQr6b5+yq4FmQjdGwaZg2Kbe4RHBms8RbS8+DUfN5GxitcPRYUkG0qhQgzP
+	 0Cge5OjR45agg0VT0MvdBZkxROhF/Lsgpr/WG6CNiDEiT1SXNisZS+EIu5LRQpGeG3sVK
+	 JqmXx6vXdLWoho5O8Bdfz5ePmLlvf6JMNaYLMpzpz/pg0scH7l2Nx1kO+/WRg7hQUecVZ
+	 VIIAC2i8vz9ejPbix5qkTxgnE8Nx+SWlwsuDwq1P/lalosO5hqmckF587SXJMV+nhWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246079;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=lIae9g6zUSH+1q+S1sfHr4ypk6wH2cztDIz5qjRcM/w=;
-	b=O/zTTuT1l9pFYyGUcnzLvnVINtn6ms0gih81S9+NSohYi/HgkfZ2kkJ2BcCDSrz7dS+x
-	 Fu8SDL/Hw6FbHi09lq+UrwEwa1tnoAOUwhEo/mjaWT8xV6XEGZYlaNXWxduukLoWQwoej
-	 6BZCre+uXC4rb5DlpwnCApbGIAn4HOTF5+85wBbhFChGeIZNRc5IC6vsWnTs9k70v87/4
-	 72fSlJCLhwvOMcTswomBUZIYQJNCnVgv+gs8n7L3RxniBRDw/z4fqIqntKf2h1RijVP5u
-	 jFGLBdldYBXpaWZSytF+Zna4bFtyWRHRfTMPKd5HrUIebE5xl3tMrIwng+ezrps/cog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246169;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=oV+YYQgmYqH5rHweZ98iHnQy4E8Zo46BbQyX59hM0ac=;
+	b=pycJ2Acmn7NQwCV41alyTL8i+3Kcw45S1O77iisPq/OcwYw1A6l4UA2gV7bS6ykuCCBT
+	 n8oNwDhg6cWRrBdl2tCpq3wMpMNSLrmMmYO7fUCCEHu7gApBBeMLCf36J1gqmdt4maiiH
+	 +ObeYIZMEyfgqg6LMc0O7roagyBgbHU144+CvzRIvxEWj3sZiIi/qjp2hL+P9veMC18jS
+	 iIyLLPvh6xBgnu4zQde3M7SeJ1qs3trFM0i0vnkwSEwCdudoZlnsBptwxQMoW7FukqEPa
+	 ATtACPWQSp+knW/dEN6h1L5o+RXxeoWkQAu95qbaIvjtRhu7KkjRPjcJN+vaHOVkD3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kh5txQsg;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aaSnLk+9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TEG7uABa;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB96D606A31A;
-	Thu, 29 Oct 2026 03:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB96D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C4B606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C4B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kh5txQsg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=lI
-	ae9g6zUSH+1q+S1sfHr4ypk6wH2cztDIz5qjRcM/w=; b=Kh5txQsglmC1/36ksT
-	kf5+/X6xELqoJ/vbHx2IpP4oR9DvdGs6m/lGENOliaxI9b5C2bJ5dd0KIr9bC2Js
-	k+Jcx1nBXC4vi3m+zItTFr3Nh9V9v+iXXP1Qxv49A6uxheJh8WbbZ0lpnWLYgjCZ
-	ntbPOsWtZEuO/TuEQApTidz0k=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S2;
-	Thu, 29 Oct 2026 11:52:55 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Sunil V L <sunilvl@ventanamicro.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Anup Patel <anup@brainfault.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Tomasz Nowicki <tn@semihalf.com>,
-	Julien Grall <julien.grall@arm.com>,
-	Christoffer Dall <christoffer.dall@linaro.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jianmin Lv <lvjianmin@loongson.cn>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Jones <andrew.jones@linux.dev>,
-	Grant Likely <grant.likely@linaro.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	Robert Richter <rrichter@cavium.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Tianyang Zhang <zhangtianyang@loongson.cn>,
-	Liupu Wang <wangliupu@loongson.cn>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org
-Subject: [PATCH v2 00/20] ACPI/irqchip: validate MADT entries before use
-Date: Thu, 29 Oct 2026 11:52:31 +0800
-Message-Id: <20261029035253.2333852-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aaSnLk+9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TEG7uABa
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T1jlFC3920610
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:56:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=oV+YYQgmYqH
+	5rHweZ98iHnQy4E8Zo46BbQyX59hM0ac=; b=aaSnLk+9O3ug1uq5y+ZtHUCq7o+
+	zLBPTTuMBFyswCLw2Nxk9IeEGuvoCo91SdmvXKUaJ3B6p9xiXQd7icQFcpT6P/vw
+	rT/PIuea7/7jsPuGXD3OMqDPU7R8BJm3nFECOgyKv/O0nS7pkEfbG/kR+2JNG7oF
+	O6dVPDsNVl4Vu2vvrGgXtySOkvWJ9GFbLhMTmf5pB1Y3dHmAn9gkG1DE7LKC6DVW
+	wTzhi2RPmJCO9uy345FC+Cf8CBFKNriFoes9KHBsGH9i/Y4Iz23PUpOXagfWkq1/
+	0xcVJI42tWwhjQe0imCU/6Jymm9jK/Uq34hgTKzg5sqUlPLhrp2psXmhfWA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkkehts05-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:56:07 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6dd94f8fa25so2103072eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793246167; x=1793850967; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oV+YYQgmYqH5rHweZ98iHnQy4E8Zo46BbQyX59hM0ac=;
+        b=TEG7uABaGRMUWA91mIMbjdaS30aT17YvysKaaAkNxWrCqI+wpHdk5bZ+RjJ9lEfPvT
+         vwARBhOu5kJmtftXN5o2ZAN1t8Cd9U5x+rZa2Uq2cA9dbAKTF4GnMpQ/uVHyLoERmUdk
+         yP9fP1rM3tnVNU2gDgwYaiyAzbpvOM+3n6LD4YyZTaSG4WKFVINE5rTMBDgPOjlE+rB+
+         sx+licM0KWlfCzSM2P4qhczCu9JyN8njYTNYdXnL/J468T26W2QAmtgEKKCD2+iCRUBj
+         2oZ87T6JqjgnN7QQgWf0QzX943cbE402JeK1chZOxhT2PQrVI8chNnl/C5ThRFDxIaQA
+         AjcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793246167; x=1793850967;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oV+YYQgmYqH5rHweZ98iHnQy4E8Zo46BbQyX59hM0ac=;
+        b=1lQUplZfdOeE8slDY8b+YK7NOc0Z8nWuD2WdGT54Amz1wbf3FRiEVyOQcQaYN2Q+o7
+         ah9jbPbG8dcYoge0YlhC8HT3q5OLuGUjvtjQgqNdmBksyx5Ce3h2vR1UlX8xceJdO9Uq
+         bfJqfc4WtkV57rnSlwZ6ROAlTW8nRjM2FltfgHiYfxDtumVmejUWri1VwaMRKF8CwoYL
+         8ilk26mQ4Zxm7wLn4AfwB+bnRHYUNj8v6JZ9v2A7G7MGP41dpKBbrGMcZkQS/ALaQivg
+         LTKhcHdJ0cBLwEfKEmYw8kPUeUtCe/g0Ma/CKTnyQ/jR+kzcRgfKbySushXNzh0JMrtY
+         Rifw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ/3FUIotjoHaGTA67ZM3IZe85i037OlHMXx5QXh2oinWgx/svunpoP224oI0LoXKw2khzsnfSic164ro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+JqVMnYOccVSf3vPzgrtFJTUozOfZWuH4z2DR0b/tadPrxdIq
+	VnEwlS1gpnuslGQhF3MxefeTfisGIuWuAb6K7eipUSoC57HXYaMXLQG85AxVcmX+TDEH0BmC2S6
+	MJsPnBaDVILPRscsGj2WmIuByL6+A2Ff+rKNAVxshaaN7+pO/kJDzeArDDrpyuqPqg0k=
+X-Gm-Gg: AYBFou0aBbgkPayx6J8mHC6hkiYT7Ixv/wkH11m6CZqAzLJ123NUZfmtMkFqqer6qYM
+	9HAu9vF4H+AidXJDe+vpnt5hkGv0sD8pRhxKUwEJS/U3nMDuBJ678OR7KTd/hM8gsb4U8kRyfZv
+	nz41tj3ZbTS1elBAXVVfDI+VAHpIPWgLs+esmBp4Pv8i4RHnfpIE2C7/2zFXiY/sbXIwQAVSEZ1
+	F26VtGMMthfY8r041b855wFspbRbbGHidppnIly+qR6etXKwfGSqh05gh0bYqoxeBmjlS6nfuzn
+	opiBPL2VARPJbaAuMQlAeT+ekXTMzux6/Y+mS8ozgI1bMM3kqA4VqgkYcdfg9FTiy/le/Iu5Fk2
+	H0IrHqWtQgxwyx1TZI2SDnqvjX8G4QNvVzf2J391tbV0JKYPqcGpkBI2245ct4jo16mzW7BpyU2
+	WVe5AWN5bldTCkgpedHM0F8UNPK80KCfFF
+X-Received: by 2002:a05:6820:f014:b0:6c9:80d8:a201 with SMTP id 006d021491bc7-713eeb53676mr2483150eaf.62.1793246166963;
+        Wed, 28 Oct 2026 20:56:06 -0700 (PDT)
+X-Received: by 2002:a05:7301:fc01:b0:369:fa8b:d725 with SMTP id 5a478bee46e88-36a204a51c8mr5854369eec.35.1793245676251;
+        Wed, 28 Oct 2026 20:47:56 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm11064286eec.19.2026.10.28.20.47.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 20:47:55 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH RFC v3 3/3] arm64: dts: qcom: nord-rrd: Enable eDP0/1 display output
+Date: Thu, 29 Oct 2026 11:47:28 +0800
+Message-ID: <20261029034728.633495-4-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029034728.633495-1-shengchao.guo@oss.qualcomm.com>
+References: <20261029034728.633495-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,140 +130,128 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AFyxCryUKrWkWr1fXrWUurg_yoWxJF18pF
-	WUua4rtr4xGr4xAwnxAw18ZFy3Jr93JrW7tFZ5ta4fZrWkKF1DXa1IvFyFqF13Jw1fW3Wj
-	9F4FgFyxCFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UrrcfUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhpKhGriwxpqzwAA3u
+X-Proofpoint-ORIG-GUID: I9HkzHqdhCk_PC6RwOubAScUaoI9i1Gt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAxNCBTYWx0ZWRfX04gYHgcSW4I4
+ LqozbmU/ChzlI8Czi49vsPhcZmiaAKngmBlcHh81tvEL6ialFljNQq65eQpaK3uefncMKhDAJww
+ xJfBg6INCm3E8R3NDM0CLke9AzFVCXhP6YloVrZ2DK1EQvdbn+Cf5PxYQcnehm3O3C5Re9Nmpsi
+ CEf9zM3CO4/yoQaxvomn9ssQ/3imbqNdQf2OpL4QHkCOOgEDa5Wrf0YTS9Fa/Hdmwy7l7cqguAF
+ aQlgV17R9RtAXnOlNo1WNwTODBBAkOlFvOFIp90kYLaU/OA9YwqcP/0WvC19QrgN4tuKEhYK2RC
+ lGCCu2ga9DgAl/7+NmGKXvyhmUK46NgoR/Ex0RB6WI/gbZ19xIrROJnyU29E29KtzkE+HzU+56b
+ f95OIseP7o1J9+U/Wih5VSJCyDrvbG47RUyJYj2r5vCSqBbSefIpn/1GRsalnJF6YR8js6h4lo1
+ YfrChZgW1TAk3kNdpTg==
+X-Proofpoint-GUID: I9HkzHqdhCk_PC6RwOubAScUaoI9i1Gt
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAxNCBTYWx0ZWRfX/91kFRTAia+X
+ uZqGYhborv21LyIV6SbrnzL5R23+qYNc8nx4u9W7c4fKxzSyiCEEiuiYpeAqeKgXu+k/U3wAfhq
+ EJ99qgNwepY8f3S2Uc3ykNOzsDntvl8=
+X-Authority-Analysis: v=2.4 cv=bYv+w+PB c=1 sm=1 tr=0 ts=6ae2c3d7 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=wlBrTx1nK-2z6_sN8T0A:9 a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290014
 
-ACPI interrupt-controller setup passes firmware-supplied MADT subtables
-to architecture and irqchip callbacks.  The common table walker only
-guarantees that a generic subtable header is readable.  A number of
-callbacks cast that header to a larger controller-specific structure and
-read typed fields before checking that the complete record is present.
-Truncated records can therefore cause out-of-bounds reads during early
-CPU and interrupt-controller discovery.
+From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-This series combines the previously posted generic/irqchip series [1],
-the RISC-V series [2], and the remaining MADT callback checks into one
-set.  The common irqchip probe path first rejects entries whose declared
-range leaves the table.  Each parser then validates the minimum size of
-the concrete record before its first typed access.
+Enable the MDSS, DP0/1 controllers and eDP0/1 PHYs on the Nord RRD
+board and describe the eDP0/1 connector, its 4 data lanes and supported
+link frequencies.
 
-Testing
-=======
+Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/nord-rrd.dts | 62 +++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-The RISC-V cases were tested with qemu-system-riscv64, EDK2 pflash
-firmware, a KASAN-enabled kernel, CONFIG_ACPI_TABLE_UPGRADE=y, and an
-uncompressed initramfs containing an overriding MADT.  The malformed
-table is one page long and ends with a three-byte RINTC entry, while a
-complete struct acpi_madt_rintc is 36 bytes.
-
-On an unpatched kernel the override was accepted and setup_smp() faulted
-in acpi_parse_rintc() while reading processor->flags four bytes from the
-start of the truncated record.  The record starts three bytes before the
-end of the mapped page, so that read entered the following unmapped page:
-
-  Unable to handle kernel paging request
-  epc : acpi_parse_rintc+0x46/0x206
-  cause: 000000000000000d
-  Kernel panic - not syncing: Attempted to kill the idle task!
-
-Applying only the old arch/riscv/kernel/acpi.c and
-drivers/irqchip/irq-riscv-intc.c checks produced the same fault because
-the setup_smp() parser runs first.  With patch 7 moving the existing
-BAD_MADT_ENTRY() check before the flags read, plus patches 9 and 20, the
-out-of-bounds access disappeared.  The malformed table was rejected and
-the kernel later stopped at the existing acpi_init_rintc_map() BUG for a
-machine with no valid RINTC entries.  This is the current fail-closed
-behavior; it is not an out-of-bounds access.
-
-The LoongArch LPC-PIC case was exercised with an overriding MADT ending
-in a three-byte LPC-PIC entry.  Temporary diagnostic instrumentation in
-pch_lpc_parse_madt() reported:
-
-  decl_len=3 sizeof=14 beyond_end=11
-
-This confirms the field accesses covered by patch 19 extend eleven bytes
-beyond the supplied record.  LoongArch maps this early table directly,
-so the read did not itself cause a page fault.
-
-Dynamic test coverage by patch is therefore:
-
-  7       RISC-V RINTC fault reproduced; the early check prevents it.
-  9       The malformed RINTC is rejected in acpi_init_rintc_map().
-  19      LoongArch LPC-PIC over-read observed with instrumentation.
-  20      Included in the complete RINTC fix; the boot stops at the
-          existing fail-closed BUG before irqchip probing reaches it.
-  1-6,
-  8,
-  10-18 No dynamic claim.  The required GICv5, AVEC, redirect-int,
-          HTVEC, and related controller models are not available in the
-          QEMU configurations used for this test.
-
-All twenty patches were checked with scripts/checkpatch.pl and were
-applied both individually where independent and as the complete series
-to the base commit below.
-
-Changes in v2:
-- Combine and supersede the six-patch irqchip series [1], the two-patch
-  RISC-V series [2], and the remaining MADT checks.
-- Add the RISC-V QEMU/EDK2 truncated-RINTC reproduction and fixed-kernel
-  result.
-- Retain the setup_smp() RINTC fix: testing showed that the later RISC-V
-  checks alone do not prevent the early boot fault.
-- Document the LoongArch LPC-PIC instrumentation result and the QEMU
-  hardware-model limitations for the other callbacks.
-- Rebase on the current tree and keep Fixes and stable trailers on every
-  patch.
-
-[1] https://lore.kernel.org/r/20261021144524.364143-1-yaojiale02@163.com
-[2] https://lore.kernel.org/r/20261016141249.2791819-1-yaojiale02@163.com
-
-Jiale Yao (20):
-  ACPI: irqchip: validate MADT entry bounds before probing
-  irqchip/gic-v3-its: validate MADT ITS entries
-  irqchip/gic-v3: validate MADT records before use
-  irqchip/gic-v5-its: validate MADT translate frames
-  irqchip/loongarch-cpu: validate MADT LIO-PIC entries
-  irqchip/loongson-eiointc: validate MADT BIO-PIC entries
-  riscv: validate RINTC entries before use
-  ACPI: riscv: validate interrupt controller MADT entries
-  riscv: acpi: validate RINTC entries before use
-  irqchip/gic-v5-irs: validate MADT GICC entries
-  irqchip/gic-v5-irs: validate MADT IRS entries
-  irqchip/gic-v5: validate MADT IRS records
-  irqchip/gic: validate MADT distributor records
-  irqchip/loongarch-avec: validate MADT MSI-PIC entries
-  irqchip/loongarch-ir: validate MADT MSI-PIC entries
-  irqchip/loongson-htvec: validate MADT BIO-PIC entries
-  irqchip/loongson-htvec: validate MADT MSI-PIC entries
-  irqchip/loongson-liointc: validate MADT HT-PIC entries
-  irqchip/loongson-pch-pic: validate MADT LPC-PIC entries
-  irqchip/riscv-intc: validate MADT RINTC entries
-
- arch/riscv/kernel/acpi.c               |  3 +++
- arch/riscv/kernel/smpboot.c            |  6 +++---
- drivers/acpi/riscv/irq.c               |  6 ++++++
- drivers/acpi/scan.c                    |  7 +++++++
- drivers/irqchip/irq-gic-v3-its.c       |  3 +++
- drivers/irqchip/irq-gic-v3.c           | 15 +++++++++++++++
- drivers/irqchip/irq-gic-v5-irs.c       |  6 ++++++
- drivers/irqchip/irq-gic-v5-its.c       |  3 +++
- drivers/irqchip/irq-gic-v5.c           |  3 +++
- drivers/irqchip/irq-gic.c              |  3 +++
- drivers/irqchip/irq-loongarch-avec.c   |  3 +++
- drivers/irqchip/irq-loongarch-cpu.c    |  3 +++
- drivers/irqchip/irq-loongarch-ir.c     |  3 +++
- drivers/irqchip/irq-loongson-eiointc.c | 10 ++++++++--
- drivers/irqchip/irq-loongson-htvec.c   |  6 ++++++
- drivers/irqchip/irq-loongson-liointc.c |  3 +++
- drivers/irqchip/irq-loongson-pch-pic.c |  3 +++
- drivers/irqchip/irq-riscv-intc.c       |  5 ++++-
- 18 files changed, 85 insertions(+), 6 deletions(-)
-
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+index 47978df0af92..9e3a74f8deaa 100644
+--- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
++++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+@@ -53,6 +53,30 @@ bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
+ 			clock-div = <2>;
+ 		};
+ 	};
++
++	dp0_connector: connector-dp0 {
++		compatible = "dp-connector";
++		label = "eDP0";
++		type = "full-size";
++
++		port {
++			dp0_connector_in: endpoint {
++				remote-endpoint = <&mdss0_dp0_out>;
++			};
++		};
++	};
++
++	dp1_connector: connector-dp1 {
++		compatible = "dp-connector";
++		label = "eDP1";
++		type = "full-size";
++
++		port {
++			dp1_connector_in: endpoint {
++				remote-endpoint = <&mdss0_dp1_out>;
++			};
++		};
++	};
+ };
+ 
+ &apps_rsc {
+@@ -377,6 +401,44 @@ rtc@32 {
+ 	};
+ };
+ 
++&mdss0 {
++	status = "okay";
++};
++
++&mdss0_dp0 {
++	status = "okay";
++};
++
++&mdss0_dp0_out {
++	data-lanes = <0 1 2 3>;
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++	remote-endpoint = <&dp0_connector_in>;
++};
++
++&mdss0_dp0_phy {
++	vdda-phy-supply = <&vreg_l2h_1p2>;
++	vdda-pll-supply = <&vreg_l1h_0p9>;
++
++	status = "okay";
++};
++
++&mdss0_dp1 {
++	status = "okay";
++};
++
++&mdss0_dp1_out {
++	data-lanes = <0 1 2 3>;
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++	remote-endpoint = <&dp1_connector_in>;
++};
++
++&mdss0_dp1_phy {
++	vdda-phy-supply = <&vreg_l2h_1p2>;
++	vdda-pll-supply = <&vreg_l1h_0p9>;
++
++	status = "okay";
++};
++
+ &qupv3_0 {
+ 	firmware-name = "qcom/nord/qupv3fw.elf";
+ 
 -- 
-2.34.1
+2.43.0
 
