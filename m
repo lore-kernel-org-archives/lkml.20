@@ -1,62 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283531;
-	b=ZkeMOTnibaEFUA7yLpsI9mu54Vd+WoEGq9vC68PLtj5HxmbK3cr0D01cWdghhGROMi2u
-	 SPYDtfgwoy9lzDjEqVd1NpZmowu+31V5EOPvMluzCbZ4lAz7GLzMGQTOQui0FLhSFFBtZ
-	 8AL/NmCIzgJf3xw0zMJEsXlhgyqzaL3km39RnOrQtzHrv3PSwjWQcUetrvltTv949CvJU
-	 sEMhUJH51Q3AtzqBoXSiH2f53mvyVtaL5xrQow83WWrKamJlkrRyKbvaWk6KuZRKwIzu/
-	 xbR0E8L9l5KvLFqMEXmqQZjiisLolCxy9KhM1A7ANcQv30c0SwtalNxGaBPQUH8Nh0A==
+	t=1793283527;
+	b=OrOYVEhOIVO2kFcl0LW+pqlY7QKreq8e6OuXnW/cA6VhtViMfMZIBDL0jXIme12pCMm3
+	 BZT7Bts3gO6BzvCPE9ikCGUkiSXwHraBZsxQ//h6f9t6guMV3b0OJYPqgBLXfLHbTU+QB
+	 gzcUEX+IuFGCxAugR6tcv5lcFwODJzAp7ZBwF8BhAGVjCXQ1f3IVVawnbUIgK9DOTDZuG
+	 Q6xS3c0GWCW0GbTygkmznDoyVL2Y/N7LY4YyCSHZkcT3savPUFqM2fHeVgEch1WY9B1a2
+	 /dRYsLV80dNYBjYAmEESvMv+yzXjfrqlwPRncmIGI2FdXMFr0GGyxRB0txTn2yjunAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283531;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=yjBsJBzmhn2xTB2gXD+mUnafcbwXoR+74vIvVz7S9tM=;
-	b=jtyiu+gi5OdYHCUrrqhzxzEuoFm2dUhs0HEsZ2aNQlaohfuSR7KnGi4r0EDlDgypDAIn
-	 sdAmLWh9BzfEQ5b/EcF9tbqy33psOdsz22lRpPDm/fgjX8dM9Ja4TLf2Tgl/0YZvB+lbw
-	 xUQWV27UtoaUnZKh65IEkBBP58mAG/EVG3KMyRda3JjU+vJvZjT0q2nZDK6euxgV4KkNE
-	 pyf+r97URkTzgtSIG94Q648iozmUZ376iGaXuVjk3hvSC+xNGqZhyQSZ2gy1bD2M0NkWS
-	 cGCedG6RMkDrLFWTAbvOy7qG3ze4l8o3GwwcgRj0gjiPEq7HQTFuWUPb5V5WE1h/NRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+	b=hHJSBOcsbnSsnATWdO4U5MD0aOrh/jbkHK41SHHpNA9P+eT4u0IqAhiuFXhqz2Ersxx6
+	 uAjt8q9CuCkk2kDbDIF8AOqaszQDQGxnQKMn8Z7Ze8FlKoLex0TfW0Z+5F8PW09a+ztGn
+	 rq2JAT0Cz/eRaH/d/kUAfco3F+hJls9cCqt8Z1ifIrrZR7HYFh9XlFneVwStHEK0anyo8
+	 7rJyRwEIf1AsuMj4ZBWfCHKdrrQMZ+iNcgSbGFq7TDtcf8kq7+FNxrSWaPsLpKyzA45pE
+	 KIYDSse7pPNYew4y0tqfRMloTGUoznN7MYIVVHWwayG1w0hBU/1I1oVrRXI6ap6OxXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="MiYVU/6t";
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=bWm0dQkz;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FCD60A2618;
-	Thu, 29 Oct 2026 14:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9FCD60A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEDD60A380C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AEDD60A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=MiYVU/6t
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 7101F1A041D;
-	Thu, 29 Oct 2026 14:18:42 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 4758A2002C;
-	Thu, 29 Oct 2026 14:18:40 +0000 (UTC)
-Date: Thu, 29 Oct 2026 10:18:38 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr
- Mladek <pmladek@suse.com>, Randy Dunlap <rdunlap@infradead.org>, Shuvam
- Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <20261029101838.7c34a2f2@gandalf.local.home>
-In-Reply-To: <auNNcmUuR8DS7Hys@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
-	<auMwo_T_FsZp5UsB@devuan>
-	<20261029091845.21464a1a@gandalf.local.home>
-	<auNNcmUuR8DS7Hys@devuan>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=bWm0dQkz
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so21246195e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793283525; x=1793888325; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+        b=bWm0dQkztkYizwWCP34VIfP1DON5PvhHEyCQatuotCAcG+azmFpZdBMZTGIYQ5fc7P
+         0iEx18wENBbiDwBfY/zYvdy8/Wa4Tvkkse0kL71/K4HC1cmUysHdMIXtczIh/pmaLub2
+         nWIVHUwMKFVmEV0+NClbfKESCXh/4kFQOOtU7gj3gs6xUK+GL/Mc8WfOq9Ness1cWRIH
+         jVPGpGEuCAY/7gc5hTvZq/2YwccMq+noBCbfmtWmavp/hmZYyrv0Lc23mmIIeEWAeYHY
+         ELNX5An6absThM2aEiXDXCzCqmDqtaHlzeprqmqHTyeywocs76/WICTqCyPTk60rxI3w
+         8xow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283525; x=1793888325;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+        b=uuVd5JNTxbUULrGFop/mSjq2NzrH7KHiLSH6ix98j91ylzaCxOwSA3zX348gqDGpwi
+         yPOHeX63JrGHLJgCOQle8wlt2cK7txCqdLZIjHV+m7o9UQZTgNz2noM3PJBFeE2b0Mbg
+         V03rm7zbCw42m7vBK9/h6X8IHVjaTTyYmfuY48JzO2ZN+UYg1+4At4w02effL19w36eg
+         8YHFG0A02U3tAWEUJm2e36LiGqWL0pwL4S7i6cm9c84zQSSazX9IthJLohTCg91eadiY
+         Ea9YkA9B1A2rgK6FMLtkw7GsM+XwuT0/tzSfJOzufk/pciMgeY3YP7IpJGyhkWaWb+8W
+         eClQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2D4rJLgDiMtUnYG7l4W+ejJDlpggSVtfMs9Hx+/7onUov8xvko8JGQTsrSmu2z0YqyWy7C487iPGvDOw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSMucQyZ4wBjAw77qEJ2ZQCieBJmxA4vcjHCaFODxutIWQb2YW
+	WjEvRqRA89DmoVMNyjUJNFvmxkGK+LQ3bvo2CRYFZkVS9ycHLfvo7cbF86duvZC/1k0=
+X-Gm-Gg: AYBFou3o6ErJAlgH7InoKzs6ilUnbDSeMBWt8ytB/uXIdDDzc1wP03eSVV/dIhvNXP+
+	fR8meM7y5vxdGuSLx6zZMAIV4tA3PqNxiIjr4o48QwcUYiT6VvaOjL7eEBvrHJneaFdnGb9oomA
+	lnMfrtFvfiXo6bP/u7F/5ZH68CIsTvvAksCelPRTj92BgkB3b/zwGVTQcHREi/bu8gCv0HpkAF4
+	Yiab7mtDavaYcHwPHL4CGWk8/KNbG64/jyqF85I5y/WbkeURJWhN9NFvR/4/K1Sg6OtXcxJFxB1
+	lxp+RXbNnb/5fCWu9NKM3tmxLywCq6DNzcHa2eoBEUZ9ikDk42D6+bDX72It1IZhIc9WbjqvysK
+	6lWN8COUo6mK9Sm2obz/Uwus6T2xy5TnV/gtAFTqZLfVkT0MNVq2mvJ7AX3d3YiE3qi3I2Nxagt
+	w95BFA9lkEs4mx76mqEW/HlMa3Hn6LOqGXorkwOsDDlxqaC+hseXuQJcl56oTKSx6Sr4I4aOpc8
+	bJ6wa+EJsKWAZVleSm2clxuHwl+BiaohK1aa0mqI7t458VSth+RFQ2jvDaxuDfV/QM+fYsrsvUH
+	CArTa7ZTQEPO3XjVfDKgSIfBCSPx/6bkwjiAN/4Nxxcglazp3JGKrBruWnfKTM+Z1O53hHrWSpe
+	jSAMx
+X-Received: by 2002:a05:600c:810c:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4a967e8d6e2mr126926415e9.28.1793283525362;
+        Thu, 29 Oct 2026 07:18:45 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:18:44 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 14:18:28 +0000
+Subject: [PATCH v7 07/18] media: sony-starvis2: Correct the exposure range
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,76 +92,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: as3y68ba6epsjyiw7pmi4ats8z7ecdyo
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 4758A2002C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18UKqmOfY1nCf3ZWjmkztV0xD4xw/NVK6I=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yjBsJBzmhn2xTB2gXD+mUnafcbwXoR+74vIvVz7S9tM=; b=MiYVU/6torKsAdXEljxYbPg6j85VdAq3xEANUTuqWbv6fmBGrD4B2kB9ElgScSxkmOKHeLfmigk+szD5ZCfNJsn6PsoKj4sa8h/REMGt/msZqfV/yd+fIK6FwXFAUJNqe4NUBWwuLsAx8l25S5AZhuP+Sx+iDeAMENdiuSOuMg0=
-X-HE-Tag: 1793283520-281996
-X-HE-Meta: U2FsdGVkX198uM8ZNCY2U7CsZ6Xo32ASAg9wO8VDiwPVK+wBDG7C2ulOiPCOztoLK+ZZKNwE4Xwf72RuRVNogMhZjy5bc/p0lmpPu4Ylaa6ZBzn5GBAdtN2r4uqAnEoIbw04aMHtUpgWWF8IXgfzGN6dAXozGk3l0EY6B6Ndp9XQwPnnlMT71MJ7eEHQPFUfbkd0ixKtCA7a3W2SyWlNmRX3ABwr3jTS/CfXyj3DQThu3TB2BmcSIKl4KpMGmh2Hc5VV9r8uYkFfGZd5X5U0BvmPYm2rwNGBtfh/W0vrA6A5yeU3PGUwOa5Ds+gUNfGmkgr2PD390ecSF1ObrwcOIyiKFEuw+MSv
+Message-Id: <20261029-media-starvis2-v7-7-b33a1332fdfc@raspberrypi.com>
+References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-On Thu, 29 Oct 2026 14:52:47 +0100
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+The software reference for imx678 lists register SHR0 setting
+the shutter sweep time with a valid range of 4 to (Number of
+lines per frame - 1), and then gives the example of all-pixel
+scan mode with VMAX=2250 and SHR0=2249 giving an integration
+time of "1H + Toffset" (further defining Toffset as 0).
 
-> > 
-> > This only happens when the user expects the string to have a nul
-> > terminating byte. Don't think too much into this.  
-> 
-> Hmmmm, sounds reasonable under the point of view that users shouldn't
-> expect these buffers to contain strings.  Then, seq_buf_str() would
-> obviously be a write operation, since it transforms to a string from
-> something that wasn't a string.
+The driver defining STARVIS2_EXPOSURE_MIN as 2 would therefore
+be contradictory, and doubles the minimum exposure achievable.
+The maximum exposure is derived from STARVIS2_SHR_MIN which
+is defined as 8, when the actual minimum for that register is
+4.
 
-Right.
+Correct STARVIS2_EXPOSURE_MIN and STARVIS2_SHR_MIN.
 
-> 
-> > > > @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(struct seq_buf *s)
-> > > >  {
-> > > >  	size_t end;
-> > > >    
-> > 
-> > Hmm, I was thinking that this should first check if the string is already
-> > terminated with a nul byte. Why add another one if it is?
-> >   
-> > > > -	if (seq_buf_buffer_left(s))
-> > > > +	if (seq_buf_buffer_left(s)) {  
-> > 
-> > 		if (s->len && !s->buffer[s->len - 1])
-> > 			return;
-> >   
-> > > >  		end = s->len;
-> > > > -	else
-> > > > +	} else {
-> > > >  		end = s->size - 1;  
-> > 
-> > 		if (!s->buffer[end])
-> > 			return;
-> > 
-> > Otherwise this overflows the buffer even when it is already terminated.  
-> 
-> If it is already terminated, s->buffer+s->len points to the NUL, right?
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ drivers/media/i2c/sony-starvis2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Not necessarially, a seq_buf_putmem() could have added the NUL terminator.
-Then calling seq_buf_str() or seq_buf_terminate() should not overflow it.
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index 340f2ff0ef87..84f3978e1eda 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -62,10 +62,10 @@
+ 
+ /* SHR internal */
+ #define STARVIS2_REG_SHR		CCI_REG24_LE(0x3050)
+-#define STARVIS2_SHR_MIN		8
++#define STARVIS2_SHR_MIN		4
+ 
+ /* Exposure control */
+-#define STARVIS2_EXPOSURE_MIN		2
++#define STARVIS2_EXPOSURE_MIN		1
+ #define STARVIS2_EXPOSURE_STEP		1
+ #define STARVIS2_EXPOSURE_DEFAULT	1000
+ 
 
+-- 
+2.34.1
 
-> Is so, then we'd only reach this second branch when the buffer has
-> already overflowed (seq_buf_has_overflowed(s)==true).  If the buffer has
-> not overflowed, s->len<s->size, and thus we'd fall in the first branch.
-> 
-> If we have already overflowed, we shouldn't be concerned about further
-> overflowing, right?  And on overflow, if there's a NUL, it certainly
-> must be at s->buffer+s->size-1, so overwriting it with another NUL
-> wouldn't do any harm.  If this helps us avoid a check (and thus a
-> branch), it would be worth it, right?
-> 
-> BTW, I'd very much suggest renaming that 'end' local variable to 'nul',
-> since it is the offset of the NUL byte.  'end' could be confused with
-> the end of the buffer (as in ARRAY_END()).
-
-"end" is just fine.
-
--- Steve
