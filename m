@@ -1,50 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268915;
-	b=wyvh6Wrr/sQaDqi7bcce6fZvDZsUkZYHbd2BAm5zFZQIV0eauPb/3vt1xWcflzZu8iQl
-	 LjbMKIi1QS7iP2pVd2UED06sYcTzMDVgxJY0UXtDkRV7uueASyXdqWRPD6maxCAwvFE77
-	 XGxLuH2ZoMoZBxYRj32QMAgJS4+gdzca5p6DvY9aGYb8m2GmMnqOmVwc59860vnyTDDxl
-	 Cq9Upw2Uwj3V4Bmcur7Zdmx1nxm6txSiwJT1jifNUerY2P3cFsCAxq1EGNHLBBoOIbOy9
-	 2OptQcrmZdLsaJDp8ILc/d2aUj6UEp7nMpinPbxr+hB9Fdphg2YXiMutQRt+lkPgrHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268915;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=W534XL0fIHUo2xBHH8CbjpPEd8rz8kzBGaOUMyx9pCc=;
-	b=gdEQCYEPH5+Bap0l6yfiUJvfXtPml3y/Lj+mjgs103+3NSesErwOgWrY9O3zk4A1vRrg
-	 jMPEW1b7JqbnjAsnzBGZLGW+nNfwozsBJyrszEkATqFbC6nnNmal8iJEBXT4cpHO2yFAr
-	 hCLuH+Z1EcQ2nQteL8V1TV1z0KVrHFVp+DT4AxuG2MQh0hgGDzMBAbkatUKxO9gcNFD8s
-	 UNrWQydl0wOgXFTgj/+q1Osyp2cth+9WYUepJ+fjniISvX0DCxB0QHE7jxRWe+hr1FVFt
-	 oQ6cXoa7+gdzbIbkKMNrF+QRcpkerwa0k3sQBgKt0hdoAzlBePMCHdAv/g4vh+8e68w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=radxa.com;
-	spf=pass smtp.mailfrom=radxa.com;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793268918;
+	b=0yltV8ThQqd0NHYG2sPLUFeRztgHfCtOMXLL1Q+lbYqvqmE9TELLOa0DrHcSUUCAd6C/
+	 93aXS1OCHn0D/VoAP1OKRn5BksguOF+xr0UdhzCAAgi7M6XH6Nrwcb04tjTtasNnomjTs
+	 jk7oOvMao6B9C+RIWAdu5NALW0pjyyxfkEctP0qcvMQrk8m9ioWZdgzv7spbH9JnXB2+f
+	 PY6TgsJ+kIyz0JaSWtnsR924Glq5DZo2Nike2BD4DosyjjCa28/Do0KTAIj+eawc4r+/h
+	 OXGnzJ4IO1WqYmdIRXBjyOv+q3k9aLJHwxWmzbYSqOYR94bj8Y/BQJSMHDKzoYUs2gQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268918;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hZhJRYKRYnpA55dTVl2RVAnPezaQl7o2LFp27rGTjlc=;
+	b=zLRXu66zfRIjLhlPgldv18LmQWDQwfQ2ZV+nwNgwJ1Oc1ALRg7PqOAQzFZAdprOSYa4l
+	 jXpuqLsK2zob/puYCRB1loVjT8gayRHm40iakwFGU/dt5sAKpm6IZQeBaJdbUzwXMvPgR
+	 c+cbwr4SVpmdO9v3EoTd3RhYRpLH6g5T5YVLQF66pR7eayP3HESuWcKcFynZrras10797
+	 AssQUmkkvMPI4hV7iJKL++klSe9sUC9WbAiOkA6x8V3V7iOLDhVwU7HLNvQlFMaHXUbZo
+	 NS3Pp1Pq/6k9AcR2FOJkquHXopNXsiuPPZf8cixhiQo/amJCbyNsDufZdhjkwd+LWbw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYaDw9Qa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A8A606A321;
-	Thu, 29 Oct 2026 10:15:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A8A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1793268826ta0a5c79c
-X-QQ-Originating-IP: ev2Ej5asX813a6CgU0vqNzHqkbXxOv1EU01Mx6bLOL0=
-Received: from [192.168.30.244] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 29 Oct 2026 18:13:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11110707060909330439
-EX-QQ-RecipientCnt: 33
-From: Xilin Wu <sophon@radxa.com>
-Subject: [PATCH v4 0/4] arm64: dts: qcom: Add support for Radxa Dragon Q8B
-Date: Thu, 29 Oct 2026 18:13:34 +0800
-Message-Id: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B05606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:15:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B05606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYaDw9Qa
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2980257eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:15:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793268917; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NDSR+5LjE8MqdW6WD+aCKV8ZyRyWO3Zc1q3PRi1siix0l2hDAofjmWsosNikecL3Nw
+         UqnHMiGySJyZUbygyFrKxo0oOOkB6ixWQQR/C1JCYeUfPuvYOHzI2VqfqicFsUBoAIqN
+         Fdhuc9hFuw3v2psl3/rKgBu3JPSmW4uFRD+T7OukK5EMylC8hJh7KiSroZPEpFPMX1cy
+         a5ZsE3ZrXE9iKtuGt2PgPzkvxWsm2SdVHq/gfBDpe8n0Jk/dpyr+5lnItZBuzAIMZpiF
+         llt4RiJVagKZpHyJs/5ucEN9+k4HoMPPWDLDxfFbuf0Ter6DT4SNhXTci2QElY6dqINs
+         t8gQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hZhJRYKRYnpA55dTVl2RVAnPezaQl7o2LFp27rGTjlc=;
+        fh=UjEXpI9zSWXfADTrQAr6jAO1LwWI59DaySw0GRZ3Yho=;
+        b=rtUVqWXz2AfbheDqMkmwv89o5XRSGkQlN4XLcdGfbpzEJgFa/y5+pjg8c0M4smMQ2D
+         h+AUJXBtlljICxyby1QFI2SkG10FVB01fyXS0LaFEaoQ3kAlO5GzVJtXWZEj7OokQmuC
+         VnhTxtDPr1wfHaQERDWq8K4TIr6Fetq7YThFJ5EEMkqxYYdg40FrJrzdwKdyxdfW7ie0
+         lh3Em4bf9vPoF7oxvkFBo8Pvon6ElWYOx5B46qV2P/KlCSr8q3dhmlNKK1t/KkwIUCe4
+         5ZKThmvvpdtwV+pF9a1p9rXoOBaxfrPnksb7sVqd3uveP6j7Qqu0DSKUU2dXypr8+wiO
+         cocA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793268917; x=1793873717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hZhJRYKRYnpA55dTVl2RVAnPezaQl7o2LFp27rGTjlc=;
+        b=yYaDw9QaXvy/ey4C72CgmAyNvMVNhiCEbTAs49OXnei/ZdR9HQ4ujPrhIh3QcHQSf7
+         NDNxbOTB3YbR4C5RZkRF1VYNQP/S9u9CTY/EcbOtaFoOwTlwhStsSoAYDGToa1nmQtNO
+         YzwjyQR+93YuejSkGmUY0kn2j9hcgkPiDJwI1AyQp59CWfrSnG03qEcX6cdeyJsEzFsw
+         kCBMMLbhIyYKc0Cd6jkfxWdtQZ0o8y/ZdFG7wS24RfvUZMiGg+y1laVgz5IwvjdD1ZxB
+         vlAGCgNtoUkDkkfWdDnkBwwJ8+30su/Nh5RoEMMkpkUI5HlQCyjPh5KDG/1XUj1VvTak
+         iP9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268917; x=1793873717;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hZhJRYKRYnpA55dTVl2RVAnPezaQl7o2LFp27rGTjlc=;
+        b=tOaWjbjhNmRIZP9dpsxg/08rz+1YNU8SCC+T4BYbBX7+qAjhSP0dnXHw8MkEF/mgSH
+         LhAOwIySUwkxWZ20ugXDWwXtHfma/U9AWrtLsiy7bWTpyRGCPuTFMZ3m/rPqcJx146rD
+         RiGsWCQR0UUL+gCvNoN+XSYis2/xWYsnbLQr/Uiw+uT3mOfq+/rI6ZCgNViPiwcmgz8s
+         Lc/WrAtPPXHN6Ikm5AwMkHQtLphkek7WH5w3dkxUd/nBOKhQaRo1SRSYPaVtfxVClIMY
+         hUB/f8jFgqSIzRSRYf2IhHQUh4k528YLpFegQ7hkGHnKrBZjmuBthZwhSlxKsEsWuGIs
+         da2w==
+X-Forwarded-Encrypted: i=1; AKwUvByLg8W0CNK1YredhCWXs3BtuzSY0TAs4iL86c9Wm2yL6DoSz9TdYzmUAfYEz97HCvkNb8TQjH/H45qi+qY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1IjuGQ/109rhxj1giaexuy39VLlFe4OvFvZqX9bMf/UE5Z7mD
+	ihIY2ln/zTlMlZHGqK0ashCj8LJP7A666mQicE+IGMHI5uzXXSu+u6+uoBd+X6tJ031x03DhPO0
+	lU5wLYtYwBCInTzIHPQ+DwYYPsR8hnOA=
+X-Gm-Gg: AYBFou1FeRPm2VPnEo9cFgCxJ6J3QDr5Z2OjG/6DjxdmobELwheNGsywBEzYBGNeJpn
+	eKF9WOV3SVwY6HfKSC90kwfjQKkRaPaZ1MPSemA4BSTi51GvOcviM8eTgkPUkfmWUnDM4Jdrs/5
+	we7OaKHch06zpmbeR09GrpBBRSXJQ+EOqpHTzlfgi7dY4hbF0DHtb/B5uw7TjoNN5sXaGZCHUFC
+	gPY4aGffnrrVIVrPSkdYIzbqX+xbTvl5bTLuj5p027uYmhtPcDyJ7p9K6K6I8h5yxEB6CiJPw4c
+	2UFFLYdOx1Wrjb7zZA52vwcY1J7FvbTO5USdKqbj3nRpWTLIaXFWHCyCzhPEZjmyOL++pleENkf
+	e6ZTiw6hsBhyhMkd8WbhNZ42AA7YNV+eW5eWd0KbB0bEzCJa9WXvwpJUUyCrky5BGQ+T0vKI19Y
+	YG1ZbytjQFIs9kR5U=
+X-Received: by 2002:a05:693c:69c9:b0:36a:279:c93f with SMTP id
+ 5a478bee46e88-36a203e2a52mr6817742eec.33.1793268916731; Thu, 29 Oct 2026
+ 03:15:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,186 +105,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WPQW7DIBBFr2KxLtUABmOvco+qiwGGhqpxHHCsV
- FHuXuJUrdXu5kv/zby5skI5UWFDc2WZllTScayhfWqY3+P4RjyFmpkEaaAHwU/W8TAXjgqj17F
- 31klW21OmmC7rppfXRy5n905+vuPfjUyncz0xP2rMYSHuj4dDmodGaIFCtdiSIW9MNH1wttNQZ
- wATtYQudtgHtlUbmlVMQ8eLt9LCZeKn88SnNPo5f3CNzmKVJKXjsCh2N9unMh/z5/ryIlaRf98
- tggPvAoEz2KkAdpcxXPC5yq47FvnDCYD+l5OVo4BCkA6E1v3l1IaTG05VzmhtehMi+VZvudvt9
- gVntevlqAEAAA==
-X-Change-ID: 20260901-q8b-dts-a3afc5f9b8b2
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
- dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Daniele Briguglio <hello@superkali.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5416; i=sophon@radxa.com;
- h=from:subject:message-id; bh=RgOmRQN8UXUUlOJ5kDJ8nDI75yvgfp9MJNYPBSQG7xo=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPZYIvaEsuqfR5cIb9SuZE5SwxrwB1r4TVoVoyes//r
- mjoOZ3cUcrCIMbFICumyKIQzzCXvTL32lOxUj2YOaxMIEMYuDgFYCK+/IwMU+cpn7Y8PnGDtaBL
- UrnMww63NZcu9bQrLXv0eo/JlpreWkaGuxU301667rxpzso2LYR7/evnx3Z8mtFYbFaiOed3iO4
- CJgA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NaxljGsqHyovZsgRx5c8kBfij5TCt4enoFe4zCl6cJsS4Ls7JNXSERmD
-	IWzloxP/07OvXeU2EFpCszGt7FqGnp0o1WFqkiZm5huia4bKZtD4wOp5Bn1vYMLAi5QAqzc
-	b0xy+8m0q7dRYTG1eNK+ibZSe1TbVRHGwv56GjEuFkbvnU2Xed/zWYKGOedlvsyPwsQVwZM
-	9pDTfmtCYM1MP8+nkHPST0kd2x2AAOzf000ABjGjfb+YwHcZ4PXUxNNG36HxZtu/3U0GqQQ
-	EAtWmRLakzq5nhedLK4j3MYt/Hd3Y0ahBj6JXb+GODoBMrsNPYPlrDckumM1at++l6JuS4q
-	zbzohraLror/H0yoMBozQ4QxZc+28+Kj7G7o8d0EXICYiZUN8+JWVZZkbYXUaNo84Ul6DKd
-	UQEYQo3CjXDWLYPQ+SJP9OdhjA940jqHq1n8iErMCOf3CsiUmvUed7tnu8ea76N6Ityiu8p
-	pRzfS9QSxXIHgdZltKWHvQtMqVlKNgq/0EyocRzLGBXbEtM60Ru7ROKHDsAGc/rjeoYudE+
-	/1os7tLdfIRYEUtq1hff6CFRWqjB0mlVrYDnitTU96siScJ0yUXuPueJeSpExc5GIi9w6Lm
-	YKuV8hpKOks5HN0NYrgwkN3C6HPFXPe1KKZmuVHCm/dATmhwNVUR8dG7WTdfIW5BlnmjnPz
-	sBMKnb8F9+CuxygG3u3rmWc0+t24AM2xAAinymQDg4qaskqfruEPEVHW72zChisPcCsz71Z
-	/eWIn+ShYz4XbA53pZ04ZGxeOYertgGaz67KFwBFuO9JODcbIQXyEFFGqxVfW0fGaaTpZkp
-	ObOvm8cIlgR7MOd4zsDmV7qDG4FYZOwiks8krFLLC+ojjt4wxdxilw4hBhoehw2+hAVHyFH
-	Q/rTpQMB64xVBD2to9KIPDj2CDxSvPoujlyKBdcl17H3YUsPn3Y0bgQUpZ9Ve5CECkFanKp
-	Vq8LMn30EJHb+4i7clIQJg1mzxHcl11foILAsyXsCILw5ZmdRJL0ppLDwUOJf8VxbO4IYvP
-	tMFtqgakflt359m5hHcDwBp/THHaSxp4ZxMhRGHRbxtSGNt779RzmmIIYOy2HEHfmWQukdT
-	6aza1qzvDogRFsZYonisUpjPZnoRayriwWh0SKQ896k/vAz2EG4Ja4pCyjwd2Xgr/w0Vf0d
-	KIBajTjpGxHz27YO7PaV3a5rEm/qp7e6/5nipx8mCW9ZO5k=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+References: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
+ <20261029-upstream-speedo-t114-v1-3-81457cc9d94c@tsv-stahl-riesa.de>
+In-Reply-To: <20261029-upstream-speedo-t114-v1-3-81457cc9d94c@tsv-stahl-riesa.de>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 29 Oct 2026 12:15:04 +0200
+X-Gm-Features: AclHuK_nKjJOvqTdHrlTm0y6eXLR-uFJwQRZTvfrnf6NnzkRQXlz5soPbSPOmYM
+Message-ID: <CAPVz0n13YHVAGNoEYZaef7HL1HkQK9w+mLUV-h4AGC0mr3bkpQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] clk: tegra: dfll: Get the voltage step of range-based regulators
+To: admin@tsv-stahl-riesa.de
+Cc: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+=D1=87=D1=82, 29 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
+3 Patrick Fischer via B4 Relay
+<devnull+admin.tsv-stahl-riesa.de@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>
+> get_alignment_from_regulator() takes the voltage step from
+> regulator_get_linear_step(), which returns desc->uV_step. Regulators
+> described by linear ranges, such as the SMPS of the TI Palmas PMIC,
+> leave uV_step at 0.
+>
+> With a step of 0, round_cvb_voltage() returns 0 for every OPP, which is
+> then clamped to min_millivolts, so all CPU OPPs get the same voltage.
+> The I2C LUT is broken as well: find_vdd_map_entry_exact() and
+> find_vdd_map_entry_min() divide by the step, and on ARMv7 with hardware
+> division the result is 0, so selector 0 matches every voltage. The LUT
+> ends up with a single entry and the DFLL never changes vdd_cpu.
+>
+> This affects boards that run the DFLL in I2C mode with a Palmas SMPS as
+> vdd_cpu. In mainline these are the Xiaomi Mi Pad (Tegra124, since v6.19)
+> and the Asus Transformer Pad TF701T (Tegra114, DFLL enabled for v7.4).
+> The AS3722 and MAX77621 used by the other DFLL boards report a linear
+> step, and the PWM mode does not use the regulator.
+>
+> On a Tegra Note 7 (Tegra114, TPS65913) all 16 CPU OPPs are at 1000 mV
+> and vdd_cpu stays at the 1.10 V left by the bootloader. The CPU runs at
+> about 1.34 GHz whatever cpufreq requests. With this patch the OPPs range
+> from 1000 mV to 1270 mV, the LUT holds the 1000 mV to 1270 mV selectors
+> and the DFLL follows cpufreq up to 1708.5 MHz.
+>
+> If the regulator reports no linear step, use the smallest step between
+> the voltages that are usable on the board. Fail the probe if there is
+> none instead of running with a step of 0.
+>
+> Fixes: b3cf8d069505 ("clk: tegra: dfll: CVB calculation alignment with th=
+e regulator")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+>  drivers/clk/tegra/clk-tegra124-dfll-fcpu.c | 26 ++++++++++++++++++++++++=
+++
+>  1 file changed, 26 insertions(+)
+>
+> diff --git a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c b/drivers/clk/teg=
+ra/clk-tegra124-dfll-fcpu.c
+> index 457a77c5bb62..5bdea4775076 100644
+> --- a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
+> +++ b/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
+> @@ -642,6 +642,7 @@ static int get_alignment_from_regulator(struct device=
+ *dev,
+>                                          struct rail_alignment *align)
+>  {
+>         struct regulator *reg =3D regulator_get(dev, "vdd-cpu");
+> +       int i, n_voltages, uv, prev_uv =3D 0;
+>
+>         if (IS_ERR(reg))
+>                 return PTR_ERR(reg);
+> @@ -649,8 +650,33 @@ static int get_alignment_from_regulator(struct devic=
+e *dev,
+>         align->offset_uv =3D regulator_list_voltage(reg, 0);
+>         align->step_uv =3D regulator_get_linear_step(reg);
+>
+> +       /*
+> +        * Regulators described by linear ranges (e.g. the Palmas SMPS) d=
+on't
+> +        * report a linear step. Use the smallest step between the voltag=
+es
+> +        * that are usable on this board instead.
+> +        */
+> +       if (!align->step_uv) {
+> +               n_voltages =3D regulator_count_voltages(reg);
+> +               for (i =3D 0; i < n_voltages; i++) {
+> +                       uv =3D regulator_list_voltage(reg, i);
+> +                       if (uv <=3D 0)
+> +                               continue;
+> +
+> +                       if (prev_uv && uv > prev_uv &&
+> +                           (!align->step_uv || uv - prev_uv < align->ste=
+p_uv))
+> +                               align->step_uv =3D uv - prev_uv;
+> +
+> +                       prev_uv =3D uv;
+> +               }
+> +       }
+> +
+>         regulator_put(reg);
+>
+> +       if (!align->step_uv) {
+> +               dev_err(dev, "failed to get vdd-cpu voltage step\n");
+> +               return -EINVAL;
+> +       }
+> +
+>         return 0;
+>  }
+>
+>
+> --
+> 2.56.0
+>
 
-The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-Snapdragon 8cx Gen 3 (SC8280XP) platform.
+I can confirm capping CPU opps at 1000mV and this patch fixes this. I
+have tested on Tegra Note 7, ASUS Transformer Pad TF701T and Xiaomi Mi
+Pad which are all affected.
 
-The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
-E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
-alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
-a 40-pin expansion header.
-
-This series adds the initial device tree support for the board. It
-describes the regulators, storage, PCIe topology, USB and display outputs,
-audio, remote processors, thermal sensors, RTC, EEPROM and expansion
-header. Build targets for both the regular and EL2 device trees are
-included.
-
-The TC9563 power-control driver powers off external downstream ports whose
-device tree nodes have status = "disabled". On the Dragon Q8B,
-config-space reads to these powered-off port functions raise an Arm SError
-instead of returning an all-ones PCI error response, preventing the board
-from completing boot.
-
-The PCI OF change to skip config-space reads for unavailable DT-described
-bridge functions has been split out into a separate two-patch series for
-the PCI tree. Disabled endpoint functions remain discoverable so PCI
-fixups can still be applied, while driver binding continues to be
-suppressed later.
-
-The onboard HDMI output is provided by a Chrontel CH7218A DisplayPort 1.4
-to HDMI 2.1 protocol converter. The device boots its firmware from on-chip
-flash and requires no host-side configuration.
-
-The PCIe ECAM and 64-bit memory windows are defined in the shared
-SC8280XP DTSI for all five controllers. The board DTS inherits these
-SoC resources.
-The SA8540P PCIe2a and PCIe3a address maps are kept unchanged.
-
-The series also documents the board compatible. The SC8280XP TLMM binding
-change allowing gpio-line-names has already been applied and is no longer
-included in this series.
-
-The PCI change is required before applying the board DTS patch; otherwise
-the disabled TC9563 downstream ports cause a boot-time SError.
-
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
-Changes in v4:
-- Add the missing pinctrl configuration for Bluetooth UART2. (Sashiko)
-- Link to v3: https://patch.msgid.link/20261029-q8b-dts-v3-0-655696dfec45@radxa.com
-
-Changes in v3:
-- Rebase onto next-20261027.
-- Drop tested-by tag in the dt binding patch
-- Drop CH7218A patches which have been applied
-- Mark vcc_5v_s regulator as boot on
-- Add the device to the QSEECOM allowlist
-- Move PCIe ECAM and 64-bit memory windows to a separate SoC DTSI patch
-  covering all five SC8280XP controllers; preserve the original SA8540P
-  PCIe2a and PCIe3a register and memory windows.
-- Format the board DTS with dtfmt and fix subnode and audio-routing layout.
-- Drop forced output states from the SBU pinctrl configurations.
-- Explain why full-pwr-cycle is needed to recover the SD card state left
-  by boot firmware.
-- Link to v2: https://patch.msgid.link/20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com
-
-Changes in v2:
-- Describe the TC9563 embedded GPIO controller and use its GPIOs 2 and 3
-  for the external downstream port PERST# reset lines.
-- Drop "PCI: of: Avoid config reads for disabled bridge nodes"; split it
-  into a separate two-patch PCI series, including the kernel-doc fix.
-- Drop "dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow gpio-line-names"
-  because it has already been applied.
-- Link to v1: https://patch.msgid.link/20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com
-
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-
----
-Xilin Wu (4):
-      arm64: dts: qcom: sc8280xp: enable PCIe ECAM and 64-bit memory
-      dt-bindings: arm: qcom: document Radxa Dragon Q8B
-      arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-      firmware: qcom: scm: Allow QSEECOM for Radxa Dragon Q8B
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
- arch/arm64/boot/dts/qcom/Makefile                  |    2 +
- arch/arm64/boot/dts/qcom/sa8540p.dtsi              |    9 +
- .../boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts    | 2053 ++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi             |   25 +-
- drivers/firmware/qcom/qcom_scm.c                   |    1 +
- 6 files changed, 2081 insertions(+), 10 deletions(-)
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20260901-q8b-dts-a3afc5f9b8b2
-prerequisite-change-id: 20260507-sc8280xp-qup-pinctrl-5ab8af9be35f:v3
-prerequisite-patch-id: d799218553d1a8d44d83ab7d5c36a9ba7dd05e92
-
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
-
+Tested-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
