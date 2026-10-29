@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277396;
-	b=xU9WEzTybm5GyiXshYhrmKqMcSJeGDtSvhfPtGiaIfUriMvliTtbAficot+j92T6/yQ7
-	 yA1vUdAiW91wGABtJVddLyO3u9Lt45QGU/D12LXF9q6QUgRDwyqFcoI7y3+RlAAQktbJd
-	 HHSPwaJMNbQ2DvWVj0bD5kHh9YNbz9ac9ipVdUD2jCVm5oOOfEOFuxdvAjtNVWpDlxOt+
-	 YHtAK0W3q3ZbCeWHwPg7yB1Gsf1L0Sjym54hel2echMelxJx52sB6PVX9pYXbKGLzvpUb
-	 wodsa1YfIJoQsNXjhDgRX1JWdW9v+EzjECR4wBtvO2FI3QB4e8xVWGWL7hdzo76rhwA==
+	t=1793277402;
+	b=EdLnlKIHbV+QTD2kQOCSbCdKPdCtCoivA6TAUat45lKfCZo9DwRgN0QI+UA1zyeDnHiA
+	 57KFcrVKcrY0cJ3MvnW0OO7u0NFz9NCpVE0HntIowhOm+8+5HEDGC/nGO5doqkJFSBnz8
+	 z9I6z1LMoq2ERQV+J3x+CH7xYMF2bwFUr1RsGZXkRCMjfHNGJWUZxUc7ywdQiHJBy8bnE
+	 c/1DnFpP7Ey2OgOZs3fpUQH4dkY2UPohSRQ8F2Zl7o8i8wJrJn1M8POGzjZhml+02UnlB
+	 +siH/0NQMljczmD5TCBDs0RjoVjXtFiu1NTSF1GhK7cop1HcIZTCWj5qf2m/FG90Lfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277396;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277402;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Debian-User;
-	bh=SEnuiR/AnMLoDycMTt1fZiDSUY2PJGdhRalvSAploXo=;
-	b=nCtDviYw8kaMhM9hMsVMFu+6DOg+Q2RjkuY7D4JfBNJvtUrhfSDfTAHJghZ3hCPby9QN
-	 ppb1M3VtwYS+SOzBmOPDQCuFGwoqbmVOcJOXDUaWR0J8ZJ3gA0mR+N0nnmhtFPJGsNURb
-	 oi4jQq4ecHtKN8Nn3IQ4v0cIkxgLaHO251Idcw24YztmIYln2Qu74XDgyf+CArZFQg37u
-	 VuuHvhJmiWrQREHKd9sA/doZCxsngiCz1+lLuO1jZntLDKz6E6GFK/C+XoD9YSxColqvh
-	 bD69q9bw8+eBO/ba4pAAMxIMojg0q0NPYxHG2aVc1++5Qq5HNNpWRs+QANffpyN9IaA==
+	bh=9QRJnpzGaxZn9QpkoDMr2XhCCriEZHGlKeLfmhEAntg=;
+	b=iozUEobod9Ua14HEuNshM0TXj3EeL1rg4gglN4Q9QUglCwiS7+XB0eR35zmPReVnyAwi
+	 BLGjOOvR5fv3miJ6sZBJuuDSgLOuxn5/y+QbeiwtdNrl4rsVkqsou+oXCggMaS9b4pu3W
+	 dp5kX09dwn/ngAe/c+AGgiSDSZ9NeJq9I7ckPJbMWhFsEyGyBr6JjqZ/M32EHn06YpzOU
+	 UzoKktnGTPaEbDTGk0OmnrvrzPSXeqI31KoEHmv8q9NU10hSWGR5Y/LAf31jGlny4E8lJ
+	 Tb1bh3evrW7pzPKfaUll5BzWWAHtMd3CMwllchbIz75nHvyweewu0Cj4sS7gtBezq9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=OMHypTUg;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=FJcL+fjg;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4657606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:36:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4657606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58486606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58486606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=OMHypTUg
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=FJcL+fjg
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=SEnuiR/AnMLoDycMTt1fZiDSUY2PJGdhRalvSAploXo=; b=OMHypTUgtmOXBdWgdng3c+Ge2T
-	2zt4qtef9QWPFWoE9axsOgoYwcs+Muq7TDPrfSGH7gGsWs9rL3EkCGEg7poGRtLiVfUKFkZ9Wgoa6
-	vT6qkJCSebaDVhku2VMyt0VOKVKkOjZ0cwd99uxkKuVRe1nVZXE9j2sJg3ZFT6b5t2xm2FbC5WFPt
-	I1yZbl1ebzSikmCoark5M/dzu4l+7GskY1D5BDIB4UdQHsWDT1LOO309+9KwWODsdeMAt7XdfJloQ
-	iqkCZjVFzzXGJERlPAHmySyicLzvw5XZ1KuyGGP9w/NrsiMec/6Zn9vhTBE1Etg7jE0guJc7P3EVt
-	4bjgEGtg==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=9QRJnpzGaxZn9QpkoDMr2XhCCriEZHGlKeLfmhEAntg=; b=FJcL+fjgYNhQYLFJ0qL2lC9jgX
+	apuWhjZ09TJit6Vr1JKQVukXV9aVAQaY4BA1SYTQ8f03NgTTSL3EpgZKHRdiy74nTo2tbI86rza1H
+	LvGW0PEQFoWcdLjzhUZ7WOOXvxCVGBHaYO+/QmPQz4K9RXSqdbk9S3sptNwDu9kLtl3zJvLrXcQO6
+	3kjcwF+MTpOb5zewlLbJiZs2crnEZ6G5Wpf4JfhyU8EjTf/BJoXONHjLK2sdynF3OgXJrpY+E//yZ
+	iJI/8rb4WZYyMgG8BPfiXOORKjQ6wzGRTFTMncM45jDnATV0HR3oN4S69F8BS319AOmOKjNnMKz6x
+	+NlSeWdQ==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xMPMs-0031XO-2r;
-	Thu, 29 Oct 2026 12:36:32 +0000
+	id 1xMPN0-0031Xg-2Z;
+	Thu, 29 Oct 2026 12:36:39 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH wq/for-7.5 v4 0/2] workqueue: Keep max_active and
- percpu_max_active in sync
-Date: Thu, 29 Oct 2026 05:33:44 -0700
-Message-Id: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org>
+Date: Thu, 29 Oct 2026 05:33:46 -0700
+Subject: [PATCH wq/for-7.5 v4 2/2] workqueue: Keep the limits of both
+ max_active domains current
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +65,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC4942oC/2XN0QqCMBTG8VcZ59pTZ5sz51XvERFuntUgNGdYE
- b57IFFG99/v/z1h4BR5gEo8IfEYh9i1UIk8E+BPdXtkjA1UAhSpgqzM8dYfQmzrMzofnG+0o7C
- xkAm4JA7xPqd2cOvXoUu4WRnYZwJOcbh26TG/jHJevIPlNzhKJDQ+157KWhXObxt2sW5XXTrOl
- VEtpDILqZCwLIiZjJKF5T+pP1IS2YXUSMiOHFnjbMP6R07T9AJezXoxIQEAAA==
-X-Change-ID: 20260914-wq_final-bcfbcd3b0f79
+Message-Id: <20261029-wq_final-v4-2-2985ea9f24fd@debian.org>
+References: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org>
+In-Reply-To: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org>
 To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
 Cc: linux-kernel@vger.kernel.org, marco.crivellari@suse.com, 
  Breno Leitao <leitao@debian.org>, kernel-team@meta.com
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4351; i=leitao@debian.org;
- h=from:subject:message-id; bh=TSwJ9ZRFzUkOwx/8atIrIn0qtfGFtixpyvxKZ0dBc7g=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4z3LUqX2jj4h4/ozIvjAfYw0WDFi21iGltSiG
- SnKSpDk+W+JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauM9ywAKCRA1o5Of/Hh3
- bcOVEACmn8MHT4YaSN5Rs0n0fTzafj0YhMo6hVaO5Huf7YXQjpLqNGxf4clhuBL1N8pcWz3XmCF
- 860UxEh//Lmu1i3/wFOpR/ihYlGVjC4FmAk2/dx07RGNK+n2m2KQyV33G/SkpdCLcYrM8g8pdp6
- DTiUOsx7tV60QQT1eyo/G8zrXSbeHK+fDHW1wthhgBSogJq+AXFFWojwIhNb2n40XSLRKURZW/V
- /0Im81iAMSdeBJYmNhBAjm5eTrqLY4kIu+jrD1fWyajsAzJ9yzFyNiUsM619qH8GKXHK3R5EAI7
- H0R8m51c7bo5+d4Lbe+Hg4qOwOPSwI5Vhni+RnYcNsb4+Dq8KbnWGyrNpjczd96TmpcZcvdlooU
- fWnDpZwZ+YQCW5RbeWds6mdSY513AUPjbbaicRGsXAiDS4J199iAcJFEMxU/rfYmD0kklDNp/ix
- IHE78ocomu0QHt3WXR5DcF3vnVMcG/JYXelpZVutNZWHpnJtO3NZtNriHnnSeLYZ1v+a6FQMULH
- oui7akQ+lZIaAs0EUfj/117o0A476hqz1W7EX0uHo72lISjEYPRAzcEvTUOFO0L+/MvlBSg/KXB
- GtYvvtSz08JVSD4oak5bftPbwuO4uAvpWpquZ4yAbWN8ks4ni83hIu/G42vHINt7M44jMXB4IJl
- qjLDmk3Blj3dI0A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12126; i=leitao@debian.org;
+ h=from:subject:message-id; bh=CT31xXwKaspxBoqz+HJpFWPpz0BdC26tuAnHbHqS1HE=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4z3LWYDm8hr0IS2rJT8LRvrA0P+4a+H7GKd8c
+ 3qcL2qrE5CJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauM9ywAKCRA1o5Of/Hh3
+ bRwQD/96mQ6UrhwfDV5BNmWaJq9JscWJ6IWAHCz1EqE1Bsv40942Odbug8WopMKTHPSjUAzR2nf
+ afSCiWkYDN89JuK3fjCAorvqxyulfbdzcoZCmLJzVdR1qkfNPtwBjhEx2Db3nJigxU5CTOobiXI
+ TrbgdVpjUii8eny6EVUhJVLqDnaO9wZh2Uv9gxFBo/89xPcW5GTvTJtJ9jSWukdNdeODAo5w0QH
+ vlbEp8WGxmIGMFFxVGfnM0wkjEvemU3DatMlMhzP4KYpEkmNdNGVwy1E/Uq8SmtShckm0Zz+K7B
+ 7OU/gPK6uyJlZL4CyJA6RU1Ac23Fe2BEm6pg+wNQ72WvJhI96Ur4YK7OrXFpC9sy63HzCey90jE
+ f8R2iFNQGfOuU9DZFV8CT3+YwZuWBxs+f2pV20FaFmZWrpCtGHVcD9Exl6v99AUlRN5UzTXnFVh
+ DQJeDMjlWBxqQByNTukJzjZnqnAJDVJRmyysjdU0zJrX1CTfDIhipCfgSaVzAjmN2zZWA3NtRzo
+ JiOLit9t+egR/xYBP+vfynssbmyi/olr7YHQWkYUQOrIBwFK3my6SiIaEgu6GuJGlFrDQJJAXaP
+ 8NZT22w3Ayf2MXTE6Gl8RLLZDusyKMob3UCDU3IYJ9bOTd8/t65JP1AutaHx4eYJdalnclV5bZW
+ rofKRb/kjuYH3mg==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
 Commit 27db9dd7f84f3a ("workqueue: Give percpu workqueues their own
-max_active") gave the percpu backend a limit of its own, so a workqueue
-now carries both percpu_max_active and max_active.
+max_active") gave the percpu backend a limit of its own. A workqueue
+carries max_active and min_active for the unbound backend and
+percpu_max_active for the percpu one. Only the backend it is created on
+gets its limits set. The other stays at zero.
 
-__alloc_workqueue() only ever sets the pair matching the backend the
-workqueue is created on, so the other stays at zero for its lifetime.
+The planned PERCPU affinity scope will let a workqueue switch backends
+through its attributes, and a switch should land on a sensible limit.
+Derive the other domain whenever the limits of the backend in use are
+set.
 
-Nothing reads "the other scope" max_active today, so this is groundwork
-rather than a fix.
+The two numbers cannot simply be kept equal. percpu_max_active caps every
+CPU on its own, while max_active is a workqueue wide budget distributed
+among the nodes, with min_active as the per-node floor. A per-CPU limit
+of 16 on a 64 CPU machine is not a workqueue wide limit of 16.
 
-Two patches. The first moves the initial limit setup out of
-__alloc_workqueue() into wq_init_max_active().
-
-The second sets both domains rather than one, according to Tejun's
-recommendation:
+Convert between them as Tejun suggested [1]:
 
   U = unbound max_active, the system-wide target
   L = unbound min_active, the floor on each node
   P = percpu_max_active, the limit on each CPU
-  N = online CPUs in the effective unbound mask, at least 1
+  N = online CPUs the workqueue is spread over, at least 1
 
   Setting P:
     U = min(P * N, WQ_MAX_ACTIVE)
@@ -126,75 +125,316 @@ recommendation:
     L = clamp(L, 0, U)
     P = max(DIV_ROUND_UP(U, N), L)
 
-It rederives the other domain when the cpumask changes and once CPU
-topology is known, as workqueues created before smp_init() count only
-the boot CPU.
+For an unbound workqueue, N counts the online CPUs in its effective
+cpumask, which wq_update_node_max_active() distributes max_active over.
+For a percpu workqueue, N counts the online CPUs in wq_unbound_cpumask,
+which an unbound scope would spread it over.
 
-This shouldn't change the behaviour of workqueue for now, but keeps the
-groundwork correct for the PERCPU affinity scope work it's meant to
-enable.
+wq_rescale_max_active() does the conversion and publishes the limits
+through wq_adjust_max_active(). The setters call it, and so does
+apply_wqattrs_commit(), which runs when a workqueue is created and when
+its attributes or the unbound cpumask change. workqueue_init_topology()
+calls it too, as workqueues created before smp_init() counted only the
+boot CPU.
 
+N is not resampled on CPU hotplug, nor for a percpu workqueue when
+wq_unbound_cpumask changes. Nothing reads the derived domain yet, and a
+scope change goes through apply_wqattrs_commit(), which rederives it.
+
+For a percpu workqueue, saved_max_active now holds the derived unbound
+limit. start_flush_work() and max_active_show() want the limit the
+workqueue was configured with, so they read it through
+wq_user_max_active(). Both read it locklessly, so the saved limits are
+written with WRITE_ONCE().
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/all/ec6c22eddc8ce0b1ef2434ed62acd560@kernel.org/ [1]
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Changes in v4:
-- Folded the topology rescale (v3 3/3) into patch 2 (Tejun)
-- Added wq_rescale_max_active(): it derives the other domain from the
-  backend's own saved limits and publishes both through
-  wq_adjust_max_active(). The setters, apply_wqattrs_commit() and
-  workqueue_init_topology() call it, so the topology pass no longer
-  passes a derived limit back in, resets min_active or writes the live
-  limits directly (Tejun)
-- Rederive in apply_wqattrs_commit() so N follows cpumask changes, and
-  set only the backend's own limits in wq_init_max_active() (Tejun)
-- Test WQ_UNBOUND in wq_nr_effective_cpus() instead of installed_pwq()
-  (Tejun)
-- Pair the READ_ONCE() in wq_user_max_active() with WRITE_ONCE() (Tejun)
-- Reworded the wq_adjust_max_active() comment as a contract (Tejun)
-- Patch 2 changelog: spelled out the conversions, explained the
-  wq_user_max_active() readers and what is not resampled, dropped the
-  CM/RCU wording (Tejun)
-- Dropped the PS from patch 1's changelog (Tejun)
-- Rebased on wq/for-7.5
-- Link to v3: https://patch.msgid.link/20261009-wq_final-v3-0-eb0b095b9de3@debian.org
+ kernel/workqueue.c | 152 ++++++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 120 insertions(+), 32 deletions(-)
 
-Changes in v3:
-- Dropped the silly percpu_concurrency_managed attribute patch.
-- Fixed N to come from the workqueue's own unbound_effective_cpumask()
-- Added a patch rederiving both domains once workqueue_init_topology()
-  knows the real CPU count.
-- Handled BH in one place: wq_init_max_active() sets the limits of a BH
-  workqueue through wq_init_bh_max_active() and returns, instead of
-  giving BH its own branch further down (Tejun)
-- Set min_active to percpu_max_active when deriving from a percpu limit
-  instead of min(percpu_max_active, max_active), as max_active can never
-  be lower (Tejun)
-- Changelog of patch 2 now refers to the new PERCPU affinity scope
-  rather than WQ_AFFN_CPU (Tejun)
-- Link to v2: https://patch.msgid.link/20260925-wq_final-v2-0-860ee052169e@debian.org
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 826a64c6055d0c..492ff2133c41a2 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -393,6 +393,7 @@ struct workqueue_struct {
+ 	int			min_active;	/* WO: min active works */
+ 	int			saved_max_active; /* WQ: saved max_active */
+ 	int			saved_min_active; /* WQ: saved min_active */
++	int			saved_percpu_max_active; /* WQ: percpu limit */
+ 
+ 	struct workqueue_attrs	*attrs;	/* PW: workqueue attributes */
+ 	struct pool_workqueue __rcu *dfl_pwq;   /* PW: only for unbound wqs */
+@@ -421,6 +422,14 @@ struct workqueue_struct {
+ 	struct wq_node_nr_active *node_nr_active[]; /* I: per-node nr_active */
+ };
+ 
++static int wq_user_max_active(struct workqueue_struct *wq)
++{
++	if (wq->flags & WQ_UNBOUND)
++		return READ_ONCE(wq->saved_max_active);
++
++	return READ_ONCE(wq->saved_percpu_max_active);
++}
++
+ /*
+  * Each pod type describes how CPUs should be grouped for unbound workqueues.
+  * See the comment above workqueue_attrs->affn_scope.
+@@ -569,6 +578,7 @@ static int worker_thread(void *__worker);
+ static void workqueue_sysfs_unregister(struct workqueue_struct *wq);
+ static void show_pwq(struct pool_workqueue *pwq);
+ static void show_one_worker_pool(struct worker_pool *pool);
++static void wq_rescale_max_active(struct workqueue_struct *wq);
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/workqueue.h>
+@@ -4549,7 +4559,7 @@ static bool start_flush_work(struct work_struct *work, struct wq_barrier *barr,
+ 	 * workqueues the deadlock happens when the rescuer stalls, blocking
+ 	 * forward progress.
+ 	 */
+-	if (!from_cancel && (wq->saved_max_active == 1 || wq->rescuer))
++	if (!from_cancel && (wq_user_max_active(wq) == 1 || wq->rescuer))
+ 		touch_wq_lockdep_map(wq);
+ 
+ 	rcu_read_unlock();
+@@ -5800,6 +5810,9 @@ static void apply_wqattrs_commit(struct apply_wqattrs_ctx *ctx)
+ 	if (ctx->wq->flags & WQ_UNBOUND)
+ 		wq_update_node_max_active(ctx->wq, -1);
+ 
++	/* derive the other max_active domain for the new effective cpumask */
++	wq_rescale_max_active(ctx->wq);
++
+ 	mutex_unlock(&ctx->wq->mutex);
+ }
+ 
+@@ -6031,6 +6044,42 @@ static int init_rescuer(struct workqueue_struct *wq)
+ 	return 0;
+ }
+ 
++static int wq_nr_online_cpus(const struct cpumask *mask)
++{
++	return max(cpumask_weight_and(mask, cpu_online_mask), 1);
++}
++
++/* online CPUs an unbound backend of @wq would spread max_active over */
++static int wq_nr_effective_cpus(struct workqueue_struct *wq)
++{
++	lockdep_assert_held(&wq->mutex);
++
++	if (!(wq->flags & WQ_UNBOUND))
++		return wq_nr_online_cpus(wq_unbound_cpumask);
++
++	return wq_nr_online_cpus(unbound_effective_cpumask(wq));
++}
++
++static int wq_scale_to_unbound(int percpu_max, int nr_cpus)
++{
++	return min_t(s64, (s64)percpu_max * nr_cpus, WQ_MAX_ACTIVE);
++}
++
++static int wq_scale_to_percpu(int max_active, int min_active, int nr_cpus)
++{
++	return max(DIV_ROUND_UP(max_active, nr_cpus), min_active);
++}
++
++static void wq_init_bh_max_active(struct workqueue_struct *wq)
++{
++	wq->max_active = INT_MAX;
++	wq->min_active = INT_MAX;
++	wq->percpu_max_active = INT_MAX;
++	wq->saved_max_active = INT_MAX;
++	wq->saved_min_active = INT_MAX;
++	wq->saved_percpu_max_active = INT_MAX;
++}
++
+ static void wq_init_max_active(struct workqueue_struct *wq, int max_active)
+ {
+ 	int effective_max_active;
+@@ -6040,65 +6089,69 @@ static void wq_init_max_active(struct workqueue_struct *wq, int max_active)
+ 		 * BH workqueues always share a single execution context per CPU
+ 		 * and don't impose any max_active limit.
+ 		 */
+-		effective_max_active = INT_MAX;
+-	} else {
+-		effective_max_active = max_active ?: WQ_DFL_ACTIVE;
+-		effective_max_active = wq_clamp_max_active(effective_max_active,
+-							   wq->flags, wq->name);
++		wq_init_bh_max_active(wq);
++		return;
+ 	}
+ 
++	effective_max_active = max_active ?: WQ_DFL_ACTIVE;
++	effective_max_active = wq_clamp_max_active(effective_max_active,
++						   wq->flags, wq->name);
++
++	/* apply_wqattrs_commit() derives the other domain */
+ 	if (wq->flags & WQ_UNBOUND) {
+ 		wq->max_active = effective_max_active;
+ 		wq->min_active = min(effective_max_active, WQ_DFL_MIN_ACTIVE);
+ 		wq->saved_min_active = wq->min_active;
++		wq->saved_max_active = effective_max_active;
+ 	} else {
+ 		wq->percpu_max_active = effective_max_active;
++		wq->saved_percpu_max_active = effective_max_active;
+ 	}
+-	wq->saved_max_active = effective_max_active;
+ }
+ 
+ /**
+  * wq_adjust_max_active - update a wq's max_active to the current setting
+  * @wq: target workqueue
+  *
+- * If @wq isn't freezing, set the limit that applies to @wq's backing to the
+- * saved_max_active and activate inactive work items accordingly. If @wq is
+- * freezing, clear it to zero.
++ * If @wq isn't freezing, publish the saved limits of both domains and activate
++ * inactive work items accordingly. If @wq is freezing, clear them to zero.
+  */
+ static void wq_adjust_max_active(struct workqueue_struct *wq)
+ {
++	int new_max, new_min, new_percpu_max;
+ 	bool activated;
+-	int new_max, new_min;
+ 
+ 	lockdep_assert_held(&wq->mutex);
+ 
+ 	if ((wq->flags & WQ_FREEZABLE) && workqueue_freezing) {
+ 		new_max = 0;
+ 		new_min = 0;
++		new_percpu_max = 0;
+ 	} else {
+ 		new_max = wq->saved_max_active;
+ 		new_min = wq->saved_min_active;
++		new_percpu_max = wq->saved_percpu_max_active;
+ 	}
+ 
+ 	/*
+-	 * Update the limit and then kick inactive work items if more active
++	 * Update both domains and then kick inactive work items if more active
+ 	 * work items are allowed. This doesn't break work item ordering
+ 	 * because new work items are always queued behind existing inactive
+ 	 * work items if there are any.
++	 *
++	 * Both domains are kept current so that a pwq on either kind of pool
++	 * has a valid limit.
+ 	 */
+-	if (wq->flags & WQ_UNBOUND) {
+-		if (wq->max_active == new_max && wq->min_active == new_min)
+-			return;
++	if (wq->max_active == new_max && wq->min_active == new_min &&
++	    wq->percpu_max_active == new_percpu_max)
++		return;
+ 
+-		WRITE_ONCE(wq->max_active, new_max);
+-		WRITE_ONCE(wq->min_active, new_min);
+-		wq_update_node_max_active(wq, -1);
+-	} else {
+-		if (wq->percpu_max_active == new_max)
+-			return;
++	WRITE_ONCE(wq->max_active, new_max);
++	WRITE_ONCE(wq->min_active, new_min);
++	WRITE_ONCE(wq->percpu_max_active, new_percpu_max);
+ 
+-		WRITE_ONCE(wq->percpu_max_active, new_max);
+-	}
++	if (wq->flags & WQ_UNBOUND)
++		wq_update_node_max_active(wq, -1);
+ 
+ 	if (new_max == 0)
+ 		return;
+@@ -6125,6 +6178,37 @@ static void wq_adjust_max_active(struct workqueue_struct *wq)
+ 	} while (activated);
+ }
+ 
++/*
++ * Derive the saved limits of the max_active domain @wq's backend doesn't use
++ * from those of the one it does, with the current number of usable CPUs, and
++ * publish both.
++ */
++static void wq_rescale_max_active(struct workqueue_struct *wq)
++{
++	int nr_cpus;
++
++	lockdep_assert_held(&wq->mutex);
++
++	/* BH workqueues have no max_active limit in either domain */
++	if (wq->flags & WQ_BH)
++		return;
++
++	nr_cpus = wq_nr_effective_cpus(wq);
++
++	if (wq->flags & WQ_UNBOUND) {
++		WRITE_ONCE(wq->saved_percpu_max_active,
++			   wq_scale_to_percpu(wq->saved_max_active,
++					      wq->saved_min_active, nr_cpus));
++	} else {
++		WRITE_ONCE(wq->saved_max_active,
++			   wq_scale_to_unbound(wq->saved_percpu_max_active,
++					       nr_cpus));
++		wq->saved_min_active = wq->saved_percpu_max_active;
++	}
++
++	wq_adjust_max_active(wq);
++}
++
+ __printf(1, 0)
+ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 						  unsigned int flags,
+@@ -6459,11 +6543,14 @@ void workqueue_set_max_active(struct workqueue_struct *wq, int max_active)
+ 
+ 	mutex_lock(&wq->mutex);
+ 
+-	wq->saved_max_active = max_active;
+-	if (wq->flags & WQ_UNBOUND)
++	if (wq->flags & WQ_UNBOUND) {
++		WRITE_ONCE(wq->saved_max_active, max_active);
+ 		wq->saved_min_active = min(wq->saved_min_active, max_active);
++	} else {
++		WRITE_ONCE(wq->saved_percpu_max_active, max_active);
++	}
+ 
+-	wq_adjust_max_active(wq);
++	wq_rescale_max_active(wq);
+ 
+ 	mutex_unlock(&wq->mutex);
+ }
+@@ -6492,7 +6579,7 @@ void workqueue_set_min_active(struct workqueue_struct *wq, int min_active)
+ 
+ 	mutex_lock(&wq->mutex);
+ 	wq->saved_min_active = clamp(min_active, 0, wq->saved_max_active);
+-	wq_adjust_max_active(wq);
++	wq_rescale_max_active(wq);
+ 	mutex_unlock(&wq->mutex);
+ }
+ 
+@@ -7587,7 +7674,7 @@ static ssize_t max_active_show(struct device *dev,
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%d\n", wq->saved_max_active);
++	return scnprintf(buf, PAGE_SIZE, "%d\n", wq_user_max_active(wq));
+ }
+ 
+ static ssize_t max_active_store(struct device *dev,
+@@ -8822,11 +8909,12 @@ void __init workqueue_init_topology(void)
+ 	list_for_each_entry(wq, &workqueues, list) {
+ 		for_each_online_cpu(cpu)
+ 			unbound_wq_update_pwq(wq, cpu);
+-		if (wq->flags & WQ_UNBOUND) {
+-			mutex_lock(&wq->mutex);
++		mutex_lock(&wq->mutex);
++		if (wq->flags & WQ_UNBOUND)
+ 			wq_update_node_max_active(wq, -1);
+-			mutex_unlock(&wq->mutex);
+-		}
++		/* early workqueues counted only the boot CPU */
++		wq_rescale_max_active(wq);
++		mutex_unlock(&wq->mutex);
+ 	}
+ 
+ 	mutex_unlock(&wq_pool_mutex);
 
-Changes in v2:
-- Cut the series down to the three patches that change nothing
-  observable. The runtime scaling, the affinity scopes, the backend
-  rework, the concurrency management attribute and the sysfs files are
-  all held back.
-- Set both max_active domains instead of holding them equal, deriving
-  one from the other rather than duplicating the value (Tejun)
-- Link to v1:
-  https://patch.msgid.link/20260918-wq_final-v1-0-5c43c08a26bc@debian.org
-
----
-Breno Leitao (2):
-      workqueue: Move the initial max_active setup into a helper
-      workqueue: Keep the limits of both max_active domains current
-
- kernel/workqueue.c | 186 ++++++++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 141 insertions(+), 45 deletions(-)
----
-base-commit: e92304919f8104ef1452a6389fc54311e857b953
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/tj/wq.git for-7.5
-change-id: 20260914-wq_final-bcfbcd3b0f79
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.0-Meta
 
