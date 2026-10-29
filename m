@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793311912;
-	b=lTPyLFb6wiieum3Rb0igNtMzlTyshw5HXFh45mYJLQ69DILtos+7hCsdn3W87+ikiXM8
-	 7WSkc7IlnZvaYUAr/Xaw0EW7xCFmDEI48bL2jZBLG+Nsk6YPEUliZxDMvo6YSfs83b//z
-	 jtsFSxKxuSSs1jDPNauPQCj0LRezLiMXgm8jNqgp7LtSR665xSylUhH437kbJ7RjsE2LJ
-	 0FitTzwXpeYl+F6btGGoChz6PTv+Vi/0UVyaUMLYNQqS+TQ0sR3MG4HODm0JUQ/aV0ill
-	 XwCmQ7aF0oKceg57XtQLdFm5qRr2H8bHi79usz0qcDYc0/Vn/RykXbNF6USuo4yh6OQ==
+	t=1793312151;
+	b=PJTGpeWugBjMpVzVeQfufPLgK35QZX4zWRRQDbaHWQ4HoVeujbdzOziGZfeGrnQrHabt
+	 gNPGcRyx5FtVwqDqbnWjy9G1Z3Bc0Hs9jUpt3cLXt8eL24irVvHB4HyfCl+EbjRgIOvf5
+	 3Ay2FkY9GNBdFdw/3QYkXXOzSKgvmK/JjksZZz79VYUp+WBMdIFw3rOJS+Ps5BL3kKH+e
+	 1ltvs8VbmbQe0LJABDVhn92UN1K0VYEJaVXP6IHwZcC2KuBAt4TVlGVNS/lXvwYaxOpxt
+	 NM0Nn/mMdx5vBvaY9XfuqJ8Oq0xBVhBserT3soYAYZIPkNfMJblo/8fJii8ONv1ej1g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
-	b=4QOsyli5trgZSY3wq53B9TBLY23L0vJNKEs9Q+RwWPNQzqAiQmMVIaslrPX1AVNn5kzL
-	 Sl1RoFu04i2PjLL705Ur7XPQ5y3Z9yU0q6G2oOii/O7I+At3iXeffkxYxC8vZhI5efJEM
-	 xykdPpjEJp7yME7t1ytGMSuAV1aToD45c/WrLQJlvO7w5IabQ3wzkm4kw9biRSBaIuqd1
-	 eI4vd+GsikyL0/sjHpyUt/v3z9feohcWyD52p8Z/BqsdjLGxiNUzTXmnu8QfN1po4MSXt
-	 ZW6Ucr5TPvnjLxHnUiGInRGFd6Vdq12SYzaaIniUOSnWdyUa2CLC/0W0+DlH3HkEgRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312151;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
+	b=mt9ImPc9BAngzphvDYVV1dW4+ES6A6ZcZ0H569IOQUegnQH25YYVJmsMRfdFGzz1iD4N
+	 0bh+UsUA79etA5ofHlZBqZDv1KhipdhIEa+DUbsBm3D+OkpglYeFPpWVus7Prfehtu+X9
+	 pGLLQZBAxkNT9NHJaQiMAP88HpOyufFY7gpLTOMxOgW+l7Xp/0GbqN6ofp3chg54N1+1l
+	 WwYdMK9tXdO02kH07+r4hICumttQ+qpLzuaLRKZDBH/osAeYMENFPCw8GA3z+aSbDnPcP
+	 Vj3AnWtewhorm66X283vdTR4+b9LwGlFgJamjyUPr7qIud2fnVjqcFOXHTWjnQwSi8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWVOqp+n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPelaCvM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A4F606A31A;
+	Thu, 29 Oct 2026 22:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPelaCvM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793312150;
+	b=pdi4+5bimXtHC+FSXhR7g0mq8XrP4NMq7bospIKxyAc707nrtOsuHXYjVPp6h/DLyD3E
+	 6U0LZ75OC9kXlUcHk6eK+MDT8dzkRPNn6iRt24LfXvqgBm34Sl7/NQ/joYrXb5jCant0l
+	 ys1O2/eJaZTaUTRlYGLbsw3tMxND8NJZUHmeJj4DrSRV8xLRCXWL5R5OAaZvf7hiTfgc2
+	 4iobCSmTWQRNbyVUT1iBMosWgqrCnYvllaPYRz7gqIVBE/KMbp2bVVBWt6h83hwsWvvJa
+	 M3/92Y3s+1Emj96geJ+KeEviudYHHPKDSNWEeK9iKEbt0xv6JkGQ4OQt73YzKLfC+lQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793312150;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
+	b=gw9095RFhKep6oLJDnVjyT8Eh7zVMve51whLEPmRx5gspelj6dwB91JBuqMg0wlqYZ7z
+	 tcNnukVttwKVP8u6gBXW98Vt+1KkhLXhNj1gWX6fYPiwTgxsKZKrfBL3z7K1yc0KWScSY
+	 yTZNrPmoDfQ/6fGHWN9XhtQ1vGwhJpE11mHOTx/gXouHMuXgVXJFhJz5MaI3/ja2bAggd
+	 70I55oDZU1RUFM9d8LeEgFcnkdeLLpXEPQUjof8V89Dffgn8ScWwn4Yn0CJybXCX36qCb
+	 WLN6ZXYj5fFbZiQQOxyiWSa2Nokm1R6aGtjiHuqt5iTp2fxFhrCm8yj0JChs4sV3+oQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6BD606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6BD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWVOqp+n
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-363cd582f45so15563eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:11:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793311911; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m0MmSxsD54pG4sfYMqH7J/ic4Bb+46WJ7N4381/PYcQpVLFskRDn3dqAWmWwu0avYh
-         MqO5oNrtjOMUINaUqUXcu7UHWTH7dCiDHxbrVMgxzPXJPTI/qxZclBuMANq9mW+QsAmY
-         e0+fLKQXpgeOwPsup/VsZkop5Bpmmr85Z0MD103kGvdDS/HYS2mh5a2lbzZi9bKHI6W+
-         xFqRaS3ZFLQPP7Z3NikltzmahNGMjDIW7hGEIUVEJwHOS+NkSoX61DWXPOViqZ8EH91S
-         PRMZSenYJlroELqBvo2LgrF8v31k5lOKPeZuLnhFrpiTjSu1rw4WbVCLpc7X1DzqUNaD
-         ewtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
-        fh=JsTXZ6lfSjPd8GZ0UaZtg4JRT8FjrxviLSa+TvE+ez8=;
-        b=TSdBGK+zS0SOp1MiLiOZffS+o2kpMum9i0GpRJDhrGVZBy0gJKNFLtygiwW+Dt6n3p
-         ytCofkp7HibYd7cphOE8csItvvLBd5LxpdKED0nG6/f5KwWNotGgLbZB4g+JvdzD37Z0
-         O54YEUXwtm39S4O23DeY7+izfto3zooaUP/t0VpN8Lz4hRMypJaFG0+ezSJBTafhEHOF
-         jOcehGSd1ZMXq1MVihx7eG5uaHvKPV6SO/OcvwbnM+DqmPEt+dMc61mG29glZjWdzSbC
-         ORU0U7lZtbD5KllCW9Thbw4pbrRaZYLM1e+PlrzPElBzfuYpdFi+xw1YdmY9fdJNO6Ym
-         3Jqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311911; x=1793916711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
-        b=lWVOqp+nrOjtwADvcecmYbdBOnch5TANTq3rLgKXbcpc7UaYbeDE7unSHDs2e1EbUY
-         7uF6RXAFEE/N9cqvP5psVZo6lBrzGlYWp+xNbVtSC6V7DpkuG2KEOqdlS3zEHgm99ciM
-         36jquz6LJEFvCEZxzjkkEYkXaKbTyoGibFNUP3Gt2Kju9K+yrsMW2PmhkW/q+vf1LR8o
-         1iK/qAVkMMvG4PF29t0jbRyd7RjlHd/X+n6qGlGy095ddWucbWr621z/u7yfeJGd58dJ
-         F3orHs1miCj+VNXocABcSr2dtetVYnweWqoGBkNv0GLyWfMMqUJ3DBJjmk6lglb7cqY6
-         5Thg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311911; x=1793916711;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
-        b=dTAcL7lAKvlAQtqMw5YY/QmLYDtEX8c6eWtDqvCzDN+DC267ZsZrO39s6KdaUg22aX
-         4C4fz4GIFKEQxwS0khEHhTRFnSEBK7ErUVnycvQvDBxBRjz9UzuU8psKjHobnZvUo5GI
-         q30KJbGXTVVGiXBLiAXCdaGmkqboW97xujMyanwrq4Colp6AY97W0eFd5y+bznd2S0Tt
-         CSZ0bpNKJsPgmjuJlz77sGDKUI6nL/TUks/8FepaRxJAcQ7MKHFSCwSRsGENRQrIbzju
-         QFVcGFOGGdy6Ohn9tjv75uGnyDMUGaoUG3aOT7MLPCh3wffF14dUy+fWWhLSB/TnkX1L
-         kOSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByojQtZpWsGAwLZ/Z+XNSZYvCyNDNPDyhjKAqzzAo86G0dV2YdHQOG/iNYr/XRLRtpI6VqP9Y7ZmDYw7ps=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMhpokMwC3KJeYz4WSuRhayr9jVl3qjtz3Aoa9r/rKmbJASvEY
-	gTzKBSAHaqckinMaOW5mZtGq9huEa2ANWSOzzhxitz2tRD2aNEKhyAtmcmfZVsSQWqr23aJ2zWw
-	coDQQuY0gpWt8/kGeyDX9h553D5EAVdc=
-X-Gm-Gg: AYBFou2cnvm46QIAmCE33KQV3AyzhQn9zimdoYGC+ZKz+jEOUy1Hp8bN1GRD6fyaq3S
-	OpIfNAZ/OMHoMJ/yxarHZBMpU0EUQljBsYi3wmOqcPoieoBWzIZ4vEMDARxtPQF4jSEB+YCS/O3
-	aLr24sHahNxwowvNPKLxSYEcQM0MV4pZ/0ENJaMG/9FohSHOXNOaGFB/iXIDHGpFQB1dUJ0r9iT
-	cKwbAsccI6f1NRa0AI/m8QQVtq3VgJr9X7Y8vcolkoNr1k+m7GYswA5YIO5TU1/Kpkda3UYvjz/
-	Rt0wzfmq18D0x85WhA1DqfpMXzoLoGR+vWmLjiZtyAciW7z8e2/n/cDbc3VmlK/nS/7DtVubLIK
-	LmYgyZ3fB2bOxQvbnVZBMDinZVXs1JTCWFYkCYiKhpmxhwXPomygWoQlusi4eUsAu57HyPG2GuY
-	HJbQwrG/nPe1ZfZGx5YMyWdjs=
-X-Received: by 2002:a05:701b:418d:10b0:190:e602:c769 with SMTP id
- a92af1059eb24-1ac59143aeamr818406c88.1.1793311911532; Thu, 29 Oct 2026
- 15:11:51 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3C9391F01816;
+	Thu, 29 Oct 2026 22:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793312150;
+	bh=MWYlf8XcgjyLVzWD26ZQSwWE8DILydKaeCY9WPoYanE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=GPelaCvM/fntZhAplPpPWOS7IcJ47jr+ioaWzqHzHzpU+3AiwVD3JzT/FQ3gCrLxa
+	 CN9c2yX7jAWk0pC8/nSzqzPQohcBT11Dn86F8+fRmBBNeBQv7C/AyBsV4dCNdo39WT
+	 0Z1SlRyZSkSdHE1JZJDqTc+83B2FrsqCL+OT0JSFZzhCHqt9OdH5z/uPTFyFK2/Var
+	 Sddf5uvdHuyYh9fEf7pE38Xxk2rrklQIy1o4ZND+a8u8WQzxNDWlw0acIAaM1y8NU2
+	 06YAb6OPu4cyGUJnKAVCdnZ9mh+uF8AN3hYGE2noERItqQikU6AwX39An7eECY1tOd
+	 QxTpjZQptz6ag==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9004C459FA;
+	Thu, 29 Oct 2026 22:15:48 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Thu, 29 Oct 2026 17:15:48 -0500
+Subject: [PATCH ath-next] wifi: ath11k: add the measured noise floor, not
+ -95, to a received signal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,88 +83,371 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027193559.28474-1-amade@asmblr.net>
-In-Reply-To: <20261027193559.28474-1-amade@asmblr.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 18:11:38 -0400
-X-Gm-Features: AclHuK85g9fztoaVrlp_rJWPJHWRSqCOuLati5XqcOXZS0zoPwKNpaJFJhjLezI
-Message-ID: <CADnq5_NOVHSLnxwmY5gsq4vMxbJP6QQPnPiAJt_uwkDtegpYkA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Prevent debugfs nullptr dereference
-To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?= <amade@asmblr.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-ath11k-signal-noise-floor-v1-1-dd5d6a04dcf2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAJPF42oC/2WP0U7EIBREf6XhWRIgbYH+itkHuFy2aBcUaK3Z7
+ L/LajUaHydzZ87cKymYAxYydVeScQslpNgEf+gIzCaekQbXNBFMjJwJTU2dOX+mJZyjWWhMoSD
+ 1S0qZgrSceQGOWUda/iWjD/tn9yNpMRpxr+T05ZTVPiHUe/Vxm/F1bfh6BH7oU3ew+2923undj
+ bjQ8hYqzLQ3yAaQRgkJ08bJ7/X/82XNG77/3a7MoEGBUr4/CqxpLqTLJdSpa0+JEUflnfVKWQ0
+ wCGHl2JjaaQHa9NxLpsnpdvsAljUqc1QBAAA=
+X-Change-ID: 20261029-ath11k-signal-noise-floor-c7b10f2cd0bd
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ath11k@lists.infradead.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793312148; l=14047;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=an+cFuf9qofjguKNKpiOOW55It8wu9JPo5kVIgrvAJA=;
+ b=Sjf7zhxr8VdGzQAV7i8iwQhfQ8UY0QGDsx4ENXSVeOOXv0iGbNrlhebYvbnR6EjHEivqRqiRS
+ AVsqllwqHewA+TOpawy+k0h8TFPLcR36YEGjmvCoQ7hdEaEG7/DyPk+
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Reviewed and applied the series.
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-Thanks!
+The firmware gives a received signal (rssi_comb of a PPDU, the ack rssi
+of a tx completion, the snr of a management frame) in dB above the noise
+floor it measures on the channel. Without the firmware's own conversion
+to dBm (WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT), ath11k adds a
+fixed ATH11K_DEFAULT_NOISE_FLOOR (-95 dBm), so every signal it reports
+reads low by as much as the channel's floor is above -95 dBm: 5 dB on a
+channel at -90, 7 dB at -88.
 
-Alex
+On an IPQ8074 (WLAN.HK.2.9.0.1) the HTT PDEV RX rate stats give each
+chain's signal of the last PPDU in dB and in dBm. Their difference is
+that chain's measured floor (-87 to -95 dBm across chains and channels),
+and the chains' summed power is rssi_comb plus the channel noise floor
+of the pdev stats to within about 1 dB, on 2.4 and 5 GHz. A client whose
+chains summed to -42 dBm on a 5 GHz channel at -90 showed as -46 in a
+station dump.
 
-On Wed, Oct 28, 2026 at 9:06=E2=80=AFAM Amadeusz S=C5=82awi=C5=84ski <amade=
-@asmblr.net> wrote:
->
-> Running
-> cat /sys/kernel/debug/dri/0/psp_spirom_dump
-> with amdgpu card that doesn't support it leads to nullptr dereference.
-> Add checks to prevent that.
->
-> Signed-off-by: Amadeusz S=C5=82awi=C5=84ski <amade@asmblr.net>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 2 +-
->  2 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 82a2684dbd2e..627c74f16914 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -5381,6 +5381,9 @@ static int psp_read_spirom_debugfs_open(struct inod=
-e *inode, struct file *filp)
->         struct spirom_bo *bo_triplet;
->         int ret;
->
-> +       if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-> +               return -EOPNOTSUPP;
-> +
->         /* serialize the open() file calling */
->         if (!mutex_trylock(&adev->psp.mutex))
->                 return -EBUSY;
-> @@ -5473,6 +5476,9 @@ void amdgpu_psp_debugfs_init(struct amdgpu_device *=
-adev)
->  #if defined(CONFIG_DEBUG_FS)
->         struct drm_minor *minor =3D adev_to_drm(adev)->primary;
->
-> +       if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-> +               return;
-> +
->         debugfs_create_file_size("psp_spirom_dump", 0444, minor->debugfs_=
-root,
->                                  adev, &psp_dump_spirom_debugfs_ops, AMD_=
-VBIOS_FILE_MAX_SIZE_B * 2);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index a4ec60f6c317..975d12359358 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -574,7 +574,7 @@ struct amdgpu_psp_funcs {
->         (psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
->
->  #define psp_dump_spirom(psp, fw_pri_mc_addr) \
-> -       ((psp)->funcs->dump_spirom ? \
-> +       (((psp)->funcs && (psp)->funcs->dump_spirom) ? \
->         (psp)->funcs->dump_spirom((psp), fw_pri_mc_addr) : -EINVAL)
->
->  #define psp_vbflash_status(psp) \
->
-> base-commit: 83f32c773255720a661aa45d83e36278135f23f5
-> --
-> 2.56.0
->
+Keep the measured floor of the channel in use per radio, read from the
+pdev stats when the survey of that channel is read or a station dump
+finds it older than 10 s, and add it in place of -95 to the station
+signal and its average, the ack signal, management frames received on
+that channel, and monitor frames. Drop it when the radio changes
+channel; until it is read again, and for frames on another channel
+(during a scan), -95 stays. Chips with db2dbm are unchanged. ath12k
+already adds the noise floor its firmware reports.
+
+Tested on an Arista C-360 (IPQ8074): a client whose chains summed to -42
+to -44 dBm on a 5 GHz channel at -90 now shows -40 to -42, where -95 gave
+-45 to -48. The management frame and monitor paths were not checked
+separately; they take the same offset.
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+---
+This applies on top of two ath11k patches I sent on 2026-10-24, listed
+as prerequisites: "wifi: ath11k: update rx_channel on a channel switch"
+and "wifi: ath11k: report the measured noise floor of the channel in
+use". It reads the floor where the second one does and drops it where
+the first one moves rx_channel.
+
+Found on an Arista C-360 running OpenWrt, where an AP on a channel with
+a raised floor (-88 dBm) seemed to hear its clients 8-10 dB worse than
+they heard it. On an IPQ8074 5 GHz radio with a floor of -90 dBm, the
+HTT PDEV RX rate stats of the last PPDU gave per-chain signals of
+40/37/36/39 dB and -51/-51/-57/-52 dBm (chain floors -91/-88/-93/-91);
+the chains summed to -46.1 to -47.1 dBm with rssi_comb at 44. With this
+patch the station dump shows -46, without it -51. On 2.4 GHz (floor -94)
+the chains summed to within 1 dB of rssi_comb plus the floor as well.
+The firmware's combined rssi_in_dbm in the same stats did not follow the
+chains on two of three radios, so I did not use it.
+
+Not tested: the management frame and monitor paths on their own (they
+take the same offset), and chips other than IPQ8074. The QCN9074 and
+QCN9072 in the same AP read their floors the same way, but I did not
+compare their chains. Chips with db2dbm are unchanged.
+
+The investigation and the patch were done with Claude Code
+(claude-opus-5-5): it found the offset by comparing the per-chain dB and
+dBm figures with the pdev noise floor, wrote the patch and its
+changelog, and ran the tests on the APs. Tested on OpenWrt's
+backports-7.2 ath11k with the two prerequisites; built with W=1 on
+ath-next with them applied.
+---
+ drivers/net/wireless/ath/ath11k/core.h  | 25 ++++++++++
+ drivers/net/wireless/ath/ath11k/dp_rx.c |  2 +-
+ drivers/net/wireless/ath/ath11k/dp_tx.c |  4 +-
+ drivers/net/wireless/ath/ath11k/mac.c   | 88 +++++++++++++++++++++++++--------
+ drivers/net/wireless/ath/ath11k/wmi.c   |  2 +-
+ 5 files changed, 97 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
+index a0d725923ef2..0901695de015 100644
+--- a/drivers/net/wireless/ath/ath11k/core.h
++++ b/drivers/net/wireless/ath/ath11k/core.h
+@@ -716,6 +716,14 @@ struct ath11k {
+ 	/* valid during scan; needed for mgmt rx during scan */
+ 	struct ieee80211_channel *scan_channel;
+ 
++	/* measured noise floor (dBm) of rx_channel for the signals reported
++	 * on it, or 0 until it is read; set under conf_mutex and data_lock,
++	 * read without them on the rx and tx paths
++	 */
++	s32 noise_floor;
++	u32 noise_floor_freq;
++	unsigned long noise_floor_time;
++
+ 	u8 cfg_tx_chainmask;
+ 	u8 cfg_rx_chainmask;
+ 	u8 num_rx_chains;
+@@ -1370,6 +1378,23 @@ static inline const char *ath11k_bus_str(enum ath11k_bus bus)
+ 	return "unknown";
+ }
+ 
++/* The firmware gives a received signal (rssi_comb, ack rssi, management
++ * snr) in dB above the noise floor it measures on the channel. Without its
++ * own conversion to dBm (db2dbm), add that measured noise floor, not a
++ * nominal -95 dBm, or every signal reads low by as much as the floor is
++ * above -95. A frame on another channel than the one in use (freq given),
++ * or a channel whose floor has not been read yet, gets the nominal one.
++ */
++static inline s32 ath11k_noise_floor(struct ath11k *ar, u32 freq)
++{
++	s32 nf = READ_ONCE(ar->noise_floor);
++
++	if (!nf || (freq && freq != READ_ONCE(ar->noise_floor_freq)))
++		return ATH11K_DEFAULT_NOISE_FLOOR;
++
++	return nf;
++}
++
+ void ath11k_core_pm_notifier_unregister(struct ath11k_base *ab);
+ 
+ #endif /* _CORE_H_ */
+diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
+index 6d95f7b343a5..8c6bec1d6fa8 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
+@@ -5050,7 +5050,7 @@ static void ath11k_update_radiotap(struct ath11k *ar,
+ 	u8 *ptr = NULL;
+ 
+ 	rxs->flag |= RX_FLAG_MACTIME_START;
+-	rxs->signal = ppduinfo->rssi_comb + ATH11K_DEFAULT_NOISE_FLOOR;
++	rxs->signal = ppduinfo->rssi_comb + ath11k_noise_floor(ar, rxs->freq);
+ 
+ 	if (ppduinfo->nss)
+ 		rxs->nss = ppduinfo->nss;
+diff --git a/drivers/net/wireless/ath/ath11k/dp_tx.c b/drivers/net/wireless/ath/ath11k/dp_tx.c
+index cac970c92806..6cd03258a5d1 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_tx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
+@@ -358,7 +358,7 @@ ath11k_dp_tx_htt_tx_complete_buf(struct ath11k_base *ab,
+ 
+ 			if (!test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
+ 				      ab->wmi_ab.svc_map))
+-				info->status.ack_signal += ATH11K_DEFAULT_NOISE_FLOOR;
++				info->status.ack_signal += ath11k_noise_floor(ar, 0);
+ 
+ 			info->status.flags |=
+ 				IEEE80211_TX_STATUS_ACK_SIGNAL_VALID;
+@@ -593,7 +593,7 @@ static void ath11k_dp_tx_complete_msdu(struct ath11k *ar,
+ 
+ 		if (!test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
+ 			      ab->wmi_ab.svc_map))
+-			info->status.ack_signal += ATH11K_DEFAULT_NOISE_FLOOR;
++			info->status.ack_signal += ath11k_noise_floor(ar, 0);
+ 
+ 		info->status.flags |= IEEE80211_TX_STATUS_ACK_SIGNAL_VALID;
+ 	}
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index 155ce76d9a2a..ada0f3a3c856 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -7522,6 +7522,20 @@ static int ath11k_mac_op_ampdu_action(struct ieee80211_hw *hw,
+ 	return ret;
+ }
+ 
++/* how long a station dump reports signals with a noise floor before it
++ * reads the floor again
++ */
++#define ATH11K_NOISE_FLOOR_REFRESH	(10 * HZ)
++
++/* forget the noise floor of the channel the radio is leaving */
++static void ath11k_mac_clear_noise_floor(struct ath11k *ar)
++{
++	lockdep_assert_held(&ar->data_lock);
++
++	WRITE_ONCE(ar->noise_floor, 0);
++	ar->noise_floor_time = jiffies - ATH11K_NOISE_FLOOR_REFRESH - 1;
++}
++
+ static int ath11k_mac_op_add_chanctx(struct ieee80211_hw *hw,
+ 				     struct ieee80211_chanctx_conf *ctx)
+ {
+@@ -7539,6 +7553,7 @@ static int ath11k_mac_op_add_chanctx(struct ieee80211_hw *hw,
+ 	 * Rx PPDU desc information.
+ 	 */
+ 	ar->rx_channel = ctx->def.chan;
++	ath11k_mac_clear_noise_floor(ar);
+ 	spin_unlock_bh(&ar->data_lock);
+ 
+ 	mutex_unlock(&ar->conf_mutex);
+@@ -7563,6 +7578,7 @@ static void ath11k_mac_op_remove_chanctx(struct ieee80211_hw *hw,
+ 	 * rx_channel with the channel of that remaining channel context.
+ 	 */
+ 	ar->rx_channel = NULL;
++	ath11k_mac_clear_noise_floor(ar);
+ 	spin_unlock_bh(&ar->data_lock);
+ 
+ 	mutex_unlock(&ar->conf_mutex);
+@@ -7803,6 +7819,7 @@ ath11k_mac_update_vif_chan(struct ath11k *ar,
+ 	if (n_vifs) {
+ 		spin_lock_bh(&ar->data_lock);
+ 		ar->rx_channel = vifs[0].new_ctx->def.chan;
++		ath11k_mac_clear_noise_floor(ar);
+ 		spin_unlock_bh(&ar->data_lock);
+ 	}
+ 
+@@ -9342,44 +9359,71 @@ ath11k_mac_update_bss_chan_survey(struct ath11k *ar,
+ 		ath11k_warn(ar->ab, "bss channel survey timed out\n");
+ }
+ 
+-/* The noise floor in the firmware's bss channel info event is not the
+- * channel's measured noise floor: on IPQ8074 it reads about -109 dBm on
+- * 5 GHz and -102 dBm on 2.4 GHz, and barely moves, while the measured value
+- * the firmware reports in its pdev stats is -94 and -96. Report the measured
+- * one for the channel in use, as the channel info events of a scan do for
+- * the other channels.
++/* Read the measured noise floor of the channel in use from the firmware's
++ * pdev stats, and keep it for the signals reported on that channel (see
++ * ath11k_noise_floor()). Return it, or 0 if there is none.
+  */
+-static void ath11k_mac_get_chan_noise_floor(struct ath11k *ar,
+-					    struct survey_info *ar_survey,
+-					    struct survey_info *survey)
++static s32 ath11k_mac_read_noise_floor(struct ath11k *ar)
+ {
+ 	struct ath11k_fw_stats_pdev *pdev;
++	bool db2dbm = test_bit(WMI_TLV_SERVICE_HW_DB2DBM_CONVERSION_SUPPORT,
++			       ar->ab->wmi_ab.svc_map);
+ 	s32 nf;
+ 
+ 	lockdep_assert_held(&ar->conf_mutex);
+ 
+-	if (ar->scan.state != ATH11K_SCAN_IDLE)
+-		return;
++	ar->noise_floor_time = jiffies;
++
++	if (!ar->rx_channel || ar->scan.state != ATH11K_SCAN_IDLE)
++		return 0;
+ 
+ 	if (ath11k_mac_get_fw_stats(ar, ar->pdev->pdev_id, 0,
+ 				    WMI_REQUEST_PDEV_STAT))
+-		return;
++		return 0;
+ 
+ 	spin_lock_bh(&ar->data_lock);
+ 	pdev = list_first_entry_or_null(&ar->fw_stats.pdevs,
+ 					struct ath11k_fw_stats_pdev, list);
+ 	nf = pdev ? pdev->ch_noise_floor : 0;
++	if (nf >= 0 || nf <= -127)
++		nf = 0;
++	if (nf && !db2dbm) {
++		WRITE_ONCE(ar->noise_floor_freq, ar->rx_channel->center_freq);
++		WRITE_ONCE(ar->noise_floor, nf);
++	}
++	spin_unlock_bh(&ar->data_lock);
++
++	ath11k_dbg(ar->ab, ATH11K_DBG_MAC, "noise floor %d dBm on %u MHz\n",
++		   nf, ar->rx_channel->center_freq);
++
++	return nf;
++}
++
++/* The noise floor in the firmware's bss channel info event is not the
++ * channel's measured noise floor: on IPQ8074 it reads about -109 dBm on
++ * 5 GHz and -102 dBm on 2.4 GHz, and barely moves, while the measured value
++ * the firmware reports in its pdev stats is -94 and -96. Report the measured
++ * one for the channel in use, as the channel info events of a scan do for
++ * the other channels.
++ */
++static void ath11k_mac_get_chan_noise_floor(struct ath11k *ar,
++					    struct survey_info *ar_survey,
++					    struct survey_info *survey)
++{
++	s32 nf = ath11k_mac_read_noise_floor(ar);
++
++	if (!nf)
++		return;
++
+ 	/* keep it for the channel too, so its survey shows the last measured
+ 	 * value once the radio has left it
+ 	 */
+-	if (nf < 0 && nf > -127)
+-		ar_survey->noise = nf;
++	spin_lock_bh(&ar->data_lock);
++	ar_survey->noise = nf;
+ 	spin_unlock_bh(&ar->data_lock);
+ 
+-	if (nf < 0 && nf > -127) {
+-		survey->noise = nf;
+-		survey->filled |= SURVEY_INFO_NOISE_DBM;
+-	}
++	survey->noise = nf;
++	survey->filled |= SURVEY_INFO_NOISE_DBM;
+ }
+ 
+ static int ath11k_mac_op_get_survey(struct ieee80211_hw *hw, int idx,
+@@ -9507,6 +9551,10 @@ static void ath11k_mac_op_sta_statistics(struct ieee80211_hw *hw,
+ 		ath11k_mac_put_chain_rssi(sinfo, arsta, "fw stats", true);
+ 	}
+ 
++	if (!db2dbm &&
++	    time_after(jiffies, ar->noise_floor_time + ATH11K_NOISE_FLOOR_REFRESH))
++		ath11k_mac_read_noise_floor(ar);
++
+ 	signal = arsta->rssi_comb;
+ 	if (!signal &&
+ 	    arsta->arvif->vdev_type == WMI_VDEV_TYPE_STA &&
+@@ -9521,14 +9569,14 @@ static void ath11k_mac_op_sta_statistics(struct ieee80211_hw *hw,
+ 		   db2dbm, arsta->rssi_comb, arsta->rssi_beacon);
+ 
+ 	if (signal) {
+-		sinfo->signal = db2dbm ? signal : signal + ATH11K_DEFAULT_NOISE_FLOOR;
++		sinfo->signal = db2dbm ? signal : signal + ath11k_noise_floor(ar, 0);
+ 		sinfo->filled |= BIT_ULL(NL80211_STA_INFO_SIGNAL);
+ 	}
+ 
+ 	sinfo->signal_avg = ewma_avg_rssi_read(&arsta->avg_rssi);
+ 
+ 	if (!db2dbm)
+-		sinfo->signal_avg += ATH11K_DEFAULT_NOISE_FLOOR;
++		sinfo->signal_avg += ath11k_noise_floor(ar, 0);
+ 
+ 	sinfo->filled |= BIT_ULL(NL80211_STA_INFO_SIGNAL_AVG);
+ }
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 08fd6795ed9e..dfb8509ede75 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -7695,7 +7695,7 @@ static void ath11k_mgmt_rx_event(struct ath11k_base *ab, struct sk_buff *skb)
+ 		status->freq = ieee80211_channel_to_frequency(rx_ev.channel,
+ 							      status->band);
+ 
+-	status->signal = rx_ev.snr + ATH11K_DEFAULT_NOISE_FLOOR;
++	status->signal = rx_ev.snr + ath11k_noise_floor(ar, status->freq);
+ 	status->rate_idx = ath11k_mac_bitrate_to_idx(sband, rx_ev.rate / 100);
+ 
+ 	hdr = (struct ieee80211_hdr *)skb->data;
+
+---
+base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
+change-id: 20261029-ath11k-signal-noise-floor-c7b10f2cd0bd
+prerequisite-change-id: 20261024-ath11k-rx-channel-switch-4ae05c7a827c:v1
+prerequisite-patch-id: 56c9f55a2b8fc7289ed2f2d736587a8869952253
+prerequisite-change-id: 20261024-ath11k-survey-noise-floor-c8a59c8c88f4:v1
+prerequisite-patch-id: 2d448d49f848e484eda837fc11f04458b594c770
+
+Best regards,
+--  
+Christopher Griffin <christophergriffin05@gmail.com>
+
+
