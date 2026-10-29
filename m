@@ -1,47 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283888;
-	b=wjA+66V56OVCYdpe3hMMkmo9kQass2mSS/1AXe1bX6gLi7B6iHLNL0uxXU10L1bS4y6X
-	 oso/TBvcicSX1AabDvf0Q9pScaAONpDVkFd+e3F7FCCM3qcNUE90uRdt5Hu4YDk/d2MVI
-	 Io4A/3seZWAa23SYAgZgnDE9z1G4pfkTmnWOOELJjh5CNp/RRqqCD3GR8pvYaAz1s1KsY
-	 JLs3Uk+iuuNLnJQsm2V1lKp+nBd1r2TKMZoIxw5u/EuwYvsPzwr63dk3jROPs0Tm+Xjz2
-	 aw3eWkH4wiIkm6L5Xp2qRsAJZGOkvE/zGSB83Ab5Hrl/0SL5Q+OPZA86a+QIuAWQw4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283888;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SxkkcfsluS6d+NVCz2poz3Y5Si8QKMa7Ic0pVGQHkyk=;
-	b=WHtYOVUs97qa4/oDQjl9UDU+6/ardyKGwfeEqVbWCDOZaVGTmX+HOta9+0XiZxq5Gwg3
-	 19nXIL1w3OFfk8jhDxU7/fklxdaZJ10bB27qwaG03TFpIiiPT1CLY05AXD7BUmNc7sPC7
-	 nWq2EGaQEZvfOwX+4oT/LjG6XR8t2eBHcjjeh/WMClc/g1V0LS6YAKTvehyoizZn3LzH9
-	 PakOoFsE6K7/diAdCPPG5nyzF38uDhwmS6P29/FUK/fZyC3/HSyOm5u4keiQ3JHAlzdrR
-	 pFx99P14whaDsCw6SoGtWXicMq2aOuFdpLsKO4Kn7xj9Ky3OYOxPBeuzEJbaum+aytQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OteUheN2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793283995;
+	b=Pkvm/0AQnqn5sNIjD1skYng5BCbDK81DuoIoAOGEvmjCM6LENb14c/yxoBSNveb6hYHD
+	 eg8KHOUgox314Q0VeH0RuzF846+Xn0KJ0LLp3fArjp4cTsCX9jntD4nlND+rK1QTWcsK6
+	 j6/nHI92eIqK6LLUQP0MFD88T3T4RmRwGruvjrjb0i2jRMaooii7j1NPbOuYT1UlcR1/q
+	 ZzxWz7z/tCu0RbuXU871HAQ3PoZG6BFKctF67I9jj+gUhX5FWfXOCmV2LawDWUVejH24m
+	 lQxyrfGjwUIDD02Ztp+4ElKevUNcv7aQxD9DEUxH+lVDQXtHE0/J0xRNGs/Sv4pzqlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283995;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HrHbtTBc2tP1jAaFtXLnfPOe2KN4rEIODss21JbcJiw=;
+	b=PwxEd4SFur52iYG6rOi2rLMK3Eosi50SWTG9qg9387+SrG5dXVCoNI2LR1cyCgVOahTZ
+	 0UCS3OcIDC7O3atZsa3zSrcnFgrTGWnpUFmEJjR1r//PfK7A60JD4tnM99d1W3zBC4jHM
+	 9LdtXXN7Z/Yd7SQ0bzLv6tSvz4LYMad6n8RANrjkSVzC0vs2NhFZF8tYaSDwXVLxJXL+p
+	 i7eBuZQAflFu6CQuhqYqv5Hl5iWZkzATD3H3pWB/xYk4h+YN9zyH69us8ZVdgLCfXUPDY
+	 lnpLsV25L/JSCn6YTBWPDVfy6p/IVY9VkG+TJlVyObxVPqcpK0uVU5sNjydriuq+b4A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fSSSbbSd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.34
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011034.outbound.protection.outlook.com [52.101.125.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37E8606A31E;
-	Thu, 29 Oct 2026 14:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A790606A31A;
+	Thu, 29 Oct 2026 14:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A790606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OteUheN2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE3F1F01825;
-	Thu, 29 Oct 2026 14:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283887;
-	bh=SxkkcfsluS6d+NVCz2poz3Y5Si8QKMa7Ic0pVGQHkyk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OteUheN2B32bcN/9f5UfOzNiidLI5B9Hm8n+cfKENxQbbyPjAfgEMmAWpOox7ULf9
-	 ADd38P2P44AqXSb4hgJKIJJDlmNn2Apmwre5vkrE6g+eEXgL+CVK/idHVFGO+OtJkn
-	 t6RxcY2eYwnapJ5IuPh/5zax4sVLJj3IEFkePyURCFjWkkAQqrNgdgffbKpO9oqgb/
-	 +PQosj7oDILNllKB6L2+ZbiVwSryf1sa9VQDCaS+zZZUTej5L/1oj3MuBsIRhtR2U2
-	 00APFSv+H7Z5hunV3cf6MkVbD6jPPuCCb27PyQXie7gQ//fYDIyQmQXkEjiGBxEWVY
-	 L3K14QXYNVLzg==
-Message-ID: <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
-Date: Thu, 29 Oct 2026 15:24:29 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fSSSbbSd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xr1LrKW1+BgjoVTgfw45xfjDdQoHSpvM5pckv0aq1lfeFLgG/ij2/yvGWYA1O86sYiRx3gHIzJiXDSLAWscV5lbvi1DgzEqORHtQNieyGrLIyUq1OrsTmvZ8a9QS5VMvfzlsleoEqHl8pAZsX4ZoLcArKYE7t0mR6Iii2c8G3wU5jGnb7KN7LINE7MsayorOZ9pG3qtgfa0PDaSSNb6iu3+yPOh11ghjAP5zLNsAx2BwGiNvCaQ+IcqFgKVgSW/uqd+lt01ZXoIaKkEC9czDTQccGdWit8yyyEs3NN88iZJC+E6BvNcjquwimTOI8N0gFxQSgFvxQ+QC/k4BGBjMpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HrHbtTBc2tP1jAaFtXLnfPOe2KN4rEIODss21JbcJiw=;
+ b=CcDqnMsKfX2U0sIgsrWepGZl5QB8jMplpVFB9L49lJUgYajSrrY4Xa/WEEDE12Ta5HDpqwXpYUF7x4jdTglKor6mmS3+mZi4cq08iBBsbC/BTvz6F5eLsWCLzm6NTbs9Z9wu6kbonWuf6jzmROGMalWIEer3v3GlRACFQ8cgz2i7ao9Ge/sJo5jFcNWZXhaa2dtIxZpAU2Gy6Sf5rOHnRqH63291XVCi+LfHgT9zm+noUHaWCG9EmM0VnEw1AIdeZGEmQOy6NIxQT1bKKh6lD/ATYdMHgGG7GhwhFDWkSBWPMZTDqCyk/1HKiyundtGz5SXMvafTM1pdmu/ORJs+Fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HrHbtTBc2tP1jAaFtXLnfPOe2KN4rEIODss21JbcJiw=;
+ b=fSSSbbSd3ISlYYhUChiSN0+6fnaf5wybJNe0RAqL/2u7i4X61qM/LJRqj7bIEJg7h3GQu9onlAdJ08dkFbRb9xbL/3nLARviqBC9e3R/oNaZ/6z76v1kKexiXzGk2kYa1n0/HKNU/VWqM3ehfPWKI9WZ3lW7QLyhrGisyZq/FeE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from OS7PR01MB13601.jpnprd01.prod.outlook.com
+ (2603:1096:604:35d::12) by OSZPR01MB9632.jpnprd01.prod.outlook.com
+ (2603:1096:604:1d7::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 14:26:29 +0000
+Received: from OS7PR01MB13601.jpnprd01.prod.outlook.com
+ ([fe80::35e3:29ad:b9cf:a3d8]) by OS7PR01MB13601.jpnprd01.prod.outlook.com
+ ([fe80::35e3:29ad:b9cf:a3d8%5]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 14:26:29 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Date: Thu, 29 Oct 2026 15:25:38 +0100
+Subject: [PATCH 2/2] clk: renesas: rzv2h: Report the DSI duty cycle from
+ the LVDS divider
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-2-47f23de6bdb1@bp.renesas.com>
+References: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-0-47f23de6bdb1@bp.renesas.com>
+In-Reply-To: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-0-47f23de6bdb1@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ biju.das.jz@bp.renesas.com, tomm.merciai@gmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793283976; l=8119;
+ i=tommaso.merciai.xr@bp.renesas.com; s=20251006; h=from:subject:message-id;
+ bh=LVE6RbJVP7mBhhy/pd9MiSjLEjFe7aKfecpxyQYf56U=;
+ b=7T+rtOb9gWDqh8mNL8vL6zZS5sVldHCsYc9zG0glccdZo/Myzp1YfRfvlsWmTxHC1WBNhi4fj
+ 7cIF28gWZVMBT3tbih14Tr1OOAraZFA8JQ3yBggeXoKCNqD9EZbfCra
+X-Developer-Key: i=tommaso.merciai.xr@bp.renesas.com; a=ed25519;
+ pk=J15CiW2gJfhl906eXCszPfqo+ddBW7v9wVMkAFyVDys=
+X-ClientProxiedBy: FR4P281CA0168.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::10) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,211 +109,298 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA
- boundaries
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-42-6f74bec9a5bb@kernel.org>
- <auMxQPze5cOvGbCe@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auMxQPze5cOvGbCe@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS7PR01MB13601:EE_|OSZPR01MB9632:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56047f20-f7b6-4f3f-3ec9-08df35c89f4a
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|52116014|1800799024|38350700014|11063799006|56012099006|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261028144727099003|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	UQsX1TUePlnYF0Mj9hue0A4726VirM510344KaxZsyNF2o9AYiWICgg2LZavq6o9FUO6IPIJ3dQniH+ggho2EaVi1chbYBx1PHSGEIgWQXoUwK9zCmCNYbXRvtX+Zkq9YM17YfwpvFdPBPGMrvIh/PY5kfLL9nkrSLy6Ac/n/eH6T/DvuMFgRPb9MDDrRSthiWYui43ziEs/cRDVnKfL0RKmDkq5zzpPEg/k8nBPKOPNzZMVBuXLsvOp5ch/jTb33loRKi2LXlUNzimi8moy+N1nFo2sSx9aJeTM9f25j/rSxkc4B4HHGJbfHRv9+l5ohceJBWxQV7UeWfU84V02ayNuHUgzgWtvUM44veX0KQqkWGXiAPsMguJ+zXGPoK+Rajze24CVYluvQeMlSf7iktmVDEPGigKk+lePJwW9I0S//KxmZnXe/mR/BvFYtyjf5cLEiCAv61SSTVJU4bUHXVezckXPayQd6hvh6JUwQyRymfAcDAzSJyxYRiUdmuRGZWKeD0vHq8IzdKlZ7/b5MsyUZAg8RM0NHSqcjIi74YLyBMGphneB17lkFuynBGOxzDe6xSrAPp2Yf6rYwig3OUntumh5AGF/pqnf/eUlbEO/G2MjtEmj8+fX16k+nIN6KIyZ0pIHkRbA1X+7QSkyw3ZiEusk48MBVQvVs66bl+ObwuIXU9d4WVUbWDFPYFA6e+icoRPWv1+GFVtSd7oCflKwioihxKfODlbyg7RdR+I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS7PR01MB13601.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(52116014)(1800799024)(38350700014)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261028144727099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bEQ2WExUZnZ1R0hjWTRLWkVLUUVOUHI2TGkyMUJZOWdMWEdpUWxsT1A0YmtU?=
+ =?utf-8?B?UWM0aUdNRGFJdjNlT25pcGdhd09mYUpYSWRVM0Z2V21xZlVUYkJIZVM4OUhs?=
+ =?utf-8?B?bzNlWlRFeEtCM29DMER3NklsQkpxa1kyMk9FNVlIdGtHSC9jYjM4ZVU0Ulh1?=
+ =?utf-8?B?YWhSMDZSYTNDbVh1VEkzbVNzazBjbDJsakpDeURjV3lCamhFSHV5WHlYdEFN?=
+ =?utf-8?B?SUtIWTRSSWtHdUY4UllRZTBqdTA1Q3FFQUxVVzR3aDNXZlBRd01PdkNKTDM3?=
+ =?utf-8?B?YmxGLzFvcjZGaXBaNlB4SnBReHZ4RXlwN2NlRjFLK2hTQS9PZ255a2JDNnAx?=
+ =?utf-8?B?TTNGY1Z1bXBPVmxOZ3VUeDgzZjdFMmh2bTVIVE42MXBBbERlQTFoZng4OXFB?=
+ =?utf-8?B?NVQySHhCZ0NNOWZ6aHJxSHlKNjNZUXVrNVFUUy9odmNWZVFwVTAzb1pFYUU0?=
+ =?utf-8?B?WGxnU01tdk00a095NFp5TjYyNjhMMExyRm1BTVpUUExqSFcwRm9jeERoejJw?=
+ =?utf-8?B?ZTl4OGJzMGtBMzVzeU1vWSt0Y2IxM1JSNUdMdGo0TWhxQTVrdS9kdWoyU3h0?=
+ =?utf-8?B?ZUx1TkF1VU5JODRjRlk1Znk2R2pTazRUZkRhbzA5bFZUSHMrbkZ3OFV6NDdM?=
+ =?utf-8?B?WGZ0UVIyUEdsQjZUNkFNZGVaODdIdTQ0VFB3aVFSQ2VOcUExREI3Y2VzUDdk?=
+ =?utf-8?B?bHRxOTJTYU1rU1JDQjJSbUo2ZnU0bU10ZVNZeXVTRW8zYTJ0YjUwY3cxT0ZR?=
+ =?utf-8?B?REMvQjVqOXh0SFJZak9EWXc1VTkrNnBkQzB0ZlIzdHZQanBqNnNOd2RBbjl3?=
+ =?utf-8?B?TTBhb1J3blJqN1Y5RTVqVmJ2OGRyN0J5NjlKeC9pZ01kalNFVHZzdWJDblFJ?=
+ =?utf-8?B?ZmlzbUVlWnY3NGRqc3AzTkw2OU1WQlk4NUIvTDRBUmQ1MHlPNWZ2ZEJFbmFi?=
+ =?utf-8?B?NmFyUWUzem9SNGxDVkFkeEJETWtQdWE3VkdIMVJlVnZvVTVRRGdHQXYyRTdy?=
+ =?utf-8?B?d25ZYW4wSGxXL1ltNEJkN0tRd3UvUEZZTXVpSnQ3cFlsZGpobEJ3ZGt6dS84?=
+ =?utf-8?B?V1ZMdUQxL05pNlprOTZVMDdZN29iTUpMVllPNFl6cWh0K1NSMkZuOW10NGpk?=
+ =?utf-8?B?L3JhY29KaXNVU0d2RTRuVkV6ZSsxNkkwVUE2UUYxbTFpK2x3TlZsM2hFZzdo?=
+ =?utf-8?B?ektZaGtoRUljTEtqOU5mYnRUOSt5cldCcEkwWThoOGJjeEViT0RDU2htUzNl?=
+ =?utf-8?B?TTVEVzVQT3dzT2Z1RFZ0d2JHNVh6M29MYVJaVllJQ2x4REdKQVlBMGlTdWJK?=
+ =?utf-8?B?Zk9lay9nb3hjVmxkZGgvUHR6OFRwOFQvTTNMa1d4YmxPU2RMK0lZVXAzdWZB?=
+ =?utf-8?B?cmlXY0k2VU13V2RVNHJ4VklpRkFXcWxuV0I0YitxZEFlZXhxK3NNUmUzd3gz?=
+ =?utf-8?B?a0F1MzFJMkhBUGF1MkZPd0k3UTRPK1BmUzVRZ2c3dTgyOEdXdTZSSTFzaDlX?=
+ =?utf-8?B?dHRvSlhDOW4xWUFZWDdtSXdrcUdhM3hQaUtRblpFK0JpR2VPbXZWYk1TU1Q2?=
+ =?utf-8?B?ZEZSWDg0N1lTRzNCbTIyMW40cDRGWitLTU5DV0JCbUhsZ0VOaVBPZjdjRnRT?=
+ =?utf-8?B?UUVDa3JRSlAxRkJ0dzVENnQ5MEdnVURIWmJGeWlBRkYxMEx4cjBnQm1rZFhs?=
+ =?utf-8?B?MXI3OUYrYXFYWlcvS1RhcjI0b29CTmhOS0hVTnNsN3E3aVRUTjV4bjlrZTNv?=
+ =?utf-8?B?WjZaY2xFdVpkdHViQy9JYWVqbUE4QmkydUdQVlBtNDJoZk1Ma200K3UvakFl?=
+ =?utf-8?B?K284VnVCMkZDSTJJdzdkdHZDRXp2aEVndnRyZS9TRCtZbVF1Y3B2L3k5L2hx?=
+ =?utf-8?B?R3lFZFc3OFJ6cG9taUxPK3EyZVJyNmRvSkF3Qy9HRXlheWhnTUVxaDN6LzJE?=
+ =?utf-8?B?TGhETzJXRnNzU1J5TXpmak1QQUVMbWkxNW4zQlpxNnBOVVZOcmg3SFVQZUwy?=
+ =?utf-8?B?N0xQMnVjNFN6SGgxOFJ5YTNkOXlDOVdXWW9KVXJXOERyeXpSWGZ6Z2FDS3hD?=
+ =?utf-8?B?WklBTEg2aWE1LzZiOUxnZHQ0N2JzdnJNVjFkZTR6N2VuY0owNHRJUUZoS0kw?=
+ =?utf-8?B?RFBIWGRFTG1zT1grSHRLTTBUQ2VZbjYwVFlnNGVpUm1Qdm1BbWJIb1N6YnZC?=
+ =?utf-8?B?YkswN1JNMXV5R2Fmcm4zYXBpTTVNN01aMk52WHk2L1VCNlpGejBHd1pSS3dV?=
+ =?utf-8?B?NVdpRG52YWVzMXVEM3BhT3p1S1BnNDMzOVBnUjRRNk9peWVKeS9jazJKd3Y3?=
+ =?utf-8?B?ZVpsb0txRURZT0JjTENVWXIxS21hUmI3N2RpeFR4VVNaRkt3emZmYWQrU2d4?=
+ =?utf-8?Q?0bWIdyfqIiCm7ItjPdGMTTyyjw2JBThD7GsGJ?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56047f20-f7b6-4f3f-3ec9-08df35c89f4a
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 14:26:29.6846
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0pxD0DSyILGUKBP7Nh2B/wSt71Hh3noEmuRjFwyLDFp9zZXSoEA3wEapSzRMTypcWh96NcUmHi9uTc2RcndXiKdVpnfnVIO4I5hsautmKlHGI3rPwsy8sdpHHGuL4SLZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB9632
 
-On 10/29/26 12:45, Kiryl Shutsemau wrote:
-> On Tue, Oct 27, 2026 at 12:18:02AM +0100, David Hildenbrand (Arm) wrote:
->> PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
->> allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
->> only handles PMDs.
->>
->> After faulting a writable PUD-sized VFIO BAR mapping, changing its first
->> page to read-only with mprotect() makes the PMD walk treat the PUD leaf
->> as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
->> the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
->>
->> Walk the page tables once at each adjusted boundary and split a huge
->> PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
->> PMD-aligned.
->>
->> Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/huge_memory.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++--------
->>  1 file changed, 60 insertions(+), 10 deletions(-)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 08e58cda7d37d..d090642ac8c2b 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -3503,16 +3503,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
->>  	__split_huge_pmd(vma, pmd, address, freeze);
->>  }
->>  
->> -static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
->> +static bool pud_split_required(const struct vm_area_struct *vma,
->> +		unsigned long address)
->>  {
->> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
->> +		return false;
->> +	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
->> +		return false;
->>  	/*
->> -	 * If the new address isn't hpage aligned and it could previously
->> -	 * contain an hugepage: check if we need to split an huge pmd.
->> +	 * Only selected VMAs support mapping PUDs for now. Lift the
->> +	 * restriction once this changes.
->>  	 */
->> -	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
->> -	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
->> -			 ALIGN(address, HPAGE_PMD_SIZE)))
->> -		split_huge_pmd_address(vma, address, false);
->> +	if (!vma_is_dax(vma) && !vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT))
->> +		return false;
->> +	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
->> +			    ALIGN(address, HPAGE_PUD_SIZE));
->> +}
->> +
->> +static bool pmd_split_required(const struct vm_area_struct *vma,
->> +		unsigned long address)
->> +{
->> +	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
->> +		return false;
->> +
->> +	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
->> +			    ALIGN(address, HPAGE_PMD_SIZE));
->> +}
->> +
->> +static void split_huge_leaf(struct vm_area_struct *vma,
->> +		unsigned long address)
->> +{
->> +	const bool split_pud = pud_split_required(vma, address);
->> +	const bool split_pmd = pmd_split_required(vma, address);
->> +	pgd_t *pgd;
->> +	p4d_t *p4d;
->> +	pud_t *pud;
->> +	pmd_t *pmd;
->> +
->> +	/*
->> +	 * mmap, VMA and rmap write locks protect the walk; the split helpers
->> +	 * take the page table locks.
->> +	 */
->> +	if (!split_pud && !split_pmd)
->> +		return;
->> +
->> +	pgd = pgd_offset(vma->vm_mm, address);
->> +	if (!pgd_present(*pgd))
->> +		return;
->> +
->> +	p4d = p4d_offset(pgd, address);
->> +	if (!p4d_present(*p4d))
->> +		return;
->> +
->> +	pud = pud_offset(p4d, address);
->> +	if (split_pud && pud_leaf(*pud))
->> +		__split_huge_pud(vma, pud, address);
->> +	if (!split_pmd || !pud_present(*pud))
->> +		return;
-> 
-> This looks wrong.
-> 
-> We should bail out here if PUD is was a leaf and wasn't split.
+The 4/7 duty cycle of the LVDS path comes from the division by 7, not from
+the PLLDSI mux, as an odd divider cannot produce a 50% duty cycle.
 
-__split_huge_pud() must split a leave. Either by zapping it (what we do right
-now) or by populating page tables (as in Usama's PoC).
+Report it from a dedicated LVDS divider clock type and let the core walk up
+to the selected parent through CLK_DUTY_CYCLE_PARENT. The reported values
+do not change, the mux keeps selecting the path, and its duty cycle
+constants go away.
 
-We can throw in here a
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+---
+ drivers/clk/renesas/r9a09g047-cpg.c |   4 +-
+ drivers/clk/renesas/rzv2h-cpg.c     | 120 +++++++++++++++++++++++++++---------
+ drivers/clk/renesas/rzv2h-cpg.h     |   6 +-
+ 3 files changed, 99 insertions(+), 31 deletions(-)
 
-	if (WARN_ON_ONCE(!pud_leaf(pud)))
-		return;
-
-But I don't see how that would be required.
-
-If we run into an un-splittable PUD something else is completely messed up.
-
-(this is not hugetlb code :) )
+diff --git a/drivers/clk/renesas/r9a09g047-cpg.c b/drivers/clk/renesas/r9a09g047-cpg.c
+index f576dd441a11..cecc6d38d8f0 100644
+--- a/drivers/clk/renesas/r9a09g047-cpg.c
++++ b/drivers/clk/renesas/r9a09g047-cpg.c
+@@ -226,8 +226,8 @@ static const struct cpg_core_clk r9a09g047_core_clks[] __initconst = {
+ 		       CSDIV1_DIVCTL2, dtable_2_16_plldsi),
+ 	DEF_PLLDSI_DIV(".plldsi1_csdiv", CLK_PLLDSI1_CSDIV, CLK_PLLDSI1,
+ 		       CSDIV1_DIVCTL3, dtable_2_16_plldsi),
+-	DEF_FIXED(".plldsi0_div7", CLK_PLLDSI0_DIV7, CLK_PLLDSI0, 1, 7),
+-	DEF_FIXED(".plldsi1_div7", CLK_PLLDSI1_DIV7, CLK_PLLDSI1, 1, 7),
++	DEF_PLLDSI_DIV_LVDS(".plldsi0_div7", CLK_PLLDSI0_DIV7, CLK_PLLDSI0, 7),
++	DEF_PLLDSI_DIV_LVDS(".plldsi1_div7", CLK_PLLDSI1_DIV7, CLK_PLLDSI1, 7),
+ 	DEF_PLLDSI_SMUX(".smux2_dsi0_clk", CLK_SMUX2_DSI0_CLK,
+ 			SSEL3_SELCTL0, smux2_dsi0_clk),
+ 	DEF_PLLDSI_SMUX(".smux2_dsi1_clk", CLK_SMUX2_DSI1_CLK,
+diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-cpg.c
+index 12a5f058dd71..7ca2447fd811 100644
+--- a/drivers/clk/renesas/rzv2h-cpg.c
++++ b/drivers/clk/renesas/rzv2h-cpg.c
+@@ -75,11 +75,6 @@
+ /* On RZ/G3E SoC we have two DSI PLLs */
+ #define MAX_CPG_DSI_PLL		2
+ 
+-#define CPG_PLLDSI_SMUX_LVDS_DUTY_NUM		4
+-#define CPG_PLLDSI_SMUX_LVDS_DUTY_DEN		7
+-#define CPG_PLLDSI_SMUX_DSI_RGB_DUTY_NUM	1
+-#define CPG_PLLDSI_SMUX_DSI_RGB_DUTY_DEN	2
+-
+ /**
+  * struct rzv2h_pll_dsi_info - PLL DSI information, holds the limits and parameters
+  *
+@@ -466,26 +461,6 @@ static int rzv2h_cpg_plldsi_smux_determine_rate(struct clk_hw *hw,
+ 	return clk_mux_ops.determine_rate(hw, req);
+ }
+ 
+-static int rzv2h_cpg_plldsi_smux_get_duty_cycle(struct clk_hw *hw,
+-						struct clk_duty *duty)
+-{
+-	u8 parent = clk_mux_ops.get_parent(hw);
+-
+-	/*
+-	 * CDIV7_DSIx_CLK - LVDS path (div7) - duty 4/7.
+-	 * CSDIV_DSIx - DSI/RGB path (csdiv) - duty 1/2.
+-	 */
+-	if (parent == 0) {
+-		duty->num = CPG_PLLDSI_SMUX_LVDS_DUTY_NUM;
+-		duty->den = CPG_PLLDSI_SMUX_LVDS_DUTY_DEN;
+-	} else {
+-		duty->num = CPG_PLLDSI_SMUX_DSI_RGB_DUTY_NUM;
+-		duty->den = CPG_PLLDSI_SMUX_DSI_RGB_DUTY_DEN;
+-	}
+-
+-	return 0;
+-}
+-
+ static int rzv2h_cpg_plldsi_smux_set_duty_cycle(struct clk_hw *hw,
+ 						struct clk_duty *duty)
+ {
+@@ -497,8 +472,7 @@ static int rzv2h_cpg_plldsi_smux_set_duty_cycle(struct clk_hw *hw,
+ 	 * - If duty > 50% (num/den > 1/2), select LVDS path (parent 0)
+ 	 * - Otherwise, select DSI/RGB path (parent 1)
+ 	 */
+-	if (duty->num * CPG_PLLDSI_SMUX_DSI_RGB_DUTY_DEN >
+-	    duty->den * CPG_PLLDSI_SMUX_DSI_RGB_DUTY_NUM)
++	if (duty->num * 2 > duty->den)
+ 		parent_idx = 0;
+ 	else
+ 		parent_idx = 1;
+@@ -517,7 +491,6 @@ static const struct clk_ops rzv2h_cpg_plldsi_smux_ops = {
+ 	.determine_rate = rzv2h_cpg_plldsi_smux_determine_rate,
+ 	.get_parent = rzv2h_cpg_plldsi_smux_get_parent,
+ 	.set_parent = rzv2h_cpg_plldsi_smux_set_parent,
+-	.get_duty_cycle = rzv2h_cpg_plldsi_smux_get_duty_cycle,
+ 	.set_duty_cycle = rzv2h_cpg_plldsi_smux_set_duty_cycle,
+ };
+ 
+@@ -890,6 +863,94 @@ rzv2h_cpg_fixed_mod_status_clk_register(const struct cpg_core_clk *core,
+ 	return &clk_hw_data->fix.hw;
+ }
+ 
++static int rzv2h_cpg_plldsi_div_lvds_get_duty_cycle(struct clk_hw *hw,
++						    struct clk_duty *duty)
++{
++	struct clk_fixed_factor *fix = to_clk_fixed_factor(hw);
++
++	/*
++	 * An odd divider cannot generate a 50% duty cycle: the output stays
++	 * high for (div + 1) / 2 input clock cycles out of div, e.g. a divider
++	 * of 7 gives a duty cycle of 4/7.
++	 */
++	duty->num = DIV_ROUND_UP(fix->div, 2);
++	duty->den = fix->div;
++
++	return 0;
++}
++
++static int rzv2h_cpg_plldsi_div_lvds_determine_rate(struct clk_hw *hw,
++						    struct clk_rate_request *req)
++{
++	return clk_fixed_factor_ops.determine_rate(hw, req);
++}
++
++static int rzv2h_cpg_plldsi_div_lvds_set_rate(struct clk_hw *hw,
++					      unsigned long rate,
++					      unsigned long parent_rate)
++{
++	return clk_fixed_factor_ops.set_rate(hw, rate, parent_rate);
++}
++
++static unsigned long rzv2h_cpg_plldsi_div_lvds_recalc_rate(struct clk_hw *hw,
++							   unsigned long parent_rate)
++{
++	return clk_fixed_factor_ops.recalc_rate(hw, parent_rate);
++}
++
++static unsigned long
++rzv2h_cpg_plldsi_div_lvds_recalc_accuracy(struct clk_hw *hw,
++					  unsigned long parent_accuracy)
++{
++	return clk_fixed_factor_ops.recalc_accuracy(hw, parent_accuracy);
++}
++
++static const struct clk_ops rzv2h_cpg_plldsi_div_lvds_ops = {
++	.determine_rate = rzv2h_cpg_plldsi_div_lvds_determine_rate,
++	.set_rate = rzv2h_cpg_plldsi_div_lvds_set_rate,
++	.recalc_rate = rzv2h_cpg_plldsi_div_lvds_recalc_rate,
++	.recalc_accuracy = rzv2h_cpg_plldsi_div_lvds_recalc_accuracy,
++	.get_duty_cycle = rzv2h_cpg_plldsi_div_lvds_get_duty_cycle,
++};
++
++static struct clk_hw * __init
++rzv2h_cpg_plldsi_div_lvds_clk_register(const struct cpg_core_clk *core,
++				       struct rzv2h_cpg_priv *priv)
++{
++	struct clk_init_data init = { };
++	struct clk_fixed_factor *fix;
++	const struct clk_hw *parent;
++	const char *parent_name;
++	int ret;
++
++	WARN_DEBUG(core->parent >= priv->num_core_clks);
++	parent = priv->clks[core->parent];
++	if (IS_ERR(parent))
++		return ERR_CAST(parent);
++
++	parent_name = clk_hw_get_name(parent);
++
++	fix = devm_kzalloc(priv->dev, sizeof(*fix), GFP_KERNEL);
++	if (!fix)
++		return ERR_PTR(-ENOMEM);
++
++	init.name = core->name;
++	init.ops = &rzv2h_cpg_plldsi_div_lvds_ops;
++	init.flags = CLK_SET_RATE_PARENT;
++	init.parent_names = &parent_name;
++	init.num_parents = 1;
++
++	fix->hw.init = &init;
++	fix->mult = core->mult;
++	fix->div = core->div;
++
++	ret = devm_clk_hw_register(priv->dev, &fix->hw);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return &fix->hw;
++}
++
+ static struct clk_hw
+ *rzv2h_cpg_clk_src_twocell_get(struct of_phandle_args *clkspec,
+ 			       void *data)
+@@ -983,6 +1044,9 @@ rzv2h_cpg_register_core_clk(const struct cpg_core_clk *core,
+ 		}
+ 		clk_hw = rzv2h_cpg_fixed_mod_status_clk_register(core, priv);
+ 		break;
++	case CLK_TYPE_PLLDSI_DIV_LVDS:
++		clk_hw = rzv2h_cpg_plldsi_div_lvds_clk_register(core, priv);
++		break;
+ 	case CLK_TYPE_PLL:
+ 		clk_hw = rzv2h_cpg_pll_clk_register(core, priv, &rzv2h_cpg_pll_ops);
+ 		break;
+diff --git a/drivers/clk/renesas/rzv2h-cpg.h b/drivers/clk/renesas/rzv2h-cpg.h
+index 4492f4e7b9ae..fa6caf693a72 100644
+--- a/drivers/clk/renesas/rzv2h-cpg.h
++++ b/drivers/clk/renesas/rzv2h-cpg.h
+@@ -207,6 +207,7 @@ enum clk_types {
+ 	CLK_TYPE_SMUX,		/* Static Mux */
+ 	CLK_TYPE_PLLDSI,	/* PLLDSI */
+ 	CLK_TYPE_PLLDSI_DIV,	/* PLLDSI divider */
++	CLK_TYPE_PLLDSI_DIV_LVDS, /* PLLDSI LVDS divider */
+ 	CLK_TYPE_PLLDSI_SMUX,	/* PLLDSI Static Mux */
+ };
+ 
+@@ -246,12 +247,15 @@ enum clk_types {
+ 		 .dtable = _dtable, \
+ 		 .parent = _parent, \
+ 		 .flag = CLK_SET_RATE_PARENT)
++#define DEF_PLLDSI_DIV_LVDS(_name, _id, _parent, _div) \
++	DEF_BASE(_name, _id, CLK_TYPE_PLLDSI_DIV_LVDS, _parent, .div = _div, .mult = 1)
+ #define DEF_PLLDSI_SMUX(_name, _id, _smux_packed, _parent_names) \
+ 	DEF_TYPE(_name, _id, CLK_TYPE_PLLDSI_SMUX, \
+ 		 .cfg.smux = _smux_packed, \
+ 		 .parent_names = _parent_names, \
+ 		 .num_parents = ARRAY_SIZE(_parent_names), \
+-		 .flag = CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT, \
++		 .flag = CLK_SET_RATE_PARENT | CLK_DUTY_CYCLE_PARENT | \
++			 CLK_SET_RATE_NO_REPARENT, \
+ 		 .mux_flags = CLK_MUX_HIWORD_MASK)
+ 
+ /**
 
 -- 
-Cheers,
+2.54.0
 
-David
