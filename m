@@ -1,48 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259368;
-	b=zfC1SdMg7MlIbg04hWgZjQpKzS/Ait4PNaKVSIqkS0q6/47E6P1YkAo/Gf2iZOtAzQUB
-	 m2NnrEA7hZ/Hv0d/1TpLXkCn29/zu3Zl1CivYzlZIbr9zalBzgu8uWKINW0TdpDodfK68
-	 6WoctUcUmrAKfN/yc79P3kvG2t3UjzhZ1gBXgdO1snlHSAxgb3egg93Ww/2tCuMbMFlP0
-	 5kk7mXOs40PvNPbqZB5SFD6+imv/1ivr2DbpIx7tA8aSWbtDQNc5N5C944a3Dwb61GSj5
-	 8Jzg7WruHRo2teJtBT7b8/ApybvnsNd3i9HmAMT9DgwHs+NP1wSkLPmBbaBAJm6qNcA==
+	t=1793259445;
+	b=p08dq7vMtf3Ig51NLLSdfq/XECwW/ZUtYsC6gn6SLciWMnODJL5y41Brsyl0xLPvcJYr
+	 Vt/AZVZ0cvpeIyi4abvwnFSMfIKFQXM/1lHzK9aTPTmjby+89fYfrsjOoybJ9mkD5nZsA
+	 TkM/sxmNh2/vMl9FLwWPX3//f21J+W8CcMbIs/YZUuUFJp8NxZHcHzUZ6oVDhvamNx93o
+	 vyoruCirytUaj2Cq3ECWSh71jzvgGQd62zxKGkk3aEY3P+qQJRtP+grFR51R6HmYUAg2c
+	 vnrf4amO3aKW5xjDXfMHw4GCVLuxoMswX66AVoOWSD3WhaF++tE3BgIcJB/T1bQfbZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259368;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0gBUd5jJHGj2LvC1m8ir7f7MkneqJ2TxhRwTgxUGW4s=;
-	b=qdZv5mhGx2RjBHA+EJdL4DhNlMA2WSW3N0cgG54ZOiY75mdOT+a1xfCbx4gydDuVxP0T
-	 xDE6Hw4UG8BHCN58YGTGASNJ1Vu0KmqTT5r8UjrGA2Qapg7aylPusxeiQir7AFLsnb3N+
-	 99iUo8Dh8xEFM4m85HKvnLAn6aZjnZeYkRXyi3aP7gFTW64muY8Ln7ba21mV01bJS0YWW
-	 fKJf7erQUXSIJUNdjLJLbFhIwSayPn4QhzIWIIHNiQTF0ZG1ZGw3Vpkybqq7XNO9t6RBF
-	 y1lDKEEqtemDYDbGo2R3fYcI4kKch3nfn1AZpRNO63qo7ee8bya+k4DUtgF4vvactcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
+	b=a4GLpehPpDUM0uHiyan43E02LqRcAX7Xt0tk1wbEORlhwV8Dt4o33axrBQkGyoS16wuK
+	 ro+8ViCjOhIqtttqw3OQ38UrLF59+GnOmPEArTdWYh4nOr7Hql15Ykbv2q5OqW9xFOWvs
+	 YH7PgIW7tjfPL4uC08+q2KshIsGD8V46q5V3ltRoVh27du+5mA9MNJFYT+zcHuyUtUQaV
+	 hTHDQskhcLmFS7CVIk2V74MvcoU0hcVUWf9OCsLrsmYH7AOPCXXpipHWXYS4PNek5ikCB
+	 V9pwdwO6dEF5OuOWxrE6zdhmPsAgNzdLNgOMnOC8LV2m6Nouo/iPsw1qu2R7kl7BaxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEnPCkwA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="TJhrKm/D";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB738606A320;
-	Thu, 29 Oct 2026 07:36:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6C5606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:37:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6C5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEnPCkwA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE051F01825;
-	Thu, 29 Oct 2026 07:36:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793259367;
-	bh=0gBUd5jJHGj2LvC1m8ir7f7MkneqJ2TxhRwTgxUGW4s=;
-	h=From:Date:Subject:To:Cc;
-	b=YEnPCkwAU2o1DTOBBoPs8ZS3s6493xl3T1xVf7fVU0LBDzMU7LFXmXZMmgcFZD35W
-	 wV0Iq7lYIhKBNjeiBm+AfAg4wFiAxJw18IO+1LRrCPLnKQ+XbFcfgkpPQlFnqSBBE6
-	 x8cso0m9D2/iv0/2jFlmUHVlDENej0MvwAh5owg4LEbovxjCnTYtL+uekLgROYvDGL
-	 4IRgf0T3rofH6gpPn0e1gMbpz0HAQ6r9vQKFZhdPe9RnEk/DQsfk7UeusdAzUAYwOm
-	 0RBKYq1Go5/jBkYwWDeLNaH7GqNJKVqxCzk5gx5tcjVndgMVroRM6ObucLraFX6f9/
-	 oZ9BV411ONL7A==
-From: Eugen Hristev <ehristev@kernel.org>
-Date: Thu, 29 Oct 2026 09:25:19 +0200
-Subject: [PATCH] PCI: iproc: Fix MSI shutdown operations
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TJhrKm/D
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so14196655e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793259443; x=1793864243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
+        b=TJhrKm/Damb4bsRQwz1SifntKVJJkxhYDgN962GmLP/xy2kCtvUcONSf1d3+6RBcEe
+         lmZNHUhzIB4jgy/hPyIeBvELGo3Zaym0jDYgFFEmFENYa5YnAvR97dRnBaFfypF3m5FI
+         hwNukOS8ezJt9tUz+YtT0U46mKX057MGXy+J3BDUZ17jmN+lesBATi2ZrRG4L1hWpZ5l
+         +ocxI6217Nx2ssWp2SRx1dhZS+Cmciv8QJIM3AlT1PG410DBDeuLf3jIh4eHwjhr48G5
+         +FJRUPMSFEvAhPEyLc22DsORQuXV3TIyt++gg0hf8helkMnlmvaYzG2wDBe3hWMnjDrI
+         iEDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793259443; x=1793864243;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
+        b=QBlg5pxjknAV7KuIxaXb80h8p8bFz/FWoCSW52S+IfJrolHm+GTPGVPJN+mBjCC5yg
+         dev8KYMZdQ5x/wvMXFu9Y+zil5enEdoCdIzAeKKi9je2Ef8yd/SsInEja8TvqGD7NLs9
+         fWYBVMzwYG8n6DaBm+1b5X0MDXtWgxKl4Oohto2BQwLOXlJG8OpBU1AJ8i9e4+mKKDUH
+         a8itORVbpEO1fRAiPBgtNqWydISfBVDJ9HmsY+V5GE2D2Wn3J/1XQAQHixf/f+ZhPi6Q
+         dfOthdKy9XmOJkriuESjMw+OAhJ+KCTnnm6/ZNDlBlGpmXnj4f8Ww0ej4TfrxMM/IXM5
+         5D8A==
+X-Gm-Message-State: AFq9FYISJd8uSpjjaXkR3lxvOwptviw2r0ZbnoLuyBrjKgFNOaLJIDzs
+	dMPvT0bnTMTm1Qq+2br1+EGj2gKR50OVFIQnLI6sKMSItJEtTEejYr5DHb58xUaow2U=
+X-Gm-Gg: AYBFou3kYbBwnNVnu+qc8XviIkayRifiqOC+rSgvay/Tz1xFRSRoHdPc8Wu8N6R6yU7
+	gQdaG0ba67GHKlT2tZ9FufTEd8R3LNMxD0OguYqyBKASFaKaJcRDZTa/zpjcSnoBsXJcH5SsIP/
+	HrvmnWmNoK8lUkhUXVHzxIDoEisaW4sEQx7cG4jfp5BMhcgkDrOdRMOTqoo+ZjEWzFqlDKn/bk7
+	k0JjoQyYkAaIH5YM6X2qwv0BP/AuKIlMVX0zpCMRtFLDe5Rv1Oz6APmB+7M7vLCG3sNKSnifr4L
+	9Wrnf26NgK+ZPPFX2smLFdJf8b2H1I7DJ3b0ePGogMWdTqnOwlmbUWi17TqEp1+8ILb1ApvZ7vq
+	UByjRkep3i5z5W+t84iFAx9kfa+B/zwId9XYt8QitpmRiDBeerQEH1QyttWXo3THrDe5n4EOZT0
+	PUxAY5eX9IsnThIYDmfmqeuSEVyjqykQw1pDV9DtavgzqBdK0u/LrR2/PoJdk9nOH9vR/m4BtgB
+	bavPh0vg0xraSdIspxKsfWI/CLRxLSx/GCG51vzkR7U3hf2xqX4BOHWfMKMA4zuUFdLakpkb7Qc
+	PgTvo9CSUoXTL4UsjUjoE+LIjReLpsJk5orc7dD5flwyIVGds+sH5tULE99Fnz5QXAaclzN5xcQ
+	=
+X-Received: by 2002:a05:600c:4f94:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a967202997mr107918525e9.26.1793259442995;
+        Thu, 29 Oct 2026 00:37:22 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm68388545e9.3.2026.10.29.00.37.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 00:37:22 -0700 (PDT)
+Message-ID: <2a2a5d93-1c10-4533-8709-437ceb6a3f94@suse.com>
+Date: Thu, 29 Oct 2026 09:37:20 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,119 +92,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-iproc-shutdown-v1-1-05f828561116@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAN704moC/yXMOQqAMBBA0avI1AZiBEGvIhZZRh2LRDJuELy7U
- ctX/J+AMRIydEWCiAcxBZ9RlQXYWfsJBblsUFI1lVStoDUGK3jeNxdOL7QxxmItldMacrRGHOn
- 6hv3wm3ezoN3eC9z3A1e4wtNyAAAA
-X-Change-ID: 20261029-iproc-shutdown-abbbce302daa
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Marc Zyngier <maz@kernel.org>, Vikram Prakash <vikramp@broadcom.com>
-Cc: Anup Patel <anup.patel@broadcom.com>, linux-pci@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Eugen Hristev <ehristev@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2980; i=ehristev@kernel.org;
- h=from:subject:message-id; bh=e5i4rIOHYC9b5xjEEnkOG0yjqcJV2VKbsARhJj7+xXg=;
- b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLIefY8vLihv/frkyqmaySpJRtLzut+4mM5RenRkzcJfk
- R8aatnudJSwMIhxMciKKbJUm/yrFe7f4X7S1VIFZg4rE8gQBi5OAZhIgyMjQ5v/ndtBcqW17+be
- mHlir6L0O/N/H5pm93+bcP+4zOVfctsYvukFLTzJ9q+Gz+iMx56yXUKPv0ppzZ7A0lWytdcxpHc
- rPwA=
-X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
- fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+To: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org,
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, jgg@ziepe.ca,
+ david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+ rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+ drdeeglaze@gmail.com, James.Bottomley@HansenPartnership.com, aik@amd.com,
+ jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+ jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+ suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+ sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On reboot, shutting down iPROC leaves MSI irqs enabled and not
-cleaned up. This can lead to IRQs being served after the iPROC
-was shutdown.
-Fix it by implementing an MSI shutdown procedure, and call it
-before the iPROC shutdown.
 
-Assisted-by: Github Copilot
-Fixes: 3bc2b2348835 ("PCI: iproc: Add iProc PCIe MSI support")
-Signed-off-by: Eugen Hristev <ehristev@kernel.org>
----
- drivers/pci/controller/pcie-iproc-msi.c | 16 ++++++++++++++++
- drivers/pci/controller/pcie-iproc.c     |  3 +++
- drivers/pci/controller/pcie-iproc.h     |  4 ++++
- 3 files changed, 23 insertions(+)
 
-diff --git a/drivers/pci/controller/pcie-iproc-msi.c b/drivers/pci/controller/pcie-iproc-msi.c
-index 9ba242ab9596..1d19db67f314 100644
---- a/drivers/pci/controller/pcie-iproc-msi.c
-+++ b/drivers/pci/controller/pcie-iproc-msi.c
-@@ -651,6 +651,22 @@ int iproc_msi_init(struct iproc_pcie *pcie, struct device_node *node)
- }
- EXPORT_SYMBOL(iproc_msi_init);
- 
-+void iproc_msi_shutdown(struct iproc_pcie *pcie)
-+{
-+	struct iproc_msi *msi = pcie->msi;
-+	unsigned int index;
-+
-+	if (!msi)
-+		return;
-+
-+	iproc_msi_disable(msi);
-+	iproc_msi_read_reg(msi, IPROC_MSI_CTRL, msi->nr_irqs - 1);
-+
-+	for (index = 0; index < msi->nr_irqs; index++)
-+		disable_irq(msi->grps[index].gic_irq);
-+}
-+EXPORT_SYMBOL(iproc_msi_shutdown);
-+
- void iproc_msi_exit(struct iproc_pcie *pcie)
- {
- 	struct iproc_msi *msi = pcie->msi;
-diff --git a/drivers/pci/controller/pcie-iproc.c b/drivers/pci/controller/pcie-iproc.c
-index afb3aa38ac6b..6f3dc2f81a1c 100644
---- a/drivers/pci/controller/pcie-iproc.c
-+++ b/drivers/pci/controller/pcie-iproc.c
-@@ -756,8 +756,11 @@ static void iproc_pcie_perst_ctrl(struct iproc_pcie *pcie, bool assert)
- 
- int iproc_pcie_shutdown(struct iproc_pcie *pcie)
- {
-+	dev_dbg(pcie->dev, "quiescing MSI before PCIe reset\n");
-+	iproc_msi_shutdown(pcie);
- 	iproc_pcie_perst_ctrl(pcie, true);
- 	msleep(500);
-+	dev_dbg(pcie->dev, "PCIe shutdown complete\n");
- 
- 	return 0;
- }
-diff --git a/drivers/pci/controller/pcie-iproc.h b/drivers/pci/controller/pcie-iproc.h
-index c4443f236ca3..54e6e365774e 100644
---- a/drivers/pci/controller/pcie-iproc.h
-+++ b/drivers/pci/controller/pcie-iproc.h
-@@ -114,6 +114,7 @@ int iproc_pcie_shutdown(struct iproc_pcie *pcie);
- 
- #ifdef CONFIG_PCIE_IPROC_MSI
- int iproc_msi_init(struct iproc_pcie *pcie, struct device_node *node);
-+void iproc_msi_shutdown(struct iproc_pcie *pcie);
- void iproc_msi_exit(struct iproc_pcie *pcie);
- #else
- static inline int iproc_msi_init(struct iproc_pcie *pcie,
-@@ -121,6 +122,9 @@ static inline int iproc_msi_init(struct iproc_pcie *pcie,
- {
- 	return -ENODEV;
- }
-+static inline void iproc_msi_shutdown(struct iproc_pcie *pcie)
-+{
-+}
- static inline void iproc_msi_exit(struct iproc_pcie *pcie)
- {
- }
+On 15.10.26 г. 17:50 ч., Jiri Pirko wrote:
+> From: Jiri Pirko <jiri@nvidia.com>
+> 
+> Linux has several attestation interfaces tied to individual technologies.
+> That makes evidence retrieval, measurement registers, device state and
+> kernel consumers provider-specific.
+> 
+> This series introduces a common attestation subsystem. Its goal is to
+> support platform, TEE and device providers through one model, including
+> TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed devices.
+> This first series implements the common subsystem and a TDX provider.
+> Existing native TDX tsm_mr and tsm_report interfaces remain independent.
 
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-iproc-shutdown-abbbce302daa
+Wasn't config-tsm supposed to be this common attestation subsystem? Was 
+this discussed when the initial config-tsm was proposed? Why is this 
+coming now?
 
-Best regards,
---  
-Eugen Hristev <ehristev@kernel.org>
+> 
+> Attestation devices use CTLV, a schema-driven character-device TLV UAPI.
+> Compared with sysfs or configfs, CTLV executes one validated request
+> atomically instead of assembling a transaction through several files.
+> Compared with netlink, an opened device fd directly identifies authority
+> and lifetime, can be delegated normally, and owns its event queue. CTLV
+> also provides:
 
+Assuming we want to go through the route of CTLV, do we really want an 
+attestation-specific  interface, or most of this functionality can 
+simply be implemented as a specific genetlink protocol, utilising all 
+the existing hardening that has gone into netlink's infrastructure to 
+marshal messages from userspace to kernel space?
+
+> 
+>    - generated kernel metadata, UAPI constants and documentation;
+>    - strict type, bounds, nesting and required-field validation;
+>    - runtime operation and schema introspection;
+>    - family inheritance and extension points;
+>    - fragmented queries with generation checks;
+>    - per-fd event subscription, overflow reporting and removal notification;
+>    - large input and output blobs.
+> 
+> The attestation family exposes capabilities, evidence, measurement-register
+> topology and operations, an append-only MR journal and journal
+> notifications. This first ABI contains the paths exercised by TDX. Extended
+> evidence classes, dynamic registers, record payloads, verdict recording and
+> device-security transitions follow with providers that need them and are out
+> of scope of this initial patchset. The broader direction is illustrated here:
+> 
+> https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_1
+> 
+> That branch also contains additional providers (test and sim),
+> attestation core extensions, libctlv and ctlvctl. With the tools
+> and kernel specifications, an attestation device can be used as follows:
+> 
+>    # Discover CTLV devices and their family chains.
+>    ctlvctl --spec-dir Documentation/ctlv/specs list
+> 
+>    # Inspect the root-family lineage and attestation capabilities.
+>    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 families-dump
+>    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 device-get
+> 
+>    # List the measurement registers of the attestation device.
+>    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 mr-dump
+> 
+>    # Read RTMR0 (MR 1).
+>    ctlvctl --spec-dir Documentation/ctlv/specs \
+>            query ctlv0 mr-read mr.id=1
+> 
+>    # Extend RTMR0 with 48 zero bytes (SHA-384).
+>    digest=$(printf '%096d' 0)
+>    ctlvctl --spec-dir Documentation/ctlv/specs \
+>            exec ctlv0 mr-extend --json \
+>            '{"id":1,"value":[{"hash-algo":5,"data":"hex:'"$digest"'"}]}'
+> 
+>    # Retrieve the RTMR0 journal.
+>    ctlvctl --spec-dir Documentation/ctlv/specs \
+>            query ctlv0 mr-log-get --json '{"selection":[{"id":1}]}'
+> 
+> The 20 patches are organized as follows:
+> 
+>    1-13    add CTLV, its generator and documentation
+>    14-17   add the base attestation family and implementation
+>    18-20   expose the native TDX service and add the TDX family
+> 
+> Note to reviewers: Please focus on the overall design, UAPI and internal
+> attestation-provider API. The internal CTLV and attestation implementations
+> remain rough around the edges.
+> 
+
+<snip>
+
+>   83 files changed, 18084 insertions(+), 28 deletions(-)
+
+That's an awful lot of code to just move certain binary blobs around 
+(Judging by what config-tsm is doing ATM).
+
+<snip>
