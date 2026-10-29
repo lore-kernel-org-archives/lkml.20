@@ -1,89 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278472;
-	b=kPQnop0ckhlgEVsNxPxkbQ73VSGJGFh/V03JfXQH1cIDyqIeUUmgblUqDrbZAjJAfYqH
-	 Zjo+EbjEwkFv3yEWmydiWhkKPSdvUWN209T53+zIvs6m5HWVzLWgpt2Sa8pLWlPIsKHRD
-	 5MUd0wUJkDpyGHnJrx0hP4Ib8PgW9y4Hdi4NHOIA5LX1UlxVzUih+2qFQx3wUUEKNrlbg
-	 BJ2zeNQisnIZJsJB2+AI6DMhYO+jpJGjhU1IvdXtzXeDw8unbITFrtO36fI9+4QSNq7/r
-	 vR0HvjkSVD6gHHZLdPRbcPCzsm+3SqwWmqGfmnB660FWgIdom8q2CwpeG74LRtgli0w==
+	t=1793278596;
+	b=a5zJIE7KEWLlkGO306tJgRsH5YGfEaqSsWGFXHm9Q+QeMzI3hxNQoa4AUo1ZFlTGl+MK
+	 Q6HJoRcibvSSJ+VFSD/lyRS/YZnWY02HR6Ky/p4vs09DCvY5hQfFoMgRb7ka/UXBtOpfd
+	 cCJ052vR5HsXpN/kU2zOt1UbjIk6+jrgzc7zFr2UTjVo0enxacZtZ3yS/1ClXo/tmj5dL
+	 rh4jOvB9lZ36zgQ3tutwwO2qctxqPKfa+aBccb2/oNDzus2eT8S+5ZRrez+sopaneYZKc
+	 nQlFljHlSzvBrolKpBbhOMFuABpRJeVYet6Zy3VzZKVebUG7QyWjl5uSfWdyD6TqfiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278472;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278596;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=MlnO/XQNGCl3Ib1nyxoNZ+8myRyO4vnZro6S1iLdVc4=;
-	b=vTOsi8WQFzvZ/Sdl54kopwdYBUiO5xXpLmYVRYpyAlh49tvnTcA/UvhWeQUi9I1BcuM1
-	 HBYw73tx3bVhpMkrEjw5fFIo0tIIc1A+r16mmEO4W4zUi8ES9SgYnZHjco2inMe0gxArz
-	 ExStzaa8EdN47yW/EgjYvb0ldgAE/D7KVJafQ80oEIRpTH8AKcCXicwMoW3YG02+J7eba
-	 XJhkczXLbXWRdjEBc29XMTvF6ePyuW+U2PqktwriJMvWqC/m2pPs0c7QX2J28M77d+vme
-	 a/OapJMefjEgqG+dPExZO9r+bzwzFBNrujEhPKmbSW1ddx2lKQwpUXHxg/NRj0TT2AA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F0Wo7TTbK/Som58VQxcyzEkXGQTAIvUVBDkCUTj913o=;
+	b=ezNqx1Am9GpErhUeftADmcbKr7NPA5kO1vBAP3DyYMRqpemtSObIyyFvHudU7MBkzcOz
+	 yebUailEakPzUBWYBX7N/dllVxg/oPsItdbtqsYJkLe5At19CFVSoO8pf0ZpZavagWcus
+	 fVDk9QZPRQnh6JXMydVFKqdjPs1nt+AkOEYNiho9WiECzb2FSCVEz6GJ+WRAzlXhnJ/zJ
+	 REhMvlrsQW5W0iRyypff7KqGcslUd8dodVlijBn59kvaKlZRMAfiYkoXgDgeQ0rGLcOzl
+	 7GABVY88+cBnRyB43ECUjIYcJa2IdVlDpJPa009B9RdVt1QxwFBi+Q2WraqBQBZIcgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bJJhj76E;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WpkGXqll;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9AF606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:54:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A9AF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B7A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B7A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bJJhj76E
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so21508045e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:54:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WpkGXqll
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so9661805e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:56:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793278470; x=1793883270; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MlnO/XQNGCl3Ib1nyxoNZ+8myRyO4vnZro6S1iLdVc4=;
-        b=bJJhj76EIaQw+OBumHCnSnRaYtBXaK1DSRXb/r/grQwZ1utoTKdSq8NiUr2WfgkrAP
-         gphHcNLr9Xy5nlxomkmpqSSoKnkRHiG7cVpUL6XsuTLS5KbZxuZe2onTyKWp9o2Gr3CI
-         eOAz7wg4lIQtTbjMynRODrxgZdLgXJdT8qIpRpBlieP3SfPbZyR8Ug/b5r+tiFdvFCaZ
-         OAzUMRtEuNR8+xfRTdXHEFoeqnM/ctiJEzGdFSGrR0AU0j/TFGuE9w0mmm+Y6WLEadAC
-         CXrKbKMF9OZ7NRAozHHg9yJPbrFiCz9JH7YmqWxpJDMWnH1xBA+jPGd2mC8ckafhZ7nk
-         1J5A==
+        d=gmail.com; s=20260707; t=1793278595; x=1793883395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F0Wo7TTbK/Som58VQxcyzEkXGQTAIvUVBDkCUTj913o=;
+        b=WpkGXqllcpaOtVUp1WiDef8+FU4QYF21b+R7GKBxnBh/VxVJJtVqPqMXMkTU5sYEn0
+         ghNrF6Hsd4juhbXHYY0Pbq8zmM5nCDNAcy2a+jVuMacGFDTfEgCmqfex7C1yf45ZXQdU
+         qsiUng+5MCYDbpy7JmJfjWM855F2llXFitxodea6mMwRlZEhIg2+6/pJ4RlAnzxAUUpk
+         myYz+asg2wQtOtm1CpRgOf8y9tJTwcK4aeGR7fhNloroh0+Xdl5vwmphrAOQ0uCICf/I
+         JOCrOWNZwMq71Q2I5xlrtDCeom06d37uCREup9Fys/pCZFBi2NgYdg5SnsZ+MWV13GEC
+         81mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793278470; x=1793883270;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MlnO/XQNGCl3Ib1nyxoNZ+8myRyO4vnZro6S1iLdVc4=;
-        b=WGHyp5WMLrZsKvbPulcNpk3GYvdCdWFVVJBwUlN6L+hHChMc2jQ1oh6UxWuOTlEAA+
-         FY+45jgIG7xMTIHLEM+5LkMv5FzIasqa47hbC3sXImb2yO0koXFIpqgglzejz1Mgof1v
-         Lf0fw3tocIpMWqNrhMJzK+Qt6gZxjEZGLiQfiPW9bySKfXN/HDh/O28sC2+x4pK65U9U
-         I90JFImghc2nmu1k3pv06wGZrI0IfysmZb3vgPYPbXnDG+MSDswCRBxZlG/rXMJhtw10
-         yGZGwqlGjjOTamMvCxDIn2+7E8bzptkomt4k0D+bEj0pxTzW/Xw5RDeY4uMklHMkmpIi
-         k+nA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/FNZYQ3ar74U/UiXmqYjd8CIhtiACwLF8HMkBf2XRnaki5rlX2pp9pRdqB8QQQUDTR/b2Z/1LgtTfePo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIie/PXJial+YJQudGx9JoJaF2qqlcVjBUGVTZL7Xguxp+EplpP
-	l2/1/23LK+BkE7H3oSKdJfVcRPl2hNClVPEoSTUU7yYi5rQllfVrACOviyVJVmd/rzI=
-X-Gm-Gg: AYBFou2zeCdcfz287Of0CoBmyRrDF/oST3Owg7cZAhbt9DyVsLbPpvOr1THk8CoGR1n
-	1SkYfPAakYDIAhaSEuz0sSh41C+qYUEMHppntEfZAEbLgx8qe9uzq/GkPPFywBdrH4l6In89A2g
-	QBFa6GCxeyFGYgNVT+x8NBJdWBizSz8NX/X2n4HGYdrsvkjpvoj1VWLhtEWprJY0YWNsosWAczR
-	kzeXSfejO22z+TcbiZrPJusKRigADmipF08hjEbyfStyJl9mHdMQKZp4VDRVhWdI0BWREqcEzVt
-	X/M6pB+Bj+COc5FlD8NkMsRJI+QblxUnFGWvnfEhSQcBdFQS0isNbz4oQxHDJHC12fApSak9ToU
-	2yUJBR5fbfNokmalIpCV3HWPL71ZtccdqgGalLlcuUZfbM5hruuadhJSQQ0E2Z5d90gnWmgJIEz
-	RKrQ3EMohGCUjdDmGBplgXsV9WETXiJ78XVmUZcMsPc0Fy2Bd9AGyQKThh8HLsAJv874MHO/jjf
-	Cf02YHtl/a41ej7hIpLbdsPIZcWewkAbxxdsLbsM+ggxBWYhs8+Cl+sSifX4QJUjZMpKhF063zJ
-	vNIJlLkuupVGkiIZK5JaSj0qxVcY+gH/Kis38NnsLG+BRsCRqw85o1rXbSUEozKCfSW+AvG6yI6
-	E+PGSM6kct5JpzHU+tFySZILsreC+5SigtvxQgYcgEfK3KQ==
-X-Received: by 2002:a05:600c:6095:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4a9643d51aamr113545565e9.2.1793278470416;
-        Thu, 29 Oct 2026 05:54:30 -0700 (PDT)
-Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39a8sm35034622f8f.11.2026.10.29.05.54.28
+        d=1e100.net; s=20260707; t=1793278595; x=1793883395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F0Wo7TTbK/Som58VQxcyzEkXGQTAIvUVBDkCUTj913o=;
+        b=QrqQgY9nCh55ysgZu7GqX+0lzgOGpUR4Qo0dp330ytsEzMcu8+Y3RYMYAHXp68g6GK
+         oSDuwO086qcMnrtCYnyH9IRBP1E5HzEFkv6Dps1cWj1hHVdhjTSlpH68XxdDU5Ger+4q
+         JREqIr0jix4kT5HHH2ouIElSyXWTTd0xy/ForE4Fae4JFzmbrEF0qNyDrrqAu/y7FxNz
+         lbRQ4wwvfjsdp3u3Fb/EpJPwwdB/+jOvny/mcnJnVKp8izHgpkK3gr+s+pl/AOPro4xP
+         2JEzNEIszeuDJALqA7f3/oOyEfCaSJ5j8MdfDJ4ZR5RYDrofgqO7TM1vIa4RCFmcX4GT
+         CJuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzk+fBwDW9SNxov8vMhy76VM6U2Kuipk16lRdvpKFvBKiWJRPjwkPe5ydawFTxx7plbGMn3hk+UQY1Hlxw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhi4WOBa515amIfvqpjOvVbXPN8VChbQnh9twRNxzdRhBmx4P6
+	l8aWDW9spfWAQVq9J7SGW+ldZGo7SzzkgPkZH9BaZY9dNAH9z885Vrzw
+X-Gm-Gg: AYBFou0CdiDtLlXGsYZDBII9UrDbbyGkjA5/4D5dLdc9BdDIXOmr6dWjywHEwAqXABy
+	n/xyCrBfTsGrQz6VEkmNAaGCUH/huUQHVE8n2avkc2GcIQ5WkP8BaMh/b5/abxzhQJ8DjLDMxGD
+	tLIV/R1b5X3Zv0kLBUsyipXc9Wu6yTQk4JAXGa16brm3SQu+2LwPx5xRY9efE6y7Y41GNuqhY6m
+	3uvqJQIDtnzT5E2X8EpjAxI1RFKv/JqaiXsZ0vJH+5ZhaXCCEgXldul5qOvrA8hIsDBgtR96/Ec
+	EDyHtj8+26h1Hs+BpN3dOXWwzCT6qQ5IE88+6HBpoSOn/ONH5Bgk9/D7hWyDBhDP5L2YN3tl/rD
+	RwhD3M/SIRJMSRdSC6iLvhQ7GKGSdppU944CNjW9V9FpeYWCUBOqu1W9ITI5LqPU2GMa0Z6AN8E
+	j1UPzLBW96f4c8RDIFIFNGf+z5Rj6LHaou+60o1xK0KOgC/wEFzeSUkSLo+3SyP4V6z+Er1OO31
+	AF2D2p3OuTpQDfZUD1UMzpIvgeedqc6rnKAyQJi4nwQRg0UCDd9p+v4525ORPYJzSXPrNVQDmoK
+	K9aFGd8KUuTvVC1ASM+d8ugR6qoEiIP45aM=
+X-Received: by 2002:a05:600c:1387:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4aa877ae8b3mr64502615e9.11.1793278594547;
+        Thu, 29 Oct 2026 05:56:34 -0700 (PDT)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4778:c500:ff14:b834:842:6dac])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80285b2dsm64711245e9.13.2026.10.29.05.56.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 05:54:29 -0700 (PDT)
-From: Carlo Caione <ccaione@baylibre.com>
-Date: Thu, 29 Oct 2026 13:54:21 +0100
-Subject: [PATCH v2 3/3] clk: meson: regmap: use the current divisor for
- read-only clocks
+        Thu, 29 Oct 2026 05:56:34 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH v2] slimbus: return port disconnect errors from stream unprepare
+Date: Thu, 29 Oct 2026 14:56:32 +0200
+Message-ID: <20261029125631.1551141-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,96 +96,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-upstream-clk-regmap-ro-divider-v2-3-7a375fd8f88e@baylibre.com>
-References: <20261029-upstream-clk-regmap-ro-divider-v2-0-7a375fd8f88e@baylibre.com>
-In-Reply-To: <20261029-upstream-clk-regmap-ro-divider-v2-0-7a375fd8f88e@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-None of the Meson clocks using clk_regmap_divider_ro_ops set
-CLK_DIVIDER_READ_ONLY. Without that flag, the shared rounding callback
-can choose a new divisor even though these ops cannot program it. The
-clock core may then adjust child clocks using the wrong parent rate.
+slim_stream_unprepare() ignores errors from slim_disconnect_port()
+and returns success even when a port disconnect transaction fails.
 
-Make the read-only ops always round using the current hardware divisor.
-Parent rate changes remain allowed with CLK_SET_RATE_PARENT.
+Continue attempting to disconnect all ports, but return the first
+error to the caller. Keep freeing the port array after the attempts
+so a failed disconnect does not prevent a subsequent stream prepare.
 
-Fixes: ea11dda9e091 ("clk: meson: add regmap clocks")
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+Fixes: abb9c9b8b51b ("slimbus: stream: add stream support")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/clk/meson/clk-regmap.c | 34 +++++++++++++++++++++-------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+Changes in v2:
+- limit the fix to reporting the first disconnect error (still attempt
+  every port and always release the port array)
+- dropped v1's retained port state, selective retry, and stream_free()
+  change to avoid blocking re-prepare in existing codec callers
 
-diff --git a/drivers/clk/meson/clk-regmap.c b/drivers/clk/meson/clk-regmap.c
-index 1ed56fe63cae..002e16865109 100644
---- a/drivers/clk/meson/clk-regmap.c
-+++ b/drivers/clk/meson/clk-regmap.c
-@@ -120,26 +120,34 @@ static unsigned long clk_regmap_div_recalc_rate(struct clk_hw *hw,
- 				   div->width);
- }
- 
--static int clk_regmap_div_determine_rate(struct clk_hw *hw,
--					 struct clk_rate_request *req)
-+static int clk_regmap_div_ro_determine_rate(struct clk_hw *hw,
-+					    struct clk_rate_request *req)
+A complete recovery solution would also require the codec callers to
+handle disconnect failures and coordinate hardware state, retries, and
+stream lifetime across stop/start cycles. That broader work is left for
+future submissions - this revision fixes error reporting without changing
+stream cleanup semantics.
+
+v1: https://lore.kernel.org/r/20261028145508.1111792-2-thnkslprpt@gmail.com
+
+ drivers/slimbus/stream.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/slimbus/stream.c b/drivers/slimbus/stream.c
+index b4e70a7edd1cc..220e22088f8f6 100644
+--- a/drivers/slimbus/stream.c
++++ b/drivers/slimbus/stream.c
+@@ -448,19 +448,22 @@ EXPORT_SYMBOL_GPL(slim_stream_disable);
+  */
+ int slim_stream_unprepare(struct slim_stream_runtime *stream)
  {
- 	struct clk_regmap *clk = to_clk_regmap(hw);
- 	struct clk_regmap_div_data *div = clk_get_regmap_div_data(clk);
- 	unsigned int val;
- 	int ret;
+-	int i;
++	int ret = 0, err, i;
  
--	/* if read only, just return current value */
--	if (div->flags & CLK_DIVIDER_READ_ONLY) {
--		ret = regmap_read(clk->map, div->offset, &val);
--		if (ret)
--			return ret;
-+	ret = regmap_read(clk->map, div->offset, &val);
-+	if (ret)
-+		return ret;
+ 	if (!stream->ports || !stream->num_ports)
+ 		return -EINVAL;
  
--		val >>= div->shift;
--		val &= clk_div_mask(div->width);
-+	val >>= div->shift;
-+	val &= clk_div_mask(div->width);
+-	for (i = 0; i < stream->num_ports; i++)
+-		slim_disconnect_port(stream, &stream->ports[i]);
++	for (i = 0; i < stream->num_ports; i++) {
++		err = slim_disconnect_port(stream, &stream->ports[i]);
++		if (err && !ret)
++			ret = err;
++	}
  
--		return divider_ro_determine_rate(hw, req, div->table,
--						 div->width, div->flags, val);
--	}
-+	return divider_ro_determine_rate(hw, req, div->table, div->width,
-+					 div->flags, val);
-+}
-+
-+static int clk_regmap_div_determine_rate(struct clk_hw *hw,
-+					 struct clk_rate_request *req)
-+{
-+	struct clk_regmap *clk = to_clk_regmap(hw);
-+	struct clk_regmap_div_data *div = clk_get_regmap_div_data(clk);
-+
-+	/* if read only, just return current value */
-+	if (div->flags & CLK_DIVIDER_READ_ONLY)
-+		return clk_regmap_div_ro_determine_rate(hw, req);
+ 	kfree(stream->ports);
+ 	stream->ports = NULL;
+ 	stream->num_ports = 0;
  
- 	return divider_determine_rate(hw, req, div->table, div->width,
- 				      div->flags);
-@@ -176,7 +184,7 @@ EXPORT_SYMBOL_NS_GPL(clk_regmap_divider_ops, "CLK_MESON");
- const struct clk_ops clk_regmap_divider_ro_ops = {
- 	.init = clk_regmap_init,
- 	.recalc_rate = clk_regmap_div_recalc_rate,
--	.determine_rate = clk_regmap_div_determine_rate,
-+	.determine_rate = clk_regmap_div_ro_determine_rate,
- };
- EXPORT_SYMBOL_NS_GPL(clk_regmap_divider_ro_ops, "CLK_MESON");
+-	return 0;
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(slim_stream_unprepare);
  
 
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
 -- 
-2.56.0
+2.43.0
 
