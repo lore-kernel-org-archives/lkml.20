@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237762;
-	b=wHHYHguVhs/9V7kYkyrnMGu3dRuTGpPsAMMWkd6xUV7EBtQj8SWvZZ9XEfZ2YhCsa5UT
-	 Azj4ldvJb9D2RgkAdeuzJoxJl3WML0Ticm5EQSKFgr64TbnQhsG6qSv/F5Hvy1IDaGlhx
-	 iPQULTOoSnSlMLNKG1O5e0+IFWZLaoBPUBbStFjjj2WaAHk/OrQK3erD7tPEBqzpo5yOH
-	 KOSKnDDbOx5piZJrJ8Uxgemzx8vyQ2Q56SNvBHpElfuTflEZiIZQMKEQA8nnuq5AZCyag
-	 dLl0L7Lmk9QNQbAXwffsFlNTNDEinao6A25lbiB3aVYFHpj+DTih2rI7rJvufP9vGLA==
+	t=1793237780;
+	b=nta6soY0C6zkKm8QOiJxtfQIazhTXkc+ZK8bTHHCJ5UgmMKy8Qn1TqbZSEWWHlZ0bk+B
+	 vKqHXwC+BFAy/8Mnsr1y6OTaAzY/bzT7UJdnWIhG/ubAY9Yvfvm4jvlYOd9zKmhG/KZzC
+	 OxrAfG4egkKi5JMkr9++zZs4dTaxOzzUAalNrlGD1fXshLVwZ9rVIK3YUwnhpJcGULWDP
+	 XafaFp3RxGcPhO+VF++w7lOrDBJw6yA689bPghzHX0qDKGt8TBHnGyaJVnKDTWERJmrLB
+	 Nnu/lwmJJ1aDbNPW1djSRcrAqrcZ3pMNdKUigU/KXQejtqUnF7h2wEU/Z8+RhhVh+eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793237780;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
 	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+EevfTZvxcUnKDhE5Yo/ljInYUzK3Fk6rhV6FfGCq+4=;
-	b=fK3UKM1mVsDCyjYAsAj1JkuqJYsfN+AObl6o0p6V5XcyX8qeaknPPFXq1ao7ndFcGo+K
-	 gHh/wiMyP/0yL72vKGfD6EkL1hyv8ehXq2YhXYpRUAVCvMH5Fi/bVrWipx9ZbbLm1BLQw
-	 wlzYoMQ9PzIChOf/W1X+TW6jhd21rS5aK2Cj8GAft9wMexSlAhMYR384znzJq3aY9RQ5o
-	 Aco6IZgKhORLIqYh4ny0o99rEBRADlL7sTp8AzSysR9Kc+ZuIiUMrFHNz/ELN+lBozLSD
-	 lmLrCUKjUfbhEXQs5lj42iozmYtVrSV3RHuZtgvx8VItodYg8IwOMMTz7kMgA8XZr1g==
+	bh=AylnBCCcdsK+79U9qo95ZrQ+43bLKujyoqzIn5/dEs4=;
+	b=Cmj8YGtO3theDt+76LlVRxKrC4ff7s5VckUfMRMXqsRrmbbrxsXT890h4lqXYpjdfQ3P
+	 b36X1c8neA8BvnSxgjNex/E4rzNTh/HyNum1GyQtsM7dr33SRjTJ/1Gq6KA887SeHfyzq
+	 Sm1aa7rbwV9rgOs20P619JXjnzP+wO0xtDgToGYSz7WLBU3nSqODxkt2h9YjK9EG+YgjR
+	 lgyVd5hcAc2szDGhkcuNuY4hSMyXe6Z5Jbj4e8FjKperXv0TRKxujjaXEeMXHYmlF4gW9
+	 SegSRtx9eOnBC2RyscpOchZIYFp6IvZWmFy6ng+WLVTBTbtPDIP/c82knOfzpiC5+oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yp3RcGkQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkQ6ASTF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB40606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:36:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7508606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yp3RcGkQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1CF1F01825;
-	Thu, 29 Oct 2026 01:35:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkQ6ASTF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA61B1F01825;
+	Thu, 29 Oct 2026 01:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237762;
-	bh=+EevfTZvxcUnKDhE5Yo/ljInYUzK3Fk6rhV6FfGCq+4=;
+	s=k20260515; t=1793237779;
+	bh=AylnBCCcdsK+79U9qo95ZrQ+43bLKujyoqzIn5/dEs4=;
 	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=Yp3RcGkQW8rJgoxNRJ8WdByQwR5CLN68t4LRwM1pmIJr0gvy/3RXxqIP1LoXz3ByD
-	 fFv3E75y25kSpq372yiTNdLQTknbCw4X2yT+eLSI+ED3kJkWJW/Jh13N7XH0Xj+kez
-	 VO3LbeMpqTlTl8kg+JxrL7XvwanXxgFHp3i+NxJmxVMZnk8OGe8GBBs3NuUgTGfuns
-	 ebBWWCONWzuI5TMkToP1H6ZWB8xJ6UesDRctNV/g+MYRpjFshCd03eEqQFmyBi3+7v
-	 MWgqETE5wMOAkNChjdxVWH4lPm2gH0zRDng749EciZADXjaS94LbqsuUYDiL7peP1+
-	 Wo2OZXiPyCGSQ==
-Message-ID: <b0356de9-4a86-4716-bf06-13842377e0ef@kernel.org>
-Date: Thu, 29 Oct 2026 09:35:57 +0800
+	b=OkQ6ASTFMzz1yXF3njzDb/xUm8DX/UL4mY9uf3JuD4FWS0dVtGHzXKvmmgp9uyD8O
+	 FrMgTm+gR54TFIT5eLqWmrif4wu7jPIf3RiAYGdqY4OS1qN5qVGYhMLHwXM5BpST/R
+	 k2pSnkDiNg15azn4hMLObjA6g8gU5riji0JD8txU8BKyPoZFK3jST2PDqwz7a6qKH4
+	 66d36vsPyioPcGdGaPO3N+deIu8PX5lGpt0YD8vPh0FWweP707XhHGcfZuEyOZZlgb
+	 4hfqc+KiC1SzEV67pjISFkvDHOjdKcq3WS+58vfZqCz5/SDlJx27MgWrBYP3t1swYX
+	 fQPcVPoFGJOUg==
+Message-ID: <1ebf8257-ad31-4bc1-b8fc-048dcd1819c0@kernel.org>
+Date: Thu, 29 Oct 2026 09:36:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +59,24 @@ Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
  Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
  Nanzhe Zhao <nzzhao@126.com>, Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
  Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v8 13/15] f2fs: handle block cloning within the same large
- folio
+Subject: Re: [PATCH v8 14/15] f2fs: allow large folio support to writeable
+ files
 To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
  linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
 References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
- <20261028154407.1601430-14-nzzhao.sigma@gmail.com>
+ <20261028154407.1601430-15-nzzhao.sigma@gmail.com>
 Content-Language: en-US
 From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261028154407.1601430-14-nzzhao.sigma@gmail.com>
+In-Reply-To: <20261028154407.1601430-15-nzzhao.sigma@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/28/26 23:44, Nanzhe Zhao wrote:
 > From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 > 
-> With large folios, the source and destination block in __clone_blkaddrs()
-> can belong to the same folio during same-inode operations such as
-> collapse range and insert range.
-> 
-> In that case, locking the source folio and then looking up the
-> destination folio can try to lock the same folio again.  It also copies
-> from and to offset 0, which is only correct for order-0 folios.
-> 
-> Detect the same-inode, same-folio case before looking up the destination
-> folio.  Then in this case,we reserve the destination block explicitly.
+> Now we make all write path support large folios,
+> so we open permission to let writeable file set
+> large folio mapping.
 > 
 > Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
