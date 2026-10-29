@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253891;
-	b=d2ukWcGRWxElZHHhYjKjCAjYpWnJchQ8pG2UaUrKOlAVwd7IhKj1L96uRntwjlDVRCwZ
-	 02VpZ2awHQYGND9col63jCMZlveAykechzuSmiE5Y1Ry14eo2RW/YNe96+/rDD9vlDhAD
-	 44qpsB5N3hAOst7xwvFpAHuz9GDiCWCgcTjwOC2vNRF0c+XYoX4u0dHBmGT4e7QmUJu3Z
-	 Ekg2pxULo7eI/eeeNIPPs70gsS9InuX/2er7DsVXpGMqoXgg0TTFlK92ncIqMRJaemqWJ
-	 7MkdaPn1LIoJRIH06J8ezbzR08Lg68/V1VxQakEXYaWInnuiipBeUhKycTAL1XGBz/w==
+	t=1793253897;
+	b=wgendh/UWCzH1rp8Gy8MNAZrF50shiEkoUD0eHyCLC+g9uCWxoQWgaQLgl1Y8gB5B5fk
+	 wUOfYmbi/gvYUUOIQgOnHAUhfPKE3rz8TEmxjZ3YjN8NmOnLUDwO747naEXijXxnvg7e9
+	 Rr45ulRaW/ylJAaNjM6UhDJPFNasfoaeV2acu8JKE5/rJn8Aam5XYwe2jcfrPjc4Y8Cc0
+	 mEq88dGNqOC6O4B1/rwJ4D1a6deH0m9Ebpbjz4C24GxisLDzjF4EHHCMXcubzjCyWuST8
+	 MvI5WoSrfQ50PTX/7HKHBEo+4k+cqznzXU2w8AVFEw+GtQrMMoxUMGqPjBpfMUyLvYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253891;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=o5W+Zg0rKLU9ViJ7Akn7TYVqUItF04jnCP8SftoaDZs=;
-	b=aNH7LRtiboyz431UEc+GeoA5MPuQWlUVUT/Qs8iF3yjWimfwxp5YmQ/NHOj8isq5GT5n
-	 acgDU/l+rIUu1/8G3DKbKQrHtBJaIMVxN7UW7qSlgoezH1kB29IElcaXQON5V49J4dUIf
-	 plYZYWB9+Moq8aPd+MLomyLxtfttJdWDf0ClkR7kKXpWFzlV04jo3/L6G95ePOnGBqP/o
-	 xkoutVwvRHIya78QXYYsvByLK9Q1h9Y6TjWQGeLewRri2oFQ1IL4J4uzWrn20X1PgKNP9
-	 wXLxY/XTbO4cvBz7ixZBc+gE/HT5pg4z5KeNL2XsyFPw9dPEBvgtzDYumkcxxIyVvuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793253897;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MI842OMXovR+56TJ0REGTtFqRIUEY+IlN9+CViJwxzw=;
+	b=EqyrL3CPdaicFb/w07mT85+TYgJyCfkynvyyG0ulTxdHeE24onnAT/I2AmeNia4k0oKO
+	 wpIM9pSyrgEVSXgDwSlT1xLfOjPJs0bUxdTGrj6BG8e540SGer7kJBxZu4xcs68SFCCLt
+	 InOFZsxpAsCFMCoOjOH3N15xaHyvHISxek1qY4rGdE9tT22HzEHW2QjZctIATlha/KJ7v
+	 WpL/6viplPCZfr1vIIHi/3Hhj6oS53vCLItfRz8ngLD6iqkW/8WZ6Ofk7IMOGErB8S7EI
+	 RzDX4rPG+Is0ybURfKmhqcrlHcykTC0Pr7ixtKl0nTd1Q9v0rbN15XRxShkVXRgAXbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=j0QcXQXk;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b="UXvP/VSH";
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F52D606A31A;
-	Thu, 29 Oct 2026 06:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F52D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46598606A320;
+	Thu, 29 Oct 2026 06:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46598606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=j0QcXQXk
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793253886; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=o5W+Zg0rKLU9ViJ7Akn7TYVqUItF04jnCP8SftoaDZs=;
-	b=j0QcXQXkFYCz4D2y+n1xiXPtYt7YEd2o7we+zZfrWreRsLO/Aul+bxYwW11InGmNbKlsacM40s2+E+b3aY11VCD7NbRZoovW2/xCab+IZD7p8phEabN/uVxL1BkyZWsYUpNgUYFUTMS+U8aDDbig/0spePvGNDwrgPuKY6tWjbE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R611e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XDiZY8B_1793253884;
-Received: from 30.74.144.149(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDiZY8B_1793253884 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 14:04:45 +0800
-Message-ID: <6e0968e0-e061-46a4-a7c4-be27aad91827@linux.alibaba.com>
-Date: Thu, 29 Oct 2026 14:04:43 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=UXvP/VSH
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 1E2C414C2D6;
+	Thu, 29 Oct 2026 07:04:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793253894;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MI842OMXovR+56TJ0REGTtFqRIUEY+IlN9+CViJwxzw=;
+	b=UXvP/VSH/0Ypf7ybIVsUs4dH0dcJu8xdRx8p6bv71T2W+9P9S5MPPdQa21fDkriLMzH79n
+	YgXVSvwDD3B6VIToAcTj9ClfADPEw+QLwxvsYbrY880y8rdVvTcm5LfKjc/HWxFF3DdOr3
+	GWwL1WbDj02//nRSIwOm96KLU7Pab/QiA5J8C1igm6ed1aSTnUD89VLa/9E5awWQH3cDC+
+	+jvX8Ddwo27UwQwWbnqN5k8TPxWYPdZQ8CZomU5dBgEtWiRurRhFu0d+QYimFkPBeCOcaf
+	BRsc0LRMvnKMz9S18l14u3WN5OOji5fX5WqVMnrHSIjSD19Y8VE5SjVFzcdAVg==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 9ad4268e;
+	Thu, 29 Oct 2026 06:04:50 +0000 (UTC)
+Date: Thu, 29 Oct 2026 15:04:35 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Barret Rhoden <brho@google.com>
+Cc: David Howells <dhowells@redhat.com>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	v9fs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] 9p: treat read return values of 0 as EOF
+Message-ID: <auLh89BhlBRC2G6E@codewreck.org>
+References: <akfHGcqke9qixd3Q@codewreck.org>
+ <20260702090941.1298188-1-brho@google.com>
+ <2237820.1783934942@warthog.procyon.org.uk>
+ <f7005841-80a9-4c21-a114-6cfd6ee63a58@google.com>
+ <aqbGBMJ6bntYB1t2@codewreck.org>
+ <3d5f70fa-64e6-4df5-bda9-6d3cdd00682b@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,49 +76,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
- collapse_file()
-To: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org
-Cc: david@kernel.org, ziy@nvidia.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, jack@suse.cz,
- djwong@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- hch@lst.de, pfalcato@suse.de, ngocthang2710.1999@gmail.com,
- syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261026152013.10511-1-lance.yang@linux.dev>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261026152013.10511-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3d5f70fa-64e6-4df5-bda9-6d3cdd00682b@google.com>
 
+Barret Rhoden wrote on Fri, Oct 23, 2026 at 08:19:33AM -0400:
+> On 9/13/26 11:49 AM, Dominique Martinet wrote:
+> > Sorry for dropping the ball here, I haven't had any time to do 9p stuff
+> > at all recently and the wave of LLM generated patches hasn't helped...
+> 
+> no problem.
+> 
+> as far as resolving the underlying netfs stuff goes, i don't know how much
+> of the logic about "are we at EOF" should be in netfs or in the servers
+> (9p).
 
+Right, I don't either which is why I was hoping for David to follow up
+:-D
 
-On 10/26/26 11:20 PM, Lance Yang wrote:
-> collapse_file() can call page_cache_sync_readahead() while still holding
-> source folios locked. If truncate holds mapping->invalidate_lock
-> exclusively and waits for one of those folios, readahead waits for
-> invalidate_lock and neither side can make progress.
-> 
-> We need to release those folio locks before starting readahead. On a page
-> cache miss, roll back first, populate the collapse range, and retry once.
-> Doing readahead after rollback avoids an extra pass when all folios are
-> already present. If another miss occurs on retry, give up rather than keep
-> retrying while truncate or reclaim removes folios.
-> 
-> Keep page_cache_sync_readahead() and wait for read I/O with
-> filemap_lock_folio(), releasing each folio before moving to the next. The
-> existing uptodate check during collapse still handles read errors.
-> 
-> Shmem uses shmem_get_folio() for swapin and fallocated folios without
-> taking mapping->invalidate_lock, so it is unaffected.
-> 
-> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> ---
+> would you be OK with merging my original patch so that at least 9p works?
 
-Thanks. I'm fine with followups to clean up the code.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Well, it's certainly better than returning ENODATA to userspace, so
+let's go forward with that.
+It still leaves much to be desired (cache enabled, symlinks...), but
+that can come later if someone has energy to fight this windmill
+
+Thank you for your time,
+-- 
+Dominique Martinet | Asmadeus
