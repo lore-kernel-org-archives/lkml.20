@@ -1,98 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297998;
-	b=qPeXT7PpwCI/4AvOPSw0pSiBXWMy83SOAQNzFGQvF08LPWOeltQuu1q3H7COtBi9Boxx
-	 rUXYmzOHxkJ6uM/F9tdAoAPLA3mX+muzCffpNNeY2PYH6n6IS0dpH79osxl9K5CeKFhtc
-	 2ElmaTRZyUiikli+rN6Tqdhr38PqLVS2DtUGigAdRhKEKRZUhIJf0QydwfuQo0uuGxqLM
-	 J8cid2Q/E7dhcThGSNrKvynEaD5/MTxsqaOKNl0lq3+FKtAhYbKPc6CLeE2mqDIOs9+YR
-	 SyXkqwR1nYPYKQiGqdSD2/H6CFW3ByDd2jB2iMLC1tyhe5v3dmTttkKHmt3tV/4kBvA==
+	t=1793298011;
+	b=DLZ4Py7fV4xdsrOr1xjRD6qqMLVwfzAD5nFMtzpT/33AeYPHjVvIjYMe8Imp8RNdv85C
+	 7fiOlg4RoP2y8YcNlOxO76KoAAw3kRL3h8Kwihde7V4AtH9bWt3J56+5OkcpL8BHK6jkr
+	 IxFSrF3FKIm2wThgy/RF0GGldJdMMddmC4LDUULntq2i2Tk1UKy2TvwI6axvRCmF89MAN
+	 mrsPx/6F8caAl721w7VJu2+Bs/A8dpWWrOkX8h3LNuFzDmWJRzuXuOwSdb5zjXm9JphaF
+	 i+b3ewpCBPw4p3mtydD23PSZSFQuufdXfJrrsPwl55kfXPyTZu6y3h/UT756OVPIBwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297998;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
-	b=Cx6vGJgug5aMIhmr0JVtky6HD17hNbFYtN+6rciKYviYR9ZaEK+s9fEzAPQsP/mWIqOy
-	 qdyleTJ29COJRms9hjDftueZu4eirlW08w1ybvmipbU6m6cYidT9CKdHyGjwzAmZqhxGa
-	 GwyZTxmwEE7ogUAzmKVsOwwG9Cxs5iovAWD2lxI1m0h/nYfcUnSMvyfQj7b2oU9D+ahKl
-	 Muy9hpKRx9Fyqg/2/6tj44Ac6wS7OjIoAotvHCNbi3VUOw/BohtwqGKa5Uy+RprIQCf8X
-	 gEqXUWJqFhEnavXtucS1m19i7ZlmspHOjJmjnbsGgyRSAlluCNWG6rZWlCFjZtpfLtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793298011;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=bOHnuqm9JpBcA8XwXXxzaZDMRZkV0lT5/r8gk4REOYs=;
+	b=os01x7ODv9iwzSEfHDgwZRpvAWQqwHAcEcp8XxWHhsWYCyfZPMhZxEeKqyAs8NLp/Cuy
+	 +f09Pku8/d46VOluHmvJHwHjq1ZgpcYR/IfwODzZVPxXdXkwIxwi3KJCIwaLTyp5/Z5Ww
+	 yEAX3jmbonS2E+PuWYiw8m0kb2yQF37NUQXRoMi+TsSuDIbK33OV+uuU1GuYRLtI97nO5
+	 TllaWfU4yc1yMKS6rVrf6ivtqBwPxzyHR66BjLRlNESuEyCPRESyToUX//2fqDft6V4Nn
+	 x0P9eNPwUPye3cIfh1MyPvfc72HDtzmcaMl2JYkrp1Dte6xn2GGyDGTnG9Pug+cm86A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYT7YE8M;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09718606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:19:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09718606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JiDLCoST;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B401606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:20:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B401606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYT7YE8M
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c43fbcb4393so397220466b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:19:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793297996; x=1793902796; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
-        b=cYT7YE8MnjT535XzV/rYW+UyQxEqaI9/EWDmYbvWt7XA2rYcORvDq2FwiZKn68hH3h
-         Hmjg5gt/vNEhjlZk+TFuqMG52UnP6Dg47AHnyvOVjbzL/1mGMD7IdI5MHkxDC0868ExT
-         RisSZK41Ha6Sjy+kXg1sDLKDqx9OgclNdXP8DbnALJFClLd8UeDUxCFwtan7jcvM2KS/
-         WfQivaOuHEEwv171mwo5xwP2KKFwHNKkf1SXIZmwUS997VBfEQdSJk4DDF+3Rr5hHSsC
-         sj+UDlyDkVIlysrw4oy+TIEShGCXblqUBQxX3xRXKfB2PzdATVRxz29WA80sjhYG41hm
-         q2ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297996; x=1793902796;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
-        b=1F8E2k1jJ6rRm2BEgJg/teXGQdA6qTN9MTsuDm61xxYp/5OzC05FJTfFs3jtaTDCR2
-         70d9heAGFq3OiTCDZ2jqhmiHgSNtKNPyAl7QRAXTsW0DiHac7ts0EuNPt7M3lBfNwoq1
-         FvKEclPGVCqLFvTphPSdqnRgzS/YRs9Yd5ybfh9HoTJfrte+fF5rV8x1jBW9nCGzOehT
-         GYI6Okl43ZJvFtOmLjdDfANlaLM1hE1y8445V68RxjQRFTB6qBzhYZ10mlTZWUDvOxMz
-         Tnwo84Js2LaJViSr96HqQf6OCf4EcbSys519TwdvXD7vAMXldyoo/cGlyE+DTt6o4RQs
-         SyYg==
-X-Forwarded-Encrypted: i=1; AKwUvBy00LR+r9sb/qew43/sd2kUyvMukD4U9LVmjup9jjOnpVsFLq3T1c11LQAEF/Ioq6H4CL8/iZi9L3/vScg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxfMHlBXj1Ja0ob8Z0IdtiBPi4hIgCrNU/GO1HIHB7EFozf6bf
-	Cor2ejbUzL7LjtRGzGjTBuRgpWugM889F9rCQoJK7i1kKQ2Rx7jbgLzgN7kXGOvb
-X-Gm-Gg: AYBFou0y0JG8lm7LgH2ncEotnzqkNiACbz2DP3VHmQ7oj7qD6Nt7khDh9xvsHtnJN/u
-	4HGo5dMm8kPwSkCG1aJA+UuX/fi+M+OWtjoKvr3U/rAP6WVTbg9zZp4T7UIDrg0WtDKdP9ALsCi
-	cc61+6ma3ICOwIyQEbX68t9syoTp5cZGNCmPDKd1/ObEMBbYcnnzLoEGdc+F4Ak+3sfyvpD6W1S
-	l1wqqgqekJGig99zlBkCm5qrEXDAGucWJlFhWfWEO5xhQgzhKHO7nXrIC9SgPV5wuZhNJkE5t7o
-	ec3AU3aODfhNL2MThIG0NiFimUHeZ62ZronoWxutJqICEy0iyp6VMN1C/DPfhAYakCnXM+VcIL8
-	6Ss+KUZtITI0wY7iYO4S9Vh8N+R1nFAV1zhZeg1doaj0SpyeliihqTiGVgak6gfALSWCw177hVK
-	CiDzddrXodjjaj1VVYpX8v6yKB6Ib/BDasR1dtKvB4xNUZS4mLECzgTBZ+YyMzfVMEHsWFMb1Dr
-	ae8nbFPcdWwl+1lLXnyDjvKTI2P4ZYeBSc5Hqu0lWVjBa4JuHnI/RZmZxP2o6TeAAfPO5GVHC8s
-	jW/JjWN09TMavYh4oRygP/33Nv+BUJguZIIKrN+9MXMeQrAHvj+u1ioEZ7C2ooQt++tT4VEmpzT
-	8HQ3G5GX4RTGS/K4BFsDgY2ISqW4BxeSr3zcqZZb1rk/+tlAUqvRS0wGDHdWBSGFo
-X-Received: by 2002:a17:906:448:b0:c41:1e13:8896 with SMTP id a640c23a62f3a-c49c635f4b8mr354049166b.28.1793297996159;
-        Thu, 29 Oct 2026 11:19:56 -0700 (PDT)
-Received: from maria-VMware-Virtual-Platform ([182.186.0.95])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca2de1b78sm10323466b.2.2026.10.29.11.19.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:19:55 -0700 (PDT)
-From: Maria Sheikh <mariasheikh812@gmail.com>
-To: outreachy@lists.linux.dev,
-	vaibhav.sr@gmail.com,
-	mgreer@animalcreek.com,
-	johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JiDLCoST
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C9A01682;
+	Thu, 29 Oct 2026 11:20:06 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 469CE3F673;
+	Thu, 29 Oct 2026 11:20:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793298009; bh=cWbcv/OrR3AC8MWmsufB2MOUC/lX1aMLnaTpaG/Zm6s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JiDLCoSTk0j+JNfFGYPj7s5GQs9Ok0PIGN3GkOADOMJO4HOphVZlHwhzIw81Hsx/W
+	 r7U7Y9HdV6FkmNlQsULUl6Qi45DshRgf6ayeyi+lkU7/zlMymKsLRv8tYIDx38k2Po
+	 Q1pQyDXi2cM7dXwceosKX8wRfP6ScMXmTszM5nig=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Cc: Maria Sheikh <mariasheikh812@gmail.com>
-Subject: [PATCH] staging: greybus: audio_manager: Add newline to sysfs output
-Date: Thu, 29 Oct 2026 23:19:40 +0500
-Message-ID: <20261029181948.13121-1-mariasheikh812@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [RFC PATCH v2 0/3] Set DBM bit on writable pages
+Date: Thu, 29 Oct 2026 18:20:05 +0000
+Message-ID: <auONmOc-nYsQwCnG@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <auExh5laWQbUKmUY@kernel.org>
+References: <20261026144413.441566-1-leo.bras@arm.com> <at-lSy7H-K60LhCB@kernel.org> <auCOj9dgk42AE1WX@LeoBrasDK> <auExh5laWQbUKmUY@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,79 +74,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-Fix checkpatch warning:
+On Tue, Oct 27, 2026 at 04:19:35PM -0700, Oliver Upton wrote:
+> On Tue, Oct 27, 2026 at 11:44:15AM +0000, Leonardo Bras wrote:
+> > > I'm pretty sure I shared this feedback before, but patches that enable
+> > > DBM do not make sense in isolation. We need a single series that
+> > > contains the DBM enablement as well as the corresponding HDBSS support.
+> > >
+> > 
+> > Right, 
+> > My reasoning is that we can discuss this new version, and make the needed 
+> > changes, so Tian could pick this for his own patch series for the next 
+> > version. I do not intend to get this merged by itself.
+> > 
+> > Next time I will make sure to state this in the cover letter so it's clear.
+> 
+> Can you just work this out off-list? Let's keep the on-list dialogue
+> consolidated to a single series to review.
 
-WARNING: return sysfs_emit(. . .) formats should include a terminating
-newline.
+Sure, will try to reduce this noise in kvmarm.
 
-Add "\n" to the sysfs_emit() format strings of the name, vid, pid,
-intf_id, ip_devices and op_devices attributes.
+> 
+> > > The abstract permission flags need to have a WRITE an DIRTY state, which
+> > > we then map to hardware based on the capabilities of the system.
+> > > 
+> > > !FEAT_HAFDBS:
+> > > 
+> > > 	DIRTY	=> S2AP[1]
+> > > 	WRITE	=> S2AP[1]
+> > > 
+> > > FEAT_HAFDBS:
+> > > 
+> > > 	DIRTY	=> S2AP[1]
+> > > 	WRITE	=> DBM
+> > > 
+> > 
+> > I agree that it could work, and my first version was based on that.
+> > 
+> > But looks weird to me that we have to decide the writable bit based on 
+> > having a feature enabled.
+> > 
+> > Take in account that we can only have DBM being the writable bit while 
+> > HAFDBS is enabled (not only present), and that it is just enabled during 
+> > dirty-tracking. 
+> > 
+> > It means we would need to convert the whole pagetable between DIRTY=S2AP[1] 
+> > and DIRTY=DBM every time we enable or disable dirty-tracking.
+> > 
+> > My suggestion with this series is to have WRITE=DIRTY=S2AP[1] at all 
+> > times, and have DBM to act as a "can be promoted to writable on write" bit.
+> > This way we don't actually need to convert between encodings, and it still 
+> > works and complies with the architecture.
+> 
+> There's no such "can be promoted to writable on write" in the indirect
+> permission model.
 
-Signed-off-by: Maria Sheikh <mariasheikh812@gmail.com>
----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Well, IIUC it's kind of the default behavior, right?
+Direct - DBM means HW can promote that page RO->RW, with HAFDBS=on
+S2PIE  - All pages can be promoted RO->RW, as long as HAFDBS=on
 
-diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-index dc90cc2d2308..5737f2a32f5a 100644
---- a/drivers/staging/greybus/audio_manager_module.c
-+++ b/drivers/staging/greybus/audio_manager_module.c
-@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
- static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
- 					 struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%s", module->desc.name);
-+	return sysfs_emit(buf, "%s\n", module->desc.name);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
-@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
- static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.vid);
-+	return sysfs_emit(buf, "%d\n", module->desc.vid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
-@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
- static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.pid);
-+	return sysfs_emit(buf, "%d\n", module->desc.pid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
-@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
- 					    struct gb_audio_manager_module_attribute *attr,
- 					    char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.intf_id);
-+	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
--- 
-2.53.0
+> This is why I'm suggesting that we align the abstract
+> permission bits (i.e. KVM_PGTABLE_PROT_*) with the architecture's own
+> abstracted permissions (e.g. uX, pX, RO, RW).
+> 
+
+I think the approach you suggest makes sense, and it makes it simpler to 
+deal with permission indirection in the future. In order to do like that, 
+while keeping a single encoding for direct permission, I suggest we have:
+
+-	KVM_PGTABLE_PROT_W			= BIT(2),
++	KVM_PGTABLE_PROT_DIRTY			= BIT(2),
+...
++	KVM_PGTABLE_PROT_DBM			= BIT(6),
+...
+
++#define KVM_PGTABLE_PROT_W	(KVM_PGTABLE_PROT_DBM | 
++				 KVM_PGTABLE_PROT_DIRTY)
+
+(Rationale is: it's writable if it's either dirty, or can be made dirty by 
+hardware on a write)
+
+And then replacing by PROT_DIRTY the uses of PROT_W which were only 
+tracking the fact it's dirty. I tracked just a couple of those.
+
+When detecting the PROT_* based in PTE encoding, we track PROT_DIRTY, and 
+PROT_DBM individually. The same can be done in nested, as we can just 
+ignore the PROT_DBM for shadow pagetables, given we want, IIUC, to fault 
+and update the original pagetables.
+
+That would avoid switching between encodings while toggling HACDBS, and 
+while making use of the DBM without directly associating it with the write 
+permission.
+
+What do you think?
+
+> That composes nicely with nested virt as it is unambiguous what
+> permissions we're trying to represent in a shadow stage-2. And in the
+> non-nested case you can just lay down writable-dirty translations for
+> most things and use writable-clean when necessary for HDBSS.
+> 
+> > > Beyond making the whole HAFDBS easy to reason about, I want this for
+> > > FEAT_S2PIE which reimagines bit 7 as a literal dirty bit that can be
+> > > managed by software or hardware.
+> > 
+> > Humm, and would not that work with the above suggested approach?
+> > I mean, bit 7 (Dirty, S2AP[1]) will both mean WRITE/DIRTY, but it will be 
+> > able to get promoted (nonW->W, or clean->dirty) based on the indirect 
+> > permissions.
+> 
+> There's a bit more though. We need to have an entry in S2PIR_EL2 that
+> encodes write permission and select that with PIIndex. So then we wind
+> up mapping the abstract WRITE permission bit to two fields into the
+> descriptor rather than 1.
+
+Makes sense to me now.
+
+Sorry I took long to reply your message, I was reading the docs for S2PIE 
+and thinking on a solution that would make sense for it in the future as 
+well.
+
+I hope it's enough, but if it's not, let me know of any suggestions or 
+requisites.
+
+Thanks!
+Leo
 
