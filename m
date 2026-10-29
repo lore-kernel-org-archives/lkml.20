@@ -1,50 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262805;
-	b=hFcdXJwIR25wya8p3k180QLAr2q5/4s5rNtA0ZnNMo/XycR0yCJeJOvBjUwKeYL9qbTQ
-	 yZ1U+RiB/K3ZU8A9NrzrudyATsHL2ByPLt4YLx+Negv7efCoqwZVCTqa7KzRslEathOXi
-	 TuAyXkAQvgYhdwMiA1c6dVN4ykt3vDCoTcw250SuCctaPPIR6o+oWrfNfthI2SouIPfTc
-	 P2pHznecS0mv5RgZsICS2aoleoXy7m2ccw6FYrDBdV3s+Eki9Q8/ApnX6XFqxXTgtC3uV
-	 O286gFd+eIs+pr0mlPKrRZgXPtYY77ZBM+abotaZjMr3SmFFAs/Y3YUqnRxrBhObbsQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262805;
-	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
-	 Subject:X-Priority:X-Mailer:X-Originating-IP:MIME-Version:Received:
-	 From:Date:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=ugUIMCjMxxqgsLH2sZshzVPxfok+Qgx/R9/1tAMlkvE=;
-	b=dXETjKNL6SU89nRhXhaMOOYSO7WaXvFRzww0mZF3Eofkp7/jG9nDYEwEDf6WC4zENyT7
-	 GuyLVP/icZ/ioyUtbAr0Vj5Scd8h0/nP6c6Zer0e/RFknHiXBAeEgFLgeiK6D5lZXZUJs
-	 ZIZa6by/yltAti3m5WX7VgljRDVERqrpDQ1T2cqXDNLLlR8CIAtV8SGTQL/+3R3GwGfD1
-	 SI4Suh8NzpC8LhzJCbTi33xTyoD+oV8vL9PRgr0GErB9fskuuZ0FNww4UgegM4ExPelco
-	 Tgye+4WBCWI289jkIhjKAw2T9Dgd+RQZT0w0Hpg9ckHkQXS7YrAcb+BqeyEnVpP0q2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hdu.edu.cn;
-	spf=pass smtp.mailfrom=hdu.edu.cn;
-	dkim=pass header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=gNB2O+kf;
-	arc=none smtp.remote-ip=103.209.128.52
-Received: from mail-m12852.netease.com (mail-m12852.netease.com [103.209.128.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793262820;
+	b=FeyHLBL5TsLKTDXejmqpRh0O0+eHOIZESNvmE01fwqnEm+FZktUeDeR/hr/2/Z8y6idn
+	 EBKhBCf254kEZsbYfZc0mufbG14QvPTbPuyJEGg65gZWe0wWDQ1UOz46lLD18f+TprH16
+	 eXaa6fpHGnwIX/Tg7JkUnni/4rSh+SsoniN+IXEPuirw2Uy71pGvazk4s894QRriAOA64
+	 c2WSc7gv5kB80BGn3uhlvdcX09hM/mTLE/kGGBjs2BY5GnLl/g3oPcjKPypyVBbwD1c/Z
+	 Hy/IQSrmY8r/fadivJSE2eNgw7pqFsQcJ4mJBYbskkhwMT7wyYoOK+EX8U2pXXgwAjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262820;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
+	b=k0nH50Fh3TqHgrMwO0rwO9KN3nXFgtPfdMTzoVOoRNa7WwkxWTuzSCL2coGGqBz8xUjB
+	 rvKgrxjIlOuZU926kkp8SegD+wZNGV2jUEfNQUeBipCojaboEHnbXWBFHEYNpPV7xfHDh
+	 Lu9HlnfsG3dZvEmZMZmISFaMQeHIoIpnflM1k0JqfFtim/8QAd41x5t8aTxwZAiT8TH7y
+	 g5J328DlPcDZLaCap6AqlJ082kaElA7j5AwxS9spk8eTHiYg/ILOeGqDW/09ePLlXD/GK
+	 ymOhFafg31ghavuhfXvyWFaPjrHYPmPGzzO8RUfIqX3O4sfmcIl9aedLWxPtg9MfO/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuGsWiB5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43A9606A31C;
+	Thu, 29 Oct 2026 08:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuGsWiB5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793262819;
+	b=MCXJEh20S6YOdrZwvpZEmgZU11tQTpcbEObVqIqN2t8IiT0M+/fq/okcIH7dqsVM5xmB
+	 HRJ6g12L2FqdZiYcXJtwKzDBovTzqSefUuGbzako5jVzSNW4b6N08KjVSFzeEoY//7SIf
+	 M0mnE0jd4aQtoXdAVzIBN+F+Dhc5swxACnX5R5HkCNkZs1Ho3JHCinX4VSOvfVFGI8uM/
+	 l0p34sfEYQSgdpfgd/ur3CgjtF7tiqPuOuhxj6SLyQNRfxmahH/SxoTBCDHPrl/OCMuR4
+	 BGWy3pVMvV4LIlPMdHJZENjGAY+RFev/Br8GOV1826rk2HUYLw7sl9u1m/1SRK/3a5A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793262819;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
+	b=gMYh4oK4ES0N9bXoOoW4Tj1mWpE9qIfXk6etBJRmZfGt+5y9fr+Tn4e17Gm6LnUXAA44
+	 dftSDfkvdLaab3SvI4H38x118ll1q1eqmyv1qArG2cvu97sGu4GLrAEWiUT4j5c6sfjdP
+	 XbY8iQ3zqgOVpnZhot/O6+MMB5kxkuVpO1tZ7HyOCEMG/xbvBQFMovVRxFEkB8v7fKpIo
+	 EY+DFMDYyqERyJqPrQ3HyO4nyndFfbkrvhST34Ul+123nQc8HHlntOAK8pNIgv8bJsH+W
+	 wJMz84+w3N74TuK9+RR1V1aYLoDT5NhE814sYME2rhmx0SKYNCeCW+oH4pbRfc1YXZQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F0E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F0E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=gNB2O+kf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ACEAWQCGLEhWF5vMItAIpqoW.1.1793262795047.Hmail.242270054@hdu.edu.cn>
-To: zack.rusin@broadcom.com
-Cc: gregkh@linuxfoundation.org, bcm-kernel-feedback-list@broadcom.com, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	security@kernel.org
-Subject: =?UTF-8?B?cmVqZWN0IFBSSU1FIGV4cG9ydCB3aXRob3V0IFRUTSBiYWNraW5n?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	by smtp.kernel.org (Postfix) with ESMTPS id B803B1F01829;
+	Thu, 29 Oct 2026 08:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793262819;
+	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AuGsWiB5bRI1ncZL5tGug+tgBNrP208cBdoWTqBXkem/LEWcK1FH2yn92JqBCS2nl
+	 YsuEQlBqkNw1g4uUtsIYeABf/xcUL+LZbZyRNGSIdvtBUm9PwrDSUsv0M8MDIf3IKx
+	 NKXRcw7e1aP2UoJNcwBdRNuw/phz8QtSIJrc7NZvfRusQ6/hAoZisZIiEnGtOBbGo3
+	 3/0ooFFNlNyLgTd7hqmF3JKpTxQg1Dt3nVEdLUH8cNei+RWtMfs2m6OGSsmjAhlS1b
+	 TI4Bq1XUMWZPFXmAvbgdGqMJFYVKoiMrhfRbElJqH89GxoKhUlUGajCWvL9jCa4E5M
+	 Fjzyp53eJUcVA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 18FEB4579B;
+	Thu, 29 Oct 2026 08:33:38 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v3 0/2] i2c: Add driver support Amlogic A9 I2C
+Date: Thu, 29 Oct 2026 08:33:30 +0000
+Message-Id: <20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,61 +83,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail ( [127.0.0.1] ) ; Thu, 29 Oct 2026 16:33:15 +0800 (GMT+08:00)
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Date: Thu, 29 Oct 2026 16:33:15 +0800 (GMT+08:00)
-X-HM-Tid: 0aa186cab927d45akusy85d7ca4c12f59
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSkgaVkIeGk8YS0xJQ04fSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlPS0hVSk
-	tJQkNDTFVKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=gNB2O+kfFOfjbORRt2JXDQSLKH++NkmqYSe2MK7LgW3K+hN65Jn3dK/hKCTx2jsE2sj5qnqrOGPrPYi1O2oOZneK9ZyP1q1blFKGVfWleC6xcbhw+AnZdrgAEglPfNqLRP3R6n0/kt2aiGdbu3pGhdHuCkJKL6VA5sh4tek+81M=; c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1;
-	bh=ugUIMCjMxxqgsLH2sZshzVPxfok+Qgx/R9/1tAMlkvE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANsE42oC/1WNwQ6DIBAFf8VwLq2sqNhT/6PpAXBRkooNGGNj/
+ PeCaU16fMsMs5KA3mIg12wlHmcb7OjiKE4Z0b10HVLbxk0ghypvGKOyoRY0Bc5rgQBYiYJEWMm
+ AVHnpdJ/wiFwS5nCZ0vPLo7HL3rk/4u5tmEb/3rMzS9dvAfivMDOaUyVk2yheGS7FTQ7PsbP6r
+ MeBpE9mOESWAxwiRJGXWGg0rC6V+Re3bfsA4HZeDPYAAAA=
+X-Change-ID: 20260911-a9-i2c-24478e22e683
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793262816; l=1553;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=kkji73amQnq/o1U1e1LnkN9YbZJt+h7urd8kw2klnlM=;
+ b=sdgJZWmkoNDUdFU37ska6hHqgSroWpJqdJP7CwvquZDnoSuEOtJ+JHnvI8tt18KjrxbGC4riL
+ zy3S4uoc8XiClZwNiCggHZj7xmNILDpBED5zvCcWhyrl72+ZmMGNIG4
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-SGVsbG8sCgpHUFQtNSBhc3Npc3RlZCB3aXRoIHRoZSBpbml0aWFsIGFuYWx5c2lzIGFuZCBkcmFm
-dGluZyB0aGUgcHJvcG9zZWQgZml4LiBJIGFtCnJlc3BvbnNpYmxlIGZvciB0aGlzIHJlcG9ydCBh
-bmQgcGF0Y2guCgpXaGlsZSBmdXp6aW5nIHRoZSB2bXdnZnggUFJJTUUgaW1wb3J0IHBhdGgsIEkg
-b2JzZXJ2ZWQgYSBrZXJuZWwgTlVMTCBwb2ludGVyCmRlcmVmZXJlbmNlIGluIHZtd19nZW1fb2Jq
-ZWN0X2dldF9zZ190YWJsZSgpLiBUaGUgdXNlcnNwYWNlIG9wZXJhdGlvbiB3YXMKRFJNX0lPQ1RM
-X1BSSU1FX0ZEX1RPX0hBTkRMRS4gVGhlIGNhbGwgcGF0aCB3YXM6CgogIF9feDY0X3N5c19pb2N0
-bCgpCiAgICAtPiB2bXdfdW5sb2NrZWRfaW9jdGwoKQogICAgLT4gdm13X2dlbmVyaWNfaW9jdGwo
-KQogICAgLT4gZHJtX2lvY3RsKCkKICAgIC0+IGRybV9wcmltZV9mZF90b19oYW5kbGVfaW9jdGwo
-KQogICAgLT4gdm13X3ByaW1lX2ZkX3RvX2hhbmRsZSgpCiAgICAtPiBkcm1fZ2VtX3ByaW1lX2Zk
-X3RvX2hhbmRsZSgpCiAgICAtPiBkcm1fZ2VtX3ByaW1lX2ltcG9ydF9kZXYoKQogICAgLT4gZG1h
-X2J1Zl9tYXBfYXR0YWNobWVudCgpCiAgICAtPiBkcm1fZ2VtX21hcF9kbWFfYnVmKCkKICAgIC0+
-IHZtd19nZW1fb2JqZWN0X2dldF9zZ190YWJsZSgpCgpUaGUgdm13Z2Z4IGNhbGxiYWNrIG9idGFp
-bnMgdGhlIFRUTSBidWZmZXIgb2JqZWN0IGFuZCB1c2VzIGJvLT50dG0gYXMgdGhlCmVtYmVkZGVk
-IGRtYV90dG0gbWVtYmVyIG9mIHN0cnVjdCB2bXdfdHRtX3R0LiBJbiB0aGUgY3Jhc2hpbmcgcGF0
-aCwgYm8tPnR0bQp3YXMgTlVMTC4gY29udGFpbmVyX29mKCkgY29uc2VxdWVudGx5IHByb2R1Y2Vk
-IGEgTlVMTC1iYXNlZCB2bXdfdHRtX3R0CnBvaW50ZXIsIGFuZCByZWFkaW5nIHZtd190dC0+dnNn
-dC5zZ3QgZmF1bHRlZCBhdCBvZmZzZXQgMHg4ODoKCiAgQlVHOiBrZXJuZWwgTlVMTCBwb2ludGVy
-IGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDg4CiAgUklQOiAwMDEwOnZtd19n
-ZW1fb2JqZWN0X2dldF9zZ190YWJsZSsweDJmLzB4YTAKICBSQlA6IDAwMDAwMDAwMDAwMDAwMDAK
-ICBDUjI6IDAwMDAwMDAwMDAwMDAwODgKClRoZSBmYXVsdGluZyBpbnN0cnVjdGlvbiByZWFkcyBm
-cm9tIFtSQlAgKyAweDg4XTsgd2l0aCBSQlAgZXF1YWwgdG8gemVybywKdGhpcyBtYXRjaGVzIHRo
-ZSByZXBvcnRlZCBhZGRyZXNzLiBUaGUgY2FsbGJhY2sgcmVxdWlyZXMgYSB2bXdnZnggVFRNCnRy
-YW5zbGF0aW9uIHRhYmxlLCBzbyBpdCBtdXN0IHJlamVjdCBhbiBvYmplY3Qgd2l0aG91dCBiby0+
-dHRtIGJlZm9yZQpjb250YWluZXJfb2YoKSBhbmQgbWVtYmVyIGFjY2Vzcy4gVGhpcyBwYXRjaCBy
-ZXR1cm5zIC1FSU5WQUwgaW4gdGhhdCBjYXNlLgoKVGhlIHBhdGNoIGJlbG93IGlzIGFnYWluc3Qg
-dGhlIExpbnV4IDcuMyBzb3VyY2UgdHJlZTsgaXQKYXBwbGllcyBjbGVhbmx5IGFuZCBwYXNzZXMg
-Y2hlY2twYXRjaC5wbCAtLXN0cmljdC4KCkFzc2lzdGVkLWJ5OiBPcGVuQUkgQ29kZXggKEdQVC01
-KQpTaWduZWQtb2ZmLWJ5OiBZdWhhbmcgUGFuIDwyNDIyNzAwNTRAaGR1LmVkdS5jbj4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9nZW0uYyB8IDggKysrKysrLS0KIDEgZmlsZSBj
-aGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4
-L3Ztd2dmeF9nZW0uYwppbmRleCAzOWY4YzQ2Li5kZDFlNmI3IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4
-L3Ztd2dmeF9nZW0uYwpAQCAtNzAsOCArNzAsMTIgQEAgc3RhdGljIHZvaWQgdm13X2dlbV9vYmpl
-Y3RfdW5waW4oc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopCiBzdGF0aWMgc3RydWN0IHNnX3Rh
-YmxlICp2bXdfZ2VtX29iamVjdF9nZXRfc2dfdGFibGUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
-YmopCiB7CiAJc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibyA9IGRybV9nZW1fdHRtX29mX2dl
-bShvYmopOwotCXN0cnVjdCB2bXdfdHRtX3R0ICp2bXdfdHQgPQotCQljb250YWluZXJfb2YoYm8t
-PnR0bSwgc3RydWN0IHZtd190dG1fdHQsIGRtYV90dG0pOworCXN0cnVjdCB2bXdfdHRtX3R0ICp2
-bXdfdHQ7CisKKwlpZiAodW5saWtlbHkoIWJvLT50dG0pKQorCQlyZXR1cm4gRVJSX1BUUigtRUlO
-VkFMKTsKKworCXZtd190dCA9IGNvbnRhaW5lcl9vZihiby0+dHRtLCBzdHJ1Y3Qgdm13X3R0bV90
-dCwgZG1hX3R0bSk7CiAKIAlpZiAodm13X3R0LT52c2d0LnNndCkKIAkJcmV0dXJuIHZtd190dC0+
-dnNndC5zZ3Q7Ci0tIAoyLjM0LjEKClJlZ2FyZHMsCll1aGFuZyBQYW4KMjQyMjcwMDU0QGhkdS5l
-ZHUuY24K
+Add a Device Tree binding and driver for the I2C controller found on the
+Amlogic A9 SoC.
+
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Changes in v3:
+- Based on the questions raised by the robot, the data flow was reorganized.
+- Some processing was optimized according to Andi's and Markus's suggestions.
+- Link to v2: https://lore.kernel.org/r/20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com
+
+Changes in v2:
+- dtbinding: make some minor modifications, suggestted by Conor and robot.
+- driver: Make some adjustments, including macro definitions, format adjustments,
+          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
+- Give up MAINTAINERS file the separate submission, make it together with the driver.
+- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
+
+---
+Junyi Zhao (1):
+      i2c: amlogic: Add Amlogic A9 I2C controller driver
+
+Xianwei Zhao (1):
+      dt-bindings: i2c: add Amlogic A9 I2C controller
+
+ .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
+ MAINTAINERS                                        |   9 +
+ drivers/i2c/busses/Kconfig                         |   8 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c                | 445 +++++++++++++++++++++
+ 5 files changed, 519 insertions(+)
+---
+base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
+change-id: 20260911-a9-i2c-24478e22e683
+
+Best regards,
+-- 
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+
