@@ -1,54 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793302115;
-	b=Awo9LHNuIW1A8SxCv3s4yJy7C43/QZTATHJuBgRyckZYfFybgdS1EmJVkAp42MYqvVbD
-	 0aR+GJWoCWlVtpdgjcBpCm/yU+3BjOb32/qDqnZNCcxGvSjUAwciWXKRuHzTCvWtVRXHO
-	 05awD0kfTBXZ9ycvLcHnsHHLe8U0t1lSkiqp4RDX8oHzhsULdgWSUHlx++J1SxwXT+Pal
-	 djM4Ij66IgH5APBLJSIqwkLvgVuYNKLtxhiHlUDV4D/2sAFTHXBB13wietlZF9+01OurP
-	 nRYzoirgiupGwz/blISalo8UIwzTp8J3Zxrl0imEv51mgXChEvxPpkekNOe17GZHfPQ==
+	t=1793302109;
+	b=POIuGqqdniKEfyYahTfiU7GQcMFUqK9iOJD5bhm5Tf5LCDiNPS8ruL2dnata+gC4qryr
+	 D2EVmo72wBWVFhtoPjhZXv/Y1xciOZHoLYV0DHpLDm7qVm373FqD5rWFHUr893m98moAf
+	 oYxXqHSbfdKJkp+s/sUB1Oc3jICr69wHuYwPppM5+iwYf1MzhG+MrpHofILRvP4DnTBH3
+	 xtmg2Eo75O6B6NFexBlsnJFmn02CY45odJWtOsze2tULFq8TifbYp04+rnXBL81zM+fPf
+	 3bn8ekBI1PDRR1OolqUcMx4PsLJK5eyp+hkALML1uObB9PKxJAGHa5GtiF+hv4ijMMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793302115;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=t2JYG2rzukbruha0yazPbFIGLvQK6TgqCWqbchzcmUI=;
-	b=VLmRBGiql492vwiDcqyJk53bxjKzmw80/BdsZ0JwDCxrUvL6uCLbr6w8Br1xOZ2GTfsz
-	 5bY4r+lCBwcRssrx7LmhoMl0XaYr20ijk3MiPRWyW318AFBRdtgispTJH3mi2T79OPAMg
-	 a6ARzvTwSNuHBFOIuV5nbcVTLVF8nur6ygcA5zOX952ZrQ9xwM/SWsrM7bqMd9K+og3EC
-	 IRZwn5UdsvcCnsA4wDnolE5E3OFPpEhHuy1PLLkIajM6CFlMrA9gET8Q4fgEUmxF0kGcs
-	 UGvulN48k66iDbqwkmngBVW5nJX3GgeYZ8byAt57fEBkkePYHDarRt9fHpmbfAg1lDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793302109;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=l0+5ubFd1J4lsWZ084UYpuCIbDZPJCuWoPpCJ9/g/fE=;
+	b=on9qHF9X7r7LhqYLhtSAjf6HjgjnGFk9zkmw13OKaRKZaZJbCDa3WK/SKDDuqIpXmw2x
+	 V6Qux7sB3d34KvNHG4T5utYWrw/u9EbsN0yAthcov6cmINYRgIbuMsczZyCHtmfD7I+/b
+	 YgUJEfVHvdnaCzYJ2xCGwWRXCXSKqCLZrW7w1LZhEIhFEAOvvCtPjY84WP5Ygbb3D+HVJ
+	 QW2Uk8EbgtALQYXHLRV+t9arm9+LK2Im81Qkkrzzsaw/gh6VjdvavDyXdyLZ8lj6i4bpk
+	 +fWcNa3h9fCnP080f3psY5zNkQhGfSy0HwgQq0zpZBrvmX6FYvAG0emwVcIc6PD2bUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5MBzNXG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkwUZO4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0CCDA606A31D;
-	Thu, 29 Oct 2026 19:28:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74524606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5MBzNXG
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F02891F01816;
-	Thu, 29 Oct 2026 19:28:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkwUZO4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 274F21F01816;
+	Thu, 29 Oct 2026 19:28:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793302114;
-	bh=t2JYG2rzukbruha0yazPbFIGLvQK6TgqCWqbchzcmUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B5MBzNXGnW5cAUk/GD8P71vqK44V9x3PLhXBsY1pBlpK4dlNZg6V24hVZp5NApH8u
-	 MyKEwuL77IgO0mPAi+Qc28AFcMeap8BUlbNUd5qpHjawEtbOxtero813ZXZaTW92Z2
-	 +QUCUmI8faS3Z0xFh7rKeEdP2kPFoWGK3C5uRHqZCZD440GFuOvfgnZxiSS3UDX9hO
-	 gfSX3GqhrTvkjA/AEGNuJP6gm5jh/NMiHso/omww+/lzIzPRCBsz7L0af4IF8o7rWZ
-	 RLT6vCQMAuZKgMSdy5XCaQaHIxfWiK+FeBD+XcRPWLlJlUv7Hb/3vS6c1bwLEomFxF
-	 vzYh5dTU3IAiw==
-Date: Thu, 29 Oct 2026 21:28:31 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Arun Menon <armenon@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v5 7/7] tpm_crb: Implement command and response chunking
- logic
-Message-ID: <auOeXwRQpdLqeapz@kernel.org>
-References: <20261029181541.99505-1-armenon@redhat.com>
- <20261029181541.99505-8-armenon@redhat.com>
+	s=k20260515; t=1793302108;
+	bh=l0+5ubFd1J4lsWZ084UYpuCIbDZPJCuWoPpCJ9/g/fE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=RGkwUZO4lk0dRv+GCt6hx+Fa3JOBxQ5LpFilAhtlj+7EgNtaLZsNIsmN7bBZoimWF
+	 mbYVmeEC6H8Wal5rW6OFzXmN8XqQHluMk/wmMoiH7gkBHSF8eJ0ss1U8W/vFZnIjY0
+	 J9etYb5B/EbNd0+VKAQdCBGYywn3pjsITdP8ljx0ZZjnWMLsh/h0q2Xmya5JARAT/e
+	 G/03IGzogJXIVC6ACnxCg2WckjZFCOVBszefNj4FOk0Kp3mOnXAtdZz/E2F9FSisRn
+	 k/+IkAHFs4FpgJkfprKkYtiyXUKTuK6I+YkkcS8nHysmEKvq/kQ9WUkcGsmDERCUYJ
+	 yxpeOhPFPCKQA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 84372198003A;
+	Thu, 29 Oct 2026 15:28:25 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 29 Oct 2026 15:28:25 -0400
+X-ME-Sender: <xms:Vp7japqDDH7MTBpj2o1_0HawlWVyvY0FOU7D8Nd9IguEUhdaix0NLg>
+    <xme:Vp7jamc4F6MAAJVzCkF6_bNAJ-7k-8SOvhUA7n3HuyFOvMyH0BMFlNP5K3bDlVkmU
+    _MmSSbFPwfBRpUeSAyALsDRKfHwP5svjvMMMnJX_-T0oDwT3xHlOQ>
+X-ME-Proxy-Cause: dmFkZTEUgvLRPruJWwMD4Akvs3ZiKwYmL4oDztPDoA8hrr5wiy3BkBr/L+J8ffIc495+a8
+    sVhiVVtwPIuNAOKAlOpndG4mY3OFBA0yxH/iDkko4Iw92VWlZpDVx91SpbqSTdnJwCsCmq
+    fNWy+5fryrK9SVPiry0Lo1zBi6buqOp0lcoqLNhSe+EeqeBh3swNKQj473ROSt/e3Q3YzT
+    Y6Vqe3oHE7LWnGQ7fdLxgfCMkC2+Mben6NfQDOT8lpSGnMgUR7e0byjD60bSFe5B3Hne7U
+    w5Gfiok6+D9TuVISthJHKLQtTSjEFU84bn3lh0P6LFT1Swa09hrw4mNbqBD5zejN/EOIVm
+    llqnU5WA+hypRMru22igAtp2EarCpc/fa5olztzEdkS0JpQS4cjmX6GqUrUxqz7IITIK4z
+    K3yxyQbcBGMl04ZmpOqisSGPU9G/2asCSPnYRTSQLv5jInUHP/+yzOxTPG2wbvC9GhIS8Z
+    nwAjnIxctRgMiScIn7m6OoJIyndLKBXCkesgX55ummn8NiOto5buDBM9zYGYlz6iHP3oCs
+    7guFdH0nVF56k6/788zHoqITj7rHth1rQqq8VphlCPUZPp0f0Tf2V7S+aum5FfPDPzLsPo
+    sw2J/w3694XUXfHo/Js1a6n736sSGucGslN4UA8hN96a5+o4rLIesRyiQSiw
+X-ME-Proxy: <xmx:WZ7jam3_6jP7JYZKi7_ncq2u7jb1GraqdICHIIEXhUjfDVgazjJ8Gw>
+    <xmx:WZ7javjQ0EQPb0oalPZ_Y84GSb9fuBCm5hcsd0-_BmBh8nf4QJ4h4A>
+    <xmx:WZ7jasZ9VmdjIbSXaeztyyyt16GVwnJztwEObzWgR8yzA6LOMR-XqA>
+    <xmx:WZ7jagN_FdpPrbKtzGVUnXth4ieCquH3vlgtCHvjBwW2p6cxqSnNgQ>
+    <xmx:WZ7jaoR32XkuWPNxMvWbVBj2VFK7d4bzjxxEq1WJNsRrSY-uXsbr36X4>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id F28D7F80093; Thu, 29 Oct 2026 15:28:21 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,249 +77,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029181541.99505-8-armenon@redhat.com>
+Date: Thu, 29 Oct 2026 20:28:01 +0100
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "George Guo" <dongtai.guo@linux.dev>, "Mike Rapoport" <rppt@kernel.org>,
+ "Pasha Tatashin" <pasha.tatashin@soleen.com>,
+ "Pratyush Yadav" <pratyush@kernel.org>,
+ "Huacai Chen" <chenhuacai@kernel.org>, shuah@kernel.org
+Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>, baoquan.he@linux.dev,
+ ruirui.yang@linux.dev, guodongtai@kylinos.cn,
+ "WANG Xuerui" <kernel@xen0n.name>, "Alexander Graf" <graf@amazon.com>,
+ liukexin@kylinos.cn, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-efi@vger.kernel.org
+Message-Id: <2382a0ee-cb6d-4572-be6e-ce3cf4d006e5@app.fastmail.com>
+In-Reply-To: <20261029172956.20791-2-dongtai.guo@linux.dev>
+References: <20261029172956.20791-1-dongtai.guo@linux.dev>
+ <20261029172956.20791-2-dongtai.guo@linux.dev>
+Subject: Re: [PATCH v6 1/8] efi: Pass KHO state to the next kernel in a configuration
+ table
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 11:45:41PM +0530, Arun Menon wrote:
-> From: Arun Menon <armenon@redhat.com>
-> 
-> TPMs implemented with the CRB address map in the TCG PC-Client
-> Platform TPM Profile (PTP) for TPM 2.0 are limited to a 3968-byte
-> command/response buffer (v1.07, March 2026, Table 36 and section
-> 6.5.3.9) in [2]. This is smaller than the 7.7KB ML-DSA-87 TPM2_Load from
-> the previous patch. PTP 1.07 adds a chunking mode for exactly this case
-> (sections 6.4.2.2, 6.5.3.9, 6.5.3.10 in [2]), usable by any CRB TPM that
-> implements it.
-> 
-> Send and receive the command/response split into pieces no larger than
-> priv->cmd_size/priv->rsp_size. Write CRB_START_NEXT_CHUNK to
-> ctrl_start after each piece but the last, and wait for the TPM to clear
-> it before sending the next; use CRB_START_INVOKE on the last piece, same
-> as the non-chunked path. Read a response back the same way, in reverse.
-> 
-> On top of the previous patch's tpm_crb_send_no_chunks()/
-> tpm_crb_recv_no_chunks() split, add:
-> - rsp_size: response-direction counterpart of cmd_size.
-> - intf_id: interface ID register, read once at probe time.
-> - CRB_INTF_CAP_CRB_CHUNK: capability bit in intf_id; crb_send()/
->   crb_recv() only reject an oversized payload when it is clear.
-> - tpm_crb_send_chunks()/tpm_crb_recv_chunks(): drive the chunked
->   transfer described above.
-> 
-> This corresponds to the backend implementation in QEMU [1], which
-> reassembles the chunks before handing the command to the TPM emulator.
-> 
-> [1] https://lore.kernel.org/qemu-devel/20260506075813.120781-1-armenon@redhat.com/
-> [2] https://medias.cdn.trustedcomputinggroup.org/production/PC_Client_Specific_Platform_TPM_Profile_for_TPM_2p0_v1p07_Pub_5643562943.pdf
-> 
-> Signed-off-by: Arun Menon <armenon@redhat.com>
-> ---
->  drivers/char/tpm/tpm_crb.c | 119 +++++++++++++++++++++++++++++++++++--
->  1 file changed, 115 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-> index f0bac9e1f1e8..e14b1feb3fea 100644
-> --- a/drivers/char/tpm/tpm_crb.c
-> +++ b/drivers/char/tpm/tpm_crb.c
-> @@ -105,11 +105,13 @@ struct crb_priv {
->  	u8 __iomem *cmd;
->  	u8 __iomem *rsp;
->  	u32 cmd_size;
-> +	u32 rsp_size;
->  	u32 smc_func_id;
->  	u32 __iomem *pluton_start_addr;
->  	u32 __iomem *pluton_reply_addr;
->  	u8 ffa_flags;
->  	u8 ffa_attributes;
-> +	u32 intf_id;
->  };
->  
->  struct tpm2_crb_smc {
-> @@ -369,6 +371,13 @@ static u8 crb_status(struct tpm_chip *chip)
->  	return sts;
->  }
->  
-> +/*
-> + * tpm_crb_recv_chunks() below needs to drive CRB_START_NEXT_CHUNK through
-> + * tpm_crb_start(), which is defined later in this file next to the other
-> + * platform-specific start methods it dispatches to.
-> + */
-> +static int tpm_crb_start(struct tpm_chip *chip, u32 start_cmd);
-> +
->  static int tpm_crb_recv_no_chunks(struct tpm_chip *chip, u8 *buf, size_t count)
->  {
->  	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> @@ -388,12 +397,54 @@ static int tpm_crb_recv_no_chunks(struct tpm_chip *chip, u8 *buf, size_t count)
->  	memcpy_fromio(&buf[8], &priv->rsp[8], expected - 8);
->  
->  	return expected;
-> +}
-> +
-> +static int tpm_crb_recv_chunks(struct tpm_chip *chip, u8 *buf, size_t count,
-> +				unsigned int expected)
-> +{
-> +	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> +	size_t offset = 0;
-> +	size_t chunk_size;
-> +	bool expired;
-> +	int rc;
-> +
-> +	if (expected > count || expected < TPM_HEADER_SIZE)
-> +		return -EIO;
-> +	/*
-> +	 * Without this, a bogus zero-sized MMIO window would never make
-> +	 * forward progress below.
-> +	 */
-> +	if (priv->rsp_size == 0)
-> +		return -EIO;
-> +
-> +	while (offset < expected) {
-> +		chunk_size = min_t(size_t, expected - offset, priv->rsp_size);
-> +		memcpy_fromio(buf + offset, priv->rsp, chunk_size);
-> +		offset += chunk_size;
->  
-> +		if (offset == expected)
-> +			break;
-> +
-> +		rc = tpm_crb_start(chip, CRB_START_NEXT_CHUNK);
-> +		if (rc)
-> +			return rc;
-> +
-> +		expired = !crb_wait_for_reg_32(&priv->regs_t->ctrl_start,
-> +						CRB_START_NEXT_CHUNK, 0,
-> +						TPM2_TIMEOUT_C);
-> +		if (expired) {
-> +			dev_err(&chip->dev,
-> +				"Timeout waiting for backend response\n");
-> +			return -ETIME;
-> +		}
-> +	}
-> +	return expected;
->  }
->  
->  static int crb_recv(struct tpm_chip *chip, u8 *buf, size_t count)
->  {
->  	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> +	unsigned int expected;
->  
->  	/*
->  	 * A sanity check that the upper layer wants to get at least the header
-> @@ -409,7 +460,17 @@ static int crb_recv(struct tpm_chip *chip, u8 *buf, size_t count)
->  	if (ioread32(&priv->regs_t->ctrl_sts) & CRB_CTRL_STS_ERROR)
->  		return -EIO;
->  
-> -	return tpm_crb_recv_no_chunks(chip, buf, count);
-> +	/* Peek at the first 8 bytes to determine the response size */
-> +	expected = be32_to_cpup((__be32 *)&priv->rsp[2]);
-> +
-> +	if (expected <= priv->rsp_size)
-> +		return tpm_crb_recv_no_chunks(chip, buf, count);
-> +	if (!(priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)) {
-> +		dev_err(&chip->dev,
-> +			"Response larger than MMIO and chunking not supported\n");
-> +		return -EIO;
-> +	}
-> +	return tpm_crb_recv_chunks(chip, buf, count, expected);
->  }
->  
->  static int crb_do_acpi_start(struct tpm_chip *chip)
-> @@ -502,6 +563,46 @@ static int tpm_crb_send_no_chunks(struct tpm_chip *chip, u8 *buf, size_t len)
->  	return crb_try_pluton_doorbell(priv, false);
->  }
->  
-> +static int tpm_crb_send_chunks(struct tpm_chip *chip, u8 *buf, size_t len)
-> +{
-> +	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> +	size_t chunk_size;
-> +	size_t offset = 0;
-> +	int rc;
-> +	bool expired;
-> +
-> +	while (offset < len) {
-> +		chunk_size = min_t(size_t, len - offset, priv->cmd_size);
-> +		if (chunk_size == 0)
-> +			break;
-> +
-> +		memcpy_toio(priv->cmd, buf + offset, chunk_size);
-> +		offset += chunk_size;
-> +
-> +		/* Make sure that cmd is populated before issuing start. */
-> +		wmb();
-> +
-> +		if (offset < len) {
-> +			rc = tpm_crb_start(chip, CRB_START_NEXT_CHUNK);
-> +			if (rc)
-> +				return rc;
-> +			expired = !crb_wait_for_reg_32(&priv->regs_t->ctrl_start,
-> +							CRB_START_NEXT_CHUNK, 0,
-> +							TPM2_TIMEOUT_C);
-> +			if (expired) {
-> +				dev_err(&chip->dev,
-> +					"Timeout waiting for backend to consume chunk\n");
-> +				return -ETIME;
-> +			}
-> +		} else {
-> +			rc = tpm_crb_start(chip, CRB_START_INVOKE);
-> +			if (rc)
-> +				return rc;
-> +		}
-> +	}
-> +	return crb_try_pluton_doorbell(priv, false);
-> +}
-> +
->  static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
->  {
->  	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-> @@ -512,7 +613,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
->  	 */
->  	iowrite32(0, &priv->regs_t->ctrl_cancel);
->  
-> -	if (len > priv->cmd_size) {
-> +	if (len > priv->cmd_size && !(priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)) {
->  		dev_err(&chip->dev, "invalid command count value %zd %d\n",
->  			len, priv->cmd_size);
->  		return -E2BIG;
-> @@ -522,7 +623,10 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
->  	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
->  		__crb_cmd_ready(&chip->dev, priv, chip->locality);
->  
-> -	return tpm_crb_send_no_chunks(chip, buf, len);
-> +	if (len <= priv->cmd_size)
-> +		return tpm_crb_send_no_chunks(chip, buf, len);
-> +
-> +	return tpm_crb_send_chunks(chip, buf, len);
->  }
->  
->  static void crb_cancel(struct tpm_chip *chip)
-> @@ -748,6 +852,11 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
->  		ret = PTR_ERR(priv->cmd);
->  		goto out;
->  	}
-> +	if (priv->regs_h)
-> +		priv->intf_id = ioread32((u32 __iomem *)&priv->regs_h->intf_id);
-> +
-> +	if (priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)
-> +		dev_info(dev, "CRB Chunking is supported by backend\n");
->  
->  	memcpy_fromio(&__rsp_pa, &priv->regs_t->ctrl_rsp_pa, 8);
->  	rsp_pa = le64_to_cpu(__rsp_pa);
-> @@ -786,8 +895,10 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
->  	priv->rsp = priv->cmd;
->  
->  out:
-> -	if (!ret)
-> +	if (!ret) {
->  		priv->cmd_size = cmd_size;
-> +		priv->rsp_size = rsp_size;
-> +	}
->  
->  	__crb_go_idle(dev, priv, 0);
->  
-> -- 
-> 2.56.0
-> 
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+On Thu, 29 Oct 2026, at 18:29, George Guo wrote:
+> From: George Guo <guodongtai@kylinos.cn>
+>
+> KHO has to give the next kernel two addresses: the KHO FDT and the
+> bootmem area list. arm64 and riscv put them under /chosen in the boot
+> FDT. LoongArch systems booting with EFI and ACPI do not require a boot
+> FDT, so KHO needs another way to pass this information.
+>
+> Add a Linux EFI configuration table for them, under
+> LINUX_EFI_KEXEC_HANDOVER_GUID. It points to a struct linux_efi_kho_data.
+>
+>   - On a cold boot, the LoongArch EFI stub installs the table, zeroed.
+>     Each kexec'd kernel is given the same EFI system table, so it finds
+>     the same table.
+>
+>   - In early boot, efi_config_parse_tables() reserves the table so
+>     neither the page allocator nor kexec segments use it, and calls
+>     kho_populate() if the table holds KHO state.
+>
+>   - Provide efi_kho_update() to update the table before kexec. Map the
+>     table during boot so updates do not require allocation or mapping
+>     at panic time.
+>
+>   - efi_kho_table_found() tells architecture code whether the table was
+>     found at boot, so it can turn KHO off when the table is missing.
+>
+> Only the LoongArch stub installs the table, and only with
+> CONFIG_KEXEC_HANDOVER. Elsewhere there is no table and this code does
+> nothing.
+>
 
-Br, Jarkko
+Can we handle this as an arch table then, and handle everything in
+the LoongArch arch code?
+
