@@ -1,64 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793308395;
-	b=tSa7lmaCqsr8CXipdpsCPdg6KW0zoOBaozdhX7IJpR/WmuC1ZMTneTygl6EhJet1tUBK
-	 bsTa7lIYUH/xPnrpclr4By60cfNfeysW3eqrH34JldJoGSXIYmjesRNkf67OwydMmy/oM
-	 fPfOi32XIfPDc00QT7IqW5mEuosUGNGcoye5DsWJJNB8nNb8Pnn9IC6ujm1jeaI00Hanj
-	 C1E7cUm/xCRnKkZFJa2WQ9qFGx1jMEv7/YalxE/dQANiZ1cbwYn3IUkszD/tigwKnljtx
-	 QurYX12NVMmrm1klXGgOhzinfGVVV0Ibodghxk0AuOdiNv7o982+eD+d9WEFk0w5T/g==
+	t=1793308464;
+	b=nS1iDsJPLrJHnf9oirPIxx+wuwdAOpoNhjVESZifWG2DGimJT3rpGmlm/bx7xwQSjObx
+	 Qn5Q4FPaVw6t2dNXUQkyFgGgPn++q/sx+PLZOPLk2dFFTinZq1MP/aKZg5nrlYqCTEk++
+	 PCuafbEFOJ33xdD+Lh4OZZ4UJ3kcLF0YBCKteWRaKaXemms4Jsuwlj0rNpATS3Gwe4uZ6
+	 xfy5ym8JFyyOvPRFNxB+mV/p3ttORk0MYDBhtSeznIJuyF5cd2GcacS2e+kd4vQnsmiKl
+	 g93m1rCnNqJa8K+Vv4o34qG/OqSKV0lg0EXqFSxILEkNkDIoi+sb+40Jb/KZVYdGETQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308395;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=HPThWvgxbUD3ds1cYzd/L/KJvxhH6jcm5lqOl/YrvQA5Jp45hwr8IBCue/HtEtSP9pdX
-	 eRE/T17ZHMF/PeuhmOL7T4rpp6cMJGjhOye/f7e4dq3uMJn53egmwqqpo/AANd/NagVt4
-	 ekiSeBa360Yu2QKPGq5WWhcwUyGHiy+a1nnt1TNazxJ6ua3r1L30D2pHTpiERtwqSVpAl
-	 4mrCM1V51O6ftsFfI0DLzz+WY4dI7NAe2wBW5lhrNpEuRRFODMfhbWBdetpF+bWAGvr34
-	 qxjuYSUn8PzpItFniR7IaTZxzbENOzkZYqAqXAAHz/D2qsmCkfjHeKX2Rc53tWTKUEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308464;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7pzjhtn6j5+N8CZXLk0hQRmO9CNlQSOA3omzcm5VGk0=;
+	b=RgUAY2+jhzgKqbtFEtE39ikSD2BdpYjuRf1Cak1najrRl6elHu1iG/rIbXCJut4/lPUQ
+	 e3uUBNEW2n1FGI9aeSrN3iJkzY5yz6ymQNfca/zp4c46a85SOajnq1nt1fz/kNuNWnbRg
+	 IJnV1iuss2kSL1AG0k9XVlcc/IYMgYN1PVCW7S/GScnrf81yuF4bMmEalDes3L6bBH72a
+	 o1uu0auC2KN0IFX+TXEtHvuy9fdO9EFwZow9HM2jS5FyRFRRYMUUKBagSzfSsRJdC5B1R
+	 acoV7/Jd5C5SfiV1ZSpHJvIxowNC6xJG5QC+m+4ElbJ0cdgW6vzIlUbInIId/Ua0VPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3iFnWyJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DDE606A31A;
-	Thu, 29 Oct 2026 21:13:15 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=p9DS9Eak;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8172606A31D;
+	Thu, 29 Oct 2026 21:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8172606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3iFnWyJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F83B1F01816;
-	Thu, 29 Oct 2026 21:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793308394;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X3iFnWyJkY8vxNCYw7OeFJTJ41w0vyJvNvF3zVLgeNRn9cgPOBPxnPXtR9ma5fi/y
-	 MTmULlBE/xb2m15sUJfg0oUY9mSqYw9eCviK4xi95PS8Kr/QIcaKxqXPAMUM7NJeOO
-	 bWyTI4YPRG7UFP3/dn+esbUsuaTW8aSngaBUbzIi1rbudf3QbOfHT20PBQX02716Zy
-	 PFtafJx+jHNcsGHX/lczCc2+soaQ4kWsEHzE2cdjYjus/7iUuIex3viNtzxo3J9Zmj
-	 IvFCJGwL3kN8a9Ucbt4Zxd1XWiUOjxmyucAZIBU/JaRjwRz4OHFkoe9Ifm2BIFDj0A
-	 oux+cbojPQ4SA==
-From: netdev-bot+sinfo@kernel.org
-To: Joseph Kain <jkain@nuro.ai>
-Cc: Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Stanislav Fomichev <sdf.kernel@gmail.com>,
- Jason Xing <kerneljasonxing@gmail.com>, Willem de Bruijn <willemb@google.com>,
- Mina Almasry <almasrymina@google.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net v7] net: stop defer_count outliving the deferred-free list
-Date: Thu, 29 Oct 2026 21:13:13 +0000
-Message-ID: <179330839362.3327.16138152744448390378@kernel.org>
-In-Reply-To: <20261029211101.2089535-1-jkain@nuro.ai>
-References: <20261029211101.2089535-1-jkain@nuro.ai>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=p9DS9Eak
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D38FC1682;
+	Thu, 29 Oct 2026 14:14:19 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D06203F59E;
+	Thu, 29 Oct 2026 14:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793308462; bh=38wAcV6+Pv6BUffZcJjTOzperonmticUwGom7ntWZAI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=p9DS9EakVP9HFrT+Dq5D5QflP8AsibvK4b16nw+3P+LFEwVRxQqTVKObaNvyb75GT
+	 Ek0Tw96E1T0R93ckTjFwoUcsTGJGeiERUvjdZYnZsTL3mmN9rXtnrZImSR4jRyjMft
+	 vJQ26MLNCQ6XqAljjKT5k0Edby4PnzN4T+fDm2Fg=
+Date: Thu, 29 Oct 2026 21:14:18 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Will Deacon <will@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Yicong Yang <yangyicong@hisilicon.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>, Arnd Bergmann <arnd@arndb.de>,
+	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] arm64: Add override for ID_AA64ISAR1_EL1.LS64
+Message-ID: <auO3Kiykovvs279e@arm.com>
+References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
+ <20261025075138.2919734-2-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,25 +69,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025075138.2919734-2-fuad.tabba@linux.dev>
 
-Hi!
+On Sun, Oct 25, 2026 at 07:51:34AM +0000, Fuad Tabba wrote:
+> Accesses to ACCDATA_EL1, which FEAT_LS64_ACCDATA adds, trap to EL3
+> unless firmware sets SCR_EL3.ADEn. Once KVM context-switches the
+> register for its guests, a host whose firmware leaves the bit clear
+> can't run them.
+> 
+> Add an override for ID_AA64ISAR1_EL1.LS64, with an arm64.nols64 alias,
+> so that the feature can be disabled on such a host and for its guests.
+> id_aa64isar1.ls64=2 disables only FEAT_LS64_ACCDATA and above.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+However, does this need a plain cc stable? I assume you want it to go in
+with patch 3 but that one only goes as far as 7.0. Same cc stable in
+patch 2 which you may want to limit (or add both as dependencies to the
+cc stable in patch 3 when committing).
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Catalin
