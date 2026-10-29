@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264738;
-	b=ZkV9T4ZucfW9GaNH0IHdg2z3Wu+zesMwmkGjgPXIiFnyP8KS7DQp7d09zdYtqzlH/Urc
-	 I9qA/pfduRtYBFP86zhiyxUMD6fMyXuiq09gfGud1RXZo0+kgKJY0gi4rH5nDi6CLeobg
-	 hmqPLXMiifa15K57yXSVrRyDQqMO5CMyIdE8Gnp911+n9RhXRJef0/uAt/mywhLing80J
-	 dcLFffM9BCXqKV6WmX0D+sRoSGenqgsaZZw0Zt+/ksPjur0KbbOiiQFg2R2nuH9Uj+n2P
-	 rJU8POp3APdN8DTpy9eqcrinsgSYaYmok6TrD40IJwKTUTMfSHER24RoNAAAVgXwxvA==
+	t=1793264748;
+	b=kAZl5lh+8uICbo4R9auG5Zl7f5MPEWq1xFwZS+p+GcfYo49sbLwnS8SlWT4KzqT8vEHl
+	 Hat48dnSZiIHMUx4R3TwNOmnMX40E0aQbOct1tfDm+4TP7FRV1wa4UySRKn36t59NG/Hu
+	 F2QMqI29d8cfxx1c6MkD0rYeLjttle/XZM1zBM1ETxn4C/ZI3uXVssUJ7XwM9S4Pntemo
+	 8vSmEPviK4mbIRk0VwiRHTLIg/sj3gdUmnIktrBOP7hbvjnT09Yaf8viQ1LSRC0ccM3UL
+	 vG494gTTD2X/VTvd5xMwqkiSpG52O55RGCTa7luhtkMbo5SdG8/bL1IrAGz3HqFol0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264738;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DUwEU5VFVcm3BSvlIi+qnX1DNEYOOSjt0f4UAgjp/q0=;
-	b=QzhJGxfuzYtwALHp2k4yc9YFoXwj8p86kIhkbZDQMNnZtw7UxRvpMk2a7cqWOQgqKIyM
-	 4Buv78mwmkTaWRUjXfvmFGMrrXoP413/+uVkUPpr0dWK3ckvd5gxUtia47daAhdKpHRd5
-	 I5UqNLJakMt5I/iRaiBpNQgAV49y4q0wZ7MVHd/ihpLqDxv11g2RHMeyfUAdXO3ZiWPIf
-	 wKwXRXkZXyUQaha3NjZKPxBYfXAAjm9hE4uMhUhldVpkit2cPs69g0SUDSeWET0pLAVoI
-	 1UE0sMVvQOflwcK3C6NjcIKW4NJEpEXjbB7OgfukFK2YOx8esi4G4sCJQgPlPX2FVaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264748;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
+	b=0zHFQ1WLbjoT5oOUJRSBbaTnXdbE1+Tjn2bS1Xfgdn6SDXv8Wq+YG1vT4SgKzpAxq4HO
+	 AEWXObIMhK3VoDDt9J3Zfq22GsqkLGX3/tayxHQJ1jiuwtH5F4r396VvtmxsAvLKVJX1Z
+	 18xh+X9FWkHzAbYSeAHoqNzQEtZuS1D/rWv92Fx99t/VH4npy8H4Gm9WlWTfAmO31lWY1
+	 KICqtvLm8UxzFTTyew3Psq+3ay3yFJfDymCkUZO12t0phAMaN6cPDvm4/5qj1cwND1T/Y
+	 zxuMbEFnxPMtx+ro0KqT2GDf3O4EDJZRKACZWSrAZjPNrli8nbfNFLTK8uQRZVksqdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE3pYWlM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EDE606A31A;
-	Thu, 29 Oct 2026 09:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFA6606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:05:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EFA6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE3pYWlM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A921F01825;
-	Thu, 29 Oct 2026 09:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793264738;
-	bh=DUwEU5VFVcm3BSvlIi+qnX1DNEYOOSjt0f4UAgjp/q0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UE3pYWlMUN95Niu9Wtfdm3GxQH1knhbb/MKIkHh7IJ2bNicQLmFbrF5q1JQYXasKZ
-	 z4wj8JOiEhU74QBIK5Z3ndUsaoUU7BgPFSWCBeuERZPO3ckPct4MAT1NQXxFWPotl5
-	 3i4GCG3NFPUMorcuASu/L6ZAEoZhkGOXw/tsOQO/6H/H44u5pat8YWBJUuOu3ki+V2
-	 KAKWF+F84fZVsfsKHbUWbgWYZEJmQi3SAEIGzUMfPCObb6n0XuCf1xftEBPCFS6xsP
-	 Vc8DWMIvSEyRad1nF+CqBRxXHhLFv2v0K/4MEQgAEFYgnycFzyJiqU3PCodskvl2oV
-	 Tq71mQ2U6LTyg==
-Date: Thu, 29 Oct 2026 10:05:25 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mel Gorman <mgorman@suse.de>, Andy Whitcroft <apw@canonical.com>,
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
-	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
-	Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
-	luojiajun <luojiajun3@huawei.com>,
-	Josef Bacik <josef@toxicpanda.com>, stable@kernel.org
-Subject: Re: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
-Message-ID: <auMMVcK_80irHLkP@localhost.localdomain>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AB7831A138A;
+	Thu, 29 Oct 2026 09:05:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 76A1960360;
+	Thu, 29 Oct 2026 09:05:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6393103290F5;
+	Thu, 29 Oct 2026 10:05:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793264742; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
+	b=MOTF+iFkZ6s2UwV3iPDaAGhZFPho5OGAvuN0nmUbFwsQljFaJZTf25sMEdS+a3oEyHrWwF
+	5MBvPJMJjf4CuQmN+2PO08mrSgwtD+mmoeA6eSN2QYjNI2ALupe9+CdiBWKoeZ2msbNO/n
+	KcnVtbkKVcMV79IowIVESZDAEf0x1HERcDqP378mHNOT9k+uFnacXqMJNKDfzRGOosLzis
+	+Rcmqw6svdkBuDU9GorhRb73v+5qrKiiHQigWV3xyWEAxQL2FvSmzPklnEUO7fesRoSLmp
+	rXVPtvJcE0pwE0idrKdwSHwfWEbgXi/AEmidMYyC1aitTwUpbdwW1DnZEJ1XOQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,71 +58,191 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Oct 2026 10:05:38 +0100
+Message-Id: <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
+ <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+ <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+ <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+In-Reply-To: <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 28, 2026 at 09:13:29PM +0100, David Hildenbrand (Arm) wrote:
-> hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
-> to offset + len. vfs_fallocate()'s existing overflow check only makes
-> sure that offset + len does not overflow.
-> 
-> Once we overflow for valid endpoints near LLONG_MAX, we can get a
-> negative temporary result that is then converted to a very large
-> huge page index.
-> 
-> A one-byte allocation ending at LLONG_MAX can therefore consume all
-> available huge pages. Pages added beyond LLONG_MAX are skipped during
-> inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
-> 
-> To fix it, calculate the end index in a simpler way that cannot
-> overflow. This also fixes the signed overflow reported by luojiajun in
-> 2019.
-> 
-> Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
-> hugetlb special casing in filemap.c"), remove_inode_hugepages() must
-> include the final huge page during truncate and eviction.
-> 
-> Reported-by: luojiajun <luojiajun3@huawei.com>
-> Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
-> Cc: stable@kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi Krzysztof,
 
-Acked-by: Oscar Salvador <osalavador@suse.de>
+On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
+> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
+>> +          regulator-temp-warn-kelvin:
+>> +            enum: [0, 1, 368, 383, 398, 413]
+>> +
+>> +          regulator-ramp-delay:
+>> +            enum: [40000, 20000, 1000, 500]
+>> +
+>> +          regulator-min-microvolt:
+>> +            minimum: 1000000
+>> +            maximum: 48000000
+>> +
+>> +          regulator-max-microvolt:
+>> +            minimum: 1000000
+>> +            maximum: 48000000
+>> +
+>> +          regulator-min-microamp:
+>> +            minimum: 500000
+>> +            maximum: 7000000
+>> +
+>> +          regulator-max-microamp:
+>> +            minimum: 500000
+>> +            maximum: 7000000
+>> +
+>> +        unevaluatedProperties: false
+>
+> Place this line after description, that's the convention for child nodes
+> for readability.
+>
+>> +
+>> +      vcc1:
+>> +        type: object
+>> +        $ref: regulator.yaml#
+>> +        description: |
+>> +          LDO regulator for auxiliary use.
+>> +          It can used to power, for example, a PD controller that will =
+drive this PMIC.
+>> +
+>> +        properties:
+>> +          regulator-min-microvolt:
+>> +            minimum: 5000000
+>> +            maximum: 5000000
+>> +
+>> +          regulator-max-microvolt:
+>> +            minimum: 5000000
+>> +            maximum: 5000000
+>> +
+>> +        unevaluatedProperties: false
+>
+> Place this line after description, that's the convention for child nodes
+> for readability.
+>
+>> +
+>> +    additionalProperties: false
+>
+> Place this line after description (for relevant block), that's the
+> convention for child nodes for readability.
+>
+>> +
+>> +  ti,sync-pin:
+>> +    description: |
+>> +      Selects the function of the SYNC pin, used when several converter=
+s
+>> +      operate in parallel.
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    enum: [input-rising, input-falling, output-rising, output-falling]
+>> +    default: input-rising
+>> +
+>> +  ti,ivp-thres-microvolt:
+>
+> Use either existing over-voltage-threshold-microvolt from battery schema
+> or ti,ovp-microvolt from the other TI binding.
 
-> ---
->  fs/hugetlbfs/inode.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 01c4d6f44ebe..5592cfc6cc8b 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -721,11 +721,13 @@ static long hugetlbfs_fallocate(struct file *file, int mode, loff_t offset,
->  
->  	/*
->  	 * Default preallocate case.
-> -	 * For this range, start is rounded down and end is rounded up
-> -	 * as well as being converted to page offsets.
-> +	 * vfs_fallocate() guarantees that offset + len is positive and does
-> +	 * not overflow. Avoid overflows when calculating the end huge page
-> +	 * index: set it to one past the index of the huge page containing the
-> +	 * last byte.
->  	 */
->  	start = offset >> hpage_shift;
-> -	end = (offset + len + hpage_size - 1) >> hpage_shift;
-> +	end = ((offset + len - 1) >> hpage_shift) + 1;
->  
->  	inode_lock(inode);
->  
-> 
-> -- 
-> 2.43.0
-> 
+IVP is not the same as OVP.
 
--- 
-Oscar Salvador
-SUSE Labs
+>
+>> +    description: |
+>> +      Input Overvoltage Protection and Regulation Threshold.
+>> +      It shall avoid any damage to the device in case the current flows=
+ from the
+>> +      output to the input and the input source cannot sink current.
+>> +      This threshold is used for IVP (Input Voltage Protection) and IVR=
+ (Input
+>> +      Voltage Regulation).
+>> +    oneOf:
+>> +      - multipleOf: 125000
+>> +        minimum: 4750000
+>> +        maximum: 23250000
+>> +      - multipleOf: 250000
+>> +        minimum: 23500000
+>> +        maximum: 50000000
+>> +    default: 50000000
+>> +
+>> +  ti,ivp:
+>> +    description: Enable the IVP feature of the regulator.
+>> +    type: boolean
+>> +
+>> +  ti,ivr:
+>> +    description: Enable the IVR feature of the regulator.
+>> +    type: boolean
+>
+> Why wouldn't you want to enable these two always?
+>
+
+By default, these are off when the device is powered on and these features =
+exist
+only for reverse-current situation.
+
+Also if IVP and IVR is on, only the regulation feature is enabled, not the
+protection feature. This is a requirement from the datasheet. It is not ide=
+al
+and I should not reflect that requirement in the DT.
+It should be ti,ivp or ti,ivr but not both because it is confusing.
+
+Or:
+
+ti,input-voltage-mode:
+  enum: [protection, regulation]
+  ...
+
+>> +
+>> +  ti,nint:
+>> +    description: |
+>> +      Configures the nFLT/nINT pin to act as an interrupt pin.
+>> +
+>> +      nFLT mode: The pin remains low until the cause of the status chan=
+ge ceases.
+>> +      In this mode use an level irq trigger.
+>> +
+>> +      nINT mode: The pin is asserted low to signal a status change.
+>> +      In this mode use an edge irq trigger.
+>> +    type: boolean
+>> +
+>> +  ti,cable-drop-compensation:
+>> +    description: |
+>> +      The cable drop compensation feature helps to keep the output volt=
+age at the
+>> +      nominal value over a wide range of load current without the need =
+for
+>> +      additional remote sensing. The cable drop compensation measures t=
+he
+>> +      current and offsets the output voltage proportionally to the meas=
+ured
+>> +      current.
+>> +    type: boolean
+>> +
+>> +dependencies:
+>> +  ti,ivr: ["ti,ivp"]
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>
+> Best regards,
+> Krzysztof
+
+Thanks.
+Best regards,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
