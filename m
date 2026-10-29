@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.149.199.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793317143;
-	b=bmRK1u5cPKfa6Dms9sfwUGa0DJilRzpSOre2mjx3haMD+3lXYnDVXBZtgDIoYa5faCYQ
-	 TJXx+bdvYc0l8203ezZ3DAAyNQSfr2zN/woQcks07EohZ5TqINFQKYbGt51T/pcfLzyAb
-	 JBXE2g9lCuOzjsi9rAPv8PT4NtQg1bSBe3f2zIDCGUzKF8030AtDyNKC7yb8VuXkmvnt+
-	 1Rc0QpZ2qPsWxRSvOS/3CljbzXs9wu4Pn+F4FcBMjG3llPOXxazhE3IeQYWizKE1JJMs3
-	 XdYA8DNuylONeFvmJSe1G1UvIq7JBM4vkqaxbkZhs6nDC8muhdvSL7edo0jkMdNxWIQ==
+	t=1793317173;
+	b=hLaWoVmVziSuZu/FRxJqjyA20MBYa9jP0xgtlUEiTuYnNZq8vwu9S0sQo0y9sZGIhlSO
+	 gPAkxGjn8wJmTfOGDRwvEUpzDhy6024uzaHUa7P2KjIUB7Kg3iuw2xgg/rOmDX8cFM2bQ
+	 7sXItHZ0kAypwAF8h1a8x5FIfMKlcm4KKKDNF51wzCLGqu4cwiyKr1Jqf5y97Q0hwYb3Y
+	 mbMz1WJTWi5zGycILkM1rYM86WvE5McHU9PMEmrIg3aXruMNCVNo25wHfZJojrdGo2qtW
+	 CAuX+sN5T1HvI5SVmNww1BAE5EarJI8Sfnsp2gcKT1iE8ohkO2g6qSXPELyqiUwMSpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793317143;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MayldR3d8IBms4sVIuPTrWKB+Oa3RX5tIH6ZU2Vm3LE=;
-	b=WtiMBkTasP0CAM4Y8yI9adsckFmGFWKd9Vena7l7jIFTQ6bhaUwYBsCszNk50tkFE1Lw
-	 Gcz8w290c4xe6853u7W3J6lfcUBycOY5LLRhTnThRNkzBP1VuAy4BuQsYyQVeCwm/674l
-	 qx84+GDTK0vx77asHZ+SLgiv21VX6idA5iK3kerTPIJhQtqSc4ifkR71A48k2GTj+NfjX
-	 9PeLvxWIQC0dptYZH3Z++Tmb/N1zCU+s8X0BDhR0768iS5OIxBwxINis/BcUvBphcfT6o
-	 RfmIFglAfx7GsbocBYhLp8F69ut7vN2maoqGC/7cs4EdGLy8AoY/vKQtzHXbygyswfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793317173;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=HB9cSEdTJ/amGnN05Zpv8snyk4ZodBeLBtG1ryxGhPM=;
+	b=PlejHMRaYNWeWq3VVHhfoCf3abGreiibdJcc7HcTbM6V7GiOJGOKVKHFkg7Jq7Nf/Ud5
+	 synvjPI0bYzJThti1446baY6XldnfHHSp2UDztwmz4+vTwsrKS6DdMqTygkaoHTcDoJzf
+	 3V8rPzhuKe27LiHPmWMZ8WtiP2qCchuUJ6jr96aHwlQIZlmLP6OdhQSz7i8dczVPWB/KC
+	 ZrnsYZ7Zu6BUBc0bhG04UgwpLrRWtZhW3A7O5l9PwLWbSj4Js+Br8bEAgSBX9RQy2E+X4
+	 R15Fet/SXVn8IRxgqoQxcFlckjUEEze0EVf4TxOFZMOakLYjlCCqZOndAkw+GJDScCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MK0gWIIa;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE165606A31A;
-	Thu, 29 Oct 2026 23:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE165606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=ispras.ru;
+	spf=pass smtp.mailfrom=ispras.ru;
+	dkim=pass header.d=ispras.ru header.i=@ispras.ru header.a=rsa-sha256 header.s=default header.b="Y/ExHUet";
+	arc=none smtp.remote-ip=83.149.199.84
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AF05606A321;
+	Thu, 29 Oct 2026 23:39:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AF05606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MK0gWIIa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793317142; x=1824853142;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=GNvLU2yIbeuFnhRZLILES5O2I5YTIoobPa6rjUCSEeQ=;
-  b=MK0gWIIawDVpyTainvGL0I7vuosxQ3oDHbHzsx4O18s85C8EirIRXvZt
-   gQ8NbbfSJfSs2++XWurpUZiTTho1ZynQygJGyW1PH2xdQEgksnqw8nMiH
-   8DbADNrB0BWDa/9voWG76G4SUw46+DzrqBQBagsJci6LzXyNQW4CWGVVZ
-   R59493a+6q3qeMl3gaUtKPVjPcwG5644IQSjsN9U1eUuHuN37FUrhZuPu
-   SvjUl3i6s1kMcftFfpCoJiw1J5LOF2kttmeQQRtRewrb8LDbEpe1PTvgD
-   3J84qnOTAMV+bCq5QwcmLjr9bteYNwRz1qiYid5q1jq4aSjJcT7igsbRI
-   g==;
-X-CSE-ConnectionGUID: heBVLo8OTDmsNyTlKEM/mg==
-X-CSE-MsgGUID: Iybr1GjbRXuNAwsyZCTtDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1977205"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1977205"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 16:39:01 -0700
-X-CSE-ConnectionGUID: PdH2IR+CRvSD3D3BEWZMZQ==
-X-CSE-MsgGUID: ONzVjv/3Si2P4nSEocDSlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5614172"
-Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 16:38:57 -0700
-Message-ID: <84fe2789-7bbc-436e-9141-e879d2e90ef9@linux.intel.com>
-Date: Fri, 30 Oct 2026 07:38:54 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=ispras.ru header.i=@ispras.ru header.a=rsa-sha256 header.s=default header.b=Y/ExHUet
+Received: from fedora (unknown [92.101.175.163])
+	by mail.ispras.ru (Postfix) with ESMTPSA id BBD90400E775;
+	Thu, 29 Oct 2026 23:30:22 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru BBD90400E775
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1793316623;
+	bh=HB9cSEdTJ/amGnN05Zpv8snyk4ZodBeLBtG1ryxGhPM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Y/ExHUetr4KFG1a35xqFGdy8aiOTGimmlgRB2O5YrLPXkjrIEV0Ht9G6mYIUunRbX
+	 0aGr/oBKsWw2ddqujlW3oqJcuEvL5dUIE06/CulJXBrEvOICnAcrRZRSvtnON0P3yV
+	 ocd7c0FxzW4+DGSd2LCtTHx4gErFpV87okSEfx5E=
+From: Alexey Velichayshiy <a.velichayshiy@ispras.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexey Velichayshiy <a.velichayshiy@ispras.ru>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	ocfs2-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] ocfs2: add fl->fl_type check in ocfs2_flock() to fix use-after-free in lock_get_status
+Date: Fri, 30 Oct 2026 02:26:31 +0300
+Message-ID: <20261029232633.165310-1-a.velichayshiy@ispras.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,71 +63,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/18] iommu/vt-d: Handle reattach of the restored
- domain
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>,
- Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-14-skhawaja@google.com>
- <faeedd16-a271-4ced-be1a-7bd70860bcdc@linux.intel.com>
- <auPC2pByvuW5uHyH@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <auPC2pByvuW5uHyH@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/30/26 06:34, Samiullah Khawaja wrote:
->>> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/ 
->>> liveupdate.c
->>> index 36816d3651e6..665ebb81bd61 100644
->>> --- a/drivers/iommu/intel/liveupdate.c
->>> +++ b/drivers/iommu/intel/liveupdate.c
->>> @@ -394,6 +394,137 @@ void 
->>> intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->>>                iommu->name);
->>>  }
->>> +static void domain_detach_restored_iommu(struct dmar_domain *domain,
->>> +                     struct intel_iommu *iommu)
->>> +{
->>> +    struct iommu_domain_info *info;
->>> +
->>> +    guard(mutex)(&iommu->did_lock);
->>> +    info = xa_load(&domain->iommu_array, iommu->seq_id);
->>> +    if (--info->refcnt == 0) {
->>> +        xa_erase(&domain->iommu_array, iommu->seq_id);
->>> +        kfree(info);
->>> +    }
->>
->> This seems to be different from normal domain_detach_iommu(), which
->> looks like this,
->>
->>        if (--info->refcnt == 0) {
->>                ida_free(&iommu->domain_ida, info->did);
->>                xa_erase(&domain->iommu_array, iommu->seq_id);
->>                kfree(info);
->>        }
->>
->> why ida_free() is skipped in the restored path?
-> 
-> The restored device can be removed and probed again while the PASID and
-> context entries stay intact. So the restored did is not freed in this
-> path. Once the domain is reclaimed by the iommufd, then it takes the
-> normal detach path.
+No upstream commit exists for this patch.
 
-Can you please add a comment to explain this?
+The KASAN-reported issue described below is no longer reproduced after
+upstream commit f7e33bdbd6d1 ("fs: remove mandatory file locking support"),
+but that commit removes kernel functionality altogether and is therefore
+not suitable for stable branches.
 
-Thanks,
-baolu
+In ocfs2_flock() the __mandatory_lock(inode) check is performed without
+taking the lock type into account. In the reproducer an FLOCK is first
+taken on the file while its mode is 0100755, so the inode is not
+mandatory-locked yet. Then chmod() changes the mode to 0106743 (S_ISGID
+set, S_IXGRP cleared), which makes the inode mandatory-locked. Finally,
+close() triggers a repeated call into ocfs2_flock() with
+fl_type = F_UNLCK (0x2) and fl_flags = 0x42 to release the lock. By that
+point __mandatory_lock() returns true, so the call is rejected
+with -ENOLCK before reaching the unlock path. The FLOCK lock is therefore
+left leaked (as reported by "Leaked FLOCK lock ..."), and a later read of
+/proc/locks dereferences the already freed inode in lock_get_status(),
+producing the use-after-free.
+
+ocfs2: Mounting device (7,0) on (node local, slot 0) with ordered data mode.
+Leaked FLOCK lock on dev=0x7:0x0 ino=0x4322  fl_owner=00000000d09f0d4d fl_flags=0x2 fl_type=0x1 fl_pid=1111
+==================================================================
+BUG: KASAN: use-after-free in lock_get_status+0x947/0x9e0 fs/locks.c:2930
+
+CPU: 2 PID: 1116 Comm: syz-executor141 Not tainted 5.10.260-syzkaller #0
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x107/0x167 lib/dump_stack.c:118
+ print_address_description.constprop.0+0x1c/0x220 mm/kasan/report.c:377
+ __kasan_report mm/kasan/report.c:537 [inline]
+ kasan_report.cold+0x1f/0x37 mm/kasan/report.c:554
+ file_inode include/linux/fs.h:1343 [inline]
+ lock_get_status+0x947/0x9e0 fs/locks.c:2930
+ locks_show+0x178/0x270 fs/locks.c:3005
+ seq_read_iter+0x50e/0x1230 fs/seq_file.c:230
+ proc_reg_read_iter+0x20a/0x2e0 fs/proc/inode.c:310
+ call_read_iter include/linux/fs.h:2042 [inline]
+ do_iter_readv_writev+0x574/0x750 fs/read_write.c:738
+ do_iter_read+0x2fc/0x760 fs/read_write.c:801
+ vfs_readv+0xf0/0x160 fs/read_write.c:921
+ do_preadv fs/read_write.c:1013 [inline]
+ __do_sys_preadv fs/read_write.c:1063 [inline]
+ __se_sys_preadv fs/read_write.c:1058 [inline]
+ __x64_sys_preadv+0x235/0x310 fs/read_write.c:1058
+ do_syscall_64+0x33/0x40 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x67/0xd1
+
+Following the pattern used by other __mandatory_lock() call sites (in
+particular, the changes made for ocfs2_lock() in commit ee860b6a6503
+("[PATCH] Skip check for mandatory locks when unlocking")), add
+a lock-type check to ocfs2_flock(). With the patch applied, the KASAN
+report is no longer reproduced.
+
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+
+Fixes: 53fc622b9e82 ("[PATCH 2/2] ocfs2: cluster aware flock()")
+Signed-off-by: Alexey Velichayshiy <a.velichayshiy@ispras.ru>
+---
+ fs/ocfs2/locks.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/locks.c b/fs/ocfs2/locks.c
+index 7edc4e5c7c2c..1712f99ed120 100644
+--- a/fs/ocfs2/locks.c
++++ b/fs/ocfs2/locks.c
+@@ -103,7 +103,7 @@ int ocfs2_flock(struct file *file, int cmd, struct file_lock *fl)
+ 
+ 	if (!(fl->fl_flags & FL_FLOCK))
+ 		return -ENOLCK;
+-	if (__mandatory_lock(inode))
++	if (__mandatory_lock(inode) && fl->fl_type != F_UNLCK)
+ 		return -ENOLCK;
+ 
+ 	if ((osb->s_mount_opt & OCFS2_MOUNT_LOCALFLOCKS) ||
+-- 
+2.55.0
+
