@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250382;
-	b=bjn+NkH0v1VAH33SWDcI5+95YJtLw+3BtdXIcpBuYqjxpCzPHAZBJLa2hqECY/EnOrW0
-	 ZaER72vEfpy5kNqPlci+shccrSxJsiGot46Ts453WPFFHKWjcW0bCeUGNszEvkEut+/Ly
-	 MHUxKMZUoJgPBweGRbtaVqYDgS3oF9y6KumlxQBFSOGNc6HJIHYUsr5q++Y/CHrk44d3P
-	 loPYEnKiNT67MjQcEz4hzynRlEQKseYIAVcaHLod2cNyw5SDtbB1blL0STxiYgbEZrbnu
-	 p1g2d+Ws/8QOWYG0OX2YYdW+8WbngHAEX/m/rdkYvdtTMLxK5yxhZusupizeGNseKNw==
+	t=1793250389;
+	b=i2mKx1DONKNnKhfsAXzN8kkc/kpCtKVflKurz7DOO5qKI/WLOAbr81MjnYoBq6h3HabQ
+	 oekO1673f4xS4oxrFPlOMZQylRAjVq/Uuy07h3mMEGV3NRpPaQxuMl7MT5zJygykCUOll
+	 hF7Rhgc7Ecrdds6iFeuJ2EgAjaNZQlVb88lkmdbKe2mrZceOcJd23VJTyKDTe4PekI5kd
+	 NWX3gbjy9Nnv5M7nd1J9Dbpdc2A52yY/sH091FRKVHiCaVMcJDyLTEbP5KG4IqrQsDO9W
+	 WcqXJndrr/4RoEdzCZd0rDNHm0DvOuFA9Xxpm171xm9tFUaVwosZmrlc31yiD6wRzUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250389;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-	b=LnaguoXi8rEsQ4O2l7ul+3oUZNhpPHPT9dJN5neeTBHgrvnOQF0vv2ukpaDYPsA+KbHv
-	 do9TyXpoHbFA3v9GxyYvd+s5L7TODmm7P85wkrD4y1haVDleda8XykAxbBtf7qmLg3K8f
-	 VFyUCtikCL03Feolpmf/U70M6Gb16mvohGq2+kie3Gti0wSSMzTSMhIg0mxYxPrXE43w8
-	 O/nRD44xdVhCOQGEF7buEWzih0W5AFYFJFUzdl+mezJ/IfltGswOQv/U48diFuxJsM30/
-	 wR3+pxZ1Z+wLYRopGAxRaGu7tW51G0Sl7Lc/O4KuoQY7XlxSVfjmn4gvr51H7H8EqzA==
+	bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+	b=a2vsolCL7UOPQJy+sTjhHxX1zCsNX10W8w++QlkQpkBO4iAqLdiBtqHqPxCZfLsroaYJ
+	 E6lm+uOC1yCU4v7/QkcjaRY9CIU/AHiGpz0gEkaFWDXBZdAir2hlGr+VpPwQM7qqIot0j
+	 0ha/SXL4Hqh2TfGsnLKoiWJvxIS1mWldDinX3RTF0g3O1GuipUGYPoK2zggbfPUqopGr3
+	 Li7C0oCgU+e/TiTordXJgIYUrmY+2zV2MWMmpRVhleyv+0OTAGx0ACrN+zYhx5qvra6tV
+	 rFs4FHjNDylNuoqEZw0T0m3gw+3DsqDW3Rr2/ObYvyJkQQBYxM3eOZV9gdvlgW4ra7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+O8EIyU;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwxsLAlm;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBA5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBA5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471DF606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:06:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471DF606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+O8EIyU
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e831e86ebfso10166455ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:06:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwxsLAlm
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e7c8213b09so5359335ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793250380; x=1793855180; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793250389; x=1793855189; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-        b=z+O8EIyUDM3BtcD1Yx+C7oAh11I9nR0MCUlgL3ALaofjFPr87O3qwTHMb0KwOteZ9R
-         0cwM3kRXpkcEfO6qrZAvwIAcuKigraV94opIHJDWIKiTMpviMPbYON3NUoFaY+WaQP93
-         6PEyAtpOt5C+yA0/Gg/CqAGt4oydFJKCV6/vsqxNYhjRfM6RBgikOTsAIR22StKRpk+x
-         Amjxt+VRUPM2Zaz2nCnjzuWiAvSwLW5LyYUB+YrvkWE7Az61qyadK+F9l1psyB+MPrZW
-         zdutJqgc+QZFFjS19kim6bzhO5GYFyUkwhFHVTGrPerT+qmNxMQFykUbqErajqkROqvM
-         bF/A==
+        bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+        b=iwxsLAlminzYvBptDnBRm5gwKSr6xNCJXMFvGuDNq0B6sxOcBReZ34X15VYNkogTLq
+         BCsstjXwc94FjXK/lY/5Fw2+rM0edRohKTYo8s9Trd3WGF0eMK0GFUxCrw5yDELYHMk9
+         hwMJIh1iNO2j0n3YzTWCHRizeFEpMoCD8Tqoa2k0BXdriokc3guSNz9e9UYwqB5oGwLH
+         L/DcmDcwMTXWm50BtOe+zbUtX4f0y0yP8mNAEveiEDaL0xuzoP/IAhmvy6/u2tDm98mH
+         10LnEZGfAFpQaU9stluVmRqJQvLJMZAnbUf3c8x9DWNqYQbq/R35LQVUnFG4XQoTvmlo
+         +2pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793250380; x=1793855180;
+        d=1e100.net; s=20260707; t=1793250389; x=1793855189;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-        b=c8Nmk8EH9HG6xfYVwHKdqjnm7G76Zh+hitSkT5XGeCrp7ZJmd8eoa0q3Z54oqyuSsg
-         5Hsk1Z4BzJ1eF9SvMYR1AhwvqgHNqHBtLDgZXLesixeMkQ2tsqLgi6jy37Cm5UoM3/pw
-         Yvh/LRiDRPYDW63n2MTwdmOdM+iAAzzZN3r/WUQHSWddKZkIXlnqCmhHoCq00XSylkUT
-         9/UiXtTLN2V5/8yR8NuM0jH6IcSY8zoYPpkee/+eeaSV7St/ShO2dPH97gZbRJCO9Frs
-         X+1WWfv8hSPVIG0ZIBqLm9wjeo5JMhXmQuETp+u7PsVr3/QpKaB84nfef5ZgLjbSZbjp
-         /dcA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGWUnndvXhVaEK2IKxPMw3coYcu/eS9KP29FJ8tVwZbGn+qpctAVW8+QHlcgMCfqY+PJVOBxaqZwfpPF0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw/TVEUCxfGlYSmcUtGxMu4LI5MUY06imOC1SjPaC6hVtIlbCw
-	wKqSocmttpx87fQyo082kT083rME9Vxd4BrutVKZphJGTgTz7QPkBV9Q
-X-Gm-Gg: AYBFou10a8qYqz/jZUPDnifBCTmtGyGz052NEOlA+0z2aKUFG+9935SYV+xi3aShujS
-	tgw56tq1/jlgny8/w0mqI1RSHyedhQZRBup4wkPO80N6f80Mc/EKBDiJlJa+snG8o4ja4c0EkFc
-	qjE3N67eIaMwDLCIau1e49JtRmPLVvoN3Xh7o/7oCWxbjcrCAd+u26jTFQbnr9RTmuRdUi+d763
-	nsTSr71jAZFBo3fG0VX4pg89sAGPnw9DivRVkJy93zCTF8hpBuUg5HYvPOjSk+w6YirzT1W5Hrw
-	UwX+Hs+G6bOOZA4npyh5BQ+aEsJhS49VxqUFNYVYuSYnkYojFyBQoV3wsyD3NQQI1PmVOjFumgJ
-	O1W9ek9K5cZIGEQIFdyEIVqdJyqLHNjDYrqhh9n9I1zB+13kukIsslAeyrZejBsxFtGaAFkPLEu
-	AdwmiaYxpIMNJDb8PYfdOefZh3wwlsWCAmzkB5YOxAAmhwXEXq0QPLcvuGPGSwbBYJdGFSTL3MB
-	Zk8gPV0fvOZFHEYVlZN+BgPEVLdxnRcuETy8nYcPTk+Cj6obpTZkXZrG36uCcOT4QBt9z9zY1uP
-	h10OOkSdvo8pDRWGzZh9lfeExNi5
-X-Received: by 2002:a17:903:380b:b0:2e9:9c65:1aff with SMTP id d9443c01a7336-2eb0041ee21mr39673785ad.45.1793250380523;
-        Wed, 28 Oct 2026 22:06:20 -0700 (PDT)
+        bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+        b=kDvkZlTxuEYQ88lZNePhDcySdl1TKOGG22+rVClSCq0jS8OuKvfXokNXFphGjqDZzQ
+         r3IfYUrVRMyWzMPqT1h3lB7Cpl3icCD/Pzm7afr2fIZZ1Ta8NMa38Ex6KOo3eNzQhhEK
+         GKPtO5VA6XzKnTjK8HzeBu1rxuojpqMvvqOV4rUSTfxwAFgqzXm2mNpvQg0Rw5y+zi4A
+         76MIyPBAOHc2fdfnAteoJEHwfN4i7+iDOGQGXAE7cEvbyZQubGhxIv4AlqMvyPQsHq8u
+         BrI931jrw9ayX72m+5EAKAdxujMKLh8V2ysrwKbkgYUPhTs6ypxDDReKep2oHcT3b1V8
+         pyCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzr/V77IgqpIadsZFGN0/ZNxIs5etoicmWIIvUvNuQj6RnCO4fL7udNGgaC/RiDSHbwedNoX51Jp0Auins=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCVRLi/ojlR2zBr5V06YC+y/bi3e0FztyeznBsGKrfwkV9j4NV
+	q1H7SeJ/F7RejcboKjWiUXg5+uPB780dDGFODuk3fDC8HsHLaXjn38Jg
+X-Gm-Gg: AYBFou3IScAbG5nXNtHlMfkoW0qO6sOQSfd8zqj/6fzsgYbABxkypRGWhh+TNYUPOx9
+	Q/6rgmLB2TNVQcbz5tdoCZca5xrQG+zKMzoV33uZZTREPRrVguM+XJ1xLPXJ30g1qJ9+Y5+5vNU
+	ct6TgtJ4N9j13QkxsuYxi51jlsE+p3wKVZujNjR1Lt1kGYXSPBvfgIE/b5YTOrG+BHNZ02Jzwfh
+	eTdEF1cQu2il08CMf3WRj5KiK8dun8kUddujMJoZnrsknNSr6Ia9AuU3/JsuA0AheD9JeZ5XKpk
+	CKDDTEHpvU9NMVF8NkUCCcgSmO/l7QgtYnnankKNY6ULpW1s0tTXAFJHT7wpXnkgA9vmLGefU52
+	8B4LfS++gPFTkptGqVJdn/g32eaRVgVTARIasixwB3EiQH1p+XTjMg/E5xXradkpMGPM9rlw2/o
+	lYCFf6LtXr6t4aQ7lHCLMqinwzuX3QQ3RWBTT2kZ5//jy08Ra9Q9g5dOFqq+5iUwxZ6mxBrntDF
+	8g76xX8eE4p+cfby5tIxqkEhb8+UHyVbz5O24ljD6aUBQtQ2vRe/zSayW0D/CKLu3i+7gy0wMX3
+	2MwaQ9Zo3Z3iOgqwSnfUfj+63Uqf
+X-Received: by 2002:a17:902:cf4c:b0:2e5:467a:7a6b with SMTP id d9443c01a7336-2eb004f2a79mr39853755ad.10.1793250388648;
+        Wed, 28 Oct 2026 22:06:28 -0700 (PDT)
 Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.11
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:06:19 -0700 (PDT)
+        Wed, 28 Oct 2026 22:06:28 -0700 (PDT)
 From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Thu, 29 Oct 2026 01:05:44 -0400
-Subject: [PATCH RFC 03/12] dt-bindings: timer: Add BL808 CLINT
+Date: Thu, 29 Oct 2026 01:05:45 -0400
+Subject: [PATCH RFC 04/12] dt-bindings: riscv: Add Bouffalo Lab BL808
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-rust-bl808-console-v1-3-b736ee920078@gmail.com>
+Message-Id: <20261029-rust-bl808-console-v1-4-b736ee920078@gmail.com>
 References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 In-Reply-To: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -120,27 +120,43 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
 X-Mailer: b4 0.14.2
 
-The BL808 D0 processor uses the T-HEAD C900 local interruptor. Add its
-SoC-specific compatible with the existing thead,c900-clint fallback,
-which accounts for the lack of a memory-mapped MTIME register.
+Describe the Sipeed M1s Dock carrier, M1s system-on-module and BL808 SoC
+compatible chain. Initial Linux support targets the 64-bit D0 processor.
+
+Use the bflb vendor prefix shared with Zephyr.
 
 Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
 ---
- Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/riscv/bflb.yaml | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-index d53f52e80d887b40c0d20049d86867c8a5b6fae2..3934c0842751e02174c1be6074548e3e1e8f11fd 100644
---- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-+++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-@@ -49,6 +49,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun20i-d1-clint
-+              - bflb,bl808-clint
-               - canaan,k230-clint
-               - sophgo,cv1800b-clint
-               - sophgo,cv1812h-clint
+diff --git a/Documentation/devicetree/bindings/riscv/bflb.yaml b/Documentation/devicetree/bindings/riscv/bflb.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a3c14fcc6c2e9fd6297cc2556c1525f4bf8e90c4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/riscv/bflb.yaml
+@@ -0,0 +1,21 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/riscv/bflb.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Bouffalo Lab RISC-V boards
++
++maintainers:
++  - Kwanghoon Son <asdfkwang@gmail.com>
++
++properties:
++  $nodename:
++    const: '/'
++  compatible:
++    items:
++      - const: sipeed,m1s-dock
++      - const: sipeed,m1s
++      - const: bflb,bl808
++
++additionalProperties: true
 
 -- 
 2.47.3
