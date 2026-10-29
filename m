@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307137;
-	b=BY2ceBI/Dy2VojX+JvceAGnzPzd5hA4p3pVITmN/OHQtOER5jcQMIWOE6UcOfdApE9jv
-	 vGxk9ecb1jz+IwJe3G72M/2ryTR7sPflfKTuuHW9JArR4G4RrK80iEnb+Uo8pZNZZ1QmO
-	 lLbDEeuOUOD7aJf+hnH59/0ELLl/bg6hLoXO7PmBKjXg7TVqNKrqqKMUV7cSFXdQ9PRrm
-	 EiOzD4iIcw5P+ZdsgW4LJes9j34hy1/j/Sm4bL9hF/8l73TRxeruarki2vkX6a+GlNIri
-	 ge1xaHmm/P/UGyTVoeCy9kboXUWrvdGv4D13sHhN5ixfn4XAgeNVCe7v4UHsn94AfuQ==
+	t=1793307157;
+	b=pMTegdbQ63/0pO+AaNOYcHPoUuKheAdf+98EfJlGEsUNKdqPLZV+ju6aimmZ+GI/ru5L
+	 Mt46rQyxdfNLT2G4kpToREbUFQVfVExjozVqXU+ZpVKuB1Wut8hB1HECYhtBZq84m3JuR
+	 i9FPbiSfJ6c+hdCZRVPzG4eO4ZD1UCfrvQOyq17NaXtutooVw/BUqPlP+ismNRUGWWgDK
+	 dZ/LmRyQgsxP6KHtOi8yTiMqPNOb6ONFLcVEbg6ovz3C3P38LjVY7bygx9IoZ2uz/FTkU
+	 iOU10gvGtcJ2J5t6lJW6Fcu3yyxZJ3WN8fPiNnewpBhWc8VwxKKlAT0g3YopVP87DCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307137;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=Ih8ipGpv0Zfp8OZAhIyZManL9BimEuOvsRc4m4YJ7Io=;
-	b=135lV1eD/lnFqr1ql41OfUOxtAC5VKacYsJdAAB9LaRsVZ0dnBF/mWgFdd4KAnQSpDJl
-	 +or+gxiLr63ESt6N8y3b6viCD/kZ+SXnjijN/QKGPRxKMsHg/Pzsf1lGTRXO73ioVBsl2
-	 qyQoRF8WzyJoEiBAgiC6gxmlWMKMLpMWB/3rBGe0O5rfluI5JHLh/w06c9yg9+QRlKWpN
-	 wJBeJs+27uF7VvqYvimBNdolMZE//4dXc0HgBPEgbas9iOn+VslkSrPh2iklYEkYm8VSo
-	 poVy6TsNgWo8uy2EpHM2y8AXSDVzvnvz/Z2wfPfnhFHxvpjgafDNehCUilPBilSmp3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307157;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=g0oiqv1BCNymG/AnH2ybaPqlkDtRSeW/PCn0KPdcdu0=;
+	b=30q1Y+nOs3CZnWQlAXM+Do796rAzUCiLF6rhc8Oswohq/IrkCqaGksozIkTLhdxL9S+X
+	 eVA/Z6wZ3g9S76ckFLMAFQCb5kpGKP9beoOMSLCiNT3aoqqff2YdQeeO+VYVlEvKzF3I2
+	 HFC28vZOk1wez3DhQ4OeCOqDRHPiye+eKsRMcvSWbTrGt72T2WYHsT15LTcTqjgQPqqGX
+	 FKJgWH8TY7wLVOwxfQb0liDDdolSP23xwVnINSQJAUe6SIg2RC4Isa0Kq/lBB1b3SWDid
+	 G35IX+kd0STHChsBF/YO61K8DEtyXbrCII5d7BmUQMAi5jTzOXGug0BOMbH/+Bbgphw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=afptfJsB;
-	arc=none smtp.remote-ip=209.85.214.225
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEhtR2kg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68818606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:52:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68818606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647FD606A339
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=afptfJsB
-Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2e9e53d011eso478725ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:52:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793307137; x=1793911937;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Ih8ipGpv0Zfp8OZAhIyZManL9BimEuOvsRc4m4YJ7Io=;
-        b=u+k0Lp5vEvak5wi41oBH/ftLjra9QJT7lF44i/AW6UWO43dYJp9WhlnNK5dx5k11ct
-         TOg8wnTV6pknSo08Mj3u4Ytodcp+zmNHMrvpb+nsih4kfv4S2TRSONy2cRJgtqIV5kxY
-         O1qbl7FWVgk49YuXrY6qrsfzQl499Rt4OyUf6ED37dSiwpQrcACsIuHeExdd/+hTzKtC
-         vxuFmBL94FE4wc9DQYE4wO/Gx/n5/QuJQva+QBE+DgHTTZe/AS6pY1wQgBrsuFnTkHVY
-         TcwQ+UDosgDik2XSNBGH5E1RyGU06BcA0M9r7cJLXwDHxK8ZHf7+9kJcwDD480WIuvWJ
-         Ixqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXV6U+ylleKxUrBdWjQV+Q9ONuUrJU8ip1jYyxSjCZxYIBPqIIdI6jqYFUiMlFfMqQGWQzB913AqdaDWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWnbp7vlYifGilPgR0FXMheLoNEEOKOLMAef9dNlTKkz5m/6IB
-	KYASdeqDebDzfV0ZxEAI0IKKpQD3i/Swkgqidyri+NqRUm0FTtYFYfbXOIkChsM8uqQ0Ha/egmI
-	8H9E8d7qiNyWOxicyAvcJfHpRpniqHZf0pWuQncu+K6XNozkQrYs7kaf+zFoYMlFreXLT8LEiAn
-	IzJ4Rn9jHzpdg7lLS0bdHmwoqWL5ZgRJf0duVOSqXnOp33/sAXWwIcYSk0/QSccwW8jRGlXJ2eV
-	euA4TtbEHonpgIlddgjRt7FukA=
-X-Gm-Gg: AYBFou26NPTPl+z1lhpyaapRbDBpOcQCls+U432OoRY4JI9r7FjwzSlxwT3oIzpmRQe
-	cuu6m/dMRtjrVbDZteR7QWUralHZZl/Kob0ZNSjQcA4lPngcoiUWndQH6YhEuk4b+W9VrjnB+ZG
-	pteYjIeYbm2i61wTKg//TOTLUbrH/gbBZKML8eBB8BEhVnQ92SeNj6yUduBK7cFkYwvDhIbVJGf
-	a7CQoj8dIQxu964plsETTCeFfy4TnsjD+1AunWb5zQtSd+c8c7BKROdQuDln4m5HIep4g/bdU2u
-	uoY18xwdDv3Y12kBi9uMFOp0WDN0gu318nWEKPj6eR91KlI0CGbyf5L5MXt7NkztGLqbUfrCclt
-	mB3MI4Of3n9lVDzIipIJrqkxw++hFDHN6CNNofg9e5UPIZfYaBaeVXF18Z/g7HEFL+Gansgm+zT
-	NokYiUxOc10QKsrhzA1u3gWh+PNXNf+fWqJVJvZded
-X-Received: by 2002:a17:90b:1f92:b0:3ad:4a8b:c701 with SMTP id 98e67ed59e1d1-3ae897b51a8mr121953a91.45.1793307136563;
-        Thu, 29 Oct 2026 13:52:16 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae845bf09asm567792a91.6.2026.10.29.13.52.16
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2026 13:52:16 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-535252004e9so51434361cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:52:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793307135; x=1793911935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ih8ipGpv0Zfp8OZAhIyZManL9BimEuOvsRc4m4YJ7Io=;
-        b=afptfJsBa/ZPDBRwsPekJCZxEiwI1szjaTsOkQYJJaj/+8n6M19Ox79K0wWZ7CjwjA
-         /33+5kxNZpEQpIe8H1KjZNNo+W2UN6NVQYOl+DuNowik/fD8CgnICwBEX0LtDmkPXR17
-         7qThfEmbzY4m5oYqJwA1GdOQie+/nX/xCD/qs=
-X-Forwarded-Encrypted: i=1; AKwUvByNOO9+KqV8eo5rnMcFjbJXHdE4OlRYZuz8I3JqFvR98C38gxKX47dL7gBnE8SKHwgU/3Cbue5/5ZT7ROA=@vger.kernel.org
-X-Received: by 2002:a05:622a:248b:b0:535:2447:3d02 with SMTP id d75a77b69052e-542b6d60babmr4009231cf.33.1793307135047;
-        Thu, 29 Oct 2026 13:52:15 -0700 (PDT)
-X-Received: by 2002:a05:622a:248b:b0:535:2447:3d02 with SMTP id d75a77b69052e-542b6d60babmr4008731cf.33.1793307134282;
-        Thu, 29 Oct 2026 13:52:14 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-542a55c8d43sm3505551cf.25.2026.10.29.13.52.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 13:52:13 -0700 (PDT)
-Message-ID: <2f2c4dbd-39fe-4116-a575-e4744cb73645@broadcom.com>
-Date: Thu, 29 Oct 2026 13:52:11 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEhtR2kg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26551F01826
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793307157;
+	bh=g0oiqv1BCNymG/AnH2ybaPqlkDtRSeW/PCn0KPdcdu0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nEhtR2kgt1sgTImuHeJZ9gHY2k8evDf8pFZ+dw4gU7Ay50EWHg1eHowt5+Zcibl2z
+	 DtFD8F7FreSCWtw5a9NnEOMstzD6zt8y3EN3RkrEfdBMYqVTHR7A9vcKi0p5IKQPaa
+	 QbfpRodtcO3aEMBpg17YKE0G/An2fEkOQ378UOOysIzGOpf+R/QfDoj43/S6Njrnma
+	 5Noq4rYzPr+Y9rTPTlizpLtukARP5l11JIw916Yqjoqgz4MuTs0Z2o2pbO+99K1SJJ
+	 VYekTJCp5Sw7mYutyGbIpJaifVhjrOAjxYGnYQKNaaiEPohEdKvE7b2xcU98hYcTSS
+	 qX/vUeTq2dFpg==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso85954e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:52:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByBtHC9PI2chZuGY0dSSCLaTMoKhinY7Qtq6CmCZVYr+sWjTk4g3Gdy4+uD7WCMJL6oSLxqo+oTk6AF3O0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcaNuWtbpLXOi2wh+LC6oyK9cYSDx0OkXl8ldjJdb14+Zu9eES
+	NqPIHw5HJjrfEmlNz9dxGMh1vd59V8IOOLgjf8I9HfWwwRhjPKYdqKraSrC1y6uqEa90sDiIfJH
+	GCwIssJcRPgqS3XBGRtxEf7T2bppzt58=
+X-Received: by 2002:a05:6512:3c8e:b0:5bf:9fc1:393f with SMTP id
+ 2adb3069b0e04-5bfd957cee8mr30155e87.52.1793307155366; Thu, 29 Oct 2026
+ 13:52:35 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,205 +59,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/2] net: dsa: b53: restore the NSP IMP port 2 Gbps
- mode
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, jon.mason@broadcom.com,
- arnd@arndb.de, linux-kernel@vger.kernel.org
-References: <20261026203742.3198673-3-florian.fainelli@broadcom.com>
- <179330639281.3134.16708275740775166450@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179330639281.3134.16708275740775166450@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
+ <001101dd6631$6167dbd0$24379370$@telus.net> <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+ <004401dd665c$97eda060$c7c8e120$@telus.net> <CAJZ5v0gvruWF7VhVuLrn4AgV9_n6Ayektrh+jB=eLY79ufw4UA@mail.gmail.com>
+ <006601dd672b$a7d67f90$f7837eb0$@telus.net>
+In-Reply-To: <006601dd672b$a7d67f90$f7837eb0$@telus.net>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 29 Oct 2026 21:52:22 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jAG7wxxsuynPL3fyo8Kr3sLCC75fpm91JADuDpm10QZA@mail.gmail.com>
+X-Gm-Features: AclHuK-i6rAgr4hWoQWOq8Is9fFHqRRfrwy6lPQ_Ehh6dGw3c5bzTzaaaQyOVTw
+Message-ID: <CAJZ5v0jAG7wxxsuynPL3fyo8Kr3sLCC75fpm91JADuDpm10QZA@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
+ without HWP
+To: Doug Smythies <dsmythies@telus.net>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Zak <zakbrightonknight@gmail.com>, 
+	linux-pm@vger.kernel.org, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/29/26 13:39, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The new code in b53_phylink_mac_link_up() sets speed = 2000
->    for any port where dsa_is_cpu_port() is true on BCM5301x.
-> - [Medium] The fix covers fewer chips than the regression it reverses.
-> - [Low] b53_regs.h documents PORT_OVERRIDE_SPEED_2000M (line 103) and
->    GMII_PO_SPEED_2000M (line 149) as "BCM5301X only, requires setting…
-> 
-> --
-> 
-> net: dsa: b53: restore the NSP IMP port 2 Gbps mode
-> 
-> This commit forces 2 Gbps mode and flow control on fixed-link CPU ports of
-> BCM5301x and Northstar Plus (BCM58XX) switches in b53_phylink_mac_link_up().
-> It restores the PORT_OVERRIDE_SPEED_2000M bit, which b53_force_port_config()
-> clears when the 1 Gbps fixed-link speed is applied. Clearing that bit
-> caused queue discards and TCP retransmissions.
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index 0880310c9ce3f..743fc04da0a48 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
->> @@ -1663,9 +1663,15 @@ static void b53_phylink_mac_link_up(struct phylink_config *config,
->>   	}
->>   
->>   	if (mode == MLO_AN_FIXED) {
->> -		/* Force flow control on BCM5301x's CPU port */
->> -		if (is5301x(dev) && dsa_is_cpu_port(ds, port))
->> -			tx_pause = rx_pause = true;
->> +		/* Force flow control and 2Gbits/sec on BCM5301x and NSP CPU
->> +		 * ports
->> +		 */
->> +		if ((is5301x(dev) || dev->chip_id == BCM58XX_DEVICE_ID) &&
->> +		    dsa_is_cpu_port(ds, port)) {
-> 
-> [Severity: Medium]
-> Does this actually force 2 Gbps on BCM5301x CPU ports that are not the IMP
-> port?
-> 
-> The condition matches any port where dsa_is_cpu_port() is true. However,
-> b53_force_port_config() only handles 2 Gbps correctly when
-> port == dev->imp_port, which is 8 on 5301x/58xx. Other ports go through
-> the GMII override register:
-> 
-> b53_force_port_config() {
->      ...
-> 	} else {
-> 		off = B53_GMII_PORT_OVERRIDE_CTRL(port);
-> 		val = GMII_PO_EN;
-> 	}
->      ...
-> 	if (is5301x(dev) || is58xx(dev))
-> 		reg &= ~PORT_OVERRIDE_SPEED_2000M;
-> 
-> 	switch (speed) {
-> 	case 2000:
-> 		reg |= PORT_OVERRIDE_SPEED_2000M;
-> 		fallthrough;
->      ...
-> }
-> 
-> PORT_OVERRIDE_SPEED_2000M is BIT(6) in the IMP register layout. The GMII
-> per-port register has these two bits the other way round:
-> 
-> #define   GMII_PO_EN			BIT(6) /* Use the register contents */
-> #define   GMII_PO_SPEED_2000M		BIT(7) /* BCM5301X only, requires setting 1000M */
-> 
-> On a non-IMP CPU port, case 2000 just sets GMII_PO_EN again and falls
-> through to 1000M. GMII_PO_SPEED_2000M never gets programmed.
-> 
-> This looks reachable in-tree on bcm53015-meraki-mr26.dts and
-> bcm53016-meraki-mr32.dts. On both boards port@5 is the CPU port, with
-> ethernet = <&gmac0> from bcm-ns.dtsi and a 1000/full fixed-link, and gmac0
-> runs with BGMAC_FEAT_FORCE_SPEED_2500. Most other boards that use port@5
-> as a CPU port have no fixed-link, so mac_link_up is never called for
-> them.
-> 
-> The Fixes commit b6a8a5477fe9 cleared BIT(6), not BIT(7), on the GMII
-> register, so it never wiped a GMII_PO_SPEED_2000M set by the bootloader
-> on port 5. Whether these boards still have a mismatch depends on what the
-> bootloader set. Either way, this statement in the commit message is only
-> true for the IMP port:
-> 
->      Force the 2 Gbps mode and flow control for BCM5301x and NSP CPU ports.
-> 
-> Should the speed override be limited to port == dev->imp_port, with the
-> commit message reworded? Or should b53_force_port_config() use
-> GMII_PO_SPEED_2000M for non-IMP ports?
-> 
-> [Severity: Medium]
-> Should BCM583XX_DEVICE_ID be covered here too?
-> 
-> The clear in b53_force_port_config(), added by b6a8a5477fe9, runs for
-> every is58xx() chip:
-> 
-> 	if (is5301x(dev) || is58xx(dev))
-> 		reg &= ~PORT_OVERRIDE_SPEED_2000M;
-> 
-> is58xx() includes BCM58XX, BCM583XX, BCM7445, BCM7278 and BCM53134. The
-> restore added here only covers is5301x() and BCM58XX_DEVICE_ID.
-> 
-> BCM583XX (Cygnus/BCM11360/Omega, through the brcm,bcm11360-srab,
-> brcm,cygnus-srab and brcm,omega-srab compatibles in b53_srab.c) seems to
-> have the same topology as NSP:
-> 
-> - In bcm-cygnus.dtsi, port@8 is the CPU port, with ethernet = <&eth0>
->    and a 1000/full fixed-link.
-> - eth0 is a brcm,amac with no phy-handle, so bgmac_probe() in
->    bgmac-platform.c sets BGMAC_FEAT_FORCE_SPEED_2500.
-> - bcm911360_entphn.dts enables both &eth0 and &switch.
-> 
-> If the Cygnus IMP uses the same 2 Gbps mode as NSP, the IMP 2000M bit
-> would still be cleared on every fixed-link link-up while the AMAC stays in
-> its high-speed mode. Wouldn't that leave the mismatch the commit message
-> describes in place on that SoC?
-> 
-> Could the clear and the restore use the same chip predicate?
-> 
->> +			tx_pause = true;
->> +			rx_pause = true;
->> +			speed = 2000;
-> 
-> [Severity: Low]
-> This isn't a bug, but b53_regs.h still says the bit is 5301x only:
-> 
-> #define   PORT_OVERRIDE_SPEED_2000M	BIT(6) /* BCM5301X only, requires setting 1000M */
-> 
-> GMII_PO_SPEED_2000M carries the same comment. This change now sets
-> PORT_OVERRIDE_SPEED_2000M on BCM58XX IMP ports, and b53_force_port_config()
-> already clears it on all is58xx() chips. Should that comment be updated?
+On Wed, Oct 28, 2026 at 11:28=E2=80=AFPM Doug Smythies <dsmythies@telus.net=
+> wrote:
+>
+> On 2026.10.28 08:54 Rafael wrote:
+> > On Tue, Oct 27, 2026 at 10:46=E2=80=AFPM Doug Smythies <dsmythies@telus=
+.net> wrote:
+> >> On 2026.10.27 Rafael wrote:
+> >>> On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies <dsmythies@telu=
+s.net> wrote:>
+> >>>> On 2026.10.27 07:37 Zak Brighton Knight wrote:
+> >>
+> >> ...
+> >>
+> >>>> I confirm your findings and tested your proposed patch. It all worke=
+d fine.
+> >>>> I had not seen Rafaels's reply about a possible race condition until=
+ now.
+> >>>>
+> >>>> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
+> >>>
+> >>> Passive or active mode?
+> >>
+> >> Apologies for the incomplete report.
+> >
+> > No worries.
+> >
+> >> Passive mode has the issue. Active mode was fine without the need for =
+the patch.
+> >
+> > Thanks for the update.
+> >
+> > Please check the patch I've just posted if poss.
+>
+> Because I had already done so before this email, I tested Zak's V2 patch,=
+ and it worked fine.
+>
+> I tested your (Rafael's) patch and it worked fine.
+>
+> Tested-by: Doug Smythies <dsmythies@telus.net>
 
-The use of 2Gbits/sec on non-IMP port is supported and it requires the 
-use of a different offset and bit, which is being fixed by this patch:
+Thanks!
 
-http://lore.kernel.org/r/20261028212310.3847553-6-florian.fainelli@broadcom.com
+> I have not reviewed the code and will not have time to for a few days.
 
-In addition, there will be a treewide change that switches all of the 
-configurations to use port 8 which is the only "true" IMP port where 
-everything works, there were several discussions on the matter but it 
-has not happened yet.
--- 
-Florian
+That patch had problems found by AI and it cannot be done exactly the
+way I wanted to do it because at least the userspace governor depends
+on preserving policy->cur across suspend-resume.  However, there is a
+way to force driver callback invocation in __cpufreq_driver_targer()
+even if policy->cur is equal to the new target frequency which can be
+done during resume.
+
+I'll split the patch and submit a proper series when the AI is happy with i=
+t.
