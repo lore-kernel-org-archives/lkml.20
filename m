@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258025;
-	b=mqACI1rWvBm7xMiZILUM3IZOFg1w/bQltGC7mU5Ixn96cCytYNjnzRk0Uj3TOGGScffa
-	 zr0ZeRoTYsh/FQJRBpZ+jyrlOpiu46cjYk5BQVb40ozNiTLgBLb9VufLeCjIh6WPf2t1V
-	 j0070IxmMEQ2rxteVeo7TWrsJOxy1y5jbaY+4YcWtKmAgCqFVaqCmAinurNg8htIvlQtI
-	 xQBLLAlGLQLDqj/3aB7iiWHf3nVE9weLZtpvZKnyqSeRy+aitetsUm9uBGcoWAjGVSh/y
-	 9Nr1GYj/PVwzCNprvgEhaZckHaYVcBnHMHHd/fxpV124xLlv9A5oanznVcOxxjW8WXg==
+	t=1793258046;
+	b=nFsA5ltz/ujF5K33JXZbep8odIK3G0oSpbnrvogmOrxJA407K5uAR5Z1Apa6EBJ07gax
+	 aDcF61E0Rl10+a1UHAMQtbUmVyCKrFmhhJThGI2mZCODncwYxD0tW8ETHtsJa14o3gqzV
+	 lI4ciL9UOZPmD+SEz/2/QLXGMFEdG8GRaLLR2DMz5fUBKEZ6jsA01ngVz9FXMK1jvbpFX
+	 B2ZyenoA323vooeBn9rve+5fG0xFKbTqAyhbTwdkUMAjk5xGAEE5RwqGG5PxiOQMtuAMh
+	 QxjOMJmIWNcGInsiwR/R/hN9P5VG+40NfF7VxOazsedfKRM7aTCz0LSLk6hX1sU4QwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258025;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
-	b=ZyC8ot2GW3eQnIhHdreO5HIXqYxmk2Gf4OFN7Wpl6IKWuVDjPIGIWUfQI+UVFQWKvLmv
-	 lykCeRmIt4RVQ/NZ8fCzwW1v8n3eu/BOCLtdt0VcLMXk4uYLkZhRWukfbm9QOtgmN/w2X
-	 YJnHRu+JbUqiFGoDjFs2f3Ig9fvwcOWQnd8B6QUpDIy+e6j2ktUUwGgksFOTZ8xSGDuRm
-	 jL/SdChZZgzaN1ry+rUtsUcM4eK7u422bf0e3e9QoOosNStZBNXuo5Q+Xsn9iIc2R9wj4
-	 1kodbchBxCDMa6uUWEl2hR1ptPQIvZxhdSy4dUxvze9gi5oR/uRNe3dibVP5onJZCOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258046;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=RbnMv4NDWsSfm6NxZli87tg/xVFmW0yI0I8tPFPNz/g=;
+	b=YcuWo4ZX1UlAdrenJp97+8sjz8FF68vfCYoJHBm94WbAVd+AAzArdzEmQ7Gn5ZjNbia4
+	 PfdZd5Ty87FOwTkqxppyZi5hh472mApf4PwYwJ7Q505etdYTQpl6nbKiNxkjFcsDFAFWR
+	 XbS7o6ls7vF3srW9nr+kWuM5JTVxhSFMPbCxQ/jcYJqmFFKib/DN6bLSc1NDQhAFF28rb
+	 B7uJy7N7S2n3Q/U6Yjeli+RgqNuk6YcsRNQKIne/ZwW0OZ1eEw7W2GqzSqIb3odMqxGjx
+	 l4r7cSjspwJVwzbkuANW5pKM5/DD4dsYY6VUrHYJXtj3jHQv6M8XsbTph+UP84WH2Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=kOnSmpGO;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=n1ugxA1Y;
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA6D606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA6D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C9A606A31A;
+	Thu, 29 Oct 2026 07:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C9A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=kOnSmpGO
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc758830601so1183754a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793258024; x=1793862824; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
-        b=kOnSmpGO+B5tLX/2h7y4trSWDUxuIpd80qFqaSGDnU5DMayY+69VOv5eU9Xb6++aAY
-         64T7PMqTVga9eMIokUprFPOPm5VMLxY8t4npEUkdEgfyaELmVpdxO9fMgFM3V/zyw9Hp
-         B6N6Ir+Fg+H3izgZ0XIDnOCLKDyeld3OBwDqg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258024; x=1793862824;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
-        b=JqOJ8Na640hcp1AJ5NRtnKT7zz10BhCZX9g/RkJS39CEQ65Nx5Jyek7koEERYoDXa4
-         pBG6MpjwNR7DqldDcI36JkpW3rhOQZvS8PkVgeczT/jLQrbh0394wCxSdbS/YtMTNDFc
-         UlW6RSYi49kdOE75AZuJeTkULNETLdeU+VHLbuKFU4oWTv/BDlMo0xhhdRiGFGIkik+3
-         jOGK5a0HFb4CoFncyy36wv/j9CtremT2xtweJ7qIBK1HLyEyyW75wfo8P93dwEiR39MQ
-         o5IOkXJLe7UhzucWWY9h8Omy9y3r+gu8uHHosynfsr+v4oz0woxZB1V34wCqn4xQT+fX
-         E83A==
-X-Forwarded-Encrypted: i=1; AKwUvBwzyfcUSmvYOhmX2u6W2e5AcFfAn9eC/c7fexxZrZBE8u3lzBAG6cO0YrGjVIaSfMMFKAZzjGVeKw+az4c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs0479Sc9VYJrmEjfrneYP64R6tNWafiHQCXan+elmiPx9ecK7
-	euf8CI1MH+pnCt8ePtV0hvFAnwsWXXnCaA6rN60dV0K9Wxk7VAU4+YXljY/L1eEZVBU=
-X-Gm-Gg: AYBFou1KQIjE6yNePnUjSt4hTJzd6dBWX94UKY6bY4tDh2FaYObWip2K8gRaF9/jjSl
-	gZflni5+n/Xm5R6yJsLP6aQ1qgg0ExDeiRA1kNV8AZYrLtOv86Mvj9HcugDuG0Xqfo3C09V56ZT
-	gc/Z1Ia5AAqiNwoEhhq40t0psI1/eHGLzaXKSdmPDxJkh0pRnsjvIe4QdCgjb2nEhivBtiEJxXh
-	hzOoX1FLjA00rHk5HQvxeh2Joz+3y3NaA5T4AnxtXaQtvisOP/qjP4xUbuTvT+m0WXNF7IrRXKL
-	2RqqhkRRojvAun5trg9vdK8eQe+2kylG1VreBt5GH72qqEifFjq+84zswEC5AN1pm7+oYUy6rjE
-	yyWge6xM1V4gja6YUhIpmWM/aWmsDMGlsDvJQBRqLHrVJcCmIWJnQTuJfAVxOB8MZY/x7BW2oaz
-	x/xYt0YfV4X6Jb+N6S3dGi3PHiMPFY/0CpHYjaAYJFDsZi1KaZGjtWsoM21yZI7tL9boJevFIT6
-	X3t9MXpWk6DRpbKehrj+271hotcKNn3S15qjP99GWlfjsPAIGDaelmnnJEAjQF6PvWAd9ilrYL8
-	O0jhBHgJxe2WGlc+wsyRz/vR+f4MlJdNmO1w3UMmnnYH5wxWP7G9Qf6Pz46nzaoLgBkXcW0HsG8
-	/XagoKVIxKRDpzP0PJk2WvZQsYHQsOnFd/IW9szdO3HjIYhobaULu9nUyhZXk7XhcyOoVpr9ihU
-	bnYK3gJwYu9i6HwxqBMg==
-X-Received: by 2002:a05:6a20:e211:b0:3e2:ea7:618 with SMTP id adf61e73a8af0-3e90226cedcmr4132727637.18.1793258024584;
-        Thu, 29 Oct 2026 00:13:44 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccccc399sm5079182a12.25.2026.10.29.00.13.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:13:43 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:13:38 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 10/16] printk: Allow to debug misuse of
- add_or_update_preferred_console()
-Message-ID: <auLyIqu49XvqFQg0@chrisdown.name>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-11-pmladek@suse.com>
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=n1ugxA1Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=RbnMv4NDWsSfm6NxZli87tg/xVFmW0yI0I8tPFPNz/g=;
+	b=n1ugxA1Y4FY/D66ZAf6vU6Da+o8xXcBIJ/SYYtkXRqDK9dQU8zKVH5SdC5rCOP
+	GZhonQzO9F+jboy+PzqS+s0aFtbOPy4vAh8KbVzqnHK0Lr3Paxd14rE8oIbnAXDR
+	oF1NpCctM8/muSuNfE0jYdyhL7CHRa24gYL8xZMdCkD/0=
+Message-ID: <ede3104a-7e14-40ac-b16c-9750d5b2a8a7@126.com>
+Date: Thu, 29 Oct 2026 15:12:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,11 +51,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-11-pmladek@suse.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
+ sysctl_sync_threshold[0]
+To: Julian Anastasov <ja@ssi.bg>
+Cc: horms@verge.net.au, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
+References: <20261026083708.617278-1-xiaolinkui@126.com>
+ <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD339LY8eJqcEnFBw--.42381S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFyrXr43JFWDKr1xXr43Jrb_yoW8Ar1kpa
+	9FkF4qyrWkJw4fZFZ7Cw47ZFZaqws7A3s0kwn8ArWDAa13Xrn2yrWSyay5GFyqkFn3u3ZY
+	vayUX3s5Aw4kZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlRsG3Gri8dvnSQAA3Y
 
-Thanks!
+Hi Julian, Simon,
 
-Acked-by: Chris Down <chris@chrisdown.name>
+Thanks for the reviews.
+
+On Wed, Oct 28, 2026 at 07:15:34PM +0300, Julian Anastasov wrote:
+ > Yes, ACCESS_ONCE was used to solve possible division-by-zero problem,
+ > not to solve the data race. Even if memcpy is converted to 2 int copies
+ > on some archs (eg. x86) may be it is time to use 2 WRITE_ONCE instead of
+ > the last memcpy. Can you include this change in v2. Post it when net-next
+ > opens again by using nf-next tag.
+
+Agreed. v2 replaces the last memcpy() in proc_do_sync_threshold() with
+two WRITE_ONCE() stores, one per element. The if/else branches gained
+braces to keep checkpatch --strict happy about the now multi-statement
+else.
+
+net-next is currently closed and is scheduled to reopen on November 9th
+(https://netdev.bots.linux.dev/net-next.html). I will post it as
+[PATCH nf-next v2] then.
+
+On Tue, Oct 28, 2026 at 12:49:35PM +0000, Simon Horman wrote:
+ > I wonder if it would also be appropriate to call
+ > sysctl_sync_threshold() only once (per-packet) in
+ > ip_vs_sync_conn_needed(). Stashing the value in a local variable if
+ > appropriate.
+
+Agreed, and thank you. v2 reads the value once into a local variable,
+sync_threshold, before the branch and uses it in either branch.
+
+One precision while re-checking the code: the two call sites are on
+mutually exclusive branches of the same if/else, so a single packet
+never reads the value twice at runtime. My v1 commit message overstated
+this ("the two comparisons ... can observe different values for one and
+the same packet"); v2 rewords that paragraph and notes the rewording in
+Changes in v2. Stashing a single snapshot is still the cleaner shape, so
+the change is worthwhile regardless.
+
+Thanks,
+Linkui Xiao
+
