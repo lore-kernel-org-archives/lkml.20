@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264174;
-	b=CpxF7EzEIRpZhWD7EYKo3mFKGoS4kFnHrsCWaCahD2jhBSAgtE+PTAOzlVgQq5PfemdS
-	 nzK3eOvDhSu3/GsQxyG569eba9ahUfyRf7VSxlV2QNX/ujXS9swYmv+2CW2fGiVpp4ft6
-	 YI/ANqXE3eJGgzowqcjMB1EzADKdgLgea71N96u4FyxxGKO7IHa2Xo/JAzLURVeCO+M2E
-	 Ij7HVlVHbX9JrR8QXbJPJ3ZmrUibA3deqTeyyDzn2o0phjSmRbPu+a+X46TKm8E+bEEYQ
-	 H/If29nv63F9Mz+TmOeeohGMe3csVKjihhLXH6+iR6a25sjdm180GYzsn2FqZp+6ZJw==
+	t=1793264181;
+	b=x/EzvIbACKpgYRlUqrb3Yc979npXqDRHBJXQn3Ey/TuXTEtdPILNrRAHak+3BQqdt4h6
+	 /gHhkE3V14AHjiJW2U1o13c0xFW+qm5uocm7xSHrcUGjAE3JbpH7Zyyk+wUqW4mfc1sqt
+	 8ND5K07MSBWVX/QYzhpgkgkwjygy0H6bvYHh4UAWs5m8qII4Xq9PvTlhgXjo0OtfztqqI
+	 Ks/KvS1St5UrVdF3rGr5ykWK9QuUGha14+eYMzOIXT95eNQ0U9D4kRawUVFlechigGm8t
+	 SFV3562/DEZ3DcV6wL40jQZ9JFwjZ/EEKg6zooa/huosC+i4HtuJew0r1tovWOoUXCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264174;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nPwSPsyZbXl/IjjBxekKC+O0xydHzhe1kjdW6d72i64=;
-	b=4o1at9T3Ck7Ah5vXTnf5ePrRjwHhDKVgsA0maetAIpcyXU3KnF431BW7agBU/eBJMN4O
-	 T/GQcUaOBF9CWBqcAQSVJzTd5ZdHRFgu+72T9UHMnBjl6bv0v8vgGB5LsvLoIM6nNeMOR
-	 Jc1wydWdM313NMv+jwZYrHf5UvhNrZKRuR+jpB6kZJtfA1Y1fNWwsfaiRmi+fHXFosFCN
-	 lj7VDN8OFOjzfKJEwvNpTEdq6us4Y5pX93RblN6iglRV93MTKmO8Xcq2g4p/q5t/yV1av
-	 gWw5CdxKlNwO1RCxXrgRP/1heYJcPYf6gqio80wL8+WASY+IEH3Rhmq0ybsA9BLazZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264181;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w2ejjs8yPr92ZrvNYymKKkYuQ+rkl46NwmLcEyqDyfk=;
+	b=SzFWm7AxBj7xrDRa2RJw9ryCPd2VXsC/pLwiDStnlC6/CwM5deMG545R4Kh4Ry+NxzVw
+	 +2qre1MNvESY+9bUwx39EKbjmXmDEFuMQgB8rtwCzkdETl8bc1WCvt0FIfpSiy+wF1k5K
+	 ZPqYJ9oHWoS1Din04z++3CKT/Bi8yXUS0SxEWYqLvyOj8tAD0xO03UX8eOSnJnIqGA/nV
+	 g4nBYCNhzzw/GxVDq7mSjk0pSRDLHGI1ptSFo87QE5XjTMJs9xc65UQokRzXTl5erNU0u
+	 NhxZlEvLjDTAfg41uxLMRyUrxwLeNXbNV08u59DKdqqZU7U0LdEcN3UhmoyrbwWQkFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S9QiWH+1;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeD9y7VH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A2F606A31D;
-	Thu, 29 Oct 2026 08:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49A2F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD4E606A31F;
+	Thu, 29 Oct 2026 08:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S9QiWH+1
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CA433BE;
-	Thu, 29 Oct 2026 09:53:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793264038;
-	bh=GcRRU/3tEMhNeOSUogjmLD1GIWxyuUhdnrCH9im4Lho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S9QiWH+1nCdV+NGzs62XvGl+nrs+sYGQ4K8sueyz+YDbB4AtMAotPp1FIxIJSS/mD
-	 pVzrLwvkUqzWajOHVN+tpHkhGiKaOlTz91V4TPWzvRJYuXvLcwHtAboEtU4ZMLYNAm
-	 zkxEJzB/WsAG0yS/gGXpSr9CaSMhEibsEA96dS2A=
-Date: Thu, 29 Oct 2026 10:56:10 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kuangyi Chiang <ki.chiang65@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
- camera
-Message-ID: <20261029085610.GC2673734@killaraus.ideasonboard.com>
-References: <20261029033106.7374-1-ki.chiang65@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GeD9y7VH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071E51F031E3;
+	Thu, 29 Oct 2026 08:56:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793264180;
+	bh=w2ejjs8yPr92ZrvNYymKKkYuQ+rkl46NwmLcEyqDyfk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GeD9y7VH5jlfMmzuNwtDReyyRM2rZgNdsVqEc/rD9u0dACcCW5SkbF8nH5Z3yF7b5
+	 iOsHR+wkduWqup8i4kHnYK/5BkGxxg1ouij4c73FCUCeIiIiRxKCVN06EOtkPT+hfp
+	 WsV4WEqz6YkbuXtpARB2DkgyXRmP6ocpYCl9f3I52BCJIT10AwhdW4m7/PMeeDEPZn
+	 kqvHVqFCLSlZLqwRREgVAlydq5Fodr+UebMOrPq+iw+JqB55hYr2yqc7EC2kS2/3gO
+	 hMXbMgrQMRFObqDcb+eH+C3gWprwAtGv9sRA2d6JvJKh8OEHEC9mx30iL6d6Bbj4pE
+	 RXZF6IVghsKFA==
+Date: Thu, 29 Oct 2026 09:56:17 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Johnny Liu <johnliu@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Douglas Anderson <dianders@chromium.org>, Aniruddha Rao <anrao@nvidia.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: firmware: tegra186-bpmp: Add
+ Tegra238 BPMP
+Message-ID: <20261029-spiritual-imported-kagu-c3473b@quoll>
+References: <20261028155000.1205739-1-johnliu@nvidia.com>
+ <20261028155000.1205739-2-johnliu@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +65,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261029033106.7374-1-ki.chiang65@gmail.com>
+In-Reply-To: <20261028155000.1205739-2-johnliu@nvidia.com>
 
-On Thu, Oct 29, 2026 at 11:31:06AM +0800, Kuangyi Chiang wrote:
-> UVC control requests issued when preparing a video stream sometimes
-> time out on the HIK 1080P Camera (2bdf:0280):
+On Wed, Oct 28, 2026 at 03:49:57PM +0000, Johnny Liu wrote:
+> The Tegra238 SoC is fully compatible with the Tegra186 BPMP.
 > 
-> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
-> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
-> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
-> [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> Add the clock IDs exposed by the BPMP firmware on Tegra238.
 > 
-> Adding a 1ms delay after each control message avoids the issue.
-> 
-> Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
+> Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 
-We don't add random delays. This needs a root cause analysis.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
->  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc7..c720d75 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
-> +	/* HIK 1080P Camera */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x2bdf,
-> +	  .idProduct		= 0x0280,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= 0,
-> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
->  	/* Insta360 Link */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a..4667f86 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->  {
->  	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
->  	unsigned int pipe;
-> +	int ret;
->  
->  	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
->  			      : usb_sndctrlpipe(dev->udev, 0);
->  	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
->  
-> -	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> -			unit << 8 | intfnum, data, size, timeout);
-> +	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> +			      unit << 8 | intfnum, data, size, timeout);
-> +
-> +	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-> +		usleep_range(1000, 2000);
-> +
-> +	return ret;
->  }
->  
->  static const char *uvc_query_name(u8 query)
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4..1426d14 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
->  #define UVC_QUIRK_MSXU_META		0x00040000
-> +#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
->  
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+Best regards,
+Krzysztof
 
--- 
-Regards,
-
-Laurent Pinchart
