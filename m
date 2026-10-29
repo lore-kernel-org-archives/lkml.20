@@ -1,95 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793232892;
-	b=Pav4M+vA7i/Ve8vjbrYON99A1E/kibH6SvPedgtYm1N5Q9di0jy/6djvo/KOBDEEswkQ
-	 7ZmR7tBgrUJOWSGgypGIsKo3r1ZlhYE8t3zTPkafjRrlbbYqbe4fLU9cmSVRxzCn3hYrW
-	 Iiv2QD/mbm1QHNQxCUAajcrNIwskegE4LXYrgHr0P5TLQ/lpCx7ghKFTyVVGWEsqIxKDQ
-	 LTRDC2X8Uf7qeMznbRzvM8Wt1SlzqURHurVlsiFU5e63fnza+2DVlhOFaMSjzdBeVowZx
-	 dW2acr7LZiKcQXASmD4UnPckS0ST0YFFVqOxvdZ0UFXQPLR1+B6iusb+I101ZPIL3VQ==
+	t=1793232910;
+	b=P0ylno3rcdvCyzwSqjNcTmF+VMwyXQU/O4gixjyYUeBY8idnxUkYDtQBNayYQuCL6c4C
+	 OTAHPaLyRtlPY16dYBVo2AO8VdiLzfnBAecvV51ICRkws2wjNF9XqkxjqxqYvyOSvH3/u
+	 X3fEBoca7oe8uW90P6+HX1sxTgBtq57gzgAYddCr1+Aw6F77STNqjbezkHxMuOKn+OZFu
+	 MyNJRwL+C3DqcBXHALFIjhHZHcEsWU9YBp7I2ZivtRZzzWdkz1yWEyueZiZRn90IU6Py0
+	 kh7DT1C6QMpKczkqM51IXp5IazHLR1FswDbdLw1+WdbcmojhWe6pr/88ggmL9gtye3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793232892;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793232910;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KLVBw/UkNwKCf0bH78xGpqCQNeCNKlhoh2dQVh4mvTM=;
-	b=hpJEMFsobc9ApSwQ5cmrxmZ3cJHVQ1mOVPqI9/dOfvHgkYxwpHz5nBMd6aawf8N2wjdw
-	 47Pfzai3Zs0o++QWPfoeG9raXm8W/p3n8z3D1v/kmj4fiZ01hlG6PXVGnLy/FAttr4yPp
-	 3JHbRnFTKEwiM3+VdvosbBnoLOYOg6yhXMi6ilbEatr4TS/cM/xjKTenpzSqJv5a7zwGu
-	 PEX50Nz6Jqe4jJlt5YlDtZEWB1N1jHY/bijShzdPog0sDubldfMoo9X+wFYyiwfVzVMib
-	 xKoXDA10mKNFSYNwEjfkEqF4xhMVhyFoRJG7c92Z9ZC7yp024NeFVcAB+uTwr7HKzXw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AKYZnuuJaKbDAUFeC/huFk/Nq3e89+l9qvUa+yaAXe4=;
+	b=jkyzoJzcqykWIg68Y/U2B9oddCcjffctMjWaOvtL4khV2Tn+gxxSWg4WSuvP4u3NSiLa
+	 gmOw/K/NjtDUsifOmStM0/k+8ipDyhAnRjVuELbgPL97rXiHPJOMP7JVwP3PtVh7tbVl1
+	 uhepF3qrgQzJH2zUfF2OTZRrXmQqQ63DMJceKR0b0mrT6aFmdQEcPqsfK3l3Ua+3k2ec/
+	 jkHq97ProdNCRAyEJBLxTerySR+wI2cw7slG742oexPQnwQFy8vw0wjcscbWVoSqepOEH
+	 wZO7h3u1zrTrxY2DScMMa2cWYqPHDthI/bqyI2GR8v4s4wUqFxkhAXiuSv9P22BTDPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YZurm2vn;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cyz8+CYk;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D117606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D117606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAB4606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AAB4606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YZurm2vn
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df4f540ebso779015f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:14:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cyz8+CYk
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a18fc7a38so3190226eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:15:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793232891; x=1793837691; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KLVBw/UkNwKCf0bH78xGpqCQNeCNKlhoh2dQVh4mvTM=;
-        b=YZurm2vn38Ou3OZVInaponIYZXLBJDkwhva9jMzfROFu/1s2AkjSYPTCNsChA6AXmp
-         W9TWD/praBvYzF8n5aG/gRG8TcFsEHAIk72D3zLGz80B30J4hZpAtoIriB9gPUfwXm1H
-         SKFUZnbzelrJUCYD+g3ks0wT5NQS9wTk0rMBVzFAGhLJlcoT1MoM8j++9NIqSqHXSsT5
-         NYtj4RbQr0ymGpqAIGB+0LcL+gaXJu/XM7mBKr8qe19sgG128p9XmgaxU6u0f8lvsBV7
-         3sNDYfwyb62sNOKGQdeCC96XXYgkbrJQna8lKk9B/lmVq3YfDGaD+ROffDoR0jJe77vw
-         YEyw==
+        d=gmail.com; s=20260707; t=1793232908; x=1793837708; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AKYZnuuJaKbDAUFeC/huFk/Nq3e89+l9qvUa+yaAXe4=;
+        b=Cyz8+CYknyDBoJpS4eV51HCF5lQJrBEifAr9ZMP71YDBQz+RGknXtI3BC5MLb6dDbP
+         CxON6ML/0b2GNtJB3ru5xZFKMfhgSJHjqKkipsAYoWjnk1IQ8DaoRAHEDeoj77NIRFge
+         NvSFxfBI0bBYS3iPDNL1MmMXZlS8qYJA4IrWrfl5K9srkikFe+vtWK4JrvIHjcRE/a8x
+         aCAxRftiRLaWbFRaaHwU68bvkIwZ0lox0nBDpImcTHf1IW+i+K8qiFBqTdFPmbzOuL9O
+         KCFQUsMY+VZtOjT64SB+p2r6UpRLE52PCYq93LhIODBfuSvXEYjnLy1Kffu9DqGratVZ
+         7g9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793232891; x=1793837691;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KLVBw/UkNwKCf0bH78xGpqCQNeCNKlhoh2dQVh4mvTM=;
-        b=euESBJWsbvddpJhAFsChXJ0idiydWMll6VDRt+sZP9aYYDskY398qDBAipY5vMTUkh
-         Y4Nd8ZvLWY1tEO7KCJLd0dduO3nXRIsJMioZB5IPXNiGprQmYkzbv6Ye6i9aHNPkbbwr
-         6pV6NckdVHX4t8mkGjGLybeq9NOs/TS/uMoGLF3yhoGt/gbMvxE1COuPcMjYUWvLJfPm
-         Vd2FsgyzMK1qSCetRJMT2A2AzzhRiwEBxRASCt1Ztlo6mIhB3OsU1oZFl4BNVOdNkpqC
-         VoD2/WQMQDE8a+mSYpqiwiVqKEKbWWjIUaYueYt5UXXBr/7YZmY+CesjRqKzv9YbQQH2
-         LJ/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxNdQQS0OMa4WljrSz3/P41+6eVn92m+pM1NFh4SzG3V8AyyDVbVLcbRC/dk1lWZcH9N4xU+yUviXEv4GA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLh/CasKiVH70/cklarKkXF/OwYsp1qwF12LNddTa82cYjS70d/
-	4x7Klzu1D1EAwAyqTpQW+K6WZN0rL9XnUtB0hS91tZuZWFSOnNqBtiNBBnv6
-X-Gm-Gg: AYBFou1QrruJxmCKk1IbdrcnB4/ILkn2bqdRCQSrccVlVbSHvy5km+SDzlr+a79kTRp
-	gikKU4qhFgC9ZSsaAIIBl0eq3UyVW58jd1ZVIJVKkY1kwv2mlcwssiyHEpUe9IYL3/NvQJLtx6g
-	z8iK1zu7yHqEXNidBUUZjtAXsm+0oALuM504xP+atVwXpLPue4mF2dhiHrgYRy37CS5GWbyS7UL
-	Bb7842NAzGSPN1Z8szD280jh84OObwWh+3q2gWwFqYMOcSyfVzrJvx4wqBA+qsFecIBRxGpGjTN
-	nKqnyX42ASGWxqU7TX/SG3GoVvCVYJCA454ihq0n/ZZKTXD+xKVN0aqwtu+gB0Z7r5c1AV/OCUe
-	pqBOm+OYmjOxqwujG3eexQyunKfuxy6VyTDyvLkPoAF7scyxRWCxnR6BiG/6sWDXpidGwZYIZlG
-	JM+HmLrw0aEmhMvK3ZPCf+BTNfsLRDCf+1ad2awIa2vw2183qn1Ry3THX+r4v9Uq0XKVygPNqIu
-	L5U/RJ98ncCiSfATvAQt0Bx/mTg/6LWAvNDrqIusVhKAPg2iRFAfHXkfzKm3gjCpdh5ZFZN74+2
-	p8AIYo5E9JV0YIcSM84=
-X-Received: by 2002:a5d:4841:0:b0:48b:451:4f19 with SMTP id ffacd0b85a97d-48e5d3120admr7180228f8f.51.1793232890621;
-        Wed, 28 Oct 2026 17:14:50 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f37csm25262605f8f.8.2026.10.28.17.14.48
+        d=1e100.net; s=20260707; t=1793232908; x=1793837708;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AKYZnuuJaKbDAUFeC/huFk/Nq3e89+l9qvUa+yaAXe4=;
+        b=oBOcBhKZonDDvyux1K6TeIQAqz/1l1iwSAUPkiXvJT6r+DJbUBhy6BeCYykYajp0+E
+         CAtRykupjDDLj8/JLDHOFL+4xkVciMp1BonMJOOv2gg7TS9Pfpe1KP1jIKRI+WPjiSwN
+         ZGsQ/LumCN0t38pxEluxKyNyGQaan8P0IqV8qF6xR/gG5PHH4Zc9l1mQ2+qbJDti1V1N
+         H3yGGpZyn9mn2kg3HeAxi2jfvnK6wiYZdOwsUh2Bi6zYe3uarrYn6+uPVp5NX0oBSZcI
+         jY/DTaW4ViZgO5ox3RhyzGXlCNf4mvv8MSBNIh3i0eSnp/tM0/EMU8X+eTDVPQ98P9sG
+         Ey/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzmuSNuDxycEy78XgV7cI/mjHfsLgK9ZkVbNf8xeadpM8O7G/40LeC8hSscrmOVprVmaL0HSH5gkTbexUQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLic0iU8OC6WDeh2SWorr1OCXNWIz7V7jOhZMYbuloGpC/SswUY
+	YcEOrYmzk3FYOBE/1lC6JhhdiYg9uMjoYN0V9pSx1y2oUctrb0vrcTYQWeLxjmfL
+X-Gm-Gg: AYBFou0sGsrpYULTLdfWimxkAKkP9STsdWCQ+VHGWafiI9MrAbD+IbrTQi0fKBr13S+
+	bojViQEWUxpn/zG3+p/wG71t/7lMWHL8cHkTgDLoV+8sG4nDjFqVS3RLN8aJ1T6Lt+SsAxRFGT4
+	I4NbGLPf/Rr+HSqQrNX3fcH+1BJ8EnDlxZNAgw58opLY8Cvy1CRIseyxCNP5N3BI03SjhBRi56E
+	748xrknIs5OroyHibatKiWoCwOok41fGs2Efm1QQqE3YnW2VfjaMdmpMgvDwqFB+noQAzBs0Iso
+	sPeM+oS831PF7X+4CH9QWkGFDxDS6AKWJDKfaT8GRi0tt6sln67pGkurvk+ySSGm9BsNub7rArO
+	8lsg2nuQuinV8wlpLJc4AR/ThfkGYXY2u0tCZ49QH7+cr/CGCEmwfK5II1QVHEa+oRgMVBYHIoW
+	bQue9EmtbTJd9/aIFoJ9rcKFbgP+QffxuqnuQUPNQuEHrDtYwA02dTf+D4+R/PRAjvFvGQmj2ZV
+	GxWkxFTn2HSiLgTlwskQhejDCmWLd95qpwLvfmeObTXu1/OoJCTb5UBVcAT+4/dFPsUbdP6E2/X
+	6/sGdoDmkDIvFDNsPNIl0nK2oJRIUPbHVJ8oql6V
+X-Received: by 2002:a05:693c:23c4:b0:369:efeb:3c6 with SMTP id 5a478bee46e88-36a202e9a2dmr7718659eec.3.1793232907818;
+        Wed, 28 Oct 2026 17:15:07 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23908449sm11221892eec.11.2026.10.28.17.15.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 17:14:48 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Marius Cristea <marius.cristea@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v3] iio: adc: pac1934: validate ACPI _DSM return type and bounds
-Date: Thu, 29 Oct 2026 00:14:47 +0000
-Message-ID: <20261029001447.1114691-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Wed, 28 Oct 2026 17:15:06 -0700 (PDT)
+Date: Thu, 29 Oct 2026 09:15:04 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: Re: [PATCH v1 2/5] ntfs: preserve timestamps when creating hard links
+Message-ID: <auKQCM-vwM5RPYDc@hyunchul-PC02>
+References: <20261027093515.344799-1-liubaolin12138@163.com>
+ <20261027093515.344799-3-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,129 +97,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027093515.344799-3-liubaolin12138@163.com>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+Hi Baolin,
 
-pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
-times to read channel configuration but does not validate the returned
-object type or array bounds:
+On Tue, Oct 27, 2026 at 05:35:12PM +0800, Baolin Liu wrote:
+> From: Xuewen Wang <wangxuewen@kylinos.cn>
+> 
+> ntfs_link() resets atime, mtime and ctime on both the source file and
+> the destination directory after creating a hard link. This overwrites
+> the source file's atime and mtime and the directory's atime.
+> 
+> Update only the source ctime and the destination directory mtime/ctime.
+> Mark both inodes dirty so these changes are queued for writeback instead
+> of relying on the earlier FILE_NAME write.
+> 
+> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+> ---
+> Tested with the complete five-patch series in QEMU. Explicitly assigned
+> atime and mtime are preserved across ordinary hard-link creation and
+> O_TMPFILE publication. A separate persistence check set and synced
+> atime/mtime on the published file, then verified those values after
+> cache eviction, remount and a fresh boot.
+> 
+>  fs/ntfs/namei.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index 0c84a5c..4442e1d 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -1663,12 +1663,13 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+>  	}
+>  
+>  	inode_inc_iversion(dir);
+> -	simple_inode_init_ts(dir);
+> +	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> +	mark_inode_dirty(dir);
+>  
+>  	inode_inc_iversion(vi);
+> -	simple_inode_init_ts(vi);
+> +	inode_set_ctime_current(vi);
+> +	mark_inode_dirty(vi);
 
-  1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
-     firmware returns a different type, accessing rez->package.count
-     and rez->package.elements on a non-package object produces
-     unpredictable values.
+Could you also update the last_mft_change_time of $FILE_NAME? it still
+appears to retains the old ctime.
 
-  2. The loop bounds use rez->package.count directly without capping
-     to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
-     than expected causes writes past the fixed-size labels[],
-     shunts[], and active_channels[] arrays.
+Additionaly, could you run run xfstests generic/004 and generic/389?
 
-  3. The bipolar and sample rate DSM calls access elements[0] without
-     verifying package.count >= 1.
+>  
+> -	/* timestamp is already written, so mark_inode_dirty() is unneeded. */
+>  	d_instantiate(dentry, vi);
+>  	mutex_unlock(&dir_ni->mrec_lock);
+>  	mutex_unlock(&ni->mrec_lock);
+> 
 
-Use acpi_evaluate_dsm_typed() with ACPI_TYPE_PACKAGE to validate the
-return type at evaluation time.  Cap loop iterations to
-PAC1934_MAX_NUM_CHANNELS, and verify package count >= 1 before
-accessing elements[0].
-
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-Changes in v3:
-- Use acpi_evaluate_dsm_typed() instead of manual type checks, per
-  Andy Shevchenko
-- Use (count & ~1u) for the name+mohm loop bound to ensure pairs
-  are complete, per Andy Shevchenko
-- Drop Fixes: and Cc: stable tags since this is hardening rather
-  than a fix for a specific regression, per Jonathan Cameron
-
- drivers/iio/adc/pac1934.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
-index de59dc27c4405..b6315a13a353e 100644
---- a/drivers/iio/adc/pac1934.c
-+++ b/drivers/iio/adc/pac1934.c
-@@ -1092,17 +1092,22 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 	struct device *dev = &client->dev;
- 	unsigned short bi_dir_mask;
- 	int idx, i;
-+	unsigned int count;
- 	guid_t guid;
- 
- 	handle = ACPI_HANDLE(dev);
- 
- 	guid_parse(PAC1934_DSM_UUID, &guid);
- 
--	rez = acpi_evaluate_dsm(handle, &guid, 0, PAC1934_ACPI_GET_NAMES_AND_MOHMS_VALS, NULL);
-+	rez = acpi_evaluate_dsm_typed(handle, &guid, 0,
-+				      PAC1934_ACPI_GET_NAMES_AND_MOHMS_VALS,
-+				      NULL, ACPI_TYPE_PACKAGE);
- 	if (!rez)
- 		return -EINVAL;
- 
--	for (i = 0; i < rez->package.count; i += 2) {
-+	count = min(rez->package.count & ~1u,
-+		    (unsigned int)(PAC1934_MAX_NUM_CHANNELS * 2));
-+	for (i = 0; i < count; i += 2) {
- 		idx = i / 2;
- 		info->labels[idx] =
- 			devm_kmemdup(dev, rez->package.elements[i].string.pointer,
-@@ -1119,7 +1124,9 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 
- 	ACPI_FREE(rez);
- 
--	rez = acpi_evaluate_dsm(handle, &guid, 1, PAC1934_ACPI_GET_UOHMS_VALS, NULL);
-+	rez = acpi_evaluate_dsm_typed(handle, &guid, 1,
-+				      PAC1934_ACPI_GET_UOHMS_VALS,
-+				      NULL, ACPI_TYPE_PACKAGE);
- 	if (!rez) {
- 		/*
- 		 * initializing with default values
-@@ -1130,7 +1137,8 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 		return 0;
- 	}
- 
--	for (i = 0; i < rez->package.count; i++) {
-+	count = min(rez->package.count, (unsigned int)PAC1934_MAX_NUM_CHANNELS);
-+	for (i = 0; i < count; i++) {
- 		idx = i;
- 		info->shunts[idx] = rez->package.elements[i].integer.value;
- 		info->active_channels[idx] = (info->shunts[idx] != 0);
-@@ -1138,9 +1146,15 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 
- 	ACPI_FREE(rez);
- 
--	rez = acpi_evaluate_dsm(handle, &guid, 1, PAC1934_ACPI_GET_BIPOLAR_SETTINGS, NULL);
-+	rez = acpi_evaluate_dsm_typed(handle, &guid, 1,
-+				      PAC1934_ACPI_GET_BIPOLAR_SETTINGS,
-+				      NULL, ACPI_TYPE_PACKAGE);
- 	if (!rez)
- 		return -EINVAL;
-+	if (rez->package.count < 1) {
-+		ACPI_FREE(rez);
-+		return -EINVAL;
-+	}
- 
- 	bi_dir_mask = rez->package.elements[0].integer.value;
- 	info->bi_dir[0] = ((bi_dir_mask & (1 << 3)) | (bi_dir_mask & (1 << 7))) != 0;
-@@ -1150,9 +1164,15 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
- 
- 	ACPI_FREE(rez);
- 
--	rez = acpi_evaluate_dsm(handle, &guid, 1, PAC1934_ACPI_GET_SAMP, NULL);
-+	rez = acpi_evaluate_dsm_typed(handle, &guid, 1,
-+				      PAC1934_ACPI_GET_SAMP,
-+				      NULL, ACPI_TYPE_PACKAGE);
- 	if (!rez)
- 		return -EINVAL;
-+	if (rez->package.count < 1) {
-+		ACPI_FREE(rez);
-+		return -EINVAL;
-+	}
- 
- 	info->sample_rate_value = rez->package.elements[0].integer.value;
- 
 -- 
-2.47.3
-
+Thanks,
+Hyunchul
