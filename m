@@ -1,60 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300107;
-	b=IomMKfbbriCJMCaFbin4X0aI5ZNeUx7A+l2oVZnSaLD7GZweDpd/gFuSat5BQquIkbEl
-	 Mo1Pfu2PTgRe8knHBuLZtipdLpi6b8cFu/uh3D50Yf9J/Qd1u691dYcWjWvZjvVVtabt0
-	 YQZqwUTixALJxeJ0bIwF+hQUNmD9rIjYx26O4+oLYzEZ0dQvxPPspgW04ss+Q+a0k34nK
-	 hbEzX8pz7hUwdt0Nuj6JK63+WCvSf1EnheDlbI8hI/eW+h+JW5t/dYpaE/LtGXl+v9CV/
-	 cJRtQE4+uIMbKDULOM00X1i1rDEsYyTQMDuLGlsm1i14rez3K4ikg6xvL10lLRYRWAw==
+	t=1793300098;
+	b=lPGerbqlSoNqrFdL8XICDgwL/S/fzzcCew9VFqItMO5ESjdldCOcNO1uFMfvCZGqEoxP
+	 Zn1IcIBMqs3YJAM+eUxklO+QGWxzlhzRJfKJnUgeZv0LvRgF6fkeq7cJYPyjVBFb1L7Jc
+	 ZL3h939V0p2Qj3Sjd5tQH16h57/JVW1N88QxunvkO0sYcIvu5QvAGTknae7YDB4Y2+Umo
+	 a6e4w1MSmDpNG6fFWhePNVxPEhlxdJM2d/u7WFfG/VlZs7Gz0iLWgck4wm+wt0fLxut+3
+	 T30RTcRKppnuycAPshJMkdpCkrwNffIuvejQj5wJI0KErPxrToa8UIXi1ReEkOKyMww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300107;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=4fltM5gdImjF1crZCIEyXf23oKVvuU4SjhacIgA9m38=;
-	b=wLHa84QF43fm7fpyOtr9fI268buWrGQ0fewtk6MqrXEpB7fsMfSxps3sB91QnEVB+MDN
-	 8iznYqwtupHOoCDMcykpBIn07G5Nk2FXwK94jtxVd48V+N5+O0DnhHeZmwRE9QGoxeJCf
-	 Zrt3y3srQ1xJYILl0jZkRhYcsr5scZTdKWWUO+8uwRPRfXNirDjr4lEqUy4pFkRdgLIjn
-	 eNH40HtAhwAD/3A8Vfu+sSUUzCADKO6GvdhVSfnppWy/VyhVbEiZDvnTzCgMT0RpsA31r
-	 PHye8zoGD+AtO/F60K2piANbyFprFR/kqSomfMVSI2otDSB60yg3OaEhA5W6nllGIfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300098;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wEgbHVoAVDi5POFLCru0ShT3/K2/8OJVSBqmnEGYSeo=;
+	b=aiF4YXgUd29Z+i3sLfthLEkwqe41fo7KkaPt+geh0fVckrGZzHg2/nF/c0tjcmcubBfe
+	 8MbIyscAMXYt1P9hNQQQlKpzok37oHLcpn72RO3KAuQmtRtYuokHl4vx7KcKM4NvzAPnL
+	 x59pp1s1XiMN6qSba5LCjTRf//El2kNXYJ7s8IVcGOFnlSeE+SyA/48vcQVUwqsNreah4
+	 EG+5282Mzm41FhSZivbR/iEpEAneTX5g2tfnyqAi3IoN4kuuRVtV2dn1n8ellOt2hnMiJ
+	 Hkyle+ykJ3lL9Nnwv/mypMoCebLwjy6lti2OwazAynebHOXn4pgPo1kYb4MHHkYxFZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9kR+B6z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETFMsP8s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF0C606A31C;
-	Thu, 29 Oct 2026 18:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17AE606A31A;
+	Thu, 29 Oct 2026 18:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9kR+B6z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C617E1F01825;
-	Thu, 29 Oct 2026 18:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETFMsP8s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B621F01816;
+	Thu, 29 Oct 2026 18:54:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300106;
-	bh=4fltM5gdImjF1crZCIEyXf23oKVvuU4SjhacIgA9m38=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=E9kR+B6zd2TC56iOVx3LX/tayyHIrM5NuI2aKJ5/H4qRvNzBZBTEg5vvBBQdIWAOz
-	 xVqrQWXDdofchDu/3HVggZoiQv2YxNaBif6VpoCiB9FcYl73/xpZ+Ij5e2rTQ48MzI
-	 8xeLKMvlC8iOtrd34OfsLDTVoUtkQVgm4rX8eobo6m3YgR3f//9snSgIpYWn9zBtoJ
-	 J7Cq0shZ9AqQG2sH1RyzkKqoMfLaccSRN8+yBCmvNCi7xkeeobdEZ8iMtjIydw+L3x
-	 jI+Cqb7d1LLfIJ2QAWcLwjs7QRe2xtm6+mtbMK7blpOn98kW0TX7Cvh5jgESqC2GhT
-	 ecykRcT5hz+GQ==
-Subject: Re: [PATCH] netfilter: xt_policy: add NULL check for skb_dst() in
- output policy match
-From: netdev-bot+sashiko@kernel.org
-To: fangxy@xiaopeng.com
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, liuwb@xiaopeng.com
-Date: Thu, 29 Oct 2026 18:55:05 +0000
-Message-ID: <179330010531.3134.10986246344071690394@kernel.org>
-In-Reply-To: <20261026125313.14810-1-fangxy@xiaopeng.com>
-References: <20261026125313.14810-1-fangxy@xiaopeng.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793300097;
+	bh=wEgbHVoAVDi5POFLCru0ShT3/K2/8OJVSBqmnEGYSeo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ETFMsP8s7BqWCCvKeR8RYN4ZbgkNL97EI1G0cfCpGTNPDTtpy+LJHIkygumdQSR6Z
+	 YZoiaI0cRVFxac43T+75VHxazwRUFK/rY9SRmpVzb2r3Gc1Gm6bcMYPXKN0TFXXG7F
+	 D8d0zAbx/00vMCVqqSrjDgZty6kFK5ropSwVzkmzlGVaVUGj7BYoE0bL1UPUCAlO6F
+	 clg3Vh4cSWhi5hgmrwheRXHYVWmGRMaJna6/glQxmbmR4pCC4SED8hlOFty84skrfZ
+	 OQC1MBwEg9bofBa/HM61P1HBpEBb1daP/Q08BXjHuua7zqnkA8DQlKeRkN9FyM4Yho
+	 1AUknEPd2kX4g==
+Date: Thu, 29 Oct 2026 18:54:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 05/12] dt-bindings: serial: Add BL808 UART
+Message-ID: <20261029-pouch-enunciate-e74cf84e42a7@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,157 +79,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="F1Dhg2KrVTCkSmmT"
+Content-Disposition: inline
+In-Reply-To: <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+--F1Dhg2KrVTCkSmmT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
+On Thu, Oct 29, 2026 at 01:05:46AM -0400, Kwanghoon Son wrote:
+> Describe the UART register range, interrupt and baud clock input.
+> Initial Linux support targets the BL808 32-byte FIFO and reuses
+> Zephyr's bflb,uart compatible. UART3 is D0 PLIC source 20.
+>=20
+> Link: https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial=
+/bflb,uart.html
+>=20
+> Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> ---
+>  .../devicetree/bindings/serial/bflb,uart.yaml      | 57 ++++++++++++++++=
+++++++
+>  1 file changed, 57 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/bflb,uart.yaml b/Do=
+cumentation/devicetree/bindings/serial/bflb,uart.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..df29d258f0a1c6d7bb283cf19=
+c4157436991b64b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/serial/bflb,uart.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Bouffalo Lab UART Controller
+> +
+> +description: |
+> +  UART IP used by Bouffalo Lab SoCs. Initial Linux support covers the
+> +  BL808 controller with a 32-byte FIFO. The compatible follows Zephyr.
+> +
+> +maintainers:
+> +  - Kwanghoon Son <asdfkwang@gmail.com>
+> +
+> +allOf:
+> +  - $ref: serial.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: bflb,uart
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This needs to be a device-specific compatible - please just use the
+binding already reviewed and agreed upon in Jisheng's 2023 series.
 
-- [Medium] The commit message says the patch is defensive only ("No
-  reachable path that passes an skb with a NULL dst to…
-- [Low] The patch fixes a reachable NULL-pointer dereference in
-  match_policy_out() (net/netfilter/xt_policy.c) but has no Fixes: tag…
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Baud rate generator clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: baud
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but xt_realm has
-  the same unchecked skb_dst() dereference.
+Drop this clock name, with only one clock there's no more need for it
+than the interrupt-names or reg-names that you do not use either.
 
---
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    uart3: serial@30002000 {
+> +        compatible =3D "bflb,uart";
+> +        reg =3D <0x30002000 0x1000>;
+> +        interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&uart_baud>;
+> +        clock-names =3D "baud";
+> +    };
+> +...
+>=20
+> --=20
+> 2.47.3
+>=20
 
-netfilter: xt_policy: add NULL check for skb_dst() in output policy match
+--F1Dhg2KrVTCkSmmT
+Content-Type: application/pgp-signature; name=signature.asc
 
-This commit adds a NULL check for skb_dst() in match_policy_out() before
-dst->xfrm is accessed. When no dst is attached, the function returns -1,
-the same as for a dst without XFRM state. The commit message says the
-change is defensive and that no reachable path is known.
+-----BEGIN PGP SIGNATURE-----
 
-> Code review identified the unchecked dereference. No reachable path
-> that passes an skb with a NULL dst to match_policy_out() has been
-> identified in current kernels.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOWeQAKCRB4tDGHoIJi
+0uKtAP0ejRfkQ6TQ/zZ8dEodbmT5akOou9YEluj6A8bUEGnyQgEA1uS4y7a9YWeA
+TkOZjaMll9OgIUH9gJmfHcwWaiRo2Q0=
+=y6XU
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-
-Is this statement accurate? There seems to be a reachable path through
-br_netfilter on a bridge port that has vlan_tunnel enabled.
-
-net/bridge/br_vlan_tunnel.c:br_handle_egress_vlan_tunnel() {
-    ...
-	tunnel_id = READ_ONCE(vlan->tinfo.tunnel_id);
-	if (!tunnel_id || unlikely(!skb_vlan_tag_present(skb)))
-		return 0;
-
-	skb_dst_drop(skb);
-    ...
-	tunnel_dst = rcu_dereference(vlan->tinfo.tunnel_dst);
-	if (tunnel_dst && dst_hold_safe(&tunnel_dst->dst))
-		skb_dst_set(skb, &tunnel_dst->dst);
-
-	return 0;
-}
-
-This drops the fake rtable that br_nf_pre_routing_finish() attached. If
-tunnel_dst is NULL or dst_hold_safe() fails, the skb continues with no
-dst.
-
-The delete side runs under RTNL, and nothing orders it against the
-softirq reader:
-
-net/bridge/br_vlan_tunnel.c:vlan_tunnel_info_release() {
-    ...
-	WRITE_ONCE(vlan->tinfo.tunnel_id, 0);
-	RCU_INIT_POINTER(vlan->tinfo.tunnel_dst, NULL);
-	dst_release(&tdst->dst);
-}
-
-So a forwarder can read the old non-zero tunnel_id and then find
-tunnel_dst NULL, or holding a dst that dst_hold_safe() rejects. The skb
-then goes on like this:
-
-__br_forward()
-  br_handle_vlan()
-    br_handle_egress_vlan_tunnel()   <- dst dropped, none attached
-  NF_HOOK(NFPROTO_BRIDGE, NF_BR_FORWARD, ...)
-    br_nf_forward()
-      br_nf_forward_ip()
-        NF_HOOK(pf, NF_INET_FORWARD, ...)
-          ipt_do_table() / ip6t_do_table()
-            policy_mt()
-              match_policy_out()     <- dst == NULL
-
-br_nf_post_routing() does the same for POSTROUTING, and
-policy_mt_check_hooks() allows --dir out in both hooks.
-
-The trigger needs a VLAN-filtering bridge with a vlan_tunnel port,
-bridge-nf-call-iptables (or ip6tables) enabled, a "-m policy --dir out"
-rule in FORWARD or POSTROUTING, and a tunnel mapping delete racing with
-forwarded traffic. Given that, the pre-patch code would oops in softirq
-context.
-
-Could the commit message describe this path, so the change is not taken
-as purely defensive?
-
-> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-
-[Severity: Low]
-
-Since the dereference looks reachable, should this patch carry a Fixes:
-tag and Cc: stable? Without them, stable tooling won't pick it up.
-
-The unchecked dst->xfrm dereference dates back to c4b885139203
-("[NETFILTER]: Add policy match").
-
-The behaviour of continuing with no dst after skb_dst_drop() in
-br_handle_egress_vlan_tunnel() came from 58e2071742e3 ("net: bridge: fix
-vlan tunnel dst null pointer dereference") and cfc579f9d89a ("net:
-bridge: fix vlan tunnel dst refcnt when egressing").
-
-Either one could be a candidate Fixes: target.
-
-> diff --git a/net/netfilter/xt_policy.c b/net/netfilter/xt_policy.c
-> index ff54e3a8581e1..6bbaf92f0cfc9 100644
-> --- a/net/netfilter/xt_policy.c
-> +++ b/net/netfilter/xt_policy.c
-> @@ -87,7 +87,7 @@ match_policy_out(const struct sk_buff *skb, const struct xt_policy_info *info,
->  	int strict = info->flags & XT_POLICY_MATCH_STRICT;
->  	int i, pos;
->  
-> -	if (dst->xfrm == NULL)
-> +	if (!dst || dst->xfrm == NULL)
->  		return -1;
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but realm_mt() in
-net/netfilter/xt_realm.c appears to have the same unchecked skb_dst()
-dereference:
-
-net/netfilter/xt_realm.c:realm_mt() {
-	const struct xt_realm_info *info = par->matchinfo;
-	const struct dst_entry *dst = skb_dst(skb);
-
-	return (info->id == (dst->tclassid & info->mask)) ^ info->invert;
-}
-
-realm_mt_reg registers it for NFPROTO_IPV4 in these hooks:
-
-	.hooks		= (1 << NF_INET_POST_ROUTING) | (1 << NF_INET_FORWARD) |
-			  (1 << NF_INET_LOCAL_OUT) | (1 << NF_INET_LOCAL_IN),
-
-Bridged IPv4 traffic reaches FORWARD through br_nf_forward_ip() and
-POSTROUTING through br_nf_post_routing(). The same
-br_handle_egress_vlan_tunnel() and vlan_tunnel_info_release() race
-described above can leave that skb with no dst.
-
-Would a "-m realm" rule in FORWARD or POSTROUTING then dereference
-NULL->tclassid in softirq context? This patch only covers
-match_policy_out(), not this sibling.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026125313.14810-1-fangxy%40xiaopeng.com
+--F1Dhg2KrVTCkSmmT--
