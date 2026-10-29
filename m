@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280989;
-	b=GkdwBDoKf+lnjbNzfgupjK91HNkl1DVXT4uTla1Rt9AuKaMIjAfsL0uWgmc+XjK5G1IY
-	 FkOK1SzCj8rSbmZWAOyy7M3Lm2ZHZLuLvPlxH4r6zIzT7lLDi5bzPaR+jNxR6InKLROLu
-	 t1J7whATt6TEq2Px/g+COFPComwkUB7a5avsxjQmvyKp2UNxgTHswWTcZo9hBqI9NuNWc
-	 Bt0jt31IVjvX3rFfzSEHCNK0A1m9l+y7XPGSX7cFo38118IkJqrY7WwNGxrz+Wy05lm/U
-	 n57FvOfYsjgKYNp22ehWzbHbt4xoyxhiuKui9ETc5Bm9Ct8luewo0f/wfCIhM9eFtNg==
+	t=1793281005;
+	b=CbSiSkUBcSqTSeRrVUVLzrU4WK4jRZjjIMmeW1Mszy093QRRPPhNff0oHKrqDW4VCU4g
+	 gc0asJ+Fz/T9N6UxhVAapdoiyRUFC/l7JcVGwlccWQYhiWsqpWmCZRMUgCSGmBc2kQUGm
+	 /3SOUKdidLXIm8kHIHgGm+jG3FWK9W3lmRc4qrm0QjBOGoAqbW8/xe1aquQAek80hdAgr
+	 Gz5MtIZrN5v1AzJDTGuC3Wb655Vnnclzcb5I3zw2IuzhzC4L++/KZYxD5J9yzGSTYafZh
+	 akYYdbK3avcW7UbQrQKJYX/uV+sArSTpcBWmTZcJoXU8FFuotghauNlWyacw2vgNn2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281005;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=UY96nz1SrOKc6lMTmgOl71KWjiRDeKiEX/i+sjoZhIo=;
-	b=i+NRIMTNYBwhSAMg/e4Vbo/bgTJqTTPRvLPeVA+NprffZd+nT/Fhc9pmB7ZNu8jIoAiD
-	 RA7jAdIYCpSkUdsj78hJ48UmLhg/sFuwwYFqAG9KmCOLm6jfzE85p+YV8q8F5XoPumhuf
-	 hKfsO9Mt6I46iYGmr75hl685AxjszQFGu6ycSo4+YDTqpktIvdtmbdBoJd0LvN2TUk5Ec
-	 jPrvhErc/MCByAh8dBZJBYJb/MKL1FB23TpbkjOV8Etum/H1lvXDO0wEk2V4IrE74eDH6
-	 4dvnRs804kT2ItyM6Byg5bQ/z3uwU0Q2BBG18tdpIs+8SydkIBwtKP8piW8z3Nptjgw==
+	bh=5wVWOZQNW8nwEY7V3T+sbmaw9ER8oS0M+qsQdB7q20I=;
+	b=IF7IqMXBsyWkdIml/bDFBTnkClKBsD1dOGsXTcxvDo9022SZAn9ekkecizKPdpja+tI1
+	 LU4nZ6UkBKT66gewU2PCY8nim/Ry6GE/qtt2Zw5bx7GzqwER/Qh35TW4vI3orcfu3y2RT
+	 uhatiV7WCx4ub21GfDDsy4GYzbVY1y+kHYxGdb3FrRpwp/rzUnQt7DlMy9paW1EwgR0NN
+	 g0ELsZSXRNzg9tipnZd2zIosi+5qdjFa+zwBUamV8VOwTEkPZJKu+c+EeRWhrxs/yNGK4
+	 MKee0Ga9zw94SgC9En6xMuhfZOSwCVkq5h41brHCVo6YNt0U+cobmml1jcn/amsz+yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mfd6s3A6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e29rzFAd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F640606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729A7606AAEE
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mfd6s3A6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8182B1F01825;
-	Thu, 29 Oct 2026 13:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e29rzFAd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6051F031E0;
+	Thu, 29 Oct 2026 13:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793280988;
-	bh=UY96nz1SrOKc6lMTmgOl71KWjiRDeKiEX/i+sjoZhIo=;
+	s=k20260515; t=1793281005;
+	bh=5wVWOZQNW8nwEY7V3T+sbmaw9ER8oS0M+qsQdB7q20I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Mfd6s3A6KjtX8WcXOWYoI7Ic2lPyFMxOnsJdvhqJUKIEKd7oMZ++A0c7UOTXVpSJO
-	 05ZDKnoAtXKszoPXQiDBWMhDPcfXj6XY0ADAufoUeknj+G6UL9NDwTRg/DtpsVtEgQ
-	 d1MS20WXdIbgr+E0X/zU+D+K7BUCGRkfJCQDxuzkCwShkHInvtmOxZ5aDaw7FzC5r6
-	 zhcfLpgmollfB9hVT2rLjo7Tib2W+TVgQso71BTaTcy6QRmqivDRzsZN5Czqvs+fCf
-	 sjIK2pzGE3/zU0/UWwQbFo35guqNDHqRvXXDoi1VozLaiLDyIgFJJ4hMeRM9WkqwHE
-	 OK2LR2NWjbpwQ==
+	b=e29rzFAdLdKtHkZn3fZ4ucQkxgXi6+1J3Dr/O3AvtdyzEaRj8oPv1UZ0h1eM1bvuX
+	 6g7IXkN9dbVn5lZLwglwCCuEuogGxb62PCjrvVuHauhb8MVa7gDgAb3uqscw1m/Wlg
+	 wKeRKqs9xKmu1W65S6wALhQKEW1F3inSdrpRPJX8Fi9vNAyg7k615mK38WeO9jyN84
+	 QSrR971ufzqdRTGQqcqgoQkTUKcqQcEgEJxhT5ht4LAlsN6M7GpoqlATY0UcSOFUb6
+	 KHFb5SuclS02INWojIzeXN/OA1aJqoobMisSYpO/hO+Jq7vc7WJ2X6pjN3TExHraRX
+	 mem5cp7rVwacg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:56 -0500
-Subject: [PATCH v4 09/31] accel: ethosu: Guard operations after unplug
+Date: Thu, 29 Oct 2026 08:36:07 -0500
+Subject: [PATCH v4 20/31] accel: ethosu: Validate all feature map tiles
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-9-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-20-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -62,371 +62,247 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-drm_dev_is_unplugged() only checks the device state and can race with
-removal. Use drm_dev_enter() around open and all private operations which
-access driver state, and use drm_dev_unplug() during removal to wait for
-them to complete.
+The command-stream validator checked only the final feature-map
+coordinate. For tiled tensors, this can leave an earlier tile base
+address unchecked even though the operation accesses it.
 
-Drop the drm_dev_enter() from the BO wait ioctl as that could
-unnecessarily delay stopping the scheduler by waiting on a BO fence
-signal timeout.
+Check the final coordinate of every tile touched by an operation. Also
+treat U65 feature maps as 2x2 tiled: its precision rounding bits are not
+the U85 storage encoding.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v4:
- - New patch
----
- drivers/accel/ethosu/ethosu_drv.c     |  28 ++++----
- drivers/accel/ethosu/ethosu_job.c     |  21 ++++--
- drivers/accel/ethosu/ethosu_perfmon.c | 117 ++++++++++++++++++++++------------
- 3 files changed, 107 insertions(+), 59 deletions(-)
+ - NHCWB16 feature maps may be vertically tiled. Account for tile 0's
+   maximum Y coordinate when calculating the feature map bounds.
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 6875ed17a004..91b2c2ab0a03 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -80,19 +80,12 @@ static int ethosu_ioctl_bo_wait(struct drm_device *ddev, void *data,
- 				struct drm_file *file)
- {
- 	struct drm_ethosu_bo_wait *args = data;
--	int cookie, ret;
- 	unsigned long timeout = drm_timeout_abs_to_jiffies(args->timeout_ns);
- 
- 	if (args->pad)
- 		return -EINVAL;
- 
--	if (!drm_dev_enter(ddev, &cookie))
--		return -ENODEV;
--
--	ret = drm_gem_dma_resv_wait(file, args->handle, true, timeout);
--
--	drm_dev_exit(cookie);
--	return ret;
-+	return drm_gem_dma_resv_wait(file, args->handle, true, timeout);
+v3:
+ - Fix for storage mode 0 intermediate tile calculations
+
+v2:
+ - no changes
+---
+ drivers/accel/ethosu/ethosu_gem.c | 147 ++++++++++++++++++++++++++++++--------
+ 1 file changed, 119 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 74ef86848a2d..3333477bf2e5 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -444,6 +444,96 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 	return addr;
  }
  
- static int ethosu_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
-@@ -139,27 +132,34 @@ static int ethosu_ioctl_cmdstream_bo_create(struct drm_device *ddev, void *data,
- 
- static int ethosu_open(struct drm_device *ddev, struct drm_file *file)
- {
--	int ret = 0;
-+	struct ethosu_file_priv __free(kfree) * priv = NULL;
-+	int cookie, ret;
- 
- 	if (!try_module_get(THIS_MODULE))
- 		return -EINVAL;
-+	if (!drm_dev_enter(ddev, &cookie)) {
-+		module_put(THIS_MODULE);
-+		return -ENODEV;
-+	}
- 
--	struct ethosu_file_priv __free(kfree) *priv = kzalloc_obj(*priv);
-+	priv = kzalloc_obj(*priv);
- 	if (!priv) {
- 		ret = -ENOMEM;
--		goto err_put_mod;
-+		goto err_dev_exit;
- 	}
- 	priv->edev = to_ethosu_device(ddev);
- 
- 	ret = ethosu_job_open(priv);
- 	if (ret)
--		goto err_put_mod;
-+		goto err_dev_exit;
- 
- 	ethosu_perfmon_open_file(priv);
- 	file->driver_priv = no_free_ptr(priv);
-+	drm_dev_exit(cookie);
- 	return 0;
- 
--err_put_mod:
-+err_dev_exit:
-+	drm_dev_exit(cookie);
- 	module_put(THIS_MODULE);
- 	return ret;
- }
-@@ -398,7 +398,7 @@ static void ethosu_remove(struct platform_device *pdev)
- {
- 	struct ethosu_device *ethosudev = dev_get_drvdata(&pdev->dev);
- 
--	drm_dev_unregister(&ethosudev->base);
-+	drm_dev_unplug(&ethosudev->base);
- 	ethosu_job_fini(ethosudev);
- 
- 	pm_runtime_barrier(&pdev->dev);
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index f22cacb19e3d..8ffdc83d06f9 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -10,6 +10,7 @@
- #include <linux/pm_runtime.h>
- 
- #include <drm/drm_file.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_print.h>
-@@ -557,26 +558,34 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *file)
- {
- 	struct drm_ethosu_submit *args = data;
--	int ret = 0;
-+	int cookie, ret = 0;
- 	unsigned int i = 0;
- 
-+	if (!drm_dev_enter(dev, &cookie))
-+		return -ENODEV;
++static int feat_matrix_check_location(struct ethosu_device *edev,
++				      struct ethosu_validated_cmdstream_info *info,
++				      struct cmd_state *st, struct feat_matrix *fm,
++				      enum feat_matrix_type type, u32 x, u32 y,
++				      u32 c, bool ofm, u64 *max_len)
++{
++	u64 len;
 +
- 	struct drm_ethosu_job __free(kvfree) *jobs =
- 		kvmalloc_objs(*jobs, args->job_count);
--	if (!jobs)
--		return -ENOMEM;
-+	if (!jobs) {
-+		ret = -ENOMEM;
-+		goto out_dev_exit;
-+	}
- 
- 	if (copy_from_user(jobs,
- 			   (void __user *)(uintptr_t)args->jobs,
- 			   args->job_count * sizeof(*jobs))) {
- 		drm_dbg(dev, "Failed to copy incoming job array\n");
--		return -EFAULT;
-+		ret = -EFAULT;
-+		goto out_dev_exit;
- 	}
- 
- 	for (i = 0; i < args->job_count; i++) {
- 		ret = ethosu_ioctl_submit_job(dev, file, &jobs[i], args->perfmon_id);
- 		if (ret)
--			return ret;
-+			goto out_dev_exit;
- 	}
- 
--	return 0;
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
-diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
-index 2a9b3cc1447b..8d3635ba3347 100644
---- a/drivers/accel/ethosu/ethosu_perfmon.c
-+++ b/drivers/accel/ethosu/ethosu_perfmon.c
-@@ -10,6 +10,7 @@
- #include <linux/uaccess.h>
- 
- #include <drm/drm_file.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_ioctl.h>
- 
- #include <uapi/drm/ethosu_accel.h>
-@@ -162,27 +163,36 @@ int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
- 	struct ethosu_device *ethosu = to_ethosu_device(dev);
- 	struct ethosu_perfmon *perfmon;
- 	unsigned int i, event_max;
--	int ret;
-+	int cookie, ret;
- 	u32 id;
- 
-+	if (!drm_dev_enter(dev, &cookie))
-+		return -ENODEV;
++	len = feat_matrix_length(edev, info, st, fm, type, x, y, c, ofm);
++	if (len == U64_MAX)
++		return -EINVAL;
 +
- 	/* Number of monitored counters cannot exceed HW or UAPI limits. */
- 	if (req->ncounters > ethosu->npu_info.pmu_counters ||
--	    req->ncounters > DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS)
--		return -EINVAL;
-+	    req->ncounters > DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
++	*max_len = max(*max_len, len);
++	return 0;
++}
++
++static int feat_matrix_size(struct ethosu_device *edev,
++			    struct ethosu_validated_cmdstream_info *info,
++			    struct cmd_state *st, struct feat_matrix *fm,
++			    enum feat_matrix_type type,
++			    u32 x, u32 y, u32 c, bool ofm, u64 *max_len)
++{
++	u32 storage = ethosu_is_u65(edev) ? 0 : fm->precision >> 14;
++	int ret;
++
++	*max_len = 0;
++
++	if (storage == 0) {
++		ret = feat_matrix_check_location(edev, info, st, fm, type, 0, 0,
++						 c, ofm, max_len);
++		if (ret)
++			return ret;
++
++		ret = feat_matrix_check_location(edev, info, st, fm, type,
++						 min(x, (u32)fm->width0),
++						 min(y, (u32)fm->height[0]), c, ofm,
++						 max_len);
++		if (ret)
++			return ret;
++
++		if (fm->width0 < x) {
++			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
++							 min(y, (u32)fm->height[1]), c,
++							 ofm, max_len);
++			if (ret)
++				return ret;
++		}
++
++		if (fm->height[0] < y) {
++			ret = feat_matrix_check_location(edev, info, st, fm, type,
++							 min(x, (u32)fm->width0), y, c,
++							 ofm, max_len);
++			if (ret)
++				return ret;
++		}
++
++		if (fm->width0 < x && fm->height[1] < y)
++			return feat_matrix_check_location(edev, info, st, fm, type,
++							  x, y, c, ofm, max_len);
++
++		return 0;
 +	}
++
++	if (storage == 1) {
++		ret = feat_matrix_check_location(edev, info, st, fm, type, x,
++						 min3(y, (u32)fm->height[0],
++						      (u32)fm->height[1]), c, ofm,
++						 max_len);
++		if (ret)
++			return ret;
++		if (fm->height[0] < fm->height[1] && fm->height[1] <= y) {
++			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
++							 fm->height[1], c, ofm,
++							 max_len);
++			if (ret)
++				return ret;
++		}
++		if (fm->height[1] < y) {
++			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
++							 fm->height[1] + 1, c, ofm,
++							 max_len);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return feat_matrix_check_location(edev, info, st, fm, type, x, y, c, ofm,
++					  max_len);
++}
++
+ static int buffer_size(struct ethosu_validated_cmdstream_info *info,
+ 		       struct cmd_state *st, struct buffer *buf, s8 region,
+ 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
+@@ -474,6 +564,7 @@ static int calc_sizes(struct drm_device *ddev,
+ {
+ 	struct ethosu_device *edev = to_ethosu_device(ddev);
+ 	u64 len;
++	int ret;
  
- 	/* Make sure all counters are valid. */
- 	event_max = ethosu_is_u65(ethosu) ? 433 : 671;
- 	for (i = 0; i < req->ncounters; i++) {
--		if (req->counters[i] > event_max)
+ 	if (ifm) {
+ 		if (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_WIDTH_M1) ||
+@@ -496,23 +587,22 @@ static int calc_sizes(struct drm_device *ddev,
+ 		if (ifm_height < 0 || ifm_width < 0)
+ 			return -EINVAL;
+ 
+-		len = feat_matrix_length(edev, info, st, &st->ifm,
+-					 FEAT_MATRIX_IFM, ifm_width, ifm_height,
+-					 st->ifm.depth, false);
++		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
++				       ifm_width, ifm_height, st->ifm.depth, false,
++				       &len);
+ 		dev_dbg(ddev->dev, "op %d: IFM:%d:0x%llx-0x%llx\n",
+ 			op, st->ifm.region, st->ifm.base[0], len);
+-		if (len == U64_MAX)
 -			return -EINVAL;
-+		if (req->counters[i] > event_max) {
-+			ret = -EINVAL;
-+			goto out_dev_exit;
-+		}
++		if (ret)
++			return ret;
  	}
  
- 	/* Add 1 more counter for cycle counter */
- 	req->ncounters++;
- 
- 	perfmon = kzalloc_flex(*perfmon, values, req->ncounters);
--	if (!perfmon)
--		return -ENOMEM;
-+	if (!perfmon) {
-+		ret = -ENOMEM;
-+		goto out_dev_exit;
-+	}
- 
- 	for (i = 0; i < req->ncounters - 1; i++)
- 		perfmon->counters[i] = req->counters[i];
-@@ -196,12 +206,14 @@ int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
- 
- 	if (ret < 0) {
- 		kfree(perfmon);
--		return ret;
-+		goto out_dev_exit;
+ 	if (ifm2) {
+-		len = feat_matrix_length(edev, info, st, &st->ifm2,
+-					 FEAT_MATRIX_IFM2, st->ifm.depth, 0,
+-					 st->ofm.depth, false);
++		ret = feat_matrix_size(edev, info, st, &st->ifm2, FEAT_MATRIX_IFM2,
++				       st->ifm.depth, 0, st->ofm.depth, false, &len);
+ 		dev_dbg(ddev->dev, "op %d: IFM2:%d:0x%llx-0x%llx\n",
+ 			op, st->ifm2.region, st->ifm2.base[0], len);
+-		if (len == U64_MAX)
+-			return -EINVAL;
++		if (ret)
++			return ret;
  	}
  
- 	req->id = id;
- 
--	return 0;
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
-@@ -210,14 +222,22 @@ int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
- 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
- 	struct drm_ethosu_perfmon_destroy *req = data;
- 	struct ethosu_perfmon *perfmon;
-+	int cookie, ret = 0;
-+
-+	if (!drm_dev_enter(dev, &cookie))
-+		return -ENODEV;
- 
- 	perfmon = xa_erase(&ethosu_priv->perfmons, req->id);
--	if (!perfmon)
--		return -EINVAL;
-+	if (!perfmon) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	ethosu_perfmon_delete(ethosu_priv, perfmon);
- 
--	return 0;
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
-@@ -227,19 +247,26 @@ int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
- 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
- 	struct drm_ethosu_perfmon_get_values *req = data;
- 	struct ethosu_perfmon *perfmon;
--	int ret = 0;
-+	int cookie, ret = 0;
- 
--	if (req->pad != 0)
--		return -EINVAL;
-+	if (!drm_dev_enter(dev, &cookie))
-+		return -ENODEV;
-+
-+	if (req->pad != 0) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
--	if (!perfmon)
--		return -EINVAL;
-+	if (!perfmon) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	ret = pm_runtime_resume_and_get(dev->dev);
- 	if (ret) {
- 		ethosu_perfmon_put(perfmon);
--		return ret;
-+		goto out_dev_exit;
- 	}
- 	ethosu_perfmon_stop(ethosu, perfmon, true);
- 
-@@ -251,6 +278,8 @@ int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
- 
- 	ethosu_perfmon_put(perfmon);
- 
-+out_dev_exit:
-+	drm_dev_exit(cookie);
- 	return ret;
- }
- 
-@@ -260,44 +289,54 @@ int ethosu_ioctl_perfmon_set_global(struct drm_device *dev, void *data,
- 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
- 	struct drm_ethosu_perfmon_set_global *req = data;
- 	struct ethosu_device *ethosu = to_ethosu_device(dev);
--	struct ethosu_perfmon *perfmon;
-+	struct ethosu_perfmon *old = NULL, *perfmon;
-+	int cookie, ret = 0;
- 
--	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL)
--		return -EINVAL;
-+	if (!drm_dev_enter(dev, &cookie))
-+		return -ENODEV;
-+
-+	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
--	if (!perfmon)
--		return -EINVAL;
-+	if (!perfmon) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	/* If the request is to clear the global performance monitor */
- 	if (req->flags & DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
--		struct ethosu_perfmon *old;
--
- 		scoped_guard(mutex, &ethosu->perfmon_state.lock) {
- 			old = ethosu->global_perfmon;
--			if (!old) {
--				ethosu_perfmon_put(perfmon);
--				return -EINVAL;
-+			if (old) {
-+				ethosu->global_perfmon = NULL;
-+				ethosu_perfmon_stop_locked(ethosu, old, true);
- 			}
-+		}
- 
--			ethosu->global_perfmon = NULL;
--			ethosu_perfmon_stop_locked(ethosu, old, true);
-+		ethosu_perfmon_put(perfmon);
-+		if (!old) {
-+			ret = -EINVAL;
-+			goto out_dev_exit;
- 		}
- 
- 		ethosu_perfmon_put(old);
--		ethosu_perfmon_put(perfmon);
- 
--		return 0;
-+		goto out_dev_exit;
+ 	if (weight) {
+@@ -554,13 +644,13 @@ static int calc_sizes(struct drm_device *ddev,
+ 			return -EINVAL;
  	}
  
- 	scoped_guard(mutex, &ethosu->perfmon_state.lock) {
--		if (ethosu->perfmon_state.active || ethosu->global_perfmon) {
--			ethosu_perfmon_put(perfmon);
--			return -EBUSY;
--		}
--
--		ethosu->global_perfmon = perfmon;
-+		if (ethosu->perfmon_state.active || ethosu->global_perfmon)
-+			ret = -EBUSY;
-+		else
-+			ethosu->global_perfmon = perfmon;
- 	}
+-	len = feat_matrix_length(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
+-				 st->ofm.width, st->ofm.height[2], st->ofm.depth,
+-				 true);
++	ret = feat_matrix_size(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
++			       st->ofm.width, st->ofm.height[2], st->ofm.depth,
++			       true, &len);
+ 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
+ 		op, st->ofm.region, st->ofm.base[0], len);
+-	if (len == U64_MAX)
+-		return -EINVAL;
 +	if (ret)
-+		ethosu_perfmon_put(perfmon);
++		return ret;
+ 	if (!feat_matrix_chained(edev, &st->ofm))
+ 		info->output_region[st->ofm.region] = true;
  
--	return 0;
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
+@@ -575,18 +665,19 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
+ 	struct ethosu_device *edev = to_ethosu_device(ddev);
+ 	u32 height, width, depth;
+ 	u64 len;
++	int ret;
+ 
+ 	if (ifm) {
+ 		height = st->ifm.broadcast & 0x1 ? 0 : st->ofm.height[2];
+ 		width = st->ifm.broadcast & 0x2 ? 0 : st->ofm.width;
+ 		depth = st->ifm.broadcast & 0x4 ? 0 : st->ofm.depth;
+ 
+-		len = feat_matrix_length(edev, info, st, &st->ifm,
+-					 FEAT_MATRIX_IFM, width, height, depth, false);
++		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
++				       width, height, depth, false, &len);
+ 		dev_dbg(ddev->dev, "op %d: IFM:%d:0x%llx-0x%llx\n",
+ 			op, st->ifm.region, st->ifm.base[0], len);
+-		if (len == U64_MAX)
+-			return -EINVAL;
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	if (ifm2) {
+@@ -594,21 +685,21 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
+ 		width = st->ifm2.broadcast & 0x2 ? 0 : st->ofm.width;
+ 		depth = st->ifm2.broadcast & 0x4 ? 0 : st->ofm.depth;
+ 
+-		len = feat_matrix_length(edev, info, st, &st->ifm2,
+-					 FEAT_MATRIX_IFM2, width, height, depth, false);
++		ret = feat_matrix_size(edev, info, st, &st->ifm2, FEAT_MATRIX_IFM2,
++				       width, height, depth, false, &len);
+ 		dev_dbg(ddev->dev, "op %d: IFM2:%d:0x%llx-0x%llx\n",
+ 			op, st->ifm2.region, st->ifm2.base[0], len);
+-		if (len == U64_MAX)
+-			return -EINVAL;
++		if (ret)
++			return ret;
+ 	}
+ 
+-	len = feat_matrix_length(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
+-				 st->ofm.width, st->ofm.height[2], st->ofm.depth,
+-				 true);
++	ret = feat_matrix_size(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
++			       st->ofm.width, st->ofm.height[2], st->ofm.depth,
++			       true, &len);
+ 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
+ 		op, st->ofm.region, st->ofm.base[0], len);
+-	if (len == U64_MAX)
+-		return -EINVAL;
++	if (ret)
++		return ret;
+ 	if (!feat_matrix_chained(edev, &st->ofm))
+ 		info->output_region[st->ofm.region] = true;
+ 
 
 -- 
 2.53.0
