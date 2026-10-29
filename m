@@ -1,62 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239403;
-	b=vtPQIL404EcjcvPOE0PGi+uZKekNdBeIyFl9kCTUhWJIb4wxQyMmqwT2POwCFDhHoovy
-	 KyEqqLzz0WpqVaqEgHBFAhz7CBOgmDl4NLlabKI/1DiXopM4ImoXnT/gxFktR64tfhUJP
-	 RdQiW5D9Te5x7Zoq1ykBNaw7KmEphgIAMrVukE+sgHPzS3UbOFKqbpjzRWXjR1G7QAdP/
-	 kQWa15fWQFcm9E7J4rNjdJxw1ZTVdZPlPtOWzrsL5oorkU1ZGy3SWWavTe4zP8O0+xvxL
-	 8vREdOFkQuagvVPTXlb99N7bLsTTH9fkFtRAZdOcRZd+q5dDJx3CW1GcdXj0mXbismg==
+	t=1793239399;
+	b=w5ldjQbWnF2WfaAwvO75GYGkrI5TNQ2sXTdxEpHD48ALiYADsjow0+UBcJj7WSmJq7oW
+	 s7sXMmYOtC6KSAK4HTNdwYByYr6moDfuJ679aHYxGnYXDW2JomeF1Dsjilodakb6jFqHf
+	 ZHpusJxnD2Qgcn851y8Hm8JE/B8IQ3JlFqGXz97V51kNHWhq/m2uUP7C0UqyCyHjifUTn
+	 yNKD/sb+6jZ6Hr8DStwRBmvrJQxY2pXLMXM1XIR8ZciUCuKWTqRyYddrYBcYcK+U5p5eF
+	 E/8C8pwptGpvFAoU5STclKcNSp70UoiBL0kntZ/th7lJc1UFQsM4e9bMW2t/T29s7lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239399;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=kkQc70oVksqdbEHEl+DL/6+OU0ag3dkv+ZKz50Q+rqg=;
-	b=SrxssNL1TjrPcOij7L/kfqn83H2XrgAE8KVIfemhmPxuLguBk3LsJCm/Pr9/ZQOzCMCJ
-	 K3tO0doyF3p9TsxkuQ/6M2jnhdMdHv6SnKPXHgpXm7FjwWzI+zY3FYWspoc00gMJxP8lW
-	 lDY3ysjFT0/VGfRwPYxKqwpbPGVcYny5oNJas1QSSmuJUzwxZljuBRRzODDlL+8PUq9Ro
-	 ZLd6kue4PUn3WA8df+rdL9gieGhmUSWWEc4lVVsjNULp4d0FksovE2OG8k9lGR2W33oEp
-	 pfSHMqKiPcXrmHk7+12R0501TCnUywBLtpI/wsgZaM9KXWSlNxw3NAwTgwqN1nwnJ2Q==
+	bh=nloenklXV41sAe2Qb7vhaRtqVy0cuZ6og1wsgUkifo8=;
+	b=F1jahqplbNwZV1PRC+SxOdfrSWq1PwEH8lEFhPAQsgijEOdyuzWalcDv2Qai4hXKvTzk
+	 OL4A8Bi/GHhqTz4g8qfp3cvsrjMjd9FEYwXspgasgsNRTSXSbxmw0Eh1z6Iuk3uC4faVh
+	 o4clxYjYnzuXXxp9ErAdymqDOxDQahFxYU5t2xUNPCUYN8eMAX9ndiMWLH8jfPXgd7Bfa
+	 QJbqmJ4oTRrgBcoKYeiGUZ59vyJgTeLLIqLV7qTKHXeZqKCgeVLl5vzvbLqPYSD2vvicX
+	 kiqw2OaII+XBeG68r9bRwV8stFyly9SdrY07DocE46QE5uIiVLc1OHHZQ80qU25vzEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns0rWLZK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m83POaf7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845DB606A33D;
-	Thu, 29 Oct 2026 02:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FF9606A333;
+	Thu, 29 Oct 2026 02:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ns0rWLZK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E14A1F031E7;
-	Thu, 29 Oct 2026 02:03:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m83POaf7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9831F031E1;
+	Thu, 29 Oct 2026 02:03:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239403;
-	bh=kkQc70oVksqdbEHEl+DL/6+OU0ag3dkv+ZKz50Q+rqg=;
+	s=k20260515; t=1793239398;
+	bh=nloenklXV41sAe2Qb7vhaRtqVy0cuZ6og1wsgUkifo8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ns0rWLZKFVKnZHk0NTbNpOWLmS1/SVvqtPvOZX1Hf3P2PPJe89v0IRL7pRb+XT6UJ
-	 16KMErrxvcx1fljQKivFb0H5216EpRW1MvTd0AQiw5cJ4r5KjXZs60rO6yEAmeCBK0
-	 J1y/fZ/f5tggVo2+xxOgt5aAaxLkmIH3JWao8ciXV0T6zWMcx7fH/Af015+9qHQ599
-	 xT9Q+E4zy3B3d7k00UQPMauBP/kS/owcx1pnV3PBvrJC4+vvBKPUH+y8EgjVHZ+PVp
-	 f01FJUxU94UJgC9SsrcdZ69aWw2IHJzd4Jd5mxF416LeWj6cqU9Fzej0FeDH7xtiE9
-	 3b/HmYPtEkd0A==
+	b=m83POaf7re5Zyzk+EeIRf6CNfBQGKJpLVAoF8xJIHQN9JDiW0D9fjZU7YBAW72NsV
+	 Mf15bPfZsiqJdZ84gE+LdFaY/GAN0O967KVIUJTbKdFtnXOx9U+N35dOVOVO99mtcB
+	 ILIi2uLSepVaDzr8r+svuNto9o5Wt5fzD3R2cKlcpbDdkUYpEeJADrJK6PvRSgGd+t
+	 F8O2Z0PFzxY3tyNA4CfX+ZWGm8qGLgfmFhP0fqJD3kASmqisQn1gxum/pNhDjkc5e7
+	 0oInenXHvpordn0mMjbKhL6GgoiLFBL6R6UNOxdU3DZ7rBkpdI7dudrL7uNFxUxD5d
+	 c3aUxStiHTn5Q==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
 	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	Brian Kao <powenkao@google.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	gopikrishna.garmidi@oss.qualcomm.com,
+	jagadeesh.kona@oss.qualcomm.com,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix UIC result byte and BSG request handling
-Date: Wed, 28 Oct 2026 22:02:57 -0400
-Message-ID: <179323465375.491807.14399231373519507963.b4-ty@b4>
+	nitin.rawat@oss.qualcomm.com,
+	sibi.sankar@oss.qualcomm.com,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/5] Add UFS support for Glymur Qualcomm SoC
+Date: Wed, 28 Oct 2026 22:02:53 -0400
+Message-ID: <179323465371.491807.4239694363801616676.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015001855.3450573-1-stanleyjhu@google.com>
-References: <20261015001855.3450573-1-stanleyjhu@google.com>
+In-Reply-To: <20261009-glymur_ufs_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com>
+References: <20261009-glymur_ufs_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,35 +86,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 08:18:50 +0800, Stanley Jhu wrote:
+On Fri, 09 Oct 2026 16:05:52 +0530, Pradeep P V K wrote:
 
-> ufs-bsg fixes for issues found by fuzzing /dev/bsg/ufs-bsg* with
-> syzkaller on QEMU's emulated UFS host controller and in review of v1,
-> plus a fix for peer DME retries.
-> 
-> Patch 1 completes failed BSG requests via bsg_job_done() so error paths
-> do not leak the job's device reference and mapped scatterlists.
-> Patch 2 clears the reused reply buffer so replies do not carry bytes
-> from an earlier request.
-> Patch 3 rejects requests shorter than the UFS BSG request structures.
-> Patch 4 rejects UIC commands with a non-zero result byte from userspace.
-> Patch 5 clears the stale UIC result byte and restores argument3 before
-> peer DME retries.
-> 
-> [...]
+> This series adds the DT bindings, device tree support for the UFS PHY
+> and UFS Host Controller, along with the required PHY driver updates to
+> enable UFS support on the Glymur Qualcomm platform.
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/5] scsi: ufs: bsg: Complete the job on error
-      https://git.kernel.org/mkp/scsi/c/cc0ce3fe8fac
-[2/5] scsi: ufs: bsg: Clear the reply buffer before use
-      https://git.kernel.org/mkp/scsi/c/2e63ac76cc08
-[3/5] scsi: ufs: bsg: Validate request_len before accessing request
-      https://git.kernel.org/mkp/scsi/c/42aa44371810
-[4/5] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte
-      https://git.kernel.org/mkp/scsi/c/1ae42513205a
-[5/5] scsi: ufs: core: Clear stale UIC result byte before peer DME retries
-      https://git.kernel.org/mkp/scsi/c/e4a9b7640914
+[1/5] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Document Glymur QMP UFS PHY
+      https://git.kernel.org/mkp/scsi/c/e6c68aac2f7a
+[2/5] scsi: ufs: qcom: dt-bindings: Document Glymur UFS controller
+      https://git.kernel.org/mkp/scsi/c/7cd44f40fe19
 
 -- 
 Martin K. Petersen
